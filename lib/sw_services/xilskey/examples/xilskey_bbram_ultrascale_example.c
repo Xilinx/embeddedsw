@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2016-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -84,6 +62,10 @@
 * 6.7   psl     03/20/19 Added BBRAM key write support for SSIT devices.
 *       psl     03/29/19 Added Support for user configurable GPIO for
 *                        jtag control.
+* 6.8   psl     05/21/19 Initialized SystemInitDone ,to indicate
+*                        XilSKey_Bbram_JTAGServerInit status.
+*                        And passed BbramInstancePtr instead of InstancePtr in
+*                        XilSKey_Bbram_JTAGServerInit.
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
@@ -102,21 +84,6 @@
 
 
 /***************** Macros (Inline Functions) Definitions *********************/
-/**
- * SLR Definitions
- */
-#define XSK_BBRAM_SLR1	0U
-#define	XSK_BBRAM_SLR2	1U
-#define	XSK_BBRAM_SLR3	2U
-#define XSK_BBRAM_SLR4	3U
-
-/**
- * Number of SLR present in target
- */
-#define XSK_BBRAM_TARGET_SLR_NUM1 1U
-#define XSK_BBRAM_TARGET_SLR_NUM2 2U
-#define XSK_BBRAM_TARGET_SLR_NUM3 3U
-#define XSK_BBRAM_TARGET_SLR_NUM4 4U
 
 /************************** Variable Definitions *****************************/
 
@@ -147,13 +114,13 @@ int main()
 	switch(InstancePtr.NumSlr)
 	{
 
-		case XSK_BBRAM_TARGET_SLR_NUM1:
-			if(((XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR2 == TRUE) ||
-					(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR3 == TRUE) ||
-					(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR4 == TRUE) ||
-					(XSK_BBRAM_PGM_AES_KEY_SLR2 == TRUE) ||
-					(XSK_BBRAM_PGM_AES_KEY_SLR3 == TRUE) ||
-					(XSK_BBRAM_PGM_AES_KEY_SLR4 == TRUE)) && (InstancePtr.NumSlr == 1U))
+		case XSK_TARGET_MAX_1_SLRS:
+			if(((XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_1 == TRUE) ||
+					(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_2 == TRUE) ||
+					(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_3 == TRUE) ||
+					(XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_1 == TRUE) ||
+					(XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_2 == TRUE) ||
+					(XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_3 == TRUE)))
 			{
 				xil_printf("App: Only %d SLR(s) present in the target"
 						",example failed\r\n",
@@ -162,11 +129,11 @@ int main()
 				Status = (u32)XST_FAILURE;
 			}
 			break;
-		case XSK_BBRAM_TARGET_SLR_NUM2:
-			if(((XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR3 == TRUE) ||
-					(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR4 == TRUE) ||
-					(XSK_BBRAM_PGM_AES_KEY_SLR3 == TRUE) ||
-					(XSK_BBRAM_PGM_AES_KEY_SLR4 == TRUE)) && (InstancePtr.NumSlr == 2U))
+		case XSK_TARGET_MAX_2_SLRS:
+			if(((XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_2 == TRUE) ||
+					(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_3 == TRUE) ||
+					(XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_2 == TRUE) ||
+					(XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_3 == TRUE)))
 			{
 				xil_printf("App: Only %d SLR(s) present in the target"
 						",example failed\r\n",
@@ -175,9 +142,9 @@ int main()
 				Status = (u32)XST_FAILURE;
 			}
 			break;
-		case XSK_BBRAM_TARGET_SLR_NUM3:
-			if(((XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR4 == TRUE) ||
-					(XSK_BBRAM_PGM_AES_KEY_SLR4 == TRUE)) && (InstancePtr.NumSlr == 3U)) {
+		case XSK_TARGET_MAX_3_SLRS:
+			if(((XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_3 == TRUE) ||
+					(XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_3 == TRUE))) {
 				xil_printf("App: Only %d SLR(s) present in the target"
 						",example failed\r\n",
 						InstancePtr.NumSlr);
@@ -185,7 +152,7 @@ int main()
 				Status = (u32)XST_FAILURE;
 			}
 			break;
-		case XSK_BBRAM_TARGET_SLR_NUM4:
+		case XSK_TARGET_MAX_4_SLRS:
 			xil_printf("App: SLR Count verification passed\r\n");
 			Status = (u32)XST_SUCCESS;
 			break;
@@ -202,13 +169,13 @@ int main()
 
 	/*************************************************************************/
 
-	if(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR1_MONO == TRUE)
+	if(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_0 == TRUE)
 	{
 		/*
 		 * Convert key given in xilskey_input.h and
 		 * assign it to the variable in instance.
 		 */
-		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_OBFUSCATED_KEY_SLR1,
+		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_0,
 					&(InstancePtr.AESKey[0]),
 					XSK_BBRAM_AES_KEY_SIZE_IN_BITS);
 	}
@@ -218,16 +185,17 @@ int main()
 		 * Convert key given in xilskey_input.h and
 		 * assign it to the variable in instance.
 		 */
-		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_AES_KEY_SLR1,
+		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_0,
 					&(InstancePtr.AESKey[0]),
 					XSK_BBRAM_AES_KEY_SIZE_IN_BITS);
 	}
 
 
-	if((XSK_BBRAM_PGM_AES_KEY_SLR1_OR_MONO == TRUE) ||
-			(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR1_MONO == TRUE))
+	if((XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_0 == TRUE) ||
+			(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_0 == TRUE))
 	{
-		InstancePtr.CurSlr = XSK_BBRAM_SLR1;
+
+		InstancePtr.SlrConfigOrderIndex = XSK_SLR_CONFIG_ORDER_0;
 		Status = XilSKey_Bbram_ProgramSLR(&InstancePtr);
 		if(Status != XST_SUCCESS)
 		{
@@ -236,13 +204,13 @@ int main()
 	}
 
 	/*************************************************************************/
-	if(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR2 == TRUE)
+	if(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_1 == TRUE)
 	{
 		/*
 		 * Convert key given in xilskey_input.h and
 		 * assign it to the variable in instance.
 		 */
-		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_OBFUSCATED_KEY_SLR2,
+		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_1,
 					&(InstancePtr.AESKey[0]),
 					XSK_BBRAM_AES_KEY_SIZE_IN_BITS);
 	}
@@ -252,15 +220,15 @@ int main()
 		 * Convert key given in xilskey_input.h and
 		 * assign it to the variable in instance.
 		 */
-		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_AES_KEY_SLR2,
+		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_1,
 					&(InstancePtr.AESKey[0]),
 					XSK_BBRAM_AES_KEY_SIZE_IN_BITS);
 	}
 
-	if((XSK_BBRAM_PGM_AES_KEY_SLR2 	== TRUE) ||
-			(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR2 == TRUE))
-	{
-		InstancePtr.CurSlr = XSK_BBRAM_SLR2;
+	if((XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_1 	== TRUE) ||
+			(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_1 == TRUE))	{
+
+		InstancePtr.SlrConfigOrderIndex = XSK_SLR_CONFIG_ORDER_1;
 		Status = XilSKey_Bbram_ProgramSLR(&InstancePtr);
 		if(Status != XST_SUCCESS)
 		{
@@ -268,13 +236,13 @@ int main()
 		}
 	}
 	/*************************************************************************/
-	if(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR3 == TRUE)
+	if(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_2 == TRUE)
 	{
 		/*
 		 * Convert key given in xilskey_input.h and
 		 * assign it to the variable in instance.
 		 */
-		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_OBFUSCATED_KEY_SLR3,
+		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_2,
 					&(InstancePtr.AESKey[0]),
 					XSK_BBRAM_AES_KEY_SIZE_IN_BITS);
 	}
@@ -284,15 +252,15 @@ int main()
 		 * Convert key given in xilskey_input.h and
 		 * assign it to the variable in instance.
 		 */
-		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_AES_KEY_SLR3,
+		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_2,
 					&(InstancePtr.AESKey[0]),
 					XSK_BBRAM_AES_KEY_SIZE_IN_BITS);
 	}
 
-	if((XSK_BBRAM_PGM_AES_KEY_SLR3 	== TRUE) ||
-			(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR3 == TRUE))
+	if((XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_2 	== TRUE) ||
+			(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_2 == TRUE))
 	{
-		InstancePtr.CurSlr = XSK_BBRAM_SLR3;
+		InstancePtr.SlrConfigOrderIndex = XSK_SLR_CONFIG_ORDER_2;
 		Status = XilSKey_Bbram_ProgramSLR(&InstancePtr);
 		if(Status != XST_SUCCESS)
 		{
@@ -300,13 +268,13 @@ int main()
 		}
 	}
 	/*************************************************************************/
-	if(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR4 == TRUE)
+	if(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_3 == TRUE)
 	{
 		/*
 		 * Convert key given in xilskey_input.h and
 		 * assign it to the variable in instance.
 		 */
-		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_OBFUSCATED_KEY_SLR4,
+		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_3,
 					&(InstancePtr.AESKey[0]),
 					XSK_BBRAM_AES_KEY_SIZE_IN_BITS);
 	}
@@ -316,15 +284,15 @@ int main()
 		 * Convert key given in xilskey_input.h and
 		 * assign it to the variable in instance.
 		 */
-		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_AES_KEY_SLR4,
+		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_3,
 					&(InstancePtr.AESKey[0]),
 					XSK_BBRAM_AES_KEY_SIZE_IN_BITS);
 	}
 
-	if((XSK_BBRAM_PGM_AES_KEY_SLR4== TRUE) ||
-			(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR4 == TRUE))
+	if((XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_3== TRUE) ||
+			(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_3 == TRUE))
 	{
-		InstancePtr.CurSlr = XSK_BBRAM_SLR4;
+		InstancePtr.SlrConfigOrderIndex = XSK_SLR_CONFIG_ORDER_3;
 		Status = XilSKey_Bbram_ProgramSLR(&InstancePtr);
 		if(Status != XST_SUCCESS)
 		{
@@ -355,16 +323,18 @@ int XilSKey_Bbram_ProgramSLR(XilSKey_Bbram *BbramInstancePtr)
 {
 	u32 Status;
 
-	xil_printf("******** Processing SLR %d ********\r\n",
-			(BbramInstancePtr->CurSlr + 1));
+	xil_printf("******** Processing SLR of config order %d ********\r\n",
+			(BbramInstancePtr->SlrConfigOrderIndex));
 	Status = XilSKey_Bbram_Program(BbramInstancePtr);
 	if(Status != XST_SUCCESS) {
-		xil_printf("Ultrascale BBRAM key write failed for SLR%d\r\n",
-				(BbramInstancePtr->CurSlr + 1U));
+		xil_printf("Ultrascale BBRAM key write failed for SLR of"
+					" config order index %d\r\n",
+				(BbramInstancePtr->SlrConfigOrderIndex));
 		return XST_FAILURE;
 	}
 	xil_printf("Successfully programmed and verified Ultrascale"
-						" BBRAM key for SLR%d\r\n", (BbramInstancePtr->CurSlr + 1U));
+						" BBRAM key for SLR of config oder index %d\r\n",
+				(BbramInstancePtr->SlrConfigOrderIndex));
 	return XST_SUCCESS;
 
 }
@@ -396,17 +366,18 @@ int XilSKey_Bbram_InitData(XilSKey_Bbram *BbramInstancePtr)
 	BbramInstancePtr->GpioInputCh = XSK_BBRAM_GPIO_INPUT_CH;
 	BbramInstancePtr->GpioOutPutCh = XSK_BBRAM_GPIO_OUTPUT_CH;
 
+	BbramInstancePtr->SystemInitDone = 0;
 
-	if(XilSKey_Bbram_JTAGServerInit(&InstancePtr) != XST_SUCCESS) {
+	if(XilSKey_Bbram_JTAGServerInit(BbramInstancePtr) != XST_SUCCESS) {
 		xil_printf("JTAG Sever Init failed \r\n");
 		return XST_FAILURE;
 	}
 
 
-	if((XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR1_MONO 	== TRUE) ||
-		(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR2		== TRUE) ||
-		(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR3		== TRUE) ||
-		(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR4		== TRUE))
+	if((XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_0 	== TRUE) ||
+		(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_1		== TRUE) ||
+		(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_2		== TRUE) ||
+		(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_3		== TRUE))
 	{
 		BbramInstancePtr->IsKeyObfuscated = TRUE;
 

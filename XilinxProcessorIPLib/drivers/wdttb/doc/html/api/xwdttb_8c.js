@@ -1,7 +1,7 @@
 var xwdttb_8c =
 [
     [ "XWdtTb_AlwaysEnable", "xwdttb_8c.html#ga9b3e984acc19cf7d0f45eaa09298e0a7", null ],
-    [ "XWdtTb_CfgInitialize", "xwdttb_8c.html#ga6fcca4fb96e09aa0ed2a6065b54e6076", null ],
+    [ "XWdtTb_CfgInitialize", "xwdttb_8c.html#gadf3c428b985d77e28b5df5cd5d82dff3", null ],
     [ "XWdtTb_ClearLastEvent", "xwdttb_8c.html#ga043f754323225b43513c2f7a2f71aedb", null ],
     [ "XWdtTb_ClearResetPending", "xwdttb_8c.html#gafbd0c485e4a716fd1c6dc5cea084f759", null ],
     [ "XWdtTb_DisableExtraProtection", "xwdttb_8c.html#ga31311c4f3e1f921ab55d005e0a0ff028", null ],
@@ -22,6 +22,7 @@ var xwdttb_8c =
     [ "XWdtTb_RestartWdt", "xwdttb_8c.html#gaf1baa5a1d69ac6c61ecc62d5df1a0c01", null ],
     [ "XWdtTb_SetByteCount", "xwdttb_8c.html#gaa1e121c7e6b69d7b10fedf92d91b5396", null ],
     [ "XWdtTb_SetByteSegment", "xwdttb_8c.html#ga26519cefd97128dca8d1f147f5364945", null ],
+    [ "XWdtTb_SetGenericWdtWindow", "xwdttb_8c.html#ga160723502d4b5b8797e358f96cc902c1", null ],
     [ "XWdtTb_SetWindowCount", "xwdttb_8c.html#ga924185ce28862e06ea62fa4f51bfed8d", null ],
     [ "XWdtTb_Start", "xwdttb_8c.html#gaab195e280eca1e2985509d954c2e4e52", null ],
     [ "XWdtTb_Stop", "xwdttb_8c.html#gacd5617bce061deaa57743ea46008daf8", null ]

@@ -9,6 +9,7 @@ var xospipsv__flash__intr__example_8c =
     [ "FlashRead", "xospipsv__flash__intr__example_8c.html#a1355d0e2c6bb04d1f65ca815d71d5996", null ],
     [ "FlashReadID", "xospipsv__flash__intr__example_8c.html#a19dbfab221d6a11c3fa45674c1304f2e", null ],
     [ "FlashSetSDRDDRMode", "xospipsv__flash__intr__example_8c.html#a92ee697864550c95e476b41c43c0764f", null ],
+    [ "GetRealAddr", "xospipsv__flash__intr__example_8c.html#ae08db22955675661860c9008890b0138", null ],
     [ "main", "xospipsv__flash__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe", null ],
     [ "OspiPsvHandler", "xospipsv__flash__intr__example_8c.html#ae36d48b5186d548ebde0af294ea5ee1f", null ],
     [ "OspiPsvInterruptFlashExample", "xospipsv__flash__intr__example_8c.html#a034bc36898a4bbba7b539ae8918e4f3c", null ],

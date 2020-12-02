@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2007 - 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2007 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -81,6 +59,7 @@
 *		      fails to work.
 * 3.04a srt  02/18/13 Fixed CR 700553.
 * 4.5	tjs  08/13/18 Fixed compilation errors for ARMCC (CR#1008306)
+* 4.7	akm  07/23/19 Initialized Status variable to XST_FAILURE.
 * </pre>
 *
 *
@@ -129,7 +108,7 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 {
 	void *DataPtr;
 	u32 BaseAddress;
-	int Status = XST_SUCCESS;
+	int Status = (int)XST_FAILURE;
 	u8 Data8;
 	u8 Mode;
 	u8 DataQRY[3];
@@ -558,7 +537,7 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 		 * The platform flash (Intel) have multiple banks in same erase
 		 * region. Read number of identical banks in each erase region,
 		 * number of erase blocks and size of blocks in each bank. For
-		 * platfrom flash, library treats each bank as seperate region.
+		 * platform flash, library treats each bank as separate region.
 		 */
 		if (((InstancePtr->CommandSet == XFL_CMDSET_INTEL_STANDARD) ||
 		    (InstancePtr->CommandSet == XFL_CMDSET_INTEL_EXTENDED)) &&
@@ -661,7 +640,7 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 		 * The Micron G18 flash (Intel) have multiple banks in same erase
 		 * region. Read number of identical banks in each erase region,
 		 * number of erase blocks and size of blocks in each bank. For
-		 * Micron G18 flash, library treats each bank as seperate region.
+		 * Micron G18 flash, library treats each bank as separate region.
 		 */
 		if (InstancePtr->CommandSet == XFL_CMDSET_INTEL_G18) {
 			Index = 0;
@@ -748,6 +727,7 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 			GeomPtr->EraseRegion[Bank].AbsoluteBlock =
 				CurrentAbsoluteBlock;
 		}
+		Status = (int)XST_SUCCESS;
 	}
 
 	switch (InstancePtr->Geometry.MemoryLayout) {

@@ -40,7 +40,7 @@
  *  6. Download throughput measurement:
  *     Start TTC RPU counter, wait for IPI kick, check if data is available,
  *     if yes, read as much data as possible from shared memory. It will
- *     iterates untill 1000 packages have been received, stop TTC RPU counter
+ *     iterates until 1000 packages have been received, stop TTC RPU counter
  *     and kick IPI to notify the remote. Repeat for different package size.
  *  7. Upload throughput measurement:
  *     Start TTC RPU counter, write data to shared memory and kick IPI to
@@ -168,7 +168,7 @@ static int ipi_irq_handler (int vect_id, void *priv)
  *        - Download throughput measurement:
  *          Start TTC RPU counter, wait for IPI kick, check if data is
  *          available, if yes, read as much data as possible from shared
- *          memory. It will iterates untill 1000 packages have been received,
+ *          memory. It will iterates until 1000 packages have been received,
  *          stop TTC RPU counter and kick IPI to notify the remote. Repeat
  *          for different package size.
  *        - Upload throughput measurement:

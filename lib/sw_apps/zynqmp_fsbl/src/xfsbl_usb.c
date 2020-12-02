@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /****************************************************************************/
 /**
 *
@@ -39,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   bvikram  02/01/17 First release
+* 2.0   bvikram  09/30/20 Fix USB boot issue
 *
 * </pre>
 *
@@ -59,20 +38,22 @@
 /************************** Constant Definitions ****************************/
 
 #define XFSBL_USB_DEVICE_ID		XPAR_XUSBPSU_0_DEVICE_ID
-#define XFSBL_REQ_REPLY_LEN		1024U	/**< Max size of reply buffer. */
+#define XFSBL_REQ_REPLY_LEN		256U	/**< Max size of reply buffer. */
 #define XFSBL_DOWNLOAD_COMPLETE		2U
 
 
 /************************** Function Prototypes ******************************/
-static void XFsbl_StdDevReq(SetupPacket *SetupData);
+static void XFsbl_StdDevReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupData);
 static void XFsbl_Ch9Handler(struct Usb_DevData *InstancePtr, SetupPacket *SetupData);
 
 /************************** Variable Definitions *****************************/
-struct XUsbPsu UsbInstance;
+struct Usb_DevData UsbInstance;
+static struct XUsbPsu UsbPrivateData;
 u8* DfuVirtFlash = (u8*)XFSBL_DDR_TEMP_BUFFER_ADDRESS;
 u32 DownloadDone = 0U;
 extern struct XFsblPs_DfuIf DfuObj;
 extern XCsuDma CsuDma;
+extern XFsbl_UsbCh9_Data Dfu_data;
 
 /*****************************************************************************
 * This function initializes the USB interface.
@@ -98,7 +79,8 @@ u32 XFsbl_UsbInit(u32 DeviceFlags)
 		goto END;
 	}
 
-	(void)memset(&UsbInstance,0,sizeof(UsbInstance));
+	(void)memset(&UsbInstance, 0, sizeof(UsbInstance));
+	(void)memset(&UsbPrivateData, 0, sizeof(struct XUsbPsu));
 	(void)memset(&DfuObj, 0, sizeof(DfuObj));
 
 	UsbConfigPtr = XUsbPsu_LookupConfig(XFSBL_USB_DEVICE_ID);
@@ -107,36 +89,53 @@ u32 XFsbl_UsbInit(u32 DeviceFlags)
 		goto END;
 	}
 
-	SStatus = XUsbPsu_CfgInitialize(&UsbInstance, UsbConfigPtr,
-					UsbConfigPtr->BaseAddress);
+	UsbPrivateData.AppData = &UsbInstance;
+	UsbInstance.PrivateData = (void*)&UsbPrivateData;
+
+	SStatus = XUsbPsu_CfgInitialize(
+			(struct XUsbPsu*)UsbInstance.PrivateData,
+			UsbConfigPtr, UsbConfigPtr->BaseAddress);
 	if (XST_SUCCESS != SStatus) {
 		Status = XFSBL_FAILURE;
 		goto END;
 	}
 
-	XUsbPsu_SetSpeed(&UsbInstance, XUSBPSU_DCFG_HIGHSPEED);
-	/* hook up chapter9 handler */
-	UsbInstance.Chapter9 = XFsbl_Ch9Handler;
+	XUsbPsu_SetSpeed(UsbInstance.PrivateData, XUSBPSU_DCFG_HIGHSPEED);
+	/* Hook up chapter9 handler */
+	XUsbPsu_set_ch9handler((struct XUsbPsu*)UsbInstance.PrivateData,
+		XFsbl_Ch9Handler);
 
 	/* Set the reset event handler */
-	UsbInstance.ResetIntrHandler = XFsbl_DfuReset;
+	XUsbPsu_set_rsthandler((struct XUsbPsu*)UsbInstance.PrivateData,
+		XFsbl_DfuReset);
 
-	/*Enable events for Reset, Disconnect, ConnectionDone, Link State
-	* Wakeup and Overflow events.*/
-	XUsbPsu_EnableIntr(&UsbInstance, XUSBPSU_DEVTEN_EVNTOVERFLOWEN |
-			XUSBPSU_DEVTEN_WKUPEVTEN | XUSBPSU_DEVTEN_ULSTCNGEN |
-	        XUSBPSU_DEVTEN_CONNECTDONEEN | XUSBPSU_DEVTEN_USBRSTEN |
-							XUSBPSU_DEVTEN_DISCONNEVTEN);
+	DfuObj.InstancePtr = &UsbInstance;
+
+	/* Set DFU state to APP_IDLE */
+	XFsbl_DfuSetState(&UsbInstance, STATE_APP_IDLE);
+
+	/* Assign the data to usb driver */
+	XUsbPsu_set_drvdata((struct XUsbPsu*)UsbInstance.PrivateData, &Dfu_data);
+
+	/*
+	 * Enable interrupts for Reset, Disconnect, ConnectionDone, Link State
+	 * Wakeup and Overflow events.
+	 */
+	XUsbPsu_EnableIntr((struct XUsbPsu*)UsbInstance.PrivateData,
+		XUSBPSU_DEVTEN_EVNTOVERFLOWEN | XUSBPSU_DEVTEN_WKUPEVTEN
+		| XUSBPSU_DEVTEN_ULSTCNGEN | XUSBPSU_DEVTEN_CONNECTDONEEN
+		| XUSBPSU_DEVTEN_USBRSTEN | XUSBPSU_DEVTEN_DISCONNEVTEN);
 
 	/* Start the controller so that Host can see our device */
-	SStatus = XUsbPsu_Start(&UsbInstance);
+	SStatus = XUsbPsu_Start((struct XUsbPsu*)UsbInstance.PrivateData);
 	if (SStatus != XFSBL_SUCCESS) {
 		Status = XFSBL_FAILURE;
 		goto END;
 	}
 
-	while((DownloadDone < XFSBL_DOWNLOAD_COMPLETE) && (DfuObj.CurrStatus != STATE_DFU_ERROR)) {
-		XUsbPsu_IntrHandler(&UsbInstance);
+	while ((DownloadDone < XFSBL_DOWNLOAD_COMPLETE) && \
+		(DfuObj.CurrStatus != STATE_DFU_ERROR)) {
+		XUsbPsu_IntrHandler((struct XUsbPsu*)UsbInstance.PrivateData);
 	}
 
 	if(DownloadDone == XFSBL_DOWNLOAD_COMPLETE) {
@@ -146,7 +145,7 @@ u32 XFsbl_UsbInit(u32 DeviceFlags)
 	{
 		Status = XFSBL_FAILURE;
 	}
-	(void)XUsbPsu_Stop(&UsbInstance);
+	(void)XUsbPsu_Stop((struct XUsbPsu*)UsbInstance.PrivateData);
 END:
 	return Status;
 }
@@ -232,13 +231,13 @@ static void XFsbl_Ch9Handler(struct Usb_DevData *InstancePtr,
 	switch (SetupData->bRequestType & XFSBL_REQ_TYPE_MASK) {
 		case XFSBL_CMD_STDREQ:
 		{
-			XFsbl_StdDevReq(SetupData);
+			XFsbl_StdDevReq(InstancePtr, SetupData);
 		}
 			break;
 
 		case XFSBL_CMD_CLASSREQ:
 		{
-			XFsbl_DfuClassReq(SetupData);
+			XFsbl_DfuClassReq(InstancePtr, SetupData);
 		}
 			break;
 
@@ -255,6 +254,7 @@ static void XFsbl_Ch9Handler(struct Usb_DevData *InstancePtr,
 /*****************************************************************************
 * This function handles a standard device request.
 *
+* @param	InstancePtr is a pointer to XUsbPsu instance of the controller.
 * @param	SetupData is a pointer to the data structure containing the
 *		setup request.
 *
@@ -263,12 +263,12 @@ static void XFsbl_Ch9Handler(struct Usb_DevData *InstancePtr,
 * @note		None.
 *
 ******************************************************************************/
-static void XFsbl_StdDevReq(SetupPacket *SetupData)
+static void XFsbl_StdDevReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupData)
 {
 	s32 SStatus;
 	u32 ReplyLen;
-	static u8 Reply[XFSBL_REQ_REPLY_LEN]={0};
-	static u8 TmpBuffer[DFU_STATUS_SIZE]={0};
+	u8 Reply[XFSBL_REQ_REPLY_LEN]={0};
+	u8 TmpBuffer[DFU_STATUS_SIZE]={0};
 	u8 EpNum = SetupData->wIndex & XFSBL_USB_ENDPOINT_NUMBER_MASK;
 	/*
 	 * Direction - 1 -- XUSBPSU_EP_DIR_IN
@@ -303,7 +303,7 @@ static void XFsbl_StdDevReq(SetupPacket *SetupData)
 					break;
 				case XFSBL_STATUS_ENDPOINT:
 				{
-					ShortVar = XUsbPsu_IsEpStalled(&UsbInstance, EpNum, Direction);
+					ShortVar = XUsbPsu_IsEpStalled(InstancePtr->PrivateData, EpNum, Direction);
 					(void)XFsbl_MemCpy(&Reply[0],&ShortVar, sizeof(u16));
 				}
 					break;
@@ -314,13 +314,13 @@ static void XFsbl_StdDevReq(SetupPacket *SetupData)
 					break;
 			}
 
-			SStatus = XUsbPsu_EpBufferSend(&UsbInstance, 0U, Reply, SetupData->wLength);
+			SStatus = XUsbPsu_EpBufferSend(InstancePtr->PrivateData, 0U, Reply, SetupData->wLength);
 		}
 			break;
 
 		case XFSBL_REQ_SET_ADDRESS:
 		{
-			SStatus = XUsbPsu_SetDeviceAddress(&UsbInstance, SetupData->wValue);
+			SStatus = XUsbPsu_SetDeviceAddress(InstancePtr->PrivateData, SetupData->wValue);
 		}
 			break;
 
@@ -351,7 +351,7 @@ static void XFsbl_StdDevReq(SetupPacket *SetupData)
 						Reply[8] = 0x0U;
 						Reply[9] = 0x0U;
 					}
-					SStatus = XUsbPsu_EpBufferSend(&UsbInstance, 0,
+					SStatus = XUsbPsu_EpBufferSend(InstancePtr->PrivateData, 0,
 							Reply, ReplyLen);
 				}
 					break;
@@ -364,7 +364,7 @@ static void XFsbl_StdDevReq(SetupPacket *SetupData)
 					if(ReplyLen > SetupData->wLength){
 						ReplyLen = SetupData->wLength;
 					}
-					SStatus = XUsbPsu_EpBufferSend(&UsbInstance, 0U,
+					SStatus = XUsbPsu_EpBufferSend(InstancePtr->PrivateData, 0U,
 								Reply, ReplyLen);
 				}
 					break;
@@ -377,7 +377,7 @@ static void XFsbl_StdDevReq(SetupPacket *SetupData)
 					if(ReplyLen > SetupData->wLength){
 						ReplyLen = SetupData->wLength;
 					}
-					SStatus = XUsbPsu_EpBufferSend(&UsbInstance, 0U,
+					SStatus = XUsbPsu_EpBufferSend(InstancePtr->PrivateData, 0U,
 								Reply, ReplyLen);
 				}
 					break;
@@ -390,7 +390,7 @@ static void XFsbl_StdDevReq(SetupPacket *SetupData)
 					if(ReplyLen > SetupData->wLength){
 						ReplyLen = SetupData->wLength;
 					}
-					SStatus = XUsbPsu_EpBufferSend(&UsbInstance, 0U,
+					SStatus = XUsbPsu_EpBufferSend(InstancePtr->PrivateData, 0U,
 								Reply, ReplyLen);
 				}
 				break;
@@ -411,7 +411,7 @@ static void XFsbl_StdDevReq(SetupPacket *SetupData)
 				break;
 			}
 
-			SStatus = XFsbl_SetConfiguration(SetupData);
+			SStatus = XFsbl_SetConfiguration(InstancePtr, SetupData);
 		}
 			break;
 
@@ -427,7 +427,7 @@ static void XFsbl_StdDevReq(SetupPacket *SetupData)
 				case XFSBL_STATUS_ENDPOINT:
 				{
 					if(SetupData->wValue == XFSBL_ENDPOINT_HALT) {
-							XUsbPsu_EpSetStall(&UsbInstance, EpNum, Direction);
+							XUsbPsu_EpSetStall(InstancePtr->PrivateData, EpNum, Direction);
 
 					}
 					SStatus = XST_SUCCESS;
@@ -450,7 +450,7 @@ static void XFsbl_StdDevReq(SetupPacket *SetupData)
 
 		case XFSBL_REQ_SET_INTERFACE:
 		{
-			XFsbl_DfuSetIntf(SetupData);
+			XFsbl_DfuSetIntf(InstancePtr, SetupData);
 			SStatus = XST_SUCCESS;
 		}
 			break;
@@ -458,7 +458,7 @@ static void XFsbl_StdDevReq(SetupPacket *SetupData)
 		case XFSBL_REQ_SET_SEL:
 		{
 
-			SStatus = XUsbPsu_EpBufferRecv(&UsbInstance, 0U, TmpBuffer, DFU_STATUS_SIZE);
+			SStatus = XUsbPsu_EpBufferRecv(InstancePtr->PrivateData, 0U, TmpBuffer, DFU_STATUS_SIZE);
 		}
 			break;
 
@@ -474,7 +474,7 @@ END:
 			XFsbl_Printf(DEBUG_INFO,"\nStd dev req %d/%d error, stall 0 in out\n",
 					SetupData->bRequest, (SetupData->wValue >> 8U) & 0xFFU);
 
-			XUsbPsu_EpSetStall(&UsbInstance, 0U, XUSBPSU_EP_DIR_OUT);
+			XUsbPsu_EpSetStall(InstancePtr->PrivateData, 0U, XUSBPSU_EP_DIR_OUT);
 		}
 
 }

@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 * @file xilskey_eps_zynqmp.h
@@ -62,6 +40,12 @@
 * 6.6   vns     06/06/18 Added doxygen tags
 *       vns     09/18/18 Added APIs to support eFUSE programming from linux
 * 6.7   arc     01/05/19 Fixed MISRA-C violations.
+* 6.8   psl     07/30/19 Fixed MISRA-C violations.
+* 6.9   kal     03/16/20 Added macro for AES key offset for IPI calls.
+*       ana     04/07/20 Removed IsPpk0Sha3Hash and IsPpk1Sha3Hash variabes,
+*                        as these are not required with only sha3 support.
+* 7.0	am		10/04/20 Resolved MISRA C violations
+*
 * </pre>
 *
 *****************************************************************************/
@@ -140,6 +124,11 @@ extern "C" {
 
 #define XSK_ZYNQMP_EFUSEPS_CRC_AES_ZEROS		(0x6858A3D5U)
 
+/* eFuse Offset = efuse row number * 4(that is sizeof(row))
+ */
+#define XSK_ZYNQMP_EFUSEPS_AES_KEY_OFFSET 	\
+			(XSK_ZYNQMP_EFUSEPS_AES_KEY_START_ROW << 2U)
+
 /* User fuses*/
 #define XSK_ZYNQMP_EFUSEPS_USR0_FUSE	(0U)
 #define XSK_ZYNQMP_EFUSEPS_USR1_FUSE	(1U)
@@ -150,17 +139,29 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_USR6_FUSE	(6U)
 #define XSK_ZYNQMP_EFUSEPS_USR7_FUSE	(7U)
 
+#define XSK_EFUSEPS_TPRGM_VALUE \
+	(((5.0f) * (XSK_ZYNQMP_EFUSEPS_PS_REF_CLK_FREQ)) / (1000000.0f))
+#define XSK_EFUSEPS_TRD_VALUE	\
+ (((15.0f) * (XSK_ZYNQMP_EFUSEPS_PS_REF_CLK_FREQ)) / (100000000.0f))
+#define XSK_EFUSEPS_TSUHPS_VALUE \
+ (((67.0f) * (XSK_ZYNQMP_EFUSEPS_PS_REF_CLK_FREQ)) / (1000000000.0f))
+#define XSK_EFUSEPS_TSUHPSCS_VALUE \
+ (((46.0f) * (XSK_ZYNQMP_EFUSEPS_PS_REF_CLK_FREQ)) / (1000000000.0f))
+#define XSK_EFUSEPS_TSUHCS_VALUE \
+ (((30.0f) * (XSK_ZYNQMP_EFUSEPS_PS_REF_CLK_FREQ)) / (1000000000.0f))
+
 /* Timer related macros */
-#define XilSKey_ZynqMp_EfusePs_Tprgrm(RefClk) \
-	XilSKey_Ceil((((float)5.0) * (RefClk)) / ((float)1000000.0))
-#define XilSKey_ZynqMp_EfusePs_Trd(RefClk) \
-	XilSKey_Ceil((((float)15.0) * (RefClk)) / ((float)100000000.0))
-#define XilSKey_ZynqMp_EfusePs_TsuHPs(RefClk) \
-	XilSKey_Ceil((((float)67.0) * (RefClk)) / ((float)1000000000.0))
-#define XilSKey_ZynqMp_EfusePs_TsuHPsCs(RefClk) \
-	XilSKey_Ceil((((float)46.0) * (RefClk)) / ((float)1000000000.0))
-#define XilSKey_ZynqMp_EfusePs_TsuHCs(RefClk) \
-	XilSKey_Ceil((((float)30.0) * (RefClk)) / ((float)1000000000.0))
+#define XilSKey_ZynqMp_EfusePs_Tprgrm() \
+	Xil_Ceil(XSK_EFUSEPS_TPRGM_VALUE)
+#define XilSKey_ZynqMp_EfusePs_Trd() \
+	Xil_Ceil(XSK_EFUSEPS_TRD_VALUE)
+#define XilSKey_ZynqMp_EfusePs_TsuHPs() \
+	Xil_Ceil(XSK_EFUSEPS_TSUHPS_VALUE)
+#define XilSKey_ZynqMp_EfusePs_TsuHPsCs() \
+	Xil_Ceil(XSK_EFUSEPS_TSUHPSCS_VALUE)
+#define XilSKey_ZynqMp_EfusePs_TsuHCs() \
+	Xil_Ceil(XSK_EFUSEPS_TSUHCS_VALUE)
+
 
 #define XSK_ZYNQMP_SEC_PPK_INVLD_BITS_SET	(0x3U)
 			/**< If PPK invalid bits are set */
@@ -330,9 +331,6 @@ typedef struct {
 	u8 PrgrmUser6Fuse;
 	u8 PrgrmUser7Fuse;
 
-	u8 IsPpk0Sha3Hash;
-	u8 IsPpk1Sha3Hash;
-
 	u8 AESKey[XSK_ZYNQMP_EFUSEPS_AES_KEY_LEN_IN_BYTES];
 
 	u8 User0Fuses[XSK_ZYNQMP_EFUSEPS_USER_FUSE_ROW_LEN_IN_BYTES];
@@ -472,6 +470,15 @@ u32 XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits(
 u32 XilSKey_ZynqMp_EfusePs_CacheLoad(void);
 u32 XilSKey_ZynqMp_EfusePs_Write(XilSKey_ZynqMpEPs *InstancePtr);
 u32 XilSkey_ZynqMpEfuseAccess(const u32 AddrHigh, const u32 AddrLow);
+void XilSKey_ZynqMp_EfusePs_SetTimerValues(void);
+u32 XilSKey_ZynqMp_EfusePs_ReadRow(u8 Row, XskEfusePs_Type EfuseType,
+							u32 *RowData);
+u32 XilSKey_ZynqMp_EfusePs_SetWriteConditions(void);
+u32 XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(u8 Row, u8 Column,
+						XskEfusePs_Type EfuseType);
+u32 XilSKey_ZynqMp_EfusePs_Init(void);
+u32 XilSKey_ZynqMp_EfusePs_CheckForZeros(u8 RowStart, u8 RowEnd,
+						XskEfusePs_Type EfuseType);
 
 #ifdef __cplusplus
 }

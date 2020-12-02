@@ -1,35 +1,13 @@
 /******************************************************************************
- *
- * Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xv_hscaler_l2.h
-* @addtogroup v_hscaler_v3_1
+* @addtogroup v_hscaler_v3_4
 * @{
 * @details
 *
@@ -112,7 +90,7 @@ extern "C" {
  */
 #define XV_HSCALER_MAX_H_TAPS           (12)
 #define XV_HSCALER_MAX_H_PHASES         (64)
-#define XV_HSCALER_MAX_LINE_WIDTH       (3840)
+#define XV_HSCALER_MAX_LINE_WIDTH       (8192)
 
 /**************************** Type Definitions *******************************/
 /**
@@ -147,6 +125,7 @@ typedef struct
   u8 UseExtCoeff;
   short coeff[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_MAX_H_TAPS];
   u64 phasesH[XV_HSCALER_MAX_LINE_WIDTH];
+  u64 phasesH_H[XV_HSCALER_MAX_LINE_WIDTH];
 }XV_Hscaler_l2;
 
 /************************** Macros Definitions *******************************/

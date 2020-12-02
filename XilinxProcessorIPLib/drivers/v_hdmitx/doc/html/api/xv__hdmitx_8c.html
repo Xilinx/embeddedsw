@@ -28,7 +28,7 @@
   <td style="padding-left: 0.5em;">
    <div id="projectname">v_hdmitx
    </div>
-   <div id="projectbrief">Xilinx SDK Drivers API Documentation</div>
+   <div id="projectbrief">Xilinx Vitis Drivers API Documentation</div>
   </td>
  </tr>
  </tbody>
@@ -108,6 +108,9 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
                           XV_HdmiTx_DdcRead APIs to prevent another DDC
                           transactions from happening in the middle of a DDC
                           transaction
+      EB     16/07/19 Replaced sampling rate of 4 with 2 at the API
+                          XV_HdmiTx_SetSampleRate
+2.50  EB     02/12/18 Added 3D Audio Support
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -1207,7 +1210,7 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="xv__hdmitx__hw_8h.html#a224d3ce0b2fa5396ac35464ab51e18c0">XV_HDMITX_AUD_CTRL_CH_SHIFT</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a487977b6c692a3cabd9708d199cc6fde">XV_HDMITX_AUD_CTRL_CLR_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a1f37ae939243ded094b88763c8fbcc76">XV_HDMITX_AUD_CTRL_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a72bdef52359446483eab0a4b6886ba34">XV_HDMITX_AUD_CTRL_RUN_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a0657ebf695c90d411c0ecd63aed71d96">XV_HDMITX_AUD_CTRL_SET_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a41b837de9bdbba60a15baa46362dd851">XV_HdmiTx_ReadReg</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>.</p>
+<p>References <a class="el" href="xv__hdmitx__hw_8h.html#a28f589dcdb02f0836911bc48271fca9b">XV_HDMITX_AUD_CTRL_CH_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a224d3ce0b2fa5396ac35464ab51e18c0">XV_HDMITX_AUD_CTRL_CH_SHIFT</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a487977b6c692a3cabd9708d199cc6fde">XV_HDMITX_AUD_CTRL_CLR_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a1f37ae939243ded094b88763c8fbcc76">XV_HDMITX_AUD_CTRL_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a72bdef52359446483eab0a4b6886ba34">XV_HDMITX_AUD_CTRL_RUN_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a0657ebf695c90d411c0ecd63aed71d96">XV_HDMITX_AUD_CTRL_SET_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a41b837de9bdbba60a15baa46362dd851">XV_HdmiTx_ReadReg</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>.</p>
 
 </div>
 </div>
@@ -1249,7 +1252,7 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="xv__hdmitx__hw_8h.html#a78026a4105a831d8d1e2788c1d6ba913">XV_HDMITX_AUD_CTRL_AUDFMT_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a487977b6c692a3cabd9708d199cc6fde">XV_HDMITX_AUD_CTRL_CLR_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a72bdef52359446483eab0a4b6886ba34">XV_HDMITX_AUD_CTRL_RUN_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a0657ebf695c90d411c0ecd63aed71d96">XV_HDMITX_AUD_CTRL_SET_OFFSET</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>.</p>
+<p>References <a class="el" href="xv__hdmitx__hw_8h.html#a78026a4105a831d8d1e2788c1d6ba913">XV_HDMITX_AUD_CTRL_AUDFMT_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a0507ddc2e25096e01a650cf41849e35f">XV_HDMITX_AUD_CTRL_AUDFMT_SHIFT</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a487977b6c692a3cabd9708d199cc6fde">XV_HDMITX_AUD_CTRL_CLR_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a1f37ae939243ded094b88763c8fbcc76">XV_HDMITX_AUD_CTRL_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a72bdef52359446483eab0a4b6886ba34">XV_HDMITX_AUD_CTRL_RUN_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a0657ebf695c90d411c0ecd63aed71d96">XV_HDMITX_AUD_CTRL_SET_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a41b837de9bdbba60a15baa46362dd851">XV_HdmiTx_ReadReg</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>.</p>
 
 </div>
 </div>
@@ -1525,6 +1528,7 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx.html" title="The XV_HdmiTx driver instance data.">XV_HdmiTx</a> core instance. </td></tr>
     <tr><td class="paramname">SampleRate</td><td>specifies the value that needs to be set.<ul>
+<li>2 samples per clock</li>
 <li>3 samples per clock.</li>
 <li>5 samples per clock.</li>
 </ul>

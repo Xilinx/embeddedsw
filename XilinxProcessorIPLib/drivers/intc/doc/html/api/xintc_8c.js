@@ -10,5 +10,6 @@ var xintc_8c =
     [ "XIntc_LookupConfig", "xintc_8c.html#gaac2cc8909b69948e755ea649998cd2e1", null ],
     [ "XIntc_SetNormalIntrMode", "xintc_8c.html#ga881154092f4f8cd5e29a71b284f7b2ae", null ],
     [ "XIntc_Start", "xintc_8c.html#ga863eb58a3ae9419c7ac5da7c9fa9cb50", null ],
-    [ "XIntc_Stop", "xintc_8c.html#gafabb05cf2e5b62031524a33d1f88f405", null ]
+    [ "XIntc_Stop", "xintc_8c.html#gafabb05cf2e5b62031524a33d1f88f405", null ],
+    [ "XIntc_TriggerSwIntr", "xintc_8c.html#ga7eb4ea6d2f66a5b3ca32b12ec68bc151", null ]
 ];

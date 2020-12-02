@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2016 - 2017 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -66,7 +44,7 @@ static u8 XV_HdmiTxSs_HdcpGetTopologyMaxDevsExceeded(XV_HdmiTxSs *InstancePtr);
 static u8
         XV_HdmiTxSs_HdcpGetTopologyMaxCascadeExceeded(XV_HdmiTxSs *InstancePtr);
 static u8
-  XV_HdmiTxSs_HdcpGetTopologyHdcp20RepeaterDownstream(XV_HdmiTxSs *InstancePtr);
+  XV_HdmiTxSs_HdcpGetTopologyHdcp2LegacyDeviceDownstream(XV_HdmiTxSs *InstancePtr);
 static u8
      XV_HdmiTxSs_HdcpGetTopologyHdcp1DeviceDownstream(XV_HdmiTxSs *InstancePtr);
 #endif
@@ -1768,8 +1746,8 @@ u32 XV_HdmiTxSs_HdcpGetTopologyField(XV_HdmiTxSs *InstancePtr,
       return XV_HdmiTxSs_HdcpGetTopologyMaxDevsExceeded(InstancePtr);
       case XV_HDMITXSS_HDCP_TOPOLOGY_MAXCASCADEEXCEEDED:
       return XV_HdmiTxSs_HdcpGetTopologyMaxCascadeExceeded(InstancePtr);
-      case XV_HDMITXSS_HDCP_TOPOLOGY_HDCP20REPEATERDOWNSTREAM:
-      return XV_HdmiTxSs_HdcpGetTopologyHdcp20RepeaterDownstream(InstancePtr);
+      case XV_HDMITXSS_HDCP_TOPOLOGY_HDCP2LEGACYDEVICEDOWNSTREAM:
+      return XV_HdmiTxSs_HdcpGetTopologyHdcp2LegacyDeviceDownstream(InstancePtr);
       case XV_HDMITXSS_HDCP_TOPOLOGY_HDCP1DEVICEDOWNSTREAM:
       return XV_HdmiTxSs_HdcpGetTopologyHdcp1DeviceDownstream(InstancePtr);
     default:
@@ -1989,20 +1967,20 @@ u8 XV_HdmiTxSs_HdcpGetTopologyMaxCascadeExceeded(XV_HdmiTxSs *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function gets the HDCP repeater topology HDCP 2.0 repeater downstream
+* This function gets the HDCP repeater topology HDCP2 Legacy Device downstream
 * flag.
 *
 * @param InstancePtr is a pointer to the XV_HdmiTxSs instance.
 *
 * @return
-*   - TRUE if HDCP 2.0 repeater is downstream.
-*   - FALSE if HDCP 2.0 repeater is not downstream.
+*   - TRUE if HDCP2 legacy device is downstream.
+*   - FALSE if HDCP2 legacy device is not downstream.
 *
 * @note   None.
 *
 ******************************************************************************/
 static
-u8 XV_HdmiTxSs_HdcpGetTopologyHdcp20RepeaterDownstream(XV_HdmiTxSs *InstancePtr)
+u8 XV_HdmiTxSs_HdcpGetTopologyHdcp2LegacyDeviceDownstream(XV_HdmiTxSs *InstancePtr)
 {
   /* Verify argument. */
   Xil_AssertNonvoid(InstancePtr != NULL);
@@ -2025,7 +2003,7 @@ u8 XV_HdmiTxSs_HdcpGetTopologyHdcp20RepeaterDownstream(XV_HdmiTxSs *InstancePtr)
     case XV_HDMITXSS_HDCP_22:
       if (InstancePtr->Hdcp22Ptr) {
         Flag = XHdcp22Tx_GetTopologyField(InstancePtr->Hdcp22Ptr,
-                 XHDCP22_TX_TOPOLOGY_HDCP20REPEATERDOWNSTREAM);
+                 XHDCP22_TX_TOPOLOGY_HDCP2LEGACYDEVICEDOWNSTREAM);
       }
       break;
 #endif

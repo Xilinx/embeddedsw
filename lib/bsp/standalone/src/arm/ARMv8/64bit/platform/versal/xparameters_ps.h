@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 * @file xparameters_ps.h
@@ -41,6 +19,8 @@
 *       mn      03/26/18 Change Interrupt IDs for versal
 *       mn      03/26/18 Update SLCR base address
 *	 ap	02/14/19 Add Interrupt Id for usbpsu controller
+*	sne	03/26/20 Add Interrupt Id's for WWDT.
+* 7.2	pm      03/24/20 Add wakeup Interrupt Id for usbpsu controller
 *
 * </pre>
 *
@@ -78,6 +58,14 @@ extern "C" {
 #define XPAR_XSPIPS_1_INTR		XPS_SPI1_INT_ID
 #define XPAR_XCANPS_0_INTR		XPS_CAN0_INT_ID
 #define XPAR_XCANPS_1_INTR		XPS_CAN1_INT_ID
+#define XPAR_XGWDT_0_INTR		XPS_LPD_GWDT_0_INT_ID
+#define XPAR_XGWDT_0_RST_INTR		XPS_LPD_GWDT_0_RST_INT_ID
+#define XPAR_XWWDT_0_INTR		XPS_LPD_WWDT_0_INT_ID
+#define XPAR_XWWDT_0_RST_PEND_INTR	XPS_LPD_WWDT_0_RST_PEND_INT_ID
+#define XPAR_XGWDT_1_INTR		XPS_FPD_GWDT_1_INT_ID
+#define XPAR_XGWDT_1_RST_INTR		XPS_FPD_GWDT_1_RST_INT_ID
+#define XPAR_XWWDT_1_INTR		XPS_FPD_WWDT_1_INT_ID
+#define XPAR_XWWDT_1_RST_PEND_INTR	XPS_FPD_WWDT_1_RST_PEND_INT_ID
 #define XPAR_XGPIOPS_0_INTR		XPS_GPIO_INT_ID
 #define XPAR_XEMACPS_0_INTR		XPS_GEM0_INT_ID
 #define XPAR_XEMACPS_0_WAKE_INTR	XPS_GEM0_WAKE_INT_ID
@@ -86,8 +74,6 @@ extern "C" {
 #define XPAR_XSDIOPS_0_INTR		XPS_SDIO0_INT_ID
 #define XPAR_XQSPIPS_0_INTR		XPS_QSPI_INT_ID
 #define XPAR_XSDIOPS_1_INTR		XPS_SDIO1_INT_ID
-#define XPAR_XWDTPS_0_INTR		XPS_LPD_SWDT_INT_ID
-#define XPAR_XWDTPS_1_INTR		XPS_FPD_SWDT_INT_ID
 #define XPAR_XDCFG_0_INTR		XPS_DVC_INT_ID
 #define XPAR_XTTCPS_0_INTR		XPS_TTC0_0_INT_ID
 #define XPAR_XTTCPS_1_INTR		XPS_TTC0_1_INT_ID
@@ -118,6 +104,8 @@ extern "C" {
 #define XPAR_PSV_ADMA_5_INTR 		XPS_ADMA_CH5_INT_ID
 #define XPAR_PSV_ADMA_6_INTR 		XPS_ADMA_CH6_INT_ID
 #define XPAR_PSV_ADMA_7_INTR 		XPS_ADMA_CH7_INT_ID
+#define XPAR_PSV_PMC_GPIO_INTR		XPMC_GPIO_INT_ID
+#define XPAR_PSV_PMC_I2C_INTR		XPMC_I2C_INT_ID
 #define XPAR_PSV_PMC_DMA_0_INTR		XPS_PMCDMA0_INT_ID
 #define XPAR_PSV_PMC_DMA_1_INTR		XPS_PMCDMA1_INT_ID
 #define XPAR_XMPU_LPD_INTR 		XPS_XMPU_LPD_INT_ID
@@ -132,6 +120,7 @@ extern "C" {
 #define XPAR_XCCI_FPD_INTR 		XPS_FPD_CCI_INT_ID
 #define XPAR_XSMMU_FPD_INTR 		XPS_FPD_SMMU_INT_ID
 #define XPAR_XUSBPS_0_INTR		XPS_USB3_0_ENDPT_INT_ID
+#define XPAR_XUSBPS_0_WAKE_INTR		XPS_USB3_0_WAKE_INT_ID
 #define	XPAR_XRTCPSU_ALARM_INTR 	XPS_RTC_ALARM_INT_ID
 #define	XPAR_XRTCPSU_SECONDS_INTR	XPS_RTC_SEC_INT_ID
 #define XPAR_XSYSMONPSU_INTR		XPS_AMS_INT_ID
@@ -148,7 +137,7 @@ extern "C" {
 
 /*
  * This block contains constant declarations for the peripherals
- * within the hardblock. These have been put for backwards compatibilty
+ * within the hardblock. These have been put for backwards compatibility
  */
 
 #define XPS_SYS_CTRL_BASEADDR		0xF1060000U
@@ -190,6 +179,14 @@ extern "C" {
 #define XPS_CAN0_INT_ID			(20U + 32U)
 #define XPS_CAN1_INT_ID			(21U + 32U)
 #define XPS_USB3_0_ENDPT_INT_ID		(22U + 32U)
+#define XPS_LPD_GWDT_0_INT_ID		(70U + 32U)
+#define XPS_LPD_GWDT_0_RST_INT_ID	(71U + 32U)
+#define XPS_LPD_WWDT_0_INT_ID		(49U + 32U)
+#define XPS_LPD_WWDT_0_RST_PEND_INT_ID	(69U + 32U)
+#define XPS_FPD_GWDT_1_INT_ID		(108U + 32U)
+#define XPS_FPD_GWDT_1_RST_INT_ID	(110U + 32U)
+#define XPS_FPD_WWDT_1_INT_ID		(100U + 32U)
+#define XPS_FPD_WWDT_1_RST_PEND_INT_ID	(109U + 32U)
 #define XPS_RTC_ALARM_INT_ID 		(142U + 32U)
 #define XPS_RTC_SEC_INT_ID	 	(143U + 32U)
 #define XPS_TTC0_0_INT_ID		(37U + 32U)
@@ -222,9 +219,12 @@ extern "C" {
 #define XPS_ADMA_CH6_INT_ID		(66U + 32U)
 #define XPS_ADMA_CH7_INT_ID		(67U + 32U)
 #define XPS_XMPU_LPD_INT_ID		(68U + 32U)
+#define XPS_USB3_0_WAKE_INT_ID		(74U + 32U)
 #define XPS_XMPU_FPD_INT_ID		(102U + 32U)
 #define XPS_FPD_CCI_INT_ID		(106U + 32U)
 #define XPS_FPD_SMMU_INT_ID		(107U + 32U)
+#define XPMC_GPIO_INT_ID                (122U + 32U)
+#define XPMC_I2C_INT_ID			(123U + 32U)
 #define XPS_PMCDMA0_INT_ID		(131U + 32U)
 #define XPS_PMCDMA1_INT_ID		(132U + 32U)
 
@@ -239,6 +239,14 @@ extern "C" {
 #define XPAR_PSV_SPI_1_INTR		XPS_SPI1_INT_ID
 #define XPAR_PSV_CANFD_0_INTR		XPS_CAN0_INT_ID
 #define XPAR_PSV_CANFD_1_INTR		XPS_CAN1_INT_ID
+#define XPAR_PSV_GWDT_0_INTR		XPS_LPD_GWDT_0_INT_ID
+#define XPAR_PSV_GWDT_0_RST_INTR	XPS_LPD_GWDT_0_RST_INT_ID
+#define XPAR_PSV_WWDT_0_INTR		XPS_LPD_WWDT_0_INT_ID
+#define XPAR_PSV_WWDT_0_RST_PEND_INTR	XPS_LPD_WWDT_0_RST_PEND_INT_ID
+#define XPAR_PSV_GWDT_1_INTR		XPS_FPD_GWDT_1_INT_ID
+#define XPAR_PSV_GWDT_1_RST_INTR	XPS_FPD_GWDT_1_RST_INT_ID
+#define XPAR_PSV_WWDT_1_INTR		XPS_FPD_WWDT_1_INT_ID
+#define XPAR_PSV_WWDT_1_RST_PEND_INTR	XPS_FPD_WWDT_1_RST_PEND_INT_ID
 #define XPAR_PSV_GPIO_0_INTR		XPS_GPIO_INT_ID
 #define XPAR_PSV_ETHERNET_0_INTR	XPS_GEM0_INT_ID
 #define XPAR_PSV_ETHERNET_0_WAKE_INTR   XPS_GEM0_WAKE_INT_ID
@@ -249,8 +257,6 @@ extern "C" {
 #define XPAR_PSV_ETHERNET_3_INTR	XPS_GEM3_INT_ID
 #define XPAR_PSV_ETHERNET_3_WAKE_INTR   XPS_GEM3_WAKE_INT_ID
 #define XPAR_PSV_QSPI_0_INTR		XPS_QSPI_INT_ID
-#define XPAR_PSV_WDT_0_INTR    		XPS_LPD_SWDT_INT_ID
-#define XPAR_PSV_WDT_1_INTR     	XPS_FPD_SWDT_INT_ID
 #define XPAR_PSV_XADC_0_INTR		XPS_SYSMON_INT_ID
 #define XPAR_PSV_TTC_0_INTR		XPS_TTC0_0_INT_ID
 #define XPAR_PSV_TTC_1_INTR		XPS_TTC0_1_INT_ID
@@ -271,7 +277,7 @@ extern "C" {
 #define XPAR_XADCPS_0_BASEADDR	  (0xF8007000U)
 #define XPAR_XADCPS_INT_ID		XPS_SYSMON_INT_ID
 
-/* For backwards compatibilty */
+/* For backwards compatibility */
 #define XPAR_XUARTPS_0_CLOCK_HZ		XPAR_XUARTPS_0_UART_CLK_FREQ_HZ
 #define XPAR_XUARTPS_1_CLOCK_HZ		XPAR_XUARTPS_1_UART_CLK_FREQ_HZ
 #define XPAR_XTTCPS_0_CLOCK_HZ		XPAR_XTTCPS_0_TTC_CLK_FREQ_HZ
@@ -293,7 +299,6 @@ extern "C" {
 #define XPAR_CPU_CORTEXA72_CORE_CLOCK_FREQ_HZ	XPAR_CPU_CORTEXA72_1_CPU_CLK_FREQ_HZ
 #endif
 
-#define XPAR_SCUWDT_DEVICE_ID		0U
 
 
 #ifdef __cplusplus

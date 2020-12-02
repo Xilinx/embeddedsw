@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /****************************************************************************/
 /**
 *
 * @file xclockps.c
-* @addtogroup xclockps_v1_0
+* @addtogroup xclockps_v1_3
 * @{
 *
 * Contains the implementation of interface functions of the clock driver.
@@ -41,8 +19,9 @@
 * ----- ------ -------- ---------------------------------------------
 * 1.00  cjp    02/09/18 First release
 * 1.00  sd     07/26/18 Fix coverity warnings
-* 1.1	aru    03/20/19 Fix IAR isssue by changing "XCLOCK_ABS_DIFF" to a
+* 1.1	aru    03/20/19 Fix IAR issue by changing "XCLOCK_ABS_DIFF" to a
 *			function named "XClock_Absolute_Difference".
+* 1.2   sd     02/13/20 Rename ARRAY_SIZE
 * </pre>
 *
 ******************************************************************************/
@@ -179,7 +158,7 @@ static void XClock_EnableInitClocks(void)
 	u8                Idx;
 	XClock_OutputClks InitClks[] = {ACPU, DDR_REF};
 
-	for (Idx = 0; Idx < ARRAY_SIZE(InitClks); Idx++) {
+	for (Idx = 0; Idx < CLK_ARRAY_SIZE(InitClks); Idx++) {
 		if (XST_SUCCESS != XClock_EnableClock(InitClks[Idx])) {
 			xil_printf("Warning: Failed to enable clock at "
 							"index %d\n\r", Idx);
@@ -550,7 +529,7 @@ static XStatus XClock_ConfigPlls(u8 *PllIdx, XClockRate ParRate,
 	XCLOCK_VALIDATE_INDEX(PLL, *PllIdx);
 	XCLOCK_VALIDATE_PTR(SetRate);
 
-	/* Get curent rate */
+	/* Get current rate */
 	Status = XClock_NodeGetRate[XCLOCK_TYPE_PLL](*PllIdx, &CurrRate);
 	if (XST_SUCCESS != Status) {
 		return Status;
@@ -929,7 +908,7 @@ XStatus XClock_SetRate(XClock_OutputClks ClockId, XClockRate Rate,
 		if (XST_SUCCESS == Status) {
 			if (*SetRate != XCLOCK_INVALID_RATE) {
 				/*
-				 * Rate upated. Update rates for all the
+				 * Rate updated. Update rates for all the
 				 * topologies using this PLL
 				 */
 				XClock_UpdateTopologyRates(XCLOCK_TYPE_PLL,

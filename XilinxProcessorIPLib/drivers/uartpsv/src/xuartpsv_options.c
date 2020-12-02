@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xuartpsv_options.c
-* @addtogroup uartpsv_v1_0
+* @addtogroup uartpsv_v1_3
 * @{
 *
 * The implementation of the options functions for the XUartPsv driver.
@@ -40,7 +18,10 @@
 * Ver  Who  Date      Changes
 * ---  ---  --------- -----------------------------------------------
 * 1.0  sg   09/18/17  First Releasee
-*
+* 1.2  rna  01/20/20  Use XUartPsv_ProgramCtrlReg function to change mode
+*		      Add functions to set Tx and Rx FIFO threshold levels
+* 1.3  rna  04/08/20  Format is corrected in XUartPsv_SetDataFormat function
+*      rna  05/18/20  Fix MISRA-C violations
 * </pre>
 *
 ******************************************************************************/
@@ -72,7 +53,7 @@ typedef struct {
  * maintenance and expansion of the options.
  */
 
-static Mapping OptionsTable[] = {
+static Mapping XUartPsv_OptionsTable[] = {
 	{XUARTPSV_OPTION_SET_BREAK, XUARTPSV_UARTCR_OFFSET,
 				XUARTPSV_UARTLCR_BRK},
 	{XUARTPSV_OPTION_STOP_BREAK, XUARTPSV_UARTCR_OFFSET,
@@ -93,7 +74,7 @@ static Mapping OptionsTable[] = {
 
 /* Create a constant for the number of entries in the table */
 
-#define XUARTPSV_NUM_OPTIONS	  (sizeof(OptionsTable) / sizeof(Mapping))
+#define XUARTPSV_NUM_OPTIONS	  (sizeof(XUartPsv_OptionsTable) / sizeof(Mapping))
 
 /************************** Function Prototypes ******************************/
 
@@ -102,11 +83,11 @@ static Mapping OptionsTable[] = {
 *
 * Gets the options for the specified driver instance. The options are
 * implemented as bit masks such that multiple options may be enabled or
-* disabled simulataneously.
+* disabled simultaneously.
 *
 * @param	InstancePtr is a pointer to the XUartPsv instance.
 *
-* @return	The current options for the UART. The optionss are bit masks
+* @return	The current options for the UART. The options are bit masks
 * 		that are contained in the file xuartpsv.h and named
 *		XUARTPSV_OPTION_*.
 *
@@ -124,12 +105,12 @@ u16 XUartPsv_GetOptions(XUartPsv *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/*
-	 * Loop thru the options table to map the physical options in the
+	 * Loop through the options table to map the physical options in the
 	 * registers of the UART to the logical options to be returned
 	 */
 	for (Index = 0U; Index < XUARTPSV_NUM_OPTIONS; Index++) {
 		Register = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
-				OptionsTable[Index].RegisterOffset);
+				XUartPsv_OptionsTable[Index].RegisterOffset);
 
 		/*
 		 * If the bit in the register which correlates to the option
@@ -137,8 +118,8 @@ u16 XUartPsv_GetOptions(XUartPsv *InstancePtr)
 		 * ignoring any bits which are zero since the options
 		 * variable is initialized to zero
 		 */
-		if ((Register & OptionsTable[Index].Mask) != (u32)0) {
-			Options |= OptionsTable[Index].Option;
+		if ((Register & XUartPsv_OptionsTable[Index].Mask) != (u32)0) {
+			Options |= XUartPsv_OptionsTable[Index].Option;
 		}
 	}
 
@@ -177,7 +158,7 @@ void XUartPsv_SetOptions(XUartPsv *InstancePtr, u16 Options)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/*
-	 * Loop thru the options table to map the logical options to the
+	 * Loop through the options table to map the logical options to the
 	 * physical options in the registers of the UART.
 	 */
 	for (Index = 0U; Index < XUARTPSV_NUM_OPTIONS; Index++) {
@@ -188,27 +169,11 @@ void XUartPsv_SetOptions(XUartPsv *InstancePtr, u16 Options)
 		 * of the register.
 		 */
 		Register = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
-					OptionsTable[Index].RegisterOffset);
-#if 0
-		TBD
-		/*
-		 * If the option is set in the input, then set the
-		 * corresponding bit in the specified register, otherwise
-		 * clear the bit in the register.
-		 */
-		if ((Options & OptionsTable[Index].Option) != (u16)0) {
-			if (OptionsTable[Index].Option ==
-				XUARTPSV_OPTION_SET_BREAK)
-				Register &= ~XUARTPSV_CR_STOPBRK;
-			Register |= OptionsTable[Index].Mask;
-		}
-		else {
-			Register &= ~OptionsTable[Index].Mask;
-		}
-#endif
+					XUartPsv_OptionsTable[Index].RegisterOffset);
+
 		/* Write the new value to the register to set the option */
 		XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
-				OptionsTable[Index].RegisterOffset, Register);
+				XUartPsv_OptionsTable[Index].RegisterOffset, Register);
 	}
 
 }
@@ -216,14 +181,13 @@ void XUartPsv_SetOptions(XUartPsv *InstancePtr, u16 Options)
 /*****************************************************************************/
 /**
 *
-* This function gets the receive FIFO trigger level. The receive trigger
-* level indicates the number of bytes in the FIFO that cause a receive or
-* transmit data event (interrupt) to be generated.
-*
+* This function gets the Tx and Rx FIFO trigger level. The receive or transmit
+* trigger level specifies the number of bytes in the FIFO that cause a receive
+* or transmit data event (interrupt) to be generated.
 * @param	InstancePtr is a pointer to the XUartPsv instance.
 *
 * @return	The current receive FIFO trigger level. This is a value
-*		from 0-31.
+*		from 0-63.
 *
 * @note 	None.
 *
@@ -245,7 +209,8 @@ u8 XUartPsv_GetFifoThreshold(XUartPsv *InstancePtr)
 
 	/* Return only the trigger level from the register value */
 
-	RtrigRegister &= (u8)XUARTPSV_UARTIFLS_TXIFLSEL_MASK;
+	RtrigRegister &= ((u8)XUARTPSV_UARTIFLS_TXIFLSEL_MASK |
+			(u8)XUARTPSV_UARTIFLS_RXIFLSEL_MASK);
 
 	return RtrigRegister;
 }
@@ -253,12 +218,15 @@ u8 XUartPsv_GetFifoThreshold(XUartPsv *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This functions sets the receive FIFO trigger level. The receive or transmit
-* trigger level specifies the number of bytes in the receive FIFO that cause
-* a receive or transmit data event (interrupt) to be generated.
+* This functions sets the Tx and Rx FIFO trigger level to the 'TriggerLevel'
+* argument. The same value is set for Tx and Rx FIFOs.
+* The receive or transmit trigger level specifies the number of bytes
+* in the FIFO that cause a receive or transmit data event (interrupt)
+* to be generated.
 *
 * @param	InstancePtr is a pointer to the XUartPsv instance.
-* @param	TriggerLevel contains the trigger level to set.
+* @param	TriggerLevel contains the trigger level to set. This is a value
+* 			from 0-7
 *
 * @return	None
 *
@@ -274,18 +242,108 @@ void XUartPsv_SetFifoThreshold(XUartPsv *InstancePtr, u8 TriggerLevel)
 	Xil_AssertVoid(TriggerLevel <= (u8)XUARTPSV_UARTIFLS_TXIFLSEL_MASK);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	TriggerLevel = ((u32)TriggerLevel) &
-				(u32)XUARTPSV_UARTIFLS_TXIFLSEL_MASK;
+	TriggerLevel = TriggerLevel & (u8)XUARTPSV_UARTIFLS_TXIFLSEL_MASK;
 
 	FifoTrigRegister = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
 					XUARTPSV_UARTIFLS_OFFSET);
 
-	FifoTrigRegister &= (XUARTPSV_UARTIFLS_RXIFLSEL_MASK |
+	FifoTrigRegister &= ~(XUARTPSV_UARTIFLS_TXIFLSEL_MASK |
 					XUARTPSV_UARTIFLS_RXIFLSEL_MASK);
 
-	FifoTrigRegister |= TriggerLevel << XUARTPSV_UARTIFLS_TXIFLSEL_SHIFT;
-	FifoTrigRegister |= TriggerLevel << XUARTPSV_UARTIFLS_RXIFLSEL_SHIFT;
+	FifoTrigRegister |= (u32)TriggerLevel << XUARTPSV_UARTIFLS_TXIFLSEL_SHIFT;
+	FifoTrigRegister |= (u32)TriggerLevel << XUARTPSV_UARTIFLS_RXIFLSEL_SHIFT;
 
+	/*
+	 * Write the new value for the FIFO control register to it such that
+	 * the threshold is changed
+	 */
+	XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XUARTPSV_UARTIFLS_OFFSET, FifoTrigRegister);
+
+}
+
+/*****************************************************************************/
+/**
+*
+* This functions sets the Tx FIFO trigger level to the 'TriggerLevel'
+* argument. This value is set for Tx FIFO. Rx FIFO trigger level is unchanged.
+* The receive or transmit trigger level specifies the number of bytes
+* in the FIFO that cause a receive or transmit data event (interrupt)
+* to be generated.
+*
+* @param	InstancePtr is a pointer to the XUartPsv instance.
+* @param	TriggerLevel contains the trigger level to set. This is a value
+* 			from 0-4 (XUARTPSV_UARTIFLS_TXIFLSEL_1_8 -
+* 			XUARTPSV_UARTIFLS_TXIFLSEL_7_8)
+*
+* @return	None
+*
+* @note 	None.
+*
+******************************************************************************/
+void XUartPsv_SetTxFifoThreshold(XUartPsv *InstancePtr, u8 TriggerLevel)
+{
+	u32 FifoTrigRegister;
+
+	/* Assert validates the input arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(TriggerLevel <= (u8)XUARTPSV_UARTIFLS_TXIFLSEL_MASK);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	TriggerLevel = TriggerLevel & (u8)XUARTPSV_UARTIFLS_TXIFLSEL_MASK;
+
+	FifoTrigRegister = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
+					XUARTPSV_UARTIFLS_OFFSET);
+
+	FifoTrigRegister &= ~XUARTPSV_UARTIFLS_TXIFLSEL_MASK;
+
+	FifoTrigRegister |= (u32)TriggerLevel << XUARTPSV_UARTIFLS_TXIFLSEL_SHIFT;
+
+	/*
+	 * Write the new value for the FIFO control register to it such that
+	 * the threshold is changed
+	 */
+	XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XUARTPSV_UARTIFLS_OFFSET, FifoTrigRegister);
+
+}
+
+/*****************************************************************************/
+/**
+*
+* This functions sets the Rx FIFO trigger level to the 'TriggerLevel'
+* argument. This value is set for Rx FIFO. Tx FIFO trigger level is unchanged.
+* The receive or transmit trigger level specifies the number of bytes
+* in the FIFO that cause a receive or transmit data event (interrupt)
+* to be generated.
+*
+* @param	InstancePtr is a pointer to the XUartPsv instance.
+* @param	TriggerLevel contains the trigger level to set. This is a value
+* 			from 0-32 (XUARTPSV_UARTIFLS_RXIFLSEL_1_8 -
+* 			XUARTPSV_UARTIFLS_RXIFLSEL_7_8)
+*
+* @return	None
+*
+* @note 	None.
+*
+******************************************************************************/
+void XUartPsv_SetRxFifoThreshold(XUartPsv *InstancePtr, u8 TriggerLevel)
+{
+	u32 FifoTrigRegister;
+
+	/* Assert validates the input arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(TriggerLevel <= (u8)XUARTPSV_UARTIFLS_RXIFLSEL_MASK);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	TriggerLevel = TriggerLevel & (u8)XUARTPSV_UARTIFLS_RXIFLSEL_MASK;
+
+	FifoTrigRegister = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
+					XUARTPSV_UARTIFLS_OFFSET);
+
+	FifoTrigRegister &= ~XUARTPSV_UARTIFLS_RXIFLSEL_MASK;
+
+	FifoTrigRegister |= TriggerLevel;
 	/*
 	 * Write the new value for the FIFO control register to it such that
 	 * the threshold is changed
@@ -367,8 +425,8 @@ u32 XUartPsv_IsSending(XUartPsv *InstancePtr)
 	 */
 	ActiveResult = FlagRegister & ((u32)XUARTPSV_UARTFR_BUSY);
 	EmptyResult = FlagRegister & ((u32)XUARTPSV_UARTFR_TXFE);
-	SendStatus = (((u32)XUARTPSV_UARTFR_BUSY) == ActiveResult) ||
-		(((u32)XUARTPSV_UARTFR_TXFE) != EmptyResult);
+	SendStatus = (u32)((XUARTPSV_UARTFR_BUSY == ActiveResult) ||
+		(XUARTPSV_UARTFR_TXFE != EmptyResult));
 
 	return SendStatus;
 }
@@ -452,7 +510,7 @@ void XUartPsv_SetOperMode(XUartPsv *InstancePtr, u8 OperationMode)
 				XUARTPSV_UARTCR_OFFSET);
 
 	/* Set the correct value by masking the bits, then ORing the const. */
-	CtrlRegister &= (u32)(~XUARTPSV_UARTCR_MODE_MASK);
+	CtrlRegister &= ~(u32)XUARTPSV_UARTCR_MODE_MASK;
 
 	switch (OperationMode) {
 		case XUARTPSV_OPER_MODE_NORMAL:
@@ -466,9 +524,8 @@ void XUartPsv_SetOperMode(XUartPsv *InstancePtr, u8 OperationMode)
 			break;
 	}
 
-	XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
-			XUARTPSV_UARTCR_OFFSET, CtrlRegister);
-
+	/* Setup the Control Register with the passed argument.*/
+	XUartPsv_ProgramCtrlReg(InstancePtr, CtrlRegister);
 }
 
 /*****************************************************************************/
@@ -509,10 +566,10 @@ s32 XUartPsv_SetDataFormat(XUartPsv *InstancePtr,
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Verify the inputs specified are valid */
-	if ((FormatPtr->DataBits > ((u32)XUARTPSV_FORMAT_6_BITS)) ||
+	if ((FormatPtr->DataBits > ((u32)XUARTPSV_FORMAT_8_BITS)) ||
 		(FormatPtr->StopBits > ((u8)XUARTPSV_FORMAT_2_STOP_BIT)) ||
-		(FormatPtr->Parity > ((u32)XUARTPSV_FORMAT_NO_PARITY))) {
-		Status = XST_INVALID_PARAM;
+		(FormatPtr->Parity > ((u32)XUARTPSV_FORMAT_PARITY_MASK))) {
+		Status = (s32)XST_INVALID_PARAM;
 	} else {
 
 		/*
@@ -536,8 +593,7 @@ s32 XUartPsv_SetDataFormat(XUartPsv *InstancePtr,
 			 * out the bits that control it in the register,
 			 * then set the length in the register
 			 */
-			LineCtrlRegister &= (u32)
-					(~XUARTPSV_UARTLCR_WLEN_MASK);
+			LineCtrlRegister &= ~(u32)XUARTPSV_UARTLCR_WLEN_MASK;
 			LineCtrlRegister |= (FormatPtr->DataBits <<
 						XUARTPSV_UARTLCR_WLEN_SHIFT);
 
@@ -547,7 +603,7 @@ s32 XUartPsv_SetDataFormat(XUartPsv *InstancePtr,
 			 * register, then set the number of stop bits in the
 			 * register.
 			 */
-			LineCtrlRegister &= (u32)(~XUARTPSV_UARTLCR_STP_MASK);
+			LineCtrlRegister &= ~(u32)XUARTPSV_UARTLCR_STP_MASK;
 			LineCtrlRegister |= (((u32)FormatPtr->StopBits) <<
 						XUARTPSV_UARTLCR_STP_SHIFT);
 
@@ -557,17 +613,25 @@ s32 XUartPsv_SetDataFormat(XUartPsv *InstancePtr,
 			 * the register, the default is no parity after
 			 * clearing the register bits
 			 */
-			LineCtrlRegister &= (u32)
-					(~XUARTPSV_UARTLCR_PARITY_MASK);
-			LineCtrlRegister |= (FormatPtr->Parity <<
+			LineCtrlRegister &= ~(u32)XUARTPSV_UARTLCR_PARITY_MASK;
+			LineCtrlRegister |= ((FormatPtr->Parity &
+						XUARTPSV_FORMAT_EN_PARITY) <<
 						XUARTPSV_UARTLCR_PARITY_SHIFT);
+			/* Even/Odd parity set */
+			LineCtrlRegister |= ((FormatPtr->Parity &
+                                                XUARTPSV_FORMAT_EVEN_PARITY) <<
+                                                XUARTPSV_FORMAT_EVEN_PARITY_SHIFT);
+			/* Stick parity enable/disable */
+			LineCtrlRegister |= ((FormatPtr->Parity &
+                                                XUARTPSV_FORMAT_EN_STICK_PARITY) <<
+                                                XUARTPSV_FORMAT_EN_STICK_PARITY_SHIFT);
 
 			/* Update the Line control register */
 			XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
 					XUARTPSV_UARTLCR_OFFSET,
 					LineCtrlRegister);
 
-			Status = XST_SUCCESS;
+			Status = (s32)XST_SUCCESS;
 		}
 	}
 	return Status;

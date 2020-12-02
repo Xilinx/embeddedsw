@@ -1,29 +1,8 @@
 ##******************************************************************************
-##
-## Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
-##
-## Permission is hereby granted, free of charge, to any person obtaining a copy
-## of this software and associated documentation files (the "Software"), to deal
-## in the Software without restriction, including without limitation the rights
-## to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-## copies of the Software, and to permit persons to whom the Software is
-## furnished to do so, subject to the following conditions:
-##
-## The above copyright notice and this permission notice shall be included in
-## all copies or substantial portions of the Software.
-##
-## THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-## IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-## FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-## XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-## WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-## OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-## SOFTWARE.
-##
-## Except as contained in this notice, the name of the Xilinx shall not be used
-## in advertising or otherwise to promote the sale, use or other dealings in
-## this Software without prior written authorization from Xilinx.
-##
+# Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+#
 ###############################################################################
 #
 # MODIFICATION HISTORY:
@@ -32,12 +11,13 @@
 #                 dd/mm/yy
 # -------- ------ -------- ----------------------------------------------------
 # 1.0      gm     10/12/18 Initial release.
+# 1.1      ku     24/07/20 Added RX and TX Max Rate param
 ###############################################################################
 
 proc generate {drv_handle} {
-    xdefine_include_file $drv_handle "xparameters.h" "XHDMIPHY1" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "Transceiver" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_FRL_REFCLK_SEL" "C_RX_FRL_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK" "Tx_Buffer_Bypass" "C_Hdmi_Fast_Switch" "Transceiver_Width" "C_Err_Irq_En" "AXI_LITE_FREQ_HZ" "DRPCLK_FREQ" "C_Use_GT_CH4_HDMI" "C_SPEEDGRADE"
-    xdefine_config_file $drv_handle "xhdmiphy1_g.c" "XHdmiphy1" "DEVICE_ID" "C_BASEADDR" "TRANSCEIVER" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_FRL_REFCLK_SEL" "C_RX_FRL_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK" "Tx_Buffer_Bypass" "C_Hdmi_Fast_Switch" "Transceiver_Width" "C_Err_Irq_En" "AXI_LITE_FREQ_HZ" "DRPCLK_FREQ" "C_Use_GT_CH4_HDMI"
-    xdefine_canonical_xpars $drv_handle "xparameters.h" "HDMIPHY1" "DEVICE_ID" "C_BASEADDR" "Transceiver" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_FRL_REFCLK_SEL" "C_RX_FRL_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK" "Tx_Buffer_Bypass" "C_Hdmi_Fast_Switch" "Transceiver_Width" "C_Err_Irq_En" "AXI_LITE_FREQ_HZ" "DRPCLK_FREQ" "C_Use_GT_CH4_HDMI" "C_SPEEDGRADE"
+    xdefine_include_file $drv_handle "xparameters.h" "XHDMIPHY1" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "Transceiver" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_FRL_REFCLK_SEL" "C_RX_FRL_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK" "Tx_Buffer_Bypass" "C_Hdmi_Fast_Switch" "Transceiver_Width" "C_Err_Irq_En" "AXI_LITE_FREQ_HZ" "DRPCLK_FREQ" "C_Use_GT_CH4_HDMI" "C_SPEEDGRADE" "Rx_Max_GT_Line_Rate" "Tx_Max_GT_Line_Rate"
+    xdefine_config_file $drv_handle "xhdmiphy1_g.c" "XHdmiphy1" "DEVICE_ID" "C_BASEADDR" "TRANSCEIVER" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_FRL_REFCLK_SEL" "C_RX_FRL_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK" "Tx_Buffer_Bypass" "C_Hdmi_Fast_Switch" "Transceiver_Width" "C_Err_Irq_En" "AXI_LITE_FREQ_HZ" "DRPCLK_FREQ" "C_Use_GT_CH4_HDMI" "Rx_Max_GT_Line_Rate" "Tx_Max_GT_Line_Rate"
+    xdefine_canonical_xpars $drv_handle "xparameters.h" "HDMIPHY1" "DEVICE_ID" "C_BASEADDR" "Transceiver" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_FRL_REFCLK_SEL" "C_RX_FRL_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK" "Tx_Buffer_Bypass" "C_Hdmi_Fast_Switch" "Transceiver_Width" "C_Err_Irq_En" "AXI_LITE_FREQ_HZ" "DRPCLK_FREQ" "C_Use_GT_CH4_HDMI" "C_SPEEDGRADE" "Rx_Max_GT_Line_Rate" "Tx_Max_GT_Line_Rate"
 }
 
 # -----------------------------------------------------------------------------

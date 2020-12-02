@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xhdcp22_tx.h
-* @addtogroup hdcp22_tx_v2_3
+* @addtogroup hdcp22_tx_v3_0
 * @{
 * @details
 *
@@ -249,7 +227,7 @@ typedef enum {
 	XHDCP22_TX_TOPOLOGY_DEVICECNT,
 	XHDCP22_TX_TOPOLOGY_MAXDEVSEXCEEDED,
 	XHDCP22_TX_TOPOLOGY_MAXCASCADEEXCEEDED,
-	XHDCP22_TX_TOPOLOGY_HDCP20REPEATERDOWNSTREAM,
+	XHDCP22_TX_TOPOLOGY_HDCP2LEGACYDEVICEDOWNSTREAM,
 	XHDCP22_TX_TOPOLOGY_HDCP1DEVICEDOWNSTREAM,
 	XHDCP22_TX_TOPOLOGY_INVALID
 } XHdcp22_Tx_TopologyField;
@@ -460,8 +438,8 @@ typedef struct
 	u8  MaxCascadeExceeded;
 
 	/** Flag used to indicate topology information. When set to one,
-	    indicates presence of an HDCP2.0-compliant Repeater in the topology. */
-	u8  Hdcp20RepeaterDownstream;
+	    indicates presence of an HDCP2.1-compliant Device in the topology. */
+	u8  Hdcp2LegacyDeviceDownstream;
 
 	/** Flag used to indicate topology information. When set to one,
 	    indicates presence of an HDCP1.x-compliant device in the topology. */
@@ -623,6 +601,8 @@ void XHdcp22Tx_LoadLc128(XHdcp22_Tx *InstancePtr, const u8 *Lc128Ptr);
 int XHdcp22Tx_LoadRevocationTable(XHdcp22_Tx *InstancePtr, const u8 *SrmPtr);
 XHdcp22_Tx_RevocationList* XHdcp22Tx_GetRevocationReceiverIdList(XHdcp22_Tx *InstancePtr);
 u8 XHdcp22Tx_IsDeviceRevoked(XHdcp22_Tx *InstancePtr, u8 *RecvIdPtr);
+void XHdcp22Tx_RevokeReceiverId(XHdcp22_Tx *InstancePtr,
+				u8* ReceiverIdPtr);
 
 /* Functions for repeater downstream interface */
 XHdcp22_Tx_Topology *XHdcp22Tx_GetTopology(XHdcp22_Tx *InstancePtr);

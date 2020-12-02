@@ -1,30 +1,8 @@
 /*******************************************************************************
- *
- * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /******************************************************************************/
 /**
  *
@@ -45,15 +23,20 @@
  *            dd/mm/yy
  * ----- ---- -------- -----------------------------------------------
  * 1.0   gm   10/12/18 Initial release.
+ * 1.1   ku   17/05/20 Adding uniquification to avoid clash with vphy
  * </pre>
  *
- * @addtogroup xhdmiphy1_v1_0
+ * @addtogroup xhdmiphy1_v2_1
  * @{
 *******************************************************************************/
 
 #ifndef XHDMIPHY1_I_H_
 /* Prevent circular inclusions by using protection macros. */
 #define XHDMIPHY1_I_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /******************************* Include Files ********************************/
 
@@ -73,8 +56,8 @@ void XHdmiphy1_Ch2Ids(XHdmiphy1 *InstancePtr, XHdmiphy1_ChannelId ChId,
 u32 XHdmiphy1_DirReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir);
 #if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
-XHdmiphy1_SysClkDataSelType Pll2SysClkData(XHdmiphy1_PllType PllSelect);
-XHdmiphy1_SysClkOutSelType Pll2SysClkOut(XHdmiphy1_PllType PllSelect);
+XHdmiphy1_SysClkDataSelType XHdmiphy1_Pll2SysClkData(XHdmiphy1_PllType PllSelect);
+XHdmiphy1_SysClkOutSelType XHdmiphy1_Pll2SysClkOut(XHdmiphy1_PllType PllSelect);
 u32 XHdmiphy1_PllCalculator(XHdmiphy1 *InstancePtr, u8 QuadId,
 		XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir,
 		u32 PllClkInFreqHz);
@@ -117,8 +100,16 @@ u32 XHdmiphy1_CfgCpllCalPeriodandTol(XHdmiphy1 *InstancePtr, u8 QuadId,
 #else
 void XHdmiphy1_SetGtLineRateCfg(XHdmiphy1 *InstancePtr, u8 QuadId,
 		XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir);
+u16 XHdmiphy1_GetGtLineRateCfg(XHdmiphy1 *InstancePtr, u8 QuadId,
+		XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir);
 void XHdmiphy1_SetGpi(XHdmiphy1 *InstancePtr, u8 QuadId,
 		XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir, u8 Set);
+u8 XHdmiphy1_GetGpo(XHdmiphy1 *InstancePtr, u8 QuadId,
+		XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir);
+void XHdmiphy1_GtMstReset(XHdmiphy1 *InstancePtr, u8 QuadId,
+		XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir, u8 Reset);
+u8 XHdmiphy1_CheckLineRateCfg(XHdmiphy1 *InstancePtr, u8 QuadId,
+		XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir);
 #endif
 
 /* xhdmiphy1.c: GT/MMCM DRP access. */
@@ -162,6 +153,10 @@ void XHdmiphy1_HdmiRxTimerTimeoutHandler(XHdmiphy1 *InstancePtr);
 void XHdmiphy1_ErrorHandler(XHdmiphy1 *InstancePtr);
 
 /******************* Macros (Inline Functions) Definitions ********************/
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XHDMIPHY1_I_H_ */
 /** @} */

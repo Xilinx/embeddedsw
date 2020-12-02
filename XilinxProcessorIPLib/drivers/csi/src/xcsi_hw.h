@@ -1,34 +1,12 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 * @file xcsi_hw.h
-* @addtogroup csi_v1_1
+* @addtogroup csi_v1_5
 * @{
 *
 * Hardware register & masks definition file. It defines the register interface.
@@ -41,6 +19,7 @@
 * 1.0 vsa 06/15/15 Initial release
 * 1.1 sss 08/17/16 Added 64 bit support
 * 1.2 vsa 03/02/17 Add Word Count corruption interrupt bit support
+* 1.5 vsa 08/10/20 Add YUV 420 8bit support
 * </pre>
 *
 *****************************************************************************/
@@ -238,6 +217,8 @@ extern "C" {
  */
 #define XCSI_ISR_FR_MASK	0x80000000	/**< Frame Received */
 #define XCSI_ISR_VCXFE_MASK	0x40000000	/**< VCX Frame Error */
+#define XCSI_ISR_SKEWCALCHS_MASK	0x20000000	/**< Skewcalhs Error */
+#define XCSI_ISR_YUV420_MASK	0x10000000	/**< YUV420 Word count Error */
 #define XCSI_ISR_WC_MASK	0x00400000	/**< Word count corruption */
 #define XCSI_ISR_ILC_MASK	0x00200000	/**< Incorrect Lanes
 						  *  Configured */
@@ -279,13 +260,17 @@ extern "C" {
 							  *  on Virtual
 							  *  Channel 0 */
 
-#define XCSI_ISR_ALLINTR_MASK		0xC07FFFFF	/**< All interrupts
+#define XCSI_ISR_ALLINTR_MASK		0xF07FFFFF	/**< All interrupts
 							  *  mask */
 
 #define XCSI_ISR_FR_SHIFT	31	/**< Shift bits for
 					  *  Frame received interrupt */
 #define XCSI_ISR_VCXFE_SHIFT	30	/**< Shift bits for
 					  *  VCx Frame Error interrupt */
+#define XCSI_ISR_SKEWCALCHS_SHIFT	29	/**< Shift bits for
+					  *  skeecalchs Error interrupt */
+#define XCSI_ISR_YUV420_SHIFT	28	/**< Shift bits for
+					  *  YUV420 word count interrupt */
 #define XCSI_ISR_WC_SHIFT	22	/**< Shift bits for Word Count
 					  *  corruption */
 #define XCSI_ISR_ILC_SHIFT	21	/**< Shift bits for Incorrect Lanes
@@ -463,7 +448,9 @@ extern "C" {
 
 #define XCSI_INTR_VCXFE_MASK		(XCSI_ISR_VCXFE_MASK)
 
-#define XCSI_INTR_ERR_MASK 	(XCSI_ISR_WC_MASK	|\
+#define XCSI_INTR_ERR_MASK 	(XCSI_ISR_SKEWCALCHS_MASK |\
+				 XCSI_ISR_YUV420_MASK	|\
+				 XCSI_ISR_WC_MASK	|\
 				 XCSI_ISR_ILC_MASK 	|\
 				 XCSI_ISR_SLBF_MASK 	|\
 				 XCSI_ISR_STOP_MASK)
@@ -477,6 +464,8 @@ extern "C" {
  */
 #define XCSI_IER_FR_MASK	0x80000000	/**< Frame Received */
 #define XCSI_IER_VCXFE_MASK	0x40000000	/**< VCX Frame Error */
+#define XCSI_IER_SKEWCALHS_MASK	0x20000000	/**< Skewcalchs State */
+#define XCSI_IER_YUV420_MASK	0x10000000	/**< YUV420 Word Count Error */
 #define XCSI_IER_WC_MASK	0x00400000	/**< Word Count Corruption */
 #define XCSI_IER_ILC_MASK	0x00200000	/**< Incorrect Lanes
 						  *  Configured */
@@ -517,10 +506,12 @@ extern "C" {
 							  *  Virtual
 							  *  Channel 0 */
 
-#define XCSI_IER_ALLINTR_MASK		0xC07FFFFF /**< All interrupts mask */
+#define XCSI_IER_ALLINTR_MASK		0xF07FFFFF /**< All interrupts mask */
 
 #define XCSI_IER_FR_SHIFT	31	/**< Shift bits for Frame received
 					  *  interrupt*/
+#define XCSI_IER_SKEWCALHS_SHIFT	29	/**< Shift bits for skewcalhs status */
+#define XCSI_IER_YUV420_SHIFT	28	/**< Shift bits for YUV 420 Word Count error */
 #define XCSI_IER_WC_SHIFT	22	/**< Shift bits for Word count
 					 *  corruption */
 #define XCSI_IER_ILC_SHIFT	21	/**< Shift bits for Incorrect Lanes
@@ -608,6 +599,7 @@ extern "C" {
  */
 
 #define XCSI_LXINFR_STOP_MASK	0x00000020	/**< Stop State on clock lane */
+#define XCSI_LXINFR_SKEWCALHS_MASK	0x00000004	/**< SkewcalHs State on clock lane */
 #define XCSI_LXINFR_SOTERR_MASK		0x00000002	/**< Detection of
 							  *  ErrSoTHS */
 #define XCSI_LXINFR_SOTSYNCERR_MASK	0x00000001	/**< Detection of
@@ -615,6 +607,8 @@ extern "C" {
 
 #define XCSI_LXINFR_STOP_SHIFT	5	/**< Bit Shift for Data Lane
 					  *  Stop State */
+#define XCSI_LXINFR_SKEWCALHS_SHIFT	2	/**< Bit Shift for Data Lane
+					  *  SkewCalHs State */
 #define XCSI_LXINFR_SOTERR_SHIFT	1	/**< Bit Shift for Start of
 						  *  Transmission Error */
 #define XCSI_LXINFR_SOTSYNCERR_SHIFT	0	/**< Bit Shift for Start of

@@ -1,28 +1,8 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  */
+
 #include "xpfw_config.h"
 #ifdef ENABLE_PM
 
@@ -76,7 +56,7 @@ static u32 PmGetMaxCapabilities(const PmSlave* const slave)
  * @slave   Slave pointer whose capabilities/states should be checked
  * @cap     Check for these capabilities
  *
- * @return  Status wheter slave has a state with given capabilities
+ * @return  Status whether slave has a state with given capabilities
  *          - XST_SUCCESS if slave has state with given capabilities
  *          - XST_NO_FEATURE if slave does not have such state
  */
@@ -321,7 +301,7 @@ static u32 PmGetLatencyFromState(const PmSlave* const slave,
 			  const PmStateId state)
 {
 	u32 i, latency = 0U;
-	PmStateId highestState = slave->slvFsm->statesCnt - 1;
+	PmStateId highestState = (PmStateId)slave->slvFsm->statesCnt - 1U;
 
 	for (i = 0U; i < slave->slvFsm->transCnt; i++) {
 		if ((state == slave->slvFsm->trans[i].fromState) &&
@@ -361,14 +341,14 @@ static s32 PmConstrainStateByLatency(const PmSlave* const slave,
 			/* State candidate has no required capabilities */
 			continue;
 		}
-		wkupLat = PmGetLatencyFromState(slave, i);
+		wkupLat = PmGetLatencyFromState(slave, (PmStateId)i);
 		if (wkupLat > minLatency) {
 			/* State does not satisfy latency requirement */
 			continue;
 		}
 
 		status = XST_SUCCESS;
-		*state = i;
+		*state = (PmStateId)i;
 		break;
 	}
 
@@ -592,7 +572,7 @@ s32 PmSlaveSetConfig(PmSlave* const slave, const u32 policy, const u32 perms)
 			status = XST_FAILURE;
 			goto done;
 		}
-		req->currReq = caps;
+		req->currReq = (u8)caps;
 	}
 
 done:
@@ -671,7 +651,7 @@ static s32 PmSlaveForceDown(PmNode* const node)
 	status = PmUpdateSlave(slave);
 
 	if ((NULL != slave->class) && (NULL != slave->class->forceDown)) {
-		slave->class->forceDown(slave);
+		status = slave->class->forceDown(slave);
 	}
 
 	return status;
@@ -704,7 +684,7 @@ static s32 PmSlaveInit(PmNode* const node)
 	}
 
 	if ((NULL != slave->class) && (NULL != slave->class->init)) {
-		slave->class->init(slave);
+		status = slave->class->init(slave);
 	}
 
 done:
@@ -838,7 +818,10 @@ void PmResetSlaveStates(void)
 
 	for (i = 0U; i < ARRAY_SIZE(pmNodeSlaveBucket); i++) {
 		slave = (PmSlave*)pmNodeSlaveBucket[i]->derived;
-		(void)PmSlaveChangeState(slave, slave->slvFsm->statesCnt - 1U);
+		if (XST_SUCCESS != PmSlaveChangeState(slave,
+						slave->slvFsm->statesCnt - 1U)) {
+			PmWarn("Error in change state for %s\r\n", slave->node.name);
+		}
 	}
 }
 

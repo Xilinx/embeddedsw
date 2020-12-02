@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 - 2019 Xilinx, Inc.
+ * Copyright (C) 2017 - 2020 Xilinx, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -35,25 +35,14 @@ int platform_init_fs()
 	static FIL fil;		/* File object */
 	FRESULT Res;
 	TCHAR *Path = "0:/";
-	BYTE work[FF_MAX_SS];
 
 	/*
 	 * Register volume work area, initialize device
 	 */
 	Res = f_mount(&fatfs, Path, 1);
 	if (Res != FR_OK) {
-		xil_printf("Failed to mount FAT FS. Formatting...\r\n");
-		Res = f_mkfs(Path, FM_SFD, 0, work, sizeof work);
-		if (Res != FR_OK) {
-			xil_printf("Failed to format FAT FS\r\n");
-			return -1;
-		}
-
-		Res = f_mount(&fatfs, Path, 1);
-		if (Res != FR_OK) {
-			xil_printf("Failed to mount FAT FS after format\r\n");
-			return -1;
-		}
+		xil_printf("Failed to mount FAT FS \r\n");
+		return -1;
 	}
 
 	Res = f_open(&fil, "index.htm", FA_READ);

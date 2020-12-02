@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2014 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -42,6 +20,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 1.0   hk  27/01/14 First release
+*       kpt 08/17/20 Fixed Misra-C and Coverity Warnings
 *
 *</pre>
 *
@@ -49,6 +28,13 @@
 
 /***************************** Include Files *********************************/
 
+#include "xparameters.h"
+#include "xil_types.h"
+#include "xil_assert.h"
+#include "xil_io.h"
+#include "xstatus.h"
+#include "xil_printf.h"
+#include "xilrsa.h"
 #include "rsa_auth_app.h"
 #include "xil_cache.h"
 
@@ -60,9 +46,9 @@
 
 /************************** Function Prototypes ******************************/
 
-u32 AuthenticatePartition(u8 *Buffer, u32 Size, u8 *CertStart);
-void SetPpk(u8 *CertStart);
-u32 RecreatePaddingAndCheck(u8 *signature, u8 *hash);
+static int AuthenticatePartition(const u8 *Buffer, u32 Size, u8 *CertStart);
+static void SetPpk(u8 *CertStart);
+static int RecreatePaddingAndCheck(const u8 *Signature, const u8 *Hash);
 
 /************************** Variable Definitions *****************************/
 
@@ -78,14 +64,15 @@ static u32 PpkExp;
 *
 * @param	None
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+* @return	XST_SUCCESS if authentication was successful.
+*           XST_FAILURE if authentication failed
 *
 * @note		None
 *
 ******************************************************************************/
 int main(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	Xil_DCacheFlush();
 
@@ -94,12 +81,12 @@ int main(void)
 	Status = AuthenticateApp();
 	if (Status != XST_SUCCESS) {
 		xil_printf("RSA authentication of SW application failed\n\r");
-		return XST_FAILURE;
+		goto END;
 	}
 
 	xil_printf("Successfully authenticated SW application \n\r");
-	return XST_SUCCESS;
-
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -109,15 +96,14 @@ int main(void)
 *
 * @param	None
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+* @return	XST_SUCCESS if authentication was successful.
+*           XST_FAILURE if authentication failed
 *
 * @note		None
 *
 ******************************************************************************/
-int AuthenticateApp(void)
+static int AuthenticateApp(void)
 {
-	int Status;
-
 	/*
 	 * Set the Ppk
 	 */
@@ -126,13 +112,8 @@ int AuthenticateApp(void)
 	/*
 	 * Authenticate partition containing the application.
 	 */
-	Status = AuthenticatePartition((u8 *)APPLICATION_START_ADDR,
+	return AuthenticatePartition((u8 *)APPLICATION_START_ADDR,
 			PARTITION_SIZE, (u8 *)CERTIFICATE_START_ADDR);
-	if (Status != XST_SUCCESS) {
-		return Status;
-	}
-
-	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -140,15 +121,16 @@ int AuthenticateApp(void)
 *
 * This function is used to set ppk pointer to ppk in OCM
 *
-* @param	None
+* @param	CertStart Pointer to buffer which holds the starting address of
+*                     authentication certificate provided by user
 *
-* @return
+* @return   None
 *
 * @note		None
 *
 ******************************************************************************/
 
-void SetPpk(u8 *CertStart)
+static void SetPpk(u8 *CertStart)
 {
 	u8 *PpkPtr;
 
@@ -184,24 +166,27 @@ void SetPpk(u8 *CertStart)
 *
 * This function authenticates the partition signature
 *
-* @param	Partition header pointer
+* @param	Buffer    Pointer which holds the address of the partition
+*                     data which needs to be authenticated
+*           Size      size of the partition
+*           CertStart Pointer to buffer which holds the starting address of
+*                     authentication certificate provided by user
 *
-* @return
-*		- XST_SUCCESS if Authentication passed
-*		- XST_FAILURE if Authentication failed
+* @return   XST_SUCCESS if Authentication passed
+*		    XST_FAILURE if Authentication failed
 *
 * @note		None
 *
 ******************************************************************************/
-u32 AuthenticatePartition(u8 *Buffer, u32 Size, u8 *CertStart)
+static int AuthenticatePartition(const u8 *Buffer, u32 Size, u8 *CertStart)
 {
-	u8 DecryptSignature[256];
-	u8 HashSignature[32];
+	int Status = XST_FAILURE;
+	u8 DecryptSignature[RSA_PARTITION_SIGNATURE_SIZE];
+	u8 HashSignature[HASHLEN];
 	u8 *SpkModular;
 	u8 *SpkModularEx;
 	u32 SpkExp;
 	u8 *SignaturePtr;
-	u32 Status;
 
 	/*
 	 * Point to Authentication Certificate
@@ -253,7 +238,7 @@ u32 AuthenticatePartition(u8 *Buffer, u32 Size, u8 *CertStart)
 
 	Status = RecreatePaddingAndCheck(DecryptSignature, HashSignature);
 	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+		goto END;
 	}
 	SignaturePtr += RSA_SPK_SIGNATURE_SIZE;
 
@@ -270,15 +255,12 @@ u32 AuthenticatePartition(u8 *Buffer, u32 Size, u8 *CertStart)
 	 * Partition Authentication
 	 * Calculate Hash Signature
 	 */
-	sha_256((u8 *)Buffer, (Size - RSA_PARTITION_SIGNATURE_SIZE),
+	sha_256((const u8 *)Buffer, (Size - RSA_PARTITION_SIGNATURE_SIZE),
 			HashSignature);
 
 	Status = RecreatePaddingAndCheck(DecryptSignature, HashSignature);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-	return XST_SUCCESS;
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -286,52 +268,63 @@ u32 AuthenticatePartition(u8 *Buffer, u32 Size, u8 *CertStart)
 *
 * This function recreates and checks the signature.
 *
-* @param	Partition signature
-* @param	Partition hash value which includes boot header, partition data
-* @return
-*		- XST_SUCCESS if check passed
-*		- XST_FAILURE if check failed
+* @param	Signature Partition signature
+* @param	Hash      Partition hash value which includes boot header,
+*                     partition data
+*
+* @return   XST_SUCCESS signature verification passed
+*		    XST_FAILURE signature verification failed
 *
 * @note		None
 *
 ******************************************************************************/
-u32 RecreatePaddingAndCheck(u8 *signature, u8 *hash)
+static int RecreatePaddingAndCheck(const u8 *Signature, const u8 *Hash)
 {
-	u8 T_padding[] = {0x30, 0x31, 0x30, 0x0D, 0x06, 0x09, 0x60, 0x86, 0x48,
-		0x01, 0x65, 0x03, 0x04, 0x02, 0x01, 0x05, 0x00, 0x04, 0x20 };
-    u8 * pad_ptr = signature + 256;
-    u32 pad = 256 - 3 - 19 - 32;
-    u32 ii;
+	int Status = XST_FAILURE;
+	const u8 T_padding[] = {0x30, 0x31, 0x30, 0x0D, 0x06, 0x09, 0x60, 0x86,
+							0x48, 0x01, 0x65, 0x03, 0x04, 0x02, 0x01, 0x05,
+							0x00, 0x04, 0x20 };
+    const u8 * PadPtr = Signature + RSA_PARTITION_SIGNATURE_SIZE;
+    u32 PadLen;
+    u32 Idx;
 
+	PadLen = RSA_PARTITION_SIGNATURE_SIZE - RSA_BYTE_PAD_LENGTH -
+				RSA_T_PAD_LENGTH - HASHLEN;
     /*
     * Re-Create PKCS#1v1.5 Padding
     * MSB  ----------------------------------------------------LSB
     * 0x0 || 0x1 || 0xFF(for 202 bytes) || 0x0 || T_padding || SHA256 Hash
     */
-    if (*--pad_ptr != 0x00 || *--pad_ptr != 0x01) {
-    	return XST_FAILURE;
+    if (*--PadPtr != 0x00U) {
+		goto END;
     }
 
-    for (ii = 0; ii < pad; ii++) {
-    	if (*--pad_ptr != 0xFF) {
-        	return XST_FAILURE;
+	if (*--PadPtr != 0x01U) {
+		goto END;
+	}
+
+    for (Idx = 0U; Idx < PadLen; Idx++) {
+		if (*--PadPtr != 0xFFU) {
+			goto END;
         }
     }
 
-    if (*--pad_ptr != 0x00) {
-       	return XST_FAILURE;
+    if (*--PadPtr != 0x00U) {
+		goto END;
     }
 
-    for (ii = 0; ii < sizeof(T_padding); ii++) {
-    	if (*--pad_ptr != T_padding[ii]) {
-        	return XST_FAILURE;
+    for (Idx = 0U; Idx < sizeof(T_padding); Idx++) {
+		if (*--PadPtr != T_padding[Idx]) {
+			goto END;
         }
     }
 
-    for (ii = 0; ii < 32; ii++) {
-       	if (*--pad_ptr != hash[ii])
-       		return XST_FAILURE;
+    for (Idx = 0U; Idx < HASHLEN; Idx++) {
+		if (*--PadPtr != Hash[Idx]) {
+			goto END;
+		}
     }
-
-	return XST_SUCCESS;
+	Status = XST_SUCCESS;
+END:
+	return Status;
 }

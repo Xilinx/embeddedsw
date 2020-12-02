@@ -1,28 +1,8 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  */
+
 
 /*********************************************************************
  * All functions, data and definitions needed for
@@ -39,13 +19,6 @@ extern "C" {
 #include "pm_defs.h"
 #include "pm_common.h"
 #include "pm_node.h"
-
-/* Forward declarations */
-typedef struct PmMaster PmMaster;
-typedef struct PmRequirement PmRequirement;
-typedef struct PmSlave PmSlave;
-typedef struct PmSlaveClass PmSlaveClass;
-typedef struct PmWakeEvent PmWakeEvent;
 
 /*********************************************************************
  * Macros
@@ -78,10 +51,10 @@ typedef struct PmWakeEventClass {
  * @derived	Pointer to the derived structure
  * @class	Pointer to the class specific to the derived structure
  */
-typedef struct PmWakeEvent {
+struct PmWakeEvent {
 	void* const derived;
 	PmWakeEventClass* const class;
-} PmWakeEvent;
+};
 
 /**
  * PmStateTran - Transition for a state in finite state machine
@@ -104,7 +77,7 @@ typedef struct {
  * @statesCnt   Number of states in state array
  */
 typedef struct {
-	const u32* const states;
+	const u8* const states;
 	s32 (*const enterState)(PmSlave* const slave, const PmStateId nextState);
 	const PmStateTran* const trans;
 	const u8 statesCnt;
@@ -122,24 +95,24 @@ typedef struct {
  * @flags       Slave's flags (bit 0: whether the slave is shareable (1) or
  *              exclusive (0) resource)
  */
-typedef struct PmSlave {
+struct PmSlave {
 	PmNode node;
 	PmSlaveClass* const class;
 	PmRequirement* reqs;
 	PmWakeEvent* const wake;
 	const PmSlaveFsm* slvFsm;
 	u8 flags;
-} PmSlave;
+};
 
 /**
  * PmSlaveClass - Slave class to model properties of PmSlave derived objects
  * @init	Initialize the slave
  * @forceDown	Force down specific to the slave
  */
-typedef struct PmSlaveClass {
+struct PmSlaveClass {
 	s32 (*const init)(PmSlave* const slave);
 	s32 (*const forceDown)(PmSlave* const slave);
-} PmSlaveClass;
+};
 
 /*********************************************************************
  * Global data declarations

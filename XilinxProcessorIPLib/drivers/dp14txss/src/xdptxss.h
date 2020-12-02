@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xdptxss.h
-* @addtogroup dptxss_v5_1
+* @addtogroup dptxss_v6_4
 * @{
 * @details
 *
@@ -120,6 +98,10 @@
 *                   and XDpTxSs_UsrHpdEventData
 * 5.0  jb  02/21/19 Added HDCP22 support.
 * 					Made the Timer counter available for both HDCP1x and 22.
+* 6.4  rg  09/01/20 Added handler type as enum for extended packet transmit
+*                   done interrupt.
+* 6.4  rg  09/26/20 Added support for YUV420 color format.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -193,9 +175,20 @@ typedef enum {
 	XDPTXSS_DRV_HANDLER_DP_HPD_EVENT,	/**< Driver's internal HPD
 						  *  event interrupt type for
 						  *  DisplayPort core */
-	XDPTXSS_DRV_HANDLER_DP_HPD_PULSE	/**< Driver's HPD pulse
+	XDPTXSS_DRV_HANDLER_DP_HPD_PULSE,	/**< Driver's HPD pulse
 						  *  interrupt type for
 						  *  DisplayPort core */
+	XDPTXSS_HANDLER_DP_EXT_PKT_EVENT,	/**< Driver's extended
+						  *  packet transmit done
+						  *  interrupt type for
+						  *  DisplayPort core */
+	XDPTXSS_DRV_HANDLER_DP_EXT_PKT_EVENT,	/**< Driver's extended
+						  *	 packet transmit done
+						  *	 interrupt type for
+						  *	 DisplayPort core */
+	XDPTXSS_HANDLER_DP_VSYNC	/**< A Vsync interrupt
+						  *  type for DisplayPort
+						  *  core */
 } XDpTxSs_HandlerType;
 
 /**
@@ -451,6 +444,8 @@ void XDpTxSs_SetUserPixelWidth(XDpTxSs *InstancePtr, u8 UserPixelWidth,
 
 #if (XPAR_DPTXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
 /* Optional HDCP related functions */
+u32 XDpTxSs_Authenticate(XDpTxSs *InstancePtr);
+u32 XDpTxSs_IsAuthenticated(XDpTxSs *InstancePtr);
 u32 XDpTxSs_HdcpEnable(XDpTxSs *InstancePtr);
 u32 XDpTxSs_HdcpDisable(XDpTxSs *InstancePtr);
 int XDpTxSs_HdcpSetCapability(XDpTxSs *InstancePtr,
@@ -464,8 +459,6 @@ u32 XDpTxSs_DisableEncryption(XDpTxSs *InstancePtr, u64 StreamMap);
 #if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 u32 XDpTxSs_Poll(XDpTxSs *InstancePtr);
 u32 XDpTxSs_IsHdcpCapable(XDpTxSs *InstancePtr);
-u32 XDpTxSs_Authenticate(XDpTxSs *InstancePtr);
-u32 XDpTxSs_IsAuthenticated(XDpTxSs *InstancePtr);
 u64 XDpTxSs_GetEncryption(XDpTxSs *InstancePtr);
 u32 XDpTxSs_SetPhysicalState(XDpTxSs *InstancePtr, u32 PhyState);
 u32 XDpTxSs_SetLane(XDpTxSs *InstancePtr, u32 Lane);
@@ -503,10 +496,14 @@ u32 XDpTxSs_SetCallBack(XDpTxSs *InstancePtr, u32 HandlerType,
 			void *CallbackFunc, void *CallbackRef);
 void XDpTxSs_SetUserTimerHandler(XDpTxSs *InstancePtr,
 		XDpTxSs_TimerHandler CallbackFunc, void *CallbackRef);
+u32 XDpTxSs_CheckVscColorimetrySupport(XDpTxSs *InstancePtr);
+u32 XDpTxSs_SetVscExtendedPacket(XDpTxSs *InstancePtr, XDp_TxVscExtPacket VscPkt);
+void XDpTxss_EnableVscColorimetry(XDpTxSs *InstancePtr, u8 Enable);
 
 /* DpTxSs Interrupt Related Internal Functions */
 void XDpTxSs_HpdEventProcess(void *InstancePtr);
 void XDpTxSs_HpdPulseProcess(void *InstancePtr);
+void XDpTxSs_WriteVscExtPktProcess(void * InstancePtr);
 
 /******************* Macros (Inline Functions) Definitions *******************/
 
@@ -561,6 +558,24 @@ void XDpTxSs_HpdPulseProcess(void *InstancePtr);
  ******************************************************************************/
 #define XDpTxSs_Mst_AudioDisable(InstancePtr) \
         XDp_TxAudioDis((InstancePtr)->DpPtr)
+
+/*****************************************************************************/
+/**
+ *
+ * This function macro sends audio infoframe packets on the main link.
+ *
+ * @param        InstancePtr is a pointer to the XDpTxSs core instance.
+ * @param		xilInfoFrame is a pointer to the InfoFrame buffer.
+ *
+ * @return       None.
+ *
+ * @note         C-style signature:
+ *               void XDpTxSs_SendAudioInfoFrame(XDpTxSs *InstancePtr,
+ *               			XDp_TxAudioInfoFrame *xilInfoFrame)
+ *
+ ******************************************************************************/
+#define XDpTxSs_SendAudioInfoFrame(InstancePtr, xilInfoFrame) \
+	XDp_TxSendAudioInfoFrame((InstancePtr)->DpPtr, xilInfoFrame)
 
 #ifdef __cplusplus
 }

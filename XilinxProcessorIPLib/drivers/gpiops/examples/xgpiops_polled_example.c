@@ -1,30 +1,6 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
-
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
 /*****************************************************************************/
 /**
@@ -41,11 +17,11 @@
 * 23(DS50 on zcu102 board).
 * For Zynq Platform, Input Pins are 12(sw14 on zc702 board), 14(sw13 on
 * zc702 board) and Output Pin is 10(DS23 on zc702 board).
-*
-* In versal Platform we have two devices(PMC GPIO and PS GPIO),PMC contain 4
-* banks and 116 pins,PS GPIO  contain 2 banks and 58 pins.
-* This example can work for both PS and PMC GPIO based on the value of GPIO_DEVICE_ID
-* The default value of 0 makes this example work for PMC GPIO controller.
+* In Versal Platform we have two GPIOPS instances(PMC GPIO and PS GPIO),PMC GPIO
+* contain 4 banks and 116 pins, PS GPIO contains 2 banks and 58 pins.
+* Driver supports both PS GPIO and PMC GPIO.
+* For accessing PMC GPIOs application need to configure "GPIO.PmcGpio =1" else
+* it works for PS GPIO.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -58,7 +34,9 @@
 *		      Updated the example to use only pin APIs.
 * 3.3   ms   04/17/17 Added notes about input and output pin description
 *                     for zcu102 and zc702 boards.
-* 3.5   sne  04/26/19 Added versal support.
+* 3.7	sne  12/04/19 Reverted versal example support.
+* 3.8	sne  09/17/20 Added description for Versal PS and PMC GPIO pins.
+*
 * </pre>
 *
 *****************************************************************************/
@@ -74,14 +52,9 @@
 /************************** Constant Definitions ****************************/
 
 /*
- * The followig constants map to the XPAR parameters created in the
+ * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place for ZYNQ & ZYNQMP.
- *
- * For Versal users can pass GPIO_DEVICE_ID value as a compile time argument
- *  to make the same example work for PS or PMC.
- * -DGPIO_DEVICE_ID=0 ensures that the example compiles for PMC GPIO.
- * Similarly -DGPIO_DEVICE_ID=1 ensures that the example compiles for PS GPIO.
  */
 
 #ifndef GPIO_DEVICE_ID
@@ -176,13 +149,6 @@ int GpioPolledExample(u16 DeviceId, u32 *DataRead)
 
 	/* Initialize the GPIO driver. */
 	ConfigPtr = XGpioPs_LookupConfig(GPIO_DEVICE_ID);
-#ifdef versal
-	if(ConfigPtr->DeviceId == 0x0U)
-	{
-		/* Accessing PMC GPIO by setting 1 value*/
-		Gpio.PmcGpio=1;
-	}
-#endif
 	Type_of_board = XGetPlatform_Info();
 	switch (Type_of_board) {
 		case XPLAT_ZYNQ_ULTRA_MP:
@@ -194,20 +160,6 @@ int GpioPolledExample(u16 DeviceId, u32 *DataRead)
 			Input_Pin = 14;
 			Output_Pin = 10;
 			break;
-
-#ifdef versal
-		case XPLAT_versal:
-			if(Gpio.PmcGpio == 0x1U) {
-				Input_Pin = 52;
-				Output_Pin = 84;
-				break;
-			}
-			else {
-				Input_Pin = 26;
-				Output_Pin = 41;
-				break;
-			}
-#endif
 	}
 
 	Status = XGpioPs_CfgInitialize(&Gpio, ConfigPtr,

@@ -5,6 +5,8 @@ var files =
     [ "xrfdc_clk.c", "xrfdc__clk_8c.html", null ],
     [ "xrfdc_clock.c", "xrfdc__clock_8c.html", "xrfdc__clock_8c" ],
     [ "xrfdc_g.c", "xrfdc__g_8c.html", null ],
+    [ "xrfdc_gen2_or_below_clocked_example.c", "xrfdc__gen2__or__below__clocked__example_8c.html", "xrfdc__gen2__or__below__clocked__example_8c" ],
+    [ "xrfdc_gen3_clocked_example.c", "xrfdc__gen3__clocked__example_8c.html", "xrfdc__gen3__clocked__example_8c" ],
     [ "xrfdc_hw.h", "xrfdc__hw_8h.html", "xrfdc__hw_8h" ],
     [ "xrfdc_intr.c", "xrfdc__intr_8c.html", "xrfdc__intr_8c" ],
     [ "xrfdc_intr_example.c", "xrfdc__intr__example_8c.html", "xrfdc__intr__example_8c" ],

@@ -1,32 +1,9 @@
 
 /******************************************************************************
-*
-* Copyright (C) 2015 - 18 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
-*
+* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -42,7 +19,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   ssc  01/20/16 Initial release
 * 2.0   bv   12/05/16 Made compliance to MISRAC 2012 guidelines.
-*       vns  02/17/17 Added API prototype to compare hashs
+*       vns  02/17/17 Added API prototype to compare hashes
 * 3.0   vns  01/23/18 Added prototype for XFsbl_Sha3PadSelect()
 *       vns  03/07/18 Added PPK/SPK offsets w.r.t to AC, modified
 *                     prototype of XFsbl_CompareHashs()
@@ -62,8 +39,8 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xfsbl_hw.h"
 #include "xfsbl_main.h"
-#ifdef XFSBL_SECURE
 #include "xsecure_sha.h"
+#ifdef XFSBL_SECURE
 #include "xsecure_rsa.h"
 #include "xsecure_aes.h"
 #endif
@@ -119,17 +96,16 @@ extern "C" {
 * CSU RSA Register Map
 */
 
-
+void XFsbl_ShaDigest(const u8 *In, const u32 Size, u8 *Out, u32 HashLen);
 #ifdef XFSBL_SECURE
 u32 XFsbl_Authentication(const XFsblPs * FsblInstancePtr, u64 PartitionOffset,
 				u32 PartitionLen, u64 AcOffset,
 				u32 PartitionNum);
-void XFsbl_ShaDigest(const u8 *In, const u32 Size, u8 *Out, u32 HashLen);
 void XFsbl_ShaStart(void * Ctx, u32 HashLen);
 void XFsbl_ShaUpdate(void * Ctx, u8 * Data, u32 Size, u32 HashLen);
 void XFsbl_ShaFinish(void * Ctx, u8 * Hash, u32 HashLen);
 u32 XFsbl_CompareHashs(u8 *Hash1, u8 *Hash2, u32 HashLen);
-u32 XFsbl_Sha3PadSelect(u8 PadType);
+u32 XFsbl_Sha3PadSelect(XSecure_Sha3PadType PadType);
 u32 XFsbl_BhAuthentication(const XFsblPs * FsblInstancePtr, u8 *Data,
 					u64 AcOffset, u8 IsEfuseRsa);
 #endif
@@ -145,7 +121,7 @@ u32 XFsbl_ShaUpdate_DdrLess(const XFsblPs *FsblInstancePtr, void *Ctx,
 extern XCsuDma CsuDma;  /* CSU DMA instance */
 
 #ifdef __cplusplus
-extern "C" }
+}
 #endif
 
 #endif /** XFSBL_AUTHENTICATION_H */

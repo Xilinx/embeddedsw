@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2013 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -68,6 +46,8 @@
 * 6.7   psl     03/20/19 Added BBRAM jtag server init function.
 *       psl     03/15/19 Moved XilSKey_Bbram_JTAGServerInit function from
 *                        example to library.
+* 6.8   psl     05/21/19 Initialized SystemInitDone ,to indicate
+*                        XilSKey_Bbram_JTAGServerInit status.
 ****************************************************************************/
 /***************************** Include Files *********************************/
 #include "stdio.h"
@@ -137,6 +117,7 @@ int XilSKey_Bbram_InitData(XilSKey_Bbram *BbramInstancePtr)
 	BbramInstancePtr->JtagMioMuxSel 		=	XSK_BBRAM_MIO_JTAG_MUX_SELECT;
 	BbramInstancePtr->JtagMuxSelLineDefVal	=  XSK_BBRAM_MIO_MUX_SEL_DEFAULT_VAL;
 
+	BbramInstancePtr->SystemInitDone = 0;
 	/*
 	 * Convert key given in xilskey_input.h and
 	 * assign it to the variable in instance.

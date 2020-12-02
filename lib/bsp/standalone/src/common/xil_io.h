@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2014 - 2016 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -45,6 +23,13 @@
 * 5.00 	pkp  	 05/29/14 First release
 * 6.00  mus      08/19/16 Remove checking of __LITTLE_ENDIAN__ flag for
 *                         ARM processors
+* 7.20  har      01/03/20 Added Xil_SecureOut32 for avoiding blindwrite for
+*                         CR-1049218
+* 7.30  kpt      09/21/20 Moved Xil_EndianSwap16 and Xil_EndianSwap32 to
+*                         xil_io.h and made them as static inline
+*       am       10/13/20 Changed the return type of Xil_SecureOut32 function
+*                         from u32 to int
+*
 * </pre>
 ******************************************************************************/
 
@@ -59,6 +44,7 @@ extern "C" {
 
 #include "xil_types.h"
 #include "xil_printf.h"
+#include "xstatus.h"
 
 #if defined (__MICROBLAZE__)
 #include "mb_interface.h"
@@ -67,8 +53,6 @@ extern "C" {
 #endif
 
 /************************** Function Prototypes ******************************/
-u16 Xil_EndianSwap16(u16 Data);
-u32 Xil_EndianSwap32(u32 Data);
 #ifdef ENABLE_SAFETY
 extern u32 XStl_RegUpdate(u32 RegAddr, u32 RegVal);
 #endif
@@ -242,6 +226,84 @@ static INLINE void Xil_Out64(UINTPTR Addr, u64 Value)
 {
 	volatile u64 *LocalAddr = (volatile u64 *)Addr;
 	*LocalAddr = Value;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * @brief	Performs an output operation for a memory location by writing the
+ *       	32 bit Value to the the specified address and then reading it
+ *       	back to verify the value written in the register.
+ *
+ * @param	Addr contains the address to perform the output operation
+ * @param	Value contains 32 bit Value to be written at the specified address
+ *
+ * @return	Returns Status
+ *        	- XST_SUCCESS on success
+ *        	- XST_FAILURE on failure
+ *
+ *****************************************************************************/
+static INLINE int Xil_SecureOut32(UINTPTR Addr, u32 Value)
+{
+	int Status = XST_FAILURE;
+	u32 ReadReg;
+	u32 ReadRegTemp;
+
+	Xil_Out32(Addr, Value);
+
+	ReadReg = Xil_In32(Addr);
+	ReadRegTemp = Xil_In32(Addr);
+
+	if( (ReadReg == Value) && (ReadRegTemp == Value) ) {
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* @brief    Perform a 16-bit endian conversion.
+*
+* @param	Data: 16 bit value to be converted
+*
+* @return	16 bit Data with converted endianness
+*
+******************************************************************************/
+static INLINE __attribute__((always_inline)) u16 Xil_EndianSwap16(u16 Data)
+{
+	return (u16) (((Data & 0xFF00U) >> 8U) | ((Data & 0x00FFU) << 8U));
+}
+
+/*****************************************************************************/
+/**
+*
+* @brief    Perform a 32-bit endian conversion.
+*
+* @param	Data: 32 bit value to be converted
+*
+* @return	32 bit data with converted endianness
+*
+******************************************************************************/
+static INLINE __attribute__((always_inline)) u32 Xil_EndianSwap32(u32 Data)
+{
+	u16 LoWord;
+	u16 HiWord;
+
+	/* get each of the half words from the 32 bit word */
+
+	LoWord = (u16) (Data & 0x0000FFFFU);
+	HiWord = (u16) ((Data & 0xFFFF0000U) >> 16U);
+
+	/* byte swap each of the 16 bit half words */
+
+	LoWord = (((LoWord & 0xFF00U) >> 8U) | ((LoWord & 0x00FFU) << 8U));
+	HiWord = (((HiWord & 0xFF00U) >> 8U) | ((HiWord & 0x00FFU) << 8U));
+
+	/* swap the half words before returning the value */
+
+	return ((((u32)LoWord) << (u32)16U) | (u32)HiWord);
 }
 
 #if defined (__MICROBLAZE__)

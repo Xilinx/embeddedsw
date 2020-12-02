@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2007 - 2017 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2007 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -47,7 +25,7 @@
 * 1.01a ksu  04/10/08 Added support for AMD CFI Interface
 * 1.02a ksu  06/16/09 Added support for multiple banks in Intel flash.
 *                     Added support for Xilinx Platform Flash XL. If the
-*                     user selects to use the Xilinx Platfrom Flash XL then
+*                     user selects to use the Xilinx Platform Flash XL then
 *                     it is set to Async mode during the initialization.
 *                     If the user wants to use it in Sync mode then it can be
 *                     done using the XFlash_DeviceControl API.
@@ -326,7 +304,7 @@ int XFlash_Erase(XFlash * InstancePtr, u32 Offset, u32 Bytes)
 * @param	Offset		Offset into the device(s) address space from
 *				which to begin block locking. The first
 *				three bytes of every block is reserved for
-*				special purpose. The offset should be atleast
+*				special purpose. The offset should be at least
 *				three bytes from start of the block.
 * @param	Bytes		Number of bytes to Lock in the Block starting
 *				from Offset.
@@ -367,7 +345,7 @@ int XFlash_Lock(XFlash * InstancePtr, u32 Offset, u32 Bytes)
 * @param	Offset		Offset into the device(s) address space from
 *				which to begin block UnLocking. The first three
 *				bytes of every block is reserved for special
-*				purpose. The offset should be atleast three
+*				purpose. The offset should be at least three
 *				bytes from start of the block.
 * @param	Bytes		Number of bytes to UnLock in the Block
 *				starting from Offset.

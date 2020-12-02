@@ -1,38 +1,15 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 18 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /*****************************************************************************/
 /**
  *
  * @file xfsbl_rsa_sha.c
  *
- * This contains code for the RSA and SHA functionality.
- * If the Hash type is SHA3 then CSU h/w will be used
- * else we will use SoftSHA256 s/w library for SHA2-256.
+ * This contains code for the RSA and SHA3 functionality.
+ * For SHA3 CSU h/w will be used.
  * For RSA-4096 we will always use CSU h/w.
  * <pre>
  * MODIFICATION HISTORY:
@@ -43,6 +20,7 @@
  * 2.0   bv   12/02/16  Made compliance to MISRAC 2012 guidelines
  * 3.0   vns  01/23/18  Added XFsbl_Sha3PadSelect() API to change SHA3 padding
  *                      to KECCAK SHA3 padding.
+ * 4.0   har  06/17/20  Removed references to unused algorithms
  *
  * </pre>
  *
@@ -52,7 +30,6 @@
 
 /***************************** Include Files *********************************/
 #include "xfsbl_authentication.h"
-#ifdef XFSBL_SECURE
 
 /************************** Constant Definitions *****************************/
 
@@ -82,6 +59,7 @@ void XFsbl_ShaDigest(const u8 *In, const u32 Size, u8 *Out, u32 HashLen)
 	}
 }
 
+#ifdef XFSBL_SECURE
 /*****************************************************************************
  *
  * This function selects the padding type to be used for SHA3 hash calculation
@@ -92,7 +70,7 @@ void XFsbl_ShaDigest(const u8 *In, const u32 Size, u8 *Out, u32 HashLen)
  *              XST_FAILURE if selection is failed.
  *
  ******************************************************************************/
-u32 XFsbl_Sha3PadSelect(u8 PadType)
+u32 XFsbl_Sha3PadSelect(XSecure_Sha3PadType PadType)
 {
 	u32 Status;
 

@@ -1,28 +1,6 @@
 ###############################################################################
-#
-# Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-# OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-#
-# Except as contained in this notice, the name of the Xilinx shall not be used
-# in advertising or otherwise to promote the sale, use or other dealings in
-# this Software without prior written authorization from Xilinx.
+# Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
 #
 #
 #  @file axivdma_v2_1_0.tcl
@@ -49,6 +27,9 @@
 #  5.0     adk    10/12/13 Updated as per the New Tcl API's
 #  6.4     ms     04/17/17 Modified tcl file to add suffix U for all macros
 #                          definitions of axivdma in xparameters.h
+#  6.8	    sk	  09/08/20 Add workaround to match the number of frame
+#  			   stores of model parameter with user-defined
+#  			   config parameter.
 # </pre>
 #
 ##############################################################################
@@ -96,6 +77,7 @@ proc xdefine_vdma_include_file {drv_handle file_name drv_string args} {
 
     # Print all parameters for all peripherals
     set device_id 0
+    set arg_num_fstores "C_NUM_FSTORES"
     foreach periph $periphs {
         puts $file_handle ""
         puts $file_handle "/* Definitions for peripheral [string toupper [get_property NAME $periph]] */"
@@ -118,7 +100,10 @@ proc xdefine_vdma_include_file {drv_handle file_name drv_string args} {
 		    set value 1
 		}
 	    }
-            set value [hsi::utils::format_addr_string $value $arg]
+	    if {[string equal $arg $arg_num_fstores]} {
+		set value [xdefine_getNumFrames $arg $periph $arg_num_fstores]
+	    }
+	    set value [hsi::utils::format_addr_string $value $arg]
             if {[string compare -nocase "HW_VER" $arg] == 0} {
                 puts $file_handle "#define [hsi::utils::get_ip_param_name $periph $arg] \"$value\""
             } else {
@@ -161,6 +146,7 @@ proc xdefine_vdma_canonical_xpars {drv_handle file_name drv_string args} {
     }
 
     set i 0
+    set arg_num_fstores "C_NUM_FSTORES"
     foreach periph $periphs {
         set periph_name [string toupper [get_property NAME $periph]]
 
@@ -189,7 +175,10 @@ proc xdefine_vdma_canonical_xpars {drv_handle file_name drv_string args} {
 		        set rvalue 1
 		    }
 	        }
-                set rvalue [hsi::utils::format_addr_string $rvalue $arg]
+		if {[string equal $arg $arg_num_fstores]} {
+			set rvalue [xdefine_getNumFrames $arg $periph $arg_num_fstores]
+		}
+		set rvalue [hsi::utils::format_addr_string $rvalue $arg]
 
 		set uSuffix [xdefine_getSuffix $lvalue $rvalue]
                 puts $file_handle "#define $lvalue $rvalue$uSuffix"
@@ -204,6 +193,15 @@ proc xdefine_vdma_canonical_xpars {drv_handle file_name drv_string args} {
     close $file_handle
 }
 
+proc xdefine_getNumFrames {arg_name peripheral arg_frame_stores} {
+	set arg_addr_width "c_addr_width"
+	set addr_width_val [::hsi::utils::get_param_value $peripheral $arg_addr_width]
+	set n_frame_val [::hsi::utils::get_param_value $peripheral $arg_frame_stores]
+	if {$addr_width_val > 32} {
+		set n_frame_val [expr {$n_frame_val/2}]
+	}
+	return $n_frame_val
+}
 proc xdefine_getSuffix {arg_name value} {
 	set uSuffix ""
 	if { [string match "*DEVICE_ID" $value] == 0 } {

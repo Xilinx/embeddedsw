@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -280,7 +258,7 @@ int SpiPsFlashIntrExample(XScuGic *IntcInstancePtr, XSpiPs *SpiInstancePtr,
 	u32 Platform;
 
 	Platform = XGetPlatform_Info();
-	if ((Platform == XPLAT_ZYNQ_ULTRA_MP) || (Platform == XPLAT_versal)) {
+	if ((Platform == XPLAT_ZYNQ_ULTRA_MP) || (Platform == XPLAT_VERSAL)) {
 		MaxSize = 1024 * 10;
 		ChipSelect = FLASH_SPI_SELECT_0;	/* Device is on CS 0 */
 		SpiIntrId = XPAR_XSPIPS_0_INTR;
@@ -529,7 +507,7 @@ static void FlashWrite(XSpiPs *SpiPtr, u32 Address, u32 ByteCount, u8 Command)
 			/*
 			 * Send the write enable command to the flash so
 			 * that it can be written to, this needs to be sent
-			 * as a seperate transfer before the write
+			 * as a separate transfer before the write
 			 */
 			TransferInProgress = TRUE;
 
@@ -775,7 +753,7 @@ static void FlashErase(XSpiPs *SpiPtr)
 
 	/*
 	 * Send the write enable command to the flash so that it can be
-	 * written to, this needs to be sent as a seperate transfer
+	 * written to, this needs to be sent as a separate transfer
 	 * before the erase
 	 */
 	TransferInProgress = TRUE;
@@ -821,7 +799,7 @@ static void FlashErase(XSpiPs *SpiPtr)
 
 	/*
 	 * Clear write protect bits using write status command to the flash
-	 * this needs to be sent as a seperate transfer before the erase
+	 * this needs to be sent as a separate transfer before the erase
 	 */
 	TransferInProgress = TRUE;
 
@@ -866,7 +844,7 @@ static void FlashErase(XSpiPs *SpiPtr)
 
 	/*
 	 * Send the write enable command to the flash so that it can be
-	 * written to, this needs to be sent as a seperate transfer
+	 * written to, this needs to be sent as a separate transfer
 	 * before the erase
 	 */
 	TransferInProgress = TRUE;

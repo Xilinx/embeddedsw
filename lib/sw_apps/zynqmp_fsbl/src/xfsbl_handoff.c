@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 18 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -46,6 +24,10 @@
  *                     it is by passed.
  *       bv   03/17/17 Modified such that XFsbl_PmInit is done only duing
  *                     system reset
+ * 3.0   ma   09/09/19 Update FSBL proc info reporting to PMU
+ * 4.0   bsv  03/05/19 Restore value of SD_CDN_CTRL register before
+ *                     handoff in FSBL
+ *
  * </pre>
  *
  * @note
@@ -113,6 +95,7 @@ extern u8 R5LovecBuffer[32];
 extern u32 TcmSkipLength;
 extern PTRSIZE TcmSkipAddress;
 #endif
+extern u32 SdCdnRegVal;
 
 static u32 XFsbl_Is32BitCpu(u32 CpuSettings)
 {
@@ -379,7 +362,7 @@ static u32 XFsbl_SetCpuPwrSettings (u32 CpuSettings, u32 Flags)
 
 			/**
 			 * Provide some delay,
-			 * so that clock propogates properly.
+			 * so that clock propagates properly.
 			 */
 			(void)usleep(0x50U);
 
@@ -435,7 +418,7 @@ static u32 XFsbl_SetCpuPwrSettings (u32 CpuSettings, u32 Flags)
 
 			/**
 			 * Provide some delay,
-			 * so that clock propogates properly.
+			 * so that clock propagates properly.
 			 */
 			(void)usleep(0x50U);
 
@@ -496,7 +479,7 @@ static u32 XFsbl_SetCpuPwrSettings (u32 CpuSettings, u32 Flags)
 
 			/**
 			 * Provide some delay,
-			 * so that clock propogates properly.
+			 * so that clock propagates properly.
 			 */
 			(void )usleep(0x50U);
 
@@ -563,7 +546,7 @@ void XFsbl_HandoffExit(u64 HandoffAddress, u32 Flags)
 	 * PMU Firmware that FSBL completed execution
 	 */
 	RegVal = XFsbl_In32(PMU_GLOBAL_GLOB_GEN_STORAGE5);
-	RegVal &= ~XFSBL_EXEC_COMPLETED;
+	RegVal &= ~(XFSBL_EXEC_COMPLETED);
 	RegVal |= XFSBL_EXEC_COMPLETED;
 	XFsbl_Out32(PMU_GLOBAL_GLOB_GEN_STORAGE5, RegVal);
 
@@ -720,7 +703,7 @@ static void XFsbl_UpdateResetVector (u64 HandOffAddress, u32 CpuSettings,
  *
  * @return	returns the error codes described in xfsbl_error.h on any error
  *
- * @note	This function should not return incase of success
+ * @note	This function should not return in case of success
  *
  *****************************************************************************/
 
@@ -738,22 +721,9 @@ u32 XFsbl_Handoff (const XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyH
 	u32 CpuNeedsEarlyHandoff;
 	const XFsblPs_PartitionHeader * PartitionHeader;
 	static u32 CpuIndexEarlyHandoff = 0;
-	u32 FsblProcType = XFSBL_RUNNING;
-
-	if(FsblInstancePtr->ProcessorID == XIH_PH_ATTRB_DEST_CPU_A53_0)
-	{
-		FsblProcType |= XFSBL_RUNNING_ON_A53;
-	}
-	/*
-	 * Update FSBL running status and running processor to PMU Global Reg5
-	 * as PMU require this during boot for APU only warm-restart feature.
-	*/
-	FsblProcType |= (XFsbl_In32(PMU_GLOBAL_GLOB_GEN_STORAGE5) &
-						~XFSBL_STATE_PROC_INFO_MASK);
-	XFsbl_Out32(PMU_GLOBAL_GLOB_GEN_STORAGE5, FsblProcType);
 
 	/* Restoring the SD card detection signal */
-	XFsbl_Out32(IOU_SLCR_SD_CDN_CTRL, 0X0U);
+	XFsbl_Out32(IOU_SLCR_SD_CDN_CTRL, SdCdnRegVal);
 	PartitionHeader =
 			&FsblInstancePtr->ImageHeader.PartitionHeader[PartitionNum];
 
@@ -769,7 +739,7 @@ u32 XFsbl_Handoff (const XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyH
 	*/
 	Xil_DCacheDisable();
 
-	if(FsblInstancePtr->ResetReason != XFSBL_APU_ONLY_RESET){
+	if (XFSBL_MASTER_ONLY_RESET != FsblInstancePtr->ResetReason) {
 
 	Status = XFsbl_PmInit();
 	if (Status != XFSBL_SUCCESS) {
@@ -1042,7 +1012,7 @@ u32 XFsbl_Handoff (const XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyH
 	XFsbl_Out32(XFSBL_ERROR_STATUS_REGISTER_OFFSET, XFSBL_COMPLETED);
 
 #ifdef XFSBL_WDT_PRESENT
-	if (FsblInstancePtr->ResetReason != XFSBL_APU_ONLY_RESET) {
+	if (XFSBL_MASTER_ONLY_RESET != FsblInstancePtr->ResetReason) {
 		/* Stop WDT as we are exiting FSBL */
 		XFsbl_StopWdt();
 	}

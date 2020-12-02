@@ -1,30 +1,8 @@
 /*******************************************************************************
- *
- * Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -43,7 +21,9 @@
 #include "rx.h"
 #include "tx.h"
 
-u8 rx_unplugged = 0;
+volatile u8 rx_unplugged = 0;
+extern u32 vblank_init;
+extern u8 vblank_captured;
 
 #if ENABLE_HDCP_IN_DESIGN
 extern u8 hdcp_capable_org ;
@@ -53,7 +33,14 @@ extern u8 hdcp_repeater ;
 extern u8 internal_rx_tx ;
 #endif
 
-
+//extern u8 audio_info_avail;
+u32 infofifo[64]; //RX and TX can store upto 4 infoframes each. fifo of 8
+u8 endindex = 0;
+u8 fifocount = 0;
+u32 hdrframe[9];
+u16 fifoOverflow=0;
+extern u8 tx_pass;
+extern u8 startindex;
 /*****************************************************************************/
 /**
 *
@@ -84,7 +71,9 @@ u32 DpRxSs_Setup(void)
 #if ENABLE_HDCP_IN_DESIGN
         XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 					XDP_RX_INTERRUPT_MASK, 0xFE00FFFD);
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 	XHdcp1xExample_Poll();
+#endif
 #else
         XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 					XDP_RX_INTERRUPT_MASK, 0xFFF87FFD);
@@ -116,7 +105,9 @@ u32 DpRxSs_Setup(void)
 			XDP_RX_INTERRUPT_MASK_ACCESS_ERROR_COUNTER_MASK);
 
 #if ENABLE_HDCP_IN_DESIGN
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 	XHdcp1xExample_Poll();
+#endif
 #endif
 
 	/* Setting AUX Defer Count of Link Status Reads to 8 during Link
@@ -237,8 +228,12 @@ u32 DpRxSs_SetupIntrSystem(void)
 	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_EXT_PKT_EVENT,
 			&DpRxSs_ExtPacketHandler, &DpRxSsInst);
 
-#if (XPAR_XHDCP_NUM_INSTANCES > 0 && ENABLE_HDCP_IN_DESIGN == 1 )
+#if ((XPAR_DPRXSS_0_HDCP_ENABLE > 0) && ENABLE_HDCP_IN_DESIGN)
 	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_HDCP_AUTHENTICATED,
+							&Dprx_HdcpAuthCallback, &DpRxSsInst);
+#endif
+#if ((XPAR_DPRXSS_0_HDCP22_ENABLE > 0) && ENABLE_HDCP_IN_DESIGN)
+	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_HDCP22_AUTHENTICATED,
 							&Dprx_HdcpAuthCallback, &DpRxSsInst);
 #endif
 
@@ -339,12 +334,22 @@ void DpRxSs_VerticalBlankHandler(void *InstancePtr)
 #if ENABLE_HDCP_IN_DESIGN
 		XDp_RxInterruptEnable(DpRxSsInst.DpPtr, 0x01F80000);
 //		XDpRxSs_SetLane(&DpRxSsInst, DpRxSsInst.UsrOpt.LaneCount);
-	    XDpRxSs_SetPhysicalState(&DpRxSsInst, hdcp_capable_org); //TRUE);
+#if ENABLE_HDCP1x_IN_RX
+	    XDpRxSs_SetPhysicalState(&DpRxSsInst, hdcp_capable_org); //TRUE)
+#endif
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 	    XHdcp1xExample_Poll();
+#endif
+
+#if ENABLE_HDCP1x_IN_TX
 	    XDpTxSs_SetPhysicalState(&DpTxSsInst, hdcp_capable_org);
+#endif
+
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 	    XHdcp1xExample_Poll();
 		XHdcp1xExample_Enable();
 		XHdcp1xExample_Poll();
+#endif
 #endif
 
 	}
@@ -371,11 +376,22 @@ void DpRxSs_TrainingLostHandler(void *InstancePtr)
 {
 
 #if ENABLE_HDCP_IN_DESIGN
+#if ENABLE_HDCP1x_IN_RX
 	XDpRxSs_SetPhysicalState(&DpRxSsInst, FALSE);
+#endif
+#if ENABLE_HDCP1x_IN_TX
 	XDpTxSs_SetPhysicalState(&DpTxSsInst, TRUE);
+#endif
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 	XHdcp1xExample_Poll();
+#endif
+#if ENABLE_HDCP1x_IN_TX
 	XDpTxSs_SetPhysicalState(&DpTxSsInst, FALSE);
+#endif
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 	XHdcp1xExample_Poll();
+#endif
+//#if ENABLE_HDCP1x_IN_RX
 	XDpRxSs_StopTimer(&DpRxSsInst);
 
 	// This function will over write timer function pointer to be the right one.
@@ -388,6 +404,10 @@ void DpRxSs_TrainingLostHandler(void *InstancePtr)
 	DpRxSsInst.VBlankCount = 0;
 	appx_fs_dup = 0;
 	rx_trained = 0;
+	vblank_captured = 0;
+	endindex = 0;
+	fifocount = 0;
+	startindex = 0;
 }
 
 /*****************************************************************************/
@@ -427,10 +447,17 @@ void DpRxSs_TrainingDoneHandler(void *InstancePtr)
 	DpRxSsInst.VBlankCount = 0;
 	rx_unplugged = 0;
 #if ENABLE_HDCP_IN_DESIGN
-//    XDpRxSs_SetLane(&DpRxSsInst, DpRxSsInst.UsrOpt.LaneCount);
+    XDpRxSs_SetLane(&DpRxSsInst, DpRxSsInst.UsrOpt.LaneCount);
+#if ENABLE_HDCP1x_IN_RX
     XDpRxSs_SetPhysicalState(&DpRxSsInst, hdcp_capable_org); //TRUE);
+#endif
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
     XHdcp1xExample_Poll();
 #endif
+#endif
+
+    XDpRxSs_HdcpSetProtocol(&DpRxSsInst, XDPRXSS_HDCP_14);
+	XDpRxSs_HdcpEnable(&DpRxSsInst);
 }
 
 /*****************************************************************************/
@@ -488,19 +515,42 @@ void DpRxSs_UnplugHandler(void *InstancePtr)
 	DpRxSsInst.link_up_trigger = 0;
 	DpRxSsInst.VBlankCount = 0;
 	DpRxSsInst.no_video_trigger = 1;
-	xil_printf("Cable unplugged2 %d %d %d\r\n", DpRxSsInst.link_up_trigger,
-			                              DpRxSsInst.VBlankCount, rx_unplugged);
+#if ENABLE_HDCP22_IN_RX
+	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+						XDP_RX_SOFT_RESET,
+						XDP_RX_SOFT_RESET_HDCP22_MASK);
+				XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+						XDP_RX_SOFT_RESET, 0);
+#endif
+
 #if ENABLE_HDCP_IN_DESIGN
 #if ENABLE_HDCP_FLOW_GUIDE
 	XDpRxSs_HdcpDisable(&DpRxSsInst);
 	XDpTxSs_HdcpDisable(&DpTxSsInst);
 	XHdcp1xExample_Poll();
 #endif
+
+#if ENABLE_HDCP1x_IN_RX
 	XDpRxSs_SetPhysicalState(&DpRxSsInst, FALSE);
+#endif
+
+#if ENABLE_HDCP1x_IN_TX
 	XDpTxSs_SetPhysicalState(&DpTxSsInst, TRUE);
+#endif
+
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 	XHdcp1xExample_Poll();
+#endif
+
+#if ENABLE_HDCP1x_IN_TX
 	XDpTxSs_SetPhysicalState(&DpTxSsInst, FALSE);
+#endif
+
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 	XHdcp1xExample_Poll();
+#endif
+
+//#if ENABLE_HDCP1x_IN_RX
 	XDpRxSs_StopTimer(&DpRxSsInst);
 //	IsTxEncrypted = 0;
 //	IsTxAuthenticated = 0;
@@ -720,9 +770,9 @@ void DpRxSs_AccessLinkQualHandler(void *InstancePtr)
 			       XVPHY_RX_CONTROL_REG, DrpVal);
 
 		/*Set PRBS mode in Retimer*/
-		XDpRxSs_MCDP6000_EnablePrbs7_Rx(XPAR_IIC_0_BASEADDR,
+		XDpRxSs_MCDP6000_EnablePrbs7_Rx(&DpRxSsInst,
 					I2C_MCDP6000_ADDR);
-		XDpRxSs_MCDP6000_ClearCounter(XPAR_IIC_0_BASEADDR,
+		XDpRxSs_MCDP6000_ClearCounter(&DpRxSsInst,
 				      I2C_MCDP6000_ADDR);
 	//    	MCDP6000_EnableCounter(XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR);
 	} else {
@@ -734,9 +784,9 @@ void DpRxSs_AccessLinkQualHandler(void *InstancePtr)
 			       XVPHY_RX_CONTROL_REG, DrpVal);
 
 		/*Disable PRBS mode in Retimer*/
-		XDpRxSs_MCDP6000_DisablePrbs7_Rx(XPAR_IIC_0_BASEADDR,
+		XDpRxSs_MCDP6000_DisablePrbs7_Rx(&DpRxSsInst,
 											I2C_MCDP6000_ADDR);
-		XDpRxSs_MCDP6000_ClearCounter(XPAR_IIC_0_BASEADDR,
+		XDpRxSs_MCDP6000_ClearCounter(&DpRxSsInst,
 				      I2C_MCDP6000_ADDR);
 	//    	MCDP6000_EnableCounter(XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR);
 	}
@@ -807,18 +857,18 @@ void DpRxSs_AccessErrorCounterHandler(void *InstancePtr)
 		     (0x8000 | DrpVal_lower_lane2) |
 		     ((0x8000 | DrpVal_lower_lane3) << 16));
 
-	XDpRxSs_MCDP6000_Read_ErrorCounters(XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR);
+	XDpRxSs_MCDP6000_Read_ErrorCounters(&DpRxSsInst, I2C_MCDP6000_ADDR);
 
 	xil_printf("0x061C: %08x\n\r", XDpRxSs_MCDP6000_GetRegister(
-			XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR, 0x061C));
+			&DpRxSsInst, I2C_MCDP6000_ADDR, 0x061C));
 	xil_printf("0x0504: %08x\n\r", XDpRxSs_MCDP6000_GetRegister(
-			XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR, 0x0504));
+			&DpRxSsInst, I2C_MCDP6000_ADDR, 0x0504));
 	xil_printf("0x0604: %08x\n\r", XDpRxSs_MCDP6000_GetRegister(
-			XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR, 0x0604));
+			&DpRxSsInst, I2C_MCDP6000_ADDR, 0x0604));
 	xil_printf("0x12BC: %08x\n\r", XDpRxSs_MCDP6000_GetRegister(
-			XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR, 0x12BC));
+			&DpRxSsInst, I2C_MCDP6000_ADDR, 0x12BC));
 	xil_printf("0x12E4: %08x\n\r", XDpRxSs_MCDP6000_GetRegister(
-			XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR, 0x12E4));
+			&DpRxSsInst, I2C_MCDP6000_ADDR, 0x12E4));
 
 	/* Reset PRBS7 Counters */
 	DrpVal1 = XVphy_ReadReg(VPhyInst.Config.BaseAddr,
@@ -972,28 +1022,32 @@ void LoadEDID(void)
 void DpRxSs_InfoPacketHandler(void *InstancePtr)
 {
 	u32 InfoFrame[9];
-	int i=1;
-	for(i = 1 ; i < 9 ; i++) {
-		InfoFrame[i] = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-				XDP_RX_AUDIO_INFO_DATA(i));
+	int i=0;
+	for(i = 0 ; i < 8 ; i++) {
+		if (tx_pass) {
+			//Start putting into FIFO. These will be programmed into TX
+			infofifo[(endindex*8)+i] = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+					XDP_RX_AUDIO_INFO_DATA(1));
+		} else {
+			// Read of Ignore until TX is up and running
+			XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+								XDP_RX_AUDIO_INFO_DATA(1));
+		}
 	}
+	if (tx_pass) {
+		if(endindex < (AUXFIFOSIZE - 1)) {
+			endindex++;
+		} else {
+			endindex = 0;
+		}
 
-	//storing the info frame here
-			AudioinfoFrame.frame_count++;
+		if (fifocount >= AUXFIFOSIZE) {
+	//		xil_printf ("Aux fifo overflow\r\n");
+			fifoOverflow++;
+		}
 
-			AudioinfoFrame.version = InfoFrame[1]>>26;
-			AudioinfoFrame.type = (InfoFrame[1]>>8)&0xFF;
-			AudioinfoFrame.sec_id = InfoFrame[1]&0xFF;
-			AudioinfoFrame.info_length = (InfoFrame[1]>>16)&0x3FF;
-
-			AudioinfoFrame.audio_channel_count = InfoFrame[2]&0x7;
-			AudioinfoFrame.audio_coding_type = (InfoFrame[2]>>4)&0xF;
-			AudioinfoFrame.sample_size = (InfoFrame[2]>>8)&0x3;
-			AudioinfoFrame.sampling_frequency = (InfoFrame[2]>>10)&0x7;
-			AudioinfoFrame.channel_allocation = (InfoFrame[2]>>24)&0xFF;
-
-			AudioinfoFrame.level_shift = (InfoFrame[3]>>3)&0xF;
-			AudioinfoFrame.downmix_inhibit = (InfoFrame[3]>>7)&0x1;
+		fifocount++;
+	}
 }
 
 /*****************************************************************************/
@@ -1024,6 +1078,9 @@ void DpRxSs_ExtPacketHandler(void *InstancePtr)
 	SdpExtFrame.Header[2] = (ExtFrame[0]&0xFF0000)>>16;
 	SdpExtFrame.Header[3] = (ExtFrame[0]&0xFF000000)>>24;
 
+	/*Populating Vsc header*/
+	VscPkt.Header=ExtFrame[0];
+
 	/*Payload Information*/
 	for (i = 0 ; i < 8 ; i++)
 	{
@@ -1033,6 +1090,9 @@ void DpRxSs_ExtPacketHandler(void *InstancePtr)
 		SdpExtFrame.Payload[(i*4)+1] = (ExtFrame[i+1]&0xFF00)>>8;
 		SdpExtFrame.Payload[(i*4)+2] = (ExtFrame[i+1]&0xFF0000)>>16;
 		SdpExtFrame.Payload[(i*4)+3] = (ExtFrame[i+1]&0xFF000000)>>24;
+
+		/*Populating Vsc payload*/
+		VscPkt.Payload[i]=ExtFrame[i+1] ;
 	}
 
 }
@@ -1140,10 +1200,16 @@ void Dprx_HdcpAuthCallback(void *InstancePtr) {
 	XDpRxSsInst->TmrCtrResetDone = 1;
 	if (XDpTxSs_IsConnected(&DpTxSsInst)) {
 		XDpTxSs_DisableEncryption(&DpTxSsInst,0x1);
+#if ENABLE_HDCP1x_IN_TX
 		XDpTxSs_SetPhysicalState(&DpTxSsInst, TRUE);
+#endif
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 		XHdcp1xExample_Poll();
+#endif
 		XDpTxSs_HdcpEnable(&DpTxSsInst);
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 		XHdcp1xExample_Poll();
+#endif
 	}
 }
 

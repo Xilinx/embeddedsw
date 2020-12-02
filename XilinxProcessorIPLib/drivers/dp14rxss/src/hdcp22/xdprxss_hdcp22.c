@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2019 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -84,6 +62,21 @@ static void XHdcp22_PortDpRxProcessAkeInit(void *RefPtr)
 
 	/*Set Ake_Init message received event in HDCP22 rx instance*/
 	if (DpRxSsPtr->Hdcp22Ptr) {
+
+		/* Set Active protocol to HDCP22 and Enable it */
+		XDpRxSs_HdcpDisable(DpRxSsPtr);
+		XDpRxSs_HdcpSetProtocol(DpRxSsPtr,XDPRXSS_HDCP_22);
+		XDpRxSs_HdcpEnable(DpRxSsPtr);
+
+		/*Reset HDCP FIFOs as we have got a new authentication request*/
+		for(u8 Index = 0; Index < 2; Index++) {
+			XDp_WriteReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
+					XDP_RX_SOFT_RESET,
+					XDP_RX_SOFT_RESET_HDCP22_MASK);
+			XDp_WriteReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
+					XDP_RX_SOFT_RESET, 0);
+		}
+
 		XHdcp22Rx_SetDpcdMsgRdWrtAvailable(DpRxSsPtr->Hdcp22Ptr,
 				XDPRX_HDCP22_RX_DPCD_FLAG_AKE_INIT_RCVD);
 	}
@@ -237,6 +230,28 @@ static void XHdcp22_PortDpRxProcessPairingReadDone(void *RefPtr)
 		XHdcp22Rx_SetDpcdMsgRdWrtAvailable(DpRxSsPtr->Hdcp22Ptr,
 			XDPRX_HDCP22_RX_DPCD_FLAG_PAIRING_INFO_READ_DONE);
 	}
+}
+
+/*****************************************************************************/
+/**
+ * This function is called when the DP-RX HDCP22 Stream Type write
+ * interrupt has occurred.
+ *
+ * @param RefPtr is a callback reference to the HDCP22 RX instance.
+ *
+ * @return None.
+ *
+ * @note   None.
+ ******************************************************************************/
+static void XHdcp22_PortDpRxProcessStreamType(void *RefPtr)
+{
+	XDpRxSs *DpRxSsPtr = (XDpRxSs *)RefPtr;
+
+	Xil_AssertVoid(RefPtr);
+
+	/* Set Stream Type in HDCP22 rx */
+	if (DpRxSsPtr->Hdcp22Ptr)
+		XHdcp22_RxSetStreamType(DpRxSsPtr->Hdcp22Ptr);
 }
 
 /*****************************************************************************/
@@ -651,6 +666,10 @@ int XDpRxSs_SubcoreInitHdcp22(void *InstancePtr)
 			XDp_RxSetCallback(DpRxSsPtr->DpPtr,
 					XDP_RX_HANDLER_HDCP22_PAIRING_READ_DONE,
 					&XHdcp22_PortDpRxProcessPairingReadDone,
+					DpRxSsPtr);
+			XDp_RxSetCallback(DpRxSsPtr->DpPtr,
+					XDP_RX_HANDLER_HDCP22_STREAM_TYPE,
+					&XHdcp22_PortDpRxProcessStreamType,
 					DpRxSsPtr);
 
 			/* Load Production Keys */

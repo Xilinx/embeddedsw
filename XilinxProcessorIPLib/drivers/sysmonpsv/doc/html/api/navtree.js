@@ -11,7 +11,8 @@ var NAVTREE =
     ] ],
     [ "File List", "files.html", "files" ],
     [ "Examples", "example.html", [
-      [ "xsysmonpsv_polled_example.c", "example.html#ex1", null ]
+      [ "xsysmonpsv_polled_example.c", "example.html#ex1", null ],
+      [ "xsysmonpsv_intr_example.c", "example.html#ex2", null ]
     ] ]
   ] ]
 ];

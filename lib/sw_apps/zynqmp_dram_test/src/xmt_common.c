@@ -1,29 +1,8 @@
 /*******************************************************************************
- * Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -42,6 +21,9 @@
  *       mn   09/21/18 Modify code manually enter the DDR memory test size
  *       mn   09/27/18 Modify code to add 2D Read/Write Eye Tests support
  *       mn   12/17/18 Limit VRefMin to minimum of 0 for 2D eye scan
+ *       mn   07/01/19 Add support to specify number of iteration for memtest
+ *       mn   09/09/19 Correct the DDR type name for LPDDR4
+ *       mn   07/29/20 Modify code to use DRAM VRef for 2D Write Eye Test
  *
  * </pre>
  *
@@ -84,6 +66,11 @@ u32 XMt_GetDdrConfigParams(XMt_CfgData *XMtPtr)
 	u32 EccEnabled;
 	u32 DdrDiv0;
 	u32 DdrSrcsel;
+
+	/* Get the DDR Type */
+	XMtPtr->DdrType = XMt_GetRegValue(XMT_DDRC_MSTR,
+			   XMT_DDRC_MSTR_DDR_TYPE_MASK,
+			   XMT_DDRC_MSTR_DDR_TYPE_SHIFT);
 
 	/* Get the DDR Bus Width and the Number of Lanes */
 	BusWidth = XMt_GetRegValue(XMT_DDRC_MSTR,
@@ -189,7 +176,7 @@ void XMt_PrintDdrConfigParams(XMt_CfgData *XMtPtr)
 	} else if (XMT_CHECK_BIT(DdrMstrRegval, 4U)) {
 		xil_printf("DDR4 ");
 	} else if (XMT_CHECK_BIT(DdrMstrRegval, 5U)) {
-		xil_printf("LPLPDDR2 ");
+		xil_printf("LPDDR4 ");
 	} else {
 		xil_printf("UNKNOWN! ");
 	}
@@ -596,6 +583,279 @@ void XMt_ResetVrefAuto(XMt_CfgData *XMtPtr)
 
 /*****************************************************************************/
 /**
+ * This function is used to read the VRef value via MPR mode
+ *
+ * @param XMtPtr is the pointer to the Memtest Data Structure
+ *
+ * @return VRef Value
+ *
+ * @note none
+ *****************************************************************************/
+static u32 XMt_ReadMprVRef(XMt_CfgData *XMtPtr)
+{
+	u32 Data[24] = {0};
+	u64 Data64[8] = {0};
+	u8 Dataarrange[8] = {0};
+	u32 Emr3;
+	u32 RetVal = 0U;
+	u32 Index;
+	u32 Index1;
+
+	/* Get the MR3 value for DDR */
+	Emr3 = Xil_In32(XMT_DDRC_INIT4) & XMT_DDRC_INIT4_EMR3_MASK;
+	Emr3 &= XMT_DDR_MR3_CONFIG_MASK;
+
+	/*
+	 * Set MPR page [1:0] = 0x2U (Page 2),
+	 * MPR mode [2] = 0x1U (Enable),
+	 * Read Format [12:11] = 0x0U (Serial)
+	 */
+	Emr3 |= XMT_DDR_MR3_MPR_P2_CONFIG;
+
+	/* Select MR3 on MRCTRL0 register and select rank 0 of DDR */
+	XMT_MASK_WRITE(XMT_DDRC_MRCTRL0,
+				  (XMT_DDRC_MRCTRL0_MR_ADDR_MASK
+				 | XMT_DDRC_MRCTRL0_MR_RANK_MASK),
+				  (XMT_DDR_MR_ADDR_MR3
+				 | XMT_DDR_MR_RANK_0));
+
+	/* Write the MR Data to MRCTRL1 register */
+	XMT_MASK_WRITE(XMT_DDRC_MRCTRL1, XMT_DDRC_MRCTRL1_MR_DATA_MASK, Emr3);
+
+	/* Trigger the transaction for MR write */
+	XMT_MASK_WRITE(XMT_DDRC_MRCTRL0, XMT_DDRC_MRCTRL0_MR_WR_MASK, XMT_DDR_MR_WR);
+
+	/* Wait for MR operation to complete */
+	while (Xil_In32(XMT_DDRC_MRSTAT) & XMT_DDR_MR_WR_BUSY);
+
+	/* Clear the MR Data in MRCTRL1 register */
+	XMT_MASK_WRITE(XMT_DDRC_MRCTRL1, XMT_DDRC_MRCTRL1_MR_DATA_MASK, 0x0U);
+
+	/*
+	 * Select the MPR location '1' in MRCTRL0 register
+	 * Select Rank '0' of DDR
+	 * Select the MPR mode 1 (enable)
+	 * Select the MR Type as 1 (Read)
+	 */
+	XMT_MASK_WRITE(XMT_DDRC_MRCTRL0,
+				  (XMT_DDRC_MRCTRL0_MR_ADDR_MASK
+				 | XMT_DDRC_MRCTRL0_MR_RANK_MASK
+				 | XMT_DDRC_MRCTRL0_MPR_EN_MASK
+				 | XMT_DDRC_MRCTRL0_MR_TYPE_MASK),
+				  (XMT_DDR_MR_ADDR_MR1
+				 | XMT_DDR_MR_RANK_0
+				 | XMT_DDR_MPR_ENABLE
+				 | XMT_DDR_MR_READ));
+
+	/* Trigger the transaction for MR read */
+	XMT_MASK_WRITE(XMT_DDRC_MRCTRL0, XMT_DDRC_MRCTRL0_MR_WR_MASK, XMT_DDR_MR_WR);
+
+	/* Wait for MR operation to complete */
+	while (Xil_In32(XMT_DDRC_MRSTAT) & XMT_DDR_MR_WR_BUSY);
+
+	/* Wait till the valid data is available in the FIFO */
+	while (!(Xil_In32(XMT_DDRC_MRR_STATUS) & XMT_DDRC_MRR_STATUS_VALID));
+
+	/* Read the FIFO and determine the VRef values */
+	for (Index = 0U; Index < 12U; Index++) {
+		Data[Index] = Xil_In32(XMT_DDRC_MRR_DATA0 + (Index * 4U));
+	}
+
+	for (Index = 0U; Index < 12U; Index++) {
+		Data[Index + 12U] = Xil_In32(XMT_DDRC_MRR_DATA0 + (Index * 4U));
+	}
+
+	for (Index = 0U; Index < XMT_DDRC_MRR_DATA_WIDTH; Index++) {
+		Data64[Index] = ((u64)Data[(Index * 3U) + 1U] << 32U) | Data[(Index * 3U)];
+	}
+
+	for (Index = 0U; Index < XMtPtr->DdrConfigLanes; Index++) {
+		for (Index1 = 0U; Index1 < XMT_DDRC_MRR_DATA_WIDTH; Index1++) {
+			Dataarrange[Index] |= ((!!((u8)(Data64[Index1] >>
+								  (Index * XMT_DDRC_MRR_DATA_WIDTH)))) <<
+								  ((XMT_DDRC_MRR_DATA_WIDTH - 1U) - Index1));
+		}
+		Dataarrange[Index] >>= 1U;
+		RetVal += Dataarrange[Index];
+	}
+	RetVal /= XMtPtr->DdrConfigLanes;
+
+	/* Get the MR3 value for DDR */
+	Emr3 = Xil_In32(XMT_DDRC_INIT4) & XMT_DDRC_INIT4_EMR3_MASK;
+
+	/* Clear the values related to MPR mode */
+	Emr3 &= XMT_DDR_MR3_CONFIG_MASK;
+
+	/*
+	 * Select MR3 on MRCTRL0 register
+	 * Select rank 0 of DDR
+	 * Disable MPR mode
+	 * Disable Read mode
+	 */
+	XMT_MASK_WRITE(XMT_DDRC_MRCTRL0,
+				  (XMT_DDRC_MRCTRL0_MR_ADDR_MASK
+				 | XMT_DDRC_MRCTRL0_MR_RANK_MASK
+				 | XMT_DDRC_MRCTRL0_MPR_EN_MASK
+				 | XMT_DDRC_MRCTRL0_MR_TYPE_MASK), 0x3010U);
+
+	/* Write the MR Data to MRCTRL1 register */
+	XMT_MASK_WRITE(XMT_DDRC_MRCTRL1, XMT_DDRC_MRCTRL1_MR_DATA_MASK, Emr3);
+
+	/* Trigger the transaction for MR write */
+	XMT_MASK_WRITE(XMT_DDRC_MRCTRL0, XMT_DDRC_MRCTRL0_MR_WR_MASK, XMT_DDR_MR_WR);
+
+	/* Wait for MR operation to complete */
+	while (Xil_In32(XMT_DDRC_MRSTAT) & XMT_DDR_MR_WR_BUSY);
+
+	return RetVal;
+}
+
+/*****************************************************************************/
+/**
+ * This function is used to read the VRef value via MR mode
+ *
+ * @param XMtPtr is the pointer to the Memtest Data Structure
+ *
+ * @return VRef Value
+ *
+ * @note none
+ *****************************************************************************/
+static u32 XMt_ReadMrsVRef(XMt_CfgData *XMtPtr)
+{
+	u32 RetVal;
+
+	/* Wait for MR operations to complete */
+	while(Xil_In32(XMT_DDRC_MRSTAT) & XMT_DDR_MR_WR_BUSY);
+
+	/* Select MR14 for the Read */
+	Xil_Out32(XMT_DDRC_MRCTRL1, XMT_DDR_MR_ADDR_MR14);
+
+	/* Select Rank 0 */
+	XMT_MASK_WRITE(XMT_DDRC_MRCTRL0, XMT_DDRC_MRCTRL0_MR_RANK_MASK, XMT_DDR_MR_RANK_0);
+
+	/* 0 for Write, 1 for Read */
+	XMT_MASK_WRITE(XMT_DDRC_MRCTRL0, XMT_DDRC_MRCTRL0_MR_TYPE_MASK, XMT_DDR_MR_READ);
+
+	/* Trigger a mode register read or write operation */
+	XMT_MASK_WRITE(XMT_DDRC_MRCTRL0, XMT_DDRC_MRCTRL0_MR_WR_MASK, XMT_DDR_MR_WR);
+
+	/* Wait for MR operations to complete */
+	while(Xil_In32(XMT_DDRC_MRSTAT) & XMT_DDR_MR_WR_BUSY);
+
+	RetVal =  Xil_In32(XMT_DDRC_MRR_DATA0) & XMT_DDRC_MRR_DATA_U8_MASK;
+
+	/* Dummy read to clear FIFO */
+	(void) Xil_In32(XMT_DDRC_MRR_DATA11);
+
+	return RetVal;
+}
+
+/*****************************************************************************/
+/**
+ * This function is used to read the VRef value
+ *
+ * @param XMtPtr is the pointer to the Memtest Data Structure
+ *
+ * @return VRef Value
+ *
+ * @note none
+ *****************************************************************************/
+u32 XMt_GetWrVRef(XMt_CfgData *XMtPtr)
+{
+	u32 RetVal;
+
+	if (XMtPtr->DdrType == XMT_DDR_TYPE_DDR4) {
+		RetVal = XMt_ReadMprVRef(XMtPtr);
+	} else {
+		RetVal = XMt_ReadMrsVRef(XMtPtr);
+	}
+
+	return RetVal;
+}
+
+/*****************************************************************************/
+/**
+ * This function is used to set the VRef via MR mode
+ *
+ * @param XMtPtr is the pointer to the Memtest Data Structure
+ * @VRef  VRef value to be set
+ *
+ * @return none
+ *
+ * @note none
+ *****************************************************************************/
+void XMt_SetWrVref(XMt_CfgData *XMtPtr, u32 VRef)
+{
+	/* Select Rank 0 */
+	XMT_MASK_WRITE(XMT_DDRC_MRCTRL0, XMT_DDRC_MRCTRL0_MR_RANK_MASK, XMT_DDR_MR_RANK_0);
+
+	/* 0 for Write, 1 for Read */
+	XMT_MASK_WRITE(XMT_DDRC_MRCTRL0, XMT_DDRC_MRCTRL0_MR_TYPE_MASK, XMT_DDR_MR_WRITE);
+
+	/* 0 for mode register set (MRS), 1 for WR/RD for MPR */
+	XMT_MASK_WRITE(XMT_DDRC_MRCTRL0, XMT_DDRC_MRCTRL0_MPR_EN_MASK, XMT_DDR_MRS_ENABLE);
+
+	if (XMtPtr->DdrType == XMT_DDR_TYPE_DDR4) {
+		/* DDR4 MR6 Address */
+		XMT_MASK_WRITE(XMT_DDRC_MRCTRL0, XMT_DDRC_MRCTRL0_MR_ADDR_MASK, XMT_DDR_MR_ADDR_MR6);
+	}
+
+	/* Write the VRef Value */
+	XMT_MASK_WRITE(XMT_DDRC_MRCTRL1, XMT_DDRC_MRCTRL1_MR_DATA_MASK, VRef);
+
+	/* Trigger a mode register read or write operation */
+	XMT_MASK_WRITE(XMT_DDRC_MRCTRL0, XMT_DDRC_MRCTRL0_MR_WR_MASK, XMT_DDR_MR_WR);
+
+	/* Wait for MR operations to complete */
+	while(Xil_In32(XMT_DDRC_MRSTAT) & XMT_DDR_MR_WR_BUSY);
+}
+
+/*****************************************************************************/
+/**
+ * This function is used to reset the original VRef value
+ *
+ * @param XMtPtr is the pointer to the Memtest Data Structure
+ *
+ * @return none
+ *
+ * @note none
+ *****************************************************************************/
+void XMt_ResetWrVref(XMt_CfgData *XMtPtr)
+{
+	/* Enter the Range 1 calibration mode */
+	XMt_SetWrVref(XMtPtr, XMT_DDR_VREF_CALIB_MODE_EN);
+
+	/* Select Rank 0 */
+	XMT_MASK_WRITE(XMT_DDRC_MRCTRL0, XMT_DDRC_MRCTRL0_MR_RANK_MASK, XMT_DDR_MR_RANK_0);
+
+	/* 0 for Write, 1 for Read */
+	XMT_MASK_WRITE(XMT_DDRC_MRCTRL0, XMT_DDRC_MRCTRL0_MR_TYPE_MASK, XMT_DDR_MR_WRITE);
+
+	/* 0 for mode register set (MRS), 1 for WR/RD for MPR */
+	XMT_MASK_WRITE(XMT_DDRC_MRCTRL0, XMT_DDRC_MRCTRL0_MPR_EN_MASK, XMT_DDR_MRS_ENABLE);
+
+	if (XMtPtr->DdrType == XMT_DDR_TYPE_DDR4) {
+		/* DDR4 MR6 Address */
+		XMT_MASK_WRITE(XMT_DDRC_MRCTRL0, XMT_DDRC_MRCTRL0_MR_ADDR_MASK, XMT_DDR_MR_ADDR_MR6);
+		/* Write the VRef Value */
+		XMT_MASK_WRITE(XMT_DDRC_MRCTRL1, 0x3FFFF, (XMtPtr->VRefAutoWr | XMT_DDR_VREF_CALIB_MODE_EN));
+	} else {
+		/* Write the VRef Value */
+		XMT_MASK_WRITE(XMT_DDRC_MRCTRL1, 0x3FFFF, (XMtPtr->VRefAutoWr | XMT_DDR_MR_ADDR_MR14));
+	}
+
+	/* Trigger a mode register read or write operation */
+	XMT_MASK_WRITE(XMT_DDRC_MRCTRL0, XMT_DDRC_MRCTRL0_MR_WR_MASK, XMT_DDR_MR_WR);
+
+	/* Wait for MR operations to complete */
+	while(Xil_In32(XMT_DDRC_MRSTAT) & XMT_DDR_MR_WR_BUSY);
+
+	/* Exit the Calibration Mode */
+	XMt_SetWrVref(XMtPtr, XMT_DDR_VREF_CALIB_MODE_DIS);
+}
+
+/*****************************************************************************/
+/**
  * This function is used to print the 2D Eye Test Results
  *
  * @param XMtPtr is the pointer to the Memtest Data Structure
@@ -659,7 +919,7 @@ void XMt_PrintHelp(void)
 	xil_printf("   | 'c' | Perform a 2-D read eye analysis test                         |\r\n");
 	xil_printf("   | 'e' | Perform a 2-D write eye analysis test                        |\r\n");
 	xil_printf("   | 'a' | Print test start address                                     |\r\n");
-	xil_printf("   | 'l' | Select Number of Iterations for Read/Write Eye Test          |\r\n");
+	xil_printf("   | 'l' | Select Number of Iterations for Memory/Read/Write-Eye/2D test|\r\n");
 	xil_printf("   | 't' | Specify test start address (default=0x0)                     |\r\n");
 	xil_printf("   | 's' | Select the DRAM Rank (default=1)                             |\r\n");
 	xil_printf("   +-----+--------------------------------------------------------------+\r\n");

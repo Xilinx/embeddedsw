@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -154,6 +132,27 @@ extern "C" {
 #define XPSMFW_PWRON_VCCPSINTFP_POST_POR_WAIT	      MICROSECOND_TO_TICKS(1U)
 #define XPSMFW_PWRON_RST_FPD_WAIT_TIME		      NENOSECOND_TO_TICKS(40U)
 
+enum TcmPowerState {
+	STATE_POWER_DEFAULT,
+	STATE_POWER_ON,
+	STATE_POWER_DOWN,
+};
+
+enum TcmBankId {
+	TCM_0_A,
+	TCM_0_B,
+	TCM_1_A,
+	TCM_1_B,
+};
+
+enum ProcDeviceId {
+	ACPU_0,
+	ACPU_1,
+	RPU0_0,
+	RPU0_1,
+	PROC_DEV_MAX,
+};
+
 /* Power control and wakeup Handler Table Structure */
 typedef XStatus (*HandlerFunction_t)(void);
 struct PwrCtlWakeupHandlerTable_t {
@@ -171,6 +170,11 @@ struct PwrHandlerTable_t {
 };
 
 struct XPsmFwPwrCtrl_t {
+	enum ProcDeviceId Id;
+
+	/* Reset vector address register */
+	u32 ResetCfgAddr;
+
 	/* Bit number in the Power State (LOCAL and GLOBAL) Register */
 	u32 PwrStateMask;
 
@@ -234,6 +238,22 @@ struct XPsmFwMemPwrCtrl_t {
 	u32 PwrUpWaitTime;
 };
 
+/*
+ * As per EDT-994842, whenever one of the TCM banks is powered down, some of the
+ * locations of other TCM is not accessible. Synchronize the TCM bank power
+ * down as workaround. This structure is used for synchronizing TCM bank power
+ * down.
+ */
+struct XPsmTcmPwrCtrl_t {
+	struct XPsmFwMemPwrCtrl_t TcmMemPwrCtrl;
+
+	/* Id of TCM bank */
+	enum TcmBankId Id;
+
+	/* Current power state of the TCM bank */
+	enum TcmPowerState PowerState;
+};
+
 struct XPsmFwGemPwrCtrl_t {
         struct XPsmFwMemPwrCtrl_t GemMemPwrCtrl;
 
@@ -250,17 +270,24 @@ struct XPsmFwGemPwrCtrl_t {
         u32 RstCtrlMask;
 };
 
+struct PsmToPlmEvent_t {
+	u32 Version;	/* Version of the event structure */
+	u32 Event[PROC_DEV_MAX];
+	u32 CpuIdleFlag[PROC_DEV_MAX];
+	u64 ResumeAddress[PROC_DEV_MAX];
+};
+
 XStatus XPsmFw_DispatchPwrUpHandler(u32 PwrUpStatus, u32 PwrUpIntMask);
-XStatus XPsmFw_DispatchPwrDwnHandler(u32 PwrDwnStatus, u32 PwrDwnIntMask, u32 PwrUpStatus, u32 PwrUpIntMask);
+XStatus XPsmFw_DispatchPwrDwnHandler(u32 PwrDwnStatus, u32 pwrDwnIntMask,
+		u32 PwrUpStatus, u32 PwrUpIntMask);
 XStatus XPsmFw_DispatchWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask);
 XStatus XPsmFw_DispatchPwrCtlHandler(u32 PwrCtlStatus, u32 PwrCtlIntMask);
 XStatus XPsmFw_DirectPwrDwn(const u32 DeviceId);
 XStatus XPsmFw_DirectPwrUp(const u32 DeviceId);
-int XPsmFw_FpdPreHouseClean();
-int XPsmFw_FpdPostHouseClean();
-int XPsmFw_FpdScanClear();
-int XPsmFw_FpdMbisr();
-int XPsmFw_FpdMbistClear();
+int XPsmFw_FpdPreHouseClean(void);
+void XPsmFw_FpdPostHouseClean(void);
+void XPsmFw_FpdMbisr(void);
+void XPsmFw_FpdMbistClear(void);
 
 #ifdef __cplusplus
 }

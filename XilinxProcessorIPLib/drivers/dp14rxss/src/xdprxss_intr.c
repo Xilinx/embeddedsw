@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xdprxss_intr.c
-* @addtogroup dprxss_v4_2
+* @addtogroup dprxss_v6_1
 * @{
 *
 * This file contains interrupt related functions of Xilinx DisplayPort RX
@@ -56,7 +34,6 @@
 /***************************** Include Files *********************************/
 
 #include "xdprxss.h"
-#include "xdprxss_dp159.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -281,13 +258,6 @@ void XDpRxSs_DrvPowerChangeHandler(void *InstancePtr)
        if (Rdata == PowerDownMode) {
                XDp_RxInterruptDisable(XDpRxSsPtr->DpPtr,
                                XDP_RX_INTERRUPT_MASK_UNPLUG_MASK);
-               if (XDpRxSsPtr->DpPtr->Config.DpProtocol != 
-						XDP_PROTOCOL_DP_1_4) {
-                       XDpRxSs_Dp159Config(XDpRxSsPtr->IicPtr,
-					   XDPRXSS_DP159_CT_UNPLUG,
-					   XDpRxSsPtr->UsrOpt.LinkRate,
-					   XDpRxSsPtr->UsrOpt.LaneCount);
-               }
        }
 }
 
@@ -388,6 +358,27 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 		case XDPRXSS_HANDLER_DP_VBLANK_EVENT:
 			XDp_RxSetCallback(InstancePtr->DpPtr,
 					XDP_RX_HANDLER_VBLANK,
+					CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPRXSS_HANDLER_DP_VBLANK_STREAM_2_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_VBLANK_STREAM_2,
+					CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPRXSS_HANDLER_DP_VBLANK_STREAM_3_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_VBLANK_STREAM_3,
+					CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPRXSS_HANDLER_DP_VBLANK_STREAM_4_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_VBLANK_STREAM_4,
 					CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
@@ -605,6 +596,30 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 				Status = XST_FAILURE;
 			}
 			break;
+
+		case XDPRXSS_HANDLER_DP_ADAPTIVESYNC_SDP_EVENT:
+			if (InstancePtr->DpPtr->Config.DpProtocol ==
+				XDP_PROTOCOL_DP_1_4) {
+				XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_ADAPTIVE_SYNC_SDP,
+					CallbackFunc, CallbackRef);
+				Status = XST_SUCCESS;
+			} else {
+				Status = XST_FAILURE;
+			}
+			break;
+		case XDPRXSS_HANDLER_DP_ADAPTIVESYNC_VBLANK_EVENT:
+			if (InstancePtr->DpPtr->Config.DpProtocol ==
+				XDP_PROTOCOL_DP_1_4) {
+				XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_ADAPTIVE_SYNC_VBLANK,
+					CallbackFunc, CallbackRef);
+				Status = XST_SUCCESS;
+			} else {
+				Status = XST_FAILURE;
+			}
+			break;
+
 		/* End of setting DP 1.4 callback(s) */
 
 		default:

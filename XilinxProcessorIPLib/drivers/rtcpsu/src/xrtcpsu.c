@@ -1,35 +1,13 @@
 /******************************************************************************
- *
- * Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
- ******************************************************************************/
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+
 /*****************************************************************************/
 /**
  *
  * @file xrtcpsu.c
- * @addtogroup rtcpsu_v1_7
+ * @addtogroup rtcpsu_v1_10
  * @{
  *
  * Functions in this file are the minimum required functions for the XRtcPsu
@@ -64,6 +42,8 @@
  *                       as Pointer to const,No brackets to then/else,
  *                       Literal value requires a U suffix,Casting operation to a pointer
  *			 Array has no bounds specified,Logical conjunctions need brackets.
+ * 1.8	 sg	07/13/19 Corrected calibration algorithm
+ *
  * </pre>
  *
  ******************************************************************************/
@@ -86,7 +66,7 @@ static const u32 DaysInMonth[] = {31, 28, 31, 30, 31,
 
 /************************** Function Prototypes ******************************/
 
-static void XRtcPsu_StubHandler(const void *CallBackRef, u32 Event);
+static void XRtcPsu_StubHandler(void *CallBackRef, u32 Event);
 
 /*****************************************************************************/
 /*
@@ -109,8 +89,8 @@ static void XRtcPsu_StubHandler(const void *CallBackRef, u32 Event);
  * @note		None.
  *
  ******************************************************************************/
-s32 XRtcPsu_CfgInitialize(XRtcPsu *InstancePtr, const XRtcPsu_Config *ConfigPtr,
-				u32 EffectiveAddr)
+s32 XRtcPsu_CfgInitialize(XRtcPsu *InstancePtr, XRtcPsu_Config *ConfigPtr,
+			  UINTPTR EffectiveAddr)
 {
 	s32 Status;
 	u32 ControlRegister;
@@ -167,7 +147,7 @@ s32 XRtcPsu_CfgInitialize(XRtcPsu *InstancePtr, const XRtcPsu_Config *ConfigPtr,
 	InstancePtr->TimeUpdated = (u32)0U;
 	InstancePtr->CurrTimeUpdated = (u32)0U;
 
-	Status = XST_SUCCESS;
+	Status = (s32)XST_SUCCESS;
 	return Status;
 }
 
@@ -186,9 +166,9 @@ s32 XRtcPsu_CfgInitialize(XRtcPsu *InstancePtr, const XRtcPsu_Config *ConfigPtr,
  * @note		None.
  *
  *****************************************************************************/
-static void XRtcPsu_StubHandler(const void *CallBackRef, u32 Event)
+static void XRtcPsu_StubHandler(void *CallBackRef, u32 Event)
 {
-	(const void) CallBackRef;
+	(void) CallBackRef;
 	(void) Event;
 	/* Assert occurs always since this is a stub and should
 	 * never be called
@@ -257,7 +237,7 @@ u32 XRtcPsu_GetCurrentTime(XRtcPsu *InstancePtr)
 		if ((InstancePtr->TimeUpdated == (u32)1) &&
 			((Status & XRTC_INT_STS_SECS_MASK) == (u32)0)) {
 			/* Give the previous written time */
-			CurrTime = XRtcPsu_GetLastSetTime(InstancePtr) - 1;
+			CurrTime = XRtcPsu_GetLastSetTime(InstancePtr) - (u32)1;
 		} else {
 			/* Clear TimeUpdated */
 			if ((InstancePtr->TimeUpdated == (u32)1) &&
@@ -273,7 +253,7 @@ u32 XRtcPsu_GetCurrentTime(XRtcPsu *InstancePtr)
 		if ((InstancePtr->TimeUpdated == (u32)1) &&
 			(InstancePtr->CurrTimeUpdated == (u32)0)) {
 			/* Give the previous written time -1 sec */
-			CurrTime = XRtcPsu_GetLastSetTime(InstancePtr) - 1;
+			CurrTime = XRtcPsu_GetLastSetTime(InstancePtr) - (u32)1;
 		} else {
 			/* Clear TimeUpdated */
 			if (InstancePtr->TimeUpdated == (u32)1)
@@ -376,7 +356,7 @@ void XRtcPsu_SecToDateTime(u32 Seconds, XRtcPsu_DT *dt)
 	}
 
 	for (dt->Month = 1U; dt->Month >= 1U; ++(dt->Month)) {
-		DaysPerMonth = DaysInMonth[dt->Month - 1];
+		DaysPerMonth = DaysInMonth[dt->Month - (u32)1];
 		if ((Leap == 1U) && (dt->Month == 2U))
                 {
 			DaysPerMonth++;
@@ -422,7 +402,7 @@ u32 XRtcPsu_DateTimeToSec(XRtcPsu_DT *dt)
 
 	for (i = 1U; i < dt->Month; i++)
         {
-		dt->Day += (u32)DaysInMonth[i-1];
+		dt->Day += (u32)DaysInMonth[i - (u32)1];
         }
 	if ((dt->Month > 2U) && ((dt->Year % 4U) == 0U))
         {
@@ -497,12 +477,14 @@ void XRtcPsu_CalculateCalibration(XRtcPsu *InstancePtr, u32 TimeReal,
 	} else {
 		float Xf;
 		Cprev = Calibration & XRTC_CALIB_RD_MAX_TCK_MASK;
-		Fprev = Calibration & XRTC_CALIB_RD_FRACTN_DATA_MASK;
+		Fprev = (Calibration & XRTC_CALIB_RD_FRACTN_DATA_MASK) >>
+			XRTC_CALIB_RD_FRACTN_DATA_SHIFT;
 
-		Xf = ((ReadTime - SetTime) * ((Cprev+1U) + ((Fprev+1U)/16U))) /
-							(TimeReal - SetTime);
+		Xf = (float)((ReadTime - SetTime) / (TimeReal - SetTime));
+		Xf = Xf * (float)((Cprev+1U) + ((Fprev+1U)/16U));
+
 		Cnew = (u32)(Xf) - (u32)1;
-		Fnew = XRtcPsu_RoundOff((Xf - Cnew) * 16U) - (u32)1;
+		Fnew = XRtcPsu_RoundOff((Xf - (u32)Xf) * (float)16U) - (u32)1;
 	}
 
 	Calibration = (Fnew << XRTC_CALIB_RD_FRACTN_DATA_SHIFT) + Cnew;
@@ -526,7 +508,7 @@ void XRtcPsu_CalculateCalibration(XRtcPsu *InstancePtr, u32 TimeReal,
  *			This also clears interrupt status seconds bit.
  *
  *****************************************************************************/
-u32 XRtcPsu_IsSecondsEventGenerated(const XRtcPsu *InstancePtr)
+u32 XRtcPsu_IsSecondsEventGenerated(XRtcPsu *InstancePtr)
 {
 	u32 Status;
 
@@ -557,7 +539,7 @@ u32 XRtcPsu_IsSecondsEventGenerated(const XRtcPsu *InstancePtr)
  *		This also clears interrupt status alarm bit.
  *
  *****************************************************************************/
-u32 XRtcPsu_IsAlarmEventGenerated(const XRtcPsu *InstancePtr)
+u32 XRtcPsu_IsAlarmEventGenerated(XRtcPsu *InstancePtr)
 {
 	u32 Status;
 

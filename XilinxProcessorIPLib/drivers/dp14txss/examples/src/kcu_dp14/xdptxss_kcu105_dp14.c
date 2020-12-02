@@ -1,30 +1,8 @@
 /*******************************************************************************
- *
- * Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /******************************************************************************/
 /**
  *
@@ -35,7 +13,10 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   KI   12/09/17 Initial release.
- *
+ * 1.1	 ND   2/14/19  mcdp related function call now need dprxss instance address
+ *                     instead of base address  as first parameter
+ * 1.2	 ND	  09/02/20 Added support for New Av patgen. Added support for CRC for
+ *					   format 422 for pixel width engine and PPC changes.
 *******************************************************************************/
 
 #include "dppt.h"
@@ -110,39 +91,40 @@ static void Dprx_InterruptHandlerVideo(void *InstancePtr);
 static void Dprx_CheckSetupTx(void *InstancePtr);
 static void Dprx_DetectResolution(void *InstancePtr);
 static void Dprx_ResetVideoOutput(void *InstancePtr);
+extern void Gen_vid_clk(XDp *InstancePtr, u8 Stream);
 
-
-u8 prog_tx; /*This variable triggers detect_rx_video_and_startTx()*/
-u8 rx_ran_once;
-u32 training_done;
-u32 vblank_count;
-u8 start_tracking;
-u8 change_detected;
-u8 only_tx_active;
-u8 rx_link_change_requested;
-u8 switch_to_patgen;
-u8 need_to_retrain_rx;
+volatile u8 prog_tx; /*This variable triggers detect_rx_video_and_startTx()*/
+volatile u8 rx_ran_once;
+volatile u32 training_done;
+volatile u32 vblank_count;
+volatile u8 start_tracking;
+volatile u8 change_detected;
+volatile u8 only_tx_active;
+volatile u8 rx_link_change_requested;
+volatile u8 switch_to_patgen;
+volatile u8 need_to_retrain_rx;
 u8 Edid_org[128];
 u8 Edid1_org[128];
 u8 Edid2_org[128];
 u8 max_cap_lanes;
 u8 max_cap_org;
-u8 tx_is_reconnected; /*This variable triggers hpd_con*/
-u8 hpd_pulse_con_event; /*This variable triggers hpd_pulse_con*/
+volatile u8 tx_is_reconnected; /*This variable triggers hpd_con*/
+volatile u8 hpd_pulse_con_event; /*This variable triggers hpd_pulse_con*/
 
-u8 enabled;
-u8 gt_stable;
+volatile u8 enabled;
+volatile u8 gt_stable;
 u8 LineRate_init_tx = 0x14;
 u8 LaneCount_init_tx = 0x4;
 int monitor_8K;
 u8 use_monitor_edid;
 u8 bypass_vid_common;
-u8 rx_linkup_trig;
+volatile u8 rx_linkup_trig;
 u8 edid_monitor[384];
 
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 XV_axi4s_remap          rx_remap;
 XV_axi4s_remap          tx_remap;
-
+#endif
 
 
 
@@ -178,9 +160,8 @@ typedef struct
 	u8 frame_count;
 } XilAudioInfoFrame;
 
-XilAudioInfoFrame *xilInfoFrame;
+XDp_TxAudioInfoFrame *xilInfoFrame;
 
-void sendAudioInfoFrame(XilAudioInfoFrame *xilInfoFrame);
 
 /*The structure defines Generic Frame Packet fields*/
 typedef struct
@@ -440,8 +421,10 @@ int main(void)
 	int m_aud = 0;
 	int n_aud = 0;
 
+	#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 	XV_axi4s_remap_Config   *rx_remap_Config;
 	XV_axi4s_remap_Config   *tx_remap_Config;
+    #endif
 	u32 clk_reg0;
 	u32 clk_reg1;
 	u32 clk_reg2;
@@ -498,7 +481,7 @@ int main(void)
 #if XPAR_XDPRXSS_NUM_INSTANCES
 	DPRxInitialize();
 	/* DPRxSs uses its own I2C driver */
-	XDpRxSs_McDp6000_init(&DpRxSsInst, DpRxSsInst.IicPtr->BaseAddress);
+	XDpRxSs_McDp6000_init(&DpRxSsInst);
 #endif
 
 	clk_reg0 = Xil_In32 (CLK_WIZ_BASE+0x200);
@@ -580,7 +563,6 @@ int main(void)
 		LineRate_init_tx = MAX_RATE;
 		LaneCount_init = MAX_LANE;
 		LaneCount_init_tx = MAX_LANE;
-		initial_value = LineRate_init;
 		DpTxSsInst.DpPtr->Config.MaxLinkRate = MAX_RATE;
 		DpTxSsInst.DpPtr->Config.MaxLaneCount = MAX_LANE;
 #else
@@ -632,6 +614,7 @@ int main(void)
 #endif
 
 	XDpRxSs_SetLinkRate(&DpRxSsInst, LineRate_init);
+	prev_line_rate=LineRate_init;
 	XDpRxSs_SetLaneCount(&DpRxSsInst, LaneCount_init);
 	XDpRxSs_Start(&DpRxSsInst);
 //	/* Programming AUX defer to 6. */
@@ -655,7 +638,7 @@ int main(void)
 					0x047868C0);
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_INTERRUPT_MASK,
 					0xFFF87FFD);
-
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 	/* setting up remapper at here */
 	rx_remap_Config = XV_axi4s_remap_LookupConfig(REMAP_RX_DEVICE_ID);
 	Status = XV_axi4s_remap_CfgInitialize(
@@ -688,7 +671,7 @@ int main(void)
 	XV_axi4s_remap_Set_ColorFormat(&tx_remap, 0);
 	XV_axi4s_remap_Set_inPixClk(&tx_remap, 4);
 	XV_axi4s_remap_Set_outPixClk(&tx_remap, 4);
-
+#endif
 	app_help();
 
 	while (1) {
@@ -811,7 +794,7 @@ int main(void)
 						xilInfoFrame->version = 0x12;
 						XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 								XDP_TX_AUDIO_CONTROL, 0x0);
-						sendAudioInfoFrame(xilInfoFrame);
+						XDpTxSs_SendAudioInfoFrame(&DpTxSsInst,xilInfoFrame);
 						XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 								XDP_TX_AUDIO_CHANNELS, 0x2);
 						switch(dp_conf.LineRate){
@@ -1321,8 +1304,8 @@ int main(void)
 								}
 
 								pat_update = 3;
-								Vpg_VidgenSetUserPattern(DpTxSsInst.DpPtr,
-										C_VideoUserStreamPattern[pat_update]);
+//								Vpg_VidgenSetUserPattern(DpTxSsInst.DpPtr,
+//										C_VideoUserStreamPattern[pat_update]);
 
 								start_tx(LineRate_init_tx, LaneCount_init_tx,
 									 user_config.VideoMode_local, 8, 1, pat_update);
@@ -1535,10 +1518,14 @@ int main(void)
 						select_rx_link_lane();
 						CommandKey = GetInbyte();
 						Command = (int)CommandKey;
-						Command = Command -48;
+//						Command = Command -48;
+						if(Command>47 && Command<58)
+							Command = Command - 48;
+						else if(Command>96 && Command<123)
+							Command = Command - 87;
 						xil_printf("You have selected command=%d \n\r",
 							   Command);
-						if ((Command >= 0) && (Command < 9)) {
+						if ((Command >= 0) && (Command < 12)) {
 							user_lane_count =
 								lane_link_table[Command].lane_count;
 							user_link_rate =
@@ -1625,31 +1612,31 @@ int main(void)
 							   "===========\r\n");
 
 						xil_printf("0x0700: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR,
 											0x0700));
 						xil_printf("0x0704: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR,
 											0x0704));
 						xil_printf("0x0754: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR,
 											0x0754));
 						xil_printf("0x0B20: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR,
 											0x0B20));
 						xil_printf("0x0B24: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR,
 											0x0B24));
 						xil_printf("0x0B28: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR,
 											0x0B28));
 						xil_printf("0x0B2C: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR,
 											0x0B2C));
 
@@ -1763,16 +1750,16 @@ int main(void)
 
 					case '7':
 						if(mcdp6000_reset == 0){
-							XDpRxSs_MCDP6000_SetRegister(XPAR_IIC_0_BASEADDR,
+							XDpRxSs_MCDP6000_SetRegister(&DpRxSsInst,
 									I2C_MCDP6000_ADDR, 0x0504, 0x700E);
 
 							mcdp6000_reset = 1;
 							training_done = 0;
 							start_tracking = 0;
 						} else {
-							XDpRxSs_MCDP6000_DpInit(XPAR_IIC_0_BASEADDR,
+							XDpRxSs_MCDP6000_DpInit(&DpRxSsInst,
 									I2C_MCDP6000_ADDR);
-							XDpRxSs_MCDP6000_ResetDpPath(XPAR_IIC_0_BASEADDR,
+							XDpRxSs_MCDP6000_ResetDpPath(&DpRxSsInst,
 									I2C_MCDP6000_ADDR);
 							mcdp6000_reset = 0;
 						}
@@ -1939,63 +1926,63 @@ int main(void)
 							XDp_ReadReg(XPAR_VIDEO_FRAME_CRC_TX_BASEADDR, 0x4) >> 16);
 						xil_printf("CRC - B/Cb  =  0x%x\r\n",
 							XDp_ReadReg(XPAR_VIDEO_FRAME_CRC_TX_BASEADDR, 0x8) & 0xFFFF);
-						xil_printf("Rxd Hactive =  0x%x\r\n",
+						xil_printf("Txd Hactive =  0x%x\r\n",
 							XDp_ReadReg(XPAR_VIDEO_FRAME_CRC_TX_BASEADDR, 0xC) & 0xFFFF);
-						xil_printf("Rxd Vactive =  0x%x\r\n",
+						xil_printf("Txd Vactive =  0x%x\r\n",
 							XDp_ReadReg(XPAR_VIDEO_FRAME_CRC_TX_BASEADDR, 0xC) >> 16);
 						break;
 
 					case 'm':
 						xil_printf("========MCDP6000 Debug Data=========\r\n");
 						xil_printf("0x0700: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x0700));
 						xil_printf("0x0704: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x0704));
 						xil_printf("0x0754: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x0754));
 						xil_printf("0x0B20: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x0B20));
 						xil_printf("0x0B24: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x0B24));
 						xil_printf("0x0B28: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x0B28));
 						xil_printf("0x0B2C: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x0B2C));
 
 						xil_printf("0x1294: %08x  0x12BC: %08x  0x12E4: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x1294),
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x12BC),
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x12E4));
 						xil_printf("0x1394: %08x  0x13BC: %08x  0x13E4: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x1394),
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x13BC),
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x13E4));
 						xil_printf("0x1494: %08x  0x14BC: %08x  0x14E4: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x1494),
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x14BC),
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x14E4));
 						xil_printf("0x1594: %08x  0x15BC: %08x  0x15E4: %08x\n\r",
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x1594),
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x15BC),
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR, 0x15E4));
 						break;
 
@@ -2005,7 +1992,7 @@ int main(void)
 						aux_reg_address = xil_gethex(4);
 						xil_printf("\r\n");
 						xil_printf("0x%x: %08x\n\r", aux_reg_address,
-							   XDpRxSs_MCDP6000_GetRegister(XPAR_IIC_0_BASEADDR,
+							   XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 											I2C_MCDP6000_ADDR,
 											aux_reg_address));
 						break;
@@ -2019,7 +2006,7 @@ int main(void)
 							   "value of write data 0x");
 						data = xil_gethex(8);
 						XDpRxSs_MCDP6000_SetRegister(
-							XPAR_IIC_0_BASEADDR,
+								&DpRxSsInst,
 							I2C_MCDP6000_ADDR,
 							aux_reg_address,
 							data);
@@ -2504,6 +2491,26 @@ static void Dprx_DetectResolution(void *InstancePtr)
 			   DpHres, DpVres, recv_frame_clk_int,
 			   dp_conf.bpc);
 	}
+
+	    /*Reset CRC*/
+		XVidFrameCrc_Reset();
+
+	    /*Set pixel mode as per lane count - it is default behavior
+	      User has to adjust this accordingly if there is change in pixel
+	      width programming
+	     */
+	    u8 Rx_Mode_422 =(XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+	                                          XDP_RX_MSA_MISC0) >> 1) & 0x3;
+
+	    if (Rx_Mode_422 != 0x1) {
+		XDp_WriteReg(XPAR_VIDEO_FRAME_CRC_RX_BASEADDR,
+	                          VIDEO_FRAME_CRC_CONFIG,
+	                            4/*DpRxSsInst.UsrOpt.LaneCount*/);
+	    } else { // 422
+		XDp_WriteReg(XPAR_VIDEO_FRAME_CRC_RX_BASEADDR,
+	                              VIDEO_FRAME_CRC_CONFIG,
+	                                (/*DpRxSsInst.UsrOpt.LaneCount*/4 | 0x80000000));
+	    }
 }
 
 static void Dprx_ResetVideoOutput(void *InstancePtr)
@@ -2646,6 +2653,7 @@ void Dprx_SetupTx(void *InstancePtr, u8 tx_with_msa, XVidC_VideoMode VmId)
 {
 	u32 Status;
 	u32 rxMsamisc0;
+	u8 format = user_config.user_format-1;
 	
 	/* Disabling TX and TX interrupts */
 	sink_power_cycle(400);
@@ -2732,6 +2740,7 @@ void Dprx_SetupTx(void *InstancePtr, u8 tx_with_msa, XVidC_VideoMode VmId)
 
 	/* Need to start again as VTC values are reset */
 	xil_printf(".");
+	Gen_vid_clk(DpTxSsInst.DpPtr,(XDP_TX_STREAM_ID1));
 	clk_wiz_locked();
 
 	Status = DpTxSubsystem_Start(&DpTxSsInst, tx_with_msa);
@@ -2785,12 +2794,16 @@ void Dprx_SetupTx(void *InstancePtr, u8 tx_with_msa, XVidC_VideoMode VmId)
 		     XDP_TX_INTERRUPT_MASK, 0x0);
 
 	/* Update CRC block */
-	XDp_WriteReg(XPAR_VIDEO_FRAME_CRC_TX_BASEADDR, 0,
-		     XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-				 XDP_TX_USER_PIXEL_WIDTH));
-	XDp_WriteReg(XPAR_VIDEO_FRAME_CRC_RX_BASEADDR, 0,
-		     XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-				 XDP_TX_USER_PIXEL_WIDTH));
+	if (format != 2) {
+		XDp_WriteReg(XPAR_VIDEO_FRAME_CRC_TX_BASEADDR,
+				VIDEO_FRAME_CRC_CONFIG,
+				0x4);
+	} else { //422
+		XDp_WriteReg(XPAR_VIDEO_FRAME_CRC_TX_BASEADDR,
+				VIDEO_FRAME_CRC_CONFIG,
+				0x4 | 0x80000000);
+	}
+
 
 
 	if ((Status == XST_SUCCESS)) {
@@ -2803,7 +2816,9 @@ void Dprx_SetupTx(void *InstancePtr, u8 tx_with_msa, XVidC_VideoMode VmId)
 			   Msa[0].Vtm.FrameRate);
 
 		resetIp();
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 		remap_start(dma_struct);
+#endif
 
 		Vpg_VidgenSetUserPattern(DpTxSsInst.DpPtr,
 				C_VideoUserStreamPattern[0]);
@@ -3307,7 +3322,7 @@ void hpd_con()
 		xil_printf("\r\nCould not read sink capabilities\r\n");
 	}
 
-#if CAP_OVER_RIDE == 1
+#if CAP_OVER_RIDE
 	max_cap_new = MAX_RATE;
 	max_cap_lanes_new = MAX_LANE;
 #endif
@@ -3554,13 +3569,53 @@ void DpPt_HpdPulseHandler(void *InstancePtr)
 
 void DpPt_LinkrateChgHandler(void *InstancePtr)
 {
+	/* If TX is unable to train at what it has been asked then
+	 * necessary down shift handling has to be done here
+	 * eg. reconfigure GT to new rate etc
+	 * This XAPP assumes that RX and TX would run at same rate
+	 * */
+	u8 rate;
+	u32 Status=0;
+
+	rate = get_LineRate();
+	// If the requested rate is same, do not re-program.
+	if (rate != prev_line_rate) {
+		switch (rate) {
+				case XDP_DPCD_LINK_BW_SET_162GBPS:
+					prog_bb(XDP_DPCD_LINK_BW_SET_162GBPS, 1) ;
+					Status = PHY_Configuration_Tx(&VPhy_Instance,
+					PHY_User_Config_Table[3]);
+					break;
+
+				case XDP_DPCD_LINK_BW_SET_270GBPS :
+					prog_bb(XDP_DPCD_LINK_BW_SET_270GBPS, 1);
+					Status = PHY_Configuration_Tx(&VPhy_Instance,
+					PHY_User_Config_Table[4]);
+					break;
+
+				case XDP_DPCD_LINK_BW_SET_540GBPS:
+					prog_bb(XDP_DPCD_LINK_BW_SET_540GBPS, 1);
+					Status = PHY_Configuration_Tx(&VPhy_Instance,
+					PHY_User_Config_Table[5]);
+					break;
+
+				case XDP_DPCD_LINK_BW_SET_810GBPS:
+					prog_bb(XDP_DPCD_LINK_BW_SET_810GBPS, 1);
+					Status = PHY_Configuration_Tx(&VPhy_Instance,
+					PHY_User_Config_Table[10]);
+					break;
+					}
+
+				if (Status != XST_SUCCESS) {
+					xil_printf("+++++++ TX GT configuration "
+								"encountered a failure +++++++\r\n");
+				}
+
+	}
+	//update the previous link rate info at here
+	prev_line_rate = rate;
 }
 
-/* If TX is unable to train at what it has been asked then
- * necessary down shift handling has to be done here
- * eg. reconfigure GT to new rate etc
- * This XAPP assumes that RX and TX would run at same rate
- * */
 void DpPt_pe_vs_adjustHandler(void *InstancePtr)
 {
 	if (PE_VS_ADJUST == 1) {
@@ -3772,6 +3827,7 @@ void start_tx(u8 line_rate, u8 lane_count, XVidC_VideoMode res_table,
 			u8 bpc, u8 pat, u8 pat_update)
 {
 	u32 Status;
+	u8 format = user_config.user_format-1;
 	/* Disabling TX and TX interrupts */
 
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
@@ -3811,7 +3867,7 @@ void start_tx(u8 line_rate, u8 lane_count, XVidC_VideoMode res_table,
 	 * User can change coefficients here - By default 601 is used for YCbCr
 	 * */
 	XDp_TxCfgSetColorEncode(DpTxSsInst.DpPtr, XDP_TX_STREAM_ID1, \
-			(user_config.user_format-1), XVIDC_BT_601, XDP_DR_CEA);
+			format, XVIDC_BT_601, XDP_DR_CEA);
 
 
 
@@ -3821,8 +3877,10 @@ void start_tx(u8 line_rate, u8 lane_count, XVidC_VideoMode res_table,
 	xil_printf(".");
 	Vpg_VidgenSetUserPattern(DpTxSsInst.DpPtr,
 			C_VideoUserStreamPattern[pat_update]);
-
 	xil_printf(".");
+    /* Generate the video clock using MMCM
+     */
+    Gen_vid_clk(DpTxSsInst.DpPtr,(XDP_TX_STREAM_ID1));
 	clk_wiz_locked();
 	XDp_TxDisableMainLink(DpTxSsInst.DpPtr);
 	/* Update VTC */
@@ -3856,82 +3914,20 @@ void start_tx(u8 line_rate, u8 lane_count, XVidC_VideoMode res_table,
 	/* Reset CRC*/
 	XVidFrameCrc_Reset();
 	/* Set Pixel width in CRC engine*/
-	XDp_WriteReg(XPAR_VIDEO_FRAME_CRC_TX_BASEADDR, 0,
-		     XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-				XDP_TX_USER_PIXEL_WIDTH));
+	if (format != 2) {
+		XDp_WriteReg(XPAR_VIDEO_FRAME_CRC_TX_BASEADDR,
+				VIDEO_FRAME_CRC_CONFIG,
+				0x4);
+	} else { //422
+		XDp_WriteReg(XPAR_VIDEO_FRAME_CRC_TX_BASEADDR,
+				VIDEO_FRAME_CRC_CONFIG,
+				0x4 | 0x80000000);
+	}
 
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 		     XDP_TX_INTERRUPT_MASK, 0x0);
 	xil_printf("..done !\r\n");
 }
-
-#if ENABLE_AUDIO
-void sendAudioInfoFrame(XilAudioInfoFrame *xilInfoFrame)
-{
-	u8 db1, db2, db3, db4;
-	u32 temp;
-	u8 RSVD=0;
-
-	/* Fixed paramaters */
-	u8 dp_version = xilInfoFrame->version;
-
-	/* Write #1 */
-	db1 = 0x00; //sec packet ID fixed to 0 - SST Mode
-	db2 = xilInfoFrame->type;
-	db3 = xilInfoFrame->info_length&0xFF;
-	db4 = (dp_version<<2)|(xilInfoFrame->info_length>>8);
-	temp = db4<<24|db3<<16|db2<<8|db1;
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-					XDP_TX_AUDIO_INFO_DATA(1), temp);
-//	dbg_printf("\n[AUDIO_INFOFRAME] Word1=0x%x\r",temp);
-
-	/* Write #2 */
-	db1 = xilInfoFrame->audio_channel_count
-		| (xilInfoFrame->audio_coding_type<<4) | (RSVD<<3);
-	db2 = (RSVD<<5)| (xilInfoFrame->sampling_frequency<<2)
-		| xilInfoFrame->sample_size;
-	db3 = RSVD;
-	db4 = xilInfoFrame->channel_allocation;
-	temp = db4<<24|db3<<16|db2<<8|db1;
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-		XDP_TX_AUDIO_INFO_DATA(1), temp);
-//	dbg_printf("\n[AUDIO_INFOFRAME] Word2=0x%x\r",temp);
-
-	/* Write #3 */
-	db1 = (xilInfoFrame->level_shift<<3) | RSVD
-			| (xilInfoFrame->downmix_inhibit <<7);
-	db2 = RSVD;
-	db3 = RSVD;
-	db4 = RSVD;
-	temp = db4<<24|db3<<16|db2<<8|db1;
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-					XDP_TX_AUDIO_INFO_DATA(1), temp);
-//	dbg_printf("\n[AUDIO_INFOFRAME] Word3=0x%x\r",temp);
-
-	/* Write #4 */
-	db1 = RSVD;
-	db2 = RSVD;
-	db3 = RSVD;
-	db4 = RSVD;
-	temp = 0x00000000;
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-				XDP_TX_AUDIO_INFO_DATA(1), temp);
-//	dbg_printf("\n[AUDIO_INFOFRAME] Word4-Word8=0x%x\r",temp);
-	//Write #5
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-				XDP_TX_AUDIO_INFO_DATA(1), temp);
-
-	//Write #6
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-				XDP_TX_AUDIO_INFO_DATA(1), temp);
-	//Write #7
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-				XDP_TX_AUDIO_INFO_DATA(1), temp);
-	//Write #8
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-				XDP_TX_AUDIO_INFO_DATA(1), temp);
-}
-#endif
 
 /* Buffer Bypass is to be used when TX operates on stable clock.
  * To use this, the TX should be configured 
@@ -4502,7 +4498,7 @@ void start_audio_passThrough(){
 		xilInfoFrame->version = 0x12;
 		XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 							XDP_TX_AUDIO_CONTROL, 0x0);
-		sendAudioInfoFrame(xilInfoFrame);
+		XDpTxSs_SendAudioInfoFrame (&DpTxSsInst,xilInfoFrame);
 		XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 							XDP_TX_AUDIO_CHANNELS, 0x2);
 		switch(dp_conf.LineRate){
@@ -4645,6 +4641,7 @@ void resetIp()
 	usleep(10000);          //hold reset line
 }
 
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 /*****************************************************************************/
 /**
  * This function sets parameters for remap IP
@@ -4691,7 +4688,7 @@ void remap_start(struct dma_chan_parms *dma_struct)
 	XV_axi4s_remap_Start(&rx_remap);
 	XV_axi4s_remap_Start(&tx_remap);
 }
-
+#endif
 
 void power_down_HLSIPs(void){
 	Xil_Out32(HLS_RESET, 0);
@@ -4906,8 +4903,8 @@ void DpRxSs_AccessLinkQualHandler(void *InstancePtr)
 				DrpVal);
 
 		/*Set PRBS mode in Retimer*/
-		XDpRxSs_MCDP6000_EnablePrbs7_Rx(XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR);
-		XDpRxSs_MCDP6000_ClearCounter(XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR);
+		XDpRxSs_MCDP6000_EnablePrbs7_Rx(&DpRxSsInst, I2C_MCDP6000_ADDR);
+		XDpRxSs_MCDP6000_ClearCounter(&DpRxSsInst, I2C_MCDP6000_ADDR);
 //    	MCDP6000_EnableCounter(XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR);
 	} else {
 		/*Disable PRBS Mode in Video PHY*/
@@ -4918,9 +4915,9 @@ void DpRxSs_AccessLinkQualHandler(void *InstancePtr)
 				DrpVal);
 
 		/*Disable PRBS mode in Retimer*/
-		XDpRxSs_MCDP6000_DisablePrbs7_Rx(XPAR_IIC_0_BASEADDR,
+		XDpRxSs_MCDP6000_DisablePrbs7_Rx(&DpRxSsInst,
 				I2C_MCDP6000_ADDR);
-		XDpRxSs_MCDP6000_ClearCounter(XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR);
+		XDpRxSs_MCDP6000_ClearCounter(&DpRxSsInst, I2C_MCDP6000_ADDR);
 //		MCDP6000_EnableCounter(XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR);
 	}
 }
@@ -5040,4 +5037,20 @@ void DpRxSs_CRCTestEventHandler(void *InstancePtr)
 		XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 				XDP_RX_CDR_CONTROL_CONFIG, ReadVal & 0xBFFFFFFF);
 	}
+}
+
+/*****************************************************************************/
+/**
+*
+* This function returns current line rate
+*
+* @param	None.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+u8 get_LineRate(void){
+	return DpTxSsInst.DpPtr->TxInstance.LinkConfig.LinkRate;
 }

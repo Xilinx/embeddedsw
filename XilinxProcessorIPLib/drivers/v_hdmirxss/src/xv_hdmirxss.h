@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2016 - 2017 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -95,6 +73,7 @@
 *                       Added TMDS Clock Ratio callback support
 *       YB     17/08/18 Marked XV_HDMIRXSS_HDCP_1_PROT_EVT and
 *                           XV_HDMIRXSS_HDCP_2_PROT_EVT as deprecated.
+* 5.40  EB     06/08/19 Added Vic and Video Timing mismatch callback support
 * </pre>
 *
 ******************************************************************************/
@@ -170,6 +149,7 @@ typedef enum {
 	XV_HDMIRXSS_LOG_EVT_SYNCLOSS,           /**< Log event Sync Loss detected. */
 	XV_HDMIRXSS_LOG_EVT_PIX_REPEAT_ERR,		/**< Log event Unsupported Pixel Repetition. */
 	XV_HDMIRXSS_LOG_EVT_SYNCEST,            /**< Log event Sync Loss detected. */
+	XV_HDMIRXSS_LOG_EVT_VICERROR,           /**< Log event vic error detected. */
 	XV_HDMIRXSS_LOG_EVT_DUMMY               /**< Dummy Event should be last */
 } XV_HdmiRxSs_LogEvent;
 
@@ -194,7 +174,7 @@ typedef enum {
   XV_HDMIRXSS_HDCP_TOPOLOGY_DEVICECNT,
   XV_HDMIRXSS_HDCP_TOPOLOGY_MAXDEVSEXCEEDED,
   XV_HDMIRXSS_HDCP_TOPOLOGY_MAXCASCADEEXCEEDED,
-  XV_HDMIRXSS_HDCP_TOPOLOGY_HDCP20REPEATERDOWNSTREAM,
+  XV_HDMIRXSS_HDCP_TOPOLOGY_HDCP2LEGACYDEVICEDOWNSTREAM,
   XV_HDMIRXSS_HDCP_TOPOLOGY_HDCP1DEVICEDOWNSTREAM,
   XV_HDMIRXSS_HDCP_TOPOLOGY_INVALID
 } XV_HdmiRxSs_HdcpTopologyField;
@@ -257,7 +237,10 @@ typedef enum
   XV_HDMIRXSS_HDCP_NONE,       /**< No content protection */
   XV_HDMIRXSS_HDCP_14,         /**< HDCP 1.4 */
   XV_HDMIRXSS_HDCP_22,         /**< HDCP 2.2 */
-  XV_HDMIRXSS_HDCP_BOTH        /**< Both HDCP 1.4 and 2.2 */
+  XV_HDMIRXSS_HDCP_BOTH,       /**< Both HDCP 1.4 and 2.2 */
+  XV_HDMIRXSS_HDCP_NOUSERPREF,       /**< Control user selection.
+				       * to be used only with API
+				       * XV_HdmiRxSs_SetUserHdcpProtocol */
 } XV_HdmiRxSs_HdcpProtocol;
 
 /**
@@ -300,9 +283,11 @@ typedef enum {
   XV_HDMIRXSS_HANDLER_HDCP_ENCRYPTION_UPDATE,       /**< Handler for HDCP
                                                          encryption status
                                                          update event */
-  XV_HDMIRXSS_HANDLER_TMDS_CLK_RATIO                /**< Handler type for
+  XV_HDMIRXSS_HANDLER_TMDS_CLK_RATIO,               /**< Handler type for
                                                          TMDS clock ratio
                                                          change */
+  XV_HDMIRXSS_HANDLER_VIC_ERROR                     /**< Handler type for
+                                                         VIC error change */
 } XV_HdmiRxSs_HandlerType;
 /*@}*/
 
@@ -416,6 +401,10 @@ typedef struct
   void *TmdsClkRatioRef;/**< To be passed to the scdc tmds clock ratio change
                              callback */
 
+  XV_HdmiRxSs_Callback VicErrorCallback;  /**< Callback for VIC error
+                                               detection */
+   void *VicErrorRef;   /**< To be passed to the VIC error callback */
+
   // Scratch pad
   u8 IsStreamConnected;         /**< HDMI RX Stream Connected */
   u8 IsStreamUp;                /**< HDMI RX Stream Up */
@@ -429,6 +418,7 @@ typedef struct
   XHdmiC_GeneralControlPacket GCP;		/**< General Control Packet */
   XHdmiC_AudioInfoFrame AudioInfoframe;	/**< Audio InfoFrame */
   XHdmiC_VSIF VSIF;						/**< Vendor Specific InfoFrame */
+  XHdmiC_DRMInfoFrame DrmInfoframe; /* HDR infoframe */
 
   XVidC_DelayHandler UserTimerWaitUs; /**< Custom user function for
                                            delay/sleep. */
@@ -440,6 +430,7 @@ typedef struct
 #ifdef USE_HDCP_RX
   /**< HDCP specific */
   u32                           HdcpIsReady;    /**< HDCP ready flag */
+  XV_HdmiRxSs_HdcpProtocol	UserHdcpProt;    /**< User HDCP preference */
   XV_HdmiRxSs_HdcpEventQueue    HdcpEventQueue;         /**< HDCP event queue */
 #endif
 #ifdef XPAR_XHDCP22_RX_NUM_INSTANCES
@@ -475,9 +466,9 @@ void XV_HdmiRxSs_RXCore_LRST(XV_HdmiRxSs *InstancePtr, u8 Reset);
 void XV_HdmiRxSs_VRST(XV_HdmiRxSs *InstancePtr, u8 Reset);
 void XV_HdmiRxSs_SYSRST(XV_HdmiRxSs *InstancePtr, u8 Reset);
 int XV_HdmiRxSs_SetCallback(XV_HdmiRxSs *InstancePtr,
-    u32 HandlerType,
-    void *CallbackFunc,
-    void *CallbackRef);
+		XV_HdmiRxSs_HandlerType HandlerType,
+		void *CallbackFunc,
+		void *CallbackRef);
 void XV_HdmiRxSs_SetEdidParam(XV_HdmiRxSs *InstancePtr, u8 *EdidDataPtr,
                                                                 u16 Length);
 void XV_HdmiRxSs_LoadDefaultEdid(XV_HdmiRxSs *InstancePtr);
@@ -488,6 +479,7 @@ void XV_HdmiRxSs_ToggleHpd(XV_HdmiRxSs *InstancePtr);
 XHdmiC_Aux *XV_HdmiRxSs_GetAuxiliary(XV_HdmiRxSs *InstancePtr);
 XHdmiC_AVI_InfoFrame *XV_HdmiRxSs_GetAviInfoframe(XV_HdmiRxSs *InstancePtr);
 XHdmiC_AudioInfoFrame *XV_HdmiRxSs_GetAudioInfoframe(XV_HdmiRxSs *InstancePtr);
+XHdmiC_DRMInfoFrame *XV_HdmiRxSs_GetDrmInfoframe(XV_HdmiRxSs *InstancePtr);
 XHdmiC_VSIF *XV_HdmiRxSs_GetVSIF(XV_HdmiRxSs *InstancePtr);
 XHdmiC_GeneralControlPacket *XV_HdmiRxSs_GetGCP(XV_HdmiRxSs *InstancePtr);
 u32 XV_HdmiRxSs_SetStream(XV_HdmiRxSs *InstancePtr,
@@ -507,6 +499,9 @@ int  XV_HdmiRxSs_IsStreamConnected(XV_HdmiRxSs *InstancePtr);
 void XV_HdmiRxSs_SetDefaultPpc(XV_HdmiRxSs *InstancePtr, u8 Id);
 void XV_HdmiRxSs_SetPpc(XV_HdmiRxSs *InstancePtr, u8 Id, u8 Ppc);
 void XV_HdmiRxSs_AudioMute(XV_HdmiRxSs *InstancePtr, u8 Enable);
+int XV_HdmiRxSs_SetUserHdcpProtocol(XV_HdmiRxSs *InstancePtr,
+		XV_HdmiRxSs_HdcpProtocol protocol);
+
 
 #ifdef XV_HDMIRXSS_LOG_ENABLE
 void XV_HdmiRxSs_LogReset(XV_HdmiRxSs *InstancePtr);

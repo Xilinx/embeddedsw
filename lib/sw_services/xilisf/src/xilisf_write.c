@@ -1,30 +1,8 @@
 /******************************************************************************
- *
- * Copyright (C) 2012 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (c) 2012 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  ******************************************************************************/
+
 /*****************************************************************************/
 /**
  *
@@ -63,6 +41,7 @@
  *                    CR#1015808.
  *      sk   02/15/19 4B write command is not supported by all QSPI Micron
  *                    flashes hence used used 3B write command.
+ * 5.14 akm  08/01/19 Initialized Status variable to XST_FAILURE.
  *
  * </pre>
  *
@@ -484,7 +463,7 @@ static int WriteData(XIsf *InstancePtr, u8 Command, u32 Address,
 #if	defined(XPAR_XISF_INTERFACE_PSSPI)
 	u32 Index;
 #endif
-	int Status;
+	int Status = (int)(XST_FAILURE);
 #if ((!defined(XPAR_XISF_INTERFACE_QSPIPSU)) && \
 		(!defined(XPAR_XISF_INTERFACE_OSPIPSV)) && \
 		(!defined(XPAR_XISF_INTERFACE_PSSPI)))
@@ -541,7 +520,7 @@ static int WriteData(XIsf *InstancePtr, u8 Command, u32 Address,
 		Mode = XIsf_GetTransferMode(InstancePtr);
 
 		/*
-		 * Seting the transfer mode to Polled Mode before
+		 * Setting the transfer mode to Polled Mode before
 		 * performing the Bank Select operation.
 		 */
 		XIsf_SetTransferMode(InstancePtr, XISF_POLLING_MODE);
@@ -886,7 +865,7 @@ static int WriteData(XIsf *InstancePtr, u8 Command, u32 Address,
 static int WriteVCR(XIsf *InstancePtr, u8 Command, u32 Address,
 			u8 *BufferPtr, u32 ByteCount)
 {
-	int Status;
+	int Status = (int)(XST_FAILURE);
 	int Mode;
 	u8 *NULLPtr = NULL;
 
@@ -1220,7 +1199,7 @@ static int BufferToFlashWriteWithoutErase(XIsf *InstancePtr, u8 BufferNum,
  ******************************************************************************/
 static int WriteSR(XIsf *InstancePtr, u8 SRData)
 {
-	int Status = XST_FAILURE;
+	int Status = (int)(XST_FAILURE);
 
 #if ((XPAR_XISF_FLASH_FAMILY == INTEL) || \
 	(XPAR_XISF_FLASH_FAMILY == STM) || \

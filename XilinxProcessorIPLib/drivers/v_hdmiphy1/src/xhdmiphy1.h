@@ -1,35 +1,13 @@
 /*******************************************************************************
- *
- * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /******************************************************************************/
 /**
  *
  * @file xhdmiphy1.h
- * @addtogroup xhdmiphy1_v1_0
+ * @addtogroup xhdmiphy1_v2_1
  * @{
  * @details
  * This is main header file of the Xilinx HDMI PHY Controller driver
@@ -71,6 +49,10 @@
 /* Prevent circular inclusions by using protection macros. */
 #define XHDMIPHY1_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #if !defined(XV_CONFIG_LOG_HDMIPHY1_DISABLE) && \
     !defined(XV_CONFIG_LOG_DISABLE_ALL)
 #define XV_HDMIPHY1_LOG_ENABLE
@@ -85,7 +67,6 @@
 
 /******************* Macros (Inline Functions) Definitions ********************/
 
-#define XHDMIPHY1_GTHE3 4
 #define XHDMIPHY1_GTHE4 5
 #define XHDMIPHY1_GTYE4 6
 #define XHDMIPHY1_GTYE5 7
@@ -94,7 +75,6 @@
 
 /* This typedef enumerates the different GT types available. */
 typedef enum {
-    XHDMIPHY1_GT_TYPE_GTHE3 = 4,
     XHDMIPHY1_GT_TYPE_GTHE4 = 5,
     XHDMIPHY1_GT_TYPE_GTYE4 = 6,
     XHDMIPHY1_GT_TYPE_GTYE5 = 7,
@@ -286,8 +266,8 @@ typedef enum {
 /* This typedef enumerates the possible states a transceiver can be in. */
 typedef enum {
     XHDMIPHY1_GT_STATE_IDLE,     /**< Idle state. */
-    XHDMIPHY1_GT_STATE_LOCK,     /**< Lock state. */
 	XHDMIPHY1_GT_STATE_GPO_RE,   /**< GPO RE state. */
+    XHDMIPHY1_GT_STATE_LOCK,     /**< Lock state. */
     XHDMIPHY1_GT_STATE_RESET,    /**< Reset state. */
     XHDMIPHY1_GT_STATE_ALIGN,    /**< Align state. */
     XHDMIPHY1_GT_STATE_READY,    /**< Ready state. */
@@ -343,6 +323,8 @@ typedef enum {
     XHDMIPHY1_LOG_EVT_TX_FREQ,       /**< Log event TX frequency. */
     XHDMIPHY1_LOG_EVT_RX_FREQ,       /**< Log event RX frequency. */
     XHDMIPHY1_LOG_EVT_DRU_EN,        /**< Log event DRU enable/disable. */
+	XHDMIPHY1_LOG_EVT_TXGPO_RE,     /**< Log event TX GPO Rising Edge. */
+	XHDMIPHY1_LOG_EVT_RXGPO_RE,     /**< Log event RX GPO Rising Edge. */
     XHDMIPHY1_LOG_EVT_FRL_RECONFIG,  /**< Log event FRL TX Reconfig. */
     XHDMIPHY1_LOG_EVT_TMDS_RECONFIG, /**< Log event TMDS TX Reconfig. */
     XHDMIPHY1_LOG_EVT_1PPC_ERR,      /**< Log event 1 PPC Error. */
@@ -359,21 +341,22 @@ typedef enum {
     XHDMIPHY1_LOG_EVT_NO_QPLL_ERR,   /**< Log event QPLL not present. */
     XHDMIPHY1_LOG_EVT_DRU_CLK_ERR,   /**< Log event DRU clk wrong freq. */
     XHDMIPHY1_LOG_EVT_USRCLK_ERR,    /**< Log event usrclk > 297 MHz. */
+    XHDMIPHY1_LOG_EVT_SPDGRDE_ERR,   /**< Log event Speed Grade -1 error. */
     XHDMIPHY1_LOG_EVT_DUMMY,         /**< Dummy Event should be last */
 } XHdmiphy1_LogEvent;
 #endif
 
 /* This typedef enumerates the different MMCM Dividers */
 typedef enum {
-  MMCM_CLKFBOUT_MULT_F, /* M */
-  MMCM_DIVCLK_DIVIDE,   /* D */
-  MMCM_CLKOUT_DIVIDE    /* On */
+    XHDMIPHY1_MMCM_CLKFBOUT_MULT_F, /* M */
+    XHDMIPHY1_MMCM_DIVCLK_DIVIDE,   /* D */
+    XHDMIPHY1_MMCM_CLKOUT_DIVIDE    /* On */
 } XHdmiphy1_MmcmDivType;
 
 /* This typedef enumerates the different MMCM CLKINSEL */
 typedef enum {
-    MMCM_CLKINSEL_CLKIN1 = 1,
-    MMCM_CLKINSEL_CLKIN2 = 0,
+	XHDMIPHY1_MMCM_CLKINSEL_CLKIN1 = 1,
+	XHDMIPHY1_MMCM_CLKINSEL_CLKIN2 = 0,
 } XHdmiphy1_MmcmClkinsel;
 
 /* This typedef enumerates the Linerate to TMDS Clock ratio
@@ -619,12 +602,12 @@ typedef struct {
             XHdmiphy1_Channel Ch3;
             XHdmiphy1_Channel Ch4;
             union {
-		XHdmiphy1_Channel Cmn0;
-		XHdmiphy1_Channel Lcpll;
+            	XHdmiphy1_Channel Cmn0;
+            	XHdmiphy1_Channel Lcpll;
             };
             union {
-		XHdmiphy1_Channel Cmn1;
-		XHdmiphy1_Channel Rpll;
+            	XHdmiphy1_Channel Cmn1;
+            	XHdmiphy1_Channel Rpll;
             };
         };
         XHdmiphy1_Channel Plls[6];
@@ -697,6 +680,8 @@ typedef struct {
     u32 AxiLiteClkFreq;     /**< AXI Lite Clock Frequency in Hz */
     u32 DrpClkFreq;         /**< DRP Clock Frequency in Hz */
     u8  UseGtAsTxTmdsClk;   /**< Use 4th GT channel as TX TMDS clock */
+    u8  RxMaxRate;          /**< Max rate of RX */
+    u8  TxMaxRate;          /**< Max rate of TX */
 } XHdmiphy1_Config;
 
 /* Forward declaration. */
@@ -1024,6 +1009,10 @@ void XHdmiphy1_RegisterDebug(XHdmiphy1 *InstancePtr);
 #define XHdmiphy1_IsRxUsingRpll(InstancePtr, QuadId, ChId) \
         (XHDMIPHY1_PLL_TYPE_RPLL == \
         XHdmiphy1_GetPllType(InstancePtr, QuadId, XHDMIPHY1_DIR_RX, ChId))
+#endif
+
+#ifdef __cplusplus
+}
 #endif
 
 #endif /* XHDMIPHY1_H_ */

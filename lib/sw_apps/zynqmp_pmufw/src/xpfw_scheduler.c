@@ -1,28 +1,8 @@
 /******************************************************************************
-* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 #include "xpfw_scheduler.h"
 
@@ -50,13 +30,13 @@ static u32 is_task_active(XPfw_Scheduler_t *SchedPtr, u32 TaskListIndex)
 		&& (NULL != SchedPtr->TaskList[TaskListIndex].Callback)
 		&& (0U == (SchedPtr->Tick
 				% SchedPtr->TaskList[TaskListIndex].Interval))) {
-		ReturnVal = TRUE;
+		ReturnVal = (u32)TRUE;
 	} else if ((0U == SchedPtr->TaskList[TaskListIndex].Interval)
 			&& (NULL != SchedPtr->TaskList[TaskListIndex].Callback)) {
 		/* Non-Periodic */
-		ReturnVal = TRUE;
+		ReturnVal = (u32)TRUE;
 	} else {
-		ReturnVal = FALSE;
+		ReturnVal = (u32)FALSE;
 	}
 
 	return ReturnVal;
@@ -68,9 +48,9 @@ static u32 is_task_non_periodic(XPfw_Scheduler_t *SchedPtr, u32 TaskListIndex)
 
 	if ((0U == SchedPtr->TaskList[TaskListIndex].Interval)
 		&& (NULL != SchedPtr->TaskList[TaskListIndex].Callback)) {
-		ReturnVal = TRUE;
+		ReturnVal = (u32)TRUE;
 	} else {
-		ReturnVal = FALSE;
+		ReturnVal = (u32)FALSE;
 	}
 
 	return ReturnVal;
@@ -93,7 +73,7 @@ XStatus XPfw_SchedulerInit(XPfw_Scheduler_t *SchedPtr, u32 PitBaseAddr)
 		SchedPtr->TaskList[Idx].Status = XPFW_TASK_STATUS_DISABLED;
 	}
 
-	SchedPtr->Enabled = FALSE;
+	SchedPtr->Enabled = (u32)FALSE;
 	SchedPtr->PitBaseAddr = PitBaseAddr;
 	SchedPtr->Tick = 0U;
 	XPfw_Write32(SchedPtr->PitBaseAddr + PIT_CONTROL_OFFSET, 0U);
@@ -114,7 +94,7 @@ XStatus XPfw_SchedulerStart(XPfw_Scheduler_t *SchedPtr)
 		goto done;
 	}
 
-	SchedPtr->Enabled = TRUE;
+	SchedPtr->Enabled = (u32)TRUE;
 
 	XPfw_Write32(SchedPtr->PitBaseAddr + PIT_PRELOAD_OFFSET,
 			COUNT_PER_TICK);
@@ -127,7 +107,7 @@ done:
 
 XStatus XPfw_SchedulerStop(XPfw_Scheduler_t *SchedPtr)
 {
-	SchedPtr->Enabled =FALSE;
+	SchedPtr->Enabled = (u32)FALSE;
 
 	XPfw_Write32(SchedPtr->PitBaseAddr + PIT_PRELOAD_OFFSET, 0U );
 	XPfw_Write32(SchedPtr->PitBaseAddr + PIT_CONTROL_OFFSET, 0U );
@@ -142,17 +122,16 @@ void XPfw_SchedulerTickHandler(XPfw_Scheduler_t *SchedPtr)
 	SchedPtr->Tick++;
 	for (Idx = 0U; Idx < XPFW_SCHED_MAX_TASK; Idx++) {
 		/* Check if it this task can be triggered */
-		if (TRUE == is_task_active(SchedPtr, Idx)) {
+		if ((u32)TRUE == is_task_active(SchedPtr, Idx)) {
 			/* Mark the Task as TRIGGERED */
 			SchedPtr->TaskList[Idx].Status = XPFW_TASK_STATUS_TRIGGERED;
 		}
 	}
 }
 
-XStatus XPfw_SchedulerProcess(XPfw_Scheduler_t *SchedPtr)
+void XPfw_SchedulerProcess(XPfw_Scheduler_t *SchedPtr)
 {
 	u32 Idx;
-	XStatus Status;
 	u32 CallCount = 0U;
 
 	for (Idx = 0U; Idx < XPFW_SCHED_MAX_TASK; Idx++) {
@@ -165,20 +144,11 @@ XStatus XPfw_SchedulerProcess(XPfw_Scheduler_t *SchedPtr)
 			SchedPtr->TaskList[Idx].Status = XPFW_TASK_STATUS_DISABLED;
 			CallCount++;
 	                /* Remove the Non-Periodic Task */
-		        if (TRUE == is_task_non_periodic(SchedPtr, Idx)) {
+		        if ((u32)TRUE == is_task_non_periodic(SchedPtr, Idx)) {
 			        SchedPtr->TaskList[Idx].Callback = NULL;
 			}
 		}
 	}
-
-	if (CallCount > 0U) {
-		Status = XST_SUCCESS;
-	} else {
-		/* Failed because none of the tasks were triggered */
-		Status = XST_FAILURE;
-	}
-
-	return Status;
 }
 
 XStatus XPfw_SchedulerAddTask(XPfw_Scheduler_t *SchedPtr, u32 OwnerId,u32 MilliSeconds, XPfw_Callback_t CallbackFn)

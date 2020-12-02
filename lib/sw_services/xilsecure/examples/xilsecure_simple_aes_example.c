@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -44,6 +22,7 @@
 * 2.0   vns    02/10/17 First Release
 * 2.2   vns    07/06/16 Added doxygen tags
 * 4.0   vns    03/26/19 Fixed compilation errors on IAR
+* 4.3   har    10/12/20 Addressed security review comments
 *
 * </pre>
 ******************************************************************************/
@@ -52,13 +31,14 @@
 
 #include "xparameters.h"
 #include "xsecure_aes.h"
+#include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
 
-/* Harcoded KUP key for encryption of data */
+/* Hardcoded KUP key for encryption of data */
 #define	XSECURE_AES_KEY	\
 	"F878B838D8589818E868A828C8488808F070B030D0509010E060A020C0408000"
-/* Harcoded IV for encryption of data */
+/* Hardcoded IV for encryption of data */
 #define	XSECURE_IV	"D2450E07EA5DE0426C0FA133"
 
 #define XSECURE_DATA	\
@@ -79,7 +59,6 @@
 
 static s32 SecureAesExample(void);
 static u32 Secure_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len);
-static u32 Secure_ConvertCharToNibble(char InChar, u8 *Num);
 
 /************************** Variable Definitions *****************************/
 static u8 Iv[XSECURE_IV_SIZE];
@@ -138,10 +117,10 @@ int main(void)
 	/* Encryption and decryption of the data */
 	Status = SecureAesExample();
 	if(Status == XST_SUCCESS) {
-		xil_printf("\r\nSuccessfully passed AES example\r\n");
+		xil_printf("\r\nSuccessfully ran simple AES example\r\n");
 	}
 	else {
-		xil_printf("\r\n AES example was failed\r\n");
+		xil_printf("\r\nSimple AES example failed\r\n");
 	}
 
 
@@ -252,36 +231,6 @@ static s32 SecureAesExample(void)
 
 /****************************************************************************/
 /**
- * Converts the char into the equivalent nibble.
- *	Ex: 'a' -> 0xa, 'A' -> 0xa, '9'->0x9
- *
- * @param	InChar is input character. It has to be between 0-9,a-f,A-F
- * @param	Num is the output nibble.
- *
- * @return
- * 		- XST_SUCCESS no errors occured.
- *		- ERROR when input parameters are not valid
- *
- * @note	None.
- *
- *****************************************************************************/
-static u32 Secure_ConvertCharToNibble(char InChar, u8 *Num)
-{
-	/* Convert the char to nibble */
-	if ((InChar >= '0') && (InChar <= '9'))
-		*Num = InChar - '0';
-	else if ((InChar >= 'a') && (InChar <= 'f'))
-		*Num = InChar - 'a' + 10;
-	else if ((InChar >= 'A') && (InChar <= 'F'))
-		*Num = InChar - 'A' + 10;
-	else
-		return XST_FAILURE;
-
-	return XST_SUCCESS;
-}
-
-/****************************************************************************/
-/**
  * Converts the string into the equivalent Hex buffer.
  *	Ex: "abc123" -> {Buf[2] = 0x23, Buf[1] = 0xc1, Buf[0] = 0xab}
  *
@@ -292,7 +241,7 @@ static u32 Secure_ConvertCharToNibble(char InChar, u8 *Num)
  * @param	Len of the input string. Should have even values
  *
  * @return
- *		- XST_SUCCESS no errors occured.
+ *		- XST_SUCCESS no errors occurred.
  *		- ERROR when input parameters are not valid
  *		- an error when input buffer has invalid values
  *
@@ -318,10 +267,10 @@ static u32 Secure_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len)
 	ConvertedLen = 0;
 	while (ConvertedLen < Len) {
 		/* Convert char to nibble */
-		if (Secure_ConvertCharToNibble(Str[ConvertedLen],
+		if (Xil_ConvertCharToNibble(Str[ConvertedLen],
 				&UpperNibble) ==XST_SUCCESS) {
 			/* Convert char to nibble */
-			if (Secure_ConvertCharToNibble(
+			if (Xil_ConvertCharToNibble(
 					Str[ConvertedLen + 1],
 					&LowerNibble) == XST_SUCCESS) {
 				/* Merge upper and lower nibble to Hex */

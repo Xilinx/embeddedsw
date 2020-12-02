@@ -1,30 +1,8 @@
 /******************************************************************************
- *
- * Copyright (C) 2012 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (c) 2012 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  ******************************************************************************/
+
 /*****************************************************************************/
 /**
  *
@@ -50,6 +28,7 @@
  * 5.9   ms       08/03/17 Added tags and updated comment lines style for
  *                          doxygen.
  * 5.12 tjs	 06/18/18 Removed checkpatch and gcc warnings.
+ * 5.14 akm  	 08/01/19 Initialized Status variable to XST_FAILURE.
  *
  * </pre>
  *
@@ -187,7 +166,7 @@ int XIsf_SectorProtect(XIsf *InstancePtr, XIsf_SpOperation Operation,
  ******************************************************************************/
 static int SprRead(XIsf *InstancePtr, u8 *ReadPtr)
 {
-	int Status;
+	int Status = (int)(XST_FAILURE);
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -243,7 +222,7 @@ static int SprRead(XIsf *InstancePtr, u8 *ReadPtr)
  ******************************************************************************/
 static int SprProgram(XIsf *InstancePtr, u8 *BufferPtr)
 {
-	int Status;
+	int Status = (int)(XST_FAILURE);
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 

@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2016 - 2017 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -261,7 +239,7 @@ typedef enum {
     XV_HDMITXSS_HDCP_TOPOLOGY_DEVICECNT,
     XV_HDMITXSS_HDCP_TOPOLOGY_MAXDEVSEXCEEDED,
     XV_HDMITXSS_HDCP_TOPOLOGY_MAXCASCADEEXCEEDED,
-    XV_HDMITXSS_HDCP_TOPOLOGY_HDCP20REPEATERDOWNSTREAM,
+    XV_HDMITXSS_HDCP_TOPOLOGY_HDCP2LEGACYDEVICEDOWNSTREAM,
     XV_HDMITXSS_HDCP_TOPOLOGY_HDCP1DEVICEDOWNSTREAM,
     XV_HDMITXSS_HDCP_TOPOLOGY_INVALID
 } XV_HdmiTxSs_HdcpTopologyField;
@@ -433,6 +411,7 @@ typedef struct
 	XHdmiC_AVI_InfoFrame AVIInfoframe;		/**< AVI InfoFrame */
 	XHdmiC_AudioInfoFrame AudioInfoframe;	/**< Audio InfoFrame */
 	XHdmiC_VSIF VSIF;						/**< Vendor Specific InfoFrame */
+	XHdmiC_DRMInfoFrame DrmInfoframe;	/**< DRM Infoframe */
 
     XV_HdmiTxSs_HdcpProtocol    HdcpProtocol;    /**< HDCP protocol selected */
 #ifdef USE_HDCP_TX
@@ -480,9 +459,9 @@ void XV_HdmiTxSs_SetGcpClearAvmuteBit(XV_HdmiTxSs *InstancePtr);
 void XV_HdmiTxSs_ClearGcpClearAvmuteBit(XV_HdmiTxSs *InstancePtr);
 
 int XV_HdmiTxSs_SetCallback(XV_HdmiTxSs *InstancePtr,
-    u32 HandlerType,
-    void *CallbackFuncPtr,
-    void *CallbackRef);
+		XV_HdmiTxSs_HandlerType HandlerType,
+		void *CallbackFuncPtr,
+		void *CallbackRef);
 int XV_HdmiTxSs_ReadEdid(XV_HdmiTxSs *InstancePtr, u8 *BufferPtr);
 int XV_HdmiTxSs_ReadEdidSegment(XV_HdmiTxSs *InstancePtr, u8 *Buffer, u8 segment);
 void XV_HdmiTxSs_ShowEdid(XV_HdmiTxSs *InstancePtr);

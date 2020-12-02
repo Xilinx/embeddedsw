@@ -1,27 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
@@ -37,6 +16,18 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   08/23/2018 Initial release
+* 1.01  kc   12/02/2019 Added performance timestamps
+*       kc   12/17/2019 Added deferred error mechanism for mask poll
+*       bsv  01/12/2020 Changes related to bitstream loading
+*       ma   02/18/2020 Made performance measurement functions generic
+*       bsv  04/03/2020 Code clean up Xilpdi
+* 1.02  kc   06/12/2020 Added IPI mask to PDI CDO commands to get
+* 						subsystem information
+*       kc   06/23/2020 Added code print command details for errors
+*       bsv  07/07/2020 Made functions used in single transaltion unit as
+*						static
+*       bsv  09/30/2020 Fix typo
+*       bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -49,22 +40,31 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
 /***************************** Include Files *********************************/
-#include "xstatus.h"
-#include "xil_types.h"
 #include "xplmi_cmd.h"
 #include "xplmi_debug.h"
 #include "xplmi_status.h"
 
 /************************** Constant Definitions *****************************/
 /** CDO Header definitions */
-#define XPLMI_CDO_HDR_IDN_WRD			(0x004F4443U)
-#define XPLMI_CDO_HDR_LEN			(0x5U)
+#define XPLMI_CDO_HDR_IDN_WRD		(0x004F4443U)
+#define XPLMI_CDO_HDR_LEN		(0x5U)
 
-/** commands defined */
-#define XPLMI_CMD_END				(0x00100U)
+/* Commands defined */
+#define XPLMI_CMD_END			(0x01FFU)
 
+#define XPLMI_CMD_STATE_START		(0U)
 #define XPLMI_CMD_STATE_RESUME		(1U)
+
+/* Define for Max short command length */
+#define XPLMI_MAX_SHORT_CMD_LEN		(255U)
+
+/* Define for Long command header length */
+#define XPLMI_LONG_CMD_HDR_LEN		(2U)
+
+/* Define for Short command length shift */
+#define XPLMI_SHORT_CMD_LEN_SHIFT	(16U)
 
 /**************************** Type Definitions *******************************/
 /**
@@ -79,19 +79,22 @@ typedef struct {
 	u32 ProcessedCdoLen;	/**< Processed CDO length */
 	u32 CmdState;		/**< Cmd processing state */
 	u32 CopiedCmdLen;	/**< Copied Command length */
-	u32 TempCmdBuf[8];	/**< temperary buffer to store commands
+	u32 TempCmdBuf[8U];	/**< Temporary buffer to store commands
 				 between iterations */
 	XPlmi_Cmd Cmd;		/**< Pointer to the cmd */
-	u32 CmdEndDetected;	/**< Flag to detect end of commands */
-	u32 Cdo1stChunk;	/**< This is used for first time to validate
+	u8 CmdEndDetected;	/**< Flag to detect end of commands */
+	u8 Cdo1stChunk;		/**< This is used for first time to validate
 				CDO header*/
-	u32 ImgId;		/** Info about which Image this belongs to */
-	u32 PrtnId;		/** Info about which partition this belongs to*/
+	u32 ImgId;		/**< Info about which Image this belongs to */
+	u32 PrtnId;		/**< Info about which partition this belongs to*/
+	u32 IpiMask;		/**< Info about which master has sent the request*/
+	u32 DeferredError;	/**< Defer the error for any command till the
+				  end of CDO processing */
 } XPlmiCdo;
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-void XPlmi_InitCdo(XPlmiCdo *CdoPtr);
+int XPlmi_InitCdo(XPlmiCdo *CdoPtr);
 int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr);
 
 /************************** Variable Definitions *****************************/

@@ -1,30 +1,8 @@
 /******************************************************************************
- *
- * Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -43,6 +21,9 @@
  *       mn   09/21/18 Modify code manually enter the DDR memory test size
  *       mn   09/27/18 Modify code to add 2D Read/Write Eye Tests support
  *       mn   04/09/19 Add check for Carriage return when entering the test size
+ *       mn   07/01/19 Add support to specify number of iteration for memtest
+ * 1.1   mn   06/15/20 Improved random value generation for Read/Write Tests
+ *       mn   09/08/20 Modified code to support designs with only DDR1 region
  *
  * </pre>
  *
@@ -60,27 +41,33 @@
 #define XMT_MAX_MODE_NUM		15U
 
 #ifdef XPAR_PSU_DDR_0_S_AXI_BASEADDR
-#ifdef XPAR_PSU_DDR_1_S_AXI_BASEADDR
-/*
- * If the Upper DDR is enabled calculate the DDR total size by adding both
- * DDR (Lower and Upper) regions sizes
- */
-#define XMT_DDR_MAX_SIZE		((XPAR_PSU_DDR_1_S_AXI_HIGHADDR -\
-				XPAR_PSU_DDR_1_S_AXI_BASEADDR) +\
-				(XPAR_PSU_DDR_0_S_AXI_HIGHADDR -\
-				XPAR_PSU_DDR_0_S_AXI_BASEADDR) + 2U)
-#define XMT_DDR_1_BASEADDR		XPAR_PSU_DDR_1_S_AXI_BASEADDR
+#define XMT_DDR_0_SIZE			((XPAR_PSU_DDR_0_S_AXI_HIGHADDR -\
+					XPAR_PSU_DDR_0_S_AXI_BASEADDR) + 1U)
+#define XMT_DDR_0_BASEADDR		XPAR_PSU_DDR_0_S_AXI_BASEADDR
+#define XMT_DDR_0_HIGHADDR		XPAR_PSU_DDR_0_S_AXI_HIGHADDR
+#else
+#define XMT_DDR_0_SIZE			0U
+#define XMT_DDR_0_BASEADDR		0U
+#define XMT_DDR_0_HIGHADDR		0U
+#endif
 
+#ifdef XPAR_PSU_DDR_1_S_AXI_BASEADDR
+#define XMT_DDR_1_SIZE			((XPAR_PSU_DDR_1_S_AXI_HIGHADDR -\
+					XPAR_PSU_DDR_1_S_AXI_BASEADDR) + 1U)
+#define XMT_DDR_1_BASEADDR		XPAR_PSU_DDR_1_S_AXI_BASEADDR
+#define XMT_DDR_1_HIGHADDR		XPAR_PSU_DDR_1_S_AXI_HIGHADDR
 #else
-/* Calculate the DDR size for Lower DDR */
-#define XMT_DDR_MAX_SIZE		(XPAR_PSU_DDR_0_S_AXI_HIGHADDR -\
-				XPAR_PSU_DDR_0_S_AXI_BASEADDR + 1U)
-#define XMT_DDR_1_BASEADDR		XPAR_PSU_DDR_0_S_AXI_BASEADDR
-#endif
-#else
-#define XMT_DDR_MAX_SIZE		0U
+#define XMT_DDR_1_SIZE			0U
 #define XMT_DDR_1_BASEADDR		0U
+#define XMT_DDR_1_HIGHADDR		0U
 #endif
+
+#if (defined(XPAR_PSU_DDR_0_S_AXI_BASEADDR))
+#define XMT_DDR_BASEADDR		XPAR_PSU_DDR_0_S_AXI_BASEADDR
+#elif (defined(XPAR_PSU_DDR_1_S_AXI_BASEADDR))
+#define XMT_DDR_BASEADDR		XPAR_PSU_DDR_1_S_AXI_BASEADDR
+#endif
+#define XMT_DDR_MAX_SIZE		(XMT_DDR_0_SIZE + XMT_DDR_1_SIZE)
 
 
 /**************************** Type Definitions *******************************/
@@ -336,14 +323,10 @@ static double XMt_CalcTime(XTime tCur)
  *
  * @note none
  *****************************************************************************/
-static u64 XMt_GetRefVal(u64 Addr, u64 Index, s32 ModeVal, u64 *Pattern)
+static u64 XMt_GetRefVal(u64 Addr, u64 Index, s32 ModeVal, u64 *Pattern, s64 RandVal)
 {
 	u64 RefVal;
 	u64 Mod128;
-	s64 RandVal;
-
-	/* Create a Random Value */
-	RandVal = XMT_RANDOM_VALUE(ModeVal);
 
 	if (ModeVal == 0U) {
 		RefVal = ((((Addr + 4) << 32) | Addr) & U64_MASK);
@@ -353,8 +336,8 @@ static u64 XMt_GetRefVal(u64 Addr, u64 Index, s32 ModeVal, u64 *Pattern)
 		Mod128 = (Index >> 2) & 0x07f;
 		RefVal = (u64)Pattern[Mod128] & U64_MASK;
 	} else {
-		RandVal = XMT_YLFSR(RandVal);
-		RefVal = RandVal & U64_MASK;
+		/* Create a Random Value */
+		RefVal = XMT_RANDOM_VALUE(RandVal * Index) & U64_MASK;
 	}
 
 	return RefVal;
@@ -389,6 +372,7 @@ static void XMt_Memtest(XMt_CfgData *XMtPtr, u32 StartVal, u32 SizeVal,
 	u8 Cnt;
 	XTime tCur1;
 	float TestTime;
+	s64 RandVal = rand();
 
 	MemErr = 0U;
 
@@ -402,9 +386,9 @@ static void XMt_Memtest(XMt_CfgData *XMtPtr, u32 StartVal, u32 SizeVal,
 	XTime_GetTime(&tCur1);
 
 	UpperDdrOffset = 0U;
-	Addr = Start;
+	Addr = XMT_DDR_BASEADDR + Start;
 	for (Index = 0U; Index < Size; Index += 8U) {
-		if (Addr < (XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U) - 8U) {
+		if (Addr < (XMT_DDR_0_HIGHADDR + 1U) - 8U) {
 			Addr = Start + Index;
 		} else {
 			Addr = XMT_DDR_1_BASEADDR + UpperDdrOffset;
@@ -412,23 +396,27 @@ static void XMt_Memtest(XMt_CfgData *XMtPtr, u32 StartVal, u32 SizeVal,
 		}
 
 		/* Create a value to be written to the memory */
-		RefVal = XMt_GetRefVal(Addr, Index, ModeVal, Pattern);
+		RefVal = XMt_GetRefVal(Addr, Index, ModeVal, Pattern, RandVal);
 		Xil_Out64(Addr, RefVal);
 	}
 
 	if (XMtPtr->DCacheEnable != 0U) {
-		if ((Start + Size) < (XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U)) {
-			Xil_DCacheInvalidateRange(Start, Size);
+#if (defined(XPAR_PSU_DDR_0_S_AXI_BASEADDR))
+		if ((XMT_DDR_BASEADDR + Start + Size) < (XMT_DDR_0_HIGHADDR + 1U)) {
+			Xil_DCacheInvalidateRange(XMT_DDR_BASEADDR + Start, Size);
 		} else {
-			Xil_DCacheInvalidateRange(Start, XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U - Start);
-			Xil_DCacheInvalidateRange(XMT_DDR_1_BASEADDR, Start + Size - XMT_DDR_1_BASEADDR);
+			Xil_DCacheInvalidateRange(Start, XMT_DDR_0_HIGHADDR + 1U - (XMT_DDR_BASEADDR + Start));
+			Xil_DCacheInvalidateRange(XMT_DDR_1_BASEADDR, XMT_DDR_BASEADDR + Start + Size - XMT_DDR_1_BASEADDR);
 		}
+#elif (defined(XPAR_PSU_DDR_1_S_AXI_BASEADDR))
+		Xil_DCacheInvalidateRange(XMT_DDR_BASEADDR + Start, Size);
+#endif
 	}
 
 	UpperDdrOffset = 0U;
-	Addr = Start;
+	Addr = XMT_DDR_BASEADDR + Start;
 	for (Index = 0U; Index < Size; Index += 8U) {
-		if (Addr < (2048*(u64)XMT_MB2BYTE) - 8U) {
+		if (Addr < (XMT_DDR_0_HIGHADDR + 1U) - 8U) {
 			Addr = Start + Index;
 		} else {
 			Addr = XMT_DDR_1_BASEADDR + UpperDdrOffset;
@@ -436,7 +424,7 @@ static void XMt_Memtest(XMt_CfgData *XMtPtr, u32 StartVal, u32 SizeVal,
 		}
 
 		/* Create a value to be compared with read value from memory */
-		RefVal = XMt_GetRefVal(Addr, Index, ModeVal, Pattern);
+		RefVal = XMt_GetRefVal(Addr, Index, ModeVal, Pattern, RandVal);
 		Data = Xil_In64(Addr);
 
 		/* Compare the data got from the memory */
@@ -572,12 +560,14 @@ void XMt_RunEyeMemtest(XMt_CfgData *XMtPtr, u64 StartAddr, u32 Len)
 
 	DataPtr = 0U;
 
+	StartAddr = XMT_DDR_BASEADDR + StartAddr;
+
 	/* Do the Write operation on memory size specified in argument */
 	for (Index = StartAddr; Index < (StartAddr+(Len*XMT_KB2BYTE)); Index += Offset) {
-		if (Index < (XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U)) {
+		if (Index < (XMT_DDR_0_HIGHADDR + 1U)) {
 			Addr = Index;
 		} else {
-			Addr = XMT_DDR_1_BASEADDR + (Index - (XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U));
+			Addr = XMT_DDR_1_BASEADDR + (Index - (XMT_DDR_0_HIGHADDR + 1U));
 		}
 
 		if (Offset == 8U) {
@@ -592,22 +582,26 @@ void XMt_RunEyeMemtest(XMt_CfgData *XMtPtr, u64 StartAddr, u32 Len)
 	}
 
 	if (XMtPtr->DCacheEnable != 0U) {
-		if ((StartAddr + (Len * XMT_KB2BYTE)) < (XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U)) {
+#if (defined(XPAR_PSU_DDR_0_S_AXI_BASEADDR))
+		if ((StartAddr + (Len * XMT_KB2BYTE)) < (XMT_DDR_0_HIGHADDR + 1U)) {
 			Xil_DCacheInvalidateRange(StartAddr, Len * XMT_KB2BYTE);
 		} else {
-			Xil_DCacheInvalidateRange(StartAddr, XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U - StartAddr);
+			Xil_DCacheInvalidateRange(StartAddr, XMT_DDR_0_HIGHADDR + 1U - StartAddr);
 			Xil_DCacheInvalidateRange(XMT_DDR_1_BASEADDR, StartAddr + (Len * XMT_KB2BYTE) - XMT_DDR_1_BASEADDR);
 		}
+#elif (defined(XPAR_PSU_DDR_1_S_AXI_BASEADDR))
+		Xil_DCacheInvalidateRange(StartAddr, Len * XMT_KB2BYTE);
+#endif
 	}
 
 	DataPtr = 0U;
 
 	/* Do the Read operation on memory size specified in argument */
 	for (Index = StartAddr; Index < (StartAddr+(Len*XMT_KB2BYTE)); Index += Offset) {
-		if (Index < (XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U)) {
+		if (Index < (XMT_DDR_0_HIGHADDR + 1U)) {
 			Addr = Index;
 		} else {
-			Addr = XMT_DDR_1_BASEADDR + (Index - (XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U));
+			Addr = XMT_DDR_1_BASEADDR + (Index - (XMT_DDR_0_HIGHADDR + 1U));
 		}
 
 		if (Offset == 8U) {
@@ -737,11 +731,13 @@ int main(void)
 
 			if ((StartAddr + (TestSize * XMT_MB2BYTE)) <=
 					XMT_DDR_MAX_SIZE) {
-				xil_printf("\r\nStarting Memory Test...\r\n");
-				xil_printf("%dMB length - Address 0x%x...\r\n",
-					   TestSize, StartAddr);
-				XMt_MemtestAll(&XMt, StartAddr, TestSize,
-					       XMt.BusWidth);
+				for (Index = 0; Index < Iter; Index++) {
+					xil_printf("\r\nStarting Memory Test...\r\n");
+					xil_printf("%dMB length - Address 0x%x...\r\n",
+						   TestSize, StartAddr);
+					XMt_MemtestAll(&XMt, StartAddr, TestSize,
+						       XMt.BusWidth);
+				}
 			} else {
 				xil_printf("\r\nPlease select the address within DDR range\r\n");
 			}

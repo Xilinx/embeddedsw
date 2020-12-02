@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2017 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -45,6 +23,7 @@
 * 6.4   mus      08/17/17 Added constant define for SMC ID , which is
 *                         intended to read the version/idcode of the
 *                         platform
+* 7.1  mus       07/31/19 Added support for Versal
 *
 *
 * </pre>
@@ -70,11 +49,36 @@ extern "C" {
 #define XILSP_INIT_DONE 0xF2000000
 #define	ARITH_SMC_FID	0xF2000001
 
+#define PM_IOCTL_SMC_FID	0xC2000022U
+#define PM_IOCTL_OSPI_MUX_SELECT	0x15U
+#define PIN_CONFIG_SCHMITT_CMOS		0x3U
+#define PIN_CONFIG_TRI_STATE		0x6U
+#define PM_OSPI_MUX_SEL_DMA		0x0
+#define PM_OSPI_MUX_SEL_LINEAR	0x1
+#define OSPI_NODE_ID	0x1822402a
+#define PMC_GPIO_NODE_12_ID		0x14108027
+#define PIN_REQUEST_SMC_FID		0xC200001CU
+#define PIN_RELEASE_SMC_FID		0xC200001DU
+#define PIN_SET_CONFIG_SMC_FID		0xC2000021U
+#define PM_REQUEST_DEVICE_SMC_FID	0xC200000DU
+#define PM_RELEASE_DEVICE_SMC_FID	0xC200000EU
 #define PM_ASSERT_SMC_FID       0xC2000011U
 #define PM_GETSTATUS_SMC_FID    0xC2000012U
 #define MMIO_WRITE_SMC_FID	0xC2000013U
 #define MMIO_READ_SMC_FID	0xC2000014U
 #define GET_CHIPID_SMC_FID      0xC2000018U
+
+/* GEM device IDs */
+#define	DEV_GEM_0			0x18224019
+#define	DEV_GEM_1			0x1822401a
+
+/* GEM reference clock IDs */
+#define	CLK_GEM0_REF			0x8208058
+#define	CLK_GEM1_REF			0x8208059
+
+/* PM API for setting clock divider */
+#define PM_SET_DIVIDER_SMC_FID		0xC2000027U
+
 /**************************** Type Definitions ******************************/
 typedef struct {
 	u64 Arg0;

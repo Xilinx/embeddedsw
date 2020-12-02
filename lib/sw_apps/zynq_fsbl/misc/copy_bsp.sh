@@ -13,7 +13,7 @@ WORKING_DIR=../misc
 BSP_DIR=$WORKING_DIR/ps7_cortexa9_0
 BOARD_DIR=$WORKING_DIR/"$BOARD"
 
-# Embedded Sw dir relaive path from FSBL src
+# Embedded Sw dir relative path from FSBL src
 EMBEDDED_SW_DIR=$WORKING_DIR/../../../..
 
 # selection of drivers is based on the board selected
@@ -27,6 +27,8 @@ STANDALONE_DIR=$EMBEDDED_SW_DIR/lib/bsp/standalone/src
 
 # libraries dir 
 SERVICES_DIR=$EMBEDDED_SW_DIR/lib/sw_services
+
+BSP_SEQUENTIAL_MAKEFILES=
 
 # creation of BSP folders required
 if [ -d $BSP_DIR ]; then 
@@ -73,13 +75,18 @@ do
     cp -r $DRIVERS_DIR/$line/src $BSP_DIR/libsrc/$line
 # copy all the HSM generated driver files DRIVER_g.c
 #    cp $BOARD_DIR/x"$line"_g.c $BSP_DIR/libsrc/$line/src/
-done < $DRIVERS_LIST 
+     set BSP_SEQUENTIAL_MAKEFILES += $BSP_DIR/libsrc/$line/src/Makefile
+
+done < $DRIVERS_LIST
 
 # copy the libraries required
 cp -r $SERVICES_DIR/xilffs/ $BSP_DIR/libsrc/
 cp -r $SERVICES_DIR/xilffs/src/include/* $BSP_DIR/include/
+set BSP_SEQUENTIAL_MAKEFILES += $BSP_DIR/libsrc/xilffs/src/Makefile
+
 cp -r $SERVICES_DIR/xilrsa/ $BSP_DIR/libsrc/
 cp -r $SERVICES_DIR/xilrsa/src/include/* $BSP_DIR/include/
+set BSP_SEQUENTIAL_MAKEFILES += $BSP_DIR/libsrc/xilrsa/src/Makefile
 
 #copy the xparameters.h
 cp $BOARD_DIR/xparameters.h $BSP_DIR/include/
@@ -90,3 +97,4 @@ cp $WORKING_DIR/config.make $BSP_DIR/libsrc/standalone/src/
 cp $STANDALONE_DIR/common/*  $BSP_DIR/include/
 # no inbyte and outbyte present in standalone
 cp $BOARD_DIR/inbyte.c $BOARD_DIR/outbyte.c  $BSP_DIR/libsrc/standalone/src/
+export BSP_SEQUENTIAL_MAKEFILES

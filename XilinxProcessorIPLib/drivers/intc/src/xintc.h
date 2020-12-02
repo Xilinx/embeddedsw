@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2002 - 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xintc.h
-* @addtogroup intc_v3_9
+* @addtogroup intc_v3_12
 * @{
 * @details
 *
@@ -108,7 +86,7 @@
 * 1.11a sv   11/21/07 Updated driver to support access through a DCR bridge
 * 2.00a ktn  10/20/09 Updated to use HAL Processor APIs and _m is removed from
 *		      all the macro names/definitions.
-* 2.01a sdm  04/27/10 Updated the tcl so that the defintions are generated in
+* 2.01a sdm  04/27/10 Updated the tcl so that the definitions are generated in
 *		      the xparameters.h to know whether the optional registers
 *		      SIE, CIE and IVR are enabled in the HW - Refer CR 555392.
 *		      This driver doesnot make use of these definitions and does
@@ -157,6 +135,12 @@
 *		      CR#765931.
 *		      Modified driver tcl to generate XPAR_AXI_INTC_0_TYPE
 *		      correctly(CR#764865).
+* 3.10  mus   04/10/19 Updated intc_update_source_array proc to
+* 		      calculate total_source_intrs, based on the width of
+*		      interrupt port/pins.
+* 3.11  adk   18/10/19 Updated the get_slice_interrupt_sources_for_slice proc
+*		       to consider external interrupt source pin connected to
+*		       slice use case.
 *
 * @note
 *		For Cascade mode, Interrupt IDs are generated in xparameters.h
@@ -187,7 +171,7 @@
 *		required since compiler does not support nesting. It enables
 *		Microblaze interrupts after blocking further interrupts from
 *		the current interrupt number and interrupts below current
-*		interrupt proirity by writing to Interrupt Level Register of
+*		interrupt priority by writing to Interrupt Level Register of
 *		INTC on entry. On exit, it disables microblaze interrupts and
 *		restores ILR register default value(0xFFFFFFFF)back. It is
 *		recommended to increase STACK_SIZE in linker script for nested
@@ -213,6 +197,8 @@
 *                     of intc in xparameters.h
 * 3.9   adk  19/12/18 If design contains unconnected interrupt pins
 *		      return proper error message(CR#1018878).
+* 3.11   adk  10/03/20 Fix race condition for designs where interrupt pin is
+*                      connected to cascade slices.
 * </pre>
 *
 ******************************************************************************/
@@ -295,7 +281,7 @@ typedef struct {
 	u32 AckBeforeService;	/**< Ack location per interrupt */
 	int FastIntr;		/**< Fast Interrupt enabled */
 	u32 IntVectorAddr;	/**< Interrupt Vector Address */
-	int NumberofIntrs;      /**< Number of Interrupt sources */
+	int NumberofIntrs;      /**< Number of HW Interrupt sources */
 	u8 VectorAddrWidth;		/**< Width of vector address */
 	u32 Options;		/**< Device options */
 	int IntcType;		/**< Intc type 0 - No Cascade Mode
@@ -309,7 +295,7 @@ typedef struct {
 #else
 	XIntc_VectorTableEntry HandlerTable[XPAR_INTC_MAX_NUM_INTR_INPUTS];
 #endif
-
+	int NumberofSwIntrs;      /**< Number of SW interrupts */
 } XIntc_Config;
 
 /**
@@ -353,6 +339,7 @@ int XIntc_ConnectFastHandler(XIntc *InstancePtr, u8 Id,
 				XFastInterruptHandler Handler);
 void XIntc_SetNormalIntrMode(XIntc *InstancePtr, u8 Id);
 
+int XIntc_TriggerSwIntr(XIntc * InstancePtr, u8 Id);
 /*
  * Interrupt functions in xintr_intr.c
  */

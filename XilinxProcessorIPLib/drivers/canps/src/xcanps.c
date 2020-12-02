@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xcanps.c
-* @addtogroup canps_v3_2
+* @addtogroup canps_v3_5
 * @{
 *
 * Functions in this file are the minimum required functions for the XCanPs
@@ -47,6 +25,10 @@
 * 1.01a bss    12/27/11 Added the APIs XCanPs_SetTxIntrWatermark and
 * 			XCanPs_GetTxIntrWatermark.
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.3	sne    08/06/19	Fixed coverity warnings.
+* 3.5	sne    07/01/20 Fixed MISRAC warnings.
+* 3.5	sne    07/01/20 Fixed multiple packets send issue.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -91,7 +73,7 @@ static void StubHandler(void);
 *
 ******************************************************************************/
 s32 XCanPs_CfgInitialize(XCanPs *InstancePtr, XCanPs_Config *ConfigPtr,
-				u32 EffectiveAddr)
+				UINTPTR EffectiveAddr)
 {
 	s32 Status;
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -118,12 +100,14 @@ s32 XCanPs_CfgInitialize(XCanPs *InstancePtr, XCanPs_Config *ConfigPtr,
 	 */
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
+	InstancePtr->IsBusy = (u32)FALSE;
+
 	/*
 	 * Reset the device to get it into its initial state.
 	 */
 	XCanPs_Reset(InstancePtr);
 
-	Status = XST_SUCCESS;
+	Status = (s32)XST_SUCCESS;
 	return Status;
 }
 
@@ -276,17 +260,15 @@ void XCanPs_EnterMode(XCanPs *InstancePtr, u8 OperationMode)
 		return;
 	}
 	else {
-		/*This else was made for misra-c compliance*/
-		;
-	}
-
-	/*
-	 * If the mode transition is not any of the two cases above, CAN must
-	 * enter Configuration Mode before switching into the target operation
-	 * mode.
-	 */
-	XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+		/*
+		 * If the mode transition is not any of the two cases above, CAN must
+		 * enter Configuration Mode before switching into the target operation
+		 * mode.
+		 */
+		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
 				XCANPS_SRR_OFFSET, 0U);
+
+	}
 
 	/*
 	 * Check if the device has entered Configuration Mode, if not, return to
@@ -318,12 +300,6 @@ void XCanPs_EnterMode(XCanPs *InstancePtr, u8 OperationMode)
 					XCANPS_SRR_OFFSET, XCANPS_SRR_CEN_MASK);
 			break;
 
-		case XCANPS_MODE_LOOPBACK:
-			XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-					XCANPS_MSR_OFFSET, XCANPS_MSR_LBACK_MASK);
-			XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-					XCANPS_SRR_OFFSET, XCANPS_SRR_CEN_MASK);
-			break;
 
 		case XCANPS_MODE_SNOOP:
 			XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
@@ -333,7 +309,10 @@ void XCanPs_EnterMode(XCanPs *InstancePtr, u8 OperationMode)
 			break;
 
 		default:
-			/*This default was made for misra-c compliance*/
+			XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+					XCANPS_MSR_OFFSET, XCANPS_MSR_LBACK_MASK);
+			XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+					XCANPS_SRR_OFFSET, XCANPS_SRR_CEN_MASK);
 			break;
 
 	}
@@ -465,6 +444,7 @@ void XCanPs_ClearBusErrorStatus(XCanPs *InstancePtr, u32 Mask)
 *		written into the FIFO.
 *		- XST_FIFO_NO_ROOM if there is no room in the TX FIFO for the
 *		given frame.
+*		- XST_DEVICE_BUSY if a transfer is already in progress.
 *
 * @note		None.
 *
@@ -476,10 +456,23 @@ s32 XCanPs_Send(XCanPs *InstancePtr, u32 *FramePtr)
 	Xil_AssertNonvoid(FramePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
+        /*
+         * Check for transfer in progress.
+         */
+        if (InstancePtr->IsBusy == (u32)TRUE) {
+                Status = (s32)XST_DEVICE_BUSY;
+                goto END;
+        }
+
 	if (XCanPs_IsTxFifoFull(InstancePtr) == TRUE) {
-		Status = XST_FIFO_NO_ROOM;
+		Status = (s32)XST_FIFO_NO_ROOM;
 	} else {
 
+		/*
+		 * Set the busy flag, which will be cleared after the packet
+		 * writes to FIFO.
+		 */
+		InstancePtr->IsBusy = (u32)TRUE;
 		/*
 		 * Write IDR, DLC, Data Word 1 and Data Word 2 to the CAN device.
 		 */
@@ -491,9 +484,12 @@ s32 XCanPs_Send(XCanPs *InstancePtr, u32 *FramePtr)
 				XCANPS_TXFIFO_DW1_OFFSET, Xil_EndianSwap32(FramePtr[2]));
 		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
 				XCANPS_TXFIFO_DW2_OFFSET, Xil_EndianSwap32(FramePtr[3]));
+		/* Clear the busy flag. */
+		InstancePtr->IsBusy = (u32)FALSE;
 
-		Status = XST_SUCCESS;
+		Status = (s32)XST_SUCCESS;
 	}
+	END:
 	return Status;
 }
 
@@ -525,7 +521,7 @@ s32 XCanPs_Recv(XCanPs *InstancePtr, u32 *FramePtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	if (XCanPs_IsRxEmpty(InstancePtr) == TRUE) {
-		Status = XST_NO_DATA;
+		Status = (s32)XST_NO_DATA;
 	} else {
 
 		/*
@@ -546,7 +542,7 @@ s32 XCanPs_Recv(XCanPs *InstancePtr, u32 *FramePtr)
 		 */
 		XCanPs_IntrClear(InstancePtr, XCANPS_IXR_RXNEMP_MASK);
 
-		Status = XST_SUCCESS;
+		Status = (s32)XST_SUCCESS;
 	}
 	return Status;
 }
@@ -568,6 +564,7 @@ s32 XCanPs_Recv(XCanPs *InstancePtr, u32 *FramePtr)
 *		given frame was written into the buffer.
 *		- XST_FIFO_NO_ROOM if there is no room in the TX High Priority
 *		Buffer for this frame.
+*		- XST_DEVICE_BUSY if a transfer is already in progress.
 *
 * @note
 *
@@ -583,9 +580,22 @@ s32 XCanPs_SendHighPriority(XCanPs *InstancePtr, u32 *FramePtr)
 	Xil_AssertNonvoid(FramePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
+        /*
+         * Check for transfer in progress.
+         */
+        if (InstancePtr->IsBusy == (u32)TRUE) {
+                Status = (s32)XST_DEVICE_BUSY;
+                goto END;
+        }
+
 	if (XCanPs_IsHighPriorityBufFull(InstancePtr) == TRUE) {
-		Status = XST_FIFO_NO_ROOM;
+		Status = (s32)XST_FIFO_NO_ROOM;
 	} else {
+		/*
+		 * Set the busy flag, which will be cleared after the packet
+		 * writes to FIFO.
+		 */
+		InstancePtr->IsBusy = (u32)TRUE;
 
 		/*
 		 * Write IDR, DLC, Data Word 1 and Data Word 2 to the CAN device.
@@ -598,9 +608,12 @@ s32 XCanPs_SendHighPriority(XCanPs *InstancePtr, u32 *FramePtr)
 				XCANPS_TXHPB_DW1_OFFSET, Xil_EndianSwap32(FramePtr[2]));
 		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
 				XCANPS_TXHPB_DW2_OFFSET, Xil_EndianSwap32(FramePtr[3]));
+		/* Clear the busy flag. */
+		InstancePtr->IsBusy = (u32)FALSE;
 
-		Status = XST_SUCCESS;
+		Status = (s32)XST_SUCCESS;
 	}
+	END:
 	return Status;
 }
 
@@ -752,7 +765,7 @@ s32 XCanPs_AcceptFilterSet(XCanPs *InstancePtr, u32 FilterIndex,
 	 */
 	EnabledFilters = XCanPs_AcceptFilterGetEnabled(InstancePtr);
 	if ((EnabledFilters & FilterIndex) == FilterIndex) {
-		Status = XST_FAILURE;
+		Status = (s32)XST_FAILURE;
 	} else {
 
 		/*
@@ -760,20 +773,13 @@ s32 XCanPs_AcceptFilterSet(XCanPs *InstancePtr, u32 FilterIndex,
 		 * return error code.
 		 */
 		if (XCanPs_IsAcceptFilterBusy(InstancePtr) == TRUE) {
-			Status = XST_FAILURE;
+			Status = (s32)XST_FAILURE;
 		} else {
 
 			/*
 			 * Write to the AFMR and AFIR of the specified filter.
 			 */
 			switch (FilterIndex) {
-				case XCANPS_AFR_UAF1_MASK:	/* Acceptance Filter No. 1 */
-
-					XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-							XCANPS_AFMR1_OFFSET, MaskValue);
-					XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-							XCANPS_AFIR1_OFFSET, IdValue);
-					break;
 
 				case XCANPS_AFR_UAF2_MASK:	/* Acceptance Filter No. 2 */
 					XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
@@ -797,11 +803,16 @@ s32 XCanPs_AcceptFilterSet(XCanPs *InstancePtr, u32 FilterIndex,
 					break;
 
 				default:
-					/*This default was made for misra-c compliance*/
+					/* Acceptance Filter No. 1 */
+
+					XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+							XCANPS_AFMR1_OFFSET, MaskValue);
+					XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
+							XCANPS_AFIR1_OFFSET, IdValue);
 					break;
 			}
 
-			Status = XST_SUCCESS;
+			Status = (s32)XST_SUCCESS;
 		}
 	}
 	return Status;
@@ -844,12 +855,6 @@ void XCanPs_AcceptFilterGet(XCanPs *InstancePtr, u32 FilterIndex,
 	 * Read from the AFMR and AFIR of the specified filter.
 	 */
 	switch (FilterIndex) {
-		case XCANPS_AFR_UAF1_MASK:	/* Acceptance Filter No. 1 */
-			*MaskValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-						  XCANPS_AFMR1_OFFSET);
-			*IdValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-						  XCANPS_AFIR1_OFFSET);
-			break;
 
 		case XCANPS_AFR_UAF2_MASK:	/* Acceptance Filter No. 2 */
 			*MaskValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
@@ -873,8 +878,13 @@ void XCanPs_AcceptFilterGet(XCanPs *InstancePtr, u32 FilterIndex,
 			break;
 
 		default:
-			/*This default was made for misra-c compliance*/
+			/* Acceptance Filter No. 1 */
+			*MaskValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
+					XCANPS_AFMR1_OFFSET);
+			*IdValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
+					XCANPS_AFIR1_OFFSET);
 			break;
+
 	}
 }
 
@@ -908,13 +918,13 @@ s32 XCanPs_SetBaudRatePrescaler(XCanPs *InstancePtr, u8 Prescaler)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	if (XCanPs_GetMode(InstancePtr) != (u8)XCANPS_MODE_CONFIG) {
-		Status = XST_FAILURE;
+		Status = (s32)XST_FAILURE;
 	} else {
 
 		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr, XCANPS_BRPR_OFFSET,
 					(u32)Prescaler);
 
-		Status = XST_SUCCESS;
+		Status = (s32)XST_SUCCESS;
 	}
 	return Status;
 }
@@ -986,7 +996,7 @@ s32 XCanPs_SetBitTiming(XCanPs *InstancePtr, u8 SyncJumpWidth,
 	Xil_AssertNonvoid(TimeSegment1 <= (u8)15U );
 
 	if (XCanPs_GetMode(InstancePtr) != (u8)XCANPS_MODE_CONFIG) {
-		Status = XST_FAILURE;
+		Status = (s32)XST_FAILURE;
 	} else {
 
 		Value = ((u32) TimeSegment1) & XCANPS_BTR_TS1_MASK;
@@ -998,7 +1008,7 @@ s32 XCanPs_SetBitTiming(XCanPs *InstancePtr, u8 SyncJumpWidth,
 		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
 				XCANPS_BTR_OFFSET, Value);
 
-		Status = XST_SUCCESS;
+		Status = (s32)XST_SUCCESS;
 	}
 	return Status;
 }
@@ -1074,7 +1084,7 @@ s32 XCanPs_SetRxIntrWatermark(XCanPs *InstancePtr, u8 Threshold)
 	Xil_AssertNonvoid(Threshold <= (u8)63);
 
 	if (XCanPs_GetMode(InstancePtr) != (u8)XCANPS_MODE_CONFIG) {
-		Status = XST_FAILURE;
+		Status = (s32)XST_FAILURE;
 	} else {
 
 		ThrReg = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
@@ -1085,7 +1095,7 @@ s32 XCanPs_SetRxIntrWatermark(XCanPs *InstancePtr, u8 Threshold)
 		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
 				XCANPS_WIR_OFFSET, ThrReg);
 
-		Status = XST_SUCCESS;
+		Status = (s32)XST_SUCCESS;
 	}
 	return Status;
 }
@@ -1143,7 +1153,7 @@ s32 XCanPs_SetTxIntrWatermark(XCanPs *InstancePtr, u8 Threshold)
 	Xil_AssertNonvoid(Threshold <= (u8)63);
 
 	if (XCanPs_GetMode(InstancePtr) != (u8)XCANPS_MODE_CONFIG) {
-		Status = XST_FAILURE;
+		Status = (s32)XST_FAILURE;
 	} else {
 
 		ThrReg = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
@@ -1155,7 +1165,7 @@ s32 XCanPs_SetTxIntrWatermark(XCanPs *InstancePtr, u8 Threshold)
 		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
 				XCANPS_WIR_OFFSET, ThrReg);
 
-		Status = XST_SUCCESS;
+		Status = (s32)XST_SUCCESS;
 	}
 	return Status;
 }

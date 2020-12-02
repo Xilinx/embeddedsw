@@ -28,7 +28,7 @@
   <td style="padding-left: 0.5em;">
    <div id="projectname">v_sdirx
    </div>
-   <div id="projectbrief">Xilinx SDK Drivers API Documentation</div>
+   <div id="projectbrief">Xilinx Vitis Drivers API Documentation</div>
   </td>
  </tr>
  </tbody>
@@ -106,6 +106,12 @@ Functions</h2></td></tr>
 <tr class="memitem:aa5e237f32f024f3faff39e35aa4cb117"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sdirx_8c.html#aa5e237f32f024f3faff39e35aa4cb117">XV_SdiRx_ReportDetectedError</a> (<a class="el" href="struct_x_v___sdi_rx.html">XV_SdiRx</a> *InstancePtr)</td></tr>
 <tr class="memdesc:aa5e237f32f024f3faff39e35aa4cb117"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reports detected CRC or EDH errors count.  <a href="#aa5e237f32f024f3faff39e35aa4cb117"></a><br/></td></tr>
 <tr class="separator:aa5e237f32f024f3faff39e35aa4cb117"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab94dfd6e8b78b704f5b9a16a2afb5840"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sdirx_8c.html#ab94dfd6e8b78b704f5b9a16a2afb5840">XV_SdiRx_SetYCbCr444_RGB_10bit</a> (<a class="el" href="struct_x_v___sdi_rx.html">XV_SdiRx</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ab94dfd6e8b78b704f5b9a16a2afb5840"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function enables 10bit YUV444 and RGB color format support for SDI Rx.  <a href="#ab94dfd6e8b78b704f5b9a16a2afb5840"></a><br/></td></tr>
+<tr class="separator:ab94dfd6e8b78b704f5b9a16a2afb5840"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f6c968fc0726db4d20b65b6d0c59176"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sdirx_8c.html#a5f6c968fc0726db4d20b65b6d0c59176">XV_SdiRx_ClearYCbCr444_RGB_10bit</a> (<a class="el" href="struct_x_v___sdi_rx.html">XV_SdiRx</a> *InstancePtr)</td></tr>
+<tr class="memdesc:a5f6c968fc0726db4d20b65b6d0c59176"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function disables 10bit YUV444 and RGB color format support for SDI Rx.  <a href="#a5f6c968fc0726db4d20b65b6d0c59176"></a><br/></td></tr>
+<tr class="separator:a5f6c968fc0726db4d20b65b6d0c59176"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a497f29418b88c6ff0c04e391049c25c2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sdirx_8c.html#a497f29418b88c6ff0c04e391049c25c2">XV_SdiRx_VidBridgeEnable</a> (<a class="el" href="struct_x_v___sdi_rx.html">XV_SdiRx</a> *InstancePtr)</td></tr>
 <tr class="memdesc:a497f29418b88c6ff0c04e391049c25c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function enables the video bridge.  <a href="#a497f29418b88c6ff0c04e391049c25c2"></a><br/></td></tr>
 <tr class="separator:a497f29418b88c6ff0c04e391049c25c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -139,6 +145,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a8b7d3277205ed5b3aeccabe3b55a9776"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sdirx_8c.html#a8b7d3277205ed5b3aeccabe3b55a9776">XV_SdiRx_DisableMode</a> (<a class="el" href="struct_x_v___sdi_rx.html">XV_SdiRx</a> *InstancePtr, <a class="el" href="xv__sdirx_8h.html#afa6ea2608ef153fe1a943255296abd00">XV_SdiRx_SupportedModes</a> RemoveModes)</td></tr>
 <tr class="memdesc:a8b7d3277205ed5b3aeccabe3b55a9776"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function disables the modes which the SDI RX core will try to lock on.  <a href="#a8b7d3277205ed5b3aeccabe3b55a9776"></a><br/></td></tr>
 <tr class="separator:a8b7d3277205ed5b3aeccabe3b55a9776"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a136ea0572bd8a2d63572d89e53c515af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sdirx_8c.html#a136ea0572bd8a2d63572d89e53c515af">XV_SdiRx_SetBitDepth</a> (<a class="el" href="struct_x_v___sdi_rx.html">XV_SdiRx</a> *InstancePtr, XVidC_ColorDepth BitDepth)</td></tr>
+<tr class="memdesc:a136ea0572bd8a2d63572d89e53c515af"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the BitDepth configured for the SDI RXSS into SDI RX core.  <a href="#a136ea0572bd8a2d63572d89e53c515af"></a><br/></td></tr>
+<tr class="separator:a136ea0572bd8a2d63572d89e53c515af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a37c1e8a6ab909ce6fc5a546623949fa2"></a>
@@ -244,9 +253,36 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_v___sdi_rx___config.html#aa1e4f581bc35c38849bb3d2550d247e5">XV_SdiRx_Config::BaseAddress</a>, <a class="el" href="struct_x_v___sdi_rx.html#a8eed60af4a10d195439f698b77e8af33">XV_SdiRx::Config</a>, <a class="el" href="struct_x_v___sdi_rx.html#a011779d1e2f7850b4d45b590e4f3b38a">XV_SdiRx::IsReady</a>, <a class="el" href="struct_x_v___sdi_rx.html#a095630631d7ca3fd051ad41c208960fc">XV_SdiRx::OverFlowCallback</a>, <a class="el" href="struct_x_v___sdi_rx.html#ad187f87f6a570361a3e823fe1401b404">XV_SdiRx::StreamDownCallback</a>, <a class="el" href="struct_x_v___sdi_rx.html#a558ffb2ed6df839f8439097eabe5a15a">XV_SdiRx::StreamUpCallback</a>, <a class="el" href="struct_x_v___sdi_rx.html#a8642841c2f90dbc4e654e4ff13a2aa11">XV_SdiRx::UnderFlowCallback</a>, <a class="el" href="xv__sdirx_8c.html#a1b4cae8aa6f6f1027f601360ce6183a8">XV_SdiRx_EnableMode()</a>, <a class="el" href="xv__sdirx_8c.html#a3f489d8879386783b5219b87fdfdffa6">XV_SdiRx_FramerEnable()</a>, <a class="el" href="xv__sdirx_8h.html#a3f7bbadf43e42e34a23a2fb23609dab7">XV_SdiRx_IntrDisable()</a>, <a class="el" href="xv__sdirx_8c.html#aa66cc2cf6652b5b1278dd7a49ddf9a8e">XV_SdiRx_ResetStream()</a>, <a class="el" href="xv__sdirx_8c.html#aeb19c921c0ff6ec2b60bdb6911bdc8d2">XV_SdiRx_SetEdhErrCntTrigger()</a>, <a class="el" href="xv__sdirx_8c.html#ab2a5fcb4ce17112434766264f92099ef">XV_SdiRx_SetVidLckWindow()</a>, <a class="el" href="xv__sdirx_8c.html#aea144b8a832fb5bfafbc9e1b54595b30">XV_SdiRx_Start()</a>, <a class="el" href="xv__sdirx_8c.html#ad8a5744b701842dd956d608cf4b8495f">XV_SdiRx_Stop()</a>, and <a class="el" href="xv__sdirx__hw_8h.html#a863c6b811d56e05b84d81cbe84d14d0d">XV_SdiRx_WriteReg</a>.</p>
+<p>References <a class="el" href="struct_x_v___sdi_rx___config.html#aa1e4f581bc35c38849bb3d2550d247e5">XV_SdiRx_Config::BaseAddress</a>, <a class="el" href="struct_x_v___sdi_rx.html#a8eed60af4a10d195439f698b77e8af33">XV_SdiRx::Config</a>, <a class="el" href="struct_x_v___sdi_rx.html#a011779d1e2f7850b4d45b590e4f3b38a">XV_SdiRx::IsReady</a>, <a class="el" href="struct_x_v___sdi_rx.html#a095630631d7ca3fd051ad41c208960fc">XV_SdiRx::OverFlowCallback</a>, <a class="el" href="struct_x_v___sdi_rx.html#ad187f87f6a570361a3e823fe1401b404">XV_SdiRx::StreamDownCallback</a>, <a class="el" href="struct_x_v___sdi_rx.html#a558ffb2ed6df839f8439097eabe5a15a">XV_SdiRx::StreamUpCallback</a>, <a class="el" href="struct_x_v___sdi_rx.html#a8642841c2f90dbc4e654e4ff13a2aa11">XV_SdiRx::UnderFlowCallback</a>, <a class="el" href="struct_x_v___sdi_rx.html#ac23dd379bfae979bc3fec65fbadfd47d">XV_SdiRx::VsyncCallback</a>, <a class="el" href="xv__sdirx_8c.html#a1b4cae8aa6f6f1027f601360ce6183a8">XV_SdiRx_EnableMode()</a>, <a class="el" href="xv__sdirx_8c.html#a3f489d8879386783b5219b87fdfdffa6">XV_SdiRx_FramerEnable()</a>, <a class="el" href="xv__sdirx_8h.html#a3f7bbadf43e42e34a23a2fb23609dab7">XV_SdiRx_IntrDisable()</a>, <a class="el" href="xv__sdirx_8c.html#aa66cc2cf6652b5b1278dd7a49ddf9a8e">XV_SdiRx_ResetStream()</a>, <a class="el" href="xv__sdirx_8c.html#aeb19c921c0ff6ec2b60bdb6911bdc8d2">XV_SdiRx_SetEdhErrCntTrigger()</a>, <a class="el" href="xv__sdirx_8c.html#ab2a5fcb4ce17112434766264f92099ef">XV_SdiRx_SetVidLckWindow()</a>, <a class="el" href="xv__sdirx_8c.html#aea144b8a832fb5bfafbc9e1b54595b30">XV_SdiRx_Start()</a>, <a class="el" href="xv__sdirx_8c.html#ad8a5744b701842dd956d608cf4b8495f">XV_SdiRx_Stop()</a>, <a class="el" href="xv__sdirx_8h.html#afa6ea2608ef153fe1a943255296abd00a7f8c7146bde658c0ade48c5d3fb2dbba">XV_SDIRX_SUPPORT_12GF</a>, <a class="el" href="xv__sdirx_8h.html#afa6ea2608ef153fe1a943255296abd00a468f28f92228ce53f6599c6c9894a524">XV_SDIRX_SUPPORT_12GI</a>, <a class="el" href="xv__sdirx_8h.html#afa6ea2608ef153fe1a943255296abd00a724ad334aba9bc343af5cccde3802dd5">XV_SDIRX_SUPPORT_6G</a>, and <a class="el" href="xv__sdirx__hw_8h.html#a863c6b811d56e05b84d81cbe84d14d0d">XV_SdiRx_WriteReg</a>.</p>
 
 <p>Referenced by <a class="el" href="group__v__sdirx__v1__0.html#ga5fc088898beab944337edc01a13ac025">XV_SdiRxSelfTestExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5f6c968fc0726db4d20b65b6d0c59176"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XV_SdiRx_ClearYCbCr444_RGB_10bit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___sdi_rx.html">XV_SdiRx</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function disables 10bit YUV444 and RGB color format support for SDI Rx. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___sdi_rx.html" title="The XSdiRx driver instance data.">XV_SdiRx</a> core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
+
+<p>References <a class="el" href="struct_x_v___sdi_rx___config.html#aa1e4f581bc35c38849bb3d2550d247e5">XV_SdiRx_Config::BaseAddress</a>, <a class="el" href="struct_x_v___sdi_rx.html#a8eed60af4a10d195439f698b77e8af33">XV_SdiRx::Config</a>, <a class="el" href="xv__sdirx__hw_8h.html#a11c28dcf104dea98ffe4e3eef0a600cb">XV_SdiRx_ReadReg</a>, and <a class="el" href="xv__sdirx__hw_8h.html#a863c6b811d56e05b84d81cbe84d14d0d">XV_SdiRx_WriteReg</a>.</p>
 
 </div>
 </div>
@@ -555,6 +591,43 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a136ea0572bd8a2d63572d89e53c515af"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XV_SdiRx_SetBitDepth </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___sdi_rx.html">XV_SdiRx</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XVidC_ColorDepth&#160;</td>
+          <td class="paramname"><em>BitDepth</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function sets the BitDepth configured for the SDI RXSS into SDI RX core. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___sdi_rx.html" title="The XSdiRx driver instance data.">XV_SdiRx</a> core instance. </td></tr>
+    <tr><td class="paramname">BitDepth</td><td>specifies which BitDepth to be set</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="aeb19c921c0ff6ec2b60bdb6911bdc8d2"></a>
 <div class="memitem">
 <div class="memproto">
@@ -655,6 +728,33 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ab94dfd6e8b78b704f5b9a16a2afb5840"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XV_SdiRx_SetYCbCr444_RGB_10bit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___sdi_rx.html">XV_SdiRx</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function enables 10bit YUV444 and RGB color format support for SDI Rx. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___sdi_rx.html" title="The XSdiRx driver instance data.">XV_SdiRx</a> core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
+
+<p>References <a class="el" href="struct_x_v___sdi_rx___config.html#aa1e4f581bc35c38849bb3d2550d247e5">XV_SdiRx_Config::BaseAddress</a>, <a class="el" href="struct_x_v___sdi_rx.html#a8eed60af4a10d195439f698b77e8af33">XV_SdiRx::Config</a>, <a class="el" href="xv__sdirx__hw_8h.html#a11c28dcf104dea98ffe4e3eef0a600cb">XV_SdiRx_ReadReg</a>, and <a class="el" href="xv__sdirx__hw_8h.html#a863c6b811d56e05b84d81cbe84d14d0d">XV_SdiRx_WriteReg</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="aea144b8a832fb5bfafbc9e1b54595b30"></a>
 <div class="memitem">
 <div class="memproto">
@@ -735,7 +835,7 @@ Functions</h2></td></tr>
 
 <p>References <a class="el" href="struct_x_v___sdi_rx___config.html#aa1e4f581bc35c38849bb3d2550d247e5">XV_SdiRx_Config::BaseAddress</a>, <a class="el" href="struct_x_v___sdi_rx.html#a8eed60af4a10d195439f698b77e8af33">XV_SdiRx::Config</a>, <a class="el" href="xv__sdirx__hw_8h.html#a11c28dcf104dea98ffe4e3eef0a600cb">XV_SdiRx_ReadReg</a>, and <a class="el" href="xv__sdirx__hw_8h.html#a863c6b811d56e05b84d81cbe84d14d0d">XV_SdiRx_WriteReg</a>.</p>
 
-<p>Referenced by <a class="el" href="xv__sdirx_8h.html#a4a70cc2c30fe2cc5d5cb478159dbe5fa">XV_SdiRx_CfgInitialize()</a>, and <a class="el" href="group__xv__sdirx__v1__1.html#ga44f1120088e4da9b903c225f4610e830">XV_SdiRx_SelfTest()</a>.</p>
+<p>Referenced by <a class="el" href="xv__sdirx_8h.html#a4a70cc2c30fe2cc5d5cb478159dbe5fa">XV_SdiRx_CfgInitialize()</a>, and <a class="el" href="group__xv__sdirx__v2__1.html#ga44f1120088e4da9b903c225f4610e830">XV_SdiRx_SelfTest()</a>.</p>
 
 </div>
 </div>

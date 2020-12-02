@@ -208,6 +208,7 @@ var xemacps__hw_8h =
     [ "XEMACPS_RXWM_LOW_SHFT_MSK", "xemacps__hw_8h.html#ga3a7dab71e1efbb9a7d7a9f22cb44a513", null ],
     [ "XEMACPS_SEND", "xemacps__hw_8h.html#ga3bfee75b86c3c4b3cde11d1156c3d9bc", null ],
     [ "XEMACPS_SNGLCOLLCNT_OFFSET", "xemacps__hw_8h.html#ga97ea5f6ec280e7b8a21961d1b170c34e", null ],
+    [ "XEMACPS_SR_ALL_MASK", "xemacps__hw_8h.html#ga25910331e08e9ebbc00a7b8bd5055df3", null ],
     [ "XEMACPS_STRETCH_OFFSET", "xemacps__hw_8h.html#gaf711ebba1e7b8e9ea66c4ea2e29bccd5", null ],
     [ "XEMACPS_TX1024CNT_OFFSET", "xemacps__hw_8h.html#ga29f815a23cf201935f0db2f2d893da30", null ],
     [ "XEMACPS_TX128CNT_OFFSET", "xemacps__hw_8h.html#ga8cf7dc909d5be9a35889ce898be1d873", null ],

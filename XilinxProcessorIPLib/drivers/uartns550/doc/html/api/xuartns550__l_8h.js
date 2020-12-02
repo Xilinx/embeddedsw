@@ -9,6 +9,8 @@ var xuartns550__l_8h =
     [ "XUartNs550_ReadReg", "xuartns550__l_8h.html#ga58ff500307c70fda263888b18fc6389c", null ],
     [ "XUartNs550_SetLineControlReg", "xuartns550__l_8h.html#ga4f3ff99ca70dfe6c715cbbfdd9742230", null ],
     [ "XUartNs550_WriteReg", "xuartns550__l_8h.html#gae648146666080fdac4f6949b6ed3101a", null ],
+    [ "XUN_DLL_OFFSET", "xuartns550__l_8h.html#ga035a43e3e92312cf94894d0df59eed71", null ],
+    [ "XUN_DLM_OFFSET", "xuartns550__l_8h.html#ga61325f1ebb5100606fa900290d1497d7", null ],
     [ "XUN_DRLM_OFFSET", "xuartns550__l_8h.html#ga9923a9e780653084f76cd38f4008d0c5", null ],
     [ "XUN_DRLS_OFFSET", "xuartns550__l_8h.html#gad024e52bf451be70a16217ee15136558", null ],
     [ "XUN_FCR_OFFSET", "xuartns550__l_8h.html#ga3d652c8c88fd310239eab927dff43d94", null ],

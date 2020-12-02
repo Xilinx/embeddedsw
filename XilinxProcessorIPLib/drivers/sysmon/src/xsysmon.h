@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2007 - 2014 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /****************************************************************************/
 /**
 *
 * @file xsysmon.h
-* @addtogroup sysmon_v7_5
+* @addtogroup sysmon_v7_7
 * @{
 * @details
 *
@@ -185,8 +163,8 @@
 *			XSM_MIN_VUSR3,XSM_ATR_VUSR0_UPPER -
 *			XSM_ATR_VUSR3_LOWER macros.
 *			Added XSM_IP_OFFSET macro(since register
-*			offsets are different for Ultrascale comapared to
-*			earlier familes),Offsets,Masks for VUSER0 to
+*			offsets are different for Ultrascale compared to
+*			earlier families),Offsets,Masks for VUSER0 to
 *			VUSER3 channels, Configuration Register 3 and
 *			Sequence Registers 8 and 9 in xsysmon_hw.h.
 *			Modified XSysMon_GetAdcData,
@@ -220,6 +198,8 @@
 *                    for doxygen generation.
 * 7.4  ms   04/18/17 Modified tcl file to add suffix U for all macros
 *                    definitions of sysmon in xparameters.h
+* 7.6  aad  03/23/20 Aligned Macros to the documentation
+*
 * </pre>
 *
 *****************************************************************************/
@@ -258,6 +238,12 @@ extern "C" {
 #define XSM_CH_VCCPINT		0x0D /**< On-chip PS VCCPINT Channel, Zynq */
 #define XSM_CH_VCCPAUX		0x0E /**< On-chip PS VCCPAUX Channel, Zynq */
 #define XSM_CH_VCCPDRO		0x0F /**< On-chip PS VCCPDRO Channel, Zynq */
+#define XSM_CH_VCCLPINT		0x0D /**< On-chip PS VCCLPINT Channel,
+				       Ultrascale */
+#define XSM_CH_VCCFPINT		0x0E /**< On-chip PS VCCFPINT Channel,
+				       Ultrascale */
+#define XSM_CH_VCCPSAUX		0x0F /**< On-chip PS VCCPAUX Channel,
+				       Ultrascale */
 #define XSM_CH_AUX_MIN		16   /**< Channel number for 1st Aux Channel */
 #define XSM_CH_AUX_MAX		31   /**< Channel number for Last Aux channel */
 #define XSM_CH_VUSR0            32  /**< VUSER0 Supply - UltraScale */
@@ -370,7 +356,7 @@ extern "C" {
 
 /*@}*/
 
-/* For backwards compatabilty */
+/* For backwards compatibility */
 #define XSM_CH_CALIBRATION	XSM_CH_ADC_CALIB
 #define XSM_ATR_BRAM_UPPER	XSM_ATR_VBRAM_UPPER
 #define XSM_ATR_BRAM_LOWER	XSM_ATR_VBRAM_LOWER

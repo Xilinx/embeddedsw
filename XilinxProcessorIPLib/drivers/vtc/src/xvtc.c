@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2008 - 2014 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2008 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xvtc.c
-* @addtogroup vtc_v7_2
+* @addtogroup vtc_v8_3
 * @{
 *
 * This is main code of Xilinx MVI Video Timing Controller (VTC) device driver.
@@ -177,6 +155,9 @@
 * 			driver.
 * 	jsr    10/03/18	Corrected the VGA resoultion timing paramters w.r.t the
 * 			timing values given in the VTC GUI for 640x480p
+* 8.2	rg     08/12/20	Implemented XVtc_SetAdaptiveSyncMode,
+*			XVtc_DisableAdaptiveSync and
+*			XVtc_SetVfpStretchLimit API's.
 * </pre>
 *
 ******************************************************************************/
@@ -2605,6 +2586,91 @@ u16 XVtc_GetDetectorVideoMode(XVtc *InstancePtr)
 	mode = XVtc_ConvTiming2VideoMode(InstancePtr, &Timing);
 
 	return mode;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function sets the vertical front porch stretch mechanism in VTC core
+ * to support Adaptive-Sync feature. VTC core supports two types of stretch
+ * mechanisms. 1.Fixed stretch mode 2. Auto adjust mode
+ *
+ * @param InstancePtr is a pointer to the VTC instance
+ * @param mode is the type of mode that is being set.
+ *
+ * @return
+ *		None.
+ *
+ * @note	Modification of this register is fine irrespective of whether
+ * 		VTC has started or not.
+ *
+ ******************************************************************************/
+void XVtc_SetAdaptiveSyncMode(XVtc *InstancePtr, XVtc_AdaptiveSyncMode Mode)
+{
+	u32 RegValue;
+
+	/* Verify argument. */
+	Xil_AssertVoid(InstancePtr);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
+				XVTC_ADAPTIVE_CTL_OFFSET);
+	/* Enable Adaptive-Sync and set mode */
+	if (Mode > XVTC_FIXED_MODE)
+		RegValue |= XVTC_ADAPTIVE_MODE_MASK;
+	else
+		RegValue &= ~XVTC_ADAPTIVE_MODE_MASK;
+	XVtc_WriteReg(InstancePtr->Config.BaseAddress, XVTC_ADAPTIVE_CTL_OFFSET,
+		      RegValue | XVTC_ADAPTIVE_ENABLE_MASK);
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function disable Adaptive-Sync in VTC core.
+ *
+ * @param InstancePtr is a pointer to the VTC instance to be worked on.
+ *
+ * @return
+ *		None.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+void XVtc_DisableAdaptiveSync(XVtc *InstancePtr)
+{
+	u32 RegValue;
+
+	/* Verify argument. */
+	Xil_AssertVoid(InstancePtr);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
+				XVTC_ADAPTIVE_CTL_OFFSET);
+	RegValue &= (~XVTC_ADAPTIVE_ENABLE_MASK);
+	XVtc_WriteReg(InstancePtr->Config.BaseAddress,
+		      XVTC_ADAPTIVE_CTL_OFFSET, RegValue);
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function sets vertical front porch stretch limit.
+ *
+ * @param InstancePtr is a pointer to the VTC instance to be worked on.
+ * @param StretchLimit is the  vertical front porch stretch limit to be set.
+ *
+ * @return
+ *		None.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+void XVtc_SetVfpStretchLimit(XVtc *InstancePtr, u32 StretchLimit)
+{
+	/* Verify argument. */
+	Xil_AssertVoid(InstancePtr);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	XVtc_WriteReg(InstancePtr->Config.BaseAddress,
+		      XVTC_VFP_STRETCH_OFFSET, StretchLimit);
 }
 
 /*****************************************************************************/

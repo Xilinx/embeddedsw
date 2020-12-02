@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 - 2019 Xilinx, Inc.
+ * Copyright (C) 2010 - 2020 Xilinx, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -351,6 +351,10 @@ static err_t low_level_init(struct netif *netif)
 	XAxiEthernet_Initialize(&xaxiemacif->axi_ethernet, mac_config,
 				mac_config->BaseAddress);
 
+#ifdef XPAR_GIGE_PCS_PMA_SGMII_CORE_PRESENT
+	enable_sgmii_clock(&xaxiemacif->axi_ethernet);
+#endif
+
 	/* figure out if the system has DMA */
 	if (XAxiEthernet_IsDma(&xaxiemacif->axi_ethernet)) {
 #ifdef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_DMA
@@ -464,7 +468,7 @@ xaxiemacif_mld6_mac_filter_update (struct netif *netif, ip_addr_t *group,
 			xaxiemacif_mld6_mac_hash_update(netif, ip_addr, action,entry);
 
 			LWIP_DEBUGF(NETIF_DEBUG,
-					("%s: Muticast MAC address successfully added.\r\n", __func__));
+					("%s: Multicast MAC address successfully added.\r\n", __func__));
 
 			return ERR_OK;
 		}
@@ -561,7 +565,7 @@ xaxiemacif_mac_filter_update (struct netif *netif, ip_addr_t *group,
 						(&xaxiemacif->axi_ethernet);
 
 						LWIP_DEBUGF(NETIF_DEBUG,
-						("xaxiemacif_mac_filter_update: Muticast MAC address successfully added.\r\n"));
+						("xaxiemacif_mac_filter_update: Multicast MAC address successfully added.\r\n"));
 
 						return_val = ERR_OK;
 						break;
@@ -619,7 +623,7 @@ xaxiemacif_mac_filter_update (struct netif *netif, ip_addr_t *group,
 						(&xaxiemacif->axi_ethernet);
 
 						LWIP_DEBUGF(NETIF_DEBUG,
-						("xaxiemacif_mac_filter_update: Muticast MAC address successfully removed.\r\n"));
+						("xaxiemacif_mac_filter_update: Multicast MAC address successfully removed.\r\n"));
 
 						return_val = ERR_OK;
 						xaxiemac_mcast_entry_mask &=

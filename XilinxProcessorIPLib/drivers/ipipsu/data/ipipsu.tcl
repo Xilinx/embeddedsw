@@ -1,28 +1,6 @@
 ###############################################################################
-#
-# Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-# OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-#
-# Except as contained in this notice, the name of the Xilinx shall not be used
-# in advertising or otherwise to promote the sale, use or other dealings in
-# this Software without prior written authorization from Xilinx.
+# Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
 #
 ###############################################################################
 ##############################################################################
@@ -216,7 +194,6 @@ proc ipi_generate_params {file_name iszynqmp} {
 	foreach ipi_inst $ipi_list {
 		puts $file_handle [ipi_define_xpar $ipi_inst CONFIG.C_BIT_POSITION]
 		puts $file_handle [ipi_define_xpar $ipi_inst CONFIG.C_BUFFER_INDEX]
-		puts ""
 	}
 	# Generate Canonical definitions to map IPI instance -> Processors
 	puts $file_handle "/* Target List for referring to processor IPI Targets */"
@@ -233,7 +210,6 @@ proc ipi_generate_params {file_name iszynqmp} {
 		foreach ipi_slave $proc_slave_list {
 			puts $file_handle [format "#define  XPAR_XIPIPS_TARGET_%s_CH%s_MASK  XPAR_%s_BIT_MASK" [string toupper $proc] $idx [string toupper $ipi_slave]]
 			puts $file_handle [format "#define  XPAR_XIPIPS_TARGET_%s_CH%s_INDEX  %s$uSuffix" [string toupper $proc] $idx [lsearch $ipi_list $ipi_slave]]
-			puts ""
 			incr idx
 		}
 		puts $file_handle ""

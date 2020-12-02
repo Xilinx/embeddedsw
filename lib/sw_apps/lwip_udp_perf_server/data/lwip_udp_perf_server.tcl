@@ -15,7 +15,7 @@ proc check_stdout_hw {} {
         # # only if it has a UART interface. So no further check is required
         if { $slave_type == "ps7_uart" || $slave_type == "psu_uart" || $slave_type == "axi_uartlite" ||
             $slave_type == "axi_uart16550" || $slave_type == "iomodule" ||
-            $slave_type == "mdm" } {
+            $slave_type == "mdm"  || $slave_type == "psv_sbsauart" } {
             return;
         }
     }
@@ -74,7 +74,7 @@ proc require_memory {memsize} {
         }
     }
 
-    error "This application requires atleast $memsize bytes of memory.";
+    error "This application requires at least $memsize bytes of memory.";
 }
 
 proc check_stdout_sw {} {
@@ -109,18 +109,15 @@ proc swapp_is_supported_hw {} {
     set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $proc]]
     if { $proc_type == "microblaze"} {
         # make sure there is a timer (if this is a MB)
-        set timerlist [hsi::get_cells -hier -filter { ip_name == "xps_timer" }];
+        set timerlist [hsi::get_cells -hier -filter { ip_name == "axi_timer" }];
         if { [llength $timerlist] <= 0 } {
-            set timerlist [hsi::get_cells -hier -filter { ip_name == "axi_timer" }];
-            if { [llength $timerlist] <= 0 } {
-                error "There seems to be no timer peripheral in the hardware. lwIP requires an xps_timer for TCP operations.";
-            }
+             error "There seems to be no timer peripheral in the hardware. lwIP requires an axi_timer for TCP operations.";
         }
     }
 
     # psu_pmu is not supported
-    if { $proc_type == "psu_pmu"} {
-        error "ERROR: lwip is not supported on psu_pmu";
+    if { $proc_type == "psu_pmu" || $proc_type == "psv_pmu"} {
+        error "ERROR: lwip is not supported on PMU";
         return;
     }
 
@@ -138,14 +135,14 @@ proc swapp_is_supported_sw {} {
     set processor [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_processor]]
     set processor_type [common::get_property IP_NAME $processor]
 
-    if {$processor_type == "psu_cortexa53"} {
-        set procdrv [hsi::get_sw_processor]
-        set compiler [::common::get_property CONFIG.compiler $procdrv]
-        if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
-            error "ERROR: lwip library does not support 32 bit A53 compiler";
-        return;
+	if {$processor_type == "psv_cortexa72"} {
+		set procdrv [hsi::get_sw_processor]
+		set compiler [::common::get_property CONFIG.compiler $procdrv]
+		if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
+			error "ERROR: lwip library does not support 32 bit A72 compiler";
+		return;
             }
-    }
+	}
 
     # check for stdout being set
     check_stdout_sw;
@@ -243,10 +240,7 @@ proc generate_timer_config { fp } {
     }
     set intc [lindex $intcs 0];
 
-    set timers [hsi::get_cells -hier -filter { ip_name == "xps_timer" }];
-    if { [llength $timers] == 0 } {
-        set timers [hsi::get_cells -hier -filter { ip_name == "axi_timer" }];
-    }
+    set timers [hsi::get_cells -hier -filter { ip_name == "axi_timer" }];
     set timer [lindex $timers 0];
 
     # baseaddr
@@ -297,6 +291,8 @@ proc swapp_generate {} {
         puts $fid "#define PLATFORM_ZYNQ \n";
     } elseif { $proc_arm == "psu_cortexr5" || $proc_arm == "psu_cortexa53"} {
         puts $fid "#define PLATFORM_ZYNQMP \n";
+    } elseif { $proc_arm == "psv_cortexr5" || $proc_arm == "psv_cortexa72" } {
+	puts $fid "#define PLATFORM_VERSAL \n";
     }
     puts $fid "";
 
@@ -310,7 +306,7 @@ proc swapp_get_linker_constraints {} {
 
 proc swapp_get_supported_processors {} {
 
-    return "psu_cortexa53 psu_cortexr5 ps7_cortexa9 microblaze";
+    return "psv_cortexa72 psv_cortexr5 psu_cortexa53 psu_cortexr5 ps7_cortexa9 microblaze";
 }
 
 proc swapp_get_supported_os {} {

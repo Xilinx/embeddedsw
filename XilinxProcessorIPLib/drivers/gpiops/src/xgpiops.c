@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xgpiops.c
-* @addtogroup gpiops_v3_5
+* @addtogroup gpiops_v3_8
 * @{
 *
 * The XGpioPs driver. Functions in this file are the minimum required functions
@@ -51,8 +29,8 @@
 * 3.1   aru  07/13/18 Resolved doxygen reported warnings. CR# 1006331.
 * 3.4   aru  08/17/18 Resolved MISRA-C mandatory violations. CR# 1007751
 * 3.5   sne  03/01/19 Fixes violations according to MISRAC-2012
-*                     in saftey mode and modified the code such as
-*                     Use of mixed mode arithmetic,Declared the poiner param
+*                     in safety mode and modified the code such as
+*                     Use of mixed mode arithmetic,Declared the pointer param
 *                     as Pointer to const,Casting operation to a pointer,
 *                     Literal value requires a U suffix.
 * 3.5   sne  03/13/19 Added Versal support.
@@ -128,7 +106,7 @@ s32 XGpioPs_CfgInitialize(XGpioPs *InstancePtr, const XGpioPs_Config *ConfigPtr,
 		InstancePtr->MaxPinNum = (u32)174;
 		InstancePtr->MaxBanks = (u8)6;
 	}
-        else if (InstancePtr->Platform == (u32)XPLAT_versal)
+        else if (InstancePtr->Platform == (u32)XPLAT_VERSAL)
         {
                 if(InstancePtr->PmcGpio == (u32)FALSE)
                 {
@@ -168,7 +146,7 @@ s32 XGpioPs_CfgInitialize(XGpioPs *InstancePtr, const XGpioPs_Config *ConfigPtr,
 	 * interrupts for all pins in all the 4 banks.
 	 */
 	for (i=(u8)0U;i<InstancePtr->MaxBanks;i++) {
-                if (InstancePtr->Platform == XPLAT_versal){
+                if (InstancePtr->Platform == XPLAT_VERSAL){
                         if(InstancePtr->PmcGpio == (u32)FALSE)
                         {
                                 if((i== (u8)XGPIOPS_ONE)||(i== (u8)XGPIOPS_TWO))
@@ -730,7 +708,7 @@ void XGpioPs_GetBankPin(u8 PinNumber, u8 *BankNumber, u8 *PinNumberInBank)
 		}
 	}
 #ifdef versal
-        else if(Platform == XPLAT_versal)
+        else if(Platform == XPLAT_VERSAL)
         {
                 if(InstancePtr->PmcGpio == (u32)(FALSE))
                 {
@@ -800,7 +778,7 @@ void XGpioPs_GetBankPin(u8 PinNumber, u8 *BankNumber, u8 *PinNumberInBank)
 	}
 
 #ifdef versal
-        else if(Platform == XPLAT_versal)
+        else if(Platform == XPLAT_VERSAL)
         {
                 if(InstancePtr->PmcGpio == (u32)(FALSE))
                 {

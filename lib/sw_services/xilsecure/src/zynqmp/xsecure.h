@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -51,7 +29,13 @@
 * 4.0   arc  18/12/18 Fixed MISRA-C violation.
 *       arc  12/02/19 Added support for validate image format.
 *       rama 18/03/19 Fixed IAR compiler errors and warnings
-*       psl  03/26/19 FIxed MISRA_C violation
+*       psl  03/26/19 Fixed MISRA-C violation
+* 4.1   psl  07/31/19 Fixed MISRA-C violation.
+* 4.2   kal  03/12/20 Authenticate SizeofImgHdr before use, in case of failure
+*                     return XSECURE_IMAGE_HEADER_SIZE_ERR.
+*       ana  04/03/20 Removed support of storing key in global array
+*       rpo  04/09/20 Aligned buffers used by DMA to 64 bytes
+*		rpo	 09/10/20 Added a new error for RSA input validation parameter
 * </pre>
 *
 * @note
@@ -137,8 +121,10 @@ extern "C" {
 #define XSECURE_OUT_OF_RANGE_USER_EFUSE_ERROR	0x18U
 #define XSECURE_INVALID_IMAGE_ERROR    0x19U
 #define XSECURE_SHA3_UPDATE_FAIL        0x20U
+#define XSECURE_IMAGE_HEADER_SIZE_ERR	0x21U
 
 #define XSECURE_AES_ERROR		0x80U
+#define XSECURE_RSA_INVALID_PARAM_RESERVED 0x82U
 #define XSECURE_AUTH_NOT_ENABLED 	0xFFU
 
 #define XSECURE_PPK_ERR			0x100U
@@ -211,13 +197,13 @@ extern "C" {
 
 #define	XSECURE_AUTH_CERT_USER_DATA	((u32)64U - XSECURE_AUTH_HEADER_SIZE)
 
-#define XSECURE_AUTH_CERT_MIN_SIZE	(XSECURE_AUTH_HEADER_SIZE 	\
-					+ XSECURE_AUTH_CERT_USER_DATA 	\
-					+ XSECURE_PPK_SIZE 		\
-					+ XSECURE_SPK_SIZE 		\
-					+ XSECURE_SPK_SIG_SIZE 		\
-					+ XSECURE_BHDR_SIG_SIZE 	\
-					+ XSECURE_PARTITION_SIG_SIZE)
+#define XSECURE_AUTH_CERT_MIN_SIZE	((u32)XSECURE_AUTH_HEADER_SIZE 	\
+					+ (u32)XSECURE_AUTH_CERT_USER_DATA 	\
+					+ (u32)XSECURE_PPK_SIZE 		\
+					+ (u32)XSECURE_SPK_SIZE 		\
+					+ (u32)XSECURE_SPK_SIG_SIZE 		\
+					+ (u32)XSECURE_BHDR_SIG_SIZE 	\
+					+ (u32)XSECURE_PARTITION_SIG_SIZE)
 
 #define XSECURE_AUTH_CERT_BHDRSIG_OFFSET	0xAC0U
 #define XSECURE_AUTH_CERT_PARTSIG_OFFSET	0xCC0U
@@ -311,13 +297,23 @@ typedef struct {
 
 /************************** Variable Definitions *****************************/
 #if defined (__GNUC__)
+#if defined (PSU_PMU)
 extern u8 EfusePpk[XSECURE_PPK_SIZE]__attribute__ ((aligned (32)));
 			/**< eFUSE verified PPK */
 extern u8 AcBuf[XSECURE_AUTH_CERT_MIN_SIZE]__attribute__ ((aligned (32)));
 			/**< Buffer to store authentication certificate */
 extern u8 Buffer[XSECURE_BUFFER_SIZE] __attribute__ ((aligned (32)));
 			/**< Buffer to store */
+#else	/*!PSU_PMU*/
+extern u8 EfusePpk[XSECURE_PPK_SIZE]__attribute__ ((aligned (64)));
+			/**< eFUSE verified PPK */
+extern u8 AcBuf[XSECURE_AUTH_CERT_MIN_SIZE]__attribute__ ((aligned (64)));
+			/**< Buffer to store authentication certificate */
+extern u8 Buffer[XSECURE_BUFFER_SIZE] __attribute__ ((aligned (64)));
+			/**< Buffer to store */
+#endif
 #elif defined (__ICCARM__)
+#if defined (PSU_PMU)
 #pragma data_alignment = 32
 extern u8 EfusePpk[XSECURE_PPK_SIZE];
 			/**< eFUSE verified PPK */
@@ -327,9 +323,18 @@ extern u8 AcBuf[XSECURE_AUTH_CERT_MIN_SIZE];
 #pragma data_alignment = 32
 extern u8 Buffer[XSECURE_BUFFER_SIZE];
 			/**< Buffer to store */
+#else	/*!PSU_PMU*/
+#pragma data_alignment = 64
+extern u8 EfusePpk[XSECURE_PPK_SIZE];
+			/**< eFUSE verified PPK */
+#pragma data_alignment = 64
+extern u8 AcBuf[XSECURE_AUTH_CERT_MIN_SIZE];
+			/**< Buffer to store authentication certificate */
+#pragma data_alignment = 64
+extern u8 Buffer[XSECURE_BUFFER_SIZE];
+			/**< Buffer to store */
 #endif
-extern u32 XsecureIv[XSECURE_IV_LEN];
-extern u32 XsecureKey[XSECURE_KEY_LEN];
+#endif
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/

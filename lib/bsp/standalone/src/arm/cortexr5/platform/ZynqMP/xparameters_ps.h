@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2014 - 2017 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 * @file xparameters_ps.h
@@ -44,6 +22,7 @@
 * ----- ------- -------- ---------------------------------------------------
 * 5.00  pkp  	02/29/14 Initial version
 * 6.0   mus     08/18/16 Defined ARMR5 flag
+* 7.2	pm	03/25/20 Add wakeup Interrupt Id for usbpsu controller
 * </pre>
 *
 ******************************************************************************/
@@ -150,6 +129,8 @@ extern "C" {
 #define XPAR_XSMMU_FPD_INTR 		XPS_FPD_SMMU_INT_ID
 #define XPAR_XUSBPS_0_INTR		XPS_USB3_0_ENDPT_INT_ID
 #define XPAR_XUSBPS_1_INTR		XPS_USB3_1_ENDPT_INT_ID
+#define XPAR_XUSBPS_0_WAKE_INTR		XPS_USB3_0_WAKE_INT_ID
+#define XPAR_XUSBPS_1_WAKE_INTR		XPS_USB3_1_WAKE_INT_ID
 #define	XPAR_XRTCPSU_ALARM_INTR 	XPS_RTC_ALARM_INT_ID
 #define	XPAR_XRTCPSU_SECONDS_INTR	XPS_RTC_SEC_INT_ID
 #define XPAR_XAPMPS_0_INTR		XPS_APM0_INT_ID
@@ -170,7 +151,7 @@ extern "C" {
 
 /*
  * This block contains constant declarations for the peripherals
- * within the hardblock. These have been put for bacwards compatibilty
+ * within the hardblock. These have been put for bacwards compatibility
  */
 
 #define XPS_SYS_CTRL_BASEADDR	0xFF180000U
@@ -238,6 +219,8 @@ extern "C" {
 #define XPS_GEM3_WAKE_INT_ID		(64U + 32U)
 #define XPS_USB3_0_ENDPT_INT_ID		(65U + 32U)
 #define XPS_USB3_1_ENDPT_INT_ID		(70U + 32U)
+#define XPS_USB3_0_WAKE_INT_ID		(75U + 32U)
+#define XPS_USB3_1_WAKE_INT_ID		(76U + 32U)
 #define XPS_ADMA_CH0_INT_ID		(77U + 32U)
 #define XPS_ADMA_CH1_INT_ID		(78U + 32U)
 #define XPS_ADMA_CH2_INT_ID		(79U + 32U)
@@ -307,7 +290,7 @@ extern "C" {
 #define XPAR_XADCPS_0_BASEADDR	  (0xF8007000U)
 #define XPAR_XADCPS_INT_ID		XPS_SYSMON_INT_ID
 
-/* For backwards compatibilty */
+/* For backwards compatibility */
 #define XPAR_XUARTPS_0_CLOCK_HZ		XPAR_XUARTPS_0_UART_CLK_FREQ_HZ
 #define XPAR_XUARTPS_1_CLOCK_HZ		XPAR_XUARTPS_1_UART_CLK_FREQ_HZ
 #define XPAR_XTTCPS_0_CLOCK_HZ		XPAR_XTTCPS_0_TTC_CLK_FREQ_HZ

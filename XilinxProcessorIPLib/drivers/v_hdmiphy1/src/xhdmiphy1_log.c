@@ -1,30 +1,8 @@
 /*******************************************************************************
- *
- * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /******************************************************************************/
 /**
  *
@@ -230,7 +208,7 @@ void XHdmiphy1_LogDisplay(XHdmiphy1 *InstancePtr)
 		Data = (Log >> 8) & 0xFF;
 
 		if (InstancePtr->LogWriteCallback) {
-			// Printing of TimeUnit
+			/* Printing of TimeUnit */
 			xil_printf("0x%08X%08X: HDMIPHY - ",
                 (u32)((TimeUnit >> 32) & 0xFFFFFFFF),
                 (u32)(TimeUnit & 0xFFFFFFFF));
@@ -435,6 +413,22 @@ void XHdmiphy1_LogDisplay(XHdmiphy1 *InstancePtr)
 				xil_printf("RX DRU disable\r\n");
 			}
 			break;
+		case (XHDMIPHY1_LOG_EVT_TXGPO_RE):
+			if (Data == 1) {
+				xil_printf("TX GPO Rising Edge Detected\r\n");
+			}
+			else {
+				xil_printf("TX MSTRESET Toggled\r\n");
+			}
+			break;
+		case (XHDMIPHY1_LOG_EVT_RXGPO_RE):
+			if (Data == 1) {
+				xil_printf("RX GPO Rising Edge Detected\r\n");
+			}
+			else {
+				xil_printf("RX MSTRESET Toggled\r\n");
+			}
+			break;
 		case (XHDMIPHY1_LOG_EVT_FRL_RECONFIG):
 			xil_printf(ANSI_COLOR_GREEN);
 			if (Data == XHDMIPHY1_DIR_RX) {
@@ -483,6 +477,14 @@ void XHdmiphy1_LogDisplay(XHdmiphy1 *InstancePtr)
 				xil_printf(ANSI_COLOR_RED "Error! CPLL config not found!"
 						ANSI_COLOR_RESET "\r\n");
 			break;
+		case (XHDMIPHY1_LOG_EVT_GT_LCPLL_CFG_ERR):
+				xil_printf(ANSI_COLOR_RED "Error! LCPLL config not found!"
+						ANSI_COLOR_RESET "\r\n");
+			break;
+		case (XHDMIPHY1_LOG_EVT_GT_RPLL_CFG_ERR):
+				xil_printf(ANSI_COLOR_RED "Error! RPLL config not found!"
+						ANSI_COLOR_RESET "\r\n");
+			break;
 		case (XHDMIPHY1_LOG_EVT_VD_NOT_SPRTD_ERR):
 				xil_printf(ANSI_COLOR_YELLOW "Warning: This video format "
 						"is not supported by this device. "
@@ -512,6 +514,12 @@ void XHdmiphy1_LogDisplay(XHdmiphy1 *InstancePtr)
 				xil_printf(ANSI_COLOR_RED "Error!  User Clock frequency is "
 						"more than 300 MHz"
 						ANSI_COLOR_RESET "\r\n");
+			break;
+		case (XHDMIPHY1_LOG_EVT_SPDGRDE_ERR):
+					xil_printf(ANSI_COLOR_RED "Error!  %s: Line rates > 8.0 "
+						"Gbps are not supported by -1/-1LV devices"
+						ANSI_COLOR_RESET "\r\n",
+						(Data == XHDMIPHY1_DIR_RX) ? "RX" : "TX");
 			break;
 		default:
 			xil_printf("Unknown event\r\n");

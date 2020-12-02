@@ -1,28 +1,6 @@
 ###############################################################################
-#
-# Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-# OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-#
-# Except as contained in this notice, the name of the Xilinx shall not be used
-# in advertising or otherwise to promote the sale, use or other dealings in
-# this Software without prior written authorization from Xilinx.
+# Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
 #
 ###############################################################################
 #
@@ -39,6 +17,11 @@
 #                     BSP.
 # 1.5   mus  03/19/19 Updated to add hard float support for IAR R5
 #                     BSP.
+# 1.6   aru  04/18/19 Updated tcl to add assembler for ARMCC and IAR
+# 1.8   dp   06/25/20 Updated tcl to support for armclang
+# 1.8   mus  08/18/20 Updated mdd file with new parameter dependency_flags,
+#                     it would be used to generate appropriate flags
+#                     required for dependency files configuration
 ##############################################################################
 #uses "xillib.tcl"
 
@@ -117,7 +100,7 @@ proc xdefine_cortexr5_params {drvhandle} {
                 regsub -- {-mfpu=vfpv3-d16} $temp_flag "" temp_flag
 		regsub -- {--fpu=VFPv3_D16} $temp_flag "" temp_flag
 		regsub -- {-DARMR5} $temp_flag "" temp_flag
-		set extra_flags "--debug -DARMR5 --fpu=VFPv3_D16 $temp_flag"
+		set extra_flags "--debug -DARMR5 --fpu=VFPv3_D16 -e $temp_flag"
 		common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
 	}
 
@@ -129,6 +112,31 @@ proc xdefine_cortexr5_params {drvhandle} {
 		set compiler_flags "-Om --cpu=Cortex-R5 $compiler_flags"
 		common::set_property -name VALUE -value $compiler_flags -objects  [hsi::get_comp_params -filter { NAME == compiler_flags } ]
 	}
+
+	set assembler_value "iasmarm"
+    common::set_property -name {ASSEMBLER} -value $assembler_value -objects  [hsi::get_sw_processor]
+	regsub -all {\{|\}}  {--dependencies=m {$}(@D)/$*.d} "" dependency_flags
+	common::set_property -name VALUE -value $dependency_flags -objects  [hsi::get_comp_params -filter { NAME == dependency_flags } ]
+   }  elseif {[string compare -nocase $compiler_name "armclang"] == 0} {
+	set temp_flag $extra_flags
+	if {[string compare -nocase $temp_flag "-g -DARMR5 -Wall -Wextra -mfloat-abi=hard -mfpu=vfpv3-d16 --target=arm-arm-none-eabi"] != 0} {
+		regsub -- {-g -DARMR5 -Wall -Wextra} $temp_flag "" temp_flag
+		regsub -- {-mfloat-abi=hard} $temp_flag "" temp_flag
+		regsub -- {-mfpu=vfpv3-d16} $temp_flag "" temp_flag
+		set extra_flags "-g -DARMR5 -Wall -Wextra -mfloat-abi=hard -mfpu=vfpv3-d16 --target=arm-arm-none-eabi $temp_flag"
+		common::set_property -name value -value $extra_flags -objects  [hsi::get_comp_params -filter { name == extra_compiler_flags } ]
+	}
+
+	set compiler_flags [::common::get_property value [hsi::get_comp_params -filter { name == compiler_flags } ] ]
+	if {[string compare -nocase $compiler_flags "-O2 -c -mcpu=cortex-r5"] != 0} {
+		regsub -- {-O2 -c} $compiler_flags "" compiler_flags
+		regsub -- {-mcpu=cortex-r5} $compiler_flags "" compiler_flags
+		regsub -- {-Om --cpu=cortex-r5 } $compiler_flags "" compiler_flags
+		set compiler_flags "-O2 -c -mcpu=cortex-r5 $compiler_flags"
+		common::set_property -name value -value $compiler_flags -objects  [hsi::get_comp_params -filter { name == compiler_flags } ]
+	}
+	set assembler_value "armasm"
+    common::set_property -name {assembler} -value $assembler_value -objects  [hsi::get_sw_processor]
    } else {
 		#Append LTO flag in EXTRA_COMPILER_FLAGS for zynqmp_fsbl_bsp
 		set is_zynqmp_fsbl_bsp [common::get_property CONFIG.ZYNQMP_FSBL_BSP [hsi::get_os]]

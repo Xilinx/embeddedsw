@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2004 - 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2004 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xemaclite_l.c
-* @addtogroup emaclite_v4_4
+* @addtogroup emaclite_v4_6
 * @{
 *
 * This file contains the minimal, polled functions to send and receive Ethernet
@@ -58,6 +36,8 @@
 *                     XEmacLite_AlignedRead APIs.
 * 4.3   asa  08/27/16 Fix compilation warning by making changes in
 *                     XEmacLite_AlignedWrite.
+* 4.6   rsp  08/08/20 Fix selftest failure on zynqmp. In XEmacLite_AlignedWrite
+*                     use correct pointer data type i.e u32 for To32Ptr.
 * </pre>
 *
 ******************************************************************************/
@@ -234,14 +214,14 @@ void XEmacLite_AlignedWrite(void *SrcPtr, UINTPTR *DestPtr, unsigned ByteCount)
 	unsigned Index;
 	unsigned Length = ByteCount;
 	volatile u32 AlignBuffer;
-	volatile UINTPTR *To32Ptr;
+	volatile u32 *To32Ptr;
 	u32 *From32Ptr;
 	volatile u16 *To16Ptr;
 	u16 *From16Ptr;
 	volatile u8 *To8Ptr;
 	u8 *From8Ptr;
 
-	To32Ptr = (volatile UINTPTR *)DestPtr;
+	To32Ptr = (volatile u32*)DestPtr;
 
 	if ((((u32) SrcPtr) & 0x00000003) == 0) {
 

@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* (c) Copyright 2013-2016 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2013 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /*****************************************************************************/
 /**
 * @file fs-boot.c
@@ -33,7 +11,7 @@
 *     This is the main program for the first-stage bootloader FS-BOOT for the
 *     PetaLinux distribution.
 *
-*     This bootloader is targeted for reconfigurable platform and is desgined
+*     This bootloader is targeted for reconfigurable platform and is designed
 *     to be run from BRAM.  Hence, elf size must remain below 8K bytes.
 *
 *     It supports the booting of any second-stage bootloader from
@@ -394,6 +372,11 @@ int main()
 	unsigned long image_start = 0;    /* The address of the final boot image in memory */
 	int failed_reason;
 
+#ifdef __MICROBLAZE__
+	int cpu;
+	int pvr;
+#endif
+
 	XCACHE_DISABLE_CACHE();
 
 	/* Call any early platform init handler provided by the user.
@@ -403,6 +386,22 @@ int main()
 
 	/* UART Initialisation - no printing before this */
 	uart_init();
+
+#ifdef __MICROBLAZE__
+	pvr = mfmsr() & 0x400;
+        cpu = mfpvr(0) & 0xff;
+        if (pvr != 0 && cpu > 0) {
+		/* Sleep until IPI #0 issued by CPU 0 */
+		mb_sleep();
+
+		/* Jump to kernel */
+		GO(XPAR_MICROBLAZE_ICACHE_BASEADDR);
+
+		/* Shouldn't return */
+		while(1)
+		  ;
+	}
+#endif
 
 	fsprint("FS-BOOT First Stage Bootloader (c) 2013-2014 Xilinx Inc.\r\n" \
 	"Build date: "__DATE__" "__TIME__ "  "

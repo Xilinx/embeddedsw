@@ -28,7 +28,7 @@
   <td style="padding-left: 0.5em;">
    <div id="projectname">intc
    </div>
-   <div id="projectbrief">Xilinx SDK Drivers API Documentation</div>
+   <div id="projectbrief">Xilinx Vitis Drivers API Documentation</div>
   </td>
  </tr>
  </tbody>
@@ -79,15 +79,15 @@ $(document).ready(function(){initNavTree('index.html','');});
 <p>Details about connecting the interrupt handler of the driver are contained in the source file specific to interrupt processing, <a class="el" href="xintc__intr_8c.html">xintc_intr.c</a>.</p>
 <p>This driver is intended to be RTOS and processor independent. It works with physical addresses only. Any needs for dynamic memory management, threads or thread mutual exclusion, virtual memory, or cache control must be satisfied by the layer above this driver.</p>
 <p><b>Interrupt Vector Tables</b></p>
-<p>The interrupt vector table for each interrupt controller device is declared statically in <a class="el" href="xintc__g_8c.html">xintc_g.c</a> within the configuration data for each instance. The device ID of the interrupt controller device is used by the driver as a direct index into the configuration data table - to retrieve the vector table for an instance of the interrupt controller. The user should populate the vector table with handlers and callbacks at run-time using the <a class="el" href="group__intc__v3__9.html#gaee9ec5873a764994d64b4da35a110084" title="Makes the connection between the Id of the interrupt source and the associated handler that is to run...">XIntc_Connect()</a> and <a class="el" href="group__intc__v3__9.html#ga8f7caaeb26b6b264fffefbd32f90f855" title="Updates the interrupt table with the Null Handler and NULL arguments at the location pointed at by th...">XIntc_Disconnect()</a> functions.</p>
-<p>Each vector table entry corresponds to a device that can generate an interrupt. Each entry contains an interrupt handler function and an argument to be passed to the handler when an interrupt occurs. The tools default this argument to the base address of the interrupting device. Note that the device driver interrupt handlers given in this file do not take a base address as an argument, but instead take a pointer to the driver instance. This means that although the table is created statically, the user must still use <a class="el" href="group__intc__v3__9.html#gaee9ec5873a764994d64b4da35a110084" title="Makes the connection between the Id of the interrupt source and the associated handler that is to run...">XIntc_Connect()</a> when the interrupt handler takes an argument other than the base address. This is only to say that the existence of the static vector tables should not mislead the user into thinking they no longer need to register/connect interrupt handlers with this driver.</p>
+<p>The interrupt vector table for each interrupt controller device is declared statically in <a class="el" href="xintc__g_8c.html">xintc_g.c</a> within the configuration data for each instance. The device ID of the interrupt controller device is used by the driver as a direct index into the configuration data table - to retrieve the vector table for an instance of the interrupt controller. The user should populate the vector table with handlers and callbacks at run-time using the <a class="el" href="group__intc__v3__12.html#gaee9ec5873a764994d64b4da35a110084" title="Makes the connection between the Id of the interrupt source and the associated handler that is to run...">XIntc_Connect()</a> and <a class="el" href="group__intc__v3__12.html#ga8f7caaeb26b6b264fffefbd32f90f855" title="Updates the interrupt table with the Null Handler and NULL arguments at the location pointed at by th...">XIntc_Disconnect()</a> functions.</p>
+<p>Each vector table entry corresponds to a device that can generate an interrupt. Each entry contains an interrupt handler function and an argument to be passed to the handler when an interrupt occurs. The tools default this argument to the base address of the interrupting device. Note that the device driver interrupt handlers given in this file do not take a base address as an argument, but instead take a pointer to the driver instance. This means that although the table is created statically, the user must still use <a class="el" href="group__intc__v3__12.html#gaee9ec5873a764994d64b4da35a110084" title="Makes the connection between the Id of the interrupt source and the associated handler that is to run...">XIntc_Connect()</a> when the interrupt handler takes an argument other than the base address. This is only to say that the existence of the static vector tables should not mislead the user into thinking they no longer need to register/connect interrupt handlers with this driver.</p>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 </p>
 <hr/>
 <p>
 1.00a ecm  08/16/01 First release
-1.00a rpm  01/09/02 Removed the AckLocation argument from <a class="el" href="group__intc__v3__9.html#gaee9ec5873a764994d64b4da35a110084" title="Makes the connection between the Id of the interrupt source and the associated handler that is to run...">XIntc_Connect()</a>.
+1.00a rpm  01/09/02 Removed the AckLocation argument from <a class="el" href="group__intc__v3__12.html#gaee9ec5873a764994d64b4da35a110084" title="Makes the connection between the Id of the interrupt source and the associated handler that is to run...">XIntc_Connect()</a>.
                     This information is now internal in <a class="el" href="xintc__g_8c.html">xintc_g.c</a>.
 1.00b jhl  02/13/02 Repartitioned the driver for smaller files
 1.00b jhl  04/24/02 Made LookupConfig function global and relocated config
@@ -100,7 +100,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 1.11a sv   11/21/07 Updated driver to support access through a DCR bridge
 2.00a ktn  10/20/09 Updated to use HAL Processor APIs and _m is removed from
               all the macro names/definitions.
-2.01a sdm  04/27/10 Updated the tcl so that the defintions are generated in
+2.01a sdm  04/27/10 Updated the tcl so that the definitions are generated in
               the xparameters.h to know whether the optional registers
               SIE, CIE and IVR are enabled in the HW - Refer CR 555392.
               This driver doesnot make use of these definitions and does
@@ -148,7 +148,13 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
               XPAR_MICROBLAZE_BASE_VECTORS + 0x10 to fix
               CR#765931.
               Modified driver tcl to generate XPAR_AXI_INTC_0_TYPE
-              correctly(CR#764865).</pre><pre><dl class="section note"><dt>Note</dt><dd>For Cascade mode, Interrupt IDs are generated in xparameters.h
+              correctly(CR#764865).
+3.10  mus   04/10/19 Updated intc_update_source_array proc to
+                      calculate total_source_intrs, based on the width of
+              interrupt port/pins.
+3.11  adk   18/10/19 Updated the get_slice_interrupt_sources_for_slice proc
+               to consider external interrupt source pin connected to
+               slice use case.</pre><pre><dl class="section note"><dt>Note</dt><dd>For Cascade mode, Interrupt IDs are generated in xparameters.h
         as shown below:</dd></dl>
 <p>Master/Primary INTC
 </p>
@@ -173,7 +179,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
         required since compiler does not support nesting. It enables
         Microblaze interrupts after blocking further interrupts from
         the current interrupt number and interrupts below current
-        interrupt proirity by writing to Interrupt Level Register of
+        interrupt priority by writing to Interrupt Level Register of
         INTC on entry. On exit, it disables microblaze interrupts and
         restores ILR register default value(0xFFFFFFFF)back. It is
         recommended to increase STACK_SIZE in linker script for nested
@@ -199,6 +205,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
                     of intc in xparameters.h
 3.9   adk  19/12/18 If design contains unconnected interrupt pins
               return proper error message(CR#1018878).
+3.11   adk  10/03/20 Fix race condition for designs where interrupt pin is
+                     connected to cascade slices.
 </pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

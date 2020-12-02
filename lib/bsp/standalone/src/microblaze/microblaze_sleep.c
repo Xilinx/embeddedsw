@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2014-2017 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -42,7 +20,7 @@
 * 6.6   srm  10/18/17 Updated sleep routines to support user configurable
 *                     implementation. Now sleep routines will use Axi Timer
 *                     or machine cycles as specified by the user.
-* 6.8   mus  10/04/18 FreeRTOS BSP alway use default method for sleep
+* 6.8   mus  10/04/18 FreeRTOS BSP always use default method for sleep
 *                     implementation, It does not have user configurable sleep
 *                     implementation support, that is why FreeRTOS tcl does not
 *                     export XSLEEP_TIMER_IS_DEFAULT_TIMER macro to
@@ -92,7 +70,6 @@ static void sleep_common(u32 n, u32 iters)
 			"or  r0, r0, r0   \n\t"
 			:
 			: "r"(iters), "r"(n)
-			: "r0", "r7"
 	);
 }
 #endif

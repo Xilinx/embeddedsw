@@ -1,35 +1,13 @@
 /******************************************************************************
- *
- * Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xv_hscaler_l2.c
-* @addtogroup v_hscaler_v3_1
+* @addtogroup v_hscaler_v3_4
 * @{
 * @details
 *
@@ -51,6 +29,7 @@
 *                        check should be made only if input is not RGB
 *       rco   02/09/17   Fix c++ compilation warnings
 *	jsr   09/07/18 Fix for 64-bit driver support
+* 3.3   vsa   04/07/20   Improve quality with better coefficient tables
 * </pre>
 *
 ******************************************************************************/
@@ -65,7 +44,8 @@
 /* Mask definitions for Low and high 16 bits in a 32 bit number */
 #define XHSC_MASK_LOW_16BITS       (0x0000FFFF)
 #define XHSC_MASK_HIGH_16BITS      (0xFFFF0000)
-
+#define XHSC_MASK_LOW_20BITS	   (0x000FFFFF)
+#define XHSC_MASK_LOW_12BITS	   (0x00000FFF)
 
 /**************************** Type Definitions *******************************/
 
@@ -73,10 +53,17 @@
 static const int STEP_PRECISION_SHIFT = 16;
 static const u64 XHSC_MASK_LOW_32BITS = ((u64)1<<32)-1;
 
-extern const short XV_hscaler_fixedcoeff_taps6[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_6];
-extern const short XV_hscaler_fixedcoeff_taps8[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_8];
-extern const short XV_hscaler_fixedcoeff_taps10[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_10];
-extern const short XV_hscaler_fixedcoeff_taps12[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_12];
+extern const short XV_hscaler_Lanczos2_taps6[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_6];
+extern const short XV_hscaler_fixedcoeff_taps6_ScalingRatio1p2[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_6];
+extern const short XV_hscaler_fixedcoeff_taps6_ScalingRatio2[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_6];
+extern const short XV_hscaler_fixedcoeff_taps6_ScalingRatio3[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_6];
+extern const short XV_hscaler_fixedcoeff_taps6_ScalingRatio4[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_6];
+extern const short XV_hscaler_fixedcoeff_taps8_ScalingRatio2[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_8];
+extern const short XV_hscaler_fixedcoeff_taps8_ScalingRatio3[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_8];
+extern const short XV_hscaler_fixedcoeff_taps8_ScalingRatio4[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_8];
+extern const short XV_hscaler_fixedcoeff_taps10_ScalingRatio3[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_10];
+extern const short XV_hscaler_fixedcoeff_taps10_ScalingRatio4[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_10];
+extern const short XV_hscaler_fixedcoeff_taps12_ScalingRatio4[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_12];
 
 /************************** Function Prototypes ******************************/
 static void XV_HScalerSelectCoeff(XV_Hscaler_l2 *InstancePtr,
@@ -187,47 +174,67 @@ static void XV_HScalerSelectCoeff(XV_Hscaler_l2 *InstancePtr,
     switch(InstancePtr->Hsc.Config.NumTaps)
     {
       case XV_HSCALER_TAPS_6:
-           coeff = &XV_hscaler_fixedcoeff_taps6[0][0];
-           numTaps = XV_HSCALER_TAPS_6;
+		if (ScalingRatio > 35) {// > 3.5
+			coeff = &XV_hscaler_fixedcoeff_taps6_ScalingRatio4[0][0];
+			numTaps = XV_HSCALER_TAPS_6;
+		} else if (ScalingRatio > 25) {//2.6 < Ratio <= 3.5
+			coeff = &XV_hscaler_fixedcoeff_taps6_ScalingRatio3[0][0];
+			numTaps = XV_HSCALER_TAPS_6;
+		} else if (ScalingRatio > 15) {//1.6 < Ratio <= 2.5
+			coeff = &XV_hscaler_fixedcoeff_taps6_ScalingRatio2[0][0];
+			numTaps = XV_HSCALER_TAPS_6;
+		} else {// <= 1.5
+			coeff = &XV_hscaler_fixedcoeff_taps6_ScalingRatio1p2[0][0];
+			numTaps = XV_HSCALER_TAPS_6;
+		}
            break;
 
       case XV_HSCALER_TAPS_8:
-           if(ScalingRatio > 15) {//>1.5
-             coeff = &XV_hscaler_fixedcoeff_taps8[0][0];
-             numTaps = XV_HSCALER_TAPS_8;
-           } else {//<=1.5
-             coeff = &XV_hscaler_fixedcoeff_taps6[0][0];
-             numTaps = XV_HSCALER_TAPS_6;
-           }
+		if (ScalingRatio > 35) {// > 3.5
+			coeff = &XV_hscaler_fixedcoeff_taps8_ScalingRatio4[0][0];
+			numTaps = XV_HSCALER_TAPS_8;
+		} else if (ScalingRatio > 25) {//2.6 < Ratio <= 3.5
+			coeff = &XV_hscaler_fixedcoeff_taps8_ScalingRatio3[0][0];
+			numTaps = XV_HSCALER_TAPS_8;
+		} else if (ScalingRatio > 15) {//1.6 < Ratio <= 2.5
+			coeff = &XV_hscaler_fixedcoeff_taps8_ScalingRatio2[0][0];
+			numTaps = XV_HSCALER_TAPS_8;
+		} else {// <= 1.5
+			coeff = &XV_hscaler_fixedcoeff_taps6_ScalingRatio1p2[0][0];
+			numTaps = XV_HSCALER_TAPS_6;
+		}
            break;
 
       case XV_HSCALER_TAPS_10:
-           if(ScalingRatio > 25) {//2.5
-             coeff = &XV_hscaler_fixedcoeff_taps10[0][0];
-             numTaps = XV_HSCALER_TAPS_10;
-           } else if(ScalingRatio > 15) {// 1.6 < ratio <= 2.5
-             coeff = &XV_hscaler_fixedcoeff_taps8[0][0];
-             numTaps = XV_HSCALER_TAPS_8;
-           } else {// <= 1.5
-             coeff = &XV_hscaler_fixedcoeff_taps6[0][0];
-             numTaps = XV_HSCALER_TAPS_6;
-           }
+		if (ScalingRatio > 35) {// > 3.5
+			coeff = &XV_hscaler_fixedcoeff_taps10_ScalingRatio4[0][0];
+			numTaps = XV_HSCALER_TAPS_10;
+		} else if (ScalingRatio > 25) {//2.6 < Ratio <= 3.5
+			coeff = &XV_hscaler_fixedcoeff_taps10_ScalingRatio3[0][0];
+			numTaps = XV_HSCALER_TAPS_10;
+		} else if (ScalingRatio > 15) {//1.6 < Ratio <= 2.5
+			coeff = &XV_hscaler_fixedcoeff_taps8_ScalingRatio2[0][0];
+			numTaps = XV_HSCALER_TAPS_8;
+		} else {// <= 1.5
+			coeff = &XV_hscaler_fixedcoeff_taps6_ScalingRatio1p2[0][0];
+			numTaps = XV_HSCALER_TAPS_6;
+		}
            break;
 
       case XV_HSCALER_TAPS_12:
-           if(ScalingRatio > 35) {//> 3.5
-             coeff = &XV_hscaler_fixedcoeff_taps12[0][0];
-             numTaps = XV_HSCALER_TAPS_12;
-           } else if(ScalingRatio > 25) {//2.6 < Ratio <= 3.5
-             coeff = &XV_hscaler_fixedcoeff_taps10[0][0];
-             numTaps = XV_HSCALER_TAPS_10;
-           } else if(ScalingRatio > 15) {//1.6 < Ratio <= 2.5
-             coeff = &XV_hscaler_fixedcoeff_taps8[0][0];
-             numTaps = XV_HSCALER_TAPS_8;
-           } else {// <=1.5
-             coeff = &XV_hscaler_fixedcoeff_taps6[0][0];
-             numTaps = XV_HSCALER_TAPS_6;
-           }
+		if (ScalingRatio > 35) {// > 3.5
+			coeff = &XV_hscaler_fixedcoeff_taps12_ScalingRatio4[0][0];
+			numTaps = XV_HSCALER_TAPS_12;
+		} else if (ScalingRatio > 25) {//2.6 < Ratio <= 3.5
+			coeff = &XV_hscaler_fixedcoeff_taps10_ScalingRatio3[0][0];
+			numTaps = XV_HSCALER_TAPS_10;
+		} else if (ScalingRatio > 15) {//1.6 < Ratio <= 2.5
+			coeff = &XV_hscaler_fixedcoeff_taps8_ScalingRatio2[0][0];
+			numTaps = XV_HSCALER_TAPS_8;
+		} else {// <= 1.5
+			coeff = &XV_hscaler_fixedcoeff_taps6_ScalingRatio1p2[0][0];
+			numTaps = XV_HSCALER_TAPS_6;
+		}
            break;
 
       default:
@@ -236,8 +243,8 @@ static void XV_HScalerSelectCoeff(XV_Hscaler_l2 *InstancePtr,
   }
   else //Scale Up
   {
-    coeff = &XV_hscaler_fixedcoeff_taps6[0][0];
-    numTaps = XV_HSCALER_TAPS_6;
+	coeff = &XV_hscaler_Lanczos2_taps6[0][0];
+	numTaps = XV_HSCALER_TAPS_6;
   }
 
   XV_HScalerLoadExtCoeff(InstancePtr,
@@ -361,7 +368,8 @@ static void CalculatePhases(XV_Hscaler_l2 *HscPtr,
     for (x=0; x<loopWidth; x++)
     {
         HscPtr->phasesH[x] = 0;
-        nrRdsClck = 0;
+	HscPtr->phasesH_H[x] = 0;
+	nrRdsClck = 0;
         for (s=0; s<HscPtr->Hsc.Config.PixPerClk; s++)
         {
             PhaseH = (offset>>(STEP_PRECISION_SHIFT-HscPtr->Hsc.Config.PhaseShift)) & (MaxPhases-1);//(HSC_PHASES-1);
@@ -385,8 +393,18 @@ static void CalculatePhases(XV_Hscaler_l2 *HscPtr,
                 xWritePos++;
             }
 
-            if(HscPtr->Hsc.Config.PixPerClk == XVIDC_PPC_4)
-            {
+	    if (HscPtr->Hsc.Config.PixPerClk == XVIDC_PPC_8)
+	    {
+		    if (s < 4 ) {
+			    HscPtr->phasesH[x] |= (PhaseH << (s*11));
+			    HscPtr->phasesH[x] |= (arrayIdx << (6 + (s*11)));
+			    HscPtr->phasesH[x] |= (OutputWriteEn << (10 + (s*11)));
+		    } else {
+			    HscPtr->phasesH_H[x] |= (PhaseH << ((s-4)*11));
+			    HscPtr->phasesH_H[x] |= (arrayIdx << (6 + ((s-4)*11)));
+			    HscPtr->phasesH_H[x] |= (OutputWriteEn << (10 + ((s-4)*11)));
+		    }
+	    } else if (HscPtr->Hsc.Config.PixPerClk == XVIDC_PPC_4) {
               HscPtr->phasesH[x] = HscPtr->phasesH[x] | (PhaseH << (s*10));
               HscPtr->phasesH[x] = HscPtr->phasesH[x] | (arrayIdx << (6 + (s*10)));
               HscPtr->phasesH[x] = HscPtr->phasesH[x] | (OutputWriteEn << (9 + (s*10)));
@@ -489,6 +507,42 @@ static void XV_HScalerSetPhase(XV_Hscaler_l2 *HscPtr)
               }
             }
             break;
+    case XVIDC_PPC_8:
+	    {
+		u32 bits_0_31, bits_32_63, bits_64_95;
+		u32 index, offset, i;
+		u64 phaseHData, phaseHData_H;
+		/*
+		 * PhaseH and PhaseH_H are 64bits and each entry has valid 44
+		 * bits. PhaseH has lower 44 bits and PhaseH_H has higer 44 bits
+		 * Need to form 3 32b writes form the total 88 bits, and
+		 * write each 32bits into IP registers.
+		 * (index is array loc and offset is address offset)
+		 */
+		index = 0;
+		offset = 0;
+		for(i=0; i < loopWidth; i++) {
+			bits_0_31 = 0;
+			bits_32_63 = 0;
+			bits_64_95 = 0;
+			phaseHData = HscPtr->phasesH[index];
+			phaseHData_H = HscPtr->phasesH_H[index];
+
+			bits_0_31 = (u32)(phaseHData & XHSC_MASK_LOW_32BITS);
+			bits_32_63 = (u32)((phaseHData>>32) & XHSC_MASK_LOW_32BITS);
+			bits_32_63 |= ((u32)((phaseHData_H & XHSC_MASK_LOW_20BITS)) << 12);
+			bits_64_95 = (((u32)(phaseHData_H & XHSC_MASK_LOW_32BITS)) >> 20);
+			bits_64_95 |= (((u32)(phaseHData_H>>32) & XHSC_MASK_LOW_12BITS) << 12);
+			Xil_Out32(baseAddr+(offset*4), bits_0_31);
+			Xil_Out32(baseAddr+((offset+1)*4), bits_32_63);
+			Xil_Out32(baseAddr+((offset+2)*4), bits_64_95);
+			/*(offset+3)*4 register is reserved,so increment offset by 4*/
+			offset += 4;
+			index++;
+		}
+	    }
+	    break;
+
 
     default:
            break;
@@ -562,7 +616,7 @@ int XV_HScalerSetup(XV_Hscaler_l2  *InstancePtr,
   Xil_AssertNonvoid((WidthIn>0) && (WidthIn<=InstancePtr->Hsc.Config.MaxWidth));
   Xil_AssertNonvoid((WidthOut>0) && (WidthOut<=InstancePtr->Hsc.Config.MaxWidth));
   Xil_AssertNonvoid((InstancePtr->Hsc.Config.PixPerClk >= XVIDC_PPC_1) &&
-                    (InstancePtr->Hsc.Config.PixPerClk <= XVIDC_PPC_4));
+		  (InstancePtr->Hsc.Config.PixPerClk <= XVIDC_PPC_8));
 
   if(!XV_HScalerValidateConfig(InstancePtr, ColorFormatIn, ColorFormatOut))
   {

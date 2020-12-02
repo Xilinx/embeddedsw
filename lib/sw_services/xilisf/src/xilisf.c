@@ -1,30 +1,8 @@
 /******************************************************************************
- *
- * Copyright (C) 2012 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (c) 2012 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  ******************************************************************************/
+
 /*****************************************************************************/
 /**
  *
@@ -114,6 +92,7 @@
  * 5.13	akm  02/26/19 Added support for ISSI serial NOR Flash Devices.
  * 	         	   PR# 11442
  *      sk   02/28/19 Added support for SST26WF016B flash.
+ * 5.14	akm  08/01/19 Initialized Status variable to XST_FAILURE.
  *
  *
  * </pre>
@@ -855,7 +834,7 @@ static u32 XIsf_FCTIndex;
 int XIsf_Initialize(XIsf *InstancePtr, XIsf_Iface *SpiInstPtr, u8 SlaveSelect,
 				u8 *WritePtr)
 {
-	int Status;
+	int Status = (int)(XST_FAILURE);
 	u8 ReadBuf[XISF_INFO_READ_BYTES + XISF_INFO_EXTRA_BYTES] __attribute__ ((aligned(4))) = {0};
 
 	if (InstancePtr == NULL)
@@ -989,7 +968,7 @@ int XIsf_Initialize(XIsf *InstancePtr, XIsf_Iface *SpiInstPtr, u8 SlaveSelect,
 int XIsf_SetSpiConfiguration(XIsf *InstancePtr, XIsf_Iface *SpiInstPtr,
 				u32 Options, u8 PreScaler)
 {
-	int Status;
+	int Status = (int)(XST_FAILURE);
 
 	if ((!InstancePtr->RegDone) != 0) {
 		XIsf_RegisterInterface(InstancePtr);
@@ -1032,7 +1011,7 @@ int XIsf_SetSpiConfiguration(XIsf *InstancePtr, XIsf_Iface *SpiInstPtr,
  ******************************************************************************/
 int XIsf_GetStatus(XIsf *InstancePtr, u8 *ReadPtr)
 {
-	int Status;
+	int Status = (int)(XST_FAILURE);
 	u8 Mode;
 #ifdef XPAR_XISF_INTERFACE_QSPIPSU
 	u8 *NULLPtr = NULL;
@@ -1124,7 +1103,7 @@ int XIsf_GetStatus(XIsf *InstancePtr, u8 *ReadPtr)
 #if (XPAR_XISF_FLASH_FAMILY == WINBOND)
 int XIsf_GetStatusReg2(XIsf *InstancePtr, u8 *ReadPtr)
 {
-	int Status;
+	int Status = (int)(XST_FAILURE);
 	u8 Mode;
 	u8 *NULLPtr = NULL;
 
@@ -1208,7 +1187,7 @@ int XIsf_GetStatusReg2(XIsf *InstancePtr, u8 *ReadPtr)
  ******************************************************************************/
 int XIsf_GetDeviceInfo(XIsf *InstancePtr, u8 *ReadPtr)
 {
-	int Status;
+	int Status = (int)(XST_FAILURE);
 	u8 Mode;
 #if (defined(XPAR_XISF_INTERFACE_QSPIPSU) || \
 		defined(XPAR_XISF_INTERFACE_OSPIPSV))
@@ -1441,7 +1420,7 @@ int XIsf_WriteEnable(XIsf *InstancePtr, u8 WriteEnable)
  ******************************************************************************/
 int XIsf_Ioctl(XIsf *InstancePtr, XIsf_IoctlOperation Operation)
 {
-	int Status;
+	int Status = (int)(XST_FAILURE);
 	u8 Mode;
 	u8 *NULLPtr = NULL;
 
@@ -1561,7 +1540,7 @@ int XIsf_Ioctl(XIsf *InstancePtr, XIsf_IoctlOperation Operation)
  ******************************************************************************/
 int XIsf_Transfer(XIsf *InstancePtr, u8 *WritePtr, u8 *ReadPtr, u32 ByteCount)
 {
-	int Status = XST_SUCCESS;
+	int Status = (int)(XST_FAILURE);
 #if (defined(XPAR_XISF_INTERFACE_QSPIPSU) || \
 		defined(XPAR_XISF_INTERFACE_OSPIPSV))
 	if (WritePtr != NULL || ReadPtr != NULL) {
@@ -1578,14 +1557,16 @@ int XIsf_Transfer(XIsf *InstancePtr, u8 *WritePtr, u8 *ReadPtr, u32 ByteCount)
 #ifdef XPAR_XISF_INTERFACE_PSQSPI
 	Status = InstancePtr->XIsf_Iface_SetSlaveSelect(
 				InstancePtr->SpiInstPtr);
+	if (Status != (int)(XST_SUCCESS))
+		return (int)(XST_FAILURE);
 #elif ((!defined(XPAR_XISF_INTERFACE_QSPIPSU)) && \
 		(!defined(XPAR_XISF_INTERFACE_OSPIPSV)))
 	Status = InstancePtr->XIsf_Iface_SetSlaveSelect(
 				InstancePtr->SpiInstPtr,
 				InstancePtr->SpiSlaveSelect);
-#endif
 	if (Status != (int)(XST_SUCCESS))
 		return (int)(XST_FAILURE);
+#endif
 
 	/*
 	 * Start the transfer.
@@ -1726,7 +1707,7 @@ void XIsf_RegisterInterface(XIsf *InstancePtr)
  ******************************************************************************/
 static int AtmelFlashInitialize(XIsf *InstancePtr, u8 *BufferPtr)
 {
-	int Status;
+	int Status = (int)(XST_FAILURE);
 	u32 Index;
 	u8 StatusRegister;
 	u8 NumOfDevices;
@@ -1865,7 +1846,7 @@ static int AtmelFlashInitialize(XIsf *InstancePtr, u8 *BufferPtr)
  ******************************************************************************/
 int XIsf_MicronFlashEnter4BAddMode(XIsf *InstancePtr)
 {
-	int Status;
+	int Status = (int)(XST_FAILURE);
 	u8 *NULLPtr = NULL;
 	u8 Mode;
 #ifdef XPAR_XISF_INTERFACE_QSPIPSU
@@ -2063,7 +2044,7 @@ int XIsf_MicronFlashEnter4BAddMode(XIsf *InstancePtr)
  ******************************************************************************/
 int XIsf_MicronFlashExit4BAddMode(XIsf *InstancePtr)
 {
-	int Status;
+	int Status = (int)(XST_FAILURE);
 	u8 *NULLPtr = NULL;
 	u8 Mode;
 #ifdef XPAR_XISF_INTERFACE_QSPIPSU
@@ -2291,7 +2272,7 @@ static int IntelStmFlashInitialize(XIsf *InstancePtr, u8 *BufferPtr)
 	u8 NumOfDevices;
 	u8 ManufacturerID;
 #if (XPAR_XISF_FLASH_FAMILY == SST)
-	int Status;
+	int Status = (int)(XST_FAILURE);
 	u8 *NULLPtr = NULL;
 	u8 UnlkBlkProt[1] = { GLOBAL_BLK_PROT_UNLK };
 #endif
@@ -2404,7 +2385,7 @@ static int SpaMicWinFlashInitialize(XIsf *InstancePtr, u8 *BufferPtr)
 #ifndef XPAR_XISF_INTERFACE_OSPIPSV
 	u8 *WriteBfrPtr = InstancePtr->WriteBufPtr;
 #endif
-	int Status;
+	int Status = (int)(XST_FAILURE);
 
 #if (defined(XPAR_XISF_INTERFACE_QSPIPSU) ||\
 		defined(XPAR_XISF_INTERFACE_OSPIPSV))
@@ -2984,7 +2965,7 @@ int SendBankSelect(XIsf *InstancePtr, u32 BankSel)
 	u8 *NULLPtr = NULL;
 	u8 WriteEnableCmdBuf = { WRITE_ENABLE_CMD };
 	u32 FlashMake = InstancePtr->ManufacturerID;
-	int Status;
+	int Status = (int)(XST_FAILURE);
 	/*
 	 * Bank select commands for Micron and Spansion are different
 	 */
@@ -3156,3 +3137,4 @@ void XIsf_IfaceHandler(void *CallBackRef, u32 StatusEvent)
 
 }
 #endif
+

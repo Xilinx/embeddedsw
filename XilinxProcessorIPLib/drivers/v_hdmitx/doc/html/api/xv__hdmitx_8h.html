@@ -28,7 +28,7 @@
   <td style="padding-left: 0.5em;">
    <div id="projectname">v_hdmitx
    </div>
-   <div id="projectbrief">Xilinx SDK Drivers API Documentation</div>
+   <div id="projectbrief">Xilinx Vitis Drivers API Documentation</div>
   </td>
  </tr>
  </tbody>
@@ -156,6 +156,7 @@ $(document).ready(function(){initNavTree('xv__hdmitx_8h.html','');});
   2.2   EB     03/08/18 Marked XV_HdmiTx_AudioMute and XV_HdmiTx_AudioUnmute
                             as deprecated
         MMO    11/08/18 Added Bridge Overflow and Bridge Underflow (PIO IN)
+  2.5   EB     02/12/18 Added 3D Audio Support
   </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
@@ -420,9 +421,9 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
 <tr class="memitem:a25e91176ce93f223449dcb56c375ac51"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx_8h.html#a25e91176ce93f223449dcb56c375ac51">XV_HdmiTx_IntrHandler</a> (void *InstancePtr)</td></tr>
 <tr class="memdesc:a25e91176ce93f223449dcb56c375ac51"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the interrupt handler for the HDMI TX driver.  <a href="#a25e91176ce93f223449dcb56c375ac51"></a><br/></td></tr>
 <tr class="separator:a25e91176ce93f223449dcb56c375ac51"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4553a717d1de514d23a105d7544a591e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx_8h.html#a4553a717d1de514d23a105d7544a591e">XV_HdmiTx_SetCallback</a> (<a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *InstancePtr, u32 HandlerType, void *CallbackFunc, void *CallbackRef)</td></tr>
-<tr class="memdesc:a4553a717d1de514d23a105d7544a591e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function installs an asynchronous callback function for the given HandlerType:  <a href="#a4553a717d1de514d23a105d7544a591e"></a><br/></td></tr>
-<tr class="separator:a4553a717d1de514d23a105d7544a591e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5d2e73cdff6d7aeb5aaf3d2520b0df6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx_8h.html#ad5d2e73cdff6d7aeb5aaf3d2520b0df6">XV_HdmiTx_SetCallback</a> (<a class="el" href="struct_x_v___hdmi_tx.html">XV_HdmiTx</a> *InstancePtr, <a class="el" href="xv__hdmitx_8h.html#a13f3db95069a268ab390dd4102604fb2">XV_HdmiTx_HandlerType</a> HandlerType, void *CallbackFunc, void *CallbackRef)</td></tr>
+<tr class="memdesc:ad5d2e73cdff6d7aeb5aaf3d2520b0df6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function installs an asynchronous callback function for the given HandlerType:  <a href="#ad5d2e73cdff6d7aeb5aaf3d2520b0df6"></a><br/></td></tr>
+<tr class="separator:ad5d2e73cdff6d7aeb5aaf3d2520b0df6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79e9fd00cabedf0d254cba229facf29b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx_8h.html#a79e9fd00cabedf0d254cba229facf29b">XV_HdmiTx_VSIF_GeneratePacket</a> (<a class="el" href="struct_x_v___hdmi_tx___v_s_i_f.html">XV_HdmiTx_VSIF</a> *VSIFPtr, XHdmiC_Aux *AuxPtr)</td></tr>
 <tr class="memdesc:a79e9fd00cabedf0d254cba229facf29b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function generates a Vendor Specific InfoFrame (VSIF).  <a href="#a79e9fd00cabedf0d254cba229facf29b"></a><br/></td></tr>
 <tr class="separator:a79e9fd00cabedf0d254cba229facf29b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -2418,7 +2419,7 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
 
 <p>This function is the interrupt handler for the HDMI TX driver. </p>
 <p>This handler reads the pending interrupt from PIO and DDC peripheral, determines the source of the interrupts, clears the interrupts and calls callbacks accordingly.</p>
-<p>The application is responsible for connecting this function to the interrupt system. Application beyond this driver is also responsible for providing callbacks to handle interrupts and installing the callbacks using <a class="el" href="xv__hdmitx_8h.html#a4553a717d1de514d23a105d7544a591e" title="This function installs an asynchronous callback function for the given HandlerType:">XV_HdmiTx_SetCallback()</a> during initialization phase. An example delivered with this driver demonstrates how this could be done.</p>
+<p>The application is responsible for connecting this function to the interrupt system. Application beyond this driver is also responsible for providing callbacks to handle interrupts and installing the callbacks using <a class="el" href="xv__hdmitx_8h.html#ad5d2e73cdff6d7aeb5aaf3d2520b0df6" title="This function installs an asynchronous callback function for the given HandlerType:">XV_HdmiTx_SetCallback()</a> during initialization phase. An example delivered with this driver demonstrates how this could be done.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx.html" title="The XV_HdmiTx driver instance data.">XV_HdmiTx</a> instance that just interrupted.</td></tr>
@@ -2628,7 +2629,7 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="xv__hdmitx__hw_8h.html#a224d3ce0b2fa5396ac35464ab51e18c0">XV_HDMITX_AUD_CTRL_CH_SHIFT</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a487977b6c692a3cabd9708d199cc6fde">XV_HDMITX_AUD_CTRL_CLR_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a1f37ae939243ded094b88763c8fbcc76">XV_HDMITX_AUD_CTRL_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a72bdef52359446483eab0a4b6886ba34">XV_HDMITX_AUD_CTRL_RUN_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a0657ebf695c90d411c0ecd63aed71d96">XV_HDMITX_AUD_CTRL_SET_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a41b837de9bdbba60a15baa46362dd851">XV_HdmiTx_ReadReg</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>.</p>
+<p>References <a class="el" href="xv__hdmitx__hw_8h.html#a28f589dcdb02f0836911bc48271fca9b">XV_HDMITX_AUD_CTRL_CH_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a224d3ce0b2fa5396ac35464ab51e18c0">XV_HDMITX_AUD_CTRL_CH_SHIFT</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a487977b6c692a3cabd9708d199cc6fde">XV_HDMITX_AUD_CTRL_CLR_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a1f37ae939243ded094b88763c8fbcc76">XV_HDMITX_AUD_CTRL_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a72bdef52359446483eab0a4b6886ba34">XV_HDMITX_AUD_CTRL_RUN_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a0657ebf695c90d411c0ecd63aed71d96">XV_HDMITX_AUD_CTRL_SET_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a41b837de9bdbba60a15baa46362dd851">XV_HdmiTx_ReadReg</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>.</p>
 
 </div>
 </div>
@@ -2670,7 +2671,7 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="xv__hdmitx__hw_8h.html#a78026a4105a831d8d1e2788c1d6ba913">XV_HDMITX_AUD_CTRL_AUDFMT_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a487977b6c692a3cabd9708d199cc6fde">XV_HDMITX_AUD_CTRL_CLR_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a72bdef52359446483eab0a4b6886ba34">XV_HDMITX_AUD_CTRL_RUN_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a0657ebf695c90d411c0ecd63aed71d96">XV_HDMITX_AUD_CTRL_SET_OFFSET</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>.</p>
+<p>References <a class="el" href="xv__hdmitx__hw_8h.html#a78026a4105a831d8d1e2788c1d6ba913">XV_HDMITX_AUD_CTRL_AUDFMT_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a0507ddc2e25096e01a650cf41849e35f">XV_HDMITX_AUD_CTRL_AUDFMT_SHIFT</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a487977b6c692a3cabd9708d199cc6fde">XV_HDMITX_AUD_CTRL_CLR_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a1f37ae939243ded094b88763c8fbcc76">XV_HDMITX_AUD_CTRL_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a72bdef52359446483eab0a4b6886ba34">XV_HDMITX_AUD_CTRL_RUN_MASK</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a0657ebf695c90d411c0ecd63aed71d96">XV_HDMITX_AUD_CTRL_SET_OFFSET</a>, <a class="el" href="xv__hdmitx__hw_8h.html#a41b837de9bdbba60a15baa46362dd851">XV_HdmiTx_ReadReg</a>, and <a class="el" href="xv__hdmitx__hw_8h.html#a3b74e3c052543284012c23ec717af9d1">XV_HdmiTx_WriteReg</a>.</p>
 
 </div>
 </div>
@@ -2713,7 +2714,7 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
 
 </div>
 </div>
-<a class="anchor" id="a4553a717d1de514d23a105d7544a591e"></a>
+<a class="anchor" id="ad5d2e73cdff6d7aeb5aaf3d2520b0df6"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -2726,7 +2727,7 @@ XVidC_VideoMode&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiTx_
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">u32&#160;</td>
+          <td class="paramtype"><a class="el" href="xv__hdmitx_8h.html#a13f3db95069a268ab390dd4102604fb2">XV_HdmiTx_HandlerType</a>&#160;</td>
           <td class="paramname"><em>HandlerType</em>, </td>
         </tr>
         <tr>
@@ -3008,6 +3009,7 @@ HandlerType              Callback Function Type
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx.html" title="The XV_HdmiTx driver instance data.">XV_HdmiTx</a> core instance. </td></tr>
     <tr><td class="paramname">SampleRate</td><td>specifies the value that needs to be set.<ul>
+<li>2 samples per clock</li>
 <li>3 samples per clock.</li>
 <li>5 samples per clock.</li>
 </ul>

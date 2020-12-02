@@ -1,28 +1,8 @@
 /*
- * Copyright (C) 2014 - 2016 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  */
+
 #include "xpfw_config.h"
 #ifdef ENABLE_PM
 
@@ -89,7 +69,7 @@ static PmRequirement* PmRequirementMalloc(void)
 void PmRequirementFreeAll(void)
 {
 	/* Clear the used content of pmReqData */
-	(void)memset(pmReqData, 0U, pmReqTop * sizeof(PmRequirement));
+	(void)memset(pmReqData, (s32)0U, pmReqTop * sizeof(PmRequirement));
 
 	/* Reset top of the heap */
 	pmReqTop = 0U;
@@ -143,7 +123,7 @@ s32 PmRequirementSchedule(PmRequirement* const masterReq, const u32 caps)
 	}
 
 	/* Schedule setting of the requirement for later */
-	masterReq->nextReq = caps;
+	masterReq->nextReq = (u8)caps;
 
 done:
 	return status;
@@ -152,7 +132,7 @@ done:
 /**
  * PmRequirementUpdate() - Set slaves capabilities according to the master's
  * requirements
- * @masterReq   Pointer to structure keeping informations about the
+ * @masterReq   Pointer to structure keeping information about the
  *              master's requirement
  * @caps        Capabilities of a slave requested by the master
  *
@@ -172,7 +152,7 @@ s32 PmRequirementUpdate(PmRequirement* const masterReq, const u32 caps)
 
 	/* Configure requested capabilities */
 	tmpCaps = masterReq->currReq;
-	masterReq->currReq = caps;
+	masterReq->currReq = (u8)caps;
 	status = PmUpdateSlave(masterReq->slave);
 
 	if (XST_SUCCESS == status) {
@@ -180,7 +160,7 @@ s32 PmRequirementUpdate(PmRequirement* const masterReq, const u32 caps)
 		masterReq->nextReq = masterReq->currReq;
 	} else {
 		/* Remember the last setting, will report an error */
-		masterReq->currReq = tmpCaps;
+		masterReq->currReq = (u8)tmpCaps;
 	}
 
 done:
@@ -230,7 +210,15 @@ s32 PmRequirementRelease(PmRequirement* const first, const PmReleaseScope scope)
 			if (XST_SUCCESS != status) {
 				break;
 			}
+		} else if (MASTER_REQUESTED_SLAVE(req)) {
+			status = XST_SUCCESS;
+		} else {
+			/* Invalid Scope */
+			PmErr("Invalid scope #%d\r\n", scope);
+			status = XST_FAILURE;
+			break;
 		}
+
 		req = req->nextSlave;
 	}
 
@@ -280,7 +268,7 @@ s32 PmRequirementUpdateScheduled(const PmMaster* const master, const bool swap)
 				}
 			}
 
-			req->currReq = tmpReq;
+			req->currReq = (u8)tmpReq;
 
 			/* Update slave setting */
 			status = PmUpdateSlave(req->slave);
@@ -368,7 +356,7 @@ void PmRequirementClockRestore(const PmMaster* const master)
 void PmRequirementClear(PmRequirement* const req)
 {
 	/* Clear flag - master is not using slave anymore */
-	req->info &= ~PM_MASTER_REQUESTED_SLAVE_MASK;
+	req->info &= ~(u8)PM_MASTER_REQUESTED_SLAVE_MASK;
 
 	/* Release current and next requirements */
 	req->currReq = 0U;
@@ -447,12 +435,12 @@ s32 PmRequirementSetConfig(PmRequirement* const req, const u32 flags,
 
 	if (0U != (PM_MASTER_REQUESTED_SLAVE_MASK & flags)) {
 		req->info |= PM_MASTER_REQUESTED_SLAVE_MASK;
-		req->currReq = currReq;
-		req->nextReq = currReq;
+		req->currReq = (u8)currReq;
+		req->nextReq = (u8)currReq;
 		PmClockSave(&req->slave->node);
 	}
-	req->preReq = currReq;
-	req->defaultReq = defaultReq;
+	req->preReq = (u8)currReq;
+	req->defaultReq = (u8)defaultReq;
 	req->latencyReq = MAX_LATENCY;
 	goto done;
 

@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2006 - 2019 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2006 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -59,6 +37,8 @@
 *                     Calling XWdtTb_LookupConfig and XWdtTb_CfgInitialize
 *                     functions instead of XWdtTb_Initialize for
 *                     initialization.
+* 5.0	sne  03/26/20 Updated example with interrupt id's.
+* 5.1	sne  06/01/20 Corrected fabric watchdog interrupt id.
 * </pre>
 *
 ******************************************************************************/
@@ -86,12 +66,13 @@
  */
 #ifndef TESTAPP_GEN
 #define WDTTB_DEVICE_ID		XPAR_WDTTB_0_DEVICE_ID
-#define WDTTB_IRPT_INTR		XPAR_INTC_0_WDTTB_0_WDT_INTERRUPT_VEC_ID
 
 #ifdef XPAR_INTC_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
+#define WDTTB_IRPT_INTR		XPAR_INTC_0_WDTTB_0_WDT_INTERRUPT_VEC_ID
 #else
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+#define WDTTB_IRPT_INTR		XPAR_FABRIC_WDTTB_0_VEC_ID
 #endif /* XPAR_INTC_0_DEVICE_ID */
 
 #endif
@@ -167,7 +148,7 @@ int main(void)
 		return XST_FAILURE;
 	}
 
-	xil_printf("WDTTB interrupt example ran successfully.\n\r");
+	xil_printf("Successfully ran WDTTB interrupt example\n\r");
 	return XST_SUCCESS;
 }
 #endif

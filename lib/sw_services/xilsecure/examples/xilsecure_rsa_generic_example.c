@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -43,6 +21,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- -------------------------------------------------
 * 2.2   vns    08/18/17 First release.
+* 4.3   har    10/12/20 Addressed security review comments
 *
 * </pre>
 ******************************************************************************/
@@ -57,7 +36,7 @@
 #define XSECURE_RSA_SIZE	512	/**< 512 bytes for 4096 bit data */
 /**************************** Type Definitions *******************************/
 /* Exponent of private key */
-u8 PrivateExp[XSECURE_RSA_SIZE] = {
+static u8 PrivateExp[XSECURE_RSA_SIZE] = {
 	0x9e,0x65,0x5c,0xfb,0x75,0xb1,0x9e,0x7e,0xd2,0x39,0x5c,0x0e,
 	0x58,0xba,0x17,0x14,0x62,0x8c,0x39,0xe1,0x18,0x50,0x8b,0xff,
 	0xad,0xae,0x8e,0x6d,0x39,0x87,0x10,0x8e,0x44,0x9e,0x6d,0xf6,
@@ -104,10 +83,10 @@ u8 PrivateExp[XSECURE_RSA_SIZE] = {
 };
 
 /* Exponent of Public key */
-u32 PublicExp = 0x1000100;
+static u32 PublicExp = 0x1000100;
 
 /* Modulus */
-u8 Modulus[XSECURE_RSA_SIZE] = {
+static u8 Modulus[XSECURE_RSA_SIZE] = {
 	0xf0,0x1c,0xde,0x7b,0xdb,0x26,0xcd,0xd7,0xa7,0xe3,0xfe,0x51,
 	0x0b,0x82,0x03,0xdd,0x12,0xc7,0xc7,0x60,0x22,0x97,0x38,0xfe,
 	0xad,0x79,0x8c,0x9d,0x3f,0x9d,0x87,0x0e,0xac,0x9c,0xee,0xb6,
@@ -158,7 +137,7 @@ u8 Modulus[XSECURE_RSA_SIZE] = {
  * MSB  ------------------------------------------------------------LSB
  * 0x0 || 0x1 || 0xFF(for 202 bytes) || 0x0 || T_padding || SHA384 Hash
  */
-u8 Data[XSECURE_RSA_SIZE] = {
+static u8 Data[XSECURE_RSA_SIZE] = {
 	 0x00,0x01,
 	 0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
 	 0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
@@ -208,7 +187,7 @@ u8 Data[XSECURE_RSA_SIZE] = {
 	 0xC0,0x63,0x24,0x01,0x21,0x5F,0xC5,0x9D,0xBC,0xAE,0x00,0xD3
 };
 
-u8 ExpectedSign[XSECURE_RSA_SIZE] = {
+static u8 ExpectedSign[XSECURE_RSA_SIZE] = {
 	 0xCE,0x8F,0x94,0xA6,0xD0,0xB4,0x4A,0x74,0x1B,0xA0,0xCE,0x17,
 	 0x56,0x2E,0xB3,0xBF,0x45,0x00,0x02,0x73,0x5C,0x23,0x36,0x9D,
 	 0x58,0xB4,0x76,0x8A,0xD4,0xCF,0xCF,0xF1,0xAC,0x96,0x3F,0xEE,
@@ -258,16 +237,14 @@ u8 ExpectedSign[XSECURE_RSA_SIZE] = {
 
 /************************** Function Prototypes ******************************/
 
-u32 SecureRsaExample(void);
+static u32 SecureRsaExample(void);
 
 /************************** Variable Definitions *****************************/
 
-XSecure_Rsa Secure_Rsa;
-XSecure_Sha3 Secure_Sha3;
-XCsuDma CsuDma;
-u8 Signature[XSECURE_RSA_SIZE];
-u8 EncryptSignatureOut[XSECURE_RSA_SIZE];
-u32 Size = XSECURE_RSA_SIZE;
+static XSecure_Rsa Secure_Rsa;
+static u8 Signature[XSECURE_RSA_SIZE];
+static u8 EncryptSignatureOut[XSECURE_RSA_SIZE];
+static u32 Size = XSECURE_RSA_SIZE;
 
 /*****************************************************************************/
 /**
@@ -291,12 +268,12 @@ int main(void)
 
 	if(Status != XST_SUCCESS)
 	{
-		xil_printf("\r\n RSA example is Failed with status: %d \r\n",
+		xil_printf("\r\nGeneric RSA example failed %d \r\n",
 					Status);
 		return XST_FAILURE;
 	}
 
-	xil_printf("\r\nRSA example passed successfully\r\n ");
+	xil_printf("\r\nSuccessfully ran Generic RSA example\r\n ");
 
 	return XST_SUCCESS;
 }
@@ -318,7 +295,7 @@ int main(void)
 *
 ****************************************************************************/
 /** //! [RSA generic example] */
-u32 SecureRsaExample(void)
+static u32 SecureRsaExample(void)
 {
 	u32 Index;
 
@@ -380,7 +357,6 @@ u32 SecureRsaExample(void)
 			return XST_FAILURE;
 		}
 	}
-
 
 	return XST_SUCCESS;
 }

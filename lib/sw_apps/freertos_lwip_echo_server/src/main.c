@@ -127,7 +127,7 @@ void network_thread(void *p)
 
 #if LWIP_IPV6==0
 #if LWIP_DHCP==0
-    /* initliaze IP addresses to be used */
+    /* initialize IP addresses to be used */
     IP4_ADDR(&ipaddr,  192, 168, 1, 10);
     IP4_ADDR(&netmask, 255, 255, 255,  0);
     IP4_ADDR(&gw,      192, 168, 1, 1);
@@ -246,7 +246,7 @@ int main_thread()
 			break;
 		}
 		mscnt += DHCP_FINE_TIMER_MSECS;
-		if (mscnt >= 10000) {
+		if (mscnt >= DHCP_COARSE_TIMER_SECS * 2000) {
 			xil_printf("ERROR: DHCP request timed out\r\n");
 			xil_printf("Configuring default IP of 192.168.1.10\r\n");
 			IP4_ADDR(&(server_netif.ip_addr),  192, 168, 1, 10);

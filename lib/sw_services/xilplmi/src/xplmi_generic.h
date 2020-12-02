@@ -1,28 +1,8 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -37,6 +17,21 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   08/23/2018 Initial release
+* 1.01  bsv  04/18/2019 Added support for NPI and CFI readback
+*       bsv  05/01/2019 Added support to load CFI bitstreams larger
+*						than 64K
+*       ma   08/24/2019 Added SSIT commands
+* 1.02  bsv  12/13/2019 Added support for NOP and SET commands
+*       kc   12/17/2019 Add deferred error mechanism for mask poll
+*       bsv  01/09/2020 Changes related to bitstream loading
+*       bsv  01/31/2020 Added API to read device ID from hardware
+*       ma   03/18/2020 Added event logging code
+*       bsv  03/09/2020 Added support for CDO features command
+*       bsv  04/04/2020 Code clean up
+* 1.03  bsv  06/10/2020 Added SetBoard and GetBoard APIs
+*       bm   08/03/2020 Added ReadBack Props & related API
+*       bm   10/14/2020 Code clean up
+*       td   10/19/2020 MISRA C Fixes
 *
 * </pre>
 *
@@ -51,64 +46,66 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xil_types.h"
 #include "xplmi_debug.h"
-#include "xil_io.h"
-#include "xil_assert.h"
-#include "xplmi_modules.h"
 #include "xplmi_dma.h"
 
 /************************** Constant Definitions *****************************/
 enum {
 	XPLMI_ERR_MASKPOLL = 0x10,
-	XPLMI_ERR_MASKPOLL64,
-	XPLMI_ERR_CMD_NOT_SUPPORTED,
+	XPLMI_ERR_MASKPOLL64, /**< 0x11 */
+	XPLMI_ERR_CMD_NOT_SUPPORTED, /**< 0x12 */
+	XPLMI_ERR_READBACK_BUFFER_OVERFLOW, /**< 0x13 */
 };
 
 /**************************** Type Definitions *******************************/
+typedef struct {
+	u64 DestAddr;
+	u32 MaxSize;
+	u32 ProcessedLen;
+} XPlmi_ReadBackProps;
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define LL_HEADER(LENGTH, COMMAND)                              \
-    (((LENGTH) << 16) | (LL_MODULE_ID << 8) | (COMMAND))
-#define LL_ADDR32(ADDR) ((uint32_t)(ADDR))
-#define LL_ADDR64(ADDR) ((uint32_t)(ADDR)), ((uint32_t)((ptrdiff_t)(ADDR) >> 32))
+#define XPLMI_SBI_DEST_ADDR			(0xFFFFFFFFFFFFFFFFUL)
+#define XPLMI_READBK_INTF_TYPE_SMAP		(0x0U)
+#define XPLMI_READBK_INTF_TYPE_JTAG		(0x1U)
+#define XPLMI_READBK_INTF_TYPE_DDR		(0x2U)
+#define XPLMI_READBACK_DEF_DST_ADDR		(0xFFFFFFFFFFFFFFFFUL)
 
-#define LL_MASK_POLL(ADDR, MASK, VALUE, TIME)                   \
-    LL_HEADER(4*4, 1), LL_ADDR32(ADDR), (MASK), (VALUE), (TIME)
+#define XPLMI_MASK_POLL_MIN_TIMEOUT		(1000000U)
+#define XPLMI_MAXOUT_CMD_MIN_VAL		(1U)
+#define XPLMI_MAXOUT_CMD_DEF_VAL		(8U)
+#define XPLMI_CFI_DATA_OFFSET			(4U)
+#define XPLMI_KEYHOLE_RESUME_SIZE		(4U)
+#define XPLMI_SIXTEEN_BYTE_MASK			(0xFU)
+#define XPLMI_SIXTEEN_BYTE_VALUE		(0x10U)
+#define XPLMI_SIXTEEN_BYTE_WORDS		(XPLMI_SIXTEEN_BYTE_VALUE / XPLMI_WORD_LEN)
 
-#define LL_MASK_WRITE(ADDR, MASK, VALUE)                \
-    LL_HEADER(3*4, 2), LL_ADDR32(ADDR), (MASK), (VALUE)
+/* Max board name length supported is 256 bytes */
+#define XPLMI_MAX_NAME_LEN			(256U)
+#define XPLMI_MAX_NAME_WORDS			(XPLMI_MAX_NAME_LEN / XPLMI_WORD_LEN)
 
-#define LL_WRITE(ADDR, MASK, VALUE)             \
-    LL_HEADER(2*4, 3), LL_ADDR32(ADDR), (VALUE)
-
-#define LL_DELAY(TIME)                          \
-    LL_HEADER(1*4, 4), (TIME)
-
-#define LL_DMA_WRITE(ADDR, LEN, ...)                            \
-    LL_HEADER((2 + (LEN))*4, 5), LL_ADDR32(ADDR), __VA_ARGS__
-
-#define LL_MASK_POLL64(ADDR, MASK, VALUE, TIME)                 \
-    LL_HEADER(5*4, 6), LL_ADDR64(ADDR), (MASK), (VALUE), (TIME)
-
-#define LL_MASK_WRITE64(ADDR, MASK, VALUE)              \
-    LL_HEADER(4*4, 7), LL_ADDR64(ADDR), (MASK), (VALUE)
-
-#define LL_WRITE64(ADDR, MASK, VALUE)           \
-    LL_HEADER(3*4, 8), LL_ADDR64(ADDR), (VALUE)
-
-#define LL_DMA_XFER(SRC, DST, LEN, PARAM)                      \
-    LL_HEADER(6*4, 9), LL_ADDR64(SRC), LL_ADDR64(DST), (LEN), (PARAM)
+/* Mask poll command flag descriptions */
+#define XPLMI_MASKPOLL_LEN_EXT			(5U)
+#define XPLMI_MASKPOLL64_LEN_EXT		(6U)
+#define XPLMI_MASKPOLL_FLAGS_MASK		(0x3U)
+#define XPLMI_MASKPOLL_FLAGS_ERR		(0x0U)
+#define XPLMI_MASKPOLL_FLAGS_SUCCESS		(0x1U)
+#define XPLMI_MASKPOLL_FLAGS_DEFERRED_ERR	(0x2U)
+#define XPLMI_PLM_GENERIC_CMD_ID_MASK		(0xFFU)
+#define XPLMI_PLM_MODULES_FEATURES_VAL		(0x00U)
+#define XPLMI_PLM_GENERIC_DEVICE_ID_VAL		(0x12U)
+#define XPLMI_PLM_GENERIC_EVENT_LOGGING_VAL	(0x13U)
+#define XPLMI_PLM_MODULES_SET_BOARD_VAL		(0x14U)
+#define XPLMI_PLM_MODULES_GET_BOARD_VAL		(0x15U)
 
 /************************** Function Prototypes ******************************/
 void XPlmi_GenericInit(void);
+int XPlmi_GetReadBackPropsValue(XPlmi_ReadBackProps *ReadBackVal);
+int XPlmi_SetReadBackProps(XPlmi_ReadBackProps *ReadBack);
 
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
-
-
-
 
 #ifdef __cplusplus
 }

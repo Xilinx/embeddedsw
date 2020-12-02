@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2002 - 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xintc_l.h
-* @addtogroup intc_v3_9
+* @addtogroup intc_v3_12
 * @{
 *
 * This header file contains identifiers and low-level driver functions (or
@@ -122,7 +100,7 @@ extern "C" {
 #define XIN_IMR_OFFSET      8	/* Interrupt Mode Register , this is present
 				 *  only for Fast Interrupt */
 #define XIN_IVAR_OFFSET     64  /* Interrupt Vector Address Register
-				 * Interrupt 0 Offest, this is present
+				 * Interrupt 0 Offset, this is present
 				 * only for Fast Interrupt */
 
 #else /* ((XPAR_XINTC_USE_DCR != 0) || (XPAR_XINTC_USE_DCR_BRIDGE != 0)) */
@@ -139,7 +117,7 @@ extern "C" {
 				 *  only for Fast Interrupt */
 #define XIN_ILR_OFFSET      36  /* Interrupt level register */
 #define XIN_IVAR_OFFSET     0x100 /* Interrupt Vector Address Register
-				   * Interrupt 0 Offest, this is present
+				   * Interrupt 0 Offset, this is present
 				   * only for Fast Interrupt */
 #define XIN_IVEAR_OFFSET     0x200 /* Interrupt Vector Extended Address
 					Register */

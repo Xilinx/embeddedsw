@@ -1,28 +1,6 @@
 ###############################################################################
-#
-# Copyright (C) 2011 - 2019 Xilinx, Inc.  All rights reserved.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-# OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-#
-# Except as contained in this notice, the name of the Xilinx shall not be used
-# in advertising or otherwise to promote the sale, use or other dealings in
-# this Software without prior written authorization from Xilinx.
+# Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
 #
 ###############################################################################
 ##############################################################################
@@ -55,7 +33,7 @@
 # 3.8   mus  05/25/17 Updated proc xdefine_gic_params to declare "valid_periph"
 #                     variable at start of the proc, to avoid the tcl errors
 #                     in case of unsupported processor.It fixes CR#976861
-# 3.8   mus  07/05/17 Added support for intrrupts connected through
+# 3.8   mus  07/05/17 Added support for interrupts connected through
 #                     util_reduced_vector IP(OR gate).
 # 3.8   mus  07/05/17 Updated xdefine_zynq_canonical_xpars proc to initialize
 #                     the HandlerTable in XScuGic_ConfigTable to 0, it removes
@@ -79,6 +57,26 @@
 #                     computation for vectored interrupts. It fixes CR#998583
 # 4.0   mus  04/15/19 Updated get_concat_number proc to avoid executing
 #                     get_pins command twice. It fixes CR#1028356
+# 4.1   mus  04/09/19 Add pl-ps interrupt id generation support for versal
+# 4.1   mus  06/20/19 Updated get_concat_number proc to check if
+#                     common::get_property LEFT is returning empty. It
+#                     fixes CR#1033637.
+# 4.1   mus  07/09/19 Unlike ZynqMP, Versal doesnt have IRQ0_F2P/IRQ01_F2P
+#                     ports and interrupt source from PL can be directly
+#                     connected to the pl_ps_irq0, pl_ps_irq1...pl_ps_irq15
+#                     pins. Updated get_psu_interrupt_id proc to generate correct 
+#                     pl-ps interrupt IDs for Versal. It fixes CR#1017942
+# 4.3   mus  07/10/20 Updated get_psu_interrupt_id and xdefine_gic_params proc
+#                     to support broader range of HW designs. These changes
+#                     have been done specifically to support cascaded concat
+#                     blocks and slice IP. Also,  get_psu_interrupt_id logic
+#                     has been modified to make interrupt calculation logic
+#                     generic, to support HW designs where concat, slice and OR
+#                     gate IPs are connected in different manner.
+# 4.3   mus  08/26/20 Updated procs to make use of IP_NAME, instead of directly
+#                     using instance name. Instance names for GIC might vary
+#                     based on the HW design, so its better to avoid using
+#                     instance names directly. It fixes CR#1073003.
 #
 ##############################################################################
 
@@ -87,6 +85,10 @@
 ############################################################
 # "generate" procedure
 ############################################################
+    array set traversed_port_name ""
+    array set traversed_ip_name ""
+    set traversed_ports_count 0
+
 proc generate {drv_handle} {
     global pl_ps_irq1 pl_ps_irq0
     global or_id
@@ -122,13 +124,14 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
     set proctype [common::get_property IP_NAME $hw_proc_handle]
     set valid_periph 0
     #Get proper gic instance for periphs in case of zynqmp
-    foreach periph $periphs {
+    foreach periph_inst $periphs {
+	    set periph [common::get_property IP_NAME $periph_inst]
 	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)|| ([string compare -nocase $proctype "psu_cortexa72"] == 0) ||
 	     (([string compare -nocase $proctype "psv_cortexa72"] == 0) && ([string compare -nocase $periph "psv_acpu_gic"] == 0)) ||
 	     (([string compare -nocase $proctype "psv_cortexr5"] == 0) && ([string compare -nocase $periph "psv_rcpu_gic"] == 0)) ||
 	    (([string compare -nocase $proctype "psu_cortexa53"] == 0)&&([string compare -nocase $periph "psu_acpu_gic"] == 0))||
 	    (([string compare -nocase $proctype "psu_cortexr5"] == 0)&&([string compare -nocase $periph "psu_rcpu_gic"] == 0))} {
-		lappend newperiphs $periph
+		lappend newperiphs $periph_inst
 		set valid_periph 1
 	}
     }
@@ -164,7 +167,7 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
     set args $newargs
     # Print all parameters for all peripherals
     set device_id 0
-    set hypervisor_guest [common::get_property CONFIG.hypervisor_guest [get_os] ]
+    set hypervisor_guest [common::get_property CONFIG.hypervisor_guest [hsi::get_os] ]
     set procdrv [hsi::get_sw_processor]
     set compiler [get_property CONFIG.compiler $procdrv]
     foreach periph $periphs {
@@ -257,13 +260,14 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
     set valid_periph 0
 	set uSuffix "U"
     #Get proper gic instance for periphs in case of zynqmp
-    foreach periph $periphs {
+    foreach periph_inst $periphs {
+	set periph [common::get_property IP_NAME $periph_inst]
 	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0) || ([string compare -nocase $proctype "psu_cortexa72"] == 0) ||
 	     (([string compare -nocase $proctype "psv_cortexa72"] == 0) && ([string compare -nocase $periph "psv_acpu_gic"] == 0)) ||
 	     (([string compare -nocase $proctype "psv_cortexr5"] == 0) && ([string compare -nocase $periph "psv_rcpu_gic"] == 0)) ||
 	    (([string compare -nocase $proctype "psu_cortexa53"] == 0)&&([string compare -nocase $periph "psu_acpu_gic"] == 0))||
 	    (([string compare -nocase $proctype "psu_cortexr5"] == 0)&&([string compare -nocase $periph "psu_rcpu_gic"] == 0))} {
-		lappend newperiphs $periph
+		lappend newperiphs $periph_inst
 		set valid_periph 1
 	}
     }
@@ -297,7 +301,7 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
     }
 
     set i 0
-    set hypervisor_guest [common::get_property CONFIG.hypervisor_guest [get_os] ]
+    set hypervisor_guest [common::get_property CONFIG.hypervisor_guest [hsi::get_os] ]
     set procdrv [hsi::get_sw_processor]
     set compiler [get_property CONFIG.compiler $procdrv]
     foreach periph $periphs {
@@ -409,13 +413,14 @@ proc xdefine_zynq_config_file {drv_handle file_name drv_string args} {
 
     set valid_periph 0
     #Get proper gic instance for periphs in case of zynqmp
-    foreach periph $periphs {
+    foreach periph_inst $periphs {
+	set periph [common::get_property IP_NAME $periph_inst]
 	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)|| ([string compare -nocase $proctype "psu_cortexa72"] == 0)||
 	     (([string compare -nocase $proctype "psv_cortexa72"] == 0) && ([string compare -nocase $periph "psv_acpu_gic"] == 0)) ||
 	     (([string compare -nocase $proctype "psv_cortexr5"] == 0) && ([string compare -nocase $periph "psv_rcpu_gic"] == 0)) ||
 	    (([string compare -nocase $proctype "psu_cortexa53"] == 0)&&([string compare -nocase $periph "psu_acpu_gic"] == 0))||
 	    (([string compare -nocase $proctype "psu_cortexr5"] == 0)&&([string compare -nocase $periph "psu_rcpu_gic"] == 0))} {
-		lappend newperiphs $periph
+		lappend newperiphs $periph_inst
 		set valid_periph 1
 	}
     }
@@ -484,13 +489,14 @@ proc xdefine_gic_params {drvhandle} {
     set periphs [::hsi::utils::get_common_driver_ips $drvhandle]
     set valid_periph 0
     #Get proper gic instance for periphs in case of zynqmp
-    foreach periph $periphs {
+    foreach periph_inst  $periphs {
+	set periph [common::get_property IP_NAME $periph_inst]
 	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)|| ([string compare -nocase $proctype "psu_cortexa72"] == 0)||
 	     (([string compare -nocase $proctype "psv_cortexa72"] == 0) && ([string compare -nocase $periph "psv_acpu_gic"] == 0)) ||
 	     (([string compare -nocase $proctype "psv_cortexr5"] == 0) && ([string compare -nocase $periph "psv_rcpu_gic"] == 0)) ||
 	   (([string compare -nocase $proctype "psu_cortexa53"] == 0)&&([string compare -nocase $periph "psu_acpu_gic"] == 0))||
 	   (([string compare -nocase $proctype "psu_cortexr5"] == 0)&&([string compare -nocase $periph "psu_rcpu_gic"] == 0))} {
-		lappend newperiphs $periph
+		lappend newperiphs $periph_inst
 		set valid_periph 1
 	}
     }
@@ -520,7 +526,7 @@ proc xdefine_gic_params {drvhandle} {
                 continue
             }
             set portType [common::get_property TYPE $source_port]
-            if { [string compare -nocase $portType "INTERRUPT"] } {
+            if { ([string compare -nocase $portType "INTERRUPT"]) && ([string compare -nocase $source_port "gpio_io_o"] != 0) } {
                 continue
             }
 
@@ -540,11 +546,11 @@ proc xdefine_gic_params {drvhandle} {
                 set source_name_temp [common::get_property NAME $source_periph_temp]
                 for {set count 0} {$count < $i} {incr count} {
                     if {([string compare -nocase $source_name_temp $source_name($count)] == 0) &&  ([string compare -nocase $source_port_name($count) $source_port_name_temp ] == 0)} {
-                        #IP name and correponding interrupt pair has been already detected
+                        #IP name and corresponding interrupt pair has been already detected
 			set is_ip_port_detected 1
                     }
 		}
-		if { $is_ip_port_detected == 1} {
+		if { ($is_ip_port_detected == 1) && ([string compare -nocase $source_port_name_temp "gpio_io_o"] != 0) } {
                       #Skip the repeated instances of IP name and interrupt port pair
 		      continue
 		}
@@ -605,16 +611,31 @@ proc xdefine_gic_params {drvhandle} {
 		}
             }
             if { [llength $port_intr_id] > 1 } {
-                set j 0
-                foreach intr_id $port_intr_id {
+				#
+				# In case of vectored interrupts connected through slice port_intr_id would
+				# contain details as given below
+				# Index 0 - unique code to identify slice, 32 (If interrupt is coming through slice)
+				# Index 1 - First pin number of vectored interrupt source
+				#
+
+				if { [lindex $port_intr_id 0] == 32 } {
+					set index 2
+					set input_pin_num [expr {[lindex $port_intr_id 1] - 32}]
+				} else {
+                    set index 0
+					set input_pin_num 0
+				}
+                for { } {$index < [llength $port_intr_id]} { } {
+					set intr_id [lindex $port_intr_id $index]
                     if { [string compare -nocase $ip_name ""] } {
-                            puts $config_inc [format "#define XPAR_FABRIC_%s_%s_INTR %d$uSuffix" \
-                            [string toupper $ip_name] [string toupper "${port_name}$j"] $intr_id ]
+                            puts $config_inc [format "#define XPAR_FABRIC_%s_%s_%d_INTR %d$uSuffix" \
+                            [string toupper $ip_name] [string toupper $port_name] $input_pin_num $intr_id ]
                     } else {
-                            puts $config_inc [format "#define XPAR_FABRIC_%s_INTR %d$uSuffix" \
-                            [string toupper "${port_name}$j"] $intr_id  ]
+                            puts $config_inc [format "#define XPAR_FABRIC_%s_%d_INTR %d$uSuffix" \
+                            [string toupper $port_name] $input_pin_num $intr_id  ]
                     }
-                    incr j
+                    incr input_pin_num
+                    incr index
                 }
             } else {
                 if { [string compare -nocase $ip_name ""] } {
@@ -638,7 +659,6 @@ proc xdefine_gic_params {drvhandle} {
             set drv [::hsi::get_drivers -filter "HW_INSTANCE==$source_name($i)"]
 
             if {[llength $source_name($i)] != 0 && [llength $drv] != 0} {
-
                 set instance [xfind_instance $drv $source_name($i)]
                 set drvname [common::get_property  NAME $drv]
                 set drvname [string toupper $drvname]
@@ -665,6 +685,9 @@ proc xdefine_gic_params {drvhandle} {
                             set first_part [format "#define XPAR_%s_%s_%s_%s_VEC_ID" "FABRIC" $drvname $instance $port_name]
                         }
                     } else {
+						if { [string compare -nocase $source_port_name($i) "gpio_io_o"] == 0 } {
+							continue
+						}
                         set first_part [format "#define XPAR_%s_%s_%s_%s_VEC_ID" "FABRIC" $drvname $instance $port_name]
                     }
                 } else {
@@ -786,12 +809,56 @@ proc get_concat_number {ip pin} {
 		if {[llength $offset] > 1} {
 			set offset [lindex $offset 0]
 		}
-		set temp [expr {$offset +1}]
-		set number [expr {$number + $temp}]
+		if {[llength $offset] != 0} {
+			set temp [expr {$offset +1}]
+			set number [expr {$number + $temp}]
+		}
 
 	}
 	return $number
 }
+
+###################################################################
+#
+# Get interrupt ID for Versal pl-ps interrupts
+#
+###################################################################
+proc get_psv_interrupt_id { sink_pin } {
+    if {[string compare -nocase "$sink_pin" "pl_ps_irq0"] == 0 } {
+        return 84
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq1"] == 0 } {
+        return 85
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq2"] == 0 } {
+        return 86
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq3"] == 0 } {
+        return 87
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq4"] == 0 } {
+        return 88
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq5"] == 0 } {
+        return 89
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq6"] == 0 } {
+        return 90
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq7"] == 0 } {
+        return 91
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq8"] == 0 } {
+        return 92
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq9"] == 0 } {
+        return 93
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq10"] == 0 } {
+        return 94
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq11"] == 0 } {
+        return 95
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq12"] == 0 } {
+        return 96
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq13"] == 0 } {
+        return 97
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq14"] == 0 } {
+        return 98
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq15"] == 0 } {
+        return 99
+    }
+}
+
 ###################################################################
 #
 # Get interrupt ID for zynqmpsoc
@@ -801,12 +868,18 @@ proc get_psu_interrupt_id { ip_name port_name } {
     set ret -1
     set periph ""
     set intr_pin ""
+    set is_external_port 0
+    set check_duplication 0
     set is_pl_ps_irq1 0
     set is_pl_ps_irq0 0
     global pl_ps_irq1
     global pl_ps_irq0
     global or_id
     global or_cnt
+    variable traversed_port_name
+    variable traversed_ip_name
+    variable traversed_ports_count
+    set is_versal [hsi::get_cells -hier -filter {IP_NAME=="psu_cortexa72" || IP_NAME=="psv_cortexa72"}]
 
     if { [llength $port_name] == 0 } {
         return $ret
@@ -836,8 +909,11 @@ proc get_psu_interrupt_id { ip_name port_name } {
         if { [string match -nocase $pin_dir "O"] } {
           return $ret
         }
+        set is_external_port 1
     }
-
+    if { ($is_external_port == 1) || ([string compare -nocase "$port_name" "gpio_io_o"] == 0)} {
+        set check_duplication 1
+    }
     set intc_periph [::hsi::utils::get_interrupt_parent $ip_name $port_name]
     if {[llength $intc_periph] > 1} {
         foreach intr_cntr $intc_periph {
@@ -936,9 +1012,17 @@ proc get_psu_interrupt_id { ip_name port_name } {
 	}
 
     }
-
-    set intr_list_irq0 [list 89 90 91 92 93 94 95 96]
-    set intr_list_irq1 [list 104 105 106 107 108 109 110 111]
+    if {[llength $is_versal] == 0} {
+        set irq0_base 89
+        set irq1_base 104
+        set intr_list_irq0 [list 89 90 91 92 93 94 95 96]
+        set intr_list_irq1 [list 104 105 106 107 108 109 110 111]
+    } else {
+        set irq0_base 84
+        set irq1_base 92
+        set intr_list_irq0 [list 84 85 86 87 88 89 90 91]
+        set intr_list_irq1 [list 92 93 94 95 96 97 98 99]
+    }
     set sink_pins [::hsi::utils::get_sink_pins $intr_pin]
     if { [llength $sink_pins] == 0 } {
         return
@@ -948,98 +1032,249 @@ proc get_psu_interrupt_id { ip_name port_name } {
         set ret [expr $ret - 8]
     }
     set concat_block 0
-    foreach sink_pin $sink_pins {
-        set sink_periph [::hsi::get_cells -of_objects $sink_pin]
-        if {[llength $sink_periph] == 0} {
-            continue
-        }
-        set connected_ip [get_property IP_NAME [get_cells -hier $sink_periph]]
-	# check for direct connection or concat block connected
-        if { [string compare -nocase "$connected_ip" "xlconcat"] == 0 } {
-            set sink_pin_temp $sink_pin
-            set dout "dout"
-	    set concat_block 1
-	    set intr_pin [::hsi::get_pins -of_objects $sink_periph -filter "NAME==$dout"]
-            set is_or_gate 0
-            set sink_pins [::hsi::utils::get_sink_pins "$intr_pin"]
-            for {set count 0} {$count < 10} {incr count} {
-                foreach pin $sink_pins {
-                    set sink_pin $pin
-                    if { [string compare -nocase "$sink_pin" "IRQ0_F2P"] == 0 } {
-                        set is_pl_ps_irq0 1
-                    } elseif {[string compare -nocase "$sink_pin" "IRQ1_F2P"] == 0 } {
-                        set is_pl_ps_irq1 1
-                    } elseif {[string compare -nocase "$sink_pin" "op1"] == 0 } {
-                        set is_or_gate 1
-                    }
-                }
-                if { $is_pl_ps_irq0 == 1 || $is_pl_ps_irq1 == 1 || $is_or_gate == 1 } {
-                    break
-                }
-                set sink_periph [::hsi::get_cells -of_objects $sink_pin]
-                set intr_pin [::hsi::get_pins -of_objects $sink_periph -filter "NAME==$dout"]
-                set sink_pins [::hsi::utils::get_sink_pins "$intr_pin"]
-            }
-            if { $is_or_gate == 1 } {
-                set number [regexp -all -inline -- {[0-9]+} $sink_pin_temp]
-            } else {
-                set number [get_concat_number $sink_periph $sink_pin_temp]
-            }
-        } else {
-                 #case where interrupts are directly connected to the ps_pl_irq0/ps_pl_irq1 port
-                 if { [string compare -nocase "$sink_pin" "IRQ0_F2P"] == 0 } {
-                      set is_pl_ps_irq0 1
-                 } elseif {[string compare -nocase "$sink_pin" "IRQ1_F2P"] == 0 } {
-                       set is_pl_ps_irq1 1
-                 }
+	set is_slice 0
+	#
+	# Parameter names for width of concat block input port
+	#
+	set concat_in_list [list CONFIG.IN0_WIDTH CONFIG.IN1_WIDTH CONFIG.IN2_WIDTH CONFIG.IN3_WIDTH CONFIG.IN4_WIDTH \
+		CONFIG.IN5_WIDTH CONFIG.IN6_WIDTH CONFIG.IN7_WIDTH CONFIG.IN8_WIDTH CONFIG.IN9_WIDTH CONFIG.IN10_WIDTH \
+		CONFIG.IN11_WIDTH CONFIG.IN12_WIDTH CONFIG.IN13_WIDTH CONFIG.IN14_WIDTH CONFIG.IN15_WIDTH  CONFIG.IN16_WIDTH \
+		CONFIG.IN17_WIDTH CONFIG.IN18_WIDTH CONFIG.IN19_WIDTH CONFIG.IN120_WIDTH CONFIG.IN21_WIDTH CONFIG.IN22_WIDTH \
+		CONFIG.IN23_WIDTH CONFIG.IN24_WIDTH CONFIG.IN25_WIDTH CONFIG.IN26_WIDTH CONFIG.IN27_WIDTH CONFIG.IN28_WIDTH \
+		CONFIG.IN29_WIDTH CONFIG.IN30_WIDTH CONFIG.IN1_WIDTH]
 
-        }
+	foreach sink_pin $sink_pins {
+		set sink_periph [::hsi::get_cells -of_objects $sink_pin]
+		if {[llength $sink_periph] == 0} {
+			continue
+		}
+		set level_offset 0
+		set traveresing_details 0
+		set duplicate 0
 
-        # check for ORgate
-	if { [string compare -nocase "$sink_pin" "Op1"] == 0 } {
-	    set dout "Res"
-	    set sink_periph [::hsi::get_cells -of_objects $sink_pin]
-	    set intr_pin [::hsi::get_pins -of_objects $sink_periph -filter "NAME==$dout"]
-	    set sink_pins [::hsi::utils::get_sink_pins "$intr_pin"]
-	    foreach pin $sink_pins {
-	        set sink_pin $pin
-
-	        set sink_periph [::hsi::get_cells -of_objects $sink_pin]
-	        set connected_ip [get_property IP_NAME [get_cells -hier $sink_periph]]
-	        if { [string compare -nocase "$connected_ip" "xlconcat"] == 0 } {
-	            set number [regexp -all -inline -- {[0-9]+} $sink_pin]
-	            set dout "dout"
-	            set concat_block 1
-                    set intr_pin [::hsi::get_pins -of_objects $sink_periph -filter "NAME==$dout"]
-	            set sink_pins [::hsi::utils::get_sink_pins "$intr_pin"]
-	            foreach pin $sink_pins {
-	                set sink_pin $pin
-                        if { [string compare -nocase "$sink_pin" "IRQ0_F2P"] == 0 } {
-		              set is_pl_ps_irq0 1
-			} elseif {[string compare -nocase "$sink_pin" "IRQ1_F2P"] == 0 } {
-			      set is_pl_ps_irq1 1
+		if { $check_duplication == 1 } {
+			for {set count 0} {$count < $traversed_ports_count} {incr count} {
+				if { ([string compare -nocase $port_name $traversed_port_name($count)] == 0) && ([string compare -nocase $sink_pin $traversed_ip_name($count)] == 0)} {
+					set duplicate 1
+				}
 			}
-	            }
-	         }
-	    }
-	 }
+		}
+
+		if { $duplicate == 1 } {
+			continue
+		}
+
+		#
+		# Scenario where interrupt source is directly connected to PL-PS
+		# interrupt port
+		#
+		if { [string compare -nocase "$sink_pin" "IRQ0_F2P"] == 0 } {
+			set is_pl_ps_irq0 1
+			if { $check_duplication == 1 } {
+				set traversed_ip_name($traversed_ports_count) "IRQ0_F2P"
+				set traversed_port_name($traversed_ports_count) $port_name
+				set traveresing_details 1
+				incr traversed_ports_count
+			}
+		} elseif {[string compare -nocase "$sink_pin" "IRQ1_F2P"] == 0 } {
+			set is_pl_ps_irq1 1
+			if { $check_duplication == 1 } {
+				set traversed_ip_name($traversed_ports_count) "IRQ1_F2P"
+				set traversed_port_name($traversed_ports_count) $port_name
+				set traveresing_details 1
+				incr traversed_ports_count
+			}
+		} elseif {[llength $is_versal] != 0 } {
+			set port_intr_id [get_psv_interrupt_id $sink_pin]
+			if {[llength $port_intr_id] != 0} {
+				if { $check_duplication == 1 } {
+					set traversed_ip_name($traversed_ports_count) $sink_pin
+					set traversed_port_name($traversed_ports_count) $port_name
+					incr traversed_ports_count
+					set traveresing_details 1
+				}
+				return $port_intr_id
+			}
+		}
+
+	#
+	# Interrupt source traversed through concat block/utility reduced logic/slice
+	#
+	set connected_ip_prev ""
+	if { $traveresing_details == 0 } {
+		for {set itr 0} {[llength $sink_pins] != 0} { } {
+			set sink_pin [lindex $sink_pins $itr]
+			set sink_periph [::hsi::get_cells -of_objects $sink_pin]
+			set duplicate 0
+			if {[llength $sink_periph] == 0} {
+				incr itr
+				continue
+			}
+			set connected_ip [get_property IP_NAME [get_cells -hier $sink_periph]]
+			if { ($traveresing_details == 0) && ($check_duplication == 1) } {
+				for {set count 0} {$count < $traversed_ports_count} {incr count} {
+					if { ([string compare -nocase $port_name $traversed_port_name($count)] == 0) && ([string compare -nocase $sink_periph $traversed_ip_name($count)] == 0)} {
+						set duplicate 1
+					}
+				}
+			}
+
+			if { $duplicate == 1 } {
+				incr itr
+				continue
+			}
+
+			if { ($traveresing_details == 0) && ($check_duplication == 1)} {
+				if { ([string compare -nocase $connected_ip "xlconcat"] == 0) || ([string compare -nocase $connected_ip "util_reduced_logic"] == 0) || ([string compare -nocase $connected_ip "xlslice"] == 0) } {
+					set traversed_port_name($traversed_ports_count) $port_name
+					set traversed_ip_name($traversed_ports_count) $sink_periph
+					set traveresing_details 1
+				}
+			}
+
+			if { [string compare -nocase "$connected_ip" "xlconcat"] == 0} {
+				set sink_pin_temp $sink_pin
+				set dout "dout"
+				set concat_block 1
+				set intr_pin [::hsi::get_pins -of_objects $sink_periph -filter "NAME==$dout"]
+				set is_or_gate 0
+				set input_pin_num [string trimleft $sink_pin In]
+				for {set count 0} {$count < $input_pin_num} {incr count} {
+					set temp [get_property [lindex $concat_in_list $count] $sink_periph]
+					set level_offset [expr {$level_offset + $temp}]
+				}
+				set sink_pins [::hsi::utils::get_sink_pins "$intr_pin"]
+				set connected_ip_prev $connected_ip
+				set itr 0
+				continue
+			} elseif { [string compare -nocase "$connected_ip" "util_reduced_logic"] == 0} {
+				set level_offset 0
+				set sink_pin_temp $sink_pin
+				set dout "Res"
+				set concat_block 0
+				set intr_pin [::hsi::get_pins -of_objects $sink_periph -filter "NAME==$dout"]
+				set is_or_gate 1
+
+				set sink_pins [::hsi::utils::get_sink_pins "$intr_pin"]
+				set connected_ip_prev $connected_ip
+				set itr 0
+				continue
+			} elseif { [string compare -nocase "$connected_ip" "xlslice"] == 0} {
+				set sink_pin_temp $sink_pin
+				set dout "Dout"
+				set concat_block 0
+				set intr_pin [::hsi::get_pins -of_objects $sink_periph -filter "NAME==$dout"]
+				set is_or_gate 0
+				set is_slice 1
+
+				set dout_width [get_property CONFIG.DOUT_WIDTH $sink_periph]
+				set dout_first [get_property CONFIG.DIN_TO $sink_periph]
+				set input_present_in_dout 0
+
+				# If slice IP is having concat block on left side
+				if { ([string compare -nocase $connected_ip_prev "xlconcat"] == 0)|| ([string compare -nocase $connected_ip_prev "xlslice"] == 0) } {
+					set temp $dout_first
+					for {set slice_out 0} {$slice_out < $dout_width} {incr slice_out} {
+						if { $temp == $level_offset } {
+							set level_offset $slice_out
+							set input_present_in_dout 1
+							set is_slice 0
+							break
+						}
+						incr temp
+					}
+				} else {
+					set input_present_in_dout 1
+					set level_offset 0
+				}
+
+				if { $input_present_in_dout == 0 } {
+					incr itr
+					continue
+				}
+				set sink_pins [::hsi::utils::get_sink_pins "$intr_pin"]
+				set connected_ip_prev $connected_ip
+				set itr 0
+				continue
+			} elseif { [string compare -nocase "$sink_pin" "IRQ0_F2P"] == 0 } {
+				set is_pl_ps_irq0 1
+			} elseif {[string compare -nocase "$sink_pin" "IRQ1_F2P"] == 0 } {
+				set is_pl_ps_irq1 1
+			} elseif {[llength $is_versal] != 0} {
+				set port_intr_id ""
+				set port_intr_id_temp [get_psv_interrupt_id $sink_pin]
+				if {[llength $port_intr_id_temp] != 0} {
+					if { $traveresing_details == 1 } {
+						incr traversed_ports_count
+					}
+
+					if { $is_slice == 1 } {
+						lappend port_intr_id 0
+						lappend port_intr_id $dout_first
+					}
+					lappend port_intr_id $port_intr_id_temp
+					return $port_intr_id
+				}
+			}
+
+			if { $is_pl_ps_irq0 == 1 || $is_pl_ps_irq1 == 1 } {
+				incr itr
+				for { } {$itr < [llength $sink_pins]} {incr itr} {
+					set sink_pin2 [lindex $sink_pins $itr]
+					if { $is_pl_ps_irq0 == 1 } {
+						if {[string compare -nocase "$sink_pin2" "IRQ1_F2P"] == 0 } {
+							set is_pl_ps_irq1 1
+						}
+					} else {
+						if {[string compare -nocase "$sink_pin2" "IRQ0_F2P"] == 0 } {
+							set is_pl_ps_irq0 1
+						}
+					}
+				}
+				if { $traveresing_details == 1 } {
+					incr traversed_ports_count
+				}
+				break
+			}
+			incr itr
+		}
+	}
+
+	set number level_offset
+
         set result ""
-	if {[llength [hsi::get_ports $port_name]] != 0 && [common::get_property LEFT [hsi::get_ports $port_name]] != ""} {
+	if { $is_slice == 1} {
+		set vector_size $dout_width
+		#
+		# If vectored interrupt source is connected through slice,
+		# interrupt names exported to xparameters.h should have
+		# input pin numbers. To achieve that, xdefine_gic_params
+		# needs to identify the vectored interrupt source with slice
+		# connectivity. Following details are added to index 0 and
+		# index 1 of result, so that xdefine_gic_params can identify
+		# vectored interrupts connected through slice.
+		# Index 0 : unique value 0
+		# Index 1: Pin number from where output of slice would start (DIN parameter)
+		#
+		lappend result 0
+		lappend result $dout_first
+	} elseif {[llength [hsi::get_ports $port_name]] != 0 && [common::get_property LEFT [hsi::get_ports $port_name]] != ""} {
 	    set vector_size [common::get_property LEFT [hsi::get_ports $port_name]]
 	    set vector_size [expr {$vector_size + 1}]
 	} else {
 	    set vector_size 1
 	}
-	for {set vec 0} {$vec < $vector_size} {incr vec} {
+
+	for { set vec 0 } {$vec < $vector_size} {incr vec} {
 	# generate irq id for IRQ1_F2P
             if {$is_pl_ps_irq1 == 1} {
                 if {$found == 1} {
                     set irqval $pl_ps_irq1
-                    set pl_ps_irq1 [expr $pl_ps_irq1 + 1]
                     if {$concat_block == "0"} {
-                        return [lindex $intr_list_irq1 $irqval]
+                        set ret [ expr {[lindex $intr_list_irq1 $irqval] + $vec}]
+						lappend result $ret
                     } else {
-                        set ret [expr 104 + [expr {$number + $vec}]]
+                        set ret [expr {$irq1_base + $level_offset + $vec}]
                         lappend result $ret
                     }
 	        }
@@ -1048,11 +1283,11 @@ proc get_psu_interrupt_id { ip_name port_name } {
 	        # generate irq id for IRQ0_F2P
                 if {$found == 1} {
                     set irqval $pl_ps_irq0
-                    set pl_ps_irq0 [expr $pl_ps_irq0 + 1]
 		    if {$concat_block == "0"} {
-                        return [lindex $intr_list_irq0 $irqval]
+                        set ret [ expr {[lindex $intr_list_irq0 $irqval] + $vec}]
+						lappend result $ret
                     } else {
-                        set ret [expr 89 + [expr {$number + $vec}]]
+                        set ret [expr {$irq0_base + $level_offset + $vec}]
                         lappend result $ret
                     }
                 }
@@ -1062,7 +1297,7 @@ proc get_psu_interrupt_id { ip_name port_name } {
            return $result
        }
     }
-    set port_width [get_port_width $intr_pin]
+    set port_width [::hsi::utils::get_port_width $intr_pin]
     set id $ret
     for {set i 1 } { $i < $port_width } { incr i } {
        lappend ret [expr $id + 1]

@@ -1,28 +1,8 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  */
+
 #include "xpfw_config.h"
 #ifdef ENABLE_PM
 
@@ -107,7 +87,7 @@ typedef struct PmTcmMemorySection {
  * Data initialization
  ********************************************************************/
 
-PmSystem pmSystem = {
+static PmSystem pmSystem = {
 	.psRestartPerms = 0U,
 	.systemRestartPerms = 0U,
 	.suspendType = PM_SUSPEND_TYPE_REGULAR,
@@ -118,7 +98,7 @@ PmSystem pmSystem = {
  * - OCM bank(s) store FSBL which is needed to restart APU, and should never be
  *   powered down unless the whole system goes down.
  */
-PmSystemRequirement pmSystemReqs[] = {
+static PmSystemRequirement pmSystemReqs[] = {
 	{
 		.slave = &pmSlaveOcm0_g.slv,
 		.caps = PM_CAP_CONTEXT,
@@ -139,6 +119,10 @@ PmSystemRequirement pmSystemReqs[] = {
 		.slave = &pmSlaveDdr_g,
 		.caps = PM_CAP_CONTEXT,
 		.posCaps = PM_CAP_ACCESS,
+	},{
+		.slave = &pmSlavePl_g,
+		.caps = 0U,
+		.posCaps = 0U,
 	},
 #ifdef DEBUG_MODE
 #if (STDOUT_BASEADDRESS == XPAR_PSU_UART_0_BASEADDR)
@@ -511,7 +495,7 @@ done:
  */
 s32 PmSystemRequirementAdd(void)
 {
-	s32 status;
+	s32 status = XST_FAILURE;
 	u32 i;
 
 	for (i = 0U; i < ARRAY_SIZE(pmSystemReqs); i++) {
@@ -529,10 +513,10 @@ s32 PmSystemRequirementAdd(void)
 			goto done;
 		}
 		req->info |= PM_SYSTEM_USING_SLAVE_MASK;
-		req->preReq = pmSystemReqs[i].caps;
-		req->currReq = pmSystemReqs[i].caps;
-		req->nextReq = pmSystemReqs[i].caps;
-		req->defaultReq = pmSystemReqs[i].caps;
+		req->preReq = (u8)pmSystemReqs[i].caps;
+		req->currReq = (u8)pmSystemReqs[i].caps;
+		req->nextReq = (u8)pmSystemReqs[i].caps;
+		req->defaultReq = (u8)pmSystemReqs[i].caps;
 		req->latencyReq = MAX_LATENCY;
 	}
 
@@ -574,17 +558,18 @@ void PmSystemPrepareForRestart(const PmMaster* const master)
 {
 	PmRequirement* req;
 
-	if (master != &pmMasterApu_g) {
-		goto done;
-	}
-
 	/* Change system requirement for DDR to hold it ON while restarting */
 	req = PmRequirementGetNoMaster(&pmSlaveDdr_g);
 	if ((NULL != req) && (0U == (PM_CAP_ACCESS & req->currReq))) {
 		req->currReq |= PM_CAP_ACCESS;
 	}
 
-done:
+	/* Change system requirement for PL to hold it ON while restarting */
+	req = PmRequirementGetNoMaster(&pmSlavePl_g);
+	if ((NULL != req) && (0U == (PM_CAP_ACCESS & req->currReq))) {
+		req->currReq |= PM_CAP_ACCESS;
+	}
+
 	return;
 }
 
@@ -597,18 +582,20 @@ void PmSystemRestartDone(const PmMaster* const master)
 	PmRequirement* req;
 	u32 caps;
 
-	if (master != &pmMasterApu_g) {
-		goto done;
-	}
-
 	/* Change system requirement for DDR to hold it ON while restarting */
 	req = PmRequirementGetNoMaster(&pmSlaveDdr_g);
 	caps = PmSystemGetRequirement(&pmSlaveDdr_g);
 	if ((NULL != req) && (0U == (PM_CAP_ACCESS & caps))) {
-		req->currReq &= ~PM_CAP_ACCESS;
+		req->currReq &= ~(u8)PM_CAP_ACCESS;
 	}
 
-done:
+	/* Clear system requirement for PL once restart is done*/
+	req = PmRequirementGetNoMaster(&pmSlavePl_g);
+	caps = PmSystemGetRequirement(&pmSlavePl_g);
+	if ((NULL != req) && (0U == (PM_CAP_ACCESS & caps))) {
+		req->currReq &= ~(u8)PM_CAP_ACCESS;
+	}
+
 	return;
 }
 

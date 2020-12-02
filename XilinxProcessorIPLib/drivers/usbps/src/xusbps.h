@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal 
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF 
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
  *
  * @file xusbps.h
-* @addtogroup usbps_v2_4
+* @addtogroup usbps_v2_6
 * @{
 * @details
  *
@@ -100,7 +78,7 @@
  *  - Endopint related interrupts
  *
  * The user (typically the adapter layer) can register general interrupt
- * handler fucntions and endpoint specific interrupt handler functions with the
+ * handler functions and endpoint specific interrupt handler functions with the
  * driver to receive those interrupts by calling the
  *    XUsbPs_IntrSetHandler()
  * and
@@ -183,6 +161,8 @@
  *                    generation.
  *       ms  04/10/17 Modified filename tag to include the file in doxygen
  *                    examples.
+ * 2.5   pm  02/20/20 Added ISO support for usb 2.0 and ch9 common framework
+ * 			calls.
  * </pre>
  *
  ******************************************************************************/
@@ -276,7 +256,13 @@ extern "C" {
 #define XUSBPS_EP_STS_CONTROLLER_STATE	2 /**< Current controller state. */
 /* @} */
 
-
+ /*
+  * Device Speeds
+  */
+ #define		XUSBPS_SPEED_UNKNOWN			0U
+ #define		XUSBPS_SPEED_LOW				1U
+ #define		XUSBPS_SPEED_FULL				2U
+ #define		XUSBPS_SPEED_HIGH				3U
 
 /**
  * @name USB Default alternate setting
@@ -286,6 +272,16 @@ extern "C" {
 #define XUSBPS_DEFAULT_ALT_SETTING	0 /**< The default alternate setting is 0 */
 /* @} */
 
+ /*
+  * Device States
+  */
+ #define		XUSBPS_STATE_ATTACHED			0U
+ #define		XUSBPS_STATE_POWERED			1U
+ #define		XUSBPS_STATE_DEFAULT			2U
+ #define		XUSBPS_STATE_ADDRESS			3U
+ #define		XUSBPS_STATE_CONFIGURED			4U
+ #define		XUSBPS_STATE_SUSPENDED			5U
+
 /**
  * @name Endpoint event types
  * Definitions that are used to identify events that occur on endpoints. Passed
@@ -294,7 +290,7 @@ extern "C" {
  * @{
  */
 #define XUSBPS_EP_EVENT_SETUP_DATA_RECEIVED	0x01
-			/**< Setup data has been received on the enpoint. */
+			/**< Setup data has been received on the endpoint. */
 #define XUSBPS_EP_EVENT_DATA_RX		0x02
 			/**< Data frame has been received on the endpoint. */
 #define XUSBPS_EP_EVENT_DATA_TX		0x03
@@ -319,13 +315,25 @@ extern "C" {
  *		layer when setting the handler, and is passed back to the upper
  *		layer when the handler is called.
  * @param	EpNum is the Number of the endpoint that caused the event.
- * @param	EventType is the type of the event that occured on the endpoint.
+ * @param	EventType is the type of the event that occurred on the endpoint.
  * @param	Data is a pointer to user data pointer specified when callback
  *		was registered.
  */
 typedef void (*XUsbPs_EpHandlerFunc)(void *CallBackRef,
 				      u8 EpNum, u8 EventType, void *Data);
 
+/******************************************************************************
+ * This data type defines the callback function to be used for Endpoint
+ * handlers.
+ *
+ * @param	CallBackRef is the Callback reference passed in by the upper
+ *		layer when setting the handler, and is passed back to the upper
+ *		layer when the handler is called.
+ * @param	RequestedBytes is the number of bytes requested to transfer.
+ * @param	BytesTxed is the actual number of bytes to be transfer.
+ */
+typedef void (*XUsbPs_EpIsoHandlerFunc)(void *CallBackRef,
+					u32 RequestedBytes, u32 BytesTxed);
 
 /******************************************************************************
  * This data type defines the callback function to be used for the general
@@ -375,9 +383,15 @@ typedef struct {
 		 * endpoint. */
 
 	XUsbPs_EpHandlerFunc	HandlerFunc;
+	XUsbPs_EpIsoHandlerFunc HandlerIsoFunc;
 		/**< Handler function for this endpoint. */
 	void			*HandlerRef;
 		/**< User data reference for the handler. */
+	u32	RequestedBytes;	/**< RequestedBytes for transfer */
+	u32	BytesTxed;		/**< Actual Bytes transferred */
+	u8	*BufferPtr;		/**< Buffer location */
+	u8 MemAlloted;		/**< Mem alloted and data is not received */
+	u32	Interval;		/**< Data transfer service interval */
 } XUsbPs_EpOut;
 
 
@@ -399,9 +413,14 @@ typedef struct {
 		/**< Buffer to the last unsent descriptor in the list*/
 
 	XUsbPs_EpHandlerFunc	HandlerFunc;
+	XUsbPs_EpIsoHandlerFunc HandlerIsoFunc;
 		/**< Handler function for this endpoint. */
 	void			*HandlerRef;
 		/**< User data reference for the handler. */
+	u32	RequestedBytes;	/**< RequestedBytes for transfer */
+	u32	BytesTxed;		/**< Actual Bytes transferred */
+	u8	*BufferPtr;		/**< Buffer location */
+	u32	Interval;		/**< Data transfer service interval */
 } XUsbPs_EpIn;
 
 
@@ -521,6 +540,14 @@ typedef struct {
 	u32 BaseAddress;	/**< Core register base address. */
 } XUsbPs_Config;
 
+typedef XUsbPs_Config Usb_Config;
+
+struct Usb_DevData {
+	u8 Speed;
+	u8 State;
+
+	void *PrivateData;
+};
 
 /**
  * The XUsbPs driver instance data. The user is required to allocate a
@@ -528,6 +555,8 @@ typedef struct {
  * variable of this type is then passed to the driver API functions.
  */
 typedef struct {
+	XUsbPs_SetupData SetupData;
+					/**< Setup Packet buffer */
 	XUsbPs_Config Config;	/**< Configuration structure */
 
 	int CurrentAltSetting;	/**< Current alternative setting of interface */
@@ -553,6 +582,9 @@ typedef struct {
 	u32			HandlerMask;
 		/**< User interrupt mask. Defines which interrupts will cause
 		 * the callback to be called. */
+	struct Usb_DevData *AppData;
+	u8 IsConfigDone;
+	void *data_ptr;		/* pointer for storing applications data */
 } XUsbPs;
 
 
@@ -1062,6 +1094,8 @@ void XUsbPs_EpBufferRelease(u32 Handle);
 int XUsbPs_EpSetHandler(XUsbPs *InstancePtr, u8 EpNum, u8 Direction,
 			XUsbPs_EpHandlerFunc CallBackFunc,
 			void *CallBackRef);
+s32 XUsbPs_EpSetIsoHandler(XUsbPs *InstancePtr, u8 EpNum, u8 Direction,
+			XUsbPs_EpIsoHandlerFunc CallBackFunc);
 int XUsbPs_EpGetSetupData(XUsbPs *InstancePtr, int EpNum,
 			XUsbPs_SetupData *SetupDataPtr);
 
@@ -1080,6 +1114,10 @@ void XUsbPs_IntrHandler(void *InstancePtr);
 int XUsbPs_IntrSetHandler(XUsbPs *InstancePtr,
 			   XUsbPs_IntrHandlerFunc CallBackFunc,
 			   void *CallBackRef, u32 Mask);
+void XUsbPs_EpGetData(XUsbPs *InstancePtr, u8 EpNum, u32 BufferLen);
+
+s32 XUsbPs_EpDataBufferReceive(XUsbPs *InstancePtr, u8 EpNum,
+			u8 *BufferPtr, u32 BufferLen);
 /*
  * Helper functions for static configuration.
  * Implemented in xusbps_sinit.c

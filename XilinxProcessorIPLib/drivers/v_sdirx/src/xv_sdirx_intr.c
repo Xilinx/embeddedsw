@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2017 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -43,6 +21,9 @@
 *	jsr    10/05/18 Moved 3GB specific video modes timing
 *			parameters from video common library
 *			to SDI common driver
+* 1.4	jb     03/26/20 Added HFR support.
+* 			96Hz and 96/1.001 Hz resolution is not supported.
+* 			12G 12bit and 6G 10bit is not supported for HFR
 *
 * </pre>
 *
@@ -68,6 +49,7 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr);
 static void SdiRx_VidUnLckIntrHandler(XV_SdiRx *InstancePtr);
 static void SdiRx_OverFlowIntrHandler(XV_SdiRx *InstancePtr);
 static void SdiRx_UnderFlowIntrHandler(XV_SdiRx *InstancePtr);
+static void SdiRx_VsyncIntrHandler(XV_SdiRx *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 
@@ -232,6 +214,13 @@ void XV_SdiRx_IntrHandler(void *InstancePtr)
 		XV_SdiRx_InterruptClear(SdiRxPtr, Mask);
 	}
 
+	Mask = ActiveIntr & XV_SDIRX_ISR_VSYNC_MASK;
+	if (Mask) {
+		SdiRx_VsyncIntrHandler(SdiRxPtr);
+
+		/* Clear handled interrupt(s) */
+		XV_SdiRx_InterruptClear(SdiRxPtr, Mask);
+	}
 
 }
 
@@ -248,6 +237,7 @@ void XV_SdiRx_IntrHandler(void *InstancePtr)
 * (XV_SDIRX_HANDLER_STREAM_UP)		StreamUpCallback
 * (XV_SDIRX_HANDLER_OVERFLOW)		OverFlowCallback
 * (XV_SDIRX_HANDLER_UNDERFLOW)		UnderFlowCallback
+* (XV_SDIRX_HANDLER_VSYNC)		VsyncCallback
 * </pre>
 *
 * @param	InstancePtr is a pointer to the SDI RX core instance.
@@ -305,6 +295,12 @@ int XV_SdiRx_SetCallback(XV_SdiRx *InstancePtr, u32 HandlerType,
 		Status = (XST_SUCCESS);
 		break;
 
+	/* Vsync */
+	case (XV_SDIRX_HANDLER_VSYNC):
+		InstancePtr->VsyncCallback = (XV_SdiRx_Callback)CallbackFunc;
+		InstancePtr->VsyncRef = CallbackRef;
+		Status = (XST_SUCCESS);
+		break;
 	default:
 		Status = (XST_INVALID_PARAM);
 		break;
@@ -385,7 +381,7 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 	u32 Data1 = 0;
 	u32 Data2 = 0;
 	u32 payload = 0, valid, tscan;
-	u8 byte1 = 0, active_luma = 0, color_format = 0;
+	u8 byte1 = 0, active_luma = 0, color_format = 0, bitdepth = 0;
 
 	Data0 = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
 					(XV_SDIRX_MODE_DET_STS_OFFSET));
@@ -448,8 +444,6 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 		}
 
 		SdiStream->PixPerClk = XVIDC_PPC_2;
-		SdiStream->ColorDepth = XVIDC_BPC_10;
-		SdiStream->ColorFormatId = XVIDC_CSF_YCRCB_422;
 		SdiStream->IsInterlaced = FALSE;
 		SdiStream->VmId = XVIDC_VM_NOT_SUPPORTED;
 
@@ -467,8 +461,36 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 
 		color_format = (payload >> XST352_PAYLOAD_BYTE3_SHIFT) &
 				XST352_BYTE3_COLOR_FORMAT_MASK;
+
+		if (color_format == XST352_BYTE3_COLOR_FORMAT_444_RGB)
+			SdiStream->ColorFormatId = XVIDC_CSF_RGB;
+		else if (color_format == XST352_BYTE3_COLOR_FORMAT_444)
+			SdiStream->ColorFormatId = XVIDC_CSF_YCRCB_444;
+		else
+			SdiStream->ColorFormatId = XVIDC_CSF_YCRCB_422;
+
+
 		tscan = (payload & XST352_BYTE2_TS_TYPE_MASK) >>
 					XST352_BYTE2_TS_TYPE_OFFSET;
+
+		bitdepth = (payload >> XST352_PAYLOAD_BYTE4_SHIFT) &
+				XST352_BYTE4_BIT_DEPTH_MASK;
+
+		if (bitdepth == XST352_BYTE4_BIT_DEPTH_8)
+			SdiStream->ColorDepth = XVIDC_BPC_8;
+		else if (bitdepth == XST352_BYTE4_BIT_DEPTH_10)
+			SdiStream->ColorDepth = XVIDC_BPC_10;
+		else if (bitdepth == XST352_BYTE4_BIT_DEPTH_12)
+			SdiStream->ColorDepth = XVIDC_BPC_12;
+		else
+			SdiStream->ColorDepth = XVIDC_BPC_UNKNOWN;
+
+		if (((SdiStream->ColorDepth != XVIDC_BPC_10) ||
+				(SdiStream->ColorDepth != XVIDC_BPC_12)) &&
+				(SdiStream->ColorDepth != InstancePtr->BitDepth)) {
+			xil_printf("Error::: Unsupported Color depth detected \r\n");
+			return;
+		}
 
 		/*YUV420 color format is supported only for >= 6G modes */
 		if (InstancePtr->Transport.TMode >= XSDIVID_MODE_6G) {
@@ -478,6 +500,12 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 					break;
 				case XST352_BYTE3_COLOR_FORMAT_422:
 					SdiStream->ColorFormatId = XVIDC_CSF_YCRCB_422;
+					break;
+				case XST352_BYTE3_COLOR_FORMAT_444:
+					SdiStream->ColorFormatId = XVIDC_CSF_YCRCB_444;
+					break;
+				case XST352_BYTE3_COLOR_FORMAT_444_RGB:
+					SdiStream->ColorFormatId = XVIDC_CSF_RGB;
 					break;
 				default:
 					xil_printf("Error::: Unsupported Color format detected \r\n");
@@ -498,6 +526,12 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 				break;
 			case XV_SDIRX_FR_59_94HZ:
 				FrameRate = XVIDC_FR_60HZ;
+				break;
+			case XV_SDIRX_FR_96_F_HZ:
+				FrameRate = XVIDC_FR_96HZ;
+				break;
+			case XV_SDIRX_FR_120_F_HZ:
+				FrameRate = XVIDC_FR_120HZ;
 				break;
 			default:
 				FrameRate = XVIDC_FR_60HZ;
@@ -522,6 +556,15 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 				break;
 			case XV_SDIRX_FR_60HZ:
 				FrameRate = XVIDC_FR_60HZ;
+				break;
+			case XV_SDIRX_FR_96HZ:
+				FrameRate = XVIDC_FR_96HZ;
+				break;
+			case XV_SDIRX_FR_100HZ:
+				FrameRate = XVIDC_FR_100HZ;
+				break;
+			case XV_SDIRX_FR_120HZ:
+				FrameRate = XVIDC_FR_120HZ;
 				break;
 			default:
 				FrameRate = XVIDC_FR_60HZ;
@@ -624,6 +667,69 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 			switch (byte1) {
 			case XST352_BYTE1_ST372_DL_3GB:
 			/* Table 13 SMPTE 425-2008 */
+				if (!InstancePtr->Transport.IsLevelB3G) {
+					xil_printf("Error::: IP doesn't detect this as 3GB mode\r\n");
+				}
+			switch (FrameRate) {
+				case XVIDC_FR_24HZ:
+					if (color_format == XST352_BYTE3_COLOR_FORMAT_422) {
+						SdiStream->VmId = ((active_luma == 1) ?
+								XVIDC_VM_2048x1080_96_I : XVIDC_VM_1920x1080_96_I);
+					} else {
+						if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_2048_2)
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+									XVIDC_VM_2048x1080_24_P:XVIDC_VM_2048x1080_48_I);
+						else if ((InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_274) ||
+								(InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_295))
+							SdiStream->VmId = InstancePtr->Transport.TScan ?
+									XVIDC_VM_1920x1080_24_P : XVIDC_VM_1920x1080_48_I;
+						else
+							SdiStream->VmId = ((active_luma == 1) ?
+									XVIDC_VM_2048x1080_24_P : XVIDC_VM_1920x1080_24_P);
+					}
+					break;
+				case XVIDC_FR_25HZ:
+					if (color_format == XST352_BYTE3_COLOR_FORMAT_422) {
+						SdiStream->VmId = ((active_luma == 1) ?
+								XVIDC_VM_2048x1080_100_I : XVIDC_VM_1920x1080_100_I);
+					} else {
+
+						if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_2048_2)
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+									XVIDC_VM_2048x1080_25_P:XVIDC_VM_2048x1080_50_I);
+					else if ((InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_274) ||
+								(InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_295))
+
+							SdiStream->VmId = (InstancePtr->Transport.TScan ?
+									XVIDC_VM_1920x1080_25_P:XVIDC_VM_1920x1080_50_I);
+						else
+							SdiStream->VmId = ((active_luma == 1) ?
+									XVIDC_VM_2048x1080_25_P : XVIDC_VM_1920x1080_25_P);
+					}
+					break;
+				case XVIDC_FR_30HZ:
+					if ((color_format == XST352_BYTE3_COLOR_FORMAT_422)  &&
+							(bitdepth == XST352_BYTE4_BIT_DEPTH_10)) {
+						SdiStream->VmId = ((active_luma == 1) ?
+								XVIDC_VM_2048x1080_120_I : XVIDC_VM_1920x1080_120_I);
+					} else {
+						if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_2048_2)
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+									XVIDC_VM_2048x1080_30_P:XVIDC_VM_2048x1080_60_I);
+						else if ((InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_274) ||
+								(InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_295))
+							SdiStream->VmId = (InstancePtr->Transport.TScan ?
+									XVIDC_VM_1920x1080_30_P:XVIDC_VM_1920x1080_60_I);
+						else
+							SdiStream->VmId = ((active_luma == 1) ?
+									XVIDC_VM_2048x1080_30_P : XVIDC_VM_1920x1080_30_P);
+					}
+					break;
+				default:
+					xil_printf("Unsupported frame rate detected\n\r");
+					break;
+				}
+			break;
 			case XST352_BYTE1_ST372_2x1080L_3GB:
 			/* Table 13 SMPTE 425-2008 */
 				if (!InstancePtr->Transport.IsLevelB3G) {
@@ -631,48 +737,314 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 				}
 				switch (FrameRate) {
 				case XVIDC_FR_24HZ:
-					SdiStream->VmId = ((active_luma == 1) ?
-							XVIDC_VM_2048x1080_96_I : XVIDC_VM_1920x1080_96_I);
+					if (color_format == XST352_BYTE3_COLOR_FORMAT_444)
+		                                if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_274)
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+										XVIDC_VM_1920x1080_24_P:XVIDC_VM_1920x1080_48_I);
+		                                else if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_295)
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+										XVIDC_VM_1920x1080_24_P:XVIDC_VM_1920x1080_48_I);
+		                                else if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_2048_2)
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+										XVIDC_VM_2048x1080_24_P:XVIDC_VM_2048x1080_48_I);
+						else
+							SdiStream->VmId = ((active_luma == 1) ?
+								XVIDC_VM_2048x1080_24_P : XVIDC_VM_1920x1080_24_P);
+					else
+						SdiStream->VmId = ((active_luma == 1) ?
+							XVIDC_VM_2048x1080_48_I : XVIDC_VM_1920x1080_48_I);
 					break;
 				case XVIDC_FR_25HZ:
-					SdiStream->VmId = ((active_luma == 1) ?
-							XVIDC_VM_2048x1080_100_I : XVIDC_VM_1920x1080_100_I);
+					if (color_format == XST352_BYTE3_COLOR_FORMAT_444)
+		                                if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_274)
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+										XVIDC_VM_1920x1080_25_P:XVIDC_VM_1920x1080_50_I);
+		                                else if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_295)
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+										XVIDC_VM_1920x1080_25_P:XVIDC_VM_1920x1080_50_I);
+		                                else if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_2048_2)
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+										XVIDC_VM_2048x1080_25_P:XVIDC_VM_2048x1080_50_I);
+						else
+						SdiStream->VmId = ((active_luma == 1) ?
+							XVIDC_VM_2048x1080_25_P : XVIDC_VM_1920x1080_25_P);
+					else
+						SdiStream->VmId = ((active_luma == 1) ?
+							XVIDC_VM_2048x1080_50_I : XVIDC_VM_1920x1080_50_I);
 					break;
 				case XVIDC_FR_30HZ:
+					if (color_format == XST352_BYTE3_COLOR_FORMAT_444)
+		                                if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_274)
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+										XVIDC_VM_1920x1080_30_P:XVIDC_VM_1920x1080_60_I);
+		                                else if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_295)
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+										XVIDC_VM_1920x1080_30_P:XVIDC_VM_1920x1080_60_I);
+		                                else if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_2048_2)
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+										XVIDC_VM_2048x1080_30_P:XVIDC_VM_2048x1080_60_I);
+						else
+						SdiStream->VmId = ((active_luma == 1) ?
+							XVIDC_VM_2048x1080_30_P : XVIDC_VM_1920x1080_30_P);
+					else
 					SdiStream->VmId = ((active_luma == 1) ?
-							XVIDC_VM_2048x1080_120_I : XVIDC_VM_1920x1080_120_I);
+							XVIDC_VM_2048x1080_60_I : XVIDC_VM_1920x1080_60_I);
 					break;
 				default:
-					SdiStream->VmId = XVIDC_VM_1920x1080_120_I;
+					SdiStream->VmId = XVIDC_VM_1920x1080_60_I;
 					break;
 				}
+				break;
+			case XST352_BYTE1_ST425_2008_750L_3GB:
+			switch (FrameRate) {
+				case XVIDC_FR_24HZ:
+					if (color_format == XST352_BYTE3_COLOR_FORMAT_444) {
+		                                if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_296)
+							SdiStream->VmId = XVIDC_VM_1280x720_24_P;
+		                                else if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_274)
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+										XVIDC_VM_1920x1080_24_P:XVIDC_VM_1920x1080_48_I);
+		                                else if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_295)
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+										XVIDC_VM_1920x1080_24_P:XVIDC_VM_1920x1080_48_I);
+						else
+						SdiStream->VmId = ((active_luma== 1) ?
+							XVIDC_VM_2048x1080_24_P : XVIDC_VM_1920x1080_24_P);
+					}
+					break;
+				case XVIDC_FR_25HZ:
+					if (color_format == XST352_BYTE3_COLOR_FORMAT_444) {
+		                                if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_296)
+							SdiStream->VmId = XVIDC_VM_1280x720_25_P;
+		                                else if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_274)
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+										XVIDC_VM_1920x1080_25_P:XVIDC_VM_1920x1080_50_I);
+		                                else if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_295)
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+										XVIDC_VM_1920x1080_25_P:XVIDC_VM_1920x1080_50_I);
+						else
+						SdiStream->VmId = ((active_luma== 1) ?
+							XVIDC_VM_2048x1080_25_P : XVIDC_VM_1920x1080_25_P);
+					}
+					break;
+				case XVIDC_FR_30HZ:
+					if (color_format == XST352_BYTE3_COLOR_FORMAT_444) {
+		                                if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_296)
+							SdiStream->VmId = XVIDC_VM_1280x720_30_P;
+		                                else if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_274)
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+										XVIDC_VM_1920x1080_30_P:XVIDC_VM_1920x1080_60_I);
+		                                else if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_295)
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+										XVIDC_VM_1920x1080_30_P:XVIDC_VM_1920x1080_60_I);
+						else
+						SdiStream->VmId = ((active_luma== 1) ?
+							XVIDC_VM_2048x1080_30_P : XVIDC_VM_1920x1080_30_P);
+					}
+					break;
+				case XVIDC_FR_48HZ:
+					if (color_format == XST352_BYTE3_COLOR_FORMAT_444) {
+						if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_295)
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+										XVIDC_VM_1920x1080_48_P :
+										XVIDC_VM_1920x1080_96_I);
+						else if(InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_2048_2)
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+										XVIDC_VM_2048x1080_48_P :
+										XVIDC_VM_2048x1080_96_I);
+						else
+							SdiStream->VmId = ((active_luma== 1) ?
+										XVIDC_VM_2048x1080_48_P :
+										XVIDC_VM_1920x1080_48_P);
+					}
+					break;
+				case XVIDC_FR_50HZ:
+					if (color_format == XST352_BYTE3_COLOR_FORMAT_444) {
+						if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_296)
+							SdiStream->VmId = XVIDC_VM_1280x720_50_P;
+						else if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_295) {
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+										XVIDC_VM_1920x1080_50_P :
+										XVIDC_VM_1920x1080_100_I);
+						} else if(InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_2048_2) {
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+										XVIDC_VM_2048x1080_50_P :
+										XVIDC_VM_2048x1080_100_I);
+						}
+						else
+							SdiStream->VmId = ((active_luma== 1) ?
+										XVIDC_VM_2048x1080_50_P :
+										XVIDC_VM_1920x1080_50_P);
+					}
+					break;
+				case XVIDC_FR_60HZ:
+					if (color_format == XST352_BYTE3_COLOR_FORMAT_444) {
+						if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_296)
+							SdiStream->VmId = XVIDC_VM_1280x720_60_P;
+						else if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_295)
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+										XVIDC_VM_1920x1080_60_P :
+										XVIDC_VM_1920x1080_120_I);
+						else if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_2048_2)
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+										XVIDC_VM_2048x1080_60_P :
+										XVIDC_VM_2048x1080_120_I);
+						else
+							SdiStream->VmId = ((active_luma== 1) ?
+								XVIDC_VM_2048x1080_60_P : XVIDC_VM_1920x1080_60_P);
+					}
+					break;
+				default:
+					SdiStream->VmId = XVIDC_VM_1920x1080_60_P;
+					break;
+				}
+				break;
+				if ((color_format == XST352_BYTE3_COLOR_FORMAT_444))
+					SdiStream->IsInterlaced = (~tscan) & 0x1;
+				else
+					SdiStream->IsInterlaced = 0x1;
 				break;
 			case XST352_BYTE1_ST425_2008_1125L_3GA:
 			/* ST352 Table SMPTE 425-1 */
 			switch (FrameRate) {
 				case XVIDC_FR_24HZ:
-					SdiStream->VmId = ((active_luma== 1) ?
-					XVIDC_VM_2048x1080_24_P : XVIDC_VM_1920x1080_24_P);
+					if ((color_format == XST352_BYTE3_COLOR_FORMAT_444) ||
+							(color_format == XST352_BYTE3_COLOR_FORMAT_444_RGB)) {
+						if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_296)
+							SdiStream->VmId = XVIDC_VM_1280x720_24_P;
+						else if (InstancePtr->Transport.TFamily
+								== XV_SDIRX_SMPTE_ST_2048_2) {
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+									XVIDC_VM_2048x1080_24_P :
+									XVIDC_VM_2048x1080_48_I);
+						} else {
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+									XVIDC_VM_1920x1080_24_P :
+									XVIDC_VM_1920x1080_48_I);
+						}
+					} else if ((color_format == XST352_BYTE3_COLOR_FORMAT_422) &&
+							(bitdepth == XST352_BYTE4_BIT_DEPTH_12) &&
+							(InstancePtr->Transport.TScan)) {
+						SdiStream->VmId = XVIDC_VM_1920x1080_24_P;
+					} else {
+						SdiStream->VmId = ((active_luma== 1) ?
+								XVIDC_VM_2048x1080_24_P :
+								XVIDC_VM_1920x1080_24_P);
+					}
 					break;
 				case XVIDC_FR_25HZ:
-					SdiStream->VmId = ((active_luma== 1) ?
-					XVIDC_VM_2048x1080_25_P : XVIDC_VM_1920x1080_25_P);
+					if ((color_format == XST352_BYTE3_COLOR_FORMAT_444) ||
+							(color_format == XST352_BYTE3_COLOR_FORMAT_444_RGB))
+						if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_296)
+							SdiStream->VmId = XVIDC_VM_1280x720_25_P;
+						else if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_274)
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+									XVIDC_VM_1920x1080_25_P:
+									XVIDC_VM_1920x1080_50_I);
+						else if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_295)
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+									XVIDC_VM_1920x1080_25_P:
+									XVIDC_VM_1920x1080_50_I);
+						else if (InstancePtr->Transport.TFamily
+								== XV_SDIRX_SMPTE_ST_2048_2) {
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+									XVIDC_VM_2048x1080_25_P :
+									XVIDC_VM_2048x1080_50_I);
+						} else
+							SdiStream->VmId = ((active_luma== 1) ?
+									XVIDC_VM_2048x1080_25_P :
+									XVIDC_VM_1920x1080_25_P);
+					else if ((color_format == XST352_BYTE3_COLOR_FORMAT_422) &&
+							(bitdepth == XST352_BYTE4_BIT_DEPTH_12))
+						SdiStream->VmId = (InstancePtr->Transport.TScan ?
+								XVIDC_VM_1920x1080_25_P:
+								XVIDC_VM_1920x1080_50_I);
+					else
+						SdiStream->VmId = ((active_luma== 1) ?
+								XVIDC_VM_2048x1080_25_P :
+								XVIDC_VM_1920x1080_25_P);
 					break;
 				case XVIDC_FR_30HZ:
-					SdiStream->VmId = ((active_luma== 1) ?
-					XVIDC_VM_2048x1080_30_P : XVIDC_VM_1920x1080_30_P);
+					if ((color_format == XST352_BYTE3_COLOR_FORMAT_444) ||
+							(color_format == XST352_BYTE3_COLOR_FORMAT_444_RGB))
+						if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_296)
+							SdiStream->VmId = XVIDC_VM_1280x720_30_P;
+						else if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_274)
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+										XVIDC_VM_1920x1080_30_P:
+										XVIDC_VM_1920x1080_60_I);
+						else if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_295)
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+										XVIDC_VM_1920x1080_30_P:
+										XVIDC_VM_1920x1080_60_I);
+						else if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_2048_2)
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+										XVIDC_VM_2048x1080_30_P :
+										XVIDC_VM_2048x1080_60_I);
+						else
+							SdiStream->VmId = ((active_luma== 1) ?
+										XVIDC_VM_2048x1080_30_P :
+										XVIDC_VM_1920x1080_30_P);
+					else if ((color_format == XST352_BYTE3_COLOR_FORMAT_422) &&
+							(bitdepth == XST352_BYTE4_BIT_DEPTH_12))
+						SdiStream->VmId = (InstancePtr->Transport.TScan ?
+								XVIDC_VM_1920x1080_30_P:
+								XVIDC_VM_1920x1080_60_I);
+					else
+						SdiStream->VmId = ((active_luma== 1) ?
+									XVIDC_VM_2048x1080_30_P :
+									XVIDC_VM_1920x1080_30_P);
 					break;
 				case XVIDC_FR_48HZ:
-					SdiStream->VmId = ((active_luma== 1) ?
-					XVIDC_VM_2048x1080_48_P : XVIDC_VM_1920x1080_48_P);
+					if ((color_format == XST352_BYTE3_COLOR_FORMAT_444) ||
+							(color_format == XST352_BYTE3_COLOR_FORMAT_444_RGB))
+						if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_295)
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+										XVIDC_VM_1920x1080_48_P :
+										XVIDC_VM_1920x1080_96_I);
+						else
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+										XVIDC_VM_2048x1080_48_P :
+										XVIDC_VM_2048x1080_96_I);
+					else
+						SdiStream->VmId = ((active_luma== 1) ?
+							XVIDC_VM_2048x1080_48_P : XVIDC_VM_1920x1080_48_P);
 					break;
 				case XVIDC_FR_50HZ:
-					SdiStream->VmId = ((active_luma== 1) ?
-					XVIDC_VM_2048x1080_50_P : XVIDC_VM_1920x1080_50_P);
+					if ((color_format == XST352_BYTE3_COLOR_FORMAT_444) ||
+							(color_format == XST352_BYTE3_COLOR_FORMAT_444_RGB))
+						if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_296)
+							SdiStream->VmId = XVIDC_VM_1280x720_50_P;
+						else if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_295)
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+										XVIDC_VM_1920x1080_50_P:
+										XVIDC_VM_1920x1080_100_I);
+						else
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+										XVIDC_VM_2048x1080_50_P :
+										XVIDC_VM_2048x1080_100_I);
+					else
+						SdiStream->VmId = ((active_luma== 1) ?
+									XVIDC_VM_2048x1080_50_P :
+									XVIDC_VM_1920x1080_50_P);
 					break;
 				case XVIDC_FR_60HZ:
-					SdiStream->VmId = ((active_luma== 1) ?
-					XVIDC_VM_2048x1080_60_P : XVIDC_VM_1920x1080_60_P);
+					if ((color_format == XST352_BYTE3_COLOR_FORMAT_444) ||
+							(color_format == XST352_BYTE3_COLOR_FORMAT_444_RGB))
+						if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_296)
+							SdiStream->VmId = XVIDC_VM_1280x720_60_P;
+						else if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_295)
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+										XVIDC_VM_1920x1080_60_P :
+										XVIDC_VM_1920x1080_120_I);
+						else
+							SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
+										XVIDC_VM_2048x1080_60_P :
+										XVIDC_VM_2048x1080_120_I);
+					else
+						SdiStream->VmId = ((active_luma== 1) ?
+									XVIDC_VM_2048x1080_60_P :
+									XVIDC_VM_1920x1080_60_P);
 					break;
 				default:
 					SdiStream->VmId = XVIDC_VM_1920x1080_60_P;
@@ -682,11 +1054,67 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 			default:
 				xil_printf(" Error::: No ST352 valid payload available for 3G modes\n\r");
 			}
-			SdiStream->IsInterlaced = (~tscan) & 0x1;
+
+			SdiStream->IsInterlaced = (payload & XST352_BYTE2_PIC_TYPE_MASK) ? 0 : 1;
+
 			break;
 
 		case XV_SDIRX_MODE_6G:
 			switch (byte1) {
+			case XST352_BYTE1_ST2081_10_2_1080L_6G:
+				if ((color_format == XST352_BYTE3_COLOR_FORMAT_422) &&
+						(bitdepth != XST352_BYTE4_BIT_DEPTH_12)) {
+					xil_printf("Unsupported ColorFormat and BitDepth config detected\n\r");
+					return;
+				}
+				switch (FrameRate) {
+				case XVIDC_FR_60HZ:
+					SdiStream->VmId = ((active_luma== 1) ?
+							XVIDC_VM_2048x1080_60_P :
+							XVIDC_VM_1920x1080_60_P);
+					break;
+				case XVIDC_FR_48HZ:
+					if (active_luma) {
+						SdiStream->VmId = XVIDC_VM_2048x1080_48_P;
+					} else {
+						xil_printf("Unsupported format detected\n\r");
+						return;
+					}
+					break;
+				case XVIDC_FR_50HZ:
+					SdiStream->VmId = ((active_luma== 1) ?
+							XVIDC_VM_2048x1080_50_P :
+							XVIDC_VM_1920x1080_50_P);
+					break;
+				case XVIDC_FR_96HZ:
+					if ((bitdepth == XST352_BYTE4_BIT_DEPTH_10) &&
+							(color_format == XST352_BYTE3_COLOR_FORMAT_422)) {
+						SdiStream->VmId = XVIDC_VM_2048x1080_96_I;
+					}
+					break;
+				case XVIDC_FR_100HZ:
+					if (((color_format == XST352_BYTE3_COLOR_FORMAT_422) ||
+							(color_format == XST352_BYTE3_COLOR_FORMAT_420))
+							&& (bitdepth == XST352_BYTE4_BIT_DEPTH_10)) {
+						SdiStream->VmId = active_luma ?
+								XVIDC_VM_2048x1080_100_P : XVIDC_VM_1920x1080_100_P;
+					}
+					break;
+				case XVIDC_FR_120HZ:
+					if (((color_format == XST352_BYTE3_COLOR_FORMAT_422) ||
+							(color_format == XST352_BYTE3_COLOR_FORMAT_420))
+							&& (bitdepth == XST352_BYTE4_BIT_DEPTH_10)) {
+						SdiStream->VmId = active_luma ?
+								XVIDC_VM_2048x1080_120_P : XVIDC_VM_1920x1080_120_P;
+					}
+					break;
+				default:
+					SdiStream->VmId = ((active_luma== 1) ?
+							XVIDC_VM_2048x1080_60_P :
+							XVIDC_VM_1920x1080_60_P);
+					break;
+				}
+				break;
 			case XST352_BYTE1_ST2081_10_DL_2160L_6G:
 			/* Dual link 6G */
 			case XST352_BYTE1_ST2081_10_2160L_6G:
@@ -723,21 +1151,131 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 			case XST352_BYTE1_ST2082_10_2160L_12G:
 				/* Section 4.3.1 SMPTE ST 2082-10 */
 				switch (FrameRate) {
+					case XVIDC_FR_24HZ:
+						if ((color_format == XST352_BYTE3_COLOR_FORMAT_444) ||
+								(color_format == XST352_BYTE3_COLOR_FORMAT_444_RGB))
+							SdiStream->VmId = ((active_luma
+								== 1) ? XVIDC_VM_4096x2160_24_P :
+								XVIDC_VM_3840x2160_24_P);
+						else if (((color_format == XST352_BYTE3_COLOR_FORMAT_422) ||
+								(color_format == XST352_BYTE3_COLOR_FORMAT_420))
+								&& (bitdepth == XST352_BYTE4_BIT_DEPTH_12)
+								&& (active_luma == 0))
+							SdiStream->VmId = XVIDC_VM_3840x2160_24_P;
+						else if ((color_format == XST352_BYTE3_COLOR_FORMAT_422)
+								&& (bitdepth == XST352_BYTE4_BIT_DEPTH_12)
+								&& (active_luma == 1))
+							SdiStream->VmId = XVIDC_VM_4096x2160_24_P;
+						else
+							SdiStream->VmId = XVIDC_VM_3840x2160_60_P;
+						break;
+					case XVIDC_FR_25HZ:
+						if ((color_format == XST352_BYTE3_COLOR_FORMAT_444) ||
+								(color_format == XST352_BYTE3_COLOR_FORMAT_444_RGB))
+							SdiStream->VmId = ((active_luma
+								== 1) ? XVIDC_VM_4096x2160_25_P :
+								XVIDC_VM_3840x2160_25_P);
+						else if (((color_format == XST352_BYTE3_COLOR_FORMAT_422) ||
+								(color_format == XST352_BYTE3_COLOR_FORMAT_420))
+								&& (bitdepth == XST352_BYTE4_BIT_DEPTH_12)
+								&& (active_luma == 0))
+							SdiStream->VmId = XVIDC_VM_3840x2160_25_P;
+						else if ((color_format == XST352_BYTE3_COLOR_FORMAT_422)
+								&& (bitdepth == XST352_BYTE4_BIT_DEPTH_12)
+								&& (active_luma == 1))
+							SdiStream->VmId = XVIDC_VM_4096x2160_25_P;
+						else
+							SdiStream->VmId = XVIDC_VM_3840x2160_60_P;
+						break;
+					case XVIDC_FR_30HZ:
+						if ((color_format == XST352_BYTE3_COLOR_FORMAT_444) ||
+								(color_format == XST352_BYTE3_COLOR_FORMAT_444_RGB))
+							SdiStream->VmId = ((active_luma
+								== 1) ? XVIDC_VM_4096x2160_30_P :
+								XVIDC_VM_3840x2160_30_P);
+						else if (((color_format == XST352_BYTE3_COLOR_FORMAT_422) ||
+								(color_format == XST352_BYTE3_COLOR_FORMAT_420))
+								&& (bitdepth == XST352_BYTE4_BIT_DEPTH_12)
+								&& (active_luma == 0))
+							SdiStream->VmId = XVIDC_VM_3840x2160_30_P;
+						else if ((color_format == XST352_BYTE3_COLOR_FORMAT_422)
+								&& (bitdepth == XST352_BYTE4_BIT_DEPTH_12)
+								&& (active_luma == 1))
+							SdiStream->VmId = XVIDC_VM_4096x2160_30_P;
+						else
+							SdiStream->VmId = XVIDC_VM_3840x2160_60_P;
+						break;
 					case XVIDC_FR_48HZ:
-						SdiStream->VmId = ((active_luma
-							== 1) ? XVIDC_VM_4096x2160_48_P :
-							XVIDC_VM_3840x2160_48_P);
+						if ((color_format == XST352_BYTE3_COLOR_FORMAT_422) &&
+								(bitdepth == XST352_BYTE4_BIT_DEPTH_10) &&
+								(InstancePtr->Transport.TScan)) {
+							SdiStream->VmId  = active_luma ?
+									XVIDC_VM_4096x2160_48_P :
+									XVIDC_VM_3840x2160_48_P;
+						} else {
+							xil_printf("Unsupported format detected\n\r");
+							return;
+						}
 						break;
 					case XVIDC_FR_50HZ:
-						SdiStream->VmId = ((active_luma
-							== 1) ? XVIDC_VM_4096x2160_50_P :
-							XVIDC_VM_3840x2160_50_P);
+						if (((color_format == XST352_BYTE3_COLOR_FORMAT_422) ||
+								(color_format == XST352_BYTE3_COLOR_FORMAT_420)) &&
+								(bitdepth == XST352_BYTE4_BIT_DEPTH_10) &&
+								(InstancePtr->Transport.TScan)) {
+							SdiStream->VmId = (active_luma ?
+									XVIDC_VM_4096x2160_50_P :
+									XVIDC_VM_3840x2160_50_P);
+						} else {
+							xil_printf("Unsupported format detected\n\r");
+							return;
+						}
 						break;
 
 					case XVIDC_FR_60HZ:
-						SdiStream->VmId = ((active_luma
-							== 1) ? XVIDC_VM_4096x2160_60_P :
-							XVIDC_VM_3840x2160_60_P);
+						if (((color_format == XST352_BYTE3_COLOR_FORMAT_422) ||
+								(color_format == XST352_BYTE3_COLOR_FORMAT_420)) &&
+								(bitdepth == XST352_BYTE4_BIT_DEPTH_10) &&
+								(InstancePtr->Transport.TScan)) {
+							SdiStream->VmId = (active_luma ?
+									XVIDC_VM_4096x2160_60_P :
+									XVIDC_VM_3840x2160_60_P);
+						}  else {
+							xil_printf("Unsupported format detected\n\r");
+							return;
+						}
+						break;
+					case XVIDC_FR_96HZ:
+						if (((color_format == XST352_BYTE3_COLOR_FORMAT_420) ||
+								(color_format == XST352_BYTE3_COLOR_FORMAT_422)) &&
+								(bitdepth == XST352_BYTE4_BIT_DEPTH_10)) {
+							xil_printf(" Error::: Unknown Format detected\n\r");
+							return;
+						}
+						SdiStream->VmId = XVIDC_VM_2048x1080_96_I;
+						break;
+					case XVIDC_FR_100HZ:
+						if (((color_format == XST352_BYTE3_COLOR_FORMAT_420) ||
+								(color_format == XST352_BYTE3_COLOR_FORMAT_422)) &&
+								(bitdepth == XST352_BYTE4_BIT_DEPTH_10)) {
+							xil_printf(" Error::: Unknown Format detected\n\r");
+							return;
+						}
+
+						SdiStream->VmId = active_luma ?
+								XVIDC_VM_2048x1080_100_P : XVIDC_VM_1920x1080_100_P;
+
+						break;
+					case XVIDC_FR_120HZ:
+						if (((color_format == XST352_BYTE3_COLOR_FORMAT_420) ||
+								(color_format == XST352_BYTE3_COLOR_FORMAT_422)) &&
+								(bitdepth == XST352_BYTE4_BIT_DEPTH_10)) {
+							xil_printf(" Error::: Unknown Format detected\n\r");
+							return;
+						}
+
+						SdiStream->VmId = active_luma ?
+								XVIDC_VM_2048x1080_120_P : XVIDC_VM_1920x1080_120_P;
+
 						break;
 
 					default:
@@ -774,6 +1312,63 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 				Timing = XVidC_GetTimingInfo(SdiStream->VmId);
 			}
 			SdiStream->Timing = *Timing;
+		}
+
+		SdiStream->FrameRate = FrameRate;
+
+		if (InstancePtr->Transport.TMode != XSDIVID_MODE_SD) {
+			u8 eotf = (payload & XST352_BYTE2_EOTF_MASK) >>
+				XST352_BYTE2_EOTF_SHIFT;
+
+			u8 colorimetry = (payload & XST352_BYTE3_COLORIMETRY_MASK) >>
+				XST352_BYTE3_COLORIMETRY_SHIFT;
+
+			/*
+			 * Bit 7 and 4 of byte 3 form the colorimetry field for HD.
+			 * Checkout SMPTE 292-1:2018 Sec 9.5 for details
+			 */
+			if (InstancePtr->Transport.TMode == XSDIVID_MODE_HD ||
+					byte1 == XST352_BYTE1_ST372_DL_3GB) {
+				/* In case of no payload */
+				colorimetry = XST352_BYTE3_COLORIMETRY_BT709;
+
+				if (valid & XV_SDIRX_RX_ST352_VLD_ST352_0) {
+					colorimetry = ((XSDIRX_BIT(23) & payload) >> 23) << 1;
+					colorimetry |= (XSDIRX_BIT(20) & payload) >> 20;
+				}
+			}
+
+			/* Get the EOTF function */
+			switch(eotf) {
+			case XST352_BYTE2_EOTF_SDRTV:
+				SdiStream->Eotf = XVIDC_EOTF_TG_SDR;
+				break;
+			case XST352_BYTE2_EOTF_SMPTE2084:
+				SdiStream->Eotf = XVIDC_EOTF_SMPTE2084;
+				break;
+			case XST352_BYTE2_EOTF_HLG:
+				SdiStream->Eotf = XVIDC_EOTF_HLG;
+				break;
+			default:
+				SdiStream->Eotf = XVIDC_EOTF_UNKNOWN;
+				break;
+			}
+
+			/* Get Colorimetry */
+			switch (colorimetry) {
+			case XST352_BYTE3_COLORIMETRY_BT709:
+				SdiStream->ColorStd = XVIDC_BT_709;
+				break;
+			case XST352_BYTE3_COLORIMETRY_UHDTV:
+				SdiStream->ColorStd = XVIDC_BT_2020;
+				break;
+			default:
+				SdiStream->ColorStd = XVIDC_BT_UNKNOWN;
+				break;
+			}
+		} else {
+			SdiStream->Eotf = XVIDC_EOTF_TG_SDR;
+			SdiStream->ColorStd = XVIDC_BT_601;
 		}
 
 		/* Call stream up callback */
@@ -850,4 +1445,49 @@ static void SdiRx_UnderFlowIntrHandler(XV_SdiRx *InstancePtr)
 	if (InstancePtr->UnderFlowCallback) {
 		InstancePtr->UnderFlowCallback(InstancePtr->UnderFlowRef);
 	}
+}
+
+
+/*****************************************************************************/
+/**
+*
+* This function is the interrupt handler for the SDI Vsync Event.
+*
+* @param	InstancePtr is a pointer to the XV_SdiRx core instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+static void SdiRx_VsyncIntrHandler(XV_SdiRx *InstancePtr)
+{
+	u32 valid, payload;
+
+	/* Video is locked */
+
+	/* Read payload */
+	valid = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
+				 (XV_SDIRX_RX_ST352_VLD_OFFSET));
+	payload = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
+				   (XV_SDIRX_RX_ST352_0_OFFSET));
+	/* If invalid payload */
+	if (!(valid & XV_SDIRX_RX_ST352_VLD_ST352_0))
+		goto do_vsync;
+
+	/* If payload is same as stored in InstancePtr */
+	if (payload == InstancePtr->Stream[0].PayloadId)
+		goto do_vsync;
+
+	/*
+	 * Payload has changed without video lock / unlock occuring. So update
+	 * the video parameters
+	 */
+	SdiRx_VidLckIntrHandler(InstancePtr);
+
+do_vsync:
+	/* Call any callback associated */
+	if (InstancePtr->VsyncCallback)
+		InstancePtr->VsyncCallback(InstancePtr->VsyncRef);
+
 }

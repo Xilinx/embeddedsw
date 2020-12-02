@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
  *
@@ -68,6 +46,8 @@
  *                     generation of examples.
  * 4.4   rsp  02/22/18 Support data buffers above 4GB.Use UINTPTR for
  *                     typecasting buffer address(CR-995116).
+ * 4.6   rsp  09/13/19 Fix cache maintenance ops for source and dest buffer.
+ * 4.7   rsp  12/06/19 For aarch64 include xil_mmu.h. Fixes gcc warning.
  * </pre>
  *
  ****************************************************************************/
@@ -76,6 +56,9 @@
 #include "xenv.h"	/* memset */
 #include "xil_cache.h"
 #include "xparameters.h"
+#ifdef __aarch64__
+#include "xil_mmu.h"
+#endif
 
 #if defined(XPAR_UARTNS550_0_BASEADDR)
 #include "xuartns550_l.h"       /* to use uartns550 */
@@ -365,10 +348,8 @@ static int SetupTransfer(XAxiCdma * InstancePtr)
 	 */
 	Xil_DCacheFlushRange((UINTPTR)TransmitBufferPtr,
 		MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER);
-#ifdef __aarch64__
 	Xil_DCacheFlushRange((UINTPTR)ReceiveBufferPtr,
 		MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER);
-#endif
 
 	return XST_SUCCESS;
 }
@@ -479,9 +460,7 @@ static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length)
 	/* Invalidate the DestBuffer before receiving the data, in case the
 	 * Data Cache is enabled
 	 */
-#ifndef __aarch64__
 	Xil_DCacheInvalidateRange((UINTPTR)DestPtr, Length);
-#endif
 
 	for (Index = 0; Index < Length; Index++) {
 		if ( DestPtr[Index] != SrcPtr[Index]) {

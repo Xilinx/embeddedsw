@@ -1,5 +1,5 @@
 var xpmonpsv__sint_8c =
 [
-    [ "XpsvPmon_LookupConfig", "xpmonpsv__sint_8c.html#ga61a9f75ed64a142bc6168a23e8858ab3", null ],
-    [ "XPmonpsv_ConfigTable", "xpmonpsv__sint_8c.html#ga8e064fc573b8564aa46fcb15053b8614", null ]
+    [ "XPmonPsv_LookupConfig", "xpmonpsv__sint_8c.html#gadf7106c6ca8857f9661ba1f7b9411dde", null ],
+    [ "XPmonPsv_ConfigTable", "xpmonpsv__sint_8c.html#ga86e2d702d03cd2df46dc4ba492d255a6", null ]
 ];

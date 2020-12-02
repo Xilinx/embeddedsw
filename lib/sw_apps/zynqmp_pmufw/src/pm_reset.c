@@ -1,28 +1,8 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  */
+
 #include "xpfw_config.h"
 #ifdef ENABLE_PM
 
@@ -65,11 +45,11 @@ typedef struct PmResetOps {
  * @access	Access control bitmask (1 bit per master, see 'pmAllMasters')
  * @derived	Pointer to derived reset structure
  */
-typedef struct PmReset {
+struct PmReset {
 	const PmResetOps* const ops;
 	void* const derived;
 	u32 access;
-} PmReset;
+};
 
 /**
  * PmResetGeneric - Generic reset structure
@@ -122,12 +102,12 @@ typedef struct PmResetGpioBankIOs {
 	const u32 rstDirectionReg;
 	const u32 rstReadDataReg;
 	const bool isMaskDataLsw;
-	const u32 rstLine;
+	const u8 rstLine;
 } PmResetGpioBankIOs;
 
 bool PmResetMasterHasAccess(const PmMaster* const m, const PmReset* const r)
 {
-	return !!(r->access & m->ipiMask);
+	return ((0U != (r->access & m->ipiMask)) ? true : false);
 }
 
 /**
@@ -143,6 +123,8 @@ static void PmResetAssertCommon(const u32 ctrlAddr, const u32 mask,
 		XPfw_RMW32(ctrlAddr, mask, 0U);
 	} else if (PM_RESET_ACTION_ASSERT == action) {
 		XPfw_RMW32(ctrlAddr, mask, mask);
+	} else {
+		/* For MISRA compliance */
 	}
 }
 
@@ -298,7 +280,7 @@ static u32 PmResetPulseRom(const PmReset *const rstPtr)
 static u32 PmResetGetStatusGpioBankIOs(const PmReset* const rstPtr)
 {
 	const PmResetGpioBankIOs *rstGpioPtr = (PmResetGpioBankIOs*)rstPtr->derived;
-	u32 RegShift = MAX_REG_BITS/2 + rstGpioPtr->rstLine;
+	u32 RegShift = ((u32)MAX_REG_BITS/2U) + ((u32)rstGpioPtr->rstLine);
 	u32 RegVal = 0;
 
 	/* Read the MIO/EMIO data register */
@@ -327,23 +309,23 @@ static u32 PmResetPulseGpioBankIOs(const PmReset* const rstPtr)
 	if( rstGpioPtr->isMaskDataLsw == false ) {
 		DirmShift = MAX_REG_BITS/2;
 	}
-	RegVal = Xil_In32(GpioDirReg) | (1U << (DirmShift + GpioRstLine));
+	RegVal = Xil_In32(GpioDirReg) | ((u32)1 << (DirmShift + GpioRstLine));
 	Xil_Out32(GpioDirReg, RegVal);
 
 	/* Assert the MIO/EMIO with the required Mask */
-	MaskVal = (1U << GpioRstLine) | GPIO_PIN_MASK_BITS;
-	RegVal = MaskVal & (~(1U << (MAX_REG_BITS/2 + GpioRstLine)));
+	MaskVal = ((u32)1 << GpioRstLine) | GPIO_PIN_MASK_BITS;
+	RegVal = MaskVal & (~((u32)1 << (((u32)MAX_REG_BITS/2U) + GpioRstLine)));
 	Xil_Out32(GpioMaskDataReg, RegVal);
 	usleep(1000);
 
 	/* De-assert the MIO/EMIO with the required Mask */
-	RegVal = (~(1U << (MAX_REG_BITS/2 + GpioRstLine))) & GPIO_PIN_MASK_BITS;
+	RegVal = (~((u32)1 << (((u32)MAX_REG_BITS/2U) + GpioRstLine))) & GPIO_PIN_MASK_BITS;
 	Xil_Out32(GpioMaskDataReg, RegVal);
 	usleep(1000);
 
 	/* Assert the MIO/EMIO with the required Mask */
-	MaskVal = (1U << GpioRstLine) | GPIO_PIN_MASK_BITS;
-	RegVal = MaskVal & (~(1U << (MAX_REG_BITS/2 + GpioRstLine)));
+	MaskVal = ((u32)1 << GpioRstLine) | GPIO_PIN_MASK_BITS;
+	RegVal = MaskVal & (~((u32)1 << (((u32)MAX_REG_BITS/2U) + GpioRstLine)));
 	Xil_Out32(GpioMaskDataReg, RegVal);
 	usleep(1000);
 
@@ -356,7 +338,7 @@ static u32 PmResetPulseGpioBankIOs(const PmReset* const rstPtr)
  * @action	States whether to assert or release reset
  */
 #pragma weak PmUserHookResetAssertPl
-void PmUserHookResetAssertPl(const PmReset *const rstPtr, const u32 action)
+static void PmUserHookResetAssertPl(const PmReset *const rstPtr, const u32 action)
 {
 }
 
@@ -1187,7 +1169,7 @@ static PmResetGeneric pmResetLpdSwdt = {
  */
 static u32 PmResetPulseFpd(void)
 {
-	return XPfw_ResetFpd();
+	return (u32)XPfw_ResetFpd();
 }
 
 static PmResetRom pmResetFpd = {
@@ -1727,7 +1709,7 @@ static PmResetRom pmResetPsOnly = {
  */
 static u32 PmResetPulseRpuLs(void)
 {
-	return XPfw_ResetRpu();
+	return (u32)XPfw_ResetRpu();
 }
 
 static PmResetRom pmResetRpuLs = {
@@ -1747,7 +1729,7 @@ static PmReset pmResetPl = {
 	.derived = &pmResetPl,
 };
 
-static PmReset* const pmAllResets[] = {
+static PmReset* const pmAllResets[PM_RESET_MAX_LINE] = {
 	[PM_RESET_PCIE_CFG - PM_RESET_BASE] = &pmResetPcieCfg.rst,
 	[PM_RESET_PCIE_BRIDGE - PM_RESET_BASE] = &pmResetPcieBridge.rst,
 	[PM_RESET_PCIE_CTRL - PM_RESET_BASE] = &pmResetPcieCtrl.rst,
@@ -1910,7 +1892,7 @@ s32 PmResetDoAssert(const PmReset *reset, u32 action)
 		}
 		break;
 	case PM_RESET_ACTION_PULSE:
-		reset->ops->pulse(reset);
+		status = (s32)reset->ops->pulse(reset);
 		break;
 	default:
 		PmWarn("invalid assert %lu\r\n", action);
@@ -1945,14 +1927,14 @@ err:
 
 inline u32 PmResetGetStatusInt(const PmReset* const resetPtr, u32 *status)
 {
-	int ret = XST_NO_FEATURE;
+	s32 ret = XST_NO_FEATURE;
 
-	if (resetPtr->ops->getStatus) {
+	if (NULL != resetPtr->ops->getStatus) {
 		*status = resetPtr->ops->getStatus(resetPtr);
 		ret = XST_SUCCESS;
 	}
 
-	return ret;
+	return (u32)ret;
 }
 
 /**

@@ -1,31 +1,11 @@
 /******************************************************************************
-* Copyright (C) 2016 -2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+* Copyright (c) 2016 -2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-#ifndef _CSU_H_
-#define _CSU_H_
+
+#ifndef CSU_H_
+#define CSU_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -34,7 +14,7 @@ extern "C" {
 /**
  * CSU Base Address
  */
-#define CSU_BASEADDR	0XFFCA0000
+#define CSU_BASEADDR	0XFFCA0000U
 
 #define CSU_VERSION_EMPTY_SHIFT		20
 #define CSU_VERSION_PL_STATE_SHIFT	29
@@ -46,7 +26,7 @@ extern "C" {
 
 #define CSU_STATUS_UNUSED_SHIFT   2
 #define CSU_STATUS_UNUSED_WIDTH   30
-#define CSU_STATUS_UNUSED_MASK    0XFFFFFFFC
+#define CSU_STATUS_UNUSED_MASK    0XFFFFFFFCU
 
 #define CSU_STATUS_BOOT_ENC_SHIFT   1
 #define CSU_STATUS_BOOT_ENC_WIDTH   1
@@ -110,7 +90,7 @@ extern "C" {
 
 #define CSU_MULTI_BOOT_SSSS_MULTI_BOOT_ADDR_SHIFT   0
 #define CSU_MULTI_BOOT_SSSS_MULTI_BOOT_ADDR_WIDTH   32
-#define CSU_MULTI_BOOT_SSSS_MULTI_BOOT_ADDR_MASK    0XFFFFFFFF
+#define CSU_MULTI_BOOT_SSSS_MULTI_BOOT_ADDR_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_TAMPER_TRIG
@@ -128,7 +108,7 @@ extern "C" {
 
 #define CSU_FT_STATUS_R_UE_SHIFT   31
 #define CSU_FT_STATUS_R_UE_WIDTH   1
-#define CSU_FT_STATUS_R_UE_MASK    0X80000000
+#define CSU_FT_STATUS_R_UE_MASK    0X80000000U
 
 #define CSU_FT_STATUS_R_VOTER_ERROR_SHIFT   30
 #define CSU_FT_STATUS_R_VOTER_ERROR_WIDTH   1
@@ -245,7 +225,7 @@ extern "C" {
 
 #define CSU_ISR_UNUSED31_SHIFT   31
 #define CSU_ISR_UNUSED31_WIDTH   1
-#define CSU_ISR_UNUSED31_MASK    0X80000000
+#define CSU_ISR_UNUSED31_MASK    0X80000000U
 
 #define CSU_ISR_UNUSED30_SHIFT   30
 #define CSU_ISR_UNUSED30_WIDTH   1
@@ -378,7 +358,7 @@ extern "C" {
 
 #define CSU_IMR_UNUSED31_SHIFT   31
 #define CSU_IMR_UNUSED31_WIDTH   1
-#define CSU_IMR_UNUSED31_MASK    0X80000000
+#define CSU_IMR_UNUSED31_MASK    0X80000000U
 
 #define CSU_IMR_UNUSED30_SHIFT   30
 #define CSU_IMR_UNUSED30_WIDTH   1
@@ -466,7 +446,7 @@ extern "C" {
 
 #define CSU_IMR_PL_SEU_ERROR_SHIFT   9
 #define CSU_IMR_PL_SEU_ERROR_WIDTH   1
-#define CSU_IMR_PL_SEU_ERROR_MASK    0X00000200
+#define CSU_IMR_PL_SEU_ERROR_MASK    0X00000200U
 
 #define CSU_IMR_AES_ERROR_SHIFT   8
 #define CSU_IMR_AES_ERROR_WIDTH   1
@@ -511,7 +491,7 @@ extern "C" {
 
 #define CSU_IER_UNUSED31_SHIFT   31
 #define CSU_IER_UNUSED31_WIDTH   1
-#define CSU_IER_UNUSED31_MASK    0X80000000
+#define CSU_IER_UNUSED31_MASK    0X80000000U
 
 #define CSU_IER_UNUSED30_SHIFT   30
 #define CSU_IER_UNUSED30_WIDTH   1
@@ -644,7 +624,7 @@ extern "C" {
 
 #define CSU_IDR_UNUSED31_SHIFT   31
 #define CSU_IDR_UNUSED31_WIDTH   1
-#define CSU_IDR_UNUSED31_MASK    0X80000000
+#define CSU_IDR_UNUSED31_MASK    0X80000000U
 
 #define CSU_IDR_UNUSED30_SHIFT   30
 #define CSU_IDR_UNUSED30_WIDTH   1
@@ -861,16 +841,16 @@ extern "C" {
 /**
  * Register: CSU_IDCODE
  */
-#define CSU_IDCODE    ( ( CSU_BASEADDR ) + 0X00000040 )
+#define CSU_IDCODE    ( ( CSU_BASEADDR ) + 0X00000040U )
 
 #define CSU_IDCODE_IDCODE_SHIFT   0
 #define CSU_IDCODE_IDCODE_WIDTH   32
-#define CSU_IDCODE_IDCODE_MASK    0XFFFFFFFF
+#define CSU_IDCODE_IDCODE_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_VERSION
  */
-#define CSU_VERSION    ( ( CSU_BASEADDR ) + 0X00000044 )
+#define CSU_VERSION    ( ( CSU_BASEADDR ) + 0X00000044U )
 
 #define CSU_VERSION_PLATFORM_VERSION_SHIFT   16
 #define CSU_VERSION_PLATFORM_VERSION_WIDTH   4
@@ -895,7 +875,7 @@ extern "C" {
 
 #define CSU_ROM_DIGEST_0_DIGEST_SHIFT   0
 #define CSU_ROM_DIGEST_0_DIGEST_WIDTH   32
-#define CSU_ROM_DIGEST_0_DIGEST_MASK    0XFFFFFFFF
+#define CSU_ROM_DIGEST_0_DIGEST_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_ROM_DIGEST_1
@@ -904,7 +884,7 @@ extern "C" {
 
 #define CSU_ROM_DIGEST_1_DIGEST_SHIFT   0
 #define CSU_ROM_DIGEST_1_DIGEST_WIDTH   32
-#define CSU_ROM_DIGEST_1_DIGEST_MASK    0XFFFFFFFF
+#define CSU_ROM_DIGEST_1_DIGEST_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_ROM_DIGEST_2
@@ -913,7 +893,7 @@ extern "C" {
 
 #define CSU_ROM_DIGEST_2_DIGEST_SHIFT   0
 #define CSU_ROM_DIGEST_2_DIGEST_WIDTH   32
-#define CSU_ROM_DIGEST_2_DIGEST_MASK    0XFFFFFFFF
+#define CSU_ROM_DIGEST_2_DIGEST_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_ROM_DIGEST_3
@@ -922,7 +902,7 @@ extern "C" {
 
 #define CSU_ROM_DIGEST_3_DIGEST_SHIFT   0
 #define CSU_ROM_DIGEST_3_DIGEST_WIDTH   32
-#define CSU_ROM_DIGEST_3_DIGEST_MASK    0XFFFFFFFF
+#define CSU_ROM_DIGEST_3_DIGEST_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_ROM_DIGEST_4
@@ -931,7 +911,7 @@ extern "C" {
 
 #define CSU_ROM_DIGEST_4_DIGEST_SHIFT   0
 #define CSU_ROM_DIGEST_4_DIGEST_WIDTH   32
-#define CSU_ROM_DIGEST_4_DIGEST_MASK    0XFFFFFFFF
+#define CSU_ROM_DIGEST_4_DIGEST_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_ROM_DIGEST_5
@@ -940,7 +920,7 @@ extern "C" {
 
 #define CSU_ROM_DIGEST_5_DIGEST_SHIFT   0
 #define CSU_ROM_DIGEST_5_DIGEST_WIDTH   32
-#define CSU_ROM_DIGEST_5_DIGEST_MASK    0XFFFFFFFF
+#define CSU_ROM_DIGEST_5_DIGEST_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_ROM_DIGEST_6
@@ -949,7 +929,7 @@ extern "C" {
 
 #define CSU_ROM_DIGEST_6_DIGEST_SHIFT   0
 #define CSU_ROM_DIGEST_6_DIGEST_WIDTH   32
-#define CSU_ROM_DIGEST_6_DIGEST_MASK    0XFFFFFFFF
+#define CSU_ROM_DIGEST_6_DIGEST_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_ROM_DIGEST_7
@@ -958,7 +938,7 @@ extern "C" {
 
 #define CSU_ROM_DIGEST_7_DIGEST_SHIFT   0
 #define CSU_ROM_DIGEST_7_DIGEST_WIDTH   32
-#define CSU_ROM_DIGEST_7_DIGEST_MASK    0XFFFFFFFF
+#define CSU_ROM_DIGEST_7_DIGEST_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_ROM_DIGEST_8
@@ -967,7 +947,7 @@ extern "C" {
 
 #define CSU_ROM_DIGEST_8_DIGEST_SHIFT   0
 #define CSU_ROM_DIGEST_8_DIGEST_WIDTH   32
-#define CSU_ROM_DIGEST_8_DIGEST_MASK    0XFFFFFFFF
+#define CSU_ROM_DIGEST_8_DIGEST_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_ROM_DIGEST_9
@@ -976,7 +956,7 @@ extern "C" {
 
 #define CSU_ROM_DIGEST_9_DIGEST_SHIFT   0
 #define CSU_ROM_DIGEST_9_DIGEST_WIDTH   32
-#define CSU_ROM_DIGEST_9_DIGEST_MASK    0XFFFFFFFF
+#define CSU_ROM_DIGEST_9_DIGEST_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_ROM_DIGEST_10
@@ -985,7 +965,7 @@ extern "C" {
 
 #define CSU_ROM_DIGEST_10_DIGEST_SHIFT   0
 #define CSU_ROM_DIGEST_10_DIGEST_WIDTH   32
-#define CSU_ROM_DIGEST_10_DIGEST_MASK    0XFFFFFFFF
+#define CSU_ROM_DIGEST_10_DIGEST_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_ROM_DIGEST_11
@@ -994,7 +974,7 @@ extern "C" {
 
 #define CSU_ROM_DIGEST_11_DIGEST_SHIFT   0
 #define CSU_ROM_DIGEST_11_DIGEST_WIDTH   32
-#define CSU_ROM_DIGEST_11_DIGEST_MASK    0XFFFFFFFF
+#define CSU_ROM_DIGEST_11_DIGEST_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_AES_STATUS
@@ -1127,7 +1107,7 @@ extern "C" {
 
 #define CSU_AES_KUP_0_AES_KEY_SHIFT   0
 #define CSU_AES_KUP_0_AES_KEY_WIDTH   32
-#define CSU_AES_KUP_0_AES_KEY_MASK    0XFFFFFFFF
+#define CSU_AES_KUP_0_AES_KEY_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_AES_KUP_1
@@ -1136,7 +1116,7 @@ extern "C" {
 
 #define CSU_AES_KUP_1_AES_KEY_SHIFT   0
 #define CSU_AES_KUP_1_AES_KEY_WIDTH   32
-#define CSU_AES_KUP_1_AES_KEY_MASK    0XFFFFFFFF
+#define CSU_AES_KUP_1_AES_KEY_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_AES_KUP_2
@@ -1145,7 +1125,7 @@ extern "C" {
 
 #define CSU_AES_KUP_2_AES_KEY_SHIFT   0
 #define CSU_AES_KUP_2_AES_KEY_WIDTH   32
-#define CSU_AES_KUP_2_AES_KEY_MASK    0XFFFFFFFF
+#define CSU_AES_KUP_2_AES_KEY_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_AES_KUP_3
@@ -1154,7 +1134,7 @@ extern "C" {
 
 #define CSU_AES_KUP_3_AES_KEY_SHIFT   0
 #define CSU_AES_KUP_3_AES_KEY_WIDTH   32
-#define CSU_AES_KUP_3_AES_KEY_MASK    0XFFFFFFFF
+#define CSU_AES_KUP_3_AES_KEY_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_AES_KUP_4
@@ -1163,7 +1143,7 @@ extern "C" {
 
 #define CSU_AES_KUP_4_AES_KEY_SHIFT   0
 #define CSU_AES_KUP_4_AES_KEY_WIDTH   32
-#define CSU_AES_KUP_4_AES_KEY_MASK    0XFFFFFFFF
+#define CSU_AES_KUP_4_AES_KEY_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_AES_KUP_5
@@ -1172,7 +1152,7 @@ extern "C" {
 
 #define CSU_AES_KUP_5_AES_KEY_SHIFT   0
 #define CSU_AES_KUP_5_AES_KEY_WIDTH   32
-#define CSU_AES_KUP_5_AES_KEY_MASK    0XFFFFFFFF
+#define CSU_AES_KUP_5_AES_KEY_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_AES_KUP_6
@@ -1181,7 +1161,7 @@ extern "C" {
 
 #define CSU_AES_KUP_6_AES_KEY_SHIFT   0
 #define CSU_AES_KUP_6_AES_KEY_WIDTH   32
-#define CSU_AES_KUP_6_AES_KEY_MASK    0XFFFFFFFF
+#define CSU_AES_KUP_6_AES_KEY_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_AES_KUP_7
@@ -1190,7 +1170,7 @@ extern "C" {
 
 #define CSU_AES_KUP_7_AES_KEY_SHIFT   0
 #define CSU_AES_KUP_7_AES_KEY_WIDTH   32
-#define CSU_AES_KUP_7_AES_KEY_MASK    0XFFFFFFFF
+#define CSU_AES_KUP_7_AES_KEY_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_AES_IV_0
@@ -1199,7 +1179,7 @@ extern "C" {
 
 #define CSU_AES_IV_0_AES_IV_SHIFT   0
 #define CSU_AES_IV_0_AES_IV_WIDTH   32
-#define CSU_AES_IV_0_AES_IV_MASK    0XFFFFFFFF
+#define CSU_AES_IV_0_AES_IV_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_AES_IV_1
@@ -1208,7 +1188,7 @@ extern "C" {
 
 #define CSU_AES_IV_1_AES_IV_SHIFT   0
 #define CSU_AES_IV_1_AES_IV_WIDTH   32
-#define CSU_AES_IV_1_AES_IV_MASK    0XFFFFFFFF
+#define CSU_AES_IV_1_AES_IV_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_AES_IV_2
@@ -1217,7 +1197,7 @@ extern "C" {
 
 #define CSU_AES_IV_2_AES_IV_SHIFT   0
 #define CSU_AES_IV_2_AES_IV_WIDTH   32
-#define CSU_AES_IV_2_AES_IV_MASK    0XFFFFFFFF
+#define CSU_AES_IV_2_AES_IV_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_AES_IV_3
@@ -1226,7 +1206,7 @@ extern "C" {
 
 #define CSU_AES_IV_3_AES_IV_DLC_SHIFT   0
 #define CSU_AES_IV_3_AES_IV_DLC_WIDTH   32
-#define CSU_AES_IV_3_AES_IV_DLC_MASK    0XFFFFFFFF
+#define CSU_AES_IV_3_AES_IV_DLC_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_SHA_START
@@ -1262,7 +1242,7 @@ extern "C" {
 
 #define CSU_SHA_DIGEST_0_DIGEST_SHIFT   0
 #define CSU_SHA_DIGEST_0_DIGEST_WIDTH   32
-#define CSU_SHA_DIGEST_0_DIGEST_MASK    0XFFFFFFFF
+#define CSU_SHA_DIGEST_0_DIGEST_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_SHA_DIGEST_1
@@ -1271,7 +1251,7 @@ extern "C" {
 
 #define CSU_SHA_DIGEST_1_DIGEST_SHIFT   0
 #define CSU_SHA_DIGEST_1_DIGEST_WIDTH   32
-#define CSU_SHA_DIGEST_1_DIGEST_MASK    0XFFFFFFFF
+#define CSU_SHA_DIGEST_1_DIGEST_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_SHA_DIGEST_2
@@ -1280,7 +1260,7 @@ extern "C" {
 
 #define CSU_SHA_DIGEST_2_DIGEST_SHIFT   0
 #define CSU_SHA_DIGEST_2_DIGEST_WIDTH   32
-#define CSU_SHA_DIGEST_2_DIGEST_MASK    0XFFFFFFFF
+#define CSU_SHA_DIGEST_2_DIGEST_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_SHA_DIGEST_3
@@ -1289,7 +1269,7 @@ extern "C" {
 
 #define CSU_SHA_DIGEST_3_DIGEST_SHIFT   0
 #define CSU_SHA_DIGEST_3_DIGEST_WIDTH   32
-#define CSU_SHA_DIGEST_3_DIGEST_MASK    0XFFFFFFFF
+#define CSU_SHA_DIGEST_3_DIGEST_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_SHA_DIGEST_4
@@ -1298,7 +1278,7 @@ extern "C" {
 
 #define CSU_SHA_DIGEST_4_DIGEST_SHIFT   0
 #define CSU_SHA_DIGEST_4_DIGEST_WIDTH   32
-#define CSU_SHA_DIGEST_4_DIGEST_MASK    0XFFFFFFFF
+#define CSU_SHA_DIGEST_4_DIGEST_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_SHA_DIGEST_5
@@ -1307,7 +1287,7 @@ extern "C" {
 
 #define CSU_SHA_DIGEST_5_DIGEST_SHIFT   0
 #define CSU_SHA_DIGEST_5_DIGEST_WIDTH   32
-#define CSU_SHA_DIGEST_5_DIGEST_MASK    0XFFFFFFFF
+#define CSU_SHA_DIGEST_5_DIGEST_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_SHA_DIGEST_6
@@ -1316,7 +1296,7 @@ extern "C" {
 
 #define CSU_SHA_DIGEST_6_DIGEST_SHIFT   0
 #define CSU_SHA_DIGEST_6_DIGEST_WIDTH   32
-#define CSU_SHA_DIGEST_6_DIGEST_MASK    0XFFFFFFFF
+#define CSU_SHA_DIGEST_6_DIGEST_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_SHA_DIGEST_7
@@ -1325,7 +1305,7 @@ extern "C" {
 
 #define CSU_SHA_DIGEST_7_DIGEST_SHIFT   0
 #define CSU_SHA_DIGEST_7_DIGEST_WIDTH   32
-#define CSU_SHA_DIGEST_7_DIGEST_MASK    0XFFFFFFFF
+#define CSU_SHA_DIGEST_7_DIGEST_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_SHA_DIGEST_8
@@ -1334,7 +1314,7 @@ extern "C" {
 
 #define CSU_SHA_DIGEST_8_DIGEST_SHIFT   0
 #define CSU_SHA_DIGEST_8_DIGEST_WIDTH   32
-#define CSU_SHA_DIGEST_8_DIGEST_MASK    0XFFFFFFFF
+#define CSU_SHA_DIGEST_8_DIGEST_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_SHA_DIGEST_9
@@ -1343,7 +1323,7 @@ extern "C" {
 
 #define CSU_SHA_DIGEST_9_DIGEST_SHIFT   0
 #define CSU_SHA_DIGEST_9_DIGEST_WIDTH   32
-#define CSU_SHA_DIGEST_9_DIGEST_MASK    0XFFFFFFFF
+#define CSU_SHA_DIGEST_9_DIGEST_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_SHA_DIGEST_10
@@ -1352,7 +1332,7 @@ extern "C" {
 
 #define CSU_SHA_DIGEST_10_DIGEST_SHIFT   0
 #define CSU_SHA_DIGEST_10_DIGEST_WIDTH   32
-#define CSU_SHA_DIGEST_10_DIGEST_MASK    0XFFFFFFFF
+#define CSU_SHA_DIGEST_10_DIGEST_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_SHA_DIGEST_11
@@ -1361,7 +1341,7 @@ extern "C" {
 
 #define CSU_SHA_DIGEST_11_DIGEST_SHIFT   0
 #define CSU_SHA_DIGEST_11_DIGEST_WIDTH   32
-#define CSU_SHA_DIGEST_11_DIGEST_MASK    0XFFFFFFFF
+#define CSU_SHA_DIGEST_11_DIGEST_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSU_PCAP_PROG
@@ -1414,11 +1394,11 @@ extern "C" {
 /**
  * Register: CSU_PCAP_STATUS
  */
-#define CSU_PCAP_STATUS_REG    ( ( CSU_BASEADDR ) + 0X00003010 )
+#define CSU_PCAP_STATUS_REG    ( ( CSU_BASEADDR ) + 0X00003010U )
 
 #define CSU_PCAP_STATUS_PCFG_FUSE_PL_DIS_SHIFT   31
 #define CSU_PCAP_STATUS_PCFG_FUSE_PL_DIS_WIDTH   1
-#define CSU_PCAP_STATUS_PCFG_FUSE_PL_DIS_MASK    0X80000000
+#define CSU_PCAP_STATUS_PCFG_FUSE_PL_DIS_MASK    0X80000000U
 
 #define CSU_PCAP_STATUS_PCFG_PL_CFG_USED_SHIFT   30
 #define CSU_PCAP_STATUS_PCFG_PL_CFG_USED_WIDTH   1
@@ -1474,7 +1454,7 @@ extern "C" {
 
 #define CSU_PCAP_STATUS_PL_INIT_SHIFT_VAL   2
 #define CSU_PCAP_STATUS_PL_INIT_WIDTH_VAL   1
-#define CSU_PCAP_STATUS_PL_INIT_MASK_VAL    0X00000004
+#define CSU_PCAP_STATUS_PL_INIT_MASK_VAL    0X00000004U
 
 #define CSU_PCAP_STATUS_RD_IDLE_SHIFT   1
 #define CSU_PCAP_STATUS_RD_IDLE_WIDTH   1

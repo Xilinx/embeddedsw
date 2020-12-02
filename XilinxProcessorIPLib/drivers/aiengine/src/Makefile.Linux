@@ -1,0 +1,36 @@
+APP = aiengine
+
+CC ?= gcc
+CP = cp
+LIBSOURCES = $(wildcard ./*/*.c) $(wildcard ./*/*/*.c) $(wildcard ../examples/aie_sim_test/ext/top/xaiesim_elfload.c)
+CFLAGS += -DXAIE_WRKARND_CRVO1692
+OUTS = $(LIBSOURCES:.c=.o)
+EXT = ../examples/aie_sim_test/ext/top
+INCLUDEFILES = ./*/*.h ./*/*/*.h $(EXT)/*.h
+INCLUDEDIR = ../include
+NAME := xaiengine
+MAJOR = 1
+MINOR = 0
+VERSION = $(MAJOR).$(MINOR)
+
+all: include lib$(NAME).so
+
+include:
+	mkdir $(INCLUDEDIR)/xaiengine -p
+	$(CP) xaiengine.h $(INCLUDEDIR)
+	$(CP) $(INCLUDEFILES) $(INCLUDEDIR)/xaiengine
+
+lib$(NAME).so.$(VERSION): $(OUTS)
+	$(CC) $(LDFLAGS) $^ -shared -Wl,-soname,lib$(NAME).so.$(MAJOR) -o lib$(NAME).so.$(VERSION) -lmetal -lopen_amp
+
+lib$(NAME).so: lib$(NAME).so.$(VERSION)
+	rm -f lib$(NAME).so.$(MAJOR) lib$(NAME).so
+	ln -s lib$(NAME).so.$(VERSION) lib$(NAME).so.$(MAJOR)
+	ln -s lib$(NAME).so.$(MAJOR) lib$(NAME).so
+
+%.o: %.c include
+	$(CC) $(CFLAGS) -I$(INCLUDEDIR) -I$(INCLUDEDIR)/xaiengine -c -fPIC $< -o $@
+
+clean:
+	rm -rf $(OUTS) *.so *.so.*
+	rm -rf $(INCLUDEDIR)/*.h

@@ -1,35 +1,13 @@
 /*******************************************************************************
- *
- * Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  ******************************************************************************/
+
 /******************************************************************************/
 /**
  *
  * @file xsdiaud_selftest.c
- * @addtogroup sdiaud_v2_0
+ * @addtogroup sdiaud_v2_2
  * @{
  * Contains an basic self-test API
  * @note None
@@ -189,12 +167,12 @@ int XSdiAud_SelfTest(XSdiAud *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	/* Read the SDI Audio Module control register to know the
 	 * operating mode i.e. to know whether the core is configured
-	 * as a Audio Embed or Audio Extract.
+	 * as a Audio Embed '0' or Audio Extract '1'.
 	 */
 	SdiAud_IsEmbed = XSdiAud_IsEmbed(InstancePtr);
 	if (SdiAud_IsEmbed != InstancePtr->Config.IsEmbed) {
 
-	xil_printf("Core configuration (%d) doesn't match GUI value (%d).\r\n",
+		xil_printf("Core configuration (%d) doesn't match GUI value (%d).\r\n",
 				SdiAud_IsEmbed, InstancePtr->Config.IsEmbed);
 		return XST_FAILURE;
 	}
@@ -205,7 +183,7 @@ int XSdiAud_SelfTest(XSdiAud *InstancePtr)
 	SdiAud_SdiStd = XSdiAud_GetSdiStd(InstancePtr);
 	if (SdiAud_SdiStd != InstancePtr->Config.LineRate) {
 
-	xil_printf("Core configuration (%d) doesn't match GUI value (%d).\r\n",
+		xil_printf("Core configuration (%d) doesn't match GUI value (%d).\r\n",
 				SdiAud_SdiStd, InstancePtr->Config.LineRate);
 		return XST_FAILURE;
 	}
@@ -260,11 +238,20 @@ int XSdiAud_SelfTest(XSdiAud *InstancePtr)
 	XSdiAud_CoreReset(InstancePtr, FALSE);
 	XSdiAud_ConfigReset(InstancePtr);
 
-	if (InstancePtr->Config.IsEmbed) {
+	/* Config.IsEmbed is '0' for Embed and '1' for Extract */
+	if (InstancePtr->Config.IsEmbed == SdiAud_IsEmbed) {
 		XSdiAud_Core_RegMap = XSdiAud_Embed_RegMap;
+
+		if (SdiAud_NumCh < XSDIAUD_32_CHANNELS)
+			XSdiAud_Core_RegMap[4].DefaultVal = (1 << SdiAud_NumCh) - 1;
+
 		count = XSDIAUD_EMBREG_CNT;
 	} else {
 		XSdiAud_Core_RegMap = XSdiAud_Extract_RegMap;
+
+		if (SdiAud_NumCh < XSDIAUD_32_CHANNELS)
+			XSdiAud_Core_RegMap[3].DefaultVal = (1 << SdiAud_NumCh) - 1;
+
 		count = XSDIAUD_EXTREG_CNT;
 	}
 
@@ -273,7 +260,8 @@ int XSdiAud_SelfTest(XSdiAud *InstancePtr)
 		Data = XSdiAud_ReadReg(InstancePtr->Config.BaseAddress,
 				XSdiAud_Core_RegMap[i].RegOffset);
 		if (Data != XSdiAud_Core_RegMap[i].DefaultVal) {
-			xil_printf("register doesn't hold reset value");
+			xil_printf("register doesn't hold reset value %d : 0x%08x != 0x%08x",
+					i, Data , XSdiAud_Core_RegMap[i].DefaultVal);
 			return XST_FAILURE;
 		}
 	}

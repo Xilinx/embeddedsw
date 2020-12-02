@@ -2,7 +2,7 @@
 
 CC := mb-gcc
 CC_FLAGS := -MMD -MP    -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mcpu=v9.2 -mxl-soft-mul
-CFLAGS := -Os
+CFLAGS := -Os -flto -ffat-lto-objects
 LN_FLAGS := -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxilfpga,-lxilsecure,-lxilskey,-lxil,-lgcc,-lc,--end-group -nostartfiles -Wl,--gc-sections
 
 c_SOURCES := $(wildcard *.c)

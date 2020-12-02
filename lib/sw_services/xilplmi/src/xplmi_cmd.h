@@ -1,27 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
@@ -37,6 +16,19 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   08/23/2018 Initial release
+* 1.01  bsv  01/09/2020 Changes related to bitsteram loading
+*       bsv  02/13/2020 Added code to prevent Plmi generic commands from
+*						getting executed via IPI
+*       ma   02/28/2020 Added code to prevent EM commands from getting executed
+*						via IPI
+*       bsv  04/03/2020 Code clean up Xilpdi
+* 1.02  kc   06/22/2020 Updated command handler error codes to include command
+*                       IDs
+*       skd  07/14/2020 Function pointer Func prototype changed
+*       td   08/19/2020 Fixed MISRA C violations Rule 10.3
+*       bsv  09/30/2020 Added parallel DMA support for SBI, JTAG, SMAP and PCIE
+*                       boot modes
+*       bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -51,19 +43,30 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include <xil_assert.h>
-#include "xil_types.h"
 #include "xplmi_status.h"
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_CMD_API_ID_MASK			(0xFFU)
 #define XPLMI_CMD_MODULE_ID_MASK		(0xFF00U)
 #define XPLMI_CMD_LEN_MASK			(0xFF0000U)
-#define XPLMI_CMD_RESP_SIZE			(4U)
-#define XPLMI_CMD_RESUME_DATALEN			(8U)
+#define XPLMI_CMD_RESP_SIZE			(8U)
+#define XPLMI_CMD_RESUME_DATALEN		(8U)
+#define XPLMI_CMD_HNDLR_MASK			(0xFF00U)
+#define XPLMI_CMD_HNDLR_PLM_VAL			(0x100U)
+#define XPLMI_CMD_HNDLR_EM_VAL			(0x800U)
 
 /**************************** Type Definitions *******************************/
 typedef struct XPlmi_Cmd XPlmi_Cmd;
+typedef struct XPlmi_KeyHoleParams XPlmi_KeyHoleParams;
+
+struct XPlmi_KeyHoleParams {
+	/** < True implies copied in chunks of 64K */
+	/** < False implies complete bitstream is copied in one chunk */
+	u8 InChunkCopy;
+	u64 SrcAddr; /**< Boot Source address */
+	u32 ExtraWords; /**< Words that are directly DMAed to CFI */
+	int (*Func) (u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+};
 
 struct XPlmi_Cmd {
 	u32 SubsystemId;
@@ -76,6 +79,8 @@ struct XPlmi_Cmd {
 	u32 Response[XPLMI_CMD_RESP_SIZE];
 	int (*ResumeHandler)(XPlmi_Cmd * CmdPtr);
 	u32 ResumeData[XPLMI_CMD_RESUME_DATALEN];
+	u32 DeferredError;
+	XPlmi_KeyHoleParams KeyHoleParams;
 };
 
 /***************** Macros (Inline Functions) Definitions *********************/

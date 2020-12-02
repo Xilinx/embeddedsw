@@ -1,38 +1,16 @@
 /******************************************************************************
-*
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xospipsv_options.c
-* @addtogroup ospipsv_v1_0
+* @addtogroup ospipsv_v1_3
 * @{
 *
-* This file implements funcitons to configure the OSPIPSV component,
+* This file implements functions to configure the OSPIPSV component,
 * specifically some optional settings, clock and flash related information.
 *
 * <pre>
@@ -45,6 +23,7 @@
 *                     DAC mode switching.
 *                     Removed Legacy/STIG mode option in OptionsTable.
 *       sk   02/04/19 Added support for SDR+PHY and DDR+PHY modes.
+* 1.1   sk   07/22/19 Added RX Tuning algorithm for SDR and DDR modes.
 *
 * </pre>
 *
@@ -53,7 +32,7 @@
 /***************************** Include Files *********************************/
 
 #include "xospipsv.h"
-
+#include "xospipsv_control.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -62,7 +41,6 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static void XOspiPsv_SetDllDelay(const XOspiPsv *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 
@@ -90,7 +68,7 @@ static OptionsMap OptionsTable[] = {
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function sets the options for the OSPIPSV device driver.The options
 * control how the device behaves relative to the OSPIPSV bus. The device must be
 * idle rather than busy transferring data before setting these device options.
@@ -108,7 +86,7 @@ static OptionsMap OptionsTable[] = {
 *		The transfer must complete or be aborted before setting options.
 *
 * @note
-* This function is not thread-safe.
+* 		This function is not thread-safe.
 *
 ******************************************************************************/
 u32 XOspiPsv_SetOptions(XOspiPsv *InstancePtr, u32 Options)
@@ -124,13 +102,14 @@ u32 XOspiPsv_SetOptions(XOspiPsv *InstancePtr, u32 Options)
 	 * Do not allow to modify the Control Register while a transfer is in
 	 * progress. Not thread-safe.
 	 */
-	if (InstancePtr->IsBusy == TRUE) {
+	if (InstancePtr->IsBusy == (u32)TRUE) {
 		Status = XST_DEVICE_BUSY;
 	} else {
+		XOspiPsv_Disable(InstancePtr);
 		ConfigReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
 				XOSPIPSV_CONFIG_REG);
 		for (Index = 0U; Index < XOSPIPSV_NUM_OPTIONS; Index++) {
-			if ((Options & OptionsTable[Index].Option) != FALSE) {
+			if ((Options & OptionsTable[Index].Option) != (u32)FALSE) {
 				ConfigReg |= OptionsTable[Index].Mask;
 				if((OptionsTable[Index].Mask &
 						XOSPIPSV_CONFIG_REG_ENB_DIR_ACC_CTLR_FLD_MASK) != 0U) {
@@ -138,11 +117,25 @@ u32 XOspiPsv_SetOptions(XOspiPsv *InstancePtr, u32 Options)
 							XOSPIPSV_REMAP_ADDR_REG, XOSPIPSV_REMAP_ADDR_VAL);
 					InstancePtr->OpMode = XOSPIPSV_DAC_MODE;
 					/* IOU_SLCR MUX selection */
+					#if EL1_NONSECURE
+					/*
+					 * Execution is happening in non secure world, configure MUX
+					 * settings through SMC calls
+					 */
+
+					/* Request for OSPI node */
+					Xil_Smc(PM_REQUEST_DEVICE_SMC_FID,OSPI_NODE_ID,0, 0,0,0,0,0);
+					/* Change MUX settings to select LINEAR mode */
+					Xil_Smc(PM_IOCTL_SMC_FID, (((u64)PM_IOCTL_OSPI_MUX_SELECT << 32) | OSPI_NODE_ID) , PM_OSPI_MUX_SEL_LINEAR, 0,0,0,0,0);
+					/* Release OSPI node */
+					Xil_Smc(PM_RELEASE_DEVICE_SMC_FID,OSPI_NODE_ID,0, 0,0,0,0,0);
+					#else
 					XOspiPsv_WriteReg(XPMC_IOU_SLCR_BASEADDR,
 						XPMC_IOU_SLCR_OSPI_MUX_SEL,
 						XOspiPsv_ReadReg(XPMC_IOU_SLCR_BASEADDR,
 							XPMC_IOU_SLCR_OSPI_MUX_SEL) |
 							(u32)XPMC_IOU_SLCR_OSPI_MUX_SEL_DAC_MASK);
+					#endif
 				} else {
 					XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 								XOSPIPSV_REMAP_ADDR_REG, 0x0U);
@@ -155,11 +148,25 @@ u32 XOspiPsv_SetOptions(XOspiPsv *InstancePtr, u32 Options)
 			} else {
 				if (OptionsTable[Index].Option == XOSPIPSV_DAC_EN_OPTION) {
 					if ((ConfigReg & XOSPIPSV_CONFIG_REG_ENB_DIR_ACC_CTLR_FLD_MASK) != 0U) {
+						#if EL1_NONSECURE
+						/*
+						 * Execution is happening in non secure world, configure MUX
+						 * settings through SMC calls
+						 */
+
+						/* Request for OSPI node */
+						Xil_Smc(PM_REQUEST_DEVICE_SMC_FID,OSPI_NODE_ID,0, 0,0,0,0,0);
+						/* Change MUX settings to select DMA mode */
+						Xil_Smc(PM_IOCTL_SMC_FID, (((u64)PM_IOCTL_OSPI_MUX_SELECT << 32) | OSPI_NODE_ID) , PM_OSPI_MUX_SEL_DMA, 0,0,0,0,0);
+						/* Release OSPI node */
+						Xil_Smc(PM_RELEASE_DEVICE_SMC_FID,OSPI_NODE_ID,0, 0,0,0,0,0);
+						#else
 						XOspiPsv_WriteReg(XPMC_IOU_SLCR_BASEADDR,
 							XPMC_IOU_SLCR_OSPI_MUX_SEL,
 							XOspiPsv_ReadReg(XPMC_IOU_SLCR_BASEADDR,
 								XPMC_IOU_SLCR_OSPI_MUX_SEL) &
 								~(u32)XPMC_IOU_SLCR_OSPI_MUX_SEL_DAC_MASK);
+						#endif
 					}
 				}
 				ConfigReg &= ~(OptionsTable[Index].Mask);
@@ -167,6 +174,7 @@ u32 XOspiPsv_SetOptions(XOspiPsv *InstancePtr, u32 Options)
 		}
 		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress, XOSPIPSV_CONFIG_REG,
 					ConfigReg);
+		XOspiPsv_Enable(InstancePtr);
 		Status = (u32)XST_SUCCESS;
 	}
 
@@ -175,19 +183,16 @@ u32 XOspiPsv_SetOptions(XOspiPsv *InstancePtr, u32 Options)
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function gets the options for the OSPIPSV device. The options control how
 * the device behaves relative to the OSPIPSV bus.
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
 *
 * @return
-*
-* Options contains the specified options currently set. This is a bit Value
-* where a 1 means the option is on, and a 0 means the option is off.
-* See the bit definitions named XOSPIPSV_*_OPTIONS in file xospipsv.h.
-*
-* @note		None.
+* 		Options contains the specified options currently set. This is a bit Value
+* 		where a 1 means the option is on, and a 0 means the option is off.
+* 		See the bit definitions named XOSPIPSV_*_OPTIONS in file xospipsv.h.
 *
 ******************************************************************************/
 u32 XOspiPsv_GetOptions(const XOspiPsv *InstancePtr)
@@ -206,7 +211,7 @@ u32 XOspiPsv_GetOptions(const XOspiPsv *InstancePtr)
 		 */
 		ConfigReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
 				XOSPIPSV_CONFIG_REG);
-		if ((ConfigReg & OptionsTable[Index].Mask) != FALSE) {
+		if ((ConfigReg & OptionsTable[Index].Mask) != (u32)FALSE) {
 			OptionsFlag |= OptionsTable[Index].Option;
 		}
 	}
@@ -216,23 +221,21 @@ u32 XOspiPsv_GetOptions(const XOspiPsv *InstancePtr)
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * Configures the clock according to the prescaler passed.
-*
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
 * @param	Prescaler - clock prescaler to be set.
 *
 * @return
 *		- XST_SUCCESS if successful.
+*       - XST_FAILURE if failed to set prescaler.
 *		- XST_DEVICE_IS_STARTED if the device is already started.
 *		- XST_DEVICE_BUSY if the device is currently transferring data.
 *		It must be stopped to re-initialize.
 *
-* @note		None.
-*
 ******************************************************************************/
-u32 XOspiPsv_SetClkPrescaler(const XOspiPsv *InstancePtr, u8 Prescaler)
+u32 XOspiPsv_SetClkPrescaler(XOspiPsv *InstancePtr, u8 Prescaler)
 {
 	u32 ConfigReg;
 	u32 Status;
@@ -245,9 +248,16 @@ u32 XOspiPsv_SetClkPrescaler(const XOspiPsv *InstancePtr, u8 Prescaler)
 	 * Do not allow the slave select to change while a transfer is in
 	 * progress. Not thread-safe.
 	 */
-	if (InstancePtr->IsBusy == TRUE) {
+	if (InstancePtr->IsBusy == (u32)TRUE) {
 		Status = (u32)XST_DEVICE_BUSY;
 	} else {
+		if ((InstancePtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_SDR_NON_PHY) &&
+			(Prescaler == XOSPIPSV_CLK_PRESCALE_2)) {
+			Status = XST_FAILURE;
+			goto ERROR_PATH;
+		}
+		XOspiPsv_Disable(InstancePtr);
+
 		/*
 		 * Read the configuration register, mask out the relevant bits, and set
 		 * them with the shifted Value passed into the function. Write the
@@ -261,65 +271,25 @@ u32 XOspiPsv_SetClkPrescaler(const XOspiPsv *InstancePtr, u8 Prescaler)
 		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress, XOSPIPSV_CONFIG_REG,
 						ConfigReg);
 
-		XOspiPsv_SetDllDelay(InstancePtr);
-
-		Status = (u32)XST_SUCCESS;
+		XOspiPsv_Enable(InstancePtr);
+		Status = XOspiPsv_SetDllDelay(InstancePtr);
 	}
 
+ERROR_PATH:
 	return Status;
 }
 
 /*****************************************************************************/
 /**
-*
-* Configures TX and RX DLL Delay
-*
-*
-* @param	InstancePtr is a pointer to the XOspiPsv instance.
-*
-* @return
-*		- None
-*
-* @note		None.
-*
-******************************************************************************/
-static void XOspiPsv_SetDllDelay(const XOspiPsv *InstancePtr)
-{
-	if (InstancePtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_SDR_PHY) {
-		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-				XOSPIPSV_PHY_CONFIGURATION_REG, XOSPIPSV_SDR_TX_RX_DLY_VAL);
-		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-			XOSPIPSV_PHY_CONFIGURATION_REG, (XOSPIPSV_SDR_TX_RX_DLY_VAL |
-				XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESYNC_FLD_MASK));
-	} else if (InstancePtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
-		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-				XOSPIPSV_PHY_CONFIGURATION_REG, XOSPIPSV_DDR_TX_RX_DLY_VAL);
-		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-			XOSPIPSV_PHY_CONFIGURATION_REG, (XOSPIPSV_DDR_TX_RX_DLY_VAL |
-				XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESYNC_FLD_MASK));
-	} else {
-		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-				XOSPIPSV_PHY_CONFIGURATION_REG, 0x0U);
-		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-			XOSPIPSV_PHY_CONFIGURATION_REG,
-				XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESYNC_FLD_MASK);
-	}
-}
-
-/*****************************************************************************/
-/**
-*
+* @brief
 * Configures the edge mode (SDR or DDR)
-*
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
 * @param	Mode is Edge mode. XOSPIPSV_EDGE_MODE_* represents valid values.
 *
 * @return
-*		- XST_SUCCESS
-*		- XST_FAILURE
-*
-* @note		None.
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if fail to set.
 *
 ******************************************************************************/
 u32 XOspiPsv_SetSdrDdrMode(XOspiPsv *InstancePtr, u32 Mode)
@@ -338,6 +308,7 @@ u32 XOspiPsv_SetSdrDdrMode(XOspiPsv *InstancePtr, u32 Mode)
 	}
 	InstancePtr->SdrDdrMode = Mode;
 
+	XOspiPsv_Disable(InstancePtr);
 	ConfigReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
 							XOSPIPSV_CONFIG_REG);
 	ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
@@ -345,12 +316,12 @@ u32 XOspiPsv_SetSdrDdrMode(XOspiPsv *InstancePtr, u32 Mode)
 	ConfigReg &= ~XOSPIPSV_CONFIG_REG_ENABLE_DTR_PROTOCOL_FLD_MASK;
 	ConfigReg &= ~XOSPIPSV_CONFIG_REG_PHY_MODE_ENABLE_FLD_MASK;
 	ReadReg &= ~XOSPIPSV_WRITE_COMPLETION_CTRL_REG_POLL_COUNT_FLD_MASK;
-	ReadReg |= (XOSPIPSV_POLL_CNT_FLD_NON_PHY <<
+	ReadReg |= ((u32)XOSPIPSV_POLL_CNT_FLD_NON_PHY <<
 			XOSPIPSV_WRITE_COMPLETION_CTRL_REG_POLL_COUNT_FLD_SHIFT);
 	if ((InstancePtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) ||
 			(InstancePtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_SDR_PHY)) {
 		ConfigReg |= XOSPIPSV_CONFIG_REG_PHY_MODE_ENABLE_FLD_MASK;
-		ReadReg |= (XOSPIPSV_POLL_CNT_FLD_PHY <<
+		ReadReg |= ((u32)XOSPIPSV_POLL_CNT_FLD_PHY <<
 				XOSPIPSV_WRITE_COMPLETION_CTRL_REG_POLL_COUNT_FLD_SHIFT);
 		if (InstancePtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
 			ConfigReg |= XOSPIPSV_CONFIG_REG_ENABLE_DTR_PROTOCOL_FLD_MASK;
@@ -361,9 +332,17 @@ u32 XOspiPsv_SetSdrDdrMode(XOspiPsv *InstancePtr, u32 Mode)
 								ConfigReg);
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 				XOSPIPSV_WRITE_COMPLETION_CTRL_REG, ReadReg);
-	XOspiPsv_SetDllDelay(InstancePtr);
-
-	Status = (u32)XST_SUCCESS;
+	ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_RD_DATA_CAPTURE_REG);
+	ReadReg &= ~XOSPIPSV_RD_DATA_CAPTURE_REG_DELAY_FLD_MASK;
+	if (InstancePtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_SDR_NON_PHY) {
+		ReadReg |= (XOSPIPSV_NON_PHY_RD_DLY <<
+			XOSPIPSV_RD_DATA_CAPTURE_REG_DELAY_FLD_SHIFT);
+	}
+	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_RD_DATA_CAPTURE_REG, ReadReg);
+	XOspiPsv_Enable(InstancePtr);
+	Status = XOspiPsv_SetDllDelay(InstancePtr);
 
 ERROR_PATH:
 	return Status;
@@ -371,21 +350,22 @@ ERROR_PATH:
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function should be used to tell the OSPIPSV driver the HW flash
-* configuration being used. This API should be called atleast once in the
+* configuration being used. This API should be called at least once in the
 * application. If desired, it can be called multiple times when switching
 * between communicating to different flash devices/using different configs.
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
-* @param	Chip_Cs - Flash Chip Select.
+* @param	chip_select - Flash Chip Select.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_DEVICE_IS_STARTED if the device is already started.
 *		It must be stopped to re-initialize.
 *
-* @note		If this funciton is not called atleast once in the application,
+* @note
+* 		If this function is not called at least once in the application,
 *		the driver assumes there is a single flash connected to the
 *		lower bus and CS line.
 *
@@ -393,6 +373,8 @@ ERROR_PATH:
 u32 XOspiPsv_SelectFlash(XOspiPsv *InstancePtr, u8 chip_select)
 {
 	u32 Status;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	if(chip_select >= 2U) {
 		Status = (u32)XST_FAILURE;
@@ -408,36 +390,39 @@ ERROR_PATH:
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * Configures how the controller will poll the device following a write
 * transfer in DAC mode.
 *
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
-* @param	Mode is Edge mode. XOSPIPSV_EDGE_MODE_* represents valid values.
+* @param	FlashMode is Edge mode. XOSPIPSV_EDGE_MODE_* represents valid values.
 *
 * @return
-*		- XST_SUCCESS
-*		- XST_FAILURE
-*
-* @note		None.
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if fail to set.
 *
 ******************************************************************************/
-void XOspiPsv_ConfigureAutoPolling(XOspiPsv *InstancePtr, u32 FlashMode)
+void XOspiPsv_ConfigureAutoPolling(const XOspiPsv *InstancePtr, u32 FlashMode)
 {
 	u32 ReadReg;
+	u8 Dummy;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 
+	XOspiPsv_Disable(InstancePtr);
 	ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
 				XOSPIPSV_POLLING_FLASH_STATUS_REG);
 	ReadReg &= ~XOSPIPSV_POLLING_FLASH_STATUS_REG_DEVICE_STATUS_NB_DUMMY_MASK;
+	Dummy = InstancePtr->Extra_DummyCycle;
 	if (FlashMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
-		ReadReg |= (XOSPIPSV_DDR_STATS_REG_DUMMY <<
-			XOSPIPSV_POLLING_FLASH_STATUS_REG_DEVICE_STATUS_NB_DUMMY_SHIFT);
+		Dummy += XOSPIPSV_DDR_STATS_REG_DUMMY;
 	}
+	ReadReg |= ((u32)Dummy <<
+		XOSPIPSV_POLLING_FLASH_STATUS_REG_DEVICE_STATUS_NB_DUMMY_SHIFT);
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 					XOSPIPSV_POLLING_FLASH_STATUS_REG, ReadReg);
+	XOspiPsv_Enable(InstancePtr);
 }
 
 /** @} */

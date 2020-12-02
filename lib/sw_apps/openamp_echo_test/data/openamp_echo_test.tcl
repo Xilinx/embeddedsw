@@ -1,29 +1,6 @@
 #/******************************************************************************
-#*
-#* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
-#*
-#* Permission is hereby granted, free of charge, to any person obtaining a copy
-#* of this software and associated documentation files (the "Software"), to deal
-#* in the Software without restriction, including without limitation the rights
-#* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-#* copies of the Software, and to permit persons to whom the Software is
-#* furnished to do so, subject to the following conditions:
-#*
-#* The above copyright notice and this permission notice shall be included in
-#* all copies or substantial portions of the Software.
-#*
-#* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-#* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-#* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-#* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-#* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-#* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-#* SOFTWARE.
-#*
-#* Except as contained in this notice, the name of the Xilinx shall not be used
-#* in advertising or otherwise to promote the sale, use or other dealings in
-#* this Software without prior written authorization from Xilinx.
-#*
+#* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+#* SPDX-License-Identifier: MIT
 #******************************************************************************/
 
 proc swapp_get_name {} {
@@ -70,7 +47,7 @@ proc swapp_is_supported_hw {} {
     set hw_processor [common::get_property HW_INSTANCE $proc_instance]
     set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]]
 
-    if { ( $proc_type != "psu_cortexr5" ) && ( $proc_type != "ps7_cortexa9" ) } {
+    if { ( $proc_type != "psu_cortexr5" ) && ( $proc_type != "psv_cortexr5" ) && ( $proc_type != "ps7_cortexa9" ) } {
         error "This application is supported only for Cortex-R5 and Cortex-A9 processors."
     }
 
@@ -83,6 +60,29 @@ proc get_stdout {} {
 
 proc check_stdout_hw {} {
     return
+}
+
+proc setup_for_rpmsg_userspace {} {
+    puts " in setup_for_rpmsg_userspace "
+    set lines ""
+    set loc "rsc_table.c"
+    #saves each line to an arg in a temp list
+    set file [open $loc]
+    foreach {i} [split [read $file] \n] {
+        lappend lines $i
+    }
+    close $file
+
+    #rewrites your file
+    set file [open $loc w+]
+    foreach {line} $lines {
+        # replace ring tx entry
+        regsub -all "RING_TX +FW_RSC_U32_ADDR_ANY" $line "RING_TX 0x3ed40000" line
+        # replace ring rx entry
+        regsub -all "RING_RX +FW_RSC_U32_ADDR_ANY" $line "RING_RX 0x3ed44000" line
+        puts $file $line
+    }
+    close $file
 }
 
 proc swapp_generate {} {
@@ -104,7 +104,7 @@ proc swapp_generate {} {
         error "Invalid OS: $os"
     }
 
-    if { $proc_type == "psu_cortexr5" } {
+    if { $proc_type == "psu_cortexr5" || $proc_type == "psv_cortexr5" } {
         set procdir "zynqmp_r5"
     } elseif { $proc_type == "ps7_cortexa9" } {
         set procdir "zynq7"
@@ -128,6 +128,11 @@ proc swapp_generate {} {
     file delete -force "machine"
     file delete -force "system"
 
+    set with_rpmsg_userspace [::common::get_property VALUE [hsi::get_comp_params -filter { NAME == WITH_RPMSG_USERSPACE } ] ]
+    if  { $with_rpmsg_userspace} {
+        setup_for_rpmsg_userspace
+    }
+
     return
 }
 
@@ -137,7 +142,7 @@ proc swapp_get_linker_constraints {} {
 }
 
 proc swapp_get_supported_processors {} {
-    return "psu_cortexr5 ps7_cortexa9"
+    return "psu_cortexr5 psv_cortexr5 ps7_cortexa9"
 }
 
 proc swapp_get_supported_os {} {

@@ -28,7 +28,7 @@
   <td style="padding-left: 0.5em;">
    <div id="projectname">usbpsu
    </div>
-   <div id="projectbrief">Xilinx SDK Drivers API Documentation</div>
+   <div id="projectbrief">Xilinx Vitis Drivers API Documentation</div>
   </td>
  </tr>
  </tbody>
@@ -70,7 +70,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <hr/>
 <p>
 1.0   sg    06/06/16 First release
-1.1   sg    10/24/16 Update for backward compatability
+1.1   sg    10/24/16 Update for backward compatibility
                      Added XUsbPsu_IsSuperSpeed function in <a class="el" href="xusbpsu_8c.html">xusbpsu.c</a>
 1.2   mn    01/20/17 removed unnecessary declaration of
                      XUsbPsu_SetConfiguration in <a class="el" href="xusbpsu_8h.html">xusbpsu.h</a>
@@ -89,9 +89,14 @@ $(document).ready(function(){initNavTree('index.html','');});
       vak   13/03/18 Moved the setup interrupt system calls from driver to
                example.
       vak   24/09/18 Added EnableSuperSpeed in <a class="el" href="struct_x_usb_psu___config.html" title="This typedef contains configuration information for the USB device.">XUsbPsu_Config</a> for speed
-                     negotation at the time of connection to Host
+                     negotiation at the time of connection to Host
 1.5     vak   02/06/19 Added "xusbpsu_endpoint.h" header
-1.5     vak   03/25/19 Fixed incorrect data_alignment pragma directive for IAR</pre><pre></pre> </div></div><!-- contents -->
+1.5     vak   03/25/19 Fixed incorrect data_alignment pragma directive for IAR
+1.6     pm    22/07/19 Removed coverity warnings
+1.7     pm    14/11/19 Updated number of TRB to improve performance
+        pm    03/23/20 Restructured the code for more readability and modularity
+      pm    03/14/20 Added clocking support
+1.8     pm    24/07/20 Fixed MISRA-C and Coverity warnings</pre><pre></pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /****************************************************************************/
 /**
 *
@@ -39,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   bvikram  02/01/17 First release
+* 2.0   bvikram  09/20/20 Fix USB boot issue
 *
 * </pre>
 *
@@ -201,17 +180,41 @@ typedef struct{
 } __attribute__((__packed__))XFsblPs_UsbBosDesc;
 
 struct XFsblPs_DfuIf {
+	struct Usb_DevData* InstancePtr;
 	u8 CurrState;
 	u8 NextState;
 	u8 CurrStatus;
 	u8 GotReset;
-	u32 CurrentInf; /* current interface */
+	u32 CurrentInf; /**< Current interface */
 	u8 GotDnloadRqst;
+	u32 TotalTransfers;
 	u32 TotalBytesDnloaded;
-	u8 DfuWaitForInterrupt;
+	volatile u8 DfuWaitForInterrupt;
+	u8 IsDfu;
 	u8 RuntimeToDfu;
 };
 
+typedef struct {
+	u32 (*XFsblPs_Ch9SetupDevDescReply)(u8 *BufPtr, u32 BufferLen);
+	u32 (*XFsblPs_Ch9SetupCfgDescReply)(u8 *BufPtr, const u32 BufferLen);
+	u32 (*XFsblPs_Ch9SetupBosDescReply)(u8 *BufPtr, u32 BufferLen);
+	u32 (*XFsblPs_Ch9SetupStrDescReply)(u8 *BufPtr, const u32 BufferLen, u8 Index);
+	int (*XFsblPs_SetConfiguration)(struct Usb_DevData* InstancePtr,
+		SetupPacket *SetupData);
+	int (*XFsblPs_SetConfigurationApp)(const struct Usb_DevData* InstancePtr,
+		SetupPacket *SetupData);
+	void (*XFsblPs_SetInterfaceHandler)(struct Usb_DevData* InstancePtr,
+		SetupPacket *SetupData);
+	void (*XFsblPs_ClassReq)(struct Usb_DevData* InstancePtr,
+		SetupPacket *SetupData);
+	u32 (*XFsblPs_GetDescReply)(const struct Usb_DevData* InstancePtr,
+                SetupPacket *SetupData, u8 *BufPtr);
+}XFsbl_Ch9Func_Container;
+
+typedef struct {
+	XFsbl_Ch9Func_Container Ch9_func;
+	void * Data_ptr;
+}XFsbl_UsbCh9_Data;
 
 #define DFU_MAX_TRANSFER			1024U
 /* DFU status */

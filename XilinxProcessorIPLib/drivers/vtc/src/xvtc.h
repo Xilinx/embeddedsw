@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2008 - 2014 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2008 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xvtc.h
-* @addtogroup vtc_v7_2
+* @addtogroup vtc_v8_3
 * @{
 * @details
 *
@@ -295,6 +273,9 @@
 *                       Changed the prototype of XVtc_CfgInitialize API.
 *       ms     03/17/17 Added readme.txt file in examples folder for doxygen
 *                       generation.
+* 8.2	rg     08/12/20	Implemented XVtc_SetAdaptiveSyncMode,
+* 				    XVtc_DisableAdaptiveSync and
+* 				    XVtc_SetVfpStretchLimit API's.
 * </pre>
 *
 ******************************************************************************/
@@ -950,6 +931,11 @@ int XVtc_SetCallBack(XVtc *InstancePtr, u32 IntrType,
 
 /* SelfTest related function in xvtc_selftest.c */
 int XVtc_SelfTest(XVtc *InstancePtr);
+
+/* Adaptive-Sync related functions */
+void XVtc_SetAdaptiveSyncMode(XVtc *InstancePtr, XVtc_AdaptiveSyncMode Mode);
+void XVtc_DisableAdaptiveSync(XVtc *InstancePtr);
+void XVtc_SetVfpStretchLimit(XVtc *InstancePtr, u32 StretchLimit);
 
 /************************** Variable Declarations ****************************/
 

@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2001 - 2014 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2001 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xspi.c
-* @addtogroup spi_v4_4
+* @addtogroup spi_v4_7
 * @{
 *
 * Contains required functions of the XSpi driver component.  See xspi.h for
@@ -95,7 +73,11 @@
 *                     Changed the prototype of XSpi_CfgInitialize API.
 * 4.4	tjs  11/28/17 When receive fifo exists, we need to check for status
 *                     register rx fifo empty flag. If clear we can proceed for
-*                     read. Otherwise we will hit execption. CR# 989938
+*                     read. Otherwise we will hit exception. CR# 989938
+* 4.5	akm  05/29/19 Removed master inhibit dependency while writing DTR
+*		      in between multiple transfers.
+* 4.7	akm  10/22/20 Removed dependency of Tx_Full flag while writing DTR
+*		      in between multiple transfers.
 * </pre>
 *
 ******************************************************************************/
@@ -192,6 +174,7 @@ int XSpi_CfgInitialize(XSpi *InstancePtr, XSpi_Config *Config,
 	InstancePtr->RemainingBytes = 0;
 	InstancePtr->BaseAddr = EffectiveAddr;
 	InstancePtr->HasFifos = Config->HasFifos;
+	InstancePtr->FifosDepth = Config->FifosDepth;
 	InstancePtr->SlaveOnly = Config->SlaveOnly;
 	InstancePtr->NumSlaveBits = Config->NumSlaveBits;
 	if (Config->DataWidth == 0) {
@@ -543,6 +526,8 @@ int XSpi_Transfer(XSpi *InstancePtr, u8 *SendBufPtr,
 	u32 StatusReg;
 	u32 Data = 0;
 	u8  DataWidth;
+	u32 DataLen;
+	u32 Index;
 
 	/*
 	 * The RecvBufPtr argument can be NULL.
@@ -617,6 +602,12 @@ int XSpi_Transfer(XSpi *InstancePtr, u8 *SendBufPtr,
 
 	DataWidth = InstancePtr->DataWidth;
 
+	/* Inhibit the transmitter while the transmit register/FIFO is
+	 * being filled.
+	 */
+	ControlReg = XSpi_GetControlReg(InstancePtr);
+	XSpi_SetControlReg(InstancePtr, ControlReg |
+			   XSP_CR_TRANS_INHIBIT_MASK);
 	/*
 	 * Fill the DTR/FIFO with as many bytes as it will take (or as many as
 	 * we have to send). We use the tx full status bit to know if the device
@@ -705,16 +696,6 @@ int XSpi_Transfer(XSpi *InstancePtr, u8 *SendBufPtr,
 
 			XSpi_IntrClear(InstancePtr,XSP_INTR_TX_EMPTY_MASK);
 
-			/*
-			 * A transmit has just completed. Process received data
-			 * and check for more data to transmit. Always inhibit
-			 * the transmitter while the transmit register/FIFO is
-			 * being filled, or make sure it is stopped if we're
-			 * done.
-			 */
-			ControlReg = XSpi_GetControlReg(InstancePtr);
-			XSpi_SetControlReg(InstancePtr, ControlReg |
-						XSP_CR_TRANS_INHIBIT_MASK);
 
 			/*
 			 * First get the data received as a result of the
@@ -779,10 +760,10 @@ int XSpi_Transfer(XSpi *InstancePtr, u8 *SendBufPtr,
 				 * The downside is that the status must be read
 				 * each loop iteration.
 				 */
-				StatusReg = XSpi_GetStatusReg(InstancePtr);
+				DataLen = (InstancePtr->RemainingBytes > InstancePtr->FifosDepth) ?
+						InstancePtr->FifosDepth : InstancePtr->RemainingBytes;
 
-				while(((StatusReg & XSP_SR_TX_FULL_MASK)== 0) &&
-					(InstancePtr->RemainingBytes > 0)) {
+				for(Index = 0; Index < DataLen; Index += (DataWidth / 8)) {
 					if (DataWidth == XSP_DATAWIDTH_BYTE) {
 						/*
 						 * Data Transfer Width is Byte
@@ -813,19 +794,9 @@ int XSpi_Transfer(XSpi *InstancePtr, u8 *SendBufPtr,
 							XSP_DTR_OFFSET, Data);
 					InstancePtr->SendBufferPtr +=
 							(DataWidth >> 3);
-					InstancePtr->RemainingBytes -=
-							(DataWidth >> 3);
-					StatusReg = XSpi_GetStatusReg(
-							InstancePtr);
 				}
+				InstancePtr->RemainingBytes -= DataLen;
 
-				/*
-				 * Start the transfer by not inhibiting the
-				 * transmitter any longer.
-				 */
-				ControlReg = XSpi_GetControlReg(InstancePtr);
-				ControlReg &= ~XSP_CR_TRANS_INHIBIT_MASK;
-				XSpi_SetControlReg(InstancePtr, ControlReg);
 			}
 		}
 
@@ -1103,9 +1074,10 @@ void XSpi_InterruptHandler(void *InstancePtr)
 	u32 IntrStatus;
 	unsigned int BytesDone;	/* number of bytes done so far */
 	u32 Data = 0;
-	u32 ControlReg;
 	u32 StatusReg;
 	u8  DataWidth;
+	u32 DataLen;
+	u32 Index;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 
@@ -1156,15 +1128,6 @@ void XSpi_InterruptHandler(void *InstancePtr)
 	if ((IntrStatus & XSP_INTR_TX_EMPTY_MASK) ||
 	    (IntrStatus & XSP_INTR_TX_HALF_EMPTY_MASK)) {
 
-		/*
-		 * A transmit has just completed. Process received data and
-		 * check for more data to transmit. Always inhibit the
-		 * transmitter while the Isr re-fills the transmit
-		 * register/FIFO, or make sure it is stopped if we're done.
-		 */
-		ControlReg = XSpi_GetControlReg(SpiPtr);
-		XSpi_SetControlReg(SpiPtr, ControlReg |
-					XSP_CR_TRANS_INHIBIT_MASK);
 
 		/*
 		 * First get the data received as a result of the transmit that
@@ -1218,9 +1181,9 @@ void XSpi_InterruptHandler(void *InstancePtr)
 			 * The downside is that the status must be read each
 			 * loop iteration.
 			 */
-			StatusReg = XSpi_GetStatusReg(SpiPtr);
-			while (((StatusReg & XSP_SR_TX_FULL_MASK) == 0) &&
-				(SpiPtr->RemainingBytes > 0)) {
+			DataLen = (SpiPtr->RemainingBytes > SpiPtr->FifosDepth) ?
+					SpiPtr->FifosDepth : SpiPtr->RemainingBytes;
+			for(Index = 0; Index < DataLen; Index += (DataWidth / 8)) {
 				if (DataWidth == XSP_DATAWIDTH_BYTE) {
 					/*
 					 * Data Transfer Width is Byte (8 bit).
@@ -1245,15 +1208,9 @@ void XSpi_InterruptHandler(void *InstancePtr)
 				XSpi_WriteReg(SpiPtr->BaseAddr, XSP_DTR_OFFSET,
 						Data);
 				SpiPtr->SendBufferPtr += (DataWidth >> 3);
-				SpiPtr->RemainingBytes -= (DataWidth >> 3);
-				StatusReg = XSpi_GetStatusReg(SpiPtr);
 			}
+			SpiPtr->RemainingBytes -= DataLen;
 
-			/*
-			 * Start the transfer by not inhibiting the transmitter
-			 * any longer.
-			 */
-			XSpi_SetControlReg(SpiPtr, ControlReg);
 		} else {
 
 			/*

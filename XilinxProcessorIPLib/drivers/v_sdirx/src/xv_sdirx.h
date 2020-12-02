@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2017 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -74,7 +52,8 @@ typedef enum {
 	XV_SDIRX_HANDLER_STREAM_DOWN = 1,
 	XV_SDIRX_HANDLER_STREAM_UP,
 	XV_SDIRX_HANDLER_OVERFLOW,
-	XV_SDIRX_HANDLER_UNDERFLOW
+	XV_SDIRX_HANDLER_UNDERFLOW,
+	XV_SDIRX_HANDLER_VSYNC,
 } XV_SdiRx_HandlerType;
 /*@}*/
 
@@ -146,7 +125,7 @@ typedef enum {
 */
 typedef enum {
 	XV_SDIRX_FR_NONE    = 0,
-	XV_SDIRX_FR_UNKNOWN,
+	XV_SDIRX_FR_96HZ,
 	XV_SDIRX_FR_23_98HZ,
 	XV_SDIRX_FR_24HZ,
 	XV_SDIRX_FR_47_95HZ,
@@ -157,6 +136,10 @@ typedef enum {
 	XV_SDIRX_FR_50HZ,
 	XV_SDIRX_FR_59_94HZ,
 	XV_SDIRX_FR_60HZ,
+	XV_SDIRX_FR_96_F_HZ,
+	XV_SDIRX_FR_100HZ,
+	XV_SDIRX_FR_120HZ,
+	XV_SDIRX_FR_120_F_HZ,
 	XV_SDIRX_FR_NUM_SUPPORTED
 } XV_SdiRx_FrameRate;
 
@@ -219,14 +202,19 @@ typedef struct {
 	XV_SdiRx_Callback	UnderFlowCallback;		/**< Callback for Underflow callback */
 	void	*UnderFlowRef;				/**< To be passed to the Underflow callback */
 
+	XV_SdiRx_Callback	VsyncCallback;		/**< Callback for Vsync callback */
+	void	*VsyncRef;				/**< To be passed to the Vsync callback */
+
 	/* SDI RX stream */
 	XV_SdiRx_Stream		Stream[XV_SDIRX_MAX_DATASTREAM];	/**< SDI RX stream information */
 	XSdiVid_Transport	Transport;
 	u8					SupportedModes;
 	u8					VideoStreamNum;
+	XVidC_ColorDepth	BitDepth;
 } XV_SdiRx;
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XSDIRX_BIT(n)		(1 << (n))
 
 /*****************************************************************************/
 /**
@@ -277,6 +265,8 @@ void XV_SdiRx_DisableMode(XV_SdiRx *InstancePtr,
 void XV_SdiRx_Start(XV_SdiRx *InstancePtr, XV_SdiRx_SearchMode Mode);
 int XV_SdiRx_Stop(XV_SdiRx *InstancePtr);
 u32 XV_SdiRx_ReportDetectedError(XV_SdiRx *InstancePtr);
+void XV_SdiRx_SetYCbCr444_RGB_10bit(XV_SdiRx *InstancePtr);
+void XV_SdiRx_ClearYCbCr444_RGB_10bit(XV_SdiRx *InstancePtr);
 void XV_SdiRx_SetVidLckWindow(XV_SdiRx *InstancePtr, u32 Data);
 
 /* Bridge and reset specific functions */
@@ -304,6 +294,8 @@ int XV_SdiRx_SetCallback(XV_SdiRx *InstancePtr,
 	void *CallbackRef);
 void XV_SdiRx_IntrDisable(XV_SdiRx *InstancePtr, u32 Mask);
 void XV_SdiRx_IntrEnable(XV_SdiRx *InstancePtr, u32 Mask);
+
+void XV_SdiRx_SetBitDepth(XV_SdiRx *InstancePtr, XVidC_ColorDepth BitDepth);
 
 /************************** Variable Declarations ****************************/
 /************************** Variable Declarations ****************************/

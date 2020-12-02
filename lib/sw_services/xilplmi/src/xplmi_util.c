@@ -1,28 +1,8 @@
 /******************************************************************************
-* Copyright (C) 2017-2019 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+* Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -36,7 +16,18 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   02/21/2017 Initial release
-*
+* 1.01  bsv  04/18/2019 Added support for NPI readback and CFI readback
+*       kc   04/26/2019 Updated Delay and Poll timeout based on timers
+*       rm   06/27/2019 Added APIs for safety register writes
+*       vnsl 07/19/2019 Added XPlmi_MemCmp API to check for PPK and SPK integrity
+* 1.02  bsv  02/17/2020 Added 64-bit / 128-bit safety write APIs for xilsem
+*       bsv  04/04/2020 Code clean up
+* 1.03  kc   06/22/2020 Minor updates to PrintArray for better display
+*       kc   08/17/2020 Added redundancy checks to XPlmi_MemCmp
+*       bsv  09/04/2020 Added checks to validate input params for XPlmi_Strcat
+*                       and XPlmi_Strcpy
+*       bm   10/14/2020 Code clean up
+*       td   10/19/2020 MISRA C Fixes
 * </pre>
 *
 * @note
@@ -47,8 +38,9 @@
 #include "xplmi_util.h"
 #include "xplmi_hw.h"
 #include "xplmi_debug.h"
+#include "sleep.h"
+
 /************************** Constant Definitions *****************************/
-#define XPLMI_TIME_OUT_DEFAULT	(1000*10000U)
 
 /**************************** Type Definitions *******************************/
 
@@ -58,234 +50,304 @@
 
 /************************** Variable Definitions *****************************/
 
+/*****************************************************************************/
+/**
+ * @brief	This function will Read, Modify and Write to a register.
+ *
+ * @param	RegAddr is the address of the register
+ * @param	Mask denotes the bits to be modified
+ * @param	Value is the value to be written to the register
+ *
+ * @return	None
+ *
+ *****************************************************************************/
 void XPlmi_UtilRMW(u32 RegAddr, u32 Mask, u32 Value)
 {
-	u32 l_Val;
+	u32 Val;
 
-	l_Val = Xil_In32(RegAddr);
-	l_Val = (l_Val & (~Mask)) | (Mask & Value);
-
-	Xil_Out32(RegAddr, l_Val);
-}
-
-int XPlmi_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutCount)
-{
-	u32 l_RegValue;
-	u32 TimeOut = TimeOutCount;
-	/**
-	 * Read the Register value
-	 */
-	l_RegValue = Xil_In32(RegAddr);
-	/**
-	 * Loop while the MAsk is not set or we timeout
-	 */
-	while(((l_RegValue & Mask) != Mask) && (TimeOut > 0U)){
-		/**
-		 * Latch up the Register value again
-		 */
-		l_RegValue = Xil_In32(RegAddr);
-		/**
-		 * Decrement the TimeOut Count
-		 */
-		TimeOut--;
-	}
-
-	return ((TimeOut == 0U) ? XST_FAILURE : XST_SUCCESS);
-}
-
-int XPlmi_UtilPollForZero(u32 RegAddr, u32 Mask, u32 TimeOutCount)
-{
-	u32 l_RegValue;
-	u32 TimeOut = TimeOutCount;
-
-	l_RegValue = Xil_In32(RegAddr);
-	/**
-	 * Loop until all bits defined by mask are cleared
-	 * or we time out
-	 */
-	while (((l_RegValue & Mask) != 0U) && (TimeOut > 0U)) {
-		/**
-		 * Latch up the reg value again
-		 */
-		l_RegValue = Xil_In32(RegAddr);
-		/**
-		 * Decrement the timeout count
-		 */
-		TimeOut--;
-	}
-
-	return ((TimeOut == 0U) ? XST_FAILURE : XST_SUCCESS);
-}
-
-void XPlmi_UtilWait(u32 TimeOutCount)
-{
-	u32 TimeOut = TimeOutCount;
-	while (TimeOut > 0U) {
-		TimeOut--;
-	}
+	Val = XPlmi_In32(RegAddr);
+	Val = (Val & (~Mask)) | (Mask & Value);
+	XPlmi_Out32(RegAddr, Val);
 }
 
 /*****************************************************************************/
 /**
- * @param	Addr 32 bit address
- * @param	Mask is the bit field to be updated
- * @param	Value is value to be updated
- * @param       TimeOutCount is delay time in ms
+ * @brief	This function will Read, Modify and Write to a register and then
+ * read back to validate if the value read is the same as the expected value.
  *
- * @return      None
+ * @param	RegAddr is the address of the register
+ * @param	Mask denotes the bits to be modified
+ * @param	Value is the value to be written to the register
  *
- ******************************************************************************/
-int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInMs)
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XPlmi_UtilSafetyWrite(u32 RegAddr, u32 Mask, u32 Value)
 {
-	u32 l_RegValue;
-	u32 TimeOut = TimeOutInMs*10000; //TBD: remove multiplication
+	int Status = XST_FAILURE;
+	u32 Val;
 
-	/**
-	 * if timeout value is zero, max time out value is taken
+	Val = XPlmi_In32(RegAddr);
+	Val = (Val & (~Mask)) | (Mask & Value);
+
+	XPlmi_Out32(RegAddr, Val);
+	if (XPlmi_In32(RegAddr) == Val) {
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function polls a register till the masked bits are set to
+ * expected value or till timeout occurs.
+ *
+ * @param	RegAddr is the address of the register
+ * @param	Mask denotes the bits to be modified
+ * @param	ExpectedValue is the value for which the register is polled
+ * @param	TimeOutInUs is the max time in microseconds for which the register
+ *			would be polled for the expected value
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
+{
+	int Status = XST_FAILURE;
+	u32 RegValue;
+	u32 TimeOut = TimeOutInUs;
+
+	/*
+	 * If timeout value is zero, max time out value is taken
 	 */
-	if (TimeOut == 0U)
-	{
+	if (TimeOut == 0U) {
 		TimeOut = XPLMI_TIME_OUT_DEFAULT;
 	}
-
-	/**
+	/*
 	 * Read the Register value
 	 */
-	l_RegValue = Xil_In32(RegAddr);
-
-	/**
+	RegValue = XPlmi_In32(RegAddr);
+	/*
 	 * Loop while the MAsk is not set or we timeout
 	 */
-	while(((l_RegValue & Mask) != ExpectedValue) && (TimeOut > 0U)){
-		/**
+	while (((RegValue & Mask) != ExpectedValue) && (TimeOut > 0U)) {
+		usleep(1U);
+		/*
 		 * Latch up the Register value again
 		 */
-		l_RegValue = Xil_In32(RegAddr);
-		/**
+		RegValue = XPlmi_In32(RegAddr);
+		/*
 		 * Decrement the TimeOut Count
 		 */
 		TimeOut--;
 	}
+	if (TimeOut > 0U) {
+		Status = XST_SUCCESS;
+	}
 
-	return ((TimeOut == 0U) ? XST_FAILURE : XST_SUCCESS);
+	return Status;
 }
 
 /*****************************************************************************/
 /**
- * @param	Addr 64 bit address
+ * @brief	This function polls a 64 bit address till the masked bits are set to
+ * expected value or till timeout occurs.
+ *
+ * @param	RegAddr 64 bit address
  * @param	Mask is the bit field to be polled
  * @param	Expected Value is value to be polled
- * @param       TimeOutCount is delay time in ms
+ * @param   TimeOutInUs is delay time in micro sec
  *
- * @return      None
+ * @return	XST_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
-int XPlmi_UtilPoll64(u64 Addr, u32 Mask, u32 ExpectedValue, u32 TimeOutInMs)
+int XPlmi_UtilPoll64(u64 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
 {
+	int Status = XST_FAILURE;
 	u32 ReadValue;
-	u32 TimeOut = TimeOutInMs*10000; //TBD: remove multiplication
+	u32 TimeOut = TimeOutInUs;
 
-	/**
-	 * if timeout value is zero, max time out value is taken
+	/*
+	 * If timeout value is zero, max time out value is taken
 	 */
-	if (TimeOut == 0U)
-	{
+	if (TimeOut == 0U) {
 		TimeOut = XPLMI_TIME_OUT_DEFAULT;
 	}
-
-	/**
+	/*
 	 * Read the Register value
 	 */
-	ReadValue = XPlmi_In64(Addr);
-
-	/**
+	ReadValue = XPlmi_In64(RegAddr);
+	/*
 	 * Loop while the Mask is not set or we timeout
 	 */
-	while(((ReadValue & Mask) != ExpectedValue) && (TimeOut > 0U)){
-		/**
+	while (((ReadValue & Mask) != ExpectedValue) && (TimeOut > 0U)) {
+		usleep(1U);
+		/*
 		 * Latch up the value again
 		 */
-		ReadValue = XPlmi_In64(Addr);
+		ReadValue = XPlmi_In64(RegAddr);
+		/*
+		 * Decrement the TimeOut Count
+		 */
+		TimeOut--;
+	}
+	if (TimeOut > 0U) {
+		Status = XST_SUCCESS;
+	}
 
-		/**
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function polls a 64 bit register till the masked bits are set to
+ * expected value or till timeout occurs.
+ *
+ * @param	RegAddr is the register address
+ * @param	Mask is the bit field to be updated
+ * @param	TimeOutInUs is delay time in micro sec
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ ******************************************************************************/
+int XPlmi_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutInUs)
+{
+	int Status = XST_FAILURE;
+	u32 RegValue;
+	u32 TimeOut = TimeOutInUs;
+
+	/*
+	 * Read the Register value
+	 */
+	RegValue = XPlmi_In32(RegAddr);
+
+	/*
+	 * Loop while the MAsk is not set or we timeout
+	 */
+	while (((RegValue & Mask) != Mask) && (TimeOut > 0U)) {
+		/*
+		 * Latch up the Register value again
+		 */
+		RegValue = XPlmi_In32(RegAddr);
+
+		/*
 		 * Decrement the TimeOut Count
 		 */
 		TimeOut--;
 	}
 
-	return ((TimeOut == 0U) ? XST_FAILURE : XST_SUCCESS);
+	if (TimeOut > 0U) {
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
 }
 
 /*****************************************************************************/
 /**
+ * @brief	This function polls a 64 bit register till the masked bits are set to
+ * expected value or till timeout occurs.
+ *
  * @param	HighAddr is higher 32-bits of 64-bit address
  * @param	LowAddr is lower 32-bits of 64-bit address
  * @param	Mask is the bit field to be updated
- * @param	Value is value to be updated
- * @param       TimeOutCount is delay time in ms
+ * @param	TimeOutInUs is delay time in micro sec
  *
- * @return      None
+ * @return	XST_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
-int XPlmi_UtilPollForMask64(u32 HighAddr, u32 LowAddr, u32 Mask,
-				u32 TimeOutInMs)
+int XPlmi_UtilPollForMask64(u32 HighAddr, u32 LowAddr, u32 Mask, u32 TimeOutInUs)
 {
+	int Status = XST_FAILURE;
 	u64 Addr = (((u64)HighAddr << 32U) | LowAddr);
 	u32 ReadValue;
-    u32 TimeOut = TimeOutInMs*10000; //TBD: remove multiplication
+	u32 TimeOut = TimeOutInUs;
 
-    /**
+	/*
 	 * Read the Register value
 	 */
-    ReadValue = lwea(Addr);
-
-    /**
+	ReadValue = lwea(Addr);
+	 /*
 	 * Loop while the Mask is not set or we timeout
 	 */
-    while(((ReadValue & Mask) != Mask) && (TimeOut > 0U)){
-		/**
+	while (((ReadValue & Mask) != Mask) && (TimeOut > 0U)) {
+		usleep(1U);
+		/*
 		 * Latch up the value again
 		 */
 		ReadValue = lwea(Addr);
-
-		/**
+		/*
 		 * Decrement the TimeOut Count
 		 */
 		TimeOut--;
 	}
+	if (TimeOut > 0U) {
+		Status = XST_SUCCESS;
+	}
 
-	return ((TimeOut == 0U) ? XST_FAILURE : XST_SUCCESS);
-
+	return Status;
 }
 
 /*****************************************************************************/
 /**
- * @param       HighAddr is higher 32-bits of 64-bit address
- * @param	LowAaddr is lower 32-bits of 64-bit address
- * @param       Mask is the bit field to be updated
- * @param       Value is value to be updated
+ * @brief	This function will Read, Modify and Write to a 64 bit register.
  *
- * @return      None
+ * @param	HighAddr is higher 32-bits of 64-bit address
+ * @param	LowAaddr is lower 32-bits of 64-bit address
+ * @param	Mask is the bit field to be updated
+ * @param	Value is value to be updated
+ *
+ * @return	None
  *
  ******************************************************************************/
 void XPlmi_UtilRMW64(u32 HighAddr, u32 LowAddr, u32 Mask, u32 Value)
 {
-	u64 Addr = (((u64)HighAddr << 32) | LowAddr);
-    u32 ReadVal;
+	u64 Addr = (((u64)HighAddr << 32U) | LowAddr);
+	u32 ReadVal;
 
-    ReadVal = lwea(Addr);
-    ReadVal = (ReadVal & (~Mask)) | (Mask & Value);
-
-    swea(Addr, ReadVal);
+	ReadVal = lwea(Addr);
+	ReadVal = (ReadVal & (~Mask)) | (Mask & Value);
+	swea(Addr, ReadVal);
 }
 
 /*****************************************************************************/
 /**
- * @param       HighAddr is higher 32-bits of 64-bit address
- * @param	LowAddr is lower 32-bits of 64-bit address
- * @param       Value is value to be updated
+ * @brief	The function writes data to 64 bit address and validates the
+ * operation by reading back the contents of the address.
  *
- * @return      None
+ * @param	HighAddr is higher 32-bits of 64-bit address
+ * @param	LowAaddr is lower 32-bits of 64-bit address
+ * @param	Mask is the bit field to be updated
+ * @param	Value is value to be updated
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ ******************************************************************************/
+int XPlmi_UtilSafetyRMW64(u32 HighAddr, u32 LowAddr, u32 Mask, u32 Value)
+{
+	int Status = XST_FAILURE;
+	u64 Addr = (((u64)HighAddr << 32U) | LowAddr);
+	u32 ReadVal;
+
+	ReadVal = XPlmi_In64(Addr);
+	ReadVal = (ReadVal & (~Mask)) | (Mask & Value);
+	XPlmi_Out64(Addr, ReadVal);
+	if (XPlmi_In64(Addr) == ReadVal) {
+		Status = XST_SUCCESS;
+	}
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief 	This function writes to a 64 bit address
+ *
+ * @param	HighAddr is higher 32-bits of 64-bit address
+ * @param	LowAddr is lower 32-bits of 64-bit address
+ * @param	Value is value to be updated
+ *
+ * @return	None
  *
  ******************************************************************************/
 void XPlmi_UtilWrite64(u32 HighAddr, u32 LowAddr, u32 Value)
@@ -294,166 +356,38 @@ void XPlmi_UtilWrite64(u32 HighAddr, u32 LowAddr, u32 Value)
 	swea(Addr, Value);
 }
 
-/*****************************************************************************/
-/**
- * @param       HighAddr is higher 32-bits of 64-bit address
- * @param	LowAddr is lower 32-bits of 64-bit address
- * @param       Value is value to be updated
- *
- * @return      None
- *
- ******************************************************************************/
-void XPlmi_Write64(u32 HighAddr, u32 LowAddr, u32 Value)
-{
-	u64 Addr = (((u64)HighAddr << 32U) | LowAddr);
-	swea(Addr, Value);
-}
-
 /****************************************************************************/
 /**
-* This function is used to print the entire array in bytes as specified by the
-* debug type
+* @brief	This function is used to print the entire array in bytes as specified by the
+* debug type.
 *
-* @param DebugType printing of the array will happen as defined
-*	 by the debug type
-* @param Buf pointer to the  buffer to be printed
-* @param Len length of the bytes to be printed
-* @param Str pointer to the data that is printed along the data
+* @param	DebugType printing of the array will happen as defined by the debug type
+* @param	Buf pointer to the  buffer to be printed
+* @param	Len length of the bytes to be printed
+* @param	Str pointer to the data that is printed along the data
 *
-* @return None
-*
-* @note
+* @return	None
 *
 *****************************************************************************/
-void XPlmi_PrintArray (u32 DebugType, const u8 Buf[], u32 Len, const char *Str)
+void XPlmi_PrintArray (u32 DebugType, const u64 BufAddr, u32 Len, const char *Str)
 {
 	u32 Index;
+	u64 Addr = BufAddr;
 
-	if ((DebugType & XPlmiDbgCurrentTypes) != 0U)
-	{
-		XPlmi_Printf(DebugType, "%s START\r\n", Str);
-		for (Index=0U;Index<Len;Index++)
-		{
-			XPlmi_Printf(DebugType, "%02lx ", Buf[Index]);
-			if (((Index+1U)%16U) == 0U){
-				XPlmi_Printf(DebugType, "\r\n");
+	if ((DebugType & XPlmiDbgCurrentTypes) != 0U) {
+		XPlmi_Printf(DebugType, "%s START, Len:0x%08x\r\n 0x%08x%08x: ",
+			     Str, Len, (u32)(Addr >> 32U), (u32)Addr);
+		for (Index = 0U; Index < Len; Index++) {
+			XPlmi_Printf_WoTimeStamp(DebugType, "0x%08x ",
+				XPlmi_In64(Addr));
+			if (((Index + 1U) % XPLMI_WORD_LEN) == 0U) {
+				XPlmi_Printf_WoTimeStamp(DebugType,
+				"\r\n 0x%08x%08x: ", (u32)(Addr >> 32U), (u32)Addr);
 			}
+			Addr += XPLMI_WORD_LEN;
 		}
-		XPlmi_Printf(DebugType, "\r\n%s END\r\n", Str);
+		XPlmi_Printf_WoTimeStamp(DebugType, "\r\n");
+		XPlmi_Printf(DebugType, "%s END\r\n", Str);
 	}
 	return;
-}
-
-/*****************************************************************************/
-/**
- *
- *
- *
- * @param	None
- *
- * @return	None
- *
- ******************************************************************************/
-char *XPlmi_Strcpy(char *DestPtr, const char *SrcPtr)
-{
-	u32 Count;
-
-	for (Count=0U; SrcPtr[Count] != '\0'; ++Count)
-	{
-		DestPtr[Count] = SrcPtr[Count];
-	}
-	DestPtr[Count] = '\0';
-
-	return DestPtr;
-}
-
-
-/*****************************************************************************/
-/**
- *
- *
- *
- * @param	None
- *
- * @return	None
- *
- ******************************************************************************/
-char * XPlmi_Strcat(char* Str1Ptr, const char* Str2Ptr)
-{
-	while( *Str1Ptr > '\0')
-	{
-		Str1Ptr++;
-	}
-
-	while( *Str2Ptr > '\0')
-	{
-		*Str1Ptr = *Str2Ptr;
-		Str1Ptr++; Str2Ptr++;
-	}
-
-	*Str1Ptr = '\0';
-	return --Str1Ptr;
-}
-
-/*****************************************************************************/
-/**
- * This function is used to compare two strings
- *
- * @param	Str1Ptr First string to be compared
- * @param	Str2Ptr Second string to be compared
- * @return	0 if both strings are same,
- *		-1/1 if first non matching character has
- *		lower/greater value in Str1Ptr
- *
- ******************************************************************************/
-s32 XPlmi_Strcmp( const char* Str1Ptr, const char* Str2Ptr)
-{
-	s32 retVal;
-
-	while (*Str1Ptr == *Str2Ptr) {
-		if (*Str1Ptr == '\0') {
-			retVal = 0;
-			goto END;
-		}
-		Str1Ptr++;
-		Str2Ptr++;
-	}
-
-	if( *Str1Ptr < *Str2Ptr) {
-		retVal = -1;
-	}
-	else {
-		retVal = 1;
-	}
-
-END:
-	return retVal;
-}
-
-
-/*****************************************************************************/
-/**
- *
- *
- *
- * @param	None
- *
- * @return	None
- *
- ******************************************************************************/
-void* XPlmi_MemCpy(void * DestPtr, const void * SrcPtr, u32 Len)
-{
-	u8 *Dst = DestPtr;
-	const u8 *Src = SrcPtr;
-
-	/* Loop and copy.  */
-	while (Len != 0U)
-	{
-		*Dst = *Src;
-		Dst++;
-		Src++;
-		Len--;
-	}
-
-	return DestPtr;
 }

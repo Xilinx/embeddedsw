@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -52,6 +30,11 @@
 * 7.0   mus      01/03/19 Tweak Xil_ExceptionEnableMask and
 *                         Xil_ExceptionDisableMask macros to support legacy
 *                         examples for Cortexa72 EL3 exception level.
+* 7.3   mus      04/15/20 Added Xil_EnableNestedInterrupts and
+*                         Xil_DisableNestedInterrupts macros for ARMv8.
+*                         For Cortexa72, these macro's would not be supported
+*                         at EL3, as Cortexa72 is using GIC-500(GICv3),  which
+*                         triggeres only FIQ at EL3. Fix for CR#1062506
 * </pre>
 *
 ******************************************************************************/
@@ -201,7 +184,117 @@ typedef void (*Xil_InterruptHandler)(void *data);
 #define Xil_ExceptionDisable() \
 		Xil_ExceptionDisableMask(XIL_EXCEPTION_IRQ)
 
-#if !defined (__aarch64__) && !defined (ARMA53_32)
+#if ( defined (PLATFORM_ZYNQMP) && EL3 )
+/****************************************************************************/
+/**
+* @brief	Enable nested interrupts by clearing the I bit in DAIF.This
+*			macro is defined for Cortex-A53 64 bit mode BSP configured to run
+*			at EL3.. However,it is not defined for Versal Cortex-A72 BSP
+*			configured to run at EL3. Reason is, Cortex-A72 is coupled
+*			with GIC-500(GICv3 specifications) and it triggers only FIQ at EL3.
+*
+* @return   None.
+*
+* @note     This macro is supposed to be used from interrupt handlers. In the
+*			interrupt handler the interrupts are disabled by default (I bit
+*			is set as 1). To allow nesting of interrupts, this macro should be
+*			used. It clears the I bit. Once that bit is cleared and provided the
+*			preemption of interrupt conditions are met in the GIC, nesting of
+*			interrupts will start happening.
+*			Caution: This macro must be used with caution. Before calling this
+*			macro, the user must ensure that the source of the current IRQ
+*			is appropriately cleared. Otherwise, as soon as we clear the I
+*			bit, there can be an infinite loop of interrupts with an
+*			eventual crash (all the stack space getting consumed).
+******************************************************************************/
+#define Xil_EnableNestedInterrupts() \
+                __asm__ __volatile__ ("mrs    X1, ELR_EL3"); \
+                __asm__ __volatile__ ("mrs    X2, SPSR_EL3");  \
+                __asm__ __volatile__ ("stp    X1,X2, [sp,#-0x10]!"); \
+                __asm__ __volatile__ ("mrs    X1, DAIF");  \
+                __asm__ __volatile__ ("bic    X1,X1,#(0x1<<7)");  \
+                __asm__ __volatile__ ("msr    DAIF, X1");  \
+
+/****************************************************************************/
+/**
+* @brief	Disable the nested interrupts by setting the I bit in DAIF. This
+*			macro is defined for Cortex-A53 64 bit mode BSP configured to run
+*			at EL3.
+*
+* @return   None.
+*
+* @note     This macro is meant to be called in the interrupt service routines.
+*			This macro cannot be used independently. It can only be used when
+*			nesting of interrupts have been enabled by using the macro
+*			Xil_EnableNestedInterrupts(). In a typical flow, the user first
+*			calls the Xil_EnableNestedInterrupts in the ISR at the appropriate
+*			point. The user then must call this macro before exiting the interrupt
+*			service routine. This macro puts the ARM back in IRQ mode and
+*			hence sets back the I bit.
+******************************************************************************/
+#define Xil_DisableNestedInterrupts() \
+                __asm__ __volatile__ ("ldp    X1,X2, [sp,#0x10]!"); \
+                __asm__ __volatile__ ("msr    ELR_EL3, X1"); \
+                __asm__ __volatile__ ("msr    SPSR_EL3, X2"); \
+                __asm__ __volatile__ ("mrs    X1, DAIF");  \
+                __asm__ __volatile__ ("orr    X1, X1, #(0x1<<7)"); \
+                __asm__ __volatile__ ("msr    DAIF, X1");  \
+
+#elif EL1_NONSECURE
+/****************************************************************************/
+/**
+* @brief	Enable nested interrupts by clearing the I bit in DAIF.This
+*			macro is defined for Cortex-A53 64 bit mode and Cortex-A72 64 bit
+*			BSP configured to run at EL1 NON SECURE
+*
+* @return   None.
+*
+* @note     This macro is supposed to be used from interrupt handlers. In the
+*			interrupt handler the interrupts are disabled by default (I bit
+*			is set as 1). To allow nesting of interrupts, this macro should be
+*			used. It clears the I bit. Once that bit is cleared and provided the
+*			preemption of interrupt conditions are met in the GIC, nesting of
+*			interrupts will start happening.
+*			Caution: This macro must be used with caution. Before calling this
+*			macro, the user must ensure that the source of the current IRQ
+*			is appropriately cleared. Otherwise, as soon as we clear the I
+*			bit, there can be an infinite loop of interrupts with an
+*			eventual crash (all the stack space getting consumed).
+******************************************************************************/
+#define Xil_EnableNestedInterrupts() \
+                __asm__ __volatile__ ("mrs    X1, ELR_EL1"); \
+                __asm__ __volatile__ ("mrs    X2, SPSR_EL1");  \
+                __asm__ __volatile__ ("stp    X1,X2, [sp,#-0x10]!"); \
+                __asm__ __volatile__ ("mrs    X1, DAIF");  \
+                __asm__ __volatile__ ("bic    X1,X1,#(0x1<<7)");  \
+                __asm__ __volatile__ ("msr    DAIF, X1");  \
+
+/****************************************************************************/
+/**
+* @brief	Disable the nested interrupts by setting the I bit in DAIF. This
+*			macro is defined for Cortex-A53 64 bit mode and Cortex-A72 64 bit
+*			BSP configured to run at EL1 NON SECURE
+*
+* @return   None.
+*
+* @note     This macro is meant to be called in the interrupt service routines.
+*			This macro cannot be used independently. It can only be used when
+*			nesting of interrupts have been enabled by using the macro
+*			Xil_EnableNestedInterrupts(). In a typical flow, the user first
+*			calls the Xil_EnableNestedInterrupts in the ISR at the appropriate
+*			point. The user then must call this macro before exiting the interrupt
+*			service routine. This macro puts the ARM back in IRQ mode and
+*			hence sets back the I bit.
+******************************************************************************/
+#define Xil_DisableNestedInterrupts() \
+                __asm__ __volatile__ ("ldp    X1,X2, [sp,#0x10]!"); \
+                __asm__ __volatile__ ("msr    ELR_EL1, X1"); \
+                __asm__ __volatile__ ("msr    SPSR_EL1, X2"); \
+                __asm__ __volatile__ ("mrs    X1, DAIF");  \
+                __asm__ __volatile__ ("orr    X1, X1, #(0x1<<7)"); \
+                __asm__ __volatile__ ("msr    DAIF, X1");  \
+
+#elif (!defined (__aarch64__) && !defined (ARMA53_32))
 /****************************************************************************/
 /**
 * @brief	Enable nested interrupts by clearing the I and F bits in CPSR. This
@@ -228,7 +321,6 @@ typedef void (*Xil_InterruptHandler)(void *data);
 		__asm__ __volatile__ ("stmfd   sp!, {lr}"); \
 		__asm__ __volatile__ ("msr     cpsr_c, #0x1F"); \
 		__asm__ __volatile__ ("stmfd   sp!, {lr}");
-
 /****************************************************************************/
 /**
 * @brief	Disable the nested interrupts by setting the I and F bits. This API

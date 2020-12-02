@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 19 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -64,8 +42,13 @@
 *                         successful programming of the requested efuse bits.
 * 6.7	psl      03/13/19 Added XSK_EFUSEPS_CHECK_AES_KEY_CRC, to check for
 * 						  AES key CRC if TRUE.
-* 	psl      03/28/19 Corrected typos
+* 	    psl      03/28/19 Corrected typos
 *       psl      04/10/19 Fixed IAR warnings.
+* 6.8   psl      07/17/19 Added print to display CRC of AES key for CRC
+*                         verification.
+* 7.0   kpt      09/02/20 Added successfully ran print to the example in
+*                         case of success
+*
 * </pre>
 *
 ******************************************************************************/
@@ -182,6 +165,8 @@ int main()
 	/* CRC check for programmed AES key */
 	if (XSK_EFUSEPS_CHECK_AES_KEY_CRC == TRUE) {
 		AesCrc = XilSKey_CrcCalculation((u8 *)XSK_EFUSEPS_AES_KEY);
+		xil_printf("AES Key's CRC provided for verification: %08x\n\r",
+								AesCrc);
 		PsStatus = XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc(AesCrc);
 		if (PsStatus != XST_SUCCESS) {
 			xil_printf("\r\nAES CRC check is failed\n\r");
@@ -202,11 +187,11 @@ int main()
 
 EFUSE_ERROR:
 	if (PsStatus != XST_SUCCESS) {
-		xil_printf("\r\nEfuse example is failed with Status = %08x\n\r",
+		xil_printf("\r\nnZynqMP eFuse example is failed with Status = %08x\n\r",
 								PsStatus);
 	}
 	else {
-		xil_printf("\r\nZynqMp Efuse example exited successfully");
+		xil_printf("\r\nSuccessfully ran ZynqMP eFuse example....");
 	}
 
 	return PsStatus;
@@ -290,12 +275,8 @@ static inline u32 XilSKey_EfusePs_ZynqMp_InitData(
 	PsInstancePtr->PrgrmUser6Fuse = XSK_EFUSEPS_WRITE_USER6_FUSE;
 	PsInstancePtr->PrgrmUser7Fuse = XSK_EFUSEPS_WRITE_USER7_FUSE;
 
-	/* Variable for Timer Intialization */
+	/* Variable for Timer Initialization */
 	PsInstancePtr->IntialisedTimer = 0;
-
-	/* Copying PPK hash types */
-	PsInstancePtr->IsPpk0Sha3Hash = XSK_EFUSEPS_PPK0_IS_SHA3;
-	PsInstancePtr->IsPpk1Sha3Hash = XSK_EFUSEPS_PPK1_IS_SHA3;
 
 	/* Copy the fuses to be programmed */
 
@@ -431,40 +412,34 @@ static inline u32 XilSKey_EfusePs_ZynqMp_InitData(
 
 	/* Is PPK0 hash programming is enabled */
 	if (PsInstancePtr->PrgrmPpk0Hash == TRUE) {
-		/* If Sha3 hash is programming into Efuse PPK0 */
-		if (PsInstancePtr->IsPpk0Sha3Hash == TRUE) {
-			/* Validation of PPK0 sha3 hash */
-			PsStatus = XilSKey_Efuse_ValidateKey(
-				(char *)XSK_EFUSEPS_PPK0_HASH,
-				XSK_EFUSEPS_PPK_SHA3_HASH_STRING_LEN_96);
-			if(PsStatus != XST_SUCCESS) {
-				goto ERROR;
-			}
-			/* Assign the PPK0 sha3 hash */
-			XilSKey_Efuse_ConvertStringToHexBE(
-				(char *)XSK_EFUSEPS_PPK0_HASH,
-				&PsInstancePtr->Ppk0Hash[0],
-				XSK_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS_384);
+		/* Validation of PPK0 sha3 hash */
+		PsStatus = XilSKey_Efuse_ValidateKey(
+			(char *)XSK_EFUSEPS_PPK0_HASH,
+			XSK_EFUSEPS_PPK_SHA3_HASH_STRING_LEN_96);
+		if(PsStatus != XST_SUCCESS) {
+			goto ERROR;
 		}
+		/* Assign the PPK0 sha3 hash */
+		XilSKey_Efuse_ConvertStringToHexBE(
+			(char *)XSK_EFUSEPS_PPK0_HASH,
+			&PsInstancePtr->Ppk0Hash[0],
+			XSK_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS_384);
 	}
 
 	/* Is PPK1 hash programming is enabled */
 	if (PsInstancePtr->PrgrmPpk1Hash == TRUE) {
-		/* If Sha3 hash is programming into Efuse PPK1 */
-		if (PsInstancePtr->IsPpk1Sha3Hash == TRUE) {
-			/* Validation of PPK1 sha3 hash */
-			PsStatus = XilSKey_Efuse_ValidateKey(
-				(char *)XSK_EFUSEPS_PPK1_HASH,
-				XSK_EFUSEPS_PPK_SHA3_HASH_STRING_LEN_96);
-			if(PsStatus != XST_SUCCESS) {
-				goto ERROR;
-			}
-			/* Assign the PPK1 sha3 hash */
-			XilSKey_Efuse_ConvertStringToHexBE(
-				(char *)XSK_EFUSEPS_PPK1_HASH,
-				&PsInstancePtr->Ppk1Hash[0],
-				XSK_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS_384);
+		/* Validation of PPK1 sha3 hash */
+		PsStatus = XilSKey_Efuse_ValidateKey(
+			(char *)XSK_EFUSEPS_PPK1_HASH,
+			XSK_EFUSEPS_PPK_SHA3_HASH_STRING_LEN_96);
+		if(PsStatus != XST_SUCCESS) {
+			goto ERROR;
 		}
+		/* Assign the PPK1 sha3 hash */
+		XilSKey_Efuse_ConvertStringToHexBE(
+			(char *)XSK_EFUSEPS_PPK1_HASH,
+			&PsInstancePtr->Ppk1Hash[0],
+			XSK_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS_384);
 	}
 
 	if (PsInstancePtr->PrgrmSpkID == TRUE) {

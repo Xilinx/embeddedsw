@@ -8,10 +8,6 @@ var NAVTREE =
         [ "Variables", "functions_vars.html", null ]
       ] ]
     ] ],
-    [ "APIs", "globals.html", [
-      [ "All", "globals.html", null ],
-      [ "Functions", "globals_func.html", null ]
-    ] ],
     [ "File List", "files.html", "files" ],
     [ "Examples", "example.html", [
       [ "main.c", "example.html#ex1", null ],

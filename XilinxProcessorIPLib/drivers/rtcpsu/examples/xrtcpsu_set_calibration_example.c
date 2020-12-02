@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /****************************************************************************/
 /**
 *
@@ -32,7 +10,8 @@
 *
 * This file contains an example using the XRtcPsu driver.
 *
-* This function updates the calibration register value.
+* This function calculates new calibration value and updates the
+* calibration register value.
 *
 * @note
 * If the device does not work properly, the example may hang.
@@ -43,6 +22,8 @@
 * ----- ------ -------- -----------------------------------------------
 * 1.00  kvn 05/12/15 First Release
 * 1.6	tjs 09/17/18 Fixed compilation warnings
+* 1.8   sg  07/17/19 Update example sequence for finding
+*			new calibration values
 *
 * </pre>
 ******************************************************************************/
@@ -53,6 +34,7 @@
 #include "xrtcpsu.h"		/* RTCPSU device driver */
 #include "xil_printf.h"
 #include <stdio.h>
+#include "sleep.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -170,6 +152,18 @@ int RtcPsuSetCalibrationExample(u16 DeviceId)
 
 	xil_printf("\n\rOld Calibration value : %08x\tCrystal Frequency : %08x\n\r",
 			Rtc_Psu.CalibrationValue,Rtc_Psu.OscillatorFreq);
+
+	/* Set RTC time to user input time */
+	XRtcPsu_SetTime(&Rtc_Psu,NetworkTime);
+
+	/*
+	 * For time accuracy RTC module need to be calibrated at regular interval,
+	 * new calibration value calculation requires rtc set time, rtc current time
+	 * and system/network time. For reference 10Sec system/network time interval
+	 * used for finding new calibration values.
+	 */
+	sleep(10);
+	NetworkTime = NetworkTime+10;
 
 	XRtcPsu_CalculateCalibration(&Rtc_Psu,NetworkTime,OscillatorFreq);
 

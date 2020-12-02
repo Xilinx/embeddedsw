@@ -1,28 +1,8 @@
 /******************************************************************************
-* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+* Copyright (c) 2019 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 #include "xpfw_default.h"
 #include "xpfw_config.h"
@@ -72,8 +52,8 @@ const XPfw_Module_t *Ultra96ModPtr;
 static void Ultra96PowerButtonHandler(void)
 {
 	/*
-	 * Dont check for the pin state if PM config is not yet loaded
-	 * This also means that FSBL is not yet running, MIO is not configured and we dont have the IPI info
+	 * Don't check for the pin state if PM config is not yet loaded
+	 * This also means that FSBL is not yet running, MIO is not configured and we don't have the IPI info
 	 */
 	if(!PmConfigObjectIsLoaded()) {
 		return;
@@ -83,7 +63,7 @@ static void Ultra96PowerButtonHandler(void)
 
 		/* Do a second check on the pin to mitigate sub-microsecond glitches, if any */
 		if ((XPfw_Read32(PMU_IOMODULE_GPI1) & PMU_IOMODULE_GPI1_MIO_WAKE_0_MASK) != PWR_BTN_POLL_MASK) {
-			/* If the pin is still not active, dont initiate a power down. Just return. */
+			/* If the pin is still not active, don't initiate a power down. Just return. */
 			return;
 		}
 
@@ -138,7 +118,9 @@ static void Ultra96CfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 
 void ModUltra96Init(void)
 {
 	Ultra96ModPtr = XPfw_CoreCreateMod();
-	(void)XPfw_CoreSetCfgHandler(Ultra96ModPtr,Ultra96CfgInit);
+	if (XST_SUCCESS != XPfw_CoreSetCfgHandler(Ultra96ModPtr,Ultra96CfgInit)) {
+		XPfw_Printf(DEBUG_DETAILED,"Ultra96: Set Cfg handler failed\r\n");
+	}
 }
 #else /* ENABLE_MOD_ULTRA96 */
 void ModUltra96Init(void) { }

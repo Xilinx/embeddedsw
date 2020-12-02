@@ -1,28 +1,6 @@
 ###############################################################################
-#
-# Copyright (C) 2011 - 2019 Xilinx, Inc.  All rights reserved.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-# OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-#
-# Except as contained in this notice, the name of the Xilinx shall not be used
-# in advertising or otherwise to promote the sale, use or other dealings in
-# this Software without prior written authorization from Xilinx.
+# Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
 #
 #
 # MODIFICATION HISTORY:
@@ -33,7 +11,7 @@
 #			      to fix CR#794167.
 # 2.2	   nsk	  21/07/15 Updated iomodule_define_vector_table by removing
 #		  	   absoluted hsi commands like xget_handle.CR#865544.
-#			   Modified generate proc to get canonical defintions
+#			   Modified generate proc to get canonical definitions
 #			   in xparameters.h.
 # 2.2	   nsk	  07/08/15 Updated iomodule_define_vector_table to handle
 #		 	   External vector interrupts CR#871572.
@@ -520,7 +498,7 @@ proc xredefine_iomodule {drvhandle config_inc} {
                 incr i
             }
         } else {
-            #peripheral interrrupt case
+            #peripheral interrupt case
             set port_type($i) "local"
             set source_name($i) [common::get_property NAME $source_periph($i)]
             set source_port_name($i) [common::get_property NAME $source_pin]

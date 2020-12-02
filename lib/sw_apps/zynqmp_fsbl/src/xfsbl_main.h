@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 19 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -112,8 +90,8 @@ typedef struct {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /* SDK release version */
-#define SDK_RELEASE_YEAR	2019
-#define SDK_RELEASE_QUARTER	1
+#define SDK_RELEASE_YEAR	2020
+#define SDK_RELEASE_QUARTER	2
 
 #define XFSBL_RUNNING			(0xFFFFU)
 #define XFSBL_COMPLETED			(0x0U)
@@ -175,10 +153,18 @@ typedef struct {
 #define XFSBL_R5_LOVEC_VALUE 	0xEAFEFFFEU
 #define XFSBL_R5_HIVEC_VALUE    0xEAFF3FFEU
 
-/* FSBL running status to update to PMU */
-#define XFSBL_RUNNING_STATUS			(0x1U << 0x1U)
-#define XFSBL_RUNNING_ON_A53			(0x1U << 0x2U)
-#define XFSBL_STATE_PROC_INFO_MASK		0x6U
+/*
+ * FSBL processor reporting to PMU
+ */
+#define XFSBL_RUNNING_ON_A53			(0x1U)
+#define XFSBL_RUNNING_ON_R5_0			(0x2U)
+#define XFSBL_RUNNING_ON_R5_L			(0x3U)
+
+#define XFSBL_STATE_PROC_SHIFT			(0x1U)
+
+#define XFSBL_STATE_PROC_INFO_MASK		(0x3U << XFSBL_STATE_PROC_SHIFT)
+#define XFSBL_FSBL_ENCRYPTED_MASK		(0x8U)
+
 
 /************************** Function Prototypes ******************************/
 /**

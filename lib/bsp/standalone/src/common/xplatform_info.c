@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -50,6 +28,7 @@
 *                     APIs.
 * 7.0	aru 03/15/19  Check for versal before aarch64 and armr5
 *		      in XGetPlatform_Info()
+* 7.2   adk 08/01/20  Added versal support for the XGetPSVersion_Info function.
 * </pre>
 *
 ******************************************************************************/
@@ -87,7 +66,7 @@
 u32 XGetPlatform_Info()
 {
 #if defined (versal)
-	return XPLAT_versal;
+	return XPLAT_VERSAL;
 #elif defined (ARMR5) || (__aarch64__) || (ARMA53_32) || (PSU_PMU)
 	return XPLAT_ZYNQ_ULTRA_MP;
 #elif (__microblaze__)
@@ -139,7 +118,7 @@ u32 XGet_Zynq_UltraMp_Platform_info()
 * @return   The information about PS Silicon version.
 *
 ******************************************************************************/
-#if defined (ARMR5) || (__aarch64__) || (ARMA53_32) || (PSU_PMU)
+#if defined (ARMR5) || (__aarch64__) || (ARMA53_32) || (PSU_PMU) || defined(versal)
 u32 XGetPSVersion_Info()
 {
 #if EL1_NONSECURE

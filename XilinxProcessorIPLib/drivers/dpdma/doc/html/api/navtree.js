@@ -1,19 +1,9 @@
 var NAVTREE =
 [
   [ "dpdma", "index.html", [
-    [ "Data Structures", null, [
-      [ "Data Structures", "annotated.html", "annotated" ],
-      [ "Data Fields", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Variables", "functions_vars.html", null ]
-      ] ]
-    ] ],
     [ "APIs", "globals.html", [
       [ "All", "globals.html", null ],
       [ "Functions", "globals_func.html", null ],
-      [ "Variables", "globals_vars.html", null ],
-      [ "Typedefs", "globals_type.html", null ],
-      [ "Enumerations", "globals_enum.html", null ],
       [ "Macros", "globals_defs.html", null ]
     ] ],
     [ "File List", "files.html", "files" ]
@@ -22,7 +12,7 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"annotated.html"
+"files.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

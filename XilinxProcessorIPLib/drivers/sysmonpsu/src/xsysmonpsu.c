@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2016 - 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xsysmonpsu.c
-* @addtogroup sysmonpsu_v2_5
+* @addtogroup sysmonpsu_v2_7
 *
 * Functions in this file are the minimum required functions for the XSysMonPsu
 * driver. See xsysmonpsu.h for a detailed description of the driver.
@@ -64,6 +42,7 @@
 * 2.4   mn     04/20/18 Remove looping check for PL accessible bit
 * 2.5   mn     07/06/18 Fixed Cppcheck warnings
 *       mn     07/31/18 Modified code for MISRA-C:2012 Compliance.
+* 2.7   aad    10/21/20 Modified code for MISRA-C:2012 Compliance.
 *
 * </pre>
 *
@@ -100,7 +79,7 @@ static void XSysMonPsu_StubHandler(void *CallBackRef);
 *		after this function is invoked.
 *
 * @return
-*		- XST_SUCCESS if successful.
+*		- XSYSMON_SUCCESS if successful.
 *
 * @note		The user needs to first call the XSysMonPsu_LookupConfig() API
 *		which returns the Configuration structure pointer which is
@@ -152,7 +131,7 @@ s32 XSysMonPsu_CfgInitialize(XSysMonPsu *InstancePtr, XSysMonPsu_Config *ConfigP
 	IntrStatus = XSysMonPsu_IntrGetStatus(InstancePtr);
 	XSysMonPsu_IntrClear(InstancePtr, IntrStatus);
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /****************************************************************************/
@@ -231,7 +210,7 @@ void XSysMonPsu_Reset(XSysMonPsu *InstancePtr)
 u32 XSysMonPsu_GetStatus(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 {
 	u32 Status;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -312,7 +291,7 @@ void XSysMonPsu_StartAdcConversion(XSysMonPsu *InstancePtr)
 u16 XSysMonPsu_GetAdcData(XSysMonPsu *InstancePtr, u8 Channel, u32 Block)
 {
 	u16 AdcData;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -335,13 +314,13 @@ u16 XSysMonPsu_GetAdcData(XSysMonPsu *InstancePtr, u8 Channel, u32 Block)
 	 * and return the value.
 	 */
 	if (Channel <= XSM_CH_AUX_MAX) {
-		AdcData = (u16) (XSysmonPsu_ReadReg(EffectiveBaseAddress + ((u32)Channel << 2U)));
+		AdcData = (u16) (XSysmonPsu_ReadReg(EffectiveBaseAddress + ((UINTPTR)Channel << 2U)));
 	} else if ((Channel >= XSM_CH_SUPPLY7) && (Channel <= XSM_CH_TEMP_REMTE)){
 		AdcData = (u16) (XSysmonPsu_ReadReg(EffectiveBaseAddress + XSM_ADC_CH_OFFSET +
 				(((u32)Channel - XSM_CH_SUPPLY7) << 2U)));
 	} else {
 		AdcData = (u16) (XSysmonPsu_ReadReg(EffectiveBaseAddress + XSM_AMS_CH_OFFSET +
-				(((u32)Channel - XSM_CH_VCC_PSLL0) << 2U)));
+				(((UINTPTR)Channel - XSM_CH_VCC_PSLL0) << 2U)));
 	}
 
 	return AdcData;
@@ -372,7 +351,7 @@ u16 XSysMonPsu_GetCalibCoefficient(XSysMonPsu *InstancePtr, u8 CoeffType,
 		u32 SysmonBlk)
 {
 	u16 CalibData;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -417,7 +396,7 @@ u16 XSysMonPsu_GetMinMaxMeasurement(XSysMonPsu *InstancePtr, u8 MeasurementType,
 		u32 SysmonBlk)
 {
 	u16 MinMaxData;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -469,7 +448,7 @@ u16 XSysMonPsu_GetMinMaxMeasurement(XSysMonPsu *InstancePtr, u8 MeasurementType,
 void XSysMonPsu_SetAvg(XSysMonPsu *InstancePtr, u8 Average, u32 SysmonBlk)
 {
 	u32 RegValue;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -484,7 +463,7 @@ void XSysMonPsu_SetAvg(XSysMonPsu *InstancePtr, u8 Average, u32 SysmonBlk)
 
 	/* Write the averaging value into the Configuration Register 0. */
 	RegValue = XSysmonPsu_ReadReg(EffectiveBaseAddress + XSYSMONPSU_CFG_REG0_OFFSET)
-						& (u32)(~XSYSMONPSU_CFG_REG0_AVRGNG_MASK);
+						& (~((u32)XSYSMONPSU_CFG_REG0_AVRGNG_MASK));
 	RegValue |= (((u32) Average << XSYSMONPSU_CFG_REG0_AVRGNG_SHIFT));
 	XSysmonPsu_WriteReg(EffectiveBaseAddress + XSYSMONPSU_CFG_REG0_OFFSET,
 			 RegValue);
@@ -514,7 +493,7 @@ void XSysMonPsu_SetAvg(XSysMonPsu *InstancePtr, u8 Average, u32 SysmonBlk)
 u8 XSysMonPsu_GetAvg(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 {
 	u32 Average;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -577,7 +556,7 @@ s32 XSysMonPsu_SetSingleChParams(XSysMonPsu *InstancePtr, u8 Channel,
 				u32 IsDifferentialMode, u32 SysmonBlk)
 {
 	u32 RegValue;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 	s32 Status;
 
 	/* Assert the arguments. */
@@ -617,7 +596,7 @@ s32 XSysMonPsu_SetSingleChParams(XSysMonPsu *InstancePtr, u8 Channel,
 	 * Select the number of acquisition cycles. The acquisition cycles is
 	 * only valid for the external channels.
 	 */
-	if (IncreaseAcqCycles == TRUE) {
+	if (IncreaseAcqCycles == 1U) {
 		if (((Channel >= XSM_CH_AUX_MIN) && (Channel <= XSM_CH_AUX_MAX))
 		    || (Channel == XSM_CH_VPVN)) {
 			RegValue |= XSYSMONPSU_CFG_REG0_ACQ_MASK;
@@ -631,7 +610,7 @@ s32 XSysMonPsu_SetSingleChParams(XSysMonPsu *InstancePtr, u8 Channel,
 	 * Select the input mode. The input mode is only valid for the
 	 * external channels.
 	 */
-	if (IsDifferentialMode == TRUE) {
+	if (IsDifferentialMode == 1U) {
 
 		if (((Channel >= XSM_CH_AUX_MIN) && (Channel <= XSM_CH_AUX_MAX))
 		    || (Channel == XSM_CH_VPVN)) {
@@ -643,7 +622,7 @@ s32 XSysMonPsu_SetSingleChParams(XSysMonPsu *InstancePtr, u8 Channel,
 	}
 
 	/* Select the ADC mode. */
-	if (IsEventMode == TRUE) {
+	if (IsEventMode == 1U) {
 		RegValue |= XSYSMONPSU_CFG_REG0_EC_MASK;
 	}
 
@@ -698,14 +677,14 @@ void XSysMonPsu_SetAlarmEnables(XSysMonPsu *InstancePtr, u32 AlmEnableMask,
 		u32 SysmonBlk)
 {
 	u32 RegValue;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(AlmEnableMask <=
 			(XSYSMONPSU_CFG_REG1_ALRM_ALL_MASK |
-			(XSYSMONPSU_CFG_REG3_ALRM_ALL_MASK << XSM_CFG_ALARM_SHIFT)));
+			((u32)XSYSMONPSU_CFG_REG3_ALRM_ALL_MASK << XSM_CFG_ALARM_SHIFT)));
 	Xil_AssertVoid((SysmonBlk == XSYSMON_PS)||(SysmonBlk == XSYSMON_PL));
 
 	/* Calculate the effective baseaddress based on the Sysmon instance. */
@@ -715,7 +694,7 @@ void XSysMonPsu_SetAlarmEnables(XSysMonPsu *InstancePtr, u32 AlmEnableMask,
 
 	RegValue = XSysmonPsu_ReadReg(EffectiveBaseAddress +
 					XSYSMONPSU_CFG_REG1_OFFSET);
-	RegValue &= (u32)(~XSYSMONPSU_CFG_REG1_ALRM_ALL_MASK);
+	RegValue &= ~((u32)XSYSMONPSU_CFG_REG1_ALRM_ALL_MASK);
 	RegValue |= (~AlmEnableMask & (u32)XSYSMONPSU_CFG_REG1_ALRM_ALL_MASK);
 
 	/*
@@ -728,7 +707,7 @@ void XSysMonPsu_SetAlarmEnables(XSysMonPsu *InstancePtr, u32 AlmEnableMask,
 	if (SysmonBlk == XSYSMON_PS) {
 		RegValue = XSysmonPsu_ReadReg(EffectiveBaseAddress +
 					XSYSMONPSU_CFG_REG3_OFFSET);
-		RegValue &= (u32)(~XSYSMONPSU_CFG_REG3_ALRM_ALL_MASK);
+		RegValue &= ~((u32)XSYSMONPSU_CFG_REG3_ALRM_ALL_MASK);
 		RegValue |= (~(AlmEnableMask >> XSM_CFG_ALARM_SHIFT) &
 				(u32)XSYSMONPSU_CFG_REG3_ALRM_ALL_MASK);
 		XSysmonPsu_WriteReg(EffectiveBaseAddress +
@@ -766,7 +745,7 @@ void XSysMonPsu_SetAlarmEnables(XSysMonPsu *InstancePtr, u32 AlmEnableMask,
 u32 XSysMonPsu_GetAlarmEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 {
 	u32 RegValue;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 	u32 ReadReg;
 
 	/* Assert the arguments. */
@@ -823,7 +802,7 @@ void XSysMonPsu_SetSequencerMode(XSysMonPsu *InstancePtr, u8 SequencerMode,
 		u32 SysmonBlk)
 {
 	u32 RegValue;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -840,7 +819,7 @@ void XSysMonPsu_SetSequencerMode(XSysMonPsu *InstancePtr, u8 SequencerMode,
 	/* Set the specified sequencer mode in the Configuration Register 1. */
 	RegValue = XSysmonPsu_ReadReg(EffectiveBaseAddress +
 					XSYSMONPSU_CFG_REG1_OFFSET);
-	RegValue &= (u32)(~ XSYSMONPSU_CFG_REG1_SEQ_MDE_MASK);
+	RegValue &= ~((u32)XSYSMONPSU_CFG_REG1_SEQ_MDE_MASK);
 	RegValue |= (((u32)SequencerMode  << XSYSMONPSU_CFG_REG1_SEQ_MDE_SHIFT) &
 					XSYSMONPSU_CFG_REG1_SEQ_MDE_MASK);
 	XSysmonPsu_WriteReg(EffectiveBaseAddress +
@@ -870,7 +849,7 @@ void XSysMonPsu_SetSequencerMode(XSysMonPsu *InstancePtr, u8 SequencerMode,
 u8 XSysMonPsu_GetSequencerMode(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 {
 	u8 SequencerMode;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -911,7 +890,7 @@ void XSysMonPsu_SetSequencerEvent(XSysMonPsu *InstancePtr, u32 IsEventMode,
 		u32 SysmonBlk)
 {
 	u32 RegValue;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -929,10 +908,10 @@ void XSysMonPsu_SetSequencerEvent(XSysMonPsu *InstancePtr, u32 IsEventMode,
 					XSYSMONPSU_CFG_REG0_OFFSET);
 
 	/* Set the ADC mode. */
-	if (IsEventMode == TRUE) {
+	if (IsEventMode == 1U) {
 		RegValue |= XSYSMONPSU_CFG_REG0_EC_MASK;
 	} else {
-		RegValue &= (u32)(~XSYSMONPSU_CFG_REG0_EC_MASK);
+		RegValue &= ~((u32)XSYSMONPSU_CFG_REG0_EC_MASK);
 	}
 
 	XSysmonPsu_WriteReg(EffectiveBaseAddress + XSYSMONPSU_CFG_REG0_OFFSET,
@@ -958,7 +937,7 @@ s32 XSysMonPsu_GetSequencerEvent(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 {
 	s32 Mode;
 	u32 RegValue;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1008,7 +987,7 @@ s32 XSysMonPsu_GetSequencerEvent(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 void XSysMonPsu_SetExtenalMux(XSysMonPsu *InstancePtr, u8 Channel, u32 SysmonBlk)
 {
 	u32 RegValue;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -1055,7 +1034,7 @@ void XSysMonPsu_SetExtenalMux(XSysMonPsu *InstancePtr, u8 Channel, u32 SysmonBlk
 u32 XSysMonPsu_GetExtenalMux(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 {
 	u32 RegValue;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1110,7 +1089,7 @@ void XSysMonPsu_SetAdcClkDivisor(XSysMonPsu *InstancePtr, u8 Divisor,
             u32 SysmonBlk)
 {
 	u32 RegValue;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -1157,7 +1136,7 @@ void XSysMonPsu_SetAdcClkDivisor(XSysMonPsu *InstancePtr, u8 Divisor,
 u8 XSysMonPsu_GetAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 {
 	u16 Divisor;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1195,7 +1174,7 @@ u8 XSysMonPsu_GetAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 u8 XSysMonPsu_UpdateAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 {
 	u16 Divisor;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 	u32 RegValue;
 	u32 InputFreq;
 	u32 Count = 0U;
@@ -1279,7 +1258,7 @@ s32 XSysMonPsu_SetSeqChEnables(XSysMonPsu *InstancePtr, u64 ChEnableMask,
 		u32 SysmonBlk)
 {
 	s32 Status;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1345,7 +1324,7 @@ End:
 u64 XSysMonPsu_GetSeqChEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 {
 	u64 RegVal;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1402,7 +1381,7 @@ s32 XSysMonPsu_SetSeqAvgEnables(XSysMonPsu *InstancePtr, u64 AvgEnableChMask,
 		u32 SysmonBlk)
 {
 	s32 Status;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1467,7 +1446,7 @@ s32 XSysMonPsu_SetSeqAvgEnables(XSysMonPsu *InstancePtr, u64 AvgEnableChMask,
 u64 XSysMonPsu_GetSeqAvgEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 {
 	u64 RegVal;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1525,7 +1504,7 @@ s32 XSysMonPsu_SetSeqInputMode(XSysMonPsu *InstancePtr, u64 InputModeChMask,
 		u32 SysmonBlk)
 {
 	s32 Status;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1594,7 +1573,7 @@ End:
 u64 XSysMonPsu_GetSeqInputMode(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 {
 	u64 InputMode;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1653,7 +1632,7 @@ s32 XSysMonPsu_SetSeqAcqTime(XSysMonPsu *InstancePtr, u64 AcqCyclesChMask,
 		u32 SysmonBlk)
 {
 	s32 Status;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1719,7 +1698,7 @@ End:
 u64 XSysMonPsu_GetSeqAcqTime(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 {
 	u64 RegValAcq;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1768,7 +1747,7 @@ u64 XSysMonPsu_GetSeqAcqTime(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 void XSysMonPsu_SetAlarmThreshold(XSysMonPsu *InstancePtr, u8 AlarmThrReg,
 		u16 Value, u32 SysmonBlk)
 {
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -1810,7 +1789,7 @@ u16 XSysMonPsu_GetAlarmThreshold(XSysMonPsu *InstancePtr, u8 AlarmThrReg,
 		u32 SysmonBlk)
 {
 	u16 AlarmThreshold;
-	u32 EffectiveBaseAddress;
+	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1892,6 +1871,39 @@ u32 XSysMonPsu_GetMonitorStatus(XSysMonPsu *InstancePtr)
 			XSYSMONPSU_MON_STS_OFFSET);
 
 	return AMSMonStatusReg;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function initializes XSysMonPsu device/instance.
+*
+* @param	InstancePtr is a pointer to the XSysMonPsu instance.
+* @param	ConfigPtr points to the XSysMonPsu device configuration
+*		structure.
+*
+* @return	None
+*
+* @note 	The user needs to first call the XSysMonPsu_LookupConfig() API
+*		which returns the Configuration structure pointer, this pointer
+*		is then passed as a parameter to the XSysMonPsu_InitInstance()
+*		API. Note that this function just initializes the instance and
+*		doesn't configure the System Monitor device.
+*
+******************************************************************************/
+void XSysMonPsu_InitInstance(XSysMonPsu *InstancePtr,
+	XSysMonPsu_Config *ConfigPtr)
+{
+	/* Assert the input arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(ConfigPtr != NULL);
+
+	/* Set the values read from the device config and the base address.*/
+	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
+	InstancePtr->Config.BaseAddress = ConfigPtr->BaseAddress;
+
+	/* Indicate the instance is now ready to use */
+	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 }
 
 /** @} */

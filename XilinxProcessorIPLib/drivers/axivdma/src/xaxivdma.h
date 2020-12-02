@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2012 - 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2012 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xaxivdma.h
-* @addtogroup axivdma_v6_6
+* @addtogroup axivdma_v6_8
 * @{
 * @details
 *
@@ -94,7 +72,7 @@
 * set the RUN/STOP bit in the XAXIVDMA_CR_OFFSET register.
 * - After any reset you need to do, write the head of your BD ring into the
 * XAXIVDMA_CDESC_OFFSET register.
-* - You can do other setup for the harware.
+* - You can do other setup for the hardware.
 * - Start your hardware, by setting up the RUN/STOP bit in the
 * XAXIVDMA_CR_OFFSET register.
 * - You can do other setup for the hardware.
@@ -187,7 +165,7 @@
 * "word" is defined by C_M_AXIS_MM2S_TDATA_WIDTH and C_S_AXIS_S2MM_TDATA_WIDTH
 * for the read and write channel specifically.
 *
-* If the horizonal frame size is not word-aligned, then DRE must be enabled
+* If the horizontal frame size is not word-aligned, then DRE must be enabled
 * in the hardware. Otherwise, undefined results happen.
 *
 * <b>Address Translation</b>
@@ -367,7 +345,7 @@ extern "C" {
 #define XAXIVDMA_ENABLE_DBG_DLY_CNTR	0x08
 #define XAXIVDMA_ENABLE_DBG_ALL_FEATURES	0x0F
 
-/* Defined for backward compatiblity.
+/* Defined for backward compatibility.
  * This  is a typical DMA Internal Error, which on detection doesnt require a
  * reset (as opposed to other errors). So user on seeing this need only to
  * reinitialize channels.

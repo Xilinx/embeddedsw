@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -38,7 +16,11 @@
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  mg   10/08/2018 Initial release
+* 1.00  ma   10/08/2018 Initial release
+* 1.01  kc   04/09/2019 Added code to register/enable/disable interrupts
+* 1.02  bsv  04/04/2020 Code clean up
+* 1.03  bm   10/14/2020 Code clean up
+* 		td   10/19/2020 MISRA C Fixes
 *
 * </pre>
 *
@@ -54,40 +36,120 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "pmc_global.h"
 #include "xplmi_ipi.h"
 
 /************************** Constant Definitions *****************************/
-#define XPLMI_GICP_IRQ_STATUS				0xF11400A0
-#define XPLMI_GICP0_IRQ_STATUS				0xF1140000
-#define XPLMI_GICP_SOURCE_COUNT				0x5
-#define XPLMI_NO_OF_BITS_IN_REG				32U
+#define XPLMI_GICP_SOURCE_COUNT		(0x5U)
+#define XPLMI_NO_OF_BITS_IN_REG		(32U)
 
-#define XPLMI_GICP0_IPI_INTR_MASK			0x8000000
+#define XPLMI_GICP_MASK			(0xFF00U)
+#define XPLMI_GICPX_MASK		(0xFF0000U)
+#define XPLMI_GICPX_LEN			(0x14U)
 
-#define XPLMI_GICP0_INDEX			0x0
-#define XPLMI_GICP1_INDEX			0x1
-#define XPLMI_GICP2_INDEX			0x2
-#define XPLMI_GICP3_INDEX			0x3
-#define XPLMI_GICP4_INDEX			0x4
+/*
+ * PMC GIC interrupts
+ */
+enum {
+	XPLMI_PMC_GIC_IRQ_GICP0 = 0U,
+	XPLMI_PMC_GIC_IRQ_GICP1, /**< 1U */
+	XPLMI_PMC_GIC_IRQ_GICP2, /**< 2U */
+	XPLMI_PMC_GIC_IRQ_GICP3, /**< 3U */
+	XPLMI_PMC_GIC_IRQ_GICP4, /**< 4U */
+};
 
-#define XPLMI_IPI_INDEX				27U
+/*
+ * PMC GICP0 interrupts
+ */
+enum {
+	XPLMI_GICP0_SRC13 = 13U, /**< GPIO Interrupt */
+	XPLMI_GICP0_SRC14 = 14U, /**< I2C_0 Interrupt */
+	XPLMI_GICP0_SRC15 = 15U, /**< I2C_1 Interrupt */
+	XPLMI_GICP0_SRC16 = 16U, /**< SPI_0 Interrupt */
+	XPLMI_GICP0_SRC17 = 17U, /**< SPI_1 Interrupt */
+	XPLMI_GICP0_SRC18 = 18U, /**< UART_0 Interrupt */
+	XPLMI_GICP0_SRC19 = 19U, /**< UART_1 Interrupt */
+	XPLMI_GICP0_SRC20 = 20U, /**< CAN_0 Interrupt */
+	XPLMI_GICP0_SRC21 = 21U, /**< CAN_1 Interrupt */
+	XPLMI_GICP0_SRC22 = 22U, /**< USB_0 Interrupt */
+	XPLMI_GICP0_SRC23 = 23U, /**< USB_0 Interrupt */
+	XPLMI_GICP0_SRC24 = 24U, /**< USB_0 Interrupt */
+	XPLMI_GICP0_SRC25 = 25U, /**< USB_0 Interrupt */
+	XPLMI_GICP0_SRC26 = 26U, /**< USB_0 Interrupt */
+	XPLMI_GICP0_SRC27 = 27U, /**< IPI Interrupt */
+};
+
+/*
+ * PMC GICP1 interrupts
+ */
+enum {
+	XPLMI_GICP1_SRC5 = 5U, /**< TTC_0 Interrupt */
+	XPLMI_GICP1_SRC6 = 6U, /**< TTC_0 Interrupt */
+	XPLMI_GICP1_SRC7 = 7U, /**< TTC_0 Interrupt */
+	XPLMI_GICP1_SRC8 = 8U, /**< TTC_1 Interrupt */
+	XPLMI_GICP1_SRC9 = 9U, /**< TTC_1 Interrupt */
+	XPLMI_GICP1_SRC10 = 10U, /**< TTC_1 Interrupt */
+	XPLMI_GICP1_SRC11 = 11U, /**< TTC_2 Interrupt */
+	XPLMI_GICP1_SRC12 = 12U, /**< TTC_2 Interrupt */
+	XPLMI_GICP1_SRC13 = 13U, /**< TTC_2 Interrupt */
+	XPLMI_GICP1_SRC14 = 14U, /**< TTC_3 Interrupt */
+	XPLMI_GICP1_SRC15 = 15U, /**< TTC_3 Interrupt */
+	XPLMI_GICP1_SRC16 = 16U, /**< TTC_3 Interrupt */
+	XPLMI_GICP1_SRC24 = 24U, /**< GEM_0 Interrupt */
+	XPLMI_GICP1_SRC25 = 25U, /**< GEM_0 Interrupt */
+	XPLMI_GICP1_SRC26 = 26U, /**< GEM_1 Interrupt */
+	XPLMI_GICP1_SRC27 = 27U, /**< GEM_1 Interrupt */
+	XPLMI_GICP1_SRC28 = 28U, /**< ADMA_0 Interrupt */
+	XPLMI_GICP1_SRC29 = 29U, /**< ADMA_1 Interrupt */
+	XPLMI_GICP1_SRC30 = 30U, /**< ADMA_2 Interrupt */
+	XPLMI_GICP1_SRC31 = 31U, /**< ADMA_3 Interrupt */
+};
+
+/*
+ * PMC GICP2 interrupts
+ */
+enum {
+	XPLMI_GICP2_SRC0 = 0U, /**< ADMA_4 Interrupt */
+	XPLMI_GICP2_SRC1 = 1U, /**< ADMA_5 Interrupt */
+	XPLMI_GICP2_SRC2 = 2U, /**< ADMA_6 Interrupt */
+	XPLMI_GICP2_SRC3 = 3U, /**< ADMA_7 Interrupt */
+	XPLMI_GICP2_SRC10 = 10U, /**< USB_0 Interrupt */
+};
+
+/*
+ * PMC GICP3 interrupts
+ */
+enum {
+	XPLMI_GICP3_SRC30 = 30U, /**< SD_0 Interrupt */
+	XPLMI_GICP3_SRC31 = 31U, /**< SD_0 Interrupt */
+};
+
+/*
+ * PMC GICP4 interrupts
+ */
+enum {
+	XPLMI_GICP4_SRC0 = 0U, /**< SD_1 Interrupt */
+	XPLMI_GICP4_SRC1 = 1U, /**< SD_1 Interrupt */
+	XPLMI_GICP4_SRC8 = 8U, /**< SBI interrupt */
+	XPLMI_GICP4_SRC14 = 14U, /**< RTC interrupt */
+};
 
 /**************************** Type Definitions *******************************/
+/* Handler Table Structure */
+typedef int (*GicIntHandler_t)(void *Data);
+struct GicIntrHandlerTable {
+	void *Data;
+	GicIntHandler_t GicHandler;
+};
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-
 /* Functions defined in xplm_main.c */
 void XPlmi_GicIntrHandler(void *CallbackRef);
-
-/* Handler Table Structure */
-typedef int (*Function_t)(void);
-struct GicIntrHandlerTable {
-	u32 Mask;
-	Function_t GicHandler;
-};
+void XPlmi_GicRegisterHandler(u32 PlmIntrId, GicIntHandler_t Handler, void *Data);
+void XPlmi_GicIntrEnable(u32 PlmIntrId);
+void XPlmi_GicIntrDisable(u32 PlmIntrId);
+void XPlmi_GicIntrClearStatus(u32 PlmIntrId);
 
 /************************** Variable Definitions *****************************/
 

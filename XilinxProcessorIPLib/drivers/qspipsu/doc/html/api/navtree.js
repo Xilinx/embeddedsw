@@ -9,7 +9,7 @@ var NAVTREE =
       ] ]
     ] ],
     [ "APIs", "globals.html", [
-      [ "All", "globals.html", null ],
+      [ "All", "globals.html", "globals_dup" ],
       [ "Functions", "globals_func.html", null ],
       [ "Variables", "globals_vars.html", null ],
       [ "Typedefs", "globals_type.html", null ],
@@ -20,14 +20,16 @@ var NAVTREE =
       [ "xqspipsu_generic_flash_interrupt_example.c", "example.html#ex1", null ],
       [ "xqspipsu_generic_flash_lqspi_example.c", "example.html#ex2", null ],
       [ "xqspipsu_generic_flash_polled_example.c", "example.html#ex3", null ],
-      [ "xqspipsu_polldata_polltimeout_interrupt_example.c", "example.html#ex4", null ]
+      [ "xqspipsu_polldata_polltimeout_interrupt_example.c", "example.html#ex4", null ],
+      [ "xqspipsu_generic_flash_non_blocking_read_example.c", "example.html#ex5", null ]
     ] ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
-"annotated.html"
+"annotated.html",
+"xqspipsu__options_8c.html#ga54cce449d0bda6133fe2c254a164e08e"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

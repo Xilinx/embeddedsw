@@ -1,28 +1,8 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  */
+
 #include "xpfw_config.h"
 #ifdef ENABLE_PM
 
@@ -41,6 +21,8 @@
 #define PM_USB_STATE_UNUSED	0U
 #define PM_USB_STATE_OFF	1U
 #define PM_USB_STATE_ON		2U
+#define PM_USB_MAX_STATE	3U /* This macro show that the USB support
+				      how many types of power state, here  it's 3U */
 
 /* Power consumptions for USB defined by its states */
 #define DEFAULT_USB_POWER_ON	100U
@@ -53,7 +35,7 @@
 #define PM_USB_OFF_TO_ON_LATENCY	152U
 
 /* USB states */
-static const u32 pmUsbStates[] = {
+static const u8 pmUsbStates[PM_USB_MAX_STATE] = {
 	[PM_USB_STATE_UNUSED] = 0U,
 	[PM_USB_STATE_OFF] = PM_CAP_WAKEUP | PM_CAP_POWER,
 	[PM_USB_STATE_ON] = PM_CAP_WAKEUP | PM_CAP_ACCESS | PM_CAP_CONTEXT |
@@ -108,7 +90,7 @@ static s32 PmUsbFsmHandler(PmSlave* const slave, const PmStateId nextState)
 		    (PM_USB_STATE_UNUSED == nextState)) {
 			/* ON -> OFF*/
 			XPfw_AibEnable(usb->aibId);
-			status = usb->PwrDn();
+			status = (s32)usb->PwrDn();
 		} else {
 			status = XST_NO_FEATURE;
 		}
@@ -117,7 +99,7 @@ static s32 PmUsbFsmHandler(PmSlave* const slave, const PmStateId nextState)
 	case PM_USB_STATE_UNUSED:
 		if (PM_USB_STATE_ON == nextState) {
 			/* OFF -> ON */
-			status = usb->PwrUp();
+			status = (s32)usb->PwrUp();
 			XPfw_AibDisable(usb->aibId);
 			if (XST_SUCCESS == status) {
 				status = PmResetAssertInt(usb->rstId,
@@ -160,7 +142,7 @@ static PmWakeEventGicProxy pmUsb0Wake = {
 	.group = 2U,
 };
 
-static u32 PmUsbPowers[] = {
+static u8 PmUsbPowers[PM_USB_MAX_STATE] = {
 	[PM_USB_STATE_UNUSED] = DEFAULT_USB_POWER_OFF,
 	[PM_USB_STATE_OFF] = DEFAULT_USB_POWER_OFF,
 	[PM_USB_STATE_ON] = DEFAULT_USB_POWER_ON,

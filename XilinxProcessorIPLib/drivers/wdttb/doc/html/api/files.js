@@ -2,6 +2,8 @@ var files =
 [
     [ "xwdttb.c", "xwdttb_8c.html", "xwdttb_8c" ],
     [ "xwdttb.h", "xwdttb_8h.html", "xwdttb_8h" ],
+    [ "xwdttb_config.c", "xwdttb__config_8c.html", "xwdttb__config_8c" ],
+    [ "xwdttb_config.h", "xwdttb__config_8h.html", "xwdttb__config_8h" ],
     [ "xwdttb_example.c", "xwdttb__example_8c.html", "xwdttb__example_8c" ],
     [ "xwdttb_g.c", "xwdttb__g_8c.html", null ],
     [ "xwdttb_gwdt_example.c", "xwdttb__gwdt__example_8c.html", "xwdttb__gwdt__example_8c" ],

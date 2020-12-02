@@ -1,30 +1,8 @@
 /******************************************************************************
- *
- * Copyright (C) 2018 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  ******************************************************************************/
+
 /****************************************************************************/
 /**
  *
@@ -38,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   rb   22/01/18 First release
+ * 1.8   pm   15/09/20 Fixed C++ Compilation error.
  *
  * </pre>
  *
@@ -122,7 +101,7 @@ static void set_audio_transfer_size(struct audio_if *f_audio)
 	Rate = AudioFreq * f_audio->framesize;
 	f_audio->interval = INTERVAL_PER_SECOND / (1 << (AUDIO_INTERVAL - 1));
 
-	/* Audio data transfer size to be transfered at every interval */
+	/* Audio data transfer size to be transferred at every interval */
 	MaxPacketsize = AUDIO_CHANNEL_NUM * AUDIO_FRAME_SIZE *
 		DIV_ROUND_UP(AudioFreq, INTERVAL_PER_SECOND /
 				(1 << (AUDIO_INTERVAL - 1)));
@@ -151,7 +130,7 @@ static void set_audio_transfer_size(struct audio_if *f_audio)
  *****************************************************************************/
 static void Usb_IsoOutHandler(void *CallBackRef, u32 RequestedBytes, u32 BytesTxed)
 {
-	struct Usb_DevData *InstancePtr = CallBackRef;
+	struct Usb_DevData *InstancePtr = (struct Usb_DevData *)CallBackRef;
 	USBCH9_DATA *ch9_ptr =
 		(USBCH9_DATA *) Get_DrvData(InstancePtr->PrivateData);
 	struct audio_dfu_if *interface = (struct audio_dfu_if *)(ch9_ptr->data_ptr);
@@ -197,7 +176,7 @@ static void Usb_IsoOutHandler(void *CallBackRef, u32 RequestedBytes, u32 BytesTx
  *****************************************************************************/
 static void Usb_IsoInHandler(void *CallBackRef, u32 RequestedBytes, u32 BytesTxed)
 {
-	struct Usb_DevData *InstancePtr = CallBackRef;
+	struct Usb_DevData *InstancePtr = (struct Usb_DevData *)CallBackRef;
 	USBCH9_DATA *ch9_ptr =
 		(USBCH9_DATA *) Get_DrvData(InstancePtr->PrivateData);
 	struct audio_dfu_if *interface = (struct audio_dfu_if *)(ch9_ptr->data_ptr);
@@ -405,8 +384,8 @@ static int XUsbCompositeExample(struct Usb_DevData *UsbInstPtr,
 	set_audio_transfer_size(&comp_dev.f_audio);
 
 	/* setup interrupts */
-	Status = SetupInterruptSystem(UsbInstPtr->PrivateData, IntcDeviceID,
-			UsbIntrId, (void *)IntrInstPtr);
+	Status = SetupInterruptSystem((struct XUsbPsu *)UsbInstPtr->PrivateData,
+				IntcDeviceID, UsbIntrId, (void *)IntrInstPtr);
 	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
 

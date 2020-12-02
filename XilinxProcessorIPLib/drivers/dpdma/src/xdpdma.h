@@ -1,30 +1,8 @@
 /******************************************************************************
- *
- * Copyright (C) 2017 Xilinx, Inc. All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
- ******************************************************************************/
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -66,7 +44,7 @@ extern "C" {
 /************************** Constant Definitions ******************************/
 
 /* Alignment for DPDMA Descriptor and Payload */
-#define XDPDMA_DESCRIPTOR_ALIGN 256
+#define XDPDMA_DESCRIPTOR_ALIGN 256U
 /* DPDMA preamble field */
 #define XDPDMA_DESCRIPTOR_PREAMBLE 0xA5
 /**************************** Type Definitions ********************************/
@@ -114,7 +92,11 @@ typedef struct {
 	u32 SRC_ADDR5;			/**<	Source address of 5th page */
 	u32 CRC;			/**<	Reserved */
 
+#if defined(__GNUC__)
 } XDpDma_Descriptor __attribute__ ((aligned(XDPDMA_DESCRIPTOR_ALIGN)));
+#elif defined(__ICCARM__)
+} XDpDma_Descriptor _Pragma("data_alignment=XDPDMA_DESCRIPTOR_ALIGN");
+#endif
 
 /**
  * This typedef contains configuration information for the DPDMA.
@@ -159,7 +141,7 @@ typedef struct {
  */
 typedef struct {
 	u64 Address;
-	u64 Size;
+	u32 Size;
 } XDpDma_AudioBuffer;
 
 /**
@@ -254,13 +236,11 @@ void XDpDma_SetQOS(XDpDma *InstancePtr, u8 QOS);
 void XDpDma_SetupChannel(XDpDma *InstancePtr, XDpDma_ChannelType Channel);
 int XDpDma_SetVideoFormat(XDpDma *InstancePtr, XAVBuf_VideoFormat Format);
 int XDpDma_SetGraphicsFormat(XDpDma *InstancePtr, XAVBuf_VideoFormat Format);
-void XDpDma_SetVideoTiming(XDpDma *InstancePtr, XVidC_VideoTiming *Timing);
 int XDpDma_Trigger(XDpDma *InstancePtr, XDpDma_ChannelType Channel);
 int XDpDma_ReTrigger(XDpDma *InstancePtr, XDpDma_ChannelType Channel);
 void XDpDma_InterruptEnable(XDpDma *InstancePtr, u32 Mask);
 void XDpDma_InterruptHandler(XDpDma *InstancePtr);
 void XDpDma_VSyncHandler(XDpDma *InstancePtr);
-void XDpDma_DoneHandler(XDpDma *InstancePtr);
 void XDpDma_InitVideoDescriptor(XDpDma_Descriptor *CurrDesc,
 				XDpDma_FrameBuffer *FrameBuffer);
 void  XDpDma_DisplayVideoFrameBuffer(XDpDma *InstancePtr,
@@ -273,6 +253,15 @@ void XDpDma_InitAudioDescriptor(XDpDma_AudioChannel *Channel,
 			       XDpDma_AudioBuffer *AudioBuffer);
 int XDpDma_PlayAudio(XDpDma *InstancePtr, XDpDma_AudioBuffer *Buffer,
 		      u8 ChannelNum);
+
+/*************************** Variable Declarations ****************************/
+
+/**
+ * A table of configuration structures containing the configuration information
+ * for each DisplayPort TX core in the system.
+ */
+extern XDpDma_Config XDpDma_ConfigTable[XPAR_XDPDMA_NUM_INSTANCES];
+
 #ifdef __cplusplus
 }
 #endif

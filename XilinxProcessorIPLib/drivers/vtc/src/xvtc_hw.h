@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2008 - 2014 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2008 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xvtc_hw.h
-* @addtogroup vtc_v7_2
+* @addtogroup vtc_v8_3
 * @{
 *
 * This header file contains identifiers and register-level core functions (or
@@ -175,6 +153,9 @@ extern "C" {
 #define XVTC_IER_OFFSET		0x00C	/**< Interrupt Enable Register
 					  *  Offset */
 #define XVTC_VER_OFFSET		0x010	/**< Version Register Offset */
+#define XVTC_ADAPTIVE_CTL_OFFSET	0x014	/**< Adaptive-Sync Control
+						  *  Offset */
+#define XVTC_VFP_STRETCH_OFFSET		0x18	/**< VFP Stretch Limit Offset */
 
 #define XVTC_DASIZE_OFFSET	0x020	/**< Detector Active Size Offset */
 #define XVTC_DTSTAT_OFFSET	0x024	/**< Detector Timing Status Offset */
@@ -324,6 +305,10 @@ extern "C" {
 #define XVTC_CTL_GE_MASK	0x00000004 /**< VTC Generator Enable */
 #define XVTC_CTL_RU_MASK	0x00000002 /**< VTC Register Update */
 #define XVTC_CTL_SW_MASK	0x00000001 /**< VTC Core Enable */
+#define XVTC_ADAPTIVE_ENABLE_MASK	0x00000001 /**< VTC Adaptive-Sync
+						      * enable mask */
+#define XVTC_ADAPTIVE_MODE_MASK		0x00000002 /**< VTC Adaptive-Sync
+						      * mode mask */
 /*@}*/
 
 /** @name Interrupt Status/Enable Register Bit Definitions
@@ -653,6 +638,14 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 
+/**
+ * This typedef enumerates the list of vertical front porch stretch mechanism
+ * supported by VTC core.
+ */
+typedef enum {
+	XVTC_FIXED_MODE = 0,
+	XVTC_AUTO_ADJUST_MODE
+} XVtc_AdaptiveSyncMode;
 
 /************************** Function Prototypes ******************************/
 

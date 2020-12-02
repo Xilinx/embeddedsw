@@ -1,28 +1,8 @@
 /*
- * Copyright (C) 2014 - 2016 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  */
+
 #include "xpfw_config.h"
 #ifdef ENABLE_PM
 
@@ -63,7 +43,7 @@ static void PmWakeEventGicProxySet(PmWakeEvent* const wake, const u32 ipiMask,
 		pmGicProxy.groups[gicWake->group].setMask &= ~gicWake->mask;
 	} else {
 		u32 addr = GIC_PROXY_BASE_ADDR +
-			   GIC_PROXY_GROUP_OFFSET(gicWake->group) +
+			   GIC_PROXY_GROUP_OFFSET((u32)gicWake->group) +
 			   GIC_PROXY_IRQ_STATUS_OFFSET;
 
 		/* Write 1 into status register to clear interrupt */
@@ -93,10 +73,10 @@ static void PmGicProxyEnable(void)
 			   GIC_PROXY_IRQ_ENABLE_OFFSET;
 
 		/* Clear GIC Proxy group interrupt */
-		XPfw_Write32(LPD_SLCR_GICP_PMU_IRQ_STATUS, 1U << g);
+		XPfw_Write32(LPD_SLCR_GICP_PMU_IRQ_STATUS, (u32)1 << g);
 
 		/* Enable GIC Proxy group interrupt */
-		XPfw_Write32(LPD_SLCR_GICP_PMU_IRQ_ENABLE, 1U << g);
+		XPfw_Write32(LPD_SLCR_GICP_PMU_IRQ_ENABLE, (u32)1 << g);
 
 		/* Enable interrupts in the group that are set as wake */
 		XPfw_Write32(addr, pmGicProxy.groups[g].setMask);
@@ -130,13 +110,13 @@ static void PmGicProxyDisable(void)
 		XPfw_Write32(disableAddr, ~0U);
 
 		/* Disable GIC Proxy group interrupt */
-		XPfw_Write32(LPD_SLCR_GICP_PMU_IRQ_DISABLE, 1U << g);
+		XPfw_Write32(LPD_SLCR_GICP_PMU_IRQ_DISABLE, (u32)1 << g);
 	}
 
 	/* Disable FPD GPI1 wake event */
 	DISABLE_WAKE(PMU_LOCAL_GPI1_ENABLE_FPD_WAKE_GIC_PROX_MASK);
 
-	pmGicProxy.flags &= ~PM_GIC_PROXY_IS_ENABLED;
+	pmGicProxy.flags &= ~(u8)PM_GIC_PROXY_IS_ENABLED;
 }
 
 /**

@@ -28,6 +28,7 @@ var xqspipsu_8h =
     [ "XQspiPsu_StatusHandler", "xqspipsu_8h.html#ga4fcad0707fd0557232bc94a8c3ba1fea", null ],
     [ "XQspiPsu_Abort", "xqspipsu_8h.html#gaaa69ec6da90deb760954ea3dcfd55d7f", null ],
     [ "XQspiPsu_CfgInitialize", "xqspipsu_8h.html#ga4d7926dd1a10abf0cd0ad78b0fbb809e", null ],
+    [ "XQspiPsu_CheckDmaDone", "xqspipsu_8h.html#ga6be41fd692a96516b0ce22591510c73d", null ],
     [ "XQspiPsu_ClearOptions", "xqspipsu_8h.html#ga0948cd1e33a60561c808e681306bcc65", null ],
     [ "XQspiPsu_GetOptions", "xqspipsu_8h.html#gab0d4072d9dfe0949c8e099342c2270f6", null ],
     [ "XQspiPsu_Idle", "xqspipsu_8h.html#ga46a8ddc9fc0b6f9e2d616de84d9c7ed5", null ],
@@ -42,5 +43,6 @@ var xqspipsu_8h =
     [ "XQspiPsu_SetReadMode", "xqspipsu_8h.html#ga3a37a08570be55ea07945a18a80306f3", null ],
     [ "XQspiPsu_SetStatusHandler", "xqspipsu_8h.html#ga02ea5e95c8939c2be78d26c255a6ba6f", null ],
     [ "XQspiPsu_SetWP", "xqspipsu_8h.html#ga54cce449d0bda6133fe2c254a164e08e", null ],
+    [ "XQspiPsu_StartDmaTransfer", "xqspipsu_8h.html#ga769969b43f91def18f7501555ec35b11", null ],
     [ "XQspiPsu_WriteProtectToggle", "xqspipsu_8h.html#ga0ec97b3d7c6cb24544f0bfa8114b56d7", null ]
 ];

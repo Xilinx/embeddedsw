@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2011 - 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xiomodule.c
-* @addtogroup iomodule_v2_7
+* @addtogroup iomodule_v2_9
 * @{
 *
 * Contains required functions for the XIomodule driver for the Xilinx
@@ -168,7 +146,7 @@ int XIOModule_Initialize(XIOModule * InstancePtr, u16 DeviceId)
 	 */
 	for (Id = 0; Id < XPAR_IOMODULE_INTC_MAX_INTR_SIZE; Id++) {
 		/*
-		 * Initalize the handler to point to a stub to handle an
+		 * Initialize the handler to point to a stub to handle an
 		 * interrupt which has not been connected to a handler. Only
 		 * initialize it if the handler is 0 or XNullHandler, which
 		 * means it was not initialized statically by the tools/user.
@@ -772,7 +750,7 @@ void XIOModule_SetNormalIntrMode(XIOModule *InstancePtr, u8 Id)
 
 /****************************************************************************/
 /**
-* Read state of discretes for the specified GPI channnel.
+* Read state of discretes for the specified GPI channel.
 *
 * @param	InstancePtr is a pointer to an XIOModule instance to be
 *               worked on.

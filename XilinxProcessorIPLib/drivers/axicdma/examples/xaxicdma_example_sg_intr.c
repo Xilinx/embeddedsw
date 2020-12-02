@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
  *
@@ -71,6 +49,10 @@
  * 4.5   rsp  03/10/18 Fix compilation error in CheckData function when DEBUG
  *                     mode is enabled.
  *                     Reset error and done states before starting the DMA.
+ * 4.6   rsp  09/13/19 Fix cache maintenance ops for source and dest buffer.
+ * 4.7   rsp  12/06/19 For aarch64 include xil_mmu.h. Fixes gcc warning.
+ * 4.8	 sk   09/28/20 Fix the compilation error for xreg_cortexa9.h
+ * 		       preprocessor on R5 processor.
  * </pre>
  *
  ****************************************************************************/
@@ -90,12 +72,9 @@
 #include "xpseudo_asm_gcc.h"
 #endif
 
-#ifdef __arm__
-#include "xreg_cortexa9.h"
-#endif
-
 #ifdef __aarch64__
 #include "xreg_cortexa53.h"
+#include "xil_mmu.h"
 #endif
 
 #ifdef XPAR_UARTNS550_0_BASEADDR
@@ -385,7 +364,7 @@ static int SetupIntrSystem(XIntc *IntcInstancePtr, XAxiCdma *InstancePtr,
 	Status = XIntc_Initialize(IntcInstancePtr, INTC_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
-		    "Interrupt controller intialization failed %d\r\n",Status);
+		    "Interrupt controller initialization failed %d\r\n",Status);
 
 		return XST_FAILURE;
 	}
@@ -624,10 +603,8 @@ static int SetupTransfer(XAxiCdma * InstancePtr)
 	 */
 	Xil_DCacheFlushRange((UINTPTR)TransmitBufferPtr,
 		MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER);
-#ifdef __aarch64__
 	Xil_DCacheFlushRange((UINTPTR)ReceiveBufferPtr,
 		MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER);
-#endif
 
 	Status = XAxiCdma_SetCoalesce(InstancePtr, COALESCING_COUNT,
 		DELAY_COUNT);
@@ -753,9 +730,7 @@ static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length)
 	/* Invalidate the DestBuffer before receiving the data, in case the
 	 * Data Cache is enabled
 	 */
-#ifndef __aarch64__
 	Xil_DCacheInvalidateRange((UINTPTR)DestPtr, Length);
-#endif
 
 	for (Index = 0; Index < Length; Index++) {
 		if ( DestPtr[Index] != SrcPtr[Index]) {

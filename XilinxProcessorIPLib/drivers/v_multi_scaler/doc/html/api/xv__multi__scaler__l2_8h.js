@@ -27,9 +27,9 @@ var xv__multi__scaler__l2_8h =
       [ "XV_MULTISCALER_BICUBIC", "xv__multi__scaler__l2_8h.html#gga63a80e7e8ab1a6ae649a4157e2f5b75aa1ce93f0528a2ae3895c8523fe4e0b7be", null ],
       [ "XV_MULTISCALER_POLYPHASE", "xv__multi__scaler__l2_8h.html#gga63a80e7e8ab1a6ae649a4157e2f5b75aa14a2e7c6d4d6be938ef19179f5bb5a1b", null ]
     ] ],
-    [ "XV_MultiScalerGetChannelConfig", "xv__multi__scaler__l2_8h.html#ga64afeff58f631f4d85018b00ddb57bf0", null ],
+    [ "XV_MultiScalerGetChannelConfig", "xv__multi__scaler__l2_8h.html#ga8bec7aefd004b6b1ce75da869454ae9e", null ],
     [ "XV_MultiScalerGetNumOutputs", "xv__multi__scaler__l2_8h.html#ga12eacf4add26c91456221b04172d314e", null ],
-    [ "XV_MultiScalerSetChannelConfig", "xv__multi__scaler__l2_8h.html#gabbd5b9f047810bd680b809a4c7aa0f2f", null ],
+    [ "XV_MultiScalerSetChannelConfig", "xv__multi__scaler__l2_8h.html#gadac93267b546f514b3311c1825fd832c", null ],
     [ "XV_MultiScalerSetNumOutputs", "xv__multi__scaler__l2_8h.html#ga954a2264fa23e2726a43a40433a1216d", null ],
     [ "XV_MultiScalerStart", "xv__multi__scaler__l2_8h.html#ga72ecb43c374027b51fc780f208aea156", null ],
     [ "XV_MultiScalerStop", "xv__multi__scaler__l2_8h.html#gac76f0404a4543e4b45ae1ee8e633946c", null ]

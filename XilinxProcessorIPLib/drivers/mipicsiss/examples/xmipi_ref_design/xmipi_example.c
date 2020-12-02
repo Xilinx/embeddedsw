@@ -1,30 +1,8 @@
 /******************************************************************************
- *
- * Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  *****************************************************************************/
+
 /*****************************************************************************/
 /**
  *
@@ -103,12 +81,12 @@
 #define VID_PHY_DEVICE_ID	VPHY_DEV_ID
 #define VID_PHY_INTR_ID		VPHY_INTRID
 
-#define GPIO_TPG_RESET_DEVICE_ID	XPAR_GPIO_3_DEVICE_ID
+#define GPIO_TPG_RESET_DEVICE_ID	XPAR_GPIO_2_DEVICE_ID
 
 #define V_TPG_DEVICE_ID		XPAR_XV_TPG_0_DEVICE_ID
 
 #define GPIO_SENSOR		XPAR_AXI_GPIO_0_SENSOR_BASEADDR
-#define GPIO_IP_RESET	XPAR_GPIO_4_BASEADDR
+#define GPIO_IP_RESET	XPAR_GPIO_3_BASEADDR
 
 #ifdef XPAR_PSU_ACPU_GIC_DEVICE_ID
 #define PSU_INTR_DEVICE_ID	XPAR_PSU_ACPU_GIC_DEVICE_ID
@@ -130,6 +108,8 @@ void EnableColorBar(XVphy *VphyPtr, XV_HdmiTxSs *HdmiTxSsPtr,
 			XVidC_VideoMode VideoMode,
 			XVidC_ColorFormat ColorFormat,
 			XVidC_ColorDepth Bpc);
+
+extern u32 InitStreamMuxGpio(void);
 
 void Info(void);
 
@@ -177,6 +157,11 @@ void XV_ConfigTpg(XV_tpg *InstancePtr);
 void ResetTpg(void);
 
 extern void EnableDSI();
+extern void Shutdown_DSI();
+extern void Reconfigure_DSI();
+extern void Reconfigure_HDMI(void);
+extern void SelectDSIOutput(void);
+extern void SelectHDMIOutput(void);
 
 /*****************************************************************************/
 /**
@@ -701,8 +686,8 @@ void EnableColorBar(XVphy *VphyPtr, XV_HdmiTxSs *HdmiTxSsPtr,
 	 * In this case the TX only color bar can't be displayed
 	 */
 	if (XVphy_IsBonded(VphyPtr, 0, XVPHY_CHANNEL_ID_CH1)) {
-		xil_printf("Both the GT RX and GT TX are clocked by the RX reference clock.\n\r");
-		xil_printf("Please connect a source to the RX input\n\r");
+xil_printf("Both GT RX and GT TX are clocked by the RX reference clock.\n\r");
+xil_printf("Please connect a source to the RX input\n\r");
 	}
 
 	/* Independent TX reference clock */
@@ -868,7 +853,8 @@ int main(void)
 	xil_printf("--------------------------------------------------\r\n");
 	xil_printf(TXT_RST);
 
-	xil_printf("Please answer the following questions about the hardware setup.\r\n");
+xil_printf("Please answer the following questions about the hardware setup.");
+xil_printf("\r\n");
 
 	do {
 		xil_printf("Is the camera sensor connected? (Y/N)\r\n");
@@ -974,8 +960,8 @@ int main(void)
 	InitDSI();
 	xil_printf("\r\nInitDSI Done \n\r");
 
-	/* Initialize GPIO IP for Tready signal*/
-	Status = InitTreadyGpio();
+	/* Initialize GPIO IP for Strem Switch Mux signal*/
+	Status = InitStreamMuxGpio();
 	if (Status != XST_SUCCESS) {
 		xil_printf(TXT_RED "Tready GPIO Init failed status = %x.\r\n"
 				 TXT_RST, Status);
@@ -1124,7 +1110,7 @@ int main(void)
 	/* Reset Camera Sensor module through GPIO */
 	xil_printf("Disable CAM_RST of Sensor through GPIO\r\n");
 	CamReset();
-	xil_printf("Sensor is Enabled\r\n");
+	xil_printf("Sensor is  Enabled\r\n");
 
 	/* Program Camera sensor */
 	Status = SetupCameraSensor();
@@ -1132,6 +1118,7 @@ int main(void)
 		xil_printf("Failed to setup Camera sensor\r\n");
 		return XST_FAILURE;
 	}
+
 
 	/* Initialize VDMA with the the resolution mentioned */
 	InitCSC2TPG_Vdma();
@@ -1168,7 +1155,7 @@ int main(void)
 	if (Pipeline_Cfg.VideoDestn == XVIDDES_DSI)
 	{
 		xil_printf("\n\rEnabling DSI Tready ... ");
-		SelectDSIOuptut();
+		SelectDSIOutput();
 		xil_printf("Enabled \n\r ");
 	}
 	else
@@ -1239,7 +1226,9 @@ int main(void)
 				Pipeline_Cfg.VideoDestn = XVIDDES_HDMI;
 
 				/* Make Video Scaler TREADY High */
+				Shutdown_DSI();
 				SelectHDMIOutput();
+				Reconfigure_HDMI();
 			}
 
 			if (New_Cfg.VideoDestn == XVIDDES_DSI) {
@@ -1247,7 +1236,8 @@ int main(void)
 				Pipeline_Cfg.VideoDestn = XVIDDES_DSI;
 
 				/* Make TREADY of HDMI as high */
-				SelectDSIOuptut();
+				SelectDSIOutput();
+				Reconfigure_DSI();
 			}
 
 			PrintPipeConfig();

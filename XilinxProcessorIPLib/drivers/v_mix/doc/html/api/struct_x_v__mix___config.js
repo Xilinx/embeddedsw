@@ -3,6 +3,7 @@ var struct_x_v__mix___config =
     [ "AlphaFlag", "struct_x_v__mix___config.html#a089b882d106a9ff6049ad74bb75442b1", null ],
     [ "BaseAddress", "struct_x_v__mix___config.html#a3465714e442307d99eabf8d32fcb319b", null ],
     [ "ColorFormat", "struct_x_v__mix___config.html#a3e8abea176bf7f3743cd1a1e2b1855d0", null ],
+    [ "CscCoeffsRegsEn", "struct_x_v__mix___config.html#aadbd2cb197aeed0b11df5e65130a9317", null ],
     [ "DeviceId", "struct_x_v__mix___config.html#a35442fa9a507fd341291aec56f36ad93", null ],
     [ "LogoColorKeyEn", "struct_x_v__mix___config.html#a2842e1f1e4f2b6079d645786f677d148", null ],
     [ "LogoEn", "struct_x_v__mix___config.html#ad1d70993de89193d9d614f38f435a47b", null ],

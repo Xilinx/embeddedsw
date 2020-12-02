@@ -1,35 +1,13 @@
 /*******************************************************************************
- *
- * Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (C) 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /******************************************************************************/
 /**
  *
  * @file xvidc.h
- * @addtogroup video_common_v4_3
+ * @addtogroup video_common_v4_10
  * @{
  * @details
  *
@@ -73,7 +51,7 @@
  *       vyc  04/04/18 Added BGR8 memory format
  * 4.5   jsr  07/03/18 Added XVIDC_VM_720x486_60_I video format
  * 4.5   yas  03/08/19 Added support for frame rates 144HZ and 240HZ
- * 4.5   mmo  02/14/19 Added 5k, 8k, 10k and Low Resolution with 200Hz, 240Hz
+ * 4.6   mmo  02/14/19 Added 5k, 8k, 10k and Low Resolution with 200Hz, 240Hz
  * </pre>
  *
 *******************************************************************************/
@@ -123,6 +101,8 @@ typedef enum {
 	XVIDC_VM_2048x1080_96_I,
 	XVIDC_VM_2048x1080_100_I,
 	XVIDC_VM_2048x1080_120_I,
+	XVIDC_VM_2880x480_60_I,
+	XVIDC_VM_2880x576_50_I,
 
 
 	/* Progressive modes. */
@@ -185,6 +165,9 @@ typedef enum {
 	XVIDC_VM_1400x1050_85_P,
 	XVIDC_VM_1400x1050_120_P_RB,
 	XVIDC_VM_1440x240_60_P,
+	XVIDC_VM_1440x288_50_P,
+	XVIDC_VM_1440x480_60_P,
+	XVIDC_VM_1440x576_50_P,
 	XVIDC_VM_1440x900_60_P,
 	XVIDC_VM_1440x900_60_P_RB,
 	XVIDC_VM_1440x900_75_P,
@@ -196,6 +179,9 @@ typedef enum {
 	XVIDC_VM_1600x1200_75_P,
 	XVIDC_VM_1600x1200_85_P,
 	XVIDC_VM_1600x1200_120_P_RB,
+	XVIDC_VM_1680x720_24_P,
+	XVIDC_VM_1680x720_25_P,
+	XVIDC_VM_1680x720_30_P,
 	XVIDC_VM_1680x720_50_P,
 	XVIDC_VM_1680x720_60_P,
 	XVIDC_VM_1680x720_100_P,
@@ -250,15 +236,19 @@ typedef enum {
 	XVIDC_VM_2560x1600_75_P,
 	XVIDC_VM_2560x1600_85_P,
 	XVIDC_VM_2560x1600_120_P_RB,
+	XVIDC_VM_2880x240_60_P,
+	XVIDC_VM_2880x288_50_P,
+	XVIDC_VM_2880x480_60_P,
+	XVIDC_VM_2880x576_50_P,
 	XVIDC_VM_3840x2160_24_P,
 	XVIDC_VM_3840x2160_25_P,
 	XVIDC_VM_3840x2160_30_P,
 	XVIDC_VM_3840x2160_48_P,
 	XVIDC_VM_3840x2160_50_P,
 	XVIDC_VM_3840x2160_60_P,
+	XVIDC_VM_3840x2160_60_P_RB,
 	XVIDC_VM_3840x2160_100_P,
 	XVIDC_VM_3840x2160_120_P,
-	XVIDC_VM_3840x2160_60_P_RB,
 	XVIDC_VM_4096x2160_24_P,
 	XVIDC_VM_4096x2160_25_P,
 	XVIDC_VM_4096x2160_30_P,
@@ -451,7 +441,7 @@ typedef enum {
 	/* Streaming formats with components re-ordered */
 	XVIDC_CSF_YCBCR_422 = 64,
 	XVIDC_CSF_YCBCR_420,
-
+	XVIDC_CSF_YCBCR_444,
 
 	XVIDC_CSF_NUM_SUPPORTED,    // includes the reserved slots
 	XVIDC_CSF_UNKNOWN,
@@ -567,6 +557,21 @@ typedef struct {
 } XVidC_3DInfo;
 
 /**
+ * Electro Optical Transfer Function
+ *
+ * Based on CTA861-G
+ */
+typedef enum {
+	/* TG - Traditional Gamma */
+	XVIDC_EOTF_TG_SDR = 0,
+	XVIDC_EOTF_TG_HDR,
+	XVIDC_EOTF_SMPTE2084,
+	XVIDC_EOTF_HLG,
+	XVIDC_EOTF_NUM_SUPPORTED,
+	XVIDC_EOTF_UNKNOWN,
+} XVidC_Eotf;
+
+/**
  * Video stream structure.
  */
 typedef struct {
@@ -580,6 +585,8 @@ typedef struct {
 	XVidC_3DInfo		  Info_3D;
 	XVidC_VideoMode		  VmId;
 	XVidC_VideoTiming	  Timing;
+	XVidC_Eotf		Eotf;
+	XVidC_ColorStd		ColorStd;
 } XVidC_VideoStream;
 
 /**
@@ -597,7 +604,7 @@ typedef struct {
  */
 typedef struct {
 	XVidC_VideoMode		VmId;
-	const char		    Name[21];
+	char			Name[21];
 	XVidC_FrameRate		FrameRate;
 	XVidC_VideoTiming	Timing;
 } XVidC_VideoTimingMode;
@@ -621,8 +628,8 @@ typedef void (*XVidC_DelayHandler)(void *TimerPtr, u32 Delay);
 u32 XVidC_RegisterCustomTimingModes(const XVidC_VideoTimingMode *CustomTable,
 		                            u16 NumElems);
 void XVidC_UnregisterCustomTimingModes(void);
-u32 XVidC_GetPixelClockHzByHVFr(u32 HTotal, u32 VTotal, u8 FrameRate);
-u32 XVidC_GetPixelClockHzByVmId(XVidC_VideoMode VmId);
+u64 XVidC_GetPixelClockHzByHVFr(u32 HTotal, u32 VTotal, u8 FrameRate);
+u64 XVidC_GetPixelClockHzByVmId(XVidC_VideoMode VmId);
 XVidC_VideoFormat XVidC_GetVideoFormat(XVidC_VideoMode VmId);
 u8 XVidC_IsInterlaced(XVidC_VideoMode VmId);
 const XVidC_VideoTimingMode* XVidC_GetVideoModeData(XVidC_VideoMode VmId);

@@ -28,7 +28,7 @@
   <td style="padding-left: 0.5em;">
    <div id="projectname">sysmon
    </div>
-   <div id="projectbrief">Xilinx SDK Drivers API Documentation</div>
+   <div id="projectbrief">Xilinx Vitis Drivers API Documentation</div>
   </td>
  </tr>
  </tbody>
@@ -90,7 +90,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 </ul>
 <p><b> Initialization and Configuration </b></p>
 <p>The device driver enables higher layer software (e.g., an application) to communicate to the System Monitor/ADC device.</p>
-<p><a class="el" href="group__sysmon__v7__5.html#ga04de4a4efc9fab7a41b88166bbffc615" title="This function initializes a specific XSysMon device/instance.">XSysMon_CfgInitialize()</a> API is used to initialize the System Monitor/ADC device. The user needs to first call the <a class="el" href="group__sysmon__v7__5.html#gaf2f837d4a34ab56e268078a2874389d4" title="Functions in xsysmon_sinit.c.">XSysMon_LookupConfig()</a> API which returns the Configuration structure pointer which is passed as a parameter to the <a class="el" href="group__sysmon__v7__5.html#ga04de4a4efc9fab7a41b88166bbffc615" title="This function initializes a specific XSysMon device/instance.">XSysMon_CfgInitialize()</a> API.</p>
+<p><a class="el" href="group__sysmon__v7__7.html#ga04de4a4efc9fab7a41b88166bbffc615" title="This function initializes a specific XSysMon device/instance.">XSysMon_CfgInitialize()</a> API is used to initialize the System Monitor/ADC device. The user needs to first call the <a class="el" href="group__sysmon__v7__7.html#gaf2f837d4a34ab56e268078a2874389d4" title="Functions in xsysmon_sinit.c.">XSysMon_LookupConfig()</a> API which returns the Configuration structure pointer which is passed as a parameter to the <a class="el" href="group__sysmon__v7__7.html#ga04de4a4efc9fab7a41b88166bbffc615" title="This function initializes a specific XSysMon device/instance.">XSysMon_CfgInitialize()</a> API.</p>
 <p><b>Interrupts</b></p>
 <p>The System Monitor/ADC device supports interrupt driven mode and the default operation mode is polling mode.</p>
 <p>The interrupt mode is available only if hardware is configured to support interrupts.</p>
@@ -144,8 +144,8 @@ $(document).ready(function(){initNavTree('index.html','');});
                 XSM_MIN_VUSR3,XSM_ATR_VUSR0_UPPER -
                 XSM_ATR_VUSR3_LOWER macros.
                 Added XSM_IP_OFFSET macro(since register
-                offsets are different for Ultrascale comapared to
-                earlier familes),Offsets,Masks for VUSER0 to
+                offsets are different for Ultrascale compared to
+                earlier families),Offsets,Masks for VUSER0 to
                 VUSER3 channels, Configuration Register 3 and
                 Sequence Registers 8 and 9 in <a class="el" href="xsysmon__hw_8h.html">xsysmon_hw.h</a>.
                 Modified XSysMon_GetAdcData,
@@ -179,7 +179,7 @@ $(document).ready(function(){initNavTree('index.html','');});
                    for doxygen generation.
 7.4  ms   04/18/17 Modified tcl file to add suffix U for all macros
                    definitions of sysmon in xparameters.h
-</pre> </div></div><!-- contents -->
+7.6  aad  03/23/20 Aligned Macros to the documentation</pre><pre></pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

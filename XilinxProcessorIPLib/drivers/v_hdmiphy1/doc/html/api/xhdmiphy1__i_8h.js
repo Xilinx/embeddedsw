@@ -1,7 +1,5 @@
 var xhdmiphy1__i_8h =
 [
-    [ "Pll2SysClkData", "xhdmiphy1__i_8h.html#ga54722e6d9edb9794242a8a983be20c2f", null ],
-    [ "Pll2SysClkOut", "xhdmiphy1__i_8h.html#gaf72ee91f543801ef51983207fb16cd1b", null ],
     [ "XHdmiphy1_CfgPllRefClkSel", "xhdmiphy1__i_8h.html#gaf3cb368774462d22b085a8e34d2c7a00", null ],
     [ "XHdmiphy1_CfgSysClkDataSel", "xhdmiphy1__i_8h.html#ga4e6b72ef1579950b4c8c83e35e7ad4b0", null ],
     [ "XHdmiphy1_CfgSysClkOutSel", "xhdmiphy1__i_8h.html#ga738210e1c11e69176f1cd733ff0bae6c", null ],
@@ -28,6 +26,8 @@ var xhdmiphy1__i_8h =
     [ "XHdmiphy1_MmcmReset", "xhdmiphy1__i_8h.html#ga47707c2203c7788afdfb22fe1ae438db", null ],
     [ "XHdmiphy1_MmcmSetClkinsel", "xhdmiphy1__i_8h.html#ga2b93ca125219d62f19817168267ddfc5", null ],
     [ "XHdmiphy1_OutDivReconfig", "xhdmiphy1__i_8h.html#ga03e2d2bdcf56e256ff08f5776313a76e", null ],
+    [ "XHdmiphy1_Pll2SysClkData", "xhdmiphy1__i_8h.html#ga27c96bba79f91125a226948b139fe9d3", null ],
+    [ "XHdmiphy1_Pll2SysClkOut", "xhdmiphy1__i_8h.html#gad369e0c6d06d2f66606c845b3976fe75", null ],
     [ "XHdmiphy1_PllCalculator", "xhdmiphy1__i_8h.html#ga87f9523a81f1b648cfae0172bdd96f0b", null ],
     [ "XHdmiphy1_PowerDownGtPll", "xhdmiphy1__i_8h.html#gaf1fbb7de9d26abab7332a62932be9d85", null ],
     [ "XHdmiphy1_SetBufgGtDiv", "xhdmiphy1__i_8h.html#gafb115f999643adac66932d6c4a44de1c", null ],

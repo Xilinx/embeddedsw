@@ -28,7 +28,7 @@
   <td style="padding-left: 0.5em;">
    <div id="projectname">wdttb
    </div>
-   <div id="projectbrief">Xilinx SDK Drivers API Documentation</div>
+   <div id="projectbrief">Xilinx Vitis Drivers API Documentation</div>
   </td>
  </tr>
  </tbody>
@@ -81,7 +81,10 @@ Ver   Who  Date     Changes
 <p>
 4.0   sha  02/04/16 First release.
 4.4   sne  03/04/19 Added support for Versal.
-</pre> </div><table class="memberdecls">
+4.5     sne  09/27/19 Updated example file to support AXI Timebase WDT
+              and WWDT.
+5.0     sne  03/11/20 Added XWdtTb_ConfigureWDTMode api to configure
+              mode.</pre><pre></pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a2f5793923e00b88a8fb0acb82f94a9af"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xwdttb__winwdt__example_8c.html#a2f5793923e00b88a8fb0acb82f94a9af">WDTTB_FW_COUNT</a>&#160;&#160;&#160;31</td></tr>
@@ -96,6 +99,9 @@ Macros</h2></td></tr>
 <tr class="memitem:a0f042882baa1ded6c87fd10cfab456db"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xwdttb__winwdt__example_8c.html#a0f042882baa1ded6c87fd10cfab456db">WDTTB_BYTE_SEGMENT</a>&#160;&#160;&#160;2</td></tr>
 <tr class="memdesc:a0f042882baa1ded6c87fd10cfab456db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte segment selected.  <a href="#a0f042882baa1ded6c87fd10cfab456db"></a><br/></td></tr>
 <tr class="separator:a0f042882baa1ded6c87fd10cfab456db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8b4b1a275d1d9e87eb2f9aadb1b61dd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xwdttb__winwdt__example_8c.html#ae8b4b1a275d1d9e87eb2f9aadb1b61dd">WDTTB_SST_COUNT</a>&#160;&#160;&#160;0x00011000</td></tr>
+<tr class="memdesc:ae8b4b1a275d1d9e87eb2f9aadb1b61dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of clock cycles for Second sequence Timer.  <a href="#ae8b4b1a275d1d9e87eb2f9aadb1b61dd"></a><br/></td></tr>
+<tr class="separator:ae8b4b1a275d1d9e87eb2f9aadb1b61dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -146,6 +152,20 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Number of clock cycles for first window. </p>
+
+</div>
+</div>
+<a class="anchor" id="ae8b4b1a275d1d9e87eb2f9aadb1b61dd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WDTTB_SST_COUNT&#160;&#160;&#160;0x00011000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of clock cycles for Second sequence Timer. </p>
 
 </div>
 </div>

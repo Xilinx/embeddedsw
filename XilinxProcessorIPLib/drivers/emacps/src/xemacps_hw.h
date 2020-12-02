@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xemacps_hw.h
-* @addtogroup emacps_v3_9
+* @addtogroup emacps_v3_12
 * @{
 *
 * This header file contains identifiers and low-level driver functions (or
@@ -59,6 +37,7 @@
 * 3.2   hk   02/22/16 Added SGMII support for Zynq Ultrascale+ MPSoC.
 * 3.8  hk   09/17/18 Fix PTP interrupt masks.
 * 3.9  hk   01/23/19 Add RX watermark support
+* 3.10 hk   05/16/19 Clear status registers properly in reset
 * </pre>
 *
 ******************************************************************************/
@@ -455,6 +434,9 @@ typedef enum { MDC_DIV_8 = 0U, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
 #define XEMACPS_RXSR_ERROR_MASK      ((u32)XEMACPS_RXSR_HRESPNOK_MASK | \
                                        (u32)XEMACPS_RXSR_RXOVR_MASK | \
                                        (u32)XEMACPS_RXSR_BUFFNA_MASK)
+
+#define XEMACPS_SR_ALL_MASK	0xFFFFFFFFU /**< Mask for full register */
+
 /*@}*/
 
 /**

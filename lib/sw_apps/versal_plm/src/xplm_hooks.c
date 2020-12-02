@@ -1,27 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+* Copyright (c) 2019 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
@@ -37,6 +16,10 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   03/08/2019 Initial release
+* 1.01  ma   08/01/2019 Removed LPD module init related code from PLM app
+*       kc   08/29/2019 Added xilpm hook to be called after plm cdo
+* 1.02  kc   02/19/2020 Moved PLM banner print to XilPlmi
+*       kc   03/23/2020 Minor code cleanup
 *
 * </pre>
 *
@@ -46,6 +29,8 @@
 
 /***************************** Include Files *********************************/
 #include "xplm_hooks.h"
+#include "xplm_default.h"
+#include "xpm_api.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -60,14 +45,15 @@
 /**
 * @brief This function will be called before processing the PLM CDO. Before
 * this only PMC module initialization is done. Most of the HW state will be
-* as POR.Please note that PS LPD UART is not intialized by this time
+* as POR.Please note that PS LPD UART is not initialized by this time
 *
-* @param	None
-* @return	XST_SUCCESS on success, any other value for error
+* @param	Arg is not used
+* @return	XST_SUCCESS always
 *
 *****************************************************************************/
-int XPlm_HookBeforePlmCdo()
+int XPlm_HookBeforePlmCdo(void *Arg)
 {
+	(void)Arg;
 
 	return XST_SUCCESS;
 }
@@ -77,26 +63,32 @@ int XPlm_HookBeforePlmCdo()
 * @brief This function will be called after processing the PLM CDO. All the
 * PMC and LPD configuration(optional) will be completed by this time.
 *
-* @param	None
+* @param	Arg is not used
 * @return	XST_SUCCESS on success, any other value for error
 *
 *****************************************************************************/
-int XPlm_HookAfterPlmCdo()
+int XPlm_HookAfterPlmCdo(void *Arg)
 {
+	int Status = XST_FAILURE;
 
-	return XST_SUCCESS;
+	(void)Arg;
+	/* Call LibPM hook */
+	Status = XPm_HookAfterPlmCdo();
+
+	return Status;
 }
 
 /*****************************************************************************/
 /**
 * @brief This function will be called after loading the boot PDI.
 *
-* @param	None
-* @return	XST_SUCCESS on success, any other value for error
+* @param	Arg is not used
+* @return	XST_SUCCESS always
 *
 *****************************************************************************/
-int XPlm_HookAfterBootPdi()
+int XPlm_HookAfterBootPdi(void *Arg)
 {
+	(void)Arg;
 
 	return XST_SUCCESS;
 }

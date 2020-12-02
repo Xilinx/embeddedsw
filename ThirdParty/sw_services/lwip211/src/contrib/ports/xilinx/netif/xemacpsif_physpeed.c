@@ -268,7 +268,7 @@ static u32_t get_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 	else if((temp & 0x0C00) == 0x0000) {
 		return 10;
 	} else {
-		xil_printf("get_IEEE_phy_speed(): Invalid speed bit value, Deafulting to Speed = 10 Mbps\r\n");
+		xil_printf("get_IEEE_phy_speed(): Invalid speed bit value, Defaulting to Speed = 10 Mbps\r\n");
 		XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_CONTROL_REG_OFFSET, &temp);
 		XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_CONTROL_REG_OFFSET, 0x0100);
 		return 10;
@@ -380,7 +380,6 @@ static u32_t get_TI_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 	u16_t status_speed;
 	u32_t timeout_counter = 0;
 	u32_t phyregtemp;
-	int i;
 	u32_t RetStatus;
 
 	xil_printf("Start PHY autonegotiation \r\n");
@@ -401,7 +400,7 @@ static u32_t get_TI_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 	/*
 	 * Delay
 	 */
-	for(i=0;i<1000000000;i++);
+	sleep(1);
 
 	RetStatus = XEmacPs_PhyRead(xemacpsp, phy_addr, 0, (u16_t *)&phyregtemp);
 	if (RetStatus != XST_SUCCESS) {
@@ -723,12 +722,12 @@ static u32_t configure_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr, u32_t s
 	if (speed == 1000) {
 		control |= IEEE_CTRL_LINKSPEED_1000M;
 
-		/* Dont advertise PHY speed of 100 Mbps */
+		/* Don't advertise PHY speed of 100 Mbps */
 		XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_AUTONEGO_ADVERTISE_REG, &autonereg);
 		autonereg &= (~ADVERTISE_100);
 		XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_AUTONEGO_ADVERTISE_REG, autonereg);
 
-		/* Dont advertise PHY speed of 10 Mbps */
+		/* Don't advertise PHY speed of 10 Mbps */
 		XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_AUTONEGO_ADVERTISE_REG, &autonereg);
 		autonereg &= (~ADVERTISE_10);
 		XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_AUTONEGO_ADVERTISE_REG, autonereg);
@@ -742,12 +741,12 @@ static u32_t configure_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr, u32_t s
 	else if (speed == 100) {
 		control |= IEEE_CTRL_LINKSPEED_100M;
 
-		/* Dont advertise PHY speed of 1000 Mbps */
+		/* Don't advertise PHY speed of 1000 Mbps */
 		XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_1000_ADVERTISE_REG_OFFSET, &autonereg);
 		autonereg &= (~ADVERTISE_1000);
 		XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_1000_ADVERTISE_REG_OFFSET, autonereg);
 
-		/* Dont advertise PHY speed of 10 Mbps */
+		/* Don't advertise PHY speed of 10 Mbps */
 		XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_AUTONEGO_ADVERTISE_REG, &autonereg);
 		autonereg &= (~ADVERTISE_10);
 		XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_AUTONEGO_ADVERTISE_REG, autonereg);
@@ -761,12 +760,12 @@ static u32_t configure_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr, u32_t s
 	else if (speed == 10) {
 		control |= IEEE_CTRL_LINKSPEED_10M;
 
-		/* Dont advertise PHY speed of 1000 Mbps */
+		/* Don't advertise PHY speed of 1000 Mbps */
 		XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_1000_ADVERTISE_REG_OFFSET, &autonereg);
 		autonereg &= (~ADVERTISE_1000);
 		XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_1000_ADVERTISE_REG_OFFSET, autonereg);
 
-		/* Dont advertise PHY speed of 100 Mbps */
+		/* Don't advertise PHY speed of 100 Mbps */
 		XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_AUTONEGO_ADVERTISE_REG, &autonereg);
 		autonereg &= (~ADVERTISE_100);
 		XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_AUTONEGO_ADVERTISE_REG, autonereg);
@@ -799,11 +798,14 @@ static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed)
 	u32_t CrlApbDiv0 = 0;
 	u32_t CrlApbDiv1 = 0;
 	u32_t CrlApbGemCtrl;
+#if EL1_NONSECURE
+	u32_t ClkId;
+#endif
 
 	gigeversion = ((Xil_In32(mac_baseaddr + 0xFC)) >> 16) & 0xFFF;
 	if (gigeversion == 2) {
 
-		*(volatile u32_t *)(SLCR_UNLOCK_ADDR) = SLCR_UNLOCK_KEY_VALUE;
+		Xil_Out32(SLCR_UNLOCK_ADDR, SLCR_UNLOCK_KEY_VALUE);
 
 		if (mac_baseaddr == ZYNQ_EMACPS_0_BASEADDR) {
 			slcrBaseAddress = SLCR_GEM0_CLK_CTRL_ADDR;
@@ -811,13 +813,13 @@ static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed)
 			slcrBaseAddress = SLCR_GEM1_CLK_CTRL_ADDR;
 		}
 
-		if((*(volatile u32_t *)(UINTPTR)(slcrBaseAddress)) &
+		if(Xil_In32((UINTPTR)slcrBaseAddress) &
 			SLCR_GEM_SRCSEL_EMIO) {
 				return;
 		}
 
 		if (speed == 1000) {
-			if (mac_baseaddr == XPAR_XEMACPS_0_BASEADDR) {
+			if (mac_baseaddr == ZYNQ_EMACPS_0_BASEADDR) {
 #ifdef XPAR_PS7_ETHERNET_0_ENET_SLCR_1000MBPS_DIV0
 				SlcrDiv0 = XPAR_PS7_ETHERNET_0_ENET_SLCR_1000MBPS_DIV0;
 				SlcrDiv1 = XPAR_PS7_ETHERNET_0_ENET_SLCR_1000MBPS_DIV1;
@@ -829,7 +831,7 @@ static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed)
 #endif
 			}
 		} else if (speed == 100) {
-			if (mac_baseaddr == XPAR_XEMACPS_0_BASEADDR) {
+			if (mac_baseaddr == ZYNQ_EMACPS_0_BASEADDR) {
 #ifdef XPAR_PS7_ETHERNET_0_ENET_SLCR_100MBPS_DIV0
 				SlcrDiv0 = XPAR_PS7_ETHERNET_0_ENET_SLCR_100MBPS_DIV0;
 				SlcrDiv1 = XPAR_PS7_ETHERNET_0_ENET_SLCR_100MBPS_DIV1;
@@ -841,7 +843,7 @@ static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed)
 #endif
 			}
 		} else {
-			if (mac_baseaddr == XPAR_XEMACPS_0_BASEADDR) {
+			if (mac_baseaddr == ZYNQ_EMACPS_0_BASEADDR) {
 #ifdef XPAR_PS7_ETHERNET_0_ENET_SLCR_10MBPS_DIV0
 				SlcrDiv0 = XPAR_PS7_ETHERNET_0_ENET_SLCR_10MBPS_DIV0;
 				SlcrDiv1 = XPAR_PS7_ETHERNET_0_ENET_SLCR_10MBPS_DIV1;
@@ -855,16 +857,16 @@ static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed)
 		}
 
 		if (SlcrDiv0 != 0 && SlcrDiv1 != 0) {
-			SlcrTxClkCntrl = *(volatile u32_t *)(UINTPTR)(slcrBaseAddress);
+			SlcrTxClkCntrl = Xil_In32((UINTPTR)slcrBaseAddress);
 			SlcrTxClkCntrl &= EMACPS_SLCR_DIV_MASK;
 			SlcrTxClkCntrl |= (SlcrDiv1 << 20);
 			SlcrTxClkCntrl |= (SlcrDiv0 << 8);
-			*(volatile u32_t *)(UINTPTR)(slcrBaseAddress) = SlcrTxClkCntrl;
-			*(volatile u32_t *)(SLCR_LOCK_ADDR) = SLCR_LOCK_KEY_VALUE;
+			Xil_Out32((UINTPTR)slcrBaseAddress, SlcrTxClkCntrl);
+			Xil_Out32(SLCR_LOCK_ADDR, SLCR_LOCK_KEY_VALUE);
 		} else {
 			xil_printf("Clock Divisors incorrect - Please check\r\n");
 		}
-	} else if (gigeversion > 2) {
+	} else if (gigeversion == GEM_VERSION_ZYNQMP) {
 		/* Setup divisors in CRL_APB for Zynq Ultrascale+ MPSoC */
 		if (mac_baseaddr == ZYNQMP_EMACPS_0_BASEADDR) {
 			CrlApbBaseAddr = CRL_APB_GEM0_REF_CTRL;
@@ -951,7 +953,7 @@ static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed)
 								0, 0, 0, 0, 0, 0);
 			CrlApbGemCtrl = RegRead.Arg0 >> 32;
 		#else
-			CrlApbGemCtrl = *(volatile u32_t *)(UINTPTR)(CrlApbBaseAddr);
+			CrlApbGemCtrl = Xil_In32((UINTPTR)CrlApbBaseAddr);
         #endif
 			CrlApbGemCtrl &= ~CRL_APB_GEM_DIV0_MASK;
 			CrlApbGemCtrl |= CrlApbDiv0 << CRL_APB_GEM_DIV0_SHIFT;
@@ -965,8 +967,67 @@ static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed)
 				0, 0, 0, 0, 0, 0);
 			} while((RegRead.Arg0 >> 32) != CrlApbGemCtrl);
 		#else
-			*(volatile u32_t *)(UINTPTR)(CrlApbBaseAddr) = CrlApbGemCtrl;
+			Xil_Out32((UINTPTR)CrlApbBaseAddr, CrlApbGemCtrl);
         #endif
+		} else {
+			xil_printf("Clock Divisors incorrect - Please check\r\n");
+		}
+	} else if (gigeversion == GEM_VERSION_VERSAL) {
+		/* Setup divisors in CRL for Versal */
+		if (mac_baseaddr == VERSAL_EMACPS_0_BASEADDR) {
+			CrlApbBaseAddr = VERSAL_CRL_GEM0_REF_CTRL;
+#if EL1_NONSECURE
+			ClkId = CLK_GEM0_REF;
+#endif
+		} else if (mac_baseaddr == VERSAL_EMACPS_1_BASEADDR) {
+			CrlApbBaseAddr = VERSAL_CRL_GEM1_REF_CTRL;
+#if EL1_NONSECURE
+			ClkId = CLK_GEM1_REF;
+#endif
+		}
+
+		if (speed == 1000) {
+			if (mac_baseaddr == VERSAL_EMACPS_0_BASEADDR) {
+#ifdef XPAR_PSV_ETHERNET_0_ENET_SLCR_1000MBPS_DIV0
+				CrlApbDiv0 = XPAR_PSV_ETHERNET_0_ENET_SLCR_1000MBPS_DIV0;
+#endif
+			} else if (mac_baseaddr == VERSAL_EMACPS_1_BASEADDR) {
+#ifdef XPAR_PSV_ETHERNET_1_ENET_SLCR_1000MBPS_DIV0
+				CrlApbDiv0 = XPAR_PSV_ETHERNET_1_ENET_SLCR_1000MBPS_DIV0;
+#endif
+			}
+		} else if (speed == 100) {
+			if (mac_baseaddr == VERSAL_EMACPS_0_BASEADDR) {
+#ifdef XPAR_PSV_ETHERNET_0_ENET_SLCR_100MBPS_DIV0
+				CrlApbDiv0 = XPAR_PSV_ETHERNET_0_ENET_SLCR_100MBPS_DIV0;
+#endif
+			} else if (mac_baseaddr == VERSAL_EMACPS_1_BASEADDR) {
+#ifdef XPAR_PSV_ETHERNET_1_ENET_SLCR_100MBPS_DIV0
+				CrlApbDiv0 = XPAR_PSV_ETHERNET_1_ENET_SLCR_100MBPS_DIV0;
+#endif
+			}
+		} else {
+			if (mac_baseaddr == VERSAL_EMACPS_0_BASEADDR) {
+#ifdef XPAR_PSV_ETHERNET_0_ENET_SLCR_10MBPS_DIV0
+				CrlApbDiv0 = XPAR_PSV_ETHERNET_0_ENET_SLCR_10MBPS_DIV0;
+#endif
+			} else if (mac_baseaddr == VERSAL_EMACPS_1_BASEADDR) {
+#ifdef XPAR_PSV_ETHERNET_1_ENET_SLCR_10MBPS_DIV0
+				CrlApbDiv0 = XPAR_PSV_ETHERNET_1_ENET_SLCR_10MBPS_DIV0;
+#endif
+			}
+		}
+
+		if (CrlApbDiv0 != 0) {
+#if EL1_NONSECURE
+			Xil_Smc(PM_SET_DIVIDER_SMC_FID, (((u64)CrlApbDiv0 << 32) | ClkId), 0, 0, 0, 0, 0, 0);
+#else
+			CrlApbGemCtrl = Xil_In32((UINTPTR)CrlApbBaseAddr);
+			CrlApbGemCtrl &= ~VERSAL_CRL_GEM_DIV_MASK;
+			CrlApbGemCtrl |= CrlApbDiv0 << VERSAL_CRL_APB_GEM_DIV_SHIFT;
+
+			Xil_Out32((UINTPTR)CrlApbBaseAddr, CrlApbGemCtrl);
+#endif
 		} else {
 			xil_printf("Clock Divisors incorrect - Please check\r\n");
 		}

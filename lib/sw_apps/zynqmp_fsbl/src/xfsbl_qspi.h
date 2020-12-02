@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 17 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -41,7 +19,13 @@
 * 1.00  kc   10/21/13 Initial release
 * 2.00  sg   12/03/15 Added GQSPI driver support
 *                     32Bit boot mode support
-* 3.0   ds   01/03/17 Add support for Micron QSPI 2G part
+* 3.0   bv   12/02/16 Made compliance to MISRAC 2012 guidelines
+*       ds   01/03/17 Add support for Micron QSPI 2G part
+* 4.0   tjs  10/16/18 Added support for QPI mode in Macronix flash parts.
+*       sk   03/13/19 Added dual parallel support and QPI support for 24bit
+*                     boot mode for Macronix flash parts.
+* 5.0   bsv  11/15/20 Added Macronix 2G flash support
+*
 * </pre>
 *
 * @note
@@ -181,6 +165,8 @@ extern "C" {
 /* Macronix size constants are different for 512M and 1G */
 #define MACRONIX_FLASH_SIZE_ID_512M		(0x1AU)
 #define MACRONIX_FLASH_SIZE_ID_1G		(0x1BU)
+#define MACRONIX_FLASH_SIZE_ID_2G		(0x1CU)
+#define MACRONIX_FLASH_1_8_V_SIZE_ID_2G		(0x3CU)
 #define MACRONIX_FLASH_1_8_V_SIZE_ID_1G  	(0x3BU)
 #define MACRONIX_FLASH_1_8_V_MX25_ID_256	(0x39U)
 #define MACRONIX_FLASH_1_8_V_MX66_ID_512	(0x3AU)

@@ -28,7 +28,7 @@
   <td style="padding-left: 0.5em;">
    <div id="projectname">rfdc
    </div>
-   <div id="projectbrief">Xilinx SDK Drivers API Documentation</div>
+   <div id="projectbrief">Xilinx Vitis Drivers API Documentation</div>
   </td>
  </tr>
  </tbody>
@@ -72,6 +72,7 @@ $(document).ready(function(){initNavTree('xrfdc__intr__example_8c.html','');});
 <p>The interrupts do not do any data processing. Since they dont do any data processing, interrupts are invoked in rare conditions. The example here attempts to demonstrate users how an error interrupt can be generated. Also once generated how does the processing happen. Upon an interrupt, the control reaches to ScuGIC interrupt handler. From there the control is transferred to the libmetal isr handling which then calls the driver interrupt handler. Users are expected to register their callbacks with the driver interrupt framework. The actual interrupt handling is expected to happen in the user provided callback.</p>
 <p>This example generates ADC fabric interrupts by writing some incorrect fabric data rate based on the read/write clocks.</p>
 <p>For zcu111 board users are expected to define XPS_BOARD_ZCU111 macro while compiling this example.</p>
+<p>This example is design specific, PL-PS Interrupts must be attached and The Stimulus/Capture Block device names/addresses may vary.</p>
 <pre></pre><pre>MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
 </p>
 <hr/>
@@ -87,7 +88,11 @@ $(document).ready(function(){initNavTree('xrfdc__intr__example_8c.html','');});
       mus    08/18/18 Updated to remove xparameters.h dependency for linux
                       platform.
 6.0   cog    02/06/19 Updated for libmetal v2.0 and added configure PLL to
-                      set clock to incompatible rate</pre><pre></pre> </div><table class="memberdecls">
+                      set clock to incompatible rate
+      cog    06/08/19 Linux platform compatibility fixes.
+7.0   cog    07/25/19 Updated example for new metal register API.
+7.1   cog    01/24/20 Updated example for Gen3 and libmetal 2.0.
+8.0   cog    04/09/20 Fixed baremetal compilation bug.</pre><pre></pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ab5c0a56431afac742306e5d9deda46d4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xrfdc__intr__example_8c.html#ab5c0a56431afac742306e5d9deda46d4">RFdcHandler</a> (void *CallBackRef, u32 Type, int Tile_Id, u32 Block_Id, u32 StatusEvent)</td></tr>
@@ -174,7 +179,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="group__rfdc__v6__0.html#ga13cace3e47a78c717a4f2d70916adf4e">XRFdc_IntrDisable()</a>.</p>
+<p>References <a class="el" href="group__rfdc__v8__1.html#ga13cace3e47a78c717a4f2d70916adf4e">XRFdc_IntrDisable()</a>.</p>
 
 </div>
 </div>

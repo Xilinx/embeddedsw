@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xcanps_intr.c
-* @addtogroup canps_v3_2
+* @addtogroup canps_v3_5
 * @{
 *
 * This file contains functions related to CAN interrupt handling.
@@ -43,6 +21,7 @@
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.1   nsk    12/21/15 Updated XCanPs_IntrHandler to handle error
 *			interrupts correctly. CR#925615
+* 3.5	sne    07/01/20 Fixed MISRAC warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -232,7 +211,7 @@ void XCanPs_IntrHandler(void *InstancePtr)
 	u32 PendingIntr;
 	u32 EventIntr;
 	u32 ErrorStatus;
-	XCanPs *CanPtr = (XCanPs *) ((void *)InstancePtr);
+	XCanPs *CanPtr = (XCanPs *) InstancePtr;
 
 	Xil_AssertVoid(CanPtr != NULL);
 	Xil_AssertVoid(CanPtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -291,9 +270,6 @@ void XCanPs_IntrHandler(void *InstancePtr)
 			 * handling of other interrupts is needed any more.
 			 */
 			return;
-		} else {
-			/*This else was made for misra-c compliance*/
-			;
 		}
 	}
 
@@ -383,32 +359,32 @@ s32 XCanPs_SetHandler(XCanPs *InstancePtr, u32 HandlerType,
 			InstancePtr->SendHandler =
 				(XCanPs_SendRecvHandler) CallBackFunc;
 			InstancePtr->SendRef = CallBackRef;
-			Status = XST_SUCCESS;
+			Status = (s32)XST_SUCCESS;
 			break;
 
 		case XCANPS_HANDLER_RECV:
 			InstancePtr->RecvHandler =
 				(XCanPs_SendRecvHandler) CallBackFunc;
 			InstancePtr->RecvRef = CallBackRef;
-			Status = XST_SUCCESS;
+			Status = (s32)XST_SUCCESS;
 			break;
 
 		case XCANPS_HANDLER_ERROR:
 			InstancePtr->ErrorHandler =
 				(XCanPs_ErrorHandler) CallBackFunc;
 			InstancePtr->ErrorRef = CallBackRef;
-			Status = XST_SUCCESS;
+			Status = (s32)XST_SUCCESS;
 			break;
 
 		case XCANPS_HANDLER_EVENT:
 			InstancePtr->EventHandler =
 				(XCanPs_EventHandler) CallBackFunc;
 			InstancePtr->EventRef = CallBackRef;
-			Status = XST_SUCCESS;
+			Status = (s32)XST_SUCCESS;
 			break;
 
 		default:
-			Status = XST_INVALID_PARAM;
+			Status = (s32)XST_INVALID_PARAM;
 			break;
 	}
 	return Status;

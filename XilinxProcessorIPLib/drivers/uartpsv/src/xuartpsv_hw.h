@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xuartpsv_hw.h
-* @addtogroup uartpsv_v1_0
+* @addtogroup uartpsv_v1_3
 * @{
 *
 * This header file contains the hardware interface of an XUartPsv device.
@@ -40,7 +18,7 @@
 * Ver  Who  Date      Changes
 * ---  ---  --------- -----------------------------------------------
 * 1.0  sg   09/18/17  First Release
-*
+* 1.2  rna  01/20/20  Add UARTRSR register bit
 * </pre>
 *
 ******************************************************************************/
@@ -81,6 +59,16 @@ extern "C" {
 #define XUARTPSV_UARTDMACR_OFFSET	0x0048U	/**< DMA Control */
 /* @} */
 
+/** @name Receive status register/error clear register
+ *
+ * The Receive status register/error clear register (UARTRSR) gives the
+ * status of break, frame, parity and overrun.
+ *
+ * Receive status register/error clear register Bit Definition
+ * @{
+ */
+#define XUARTPSV_UARTRSR_OE	0x00000008U
+/* @} */
 
 /** @name Flag Register
  *
@@ -471,7 +459,7 @@ extern "C" {
 
 
 /*
- * Defines for backwards compatabilty, will be removed
+ * Defines for backwards compatibility, will be removed
  * in the next version of the driver
  */
 #define XUARTPSV_MEDEMSR_DCDX  XUARTPSV_MODEMSR_DDCD
@@ -494,7 +482,7 @@ extern "C" {
 * @return	The value read from the register.
 *
 * @note 	C-Style signature:
-*			u32 XUartPsv_ReadReg(u32 BaseAddress, int RegOffset)
+*			u32 XUartPsv_ReadReg(UINTPTR BaseAddress, int RegOffset)
 *
 ******************************************************************************/
 #define XUartPsv_ReadReg(BaseAddress, RegOffset) \
@@ -512,7 +500,7 @@ extern "C" {
 * @return	None.
 *
 * @note 	C-Style signature:
-*			void XUartPsv_WriteReg(u32 BaseAddress, int RegOffset,
+*			void XUartPsv_WriteReg(UINTPTR BaseAddress, int RegOffset,
 *			u16 RegisterValue)
 *
 ******************************************************************************/
@@ -529,7 +517,7 @@ extern "C" {
 * @return	TRUE if there is receive data, FALSE otherwise.
 *
 * @note 	C-Style signature:
-*			u32 XUartPsv_IsReceiveData(u32 BaseAddress)
+*			u32 XUartPsv_IsReceiveData(UINTPTR BaseAddress)
 *
 ******************************************************************************/
 #define XUartPsv_IsReceiveData(BaseAddress) \
@@ -548,7 +536,7 @@ extern "C" {
 *			the FIFO.
 *
 * @note 	C-Style signature:
-*			u32 XUartPsv_IsTransmitFull(u32 BaseAddress)
+*			u32 XUartPsv_IsTransmitFull(UINTPTR BaseAddress)
 *
 ******************************************************************************/
 #define XUartPsv_IsTransmitFull(BaseAddress) \
@@ -566,7 +554,7 @@ extern "C" {
 *			FIFO.
 *
 * @note 	C-Style signature:
-*			u32 XUartPsv_IsTransmitFull(u32 BaseAddress)
+*			u32 XUartPsv_IsTransmitFull(UINTPTR BaseAddress)
 *
 ******************************************************************************/
 #define XUartPsv_IsTransmitbusy(BaseAddress) \
@@ -576,11 +564,11 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 
-void XUartPsv_SendByte(u32 BaseAddress, u8 Data);
+void XUartPsv_SendByte(UINTPTR BaseAddress, u8 Data);
 
-u8 XUartPsv_RecvByte(u32 BaseAddress);
+u8 XUartPsv_RecvByte(UINTPTR BaseAddress);
 
-void XUartPsv_ResetHw(u32 BaseAddress);
+void XUartPsv_ResetHw(UINTPTR BaseAddress);
 
 /************************** Variable Definitions *****************************/
 

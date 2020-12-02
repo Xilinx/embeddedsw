@@ -69,8 +69,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"xusb__freertos__ch9__keyboard_8h.html#a36f6da36a86aeccc3ffd45b8d20b72c2",
-"xusbpsu__endpoint_8c.html#ga940e5d8d4c56eec4e394507eb0e1ab8b"
+"xusb__freertos__ch9__keyboard_8h.html#a5fcf44156be6999a0abbc2d4ace707c1"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

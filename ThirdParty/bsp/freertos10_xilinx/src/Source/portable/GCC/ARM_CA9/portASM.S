@@ -1,6 +1,6 @@
 /*
- * FreeRTOS Kernel V10.1.1
- * Copyright (C) 2018 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * FreeRTOS Kernel V10.3.0
+ * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -238,7 +238,7 @@ exit_without_switch:
 	MOVS	PC, LR
 
 switch_before_exit:
-	/* A context swtich is to be performed.  Clear the context switch pending
+	/* A context switch is to be performed.  Clear the context switch pending
 	flag. */
 	MOV		r0, #0
 	STR		r0, [r1]

@@ -1,37 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
 *
 * @file xsecure_utils.h
-*
-* This file contains common APIs which are used across the library.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -39,7 +15,20 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 4.0   vns     03/12/19 Initial Release
-*       psl     03/26/19 Fixed MISRA-C violation
+* 4.1   kal     05/20/19 Updated doxygen tags
+*       psl     08/05/19 Fixed MISRA-C violation
+* 4.2   har     01/06/20 Added macro XSecure_Out32
+*       kpt     01/07/20 Added Macro XSECURE_WORD_SIZE common for
+*                        both AES and RSA
+*       rpo     04/02/20 Replaced function like macros with inline functions
+*                        Redefined macros for reading and writing into registers
+*       har     04/13/20 Removed code for SSS configuration
+* 4.3   rpo     09/01/20 Asserts are not compiled by default for
+*                        secure libraries
+*       am      09/24/20 Resolved MISRA C violations
+*       har     10/12/20 Addressed security review comments
+*       am      10/10/20 Resolved Coverity warning
+*
 * </pre>
 *
 ******************************************************************************/
@@ -51,125 +40,89 @@
 extern "C" {
 #endif
 /***************************** Include Files *********************************/
-
 #include "xil_io.h"
 #include "xparameters.h"
 #include "xil_types.h"
 #include "sleep.h"
 #include "xstatus.h"
 #include "xil_assert.h"
+#include "xil_mem.h"
 
 /************************** Constant Definitions ****************************/
-#ifdef versal
-#define XSECURE_VERSAL		/**< Definition for VERSAL */
-#else
-#define XSECURE_ZYNQMP		/**< Definition for ZynqMP */
-#endif
-
 #define XSECURE_RESET_SET		(1U) /**< To set the core into reset */
-#define XSECURE_RESET_UNSET		(0U)
-					/**< To take the core out of reset */
-
-#define XSECURE_SSS_CFG_LEN_IN_BITS	(4U) /**< Length is bits */
-
-#ifdef XSECURE_VERSAL
-#define XSECURE_SSS_ADDRESS		(0xF1110500U) /**< SSS base address */
-#define XSECURE_SSS_MAX_SRCS		(8U)	/**< Maximum resources */
-#else
-#define XSECURE_CSU_REG_BASE_ADDR	(0xFFCA0000U)
-					/**< CSU base address */
-#define XSECURE_SSS_ADDRESS		(0xFFCA0008U)/**< SSS base address */
-#define XSECURE_SSS_MAX_SRCS		(5U)	/**< Maximum resources */
-#endif
-
+#define XSECURE_RESET_UNSET		(0U) /**< To take the core out of reset */
+#define XSECURE_WORD_SIZE		(4U) /**< WORD size in BYTES */
+#define XSECURE_WORD_IN_BITS		(32U)/**< WORD size in BITS */
 
 /***************************** Type Definitions******************************/
-/**
- * Instance structure of secure stream switch
- */
-typedef struct {
-	u32 Address; /**< Address of SSS CFG register */
-}XSecure_Sss;
-
-/* Sources to be selected to configure secure stream switch */
-#ifdef XSECURE_VERSAL
-typedef enum {
-	XSECURE_SSS_DMA0,
-	XSECURE_SSS_DMA1,
-	XSECURE_SSS_PTPI,
-	XSECURE_SSS_AES,
-	XSECURE_SSS_SHA,
-	XSECURE_SSS_SBI,
-	XSECURE_SSS_PZI,
-	XSECURE_SSS_INVALID
-}XSecure_SssSrc;
-#else
-typedef enum{
-	XSECURE_SSS_PCAP,
-	XSECURE_SSS_DMA0,
-	XSECURE_SSS_AES,
-	XSECURE_SSS_SHA,
-	XSECURE_SSS_INVALID
-}XSecure_SssSrc;
-#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+/* Backward compatibility */
+#define XSecure_MemCpy			Xil_MemCpy
+
+#ifdef XSECDEBUG
+/* All asserts are under XSECDEBUG macro now */
+#define XSecure_AssertVoid		(Xil_AssertVoid)
+#define XSecure_AssertVoidAlways	(Xil_AssertVoidAlways)
+#define XSecure_AssertNonvoid		(Xil_AssertNonvoid)
+#define XSecure_AssertNonvoidAlways	(Xil_AssertNonvoidAlways)
+#else
+#define XSecure_AssertVoid(Expression)
+#define XSecure_AssertVoidAlways()
+#define XSecure_AssertNonvoid(Expression)
+#define XSecure_AssertNonvoidAlways()
+#endif
+
 /*****************************************************************************/
 /**
-* Read from the register.
-*
-* @param	BaseAddress contains the base address of the device.
-* @param	RegOffset contains the offset from the base address of
-*		the device.
-*
-* @return	The value read from the register.
-*
-* @note		C-Style signature:
-*		u32 XSecure_ReadReg(u32 BaseAddress, u16 RegOffset)
-*
-******************************************************************************/
-#define XSecure_ReadReg(BaseAddress, RegOffset) \
-				Xil_In32((BaseAddress) + (RegOffset))
+ * @brief	Read from the register
+ *
+ * @param	BaseAddress - Contains the base address of the device
+ * @param	RegOffset   - Contains the offset from the base address of the
+ *			      device
+ *
+ * @return	The value read from the register
+ *
+ ******************************************************************************/
+static inline u32 XSecure_ReadReg(u32 BaseAddress, u16 RegOffset)
+{
+	u32 Status = (u32)XST_FAILURE;
+
+	Status = Xil_In32(BaseAddress + RegOffset);
+
+	return Status;
+}
 
 /***************************************************************************/
 /**
-* Write to the register.
-*
-* @param	BaseAddress contains the base address of the device.
-* @param	RegOffset contains the offset from the base address of
-*		the device.
-* @param	RegisterValue is the value to be written to the register
-*
-* @return	None.
-*
-* @note		C-Style signature:
-*			void XSecure_WriteReg(u32 BaseAddress, u16 RegOffset,
-*			u16 RegisterValue)
-*
-******************************************************************************/
-#define XSecure_WriteReg(BaseAddress, RegOffset, RegisterValue) \
-			Xil_Out32((BaseAddress) + (RegOffset), (RegisterValue))
+ * @brief	Write to the register
+ *
+ * @param	BaseAddress   - Contains the base address of the device
+ * @param	RegOffset     - Contains the offset from the base address of the
+ *				device
+ * @param	RegisterValue - Is the value to be written to the register
+ *
+ * @return	None
+ *
+ *
+ ******************************************************************************/
+static inline void XSecure_WriteReg(u32 BaseAddress,
+					u32 RegOffset, u32 RegisterValue)
+{
+	Xil_Out32((BaseAddress) + (RegOffset), (RegisterValue));
+}
 
-#define XSecure_In32(Addr)			Xil_In32((Addr))
-
-#define XSecure_In64(Addr)			Xil_In64((Addr))
-
-#define XSecure_Out32(Addr, Data)		Xil_Out32((Addr), (Data))
-
-#define XSecure_Out64(Addr, Data)		Xil_Out64((Addr), (Data))
+#define XSecure_In32		(Xil_In32)
+#define XSecure_In64		(Xil_In64)
+#define XSecure_Out32		(Xil_Out32)
+#define XSecure_Out64		(Xil_Out64)
+#define XSecure_SecureOut32	(Xil_SecureOut32)
 
 /************************** Function Prototypes ******************************/
-
 void XSecure_SetReset(u32 BaseAddress, u32 Offset);
 void XSecure_ReleaseReset(u32 BaseAddress, u32 Offset);
 
-void XSecure_SssInitialize(XSecure_Sss *InstancePtr);
-u32 XSecure_SssAes(XSecure_Sss *InstancePtr, XSecure_SssSrc InputSrc,
-		XSecure_SssSrc OutputSrc);
-u32 XSecure_SssSha(XSecure_Sss *InstancePtr, u16 DmaId);
-u32 XSecure_SssDmaLoopBack(XSecure_Sss *InstancePtr, u16 DmaId);
-void* XSecure_MemCpy(void * DestPtr, const void * SrcPtr, u32 Len);
 #ifdef __cplusplus
 }
 #endif

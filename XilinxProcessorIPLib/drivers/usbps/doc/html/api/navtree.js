@@ -22,7 +22,13 @@ var NAVTREE =
       [ "xusbps_ch9_storage.h", "example.html#ex4", null ],
       [ "xusbps_class_storage.c", "example.html#ex5", null ],
       [ "xusbps_class_storage.h", "example.html#ex6", null ],
-      [ "xusbps_intr_example.c", "example.html#ex7", null ]
+      [ "xusbps_intr_example.c", "example.html#ex7", null ],
+      [ "xusb_ch9_audio.c", "example.html#ex8", null ],
+      [ "xusbps_ch9_audio.h", "example.html#ex9", null ],
+      [ "xusbps_class_audio.c", "example.html#ex10", null ],
+      [ "xusbps_class_audio.h", "example.html#ex11", null ],
+      [ "xusbps_audio_example.c", "example.html#ex12", null ],
+      [ "xusbps_audiodata.h", "example.html#ex13", null ]
     ] ]
   ] ]
 ];
@@ -30,7 +36,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"xusbps__hw_8h.html#ga30f6b3f0547db933121cd41cc9b6385d"
+"xusbps__endpoint_8h.html#ga5ebb95d2a416b4da0fe787e7a73f81c9"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

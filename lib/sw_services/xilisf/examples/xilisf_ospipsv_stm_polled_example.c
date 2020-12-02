@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -44,6 +22,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 5.13  sk  02/11/19 First Release.
+* 5.14  akm 08/01/19 Initialized Status variable to XST_FAILURE.
 *
 *</pre>
 *
@@ -161,7 +140,7 @@ u8 IsfWriteBuffer[PAGE_SIZE + XISF_CMD_SEND_EXTRA_BYTES];/**< IsfWrite Buffer
 ******************************************************************************/
 int main(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	xil_printf("OSPIPSV FLASH Polling Example Test \r\n");
 
@@ -197,7 +176,7 @@ int OspiFlashPollExample(XOspiPsv *OspiInstancePtr, u16 OspiDeviceId)
 	u8 UniqueValue;
 	int Count;
 	int Page;
-	int Status;
+	int Status = XST_FAILURE;
 	u32 Options;
 	XOspiPsv_Config *ConfigPtr;
 
@@ -326,7 +305,7 @@ int FlashWrite(XIsf *InstancePtr, u32 Address, u32 ByteCount,
 {
 	XIsf_WriteParam WriteParam;
 
-	int Status;
+	int Status = XST_FAILURE;
 
 	WriteParam.Address = Address;
 	WriteParam.NumBytes = ByteCount;
@@ -361,7 +340,7 @@ int FlashWrite(XIsf *InstancePtr, u32 Address, u32 ByteCount,
 int FlashRead(XIsf *InstancePtr, u32 Address, u32 ByteCount, u8 Command)
 {
 	XIsf_ReadParam ReadParam;
-	int Status;
+	int Status = XST_FAILURE;
 
 	/*
 	 * Set the
@@ -400,7 +379,7 @@ int FlashRead(XIsf *InstancePtr, u32 Address, u32 ByteCount, u8 Command)
 ******************************************************************************/
 int FlashSetSDRDDRMode(XIsf *InstancePtr, int Mode)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u8 ConfigReg[2] __attribute__ ((aligned(64)));
 	u8 Data[2] __attribute__ ((aligned(4)));
 	XIsf_WriteParam WriteParam;
@@ -463,7 +442,7 @@ int FlashSetSDRDDRMode(XIsf *InstancePtr, int Mode)
 ******************************************************************************/
 int FlashErase(XIsf *InstancePtr, u32 Address, u32 ByteCount)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	int Sector;
 	u32 NumSect;
 	u32 SectorSize;

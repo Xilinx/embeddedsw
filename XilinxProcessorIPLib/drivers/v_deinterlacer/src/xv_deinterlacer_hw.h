@@ -1,9 +1,6 @@
 // ==============================================================
-// File generated on Tue Feb 19 04:17:02 EST 2019
-// Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2019.1.0 (64-bit)
-// SW Build 2453764 on Mon Feb 18 12:01:12 MST 2019
-// IP Build 2453739 on Mon Feb 18 14:42:34 MST 2019
-// Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+// Copyright (c) 1986-2020 Xilinx, Inc. All Rights Reserved.
+// SPDX-License-Identifier: MIT
 // ==============================================================
 // CTRL
 // 0x00 : Control signals

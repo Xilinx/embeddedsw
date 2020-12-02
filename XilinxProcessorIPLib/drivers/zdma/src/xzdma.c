@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2014-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xzdma.c
-* @addtogroup zdma_v1_7
+* @addtogroup zdma_v1_10
 * @{
 *
 * This file contains the implementation of the interface functions for ZDMA
@@ -41,7 +19,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 1.0   vns     2/27/15  First release
-*       vns    16/10/15  Corrected Destination descriptor addresss calculation
+*       vns    16/10/15  Corrected Destination descriptor address calculation
 *                        in XZDma_CreateBDList API
 * 1.1   vns    05/11/15  Modified XZDma_SetMode to return XST_FAILURE on
 *                        selecting DMA mode other than normal mode in
@@ -49,6 +27,10 @@
 *                        XZDma_SetChDataConfig API to set over fetch and
 *                        src issue parameters correctly.
 * 1.3   mus    08/14/17  Add CCI support for A53 in EL1 NS
+* 1.8   aru    07/02/19  Fix coverity warnings
+*       hk     07/19/19  Remove Versal clock and routing workarounds.
+* 1.10  hk     04/29/20  Enable Scatter Gather setup and Enable APIs for use
+*                        in applications directly.
 * </pre>
 *
 ******************************************************************************/
@@ -62,8 +44,6 @@
 static void StubCallBack(void *CallBackRef, u32 Mask);
 static void StubDoneCallBack(void *CallBackRef);
 static void XZDma_SimpleMode(XZDma *InstancePtr, XZDma_Transfer *Data);
-static void XZDma_ScatterGather(XZDma *InstancePtr, XZDma_Transfer *Data,
-								u32 Num);
 static void XZDma_LinearMode(XZDma *InstancePtr, XZDma_Transfer *Data,
 	XZDma_LiDscr *SrcDscrPtr,XZDma_LiDscr *DstDscrPtr, u8 IsLast);
 static void XZDma_ConfigLinear(XZDma_LiDscr *DscrPtr, u64 Addr, u32 Size,
@@ -72,7 +52,6 @@ static void XZDma_LinkedListMode(XZDma *InstancePtr, XZDma_Transfer *Data,
 	XZDma_LlDscr *SrcDscrPtr,XZDma_LlDscr *DstDscrPtr, u8 IsLast);
 static void XZDma_ConfigLinkedList(XZDma_LlDscr *DscrPtr, u64 Addr, u32 Size,
 					u32 CtrlValue, u64 NextDscrAddr);
-static void XZDma_Enable(XZDma *InstancePtr);
 static void XZDma_GetConfigurations(XZDma *InstancePtr);
 
 /************************** Function Definitions *****************************/
@@ -134,22 +113,6 @@ s32 XZDma_CfgInitialize(XZDma *InstancePtr, XZDma_Config *CfgPtr,
 	InstancePtr->ErrorHandler =
 				(XZDma_ErrorHandler)((void *)StubCallBack);
 
-#if defined (versal)
-	/*
-	 * FIXME : Currenlty PCW/FSBL not configuring the
-	 * reset and clocks for the zdma. This code block
-	 * needs to be reverted once PCW/FSBL take care's
-	 * the configuration of the zdma.
-	 */
-	/* Reset the ADMA */
-	Xil_Out32(XZDMA_CRLADMA_RESET_OFFSET, 0x1);
-	/* Enable clock for the zdma */
-	Xil_Out32(XZDMA_CRLADMA_CLK_OFFSET, 0x6000300);
-	sleep(1);
-	Xil_Out32(XZDMA_CRLADMA_RESET_OFFSET, 0x0);
-	/* Enable transactions from LPD to LPD/PMC or NOC via FPD */
-	Xil_Out32(XZDMA_INTLPD_CONFIG_OFFSET, 0x1);
-#endif
 	XZDma_Reset(InstancePtr);
 	XZDma_GetConfigurations(InstancePtr);
 
@@ -272,7 +235,7 @@ End:
 u32 XZDma_CreateBDList(XZDma *InstancePtr, XZDma_DscrType TypeOfDscr,
 					UINTPTR Dscr_MemPtr, u32 NoOfBytes)
 {
-	u32 Size;
+	UINTPTR Size;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -294,7 +257,7 @@ u32 XZDma_CreateBDList(XZDma *InstancePtr, XZDma_DscrType TypeOfDscr,
 	InstancePtr->Descriptor.SrcDscrPtr = (void *)Dscr_MemPtr;
 	InstancePtr->Descriptor.DstDscrPtr =
 			(void *)(Dscr_MemPtr +
-			(UINTPTR)(Size * InstancePtr->Descriptor.DscrCount));
+			(Size * InstancePtr->Descriptor.DscrCount));
 
 	if (!InstancePtr->Config.IsCacheCoherent)
 	Xil_DCacheInvalidateRange((INTPTR)Dscr_MemPtr, NoOfBytes);
@@ -872,6 +835,7 @@ static void XZDma_SimpleMode(XZDma *InstancePtr, XZDma_Transfer *Data)
 {
 
 	u32 Value;
+	u64 LocalAddr;
 
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -880,17 +844,19 @@ static void XZDma_SimpleMode(XZDma *InstancePtr, XZDma_Transfer *Data)
 	XZDma_WriteReg((InstancePtr->Config.BaseAddress),
 		XZDMA_CH_SRC_DSCR_WORD0_OFFSET,
 			(Data->SrcAddr & XZDMA_WORD0_LSB_MASK));
+	LocalAddr = (u64)Data->SrcAddr;
 	XZDma_WriteReg((InstancePtr->Config.BaseAddress),
 		XZDMA_CH_SRC_DSCR_WORD1_OFFSET,
-		(((u64)Data->SrcAddr >> XZDMA_WORD1_MSB_SHIFT) &
+		((LocalAddr >> XZDMA_WORD1_MSB_SHIFT) &
 		XZDMA_WORD1_MSB_MASK));
 
 	XZDma_WriteReg((InstancePtr->Config.BaseAddress),
 		XZDMA_CH_DST_DSCR_WORD0_OFFSET,
 		(Data->DstAddr & XZDMA_WORD0_LSB_MASK));
+	LocalAddr = (u64)Data->DstAddr;
 	XZDma_WriteReg((InstancePtr->Config.BaseAddress),
 		XZDMA_CH_DST_DSCR_WORD1_OFFSET,
-		(((u64)Data->DstAddr >> XZDMA_WORD1_MSB_SHIFT) &
+		((LocalAddr >> XZDMA_WORD1_MSB_SHIFT) &
 		XZDMA_WORD1_MSB_MASK));
 
 	XZDma_WriteReg((InstancePtr->Config.BaseAddress),
@@ -913,7 +879,7 @@ static void XZDma_SimpleMode(XZDma *InstancePtr, XZDma_Transfer *Data)
 /*****************************************************************************/
 /**
 *
-* This static function sets all the required fields for initiating data
+* This function sets all the required fields for initiating data
 * transfer in scatter gather mode.
 *
 * @param	InstancePtr is a pointer to the XZDma instance.
@@ -927,11 +893,12 @@ static void XZDma_SimpleMode(XZDma *InstancePtr, XZDma_Transfer *Data)
 * @note		None.
 *
 ******************************************************************************/
-static void XZDma_ScatterGather(XZDma *InstancePtr, XZDma_Transfer *Data,
+void XZDma_ScatterGather(XZDma *InstancePtr, XZDma_Transfer *Data,
 								u32 Num)
 {
 	u32 Count = 0x00U;
 	u8 Last;
+	u64 LocalAddr;
 
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -981,17 +948,19 @@ static void XZDma_ScatterGather(XZDma *InstancePtr, XZDma_Transfer *Data,
 		XZDMA_CH_SRC_START_LSB_OFFSET,
 		((UINTPTR)(InstancePtr->Descriptor.SrcDscrPtr) &
 					XZDMA_WORD0_LSB_MASK));
+	LocalAddr = (u64)(UINTPTR)(InstancePtr->Descriptor.SrcDscrPtr);
 	XZDma_WriteReg(InstancePtr->Config.BaseAddress,
 		XZDMA_CH_SRC_START_MSB_OFFSET,
-		(((u64)(UINTPTR)(InstancePtr->Descriptor.SrcDscrPtr) >>
+		((LocalAddr >>
 			XZDMA_WORD1_MSB_SHIFT) & XZDMA_WORD1_MSB_MASK));
 	XZDma_WriteReg(InstancePtr->Config.BaseAddress,
 		XZDMA_CH_DST_START_LSB_OFFSET,
 		((UINTPTR)(InstancePtr->Descriptor.DstDscrPtr) &
 					XZDMA_WORD0_LSB_MASK));
+	LocalAddr = (u64)(UINTPTR)(InstancePtr->Descriptor.DstDscrPtr);
 	XZDma_WriteReg(InstancePtr->Config.BaseAddress,
 		XZDMA_CH_DST_START_MSB_OFFSET,
-		(((u64)(UINTPTR)(InstancePtr->Descriptor.DstDscrPtr) >>
+		((LocalAddr >>
 			XZDMA_WORD1_MSB_SHIFT) & XZDMA_WORD1_MSB_MASK));
 }
 
@@ -1196,7 +1165,7 @@ static void XZDma_ConfigLinkedList(XZDma_LlDscr *DscrPtr, u64 Addr, u32 Size,
 
 /*****************************************************************************/
 /**
-* This static function enable's all the interrupts which user intended to
+* This function enables all the interrupts which user intended to
 * enable and enables the ZDMA channel for initiating data transfer.
 *
 * @param	InstancePtr is a pointer to the XZDma instance.
@@ -1206,7 +1175,7 @@ static void XZDma_ConfigLinkedList(XZDma_LlDscr *DscrPtr, u64 Addr, u32 Size,
 *
 ******************************************************************************/
 
-static void XZDma_Enable(XZDma *InstancePtr)
+void XZDma_Enable(XZDma *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);

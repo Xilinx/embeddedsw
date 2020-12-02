@@ -1,27 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+* Copyright (c) 2018 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
@@ -35,8 +14,16 @@
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date        Changes
-* ====  ==== ======== ======================================================-
+* ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   07/12/2018 Initial release
+* 1.01  kc   04/08/2019 Added code to request UART if debug prints
+*                       are enabled
+*       kc   05/09/2019 Addeed code to disable CFRAME isolation
+*                       as soon as we boot in PLM
+*       ma   08/01/2019 Removed LPD module init related code from PLM app
+* 1.02  kc   02/19/2020 Moved PLM banner print to XilPlmi
+*       kc   03/23/2020 Minor code cleanup
+*       td   10/19/2020 MISRA C Fixes
 *
 * </pre>
 *
@@ -45,8 +32,12 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xplm_main.h"
-#include "xplmi_debug.h"
+#include "xplm_default.h"
+#include "xplm_proc.h"
+#include "xplm_startup.h"
+#include "xpm_api.h"
+#include "xpm_pldomain.h"
+#include "xpm_subsystem.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -55,6 +46,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+static int XPlm_Init(void);
 
 /************************** Variable Definitions *****************************/
 
@@ -64,17 +56,19 @@
  *
  * @param	None
  *
- * @return	Ideally should not return, incase if it reaches end,
- *          error is returned
+ * @return	Ideally should not return, in case if it reaches end,
+ *		error is returned
  *
  *****************************************************************************/
-int main(void )
+int main(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 #ifdef DEBUG_UART_MDM
 	/** If MDM UART, banner can be printed before any initialization */
-	XPlm_InitUart();
+	XPlmi_InitUart();
+	/** Print PLM banner  */
+	XPlmi_PrintPlmBanner();
 #endif
 
 	/** Initialize the processor, tasks lists */
@@ -95,22 +89,35 @@ int main(void )
 	XPlmi_TaskDispatchLoop();
 
 	/** should never reach here */
-	while(1);
-	return XPLM_FAILURE;
+	while (TRUE) {
+		;
+	}
+
+	return XST_FAILURE;
 }
 
 /*****************************************************************************/
 /**
- * @brief This function processor and task structures
+ * @brief This function initializes the processor and task list structures
  *
  * @param	None
  *
- * @return	XST_SUCCESS
+ * @return	Status as defined in xplmi_status.h
  *
  *****************************************************************************/
-int XPlm_Init()
+static int XPlm_Init(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
+	u32 SiliconVal = XPlmi_In32(PMC_TAP_VERSION) &
+			PMC_TAP_VERSION_PMC_VERSION_MASK;
+
+	/**
+	 * Disable CFRAME isolation for VCCRAM for ES1 Silicon
+	 */
+	if (SiliconVal == XPLMI_SILICON_ES1_VAL) {
+		XPlmi_UtilRMW(PMC_GLOBAL_DOMAIN_ISO_CNTRL,
+		 PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_CFRAME_MASK, 0U);
+	}
 
 	/**
 	 * Reset the wakeup signal set by ROM
@@ -118,116 +125,15 @@ int XPlm_Init()
 	 */
 	XPlmi_PpuWakeUpDis();
 
-	/* Initialize the processor, enable exceptions */
+	/** Initialize the processor, enable exceptions */
 	Status = XPlm_InitProc();
-	if (Status != XST_SUCCESS)
-	{
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/* Initialize the tasks lists */
+	/** Initialize the tasks lists */
 	XPlmi_TaskInit();
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief This function initializes the PS/MDM uart and prints
- * PLM banner.
- *
- * @param	None
- *
- * @return	Status of the UART initialization
- *
- *****************************************************************************/
-int XPlm_InitUart()
-{
-	int Status;
-
-	/**
-	 * TODO If UART is defined, can we initialize UART with default
-	 * HW values so that we can print from the start
-	 */
-	/* Initialize UART */
-	Status = XPlmi_InitUart();
-	if (Status != XST_SUCCESS)
-	{
-		goto END;
-	}
-
-	/** Print PLM banner  */
-	XPlm_PrintPlmBanner();
 
 END:
 	return Status;
 }
-
-/*****************************************************************************/
-/**
- * @brief This function prints PMC FW banner
- *
- * @param none
- *
- * @return	none
- *
- *****************************************************************************/
-void XPlm_PrintPlmBanner(void )
-{
-	u32 Version;
-	u32 PlatformVersion;
-	u32 Platform;
-	u32 RtlVersion;
-	u32 PsVersion;
-	u32 PmcVersion;
-
-	/* Print the PLM Banner */
-	XPlmi_Printf(DEBUG_PRINT_ALWAYS,
-                 "\n\r****************************************\n\r");
-	XPlmi_Printf(DEBUG_PRINT_ALWAYS,
-                 "Xilinx versal Platform Loader and Manager \n\r");
-	XPlmi_Printf(DEBUG_PRINT_ALWAYS,
-                 "Release %s.%s   %s  -  %s\n\r",
-                 SDK_RELEASE_YEAR, SDK_RELEASE_QUARTER, __DATE__, __TIME__);
-
-	/* Read the Version */
-	Version = XPlmi_In32(PMC_TAP_VERSION);
-	PlatformVersion = ((Version & PMC_TAP_VERSION_PLATFORM_VERSION_MASK) >>
-			PMC_TAP_VERSION_PLATFORM_VERSION_SHIFT);
-	Platform = ((Version & PMC_TAP_VERSION_PLATFORM_MASK) >>
-			PMC_TAP_VERSION_PLATFORM_SHIFT);
-	RtlVersion = ((Version & PMC_TAP_VERSION_RTL_VERSION_MASK) >>
-			PMC_TAP_VERSION_RTL_VERSION_SHIFT);
-	PsVersion = ((Version & PMC_TAP_VERSION_PS_VERSION_MASK) >>
-			PMC_TAP_VERSION_PS_VERSION_SHIFT);
-	PmcVersion = ((Version & PMC_TAP_VERSION_PMC_VERSION_MASK) >>
-			PMC_TAP_VERSION_PMC_VERSION_SHIFT);
-	switch(Platform)
-	{
-		case PMC_TAP_VERSION_SILICON:
-			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Silicon: "); break;
-		case PMC_TAP_VERSION_SPP:
-			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "SPP: "); break;
-		case PMC_TAP_VERSION_EMU:
-			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "EMU: "); break;
-		case PMC_TAP_VERSION_QEMU:
-			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "QEMU: "); break;
-		default:break;
-	}
-
-	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "v%d, ", PlatformVersion);
-	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "RTL: ITR%d, ", (RtlVersion/16));
-	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "PMC: v%d.%d, ",
-				(PmcVersion/16), PmcVersion%16);
-	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "PS: v%d.%d",
-				(PsVersion/16), PsVersion%16);
-	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "\n\r");
-#ifdef DEBUG_UART_MDM
-	XPlmi_Printf(DEBUG_INFO, "STDOUT: MDM UART \n\r");
-#else
-	XPlmi_Printf(DEBUG_INFO, "STDOUT: PS UART \n\r");
-#endif
-	XPlmi_Printf(DEBUG_PRINT_ALWAYS,
-                 "****************************************\n\r");
-}
-

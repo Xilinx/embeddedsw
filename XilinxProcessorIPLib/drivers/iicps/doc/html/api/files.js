@@ -19,5 +19,7 @@ var files =
     [ "xiicps_selftest_example.c", "xiicps__selftest__example_8c.html", "xiicps__selftest__example_8c" ],
     [ "xiicps_sinit.c", "xiicps__sinit_8c.html", "xiicps__sinit_8c" ],
     [ "xiicps_slave.c", "xiicps__slave_8c.html", "xiicps__slave_8c" ],
-    [ "xiicps_slave_monitor_example.c", "xiicps__slave__monitor__example_8c.html", "xiicps__slave__monitor__example_8c" ]
+    [ "xiicps_slave_monitor_example.c", "xiicps__slave__monitor__example_8c.html", "xiicps__slave__monitor__example_8c" ],
+    [ "xiicps_xfer.c", "xiicps__xfer_8c.html", null ],
+    [ "xiicps_xfer.h", "xiicps__xfer_8h.html", null ]
 ];

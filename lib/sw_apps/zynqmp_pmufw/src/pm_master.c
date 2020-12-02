@@ -1,28 +1,8 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  */
+
 #include "xpfw_config.h"
 #ifdef ENABLE_PM
 
@@ -51,6 +31,9 @@
 #define PM_REQUESTED_SUSPEND        0x1U
 #define TO_ACK_CB(ack, status) (REQUEST_ACK_NON_BLOCKING == (ack))
 
+#define TCM_HIVEC_BKP_LOCATION	0xFFFFFFC0U
+#define HIVEC_TO_RESORE_CODE_BRANCH_OPCODE	0xEA003FBEU
+
 #define DEFINE_PM_PROCS(c)	.procs = ((c)), \
 				.procsCnt = ARRAY_SIZE((c))
 
@@ -61,6 +44,32 @@
 #endif
 
 static PmMaster* pmMasterHead = NULL;
+
+/* Restore code structure*/
+typedef struct RPURestoreCode {
+	unsigned int AddrLocation;
+	unsigned int RestoreData;
+}RPURestoreCode;
+
+static const RPURestoreCode RestoreCode[6] = {
+	// ldr r0,=0xFFFFFFC0
+	{ .AddrLocation = 0XFFFFFF00U, .RestoreData = 0XE3E0003FU },
+
+	// ldr r1, [r0]
+	{ .AddrLocation = 0XFFFFFF04U, .RestoreData = 0XE5901000U },
+
+	// ldr r0, [pc, #4]; ~0x14
+	{ .AddrLocation = 0XFFFFFF08U, .RestoreData = 0XE59F0004U },
+
+	// str r1, [r0]
+	{ .AddrLocation = 0XFFFFFF0CU, .RestoreData = 0XE5801000U },
+
+	// b 0xFFFC0000
+	{ .AddrLocation = 0XFFFFFF10U, .RestoreData = 0XEAFF003AU },
+
+	// =0xFFFF0000
+	{ .AddrLocation = 0XFFFFFF14U, .RestoreData = PM_PROC_RPU_HIVEC_ADDR },
+};
 
 static const PmSlave* pmApuMemories[] = {
 	&pmSlaveOcm0_g.slv,
@@ -366,7 +375,7 @@ void PmMasterClearConfig(void)
 		PmMaster* next;
 
 		/* Clear the configuration of the master */
-		mst->wakeProc = 0U;
+		mst->wakeProc = NULL;
 		mst->ipiMask = 0U;
 		mst->wakePerms = 0U;
 		mst->suspendPerms = 0U;
@@ -426,14 +435,14 @@ PmMaster* PmGetMasterByIpiMask(const u32 mask)
 PmMaster* PmMasterGetNextFromIpiMask(u32* const mask)
 {
 	PmMaster* master = NULL;
-	u32 masterCnt = __builtin_popcount(*mask);
+	u32 masterCnt = (u32)__builtin_popcount(*mask);
 	u32 ipiMask;
 
 	if (0U == masterCnt) {
 		goto done;
 	}
 
-	ipiMask = 1U << __builtin_ctz(*mask);
+	ipiMask = (u32)1 << (u32)__builtin_ctz(*mask);
 	master = PmGetMasterByIpiMask(ipiMask);
 	*mask &= ~ipiMask;
 
@@ -527,7 +536,7 @@ static void PmWakeUpCancelScheduled(PmMaster* const master)
 	PmRequirement* req = master->reqs;
 
 	while (NULL != req) {
-		req->info &= ~PM_MASTER_WAKEUP_REQ_MASK;
+		req->info &= ~(u8)PM_MASTER_WAKEUP_REQ_MASK;
 		req = req->nextSlave;
 	}
 
@@ -535,7 +544,7 @@ static void PmWakeUpCancelScheduled(PmMaster* const master)
 	if (NULL != master->gic) {
 		master->gic->clear();
 	}
-	PmMasterConfigWakeEvents(master, 0U);
+	PmMasterConfigWakeEvents(master, false);
 }
 
 /**
@@ -592,10 +601,10 @@ s32 PmMasterSuspendAck(PmMaster* const mst, const s32 response)
 
 	if (REQUEST_ACK_NON_BLOCKING == mst->suspendRequest.acknowledge) {
 		PmAcknowledgeCb(mst->suspendRequest.initiator,
-				mst->procs[0]->node.nodeId, response,
+				mst->procs[0]->node.nodeId, (u32)response,
 				mst->procs[0]->node.currState);
 	} else if (REQUEST_ACK_BLOCKING == mst->suspendRequest.acknowledge) {
-		IPI_RESPONSE1(mst->ipiMask, response);
+		IPI_RESPONSE1(mst->ipiMask, (u32)response);
 	} else {
 		/* No acknowledge */
 	}
@@ -670,7 +679,7 @@ s32 PmWakeMasterBySlave(const PmSlave * const slave)
 	s32 finalStatus = XST_SUCCESS;
 	s32 status;
 
-	while (mst) {
+	while (NULL != mst) {
 		PmRequirement *masterReq = PmRequirementGet(mst, slave);
 
 		if ((masterReq->info & PM_MASTER_WAKEUP_REQ_MASK) != 0U) {
@@ -823,7 +832,7 @@ s32 PmMasterFsm(PmMaster* const master, const PmMasterEvent event)
 			if (true == condition) {
 				status = PmMasterSuspendAck(master, XST_SUCCESS);
 			}
-			PmMasterConfigWakeEvents(master, 1U);
+			PmMasterConfigWakeEvents(master, true);
 #ifdef ENABLE_POS
 			if (true == isPoS) {
 				status = PmSystemFinalizePowerOffSuspend();
@@ -906,6 +915,39 @@ s32 PmMasterWake(const PmMaster* const mst)
 }
 
 /**
+ * PmGetStartAddress() - Get master hand off address for restart
+ * @master	Master to restart
+ * @address	Hand off address
+ *
+ * @return	Void
+ */
+static void PmGetStartAddress (PmMaster* const master, u64 *address)
+{
+	if ((master == &pmMasterRpu_g) || (master == &pmMasterRpu0_g)) {
+		u32 i;
+		*address = PM_PROC_RPU_HIVEC_ADDR;	/* Highvec */
+
+		/* Backup of HiVec memory */
+		XPfw_Write32(TCM_HIVEC_BKP_LOCATION,
+				XPfw_Read32(PM_PROC_RPU_HIVEC_ADDR));
+
+		/* Branch to restore location */
+		XPfw_Write32(PM_PROC_RPU_HIVEC_ADDR,
+				HIVEC_TO_RESORE_CODE_BRANCH_OPCODE);
+
+		/*
+		 * Code to restore HiVec and branch to FSBL
+		 */
+		for (i = 0; i < ARRAYSIZE(RestoreCode); i++) {
+			XPfw_Write32(RestoreCode[i].AddrLocation,
+					RestoreCode[i].RestoreData);
+		}
+	} else {
+		*address = FSBL_LOAD_ADDR;
+	}
+}
+
+/**
  * PmMasterRestart() - Restart the master
  * @master	Master to restart
  *
@@ -916,14 +958,41 @@ s32 PmMasterRestart(PmMaster* const master)
 	s32 status;
 	u64 address = 0xFFFC0000ULL;
 
-	/* Master restart is currently supported only for APU */
-	if (master != &pmMasterApu_g) {
-		status = XST_NO_FEATURE;
-		goto done;
-	}
+	u32 FsblProcInfo = XPfw_Read32(PMU_GLOBAL_GLOBAL_GEN_STORAGE5);
 
-	status = XPfw_RestoreFsblToOCM();
-	if (XST_SUCCESS != status) {
+	if ((FSBL_RUNNING_ON_A53 == (FsblProcInfo & FSBL_STATE_PROC_INFO_MASK)) &&
+			(master == &pmMasterApu_g)) {
+#if defined(USE_DDR_FOR_APU_RESTART) && defined(ENABLE_SECURE)
+		if (0x0U != (FsblProcInfo & FSBL_ENCRYPTION_STS_MASK)) {
+			if (FSBL_Store_Restore_Info.IsOCM_Used == TRUE) {
+				/* If FSBL is encrypted, it is not copied to DDR */
+				PmWarn("OCM is used by XilFPGA. APU-restart will not work\r\n");
+				status = XST_FAILURE;
+				goto done;
+			} else {
+				/* Do nothing */
+			}
+		} else {
+			status = XPfw_RestoreFsblToOCM();
+			if (XST_SUCCESS != status) {
+				goto done;
+			}
+		}
+#else
+		if (FSBL_Store_Restore_Info.IsOCM_Used == TRUE) {
+			/* If OCM is used by XilFPGA, APU restart will not work */
+			PmWarn("OCM is used by XilFPGA. APU-restart will not work\r\n");
+			status = XST_FAILURE;
+			goto done;
+		}
+#endif
+	} else if (((FSBL_RUNNING_ON_R5_0 == (FsblProcInfo & FSBL_STATE_PROC_INFO_MASK)) &&
+					(master == &pmMasterRpu0_g)) ||
+			((FSBL_RUNNING_ON_R5_L == (FsblProcInfo & FSBL_STATE_PROC_INFO_MASK)) &&
+					(master == &pmMasterRpu_g))) {
+		/* Do nothing */
+	} else {
+		status = XST_NO_FEATURE;
 		goto done;
 	}
 
@@ -939,6 +1008,9 @@ s32 PmMasterRestart(PmMaster* const master)
 	}
 	XPfw_RMW32(PMU_GLOBAL_GLOBAL_GEN_STORAGE4, SUBSYSTEM_RESTART_MASK,
                         SUBSYSTEM_RESTART_MASK);
+
+	PmGetStartAddress (master, &address);
+
 #ifdef ENABLE_POS
 	/* Signal to FSBL */
 	XPfw_Write32(PMU_GLOBAL_GLOBAL_GEN_STORAGE1, 1U);
@@ -1024,7 +1096,7 @@ s32 PmMasterInitFinalize(PmMaster* const master)
  *                              other masters in system are suspended or killed
  * @master     Master to be checked
  *
- * @return     True if master is in suspending state and all othe masters are
+ * @return     True if master is in suspending state and all other masters are
  *             killed or suspended, false otherwise
  */
 bool PmMasterIsLastSuspending(const PmMaster* const master)

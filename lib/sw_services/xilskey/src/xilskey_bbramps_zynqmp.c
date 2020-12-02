@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -53,6 +31,11 @@
 *                        XilSKey_ZynqMp_Bbram_Program
 *                        XilSKey_ZynqMp_Bbram_Zeroise
 * 6.7   psl     03/21/19 Fixed MISRA-C violation.
+* 6.8   psl     08/13/19 Fixed MISRA-C violation.
+*       vns     08/29/19 Initialized Status variables
+* 6.9   kal     01/31/20 Disable BBRAM programming after AES key programming.
+*       vns     03/18/20 Fixed Armcc compilation errors
+*
 * </pre>
 *
 ******************************************************************************/
@@ -69,8 +52,9 @@
 
 /************************** Function Prototypes ******************************/
 
-static inline u32 XilSKey_ZynqMp_Bbram_PrgrmEn(void);
-static inline u32 XilSKey_ZynqMp_Bbram_CrcCalc(u32 *AesKey);
+static INLINE u32 XilSKey_ZynqMp_Bbram_PrgrmEn(void);
+static INLINE u32 XilSKey_ZynqMp_Bbram_CrcCalc(u32 *AesKey);
+static INLINE void XilSKey_ZynqMp_Bbram_PrgrmDisable(void);
 extern u32 XilSKey_RowCrcCalculation(u32 PrevCRC, u32 Data, u32 Addr);
 
 /************************** Variable Definitions *****************************/
@@ -92,12 +76,11 @@ extern u32 XilSKey_RowCrcCalculation(u32 PrevCRC, u32 Data, u32 Addr);
 * 		- Error code from XskZynqMp_Ps_Bbram_ErrorCodes enum if it fails
 * 		- XST_SUCCESS if programming is done.
 *
-*
 ******************************************************************************/
 u32 XilSKey_ZynqMp_Bbram_Program(u32 *AesKey)
 {
 
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u32 AesCrc;
 	u32 *KeyPtr = AesKey;
 	u32 StatusRead = 0U;
@@ -110,7 +93,7 @@ u32 XilSKey_ZynqMp_Bbram_Program(u32 *AesKey)
 	/* Set in programming mode */
 	Status = XilSKey_ZynqMp_Bbram_PrgrmEn();
 	if (Status != (u32)XST_SUCCESS) {
-		Status = (Status + (u32)XSK_ZYNQMP_BBRAMPS_ERROR_IN_PRGRMG);
+		Status = (Status | (u32)XSK_ZYNQMP_BBRAMPS_ERROR_IN_PRGRMG);
 		goto END;
 	}
 
@@ -151,18 +134,15 @@ u32 XilSKey_ZynqMp_Bbram_Program(u32 *AesKey)
 		goto END;
 	}
 END:
-	return Status;
+	XilSKey_ZynqMp_Bbram_PrgrmDisable();
 
+	return Status;
 }
 
 /*****************************************************************************/
 /**
 *
 * This function zeroize's Bbram Key.
-*
-* @param	None.
-*
-* @return	None.
 *
 * @note		BBRAM key will be zeroized.
 *
@@ -193,7 +173,7 @@ u32 XilSKey_ZynqMp_Bbram_Zeroise(void)
 		Offset = Offset + 4U;
 	}
 
-	/* Issue the zeroize comand */
+	/* Issue the zeroize command */
 	XilSKey_WriteReg(XSK_ZYNQMP_BBRAM_BASEADDR, XSK_ZYNQMP_BBRAM_CTRL_OFFSET,
 				XSK_ZYNQMP_BBRAM_CTRL_ZEROIZE_MASK);
 
@@ -219,20 +199,16 @@ END:
 *
 * This function enables programming and zeroizes Bbram.
 *
-* @param	None
-*
 * @return
 *		- Error code from XskZynqMp_Ps_Bbram_ErrorCodes enum if it fails
 *		- XST_SUCCESS if programming is done.
 *
-* @note		None.
-*
 ******************************************************************************/
-static inline u32 XilSKey_ZynqMp_Bbram_PrgrmEn(void)
+static INLINE u32 XilSKey_ZynqMp_Bbram_PrgrmEn(void)
 {
 
 	u32 StatusRead = 0U;
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u32 TimeOut = 0U;
 
 	/*
@@ -281,7 +257,19 @@ END:
 	return Status;
 
 }
+/*****************************************************************************/
+/**
+*
+* This function disables bbram programming.
+*
+******************************************************************************/
+static INLINE void XilSKey_ZynqMp_Bbram_PrgrmDisable(void)
+{
+	XilSKey_WriteReg(XSK_ZYNQMP_BBRAM_BASEADDR,
+			 XSK_ZYNQMP_BBRAM_PGM_MODE_OFFSET,
+			 XSK_ZYNQMP_BBRAM_PGM_MODE_RSTVAL);
 
+}
 /*****************************************************************************/
 /**
 *
@@ -292,10 +280,8 @@ END:
 *
 * @return	CRC of AES key
 *
-* @note		None.
-*
 ******************************************************************************/
-static inline u32 XilSKey_ZynqMp_Bbram_CrcCalc(u32 *AesKey)
+static INLINE u32 XilSKey_ZynqMp_Bbram_CrcCalc(u32 *AesKey)
 {
 	u32 Crc = 0U;
 	u32 Index;

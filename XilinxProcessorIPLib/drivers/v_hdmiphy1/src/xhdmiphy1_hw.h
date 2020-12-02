@@ -1,30 +1,8 @@
 /*******************************************************************************
- *
- * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /******************************************************************************/
 /**
  *
@@ -46,13 +24,17 @@
  * 1.0   gm   10/12/18 Initial release.
  * </pre>
  *
- * @addtogroup xhdmiphy1_v1_0
+ * @addtogroup xhdmiphy1_v2_1
  * @{
 *******************************************************************************/
 
 #ifndef XHDMIPHY1_HW_H_
 /* Prevent circular inclusions by using protection macros. */
 #define XHDMIPHY1_HW_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /***************************** Include Files **********************************/
 
@@ -73,6 +55,7 @@
 #define XHDMIPHY1_BANK_SELECT_REG        0x00C
 #define XHDMIPHY1_REF_CLK_SEL_REG        0x010
 #define XHDMIPHY1_PLL_RESET_REG          0x014
+#define XHDMIPHY1_COMMON_INIT_REG        0x014
 #define XHDMIPHY1_PLL_LOCK_STATUS_REG    0x018
 #define XHDMIPHY1_TX_INIT_REG            0x01C
 #define XHDMIPHY1_TX_INIT_STATUS_REG     0x020
@@ -123,6 +106,7 @@
 #define XHDMIPHY1_TX_STATUS_REG          0x078
 #define XHDMIPHY1_TX_DRIVER_CH12_REG     0x07C
 #define XHDMIPHY1_TX_DRIVER_CH34_REG     0x080
+#define XHDMIPHY1_TX_DRIVER_EXT_REG      0x084
 #define XHDMIPHY1_TX_RATE_CH12_REG       0x08C
 #define XHDMIPHY1_TX_RATE_CH34_REG       0x090
 /* @} */
@@ -255,41 +239,36 @@
 #define XHDMIPHY1_REF_CLK_SEL_XXSYSCLKSEL_OUT_CMN0 2
 #define XHDMIPHY1_REF_CLK_SEL_XXSYSCLKSEL_OUT_CMN1 3
 #define XHDMIPHY1_REF_CLK_SEL_RXSYSCLKSEL_OUT_MASK(G) \
-    ((((G) == XHDMIPHY1_GT_TYPE_GTHE3) || \
-        ((G) == XHDMIPHY1_GT_TYPE_GTHE4) || \
+    ((((G) == XHDMIPHY1_GT_TYPE_GTHE4) || \
         ((G) == XHDMIPHY1_GT_TYPE_GTYE4)) ? 0x03000000 : 0x02000000)
 #define XHDMIPHY1_REF_CLK_SEL_TXSYSCLKSEL_OUT_MASK(G) \
-    ((((G) == XHDMIPHY1_GT_TYPE_GTHE3) || \
-        ((G) == XHDMIPHY1_GT_TYPE_GTHE4) || \
+    ((((G) == XHDMIPHY1_GT_TYPE_GTHE4) || \
         ((G) == XHDMIPHY1_GT_TYPE_GTYE4)) ? 0x0C000000 : 0x08000000)
 #define XHDMIPHY1_REF_CLK_SEL_RXSYSCLKSEL_DATA_MASK(G) \
-    ((((G) == XHDMIPHY1_GT_TYPE_GTHE3) || \
-        ((G) == XHDMIPHY1_GT_TYPE_GTHE4) || \
+    ((((G) == XHDMIPHY1_GT_TYPE_GTHE4) || \
         ((G) == XHDMIPHY1_GT_TYPE_GTYE4)) ? 0x30000000 : 0x01000000)
 #define XHDMIPHY1_REF_CLK_SEL_TXSYSCLKSEL_DATA_MASK(G) \
-    ((((G) == XHDMIPHY1_GT_TYPE_GTHE3) || \
-        ((G) == XHDMIPHY1_GT_TYPE_GTHE4) || \
+    ((((G) == XHDMIPHY1_GT_TYPE_GTHE4) || \
         ((G) == XHDMIPHY1_GT_TYPE_GTYE4)) ? 0xC0000000 : 0x04000000)
 #define XHDMIPHY1_REF_CLK_SEL_RXSYSCLKSEL_OUT_SHIFT(G) \
-    ((((G) == XHDMIPHY1_GT_TYPE_GTHE3) || \
-        ((G) == XHDMIPHY1_GT_TYPE_GTHE4) || \
+    ((((G) == XHDMIPHY1_GT_TYPE_GTHE4) || \
         ((G) == XHDMIPHY1_GT_TYPE_GTYE4)) ? 24 : 25)
 #define XHDMIPHY1_REF_CLK_SEL_TXSYSCLKSEL_OUT_SHIFT(G) \
-    ((((G) == XHDMIPHY1_GT_TYPE_GTHE3) || \
-        ((G) == XHDMIPHY1_GT_TYPE_GTHE4) || \
+    ((((G) == XHDMIPHY1_GT_TYPE_GTHE4) || \
         ((G) == XHDMIPHY1_GT_TYPE_GTYE4)) ? 26 : 27)
 #define XHDMIPHY1_REF_CLK_SEL_RXSYSCLKSEL_DATA_SHIFT(G) \
-    ((((G) == XHDMIPHY1_GT_TYPE_GTHE3) || \
-        ((G) == XHDMIPHY1_GT_TYPE_GTHE4) || \
+    ((((G) == XHDMIPHY1_GT_TYPE_GTHE4) || \
         ((G) == XHDMIPHY1_GT_TYPE_GTYE4)) ? 28 : 24)
 #define XHDMIPHY1_REF_CLK_SEL_TXSYSCLKSEL_DATA_SHIFT(G) \
-    ((((G) == XHDMIPHY1_GT_TYPE_GTHE3) || \
-        ((G) == XHDMIPHY1_GT_TYPE_GTHE4) || \
+    ((((G) == XHDMIPHY1_GT_TYPE_GTHE4) || \
         ((G) == XHDMIPHY1_GT_TYPE_GTYE4)) ? 30 : 26)
 /* 0x014: PLL_RESET */
 #define XHDMIPHY1_PLL_RESET_CPLL_MASK    0x1
 #define XHDMIPHY1_PLL_RESET_QPLL0_MASK   0x2
 #define XHDMIPHY1_PLL_RESET_QPLL1_MASK   0x4
+/* 0x014: COMMON INIT for Versal Only */
+#define XHDMIPHY1_GTWIZ_RESET_ALL_MASK   0x1
+#define XHDMIPHY1_PCIERST_ALL_CH_MASK    0x2
 /* 0x018: PLL_LOCK_STATUS */
 #define XHDMIPHY1_PLL_LOCK_STATUS_CPLL_MASK(Ch) \
         (0x01 << (Ch - 1))
@@ -304,8 +283,8 @@
         (XHDMIPHY1_PLL_LOCK_STATUS_CPLL_MASK(XHDMIPHY1_CHANNEL_ID_CH1) | \
          XHDMIPHY1_PLL_LOCK_STATUS_CPLL_MASK(XHDMIPHY1_CHANNEL_ID_CH2) | \
          XHDMIPHY1_PLL_LOCK_STATUS_CPLL_MASK(XHDMIPHY1_CHANNEL_ID_CH3))
-#define XHDMIPHY1_PLL_LOCK_STATUS_LCPLL_MASK 0xC0
-#define XHDMIPHY1_PLL_LOCK_STATUS_RPLL_MASK 0x300
+#define XHDMIPHY1_PLL_LOCK_STATUS_RPLL_MASK 0xC0
+#define XHDMIPHY1_PLL_LOCK_STATUS_LCPLL_MASK 0x300
 /* 0x01C, 0x024: TX_INIT, RX_INIT */
 #define XHDMIPHY1_TXRX_INIT_GTRESET_MASK(Ch) \
         (0x01 << (8 * (Ch - 1)))
@@ -315,6 +294,10 @@
         (0x04 << (8 * (Ch - 1)))
 #define XHDMIPHY1_TX_INIT_USERRDY_MASK(Ch) \
         (0x08 << (8 * (Ch - 1)))
+#define XHDMIPHY1_TXRX_LNKRDY_SB_MASK(Ch) \
+        (0x10 << (8 * (Ch - 1)))
+#define XHDMIPHY1_TXRX_MSTRESET_MASK(Ch) \
+        (0x20 << (8 * (Ch - 1)))
 #define XHDMIPHY1_RX_INIT_USERRDY_MASK(Ch) \
         (0x40 << (8 * (Ch - 1)))
 #define XHDMIPHY1_TXRX_INIT_PLLGTRESET_MASK(Ch) \
@@ -324,6 +307,16 @@
          XHDMIPHY1_TXRX_INIT_GTRESET_MASK(XHDMIPHY1_CHANNEL_ID_CH2) | \
          XHDMIPHY1_TXRX_INIT_GTRESET_MASK(XHDMIPHY1_CHANNEL_ID_CH3) | \
          XHDMIPHY1_TXRX_INIT_GTRESET_MASK(XHDMIPHY1_CHANNEL_ID_CH4))
+#define XHDMIPHY1_TXRX_LNKRDY_SB_ALL_MASK \
+        (XHDMIPHY1_TXRX_LNKRDY_SB_MASK(XHDMIPHY1_CHANNEL_ID_CH1) | \
+         XHDMIPHY1_TXRX_LNKRDY_SB_MASK(XHDMIPHY1_CHANNEL_ID_CH2) | \
+         XHDMIPHY1_TXRX_LNKRDY_SB_MASK(XHDMIPHY1_CHANNEL_ID_CH3) | \
+         XHDMIPHY1_TXRX_LNKRDY_SB_MASK(XHDMIPHY1_CHANNEL_ID_CH4))
+#define XHDMIPHY1_TXRX_MSTRESET_ALL_MASK \
+        (XHDMIPHY1_TXRX_MSTRESET_MASK(XHDMIPHY1_CHANNEL_ID_CH1) | \
+         XHDMIPHY1_TXRX_MSTRESET_MASK(XHDMIPHY1_CHANNEL_ID_CH2) | \
+         XHDMIPHY1_TXRX_MSTRESET_MASK(XHDMIPHY1_CHANNEL_ID_CH3) | \
+         XHDMIPHY1_TXRX_MSTRESET_MASK(XHDMIPHY1_CHANNEL_ID_CH4))
 #define XHDMIPHY1_TX_INIT_USERRDY_ALL_MASK \
         (XHDMIPHY1_TX_INIT_USERRDY_MASK(XHDMIPHY1_CHANNEL_ID_CH1) | \
          XHDMIPHY1_TX_INIT_USERRDY_MASK(XHDMIPHY1_CHANNEL_ID_CH2) | \
@@ -402,8 +395,14 @@
 /* 0x06C: GPO */
 #define XHDMIPHY1_TX_GPO_MASK(Ch) \
         (0x01 << (Ch - 1))
+#define XHDMIPHY1_TX_GPO_MASK_ALL(NCh) \
+		((NCh == 3) ? 0x7 : 0xF)
+#define XHDMIPHY1_TX_GPO_SHIFT 0
 #define XHDMIPHY1_RX_GPO_MASK(Ch) \
         (0x10 << (Ch - 1))
+#define XHDMIPHY1_RX_GPO_MASK_ALL(NCh) \
+		((NCh == 3) ? 0x70 : 0xF0)
+#define XHDMIPHY1_RX_GPO_SHIFT 4
 /* 0x070: TX_CONTROL */
 #define XHDMIPHY1_TX_CONTROL_TX8B10BEN_MASK(Ch) \
         (0x01 << (8 * (Ch - 1)))
@@ -484,6 +483,11 @@
         (0xF800 << (16 * ((Ch - 1) % 2)))
 #define XHDMIPHY1_TX_DRIVER_TXPRECURSOR_SHIFT(Ch) \
         (11 + (16 * ((Ch - 1) % 2)))
+/* 0x084: TX_DRIVER_EXT */
+#define XHDMIPHY1_TX_DRIVER_EXT_TXDIFFCTRL_MASK(Ch) \
+        (0x0001 << (8 * (Ch - 1)))
+#define XHDMIPHY1_TX_DRIVER_EXT_TXDIFFCTRL_SHIFT(Ch) \
+        (8 * (Ch - 1))
 /* 0x08C, 0x090: TX_RATE_CH12, TX_RATE_CH34 */
 #define XHDMIPHY1_TX_RATE_MASK(Ch) \
         (0x00FF << (16 * ((Ch - 1) % 2)))
@@ -674,6 +678,10 @@
 *******************************************************************************/
 #define XHdmiphy1_WriteReg(BaseAddress, RegOffset, Data) \
     XHdmiphy1_Out32((BaseAddress) + (RegOffset), (Data))
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XHDMIPHY1_HW_H_ */
 /** @} */

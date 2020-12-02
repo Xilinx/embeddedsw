@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xemacps.c
-* @addtogroup emacps_v3_9
+* @addtogroup emacps_v3_12
 * @{
 *
 * The XEmacPs driver. Functions in this file are the minimum required functions
@@ -52,6 +30,8 @@
 *                    its config structure.
 * 3.8  hk   09/17/18 Cleanup stale comments.
 * 3.8  mus  11/05/18 Support 64 bit DMA addresses for Microblaze-X platform.
+* 3.10 hk   05/16/19 Clear status registers properly in reset
+* 3.11 sd   02/14/20 Add clock support
 *
 * </pre>
 ******************************************************************************/
@@ -108,6 +88,9 @@ LONG XEmacPs_CfgInitialize(XEmacPs *InstancePtr, XEmacPs_Config * CfgPtr,
 	InstancePtr->Config.DeviceId = CfgPtr->DeviceId;
 	InstancePtr->Config.BaseAddress = EffectiveAddress;
 	InstancePtr->Config.IsCacheCoherent = CfgPtr->IsCacheCoherent;
+#if defined  (XCLOCKING)
+	InstancePtr->Config.RefClk = CfgPtr->RefClk;
+#endif
 
 	/* Set callbacks to an initial stub routine */
 	InstancePtr->SendHandler = ((XEmacPs_Handler)((void*)XEmacPs_StubHandler));
@@ -156,6 +139,12 @@ void XEmacPs_Start(XEmacPs *InstancePtr)
 	/* Assert bad arguments and conditions */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
+
+#if defined  (XCLOCKING)
+	if (InstancePtr->IsStarted != (u32)XIL_COMPONENT_IS_STARTED) {
+		Xil_ClockEnable(InstancePtr->Config.RefClk);
+	}
+#endif
 
 	/* Start DMA */
 	/* When starting the DMA channels, both transmit and receive sides
@@ -261,6 +250,9 @@ void XEmacPs_Stop(XEmacPs *InstancePtr)
 
 	/* Mark as stopped */
 	InstancePtr->IsStarted = 0U;
+#if defined  (XCLOCKING)
+	Xil_ClockDisable(InstancePtr->Config.RefClk);
+#endif
 }
 
 
@@ -364,7 +356,7 @@ void XEmacPs_Reset(XEmacPs *InstancePtr)
 	}
 
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
-			   XEMACPS_TXSR_OFFSET, 0x0U);
+			   XEMACPS_TXSR_OFFSET, XEMACPS_SR_ALL_MASK);
 
 	XEmacPs_SetQueuePtr(InstancePtr, 0, 0x00U, (u16)XEMACPS_SEND);
 	if (InstancePtr->Version > 2)
@@ -372,7 +364,7 @@ void XEmacPs_Reset(XEmacPs *InstancePtr)
 	XEmacPs_SetQueuePtr(InstancePtr, 0, 0x00U, (u16)XEMACPS_RECV);
 
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
-			   XEMACPS_RXSR_OFFSET, 0x0U);
+			   XEMACPS_RXSR_OFFSET, XEMACPS_SR_ALL_MASK);
 
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress, XEMACPS_IDR_OFFSET,
 			   XEMACPS_IXR_ALL_MASK);
@@ -436,7 +428,7 @@ void XEmacPs_StubHandler(void)
 * @param	InstancePtr is a pointer to the instance to be worked on.
 * @param	QPtr is the address of the Queue to be written
 * @param	QueueNum is the Buffer Queue Index
-* @param	Direction indicates Transmit/Recive
+* @param	Direction indicates Transmit/Receive
 *
 * @note
 * The buffer queue addresses has to be set before starting the transfer, so

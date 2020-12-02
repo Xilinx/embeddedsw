@@ -12,9 +12,6 @@ var files =
     [ "xemacps_g.c", "xemacps__g_8c.html", null ],
     [ "xemacps_hw.c", "xemacps__hw_8c.html", "xemacps__hw_8c" ],
     [ "xemacps_hw.h", "xemacps__hw_8h.html", "xemacps__hw_8h" ],
-    [ "xemacps_ieee1588.c", "xemacps__ieee1588_8c.html", "xemacps__ieee1588_8c" ],
-    [ "xemacps_ieee1588.h", "xemacps__ieee1588_8h.html", "xemacps__ieee1588_8h" ],
-    [ "xemacps_ieee1588_example.c", "xemacps__ieee1588__example_8c.html", "xemacps__ieee1588__example_8c" ],
     [ "xemacps_intr.c", "xemacps__intr_8c.html", "xemacps__intr_8c" ],
     [ "xemacps_sinit.c", "xemacps__sinit_8c.html", "xemacps__sinit_8c" ]
 ];

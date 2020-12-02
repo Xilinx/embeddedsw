@@ -28,7 +28,7 @@
   <td style="padding-left: 0.5em;">
    <div id="projectname">v_hdmitxss
    </div>
-   <div id="projectbrief">Xilinx SDK Drivers API Documentation</div>
+   <div id="projectbrief">Xilinx Vitis Drivers API Documentation</div>
   </td>
  </tr>
  </tbody>
@@ -178,16 +178,16 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
                           XV_HdmiTxSs_SetVideoStreamHdmi14ScramblingOverrideFlag
              25/01/18 Added function XV_HdmiTxSs_SetScrambler
              01/02/18   Updated function XV_HdmiTxSs_VtcSetup and changed the
-                                        input parameters to it to enable logging of
-                                        unsupported video timing by VTC
+                          input parameters to it to enable logging of
+                          unsupported video timing by VTC
       SM     28/02/18 Added definition of <a class="el" href="xv__hdmitxss_8c.html#a5d3a31956266819ec884d8cda17c981b" title="This function will set the major and minor application version in TXSs struct.">XV_HdmiTxSS_SetAppVersion()</a> API
 5.20  EB     03/08/18 Updated XV_HdmiTxSS_MaskSetRed, XV_HdmiTxSS_MaskSetGreen,
-                                                        XV_HdmiTxSS_MaskSetBlue API
-                                        Replaced XV_HdmiTx_AudioMute API call with
-                                                        XV_HdmiTx_AudioDisable
-                                        Replaced XV_HdmiTx_AudioUnmute API call with
-                                                        XV_HdmiTx_AudioEnable
-                                        Replaced XV_HdmiTx_AudioUnmute API call with
+                          XV_HdmiTxSS_MaskSetBlue API
+                      Replaced XV_HdmiTx_AudioMute API call with
+                          XV_HdmiTx_AudioDisable
+                      Replaced XV_HdmiTx_AudioUnmute API call with
+                          XV_HdmiTx_AudioEnable
+                      Replaced XV_HdmiTx_AudioUnmute API call with
                 MMO    11/08/18 Added Bridge Overflow and Bridge Underflow Interrupt
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
@@ -246,9 +246,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a7baaebdb210c31b426fabc55fd2cb182"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitxss_8c.html#a7baaebdb210c31b426fabc55fd2cb182">XV_HdmiTxSs_ClearGcpClearAvmuteBit</a> (<a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *InstancePtr)</td></tr>
 <tr class="memdesc:a7baaebdb210c31b426fabc55fd2cb182"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function clears the HDMI TX AUX GCP register CLEAR_AVMUTE bit.  <a href="#a7baaebdb210c31b426fabc55fd2cb182"></a><br/></td></tr>
 <tr class="separator:a7baaebdb210c31b426fabc55fd2cb182"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afac19b7fcdcacc7ee008ff36e710eaaf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitxss_8c.html#afac19b7fcdcacc7ee008ff36e710eaaf">XV_HdmiTxSs_SetCallback</a> (<a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *InstancePtr, u32 HandlerType, void *CallbackFunc, void *CallbackRef)</td></tr>
-<tr class="memdesc:afac19b7fcdcacc7ee008ff36e710eaaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function installs an asynchronous callback function for the given HandlerType:  <a href="#afac19b7fcdcacc7ee008ff36e710eaaf"></a><br/></td></tr>
-<tr class="separator:afac19b7fcdcacc7ee008ff36e710eaaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9317a48d30040bc4209413a21903e778"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitxss_8c.html#a9317a48d30040bc4209413a21903e778">XV_HdmiTxSs_SetCallback</a> (<a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *InstancePtr, <a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0a">XV_HdmiTxSs_HandlerType</a> HandlerType, void *CallbackFunc, void *CallbackRef)</td></tr>
+<tr class="memdesc:a9317a48d30040bc4209413a21903e778"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function installs an asynchronous callback function for the given HandlerType:  <a href="#a9317a48d30040bc4209413a21903e778"></a><br/></td></tr>
+<tr class="separator:a9317a48d30040bc4209413a21903e778"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade5e57b590e770aa5eafc18b31134f82"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitxss_8c.html#ade5e57b590e770aa5eafc18b31134f82">XV_HdmiTxSs_ReadEdid</a> (<a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *InstancePtr, u8 *Buffer)</td></tr>
 <tr class="memdesc:ade5e57b590e770aa5eafc18b31134f82"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads the HDMI Sink EDID.  <a href="#ade5e57b590e770aa5eafc18b31134f82"></a><br/></td></tr>
 <tr class="separator:ade5e57b590e770aa5eafc18b31134f82"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -294,6 +294,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a5d7b94dcf090118a688144c74cbd9442"><td class="memItemLeft" align="right" valign="top">XHdmiC_VSIF *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitxss_8c.html#a5d7b94dcf090118a688144c74cbd9442">XV_HdmiTxSs_GetVSIF</a> (<a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *InstancePtr)</td></tr>
 <tr class="memdesc:a5d7b94dcf090118a688144c74cbd9442"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the pointer to HDMI TX SS Vendor Specific InfoFrame structure.  <a href="#a5d7b94dcf090118a688144c74cbd9442"></a><br/></td></tr>
 <tr class="separator:a5d7b94dcf090118a688144c74cbd9442"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5b252d413f8804cc5eddf894a2ddcc4"><td class="memItemLeft" align="right" valign="top">XHdmiC_DRMInfoFrame *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitxss_8c.html#ab5b252d413f8804cc5eddf894a2ddcc4">XV_HdmiTxSs_GetDrmInfoframe</a> (<a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ab5b252d413f8804cc5eddf894a2ddcc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the pointer to HDMI TX SS DRM InfoFrame structure.  <a href="#ab5b252d413f8804cc5eddf894a2ddcc4"></a><br/></td></tr>
+<tr class="separator:ab5b252d413f8804cc5eddf894a2ddcc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a893af41ef8123dbcc6c697e211656d6e"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitxss_8c.html#a893af41ef8123dbcc6c697e211656d6e">XV_HdmiTxSs_SetStream</a> (<a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *InstancePtr, XVidC_VideoMode VideoMode, XVidC_ColorFormat ColorFormat, XVidC_ColorDepth Bpc, XVidC_3DInfo *Info3D)</td></tr>
 <tr class="memdesc:a893af41ef8123dbcc6c697e211656d6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function set HDMI TX susbsystem stream parameters.  <a href="#a893af41ef8123dbcc6c697e211656d6e"></a><br/></td></tr>
 <tr class="separator:a893af41ef8123dbcc6c697e211656d6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -540,7 +543,7 @@ Variables</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if initialization is successful else XST_FAILURE </dd></dl>
 
-<p>References <a class="el" href="struct_x_v___hdmi_tx_ss.html#acc291a3aeb71a6ce8ab9e3f62189a053">XV_HdmiTxSs::AppMajVer</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#a5edd49d0aea12261f9e487d1c3cbf055">XV_HdmiTxSs::AppMinVer</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#a9df7abc4dec75ff7f641fbbfc8b527b7">XV_HdmiTxSs::AudioInfoframe</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#ab75c71b05733f042bc3484094f7d2c61">XV_HdmiTxSs::AVIInfoframe</a>, <a class="el" href="struct_x_v___hdmi_tx_ss___config.html#a8f0f2c7dd28420c2940eeb225f65c70d">XV_HdmiTxSs_Config::AxiLiteClkFreq</a>, <a class="el" href="struct_x_v___hdmi_tx_ss___config.html#a52882efb633aff03ac341a4e10c60cbf">XV_HdmiTxSs_Config::BaseAddress</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#a85f740373921c8cd92ced34d1c84b08a">XV_HdmiTxSs::Config</a>, <a class="el" href="struct_x_v___hdmi_tx_ss___config.html#ae5c834f5b6c2ce23e2012ff193a50d92">XV_HdmiTxSs_Config::DeviceId</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#ab003c64bbf63c1cc119c0a074f442967">XV_HdmiTxSs::HdcpProtocol</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#a87042f029000cbb41f93ca4d5cc9df89">XV_HdmiTxSs::HdmiTxPtr</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#ad62ad2dbc295e57b36a4117b58c22ae3">XV_HdmiTxSs::IsReady</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#aed7334db801d041c27f8eacee8a75894">XV_HdmiTxSs::VSIF</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#a02f7acf90cb43cab31025ae6193dc046">XV_HdmiTxSs::VtcPtr</a>, <a class="el" href="xv__hdmitxss_8h.html#ae5b01347d8bef95b2b6696a9df03715da8edf884baa46bf92c9203338e291e27c">XV_HDMITXSS_HDCP_BOTH</a>, <a class="el" href="xv__hdmitxss_8h.html#ae5b01347d8bef95b2b6696a9df03715daac8020e5cbc2a02efd15877b22572965">XV_HDMITXSS_HDCP_NONE</a>, <a class="el" href="xv__hdmitxss_8c.html#abae6c5dd6d24770d6bfcf76f1208f8d7">XV_HdmiTxSs_Reset()</a>, <a class="el" href="group__v__hdmitxss__v4__0.html#ga23588544c59439321e952b7b4a2c6445">XV_HdmiTxSs_SubcoreInitHdmiTx()</a>, and <a class="el" href="group__v__hdmitxss__v4__0.html#ga2c1e0df6df7d8d7618d3bdde8eb86923">XV_HdmiTxSs_SubcoreInitVtc()</a>.</p>
+<p>References <a class="el" href="struct_x_v___hdmi_tx_ss.html#acc291a3aeb71a6ce8ab9e3f62189a053">XV_HdmiTxSs::AppMajVer</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#a5edd49d0aea12261f9e487d1c3cbf055">XV_HdmiTxSs::AppMinVer</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#a9df7abc4dec75ff7f641fbbfc8b527b7">XV_HdmiTxSs::AudioInfoframe</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#ab75c71b05733f042bc3484094f7d2c61">XV_HdmiTxSs::AVIInfoframe</a>, <a class="el" href="struct_x_v___hdmi_tx_ss___config.html#a8f0f2c7dd28420c2940eeb225f65c70d">XV_HdmiTxSs_Config::AxiLiteClkFreq</a>, <a class="el" href="struct_x_v___hdmi_tx_ss___config.html#a52882efb633aff03ac341a4e10c60cbf">XV_HdmiTxSs_Config::BaseAddress</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#a85f740373921c8cd92ced34d1c84b08a">XV_HdmiTxSs::Config</a>, <a class="el" href="struct_x_v___hdmi_tx_ss___config.html#ae5c834f5b6c2ce23e2012ff193a50d92">XV_HdmiTxSs_Config::DeviceId</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#ab4402bb295156f676dc7f4ce449aa4e9">XV_HdmiTxSs::DrmInfoframe</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#ab003c64bbf63c1cc119c0a074f442967">XV_HdmiTxSs::HdcpProtocol</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#a87042f029000cbb41f93ca4d5cc9df89">XV_HdmiTxSs::HdmiTxPtr</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#ad62ad2dbc295e57b36a4117b58c22ae3">XV_HdmiTxSs::IsReady</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#aed7334db801d041c27f8eacee8a75894">XV_HdmiTxSs::VSIF</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#a02f7acf90cb43cab31025ae6193dc046">XV_HdmiTxSs::VtcPtr</a>, <a class="el" href="xv__hdmitxss_8h.html#ae5b01347d8bef95b2b6696a9df03715da8edf884baa46bf92c9203338e291e27c">XV_HDMITXSS_HDCP_BOTH</a>, <a class="el" href="xv__hdmitxss_8h.html#ae5b01347d8bef95b2b6696a9df03715daac8020e5cbc2a02efd15877b22572965">XV_HDMITXSS_HDCP_NONE</a>, <a class="el" href="xv__hdmitxss_8c.html#abae6c5dd6d24770d6bfcf76f1208f8d7">XV_HdmiTxSs_Reset()</a>, <a class="el" href="group__v__hdmitxss__v6__0.html#ga23588544c59439321e952b7b4a2c6445">XV_HdmiTxSs_SubcoreInitHdmiTx()</a>, and <a class="el" href="group__v__hdmitxss__v6__0.html#ga2c1e0df6df7d8d7618d3bdde8eb86923">XV_HdmiTxSs_SubcoreInitVtc()</a>.</p>
 
 </div>
 </div>
@@ -739,6 +742,34 @@ Variables</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="struct_x_v___hdmi_tx_ss.html#ab75c71b05733f042bc3484094f7d2c61">XV_HdmiTxSs::AVIInfoframe</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab5b252d413f8804cc5eddf894a2ddcc4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">XHdmiC_DRMInfoFrame* XV_HdmiTxSs_GetDrmInfoframe </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function returns the pointer to HDMI TX SS DRM InfoFrame structure. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>pointer to <a class="el" href="struct_x_v___hdmi_tx_ss.html" title="The XVprocss driver instance data.">XV_HdmiTxSs</a> instance</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XHdmiC_DRMInfoFrame pointer</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p>References <a class="el" href="struct_x_v___hdmi_tx_ss.html#ab4402bb295156f676dc7f4ce449aa4e9">XV_HdmiTxSs::DrmInfoframe</a>.</p>
 
 </div>
 </div>
@@ -1602,7 +1633,7 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="afac19b7fcdcacc7ee008ff36e710eaaf"></a>
+<a class="anchor" id="a9317a48d30040bc4209413a21903e778"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1615,7 +1646,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">u32&#160;</td>
+          <td class="paramtype"><a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0a">XV_HdmiTxSs_HandlerType</a>&#160;</td>
           <td class="paramname"><em>HandlerType</em>, </td>
         </tr>
         <tr>
@@ -1816,7 +1847,7 @@ HandlerType                     Callback Function Type
 
 <p>References <a class="el" href="struct_x_v___hdmi_tx_ss.html#a87042f029000cbb41f93ca4d5cc9df89">XV_HdmiTxSs::HdmiTxPtr</a>.</p>
 
-<p>Referenced by <a class="el" href="xv__hdmitxss_8h.html#aed156f6c6d09dcea9b500d1b5dc2de05">XV_HdmiTxSs_SetVideoStreamType()</a>, and <a class="el" href="group__v__hdmitxss__v4__0.html#ga23588544c59439321e952b7b4a2c6445">XV_HdmiTxSs_SubcoreInitHdmiTx()</a>.</p>
+<p>Referenced by <a class="el" href="xv__hdmitxss_8h.html#aed156f6c6d09dcea9b500d1b5dc2de05">XV_HdmiTxSs_SetVideoStreamType()</a>, and <a class="el" href="group__v__hdmitxss__v6__0.html#ga23588544c59439321e952b7b4a2c6445">XV_HdmiTxSs_SubcoreInitHdmiTx()</a>.</p>
 
 </div>
 </div>

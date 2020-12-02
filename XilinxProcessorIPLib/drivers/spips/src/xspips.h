@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xspips.h
-* @addtogroup spips_v3_2
+* @addtogroup spips_v3_5
 * @{
 * @details
 *
@@ -56,7 +34,7 @@
 * To support multiple runtime loading and initialization strategies employed by
 * various operating systems, the driver instance can be initialized in the
 * following way:
-*	- XSpiPs_LookupConfig(DeviceId) - Use the devide identifier to find the
+*	- XSpiPs_LookupConfig(DeviceId) - Use the divide identifier to find the
 *	static configuration structure defined in xspips_g.c. This is setup by
 *	the tools. For some operating systems the config structure will be
 *	initialized by the software and this call is not needed.
@@ -252,6 +230,11 @@
 *                       in safety mode and done changes such as
 *                       Declared the pointer param as Pointer to const.
 * 3.2   nsk    03/26/19 Add support for versal - CR #1025583.
+* 3.3   mus    04/05/19 Replaced XPLAT_versal macro with XPLAT_VERSAL, to be in
+*                       sync with standalone BSP
+* 3.3   akm    08/06/19 Initialized DeviceID in XSpiPs_CfgInitialize function.
+* 3.5	akm    09/02/20 Updated the Makefile to support parallel make execution.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -506,7 +489,7 @@ typedef struct {
 * Set the contents of the slave idle count register.
 *
 * @param	InstancePtr is a pointer to the XSpiPs instance.
-* @param	RegisterValue is the value to be writen, valid values are
+* @param	RegisterValue is the value to be written, valid values are
 *		0-255.
 *
 * @return	None

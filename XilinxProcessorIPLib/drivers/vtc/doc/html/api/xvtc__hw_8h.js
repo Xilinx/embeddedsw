@@ -1,5 +1,8 @@
 var xvtc__hw_8h =
 [
+    [ "XVTC_ADAPTIVE_CTL_OFFSET", "xvtc__hw_8h.html#gab27f57b3bfa2fbbd54493e5de4e58706", null ],
+    [ "XVTC_ADAPTIVE_ENABLE_MASK", "xvtc__hw_8h.html#gaa2de44a61a769acc3366545dfca3309b", null ],
+    [ "XVTC_ADAPTIVE_MODE_MASK", "xvtc__hw_8h.html#ga7157db6651e02a53a292d0edf9464ba9", null ],
     [ "XVTC_ASIZE_HORI_MASK", "xvtc__hw_8h.html#ga0e496af33fa4e06a38282742e53610c9", null ],
     [ "XVTC_ASIZE_VERT_MASK", "xvtc__hw_8h.html#gaa6f8196a7c8a65d366ddb209ad2679a9", null ],
     [ "XVTC_ASIZE_VERT_SHIFT", "xvtc__hw_8h.html#ga8fd56138acf8afd854ac2976ffeb81ac", null ],
@@ -150,11 +153,16 @@ var xvtc__hw_8h =
     [ "XVTC_VER_OFFSET", "xvtc__hw_8h.html#ga39912d1a11e97b5ff398260f9956b958", null ],
     [ "XVTC_VER_REV_MASK", "xvtc__hw_8h.html#ga480f6b9a07e49503091a6b0c82cab3d8", null ],
     [ "XVTC_VER_REV_SHIFT", "xvtc__hw_8h.html#gaa9572837e9dfc42b50d1173670694658", null ],
+    [ "XVTC_VFP_STRETCH_OFFSET", "xvtc__hw_8h.html#ga1014907c58decb98b183f9fd3dcbbff7", null ],
     [ "XVTC_VSIZE_F0_MASK", "xvtc__hw_8h.html#ga4cd67567ab4210f9fb25a7237766867e", null ],
     [ "XVTC_VSIZE_F1_MASK", "xvtc__hw_8h.html#gafaacbbdd4a93c4ccdd56b02f1c0d6f63", null ],
     [ "XVTC_VSIZE_F1_SHIFT", "xvtc__hw_8h.html#ga096dd5abc71767007fc0c6be6e74b5e4", null ],
     [ "XVtc_WriteReg", "xvtc__hw_8h.html#ga9c524801283cc3bf9a782c7cbf093098", null ],
     [ "XVTC_XVXHOX_HEND_MASK", "xvtc__hw_8h.html#ga563e27a60e431968ede6ae0b73804913", null ],
     [ "XVTC_XVXHOX_HEND_SHIFT", "xvtc__hw_8h.html#ga1a48a589d8622dd7dd303d34c1721d5a", null ],
-    [ "XVTC_XVXHOX_HSTART_MASK", "xvtc__hw_8h.html#ga53c3d50fe03f51602c91a76e6c951cc9", null ]
+    [ "XVTC_XVXHOX_HSTART_MASK", "xvtc__hw_8h.html#ga53c3d50fe03f51602c91a76e6c951cc9", null ],
+    [ "XVtc_AdaptiveSyncMode", "xvtc__hw_8h.html#ga62a692c383da0c4c8a1ef2d46bc80905", [
+      [ "XVTC_FIXED_MODE", "xvtc__hw_8h.html#gga62a692c383da0c4c8a1ef2d46bc80905a93ceb81eb6bcdf8ad0b8d585cb7f1e13", null ],
+      [ "XVTC_AUTO_ADJUST_MODE", "xvtc__hw_8h.html#gga62a692c383da0c4c8a1ef2d46bc80905a01c0c10f98d42a4f02a0ae8307b2c07e", null ]
+    ] ]
 ];

@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xcanps.h
-* @addtogroup canps_v3_2
+* @addtogroup canps_v3_5
 * @{
 * @details
 *
@@ -202,6 +180,11 @@
 *			error interrupts correctly. CR#925615
 *     ms      03/17/17  Added readme.txt file in examples folder for doxygen
 *                       generation.
+* 3.3 sne     08/06/19	Fixed coverity warnings.
+* 3.5 sne     06/29/20  Fixed MISRA-C violations.
+* 3.5 sne     06/29/20  Fix multiple packets send issue #CR-1066438.
+* 3.5 sne     08/28/20  Modify Makefile to support parallel make execution.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -246,7 +229,7 @@ extern "C" {
  */
 typedef struct {
 	u16 DeviceId;		/**< Unique ID of device */
-	u32 BaseAddr;		/**< Register base address */
+	UINTPTR BaseAddr;	/**< Register base address */
 } XCanPs_Config;
 
 /******************************************************************************/
@@ -318,9 +301,14 @@ typedef struct {
 	 */
 	XCanPs_EventHandler EventHandler;
 	void *EventRef;
+	u32 IsBusy;              /**< A transfer is in progress (state) */
 
 } XCanPs;
 
+
+/************************** Variable Definitions *****************************/
+
+extern XCanPs_Config XCanPs_ConfigTable[];
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -510,7 +498,7 @@ typedef struct {
  * Functions in xcanps.c
  */
 s32 XCanPs_CfgInitialize(XCanPs *InstancePtr, XCanPs_Config *ConfigPtr,
-				u32 EffectiveAddr);
+				UINTPTR EffectiveAddr);
 
 void XCanPs_Reset(XCanPs *InstancePtr);
 u8 XCanPs_GetMode(XCanPs *InstancePtr);

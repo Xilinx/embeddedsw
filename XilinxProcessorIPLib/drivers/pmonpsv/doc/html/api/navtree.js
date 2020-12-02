@@ -14,7 +14,10 @@ var NAVTREE =
       [ "Variables", "globals_vars.html", null ],
       [ "Macros", "globals_defs.html", null ]
     ] ],
-    [ "File List", "files.html", "files" ]
+    [ "File List", "files.html", "files" ],
+    [ "Examples", "example.html", [
+      [ "xpmonpsv_selftest_example.c", "example.html#ex1", null ]
+    ] ]
   ] ]
 ];
 

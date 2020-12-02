@@ -1,30 +1,9 @@
 #/******************************************************************************
-#*
-#* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
-#*
-#* Permission is hereby granted, free of charge, to any person obtaining a copy
-#* of this software and associated documentation files (the "Software"), to deal
-#* in the Software without restriction, including without limitation the rights
-#* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-#* copies of the Software, and to permit persons to whom the Software is
-#* furnished to do so, subject to the following conditions:
-#*
-#* The above copyright notice and this permission notice shall be included in
-#* all copies or substantial portions of the Software.
-#*
-#* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-#* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-#* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-#* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-#* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-#* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-#* SOFTWARE.
-#*
-#* Except as contained in this notice, the name of the Xilinx shall not be used
-#* in advertising or otherwise to promote the sale, use or other dealings in
-#* this Software without prior written authorization from Xilinx.
-#*
+#* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+#* SPDX-License-Identifier: MIT
 #******************************************************************************/
+
+package require fileutil
 
 proc swapp_get_name {} {
     return "Libmetal AMP Demo"
@@ -68,7 +47,7 @@ proc check_stdout_hw {} {
 		# only if it has a UART interface. So no further check is required
 		if { $slave_type == "psu_uart" || $slave_type == "axi_uartlite" ||
 			 $slave_type == "axi_uart16550" || $slave_type == "iomodule" ||
-			 $slave_type == "mdm" } {
+			 $slave_type == "mdm" || $slave_type == "psv_sbsauart" } {
 			return;
 		}
 	}
@@ -103,7 +82,7 @@ proc swapp_is_supported_hw {} {
     set hw_processor [common::get_property HW_INSTANCE $proc_instance]
     set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]]
 
-    if { $proc_type != "psu_cortexr5" } {
+    if { ($proc_type != "psu_cortexr5") && ($proc_type != "psv_cortexr5") } {
         error "This application is supported only for Cortex-R5 processors."
     }
 
@@ -138,12 +117,26 @@ proc generate_stdout_config { fid } {
         set id 0
         foreach uart $p8_uarts {
             if {[string compare -nocase $uart $stdout] == 0} {
-		puts $fid "#define UART_DEVICE_ID $id"
-		break;
-	    }
-	    incr id
-	}
+				puts $fid "#define UART_DEVICE_ID $id"
+				break;
+			}
+			incr id
+		}
+    } elseif { [regexp -nocase "psv_sbsauart" $stdout_type] } {
+	# mention that we have a psv__sbsauart
+        puts $fid "#define STDOUT_IS_PSV_SBSAUART";
+        # and get it device id
+        set p8_uarts [lsort [hsi::get_cells -hier -filter { ip_name == "psv_sbsauart"} ]];
+        set id 0
+        foreach uart $p8_uarts {
+            if {[string compare -nocase $uart $stdout] == 0} {
+				puts $fid "#define UART_DEVICE_ID $id"
+				break;
+			}
+			incr id
+		}
     }
+
 }
 
 proc swapp_generate {} {
@@ -165,15 +158,53 @@ proc swapp_generate {} {
         error "Invalid OS: $os"
     }
 
-    if { $proc_type == "psu_cortexr5" } {
+    if { ($proc_type == "psu_cortexr5") || ($proc_type == "psv_cortexr5")} {
         set procdir "zynqmp_r5"
     } else {
         error "Invalid processor type: $proc_type"
     }
 
-    foreach entry [glob -nocomplain -type f [file join machine *] [file join machine $procdir *] [file join system *] [file join system $osdir *] [file join system $osdir $procdir zynqmp_amp_demo *] [file join system $osdir machine *] [file join system $osdir machine $procdir *]] {
+       foreach entry [glob -nocomplain -type f [file join machine *] [file join machine $procdir *] [file join system *] [file join system $osdir *] [file join system $osdir $procdir zynqmp_amp_demo *] [file join system $osdir machine *] [file join system $osdir machine $procdir *]] {
 	file copy -force $entry "."
     }
+
+	 # if psv_cortexr5 then update IPI values for versal
+	if { $proc_type == "psv_cortexr5" } {
+		set IPI_MASK_zynqmp "0x1000000"
+		set IPI_MASK_versal "0x0000020"
+		set IPI_IRQ_VECT_ID_zynqmp "65"
+		set IPI_IRQ_VECT_ID_versal "63"
+		set IPI_BASE_ADDR_zynqmp "0xFF310000"
+		set IPI_BASE_ADDR_versal "0xFF340000"
+		set TTC0_BASE_ADDR_zynqmp "0xFF110000"
+		set TTC0_BASE_ADDR_versal "0xFF0E0000"
+		set fileList [list "common.h"]
+		# Make a command fragment that performs the replacement on a supplied string
+		set replacementCmd [list string map [list $IPI_MASK_zynqmp $IPI_MASK_versal]]
+		# Apply the replacement to the contents of each file
+		foreach filename $fileList {
+		    fileutil::updateInPlace $filename $replacementCmd
+		}
+
+		set fileList [list "sys_init.c"]
+		# Make a command fragment that performs the replacement on a supplied string
+		set replacementCmd [list string map [list $IPI_IRQ_VECT_ID_zynqmp $IPI_IRQ_VECT_ID_versal]]
+		# Apply the replacement to the contents of each file
+		foreach filename $fileList {
+		    fileutil::updateInPlace $filename $replacementCmd
+		}
+		set replacementCmd [list string map [list $IPI_BASE_ADDR_zynqmp $IPI_BASE_ADDR_versal]]
+		# Apply the replacement to the contents of each file
+		foreach filename $fileList {
+		    fileutil::updateInPlace $filename $replacementCmd
+		}
+		set replacementCmd [list string map [list $TTC0_BASE_ADDR_zynqmp $TTC0_BASE_ADDR_versal]]
+		# Apply the replacement to the contents of each file
+		foreach filename $fileList {
+		    fileutil::updateInPlace $filename $replacementCmd
+		}
+	}
+
 
     # cleanup this file for writing
     set fid [open "platform_config.h" "w+"];
@@ -198,7 +229,7 @@ proc swapp_get_linker_constraints {} {
 }
 
 proc swapp_get_supported_processors {} {
-    return "psu_cortexr5"
+    return "psu_cortexr5 psv_cortexr5"
 }
 
 proc swapp_get_supported_os {} {

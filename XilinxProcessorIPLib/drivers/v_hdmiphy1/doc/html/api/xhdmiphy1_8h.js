@@ -23,12 +23,11 @@ var xhdmiphy1_8h =
     ] ],
     [ "XHdmiphy1_GtState", "xhdmiphy1_8h.html#ga19e4c793abee3457123797eca4f61cd0", [
       [ "XHDMIPHY1_GT_STATE_IDLE", "xhdmiphy1_8h.html#gga19e4c793abee3457123797eca4f61cd0abb6da8fd6d31dd97dea1910021b0d8f7", null ],
-      [ "XHDMIPHY1_GT_STATE_LOCK", "xhdmiphy1_8h.html#gga19e4c793abee3457123797eca4f61cd0aeb66246b5c2c3de1c42d34fc8a5a9de2", null ],
       [ "XHDMIPHY1_GT_STATE_GPO_RE", "xhdmiphy1_8h.html#gga19e4c793abee3457123797eca4f61cd0a8237da6c8720d2611ec2eb56927e9fd6", null ],
+      [ "XHDMIPHY1_GT_STATE_LOCK", "xhdmiphy1_8h.html#gga19e4c793abee3457123797eca4f61cd0aeb66246b5c2c3de1c42d34fc8a5a9de2", null ],
       [ "XHDMIPHY1_GT_STATE_RESET", "xhdmiphy1_8h.html#gga19e4c793abee3457123797eca4f61cd0adbd966511bbee7acb1ce508578605fb6", null ],
       [ "XHDMIPHY1_GT_STATE_ALIGN", "xhdmiphy1_8h.html#gga19e4c793abee3457123797eca4f61cd0a540efa0ad171c67927e0364e77bf0ab0", null ],
       [ "XHDMIPHY1_GT_STATE_READY", "xhdmiphy1_8h.html#gga19e4c793abee3457123797eca4f61cd0af0bd0b978b52982e2caf6a30afc3f57d", null ],
-      [ "XHDMIPHY1_GT_TYPE_GTHE3", "xhdmiphy1_8h.html#gga14aff85d3d062cd34c21b0a1b571a547aae21b79b0cfbdbc053f499466bc44b0b", null ],
       [ "XHDMIPHY1_GT_TYPE_GTHE4", "xhdmiphy1_8h.html#gga14aff85d3d062cd34c21b0a1b571a547a5cbb4014f308cb04fbeebf989e359122", null ],
       [ "XHDMIPHY1_GT_TYPE_GTYE4", "xhdmiphy1_8h.html#gga14aff85d3d062cd34c21b0a1b571a547a98faa3846183fa3e2f28a1aa414e6f1e", null ],
       [ "XHDMIPHY1_GT_TYPE_GTYE5", "xhdmiphy1_8h.html#gga14aff85d3d062cd34c21b0a1b571a547a9cc9f15a988f4e9a2f610a91b0b788f3", null ]
@@ -110,6 +109,8 @@ var xhdmiphy1_8h =
       [ "XHDMIPHY1_LOG_EVT_TX_FREQ", "xhdmiphy1_8h.html#gga507763f75897762cabf8819fde24ab8fa8e08806e0035981f0aeac11963e9b29d", null ],
       [ "XHDMIPHY1_LOG_EVT_RX_FREQ", "xhdmiphy1_8h.html#gga507763f75897762cabf8819fde24ab8fa7e97df6b0482956381f42935d4088413", null ],
       [ "XHDMIPHY1_LOG_EVT_DRU_EN", "xhdmiphy1_8h.html#gga507763f75897762cabf8819fde24ab8fa9bd193450a0b8149982ea2bd8e4b334b", null ],
+      [ "XHDMIPHY1_LOG_EVT_TXGPO_RE", "xhdmiphy1_8h.html#gga507763f75897762cabf8819fde24ab8fad1249231d3dd37dc9b246750de6c468a", null ],
+      [ "XHDMIPHY1_LOG_EVT_RXGPO_RE", "xhdmiphy1_8h.html#gga507763f75897762cabf8819fde24ab8fab5aab4974e5d695941267b02c063b6bf", null ],
       [ "XHDMIPHY1_LOG_EVT_FRL_RECONFIG", "xhdmiphy1_8h.html#gga507763f75897762cabf8819fde24ab8fae974e310d8245fa9285d8a3d460c6701", null ],
       [ "XHDMIPHY1_LOG_EVT_TMDS_RECONFIG", "xhdmiphy1_8h.html#gga507763f75897762cabf8819fde24ab8fa924af29f57a82f33882dce6c2de2215b", null ],
       [ "XHDMIPHY1_LOG_EVT_1PPC_ERR", "xhdmiphy1_8h.html#gga507763f75897762cabf8819fde24ab8fa737d1a41d1b1a576101bd574080f08d1", null ],
@@ -126,12 +127,13 @@ var xhdmiphy1_8h =
       [ "XHDMIPHY1_LOG_EVT_NO_QPLL_ERR", "xhdmiphy1_8h.html#gga507763f75897762cabf8819fde24ab8fab955fbee9a933ef6bbebf9d04a8ad1db", null ],
       [ "XHDMIPHY1_LOG_EVT_DRU_CLK_ERR", "xhdmiphy1_8h.html#gga507763f75897762cabf8819fde24ab8fa16d87e8ac61927ee62d631af02a55eea", null ],
       [ "XHDMIPHY1_LOG_EVT_USRCLK_ERR", "xhdmiphy1_8h.html#gga507763f75897762cabf8819fde24ab8fabf63790d5f5a16fdfbbd3c5d2680fa29", null ],
+      [ "XHDMIPHY1_LOG_EVT_SPDGRDE_ERR", "xhdmiphy1_8h.html#gga507763f75897762cabf8819fde24ab8fa087c065913419984d661cf0488fe3e7e", null ],
       [ "XHDMIPHY1_LOG_EVT_DUMMY", "xhdmiphy1_8h.html#gga507763f75897762cabf8819fde24ab8fac5e344d7d6b6232fbba3fa5698de8532", null ],
-      [ "MMCM_CLKINSEL_CLKIN1", "xhdmiphy1_8h.html#gga3847a4b8f4c6fc2eb6eead8b7ff056ebaa00c64ed64facf6e3b9a3040a867bb89", null ],
-      [ "MMCM_CLKINSEL_CLKIN2", "xhdmiphy1_8h.html#gga3847a4b8f4c6fc2eb6eead8b7ff056eba79789c29c8c172411cab9e5471c691ff", null ],
-      [ "MMCM_CLKFBOUT_MULT_F", "xhdmiphy1_8h.html#ggace9483bf2fb967f29e577ff9b360f4d1aa8489b98d64a482faac08775bfddc5b6", null ],
-      [ "MMCM_DIVCLK_DIVIDE", "xhdmiphy1_8h.html#ggace9483bf2fb967f29e577ff9b360f4d1a4f289b13fe1f330746041550af27eb88", null ],
-      [ "MMCM_CLKOUT_DIVIDE", "xhdmiphy1_8h.html#ggace9483bf2fb967f29e577ff9b360f4d1a4c4adb11a4bedf6052cc12834eb0d747", null ]
+      [ "XHDMIPHY1_MMCM_CLKINSEL_CLKIN1", "xhdmiphy1_8h.html#gga3847a4b8f4c6fc2eb6eead8b7ff056ebaf1260fac83210a6f4eaa8a662337ab77", null ],
+      [ "XHDMIPHY1_MMCM_CLKINSEL_CLKIN2", "xhdmiphy1_8h.html#gga3847a4b8f4c6fc2eb6eead8b7ff056eba5f4960a25e2d9a5e894732aed7f5243c", null ],
+      [ "XHDMIPHY1_MMCM_CLKFBOUT_MULT_F", "xhdmiphy1_8h.html#ggace9483bf2fb967f29e577ff9b360f4d1ac73ff0db8b5c939871761014ab1d4167", null ],
+      [ "XHDMIPHY1_MMCM_DIVCLK_DIVIDE", "xhdmiphy1_8h.html#ggace9483bf2fb967f29e577ff9b360f4d1a95b2ddb09d855294152b039776ce4e32", null ],
+      [ "XHDMIPHY1_MMCM_CLKOUT_DIVIDE", "xhdmiphy1_8h.html#ggace9483bf2fb967f29e577ff9b360f4d1a4618e557ec32d01bede36da5194b1ac5", null ]
     ] ],
     [ "XHdmiphy1_OutClkSelType", "xhdmiphy1_8h.html#ga1b751875671500e5b0173be954368177", [
       [ "XHDMIPHY1_OUTCLKSEL_TYPE_OUTCLKPCS", "xhdmiphy1_8h.html#gga1b751875671500e5b0173be954368177a75fb0ca7ba319387dc2c9fb9d18747f0", null ],

@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 * @file xipipsu_self_test_example.c
@@ -151,7 +129,7 @@ void IpiIntrHandler(void *XIpiPsuPtr)
 					TEST_MSG_LEN, XIPIPSU_BUF_TYPE_RESP);
 			xil_printf("Sent back Inverted Message.\r\n");
 
-			/* Clear the Interrupt Status - This clears the OBS bit on teh SRC CPU registers */
+			/* Clear the Interrupt Status - This clears the OBS bit on the SRC CPU registers */
 			XIpiPsu_ClearInterruptStatus(InstancePtr,
 					InstancePtr->Config.TargetList[SrcIndex].Mask);
 
@@ -251,7 +229,7 @@ static XStatus DoIpiTest(XIpiPsu *InstancePtr)
 		XIpiPsu_ReadMessage(InstancePtr, DestCfgPtr->BitMask, TmpBuffer,
 		TEST_MSG_LEN, XIPIPSU_BUF_TYPE_RESP);
 		/**
-		 * Set the Status to SUCCESS; Status will be set to FAILURE incase the check fails
+		 * Set the Status to SUCCESS; Status will be set to FAILURE in case the check fails
 		 * in the consequent code
 		 */
 		Status = XST_SUCCESS;

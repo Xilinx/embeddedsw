@@ -1,28 +1,8 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  */
+
 #include "xpfw_config.h"
 #ifdef ENABLE_PM
 
@@ -69,7 +49,7 @@ typedef struct PmPllParam {
 	u8 bits;
 } PmPllParam;
 
-static PmPllParam pllParams[] = {
+static PmPllParam pllParams[PM_PLL_MAX_PARAM] = {
 	[PM_PLL_PARAM_DIV2] = {
 		.regOffset = PM_PLL_CTRL_OFFSET,
 		.shift = 16U,
@@ -128,10 +108,15 @@ static PmPllParam pllParams[] = {
  */
 static void PmPllBypassAndReset(PmPll* const pll)
 {
+	u32 pllCtrl = pll->addr + PM_PLL_CTRL_OFFSET;
+	u32 r;
 #ifdef ENABLE_EM
 	u32 pllErrMask = 1 << pll->errShift;
 	pll->errValue = 0;
-	/* Store PLL lock error interrupt masks before disabling it */
+	/*
+	 * Store PLL lock error interrupt mask and error enable
+	 * before disabling it
+	 */
 	pll->errValue |= (~XPfw_Read32(PMU_GLOBAL_ERROR_INT_MASK_2) &
 			   pllErrMask) >> pll->errShift;
 	pll->errValue |= ((~XPfw_Read32(PMU_GLOBAL_ERROR_POR_MASK_2) &
@@ -140,20 +125,25 @@ static void PmPllBypassAndReset(PmPll* const pll)
 			   pllErrMask) >> pll->errShift) << 2;
 	pll->errValue |= ((~XPfw_Read32(PMU_GLOBAL_ERROR_SIG_MASK_2) &
 			   pllErrMask) >> pll->errShift) << 3;
+	pll->errValue |= ((~XPfw_Read32(PMU_GLOBAL_ERROR_EN_2) &
+			   pllErrMask) >> pll->errShift) << 4;
 	/* Disable PLL lock error interrupts before powering down PLL */
 	XPfw_Write32(PMU_GLOBAL_ERROR_INT_DIS_2, pllErrMask);
 	XPfw_Write32(PMU_GLOBAL_ERROR_POR_DIS_2, pllErrMask);
 	XPfw_Write32(PMU_GLOBAL_ERROR_SRST_DIS_2, pllErrMask);
 	XPfw_Write32(PMU_GLOBAL_ERROR_SIG_DIS_2, pllErrMask);
+	XPfw_RMW32(PMU_GLOBAL_ERROR_EN_2, pllErrMask, 0x0U);
 #endif
 
 	/* Bypass PLL before putting it into the reset */
-	XPfw_RMW32(pll->addr + PM_PLL_CTRL_OFFSET, PM_PLL_CTRL_BYPASS_MASK,
-		   PM_PLL_CTRL_BYPASS_MASK);
+	r = Xil_In32(pllCtrl);
+	r |= PM_PLL_CTRL_BYPASS_MASK;
+	Xil_Out32(pllCtrl, r);
 
 	/* Power down PLL (= reset PLL) */
-	XPfw_RMW32(pll->addr + PM_PLL_CTRL_OFFSET, PM_PLL_CTRL_RESET_MASK,
-		   PM_PLL_CTRL_RESET_MASK);
+	r = Xil_In32(pllCtrl);
+	r |= PM_PLL_CTRL_RESET_MASK;
+	Xil_Out32(pllCtrl, r);
 }
 
 /**
@@ -171,11 +161,14 @@ static s32 PmPllLock(const PmPll* const pll)
 	XPfw_RMW32(pll->addr + PM_PLL_CTRL_OFFSET, PM_PLL_CTRL_RESET_MASK,
 		   ~PM_PLL_CTRL_RESET_MASK);
 	/* Poll status register for the lock */
-	status = XPfw_UtilPollForMask(pll->statusAddr, 1U << pll->lockShift,
+	status = XPfw_UtilPollForMask(pll->statusAddr, (u32)1 << pll->lockShift,
 				      PM_PLL_LOCK_TIMEOUT);
 
 #ifdef ENABLE_EM
-	/* Restore PLL lock error interrupts once PLL is locked */
+	/*
+	 * Restore PLL lock error interrupts and error enable
+	 * once PLL is locked
+	 */
 	XPfw_Write32(PMU_GLOBAL_ERROR_INT_EN_2,
 		     ((pll->errValue & 1U) << pll->errShift));
 	XPfw_Write32(PMU_GLOBAL_ERROR_POR_EN_2,
@@ -184,6 +177,8 @@ static s32 PmPllLock(const PmPll* const pll)
 		     (((pll->errValue >> 2) & 1U) << pll->errShift));
 	XPfw_Write32(PMU_GLOBAL_ERROR_SIG_EN_2,
 		     (((pll->errValue >> 3) & 1U) << pll->errShift));
+	XPfw_RMW32(PMU_GLOBAL_ERROR_EN_2, (1U << pll->errShift),
+			(((pll->errValue >> 4) & 1U) << pll->errShift));
 #endif
 
 	return status;
@@ -215,7 +210,7 @@ static void PmPllRestoreContext(PmPll* const pll)
 			PM_PLL_CTRL_RESET_MASK | PM_PLL_CTRL_BYPASS_MASK);
 	XPfw_Write32(pll->addr + PM_PLL_CFG_OFFSET, pll->context.cfg);
 	XPfw_Write32(pll->addr + PM_PLL_FRAC_OFFSET, pll->context.frac);
-	pll->flags &= ~PM_PLL_CONTEXT_SAVED;
+	pll->flags &= ~(u8)PM_PLL_CONTEXT_SAVED;
 }
 
 /**
@@ -428,7 +423,7 @@ PmNodeClass pmNodeClassPll_g = {
 	.getPerms = PmPllGetPerms,
 };
 
-static u32 PmStdPllPowers[] = {
+static u8 PmStdPllPowers[] = {
 	DEFAULT_PLL_POWER_RESET,
 	DEFAULT_PLL_POWER_LOCKED,
 };
@@ -589,7 +584,7 @@ void PmPllRequest(PmPll* const pll)
  */
 void PmPllRelease(PmPll* const pll)
 {
-	pll->flags &= ~PM_PLL_REQUESTED;
+	pll->flags &= ~(u8)PM_PLL_REQUESTED;
 	PmPllSuspend(pll);
 }
 
@@ -623,8 +618,8 @@ s32 PmPllSetParameterInt(PmPll* const pll, const u32 paramId, const u32 val)
 	 * This helps to remove the warn in cases where the expected clock
 	 * is not using vpll and vpll is used for other stuff.
 	 */
-	if (NODE_VPLL == pll->node.nodeId && PM_PLL_PARAM_FBDIV == paramId) {
-		if (pll->childCount > 1) {
+	if ((NODE_VPLL == pll->node.nodeId) && (PM_PLL_PARAM_FBDIV == paramId)) {
+		if (pll->childCount > 1U) {
 			PmErr("More than 1 devices are using VPLL which is forbidden\r\n");
 			status = XST_PM_MULT_USER;
 			goto done;
@@ -708,13 +703,14 @@ s32 PmPllSetModeInt(PmPll* const pll, const u32 mode)
 	XPfw_RMW32(pll->addr + PM_PLL_FRAC_OFFSET, PLL_FRAC_CFG_ENABLED_MASK,
 		   val);
 
-	(void)PmPllLock(pll);
+	status = PmPllLock(pll);
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
 
 	/* Deassert bypass if the PLL has locked */
-	if (XST_SUCCESS == status) {
-		XPfw_RMW32(pll->addr + PM_PLL_CTRL_OFFSET,
-			   PM_PLL_CTRL_BYPASS_MASK, ~PM_PLL_CTRL_BYPASS_MASK);
-	}
+	XPfw_RMW32(pll->addr + PM_PLL_CTRL_OFFSET,
+		   PM_PLL_CTRL_BYPASS_MASK, ~PM_PLL_CTRL_BYPASS_MASK);
 
 done:
 	return status;

@@ -1,30 +1,8 @@
 #/******************************************************************************
-#*
-#* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
-#*
-#* Permission is hereby granted, free of charge, to any person obtaining a copy
-#* of this software and associated documentation files (the "Software"), to deal
-#* in the Software without restriction, including without limitation the rights
-#* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-#* copies of the Software, and to permit persons to whom the Software is
-#* furnished to do so, subject to the following conditions:
-#*
-#* The above copyright notice and this permission notice shall be included in
-#* all copies or substantial portions of the Software.
-#*
-#* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-#* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-#* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-#* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-#* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-#* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-#* SOFTWARE.
-#*
-#* Except as contained in this notice, the name of the Xilinx shall not be used
-#* in advertising or otherwise to promote the sale, use or other dealings in
-#* this Software without prior written authorization from Xilinx.
-#*
+#* Copyright (c) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+#* SPDX-License-Identifier: MIT
 #******************************************************************************/
+
 
 proc swapp_get_name {} {
 	return "mba_fs_boot";
@@ -35,11 +13,11 @@ proc swapp_get_description {} {
 }
 
 proc swapp_get_supported_processors {} {
-	return "";
+	return "microblaze";
 }
 
 proc swapp_get_supported_os {} {
-	return "";
+	return "standalone";
 }
 
 proc get_stdout {} {
@@ -139,7 +117,12 @@ proc get_flash_config { fp } {
 	}
 	switch -exact $ipname {
 		"axi_quad_spi"  {
-			set flash_start [common::get_property CONFIG.C_BASEADDR [get_cells -hier $flash]];
+			set axi_type_value [common::get_property CONFIG.C_TYPE_OF_AXI4_INTERFACE [get_cells -hier $flash]]
+			if {$axi_type_value == "0"} {
+				set flash_start [common::get_property CONFIG.C_BASEADDR [get_cells -hier $flash]];
+			} else {
+				set flash_start [common::get_property CONFIG.C_S_AXI4_BASEADDR [get_cells -hier $flash]];
+			}
 			puts $fp "#define CONFIG_PRIMARY_FLASH_SPI_BASEADDR      $flash_start";
 			puts $fp "#define CONFIG_PRIMARY_FLASH_SPI";
 			set spi_mode [common::get_property CONFIG.C_SPI_MODE [get_cells -hier $flash]];
@@ -236,7 +219,7 @@ proc get_program_code_memory {} {
         }
     }
 
-    error "This application requires atleast [expr $required_mem_size/1024] KB of BRAM memory for code.";
+    error "This application requires at least [expr $required_mem_size/1024] KB of BRAM memory for code.";
 }
 
 proc get_program_data_memory {} {
@@ -272,7 +255,7 @@ proc get_program_data_memory {} {
             }
         }
     }
-    error "This application requires atleast \
+    error "This application requires at least \
 	[expr $required_mem_size/1024] KB of BRAM memory for data.";
 }
 

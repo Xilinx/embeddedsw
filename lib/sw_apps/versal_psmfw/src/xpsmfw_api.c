@@ -1,82 +1,51 @@
 /******************************************************************************
- *
- * Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  ******************************************************************************/
+
 
 #include "xpsmfw_api.h"
 #include "xpsmfw_ipi_manager.h"
 #include "xpsmfw_power.h"
+#include "xpsmfw_gic.h"
 
 #define PACK_PAYLOAD(Payload, Arg0, Arg1)	\
 	Payload[0] = (u32)Arg0;		\
 	Payload[1] = (u32)Arg1;         \
-	XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "%s(%x)\r\n", __func__, Arg1);
+	XPsmFw_Printf(DEBUG_DETAILED, "%s(%x)\r\n", __func__, Arg1);
 
-#define LIBPM_MODULE_ID			(0x06)
-#define HEADER(len, ApiId)		((len << 16) | (LIBPM_MODULE_ID << 8) | (ApiId))
+#define LIBPM_MODULE_ID			(0x06U)
+#define HEADER(len, ApiId)		(u32)(((u32)len << 16) |		\
+					      ((u32)LIBPM_MODULE_ID << 8) |	\
+					      (ApiId))
 
 #define PACK_PAYLOAD0(Payload, ApiId)	\
-	PACK_PAYLOAD(Payload, HEADER(0, ApiId), NULL)
+	PACK_PAYLOAD(Payload, HEADER(0U, ApiId), 0U)
 #define PACK_PAYLOAD1(Payload, ApiId, Arg1)	\
-	PACK_PAYLOAD(Payload, HEADER(1, ApiId), Arg1)
+	PACK_PAYLOAD(Payload, HEADER(1U, ApiId), Arg1)
 
 static XStatus XPsmFw_FpHouseClean(u32 FunctionId)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	switch (FunctionId) {
-	case FUNC_INIT_START:
+	case (u32)FUNC_INIT_START:
 		Status = XPsmFw_FpdPreHouseClean();
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
 		break;
-	case FUNC_INIT_FINISH:
-		Status = XPsmFw_FpdPostHouseClean();
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
+	case (u32)FUNC_INIT_FINISH:
+		XPsmFw_FpdPostHouseClean();
+		Status = XST_SUCCESS;
 		break;
-	case FUNC_SCAN_CLEAR:
-		Status = XPsmFw_FpdScanClear();
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
+	case (u32)FUNC_BISR:
+		XPsmFw_FpdMbisr();
+		Status = XST_SUCCESS;
 		break;
-	case FUNC_BISR:
-		Status = XPsmFw_FpdMbisr();
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-		break;
-	case FUNC_MBIST_CLEAR:
-		Status = XPsmFw_FpdMbistClear();
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
+	case (u32)FUNC_MBIST_CLEAR:
+		XPsmFw_FpdMbistClear();
+		Status = XST_SUCCESS;
 		break;
 	default:
 		Status = XST_INVALID_PARAM;
@@ -113,6 +82,10 @@ XStatus XPsmFw_ProcessIpi(u32 *Payload)
 		case PSM_API_FPD_HOUSECLEAN:
 			Status = XPsmFw_FpHouseClean(Payload[1]);
 			break;
+		case PSM_API_CCIX_EN:
+			XPsmFw_GicP2IrqEnable();
+			Status = XST_SUCCESS;
+			break;
 		default:
 			Status = XST_INVALID_PARAM;
 			break;
@@ -123,44 +96,19 @@ XStatus XPsmFw_ProcessIpi(u32 *Payload)
 
 /****************************************************************************/
 /**
- * @brief	Send power down event to PMC
- *
- * @param DevId	Device ID of powering down processor
+ * @brief	Trigger IPI of PLM to notify the event to PLM
  *
  * @return	XST_SUCCESS or error code
  *
  * @note	None
  *
  ****************************************************************************/
-XStatus XPsmFw_PowerDownEvent(u32 DevId)
+XStatus XPsmFw_NotifyPlmEvent(void)
 {
-	XStatus Status;
+	XStatus Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-	PACK_PAYLOAD1(Payload, PM_PWR_DWN_EVENT, DevId);
-
-	Status = XPsmFw_IpiSend(IPI_PSM_IER_PMC_MASK, Payload);
-
-	return Status;
-}
-
-/****************************************************************************/
-/**
- * @brief	Send wake event to PMC
- *
- * @param DevId	Device ID of powering down processor
- *
- * @return	XST_SUCCESS or error code
- *
- * @note	None
- *
- ****************************************************************************/
-XStatus XPsmFw_WakeEvent(u32 DevId)
-{
-	XStatus Status;
-	u32 Payload[PAYLOAD_ARG_CNT];
-
-	PACK_PAYLOAD1(Payload, PM_WAKE_UP_EVENT, DevId);
+	PACK_PAYLOAD0(Payload, PM_PSM_TO_PLM_EVENT);
 
 	Status = XPsmFw_IpiSend(IPI_PSM_IER_PMC_MASK, Payload);
 

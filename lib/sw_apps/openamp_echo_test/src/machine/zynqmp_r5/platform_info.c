@@ -30,9 +30,14 @@
 
 #define IPI_DEV_NAME         "ipi_dev"
 #define IPI_BUS_NAME         "generic"
+#ifdef versal
+#define IPI_BASE_ADDR        0xFF340000
+#define IPI_CHN_BITMASK      0x0000020
+#else
 #define IPI_BASE_ADDR        XPAR_XIPIPSU_0_BASE_ADDRESS /* IPI base address*/
 #define IPI_CHN_BITMASK      0x01000000 /* IPI channel bit mask for IPI from/to
 					   APU */
+#endif /* versal */
 
 /* Cortex R5 memory attributes */
 #define DEVICE_SHARED		0x00000001U /* device, shareable */
@@ -131,7 +136,7 @@ platform_create_proc(int proc_index, int rsc_index)
 	/* parse resource table to remoteproc */
 	ret = remoteproc_set_rsc_table(&rproc_inst, rsc_table, rsc_size);
 	if (ret) {
-		xil_printf("Failed to intialize remoteproc\r\n");
+		xil_printf("Failed to initialize remoteproc\r\n");
 		remoteproc_remove(&rproc_inst);
 		return NULL;
 	}

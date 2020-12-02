@@ -1,30 +1,8 @@
 /******************************************************************************
- *
- * Copyright (C) 2016-2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
- ******************************************************************************/
+* Copyright (c) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+
 /*****************************************************************************/
 /**
  *
@@ -38,21 +16,22 @@
  *
  * Ver   Who     Date     Changes
  * ----- ------  -------- ------------------------------------------------------
- * 1.0   Nava    08/06/16  First release
- * 4.0   Nava	21/02/18  Updated the example relevant to src code changes.
- * 4.2   Nava    30/05/18  Refactor the xilfpga library to support
+ * 1.0   Nava    06/08/16  First release
+ * 4.0   Nava	 02/21/18  Updated the example relevant to src code changes.
+ * 4.2   Nava    05/30/18  Refactor the xilfpga library to support
  *                         different PL programming Interfaces.
- * 4.2	 adk	 23/08/18  Added bitstream size define.
- * 5.0   Nava	 06/02/19  Updated the example to sync with 5.0 version API's
- * 5.0	 Nava 	 16/03/19  Typical bitstram size of zcu102 board is 26MB.So
+ * 4.2	 adk	 08/23/18  Added bitstream size define.
+ * 5.0   Nava	 02/06/19  Updated the example to sync with 5.0 version API's
+ * 5.0	 Nava 	 03/16/19  Typical bitstram size of zcu102 board is 26MB.So
  *			   updated the bitstream size macro value for the same.
+ * 5.2   Nava	 02/14/20  Removed unwanted header file inclusion.
+ * 5.3   Nava    06/16/20  Modified the date format from dd/mm to mm/dd.
+ * 5.3   Nava    06/16/20  Added support for Versal Platform.
  * </pre>
  *
  ******************************************************************************/
 
-#include "xil_printf.h"
 #include "xilfpga.h"
-#include "xfpga_config.h"
 
 /**************************** Type Definitions *******************************/
 /* Xilfpga library supports vivado generated Bitstream(*.bit, *.bin) and bootgen
@@ -63,9 +42,14 @@
  * Below definition is for typical bitstream size of zcu102 board
  * User should replace the below definition value with the actual bitstream size.
  *
- * @note: This example supports only Zynq UltraScale+ MPSoC platform.
  */
-#define BITSTREAM_SIZE	0x1A00000
+
+/* For Versal platform Passing the below definition is Optional */
+#define BITSTREAM_SIZE 0x1A00000U /* Bin or bit or PDI image size */
+#ifdef versal
+#define PDI_LOAD        0U
+#endif
+
 /*****************************************************************************/
 int main(void)
 {
@@ -82,8 +66,13 @@ int main(void)
 		goto done;
 	}
 
+#ifdef versal
+	Status = XFpga_PL_BitStream_Load(&XFpgaInstance, addr,
+					 BITSTREAM_SIZE, PDI_LOAD);
+#else
 	Status = XFpga_PL_BitStream_Load(&XFpgaInstance, addr,
 					 BITSTREAM_SIZE, XFPGA_FULLBIT_EN);
+#endif
 
  done:
 	if (Status == XFPGA_SUCCESS)

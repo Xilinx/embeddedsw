@@ -144,7 +144,7 @@ void tcp_recv_perf_traffic(void *p)
 	int read_bytes;
 	int sock = *((int *)p);
 
-	server.start_time = sys_now() * portTICK_RATE_MS;
+	server.start_time = sys_now();
 	server.client_id++;
 	server.i_report.last_report_time = 0;
 	server.i_report.start_time = 0;
@@ -157,7 +157,7 @@ void tcp_recv_perf_traffic(void *p)
 		/* read a max of RECV_BUF_SIZE bytes from socket */
 		if ((read_bytes = lwip_recvfrom(sock, recv_buf, RECV_BUF_SIZE,
 						0, NULL, NULL)) < 0) {
-			u64_t now = sys_now() * portTICK_RATE_MS;
+			u64_t now = sys_now();
 			u64_t diff_ms = now - server.start_time;
 			tcp_conn_report(diff_ms, TCP_ABORTED_REMOTE);
 			break;
@@ -165,7 +165,7 @@ void tcp_recv_perf_traffic(void *p)
 
 		/* break if client closed connection */
 		if (read_bytes == 0) {
-			u64_t now = sys_now() * portTICK_RATE_MS;
+			u64_t now = sys_now();
 			u64_t diff_ms = now - server.start_time;
 			tcp_conn_report(diff_ms, TCP_DONE_SERVER);
 			xil_printf("TCP test passed Successfully\n\r");
@@ -173,7 +173,7 @@ void tcp_recv_perf_traffic(void *p)
 		}
 
 		if (REPORT_INTERVAL_TIME) {
-			u64_t now = sys_now() * portTICK_RATE_MS;
+			u64_t now = sys_now();
 			server.i_report.total_bytes += read_bytes;
 			if (server.i_report.start_time) {
 				u64_t diff_ms = now - server.i_report.start_time;

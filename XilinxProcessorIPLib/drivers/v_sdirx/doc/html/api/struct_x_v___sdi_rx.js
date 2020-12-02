@@ -10,5 +10,7 @@ var struct_x_v___sdi_rx =
     [ "StreamUpCallback", "struct_x_v___sdi_rx.html#a558ffb2ed6df839f8439097eabe5a15a", null ],
     [ "StreamUpRef", "struct_x_v___sdi_rx.html#a70786d1d1fe49fa9ea36131102f0215b", null ],
     [ "UnderFlowCallback", "struct_x_v___sdi_rx.html#a8642841c2f90dbc4e654e4ff13a2aa11", null ],
-    [ "UnderFlowRef", "struct_x_v___sdi_rx.html#acc1d2eba7a9bd5ff1c216696f433ced0", null ]
+    [ "UnderFlowRef", "struct_x_v___sdi_rx.html#acc1d2eba7a9bd5ff1c216696f433ced0", null ],
+    [ "VsyncCallback", "struct_x_v___sdi_rx.html#ac23dd379bfae979bc3fec65fbadfd47d", null ],
+    [ "VsyncRef", "struct_x_v___sdi_rx.html#ae5bc43239cf136635b68e61657ea56b5", null ]
 ];

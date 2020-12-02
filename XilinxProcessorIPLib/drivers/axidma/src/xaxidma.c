@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xaxidma.c
-* @addtogroup axidma_v9_9
+* @addtogroup axidma_v9_12
 * @{
 *
 * This file implements DMA engine-wise initialization and control functions.
@@ -80,6 +58,8 @@
 * 9.7   rsp  04/25/18 Add support for 64MB data transfer. Read max buffer length
 *                     width from config structure. CR #1000474
 * 9.8   rsp  07/11/18 Fix cppcheck style warnings. CR #1006164
+* 9.12  sk   06/17/20 Fix the MM2S and S2MM MaxTransferLen calculation in DMA
+*		      Micro Mode.
 *
 * </pre>
 ******************************************************************************/
@@ -186,10 +166,10 @@ int XAxiDma_CfgInitialize(XAxiDma * InstancePtr, XAxiDma_Config *Config)
 	}
 	else {
 		/* In MicroDMA mode, Maximum length that can be transferred
-		 * is '(Memory Data Width / 4) * Burst Size'
+		 * is '(Memory Data Width / 8) * Burst Size'
 		 */
 		InstancePtr->TxBdRing.MaxTransferLen =
-				((Config->Mm2SDataWidth / 4) *
+				((Config->Mm2SDataWidth / 8) *
 				 Config->Mm2SBurstSize);
 	}
 	InstancePtr->TxBdRing.RingIndex = 0;
@@ -234,10 +214,10 @@ int XAxiDma_CfgInitialize(XAxiDma * InstancePtr, XAxiDma_Config *Config)
 			}
 			else {
 			/* In MicroDMA mode, Maximum length that can be transferred
-			 * is '(Memory Data Width / 4) * Burst Size'
+			 * is '(Memory Data Width / 8) * Burst Size'
 			 */
 				InstancePtr->RxBdRing[Index].MaxTransferLen =
-						((Config->S2MmDataWidth / 4) *
+						((Config->S2MmDataWidth / 8) *
 						Config->S2MmBurstSize);
 			}
 			if (InstancePtr->AddrWidth > 32)

@@ -1,29 +1,6 @@
 /******************************************************************************
-*
-* Copyright (C) 2014 - 2018 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
 /**
@@ -74,6 +51,13 @@
 * 6.8  mus   09/20/18 Clear VINITHI field in RPU_0_CFG/RPU_1_CFG
 *		      registers to initialize CortexR5 core with LOVEC
 *		      on reset. It fixes CR#1010656.
+* 7.1  mus  03/27/19  Skip reading/writing to the RPU address space registers,
+*		      in case if processor is nonsecure and RPU
+*		      address space is secure. CR#1015725.
+* 7.2  mus  10/11/19  Resetting the r5_0 and r5_1 debug logic is sufficient
+*		      to avoid intervention for lock-step mode. So, removed
+*		      code which resets dbg_lpd_reset, to unblock debugger
+*		      access to LPD. Fix for CR#1027983.
 * </pre>
 *
 ******************************************************************************/
@@ -106,9 +90,20 @@
 .set RPU_ERR_INJ,	0xFF9A0020
 .set RPU_0_CFG,		0xFF9A0100
 .set RPU_1_CFG,		0xFF9A0200
+#if defined(versal)
+.set RST_LPD_DBG,	0xFF5E0338
+.set BOOT_MODE_USER,	0xF1260200
+#else
 .set RST_LPD_DBG,	0xFF5E0240
 .set BOOT_MODE_USER,	0xFF5E0200
+#endif
 .set fault_log_enable,	0x101
+
+/*
+ * 0th bit of PROCESSOR_ACCESS_VALUE macro signifies trustzone
+ * setting for RPU address space
+ */
+#define RPU_TZ_MASK	0x1
 
 .section .boot,"axS"
 
@@ -255,7 +250,7 @@ OKToRun:
 	mcr	p15, 0, r0, c7, c5, 0		/* invalidate icache */
 	mcr 	p15, 0, r0, c15, c5, 0      	/* Invalidate entire data cache*/
 	isb
-#if LOCKSTEP_MODE_DEBUG == 0
+#if LOCKSTEP_MODE_DEBUG == 0 && (PROCESSOR_ACCESS_VALUE & RPU_TZ_MASK)
 /* enable fault log for lock step */
 	ldr	r0,=RPU_GLBL_CNTL
 	ldr	r1, [r0]
@@ -270,7 +265,6 @@ OKToRun:
 /* reset the debug logic */
 	ldr	r0,=RST_LPD_DBG
 	ldr	r1, [r0]
-	orr	r1, r1, #(0x1 << 1)
 	orr	r1, r1, #(0x1 << 4)
 	orr	r1, r1, #(0x1 << 5)
 	str	r1, [r0]
@@ -316,6 +310,8 @@ init:
 	and	r0, r0, r1
 	mcr	p15, 0, r0, c1, c0, 0
 
+/* Check if processor is having access to RPU address space */
+#if (PROCESSOR_ACCESS_VALUE & RPU_TZ_MASK)
 /* Clear VINITHI to enable LOVEC on reset */
 #if XPAR_CPU_ID == 0
 	ldr r0, =RPU_0_CFG
@@ -326,7 +322,7 @@ init:
 	bic r1, r1, #(0x1 << 2)
 	str r1, [r0]
 #endif
-
+#endif
 /* enable asynchronous abort exception */
 	mrs	r0, cpsr
 	bic	r0, r0, #0x100

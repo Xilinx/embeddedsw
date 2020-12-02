@@ -1,30 +1,8 @@
 /*******************************************************************************
- *
- * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /******************************************************************************/
 /**
  *
@@ -43,6 +21,9 @@
  *            dd/mm/yy
  * ----- ---- -------- -----------------------------------------------
  * 1.0   gm   10/12/18 Initial release.
+ * 1.1   ku   17/05/20 Adding uniquification to avoid clash with vphy
+ * 1.1   ku   23/05/20 Corrected XHdmiphy1_Ch2Ids to set correct value
+ *                     for Id1
  * </pre>
  *
 *******************************************************************************/
@@ -87,7 +68,12 @@ void XHdmiphy1_Ch2Ids(XHdmiphy1 *InstancePtr, XHdmiphy1_ChannelId ChId,
 		*Id0 = XHDMIPHY1_CHANNEL_ID_CH1;
 		if ((XHdmiphy1_IsHDMI(InstancePtr, XHDMIPHY1_DIR_TX)) ||
 			(XHdmiphy1_IsHDMI(InstancePtr, XHDMIPHY1_DIR_RX))) {
-			if (InstancePtr->Config.UseGtAsTxTmdsClk == TRUE) {
+			if ((InstancePtr->Config.TxProtocol == XHDMIPHY1_PROTOCOL_HDMI21) ||
+					(InstancePtr->Config.RxProtocol == XHDMIPHY1_PROTOCOL_HDMI21)) {
+				*Id1 = XHDMIPHY1_CHANNEL_ID_CH4;
+			}
+			else if ((InstancePtr->Config.TxProtocol == XHDMIPHY1_PROTOCOL_HDMI) &&
+					(InstancePtr->Config.UseGtAsTxTmdsClk == TRUE)){
 				*Id1 = XHDMIPHY1_CHANNEL_ID_CH4;
 			}
 			else {
@@ -116,8 +102,7 @@ void XHdmiphy1_Ch2Ids(XHdmiphy1 *InstancePtr, XHdmiphy1_ChannelId ChId,
 	}
 	else if (ChId == XHDMIPHY1_CHANNEL_ID_CMNA) {
 		*Id0 = XHDMIPHY1_CHANNEL_ID_CMN0;
-		if ((InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE3) ||
-		    (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE4) ||
+		if ((InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE4) ||
 		    (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTYE4)) {
 			*Id1 = XHDMIPHY1_CHANNEL_ID_CMN1;
 		}
@@ -205,8 +190,7 @@ u32 XHdmiphy1_WriteCfgRefClkSelReg(XHdmiphy1 *InstancePtr, u8 QuadId)
 	/* - CPLL. */
 	RegVal &= ~XHDMIPHY1_REF_CLK_SEL_CPLL_MASK;
 	RegVal |= (ChPtr->CpllRefClkSel << XHDMIPHY1_REF_CLK_SEL_CPLL_SHIFT);
-	if ((GtType == XHDMIPHY1_GT_TYPE_GTHE3) ||
-            (GtType == XHDMIPHY1_GT_TYPE_GTHE4) ||
+	if ((GtType == XHDMIPHY1_GT_TYPE_GTHE4) ||
             (GtType == XHDMIPHY1_GT_TYPE_GTYE4)) {
 		/* - QPLL1. */
 		RegVal &= ~XHDMIPHY1_REF_CLK_SEL_QPLL1_MASK;
@@ -661,19 +645,19 @@ void XHdmiphy1_SetGtLineRateCfg(XHdmiphy1 *InstancePtr, u8 QuadId,
 	u32 MaskVal;
 	u32 ShiftVal;
 	u32 RegOffset;
-	u32 LRCfgVal;
+	u16 LRCfgVal;
 	XHdmiphy1_PllType PllType;
 
     /* Determine PLL type. */
     PllType = XHdmiphy1_GetPllType(InstancePtr, 0, Dir,
-			XHDMIPHY1_CHANNEL_ID_CH1);
+    			XHDMIPHY1_CHANNEL_ID_CH1);
 
     /* Extract Line Rate Config Value */
     if (PllType == XHDMIPHY1_PLL_TYPE_LCPLL) {
-	LRCfgVal = InstancePtr->Quads[QuadId].Lcpll.LineRateCfg;
+    	LRCfgVal = InstancePtr->Quads[QuadId].Lcpll.LineRateCfg;
     }
     else { /* RPLL */
-	LRCfgVal = InstancePtr->Quads[QuadId].Rpll.LineRateCfg;
+    	LRCfgVal = InstancePtr->Quads[QuadId].Rpll.LineRateCfg;
     }
 
 	if (Dir == XHDMIPHY1_DIR_TX) {
@@ -703,6 +687,63 @@ void XHdmiphy1_SetGtLineRateCfg(XHdmiphy1 *InstancePtr, u8 QuadId,
 	RegVal &= ~MaskVal;
 	RegVal |= (LRCfgVal << ShiftVal);
 	XHdmiphy1_WriteReg(InstancePtr->Config.BaseAddr, RegOffset, RegVal);
+}
+
+/*****************************************************************************/
+/**
+* This function will get the TXRATE or RXRATE port to select the GT Wizard
+* configuration
+*
+* @param	InstancePtr is a pointer to the XHdmiphy1 core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID to operate on.
+* @param	Dir is an indicator for TX or RX.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+u16 XHdmiphy1_GetGtLineRateCfg(XHdmiphy1 *InstancePtr, u8 QuadId,
+		XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir)
+{
+	u32 RegVal;
+	u32 MaskVal;
+	u32 ShiftVal;
+	u32 RegOffset;
+	u16 LRCfgVal;
+
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
+
+	if (Dir == XHDMIPHY1_DIR_TX) {
+		if ((ChId == XHDMIPHY1_CHANNEL_ID_CH1) ||
+			(ChId == XHDMIPHY1_CHANNEL_ID_CH2)) {
+			RegOffset = XHDMIPHY1_TX_RATE_CH12_REG;
+		}
+		else {
+			RegOffset = XHDMIPHY1_TX_RATE_CH34_REG;
+		}
+		MaskVal = XHDMIPHY1_TX_RATE_MASK(ChId);
+		ShiftVal = XHDMIPHY1_TX_RATE_SHIFT(ChId);
+	}
+	else{
+		if ((ChId == XHDMIPHY1_CHANNEL_ID_CH1) ||
+			(ChId == XHDMIPHY1_CHANNEL_ID_CH2)) {
+			RegOffset = XHDMIPHY1_RX_RATE_CH12_REG;
+		}
+		else {
+			RegOffset = XHDMIPHY1_RX_RATE_CH34_REG;
+		}
+		MaskVal = XHDMIPHY1_RX_RATE_MASK(ChId);
+		ShiftVal = XHDMIPHY1_RX_RATE_SHIFT(ChId);
+	}
+
+	RegVal = XHdmiphy1_ReadReg(InstancePtr->Config.BaseAddr, RegOffset);
+	RegVal &= MaskVal;
+	LRCfgVal = (u16)(RegVal >> ShiftVal);
+
+	return LRCfgVal;
 }
 
 /*****************************************************************************/
@@ -755,6 +796,146 @@ void XHdmiphy1_SetGpi(XHdmiphy1 *InstancePtr, u8 QuadId,
 	/* Write GPI Register*/
 	XHdmiphy1_WriteReg(InstancePtr->Config.BaseAddr,
 			XHDMIPHY1_GT_DBG_GPI_REG, RegVal);
+}
+
+/*****************************************************************************/
+/**
+* This function will get the GPI ports value from the GT Wizard
+*
+* @param	InstancePtr is a pointer to the XHdmiphy1 core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID to operate on.
+* @param	Dir is an indicator for TX or RX.
+*
+* @return	Value.
+*
+* @note		None.
+*
+******************************************************************************/
+u8 XHdmiphy1_GetGpo(XHdmiphy1 *InstancePtr, u8 QuadId,
+		XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir)
+{
+	u32 RegVal;
+
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
+	ChId = ChId;
+
+    /* Read GPI Register*/
+	RegVal = XHdmiphy1_ReadReg(InstancePtr->Config.BaseAddr,
+				XHDMIPHY1_GT_DBG_GPO_REG);
+
+	if (Dir == XHDMIPHY1_DIR_TX) {
+		return ((RegVal &
+					XHDMIPHY1_TX_GPO_MASK_ALL(InstancePtr->Config.TxChannels))
+						>> XHDMIPHY1_TX_GPO_SHIFT);
+	}
+	else {
+		return ((RegVal &
+					XHDMIPHY1_RX_GPO_MASK_ALL(InstancePtr->Config.RxChannels))
+						>> XHDMIPHY1_RX_GPO_SHIFT);
+	}
+}
+
+/*****************************************************************************/
+/**
+* This function will set the (TX|RX) MSTRESET port of the GT
+*
+* @param	InstancePtr is a pointer to the XHdmiphy1 core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID to operate on.
+* @param	Dir is an indicator for TX or RX.
+* @param	Reset Set=TRUE; Clear=FALSE
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XHdmiphy1_GtMstReset(XHdmiphy1 *InstancePtr, u8 QuadId,
+		XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir, u8 Reset)
+{
+	u32 RegOffsetCtrl;
+	u32 RegVal;
+	u32 MaskVal = 0;
+	u8 Id, Id0, Id1;
+
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
+
+	XHdmiphy1_Ch2Ids(InstancePtr, ChId, &Id0, &Id1);
+	for (Id = Id0; Id <= Id1; Id++) {
+		MaskVal |=  XHDMIPHY1_TXRX_MSTRESET_MASK(Id);
+	}
+
+	if (Dir == XHDMIPHY1_DIR_TX) {
+		RegOffsetCtrl = XHDMIPHY1_TX_INIT_REG;
+	}
+	else {
+		RegOffsetCtrl = XHDMIPHY1_RX_INIT_REG;
+	}
+
+	/* Read TX|RX INIT Register*/
+	RegVal = XHdmiphy1_ReadReg(InstancePtr->Config.BaseAddr,
+				RegOffsetCtrl);
+
+	/* Construct Register Value */
+	if (Reset) {
+		RegVal |= MaskVal;
+	}
+	else {
+		RegVal &= ~MaskVal;
+	}
+
+	/* Write TX|RX INIT Register*/
+	XHdmiphy1_WriteReg(InstancePtr->Config.BaseAddr,
+			RegOffsetCtrl, RegVal);
+}
+
+/*****************************************************************************/
+/**
+* This function will will check the current CFG setting and compare
+* it with the next CFG value
+*
+* @param	InstancePtr is a pointer to the XHdmiphy1 core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID to operate on.
+* @param	Dir is an indicator for TX or RX.
+* @param	Reset Set=TRUE; Clear=FALSE
+*
+* @return	TRUE if Current and Next CFG are the same
+*           FALSE if Current and Next CFG are different
+*
+* @note		None.
+*
+******************************************************************************/
+u8 XHdmiphy1_CheckLineRateCfg(XHdmiphy1 *InstancePtr, u8 QuadId,
+		XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir)
+{
+	u16 CurrCfgVal, LRCfgVal;
+	XHdmiphy1_PllType PllType;
+
+    /* Determine PLL type. */
+    PllType = XHdmiphy1_GetPllType(InstancePtr, 0, Dir,
+			XHDMIPHY1_CHANNEL_ID_CH1);
+
+    /* Extract Line Rate Config Value */
+    if (PllType == XHDMIPHY1_PLL_TYPE_LCPLL) {
+	LRCfgVal = InstancePtr->Quads[QuadId].Lcpll.LineRateCfg;
+    }
+    else { /* RPLL */
+	LRCfgVal = InstancePtr->Quads[QuadId].Rpll.LineRateCfg;
+    }
+
+    /* Get current line rate configuration value */
+	CurrCfgVal = XHdmiphy1_GetGtLineRateCfg(InstancePtr, QuadId, ChId, Dir);
+
+	if (CurrCfgVal != LRCfgVal) {
+		return FALSE;
+	}
+	else {
+		return TRUE;
+	}
 }
 #endif
 
@@ -919,7 +1100,7 @@ void XHdmiphy1_MmcmSetClkinsel(XHdmiphy1 *InstancePtr, u8 QuadId,
 
 	RegVal = XHdmiphy1_ReadReg(InstancePtr->Config.BaseAddr, RegOffsetCtrl);
 
-	if (Sel == MMCM_CLKINSEL_CLKIN2) {
+	if (Sel == XHDMIPHY1_MMCM_CLKINSEL_CLKIN2) {
 		RegVal &= ~XHDMIPHY1_MMCM_USRCLK_CTRL_CLKINSEL_MASK;
 	}
 	else {
@@ -1205,7 +1386,7 @@ u32 XHdmiphy1_ClkReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
 * @note		None.
 *
 ******************************************************************************/
-XHdmiphy1_SysClkDataSelType Pll2SysClkData(XHdmiphy1_PllType PllSelect)
+XHdmiphy1_SysClkDataSelType XHdmiphy1_Pll2SysClkData(XHdmiphy1_PllType PllSelect)
 {
 	return	(PllSelect == XHDMIPHY1_PLL_TYPE_CPLL) ?
 			XHDMIPHY1_SYSCLKSELDATA_TYPE_CPLL_OUTCLK :
@@ -1229,7 +1410,7 @@ XHdmiphy1_SysClkDataSelType Pll2SysClkData(XHdmiphy1_PllType PllSelect)
 * @note		None.
 *
 ******************************************************************************/
-XHdmiphy1_SysClkOutSelType Pll2SysClkOut(XHdmiphy1_PllType PllSelect)
+XHdmiphy1_SysClkOutSelType XHdmiphy1_Pll2SysClkOut(XHdmiphy1_PllType PllSelect)
 {
 	return	(PllSelect == XHDMIPHY1_PLL_TYPE_CPLL) ?
 			XHDMIPHY1_SYSCLKSELOUT_TYPE_CPLL_REFCLK :
@@ -1447,7 +1628,7 @@ u8 XHdmiphy1_GetRefClkSourcesCount(XHdmiphy1 *InstancePtr)
                             InstancePtr->Config.RxFrlRefClkSel : 99;
 
 	/* Initialize Unique RefClk holder */
-	for (u8 i=0; i<RefClkNumMax; i++) {
+	for (i=0; i<RefClkNumMax; i++) {
 		RefClkSelTemp[i] = 99;
 	}
 

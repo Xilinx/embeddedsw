@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xcanfd.c
-* @addtogroup canfd_v2_1
+* @addtogroup canfd_v2_4
 * @{
 *
 * The XCanFd driver. Functions in this file are the minimum required functions
@@ -63,7 +41,7 @@
 *					  XCanfd_TrrVal_Get_SetBit_Position.
 *					  Added Macros regarding legacy API.
 *		ask 09/27/18 Removed unnecessary register read from XCanFd_Send
-*       ask  07/03/18 Fix for Sequencial recv CR# 992606,CR# 1004222.
+*       ask  07/03/18 Fix for Sequential recv CR# 992606,CR# 1004222.
 *       ask  08/27/18 Modified RecvSeq function to return XST_NO_DATA when the
 *       		fifo fill levels are zero.
 *		ask  08/08/18 Fixed Cppcheck warnings.
@@ -74,6 +52,15 @@
 * 2.1	nsk  03/09/19 Fix for TrrMask to not to get written when using
 		      XCanFd_Addto_Queue(), to send more than 32 buffers.
 		      CR# 1022093
+* 2.2   sn   06/11/19 Inactivating Mailbox RX buffers based on requirement.
+* 2.3	sne  21/11/19 Used correct macro to access RX FIFO1 buffer.
+* 2.3	sne  11/18/19 Fix for missing RX can packets on CANFD2.0.
+* 2.3	sne  11/29/19 Fix for missing TX canfd packet while sending multiple packets
+*		      by using multi buffer in loopback mode, CR# 1048366.
+* 2.3  sne  12/18/19 Added Protocol Exception Event and BusOff event support.
+* 2.3	sne  03/06/20 Fixed sending extra frames in XCanFd_Send_Queue API.
+* 2.3	se   03/09/20 Initialize IsPl of config structure.
+*
 *
 * </pre>
 ******************************************************************************/
@@ -135,6 +122,8 @@ static u32 XCanFd_SeqRecv_logic(XCanFd *InstancePtr, u32 ReadIndex,
 int XCanFd_CfgInitialize(XCanFd *InstancePtr, XCanFd_Config *ConfigPtr,
 				UINTPTR EffectiveAddr)
 {
+	u32 FilterIndex;
+
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
 
@@ -148,6 +137,7 @@ int XCanFd_CfgInitialize(XCanFd *InstancePtr, XCanFd_Config *ConfigPtr,
 	InstancePtr->CanFdConfig.Rx_Mode = ConfigPtr->Rx_Mode;
 	InstancePtr->CanFdConfig.NumofRxMbBuf = ConfigPtr->NumofRxMbBuf;
 	InstancePtr->CanFdConfig.NumofTxBuf = ConfigPtr->NumofTxBuf;
+	InstancePtr->CanFdConfig.IsPl = ConfigPtr->IsPl;
 
 	/*
 	 * Set all handlers to stub values, let user configure this data later.
@@ -161,6 +151,11 @@ int XCanFd_CfgInitialize(XCanFd *InstancePtr, XCanFd_Config *ConfigPtr,
 
 	/* Reset the device to get it into its initial state. */
 	XCanFd_Reset(InstancePtr);
+	/* Update all AFID and AFMASK registers with Zero */
+	for (FilterIndex = 1; FilterIndex <= MAX_FILTER_INDEX; FilterIndex++) {
+		XCanFd_AcceptFilterSet(InstancePtr, FilterIndex,
+				       (u32)0, (u32)0);
+	}
 
 	return XST_SUCCESS;
 }
@@ -262,7 +257,7 @@ u8 XCanFd_GetMode(XCanFd *InstancePtr)
 * - Auto Bus-Off Recovery Mode: Pass in Parameter XCANFD_MODE_ABR
 * - Start Bus-Off Recovery Mode: Pass in Parameter XCANFD_MODE_SBR
 * - Protocol Exception Event Mode: Pass in Parameter XCANFD_MODE_PEE
-* - Disable AutoRetransmission Mode: Pass in Paramter XCANFD_MODE_DAR
+* - Disable AutoRetransmission Mode: Pass in Parameter XCANFD_MODE_DAR
 *
 * Read xcanfd.h and device specification for detailed description of each
 * operation mode.
@@ -682,7 +677,7 @@ int XCanFd_Addto_Queue(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 *		 ->Sequential Mode - Core writes data sequentially to RxBuffers.
 *		 ->MailBox Mode	  - Core writes data to RxBuffers when a ID
 *					        Match happened.
-* 		This routine distinguishes recieve checking as per the frame
+* 		This routine distinguishes receive checking as per the frame
 *       availability from either Fifo 0 or Fifo 1.
 *
 ******************************************************************************/
@@ -712,7 +707,7 @@ u32 XCanFd_Recv_Sequential(XCanFd *InstancePtr, u32 *FramePtr)
 		if (Result & XCANFD_FSR_FL_1_MASK) {
 		/*Fill the canfd frame for current RI value for Fifo 1 */
 
-				ReadIndex = ((Result & XCANFD_FSR_IRI_1_MASK)
+				ReadIndex = ((Result & XCANFD_FSR_RI_1_MASK)
 						>> XCANFD_FSR_RI_1_SHIFT);
 				FifoNo = XCANFD_RX_FIFO_1;
 		}
@@ -1038,7 +1033,7 @@ u32 XCanFd_RxBuff_MailBox_DeActive(XCanFd *InstancePtr, u32 RxBuffer)
 	Status = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 			XCANFD_RCS_OFFSET(NoCtrlStatus));
 	if (Status & 1 << RxBuffer) {
-		Status &= ~(1<< RxBuffer);
+		Status &= ((~(1<< RxBuffer)) & XCANFD_MBRXBUF_MASK);
 		XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_RCS_OFFSET(NoCtrlStatus),Status);
 	}
@@ -1515,6 +1510,9 @@ int XCanFd_Send_Queue(XCanFd *InstancePtr)
 {
 
 	u32 TrrVal;
+#ifdef versal
+	u32 BufferNumber;
+#endif
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -1525,8 +1523,20 @@ int XCanFd_Send_Queue(XCanFd *InstancePtr)
 	 * XCanFd_Addto_Queue()
 	 */
 	TrrVal = InstancePtr->MultiBuffTrr;
-
-	XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress, XCANFD_TRR_OFFSET, TrrVal);
+#ifdef versal
+	if(XGetPSVersion_Info() == (u32)0x10 && (!InstancePtr->CanFdConfig.IsPl)) {
+		for (BufferNumber = 0;BufferNumber < MAX_BUFFER_VAL;
+		     BufferNumber++) {
+			XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
+					XCANFD_TRR_OFFSET, (TrrVal &
+					(1<<BufferNumber)));
+		}
+	} else
+#endif
+	{
+		XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
+				XCANFD_TRR_OFFSET, TrrVal);
+	}
 	InstancePtr->GlobalTrrValue = TRR_INIT_VAL;
 	InstancePtr->GlobalTrrMask  = TRR_MASK_INIT_VAL;
 
@@ -1741,7 +1751,7 @@ void XCanFd_Disable_Tranceiver_Delay_Compensation(XCanFd *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function calcualtes the index position of the right most set bit.
+* This function calculates the index position of the right most set bit.
 *
 * @param	GlobalTrrValue
 *
@@ -1776,7 +1786,7 @@ static int XCanfd_TrrVal_Get_SetBit_Position(u32 u) {
 *
 * @return	- XST_SUCCESS after all operations
 *
-* @note		This routine has generic logic for sequential recieve mode
+* @note		This routine has generic logic for sequential receive mode
 *
 ******************************************************************************/
 static u32 XCanFd_SeqRecv_logic(XCanFd *InstancePtr, u32 ReadIndex, u32 FsrVal, u32 *FramePtr, u8 fifo_no)
@@ -1865,4 +1875,33 @@ static u32 XCanFd_SeqRecv_logic(XCanFd *InstancePtr, u32 ReadIndex, u32 FsrVal, 
 
 		return XST_SUCCESS;
 }
+/*****************************************************************************/
+/**
+*
+* This function recovers the CAN device from Protocol Exception Event & Busoff
+* Event States.
+*
+* @param        InstancePtr is a pointer to the XCanFd instance to be worked on.
+*
+* @return       None.
+*
+* @note         None.
+*
+******************************************************************************/
+void XCanFd_Pee_BusOff_Handler(XCanFd *InstancePtr)
+{
+	u32 RegValue;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	RegValue = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
+				  XCANFD_TRR_OFFSET);
+	XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
+			XCANFD_TCR_OFFSET, RegValue);
+	while (XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
+			      XCANFD_TRR_OFFSET));
+	XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
+			XCANFD_TRR_OFFSET, RegValue);
+}
+/*****************************************************************************/
 /** @} */

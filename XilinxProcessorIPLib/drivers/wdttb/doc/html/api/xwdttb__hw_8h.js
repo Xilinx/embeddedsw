@@ -53,12 +53,15 @@ var xwdttb__hw_8h =
     [ "XWT_MWR_OFFSET", "xwdttb__hw_8h.html#ga5179e62af141b56b29af9e69cbbb8591", null ],
     [ "XWT_SSTWR_OFFSET", "xwdttb__hw_8h.html#ga6393b3535cd283bcf93e0662c90cbda5", null ],
     [ "XWT_STR_OFFSET", "xwdttb__hw_8h.html#ga8bbfe46af730f1e35b02a1808ff03801", null ],
+    [ "XWT_STR_WWDT_OFFSET", "xwdttb__hw_8h.html#ga382bb24e468cb44f1e41e637b55bf2ac", null ],
     [ "XWT_SWR_OFFSET", "xwdttb__hw_8h.html#gab663dabd33fca2fd450305fd3e325f63", null ],
     [ "XWT_TBR_OFFSET", "xwdttb__hw_8h.html#gacd80f8a65e758f3862b655495b41561a", null ],
     [ "XWT_TFR_OFFSET", "xwdttb__hw_8h.html#gad0b6d483e017403deb63431d2e9cce0d", null ],
     [ "XWT_TRR_OFFSET", "xwdttb__hw_8h.html#ga13d62168f37b4ae3d29356f2d62a9fbb", null ],
     [ "XWT_TSR0_OFFSET", "xwdttb__hw_8h.html#ga5eda163c25dfcd74c15bf08ed8c1328e", null ],
+    [ "XWT_TSR0_WWDT_OFFSET", "xwdttb__hw_8h.html#ga2bb97a5e8848b30592b0d0136c0eba15", null ],
     [ "XWT_TSR1_OFFSET", "xwdttb__hw_8h.html#ga1e231a73df7e205e266fb1198e222814", null ],
+    [ "XWT_TSR1_WWDT_OFFSET", "xwdttb__hw_8h.html#ga86f549a5c1a92ee963e1516d6e271f92", null ],
     [ "XWT_TWCSR0_OFFSET", "xwdttb__hw_8h.html#ga7acdd92b397bdfb0e14b649d4525bb2b", null ],
     [ "XWT_TWCSR1_OFFSET", "xwdttb__hw_8h.html#ga5342d8af54e416c23b56a3dd9904e62b", null ]
 ];

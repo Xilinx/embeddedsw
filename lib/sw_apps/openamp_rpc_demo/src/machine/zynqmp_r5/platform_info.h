@@ -17,7 +17,11 @@ extern "C" {
 #define PRIV_RW_USER_RW     (0x00000003U<<8U) /* Full Access */
 
 /* Interrupt vectors */
+#ifdef versal
+#define IPI_IRQ_VECT_ID         63
+#else
 #define IPI_IRQ_VECT_ID         XPAR_XIPIPSU_0_INT_ID
+#endif /* versal */
 
 struct remoteproc_priv {
 	const char *ipi_name; /**< IPI device name */
@@ -34,7 +38,7 @@ struct remoteproc_priv {
  * It will initialize the platform.
  *
  * @argc: number of arguments
- * @argv: array of the input arguements
+ * @argv: array of the input arguments
  * @platform: pointer to store the platform data pointer
  *
  * return 0 for success or negative value for failure

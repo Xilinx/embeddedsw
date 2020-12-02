@@ -1,30 +1,8 @@
 /*******************************************************************************
- *
- * Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /******************************************************************************/
 /**
  *
@@ -490,12 +468,13 @@ static u32 XDpPsu_CheckClockRecovery(XDpPsu *InstancePtr, u8 LaneCount)
 				XDPPSU_DPCD_STATUS_LANE_1_CR_DONE_MASK)) {
 			return XST_FAILURE;
 		}
-		/* Drop through and check lane 0. */
+		/* Fall Through */
 	case XDPPSU_LANE_COUNT_SET_1:
 		if (!(LaneStatus[0] &
 				XDPPSU_DPCD_STATUS_LANE_0_CR_DONE_MASK)) {
 			return XST_FAILURE;
 		}
+		/* Fall Through */
 	default:
 		/* All (LaneCount) lanes have achieved clock recovery. */
 		return XST_SUCCESS;
@@ -534,12 +513,13 @@ static u32 XDpPsu_CheckChannelEqualization(XDpPsu *InstancePtr, u8 LaneCount)
 				XDPPSU_DPCD_STATUS_LANE_1_CE_DONE_MASK)) {
 			return XST_FAILURE;
 		}
-		/* Drop through and check lane 0. */
+		/* Fall Through */
 	case XDPPSU_LANE_COUNT_SET_1:
 		if (!(LaneStatus[0] &
 				XDPPSU_DPCD_STATUS_LANE_0_CE_DONE_MASK)) {
 			return XST_FAILURE;
 		}
+		/* Fall Through */
 	default:
 		/* All (LaneCount) lanes have achieved channel equalization. */
 		break;
@@ -552,12 +532,13 @@ static u32 XDpPsu_CheckChannelEqualization(XDpPsu *InstancePtr, u8 LaneCount)
 				XDPPSU_DPCD_STATUS_LANE_1_SL_DONE_MASK)) {
 			return XST_FAILURE;
 		}
-		/* Drop through and check lane 0. */
+		/* Fall Through */
 	case XDPPSU_LANE_COUNT_SET_1:
 		if (!(LaneStatus[0] &
 				XDPPSU_DPCD_STATUS_LANE_0_SL_DONE_MASK)) {
 			return XST_FAILURE;
 		}
+		/* Fall Through */
 	default:
 		/* All (LaneCount) lanes have achieved symbol lock. */
 		break;
@@ -1211,20 +1192,23 @@ static u32 XDpPsu_WaitPhyReady(XDpPsu *InstancePtr)
 {
 	u32 Timeout = 100;
 	u32 PhyStatus;
+	u8 PhyReadyMask = InstancePtr->LinkConfig.MaxLaneCount == 1 ?
+			XDPPSU_PHY_STATUS_RESET_LANE_0_DONE_MASK |
+			XDPPSU_PHY_STATUS_GT_PLL_LOCK_MASK :
+			XDPPSU_PHY_STATUS_ALL_LANES_READY_MASK;
 
 	/* Wait until the PHY is ready. */
 	do {
 		XDpPsu_WaitUs(InstancePtr, 20);
 		PhyStatus = XDpPsu_ReadReg(InstancePtr->Config.BaseAddr,
 					XDPPSU_PHY_STATUS);
-		PhyStatus &= XDPPSU_PHY_STATUS_ALL_LANES_READY_MASK;
+		PhyStatus &= PhyReadyMask;
 		/* Protect against an infinite loop. */
 		if (!Timeout--) {
 			return XST_ERROR_COUNT_MAX;
 		}
 
-	}
-	while (PhyStatus != XDPPSU_PHY_STATUS_ALL_LANES_READY_MASK);
+	} while (PhyStatus != PhyReadyMask);
 
 	return XST_SUCCESS;
 }
@@ -1986,8 +1970,7 @@ u32 XDpPsu_SetLaneCount(XDpPsu *InstancePtr, u8 LaneCount)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid((LaneCount == XDPPSU_LANE_COUNT_SET_1) ||
-					(LaneCount == XDPPSU_LANE_COUNT_SET_2));
+	Xil_AssertNonvoid(LaneCount <= XDPPSU_0_LANE_COUNT);
 
 
 	InstancePtr->LinkConfig.LaneCount = LaneCount;

@@ -151,7 +151,7 @@ var NAVTREEINDEX0 =
 "xnandpsu__bbm_8h.html#gaff73343551dffb555cf517e534367dba":[2,3,13],
 "xnandpsu__example_8c.html":[2,4],
 "xnandpsu__example_8c.html#a1bab411b1440d7e50a6441d0fda23289":[2,4,0],
-"xnandpsu__example_8c.html#a829bd6402048eb2a52282fa941b2c45d":[2,4,1],
+"xnandpsu__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe":[2,4,1],
 "xnandpsu__example_8c.html#af83886f74df6ac5c0436711e1685a4e0":[2,4,2],
 "xnandpsu__g_8c.html":[2,5],
 "xnandpsu__g_8c.html#ga3fcff3ef431cd8ee0f292f0703fe4157":[2,5,0],

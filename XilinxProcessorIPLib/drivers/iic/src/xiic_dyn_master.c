@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2006 - 2015 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2006 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xiic_dyn_master.c
-* @addtogroup iic_v3_4
+* @addtogroup iic_v3_7
 * @{
 *
 * Contains master functions for the XIic component in Dynamic controller mode.
@@ -425,7 +403,7 @@ int XIic_DynMasterRecv(XIic *InstancePtr, u8 *RxMsgPtr, u8 ByteCount)
 	XIic_DynSendStop(InstancePtr->BaseAddress, ByteCount);
 
 	/*
-	 * Tx error is enabled incase the address has no device to answer
+	 * Tx error is enabled in case the address has no device to answer
 	 * with Ack. When only one byte of data, must set NO ACK before address
 	 * goes out therefore Tx error must not be enabled as it will go off
 	 * immediately and the Rx full interrupt will be checked. If full, then
@@ -584,7 +562,7 @@ static int IsBusBusy(XIic *InstancePtr)
 	if (((CntlReg & XIIC_CR_MSMS_MASK) == 0) &&	/* Not master */
 		(StatusReg & XIIC_SR_BUS_BUSY_MASK)) {	/* Is busy    */
 		/*
-		 * The bus is busy, clear pending BNB interrupt incase
+		 * The bus is busy, clear pending BNB interrupt in case
 		 * previously set and then enable BusNotBusy interrupt.
 		 */
 		InstancePtr->BNBOnly = TRUE;

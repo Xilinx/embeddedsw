@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2017 - 2018 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xdprxss.c
-* @addtogroup dprxss_v5_0
+* @addtogroup dprxss_v6_1
 * @{
 *
 * This is the main file for Xilinx DisplayPort Receiver Subsystem driver.
@@ -64,6 +42,23 @@
 *                   XDpRxSs_CfgInitialize function
 * 5.0  yas 01/28/18 Added support for DP 1.4.
 * 5.0  jb  02/19/19 Added support for HDCP22
+* 6.0  rg  11/19/19 Added support to use PS I2C instance too.
+* 6.0  jb  02/14/20 The DP Rx subsystems assumes that the HDCP configuration is
+* 		    same for all the instances in multiple subsystems in the
+* 		    design. This driver wont support for different configuration
+* 		    of the subsystems.
+* 6.1  rg  08/13/20 Added below list APIs related to Adaptive-Sync feature.
+* 					XDpRxSs_SetAdaptiveSyncCaps
+* 					XDpRxSs_MaskAdaptiveIntr
+* 					XDpRxSs_UnMaskAdaptiveIntr
+* 					XDpRxSs_GetVblank
+* 					XDpRxSs_GetVtotal
+* 6.1  rg  09/23/20 Added below list of APIs related to color encoding
+*                   parameters,
+*                   XDpRxss_GetBpc
+*                   XDpRxss_GetColorComponent
+*                   XDpRxss_GetColorimetry
+*                   XDpRxss_GetDynamicRange
 * </pre>
 *
 ******************************************************************************/
@@ -72,7 +67,6 @@
 
 #include "xdprxss.h"
 #include "xdprxss_mcdp6000.h"
-#include "xdprxss_dp159.h"
 #include "string.h"
 #include "xdebug.h"
 
@@ -82,13 +76,16 @@ extern u32 MCDP6000_IC_Rev;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+#define EDID_IIC_ADDRESS	0x50
 
 /**************************** Type Definitions *******************************/
 
 /* Subsystem sub-core's structure includes instances of each sub-core */
 typedef struct {
 	XDp DpInst;
+#ifdef XPAR_XIIC_NUM_INSTANCES
 	XIic IicInst;
+#endif
 #if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 	XHdcp1x Hdcp1xInst;
 #endif
@@ -191,7 +188,9 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 #if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 	XHdcp1x_Config Hdcp1xConfig;
 #endif
+#ifdef XPAR_XIIC_NUM_INSTANCES
 	XIic_Config IicConfig;
+#endif
 	XDp_Config DpConfig;
 	u32 Status;
 
@@ -210,7 +209,8 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 	DpRxSs_GetIncludedSubCores(InstancePtr);
 
 	/* Check for IIC availability */
-	if (InstancePtr->IicPtr) {
+#ifdef XPAR_XIIC_NUM_INSTANCES
+	if (InstancePtr->Config.IncludeAxiIic && InstancePtr->IicPtr) {
 		xdbg_printf((XDBG_DEBUG_GENERAL),"SS INFO: Initializing "
 			"IIC IP\n\r");
 
@@ -234,11 +234,6 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 			return XST_FAILURE;
 		}
 
-		/* Reset DP159 */
-		if (InstancePtr->DpPtr->Config.DpProtocol != XDP_PROTOCOL_DP_1_4) {
-			XDpRxSs_Dp159Reset(InstancePtr->IicPtr, TRUE);
-		}
-
 		/* IIC initialization for dynamic functionality */
 		Status = XIic_DynamicInitialize(InstancePtr->IicPtr);
 		if (Status != XST_SUCCESS) {
@@ -247,7 +242,7 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 			return XST_FAILURE;
 		}
 	}
-
+#endif
 	/* Check for DisplayPort availability */
 	if (InstancePtr->DpPtr) {
 		xdbg_printf((XDBG_DEBUG_GENERAL),"SS INFO: Initializing "
@@ -287,18 +282,8 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 		XDp_RxSetLaneCount(InstancePtr->DpPtr,
 				InstancePtr->Config.MaxLaneCount);
 
-		/* Bring DP159 out of reset */
-		if (InstancePtr->DpPtr->Config.DpProtocol != XDP_PROTOCOL_DP_1_4) {
-			XDpRxSs_Dp159Reset(InstancePtr->IicPtr, FALSE);
-		}
-
 		/* Wait for us */
 		XDp_WaitUs(InstancePtr->DpPtr, 1000);
-
-		/* Initialize DP159 */
-		if (InstancePtr->DpPtr->Config.DpProtocol != XDP_PROTOCOL_DP_1_4) {
-			XDpRxSs_Dp159Initialize(InstancePtr->IicPtr);
-		}
 
 		/* Wait for us */
 		XDp_WaitUs(InstancePtr->DpPtr, 1000);
@@ -440,32 +425,34 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 	InstancePtr->HdcpIsReady = FALSE;
 #endif
 
-	/*Set default HDCP protocol*/
 #if ((XPAR_DPRXSS_0_HDCP_ENABLE > 0) && (XPAR_XHDCP22_RX_NUM_INSTANCES > 0))
-	/* Setting HDCP22 as default if both HDCP1x and HDCP22 are
-	 * capable & enabled*/
+	/*
+	 * Set default HDCP protocol.
+	 * Setting HDCP1x as default if both HDCP1x
+	 * and HDCP22 are capable & enabled
+	 */
 
-	/* HDCP is ready when only the HDCP 2.2 core is
-	 * instantiated and the keys are loaded */
-	if (InstancePtr->Hdcp22Ptr &&
-			InstancePtr->Hdcp22Lc128Ptr &&
-			InstancePtr->Hdcp22PrivateKeyPtr) {
+	/*
+	 * HDCP is ready when only the HDCP 1.4 core is
+	 * instantiated and the keys are loaded
+	 */
+	if (InstancePtr->Hdcp1xPtr) {
 		InstancePtr->HdcpIsReady = TRUE;
 
 		/* Set default HDCP content protection scheme */
-		if (XDpRxSs_HdcpSetProtocol(InstancePtr, XDPRXSS_HDCP_22)
-				!= XST_SUCCESS)
-		{
+		if (XDpRxSs_HdcpSetProtocol(InstancePtr, XDPRXSS_HDCP_14)) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,
-				"DPRXSS ERR:: setting HDCP22 as default"
-				"protocol\n\r");
+					"DPRXSS ERR:: setting HDCP14 as default"
+					"protocol\n\r");
 			return XST_FAILURE;
 		}
 	}
 #elif (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
-	/*HDCP1x*/
-	/* HDCP is ready when only the HDCP 1.4 core is
-	 * instantiated and the key is loaded */
+	/*
+	 * HDCP1X.
+	 * HDCP is ready when only the HDCP 1.4 core is
+	 * instantiated and the key is loaded
+	 */
 	if (InstancePtr->Hdcp1xPtr) {
 		InstancePtr->HdcpIsReady = TRUE;
 
@@ -535,7 +522,20 @@ void XDpRxSs_Reset(XDpRxSs *InstancePtr)
 				XDP_RX_SOFT_RESET_AUX_MASK);
 
 	/* Reset the IIC core */
-	XIic_Reset(InstancePtr->IicPtr);
+#ifdef XPAR_XIIC_NUM_INSTANCES
+	if (InstancePtr->Config.IncludeAxiIic && InstancePtr->IicPtr) {
+		XIic_Reset(InstancePtr->IicPtr);
+	}
+	else
+#endif
+	{
+#ifdef XPAR_XIICPS_NUM_INSTANCES
+		if (InstancePtr->IicPsPtr) {
+			/* Reset the IIC core */
+			XIicPs_Reset(InstancePtr->IicPsPtr);
+		}
+#endif
+	}
 }
 
 /*****************************************************************************/
@@ -791,6 +791,126 @@ void XDpRxSs_SetUserPixelWidth(XDpRxSs *InstancePtr, u8 UserPixelWidth)
 	XDp_RxSetUserPixelWidth(InstancePtr->DpPtr, UserPixelWidth);
 }
 
+/******************************************************************************/
+/**
+ * This function extracts the bits per color from MISC0 or VSC SDP packet based
+ * on whether reception of colorimetry information through VSC SDP packets or
+ * through MISC registers of the stream.
+ *
+ * @param	InstancePtr is a pointer to the XDpRxSs core instance.
+ * @param	Stream is the stream number to make the calculations for.
+ *
+ * @return	The bits per color for the stream.
+ *
+ * @note	RX clock must be stable.
+ *
+*******************************************************************************/
+u8 XDpRxss_GetBpc(XDpRxSs *InstancePtr, u8 Stream)
+{
+	u8 Bpc;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid((Stream == XDP_TX_STREAM_ID1) ||
+						(Stream == XDP_TX_STREAM_ID2) ||
+						(Stream == XDP_TX_STREAM_ID3) ||
+						(Stream == XDP_TX_STREAM_ID4));
+
+	Bpc = XDp_RxGetBpc(InstancePtr->DpPtr, Stream);
+
+	return Bpc;
+}
+
+/******************************************************************************/
+/**
+ * This function extracts the color component format from MISC0 or VSC SDP packet
+ * based on whether reception of colorimetry information through VSC SDP packets or
+ * through MISC registers of the stream.
+ *
+ * @param	InstancePtr is a pointer to the XDpRxSs core instance.
+ * @param	Stream is the stream number to make the calculations for.
+ *
+ * @return	The color component for the stream.
+ *
+ * @note	RX clock must be stable.
+ *
+*******************************************************************************/
+u8 XDpRxss_GetColorComponent(XDpRxSs *InstancePtr, u8 Stream)
+{
+	u8 ColorComponent;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid((Stream == XDP_TX_STREAM_ID1) ||
+						(Stream == XDP_TX_STREAM_ID2) ||
+						(Stream == XDP_TX_STREAM_ID3) ||
+						(Stream == XDP_TX_STREAM_ID4));
+
+	ColorComponent = XDp_RxGetColorComponent(InstancePtr->DpPtr, Stream);
+
+	return ColorComponent;
+}
+
+/******************************************************************************/
+/**
+ * This function extracts the YCbCrColorimetry from MISC0 or VSC SDP packet
+ * based on whether reception of colorimetry information through VSC SDP packets
+ * or through MISC registers of the stream.
+ *
+ * @param	InstancePtr is a pointer to the XDpRxSs core instance.
+ * @param	Stream is the stream number to make the calculations for.
+ *
+ * @return	The colorimetry format for the stream.
+ *
+ * @note	RX clock must be stable.
+ *
+*******************************************************************************/
+u8 XDpRxss_GetColorimetry(XDpRxSs *InstancePtr, u8 Stream)
+{
+	u8 YCbCrColorimetry;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid((Stream == XDP_TX_STREAM_ID1) ||
+						(Stream == XDP_TX_STREAM_ID2) ||
+						(Stream == XDP_TX_STREAM_ID3) ||
+						(Stream == XDP_TX_STREAM_ID4));
+
+	YCbCrColorimetry = XDp_RxGetColorimetry(InstancePtr->DpPtr, Stream);
+
+	return YCbCrColorimetry;
+}
+
+/******************************************************************************/
+/**
+ * This function extracts the dynamic range from MISC0 or VSC SDP packet
+ * based on whether reception of colorimetry information through VSC SDP packets or
+ * through MISC registers of the stream.
+ *
+ * @param	InstancePtr is a pointer to the XDpRxSs core instance.
+ * @param	Stream is the stream number to make the calculations for.
+ *
+ * @return	The dynamic range value for the stream.
+ *
+ * @note	RX clock must be stable.
+ *
+*******************************************************************************/
+u8 XDpRxss_GetDynamicRange(XDpRxSs *InstancePtr, u8 Stream)
+{
+	u8 DynamicRange;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid((Stream == XDP_TX_STREAM_ID1) ||
+						(Stream == XDP_TX_STREAM_ID2) ||
+						(Stream == XDP_TX_STREAM_ID3) ||
+						(Stream == XDP_TX_STREAM_ID4));
+
+	DynamicRange = XDp_RxGetDynamicRange(InstancePtr->DpPtr, Stream);
+
+	return DynamicRange;
+}
+
 /*****************************************************************************/
 /**
 *
@@ -847,7 +967,7 @@ u32 XDpRxSs_HdcpEnable(XDpRxSs *InstancePtr)
 
 	/* Verify arguments.*/
 	Xil_AssertNonvoid(InstancePtr);
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable);
 #endif
 #if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
@@ -1219,61 +1339,6 @@ void XDpRxSs_SetDebugLogMsg(XDpRxSs *InstancePtr, XDpRxSs_LogMsg LogFunc)
 /*****************************************************************************/
 /**
 *
-* This function starts the Timer Counter in count down, interrupt mode.
-*
-* @param	InstancePtr is a pointer to the XDpRxSs core instance.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-void XDpRxSs_StartTimer(XDpRxSs *InstancePtr)
-{
-	/* Verify arguments.*/
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->Config.HdcpEnable == 0x1);
-
-	/* Enable the specified options for Timer Counter zero */
-	XTmrCtr_SetOptions(InstancePtr->TmrCtrPtr, 0,
-		XTC_DOWN_COUNT_OPTION | XTC_INT_MODE_OPTION);
-
-	/* Set the reset value to Timer Counter zero */
-	XTmrCtr_SetResetValue(InstancePtr->TmrCtrPtr, 0,
-				XDPRXSS_TMRCTR_RST_VAL);
-
-	/* Start Timer Counter 0 in count down mode */
-	XTmrCtr_Start(InstancePtr->TmrCtrPtr, 0);
-}
-
-/*****************************************************************************/
-/**
-*
-* This function stops the Timer Counter.
-*
-* @param	InstancePtr is a pointer to the XDpRxSs core instance.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-void XDpRxSs_StopTimer(XDpRxSs *InstancePtr)
-{
-	/* Verify arguments.*/
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->Config.HdcpEnable == 0x1);
-
-	/* Stop Timer Counter 0 in count down mode */
-	XTmrCtr_Stop(InstancePtr->TmrCtrPtr, 0);
-
-	/* Reset Timer Counter reset done */
-	InstancePtr->TmrCtrResetDone = 0;
-}
-
-/*****************************************************************************/
-/**
-*
 * This function informs the HDCP state machine that the downstream interfaces
 * of the Repeater are ready (enabled or authenticated).
 *
@@ -1304,6 +1369,59 @@ u32 XDpRxSs_DownstreamReady(XDpRxSs *InstancePtr)
 #if (((XPAR_DPRXSS_0_HDCP_ENABLE > 0) || \
 	(XPAR_XHDCP22_RX_NUM_INSTANCES > 0)) \
 		&& (XPAR_XTMRCTR_NUM_INSTANCES > 0))
+/*****************************************************************************/
+/**
+*
+* This function starts the Timer Counter in count down, interrupt mode.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XDpRxSs_StartTimer(XDpRxSs *InstancePtr)
+{
+	/* Verify arguments.*/
+	Xil_AssertVoid(InstancePtr);
+
+	/* Enable the specified options for Timer Counter zero */
+	XTmrCtr_SetOptions(InstancePtr->TmrCtrPtr, 0,
+		XTC_DOWN_COUNT_OPTION | XTC_INT_MODE_OPTION);
+
+	/* Set the reset value to Timer Counter zero */
+	XTmrCtr_SetResetValue(InstancePtr->TmrCtrPtr, 0,
+				XDPRXSS_TMRCTR_RST_VAL);
+
+	/* Start Timer Counter 0 in count down mode */
+	XTmrCtr_Start(InstancePtr->TmrCtrPtr, 0);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function stops the Timer Counter.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XDpRxSs_StopTimer(XDpRxSs *InstancePtr)
+{
+	/* Verify arguments.*/
+	Xil_AssertVoid(InstancePtr);
+
+	/* Stop Timer Counter 0 in count down mode */
+	XTmrCtr_Stop(InstancePtr->TmrCtrPtr, 0);
+
+	/* Reset Timer Counter reset done */
+	InstancePtr->TmrCtrResetDone = 0;
+}
+
 /*****************************************************************************/
 /**
 *
@@ -1578,11 +1696,15 @@ static void DpRxSs_GetIncludedSubCores(XDpRxSs *InstancePtr)
 	/* Assign instance of DisplayPort core */
 	InstancePtr->DpPtr = ((InstancePtr->Config.DpSubCore.IsPresent) ?
 		(&DpRxSsSubCores[InstancePtr->Config.DeviceId].DpInst) : NULL);
-
+#ifdef XPAR_XIIC_NUM_INSTANCES
+	if (InstancePtr->Config.IncludeAxiIic) {
 	/* Assign instance of IIC core */
-	InstancePtr->IicPtr = ((InstancePtr->Config.DpSubCore.IsPresent) ?
-		(&DpRxSsSubCores[
-			InstancePtr->Config.DeviceId].IicInst) : NULL);
+		InstancePtr->IicPtr =
+			((InstancePtr->Config.DpSubCore.IsPresent) ?
+			(&DpRxSsSubCores[InstancePtr->Config.DeviceId].IicInst)
+			: NULL);
+	}
+#endif
 
 #if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 	/* Assign instance of HDCP core */
@@ -1686,14 +1808,16 @@ static void DpRxSs_PopulateDpRxPorts(XDpRxSs *InstancePtr)
 			StreamIndex < InstancePtr->Config.NumMstStreams;
 							StreamIndex++) {
 			/* Set I2C maps. */
-			if (InstancePtr->EdidSize == 0)
-                                XDp_RxSetIicMapEntry(InstancePtr->DpPtr,
-                                        StreamIndex + 1, 0x50, 128, GenEdid);
-                        else
-                                XDp_RxSetIicMapEntry(InstancePtr->DpPtr,
-                                        StreamIndex + 1, 0x50,
-                                        InstancePtr->EdidSize,
-                                        InstancePtr->EdidDataPtr);
+			if (!InstancePtr->EdidSize[StreamIndex]) {
+				XDp_RxSetIicMapEntry(InstancePtr->DpPtr,
+					StreamIndex + 1, EDID_IIC_ADDRESS,
+					sizeof(GenEdid), GenEdid);
+			} else {
+				XDp_RxSetIicMapEntry(InstancePtr->DpPtr,
+					StreamIndex + 1, EDID_IIC_ADDRESS,
+					InstancePtr->EdidSize[StreamIndex],
+					InstancePtr->EdidDataPtr[StreamIndex]);
+			}
 
 			/* Set DPCD maps. */
 			XDp_RxSetDpcdMap(InstancePtr->DpPtr, StreamIndex + 1,
@@ -1755,15 +1879,8 @@ static void StubTp1Callback(void *InstancePtr)
 		XDpRxSs_ReadReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
 			XDPRXSS_DPCD_LANE_COUNT_SET);
 
-	if (DpRxSsPtr->DpPtr->Config.DpProtocol != XDP_PROTOCOL_DP_1_4) {
-		/* DP159 config for TP1 */
-		XDpRxSs_Dp159Config(DpRxSsPtr->IicPtr, XDPRXSS_DP159_CT_TP1,
-					DpRxSsPtr->UsrOpt.LinkRate,
-					DpRxSsPtr->UsrOpt.LaneCount);
-	}
-
 	if (MCDP6000_IC_Rev == 0x2100) {
-		XDpRxSs_MCDP6000_AccessLaneSet(DpRxSsPtr->IicPtr->BaseAddress,
+		XDpRxSs_MCDP6000_AccessLaneSet(DpRxSsPtr,
 				XDPRXSS_MCDP6000_IIC_SLAVE);
 	}
 
@@ -1821,21 +1938,18 @@ static void StubTp2Callback(void *InstancePtr)
 	u8 Index;
 	XDpRxSs *DpRxSsPtr = (XDpRxSs *)InstancePtr;
 
-	if (DpRxSsPtr->DpPtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
-		DpRxSsPtr->ltState = 2;
-		return;
-	}
-
-	/* DP159 config for TP2 */
-	XDpRxSs_Dp159Config(DpRxSsPtr->IicPtr, XDPRXSS_DP159_CT_TP2,
-			DpRxSsPtr->UsrOpt.LinkRate,
-				DpRxSsPtr->UsrOpt.LaneCount);
 	/*Reset HDCP FIFOs*/
 	for(Index = 0; Index < 2; Index++) {
 		XDp_WriteReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
-			     XDP_RX_SOFT_RESET, 0x100);
+				XDP_RX_SOFT_RESET,
+				XDP_RX_SOFT_RESET_HDCP_MASK);
 		XDp_WriteReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
-			     XDP_RX_SOFT_RESET, 0x000);
+				XDP_RX_SOFT_RESET, 0);
+	}
+
+	if (DpRxSsPtr->DpPtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+		DpRxSsPtr->ltState = 2;
+		return;
 	}
 }
 
@@ -1868,16 +1982,13 @@ static void StubUnplugCallback(void *InstancePtr)
 	}
  
 	if (MCDP6000_IC_Rev == 0x2100) {
-		XDpRxSs_MCDP6000_ResetDpPath(DpRxSsPtr->IicPtr->BaseAddress,
+		XDpRxSs_MCDP6000_ResetDpPath(DpRxSsPtr,
 				XDPRXSS_MCDP6000_IIC_SLAVE);
 	}
 
-	if (DpRxSsPtr->DpPtr->Config.DpProtocol != XDP_PROTOCOL_DP_1_4) {
-		/* DP159 config for TP2 */
-		XDpRxSs_Dp159Config(DpRxSsPtr->IicPtr, XDPRXSS_DP159_CT_UNPLUG,
-					DpRxSsPtr->UsrOpt.LinkRate,
-					DpRxSsPtr->UsrOpt.LaneCount);
-	}
+	XDpRxSs_MCDP6000_ModifyRegister(DpRxSsPtr,
+			XDPRXSS_MCDP6000_IIC_SLAVE, 0x0A00,
+			0x55000000, 0x55000000);
 
 	/* Disable unplug interrupt so that no unplug event when RX is
 	 * disconnected
@@ -1927,7 +2038,7 @@ static void StubAccessLaneSetCallback(void *InstancePtr)
 
 		if (MCDP6000_IC_Rev==0x2100) {
 			if (DpRxSsPtr->ceRequestValue != read_val) {
-				XDpRxSs_MCDP6000_AccessLaneSet(DpRxSsPtr->IicPtr->BaseAddress,
+				XDpRxSs_MCDP6000_AccessLaneSet(DpRxSsPtr,
 					       XDPRXSS_MCDP6000_IIC_SLAVE);
 			}
 		}
@@ -1953,15 +2064,13 @@ static void StubAccessLaneSetCallback(void *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-void XDpRxSs_McDp6000_init(void *InstancePtr, u32 I2CAddress)
+void XDpRxSs_McDp6000_init(void *InstancePtr)
 {
 	/* Verify argument.*/
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	XDpRxSs *DpRxSsPtr = (XDpRxSs *)InstancePtr;
-	DpRxSsPtr->IicPtr->BaseAddress = I2CAddress;
-
-	XDpRxSs_MCDP6000_DpInit(DpRxSsPtr->IicPtr->BaseAddress,
+	XDpRxSs_MCDP6000_DpInit(DpRxSsPtr,
 				XDPRXSS_MCDP6000_IIC_SLAVE);
 
 }
@@ -2105,5 +2214,155 @@ void XDpRxSs_Hdcp22SetKey(XDpRxSs *InstancePtr,
 	}
 }
 #endif
+
+/*****************************************************************************/
+/**
+ *
+ * This function sets Adaptive-Sync capabilities to DisplayPort
+ * RX Subsystem
+ *
+ * @param InstancePtr is a pointer to the XDpRxSs instance.
+ * @param Enable is to enable/disable the Adaptive-Sync
+ *        capabilities in DisplayPort Rx Subsystem
+ *
+ * @return XST_SUCCESS
+ *
+ * @note   None.
+ *
+ ******************************************************************************/
+void XDpRxSs_SetAdaptiveSyncCaps(XDpRxSs *InstancePtr, u32 Enable)
+{
+	u32 RegVal;
+
+	/* Verify argument. */
+	Xil_AssertVoid(InstancePtr);
+	RegVal = XDpRxSs_ReadReg(InstancePtr->DpPtr->Config.BaseAddr,
+				 XDP_RX_DTG_ENABLE);
+	if (Enable) {
+		RegVal |= XDP_RX_ADAPTIVESYNC_SDP_SUPPORTED_MASK |
+				XDP_RX_MSA_TIMINGPAR_IGNORED_MASK;
+	} else {
+		RegVal &= ~(XDP_RX_ADAPTIVESYNC_SDP_SUPPORTED_MASK |
+				XDP_RX_MSA_TIMINGPAR_IGNORED_MASK);
+	}
+
+	XDpRxSs_WriteReg(InstancePtr->DpPtr->Config.BaseAddr,
+			 XDP_RX_DTG_ENABLE, RegVal);
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function masks the Adaptive-Sync interrupts
+ * from DisplayPort RX Subsystem
+ *
+ * @param InstancePtr is a pointer to the XDpRxSs instance.
+ * @param Interrupts to mask
+ *
+ * @note   None.
+ *
+ ******************************************************************************/
+void XDpRxSs_MaskAdaptiveIntr(XDpRxSs *InstancePtr, u32 Mask)
+{
+	u32 RegVal;
+
+	/* Verify argument. */
+	Xil_AssertVoid(InstancePtr);
+	RegVal = XDpRxSs_ReadReg(InstancePtr->DpPtr->Config.BaseAddr,
+				 XDP_RX_INTERRUPT_MASK_2);
+	RegVal |= (Mask & XDP_RX_ADAPTIVESYNC_SDP_VBLANK_INTERRUPT_MASK);
+	XDpRxSs_WriteReg(InstancePtr->DpPtr->Config.BaseAddr,
+			 XDP_RX_INTERRUPT_MASK_2, RegVal);
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function unmasks Adaptive-Sync interrupt
+ * from DisplayPort RX Subsystem
+ *
+ * @param InstancePtr is a pointer to the XDpRxSs instance.
+ * @param Interrupts to unmask
+ *
+ * @note   None.
+ *
+ ******************************************************************************/
+void XDpRxSs_UnMaskAdaptiveIntr(XDpRxSs *InstancePtr, u32 Mask)
+{
+	u32 RegVal;
+
+	/* Verify argument. */
+	Xil_AssertVoid(InstancePtr);
+	RegVal = XDpRxSs_ReadReg(InstancePtr->DpPtr->Config.BaseAddr,
+				 XDP_RX_INTERRUPT_MASK_2);
+	RegVal &= (~Mask);
+	XDpRxSs_WriteReg(InstancePtr->DpPtr->Config.BaseAddr,
+			 XDP_RX_INTERRUPT_MASK_2, RegVal);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function retrieves the current vblank value of
+* the incoming video stream.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance.
+*
+* @return
+*		- The current vblank value
+*
+* @note		This function has to be called after
+		assertion of Bit-30 of XDP_RX_INTERRUPT_CAUSE_2
+		register
+*
+******************************************************************************/
+int XDpRxSs_GetVblank(XDpRxSs *InstancePtr)
+{
+	u32 VBlank;
+
+	/* Verify arguments.*/
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* Get the current vblank value */
+	VBlank = XDpRxSs_ReadReg(InstancePtr->DpPtr->Config.BaseAddr,
+				 XDP_RX_ADAPTIVE_VBLANK_VTOTAL);
+	VBlank &= XDP_RX_ADAPTIVE_VBLANK_MASK;
+
+	return VBlank;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function retrieves the current VTotal value of
+* the incoming video stream.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance.
+*
+* Note: This function has to be called after
+* assertion Bit-30 of XDP_RX_INTERRUPT_CAUSE_2 register
+*
+* @return
+*		- The current VTotal value
+*
+* @note		This function has to be called after
+		assertion of Bit-30 of XDP_RX_INTERRUPT_CAUSE_2
+		register
+*
+******************************************************************************/
+int XDpRxSs_GetVtotal(XDpRxSs *InstancePtr)
+{
+	u32 VTotal;
+
+	/* Verify arguments.*/
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* Get stream map of the stream(s) */
+	VTotal = XDpRxSs_ReadReg(InstancePtr->DpPtr->Config.BaseAddr,
+				 XDP_RX_ADAPTIVE_VBLANK_VTOTAL);
+	VTotal = VTotal >> XDP_RX_ADAPTIVE_VTOTAL_SHIFT;
+
+	return VTotal;
+}
 
 /** @} */

@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2012 - 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2012 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
  *
@@ -67,6 +45,8 @@
  *                     CR-965028.
  * 6.5   rsp  12/01/17 Set TX/RX framebuffer count to IP default. CR-990409
  * 6.6   rsp  07/02/18 Set Vertical Flip state to IP default. CR-989453
+ * 6.7   sk   05/06/20 Fix optimization level 2 failure in release mode.
+ * 6.8   sk   07/07/20 Add frame data check support
  * </pre>
  *
  * ***************************************************************************
@@ -77,6 +57,7 @@
 #include "xil_exception.h"
 #include "xil_printf.h"
 
+#include "xil_cache.h"
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
 #else
@@ -136,12 +117,10 @@
 #define MEM_HIGH_ADDR		DDR_HIGH_ADDR
 #define MEM_SPACE		(MEM_HIGH_ADDR - MEM_BASE_ADDR)
 
-/* Read channel and write channel start from the same place
- *
- * One video IP write to the memory region, the other video IP read from it
+/* Read channel and write channel addresses
  */
 #define READ_ADDRESS_BASE	MEM_BASE_ADDR
-#define WRITE_ADDRESS_BASE	MEM_BASE_ADDR
+#define WRITE_ADDRESS_BASE	(MEM_BASE_ADDR + 0x02000000)
 
 /* Frame size related constants
  */
@@ -180,6 +159,8 @@
  * This is used to monitor the progress of the test, test purpose only
  */
 #define NUM_TEST_FRAME_SETS	10
+
+#define TEST_START_VALUE        0xC
 
 /* Delay timer counter
  *
@@ -223,10 +204,10 @@ static XAxiVdma_DmaSetup WriteCfg;
 
 /* Transfer statics
  */
-static int ReadDone;
-static int ReadError;
-static int WriteDone;
-static int WriteError;
+volatile static int ReadDone;
+volatile static int ReadError;
+volatile static int WriteDone;
+volatile static int WriteError;
 
 /******************* Function Prototypes ************************************/
 
@@ -235,6 +216,8 @@ static int WriteError;
 static int ReadSetup(XAxiVdma *InstancePtr);
 static int WriteSetup(XAxiVdma * InstancePtr);
 static int StartTransfer(XAxiVdma *InstancePtr);
+static int CheckFrame(int FrameIndex);
+static void BufferInit(UINTPTR BaseAddr, int Length, u8 StartValue);
 
 static int SetupIntrSystem(XAxiVdma *AxiVdmaPtr, u16 ReadIntrId,
 				u16 WriteIntrId);
@@ -290,7 +273,7 @@ static void Uart550_Setup(void)
 ******************************************************************************/
 int main(void)
 {
-	int Status;
+	int Status,Index;
 	XAxiVdma_Config *Config;
 	XAxiVdma_FrameCounter FrameCfg;
 
@@ -464,27 +447,43 @@ int main(void)
 		/* NOP */
 	}
 
+	/* Soft reset for AXI VDMA channels which causes the AXI VDMA
+	 * channels to be reset
+	 */
+	XAxiVdma_Reset(&AxiVdma,XAXIVDMA_READ);
+	XAxiVdma_Reset(&AxiVdma,XAXIVDMA_WRITE);
+
 	if (ReadError || WriteError) {
 		xil_printf("Test has transfer error %d/%d, Failed\r\n",
 		    ReadError, WriteError);
 
 		Status = XST_FAILURE;
+		goto Done;
 	}
 	else {
+		for(Index = 0; Index < ReadCount; Index++) {
+			Status = CheckFrame(Index);
+			if (Status != XST_SUCCESS) {
+				xil_printf("Check frame %d failed %d\n\r", Index, Status);
+				goto Done;
+			}
+		}
 		xil_printf("Successfully ran axivdma intr Example\r\n");
 	}
 
-	xil_printf("--- Exiting main() --- \r\n");
-
+Done:
 	DisableIntrSystem(READ_INTR_ID, WRITE_INTR_ID);
 
 	if (Status != XST_SUCCESS) {
 		if(Status == XST_VDMA_MISMATCH_ERROR)
 			xil_printf("DMA Mismatch Error\r\n");
-		return XST_FAILURE;
+		xil_printf("axivdma intr Example Failed\r\n");
+		Status = XST_FAILURE;
 	}
 
-	return XST_SUCCESS;
+	xil_printf("--- Exiting main() --- \r\n");
+
+	return Status;
 }
 
 
@@ -502,7 +501,7 @@ int main(void)
 ******************************************************************************/
 static int ReadSetup(XAxiVdma *InstancePtr)
 {
-	int Index;
+	int Index,Index1;
 	UINTPTR Addr;
 	int Status;
 
@@ -536,6 +535,10 @@ static int ReadSetup(XAxiVdma *InstancePtr)
 	for(Index = 0; Index < ReadCount; Index++) {
 		ReadCfg.FrameStoreStartAddr[Index] = Addr;
 
+		for(Index1=0;Index1<SUBFRAME_HORIZONTAL_SIZE;Index1++) {
+			BufferInit(Addr,FRAME_HORIZONTAL_LEN * FRAME_VERTICAL_LEN,TEST_START_VALUE);
+			Xil_DCacheFlushRange(Addr, FRAME_HORIZONTAL_LEN * FRAME_VERTICAL_LEN);
+		}
 		Addr += FRAME_HORIZONTAL_LEN * FRAME_VERTICAL_LEN;
 	}
 
@@ -622,6 +625,7 @@ static int WriteSetup(XAxiVdma * InstancePtr)
 	 */
 	memset((void *)WriteFrameAddr, 0,
 	    FRAME_HORIZONTAL_LEN * FRAME_VERTICAL_LEN * WriteCount);
+	Xil_DCacheFlushRange(Addr, FRAME_HORIZONTAL_LEN * FRAME_VERTICAL_LEN * WriteCount);
 
 	return XST_SUCCESS;
 }
@@ -634,7 +638,7 @@ static int WriteSetup(XAxiVdma * InstancePtr)
 *
 * @param	InstancePtr points to the DMA engine instance
 *
-* @return	XST_SUCCESS if both read and write start succesfully
+* @return	XST_SUCCESS if both read and write start successfully
 *		XST_FAILURE if one or both directions cannot be started
 *
 * @note		None.
@@ -910,4 +914,86 @@ static void WriteErrorCallBack(void *CallbackRef, u32 Mask)
 	if (Mask & XAXIVDMA_IXR_ERROR_MASK) {
 		WriteError += 1;
 	}
+}
+
+/*****************************************************************************/
+/**
+ * Compare a range of data from one frame with data from another frame
+ *
+ * @param FrameIndex, frame index for read and write frames
+ *
+ * @return
+ *      - XST_SUCCESS if frames are identical
+ *      - XST_FAILURE otherwise
+ *******************************************************************************/
+static int CheckFrame(int FrameIndex)
+{
+	u8 *RdAddr;
+	u8 *WrAddr;
+	int Hsize_Max;
+	int Vsize_Max;
+	int Vsize;
+	int Hsize;
+	int Index;
+
+	RdAddr = (u8 *)ReadCfg.FrameStoreStartAddr[FrameIndex];
+	WrAddr = (u8 *)WriteCfg.FrameStoreStartAddr[FrameIndex];
+
+	Hsize_Max = ReadCfg.HoriSizeInput;
+	Vsize_Max = ReadCfg.VertSizeInput;
+
+	Xil_DCacheInvalidateRange((UINTPTR)RdAddr, Vsize_Max*Hsize_Max*ReadCount);
+#if 1
+	xdbg_printf(XDBG_DEBUG_GENERAL,"Check frame %d/%d with hsize %d vsize %d\n\r",
+		RdFrame, WrFrame, Hsize_Max, Vsize_Max);
+#endif
+	for (Hsize = 0; Hsize < Hsize_Max; Hsize++) {
+		for (Vsize = 0; Vsize < Vsize_Max; Vsize++) {
+			Index = Vsize + Hsize * FRAME_HORIZONTAL_LEN;
+			if (RdAddr[Index] != WrAddr[Index]) {
+
+				xil_printf("Check frame data error (maybe "
+				"expected) %d/%d, %x/%x, %x/%x: %x/%x\n\r",
+				Hsize, Vsize, (UINTPTR)RdAddr, Index,
+				(UINTPTR)WrAddr, Index,
+				(UINTPTR)RdAddr[Index],
+				(UINTPTR)WrAddr[Index]);
+				return XST_FAILURE;
+			}
+		}
+	}
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+ * Buffer initialization
+ *
+ * Initialize a buffer from a specified value. Value increases in the buffer,
+ * and wraps around at 0xFF.
+ *
+ * @param BaseAddr, starting address for buffer
+ * @param Length, length of the buffer in bytes
+ * @param StartValue, value for first byte
+ *
+ * @return
+ *      None
+ ******************************************************************************/
+static void BufferInit(UINTPTR BaseAddr, int Length, u8 StartValue)
+{
+        int Tmp;
+        u8 *Addr;
+        u8 Value;
+
+        Addr = (u8 *)BaseAddr;
+        Value = StartValue;
+
+        for (Tmp = 0; Tmp < Length; Tmp ++) {
+                *Addr = Value;
+                Addr += 1;
+                Value = (Value + 1) & 0xFF;
+        }
+
+        return;
 }

@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PRTNICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2018-2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -49,15 +27,15 @@
 #include "xpsmfw_ipi_manager.h"
 #include "ipi.h"
 
-#ifdef XPAR_PSV_IPI_PSM_DEVICE_ID
+#ifdef XPAR_XIPIPSU_0_DEVICE_ID
 /* Instance of IPI Driver */
-XIpiPsu IpiInst;
-XIpiPsu *IpiInstPtr = &IpiInst;
+static XIpiPsu IpiInst;
+static XIpiPsu *IpiInstPtr = &IpiInst;
 u32 IpiMaskList[XPSMFW_IPI_MASK_COUNT] = {0U};
 
 s32 XPsmfw_IpiManagerInit(void)
  {
-	s32 Status;
+	s32 Status = XST_FAILURE;
 	XIpiPsu_Config *IpiCfgPtr;
 	u32 i;
 
@@ -66,7 +44,7 @@ s32 XPsmfw_IpiManagerInit(void)
 
 	if (IpiCfgPtr == NULL) {
 		Status = XST_FAILURE;
-		XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "IPI lookup config failed\r\n");
+		XPsmFw_Printf(DEBUG_ERROR, "IPI lookup config failed\r\n");
 		goto Done;
 	}
 	/* Init Mask List */
@@ -81,7 +59,7 @@ s32 XPsmfw_IpiManagerInit(void)
 	for (i = 0U; i < XPSMFW_IPI_MASK_COUNT; i++) {
 		XIpiPsu_InterruptEnable(IpiInstPtr, IpiCfgPtr->TargetList[i].Mask);
 	}
-	XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "IPI interrupts are enabled\r\n");
+	XPsmFw_Printf(DEBUG_DETAILED, "IPI interrupts are enabled\r\n");
 
 Done:
 	return Status;
@@ -94,26 +72,28 @@ Done:
  */
 int XPsmFw_DispatchIpiHandler(u32 SrcMask)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u32 MaskIndex;
 	u32 Payload[XPSMFW_IPI_MAX_MSG_LEN];
 	u32 Response[XPSMFW_IPI_MAX_MSG_LEN];
 
-	XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "In IPI handler\r\n");
+	XPsmFw_Printf(DEBUG_DETAILED, "In IPI handler\r\n");
 
 	for (MaskIndex = 0U; MaskIndex < XPSMFW_IPI_MASK_COUNT; MaskIndex++) {
 		if ((SrcMask & IpiMaskList[MaskIndex]) != 0U) {
 			Status = XIpiPsu_ReadMessage(IpiInstPtr, IpiMaskList[MaskIndex],
 			        &Payload[0], XPSMFW_IPI_MAX_MSG_LEN, XIPIPSU_BUF_TYPE_MSG);
 			if (XST_SUCCESS != Status) {
-				XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "Failure to read IPI msg\r\n");
+				XPsmFw_Printf(DEBUG_ERROR, "Failure to read IPI msg\r\n");
 			} else {
 				Status = XPsmFw_ProcessIpi(&Payload[0]);
 
-				Response[0] = Status;
-				XPsmFw_IpiSendResponse(IPI_PSM_IER_PMC_MASK,
-						       Response);
+				Response[0] = (u32)Status;
+				Status = XPsmFw_IpiSendResponse(IPI_PSM_IER_PMC_MASK,
+								Response);
 			}
+		} else {
+			Status = XST_SUCCESS;
 		}
 	}
 	return Status;
@@ -135,20 +115,12 @@ int XPsmFw_DispatchIpiHandler(u32 SrcMask)
  ****************************************************************************/
 XStatus XPsmFw_IpiSend(u32 IpiMask, u32 *Payload)
 {
-	XStatus Status;
-
-	/* Wait until current IPI interrupt is handled by target */
-	Status = XIpiPsu_PollForAck(IpiInstPtr, IpiMask, XPSMFW_IPI_TIMEOUT);
-	if (XST_SUCCESS != Status) {
-		XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "%s: ERROR: Timeout expired\n",
-			      __func__);
-		goto done;
-	}
+	XStatus Status = XST_FAILURE;
 
 	Status = XIpiPsu_WriteMessage(IpiInstPtr, IpiMask, Payload,
 				      PAYLOAD_ARG_CNT, XIPIPSU_BUF_TYPE_MSG);
 	if (XST_SUCCESS != Status) {
-		XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "%s: ERROR writing to IPI request buffer\n", __func__);
+		XPsmFw_Printf(DEBUG_ERROR, "%s: ERROR writing to IPI request buffer\n", __func__);
 		goto done;
 	}
 
@@ -173,12 +145,12 @@ done:
  ****************************************************************************/
 XStatus XPsmFw_IpiSendResponse(u32 IpiMask, u32 *Payload)
 {
-	XStatus Status;
+	XStatus Status = XST_FAILURE;
 
 	Status = XIpiPsu_WriteMessage(IpiInstPtr, IpiMask, Payload,
 				      PAYLOAD_ARG_CNT, XIPIPSU_BUF_TYPE_RESP);
 	if (XST_SUCCESS != Status) {
-		XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "%s: ERROR writing to IPI request buffer\n", __func__);
+		XPsmFw_Printf(DEBUG_ERROR, "%s: ERROR writing to IPI request buffer\n", __func__);
 		goto done;
 	}
 

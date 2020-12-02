@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
  * @file xdptxss_zcu102_tx.h
@@ -67,7 +45,9 @@
 #include "xv_frmbufrd_l2.h"
 #include "xv_frmbufwr_l2.h"
 #include "xaxis_switch.h"
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 #include "xv_axi4s_remap.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -204,21 +184,6 @@ typedef struct
 
 typedef struct
 {
-        u8 type;
-        u8 version;
-        u8 length;
-        u8 audio_coding_type;
-        u8 audio_channel_count;
-        u8 sampling_frequency;
-        u8 sample_size;
-        u8 level_shift;
-        u8 downmix_inhibit;
-        u8 channel_allocation;
-        u16 info_length;
-} XilAudioInfoFrame;
-
-typedef struct
-{
         u8 sec_id;//DP Specific
         u8 type;
         u8 version;
@@ -254,7 +219,7 @@ void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128], u8 Edid1_org[128], u16 res_
 //void hpd_pulse_con(XDpTxSs *InstancePtr);
 char xil_getc(u32 timeout_ms);
 static u32 xil_gethex(u8 num_chars);
-void sendAudioInfoFrame(XilAudioInfoFrame *xilInfoFrame);
+//void sendAudioInfoFrame(XilAudioInfoFrame *xilInfoFrame);
 void Vpg_Audio_start(void);
 void Vpg_Audio_stop(void);
 u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
@@ -325,7 +290,7 @@ u8 num_sinks;
 #define XVPHY_DRP_RX_INT_DATA_WIDTH 0x66
 
 
-#define DP_BS_IDLE_TIMEOUT      0x77359400
+#define DP_BS_IDLE_TIMEOUT      0x047868C0
 #define AUX_DEFER_COUNT         6
 /* DEFAULT VALUE=0. Enabled programming of
  *Rx Training Algo Register for Debugging Purpose
@@ -347,7 +312,7 @@ u8 num_sinks;
 #define DEFAULT_STREAM 1
 
 // When set to 1, Audio Infoframe would be programmed in TX
-#define SEND_AIF 0
+#define SEND_AIF 1
 
 // we have observed NO-video interrupt getting flagged with some
 // GPUs. Hence not executing
@@ -369,7 +334,7 @@ typedef struct {
 
 
 DP_Rx_Training_Algo_Config RxTrainConfig;
-
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 #define REMAP_RX_BASEADDR  XPAR_DP_RX_HIER_0_REMAP_RX_S_AXI_CTRL_BASEADDR
 #define REMAP_TX_BASEADDR  XPAR_DP_TX_HIER_0_REMAP_TX_S_AXI_CTRL_BASEADDR
 #define REMAP_RX_DEVICE_ID  XPAR_DP_RX_HIER_0_REMAP_RX_DEVICE_ID
@@ -379,6 +344,7 @@ XV_axi4s_remap_Config   *rx_remap_Config;
 XV_axi4s_remap          rx_remap;
 XV_axi4s_remap_Config   *tx_remap_Config;
 XV_axi4s_remap          tx_remap;
+#endif
 
 XDpTxSs_Config *ConfigPtr;
 XDpRxSs_Config *ConfigPtr_rx;
@@ -403,6 +369,9 @@ void DpPt_TxSetMsaValuesImmediate(void *InstancePtr);
 void DpRxSs_PowerChangeHandler(void *InstancePtr);
 void DpRxSs_NoVideoHandler(void *InstancePtr);
 void DpRxSs_VerticalBlankHandler(void *InstancePtr);
+void DpRxSs_VerticalBlank1Handler(void *InstancePtr);
+void DpRxSs_VerticalBlank2Handler(void *InstancePtr);
+void DpRxSs_VerticalBlank3Handler(void *InstancePtr);
 void DpRxSs_TrainingLostHandler(void *InstancePtr);
 void DpRxSs_VideoHandler(void *InstancePtr);
 void DpRxSs_InfoPacketHandler(void *InstancePtr);

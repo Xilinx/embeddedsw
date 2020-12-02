@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2017 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -44,6 +22,8 @@
 	jsr    10/05/18 Moved 3GB specific video modes timing
 			parameters from video common library
 			to SDI common driver
+* 3.1   vsa    08/12/20 Avoid workaround in XV_SdiTx_StreamStart() for versal
+*			device
 * </pre>
 *
 ******************************************************************************/
@@ -319,7 +299,8 @@ u32 XV_SdiTx_SetStream(XV_SdiTx *InstancePtr, XV_SdiTx_StreamSelId SelId,
 		break;
 
 	case XV_SDITX_STREAMSELID_COLORFORMAT:
-		Xil_AssertNonvoid( ((u32)Data == XVIDC_CSF_YCBCR_422) || ((u32)Data == XVIDC_CSF_YCBCR_420) );
+		Xil_AssertNonvoid( ((u32)Data == XVIDC_CSF_YCBCR_422) || ((u32)Data == XVIDC_CSF_YCBCR_420)
+					|| ((u32)Data == XVIDC_CSF_YCBCR_444) || ((u32)Data == XVIDC_CSF_RGB));
 
 		InstancePtr->Stream[StreamId].Video.ColorFormatId = (u32)Data;
 		break;
@@ -487,6 +468,18 @@ u8 XV_SdiTx_GetPayloadFrameRate(XVidC_FrameRate FrameRateValid, XSdiVid_BitRate 
 			Data = 0xB;
 			break;
 
+		case (XVIDC_FR_96HZ):
+			Data = 0xC;
+			break;
+
+		case (XVIDC_FR_100HZ):
+			Data = 0xD;
+			break;
+
+		case (XVIDC_FR_120HZ):
+			Data = 0xF;
+			break;
+
 		default:
 			Data = 0;
 			break;
@@ -507,6 +500,14 @@ u8 XV_SdiTx_GetPayloadFrameRate(XVidC_FrameRate FrameRateValid, XSdiVid_BitRate 
 
 		case (XVIDC_FR_60HZ):
 			Data = 0xA;
+			break;
+
+		case (XVIDC_FR_96HZ):
+			Data = 0x1;
+			break;
+
+		case (XVIDC_FR_120HZ):
+			Data = 0xE;
 			break;
 
 		default:
@@ -612,7 +613,9 @@ u32 XV_SdiTx_GetPayloadByte1(u16 VActiveValid, XSdiVid_TransMode SdiMode, u8 *Da
 				*Data = 0x84;
 		break;
 	case 1080:
-		if (SdiMode == XSDIVID_MODE_3GA)
+		if (SdiMode == XSDIVID_MODE_12G)
+				*Data = 0xCE;
+		else if (SdiMode == XSDIVID_MODE_3GA)
 				*Data = 0x89;
 		else if (SdiMode == XSDIVID_MODE_3GB)
 				*Data = 0x8A;
@@ -670,6 +673,9 @@ u8 XV_SdiTx_GetPayloadColorFormat(XSdiVid_TransMode SdiMode, XVidC_ColorFormat C
 				Data = 0x0;
 		else if(ColorFormatId == XVIDC_CSF_YCBCR_420)
 				Data = 0x3;
+		else if (ColorFormatId == XVIDC_CSF_YCBCR_444 &&
+				((SdiMode != XSDIVID_MODE_6G) || (SdiMode != XSDIVID_MODE_12GF)))
+				Data = 0x1;
 		else {
 			xil_printf("Error: Invalid ColorFomat input. Defaulting to YCBCR_422\n\r");
 			Data = 0x0;
@@ -680,6 +686,10 @@ u8 XV_SdiTx_GetPayloadColorFormat(XSdiVid_TransMode SdiMode, XVidC_ColorFormat C
 	case XSDIVID_MODE_3GA:
 		if (ColorFormatId == XVIDC_CSF_YCBCR_422)
 				Data = 0x0;
+		else if (ColorFormatId == XVIDC_CSF_YCBCR_444 && (SdiMode == XSDIVID_MODE_3GA))
+				Data = 0x1;
+		else if (ColorFormatId == XVIDC_CSF_RGB)
+				Data = 0x2;
 		else {
 				xil_printf("Error: Invalid ColorFomat input. Defaulting to YCBCR_422\n\r");
 				Data = 0x0;
@@ -689,6 +699,84 @@ u8 XV_SdiTx_GetPayloadColorFormat(XSdiVid_TransMode SdiMode, XVidC_ColorFormat C
 			return XST_FAILURE;
 	}
 	return Data & 0xF;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function updates the eotf and colorimetry fields of st352 payload
+ * value for all SDI modes.
+ *
+ * @param	InstancePtr is a pointer to the XV_SdiTx core instance.
+ * @param	Eotf is a variable of type XVidC_Eotf
+ * @param	Colorimetry is a variable of type XVidC_ColorStd
+ *
+ * @return
+ *		Updated payload value.
+ *
+ * @note
+ *		This function depends on sdi mode(Transport.TMode) being set, to
+ *		correctly calculate the payload
+ *
+ ******************************************************************************/
+u32 XV_SdiTx_GetPayloadEotf(XV_SdiTx *InstancePtr,
+			    XVidC_Eotf Eotf, XVidC_ColorStd Colorimetry)
+{
+	XVidC_Eotf eotf;
+	XVidC_ColorStd colorimetry;
+	u32 payload;
+
+	switch(Eotf) {
+	case XVIDC_EOTF_TG_SDR:
+		eotf = XSDIVID_EOTF_SDRTV;
+		break;
+	case XVIDC_EOTF_SMPTE2084:
+		eotf = XSDIVID_EOTF_SMPTE2084;
+		break;
+	case XVIDC_EOTF_HLG:
+		eotf = XSDIVID_EOTF_HLG;
+		break;
+	case XVIDC_EOTF_UNKNOWN:
+		eotf = XSDIVID_EOTF_UNKNOWN;
+		break;
+	default:
+		eotf = XSDIVID_EOTF_SDRTV;
+		break;
+	}
+
+	switch(Colorimetry) {
+	case XVIDC_BT_709:
+		colorimetry = XV_SDIVID_COLORIMETRY_BT709;
+		break;
+	case XVIDC_BT_2020:
+		colorimetry = XV_SDIVID_COLORIMETRY_BT2020;
+		break;
+	default:
+		colorimetry = XV_SDIVID_COLORIMETRY_BT709;
+		break;
+	}
+
+	payload = InstancePtr->Stream[0].PayloadId;
+
+	/*
+	 * For HD mode, bit 23 and bit 20 of payload represents colorimetry as per
+	 * SMPTE 292-1:2018 Sec 9.5
+	 * For other modes, its bit 21 and bit 20.
+	 * For BT709 and BT2020 -bit 20 is always zero.
+	 */
+	if (InstancePtr->Transport.TMode == XSDIVID_MODE_HD) {
+		payload &= ~(XV_SDITX_TX_ST352_EOTF_MASK |
+			     XV_SDITX_TX_ST352_COLORIMETRY_HD_MASK);
+		payload |= eotf << XV_SDITX_TX_ST352_EOTF_SHIFT |
+			colorimetry << XV_SDITX_TX_ST352_COLORIMETRY_HD_SHIFT;
+	} else {
+		payload &= ~(XV_SDITX_TX_ST352_EOTF_MASK |
+			     XV_SDITX_TX_ST352_COLORIMETRY_MASK);
+		payload |= eotf << XV_SDITX_TX_ST352_EOTF_SHIFT |
+			colorimetry << XV_SDITX_TX_ST352_COLORIMETRY_SHIFT;
+	}
+
+	return payload;
 }
 
 /*****************************************************************************/
@@ -739,7 +827,12 @@ u32 XV_SdiTx_GetPayload(XV_SdiTx *InstancePtr, XVidC_VideoMode VideoMode, XSdiVi
 
 	Data = Byte1;
 	Data |=	XV_SDITX_COLORFORMAT;
-	Data |=	XV_SDITX_COLORDEPTH;
+
+	if (InstancePtr->bitdepth == 12)
+		Data |=	XV_SDITX_COLORDEPTH_12;
+	else
+		Data |=	XV_SDITX_COLORDEPTH_10;
+
 	Data |=	(XV_SdiTx_GetPayloadFrameRate(FrameRateValid, InstancePtr->Transport.IsFractional) << 8);
 
 	/* Bit 6 and Bit 7 of st352 byte 2 tells about progressive or interlaced
@@ -762,6 +855,9 @@ u32 XV_SdiTx_GetPayload(XV_SdiTx *InstancePtr, XVidC_VideoMode VideoMode, XSdiVi
 		Data |= 1 << XST352_BYTE2_PIC_TYPE_SHIFT;
 		Data |= 0 << XST352_BYTE2_TS_TYPE_SHIFT;
 	}
+
+	Data |= (XV_SdiTx_GetPayloadEotf(InstancePtr, InstancePtr->Stream[DataStream].Video.Eotf,
+			InstancePtr->Stream[DataStream].Video.ColorStd));
 
 	Data |=	 (XV_SdiTx_GetPayloadColorFormat(SdiMode, InstancePtr->Stream[DataStream].Video.ColorFormatId) <<
 												XST352_BYTE3_COLOR_FORMAT_SHIFT);
@@ -907,7 +1003,14 @@ void XV_SdiTx_StreamStart(XV_SdiTx *InstancePtr)
 		break;
 
 	case XSDIVID_MODE_6G:
-		MuxPattern = XV_SDITX_MUX_8STREAM_6G_12G;
+		if ((InstancePtr->Stream[0].Video.ColorFormatId == XVIDC_CSF_YCRCB_444) ||
+		(InstancePtr->Stream[0].Video.ColorFormatId == XVIDC_CSF_RGB)) {
+			MuxPattern = XV_SDITX_MUX_4STREAM_6G;
+		} else if (InstancePtr->Stream[0].Video.ColorFormatId == XVIDC_CSF_YCRCB_422) {
+			MuxPattern = (InstancePtr->bitdepth == 10) ? XV_SDITX_MUX_8STREAM_6G_12G : XV_SDITX_MUX_4STREAM_6G;
+		} else {
+			MuxPattern = XV_SDITX_MUX_8STREAM_6G_12G;
+		}
 		break;
 
 	case XSDIVID_MODE_12G:
@@ -919,6 +1022,7 @@ void XV_SdiTx_StreamStart(XV_SdiTx *InstancePtr)
 		break;
 	}
 
+#ifndef versal
 	/* Workaround for the current limitation of the TX core */
 	/* Read back the current mode and fractional information then program
 	* it accordingly
@@ -943,6 +1047,7 @@ void XV_SdiTx_StreamStart(XV_SdiTx *InstancePtr)
 					~(InstancePtr->Transport.IsFractional),
 					MuxPattern);
 	}
+#endif
 
 	InstancePtr->State = XV_SDITX_STATE_GTRESETDONE_NORMAL;
 	XV_SdiTx_StartSdi(InstancePtr, InstancePtr->Transport.TMode,
@@ -993,6 +1098,11 @@ void XV_SdiTx_StartSdi(XV_SdiTx *InstancePtr, XSdiVid_TransMode SdiMode,
 	Data |= (((SdiMode & 0x7) << XV_SDITX_MDL_CTRL_MODE_SHIFT) |
 		((IsFractional & 0x1) << XV_SDITX_MDL_CTRL_M_SHIFT) |
 		((MuxPattern & 0x7) << XV_SDITX_MDL_CTRL_MUX_PATTERN_SHIFT));
+
+	/* Enable HFR, if frame rate is above 96 */
+	if (InstancePtr->Stream[0].Video.FrameRate >= XVIDC_FR_96HZ &&
+			InstancePtr->Stream[0].Video.FrameRate <= XVIDC_FR_240HZ)
+		Data |= XV_SDITX_MDL_CTRL_ENABLE_HFR;
 
 	XV_SdiTx_WriteReg((InstancePtr)->Config.BaseAddress,
 				(XV_SDITX_MDL_CTRL_OFFSET), (Data));
@@ -1112,7 +1222,9 @@ void XV_SdiTx_ST352CStreamEnable(XV_SdiTx *InstancePtr)
 int XV_SdiTx_SetColorFormat(XV_SdiTx *InstancePtr, XVidC_ColorFormat ColorFormat)
 {
 	Xil_AssertNonvoid( (ColorFormat == XVIDC_CSF_YCBCR_422) ||
-			((ColorFormat == XVIDC_CSF_YCBCR_420) && (InstancePtr->Transport.TMode >= XSDIVID_MODE_6G)) );
+			    (ColorFormat == XVIDC_CSF_YCBCR_444) ||
+			     ((ColorFormat == XVIDC_CSF_YCBCR_420) &&
+			       (InstancePtr->Transport.TMode >= XSDIVID_MODE_6G)) );
 
 	u32 Data;
 
@@ -1130,6 +1242,14 @@ int XV_SdiTx_SetColorFormat(XV_SdiTx *InstancePtr, XVidC_ColorFormat ColorFormat
 	case XVIDC_CSF_YCBCR_420:
 		Data |= 0x1 << XV_SDITX_MDL_CTRL_VID_FRMT_SHIFT;
 		break;
+
+	case XVIDC_CSF_YCBCR_444:
+		Data |= 0x1 << XV_SDITX_MDL_CTRL_VID_FRMT_SHIFT;
+		break;
+
+	case XVIDC_CSF_RGB:
+			Data |= 0x2 << XV_SDITX_MDL_CTRL_VID_FRMT_SHIFT;
+			break;
 
 	default:
 		Data |= 0x0 << XV_SDITX_MDL_CTRL_VID_FRMT_SHIFT;
@@ -1491,4 +1611,73 @@ static void StubCallback(void *CallbackRef)
 {
 	Xil_AssertVoid(CallbackRef != NULL);
 	Xil_AssertVoidAlways();
+}
+
+/*****************************************************************************/
+/**
+*
+* This function enables 10bit YUV444 color format support for SDI Tx
+*
+* @param	InstancePtr is a pointer to the XV_SdiTx core instance.
+*
+* @return	None.
+*
+******************************************************************************/
+void XV_SdiTx_SetYCbCr444_RGB_10bit(XV_SdiTx *InstancePtr)
+{
+	u32 Data;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	Data = XV_SdiTx_ReadReg(InstancePtr->Config.BaseAddress,
+				XV_SDITX_MDL_CTRL_OFFSET);
+
+	Data |= XV_SDITX_MDL_CTRL_VID_FRMTYUV444_MASK;
+
+	XV_SdiTx_WriteReg(InstancePtr->Config.BaseAddress,
+			  XV_SDITX_MDL_CTRL_OFFSET, Data);
+}
+/*****************************************************************************/
+/**
+*
+* This function disables 10bit YUV444 color format support for SDI Tx
+*
+* @param	InstancePtr is a pointer to the XV_SdiTx core instance.
+*
+* @return	None.
+*
+******************************************************************************/
+void XV_SdiTx_ClearYCbCr444_RGB_10bit(XV_SdiTx *InstancePtr)
+{
+	u32 Data;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	Data = XV_SdiTx_ReadReg(InstancePtr->Config.BaseAddress,
+				XV_SDITX_MDL_CTRL_OFFSET);
+
+	Data &= ~XV_SDITX_MDL_CTRL_VID_FRMTYUV444_MASK;
+
+	XV_SdiTx_WriteReg(InstancePtr->Config.BaseAddress,
+			  XV_SDITX_MDL_CTRL_OFFSET, Data);
+}
+/*****************************************************************************/
+/**
+*
+* This function sets the video bit depth of SDI-TX
+*
+* @param	InstancePtr is a pointer to the XV_SdiTx core instance.
+*
+* @return	None.
+*
+******************************************************************************/
+void XV_SdiTx_Set_Bpc(XV_SdiTx *InstancePtr, XVidC_ColorDepth bitdepth)
+{
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	InstancePtr->bitdepth = bitdepth;
 }

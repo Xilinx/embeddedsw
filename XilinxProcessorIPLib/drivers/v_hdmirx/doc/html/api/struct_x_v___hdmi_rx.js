@@ -38,6 +38,7 @@ var struct_x_v___hdmi_rx =
     [ "IsStreamUpCallbackSet", "struct_x_v___hdmi_rx.html#ab0aaa52f119c073b465ad6c3bd80931b", null ],
     [ "IsSyncLossCallbackSet", "struct_x_v___hdmi_rx.html#ae04a163494be12bcb9ecade3059a5808", null ],
     [ "IsTmdsClkRatioCallbackSet", "struct_x_v___hdmi_rx.html#aec543849385f6a23a19f7a985ad17868", null ],
+    [ "IsVicErrorCallbackSet", "struct_x_v___hdmi_rx.html#a4717cc196bd2c07550b7d1e74cb62b83", null ],
     [ "LinkErrorCallback", "struct_x_v___hdmi_rx.html#a3afe28fcccb6357b4617f0537630981c", null ],
     [ "LinkErrorRef", "struct_x_v___hdmi_rx.html#ab5db24e6c4914a908e485f83104372a3", null ],
     [ "LnkStaCallback", "struct_x_v___hdmi_rx.html#a9bc3519cb42839fc78d65e734578877b", null ],
@@ -54,5 +55,7 @@ var struct_x_v___hdmi_rx =
     [ "SyncLossCallback", "struct_x_v___hdmi_rx.html#abbac689c275d51dc275f3ddae8287956", null ],
     [ "SyncLossRef", "struct_x_v___hdmi_rx.html#a46b5b26b3d14ed42965881c7c93e0e20", null ],
     [ "TmdsClkRatioCallback", "struct_x_v___hdmi_rx.html#aeaad76669a3ca9272ae198ab9797a6b8", null ],
-    [ "TmdsClkRatioRef", "struct_x_v___hdmi_rx.html#ac7788776866f058296a22ddcd7b1bf16", null ]
+    [ "TmdsClkRatioRef", "struct_x_v___hdmi_rx.html#ac7788776866f058296a22ddcd7b1bf16", null ],
+    [ "VicErrorCallback", "struct_x_v___hdmi_rx.html#a53e7e28d47d0f6815e6ba4346b93e160", null ],
+    [ "VicErrorRef", "struct_x_v___hdmi_rx.html#a99a29fb065067226a6e288fb27ec66a2", null ]
 ];

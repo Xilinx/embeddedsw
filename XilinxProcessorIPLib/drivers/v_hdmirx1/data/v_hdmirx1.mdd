@@ -1,0 +1,15 @@
+###############################################################################
+# Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+###############################################################################
+
+OPTION psf_version = 2.1;
+
+BEGIN driver v_hdmirx1
+  OPTION supported_peripherals = (v_hdmi_rx1);
+  OPTION driver_state = ACTIVE;
+  OPTION DEPENDS = (video_common v_hdmi_common);
+  OPTION copyfiles = all;
+  OPTION VERSION = 1.1;
+  OPTION NAME = v_hdmirx1;
+END driver

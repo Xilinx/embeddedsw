@@ -102,5 +102,5 @@ var xcanps__hw_8h =
     [ "XCANPS_WIR_FW_MASK", "xcanps__hw_8h.html#ga6d56baf5cc7a7eb6c54f3f2255e2291a", null ],
     [ "XCANPS_WIR_OFFSET", "xcanps__hw_8h.html#gafc95b4cb9252a27181088ceb7ea55368", null ],
     [ "XCanPs_WriteReg", "xcanps__hw_8h.html#ga54552fe78115d81806e23a03646efb55", null ],
-    [ "XCanPs_ResetHw", "xcanps__hw_8h.html#ga6ad5768c2d499d8f745b436632d670dd", null ]
+    [ "XCanPs_ResetHw", "xcanps__hw_8h.html#ga15c5dee7163ddf071ad33c3d0f884469", null ]
 ];

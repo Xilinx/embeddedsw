@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"xv__hdmitx__hw_8h.html#a4ba5033c98cfedf815f51ea6c76cb0ec":[2,2,21],
 "xv__hdmitx__hw_8h.html#a5057e256f62c3af0dc0c4e08a6ebf5b3":[2,2,103],
 "xv__hdmitx__hw_8h.html#a50a497ec4e91768009efd7752e7ed9f6":[2,2,84],
 "xv__hdmitx__hw_8h.html#a5131cd2488ca4a797d71849293cc1109":[2,2,77],
@@ -86,7 +87,7 @@ var NAVTREEINDEX1 =
 "xv__hdmitx__hw_8h.html#afe3ba46026108ca4004a2c1f4e175cda":[2,2,89],
 "xv__hdmitx__intr_8c.html":[2,3],
 "xv__hdmitx__intr_8c.html#a25e91176ce93f223449dcb56c375ac51":[2,3,0],
-"xv__hdmitx__intr_8c.html#a4553a717d1de514d23a105d7544a591e":[2,3,1],
+"xv__hdmitx__intr_8c.html#ad5d2e73cdff6d7aeb5aaf3d2520b0df6":[2,3,1],
 "xv__hdmitx__selftest_8c.html":[2,4],
 "xv__hdmitx__selftest_8c.html#a0934e75073446925a9698485b52e2c00":[2,4,0],
 "xv__hdmitx__sinit_8c.html":[2,5],

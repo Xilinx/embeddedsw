@@ -10,6 +10,7 @@ var xqspipsu__generic__flash__interrupt__example_8c =
     [ "FlashWrite", "xqspipsu__generic__flash__interrupt__example_8c.html#a333c8e44e9af52811dee98f2cfcacf53", null ],
     [ "GetRealAddr", "xqspipsu__generic__flash__interrupt__example_8c.html#af45c38b76bbabbaf848a33cdc889ebfb", null ],
     [ "main", "xqspipsu__generic__flash__interrupt__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe", null ],
+    [ "MultiDieRead", "xqspipsu__generic__flash__interrupt__example_8c.html#aa6007218826af36e0df62b747de40de5", null ],
     [ "QspiPsuHandler", "xqspipsu__generic__flash__interrupt__example_8c.html#a48231ad0042a647ddbcf702df748d1a4", null ],
     [ "QspiPsuInterruptFlashExample", "xqspipsu__generic__flash__interrupt__example_8c.html#a1d5699f770ac9e1ceaf76398b568b9ee", null ]
 ];

@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 19 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -925,9 +903,13 @@ extern "C" {
 
 #ifdef ARMR5
 #define XFSBL_PS_DDR_INIT_START_ADDRESS	XFSBL_PS_DDR_START_ADDRESS_R5
+#if defined(XPAR_PSU_R5_DDR_1_S_AXI_BASEADDR)
+#define XFSBL_PS_HI_DDR_START_ADDRESS	XPAR_PSU_R5_DDR_1_S_AXI_BASEADDR
+#define XFSBL_PS_HI_DDR_END_ADDRESS XPAR_PSU_R5_DDR_1_S_AXI_HIGHADDR
+#endif
 #else
 #define XFSBL_PS_DDR_INIT_START_ADDRESS	XFSBL_PS_DDR_START_ADDRESS
-#if defined(XPAR_PSU_DDR_1_S_AXI_BASEADDR) && defined (ARMA53_64)
+#if defined(XPAR_PSU_DDR_1_S_AXI_BASEADDR)
 #define XFSBL_PS_HI_DDR_START_ADDRESS	XPAR_PSU_DDR_1_S_AXI_BASEADDR
 #define XFSBL_PS_HI_DDR_END_ADDRESS XPAR_PSU_DDR_1_S_AXI_HIGHADDR
 #endif
@@ -989,7 +971,7 @@ extern "C" {
 /* Reset Reason */
 #define XFSBL_SYSTEM_RESET		0U
 #define XFSBL_PS_ONLY_RESET		1U
-#define XFSBL_APU_ONLY_RESET	2U
+#define XFSBL_MASTER_ONLY_RESET	2U
 
 /* AMS PS Sysmon ANALOG_BUS value */
 #define PS_SYSMON_ANALOG_BUS_VAL 0X00003210U

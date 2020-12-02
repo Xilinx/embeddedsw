@@ -1,27 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
@@ -36,7 +15,16 @@
 *
 * Ver	Who	Date		Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00a kc   07/13/2018 Initial release
+* 1.00  kc   07/13/2018 Initial release
+* 1.01  kc   07/16/2019 Added PERF macro to print task times
+*       ma   08/01/2019 Added LPD init code
+* 1.02  ana  11/26/2019 Updated Uart Device ID
+*       kc   01/16/2020 Removed xilpm dependency in PLMI for UART
+*       ma   02/18/2020 Added support for logging terminal prints
+*       ma   03/02/2020 Implement PLMI own outbyte to support logging as well
+*       bsv  04/04/2020 Code clean up
+* 1.03  kc   07/28/2020 Moved LpdInitialized from xplmi_debug.c to xplmi.c
+*       bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -53,29 +41,35 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xil_printf.h"
-#include "xparameters.h"
 #include "xplmi_config.h"
+#include "xplmi_event_logging.h"
+#include "xplmi_proc.h"
+#include "xplmi.h"
 
 /************************** Constant Definitions *****************************/
 /**
  * Debug levels for PLM
  */
-#define DEBUG_PRINT_ALWAYS    (0x00000001U)    /* unconditional messages */
-#define DEBUG_GENERAL	      (0x00000002U)    /* general debug  messages */
-#define DEBUG_INFO	      (0x00000004U)    /* More debug information */
-#define DEBUG_DETAILED	      (0x00000008U)    /* More debug information */
+#define DEBUG_PRINT_ALWAYS	(0x00000001U)    /* unconditional messages */
+#define DEBUG_GENERAL		(0x00000002U)    /* general debug  messages */
+#define DEBUG_INFO		(0x00000004U)    /* More debug information */
+#define DEBUG_DETAILED		(0x00000008U)    /* More debug information */
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#if !defined (STDOUT_BASEADDRESS)
-#define XPlmiDbgCurrentTypes (0U)
-#elif defined (PLM_DEBUG_DETAILED)
+#ifdef PLM_PRINT_PERF
+#define DEBUG_PRINT_PERF	DEBUG_PRINT_ALWAYS
+#else
+#define DEBUG_PRINT_PERF	(0U)
+#endif
+
+#if defined (PLM_DEBUG_DETAILED)
 #define XPlmiDbgCurrentTypes ((DEBUG_DETAILED) | (DEBUG_INFO) | \
-			       (DEBUG_GENERAL) | (DEBUG_PRINT_ALWAYS))
+				(DEBUG_GENERAL) | (DEBUG_PRINT_ALWAYS))
 #elif defined (PLM_DEBUG_INFO)
 #define XPlmiDbgCurrentTypes ((DEBUG_INFO) | (DEBUG_GENERAL) | \
-			       (DEBUG_PRINT_ALWAYS))
+				(DEBUG_PRINT_ALWAYS))
 #elif defined (PLM_DEBUG)
 #define XPlmiDbgCurrentTypes ((DEBUG_GENERAL) | (DEBUG_PRINT_ALWAYS))
 #elif defined (PLM_PRINT)
@@ -84,28 +78,33 @@ extern "C" {
 #define XPlmiDbgCurrentTypes (0U)
 #endif
 
-/*Check if UART is present in design */
+/* Check if UART is present in design */
 #if defined (STDOUT_BASEADDRESS)
-/*Check if MDM uart or PS Uart */
-#if (STDOUT_BASEADDRESS == 0xF0310000)
+/* Check if MDM uart or PS Uart */
+#if (STDOUT_BASEADDRESS == 0xF0310000U)
 #define DEBUG_UART_MDM
-#elif ((STDOUT_BASEADDRESS == 0xFF000000) || (STDOUT_BASEADDRESS == 0xFF010000))
+#elif ((STDOUT_BASEADDRESS == 0xFF000000U) || \
+			(STDOUT_BASEADDRESS == 0xFF010000U))
 #define DEBUG_UART_PS
 #endif
 #endif
 
 /************************** Function Prototypes ******************************/
-/* Functions defined in xplmi_uart.c */
-int XPlmi_InitUart(void );
+/* Functions defined in xplmi_debug.c */
+int XPlmi_InitUart(void);
 
 /************************** Variable Definitions *****************************/
-extern u32 UartInitialized;
-
-
 #define XPlmi_Printf(DebugType, ...) \
-	if((((DebugType) & XPlmiDbgCurrentTypes) != 0x0U) && \
-	   (UartInitialized == TRUE)) \
-	{xil_printf (__VA_ARGS__); }
+	if(((DebugType) & (DebugLog.LogLevel)) != (u8)FALSE) { \
+		XPlmi_PrintPlmTimeStamp(); \
+		xil_printf (__VA_ARGS__); \
+	}
+
+/* Prints without TimeStamp */
+#define XPlmi_Printf_WoTimeStamp(DebugType, ...) \
+	if(((DebugType) & (DebugLog.LogLevel)) != (u8)FALSE) { \
+		xil_printf (__VA_ARGS__); \
+	}
 
 #ifdef __cplusplus
 }

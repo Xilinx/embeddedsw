@@ -24,7 +24,8 @@ var NAVTREE =
       [ "xwdttb_winwdt_example.c", "example.html#ex5", null ],
       [ "xwdttb_winwdt_intr_example.c", "example.html#ex6", null ],
       [ "xwdttb_gwdt_example.c", "example.html#ex7", null ],
-      [ "xwdttb_gwdt_selftest_example.c", "example.html#ex8", null ]
+      [ "xwdttb_gwdt_selftest_example.c", "example.html#ex8", null ],
+      [ "xwdttb_gwdt_intr_selftest_example.c", "example.html#ex9", null ]
     ] ]
   ] ]
 ];

@@ -1,0 +1,157 @@
+* {
+	box-sizing: border-box;
+	font-family: Arial
+}
+
+body {
+	margin: 0;
+}
+
+.header {
+	background-color: #000000;
+	padding: 15px 10px;
+	font-size: 30px;
+ }
+
+.header_img {
+	margin-left: 10px;
+	width: 140px;
+}
+
+.header_title {
+	color: Tomato;
+	margin-left: 40px;
+	font-size: 30px;
+}
+
+table {
+	margin: 10px;
+	table-layout: fixed;
+	width:90%;
+}
+
+.sysinfotbl td:nth-child(1) {
+	text-align: right;
+	width: 20%;
+}
+
+.sysinfotbl tr:nth-child(even) {
+	background-color: #fff;
+}
+
+.sysinfotbl tr:nth-child(odd) {
+	background-color: #eee;
+}
+
+.btn {
+	background-color: #f15d22;
+	border: none;
+	color: white;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	cursor: pointer;
+	border-radius: 10px;
+	margin: 4px 2px;
+	-webkit-transition-duration: 0.4s;
+	transition-duration: 0.4s;
+}
+
+.btn_act {
+	padding: 15px 32px;
+	font-size: 20px;
+}
+
+.btn_brws {
+	padding: 10px 18px;
+	font-size: 14px;
+}
+
+.btn:hover {
+	box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.btn:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+[type="file"] {
+	height: 0;
+	overflow: hidden;
+	width: 0;
+}
+
+[type="file"] + label {
+	font-weight: 600;
+	outline: none;
+	position: relative;
+	vertical-align: middle;
+}
+
+.file_info {
+	font-weight: 600;
+	width: 80px;
+	color: gray;
+	outline: none;
+	vertical-align: middle;
+	padding: 8px 2px 8px 2px;
+	vertical-align: middle;
+	border-style: hidden;
+}
+
+.file_name {
+	width: 400px;
+	border-radius: 5px;
+	border-style: solid;
+	border-color: gray;
+}
+
+.upld_status {
+	font-weight: 600;
+	font-size: 15px;
+	width: 450px;
+	color: gray;
+	outline: none;
+	vertical-align: middle;
+	padding: 8px 2px 8px 140px;
+	vertical-align: middle;
+	border-style: hidden;
+}
+
+.row_body:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.column_body {
+	float: left;
+	width: 50%;
+	padding: 0px 10px;
+}
+
+.column_body hr {
+	border: 1px solid red;
+}
+
+.column_body h2 {
+	margin: 10px 0px 0px 0px;
+}
+
+.column_opt {
+	float: left;
+	width: 33.33%;
+	padding: 0px 2px 0px 2px;
+
+}
+
+@media screen and (max-width:820px) {
+	.column_body {
+		width: 100%;
+	}
+	.column_opt {
+		width: 100%;
+	}
+}

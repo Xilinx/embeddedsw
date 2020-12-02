@@ -1,38 +1,16 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xqspips_dual_flash_lqspi_example.c
 *
 * This file contains a design example using the QSPI driver (XQspiPs) in
-* Linear QSPI mode, with two serial FLASH devices on seperate buses. With
-* two flash memories on seperate buses, even numbered bits in data words are
+* Linear QSPI mode, with two serial FLASH devices on separate buses. With
+* two flash memories on separate buses, even numbered bits in data words are
 * written to the lower memory and odd numbered bits are written to the upper
 * memory. This example writes to the two flash memories in  QSPI mode and reads
 * the data back from the flash memories, in Linear QSPI mode.
@@ -287,7 +265,7 @@ int LinearQspiFlashExample(XQspiPs *QspiInstancePtr, u16 QspiDeviceId)
 		return XST_FAILURE;
 	}
 
-	/* Enable two flash memories on seperate buses*/
+	/* Enable two flash memories on separate buses*/
 	XQspiPs_SetLqspiConfigReg(QspiInstancePtr, DUAL_QSPI_CONFIG_WRITE);
 
 	/*
@@ -323,7 +301,7 @@ int LinearQspiFlashExample(XQspiPs *QspiInstancePtr, u16 QspiDeviceId)
 	FlashErase(QspiInstancePtr, TEST_ADDRESS, MAX_DATA);
 
 	/*
-	 * Write data to the two flash memories on seperate buses, starting from
+	 * Write data to the two flash memories on separate buses, starting from
 	 * TEST_ADDRESS. This is same as writing to a single flash memory. The
 	 * LQSPI controller takes care of splitting the data words and writing
 	 * them to the two flash memories. The user needs to take care of the
@@ -334,7 +312,7 @@ int LinearQspiFlashExample(XQspiPs *QspiInstancePtr, u16 QspiDeviceId)
 			   TEST_ADDRESS) / 2, PAGE_SIZE, WRITE_CMD);
 	}
 
-	/* Read from the two flash memories on seperate buses in LQSPI mode.*/
+	/* Read from the two flash memories on separate buses in LQSPI mode.*/
 	XQspiPs_SetOptions(QspiInstancePtr,  XQSPIPS_LQSPI_MODE_OPTION |
 					     XQSPIPS_HOLD_B_DRIVE_OPTION);
 	XQspiPs_SetLqspiConfigReg(QspiInstancePtr, DUAL_QSPI_CONFIG_QUAD_READ);
@@ -380,7 +358,7 @@ int LinearQspiFlashExample(XQspiPs *QspiInstancePtr, u16 QspiDeviceId)
 	FlashErase(QspiInstancePtr, TEST_ADDRESS, MAX_DATA);
 
 	/*
-	 * Write data to the two flash memories on seperate buses, starting from
+	 * Write data to the two flash memories on separate buses, starting from
 	 * TEST_ADDRESS. This is same as writing to a single flash memory. The
 	 * LQSPI controller takes care of splitting the data words and writing
 	 * them to the two flash memories. The user needs to take care of the
@@ -391,7 +369,7 @@ int LinearQspiFlashExample(XQspiPs *QspiInstancePtr, u16 QspiDeviceId)
 			   TEST_ADDRESS) / 2, PAGE_SIZE, WRITE_CMD);
 	}
 
-	/* Read from the two flash memories on seperate buses in LQSPI mode.*/
+	/* Read from the two flash memories on separate buses in LQSPI mode.*/
 	XQspiPs_SetOptions(QspiInstancePtr,  XQSPIPS_LQSPI_MODE_OPTION |
 					     XQSPIPS_HOLD_B_DRIVE_OPTION);
 	XQspiPs_SetLqspiConfigReg(QspiInstancePtr, DUAL_QSPI_CONFIG_QUAD_READ);
@@ -444,7 +422,7 @@ void FlashWrite(XQspiPs *QspiPtr, u32 Address, u32 ByteCount, u8 Command)
 
 	/*
 	 * Send the write enable command to the FLASH so that it can be
-	 * written to, this needs to be sent as a seperate transfer before
+	 * written to, this needs to be sent as a separate transfer before
 	 * the write
 	 */
 	XQspiPs_PolledTransfer(QspiPtr, &WriteEnableCmd, NULL,
@@ -526,7 +504,7 @@ void FlashErase(XQspiPs *QspiPtr, u32 Address, u32 ByteCount)
 	if (ByteCount == (NUM_SECTORS * SECTOR_SIZE)) {
 		/*
 		 * Send the write enable command to the FLASH so that it can be
-		 * written to, this needs to be sent as a seperate transfer
+		 * written to, this needs to be sent as a separate transfer
 		 * before the erase
 		 */
 		XQspiPs_PolledTransfer(QspiPtr, &WriteEnableCmd, NULL,
@@ -576,7 +554,7 @@ void FlashErase(XQspiPs *QspiPtr, u32 Address, u32 ByteCount)
 	for (Sector = 0; Sector < ((ByteCount / SECTOR_SIZE) + 1); Sector++) {
 		/*
 		 * Send the write enable command to the SEEPOM so that it can be
-		 * written to, this needs to be sent as a seperate transfer
+		 * written to, this needs to be sent as a separate transfer
 		 * before the write
 		 */
 		XQspiPs_PolledTransfer(QspiPtr, &WriteEnableCmd, NULL,

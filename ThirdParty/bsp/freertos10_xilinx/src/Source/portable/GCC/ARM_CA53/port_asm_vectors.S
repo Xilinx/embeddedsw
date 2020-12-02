@@ -1,7 +1,7 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2019 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2019 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+* Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+* Copyright (C) 2014 - 2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy of
 * this software and associated documentation files (the "Software"), to deal in
@@ -48,6 +48,13 @@
 *
 ******************************************************************************/
 
+#include "bspconfig.h"
+
+#if defined (versal) && !defined(ARMR5)
+#define GICv3
+#else
+#define GICv2
+#endif
 
 
 .org 0
@@ -72,6 +79,32 @@ _vector_table:
 .set	VBAR, _vector_table
 
 .org VBAR
+
+#if HYP_GUEST
+
+        /* Valid Image header.  */
+        /* HW reset vector.  */
+        ldr     x16, =_boot
+        br      x16
+
+        /* text offset.  */
+        .dword  0
+        /* image size.  */
+        .dword  0
+        /* flags.  */
+        .dword  8
+        /* RES0  */
+        .dword  0
+        .dword  0
+        .dword  0
+
+        /* magic  */
+        .dword  0x644d5241
+        /* RES0  */
+        .dword  0
+        /* End of Image header.  */
+#endif
+
 	b	_boot
 
 .org (VBAR + 0x80)
@@ -137,8 +170,11 @@ _freertos_vector_table:
 	b	FreeRTOS_IRQ_Handler
 
 .org (FREERTOS_VBAR + 0x100)
+#if defined(GICv3)
+	b	FreeRTOS_IRQ_Handler
+#else
 	b	.
-
+#endif
 .org (FREERTOS_VBAR + 0x180)
 	b	.
 
@@ -149,7 +185,7 @@ _freertos_vector_table:
 	b	FreeRTOS_IRQ_Handler
 
 .org (FREERTOS_VBAR + 0x300)
-	b	.
+	b	FreeRTOS_IRQ_Handler
 
 .org (FREERTOS_VBAR + 0x380)
 	b	.

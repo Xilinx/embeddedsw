@@ -28,7 +28,7 @@
   <td style="padding-left: 0.5em;">
    <div id="projectname">usbpsu
    </div>
-   <div id="projectbrief">Xilinx SDK Drivers API Documentation</div>
+   <div id="projectbrief">Xilinx Vitis Drivers API Documentation</div>
   </td>
  </tr>
  </tbody>
@@ -68,15 +68,25 @@ $(document).ready(function(){initNavTree('struct_x_usb_psu___event___devt.html',
 <div id="doc-content">
 <div class="header">
   <div class="headertitle">
-<div class="title">XUsbPsu_Event_Devt Struct Reference<div class="ingroups"><a class="el" href="group__usbpsu__v1__3.html">Usbpsu_v1_3</a></div></div>  </div>
+<div class="title">XUsbPsu_Event_Devt Struct Reference<div class="ingroups"><a class="el" href="group__usbpsu__v1__8.html">Usbpsu_v1_8</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>struct XUsbPsu_event_devt - Device Events : indicates this is a non-endpoint event : indicates it's a device event.  
+<p>struct XUsbPsu_event_devt - Device Events  
  <a href="struct_x_usb_psu___event___devt.html#details">More...</a></p>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>struct XUsbPsu_event_devt - Device Events : indicates this is a non-endpoint event : indicates it's a device event. </p>
-<p>Should read as 0x00 : indicates the type of device event. 0 - DisconnEvt 1 - USBRst 2 - ConnectDone 3 - ULStChng 4 - WkUpEvt 5 - Reserved 6 - EOPF 7 - SOF 8 - Reserved 9 - ErrticErr 10 - CmdCmplt 11 - EvntOverflow 12 - VndrDevTstRcved : Reserved, not used : Information about this event : Reserved, not used </p>
+<div class="textblock"><p>struct XUsbPsu_event_devt - Device Events </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Is_DevEvt,:</td><td>indicates this is a non-endpoint event </td></tr>
+    <tr><td class="paramname">Device_Event,:</td><td>indicates it's a device event. Should read as 0x00 </td></tr>
+    <tr><td class="paramname">Type,:</td><td>indicates the type of device event. 0 - DisconnEvt 1 - USBRst 2 - ConnectDone 3 - ULStChng 4 - WkUpEvt 5 - Reserved 6 - EOPF 7 - SOF 8 - Reserved 9 - ErrticErr 10 - CmdCmplt 11 - EvntOverflow 12 - VndrDevTstRcved </td></tr>
+    <tr><td class="paramname">Reserved15_12,:</td><td>Reserved, not used </td></tr>
+    <tr><td class="paramname">Event_Info,:</td><td>Information about this event </td></tr>
+    <tr><td class="paramname">Reserved31_25,:</td><td>Reserved, not used </td></tr>
+  </table>
+  </dd>
+</dl>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

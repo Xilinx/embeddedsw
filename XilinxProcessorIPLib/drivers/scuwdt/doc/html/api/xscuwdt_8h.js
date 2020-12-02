@@ -13,5 +13,6 @@ var xscuwdt_8h =
     [ "XScuWdt_LookupConfig", "xscuwdt_8h.html#ga899e316b67b7eab6cec1f5b99df25e4d", null ],
     [ "XScuWdt_SelfTest", "xscuwdt_8h.html#ga2d6d32ff992704d9b78f93ab00ebdf78", null ],
     [ "XScuWdt_Start", "xscuwdt_8h.html#ga87a7a8230fc5fa80f64cb66210e596b8", null ],
-    [ "XScuWdt_Stop", "xscuwdt_8h.html#gae1493503cc6e52afa681f23329e9abef", null ]
+    [ "XScuWdt_Stop", "xscuwdt_8h.html#gae1493503cc6e52afa681f23329e9abef", null ],
+    [ "XScuWdt_ConfigTable", "xscuwdt_8h.html#ga5e6a2aae06d017ed240e5cbeffe190ff", null ]
 ];

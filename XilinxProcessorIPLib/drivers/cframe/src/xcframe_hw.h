@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xcframe_hw.h
-* @addtogroup cframe_v1_0
+* @addtogroup cframe_v1_2
 * @{
 *
 * This header file contains identifiers and register-level driver functions (or
@@ -40,7 +18,9 @@
 *
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
-* 1.0   kc  22/10/17 First release
+* 1.0   kc  22/10/17      First release
+* 1.1   bsv 29/05/2019    Macros declared for CFRM_ISR_OFFSET,
+*			  CFRM_IER_OFFSET and STATUS_OFFSET
 * </pre>
 *
 ******************************************************************************/
@@ -54,7 +34,6 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xcframe.h"
 #include "xil_io.h"
 
 /************************** Constant Definitions *****************************/
@@ -82,6 +61,10 @@ extern "C" {
 #define XCFRAME_TESTMODE_OFFSET			(0x120U)
 #define XCFRAME_BRDOPT_OFFSET			(0x130U)
 #define XCFRAME_VGG_TRIM_OFFSET			(0x140U)
+#define XCFRAME_CFRM_ISR_OFFSET			(0x150U)
+#define XCFRAME_CFRM_IER_OFFSET			(0x170U)
+#define XCFRAME_CFRM_IDR_OFFSET			(0x180U)
+#define XCFRAME_STATUS_OFFSET			(0x240U)
 /*@}*/
 
 

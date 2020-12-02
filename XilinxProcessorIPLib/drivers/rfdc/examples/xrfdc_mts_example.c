@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /****************************************************************************/
 /**
 *
@@ -35,6 +13,10 @@
 * This example calls the RFdc Multi-tile-sync (MTS) API with the
 * following configuration:
 * Tiles to Sync: DAC0, DAC1, ADC0, ADC1, ADC2, ADC3.
+*
+* MTS expects the PL clock, the AXI stream clock and the FS to all be
+* compatible for it to function correctly. More information surrounding this
+* can be found in PG269.
 * <pre>
 *
 * MODIFICATION HISTORY:
@@ -49,6 +31,8 @@
 *              02/21/19 Set frequency and sample rate to appropriate values
 *                       for MTS.
 *              02/21/19 Set metal log level to DEBUG.
+* 7.0   cog    07/25/19 Updated example for new metal register API.
+* 8.1   cog    08/28/20 Make the example toatally generic, updated information.
 *
 * </pre>
 *
@@ -61,6 +45,7 @@
 #endif
 #include "xrfdc.h"
 #include "xrfdc_mts.h"
+
 /************************** Constant Definitions ****************************/
 
 /*
@@ -68,12 +53,12 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-
-#ifndef __BAREMETAL__
-#define BUS_NAME        "platform"
-#define RFDC_DEVICE_ID	0U
-#else
+#ifdef __BAREMETAL__
 #define RFDC_DEVICE_ID 	XPAR_XRFDC_0_DEVICE_ID
+#define I2CBUS	1
+#else
+#define RFDC_DEVICE_ID 	0
+#define I2CBUS	12
 #endif
 
 /**************************** Type Definitions ******************************/
@@ -90,7 +75,6 @@ int RFdcMTS_Example(u16 RFdcDeviceId);
 /************************** Variable Definitions ****************************/
 
 static XRFdc RFdcInst;      /* RFdc driver instance */
-
 /****************************************************************************/
 /**
 *
@@ -150,10 +134,7 @@ int RFdcMTS_Example(u16 RFdcDeviceId)
 	XRFdc_Config *ConfigPtr;
 	XRFdc *RFdcInstPtr = &RFdcInst;
 #ifndef __BAREMETAL__
-	struct metal_device *device;
-	struct metal_io_region *io;
-	int ret = 0;
-	char DeviceName[NAME_MAX];
+	struct metal_device *deviceptr;
 #endif
 
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
@@ -168,58 +149,17 @@ int RFdcMTS_Example(u16 RFdcDeviceId)
 		return XRFDC_FAILURE;
 	}
 
+#ifndef __BAREMETAL__
+	status = XRFdc_RegisterMetal(RFdcInstPtr, RFdcDeviceId, &deviceptr);
+	if (status != XRFDC_SUCCESS) {
+		return XRFDC_FAILURE;
+	}
+#endif
+
     status = XRFdc_CfgInitialize(RFdcInstPtr, ConfigPtr);
     if (status != XRFDC_SUCCESS) {
         printf("RFdc Init Failure\n\r");
     }
-
-#ifdef XPS_BOARD_ZCU111
-    /*Setting Frequency & Sample Rate to Appropriate Values for MTS*/
-    printf("Configuring Clock Frequency and Sampling Rate\n");
-    status = XRFdc_DynamicPLLConfig(RFdcInstPtr, XRFDC_DAC_TILE, 0, XRFDC_EXTERNAL_CLK, 122.88,3932.16);
-	if (status != XRFDC_SUCCESS) {
-		printf("ERROR: Could not configure PLL For DAC 0");
-		return XRFDC_FAILURE;
-	}
-	status = XRFdc_DynamicPLLConfig(RFdcInstPtr, XRFDC_DAC_TILE, 1, XRFDC_EXTERNAL_CLK, 122.88,3932.16);
-	if (status != XRFDC_SUCCESS) {
-		printf("ERROR: Could not configure PLL For DAC 1");
-		return XRFDC_FAILURE;
-	}
-	status = XRFdc_DynamicPLLConfig(RFdcInstPtr, XRFDC_ADC_TILE, 0, XRFDC_EXTERNAL_CLK, 122.88,3932.16);
-	if (status != XRFDC_SUCCESS) {
-		printf("ERROR: Could not configure PLL For ADC 0");
-		return XRFDC_FAILURE;
-	}
-	status = XRFdc_DynamicPLLConfig(RFdcInstPtr, XRFDC_ADC_TILE, 2, XRFDC_EXTERNAL_CLK, 122.88,3932.16);
-	if (status != XRFDC_SUCCESS) {
-		printf("ERROR: Could not configure PLL For ADC 2");
-		return XRFDC_FAILURE;
-	}
-#endif
-#ifndef __BAREMETAL__
-	status = XRFdc_GetDeviceNameByDeviceId(DeviceName, RFDC_DEVICE_ID);
-	if (status < 0) {
-		printf("ERROR: Failed to find rfdc device with device id %d\n",
-				RFDC_DEVICE_ID);
-		return XRFDC_FAILURE;
-	}
-	ret = metal_device_open(BUS_NAME, DeviceName, &device);
-	if (ret) {
-		printf("ERROR: Failed to open device %s.\n", DeviceName);
-		return XRFDC_FAILURE;
-	}
-
-	/* Map RFDC device IO region */
-	io = metal_device_io_region(device, 0);
-	if (!io) {
-		printf("ERROR: Failed to map RFDC regio for %s.\n",
-			  device->name);
-		return XRFDC_FAILURE;
-	}
-	RFdcInstPtr->device = device;
-	RFdcInstPtr->io = io;
-#endif
 
     printf("=== RFdc Initialized - Running Multi-tile Sync ===\n");
 
@@ -249,7 +189,7 @@ int RFdcMTS_Example(u16 RFdcDeviceId)
 
     /* Initialize ADC MTS Settings */
     XRFdc_MultiConverter_Init (&ADC_Sync_Config, 0, 0);
-    ADC_Sync_Config.Tiles = 0x5;	/* Sync ADC tiles 0, 2 */
+    ADC_Sync_Config.Tiles = 0xF;	/* Sync ADC tiles 0, 1, 2, 3 */
 
     status_adc = XRFdc_MultiConverter_Sync(RFdcInstPtr, XRFDC_ADC_TILE,
 					&ADC_Sync_Config);

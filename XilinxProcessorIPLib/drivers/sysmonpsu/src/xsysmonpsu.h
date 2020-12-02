@@ -1,34 +1,12 @@
 /******************************************************************************
-*
-* Copyright (C) 2016 - 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 * @file xsysmonpsu.h
-* @addtogroup sysmonpsu_v2_5
+* @addtogroup sysmonpsu_v2_7
 *
 * The XSysMon driver supports the Xilinx System Monitor device.
 *
@@ -176,6 +154,8 @@
 *                       in sysmonpsu_header.h
 *       mn     03/08/18 Update Clock Divisor to the proper value
 * 2.4   mn     04/20/18 Remove looping check for PL accessible bit
+* 2.6   aad    11/18/19 Fixed typo in alarm macro comments
+* 2.7   aad    10/21/20 Modified code for MISRA-C:2012 Compliance.
 *
 * </pre>
 *
@@ -311,6 +291,16 @@ extern "C" {
 /*@}*/
 
 /**
+ * @name Power down modes.
+ * @{
+ */
+#define XSM_PWR_MODE_NORMAL	 	0U /**< Normal operation */
+#define XSM_PWR_MODE_PARTIAL_SLEEP	1U /**< Partial sleep mode */
+#define XSM_PWR_MODE_SLEEP		3U /**< Full sleep mode */
+
+/*@}*/
+
+/**
  * @name Alarm Threshold(Limit) Register (ATR) indexes.
  * @{
  */
@@ -349,16 +339,16 @@ extern "C" {
  * @name Alarm masks for channels in Configuration registers 1
  * @{
  */
-#define XSM_CFR_ALM_SUPPLY13_MASK	0x200000 /**< Alarm 6 - SUPPLY6 */
-#define XSM_CFR_ALM_SUPPLY12_MASK	0x100000 /**< Alarm 6 - SUPPLY6 */
-#define XSM_CFR_ALM_SUPPLY11_MASK	0x080000 /**< Alarm 6 - SUPPLY6 */
-#define XSM_CFR_ALM_SUPPLY10_MASK	0x040000 /**< Alarm 6 - SUPPLY6 */
-#define XSM_CFR_ALM_SUPPLY9_MASK	0x020000 /**< Alarm 6 - SUPPLY6 */
-#define XSM_CFR_ALM_SUPPLY8_MASK	0x010000 /**< Alarm 6 - SUPPLY6 */
+#define XSM_CFR_ALM_SUPPLY13_MASK	0x200000 /**< Alarm 13 - FPD Temperature */
+#define XSM_CFR_ALM_SUPPLY12_MASK	0x100000 /**< Alarm 12 - VCCAMS/VCCADC */
+#define XSM_CFR_ALM_SUPPLY11_MASK	0x080000 /**< Alarm 11 - SUPPLY10 */
+#define XSM_CFR_ALM_SUPPLY10_MASK	0x040000 /**< Alarm 10 - SUPPLY9 */
+#define XSM_CFR_ALM_SUPPLY9_MASK	0x020000 /**< Alarm 9 - SUPPLY8 */
+#define XSM_CFR_ALM_SUPPLY8_MASK	0x010000 /**< Alarm 8 - SUPPLY7 */
 #define XSM_CFR_ALM_SUPPLY6_MASK	0x0800 /**< Alarm 6 - SUPPLY6 */
 #define XSM_CFR_ALM_SUPPLY5_MASK	0x0400 /**< Alarm 5 - SUPPLY5 */
 #define XSM_CFR_ALM_SUPPLY4_MASK	0x0200 /**< Alarm 4 - SUPPLY4 */
-#define XSM_CFR_ALM_SUPPLY3_MASK 	0x0100 /**< Alarm 3 - SUPPLY3 */
+#define XSM_CFR_ALM_SUPPLY3_MASK	0x0100 /**< Alarm 3 - SUPPLY3 */
 #define XSM_CFR_ALM_SUPPLY2_MASK	0x0008 /**< Alarm 2 - SUPPLY2 */
 #define XSM_CFR_ALM_SUPPLY1_MASK	0x0004 /**< Alarm 1 - SUPPLY1 */
 #define XSM_CFR_ALM_TEMP_MASK		0x0002 /**< Alarm 0 - Temperature */
@@ -387,7 +377,7 @@ typedef void (*XSysMonPsu_Handler) (void *CallBackRef);
  */
 typedef struct {
 	u16 DeviceId;		/**< Unique ID of device */
-	u32 BaseAddress;	/**< Register base address */
+	UINTPTR BaseAddress;	/**< Register base address */
 	u16 InputClockMHz;	/**< Input clock frequency */
 } XSysMonPsu_Config;
 
@@ -590,20 +580,21 @@ typedef struct {
 * @return 	Returns the effective baseaddress of the sysmon instance.
 *
 *****************************************************************************/
-static inline u32 XSysMonPsu_GetEffBaseAddress(u32 BaseAddress, u32 SysmonBlk)
-	{
-		u32 EffBaseAddr;
+static inline UINTPTR XSysMonPsu_GetEffBaseAddress(UINTPTR BaseAddress,
+					       u32 SysmonBlk)
+{
+	UINTPTR EffBaseAddr;
 
-		if (SysmonBlk == XSYSMON_PS) {
-			EffBaseAddr = BaseAddress + XPS_BA_OFFSET;
-		} else if(SysmonBlk == XSYSMON_PL) {
-			EffBaseAddr = BaseAddress + XPL_BA_OFFSET;
-		} else {
-			EffBaseAddr = BaseAddress;
-		}
-
-		return EffBaseAddr;
+	if (SysmonBlk == XSYSMON_PS) {
+		EffBaseAddr = BaseAddress + XPS_BA_OFFSET;
+	} else if(SysmonBlk == XSYSMON_PL) {
+		EffBaseAddr = BaseAddress + XPL_BA_OFFSET;
+	} else {
+		EffBaseAddr = BaseAddress;
 	}
+
+	return EffBaseAddr;
+}
 
 /************************** Function Prototypes ******************************/
 
@@ -655,6 +646,8 @@ u16 XSysMonPsu_GetAlarmThreshold(XSysMonPsu *InstancePtr, u8 AlarmThrReg,
 		u32 SysmonBlk);
 void XSysMonPsu_SetPSAutoConversion(XSysMonPsu *InstancePtr);
 u32 XSysMonPsu_GetMonitorStatus(XSysMonPsu *InstancePtr);
+void XSysMonPsu_InitInstance(XSysMonPsu *InstancePtr,
+	XSysMonPsu_Config *ConfigPtr);
 
 /* interrupt functions in xsysmonpsu_intr.c */
 void XSysMonPsu_IntrEnable(XSysMonPsu *InstancePtr, u64 Mask);

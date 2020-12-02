@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /****************************************************************************/
 /**
 *
 * @file xresetps.c
-* @addtogroup xresetps_v1_2
+* @addtogroup xresetps_v1_4
 * @{
 *
 * Contains the implementation of interface functions of the XResetPs driver.
@@ -684,7 +662,7 @@ static XStatus XResetPs_PulseResetFpd(void)
 	XResetPs_WriteReg(XRESETPS_LPD_SCR_AXIISO_REQ_CTRL, RegValue);
 
 	/*
-	 * Here we need to check for AIB ack, since nothing is done incase
+	 * Here we need to check for AIB ack, since nothing is done in case
 	 * ack is not received, we are just waiting for specified timeout
 	 * and continuing
 	 */
@@ -928,7 +906,7 @@ XStatus XResetPs_ResetPulse(XResetPs *InstancePtr, const XResetPs_RstId ResetID)
 	RegValue |= RegBitmask;
 	XResetPs_WriteReg(RegAddr, RegValue);
 
-	/* Wait for assert propogation */
+	/* Wait for assert propagation */
 	if (ResetMap[ResetID].PulseType != XRESETPS_PT_NO_DLY_NO_PSCHK) {
 		TimeOut = XRESETPS_PULSE_PROP_DELAY;
 		while (TimeOut > 0U) {
@@ -941,7 +919,7 @@ XStatus XResetPs_ResetPulse(XResetPs *InstancePtr, const XResetPs_RstId ResetID)
 	RegValue &= (~RegBitmask);
 	XResetPs_WriteReg(RegAddr, RegValue);
 
-	/* Wait for release propogation */
+	/* Wait for release propagation */
 	if (ResetMap[ResetID].PulseType != XRESETPS_PT_NO_DLY_NO_PSCHK) {
 		TimeOut = XRESETPS_PULSE_PROP_DELAY;
 		while (TimeOut > 0U) {

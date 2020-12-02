@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xcanps_hw.c
-* @addtogroup canps_v3_2
+* @addtogroup canps_v3_5
 * @{
 *
 * This file contains the implementation of the canps interface reset sequence
@@ -41,6 +19,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.02a adk  08/08/13 First release
 * 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.5	sne  07/01/20 Fixed MISRAC warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -81,7 +60,7 @@
 * @note		None.
 *
 ******************************************************************************/
-void XCanPs_ResetHw(u32 BaseAddr)
+void XCanPs_ResetHw(UINTPTR BaseAddr)
 {
 	XCanPs_WriteReg(BaseAddr, XCANPS_SRR_OFFSET, \
 			   XCANPS_SRR_SRST_MASK);

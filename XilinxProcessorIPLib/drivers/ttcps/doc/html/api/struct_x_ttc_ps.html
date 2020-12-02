@@ -28,7 +28,7 @@
   <td style="padding-left: 0.5em;">
    <div id="projectname">ttcps
    </div>
-   <div id="projectbrief">Xilinx SDK Drivers API Documentation</div>
+   <div id="projectbrief">Xilinx Vitis Drivers API Documentation</div>
   </td>
  </tr>
  </tbody>
@@ -70,7 +70,7 @@ $(document).ready(function(){initNavTree('struct_x_ttc_ps.html','');});
   <div class="summary">
 <a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
-<div class="title">XTtcPs Struct Reference<div class="ingroups"><a class="el" href="group__ttcps__v3__8.html">Ttcps_v3_8</a></div></div>  </div>
+<div class="title">XTtcPs Struct Reference<div class="ingroups"><a class="el" href="group__ttcps__v3__12.html">Ttcps_v3_12</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -85,6 +85,9 @@ Data Fields</h2></td></tr>
 <tr class="memitem:aac0267992556670f31d2fa1cb7d1a889"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_ttc_ps.html#aac0267992556670f31d2fa1cb7d1a889">IsReady</a></td></tr>
 <tr class="memdesc:aac0267992556670f31d2fa1cb7d1a889"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device is initialized and ready.  <a href="#aac0267992556670f31d2fa1cb7d1a889"></a><br/></td></tr>
 <tr class="separator:aac0267992556670f31d2fa1cb7d1a889"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87448079dd0451d53f14533897862e8d"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_ttc_ps.html#a87448079dd0451d53f14533897862e8d">StatusRef</a></td></tr>
+<tr class="memdesc:a87448079dd0451d53f14533897862e8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback reference for status handler.  <a href="#a87448079dd0451d53f14533897862e8d"></a><br/></td></tr>
+<tr class="separator:a87448079dd0451d53f14533897862e8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="struct_x_ttc_ps.html" title="The XTtcPs driver instance data.">XTtcPs</a> driver instance data. </p>
@@ -102,7 +105,7 @@ Data Fields</h2></td></tr>
 
 <p>Configuration structure. </p>
 
-<p>Referenced by <a class="el" href="group__ttcps__v3__8.html#ga40d86f052a231f2cd35d7e5136163039">XTtcPs_CalcIntervalFromFreq()</a>, <a class="el" href="group__ttcps__v3__8.html#gae49e15051a6bc16bc2a5369832f1a584">XTtcPs_CfgInitialize()</a>, <a class="el" href="group__ttcps__v3__8.html#ga1e494683b5f905fdd8184192680b8a3c">XTtcPs_GetMatchValue()</a>, <a class="el" href="group__ttcps__v3__7.html#gac33ce44553e83555369c400b964234e7">XTtcPs_GetOptions()</a>, <a class="el" href="group__ttcps__v3__8.html#ga9d528bcd850e49f08fc585cb867ca11c">XTtcPs_GetPrescaler()</a>, <a class="el" href="group__ttcps__v3__7.html#ga38ff3b491801add8d2b5faa22e2e0a08">XTtcPs_SelfTest()</a>, <a class="el" href="group__ttcps__v3__8.html#gaf400713723ba81109ac83fc1800681b2">XTtcPs_SetMatchValue()</a>, <a class="el" href="group__ttcps__v3__7.html#ga7053f4ac8c20f1d1fd335a755960aea9">XTtcPs_SetOptions()</a>, and <a class="el" href="group__ttcps__v3__8.html#gac08478cc050c41cc435a3f2b49b4c874">XTtcPs_SetPrescaler()</a>.</p>
+<p>Referenced by <a class="el" href="group__ttcps__v3__12.html#ga40d86f052a231f2cd35d7e5136163039">XTtcPs_CalcIntervalFromFreq()</a>, <a class="el" href="group__ttcps__v3__12.html#gae49e15051a6bc16bc2a5369832f1a584">XTtcPs_CfgInitialize()</a>, <a class="el" href="group__ttcps__v3__12.html#ga1e494683b5f905fdd8184192680b8a3c">XTtcPs_GetMatchValue()</a>, <a class="el" href="group__ttcps__v3__12.html#gac33ce44553e83555369c400b964234e7">XTtcPs_GetOptions()</a>, <a class="el" href="group__ttcps__v3__12.html#ga9d528bcd850e49f08fc585cb867ca11c">XTtcPs_GetPrescaler()</a>, <a class="el" href="group__ttcps__v3__12.html#ga38ff3b491801add8d2b5faa22e2e0a08">XTtcPs_SelfTest()</a>, <a class="el" href="group__ttcps__v3__12.html#gaf400713723ba81109ac83fc1800681b2">XTtcPs_SetMatchValue()</a>, <a class="el" href="group__ttcps__v3__12.html#ga7053f4ac8c20f1d1fd335a755960aea9">XTtcPs_SetOptions()</a>, and <a class="el" href="group__ttcps__v3__12.html#gac08478cc050c41cc435a3f2b49b4c874">XTtcPs_SetPrescaler()</a>.</p>
 
 </div>
 </div>
@@ -118,7 +121,23 @@ Data Fields</h2></td></tr>
 
 <p>Device is initialized and ready. </p>
 
-<p>Referenced by <a class="el" href="group__ttcps__v3__8.html#gae49e15051a6bc16bc2a5369832f1a584">XTtcPs_CfgInitialize()</a>, <a class="el" href="group__ttcps__v3__8.html#ga1e494683b5f905fdd8184192680b8a3c">XTtcPs_GetMatchValue()</a>, <a class="el" href="group__ttcps__v3__7.html#gac33ce44553e83555369c400b964234e7">XTtcPs_GetOptions()</a>, <a class="el" href="group__ttcps__v3__8.html#ga9d528bcd850e49f08fc585cb867ca11c">XTtcPs_GetPrescaler()</a>, <a class="el" href="group__ttcps__v3__7.html#ga38ff3b491801add8d2b5faa22e2e0a08">XTtcPs_SelfTest()</a>, <a class="el" href="group__ttcps__v3__8.html#gaf400713723ba81109ac83fc1800681b2">XTtcPs_SetMatchValue()</a>, <a class="el" href="group__ttcps__v3__7.html#ga7053f4ac8c20f1d1fd335a755960aea9">XTtcPs_SetOptions()</a>, and <a class="el" href="group__ttcps__v3__8.html#gac08478cc050c41cc435a3f2b49b4c874">XTtcPs_SetPrescaler()</a>.</p>
+<p>Referenced by <a class="el" href="group__ttcps__v3__12.html#gae49e15051a6bc16bc2a5369832f1a584">XTtcPs_CfgInitialize()</a>, <a class="el" href="group__ttcps__v3__12.html#ga1e494683b5f905fdd8184192680b8a3c">XTtcPs_GetMatchValue()</a>, <a class="el" href="group__ttcps__v3__12.html#gac33ce44553e83555369c400b964234e7">XTtcPs_GetOptions()</a>, <a class="el" href="group__ttcps__v3__12.html#ga9d528bcd850e49f08fc585cb867ca11c">XTtcPs_GetPrescaler()</a>, <a class="el" href="group__ttcps__v3__12.html#ga38ff3b491801add8d2b5faa22e2e0a08">XTtcPs_SelfTest()</a>, <a class="el" href="group__ttcps__v3__12.html#gaf400713723ba81109ac83fc1800681b2">XTtcPs_SetMatchValue()</a>, <a class="el" href="group__ttcps__v3__12.html#ga7053f4ac8c20f1d1fd335a755960aea9">XTtcPs_SetOptions()</a>, <a class="el" href="group__ttcps__v3__12.html#gac08478cc050c41cc435a3f2b49b4c874">XTtcPs_SetPrescaler()</a>, and <a class="el" href="group__ttcps__v3__12.html#ga8fb59113e183b65dabff6e2c34bbf7e2">XTtcPs_SetStatusHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a87448079dd0451d53f14533897862e8d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* XTtcPs::StatusRef</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback reference for status handler. </p>
+
+<p>Referenced by <a class="el" href="group__ttcps__v3__12.html#ga30d6a84844676b794d8cf1a43a727bac">XTtcPs_InterruptHandler()</a>, and <a class="el" href="group__ttcps__v3__12.html#ga8fb59113e183b65dabff6e2c34bbf7e2">XTtcPs_SetStatusHandler()</a>.</p>
 
 </div>
 </div>

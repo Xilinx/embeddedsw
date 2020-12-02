@@ -28,7 +28,7 @@
   <td style="padding-left: 0.5em;">
    <div id="projectname">spi
    </div>
-   <div id="projectbrief">Xilinx SDK Drivers API Documentation</div>
+   <div id="projectbrief">Xilinx Vitis Drivers API Documentation</div>
   </td>
  </tr>
  </tbody>
@@ -71,8 +71,8 @@ $(document).ready(function(){initNavTree('xspi__low__level__example_8c.html','')
 <div class="textblock"><p>This file contains a design example using the low-level driver of the SPI driver (<a class="el" href="struct_x_spi.html" title="The XSpi driver instance data.">XSpi</a>). </p>
 <p>These macros are found in <a class="el" href="xspi__l_8h.html">xspi_l.h</a>. A simple loopback test is done within an SPI device in polled mode. This example works only with 8-bit wide data transfers.</p>
 <dl class="section note"><dt>Note</dt><dd>This example works only with 8-bit wide data transfers in standard SPI mode. This example will not work if the axi_qspi device is confiured in dual/quad modes.</dd></dl>
-<p>To make this example work for 16 bit transfers change u8 Buffer[BUFFER_SIZE] to u16 Buffer[BUFFER_SIZE]. The SPI Core should aslo be configured for 16 bit access during the build time.</p>
-<p>To make this example work for 32 bit transfers change u8 Buffer[BUFFER_SIZE] to u32 Buffer[BUFFER_SIZE]. The SPI Core should aslo be configured for 32 bit access during the build time.</p>
+<p>To make this example work for 16 bit transfers change u8 Buffer[BUFFER_SIZE] to u16 Buffer[BUFFER_SIZE]. The SPI Core should also be configured for 16 bit access during the build time.</p>
+<p>To make this example work for 32 bit transfers change u8 Buffer[BUFFER_SIZE] to u32 Buffer[BUFFER_SIZE]. The SPI Core should also be configured for 32 bit access during the build time.</p>
 <pre>
   MODIFICATION HISTORY:</pre><pre>  Ver   Who  Date     Changes
 </p>
@@ -149,7 +149,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE if unsuccessful</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None </dd></dl>
 
-<p>References <a class="el" href="group__spi__v4__4.html#ga1c10904273bbeb8fb8fc502c5cc9cdf6">XSP_CR_ENABLE_MASK</a>, <a class="el" href="group__spi__v4__4.html#ga6a060df48208ca7e56572762233ceadb">XSP_CR_LOOPBACK_MASK</a>, <a class="el" href="group__spi__v4__4.html#ga25aabcaa1db090de7cf4aaf3cb05ea6b">XSP_CR_MASTER_MODE_MASK</a>, <a class="el" href="group__spi__v4__4.html#ga3a63aa98328d40e3221901143e128da1">XSP_CR_OFFSET</a>, <a class="el" href="group__spi__v4__4.html#ga2d045067441152dbf5729d4dce64032b">XSP_CR_TRANS_INHIBIT_MASK</a>, <a class="el" href="group__spi__v4__4.html#ga078846fea7538049312959d15b44a9dd">XSP_DRR_OFFSET</a>, <a class="el" href="group__spi__v4__4.html#ga02929309d91a658ac28746aee48d0c04">XSP_DTR_OFFSET</a>, <a class="el" href="group__spi__v4__4.html#gae4915bf726554a2abf5922129f88542b">XSP_SR_OFFSET</a>, <a class="el" href="group__spi__v4__4.html#ga25dfccf25bae24caa237ec3b75825438">XSP_SR_RX_EMPTY_MASK</a>, <a class="el" href="group__spi__v4__4.html#gaaa5946629075b285ce0c4b90a87f4fec">XSP_SR_TX_EMPTY_MASK</a>, <a class="el" href="group__spi__v4__4.html#ga2666d211089b037853ee6d1f80130ae7">XSP_SR_TX_FULL_MASK</a>, <a class="el" href="group__spi__v4__4.html#ga5e55891344ab473841b6eefc2bda35a2">XSpi_ReadReg</a>, and <a class="el" href="group__spi__v4__4.html#ga32e741800118678aa060ef2a13661e31">XSpi_WriteReg</a>.</p>
+<p>References <a class="el" href="group__spi__v4__7.html#ga1c10904273bbeb8fb8fc502c5cc9cdf6">XSP_CR_ENABLE_MASK</a>, <a class="el" href="group__spi__v4__7.html#ga6a060df48208ca7e56572762233ceadb">XSP_CR_LOOPBACK_MASK</a>, <a class="el" href="group__spi__v4__7.html#ga25aabcaa1db090de7cf4aaf3cb05ea6b">XSP_CR_MASTER_MODE_MASK</a>, <a class="el" href="group__spi__v4__7.html#ga3a63aa98328d40e3221901143e128da1">XSP_CR_OFFSET</a>, <a class="el" href="group__spi__v4__7.html#ga2d045067441152dbf5729d4dce64032b">XSP_CR_TRANS_INHIBIT_MASK</a>, <a class="el" href="group__spi__v4__7.html#ga078846fea7538049312959d15b44a9dd">XSP_DRR_OFFSET</a>, <a class="el" href="group__spi__v4__7.html#ga02929309d91a658ac28746aee48d0c04">XSP_DTR_OFFSET</a>, <a class="el" href="group__spi__v4__7.html#gae4915bf726554a2abf5922129f88542b">XSP_SR_OFFSET</a>, <a class="el" href="group__spi__v4__7.html#ga25dfccf25bae24caa237ec3b75825438">XSP_SR_RX_EMPTY_MASK</a>, <a class="el" href="group__spi__v4__7.html#gaaa5946629075b285ce0c4b90a87f4fec">XSP_SR_TX_EMPTY_MASK</a>, <a class="el" href="group__spi__v4__7.html#ga2666d211089b037853ee6d1f80130ae7">XSP_SR_TX_FULL_MASK</a>, <a class="el" href="group__spi__v4__7.html#ga5e55891344ab473841b6eefc2bda35a2">XSpi_ReadReg</a>, and <a class="el" href="group__spi__v4__7.html#ga32e741800118678aa060ef2a13661e31">XSpi_WriteReg</a>.</p>
 
 <p>Referenced by <a class="el" href="xspi__low__level__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 

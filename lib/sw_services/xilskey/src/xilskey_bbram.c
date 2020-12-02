@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2013 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -49,13 +27,16 @@
 *       arc     04/04/19 Fixed CPP warnings.
 *       psl     04/15/19 Moved XilSKey_Bbram_JTAGServerInit function from
 *                        examples to library.
+* 6.8   psl     05/21/19 Added check for SystemInitDone, to initialize jtag
+*                        server only once to solve stack corruption issue.
+*       vns     08/29/19 Initialized Status variables
+* 6.9   vns     03/18/20 Fixed Armcc compilation errors
 ****************************************************************************/
 /***************************** Include Files *********************************/
 #include "xparameters.h"
 #include "xil_types.h"
 #include "xilskey_utils.h"
 #include "xilskey_bbram.h"
-#include "xilskey_jscmd.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -92,6 +73,15 @@
 #define XSK_BBRAM_P4_MASK	0X0007FFF
 
 /**************************** Type Definitions ******************************/
+typedef struct {
+    /* Number of SLRs to iterate through */
+    u32 NumSlr;
+    /* Current SLR to iterate through */
+    u32 CurSlr;
+    /* Device IR length */
+    u32 IrLen;
+}XilSKey_JtagSlr;
+
 /***************** Macros (Inline Functions) Definitions ********************/
 /************************** Variable Definitions ****************************/
 /************************** Function Prototypes *****************************/
@@ -120,6 +110,7 @@ extern int Bbram_VerifyKey(XilSKey_Bbram *InstancePtr);
  */
 extern void Bbram_DeInit(void);
 
+#ifdef XSK_MICROBLAZE_PLATFORM
 /* BBRAM Algorithm - Initialization */
 extern int Bbram_Init_Ultra(void);
 
@@ -131,30 +122,47 @@ extern int Bbram_VerifyKey_Ultra(u32 *Crc);
 
 /* De-initialization */
 extern void Bbram_DeInit_Ultra(void);
+#endif
+
 /* Calculates CRC of a Row */
 u32 XilSKey_RowCrcCalculation(u32 PrevCRC, u32 Data, u32 Addr);
 
 /* Programming Zynq Bbram */
-static inline int XilSKey_Bbram_Program_Zynq(XilSKey_Bbram *InstancePtr);
+static INLINE int XilSKey_Bbram_Program_Zynq(XilSKey_Bbram *InstancePtr);
 
+#ifdef XSK_MICROBLAZE_PLATFORM
 /* Programming Ultrascale Bbram */
-static inline int XilSKey_Bbram_Program_Ultra(XilSKey_Bbram *InstancePtr);
+static INLINE int XilSKey_Bbram_Program_Ultra(XilSKey_Bbram *InstancePtr);
 
 /* CRC calculation of AES key */
-static inline u32 XilSKey_Bbram_CrcCalc_Ultra(u32 *AesKey, u32 CtrlWord);
+static INLINE u32 XilSKey_Bbram_CrcCalc_Ultra(u32 *AesKey, u32 CtrlWord);
 
 /* Framing control word of Ultrascale */
-static inline void XilSKey_Bbram_Framing_Ctrl_Word_Ultra(
+static INLINE void XilSKey_Bbram_Framing_Ctrl_Word_Ultra(
 					XilSKey_Bbram *InstancePtr);
 
 /* To frame control word's ECC */
-static inline u32 XilSKey_Calc_Ecc_Bbram_ultra(u32 ControlWord);
-static inline u8 XilSKey_Calc_Row_Ecc_Bbram_Ultra(u8 *Value, u8 *Mask);
+static INLINE u32 XilSKey_Calc_Ecc_Bbram_ultra(u32 ControlWord);
+static INLINE u8 XilSKey_Calc_Row_Ecc_Bbram_Ultra(u8 *Value, u8 *Mask);
+#endif
 
 /*JTAG Tap Instance*/
 extern XilSKey_JtagSlr XilSKeyJtag;
 /***************************************************************************/
 
+/****************************************************************************/
+/**
+*
+* This function initializes JTAG server.
+*
+* @param  InstancePtr	Pointer to XilSKey_Bbram
+*
+* @return
+*
+*	- XST_FAILURE - In case of failure
+*	- XST_SUCCESS - In case of Success
+*
+*****************************************************************************/
 int XilSKey_Bbram_JTAGServerInit(XilSKey_Bbram *InstancePtr)
 {
 	/* Get timer values */
@@ -169,6 +177,7 @@ int XilSKey_Bbram_JTAGServerInit(XilSKey_Bbram *InstancePtr)
 	if(JtagServerInitBbram(InstancePtr) != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
+	InstancePtr->SystemInitDone = 1;
 
 	return XST_SUCCESS;
 
@@ -194,15 +203,17 @@ int XilSKey_Bbram_JTAGServerInit(XilSKey_Bbram *InstancePtr)
 *****************************************************************************/
 int XilSKey_Bbram_Program(XilSKey_Bbram *InstancePtr)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	if(NULL == InstancePtr)	{
 		return XST_FAILURE;
 	}
 
-	if(XilSKey_Bbram_JTAGServerInit(InstancePtr) != XST_SUCCESS) {
-		xil_printf("JTAG Sever Init failed \r\n");
-		return XST_FAILURE;
+	if(!(InstancePtr->SystemInitDone))
+	{
+		if(XilSKey_Bbram_JTAGServerInit(InstancePtr) != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
 	}
 
 	if (InstancePtr->FpgaFlag == XSK_FPGA_SERIES_ZYNQ) {
@@ -211,14 +222,14 @@ int XilSKey_Bbram_Program(XilSKey_Bbram *InstancePtr)
 			return XST_FAILURE;
 		}
 	}
+#ifdef XSK_MICROBLAZE_PLATFORM
 	else {
 		Status = XilSKey_Bbram_Program_Ultra(InstancePtr);
 		if(Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
 	}
-
-
+#endif
 
 	return XST_SUCCESS;
 }
@@ -237,11 +248,11 @@ int XilSKey_Bbram_Program(XilSKey_Bbram *InstancePtr)
 * @note		None.
 *
 *****************************************************************************/
-static inline int XilSKey_Bbram_Program_Zynq(XilSKey_Bbram *InstancePtr)
+static INLINE int XilSKey_Bbram_Program_Zynq(XilSKey_Bbram *InstancePtr)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
-	InstancePtr->CurSlr = 0;
+	XilSKeyJtag.CurSlr = 0;
 	/*
 	 * BBRAM Algorithm initialization
 	 */
@@ -274,6 +285,7 @@ static inline int XilSKey_Bbram_Program_Zynq(XilSKey_Bbram *InstancePtr)
 
 }
 
+#ifdef XSK_MICROBLAZE_PLATFORM
 /*****************************************************************************/
 /**
 *
@@ -290,11 +302,12 @@ static inline int XilSKey_Bbram_Program_Zynq(XilSKey_Bbram *InstancePtr)
 * @note 	None.
 *
 ******************************************************************************/
-static inline int XilSKey_Bbram_Program_Ultra(XilSKey_Bbram *InstancePtr)
+static INLINE int XilSKey_Bbram_Program_Ultra(XilSKey_Bbram *InstancePtr)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
-	XilSKeyJtag.CurSlr = InstancePtr->CurSlr;
+	XilSKey_GetSlrNum(InstancePtr->MasterSlr,
+		 InstancePtr->SlrConfigOrderIndex, &(XilSKeyJtag.CurSlr));
 
 	/* Formation of control word */
 	XilSKey_Bbram_Framing_Ctrl_Word_Ultra(InstancePtr);
@@ -351,7 +364,7 @@ static inline int XilSKey_Bbram_Program_Ultra(XilSKey_Bbram *InstancePtr)
 *		programmed on BBRAM.
 *
 ******************************************************************************/
-static inline u32 XilSKey_Bbram_CrcCalc_Ultra(u32 *AesKey, u32 CtrlWord)
+static INLINE u32 XilSKey_Bbram_CrcCalc_Ultra(u32 *AesKey, u32 CtrlWord)
 {
 	u32 Crc = 0;
 	u32 Index;
@@ -384,7 +397,7 @@ static inline u32 XilSKey_Bbram_CrcCalc_Ultra(u32 *AesKey, u32 CtrlWord)
 * @note		None.
 *
 ******************************************************************************/
-static inline void XilSKey_Bbram_Framing_Ctrl_Word_Ultra(
+static INLINE void XilSKey_Bbram_Framing_Ctrl_Word_Ultra(
 				XilSKey_Bbram *InstancePtr)
 {
 
@@ -453,7 +466,7 @@ static inline void XilSKey_Bbram_Framing_Ctrl_Word_Ultra(
 * @note		None.
 *
 ******************************************************************************/
-static inline u8 XilSKey_Calc_Row_Ecc_Bbram_Ultra(u8 *Value, u8 *Mask)
+static INLINE u8 XilSKey_Calc_Row_Ecc_Bbram_Ultra(u8 *Value, u8 *Mask)
 {
 	u32 Index;
 	u8 Xor_val = 0;
@@ -481,7 +494,7 @@ static inline u8 XilSKey_Calc_Row_Ecc_Bbram_Ultra(u8 *Value, u8 *Mask)
 * @note		This API calculates Ecc for 26 bits of the control word.
 *
 ******************************************************************************/
-static inline u32 XilSKey_Calc_Ecc_Bbram_ultra(u32 ControlWord)
+static INLINE u32 XilSKey_Calc_Ecc_Bbram_ultra(u32 ControlWord)
 {
 	u32 P0_Mask = XSK_BBRAM_P0_MASK;
 	u32 P1_Mask = XSK_BBRAM_P1_MASK;
@@ -535,3 +548,4 @@ static inline u32 XilSKey_Calc_Ecc_Bbram_ultra(u32 ControlWord)
 
 	return Value;
 }
+#endif

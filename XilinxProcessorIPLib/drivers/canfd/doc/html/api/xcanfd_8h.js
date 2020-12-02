@@ -90,6 +90,7 @@ var xcanfd_8h =
     [ "XCanFd_InterruptEnable_RxBuffFull", "xcanfd_8h.html#ga36c239d6fbf456680364f2e6f018722a", null ],
     [ "XCanFd_IntrHandler", "xcanfd_8h.html#ga9576c384b9ef2e8436298b5947010f90", null ],
     [ "XCanFd_LookupConfig", "xcanfd_8h.html#ga37d6483b019e09713b2d8c7e412dbbdf", null ],
+    [ "XCanFd_Pee_BusOff_Handler", "xcanfd_8h.html#ga527b0275aefd9d0b6095a34aa0ad7039", null ],
     [ "XCanFd_PollQueue_Buffer", "xcanfd_8h.html#ga04a8853c745f69ec28bd0ca21743b203", null ],
     [ "XCanFd_Recv_Mailbox", "xcanfd_8h.html#gae93c2c9dd933e4258b9d4118c4bf6220", null ],
     [ "XCanFd_Recv_Sequential", "xcanfd_8h.html#gaf5ac1e7ce4a9c7eabfd07a41e77b0cdb", null ],

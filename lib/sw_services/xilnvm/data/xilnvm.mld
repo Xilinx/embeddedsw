@@ -1,0 +1,24 @@
+###############################################################################
+# Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+# Modification History
+#
+# Ver   Who  Date     Changes
+# ----- ---- -------- -----------------------------------------------
+# 1.0   mmd  05/06/19 Initial Release
+#
+##############################################################################
+
+OPTION psf_version = 2.1;
+
+BEGIN LIBRARY xilnvm
+  OPTION drc = nvm_drc;
+  OPTION copyfiles = all;
+  OPTION REQUIRES_OS = (standalone freertos10_xilinx);
+  OPTION SUPPORTED_PERIPHERALS = (psu_pmc psu_cortexa72 psv_pmc psv_cortexa72 psv_cortexr5);
+  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilnvm,-lxil,-lgcc,-lc,--end-group";
+  OPTION desc = "Xilinx NVM Library provides interface to accessing eFUSE and BBRAM of Versal";
+  OPTION VERSION = 2.1;
+  OPTION NAME = xilnvm;
+END LIBRARY

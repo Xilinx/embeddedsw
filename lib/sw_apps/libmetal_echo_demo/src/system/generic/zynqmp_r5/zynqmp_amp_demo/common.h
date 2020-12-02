@@ -163,7 +163,7 @@ static inline void wait_for_interrupt()
 }
 
 /**
- * @breif wait_for_notified() - Loop until notified bit
+ * @brief wait_for_notified() - Loop until notified bit
  *        in channel is set.
  *
  * @param[in] notified - pointer to the notified variable

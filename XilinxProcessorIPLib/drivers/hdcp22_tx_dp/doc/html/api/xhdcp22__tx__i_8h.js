@@ -90,6 +90,7 @@ var xhdcp22__tx__i_8h =
     [ "XHDCP22_TX_TS_WAIT_FOR_CIPHER", "xhdcp22__tx__i_8h.html#ga0a148f58dc83afb57076746303010aa8", null ],
     [ "XHDCP22_TX_TS_WAIT_FOR_STREAM_TYPE", "xhdcp22__tx__i_8h.html#ga97663693d3861989ddfa95c462ae3214", null ],
     [ "XHDCP22_TX_TXCAPS_SIZE", "xhdcp22__tx__i_8h.html#ga99ba015f0f69f72a0a1a294963a39276", null ],
+    [ "XHDCP22_TX_TYPE_VALUE", "xhdcp22__tx__i_8h.html#gae130f6e1c39911c534ec863991032376", null ],
     [ "XHDCP22_TX_V_PRIME_SIZE", "xhdcp22__tx__i_8h.html#ga8196961cede34097c32d2c0f44393225", null ],
     [ "XHDCP22_TX_V_SIZE", "xhdcp22__tx__i_8h.html#ga560ab7d94de64b63f946051b5283abab", null ],
     [ "XHdcp22_Tx_LogDebugValue", "xhdcp22__tx__i_8h.html#gaa364d8ee760ab72faf2bc56d15d5b627", [
@@ -116,6 +117,7 @@ var xhdcp22__tx__i_8h =
       [ "XHDCP22_TX_LOG_DBG_COMPUTE_L_DONE", "xhdcp22__tx__i_8h.html#ggaa364d8ee760ab72faf2bc56d15d5b627a762f1258321f9f666e76a7f35b2083e6", null ],
       [ "XHDCP22_TX_LOG_DBG_COMPARE_L_FAIL", "xhdcp22__tx__i_8h.html#ggaa364d8ee760ab72faf2bc56d15d5b627aef5954c225468bfda0ecbb74d52aa62f", null ],
       [ "XHDCP22_TX_LOG_DBG_TX_EKS", "xhdcp22__tx__i_8h.html#ggaa364d8ee760ab72faf2bc56d15d5b627ac537bd3b2fe173895ef17e529dde322f", null ],
+      [ "XHDCP22_TX_LOG_DBG_TX_TYPE_VALUE", "xhdcp22__tx__i_8h.html#ggaa364d8ee760ab72faf2bc56d15d5b627a1bdfff08a94de057f31dc1bc1f1c7c7f", null ],
       [ "XHDCP22_TX_LOG_DBG_COMPUTE_EDKEYKS", "xhdcp22__tx__i_8h.html#ggaa364d8ee760ab72faf2bc56d15d5b627aaa8d6dd5f5098db33bd166e4170eed22", null ],
       [ "XHDCP22_TX_LOG_DBG_COMPUTE_EDKEYKS_DONE", "xhdcp22__tx__i_8h.html#ggaa364d8ee760ab72faf2bc56d15d5b627add19e607401a378f2b9bbae397653ac6", null ],
       [ "XHDCP22_TX_LOG_DBG_RX_RCVIDLIST", "xhdcp22__tx__i_8h.html#ggaa364d8ee760ab72faf2bc56d15d5b627a5f138520080bee82e48b4a04348acab0", null ],

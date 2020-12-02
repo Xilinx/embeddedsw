@@ -1,30 +1,8 @@
 /******************************************************************************
- *
- * Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  *****************************************************************************/
+
 /*****************************************************************************/
 /**
  *
@@ -96,8 +74,8 @@
 
 XDsiTxSs DsiTxSs;
 
-#define XGPIO_TREADY_DEVICE_ID	XPAR_GPIO_2_DEVICE_ID
-XGpio Gpio_Tready;
+#define XGPIO_STREAM_MUX_GPIO_DEVICE_ID	XPAR_GPIO_4_DEVICE_ID
+XGpio Gpio_Stream_Mux;
 
 #define XCSIRXSS_DEVICE_ID	XPAR_CSISS_0_DEVICE_ID
 XCsiSs CsiRxSs;
@@ -916,7 +894,7 @@ void InitVprocSs_Scaler(int count)
 					FALSE);
 
 	if (resIdOut != XVIDC_VM_1920x1200_60_P) {
-		xil_printf("resIdOut %d doesn't match XVIDC_VM_1920x1200_60_P \r\n", resIdOut);
+	xil_printf("resIdOut %d doesn't match XVIDC_VM_1920x1200_60_P \r\n", resIdOut);
 	}
 
 	StreamOut.VmId = resIdOut;
@@ -967,7 +945,10 @@ void ResetVprocSs_Scaler(void)
  *****************************************************************************/
 void EnableDSI(void)
 {
-	XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_ENABLE);
+
+//	XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_ENABLE);
+	XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_DSI, XDSITXSS_ENABLE);
+	 XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_PHY, XDSITXSS_ENABLE);
 }
 
 /*****************************************************************************/
@@ -981,13 +962,11 @@ void EnableDSI(void)
  *****************************************************************************/
 void DisableDSI(void)
 {
-	u32 Status;
 
-	XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_DISABLE);
-	do {
-		Status = XDsiTxSs_IsControllerReady(&DsiTxSs);
-	} while (!Status);
-
+	//XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_DISABLE);
+	XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_DSI, XDSITXSS_DISABLE);
+	XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_PHY, XDSITXSS_DISABLE);
+	usleep(100000);
 }
 
 /*****************************************************************************/
@@ -1001,17 +980,27 @@ void DisableDSI(void)
  *****************************************************************************/
 void InitDSI(void)
 {
+	u32 Status;
 	XDsi_VideoTiming Timing = { 0 };
 
 	/* Disable DSI core only. So removed DPHY register interface in design*/
-	XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_DISABLE);
+	Status = XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_DSI, XDSITXSS_DISABLE);
+	Status = XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_PHY, XDSITXSS_DISABLE);
+
 
 	XDsiTxSs_Reset(&DsiTxSs);
 
-	if (!XDsiTxSs_IsControllerReady(&DsiTxSs)) {
+usleep(100000);
+	Status = XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_PHY, XDSITXSS_ENABLE);
+//	XDphy_Activate(DsiTxSs.DphyPtr, XDSITXSS_ENABLE);
+
+/*	if (!XDsiTxSs_IsControllerReady(&DsiTxSs)) {
 		xil_printf("DSI Controller NOT Ready!!!!\r\n");
 		return;
-	}
+	}*/
+	do {
+		Status = XDsiTxSs_IsControllerReady(&DsiTxSs);
+	} while (!Status);
 
 	/* Set the DSI Timing registers */
 	Timing.HActive = DSI_DISPLAY_HORI_VAL;
@@ -1093,21 +1082,23 @@ u32 SetupDSI(void)
 
 /*****************************************************************************/
 /**
- * This function programs GPIO to 0 to select tready from MIPI DSI SS.
+ * This function programs GPIO to 1 to select MIPI DSI SS Stream Path in AXI-
+ * Stream switch.
  *
  * @return	None.
  *
  * @note	None.
  *
  *****************************************************************************/
-void SelectDSIOuptut(void)
+void SelectDSIOutput(void)
 {
-	XGpio_DiscreteWrite(&Gpio_Tready, 1, 0);
+	XGpio_DiscreteWrite(&Gpio_Stream_Mux, 1, 1);
 }
 
 /*****************************************************************************/
 /**
- * This function programs GPIO to '1' to select tready from HDMI.
+ * This function programs GPIO to '0' to select HDMI Stream path in AXI-Stream
+ * switch.
  *
  * @return	None.
  *
@@ -1115,7 +1106,7 @@ void SelectDSIOuptut(void)
  *
  *****************************************************************************/
 void SelectHDMIOutput(void) {
-	XGpio_DiscreteWrite(&Gpio_Tready, 1, 1);
+	XGpio_DiscreteWrite(&Gpio_Stream_Mux, 1, 0);
 }
 
 /*****************************************************************************/
@@ -1149,7 +1140,7 @@ void DisableTPGVdma(void)
 
 /*****************************************************************************/
 /**
- * This function initializes GPIO IP for tready selection and gets config
+ * This function initializes GPIO IP for Stream Switch selection and gets config
  * parameters.
  *
  * @return	XST_SUCCESS if successful or else XST_FAILURE.
@@ -1157,23 +1148,23 @@ void DisableTPGVdma(void)
  * @note	None.
  *
  *****************************************************************************/
-u32 InitTreadyGpio(void)
+u32 InitStreamMuxGpio(void)
 {
 	u32 Status = 0;
-	XGpio_Config *GpioTreadyCfgPtr = NULL;
+	XGpio_Config *GpioStreamMuxCfgPtr = NULL;
 
-	GpioTreadyCfgPtr = XGpio_LookupConfig(XGPIO_TREADY_DEVICE_ID);
+	GpioStreamMuxCfgPtr = XGpio_LookupConfig(XGPIO_STREAM_MUX_GPIO_DEVICE_ID);
 
-	if (!GpioTreadyCfgPtr) {
-		xil_printf("Tready GPIO LookupCfg failed\r\n");
+	if (!GpioStreamMuxCfgPtr) {
+		xil_printf("Stream Mux GPIO LookupCfg failed\r\n");
 		return XST_FAILURE;
 	}
 
-	Status = XGpio_CfgInitialize(&Gpio_Tready, GpioTreadyCfgPtr,
-			GpioTreadyCfgPtr->BaseAddress);
+	Status = XGpio_CfgInitialize(&Gpio_Stream_Mux, GpioStreamMuxCfgPtr,
+			GpioStreamMuxCfgPtr->BaseAddress);
 
 	if (Status != XST_SUCCESS) {
-		xil_printf("TREADY GPIO cfg init failed - %x\r\n", Status);
+		xil_printf("Stream Mux GPIO cfg init failed - %x\r\n", Status);
 		return Status;
 	}
 

@@ -1,34 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xcanfd.h
-* @addtogroup canfd_v2_1
+* @addtogroup canfd_v2_4
 * @{
 * @details
 *
@@ -49,7 +28,7 @@
 *   - Maskable Error and Status Interrupts.
 *   - Readable Error Counters.
 *   - External PHY chip required.
-*   - Backward compatiable for Legacy CAN.
+*   - Backward compatible for Legacy CAN.
 *   - Supports reception in Mailbox and Sequential Mode
 *
 * The device driver supports all the features listed above, if applicable.
@@ -239,7 +218,7 @@ exclusion
 *			 Modified apis
 *						XCanFd_SetBitTiming
 *                                               XCanFd_SetFBitTiming in xcanfd.h
-*       ask  07/03/18 Fix for Sequencial recv CR# 992606,CR# 1004222.
+*       ask  07/03/18 Fix for Sequential recv CR# 992606,CR# 1004222.
 *       nsk  07/11/18 Updated tcl to generate CANFD Frequency macro in
 *		      xparameters.h (CR 1005641).
 *	ask  08/27/18 Modified RecvSeq function to return XST_NO_DATA when the
@@ -263,6 +242,18 @@ exclusion
 		      XCanFd_Addto_Queue(). CR# 1022093
 * 2.1	nsk  03/09/19 Added support for PS CANFD, PL CANFD 1.0 and PL CANFD 2.0
 *		      CR# 1021963
+* 2.2   sn   06/11/19 Corrected below incorrect Mask values for CANFD2.0 in xcanfd_hw.h
+*		      XCANFD_MAILBOX_RB_MASK_BASE_OFFSET,XCANFD_WMR_RXFP_MASK
+*		      and CONTROL_STATUS_3.
+* 2.3	sne  21/11/19 Used correct macro to access RX FIFO1 buffer.
+* 2.3	sne  11/18/19 Fix for missing RX can packets on CANFD2.0.
+* 2.3   sne  11/29/19 Fix for missing TX canfd packet while sending multiple packets
+*                     by using multi buffer in loopback mode, CR# 1048366.
+* 2.3	sne  12/18/19 Added Protocol Exception Event and BusOff event support
+*		      CR#1048363 & CR#1046723.
+* 2.3	sne  03/06/20 Fixed sending extra frames in XCanFd_Send_Queue API.
+* 2.3	sne  03/09/20 Initialize IsPl of config structure.
+* 2.4   sne  08/28/20 Modify Makefile to support parallel make execution.
 *
 * </pre>
 *
@@ -276,7 +267,7 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-
+#include "xplatform_info.h"
 #include "xstatus.h"
 #include "xcanfd_hw.h"
 
@@ -345,6 +336,7 @@ typedef struct {
 	u32 Rx_Mode;			/**< 1-Mailbox 0-sequential */
 	u32 NumofRxMbBuf;	/**< Number of RxBuffers */
 	u32 NumofTxBuf;         /**< Number of TxBuffers */
+	u32 IsPl;		/**< IsPl, 1= AXI CANFD instance,0= CANFD instance */
 } XCanFd_Config;
 
 /*****************************************************************************/
@@ -1072,6 +1064,7 @@ int XCanFd_TxBuffer_Cancel_Request(XCanFd *InstancePtr, u32 BufferNumber);
 void XCanFd_Enable_Tranceiver_Delay_Compensation(XCanFd *InstancePtr);
 void XCanFd_Set_Tranceiver_Delay_Compensation(XCanFd *InstancePtr, u32 TdcOffset);
 void XCanFd_Disable_Tranceiver_Delay_Compensation(XCanFd *InstancePtr);
+void XCanFd_Pee_BusOff_Handler(XCanFd *InstancePtr);
 
 /* Configuration functions in xcan_config.c */
 int XCanFd_SetBaudRatePrescaler(XCanFd *InstancePtr, u8 Prescaler);

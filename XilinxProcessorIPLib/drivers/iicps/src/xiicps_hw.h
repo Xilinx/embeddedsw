@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xiicps_hw.h
-* @addtogroup iicps_v3_9
+* @addtogroup iicps_v3_12
 * @{
 *
 * This header file contains the hardware definition for an IIC device.
@@ -45,6 +23,7 @@
 * 1.04a kpc		11/07/13 Added function prototype.
 * 3.0	sk		11/03/14 Modified the TimeOut Register value to 0xFF
 *				01/31/15 Modified the code according to MISRAC 2012 Compliant.
+* 3.10  sg 		06/24/19 Added timeout macro for polled transfer.
 * </pre>
 *
 ******************************************************************************/
@@ -180,7 +159,7 @@ extern "C" {
 
 #define XIICPS_IXR_ARB_LOST_MASK  0x00000200U	 /**< Arbitration Lost Interrupt
 													mask */
-#define XIICPS_IXR_RX_UNF_MASK    0x00000080U	 /**< FIFO Recieve Underflow
+#define XIICPS_IXR_RX_UNF_MASK    0x00000080U	 /**< FIFO Receive Underflow
 													Interrupt mask */
 #define XIICPS_IXR_TX_OVR_MASK    0x00000040U	 /**< Transmit Overflow
 													Interrupt mask */
@@ -262,6 +241,7 @@ extern "C" {
 
 #define XIicPs_In32 Xil_In32
 #define XIicPs_Out32 Xil_Out32
+#define XIICPS_POLL_DEFAULT_TIMEOUT_VAL		1000U /**< Timeout in us */
 
 /****************************************************************************/
 /**

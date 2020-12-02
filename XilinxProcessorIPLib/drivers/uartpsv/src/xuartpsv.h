@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xuartpsv.h
-* @addtogroup uartpsv_v1_0
+* @addtogroup uartpsv_v1_3
 * @{
 * @details
 *
@@ -59,7 +37,7 @@
 * <b>Baud Rate</b>
 *
 * The UART has an internal baud rate generator, which furnishes the baud rate
-* clock for both the receiver and the transmitter. Ther input clock frequency
+* clock for both the receiver and the transmitter. Their input clock frequency
 * can be either the master clock or the master clock divided by 8, configured
 * through the mode register.
 *
@@ -124,7 +102,12 @@
 * Ver  Who  Date      Changes
 * ---  ---  --------- -----------------------------------------------
 * 1.0  sg   09/18/17  First Release
-*
+* 1.2  rna  01/20/20  Modify the interrupt path according to the TRM
+*		      Add XUartPsv_ProgramCtrlReg function
+*		      Add XUartPsv_SetTxFifoThreshold function
+*		      Add XUartPsv_SetRxFifoThreshold function
+* 1.3  rna  04/05/20  Change input format for XUartPsv_SetDataFormat function
+*		      to reflect the Linecontrol register
 * </pre>
 *
 ******************************************************************************/
@@ -200,18 +183,24 @@ extern "C" {
  *
  * @{
  */
-#define XUARTPSV_FORMAT_8_BITS 	0U	/**< 8 data bits */
+#define XUARTPSV_FORMAT_8_BITS 	3U	/**< 8 data bits */
 #define XUARTPSV_FORMAT_7_BITS 	2U	/**< 7 data bits */
-#define XUARTPSV_FORMAT_6_BITS 	3U	/**< 6 data bits */
+#define XUARTPSV_FORMAT_6_BITS 	1U	/**< 6 data bits */
+#define XUARTPSV_FORMAT_5_BITS	0U	/**< 5 data bits */
 
-#define XUARTPSV_FORMAT_NO_PARITY  	4U	/**< No parity */
-#define XUARTPSV_FORMAT_MARK_PARITY	3U	/**< Mark parity */
-#define XUARTPSV_FORMAT_SPACE_PARITY	2U	/**< parity */
-#define XUARTPSV_FORMAT_ODD_PARITY 	1U	/**< Odd parity */
-#define XUARTPSV_FORMAT_EVEN_PARITY	0U	/**< Even parity */
+#define XUARTPSV_FORMAT_NO_PARITY  	0U	/**< No parity */
+#define XUARTPSV_FORMAT_EN_PARITY	1U	/**< Enable parity */
+#define XUARTPSV_FORMAT_EVEN_PARITY	2U	/**< Even parity */
+#define XUARTPSV_FORMAT_ODD_PARITY 	0U	/**< Odd parity */
+#define XUARTPSV_FORMAT_EN_STICK_PARITY	4U	/**< Stick parity */
+#define XUARTPSV_FORMAT_NO_STICK_PARITY	0U	/**< Stick parity */
 
-#define XUARTPSV_FORMAT_2_STOP_BIT 	2U	/**< 2 stop bits */
-#define XUARTPSV_FORMAT_1_5_STOP_BIT	1U	/**< 1.5 stop bits */
+#define XUARTPSV_FORMAT_PARITY_MASK	7U	/**< Format parity mask */
+
+#define XUARTPSV_FORMAT_EVEN_PARITY_SHIFT	1U /**< Even parity shift */
+#define XUARTPSV_FORMAT_EN_STICK_PARITY_SHIFT	5U /**< Stick parity shift */
+
+#define XUARTPSV_FORMAT_2_STOP_BIT 	1U	/**< 2 stop bits */
 #define XUARTPSV_FORMAT_1_STOP_BIT 	0U	/**< 1 stop bit */
 /*@}*/
 
@@ -240,7 +229,7 @@ extern "C" {
  */
 typedef struct {
 	u16 DeviceId;				/**< Unique ID  of device */
-	u32 BaseAddress;			/**< Base address of device (IPIF) */
+	UINTPTR BaseAddress;			/**< Base address of device (IPIF) */
 	u32 InputClockHz;			/**< Input clock frequency */
 	s32 ModemPinsConnected; 	/**< Specifies whether modem pins are
 								  *  connected to MIO or FMIO */
@@ -302,6 +291,8 @@ typedef struct {
 	void *CallBackRef;			/**< Callback reference for event handler */
 } XUartPsv;
 
+/************************** Variable Definitions *****************************/
+extern XUartPsv_Config XUartPsv_ConfigTable[];
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -391,7 +382,7 @@ typedef struct {
 			(u32)XUARTPSV_UARTCR_OFFSET), \
 			(Xil_In32((InstancePtr)->Config. \
 			BaseAddress + (u32)XUARTPSV_UARTCR_OFFSET) & \
-			(u32)(~XUARTPSV_UARTCR_UARTEN)))
+			~(u32)XUARTPSV_UARTCR_UARTEN))
 
 /*****************************************************************************/
 /**
@@ -419,7 +410,7 @@ XUartPsv_Config *XUartPsv_LookupConfig(u16 DeviceId);
 
 /* Interface functions implemented in xuartpsv.c */
 s32 XUartPsv_CfgInitialize(XUartPsv *InstancePtr,
-			XUartPsv_Config * Config, u32 EffectiveAddr);
+			XUartPsv_Config * Config, UINTPTR EffectiveAddr);
 
 u32 XUartPsv_Send(XUartPsv *InstancePtr,u8 *BufferPtr,
 			u32 NumBytes);
@@ -429,12 +420,18 @@ u32 XUartPsv_Recv(XUartPsv *InstancePtr,u8 *BufferPtr,
 
 s32 XUartPsv_SetBaudRate(XUartPsv *InstancePtr, u32 BaudRate);
 
+void XUartPsv_ProgramCtrlReg(XUartPsv *InstancePtr, u32 CtrlRegister);
+
 /* Options functions in xuartpsv_options.c */
 void XUartPsv_SetOptions(XUartPsv *InstancePtr, u16 Options);
 
 u16 XUartPsv_GetOptions(XUartPsv *InstancePtr);
 
 void XUartPsv_SetFifoThreshold(XUartPsv *InstancePtr, u8 TriggerLevel);
+
+void XUartPsv_SetTxFifoThreshold(XUartPsv *InstancePtr, u8 TriggerLevel);
+
+void XUartPsv_SetRxFifoThreshold(XUartPsv *InstancePtr, u8 TriggerLevel);
 
 u8 XUartPsv_GetFifoThreshold(XUartPsv *InstancePtr);
 
@@ -445,14 +442,6 @@ u32 XUartPsv_IsSending(XUartPsv *InstancePtr);
 u8 XUartPsv_GetOperMode(XUartPsv *InstancePtr);
 
 void XUartPsv_SetOperMode(XUartPsv *InstancePtr, u8 OperationMode);
-
-u8 XUartPsv_GetFlowDelay(XUartPsv *InstancePtr);
-
-void XUartPsv_SetFlowDelay(XUartPsv *InstancePtr, u8 FlowDelayValue);
-
-u8 XUartPsv_GetRecvTimeout(XUartPsv *InstancePtr);
-
-void XUartPsv_SetRecvTimeout(XUartPsv *InstancePtr, u8 RecvTimeout);
 
 s32 XUartPsv_SetDataFormat(XUartPsv *InstancePtr,
 			XUartPsvFormat * FormatPtr);

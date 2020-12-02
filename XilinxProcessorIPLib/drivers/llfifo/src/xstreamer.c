@@ -1,34 +1,12 @@
 /******************************************************************************
-*
-* Copyright (C) 2005 - 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2005 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 * @file xstreamer.c
-* @addtogroup llfifo_v5_3
+* @addtogroup llfifo_v5_5
 * @{
 *
 * See xtreamer.h for a description on how to use this driver.
@@ -44,6 +22,8 @@
 * 2.00a hbm  01/20/10  Hal phase 1 support, bump up major release
 * 2.02a asa  12/28/11  The function XStrm_Read is changed to reset HeadIndex
 *		       to zero when all the bytes are read.
+* 5.5   sk   06/15/20  In XStrm_Read and XStrm_Write add type casting to fix
+*		       gcc warnings.
 * </pre>
 ******************************************************************************/
 
@@ -123,7 +103,7 @@
  *
  * during XStrm_Write():
  * first holding buffer write:    holding buffer
- *                                 writen  empty
+ *                                 written  empty
  *                                +--------------+
  *                                |//////|       |
  *                                +--------------+
@@ -181,7 +161,7 @@ xdbg_stmnt(u32 _xstrm_buffered;)
 *
 * @param    GetOccupancyFn specifies a routine to use to retrieve the occupancy
 *           in the actual FIFO. The true occupancy value needs to come through
-*           this streamer driver becuase it holds some of the bytes.
+*           this streamer driver because it holds some of the bytes.
 *
 * @return   N/A
 *
@@ -225,7 +205,7 @@ void XStrm_RxInitialize(XStrm_RxFifoStreamer *InstancePtr, unsigned FifoWidth,
 *
 * @param    GetVacancyFn specifies a routine to use to retrieve the vacancy in
 *           the actual FIFO. The true vacancy value needs to come through this
-*           streamer driver becuase it holds some of the bytes.
+*           streamer driver because it holds some of the bytes.
 *
 * @return   N/A
 *
@@ -333,7 +313,7 @@ void XStrm_Read(XStrm_RxFifoStreamer *InstancePtr, void *BufPtr,
 		 *      of the fifo into the target buffer.
 		 *   2) Loop back around to transfer the last few bytes.
 		 */
-		else if ((((unsigned)DestPtr & 3) == 0) &&
+		else if ((((UINTPTR)DestPtr & 3) == 0) &&
 			 (BytesRemaining >= InstancePtr->FifoWidth)) {
 			xdbg_printf(XDBG_DEBUG_FIFO_RX, "XStrm_Read: Case 2: DestPtr: %p, BytesRemaining: %d, InstancePtr->FifoWidth: %d\n",
 				    DestPtr, BytesRemaining, InstancePtr->FifoWidth);
@@ -465,7 +445,7 @@ void XStrm_Write(XStrm_TxFifoStreamer *InstancePtr, void *BufPtr,
 		 */
 		if ((InstancePtr->TailIndex == 0) &&
 		    (BytesRemaining >= InstancePtr->FifoWidth) &&
-		    (((unsigned)SrcPtr & 3) == 0)) {
+		    (((UINTPTR)SrcPtr & 3) == 0)) {
 			FifoWordsToXfer =
 				BytesRemaining / InstancePtr->FifoWidth;
 

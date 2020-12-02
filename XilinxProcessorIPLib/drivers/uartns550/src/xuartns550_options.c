@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2002 - 2015 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /****************************************************************************/
 /**
 *
 * @file xuartns550_options.c
-* @addtogroup uartns550_v3_5
+* @addtogroup uartns550_v3_7
 * @{
 *
 * The implementation of the options functions for the XUartNs550 driver.
@@ -68,7 +46,7 @@
 /************************** Variable Definitions ****************************/
 /*
  * The following data type maps an option to a register and the bits of the
- * regiser such that getting and setting the options may be table driven.
+ * register such that getting and setting the options may be table driven.
  */
 typedef struct {
 	u16 Option;
@@ -109,11 +87,11 @@ static u32 ReadFcrRegister(UINTPTR BaseAddress);
 *
 * Gets the options for the specified driver instance. The options are
 * implemented as bit masks such that multiple options may be enabled or
-* disabled simulataneously.
+* disabled simultaneously.
 *
 * @param	InstancePtr is a pointer to the XUartNs550 instance.
 *
-* @return 	The current options for the UART. The optionss are bit masks
+* @return 	The current options for the UART. The options are bit masks
 *		that are contained in the file xuartns550.h and
 *		named XUN_OPTION_*.
 *
@@ -133,7 +111,7 @@ u16 XUartNs550_GetOptions(XUartNs550 *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/*
-	 * Loop thru the options table to map the physical options in the
+	 * Loop through the options table to map the physical options in the
 	 * registers of the UART to the logical options to be returned
 	 */
 	for (Index = 0; Index < XUN_NUM_OPTIONS; Index++) {
@@ -198,7 +176,7 @@ int XUartNs550_SetOptions(XUartNs550 *InstancePtr, u16 Options)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/*
-	 * Loop thru the options table to map the logical options to the
+	 * Loop through the options table to map the logical options to the
 	 * physical options in the registers of the UART
 	 */
 	for (Index = 0; Index < XUN_NUM_OPTIONS; Index++) {

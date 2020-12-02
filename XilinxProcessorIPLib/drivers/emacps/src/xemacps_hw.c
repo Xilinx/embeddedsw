@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xemacps_hw.c
-* @addtogroup emacps_v3_9
+* @addtogroup emacps_v3_12
 * @{
 *
 * This file contains the implementation of the ethernet interface reset sequence
@@ -64,8 +42,8 @@
 /*****************************************************************************/
 /**
 * This function perform the reset sequence to the given emacps interface by
-* configuring the appropriate control bits in the emacps specifc registers.
-* the emacps reset squence involves the following steps
+* configuring the appropriate control bits in the emacps specific registers.
+* the emacps reset sequence involves the following steps
 *	Disable all the interuupts
 *	Clear the status registers
 *	Disable Rx and Tx engines
@@ -77,7 +55,7 @@
 * @return N/A
 *
 * @note
-* This function will not modify the slcr registers that are relavant for
+* This function will not modify the slcr registers that are relevant for
 * emacps controller
 ******************************************************************************/
 void XEmacPs_ResetHw(u32 BaseAddr)

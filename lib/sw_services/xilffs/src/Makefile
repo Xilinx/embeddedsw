@@ -1,30 +1,8 @@
 ###############################################################################
-#
-# Copyright (C) 2013 - 2015 Xilinx, Inc.  All rights reserved.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-# OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-#
-# Except as contained in this notice, the name of the Xilinx shall not be used
-# in advertising or otherwise to promote the sale, use or other dealings in
-# this Software without prior written authorization from Xilinx.
-#
+# Copyright (c) 2013 - 2020 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
 ###############################################################################
+DRIVER_LIB_VERSION = v1.0
 
 COMPILER=
 ARCHIVER=
@@ -46,38 +24,35 @@ endif
 endif
 endif
 
-RELEASEDIR=../../../lib
-INCLUDEDIR=../../../include
+RELEASEDIR=../../../lib/
+INCLUDEDIR=../../../include/
 INCLUDES=-I./. -I${INCLUDEDIR}
 
-FATFS_DIR = .
-OUTS = *.o
-OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
+FATFS_DIR = ./
 FATFS_SRCS := $(wildcard *.c)
-FATFS_OBJS = $(addprefix $(FATFS_DIR)/, $(FATFS_SRCS:%.c=%.o))
-
-INCLUDEFILES=$(FATFS_DIR)/include/ff.h \
-			$(FATFS_DIR)/include/ffconf.h \
-			$(FATFS_DIR)/include/diskio.h \
-			$(FATFS_DIR)/include/integer.h
-
+FATFS_OBJS = $(addprefix $(FATFS_DIR), $(FATFS_SRCS:%.c=%.o))
 libs: libxilffs.a
 
-libxilffs.a: print_msg_fatfs $(FATFS_OBJS)
+libxilffs.a: $(FATFS_OBJS)
 	$(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${FATFS_OBJS}
+DEPFILES := $(FATFS_SRCS:%.c=$(FATFS_DIR)%.d)
 
-print_msg_fatfs:
-	@echo "Compiling XilFFs Library"
+include $(wildcard $(DEPFILES))
+
+include $(wildcard ../../../../dep.mk)
+
+$(FATFS_DIR)%.o: $(FATFS_DIR)%.c
+	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $(DEPENDENCY_FLAGS) -o $@ $<
 
 .PHONY: include
 include: libxilffs_includes
 
-libxilffs_includes:
-	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
+libxilffs_includes: $(addprefix $(INCLUDEDIR), $(subst include/,,$(wildcard include/*.h)))
+
+$(INCLUDEDIR)%.h: include/%.h
+	$(CP) $< $@
 
 clean:
-	rm -rf $(FATFS_DIR)/${OBJECTS}
+	rm -rf $(FATFS_OBJS)
 	rm -rf ${RELEASEDIR}/${LIB}
-
-$(FATFS_DIR)/%.o: $(FATFS_DIR)/%.c $(INCLUDEFILES)
-	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) -c $< -o $@
+	rm -rf ${DEPFILES}

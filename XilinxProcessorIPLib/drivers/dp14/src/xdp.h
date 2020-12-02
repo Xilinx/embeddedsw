@@ -1,35 +1,13 @@
 /*******************************************************************************
- *
- * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /******************************************************************************/
 /**
  *
  * @file xdp.h
- * @addtogroup dp_v7_0
+ * @addtogroup dp_v7_4
  * @{
  * @details
  *
@@ -381,6 +359,10 @@
  *                     	Added new HDCP22 functions:
  *                     		XDp_GenerateCpIrq,
  *                     		XDp_EnableDisableHdcp22AuxDeffers
+ * 7.4   rg   09/01/20 Added XDp_TxColorimetryVsc API for reading sink device
+ *                     capability for receiving colorimetry information through
+ *                     VSC SDP packets.
+ * 7.4   rg   09/26/20 Added support yuv420 color format.
  *
  * </pre>
  *
@@ -462,7 +444,13 @@ typedef enum {
 	XDP_RX_HANDLER_HDCP22_SKE_SEND_EKS,
 	XDP_RX_HANDLER_HDCP22_HPRIME_READ_DONE,
 	XDP_RX_HANDLER_HDCP22_PAIRING_READ_DONE,
+	XDP_RX_HANDLER_HDCP22_STREAM_TYPE,
 #endif
+	XDP_RX_HANDLER_VBLANK_STREAM_2,
+	XDP_RX_HANDLER_VBLANK_STREAM_3,
+	XDP_RX_HANDLER_VBLANK_STREAM_4,
+	XDP_RX_HANDLER_ADAPTIVE_SYNC_SDP,
+	XDP_RX_HANDLER_ADAPTIVE_SYNC_VBLANK,
 	XDP_RX_NUM_HANDLERS
 } Dp_Rx_HandlerType;
 
@@ -478,6 +466,9 @@ typedef enum {
 	XDP_TX_HANDLER_LANECNTCHANGE,
 	XDP_TX_HANDLER_LINKRATECHANGE,
 	XDP_TX_HANDLER_PEVSADJUST,
+	XDP_TX_HANDLER_EXTPKT_TXD,
+	XDP_TX_HANDLER_DRV_EXTPKT_TXD,
+	XDP_TX_HANDLER_VSYNC,
 	XDP_TX_NUM_HANDLERS
 } XDp_Tx_HandlerType;
 
@@ -624,6 +615,22 @@ typedef struct {
 } XDp_TxMainStreamAttributes;
 
 /**
+ * This typedef contains the VSC extended packet information.
+ */
+typedef struct {
+	u32 BitsPerColor;	/**< Number of bits per color
+						color component. */
+	u8 ComponentFormat;	/**< The component format currently in
+							use by the video stream. */
+	u8 DynamicRange;	/**< The dynamic range currently in use
+							by the video stream. */
+	u8 YCbCrColorimetry;	/**< The YCbCr colorimetry currently in
+								use by the video stream. */
+	u32 Header;		/**< VSC packet header */
+	u32 Payload[8];	/*< VSC packet payload bytes from DB0 - DB28 */
+} XDp_TxVscExtPacket;
+
+/**
  * This typedef describes a stream when the driver is running in multi-stream
  * transport (MST) mode.
  */
@@ -702,6 +709,24 @@ typedef struct {
 						point to the sinks in the
 						NodeTable. */
 } XDp_TxTopology;
+
+/**
+ * This typedef describes Audio InfoFrame packet.
+ */
+typedef struct
+{
+	u16 info_length;
+	u8 type;
+	u8 version;
+	u8 length;
+	u8 audio_coding_type;
+	u8 audio_channel_count;
+	u8 sampling_frequency;
+	u8 sample_size;
+	u8 level_shift;
+	u8 downmix_inhibit;
+	u8 channel_allocation;
+} XDp_TxAudioInfoFrame;
 
 /**
  * This typedef describes a port that is connected to a DisplayPort branch
@@ -882,6 +907,9 @@ typedef struct {
 							during training. */
 	u8 IsTps4Supported;		/**< Is TPS4 supported by the
 							downstream sink */
+	u8 ColorimetryThroughVsc;		/**< Enable / Disable of sending
+                                                        colorimetry information
+                                                        through VSC packet */
 	XDp_TxSinkConfig RxConfig;		/**< Configuration structure for
 							the RX device. */
 	XDp_TxLinkConfig LinkConfig;		/**< Configuration structure for
@@ -896,6 +924,9 @@ typedef struct {
 							of attributes. When MST
 							mode is disabled, only
 							MsaConfig[0] is used. */
+	XDp_TxVscExtPacket VscPacket;            /**< Configuration structure
+                                                        for VSC extended packet
+                                                        data */
 	XDp_TxMstStream MstStreamConfig[4];	/**< Configuration structure
 							for a multi-stream
 							transport (MST)
@@ -971,6 +1002,27 @@ typedef struct {
 							swing and pre-emphasis
 							adjust request callback
 							function. */
+	XDp_IntrHandler ExtPktCallbackHandler;	/**< Callback function to be
+							invoked once extended packet
+							is transmitted and controller
+							ready to accept new packet
+							has be handled within driver. */
+	void *ExtPktCallbackHandlerRef;		/**< A pointer to the user data
+							passed to the extended packet
+							done callback function. */
+	XDp_IntrHandler DrvExtPktCallbackHandler;	/** Callback function to be
+							invoked once extended packet
+							is transmitted and controller
+							ready to accept new packet
+							has be handled within driver. */
+	void *DrvExtPktCallbackHandlerRef;		/** A pointer to the user data
+							passed to the extended packet
+							done callback function. */
+	XDp_IntrHandler VsyncCallbackHandler;	/**< Callback function to be
+							invoked once every vertical sync pulse. */
+	void *VsyncCallbackHandlerRef;		/**< A pointer to the user data
+							passed to the vertical sync
+							callback function. */
 } XDp_Tx;
 
 /**
@@ -1000,13 +1052,16 @@ typedef struct {
 	void *IntrNoVideoCallbackRef;		/**< A pointer to the user data
 							passed to the no video
 							callback function. */
-	XDp_IntrHandler IntrVBlankHandler;	/**< Callback function for
-							vertical blanking
-							interrupts. */
-	void *IntrVBlankCallbackRef;		/**< A pointer to the user data
-							passed to the vertical
-							blanking callback
-							function. */
+	XDp_IntrHandler IntrVBlankHandler[XDP_RX_STREAM_ID4];	/**< Array of
+							callback functions
+							for vertical blanking
+							interrupts for all
+							streams*/
+	void *IntrVBlankCallbackRef[XDP_RX_STREAM_ID4];	/**< An array of pointer
+							  to the user data
+							  passed to the vertical
+							  blanking callback
+							  functions. */
 	XDp_IntrHandler IntrTrainingLostHandler;/**< Callback function for
 							training lost
 							interrupts. */
@@ -1227,6 +1282,15 @@ typedef struct {
 							  the HDCP22
 							  PairingReadDone
 							  callback function. */
+	XDp_IntrHandler IntrHdcp22StreamTypeWrHandler;	/**< Callback function
+							  for HDCP22 stream
+							  Type write
+							  interrupts. */
+	void *IntrHdcp22StreamTypeWrCallbackRef;	/**< A pointer to the
+							  user data passed to
+							  the HDCP22
+							  stream Type write
+							  callback function. */
 #endif
 
 	XDp_IntrHandler IntrUnplugHandler;	/**< Callback function for
@@ -1273,6 +1337,21 @@ typedef struct {
 						    data passed to the access
 						    lane set callback
 						    function. */
+	XDp_IntrHandler IntrAdapatveSyncSdpHandler;	/**< Callback function for
+							driver Adaptive-Sync
+							SDP packet received
+							interrupts */
+	void *IntrAdapatveSyncSdpCallbackRef;	/**< A pointer to the user
+							data passed to
+							Adaptive-sync SDP
+							packet received function */
+	XDp_IntrHandler IntrAdaptiveSyncVbHandler;	/**< Callback function for
+							driver Adaptive-Sync
+							vblank interrupts */
+	void *IntrAdaptiveSyncVbCallbackRef;	/**< A pointer to the user
+							data passed to
+							Adaptive-Sync vblank
+							function */
 	/* End of definitions for DP 1.4 interrupt callback(s) */
 } XDp_Rx;
 
@@ -1338,6 +1417,9 @@ u32 XDp_TxSetEnhancedFrameMode(XDp *InstancePtr, u8 Enable);
 u32 XDp_TxSetLaneCount(XDp *InstancePtr, u8 LaneCount);
 u32 XDp_TxSetLinkRate(XDp *InstancePtr, u8 LinkRate);
 u32 XDp_TxSetScrambler(XDp *InstancePtr, u8 Enable);
+
+/* xdp.c: TX functions for VSC extended packet. */
+u32 XDp_TxCheckVscColorimetrySupport(XDp *InstancePtr);
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 /* xdp.c: General usage functions. */
@@ -1416,6 +1498,8 @@ u32 XDp_TxMstEnable(XDp *InstancePtr);
 u32 XDp_TxMstDisable(XDp *InstancePtr);
 void XDp_TxAudioDis(XDp *InstancePtr);
 void XDp_Tx_Mst_AudioEn(XDp *InstancePtr, u8 StreamId);
+void XDp_TxSendAudioInfoFrame(XDp *InstancePtr,
+		XDp_TxAudioInfoFrame *xilInfoFrame);
 
 /* xdp_mst.c: Multi-stream transport (MST) functions for enabling or disabling
  * MST streams and selecting their associated target sinks. */
@@ -1522,6 +1606,8 @@ void XDp_TxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth);
 void XDp_RxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth);
 XVidC_ColorDepth XDp_RxGetBpc(XDp *InstancePtr, u8 Stream);
 XVidC_ColorFormat XDp_RxGetColorComponent(XDp *InstancePtr, u8 Stream);
+XVidC_ColorStd XDp_RxGetColorimetry(XDp *InstancePtr, u8 Stream);
+XDp_DynamicRange XDp_RxGetDynamicRange(XDp *InstancePtr, u8 Stream);
 void XDp_RxSetLineReset(XDp *InstancePtr, u8 Stream);
 void XDp_RxAllocatePayloadStream(XDp *InstancePtr);
 #endif /* XPAR_XDPRXSS_NUM_INSTANCES */

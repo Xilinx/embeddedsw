@@ -1,28 +1,6 @@
 ##############################################################################
-#
-# Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-# OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-#
-# Except as contained in this notice, the name of the Xilinx shall not be used
-# in advertising or otherwise to promote the sale, use or other dealings in
-# this Software without prior written authorization from Xilinx.
+# Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
 #
 ###############################################################################
 ##############################################################################
@@ -156,7 +134,8 @@ proc generate_canonical_xpars {drv_handle file_name drv_string args} {
 			puts $file_handle $final_value
 		} elseif {[string compare -nocase $local_value ""] == 0} {
 			if {$index == 0} {
-				puts $file_handle "#define XPAR_XSYSMONPSV_0_NO_MEAS\t255"
+				puts $file_handle "#define XPAR_XSYSMONPSV_0_NO_MEAS\t161"
+				break
 			}
 		}
 
@@ -238,8 +217,12 @@ proc generate_sysmon_supplies {drv_handle file_name drv_string} {
 		 puts -nonewline $config_file [format "%s\t%s,\n" $comma $local_value]
 		} elseif {[string compare -nocase $local_value ""] == 0} {
 			if {$index == 0} {
+			        puts $config_file "\tEndList,"
 				puts $config_file "\tNO_SUPPLIES_CONFIGURED = XPAR_XSYSMONPSV_0_NO_MEAS,"
+				break
 			}
+			puts $config_file "\tEndList,"
+			break
 		}
 	    }
     }

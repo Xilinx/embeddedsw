@@ -1,30 +1,8 @@
 /*******************************************************************************
- *
- * Copyright (C) Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (C) Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /******************************************************************************/
 /**
  *
@@ -203,13 +181,13 @@ void test_pattern_gen_help();
 int write_si570();
 int ceil_func(double x);
 
-u8 is_TX_CPLL=1;
+volatile u8 is_TX_CPLL=1;
 u8 hdcp_capable = 0;
 u8 hdcp_capable_org = 0;
 u8 hdcp_repeater_org = 0;
 u8 hdcp_repeater = 0;
-u32 training_done_lane01;
-u32 training_done_lane23;
+volatile u32 training_done_lane01;
+volatile u32 training_done_lane23;
 u32 training_done_lanecnt;
 u32 dp_msa_hres;
 u32 dp_msa_vres;
@@ -219,17 +197,17 @@ u32 rxMsaMVid_track;
 u32 rxMsaNVid_track;
 u32 rxMsamisc0_track;
 u32 bpc_track =0;
-u8 LaneCount;
-u8 LineRate;
+volatile u8 LaneCount;
+volatile u8 LineRate;
 u32 rxMsamisc0;
 u32 DpHres_total, DpVres_total;
 u32 recv_clk_freq=0;
 float recv_frame_clk=0.0;
-u8 pixel = 0;
+volatile u8 pixel = 0;
 u32 bpc = 0;
 u8 comp = 0;
 u8 comp_track = 0;
-u8 prog_tx =0;
+volatile u8 prog_tx =0;
 u32 usr_data_cnt_lane = 0;
 u32 words_per_line = 0;
 u32 recv_clk_see = 0;
@@ -238,60 +216,60 @@ float recv_frame_clk_track=0.0;
 u32 recv_frame_clk_int_track =0;
 u32 recv_frame_clk_int =0;
 u8 vdma_start_read = 0;
-u8 tx_pat_source = 0;
+volatile u8 tx_pat_source = 0;
 volatile u32 vblank_done =0;
-u8 rx_ran_once = 0;
+volatile u8 rx_ran_once = 0;
 u32 tx_bw;
 u8 bw_change_flag = 0;
-u8 internal_rx_tx = 0;
+volatile u8 internal_rx_tx = 0;
 u8 manual_sel = 0;
-u32 IsRxTrained = 0;
-u32 training_done = 0;
+volatile u32 IsRxTrained = 0;
+volatile u32 training_done = 0;
 u8 ooo = 0;
-u32 IsResChange = 0;
-u32 vblank_count =0;
+volatile u32 IsResChange = 0;
+volatile u32 vblank_count =0;
 u8 vdma_start_write = 0;
-u32 training_done_lane01;
-u32 training_done_lane23;
-u8 start_tracking = 0;
-u8 change_detected = 0;
-u32 IsTxEncrypted = 0;
-u32 IsTxAuthenticated = 0;
+volatile u32 training_done_lane01;
+volatile u32 training_done_lane23;
+volatile u8 start_tracking = 0;
+volatile u8 change_detected = 0;
+volatile u32 IsTxEncrypted = 0;
+volatile u32 IsTxAuthenticated = 0;
 u32 bw_tp1;
 u32 lane_tp1;
 u32 initial_value;
-u8 only_tx_active = 0;
+volatile u8 only_tx_active = 0;
 u8 coming_from_rx = 0;
 u8 coming_from_tx = 0;
 u8 switch_to_rx = 0;
-u8 rx_link_change_requested = 0;
+volatile u8 rx_link_change_requested = 0;
 u8 tp1_received = 0;
 u32 linkrate_set = 0x14;
 u32 linkrate_set2 = 0;
-u8 switch_to_tx = 0;
-u8 switch_to_patgen = 0;
+volatile u8 switch_to_tx = 0;
+volatile u8 switch_to_patgen = 0;
 u8 hpd_issued = 0;
-u8 need_to_retrain_rx = 0;
+volatile u8 need_to_retrain_rx = 0;
 u8 count = 0;
 u8 Edid_org[128];
 u8 Edid1_org[128];
 u8 max_cap_lanes;
 u8 max_cap_org;
 u8 tx_disconnected = 0;
-u8 tx_is_reconnected = 0;
+volatile u8 tx_is_reconnected = 0;
 u32 clk_reg0;
 u32 clk_reg1;
 u32 clk_reg2;
-u32 wait_count = 0;
-u8 enabled = 0;
-u8 audio_on = 0;
+volatile u32 wait_count = 0;
+volatile u8 enabled = 0;
+volatile u8 audio_on = 0;
 u8 prog_clk = 0;
 u8 hpd_pulse = 0;
 u8 done = 0;
 u8 pwr_dwn_x = 0;
 u8 pat_update = 1;
 u8 hdcp_on = 0;
-u8 gt_stable = 0;
+volatile u8 gt_stable = 0;
 typedef struct
 {
         u8 type;
@@ -611,6 +589,7 @@ int main(void)
      DPPtIntrInitialize();
 
 #if ENABLE_HDCP_IN_DESIGN
+    volatile u8 TmrCntrRstDone=0;
     u32 TxAuthAttempts = 0;
     u8 auxValues_org[9];
     XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x068028, 1, auxValues_org);
@@ -1655,7 +1634,8 @@ xil_printf ("+++++++ TX GT configuration encountered a failure +++++++\r\n");
 			   //Bogus interrupts typically when training is on or
 			   //  when cable is being unplugged
 #if ENABLE_HDCP_IN_DESIGN
-				if (prog_tx == 1 && DpRxSsInst.TmrCtrResetDone == 1 &&
+				TmrCntrRstDone = DpRxSsInst.TmrCtrResetDone;
+				if (prog_tx == 1 && TmrCntrRstDone == 1 &&
 						training_done == 1 && need_to_retrain_rx == 0)
 #else
 				if (prog_tx == 1 && training_done == 1
@@ -1725,7 +1705,7 @@ xil_printf ("+++++++ TX GT configuration encountered a failure +++++++\r\n");
 						}
 					} else {
 #if ENABLE_HDCP_IN_DESIGN
-						if(DpRxSsInst.TmrCtrResetDone == 1){
+						if(TmrCntrRstDone == 1){
 							prog_tx =0;
 						}
 #else
@@ -2461,7 +2441,7 @@ static void Dprx_DetectResolution(void *InstancePtr)
 		DpVres = (XDp_ReadReg(DpRxSsInst.Config.DpSubCore.DpConfig.BaseAddr,
 					XDP_RX_MSA_VHEIGHT));
 		GetResCount++;
-	} while ( (((DpHres == 0) || (DpVres == 0)) || (GetResCount < 10000))
+	} while ( (((DpHres == 0) || (DpVres == 0)) && (GetResCount < 10000))
 														&& training_done == 1);
 	dp_msa_hres = DpHres;
 	dp_msa_vres = DpVres;
@@ -2474,7 +2454,7 @@ static void Dprx_DetectResolution(void *InstancePtr)
 						XDP_RX_MSA_HTOTAL));
 	DpVres_total = (XDp_ReadReg(DpRxSsInst.Config.DpSubCore.DpConfig.BaseAddr,
 						XDP_RX_MSA_VTOTAL));
-	while ( ((DpHres_total ==0 || DpVres_total == 0) || GetResCount < 10000)
+	while ( ((DpHres_total ==0 || DpVres_total == 0) && GetResCount < 10000)
 														&& training_done == 1) {
 		DpHres_total = (XDp_ReadReg(
 			DpRxSsInst.Config.DpSubCore.DpConfig.BaseAddr, XDP_RX_MSA_HTOTAL));
@@ -2483,7 +2463,7 @@ static void Dprx_DetectResolution(void *InstancePtr)
 						XDP_RX_MSA_VTOTAL));
 		GetResCount++;
 	}
-	XDp_RxSetLineReset(DpRxSsInst.DpPtr, 1);
+
 	Msa[0].Vtm.Timing.HTotal = DpHres_total;
 	Msa[0].Vtm.Timing.F0PVTotal = DpVres_total;
 	GetResCount = 0;
@@ -2491,7 +2471,7 @@ static void Dprx_DetectResolution(void *InstancePtr)
 								& 0x00FFFFFF);
 	rxMsaNVid = (XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,XDP_RX_MSA_NVID)
 								& 0x00FFFFFF);
-	while ( ((rxMsaMVid ==0 || rxMsaNVid == 0) || GetResCount < 10000)
+	while ( ((rxMsaMVid ==0 || rxMsaNVid == 0) && GetResCount < 10000)
 														&& training_done == 1) {
 		rxMsaMVid = (XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 												XDP_RX_MSA_MVID) & 0x00FFFFFF);
@@ -2548,6 +2528,8 @@ static void Dprx_DetectResolution(void *InstancePtr)
 		pixel = 0x1;
 		Msa[0].UserPixelWidth = 0x1;
 	}
+
+	XDp_RxSetLineReset(DpRxSsInst.DpPtr, 1);
 
 	rxMsamisc0 = ((XDp_ReadReg(
 		DpRxSsInst.DpPtr->Config.BaseAddr,XDP_RX_MSA_MISC0) >> 5) & 0x00000007);
@@ -4557,34 +4539,27 @@ void prog_bb (u8 bw, u8 is_tx) {
 	// 0xA -> 135Mhz, 67.5Mhz
 	// 0x6 -> 81Mhz, 40.5Mhz
 
-	XVphy_MmcmReset(&VPhy_Instance, 0, XVPHY_DIR_TX, FALSE);
-	xil_printf ("^^^");
-	while (!((XVphy_ReadReg(VPhy_Instance.Config.BaseAddr, 0x120)) & 0x200)) {
-	}
-
 #if SET_TX_TO_2BYTE == 1
+	VPhy_Instance.Quads[0].TxMmcm.ClkFbOutFrac = 0;
+	VPhy_Instance.Quads[0].TxMmcm.ClkOut0Frac  = 0;
   if (is_tx == 1) { // TX only path using refclk0 of 135Mhz
 	if (bw == 0x14) { //270Mhz
-		XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-				(0x0 << 16 | 0x8 << 8 | 0x1));
-		XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-				(0x0 << 16 | 0x4));
+        VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 8;
+        VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 1;
+        VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 4;
 	} else if (bw == 0xA) { //135Mhz
-		XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-				(0x0 << 16 | 0x8 << 8 | 0x1));
-		XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-				(0x0 << 16 | 0x8));
+        VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 8;
+        VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 1;
+        VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 8;
 	} else { //81Mhz
 		if (is_TX_CPLL == 1) { // operates on 135Mhz refclk0
-			XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-					(0x0 << 16 | 0x24 << 8 | 0x5));
-			XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-					(0x0 << 16 | 0xC));
+            VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 36;
+            VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 5;
+            VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 12;
 		} else { // operating on QPLL with 162Mhz refclk0
-			XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-					(0x0 << 16 | 0xC << 8 | 0x2));
-			XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-					(0x0 << 16 | 0xC));
+            VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 12;
+            VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 2;
+            VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 12;
 		}
 	}
   } else { // TX is using CPLL but refclk1 of 270/135/81
@@ -4594,46 +4569,40 @@ void prog_bb (u8 bw, u8 is_tx) {
 		// 0xA -> 135Mhz, 67.5Mhz
 		// 0x6 -> 81Mhz, 40.5Mhz
 	if (bw == 0x14) { //270Mhz
-		XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-				(0x0 << 16 | 0x4 << 8 | 0x1));
-		XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-				(0x0 << 16 | 0x4));
+        VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 4;
+        VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 1;
+        VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 4;
 	} else if (bw == 0xA) { //135Mhz
-		XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-				(0x0 << 16 | 0x8 << 8 | 0x1));
-		XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-				(0x0 << 16 | 0x8));
+        VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 8;
+        VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 1;
+        VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 8;
 	} else { //81Mhz
-		XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-				(0x0 << 16 | 0xB << 8 | 0x1));
-		XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-				(0x0 << 16 | 0xB));
+        VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 11;
+        VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 1;
+        VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 11;
 	}
   }
 
 #else // for 4B the clocks to be genrated are half of 2B
       if (is_tx == 1) { // TX only path using refclk0 of 135Mhz
 		if (bw == 0x14) { //135Mhz
-			XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-					(0x0 << 16 | 0x8 << 8 | 0x1));
-			XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-					(0x0 << 16 | 0x8));
+            VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 8;
+            VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 1;
+            VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 8;
+
 		} else if (bw == 0xA) { //67.5Mhz
-			XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-					(0x0 << 16 | 0x8 << 8 | 0x1));
-			XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-					(0x0 << 16 | 0x10));
+            VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 8;
+            VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 1;
+            VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 16;
 		} else { //40.5Mhz
 			if (is_TX_CPLL == 1) { // operates on 135Mhz refclk0
-				XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-						(0x0 << 16 | 0x24 << 8 | 0x5));
-				XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-						(0x0 << 16 | 0x18));
+				VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 36;
+				VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 5;
+				VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 24;
 			} else { // operating on QPLL with 162Mhz refclk0
-				XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-						(0x0 << 16 | 0xC << 8 | 0x2));
-				XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-						(0x0 << 16 | 0x18));
+				VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 12;
+				VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 2;
+				VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 24;
 			}
 		}
       } else { // TX is using CPLL but refclk1 of 270/135/81
@@ -4643,34 +4612,28 @@ void prog_bb (u8 bw, u8 is_tx) {
 		// 0xA -> 135Mhz, 67.5Mhz
 		// 0x6 -> 81Mhz, 40.5Mhz
 		if (bw == 0x14) { //135Mhz
-			XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-					(0x0 << 16 | 0x4 << 8 | 0x1));
-			XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-					(0x0 << 16 | 0x8));
+			VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 4;
+			VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 1;
+			VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 8;
 		} else if (bw == 0xA) { //67.5Mhz
-			XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-					(0x0 << 16 | 0x8 << 8 | 0x1));
-			XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-					(0x0 << 16 | 0x10));
+			VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 8;
+			VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 1;
+			VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 16;
 		} else { //40.5Mhz
-			XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x124,
-					(0x0 << 16 | 0xB << 8 | 0x1));
-			XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x128,
-					(0x0 << 16 | 0x16));
+			VPhy_Instance.Quads[0].TxMmcm.ClkFbOutMult = 11;
+			VPhy_Instance.Quads[0].TxMmcm.DivClkDivide = 1;
+			VPhy_Instance.Quads[0].TxMmcm.ClkOut0Div   = 22;
 		}
       }
 #endif
 
-	XVphy_WriteReg(VPhy_Instance.Config.BaseAddr, 0x120, 0x1);
-		while (!((XVphy_ReadReg(VPhy_Instance.Config.BaseAddr, 0x120))
-																	& 0x100)) {
-		}
-		xil_printf ("*");
-		XVphy_MmcmReset(&VPhy_Instance, 0, XVPHY_DIR_TX, FALSE);
-		while (!((XVphy_ReadReg(VPhy_Instance.Config.BaseAddr, 0x120))
-																	& 0x200)) {
-        }
-		xil_printf ("^^^\r\n");
+    XVphy_MmcmStart(&VPhy_Instance, 0, XVPHY_DIR_TX);
+	xil_printf ("*");
+	while (!(XVphy_MmcmLocked(&VPhy_Instance, 0, XVPHY_DIR_TX))) {
+
+	}
+	xil_printf ("*~~~");
+	xil_printf("\r\n");
 #endif
 }
 

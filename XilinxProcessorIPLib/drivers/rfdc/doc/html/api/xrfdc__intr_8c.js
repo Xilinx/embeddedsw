@@ -1,5 +1,6 @@
 var xrfdc__intr_8c =
 [
+    [ "XRFdc_GetEnabledInterrupts", "xrfdc__intr_8c.html#ga7989dde4966d0d8f82200488256a0a0b", null ],
     [ "XRFdc_GetIntrStatus", "xrfdc__intr_8c.html#ga3b066d0273f3fc1fd24741cfe2cc837c", null ],
     [ "XRFdc_IntrClr", "xrfdc__intr_8c.html#gafb4999411f07e2bbccde3c466d8ba0da", null ],
     [ "XRFdc_IntrDisable", "xrfdc__intr_8c.html#ga13cace3e47a78c717a4f2d70916adf4e", null ],

@@ -11,7 +11,7 @@ BSP_DIR=$WORKING_DIR/zynqmp_pmufw_bsp/psu_pmu_0
 #processor dir
 PROC_DIRNAME=cpu
 
-# Embedded Sw dir relaive path from pmufw src
+# Embedded Sw dir relative path from pmufw src
 EMBEDDED_SW_DIR=$WORKING_DIR/../../../..
 
 # selection of drivers is based on the board selected
@@ -25,6 +25,8 @@ STANDALONE_DIR=$EMBEDDED_SW_DIR/lib/bsp/standalone/src
 
 # libraries dir
 SERVICES_DIR=$EMBEDDED_SW_DIR/lib/sw_services
+
+BSP_SEQUENTIAL_MAKEFILES=
 
 # creation of BSP folders required
 if [ -d $BSP_DIR ]; then
@@ -46,19 +48,40 @@ fi
 # copy the libraries required
 mkdir -p $BSP_DIR/libsrc/xilfpga/src/
 cp -r $SERVICES_DIR/xilfpga/src/* $BSP_DIR/libsrc/xilfpga/src
-cp -r $SERVICES_DIR/xilfpga/src/interface/zynqmp/* $BSP_DIR/libsrc/xilfpga/src
+cp -r $SERVICES_DIR/xilfpga/src/interface/zynqmp/xilfpga_pcap.c $BSP_DIR/libsrc/xilfpga/src
 cp -r $SERVICES_DIR/xilfpga/src/*.h $BSP_DIR/include/
 cp -r $SERVICES_DIR/xilfpga/src/interface/zynqmp/*.h $BSP_DIR/include/
 rm -r $BSP_DIR/libsrc/xilfpga/src/interface/
+set BSP_SEQUENTIAL_MAKEFILES += $BSP_DIR/libsrc/xilfpga/src/Makefile
 mkdir -p $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/Makefile $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/common/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/zynqmp/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/common/*.h $BSP_DIR/include/
 cp -r $SERVICES_DIR/xilsecure/src/zynqmp/*.h $BSP_DIR/include/
+set BSP_SEQUENTIAL_MAKEFILES += $BSP_DIR/libsrc/xilsecure/src/Makefile
 cp -r $SERVICES_DIR/xilskey/ $BSP_DIR/libsrc/
-cp -r $SERVICES_DIR/xilskey/src/*.h $BSP_DIR/include/
-cp -r $SERVICES_DIR/xilskey/src/include/*.h $BSP_DIR/include/
+
+# remove the xilskey library files which are not required for PMU
+rm -r $BSP_DIR/libsrc/xilskey/src/xilskey_epl.c
+rm -r $BSP_DIR/libsrc/xilskey/src/xilskey_eps.c
+rm -r $BSP_DIR/libsrc/xilskey/src/xilskey_epshw.h
+rm -r $BSP_DIR/libsrc/xilskey/src/xilskey_js.h
+rm -r $BSP_DIR/libsrc/xilskey/src/xilskey_jscmd.c
+rm -r $BSP_DIR/libsrc/xilskey/src/xilskey_jscmd.h
+rm -r $BSP_DIR/libsrc/xilskey/src/xilskey_jslib.c
+rm -r $BSP_DIR/libsrc/xilskey/src/xilskey_jslib.h
+rm -r $BSP_DIR/libsrc/xilskey/src/xilskey_jtag.h
+rm -r $BSP_DIR/libsrc/xilskey/src/xilskey_bbram.c
+rm -r $BSP_DIR/libsrc/xilskey/src/include/xilskey_epl.h
+rm -r $BSP_DIR/libsrc/xilskey/src/include/xilskey_eps.h
+rm -r $BSP_DIR/libsrc/xilskey/src/xilskey_bbramps_zynqmp.c
+rm -r $BSP_DIR/libsrc/xilskey/src/include/xilskey_bbram.h
+
+# copy the xilskey library header files to include directory
+cp -r $BSP_DIR/libsrc/xilskey/src/*.h $BSP_DIR/include/
+cp -r $BSP_DIR/libsrc/xilskey/src/include/*.h $BSP_DIR/include/
+set BSP_SEQUENTIAL_MAKEFILES += $BSP_DIR/libsrc/xilskey/src/Makefile
 
 # copy bsp standalone code
 cp  $STANDALONE_DIR/common/*  $BSP_DIR/libsrc/standalone/src/
@@ -85,6 +108,8 @@ do
     cp -r $DRIVERS_DIR/$line/src/*.h $BSP_DIR/include/
 # copy all the HSM generated driver files DRIVER_g.c
 	cp $WORKING_DIR/x"$line"_g.c $BSP_DIR/libsrc/$line/src/
+	set BSP_SEQUENTIAL_MAKEFILES += $BSP_DIR/libsrc/$line/src/Makefile
+
 done < $DRIVERS_LIST
 
 #copy the processor code.
@@ -97,7 +122,6 @@ cp -r $DRIVERS_DIR/$PROC_DIRNAME/src $BSP_DIR/libsrc/$PROC_DIRNAME/src
 
 #copy the xparameters.h
 cp $WORKING_DIR/xparameters*.h $BSP_DIR/include/
-mv $BSP_DIR/libsrc/xilsecure/src/xsecure_sha2_pmu.a $BSP_DIR/libsrc/xilsecure/src/libxilsecure.a
 
 # other dependencies which are required
 cp $WORKING_DIR/config.make $BSP_DIR/libsrc/standalone/src/
@@ -107,5 +131,4 @@ cp $STANDALONE_DIR/profile/*.h  $BSP_DIR/include/
 
 # no inbyte and outbyte present in standalone
 cp $WORKING_DIR/inbyte.c $WORKING_DIR/outbyte.c  $BSP_DIR/libsrc/standalone/src/
-
-
+export BSP_SEQUENTIAL_MAKEFILES

@@ -1,28 +1,8 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  */
+
 #include "xpfw_config.h"
 #ifdef ENABLE_PM
 
@@ -38,35 +18,6 @@
 #include "xpfw_ipi_manager.h"
 #include "xpfw_mod_pm.h"
 
-#define IPI_REQUEST1(mask, arg0)				\
-{	\
-	u32 _ipi_req_data[] = {(arg0)};	\
-	(void)XPfw_IpiWriteMessage(PmModPtr, (mask), &_ipi_req_data[0], ARRAY_SIZE(_ipi_req_data));	\
-}
-
-#define IPI_REQUEST2(mask, arg0, arg1)				\
-{	\
-	u32 _ipi_req_data[] = {(arg0), (arg1)};	\
-	(void)XPfw_IpiWriteMessage(PmModPtr, (mask), &_ipi_req_data[0], ARRAY_SIZE(_ipi_req_data));	\
-}
-
-#define IPI_REQUEST3(mask, arg0, arg1, arg2)			\
-{	\
-	u32 _ipi_req_data[] = {(arg0), (arg1), (arg2)};	\
-	(void)XPfw_IpiWriteMessage(PmModPtr, (mask), &_ipi_req_data[0], ARRAY_SIZE(_ipi_req_data));	\
-}
-
-#define IPI_REQUEST4(mask, arg0, arg1, arg2, arg3)		\
-{	\
-	u32 _ipi_req_data[] = {(arg0), (arg1), (arg2), (arg3)};	\
-	(void)XPfw_IpiWriteMessage(PmModPtr, (mask), &_ipi_req_data[0], ARRAY_SIZE(_ipi_req_data));	\
-}
-
-#define IPI_REQUEST5(mask, arg0, arg1, arg2, arg3, arg4)	\
-{	\
-	u32 _ipi_req_data[] = {(arg0), (arg1), (arg2), (arg3), (arg4)};	\
-	(void)XPfw_IpiWriteMessage(PmModPtr, (mask), &_ipi_req_data[0], ARRAY_SIZE(_ipi_req_data));	\
-}
 /**
  * PmAcknowledgeCb() - sends acknowledge via callback
  * @master      Master who is blocked and waiting for the acknowledge
@@ -82,11 +33,13 @@ void PmAcknowledgeCb(const PmMaster* const master, const PmNodeId nodeId,
 {
 	IPI_REQUEST4(master->ipiMask, PM_ACKNOWLEDGE_CB, nodeId, status,
 		     oppoint);
-	(void)XPfw_IpiTrigger( master->ipiMask);
+	if (XST_SUCCESS != XPfw_IpiTrigger(master->ipiMask)) {
+		PmWarn("Error in IPI trigger\r\n");
+	}
 }
 
 /**
- * PmNotifyCb() - notifies a master about an event occurance
+ * PmNotifyCb() - notifies a master about an event occurrence
  * @master      Master to be notified about the event
  * @nodeId      Node id regarding which the event is triggered
  * @event       Event to informa master about
@@ -96,7 +49,9 @@ void PmNotifyCb(const PmMaster* const master, const PmNodeId nodeId,
 		const u32 event, const u32 oppoint)
 {
 	IPI_REQUEST4(master->ipiMask, PM_NOTIFY_CB, nodeId, event, oppoint);
-	(void)XPfw_IpiTrigger( master->ipiMask);
+	if (XST_SUCCESS != XPfw_IpiTrigger(master->ipiMask)) {
+		PmWarn("Error in IPI trigger\r\n");
+	}
 }
 
 /**
@@ -115,7 +70,9 @@ void PmInitSuspendCb(const PmMaster* const master, const u32 reason,
 
 	IPI_REQUEST5(master->ipiMask, PM_INIT_SUSPEND_CB, reason, latency,
 		     state, timeout);
-	(void)XPfw_IpiTrigger( master->ipiMask);
+	if (XST_SUCCESS != XPfw_IpiTrigger(master->ipiMask)) {
+		PmWarn("Error in IPI trigger\r\n");
+	}
 }
 
 #endif

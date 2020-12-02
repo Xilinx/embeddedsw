@@ -1,28 +1,8 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  */
+
 
 /*********************************************************************
  * Definitions of commonly used enums that have to match definitions
@@ -149,6 +129,7 @@ extern "C" {
 #define PM_INIT_SUSPEND_CB      30U
 #define PM_ACKNOWLEDGE_CB       31U
 #define PM_NOTIFY_CB            32U
+#define PM_NOTIFY_STL_NO_OP     33U
 
 /* Nodes */
 #define NODE_UNKNOWN    0U
@@ -402,6 +383,7 @@ extern "C" {
 #define PM_RESET_GPIO5_EMIO_93	(PM_RESET_BASE + 117U)
 #define PM_RESET_GPIO5_EMIO_94	(PM_RESET_BASE + 118U)
 #define PM_RESET_GPIO5_EMIO_95	(PM_RESET_BASE + 119U)
+#define PM_RESET_MAX_LINE		(120U)
 
 /* Clock IDs */
 #define PM_CLOCK_IOPLL			0U
@@ -516,8 +498,9 @@ extern "C" {
 #define PM_CLOCK_GEM1_REF_UNGATED	109U
 #define PM_CLOCK_GEM2_REF_UNGATED	110U
 #define PM_CLOCK_GEM3_REF_UNGATED	111U
+#define PM_CLOCK_LPD_WDT		112U
 
-#define PM_CLOCK_EXT_BASE		112U
+#define PM_CLOCK_EXT_BASE		113U
 #define PM_CLOCK_EXT_PSS_REF		(PM_CLOCK_EXT_BASE + 0U)
 #define PM_CLOCK_EXT_VIDEO		(PM_CLOCK_EXT_BASE + 1U)
 #define PM_CLOCK_EXT_PSS_ALT_REF	(PM_CLOCK_EXT_BASE + 2U)
@@ -627,6 +610,7 @@ extern "C" {
 #define PM_PLL_PARAM_LFHF		7U
 #define PM_PLL_PARAM_CP			8U
 #define PM_PLL_PARAM_RES		9U
+#define PM_PLL_MAX_PARAM		10U
 
 /* PLL modes */
 #define PM_PLL_MODE_RESET		0U
@@ -691,6 +675,7 @@ extern "C" {
 #define PINCTRL_FUNC_TRACE0		54U
 #define PINCTRL_FUNC_TRACE0_CLK		55U
 #define PINCTRL_FUNC_TESTSCAN0		56U
+#define MAX_FUNCTION			57U
 
 #define PINCTRL_CONFIG_SLEW_RATE	0U
 #define PINCTRL_CONFIG_BIAS_STATUS	1U
@@ -698,6 +683,7 @@ extern "C" {
 #define PINCTRL_CONFIG_SCHMITT_CMOS	3U
 #define PINCTRL_CONFIG_DRIVE_STRENGTH	4U
 #define PINCTRL_CONFIG_VOLTAGE_STATUS	5U
+#define PINCTRL_MAX_CONFIG		6U
 
 #ifdef __cplusplus
 }

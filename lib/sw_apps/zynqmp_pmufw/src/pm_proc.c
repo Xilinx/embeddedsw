@@ -1,28 +1,8 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  */
+
 #include "xpfw_config.h"
 #ifdef ENABLE_PM
 
@@ -55,12 +35,10 @@
 #include "rpu.h"
 #include "pm_system.h"
 #include "pm_clock.h"
+#include "xpfw_aib.h"
 
 /* Enable/disable macros for processor's wfi event in GPI2 register */
 #define ENABLE_WFI(mask)    XPfw_RMW32(PMU_LOCAL_GPI2_ENABLE, (mask), (mask));
-
-#define PM_PROC_RPU_LOVEC_ADDR  0x00000000U
-#define PM_PROC_RPU_HIVEC_ADDR  0xFFFF0000U
 
 /* Power consumptions for the APU for specific states */
 #define DEFAULT_APU_POWER_ACTIVE	200U
@@ -188,7 +166,7 @@ done:
  */
 static s32 PmProcApu0Sleep(void)
 {
-	return XpbrACPU0SleepHandler();
+	return (s32)XpbrACPU0SleepHandler();
 }
 
 /**
@@ -197,7 +175,7 @@ static s32 PmProcApu0Sleep(void)
  */
 static s32 PmProcApu1Sleep(void)
 {
-	return XpbrACPU1SleepHandler();
+	return (s32)XpbrACPU1SleepHandler();
 }
 
 /**
@@ -206,7 +184,7 @@ static s32 PmProcApu1Sleep(void)
  */
 static s32 PmProcApu2Sleep(void)
 {
-	return XpbrACPU2SleepHandler();
+	return (s32)XpbrACPU2SleepHandler();
 }
 
 /**
@@ -215,7 +193,7 @@ static s32 PmProcApu2Sleep(void)
  */
 static s32 PmProcApu3Sleep(void)
 {
-	return XpbrACPU3SleepHandler();
+	return (s32)XpbrACPU3SleepHandler();
 }
 
 /**
@@ -224,6 +202,9 @@ static s32 PmProcApu3Sleep(void)
  */
 static s32 PmProcRpu0Sleep(void)
 {
+	XPfw_AibEnable(XPFW_AIB_RPU0_TO_LPD);
+	XPfw_AibEnable(XPFW_AIB_LPD_TO_RPU0);
+
 	XPfw_RMW32(CRL_APB_RST_LPD_TOP,
 		   CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK,
 		   CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK);
@@ -234,6 +215,9 @@ static s32 PmProcRpu0Sleep(void)
 		   CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK,
 		  ~CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK);
 
+	XPfw_AibDisable(XPFW_AIB_RPU0_TO_LPD);
+	XPfw_AibDisable(XPFW_AIB_LPD_TO_RPU0);
+
 	return XST_SUCCESS;
 }
 
@@ -243,6 +227,9 @@ static s32 PmProcRpu0Sleep(void)
  */
 static s32 PmProcRpu1Sleep(void)
 {
+	XPfw_AibEnable(XPFW_AIB_RPU1_TO_LPD);
+	XPfw_AibEnable(XPFW_AIB_LPD_TO_RPU1);
+
 	XPfw_RMW32(CRL_APB_RST_LPD_TOP,
 		   CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK,
 		   CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK);
@@ -253,6 +240,9 @@ static s32 PmProcRpu1Sleep(void)
 		   CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK,
 		  ~CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK);
 
+	XPfw_AibDisable(XPFW_AIB_RPU1_TO_LPD);
+	XPfw_AibDisable(XPFW_AIB_LPD_TO_RPU1);
+
 	return XST_SUCCESS;
 }
 
@@ -262,7 +252,7 @@ static s32 PmProcRpu1Sleep(void)
  */
 static s32 PmProcApu0Wake(void)
 {
-	return XpbrACPU0WakeHandler();
+	return (s32)XpbrACPU0WakeHandler();
 }
 
 /**
@@ -271,7 +261,7 @@ static s32 PmProcApu0Wake(void)
  */
 static s32 PmProcApu1Wake(void)
 {
-	return XpbrACPU1WakeHandler();
+	return (s32)XpbrACPU1WakeHandler();
 }
 
 /**
@@ -280,7 +270,7 @@ static s32 PmProcApu1Wake(void)
  */
 static s32 PmProcApu2Wake(void)
 {
-	return XpbrACPU2WakeHandler();
+	return (s32)XpbrACPU2WakeHandler();
 }
 
 /**
@@ -289,7 +279,7 @@ static s32 PmProcApu2Wake(void)
  */
 static s32 PmProcApu3Wake(void)
 {
-	return XpbrACPU3WakeHandler();
+	return (s32)XpbrACPU3WakeHandler();
 }
 
 /**
@@ -300,7 +290,7 @@ static s32 PmProcRpu0Wake(void)
 {
 	s32 status;
 
-	status = XpbrRstR50Handler();
+	status = (s32)XpbrRstR50Handler();
 	if (XST_SUCCESS != status) {
 		goto done;
 	}
@@ -319,7 +309,7 @@ static s32 PmProcRpu1Wake(void)
 {
 	s32 status;
 
-	status = XpbrRstR51Handler();
+	status = (s32)XpbrRstR51Handler();
 	if (XST_SUCCESS != status) {
 		goto done;
 	}
@@ -374,7 +364,10 @@ static s32 PmProcWake(PmProc* const proc)
 		}
 	}
 	if (NULL != proc->node.clocks) {
-		(void)PmClockRequest(&proc->node);
+		status = PmClockRequest(&proc->node);
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
 	}
 
 	proc->restoreResumeAddr(proc);
@@ -538,7 +531,7 @@ static s32 PmProcTrSuspendToSleep(PmProc* const proc)
 		status = PmMasterFsm(proc->master, PM_MASTER_EVENT_SLEEP);
 
 		/* If suspended, remember which processor to wake-up first */
-		if (true == (u8)PmMasterIsSuspended(proc->master)) {
+		if (true == PmMasterIsSuspended(proc->master)) {
 			proc->master->wakeProc = proc;
 		}
 	}
@@ -628,7 +621,7 @@ s32 PmProcFsm(PmProc* const proc, const PmProcEvent event)
 		} else {
 			status = XST_SUCCESS;
 		}
-		if (true == (u8)PmIsRequestedToSuspend(proc->master)) {
+		if (true == PmIsRequestedToSuspend(proc->master)) {
 			status = PmMasterSuspendAck(proc->master,
 						    XST_PM_ABORT_SUSPEND);
 		}
@@ -651,6 +644,7 @@ s32 PmProcFsm(PmProc* const proc, const PmProcEvent event)
 		} else if (PM_PROC_STATE_SUSPENDING == currState) {
 			status = XST_PM_CONFLICT;
 		} else {
+			/* For MISRA compliance */
 		}
 
 		/* Reset latency requirement */
@@ -787,7 +781,7 @@ void PmForceDownUnusableRpuCores(void)
 	 * for that core is cleared. So check that bit and force down that core.
 	 */
 	if (0U == (value & RPU0_STATUS_MASK)) {
-		PmProcForceDown(&pmProcRpu0_g.node);
+		(void)PmProcForceDown(&pmProcRpu0_g.node);
 	}
 	if (0U == (value & RPU1_STATUS_MASK)) {
 		mode = XPfw_Read32(RPU_RPU_GLBL_CNTL);
@@ -803,11 +797,11 @@ void PmForceDownUnusableRpuCores(void)
 				PmClockRelease(&proc->node);
 			}
 			if (NULL != proc->master) {
-				PmMasterFsm(proc->master,
+				(void)PmMasterFsm(proc->master,
 					    PM_MASTER_EVENT_FORCED_PROC);
 			}
 		} else {
-			PmProcFsm(&pmProcRpu1_g, PM_PROC_EVENT_FORCE_PWRDN);
+			(void)PmProcFsm(&pmProcRpu1_g, PM_PROC_EVENT_FORCE_PWRDN);
 		}
 	}
 
@@ -889,7 +883,7 @@ static u32 PmProcGetPerms(const PmNode* const node)
 }
 
 /* Power consumptions for the APU for specific states */
-static u32 PmProcPowerAPU_X[] = {
+static u8 PmProcPowerAPU_X[] = {
 	DEFAULT_APU_POWER_OFF,
 	DEFAULT_APU_POWER_ACTIVE,
 	DEFAULT_APU_POWER_SLEEP,
@@ -897,7 +891,7 @@ static u32 PmProcPowerAPU_X[] = {
 };
 
 /* Power consumptions for the RPU for specific states */
-static u32 PmProcPowerRPU_X[] = {
+static u8 PmProcPowerRPU_X[] = {
 	DEFAULT_RPU_POWER_OFF,
 	DEFAULT_RPU_POWER_ACTIVE,
 	DEFAULT_RPU_POWER_SLEEP,

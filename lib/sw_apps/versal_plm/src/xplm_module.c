@@ -1,27 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+* Copyright (c) 2018 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
@@ -37,6 +16,12 @@
 * Ver   Who  Date        Changes
 * ====  ==== ======== ======================================================-
 * 1.00  kc   08/28/2018 Initial release
+* 1.01  sn   07/04/2019 Added code to enable SysMon's over-temperature
+*                       interrupt
+*       kc   08/01/2019 Added error management module in PLM
+*       ma   08/01/2019 Removed LPD module init related code from PLM app
+* 1.02  kc   03/23/2020 Minor code cleanup
+* 1.03  rama 07/29/2020 Added module support for STL
 *
 * </pre>
 *
@@ -46,7 +31,13 @@
 
 /***************************** Include Files *********************************/
 #include "xplm_module.h"
-#include "xplm_main.h"
+#include "xplm_default.h"
+#include "xplmi_sysmon.h"
+#include "xpm_api.h"
+#include "xsecure_init.h"
+#include "xplmi_err.h"
+#include "xplm_loader.h"
+#include "xplm_pm.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -56,34 +47,51 @@ typedef int (*ModuleInit)(void);
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+static int XPlm_PlmiInit(void);
+static int XPlm_ErrInit(void);
+static int XPlm_SecureInit(void);
 
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
-/**
- * It contains the all the init functions to be run for every module that
- * is present as a part of PLM.
- */
-static ModuleInit ModuleList[] =
-{
-	XPlm_PlmiInit,
-	XPlm_PmInit,
-	XPlm_LoaderInit,
-};
 
+/*****************************************************************************/
 /**
- * It contains the all the PS LPD init functions to be run for every module that
- * is present as a part of PLM.
- */
-static ModuleInit LpdModuleList[] =
+ * @brief This function initializes the XilSecure module and registers the
+ * interrupt handlers and other requests.
+ *
+ * @param	None
+ *
+ * @return	Status as defined in xplmi_status.h
+ *
+ *****************************************************************************/
+static int XPlm_SecureInit(void)
 {
-#ifdef DEBUG_UART_PS
-	XPlm_InitUart,
-#endif
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
-	XPlmi_IpiInit,
-#endif
-};
+	int Status = XST_FAILURE;
+	Status = XSecure_Init();
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief This function initializes the Error module and registers the
+ * error commands of the CDO.
+ *
+ * @param	None
+ *
+ * @return	Status as defined in xplmi_status.h
+ *
+ *****************************************************************************/
+static int XPlm_ErrInit(void)
+{
+	int Status = XST_FAILURE;
+
+	XPlmi_EmInit(XPm_SystemShutdown);
+	Status = XST_SUCCESS;
+
+	return Status;
+}
 
 /*****************************************************************************/
 /**
@@ -92,13 +100,14 @@ static ModuleInit LpdModuleList[] =
  *
  * @param	None
  *
- * @return	Status as defined in xplm_status.h
+ * @return	Status as defined in xplmi_status.h
  *
  *****************************************************************************/
-int XPlm_PlmiInit(void )
+static int XPlm_PlmiInit(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	Status = XPlmi_Init();
+
 	return Status;
 }
 
@@ -108,56 +117,40 @@ int XPlm_PlmiInit(void )
  * modules. As a part of init functions, modules can register the
  * command handlers, interrupt handlers with the interface layer.
  *
- * @param	None
+ * @param	Arg is not used
  *
- * @return	Status as defined in xplm_status.h
+ * @return	Status as defined in xplmi_status.h
  *
  *****************************************************************************/
-int XPlm_ModuleInit(void *arg)
+int XPlm_ModuleInit(void *Arg)
 {
+	int Status = XST_FAILURE;
 	u32 Index;
-	int Status;
-
-	for (Index = 0; Index < sizeof ModuleList / sizeof *ModuleList; Index++)
+	/**
+	 * It contains the all the init functions to be run for every module that
+	 * is present as a part of PLM.
+	 */
+	const ModuleInit ModuleList[] =
 	{
+		XPlm_PlmiInit,
+		XPlm_ErrInit,
+		XPlm_PmInit,
+		XPlm_LoaderInit,
+		XPlm_SecureInit,
+#ifdef PLM_ENABLE_STL
+		XPlm_StlInit,
+#endif
+	};
+
+	(void) Arg;
+	for (Index = 0U; Index < XPLMI_ARRAY_SIZE(ModuleList); Index++) {
 		Status = ModuleList[Index]();
-		if (Status != XPLM_SUCCESS)
-		{
+		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 	}
-	Status = XPLM_SUCCESS;
-END:
-	return Status;
-}
+	Status = XST_SUCCESS;
 
-/*****************************************************************************/
-/**
- * @brief This function call all the PS LPD init functions of all the different
- * modules. As a part of init functions, modules can register the
- * command handlers, interrupt handlers with the interface layer.
- *
- * @param	None
- *
- * @return	Status as defined in xplm_status.h
- *
- *****************************************************************************/
-int XPlm_LpdModuleInit(void *arg)
-{
-	u32 Index;
-	int Status;
-
-	for (Index = 0; Index <
-	     sizeof LpdModuleList / sizeof *LpdModuleList; Index++)
-	{
-		Status = LpdModuleList[Index]();
-		if (Status != XPLM_SUCCESS)
-		{
-			Status = XPLMI_UPDATE_STATUS(XPLM_ERR_LPD_MOD, Status);
-			goto END;
-		}
-	}
-	Status = XPLM_SUCCESS;
 END:
 	return Status;
 }

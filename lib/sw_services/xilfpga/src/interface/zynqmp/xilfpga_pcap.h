@@ -1,123 +1,66 @@
 /******************************************************************************
- *
- * Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
- *
- *****************************************************************************/
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+
 /*****************************************************************************/
 /**
  *
  * @file xilfpga_pcap.h
- * @addtogroup xfpga_apis XilFPGA APIs
- * @{
  *
  * The XILFPGA library provides the interface to the application to configure
  * the programmable logic (PL) though the PS.
  *
- * - Supported Features:
- *    - Full Bitstream loading.
- *    - Partial Bitstream loading.
- *    - Encrypted Bitstream loading.
- *    - Authenticated Bitstream loading.
- *    - Authenticated and Encrypted Bitstream loading.
- *    - Partial Bitstream loading.
- *
- * #  Xilfpga_PL library Interface modules	{#xilfpgapllib}
- *	Xilfpga_PL library uses the below major components to configure the PL
- *	through PS.
- *  - CSU DMA driver is used to transfer the actual Bit stream file for the
- *    PS to PL after PCAP initialization
- *
- *  - Xilsecure_library provides APIs to access secure hardware on the Zynq&reg
- *    UltraScale+&tm MPSoC devices. This library includes:
- *	 - SHA-3 engine hash functions
- *	 - AES for symmetric key encryption
- *	 - RSA for authentication
- *
- * These algorithms are needed to support to load the Encrypted and
- * Authenticated Bitstreams into PL.
- *
- * @note XilFPGA library is capable of loading only .bin format files into PL.
- * The library does not support other file formats.
- *
- *
- * ##   Initialization & Writing Bitstream	{#xilinit}
- *
- * Use the u32 XFpga_PL_BitSream_Load(); function to initialize the driver
- * and load the Bitstream.
- *
- * @{
- * @cond xilfpga_internal
- * <pre>
  * MODIFICATION HISTORY:
  *
- * Ver   Who  Date        Changes
- * ----- ---- -------- -------------------------------------------------------
- * 1.0   Nava   08/06/16 Initial release
- * 1.1   Nava  16/11/16 Added PL power-up sequence.
- * 2.0   Nava  10/1/17  Added Encrypted bitstream loading support.
- * 2.0   Nava  16/02/17 Added Authenticated bitstream loading support.
- * 2.1   Nava  06/05/17 Correct the check logic issues in
- *                      XFpga_PL_BitStream_Load()
- *                      to avoid the unwanted blocking conditions.
- * 3.0   Nava  12/05/17 Added PL configuration registers readback support.
- * 4.0   Nava  08/02/18 Added Authenticated and Encypted Bitstream
-			loading support.
- * 4.0   Nava  02/03/18 Added the legacy bit file loading feature support
- *			from U-boot.and improve the error handling support
- *			by returning the proper ERROR value upon error
- *			conditions.
- * 4.1  Nava   27/03/18 For Secure Bitstream loading to avoid the Security
- *			violations Need to Re-validate the User Crypto flags
- *			with the Image Crypto operation by using the internal
- *			memory.To Fix this added a new API
- *			XFpga_ReValidateCryptoFlags().
- * 4.1 Nava   16/04/18  Added partial bitstream loading support.
- * 4.2 Nava   08/06/16  Refactor the xilfpga library to support
- *                      different PL programming Interfaces.
- * 4.2 adk    11/07/18  Added support for readback of PL configuration data.
- * 4.2 Nava   22/07/18 Added XFpga_SelectEndianess() new API to Support
- *                      programming the vivado generated .bit and .bin files
- * 4.2 adk   03/08/18 Added example for partial reconfiguration.
- * 4.2 Nava   16/08/18  Modified the PL data handling Logic to support
- *                      different PL programming interfaces.
- * 4.2 Nava   15/09/18  Fixed global function call-backs issue.
- * 5.0 Div    21/01/19  Fixed misra-c required standard violations.
- * 5.0  Nava 06/02/19  Remove redundant API's from the interface agnostic layer
- *                     and make the existing API's generic to support both
- *                     ZynqMP and versal platforms.
- * 5.0 Nava  26/02/19  Fix for power-up PL issue with pmufw.
- * 5.0 Nava  26/02/19  Update the data handling logic to avoid the code
- *                     duplication
- * 5.0 Nava  28/02/19  Handling all the 4 PS-PL resets irrespective of the
- *                     design configuration.
- * 5.0 Nava  21/03/19  Added Address alignment check. As CSUDMA expects word
- *		       aligned address. In case user passes an unaligned
- *		       address return error.
- * 5.0 sne   27/03/19  Fixed misra-c violations.
- * 5.0 Nava  23/04/19  Optimize the API's logic to avoid code duplication.
+ * Ver   Who    Date        Changes
+ * ----- ----   -------- -------------------------------------------------------
+ * 1.0   Nava   06/08/16 Initial release
+ * 1.1   Nava   11/16/16 Added PL power-up sequence.
+ * 2.0   Nava   01/10/17 Added Encrypted bitstream loading support.
+ * 2.0   Nava   02/16/17 Added Authenticated bitstream loading support.
+ * 2.1   Nava   05/06/17 Correct the check logic issues in
+ *                       XFpga_PL_BitStream_Load()
+ *                       to avoid the unwanted blocking conditions.
+ * 3.0   Nava   05/12/17 Added PL configuration registers readback support.
+ * 4.0   Nava   02/08/18 Added Authenticated and Encypted Bitstream
+			 loading support.
+ * 4.0   Nava   03/02/18 Added the legacy bit file loading feature support
+ *			 from U-boot.and improve the error handling support
+ *			 by returning the proper ERROR value upon error
+ *			 conditions.
+ * 4.1   Nava   03/27/18 For Secure Bitstream loading to avoid the Security
+ *			 violations Need to Re-validate the User Crypto flags
+ *			 with the Image Crypto operation by using the internal
+ *			 memory.To Fix this added a new API
+ *			 XFpga_ReValidateCryptoFlags().
+ * 4.1   Nava   04/16/18 Added partial bitstream loading support.
+ * 4.2   Nava   06/08/16 Refactor the xilfpga library to support
+ *                       different PL programming Interfaces.
+ * 4.2   adk    07/11/18 Added support for readback of PL configuration data.
+ * 4.2   Nava   07/22/18 Added XFpga_SelectEndianess() new API to Support
+ *                       programming the vivado generated .bit and .bin files
+ * 4.2   adk    08/03/18 Added example for partial reconfiguration.
+ * 4.2   Nava   08/16/18 Modified the PL data handling Logic to support
+ *                       different PL programming interfaces.
+ * 4.2   Nava   09/15/18 Fixed global function call-backs issue.
+ * 5.0   Div    01/21/19 Fixed misra-c required standard violations.
+ * 5.0   Nava   02/06/19 Remove redundant API's from the interface agnostic layer
+ *                       and make the existing API's generic to support both
+ *                       ZynqMP and versal platforms.
+ * 5.0   Nava   02/26/19 Fix for power-up PL issue with pmufw.
+ * 5.0   Nava   02/26/19 Update the data handling logic to avoid the code
+ *                       duplication
+ * 5.0   Nava   02/28/19 Handling all the 4 PS-PL resets irrespective of the
+ *                       design configuration.
+ * 5.0   Nava   03/21/19 Added Address alignment check. As CSUDMA expects word
+ *		         aligned address. In case user passes an unaligned
+ *		         address return error.
+ * 5.0   sne    03/27/19 Fixed misra-c violations.
+ * 5.0   Nava   04/23/19 Optimize the API's logic to avoid code duplication.
+ * 5.2   Nava   12/18/19 Fix for security violation in the readback path.
+ * 5.2   Nava   02/14/20 Added Bitstream loading support by using IPI services.
+ * 5.3   Nava   06/16/20 Modified the date format from dd/mm to mm/dd.
  * </pre>
  *
  * @note
@@ -135,7 +78,6 @@ extern "C" {
 
 #include "xcsudma.h"
 #include "xsecure.h"
-#include "xilfpga.h"
 #include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
@@ -209,6 +151,7 @@ extern "C" {
 #define PMU_GLOBAL_ISO_INT_EN		(PMU_GLOBAL_BASE + 0X318U)
 #define PMU_GLOBAL_ISO_TRIG		(PMU_GLOBAL_BASE + 0X320U)
 #define PMU_GLOBAL_ISO_STATUS		(PMU_GLOBAL_BASE + 0X310U)
+#define PMU_GLOBAL_ISO_NONPCAP_MASK	0X00000004U
 
 #define GPIO_DIRM_5_EMIO		0xFF0A0344U
 #define GPIO_MASK_DATA_5_MSW	0xFF0A002CU
@@ -257,6 +200,7 @@ extern "C" {
 #define XFPGA_ERROR_BITSTREAM_FORMAT		(0x1AU)
 #define XFPGA_ERROR_UNALIGN_ADDR		(0x1BU)
 #define XFPGA_ERROR_AES_INIT			(0x1CU)
+#define XFPGA_ERROR_EFUSE_CHECK 		(0x1DU)
 
 /* PCAP Error Update Macro */
 #define XFPGA_PCAP_ERR_MASK			(0xFF00U)
@@ -267,29 +211,6 @@ extern "C" {
 
 #define XFPGA_STATE_MASK	0x00FF0000U
 #define XFPGA_STATE_SHIFT	16U
-#define CFGREG_SRCDMA_OFFSET	0x8U
-#define CFGDATA_DSTDMA_OFFSET	0x1FCU
-
-/* FPGA Configuration Registers Offsets */
-#define CRC		0U  /* Status Register */
-#define FAR1		1U  /* Frame Address Register */
-#define FDRI		2U  /* FDRI Register */
-#define FDRO		3U  /* FDRO Register */
-#define CMD		4U  /* Command Register */
-#define CTL0		5U  /* Control Register 0 */
-#define MASK		6U  /* MASK Register */
-#define STAT		7U  /* Status Register */
-#define LOUT		8U  /* LOUT Register */
-#define COR0		9U  /* Configuration Options Register 0 */
-#define MFWR		10U /* MFWR Register */
-#define CBC		11U /* CBC Register */
-#define IDCODE		12U /* IDCODE Register */
-#define AXSS		13U /* AXSS Register */
-#define COR1		14U /* Configuration Options Register 1 */
-#define WBSTAR		16U /* Warm Boot Start Address Register */
-#define TIMER		17U /* Watchdog Timer Register */
-#define BOOTSTS		22U /* Boot History Status Register */
-#define CTL1		24U /* Control Register 1 */
 
 /**************************** Type Definitions *******************************/
  typedef struct {
@@ -315,8 +236,6 @@ extern "C" {
  * @TotalBitPartCount Used to store the number of Authenticated partitions info.
  * @SecureOcmState Used to Preserve the initialization states for the OCM
  *                 use cases.
- * @ConfigStatus Used to preserve the software PL configuration status
- * @State Used to Preserve the software state machine.
  * @RemaningBytes used to preserve the remaining byte to process Authenticated
  *                bitstream Images.
  * @AcPtr Used to Access the authenticate certificate buffer address
@@ -328,55 +247,10 @@ typedef struct {
 	XSecure_Aes Secure_Aes;
 	u32 TotalBitPartCount;
 	u32 SecureOcmState;
-	u32 ConfigStatus;
-	u32 State;
 	u32 RemaningBytes;
 	UINTPTR AcPtr;
 	UINTPTR BitAddr;
 } XFpga_Info;
-
-/**
- * Structure to store the PL Write Image details.
- *
- * @BitstreamAddr	Bitstream image base address.
- * @AddrPtr_Size	Aes key address which is used for Decryption (or)
- *			In none Secure Bitstream used it is used store size
- *			of Bitstream Image.
- * @Flags		Flags are used to specify the type of Bitstream file.
- *			* BIT(0) - Bitstream type
- *                                     * 0 - Full Bitstream
- *                                     * 1 - Partial Bitstream
- *			* BIT(1) - Authentication using DDR
- *                                     * 1 - Enable
- *                                     * 0 - Disable
- *			* BIT(2) - Authentication using OCM
- *                                     * 1 - Enable
- *                                     * 0 - Disable
- *			* BIT(3) - User-key Encryption
- *                                     * 1 - Enable
- *                                     * 0 - Disable
- *			* BIT(4) - Device-key Encryption
- *                                     * 1 - Enable
- *                                     * 0 - Disable
- *
- */
-typedef struct {
-		UINTPTR BitstreamAddr;
-		UINTPTR	AddrPtr_Size;
-		u32 Flags;
-}XFpga_Write;
-
-/**
- * Structure to store the PL Image details.
- *
- * @ReadbackAddr	Address which is used to store the PL readback data.
- * @ConfigReg		Configuration register value to be returned (or)
- * 			The number of Fpga configuration frames to read
- */
-typedef struct {
-		UINTPTR ReadbackAddr;
-		u32 ConfigReg_NumFrames;
-}XFpga_Read;
 
 /************************** Variable Definitions *****************************/
 

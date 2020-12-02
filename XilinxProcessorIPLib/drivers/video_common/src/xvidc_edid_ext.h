@@ -119,7 +119,11 @@ enum xvidc_edid_secondary_timing_support {
 };
 
 
+#if defined(__GNUC__)
 struct __attribute__ (( packed )) xvidc_edid_detailed_timing_descriptor {
+#elif defined(__ICCARM__)
+struct _Pragma ("pack()") xvidc_edid_detailed_timing_descriptor {
+#endif
     u16 pixel_clock;                               /* = value * 10000 */
 
     u8  horizontal_active_lo;
@@ -253,7 +257,11 @@ xvidc_edid_detailed_timing_stereo_mode
 }
 
 
+#if defined(__GNUC__)
 struct __attribute__ (( packed )) xvidc_edid_monitor_descriptor {
+#elif defined(__ICCARM__)
+struct _Pragma ("pack()") xvidc_edid_monitor_descriptor {
+#endif
     u16 flag0;
     u8  flag1;
     u8  tag;
@@ -265,7 +273,11 @@ typedef char xvidc_edid_monitor_descriptor_string
             [sizeof(((struct xvidc_edid_monitor_descriptor *)0)->data) + 1];
 
 
+#if defined(__GNUC__)
 struct __attribute__ (( packed )) xvidc_edid_monitor_range_limits {
+#elif defined(__ICCARM__)
+struct _Pragma ("pack()") xvidc_edid_monitor_range_limits {
+#endif
     u8  minimum_vertical_rate;             /* Hz */
     u8  maximum_vertical_rate;             /* Hz */
     u8  minimum_horizontal_rate;           /* kHz */
@@ -284,7 +296,11 @@ struct __attribute__ (( packed )) xvidc_edid_monitor_range_limits {
 };
 
 
+#if defined(__GNUC__)
 struct __attribute__ (( packed )) xvidc_edid_standard_timing_descriptor {
+#elif defined(__ICCARM__)
+struct _Pragma ("pack()") xvidc_edid_standard_timing_descriptor {
+#endif
     u8  horizontal_active_pixels;         /* = (value + 31) * 8 */
 
     unsigned refresh_rate       : 6;           /* = value + 60 */
@@ -323,7 +339,11 @@ xvidc_edid_standard_timing_refresh_rate
 }
 
 
+#if defined(__GNUC__)
 struct __attribute__ (( packed )) edid {
+#elif defined(__ICCARM__)
+struct _Pragma ("pack()") edid {
+#endif
     /* header information */
     u8  header[8];
 
@@ -346,12 +366,20 @@ struct __attribute__ (( packed )) edid {
 
     /* basic display parameters and features */
     union {
+#if defined(__GNUC__)
         struct __attribute__ (( packed )) {
+#elif defined(__ICCARM__)
+	struct _Pragma ("pack()") {
+#endif
             unsigned dfp_1x                 : 1;    /* VESA DFP 1.x */
             unsigned                        : 6;
             unsigned digital                : 1;
         } digital;
+#if defined(__GNUC__)
         struct __attribute__ (( packed )) {
+#elif defined(__ICCARM__)
+	struct _Pragma ("pack()") {
+#endif
             unsigned vsync_serration        : 1;
             unsigned green_video_sync       : 1;
             unsigned composite_sync         : 1;
@@ -367,7 +395,11 @@ struct __attribute__ (( packed )) edid {
 
     u8  display_transfer_characteristics;  /* gamma = (value + 100) / 100 */
 
+#if defined(__GNUC__)
     struct __attribute__ (( packed )) {
+#elif defined(__ICCARM__)
+    struct _Pragma ("pack()") {
+#endif
         unsigned default_gtf                    : 1; /* generalised timing
                                                      formula */
         unsigned preferred_timing_mode          : 1;
@@ -399,7 +431,11 @@ struct __attribute__ (( packed )) edid {
     u8  white_y;
 
     /* established timings */
+#if defined(__GNUC__)
     struct __attribute__ (( packed )) {
+#elif defined(__ICCARM__)
+    struct _Pragma ("pack()") {
+#endif
         unsigned timing_800x600_60   : 1;
         unsigned timing_800x600_56   : 1;
         unsigned timing_640x480_75   : 1;
@@ -419,7 +455,11 @@ struct __attribute__ (( packed )) edid {
         unsigned timing_800x600_72   : 1;
     } established_timings;
 
+#if defined(__GNUC__)
     struct __attribute__ (( packed )) {
+#elif defined(__ICCARM__)
+    struct _Pragma ("pack()") {
+#endif
         unsigned reserved            : 7;
         unsigned timing_1152x870_75  : 1;
     } manufacturer_timings;
@@ -465,7 +505,11 @@ xvidc_edid_detailed_timing_is_monitor_descriptor(const struct edid * const edid,
 }
 
 
+#if defined(__GNUC__)
 struct __attribute__ (( packed )) xvidc_edid_color_characteristics_data {
+#elif defined(__ICCARM__)
+struct _Pragma ("pack()") xvidc_edid_color_characteristics_data {
+#endif
     struct {
         u16 x;
         u16 y;
@@ -498,14 +542,22 @@ xvidc_edid_color_characteristics(const struct edid * const edid)
 }
 
 
+#if defined(__GNUC__)
 struct __attribute__ (( packed )) xvidc_edid_block_map {
+#elif defined(__ICCARM__)
+struct _Pragma ("pack()") xvidc_edid_block_map {
+#endif
     u8 tag;
     u8 extension_tag[126];
     u8 checksum;
 };
 
 
+#if defined(__GNUC__)
 struct __attribute__ (( packed )) xvidc_edid_extension {
+#elif defined(__ICCARM__)
+struct _Pragma ("pack()") xvidc_edid_extension {
+#endif
     u8 tag;
     u8 revision;
     u8 extension_data[125];
@@ -604,6 +656,9 @@ typedef struct {
 	/*Sink Capability Support*/
     u8             MaxFrameRateSupp;
     u16            MaxTmdsMhz;
+    u8             MaxFrlRateSupp;
+    u8             MaxFrlLineRateSupp;
+    u8             MaxFrlLanesSupp;
 	/*CEA 861 Supported VIC Support*/
     u8             SuppCeaVIC[32];
 	/*VESA Sink Preffered Timing Support*/

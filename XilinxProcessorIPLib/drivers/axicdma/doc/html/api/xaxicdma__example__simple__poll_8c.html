@@ -28,7 +28,7 @@
   <td style="padding-left: 0.5em;">
    <div id="projectname">axicdma
    </div>
-   <div id="projectbrief">Xilinx SDK Drivers API Documentation</div>
+   <div id="projectbrief">Xilinx Vitis Drivers API Documentation</div>
   </td>
  </tr>
  </tbody>
@@ -88,6 +88,9 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
       ms   04/05/17 Modified Comment lines in functions to
                     recognize it as documentation block for doxygen
                     generation of examples.
+4.6   rsp  09/13/19 Add error prints for failing scenarios.
+                    Fix cache maintenance ops for source and dest buffer.
+4.7   rsp  12/06/19 For aarch64 include xil_mmu.h. Fixes gcc warning.
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -161,7 +164,7 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>If the hardware build has problems with interrupt, then this function hangs </dd></dl>
 
-<p>References <a class="el" href="group__axicdma__v4__5.html#gab746b095007351c2fb2c1a7cf3693f2c">XAxiCdma_CfgInitialize()</a>, <a class="el" href="group__axicdma__v4__5.html#gabdccf08d74f4e037b06a36a2e9db2877">XAxiCdma_IntrDisable()</a>, <a class="el" href="group__axicdma__v4__5.html#ga3ecc6331ed89e613e7f1fb53f45a4cb0">XAxiCdma_LookupConfig()</a>, and <a class="el" href="group__axicdma__v4__5.html#gad2b921e876e581f84be0e7c152d13221">XAXICDMA_XR_IRQ_ALL_MASK</a>.</p>
+<p>References <a class="el" href="group__axicdma__v4__8.html#gab746b095007351c2fb2c1a7cf3693f2c">XAxiCdma_CfgInitialize()</a>, <a class="el" href="group__axicdma__v4__8.html#gabdccf08d74f4e037b06a36a2e9db2877">XAxiCdma_IntrDisable()</a>, <a class="el" href="group__axicdma__v4__8.html#ga3ecc6331ed89e613e7f1fb53f45a4cb0">XAxiCdma_LookupConfig()</a>, and <a class="el" href="group__axicdma__v4__8.html#gad2b921e876e581f84be0e7c152d13221">XAXICDMA_XR_IRQ_ALL_MASK</a>.</p>
 
 <p>Referenced by <a class="el" href="xaxicdma__example__simple__poll_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
 

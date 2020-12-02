@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 18 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -368,17 +346,11 @@ void XFsbl_PrintFsblBanner(void )
 
 	if(FsblInstance.ResetReason == XFSBL_PS_ONLY_RESET) {
 		XFsbl_Printf(DEBUG_GENERAL,"Reset Mode	:	PS Only Reset\r\n");
-	}
-	else if(FsblInstance.ResetReason == XFSBL_APU_ONLY_RESET)
-	{
-		XFsbl_Printf(DEBUG_GENERAL,"Reset Mode	:	APU Only Reset\r\n");
-	}
-	else if(FsblInstance.ResetReason == XFSBL_SYSTEM_RESET)
-	{
+	} else if (XFSBL_MASTER_ONLY_RESET == FsblInstance.ResetReason) {
+		XFsbl_Printf(DEBUG_GENERAL,"Reset Mode	:	Master Subsystem Only Reset\r\n");
+	} else if(FsblInstance.ResetReason == XFSBL_SYSTEM_RESET) {
 		XFsbl_Printf(DEBUG_GENERAL,"Reset Mode	:	System Reset\r\n");
-	}
-	else
-	{
+	} else {
 		/*MISRAC compliance*/
 	}
 #endif
@@ -489,7 +461,7 @@ static void XFsbl_FallBack(void)
 	u32 RegValue;
 
 #ifdef XFSBL_WDT_PRESENT
-	if (FsblInstance.ResetReason != XFSBL_APU_ONLY_RESET) {
+	if (XFSBL_MASTER_ONLY_RESET != FsblInstance.ResetReason) {
 		/* Stop WDT as we are restarting */
 		XFsbl_StopWdt();
 	}
@@ -546,7 +518,7 @@ static void XFsbl_UpdateMultiBoot(u32 MultiBootValue)
 	dsb();
 	isb();
 
-	if(FsblInstance.ResetReason != XFSBL_APU_ONLY_RESET) {
+	if (XFSBL_MASTER_ONLY_RESET != FsblInstance.ResetReason) {
 
 	/* Soft reset the system */
 	XFsbl_Printf(DEBUG_GENERAL,"Performing System Soft Reset\n\r");

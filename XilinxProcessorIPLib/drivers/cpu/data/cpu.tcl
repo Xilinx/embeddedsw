@@ -1,28 +1,6 @@
 ###############################################################################
-#
-# Copyright (C) 2004 - 2018 Xilinx, Inc.  All rights reserved.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-# OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-#
-# Except as contained in this notice, the name of the Xilinx shall not be used
-# in advertising or otherwise to promote the sale, use or other dealings in
-# this Software without prior written authorization from Xilinx.
+# Copyright (C) 2004 - 2020 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
 #
 ##############################################################################
 ## @BEGIN_CHANGELOG EDK_L
@@ -61,6 +39,24 @@
 ##                      HSI.
 ## 2.8     mga 06/27/18 Added -Os and LTO to extra_compiler_flags for pmu bsp
 ## 2.8     mus 09/11/18 Added support for Microblaze-X
+## 2.10  mus  04/16/19 Replace XILINX_SDK env variable with HDI_APPROOT. Fix for
+#                     CR#1028460.
+##         mus 08/26/19 Updated tcl logic to be in sync with XILINX_SDK to XILINX_VITIS
+##                      renaming. Now tcl uses XILINX_VITIS env variable if XILINX_SDK
+##                      is not defined.
+## 2.11  mus  02/26/20 Updated as per 2020.1 Vitis toolchain directory structure
+## 2.12  sd  07/09/20 Updated the CPUID for the pmufw case CR#1069466
+## 2.12   mus  08/18/20 Updated mdd file with new parameter dependency_flags,
+##                     it would be used to generate appropriate flags
+##                     required for dependency files configuration
+## 2.12  mus  08/27/20 Updated generate proc, to detect toolchain path through
+##                     "which" command, instead of relying on env variables
+##                     XILINX_VITIS/XILINX_SDK/HDI_APPROOT. It fixes
+##                     CR#1073988.
+## 2.12  mus  27/10/20 Added separate logic to export CPUID for firmware processors,
+##                     instead of using define_processor_params.
+##                     define_processor_params was exporting lot of other
+##                     parameters which are not required. It fixes CR#1081668.
 # uses xillib.tcl
 
 ########################################
@@ -109,16 +105,24 @@ proc generate {drv_handle} {
 
             set compiler_root ""
             set xilinx_edk_gnu [array get env XILINX_EDK_GNU]
+            set xilinx_sdk [array get env XILINX_SDK]
+            set xilinx_vitis [array get env XILINX_VITIS]
+            set xilinx_approot [array get env HDI_APPROOT]
+
 			set gnu_osdir $osname
 			if {[string first "win64" $osname] != -1  || [string first "win" $osname] != -1 } {
 			    set gnu_osdir "nt"
 			} elseif {[string first "lnx64" $osname] != -1   || [string first "lnx" $osname] != -1 } {
 				set gnu_osdir "lin"
 			}
-            if { $xilinx_edk_gnu == "" } {
-                append compiler_root $env(XILINX_SDK) "/gnu/microblaze/" $gnu_osdir
-            } {
-                append compiler_root $env(XILINX_EDK_GNU) "/microblaze/" $gnu_osdir
+            if { [catch {exec which $compiler} compiler_path ] == 0 } {
+                set compiler_root [ file dirname [ file dirname $compiler_path]]
+            } elseif { $xilinx_approot != "" } {
+                append compiler_root $env(HDI_APPROOT) "/gnu/microblaze/" $gnu_osdir
+            } elseif { $xilinx_vitis != "" } {
+                    append compiler_root $env(XILINX_VITIS) "/gnu/microblaze/" $gnu_osdir
+            } elseif { $xilinx_sdk != "" } {
+                    append compiler_root $env(XILINX_SDK) "/gnu/microblaze/" $gnu_osdir
             }
         } else {
             set compiler_root [file dirname $temp]
@@ -144,8 +148,8 @@ proc generate {drv_handle} {
         set periph [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle]]
         set proctype [common::get_property IP_NAME $periph]
 
-        set endian [common::get_property CONFIG.C_ENDIANNESS $periph]
-        if {[string compare -nocase "1" $endian] == 0 } {
+        set little_endian [common::get_property CONFIG.C_ENDIANNESS $periph]
+        if {[string compare -nocase "1" $little_endian] == 0 } {
             set endian "_le"
                 set libxil_endian "le"
             } else {
@@ -162,11 +166,19 @@ proc generate {drv_handle} {
         set hard_float [common::get_property CONFIG.C_USE_FPU $periph]
         if {[string compare -nocase "1" $hard_float] == 0 || [string compare -nocase "2" $hard_float] == 0} {
             set fpu "_fpd"
-        }
+            set libxil_fpu "fpd"
+        } else {
+            set fpu ""
+            set libxil_fpu ""
+	}
 
         set pcmp [common::get_property CONFIG.C_USE_PCMP_INSTR $periph]
         if {[string compare -nocase "1" $pcmp] == 0 } {
             set pattern "_p"
+            set libxil_pattern "p"
+        } else {
+            set pattern ""
+            set libxil_pattern ""
         }
 
         #-------------------------------------------------
@@ -198,11 +210,11 @@ proc generate {drv_handle} {
         set data_size [common::get_property CONFIG.C_DATA_SIZE $periph]
         if {[string compare -nocase "64" $data_size] == 0 } {
             set m64 "_m64"
-            set flag_m64 "m64"
+            set libxil_m64 "m64"
+        } else {
+            set m64 ""
+            set libxil_m64 ""
         }
-
-	set libc [format "%s%s%s%s%s%s%s" $libc $m64 $endian $multiplier $shifter $pattern ".a"]
-	set libm [format "%s%s%s%s%s%s%s%s" $libm $m64 $endian $multiplier $shifter $pattern $fpu ".a"]
 	set libxil "libgloss.a"
 	set libgcc "libgcc.a"
 	set targetdir "../../lib/"
@@ -216,53 +228,93 @@ proc generate {drv_handle} {
 	#------------------------------------------------------
 	set libcfilename [format "%s%s" $targetdir "libc.a"]
 	set libmfilename [format "%s%s" $targetdir "libm.a"]
+	set libxilfilename [format "%s%s" $targetdir "libgloss.a"]
 
     set library_dir [file join $compiler_root "microblaze/lib"]
 
     if { ![file exists $library_dir] } {
         set library_dir [file join $compiler_root "microblaze-xilinx-elf/lib"]
          if { ![file exists $library_dir] } {
+             set library_new_dir [file join $compiler_root "microblazeeb-xilinx-elf/usr/lib"]
+             if { ![file exists $library_dir] && ![file exists $library_new_dir] } {
 	            error "Couldn't figure out compiler's library directory" "" "hsi_error"
+             }
         }
+    }
+
+   if { ![file exists $library_dir] } {
+        set libc "libc.a"
+        set libm "libm.a"
+
+        #construct lib path
+        set libc_path [file join $library_new_dir $libxil_endian $libxil_m64 $libxil_shifter $libxil_pattern $libxil_multiplier $libc]
+        set libm_path [file join $library_new_dir $libxil_endian $libxil_m64 $libxil_shifter $libxil_pattern $libxil_multiplier $libm]
+        set libxil_path [file join $library_new_dir $libxil_endian $libxil_m64 $libxil_shifter $libxil_pattern $libxil_multiplier $libxil]
+        set libgcc_path [file join $library_new_dir $libxil_endian $libxil_m64 $libxil_shifter $libxil_pattern $libxil_multiplier]
+        file copy -force $libxil_path $libxilfilename
+        make_writable $osname $libxilfilename
+        if { [string compare -nocase "1" $little_endian] == 0 } {
+            set libgcc_new [file join $libgcc_path "microblazeel-xilinx-elf"]
+        } else {
+            set libgcc_new [file join $libgcc_path "microblaze-xilinx-elf"]
+        }
+        set libgcc_new [glob -dir $libgcc_new *]
+        set libgcc_new [file join $libgcc_new $libgcc]
+        #copy libraries to BSP lib directory
+        file copy -force $libgcc_new $targetdir
+        make_writable $osname [file join $targetdir $libgcc]
+        file copy -force $libc_path $libcfilename
+        make_writable $osname $libcfilename
+        file copy -force $libm_path $libmfilename
+        make_writable $osname $libmfilename
+   } else {
+        set libc [format "%s%s%s%s%s%s%s" $libc $m64 $endian $multiplier $shifter $pattern ".a"]
+        set libm [format "%s%s%s%s%s%s%s%s" $libm $m64 $endian $multiplier $shifter $pattern $fpu ".a"]
         set libgcc_dir [file join $compiler_root "lib/gcc/microblaze-xilinx-elf"]
         set libgcc_dir [glob -dir $libgcc_dir *]
         if { ![file exists $libgcc_dir] } {
             error "Couldn't figure out compiler's GCC library directory" "" "hsi_error"
         }
+
+
+
+        file copy -force [file join $library_dir $libc] $libcfilename
+        make_writable $osname $libcfilename
+
+        file copy -force [file join $library_dir $libm] $libmfilename
+        make_writable $osname $libmfilename
+
+        set m64_library_dir [file join $library_dir "m64"]
+        if { ![file exists $m64_library_dir] } {
+           #toolchain from older SDK release (< 2018.3)
+           set libxil_path [file join $library_dir $libxil_shifter $libxil_multiplier $libxil_endian $libxil]
+           set libgcc_path [file join $libgcc_dir $libxil_shifter $libxil_multiplier $libxil_endian $libgcc]
+        } else {
+           set libxil_path [file join $library_dir $flag_m64 $libxil_shifter $libxil_endian $libxil_multiplier $libxil]
+           set libgcc_path [file join $libgcc_dir $flag_m64 $libxil_shifter $libxil_endian $libxil_multiplier $libgcc]
+        }
+        set symlink [file type $libxil_path]
+        if { ![file exists $libxil_path] || $symlink == "link"} {
+            # no libgloss.a in older SDK use libxil.a
+            set libxil "libxil.a"
+            set libxil_path [file join $library_dir $libxil_shifter $libxil_multiplier $libxil_endian $libxil]
+        }
+
+        if { ![file exists $libxil_path] } {
+            if { $xilinx_approot != "" } {
+                set libxil_path [file join $env(HDI_APPROOT) "data/embeddedsw/lib/microblaze/" $libxil]
+            } elseif { $xilinx_vitis != "" } {
+                set libxil_path [file join $env(XILINX_VITIS) "data/embeddedsw/lib/microblaze/" $libxil]
+            } elseif  { $xilinx_sdk != "" } {
+                set libxil_path [file join $env(XILINX_SDK) "data/embeddedsw/lib/microblaze/" $libxil]
+            }
+        }
+
+        file copy -force $libxil_path $targetdir
+        make_writable $osname [file join $targetdir $libxil]
+        file copy -force $libgcc_path $targetdir
+        make_writable $osname [file join $targetdir $libgcc]
     }
-
-
-   file copy -force [file join $library_dir $libc] $libcfilename
-   make_writable $osname $libcfilename
-
-   file copy -force [file join $library_dir $libm] $libmfilename
-   make_writable $osname $libmfilename
-
-   set m64_library_dir [file join $library_dir "m64"]
-   if { ![file exists $m64_library_dir] } {
-       #toolchain from older SDK release (< 2018.3)
-       set libxil_path [file join $library_dir $libxil_shifter $libxil_multiplier $libxil_endian $libxil]
-       set libgcc_path [file join $libgcc_dir $libxil_shifter $libxil_multiplier $libxil_endian $libgcc]
-   } else {
-        set libxil_path [file join $library_dir $flag_m64 $libxil_shifter $libxil_endian $libxil_multiplier $libxil]
-        set libgcc_path [file join $libgcc_dir $flag_m64 $libxil_shifter $libxil_endian $libxil_multiplier $libgcc]
-   }
-   set symlink [file type $libxil_path]
-   if { ![file exists $libxil_path] || $symlink == "link"} {
-	# no libgloss.a in older SDK use libxil.a
-	set libxil "libxil.a"
-	set libxil_path [file join $library_dir $libxil_shifter $libxil_multiplier $libxil_endian $libxil]
-   }
-
-   if { ![file exists $libxil_path] } {
-	set libxil_path [file join $env(XILINX_SDK) "data/embeddedsw/lib/microblaze/" $libxil]
-   }
-
-    file copy -force $libxil_path $targetdir
-    make_writable $osname [file join $targetdir $libxil]
-    file copy -force $libgcc_path $targetdir
-    make_writable $osname [file join $targetdir $libgcc]
-
     } else {
 	error  "ERROR: Wrong compiler type selected please use mb-gcc or mb-g++ or mb-c++"
 	return;
@@ -280,10 +332,22 @@ proc generate {drv_handle} {
         set xmdstub_periph_handle [xget_hwhandle $xmdstub_periph]
         set targetdir "../../code"
         set filename "xmdstub.s"
-        file copy -force [file join $env(XILINX_SDK) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
+	if { $xilinx_approot != "" } {
+		file copy -force [file join $env(HDI_APPROOT) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
+	} elseif { $xilinx_vitis != "" } {
+		file copy -force [file join $env(XILINX_VITIS) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
+	} elseif { $xilinx_sdk != "" } {
+		file copy -force [file join $env(XILINX_SDK) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
+	}
             file mtime [file join $targetdir $filename] [clock seconds]
         set filename "make.xmdstub"
-        file copy -force [file join $env(XILINX_SDK) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
+	if {$xilinx_approot != "" } {
+		file copy -force [file join $env(HDI_APPROOT) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
+	} elseif { $xilinx_vitis == "" } {
+		file copy -force [file join $env(XILINX_VITIS) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
+	} elseif { $xilinx_sdk == "" } {
+			file copy -force [file join $env(XILINX_SDK) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
+	}
             file mtime [file join $targetdir $filename] [clock seconds]
         set xmd_addr_file [open "../../code/xmdstubaddr.s" w]
         set xmdstub_periph_baseaddr [::hsi::utils::format_addr_string [xget_value $xmdstub_periph_handle "PARAMETER" "C_BASEADDR"] "C_BASEADDR"]
@@ -366,12 +430,17 @@ proc generate {drv_handle} {
 		append compiler_flags " -m64"
 	}
     }
-    append compiler_flags " -mcpu=v" $cpu_version
+
+    if {[string compare "psu_pmc" $proctype] == 0 || [string compare "psv_pmc" $proctype] == 0} {
+        append compiler_flags " -mcpu=v10.0"
+    } else {
+        append compiler_flags " -mcpu=v" $cpu_version
+    }
 
     common::set_property CONFIG.compiler_flags $compiler_flags $drv_handle
 
-    # Append LTO flag in extra_compiler_flags for PMU Firmware BSP
-    if {[string compare "psu_pmu" $proctype] == 0} {
+    # Append LTO flag in extra_compiler_flags for BSPs of PMU Firmware, PLM
+    if {[string compare "psu_pmu" $proctype] == 0 || [string compare "psu_pmc" $proctype] == 0 || [string compare "psv_pmc" $proctype] == 0} {
 
         set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
         #Check if LTO flag in EXTRA_COMPILER_FLAGS exist previoulsy
@@ -381,9 +450,15 @@ proc generate {drv_handle} {
         }
     }
 
+    # Update archiver to mb-gcc-ar for PLM
+    if {[string compare "psu_pmc" $proctype] == 0 || [string compare "psv_pmc" $proctype] == 0} {
+	set arch_flags "mb-gcc-ar"
+	common::set_property -name {ARCHIVER} -value $arch_flags -objects [hsi::get_sw_processor]
+    }
+
 	#------------------------------------------------------------------------------
 	# If the processor is PMU Microblaze, then generate required params and return
-	# We dont need the Parameters being generated after this code block
+	# We don't need the Parameters being generated after this code block
 	#------------------------------------------------------------------------------
 	if {[string compare "psu_pmu" $proctype] == 0 || [string compare "psu_pmc" $proctype] == 0 || [string compare "psu_psm" $proctype] == 0 || [string compare "psv_pmc" $proctype] == 0 || [string compare "psv_psm" $proctype] == 0} {
 
@@ -392,6 +467,18 @@ proc generate {drv_handle} {
 		puts $file_handle "#ifndef XPARAMETERS_H   /* prevent circular inclusions */"
 		puts $file_handle "#define XPARAMETERS_H   /* by using protection macros */"
 		puts $file_handle ""
+		set lprocs [::hsi::get_cells -hier -filter {IP_TYPE==PROCESSOR}]
+		set iname [common::get_property NAME $periph]
+		set uSuffix "U"
+		set id 0
+
+		foreach processor $lprocs {
+			if {[string compare -nocase $processor $iname] == 0} {
+				puts $file_handle "#define XPAR_CPU_ID $id$uSuffix"
+				puts $file_handle ""
+			}
+			incr id
+		}
 		set params [list]
 		lappend reserved_param_list "C_DEVICE" "C_PACKAGE" "C_SPEEDGRADE" "C_FAMILY" "C_INSTANCE" "C_KIND_OF_EDGE" "C_KIND_OF_LVL" "C_KIND_OF_INTR" "C_NUM_INTR_INPUTS" "C_MASK" "C_NUM_MASTERS" "C_NUM_SLAVES" "C_LMB_AWIDTH" "C_LMB_DWIDTH" "C_LMB_MASK" "C_LMB_NUM_SLAVES" "INSTANCE" "HW_VER"
 		# Print all parameters for psu_pmu with XPAR_MICROBLAZE prefix

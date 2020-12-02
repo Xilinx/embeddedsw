@@ -1,34 +1,12 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /**
 *
 * @file xaxiethernet_hw.h
-* @addtogroup axiethernet_v5_8
+* @addtogroup axiethernet_v5_11
 * @{
 *
 * This header file contains identifiers and macros that can be used to access
@@ -49,6 +27,7 @@
 *		     Frame and Tx Max Frame registers.
 *		     Changed define for TEMAC RGMII/SGMII Config (PHYC) Reg.
 * 5.70  srm  01/16/18 Added a new macro to support poll timeout implementation
+* 5.10  rsp  02/25/20 In debug mode fix return value of XAxiEthernet_ReadReg.
 * </pre>
 
 ******************************************************************************/
@@ -452,7 +431,7 @@ extern "C" {
 #define XAE_RAF_TXVSTRPMODE_MASK 	0x00000180 /**< Tx VLAN STRIP mode */
 #define XAE_RAF_RXVSTRPMODE_MASK 	0x00000600 /**< Rx VLAN STRIP mode */
 #define XAE_RAF_NEWFNCENBL_MASK  	0x00000800 /**< New function mode */
-#define XAE_RAF_EMULTIFLTRENBL_MASK 	0x00001000 /**< Exteneded Multicast
+#define XAE_RAF_EMULTIFLTRENBL_MASK 	0x00001000 /**< Extended Multicast
 						     *  Filtering mode
 						     */
 #define XAE_RAF_STATSRST_MASK  	0x00002000 	   /**< Statistics Counter
@@ -473,7 +452,7 @@ extern "C" {
 #define XAE_TPF_TPFV_MASK		0x0000FFFF /**< Tx pause frame value */
 /*@}*/
 
-/** @name Transmit Inter-Frame Gap Adjustement Register (TFGP) bit definitions
+/** @name Transmit Inter-Frame Gap Adjustment Register (TFGP) bit definitions
  *  @{
  */
 #define XAE_TFGP_IFGP_MASK		0x0000007F /**< Transmit inter-frame
@@ -912,6 +891,7 @@ xdbg_stmnt(extern int indent_on);
 	u32 value; 							\
 	value = Xil_In32(((BaseAddress) + (RegOffset))); 		\
 	XAxiEthernet_print_reg_i((BaseAddress), (RegOffset), value);	\
+	value;								\
 })
 #else
 #define XAxiEthernet_ReadReg(BaseAddress, RegOffset) 			\

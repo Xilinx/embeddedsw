@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2014 - 18 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -65,25 +43,26 @@
 * 3.0   vns    02/27/18 Modified example to decrypt the single partition
 *                       image instead of FSBL partition in boot image.
 * 3.1   vns    04/04/18 For CR-998923, if data is greater than 1MB size,
-*                       decrypted data is overwritting the part of source and
+*                       decrypted data is overwriting the part of source and
 *                       decryption of image is failing, to fix this modified
 *                       destination address, from now on image is overwritten
 *                       with decrypted data.
+* 4.3   har    10/12/20 Addressed security review comments
 *
 * </pre>
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
 #include "xparameters.h"
 #include "xsecure_aes.h"
+#include "xsecure_utils.h"
 
 /************************** Constant Definitions *****************************/
 /*
- * the hard coded aes key for decryption, in case user given key is being used
+ * The hard coded aes key for decryption, in case user given key is being used
  * it will be loaded in KUP before decryption
  */
-static const u8 csu_key[] = {
+static const u8 CsuKey[] = {
   0xf8, 0x78, 0xb8, 0x38, 0xd8, 0x58, 0x98, 0x18,
   0xe8, 0x68, 0xa8, 0x28, 0xc8, 0x48, 0x88, 0x08,
   0xf0, 0x70, 0xb0, 0x30, 0xd0, 0x50, 0x90, 0x10,
@@ -91,9 +70,9 @@ static const u8 csu_key[] = {
 };
 
 /*
- * the hard coded iv used for decryption secure header and block 0
+ * The hard coded iv used for decryption secure header and block 0
  */
-u8 csu_iv[] = {
+u8 CsuIv[] = {
  0xD2, 0x45, 0x0E, 0x07, 0xEA, 0x5D, 0xE0, 0x42, 0x6C, 0x0F, 0xA1, 0x33,
  0x00, 0x00, 0x00, 0x00
 };
@@ -144,10 +123,10 @@ int main(void)
 	Status = SecureAesExample();
 
 	if(Status == XST_SUCCESS) {
-		xil_printf("\r\nDecryption was successful \r\n");
+		xil_printf("\r\nSuccessfully ran AES example \r\n");
 	}
 	else {
-		xil_printf("\r\nDecryption example was failed \r\n");
+		xil_printf("\r\nAES example failed \r\n");
 	}
 
 	return Status;
@@ -198,15 +177,14 @@ int SecureAesExample(void)
 	PartitionLen = (XSecure_In32((UINTPTR)(ImageOffset + PhOffset +
 			XSECURE_PH_PARTITION_LEN_OFFSET)) * XSECURE_WORD_MUL);
 
-	*(csu_iv + XSECURE_IV_INDEX) =	(*(csu_iv + XSECURE_IV_INDEX)) +
+	*(CsuIv + XSECURE_IV_INDEX) =	(*(CsuIv + XSECURE_IV_INDEX)) +
 			(XSecure_In32((UINTPTR)(ImageOffset + PhOffset +
 				XSECURE_PH_PARTITION_IV_OFFSET)) &
 				XSECURE_PH_PARTITION_IV_MASK);
-	/*
-	 * Initialize the Aes driver so that it's ready to use
-	 */
+
+	/* Initialize the Aes driver so that it's ready to use */
 	XSecure_AesInitialize(&Secure_Aes, &CsuDma, XSECURE_CSU_AES_KEY_SRC_KUP,
-			                           (u32 *)csu_iv, (u32 *)csu_key);
+			                           (u32 *)CsuIv, (u32 *)CsuKey);
 
 	Status = XSecure_AesDecrypt(&Secure_Aes, Dst,
 			(u8 *)(UINTPTR)(ImageOffset + PartitionOffset),

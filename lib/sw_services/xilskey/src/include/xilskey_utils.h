@@ -1,37 +1,20 @@
 /******************************************************************************
-*
-* Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2013 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
  * @file xilskey_utils.h
  * @cond xilskey_internal
  * @{
  *
- * @note	None.
+ * @note
+ *
+ *		For Ultrascale
+ *	    ------------------------------------------------------------------------
+ *	    If user wants to Debug and avoid writing Fuses, then user needs to
+ *	    define "DEBUG_FUSE_WRITE_DISABLE" that will disable writing to Fuses.
  *
  *
  * MODIFICATION HISTORY:
@@ -74,6 +57,20 @@
 *       mmd     03/17/19 Added timeout and PUF underflow error
 *       psl     03/19/19 FIxed MISRA-C violation
 *       psl     03/29/19 Removed GPIO ID macro.
+* 6.8   psl     06/07/19 Added doxygen tags
+*       psl     08/12/19 Fixed MISRA-C violation
+*       psl     08/23/19 Added Debug define to avoid writing of eFuse.
+* 6.9   kpt     02/27/20 Added Error code XSK_EFUSEPS_ERROR_PGM_NOT_DONE.
+*               02/27/20 Replaced XSYSMON_DEVICE_ID with
+*                        XSYSMON_PSU_DEVICE_ID.
+*       kpt     03/31/20 Added Error Codes
+*                        XSK_EFUSEPS_RD_FROM_EFUSE_NOT_ALLOWED
+*                        XSK_EFUSEPS_ERROR_PUF_AUX_ALREADY_PROGRAMMED
+*                        XSK_EFUSEPS_ERROR_PUF_CHASH_ALREADY_PROGRAMMED
+* 7.0	am		10/04/20 Resolved MISRA C violations
+*
+* </pre>
+*
  *****************************************************************************/
 
 #ifndef XILSKEY_UTILS_H
@@ -97,6 +94,7 @@ extern "C" {
 #endif
 #endif
 #include "xstatus.h"
+#include "xil_util.h"
 
 /************************** Constant Definitions ****************************/
 /**************************** Type Definitions ******************************/
@@ -125,6 +123,11 @@ extern "C" {
 #endif
 
 #endif
+
+#ifdef DEBUG_FUSE_WRITE_DISABLE
+#define XilsKey_DbgPrint	    xil_printf
+#endif
+
 /**
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
@@ -135,7 +138,7 @@ extern "C" {
 #endif
 
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
-#define XSYSMON_DEVICE_ID	XPAR_XSYSMONPSU_0_DEVICE_ID
+#define XSYSMON_PSU_DEVICE_ID	XPAR_XSYSMONPSU_0_DEVICE_ID
 
 /* ZynqMp efusePs ps Ref Clk frequency */
 #define XSK_ZYNQMP_EFUSEPS_PS_REF_CLK_FREQ	XPAR_PSU_PSS_REF_CLK_FREQ_HZ
@@ -317,16 +320,16 @@ typedef enum {
 #define XSK_EFUSEPS_VINT		(4)
 #define XSK_EFUSEPS_VAUX		(5)
 
-#define XSK_EFUSE_DEBUG_GENERAL	0x00000001    /* general debug  messages */
+#define XSK_EFUSE_DEBUG_GENERAL	0x00000001U    /* general debug  messages */
 
 #if defined (XSK_EFUSE_DEBUG)
 #define xeFUSE_dbg_current_types (XSK_EFUSE_DEBUG_GENERAL)
 #else
-#define xeFUSE_dbg_current_types 0
+#define xeFUSE_dbg_current_types 0U
 #endif
 #ifdef STDOUT_BASEADDRESS
 #define xeFUSE_printf(type,...) \
-		if (((type) & xeFUSE_dbg_current_types) != 0)  {xil_printf (__VA_ARGS__); }
+		if (((type) & xeFUSE_dbg_current_types) != 0U)  {xil_printf (__VA_ARGS__); }
 #else
 #define xeFUSE_printf(type, ...)
 #endif
@@ -419,6 +422,27 @@ typedef enum {
 #define XSK_STRING_SIZE_96		(96U)
 
 /************************** Variable Definitions ****************************/
+#ifdef XSK_MICROBLAZE_PLATFORM
+typedef enum {
+	 XSK_SLR_NUM_0,
+	 XSK_SLR_NUM_1,
+	 XSK_SLR_NUM_2,
+	 XSK_SLR_NUM_3
+}XSK_SlrNum;
+typedef enum {
+	 XSK_SLR_CONFIG_ORDER_0,
+	 XSK_SLR_CONFIG_ORDER_1,
+	 XSK_SLR_CONFIG_ORDER_2,
+	 XSK_SLR_CONFIG_ORDER_3
+}XSK_SlrCfgOrder;
+typedef enum {
+	XSK_TARGET_MAX_1_SLRS = 1,
+	XSK_TARGET_MAX_2_SLRS,
+	XSK_TARGET_MAX_3_SLRS,
+	XSK_TARGET_MAX_4_SLRS
+}XSK_MaxSlrs;
+#endif
+
 /**
  * 	XADC Structure
  */
@@ -476,7 +500,7 @@ typedef enum {
 						  *  for read. */
 	XSK_EFUSEPL_ERROR_READ_BIT_VALUE_NOT_SET,/**< 0x14 <br>Read bit
 						   *  not set. */
-	XSK_EFUSEPL_ERROR_READ_BIT_OUT_OF_RANGE,/**< <0x15 br>Read bit is out
+	XSK_EFUSEPL_ERROR_READ_BIT_OUT_OF_RANGE,/**< 0x15 <br>Read bit is out
 						  *  of range. */
 	XSK_EFUSEPL_ERROR_READ_TMEPERATURE_OUT_OF_RANGE,/**< 0x16 <br>Temperature
 							  *  obtained
@@ -705,7 +729,7 @@ typedef enum {
 	XSK_EFUSEPS_ERROR_XADC_SELF_TEST,/**< 0x0F<br>XADC self-test failed. */
 
 	/**
-	 * Utils Error Codes
+	 * @name Utils Error Codes
 	 */
 	XSK_EFUSEPS_ERROR_PARAMETER_NULL,/**< 0x10<br>Passed parameter null. */
 	XSK_EFUSEPS_ERROR_STRING_INVALID,/**< 0x20<br>Passed string
@@ -722,15 +746,12 @@ typedef enum {
 							*  is already
 							*  programmed. */
 
-	XSK_EFUSEPS_ERROR_PROGRAMMING_TBIT_PATTERN,/**< 0x16<br>Error in
-						     *  programming TBITS. */
-
-	XSK_EFUSEPS_ERROR_BEFORE_PROGRAMMING = 0x0080U,/**< 0x0080<br>Error
-							*  occurred before
-							*  programming. */
+	XSK_EFUSEPS_ERROR_IN_TBIT_PATTERN,/**< 0x16<br>Error in
+							*  TBITS pattern . */
 
 	XSK_EFUSEPS_ERROR_PROGRAMMING = 0x00A0U,/**< 0x00A0<br>Error in
 						 *  programming eFUSE.*/
+	XSK_EFUSEPS_ERROR_PGM_NOT_DONE = 0X00A1,/**< 0x00A1<br>Program not done */
 	XSK_EFUSEPS_ERROR_READ = 0x00B0U,/**< 0x00B0<br>Error in reading. */
 	XSK_EFUSEPS_ERROR_BYTES_REQUEST = 0x00C0U, /**< 0x00C0<br>Error in
 						* requested byte count. */
@@ -739,8 +760,9 @@ typedef enum {
 	XSK_EFUSEPS_ERROR_ADDR_ACCESS = 0x00E0U, /**< 0x00E0<br>Error in
 							* accessing requested address. */
 	XSK_EFUSEPS_ERROR_READ_NOT_DONE = 0x00F0U,/**< 0x00F0<br>Read not done */
+
 	/**
-	 * XSKEfuse_Write/Read()common error codes
+	 * @name XSKEfuse_Write/Read()common error codes
 	 */
 	XSK_EFUSEPS_ERROR_PS_STRUCT_NULL=0x8100U,/**< 0x8100<br>PS structure
 						  *  pointer is null. */
@@ -829,8 +851,6 @@ typedef enum {
 	XSK_EFUSEPS_ERROR_WRITE_PPK1_HASH = 0xA700U,/**< 0xA700<br>Error in
 						     *  programming PPK1 hash.*/
 
-	XSK_EFUSEPS_ERROR_CACHE_LOAD = 0xB000U,/**< 0xB000<br>Error in
-						*  re-loading CACHE. */
 	/* Error in programmin user fuses */
 	XSK_EFUSEPS_ERROR_WRITE_USER0_FUSE = 0xC000U,/**< 0xC000<br>Error in
 					   *  programming USER 0 Fuses. */
@@ -931,9 +951,23 @@ typedef enum {
 					*  when an under flow occurs. */
 	XSK_EFUSEPS_ERROR_PUF_TIMEOUT = 0xE800U,/**< 0xE800<br>Error
 					*  when an PUF generation timedout. */
+	XSK_EFUSEPS_ERROR_PUF_ACCESS = 0xE900,/**< 0xE900<br>Error
+					*  when an PUF Access violation. */
+	XSK_EFUSEPS_ERROR_PUF_CHASH_ALREADY_PROGRAMMED = 0XEA00,/**< 0xEA00<br>Error
+					*  When PUF Chash already programmed
+					*  in eFuse. */
+	XSK_EFUSEPS_ERROR_PUF_AUX_ALREADY_PROGRAMMED = 0XEB00,/**< 0xEB00<br>Error
+					*  When PUF AUX already programmed
+					* in eFuse. */
 	XSK_EFUSEPS_ERROR_CMPLTD_EFUSE_PRGRM_WITH_ERR = 0x10000U,/**< 0x10000<br>
 					*  eFUSE programming is completed with
 					*  temp and vol read errors. */
+
+	XSK_EFUSEPS_ERROR_CACHE_LOAD = 0x20000U,/**< 0x20000U<br>Error in
+						*  re-loading CACHE. */
+	XSK_EFUSEPS_RD_FROM_EFUSE_NOT_ALLOWED = 0x30000U,/**< 0x30000U<br>Read
+								* from eFuse is
+								* not allowed. */
 	/* If requested FUSE is write protected */
 	XSK_EFUSEPS_ERROR_FUSE_PROTECTED = 0x00080000U,/**< 0x00080000
 					*  <br>Requested eFUSE is write
@@ -942,7 +976,9 @@ typedef enum {
 	XSK_EFUSEPS_ERROR_USER_BIT_CANT_REVERT = 0x00800000U,/**< 0x00800000<br>
 					* Already programmed user FUSE bit
 					* cannot be reverted.*/
-
+	XSK_EFUSEPS_ERROR_BEFORE_PROGRAMMING = 0x08000000U,/**< 0x08000000U<br>Error
+								*  occurred before
+								*  programming. */
 }XSKEfusePs_ErrorCodes;
  /** @} */
 
@@ -952,10 +988,13 @@ typedef enum {
  */
 typedef enum {
 	XSK_ZYNQMP_BBRAMPS_ERROR_NONE = 0U, /**< 0<br>No error. */
-	XSK_ZYNQMP_BBRAMPS_ERROR_IN_PRGRMG_ENABLE = 0x01U, /**< 0x01<br>If this
+	XSK_ZYNQMP_BBRAMPS_ERROR_IN_PRGRMG_ENABLE = 0x010U, /**< 0x010<br>If this
 							  *  error is occurred
 							  *  programming is not
 							  *  possible. */
+	XSK_ZYNQMP_BBRAMPS_ERROR_IN_ZEROISE = 0x20U,      /**< 0x20<br>
+							   *  zeroize bbram is
+							   *	failed. */
 	XSK_ZYNQMP_BBRAMPS_ERROR_IN_CRC_CHECK = 0xB000U,  /**< 0xB000<br>If this
 							  *  error is occurred
 							  *  programming is done
@@ -964,10 +1003,7 @@ typedef enum {
 	XSK_ZYNQMP_BBRAMPS_ERROR_IN_PRGRMG = 0xC000U,		/**< 0xC000<br>
 							  *  programming of key
 							  *  is failed. */
-	XSK_ZYNQMP_BBRAMPS_ERROR_IN_ZEROISE = 0xE700U,      /** <0xE700<br>
-							   *  zeroize bbram is
-							   *	failed. */
-	XSK_ZYNQMP_BBRAMPS_ERROR_IN_WRITE_CRC = 0xE800U    /* ** <0xE800<br>
+	XSK_ZYNQMP_BBRAMPS_ERROR_IN_WRITE_CRC = 0xE800U    /**< 0xE800<br>
 							    * error write CRC
 							    * value. */
 }XskZynqMp_Ps_Bbram_ErrorCodes;
@@ -985,6 +1021,7 @@ typedef enum {
 #define XSK_EFUSEPS_ERROR_WRITE_VCCINT_VOLTAGE_OUT_OF_RANGE XSK_EFUSEPS_ERROR_WRITE_VCCPINT_VOLTAGE_OUT_OF_RANGE
 #define Xilskey_CrcCalculation XilSKey_CrcCalculation
 #define Xilskey_Timer_Intialise	XilSKey_Timer_Intialise
+#define XilSKey_Ceil Xil_Ceil
 
 
 /*****************************************************************************/
@@ -1026,7 +1063,11 @@ typedef enum {
 
 /************************** Function Prototypes *****************************/
 u32 XilSKey_EfusePs_XAdcInit (void );
-void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(XSKEfusePs_XAdc *XAdcInstancePtr);
+#if defined (XSK_ZYNQ_ULTRA_MP_PLATFORM) && !defined (XSK_OVERRIDE_SYSMON_CFG)
+u32 XilSKey_EfusePs_XAdcCfgValidate (void);
+#endif
+void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(
+		XSKEfusePs_XAdc *XAdcInstancePtr);
 u32 XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks(void);
 void XilSKey_Efuse_StartTimer(void);
 u64 XilSKey_Efuse_GetTime(void);
@@ -1035,7 +1076,7 @@ u8 XilSKey_Efuse_IsTimerExpired(u64 t);
 void XilSKey_Efuse_ConvertBitsToBytes(const u8 * Bits, u8 * Bytes, u32 Len);
 void XilSKey_EfusePs_ConvertBytesToBits(const u8 * Bytes, u8 * Bits, u32 Len);
 void XilSKey_EfusePs_ConvertBytesBeToLe(const u8 *Be, u8 *Le, u32 Len);
-u32 XilSKey_Efuse_ValidateKey(const char *key, u32 len);
+u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len);
 u32 XilSKey_Efuse_IsValidChar(const char *c);
 /**
  * Common functions
@@ -1045,16 +1086,18 @@ u32 XilSKey_Efuse_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len);
 u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len);
 u32 XilSKey_Timer_Intialise(void);
 u32 XilSKey_Efuse_ReverseHex(u32 Input);
-void XilSKey_StrCpyRange(u8 *Src, u8 *Dst, u32 From, u32 To);
-u32 XilSKey_Ceil(float Freq);
+void XilSKey_StrCpyRange(const u8 *Src, u8 *Dst, u32 From, u32 To);
+#ifdef XSK_MICROBLAZE_PLATFORM
+void XilSKey_GetSlrNum(u32 MasterSlr, u32 ConfigOrderIndex, u32 *SlrNum);
+#endif
  /** @}
 @endcond */
 /**
  * @addtogroup xilskey_cmn_crc xilskey common file
  * @{
 */
-u32 XilSKey_CrcCalculation(u8 *Key);
-u32 XilSkey_CrcCalculation_AesKey(u8 *Key);
+u32 XilSKey_CrcCalculation(const u8 *Key);
+u32 XilSkey_CrcCalculation_AesKey(const u8 *Key);
 /***************************************************************************/
 
 #ifdef __cplusplus

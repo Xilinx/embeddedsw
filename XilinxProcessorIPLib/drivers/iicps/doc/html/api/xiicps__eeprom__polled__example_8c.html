@@ -28,7 +28,7 @@
   <td style="padding-left: 0.5em;">
    <div id="projectname">iicps
    </div>
-   <div id="projectbrief">Xilinx SDK Drivers API Documentation</div>
+   <div id="projectbrief">Xilinx Vitis Drivers API Documentation</div>
   </td>
  </tr>
  </tbody>
@@ -71,7 +71,7 @@ $(document).ready(function(){initNavTree('xiicps__eeprom__polled__example_8c.htm
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
 <div class="textblock"><p>This file consists of a polled mode design example which uses the Xilinx PS IIC device and <a class="el" href="struct_x_iic_ps.html" title="The XIicPs driver instance data.">XIicPs</a> driver to exercise the EEPROM. </p>
-<p>The <a class="el" href="group__iicps__v3__9.html#ga71584f1a7e675cde41cfd9d1bd4320b4" title="This function initiates a polled mode send in master mode.">XIicPs_MasterSendPolled()</a> API is used to transmit the data and <a class="el" href="group__iicps__v3__9.html#ga21bdb2f8a1f09e027aa8b0e9d6648d75" title="This function initiates a polled mode receive in master mode.">XIicPs_MasterRecvPolled()</a> API is used to receive the data.</p>
+<p>The <a class="el" href="group__iicps__v3__12.html#ga71584f1a7e675cde41cfd9d1bd4320b4" title="This function initiates a polled mode send in master mode.">XIicPs_MasterSendPolled()</a> API is used to transmit the data and <a class="el" href="group__iicps__v3__12.html#ga21bdb2f8a1f09e027aa8b0e9d6648d75" title="This function initiates a polled mode receive in master mode.">XIicPs_MasterRecvPolled()</a> API is used to receive the data.</p>
 <p>The example is tested with a 2Kb/8Kb serial IIC EEPROM (ST M24C02/M24C08). The WP pin of this EEPROM is hardwired to ground in the HW in which this was tested.</p>
 <p>The AddressType should be u8 as the address pointer in the on-board EEPROM is 1 bytes.</p>
 <p>This code assumes that no Operating System is being used.</p>
@@ -90,6 +90,10 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 1.04a hk   09/03/13 Removed GPIO code to pull MUX out of reset - CR#722425.
 2.3     sk       10/07/14 Removed multiple initializations for read buffer.
 3.3   Nava 08/08/16 Adopt the Dynamic EEPROM finding support.
+3.11   rna  10/16/19 Added support for 64 page size eeproms on Versal based
+              boards, scanning for eeprom until found on all I2C
+              instances
+       rna  03/26/20 Eeprom page size detection support is added.
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>

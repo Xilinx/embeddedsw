@@ -1,30 +1,8 @@
 /******************************************************************************
- *
- * Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  ******************************************************************************/
+
 /****************************************************************************/
 /**
  *
@@ -39,6 +17,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.5   vak  06/02/19 First release
  * 1.5   vak  03/25/19 Fixed incorrect data_alignment pragma directive for IAR
+ * 1.8   pm  15/09/20 Fixed C++ Compilation error.
  *
  * </pre>
  *
@@ -205,7 +184,8 @@ int main(void)
 	 * Enable events for Reset, Disconnect, ConnectionDone, Link State
 	 * Wakeup and Overflow events.
 	 */
-	UsbEnableEvent(UsbInstance.PrivateData, XUSBPSU_DEVTEN_EVNTOVERFLOWEN |
+	UsbEnableEvent((struct XUsbPsu *)UsbInstance.PrivateData,
+					XUSBPSU_DEVTEN_EVNTOVERFLOWEN |
 					 XUSBPSU_DEVTEN_WKUPEVTEN |
 					 XUSBPSU_DEVTEN_ULSTCNGEN |
 					 XUSBPSU_DEVTEN_CONNECTDONEEN |
@@ -217,7 +197,7 @@ int main(void)
 
 	while(1U) {
 		/* Call Poll Handler for any valid events */
-		UsbPollHandler(UsbInstance.PrivateData);
+		UsbPollHandler((struct XUsbPsu *)UsbInstance.PrivateData);
 	}
 
 	return XST_SUCCESS;
@@ -240,7 +220,7 @@ int main(void)
 void BulkOutHandler(void *CallBackRef, u32 RequestedBytes,
 							u32 BytesTxed)
 {
-	struct Usb_DevData *InstancePtr = CallBackRef;
+	struct Usb_DevData *InstancePtr = (struct Usb_DevData *)CallBackRef;
 
 	if (Phase == USB_EP_STATE_COMMAND) {
 		ParseCBW(InstancePtr);
@@ -275,7 +255,7 @@ void BulkOutHandler(void *CallBackRef, u32 RequestedBytes,
 void BulkInHandler(void *CallBackRef, u32 RequestedBytes,
 						   u32 BytesTxed)
 {
-	struct Usb_DevData *InstancePtr = CallBackRef;
+	struct Usb_DevData *InstancePtr = (struct Usb_DevData *)CallBackRef;
 
 	if (Phase == USB_EP_STATE_DATA_IN) {
 		/* Send the status */

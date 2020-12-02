@@ -162,7 +162,7 @@ var xuartpsv__hw_8h =
     [ "XUARTPSV_UARTRIS_TXRIS", "xuartpsv__hw_8h.html#ga06182e2897e64336bcab44a0012f8711", null ],
     [ "XUARTPSV_UARTRSR_OFFSET", "xuartpsv__hw_8h.html#ga65163bef9c7aeef0a20ecd553ab0812a", null ],
     [ "XUartPsv_WriteReg", "xuartpsv__hw_8h.html#ga1fcbc3ad3fd4949b016ae362929ee344", null ],
-    [ "XUartPsv_RecvByte", "xuartpsv__hw_8h.html#ga1f3e6af87f8ce1253f486cde1f384253", null ],
-    [ "XUartPsv_ResetHw", "xuartpsv__hw_8h.html#ga5669184900fb3f95a16f7d6f961a9681", null ],
-    [ "XUartPsv_SendByte", "xuartpsv__hw_8h.html#ga6b2124770dd4da762a39e200564d83c3", null ]
+    [ "XUartPsv_RecvByte", "xuartpsv__hw_8h.html#ga6d764b77ee5e8f535ce523a9df1f2ddc", null ],
+    [ "XUartPsv_ResetHw", "xuartpsv__hw_8h.html#ga99e7a45fe3e00b94d58f540acf6328af", null ],
+    [ "XUartPsv_SendByte", "xuartpsv__hw_8h.html#ga24308126daae7b67de1790b345933598", null ]
 ];

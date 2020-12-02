@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2014-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xzdma.h
-* @addtogroup zdma_v1_7
+* @addtogroup zdma_v1_10
 * @{
 * @details
 *
@@ -104,7 +82,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 1.0   vns     2/27/15  First release
-* 1.1   vns    15/02/16  Corrected Destination descriptor addresss calculation
+* 1.1   vns    15/02/16  Corrected Destination descriptor address calculation
 *                        in XZDma_CreateBDList API
 *                        Modified XZDma_SetMode to return XST_FAILURE on
 *                        selecting DMA mode other than normal mode in
@@ -133,6 +111,8 @@
 * 1.7	adk	08/03/19 Added support for versal IP.
 * 1.7   adk     18/03/19 Updated the writeonly mode example data verification
 *			 check to support versal adma IP.
+* 1.10  hk      04/29/20 Enable Scatter Gather setup and Enable APIs for use
+*                        in applications directly.
 * </pre>
 *
 ******************************************************************************/
@@ -706,6 +686,9 @@ s32 XZDma_SelfTest(XZDma *InstancePtr);
 void XZDma_IntrHandler(void *Instance);
 s32 XZDma_SetCallBack(XZDma *InstancePtr, XZDma_Handler HandlerType,
 	void *CallBackFunc, void *CallBackRef);
+void XZDma_ScatterGather(XZDma *InstancePtr, XZDma_Transfer *Data,
+								u32 Num);
+void XZDma_Enable(XZDma *InstancePtr);
 
 /*@}*/
 

@@ -1,28 +1,8 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  */
+
 
 /*********************************************************************
  * Contains all functions, datas and definitions needed for
@@ -48,7 +28,7 @@ typedef u8 PmProcEvent;
 #define DISABLE_WFI(mask)   XPfw_RMW32(PMU_LOCAL_GPI2_ENABLE, (mask), ~(mask));
 
 /*
- * Processor is powered down as requested by a master which is priviledged
+ * Processor is powered down as requested by a master which is privileged
  * to request so. Processor has not saved its context.
  */
 #define PM_PROC_STATE_FORCEDOFF     0U
@@ -92,11 +72,12 @@ typedef u8 PmProcEvent;
 #define RPU0_STATUS_MASK		BIT(1U)
 #define RPU1_STATUS_MASK		BIT(2U)
 
+#define PM_PROC_RPU_LOVEC_ADDR  0x00000000U
+#define PM_PROC_RPU_HIVEC_ADDR  0xFFFF0000U
+
 /*********************************************************************
  * Structure definitions
  ********************************************************************/
-typedef struct PmMaster PmMaster;
-typedef struct PmProc PmProc;
 
 /**
  * PmProc - Processor node's structure
@@ -119,12 +100,12 @@ typedef struct PmProc PmProc;
  *                  PM_IOMODULE_GPI1, PM_LOCAL_GPI2_ENABLE, and
  *                  PM_LOCAL_GPI1_ENABLE registers
  */
-typedef struct PmProc {
+struct PmProc {
 	PmNode node;
 	u64 resumeAddress;
 	PmMaster* master;
-	s32 (*const saveResumeAddr)(PmProc* const, u64);
-	void (*const restoreResumeAddr)(PmProc* const);
+	s32 (*const saveResumeAddr)(PmProc* const proc, u64 address);
+	void (*const restoreResumeAddr)(PmProc* const proc);
 	void (*const init)(PmProc* const proc);
 	s32 (*const sleep)(void);
 	s32 (*const wake)(void);
@@ -135,7 +116,7 @@ typedef struct PmProc {
 	u32 latencyReq;
 	const u32 pwrDnLatency;
 	const u32 pwrUpLatency;
-} PmProc;
+};
 
 /*********************************************************************
  * Global data declarations

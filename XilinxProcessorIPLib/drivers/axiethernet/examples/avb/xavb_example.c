@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /**
 *
 * @file xavb_example.c
@@ -57,7 +35,7 @@
 * The user must define the macro XAVB_CLOCK_LOCK_THRESHOLD in xavb.h to
 * an appropriate value as relevant for the corresponding use case. Presently
 * it is defined to 1000 ns which is typical for telecom industry.
-* This macro is used to compare against the slave error as calculated everytime
+* This macro is used to compare against the slave error as calculated every time
 * after receiving 2 successive sync/followup frames. Slave error is the
 * difference between master time duration and slave time duration as calculated
 * for the time gap (the time it takes to receive two successive sync/follow up
@@ -173,7 +151,7 @@ volatile u8 EchoPTPFramesReceived = 0;
 * @return	- XST_SUCCESS to indicate success.
 *		- XST_FAILURE to indicate failure
 *
-* @note		This example will be in a infinte loop if the HW is not working
+* @note		This example will be in a infinite loop if the HW is not working
 *		properly and if the interrupts are not received.
 *
 ****************************************************************************/
@@ -578,7 +556,7 @@ static void AvbEnablePTPInterrupts(void)
 *
 * @return	None.
 *
-* @note		This Handler ned to be defined otherwise the XAvb_StubHandler
+* @note		This Handler need to be defined otherwise the XAvb_StubHandler
 *		will generate an error
 *
 ****************************************************************************/

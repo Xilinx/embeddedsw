@@ -1,36 +1,14 @@
 /******************************************************************************
-*
-* Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 
 /*****************************************************************************/
 /**
 *
 * @file xsecure_aes.h
-* @addtogroup xsecure_aes_apis XilSecure AES APIs
+* @addtogroup xsecure_aes_zynqmp_apis XilSecure AES ZynqMP APIs
 * @{
 * @cond xsecure_internal
 * This file contains hardware interface related information for CSU AES device
@@ -86,6 +64,9 @@
 *       arc  03/20/19 Changed prototype of the functions void to u32
 *       mmd  03/15/19 Defined AES Key Clear value
 *       psl  03/26/19 Fixed MISRA-C violation
+* 4.1   mmd  07/05/19 Optimized the code
+* 4.2   har  04/16/20 Removed extra header file
+*       ana  10/15/20 Updated doxygen tags
 * </pre>
 * @endcond
 *
@@ -99,12 +80,10 @@ extern "C" {
 #endif
 
 /************************** Include Files ***********************************/
-
-#include "xcsudma.h"
-#include "xstatus.h"
-#include "xil_io.h"
 #include "xsecure_aes_hw.h"
-#include "xsecure_utils.h"
+#include "xcsudma.h"
+#include "xil_util.h"
+#include "xsecure_sss.h"
 
 /************************** Constant Definitions ****************************/
 /** @cond xsecure_internal
@@ -229,6 +208,24 @@ typedef struct {
 
 /** @}
 @endcond */
+
+/*****************************************************************************/
+/**
+ * @brief
+ * This macro waits for AES engine completes configured operation.
+ *
+ * @param	InstancePtr Pointer to the XSecure_Aes instance.
+ *
+ * @return	XST_SUCCESS if the AES engine completes configured operation.
+ * 		XST_FAILURE if a timeout has occurred.
+ *
+ ******************************************************************************/
+#define XSecure_AesWaitForDone(InstancePtr)	\
+	Xil_WaitForEvent((InstancePtr)->BaseAddress + XSECURE_CSU_AES_STS_OFFSET,\
+	                XSECURE_CSU_AES_STS_AES_BUSY,	\
+	                0U,	\
+	                XSECURE_AES_TIMEOUT_MAX)
+
 /************************** Function Prototypes ******************************/
 
 /* Initialization Functions */
@@ -257,8 +254,6 @@ u32 XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 
 /* Reset */
 void XSecure_AesReset(XSecure_Aes  *InstancePtr);
-
-u32 XSecure_AesWaitForDone(XSecure_Aes *InstancePtr);
 
 /** @cond xsecure_internal
 @{ */

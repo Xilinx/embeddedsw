@@ -28,7 +28,7 @@
   <td style="padding-left: 0.5em;">
    <div id="projectname">axiethernet
    </div>
-   <div id="projectbrief">Xilinx SDK Drivers API Documentation</div>
+   <div id="projectbrief">Xilinx Vitis Drivers API Documentation</div>
   </td>
  </tr>
  </tbody>
@@ -120,7 +120,7 @@ Data Structures</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Keep track of state machine data to make sure we're fully compliant with the spec.  <a href="struct_x_avb___state_machine_data.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_avb___m_d_sync_receive.html">XAvb_MDSyncReceive</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This struct captures information from RX'd Sync/FollowUp message pairs in a format similiar to the MDSyncReceive structure described in the IEEE P802.1AS specification.  <a href="struct_x_avb___m_d_sync_receive.html#details">More...</a><br/></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This struct captures information from RX'd Sync/FollowUp message pairs in a format similar to the MDSyncReceive structure described in the IEEE P802.1AS specification.  <a href="struct_x_avb___m_d_sync_receive.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_avb.html">XAvb</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="struct_x_avb.html" title="The XAvb driver instance data.">XAvb</a> driver instance data.  <a href="struct_x_avb.html#details">More...</a><br/></td></tr>
@@ -1921,7 +1921,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The Interrupt subroutine for the "interruptPtpTimer" signal. </p>
-<p>This interrupt fires reguarly on a 1/128 second period (based on the RTC).</p>
+<p>This interrupt fires regularly on a 1/128 second period (based on the RTC).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_avb.html" title="The XAvb driver instance data.">XAvb</a> instance to be worked on</td></tr>
@@ -1992,7 +1992,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>A New Announce Packet is to be analyzed. </p>
-<p>This function will read in the packet, decode it, and extract the relevent information fields to the "AnnounceFrame" data pointer.</p>
+<p>This function will read in the packet, decode it, and extract the relevant information fields to the "AnnounceFrame" data pointer.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">BaseAddress</td><td>is the base address of the device </td></tr>
@@ -2592,7 +2592,7 @@ Functions</h2></td></tr>
 <p>The CurrentBmc data structure is then updated with the information from the NewMaster.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">NewMaster</td><td>is a pointer to a suitable data structure which has recorded the relevent Announce Packet fields of the new (winning) Grand Master. </td></tr>
+    <tr><td class="paramname">NewMaster</td><td>is a pointer to a suitable data structure which has recorded the relevant Announce Packet fields of the new (winning) Grand Master. </td></tr>
     <tr><td class="paramname">CurrentBmc</td><td>is a pointer to a suitable data structure which has recorded the current fields of the current Grand Master's Announce Packet.</td></tr>
   </table>
   </dd>
@@ -2714,8 +2714,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Sanity Check that Sync Frames were n apart. This safeguards the calculation against the ethernet cable being pulled out and then replaced, etc.</p>
-<p>Measure the time duration, as measured by the RTC master of the M sync delay measurment period.</p>
-<p>Measure the time duration, as measured by the RTC slave of the M sync delay measurment period.</p>
+<p>Measure the time duration, as measured by the RTC master of the M sync delay measurement period.</p>
+<p>Measure the time duration, as measured by the RTC slave of the M sync delay measurement period.</p>
 <p>Therefore calculate the slave error (in ns)</p>
 <p>If the slave error is zero, skip the remainder of function. (Note : a zero error would otherwise get stuck in the while loop further down this function).</p>
 <p>Analyse msb of error signal to see which clock is running fastest</p>
@@ -2817,7 +2817,7 @@ Functions</h2></td></tr>
     <tr><td class="paramname">PtpFieldAddress</td><td>is the offset address of the relevant field in PTP frames. </td></tr>
     <tr><td class="paramname">Data</td><td>is the common data to be written to all Tx PTP frame templates </td></tr>
     <tr><td class="paramname">DataBitEnable</td><td>allows only selected bits of the 32-bit Data word to be modified. </td></tr>
-    <tr><td class="paramname">BufferEnable</td><td>allows the selected buffer to be seleced: there are 8 PTP buffers - these are encoded as one-hot. For example, 0x3F will write the selected data to the first 6 buffers only.</td></tr>
+    <tr><td class="paramname">BufferEnable</td><td>allows the selected buffer to be selected: there are 8 PTP buffers - these are encoded as one-hot. For example, 0x3F will write the selected data to the first 6 buffers only.</td></tr>
   </table>
   </dd>
 </dl>

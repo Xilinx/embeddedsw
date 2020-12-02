@@ -31,7 +31,7 @@
 /*****************************************************************************
  * ipi_latency_demod.c
  * This is the remote side of the IPI latency measurement demo.
- * This demo does the follwing steps:
+ * This demo does the following steps:
  *
  *  1. Open the shared memory device.
  *  1. Open the TTC timer device.

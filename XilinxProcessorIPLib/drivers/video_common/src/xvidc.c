@@ -1,35 +1,13 @@
 /*******************************************************************************
- *
- * Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (C) 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /******************************************************************************/
 /**
  *
  * @file xvidc.c
- * @addtogroup video_common_v4_3
+ * @addtogroup video_common_v4_10
  * @{
  *
  * Contains common utility functions that are typically used by video-related
@@ -159,7 +137,7 @@ void XVidC_UnregisterCustomTimingModes(void)
  * @note	None.
  *
 *******************************************************************************/
-u32 XVidC_GetPixelClockHzByHVFr(u32 HTotal, u32 VTotal, u8 FrameRate)
+u64 XVidC_GetPixelClockHzByHVFr(u32 HTotal, u32 VTotal, u8 FrameRate)
 {
 	return (HTotal * VTotal * FrameRate);
 }
@@ -175,9 +153,9 @@ u32 XVidC_GetPixelClockHzByHVFr(u32 HTotal, u32 VTotal, u8 FrameRate)
  * @note	None.
  *
 *******************************************************************************/
-u32 XVidC_GetPixelClockHzByVmId(XVidC_VideoMode VmId)
+u64 XVidC_GetPixelClockHzByVmId(XVidC_VideoMode VmId)
 {
-	u32 ClkHz;
+	u64 ClkHz;
 	const XVidC_VideoTimingMode *VmPtr;
 
 	VmPtr = XVidC_GetVideoModeData(VmId);
@@ -282,38 +260,41 @@ u8 XVidC_IsInterlaced(XVidC_VideoMode VmId)
  *
 *******************************************************************************/
 XVidC_VideoMode XVidC_GetVideoModeIdWBlanking(const XVidC_VideoTiming *Timing,
-		                                      u32 FrameRate, u8 IsInterlaced)
+		u32 FrameRate, u8 IsInterlaced)
 {
-  XVidC_VideoMode VmId;
-  XVidC_VideoTiming const *StdTiming = NULL;
+	XVidC_VideoMode VmId;
+	XVidC_VideoTiming const *StdTiming = NULL;
 
-  /* First search for ID with matching Width & Height */
-  VmId = XVidC_GetVideoModeId(Timing->HActive, Timing->VActive, FrameRate,
-		                      IsInterlaced);
+	/* First search for ID with matching Width & Height */
+	VmId = XVidC_GetVideoModeId(Timing->HActive, Timing->VActive, FrameRate,
+			IsInterlaced);
 
-  if(VmId == XVIDC_VM_NOT_SUPPORTED) {
-	return(VmId);
-  } else {
+	if (VmId == XVIDC_VM_NOT_SUPPORTED) {
+		return(VmId);
+	} else {
 
-	/* Get standard timing info from default timing table */
-	StdTiming = XVidC_GetTimingInfo(VmId);
+		/* Get standard timing info from default timing table */
+		StdTiming = XVidC_GetTimingInfo(VmId);
+		if (!StdTiming) {
+			return(XVIDC_VM_NOT_SUPPORTED);
+		}
 
-	/* Match against detected timing parameters */
-	if((Timing->HActive        == StdTiming->HActive) &&
-	   (Timing->VActive        == StdTiming->VActive) &&
-	   (Timing->HTotal         == StdTiming->HTotal) &&
-	   (Timing->F0PVTotal      == StdTiming->F0PVTotal) &&
-	   (Timing->HFrontPorch    == StdTiming->HFrontPorch) &&
-	   (Timing->HSyncWidth     == StdTiming->HSyncWidth) &&
-	   (Timing->HBackPorch     == StdTiming->HBackPorch) &&
-	   (Timing->F0PVFrontPorch == StdTiming->F0PVFrontPorch) &&
-	   (Timing->F0PVSyncWidth  == StdTiming->F0PVSyncWidth) &&
-	   (Timing->F0PVBackPorch  == StdTiming->F0PVBackPorch)) {
-       return(VmId);
-	 } else {
-	   return(XVIDC_VM_NOT_SUPPORTED);
-	 }
-  }
+		/* Match against detected timing parameters */
+		if ((Timing->HActive        == StdTiming->HActive) &&
+				(Timing->VActive        == StdTiming->VActive) &&
+				(Timing->HTotal         == StdTiming->HTotal) &&
+				(Timing->F0PVTotal      == StdTiming->F0PVTotal) &&
+				(Timing->HFrontPorch    == StdTiming->HFrontPorch) &&
+				(Timing->HSyncWidth     == StdTiming->HSyncWidth) &&
+				(Timing->HBackPorch     == StdTiming->HBackPorch) &&
+				(Timing->F0PVFrontPorch == StdTiming->F0PVFrontPorch) &&
+				(Timing->F0PVSyncWidth  == StdTiming->F0PVSyncWidth) &&
+				(Timing->F0PVBackPorch  == StdTiming->F0PVBackPorch)) {
+			return(VmId);
+		} else {
+			return(XVIDC_VM_NOT_SUPPORTED);
+		}
+	}
 }
 
 /******************************************************************************/
@@ -586,6 +567,13 @@ XVidC_VideoMode XVidC_GetVideoModeIdExtensive(XVidC_VideoTiming *Timing,
 								Timing->F1VSyncWidth)) {
 					ResFound = (TRUE);
 					break;
+				} else {
+					Mid = Mid + 1;
+					HActive =
+					XVidC_VideoTimingModes[Mid].Timing.HActive;
+					VActive =
+					XVidC_VideoTimingModes[Mid].Timing.VActive;
+					Rate = XVidC_VideoTimingModes[Mid].FrameRate;
 				}
 			}
 			/* Check next entry */
@@ -751,6 +739,9 @@ const char *XVidC_GetFrameRateStr(XVidC_VideoMode VmId)
 		case (XVIDC_FR_96HZ):   return ("96Hz");
 		case (XVIDC_FR_100HZ):  return ("100Hz");
 		case (XVIDC_FR_120HZ):  return ("120Hz");
+		case (XVIDC_FR_144HZ):  return ("144Hz");
+		case (XVIDC_FR_200HZ):  return ("200Hz");
+		case (XVIDC_FR_240HZ):  return ("240Hz");
 
 		default:
 		     return ("Frame rate not supported");
@@ -838,6 +829,7 @@ const char *XVidC_GetColorFormatStr(XVidC_ColorFormat ColorFormatId)
 		case XVIDC_CSF_MEM_BGR8:       return ("BGR8");
 		case XVIDC_CSF_YCBCR_422:      return ("YCBCR_422");
 		case XVIDC_CSF_YCBCR_420:      return ("YCBCR_420");
+		case XVIDC_CSF_YCBCR_444:      return ("YCBCR_444");
 		case XVIDC_CSF_MEM_RGBX12:     return ("RGBX12");
 		case XVIDC_CSF_MEM_RGB16:      return ("RGB16");
 		case XVIDC_CSF_MEM_YUVX12:     return ("YUVX12");
@@ -935,7 +927,8 @@ u32 XVidC_SetVideoStream(XVidC_VideoStream *VidStrmPtr, XVidC_VideoMode VmId,
 			  (Bpc == XVIDC_BPC_UNKNOWN));
 	Xil_AssertNonvoid((Ppc == XVIDC_PPC_1) ||
 			  (Ppc == XVIDC_PPC_2) ||
-			  (Ppc == XVIDC_PPC_4));
+			  (Ppc == XVIDC_PPC_4) ||
+			  (Ppc == XVIDC_PPC_8));
 
 	/* Get the timing from the video timing table. */
 	TimingPtr = XVidC_GetTimingInfo(VmId);
@@ -1087,19 +1080,19 @@ void XVidC_ReportStreamInfo(const XVidC_VideoStream *Stream)
 				Stream->FrameRate);
 		xil_printf("\tResolution:       %dx%d [Custom Mode]\r\n",
 				Stream->Timing.HActive, Stream->Timing.VActive);
-		xil_printf("\tPixel Clock:      %d\r\n",
-				XVidC_GetPixelClockHzByHVFr(
+		xil_printf("\tPixel Clock:      %d kHz\r\n",
+				(u32)XVidC_GetPixelClockHzByHVFr(
 					Stream->Timing.HTotal,
 					Stream->Timing.F0PVTotal,
-					Stream->FrameRate));
+					Stream->FrameRate)/1000);
 	}
 	else {
 		xil_printf("\tFrame Rate:       %s\r\n",
 				XVidC_GetFrameRateStr(Stream->VmId));
 		xil_printf("\tResolution:       %s\r\n",
 				XVidC_GetVideoModeStr(Stream->VmId));
-		xil_printf("\tPixel Clock:      %d\r\n",
-				XVidC_GetPixelClockHzByVmId(Stream->VmId));
+		xil_printf("\tPixel Clock:      %d kHz\r\n",
+				(u32)XVidC_GetPixelClockHzByVmId(Stream->VmId)/1000);
 	}
 }
 

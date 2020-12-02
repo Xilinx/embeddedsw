@@ -45,7 +45,6 @@ var xaxicdma__hw_8h =
     [ "XAXICDMA_DESC_LSB_MASK", "xaxicdma__hw_8h.html#gaca543a8c03c6cd2d6d7284cc4bd119c2", null ],
     [ "XAXICDMA_DSTADDR_MSB_OFFSET", "xaxicdma__hw_8h.html#ga9a61d8801792647638b54afcafbd8a86", null ],
     [ "XAXICDMA_DSTADDR_OFFSET", "xaxicdma__hw_8h.html#ga3064fdc2bc683fa002bedf51498d810c", null ],
-    [ "XAXICDMA_MAX_TRANSFER_LEN", "xaxicdma__hw_8h.html#gac84f0c20f910716d8f3e48ff23294440", null ],
     [ "XAxiCdma_ReadReg", "xaxicdma__hw_8h.html#ga2f2bfb34c5bfec00baa06b782e7e68a6", null ],
     [ "XAXICDMA_SR_ERR_ALL_MASK", "xaxicdma__hw_8h.html#gabec2417b4096d65fa8f07a84eef38cea", null ],
     [ "XAXICDMA_SR_ERR_DECODE_MASK", "xaxicdma__hw_8h.html#ga9bdb5e1000af0d05ba0b9481e71b5d2d", null ],

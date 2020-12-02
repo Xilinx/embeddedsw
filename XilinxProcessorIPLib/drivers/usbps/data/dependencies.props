@@ -1,0 +1,2 @@
+xusbps_intr_example.c=xusbps_class_storage.c,xusbps_class_storage.h,xusbps_ch9_storage.c,xusbps_ch9_storage.h,xusbps_ch9.c,xusbps_ch9.h
+xusbps_audio_example.c=xusbps_ch9_audio.c,xusbps_ch9_audio.h,xusbps_ch9.c,xusbps_ch9.h,xusbps_class_audio.c,xusbps_class_audio.h,xusbps_audiodata.h

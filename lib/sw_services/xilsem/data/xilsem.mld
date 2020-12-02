@@ -1,0 +1,32 @@
+###############################################################################
+# Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+# Modification History
+#
+# Ver   Who  Date     Changes
+# ----- ---- -------- -----------------------------------------------
+# 1.00  pc   01-21-19 Initial creation
+# 1.01  pc   03-24-20 Update copyright year and uprev library to v1.1
+# 1.02  pc   06-05-20 Uprev library to v1.2. Remove unused params
+#
+##############################################################################
+
+OPTION psf_version = 2.1;
+
+BEGIN LIBRARY xilsem
+  OPTION drc = sem_drc;
+  OPTION copyfiles = all;
+  OPTION REQUIRES_OS = (standalone);
+  OPTION SUPPORTED_PERIPHERALS = (psu_pmc psv_pmc);
+  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilsem,-lxil,-lgcc,-lc,--end-group";
+  OPTION desc = "Xilinx Versal Soft Error Mitigation Library";
+  OPTION VERSION = 1.2;
+  OPTION NAME = xilsem;
+  BEGIN CATEGORY cfr_options
+    PARAM name = SEM_CONFIG_MEM_SCAN, desc = "Defines if XilSEM CRAM scan is enabled(1) or disabled (0).", type = bool, default = false;
+  END CATEGORY
+  BEGIN CATEGORY npi_options
+    PARAM name = SEM_CONFIG_NPI_SCAN, desc = "Defines if XilSEM NPI register scan is enabled(1) or disabled (0).", type = bool, default = false;
+  END CATEGORY
+END LIBRARY

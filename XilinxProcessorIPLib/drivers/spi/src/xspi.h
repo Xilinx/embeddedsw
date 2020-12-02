@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2001 - 2014 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2001 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xspi.h
-* @addtogroup spi_v4_4
+* @addtogroup spi_v4_7
 * @{
 * @details
 *
@@ -120,7 +98,7 @@
 * uses this interrupt to indicate progress while sending data.  The driver may
 * have more data to send, in which case the data transmit FIFO is filled for
 * subsequent transmission. This interrupt is particualrly useful in slave mode,
-* while transfering more than FIFO_DEPTH number of bytes. In this case, the
+* while transferring more than FIFO_DEPTH number of bytes. In this case, the
 * driver ensures that the FIFO is never empty during a transfer and avoids
 * master receiving invalid data.
 *
@@ -267,7 +245,7 @@
 *		      C_TYPE_OF_AXI4_INTERFACE parameters C_BASEADDR will
 *		      be updated with C_AXI4_BASEADDR.
 *		      Modified such that C_FIFO_EXIST will be updated based
-*		      on C_FIFO_DEPTH for compatability of the driver with
+*		      on C_FIFO_DEPTH for compatibility of the driver with
 *		      Axi Spi.
 * 3.05a adk  18/04/13 Updated the code to avoid unused variable 
 *			 warnings when compiling with the -Wextra -Wall flags
@@ -294,7 +272,15 @@
 *                     definitions of spi in xparameters.h
 * 4.4	tjs  11/28/17 When receive fifo exists, we need to check for status
 *                     register rx fifo empty flag. If clear we can proceed for
-*                     read. Otherwise we will hit execption. CR# 989938
+*                     read. Otherwise we will hit exception. CR# 989938
+* 4.5	akm  05/29/19 Removed master inhibit dependency while writing DTR
+*		      in between multiple transfers.
+* 4.5   akm  07/12/19 Fixed compilation error in spi interrupt example by
+*		       passing the correct interrupt controller instance to
+*		       SpiIntrExample() function (CR-1035793).
+* 4.7	akm  09/02/20 Updated the Makefile to support parallel make execution.
+* 4.7   akm  10/22/20 Removed dependency of Tx_Full flag while writing DTR
+*                     in between multiple transfers.
 * </pre>
 *
 ******************************************************************************/
@@ -409,6 +395,7 @@ typedef struct {
 					the device */
 	u8 XipMode;             /**< 0 if Non-XIP, 1 if XIP Mode */
 	u8 Use_Startup;		/**< 1 if Starup block is used in h/w */
+	u16 FifosDepth;		/**< TX and RX FIFO Depth */
 } XSpi_Config;
 
 /**
@@ -439,6 +426,7 @@ typedef struct {
 	void *StatusRef;	/**< Callback reference for status handler */
 	u32 FlashBaseAddr;    	/**< Used in XIP Mode */
 	u8 XipMode;             /**< 0 if Non-XIP, 1 if XIP Mode */
+	u16 FifosDepth;		/**< TX and RX FIFO Depth */
 } XSpi;
 
 /***************** Macros (Inline Functions) Definitions *********************/

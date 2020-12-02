@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
  *
@@ -41,14 +19,15 @@
  * mode can yield better turn-around time for DMA transfers.
  *
  * Modify NUMBER_OF_BDS_TO_TRANSFER for a different number of BDs to be
- * transfered in the SG transfer.
+ * transferred in the SG transfer.
  *
  * To see the debug print, you need a uart16550 or uartlite in your system,
  * and please set "-DDEBUG" in your compiler options for the example, also
  * comment out the "#undef DEBUG" in xdebug.h. You need to rebuild your
  * software executable.
  *
- * Make sure that MEMORY_BASE is defined properly as per the HW system.
+ * Make sure that MEMORY_BASE is defined properly as per the HW system
+ * and the transfer length should be cache-line size aligned.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -73,6 +52,9 @@
  *                     generation of examples.
  * 4.4   rsp  02/22/18 Support data buffers above 4GB.Use UINTPTR for storing
  *  	               and typecasting buffer address(CR-995116).
+ * 4.8   sk   07/10/20 Fix CheckData failure by adding the Cache operations for
+ *                     receive and destination buffers.
+ * 4.8	 sk   09/30/20 Modify the buffer length to make it cache-line aligned.
  * </pre>
  *
  ****************************************************************************/
@@ -120,9 +102,10 @@ extern void xil_printf(const char *format, ...);
 #define RX_BUFFER_HIGH      (MEMORY_BASE + 0x0068FFFF)
 
 
-#define BUFFER_BYTESIZE 80 	/* Length of the buffers for simple transfer */
+#define BUFFER_BYTESIZE 128 	/* Length of the buffers for simple transfer */
 #define MAX_PKT_LEN         1024  /* Length of BD for SG transfer */
 
+#define MARK_UNCACHEABLE        0x701
 
 /* Number of BDs in the transfer example
  * We show how to submit multiple BDs for one transmit.
@@ -297,11 +280,13 @@ static int SetupSgTransfer(XAxiCdma *InstancePtr)
 		SrcBufferPtr[Index] = Index & 0xFF;
 	}
 
-	/* Flush the SrcBuffer before the DMA transfer, in case the Data Cache
-	 * is enabled
+	/* Flush the TransmitBuffer and ReceiveBuffer before the DMA transfer,
+	 * in case the Data Cache is enabled
 	 */
 	Xil_DCacheFlushRange((UINTPTR)TransmitBufferPtr,
 		MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER);
+	Xil_DCacheFlushRange((UINTPTR)ReceiveBufferPtr,
+			MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER);
 
 	return XST_SUCCESS;
 }
@@ -528,10 +513,11 @@ static int DoSimplePollTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 		DestPtr[Index] = 0;
 	}
 
-	/* Flush the SrcBuffer before the DMA transfer, in case the Data Cache
-	 * is enabled
+	/* Flush the SrcBuffer and DestBuffer before the DMA transfer,
+	 * in case the Data Cache is enabled
 	 */
 	Xil_DCacheFlushRange((UINTPTR)&SrcBuffer, Length);
+	Xil_DCacheFlushRange((UINTPTR)&DestBuffer, Length);
 
 	/* Try to start the DMA transfer
 	 */
@@ -630,6 +616,9 @@ static int DoSgPollTransfer(XAxiCdma *InstancePtr, int Length)
 	SrcPtr = (u8 *)TransmitBufferPtr;
 	DstPtr = (u8 *)ReceiveBufferPtr;
 
+#ifdef __aarch64__
+	Xil_SetTlbAttributes(BD_SPACE_BASE, MARK_UNCACHEABLE);
+#endif
 	/* Submit the DMA transfer
 	 */
 	Status = SubmitSgTransfer(InstancePtr);

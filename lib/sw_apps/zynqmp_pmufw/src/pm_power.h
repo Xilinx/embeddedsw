@@ -1,28 +1,8 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  */
+
 
 /*********************************************************************
  * Power nodes (power islands and power domains) related structures
@@ -40,9 +20,6 @@ extern "C" {
 #include "pm_node.h"
 #include "pm_master.h"
 #include "xpfw_rom_interface.h"
-
-typedef struct PmPowerClass PmPowerClass;
-typedef struct PmSlaveTcm PmSlaveTcm;
 
 /*********************************************************************
  * Macros
@@ -74,7 +51,7 @@ typedef struct PmSlaveTcm PmSlaveTcm;
  *              power node
  * @useCount    How many nodes currently use this power node
  */
-typedef struct PmPower {
+struct PmPower {
 	PmNode node;
 	PmPowerClass* const class;
 	PmNode** const children;
@@ -85,7 +62,7 @@ typedef struct PmPower {
 	u32 forcePerms;
 	const u8 childCnt;
 	u8 useCount;
-} PmPower;
+};
 
 /**
  * PmPowerDomain - Structure for power domains (do not have power parent)
@@ -114,10 +91,10 @@ typedef struct PmPowerIslandRpu {
  * @construct	Constructor for the power node, call only once on startup
  * @forceDown	Puts power node in the lowest power state
  */
-typedef struct PmPowerClass {
+struct PmPowerClass {
 	void (*const construct)(PmPower* const power);
 	void (*const forceDown)(PmPower* const power);
-} PmPowerClass;
+};
 
 /*********************************************************************
  * Global data declarations

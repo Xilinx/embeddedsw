@@ -37,7 +37,7 @@
 #if defined (__arm__) || defined (__aarch64__)
 
 #include "platform_config.h"
-#ifdef PLATFORM_ZYNQMP
+#if defined(PLATFORM_ZYNQMP) || defined(PLATFORM_VERSAL)
 #include "xparameters.h"
 #include "xparameters_ps.h"	/* defines XPAR values */
 #include "xil_cache.h"

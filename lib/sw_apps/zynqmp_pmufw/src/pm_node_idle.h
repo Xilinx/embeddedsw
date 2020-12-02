@@ -1,28 +1,8 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  */
+
 
 /*********************************************************************
  * Implementation of individual node idle function and inclusion of
@@ -87,7 +67,7 @@ void NodeQspiIdle(u32 BaseAddress);
 
 #if defined(XPAR_XUSBPSU_0_DEVICE_ID) || \
 	defined(XPAR_XUSBPSU_1_DEVICE_ID)
-#include "xusbpsu_hw.h"
+#include "xusbpsu.h"
 #include "xusbpsu_endpoint.h"
 void NodeUsbIdle(u32 BaseAddress);
 #endif
@@ -102,6 +82,34 @@ void NodeDpIdle(u32 BaseAddress);
 
 #ifdef XPAR_PSU_SATA_S_AXI_BASEADDR
 void NodeSataIdle(u32 BaseAddress);
+#endif
+
+#if defined(XPAR_PSU_ZDMA_0_DEVICE_ID) || \
+	defined(XPAR_PSU_ADMA_0_DEVICE_ID)
+#include "xzdma_hw.h"
+void NodeZdmaIdle(u32 BaseAddress);
+/* Total number of channels and offset per DMA */
+
+#define XZDMA_CH_OFFSET		0X10000
+#define XZDMA_NUM_CHANNEL		8U	/* Number of channels */
+#endif
+
+#if defined(XPAR_PSU_CAN_0_DEVICE_ID) || \
+	defined(XPAR_PSU_CAN_1_DEVICE_ID)
+#include "xcanps_hw.h"
+void NodeCanIdle(u32 BaseAddress);
+#endif
+
+#if defined(XPAR_PSU_NAND_0_DEVICE_ID)
+#include "xnandpsu.h"
+void NodeNandIdle(u32 BaseAddress);
+#endif
+
+#ifdef XPAR_PSU_GPU_S_AXI_BASEADDR
+#define GPU_PP_0_OFFSET		0x8000
+#define GPU_PP_1_OFFSET		0xA000
+void NodeGpuIdle(u32 BaseAddress);
+void NodeGpuPPIdle(u32 BaseAddress);
 #endif
 
 #ifdef __cplusplus

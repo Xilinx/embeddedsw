@@ -1,30 +1,8 @@
 /*******************************************************************************
- *
- * Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -81,23 +59,49 @@
 
 #include "xv_frmbufrd_l2.h"
 #include "xv_frmbufwr_l2.h"
+
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 #include "xv_axi4s_remap.h"
+#endif
+
 //#include "xi2stx.h"
 //#include "xi2srx.h"
 #include "xgpio.h"
 //#include "xaxis_switch.h"
 
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 #define ENABLE_HDCP_IN_DESIGN			1
+
+#if (ENABLE_HDCP_IN_DESIGN && XPAR_DPRXSS_0_HDCP22_ENABLE)
+#define ENABLE_HDCP22_IN_RX				1
 #else
-#define ENABLE_HDCP_IN_DESIGN			0
+#define ENABLE_HDCP22_IN_RX				0
 #endif
 
-#if ENABLE_HDCP_IN_DESIGN
+#if (ENABLE_HDCP_IN_DESIGN && XPAR_DPTXSS_0_HDCP22_ENABLE)
+#define ENABLE_HDCP22_IN_TX				1
+#else
+#define ENABLE_HDCP22_IN_TX				0
+#endif
+
+#if (ENABLE_HDCP_IN_DESIGN && XPAR_DPRXSS_0_HDCP_ENABLE)
+#define ENABLE_HDCP1x_IN_RX				1
+#else
+#define ENABLE_HDCP1x_IN_RX				0
+#endif
+
+#if (ENABLE_HDCP_IN_DESIGN && XPAR_DPTXSS_0_HDCP_ENABLE)
+#define ENABLE_HDCP1x_IN_TX				1
+#else
+#define ENABLE_HDCP1x_IN_TX				0
+#endif
+
 #include "xhdcp1x_debug.h"
 #include "xhdcp1x_example.h"
+
 #include "keymgmt.h"
-#endif
+#include "xhdcp22_example.h"
+extern XHdcp22_Repeater     Hdcp22Repeater;
+
 
 #define TxOnly
 #define RxOnly
@@ -136,10 +140,13 @@
 
 #define FRMBUF_RD_DEVICE_ID  XPAR_XV_FRMBUFRD_0_DEVICE_ID
 #define FRMBUF_WR_DEVICE_ID  XPAR_XV_FRMBUFWR_0_DEVICE_ID
+#ifdef XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR
 #define VIDEO_FRAME_CRC_TX_BASEADDR \
 			XPAR_DP_TX_HIER_0_VIDEO_FRAME_CRC_TX_BASEADDR
 #define VIDEO_FRAME_CRC_RX_BASEADDR \
 			XPAR_DP_RX_HIER_0_VIDEO_FRAME_CRC_0_BASEADDR
+#endif
+
 #define REMAP_RX_BASEADDR  XPAR_DP_RX_HIER_0_REMAP_RX_S_AXI_CTRL_BASEADDR
 #define REMAP_TX_BASEADDR  XPAR_DP_TX_HIER_0_REMAP_TX_S_AXI_CTRL_BASEADDR
 #define REMAP_RX_DEVICE_ID  XPAR_DP_RX_HIER_0_REMAP_RX_DEVICE_ID
@@ -149,7 +156,7 @@
 			XPAR_PROCESSOR_HIER_0_AXI_TIMER_0_CLOCK_FREQ_HZ
 /* DP Specific Defines
  */
-#define DPRXSS_LINK_RATE        XDPRXSS_LINK_BW_SET_540GBPS
+#define DPRXSS_LINK_RATE        XDPRXSS_LINK_BW_SET_810GBPS
 #define DPRXSS_LANE_COUNT        XDPRXSS_LANE_COUNT_SET_4
 #define SET_TX_TO_2BYTE            \
     (XPAR_XDP_0_GT_DATAWIDTH/2)
@@ -243,6 +250,20 @@
 
 #define ENABLE_AUDIO XPAR_DP_RX_HIER_0_V_DP_RXSS1_0_AUDIO_ENABLE
 
+/*Offset address for APB register to enable RX VSC Capability in DPCD*/
+#define VSC_CAP_APB_REG_OFFSET 		0X000C
+
+/*APB register bit[2] enable*/
+#define RX_VSC_CAP_ENABLE			0x4
+
+/*Register for Rx colorimetery info from VSC SDP*/
+#define RX_COLORIMETRY_INFO_SDP_REG 	0x644
+
+/*Enable VSC Extended packet on every VSYC*/
+#define VSC_EXT_PKT_VSYNC_ENABLE		0x1000
+
+#define AUXFIFOSIZE 4
+#define XDP_DPCD_EXT_DPCD_FEATURE 0x2210
 /***************** Macros (Inline Functions) Definitions *********************/
 
 
@@ -272,20 +293,6 @@ typedef struct
         unsigned char link_rate;
 } lane_link_rate_struct;
 
-typedef struct
-{
-        u8 type;
-        u8 version;
-        u8 length;
-        u8 audio_coding_type;
-        u8 audio_channel_count;
-        u8 sampling_frequency;
-        u8 sample_size;
-        u8 level_shift;
-        u8 downmix_inhibit;
-        u8 channel_allocation;
-        u16 info_length;
-} XilAudioInfoFrame;
 /************************** Function Prototypes ******************************/
 void Dprx_HdcpAuthCallback(void *InstancePtr);
 void Dprx_HdcpUnAuthCallback(void *InstancePtr);
@@ -336,14 +343,16 @@ void frameBuffer_start_rd(XVidC_VideoMode VmId,
 
 
 u32 xil_gethex(u8 num_chars);
-void sendAudioInfoFrame(XilAudioInfoFrame *xilInfoFrame);
 /************************** Variable Definitions *****************************/
 
-//XDpRxSs DpRxSsInst; 	/* The DPRX Subsystem instance.*/
-//XINTC IntcInst; 	/* The interrupt controller instance. */
-XVphy VPhyInst; 	/* The DPRX Subsystem instance.*/
-XTmrCtr TmrCtr; 	/* Timer instance.*/
-XIic IicInstance; 	/* I2C bus for MC6000 and IDT */
+//XDpRxSs DpRxSsInst; 		/* The DPRX Subsystem instance.*/
+//XINTC IntcInst; 			/* The interrupt controller instance. */
+XVphy VPhyInst; 			/* The DPRX Subsystem instance.*/
+XTmrCtr TmrCtr; 			/* Timer instance.*/
+XIic IicInstance; 			/* I2C bus for MC6000 and IDT */
+XDp_TxVscExtPacket VscPkt;	/* VSC Packet to populate the vsc data received by
+								rx */
+u8 enable_tx_vsc_mode;		/* Flag to enable vsc for tx */
 
 /************************** Function Definitions *****************************/
 
@@ -358,14 +367,14 @@ u64 XVFRMBUFWR_BUFFER_BASEADDR;
 //u64 BUF3 =  0x20000000;
 //u64 BUF4 =  0x28000000;
 
-
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 XV_axi4s_remap_Config   *rx_remap_Config;
 XV_axi4s_remap          rx_remap;
 XV_axi4s_remap_Config   *tx_remap_Config;
 XV_axi4s_remap          tx_remap;
+#endif
 
-
-XilAudioInfoFrame *xilInfoFrame;
+XDp_TxAudioInfoFrame *xilInfoFrame;
 XIicPs_Config *XIic0Ps_ConfigPtr;
 XIicPs_Config *XIic1Ps_ConfigPtr;
 

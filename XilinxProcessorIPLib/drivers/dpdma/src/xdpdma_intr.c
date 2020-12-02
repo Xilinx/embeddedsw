@@ -1,30 +1,8 @@
 /*******************************************************************************
- *
- * Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /******************************************************************************/
 /**
  *
@@ -84,18 +62,18 @@ void XDpDma_InterruptHandler(XDpDma *InstancePtr)
 	u32 RegVal;
 	RegVal = XDpDma_ReadReg(InstancePtr->Config.BaseAddr,
 				XDPDMA_ISR);
-	if(RegVal & XDPDMA_ISR_VSYNC_INT_MASK) {
+	if ((RegVal & XDPDMA_ISR_VSYNC_INT_MASK) != 0U) {
 		XDpDma_VSyncHandler(InstancePtr);
 	}
 
-	if(RegVal & XDPDMA_ISR_DSCR_DONE4_MASK) {
+	if ((RegVal & XDPDMA_ISR_DSCR_DONE4_MASK) != 0U) {
 		XDpDma_SetChannelState(InstancePtr, AudioChan0, XDPDMA_DISABLE);
 		InstancePtr->Audio[0].Current = NULL;
 		XDpDma_WriteReg(InstancePtr->Config.BaseAddr, XDPDMA_ISR,
 				XDPDMA_ISR_DSCR_DONE4_MASK);
 	}
 
-	if(RegVal & XDPDMA_ISR_DSCR_DONE5_MASK) {
+	if ((RegVal & XDPDMA_ISR_DSCR_DONE5_MASK) != 0U) {
 		XDpDma_SetChannelState(InstancePtr, AudioChan1, XDPDMA_DISABLE);
 		InstancePtr->Audio[1].Current = NULL;
 		XDpDma_WriteReg(InstancePtr->Config.BaseAddr, XDPDMA_ISR,
@@ -129,6 +107,10 @@ void XDpDma_VSyncHandler(XDpDma *InstancePtr)
 	else if(InstancePtr->Video.TriggerStatus == XDPDMA_RETRIGGER_EN) {
 		XDpDma_SetupChannel(InstancePtr, VideoChan);
 		XDpDma_ReTrigger(InstancePtr, VideoChan);
+	} else {
+		/* Do nothing if TriggerStatus is XDPDMA_TRIGGER_DONE or
+		 * XDPDMA_RETRIGGER_DONE
+		 */
 	}
 
 	/* Graphics Channel Trigger/Retrigger Handler */
@@ -141,6 +123,10 @@ void XDpDma_VSyncHandler(XDpDma *InstancePtr)
 	else if(InstancePtr->Gfx.TriggerStatus == XDPDMA_RETRIGGER_EN) {
 		XDpDma_SetupChannel(InstancePtr, GraphicsChan);
 		XDpDma_ReTrigger(InstancePtr, GraphicsChan);
+	} else {
+		/* Do nothing if TriggerStatus is XDPDMA_TRIGGER_DONE or
+		 * XDPDMA_RETRIGGER_DONE
+		 */
 	}
 
 	/* Audio Channel 0 Trigger Handler */

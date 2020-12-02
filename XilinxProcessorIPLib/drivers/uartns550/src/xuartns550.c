@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2002 - 2015 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /****************************************************************************/
 /**
 *
 * @file xuartns550.c
-* @addtogroup uartns550_v3_5
+* @addtogroup uartns550_v3_7
 * @{
 *
 * This file contains the required functions for the 16450/16550 UART driver.
@@ -56,7 +34,7 @@
 *		      name of all the macro definitions. XUartNs550_mClearStats
 *		      macro is removed, XUartNs550_ClearStats function should be
 *		      used in its place.
-* 2.01a bss  01/13/12 Removed unneccessary read of the LCR register in the
+* 2.01a bss  01/13/12 Removed unnecessary read of the LCR register in the
 *                     XUartNs550_CfgInitialize function. Removed compiler
 *		      warnings for unused variables in the
 *		      XUartNs550_StubHandler.
@@ -64,6 +42,7 @@
 *		      (CR 857013)
 * 3.4   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototype of XUartNs550_CfgInitialize API.
+* 3.7   sd   03/02/20 Update the macro names.
 * </pre>
 *
 *****************************************************************************/
@@ -502,7 +481,7 @@ unsigned int XUartNs550_SendBuffer(XUartNs550 *InstancePtr)
 				 IerRegister | XUN_IER_TX_EMPTY);
 	}
 	/*
-	 * Return the number of bytes that were sent, althought they really were
+	 * Return the number of bytes that were sent, although they really were
 	 * only put into the FIFO, not completely sent yet
 	 */
 	return SentCount;
@@ -700,10 +679,10 @@ int XUartNs550_SetBaudRate(XUartNs550 *InstancePtr, u32 BaudRate)
 	 * to keep the divisor from being 0 which is not recommended as per
 	 * the NS16550D spec sheet
 	 */
-	XUartNs550_WriteReg(InstancePtr->BaseAddress, XUN_DRLS_OFFSET, 0xFF);
-	XUartNs550_WriteReg(InstancePtr->BaseAddress, XUN_DRLM_OFFSET,
+	XUartNs550_WriteReg(InstancePtr->BaseAddress, XUN_DLL_OFFSET, 0xFF);
+	XUartNs550_WriteReg(InstancePtr->BaseAddress, XUN_DLM_OFFSET,
 				BaudMSB);
-	XUartNs550_WriteReg(InstancePtr->BaseAddress, XUN_DRLS_OFFSET,
+	XUartNs550_WriteReg(InstancePtr->BaseAddress, XUN_DLL_OFFSET,
 				BaudLSB);
 
 	/*

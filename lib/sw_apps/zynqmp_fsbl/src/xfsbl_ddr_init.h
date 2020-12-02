@@ -1,30 +1,8 @@
 /******************************************************************************
- *
- * Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -40,8 +18,14 @@
  * Ver   Who  Date        Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   mn   07/06/18 Add DDR initialization support for new DDR DIMM part
- *       mn   07/30/18 Define some DDR registers addresses if not defined
+ *       mn   07/18/18 Move iicps.h inclusion under ZCU102 and ZCU106 macro
+ *                     checks
  * 2.0   mn   02/28/19 Add Dynamic DDR initialization support for all DDR DIMMs
+ *       mn   03/12/19 Select EEPROM Lower Page for reading SPD data
+ *       mn   09/03/19 Fix coverity warnings
+ * 3.0   bsv  11/12/19 Added support for ZCU216 board
+ *       mn   12/24/19 Enable Address Mirroring based on SPD data
+ *       bsv  02/05/20 Added support for ZCU208 board
  *
  * </pre>
  *

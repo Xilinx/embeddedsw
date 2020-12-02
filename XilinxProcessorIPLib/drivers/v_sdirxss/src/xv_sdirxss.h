@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2017 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -83,6 +61,7 @@ extern "C" {
 #define XV_SDIRXSS_IER_VIDEO_UNLOCK_MASK	XV_SDIRX_IER_VIDEO_UNLOCK_MASK
 #define XV_SDIRXSS_IER_OVERFLOW_MASK		XV_SDIRX_IER_OVERFLOW_MASK
 #define XV_SDIRXSS_IER_UNDERFLOW_MASK		XV_SDIRX_IER_UNDERFLOW_MASK
+#define XV_SDIRXSS_IER_VSYNC_MASK		XV_SDIRX_IER_VSYNC_MASK
 #define XV_SDIRXSS_IER_ALLINTR_MASK		XV_SDIRX_IER_ALLINTR_MASK
 
 /**************************** Type Definitions *******************************/
@@ -102,6 +81,7 @@ typedef enum {
 	XV_SDIRXSS_LOG_EVT_UNDERFLOW,	/**< Log event Under flow. */
 	XV_SDIRXSS_LOG_EVT_STREAMSTART, /**< Log event Stream Start. */
 	XV_SDIRXSS_LOG_EVT_SETSTREAM,	/**< Log event SDIRXSS Setstream. */
+	/* Leaving out Vsync event logging as it will flood messages */
 	XV_SDIRXSS_LOG_EVT_DUMMY,	/**< Dummy Event should be last */
 } XV_SdiRxSs_LogEvent;
 
@@ -125,7 +105,8 @@ typedef enum {
 	XV_SDIRXSS_HANDLER_STREAM_DOWN = 1,	/**< Handler for stream down event */
 	XV_SDIRXSS_HANDLER_STREAM_UP,		/**< Handler for stream up event */
 	XV_SDIRXSS_HANDLER_OVERFLOW,		/**< Handler for over flow event */
-	XV_SDIRXSS_HANDLER_UNDERFLOW		/**< Handler for under flow event */
+	XV_SDIRXSS_HANDLER_UNDERFLOW,		/**< Handler for under flow event */
+	XV_SDIRXSS_HANDLER_VSYNC,		/**< Handler for vsync event */
 } XV_SdiRxSs_HandlerType;
 /*@}*/
 
@@ -148,6 +129,7 @@ typedef struct {
 				    subsystem address range */
 	XVidC_PixelsPerClock Ppc;
 	u8 MaxRateSupported;
+	XVidC_ColorDepth bitdepth;
 	XV_SdiRxSs_SubCore SdiRx;       /**< Sub-core instance configuration */
 } XV_SdiRxSs_Config;
 
@@ -187,6 +169,9 @@ typedef struct {
 	XV_SdiRxSs_Callback UnderFlowCallback; /**< Callback for Under Flow event */
 	void *UnderFlowRef;		/**< To be passed to the Under Flow callback */
 
+	XV_SdiRxSs_Callback VsyncCallback; /**< Callback for Vsync event */
+	void *VsyncRef;		/**< To be passed to the Vsync callback */
+
 	u8 IsStreamUp;			/**< SDI RX Stream Up */
 } XV_SdiRxSs;
 
@@ -222,6 +207,8 @@ void XV_SdiRxSs_StreamFlowDisable(XV_SdiRxSs *InstancePtr);
 void XV_SdiRxSs_Start(XV_SdiRxSs *InstancePtr, XV_SdiRx_SearchMode Mode);
 void XV_SdiRxSs_Stop(XV_SdiRxSs *InstancePtr);
 void XV_SdiRxSs_ReportDetectedError(XV_SdiRxSs *InstancePtr);
+void XV_SdiRxSs_SetYCbCr444_RGB_10bit(XV_SdiRxSs *InstancePtr);
+void XV_SdiRxSs_ClearYCbCr444_RGB_10bit(XV_SdiRxSs *InstancePtr);
 int XV_SdiRxSs_SetCallback(XV_SdiRxSs *InstancePtr, u32 HandlerType,
 		void *CallbackFunc, void *CallbackRef);
 void XV_SdiRxSs_ReportCoreInfo(XV_SdiRxSs *InstancePtr);

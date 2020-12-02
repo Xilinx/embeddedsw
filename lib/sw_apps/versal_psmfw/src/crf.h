@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -45,8 +23,8 @@
 *
 ******************************************************************************/
 
-#ifndef _CRF_H_
-#define _CRF_H_
+#ifndef XPSMFW_CRF_H_
+#define XPSMFW_CRF_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -64,10 +42,10 @@ extern "C" {
 
 #define CRF_RST_APU_ACPU0_MASK                        ((u32)0x00000001U)
 #define CRF_RST_APU_ACPU1_MASK                        ((u32)0x00000002U)
-#define CRF_RST_APU_GIC_RESET_MASK                    ((u32)0x00000100U)
-#define CRF_RST_APU_L2_RESET_MASK                     ((u32)0x00000200U)
-#define CRF_RST_APU_ACPU0_PWRON_MASK                  ((u32)0x00001000U)
-#define CRF_RST_APU_ACPU1_PWRON_MASK                  ((u32)0x00002000U)
+#define CRF_RST_APU_GIC_RESET_MASK                    ((u32)0x00000080U)
+#define CRF_RST_APU_L2_RESET_MASK                     ((u32)0x00000100U)
+#define CRF_RST_APU_ACPU0_PWRON_MASK                  ((u32)0x00000400U)
+#define CRF_RST_APU_ACPU1_PWRON_MASK                  ((u32)0x00000800U)
 
 #define CRF_RST_APU_ACPU0_SHIFT                       (0)
 #define CRF_RST_APU_ACPU1_SHIFT                       (1)
@@ -86,4 +64,4 @@ extern "C" {
 }
 #endif
 
-#endif /* _CRF_H_ */
+#endif /* XPSMFW_CRF_H_ */

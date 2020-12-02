@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xhdcp22_tx.c
-* @addtogroup hdcp22_tx_v2_3
+* @addtogroup hdcp22_tx_dp_v2_0
 * @{
 * @details
 *
@@ -145,6 +123,7 @@ static int XHdcp22Tx_WriteAKEStoredKm(XHdcp22_Tx *InstancePtr,
 static int XHdcp22Tx_WriteLcInit(XHdcp22_Tx *InstancePtr, const u8 *Rn);
 static int XHdcp22Tx_WriteSkeSendEks(XHdcp22_Tx *InstancePtr,
                     const u8 *EdkeyKsPtr, const u8 *RivPtr);
+static int XHdcp22Tx_WriteTypeValue(XHdcp22_Tx *InstancePtr);
 static int XHdcp22Tx_WriteRepeaterAuth_Send_Ack(XHdcp22_Tx *InstancePtr, const u8 *V);
 static int XHdcp22Tx_WriteRepeaterAuth_Stream_Manage(XHdcp22_Tx *InstancePtr);
 static int XHdcp22Tx_ReceiveMsg(XHdcp22_Tx *InstancePtr, u8 MessageId,
@@ -185,7 +164,7 @@ static u32 XHdcp22Tx_GetTopologyDepth(XHdcp22_Tx *InstancePtr);
 static u32 XHdcp22Tx_GetTopologyDeviceCnt(XHdcp22_Tx *InstancePtr);
 static u32 XHdcp22Tx_GetTopologyMaxDevsExceeded(XHdcp22_Tx *InstancePtr);
 static u32 XHdcp22Tx_GetTopologyMaxCascadeExceeded(XHdcp22_Tx *InstancePtr);
-static u32 XHdcp22Tx_GetTopologyHdcp20RepeaterDownstream(XHdcp22_Tx *InstancePtr);
+static u32 XHdcp22Tx_GetTopologyHdcp2LegacyDeviceDownstream(XHdcp22_Tx *InstancePtr);
 static u32 XHdcp22Tx_GetTopologyHdcp1DeviceDownstream(XHdcp22_Tx *InstancePtr);
 static int XHdcp22Tx_Dp_Write_Dpcd_Msg(XHdcp22_Tx *InstancePtr);
 static int XHdcp22Tx_Dp_ReadDpRxMsg(XHdcp22_Tx *InstancePtr, u8 MessageId);
@@ -791,8 +770,8 @@ u32 XHdcp22Tx_GetTopologyField(XHdcp22_Tx *InstancePtr, XHdcp22_Tx_TopologyField
 		return XHdcp22Tx_GetTopologyMaxDevsExceeded(InstancePtr);
 	case XHDCP22_TX_TOPOLOGY_MAXCASCADEEXCEEDED :
 		return XHdcp22Tx_GetTopologyMaxCascadeExceeded(InstancePtr);
-	case XHDCP22_TX_TOPOLOGY_HDCP20REPEATERDOWNSTREAM :
-		return XHdcp22Tx_GetTopologyHdcp20RepeaterDownstream(InstancePtr);
+	case XHDCP22_TX_TOPOLOGY_HDCP2LEGACYDEVICEDOWNSTREAM:
+		return XHdcp22Tx_GetTopologyHdcp2LegacyDeviceDownstream(InstancePtr);
 	case XHDCP22_TX_TOPOLOGY_HDCP1DEVICEDOWNSTREAM :
 		return XHdcp22Tx_GetTopologyHdcp1DeviceDownstream(InstancePtr);
 	default:
@@ -1592,7 +1571,7 @@ static XHdcp22_Tx_StateType XHdcp22Tx_StateA1(XHdcp22_Tx *InstancePtr)
 	InstancePtr->Topology.Depth = 0;
 	InstancePtr->Topology.MaxDevsExceeded = FALSE;
 	InstancePtr->Topology.MaxCascadeExceeded = FALSE;
-	InstancePtr->Topology.Hdcp20RepeaterDownstream = FALSE;
+	InstancePtr->Topology.Hdcp2LegacyDeviceDownstream = FALSE;
 	InstancePtr->Topology.Hdcp1DeviceDownstream = FALSE;
 	InstancePtr->Info.ReceivedFirstSeqNum_V = FALSE;
 	InstancePtr->Info.SentFirstSeqNum_M = FALSE;
@@ -2179,6 +2158,14 @@ static XHdcp22_Tx_StateType XHdcp22Tx_StateA3(XHdcp22_Tx *InstancePtr)
 		return XHDCP22_TX_STATE_A0;
 	}
 
+	/* Write Type Value */
+	Result = XHdcp22Tx_WriteTypeValue(InstancePtr);
+
+	if (Result != XST_SUCCESS) {
+		XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_DBG, XHDCP22_TX_LOG_DBG_MSG_WRITE_FAIL);
+		return XHDCP22_TX_STATE_A0;
+	}
+
 	return XHDCP22_TX_STATE_A4;
 }
 
@@ -2418,7 +2405,7 @@ static XHdcp22_Tx_StateType XHdcp22Tx_StateA6_A7_A8(XHdcp22_Tx *InstancePtr)
 		(MsgPtr->Message.RepeatAuthSendRecvIDList.RxInfo[1] & 0x8) ? TRUE : FALSE;
 	InstancePtr->Topology.MaxCascadeExceeded =
 		(MsgPtr->Message.RepeatAuthSendRecvIDList.RxInfo[1] & 0x4) ? TRUE : FALSE;
-	InstancePtr->Topology.Hdcp20RepeaterDownstream =
+	InstancePtr->Topology.Hdcp2LegacyDeviceDownstream =
 		(MsgPtr->Message.RepeatAuthSendRecvIDList.RxInfo[1] & 0x2) ? TRUE : FALSE;
 	InstancePtr->Topology.Hdcp1DeviceDownstream =
 		(MsgPtr->Message.RepeatAuthSendRecvIDList.RxInfo[1] & 0x1) ? TRUE : FALSE;
@@ -3690,6 +3677,33 @@ static int XHdcp22Tx_WriteSkeSendEks(XHdcp22_Tx *InstancePtr,
 
 /******************************************************************************/
 /**
+ *
+ * This function sends the Type Value to the receiver.
+ *
+ * @param  InstancePtr is a pointer to the XHdcp22Tx core instance.
+ *
+ * @return
+ *         - XST_SUCCESS if writing succeeded
+ *         - XST_FAILURE if failed to write
+ *
+ * @note   None.
+ *
+ ******************************************************************************/
+static int XHdcp22Tx_WriteTypeValue(XHdcp22_Tx *InstancePtr)
+{
+	XHdcp22_Tx_DDCMessage* MsgPtr =
+		(XHdcp22_Tx_DDCMessage*)InstancePtr->MessageBuffer;
+	XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_DBG,
+			XHDCP22_TX_LOG_DBG_TX_TYPE_VALUE);
+
+	MsgPtr->Message.MsgId = XHDCP22_TX_TYPE_VALUE;
+
+	xdbg_printf(XDBG_DEBUG_GENERAL,"HDCP22TX: Writing SKE_SEND_EKS\n\r");
+	return XHdcp22Tx_Dp_Write_Dpcd_Msg(InstancePtr);
+}
+
+/******************************************************************************/
+/**
 *
 * This function sends the Receiver ID List acknowledgement to the repeater.
 *
@@ -3989,6 +4003,48 @@ static void XHdcp22Tx_InvalidatePairingInfo(XHdcp22_Tx *InstancePtr,
 /*****************************************************************************/
 /**
 *
+* This function adds a ReceiverID to RevocationList
+*
+* @param  InstancePtr is a pointer to the XHdcp22Tx core instance.
+* @param  ReceiverId is a pointer to a 5-byte receiver Id.
+*
+* @return None.
+*
+* @note Supposed to be called by Upstream Content Control Function
+*
+******************************************************************************/
+void XHdcp22Tx_RevokeReceiverId(XHdcp22_Tx *InstancePtr, u8 *ReceiverIdPtr)
+{
+	XHdcp22_Tx_RevocationList *RevocationListPtr;
+	u32 NumDevices;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(ReceiverIdPtr != NULL);
+
+	RevocationListPtr =
+		XHdcp22Tx_GetRevocationReceiverIdList(InstancePtr);
+	NumDevices = RevocationListPtr->NumDevices;
+
+	if (InstancePtr->Config.Mode != XHDCP22_TX_TRANSMITTER)
+		return;
+
+	if (!XHdcp22Tx_IsDeviceRevoked(InstancePtr, ReceiverIdPtr)) {
+		memcpy(RevocationListPtr->ReceiverId[NumDevices],
+				ReceiverIdPtr, XHDCP22_TX_SRM_RCVID_SIZE);
+		RevocationListPtr->NumDevices++;
+		InstancePtr->Info.IsRevocationListValid = TRUE;
+	}
+	InstancePtr->Info.IsDeviceRevoked = TRUE;
+	InstancePtr->Info.AuthenticationStatus = XHDCP22_TX_DEVICE_IS_REVOKED;
+
+	XHdcp22Tx_HandleAuthenticationFailed(InstancePtr);
+	InstancePtr->Info.CurrentState = XHDCP22_TX_STATE_A0;
+}
+
+/*****************************************************************************/
+/**
+*
 * This function returns the DEPTH in the repeater topology structure.
 *
 * @param    InstancePtr is a pointer to the XHdcp22_Tx core instance.
@@ -4071,22 +4127,22 @@ static u32 XHdcp22Tx_GetTopologyMaxCascadeExceeded(XHdcp22_Tx *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function returns the HDCP2_0_REPEATER_DOWNSTREAM flag in the repeater
+* This function returns the HDCP2_LEGACY_DEVICE_DOWNSTREAM flag in the repeater
 * topology structure.
 *
 * @param    InstancePtr is a pointer to the XHdcp22_Tx core instance.
 *
-* @return   HDCP2_0_REPEATER_DOWNSTREAM flag in the repeater structure.
+* @return   HDCP2_LEGACY_DEVICE_DOWNSTREAM flag in the repeater structure.
 *
 * @note     None.
 *
 ******************************************************************************/
-static u32 XHdcp22Tx_GetTopologyHdcp20RepeaterDownstream(XHdcp22_Tx *InstancePtr)
+static u32 XHdcp22Tx_GetTopologyHdcp2LegacyDeviceDownstream(XHdcp22_Tx *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	return (InstancePtr->Topology.Hdcp20RepeaterDownstream) ? TRUE : FALSE;
+	return (InstancePtr->Topology.Hdcp2LegacyDeviceDownstream) ? TRUE : FALSE;
 }
 
 /*****************************************************************************/
@@ -4511,8 +4567,8 @@ void XHdcp22Tx_Info(XHdcp22_Tx *InstancePtr)
 			xil_printf("MaxDevsExceeded, ");
 		if (InstancePtr->Topology.MaxCascadeExceeded)
 			xil_printf("MaxCascadeExceeded, ");
-		if (InstancePtr->Topology.Hdcp20RepeaterDownstream)
-			xil_printf("Hdcp20RepeaterDownstream, ");
+		if (InstancePtr->Topology.Hdcp2LegacyDeviceDownstream)
+			xil_printf("Hdcp2LegacyDeviceDownstream, ");
 		if (InstancePtr->Topology.Hdcp1DeviceDownstream)
 			xil_printf("Hdcp1DeviceDownstream, ");
 		xil_printf("Depth=%d, ", InstancePtr->Topology.Depth);
@@ -4720,6 +4776,15 @@ static int XHdcp22Tx_Dp_Write_Dpcd_Msg(XHdcp22_Tx *InstancePtr)
 					XHDCP22_TX_DP_HDCPPORT_R_IV_SIZE);
 			if (NumWritten == (XHDCP22_TX_DP_HDCPPORT_E_DKEY_KS_SIZE +
 						XHDCP22_TX_DP_HDCPPORT_R_IV_SIZE))
+				Status = XST_SUCCESS;
+			break;
+		case XHDCP22_TX_TYPE_VALUE:
+			NumWritten = InstancePtr->TxDpAuxWriteCallback(
+					InstancePtr->TxDpAuxWriteCallbackRef,
+					XHDCP22_TX_DP_HDCPPORT_TYPE_VALUE_OFFSET,
+					(u8 *)&InstancePtr->Info.ContentStreamType,
+					XHDCP22_TX_DP_HDCPPORT_TYPE_VALUE_SIZE);
+			if (NumWritten == XHDCP22_TX_DP_HDCPPORT_TYPE_VALUE_SIZE)
 				Status = XST_SUCCESS;
 			break;
 		default:

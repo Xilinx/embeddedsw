@@ -1,35 +1,13 @@
 /******************************************************************************
- *
- * Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to
- * deal in the Software without restriction, including without limitation the
- * rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xdsitxss.h
-* @addtogroup dsitxss_v1_1
+* @addtogroup dsitxss_v2_1
 * @{
 * @details
 *
@@ -177,6 +155,14 @@ typedef enum {
 } XDsiSS_Selection;
 
 /**
+ * Sub-Core Enable/Disable
+ */
+typedef enum {
+	XDSITXSS_DSI,	/* DSI Core */
+	XDSITXSS_PHY	/* DPHY */
+} XDsiSS_Subcore;
+
+/**
  * MIPI DSI Tx Subsystem configuration structure.
  * Each subsystem device should have a configuration structure associated
  * that defines the MAX supported sub-cores within subsystem
@@ -235,6 +221,7 @@ typedef struct {
 #endif
 	XDsi_ShortPacket SpktData; /**< Short packet strucute to
 					send short packet */
+	XDsiTx_CmdModePkt CmdPkt; /**< DSI Command mode packet structure */
 
 	XDsi_ConfigParameters ConfigInfo;  /**< Configuration information
 						contains GUI parameters,
@@ -252,11 +239,13 @@ XDsiTxSs_Config* XDsiTxSs_LookupConfig(u32 DeviceId);
 s32 XDsiTxSs_CfgInitialize(XDsiTxSs *InstancePtr, XDsiTxSs_Config *CfgPtr,
 							UINTPTR EffectiveAddr);
 u32 XDsiTxSs_DefaultConfigure(XDsiTxSs *InstancePtr);
-void XDsiTxSs_Activate(XDsiTxSs *InstancePtr, u8 Flag);
+int XDsiTxSs_Activate(XDsiTxSs *InstancePtr, XDsiSS_Subcore core, u8 Flag);
 void XDsiTxSs_Reset(XDsiTxSs *InstancePtr);
 void XDsiTxSs_ReportCoreInfo(XDsiTxSs *InstancePtr);
 u32 XDsiTxSs_SelfTest(XDsiTxSs *InstancePtr);
 void XDsiTxSs_SendShortPacket(XDsiTxSs *InstancePtr);
+int XDsiTxSs_SetDSIMode(XDsiTxSs *InstancePtr, XDsi_DsiModeType mode);
+int XDsiTxSs_SendCmdModePacket(XDsiTxSs *InstancePtr);
 void XDsiTxSs_GetConfigParams(XDsiTxSs *InstancePtr);
 u32 XDsiTxSs_IsControllerReady(XDsiTxSs *InstancePtr);
 u32 XDsiTxSs_GetPixelFormat(XDsiTxSs *InstancePtr);

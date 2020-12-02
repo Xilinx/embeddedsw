@@ -28,7 +28,7 @@
   <td style="padding-left: 0.5em;">
    <div id="projectname">gpiops
    </div>
-   <div id="projectbrief">Xilinx SDK Drivers API Documentation</div>
+   <div id="projectbrief">Xilinx Vitis Drivers API Documentation</div>
   </td>
  </tr>
  </tbody>
@@ -114,12 +114,18 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
                     proper functioning of interrupt example.
 3.4   aru  08/17/18 Resolved MISRA-C mandatory violations. CR# 1007751
 3.5   sne  03/01/19 Fixes violations according to MISRAC-2012
-                    in saftey mode and modified the code such as
-                    Use of mixed mode arithmetic,Declared the poiner param
+                    in safety mode and modified the code such as
+                    Use of mixed mode arithmetic,Declared the pointer param
                     as Pointer to const,Casting operation to a pointer,
                     Literal value requires a U suffix.
 3.5   sne  03/14/19 Added Versal support.
-</pre> </div></div><!-- contents -->
+3.6   mus  04/05/19 Replaced XPLAT_versal macro with XPLAT_VERSAL, to be in
+                    sync with standalone BSP
+3.6     sne  06/12/19 Fixed IAR compiler warning.
+3.6   sne  08/14/19 Added interrupt handler support on versal.
+3.7     sne  12/04/19 Reverted versal examples support.
+3.8   sne  08/28/20 Modify Makefile to support parallel make execution.
+3.8     sne  09/17/20 Added description for Versal PS and PMC GPIO pins.</pre><pre></pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

@@ -39,21 +39,16 @@ void putnum(u32 num)
   for (cnt = 7 ; cnt >= 0 ; cnt--) {
     digit = (num >> (cnt * 4U)) & 0x0000000fU;
 
-    if ((digit <= 9U) && (ptr != NULL)) {
+    if (digit <= 9U) {
 		digit += (u32)'0';
 		*ptr = ((char8) digit);
 		ptr += 1;
-	} else if (ptr != NULL) {
+	} else {
 		digit += ((u32)'a' - (u32)10);
 		*ptr = ((char8)digit);
 		ptr += 1;
-	} else {
-		/*Made for MisraC Compliance*/;
 	}
   }
 
-  if(ptr != NULL) {
-	  *ptr = (char8) 0;
-  }
   print (buf);
 }

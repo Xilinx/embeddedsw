@@ -1,28 +1,8 @@
 /*
- * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  */
+
 
 /*********************************************************************
  * Definitions of commonly used macros and enums in PMU Power
@@ -52,12 +32,26 @@ extern "C" {
  */
 #ifndef bool
 	typedef u8 bool;
-	#define true	1U
-	#define false	0U
+	#define true	(bool)1U
+	#define false	(bool)0U
 #endif
 
 typedef u32 (*const PmTranHandler)(void);
+
 typedef struct PmNode PmNode;
+typedef struct PmMaster PmMaster;
+typedef struct PmRequirement PmRequirement;
+typedef struct PmPower PmPower;
+typedef struct PmPowerClass PmPowerClass;
+typedef struct PmClockHandle PmClockHandle;
+typedef struct PmSlave PmSlave;
+typedef struct PmProc PmProc;
+typedef struct PmNodeClass PmNodeClass;
+typedef struct PmClockClass PmClockClass;
+typedef struct PmSlaveTcm PmSlaveTcm;
+typedef struct PmReset PmReset;
+typedef struct PmSlaveClass PmSlaveClass;
+typedef struct PmWakeEvent PmWakeEvent;
 
 /*********************************************************************
  * Macros
@@ -107,31 +101,51 @@ typedef struct PmNode PmNode;
 #define IPI_RESPONSE1(mask, arg0)				\
 {	\
 	u32 _ipi_resp_data[XPFW_IPI_MAX_MSG_LEN] = {(arg0), 0U, 0U, 0U, 0U, 0U, 0U, 0U};	\
-	(void)XPfw_IpiWriteResponse(PmModPtr, (mask), &_ipi_resp_data[0], ARRAY_SIZE(_ipi_resp_data));	\
+	if (XST_SUCCESS != XPfw_IpiWriteResponse(PmModPtr, (mask),		\
+						 &_ipi_resp_data[0],		\
+						 ARRAY_SIZE(_ipi_resp_data))) {	\
+		PmWarn("Error in IPI write response\r\n");			\
+	}									\
 }
 
 #define IPI_RESPONSE2(mask, arg0, arg1)				\
 {	\
 	u32 _ipi_resp_data[XPFW_IPI_MAX_MSG_LEN] = {(arg0), (arg1), 0U, 0U, 0U, 0U, 0U, 0U};	\
-	(void)XPfw_IpiWriteResponse(PmModPtr, (mask), &_ipi_resp_data[0], ARRAY_SIZE(_ipi_resp_data));	\
+	if (XST_SUCCESS != XPfw_IpiWriteResponse(PmModPtr, (mask),		\
+						 &_ipi_resp_data[0],		\
+						 ARRAY_SIZE(_ipi_resp_data))) {	\
+		PmWarn("Error in IPI write response\r\n");			\
+	}									\
 }
 
 #define IPI_RESPONSE3(mask, arg0, arg1, arg2)			\
 {	\
 	u32 _ipi_resp_data[XPFW_IPI_MAX_MSG_LEN] = {(arg0), (arg1), (arg2), 0U, 0U, 0U, 0U, 0U};	\
-	(void)XPfw_IpiWriteResponse(PmModPtr, (mask), &_ipi_resp_data[0], ARRAY_SIZE(_ipi_resp_data));	\
+	if (XST_SUCCESS != XPfw_IpiWriteResponse(PmModPtr, (mask),		\
+						 &_ipi_resp_data[0],		\
+						 ARRAY_SIZE(_ipi_resp_data))) {	\
+		PmWarn("Error in IPI write response\r\n");			\
+	}									\
 }
 
 #define IPI_RESPONSE4(mask, arg0, arg1, arg2, arg3)		\
 {	\
 	u32 _ipi_resp_data[XPFW_IPI_MAX_MSG_LEN] = {(arg0), (arg1), (arg2), (arg3),0U, 0U, 0U, 0U};	\
-	(void)XPfw_IpiWriteResponse(PmModPtr, (mask), &_ipi_resp_data[0], ARRAY_SIZE(_ipi_resp_data));	\
+	if (XST_SUCCESS != XPfw_IpiWriteResponse(PmModPtr, (mask),		\
+						 &_ipi_resp_data[0],		\
+						 ARRAY_SIZE(_ipi_resp_data))) {	\
+		PmWarn("Error in IPI write response\r\n");			\
+	}									\
 }
 
 #define IPI_RESPONSE5(mask, arg0, arg1, arg2, arg3, arg4)	\
 {	\
 	u32 ipi_resp_data[XPFW_IPI_MAX_MSG_LEN] = {(arg0), (arg1), (arg2), (arg3), (arg4), 0U, 0U, 0U};	\
-	(void)XPfw_IpiWriteResponse(PmModPtr, (mask), &_ipi_resp_data[0], ARRAY_SIZE(_ipi_resp_data));	\
+	if (XST_SUCCESS != XPfw_IpiWriteResponse(PmModPtr, (mask),		\
+						 &_ipi_resp_data[0],		\
+						 ARRAY_SIZE(_ipi_resp_data))) {	\
+		PmWarn("Error in IPI write response\r\n");			\
+	}									\
 }
 
 /* PMU internal capabilities used in definition of slaves' states */
@@ -159,7 +173,7 @@ typedef struct PmNode PmNode;
 /* Number of payload elements (api id and api's arguments) */
 #define PAYLOAD_ELEM_CNT		(PAYLOAD_API_ID + PAYLOAD_API_ARGS_CNT)
 
-#define MASK_OF_BITS(bits)		((1U << (bits)) - 1U)
+#define MASK_OF_BITS(bits)		(((u32)1 << (bits)) - 1U)
 
 /*********************************************************************
  * Structure definitions

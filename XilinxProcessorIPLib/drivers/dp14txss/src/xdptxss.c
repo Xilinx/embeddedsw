@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xdptxss.c
-* @addtogroup dptxss_v5_1
+* @addtogroup dptxss_v6_4
 * @{
 *
 * This is the main file for Xilinx DisplayPort Transmitter Subsystem driver.
@@ -61,8 +39,18 @@
 * 5.0  tu  09/06/17 Set timer callback after HDCP initialization
 * 5.0  tu  09/06/17 Added Set UserPixelWidth support on tx side
 * 5.0  tu  09/08/17 Set HPD callbacks for HPD event and HPD pulse
-* 5.0  jb  02/21/19 Added HDCP22 support.
-* 					Made the Timer counter available for both HDCP1x and 22.
+* 5.0  jb  02/21/19 Added HDCP22 support. Made the Timer counter available for
+* 		    both HDCP1x and 22.
+* 6.2  jb  02/14/20 The DP Tx subsystems assumes that the HDCP configuration is
+* 		    same for all the instances in multiple subsystems in the
+* 		    design. This driver wont support for different configuration
+* 		    of the subsystems.
+* 6.4  rg  09/26/20 Added below list of APIs related to VSC extended packets
+*                   XDpTxSs_CheckVscColorimetrySupport,
+*                   XDpTxSs_SetVscExtendedPacket,
+*                   XDpTxss_EnableVscColorimetry
+* 6.4  rg  09/26/20 Added support for YUV420 color format
+*
 * </pre>
 *
 ******************************************************************************/
@@ -114,7 +102,7 @@ static void DpTxSs_TimerCallback(void *InstancePtr, u8 TmrCtrNumber);
 #endif
 
 #if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
-static void DpTxSs_TimeOutCallback(void *InstancePtr, u8 TmrCtrNumber);
+static void DpTxSs_TimerHdcp22Callback(void *InstancePtr, u8 TmrCtrNumber);
 #endif
 
 /************************** Variable Definitions *****************************/
@@ -262,13 +250,6 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 			InstancePtr->Config.BaseAddress;
 		InstancePtr->TmrCtrPtr->BaseAddress +=
 			InstancePtr->Config.BaseAddress;
-
-#if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
-		/* Configure the callback */
-		XTmrCtr_SetHandler(InstancePtr->TmrCtrPtr,
-				(XTmrCtr_Handler)DpTxSs_TimeOutCallback,
-				InstancePtr);
-#endif /*XPAR_XHDCP22_TX_NUM_INSTANCES*/
 	}
 #endif /*(XPAR_DPTXSS_0_HDCP_ENABLE > 0)||(XPAR_XHDCP22_TX_NUM_INSTANCES > 0)*/
 
@@ -424,6 +405,8 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 			    XDpTxSs_HpdEventProcess, InstancePtr);
 	XDpTxSs_SetCallBack(InstancePtr, XDPTXSS_DRV_HANDLER_DP_HPD_PULSE,
 			    XDpTxSs_HpdPulseProcess, InstancePtr);
+	XDpTxSs_SetCallBack(InstancePtr, XDPTXSS_DRV_HANDLER_DP_EXT_PKT_EVENT,
+			XDpTxSs_WriteVscExtPktProcess, InstancePtr);
 
 	return XST_SUCCESS;
 }
@@ -450,7 +433,9 @@ void XDpTxSs_Reset(XDpTxSs *InstancePtr)
 
 	/* Reset the DisplayPort. */
 	XDpTxSs_WriteReg(InstancePtr->Config.DpSubCore.DpConfig.BaseAddr,
-		XDP_TX_SOFT_RESET, XDP_TX_SOFT_RESET_VIDEO_STREAM_ALL_MASK);
+			XDP_TX_SOFT_RESET,
+			(XDP_TX_SOFT_RESET_VIDEO_STREAM_ALL_MASK |
+			 XDP_TX_SOFT_RESET_HDCP_MASK));
 	XDpTxSs_WriteReg(InstancePtr->Config.DpSubCore.DpConfig.BaseAddr,
 		XDP_TX_SOFT_RESET, 0x0);
 
@@ -798,8 +783,12 @@ u32 XDpTxSs_SetBpc(XDpTxSs *InstancePtr, u8 Bpc)
 			(Bpc == XVIDC_BPC_16));
 
 	/* Set bits per color */
-	InstancePtr->UsrOpt.Bpc = Bpc;
-
+	if (InstancePtr->DpPtr->TxInstance.ColorimetryThroughVsc) {
+		InstancePtr->UsrOpt.Bpc =
+				InstancePtr->DpPtr->TxInstance.VscPacket.BitsPerColor;
+	} else {
+		InstancePtr->UsrOpt.Bpc = Bpc;
+	}
 	return XST_SUCCESS;
 }
 
@@ -1237,6 +1226,124 @@ u32 XDpTxSs_IsMstCapable(XDpTxSs *InstancePtr)
 	return Status;
 }
 
+/******************************************************************************/
+/**
+ * This function will check if the immediate downstream RX device capable
+ * of receiving colorimetry information through VSC extended SDP packet.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ *
+ * @return
+ *		- XST_SUCCESS if the RX device is capable of VSC extended packet.
+ *		- XST_NO_FEATURE if the RX device does not capable of
+ *		  VSC extended packet.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+u32 XDpTxSs_CheckVscColorimetrySupport(XDpTxSs *InstancePtr)
+{
+	u32 Status;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* Check sink's capability for VSC extended packet support */
+	Status = XDp_TxCheckVscColorimetrySupport(InstancePtr->DpPtr);
+
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * This function decodes the extended packet payload data bytes and fills up the
+ * driver extended packet structure members. And also copies extended packet
+ * header information to the driver structure.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param   VscPkt is a driver extended packet structure
+ *
+ * @return
+ * 		- XST_SUCCESS if VSC extended packet is set.
+ * 		- XST_FAILURE if VSC extended packet is not set.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+u32 XDpTxSs_SetVscExtendedPacket(XDpTxSs *InstancePtr, XDp_TxVscExtPacket VscPkt)
+{
+	XDp_TxVscExtPacket *VscPacket;
+	u32 DataByte;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	VscPacket = &InstancePtr->DpPtr->TxInstance.VscPacket;
+
+	/* Decoding Data byte 16 */
+	DataByte =  VscPkt.Payload[XDP_TX_AUDIO_EXT_DATA_DB16_TO_DB18] &
+						XDP_TX_AUDIO_EXT_DATA_DB16;
+	VscPacket->YCbCrColorimetry = (DataByte & XDP_TX_MAIN_VSC_SDP_YCBCR_COLORIMETRY_MASK);
+	VscPacket->ComponentFormat  = (DataByte >> XDP_TX_MAIN_VSC_SDP_COMPONENT_FORMAT_SHIFT);
+
+	/* Decoding Data byte 17 */
+	DataByte = ((VscPkt.Payload[XDP_TX_AUDIO_EXT_DATA_DB16_TO_DB18] &
+					XDP_TX_AUDIO_EXT_DATA_DB17) >> 8);
+
+	switch(DataByte & XDP_TX_MAIN_VSC_SDP_BDC_MASK) {
+	case XDP_TX_MAIN_STREAMX_MISC0_BDC_6BPC:
+			VscPacket->BitsPerColor = 6;
+		break;
+	case XDP_TX_MAIN_STREAMX_MISC0_BDC_8BPC:
+			VscPacket->BitsPerColor = 8;
+		break;
+	case XDP_TX_MAIN_STREAMX_MISC0_BDC_10BPC:
+			VscPacket->BitsPerColor = 10;
+		break;
+	case XDP_TX_MAIN_STREAMX_MISC0_BDC_12BPC:
+			VscPacket->BitsPerColor = 12;
+		break;
+	case XDP_TX_MAIN_STREAMX_MISC0_BDC_16BPC:
+		VscPacket->BitsPerColor = 16;
+		break;
+	default:
+		return XST_FAILURE;
+	}
+
+	VscPacket->DynamicRange = DataByte >> XDP_TX_MAIN_VSC_SDP_DYNAMIC_RANGE_SHIFT;
+
+	/* Update the Header bytes in driver */
+	VscPacket->Header = VscPkt.Header;
+
+	/* Update the Payload bytes in the driver */
+	memcpy(VscPacket->Payload, VscPkt.Payload,sizeof(VscPkt.Payload));
+
+	return XST_SUCCESS;
+}
+
+/******************************************************************************/
+/**
+ * This function Enable / Disable the mechanism of sending colorimetry information
+ * through VSC extended packet.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param   Enable specifies to enable the flag
+ *       - 0 = Disable the sending colorimetry through VSC packet else enable
+ *             Enable the sending colorimetry through VSC packet
+ *
+ * @return
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDpTxss_EnableVscColorimetry(XDpTxSs *InstancePtr, u8 Enable)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	InstancePtr->DpPtr->TxInstance.ColorimetryThroughVsc = Enable;
+}
+
 /*****************************************************************************/
 /**
 *
@@ -1463,7 +1570,9 @@ u32 XDpTxSs_IsHdcpCapable(XDpTxSs *InstancePtr)
 
 	return HdcpCapable;
 }
+#endif
 
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
 /*****************************************************************************/
 /**
 *
@@ -1476,21 +1585,89 @@ u32 XDpTxSs_IsHdcpCapable(XDpTxSs *InstancePtr)
 *		- XST_FAILURE, if authentication initiated failed.
 *
 * @note		The transmitter initiates authentication by first sending its
-*		An and Aksv value to the HDCP Receiver.
+*		An and Aksv for HDCP1x or Ake_Init for HDCP22
+*		to the HDCP Receiver.
 *
 ******************************************************************************/
 u32 XDpTxSs_Authenticate(XDpTxSs *InstancePtr)
 {
-	u32 Status;
+	u32 Status = XST_FAILURE;
 
 	/* Verify arguments.*/
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable == 0x1);
+	Xil_AssertNonvoid(InstancePtr);
+#if (XPAR_DPTXSS_0_HDCP_ENABLE)
+	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable);
+#endif
+#if (XPAR_XHDCP22_TX_NUM_INSTANCES)
+	Xil_AssertNonvoid(InstancePtr->Config.Hdcp22Enable);
+#endif
+	/* Always disable encryption */
+	if (XDpTxSs_DisableEncryption(InstancePtr, 0x01)) {
+		XDpTxSs_HdcpSetProtocol(InstancePtr, XDPTXSS_HDCP_NONE);
+		return XST_FAILURE;
+	}
 
-	/* Initiate authentication process */
-	Status = XHdcp1x_Authenticate(InstancePtr->Hdcp1xPtr);
+#if (XPAR_XHDCP22_TX_NUM_INSTANCES)
+	/* Authenticate HDCP 2.2, takes priority*/
+	if ((InstancePtr->Hdcp22Ptr) &&
+			(InstancePtr->HdcpCapability == XDPTXSS_HDCP_22 ||
+			 InstancePtr->HdcpCapability == XDPTXSS_HDCP_BOTH)) {
+		if (XDpTxSs_IsSinkHdcp22Capable(InstancePtr)) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,
+					"Starting HDCP 2.2 authentication\r\n");
+			Status = XDpTxSs_HdcpSetProtocol(InstancePtr,
+					XDPTXSS_HDCP_22);
+			Status |= XDpTxSs_HdcpEnable(InstancePtr);
 
-	return Status;
+			/*
+			 * As the timer is same for both hdcp1x and hdcp22,
+			 * re-attach and set the callback for hdcp22 timeout
+			 */
+			XHdcp22Tx_timer_attach(InstancePtr->Hdcp22Ptr,
+					InstancePtr->TmrCtrPtr);
+			XTmrCtr_SetHandler(InstancePtr->TmrCtrPtr,
+					(XTmrCtr_Handler)DpTxSs_TimerHdcp22Callback,
+					(void *)InstancePtr);
+
+			/* Set lane count in HDCP */
+			XHdcp22_TxSetLaneCount(InstancePtr->Hdcp22Ptr,
+					InstancePtr->DpPtr->TxInstance.
+					LinkConfig.LaneCount);
+			Status |= XHdcp22Tx_Authenticate(
+					InstancePtr->Hdcp22Ptr);
+		} else {
+			Status = XST_FAILURE;
+			xdbg_printf(XDBG_DEBUG_GENERAL,
+					"Sink is not HDCP 2.2 capable\r\n");
+		}
+	}
+#endif
+
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+	/*Authenticate HDCP1x*/
+	if ((InstancePtr->Hdcp1xPtr) && (Status == XST_FAILURE) &&
+			(InstancePtr->HdcpCapability == XDPTXSS_HDCP_1X ||
+			 InstancePtr->HdcpCapability == XDPTXSS_HDCP_BOTH)) {
+		if (XHdcp1x_IsDwnstrmCapable(InstancePtr->Hdcp1xPtr)) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,
+					"Starting HDCP 1X authentication\r\n");
+			Status = XDpTxSs_HdcpSetProtocol(InstancePtr,
+					XDPTXSS_HDCP_1X);
+			Status |= XDpTxSs_HdcpEnable(InstancePtr);
+			Status |= XHdcp1x_Authenticate(InstancePtr->Hdcp1xPtr);
+		} else {
+			Status = XST_FAILURE;
+			xdbg_printf(XDBG_DEBUG_GENERAL,
+					"Sink is not HDCP 1x capable\r\n");
+		}
+	}
+#endif
+	/* Set protocol to None */
+	if (Status == XST_FAILURE) {
+		XDpTxSs_HdcpSetProtocol(InstancePtr, XDPTXSS_HDCP_NONE);
+	}
+
+	return (Status == XST_SUCCESS) ? XST_SUCCESS : XST_FAILURE;
 }
 
 /*****************************************************************************/
@@ -1514,17 +1691,32 @@ u32 XDpTxSs_IsAuthenticated(XDpTxSs *InstancePtr)
 	u32 Authenticate;
 
 	/* Verify arguments.*/
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable == 0x1);
-
-	/* Check authentication has completed successfully */
-	Authenticate = XHdcp1x_IsAuthenticated(InstancePtr->Hdcp1xPtr);
-
-	return Authenticate;
-}
+	Xil_AssertNonvoid(InstancePtr);
+#if (XPAR_DPTXSS_0_HDCP_ENABLE)
+	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable);
+#endif
+#if (XPAR_XHDCP22_TX_NUM_INSTANCES)
+	Xil_AssertNonvoid(InstancePtr->Config.Hdcp22Enable);
 #endif
 
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+#if (XPAR_DPTXSS_0_HDCP_ENABLE)
+	if (InstancePtr->Hdcp1xPtr &&
+			(InstancePtr->HdcpProtocol == XDPTXSS_HDCP_1X)) {
+		/* Check authentication has completed successfully */
+		Authenticate = XHdcp1x_IsAuthenticated(InstancePtr->Hdcp1xPtr);
+	}
+#endif
+#if (XPAR_XHDCP22_TX_NUM_INSTANCES)
+	if (InstancePtr->Hdcp22Ptr &&
+			(InstancePtr->HdcpProtocol == XDPTXSS_HDCP_22)) {
+		/* Check authentication has completed successfully */
+		Authenticate = XHdcp22Tx_IsAuthenticated(
+				InstancePtr->Hdcp22Ptr);
+	}
+#endif
+	return Authenticate;
+}
+
 /*****************************************************************************/
 /**
 *
@@ -2110,7 +2302,7 @@ static void DpTxSs_CalculateMsa(XDpTxSs *InstancePtr, u8 Stream)
 	XDpTxSs_MainStreamAttributes *MsaConfig;
 	XVidC_VideoMode VidMode;
 	u32 FrameRate;
-	u32 ClkFreq;
+	u64 ClkFreq;
 	u32 Ival;
 	float Fval;
 	u8 LinkRate;
@@ -2119,8 +2311,9 @@ static void DpTxSs_CalculateMsa(XDpTxSs *InstancePtr, u8 Stream)
 	LinkRate = InstancePtr->DpPtr->TxInstance.LinkConfig.LinkRate;
 
 	/*Calculate pixel clock in HZ */
-	ClkFreq = (LinkRate * 27 * MsaConfig->MVid) / MsaConfig->NVid;
-	MsaConfig->PixelClockHz = ((u32)ClkFreq) * 1000000;
+	ClkFreq = (((u64)(LinkRate * 27 * MsaConfig->MVid)) * 1000000) /
+								MsaConfig->NVid;
+	MsaConfig->PixelClockHz = (u32) ClkFreq;
 
 	/*Calculate frame rate */
 	Fval = (ClkFreq * 1000000.0) / (MsaConfig->Vtm.Timing.HTotal *
@@ -2491,7 +2684,7 @@ int XDpTxSs_HdcpSetProtocol(XDpTxSs *InstancePtr,
 * @note		None.
 *
 ******************************************************************************/
-static void DpTxSs_TimeOutCallback(void *InstancePtr, u8 TmrCtrNumber)
+static void DpTxSs_TimerHdcp22Callback(void *InstancePtr, u8 TmrCtrNumber)
 {
 	XDpTxSs *XDpTxSsPtr = (XDpTxSs *)InstancePtr;
 

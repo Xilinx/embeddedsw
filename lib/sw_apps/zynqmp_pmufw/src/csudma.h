@@ -1,31 +1,11 @@
 /******************************************************************************
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-#ifndef _CSUDMA_H_
-#define _CSUDMA_H_
+
+#ifndef CSUDMA_H_
+#define CSUDMA_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -34,7 +14,7 @@ extern "C" {
 /**
  * CSUDMA Base Address
  */
-#define CSUDMA_BASEADDR      0XFFC80000
+#define CSUDMA_BASEADDR      0XFFC80000U
 
 /**
  * Register: CSUDMA_CSUDMA_SRC_ADDR
@@ -43,7 +23,7 @@ extern "C" {
 
 #define CSUDMA_CSUDMA_SRC_ADDR_ADDR_SHIFT   2
 #define CSUDMA_CSUDMA_SRC_ADDR_ADDR_WIDTH   30
-#define CSUDMA_CSUDMA_SRC_ADDR_ADDR_MASK    0XFFFFFFFC
+#define CSUDMA_CSUDMA_SRC_ADDR_ADDR_MASK    0XFFFFFFFCU
 
 /**
  * Register: CSUDMA_CSUDMA_SRC_SIZE
@@ -119,7 +99,7 @@ extern "C" {
 
 #define CSUDMA_CSUDMA_SRC_CRC_CRC_SHIFT   0
 #define CSUDMA_CSUDMA_SRC_CRC_CRC_WIDTH   32
-#define CSUDMA_CSUDMA_SRC_CRC_CRC_MASK    0XFFFFFFFF
+#define CSUDMA_CSUDMA_SRC_CRC_CRC_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSUDMA_CSUDMA_SRC_I_STS
@@ -306,7 +286,7 @@ extern "C" {
 
 #define CSUDMA_CSUDMA_DST_ADDR_ADDR_SHIFT   2
 #define CSUDMA_CSUDMA_DST_ADDR_ADDR_WIDTH   30
-#define CSUDMA_CSUDMA_DST_ADDR_ADDR_MASK    0XFFFFFFFC
+#define CSUDMA_CSUDMA_DST_ADDR_ADDR_MASK    0XFFFFFFFCU
 
 /**
  * Register: CSUDMA_CSUDMA_DST_SIZE
@@ -345,7 +325,7 @@ extern "C" {
 
 #define CSUDMA_CSUDMA_DST_CTRL_SSS_FIFOTHRESH_SHIFT   25
 #define CSUDMA_CSUDMA_DST_CTRL_SSS_FIFOTHRESH_WIDTH   7
-#define CSUDMA_CSUDMA_DST_CTRL_SSS_FIFOTHRESH_MASK    0XFE000000
+#define CSUDMA_CSUDMA_DST_CTRL_SSS_FIFOTHRESH_MASK    0XFE000000U
 
 #define CSUDMA_CSUDMA_DST_CTRL_APB_ERR_RESP_SHIFT   24
 #define CSUDMA_CSUDMA_DST_CTRL_APB_ERR_RESP_WIDTH   1
@@ -560,7 +540,7 @@ extern "C" {
 
 #define CSUDMA_CSUDMA_SAFETY_CHK_CHK_VAL_SHIFT   0
 #define CSUDMA_CSUDMA_SAFETY_CHK_CHK_VAL_WIDTH   32
-#define CSUDMA_CSUDMA_SAFETY_CHK_CHK_VAL_MASK    0XFFFFFFFF
+#define CSUDMA_CSUDMA_SAFETY_CHK_CHK_VAL_MASK    0XFFFFFFFFU
 
 /**
  * Register: CSUDMA_CSUDMA_FUTURE_ECO
@@ -569,7 +549,7 @@ extern "C" {
 
 #define CSUDMA_CSUDMA_FUTURE_ECO_VAL_SHIFT   0
 #define CSUDMA_CSUDMA_FUTURE_ECO_VAL_WIDTH   32
-#define CSUDMA_CSUDMA_FUTURE_ECO_VAL_MASK    0XFFFFFFFF
+#define CSUDMA_CSUDMA_FUTURE_ECO_VAL_MASK    0XFFFFFFFFU
 
 #ifdef __cplusplus
 }

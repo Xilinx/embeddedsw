@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2013 - 2014 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2013 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
  *
@@ -36,7 +14,7 @@
  * interconnect connected in the system.
  *
  * This example demonstrates  how to use the Static mode in the Axi Traffic 
- * Genrator.In Static mode the core continously genrates fixed address and 
+ * Genrator.In Static mode the core continuously generates fixed address and 
  * fixed INCR type read and write transfers based on the burst length 
  * configured.
  * 
@@ -133,8 +111,8 @@ int main()
 *       - Set up the output terminal if UART16550 is in the hardware build
 *       - Initialize the AXI Traffic Generator device
 *	- Fill's the Target memory with required data
-*	- Enable the Traffic genration
-*	- Disable the Traffic genration
+*	- Enable the Traffic generation
+*	- Disable the Traffic generation
 *       - Return test status and exit
 *
 * @param	InstancePtr is a pointer to the instance of the
@@ -205,7 +183,7 @@ int XTrafGenStaticModeExample(XTrafGen *InstancePtr, u16 DeviceId)
 	/* Set the Required Burst length */
 	XTrafGen_SetStaticBurstLen(InstancePtr, BURST_LEN);
 	
-	/* Disable the traffic genration */
+	/* Disable the traffic generation */
 	XTrafGen_StaticDisable(InstancePtr);
 	
 	/* Check for the Static control DONE Bit resets */
@@ -216,10 +194,10 @@ int XTrafGenStaticModeExample(XTrafGen *InstancePtr, u16 DeviceId)
 		return Status;
 	}
 	
-	/* Enable the traffic genration */
+	/* Enable the traffic generation */
 	XTrafGen_StaticEnable(InstancePtr);
 	
-	/* Disable the traffic genration */
+	/* Disable the traffic generation */
 	XTrafGen_StaticDisable(InstancePtr);
 	
 	/* Wait till data transmission completes */

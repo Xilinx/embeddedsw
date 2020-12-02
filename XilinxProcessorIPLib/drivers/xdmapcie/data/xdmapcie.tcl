@@ -1,28 +1,6 @@
 ###############################################################################
-#
-# Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-# OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-#
-# Except as contained in this notice, the name of the Xilinx shall not be used
-# in advertising or otherwise to promote the sale, use or other dealings in
-# this Software without prior written authorization from Xilinx.
+# Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
 #
 ###############################################################################
 ##############################################################################
@@ -38,40 +16,80 @@
 #uses "xillib.tcl"
 
 proc generate {drv_handle} {
-    xdefine_pcie_include_file $drv_handle "xparameters.h" "XDmaPcie" \
-        "NUM_INSTANCES" \
-        "DEVICE_ID" \
-        "baseaddr" \
-        "C_INCLUDE_BAROFFSET_REG"\
-        "C_AXIBAR_NUM"\
-        "C_AXIBAR_HIGHADDR_0"\
-        "C_AXIBAR2PCIEBAR_0"\
-        "C_AXIBAR_HIGHADDR_1"\
-        "C_AXIBAR2PCIEBAR_1"\
-        "device_port_type"
+    set ips [hsi::get_cells -hier "*"]
+    foreach ip $ips {
+	set periph [common::get_property IP_NAME $ip]
+        if {[string compare -nocase "xdma" $periph] == 0 || [string compare -nocase "pcie_dma_versal" $periph] == 0 } {
+            xdefine_pcie_include_file $drv_handle "xparameters.h" "XDmaPcie" \
+                "NUM_INSTANCES" \
+                "DEVICE_ID" \
+                "baseaddr" \
+                "C_INCLUDE_BAROFFSET_REG"\
+                "C_AXIBAR_NUM"\
+                "C_AXIBAR_HIGHADDR_0"\
+                "C_AXIBAR2PCIEBAR_0"\
+                "C_AXIBAR_HIGHADDR_1"\
+                "C_AXIBAR2PCIEBAR_1"\
+                "device_port_type"
 
-        ::hsi::utils::define_config_file $drv_handle "xdmapcie_g.c" "XDmaPcie" \
-        "DEVICE_ID" \
-        "baseaddr" \
-        "C_AXIBAR_NUM" \
-        "C_INCLUDE_BAROFFSET_REG" \
-        "device_port_type" \
-        "baseaddr" \
-        "C_AXIBAR2PCIEBAR_0"\
-        "C_AXIBAR2PCIEBAR_1"\
-        "C_AXIBAR_HIGHADDR_0"\
-        "C_AXIBAR_HIGHADDR_1"
+                ::hsi::utils::define_config_file $drv_handle "xdmapcie_g.c" "XDmaPcie" \
+                "DEVICE_ID" \
+                "baseaddr" \
+                "C_AXIBAR_NUM" \
+                "C_INCLUDE_BAROFFSET_REG"\
+                "device_port_type" \
+                "baseaddr" \
+                "C_AXIBAR2PCIEBAR_0"\
+                "C_AXIBAR2PCIEBAR_1"\
+                "C_AXIBAR_HIGHADDR_0"\
+                "C_AXIBAR_HIGHADDR_1"
 
-        xdefine_pcie_canonical_xpars $drv_handle "xparameters.h" "XDmaPcie" \
-        "DEVICE_ID" \
-        "baseaddr" \
-        "C_INCLUDE_BAROFFSET_REG"\
-        "C_AXIBAR_NUM"\
-        "C_AXIBAR_HIGHADDR_0"\
-        "C_AXIBAR2PCIEBAR_0"\
-        "C_AXIBAR_HIGHADDR_1"\
-        "C_AXIBAR2PCIEBAR_1"\
-        "device_port_type"
+                xdefine_pcie_canonical_xpars $drv_handle "xparameters.h" "XDmaPcie" \
+                "DEVICE_ID" \
+                "baseaddr" \
+                "C_INCLUDE_BAROFFSET_REG"\
+                "C_AXIBAR_NUM"\
+                "C_AXIBAR_HIGHADDR_0"\
+                "C_AXIBAR2PCIEBAR_0"\
+                "C_AXIBAR_HIGHADDR_1"\
+                "C_AXIBAR2PCIEBAR_1"\
+                "device_port_type"
+        }
+
+        if {[string compare -nocase "psv_pciea_attrib" $periph] == 0} {
+            xdefine_pcie_include_file $drv_handle "xparameters.h" "XDmaPcie" \
+                "NUM_INSTANCES" \
+                "DEVICE_ID" \
+                "C_NOCPSPCIE0_REGION0" \
+                "C_CPM_PCIE0_AXIBAR_NUM"\
+                "C_CPM_PCIE0_PF0_AXIBAR2PCIE_HIGHADDR_0"\
+                "C_CPM_PCIE0_PF0_AXIBAR2PCIE_BASEADDR_0"\
+                "C_CPM_PCIE0_PF0_AXIBAR2PCIE_HIGHADDR_1"\
+                "C_CPM_PCIE0_PF0_AXIBAR2PCIE_BASEADDR_1"\
+                "C_CPM_PCIE0_PORT_TYPE"
+
+                ::hsi::utils::define_config_file $drv_handle "xdmapcie_g.c" "XDmaPcie" \
+                "DEVICE_ID" \
+                "C_NOCPSPCIE0_REGION0" \
+                "C_CPM_PCIE0_AXIBAR_NUM" \
+                "C_CPM_PCIE0_PORT_TYPE" \
+                "C_NOCPSPCIE0_REGION0" \
+                "C_CPM_PCIE0_PF0_AXIBAR2PCIE_BASEADDR_0"\
+                "C_CPM_PCIE0_PF0_AXIBAR2PCIE_BASEADDR_1"\
+                "C_CPM_PCIE0_PF0_AXIBAR2PCIE_HIGHADDR_0"\
+                "C_CPM_PCIE0_PF0_AXIBAR2PCIE_HIGHADDR_1"
+
+                xdefine_pcie_canonical_xpars $drv_handle "xparameters.h" "XDmaPcie" \
+                "DEVICE_ID" \
+                "C_NOCPSPCIE0_REGION0" \
+                "C_CPM_PCIE0_AXIBAR_NUM"\
+                "C_CPM_PCIE0_PF0_AXIBAR2PCIE_HIGHADDR_0"\
+                "C_CPM_PCIE0_PF0_AXIBAR2PCIE_BASEADDR_0"\
+                "C_CPM_PCIE0_PF0_AXIBAR2PCIE_HIGHADDR_1"\
+                "C_CPM_PCIE0_PF0_AXIBAR2PCIE_BASEADDR_1"\
+                "C_CPM_PCIE0_PORT_TYPE"
+        }
+    }
 }
 
 proc xdefine_pcie_include_file {drv_handle file_name drv_string args} {

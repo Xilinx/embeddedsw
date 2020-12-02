@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -89,7 +67,7 @@ static int      gIsInitialized = FALSE;
 #if (PLATFORM_DEVID_MAX>2)
 #error "Max two keygen devices are supported"
 #endif
-static tDevice  gMyDevices[2] =
+static tDevice  gMyDevices[1] =
 {
   /* Device #0 */
   {
@@ -615,6 +593,7 @@ doInit(
 *   None.
 *
 ******************************************************************************/
+u8 keymgmt[2]={0};
 KEYMGMT_tError
 KEYMGMTDEV_Init(
   void
@@ -641,25 +620,31 @@ KEYMGMTDEV_Init(
 
     /* Iterate through the devices */
     do
-    {
-	xil_printf("Initializing Key Management device %d (%x) \r\n",
-			device_id,gKeyMGMTBaseAddress[device_id]);
-	theDevice->fBaseAddress = gKeyMGMTBaseAddress[device_id];
-	if(theDevice->fBaseAddress==0)
-	{
-	  xil_printf("Please initialize the base address for key_gen device=%d"
-				" in array gKeyMGMTBaseAddress\r\n",device_id);
-	}
-	device_id++;
-      /* Initialize it */
-      doLock(theDevice);
-      if (doInit(theDevice) != KEYMGMT_ERROR_NONE)
-        theError = -1;
-      doUnlock(theDevice);
-      /* Update for loop */
-      theDevice++;
-      theNumLeft--;
-    }
+     {
+         xil_printf("Initializing Key Management device %d (%x) \r\n",
+                         device_id,gKeyMGMTBaseAddress[device_id]);
+         theDevice->fBaseAddress = gKeyMGMTBaseAddress[device_id];
+         if(theDevice->fBaseAddress==0)
+         {
+           xil_printf("Please initialize the base address for key_gen device=%d"
+                                 " in array gKeyMGMTBaseAddress\r\n",device_id);
+           keymgmt[device_id] = 0;
+         }
+         else {
+		 keymgmt[device_id] = 1;
+       /* Initialize it */
+       doLock(theDevice);
+       if (doInit(theDevice) != KEYMGMT_ERROR_NONE)
+         theError = -1;
+       doUnlock(theDevice);
+
+         }
+       /* Update for loop */
+       theDevice++;
+       theNumLeft--;
+         device_id++;
+     }
+
     while (theNumLeft > 0);
 
     /* Update gIsInitialized */

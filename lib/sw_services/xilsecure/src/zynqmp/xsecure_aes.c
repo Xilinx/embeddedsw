@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -62,6 +40,16 @@
 *       arc 03/20/19 Added time outs and status info for API's.
 *       mmd 03/15/19 Refactored the code.
 *       psl 03/26/19 Fixed MISRA-C violation
+* 4.1   kal 05/20/19 Updated doxygen tags
+*       psl 07/02/19 Fixed Coverity warning.
+*       mmd 07/05/19 Optimized the code
+*       psl 07/31/19 Fixed MISRA-C violation
+*       kal 08/27/19 Changed default status to XST_FAILURE
+* 4.2   ana 04/02/20 Skipped zeroization when destination is PCAP
+*                    Added support of release and set reset for AES
+*       kpt 04/10/20 Resolved coverity warnings
+*       kal 10/07/20 Added KUP key clearing after use or in case of failure
+*
 * </pre>
 *
 * @note
@@ -69,8 +57,28 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
 #include "xsecure_aes.h"
+#include "xil_io.h"
+#include "xsecure_utils.h"
+
+/***************** Macros (Inline Functions) Definitions *********************/
+
+/*****************************************************************************/
+/**
+ * @brief
+ * This macro waits for AES engine completes key loading.
+ *
+ * @param	InstancePtr Pointer to the XSecure_Aes instance.
+ *
+ * @return	XST_SUCCESS if the AES engine completes key loading.
+ * 		XST_FAILURE if a timeout has occurred.
+ *
+ ******************************************************************************/
+#define XSecure_AesWaitKeyLoad(InstancePtr)	\
+	Xil_WaitForEvent((InstancePtr)->BaseAddress + XSECURE_CSU_AES_STS_OFFSET,\
+	                XSECURE_CSU_AES_STS_KEY_INIT_DONE,	\
+	                XSECURE_CSU_AES_STS_KEY_INIT_DONE,	\
+	                XSECURE_AES_TIMEOUT_MAX)
 
 /************************** Function Prototypes ******************************/
 
@@ -97,15 +105,22 @@ static void XSecure_AesCsuDmaConfigureEndiannes(XCsuDma *InstancePtr,
  *		- XSECURE_CSU_AES_KEY_SRC_DEV :For Device Key
  * @param	Iv		Pointer to the Initialization Vector
  *		for decryption
- * @param	Key		Pointer to Aes decryption key in case KUP
+ * @param	Key		Pointer to Aes key in case KUP
  *		key is used.
- * 		Passes `Null` if device key is to be used.
+ * 		Pass `Null` if the device key is to be used.
  *
  * @return	XST_SUCCESS if initialization was successful.
  *
- * @note	All the inputs are accepted in little endian format, but AES
- *		engine accepts the data in big endianess, this will be taken
- *		care while passing data to AES engine.
+ * @note	All the inputs are accepted in little endian format but the AES
+ *		engine accepts the data in big endian format, The decryption and
+ *		encryption functions in xsecure_aes handle the little endian to
+ *		big endian conversion using few API's, Xil_Htonl (provided by
+ *		Xilinx xil_io library) and XSecure_AesCsuDmaConfigureEndiannes
+ *		for handling data endianness conversions.
+ *		If higher performance is needed, users can strictly use data in
+ *		big endian format and modify the xsecure_aes functions to remove
+ *		the use of the Xil_Htonl and XSecure_AesCsuDmaConfigureEndiannes
+ *		functions as required.
  *
  ******************************************************************************/
 s32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr,
@@ -138,19 +153,20 @@ s32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr,
 /**
  *
  * @brief
- * This funcion is used to initialize the AES engine for encryption.
+ * This function is used to initialize the AES engine for encryption.
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance.
  * @param	EncData		Pointer of a buffer in which encrypted data
  *		along with GCM TAG will be stored. Buffer size should be
  *		Size of data plus 16 bytes.
  * @param	Size		A 32 bit variable, which holds the size of
- *		the input data to be encrypted.
+ *		the input data to be encrypted in bytes, whereas number of
+ *		bytes provided should be multiples of 4.
  *
  * @return	None
  *
- * @note	If all the data to be encrypted is available at single location
- *		One can use XSecure_AesEncryptData() directly.
+ * @note	If all of the data to be encrypted is available,
+ * 		the XSecure_AesEncryptData function can be used instead.
  *
  ******************************************************************************/
 u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
@@ -158,7 +174,8 @@ u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 	u32 Count;
 	u32 Value;
 	u32 Addr;
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
+	u32 KeyClearStatus;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -171,7 +188,7 @@ u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 	if(Status != (u32)XST_SUCCESS){
 		goto END;
 	}
-	/* Clear AES contents by reseting it. */
+	/* Clear AES contents by resetting it. */
 	XSecure_AesReset(InstancePtr);
 
 	/* Clear AES_KEY_CLEAR bits to avoid clearing of key */
@@ -231,36 +248,44 @@ u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 	InstancePtr->SizeofData = Size;
 	InstancePtr->AesState = XSECURE_AES_ENCRYPT_INITIALIZED;
 END:
+	if (Status != (u32)XST_SUCCESS) {
+		KeyClearStatus = XSecure_AesKeyZero(InstancePtr);
+		if (KeyClearStatus != (u32)XST_SUCCESS) {
+			Status = Status | KeyClearStatus;
+		}
+
+		XSecure_SetReset(InstancePtr->BaseAddress,
+				XSECURE_CSU_AES_RESET_OFFSET);
+	}
 	return Status;
 }
 
 /*****************************************************************************/
 /**
  * @brief
- * This function is used to update the AES engine with provided data for
- * encryption.
+ * This function encrypts the clear-text data passed in and updates the GCM tag
+ * from any previous calls. The size from XSecure_AesEncryptInit is decremented
+ * from the size passed into this function to determine when the final CSU DMA
+ * transfer of data to the AES-GCM cryptographic core.
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance.
  * @param	Data	Pointer to the data for which encryption should be
  * 		performed.
  * @param	Size	A 32 bit variable, which holds the size of the input
- *		data in bytes.
+ *		data in bytes, whereas the number of bytes provided should be
+ *		multiples of 4.
  *
  * @return	None
  *
- * @note	When Size of the data equals to size of the remaining data
- *		to be processed that data will be treated as final data.
- *		This API can be called multpile times but sum of all Sizes
- *		should be equal to Size mentioned at encryption initialization
- *		(XSecure_AesEncryptInit()).
- *		If all the data to be encrypted is available at single location
- *		Please call XSecure_AesEncryptData() directly.
+ * @note	If all of the data to be encrypted is available,
+ * 		the XSecure_AesEncryptData function can be used instead.
  *
  ******************************************************************************/
 u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, const u8 *Data, u32 Size)
 {
 	u8 IsFinal = FALSE;
 	u32 Status = (u32)XST_FAILURE;
+	u32 KeyClearStatus;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -296,7 +321,7 @@ u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, const u8 *Data, u32 Size)
 		/* Acknowledge the transfer has completed */
 		XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
 						XCSUDMA_IXR_DONE_MASK);
-		/* Disble CSU DMA Dst channel for byte swapping. */
+		/* Disable CSU DMA Dst channel for byte swapping. */
 		XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
 		                                 XCSUDMA_DST_CHANNEL, 0U);
 
@@ -314,24 +339,36 @@ u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, const u8 *Data, u32 Size)
 	InstancePtr->SizeofData = InstancePtr->SizeofData - Size;
 	Status = (u32)XST_SUCCESS;
 END:
+	if ((IsFinal == TRUE) || (Status != (u32)XST_SUCCESS)) {
+		KeyClearStatus = XSecure_AesKeyZero(InstancePtr);
+		if (KeyClearStatus != (u32)XST_SUCCESS) {
+			Status = Status | KeyClearStatus;
+		}
+
+		XSecure_SetReset(InstancePtr->BaseAddress,
+				XSECURE_CSU_AES_RESET_OFFSET);
+	}
 	return Status;
 }
 
 /*****************************************************************************/
 /**
  * @brief
- * This Function encrypts the data provided by using hardware AES engine.
+ * This function encrypts Len (length) number of bytes of the passed in
+ * Src (source) buffer and stores the encrypted data along with its
+ * associated 16 byte tag in the Dst (destination) buffer.
  *
  * @param	InstancePtr	A pointer to the XSecure_Aes instance.
  * @param	Dst	A pointer to a buffer where encrypted data along with
  *		GCM tag will be stored. The Size of buffer provided should be
  *		Size of the data plus 16 bytes
  * @param	Src	A pointer to input data for encryption.
- * @param	Len	Size of input data in bytes
+ * @param	Len	Size of input data in bytes, whereas the number of bytes
+ *			provided should be multiples of 4.
  *
  * @return	None
  *
- * @note	If data to be encrypted is not available at one place one can
+ * @note	If data to be encrypted is not available in one buffer one can
  *		call XSecure_AesEncryptInit() and update the AES engine with
  *		data to be encrypted by calling XSecure_AesEncryptUpdate()
  *		API multiple times as required.
@@ -340,7 +377,7 @@ END:
 u32 XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 			u32 Len)
 {
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Len != 0U);
@@ -358,20 +395,21 @@ END:
 /*****************************************************************************/
 /**
  * @brief
- * This function initializes the AES engine for decryption.
+ * This function initializes the AES engine for decryption and is required
+ * to be called before calling XSecure_AesDecryptUpdate.
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance.
  * @param	DecData		Pointer in which decrypted data will be stored.
- * @param	Size		Expected size of the data in bytes.
+ * @param	Size		Expected size of the data in bytes whereas
+ *			the number of bytes provided should be multiples of 4.
+ *
  * @param	GcmTagAddr	Pointer to the GCM tag which needs to be
  *		verified during decryption of the data.
  *
  * @return	None
  *
- * @note	If data is encrypted using XSecure_AesEncrypt API then GCM tag
- *		address will be at the end of encrypted data. EncData + Size will
- *		be the GCM tag address.
- *		Chunking will not be handled over here.
+ * @note	If all of the data to be decrypted is available,
+ * 		the XSecure_AesDecryptData function can be used instead.
  *
  ******************************************************************************/
 u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
@@ -380,7 +418,8 @@ u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
 	u32 Count;
 	u32 Value;
 	u32 Addr;
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
+	u32 KeyClearStatus;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -404,7 +443,7 @@ u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
 		}
 	}
 
-	/* Clear AES contents by reseting it. */
+	/* Clear AES contents by resetting it. */
 	XSecure_AesReset(InstancePtr);
 
 	/* Configure AES for Decryption */
@@ -467,22 +506,38 @@ u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
 	InstancePtr->Destination = DecData;
 	InstancePtr->AesState = XSECURE_AES_DECRYPT_INITIALIZED;
 END:
+	if (Status != (u32)XST_SUCCESS) {
+		KeyClearStatus = XSecure_AesKeyZero(InstancePtr);
+		if (KeyClearStatus != (u32)XST_SUCCESS) {
+			Status = Status | KeyClearStatus;
+		}
+
+		XSecure_SetReset(InstancePtr->BaseAddress,
+				XSECURE_CSU_AES_RESET_OFFSET);
+	}
 	return Status;
 }
 
 /*****************************************************************************/
 /**
  * @brief
- * This function is used to update the AES engine for decryption with provided
- * data
+ * This function decrypts the encrypted data passed in and updates the GCM tag
+ * from any previous calls. The size from XSecure_AesDecryptInit is decremented
+ * from the size passed into this function to determine when the GCM tag passed
+ * to XSecure_AesDecryptInit needs to be compared to the GCM tag calculated in
+ * the AES engine.
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance.
  * @param	EncData		Pointer to the encrypted data which needs to be
  *		decrypted.
- * @param	Size		Expected size of data to be decrypted in bytes.
+ * @param	Size		Expected size of data to be decrypted in bytes, whereas
+ *			the number of bytes should be multiples of 4.
+ *
  *
  * @return	Final call of this API returns the status of GCM tag matching.
  *		- XSECURE_CSU_AES_GCM_TAG_MISMATCH: If GCM tag is mismatched
+ *		- XSECURE_CSU_AES_ZEROIZATION_ERROR: If GCM tag is mismatched,
+ *		zeroize the decrypted data and send the status of zeroization.
  *		- XST_SUCCESS: If GCM tag is matching.
  *
  * @note	When Size of the data equals to size of the remaining data
@@ -496,6 +551,8 @@ s32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 {
 	u32 GcmStatus = (u32)XST_FAILURE;
 	u8 IsFinalUpdate = FALSE;
+	u32 NextBlkLen = 0U;
+	u32 KeyClearStatus;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -569,21 +626,39 @@ s32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 					XSECURE_CSU_AES_STS_GCM_TAG_OK;
 
 		if (GcmStatus == 0U) {
-			/* Zeroize the decrypted data*/
-			GcmStatus = XSecure_Zeroize(InstancePtr->Destination,
+			if (InstancePtr->Destination !=
+					(u8 *)XSECURE_DESTINATION_PCAP_ADDR) {
+				/* Zeroize the decrypted data*/
+				GcmStatus = XSecure_Zeroize(InstancePtr->Destination,
 							InstancePtr->TotalSizeOfData);
-			if (GcmStatus != (u32)XST_SUCCESS) {
-				goto END;
+				if (GcmStatus != (u32)XST_SUCCESS) {
+					goto END;
+				}
 			}
 			GcmStatus = XSECURE_CSU_AES_GCM_TAG_MISMATCH;
 			goto END;
 		}
+		NextBlkLen = Xil_Htonl(XSecure_ReadReg(InstancePtr->BaseAddress,
+								XSECURE_CSU_AES_IV_3_OFFSET)) * 4U;
 	}
 
 	/* Update the size of data */
 	InstancePtr->SizeofData = InstancePtr->SizeofData - Size;
 	GcmStatus = (u32)XST_SUCCESS;
 END:
+	/* Aes engine is set under reset when GCM tag is failed or
+	 * when the next block length of decryption is zero
+	 */
+	if(((IsFinalUpdate == TRUE) && (NextBlkLen == 0U)) ||
+		(GcmStatus != (u32)XST_SUCCESS)) {
+		KeyClearStatus = XSecure_AesKeyZero(InstancePtr);
+		if (KeyClearStatus != (u32)XST_SUCCESS) {
+			GcmStatus = GcmStatus | KeyClearStatus;
+		}
+
+		XSecure_SetReset(InstancePtr->BaseAddress,
+				XSECURE_CSU_AES_RESET_OFFSET);
+	}
 	return (s32)GcmStatus;
 
 }
@@ -597,10 +672,10 @@ END:
  * @param	DataPtr Pointer to the memory which need to be zeroized.
  * @param	Length	Length of the data.
  *
- *return	Final call of this API returns the status of Comparision.
+ *return	Final call of this API returns the status of Comparison.
  *			- XSECURE_CSU_AES_ZEROIZATION_ERROR: If Zeroization is not
- *								Successfull.
- *			- XST_SUCCESS: If Zeroization is Scuccesfull.
+ *								Successful.
+ *			- XST_SUCCESS: If Zeroization is Successful.
  *
  ********************************************************************************/
 static u32 XSecure_Zeroize(u8 *DataPtr, u32 Length)
@@ -637,15 +712,18 @@ END:
  *		be stored.
  * @param	EncData		Pointer to the encrypted data which needs to be
  *		decrypted.
- * @param	Size		Size of data to be	decrypted in bytes.
+ * @param	Size		Size of data to be	decrypted in bytes, whereas
+ *			the number of bytes should be multiples of 4.
  *
  * @return	This API returns the status of GCM tag matching.
  *		- XSECURE_CSU_AES_GCM_TAG_MISMATCH: If GCM tag was mismatched
  *		- XST_SUCCESS: If GCM tag was matched.
  *
- * @note	When XSecure_AesEncryptData() API is used for encryption
- *		In same buffer GCM tag also be stored, but Size should be
- *		mentioned only for data.
+ * @note	When using this function to decrypt data that was encrypted
+ * 		with XSecure_AesEncryptData, the GCM tag will be stored as
+ * 		the last sixteen (16) bytes of data in XSecure_AesEncryptData's
+ * 		Dst (destination) buffer and should be used as the GcmTagAddr's
+ * 		pointer.
  *
  ******************************************************************************/
 s32 XSecure_AesDecryptData(XSecure_Aes *InstancePtr, u8 * DecData, u8 *EncData,
@@ -734,72 +812,7 @@ void XSecure_AesSetChunkConfig(XSecure_Aes *InstancePtr, u8 *ReadBuffer,
 /*****************************************************************************/
 /**
  * @brief
- * This function waits for AES completion for keyload.
- *
- * @param	InstancePtr 	Pointer to the XSecure_Aes instance.
- *
- * @return	None
- *
- *
- ******************************************************************************/
-static u32 XSecure_AesWaitKeyLoad(XSecure_Aes *InstancePtr)
-{
-	volatile u32 RegStatus;
-	u32 Status = (u32)XST_FAILURE;
-	u32 TimeOut = XSECURE_AES_TIMEOUT_MAX;
-
-	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-
-	while (TimeOut != 0U) {
-		RegStatus = XSecure_ReadReg(InstancePtr->BaseAddress,
-					XSECURE_CSU_AES_STS_OFFSET);
-		if (((u32)RegStatus & XSECURE_CSU_AES_STS_KEY_INIT_DONE) != 0U) {
-			Status = (u32)XST_SUCCESS;
-			goto END;
-		}
-		TimeOut = TimeOut - 1U;
-	}
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief
- * This function waits for AES completion.
- *
- * @param	InstancePtr Pointer to the XSecure_Aes instance.
- *
- * @return	None
- *
- ******************************************************************************/
-u32 XSecure_AesWaitForDone(XSecure_Aes *InstancePtr)
-{
-	volatile u32 RegStatus;
-	u32 Status = (u32)XST_FAILURE;
-	u32 TimeOut = XSECURE_AES_TIMEOUT_MAX;
-
-	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-
-	while (TimeOut != 0U) {
-		RegStatus = XSecure_ReadReg(InstancePtr->BaseAddress,
-					XSECURE_CSU_AES_STS_OFFSET);
-		if (((u32)RegStatus & XSECURE_CSU_AES_STS_AES_BUSY) == 0U) {
-			Status = (u32)XST_SUCCESS;
-			goto END;
-		}
-		TimeOut = TimeOut -1U;
-	}
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief
- * This function resets the AES engine.
+ * This function sets and then clears the AES-GCM's reset line.
  *
  * @param	InstancePtr is a pointer to the XSecure_Aes instance.
  *
@@ -882,7 +895,7 @@ END:
  ******************************************************************************/
 u32 XSecure_AesKeySelNLoad(XSecure_Aes *InstancePtr)
 {
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -919,7 +932,8 @@ u32 XSecure_AesKeySelNLoad(XSecure_Aes *InstancePtr)
  *
  * @param	InstancePtr 	Pointer to the XSecure_Aes instance.
  * @param	Src 	Pointer to the encrypted bitstream block start.
- * @param	Len 	Length of bitstream data block in bytes.
+ * @param	Len 	Length of bitstream data block in bytes, whereas
+ *			the number of bytes should be multiples of 4.
  *
  * @return	returns XST_SUCCESS if bitstream block is decrypted by AES.
  *
@@ -964,7 +978,7 @@ static s32 XSecure_AesChunkDecrypt(XSecure_Aes *InstancePtr, const u8 *Src,
 		/*
 		 * wait for the SRC_DMA to complete
 		 */
-		Status = XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
+		Status = (s32)XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
 							XCSUDMA_SRC_CHANNEL);
 		if (XST_SUCCESS != Status) {
 			goto END;
@@ -994,7 +1008,7 @@ static s32 XSecure_AesChunkDecrypt(XSecure_Aes *InstancePtr, const u8 *Src,
 			(UINTPTR)(InstancePtr->ReadBuffer), RemainingBytes/4U, 0);
 
 		/* wait for the SRC_DMA to complete and the pcap to be IDLE */
-		Status = XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
+		Status = (s32)XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
 							XCSUDMA_SRC_CHANNEL);
 		if (XST_SUCCESS != Status) {
 			goto END;
@@ -1005,7 +1019,6 @@ static s32 XSecure_AesChunkDecrypt(XSecure_Aes *InstancePtr, const u8 *Src,
 							XCSUDMA_IXR_DONE_MASK);
 		XSecure_PcapWaitForDone();
 
-		StartAddrByte += RemainingBytes;
 	}
 END:
 	return Status;
@@ -1020,7 +1033,8 @@ END:
  * @param	Dst 	Pointer to location where decrypted data will be written
  * @param	Src 	Pointer to encrypted input data
  * @param	Tag 	Pointer to the GCM tag used for authentication
- * @param	Len 	Length of the output data expected after decryption.
+ * @param	Len 	Length of the output data (in bytes)expected after
+ * 			decryption, whereas the number of bytes should be multiple of 4.
  * @param	Flag 	Denotes whether the block is Secure header or data block
  *					0 : Secure Header
  *					1 : Data Block / image
@@ -1050,7 +1064,7 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 		(UINTPTR)InstancePtr->Iv, XSECURE_SECURE_GCM_TAG_SIZE/4U, 0);
 
-	Status = XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
+	Status = (s32)XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
 						XCSUDMA_SRC_CHANNEL);
 	if (XST_SUCCESS != Status) {
 		goto END;
@@ -1092,7 +1106,7 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 			if (Dst != (u8*)XSECURE_DESTINATION_PCAP_ADDR)
 			{
 				/* Wait for the Dst DMA completion. */
-				Status = XCsuDma_WaitForDoneTimeout(
+				Status = (s32)XCsuDma_WaitForDoneTimeout(
 							InstancePtr->CsuDmaPtr,
 							XCSUDMA_DST_CHANNEL);
 				if (XST_SUCCESS != Status) {
@@ -1103,14 +1117,14 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 							XCSUDMA_DST_CHANNEL,
 							XCSUDMA_IXR_DONE_MASK);
 
-				/* Disble CSU DMA Dst channel for byte swapping */
+				/* Disable CSU DMA Dst channel for byte swapping */
 				XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
 												 XCSUDMA_DST_CHANNEL, 0U);
 			}
 			else
 			{
 				/* Wait for the Src DMA completion. */
-				Status = XCsuDma_WaitForDoneTimeout(
+				Status = (s32)XCsuDma_WaitForDoneTimeout(
 							InstancePtr->CsuDmaPtr,
 							XCSUDMA_SRC_CHANNEL);
 				if (XST_SUCCESS != Status) {
@@ -1173,7 +1187,7 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 	}
 
 	/* Wait for the Src DMA completion. */
-	Status = XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
+	Status = (s32)XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
 						XCSUDMA_SRC_CHANNEL);
 	if (XST_SUCCESS != Status) {
 		goto END;
@@ -1203,7 +1217,7 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 	}
 
 	/* Wait for the Src DMA completion. */
-	Status = XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
+	Status = (s32)XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
 						XCSUDMA_SRC_CHANNEL);
 	if (XST_SUCCESS != Status) {
 		goto END;
@@ -1291,7 +1305,7 @@ END:
 s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 			u32 Length)
 {
-	volatile u32 Status = XST_FAILURE;
+	volatile u32 Status = (u32)XST_FAILURE;
 	u32 CurrentImgLen = 0x0U;
 	u32 NextBlkLen = 0x0U;
 	u32 PrevBlkLen = 0x0U;
@@ -1340,7 +1354,7 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 	SrcAddr = (u8 *)Src ;
 	GcmTagAddr = SrcAddr + XSECURE_SECURE_HDR_SIZE;
 
-	/* Clear AES contents by reseting it. */
+	/* Clear AES contents by resetting it. */
 	XSecure_AesReset(InstancePtr);
 
 	/* Clear AES_KEY_CLEAR bits to avoid clearing of key */
@@ -1480,6 +1494,9 @@ ENDF:
 	if (KeyClearStatus != (u32)XST_SUCCESS) {
 		Status = Status | KeyClearStatus;
 	}
+
+	XSecure_SetReset(InstancePtr->BaseAddress,
+		XSECURE_CSU_AES_RESET_OFFSET);
 
 	return (s32)Status;
 }

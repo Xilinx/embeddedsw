@@ -117,7 +117,7 @@ proc check_program_memory {} {
 	lappend ocm_ranges [list $base $size]
     }
     if { [llength $ocm_ranges] == 0 } {
-	error "This application requires atleast [expr $required_mem_size/1024] KB of OCM memory at 0xfffc0000 to run"
+	error "This application requires at least [expr $required_mem_size/1024] KB of OCM memory at 0xfffc0000 to run"
     }
 
     # Sort the regions and contatenate sequential regions
@@ -148,7 +148,7 @@ proc check_program_memory {} {
 	if { $base == 0xfffc0000 && $size >= $required_mem_size } return
     }
 
-    error "This application requires atleast [expr $required_mem_size/1024] KB of OCM memory at 0xfffc0000 to run"
+    error "This application requires at least [expr $required_mem_size/1024] KB of OCM memory at 0xfffc0000 to run"
 }
 
 proc check_stdout_sw {} {

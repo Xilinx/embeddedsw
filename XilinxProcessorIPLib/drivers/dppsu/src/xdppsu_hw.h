@@ -1,30 +1,8 @@
 /*******************************************************************************
- *
- * Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /******************************************************************************/
 /**
  *
@@ -50,6 +28,10 @@
 #ifndef XDPPSU_HW_H_
 /* Prevent circular inclusions by using protection macros. */
 #define XDPPSU_HW_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /***************************** Include Files **********************************/
 
@@ -1161,7 +1143,7 @@
 #define XDPPSU_DISPID_TDT_TOP2_VLOC_H_MASK	0x3
 /* @} */
 
-#define XDPPSU_0_LANE_COUNT			2
+#define XDPPSU_0_LANE_COUNT			XPAR_PSU_DP_LANE_COUNT
 #define XDPPSU_0_LINK_RATE			20
 #define XDPPSU_0_MAX_BITS_PER_COLOR		12
 #define XDPPSU_0_QUAD_PIXEL_ENABLE		0
@@ -1223,5 +1205,8 @@
 #define XDpPsu_WriteReg(BaseAddress, RegOffset, Data) \
 				XDpPsu_Out32((BaseAddress) + (RegOffset), (Data))
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XDPPSU_HW_H_ */

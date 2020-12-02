@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2016 - 2017  Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2016 - 2020  Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -140,16 +118,16 @@
 *                           XV_HdmiTxSs_SetVideoStreamHdmi14ScramblingOverrideFlag
 *              25/01/18 Added function XV_HdmiTxSs_SetScrambler
 *              01/02/18	Updated function XV_HdmiTxSs_VtcSetup and changed the
-*              				input parameters to it to enable logging of
-*              				unsupported video timing by VTC
+*                           input parameters to it to enable logging of
+*                           unsupported video timing by VTC
 *       SM     28/02/18 Added definition of XV_HdmiTxSS_SetAppVersion() API
 * 5.20  EB     03/08/18 Updated XV_HdmiTxSS_MaskSetRed, XV_HdmiTxSS_MaskSetGreen,
-* 							XV_HdmiTxSS_MaskSetBlue API
-*						Replaced XV_HdmiTx_AudioMute API call with
-* 							XV_HdmiTx_AudioDisable
-*						Replaced XV_HdmiTx_AudioUnmute API call with
-* 							XV_HdmiTx_AudioEnable
-*						Replaced XV_HdmiTx_AudioUnmute API call with
+*                           XV_HdmiTxSS_MaskSetBlue API
+*                       Replaced XV_HdmiTx_AudioMute API call with
+*                           XV_HdmiTx_AudioDisable
+*                       Replaced XV_HdmiTx_AudioUnmute API call with
+*                           XV_HdmiTx_AudioEnable
+*                       Replaced XV_HdmiTx_AudioUnmute API call with
 * 		MMO    11/08/18 Added Bridge Overflow and Bridge Underflow Interrupt
 * </pre>
 *
@@ -480,6 +458,9 @@ int XV_HdmiTxSs_CfgInitialize(XV_HdmiTxSs *InstancePtr,
   (void)memset((void *)&(HdmiTxSsPtr->AVIInfoframe), 0, sizeof(XHdmiC_AVI_InfoFrame));
   (void)memset((void *)&(HdmiTxSsPtr->VSIF), 0, sizeof(XHdmiC_VSIF));
   (void)memset((void *)&(HdmiTxSsPtr->AudioInfoframe), 0, sizeof(XHdmiC_AudioInfoFrame));
+  memset((void *)&(HdmiTxSsPtr->DrmInfoframe), 0, sizeof(XHdmiC_DRMInfoFrame));
+  HdmiTxSsPtr->DrmInfoframe.Static_Metadata_Descriptor_ID = 0xff;
+  HdmiTxSsPtr->DrmInfoframe.EOTF = 0xff;
 
   /* Determine sub-cores included in the provided instance of subsystem */
   XV_HdmiTxSs_GetIncludedSubcores(HdmiTxSsPtr, CfgPtr->DeviceId);
@@ -1489,6 +1470,8 @@ static void XV_HdmiTxSs_StreamDownCallback(void *CallbackRef)
 
   /* Set stream up flag */
   HdmiTxSsPtr->IsStreamUp = (FALSE);
+  HdmiTxSsPtr->DrmInfoframe.Static_Metadata_Descriptor_ID = 0xff;
+  HdmiTxSsPtr->DrmInfoframe.EOTF = 0xff;
 #ifdef XV_HDMITXSS_LOG_ENABLE
   XV_HdmiTxSs_LogWrite(HdmiTxSsPtr, XV_HDMITXSS_LOG_EVT_STREAMDOWN, 0);
 #endif
@@ -1538,9 +1521,9 @@ static void XV_HdmiTxSs_StreamDownCallback(void *CallbackRef)
 *
 ******************************************************************************/
 int XV_HdmiTxSs_SetCallback(XV_HdmiTxSs *InstancePtr,
-    u32 HandlerType,
-    void *CallbackFunc,
-    void *CallbackRef)
+		XV_HdmiTxSs_HandlerType HandlerType,
+		void *CallbackFunc,
+		void *CallbackRef)
 {
     u32 Status;
 
@@ -2233,6 +2216,25 @@ XHdmiC_VSIF *XV_HdmiTxSs_GetVSIF(XV_HdmiTxSs *InstancePtr)
 /*****************************************************************************/
 /**
 *
+* This function returns the pointer to HDMI TX SS DRM InfoFrame
+* structure
+*
+* @param  InstancePtr pointer to XV_HdmiTxSs instance
+*
+* @return XHdmiC_DRMInfoFrame pointer
+*
+* @note   None.
+*
+******************************************************************************/
+XHdmiC_DRMInfoFrame *XV_HdmiTxSs_GetDrmInfoframe(XV_HdmiTxSs *InstancePtr)
+{
+    return (&(InstancePtr->DrmInfoframe));
+}
+
+
+/*****************************************************************************/
+/**
+*
 * This function set HDMI TX susbsystem stream parameters
 *
 * @param  None.
@@ -2531,6 +2533,46 @@ void XV_HdmiTxSs_ReportTiming(XV_HdmiTxSs *InstancePtr)
 /*****************************************************************************/
 /**
 *
+* This function prints the HDMI TX SS DRM If information
+*
+* @param  None.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+static void XV_HdmiTxSs_ReportDRMInfo(XV_HdmiTxSs *InstancePtr)
+{
+	XHdmiC_DRMInfoFrame *DrmInfoFramePtr;
+	DrmInfoFramePtr = XV_HdmiTxSs_GetDrmInfoframe(InstancePtr);
+
+	if (DrmInfoFramePtr->EOTF != 0xff)
+		xil_printf("eotf: %d\r\n", DrmInfoFramePtr->EOTF);
+
+	if (DrmInfoFramePtr->Static_Metadata_Descriptor_ID == 0xFF) {
+		xil_printf("No DRM info\r\n");
+		return;
+	}
+
+	xil_printf("DRM IF info:\r\n");
+	xil_printf("desc id: %d\r\n", DrmInfoFramePtr->Static_Metadata_Descriptor_ID);
+	xil_printf("display primaries x0, y0, x1, y1, x2, y2: %d %d %d %d %d %d\r\n",
+			DrmInfoFramePtr->disp_primaries[0].x, DrmInfoFramePtr->disp_primaries[0].y,
+			DrmInfoFramePtr->disp_primaries[1].x, DrmInfoFramePtr->disp_primaries[1].y,
+			DrmInfoFramePtr->disp_primaries[2].x, DrmInfoFramePtr->disp_primaries[2].y
+		  );
+	xil_printf("white point x, y: %d %d\r\n",
+			DrmInfoFramePtr->white_point.x, DrmInfoFramePtr->white_point.y);
+	xil_printf("min/max display mastering luminance: %d %d\r\n",
+			DrmInfoFramePtr->Min_Disp_Mastering_Luminance,
+			DrmInfoFramePtr->Max_Disp_Mastering_Luminance);
+	xil_printf("Max_CLL: %d\r\n", DrmInfoFramePtr->Max_Content_Light_Level);
+	xil_printf("max_fall: %d\r\n", DrmInfoFramePtr->Max_Frame_Average_Light_Level);
+}
+/*****************************************************************************/
+/**
+*
 * This function prints the HDMI TX SS audio information
 *
 * @param  None.
@@ -2542,12 +2584,20 @@ void XV_HdmiTxSs_ReportTiming(XV_HdmiTxSs *InstancePtr)
 ******************************************************************************/
 static void XV_HdmiTxSs_ReportAudio(XV_HdmiTxSs *InstancePtr)
 {
-  xil_printf("Format   : ");
-  if (XV_HdmiTxSs_GetAudioFormat(InstancePtr) == 1) {
-	  xil_printf("HBR\r\n");
-  }
-  else {
-	  xil_printf("L-PCM\r\n");
+	xil_printf("Format   : ");
+	switch (XV_HdmiTxSs_GetAudioFormat(InstancePtr)) {
+	case 0:
+		xil_printf("L-PCM\r\n");
+		break;
+	case 1:
+		xil_printf("HBR\r\n");
+		break;
+	case 2:
+		xil_printf("3D\r\n");
+		break;
+	default:
+		xil_printf("Invalid\r\n");
+		break;
   }
   xil_printf("Channels : %d\r\n",
   XV_HdmiTx_GetAudioChannels(InstancePtr->HdmiTxPtr));
@@ -2634,6 +2684,9 @@ void XV_HdmiTxSs_ReportInfo(XV_HdmiTxSs *InstancePtr)
     xil_printf("Audio\r\n");
     xil_printf("---------\r\n");
     XV_HdmiTxSs_ReportAudio(InstancePtr);
+    xil_printf("DRM info frame\r\n");
+    xil_printf("--------------\r\n");
+    XV_HdmiTxSs_ReportDRMInfo(InstancePtr);
 }
 /*****************************************************************************/
 /**

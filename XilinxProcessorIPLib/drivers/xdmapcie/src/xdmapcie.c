@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /******************************************************************************/
 /**
 * @file xdmapcie.c
@@ -82,7 +60,9 @@
 int XDmaPcie_CfgInitialize(XDmaPcie *InstancePtr, XDmaPcie_Config *CfgPtr,
 							 UINTPTR EffectiveAddress)
 {
+#ifndef versal
 	u32 Data;
+#endif
 
 	/* Assert arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -100,10 +80,14 @@ int XDmaPcie_CfgInitialize(XDmaPcie *InstancePtr, XDmaPcie_Config *CfgPtr,
 	XDmaPcie_DisableInterrupts(InstancePtr, XDMAPCIE_IM_DISABLE_ALL_MASK);
 
 	/* Max number of buses */
+#ifdef versal
+	InstancePtr->MaxNumOfBuses = XDMAPCIE_NUM_BUSES;
+#else
 	Data = XDmaPcie_ReadReg(InstancePtr->Config.BaseAddress,
 							XDMAPCIE_BI_OFFSET);
 	InstancePtr->MaxNumOfBuses = (u16)((Data & XDMAPCIE_BI_ECAM_SIZE_MASK) >>
 					XDMAPCIE_BI_ECAM_SIZE_SHIFT);
+#endif
 
 	return (XST_SUCCESS);
 }
@@ -1113,7 +1097,9 @@ void XDmaPcie_GetLocalBusBar2PcieBar(XDmaPcie *InstancePtr, u8 BarNumber,
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(BarAddrPtr != NULL);
 	Xil_AssertVoid(BarNumber < InstancePtr->Config.LocalBarsNum);
+#ifndef versal
 	Xil_AssertVoid(InstancePtr->Config.IncludeBarOffsetReg != FALSE);
+#endif
 
 	BarAddrPtr->LowerAddr =
 		XDmaPcie_ReadReg(InstancePtr->Config.BaseAddress,
@@ -1148,7 +1134,9 @@ void XDmaPcie_SetLocalBusBar2PcieBar(XDmaPcie *InstancePtr, u8 BarNumber,
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(BarAddrPtr != NULL);
 	Xil_AssertVoid(BarNumber < InstancePtr->Config.LocalBarsNum);
+#ifndef versal
 	Xil_AssertVoid(InstancePtr->Config.IncludeBarOffsetReg != FALSE);
+#endif
 
 	XDmaPcie_WriteReg(InstancePtr->Config.BaseAddress,
 		(XDMAPCIE_AXIBAR2PCIBAR_0L_OFFSET +

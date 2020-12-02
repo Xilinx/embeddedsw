@@ -1,34 +1,12 @@
 /******************************************************************************
-*
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 * @file xhdcp22_rx.h
-* @addtogroup hdcp22_rx_v2_2
+* @addtogroup hdcp22_rx_dp_v2_0
 * @{
 * @details
 *
@@ -148,6 +126,8 @@ extern "C" {
 #define R_IV_OFFSET			0x328
 #define R_IV_SIZE			8
 #define RX_STATUS_OFFSET		0x493
+#define RX_STREAM_TYPE_OFFSET		0x494
+#define Rx_STREAM_TYPE_SIZE		1
 
 #define RX_STATUS_REPEATER_READY_AVAILABLE	0x01
 #define RX_STATUS_H_PRIME_AVAILABLE		0x02
@@ -279,7 +259,7 @@ typedef enum {
 	XHDCP22_RX_TOPOLOGY_DEVICECNT,
 	XHDCP22_RX_TOPOLOGY_MAXDEVSEXCEEDED,
 	XHDCP22_RX_TOPOLOGY_MAXCASCADEEXCEEDED,
-	XHDCP22_RX_TOPOLOGY_HDCP20REPEATERDOWNSTREAM,
+	XHDCP22_RX_TOPOLOGY_HDCP2LEGACYDEVICEDOWNSTREAM,
 	XHDCP22_RX_TOPOLOGY_HDCP1DEVICEDOWNSTREAM,
 	XHDCP22_RX_TOPOLOGY_INVALID
 } XHdcp22_Rx_TopologyField;
@@ -608,8 +588,8 @@ typedef struct
 	    than four levels of repeaters have been casaded together. */
 	u8 MaxCascadeExceeded;
 	/** Flag used to indicate topology information. When set to one,
-	    indicates presence of an HDCP2.0-compliant Repeater in the topology. */
-	u8 Hdcp20RepeaterDownstream;
+	    indicates presence of an HDCP2.1-compliant Device in the topology. */
+	u8 Hdcp2LegacyDeviceDownstream;
 	/** Flag used to indicate topology information. When set to one,
 	    indicates precense of an HDCP1.x-compliant device in the topology. */
 	u8 Hdcp1DeviceDownstream;
@@ -724,6 +704,7 @@ void XHdcp22_timer_attach(XHdcp22_Rx *InstancePtr, XTmrCtr *TmrCtrPtr);
 void XHdcp22Rx_TimerHandler(void *CallbackRef, u8 TmrCntNumber);
 void XHdcp22_RxSetLaneCount(XHdcp22_Rx *InstancePtr, u8 LaneCount);
 u32 XHdcp22_RxSetRxCaps(XHdcp22_Rx *InstancePtr, u8 enable);
+void XHdcp22_RxSetStreamType(XHdcp22_Rx *InstancePtr);
 /* Functions for loading authentication constants */
 void XHdcp22Rx_LoadLc128(XHdcp22_Rx *InstancePtr, const u8 *Lc128Ptr);
 void XHdcp22Rx_LoadPublicCert(XHdcp22_Rx *InstancePtr, const u8 *PublicCertPtr);

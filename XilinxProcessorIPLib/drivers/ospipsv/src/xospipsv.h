@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xospipsv.h
-* @addtogroup ospipsv_v1_0
+* @addtogroup ospipsv_v1_3
 * @{
 * @details
 *
@@ -48,6 +26,19 @@
 *       sk   02/04/19 Added support for SDR+PHY and DDR+PHY modes.
 *       sk   02/07/19 Added OSPI Idling sequence.
 * 1.0   akm 03/29/19 Fixed data alignment issues on IAR compiler.
+* 1.1   sk   07/22/19 Added RX Tuning algorithm for SDR and DDR modes.
+*       sk   08/08/19 Added flash device reset support.
+*       sk   08/16/19 Set Read Delay Fld to 0x1 for Non-Phy mode.
+* 1.2   sk   02/03/20 Added APIs for non-blocking transfer support.
+*       sk   02/20/20 Reorganize the source code, enable the interrupts
+*                     by default and updated XOspiPsv_DeviceReset() API with
+*                     masked data writes.
+*       sk   02/20/20 Make XOspiPsv_SetDllDelay() API as user API.
+*       sk   02/20/20 Added support for DLL Master mode.
+* 1.3   sk   04/09/20 Added support for 64-bit address read from 32-bit proc.
+*       sk   05/27/20 Added support for reading C_OSPI_MODE param.
+*       sk  08/19/20 Reduced the usleep delay while checking transfer done.
+*       sk   10/06/20 Clear the ISR for polled mode transfers.
 *
 * </pre>
 *
@@ -65,6 +56,9 @@ extern "C" {
 #include "xospipsv_hw.h"
 #include "xil_cache.h"
 #include "xil_mem.h"
+#if defined (__aarch64__)
+#include "xil_smc.h"
+#endif
 
 /**************************** Type Definitions *******************************/
 /**
@@ -99,6 +93,8 @@ typedef struct {
 	u8 Dummy;		/**< Number of dummy cycles for opcode */
 	u8 Proto;		/**< Indicate number of Cmd-Addr-Data lines */
 	u8 IsDDROpCode;	/**< 1 if opcode is DDR command, 0 otherwise */
+	u64 RxAddr64bit; /**< Provide 64-bit read address for 32-bit platform */
+	u8 Xfer64bit; /**< Set to 1 when reading from 64-bit addr otherwise 0 */
 } XOspiPsv_Msg;
 
 /**
@@ -106,8 +102,10 @@ typedef struct {
  */
 typedef struct {
 	u16 DeviceId;		/**< Unique ID  of device */
-	u32 BaseAddress;	/**< Base address of the device */
+	UINTPTR BaseAddress;	/**< Base address of the device */
 	u32 InputClockHz;	/**< Input clock frequency */
+	u8 IsCacheCoherent;		/**< If OSPI is Cache Coherent or not */
+	u8 ConnectionMode;	/**< OSPI connection mode */
 } XOspiPsv_Config;
 
 /**
@@ -130,6 +128,9 @@ typedef struct {
 	XOspiPsv_StatusHandler StatusHandler;
 	void *StatusRef;  	 /**< Callback reference for status handler */
 	u8 IsUnaligned;		/* Flag used to indicate bytecnt is aligned or not */
+	u32 DeviceIdData;	/* Contains Device Id Data information */
+	u8 Extra_DummyCycle;
+	u8 DllMode;
 #ifdef __ICCARM__
 #pragma pack(push, 8)
 	u8 UnalignReadBuffer[4];	/**< Buffer used to read the unaligned bytes in DMA */
@@ -138,6 +139,9 @@ typedef struct {
 	u8 UnalignReadBuffer[4] __attribute__ ((aligned(64)));
 #endif
 } XOspiPsv;
+
+/************************** Variable Definitions *****************************/
+extern XOspiPsv_Config XOspiPsv_ConfigTable[];
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XOSPIPSV_DAC_EN_OPTION	0x1U
@@ -221,15 +225,32 @@ typedef struct {
 #define XOSPIPSV_EDGE_MODE_DDR_PHY			0x2U
 
 #define XOSPIPSV_REMAP_ADDR_VAL		0x40000000U
-#define XOSPIPSV_SDR_TX_RX_DLY_VAL		0x00140014U
-#define XOSPIPSV_DDR_TX_RX_DLY_VAL		0x00400040U
+#define XOSPIPSV_SDR_TX_VAL			0x5U
+#define XOSPIPSV_DDR_TX_VAL			0x0U
+#define XOSPIPSV_DDR_TX_VAL_MASTER		0x19U
+#define XOSPIPSV_SDR_TX_VAL_MASTER		0x39U
+
+#define XOSPIPSV_HWPIN_RESET	0x0U
+#define XOSPIPSV_INBAND_RESET	0x1U
+
+#define XOSPIPSV_NON_PHY_RD_DLY		0x1U
+
+#define XOSPIPSV_DLL_MAX_TAPS		0x80U
+
+#define XOSPIPSV_DLL_BYPASS_MODE	0x0U
+#define XOSPIPSV_DLL_MASTER_MODE	0x1U
+
+#define XOSPIPSV_CONNECTION_MODE_SINGLE		0x0U
+#define XOSPIPSV_CONNECTION_MODE_STACKED	0x1U
+
+#define XOSPIPSV_RXADDR_OVER_32BIT		0x100000000U
 
 /* Initialization and reset */
 XOspiPsv_Config *XOspiPsv_LookupConfig(u16 DeviceId);
 u32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr, const XOspiPsv_Config *ConfigPtr);
-void XOspiPsv_Reset(const XOspiPsv *InstancePtr);
+void XOspiPsv_Reset(XOspiPsv *InstancePtr);
 /* Configuration functions */
-u32 XOspiPsv_SetClkPrescaler(const XOspiPsv *InstancePtr, u8 Prescaler);
+u32 XOspiPsv_SetClkPrescaler(XOspiPsv *InstancePtr, u8 Prescaler);
 u32 XOspiPsv_SelectFlash(XOspiPsv *InstancePtr, u8 chip_select);
 u32 XOspiPsv_SetOptions(XOspiPsv *InstancePtr, u32 Options);
 u32 XOspiPsv_GetOptions(const XOspiPsv *InstancePtr);
@@ -239,8 +260,12 @@ u32 XOspiPsv_IntrHandler(XOspiPsv *InstancePtr);
 void XOspiPsv_SetStatusHandler(XOspiPsv *InstancePtr, void *CallBackRef,
 				XOspiPsv_StatusHandler FuncPointer);
 u32 XOspiPsv_SetSdrDdrMode(XOspiPsv *InstancePtr, u32 Mode);
-void XOspiPsv_ConfigureAutoPolling(XOspiPsv *InstancePtr, u32 FlashMode);
+void XOspiPsv_ConfigureAutoPolling(const XOspiPsv *InstancePtr, u32 FlashMode);
 void XOspiPsv_Idle(const XOspiPsv *InstancePtr);
+u32 XOspiPsv_DeviceReset(u8 Type);
+u32 XOspiPsv_StartDmaTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg);
+u32 XOspiPsv_CheckDmaDone(XOspiPsv *InstancePtr);
+u32 XOspiPsv_SetDllDelay(XOspiPsv *InstancePtr);
 #ifdef __cplusplus
 }
 #endif

@@ -1,6 +1,6 @@
 /** \page example Examples
 You can refer to the below stated example applications for more details which gives an idea of
-how the USB and its driver can be used for Bulk and Interrupt tranfers.
+how the USB and its driver can be used for Bulk and Interrupt transfers.
 
 @section ex1 xusb_types.h
 This headerfile contains the constants, type definitions, variables

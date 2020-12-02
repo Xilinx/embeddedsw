@@ -1,28 +1,8 @@
 /*
- * Copyright (C) 2014 - 2016 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  */
+
 #include "xpfw_config.h"
 #ifdef ENABLE_PM
 
@@ -38,8 +18,9 @@
 /* A GPP has its own power islands and dependencies to the FPD power parent */
 #define PM_GPP_SLAVE_STATE_OFF	0U
 #define PM_GPP_SLAVE_STATE_ON	1U
+#define PM_GPP_SLAVE_MAX_STATE	2U
 
-static const u32 pmGppStates[] = {
+static const u8 pmGppStates[PM_GPP_SLAVE_MAX_STATE] = {
 	[PM_GPP_SLAVE_STATE_OFF] = 0U,
 	[PM_GPP_SLAVE_STATE_ON] = PM_CAP_ACCESS | PM_CAP_CONTEXT | PM_CAP_POWER,
 };
@@ -73,7 +54,7 @@ static s32 PmGppFsmHandler(PmSlave* const slave, const PmStateId nextState)
 	case PM_GPP_SLAVE_STATE_ON:
 		if (PM_GPP_SLAVE_STATE_OFF == nextState) {
 			/* ON -> OFF*/
-			status = gpp->PwrDn();
+			status = (s32)gpp->PwrDn();
 		} else {
 			status = XST_NO_FEATURE;
 		}
@@ -81,9 +62,9 @@ static s32 PmGppFsmHandler(PmSlave* const slave, const PmStateId nextState)
 	case PM_GPP_SLAVE_STATE_OFF:
 		if (PM_GPP_SLAVE_STATE_ON == nextState) {
 			/* OFF -> ON */
-			status = gpp->PwrUp();
+			status = (s32)gpp->PwrUp();
 			if ((XST_SUCCESS == status) && (NULL != gpp->reset)) {
-				status = gpp->reset();
+				status = (s32)gpp->reset();
 			}
 		} else {
 			status = XST_NO_FEATURE;
@@ -103,7 +84,7 @@ static const PmSlaveFsm pmSlaveGppFsm = {
 	.enterState = PmGppFsmHandler,
 };
 
-static u32 pmGppSlavePowers[] = {
+static u8 pmGppSlavePowers[] = {
 	DEFAULT_POWER_OFF,
 	DEFAULT_POWER_ON,
 };
@@ -173,11 +154,11 @@ static s32 PmGpuFsmHandler(PmSlave* const slave, const PmStateId nextState)
 	case PM_GPP_SLAVE_STATE_ON:
 		if (PM_GPP_SLAVE_STATE_OFF == nextState) {
 			/* ON -> OFF*/
-			status = pmSlaveGpuPP0_g.PwrDn();
+			status = (s32)pmSlaveGpuPP0_g.PwrDn();
 			if (XST_SUCCESS != status) {
 				goto done;
 			}
-			status = pmSlaveGpuPP1_g.PwrDn();
+			status = (s32)pmSlaveGpuPP1_g.PwrDn();
 			if (XST_SUCCESS != status) {
 				goto done;
 			}
@@ -188,17 +169,17 @@ static s32 PmGpuFsmHandler(PmSlave* const slave, const PmStateId nextState)
 	case PM_GPP_SLAVE_STATE_OFF:
 		if (PM_GPP_SLAVE_STATE_ON == nextState) {
 			/* OFF -> ON */
-			status = pmSlaveGpuPP0_g.PwrUp();
+			status = (s32)pmSlaveGpuPP0_g.PwrUp();
 			if ((XST_SUCCESS == status) && (NULL != pmSlaveGpuPP0_g.reset)) {
-				status = pmSlaveGpuPP0_g.reset();
+				status = (s32)pmSlaveGpuPP0_g.reset();
 			}
 			if (XST_SUCCESS != status) {
 				goto done;
 			}
 
-			status = pmSlaveGpuPP1_g.PwrUp();
+			status = (s32)pmSlaveGpuPP1_g.PwrUp();
 			if ((XST_SUCCESS == status) && (NULL != pmSlaveGpuPP1_g.reset)) {
-				status = pmSlaveGpuPP1_g.reset();
+				status = (s32)pmSlaveGpuPP1_g.reset();
 			}
 			if (XST_SUCCESS != status) {
 				goto done;
@@ -243,13 +224,13 @@ PmSlave pmSlaveGpu_g = {
 };
 
 #pragma weak pmUserHookVcuPwrDn
-u32 pmUserHookVcuPwrDn(void)
+static u32 pmUserHookVcuPwrDn(void)
 {
 	return XST_SUCCESS;
 }
 
 #pragma weak pmUserHookVcuPwrUp
-u32 pmUserHookVcuPwrUp(void)
+static u32 pmUserHookVcuPwrUp(void)
 {
 	return XST_SUCCESS;
 }

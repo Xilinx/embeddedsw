@@ -1,39 +1,17 @@
 ###############################################################################
-#
-# Copyright (C) 2012 - 2014 Xilinx, Inc. All rights reserved.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-# OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-#
-# Except as contained in this notice, the name of the Xilinx shall not be used
-# in advertising or otherwise to promote the sale, use or other dealings in
-# this Software without prior written authorization from Xilinx.
-#
+# Copyright (c) 2012 - 2020 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
 ###############################################################################
+DRIVER_LIB_VERSION = v1.0
 
 # The following are defined in config.make
 # LIBSOURCES - Based on if MicroBlaze support Exceptions
 # LIBS - Do Build Profile Libraries
 include config.make
 
-AS=mb-as
-CC=mb-gcc
-AR=mb-ar
+AS=$(ASSEMBLER)
+CC=$(COMPILER)
+AR=$(ARCHIVER)
 CP=cp
 COMPILER_FLAGS=-O2 -c
 EXTRA_COMPILER_FLAGS=
@@ -42,29 +20,59 @@ LIB=libxil.a
 CC_FLAGS = $(subst -pg, , $(COMPILER_FLAGS))
 ECC_FLAGS = $(subst -pg, , $(EXTRA_COMPILER_FLAGS))
 
-RELEASEDIR=../../../lib
-INCLUDEDIR=../../../include
+RELEASEDIR=../../../lib/
+INCLUDEDIR=../../../include/
 INCLUDES=-I./. -I${INCLUDEDIR}
 
-OUTS = *.o
-OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
-ASSEMBLY_OBJECTS  = $(addsuffix .o, $(basename $(wildcard *.S)))
+SRCFILES:=$(wildcard *.c)
+
+ASSEMBLY_SRCFILES:=$(wildcard *.S)
+
+OBJECTS =	$(addprefix $(RELEASEDIR),$(addsuffix .o, $(basename $(filter-out $(wildcard microblaze_interrupt_handler.c), $(wildcard *.c)))))
+
+ASSEMBLY_OBJECTS  = $(addprefix $(RELEASEDIR),$(addsuffix .o, $(basename $(wildcard *.S))))
+
+NON_LTO_OBJECTS = $(addprefix $(RELEASEDIR),$(addsuffix .o, $(basename $(wildcard microblaze_interrupt_handler.c))))
+
+NON_LTO_FILES = $(wildcard microblaze_interrupt_handler.c)
 INCLUDEFILES=*.h
+
+ECC_FLAGS_NO_FLTO1 = $(subst -flto,,$(ECC_FLAGS))
+ECC_FLAGS_NO_FLTO = $(subst -ffat-lto-objects,,$(ECC_FLAGS_NO_FLTO1))
 
 libs: $(LIBS)
 
-standalone_libs: $(LIBSOURCES)
-	echo "Compiling standalone";
-	$(CC) $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) $^
-	$(AR) -r ${RELEASEDIR}/${LIB} ${OBJECTS} ${ASSEMBLY_OBJECTS}
+standalone_libs: $(OBJECTS) $(ASSEMBLY_OBJECTS) $(NON_LTO_OBJECTS)
+DEPFILES := $(SRCFILES:%.c=$(RELEASEDIR)%.d)
+
+include $(wildcard $(DEPFILES))
+
+ASSEMBLY_DEPFILES := $(ASSEMBLY_SRCFILES:%.S=$(RELEASEDIR)%.d)
+
+include $(wildcard $(ASSEMBLY_DEPFILES))
+
+include $(wildcard ../../../../dep.mk)
+
+$(NON_LTO_OBJECTS): $(NON_LTO_FILES)
+	echo "DEBUG NON_LTO_OBJECTS is $(NON_LTO_OBJECTS)"
+	$(CC) $(CC_FLAGS) $(ECC_FLAGS_NO_FLTO) $(INCLUDES)  $(DEPENDENCY_FLAGS) -o $@ $<
+
+$(RELEASEDIR)%.o: %.S
+	$(CC) $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES)  $(DEPENDENCY_FLAGS) -o $@ $<
+
+$(RELEASEDIR)%.o: %.c
+	$(CC) $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) $(DEPENDENCY_FLAGS) -o $@ $<
 
 profile_libs:
 	$(MAKE) -C profile COMPILER_FLAGS="$(COMPILER_FLAGS)" EXTRA_COMPILER_FLAGS="$(EXTRA_COMPILER_FLAGS)" COMPILER="$(CC)" ARCHIVER="$(AR)" AS="$(AS)" libs
 
 include: standalone_includes profile_includes
 
-standalone_includes:
-	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
+standalone_includes: $(addprefix $(INCLUDEDIR),$(wildcard *.h))
+
+$(INCLUDEDIR)%.h: %.h
+	$(CP) $< $@
+
 
 profile_includes:
 	$(MAKE) -C profile COMPILER_FLAGS="$(COMPILER_FLAGS)" EXTRA_COMPILER_FLAGS="$(EXTRA_COMPILER_FLAGS)" COMPILER="$(CC)" ARCHIVER="$(AR)" AS="$(AS)" include
@@ -72,4 +80,7 @@ profile_includes:
 clean:
 	rm -rf ${OBJECTS}
 	rm -rf ${ASSEMBLY_OBJECTS}
+	rm -rf ${NON_LTO_OBJECTS}
+	rm -rf $(DEPFILES)
+	rm -rf $(ASSEMBLY_DEPFILES)
 	$(MAKE) -C profile COMPILER_FLAGS="$(COMPILER_FLAGS)" EXTRA_COMPILER_FLAGS="$(EXTRA_COMPILER_FLAGS)" COMPILER="$(CC)" ARCHIVER="$(AR)" AS="$(AS)" clean

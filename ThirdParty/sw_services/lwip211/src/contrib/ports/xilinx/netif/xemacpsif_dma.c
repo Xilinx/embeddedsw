@@ -424,16 +424,23 @@ void setup_rx_bds(xemacpsif_s *xemacpsif, XEmacPs_BdRing *rxring)
 #endif
 		bdindex = XEMACPS_BD_TO_INDEX(rxring, rxbd);
 		temp = (u32 *)rxbd;
-		if (bdindex == (XLWIP_CONFIG_N_RX_DESC - 1)) {
-			*temp = 0x00000002;
-		} else {
-			*temp = 0;
-		}
 		temp++;
+		/* Status field should be cleared first to avoid drops */
 		*temp = 0;
 		dsb();
 
-		XEmacPs_BdSetAddressRx(rxbd, (UINTPTR)p->payload);
+		/* Set high address when required */
+#ifdef __aarch64__
+		XEmacPs_BdWrite(rxbd, XEMACPS_BD_ADDR_HI_OFFSET,
+			(((UINTPTR)p->payload) & ULONG64_HI_MASK) >> 32U);
+#endif
+		/* Set address field; add WRAP bit on last descriptor  */
+		if (bdindex == (XLWIP_CONFIG_N_RX_DESC - 1)) {
+			XEmacPs_BdWrite(rxbd, XEMACPS_BD_ADDR_OFFSET, ((UINTPTR)p->payload | XEMACPS_RXBUF_WRAP_MASK));
+		} else {
+			XEmacPs_BdWrite(rxbd, XEMACPS_BD_ADDR_OFFSET, (UINTPTR)p->payload);
+		}
+
 		rx_pbufs_storage[index + bdindex] = (UINTPTR)p;
 	}
 }
@@ -726,7 +733,7 @@ XStatus init_dma(struct xemac_s *xemac)
 	{
 		/*
 		 * This version of GEM supports priority queuing and the current
-		 * dirver is using tx priority queue 1 and normal rx queue for
+		 * driver is using tx priority queue 1 and normal rx queue for
 		 * packet transmit and receive. The below code ensure that the
 		 * other queue pointers are parked to known state for avoiding
 		 * the controller to malfunction by fetching the descriptors
@@ -814,7 +821,8 @@ void free_txrx_pbufs(xemacpsif_s *xemacpsif)
 		}
 	}
 
-	for (index = index1; index < (index1 + XLWIP_CONFIG_N_TX_DESC); index++) {
+	index1 = get_base_index_rxpbufsstorage(xemacpsif);
+	for (index = index1; index < (index1 + XLWIP_CONFIG_N_RX_DESC); index++) {
 		p = (struct pbuf *)rx_pbufs_storage[index];
 		pbuf_free(p);
 

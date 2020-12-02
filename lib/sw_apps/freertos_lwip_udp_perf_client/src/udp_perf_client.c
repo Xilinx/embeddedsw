@@ -137,11 +137,11 @@ static void reset_stats(void)
 	print_udp_conn_stats();
 
 	/* Save start time for final report */
-	client.start_time = sys_now() * portTICK_RATE_MS;
+	client.start_time = sys_now();
 	client.total_bytes = 0;
 	client.cnt_datagrams = 0;
 
-	/* Initialize Interim report paramters */
+	/* Initialize Interim report parameters */
 	client.i_report.start_time = 0;
 	client.i_report.total_bytes = 0;
 	client.i_report.last_report_time = 0;
@@ -179,7 +179,7 @@ static int udp_packet_send(u8_t finished)
 
 		if (!retries) {
 			/* Terminate this app */
-			u64_t now = sys_now() * portTICK_RATE_MS;
+			u64_t now = sys_now();
 			u64_t diff_ms = now - client.start_time;
 			xil_printf("Too many udp_send() retries, ");
 			xil_printf("Terminating application\n\r");
@@ -190,7 +190,7 @@ static int udp_packet_send(u8_t finished)
 		retries = MAX_SEND_RETRY;
 
 		/* For ZynqMP GEM, At high speed, packets are being
-		 * recieved as Out of order at Iperf server running
+		 * received as Out of order at Iperf server running
 		 * on remote host machine.
 		 * To avoid this, added delay of 1us between each
 		 * packets
@@ -206,7 +206,7 @@ static int udp_packet_send(u8_t finished)
 int transfer_data(void)
 {
 	if (END_TIME || REPORT_INTERVAL_TIME) {
-		u64_t now = sys_now() * portTICK_RATE_MS;
+		u64_t now = sys_now();
 		if (REPORT_INTERVAL_TIME) {
 			if (client.i_report.start_time) {
 				u64_t diff_ms = now - client.i_report.start_time;

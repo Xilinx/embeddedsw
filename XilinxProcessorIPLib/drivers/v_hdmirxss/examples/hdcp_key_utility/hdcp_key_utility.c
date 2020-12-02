@@ -7,8 +7,10 @@
 #include "aes256.h"
 #include "xhdcp22_common.h"
 
-#if defined (XPAR_XUARTLITE_NUM_INSTANCES)
+#if defined (XPAR_XUARTLITE_NUM_INSTANCES) && (!defined (versal))
 #include "xuartlite_l.h"
+#elif defined versal
+#include "xuartpsv.h"
 #else
 #include "xuartps.h"
 #endif
@@ -18,11 +20,14 @@
 #define EEPROM_ADDRESS				0x50	 /* 0xA0 as an 8 bit number */
 #define PAGE_SIZE					16
 
-#if defined (XPAR_XUARTLITE_NUM_INSTANCES)
+#if defined (XPAR_XUARTLITE_NUM_INSTANCES) && (!defined (versal))
 #define UART_BASE_ADDRESS XPAR_MB_SS_0_AXI_UARTLITE_BASEADDR
+#elif defined versal
+#define UART_BASE_ADDRESS XPAR_XUARTPSV_0_BASEADDR
 #else
 #define UART_BASE_ADDRESS XPAR_XUARTPS_0_BASEADDR
 #endif
+
 
 #define SIGNATURE_OFFSET			0
 #define HDCP22_LC128_OFFSET			16
@@ -343,7 +348,11 @@ u8 EnterPassword (u8 *Password)
 	i = 0;
 	while (1) {
 		/* Check if the UART has any data */
-
+#if defined (versal)
+		if (XUartPsv_IsReceiveData(UART_BASE_ADDRESS)) {
+			Data = XUartPsv_RecvByte(UART_BASE_ADDRESS);
+			XUartPsv_SendByte(UART_BASE_ADDRESS, '.');
+#else
 #if defined (XPAR_XUARTLITE_NUM_INSTANCES)
 		if (!XUartLite_IsReceiveEmpty(UART_BASE_ADDRESS)) {
 			/* Read data from uart */
@@ -358,6 +367,7 @@ u8 EnterPassword (u8 *Password)
 
 			/* Send response to user */
 			XUartPs_SendByte(UART_BASE_ADDRESS, '.');
+#endif
 #endif
 
 			/* Execute */

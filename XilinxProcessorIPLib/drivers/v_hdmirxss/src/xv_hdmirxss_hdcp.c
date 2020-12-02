@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2016 - 2017 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -62,7 +40,7 @@ static int XV_HdmiRxSs_HdcpSetTopologyDepth(XV_HdmiRxSs *InstancePtr, u32 Depth)
 static int XV_HdmiRxSs_HdcpSetTopologyDeviceCnt(XV_HdmiRxSs *InstancePtr, u32 DeviceCnt);
 static int XV_HdmiRxSs_HdcpSetTopologyMaxDevsExceeded(XV_HdmiRxSs *InstancePtr, u8 Value);
 static int XV_HdmiRxSs_HdcpSetTopologyMaxCascadeExceeded(XV_HdmiRxSs *InstancePtr, u8 Value);
-static int XV_HdmiRxSs_HdcpSetTopologyHdcp20RepeaterDownstream(XV_HdmiRxSs *InstancePtr, u8 Value);
+static int XV_HdmiRxSs_HdcpSetTopologyHdcp2LegacyDeviceDownstream(XV_HdmiRxSs *InstancePtr, u8 Value);
 static int XV_HdmiRxSs_HdcpSetTopologyHdcp1DeviceDownstream(XV_HdmiRxSs *InstancePtr, u8 Value);
 #endif
 #ifdef XPAR_XHDCP_NUM_INSTANCES
@@ -671,6 +649,10 @@ int XV_HdmiRxSs_HdcpSetProtocol(XV_HdmiRxSs *InstancePtr, XV_HdmiRxSs_HdcpProtoc
   int Status;
 
   /* Set requested protocol */
+  if ((InstancePtr->UserHdcpProt != XV_HDMIRXSS_HDCP_NOUSERPREF) &&
+		  (Protocol != InstancePtr->UserHdcpProt))
+	  return XST_SUCCESS;
+
   InstancePtr->HdcpProtocol = Protocol;
 
   /* Reset both protocols */
@@ -688,6 +670,67 @@ int XV_HdmiRxSs_HdcpSetProtocol(XV_HdmiRxSs *InstancePtr, XV_HdmiRxSs_HdcpProtoc
   }
 
   return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function sets the active HDCP protocol and enables it.
+* XV_HdmiRxSs_HdcpSetProtocol is intended to be used internally.
+* Applications should API XV_HdmiRxSs_SetUserHdcpProtocol
+* instead of directly using XV_HdmiRxSs_HdcpSetProtocol.
+*
+* The protocol can be set to either HDCP 1.4, 2.2, or None.
+* XV_HDMIRXSS_HDCP_NOUSERPREF is the default state and should
+* be reset back to this state when application wants the HDCP
+* configuration based on source connected.
+*
+* @param InstancePtr is a pointer to the XV_HdmiRxSs instance.
+* @param Protocol is the requested content protection scheme of type
+*        XV_HdmiRxSs_HdcpProtocol.
+*
+* @return
+*  - XST_SUCCESS if action was successful
+*  - XST_FAILURE if action was not successful
+*
+* @note   None.
+*
+******************************************************************************/
+
+int XV_HdmiRxSs_SetUserHdcpProtocol(XV_HdmiRxSs *InstancePtr,
+		XV_HdmiRxSs_HdcpProtocol protocol)
+{
+	int Status = XST_SUCCESS;
+
+	Xil_AssertNonvoid((protocol == XV_HDMIRXSS_HDCP_NONE) ||
+		(protocol == XV_HDMIRXSS_HDCP_NOUSERPREF) ||
+		(protocol == XV_HDMIRXSS_HDCP_14) ||
+		(protocol == XV_HDMIRXSS_HDCP_22));
+
+	XV_HdmiRx_DdcHdcpDisable(InstancePtr->HdmiRxPtr);
+
+	InstancePtr->UserHdcpProt = protocol;
+
+#ifdef XPAR_XHDCP22_RX_NUM_INSTANCES
+	if (protocol == XV_HDMIRXSS_HDCP_14)
+		XHdcp22Rx_SetBroadcast(InstancePtr->Hdcp22Ptr, FALSE);
+	else
+		XHdcp22Rx_SetBroadcast(InstancePtr->Hdcp22Ptr, TRUE);
+#endif
+
+	if (protocol != XV_HDMIRXSS_HDCP_NOUSERPREF)
+		Status =  XV_HdmiRxSs_HdcpSetProtocol(InstancePtr, protocol);
+
+	if (InstancePtr->UserHdcpProt == XV_HDMIRXSS_HDCP_NONE) {
+		XV_HdmiRx_DdcHdcpDisable(InstancePtr->HdmiRxPtr);
+	} else {
+		XV_HdmiRx_DdcHdcpEnable(InstancePtr->HdmiRxPtr);
+	}
+
+	/* Toggle HPD to get attention of upstream transmitter */
+	XV_HdmiRxSs_ToggleHpd(InstancePtr);
+
+	return Status;
 }
 #endif
 
@@ -1532,8 +1575,8 @@ int XV_HdmiRxSs_HdcpSetTopologyField(XV_HdmiRxSs *InstancePtr,
       return XV_HdmiRxSs_HdcpSetTopologyMaxDevsExceeded(InstancePtr, Value);
 	  case XV_HDMIRXSS_HDCP_TOPOLOGY_MAXCASCADEEXCEEDED:
       return XV_HdmiRxSs_HdcpSetTopologyMaxCascadeExceeded(InstancePtr, Value);
-	  case XV_HDMIRXSS_HDCP_TOPOLOGY_HDCP20REPEATERDOWNSTREAM:
-      return XV_HdmiRxSs_HdcpSetTopologyHdcp20RepeaterDownstream(InstancePtr, Value);
+	  case XV_HDMIRXSS_HDCP_TOPOLOGY_HDCP2LEGACYDEVICEDOWNSTREAM:
+      return XV_HdmiRxSs_HdcpSetTopologyHdcp2LegacyDeviceDownstream(InstancePtr, Value);
 	  case XV_HDMIRXSS_HDCP_TOPOLOGY_HDCP1DEVICEDOWNSTREAM:
       return XV_HdmiRxSs_HdcpSetTopologyHdcp1DeviceDownstream(InstancePtr, Value);
     default:
@@ -1794,7 +1837,7 @@ static int XV_HdmiRxSs_HdcpSetTopologyMaxCascadeExceeded(XV_HdmiRxSs *InstancePt
 /*****************************************************************************/
 /**
 *
-* This function sets the HDCP repeater topology HDCP 2.0 repeater
+* This function sets the HDCP repeater topology HDCP2 legacy device
 * downstream flag.
 *
 * @param InstancePtr is a pointer to the XV_HdmiRxSs instance.
@@ -1805,7 +1848,7 @@ static int XV_HdmiRxSs_HdcpSetTopologyMaxCascadeExceeded(XV_HdmiRxSs *InstancePt
 * @note   None.
 *
 ******************************************************************************/
-static int XV_HdmiRxSs_HdcpSetTopologyHdcp20RepeaterDownstream(XV_HdmiRxSs *InstancePtr, u8 Value)
+static int XV_HdmiRxSs_HdcpSetTopologyHdcp2LegacyDeviceDownstream(XV_HdmiRxSs *InstancePtr, u8 Value)
 {
   /* Verify argument. */
   Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1831,7 +1874,7 @@ static int XV_HdmiRxSs_HdcpSetTopologyHdcp20RepeaterDownstream(XV_HdmiRxSs *Inst
     case XV_HDMIRXSS_HDCP_22:
       if (InstancePtr->Hdcp22Ptr) {
         XHdcp22Rx_SetTopologyField(InstancePtr->Hdcp22Ptr,
-          XHDCP22_RX_TOPOLOGY_HDCP20REPEATERDOWNSTREAM, Value);
+          XHDCP22_RX_TOPOLOGY_HDCP2LEGACYDEVICEDOWNSTREAM, Value);
       } else {
         Status = XST_FAILURE;
       }

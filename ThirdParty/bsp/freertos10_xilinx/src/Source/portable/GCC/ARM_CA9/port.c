@@ -1,6 +1,6 @@
 /*
- * FreeRTOS Kernel V10.1.1
- * Copyright (C) 2018 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * FreeRTOS Kernel V10.3.0
+ * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -690,7 +690,7 @@ uint32_t ulReturn;
 		this is not the case (if some bits represent a sub-priority).
 
 		The priority grouping is configured by the GIC's binary point register
-		(ICCBPR).  Writting 0 to ICCBPR will ensure it is set to its lowest
+		(ICCBPR).  Writing 0 to ICCBPR will ensure it is set to its lowest
 		possible value (which may be above 0). */
 		configASSERT( ( portICCBPR_BINARY_POINT_REGISTER & portBINARY_POINT_BITS ) <= portMAX_BINARY_POINT_VALUE );
 	}

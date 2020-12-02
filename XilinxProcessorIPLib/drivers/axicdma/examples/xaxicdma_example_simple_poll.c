@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -65,6 +43,9 @@
  *       ms   04/05/17 Modified Comment lines in functions to
  *                     recognize it as documentation block for doxygen
  *                     generation of examples.
+ * 4.6   rsp  09/13/19 Add error prints for failing scenarios.
+ *                     Fix cache maintenance ops for source and dest buffer.
+ * 4.7   rsp  12/06/19 For aarch64 include xil_mmu.h. Fixes gcc warning.
  * </pre>
  *
  ****************************************************************************/
@@ -72,6 +53,9 @@
 #include "xdebug.h"
 #include "xil_cache.h"
 #include "xparameters.h"
+#ifdef __aarch64__
+#include "xil_mmu.h"
+#endif
 
 #if (!defined(DEBUG))
 extern void xil_printf(const char *format, ...);
@@ -259,9 +243,7 @@ static int DoSimplePollTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 	 * is enabled
 	 */
 	Xil_DCacheFlushRange((UINTPTR)&SrcBuffer, Length);
-#ifdef __aarch64__
 	Xil_DCacheFlushRange((UINTPTR)&DestBuffer, Length);
-#endif
 
 	/* Try to start the DMA transfer
 	 */
@@ -278,6 +260,8 @@ static int DoSimplePollTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 	/* Return failure if failed to submit the transfer
 	 */
 	if (!Retries) {
+		xdbg_printf(XDBG_DEBUG_ERROR,
+			    "Failed to submit the transfer with %d\r\n", Status);
 		return XST_FAILURE;
 	}
 
@@ -308,6 +292,7 @@ static int DoSimplePollTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 
 		/* Reset has failed, print a message to notify the user
 		 */
+		xdbg_printf(XDBG_DEBUG_ERROR, "Reset done failed\r\n");
 		return XST_FAILURE;
 	}
 
@@ -344,12 +329,13 @@ static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length)
 	/* Invalidate the DestBuffer before receiving the data, in case the
 	 * Data Cache is enabled
 	 */
-#ifndef __aarch64__
 	Xil_DCacheInvalidateRange((UINTPTR)DestPtr, Length);
-#endif
 
 	for (Index = 0; Index < Length; Index++) {
 		if ( DestPtr[Index] != SrcPtr[Index]) {
+			xdbg_printf(XDBG_DEBUG_ERROR,
+			    "Data check failure %d: %x/%x\r\n",
+			    Index, DestPtr[Index], SrcPtr[Index]);
 			return XST_FAILURE;
 		}
 	}

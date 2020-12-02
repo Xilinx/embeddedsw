@@ -1,34 +1,12 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal 
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF 
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /******************************************************************************/
 /**
  * @file xusbps.c
-* @addtogroup usbps_v2_4
+* @addtogroup usbps_v2_6
 * @{
  *
  * The XUsbPs driver. Functions in this file are the minimum required
@@ -43,7 +21,8 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- --------------------------------------------------------
  * 1.00a jz  10/10/10 First release
- * 2.1   kpc 04/28/14 Removed ununsed functions
+ * 2.1   kpc 04/28/14 Removed unused functions
+ * 2.5   pm  02/20/20 Added usb state interface.
  * </pre>
  ******************************************************************************/
 
@@ -80,12 +59,12 @@
 *		of the device.
 * 		For systems that do not support virtual memory this address
 * 		should be the physical address of the device. For backwards
-* 		compatibilty NULL may be passed in systems that do not support
+* 		compatibility NULL may be passed in systems that do not support
 * 		virtual memory (deprecated).
 *
 * @return
-*		- XST_SUCCESS no errors occured.
-*		- XST_FAILURE an error occured during initialization.
+*		- XST_SUCCESS no errors occurred.
+*		- XST_FAILURE an error occurred during initialization.
 *
 * @note
 *		After calling XUsbPs_CfgInitialize() the controller
@@ -329,7 +308,7 @@ int XUsbPs_RequestHostResume(const XUsbPs *InstancePtr)
 *
 * @return
 *		- XST_SUCCESS: Address set successfully.
-*		- XST_FAILURE: An error occured.
+*		- XST_FAILURE: An error occurred.
 *		- XST_INVALID_PARAM: Invalid parameter passed, e.g. address
 *		value too big.
 *
@@ -340,6 +319,12 @@ int XUsbPs_SetDeviceAddress(XUsbPs *InstancePtr, u8 Address)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
+	if ((InstancePtr->AppData != NULL) &&
+			(InstancePtr->AppData->State ==
+					XUSBPS_STATE_CONFIGURED)) {
+		return XST_FAILURE;
+	}
+
 	/* Check address range validity. */
 	if (Address > XUSBPS_DEVICEADDR_MAX) {
 		return XST_INVALID_PARAM;
@@ -347,13 +332,19 @@ int XUsbPs_SetDeviceAddress(XUsbPs *InstancePtr, u8 Address)
 
 	/* Set the address register with the Address value provided. Also set
 	 * the Address Advance Bit. This will cause the address to be set only
-	 * after an IN occured and has been ACKed on the endpoint.
+	 * after an IN occurred and has been ACKed on the endpoint.
 	 */
 	XUsbPs_WriteReg(InstancePtr->Config.BaseAddress,
 				XUSBPS_DEVICEADDR_OFFSET,
 			 	(Address << XUSBPS_DEVICEADDR_ADDR_SHIFT) |
 			 	XUSBPS_DEVICEADDR_DEVICEAADV_MASK);
 
+	if (InstancePtr->AppData != NULL) {
+		if (Address)
+			InstancePtr->AppData->State = XUSBPS_STATE_ADDRESS;
+		else
+			InstancePtr->AppData->State = XUSBPS_STATE_DEFAULT;
+	}
 	return XST_SUCCESS;
 }
 

@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2014 - 2017 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -40,7 +18,7 @@
 * 5.0 	pkp  05/29/14 First release
 * 5.5	pkp	 04/15/16 Updated the Xil_DCacheInvalidate,
 *					  Xil_DCacheInvalidateLine and Xil_DCacheInvalidateRange
-*					  functions description for proper explaination
+*					  functions description for proper explanation
 * 6.2   pkp	 01/22/17 Added support for EL1 non-secure
 * 6.2   asa  01/31/17 The existing Xil_DCacheDisable API first flushes the
 *					  D caches and then disables it. The problem with that is,
@@ -62,7 +40,7 @@
 * 6.6  mus  02/27/18  Updated Xil_DCacheInvalidateRange and
 *					  Xil_ICacheInvalidateRange APIs to change the data type of
 *					  "cacheline" variable as "INTPTR", This change has been done
-*					  to avoid the truncation of upper DDR addreses to 32 bit.It
+*					  to avoid the truncation of upper DDR addresses to 32 bit.It
 *					  fixes CR#995581.
 * 6.6  mus  03/15/18  By default CPUACTLR_EL1 is accessible only from EL3, it
 *					  results into abort if accessed from EL1 non secure privilege
@@ -75,8 +53,13 @@
 *                     CR-1008926.
 * 7.0 mus  10/12/18  Updated Xil_DCacheInvalidateLine and Xil_DCacheInvalidateRange
 *                    APIs to replace IVAC instruction with CIVAC. So that, these
-*                    APIs will always do flush + invalidate incase of Cortexa53 as
+*                    APIs will always do flush + invalidate in case of Cortexa53 as
 *                    well as Cortexa72 processor.
+* 7.1 mus  09/17/19  Xil_DCacheFlushRange and Xil_DCacheInvalidateRange are executing 
+*                    same functionality (clean + validate). Removed 
+*                    Xil_DCacheFlushRange function implementation and defined it as
+*                    macro. Xil_DCacheFlushRange macro points to the
+*                    Xil_DCacheInvalidateRange API to avoid code duplication.
 *
 * </pre>
 *
@@ -272,7 +255,7 @@ void Xil_DCacheDisable(void)
 *
 * @return	None.
 *
-* @note		In Cortex-A53, functionality to simply invalide the cachelines
+* @note		In Cortex-A53, functionality to simply invalid the cachelines
 *  			is not present. Such operations are a problem for an environment
 * 			that supports virtualisation. It would allow one OS to invalidate
 * 			a line belonging to another OS. This could lead to the other OS
@@ -379,7 +362,7 @@ void Xil_DCacheInvalidate(void)
 *
 * @return	None.
 *
-* @note		In Cortex-A53, functionality to simply invalide the cachelines
+* @note		In Cortex-A53, functionality to simply invalid the cachelines
 *  			is not present. Such operations are a problem for an environment
 * 			that supports virtualisation. It would allow one OS to invalidate
 * 			a line belonging to another OS. This could lead to the other OS
@@ -419,7 +402,7 @@ void Xil_DCacheInvalidateLine(INTPTR adr)
 *
 * @return	None.
 *
-* @note		In Cortex-A53, functionality to simply invalide the cachelines
+* @note		In Cortex-A53, functionality to simply invalid the cachelines
 *  			is not present. Such operations are a problem for an environment
 * 			that supports virtualisation. It would allow one OS to invalidate
 * 			a line belonging to another OS. This could lead to the other OS
@@ -438,11 +421,11 @@ void Xil_DCacheInvalidateRange(INTPTR  adr, INTPTR len)
 	if (len != 0U) {
 		while (adr < end) {
 			mtcpdc(CIVAC,adr);
-			/* Wait for invalidate to complete */
-			dsb();
 			adr += cacheline;
 		}
 	}
+	/* Wait for invalidate to complete */
+	dsb();
 	mtcpsr(currmask);
 }
 
@@ -576,63 +559,6 @@ void Xil_DCacheFlushLine(INTPTR  adr)
 	mtcpdc(CIVAC,(adr & (~0x3F)));
 	/* Wait for flush to complete */
 	dsb();
-	mtcpsr(currmask);
-}
-/****************************************************************************/
-/*
-* @brief	Flush the Data cache for the given address range.
-* 			If the bytes specified by the address range are cached by the Data
-* 			cache, the cachelines containing those bytes are invalidated. If
-* 			the cachelines are modified (dirty), they are written to system
-* 			memory before the lines are invalidated.
-*
-* @param	adr: 64bit start address of the range to be flushed.
-* @param	len: Length of the range to be flushed in bytes.
-*
-* @return	None.
-*
-* @note		None.
-*
-****************************************************************************/
-void Xil_DCacheFlushRange(INTPTR  adr, INTPTR len)
-{
-	const u32 cacheline = 64U;
-	INTPTR end;
-	INTPTR tempadr = adr;
-	INTPTR tempend;
-	u32 currmask;
-	currmask = mfcpsr();
-	mtcpsr(currmask | IRQ_FIQ_MASK);
-	if (len != 0x00000000U) {
-		end = tempadr + len;
-		tempend = end;
-		if ((tempadr & (0x3F)) != 0) {
-			tempadr &= ~(0x3F);
-			Xil_DCacheFlushLine(tempadr);
-			tempadr += cacheline;
-		}
-		if ((tempend & (0x3F)) != 0) {
-			tempend &= ~(0x3F);
-			Xil_DCacheFlushLine(tempend);
-		}
-
-		while (tempadr < tempend) {
-			/* Select cache level 0 and D cache in CSSR */
-			mtcp(CSSELR_EL1,0x0);
-			/* Flush Data cache line */
-			mtcpdc(CIVAC,(tempadr & (~0x3F)));
-			/* Wait for flush to complete */
-			dsb();
-			/* Select cache level 1 and D cache in CSSR */
-			mtcp(CSSELR_EL1,0x2);
-			/* Flush Data cache line */
-			mtcpdc(CIVAC,(tempadr & (~0x3F)));
-			/* Wait for flush to complete */
-			dsb();
-			tempadr += cacheline;
-		}
-	}
-
 	mtcpsr(currmask);
 }
 

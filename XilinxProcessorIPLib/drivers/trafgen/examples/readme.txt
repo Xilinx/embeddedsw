@@ -25,7 +25,7 @@ For details, see xtrafgen_polling_example.c.
 @section ex4 xtrafgen_static_mode_example.c
 Contains an example on how to use the XTrafgen driver directly.
 This example demonstrates  how to use the Static mode in this driver.
-In Static mode the core continously genrates fixed address and fixed
+In Static mode the core continuously generates fixed address and fixed
 INCR type read and write transfers based on the burst length configured.
 
 For details, see xtrafgen_static_mode_example.c.

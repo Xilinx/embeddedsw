@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2016 - 2019 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 * @file xwdttb_winwdt_example.c
@@ -44,6 +22,11 @@
 * ----- ---- -------- -----------------------------------------------
 * 4.0   sha  02/04/16 First release.
 * 4.4   sne  03/04/19 Added support for Versal.
+* 4.5	sne  09/27/19 Updated example file to support AXI Timebase WDT
+*		      and WWDT.
+* 5.0	sne  03/11/20 Added XWdtTb_ConfigureWDTMode api to configure
+*		      mode.
+*
 * </pre>
 *
 *****************************************************************************/
@@ -91,10 +74,8 @@
 						  *  second window */
 #define WDTTB_BYTE_COUNT	154		/**< Selected byte count */
 #define WDTTB_BYTE_SEGMENT	2		/**< Byte segment selected */
-#ifdef versal
-#define WDTTB_SST_COUNT     0x00001000      /**< Number of clock cycles for
+#define WDTTB_SST_COUNT     0x00011000      /**< Number of clock cycles for
                                                       Second sequence Timer */
-#endif
 /**************************** Type Definitions *******************************/
 
 
@@ -139,7 +120,7 @@ int main(void)
 		return XST_FAILURE;
 	}
 
-	xil_printf("Window WDT example ran successfully\n\r");
+	xil_printf("Successfully ran Window WDT example.\n\r");
 
 	return XST_SUCCESS;
 }
@@ -192,9 +173,12 @@ int WinWdtTbExample(u16 DeviceId)
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-#ifdef versal
-        WatchdogTimebase.EnableWinMode=1; /*Enable Window Watchdog Feature */
-#endif
+
+	if(!WatchdogTimebase.Config.IsPl) {
+		/*Enable Window Watchdog Feature in WWDT */
+		XWdtTb_ConfigureWDTMode(&WatchdogTimebase, XWT_WWDT);
+	}
+
 	/*
 	 * Perform a self-test to ensure that the hardware was built
 	 * correctly
@@ -215,10 +199,12 @@ int WinWdtTbExample(u16 DeviceId)
 	/* Configure first and second window */
 	XWdtTb_SetWindowCount(&WatchdogTimebase, WDTTB_FW_COUNT,
 		WDTTB_SW_COUNT);
-#ifdef versal
+
 #if (WDTTB_EN_SST)
-        XWdtTb_SetSSTWindow(&WatchdogTimebase, WDTTB_SST_COUNT);
-#endif
+	/* Configure Second sequence timer */
+	if(!WatchdogTimebase.Config.IsPl) {
+		XWdtTb_SetSSTWindow(&WatchdogTimebase, WDTTB_SST_COUNT);
+	}
 #endif
 	/* Set interrupt position */
 	XWdtTb_SetByteCount(&WatchdogTimebase, WDTTB_BYTE_COUNT);
@@ -237,8 +223,13 @@ int WinWdtTbExample(u16 DeviceId)
 	XWdtTb_EnablePsm(&WatchdogTimebase);
 
 	/* Write TSR0 with signature */
-	XWdtTb_WriteReg(WatchdogTimebase.Config.BaseAddr, XWT_TSR0_OFFSET,
-		WDTTB_TSR_VAL);
+	if(WatchdogTimebase.Config.IsPl) {
+		XWdtTb_WriteReg(WatchdogTimebase.Config.BaseAddr, XWT_TSR0_OFFSET,
+			WDTTB_TSR_VAL);
+	} else {
+		XWdtTb_WriteReg(WatchdogTimebase.Config.BaseAddr, XWT_TSR0_WWDT_OFFSET,
+			WDTTB_TSR_VAL);
+	}
 #else
 	/* Disable Program Sequence Monitor (PSM) */
 	XWdtTb_DisablePsm(&WatchdogTimebase);
@@ -276,9 +267,13 @@ int WinWdtTbExample(u16 DeviceId)
 			XWdtTb_SetRegSpaceAccessMode(&WatchdogTimebase, 1);
 
 			/* Write TSR1 with signature */
-			XWdtTb_WriteReg(WatchdogTimebase.Config.BaseAddr,
-				XWT_TSR1_OFFSET, WDTTB_TSR_VAL);
-
+			if(WatchdogTimebase.Config.IsPl) {
+				XWdtTb_WriteReg(WatchdogTimebase.Config.BaseAddr,
+					XWT_TSR1_OFFSET, WDTTB_TSR_VAL);
+			} else {
+				XWdtTb_WriteReg(WatchdogTimebase.Config.BaseAddr,
+					XWT_TSR1_WWDT_OFFSET, WDTTB_TSR_VAL);
+			}
 			/* Set register space to read-only */
 			XWdtTb_SetRegSpaceAccessMode(&WatchdogTimebase, 0);
 #endif
@@ -327,9 +322,15 @@ int WinWdtTbExample(u16 DeviceId)
 
 	/* Clear reset pending */
 	XWdtTb_ClearResetPending(&WatchdogTimebase);
-	xil_printf("\n\rSST counter value is 0x%x\n\r",
-		XWdtTb_ReadReg(WatchdogTimebase.Config.BaseAddr,
-			XWT_STR_OFFSET));
+	if(WatchdogTimebase.Config.IsPl) {
+		xil_printf("\n\rSST counter value is 0x%x\n\r",
+			XWdtTb_ReadReg(WatchdogTimebase.Config.BaseAddr,
+				XWT_STR_OFFSET));
+	} else {
+		xil_printf("\n\rSST counter value is 0x%x\n\r",
+			XWdtTb_ReadReg(WatchdogTimebase.Config.BaseAddr,
+				XWT_STR_WWDT_OFFSET));
+	}
 #endif
 	return XST_SUCCESS;
 }

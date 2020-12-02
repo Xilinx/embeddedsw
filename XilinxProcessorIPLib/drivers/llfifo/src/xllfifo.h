@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2005 - 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2005 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
  *
  * @file xllfifo.h
-* @addtogroup llfifo_v5_3
+* @addtogroup llfifo_v5_5
 * @{
 * @details
  *
@@ -116,7 +94,7 @@
  *
  * This FIFO hardware core does <b>not</b> support a sequence where the
  * calling code writes the data for two frames and then calls iTxSetLen()
- * twice in a row. Each frame must be written by writting the data for one
+ * twice in a row. Each frame must be written by writing the data for one
  * frame and then calling iTxSetLen().
  *
  * <h2>Interrupts</h2>
@@ -156,8 +134,8 @@
  * 		      In XLlfifo.h file updated XLlfifo structure for
  * 		      Axi4BaseAddress and for Datainterface type provided
  *		      polling and interrupt examples. XLlfifo_IsRxDone Macro
- *		      Is added in the XLlfifo.h file for polledmode exmaple.
- *		      Added Static initialzation for the driver.
+ *		      Is added in the XLlfifo.h file for polledmode example.
+ *		      Added Static initialization for the driver.
  *		      XLlFifo_Initialize is still used to make the driver
  *		      backward compatible.
  * 4.0   adk  19/12/13 Updated as per the New Tcl API's
@@ -183,6 +161,7 @@
  * 5.2 adk    03/07/17 CR#978769 Fix doxygen issues in the driver.
  *		       Updated comments in the usage section as per example code.
  *		       Fix doxygen warnings in the driver.
+ * 5.5 sd     09/04/20  Makefile update for parallel execution.
  * </pre>
  *
  *****************************************************************************/

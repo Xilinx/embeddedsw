@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xscugic_intr.c
-* @addtogroup scugic_v4_0
+* @addtogroup scugic_v4_3
 * @{
 *
 * This file contains the interrupt processing for the driver for the Xilinx
@@ -117,7 +95,7 @@ void XScuGic_InterruptHandler(XScuGic *InstancePtr)
 {
 
 	u32 InterruptID;
-#if !defined (versal) || defined (ARMR5)
+#if !defined (GICv3)
 	    u32 IntIDFull;
 #endif
 	    XScuGic_VectorTableEntry *TablePtr;
@@ -131,7 +109,7 @@ void XScuGic_InterruptHandler(XScuGic *InstancePtr)
 	     * interrupt ID and make sure it is valid. Reading Int_Ack will
 	     * clear the interrupt in the GIC.
 	     */
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 	    InterruptID = XScuGic_get_IntID();
 #else
 	    IntIDFull = XScuGic_CPUReadReg(InstancePtr, XSCUGIC_INT_ACK_OFFSET);
@@ -171,7 +149,7 @@ IntrExit:
 	     * Write to the EOI register, we are all done here.
 	     * Let this function return, the boot code will restore the stack.
 	     */
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 	   XScuGic_ack_Int(InterruptID);
 
 #else

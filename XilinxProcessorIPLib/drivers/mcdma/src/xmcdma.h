@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xmcdma.h
-* @addtogroup mcdma_v1_3
+* @addtogroup mcdma_v1_5
 * @{
 * @details
 *
@@ -141,6 +119,8 @@
 * 1.3   rsp     02/12/19 Add HasRxLength field in config and channel structure.
 * 1.3   rsp     02/11/19 Add top level submit XMcDma_Chan_Sideband_Submit() API
 *                        to program BD control and sideband information.
+* 1.5	sk	07/13/20 Add XMcDma_BdGetAppWord() function declaration to fix
+* 			 the gcc warning in mcdma integration test suite.
 ******************************************************************************/
 #ifndef XMCDMA_H_
 #define XMCDMA_H_
@@ -388,7 +368,7 @@ typedef struct {
 
 /*****************************************************************************/
 /**
-* Get's global Packet drop Count
+* Gets global Packet drop Count
 *
 * @param	Chan is the MCDMA Channel to be worked on.
 *
@@ -634,6 +614,7 @@ void XMcDma_BdSetCtrl(XMcdma_Bd *BdPtr, u32 Data);
 void XMcDma_DumpBd(XMcdma_Bd* BdPtr);
 
 int XMcDma_BdSetAppWord(XMcdma_Bd* BdPtr, int Offset, u32 Word);
+u32 XMcDma_BdGetAppWord(XMcdma_Bd* BdPtr, int Offset, int *Valid);
 
 /* Global OR'ed Single interrupt */
 void XMcdma_IntrHandler(void *Instance);

@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 19 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -42,7 +20,7 @@
 * 2.0   bv   12/02/16 Made compliance to MISRAC 2012 guidelines
 *       bo   01/25/17 Fixed Vector regions overwritten in R5 FSBL
 *       vns  03/01/17 Enhanced security of bitstream authentication
-*                     Modified endianess of IV as APIs are modified in Xilsecure
+*                     Modified endianness of IV as APIs are modified in Xilsecure
 *                     While loading bitstream clearing of PL is skipped
 *                     when PL is already cleared at initialize.
 *                     Updated destination cpu for PMUFW.
@@ -58,6 +36,9 @@
 *                     internal memory), using same way for non authenticated
 *                     case as well.
 *       mus  02/26/19 Added support for armclang compiler.
+*       skd  02/02/20 Added register writes to PMU GLOBAL to indicate PL configuration
+*       har  09/22/20 Removed checks for IsCheckSumEnabled with authentication
+*                     and encryption
 *
 * </pre>
 *
@@ -85,6 +66,13 @@
 #define XFSBL_R5_LOVEC		(u32)(0x0U)
 #define XFSBL_SET_R5_SCTLR_VECTOR_BIT   (u32)(1<<13)
 #define XFSBL_PARTITION_IV_MASK  (0xFFU)
+#ifdef XFSBL_BS
+#define XFSBL_STATE_MASK	0x00FF0000U
+#define XFSBL_STATE_SHIFT	16U
+#define XFSBL_FIRMWARE_STATE_UNKNOWN	0U
+#define XFSBL_FIRMWARE_STATE_SECURE	1U
+#define XFSBL_FIRMWARE_STATE_NONSECURE	2U
+#endif
 
 /************************** Function Prototypes ******************************/
 static u32 XFsbl_PartitionHeaderValidation(XFsblPs * FsblInstancePtr,
@@ -100,16 +88,18 @@ static u32 XFsbl_GetLoadAddress(u32 DestinationCpu, PTRSIZE * LoadAddressPtr,
 		u32 Length);
 static void XFsbl_CheckPmuFw(const XFsblPs * FsblInstancePtr, u32 PartitionNum);
 
+#ifdef XFSBL_BS
+static void XFsbl_SetBSSecureState(u32 State);
+#endif
+
 #ifdef XFSBL_ENABLE_DDR_SR
 static void XFsbl_PollForDDRReady(void);
 #endif
 
-#ifdef XFSBL_SECURE
 static u32 XFsbl_CalcualteCheckSum(XFsblPs* FsblInstancePtr,
 		PTRSIZE LoadAddress, u32 PartitionNum);
 static u32 XFsbl_CalcualteSHA(const XFsblPs* FsblInstancePtr,
 		PTRSIZE LoadAddress, u32 PartitionNum, u32 ShaType);
-#endif
 
 #ifdef ARMR5
 static void XFsbl_SetR5ExcepVectorHiVec(void);
@@ -160,7 +150,7 @@ u32 XFsbl_PartitionLoad(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 #endif
 
 #ifdef XFSBL_WDT_PRESENT
-	if (FsblInstancePtr->ResetReason != XFSBL_APU_ONLY_RESET) {
+	if (XFSBL_MASTER_ONLY_RESET != FsblInstancePtr->ResetReason) {
 		/* Restart WDT as partition copy can take more time */
 		XFsbl_RestartWdt();
 	}
@@ -443,7 +433,7 @@ u32 XFsbl_PowerUpMemory(u32 MemoryType)
 
 			/**
 			 * Provide some delay,
-			 * so that clock propogates properly.
+			 * so that clock propagates properly.
 			 */
 			(void)usleep(0x50U);
 
@@ -496,7 +486,7 @@ u32 XFsbl_PowerUpMemory(u32 MemoryType)
 
 			/**
 			 * Provide some delay,
-			 * so that clock propogates properly.
+			 * so that clock propagates properly.
 			 */
 			(void )usleep(0x50U);
 
@@ -560,7 +550,7 @@ u32 XFsbl_PowerUpMemory(u32 MemoryType)
 
                         /**
                          * Provide some delay,
-                         * so that clock propogates properly.
+                         * so that clock propagates properly.
                          */
                         (void )usleep(0x50U);
 
@@ -584,6 +574,21 @@ END:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * This function validates the load address for R5 elfs and maps it to global
+ * physical TCM address space so that any cpu can access it globally.
+ *
+ * @param       DestinationCpu is the cpu on which partition will run
+ *
+ * @param       LoadAddress will be updated according to the cpu and address
+ *
+ * @param       Length of the data to be copied. This is required only to
+ *              check for error cases
+ *
+ * @return      returns the error codes described in xfsbl_error.h on any error
+ *                      returns XFSBL_SUCCESS on success
+ *****************************************************************************/
 static u32 XFsbl_GetLoadAddress(u32 DestinationCpu, PTRSIZE * LoadAddressPtr, u32 Length)
 {
 	u32 Status;
@@ -679,7 +684,7 @@ END:
  * cpu. For R5 cpu's TCM address is remapped to the higher TCM address
  * so that any cpu can globally access it
  *
- * @param	DestinationCpu is the cpu which partition will run
+ * @param	DestinationCpu is the cpu on which partition will run
  *
  * @param	LoadAddress will be updated according to the cpu and address
  *
@@ -1112,7 +1117,7 @@ END:
 static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 						u32 PartitionNum)
 {
-	u32 Status;
+	u32 Status = XFSBL_FAILURE;
 	u32 IsEncryptionEnabled;
 	u32 IsAuthenticationEnabled;
 	u32 IsChecksumEnabled;
@@ -1121,13 +1126,13 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	u32 ExecState;
 	u32 CpuNo;
 	XFsblPs_PartitionHeader * PartitionHeader;
+	u32 Length;
 
 #if defined(XFSBL_SECURE)
 	s32 SStatus;
 	u32 FsblIv[XIH_BH_IV_LENGTH / 4U] = { 0 };
 	u8 *IvPtr = (u8 *)&FsblIv[2];
 	u32 UnencryptedLength = 0U;
-	u32 Length;
 	static XSecure_Aes SecureAes;
 #ifdef XFSBL_BS
 	XFsblPs_PlPartition PlParams = {0};
@@ -1237,9 +1242,11 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 #endif
 
 #ifdef XFSBL_SECURE
-	if ((IsAuthenticationEnabled == TRUE) || (IsEncryptionEnabled == TRUE) ||
-			(IsChecksumEnabled == TRUE))
-	{
+	if ((IsChecksumEnabled == TRUE) || (IsAuthenticationEnabled == TRUE) ||
+			(IsEncryptionEnabled == TRUE))	{
+#else
+	if ((IsChecksumEnabled == TRUE)) {
+#endif
 		Length = PartitionHeader->TotalDataWordLength * 4U;
 		Status = XFsbl_GetLoadAddress(DestinationCpu,
 				&LoadAddress, Length);
@@ -1248,7 +1255,6 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 			goto END;
 		}
 	}
-#endif
 
 #ifdef XFSBL_BS
 	if ((DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PL) &&
@@ -1311,9 +1317,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 #endif
 
 	/* Checksum verification */
-	if (IsChecksumEnabled == TRUE)
-	{
-#ifdef XFSBL_SECURE
+	if (IsChecksumEnabled == TRUE) {
 		Status = XFsbl_CalcualteCheckSum(FsblInstancePtr,
 				LoadAddress, PartitionNum);
 		if (Status != XFSBL_SUCCESS) {
@@ -1322,11 +1326,6 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 			Status = XFSBL_ERROR_PARTITION_CHECKSUM_FAILED;
 			goto END;
 		}
-#else
-		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_SECURE_NOT_ENABLED \r\n");
-		Status = XFSBL_ERROR_SECURE_NOT_ENABLED;
-		goto END;
-#endif
 	}
 
 	/**
@@ -1605,6 +1604,17 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		/* Reset PL, if configured for */
 		(void)psu_ps_pl_reset_config_data();
 
+		/* Update PMU_GLOBAL_GEN_STORE Register */
+#ifdef XFSBL_SECURE
+		if ((IsAuthenticationEnabled == TRUE) || (IsEncryptionEnabled == TRUE))
+		{
+			XFsbl_SetBSSecureState(XFSBL_FIRMWARE_STATE_SECURE);
+		} else
+#endif
+		{
+			XFsbl_SetBSSecureState(XFSBL_FIRMWARE_STATE_NONSECURE);
+		}
+
 		/**
 		 * Fsbl hook after bit stream download
 		 */
@@ -1711,7 +1721,26 @@ static void XFsbl_CheckPmuFw(const XFsblPs* FsblInstancePtr, u32 PartitionNum)
 
 }
 
-#ifdef XFSBL_SECURE
+#ifdef XFSBL_BS
+/*****************************************************************************/
+/** Sets the library firmware state
+ *
+ * @param	State BS firmware state
+ *
+ * @return	None
+ *****************************************************************************/
+static void XFsbl_SetBSSecureState(u32 State)
+{
+	u32 RegVal;
+
+	/* Set Firmware State in PMU GLOBAL GEN STORAGE Register */
+	RegVal = Xil_In32(PMU_GLOBAL_GLOB_GEN_STORAGE5);
+	RegVal &= ~XFSBL_STATE_MASK;
+	RegVal |= State << XFSBL_STATE_SHIFT;
+	Xil_Out32(PMU_GLOBAL_GLOB_GEN_STORAGE5, RegVal);
+}
+#endif
+
 /*****************************************************************************/
 /**
  * This function validates the partition
@@ -1881,7 +1910,6 @@ static u32 XFsbl_CalcualteSHA(const XFsblPs * FsblInstancePtr, PTRSIZE LoadAddre
 	}
 	return Status;
 }
-#endif  /* end of XFSBL_SECURE */
 
 #ifdef XFSBL_ENABLE_DDR_SR
 /*****************************************************************************/
@@ -1896,7 +1924,7 @@ static u32 XFsbl_CalcualteSHA(const XFsblPs * FsblInstancePtr, PTRSIZE LoadAddre
 static void XFsbl_PollForDDRSrExit(void)
 {
 	u32 RegValue;
-	/* Timeout count for arround 1 second */
+	/* Timeout count for around 1 second */
 	u32 TimeOut = XPAR_PSU_CORTEXA53_0_CPU_CLK_FREQ_HZ;
 
 	/* Wait for DDR exit from self refresh mode within 1 second */
@@ -1941,7 +1969,7 @@ static void XFsbl_PollForDDRReady(void)
 		RegValue = Xil_In32(XFSBL_DDR_STATUS_REGISTER_OFFSET) &
 			DDR_STATUS_FLAG_MASK;
 		if (RegValue) {
-			/* Wait untill DDR exit from self refresh */
+			/* Wait until DDR exits from self refresh */
 			XFsbl_PollForDDRSrExit();
 			/*
 			 * Mark DDR region as "Memory" as DDR initialization is
@@ -1959,7 +1987,7 @@ static void XFsbl_PollForDDRReady(void)
 /**
  * This function set the vector bit of SCTLR.
  * It will configure R5,so that R5 will jump to
- * HIVEC when exeption arise.
+ * HIVEC when exception arise.
  *
  * @param	None
  *
@@ -1979,7 +2007,7 @@ static void XFsbl_SetR5ExcepVectorHiVec(void)
 /**
  * This function reset the vector bit of SCTLR.
  * It will configure R5,so that R5 will jump to
- * LOVEC when exeption arise.
+ * LOVEC when exception arise.
  *
  * @param	None
  *

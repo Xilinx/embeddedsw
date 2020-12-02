@@ -28,7 +28,7 @@
   <td style="padding-left: 0.5em;">
    <div id="projectname">qspipsu
    </div>
-   <div id="projectbrief">Xilinx SDK Drivers API Documentation</div>
+   <div id="projectbrief">Xilinx Vitis Drivers API Documentation</div>
   </td>
  </tr>
  </tbody>
@@ -100,7 +100,8 @@ $(document).ready(function(){initNavTree('xqspipsu__generic__flash__polled__exam
  1.8    tjs 16/07/18 Added support for the low density ISSI flash parts.
  1.9   akm 02/27/19 Added support for IS25LP128, IS25WP128, IS25LP256,
                      IS25WP256, IS25LP512, IS25WP512 Flash Devices
- 1.9   akm 03/26/19 Fixed data alignment warnings on IAR compiler.</pre><pre></pre> </div><table class="memberdecls">
+ 1.9   akm 04/03/19 Fixed data alignment warnings on IAR compiler.
+ 1.10  akm 09/05/19 Added Multi Die Erase and Muti Die Read support.</pre><pre></pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ac7a0e7a44578f580f46491eb6f6ce726"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xqspipsu__generic__flash__polled__example_8c.html#ac7a0e7a44578f580f46491eb6f6ce726">QspiPsuPolledFlashExample</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *QspiPsuInstancePtr, u16 QspiPsuDeviceId)</td></tr>
@@ -118,6 +119,9 @@ Functions</h2></td></tr>
 <tr class="memitem:aaaad34739d0ad6d1fb5436c1d6428463"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xqspipsu__generic__flash__polled__example_8c.html#aaaad34739d0ad6d1fb5436c1d6428463">FlashRead</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command, u8 *WriteBfrPtr, u8 *ReadBfrPtr)</td></tr>
 <tr class="memdesc:aaaad34739d0ad6d1fb5436c1d6428463"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs read.  <a href="#aaaad34739d0ad6d1fb5436c1d6428463"></a><br/></td></tr>
 <tr class="separator:aaaad34739d0ad6d1fb5436c1d6428463"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6007218826af36e0df62b747de40de5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xqspipsu__generic__flash__polled__example_8c.html#aa6007218826af36e0df62b747de40de5">MultiDieRead</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command, u8 *WriteBfrPtr, u8 *ReadBfrPtr)</td></tr>
+<tr class="memdesc:aa6007218826af36e0df62b747de40de5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This functions performs a read operation for multi die flash devices.  <a href="#aa6007218826af36e0df62b747de40de5"></a><br/></td></tr>
+<tr class="separator:aa6007218826af36e0df62b747de40de5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af45c38b76bbabbaf848a33cdc889ebfb"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xqspipsu__generic__flash__polled__example_8c.html#af45c38b76bbabbaf848a33cdc889ebfb">GetRealAddr</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *QspiPsuPtr, u32 Address)</td></tr>
 <tr class="memdesc:af45c38b76bbabbaf848a33cdc889ebfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">This functions translates the address based on the type of interconnection.  <a href="#af45c38b76bbabbaf848a33cdc889ebfb"></a><br/></td></tr>
 <tr class="separator:af45c38b76bbabbaf848a33cdc889ebfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -666,6 +670,71 @@ Functions</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>None </dd></dl>
 
 <p>References <a class="el" href="xqspipsu__generic__flash__polled__64bit__dma__r5__example_8c.html#ac7a0e7a44578f580f46491eb6f6ce726">QspiPsuPolledFlashExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa6007218826af36e0df62b747de40de5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int MultiDieRead </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *&#160;</td>
+          <td class="paramname"><em>QspiPsuPtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>Address</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>ByteCount</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Command</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8 *&#160;</td>
+          <td class="paramname"><em>WriteBfrPtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8 *&#160;</td>
+          <td class="paramname"><em>ReadBfrPtr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This functions performs a read operation for multi die flash devices. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">QspiPtr</td><td>is a pointer to the QSPIPSU driver component to use. </td></tr>
+    <tr><td class="paramname">Address</td><td>contains the address of the first sector which needs to be erased. </td></tr>
+    <tr><td class="paramname">ByteCount</td><td>contains the total size to be erased. </td></tr>
+    <tr><td class="paramname">Command</td><td>is the command used to read data from the flash. Supports normal, fast, dual and quad read commands. </td></tr>
+    <tr><td class="paramname">Pointer</td><td>to the write buffer which contains data to be transmitted </td></tr>
+    <tr><td class="paramname">Pointer</td><td>to the read buffer to which valid received data should be written.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, else XST_FAILURE.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 </div>
 </div>

@@ -1,35 +1,13 @@
 /*******************************************************************************
- *
- * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /******************************************************************************/
 /**
  *
  * @file xdp_hw.h
- * @addtogroup dp_v7_0
+ * @addtogroup dp_v7_4
  * @{
  *
  * This header file contains the identifiers and low-level driver functions (or
@@ -474,6 +452,9 @@
 #define XDP_TX_SOFT_RESET_VIDEO_STREAM_ALL_MASK \
 				0x0000000F	/**< Reset video logic for all
 							streams. */
+#define XDP_TX_SOFT_RESET_HDCP_MASK \
+				0x00000100	/**< Reset HDCP logic. */
+
 /* 0x0D0: TX_MST_CONFIG */
 #define XDP_TX_MST_CONFIG_MST_EN_MASK \
 				0x00000001	/**< Enable MST. */
@@ -614,6 +595,10 @@
 							transmitted and the core
 							is ready to accept a new
 							packet. */
+#define XDP_TX_INTERRUPT_STATUS_VBLANK_STREAM1_MASK \
+				0x00000400	/** < For every Vsync
+							interrupt is generated */
+
 /* 0x144: INTERRUPT_MASK */
 #define XDP_TX_INTERRUPT_MASK_HPD_IRQ_MASK \
 				0x00000001	/**< Mask HPD IRQ interrupt. */
@@ -884,10 +869,28 @@
 #define XDP_TX_GT_DRP_COMMAND_DRP_W_DATA_SHIFT \
 				16		/**< Shift bits for DRP write
 							data. */
+/* 0x330: XDP_TX_AUDIO_EXT_DATA */
+#define XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420 \
+				0x3		/**< Stream's component format
+							is YcbCr 4:2:0. */
+#define XDP_TX_MAIN_VSC_SDP_BDC_MASK \
+				0x07	/**< Bits Per Component
+							mask */
+#define XDP_TX_MAIN_VSC_SDP_COMPONENT_FORMAT_SHIFT \
+				0x4		/**< component format shift */
+#define XDP_TX_MAIN_VSC_SDP_DYNAMIC_RANGE_SHIFT \
+				0x7		/**< Dynamic Range Shift */
+#define XDP_TX_MAIN_VSC_SDP_YCBCR_COLORIMETRY_MASK \
+				0x0F	/**< YCbCr Colorimetry
+							mask */
+#define XDP_TX_AUDIO_EXT_DATA_DB16_TO_DB18	4
+#define XDP_TX_AUDIO_EXT_DATA_DB16		0xFF
+#define XDP_TX_AUDIO_EXT_DATA_DB17		0xFF00
 /* 0x400: XDP_TX_HDCP_ENABLE */
 #define XDP_TX_HDCP_ENABLE_BYPASS_DISABLE_MASK \
 				0x0001		/**< Disables bypass of the
 							HDCP core. */
+
 /* 0x404: XDP_TX_HDCP22_ENABLE */
 #define XDP_TX_HDCP22_ENABLE_BYPASS_DISABLE_MASK \
 	1		/**< Disables bypass of the
@@ -979,11 +982,9 @@
 #define XDP_RX_INTERRUPT_CAUSE_1	0x048	/**< Indicates the cause of a
 							pending host interrupts
 							for streams 2, 3, 4. */
-#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
 #define XDP_RX_INTERRUPT_CAUSE_2	0x070	/**< Indicates the cause of
 						  pending host interrupts
-						  for DP RX HDCP22 */
-#endif
+						  for DP RX HDCP22, Adaptive-Sync */
 /* @} */
 
 #define XDP_RX_HSYNC_WIDTH		0x050	/**< Controls the timing of the
@@ -996,6 +997,9 @@
 							sync pulse generated
 							by the display timing
 							generator (DTG). */
+#define XDP_RX_INTERRUPT_MASK_2		0x005c	/**< Mask the specified
+							interrupt sources
+							for Adaptive-Sync */
 #define XDP_RX_FAST_I2C_DIVIDER		0x060	/**< Fast I2C mode clock divider
 							value. */
 #define XDP_RX_MST_ALLOC		0x06C	/**< Represents the content from
@@ -1133,6 +1137,9 @@
 							read data. */
 #define XDP_RX_GT_DRP_CH_STATUS		0x2A8	/**< Provides access to GT DRP
 							channel status. */
+#define XDP_RX_ADAPTIVE_VBLANK_VTOTAL	0x2F4	/**<  VTotal and VBlank
+						      of current video stream
+						      in Adaptive-Sync mode */
 /* @} */
 
 /** @name DPRX core registers: Audio.
@@ -1305,6 +1312,8 @@
 							offset from the
 							corresponding registers
 							of stream 1. */
+#define XDP_RX_SDP_PAYLOAD_STREAM1	0x0644	/**< VSC SDP payload data from
+							DB16 to DB18 */
 /* @} */
 
 /** @name DPRX core registers: DPCD registers for HDCP.
@@ -1372,6 +1381,22 @@
 	(1 << ((Stream) - XDP_TX_STREAM_ID1))	/**< Used to disable the end of
 							the line reset to the
 							internal video pipe. */
+/* 0x00c: RX_DTG_ENABLE */
+#define XDP_RX_ADAPTIVESYNC_SDP_SUPPORTED_MASK \
+					0x80	/**< Indicates DP protocol
+							converter is capable of
+							supporting Adaptive-Sync
+							SDP. */
+#define XDP_RX_MSA_TIMINGPAR_IGNORED_MASK \
+					0x40	/**< Indicates sink device is
+							capable of rendering
+							incoming video stream
+							without MSA timing
+							parameters. */
+#define XDP_RX_ADAPTIVESYNC_CAPS_MASK \
+					0xFFFFFF3F	/**< Adaptive-Sync
+								capability set
+								bit mask */
 /* 0x010: USER_PIXEL_WIDTH */
 #define XDP_RX_USER_PIXEL_WIDTH_1	0x1	/**< Single pixel wide
 							interface. */
@@ -1473,6 +1498,12 @@
 							assertion for rd access of
 							error counter 0x210-0x217 register
 							only in PRBS mode. */
+#define XDP_RX_INTERRUPT_MASK_ADAPTIVE_SYNC_SDP_MASK 0x80000000 /**< Mask the interrupt
+							assertion for the Adaptive-Sync
+							packet is received */
+#define XDP_RX_INTERRUPT_MASK_ADAPTIVE_SYNC_VB_MASK	 0x40000000 /**< Mask the interrupt
+							assertion for the Adaptive-Sync
+							vblank */
 /* DP 1.4 definitions end. */
 #define XDP_RX_INTERRUPT_MASK_HDCP_DEBUG_WRITE_MASK \
 					0x00080000 /**< Mask the interrupt
@@ -1523,6 +1554,9 @@
 #define XDP_RX_INTERRUPT_MASK_HDCP22_PAIRING_INFO_READ_MASK \
 	0x00000080 /**< Mask the interrupt for a write of the HDCP22
 		     Ake_Send_Pairing_Info message*/
+#define XDP_RX_INTERRUPT_MASK_HDCP22_STREAM_TYPE_MASK \
+	0x00000100 /**< Mask the interrupt for a write of the HDCP22
+		     Stream/content type message*/
 #endif
 #define XDP_RX_INTERRUPT_MASK_AUDIO_OVER_MASK \
 					0x08000000 /**< Mask the interrupt
@@ -1571,6 +1605,8 @@
 /* 0x01C: SOFT_RESET */
 #define XDP_RX_SOFT_RESET_VIDEO_MASK	0x01	/**< Reset the video logic. */
 #define XDP_RX_SOFT_RESET_AUX_MASK	0x80	/**< Reset the AUX logic. */
+#define XDP_RX_SOFT_RESET_HDCP_MASK	0x100	/**< Reset the HDCP logic. */
+#define XDP_RX_SOFT_RESET_HDCP22_MASK	0x200	/**< Reset the HDCP22 logic. */
 /* 0x02C: HPD_INTERRUPT */
 #define XDP_RX_HPD_INTERRUPT_ASSERT_MASK \
 				0x00000001	/**< Instructs the RX core to
@@ -1814,6 +1850,12 @@
 							porch). */
 #define XDP_RX_HSYNC_WIDTH_FRONT_PORCH_SHIFT 8	/**< Shift bits for the front
 							porch. */
+/* 0x005C: XDP_RX_INTERRUPT_MASK_2 */
+#define XDP_RX_ADAPTIVESYNC_SDP_VBLANK_INTERRUPT_MASK \
+					0xC0000000	/**< Adaptive-Sync SDP
+								and VBlank
+								interrupt mask.
+							*/
 /* 0x06C: MST_ALLOC */
 #define XDP_RX_MST_ALLOC_VCP_ID_MASK   0x00003F	/**< The virtual channel payload
 							ID that was issued as
@@ -2216,10 +2258,10 @@
 				0x1		/**< Hold adjust request to
 							SET_PE. */
 #define XDP_RX_MIN_VOLTAGE_SWING_CE_OPT_PE_TABLE \
-				0x2		/**< Pick pre-emphasis values
+				0x3		/**< Pick pre-emphasis values
 							from PE_TABLE. */
 #define XDP_RX_MIN_VOLTAGE_SWING_CE_OPT_VS_NA \
-				0x3		/**< Not applicable. */
+				0x2		/**< Not applicable. */
 #define XDP_RX_MIN_VOLTAGE_SWING_SET_PE_MASK \
 				0x003000	/**< Set pre-emphasis level. */
 #define XDP_RX_MIN_VOLTAGE_SWING_SET_PE_SHIFT 12 /**< Shift bits for
@@ -2244,8 +2286,53 @@
 #define XDP_RX_CDR_CONTROL_CONFIG_DISABLE_TIMEOUT \
 				0X40000000	/**< Timeout for MST mode. */
 
+/* 0x2F4: XDP_RX_ADAPTIVE_VBLANK_VTOTAL */
+#define XDP_RX_ADAPTIVE_VTOTAL_SHIFT		16
+#define XDP_RX_ADAPTIVE_VBLANK_MASK \
+				0x0000FFFF	/**< VBlank mask in Adaptive-
+							sync mode. */
 /* 0x300: AUDIO CONTROL */
 #define XDP_RX_AUDIO_CONTROL_LANEX_SET_SHIFT   4
+
+/* 0x330: RX_AUDIO_EXT_DATA */
+#define XDP_RX_AUDIO_EXT_DATA_DB16		0xFF
+#define XDP_RX_AUDIO_EXT_DATA_DB17		0xFF00
+#define XDP_RX_MAIN_VSC_SDP_YCBCR_COLORIMETRY_MASK \
+				0x0F	/**< YCbCr Colorimetry
+							mask */
+#define XDP_RX_MAIN_VSC_SDP_BDC_MASK \
+				0x07	/**< Bits Per Component
+							mask */
+#define XDP_RX_MAIN_VSC_SDP_COMPONENT_FORMAT_SHIFT \
+				0x4		/**< component format shift */
+#define XDP_RX_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420 \
+				0x3		/**< Stream's component format
+							is YcbCr 4:2:0. */
+
+
+/* 0x528: MSA MISC0 */
+#define XDP_RX_MAIN_STREAMX_MISC0_DYNAMIC_RANGE_MASK \
+				0x00000008	/**< Dynamic range. */
+#define XDP_RX_MAIN_STREAMX_MISC0_DYNAMIC_RANGE_SHIFT \
+				3		/**< Shift bits for dynamic
+							range. */
+#define XDP_RX_MAIN_VSC_SDP_DYNAMIC_RANGE_SHIFT \
+				0x7		/**< Dynamic Range Shift */
+
+#define XDP_RX_MAIN_STREAMX_MISC0_DYNAMIC_RANGE_VESA \
+				0		/**< VESA range. */
+#define XDP_RX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_BT601 \
+				0	   /**< ITU BT601 YCbCr coefficients. */
+#define XDP_RX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_BT709 \
+				1	   /**< ITU BT709 YCbCr coefficients. */
+#define XDP_RX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_SHIFT \
+				4		/**< Shift bits for YCbCr
+							colorimetry. */
+#define XDP_RX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_MASK \
+				0x00000010	/**< YCbCr colorimetry. */
+
+/* 0x52C: MSA_MISC1 */
+#define XDP_RX_XDP_MSA_TIMING_PAR_IGNORED_SHIFT		0x6
 
 /* Definitions for DP 1.4. */
 /* 0x43C: Link training status reg*/
@@ -2268,6 +2355,7 @@
 #define XDP_DPCD_REV						0x00000
 #define XDP_DPCD_MAX_LINK_RATE					0x00001
 #define XDP_EDID_DPCD_MAX_LINK_RATE				0x02201
+#define XDP_DPCD_FEATURE_ENUMERATION_LIST			0x02210
 #define XDP_DPCD_MAX_LANE_COUNT					0x00002
 #define XDP_DPCD_MAX_DOWNSPREAD					0x00003
 #define XDP_DPCD_NORP_PWR_V_CAP					0x00004
@@ -2282,7 +2370,6 @@
 #define XDP_DPCD_EDP_CFG_CAP					0x0000D
 #define XDP_DPCD_TRAIN_AUX_RD_INTERVAL				0x0000E
 #define XDP_DPCD_ADAPTER_CAP					0x0000F
-#define XDP_DPCD_FAUX_CAP					0x00020
 #define XDP_DPCD_MSTM_CAP					0x00021
 #define XDP_DPCD_NUM_AUDIO_EPS					0x00022
 #define	XDP_DPCD_AV_GRANULARITY					0x00023
@@ -2468,6 +2555,7 @@
 
 #define XDP_DPCD_TPS3_SUPPORT_MASK				0x40
 #define XDP_DPCD_ENHANCED_FRAME_SUPPORT_MASK			0x80
+#define VSC_SDP_EXTENSION_FOR_COLORIMETRY_SUPPORTED		0x08
 /* 0x00003: MAX_DOWNSPREAD */
 #define XDP_DPCD_MAX_DOWNSPREAD_MASK				0x01
 #define XDP_DPCD_NO_AUX_HANDSHAKE_LINK_TRAIN_MASK		0x40
@@ -2760,7 +2848,7 @@
 /* 0x00111: MSTM_CTRL */
 #define XDP_DPCD_MST_EN_MASK					0x01
 #define XDP_DPCD_UP_REQ_EN_MASK					0x02
-#define XDP_DPCD_UP_IS_SRC_MASK					0x03
+#define XDP_DPCD_UP_IS_SRC_MASK					0x04
 /* @} */
 
 /** @name DisplayPort Configuration Data: Link/sink status field masks, shifts,

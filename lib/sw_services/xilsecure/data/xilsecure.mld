@@ -1,30 +1,6 @@
 ###############################################################################
-#
-# Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-# OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-#
-# Except as contained in this notice, the name of the Xilinx shall not be used
-# in advertising or otherwise to promote the sale, use or other dealings in
-# this Software without prior written authorization from Xilinx.
-#
-###############################################################################
+# Copyright (c) 2013 - 2020 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
 #
 # Modification History
 #
@@ -40,6 +16,11 @@
 # 3.2   vns 04/30/18  Error code is been added if data is greater than moduluss
 # 4.0   arc 18/12/18  Fixed MISRA-C violations
 #       vns 03/20/19  Added support for versal
+# 4.1   vns 05/10/19  Updated library version to 4.1
+#       vns 08/02/19  Added support for a72 and r5 for Versal
+# 4.2   har 11/08/19  Updated library version to 4.2
+#       vns 03/20/20  Updated secure environment description
+# 4.3   ana 06/05/20  Updated library version to 4.3
 #
 ##############################################################################
 
@@ -49,10 +30,10 @@ BEGIN LIBRARY xilsecure
   OPTION drc = secure_drc;
   OPTION copyfiles = all;
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
-  OPTION SUPPORTED_PERIPHERALS = (psu_cortexa53 psu_cortexr5 psu_pmu psu_pmc psu_cortexa72 psv_pmc psv_cortexa72);
+  OPTION SUPPORTED_PERIPHERALS = (psu_cortexa53 psu_cortexr5 psu_pmu psu_pmc psu_cortexa72 psv_pmc psv_cortexa72 psv_cortexr5);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilsecure,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Secure Library provides interface to AES, RSA and SHA hardware engines on ZynqMP Soc and Versal";
-  OPTION VERSION = 4.0;
+  OPTION VERSION = 4.3;
   OPTION NAME = xilsecure;
-  PARAM name = secure_environment, desc = "Enables trusted execution environment", type = bool, default = false;
+  PARAM name = secure_environment, desc = "Enables trusted execution environment \nto allow device key usage(post boot) in ZynqMP \nfor IPI response/Linux/U-boot calls valid only \nfor PMUFW BSP", type = bool, default = false;
 END LIBRARY

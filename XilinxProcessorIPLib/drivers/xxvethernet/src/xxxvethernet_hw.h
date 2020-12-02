@@ -1,34 +1,12 @@
 /******************************************************************************
-*
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /**
 *
 * @file xxxvethernet_hw.h
-* @addtogroup xxvethernet_v1_1
+* @addtogroup xxvethernet_v1_5
 * @{
 *
 * This file contains definitions for register offset, masks and low level
@@ -43,6 +21,8 @@
 * ----- ---- -------- ---------------------------------------------------------
 * 1.0   hk   6/16/17  First release
 *       hk   2/15/18  Add support for USXGMII
+* 1.5	sk   10/18/20 Correct the Auto-Negotiation ability macro
+*		      name (XXE_ANA_OFFSET) with XXE_ANASR_OFFSET.
 *
 * </pre>
 
@@ -192,7 +172,7 @@ extern "C" {
 						    */
 /*@}*/
 
-/** @name Transmit Inter-Frame Gap Adjustement Register (TFGP) bit definitions
+/** @name Transmit Inter-Frame Gap Adjustment Register (TFGP) bit definitions
  *  @{
  */
 #define XXE_TFGP_IFGP_MASK		0x0000007F /**< Transmit inter-frame
@@ -231,7 +211,7 @@ xdbg_stmnt(extern int indent_on);
 
 #define XXxvEthernet_indent(RegOffset) \
  ((indent_on && ((RegOffset) >= XXE_GRR_OFFSET) && ((RegOffset) <= 	\
- XXE_ANA_OFFSET)) ? "\t" : "")
+ XXE_ANASR_OFFSET)) ? "\t" : "")
 
 
 #define XXxvEthernet_reg_name(RegOffset) \
@@ -248,7 +228,7 @@ xdbg_stmnt(extern int indent_on);
 	((RegOffset) == XXE_SR_OFFSET) ? "XXE_SR_OFFSET": \
 	((RegOffset) == XXE_RXBLSR_OFFSET) ? "XXE_RXBLSR_OFFSET": \
 	((RegOffset) == XXE_ANSR_OFFSET) ? "XXE_ANSR_OFFSET": \
-	((RegOffset) == XXE_ANA_OFFSET) ? "XXE_ANA_OFFSET": \
+	((RegOffset) == XXE_ANASR_OFFSET) ? "XXE_ANASR_OFFSET": \
 	"unknown")
 
 #define XXxvEthernet_print_reg_o(BaseAddress, RegOffset, Value) 	\

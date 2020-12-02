@@ -1,7 +1,7 @@
 var xrtcpsu__intr_8c =
 [
-    [ "XRtcPsu_ClearInterruptMask", "xrtcpsu__intr_8c.html#ga2d13e2dd37777cbd6027d4a8508be357", null ],
+    [ "XRtcPsu_ClearInterruptMask", "xrtcpsu__intr_8c.html#gaefced00316539320411829b4d701fe3c", null ],
     [ "XRtcPsu_InterruptHandler", "xrtcpsu__intr_8c.html#ga01ca03d23194687c8026dc2f38da6ff7", null ],
-    [ "XRtcPsu_SetHandler", "xrtcpsu__intr_8c.html#ga6c782a1e080607664a88ae6dcb994c30", null ],
-    [ "XRtcPsu_SetInterruptMask", "xrtcpsu__intr_8c.html#gac891e59c8f357874275535410142b2eb", null ]
+    [ "XRtcPsu_SetHandler", "xrtcpsu__intr_8c.html#ga40b45bedf590e3e65eb525f1827768e4", null ],
+    [ "XRtcPsu_SetInterruptMask", "xrtcpsu__intr_8c.html#ga645920d3519722e8dc815d07db527367", null ]
 ];

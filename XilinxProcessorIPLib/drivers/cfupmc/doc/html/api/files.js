@@ -1,6 +1,5 @@
 var files =
 [
-    [ "cfu_apb.h", "cfu__apb_8h.html", "cfu__apb_8h" ],
     [ "xcfupmc.c", "xcfupmc_8c.html", "xcfupmc_8c" ],
     [ "xcfupmc.h", "xcfupmc_8h.html", "xcfupmc_8h" ],
     [ "xcfupmc_hw.h", "xcfupmc__hw_8h.html", "xcfupmc__hw_8h" ],

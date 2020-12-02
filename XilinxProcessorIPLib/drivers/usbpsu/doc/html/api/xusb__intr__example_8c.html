@@ -28,7 +28,7 @@
   <td style="padding-left: 0.5em;">
    <div id="projectname">usbpsu
    </div>
-   <div id="projectbrief">Xilinx SDK Drivers API Documentation</div>
+   <div id="projectbrief">Xilinx Vitis Drivers API Documentation</div>
   </td>
  </tr>
  </tbody>
@@ -81,7 +81,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
       vak  22/01/18 Added changes for supporting microblaze platform
       vak  13/03/18 Moved the setup interrupt system calls from driver to
                example.
-1.5      vak  13/02/19 Added support for versal</pre><pre></pre><pre>
+1.5      vak  13/02/19 Added support for versal
+1.8   pm   15/09/20 Fixed C++ Compilation error.</pre><pre></pre><pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 </p>
 <hr/>
@@ -94,7 +95,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
       vak 22/01/18 Added changes for supporting microblaze platform
       vak 13/03/18 Moved the setup interrupt system calls from driver to
               example.
-1.5      vak 13/02/19 Added support for versal</pre><pre></pre> </div><table class="memberdecls">
+1.5      vak 13/02/19 Added support for versal
+1.8   pm  15/09/20 Fixed C++ Compilation error.</pre><pre></pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a827731c39d2e383df605eccb5864d469"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__intr__example_8c.html#a827731c39d2e383df605eccb5864d469">BulkOutHandler</a> (void *CallBackRef, u32 RequestedBytes, u32 BytesTxed)</td></tr>
@@ -150,6 +152,8 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
+<p>Referenced by <a class="el" href="xusb__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a827731c39d2e383df605eccb5864d469"></a>
@@ -194,6 +198,8 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
+<p>Referenced by <a class="el" href="xusb__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
@@ -224,7 +230,7 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_usb_psu___config.html#a465c9667eb8346ef48c9e10bd790698e">XUsbPsu_Config::BaseAddress</a>, <a class="el" href="xusb__freertos__massstorage_8c.html#a5427b67da8571837c063db309a460d37">BulkInHandler()</a>, <a class="el" href="xusb__freertos__massstorage_8c.html#a827731c39d2e383df605eccb5864d469">BulkOutHandler()</a>, <a class="el" href="xusb__ch9_8c.html#a4a51f5e7948e7a27adcd66023d48876d">Ch9Handler()</a>, and <a class="el" href="xusb__freertos__audio_8c.html#a60ea477a82aa7c54308785af705e5cd3">SetupInterruptSystem()</a>.</p>
+<p>References <a class="el" href="struct_x_usb_psu___config.html#a465c9667eb8346ef48c9e10bd790698e">XUsbPsu_Config::BaseAddress</a>, <a class="el" href="xusb__intr__example_8c.html#a5427b67da8571837c063db309a460d37">BulkInHandler()</a>, <a class="el" href="xusb__intr__example_8c.html#a827731c39d2e383df605eccb5864d469">BulkOutHandler()</a>, and <a class="el" href="xusb__ch9_8c.html#a4a51f5e7948e7a27adcd66023d48876d">Ch9Handler()</a>.</p>
 
 </div>
 </div>

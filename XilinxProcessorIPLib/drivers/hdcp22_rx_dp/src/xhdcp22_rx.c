@@ -1,34 +1,12 @@
 /******************************************************************************
-*
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 * @file xhdcp22_rx.c
-* @addtogroup hdcp22_rx_v2_2
+* @addtogroup hdcp22_rx_dp_v2_0
 * @{
 * @details
 *
@@ -124,7 +102,7 @@ static void XHdcp22Rx_SetTopologyDepth(XHdcp22_Rx *InstancePtr, u8 Depth);
 static void XHdcp22Rx_SetTopologyDeviceCnt(XHdcp22_Rx *InstancePtr, u8 DeviceCnt);
 static void XHdcp22Rx_SetTopologyMaxDevsExceeded(XHdcp22_Rx *InstancePtr, u8 Value);
 static void XHdcp22Rx_SetTopologyMaxCascadeExceeded(XHdcp22_Rx *InstancePtr, u8 Value);
-static void XHdcp22Rx_SetTopologyHdcp20RepeaterDownstream(XHdcp22_Rx *InstancePtr, u8 Value);
+static void XHdcp22Rx_SetTopologyHdcp2LegacyDeviceDownstream(XHdcp22_Rx *InstancePtr, u8 Value);
 static void XHdcp22Rx_SetTopologyHdcp1DeviceDownstream(XHdcp22_Rx *InstancePtr, u8 Value);
 
 /* Functions for stub callbacks */
@@ -451,7 +429,8 @@ int XHdcp22Rx_Disable(XHdcp22_Rx *InstancePtr)
 	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO, XHDCP22_RX_LOG_INFO_DISABLE);
 
 	/* Set ReauthReq for recovery when already authenticated */
-	XHdcp22Rx_SetDdcReauthReq(InstancePtr);
+	if (InstancePtr->Info.AuthenticationStatus == XHDCP22_RX_AUTHENTICATED)
+		XHdcp22Rx_SetDdcReauthReq(InstancePtr);
 
 	/* Disable, Rng, Cipher, and Timer */
 	XHdcp22Rng_Disable(&InstancePtr->RngInst);
@@ -1173,8 +1152,8 @@ void XHdcp22Rx_SetTopologyField(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_TopologyFiel
 	case XHDCP22_RX_TOPOLOGY_MAXCASCADEEXCEEDED :
 		XHdcp22Rx_SetTopologyMaxCascadeExceeded(InstancePtr, Value);
 		break;
-	case XHDCP22_RX_TOPOLOGY_HDCP20REPEATERDOWNSTREAM :
-		XHdcp22Rx_SetTopologyHdcp20RepeaterDownstream(InstancePtr, Value);
+	case XHDCP22_RX_TOPOLOGY_HDCP2LEGACYDEVICEDOWNSTREAM :
+		XHdcp22Rx_SetTopologyHdcp2LegacyDeviceDownstream(InstancePtr, Value);
 		break;
 	case XHDCP22_RX_TOPOLOGY_HDCP1DEVICEDOWNSTREAM :
 		XHdcp22Rx_SetTopologyHdcp1DeviceDownstream(InstancePtr, Value);
@@ -1222,7 +1201,7 @@ void XHdcp22Rx_SetTopologyUpdate(XHdcp22_Rx *InstancePtr)
 *             HDCP Repeater to all HDCP Devices.
 *           - 0x01: Type 1 Content Stream. Must not be transmitted
 *             by the HDCP Repeater to HDCP 1.x-compliant Devices and
-*             HDCP 2.0-compliant Repeaters.
+*             HDCP 2.1-compliant Devices.
 *           - 0x02-0xFF: Reserved for future use only. Content
 *             Streams with reserved Type values must be treated
 *             similar to Type 1 Content Streams.
@@ -3541,7 +3520,7 @@ static int XHdcp22Rx_SendMessageRepeaterAuthSendRxIdList(XHdcp22_Rx *InstancePtr
 	MsgPtr->RepeaterAuthSendRxIdList.RxInfo[1] |=
 		(u8)((InstancePtr->Topology.MaxCascadeExceeded & 0x01) << 2);       // RxInfo[2]    = MaxCascadeExceeded
 	MsgPtr->RepeaterAuthSendRxIdList.RxInfo[1] |=
-		(u8)((InstancePtr->Topology.Hdcp20RepeaterDownstream & 0x01) << 1); // RxInfo[1]    = Hdcp20RepeaterDownstream
+		(u8)((InstancePtr->Topology.Hdcp2LegacyDeviceDownstream & 0x01) << 1); // RxInfo[1]    = Hdcp2LegacyDeviceDownstream
 	MsgPtr->RepeaterAuthSendRxIdList.RxInfo[1] |=
 		(u8)(InstancePtr->Topology.Hdcp1DeviceDownstream & 0x01);           // RxInfo[0]    = Hdcp1DeviceDownstream
 
@@ -3857,9 +3836,9 @@ static void XHdcp22Rx_SetTopologyMaxCascadeExceeded(XHdcp22_Rx *InstancePtr, u8 
 
 /*****************************************************************************/
 /**
-* This function sets the HDCP2_0_REPEATER_DOWNSTREAM flag in the repeater
+* This function sets the HDCP2_LEGACY_DEVICE_DOWNSTREAM flag in the repeater
 * topology table used to indicate the presence of an HDCP2.0-compliant
-* Repeater in the topology.
+* Device in the topology.
 *
 * @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
 * @param    Value is either TRUE or FALSE.
@@ -3868,13 +3847,13 @@ static void XHdcp22Rx_SetTopologyMaxCascadeExceeded(XHdcp22_Rx *InstancePtr, u8 
 *
 * @note     None.
 ******************************************************************************/
-static void XHdcp22Rx_SetTopologyHdcp20RepeaterDownstream(XHdcp22_Rx *InstancePtr, u8 Value)
+static void XHdcp22Rx_SetTopologyHdcp2LegacyDeviceDownstream(XHdcp22_Rx *InstancePtr, u8 Value)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Value == FALSE || Value == TRUE);
 
-	InstancePtr->Topology.Hdcp20RepeaterDownstream = Value;
+	InstancePtr->Topology.Hdcp2LegacyDeviceDownstream = Value;
 }
 
 /*****************************************************************************/
@@ -4347,8 +4326,8 @@ void XHdcp22Rx_Info(XHdcp22_Rx *InstancePtr)
 			xil_printf("MaxDevsExceeded, ");
 		if (InstancePtr->Topology.MaxCascadeExceeded)
 			xil_printf("MaxCascadeExceeded, ");
-		if (InstancePtr->Topology.Hdcp20RepeaterDownstream)
-			xil_printf("Hdcp20RepeaterDownstream, ");
+		if (InstancePtr->Topology.Hdcp2LegacyDeviceDownstream)
+			xil_printf("Hdcp2LegacyDeviceDownstream, ");
 		if (InstancePtr->Topology.Hdcp1DeviceDownstream)
 			xil_printf("Hdcp1DeviceDownstream, ");
 		xil_printf("Depth=%d, ", InstancePtr->Topology.Depth);
@@ -4756,6 +4735,39 @@ u32 XHdcp22_RxSetRxCaps(XHdcp22_Rx *InstancePtr, u8 enable)
 		return XST_FAILURE;
 
 	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+ * This function sets Stream Type.
+ *
+ * @param	InstancePtr is the receiver instance.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+void XHdcp22_RxSetStreamType(XHdcp22_Rx *InstancePtr)
+{
+	u8 buf[R_IV_SIZE] = {0};
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	/*Read Stream Type from DPCD*/
+	InstancePtr->Handles.RxDpAuxReadCallback(
+			InstancePtr->Handles.RxDpAuxReadCallbackRef,
+			RX_STREAM_TYPE_OFFSET,
+			InstancePtr->Params.StreamIdType+1,
+			Rx_STREAM_TYPE_SIZE);
+
+	/*Xor Riv[7] with 0x01 if the Stream Type is not 0*/
+	if (InstancePtr->Params.StreamIdType[1]) {
+		memcpy(buf, InstancePtr->Params.Riv, R_IV_SIZE);
+		buf[R_IV_SIZE - 1] ^= 0x01;
+		XHdcp22Cipher_SetRiv(&InstancePtr->CipherInst, buf, R_IV_SIZE);
+	}
 }
 
 /** @} */

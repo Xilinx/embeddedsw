@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -38,7 +16,21 @@
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  mg   10/09/2018 Initial release
+* 1.00  ma   10/09/2018 Initial release
+* 1.01  kc   04/09/2019 Added code to register/enable/disable interrupts
+*       kc   05/21/2019 Updated IPI error code to response buffer
+*       ma   08/01/2019 Added LPD init code
+*       rv   02/04/2020 Set the 1st element of response array always to status
+*       bsv  02/13/2020 XilPlmi generic commands should not be supported
+*                       via IPI
+*       ma   02/21/2020 Added code to allow event logging command via IPI
+*       ma   02/28/2020 Added code to disallow EM commands over IPI
+*       bsv  03/09/2020 Added code to support CDO features command
+*       ma   03/19/2020 Added features command for EM module
+*       bsv  04/04/2020 Code clean up
+* 1.02  bsv  06/02/2020 Added code to support GET BOARD command and disallow
+*                       SET BOARD command via IPI
+*       bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -54,22 +46,22 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xplmi_debug.h"
-
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+#include "xparameters.h"
 #include "xplmi_modules.h"
 #include "xplmi_cmd.h"
 #include "xil_assert.h"
+#ifdef XPAR_XIPIPSU_0_DEVICE_ID
 #include "xipipsu.h"
+
 /************************** Constant Definitions *****************************/
 #define XPLMI_IPI_MASK_COUNT		XIPIPSU_MAX_TARGETS
 #define XPLMI_IPI_MAX_MSG_LEN		XIPIPSU_MAX_MSG_LEN
+#define XPLMI_MAX_IPI_CMD_LEN		(6U)
 
 /* IPI defines */
-#define IPI_BASEADDR				0xFF300000
-
-#define IPI_PMC_ISR					( IPI_BASEADDR + 0x20010)
-/* Error codes */
+#define IPI_BASEADDR				(0xFF300000U)
+#define IPI_PMC_ISR					(IPI_BASEADDR + 0x20010U)
+#define IPI_PMC_ISR_PSM_BIT_MASK	(0x1U)
 
 /**************************** Type Definitions *******************************/
 
@@ -77,18 +69,19 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 int XPlmi_IpiInit(void);
-int XPlmi_IpiDispatchHandler(void);
-int XPlmi_IpiWrite(u32 DestCpuMask, u32 *MsgPtr, u32 MsgLen, u32 Type);
-int XPlmi_IpiRead(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen, u32 Type);
+int XPlmi_IpiDispatchHandler(void *Data);
+int XPlmi_IpiWrite(u32 DestCpuMask, u32 *MsgPtr, u32 MsgLen, u8 Type);
+int XPlmi_IpiRead(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen, u8 Type);
 int XPlmi_IpiTrigger(u32 DestCpuMask);
 int XPlmi_IpiPollForAck(u32 DestCpuMask, u32 TimeOutCount);
+
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
 #endif /* XPAR_XIPIPSU_0_DEVICE_ID */
 
 #ifdef __cplusplus
-extern "C" {
+}
 #endif
 
 #endif /* XPLMI_IPI_H */

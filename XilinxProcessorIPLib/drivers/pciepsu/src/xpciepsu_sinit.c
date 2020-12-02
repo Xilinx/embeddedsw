@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /******************************************************************************/
 /**
 * @file xpciepsu_sinit.c
@@ -52,6 +30,7 @@
 /**************************** Variable Definitions ****************************/
 
 extern XPciePsu_Config XPciePsu_ConfigTable[];
+extern size_t XPciePsu_ConfigTableSize;
 
 /***************************** Function Prototypes ****************************/
 
@@ -70,9 +49,9 @@ extern XPciePsu_Config XPciePsu_ConfigTable[];
 XPciePsu_Config *XPciePsu_LookupConfig(u16 DeviceId)
 {
 	XPciePsu_Config *CfgPtr = NULL;
-	int Index;
+	unsigned int Index;
 
-	for (Index = 0; Index < 8; Index++) {
+	for (Index = 0; Index < XPciePsu_ConfigTableSize; Index++) {
 		if (XPciePsu_ConfigTable[Index].DeviceId == DeviceId) {
 			if(XPciePsu_ConfigTable[Index].BrigReg == 0xff ||
 					XPciePsu_ConfigTable[Index].Ecam == 0xff ||

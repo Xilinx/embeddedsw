@@ -20,7 +20,7 @@ var xcsudma_8h =
       [ "XCSUDMA_PAUSE_STREAM", "xcsudma_8h.html#ad5ce08d197288cbdfb06941f1d46df87a67086fbe749ed37f5928c211ee6aa5b8", null ]
     ] ],
     [ "XCsuDma_64BitTransfer", "xcsudma_8h.html#ga83a1043112b6067b1901d2bdcb29563d", null ],
-    [ "XCsuDma_CfgInitialize", "xcsudma_8h.html#ga64394cb7de1a6bc3e31fca2f4a5e59bb", null ],
+    [ "XCsuDma_CfgInitialize", "xcsudma_8h.html#gad0f7217bd295de82623179efb34adb96", null ],
     [ "XCsuDma_ClearCheckSum", "xcsudma_8h.html#ga78bdd79674e2b5c92b9701cacfde1fe1", null ],
     [ "XCsuDma_DisableIntr", "xcsudma_8h.html#gadf3599e4d07ef05586a217ebbbd02999", null ],
     [ "XCsuDma_EnableIntr", "xcsudma_8h.html#gad892a65e65ac14f48f7d7f53020511cf", null ],
@@ -37,6 +37,6 @@ var xcsudma_8h =
     [ "XCsuDma_Resume", "xcsudma_8h.html#gaeee3f2d5bcf265b57c9f214f2bc15a28", null ],
     [ "XCsuDma_SelfTest", "xcsudma_8h.html#ga774ab551d0ef59fd880ff834f2d83804", null ],
     [ "XCsuDma_SetConfig", "xcsudma_8h.html#gac9b6265e467b03cc903cd66781e95e63", null ],
-    [ "XCsuDma_Transfer", "xcsudma_8h.html#gace70d2b6c66ded008944dfd456c1bf5c", null ],
+    [ "XCsuDma_Transfer", "xcsudma_8h.html#gacf79144df19e9cd4116dd9f507037ff1", null ],
     [ "XCsuDma_WaitForDoneTimeout", "xcsudma_8h.html#ga73867b4acb189982642e4c1ae4f92fb9", null ]
 ];

@@ -43,6 +43,7 @@ var xvtc_8h =
     [ "XVtc_ConvTiming2VideoMode", "xvtc_8h.html#gaa8293ea90f04203f688a9c10ed728d76", null ],
     [ "XVtc_ConvVideoMode2Timing", "xvtc_8h.html#ga8780c13efbb57b70fb1d2c56b41ea875", null ],
     [ "XVtc_Disable", "xvtc_8h.html#ga5ba151c8fe1e5b01f6cf76e3ebd69f48", null ],
+    [ "XVtc_DisableAdaptiveSync", "xvtc_8h.html#gad35c4cf17655f24578f2c0db2d93fcc8", null ],
     [ "XVtc_DisableDetector", "xvtc_8h.html#gacfcf93230ec6c68bd94841fc64c3a54f", null ],
     [ "XVtc_DisableGenerator", "xvtc_8h.html#ga24e096bb7515165b5bf238d0d1030c5f", null ],
     [ "XVtc_Enable", "xvtc_8h.html#gaa11af9b1872e9f105aa60ac7c616fda7", null ],
@@ -67,6 +68,7 @@ var xvtc_8h =
     [ "XVtc_IntrHandler", "xvtc_8h.html#gaf4c9f950bb8be8ec38f650d3752c8007", null ],
     [ "XVtc_LookupConfig", "xvtc_8h.html#ga0597fafa4aff37423b85fd5fcada3b7c", null ],
     [ "XVtc_SelfTest", "xvtc_8h.html#ga34bc19c168a2d7bbfb3252b2c23e53ae", null ],
+    [ "XVtc_SetAdaptiveSyncMode", "xvtc_8h.html#gaa1bfbc5a9734c912172b3d3e630af06e", null ],
     [ "XVtc_SetCallBack", "xvtc_8h.html#ga2c8331343095cb78377c7887cb62d87b", null ],
     [ "XVtc_SetDelay", "xvtc_8h.html#gabfb3ffcd7f3ac258e1503b28c8f2a17c", null ],
     [ "XVtc_SetFSync", "xvtc_8h.html#gacb67e4e6e1ca2fb525ccc9a4fd3bad06", null ],
@@ -77,5 +79,6 @@ var xvtc_8h =
     [ "XVtc_SetPolarity", "xvtc_8h.html#ga048e84bcc5ac0f05cdd7423a40fe7574", null ],
     [ "XVtc_SetSkipLine", "xvtc_8h.html#gae88f7a15a28b29c5596a1bd8510c17b7", null ],
     [ "XVtc_SetSkipPixel", "xvtc_8h.html#ga84bc76452bd91c18af247a67e9cfdf4a", null ],
-    [ "XVtc_SetSource", "xvtc_8h.html#ga261e22d0a41a468263c0a1624da3bbf9", null ]
+    [ "XVtc_SetSource", "xvtc_8h.html#ga261e22d0a41a468263c0a1624da3bbf9", null ],
+    [ "XVtc_SetVfpStretchLimit", "xvtc_8h.html#ga2ee6ed1a4d73cbff9d50a0b5ff657440", null ]
 ];

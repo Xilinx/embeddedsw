@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 #ifndef XPFW_CONFIG_H_
 #define XPFW_CONFIG_H_
@@ -75,6 +53,7 @@ extern "C" {
  * 	- ENABLE_PM : Enables Power Management Module
  * 	- ENABLE_EM : Enables Error Management Module
  * 	- ENABLE_SCHEDULER : Enables the scheduler
+ *  - ENABLE_MOD_ULTRA96 : Enables support for Ultra96 power button
  * 	- ENABLE_RECOVERY : Enables WDT based restart of APU sub-system
  *	- ENABLE_RECOVERY_RESET_SYSTEM : Enables WDT based restart of system
  *	- ENABLE_RECOVERY_RESET_PS_ONLY : Enables WDT based restart of PS
@@ -105,6 +84,10 @@ extern "C" {
  *			to ever disable clock permission checking). Do this at
  *			your own responsibility.
  *	- ENABLE_EFUSE_ACCESS : Enables efuse access feature
+ *  - USE_DDR_FOR_APU_RESTART : If this macro is enabled, PMU writes FSBL image
+ *              to DDR from OCM if FSBL is running on APU. This is to free-up
+ *              OCM memory for other uses.
+ *  - ENABLE_RPU_RUN_MODE: Enables RPU monitoring module
  *
  * 	These macros are specific to ZCU100 design where it uses GPO1[2] as a
  * 	board power line and
@@ -117,7 +100,8 @@ extern "C" {
 
 #define	ENABLE_PM_VAL					(1U)
 #define	ENABLE_EM_VAL					(0U)
-#define	ENABLE_SCHEDULER_VAL			(0U)
+#define	ENABLE_SCHEDULER_VAL			(1U)
+#define ENABLE_MOD_ULTRA96_VAL			(0U)
 #define	ENABLE_RECOVERY_VAL				(0U)
 #define	ENABLE_RECOVERY_RESET_SYSTEM_VAL		(0U)
 #define	ENABLE_RECOVERY_RESET_PS_ONLY_VAL		(0U)
@@ -129,6 +113,8 @@ extern "C" {
 #define	ENABLE_RTC_TEST_VAL				(0U)
 #define	ENABLE_IPI_CRC_VAL				(0U)
 #define	ENABLE_FPGA_LOAD_VAL			(1U)
+#define ENABLE_FPGA_READ_CONFIG_DATA_VAL		(1U)
+#define ENABLE_FPGA_READ_CONFIG_REG_VAL			(1U)
 #define	ENABLE_SECURE_VAL				(1U)
 #define ENABLE_EFUSE_ACCESS				(0U)
 #define	XPU_INTR_DEBUG_PRINT_ENABLE_VAL	(0U)
@@ -153,6 +139,42 @@ extern "C" {
 
 #define SECURE_ACCESS_VAL		(0U)
 
+#define USE_DDR_FOR_APU_RESTART_VAL		(1U)
+#define ENABLE_RPU_RUN_MODE_VAL (0U)
+
+/*
+ * XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT
+ * 		Default watchdog timeout
+ *
+ * XPFW_CFG_PMU_FPGA_WDT_TIMEOUT
+ * 		This watchdog timeout is applied during bitstream download, provided
+ * 		its value is greater than XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT
+ *
+ * XPFW_CFG_PMU_SHA3_WDT_TIMEOUT
+ * 		This watchdog timeout is applied during SHA3 request, provided
+ * 		its value is greater than XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT
+ *
+ * XPFW_CFG_PMU_RSA_WDT_TIMEOUT
+ * 		This watchdog timeout is applied during RSA request, provided
+ * 		its value is greater than XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT
+ *
+ * XPFW_CFG_PMU_AES_WDT_TIMEOUT
+ * 		This watchdog timeout is applied during AES request, provided
+ * 		its value is greater than XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT
+ *
+ * XPFW_CFG_PMU_SECURE_IMAGE_WDT_TIMEOUT
+ * 		This watchdog timeout is applied during secure image download, provided
+ * 		its value is greater than XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT
+ *
+ */
+#define XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT		(90U)	/* ms */
+#define XPFW_CFG_PMU_FPGA_WDT_TIMEOUT			(500U)	/* ms */
+#define XPFW_CFG_PMU_SHA3_WDT_TIMEOUT			(500U)	/* ms */
+#define XPFW_CFG_PMU_RSA_WDT_TIMEOUT			(500U)	/* ms */
+#define XPFW_CFG_PMU_AES_WDT_TIMEOUT			(500U)	/* ms */
+#define XPFW_CFG_PMU_SECURE_IMG_LOAD_WDT_TIMEOUT	(500U)	/* ms */
+
+
 #if ENABLE_PM_VAL
 #define ENABLE_PM
 #endif
@@ -163,6 +185,10 @@ extern "C" {
 
 #if ENABLE_SCHEDULER_VAL
 #define ENABLE_SCHEDULER
+#endif
+
+#if ENABLE_MOD_ULTRA96_VAL
+#define ENABLE_MOD_ULTRA96
 #endif
 
 #if ENABLE_RECOVERY_VAL
@@ -201,9 +227,22 @@ extern "C" {
 #define ENABLE_RTC_TEST
 #endif
 
+#if ENABLE_RPU_RUN_MODE_VAL
+#define ENABLE_RPU_RUN_MODE
+#endif
+
 #if ENABLE_FPGA_LOAD_VAL
 #define ENABLE_FPGA_LOAD
 #endif
+
+#if ENABLE_FPGA_READ_CONFIG_DATA_VAL
+#define ENABLE_FPGA_READ_CONFIG_DATA
+#endif
+
+#if ENABLE_FPGA_READ_CONFIG_REG_VAL
+#define ENABLE_FPGA_READ_CONFIG_REG
+#endif
+
 #if ENABLE_SECURE_VAL
 #define ENABLE_SECURE
 #endif
@@ -281,9 +320,9 @@ extern "C" {
 
 /* FPD WDT recovery action */
 #ifdef ENABLE_RECOVERY
-#define FPD_WDT_EM_ACTION EM_ACTION_CUSTOM
+#define SWDT_EM_ACTION EM_ACTION_CUSTOM
 #else
-#define FPD_WDT_EM_ACTION EM_ACTION_SRST
+#define SWDT_EM_ACTION EM_ACTION_SRST
 #endif
 
 #ifdef ENABLE_POS
@@ -304,6 +343,10 @@ extern "C" {
 
 #if CONNECT_PMU_GPO_5_VAL
 #define CONNECT_PMU_GPO_5
+#endif
+
+#if USE_DDR_FOR_APU_RESTART_VAL
+#define USE_DDR_FOR_APU_RESTART
 #endif
 
 #ifdef __cplusplus

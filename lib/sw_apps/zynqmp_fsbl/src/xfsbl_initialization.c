@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 19 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
  ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -60,6 +38,12 @@
 * 5.0   mn   07/06/18 Add DDR initialization support for new DDR DIMM part
 *       mus  02/26/19 Added support for armclang compiler
 *       vns  03/14/19 Setting AES and SHA hardware engines into reset.
+* 6.0   bsv  08/27/19 Added check to ensure padding in image header does not
+*                     exceed allotted buffer in OCM
+* 7.0   bsv  03/05/20 Restore value of SD_CDN_CTRL register before handoff
+*       ma   03/19/20 Update the status of FSBL image encryption in PMU Global
+*                     register
+*
 * </pre>
 *
 * @note
@@ -146,11 +130,11 @@ u8 *ImageHdr = ReadBuffer;
 extern u8 AuthBuffer[XFSBL_AUTH_BUFFER_SIZE];
 extern u32 Iv[XIH_BH_IV_LENGTH / 4U];
 #endif
-
+u32 SdCdnRegVal;
 /****************************************************************************/
 /**
  * This function is used to save the data section into duplicate data section
- * so that it can be restored from incase of subsequent warm restarts
+ * so that it can be restored from in case of subsequent warm restarts
  *
  * @param  None
  *
@@ -243,7 +227,7 @@ static u32 XFsbl_GetResetReason (void)
 		}
 		else
 		{
-			Ret = XFSBL_APU_ONLY_RESET;
+			Ret = XFSBL_MASTER_ONLY_RESET;
 			XFsbl_RestoreData();
 		}
 	}
@@ -288,20 +272,11 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 	/**
 	 * Configure the system as in PSU
 	 */
-	if(FsblInstancePtr->ResetReason !=  XFSBL_APU_ONLY_RESET){
+	if (XFSBL_MASTER_ONLY_RESET != FsblInstancePtr->ResetReason) {
 		Status = XFsbl_SystemInit(FsblInstancePtr);
 		if (XFSBL_SUCCESS != Status) {
 			goto END;
 		}
-	}
-	else
-	{
-		/* XFSBL_APU_ONLY_RESET */
-		/* APU only restart with pending interrupts can cause the linux to
-		 * hang when it starts the second time. So FSBL clears all pending interrupts
-		 * in case of APU only restart.
-		 */
-		XFsbl_ClearPendingInterrupts();
 	}
 
 	/**
@@ -322,7 +297,18 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 		goto END;
 	}
 
-	if(FsblInstancePtr->ResetReason != XFSBL_APU_ONLY_RESET) {
+	if (XFSBL_MASTER_ONLY_RESET == FsblInstancePtr->ResetReason) {
+
+		if (FsblInstancePtr->ProcessorID == XIH_PH_ATTRB_DEST_CPU_A53_0) {
+			/* APU only restart with pending interrupts can cause the linux
+			 * to hang when it starts the second time. So FSBL clears all
+			 * pending interrupts in case of APU only restart.
+			 */
+			XFsbl_ClearPendingInterrupts();
+		}
+	}
+
+	if (XFSBL_MASTER_ONLY_RESET != FsblInstancePtr->ResetReason) {
 		/* Do ECC Initialization of TCM if required */
 		Status = XFsbl_TcmInit(FsblInstancePtr);
 		if (XFSBL_SUCCESS != Status) {
@@ -356,8 +342,8 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 
 #if defined(XFSBL_PL_CLEAR) && defined(XFSBL_BS)
 		/* In case of PS only reset and APU only reset skipping PCAP initialization*/
-		if ((FsblInstancePtr->ResetReason != XFSBL_PS_ONLY_RESET)&&
-			(FsblInstancePtr->ResetReason != XFSBL_APU_ONLY_RESET)) {
+		if ((XFSBL_PS_ONLY_RESET != FsblInstancePtr->ResetReason)&&
+			(XFSBL_MASTER_ONLY_RESET != FsblInstancePtr->ResetReason)) {
 			Status = XFsbl_PcapInit();
 			if (XFSBL_SUCCESS != Status) {
 				goto END;
@@ -484,6 +470,7 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 	PTRSIZE ClusterId;
 	u32 RegValue;
 	u32 Index=0U;
+	u32 FsblProcType = 0;
 	char DevName[PART_NAME_LEN_MAX];
 
 	/**
@@ -521,6 +508,7 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 		XFsbl_Printf(DEBUG_GENERAL,"Running on A53-0 ");
 		FsblInstancePtr->ProcessorID =
 				XIH_PH_ATTRB_DEST_CPU_A53_0;
+		FsblProcType = XFSBL_RUNNING_ON_A53 << XFSBL_STATE_PROC_SHIFT;
 #ifdef __aarch64__
 		/* Running on A53 64-bit */
 		XFsbl_Printf(DEBUG_GENERAL,"(64-bit) Processor");
@@ -541,13 +529,14 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 				"Running on R5 Processor in Lockstep");
 			FsblInstancePtr->ProcessorID =
 				XIH_PH_ATTRB_DEST_CPU_R5_L;
+			FsblProcType = XFSBL_RUNNING_ON_R5_L << XFSBL_STATE_PROC_SHIFT;
 		} else {
 			XFsbl_Printf(DEBUG_GENERAL,
 				"Running on R5-0 Processor");
 			FsblInstancePtr->ProcessorID =
 				XIH_PH_ATTRB_DEST_CPU_R5_0;
+			FsblProcType = XFSBL_RUNNING_ON_R5_0 << XFSBL_STATE_PROC_SHIFT;
 		}
-
 
 		/* Update the Low Vector locations in R5 TCM */
 		while (Index<32U) {
@@ -567,6 +556,14 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 				"XFSBL_ERROR_UNSUPPORTED_CLUSTER_ID\n\r");
 		goto END;
 	}
+
+	/*
+	 * Update FSBL processor information to PMU Global Reg5
+	 * as PMU require this during boot for warm-restart feature.
+	*/
+	FsblProcType |= (XFsbl_In32(PMU_GLOBAL_GLOB_GEN_STORAGE5) & ~(XFSBL_STATE_PROC_INFO_MASK));
+
+	XFsbl_Out32(PMU_GLOBAL_GLOB_GEN_STORAGE5, FsblProcType);
 
 	/* Build Device name and print it */
 	(void)XFsbl_Strcpy(DevName, "XCZU");
@@ -628,15 +625,17 @@ static u32 XFsbl_ResetValidation(void)
 {
 	u32 Status;
 	u32 FsblErrorStatus;
+#ifdef XFSBL_WDT_PRESENT
 	u32 ResetReasonValue;
 	u32 ErrStatusRegValue;
-
+#endif
 	/**
 	 *  Read the Error Status register
 	 *  If WDT reset, do fallback
 	 */
 	FsblErrorStatus = XFsbl_In32(XFSBL_ERROR_STATUS_REGISTER_OFFSET);
 
+#ifdef XFSBL_WDT_PRESENT
 	ResetReasonValue = XFsbl_In32(CRL_APB_RESET_REASON);
 
 	/**
@@ -646,13 +645,10 @@ static u32 XFsbl_ResetValidation(void)
 	if ((ResetReasonValue & CRL_APB_RESET_REASON_PMU_SYS_RESET_MASK)
 			== CRL_APB_RESET_REASON_PMU_SYS_RESET_MASK) {
 		ErrStatusRegValue = XFsbl_In32(PMU_GLOBAL_ERROR_STATUS_1);
-		if(((ErrStatusRegValue& PMU_GLOBAL_ERROR_STATUS_1_LPD_SWDT_MASK)
-			== PMU_GLOBAL_ERROR_STATUS_1_LPD_SWDT_MASK) &&
+		if(((ErrStatusRegValue & XFSBL_WDT_MASK) == XFSBL_WDT_MASK) &&
 			(FsblErrorStatus == XFSBL_RUNNING)) {
-#ifdef XFSBL_WDT_PRESENT
 			/* Clear the SWDT0/1 reset error */
 			XFsbl_Out32(PMU_GLOBAL_ERROR_STATUS_1, XFSBL_WDT_MASK);
-#endif
 		/**
 		 * reset is due to System WDT.
 		 * Do a fallback
@@ -662,7 +658,7 @@ static u32 XFsbl_ResetValidation(void)
 		goto END;
 		}
 	}
-
+#endif
 	/**
 	 * Mark FSBL running in error status register to
 	 * detect the WDT reset while FSBL execution
@@ -678,7 +674,9 @@ static u32 XFsbl_ResetValidation(void)
 	 */
 
 	Status = XFSBL_SUCCESS;
+#ifdef XFSBL_WDT_PRESENT
 END:
+#endif
 	return Status;
 }
 
@@ -725,13 +723,9 @@ static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 				goto END;
 			}
 		}
-	}
-	else if(FsblInstancePtr->ResetReason == XFSBL_APU_ONLY_RESET)
-	{
+	} else if (XFSBL_MASTER_ONLY_RESET == FsblInstancePtr->ResetReason) {
 		/*Do nothing*/
-	}
-	else
-	{
+	} else {
         /**
         * PMU-fw applied AIB between ps and pl only while ps only reset.
         * Remove the isolation so as to access pl again
@@ -797,6 +791,7 @@ static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 	 * This will ensure that SD controller doesn't end up waiting for long,
 	 * fixed durations for card to be stable.
 	 */
+	SdCdnRegVal = XFsbl_In32(IOU_SLCR_SD_CDN_CTRL);
 	XFsbl_Out32(IOU_SLCR_SD_CDN_CTRL,
 			(IOU_SLCR_SD_CDN_CTRL_SD1_CDN_CTRL_MASK |
 					IOU_SLCR_SD_CDN_CTRL_SD0_CDN_CTRL_MASK));
@@ -857,7 +852,7 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 		 * Skip watching over APU using WDT during APU only restart
 		 * as PMU will watchover APU
 		 */
-		if (FsblInstance.ResetReason != XFSBL_APU_ONLY_RESET) {
+		if (XFSBL_MASTER_ONLY_RESET != FsblInstance.ResetReason) {
 			Status = XFsbl_InitWdt();
 			if (XFSBL_SUCCESS != Status) {
 				XFsbl_Printf(DEBUG_GENERAL,"WDT initialization failed \n\r");
@@ -1118,6 +1113,7 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 	u32 FlashImageOffsetAddress;
 	u32 EfuseCtrl;
 	u32 ImageHeaderTableAddressOffset=0U;
+	u32 FsblEncSts = 0U;
 #ifdef XFSBL_SECURE
 	u32 Size;
 	u32 AcOffset=0U;
@@ -1173,6 +1169,27 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 	BootHdrAttrb = Xil_In32((UINTPTR)ReadBuffer +
 					XIH_BH_IMAGE_ATTRB_OFFSET);
 	FsblInstancePtr->BootHdrAttributes = BootHdrAttrb;
+
+	/*
+	 * Update PMU Global general storage register5 bit 3 with FSBL encryption
+	 * status if either FSBL encryption status in boot header is true or
+	 * ENC_ONLY eFuse bit is programmed.
+	 *
+	 * FSBL encryption information in boot header:
+	 * If authenticate only bits 5:4 are set, boot image is only RSA signed
+	 * though encryption status in BH is non-zero.
+	 * Boot image is decrypted only when BH encryption status is not 0x0 and
+	 * authenticate only bits value is other than 0x3
+	 */
+	if (((Xil_In32((UINTPTR)ReadBuffer + XIH_BH_ENC_STS_OFFSET) != 0x0U) &&
+			((BootHdrAttrb & XIH_BH_IMAGE_ATTRB_AUTH_ONLY_MASK) !=
+					XIH_BH_IMAGE_ATTRB_AUTH_ONLY_MASK)) ||
+			((XFsbl_In32(EFUSE_SEC_CTRL) & EFUSE_SEC_CTRL_ENC_ONLY_MASK) !=
+					0x0U)) {
+		FsblEncSts = XFsbl_In32(PMU_GLOBAL_GLOB_GEN_STORAGE5) |
+				XFSBL_FSBL_ENCRYPTED_MASK;
+		XFsbl_Out32(PMU_GLOBAL_GLOB_GEN_STORAGE5, FsblEncSts);
+	}
 
 	/**
 	 * Read the Image Header Table offset from
@@ -1249,6 +1266,11 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 			 */
 			Size = (AcOffset * XIH_PARTITION_WORD_LENGTH) -
 				(ImageHeaderTableAddressOffset);
+			if(Size > sizeof(ReadBuffer))
+			{
+				Status = XFSBL_ERROR_IMAGE_HEADER_SIZE;
+				goto END;
+			}
 
 			/* Copy the Image header to OCM */
 			Status = FsblInstancePtr->DeviceOps.DeviceCopy(
@@ -1741,7 +1763,7 @@ u32 XFsbl_TcmEccInit(XFsblPs * FsblInstancePtr, u32 CpuId)
 
 	 /**
 	  * For R5-L,R5-0 don't initialize initial 32 bytes of TCM,
-	  * because inital 32 bytes are holding R5 vectors.
+	  * because initial 32 bytes are holding R5 vectors.
 	  */
 
 	if(CpuId == XIH_PH_ATTRB_DEST_CPU_A53_0) {
@@ -1876,7 +1898,7 @@ END:
 
 /*****************************************************************************/
 /**
- * This function clears pending interrupts. This is called only during APU ony
+ * This function clears pending interrupts. This is called only during APU only
  *  reset.
  *
  * @param

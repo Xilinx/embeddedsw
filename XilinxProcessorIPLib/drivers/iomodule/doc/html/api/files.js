@@ -2,7 +2,6 @@ var files =
 [
     [ "xiomodule.c", "xiomodule_8c.html", "xiomodule_8c" ],
     [ "xiomodule.h", "xiomodule_8h.html", "xiomodule_8h" ],
-    [ "xiomodule_example.c", "xiomodule__example_8c.html", "xiomodule__example_8c" ],
     [ "xiomodule_extra.c", "xiomodule__extra_8c.html", "xiomodule__extra_8c" ],
     [ "xiomodule_g.c", "xiomodule__g_8c.html", "xiomodule__g_8c" ],
     [ "xiomodule_i.h", "xiomodule__i_8h.html", "xiomodule__i_8h" ],

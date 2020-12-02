@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /******************************************************************************/
 /**
 * @file xpciepsu.c
@@ -415,15 +393,10 @@ static int XPciePsu_PositionRightmostSetbit(u64 Size)
 * @return  bar address
 *
 *******************************************************************************/
-static u64 XPciePsu_ReserveBarMem(XPciePsu *InstancePtr, u8 MemType,
-		u8 MemBarArdSize, u64 Size)
+static u64 XPciePsu_ReserveBarMem(XPciePsu *InstancePtr,
+				  u8 MemBarArdSize, u64 Size)
 {
 	u64 Ret = 0;
-
-	if (MemType == XPCIEPSU_BAR_IO_MEM){
-		Ret = XST_FAILURE;
-		goto End;
-	}
 
 	if (MemBarArdSize == XPCIEPSU_BAR_MEM_TYPE_64) {
 		Ret = InstancePtr->Config.PMemBaseAddr;
@@ -439,7 +412,6 @@ static u64 XPciePsu_ReserveBarMem(XPciePsu *InstancePtr, u8 MemType,
 				InstancePtr->Config.NpMemMaxAddr);
 	}
 
-End:
 	return Ret;
 }
 
@@ -463,7 +435,7 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 	u32 Data = DATA_MASK_32;
 	u32 Location = 0, Location_1 = 0;
 	u32 Size = 0, Size_1 = 0, TestWrite;
-	u8 MemAs, MemType;
+	u8 MemAs;
 	u64 BarAddr;
 	u32 Tmp, *PPtr;
 	u8 BarNo;
@@ -500,15 +472,11 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 		/* check for IO space or memory space */
 		if (Size & XPCIEPSU_CFG_BAR_MEM_TYPE_MASK) {
 			/* Device required IO address space */
-			MemType = XPCIEPSU_BAR_IO_MEM;
 			XPciePsu_Dbg(
 				"bus: %d, device: %d, function: %d: BAR %d "
 				"required IO space; it is unassigned\r\n",
 				Bus, Device, Function, BarNo);
 			continue;
-		} else {
-			/* Device required memory address space */
-			MemType = XPCIEPSU_BAR_ADDR_MEM;
 		}
 
 		/* check for 32 bit AS or 64 bit AS */
@@ -538,8 +506,9 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 
 			/* actual bar size is 2 << TestWrite */
 			BarAddr =
-				XPciePsu_ReserveBarMem(InstancePtr, MemType, MemAs,
-						(2 << (TestWrite - 1)));
+				XPciePsu_ReserveBarMem(
+						InstancePtr, MemAs,
+						((u64)2 << (TestWrite - 1)));
 
 			Tmp = (u32)BarAddr;
 
@@ -564,9 +533,9 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 			TestWrite = XPciePsu_PositionRightmostSetbit(Size);
 
 			/* actual bar size is 2 << TestWrite */
-			BarAddr =
-				XPciePsu_ReserveBarMem(InstancePtr, MemType, MemAs,
-						(2 << (TestWrite - 1)));
+			BarAddr = XPciePsu_ReserveBarMem(
+						InstancePtr, MemAs,
+						((u64)2 << (TestWrite - 1)));
 
 			Tmp = (u32)BarAddr;
 
@@ -634,7 +603,7 @@ static void XPciePsu_IncreamentPMem(XPciePsu *InstancePtr)
 *******************************************************************************/
 static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u32 BusNum)
 {
-	u32 ConfigData;
+	u32 ConfigData = 0;
 	static u32 LastBusNum;
 
 	u16 PCIeVendorID;

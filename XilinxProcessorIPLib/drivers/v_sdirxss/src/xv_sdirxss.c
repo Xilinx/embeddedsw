@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2017 - 2018  Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2017 - 2020  Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
  *
@@ -76,6 +54,7 @@ static void XV_SdiRxSs_StreamDownCallback(void *CallbackRef);
 static void XV_SdiRxSs_StreamUpCallback(void *CallbackRef);
 static void XV_SdiRxSs_OverFlowCallback(void *CallbackRef);
 static void XV_SdiRxSs_UnderFlowCallback(void *CallbackRef);
+static void XV_SdiRxSs_VsyncCallback(void *CallbackRef);
 static void XV_SdiRxSs_ReportTiming(XV_SdiRxSs *InstancePtr);
 
 /************************** Variable Definitions *****************************/
@@ -155,6 +134,11 @@ static int XV_SdiRxSs_RegisterSubsysCallbacks(XV_SdiRxSs *InstancePtr)
 		XV_SdiRx_SetCallback(SdiRxSsPtr->SdiRxPtr,
 					XV_SDIRX_HANDLER_UNDERFLOW,
 					XV_SdiRxSs_UnderFlowCallback,
+					InstancePtr);
+
+		XV_SdiRx_SetCallback(SdiRxSsPtr->SdiRxPtr,
+					XV_SDIRX_HANDLER_VSYNC,
+					XV_SdiRxSs_VsyncCallback,
 					InstancePtr);
 
 	}
@@ -315,6 +299,29 @@ static void XV_SdiRxSs_UnderFlowCallback(void *CallbackRef)
 /*****************************************************************************/
 /**
 *
+* This function is called when the Rx Vsync occurs.
+*
+* @param	None.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+static void XV_SdiRxSs_VsyncCallback(void *CallbackRef)
+{
+	XV_SdiRxSs *SdiRxSsPtr = (XV_SdiRxSs *)CallbackRef;
+
+	/* Check if user callback has been registered */
+	if (SdiRxSsPtr->VsyncCallback) {
+		SdiRxSsPtr->VsyncCallback(SdiRxSsPtr->VsyncRef);
+	}
+
+}
+
+/*****************************************************************************/
+/**
+*
 * This function is called when the RX stream is up.
 *
 * @param	None.
@@ -438,6 +445,7 @@ void XV_SdiRxSs_Stop(XV_SdiRxSs *InstancePtr)
 * (XV_SDIRXSS_HANDLER_STREAM_UP)           StreamUpCallback
 * (XV_SDIRXSS_HANDLER_OVERFLOW)		OverFlowCallback
 * (XV_SDIRXSS_HANDLER_UNDERFLOW)           UnderFlowCallback
+* (XV_SDIRXSS_HANDLER_VSYNC)		   VsyncCallback
 * </pre>
 *
 * @param    InstancePtr is a pointer to the SDI RX Subsystem instance.
@@ -496,6 +504,14 @@ void *CallbackFunc, void *CallbackRef)
 		InstancePtr->UnderFlowCallback =
 		(XV_SdiRxSs_Callback)CallbackFunc;
 		InstancePtr->UnderFlowRef = CallbackRef;
+		Status = (XST_SUCCESS);
+		break;
+
+		/* Vsync */
+	case (XV_SDIRXSS_HANDLER_VSYNC):
+		InstancePtr->VsyncCallback =
+		(XV_SdiRxSs_Callback)CallbackFunc;
+		InstancePtr->VsyncRef = CallbackRef;
 		Status = (XST_SUCCESS);
 		break;
 
@@ -566,6 +582,45 @@ void XV_SdiRxSs_ReportDetectedError(XV_SdiRxSs *InstancePtr)
 
 	/* Print detected error information */
 	XV_SdiRx_ReportDetectedError(InstancePtr->SdiRxPtr);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function enable the YUV444/RGB 10bit support SDI RX SS video stream
+*
+* @param	InstancePtr pointer to XV_SdiRxSs instance
+*
+* @return	None
+*
+******************************************************************************/
+void XV_SdiRxSs_SetYCbCr444_RGB_10bit(XV_SdiRxSs *InstancePtr)
+{
+        /* Verify arguments. */
+        Xil_AssertVoid(InstancePtr != NULL);
+
+        /* Print detected error information */
+        XV_SdiRx_SetYCbCr444_RGB_10bit(InstancePtr->SdiRxPtr);
+}
+
+
+/*****************************************************************************/
+/**
+*
+* This function disable the YUV444/RGB 10bit support SDI RX SS video stream
+*
+* @param	InstancePtr pointer to XV_SdiRxSs instance
+*
+* @return	None
+*
+******************************************************************************/
+void XV_SdiRxSs_ClearYCbCr444_RGB_10bit(XV_SdiRxSs *InstancePtr)
+{
+        /* Verify arguments. */
+        Xil_AssertVoid(InstancePtr != NULL);
+
+        /* Print detected error information */
+        XV_SdiRx_ClearYCbCr444_RGB_10bit(InstancePtr->SdiRxPtr);
 }
 
 /*****************************************************************************/

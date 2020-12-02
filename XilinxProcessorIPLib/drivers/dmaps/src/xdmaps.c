@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2009 - 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal 
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF 
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2009 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /****************************************************************************/
 /**
 *
 * @file xdmaps.c
-* @addtogroup dmaps_v2_4
+* @addtogroup dmaps_v2_7
 * @{
 *
 * This file contains the implementation of the interface functions for XDmaPs
@@ -66,6 +44,9 @@
 * 2.2  mus    12/08/16   Remove definition of INLINE macro to avoid re-definition,
 *                         since it is being defined in xil_io.h
 * 2.3 kpc     14/10/16   Fixed the compiler error when optimization O0 is used.
+* 2.5 hk      08/16/19   Add a memory barrier before DMASEV as per specification.
+* 2.6 hk      02/14/20   Correct boundary check for Channel.
+*
 * </pre>
 *
 *****************************************************************************/
@@ -1300,6 +1281,8 @@ static int XDmaPs_BuildDmaProg(unsigned Channel, XDmaPs_Cmd *Cmd,
 		}
 	}
 
+	/* Add a memory barrier before DMASSEV as recommended by spec */
+	DmaProgBuf += XDmaPs_Instr_DMAWMB(DmaProgBuf);
 	DmaProgBuf += XDmaPs_Instr_DMASEV(DmaProgBuf, DevChan);
 	DmaProgBuf += XDmaPs_Instr_DMAEND(DmaProgBuf);
 
@@ -1534,8 +1517,8 @@ int XDmaPs_IsActive(XDmaPs *InstPtr, unsigned int Channel)
 	Xil_AssertNonvoid(InstPtr != NULL);
 
 	/* Need to assert Channel is in range */
-	if (Channel > XDMAPS_CHANNELS_PER_DEV)
-		return  0;
+	if (Channel >= XDMAPS_CHANNELS_PER_DEV)
+		return XST_FAILURE;
 
 	return InstPtr->Chans[Channel].DmaCmdToHw != NULL;
 }

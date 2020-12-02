@@ -1,16 +1,14 @@
 var NAVTREEINDEX0 =
 {
 "annotated.html":[0,0],
-"example.html":[3],
-"example.html#ex1":[3,0],
-"example.html#ex2":[3,1],
-"files.html":[2],
+"example.html":[2],
+"example.html#ex1":[2,0],
+"example.html#ex2":[2,1],
+"files.html":[1],
 "functions.html":[0,1,0],
 "functions_vars.html":[0,1,1],
-"globals.html":[1,0],
-"globals_func.html":[1,1],
 "index.html":[],
-"main_8c.html":[2,0],
+"main_8c.html":[1,0],
 "pages.html":[],
 "struct_x_v__tpg.html":[0,0,0],
 "struct_x_v__tpg.html#a90433a42547a648492ef277251bd376e":[0,0,0,1],
@@ -30,7 +28,5 @@ var NAVTREEINDEX0 =
 "struct_x_v__tpg___config.html#ae31cd00c4d8a46b6c4fcd1a6391515cb":[0,0,1,11],
 "struct_x_v__tpg___config.html#ae34529a67dd5009d69ac0f819bb4520a":[0,0,1,3],
 "struct_x_v__tpg___config.html#aecfb32030fdcf4c9bea166825322e16b":[0,0,1,7],
-"struct_x_v__tpg___config.html#afdc0cdee27e877dd21fb17c92883f502":[0,0,1,9],
-"vtpg__example_8tcl.html":[2,1],
-"vtpg__example_8tcl.html#a5b115548c3897cf30461d888f5ed83b3":[2,1,0]
+"struct_x_v__tpg___config.html#afdc0cdee27e877dd21fb17c92883f502":[0,0,1,9]
 };

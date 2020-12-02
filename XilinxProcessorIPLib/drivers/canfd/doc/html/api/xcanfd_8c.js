@@ -18,6 +18,7 @@ var xcanfd_8c =
     [ "XCanFd_GetMode", "xcanfd_8c.html#ga8e1df3e2b6ed809dda14de08d8b6d0a5", null ],
     [ "XCanFd_GetNofMessages_Stored_Rx_Fifo", "xcanfd_8c.html#gaa11e9ba6544fba86d648f1517d79350e", null ],
     [ "XCanFd_GetNofMessages_Stored_TXE_FIFO", "xcanfd_8c.html#ga20c7a729f071bb7eabe893ed97002468", null ],
+    [ "XCanFd_Pee_BusOff_Handler", "xcanfd_8c.html#ga527b0275aefd9d0b6095a34aa0ad7039", null ],
     [ "XCanFd_PollQueue_Buffer", "xcanfd_8c.html#ga04a8853c745f69ec28bd0ca21743b203", null ],
     [ "XCanFd_Recv_Mailbox", "xcanfd_8c.html#gae93c2c9dd933e4258b9d4118c4bf6220", null ],
     [ "XCanFd_Recv_Sequential", "xcanfd_8c.html#gaf5ac1e7ce4a9c7eabfd07a41e77b0cdb", null ],

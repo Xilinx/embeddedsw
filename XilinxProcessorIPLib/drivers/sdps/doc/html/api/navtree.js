@@ -13,14 +13,17 @@ var NAVTREE =
       [ "Functions", "globals_func.html", null ],
       [ "Macros", "globals_defs.html", "globals_defs" ]
     ] ],
-    [ "File List", "files.html", "files" ]
+    [ "File List", "files.html", "files" ],
+    [ "Examples", "example.html", [
+      [ "xsdps_raw_example.c", "example.html#ex1", null ]
+    ] ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
 "annotated.html",
-"xsdps__hw_8h.html#gac9024b7da140cf1c18555825b3827750"
+"xsdps__hw_8h.html#ga849509ac4a8f9c74cd379e08f98ffa39"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

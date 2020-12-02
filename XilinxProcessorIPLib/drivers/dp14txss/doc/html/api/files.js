@@ -31,9 +31,9 @@ var files =
     [ "xdptxss_selftest.c", "xdptxss__selftest_8c.html", "xdptxss__selftest_8c" ],
     [ "xdptxss_selftest_example.c", "xdptxss__selftest__example_8c.html", "xdptxss__selftest__example_8c" ],
     [ "xdptxss_sinit.c", "xdptxss__sinit_8c.html", "xdptxss__sinit_8c" ],
-    [ "xdptxss_vcu118_tx.h", "xdptxss__vcu118__tx_8h.html", "xdptxss__vcu118__tx_8h" ],
     [ "xdptxss_vtc.c", "xdptxss__vtc_8c.html", "xdptxss__vtc_8c" ],
     [ "xdptxss_vtc.h", "xdptxss__vtc_8h.html", "xdptxss__vtc_8h" ],
+    [ "xdptxss_zcu102_tx.h", "xdptxss__zcu102__tx_8h.html", "xdptxss__zcu102__tx_8h" ],
     [ "xedid_print_example.c", "xedid__print__example_8c.html", "xedid__print__example_8c" ],
     [ "xlib_string.c", "xlib__string_8c.html", "xlib__string_8c" ],
     [ "xvid_pat_gen.h", "xvid__pat__gen_8h.html", "xvid__pat__gen_8h" ]
