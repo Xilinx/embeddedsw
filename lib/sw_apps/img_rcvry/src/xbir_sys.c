@@ -22,10 +22,22 @@
 #include "string.h"
 #include "xbir_config.h"
 #include "xstatus.h"
+#include "xgpiops.h"
+#include "sleep.h"
 
 /************************** Constant Definitions *****************************/
-#define XBIR_SYS_QSPI_MAX_SUB_SECTOR_SIZE	(8192U)	/* 8KB */
-#define XBR_SYS_NUM_REDUNDANT_COPY		(2U)
+#define XBIR_SYS_QSPI_MAX_SUB_SECTOR_SIZE	(8192U)/* 8KB */
+#define XBR_SYS_NUM_REDUNDANT_COPY	(2U)
+#define XBIR_ETH_PHY_MIO_38	(38U)
+#define XBIR_GPIO_DIR_OUTPUT	(1U)
+#define XBIR_GPIO_OUTPUT_EN	(1U)
+#define XBIR_GPIO_HIGH	(1U)
+#define XBIR_GPIO_LOW	(0U)
+#define XBIR_MIO_BANK2_CTRL5	(0xFF180180U)
+#define XBIR_MIO_75_MASK	(0x800000U)
+#define XBIR_MIO_73_MASK	(0x200000U)
+#define XBIR_MIO_71_MASK	(0x80000U)
+#define XBIR_WAIT_TIME_FOR_PHY_RESET_IN_US	(2L)
 
 /**************************** Type Definitions *******************************/
 
@@ -43,6 +55,7 @@ static int Xbir_SysValidateBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo,
 static u32 Xbir_SysCalcBootImgInfoChecksum (Xbir_SysBootImgInfo *BootImgInfo);
 static int Xbir_SysWrvBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo, u32 Offset);
 static void Xbir_SysShowBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo);
+static int Xbir_EthPhyReset (void);
 #if defined(XPAR_XIICPS_NUM_INSTANCES)
 static int Xbir_SysReadSysBoardInfoFromEeprom (Xbir_SysHeaderInfo* SysBoardHeaderInfo,
 		Xbir_SysBoardInfo* SysBoardBoardInfo);
@@ -130,6 +143,61 @@ int Xbir_SysInit (void)
 
 	Xbir_SysReadAndCorrectBootImgInfo();
 	Xbir_SysShowBootImgInfo(&BootImgStatus);
+
+	Status = Xbir_EthPhyReset();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief
+ * This function brings the ethernet phy out of reset.
+ *
+ * @param	None
+ *
+ * @return	XST_SUCCESS on successfully bringing phy out of reset
+ * 		Error code on failure
+ *
+ *****************************************************************************/
+static int Xbir_EthPhyReset (void)
+{
+	int Status = XST_FAILURE;
+	XGpioPs Gpio = {0U};
+	XGpioPs_Config *ConfigPtr;
+	u32 RegVal = Xil_In32(XBIR_MIO_BANK2_CTRL5);
+
+	RegVal &= ~(XBIR_MIO_71_MASK | XBIR_MIO_73_MASK | XBIR_MIO_75_MASK);
+	Xil_Out32(XBIR_MIO_BANK2_CTRL5, RegVal);
+
+	ConfigPtr = XGpioPs_LookupConfig(XPAR_XGPIOPS_0_DEVICE_ID);
+	if (ConfigPtr == NULL) {
+		Xbir_Printf("GPIO look up config failed\n\r");
+		goto END;
+	}
+
+	Status = XGpioPs_CfgInitialize(&Gpio, ConfigPtr, ConfigPtr->BaseAddr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/*
+	 * Set the direction for the pin to be output.
+	 */
+	XGpioPs_SetDirectionPin(&Gpio, XBIR_ETH_PHY_MIO_38, XBIR_GPIO_DIR_OUTPUT);
+	XGpioPs_SetOutputEnablePin(&Gpio, XBIR_ETH_PHY_MIO_38, XBIR_GPIO_OUTPUT_EN);
+
+	/*
+	 * Asserting the active low GPIO, which pushes the PHY into reset,
+	 * wait for 2us and then deasserting the GPIO to bring PHY out of reset
+	 */
+	XGpioPs_WritePin(&Gpio, XBIR_ETH_PHY_MIO_38, XBIR_GPIO_LOW);
+	usleep(XBIR_WAIT_TIME_FOR_PHY_RESET_IN_US);
+	XGpioPs_WritePin(&Gpio, XBIR_ETH_PHY_MIO_38, XBIR_GPIO_HIGH);
 
 END:
 	return Status;
