@@ -55,6 +55,7 @@
 *       kpt  10/19/2020 Added error code for glitch detection
 *       td   10/19/2020 MISRA C Fixes
 * 1.04  td   11/23/2020 Added error code for XilPdi_ReadBootHdr failure
+*       bsv  12/02/2020 Replaced SEM_CFR error code with generic SEM error code
 *
 * </pre>
 *
@@ -330,7 +331,7 @@ typedef enum {
 						configuration fails */
 	XLOADER_ERR_SEM_STOP_SCAN,	/**< 0x330 - Error while stopping the
 					  SEM Scan */
-	XLOADER_ERR_SEM_CFR_INIT,	/**< 0x331 - Error while starting the
+	XLOADER_ERR_SEM_INIT,	/**< 0x331 - Error while starting the
 					  SEM Scan */
 	XLOADER_ERR_DELAY_ATTRB,	/**< 0x332 - Error when both delay handoff
 					  and delay load are set for the same image */
