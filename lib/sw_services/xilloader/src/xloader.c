@@ -18,9 +18,9 @@
 * 1.00  kc   07/25/2018 Initial release
 *       tp   04/05/2019 Added API to reload a particular image
 *       kc   04/09/2019 Added support for PCIe secondary boot mode and
-*						partial PDI load
+*                       partial PDI load
 *       bsv  06/11/2019 Added TCM power up code to Xilloader to fix issue in
-*						R5-1 split mode functionality
+*                       R5-1 split mode functionality
 *       bsv  06/17/2019 Added support for CFI and CFU error handling
 *       bsv  06/26/2019 Added secondary boot support
 *       kc   07/16/2019 Added code to print execution time
@@ -30,7 +30,7 @@
 *       bsv  08/30/2019 Added fallback and multiboot support in PLM
 *       kc   09/05/2019 Added code to use PMCDMA0 and PMCDMA1 in parallel
 *       kc   09/13/2019 SBI reset is removed for SMAP boot mode to ensure smap
-*						bus width value remains unchanged
+*                       bus width value remains unchanged
 * 1.01  bsv  10/31/2019 Added USB secondary boot mode support
 *       kc   12/02/2019 Added performance time stamps
 *       ma   12/12/2019 Added support for passing hand off parameters to ATF
@@ -48,8 +48,8 @@
 *       vnsl 03/01/2020 Added PUF KEK decrypt support
 *       bsv  03/14/2020 Added eMMC0 FS and raw boot mode support
 *       bsv  04/09/2020 Code clean up
-* 1.02	ana  06/04/2020 Updated PlmkatStatus and Kekstatus variables from
-*						initial boot pdi to partial pdi structure variables
+* 1.02  ana  06/04/2020 Updated PlmkatStatus and Kekstatus variables from
+*                       initial boot pdi to partial pdi structure variables
 *       bsv  06/22/2020 Cfi error handler should only be called for PL image
 *       bsv  07/01/2020 Added DevRelease to DevOps
 *       kc   07/28/2020 PLM mode is set to configuration during PDI load
@@ -73,8 +73,9 @@
 *       bsv  10/13/2020 Code clean up
 *       kpt  10/19/2020 Renamed XLoader_UpdateKekRdKeyStatus to
 *                       XLoader_UpdateKekSrc
-*       td	 10/19/2020 MISRA C Fixes
+*       td   10/19/2020 MISRA C Fixes
 * 1.03  td   11/23/2020 Coverity Warning Fixes
+*       bsv  12/02/2020 Replace SemCfr APIs with generic Sem APIs
 *
 * </pre>
 *
@@ -1342,12 +1343,12 @@ static int XLoader_LoadImage(XilPdi *PdiPtr)
 	int Status = XST_FAILURE;
 	XLoader_ImageInfo ImageInfo;
 
-#if defined(XPLM_SEM) && defined(XSEM_CFRSCAN_EN)
+#ifdef XPLM_SEM
 	/* Stop the SEM scan before PL load */
 	if ((PdiPtr->PdiType != XLOADER_PDI_TYPE_FULL) &&
 		(NODESUBCLASS(PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID)
 		== (u32)XPM_NODESUBCL_DEV_PL)) {
-		Status = XSem_CfrStopScan();
+		Status = XSem_StopScan();
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(
 				XLOADER_ERR_SEM_STOP_SCAN, Status);
@@ -1396,14 +1397,14 @@ static int XLoader_LoadImage(XilPdi *PdiPtr)
 	/* Log the image load to the Trace Log buffer */
 	XPlmi_TraceLog3(XPLMI_TRACE_LOG_LOAD_IMAGE, PdiPtr->CurImgId);
 
-#if defined(XPLM_SEM) && defined(XSEM_CFRSCAN_EN)
+#ifdef XPLM_SEM
 	/* Resume the SEM scan after PL load */
 	if ((PdiPtr->PdiType != XLOADER_PDI_TYPE_FULL) &&
 		(NODESUBCLASS(PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID)
 		== (u32)XPM_NODESUBCL_DEV_PL)) {
-		Status = XSem_CfrInit();
+		Status = XSem_Init();
 		if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_SEM_CFR_INIT, Status);
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_SEM_INIT, Status);
 			goto END;
 		}
 	}
