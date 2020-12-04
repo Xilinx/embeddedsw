@@ -426,6 +426,9 @@ typedef enum {
 #define XSK_STRING_SIZE_64		(64U)
 #define XSK_STRING_SIZE_96		(96U)
 
+/************************** Variable Declarations ****************************/
+extern u32 TimerTicksfor1000ns;
+
 /************************** Variable Definitions ****************************/
 #ifdef XSK_MICROBLAZE_PLATFORM
 typedef enum {
