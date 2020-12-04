@@ -2082,7 +2082,7 @@ static INLINE u32 XilSKey_ZynqMp_EfusePs_UserFuses_WriteChecks(
 			&(UserFuses_Write[XSK_ZYNQMP_EFUSEPS_USR0_FUSE][0]),
 			XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW);
 
-		UserEFuseToPrg = (ToBePrgrmd + (u32)XSK_ZYNQMP_EFUSEPS_USR0_FUSE);
+		UserEFuseToPrg = &ToBePrgrmd[XSK_ZYNQMP_EFUSEPS_USR0_FUSE];
 	/* Checking whether requested User FUSE bit programming is possible */
 		if (XilSKey_ZynqMp_EfusePs_UserFuses_TobeProgrammed(
 			&UserFuses_Write[XSK_ZYNQMP_EFUSEPS_USR0_FUSE][0],
@@ -2103,7 +2103,7 @@ static INLINE u32 XilSKey_ZynqMp_EfusePs_UserFuses_WriteChecks(
 		XilSKey_Efuse_ConvertBitsToBytes(InstancePtr->User1Fuses,
 		&(UserFuses_Write[XSK_ZYNQMP_EFUSEPS_USR1_FUSE][0]),
 			XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW);
-		UserEFuseToPrg = (ToBePrgrmd + (u32)XSK_ZYNQMP_EFUSEPS_USR1_FUSE);
+		UserEFuseToPrg = &ToBePrgrmd[XSK_ZYNQMP_EFUSEPS_USR1_FUSE];
 	/* Checking whether requested User FUSE bit programming is possible */
 		if (XilSKey_ZynqMp_EfusePs_UserFuses_TobeProgrammed(
 			&UserFuses_Write[XSK_ZYNQMP_EFUSEPS_USR1_FUSE][0],
@@ -2124,7 +2124,7 @@ static INLINE u32 XilSKey_ZynqMp_EfusePs_UserFuses_WriteChecks(
 		XilSKey_Efuse_ConvertBitsToBytes(InstancePtr->User2Fuses,
 			&(UserFuses_Write[XSK_ZYNQMP_EFUSEPS_USR2_FUSE][0]),
 			XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW);
-		UserEFuseToPrg = (ToBePrgrmd + (u32)XSK_ZYNQMP_EFUSEPS_USR2_FUSE);
+		UserEFuseToPrg = &ToBePrgrmd[XSK_ZYNQMP_EFUSEPS_USR2_FUSE];
 	/* Checking whether requested User FUSE bit programming is possible */
 		if (XilSKey_ZynqMp_EfusePs_UserFuses_TobeProgrammed(
 			&UserFuses_Write[XSK_ZYNQMP_EFUSEPS_USR2_FUSE][0],
@@ -2145,7 +2145,7 @@ static INLINE u32 XilSKey_ZynqMp_EfusePs_UserFuses_WriteChecks(
 		XilSKey_Efuse_ConvertBitsToBytes(InstancePtr->User3Fuses,
 		&(UserFuses_Write[XSK_ZYNQMP_EFUSEPS_USR3_FUSE][0]),
 			XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW);
-		UserEFuseToPrg = (ToBePrgrmd + (u32)XSK_ZYNQMP_EFUSEPS_USR3_FUSE);
+		UserEFuseToPrg = &ToBePrgrmd[XSK_ZYNQMP_EFUSEPS_USR3_FUSE];
 	/* Checking whether requested User FUSE bit programming is possible */
 		if (XilSKey_ZynqMp_EfusePs_UserFuses_TobeProgrammed(
 			&UserFuses_Write[XSK_ZYNQMP_EFUSEPS_USR3_FUSE][0],
@@ -2166,7 +2166,7 @@ static INLINE u32 XilSKey_ZynqMp_EfusePs_UserFuses_WriteChecks(
 		XilSKey_Efuse_ConvertBitsToBytes(InstancePtr->User4Fuses,
 		&(UserFuses_Write[XSK_ZYNQMP_EFUSEPS_USR4_FUSE][0]),
 			XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW);
-		UserEFuseToPrg = (ToBePrgrmd + (u32)XSK_ZYNQMP_EFUSEPS_USR4_FUSE);
+		UserEFuseToPrg = &ToBePrgrmd[XSK_ZYNQMP_EFUSEPS_USR4_FUSE];
 	/* Checking whether requested User FUSE bit programming is possible */
 		if (XilSKey_ZynqMp_EfusePs_UserFuses_TobeProgrammed(
 			&UserFuses_Write[XSK_ZYNQMP_EFUSEPS_USR4_FUSE][0],
@@ -2187,7 +2187,7 @@ static INLINE u32 XilSKey_ZynqMp_EfusePs_UserFuses_WriteChecks(
 		XilSKey_Efuse_ConvertBitsToBytes(InstancePtr->User5Fuses,
 		&(UserFuses_Write[XSK_ZYNQMP_EFUSEPS_USR5_FUSE][0]),
 		XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW);
-		UserEFuseToPrg = (ToBePrgrmd + (u32)XSK_ZYNQMP_EFUSEPS_USR5_FUSE);
+		UserEFuseToPrg = &ToBePrgrmd[XSK_ZYNQMP_EFUSEPS_USR5_FUSE];
 	/* Checking whether requested User FUSE bit programming is possible */
 		if (XilSKey_ZynqMp_EfusePs_UserFuses_TobeProgrammed(
 			&UserFuses_Write[XSK_ZYNQMP_EFUSEPS_USR5_FUSE][0],
@@ -2208,7 +2208,7 @@ static INLINE u32 XilSKey_ZynqMp_EfusePs_UserFuses_WriteChecks(
 		XilSKey_Efuse_ConvertBitsToBytes(InstancePtr->User6Fuses,
 		&(UserFuses_Write[XSK_ZYNQMP_EFUSEPS_USR6_FUSE][0]),
 				XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW);
-		UserEFuseToPrg = (ToBePrgrmd + (u32)XSK_ZYNQMP_EFUSEPS_USR6_FUSE);
+		UserEFuseToPrg = &ToBePrgrmd[XSK_ZYNQMP_EFUSEPS_USR6_FUSE];
 	/* Checking whether requested User FUSE bit programming is possible */
 		if (XilSKey_ZynqMp_EfusePs_UserFuses_TobeProgrammed(
 			&UserFuses_Write[XSK_ZYNQMP_EFUSEPS_USR6_FUSE][0],
@@ -2230,7 +2230,7 @@ static INLINE u32 XilSKey_ZynqMp_EfusePs_UserFuses_WriteChecks(
 		&(UserFuses_Write[XSK_ZYNQMP_EFUSEPS_USR7_FUSE][0]),
 			XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW);
 
-		UserEFuseToPrg = (ToBePrgrmd + XSK_ZYNQMP_EFUSEPS_USR7_FUSE);
+		UserEFuseToPrg = &ToBePrgrmd[XSK_ZYNQMP_EFUSEPS_USR7_FUSE];
 	/* Checking whether requested User FUSE bit programming is possible */
 		if (XilSKey_ZynqMp_EfusePs_UserFuses_TobeProgrammed(
 			&UserFuses_Write[XSK_ZYNQMP_EFUSEPS_USR7_FUSE][0],
@@ -2406,7 +2406,7 @@ static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow)
 			Index < XSK_ZYNQMP_EFUSEPS_USER_FUSE_ROW_LEN_IN_BYTES;
 								Index++) {
 				EfuseInstance.User0Fuses[Index] = *Val;
-				Val = Val + 1U;
+				Val = &Val[1U];
 			}
 			Status = (u32)XST_SUCCESS;
 			break;
@@ -2421,7 +2421,7 @@ static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow)
 			 Index < XSK_ZYNQMP_EFUSEPS_USER_FUSE_ROW_LEN_IN_BYTES;
 								Index++) {
 				EfuseInstance.User1Fuses[Index] = *Val;
-				Val = Val + 1U;
+				Val = &Val[1U];
 			}
 			Status = (u32)XST_SUCCESS;
 			break;
@@ -2436,7 +2436,7 @@ static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow)
 			 Index < XSK_ZYNQMP_EFUSEPS_USER_FUSE_ROW_LEN_IN_BYTES;
 								Index++) {
 				EfuseInstance.User2Fuses[Index] = *Val;
-				Val = Val + 1U;
+				Val = &Val[1U];
 			}
 			Status = (u32)XST_SUCCESS;
 			break;
@@ -2451,7 +2451,7 @@ static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow)
 			 Index < XSK_ZYNQMP_EFUSEPS_USER_FUSE_ROW_LEN_IN_BYTES;
 								Index++) {
 				EfuseInstance.User3Fuses[Index] = *Val;
-				Val = Val + 1U;
+				Val = &Val[1U];
 			}
 			Status = (u32)XST_SUCCESS;
 			break;
@@ -2466,7 +2466,7 @@ static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow)
 			 Index < XSK_ZYNQMP_EFUSEPS_USER_FUSE_ROW_LEN_IN_BYTES;
 								Index++) {
 				EfuseInstance.User4Fuses[Index] = *Val;
-				Val = Val + 1U;
+				Val = &Val[1U];
 			}
 			Status = (u32)XST_SUCCESS;
 			break;
@@ -2481,7 +2481,7 @@ static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow)
 			 Index < XSK_ZYNQMP_EFUSEPS_USER_FUSE_ROW_LEN_IN_BYTES;
 								Index++) {
 				EfuseInstance.User5Fuses[Index] = *Val;
-				Val = Val + 1U;
+				Val = &Val[1U];
 			}
 			Status = (u32)XST_SUCCESS;
 			break;
@@ -2496,7 +2496,7 @@ static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow)
 			 Index < XSK_ZYNQMP_EFUSEPS_USER_FUSE_ROW_LEN_IN_BYTES;
 								Index++) {
 				EfuseInstance.User6Fuses[Index] = *Val;
-				Val = Val + 1U;
+				Val = &Val[1U];
 			}
 			Status = (u32)XST_SUCCESS;
 			break;
@@ -2511,7 +2511,7 @@ static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow)
 			 Index < XSK_ZYNQMP_EFUSEPS_USER_FUSE_ROW_LEN_IN_BYTES;
 								Index++) {
 				EfuseInstance.User7Fuses[Index] = *Val;
-				Val = Val + 1U;
+				Val = &Val[1U];
 			}
 			Status = (u32)XST_SUCCESS;
 			break;
@@ -2680,7 +2680,7 @@ static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow)
 			     Index < XSK_ZYNQMP_EFUSEPS_SPKID_LEN_IN_BYTES;
 			     Index++) {
 				EfuseInstance.SpkId[Index] = *Val;
-				Val = Val + 1U;
+				Val = &Val[1U];
 			}
 			Status = (u32)XST_SUCCESS;
 			break;
@@ -2696,7 +2696,7 @@ static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow)
 			     Index < XSK_ZYNQMP_EFUSEPS_AES_KEY_LEN_IN_BYTES;
 			     Index++) {
 				EfuseInstance.AESKey[Index] = *Val;
-				Val = Val + 1U;
+				Val = &Val[1U];
 			}
 			Status = (u32)XST_SUCCESS;
 			break;
@@ -2712,7 +2712,7 @@ static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow)
 			     Index < XSK_ZYNQMP_EFUSEPS_PPK_HASH_LEN_IN_BYTES;
 			     Index++) {
 				EfuseInstance.Ppk0Hash[Index] = *Val;
-				Val = Val + 1U;
+				Val = &Val[1U];
 			}
 			Status = (u32)XST_SUCCESS;
 			break;
@@ -2728,7 +2728,7 @@ static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow)
 			     Index < XSK_ZYNQMP_EFUSEPS_PPK_HASH_LEN_IN_BYTES;
 			     Index++) {
 				EfuseInstance.Ppk1Hash[Index] = *Val;
-				Val = Val + 1U;
+				Val = &Val[1U];
 			}
 			Status = (u32)XST_SUCCESS;
 			break;
