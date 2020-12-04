@@ -863,13 +863,13 @@ END:
 *
 ******************************************************************************/
 u32 XilSKey_ZynqMp_EfusePs_ReadRow(u8 Row, XskEfusePs_Type EfuseType,
-								u32 *RowData)
+	u32 *RowData)
 {
+	u32 Status = (u32)XST_FAILURE;
 	u32 WriteValue;
 	u32 Events = 0U;
 	u32 EventsMask;
 	u32 EfusePsType;
-	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(RowData != NULL);
@@ -891,21 +891,22 @@ u32 XilSKey_ZynqMp_EfusePs_ReadRow(u8 Row, XskEfusePs_Type EfuseType,
 				XSK_ZYNQMP_EFUSEPS_ISR_RD_DONE_MASK;
 
 	Status = Xil_WaitForEvents((XSK_ZYNQMP_EFUSEPS_BASEADDR +
-				(u32)XSK_ZYNQMP_EFUSEPS_ISR_OFFSET),
-				EventsMask, EventsMask, (u32)XSK_POLL_TIMEOUT, &Events);
+		(u32)XSK_ZYNQMP_EFUSEPS_ISR_OFFSET),
+		EventsMask, EventsMask, (u32)XSK_POLL_TIMEOUT, &Events);
 
-	if ((Events & XSK_ZYNQMP_EFUSEPS_ISR_RD_ERR_MASK) != 0U) {
-		Status = (u32)XSK_EFUSEPS_ERROR_READ;
-	}
-	else if ((Events & XSK_ZYNQMP_EFUSEPS_ISR_RD_DONE_MASK) == 0U) {
-		Status = (u32)XSK_EFUSEPS_ERROR_READ_NOT_DONE;
+	if(Status != (u32)XST_SUCCESS) {
+		if ((Events & XSK_ZYNQMP_EFUSEPS_ISR_RD_ERR_MASK) != 0U) {
+			Status = (u32)XSK_EFUSEPS_ERROR_READ;
+		}
+		else if ((Events & XSK_ZYNQMP_EFUSEPS_ISR_RD_DONE_MASK) == 0U) {
+			Status = (u32)XSK_EFUSEPS_ERROR_READ_NOT_DONE;
+		}
 	}
 	else {
-	*RowData =
-		XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
-				XSK_ZYNQMP_EFUSEPS_RD_DATA_OFFSET);
-	Status = (u32)XST_SUCCESS;
+		*RowData = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
+			XSK_ZYNQMP_EFUSEPS_RD_DATA_OFFSET);
 	}
+
 	XilSKey_WriteReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
 			XSK_ZYNQMP_EFUSEPS_ISR_OFFSET,
 			XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
@@ -928,14 +929,13 @@ u32 XilSKey_ZynqMp_EfusePs_ReadRow(u8 Row, XskEfusePs_Type EfuseType,
 *
 ******************************************************************************/
 static INLINE u32 XilSKey_ZynqMp_EfusePs_WriteBit(u8 Row, u8 Column,
-						XskEfusePs_Type EfuseType)
+	XskEfusePs_Type EfuseType)
 {
-
+	u32 Status = (u32)XST_FAILURE;
 	u32 WriteValue;
 	u32 Events = 0U;
 	u32 EventsMask;
 	u32 EfusePsType = (u32)EfuseType;
-	u32 Status = (u32)XST_FAILURE;
 
 	WriteValue = ((EfusePsType << (u32)XSK_ZYNQMP_EFUSEPS_PGM_ADDR_SHIFT) &
 					(u32)XSK_ZYNQMP_EFUSEPS_PGM_ADDR_MASK) |
@@ -950,25 +950,24 @@ static INLINE u32 XilSKey_ZynqMp_EfusePs_WriteBit(u8 Row, u8 Column,
 				XSK_ZYNQMP_EFUSEPS_ISR_PGM_DONE_MASK;
 
 	Status = Xil_WaitForEvents((XSK_ZYNQMP_EFUSEPS_BASEADDR +
-				(u32)XSK_ZYNQMP_EFUSEPS_ISR_OFFSET),
-				EventsMask, EventsMask, (u32)XSK_POLL_TIMEOUT, &Events);
+		(u32)XSK_ZYNQMP_EFUSEPS_ISR_OFFSET),
+		EventsMask, EventsMask, (u32)XSK_POLL_TIMEOUT, &Events);
 
-	if ((Events & XSK_ZYNQMP_EFUSEPS_ISR_PGM_ERR_MASK) != 0U) {
-		Status = (u32)XSK_EFUSEPS_ERROR_PROGRAMMING;
-    }
-	else if ((Events & XSK_ZYNQMP_EFUSEPS_ISR_PGM_DONE_MASK) == 0U) {
-		Status = (u32)XSK_EFUSEPS_ERROR_PGM_NOT_DONE;
+	if (Status != (u32)XST_SUCCESS) {
+		if ((Events & XSK_ZYNQMP_EFUSEPS_ISR_PGM_ERR_MASK) != 0U) {
+			Status = (u32)XSK_EFUSEPS_ERROR_PROGRAMMING;
+		}
+		else if ((Events & XSK_ZYNQMP_EFUSEPS_ISR_PGM_DONE_MASK) == 0U) {
+			Status = (u32)XSK_EFUSEPS_ERROR_PGM_NOT_DONE;
+		}
 	}
-	else {
-		Status = (u32)XST_SUCCESS;
-	}
+
 	XilSKey_WriteReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
 			XSK_ZYNQMP_EFUSEPS_ISR_OFFSET,
 			XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
 			XSK_ZYNQMP_EFUSEPS_ISR_OFFSET));
 
 	return Status;
-
 }
 
 /***************************************************************************/
