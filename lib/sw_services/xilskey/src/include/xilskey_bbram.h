@@ -35,6 +35,10 @@
 *       psl     03/29/19 Added Support for user configurable GPIO for jtag
 *                        control.
 * 6.8   psl     05/21/19 Added SystemInitDone to check jtag initialized or not.
+* 7.1   am      11/30/20 Resolved MISRA C violations
+*
+* </pre>
+*
 ****************************************************************************/
 #ifndef XILSKEY_BBRAM_H
 #define XILSKEY_BBRAM_H
@@ -225,7 +229,7 @@ int XilSKey_Bbram_JTAGServerInit(XilSKey_Bbram *InstancePtr);
  @{ */
 
 /* Functions to program AES key and function to zeroise AES key */
-u32 XilSKey_ZynqMp_Bbram_Program(u32 *AesKey);
+u32 XilSKey_ZynqMp_Bbram_Program(const u32 *AesKey);
 u32 XilSKey_ZynqMp_Bbram_Zeroise(void);
 /**@}*/
 
