@@ -97,7 +97,7 @@ static u32 XilSKey_EfusePs_ConvertCharToNibble (char InChar, u8 *Num);
 #ifdef XSK_MICROBLAZE_PLATFORM
 extern void Jtag_Read_Sysmon(u8 Row, u32 *Row_Data);
 #endif
-u32 XilSKey_RowCrcCalculation(u32 PrevCRC, u32 Data, u32 Addr);
+
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
 static INLINE void XilSKey_ZynqMP_EfusePs_ReadSysmonVol(
 					XSKEfusePs_XAdc *XAdcInstancePtr);
