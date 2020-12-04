@@ -59,7 +59,8 @@
 * 6.9   kpt     02/16/20 Fixed coverity warnings
 *               02/27/20 Replaced XSYSMON_DEVICE_ID with XSYSMON_PSU_DEVICE_ID
 *       vns     03/18/20 Fixed Armcc compilation errors
-* 7.0	am	 	10/04/20 Resolved MISRA C violations
+* 7.0	am      10/04/20 Resolved MISRA C violations
+* 7.1   am      11/26/20 Resolved Coverity warnings
 *
 * </pre>
 *
@@ -637,7 +638,7 @@ END:
  * 		Value should be between 0-9, a-f and A-F
  *
  * @param	Buf is Output buffer.
- * @param	Len of the input string. Should have even values
+ * @param	Len of the input string in bits and it should have even values
  * @return
  * 		- XST_SUCCESS no errors occurred.
  *		- XST_FAILURE an error when input parameters are not valid
@@ -681,12 +682,12 @@ u32 XilSKey_Efuse_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len)
 	 * Len has to be multiple of 2
 	 */
 	if ((Len == 0U) || ((Len % 2U) == 1U)) {
-		Status = (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+		Status = (u32)XSK_EFUSEPS_ERROR_INVALID_PARAM;
 		goto END;
 	}
 
-	if(Len != (strlen(Str) * 4U)) {
-		Status = (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+	if(Len != (Xil_Strnlen(Str, Len) * 4U)) {
+		Status = (u32)XSK_EFUSEPS_ERROR_INVALID_PARAM;
 		goto END;
 	}
 
@@ -745,7 +746,7 @@ END:
  * 		Value should be between 0-9, a-f and A-F
  *
  * @param	Buf is Output buffer.
- * @param	Len of the input string. Should have even values
+ * @param	Len of the input string in bits and it should have even values
  * @return
  * 		- XST_SUCCESS no errors occurred.
  *		- XST_FAILURE an error when input parameters are not valid
@@ -790,12 +791,12 @@ u32 XilSKey_Efuse_ConvertStringToHexLE(const char * Str, u8 * Buf, u32 Len)
 	 * Len has to be multiple of 2
 	 */
 	if ((Len == 0U) || ((Len % 2U) == 1U)) {
-		Status = (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+		Status = (u32)XSK_EFUSEPS_ERROR_INVALID_PARAM;
 		goto END;
 	}
 
-	if(Len != (strlen(Str) * 4U)) {
-		Status = (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+	if(Len != (Xil_Strnlen(Str, Len) * 4U)) {
+		Status = (u32)XSK_EFUSEPS_ERROR_INVALID_PARAM;
 		goto END;
 	}
 
@@ -1014,8 +1015,9 @@ END:
  ****************************************************************************/
 u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len)
 {
-	u32 i;
 	u32 Status = (u32)XST_FAILURE;
+	u32 KeyLen = Xil_Strnlen(Key, Len);
+	u32 Index;
 
 	Xil_AssertNonvoid(Key != NULL);
 	Xil_AssertNonvoid((Len == XSK_STRING_SIZE_2) ||
@@ -1027,7 +1029,7 @@ u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len)
 	/**
 	 * Make sure the key has valid length
 	 */
-	if (strlen(Key) != Len) {
+	if (KeyLen != Len) {
 		Status = ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION |
 			(u32)XSK_EFUSEPL_ERROR_NOT_VALID_KEY_LENGTH);
 		goto END;
@@ -1036,8 +1038,8 @@ u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len)
 	/**
 	* Make sure the key has valid characters
 	*/
-	for(i = 0U; i < strlen(Key); i++) {
-		if(XilSKey_Efuse_IsValidChar(&Key[i]) != (u32)XST_SUCCESS) {
+	for(Index = 0U; Index < KeyLen; Index++) {
+		if(XilSKey_Efuse_IsValidChar(&Key[Index]) != (u32)XST_SUCCESS) {
 			Status = ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION |
 				(u32)XSK_EFUSEPL_ERROR_NOT_VALID_KEY_CHAR);
 			goto END;
@@ -1045,9 +1047,11 @@ u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len)
 	}
 	
 	Status = (u32)XSK_EFUSEPL_ERROR_NONE;
+
 END:
 	return Status;
 }
+
 /****************************************************************************/
 /**
  * Checks whether the passed character is a valid hash key character
@@ -1154,39 +1158,6 @@ u32 XilSKey_Timer_Intialise(void)
 
 /****************************************************************************/
 /**
- * Copies one string to other from specified location
- *
- * @param	Src is a pointer to Source string.
- * @param	Dst is a pointer to Destination string.
- * @param	From which position to be copied.
- * @param	To which position to be copied.
- *
- * @return	None.
- *
- * @note	None.
- *
- ****************************************************************************/
-void XilSKey_StrCpyRange(const u8 *Src, u8 *Dst, u32 From, u32 To)
-{
-	u32 Index, J = 0U;
-	u32 SrcLength = strlen((const char *)Src);
-
-	if (To >= SrcLength) {
-		goto END;
-	}
-
-	for (Index = From; Index <= To; Index++) {
-		Dst[J] = Src[Index];
-		J = J + 1U;
-	}
-
-END:
-	Dst[J] = (u8)'\0';
-
-}
-
-/****************************************************************************/
-/**
  * This function Calculates CRC value based on hexadecimal string passed.
  *
  * @param	Key	Pointer to the string contains AES key in hexadecimal
@@ -1214,6 +1185,7 @@ END:
  ****************************************************************************/
 u32 XilSKey_CrcCalculation(const u8 *Key)
 {
+	u32 Status = (u32)XST_FAILURE;
 	u32 CrcReturn = 0U;
 	u32 Index;
 	u8 MaxIndex = 8U;
@@ -1221,26 +1193,38 @@ u32 XilSKey_CrcCalculation(const u8 *Key)
 #if defined (XSK_MICROBLAZE_PLATFORM) || \
 	defined (XSK_ZYNQ_ULTRA_MP_PLATFORM)
 	u32 Key_32 = 0U;
-	u32 Status;
 	u8 Key_Hex[4U] = {0};
 	u8 Key_8[9U] = {0};
 #endif
 #ifdef XSK_MICROBLAZE_PLATFORM
 	u8 Row = 0U;
 #endif
-	u8 FullKey[65U] = {0U};
-	u32 Length = strlen((const char *)Key);
+	u8 FullKey[XSK_EFUSEPS_AES_KEY_SIZE_IN_CHARS + 1U] = {0U};
+	u32 Length = Xil_Strnlen((const char *)Key,
+		XSK_EFUSEPS_AES_KEY_SIZE_IN_CHARS + 1U);
 
-	if (Length > 64U) {
+	if (Length > XSK_EFUSEPS_AES_KEY_SIZE_IN_CHARS) {
 		CrcReturn = (u32)XSK_EFUSEPL_ERROR_NOT_VALID_KEY_LENGTH;
 		goto END;
 	}
-	if (Length < 64U) {
-		XilSKey_StrCpyRange(Key, &FullKey[64U - Length + 1U], 0U, Length-1U);
-
+	if (Length < XSK_EFUSEPS_AES_KEY_SIZE_IN_CHARS) {
+		Status = (u32)Xil_StrCpyRange(Key,
+			&FullKey[XSK_EFUSEPS_AES_KEY_SIZE_IN_CHARS - Length + 1U],
+			0U, Length - 1U, XSK_EFUSEPS_AES_KEY_SIZE_IN_CHARS + 1U,
+			XSK_EFUSEPS_AES_KEY_SIZE_IN_CHARS + 1U);
+		if (Status != (u32)XST_SUCCESS) {
+			CrcReturn = Status;
+			goto END;
+		}
 	}
 	else {
-		XilSKey_StrCpyRange(Key, FullKey, 0U, Length-1U);
+		Status = (u32)Xil_StrCpyRange(Key, FullKey, 0U, Length - 1U,
+			XSK_EFUSEPS_AES_KEY_SIZE_IN_CHARS + 1U,
+			XSK_EFUSEPS_AES_KEY_SIZE_IN_CHARS + 1U);
+		if (Status != (u32)XST_SUCCESS) {
+			CrcReturn = Status;
+			goto END;
+		}
 	}
 #ifdef XSK_MICROBLAZE_ULTRA_PLUS
 	MaxIndex = 16U;
@@ -1255,34 +1239,50 @@ u32 XilSKey_CrcCalculation(const u8 *Key)
 	for (Index = 0U; Index < MaxIndex; Index++) {
 #ifdef XSK_MICROBLAZE_PLATFORM
 #ifdef XSK_MICROBLAZE_ULTRA
-		XilSKey_StrCpyRange(FullKey, Key_8, ((7U - Index) * 8U),
-					((((7U - Index) + 1U) * 8U) - 1U));
+		Status = (u32)Xil_StrCpyRange(FullKey, Key_8, ((7U - Index) * 8U),
+			((((7U - Index) + 1U) * 8U) - 1U),
+			XSK_EFUSEPS_AES_KEY_SIZE_IN_CHARS + 1U, 9U);
+		if (Status != (u32)XST_SUCCESS) {
+			CrcReturn = Status;
+			goto END;
+		}
 #endif
 #ifdef XSK_MICROBLAZE_ULTRA_PLUS
-		XilSKey_StrCpyRange(FullKey, Key_8, (64U - ((Index + 1U) * 4U)),
-					(63U - (Index * 4U)));
+		Status = (u32)Xil_StrCpyRange(FullKey, Key_8,
+			(XSK_EFUSEPS_AES_KEY_SIZE_IN_CHARS - ((Index + 1U) * 4U)),
+			(63U - (Index * 4U)),
+			XSK_EFUSEPS_AES_KEY_SIZE_IN_CHARS + 1U, 9U);
+		if (Status != (u32)XST_SUCCESS) {
+			CrcReturn = Status;
+			goto END;
+		}
 #endif
 #endif
 
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
-		XilSKey_StrCpyRange(FullKey, Key_8, ((Index) * 8U),
-							((((Index) * 8U) + 8U) - 1U));
+		Status = (u32)Xil_StrCpyRange(FullKey, Key_8, ((Index) * 8U),
+			(((Index * 8U) + 8U) - 1U),
+			XSK_EFUSEPS_AES_KEY_SIZE_IN_CHARS + 1U, 9U);
+		if (Status != (u32)XST_SUCCESS) {
+			CrcReturn = Status;
+			goto END;
+		}
 #endif
 
 #if defined (XSK_MICROBLAZE_ULTRA) || \
 	defined (XSK_ZYNQ_ULTRA_MP_PLATFORM)
 		Status = XilSKey_Efuse_ConvertStringToHexBE((char *)Key_8,
-							 Key_Hex, 32U);
+			Key_Hex, 32U);
 		if (Status != (u32)XST_SUCCESS) {
 			CrcReturn = Status;
 			goto END;
 		}
 		Key_32 = (((u32)Key_Hex[0U] << 24U) | ((u32)Key_Hex[1U] << 16U) |
-				((u32)Key_Hex[2U] << 8U) | ((u32)Key_Hex[3U]));
+			((u32)Key_Hex[2U] << 8U) | ((u32)Key_Hex[3U]));
 #endif
 #ifdef	XSK_MICROBLAZE_ULTRA_PLUS
 		Status = XilSKey_Efuse_ConvertStringToHexBE((char *)Key_8,
-							Key_Hex, 16U);
+			Key_Hex, 16U);
 		if (Status != (u32)XST_SUCCESS) {
 			CrcReturn = Status;
 			goto END;

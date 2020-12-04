@@ -67,7 +67,8 @@
 *                        XSK_EFUSEPS_RD_FROM_EFUSE_NOT_ALLOWED
 *                        XSK_EFUSEPS_ERROR_PUF_AUX_ALREADY_PROGRAMMED
 *                        XSK_EFUSEPS_ERROR_PUF_CHASH_ALREADY_PROGRAMMED
-* 7.0	am		10/04/20 Resolved MISRA C violations
+* 7.0   am      10/04/20 Resolved MISRA C violations
+* 7.1   am      11/26/20 Resolved Coverity warnings
 *
 * </pre>
 *
@@ -412,6 +413,10 @@ typedef enum {
  * Ultrascale Efuse PL RSA Key size in Bytes
  */
 #define XSK_EFUSEPL_RSA_KEY_HASH_SIZE_IN_BYTES			(48U)
+/**
+ *  AES Key size in Chars
+ */
+#define XSK_EFUSEPS_AES_KEY_SIZE_IN_CHARS	(64U)
 
 #define XSK_POLL_TIMEOUT	0xFFFFFFFFU
 
@@ -748,6 +753,8 @@ typedef enum {
 
 	XSK_EFUSEPS_ERROR_IN_TBIT_PATTERN,/**< 0x16<br>Error in
 							*  TBITS pattern . */
+	XSK_EFUSEPS_ERROR_INVALID_PARAM,/**< 0x17<br>Error for
+                                         *  invalid parameters. */
 
 	XSK_EFUSEPS_ERROR_PROGRAMMING = 0x00A0U,/**< 0x00A0<br>Error in
 						 *  programming eFUSE.*/
@@ -1086,7 +1093,6 @@ u32 XilSKey_Efuse_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len);
 u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len);
 u32 XilSKey_Timer_Intialise(void);
 u32 XilSKey_Efuse_ReverseHex(u32 Input);
-void XilSKey_StrCpyRange(const u8 *Src, u8 *Dst, u32 From, u32 To);
 #ifdef XSK_MICROBLAZE_PLATFORM
 void XilSKey_GetSlrNum(u32 MasterSlr, u32 ConfigOrderIndex, u32 *SlrNum);
 #endif
