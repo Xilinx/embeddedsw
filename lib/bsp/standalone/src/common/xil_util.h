@@ -21,7 +21,7 @@
 * 6.4   mmd      04/21/19 First release.
 * 6.5   kal      02/29/20 Added Xil_ConvertStringToHexBE API
 * 7.3   kal      06/30/20 Converted Xil_Ceil macro to API
-*		rpo      08/19/20 Added function for read, modify and write
+*       rpo      08/19/20 Added function for read, modify and write
 *       bsv      08/21/20 Added XSECURE_TEMPORAL_CHECK macro to add
 *                         redundancy in security critical functions, to avoid
 *                         glitches from altering the return values of security
@@ -35,6 +35,7 @@
 *      am        10/13/20 Resolved Coverity warning
 *      td        11/19/20 Updated XSECURE_TEMPORAL_CHECK and
 *                         XSECURE_TEMPORAL_IMPL to fix MISRA C Rule 15.3
+* 7.4  am        11/26/20 Added Xil_StrCpyRange function
 *
 * </pre>
 *
@@ -152,6 +153,10 @@ void Xil_UtilRMW32(u32 Addr, u32 Mask, u32 Value);
 
 /* Copies source string to destination string */
 int Xil_Strcpy(char *DestPtr, const char *SrcPtr, const u32 Size);
+
+/* Copies specified range from source string to destination string */
+int Xil_StrCpyRange(const u8 *Src, u8 *Dst, u32 From, u32 To, u32 MaxSrcLen,
+	u32 MaxDstLen);
 
 /* Appends string2 to string1 */
 int Xil_Strcat(char* Str1Ptr, const char* Str2Ptr, const u32 Size);

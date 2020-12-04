@@ -20,11 +20,12 @@
 *                         API to use microsecond timeout instead of a free
 *                         counter.
 * 7.3   kal      06/30/20 Converted Xil_Ceil macro to API.
-*		rpo  	 08/19/20 Added function for read,modify,write
-*		kal	 	 09/22/20 Changed the param type from const char to const char*
-*			  			  to avoid copying key onto stack
-*		td	 	 10/16/20 Added Xil_Strcpy, Xil_Strcat, Xil_SecureMemCpy and
-*						  Xil_MemCmp functions
+*       rpo      08/19/20 Added function for read,modify,write
+*       kal      09/22/20 Changed the param type from const char to const char*
+*                         to avoid copying key onto stack
+*       td       10/16/20 Added Xil_Strcpy, Xil_Strcat, Xil_SecureMemCpy and
+*                         Xil_MemCmp functions
+* 7.4   am       11/26/20 Added Xil_StrCpyRange function
 *
 * </pre>
 *
@@ -532,6 +533,62 @@ int Xil_Strcpy(char *DestPtr, const char *SrcPtr, const u32 Size)
 		goto END;
 	}
 	DestPtr[Count] = '\0';
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief	Copies specified range from source string to destination string
+ *
+ * @param	Src  is a pointer to source string
+ * @param	Dst  is a pointer to destination string
+ * @param	From is 0 based index from where string copy starts
+ * @param	To   is 0 based index till which string is copied
+ * @param	MaxSrcLen is the maximum length of source string
+ * @param	MaxDstLen is the maximum length of destination string
+ *
+ * @return	XST_SUCCESS on success
+ * 		XST_FAILURE on failure
+ *
+ * @note	None
+ *
+ ****************************************************************************/
+int Xil_StrCpyRange(const u8 *Src, u8 *Dst, u32 From, u32 To, u32 MaxSrcLen,
+	u32 MaxDstLen)
+{
+	int Status = XST_FAILURE;
+	u32 SrcLength;
+	u32 Index;
+
+	if ((Src == NULL) || (Dst == NULL)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((To >= MaxSrcLen) || (To < From)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((To - From + 1U) >= MaxDstLen) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	SrcLength = Xil_Strnlen((const char *)Src, MaxSrcLen);
+	if (To >= SrcLength) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	for (Index = From; Index <= To && Src[Index]!= '\0'; Index++) {
+		Dst[Index - From] = Src[Index];
+	}
+
+	Dst[Index - From] = '\0';
 	Status = XST_SUCCESS;
 
 END:
