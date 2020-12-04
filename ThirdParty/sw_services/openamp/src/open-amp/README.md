@@ -147,6 +147,7 @@ directory.
 * If you have used `-DWITH_APPS=ON` to build the demos, you can try them on
   your Linux host as follows:
 
+  * rpmsg echo demo:
     ```
     # Start echo test server to wait for message to echo
     $ sudo LD_LIBRARY_PATH=<openamp_built>/usr/local/lib:<libmetal_built>/usr/local/lib \
@@ -154,6 +155,16 @@ directory.
     # Run echo test to send message to echo test server
     $ sudo LD_LIBRARY_PATH=<openamp_built>/usr/local/lib:<libmetal_built>/usr/local/lib \
        build/usr/local/bin/rpmsg-echo-ping-shared 1
+    ```
+
+  * rpmsg echo demo with the nocopy API:
+    ```
+    # Start echo test server to wait for message to echo
+    $ sudo LD_LIBRARY_PATH=<openamp_built>/usr/local/lib:<libmetal_built>/usr/local/lib \
+       build/usr/local/bin/rpmsg-nocopy-echo-shared
+    # Run echo test to send message to echo test server
+    $ sudo LD_LIBRARY_PATH=<openamp_built>/usr/local/lib:<libmetal_built>/usr/local/lib \
+       build/usr/local/bin/rpmsg-nocopy-ping-shared 1
     ```
 
 ###  Example to compile Zynq UltraScale+ MPSoC R5 generic(baremetal) remote:
