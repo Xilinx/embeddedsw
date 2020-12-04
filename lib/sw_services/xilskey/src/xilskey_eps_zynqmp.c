@@ -79,7 +79,8 @@
 *                      controller.
 * 7.0   kal   06/04/20 Fixed XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc
 *                      return Status in case of success.
-*		am	  10/04/20 Resolved MISRA C violations
+*       am    10/04/20 Resolved MISRA C violations
+* 7.1   am    11/29/20 Resolved MISRA C violations
 *
 * </pre>
 *
@@ -2024,8 +2025,8 @@ static INLINE u32 XilSKey_ZynqMp_EfusePs_UserFuses_TobeProgrammed(
 				const u8 *UserFuses_Write, const u8 *UserFuses_Read,
 				XilSKey_UsrFuses *UserFuses_ToBePrgrmd)
 {
+	u32 Status = (u32)XST_FAILURE;
 	u32 UserFuseColumn;
-	u32 Status;
 
 	for (UserFuseColumn = 0U; UserFuseColumn < 32U; UserFuseColumn++) {
 	/* If user requests a non-zero bit for making to zero throws an error*/
