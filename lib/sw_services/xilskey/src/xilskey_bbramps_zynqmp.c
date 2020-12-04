@@ -35,6 +35,7 @@
 *       vns     08/29/19 Initialized Status variables
 * 6.9   kal     01/31/20 Disable BBRAM programming after AES key programming.
 *       vns     03/18/20 Fixed Armcc compilation errors
+* 7.1   am      11/30/20 Resolved MISRA C violations
 *
 * </pre>
 *
@@ -55,7 +56,6 @@
 static INLINE u32 XilSKey_ZynqMp_Bbram_PrgrmEn(void);
 static INLINE u32 XilSKey_ZynqMp_Bbram_CrcCalc(u32 *AesKey);
 static INLINE void XilSKey_ZynqMp_Bbram_PrgrmDisable(void);
-extern u32 XilSKey_RowCrcCalculation(u32 PrevCRC, u32 Data, u32 Addr);
 
 /************************** Variable Definitions *****************************/
 
