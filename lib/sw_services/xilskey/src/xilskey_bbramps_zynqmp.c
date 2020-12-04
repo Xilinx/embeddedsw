@@ -54,7 +54,7 @@
 /************************** Function Prototypes ******************************/
 
 static INLINE u32 XilSKey_ZynqMp_Bbram_PrgrmEn(void);
-static INLINE u32 XilSKey_ZynqMp_Bbram_CrcCalc(u32 *AesKey);
+static INLINE u32 XilSKey_ZynqMp_Bbram_CrcCalc(const u32 *AesKey);
 static INLINE void XilSKey_ZynqMp_Bbram_PrgrmDisable(void);
 
 /************************** Variable Definitions *****************************/
@@ -77,12 +77,12 @@ static INLINE void XilSKey_ZynqMp_Bbram_PrgrmDisable(void);
 * 		- XST_SUCCESS if programming is done.
 *
 ******************************************************************************/
-u32 XilSKey_ZynqMp_Bbram_Program(u32 *AesKey)
+u32 XilSKey_ZynqMp_Bbram_Program(const u32 *AesKey)
 {
 
 	u32 Status = (u32)XST_FAILURE;
 	u32 AesCrc;
-	u32 *KeyPtr = AesKey;
+	const u32 *KeyPtr = AesKey;
 	u32 StatusRead = 0U;
 	u32 Offset;
 	u32 TimeOut = 0U;
@@ -281,7 +281,7 @@ static INLINE void XilSKey_ZynqMp_Bbram_PrgrmDisable(void)
 * @return	CRC of AES key
 *
 ******************************************************************************/
-static INLINE u32 XilSKey_ZynqMp_Bbram_CrcCalc(u32 *AesKey)
+static INLINE u32 XilSKey_ZynqMp_Bbram_CrcCalc(const u32 *AesKey)
 {
 	u32 Crc = 0U;
 	u32 Index;
