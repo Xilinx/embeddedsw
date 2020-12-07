@@ -47,8 +47,6 @@ extern "C" {
 #define	XBIR_IIC_MASTER_SEND_POLLED_FAILED	(0x6U)
 #define	XBIR_IIC_MASTER_RECV_POLLED_FAILED	(0x7U)
 #define	XBIR_IIC_SET_SCLK_FAILED		(0x8U)
-#define XBIR_IIC_EEPROM_HEADER_OFFSET	(0U)
-#define XBIR_IIC_EEPROM_BOARD_OFFSET	(8U)
 
 /************************** Variable Definitions *****************************/
 

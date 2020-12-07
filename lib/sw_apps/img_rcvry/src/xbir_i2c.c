@@ -30,11 +30,6 @@
 
 /************************** Constant Definitions *****************************/
 /*
- * The Starting address in the IIC EEPROM on which this test is performed.
- */
-#define XBIR_IIC_EEPROM_START_ADDRESS	(0xD0U)
-
-/*
  * The following constant defines the address of the IIC Slave device on the
  * IIC bus. Note that since the address is only 7 bits, this constant is the
  * address divided by 2.
