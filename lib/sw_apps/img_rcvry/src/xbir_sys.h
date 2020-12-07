@@ -78,6 +78,88 @@ typedef struct {
 } Xbir_SysBoardInfo;
 
 typedef struct {
+	u8 RecType;
+	u8 RecFormat;
+	u8 Len;
+	u8 RecChksum;
+	u8 HdrChksum;
+	u8 OutputNum;
+	u16 NominalVoltage;
+	u16 MinVoltage;
+	u16 MaxVoltage;
+	u16 Ripple;
+	u16 MinCurrent;
+	u16 MaxCurrent;
+	u8 Unused;
+} Xbir_SysDCLoadInfo;
+
+typedef struct {
+	u8 RecType;
+	u8 Type;
+	u8 Len;
+	u8 RecChksum;
+	u8 HdrChksum;
+	u8 IANAId[3U];
+	u8 VerNum;
+	u8 MacId0[6U];
+	u8 Unused[18U];
+} Xbir_MacAddrInfo;
+
+typedef struct {
+	u8 RecType;
+	u8 RecFmt;
+	u8 Len;
+	u8 RecChecksum;
+	u8 HdrChecksum;
+	u8 IANAId[3U];
+	u8 Memory1[8U];
+	u8 PrimaryBootDev[12U];
+	u8 Memory1FieldEnd;
+	u8 Memory2[8U];
+	u8 SecondaryBootDev[12U];
+	u8 Memory2FieldEnd;
+	u8 Memory3[8U];
+	u8 PsDdr[12U];
+	u8 Memory3FieldEnd;
+	u8 Memory4[8U];
+	u8 PlDdr[12U];
+	u8 Memory4FieldEnd;
+} Xbir_SysBoardMemRec;
+
+typedef struct {
+	Xbir_SysHeaderInfo SysHeaderInfo;
+	Xbir_SysBoardInfo SysBoardInfo;
+	Xbir_SysDCLoadInfo SysDCLoadInfo;
+	Xbir_MacAddrInfo MacAddrInfo;
+	Xbir_SysBoardMemRec SysBoardMemRec;
+} Xbir_SysBoardEepromData;
+
+typedef struct {
+	Xbir_SysHeaderInfo SysHeaderInfo;
+	Xbir_SysBoardInfo SysBoardInfo;
+} Xbir_CCEepromData;
+
+typedef struct {
+	u8 BoardPrdName[17U];
+	u8 BoardSerialNumber[17U];
+	u8 BoardPartNum[10U];
+	u8 RevNum[9U];
+	u8 UUID[17U];
+	u8 PrimaryBootDev[13U];
+	u8 SecondaryBootDev[13U];
+	u8 PsDdr[13U];
+	u8 PlDdr[13U];
+} Xbir_SysInfo;
+
+typedef struct {
+	u8 BoardPrdName[17U];
+	u8 BoardSerialNumber[17U];
+	u8 BoardPartNum[10U];
+	u8 RevNum[9U];
+	u8 UUID[17U];
+} Xbir_CCInfo;
+
+typedef struct {
 	u8 LastBootedImg;
 	u8 RequestedBootImg;
 	u8 ImgBBootable;
@@ -108,8 +190,8 @@ typedef enum {
 
 /************************** Function Prototypes ******************************/
 int Xbir_SysInit (void);
-const Xbir_SysBoardInfo* Xbir_SysGetSysBoardInfo (void);
-const Xbir_SysBoardInfo* Xbir_SysGetCcInfo (void);
+const Xbir_SysInfo* Xbir_SysGetSysBoardInfo (void);
+const Xbir_CCInfo* Xbir_SysGetCcInfo (void);
 const Xbir_SysPersistentState * Xbir_SysGetBootImgStatus (void);
 int Xbir_SysUpdateBootImgStatus (u8 ImgABootable, u8 ImgBBootable,
 	u8 ReqBootImg);

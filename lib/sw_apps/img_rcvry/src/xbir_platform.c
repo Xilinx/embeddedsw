@@ -86,7 +86,10 @@ int Xbir_Platform_SetupTimer (void)
 	u8 Prescaler;
 
 	Config = XTtcPs_LookupConfig(TIMER_DEVICE_ID);
-
+	if (Config == NULL) {
+		Xbir_Printf("In %s: Look up config failed\r\n", __func__);
+		goto END;
+	}
 	Status = XTtcPs_CfgInitialize(Timer, Config, Config->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		Xbir_Printf("In %s: Timer Cfg initialization failed...\r\n",

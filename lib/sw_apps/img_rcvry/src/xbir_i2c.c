@@ -30,13 +30,6 @@
 
 /************************** Constant Definitions *****************************/
 /*
- * The Starting address in the IIC EEPROM on which this test is performed.
- */
-#define XBIR_IIC_EEPROM_START_ADDRESS	(0xD0U)
-#define XBIR_IIC_MUX_ADDR 		(0x74U)
-#define XBIR_IIC_MUX_INDEX		(0x01U)
-
-/*
  * The following constant defines the address of the IIC Slave device on the
  * IIC bus. Note that since the address is only 7 bits, this constant is the
  * address divided by 2.
@@ -119,7 +112,6 @@ int Xbir_IicInit (void)
 
 #if XPAR_XIICPS_NUM_INSTANCES
 	XIicPs_Config *ConfigPtr;	/* Pointer to configuration data */
-	u8 MuxChannel = XBIR_IIC_MUX_INDEX;
 
 	/* Initialize the IIC driver so that it is ready to use */
 	ConfigPtr = XIicPs_LookupConfig(XBIR_I2C_EEPROM_INDEX);
@@ -140,19 +132,6 @@ int Xbir_IicInit (void)
 	if (Status != XST_SUCCESS) {
 		Status = XBIR_IIC_SET_SCLK_FAILED;
 		goto END;
-	}
-
-	/* Select channel 1 on MUX */
-	Status = XIicPs_MasterSendPolled(&IicInstance, &MuxChannel, 1U,
-		XBIR_IIC_MUX_ADDR);
-	if (Status != XST_SUCCESS) {
-		Status = XBIR_IIC_MASTER_SEND_POLLED_FAILED;
-		goto END;
-	}
-
-	/* Wait until bus is idle to start another transfer */
-	while (XIicPs_BusIsBusy(&IicInstance)) {
-		;
 	}
 
 END:
