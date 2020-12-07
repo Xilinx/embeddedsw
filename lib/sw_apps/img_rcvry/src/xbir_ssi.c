@@ -29,12 +29,15 @@
 
 #define XBIR_SSI_JSON_SYS_BOARD_INFO_NAME	"SysBoardInfo"
 #define XBIR_SSI_JSON_CC_INFO_NAME		"CcInfo"
-#define XBIR_SSI_JSON_BRD_NAME			"BrdName"
+#define XBIR_SSI_JSON_BRD_NAME			"BoardName"
 #define XBIR_SSI_JSON_REV_NAME			"RevisionNo"
 #define XBIR_SSI_JSON_SERIAL_NAME		"SerialNo"
-#define XBIR_SSI_JSON_STATE_NAME		"State"
 #define XBIR_SSI_JSON_PART_NO_NAME		"PartNo"
 #define XBIR_SSI_JSON_UUID_NAME			"UUID"
+#define XBIR_SSI_JSON_PRIMARY_BOOT_NAME		"PrimaryBootDevMem"
+#define XBIR_SSI_JSON_SECONDARY_BOOT_NAME	"SecondaryBootDevMem"
+#define XBIR_SSI_JSON_PS_DDR_NAME		"PsDdr"
+#define XBIR_SSI_JSON_PL_DDR_NAME		"PlDdr"
 
 #define XBIR_SSI_JSON_MAX_SYS_INFO_LEN		(800U)
 #define XBIR_SSI_JSON_MAX_NAME_LEN		(20U)
@@ -100,21 +103,31 @@ static Xbir_SysBootImgId Xbir_SsiLastImgUpload;
 int Xbir_SsiJsonBuildSysInfo (char *JsonStr, u16 JsonStrLen)
 {
 	int Status = XST_FAILURE;
-	u32 Idx = 0U;
 	u16 Len = JsonStrLen;
 	char *Str = JsonStr;
-	const Xbir_SysBoardInfo *BrdInfo;
-	const Xbir_SysBoardInfo *SysBoardInfo;
-	const Xbir_SysBoardInfo *CcInfo;
+	const Xbir_SysInfo *SysBoardInfo;
+	const Xbir_CCInfo *CcInfo;
 
-	/* 60U = For double quotes and spaces in JSON string*/
-	u16 TotalLen = (sizeof(Xbir_SysBoardInfo) + 2U /* JSON_ OBJ_START */ +
-		2U /* XBIR_SSI_JSON_OBJ_END */ +
-		5U /*XBIR_SSI_JSON_OBJ_SEPERATOR */ +
+
+	/* 80U = For double quotes and spaces in JSON string */
+	u16 TotalLen = sizeof(SysBoardInfo->BoardPrdName) * 2U +
+		sizeof(SysBoardInfo->RevNum) * 2U + 2U +
+		sizeof(SysBoardInfo->BoardSerialNumber) * 2U + 2U +
+		sizeof(SysBoardInfo->BoardPartNum) * 2U + 2U +
+		sizeof(SysBoardInfo->UUID) * 2U + 2U +
+		sizeof(SysBoardInfo->PrimaryBootDev) + 1U +
+		sizeof(SysBoardInfo->SecondaryBootDev) + 1U +
+		sizeof(SysBoardInfo->PsDdr) + 1U +
+		sizeof(SysBoardInfo->PlDdr) + 1U +
 		strlen(XBIR_SSI_JSON_BRD_NAME) + strlen(XBIR_SSI_JSON_REV_NAME) +
-		strlen(XBIR_SSI_JSON_SERIAL_NAME) + strlen(XBIR_SSI_JSON_STATE_NAME) +
-		strlen(XBIR_SSI_JSON_PART_NO_NAME) + strlen(XBIR_SSI_JSON_UUID_NAME) +
-		60U);
+		strlen(XBIR_SSI_JSON_SERIAL_NAME) + strlen(XBIR_SSI_JSON_PART_NO_NAME) +
+		strlen(XBIR_SSI_JSON_UUID_NAME) + strlen(XBIR_SSI_JSON_PRIMARY_BOOT_NAME) +
+		strlen(XBIR_SSI_JSON_SECONDARY_BOOT_NAME) +
+		strlen(XBIR_SSI_JSON_PS_DDR_NAME) + strlen(XBIR_SSI_JSON_PL_DDR_NAME) +
+		3U /* JSON_ OBJ_START */ +
+		3U /* XBIR_SSI_JSON_OBJ_END */ +
+		9U * 2U + 5U * 2U + 9U + /*XBIR_SSI_JSON_OBJ_SEPERATOR */ +
+		80U;
 
 	if (Len < TotalLen) {
 		goto END;
@@ -126,54 +139,100 @@ int Xbir_SsiJsonBuildSysInfo (char *JsonStr, u16 JsonStrLen)
 	Str[0U] = XBIR_SSI_JSON_OBJ_START;
 	Str += 1U;
 	Len -= 1U;
-	for (Idx = 0U; Idx < XBIR_SSI_CARD_COUNT; Idx++) {
-		BrdInfo = (0U == Idx) ? SysBoardInfo : CcInfo;
-		snprintf(Str, Len,
-			"\"%s\"%c%c \"%s\"%c\"%s\"%c \"%s\"%c\"%s\"%c "
-			"\"%s\"%c\"%s\"%c \"%s\"%c\"%s\"%c \"%s\"%c\"%s\"%c "
-			"\"%s\"%c\"%s\"%c %c",
-			(0U == Idx) ? XBIR_SSI_JSON_SYS_BOARD_INFO_NAME : XBIR_SSI_JSON_CC_INFO_NAME,
-			XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
 
-			XBIR_SSI_JSON_OBJ_START,
+	snprintf(Str, Len,
+		"\"%s\"%c%c \"%s\"%c\"%s\"%c \"%s\"%c\"%s\"%c "
+		"\"%s\"%c\"%s\"%c \"%s\"%c\"%s\"%c \"%s\"%c\"%s\"%c "
+		"\"%s\"%c\"%s\"%c \"%s\"%c\"%s\"%c \"%s\"%c\"%s\"%c \"%s\"%c\"%s\"%c %c",
+		XBIR_SSI_JSON_SYS_BOARD_INFO_NAME,
 
-			XBIR_SSI_JSON_BRD_NAME,
-			XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
-			BrdInfo->BoardPrdName,
-			XBIR_SSI_JSON_OBJ_SEPERATOR,
+		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
 
-			XBIR_SSI_JSON_REV_NAME,
-			XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
-			BrdInfo->RevNum,
-			XBIR_SSI_JSON_OBJ_SEPERATOR,
+		XBIR_SSI_JSON_OBJ_START,
 
-			XBIR_SSI_JSON_SERIAL_NAME,
-			XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
-			BrdInfo->BoardSerialNumber,
-			XBIR_SSI_JSON_OBJ_SEPERATOR,
+		XBIR_SSI_JSON_BRD_NAME,
+		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
+		SysBoardInfo->BoardPrdName,
+		XBIR_SSI_JSON_OBJ_SEPERATOR,
 
-			XBIR_SSI_JSON_STATE_NAME,
-			XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
-			BrdInfo->PcieInfo,
-			XBIR_SSI_JSON_OBJ_SEPERATOR,
+		XBIR_SSI_JSON_REV_NAME,
+		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
+		SysBoardInfo->RevNum,
+		XBIR_SSI_JSON_OBJ_SEPERATOR,
 
-			XBIR_SSI_JSON_PART_NO_NAME,
-			XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
-			BrdInfo->BoardPartNum,
-			XBIR_SSI_JSON_OBJ_SEPERATOR,
+		XBIR_SSI_JSON_SERIAL_NAME,
+		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
+		SysBoardInfo->BoardSerialNumber,
+		XBIR_SSI_JSON_OBJ_SEPERATOR,
 
-			XBIR_SSI_JSON_UUID_NAME,
-			XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
-			BrdInfo->UUID,
+		XBIR_SSI_JSON_PART_NO_NAME,
+		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
+		SysBoardInfo->BoardPartNum,
+		XBIR_SSI_JSON_OBJ_SEPERATOR,
 
-			XBIR_SSI_JSON_OBJ_END,
+		XBIR_SSI_JSON_UUID_NAME,
+		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
+		SysBoardInfo->UUID,
+		XBIR_SSI_JSON_OBJ_SEPERATOR,
 
-			(0U == Idx) ? XBIR_SSI_JSON_OBJ_SEPERATOR : XBIR_SSI_JSON_OBJ_END);
+		XBIR_SSI_JSON_PRIMARY_BOOT_NAME,
+		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
+		SysBoardInfo->PrimaryBootDev,
+		XBIR_SSI_JSON_OBJ_SEPERATOR,
 
-		Len -= strlen(Str);
-		Str += strlen(Str);
-	}
+		XBIR_SSI_JSON_SECONDARY_BOOT_NAME,
+		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
+		SysBoardInfo->SecondaryBootDev,
+		XBIR_SSI_JSON_OBJ_SEPERATOR,
 
+		XBIR_SSI_JSON_PS_DDR_NAME,
+		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
+		SysBoardInfo->PsDdr,
+		XBIR_SSI_JSON_OBJ_SEPERATOR,
+
+		XBIR_SSI_JSON_PL_DDR_NAME,
+		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
+		SysBoardInfo->PlDdr,
+
+		XBIR_SSI_JSON_OBJ_END,
+		XBIR_SSI_JSON_OBJ_SEPERATOR);
+	Len -= strlen(Str);
+	Str += strlen(Str);
+
+	snprintf(Str, Len,
+		"\"%s\"%c%c \"%s\"%c\"%s\"%c \"%s\"%c\"%s\"%c "
+		"\"%s\"%c\"%s\"%c \"%s\"%c\"%s\"%c \"%s\"%c\"%s\"%c %c",
+		XBIR_SSI_JSON_CC_INFO_NAME,
+		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
+
+		XBIR_SSI_JSON_OBJ_START,
+
+		XBIR_SSI_JSON_BRD_NAME,
+		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
+		CcInfo->BoardPrdName,
+		XBIR_SSI_JSON_OBJ_SEPERATOR,
+
+		XBIR_SSI_JSON_REV_NAME,
+		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
+		CcInfo->RevNum,
+		XBIR_SSI_JSON_OBJ_SEPERATOR,
+
+		XBIR_SSI_JSON_SERIAL_NAME,
+		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
+		CcInfo->BoardSerialNumber,
+		XBIR_SSI_JSON_OBJ_SEPERATOR,
+
+		XBIR_SSI_JSON_PART_NO_NAME,
+		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
+			CcInfo->BoardPartNum,
+		XBIR_SSI_JSON_OBJ_SEPERATOR,
+
+		XBIR_SSI_JSON_UUID_NAME,
+		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
+		CcInfo->UUID,
+
+		XBIR_SSI_JSON_OBJ_END,
+		XBIR_SSI_JSON_OBJ_END);
 	Status = XST_SUCCESS;
 	printf("\n[SysInfo]\n%s\n", JsonStr);
 

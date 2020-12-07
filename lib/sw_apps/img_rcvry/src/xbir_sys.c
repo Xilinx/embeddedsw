@@ -45,9 +45,6 @@
 
 /************************** Function Prototypes ******************************/
 static void Xbir_SysReadAndCorrectBootImgInfo (void);
-static int Xbir_SysReadSysInfoFromEeprom (Xbir_SysHeaderInfo* SysBoardHeaderInfo,
-		Xbir_SysBoardInfo* SysBoardBoardInfo, Xbir_SysHeaderInfo* CCHeaderInfo,
-		Xbir_SysBoardInfo* CCBoardInfo);
 static int Xbir_SysWriteBootImageInfo (Xbir_SysBootImgInfo *BootImgInfo,
 	u32 Offset);
 static int Xbir_SysValidateBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo,
@@ -56,12 +53,7 @@ static u32 Xbir_SysCalcBootImgInfoChecksum (Xbir_SysBootImgInfo *BootImgInfo);
 static int Xbir_SysWrvBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo, u32 Offset);
 static void Xbir_SysShowBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo);
 static int Xbir_EthPhyReset (void);
-#if defined(XPAR_XIICPS_NUM_INSTANCES)
-static int Xbir_SysReadSysBoardInfoFromEeprom (Xbir_SysHeaderInfo* SysBoardHeaderInfo,
-		Xbir_SysBoardInfo* SysBoardBoardInfo);
-static int Xbir_SysReadCCInfoFromEeprom (Xbir_SysHeaderInfo* CCHeaderInfo,
-		Xbir_SysBoardInfo* CCBoardInfo);
-#endif
+static int Xbir_SysReadSysInfoFromEeprom (void);
 
 /************************** Variable Definitions *****************************/
 static const u32 Xbir_UtilCrcTable[] = {
@@ -100,11 +92,11 @@ static const u32 Xbir_UtilCrcTable[] = {
 };
 
 static Xbir_SysBootImgInfo BootImgStatus = \
-		{{0x41U, 0x42U, 0x55U, 0x4DU}, 1U, 1U, 0xAFA2BCBCU, \
-		{0U, 1U, 0U, 0U}, 0x200000U, 0x1000000U, 0x1E80000U};
+		{{0x41U, 0x42U, 0x55U, 0x4DU}, 1U, 4U, 0xAFB2BDB9U, \
+		{0U, 0U, 0U, 0U}, 0x200000U, 0xF80000U, 0x1E00000U};
 static u8 QspiBuffer[XBIR_SYS_QSPI_MAX_SUB_SECTOR_SIZE];
-static Xbir_SysBoardInfo SysBoardBoardInfo = {0U};
-static Xbir_SysBoardInfo CCBoardInfo = {0U};
+static Xbir_SysInfo SysInfo = {0U};
+static Xbir_CCInfo CCInfo = {0U};
 
 /*****************************************************************************/
 /**
@@ -121,8 +113,6 @@ static Xbir_SysBoardInfo CCBoardInfo = {0U};
 int Xbir_SysInit (void)
 {
 	int Status = XST_FAILURE;
-	Xbir_SysHeaderInfo SysBoardHeaderInfo = {0U};
-	Xbir_SysHeaderInfo CCHeaderInfo = {0U};
 
 	Status = Xbir_QspiInit();
 	if (Status != XST_SUCCESS) {
@@ -134,11 +124,9 @@ int Xbir_SysInit (void)
 		goto END;
 	}
 
-	Status = Xbir_SysReadSysInfoFromEeprom (&SysBoardHeaderInfo, &SysBoardBoardInfo,
-			&CCHeaderInfo, &CCBoardInfo);
+	Status = Xbir_SysReadSysInfoFromEeprom();
 	if (Status != XST_SUCCESS) {
-		Status = XST_SUCCESS;
-		//goto END;
+		goto END;
 	}
 
 	Xbir_SysReadAndCorrectBootImgInfo();
@@ -215,9 +203,9 @@ END:
  * @return	Pointer to SysBoard board information
  *
  *****************************************************************************/
-const Xbir_SysBoardInfo* Xbir_SysGetSysBoardInfo (void)
+const Xbir_SysInfo* Xbir_SysGetSysBoardInfo (void)
 {
-	return &SysBoardBoardInfo;
+	return &SysInfo;
 }
 
 /*****************************************************************************/
@@ -232,9 +220,9 @@ const Xbir_SysBoardInfo* Xbir_SysGetSysBoardInfo (void)
  * @return	Pointer to carrier card information
  *
  *****************************************************************************/
-const Xbir_SysBoardInfo* Xbir_SysGetCcInfo (void)
+const Xbir_CCInfo* Xbir_SysGetCcInfo (void)
 {
-	return &CCBoardInfo;
+	return &CCInfo;
 }
 
 /*****************************************************************************/
@@ -706,105 +694,74 @@ static void Xbir_SysShowBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo)
 		 BootImgInfo->RecoveryImgOffset);
 }
 
+/*****************************************************************************/
+/**
+ * @brief
+ * This function reads the system information (SysBoard and carrier card) from
+ * EEPROM and stores it into global variable for later access.
+ *
+ * @param	None
+ *
+ * @return	XST_SUCCESS on successfully reading system information from
+ * 		EEPEOM.
+ *		Error code on failure
+ *
+ *****************************************************************************/
+static int Xbir_SysReadSysInfoFromEeprom (void)
+{
+	int Status = XST_FAILURE;
 #if defined(XPAR_XIICPS_NUM_INSTANCES)
-/*****************************************************************************/
-/**
- * @brief
- * This function reads the system information (SysBoard and carrier card) from
- * EEPROM and stores it into global variable for later access.
- *
- * @param	None
- *
- * @return	XST_SUCCESS on successfully reading system information from
- * 		EEPEOM.
- *		Error code on failure
- *
- *****************************************************************************/
-static int Xbir_SysReadSysBoardInfoFromEeprom (Xbir_SysHeaderInfo* SysBoardHeaderInfo,
-		Xbir_SysBoardInfo* SysBoardBoardInfo)
-{
-	int Status = XST_FAILURE;
+	Xbir_SysBoardEepromData SysBoardEepromData = {0U};
+	Xbir_CCEepromData CCEepromData = {0U};
 
-	Status = Xbir_IicEepromReadData((u8 *)SysBoardHeaderInfo, sizeof(Xbir_SysHeaderInfo),
-			XBIR_IIC_SYS_BOARD_EEPROM_ADDRESS + XBIR_IIC_EEPROM_HEADER_OFFSET);
-	if (XST_SUCCESS != Status) {
-		goto END;
-	}
-
-	Status = Xbir_IicEepromReadData((u8 *)SysBoardBoardInfo, sizeof(Xbir_SysBoardInfo),
-			XBIR_IIC_SYS_BOARD_EEPROM_ADDRESS + XBIR_IIC_EEPROM_BOARD_OFFSET);
-	if (XST_SUCCESS != Status) {
-		goto END;
-	}
-
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief
- * This function reads the system information (SysBoard and carrier card) from
- * EEPROM and stores it into global variable for later access.
- *
- * @param	None
- *
- * @return	XST_SUCCESS on successfully reading system information from
- * 		EEPEOM.
- *		Error code on failure
- *
- *****************************************************************************/
-static int Xbir_SysReadCCInfoFromEeprom (Xbir_SysHeaderInfo* CCHeaderInfo,
-		Xbir_SysBoardInfo* CCBoardInfo)
-{
-	int Status = XST_FAILURE;
-
-	Status = Xbir_IicEepromReadData((u8 *)CCHeaderInfo, sizeof(Xbir_SysHeaderInfo),
-			XBIR_IIC_CC_EEPROM_ADDRESS + XBIR_IIC_EEPROM_HEADER_OFFSET);
-	if (XST_SUCCESS != Status) {
-		goto END;
-	}
-
-	Status = Xbir_IicEepromReadData((u8 *)CCBoardInfo, sizeof(Xbir_SysBoardInfo),
-			XBIR_IIC_CC_EEPROM_ADDRESS + XBIR_IIC_EEPROM_BOARD_OFFSET);
-	if (XST_SUCCESS != Status) {
-		goto END;
-	}
-
-END:
-	return Status;
-}
-#endif
-
-/*****************************************************************************/
-/**
- * @brief
- * This function reads the system information (SysBoard and carrier card) from
- * EEPROM and stores it into global variable for later access.
- *
- * @param	None
- *
- * @return	XST_SUCCESS on successfully reading system information from
- * 		EEPEOM.
- *		Error code on failure
- *
- *****************************************************************************/
-static int Xbir_SysReadSysInfoFromEeprom (Xbir_SysHeaderInfo* SysBoardHeaderInfo,
-		Xbir_SysBoardInfo* SysBoardBoardInfo, Xbir_SysHeaderInfo* CCHeaderInfo,
-		Xbir_SysBoardInfo* CCBoardInfo)
-{
-	int Status = XST_FAILURE;
-
-#if defined(XPAR_XIICPS_NUM_INSTANCES)
-	Status = Xbir_SysReadSysBoardInfoFromEeprom (SysBoardHeaderInfo, SysBoardBoardInfo);
+	Status = Xbir_IicEepromReadData((u8 *)&SysBoardEepromData,
+		sizeof(Xbir_SysBoardEepromData), XBIR_IIC_SYS_BOARD_EEPROM_ADDRESS);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = Xbir_SysReadCCInfoFromEeprom (CCHeaderInfo, CCBoardInfo);
+	memcpy(SysInfo.BoardPrdName,
+		SysBoardEepromData.SysBoardInfo.BoardPrdName,
+		sizeof(SysBoardEepromData.SysBoardInfo.BoardPrdName));
+	memcpy(SysInfo.RevNum,
+		SysBoardEepromData.SysBoardInfo.RevNum,
+		sizeof(SysBoardEepromData.SysBoardInfo.RevNum));
+	memcpy(SysInfo.BoardSerialNumber,
+		SysBoardEepromData.SysBoardInfo.BoardSerialNumber,
+		sizeof(SysBoardEepromData.SysBoardInfo.BoardSerialNumber));
+	memcpy(SysInfo.BoardPartNum,
+		SysBoardEepromData.SysBoardInfo.BoardPartNum,
+		sizeof(SysBoardEepromData.SysBoardInfo.BoardPartNum));
+	memcpy(SysInfo.PrimaryBootDev,
+		SysBoardEepromData.SysBoardMemRec.PrimaryBootDev,
+		sizeof(SysBoardEepromData.SysBoardMemRec.PrimaryBootDev));
+	memcpy(SysInfo.SecondaryBootDev,
+		SysBoardEepromData.SysBoardMemRec.SecondaryBootDev,
+		sizeof(SysBoardEepromData.SysBoardMemRec.SecondaryBootDev));
+	memcpy(SysInfo.PsDdr,
+		SysBoardEepromData.SysBoardMemRec.PsDdr,
+		sizeof(SysBoardEepromData.SysBoardMemRec.PsDdr));
+	memcpy(SysInfo.PlDdr,
+		SysBoardEepromData.SysBoardMemRec.PlDdr,
+		sizeof(SysBoardEepromData.SysBoardMemRec.PlDdr));
+
+	Status = Xbir_IicEepromReadData((u8 *)&CCEepromData,
+		sizeof(Xbir_CCEepromData), XBIR_IIC_CC_EEPROM_ADDRESS);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+	memcpy(CCInfo.BoardPrdName,
+		CCEepromData.SysBoardInfo.BoardPrdName,
+		sizeof(CCEepromData.SysBoardInfo.BoardPrdName));
+	memcpy(CCInfo.RevNum, CCEepromData.SysBoardInfo.RevNum,
+		sizeof(CCEepromData.SysBoardInfo.RevNum));
+	memcpy(CCInfo.BoardSerialNumber,
+		CCEepromData.SysBoardInfo.BoardSerialNumber,
+		sizeof(CCEepromData.SysBoardInfo.BoardSerialNumber));
+	memcpy(CCInfo.BoardPartNum,
+		CCEepromData.SysBoardInfo.BoardPartNum,
+		sizeof(CCEepromData.SysBoardInfo.BoardPartNum));
 
 END:
 #else
