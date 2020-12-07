@@ -9,14 +9,20 @@
 	</head>
 
 	<body onload="onPageLoad()">
+
 		<div class="header">
 			<embed class="header_img" src="image/xlnxlogo.svg">
-			<span class="header_title"> SYSTEM BOARD Boot Image Recovery Tool </span>
+			<span class="header_title"> Boot Image Recovery Tool </span>
+		</div>
+
+		<div class="navbar">
+			<a href="help.htm" target="_blank">Help</a>
+			<a href="about.htm" target="_blank">About</a>
 		</div>
 
 		<div class="row_body">
 			<div class="column_body">
-				<h2>SYSTEM BOARD Information </h2>
+				<h2>System Board Information </h2>
 				<hr>
 				<table class="sysinfotbl" id="sysboardtbl">
 					<tr>
@@ -32,15 +38,27 @@
 						<td> </td>
 					</tr>
 					<tr>
-						<td>State :</td>
-						<td> </td>
-					</tr>
-					<tr>
 						<td>Part # :</td>
 						<td> </td>
 					</tr>
 					<tr>
 						<td>UUID :</td>
+						<td> </td>
+					</tr>
+					<tr>
+						<td>Primary Boot :</td>
+						<td> </td>
+					</tr>
+					<tr>
+						<td>Secondary Boot :</td>
+						<td> </td>
+					</tr>
+					<tr>
+						<td>PS DDR :</td>
+						<td> </td>
+					</tr>
+					<tr>
+						<td>PL DDR :</td>
 						<td> </td>
 					</tr>
 				</table>
@@ -63,10 +81,6 @@
 						<td> </td>
 					</tr>
 					<tr>
-						<td>State :</td>
-						<td> </td>
-					</tr>
-					<tr>
 						<td>Part # :</td>
 						<td> </td>
 					</tr>
@@ -80,7 +94,7 @@
 
 		<div class="row_body">
 			<div class="column_body">
-				<h2>SYSTEM BOARD Boot Image Status</h2>
+				<h2>Boot Image Status</h2>
 				<hr>
 				<form action="" method="GET" onsubmit="onCfg(); return false;">
 					<div class="column_opt">
@@ -128,7 +142,7 @@
 					<button type="button" id="brws_btn" class="btn btn_brws" onclick="onBrws()">Browse</button>
 					<input type:"text" class="file_info file_name" id="fileName" readonly>
 					<input type:"text" class="file_info" id="fileSize" readonly>
-					<input type="file" id="img_file" name="img_file">
+					<input type="file" accept = ".bin" id="img_file" name="img_file">
 					<p><b>Select Image to be recovered</b></p>
 					<input type="radio" id="recAimg" name="recimg" value=0>
 					<label for="imgA">Image A</label><br>
@@ -139,9 +153,12 @@
 					<br><input type:"text" class="upld_status" id="upld_status" readonly>
 				</div>
 			</div>
-
 		</div>
 
+		<div class="footer">
+			<b>&copy 2020 Xilinx</b>
+			<b style="margin-right:10px; float:right;">Version: 1.0</b>
+		</div>
 		<script src="js/index.js">
 		</script>
 	</body>
