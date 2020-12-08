@@ -132,6 +132,8 @@
 * 3.10  mn     06/05/20 Check Transfer completion separately from XSdPs_Read and
 *                       XSdPs_Write APIs
 *       mn     06/05/20 Modified code for SD Non-Blocking Read support
+* 3.11  sk     12/01/20 Tap programming sequence updates like disable OTAPEN
+*                       always, write zero to tap register for zero tap value.
 *
 * </pre>
 *
