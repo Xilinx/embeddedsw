@@ -425,6 +425,14 @@ s32 XSdPs_EmmcModeInit(XSdPs *InstancePtr)
 			Status = XST_FAILURE;
 			goto RETURN_PATH;
 		}
+
+		if (InstancePtr->Mode == XSDPS_DDR52_MODE) {
+			Status = XSdPs_Change_BusWidth(InstancePtr);
+			if (Status != XST_SUCCESS) {
+				Status = XST_FAILURE;
+				goto RETURN_PATH;
+			}
+		}
 	}
 
 	/* Enable Rst_n_Fun bit if it is disabled */
