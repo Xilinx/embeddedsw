@@ -220,6 +220,7 @@ typedef struct XAie_CoreMod {
  * The typedef captures the Buffer descriptor validity properties
  */
 typedef struct {
+	XAie_RegBdFldAttr TlastSuppress;
 	XAie_RegBdFldAttr ValidBd;
 	XAie_RegBdFldAttr NxtBd;
 	XAie_RegBdFldAttr UseNxtBd;
@@ -462,6 +463,7 @@ typedef struct XAie_DmaMod {
 	u8  FifoMode;
 	u8  EnTokenIssue;
 	u8  RepeatCount;
+	u8  TlastSuppress;
 	u32 StartQueueBase;
 	u32 BaseAddr;
 	u32 IdxOffset;
