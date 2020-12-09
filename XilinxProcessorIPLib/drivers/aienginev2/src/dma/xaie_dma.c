@@ -1829,4 +1829,72 @@ AieRC XAie_DmaSetZeroPadding(XAie_DmaDesc *DmaDesc, u8 Dim,
 	return XAIE_OK;
 }
 
+/******************************************************************************/
+/**
+* This api enables the DMA to assert TLAST signal after the DMA transfer is
+* complete. By default, the TLAST assertion is enabled in the DmaDesc during
+* dma descriptor initialization.
+*
+* @param	DmaDesc: Initialized dma descriptor.
+*
+* @return	XAIE_OK on success, error code on failure.
+*
+* @note		The API sets up the value in the dma descriptor and does not
+*		configure the buffer descriptor field in the hardware.
+*
+*******************************************************************************/
+AieRC XAie_DmaTlastEnable(XAie_DmaDesc *DmaDesc)
+{
+	const XAie_DmaMod *DmaMod;
+	if((DmaDesc == XAIE_NULL) ||
+			(DmaDesc->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid Arguments\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	DmaMod = DmaDesc->DmaMod;
+	if(DmaMod->TlastSuppress == XAIE_FEATURE_UNAVAILABLE) {
+		XAIE_ERROR("Feature unavailable\n");
+		return XAIE_FEATURE_NOT_SUPPORTED;
+	}
+
+	DmaDesc->TlastSuppress = XAIE_DISABLE;
+
+	return XAIE_OK;
+}
+
+/******************************************************************************/
+/**
+* This api configures the DMA descriptor to not assert the TLAST signal after
+* the DMA transfer is complete. By default, the TLAST assertion is enabled in
+* the DmaDesc during dma descriptor initialization.
+*
+* @param	DmaDesc: Initialized dma descriptor.
+*
+* @return	XAIE_OK on success, error code on failure.
+*
+* @note		The API sets up the value in the dma descriptor and does not
+*		configure the buffer descriptor field in the hardware.
+*
+*******************************************************************************/
+AieRC XAie_DmaTlastDisable(XAie_DmaDesc *DmaDesc)
+{
+	const XAie_DmaMod *DmaMod;
+	if((DmaDesc == XAIE_NULL) ||
+			(DmaDesc->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid Arguments\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	DmaMod = DmaDesc->DmaMod;
+	if(DmaMod->TlastSuppress == XAIE_FEATURE_UNAVAILABLE) {
+		XAIE_ERROR("Feature unavailable\n");
+		return XAIE_FEATURE_NOT_SUPPORTED;
+	}
+
+	DmaDesc->TlastSuppress = XAIE_ENABLE;
+
+	return XAIE_OK;
+}
+
 /** @} */

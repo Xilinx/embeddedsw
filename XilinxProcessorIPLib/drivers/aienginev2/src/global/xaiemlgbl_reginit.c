@@ -150,6 +150,9 @@ static const  XAie_DmaBdEnProp Aie2MemTileDmaBdEnProp =
 	.OutofOrderBdId.Idx = 0U,
 	.OutofOrderBdId.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_0_OUT_OF_ORDER_BD_ID_LSB,
 	.OutofOrderBdId.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_0_OUT_OF_ORDER_BD_ID_MASK,
+	.TlastSuppress.Idx = 2U,
+	.TlastSuppress.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_2_TLAST_SUPPRESS_LSB,
+	.TlastSuppress.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_2_TLAST_SUPPRESS_MASK,
 };
 
 static const  XAie_DmaBdPkt Aie2MemTileDmaBdPktProp =
@@ -357,6 +360,7 @@ static const  XAie_DmaMod Aie2MemTileDmaMod =
 	.FifoMode = XAIE_FEATURE_UNAVAILABLE,
 	.EnTokenIssue = XAIE_FEATURE_AVAILABLE,
 	.RepeatCount = XAIE_FEATURE_AVAILABLE,
+	.TlastSuppress = XAIE_FEATURE_AVAILABLE,
 	.StartQueueBase = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_0_START_QUEUE,
 	.ChCtrlBase = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_0_CTRL,
 	.NumChannels = 6,  /* number of s2mm/mm2s channels */
@@ -388,6 +392,9 @@ static const  XAie_DmaBdEnProp Aie2TileDmaBdEnProp =
 	.OutofOrderBdId.Idx = 1U,
 	.OutofOrderBdId.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_1_OUT_OF_ORDER_BD_ID_LSB,
 	.OutofOrderBdId.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_1_OUT_OF_ORDER_BD_ID_MASK,
+	.TlastSuppress.Idx = 5U,
+	.TlastSuppress.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_5_TLAST_SUPPRESS_LSB,
+	.TlastSuppress.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_5_TLAST_SUPPRESS_MASK,
 };
 
 static const  XAie_DmaBdPkt Aie2TileDmaBdPktProp =
@@ -573,6 +580,7 @@ static const  XAie_DmaMod Aie2TileDmaMod =
 	.FifoMode = XAIE_FEATURE_UNAVAILABLE,
 	.EnTokenIssue = XAIE_FEATURE_AVAILABLE,
 	.RepeatCount = XAIE_FEATURE_AVAILABLE,
+	.TlastSuppress = XAIE_FEATURE_AVAILABLE,
 	.StartQueueBase = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_0_START_QUEUE,
 	.ChCtrlBase = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_0_CTRL,
 	.NumChannels = 2U,  /* Number of s2mm/mm2s channels */
@@ -604,6 +612,9 @@ static const  XAie_DmaBdEnProp Aie2ShimDmaBdEnProp =
 	.OutofOrderBdId.Idx = 2U,
 	.OutofOrderBdId.Lsb = XAIEMLGBL_NOC_MODULE_DMA_BD0_2_OUT_OF_ORDER_BD_ID_LSB,
 	.OutofOrderBdId.Mask = XAIEMLGBL_NOC_MODULE_DMA_BD0_2_OUT_OF_ORDER_BD_ID_MASK,
+	.TlastSuppress.Idx = 7U,
+	.TlastSuppress.Lsb = XAIEMLGBL_NOC_MODULE_DMA_BD0_7_TLAST_SUPPRESS_LSB,
+	.TlastSuppress.Mask = XAIEMLGBL_NOC_MODULE_DMA_BD0_7_TLAST_SUPPRESS_MASK,
 };
 
 static const  XAie_DmaBdPkt Aie2ShimDmaBdPktProp =
@@ -804,6 +815,7 @@ static const  XAie_DmaMod Aie2ShimDmaMod =
 	.FifoMode = XAIE_FEATURE_UNAVAILABLE,
 	.EnTokenIssue = XAIE_FEATURE_AVAILABLE,
 	.RepeatCount = XAIE_FEATURE_AVAILABLE,
+	.TlastSuppress = XAIE_FEATURE_AVAILABLE,
 	.StartQueueBase = XAIEMLGBL_NOC_MODULE_DMA_S2MM_0_TASK_QUEUE,
 	.ChCtrlBase = XAIEMLGBL_NOC_MODULE_DMA_S2MM_0_CTRL,
 	.NumChannels = 2U,  /* Number of s2mm/mm2s channels */

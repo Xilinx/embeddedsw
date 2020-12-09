@@ -241,7 +241,10 @@ AieRC _XAieMl_MemTileDmaWriteBd(XAie_DevInst *DevInst , XAie_DmaDesc *DmaDesc,
 			BdProp->AddrMode->Aie2MultiDimAddr.DmaDimProp[0U].Wrap.Mask) |
 		 XAie_SetField((DmaDesc->MultiDimDesc.Gen2MultiDimDesc.DimDesc[0U].StepSize - 1U),
 				BdProp->AddrMode->Aie2MultiDimAddr.DmaDimProp[0U].StepSize.Lsb,
-				BdProp->AddrMode->Aie2MultiDimAddr.DmaDimProp[0U].StepSize.Mask);
+				BdProp->AddrMode->Aie2MultiDimAddr.DmaDimProp[0U].StepSize.Mask) |
+		 XAie_SetField(DmaDesc->TlastSuppress,
+				BdProp->BdEn->TlastSuppress.Lsb,
+				BdProp->BdEn->TlastSuppress.Mask);
 
 	BdWord[3U] = XAie_SetField(DmaDesc->ZeroPadDesc.D1_ZeroBefore,
 			BdProp->ZeroPad->D1_ZeroBefore.Lsb,
@@ -418,7 +421,10 @@ AieRC _XAieMl_TileDmaWriteBd(XAie_DevInst *DevInst , XAie_DmaDesc *DmaDesc,
 				BdProp->BdEn->UseNxtBd.Lsb,
 				BdProp->BdEn->UseNxtBd.Mask) |
 		XAie_SetField(DmaDesc->BdEnDesc.NxtBd, BdProp->BdEn->NxtBd.Lsb,
-				BdProp->BdEn->NxtBd.Mask);
+				BdProp->BdEn->NxtBd.Mask) |
+		XAie_SetField(DmaDesc->TlastSuppress,
+				BdProp->BdEn->TlastSuppress.Lsb,
+				BdProp->BdEn->TlastSuppress.Mask);
 
 	Addr = BdBaseAddr + _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
 
@@ -547,7 +553,10 @@ AieRC _XAieMl_ShimDmaWriteBd(XAie_DevInst *DevInst , XAie_DmaDesc *DmaDesc,
 				BdProp->BdEn->UseNxtBd.Lsb,
 				BdProp->BdEn->UseNxtBd.Mask) |
 		XAie_SetField(DmaDesc->BdEnDesc.NxtBd, BdProp->BdEn->NxtBd.Lsb,
-				BdProp->BdEn->NxtBd.Mask);
+				BdProp->BdEn->NxtBd.Mask) |
+		XAie_SetField(DmaDesc->TlastSuppress,
+				BdProp->BdEn->TlastSuppress.Lsb,
+				BdProp->BdEn->TlastSuppress.Mask);
 
 	Addr = BdBaseAddr + _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
 
