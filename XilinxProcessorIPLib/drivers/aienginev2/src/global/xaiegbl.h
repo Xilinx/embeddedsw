@@ -345,6 +345,7 @@ typedef struct {
 	u8 FifoMode;
 	u8 EnCompression;
 	u8 EnOutofOrderBdId;
+	u8 TlastSuppress;
 	u8 TileType;
 	u8 IsReady;
 } XAie_DmaDesc;

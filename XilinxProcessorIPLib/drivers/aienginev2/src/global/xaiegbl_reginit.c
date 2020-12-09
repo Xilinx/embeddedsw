@@ -1214,7 +1214,8 @@ static const XAie_DmaBdEnProp AieTileDmaBdEnProp =
 	.ValidBd.Idx = 6U,
 	.ValidBd.Lsb = XAIEGBL_MEM_DMABD0CTRL_VALBD_LSB,
 	.ValidBd.Mask = XAIEGBL_MEM_DMABD0CTRL_VALBD_MASK,
-	.OutofOrderBdId = {0U}
+	.OutofOrderBdId = {0U},
+	.TlastSuppress = {0U},
 };
 
 static const XAie_DmaBdPkt AieTileDmaBdPktProp =
@@ -1418,6 +1419,7 @@ static const XAie_DmaMod AieTileDmaMod =
 	.FifoMode = XAIE_FEATURE_AVAILABLE,
 	.EnTokenIssue = XAIE_FEATURE_UNAVAILABLE,
 	.RepeatCount = XAIE_FEATURE_UNAVAILABLE,
+	.TlastSuppress = XAIE_FEATURE_UNAVAILABLE,
 	.StartQueueBase = XAIEGBL_MEM_DMAS2MM0STAQUE,
 	.ChCtrlBase = XAIEGBL_MEM_DMAS2MM0CTR,
 	.NumChannels = 2U,  /* Number of s2mm/mm2s channels */
@@ -1449,7 +1451,8 @@ static const XAie_DmaBdEnProp AieShimDmaBdEnProp =
 	.ValidBd.Idx = 2U,
 	.ValidBd.Lsb = XAIEGBL_NOC_DMABD1BUFCTRL_VALBD_LSB,
 	.ValidBd.Mask = XAIEGBL_NOC_DMABD1BUFCTRL_VALBD_MASK,
-	.OutofOrderBdId = {0U}
+	.OutofOrderBdId = {0U},
+	.TlastSuppress = {0U},
 };
 
 static const XAie_DmaBdPkt AieShimDmaBdPktProp =
@@ -1616,6 +1619,7 @@ static const XAie_DmaMod AieShimDmaMod =
 	.FifoMode = XAIE_FEATURE_UNAVAILABLE,
 	.EnTokenIssue = XAIE_FEATURE_UNAVAILABLE,
 	.RepeatCount = XAIE_FEATURE_UNAVAILABLE,
+	.TlastSuppress = XAIE_FEATURE_UNAVAILABLE,
 	.StartQueueBase = XAIEGBL_NOC_DMAS2MM0STAQUE,
 	.ChCtrlBase = XAIEGBL_NOC_DMAS2MM0CTR,
 	.NumChannels = 2U,  /* Number of s2mm/mm2s channels */
