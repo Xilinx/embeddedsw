@@ -35,6 +35,7 @@
 * ----- --- -------- -----------------------------------------------
 * 1.11   akm  02/19/20 First release
 * 1.13   akm  11/30/20 Removed unwanted header files.
+* 1.13   akm  12/10/20 Set Read command as per the qspi bus width.
 *
 *</pre>
 *
@@ -279,7 +280,13 @@ int QspiPsuFlashNonBlockingReadExample(XQspiPsu *QspiPsuInstancePtr, u16 QspiPsu
 	 * Address size and read command selection
 	 * Micron flash on REMUS doesn't support this 4B write/erase cmd
 	 */
-	ReadCmd = QUAD_READ_CMD;
+	if(QspiPsuInstancePtr->Config.BusWidth == BUSWIDTH_SINGLE)
+		ReadCmd = FAST_READ_CMD;
+	else if(QspiPsuInstancePtr->Config.BusWidth == BUSWIDTH_DOUBLE)
+		ReadCmd = DUAL_READ_CMD;
+	else
+		ReadCmd = QUAD_READ_CMD;
+
 	WriteCmd = WRITE_CMD;
 	SectorEraseCmd = SEC_ERASE_CMD;
 
