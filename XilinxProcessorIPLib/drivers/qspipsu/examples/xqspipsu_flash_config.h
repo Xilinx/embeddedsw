@@ -24,6 +24,7 @@
 * 1.12  akm 07/07/20 First release
 * 1.12	akm 07/07/20 Add support for Macronix flash(MX66U2G45G, MX66L2G45G)
 *                    and ISSI flash(IS25LP01G, IS25WP01G) parts.
+* 1.13  akm 12/10/20 Set Read command as per the qspi bus width.
 *
 *</pre>
 *
@@ -147,6 +148,12 @@ extern "C" {
  * Bank mask
  */
 #define BANKMASK 0xF000000
+
+/*
+ * Bus width
+ */
+#define BUSWIDTH_SINGLE	0
+#define BUSWIDTH_DOUBLE	1
 
 /*
  * Identification of Flash

@@ -58,6 +58,7 @@
 * 1.9   akm 04/03/19 Fixed data alignment warnings on IAR compiler.
 * 1.10  akm 09/05/19 Added Multi Die Erase and Muti Die Read support.
 * 1.13  akm 11/30/20 Removed unwanted header files.
+* 1.13  akm 12/10/20 Set Read command as per the qspi bus width.
 *
 *</pre>
 *
@@ -302,7 +303,13 @@ int QspiPsuPolledFlashExample(XQspiPsu *QspiPsuInstancePtr, u16 QspiPsuDeviceId)
 	 * Address size and read command selection
 	 * Micron flash on REMUS doesn't support this 4B write/erase cmd
 	 */
-	ReadCmd = QUAD_READ_CMD;
+	if(QspiPsuInstancePtr->Config.BusWidth == BUSWIDTH_SINGLE)
+		ReadCmd = FAST_READ_CMD;
+	else if(QspiPsuInstancePtr->Config.BusWidth == BUSWIDTH_DOUBLE)
+		ReadCmd = DUAL_READ_CMD;
+	else
+		ReadCmd = QUAD_READ_CMD;
+
 	WriteCmd = WRITE_CMD;
 	SectorEraseCmd = SEC_ERASE_CMD;
 

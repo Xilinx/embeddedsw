@@ -61,6 +61,7 @@
 * 1.9   akm 04/03/19 Fixed compilation error in XQspiPsu_LqspiRead()
 *                     function on IAR compiler.
 * 1.13  akm 11/30/20 Removed unwanted header files.
+* 1.13  akm 12/10/20 Set Read command as per the qspi bus width.
 *
 *</pre>
 *
@@ -395,7 +396,13 @@ int QspiPsuInterruptFlashExample(XScuGic *IntcInstancePtr,
 	 * Address size and read command selection
 	 * Micron flash on REMUS doesn't support these 4B write/erase commands
 	 */
-	ReadCmd = QUAD_READ_CMD;
+	if(QspiPsuInstancePtr->Config.BusWidth == BUSWIDTH_SINGLE)
+		ReadCmd = FAST_READ_CMD;
+	else if(QspiPsuInstancePtr->Config.BusWidth == BUSWIDTH_DOUBLE)
+		ReadCmd = DUAL_READ_CMD;
+	else
+		ReadCmd = QUAD_READ_CMD;
+
 	WriteCmd = WRITE_CMD;
 	SectorEraseCmd = SEC_ERASE_CMD;
 
