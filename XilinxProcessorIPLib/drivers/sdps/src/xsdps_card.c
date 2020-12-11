@@ -291,6 +291,10 @@ s32 XSdPs_MmcCardInitialize(XSdPs *InstancePtr)
 			Status = XST_FAILURE;
 			goto RETURN_PATH;
 		}
+	} else {
+		XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
+				XSDPS_BLK_SIZE_OFFSET, XSDPS_BLK_SIZE_512_MASK);
+		InstancePtr->BlkSize = XSDPS_BLK_SIZE_512_MASK;
 	}
 
 	Status = XST_SUCCESS;
@@ -1274,7 +1278,7 @@ void XSdPs_IdentifyEmmcMode(XSdPs *InstancePtr, const u8 *ExtCsd)
 				(EXT_CSD_DEVICE_TYPE_DDR_1V8_HIGH_SPEED |
 				EXT_CSD_DEVICE_TYPE_DDR_1V2_HIGH_SPEED)) != 0U) {
 			InstancePtr->Mode = XSDPS_DDR52_MODE;
-			InstancePtr->OTapDelay = SD_ITAPDLYSEL_EMMC_DDR50;
+			InstancePtr->OTapDelay = SD_OTAPDLYSEL_EMMC_DDR50;
 			InstancePtr->ITapDelay = SD_ITAPDLYSEL_EMMC_DDR50;
 		} else if ((ExtCsd[EXT_CSD_DEVICE_TYPE_BYTE] &
 				EXT_CSD_DEVICE_TYPE_HIGH_SPEED) != 0U) {
