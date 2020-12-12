@@ -52,9 +52,12 @@ XWdtPs_Config XWdtPs_ConfigTable[XPAR_XWDTPS_NUM_INSTANCES] = {
 		(u16)XPAR_XWDTPS_0_DEVICE_ID,
 		(u32)XPAR_XWDTPS_0_BASEADDR
 	},
+	
+#ifdef XPAR_XWDTPS_1_DEVICE_ID	
 	{
 		(u16)XPAR_XWDTPS_1_DEVICE_ID,
 		(u32)XPAR_XWDTPS_1_BASEADDR
 	}
+#endif
 };
 /** @} */
