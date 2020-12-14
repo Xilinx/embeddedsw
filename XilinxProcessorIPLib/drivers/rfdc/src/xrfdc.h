@@ -264,6 +264,7 @@
 *       cog    11/27/20 Added functionality for 6xdr devices.
 *       cog    12/02/20 Supplied FS was being saved rather than actual FS when
 *                       setting PLL.
+*       cog    12/04/20 Reduce scope of non user interface macros.
 *
 * </pre>
 *
@@ -1280,35 +1281,8 @@ typedef struct {
 #define XRFDC_MTS_SYSREF_DISABLE 0U
 #define XRFDC_MTS_SYSREF_ENABLE 1U
 
-#define XRFDC_MTS_NUM_DTC 128U
-#define XRFDC_MTS_REF_TARGET 64U
-#define XRFDC_MTS_MAX_CODE 16U
-#define XRFDC_MTS_MIN_GAP_T1 10U
-#define XRFDC_MTS_MIN_GAP_PLL 5U
-#define XRFDC_MTS_SR_TIMEOUT 4096U
-#define XRFDC_MTS_DTC_COUNT 10U
-#define XRFDC_MTS_MARKER_COUNT 4U
 #define XRFDC_MTS_SCAN_INIT 0U
 #define XRFDC_MTS_SCAN_RELOAD 1U
-#define XRFDC_MTS_SRCOUNT_TIMEOUT 1000U
-#define XRFDC_MTS_DELAY_MAX 31U
-#define XRFDC_MTS_CHECK_ALL_FIFOS 0U
-
-#define XRFDC_MTS_SRCAP_T1_EN 0x4000U
-#define XRFDC_MTS_SRCAP_T1_RST 0x0800U
-#define XRFDC_MTS_SRFLAG_T1 0x4U
-#define XRFDC_MTS_SRFLAG_PLL 0x2U
-#define XRFDC_MTS_FIFO_DEFAULT 0x0000U
-#define XRFDC_MTS_FIFO_ENABLE 0x0003U
-#define XRFDC_MTS_FIFO_DISABLE 0x0002U
-#define XRFDC_MTS_AMARK_LOC_S 0x10U
-#define XRFDC_MTS_AMARK_DONE_S 0x14U
-#define XRFDC_MTS_DLY_ALIGNER0 0x28U
-#define XRFDC_MTS_DLY_ALIGNER1 0x2CU
-#define XRFDC_MTS_DLY_ALIGNER2 0x30U
-#define XRFDC_MTS_DLY_ALIGNER3 0x34U
-#define XRFDC_MTS_DIR_FIFO_PTR 0x40U
-#define XRFDC_MTS_DAC_MARKER_LOC_MASK(X) ((X < XRFDC_GEN3) ? 0x7U : 0xFU)
 
 /* MTS Error Codes */
 #define XRFDC_MTS_OK 0U
