@@ -25,8 +25,8 @@
 #define CRF_APB_APLL_CTRL_OFFSET                                                   (0XFD1A0020U)
 #undef CRL_APB_I2C1_REF_CTRL_OFFSET
 #define CRL_APB_I2C1_REF_CTRL_OFFSET                                               (0XFF5E0124U)
-#undef CRL_APB_UART0_REF_CTRL_OFFSET
-#define CRL_APB_UART0_REF_CTRL_OFFSET                                              (0XFF5E0074U)
+#undef CRL_APB_UART1_REF_CTRL_OFFSET
+#define CRL_APB_UART1_REF_CTRL_OFFSET                                              (0XFF5E0078U)
 #undef CRL_APB_QSPI_REF_CTRL_OFFSET
 #define CRL_APB_QSPI_REF_CTRL_OFFSET                                               (0XFF5E0068U)
 
