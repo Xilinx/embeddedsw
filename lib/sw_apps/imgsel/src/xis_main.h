@@ -37,8 +37,11 @@ extern "C" {
 #include "xis_debug.h"
 #include "xis_i2c.h"
 #include "xis_error.h"
-#ifdef XIS_UPDATE_A_B_MECHANISM
+#if defined(XIS_UPDATE_A_B_MECHANISM)
 #include "xis_qspi.h"
+#if defined(XPAR_XGPIOPS_NUM_INSTANCES)
+#include "xis_gpio.h"
+#endif
 #endif
 
 /************************** Constant Definitions *****************************/
@@ -66,6 +69,7 @@ extern "C" {
 #define XIS_IMAGE_A_OFFSET 							(0x14U)
 #define XIS_IMAGE_B_OFFSET 							(0x18U)
 #define XIS_RECOVERY_IMAGE_OFFSET 					(0x1CU)
+#define XIS_RECOVERY_ADDRESS						(0x01E00000U)
 #define XIS_SIZE_32KB								(32768U)
 #endif
 

@@ -66,7 +66,10 @@ typedef enum {
 	XIS_QSPI_MANUAL_START_ERROR,			/**< 0x27 */
 	XIS_QSPI_PRESCALER_CLK_ERROR,			/**< 0x28 */
 	XIS_UNSUPPORTED_QSPI_ERROR,				/**< 0x29 */
-	XIS_UNSUPPORTED_QSPI_CONN_MODE_ERROR	/**< 0x2A */
+	XIS_UNSUPPORTED_QSPI_CONN_MODE_ERROR,	/**< 0x2A */
+
+	XIS_GPIO_LKP_CONFIG_ERROR = 0x30,       /**< 0x30 */
+	XIS_GPIO_CONFIG_ERROR,                  /**< 0x31 */
 } XIsError;
 
 #ifdef __cplusplus
