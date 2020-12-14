@@ -42,6 +42,8 @@
 * 8.1   cog    06/24/20 Upversion.
 * 9.0   cog    11/25/20 Upversion.
 * 10.0  cog    11/26/20 Refactor and split files.
+*       cog    12/04/20 PLL DTC Scan was not being done in cases where the
+*                       output divider works out to 1.
 *
 * </pre>
 *
@@ -1160,6 +1162,8 @@ u32 XRFdc_MultiConverter_Sync(XRFdc *InstancePtr, u32 Type, XRFdc_MultiConverter
 	u32 BaseAddr;
 	u32 TileState;
 	u32 BlockStatus;
+	u32 NetCtrlReg;
+	u32 DistCtrlReg;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
@@ -1224,10 +1228,13 @@ u32 XRFdc_MultiConverter_Sync(XRFdc *InstancePtr, u32 Type, XRFdc_MultiConverter
 					Status |= XRFdc_MTS_Dtc_Scan(InstancePtr, Type, Index, &ConfigPtr->DTC_Set_PLL);
 				}
 			} else {
-				RegData = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_PLL_DIVIDER0);
-				if ((((RegData & XRFDC_PLL_DIVIDER0_BYP_PLL_MASK) == XRFDC_DISABLED) ||
-				     ((RegData & XRFDC_PLL_DIVIDER0_BYP_OPDIV_MASK) == XRFDC_DISABLED)) &&
-				    ((RegData & XRFDC_PLL_DIVIDER0_MODE_MASK) != XRFDC_DISABLED)) {
+				NetCtrlReg =
+					XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CLK_NETWORK_CTRL1,
+						    (XRFDC_NET_CTRL_CLK_T1_SRC_LOCAL | XRFDC_NET_CTRL_CLK_T1_SRC_DIST));
+				DistCtrlReg = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_HSCOM_CLK_DSTR_OFFSET,
+							  XRFDC_DIST_CTRL_DIST_SRC_PLL);
+
+				if ((NetCtrlReg == XRFDC_DISABLED) || (DistCtrlReg != XRFDC_DISABLED)) {
 					/* DTC Scan PLL */
 					if (Index == XRFDC_BLK_ID0) {
 						metal_log(METAL_LOG_INFO, "\nDTC Scan PLL\n");
