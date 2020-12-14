@@ -262,6 +262,8 @@
 * 9.0   cog    11/25/20 Upversion.
 * 10.0  cog    11/26/20 Refactor and split files.
 *       cog    11/27/20 Added functionality for 6xdr devices.
+*       cog    12/02/20 Supplied FS was being saved rather than actual FS when
+*                       setting PLL.
 *
 * </pre>
 *
@@ -995,6 +997,7 @@ typedef struct {
 #define XRFDC_MB_MODE_2X_BLK01_BLK23_ALT 0x5U
 
 #define XRFDC_MILLI 1000U
+#define XRFDC_MICRO 1000000U
 #define XRFDC_DAC_SAMPLING_MIN 500
 #define XRFDC_DAC_SAMPLING_MAX 6554
 #define XRFDC_ADC_4G_SAMPLING_MIN 1000

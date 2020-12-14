@@ -55,6 +55,8 @@
 * 9.0   cog    11/25/20 Upversion.
 * 10.0  cog    11/26/20 Refactor and split files.
 *       cog    11/27/20 Added functionality for 6xdr devices.
+*       cog    12/02/20 Supplied FS was being saved rather than actual FS when
+*                       setting PLL.
 * </pre>
 *
 ******************************************************************************/
@@ -1574,6 +1576,8 @@ static u32 XRFdc_SetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, double 
 	}
 
 	CalcSamplingRate = (Best_FeedbackDiv * RefClkFreq) / Best_OutputDiv;
+	/* Store Sampling Frequency in kHz */
+	XRFdc_WriteReg(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile_Id), XRFDC_PLL_FS, (u32)(CalcSamplingRate * XRFDC_MILLI));
 	CalcSamplingRate /= XRFDC_MILLI;
 
 	if (Type == XRFDC_ADC_TILE) {
@@ -1636,9 +1640,9 @@ u32 XRFdc_GetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_PLL_Sett
 	BaseAddr = XRFDC_CTRL_STS_BASE(Type, Tile_Id);
 	PLLFreq = XRFdc_ReadReg(InstancePtr, BaseAddr, XRFDC_PLL_FREQ);
 
-	RefClkFreq = ((double)PLLFreq) / 1000;
+	RefClkFreq = ((double)PLLFreq) / XRFDC_MILLI;
 	PLLFS = XRFdc_ReadReg(InstancePtr, BaseAddr, XRFDC_PLL_FS);
-	SampleRate = ((double)PLLFS) / 1000000;
+	SampleRate = ((double)PLLFS) / XRFDC_MICRO;
 	if (PLLFS == 0) {
 		/*This code is here to support the old IPs.*/
 		if (Type == XRFDC_ADC_TILE) {
@@ -1820,8 +1824,6 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 		goto RETURN_PATH;
 	}
 
-	BaseAddr = XRFDC_CTRL_STS_BASE(Type, Tile_Id);
-
 	if (Source == XRFDC_INTERNAL_PLL_CLK) {
 		if ((RefClkFreq < XRFDC_REFFREQ_MIN) || (RefClkFreq > XRFDC_REFFREQ_MAX)) {
 			metal_log(
@@ -1834,19 +1836,15 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 		}
 	}
 
-	PLLFreq = (u32)(RefClkFreq * 1000);
-	PLLFS = (u32)(SamplingRate * 1000);
-	XRFdc_WriteReg(InstancePtr, BaseAddr, XRFDC_PLL_FREQ, PLLFreq);
-	XRFdc_WriteReg(InstancePtr, BaseAddr, XRFDC_PLL_FS, PLLFS);
 	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
 		if ((Source != XRFDC_INTERNAL_PLL_CLK) && (ClkSrc != XRFDC_INTERNAL_PLL_CLK)) {
 			metal_log(METAL_LOG_DEBUG, "\n Requested tile (%s %u) uses external clock source in %s\r\n",
 				  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 			if (Type == XRFDC_ADC_TILE) {
-				InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.SampleRate = (double)(SamplingRate / 1000);
+				InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.SampleRate = (double)(SamplingRate / XRFDC_MILLI);
 				InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.RefClkFreq = RefClkFreq;
 			} else {
-				InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.SampleRate = (double)(SamplingRate / 1000);
+				InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.SampleRate = (double)(SamplingRate / XRFDC_MILLI);
 				InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.RefClkFreq = RefClkFreq;
 			}
 			Status = XRFDC_SUCCESS;
@@ -1885,7 +1883,8 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 	if (InstancePtr->RFdc_Config.IPType >= XRFDC_GEN3) {
 		NetCtrlReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_CLK_NETWORK_CTRL1);
 	}
-
+	PLLFreq = (u32)(RefClkFreq * XRFDC_MILLI);
+	PLLFS = (u32)(SamplingRate * XRFDC_MILLI);
 	if (Source == XRFDC_INTERNAL_PLL_CLK) {
 		PLLEnable = 0x1;
 		/*
@@ -1955,8 +1954,9 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 			InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.FeedbackDivider = 0x0U;
 			InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.OutputDivider = OpDiv;
 		}
+		XRFdc_WriteReg(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile_Id), XRFDC_PLL_FS, PLLFS);
 	}
-
+	XRFdc_WriteReg(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile_Id), XRFDC_PLL_FREQ, PLLFreq);
 	/*
 	 * Re-start the ADC or DAC tile if tile was shut down in this function
 	 */
