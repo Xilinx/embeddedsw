@@ -77,6 +77,9 @@
 #                     using instance name. Instance names for GIC might vary
 #                     based on the HW design, so its better to avoid using
 #                     instance names directly. It fixes CR#1073003.
+# 4.4   mus  12/14/20 Updated get_psu_interrupt_id proc with additional checks
+#                     to fix BSP generation for specific designs. It fixes
+#                     CR#1084286.
 #
 ##############################################################################
 
@@ -1102,8 +1105,12 @@ proc get_psu_interrupt_id { ip_name port_name } {
 	#
 	set connected_ip_prev ""
 	if { $traveresing_details == 0 } {
-		for {set itr 0} {[llength $sink_pins] != 0} { } {
+		for {set itr 0} {[llength $sink_pins] != 0 && $itr < [llength $sink_pins]} { } {
 			set sink_pin [lindex $sink_pins $itr]
+			if {[llength $sink_pin] == 0} {
+				incr itr
+				continue
+			}
 			set sink_periph [::hsi::get_cells -of_objects $sink_pin]
 			set duplicate 0
 			if {[llength $sink_periph] == 0} {
