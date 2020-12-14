@@ -261,6 +261,7 @@
 *       cog    10/14/20 Get I and Q data now supports warm bitstream swap.
 * 9.0   cog    11/25/20 Upversion.
 * 10.0  cog    11/26/20 Refactor and split files.
+*       cog    11/27/20 Added functionality for 6xdr devices.
 *
 * </pre>
 *
@@ -1269,6 +1270,9 @@ typedef struct {
 
 #define XRFDC_DUAL_TILE 2U
 #define XRFDC_QUAD_TILE 4U
+
+#define XRFDC_4ADC_4DAC_TILES 0U
+#define XRFDC_3ADC_2DAC_TILES 1U
 
 #define XRFDC_MTS_SYSREF_DISABLE 0U
 #define XRFDC_MTS_SYSREF_ENABLE 1U
