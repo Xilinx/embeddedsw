@@ -1003,6 +1003,7 @@ static XStatus XPmPower_SysmonCheckPower(XPm_Rail *Rail)
 								SYSMON_CHECK_POWER_TIMEOUT);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_NEW_DATA_FLAG_TIMEOUT;
+		Status = XPM_ERR_NEW_DATA_FLAG_TIMEOUT;
 		goto done;
 	}
 
@@ -1010,7 +1011,7 @@ static XStatus XPmPower_SysmonCheckPower(XPm_Rail *Rail)
 	PmIn32(SysmonSupplyReg, RailVoltage);
 	if (RailVoltage < LowThreshVal) {
 		DbgErr = XPM_INT_ERR_POWER_SUPPLY;
-		Status = XST_FAILURE;
+		Status = XPM_ERR_RAIL_VOLTAGE;
 	}
 
 	/* Unlock Root SysMon registers */
