@@ -135,6 +135,12 @@ extern "C" {
 /************************** (2100L) - (2109L) ****************************/
 #define XPM_INVALID_ISO_IDX                      (2100L) /* Invalid Isolation index passed */
 
+/**************************** SYSMON ERRORS ******************************/
+/************************** (2110L) - (2119L) ****************************/
+#define XPM_INVALID_DEV_VOLTAGE_GRADE			 (2110L) /* Invalid device voltage grade */
+#define XPM_ERR_NEW_DATA_FLAG_TIMEOUT			 (2111L) /* Sysmon new data flag timeout */
+#define XPM_ERR_RAIL_VOLTAGE				 (2112L) /* Power rail not ramped up */
+
 /************************** Variable Definitions *****************************/
 
 #ifdef __cplusplus
