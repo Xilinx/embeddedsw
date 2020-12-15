@@ -72,12 +72,6 @@ static XStatus XPmPsm_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 		Core->isCoreUp = 1;
 	}
 
-	/*
-	 * PSM toggles between running and sleeping too frequently. Clear PSM
-	 * wakeup bit to put it into sleep state while idle.
-	 */
-	PmRmw32(CRLBaseAddress + CRL_PSM_RST_MODE_OFFSET, XPM_PSM_WAKEUP_MASK, 0U);
-
 done:
 	return Status;
 }
