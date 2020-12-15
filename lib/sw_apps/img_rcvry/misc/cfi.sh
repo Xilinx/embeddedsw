@@ -1,7 +1,7 @@
 rm web.img
 
-# Create image file of 64K
-dd if=/dev/zero of=web.img bs=512 count=160
+# Create image file of 96K
+dd if=/dev/zero of=web.img bs=512 count=192
 
 # Format image with FAT
 /sbin/mkfs.vfat -F 12 web.img
