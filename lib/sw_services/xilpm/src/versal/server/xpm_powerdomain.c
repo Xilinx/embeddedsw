@@ -31,6 +31,27 @@ static u8 SystemResetFlag;
 static u8 DomainPORFlag;
 static u32 PsmApuPwrState;
 
+/*
+ * Power rail index map
+ */
+#define RAILIDX(Idx) \
+		((u32)(Idx) - (u32)XPM_NODEIDX_POWER_VCCINT_PMC)
+
+/*
+ * RailVoltageTable is a temporary table used for sysmon voltage checks
+ * debugging.
+ */
+static const u32 RailVoltageTable[8][2] = {
+	[RAILIDX(XPM_NODEIDX_POWER_VCCINT_PMC)] = {0x26000, 0x26666},	/* 0.75V, 0.8V */
+	[RAILIDX(XPM_NODEIDX_POWER_VCCAUX_PMC)] = {0x2b333, 0x2c000},	/* 1.4V, 1.5V */
+	[RAILIDX(XPM_NODEIDX_POWER_VCCINT_PSLP)] = {0x26000, 0x26666},	/* 0.75V, 0.8V */
+	[RAILIDX(XPM_NODEIDX_POWER_VCCINT_PSFP)] = {0x26000, 0x26666},	/* 0.75V, 0.8V */
+	[RAILIDX(XPM_NODEIDX_POWER_VCCINT_SOC)] = {0x26000, 0x26666},	/* 0.75V, 0.8V */
+	[RAILIDX(XPM_NODEIDX_POWER_VCCINT_RAM)] = {0x26000, 0x26666},	/* 0.75V, 0.8V */
+	[RAILIDX(XPM_NODEIDX_POWER_VCCAUX)] = {0x2b333, 0x2c000},		/* 1.4V, 1.5V */
+	[RAILIDX(XPM_NODEIDX_POWER_VCCINT_PL)] = {0x26000, 0x26666},	/* 0.75V, 0.8V */
+};
+
 static const char *PmInitFunctions[FUNC_MAX_COUNT_PMINIT] = {
 	[FUNC_INIT_START]		= "INIT_START",
 	[FUNC_INIT_FINISH]		= "INIT_FINISH",
@@ -1004,6 +1025,21 @@ static XStatus XPmPower_SysmonCheckPower(XPm_Rail *Rail)
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_NEW_DATA_FLAG_TIMEOUT;
 		Status = XPM_ERR_NEW_DATA_FLAG_TIMEOUT;
+		goto done;
+	}
+
+	/*
+	 * Check if lower threshold value is for mid-grade voltage device. Eval
+	 * boards do not support all voltage grades.
+	 *
+	 * TODO: Remove after sysmon power checks have been internally verified
+	 */
+	u32 NodeIndex = NODEINDEX(Rail->Power.Node.Id);
+	PmIn32(SysmonLowThReg, LowThreshVal);
+	if ((LowThreshVal > RailVoltageTable[RAILIDX(NodeIndex)][1]) ||
+			(LowThreshVal < RailVoltageTable[RAILIDX(NodeIndex)][0])) {
+		DbgErr = XPM_INT_ERR_DEVICE_NOT_SUPPORTED;
+		Status = XPM_INVALID_DEV_VOLTAGE_GRADE;
 		goto done;
 	}
 
