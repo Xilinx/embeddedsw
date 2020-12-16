@@ -36,6 +36,7 @@
 *       bsv  10/13/2020 Code clean up
 *       td   10/19/2020 MISRA C Fixes
 *       ana  10/19/2020 Added doxygen comments
+* 1.05  bm   12/15/2020 Added Update Multiboot command
 *
 * </pre>
 *
@@ -83,6 +84,8 @@ static XPlmi_Module XPlmi_Loader;
 #define XLOADER_CMD_READBACK_PDIADDR_HIGH_INDEX		(3U)
 #define XLOADER_CMD_READBACK_PDIADDR_LOW_INDEX		(4U)
 #define XLOADER_CMD_READBACK_MAXLEN_INDEX		(5U)
+#define XLOADER_CMD_MULTIBOOT_BOOTMODE_INDEX		(0U)
+#define XLOADER_CMD_MULTIBOOT_IMG_LOCATION_INDEX	(1U)
 #define XLOADER_RESP_CMD_EXEC_STATUS_INDEX	(0U)
 #define XLOADER_RESP_CMD_FEATURES_CMD_SUPPORTED	(1U)
 #define XLOADER_RESP_CMD_READBACK_PROCESSED_LEN_INDEX	(1U)
@@ -90,6 +93,17 @@ static XPlmi_Module XPlmi_Loader;
 #define XLOADER_RESP_CMD_GET_IMG_INFO_PID_INDEX		(2U)
 #define XLOADER_RESP_CMD_GET_IMG_INFO_FUNCID_INDEX		(3U)
 #define XLOADER_RESP_CMD_GET_IMG_INFO_LIST_NUM_ENTRIES_INDEX	(1U)
+
+#define XLOADER_CMD_MULTIBOOT_PDISRC_MASK		(0xFF00U)
+#define XLOADER_CMD_MULTIBOOT_FLASHTYPE_MASK		(0xFU)
+#define XLOADER_CMD_MULTIBOOT_PDISRC_SHIFT		(8U)
+#define XLOADER_FLASHTYPE_RAW				(0U)
+#define XLOADER_FLASHTYPE_FS				(1U)
+#define XLOADER_FLASHTYPE_RAW_BP1			(2U)
+#define XLOADER_FLASHTYPE_RAW_BP2			(3U)
+#define XLOADER_DEFAULT_MULTIBOOT_VAL			(0U)
+#define XLOADER_DEFAULT_RAWBOOT_VAL			(0U)
+#define XLOADER_SD_FILE_SYSTEM_VAL			(0xF0000000U)
 
 /************************** Function Prototypes ******************************/
 
@@ -385,6 +399,111 @@ END:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function updates multiboot register value during run-time
+ *  Command payload parameters are
+ *	- BootMode[15:8] - Boot Mode value
+ *	- FlashType[3:0] - Type of Flash
+ *	- Image Location - Location of Image in the boot device
+ *
+ * @param	Cmd is pointer to the command structure
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XLoader_UpdateMultiboot(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+	u32 ImageLocation;
+	u32 MultiBootVal = XLOADER_DEFAULT_MULTIBOOT_VAL;
+	u32 RawBootVal = XLOADER_DEFAULT_RAWBOOT_VAL;
+	u8 FlashType;
+	u8 PdiSrc;
+
+	FlashType = (u8)(Cmd->Payload[XLOADER_CMD_MULTIBOOT_BOOTMODE_INDEX] &
+				XLOADER_CMD_MULTIBOOT_FLASHTYPE_MASK);
+	PdiSrc = (u8)((Cmd->Payload[XLOADER_CMD_MULTIBOOT_BOOTMODE_INDEX] &
+			XLOADER_CMD_MULTIBOOT_PDISRC_MASK) >>
+			XLOADER_CMD_MULTIBOOT_PDISRC_SHIFT);
+	ImageLocation = Cmd->Payload[XLOADER_CMD_MULTIBOOT_IMG_LOCATION_INDEX];
+
+	if (((PdiSrc_t)PdiSrc == XLOADER_PDI_SRC_SD0) ||
+		((PdiSrc_t)PdiSrc == XLOADER_PDI_SRC_SD1) ||
+		((PdiSrc_t)PdiSrc == XLOADER_PDI_SRC_SD1_LS)) {
+		if (FlashType == XLOADER_FLASHTYPE_RAW) {
+			RawBootVal = XLOADER_SD_RAWBOOT_VAL;
+		}
+		else if (FlashType == XLOADER_FLASHTYPE_FS) {
+			RawBootVal = XLOADER_SD_FILE_SYSTEM_VAL;
+		}
+		else {
+			XPlmi_Printf(DEBUG_GENERAL, "Unsupported Flash Type\n");
+			Status = (int)XLOADER_ERR_UNSUPPORTED_MULTIBOOT_FLASH_TYPE;
+			goto END;
+		}
+	}
+	else if ((PdiSrc_t)PdiSrc == XLOADER_PDI_SRC_EMMC) {
+		if (FlashType == XLOADER_FLASHTYPE_RAW) {
+			RawBootVal = XLOADER_SD_RAWBOOT_VAL;
+		}
+		else if (FlashType == XLOADER_FLASHTYPE_FS) {
+			RawBootVal = XLOADER_SD_FILE_SYSTEM_VAL;
+
+		}
+		else if (FlashType == XLOADER_FLASHTYPE_RAW_BP1) {
+			RawBootVal = XLOADER_EMMC_BP1_RAW_VAL;
+		}
+		else if (FlashType == XLOADER_FLASHTYPE_RAW_BP2) {
+			RawBootVal = XLOADER_EMMC_BP2_RAW_VAL;
+		}
+		else {
+			XPlmi_Printf(DEBUG_GENERAL, "Unsupported Flash Type\n");
+			Status = (int)XLOADER_ERR_UNSUPPORTED_MULTIBOOT_FLASH_TYPE;
+			goto END;
+		}
+	}
+	else {
+		 if (((PdiSrc_t)PdiSrc != XLOADER_PDI_SRC_QSPI24) &&
+			((PdiSrc_t)PdiSrc != XLOADER_PDI_SRC_QSPI32) &&
+			((PdiSrc_t)PdiSrc != XLOADER_PDI_SRC_OSPI)) {
+			XPlmi_Printf(DEBUG_GENERAL, "Unsupported PdiSrc\n");
+			Status = (int)XLOADER_ERR_UNSUPPORTED_MULTIBOOT_PDISRC;
+			goto END;
+		}
+	}
+
+	if (RawBootVal == XLOADER_SD_FILE_SYSTEM_VAL) {
+		if (ImageLocation < XLOADER_SD_MAX_BOOT_FILES_LIMIT) {
+			MultiBootVal = ImageLocation;
+		}
+		else {
+			XPlmi_Printf(DEBUG_GENERAL, "Unsupported Boot File Num\n");
+			Status = (int)XLOADER_ERR_UNSUPPORTED_FILE_NUM;
+			goto END;
+		}
+	}
+	else {
+		if ((ImageLocation % XLOADER_IMAGE_SEARCH_OFFSET) == 0U) {
+			MultiBootVal = ImageLocation / XLOADER_IMAGE_SEARCH_OFFSET;
+		}
+		else {
+			XPlmi_Printf(DEBUG_GENERAL, "Unsupported Image Location\n");
+			Status = (int)XLOADER_ERR_UNSUPPORTED_MULTIBOOT_OFFSET;
+			goto END;
+		}
+	}
+
+	MultiBootVal = (RawBootVal & XLOADER_SD_RAWBOOT_MASK) |
+			(MultiBootVal & XLOADER_MULTIBOOT_OFFSET_MASK);
+	XPlmi_Out32(PMC_GLOBAL_PMC_MULTI_BOOT, MultiBootVal);
+	Status = XST_SUCCESS;
+
+END:
+	Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;
+	return Status;
+}
+
 /**
  * @{
  * @cond xloader_internal
@@ -420,7 +539,8 @@ static XPlmi_ModuleCmd XLoader_Cmds[] =
 	XPLMI_MODULE_COMMAND(XLoader_SetImageInfo),
 	XPLMI_MODULE_COMMAND(XLoader_GetImageInfoList),
 	XPLMI_MODULE_COMMAND(XLoader_UnImplementedCmd),
-	XPLMI_MODULE_COMMAND(XLoader_LoadReadBackPdi)
+	XPLMI_MODULE_COMMAND(XLoader_LoadReadBackPdi),
+	XPLMI_MODULE_COMMAND(XLoader_UpdateMultiboot)
 };
 
 /*****************************************************************************/
