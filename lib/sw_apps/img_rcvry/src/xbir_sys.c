@@ -24,6 +24,7 @@
 #include "xstatus.h"
 #include "xgpiops.h"
 #include "sleep.h"
+#include "stdio.h"
 
 /************************** Constant Definitions *****************************/
 #define XBIR_SYS_QSPI_MAX_SUB_SECTOR_SIZE	(8192U)/* 8KB */
@@ -38,6 +39,7 @@
 #define XBIR_MIO_73_MASK	(0x200000U)
 #define XBIR_MIO_71_MASK	(0x80000U)
 #define XBIR_WAIT_TIME_FOR_PHY_RESET_IN_US	(2L)
+#define XBIR_BYTE_HEX_LEN	(2U)
 
 /**************************** Type Definitions *******************************/
 
@@ -711,8 +713,12 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 {
 	int Status = XST_FAILURE;
 #if defined(XPAR_XIICPS_NUM_INSTANCES)
+	u8 LoopIndex = 0U;
 	Xbir_SysBoardEepromData SysBoardEepromData = {0U};
 	Xbir_CCEepromData CCEepromData = {0U};
+	char* UUIDStrPtr = NULL;
+	int Ret = XST_FAILURE;
+	u32 MaxSize = sizeof(SysInfo.UUID);
 
 	Status = Xbir_IicEepromReadData((u8 *)&SysBoardEepromData,
 		sizeof(Xbir_SysBoardEepromData), XBIR_IIC_SYS_BOARD_EEPROM_ADDRESS);
@@ -745,6 +751,19 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 		SysBoardEepromData.SysBoardMemRec.PlDdr,
 		sizeof(SysBoardEepromData.SysBoardMemRec.PlDdr));
 
+	UUIDStrPtr = (char *)SysInfo.UUID;
+	for(LoopIndex = 0U; LoopIndex < sizeof(SysBoardEepromData.SysBoardInfo.UUID);
+		++LoopIndex) {
+		Ret = snprintf(UUIDStrPtr, MaxSize, "%02X",
+			SysBoardEepromData.SysBoardInfo.UUID[LoopIndex]);
+		if (Ret != XBIR_BYTE_HEX_LEN) {
+			Status = XST_FAILURE;
+			goto END;
+		}
+		UUIDStrPtr += Ret;
+		MaxSize -= Ret;
+	}
+
 	Status = Xbir_IicEepromReadData((u8 *)&CCEepromData,
 		sizeof(Xbir_CCEepromData), XBIR_IIC_CC_EEPROM_ADDRESS);
 	if (Status != XST_SUCCESS) {
@@ -762,6 +781,20 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 	memcpy(CCInfo.BoardPartNum,
 		CCEepromData.SysBoardInfo.BoardPartNum,
 		sizeof(CCEepromData.SysBoardInfo.BoardPartNum));
+
+	UUIDStrPtr = (char *)CCInfo.UUID;
+	MaxSize = sizeof(CCInfo.UUID);
+	for(LoopIndex = 0U; LoopIndex < sizeof(CCEepromData.SysBoardInfo.UUID);
+		++LoopIndex) {
+		Ret = snprintf(UUIDStrPtr, MaxSize, "%02X",
+			CCEepromData.SysBoardInfo.UUID[LoopIndex]);
+		if (Ret != XBIR_BYTE_HEX_LEN) {
+			Status = XST_FAILURE;
+			goto END;
+		}
+		UUIDStrPtr += Ret;
+		MaxSize -= Ret;
+	}
 
 END:
 #else
