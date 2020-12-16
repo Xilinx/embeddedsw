@@ -74,6 +74,7 @@
 *       bm   09/24/2020 Added FuncID argument to RestartImage and ReloadImage
 *       bsv  10/13/2020 Code clean up
 *       ana  10/19/2020 Added doxygen comments
+* 1.03  bm   12/15/2020 Added XLOADER_SD_MAX_BOOT_FILES_LIMIT macro
 *
 * </pre>
 *
@@ -253,6 +254,9 @@ enum {
 #define XLOADER_SD_RAWBOOT_VAL			(0x70000000U)
 #define XLOADER_EMMC_BP1_RAW_VAL		(0x10000000U)
 #define XLOADER_EMMC_BP2_RAW_VAL		(0x20000000U)
+
+/* SD File System Boot related macros */
+#define XLOADER_SD_MAX_BOOT_FILES_LIMIT		(8192U)
 
 /* Minor Error codes for Major Error code: XLOADER_ERR_GEN_IDCODE */
 #define XLOADER_ERR_IDCODE		(0x1) /* IDCODE mismatch */

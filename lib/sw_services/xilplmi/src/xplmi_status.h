@@ -56,6 +56,7 @@
 *       td   10/19/2020 MISRA C Fixes
 * 1.04  td   11/23/2020 Added error code for XilPdi_ReadBootHdr failure
 *       bsv  12/02/2020 Replaced SEM_CFR error code with generic SEM error code
+*       bm   12/15/2020 Added Update Multiboot related error codes
 *
 * </pre>
 *
@@ -419,6 +420,15 @@ typedef enum {
 							XLoader_DdrCopy are not word aligned */
 	XLOADER_ERR_INIT_CDO,	/**< 0x35B - XPlmi_InitCdo failed */
 	XLOADER_ERR_READ_BOOT_HDR,	/**< 0x35C - Error during XilPdi_ReadBootHdr */
+	XLOADER_ERR_UNSUPPORTED_MULTIBOOT_FLASH_TYPE, /**<0X35D - Error due to unsupported Flash Type
+							used with Update Multiboot command */
+	XLOADER_ERR_UNSUPPORTED_MULTIBOOT_PDISRC, /**< 0x35E - Error due to unsupported PdiSrc
+							used with Update Multiboot command */
+	XLOADER_ERR_UNSUPPORTED_FILE_NUM,	/**< 0x35F - Error due to unsupported Filenum
+							used to update multiboot register */
+	XLOADER_ERR_UNSUPPORTED_MULTIBOOT_OFFSET, /**< 0x360 - Error when given multiboot offset
+							is not valid (not a multiple of 32K) */
+
 
 	/**< Security Major error codes */
 	XLOADER_ERR_INIT_GET_DMA = 0x600,

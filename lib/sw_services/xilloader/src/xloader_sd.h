@@ -32,6 +32,7 @@
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *       bsv  09/04/2020 Updated XLOADER_BASE_FILE_NAME_LEN_SD_1 macro value
 *       bsv  10/13/2020 Code clean up
+* 1.04  bm   12/15/2020 Removed XLOADER_SD_MAX_BOOT_FILES_LIMIT macro
 *
 * </pre>
 *
@@ -70,7 +71,6 @@ extern "C" {
 #define XLOADER_SD_DRV_NUM_5			(5U)
 #define XLOADER_SD_RAW_BLK_SIZE			(512U)
 #define XLOADER_SD_RAW_NUM_SECTORS		(128U)
-#define XLOADER_SD_MAX_BOOT_FILES_LIMIT		(8192U)
 
 /************************** Function Prototypes ******************************/
 int XLoader_SdInit(u32 DeviceFlags);
