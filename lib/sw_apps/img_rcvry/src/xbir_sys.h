@@ -90,7 +90,6 @@ typedef struct {
 	u16 Ripple;
 	u16 MinCurrent;
 	u16 MaxCurrent;
-	u8 Unused;
 } Xbir_SysDCLoadInfo;
 
 typedef struct {
@@ -102,7 +101,7 @@ typedef struct {
 	u8 IANAId[3U];
 	u8 VerNum;
 	u8 MacId0[6U];
-	u8 Unused[18U];
+	u8 Unused[17U];
 } Xbir_MacAddrInfo;
 
 typedef struct {
@@ -144,7 +143,7 @@ typedef struct {
 	u8 BoardSerialNumber[17U];
 	u8 BoardPartNum[10U];
 	u8 RevNum[9U];
-	u8 UUID[17U];
+	u8 UUID[33U];
 	u8 PrimaryBootDev[13U];
 	u8 SecondaryBootDev[13U];
 	u8 PsDdr[13U];
@@ -156,7 +155,7 @@ typedef struct {
 	u8 BoardSerialNumber[17U];
 	u8 BoardPartNum[10U];
 	u8 RevNum[9U];
-	u8 UUID[17U];
+	u8 UUID[33U];
 } Xbir_CCInfo;
 
 typedef struct {
