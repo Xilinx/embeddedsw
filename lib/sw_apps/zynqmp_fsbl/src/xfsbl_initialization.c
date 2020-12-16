@@ -43,7 +43,8 @@
 * 7.0   bsv  03/05/20 Restore value of SD_CDN_CTRL register before handoff
 *       ma   03/19/20 Update the status of FSBL image encryption in PMU Global
 *                     register
-*
+* 8.0   bsv  12/16/20 Update print format in XFsbl_EccInit to correctly print
+*                     64 bit addresses and lengths
 * </pre>
 *
 * @note
@@ -1675,8 +1676,9 @@ static u32 XFsbl_EccInit(u64 DestAddr, u64 LengthBytes)
 	XFsbl_Out32(ADMA_CH0_ZDMA_CH_CTRL0_TOTAL_BYTE_COUNT,0x00000000U);
 
 	XFsbl_Printf(DEBUG_INFO,
-			"Address 0x%0lx, Length %0lx, ECC initialized \r\n",
-			DestAddr, LengthBytes);
+		"Address 0x%0x%08x, Length 0x%0x%08x, ECC initialized \r\n",
+		(u32)(DestAddr >> 32U), (u32)DestAddr,
+		(u32)(LengthBytes >> 32U), (u32)LengthBytes);
 
 	Status = XFSBL_SUCCESS;
 END:
