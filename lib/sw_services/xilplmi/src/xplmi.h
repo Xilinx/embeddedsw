@@ -28,6 +28,8 @@
 *       bsv  09/30/2020 Added XPLMI_CHUNK_SIZE macro
 *       bm   10/14/2020 Code clean up
 *       td   10/19/2020 MISRA C Fixes
+* 1.3   nsk  12/14/2020 Modified xplmi_event_logging.c to use Canonical
+*                       names.
 *
 * </pre>
 *
