@@ -28,7 +28,7 @@
 # 3.8   hk   07/19/18 Added canonical property is cache coherency.
 # 3.11  sd   02/14/20 Add clock support.
 # 3.11	sd   27/03/20 Added hier design fix
-#
+# 3.13  nsk  12/11/20 Modified the tcl to not to use the instance names.
 ##############################################################################
 
 #uses "xillib.tcl"
@@ -145,41 +145,31 @@ proc generate_sgmii_params {drv_handle file_name} {
 	set pcs_pma false
 
 	foreach ip $ips {
-		set ipname [common::get_property NAME $ip]
 		set periph [common::get_property IP_NAME  $ip]
 		if { [string compare -nocase $periph "gig_ethernet_pcs_pma"] == 0} {
 				set pcs_pma true
 				set PhyStandard [common::get_property CONFIG.Standard $ip]
 				set sgmii_param [common::get_property CONFIG.c_is_sgmii $ip]
 		}
-		if { [string compare -nocase $ipname "ps7_ethernet_0"] == 0 ||
-		     [string compare -nocase $ipname "ps7_ethernet_1"] == 0 ||
-		     [string compare -nocase $ipname "psu_ethernet_0"] == 0 ||
-		     [string compare -nocase $ipname "psu_ethernet_1"] == 0 ||
-		     [string compare -nocase $ipname "psu_ethernet_2"] == 0 ||
-		     [string compare -nocase $ipname "psu_ethernet_3"] == 0 ||
-		     [string compare -nocase $ipname "psv_ethernet_0"] == 0 ||
-		     [string compare -nocase $ipname "psv_ethernet_1"] == 0 } {
-			# The below function call to get phy address works only with PL PCS PMA IP versions
-			# before 2016.3. For all subsequent versions, the phy address is exported as 0 in
-			# xparameters but will be scanned and obtained in upper layers.
-			set phya [is_gige_pcs_pma_ip_present $ip]
-			if {$pcs_pma == false} {
-				close $file_handle
-				return 0
-			}
-			if { $PhyStandard == "1000BASEX" } {
+		# The below function call to get phy address works only with PL PCS PMA IP versions
+		# before 2016.3. For all subsequent versions, the phy address is exported as 0 in
+		# xparameters but will be scanned and obtained in upper layers.
+		set phya [is_gige_pcs_pma_ip_present $ip]
+		if {$pcs_pma == false} {
+			close $file_handle
+			return 0
+		}
+		if { $PhyStandard == "1000BASEX" } {
+			puts $file_handle "/* Definitions related to PCS PMA PL IP*/"
+			puts $file_handle "\#define XPAR_GIGE_PCS_PMA_1000BASEX_CORE_PRESENT 1"
+			puts $file_handle "\#define XPAR_PCSPMA_1000BASEX_PHYADDR $phya"
+			puts $file_handle "\n/******************************************************************/\n"
+		} else {
+			if {$sgmii_param == true} {
 				puts $file_handle "/* Definitions related to PCS PMA PL IP*/"
-				puts $file_handle "\#define XPAR_GIGE_PCS_PMA_1000BASEX_CORE_PRESENT 1"
-				puts $file_handle "\#define XPAR_PCSPMA_1000BASEX_PHYADDR $phya"
+				puts $file_handle "\#define XPAR_GIGE_PCS_PMA_SGMII_CORE_PRESENT 1"
+				puts $file_handle "\#define XPAR_PCSPMA_SGMII_PHYADDR $phya"
 				puts $file_handle "\n/******************************************************************/\n"
-			} else {
-				if {$sgmii_param == true} {
-					puts $file_handle "/* Definitions related to PCS PMA PL IP*/"
-					puts $file_handle "\#define XPAR_GIGE_PCS_PMA_SGMII_CORE_PRESENT 1"
-					puts $file_handle "\#define XPAR_PCSPMA_SGMII_PHYADDR $phya"
-					puts $file_handle "\n/******************************************************************/\n"
-				}
 			}
 		}
 	}

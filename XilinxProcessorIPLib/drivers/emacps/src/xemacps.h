@@ -7,7 +7,7 @@
 /**
  *
  * @file xemacps.h
-* @addtogroup emacps_v3_12
+* @addtogroup emacps_v3_13
 * @{
 * @details
  *
@@ -308,6 +308,7 @@
  *	 hk   09/17/18 Fix PTP interrupt masks and cleanup comments.
  * 3.9   hk   01/23/19 Add RX watermark support
  * 3.11  sd   02/14/20 Add clock support
+ * 3.13  nsk  12/14/20 Updated the tcl to not to use the instance names.
  *
  * </pre>
  *
