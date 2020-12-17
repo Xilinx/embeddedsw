@@ -23,7 +23,7 @@
 * 1.03  kc   06/12/2020 Added IPI mask to PDI CDO commands to get
 *                       subsystem information
 *       bm   10/14/2020 Code clean up
-* 1.04  bm   11/26/2020 Added PLM_SECURE_EXCLUDE macro
+* 1.04  bm   12/16/2020 Added PLM_SECURE_EXCLUDE macro
 *
 * </pre>
 *
@@ -33,7 +33,7 @@
 
 /***************************** Include Files *********************************/
 #include "xplm_loader.h"
-#include "xloader_secure.h"
+#include "xloader_auth_enc.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -107,7 +107,12 @@ int XPlm_LoadBootPdi(void *Arg)
 		goto END;
 	}
 
-	XLoader_UpdateKatStatus(PdiPtr);
+#ifndef PLM_SECURE_EXCLUDE
+	Status = XLoader_UpdateKatStatus(PdiPtr);
+	if (Status != XST_SUCCESS) {
+		goto ERR_END;
+	}
+#endif
 
 	XPlmi_Printf(DEBUG_GENERAL, "***********Boot PDI Load: Started***********\n\r");
 

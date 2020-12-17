@@ -26,7 +26,7 @@
 * 1.04  kc   01/07/2020 Added MACRO to get performance number for keyhole
 * 1.05  rama 08/12/2020 Added macro to exclude STL by default
 *       bm   10/14/2020 Code clean up
-* 1.06  bm   11/26/2020 Added PLM_SECURE_EXCLUDE macro
+* 1.06  bm   12/16/2020 Added PLM_SECURE_EXCLUDE macro
 *
 * </pre>
 *
