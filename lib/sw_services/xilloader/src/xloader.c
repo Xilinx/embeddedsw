@@ -76,7 +76,7 @@
 *       td   10/19/2020 MISRA C Fixes
 * 1.03  td   11/23/2020 Coverity Warning Fixes
 *       bsv  12/02/2020 Replace SemCfr APIs with generic Sem APIs
-*       bm   12/07/2020 Added PLM_SECURE_EXCLUDE macro
+*       bm   12/16/2020 Added PLM_SECURE_EXCLUDE macro
 *
 * </pre>
 *
@@ -97,7 +97,7 @@
 #include "xpm_api.h"
 #include "xpm_subsystem.h"
 #include "xpm_nodeid.h"
-#include "xloader_secure.h"
+#include "xloader_auth_enc.h"
 #ifdef XPLM_SEM
 #include "xilsem.h"
 #endif
@@ -440,6 +440,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 	u8 IsAuthenticated;
 #endif
 
+	SecureParams.PdiPtr = PdiPtr;
 	/*
 	 * Read meta header from PDI source
 	 */
@@ -477,10 +478,6 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 		else {
 			PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->PdiAddr;
 		}
-#ifndef PLM_SECURE_EXCLUDE
-		/* Update KEK red key availability status */
-		XLoader_UpdateKekSrc(PdiPtr);
-#endif
 	}
 	else {
 		PdiPtr->ImageNum = 0U;
@@ -498,10 +495,6 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET, (int)XLOADER_ERR_MEMSET_BOOT_HDR_FW_RSVD);
 			goto END;
 		}
-#ifndef PLM_SECURE_EXCLUDE
-		PdiPtr->PlmKatStatus |= BootPdiPtr->PlmKatStatus;
-		PdiPtr->KekStatus |= BootPdiPtr->KekStatus;
-#endif
 	}
 
 	/* Read image header */
@@ -511,8 +504,16 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 		goto END;
 	}
 
-	SecureParams.PdiPtr = PdiPtr;
 #ifndef PLM_SECURE_EXCLUDE
+	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
+		/* Update KEK red key availability status */
+		XLoader_UpdateKekSrc(PdiPtr);
+	}
+	else {
+		PdiPtr->PlmKatStatus |= BootPdiPtr->PlmKatStatus;
+		PdiPtr->KekStatus |= BootPdiPtr->KekStatus;
+	}
+
 	SecureParams.IsAuthenticated =
 		XilPdi_IsAuthEnabled(&PdiPtr->MetaHdr.ImgHdrTbl);
 	SecureParams.IsAuthenticatedTmp =
@@ -548,7 +549,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 	IsEncrypted = XilPdi_IsEncEnabled(&PdiPtr->MetaHdr.ImgHdrTbl);
 
 	if ((IsEncrypted == (u8)TRUE) || (IsAuthenticated == (u8)TRUE)) {
-		XPlmi_Printf(DEBUG_GENERAL, "Security Critical Code is excluded\n\r");
+		XPlmi_Printf(DEBUG_GENERAL, "Secure Code is excluded\n\r");
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_SECURE_NOT_ENABLED, 0U);
 		goto END;
 	}

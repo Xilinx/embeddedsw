@@ -22,6 +22,7 @@
 *       kc   03/23/2020 Minor code cleanup
 * 1.03  kc   06/12/2020 Added IPI mask to PDI CDO commands to get
 *                       subsystem information
+* 1.04  bm   12/16/2020 Removed KAT related macros
 *
 * </pre>
 *

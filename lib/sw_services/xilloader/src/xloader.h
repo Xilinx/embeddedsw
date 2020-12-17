@@ -266,6 +266,7 @@ enum {
 						*/
 
 #define XLOADER_AUTH_JTAG_INT_STATUS_POLL_INTERVAL	(1000U)
+#define XLOADER_SHA3_LEN				(48U)
 /**************************** Type Definitions *******************************/
 /*
  * This stores the handoff Address of the different cpu's
