@@ -29,6 +29,7 @@
 #                          definitions of iomodule in xparameters.h
 # 2.6      mus    09/25/18 Updated tcl to replace "hsi::get_cells -of_object"
 #                          with the "hsi::get_cells -of_objects". CR#1011395.
+# 2.10     nsk    12/14/20 Modified the tcl to not to use the instance names.
 ##############################################################################
 
 
@@ -51,7 +52,6 @@ proc iomodule_drc {drv_handle} {
 # "generate" procedure
 ############################################################
 proc generate {drv_handle} {
-
     # Generate the following definitions in xparameters.h
     # 1. Common
     set common_params [list "NUM_INSTANCES" "DEVICE_ID" \
@@ -146,7 +146,6 @@ proc generate {drv_handle} {
     xdefine_canonical_xpars $drv_handle "xparameters.h" "IOModule" $all_params
 
 }
-
 
 ##########################################################################
 # Generate interrupt definitions in Configuration C file xiomodule_g.c
@@ -450,7 +449,8 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
     #
     # Now redefine the Interrupt ID constants
     #
-     if {[string compare "psu_pmc_iomodule_0" $drv_handle] != 0 && [string compare "psu_psm_iomodule_0" $drv_handle] != 0 && [string compare "psv_pmc_iomodule_0" $drv_handle] != 0 && [string compare "psv_psm_iomodule_0" $drv_handle] != 0} {
+    set redef_value [is_psmicroblaze_iomodule $drv_handle]
+    if {$redef_value == 0} {
 	     xredefine_iomodule $drv_handle $file_handle
     }
 
@@ -479,7 +479,6 @@ proc xredefine_iomodule {drvhandle config_inc} {
 
         # Get ports that are driving the interrupt
         set source_ports [hsi::utils::get_interrupt_sources $periph]
-
 	set i 0
 	lappend source_list
         foreach source_pin $source_ports {
@@ -894,4 +893,24 @@ proc xdefine_getSuffix {arg_name value} {
 			set uSuffix "U"
 		}
 		return $uSuffix
+}
+
+###############################################################################
+# this proc checks returns 1 if the given drv_handle is pmc iomodule or psm
+# iomodule, other wise it returns 0
+###############################################################################
+proc is_psmicroblaze_iomodule {drv_handle} {
+        set list [get_mem_ranges -of_objects [hsi::get_cells -hier [get_sw_processor]]]
+        set index [lsearch $list $drv_handle]
+        set val 0
+        if {$index >= 0} {
+                set base_val [common::get_property BASE_VALUE [lindex [get_mem_ranges -of_objects [hsi::get_cells -hier [get_sw_processor]]] $index]]
+		set base_val [string trimleft $base_val "0x"]
+		set addr_list "F0280000 FFC80000"
+		if {[lsearch -nocase $addr_list $base_val] >= 0} {
+			set val 1
+		}
+	}
+
+	return $val
 }

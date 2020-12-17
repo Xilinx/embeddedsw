@@ -8,7 +8,7 @@
 /**
 *
 * @file xiomodule_uart_intr.c
-* @addtogroup iomodule_v2_9
+* @addtogroup iomodule_v2_10
 * @{
 *
 * Contains required functions for the XIOModule UART driver interrupt mode.
