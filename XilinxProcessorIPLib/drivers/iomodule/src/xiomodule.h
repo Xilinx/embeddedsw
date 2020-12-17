@@ -7,7 +7,7 @@
 /**
 *
 * @file xiomodule.h
-* @addtogroup iomodule_v2_9
+* @addtogroup iomodule_v2_10
 * @{
 * @details
 *
@@ -226,6 +226,7 @@
 * 2.9   mus  08/31/20  Updated makefile to support parallel make and
 *                      incremental builds. It would help to reduce
 *                      compilation time.
+* 2.10  nsk  12/14/20  Updated the tcl to not to use the instance names.
 * </pre>
 *
 ******************************************************************************/
