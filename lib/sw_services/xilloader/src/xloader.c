@@ -76,6 +76,7 @@
 *       td   10/19/2020 MISRA C Fixes
 * 1.03  td   11/23/2020 Coverity Warning Fixes
 *       bsv  12/02/2020 Replace SemCfr APIs with generic Sem APIs
+*       bm   12/07/2020 Added PLM_SECURE_EXCLUDE macro
 *
 * </pre>
 *
@@ -287,11 +288,13 @@ int XLoader_Init(void)
 		goto END;
 	}
 
+#ifndef PLM_SECURE_EXCLUDE
 	/* Adding task to the scheduler to handle Authenticated JTAG message */
 	Status = XLoader_AddAuthJtagToScheduler();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+#endif
 
 END:
 	return Status;
@@ -432,6 +435,10 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 {
 	volatile int Status = XST_FAILURE;
 	XLoader_SecureParams SecureParams = {0U};
+#ifdef PLM_SECURE_EXCLUDE
+	u8 IsEncrypted;
+	u8 IsAuthenticated;
+#endif
 
 	/*
 	 * Read meta header from PDI source
@@ -470,8 +477,10 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 		else {
 			PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->PdiAddr;
 		}
+#ifndef PLM_SECURE_EXCLUDE
 		/* Update KEK red key availability status */
 		XLoader_UpdateKekSrc(PdiPtr);
+#endif
 	}
 	else {
 		PdiPtr->ImageNum = 0U;
@@ -489,8 +498,10 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET, (int)XLOADER_ERR_MEMSET_BOOT_HDR_FW_RSVD);
 			goto END;
 		}
+#ifndef PLM_SECURE_EXCLUDE
 		PdiPtr->PlmKatStatus |= BootPdiPtr->PlmKatStatus;
 		PdiPtr->KekStatus |= BootPdiPtr->KekStatus;
+#endif
 	}
 
 	/* Read image header */
@@ -501,6 +512,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 	}
 
 	SecureParams.PdiPtr = PdiPtr;
+#ifndef PLM_SECURE_EXCLUDE
 	SecureParams.IsAuthenticated =
 		XilPdi_IsAuthEnabled(&PdiPtr->MetaHdr.ImgHdrTbl);
 	SecureParams.IsAuthenticatedTmp =
@@ -531,6 +543,16 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_ImgHdrTblAuth,
 			&SecureParams);
 	}
+#else
+	IsAuthenticated = XilPdi_IsAuthEnabled(&PdiPtr->MetaHdr.ImgHdrTbl);
+	IsEncrypted = XilPdi_IsEncEnabled(&PdiPtr->MetaHdr.ImgHdrTbl);
+
+	if ((IsEncrypted == (u8)TRUE) || (IsAuthenticated == (u8)TRUE)) {
+		XPlmi_Printf(DEBUG_GENERAL, "Security Critical Code is excluded\n\r");
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_SECURE_NOT_ENABLED, 0U);
+		goto END;
+	}
+#endif
 
 	/*
 	 * Check the validity of Img Hdr Table fields
@@ -571,6 +593,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 			goto END;
 		}
 	}
+#ifndef PLM_SECURE_EXCLUDE
 	else {
 		Status = XLoader_ReadAndVerifySecureHdrs(&SecureParams,
 					&(PdiPtr->MetaHdr));
@@ -580,6 +603,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 			goto END;
 		}
 	}
+#endif
 
 END:
 	return Status;

@@ -26,6 +26,7 @@
 * 1.04  kc   01/07/2020 Added MACRO to get performance number for keyhole
 * 1.05  rama 08/12/2020 Added macro to exclude STL by default
 *       bm   10/14/2020 Code clean up
+* 1.06  bm   11/26/2020 Added PLM_SECURE_EXCLUDE macro
 *
 * </pre>
 *
@@ -108,12 +109,14 @@ extern "C" {
  *		- PLM_QSPI_EXCLUDE QSPI code will be excluded
  *		- PLM_SD_EXCLUDE SD code will be excluded
  *		- PLM_SEM_EXCLUDE SEM code will be excluded
+ *		- PLM_SECURE_EXCLUDE secure code will be excluded
  */
 //#define PLM_QSPI_EXCLUDE
 //#define PLM_SD_EXCLUDE
 //#define PLM_OSPI_EXCLUDE
 //#define PLM_USB_EXCLUDE
 //#define PLM_SEM_EXCLUDE
+//#define PLM_SECURE_EXCLUDE
 /**
  * @name PLM DEBUG MODE options
  *

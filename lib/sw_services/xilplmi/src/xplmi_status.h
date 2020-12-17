@@ -57,6 +57,7 @@
 * 1.04  td   11/23/2020 Added error code for XilPdi_ReadBootHdr failure
 *       bsv  12/02/2020 Replaced SEM_CFR error code with generic SEM error code
 *       bm   12/15/2020 Added Update Multiboot related error codes
+*       bm   12/16/2020 Added error code when Secure code is not enabled.
 *
 * </pre>
 *
@@ -428,7 +429,8 @@ typedef enum {
 							used to update multiboot register */
 	XLOADER_ERR_UNSUPPORTED_MULTIBOOT_OFFSET, /**< 0x360 - Error when given multiboot offset
 							is not valid (not a multiple of 32K) */
-
+	XLOADER_ERR_SECURE_NOT_ENABLED,		/**< 0x361 - Error as secure critical code
+							is excluded and Secure boot is attempted */
 
 	/**< Security Major error codes */
 	XLOADER_ERR_INIT_GET_DMA = 0x600,

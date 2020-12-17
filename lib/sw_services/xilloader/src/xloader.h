@@ -307,8 +307,10 @@ typedef struct {
 	u32 SlrType; /**< SLR Type */
 	u32 CopyToMem; /**< Copy to Memory is enabled if set */
 	u32 DelayHandoff; /**< Delay handoff is enabled if set */
+#ifndef PLM_SECURE_EXCLUDE
 	u32 PlmKatStatus; /**< PLM Known Answer Test Status */
 	u32 KekStatus; /**< KEK status flag */
+#endif
 	u32 DelayLoad; /**< Delay Load is enabled if set */
 	u64 CopyToMemAddr; /**< Address to which image is copied */
 } XilPdi;
