@@ -7,7 +7,7 @@
 /**
  *
  * @file xemacps_bd.h
-* @addtogroup emacps_v3_12
+* @addtogroup emacps_v3_13
 * @{
  *
  * This header provides operations to manage buffer descriptors in support

@@ -7,7 +7,7 @@
 /**
  *
  * @file xemacps_control.c
-* @addtogroup emacps_v3_12
+* @addtogroup emacps_v3_13
 * @{
  *
  * Functions in this file implement general purpose command and control related
