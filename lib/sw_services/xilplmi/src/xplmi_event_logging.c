@@ -26,6 +26,8 @@
 * 1.02  bm   10/14/2020 Code clean up
 * 		td   10/19/2020 MISRA C Fixes
 *       ana  10/19/2020 Added doxygen comments
+* 1.3   nsk  12/14/2020 Modify the peripheral definitions to canonical
+*                       definitions.
 *
 * </pre>
 *
@@ -199,8 +201,8 @@ int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
 				Addr = ((u64)Arg1 << 32U) | Arg2;
 				if (((Addr >= XPLMI_PMCRAM_BASEADDR) &&
 					(Addr < XPLMI_DEBUG_LOG_BUFFER_ADDR)) ||
-					((Addr >= XPAR_PSV_PMC_RAM_INSTR_CNTLR_S_AXI_BASEADDR) &&
-					(Addr <= XPAR_PSV_PMC_RAM_DATA_CNTLR_S_AXI_HIGHADDR))) {
+					((Addr >= XPAR_RAM_INSTR_CNTLR_0_S_AXI_BASEADDR) &&
+					(Addr <= XPAR_RAM_DATA_CNTLR_0_S_AXI_HIGHADDR))) {
 					Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_LOG_BUF_ADDR, Status);
 				} else {
 					DebugLog.LogBuffer.StartAddr = Addr;
@@ -231,8 +233,8 @@ int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
 				Addr = ((u64)Arg1 << 32U) | Arg2;
 				if (((Addr >= XPLMI_PMCRAM_BASEADDR) &&
 					(Addr < XPLMI_TRACE_LOG_BUFFER_ADDR)) ||
-					((Addr >= XPAR_PSV_PMC_RAM_INSTR_CNTLR_S_AXI_BASEADDR) &&
-					(Addr <= XPAR_PSV_PMC_RAM_DATA_CNTLR_S_AXI_HIGHADDR))) {
+					((Addr >= XPAR_RAM_INSTR_CNTLR_0_S_AXI_BASEADDR) &&
+					(Addr <= XPAR_RAM_DATA_CNTLR_0_S_AXI_HIGHADDR))) {
 					Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_LOG_BUF_ADDR, Status);
 				} else {
 					TraceLog.StartAddr = Addr;
