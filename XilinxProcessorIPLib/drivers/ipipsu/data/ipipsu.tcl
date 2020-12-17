@@ -14,6 +14,8 @@
 #                     of ipipsu in xparameters.h
 # 2.5  sd   04/01/19  Added support for the the no buffer ipi
 #      sd   09/03/19  Add support for versal ip name
+# 2.8  nsk  12/14/20  Modified the tcl to not to gnerate the instance
+#                     names.
 ##############################################################################
 
 #uses "xillib.tcl"
@@ -198,8 +200,22 @@ proc ipi_generate_params {file_name iszynqmp} {
 	# Generate Canonical definitions to map IPI instance -> Processors
 	puts $file_handle "/* Target List for referring to processor IPI Targets */"
 	puts $file_handle ""
+	set a72_nr 0
+	set r5_nr 0
 	foreach proc $proc_list {
 		# List of IPIs owned by this processor
+		set ipname [common::get_property IP_NAME [hsi::get_cells -hier $proc]]
+		if {[string match -nocase $ipname "psv_cortexa72"] || [string match -nocase $ipname "psu_cortexa53"]} {
+			set ipname "${ipname}_${a72_nr}"
+			incr a72_nr
+		} elseif {[string match -nocase $ipname "psv_cortexr5"] || [string match -nocase $ipname "psu_cortexr5"]} {
+			set ipname "${ipname}_${r5_nr}"
+			incr r5_nr
+		} elseif {[string match -nocase $ipname "psv_pmc"] || [string match -nocase $ipname "psv_psm"] || [string match -nocase $ipname "psu_pmu"]} {
+			set ipname "${ipname}_0"
+		} else {
+			set ipname "${proc}"
+		}
 		if { $iszynqmp == 1 } {
 			set proc_slave_list [lsearch -all -inline [get_property SLAVES $proc] psu_ipi_*]
 		} else {
@@ -208,8 +224,8 @@ proc ipi_generate_params {file_name iszynqmp} {
 
 		set idx 0
 		foreach ipi_slave $proc_slave_list {
-			puts $file_handle [format "#define  XPAR_XIPIPS_TARGET_%s_CH%s_MASK  XPAR_%s_BIT_MASK" [string toupper $proc] $idx [string toupper $ipi_slave]]
-			puts $file_handle [format "#define  XPAR_XIPIPS_TARGET_%s_CH%s_INDEX  %s$uSuffix" [string toupper $proc] $idx [lsearch $ipi_list $ipi_slave]]
+			puts $file_handle [format "#define  XPAR_XIPIPS_TARGET_%s_CH%s_MASK  XPAR_%s_BIT_MASK" [string toupper $ipname] $idx [string toupper $ipi_slave]]
+			puts $file_handle [format "#define  XPAR_XIPIPS_TARGET_%s_CH%s_INDEX  %s$uSuffix" [string toupper $ipname] $idx [lsearch $ipi_list $ipi_slave]]
 			incr idx
 		}
 		puts $file_handle ""
