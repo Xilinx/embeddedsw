@@ -2314,7 +2314,7 @@ END:
 u32 XilSKey_ZynqMp_EfusePs_Init(void)
 {
 	u32 Status = (u32)XST_FAILURE;
-	static u8 Init_Done;
+	static u8 Init_Done = FALSE;
 
 #if defined (XSK_OVERRIDE_SYSMON_CFG)
 	if (Init_Done != TRUE) {
