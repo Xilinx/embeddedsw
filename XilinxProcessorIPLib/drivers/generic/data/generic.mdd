@@ -7,7 +7,7 @@ OPTION psf_version = 2.1;
 
 BEGIN driver generic
 
-  OPTION VERSION = 2.1;
+  OPTION VERSION = 3.0;
   OPTION NAME = generic;
 
 END driver
