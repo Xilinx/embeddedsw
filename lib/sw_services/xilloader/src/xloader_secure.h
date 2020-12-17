@@ -45,6 +45,7 @@
 *       kpt  10/19/2020 Code clean up
 *       har  10/19/20 Replaced ECDSA in header files
 *       har  11/27/20 Added macros related to PDI DpaCm configuration
+* 1.04  bm   11/26/20 Added PLM_SECURE_EXCLUDE macro
 *
 * </pre>
 *
@@ -61,20 +62,23 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xsecure_elliptic.h"
 #include "xsecure_sha.h"
+#ifndef PLM_SECURE_EXCLUDE
+#include "xsecure_elliptic.h"
 #include "xsecure_rsa.h"
 #include "xsecure_aes.h"
+#include "xpuf.h"
+#endif
 #include "xplmi_hw.h"
 #include "xloader.h"
 #include "xplmi_util.h"
-#include "xpuf.h"
 #include "xil_util.h"
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Constant Definitions *****************************/
 #define XLOADER_SHA3_LEN				(48U)
+#ifndef PLM_SECURE_EXCLUDE
 #define XLOADER_RSA_SIG_EXP_BYTE		(0xBCU)
 #define XLOADER_RSA_EM_MSB_EXP_BYTE		(0x0U)
 #define XLOADER_I2OSP_INT_LIMIT			(256U)
@@ -190,17 +194,7 @@ extern "C" {
 
 #define XLOADER_REVOCATION_IDMAX				(0xFFU)
 
-#define XLOADER_WORD_IN_BITS					(32U)
-
 #define XLOADER_PUF_HD_BHDR						(0x3U)
-
-/* In case of failure of any security operation, the buffer must be
- * cleared.In case of success/failure in clearing the buffer,
- * the following error codes shall be updated in the status
- */
-#define XLOADER_SEC_CHUNK_CLEAR_ERR		((u32)0x20U << 8U)
-#define XLOADER_SEC_BUF_CLEAR_ERR		((u32)0x80U << 8U) /* Error in clearing buffer */
-#define XLOADER_SEC_BUF_CLEAR_SUCCESS	((u32)0x40U << 8U) /* Buffer is successfully cleared */
 
 /* KEK key decryption status */
 #define XLOADER_BBRAM_RED_KEY					(0x00000001U)
@@ -243,8 +237,26 @@ extern "C" {
 
 #define XLOADER_PDI_DPACM_ENABLED				(1U)
 #define XLOADER_PDI_DPACM_DISABLED				(0U)
-/**************************** Type Definitions *******************************/
 
+#define EFUSE_CACHE_MISC_CTRL   				(0xF12500A0U)
+#define EFUSE_CACHE_MISC_CTRL_CRYPTO_KAT_EN_MASK        	(0X00008000U)
+
+#define XLOADER_KAT_DONE        				(0x000001F0U)
+
+#endif
+
+#define XLOADER_WORD_IN_BITS					(32U)
+
+/* In case of failure of any security operation, the buffer must be
+ * cleared.In case of success/failure in clearing the buffer,
+ * the following error codes shall be updated in the status
+ */
+#define XLOADER_SEC_CHUNK_CLEAR_ERR		((u32)0x20U << 8U)
+#define XLOADER_SEC_BUF_CLEAR_ERR		((u32)0x80U << 8U) /* Error in clearing buffer */
+#define XLOADER_SEC_BUF_CLEAR_SUCCESS	((u32)0x40U << 8U) /* Buffer is successfully cleared */
+
+/**************************** Type Definitions *******************************/
+#ifndef PLM_SECURE_EXCLUDE
 typedef struct {
 	u32 PubModulus[128U];
 	u32 PubModulusExt[128U];
@@ -300,18 +312,14 @@ typedef struct {
 	u32 AuthJtagPpkShaPadding[XLOADER_AUTH_JTAG_SHA_PADDING_SIZE];
 	u32 EnableJtagSignature[XLOADER_ENABLE_AUTH_JTAG_SIGNATURE_SIZE];
 } XLoader_AuthJtagMessage;
+#endif
 
 typedef struct {
 	volatile u8 SecureEn;
 	volatile u8 SecureEnTmp;
 	u8 IsNextChunkCopyStarted;
 	u8 IsCheckSumEnabled;
-	u8 IsEncrypted;
-	u8 IsEncryptedTmp;
-	u8 IsAuthenticated;
-	u8 IsAuthenticatedTmp;
 	u8 IsDoubleBuffering;
-	XLoader_AuthType SigType;
 	XilPdi *PdiPtr;
 	XilPdi_PrtnHdr *PrtnHdr;
 	u8 IsCdo; /**< CDO or Elf */
@@ -326,13 +334,21 @@ typedef struct {
 	u32 RemainingEncLen;
 	u32 BlockNum;
 	u32 Sha3Hash[XLOADER_SHA3_LEN / 4U];
-	XLoader_AuthCertificate *AcPtr;
-	XPmcDma *PmcDmaInstPtr;
-	XSecure_Aes AesInstance;
 	u32 SecureHdrLen;
+	XPmcDma *PmcDmaInstPtr;
+#ifndef PLM_SECURE_EXCLUDE
+	XLoader_AuthType SigType;
+	XLoader_AuthCertificate *AcPtr;
+	XSecure_Aes AesInstance;
 	XLoader_AuthJtagMessage* AuthJtagMessagePtr;
+	u8 IsEncrypted;
+	u8 IsEncryptedTmp;
+	u8 IsAuthenticated;
+	u8 IsAuthenticatedTmp;
+#endif
 } XLoader_SecureParams;
 
+#ifndef PLM_SECURE_EXCLUDE
 typedef enum {
 	XLOADER_SEC_AUTH_EN_PPK_HASH_NONZERO = 0x02,
 			/**< 0x02 Incorrect Authentication type selected */
@@ -443,6 +459,7 @@ static inline int XLoader_UpdateMinorErr(XLoader_SecErrCodes Minor1, int Minor2)
 
 	return (int)UMinor1;
 }
+#endif
 
 /***************************** Function Prototypes ***************************/
 int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
@@ -450,13 +467,16 @@ int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 int XLoader_ProcessSecurePrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 	u32 BlockSize, u8 Last);
 int XLoader_SecureCopy(XLoader_SecureParams *SecurePtr, u64 DestAddr, u32 Size);
+void XLoader_SecureClear(void);
+void XLoader_UpdateKatStatus(XilPdi *PdiPtr);
+#ifndef PLM_SECURE_EXCLUDE
 int XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr);
 int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 	XilPdi_MetaHdr *MetaHdr);
 int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr);
 void XLoader_UpdateKekSrc(XilPdi *PdiPtr);
 int XLoader_AddAuthJtagToScheduler(void);
-void XLoader_SecureClear(void);
+#endif
 
 #ifdef __cplusplus
 }

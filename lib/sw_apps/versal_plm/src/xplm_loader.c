@@ -23,6 +23,7 @@
 * 1.03  kc   06/12/2020 Added IPI mask to PDI CDO commands to get
 *                       subsystem information
 *       bm   10/14/2020 Code clean up
+* 1.04  bm   11/26/2020 Added PLM_SECURE_EXCLUDE macro
 *
 * </pre>
 *
@@ -32,6 +33,7 @@
 
 /***************************** Include Files *********************************/
 #include "xplm_loader.h"
+#include "xloader_secure.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -75,7 +77,6 @@ int XPlm_LoadBootPdi(void *Arg)
 {
 	int Status = XST_FAILURE;
 	PdiSrc_t BootMode;
-	u32 CryptoKat;
 	XilPdi *PdiPtr;
 	static XilPdi PdiInstance;
 
@@ -106,13 +107,7 @@ int XPlm_LoadBootPdi(void *Arg)
 		goto END;
 	}
 
-	CryptoKat = XPlmi_In32(EFUSE_CACHE_MISC_CTRL) &
-			EFUSE_CACHE_MISC_CTRL_CRYPTO_KAT_EN_MASK;
-	if(CryptoKat != 0U) {
-		PdiPtr->PlmKatStatus = XPlmi_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE2);
-	} else {
-		PdiPtr->PlmKatStatus = XLOADER_KAT_DONE;
-	}
+	XLoader_UpdateKatStatus(PdiPtr);
 
 	XPlmi_Printf(DEBUG_GENERAL, "***********Boot PDI Load: Started***********\n\r");
 
