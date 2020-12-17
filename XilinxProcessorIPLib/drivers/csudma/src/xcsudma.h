@@ -62,7 +62,7 @@
 * to build and link only those parts of the driver that are necessary.
 *
 * @file xcsudma.h
-* @addtogroup csudma_v1_7
+* @addtogroup csudma_v1_8
 * @{
 * @details
 *
@@ -98,6 +98,7 @@
 * 1.7	hk	08/03/20 Reorganize transfer function to accommodate all
 *			 processors and cache functionality.
 * 1.7	sk	08/26/20 Fix MISRA-C violations.
+* 1.8   nsk     12/14/20 Updated the tcl to not to use the instance names.
 * </pre>
 *
 ******************************************************************************/
