@@ -49,6 +49,7 @@
 * 3.11  rna 02/12/20 Moved static data transfer functions to xiicps_xfer.c file
 *	    02/18/20 Modified latest code for MISRA-C:2012 Compliance.
 * 3.13  rna 11/24/20 Added timeout to XIicPs_MasterSendPolled function.
+*	rna 12/17/20 Clear hold bit at correct time in Rx path of ISR
 * </pre>
 *
 ******************************************************************************/
@@ -853,18 +854,21 @@ void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr)
 		 (0U != (IntrStatusReg & (u32)XIICPS_IXR_COMP_MASK)))){
 
 		while ((XIicPs_RxDataValid(InstancePtr)) != 0U) {
-			if ((InstancePtr->RecvByteCount <
-				XIICPS_DATA_INTR_DEPTH)  && (IsHold != 0)  &&
-				(InstancePtr->IsRepeatedStart == 0) &&
-				(InstancePtr->UpdateTxSize == 0)) {
+
+			XIicPs_RecvByte(InstancePtr);
+			ByteCnt--;
+
+			/* Clear hold bit when not required */
+			if ((InstancePtr->RecvByteCount <=
+					XIICPS_DATA_INTR_DEPTH) && (IsHold != 0)
+					&& (InstancePtr->IsRepeatedStart == 0)
+					&& (InstancePtr->UpdateTxSize == 0)) {
 				IsHold = 0;
 				XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
 						XIicPs_ReadReg(BaseAddr,
 						XIICPS_CR_OFFSET) &
 						(~XIICPS_CR_HOLD_MASK));
 			}
-			XIicPs_RecvByte(InstancePtr);
-			ByteCnt--;
 
 			if (Platform == (u32)XPLAT_ZYNQ) {
 			    if ((InstancePtr->UpdateTxSize != 0) &&
