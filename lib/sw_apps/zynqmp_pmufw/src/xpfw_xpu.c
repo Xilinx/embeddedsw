@@ -93,6 +93,7 @@ struct XpuReg {
 
 static struct XpuReg XpuRegList[] =
 {
+#ifdef XPAR_DDRCPSU_0_DEVICE_ID
 	{
 		.BaseAddress = XMPU_DDR_0_BASE_ADDR,
 		.MaskAll = (u32)0xFU,
@@ -123,6 +124,7 @@ static struct XpuReg XpuRegList[] =
 		.MaskAll = (u32)0xFU,
 		.CfgName = "DDR5",
 	},
+#endif
 	{
 		.BaseAddress = XMPU_FPD_BASE_ADDR,
 		.MaskAll = (u32)0xFU,

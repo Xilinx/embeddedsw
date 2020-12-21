@@ -345,8 +345,10 @@ extern "C" {
 #define CONNECT_PMU_GPO_5
 #endif
 
+#ifdef XPAR_DDRCPSU_0_DEVICE_ID
 #if USE_DDR_FOR_APU_RESTART_VAL
 #define USE_DDR_FOR_APU_RESTART
+#endif
 #endif
 
 #ifdef __cplusplus
