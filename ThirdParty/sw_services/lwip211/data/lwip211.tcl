@@ -1102,13 +1102,17 @@ proc update_ps_ethernet_topology {emac processor topologyvar} {
 	set topology(scugic_baseaddr) "0xF8F00100"
 	set topology(scugic_emac_intr) "0x0"
 	set ethernet_instance [common::get_property NAME $emac]
+	set base_addr [string trimleft $topology(emac_baseaddr) "0x"]
+	set base_addr [string toupper $base_addr]
+	set is_versal [hsi::get_cells -hier -filter {IP_NAME=="psv_cortexa72"}]
+
 	if {$ethernet_instance == "ps7_ethernet_0" || $ethernet_instance == "ps7_enet0"} {
 		set topology(scugic_emac_intr) "0x36"
 	} elseif {$ethernet_instance == "ps7_ethernet_1" || $ethernet_instance == "ps7_enet1"} {
 		set topology(scugic_emac_intr) "0x4D"
-	} elseif {$ethernet_instance == "psu_ethernet_0" || $ethernet_instance == "psv_ethernet_0"} {
+	} elseif {$ethernet_instance == "psu_ethernet_0" || $ethernet_instance == "psv_ethernet_0" || ([llength $is_versal] > 0 && $base_addr == "FF0C0000")} {
 		set topology(scugic_emac_intr) "XPAR_XEMACPS_0_INTR"
-	} elseif {$ethernet_instance == "psu_ethernet_1" || $ethernet_instance == "psv_ethernet_1"} {
+	} elseif {$ethernet_instance == "psu_ethernet_1" || $ethernet_instance == "psv_ethernet_1" || ([llength $is_versal] > 0 && $base_addr == "FF0D0000")} {
 		set topology(scugic_emac_intr) "XPAR_XEMACPS_1_INTR"
 	} elseif {$ethernet_instance == "psu_ethernet_2"} {
 		set topology(scugic_emac_intr) "XPAR_XEMACPS_2_INTR"
