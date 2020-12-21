@@ -33,10 +33,6 @@
 #include "xemac_ieee_reg.h"
 
 #if !NO_SYS
-#ifdef OS_IS_XILKERNEL
-#include "xmk.h"
-#include "sys/process.h"
-#endif
 #endif
 
 #include "lwip/mem.h"

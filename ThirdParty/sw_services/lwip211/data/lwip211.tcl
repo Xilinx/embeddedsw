@@ -234,7 +234,7 @@ proc lwip_hw_drc {libhandle emacs_list} {
 
 #--------
 # Check the following s/w requirements for lwIP:
-#	1. in SOCKET API is used, then xilkernel is required
+#	1. if SOCKET API is used, then FreeRTOS is required
 #--------
 proc lwip_sw_drc {libhandle emacs_list} {
 	set api_mode [common::get_property CONFIG.api_mode $libhandle]
@@ -243,10 +243,8 @@ proc lwip_sw_drc {libhandle emacs_list} {
 		set sw_proc_handle [hsi::get_sw_processor]
 		set os_handle [hsi::get_os]
 		set os_name [common::get_property NAME $os_handle]
-		if { [string compare -nocase "xilkernel" $os_name] != 0} {
-			if { [string compare -nocase "freertos10_xilinx" $os_name] != 0} {
-				error "ERROR: lwIP with Sockets requires \"xilkernel or freertos\" OS" "" "mdt_error"
-			}
+		if { [string compare -nocase "freertos10_xilinx" $os_name] != 0} {
+			error "ERROR: lwIP with Sockets requires \"freertos\" OS" "" "mdt_error"
 		}
 	}
 	if { [string compare -nocase "RAW_API" $api_mode] == 0} {
@@ -547,15 +545,6 @@ proc generate_lwip_opts {libhandle} {
 		set sw_proc_handle [hsi::get_sw_processor]
 		set os_handle [hsi::get_os]
 		set os_name [common::get_property NAME $os_handle]
-		if { [string compare -nocase "xilkernel" $os_name] == 0} {
-			puts $lwipopts_fd "\#define OS_IS_XILKERNEL"
-			puts $lwipopts_fd "\#define TCPIP_THREAD_PRIO $thread_prio"
-			puts $lwipopts_fd "\#define DEFAULT_THREAD_PRIO $thread_prio"
-			puts $lwipopts_fd "\#define TCPIP_THREAD_STACKSIZE 4096"
-			puts $lwipopts_fd "\#define LWIP_COMPAT_MUTEX 1"
-			puts $lwipopts_fd "\#define LWIP_ALLOW_MEM_FREE_FROM_OTHER_CONTEXT 0"
-			puts $lwipopts_fd ""
-		}
 		if { [string compare -nocase "freertos10_xilinx" $os_name] == 0} {
 			# mbox options
 			set lwip_tcpip_core_locking_input	[common::get_property CONFIG.lwip_tcpip_core_locking_input $libhandle]
