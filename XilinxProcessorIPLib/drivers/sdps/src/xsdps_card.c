@@ -7,7 +7,7 @@
 /**
 *
 * @file xsdps_card.c
-* @addtogroup sdps_v3_10
+* @addtogroup sdps_v3_11
 * @{
 *
 * Contains the interface functions of the XSdPs driver.
