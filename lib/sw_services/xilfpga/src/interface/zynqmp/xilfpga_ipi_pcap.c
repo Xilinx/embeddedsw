@@ -20,6 +20,14 @@
  * 5.3  Nava  06/29/20  Added asserts to validate input params.
  * 5.3  Nava  09/09/20  Replaced the asserts with input validations for non void
  *                      API's.
+ * 6.0  Nava  12/14/20  In XFpga_PL_BitStream_Load() API the argument
+ *                      AddrPtr_Size is being used for multiple purposes.
+ *                      Use of the same variable for multiple purposes can
+ *                      make it more difficult for a person to read (or)
+ *                      understand the code and also it leads to a safety
+ *                      violation. fixes this  issue by adding a separate
+ *                      function arguments to read KeyAddr and
+ *                      Size(Bitstream size).
  * </pre>
  *
  * @note
@@ -106,7 +114,14 @@ static u32 XFpga_IPI_WriteToPl(XFpga *InstancePtr)
 	ReqBuffer[0U] = PM_FPGA_LOAD;
 	ReqBuffer[1U] = UPPER_32_BITS(BitstreamAddr);
 	ReqBuffer[2U] = (u32)BitstreamAddr;
-	ReqBuffer[3U] = InstancePtr->WriteInfo.AddrPtr_Size;
+
+	if ((InstancePtr->WriteInfo.Flags & XFPGA_ENCRYPTION_USERKEY_EN) != 0U)
+	{
+		ReqBuffer[3U] = InstancePtr->WriteInfo.KeyAddr;
+	} else {
+		ReqBuffer[3U] = InstancePtr->WriteInfo.Size;
+	}
+
 	ReqBuffer[4U] = InstancePtr->WriteInfo.Flags;
 
 	/* Send an IPI Req Message */

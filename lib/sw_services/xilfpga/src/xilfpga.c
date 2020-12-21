@@ -44,6 +44,14 @@
  * 5.3 Nava   06/23/20  Added asserts to validate input params.
  * 5.3 Nava   09/09/20  Replaced the asserts with input validations for non void
  *                      API's.
+ * 6.0 Nava   12/14/20  In XFpga_PL_BitStream_Load() API the argument
+ *                      AddrPtr_Size is being used for multiple purposes.
+ *                      Use of the same variable for multiple purposes can
+ *                      make it more difficult for a person to read (or)
+ *                      understand the code and also it leads to a safety
+ *                      violation. fixes this  issue by adding a separate
+ *                      function arguments to read KeyAddr and
+ *                      Size(Bitstream size).
  *</pre>
  *
  *@note
@@ -54,14 +62,14 @@
 /************************** Function Prototypes ******************************/
 static u32 XFpga_ValidateBitstreamParam(XFpga *InstancePtr,
 					UINTPTR BitstreamImageAddr,
-					UINTPTR AddrPtr_Size, u32 Flags);
+					UINTPTR KeyAddr, u32 Flags);
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
 /**The API is used to load the bitstream file into the PL region.
  * It supports vivado generated Bitstream(*.bit, *.bin) and bootgen
  * generated Bitstream(*.bin) loading, Passing valid Bitstream size
- * (AddrPtr_Size) info is mandatory for vivado * generated Bitstream,
+ * (AddrPtr_Size) info is mandatory for vivado generated Bitstream,
  * For bootgen generated Bitstreams it will take Bitstream size from
  * the Bitstream Header.
  *
@@ -69,9 +77,78 @@ static u32 XFpga_ValidateBitstreamParam(XFpga *InstancePtr,
  *
  *@param BitstreamImageAddr  Linear memory Bitstream image base address
  *
- *@param AddrPtr_Size Aes key address which is used for Decryption (or)
- *			In none Secure Bitstream use cases it is used to
- *			store the size of Bitstream Image.
+ *@param AddrPtr_Size  Aes key address which is used for Decryption (or)
+ *                     In none Secure Bitstream used it is used store size
+ *                     of Bitstream Image.
+ *
+ *@param Flags Flags are used to specify the type of Bitstream file.
+ *                      * BIT(0) - Bitstream type
+ *                                      * 0 - Full Bitstream
+ *                                      * 1 - Partial Bitstream
+ *                                      * 1 - Enable
+ *                      * BIT(1) - Authentication using DDR
+ *                                      * 1 - Enable
+ *                                      * 0 - Disable
+ *                      * BIT(2) - Authentication using OCM
+ *                                      * 1 - Enable
+ *                                      * 0 - Disable
+ *                      * BIT(3) - User-key Encryption
+ *                                      * 1 - Enable
+ *                                      * 0 - Disable
+ *                      * BIT(4) - Device-key Encryption
+ *                                      * 1 - Enable
+ *                                      * 0 - Disable
+ *
+ *@return
+ *      - XFPGA_SUCCESS on success
+ *      - Error code on failure.
+ *      - XFPGA_VALIDATE_ERROR.
+ *      - XFPGA_PRE_CONFIG_ERROR.
+ *      - XFPGA_WRITE_BITSTREAM_ERROR.
+ *      - XFPGA_POST_CONFIG_ERROR.
+ *
+ *****************************************************************************/
+u32 XFpga_PL_BitStream_Load(XFpga *InstancePtr,
+			    UINTPTR BitstreamImageAddr,
+			    UINTPTR AddrPtr_Size, u32 Flags)
+{
+	u32 Status = XFPGA_FAILURE;
+	UINTPTR KeyPtr;
+	u32 Size;
+
+	xil_printf(" %s: API will be deprecated in the 2022.1 release.\n"
+		   "Use the updated 'XFpga_BitStream_Load()' API to perform\n"
+		   "the same functionality\r\n", __func__);
+
+	if (Flags & XFPGA_ENCRYPTION_USERKEY_EN) {
+		KeyPtr = AddrPtr_Size;
+		Size = 0U;
+	} else {
+		KeyPtr = 0U;
+		Size = AddrPtr_Size;
+	}
+
+	Status = XFpga_BitStream_Load(InstancePtr, BitstreamImageAddr,
+				      KeyPtr, Size, Flags);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**The API is used to load the bitstream file into the PL region.
+ * It supports vivado generated Bitstream(*.bit, *.bin) and bootgen
+ * generated Bitstream(*.bin) loading, Passing valid Bitstream size
+ * (Size) info is mandatory for vivado generated Bitstream,
+ * For bootgen generated Bitstreams it will take Bitstream size from
+ * the Bitstream Header.
+ *
+ *@param InstancePtr Pointer to the XFgpa structure.
+ *
+ *@param BitstreamImageAddr  Linear memory Bitstream image base address
+ *
+ *@param KeyAddr Aes key address which is used for Decryption.
+ *
+ *@param Size Used to store size of Bitstream Image.
  *
  *@param Flags Flags are used to specify the type of Bitstream file.
  *			* BIT(0) - Bitstream type
@@ -99,39 +176,41 @@ static u32 XFpga_ValidateBitstreamParam(XFpga *InstancePtr,
  *	- XFPGA_POST_CONFIG_ERROR.
  *
  *****************************************************************************/
-u32 XFpga_PL_BitStream_Load(XFpga *InstancePtr,
-			    UINTPTR BitstreamImageAddr,
-			    UINTPTR AddrPtr_Size, u32 Flags)
+u32 XFpga_BitStream_Load(XFpga *InstancePtr,
+			 UINTPTR BitstreamImageAddr,
+			 UINTPTR KeyAddr, u32 Size, u32 Flags)
 {
 	u32 Status = XFPGA_FAILURE;
+	UINTPTR	KeyPtr = KeyAddr;
 
 	/* Validate the input arguments */
 	Status = XFpga_ValidateBitstreamParam(InstancePtr, BitstreamImageAddr,
-					      AddrPtr_Size, Flags);
-	if(Status != XFPGA_SUCCESS) {
+					      KeyPtr, Flags);
+	if (Status != XFPGA_SUCCESS) {
 		goto END;
 	}
 
 	/* Validate Bitstream Image */
-	Status = XFpga_PL_ValidateImage(InstancePtr, BitstreamImageAddr,
-			AddrPtr_Size, Flags);
+	Status = XFpga_ValidateImage(InstancePtr, BitstreamImageAddr,
+				     KeyPtr, Size, Flags);
 	if ((Status != XFPGA_OPS_NOT_IMPLEMENTED) &&
-		(Status != XFPGA_SUCCESS)) {
+	    (Status != XFPGA_SUCCESS)) {
 		goto END;
 	}
 
 	/* Prepare the FPGA to receive configuration Data */
 	Status = XFpga_PL_Preconfig(InstancePtr);
-	if (Status != XFPGA_SUCCESS &&
-	    Status != XFPGA_OPS_NOT_IMPLEMENTED) {
+	if ((Status != XFPGA_SUCCESS) &&
+	    (Status != XFPGA_OPS_NOT_IMPLEMENTED)) {
 		goto END;
 	}
 
 	/* write count bytes of configuration data into the PL */
-	Status = XFpga_PL_Write(InstancePtr,
-				InstancePtr->WriteInfo.BitstreamAddr,
-				InstancePtr->WriteInfo.AddrPtr_Size,
-				InstancePtr->WriteInfo.Flags);
+	Status = XFpga_Write_Pl(InstancePtr,
+			     InstancePtr->WriteInfo.BitstreamAddr,
+			     InstancePtr->WriteInfo.KeyAddr,
+			     InstancePtr->WriteInfo.Size,
+			     InstancePtr->WriteInfo.Flags);
 	if (Status != XFPGA_SUCCESS) {
 		goto END;
 	}
@@ -141,7 +220,6 @@ u32 XFpga_PL_BitStream_Load(XFpga *InstancePtr,
 	if (Status == XFPGA_OPS_NOT_IMPLEMENTED) {
 		Status = XFPGA_SUCCESS;
 	}
-
 END:
 	return Status;
 }
@@ -154,9 +232,66 @@ END:
  *
  * @param BitstreamImageAddr  Linear memory Bitstream image base address
  *
- * @param AddrPtr_Size Aes key address which is used for Decryption (or)
- *			In none Secure Bitstream use cases it is used to
- *			store the size of Bitstream Image.
+ * @param AddrPtr_Size  Aes key address which is used for Decryption (or)
+ *                      In none Secure Bitstream used it is used store size
+ *                      of Bitstream Image.
+ *
+ * @param Flags Flags are used to specify the type of Bitstream file.
+ *                      * BIT(0) - Bitstream type
+ *                                      * 0 - Full Bitstream
+ *                                      * 1 - Partial Bitstream
+ *                      * BIT(1) - Authentication using DDR
+ *                                      * 1 - Enable
+ *                                      * 0 - Disable
+ *                      * BIT(2) - Authentication using OCM
+ *                                      * 1 - Enable
+ *                                      * 0 - Disable
+ *                      * BIT(3) - User-key Encryption
+ *                                      * 1 - Enable
+ *                                      * 0 - Disable
+ *                      * BIT(4) - Device-key Encryption
+ *                                      * 1 - Enable
+ *                                      * 0 - Disable
+ *
+ * @return Codes as mentioned in xilfpga.h
+ *****************************************************************************/
+u32 XFpga_PL_ValidateImage(XFpga *InstancePtr,
+                           UINTPTR BitstreamImageAddr,
+                           UINTPTR AddrPtr_Size, u32 Flags)
+{
+        u32 Status = XFPGA_VALIDATE_ERROR;
+	UINTPTR KeyPtr;
+	u32 Size;
+
+	xil_printf(" %s: API will be deprecated in the 2022.1 release.\n"
+                   "Use the updated 'XFpga_ValidateImage()' API to perform\n"
+                   "the same functionality\r\n", __func__);
+
+	if (Flags & XFPGA_ENCRYPTION_USERKEY_EN) {
+		KeyPtr = AddrPtr_Size;
+		Size = 0U;
+	} else {
+		KeyPtr = 0U;
+		Size = AddrPtr_Size;
+	}
+
+	Status = XFpga_ValidateImage(InstancePtr, BitstreamImageAddr,
+				KeyPtr, Size, Flags);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * This function is used to validate the Bitstream Image
+ *
+ * @param InstancePtr Pointer to the XFgpa structure
+ *
+ * @param BitstreamImageAddr  Linear memory Bitstream image base address
+ *
+ * @param KeyAddr Aes key address which is used for Decryption.
+ *
+ * @param Size Used to store size of Bitstream Image.
  *
  * @param Flags Flags are used to specify the type of Bitstream file.
  *			* BIT(0) - Bitstream type
@@ -177,23 +312,24 @@ END:
  *
  * @return Codes as mentioned in xilfpga.h
  *****************************************************************************/
-u32 XFpga_PL_ValidateImage(XFpga *InstancePtr,
-			   UINTPTR BitstreamImageAddr,
-			   UINTPTR AddrPtr_Size, u32 Flags)
+u32 XFpga_ValidateImage(XFpga *InstancePtr,
+			UINTPTR BitstreamImageAddr,
+			UINTPTR KeyAddr, u32 Size, u32 Flags)
 {
 	u32 Status = XFPGA_VALIDATE_ERROR;
+	UINTPTR	KeyPtr = KeyAddr;
 
 	/* Validate the input arguments */
 	Status = XFpga_ValidateBitstreamParam(InstancePtr, BitstreamImageAddr,
-					      AddrPtr_Size, Flags);
-	if(Status != XFPGA_SUCCESS) {
+					      KeyPtr, Flags);
+	if (Status != XFPGA_SUCCESS) {
 		goto END;
 	}
 
 	InstancePtr->WriteInfo.BitstreamAddr = BitstreamImageAddr;
-	InstancePtr->WriteInfo.AddrPtr_Size = AddrPtr_Size;
 	InstancePtr->WriteInfo.Flags = Flags;
-
+	InstancePtr->WriteInfo.KeyAddr = KeyAddr;
+	InstancePtr->WriteInfo.Size = Size;
 	if (InstancePtr->XFpga_ValidateBitstream == NULL) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
@@ -248,9 +384,64 @@ END:
  *
  * @param BitstreamImageAddr  Linear memory Bitstream image base address
  *
- * @param AddrPtr_Size Aes key address which is used for Decryption (or)
- *			In none Secure Bitstream use cases it is used to
- *			store the size of Bitstream Image.
+ * @param AddrPtr_Size  Aes key address which is used for Decryption (or)
+ *                      In none Secure Bitstream used it is used store size
+ *                      of Bitstream Image.
+ *
+ * @param Flags Flags are used to specify the type of Bitstream file.
+ *                      * BIT(0) - Bitstream type
+ *                                      * 0 - Full Bitstream
+ *                                      * 1 - Partial Bitstream
+ *                      * BIT(1) - Authentication using DDR
+ *                                      * 1 - Enable
+ *                                      * 0 - Disable
+ *                      * BIT(2) - Authentication using OCM
+ *                                      * 1 - Enable
+ *                                      * 0 - Disable
+ *                      * BIT(3) - User-key Encryption
+ *                                      * 1 - Enable
+ *                                      * 0 - Disable
+ *                      * BIT(4) - Device-key Encryption
+ *                                      * 1 - Enable
+ *                                      * 0 - Disable
+ *
+ * @return Codes as mentioned in xilfpga.h
+ *****************************************************************************/
+u32 XFpga_PL_Write(XFpga *InstancePtr,UINTPTR BitstreamImageAddr,
+                   UINTPTR AddrPtr_Size, u32 Flags)
+{
+	u32 Status = XFPGA_WRITE_BITSTREAM_ERROR;
+	UINTPTR KeyPtr;
+	u32 Size;
+
+	xil_printf(" %s: API will be deprecated in the 2022.1 release.\n"
+                   "Use the updated 'XFpga_Write_Pl()' API to perform\n"
+                   "the same functionality\r\n", __func__);
+
+	if (Flags & XFPGA_ENCRYPTION_USERKEY_EN) {
+		KeyPtr = AddrPtr_Size;
+		Size = 0U;
+	} else {
+		KeyPtr = 0U;
+		Size = AddrPtr_Size;
+	}
+
+	Status = XFpga_Write_Pl(InstancePtr, BitstreamImageAddr,
+			     KeyPtr, Size, Flags);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**This function write count bytes of configuration data into the PL.
+ *
+ * @param InstancePtr Pointer to the XFgpa structure
+ *
+ * @param BitstreamImageAddr  Linear memory Bitstream image base address
+ *
+ * @param KeyAddr Aes key address which is used for Decryption.
+ *
+ * @param Size Used to store size of Bitstream Image.
  *
  * @param Flags Flags are used to specify the type of Bitstream file.
  *			* BIT(0) - Bitstream type
@@ -271,21 +462,23 @@ END:
  *
  * @return Codes as mentioned in xilfpga.h
  *****************************************************************************/
-u32 XFpga_PL_Write(XFpga *InstancePtr,UINTPTR BitstreamImageAddr,
-		   UINTPTR AddrPtr_Size, u32 Flags)
+u32 XFpga_Write_Pl(XFpga *InstancePtr,UINTPTR BitstreamImageAddr,
+		UINTPTR KeyAddr, u32 Size, u32 Flags)
 {
-	 u32 Status = XFPGA_WRITE_BITSTREAM_ERROR;
+	u32 Status = XFPGA_WRITE_BITSTREAM_ERROR;
+	UINTPTR KeyPtr = KeyAddr;
 
 	/* Validate the input arguments */
 	Status = XFpga_ValidateBitstreamParam(InstancePtr, BitstreamImageAddr,
-					      AddrPtr_Size, Flags);
-	if(Status != XFPGA_SUCCESS) {
+					      KeyPtr, Flags);
+	if (Status != XFPGA_SUCCESS) {
 		goto END;
 	}
 
 	InstancePtr->WriteInfo.BitstreamAddr = BitstreamImageAddr;
-	InstancePtr->WriteInfo.AddrPtr_Size = AddrPtr_Size;
 	InstancePtr->WriteInfo.Flags = Flags;
+	InstancePtr->WriteInfo.KeyAddr = KeyAddr;
+	InstancePtr->WriteInfo.Size = Size;
 
 	if (InstancePtr->XFpga_WriteToPl == NULL) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
@@ -483,9 +676,10 @@ END:
  *
  * @param BitstreamImageAddr Linear memory Bitstream image base address
  *
- * @param AddrPtr_Size Aes key address which is used for Decryption (or)
- *                      In none Secure Bitstreams it is used to store size
- *                      of Bitstream Image.
+ * @param KeyAddr Aes key address which is used for Decryption.
+ *
+ * @param Size Used to store size of Bitstream Image.
+ *
  * @param Flags Flags are used to specify the type of Bitstream file.
  *
  * @return
@@ -495,7 +689,7 @@ END:
  *****************************************************************************/
 static u32 XFpga_ValidateBitstreamParam(XFpga *InstancePtr,
 					UINTPTR BitstreamImageAddr,
-					UINTPTR AddrPtr_Size, u32 Flags)
+					UINTPTR KeyAddr, u32 Flags)
 {
 	u32 Status = XFPGA_INVALID_PARAM;
 
@@ -523,7 +717,7 @@ static u32 XFpga_ValidateBitstreamParam(XFpga *InstancePtr,
 	}
 
 	if (((Flags & XFPGA_ENCRYPTION_USERKEY_EN) != 0U) &&
-	    (AddrPtr_Size == (UINTPTR)NULL)) {
+	    (KeyAddr == (UINTPTR)NULL)) {
 		goto END;
 	}
 #endif

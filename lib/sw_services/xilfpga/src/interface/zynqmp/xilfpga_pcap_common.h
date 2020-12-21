@@ -51,6 +51,14 @@
  * ---- ----  --------  --------------------------------------------------------
  * 5.2  Nava  02/14/20  Added Bitstream loading support by using IPI services.
  * 5.3  Nava  06/16/20  Modified the date format from dd/mm to mm/dd.
+ * 6.0  Nava  12/14/20  In XFpga_PL_BitStream_Load() API the argument
+ *                      AddrPtr_Size is being used for multiple purposes.
+ *                      Use of the same variable for multiple purposes can
+ *                      make it more difficult for a person to read (or)
+ *                      understand the code and also it leads to a safety
+ *                      violation. fixes this  issue by adding a separate
+ *                      function arguments to read KeyAddr and
+ *                      Size(Bitstream size).
  * </pre>
  *
  * @note
@@ -72,10 +80,9 @@ extern "C" {
  * Structure to store the PL Write Image details.
  *
  * @param BitstreamAddr	Bitstream image base address.
- * @param AddrPtr_Size  Aes key address which is used for Decryption (or)
- *                      In none Secure Bitstream used it is used store size
- *                      of Bitstream Image.
- * @param Flags         Flags are used to specify the type of Bitstream file.
+ * @param KeyAddr	Aes key address which is used for Decryption
+ * @param Size		Used to store size of Bitstream Image.
+ * @param Flags		Flags are used to specify the type of Bitstream file.
  *                      * BIT(0) - Bitstream type
  *                                     * 0 - Full Bitstream
  *                                     * 1 - Partial Bitstream
@@ -95,7 +102,8 @@ extern "C" {
  */
 typedef struct {
 		UINTPTR BitstreamAddr;
-		UINTPTR	AddrPtr_Size;
+		UINTPTR	KeyAddr;
+		u32 Size;
 		u32 Flags;
 }XFpga_Write;
 
