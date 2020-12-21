@@ -159,7 +159,7 @@ AieRC XAie_DataMemBlockWrite(XAie_DevInst *DevInst, XAie_LocType Loc, u32 Addr,
 	u32 RemBytes = Size;
 	u8 FirstWriteOffset = Addr & XAIE_MEM_WORD_ALIGN_MASK;
 	u8 TileType;
-	char *CharSrc = (char *)Src;
+	unsigned char *CharSrc = (unsigned char *)Src;
 	const XAie_MemMod *MemMod;
 
 	if((DevInst == XAIE_NULL) ||
@@ -256,7 +256,7 @@ AieRC XAie_DataMemBlockRead(XAie_DevInst *DevInst, XAie_LocType Loc, u32 Addr,
 	u32 RemBytes = Size;
 	u8 FirstReadOffset = Addr & XAIE_MEM_WORD_ALIGN_MASK;
 	u8 TileType;
-	char *CharDst = (char *)Dst;
+	unsigned char *CharDst = (unsigned char *)Dst;
 	const XAie_MemMod *MemMod;
 
 	if((DevInst == XAIE_NULL) ||

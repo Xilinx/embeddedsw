@@ -25,6 +25,7 @@
 *       kc   07/28/2020 Moved LpdInitialized from xplmi_debug.c to xplmi.c
 *       bm   09/08/2020 Added RunTime Configuration Init API to XPlmi_Init
 *       bm   10/14/2020 Code clean up
+*       td   10/19/2020 MISRA C Fixes
 *
 * </pre>
 *
@@ -138,7 +139,7 @@ void XPlmi_LpdInit(void)
 	if (XST_SUCCESS == Status) {
 		LpdInitialized |= LPD_INITIALIZED;
 	}
-	XPlm_PrintPlmBanner();
+	XPlmi_PrintPlmBanner();
 }
 
 /*****************************************************************************/
@@ -150,7 +151,7 @@ void XPlmi_LpdInit(void)
  * @return	None
  *
  *****************************************************************************/
-void XPlm_PrintPlmBanner(void)
+void XPlmi_PrintPlmBanner(void)
 {
 	u32 Version;
 	u32 PsVersion;

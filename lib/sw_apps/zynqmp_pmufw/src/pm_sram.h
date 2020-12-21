@@ -16,8 +16,7 @@ extern "C" {
 #endif
 
 #include "pm_slave.h"
-
-typedef struct PmSlaveTcm PmSlaveTcm;
+#include "pm_common.h"
 
 /*********************************************************************
  * Structure definitions
@@ -46,13 +45,13 @@ typedef struct PmSlaveSram {
  * @size	Size of the memory bank
  * @id		ID of the TCM bank
  */
-typedef struct PmSlaveTcm {
+struct PmSlaveTcm {
 	PmSlaveSram sram;
 	void (*const eccInit)(const PmSlaveTcm* const tcm);
 	u32 base;
 	u32 size;
 	u8 id;
-} PmSlaveTcm;
+};
 
 /*********************************************************************
  * Global data declarations

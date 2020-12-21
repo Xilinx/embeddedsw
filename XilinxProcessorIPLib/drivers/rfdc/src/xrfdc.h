@@ -258,6 +258,7 @@
 *       cog    09/28/20 Change XRFdc_IsHighSpeedADC to accomodate 43dr parts.
 *       cog    10/05/20 Change shutdown end state for Gen 3 Quad ADCs to reduce power
 *                       consumption.
+*       cog    10/14/20 Get I and Q data now supports warm bitstream swap.
 *
 * </pre>
 *
@@ -1809,60 +1810,6 @@ static inline u32 XRFdc_IsFifoEnabled(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 /*****************************************************************************/
 /**
 *
-* Get Data Converter connected for digital data path I
-*
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is Digital Data Path number.
-*
-* @return
-*           - Return Data converter Id.
-*
-******************************************************************************/
-static inline int XRFdc_GetConnectedIData(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)
-{
-	int ConnectedIData;
-
-	if (Type == XRFDC_ADC_TILE) {
-		ConnectedIData = InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Block_Id].ConnectedIData;
-	} else {
-		ConnectedIData = InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Block_Id].ConnectedIData;
-	}
-
-	return ConnectedIData;
-}
-
-/*****************************************************************************/
-/**
-*
-* Get Data Converter connected for digital data path Q
-*
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param    Tile_Id Valid values are 0-3.
-* @param    Block_Id is Digital Data Path number.
-*
-* @return
-*           - Return Data converter Id.
-*
-******************************************************************************/
-static inline int XRFdc_GetConnectedQData(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)
-{
-	int ConnectedQData;
-
-	if (Type == XRFDC_ADC_TILE) {
-		ConnectedQData = InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Block_Id].ConnectedQData;
-	} else {
-		ConnectedQData = InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Block_Id].ConnectedQData;
-	}
-
-	return ConnectedQData;
-}
-
-/*****************************************************************************/
-/**
-*
 * Set Data Converter connected for digital data path I and Q
 *
 * @param    InstancePtr is a pointer to the XRfdc instance.
@@ -2135,6 +2082,10 @@ u32 XRFdc_ResetNCOPhase(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)
 void XRFdc_DumpRegs(XRFdc *InstancePtr, u32 Type, int Tile_Id);
 u32 XRFdc_MultiBand(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 DigitalDataPathMask, u32 MixerInOutDataType,
 		    u32 DataConverterMask);
+int XRFdc_GetConnectedIData(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id);
+int XRFdc_GetConnectedQData(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id);
+u32 XRFdc_GetConnectedIQData(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, int *ConnectedIData,
+			     int *ConnectedQData);
 u32 XRFdc_IntrHandler(u32 Vector, void *XRFdcPtr);
 u32 XRFdc_IntrClr(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 IntrMask);
 u32 XRFdc_GetIntrStatus(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 *IntrStsPtr);

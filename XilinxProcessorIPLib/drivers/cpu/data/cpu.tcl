@@ -53,6 +53,10 @@
 ##                     "which" command, instead of relying on env variables
 ##                     XILINX_VITIS/XILINX_SDK/HDI_APPROOT. It fixes
 ##                     CR#1073988.
+## 2.12  mus  27/10/20 Added separate logic to export CPUID for firmware processors,
+##                     instead of using define_processor_params.
+##                     define_processor_params was exporting lot of other
+##                     parameters which are not required. It fixes CR#1081668.
 # uses xillib.tcl
 
 ########################################
@@ -463,6 +467,18 @@ proc generate {drv_handle} {
 		puts $file_handle "#ifndef XPARAMETERS_H   /* prevent circular inclusions */"
 		puts $file_handle "#define XPARAMETERS_H   /* by using protection macros */"
 		puts $file_handle ""
+		set lprocs [::hsi::get_cells -hier -filter {IP_TYPE==PROCESSOR}]
+		set iname [common::get_property NAME $periph]
+		set uSuffix "U"
+		set id 0
+
+		foreach processor $lprocs {
+			if {[string compare -nocase $processor $iname] == 0} {
+				puts $file_handle "#define XPAR_CPU_ID $id$uSuffix"
+				puts $file_handle ""
+			}
+			incr id
+		}
 		set params [list]
 		lappend reserved_param_list "C_DEVICE" "C_PACKAGE" "C_SPEEDGRADE" "C_FAMILY" "C_INSTANCE" "C_KIND_OF_EDGE" "C_KIND_OF_LVL" "C_KIND_OF_INTR" "C_NUM_INTR_INPUTS" "C_MASK" "C_NUM_MASTERS" "C_NUM_SLAVES" "C_LMB_AWIDTH" "C_LMB_DWIDTH" "C_LMB_MASK" "C_LMB_NUM_SLAVES" "INSTANCE" "HW_VER"
 		# Print all parameters for psu_pmu with XPAR_MICROBLAZE prefix
@@ -501,7 +517,6 @@ proc generate {drv_handle} {
 		puts $file_handle "#define XPAR_CPU_CORE_CLOCK_FREQ_HZ XPAR_MICROBLAZE_FREQ"
 		puts $file_handle "\n/******************************************************************/\n"
 		close $file_handle
-		::hsi::utils::define_processor_params $drv_handle "xparameters.h"
 		# We have generated all the params required for PMU MICROBLAZE. So just return
 		return
 	}

@@ -28,6 +28,7 @@
 *       bsv  04/04/2020 Code clean up
 *       kc   04/23/2020 Added interrupt support for SEU event
 * 1.03  bm   10/14/2020 Code clean up
+* 		td   10/19/2020 MISRA C Fixes
 *
 * </pre>
 *
@@ -59,7 +60,7 @@ extern "C" {
 /** PIT related macros */
 #define XPLMI_PIT1_RESET_VALUE		(0xFFFFFFFDU)
 #define XPLMI_PIT2_RESET_VALUE		(0xFFFFFFFEU)
-#define XPLMI_PIT1_CYCLE_VALUE		(XPLMI_PIT1_RESET_VALUE + 1U)
+#define XPLMI_PIT1_CYCLE_VALUE		((u64)XPLMI_PIT1_RESET_VALUE + 1U)
 #define XPLMI_PIT2_CYCLE_VALUE		(XPLMI_PIT2_RESET_VALUE + 1U)
 #define XPLMI_PIT1			(0U)
 #define XPLMI_PIT2			(1U)
@@ -69,6 +70,7 @@ extern "C" {
 #define XPLMI_PIT_FREQ_DIVISOR		(100U)
 #define XPLMI_GIGA			(1e9)
 #define XPLMI_MEGA			(1e6)
+#define XPLMI_KILO 			(1e3)
 
 /**************************** Type Definitions *******************************/
 /*
@@ -114,8 +116,6 @@ typedef struct XPlmi_PerfTime {
 
 /************************** Function Prototypes ******************************/
 int XPlmi_StartTimer(void);
-int XPlmi_InitProc(void);
-int XPlmi_InitIOModule(void);
 u64 XPlmi_GetTimerValue(void);
 int XPlmi_SetUpInterruptSystem(void);
 void XPlmi_MeasurePerfTime(u64 TCur, XPlmi_PerfTime *PerfTime);

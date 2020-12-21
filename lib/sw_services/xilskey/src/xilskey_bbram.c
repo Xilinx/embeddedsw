@@ -150,6 +150,19 @@ static INLINE u8 XilSKey_Calc_Row_Ecc_Bbram_Ultra(u8 *Value, u8 *Mask);
 extern XilSKey_JtagSlr XilSKeyJtag;
 /***************************************************************************/
 
+/****************************************************************************/
+/**
+*
+* This function initializes JTAG server.
+*
+* @param  InstancePtr	Pointer to XilSKey_Bbram
+*
+* @return
+*
+*	- XST_FAILURE - In case of failure
+*	- XST_SUCCESS - In case of Success
+*
+*****************************************************************************/
 int XilSKey_Bbram_JTAGServerInit(XilSKey_Bbram *InstancePtr)
 {
 	/* Get timer values */

@@ -4,8 +4,8 @@
 ******************************************************************************/
 
 
-#ifndef _IPI_H_
-#define _IPI_H_
+#ifndef IPI_H_
+#define IPI_H_
 
 #ifdef __cplusplus
 extern "C" {

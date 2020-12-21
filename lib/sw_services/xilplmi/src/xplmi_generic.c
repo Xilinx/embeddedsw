@@ -8,7 +8,9 @@
 /**
 *
 * @file xplmi_generic.c
-*
+* @addtogroup xplmi_apis XilPlmi Versal APIs
+* @{
+* @cond xplmi_internal
 * This is the file which contains general commands.
 *
 * <pre>
@@ -35,17 +37,19 @@
 *       bsv  09/30/2020 Added parallel DMA support for SBI, JTAG, SMAP and PCIE
 *                       boot modes
 *       bm   10/14/2020 Code clean up
+*       td   10/19/2020 MISRA C Fixes
+*       ana  10/19/2020 Added doxygen comments
 *
 * </pre>
 *
 * @note
+* @endcond
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
 #include "xplmi_generic.h"
 #include "xstatus.h"
-#include "xplmi_util.h"
 #include "xplmi_proc.h"
 #include "xplmi_hw.h"
 #include "xcfupmc.h"
@@ -55,6 +59,7 @@
 #include "xplmi_wdt.h"
 #include "xplmi_modules.h"
 #include "xplmi_cmd.h"
+#include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -63,6 +68,10 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+/**
+ * @{
+ * @cond xplmi_internal
+ */
 static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
         XPlmi_Cmd* Cmd);
 static XPlmi_ReadBackProps* XPlmi_GetReadBackPropsInstance(void);
@@ -76,6 +85,10 @@ static int XPlmi_NpiUnalignedXfer(u64 SrcAddr, u64 DestAddr, u32 Count);
  *
  *****************************************************************************/
 static XPlmi_Module XPlmi_Generic;
+/**
+ * @}
+ * @endcond
+ */
 
 /*****************************************************************************/
 /*****************************************************************************/
@@ -496,6 +509,10 @@ static int XPlmi_Write64(XPlmi_Cmd *Cmd)
 	return Status;
 }
 
+/**
+ * @{
+ * @cond xplmi_internal
+ */
 /*****************************************************************************/
 /**
  * @brief	The function reads data from Npi address space.
@@ -608,7 +625,7 @@ static int XPlmi_NpiUnalignedXfer(u64 SrcAddr, u64 DestAddr, u32 Count)
 
 	if (DestAddr != XPLMI_SBI_DEST_ADDR) {
 		for (Index = 0; Index < Count; Index++) {
-			RegVal = XPlmi_In64(SrcAddr + (Index * XPLMI_WORD_LEN));
+			RegVal = XPlmi_In64(SrcAddr + ((u64)Index * XPLMI_WORD_LEN));
 			XPlmi_Out64(DestAddr + ((u64)Index * XPLMI_WORD_LEN), RegVal);
 		}
 		Status = XST_SUCCESS;
@@ -622,6 +639,10 @@ static int XPlmi_NpiUnalignedXfer(u64 SrcAddr, u64 DestAddr, u32 Count)
 END:
 	return Status;
 }
+/**
+ * @}
+ * @endcond
+ */
 
 /*****************************************************************************/
 /**
@@ -813,6 +834,9 @@ static int XPlmi_CfiRead(XPlmi_Cmd *Cmd)
 
 	Status = XPlmi_DmaXfr(SrcAddr, (u64)CFU_STREAM_ADDR,
 		Cmd->PayloadLen - XPLMI_CFI_DATA_OFFSET, XPLMI_PMCDMA_0);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	if (SrcType == XPLMI_READBK_INTF_TYPE_DDR) {
 		Status = XPlmi_WaitForNonBlkDma(XPLMI_PMCDMA_1);
@@ -1020,6 +1044,10 @@ END:
 	return Status;
 }
 
+/**
+ * @{
+ * @cond xplmi_internal
+ */
 /*****************************************************************************/
 /**
  * @brief	This function stores the board name in a local variable based
@@ -1060,6 +1088,10 @@ static u8* XPlmi_BoardNameRW(XPlmi_Cmd *Cmd, u8 GetFlag, u32 *Len)
 END:
 	return BoardName;
 }
+/**
+ * @}
+ * @endcond
+ */
 
 /*****************************************************************************/
 /**
@@ -1145,6 +1177,10 @@ static int XPlmi_SetWdtParam(XPlmi_Cmd *Cmd)
 	return Status;
 }
 
+/**
+ * @{
+ * @cond xplmi_internal
+ */
 /*****************************************************************************/
 /**
  * @brief	Contains the array of PLM generic commands
@@ -1223,12 +1259,15 @@ static XPlmi_ReadBackProps* XPlmi_GetReadBackPropsInstance(void)
  * @return	None
  *
  *****************************************************************************/
-void XPlmi_GetReadBackPropsValue(XPlmi_ReadBackProps *ReadBackVal)
+int XPlmi_GetReadBackPropsValue(XPlmi_ReadBackProps *ReadBackVal)
 {
+	int Status = XST_FAILURE;
 	XPlmi_ReadBackProps *ReadBackPtr = XPlmi_GetReadBackPropsInstance();
-	(void)memcpy(ReadBackVal, ReadBackPtr, sizeof(XPlmi_ReadBackProps));
 
-	return;
+	Status = Xil_SecureMemCpy(ReadBackVal, sizeof(XPlmi_ReadBackProps),
+			ReadBackPtr, sizeof(XPlmi_ReadBackProps));
+
+	return Status;
 }
 
 /*****************************************************************************/
@@ -1241,12 +1280,15 @@ void XPlmi_GetReadBackPropsValue(XPlmi_ReadBackProps *ReadBackVal)
  * @return	None
  *
  *****************************************************************************/
-void XPlmi_SetReadBackProps(XPlmi_ReadBackProps *ReadBack)
+int XPlmi_SetReadBackProps(XPlmi_ReadBackProps *ReadBack)
 {
+	int Status = XST_FAILURE;
 	XPlmi_ReadBackProps *ReadBackPtr = XPlmi_GetReadBackPropsInstance();
-	(void)memcpy(ReadBackPtr, ReadBack, sizeof(XPlmi_ReadBackProps));
 
-	return;
+	Status = Xil_SecureMemCpy(ReadBackPtr, sizeof(XPlmi_ReadBackProps),
+			ReadBack, sizeof(XPlmi_ReadBackProps));
+
+	return Status;
 }
 
 /*****************************************************************************/
@@ -1380,3 +1422,10 @@ END1:
 END:
 	return Status;
 }
+
+/**
+ * @}
+ * @endcond
+ */
+
+ /** @} */

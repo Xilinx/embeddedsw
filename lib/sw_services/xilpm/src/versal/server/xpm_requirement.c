@@ -30,7 +30,8 @@ static XStatus XPmRequirement_Init(XPm_Requirement *Reqm,
 	Reqm->Flags = (u16)(Flags & REG_FLAGS_MASK);
 
 	if ((NULL != Params) && (0U != NumParams) && (NumParams <= MAX_REQ_PARAMS)) {
-		Status = XPlmi_MemCpy(Reqm->Params, NumParams * sizeof(*Params), Params, NumParams * sizeof(*Params));
+		Status = Xil_SecureMemCpy(Reqm->Params, NumParams * sizeof(*Params),
+				Params, NumParams * sizeof(*Params));
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}

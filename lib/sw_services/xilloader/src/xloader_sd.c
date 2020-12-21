@@ -33,6 +33,7 @@
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *       bsv  09/04/2020 Added error checks for XPlmi_Strcat function calls
 *       bsv  10/13/2020 Code clean up
+*       td	 10/19/2020	MISRA C Fixes
 *
 * </pre>
 *
@@ -44,10 +45,10 @@
 #include "xloader_sd.h"
 #include "xloader.h"
 #if defined(XLOADER_SD_0) || defined(XLOADER_SD_1)
-#include "xplmi_util.h"
 #include "xparameters.h"
 #include "ff.h"
 #include "xplmi_generic.h"
+#include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -91,7 +92,7 @@ static int XLoader_MakeSdFileName(char* SdEmmcFileName, u32 MultiBootOffset)
 	}
 
 	if (0x0U == MultiBootOffset) {
-		Status = XPlmi_Strcat(SdEmmcFileName, "BOOT.BIN",
+		Status = Xil_Strcat(SdEmmcFileName, "BOOT.BIN",
 			XLOADER_BASE_FILE_NAME_LEN_SD_1);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -105,19 +106,19 @@ static int XLoader_MakeSdFileName(char* SdEmmcFileName, u32 MultiBootOffset)
 			BootNo[Index] += (char)Value;
 			Index--;
 		}
-		Status = XPlmi_Strcat(SdEmmcFileName, "BOOT",
+		Status = Xil_Strcat(SdEmmcFileName, "BOOT",
 			XLOADER_BASE_FILE_NAME_LEN_SD_1);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 
-		Status = XPlmi_Strcat(SdEmmcFileName, BootNo,
+		Status = Xil_Strcat(SdEmmcFileName, BootNo,
 			XLOADER_BASE_FILE_NAME_LEN_SD_1);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 
-		Status = XPlmi_Strcat(SdEmmcFileName, ".BIN",
+		Status = Xil_Strcat(SdEmmcFileName, ".BIN",
 			XLOADER_BASE_FILE_NAME_LEN_SD_1);
 		if (Status != XST_SUCCESS) {
 			goto END;

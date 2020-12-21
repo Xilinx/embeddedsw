@@ -28,6 +28,7 @@
 *       bsv  04/04/2020 Code clean up
 *       kc   04/23/2020 Added interrupt support for SEU event
 * 1.03  bm   10/14/2020 Code clean up
+* 		td   10/19/2020 MISRA C Fixes
 *
 * </pre>
 *
@@ -49,7 +50,7 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XPLMI_MAP_PLMID(Lvl0, Lvl1, Lvl2)	\
-		((Lvl0 << 0U) | (Lvl1 << 8U) | (Lvl2 << 16U))
+	(((Lvl0) << 0U) | ((Lvl1) << 8U) | ((Lvl2) << 16U))
 
 /************************** Function Prototypes ******************************/
 static int XPlmi_IoModuleRegisterHandler(u32 IoModIntrNum,
@@ -60,7 +61,7 @@ static void XPlmi_IntrHandler(void *CallbackRef);
 /************************** Variable Definitions *****************************/
 static u32 PmcIroFreq; /* Frequency of the PMC IRO */
 static XIOModule IOModule; /* Instance of the IO Module */
-static u32 PlmIntrMap [] = {
+static u32 PlmIntrMap[XPLMI_MAX_EXT_INTR] = {
 	[XPLMI_CFRAME_SEU] = XPLMI_MAP_PLMID(XPLMI_IOMODULE_CFRAME_SEU,
 						0x0U, 0x0U),
 	[XPLMI_IPI_IRQ] = XPLMI_MAP_PLMID(XPLMI_IOMODULE_PMC_GIC_IRQ,
@@ -120,7 +121,8 @@ static void XPlmi_InitPitTimer(u8 Timer, u32 ResetValue)
 u64 XPlmi_GetTimerValue(void)
 {
 	u64 TimerValue;
-	u32 TPit1, TPit2;
+	u64 TPit1;
+	u32 TPit2;
 
 	TPit1 = XIOModule_GetValue(&IOModule, (u8)XPLMI_PIT1);
 	TPit2 = XIOModule_GetValue(&IOModule, (u8)XPLMI_PIT2);
@@ -134,7 +136,7 @@ u64 XPlmi_GetTimerValue(void)
 	if (TPit1 == 0U) {
 		TPit1 = XPLMI_PIT1_CYCLE_VALUE;
 	}
-	TimerValue = ((u64)TPit1 << 32U) | (u64)TPit2;
+	TimerValue = (TPit1 << 32U) | (u64)TPit2;
 
 	return TimerValue;
 }
@@ -155,9 +157,10 @@ void XPlmi_GetPerfTime(u64 TCur, u64 TStart, XPlmi_PerfTime *PerfTime)
 {
 	u64 PerfNs;
 	u64 TDiff = TCur - TStart;
+	u32 PmcIroFreqKhz = PmcIroFreq / (u32)XPLMI_KILO;
 
 	/* Convert TPerf into nanoseconds */
-	PerfNs = (TDiff * (u64)XPLMI_GIGA) / PmcIroFreq;
+	PerfNs = (TDiff * (u64)(XPLMI_GIGA / PmcIroFreqKhz)) / (u64)XPLMI_KILO;
 	PerfTime->TPerfMs = PerfNs / (u64)XPLMI_MEGA;
 	PerfTime->TPerfMsFrac = PerfNs % (u64)XPLMI_MEGA;
 }
@@ -200,8 +203,8 @@ void XPlmi_PrintRomTime(void)
 	PmcRomTime |= (u64)XPlmi_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE1) << 32U;
 
 	/* Print time stamp of PLM */
-	XPlmi_GetPerfTime((u64) (((u64)XPLMI_PIT1_CYCLE_VALUE << 32U) |
-		XPLMI_PIT2_CYCLE_VALUE), PmcRomTime, &PerfTime);
+	XPlmi_GetPerfTime((XPLMI_PIT1_CYCLE_VALUE << 32U) |
+		XPLMI_PIT2_CYCLE_VALUE, PmcRomTime, &PerfTime);
 	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%u.%06u ms: ROM Time\r\n",
 		(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
 }
@@ -220,8 +223,8 @@ void XPlmi_PrintPlmTimeStamp(void)
 	XPlmi_PerfTime PerfTime = {0U};
 
 	/* Print time stamp of PLM */
-	XPlmi_MeasurePerfTime((u64) (((u64)XPLMI_PIT1_CYCLE_VALUE << 32U) |
-		XPLMI_PIT2_CYCLE_VALUE), &PerfTime);
+	XPlmi_MeasurePerfTime((XPLMI_PIT1_CYCLE_VALUE << 32U) |
+		XPLMI_PIT2_CYCLE_VALUE, &PerfTime);
 	xil_printf("[%u.%06u]", (u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
 }
 
@@ -475,7 +478,7 @@ int XPlmi_PlmIntrDisable(u32 IntrId)
 	u32 IoModIntrNum;
 
 	if (IntrId >= (u32)XPLMI_MAX_EXT_INTR) {
-		Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_INTR_ID_DISABLE, 0U);
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_INTR_ID_DISABLE, 0);
 		goto END;
 	}
 
@@ -486,16 +489,18 @@ int XPlmi_PlmIntrDisable(u32 IntrId)
 	{
 		case XPLMI_IOMODULE_PMC_GIC_IRQ:
 			XPlmi_GicIntrDisable(PlmIntrId);
+			Status = XST_SUCCESS;
 			break;
 
 		case XPLMI_IOMODULE_CFRAME_SEU:
 			XIOModule_Disable(&IOModule, (u8 )IoModIntrNum);
+			Status = XST_SUCCESS;
 			break;
 
 		default:
+			Status = XPlmi_UpdateStatus(XPLMI_ERR_IO_MOD_INTR_NUM_DISABLE, 0);
 			break;
 	}
-	Status = XST_SUCCESS;
 
 END:
 	return Status;
@@ -517,7 +522,7 @@ int XPlmi_PlmIntrClear(u32 IntrId)
 	u32 IoModIntrNum;
 
 	if (IntrId >= (u32)XPLMI_MAX_EXT_INTR) {
-		Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_INTR_ID_CLEAR, 0U);
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_INTR_ID_CLEAR, 0);
 		goto END;
 	}
 
@@ -528,16 +533,18 @@ int XPlmi_PlmIntrClear(u32 IntrId)
 	{
 		case XPLMI_IOMODULE_PMC_GIC_IRQ:
 			XPlmi_GicIntrClearStatus(PlmIntrId);
+			Status = XST_SUCCESS;
 			break;
 
 		case XPLMI_IOMODULE_CFRAME_SEU:
 			XIOModule_Acknowledge(&IOModule, (u8 )IoModIntrNum);
+			Status = XST_SUCCESS;
 			break;
 
 		default:
+			Status = XPlmi_UpdateStatus(XPLMI_ERR_IO_MOD_INTR_NUM_CLEAR, 0);
 			break;
 	}
-	Status = XST_SUCCESS;
 
 END:
 	return Status;
@@ -591,7 +598,7 @@ int XPlmi_RegisterHandler(u32 IntrId, GicIntHandler_t Handler, void *Data)
 	u32 IoModIntrNum;
 
 	if (IntrId >= (u32)XPLMI_MAX_EXT_INTR) {
-		Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_INTR_ID_REGISTER, 0U);
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_INTR_ID_REGISTER, 0);
 		goto END;
 	}
 
@@ -602,17 +609,18 @@ int XPlmi_RegisterHandler(u32 IntrId, GicIntHandler_t Handler, void *Data)
 	{
 		case XPLMI_IOMODULE_PMC_GIC_IRQ:
 			XPlmi_GicRegisterHandler(PlmIntrId, Handler, Data);
+			Status = XST_SUCCESS;
 			break;
 
 		case XPLMI_IOMODULE_CFRAME_SEU:
-			(void )XPlmi_IoModuleRegisterHandler(IoModIntrNum,
+			Status = XPlmi_IoModuleRegisterHandler(IoModIntrNum,
 				      (XInterruptHandler)Handler, Data);
 			break;
 
 		default:
+			Status = XPlmi_UpdateStatus(XPLMI_ERR_IO_MOD_INTR_NUM_REGISTER, 0);
 			break;
 	}
-	Status = XST_SUCCESS;
 
 END:
 	return Status;

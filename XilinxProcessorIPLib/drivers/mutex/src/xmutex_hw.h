@@ -7,7 +7,7 @@
 /**
 *
 * @file xmutex_hw.h
-* @addtogroup mutex_v4_7
+* @addtogroup mutex_v4_6
 * @{
 *
 * This header file contains identifiers/definitions and macros that can be used

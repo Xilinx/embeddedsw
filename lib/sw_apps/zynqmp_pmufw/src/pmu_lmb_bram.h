@@ -4,8 +4,8 @@
 ******************************************************************************/
 
 
-#ifndef _PMU_LMB_BRAM_H_
-#define _PMU_LMB_BRAM_H_
+#ifndef PMU_LMB_BRAM_H_
+#define PMU_LMB_BRAM_H_
 
 #ifdef __cplusplus
 extern "C" {

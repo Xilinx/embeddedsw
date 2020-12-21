@@ -4,8 +4,8 @@
  */
 
 
-#ifndef _EFUSE_H_
-#define _EFUSE_H_
+#ifndef EFUSE_H_
+#define EFUSE_H_
 
 #ifdef __cplusplus
 extern "C" {

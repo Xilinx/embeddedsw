@@ -23,6 +23,7 @@
 *       ma   08/01/2019 Removed LPD module init related code from PLM app
 * 1.02  kc   02/19/2020 Moved PLM banner print to XilPlmi
 *       kc   03/23/2020 Minor code cleanup
+*       td   10/19/2020 MISRA C Fixes
 *
 * </pre>
 *
@@ -67,7 +68,7 @@ int main(void)
 	/** If MDM UART, banner can be printed before any initialization */
 	XPlmi_InitUart();
 	/** Print PLM banner  */
-	XPlm_PrintPlmBanner();
+	XPlmi_PrintPlmBanner();
 #endif
 
 	/** Initialize the processor, tasks lists */

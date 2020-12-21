@@ -66,7 +66,10 @@
 *                     SHA3 in reset
 *       kal  10/07/20 Added Missed DB check in XLoader_RsaSignVerify API
 *       kal  10/16/20 Added a check for RSA EM MSB bit to make sure it is zero
-*       kpt  10/19/2020 Code clean up
+*       kpt  10/19/20 Code clean up
+*       td   10/19/20 MISRA C Fixes
+*       bsv  10/19/20 Parallel DMA related changes
+*       har  10/19/20 Replaced ECDSA in function calls
 *
 * </pre>
 *
@@ -144,7 +147,7 @@ static u32 XLoader_SpkAuthentication(const XLoader_SecureParams *SecurePtr);
 static u32 XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 	u8 *Signature);
 static inline void XLoader_I2Osp(u32 Integer, u32 Size, u8 *Convert);
-static u32 XLoader_EcdsaSignVerify(const XSecure_EcdsaCrvTyp CrvType, const u8 *DataHash,
+static u32 XLoader_EcdsaSignVerify(const XSecure_EllipticCrvTyp CrvType, const u8 *DataHash,
 	const u8 *Key, const u32 KeySize, const u8 *Signature);
 static u32 XLoader_RsaSignVerify(const XLoader_SecureParams *SecurePtr,
 	u8 *MsgHash, XLoader_RsaKey *Key, u8 *Signature);
@@ -1058,7 +1061,7 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 		/* Read and verify headers to structures */
 		MetaHdr->Flag = XILPDI_METAHDR_RD_HDRS_FROM_MEMBUF;
 		MetaHdr->BufferAddr = SecurePtr->ChunkAddr;
-		MetaHdr->XMemCpy = XPlmi_MemCpy;
+		MetaHdr->XMemCpy = Xil_SecureMemCpy;
 
 		/* Read IHT and PHT to structures and verify checksum */
 		Status = XilPdi_ReadAndVerifyImgHdr(MetaHdr);
@@ -1247,7 +1250,7 @@ static u32 XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 		}
 	}
 	else {
-		Status = XPlmi_MemCmp(ExpHash, BlkHash.Hash, XLOADER_SHA3_LEN);
+		Status = Xil_MemCmp(ExpHash, BlkHash.Hash, XLOADER_SHA3_LEN);
 		if (Status != XLOADER_SUCCESS) {
 			XPlmi_Printf(DEBUG_INFO,"Hash mismatch error\n\r");
 			XPlmi_PrintArray(DEBUG_INFO, (UINTPTR)BlkHash.Hash,
@@ -1262,7 +1265,7 @@ static u32 XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 
 	/* Update the next expected hash  and data location */
 	if (Last != (u8)TRUE) {
-		Status = XPlmi_MemCpy(ExpHash, XLOADER_SHA3_LEN, Data, XLOADER_SHA3_LEN);
+		Status = Xil_SecureMemCpy(ExpHash, XLOADER_SHA3_LEN, Data, XLOADER_SHA3_LEN);
 		if (Status != XLOADER_SUCCESS) {
 			goto END;
 		}
@@ -1320,15 +1323,15 @@ static u32 XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 		}
 		SecurePtr->PdiPtr->PlmKatStatus |= XLOADER_RSA_KAT_MASK;
 	}
-	if(((SecurePtr->PdiPtr->PlmKatStatus & XLOADER_ECDSA_KAT_MASK) == 0U)
+	if(((SecurePtr->PdiPtr->PlmKatStatus & XLOADER_ECC_KAT_MASK) == 0U)
 		&& (AuthType == XLOADER_AC_AH_PUB_ALG_ECDSA)) {
-		Status = XSecure_EcdsaKat();
+		Status = XSecure_EllipticKat();
 		if(Status != XLOADER_SUCCESS) {
-			XPlmi_Printf(DEBUG_GENERAL, "ECDSA KAT Failed\n\r");
+			XPlmi_Printf(DEBUG_GENERAL, "ECC KAT Failed\n\r");
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_KAT_FAILED, Status);
 			goto END;
 		}
-		SecurePtr->PdiPtr->PlmKatStatus |= XLOADER_ECDSA_KAT_MASK;
+		SecurePtr->PdiPtr->PlmKatStatus |= XLOADER_ECC_KAT_MASK;
 	}
 
 	/* If bits in PPK0/1/2 is programmed bh_auth is not allowed */
@@ -1425,13 +1428,13 @@ static u32 XLoader_VerifySignature(const XLoader_SecureParams *SecurePtr,
 	else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P384) {
 		/* ECDSA P384 authentication */
 		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_EcdsaSignVerify,
-			XSECURE_ECDSA_NIST_P384, Hash, (u8 *)Key->PubModulus,
+			XSECURE_ECC_NIST_P384, Hash, (u8 *)Key->PubModulus,
 			XLOADER_ECDSA_P384_KEYSIZE, Signature);
 	}
 	else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P521) {
 		/* ECDSA P521 authentication */
 		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_EcdsaSignVerify,
-			XSECURE_ECDSA_NIST_P521, Hash, (u8 *)Key->PubModulus,
+			XSECURE_ECC_NIST_P521, Hash, (u8 *)Key->PubModulus,
 			XLOADER_ECDSA_P521_KEYSIZE, Signature);
 	}
 	else {
@@ -1600,8 +1603,8 @@ static u32 XLoader_PpkCompare(const u32 EfusePpkOffset, const u8 *PpkHash)
 	volatile int HashStatus = XST_FAILURE;
 	volatile int HashStatusTmp = XST_FAILURE;
 
-	XSECURE_TEMPORAL_IMPL(HashStatus, HashStatusTmp, XPlmi_MemCmp, PpkHash,
-		(void *)EfusePpkOffset, XLOADER_EFUSE_PPK_HASH_LEN);
+	XSECURE_TEMPORAL_IMPL(HashStatus, HashStatusTmp, Xil_MemCmp, PpkHash,
+						  (void *)EfusePpkOffset, XLOADER_EFUSE_PPK_HASH_LEN);
 	if ((HashStatus != XST_SUCCESS) || (HashStatusTmp != XST_SUCCESS)) {
 		Status = XLoader_UpdateMinorErr(XLOADER_SEC_PPK_HASH_COMPARE_FAIL, 0x0U);
 	}
@@ -1670,13 +1673,13 @@ static u32 XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, const u8 *PpkHash)
 
 	Status = XLOADER_FAILURE;
 	/* Check if valid PPK hash is all zeros */
-	XSECURE_TEMPORAL_IMPL(HashStatus, HashStatusTmp, XPlmi_MemCmp, HashZeros,
+	XSECURE_TEMPORAL_IMPL(HashStatus, HashStatusTmp, Xil_MemCmp, HashZeros,
 						 (void *)PpkOffset, XLOADER_EFUSE_PPK_HASH_LEN);
 	if ((HashStatus == XST_SUCCESS) && (HashStatusTmp == XST_SUCCESS)) {
 		Status = XLoader_UpdateMinorErr(
 			XLOADER_SEC_PPK_HASH_ALLZERO_INVLD, 0x0U);
 	}
-	else if((HashStatus == XST_FAILURE) && (HashStatusTmp == XST_FAILURE)) {
+	else if((HashStatus != XST_SUCCESS) && (HashStatusTmp != XST_SUCCESS)) {
 		Status = XLOADER_SUCCESS;
 	}
 	else {
@@ -1936,7 +1939,7 @@ static u32 XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 			 */
 			 Size = (OutLen % HashLen);
 		}
-		Status = XPlmi_MemCpy(Out, Size, HashStore.Hash, Size);
+		Status = Xil_SecureMemCpy(Out, Size, HashStore.Hash, Size);
 		if (Status != XLOADER_SUCCESS) {
 			goto END;
 		}
@@ -2030,7 +2033,7 @@ static u32 XLoader_RsaSignVerify(const XLoader_SecureParams *SecurePtr,
 	}
 
 	/* As PMCDMA can't accept unaligned addresses */
-	Status = XPlmi_MemCpy(Xsecure_Varsocm.EmHash, XLOADER_SHA3_LEN,
+	Status = Xil_SecureMemCpy(Xsecure_Varsocm.EmHash, XLOADER_SHA3_LEN,
 				&XSecure_RsaSha3Array[XLOADER_RSA_PSS_MASKED_DB_LEN],
 				XLOADER_SHA3_LEN);
 	if (Status != XLOADER_SUCCESS) {
@@ -2088,7 +2091,7 @@ static u32 XLoader_RsaSignVerify(const XLoader_SecureParams *SecurePtr,
 	}
 
 	/* As PMCDMA can't accept unaligned addresses */
-	Status = XPlmi_MemCpy(Xsecure_Varsocm.Salt, XLOADER_RSA_PSS_SALT_LEN,
+	Status = Xil_SecureMemCpy(Xsecure_Varsocm.Salt, XLOADER_RSA_PSS_SALT_LEN,
 				&Buffer[XLOADER_RSA_PSS_DB_LEN],
 				XLOADER_RSA_PSS_SALT_LEN);
 	if (Status != XLOADER_SUCCESS) {
@@ -2181,7 +2184,7 @@ END:
  * @return	XLOADER_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
-static u32 XLoader_EcdsaSignVerify(const XSecure_EcdsaCrvTyp CrvType, const u8 *DataHash,
+static u32 XLoader_EcdsaSignVerify(const XSecure_EllipticCrvTyp CrvType, const u8 *DataHash,
 	const u8 *Key, const u32 KeySize, const u8 *Signature)
 {
 	volatile u32 Status = XLOADER_FAILURE;
@@ -2196,8 +2199,8 @@ static u32 XLoader_EcdsaSignVerify(const XSecure_EcdsaCrvTyp CrvType, const u8 *
 	u8 SigS[XLOADER_ECDSA_MAX_KEYSIZE] = {0U};
 	u8 Hash[XLOADER_SHA3_LEN] = {0U};
 	u32 Index;
-	XSecure_EcdsaKey PublicKey = {0};
-	XSecure_EcdsaSign Sign = {0};
+	XSecure_EllipticKey PublicKey = {0};
+	XSecure_EllipticSign Sign = {0};
 
 	for (Index = 0U; Index < KeySize; Index++) {
 		Qx[Index] = XKey[KeySize - Index - 1U];
@@ -2216,8 +2219,8 @@ static u32 XLoader_EcdsaSignVerify(const XSecure_EcdsaCrvTyp CrvType, const u8 *
 	Sign.SignS = SigS;
 
 	/* Validate point on the curve */
-	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XSecure_EcdsaValidateKey,
-				CrvType, &PublicKey);
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XSecure_EllipticValidateKey,
+		CrvType, &PublicKey);
 	if ((Status != XLOADER_SUCCESS) || (StatusTmp != XLOADER_SUCCESS)) {
 		XPlmi_Printf(DEBUG_INFO, "\nFailed at "
 			"ECDSA Key validation\n\r");
@@ -2226,7 +2229,7 @@ static u32 XLoader_EcdsaSignVerify(const XSecure_EcdsaCrvTyp CrvType, const u8 *
 	}
 	else {
 		/* Verify ECDSA */
-		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XSecure_EcdsaVerifySign,
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XSecure_EllipticVerifySign,
 			CrvType, Hash, XLOADER_SHA3_LEN, &PublicKey, &Sign);
 		if ((Status != XLOADER_SUCCESS) || (StatusTmp != XLOADER_SUCCESS)) {
 			Status = XLoader_UpdateMinorErr(XLOADER_SEC_ECDSA_AUTH_FAIL, Status);
@@ -3024,6 +3027,14 @@ static u32 XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 			Status);
 		goto END;
 	}
+
+	if (DpaCmCfg == XLOADER_EFUSE_SEC_DPA_DIS_MASK) {
+		DpaCmCfg = 0x0U;
+	}
+	else {
+		DpaCmCfg = 0x1U;
+	}
+
 	/* Configure DPA CM */
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_SetAesDpaCm,
 		&SecurePtr->AesInstance, DpaCmCfg);
@@ -3125,12 +3136,13 @@ static u32 XLoader_DecryptBlkKey(XSecure_Aes *AesInstPtr,
 					const XLoader_AesKekInfo *KeyDetails)
 {
 	u32 Status = XLOADER_FAILURE;
-	XPuf_Data PufData;
+	XPuf_Data PufData = {0U};
 
 	XPlmi_Printf(DEBUG_INFO, "Decrypting PUF KEK\n\r");
 	PufData.RegMode = XPUF_SYNDROME_MODE_4K;
 	PufData.ShutterValue = XPUF_SHUTTER_VALUE;
 	PufData.PufOperation = XPUF_REGEN_ON_DEMAND;
+	PufData.GlobalVarFilter = TRUE;
 
 	if (KeyDetails->PufHdLocation == XLOADER_PUF_HD_BHDR) {
 		PufData.ReadOption = XPUF_READ_FROM_RAM;

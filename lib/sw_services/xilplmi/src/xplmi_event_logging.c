@@ -8,7 +8,9 @@
 /**
 *
 * @file xplmi_event_logging.c
-*
+* @addtogroup xplmi_apis XilPlmi Versal APIs
+* @{
+* @cond xplmi_internal
 * This is the file which contains event logging related code.
 *
 * <pre>
@@ -22,10 +24,13 @@
 *       ma   03/02/2020 Added support for logging trace events
 *       bsv  04/04/2020 Code clean up
 * 1.02  bm   10/14/2020 Code clean up
+* 		td   10/19/2020 MISRA C Fixes
+*       ana  10/19/2020 Added doxygen comments
 *
 * </pre>
 *
 * @note
+* @endcond
 *
 ******************************************************************************/
 
@@ -45,6 +50,10 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
+/**
+ * @{
+ * @cond xplmi_internal
+ */
 XPlmi_LogInfo DebugLog = {
 	.LogBuffer.StartAddr = XPLMI_DEBUG_LOG_BUFFER_ADDR,
 	.LogBuffer.Len = XPLMI_DEBUG_LOG_BUFFER_LEN,
@@ -54,7 +63,7 @@ XPlmi_LogInfo DebugLog = {
 };
 
 /* Trace log buffer */
-XPlmi_CircularBuffer TraceLog = {
+static XPlmi_CircularBuffer TraceLog = {
 	.StartAddr = XPLMI_TRACE_LOG_BUFFER_ADDR,
 	.Len = XPLMI_TRACE_LOG_BUFFER_LEN,
 	.CurrentAddr = XPLMI_TRACE_LOG_BUFFER_ADDR,
@@ -83,7 +92,7 @@ static void XPlmi_RetrieveRemBytes(u64 SourceAddr, u64 DestAddr, u32 Len)
 	RemLen = Len & (XPLMI_WORD_LEN - 1U);
 	Offset = Len & ~(XPLMI_WORD_LEN - 1U);
 	for (Index = 0U; Index < RemLen; ++Index) {
-		RemData = XPlmi_InByte64(SourceAddr + Offset + Index);
+		RemData = (u8)XPlmi_InByte64(SourceAddr + Offset + Index);
 		XPlmi_OutByte64(DestAddr + Offset + Index, RemData);
 	}
 }
@@ -133,6 +142,10 @@ static int XPlmi_RetrieveBufferData(XPlmi_CircularBuffer * Buffer, u64 DestAddr)
 END:
 	return Status;
 }
+/**
+ * @}
+ * @endcond
+ */
 
 /*****************************************************************************/
 /**
@@ -253,6 +266,10 @@ int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
 	return Status;
 }
 
+/**
+ * @{
+ * @cond xplmi_internal
+ */
 /*****************************************************************************/
 /**
  * @brief	This function stores the trace events to the Trace Log buffer.
@@ -269,7 +286,7 @@ void XPlmi_StoreTraceLog(u32 *TraceData, u32 Len)
 	XPlmi_PerfTime PerfTime = {0U};
 
 	/* Get time stamp of PLM */
-	XPlmi_MeasurePerfTime(((u64)(XPLMI_PIT1_CYCLE_VALUE) << 32U) |
+	XPlmi_MeasurePerfTime((XPLMI_PIT1_CYCLE_VALUE << 32U) |
 		XPLMI_PIT2_CYCLE_VALUE, &PerfTime);
 
 	TraceData[0U] = TraceData[0U] | (Len << XPLMI_TRACE_LOG_LEN_SHIFT);
@@ -287,3 +304,10 @@ void XPlmi_StoreTraceLog(u32 *TraceData, u32 Len)
 		TraceLog.CurrentAddr += XPLMI_WORD_LEN;
 	}
 }
+
+/**
+ * @}
+ * @endcond
+ */
+
+/** @} */

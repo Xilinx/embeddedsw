@@ -26,6 +26,7 @@
 *       bsv  09/30/2020 Added parallel DMA support for SBI, JTAG, SMAP and PCIE
 *                       boot modes
 *       bm   10/14/2020 Code clean up
+*       td   10/19/2020 MISRA C Fixes
 *
 * </pre>
 *
@@ -560,14 +561,13 @@ int XPlmi_DmaXfr(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags)
 		goto END;
 	}
 
+	if ((Flags & XPLMI_DMA_SRC_NONBLK) != (u32)FALSE) {
+		goto END;
+	}
 	/* Polling for transfer to be done */
-	if ((Flags & XPLMI_DMA_SRC_NONBLK) == (u32)FALSE) {
-		Status = XPmcDma_WaitForDone(DmaPtr, XPMCDMA_SRC_CHANNEL);
-		if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus(XPLMI_ERR_DMA_XFER_WAIT_SRC, 0);
-			goto END;
-		}
-	} else {
+	Status = XPmcDma_WaitForDone(DmaPtr, XPMCDMA_SRC_CHANNEL);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_DMA_XFER_WAIT_SRC, 0);
 		goto END;
 	}
 
@@ -579,16 +579,14 @@ int XPlmi_DmaXfr(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags)
 		}
 	}
 	/* To acknowledge the transfer has completed */
-	if ((Flags & XPLMI_DMA_SRC_NONBLK) == (u32)FALSE) {
-		XPmcDma_IntrClear(DmaPtr, XPMCDMA_SRC_CHANNEL, XPMCDMA_IXR_DONE_MASK);
-	}
+	XPmcDma_IntrClear(DmaPtr, XPMCDMA_SRC_CHANNEL, XPMCDMA_IXR_DONE_MASK);
+
 	if ((Flags & XPLMI_DMA_DST_NONBLK) == (u32)FALSE) {
 		XPmcDma_IntrClear(DmaPtr, XPMCDMA_DST_CHANNEL, XPMCDMA_IXR_DONE_MASK);
 	}
 
 	/* Reverting the AXI Burst setting of PMC_DMA */
-	if (((Flags & XPLMI_DMA_SRC_NONBLK) == (u32)FALSE) &&
-		((Flags & XPLMI_SRC_CH_AXI_FIXED) == XPLMI_SRC_CH_AXI_FIXED)) {
+	if ((Flags & XPLMI_SRC_CH_AXI_FIXED) == XPLMI_SRC_CH_AXI_FIXED) {
 		DmaCtrl.AxiBurstType = 0U;
 		XPmcDma_SetConfig(DmaPtr, XPMCDMA_SRC_CHANNEL, &DmaCtrl);
 	}

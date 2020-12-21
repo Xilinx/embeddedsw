@@ -27,6 +27,7 @@
 *       bm   09/08/2020 Added RunTime Configuration related registers
 *       bsv  09/30/2020 Added XPLMI_CHUNK_SIZE macro
 *       bm   10/14/2020 Code clean up
+*       td   10/19/2020 MISRA C Fixes
 *
 * </pre>
 *
@@ -111,7 +112,7 @@ int XPlmi_Init(void);
 void XPlmi_LpdInit(void);
 void XPlmi_ResetLpdInitialized(void);
 void XPlmi_RunTimeConfigInit(void);
-void XPlm_PrintPlmBanner(void);
+void XPlmi_PrintPlmBanner(void);
 
 /************************** Variable Definitions *****************************/
 extern u8 LpdInitialized;

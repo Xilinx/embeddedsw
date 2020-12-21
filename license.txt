@@ -142,6 +142,7 @@ ThirdParty/bsp/freertos10_xilinx/src/Makefile_psu_cortexr5
 
 
 
+
 COPYRIGHT TEXT:
 ---------------
 
@@ -221,10 +222,10 @@ XilinxProcessorIPLib/drivers/aienginev2/data/aienginev2.tcl
 XilinxProcessorIPLib/drivers/aienginev2/src/Makefile
 XilinxProcessorIPLib/drivers/aienginev2/src/common/xaie_helper.c
 XilinxProcessorIPLib/drivers/aienginev2/src/common/xaie_helper.h
-XilinxProcessorIPLib/drivers/aienginev2/src/common/xaielib.c
-XilinxProcessorIPLib/drivers/aienginev2/src/common/xaielib.h
 XilinxProcessorIPLib/drivers/aienginev2/src/core/xaie_core.c
 XilinxProcessorIPLib/drivers/aienginev2/src/core/xaie_core.h
+XilinxProcessorIPLib/drivers/aienginev2/src/core/xaie_core_aie.c
+XilinxProcessorIPLib/drivers/aienginev2/src/core/xaie_core_aie.h
 XilinxProcessorIPLib/drivers/aienginev2/src/core/xaie_elfloader.c
 XilinxProcessorIPLib/drivers/aienginev2/src/core/xaie_elfloader.h
 XilinxProcessorIPLib/drivers/aienginev2/src/dma/xaie_dma.c
@@ -275,8 +276,6 @@ XilinxProcessorIPLib/drivers/aienginev2/src/pm/xaie_reset.c
 XilinxProcessorIPLib/drivers/aienginev2/src/pm/xaie_reset.h
 XilinxProcessorIPLib/drivers/aienginev2/src/pm/xaie_reset_aie.c
 XilinxProcessorIPLib/drivers/aienginev2/src/pm/xaie_reset_aie.h
-XilinxProcessorIPLib/drivers/aienginev2/src/sim/xaiesim.c
-XilinxProcessorIPLib/drivers/aienginev2/src/sim/xaiesim.h
 XilinxProcessorIPLib/drivers/aienginev2/src/stream_switch/xaie_ss.c
 XilinxProcessorIPLib/drivers/aienginev2/src/stream_switch/xaie_ss.h
 XilinxProcessorIPLib/drivers/aienginev2/src/timer/xaie_timer.c
@@ -325,7 +324,6 @@ XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_i.h
 XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_intr.c
 XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_porting_guide.h
 XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma_sinit.c
-XilinxProcessorIPLib/drivers/axicdma/src/xdebug.h
 XilinxProcessorIPLib/drivers/axidma/data/axidma.mdd
 XilinxProcessorIPLib/drivers/axidma/data/axidma.tcl
 XilinxProcessorIPLib/drivers/axidma/data/axidma_header.h
@@ -345,12 +343,9 @@ XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.c
 XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h
 XilinxProcessorIPLib/drivers/axidma/src/xaxidma_g.c
 XilinxProcessorIPLib/drivers/axidma/src/xaxidma_hw.h
-XilinxProcessorIPLib/drivers/axidma/src/xaxidma_linux.h
 XilinxProcessorIPLib/drivers/axidma/src/xaxidma_porting_guide.h
 XilinxProcessorIPLib/drivers/axidma/src/xaxidma_selftest.c
 XilinxProcessorIPLib/drivers/axidma/src/xaxidma_sinit.c
-XilinxProcessorIPLib/drivers/axidma/src/xaxidma_status.h
-XilinxProcessorIPLib/drivers/axidma/src/xdebug.h
 XilinxProcessorIPLib/drivers/axiethernet/data/axiethernet.mdd
 XilinxProcessorIPLib/drivers/axiethernet/data/axiethernet.tcl
 XilinxProcessorIPLib/drivers/axiethernet/data/axiethernet_fifo_intr_header.h
@@ -383,7 +378,6 @@ XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet_g.c
 XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet_hw.h
 XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet_porting_guide.h
 XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet_sinit.c
-XilinxProcessorIPLib/drivers/axiethernet/src/xdebug.h
 XilinxProcessorIPLib/drivers/axipcie/data/axipcie.mdd
 XilinxProcessorIPLib/drivers/axipcie/data/axipcie.tcl
 XilinxProcessorIPLib/drivers/axipcie/examples/xaxipcie_ep_cdma_example.c
@@ -435,7 +429,6 @@ XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_intr.c
 XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_porting_guide.h
 XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_selftest.c
 XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_sinit.c
-XilinxProcessorIPLib/drivers/axivdma/src/xdebug.h
 XilinxProcessorIPLib/drivers/board_common/data/board_common.mdd
 XilinxProcessorIPLib/drivers/board_common/src/rfclk/examples/xrfclk_example_app.c
 XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c
@@ -1585,7 +1578,6 @@ XilinxProcessorIPLib/drivers/llfifo/data/llfifo.mdd
 XilinxProcessorIPLib/drivers/llfifo/data/llfifo.tcl
 XilinxProcessorIPLib/drivers/llfifo/examples/xllfifo_interrupt_example.c
 XilinxProcessorIPLib/drivers/llfifo/examples/xllfifo_polling_example.c
-XilinxProcessorIPLib/drivers/llfifo/src/xdebug.h
 XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c
 XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h
 XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_g.c
@@ -1616,10 +1608,8 @@ XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h
 XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_g.c
 XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h
 XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_intr.c
-XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_linux.h
 XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_selftest.c
 XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_sinit.c
-XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_status.h
 XilinxProcessorIPLib/drivers/mig/data/mig.mdd
 XilinxProcessorIPLib/drivers/mig/data/mig.tcl
 XilinxProcessorIPLib/drivers/mig/src/xmig.h
@@ -3440,6 +3430,14 @@ lib/sw_apps/openamp_rpc_demo/data/openamp_rpc_demo.mss
 lib/sw_apps/openamp_rpc_demo/data/openamp_rpc_demo.tcl
 lib/sw_apps/rsa_auth_app/src/rsa_auth_app.c
 lib/sw_apps/rsa_auth_app/src/rsa_auth_app.h
+lib/sw_apps/srec_spi_bootloader/data/srec_spi_bootloader.tcl
+lib/sw_apps/srec_spi_bootloader/src/blconfig.h
+lib/sw_apps/srec_spi_bootloader/src/bootloader.c
+lib/sw_apps/srec_spi_bootloader/src/errors.h
+lib/sw_apps/srec_spi_bootloader/src/platform.c
+lib/sw_apps/srec_spi_bootloader/src/portab.h
+lib/sw_apps/srec_spi_bootloader/src/srec.c
+lib/sw_apps/srec_spi_bootloader/src/srec.h
 lib/sw_apps/versal_plm/data/versal_plm.mss
 lib/sw_apps/versal_plm/data/versal_plm.tcl
 lib/sw_apps/versal_plm/misc/bspconfig.h
@@ -3452,10 +3450,7 @@ lib/sw_apps/versal_plm/misc/xgpiops_g.c
 lib/sw_apps/versal_plm/misc/xiicps_g.c
 lib/sw_apps/versal_plm/misc/xiomodule_g.c
 lib/sw_apps/versal_plm/misc/xipipsu_g.c
-lib/sw_apps/versal_plm/misc/xpm_board.c
-lib/sw_apps/versal_plm/misc/xpm_board.h
-lib/sw_apps/versal_plm/misc/xpm_pmbus.c
-lib/sw_apps/versal_plm/misc/xpm_pmbus.h
+lib/sw_apps/versal_plm/misc/xospipsv_g.c
 lib/sw_apps/versal_plm/misc/xpmonpsv_g.c
 lib/sw_apps/versal_plm/misc/xqspipsu_g.c
 lib/sw_apps/versal_plm/misc/xrtcpsu_g.c
@@ -4087,11 +4082,11 @@ lib/sw_services/xilsecure/src/common/xsecure_utils.h
 lib/sw_services/xilsecure/src/versal/xsecure_aes.c
 lib/sw_services/xilsecure/src/versal/xsecure_aes.h
 lib/sw_services/xilsecure/src/versal/xsecure_aes_core_hw.h
-lib/sw_services/xilsecure/src/versal/xsecure_ecdsa.c
-lib/sw_services/xilsecure/src/versal/xsecure_ecdsa.h
 lib/sw_services/xilsecure/src/versal/xsecure_ecdsa_rsa_hw.h
-lib/sw_services/xilsecure/src/versal/xsecure_ecdsacrvs.c
-lib/sw_services/xilsecure/src/versal/xsecure_ecdsacrvs.h
+lib/sw_services/xilsecure/src/versal/xsecure_elliptic.c
+lib/sw_services/xilsecure/src/versal/xsecure_elliptic.h
+lib/sw_services/xilsecure/src/versal/xsecure_ellipticcrvs.c
+lib/sw_services/xilsecure/src/versal/xsecure_ellipticcrvs.h
 lib/sw_services/xilsecure/src/versal/xsecure_error.h
 lib/sw_services/xilsecure/src/versal/xsecure_init.c
 lib/sw_services/xilsecure/src/versal/xsecure_init.h

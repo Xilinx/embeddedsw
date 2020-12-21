@@ -29,16 +29,15 @@
 *		      (CR 691867)
 * 9.7   rsp  04/25/18 In XAxiDma_Config add SG length width.
 * 9.8   rsp  07/18/18 Sync XAxiDma_Config initializer fields
-* 9.12  vak  08/21/20 Update the code to add LIBMETAL APIs support.
 *
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xaxidma.h"
-#ifdef __BAREMETAL__
+
 #include "xparameters.h"
+#include "xaxidma.h"
 
 /************************** Constant Definitions *****************************/
 #define XPAR_AXIDMA_0_INCLUDE_SG	0
@@ -65,7 +64,4 @@ XAxiDma_Config XAxiDma_ConfigTable[] =
 		XPAR_AXIDMA_0_SG_LENGTH_WIDTH
 	}
 };
-#else
-XAxiDma_Config XAxiDma_ConfigTable;
-#endif
 /** @} */

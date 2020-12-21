@@ -7,6 +7,9 @@
 /**
 *
 * @file xsecure_rsa_core.h
+* @addtogroup xsecure_rsa_versal_apis XilSecure RSA Versal APIs
+* @{
+* @cond xsecure_internal
 * This file contains Versal specific RSA core APIs.
 *
 * <pre>
@@ -24,9 +27,11 @@
 * 4.3   har  06/17/20 Removed references to unused algorithms
 *       am   09/24/20 Resolved MISRA C violations
 *       har  10/12/20 Addressed security review comments
+*       ana  10/15/20 Updated doxygen tags
 *
 * </pre>
 *
+* @endcond
 ******************************************************************************/
 
 #ifndef XSECURE_RSA_CORE_H
@@ -152,3 +157,5 @@ int XSecure_RsaZeroize(const XSecure_Rsa *InstancePtr);
 #endif
 
 #endif /* XSECURE_RSA_CORE_H */
+
+/* @} */

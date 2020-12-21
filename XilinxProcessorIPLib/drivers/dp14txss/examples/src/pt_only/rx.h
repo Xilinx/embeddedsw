@@ -74,7 +74,7 @@
 /* DP Specific Defines
  */
 #ifdef versal
-#define DPRXSS_LINK_RATE        XDPRXSS_LINK_BW_SET_540GBPS
+#define DPRXSS_LINK_RATE        XDPRXSS_LINK_BW_SET_810GBPS
 #else
 #define DPRXSS_LINK_RATE        XDPRXSS_LINK_BW_SET_810GBPS
 #endif

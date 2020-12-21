@@ -7,7 +7,7 @@
 /**
 *
 * @file xsecure_rsa.h
-* @addtogroup xsecure_rsa_apis XilSecure RSA APIs
+* @addtogroup xsecure_rsa_common_apis XilSecure RSA Common APIs
 * @{
 * @cond xsecure_internal
 * This file contains hardware interface related information for RSA device
@@ -59,6 +59,7 @@
 *       rpo  09/10/20 Added error code
 * 4.3   am   09/24/20 Resolved MISRA C violations
 *       har  10/12/20 Addressed security review comments
+*       ana  10/15/20 Updated doxygen tags
 *
 * </pre>
 *

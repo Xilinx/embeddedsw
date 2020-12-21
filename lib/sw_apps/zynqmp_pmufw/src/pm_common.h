@@ -32,12 +32,26 @@ extern "C" {
  */
 #ifndef bool
 	typedef u8 bool;
-	#define true	1U
-	#define false	0U
+	#define true	(bool)1U
+	#define false	(bool)0U
 #endif
 
 typedef u32 (*const PmTranHandler)(void);
+
 typedef struct PmNode PmNode;
+typedef struct PmMaster PmMaster;
+typedef struct PmRequirement PmRequirement;
+typedef struct PmPower PmPower;
+typedef struct PmPowerClass PmPowerClass;
+typedef struct PmClockHandle PmClockHandle;
+typedef struct PmSlave PmSlave;
+typedef struct PmProc PmProc;
+typedef struct PmNodeClass PmNodeClass;
+typedef struct PmClockClass PmClockClass;
+typedef struct PmSlaveTcm PmSlaveTcm;
+typedef struct PmReset PmReset;
+typedef struct PmSlaveClass PmSlaveClass;
+typedef struct PmWakeEvent PmWakeEvent;
 
 /*********************************************************************
  * Macros
@@ -159,7 +173,7 @@ typedef struct PmNode PmNode;
 /* Number of payload elements (api id and api's arguments) */
 #define PAYLOAD_ELEM_CNT		(PAYLOAD_API_ID + PAYLOAD_API_ARGS_CNT)
 
-#define MASK_OF_BITS(bits)		((1U << (bits)) - 1U)
+#define MASK_OF_BITS(bits)		(((u32)1 << (bits)) - 1U)
 
 /*********************************************************************
  * Structure definitions

@@ -20,9 +20,11 @@
 *                         API to use microsecond timeout instead of a free
 *                         counter.
 * 7.3   kal      06/30/20 Converted Xil_Ceil macro to API.
-*	rpo  	 08/19/20 Added function for read,modify,write
-*	kal	 09/22/20 Changed the param type from const char to const char*
-*			  to avoid copying key onto stack
+*		rpo  	 08/19/20 Added function for read,modify,write
+*		kal	 	 09/22/20 Changed the param type from const char to const char*
+*			  			  to avoid copying key onto stack
+*		td	 	 10/16/20 Added Xil_Strcpy, Xil_Strcat, Xil_SecureMemCpy and
+*						  Xil_MemCmp functions
 *
 * </pre>
 *
@@ -498,4 +500,177 @@ void Xil_UtilRMW32(u32 Addr, u32 Mask, u32 Value)
 	Val = Xil_In32(Addr);
 	Val = (Val & (~Mask)) | (Mask & Value);
 	Xil_Out32(Addr, Val);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This functions copies source string to destination string. This
+ * 			function is a safe version of strcpy
+ *
+ * @param	DestPtr is pointer to destination string
+ * @param	SrcPtr is pointer to source string
+ * @param	Size is the maximum number of bytes of the source string
+ *			to be copied
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ ******************************************************************************/
+int Xil_Strcpy(char *DestPtr, const char *SrcPtr, const u32 Size)
+{
+	int Status = XST_FAILURE;
+	u32 Count;
+
+	if ((SrcPtr == NULL) || (DestPtr == NULL) || (Size == 0U)) {
+		goto END;
+	}
+
+	for (Count = 0U; (SrcPtr[Count] != '\0') && (Count < Size); ++Count) {
+		DestPtr[Count] = SrcPtr[Count];
+	}
+	if (Count == Size) {
+		DestPtr[0U] = '\0';
+		goto END;
+	}
+	DestPtr[Count] = '\0';
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function appends string2 to string1. This function is a safe
+ * 			version of strcat
+ *
+ * @param	Str1Ptr is pointer to string1
+ * @param	Str2Ptr is pointer to string2
+ * @param	Size is the maximum number of bytes Str1 can hold
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ ******************************************************************************/
+int Xil_Strcat(char* Str1Ptr, const char* Str2Ptr, const u32 Size)
+{
+	int Status = XST_FAILURE;
+	u32 Count = 0U;
+	u32 CountTmp = 0U;
+
+	if ((Str1Ptr == NULL) || (Str2Ptr == NULL) || (Size == 0U)) {
+		goto END;
+	}
+
+	while ((Count < Size) && (Str1Ptr[Count] != '\0')) {
+		Count++;
+	}
+
+	while ((Str2Ptr[CountTmp] != '\0') && (Count < Size)) {
+		Str1Ptr[Count++] = Str2Ptr[CountTmp++];
+	}
+	if (Count == Size) {
+		Str1Ptr[0U] = '\0';
+		goto END;
+	}
+	Str1Ptr[Count] = '\0';
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function copies Len bytes from source memory to destination
+ *			memory. If Len is greater than DestPtrLen, then DestPtr is also
+ *			filled with 0s till DestPtrLen bytes and is considered as a failure.
+ *			This function is a secure implementation of memcpy
+ *
+ * @param	DestPtr is pointer to destination address
+ * @param	DestPtrLen is the memory alloted to the destination buffer
+ * @param	SrcPtr is pointer to source address
+ * @param	Len is number of bytes to be copied
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ ******************************************************************************/
+int Xil_SecureMemCpy(void * DestPtr, u32 DestPtrLen, const void * SrcPtr, u32 Len)
+{
+	int Status = XST_FAILURE;
+	u8 *Dest = (u8 *)DestPtr;
+	const u8 *Src = (const u8 *)SrcPtr;
+
+	if ((DestPtr == NULL) || (SrcPtr == NULL)) {
+		goto END;
+	}
+
+	if (Len > DestPtrLen) {
+		while (DestPtrLen != 0U) {
+			*Dest = 0U;
+			Dest++;
+			DestPtrLen--;
+		}
+		goto END;
+	}
+
+	/* Loop and copy.  */
+	while (Len != 0U) {
+		*Dest = *Src;
+		Dest++;
+		Src++;
+		Len--;
+	}
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function compares Len bytes from memory1 and memory2. This
+ * 			function is a secure implementation of memcmp
+ *
+ * @param	Buf1Ptr is pointer to memory1
+ * @param	Buf2Ptr is pointer to memory2
+ * @param	Len is number of byets to be compared
+ *
+ * @return	0 if contents of both the memory regions are same,
+ * 			-1 if first non-matching character has lower value in Buf1Ptr
+ * 			1 if first non-matching character is greater value in Buf1Ptr
+ *
+ ******************************************************************************/
+int Xil_MemCmp(const void * Buf1Ptr, const void * Buf2Ptr, u32 Len)
+{
+	volatile int RetVal = 1;
+	const u8 *Buf1 = Buf1Ptr;
+	const u8 *Buf2 = Buf2Ptr;
+	u32 Size = Len;
+
+	/* Assert validates the input arguments */
+	if ((Buf1 == NULL) || (Buf2 == NULL) || (Len == 0x0U)) {
+		goto END;
+	}
+
+	/* Loop and compare */
+	while (Size != 0U) {
+		if (*Buf1 > *Buf2) {
+			RetVal = 1;
+			goto END;
+		} else if (*Buf1 < *Buf2) {
+			RetVal = -1;
+			goto END;
+		} else {
+			Buf1++;
+			Buf2++;
+			Size--;
+		}
+	}
+
+	/* Make sure size is zero to know the whole of data is compared */
+	if (Size == 0U) {
+		RetVal = 0;
+	}
+
+END:
+	return RetVal;
 }

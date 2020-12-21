@@ -94,6 +94,7 @@
 * 2.0   aad    07/31/20 Added new APIs to set threshold values, alarm
 *                       config and modes for temperature and voltages.
 *                       Added new interrupt handling structure.
+*       aad    10/12/20 Fixed MISRAC violations
 *
 * </pre>
 *
@@ -114,15 +115,15 @@ extern "C" {
 #include "xsysmonpsv_hw.h"
 #include "xsysmonpsv_supplylist.h"
 /************************** Constant Definitions *****************************/
-#define XSYSMONPSV_MAX_SUPPLIES		160
-#define XSYSMONPSV_INVALID_SUPPLY	160
-#define XSYSMONPSV_PMBUS_INTERFACE	0
-#define XSYSMONPSV_I2C_INTERFACE	1
-#define XSYSMONPSV_INVALID		0x80000000
-#define XSYSMONPSV_MAX_SUPPLY_REG	0xA0
-#define XSYSMONPSV_EXPONENT_RANGE_16	16
-#define XSYSMONPSV_QFMT_SIGN		15
-#define XSYSMONPSV_QFMT_FRACTION	7
+#define XSYSMONPSV_MAX_SUPPLIES		160U
+#define XSYSMONPSV_INVALID_SUPPLY	160U
+#define XSYSMONPSV_PMBUS_INTERFACE	0U
+#define XSYSMONPSV_I2C_INTERFACE	1U
+#define XSYSMONPSV_INVALID		0x80000000U
+#define XSYSMONPSV_MAX_SUPPLY_REG	0xA0U
+#define XSYSMONPSV_EXPONENT_RANGE_16	16U
+#define XSYSMONPSV_QFMT_SIGN		15U
+#define XSYSMONPSV_QFMT_FRACTION	128
 #define XSYSMONPSV_UP_SAT_SIGNED	32767
 #define XSYSMONPSV_UP_SAT		65535
 #define XSYSMONPSV_LOW_SAT_SIGNED	-32767
@@ -131,10 +132,10 @@ extern "C" {
 #define XSYSMONPSV_BIPOLAR_LOW_SAT	0x8000
 #define XSYSMONPSV_UNIPOLAR_UP_SAT	0xFFFF
 #define XSYSMONPSV_UNIPOLAR_LOW_SAT	0x0000
-#define XSYSMONPSV_ENABLE		1
-#define XSYSMONPSV_DISABLE		0
-#define XSYSMONPSV_HYSTERESIS		1
-#define XSYSMONPSV_WINDOW		0
+#define XSYSMONPSV_ENABLE		1U
+#define XSYSMONPSV_DISABLE		0U
+#define XSYSMONPSV_HYSTERESIS		1U
+#define XSYSMONPSV_WINDOW		0U
 
 /**************************** Type Definitions *******************************/
 
@@ -202,7 +203,7 @@ typedef enum {
  * @{
  */
 typedef struct {
-	u32 BaseAddress;	/**< Register base address */
+	UINTPTR BaseAddress;	/**< Register base address */
 	u8 Supply_List[XSYSMONPSV_MAX_SUPPLIES];/**< Maps voltage supplies in
                                                   use to the Supply registers */
 } XSysMonPsv_Config;
@@ -261,7 +262,7 @@ typedef struct {
 *
 *****************************************************************************/
 #define XSysMonPsv_GetAlarmMask(InstancePtr, Supply)		\
-	Mask = 1 << (InstancePtr->Supply_List[Supply]/32)
+	Mask = 1U << (InstancePtr->Supply_List[Supply]/32U)
 
 /****************************************************************************/
 /**
@@ -277,7 +278,7 @@ typedef struct {
 *****************************************************************************/
 static inline float XSysMonPsv_RawToVoltage(u32 AdcData)
 {
-	int Mantissa, Scale, Format, Exponent;
+	u32 Mantissa, Scale, Format, Exponent;
 
 	Mantissa = AdcData & XSYSMONPSV_SUPPLY_MANTISSA_MASK;
 	Exponent = (AdcData & XSYSMONPSV_SUPPLY_MODE_MASK) >>
@@ -288,9 +289,9 @@ static inline float XSysMonPsv_RawToVoltage(u32 AdcData)
 	/* Calculate the exponent
 	 * 2^(16-Exponent)
 	 */
-	Scale = (1 << (XSYSMONPSV_EXPONENT_RANGE_16 - Exponent));
-	if(Format & (Mantissa  >> XSYSMONPSV_SUPPLY_MANTISSA_SIGN)) {
-		return	((float)Mantissa/(float)Scale) - 1;
+	Scale = ((u32)1U << (XSYSMONPSV_EXPONENT_RANGE_16 - Exponent));
+	if ((Format & (Mantissa  >> XSYSMONPSV_SUPPLY_MANTISSA_SIGN)) == 1U) {
+		return	((float)Mantissa/(float)Scale) - 1.0f;
 	}
 	else {
 		return (float)Mantissa/(float)Scale;
@@ -316,32 +317,37 @@ static inline u16 XSysMonPsv_VoltageToRaw(float Volts,
 					  XSysMonPsv_VoltageScale Type)
 {
 	u32 Format = 0;
-	u32 Exponent = 16;
+	u32 Exponent = 16U;
 	u32 Scale;
 	int TmpVal;
+	float TmpFloat;
 
-	if (Type != XSYSMONPSV_1V_BIPOLAR)
-		Exponent -= Type;
-	else
-		Format = 1;
-
-	Scale = 1 << (16 - Exponent);
-	TmpVal = (Volts * Scale);
-
-
-	if(Format) {
-		if (TmpVal > XSYSMONPSV_UP_SAT_SIGNED)
-			TmpVal = XSYSMONPSV_BIPOLAR_UP_SAT;
-		else if (TmpVal < XSYSMONPSV_LOW_SAT_SIGNED)
-			TmpVal = XSYSMONPSV_BIPOLAR_LOW_SAT;
+	if (Type != XSYSMONPSV_1V_BIPOLAR) {
+		Exponent -= (u32)Type;
 	} else {
-		if (TmpVal > XSYSMONPSV_UP_SAT)
-			TmpVal = XSYSMONPSV_UNIPOLAR_UP_SAT;
-		else if (TmpVal < XSYSMONPSV_LOW_SAT)
-			TmpVal = XSYSMONPSV_UNIPOLAR_LOW_SAT;
+		Format = 1U;
 	}
 
-	return TmpVal & 0xFFFF;
+	Scale = ((u32)1U << (16U - Exponent));
+	TmpFloat = (Volts * (float)Scale);
+
+	TmpVal = (int) TmpFloat;
+
+	if(Format == 1U) {
+		if (TmpVal > XSYSMONPSV_UP_SAT_SIGNED) {
+			TmpVal = XSYSMONPSV_BIPOLAR_UP_SAT;
+		} else if (TmpVal < XSYSMONPSV_LOW_SAT_SIGNED) {
+			TmpVal = XSYSMONPSV_BIPOLAR_LOW_SAT;
+		}
+	} else {
+		if (TmpVal > XSYSMONPSV_UP_SAT) {
+			TmpVal = XSYSMONPSV_UNIPOLAR_UP_SAT;
+		} else if (TmpVal < XSYSMONPSV_LOW_SAT) {
+			TmpVal = XSYSMONPSV_UNIPOLAR_LOW_SAT;
+		}
+	}
+
+	return (u16)((u32)TmpVal & 0xFFFFU);
 }
 
 /****************************************************************************/
@@ -360,14 +366,14 @@ static inline float XSysMonPsv_FixedToFloat(u32 FixedQFmt)
 {
 	u32 TwosComp;
 	float Temperature;
-	if(FixedQFmt >> XSYSMONPSV_QFMT_SIGN) {
-		TwosComp = (~(FixedQFmt) + 1) & (0x000FFFF);
-		Temperature = ((float)((TwosComp) /
-			(float)(1 << XSYSMONPSV_QFMT_FRACTION)) * (-1.0));
+	if((FixedQFmt >> XSYSMONPSV_QFMT_SIGN) > 0U) {
+		TwosComp = (~(FixedQFmt) + 1U) & (0x000FFFFU);
+		Temperature = (float)(TwosComp) /
+			((float)XSYSMONPSV_QFMT_FRACTION * (-1.0f));
 	}
 	else {
 		Temperature = (float)FixedQFmt /
-			(float)(1 << XSYSMONPSV_QFMT_FRACTION);
+			((float)XSYSMONPSV_QFMT_FRACTION * (1.0f));
 	}
 	return Temperature;
 }
@@ -386,13 +392,19 @@ static inline float XSysMonPsv_FixedToFloat(u32 FixedQFmt)
 *****************************************************************************/
 static inline u16 XSysMonPsv_FloatToFixed(float Temp)
 {
-	return (u16) (Temp * (1U << 7));
+	float ScaledDown;
+	int RawAdc;
+
+	ScaledDown = (float)(Temp * 128.0f);
+	RawAdc = (int)ScaledDown;
+
+	return (u16)RawAdc;
 }
 
 /************************** Function Prototypes ******************************/
 
 /* Functions in xsysmonpsv.c */
-s32 XSysMonPsv_CfgInitialize(XSysMonPsv *InstancePtr, XSysMonPsv_Config *CfgPtr);
+s64 XSysMonPsv_CfgInitialize(XSysMonPsv *InstancePtr, XSysMonPsv_Config *CfgPtr);
 void XSysMonPsv_SystemReset(XSysMonPsv *InstancePtr);
 void XSysMonPsv_EnRegGate(XSysMonPsv *InstancePtr, u8 Enable);
 void XSysMonPsv_SetPMBusAddress(XSysMonPsv *InstancePtr, u8 Address);
@@ -450,8 +462,6 @@ void XSysMonPsv_SetSupplyEventHandler(XSysMonPsv *InstancePtr,
 				      XSysMonPsv_Handler CallbackFunc,
 				      void *CallbackRef);
 void XSysMonPsv_AlarmEventHandler(XSysMonPsv *InstancePtr);
-/* Functions in xsysmonpsv_selftest.c */
-s32 XSysMonPsv_SelfTest(XSysMonPsv *InstancePtr);
 
 /* Functions in xsysmonpsv_sinit.c */
 XSysMonPsv_Config *XSysMonPsv_LookupConfig(void);

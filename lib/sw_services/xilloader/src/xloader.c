@@ -73,6 +73,7 @@
 *       bsv  10/13/2020 Code clean up
 *       kpt  10/19/2020 Renamed XLoader_UpdateKekRdKeyStatus to
 *                       XLoader_UpdateKekSrc
+*       td	 10/19/2020 MISRA C Fixes
 *
 * </pre>
 *
@@ -1176,7 +1177,12 @@ int XLoader_StoreImageInfo(XLoader_ImageInfo *ImageInfo)
 		ImageInfoTbl.Count++;
 	}
 	ChangeCount++;
-	(void)memcpy(ImageEntry, ImageInfo, sizeof(XLoader_ImageInfo));
+	Status = Xil_SecureMemCpy(ImageEntry, sizeof(XLoader_ImageInfo), ImageInfo,
+			sizeof(XLoader_ImageInfo));
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_MEMCPY_IMAGE_INFO, Status);
+		goto END;
+	}
 
 	/* Update ChangeCount and number of entries in the RunTime config register */
 	RtCfgLen = (ImageInfoTbl.Count & XPLMI_RTCFG_IMGINFOTBL_NUM_ENTRIES_MASK);

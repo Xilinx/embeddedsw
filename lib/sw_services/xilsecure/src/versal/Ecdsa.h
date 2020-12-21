@@ -92,24 +92,24 @@ typedef struct {
 	const u8* const d13;		
 } EcdsaCrvInfo;
 
-#define ECDSA_SUCCESS					(0x0)
+#define ELLIPTIC_SUCCESS					(0x0)
 // Validate Public Key error codes
-#define ECDSA_KEY_ZERO					(0x1)
-#define ECDSA_KEY_WRONG_ORDER				(0x2)
-#define ECDSA_KEY_NOT_ON_CRV				(0x3)
+#define ELLIPTIC_KEY_ZERO					(0x1)
+#define ELLIPTIC_KEY_WRONG_ORDER				(0x2)
+#define ELLIPTIC_KEY_NOT_ON_CRV				(0x3)
 
 // Verify Sign error codes
-#define ECDSA_BAD_SIGN					(0x1)
-#define ECDSA_VER_SIGN_INCORRECT_HASH_LEN		(0x2)
-#define ECDSA_VER_SIGN_R_ZERO				(0x3)
-#define ECDSA_VER_SIGN_S_ZERO				(0x4)
-#define ECDSA_VER_SIGN_R_ORDER_ERROR			(0x5)
-#define ECDSA_VER_SIGN_S_ORDER_ERROR			(0x6)
+#define ELLIPTIC_BAD_SIGN					(0x1)
+#define ELLIPTIC_VER_SIGN_INCORRECT_HASH_LEN		(0x2)
+#define ELLIPTIC_VER_SIGN_R_ZERO				(0x3)
+#define ELLIPTIC_VER_SIGN_S_ZERO				(0x4)
+#define ELLIPTIC_VER_SIGN_R_ORDER_ERROR			(0x5)
+#define ELLIPTIC_VER_SIGN_S_ORDER_ERROR			(0x6)
 
 // Generate sign error codes
-#define ECDSA_GEN_SIGN_BAD_R				(0x1)
-#define ECDSA_GEN_SIGN_BAD_S				(0x2)
-#define ECDSA_GEN_SIGN_INCORRECT_HASH_LEN		(0x3)
+#define ELLIPTIC_GEN_SIGN_BAD_R				(0x1)
+#define ELLIPTIC_GEN_SIGN_BAD_S				(0x2)
+#define ELLIPTIC_GEN_SIGN_INCORRECT_HASH_LEN		(0x3)
  
 
 

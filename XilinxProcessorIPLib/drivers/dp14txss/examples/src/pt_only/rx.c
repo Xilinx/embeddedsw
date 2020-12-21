@@ -38,6 +38,14 @@ extern u8 tx_after_rx;
 extern u8 tx_done;
 extern void mask_intr (void);
 
+#ifdef versal
+#if (VERSAL_FABRIC_8B10B == 1)
+extern XClk_Wiz_Config *CfgPtr_Dynamic_rx;
+extern XClk_Wiz ClkWiz_Dynamic_rx;
+#endif
+#endif
+
+
 //extern u8 audio_info_avail;
 u32 infofifo[64]; //RX and TX can store upto 4 infoframes each. fifo of 8
 u8 endindex = 0;
@@ -599,31 +607,129 @@ void DpRxSs_LinkBandwidthHandler(void *InstancePtr)
 	u8 bridge;
 	u32 retry = 0;
 	u32 dprx_sts=0;
-	u32 lanes=0,rate=0;
+	u32 rate=0;
+	u32 HighTime;
+	u32 DivEdge;
+	u32 Reg;
+	u32 P5Enable;
+	u32 P5fEdge;
+	u16 Oval;
+	u16 Dval;
+	u16 Mval;
 
-    if (DpRxSsInst.UsrOpt.LinkRate == 0x1E) {
-                    bridge = 3;
-    } else if (DpRxSsInst.UsrOpt.LinkRate == 0x14) {
-                    bridge = 2;
-    } else if (DpRxSsInst.UsrOpt.LinkRate == 0xA) {
-                    bridge = 1;
+	/* For each line rate, the M, D, Div values for MMCM are chosen such that
+	 * MMCM gives a /20 clock output for /16 clk input.
+	 *
+	 * GT ch0outclk (/16) --> MMCM --> /20 clock
+	 *
+	 * Thus:
+	 * 8.1G  : Input MMCM clock is 506.25, output is 405
+	 * 5.4G  : Input MMCM clock is 337.5, output is 270
+	 * 2.7G  : Input MMCM clock is 168.75, output is 135
+	 * 1.62G : Input MMCM clock is 101.25, output is 81
+	 */
+
+    if (DpRxSsInst.UsrOpt.LinkRate == XDP_TX_LINK_BW_SET_810GBPS) {
+		bridge = VERSAL_810G;
+		Mval = 28;
+		Dval = 5;
+		Oval = 7;
+    } else if (DpRxSsInst.UsrOpt.LinkRate == XDP_TX_LINK_BW_SET_540GBPS) {
+		bridge = VERSAL_540G;
+		Mval = 44;
+		Dval = 5;
+		Oval = 11;
+    } else if (DpRxSsInst.UsrOpt.LinkRate == XDP_TX_LINK_BW_SET_270GBPS) {
+		bridge = VERSAL_270G;
+		Mval = 88;
+		Dval = 5;
+		Oval = 22;
     } else {
-                    bridge = 0;
+		bridge = VERSAL_162G;
+		Mval = 148;
+		Dval = 5;
+		Oval = 37;
     }
 
+#if (VERSAL_FABRIC_8B10B == 1)
+    /* MMCM is dynamically programmed for the respective rate
+     * using the M, D, Div values
+     */
+	HighTime = (Oval / 4);
+	Reg =  XCLK_WIZ_REG3_PREDIV2 | XCLK_WIZ_REG3_USED | XCLK_WIZ_REG3_MX;
+	if (Oval % 4 <= 1) {
+		DivEdge = 0;
+	} else {
+		DivEdge = 1;
+	}
+	Reg |= (DivEdge << 8);
+	P5fEdge = Oval % 2;
+	P5Enable = Oval % 2;
+	Reg = Reg | P5Enable << XCLK_WIZ_CLKOUT0_P5EN_SHIFT | P5fEdge << XCLK_WIZ_CLKOUT0_P5FEDGE_SHIFT;
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG3_OFFSET, Reg);
+	Reg = HighTime | HighTime << 8;
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG4_OFFSET, Reg);
+
+	/* Implement D */
+	HighTime = (Dval / 2);
+	Reg  = 0;
+	Reg = Reg & ~(1 << XCLK_WIZ_REG12_EDGE_SHIFT);
+	DivEdge = Dval % 2;
+	Reg = Reg | DivEdge << XCLK_WIZ_REG12_EDGE_SHIFT;
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG12_OFFSET, Reg);
+	Reg = HighTime | HighTime << 8;
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG13_OFFSET, Reg);
+
+	/* Implement M*/
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG25_OFFSET, 0);
+
+	DivEdge = Mval % 2;
+	HighTime = Mval / 2;
+	Reg = HighTime | HighTime << 8;
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG2_OFFSET, Reg);
+	Reg = XCLK_WIZ_REG1_PREDIV2 | XCLK_WIZ_REG1_EN | XCLK_WIZ_REG1_MX;
+
+	if (DivEdge) {
+		Reg = Reg | (1 << XCLK_WIZ_REG1_EDGE_SHIFT);
+	} else {
+		Reg = Reg & ~(1 << XCLK_WIZ_REG1_EDGE_SHIFT);
+	}
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG1_OFFSET, Reg);
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG11_OFFSET, 0x2e);
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG14_OFFSET, 0xe80);
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG15_OFFSET, 0x4271);
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG16_OFFSET, 0x43e9);
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG17_OFFSET, 0x001C);
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG26_OFFSET, 0x0001);
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_RECONFIG_OFFSET, 0x3);
+#endif
+
     rate = bridge << 1;
-    GtCtrl (GT_RATE_MASK, rate, 0); //bridge << 1); //rate
+    GtCtrl (GT_RATE_MASK, rate, 0);
     dprx_sts = 0;
-	while (dprx_sts != 0x00000011 && retry < 10000) {
+	while (dprx_sts != ALL_LANE && retry < 10000) {
 		 dprx_sts = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x208);
-		 dprx_sts &= 0x00000011;
+		 dprx_sts &= ALL_LANE;
 		 retry++;
-	//        xil_printf ("tmp is %d\r\n", tmp);
 	}
 	if (retry == 10000) {
 		xil_printf ("+++ RX GT Configuration failure ++++\r\n");
 	}
-
+#if (VERSAL_FABRIC_8B10B == 1)
+	retry = 0;
+	/* MMCM issued a reset */
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, 0x0, 0xA);
+	while(!(XClk_Wiz_ReadReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_STATUS_OFFSET) & 1)) {
+		if(retry == 10000) {
+				break;
+		}
+//					usleep(100);
+		retry++;
+	}
+	if (retry == 10000) {
+		xil_printf ("Rx Clk_wizard failed to lock\r\n");
+	}
+#endif
 #endif
 
 	DpRxSsInst.link_up_trigger = 0;

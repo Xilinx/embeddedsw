@@ -20,13 +20,6 @@ extern "C" {
 #include "pm_common.h"
 #include "pm_node.h"
 
-/* Forward declarations */
-typedef struct PmMaster PmMaster;
-typedef struct PmRequirement PmRequirement;
-typedef struct PmSlave PmSlave;
-typedef struct PmSlaveClass PmSlaveClass;
-typedef struct PmWakeEvent PmWakeEvent;
-
 /*********************************************************************
  * Macros
  ********************************************************************/
@@ -58,10 +51,10 @@ typedef struct PmWakeEventClass {
  * @derived	Pointer to the derived structure
  * @class	Pointer to the class specific to the derived structure
  */
-typedef struct PmWakeEvent {
+struct PmWakeEvent {
 	void* const derived;
 	PmWakeEventClass* const class;
-} PmWakeEvent;
+};
 
 /**
  * PmStateTran - Transition for a state in finite state machine
@@ -102,24 +95,24 @@ typedef struct {
  * @flags       Slave's flags (bit 0: whether the slave is shareable (1) or
  *              exclusive (0) resource)
  */
-typedef struct PmSlave {
+struct PmSlave {
 	PmNode node;
 	PmSlaveClass* const class;
 	PmRequirement* reqs;
 	PmWakeEvent* const wake;
 	const PmSlaveFsm* slvFsm;
 	u8 flags;
-} PmSlave;
+};
 
 /**
  * PmSlaveClass - Slave class to model properties of PmSlave derived objects
  * @init	Initialize the slave
  * @forceDown	Force down specific to the slave
  */
-typedef struct PmSlaveClass {
+struct PmSlaveClass {
 	s32 (*const init)(PmSlave* const slave);
 	s32 (*const forceDown)(PmSlave* const slave);
-} PmSlaveClass;
+};
 
 /*********************************************************************
  * Global data declarations

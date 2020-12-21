@@ -12,7 +12,7 @@ extern "C" {
 #endif
 
 #include "xil_types.h"
-typedef struct PmSlave PmSlave;
+#include "pm_common.h"
 
 /*********************************************************************
  * Global data declarations

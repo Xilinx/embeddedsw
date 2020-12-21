@@ -22,6 +22,7 @@
 *       bsv  04/04/2020 Code clean up
 * 1.03  kc   07/28/2020 WDT support added to set PLM live status
 *       bm   10/14/2020 Code clean up
+*       td   10/19/2020 MISRA C Fixes
 *
 * </pre>
 *
@@ -171,7 +172,7 @@ void XPlmi_TaskDispatchLoop(void)
 		Node[Index] = &TaskQueue[Index];
 	}
 
-	while (1U) {
+	while (TRUE) {
 		Task = NULL;
 		XPlmi_SetPlmLiveStatus();
 

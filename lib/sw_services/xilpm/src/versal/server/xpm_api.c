@@ -413,7 +413,8 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 
 	/* First word of the response is status */
 	Cmd->Response[0] = (u32)Status;
-	Status = XPlmi_MemCpy(&Cmd->Response[1], sizeof(ApiResponse), ApiResponse, sizeof(ApiResponse));
+	Status = Xil_SecureMemCpy(&Cmd->Response[1], sizeof(ApiResponse),
+			ApiResponse, sizeof(ApiResponse));
 	if (XST_SUCCESS != Status) {
 		PmErr("Error 0x%x while copying the Cmd 0x%x return payload\r\n", Status, Cmd->CmdId);
 		goto done;
@@ -656,7 +657,7 @@ XStatus XPm_HookAfterPlmCdo(void)
 	u32 SysmonAddr;
 
 	/*
-	 * There is a silicon problem where on 2-4% of Versal ES1 S80 devices
+	 * There is a silicon problem where on 2-4% of Versal ES1 XCVC1902 devices
 	 * you can get 12A of VCCINT_PL current before CFI housecleaning is run.
 	 * The problem is eliminated when PL Vgg frame housecleaning is run
 	 * so we need to do that ASAP after PLM is loaded.

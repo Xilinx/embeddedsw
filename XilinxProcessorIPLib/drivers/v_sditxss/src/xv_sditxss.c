@@ -1169,6 +1169,46 @@ void XV_SdiTxSs_IntrDisable(XV_SdiTxSs *InstancePtr, u32 IntrMask)
 
 /*****************************************************************************/
 /**
+* This function is used to update the Eotf and colorimetry fields of stream
+* video structure. If SDI TX is already streaming, then this function updates
+* the payload registers.
+*
+* @param	InstancePtr pointer to XV_SdiTxSs instance
+* @param	Eotf is a variable of type XVidC_Eotf
+* @param	Colorimetry is a variable of type XVidC_ColorStd
+*
+* @return
+*		None.
+*
+* @note	None.
+*
+******************************************************************************/
+void XV_SdiTxSs_SetEotf(XV_SdiTxSs *InstancePtr, XVidC_Eotf Eotf,
+		XVidC_ColorStd Colorimetry)
+{
+	XV_SdiTx *SdiTxPtr;
+
+	/* Verify arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->SdiTxPtr != NULL);
+
+	SdiTxPtr = InstancePtr->SdiTxPtr;
+	SdiTxPtr->Stream[0].Video.Eotf = Eotf;
+	SdiTxPtr->Stream[0].Video.ColorStd = Colorimetry;
+
+	/* Update the Eotf into st352 payload registers, only if stream is Up */
+	if (InstancePtr->IsStreamUp) {
+		u32 payload = XV_SdiTx_GetPayloadEotf(SdiTxPtr, Eotf,
+						      Colorimetry);
+		for (u8 StreamId = 0; StreamId < XV_SDITX_MAX_DATASTREAM;
+		     StreamId++) {
+			XV_SdiTx_SetPayloadId(SdiTxPtr, StreamId, payload);
+		}
+	}
+}
+
+/*****************************************************************************/
+/**
 * This function calculates the final ST352 payload value for all SDI modes
 * with given video mode and SDI data stream number
 *

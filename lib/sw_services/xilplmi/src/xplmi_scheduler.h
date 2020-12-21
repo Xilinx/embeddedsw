@@ -21,6 +21,7 @@
 *       kc   02/17/2020 Added configurable priority for scheduler tasks
 *       bsv  04/04/2020 Code clean up
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
+*       td   10/19/2020 MISRA C Fixes
 *
 * </pre>
 *
@@ -65,7 +66,7 @@ typedef struct {
 	u32 Tick;
 } XPlmi_Scheduler_t ;
 
-int XPlmi_SchedulerInit(void);
+void XPlmi_SchedulerInit(void);
 void XPlmi_SchedulerHandler(void *Data);
 int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 		u32 MilliSeconds, TaskPriority_t Priority);

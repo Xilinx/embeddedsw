@@ -27,6 +27,7 @@
 *       		achieved by bit-wise operators.
 * 2.1	am   08/19/2020 Resolved MISRA C violations.
 * 	kal  09/03/2020 Fixed Security CoE review comments
+*	am   10/13/2020 Resolved MISRA C violations
 *
 * </pre>
 *
@@ -83,7 +84,7 @@ int XNvm_ValidateAesKey(const char *Key)
 		goto END;
 	}
 
-	Status = Xil_ValidateHexStr(Key);
+	Status = (int)Xil_ValidateHexStr(Key);
 END:
 	return Status;
 }
@@ -122,7 +123,7 @@ u32 XNvm_AesCrcCalc(const u32 *Key)
 		}
 
 		/* Get 5-bit from Address */
-		Value = XNVM_AES_KEY_SIZE_IN_WORDS - Idx;
+		Value = XNVM_AES_KEY_SIZE_IN_WORDS - (u32)Idx;
 		for (BitNo = 0U; BitNo < 5U; BitNo++) {
 			Temp1Crc = Crc >> 1U;
 			Temp2Crc = Temp1Crc ^ REVERSE_POLYNOMIAL;

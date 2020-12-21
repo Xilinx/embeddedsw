@@ -87,6 +87,7 @@
 *                       four LSBs of the CS Gain.
 *       cog    09/28/20 Added more DAC interrupts and fixed issue with
 *                       GetEnabledInterrupts.
+*       cog    10/14/20 Get I and Q data now supports warm bitstream swap.
 *
 *</pre>
 *
@@ -1932,7 +1933,8 @@ extern "C" {
 
 #define XRFDC_EN_MB_MASK 0x00000008U /**< multi-band adder mask */
 #define XRFDC_EN_MB_SHIFT 3U /** <Enable Multiband shift */
-#define XRFDC_ALT_BOND_MASK 0x0200 /** <Alt bondout mask */
+#define XRFDC_DAC_MB_SEL_MASK 0x0003U /** <Local and remote select mask */
+#define XRFDC_ALT_BOND_MASK 0x0200U /** <Alt bondout mask */
 #define XRFDC_ALT_BOND_SHIFT 9U /** <Alt bondout shift */
 #define XRFDC_ALT_BOND_CLKDP_MASK 0x4U /** <Alt bondout shift */
 #define XRFDC_ALT_BOND_CLKDP_SHIFT 2U /** <Alt bondout shift */

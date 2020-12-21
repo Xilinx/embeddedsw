@@ -7,7 +7,7 @@
 /**
 *
 * @file xmutex_sinit.c
-* @addtogroup mutex_v4_7
+* @addtogroup mutex_v4_6
 * @{
 *
 * Implements static initialization

@@ -276,7 +276,9 @@ u32 XHdmiC_TMDS_GetNVal(u32 TMDSCharRate,
 
 /**
 * This returns the Audio Sampling Rate and TMDS
-* Character Rate
+* Character Rate.
+*
+* This function is not expected to be called for CTS/N as 0.
 */
 XHdmiC_SamplingFrequency XHdmiC_TMDS_GetAudSampFreq(u32 TMDSCharRate,
 		u32 N, u32 CTSVal)
@@ -286,8 +288,6 @@ XHdmiC_SamplingFrequency XHdmiC_TMDS_GetAudSampFreq(u32 TMDSCharRate,
   u8 j = 0;
   u64 fs;
   u32 FsTol = 1000; /* Max Fs tolerance limit */
-
-  Xil_AssertNonvoid(CTSVal > 0);
 
   /* Look for standard TMDS rates */
   for(i = 0; i < sizeof(TMDSChar_N_Table)/sizeof(XHdmiC_TMDS_N_Table); i++) {
@@ -306,6 +306,9 @@ XHdmiC_SamplingFrequency XHdmiC_TMDS_GetAudSampFreq(u32 TMDSCharRate,
 			}
 		}
   }
+
+  if (!CTSVal)
+          return XHDMIC_SAMPLING_FREQUENCY;
 
  /* compute and approximate */
   fs = ((u64)TMDSCharRate * (u64)N) ;

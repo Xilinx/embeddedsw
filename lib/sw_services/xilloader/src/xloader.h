@@ -7,7 +7,9 @@
 /**
 *
 * @file xloader.h
-*
+* @addtogroup xloader_apis XilLoader Versal APIs
+* @{
+* @cond xloader_internal
 * This file contains declarations for image store functions.
 *
 * <pre>
@@ -71,10 +73,12 @@
 *                       check required for DFx
 *       bm   09/24/2020 Added FuncID argument to RestartImage and ReloadImage
 *       bsv  10/13/2020 Code clean up
+*       ana  10/19/2020 Added doxygen comments
 *
 * </pre>
 *
 * @note
+* @endcond
 *
 ******************************************************************************/
 
@@ -92,6 +96,10 @@ extern "C" {
 #include "xplmi_dma.h"
 #include "xcfupmc.h"
 
+/**
+ * @{
+ * @cond xloader_internal
+ */
 /************************** Constant Definitions *****************************/
 #define XLOADER_SUCCESS		(u32)XST_SUCCESS
 #define XLOADER_FAILURE		(u32)XST_FAILURE
@@ -344,7 +352,15 @@ typedef struct {
 
 /************************** Function Prototypes ******************************/
 int XLoader_Init(void);
+/**
+ * @}
+ * @endcond
+ */
 int XLoader_LoadPdi(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr);
+/**
+ * @{
+ * @cond xloader_internal
+ */
 int XLoader_RestartImage(u32 ImageId, u32 *FuncID);
 int XLoader_CframeErrorHandler(u32 ImageId);
 int XLoader_CframeInit(void);
@@ -374,3 +390,10 @@ extern XilPdi SubsystemPdiIns;
 #endif
 
 #endif  /* XLOADER_H */
+
+/**
+ * @}
+ * @endcond
+ */
+
+/** @} */

@@ -22,6 +22,7 @@
 * 4.3   rpo     09/10/20 Changed the return type of some prototypes
 *       am      09/24/20 Resolved MISRA C violations
 *       har     10/12/20 Addressed security review comments
+*       bsv     10/19/20 Changed register writes to PMC SSS Cfg to mask writes
 *
 * </pre>
 * @endcond

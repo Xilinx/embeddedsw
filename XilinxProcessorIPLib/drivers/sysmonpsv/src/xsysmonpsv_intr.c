@@ -36,7 +36,7 @@
 
 
 /************************** Constant Definitions ****************************/
-#define XSYSMONPSV_INTR_OFFSET		0xC
+#define XSYSMONPSV_INTR_OFFSET		0xCU
 
 /**************************** Type Definitions ******************************/
 
@@ -69,10 +69,11 @@ void XSysMonPsv_IntrEnable(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum)
 	/* Assert the arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid(IntrNum <= 1);
+	Xil_AssertVoid(IntrNum <= 1U);
 
 	/* Calculate the offset of the IER register to be written to */
-	Offset = XSYSMONPSV_IER0_OFFSET + (IntrNum * XSYSMONPSV_INTR_OFFSET);
+	Offset = (XSYSMONPSV_IER0_OFFSET +
+		  ((u32)IntrNum * XSYSMONPSV_INTR_OFFSET));
 
 	/* Enable the specified interrupts in the AMS Interrupt Enable Register. */
 	XSysMonPsv_WriteReg(InstancePtr->Config.BaseAddress + Offset, Mask);
@@ -102,10 +103,11 @@ u32 XSysMonPsv_IntrGetEnabled(XSysMonPsv *InstancePtr, u8 IntrNum)
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(IntrNum <= 1);
+	Xil_AssertNonvoid(IntrNum <= 1U);
 
 	/* Calculate the offset of the IER register to be written to */
-	Offset = XSYSMONPSV_IMR0_OFFSET + (IntrNum * XSYSMONPSV_INTR_OFFSET);
+	Offset = (XSYSMONPSV_IMR0_OFFSET +
+		  ((u32)IntrNum * XSYSMONPSV_INTR_OFFSET));
 	/* Return the value read from the AMS Interrupt Mask Register. */
 	Interrupts = (u32)XSysMonPsv_ReadReg(InstancePtr->Config.BaseAddress +
 					     Offset);
@@ -137,10 +139,11 @@ void XSysMonPsv_IntrDisable(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum)
 	/* Assert the arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid(IntrNum <= 1);
+	Xil_AssertVoid(IntrNum <= 1U);
 
 	/* Calculate the offset of the IDR register to be written to */
-	Offset = XSYSMONPSV_IDR0_OFFSET + (IntrNum * XSYSMONPSV_INTR_OFFSET);
+	Offset = (XSYSMONPSV_IDR0_OFFSET +
+		  ((u32)IntrNum * XSYSMONPSV_INTR_OFFSET));
 
 	/* Disable the specified interrupts in the AMS Interrupt Disable Register. */
 	XSysMonPsv_WriteReg(InstancePtr->Config.BaseAddress + Offset, Mask);
@@ -225,26 +228,29 @@ void XSysMonPsv_SetNewDataIntSrc(XSysMonPsv *InstancePtr,
 
 	/* Assert the arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(Mask & XSYSMONPSV_INTR_NEW_DATA_MASK);
+	Xil_AssertVoid((Mask & XSYSMONPSV_INTR_NEW_DATA_MASK) != 0U);
 
 	Reg = XSysMonPsv_ReadReg(InstancePtr->Config.BaseAddress +
 				 XSYSMONPSV_NEW_DATA_INT_SRC);
 	Val = (Mask & XSYSMONPSV_INTR_NEW_DATA_MASK) >>
 		XSYSMONPSV_INTR_NEW_DATA_SHIFT;
 
-	for(Index = 0; Index < 4; Index++) {
-		Val = Val >> 1;
+	for(Index = 0U; Index < 4U; Index++) {
+		Val = Val >> 1U;
 
-		if(Val == 0)
+		if(Val == 0U) {
 			break;
+		}
 	}
 
 	Shift = XSYSMONPSV_NEW_DATA_INT_SRC_ADDR_ID1_SHIFT * Index;
 	Val = InstancePtr->Config.Supply_List[Supply];
-	Reg |= Val << Shift;
 
-	XSysMonPsv_WriteReg(InstancePtr->Config.BaseAddress +
-			    XSYSMONPSV_NEW_DATA_INT_SRC, Reg);
+	if(Index < 4U) {
+		Reg |= Val << Shift;
+		XSysMonPsv_WriteReg(InstancePtr->Config.BaseAddress +
+				    XSYSMONPSV_NEW_DATA_INT_SRC, Reg);
+	}
 }
 
 /******************************************************************************/
@@ -356,13 +362,12 @@ void XSysMonPsv_SetSupplyEventHandler(XSysMonPsv *InstancePtr,
 *******************************************************************************/
 void XSysMonPsv_AlarmEventHandler(XSysMonPsv *InstancePtr)
 {
-	u8 DevTempDetected, OTTempDetected, SupplyAlarm;
+	u32 DevTempDetected, OTTempDetected, SupplyAlarm;
 	/* Upper 16 bits contain Min Temp, Lower 16 bits contain Max Temp */
 	u32 TempMinMax, IntrStatus, SupplyReg, SupplyVal;
-	int SupplyNum = 0;
+	u32 SupplyNum = 0U;
 	XSysMonPsv_EventHandler *EventHandler;
-	XSysMonPsv_Supply Supply;
-
+	XSysMonPsv_Supply Supply = (XSysMonPsv_Supply) 0;
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -382,10 +387,10 @@ void XSysMonPsv_AlarmEventHandler(XSysMonPsv *InstancePtr)
 	OTTempDetected = IntrStatus & XSYSMONPSV_ISR_OT_MASK;
 
 	/* Handle OT Event */
-	if(OTTempDetected && InstancePtr->OTEvent.IsCallbackSet) {
+	if((OTTempDetected != 0U) && (InstancePtr->OTEvent.IsCallbackSet == 1U)) {
 		TempMinMax = XSysMonPsv_ReadDeviceTemp(InstancePtr,
 						       XSYSMONPSV_VAL_MIN);
-		TempMinMax = TempMinMax << 16;
+		TempMinMax = TempMinMax << 16U;
 		TempMinMax |= XSysMonPsv_ReadDeviceTemp(InstancePtr,
 						       XSYSMONPSV_VAL_MAX);
 
@@ -394,26 +399,26 @@ void XSysMonPsv_AlarmEventHandler(XSysMonPsv *InstancePtr)
 	}
 
 	/* Handle Dev Temp Event */
-	if(DevTempDetected && InstancePtr->TempEvent.IsCallbackSet) {
+	if((DevTempDetected != 0U) && (InstancePtr->TempEvent.IsCallbackSet == 1U)) {
 		TempMinMax = XSysMonPsv_ReadDeviceTemp(InstancePtr,
 						       XSYSMONPSV_VAL_MIN);
-		TempMinMax = TempMinMax << 16;
+		TempMinMax = TempMinMax << 16U;
 		TempMinMax |= XSysMonPsv_ReadDeviceTemp(InstancePtr,
 						       XSYSMONPSV_VAL_MAX);
 		InstancePtr->TempEvent.Handler(InstancePtr->TempEvent.CallbackRef,
 					       &TempMinMax);
 	}
 
-	if(SupplyAlarm) {
-		for(SupplyNum = 0; Supply < EndList; SupplyNum++) {
+	if(SupplyAlarm != 0U) {
+		for(SupplyNum = 0U; SupplyNum < (u32)EndList; SupplyNum++) {
 			Supply = (XSysMonPsv_Supply) SupplyNum;
-			if(XSysMonPsv_IsAlarmCondition(InstancePtr, Supply)) {
+			if(XSysMonPsv_IsAlarmCondition(InstancePtr, Supply) == 1U) {
 				SupplyReg =
 					InstancePtr->Config.Supply_List[Supply];
 				EventHandler =
 					&InstancePtr->SupplyEvent[SupplyReg];
 
-				if(EventHandler->IsCallbackSet) {
+				if(EventHandler->IsCallbackSet == 1U) {
 					SupplyVal = XSysMonPsv_ReadSupplyValue(InstancePtr,
 									       Supply,
 									       XSYSMONPSV_VAL);

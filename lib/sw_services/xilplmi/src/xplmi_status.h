@@ -53,6 +53,7 @@
 *       bm   09/24/2020 Added error code for FuncID mismatch
 *       bsv  10/13/2020 Code clean up
 *       kpt  10/19/2020 Added error code for glitch detection
+*       td   10/19/2020 MISRA C Fixes
 *
 * </pre>
 *
@@ -189,6 +190,20 @@ typedef enum {
 	XPLMI_ERR_DMA_XFER_WAIT_DEST,	    /**< 0x123 Dma Xfer failed in Dest Channel
 						wait for done */
 	XPLMI_ERR_UART_MEMSET,		    /**< 0x124 Memset of UartPsv Instance failed */
+	XPLMI_ERR_MEMCPY_COPY_CMD,		/**< 0x125 Error during memcpy of
+						CdoCopyCmd */
+	XPLMI_ERR_MEMCPY_CMD_EXEC,		/**< 0x126 Error during memcpy of
+						CdoCmdExecute */
+	XPLMI_ERR_MEMCPY_IMAGE_INFO,	/**< 0x127 Error during memcpy of
+						XLoader_ImageInfo */
+	XPLMI_ERR_UART_PSV_SET_BAUD_RATE,	/**< 0x128 Error during setting
+						XUartPsv_SetBaudRate to XPLMI_UART_BAUD_RATE */
+	XPLMI_ERR_IO_MOD_INTR_NUM_REGISTER, /**< 0x129 Invalid IoModule Interrupt
+						Number used to register interrupt handler */
+	XPLMI_ERR_IO_MOD_INTR_NUM_CLEAR,	/**< 0x12A Invalid IoModule interrupt
+						Number used to clear interrupt */
+	XPLMI_ERR_IO_MOD_INTR_NUM_DISABLE,	/**< 0x12B Invalid IoModule interrupt
+						Number used to disable interrupt */
 
 	/** Status codes used in PLM */
 	XPLM_ERR_TASK_CREATE = 0x200,	/**< 0x200 - Error when task create
@@ -527,8 +542,7 @@ static inline int XPlmi_UpdateStatus(XPlmiStatus_t PlmiStatus, int ModuleStatus)
 }
 
 /************************** Function Prototypes ******************************/
-void XPlmi_ErrMgr(int Status);
-void XPlmi_DumpRegisters(void);
+void XPlmi_ErrMgr(int ErrStatus);
 
 /************************** Variable Definitions *****************************/
 

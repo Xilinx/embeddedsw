@@ -36,6 +36,7 @@
 * 							Colorimetry Information over VSC packets
 * 							New Interrupt added for Vsync On TX
 * 							This application does not support Y420
+* 							Added support for Fabric 8b10b for Versal
 *
 * </pre>
 *
@@ -57,6 +58,10 @@ XIicPs Ps_Iic1;
 #ifdef versal
 XClk_Wiz_Config *CfgPtr_Dynamic;
 XClk_Wiz ClkWiz_Dynamic;
+#if (VERSAL_FABRIC_8B10B == 1)
+XClk_Wiz_Config *CfgPtr_Dynamic_rx;
+XClk_Wiz ClkWiz_Dynamic_rx;
+#endif
 #endif
 
 #ifdef Tx
@@ -395,6 +400,7 @@ u32 DpSs_Main(void)
 	u8 UserInput;
     u32 dprx_sts = 0;
     u32 dptx_sts = 0;
+    u32 retval = 0;
 #ifdef Rx
 	XDpRxSs_Config *ConfigPtr_rx;
 #endif
@@ -514,6 +520,20 @@ u32 DpSs_Main(void)
 
 #endif
 
+#ifdef versal
+#if (VERSAL_FABRIC_8B10B == 1)
+        /* Unlocking the NPI space so that GT CH1 divider value
+         * can be programmed. This will generate a /20 clk
+         */
+	XDp_WriteReg(GT_QUAD_BASE,0xC,0xF9E8D7C6);
+	retval=XDp_ReadReg(GT_QUAD_BASE,CH1CLKDIV_REG);
+	retval &= ~DIV_MASK;
+	retval |= DIV;
+	XDp_WriteReg(GT_QUAD_BASE,CH1CLKDIV_REG,retval);
+//	retval=XDp_ReadReg(GT_QUAD_BASE,CH1CLKDIV_REG);
+#endif
+#endif
+
 	config_phy(0x14);
 
 #ifdef Rx
@@ -544,10 +564,36 @@ u32 DpSs_Main(void)
         good &= ALL_LANE;
         loop++;
     }
+
     if (loop == 10000) {
 	xil_printf("--\r\n");
     }
 
+    GtCtrl (GT_RATE_MASK, (VERSAL_810G << 1), 0); //bridge << 1); //rate
+    loop = 0;
+    good = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x208);
+    good &= ALL_LANE;
+    while ((good != ALL_LANE) && loop < 10000) {
+        good = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x208);
+        good &= ALL_LANE;
+        loop++;
+    }
+
+#if (VERSAL_FABRIC_8B10B == 1)
+	loop = 0;
+	//issue reset
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, 0x0, 0xA);
+	while(!(XClk_Wiz_ReadReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_STATUS_OFFSET) & 1)) {
+		if(loop == 10000) {
+				break;
+		}
+		usleep(100);
+		loop++;
+	}
+	if (loop == 10000) {
+		xil_printf ("Rx Clk_wizard failed to lock\r\n");
+	}
+#endif
 #endif
 
 	/*Megachips Retimer Initialization*/
@@ -562,7 +608,6 @@ u32 DpSs_Main(void)
 	XDp_RxGenerateHpdInterrupt(DpRxSsInst.DpPtr, 50000);
 
 #endif
-
 
 	/* FrameBuffer initialization. */
 	Status = XVFrmbufRd_Initialize(&frmbufrd, FRMBUF_RD_DEVICE_ID);
@@ -581,8 +626,6 @@ u32 DpSs_Main(void)
 
 	resetIp_rd();
 	resetIp_wr();
-
-
 
 #if ENABLE_AUDIO
 #ifdef versal
@@ -1189,6 +1232,24 @@ u32 DpSs_PlatformInit(void)
 			 return XST_FAILURE;
 	 }
 
+#if (VERSAL_FABRIC_8B10B == 1)
+
+	 CfgPtr_Dynamic_rx = XClk_Wiz_LookupConfig(XPAR_CLK_WIZ_1_DEVICE_ID);
+	 if (!CfgPtr_Dynamic_rx) {
+			 return XST_FAILURE;
+	 }
+
+	 /*
+	  * Initialize the CLK_WIZ Dynamic reconfiguration driver
+	  */
+	 Status = XClk_Wiz_CfgInitialize(&ClkWiz_Dynamic_rx, CfgPtr_Dynamic_rx,
+			  CfgPtr_Dynamic_rx->BaseAddr);
+	 if (Status != XST_SUCCESS) {
+			 return XST_FAILURE;
+	 }
+
+
+#endif
 #endif
 
 	/* Initialize CRC & Set default Pixel Mode to 1. */

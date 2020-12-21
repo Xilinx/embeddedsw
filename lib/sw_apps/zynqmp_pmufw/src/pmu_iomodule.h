@@ -4,8 +4,8 @@
 ******************************************************************************/
 
 
-#ifndef _PMU_IOMODULE_H_
-#define _PMU_IOMODULE_H_
+#ifndef PMU_IOMODULE_H_
+#define PMU_IOMODULE_H_
 
 #ifdef __cplusplus
 extern "C" {

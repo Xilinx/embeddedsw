@@ -27,6 +27,7 @@
 *       bsv  09/04/2020 Added checks to validate input params for XPlmi_Strcat
 *                       and XPlmi_Strcpy
 *       bm   10/14/2020 Code clean up
+*       td   10/19/2020 MISRA C Fixes
 *
 * </pre>
 *
@@ -69,18 +70,13 @@ void XPlmi_UtilRMW(u32 RegAddr, u32 Mask, u32 Value);
 int XPlmi_UtilSafetyWrite(u32 RegAddr, u32 Mask, u32 Value);
 int XPlmi_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutInUs);
 int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs);
-int XPlmi_UtilPoll64(u64 Addr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs);
+int XPlmi_UtilPoll64(u64 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs);
 void XPlmi_UtilWrite64(u32 HighAddr, u32 LowAddr, u32 Value);
 int XPlmi_UtilPollForMask64(u32 HighAddr, u32 LowAddr, u32 Mask,
 	u32 TimeOutInUs);
 void XPlmi_UtilRMW64(u32 HighAddr, u32 LowAddr, u32 Mask, u32 Value);
 int XPlmi_UtilSafetyRMW64(u32 HighAddr, u32 LowAddr, u32 Mask, u32 Value);
 void XPlmi_PrintArray (u32 DebugType, const u64 BufAddr, u32 Len, const char *Str);
-int XPlmi_Strcpy(char *DestPtr, const char *SrcPtr, const u32 Size);
-int XPlmi_Strcat(char *Str1Ptr, const char *Str2Ptr, const u32 Size);
-int XPlmi_MemCpy(void *DestPtr, u32 DestPtrLen, const void *SrcPtr, u32 Len);
-int XPlmi_MemCmp(const void *Buf1Ptr, const void *Buf2Ptr, u32 Len);
-u32 XPlmi_StrLen(const char *String, const u32 MaxStrLen);
 
 #ifdef __cplusplus
 }

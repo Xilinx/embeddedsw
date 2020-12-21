@@ -34,7 +34,7 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-
+#define XIS_LENGTH	(0x8U)
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
@@ -70,8 +70,10 @@ static int XIs_DataValidations(u8 *ReadDataBuffer)
 		Status = XIS_REGISTERS_LENGTH_MISMATCH_ERROR;
 		goto END;
 	}
-	for(Index = 0; Index <= (XIS_LENGTH_OFFSET / 4U); Index++) {
-		ChkSum += PersRegData[Index];
+	for(Index = 0; Index < XIS_LENGTH; Index++) {
+		if( Index != (XIS_CHECKSUM_OFFSET / 4U)) {
+			ChkSum += PersRegData[Index];
+		}
 	}
 	ChkSum = (~(ChkSum) & 0xFFFFFFFFU);
 	if(ChkSum != PersRegData[XIS_CHECKSUM_OFFSET / 4U]) {

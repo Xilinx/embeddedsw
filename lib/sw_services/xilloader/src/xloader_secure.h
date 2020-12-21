@@ -41,7 +41,9 @@
 *       har  08/24/20 Added macros related to ECDSA P521 support
 *       kal  09/14/20 Added new error code to XLoader_SecErrCodes
 *       har  09/30/20 Deprecated Family Key support
+*       bsv  10/19/20 Parallel DMA changes
 *       kpt  10/19/2020 Code clean up
+*       har  10/19/20 Replaced ECDSA in header files
 *
 * </pre>
 *
@@ -58,7 +60,7 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xsecure_ecdsa.h"
+#include "xsecure_elliptic.h"
 #include "xsecure_sha.h"
 #include "xsecure_rsa.h"
 #include "xsecure_aes.h"
@@ -83,7 +85,7 @@ extern "C" {
 
 #define XLOADER_SHA3_KAT_MASK			(0x00000010U)
 #define XLOADER_RSA_KAT_MASK			(0x00000020U)
-#define XLOADER_ECDSA_KAT_MASK			(0x00000040U)
+#define XLOADER_ECC_KAT_MASK			(0x00000040U)
 #define XLOADER_AES_KAT_MASK			(0x00000080U)
 #define XLOADER_DPACM_KAT_MASK			(0x00000100U)
 

@@ -97,6 +97,16 @@ typedef enum {
 	XSDIVID_CA_UNKNOWN
 } XSdiVid_ChannelAssignment;
 
+/**
+ * End of Transfer Characteristics.
+ */
+typedef enum {
+	XSDIVID_EOTF_SDRTV = 0x0,
+	XSDIVID_EOTF_HLG = 0x1,
+	XSDIVID_EOTF_SMPTE2084 = 0x2,
+	XSDIVID_EOTF_UNKNOWN
+} XSdiVid_Eotf;
+
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XVIDC_SDICUSTOM_NUM_SUPPORTED 6
 

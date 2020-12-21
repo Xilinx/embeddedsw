@@ -31,6 +31,7 @@
  * 1.02  bsv  06/02/2020 Added code to support GET BOARD command and disallow
  *                       SET BOARD command via IPI
  *       bm   10/14/2020 Code clean up
+ *       td   10/19/2020 MISRA C Fixes
  *
  * </pre>
  *
@@ -127,7 +128,8 @@ int XPlmi_IpiDispatchHandler(void *Data)
 	u32 SrcCpuMask;
 	u32 Payload[XPLMI_IPI_MAX_MSG_LEN] = {0U};
 	u32 MaskIndex;
-	XPlmi_Cmd Cmd;
+	XPlmi_Cmd Cmd = {0U};
+	int StatusTmp = XST_FAILURE;
 
 	/* For MISRA C */
 	(void )Data;
@@ -183,7 +185,10 @@ int XPlmi_IpiDispatchHandler(void *Data)
 
 END:
 	/* Clear and enable the GIC IPI interrupt */
-	XPlmi_PlmIntrClear(XPLMI_IPI_IRQ);
+	StatusTmp = XPlmi_PlmIntrClear(XPLMI_IPI_IRQ);
+	if ((StatusTmp != XST_SUCCESS) && (Status == XST_SUCCESS)) {
+		Status = StatusTmp;
+	}
 	XPlmi_PlmIntrEnable(XPLMI_IPI_IRQ);
 
 	return Status;
@@ -264,7 +269,7 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-inline int XPlmi_IpiTrigger(u32 DestCpuMask)
+int XPlmi_IpiTrigger(u32 DestCpuMask)
 {
 	int Status = XST_FAILURE;
 
@@ -283,7 +288,7 @@ inline int XPlmi_IpiTrigger(u32 DestCpuMask)
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-inline int XPlmi_IpiPollForAck(u32 DestCpuMask, u32 TimeOutCount)
+int XPlmi_IpiPollForAck(u32 DestCpuMask, u32 TimeOutCount)
 {
 	int Status = XST_FAILURE;
 

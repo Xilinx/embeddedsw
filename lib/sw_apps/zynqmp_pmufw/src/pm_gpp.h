@@ -39,6 +39,7 @@ typedef struct PmSlaveGpp {
 extern PmSlaveGpp pmSlaveGpuPP0_g;
 extern PmSlaveGpp pmSlaveGpuPP1_g;
 extern PmSlaveGpp pmSlaveVcu_g;
+extern PmSlave pmSlaveGpu_g;
 
 #ifdef __cplusplus
 }

@@ -36,6 +36,7 @@
 *       rpo  09/21/20 New error code added for crypto state mismatch
 *       am   09/24/20 Resolved MISRA C violations
 *       har  10/12/20 Addressed security review comments
+*       am   10/10/20 Resolved Coverity warnings
 *
 * </pre>
 *
@@ -272,21 +273,21 @@ int XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 	u32 Events;
 
 	/* Validate the input arguments */
-	if ((InstancePtr == NULL) || (Input == NULL) || (Result == NULL)) {
+	if (InstancePtr == NULL) {
 		ErrorCode = (int)XSECURE_RSA_INVALID_PARAM;
 		goto END;
 	}
 
 	if ((RsaOp != XSECURE_RSA_SIGN_ENC) && (RsaOp != XSECURE_RSA_SIGN_DEC)) {
 		ErrorCode = (int)XSECURE_RSA_INVALID_PARAM;
-		goto END;
+		goto END_RST;
 	}
 
 	if ((KeySize != XSECURE_RSA_4096_KEY_SIZE) &&
 		(KeySize !=XSECURE_RSA_3072_KEY_SIZE) &&
 		(KeySize != XSECURE_RSA_2048_KEY_SIZE)) {
 		ErrorCode = (int)XSECURE_RSA_INVALID_PARAM;
-		goto END;
+		goto END_RST;
 	}
 
 	InstancePtr->EncDec = (u8)RsaOp;
@@ -355,7 +356,7 @@ int XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 	}
 
 	if (ErrorCode == XST_FAILURE) {
-		goto END;
+		goto END_RST;
 	}
 
 	/* Start the RSA operation. */
@@ -370,6 +371,8 @@ int XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 				XSECURE_RSA_CONTROL_EXP);
 	}
 
+	ErrorCode = XST_FAILURE;
+
 	/* Check and wait for status */
 	Status = (int)Xil_WaitForEvents((InstancePtr->BaseAddress +
 					XSECURE_ECDSA_RSA_STATUS_OFFSET),
@@ -383,18 +386,19 @@ int XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 	/* Time out occurred or RSA error observed*/
 	if (Status != XST_SUCCESS) {
 		ErrorCode = Status;
-		goto END;
+		goto END_RST;
 	}
 
 	if((Events & XSECURE_RSA_STATUS_ERROR) == XSECURE_RSA_STATUS_ERROR)
 	{
 		ErrorCode = XST_FAILURE;
-		goto END;
+		goto END_RST;
 	}
 	/* Copy the result */
 	XSecure_RsaGetData(InstancePtr, (u32 *)Result);
 
-END:
+	ErrorCode = XST_SUCCESS;
+END_RST:
 	/* Revert configuring endianness for data */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 		XSECURE_ECDSA_RSA_CFG_OFFSET,
@@ -409,6 +413,7 @@ END:
 	XSecure_SetReset(InstancePtr->BaseAddress,
 			XSECURE_ECDSA_RSA_RESET_OFFSET);
 
+END:
 	return ErrorCode;
 }
 
