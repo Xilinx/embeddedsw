@@ -614,11 +614,32 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 		goto done;
 	}
 
-	Subsystem = XPmSubsystem_GetById(SubsystemId);
-	if ((NULL != Subsystem) && ((u8)OFFLINE != Subsystem->State)) {
-		DbgErr = XPM_INT_ERR_SUBSYS_ADDED;
-		Status = XST_FAILURE;
-		goto done;
+	/*
+	 * Don't add default subsystem if any other subsystem is online,
+	 * except for PMC subsystem
+	 */
+	if (PM_SUBSYS_DEFAULT == SubsystemId) {
+		Subsystem = PmSubsystems;
+		while (NULL != Subsystem) {
+			if ((PM_SUBSYS_PMC != Subsystem->Id) &&
+			    ((u8)OFFLINE != Subsystem->State)) {
+				DbgErr = XPM_INT_ERR_OTHER_SUBSYS_ADDED;
+				Status = XST_INVALID_PARAM;
+				goto done;
+			}
+			Subsystem = Subsystem->NextSubsystem;
+		}
+	} else {
+		/*
+		 * Check if subsystem is being re-added, skip for default
+		 * subsystem since it is already validated before
+		 */
+		Subsystem = XPmSubsystem_GetById(SubsystemId);
+		if ((NULL != Subsystem) && ((u8)OFFLINE != Subsystem->State)) {
+			DbgErr = XPM_INT_ERR_SUBSYS_ADDED;
+			Status = XST_FAILURE;
+			goto done;
+		}
 	}
 
 	Subsystem = (XPm_Subsystem *)XPm_AllocBytes(sizeof(XPm_Subsystem));
