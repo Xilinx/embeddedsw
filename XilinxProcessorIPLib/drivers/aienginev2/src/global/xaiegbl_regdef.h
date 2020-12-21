@@ -185,6 +185,9 @@ typedef struct {
 	const XAie_StrmPort *SlvSlotConfig;
 	const XAie_StrmSwPortMap *MasterPortMap;
 	const XAie_StrmSwPortMap *SlavePortMap;
+
+	AieRC (*PortVerify)(StrmSwPortType Slave, u8 SlvPortNum,
+			StrmSwPortType Master, u8 MstrPortNum);
 } XAie_StrmMod;
 
 /*
