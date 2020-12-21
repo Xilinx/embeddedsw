@@ -61,6 +61,7 @@
 #                     accessible to the processor. Updated conditions in
 #                     xsleep_timer_config proc accordingly. It fixes
 #                     CR#1069210
+# 7.4   mus  12/14/20 Updated generate proc to support CIPS3.
 ##############################################################################
 
 # ----------------------------------------------------------------------------
@@ -78,6 +79,21 @@ set scugic_dist_base	0xF8F01000
 # Tcl procedure standalone_drc
 # -------------------------------------
 proc standalone_drc {os_handle} {
+}
+
+# -------------------------------------------------------------------------
+# Tcl procedure get_base_value
+# Returns base address of provided IP instance
+# -------------------------------------------------------------------------
+proc get_base_value {ip_instance} {
+		set val 0
+
+		set list [get_mem_ranges -of_objects [hsi::get_cells -hier [get_sw_processor]]]
+		set index [lsearch $list $ip_instance]
+		if {$index >= 0} {
+			set val [common::get_property BASE_VALUE [lindex [get_mem_ranges -of_objects [hsi::get_cells -hier [get_sw_processor]]] $index]]
+		}
+		return $val
 }
 
 # -------------------------------------------------------------------------
@@ -629,7 +645,11 @@ proc generate {os_handle} {
 
     # Handle stdin
     set stdin [common::get_property CONFIG.stdin $os_handle]
-    if { $proctype == "psv_pmc" && $stdin != "psv_sbsauart_0" && $stdin != "psv_sbsauart_1"} {
+    set stdin_ipname ""
+    if { $stdin != "none" } {
+        set stdin_ipname [common::get_property IP_NAME [hsi::get_cells -hier $stdin]]
+    }
+    if { $proctype == "psv_pmc" && $stdin_ipname != "psv_sbsauart"} {
             common::set_property CONFIG.stdin "none" $os_handle
             handle_stdin_parameter $os_handle
     } elseif { $stdin == "" || $stdin == "none" } {
@@ -640,8 +660,12 @@ proc generate {os_handle} {
 
     # Handle stdout
     set stdout [common::get_property CONFIG.stdout $os_handle]
+    set stdout_ipname ""
+    if { $stdout != "none" } {
+        set stdout_ipname [common::get_property IP_NAME [hsi::get_cells -hier $stdout]]
+    }
     if { $proctype == "psv_pmc" } {
-		if { $stdout != "psv_sbsauart_0" && $stdout != "psv_sbsauart_1"} {
+		if { $stdout_ipname != "psv_sbsauart" } {
 			common::set_property CONFIG.stdout "none" $os_handle
 		}
                 handle_stdout_parameter $os_handle
@@ -916,6 +940,7 @@ proc xcreate_cmake_toolchain_file {os_handle is_versal} {
 proc xsleep_timer_config {proctype os_handle file_handle} {
 
     set sleep_timer [common::get_property CONFIG.sleep_timer $os_handle ]
+	set is_versal [hsi::get_cells -hier -filter {IP_NAME=="psv_cortexa72"}]
 	if { $sleep_timer == "ps7_globaltimer_0" || $sleep_timer == "psu_iou_scntr" || $sleep_timer == "psu_iou_scntrs" || $sleep_timer == "psv_iou_scntr" || $sleep_timer == "psv_iou_scntrs"} {
 		if { $proctype == "psu_cortexr5" ||  $proctype == "psv_cortexr5"} {
 			error "ERROR: $proctype does not support $sleep_timer "
@@ -923,8 +948,12 @@ proc xsleep_timer_config {proctype os_handle file_handle} {
     } elseif { $sleep_timer == "none" } {
 		if { $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" } {
 			set is_ttc_present 0
-			set periphs [hsi::get_cells -hier]
+			set periphs [hsi::get_cells -hier -filter {IP_NAME==ps7_ttc || IP_NAME==psu_ttc || IP_NAME==psv_ttc}]
 			foreach periph $periphs {
+				set base_addr [get_base_value $periph]
+				set base_addr [string trimleft $base_addr "0x"]
+				set base_addr [string toupper $base_addr]
+
 				if {[string compare -nocase "psu_ttc_3" $periph] == 0 && [is_ttc_accessible_from_processor $periph] == 1} {
 					set is_ttc_present 1
 					puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSU_TTC_9_BASEADDR"
@@ -937,16 +966,16 @@ proc xsleep_timer_config {proctype os_handle file_handle} {
 					puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSU_TTC_6_TTC_CLK_FREQ_HZ"
 					puts $file_handle "#define XSLEEP_TTC_INSTANCE 2"
 					break
-				} elseif {[string compare -nocase "psv_ttc_3" $periph] == 0 && [is_ttc_accessible_from_processor $periph] == 1} {
+				} elseif {([llength $is_versal] > 0) && ([string compare -nocase "psv_ttc_3" $periph] == 0 || [string match -nocase $base_addr "FF110000"]) && [is_ttc_accessible_from_processor $periph] == 1} {
 					set is_ttc_present 1
-					puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSV_TTC_9_BASEADDR"
-					puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSV_TTC_9_TTC_CLK_FREQ_HZ"
+					puts $file_handle "#define SLEEP_TIMER_BASEADDR [format XPAR_%s_9_BASEADDR [string toupper [string range [common::get_property NAME $periph] 0 end-2]]]"
+					puts $file_handle "#define SLEEP_TIMER_FREQUENCY [format XPAR_%s_9_TTC_CLK_FREQ_HZ [string toupper [string range [common::get_property NAME $periph] 0 end-2]]]"
 					puts $file_handle "#define XSLEEP_TTC_INSTANCE 3"
 					break
-				} elseif {[string compare -nocase "psv_ttc_2" $periph] == 0 && [is_ttc_accessible_from_processor $periph] == 1} {
+				} elseif {([llength $is_versal] > 0) && ([string compare -nocase "psv_ttc_2" $periph] == 0 || [string match -nocase $base_addr "FF100000"]) && [is_ttc_accessible_from_processor $periph] == 1} {
 					set is_ttc_present 1
-					puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSV_TTC_6_BASEADDR"
-					puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSV_TTC_6_TTC_CLK_FREQ_HZ"
+					puts $file_handle "#define SLEEP_TIMER_BASEADDR [format XPAR_%s_6_BASEADDR [string toupper [string range [common::get_property NAME $periph] 0 end-2]]]"
+					puts $file_handle "#define SLEEP_TIMER_FREQUENCY [format XPAR_%s_6_TTC_CLK_FREQ_HZ [string toupper [string range [common::get_property NAME $periph] 0 end-2]]]"
 					puts $file_handle "#define XSLEEP_TTC_INSTANCE 2"
 					break
 				}
