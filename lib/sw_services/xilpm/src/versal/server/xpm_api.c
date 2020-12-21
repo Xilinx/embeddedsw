@@ -169,6 +169,37 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  This function allows to set current subsystem id.
+ *
+ * @param  SubsystemId	Subsystem ID to be set as active
+ * @param  IpiMask	IPI mask of requesting master
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   none
+ *
+ ****************************************************************************/
+static XStatus XPm_SetCurrentSubsystem(u32 SubsystemId, u32 IpiMask)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* Return error if request is not from XSDB master */
+	if (XSDB_IPI_INT_MASK != IpiMask) {
+		Status = XPM_PM_NO_ACCESS;
+		goto done;
+	}
+	Status = XPmSubsystem_SetCurrent(SubsystemId);
+
+done:
+	if (XST_SUCCESS != Status) {
+		PmErr("Unable to set current subsystem, ret: 0x%x\n\r", Status);
+	}
+	return Status;
+}
+
 static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 {
 	u32 ApiResponse[XPLMI_CMD_RESP_SIZE-1] = {0};
@@ -373,7 +404,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		Status = XPm_AddRequirement(Pload[0], Pload[1], Pload[2], &Pload[3], Len-3U);
 		break;
 	case PM_SET_CURRENT_SUBSYSTEM:
-		Status = XPm_SetCurrentSubsystem(Pload[0]);
+		Status = XPm_SetCurrentSubsystem(Pload[0], Cmd->IpiMask);
 		break;
 	case PM_INIT_NODE:
 		Status = XPm_InitNode(Pload[0], Pload[1], &Pload[2], Len-2U);
@@ -781,29 +812,6 @@ XStatus XPm_AddSubsystem(u32 SubsystemId)
 
 	if (Status != XST_SUCCESS) {
 		PmErr("Failed to configure platform resources\n\r");
-	}
-	return Status;
-}
-
-/****************************************************************************/
-/**
- * @brief  This function allows to set current subsystem id.
- *
- * @param  SubsystemId	Address to store the new subsystem ID
- *
- * @return XST_SUCCESS if successful else XST_FAILURE or an error code
- * or a reason code
- *
- * @note   none
- *
- ****************************************************************************/
-XStatus XPm_SetCurrentSubsystem(u32 SubsystemId)
-{
-	XStatus Status = XST_FAILURE;
-	Status = XPmSubsystem_SetCurrent(SubsystemId);
-
-	if (Status != XST_SUCCESS) {
-		PmErr("Unable to set current subsystem. Returned: 0x%x\n\r", Status);
 	}
 	return Status;
 }
