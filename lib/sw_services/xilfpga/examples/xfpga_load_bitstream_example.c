@@ -27,6 +27,15 @@
  * 5.2   Nava	 02/14/20  Removed unwanted header file inclusion.
  * 5.3   Nava    06/16/20  Modified the date format from dd/mm to mm/dd.
  * 5.3   Nava    06/16/20  Added support for Versal Platform.
+ * 6.0   Nava    12/14/20  In XFpga_PL_BitStream_Load() API the argument
+ *                         AddrPtr_Size is being used for multiple purposes.
+ *                         Use of the same variable for multiple purposes can
+ *                         make it more difficult for a person to read (or)
+ *                         understand the code and also it leads to a safety
+ *                         violation. fixes this  issue by adding a separate
+ *                         function arguments to read KeyAddr and
+ *                         Size(Bitstream size).
+ *
  * </pre>
  *
  ******************************************************************************/
@@ -55,6 +64,7 @@ int main(void)
 {
 	u64 addr = XFPGA_BASE_ADDRESS;
 	XFpga XFpgaInstance = {0U};
+	UINTPTR KeyAddr = NULL;
 	s32 Status;
 
 	xil_printf("Loading Bitstream for DDR location :0x%x\n\r",
@@ -67,11 +77,11 @@ int main(void)
 	}
 
 #ifdef versal
-	Status = XFpga_PL_BitStream_Load(&XFpgaInstance, addr,
-					 BITSTREAM_SIZE, PDI_LOAD);
+	Status = XFpga_BitStream_Load(&XFpgaInstance, addr, KeyAddr,
+				      BITSTREAM_SIZE, PDI_LOAD);
 #else
-	Status = XFpga_PL_BitStream_Load(&XFpgaInstance, addr,
-					 BITSTREAM_SIZE, XFPGA_FULLBIT_EN);
+	Status = XFpga_BitStream_Load(&XFpgaInstance, addr, KeyAddr,
+				      BITSTREAM_SIZE, XFPGA_FULLBIT_EN);
 #endif
 
  done:

@@ -95,6 +95,14 @@
  *                     API's.
  * 5.3 Nava  09/16/20  Added user configurable Enable/Disable Options for
  *                     readback operations.
+ * 6.0 Nava  12/14/20  In XFpga_PL_BitStream_Load() API the argument
+ *                     AddrPtr_Size is being used for multiple purposes.
+ *                     Use of the same variable for multiple purposes can
+ *                     make it more difficult for a person to read (or)
+ *                     understand the code and also it leads to a safety
+ *                     violation. fixes this  issue by adding a separate
+ *                     function arguments to read KeyAddr and
+ *                     Size(Bitstream size).
  * </pre>
  *
  * @note
@@ -347,7 +355,7 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 		} else {
 			Status = XFpga_SelectEndianess(
 				(u8 *)InstancePtr->WriteInfo.BitstreamAddr,
-				(u32)InstancePtr->WriteInfo.AddrPtr_Size,
+				(u32)InstancePtr->WriteInfo.Size,
 				&BitstreamPos);
 
 			if (Status != XFPGA_SUCCESS) {
@@ -386,11 +394,11 @@ UPDATE:
 			PartHeaderOffset = Xil_In32(
 					InstancePtr->WriteInfo.BitstreamAddr
 					+ PARTATION_HEADER_OFFSET);
-			InstancePtr->WriteInfo.AddrPtr_Size =
+			InstancePtr->WriteInfo.Size =
 			Xil_In32(InstancePtr->WriteInfo.BitstreamAddr +
 						PartHeaderOffset) * WORD_LEN;
 		} else {
-			InstancePtr->WriteInfo.AddrPtr_Size -= BitstreamPos;
+			InstancePtr->WriteInfo.Size -= BitstreamPos;
 		}
 
 		InstancePtr->WriteInfo.BitstreamAddr += BitstreamPos;
@@ -494,7 +502,7 @@ static u32 XFpga_WriteToPlPcap(XFpga *InstancePtr)
 	}
 #endif
 	else {
-		BitstreamSize = (u32)InstancePtr->WriteInfo.AddrPtr_Size;
+		BitstreamSize = (u32)InstancePtr->WriteInfo.Size;
 		Status = XFpga_WriteToPcap(BitstreamSize/WORD_LEN,
 				InstancePtr->WriteInfo.BitstreamAddr);
 		if (Status != XFPGA_SUCCESS) {
@@ -910,7 +918,7 @@ static u32 XFpga_SecureBitstreamLoad(XFpga *InstancePtr)
 			Status = XFpga_AesInit(
 					PlAesInfoPtr->PlEncrypt.SecureAes,
 					AesKupKey, ImageInfo->Iv,
-					(char *)(InstancePtr->WriteInfo.AddrPtr_Size),
+					(char *)(InstancePtr->WriteInfo.KeyAddr),
 					InstancePtr->WriteInfo.Flags);
 			if (Status != XFPGA_SUCCESS) {
 				Status = XFPGA_PCAP_UPDATE_ERR(
@@ -1281,7 +1289,7 @@ static u32 XFpga_WriteEncryptToPcap(XFpga *InstancePtr)
 	u32 AesKupKey[XSECURE_KEY_LEN];
 
 	Status = XFpga_AesInit(&Secure_Aes, AesKupKey, ImageHdrInfo->Iv,
-				(char *)InstancePtr->WriteInfo.AddrPtr_Size,
+				(char *)InstancePtr->WriteInfo.KeyAddr,
 				InstancePtr->WriteInfo.Flags);
 	if (Status != XFPGA_SUCCESS) {
 		Status = XFPGA_PCAP_UPDATE_ERR(

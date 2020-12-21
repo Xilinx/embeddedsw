@@ -41,6 +41,14 @@
 # 5.3 Nava   06/16/20  Modified the date format from dd/mm to mm/dd.
 # 5.3 Nava   09/16/20  Added user configurable Enable/Disable Options for
 #                      readback operations
+# 6.0 Nava   12/14/20  In XFpga_PL_BitStream_Load() API the argument
+#                      AddrPtr_Size is being used for multiple purposes.
+#                      Use of the same variable for multiple purposes can
+#                      make it more difficult for a person to read (or)
+#                      understand the code and also it leads to a safety
+#                      violation. fixes this  issue by adding a separate
+#                      function arguments to read KeyAddr and
+#                      Size(Bitstream size).
 #
 ##############################################################################
 
@@ -53,7 +61,7 @@ BEGIN LIBRARY xilfpga
   OPTION SUPPORTED_PERIPHERALS = (psv_cortexa72 psv_cortexr5 psu_cortexa53 psu_cortexr5 psu_pmu);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilfpga,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "XilFPGA library provides an interface to the Linux or bare-metal users for configuring the PL over PCAP from PS";
-  OPTION VERSION = 5.3;
+  OPTION VERSION = 6.0;
   OPTION NAME = xilfpga;
 PARAM name = secure_mode, desc = "Enable secure Bitstream loading support", type = bool, default = true;
 PARAM name = debug_mode, desc = "Which is used to Enable the Debug messages in the library", type = bool, default = false;

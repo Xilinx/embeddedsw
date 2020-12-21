@@ -67,6 +67,14 @@
  * 5.3  Nava  06/16/20  Modified the date format from dd/mm to mm/dd.
  * 5.3  Nava  09/09/20  Added a new error code (XFPGA_INVALID_PARAM)
  *                      for user API's input validation parameters.
+ * 6.0  Nava  12/14/20  In XFpga_PL_BitStream_Load() API the argument
+ *                      AddrPtr_Size is being used for multiple purposes.
+ *                      Use of the same variable for multiple purposes can
+ *                      make it more difficult for a person to read (or)
+ *                      understand the code and also it leads to a safety
+ *                      violation. fixes this  issue by adding a separate
+ *                      function arguments to read KeyAddr and
+ *                      Size(Bitstream size).
  *
  * </pre>
  *
@@ -212,16 +220,27 @@ typedef struct XFpgatag{
 /** @endcond*/
 /************************** Function Prototypes ******************************/
 u32 XFpga_Initialize(XFpga *InstancePtr);
+u32 XFpga_ValidateImage(XFpga *InstancePtr,
+			UINTPTR BitstreamImageAddr,
+			UINTPTR KeyAddr, u32 Size, u32 Flags);
+u32 XFpga_BitStream_Load(XFpga *InstancePtr,
+			 UINTPTR BitstreamImageAddr,
+			 UINTPTR KeyAddr, u32 Size, u32 Flags);
+u32 XFpga_PL_Preconfig(XFpga *InstancePtr);
+u32 XFpga_Write_Pl(XFpga *InstancePtr,UINTPTR BitstreamImageAddr,
+		   UINTPTR KeyAddr, u32 Size, u32 Flags);
+u32 XFpga_PL_PostConfig(XFpga *InstancePtr);
+#pragma message ("'XFpga_PL_BitStream_Load()' function will be deprecated in the 2022.1 release")
 u32 XFpga_PL_BitStream_Load(XFpga *InstancePtr,
 			    UINTPTR BitstreamImageAddr,
 			    UINTPTR AddrPtr_Size, u32 Flags);
-u32 XFpga_PL_Preconfig(XFpga *InstancePtr);
-u32 XFpga_PL_Write(XFpga *InstancePtr,UINTPTR BitstreamImageAddr,
-		   UINTPTR AddrPtr_Size, u32 Flags);
-u32 XFpga_PL_PostConfig(XFpga *InstancePtr);
+#pragma message ("'XFpga_PL_ValidateImage()' function will be deprecated in the 2022.1 release")
 u32 XFpga_PL_ValidateImage(XFpga *InstancePtr,
 			   UINTPTR BitstreamImageAddr,
 			   UINTPTR AddrPtr_Size, u32 Flags);
+#pragma message ("'XFpga_PL_Write()' function will be deprecated in the 2022.1 release")
+u32 XFpga_PL_Write(XFpga *InstancePtr,UINTPTR BitstreamImageAddr,
+		   UINTPTR AddrPtr_Size, u32 Flags);
 #ifndef versal
 u32 XFpga_GetPlConfigData(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 			  u32 NumFrames);
