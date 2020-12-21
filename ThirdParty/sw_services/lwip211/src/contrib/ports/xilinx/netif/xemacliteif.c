@@ -32,10 +32,6 @@
 #include "xlwipconfig.h"
 
 #if !NO_SYS
-#ifdef OS_IS_XILKERNEL
-#include "xmk.h"
-#include "sys/intr.h"
-#endif
 #ifdef OS_IS_FREERTOS
 #include "FreeRTOS.h"
 #include "semphr.h"
@@ -569,12 +565,6 @@ static err_t low_level_init(struct netif *netif)
 				(XInterruptHandler)XEmacLite_InterruptHandler,
 				xemaclitep);
 #endif
-#else
-#ifdef OS_IS_XILKERNEL
-	register_int_handler(xtopologyp->intc_emac_intr,
-			(XInterruptHandler)XEmacLite_InterruptHandler,
-			xemaclitep);
-	enable_interrupt(xtopologyp->intc_emac_intr);
 #else
 #if XPAR_INTC_0_HAS_FAST == 1
 	XIntc_RegisterFastHandler(xtopologyp->intc_baseaddr,

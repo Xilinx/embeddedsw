@@ -40,46 +40,6 @@ extern "C" {
 #endif
 #include "lwipopts.h"
 
-#ifdef OS_IS_XILKERNEL
-
-#include "arch/cc.h"
-#include "semaphore.h"
-#include "os_config.h"
-
-#define SYS_MBOX_NULL NULL
-#define SYS_SEM_NULL  NULL
-#define SYS_MBOX_SIZE   500
-#define SYS_SEM_MAX     MAX_SEM
-#define SYS_MBOX_MAX    (MAX_SEM/2)
-#define SYS_THREAD_MAX  MAX_PTHREADS
-
-#define SEM_FREE   0xffffffff
-#define TID_FREE   0xffffffff
-
-struct sys_mbox_msg {
-	struct sys_mbox_msg *next;
-	void *msg;
-};
-
-struct sys_mbox_s {
-	u8_t  used;
-	u16_t first, last;
-	void *msgs[SYS_MBOX_SIZE];
-	sem_t mail;
-	sem_t mutex;
-};
-
-
-typedef sem_t sys_sem_t;
-
-struct sys_mbox_s;
-typedef struct sys_mbox_s sys_mbox_t;
-
-struct sys_thread;
-typedef struct sys_thread *sys_thread_t;
-
-typedef u32_t sys_prot_t;
-#endif
 
 #ifdef OS_IS_FREERTOS
 

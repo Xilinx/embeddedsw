@@ -38,9 +38,6 @@ extern "C" {
 #include "lwipopts.h"
 
 #if !NO_SYS
-#ifdef OS_IS_XILKERNEL
-#include "xmk.h"
-#endif
 #include "lwip/sys.h"
 #endif
 

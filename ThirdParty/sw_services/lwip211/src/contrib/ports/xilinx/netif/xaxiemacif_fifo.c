@@ -31,10 +31,6 @@
 #include "lwipopts.h"
 
 #if !NO_SYS
-#ifdef OS_IS_XILKERNEL
-#include "xmk.h"
-#include "sys/intr.h"
-#endif
 #ifdef OS_IS_FREERTOS
 #include "FreeRTOS.h"
 #include "semphr.h"
@@ -299,19 +295,6 @@ XStatus init_axi_fifo(struct xemac_s *xemac)
 		/* set new mask */
 		XIntc_EnableIntr(xtopologyp->intc_baseaddr, cur_mask);
 	} while (0);
-#else
-#ifdef OS_IS_XILKERNEL
-	/* connect & enable TEMAC interrupts */
-	register_int_handler(xaxiemacif->axi_ethernet.Config.TemacIntr,
-			(XInterruptHandler)xaxiemac_error_handler,
-			&xaxiemacif->axi_ethernet);
-	enable_interrupt(xaxiemacif->axi_ethernet.Config.TemacIntr);
-
-	/* connect & enable FIFO interrupts */
-	register_int_handler(xaxiemacif->axi_ethernet.Config.AxiFifoIntr,
-			(XInterruptHandler)xllfifo_intr_handler,
-			xemac);
-	enable_interrupt(xaxiemacif->axi_ethernet.Config.AxiFifoIntr);
 #else
 #if XPAR_INTC_0_HAS_FAST == 1
 	/* Register temac interrupt with interrupt controller */
