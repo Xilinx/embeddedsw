@@ -47,6 +47,40 @@ proc FreeRTOS_drc {os_handle} {
 	}
 }
 
+# -------------------------------------------------------------------------
+# Tcl procedure get_base_value
+# Returns base address of provided IP instance
+# -------------------------------------------------------------------------
+proc get_base_value {ip_instance} {
+		set val 0
+
+		set list [get_mem_ranges -of_objects [hsi::get_cells -hier [get_sw_processor]]]
+		set index [lsearch $list $ip_instance]
+		if {$index >= 0} {
+			set val [common::get_property BASE_VALUE [lindex [get_mem_ranges -of_objects [hsi::get_cells -hier [get_sw_processor]]] $index]]
+		}
+		return $val
+}
+
+# -------------------------------------------------------------------------
+# Tcl procedure get_instance_name_from_base_value
+# Returns psv_ttc IP instance name for provided base address value
+# -------------------------------------------------------------------------
+proc get_instance_name_from_base_value {base_value} {
+	set instance_name ""
+	set periphs [hsi::get_cells -hier -filter {IP_NAME==psv_ttc}]
+	foreach periph $periphs {
+		set base_addr [get_base_value $periph]
+		set base_addr [string trimleft $base_addr "0x"]
+		set base_addr [string toupper $base_addr]
+		if {[string match -nocase $base_addr  $base_value]} {
+			set instance_name $periph
+			break
+		}
+	}
+	return $instance_name
+}
+
 proc Check_ttc_ip {instance_name} {
 	set cortexa53cpu [hsi::get_cells -hier -filter "IP_NAME==psu_cortexa53"]
 	set is_versal [hsi::get_cells -hier -filter {IP_NAME=="psu_cortexa72" || IP_NAME=="psv_cortexa72"}]
@@ -824,7 +858,8 @@ proc generate {os_handle} {
 		if {$val == "true"} {
 			set have_tick_timer 1
 			if { $proctype == "psv_cortexr5" } {
-				Check_ttc_ip "psv_ttc_0"
+				set instance_name [get_instance_name_from_base_value "FF0E0000"]
+				Check_ttc_ip $instance_name
 			} else {
 				Check_ttc_ip "psu_ttc_0"
 			}
@@ -857,7 +892,9 @@ proc generate {os_handle} {
 			} else {
 				set have_tick_timer 1
 				if { $proctype == "psv_cortexr5" } {
-					Check_ttc_ip "psv_ttc_1"
+					set instance_name [get_instance_name_from_base_value "FF0F0000"]
+					Check_ttc_ip $instance_name
+
 				} else {
 					Check_ttc_ip "psu_ttc_1"
 				}
@@ -891,7 +928,8 @@ proc generate {os_handle} {
 			} else {
 				set have_tick_timer 1
 				if { $proctype == "psv_cortexr5" } {
-					Check_ttc_ip "psv_ttc_2"
+					set instance_name [get_instance_name_from_base_value "FF100000"]
+					Check_ttc_ip $instance_name
 				} else {
 					Check_ttc_ip "psu_ttc_2"
 				}
@@ -925,7 +963,8 @@ proc generate {os_handle} {
 			} else {
 				set have_tick_timer 1
 				if { $proctype == "psv_cortexr5" } {
-					Check_ttc_ip "psv_ttc_3"
+					set instance_name [get_instance_name_from_base_value "FF110000"]
+					Check_ttc_ip $instance_name
 				} else {
 					Check_ttc_ip "psu_ttc_3"
 				}
@@ -995,7 +1034,8 @@ proc generate {os_handle} {
 		if {$val == "true"} {
 			set have_tick_timer 1
 			if { $proctype == "psv_cortexa72" } {
-				Check_ttc_ip "psv_ttc_0"
+				set instance_name [get_instance_name_from_base_value "FF0E0000"]
+				Check_ttc_ip $instance_name
 			} else {
 				Check_ttc_ip "psu_ttc_0"
 			}
@@ -1028,7 +1068,8 @@ proc generate {os_handle} {
 			} else {
 				set have_tick_timer 1
 			if { $proctype == "psv_cortexa72" } {
-				Check_ttc_ip "psv_ttc_1"
+				set instance_name [get_instance_name_from_base_value "FF0F0000"]
+				Check_ttc_ip $instance_name
 			} else {
 				Check_ttc_ip "psu_ttc_1"
 			}
@@ -1062,7 +1103,8 @@ proc generate {os_handle} {
 			} else {
 				set have_tick_timer 1
 				if { $proctype == "psv_cortexa72" } {
-				Check_ttc_ip "psv_ttc_2"
+					set instance_name [get_instance_name_from_base_value "FF100000"]
+					Check_ttc_ip $instance_name
 			} else {
 				Check_ttc_ip "psu_ttc_2"
 			}
@@ -1096,7 +1138,8 @@ proc generate {os_handle} {
 			} else {
 				set have_tick_timer 1
 			if { $proctype == "psv_cortexa72" } {
-				Check_ttc_ip "psv_ttc_3"
+				set instance_name [get_instance_name_from_base_value "FF110000"]
+				Check_ttc_ip $instance_name
 			} else {
 				Check_ttc_ip "psu_ttc_3"
 			}
@@ -1163,7 +1206,7 @@ proc generate {os_handle} {
 	############################################################################
 	## Add constants specific to the microblaze
 	############################################################################
-
+	set is_versal [hsi::get_cells -hier -filter {IP_NAME=="psv_cortexa72"}]
 	if { $proctype == "microblaze" } {
 		if {[llength $is_versal] > 0} {
 			set ttc_ips [get_cell -hier -filter {IP_NAME== "psv_ttc"}]
@@ -1172,12 +1215,15 @@ proc generate {os_handle} {
 		}
 		if { [llength $ttc_ips] != 0 } {
 			foreach ttc_ip $ttc_ips {
-			if { $ttc_ip == "psu_ttc_0" || $ttc_ip == "psv_ttc_0"} {
+			set base_addr [get_base_value $ttc_ip]
+			set base_addr [string trimleft $base_addr "0x"]
+			set base_addr [string toupper $base_addr]
+			if { $ttc_ip == "psu_ttc_0" || $ttc_ip == "psv_ttc_0" || ([llength $is_versal] > 0 && [string match -nocase $base_addr "FF0E0000"])} {
 				set val [common::get_property CONFIG.PSU_TTC0_Select $os_handle]
 				if {$val == "true"} {
 					set have_tick_timer 1
 					if {[llength $is_versal] > 0} {
-						Check_ttc_ip "psv_ttc_0"
+						Check_ttc_ip $ttc_ip
 					} else {
 						Check_ttc_ip "psu_ttc_0"
 					}
@@ -1192,7 +1238,7 @@ proc generate {os_handle} {
 					}
 				}
 			}
-			if { $ttc_ip == "psu_ttc_1" ||  $ttc_ip == "psv_ttc_1"} {
+			if { $ttc_ip == "psu_ttc_1" ||  $ttc_ip == "psv_ttc_1" || ([llength $is_versal] > 0 && [string match -nocase $base_addr "FF0F0000"])} {
 				set val [common::get_property CONFIG.PSU_TTC1_Select $os_handle]
 				if {$val == "true"} {
 					if {$have_tick_timer == 1} {
@@ -1200,7 +1246,7 @@ proc generate {os_handle} {
 					} else {
 						set have_tick_timer 1
 						if {[llength $is_versal] > 0} {
-							Check_ttc_ip "psv_ttc_1"
+							Check_ttc_ip $ttc_ip
 						} else {
 							Check_ttc_ip "psu_ttc_1"
 						}
@@ -1216,7 +1262,7 @@ proc generate {os_handle} {
 					}
 				}
 			}
-			if { $ttc_ip == "psu_ttc_2" || $ttc_ip == "psv_ttc_2"} {
+			if { $ttc_ip == "psu_ttc_2" || $ttc_ip == "psv_ttc_2" || ([llength $is_versal] > 0 && [string match -nocase $base_addr "FF100000"])} {
 				set val [common::get_property CONFIG.PSU_TTC2_Select $os_handle]
 				if {$val == "true"} {
 					if {$have_tick_timer == 1} {
@@ -1224,7 +1270,7 @@ proc generate {os_handle} {
 					} else {
 						set have_tick_timer 1
 						if {[llength $is_versal] > 0} {
-							Check_ttc_ip "psv_ttc_2"
+							Check_ttc_ip $ttc_ip
 						} else {
 							Check_ttc_ip "psu_ttc_2"
 						}
@@ -1240,7 +1286,7 @@ proc generate {os_handle} {
 					}
 				}
 			}
-			if { $ttc_ip == "psu_ttc_3" || $ttc_ip == "psv_ttc_3"} {
+			if { $ttc_ip == "psu_ttc_3" || $ttc_ip == "psv_ttc_3" || ([llength $is_versal] > 0 && [string match -nocase $base_addr "FF110000"])} {
 				set val [common::get_property CONFIG.PSU_TTC3_Select $os_handle]
 				if {$val == "true"} {
 					if {$have_tick_timer == 1} {
@@ -1248,7 +1294,7 @@ proc generate {os_handle} {
 					} else {
 						set have_tick_timer 1
 						if {[llength $is_versal] > 0} {
-							Check_ttc_ip "psv_ttc_3"
+							Check_ttc_ip $ttc_ip
 						} else {
 							Check_ttc_ip "psu_ttc_3"
 						}
