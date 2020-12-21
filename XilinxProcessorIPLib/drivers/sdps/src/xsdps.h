@@ -132,6 +132,8 @@
 * 3.10  mn     06/05/20 Check Transfer completion separately from XSdPs_Read and
 *                       XSdPs_Write APIs
 *       mn     06/05/20 Modified code for SD Non-Blocking Read support
+* 3.11  sk     12/17/20 Removed checking platform specific SD macros and used
+*                       Baseaddress instead.
 *
 * </pre>
 *
@@ -190,6 +192,11 @@ extern "C" {
 #define CSD_SPEC_VER_3		0x3U
 #define SCR_SPEC_VER_3		0x80U
 #define ADDRESS_BEYOND_32BIT	0x100000000U
+
+#define XSDPS_ZYNQMP_SD0_BASE		0xFF160000U
+#define XSDPS_ZYNQMP_SD1_BASE		0xFF170000U
+#define XSDPS_VERSAL_SD0_BASE		0xF1040000U
+#define XSDPS_VERSAL_SD1_BASE		0xF1050000U
 
 /**************************** Type Definitions *******************************/
 
