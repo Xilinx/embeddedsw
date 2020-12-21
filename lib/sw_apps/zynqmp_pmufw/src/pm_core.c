@@ -843,8 +843,14 @@ static void PmFpgaLoad(const PmMaster *const master,
 	if (XST_SUCCESS != (s32)Status) {
 		goto done;
 	}
-    Status = XFpga_PL_BitStream_Load(&XFpgaInstance, BitStreamAddr,
-				     KeyAddr, Flags);
+
+	if (Flags & XFPGA_ENCRYPTION_USERKEY_EN) {
+		Status = XFpga_BitStream_Load(&XFpgaInstance, BitStreamAddr,
+						 KeyAddr, 0U, Flags);
+	} else {
+		Status = XFpga_BitStream_Load(&XFpgaInstance, BitStreamAddr,
+						 0U, KeyAddr, Flags);
+	}
 
     if ((XST_SUCCESS == (s32)Status) && ((Flags & XFPGA_AUTHENTICATION_OCM_EN) ==
 		XFPGA_AUTHENTICATION_OCM_EN)) {
