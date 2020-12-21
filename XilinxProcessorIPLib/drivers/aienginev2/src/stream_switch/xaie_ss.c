@@ -211,6 +211,13 @@ static AieRC _XAie_StreamSwitchConfigureCct(XAie_DevInst *DevInst,
 	/* Get stream switch module pointer from device instance */
 	StrmMod = DevInst->DevProp.DevMod[TileType].StrmSw;
 
+	RC = StrmMod->PortVerify(Slave, SlvPortNum, Master, MstrPortNum);
+	if(RC != XAIE_OK) {
+		XAIE_ERROR("Slave port(Type: %d, Number: %d) can't connect to Master port(Type: %d, Number: %d) on the AIE tile.\n",
+				Slave, SlvPortNum, Master, MstrPortNum);
+                return RC;
+        }
+
 	RC = _XAie_GetSlaveIdx(StrmMod, Slave, SlvPortNum, &SlaveIdx);
 	if(RC != XAIE_OK) {
 		XAIE_ERROR("Unable to compute Slave Index\n");
