@@ -71,11 +71,11 @@ extern "C" {
 /**
  * Structure to store the PL Write Image details.
  *
- * @BitstreamAddr	Bitstream image base address.
- * @AddrPtr_Size        Aes key address which is used for Decryption (or)
+ * @param BitstreamAddr	Bitstream image base address.
+ * @param AddrPtr_Size  Aes key address which is used for Decryption (or)
  *                      In none Secure Bitstream used it is used store size
  *                      of Bitstream Image.
- * @Flags               Flags are used to specify the type of Bitstream file.
+ * @param Flags         Flags are used to specify the type of Bitstream file.
  *                      * BIT(0) - Bitstream type
  *                                     * 0 - Full Bitstream
  *                                     * 1 - Partial Bitstream
@@ -102,8 +102,8 @@ typedef struct {
 /**
  * Structure to store the PL Image details.
  *
- * @ReadbackAddr	Address which is used to store the PL readback data.
- * @ConfigReg		Configuration register value to be returned (or)
+ * @param ReadbackAddr	Address which is used to store the PL readback data.
+ * @param ConfigReg		Configuration register value to be returned (or)
  * 			The number of Fpga configuration frames to read
  */
 typedef struct {

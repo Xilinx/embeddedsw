@@ -61,10 +61,10 @@ extern "C" {
 /**
  * Structure to store the PL Write Image details.
  *
- * @BitstreamAddr	Bitstream image base address for Normal PDI LOAD.
+ * @param BitstreamAddr	Bitstream image base address for Normal PDI LOAD.
  *			Image Id for Deferred PDI LOAD.
- * @AddrPtr_Size	Unused
- * @Flags		Flags are used to specify the type of Bitstream file.
+ * @param AddrPtr_Size	Unused
+ * @param Flags		Flags are used to specify the type of Bitstream file.
  *			* BIT(0) - Bitstream type
  *                                     * 0 - Normal PDI Load
  *                                     * 1 - Deferred PDI Load
@@ -79,8 +79,8 @@ typedef struct {
 /**
  * Structure to store the PL Image details.
  *
- * @ReadbackAddr	Address which is used to store the PL readback data.
- * @ConfigReg		Configuration register value to be returned (or)
+ * @param ReadbackAddr	Address which is used to store the PL readback data.
+ * @param ConfigReg		Configuration register value to be returned (or)
  * 			The number of Fpga configuration frames to read
  */
 typedef struct {

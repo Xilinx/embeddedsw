@@ -89,22 +89,24 @@ extern "C" {
 #include "xfpga_config.h"
 /**************************** Type Definitions *******************************/
 /**
- * @XFpga_ValidateBitstream:	validate the Bitstream header before
- *				programming the PL
- * @xilfpga_PreConfig:		prepare the FPGA to receive confuration data
- * @xilfpga_WriteToPl:		write count bytes of configuration data to
- *				the FPGA
- * @xilfpga_PostConfig:		set FPGA to operating state after writing
- *				is done
- * @XFpga_GetInterfaceStatus:	Provides the STATUS of PL programming interface
- * @Xfpga_GetConfigReg:		Returns the value of the specified configuration
- *				register
- * @XFpga_GetConfigData:	Provides the FPGA readback data.
- * @PLInfo:			Which is used to store the secure image data.
- * @WriteInfo:	XFpga_Write structure which is used to store the PL Write
- *              Image details.
- * @ReadInfo:  	XFpga_Read structure which is used to store the PL Image
- *              readback details
+ * Structure to the XFpga instance.
+ *
+ * @param XFpga_ValidateBitstream validate the Bitstream header before
+ *				  programming the PL
+ * @param xilfpga_PreConfig prepare the FPGA to receive confuration data
+ * @param xilfpga_WriteToPl write count bytes of configuration data to
+ *				  the FPGA
+ * @param xilfpga_PostConfig set FPGA to operating state after writing
+ *			     is done
+ * @param XFpga_GetInterfaceStatus Provides the STATUS of PL programming interface
+ * @param Xfpga_GetConfigReg Returns the value of the specified configuration
+ *			     register
+ * @param XFpga_GetConfigData Provides the FPGA readback data.
+ * @param PLInfo Which is used to store the secure image data.
+ * @param WriteInfo XFpga_Write structure which is used to store the PL Write
+ *                  Image details.
+ * @param ReadInfo XFpga_Read structure which is used to store the PL Image
+ *                 readback details
  */
 typedef struct XFpgatag{
 	u32 (*XFpga_ValidateBitstream)(struct XFpgatag *InstancePtr);
@@ -222,9 +224,9 @@ u32 XFpga_PL_ValidateImage(XFpga *InstancePtr,
 			   UINTPTR AddrPtr_Size, u32 Flags);
 #ifndef versal
 u32 XFpga_GetPlConfigData(XFpga *InstancePtr, UINTPTR ReadbackAddr,
-			  u32 ConfigReg_NumFrames);
+			  u32 NumFrames);
 u32 XFpga_GetPlConfigReg(XFpga *InstancePtr, UINTPTR ReadbackAddr,
-			 u32 ConfigReg_NumFrames);
+			 u32 ConfigRegAddr);
 u32 XFpga_InterfaceStatus(XFpga *InstancePtr);
 #endif
 

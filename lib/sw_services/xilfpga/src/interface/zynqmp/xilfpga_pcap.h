@@ -213,33 +213,47 @@ extern "C" {
 #define XFPGA_STATE_SHIFT	16U
 
 /**************************** Type Definitions *******************************/
- typedef struct {
+/**
+ * Structure to store the PL encrypted Image details
+ *
+ * @param SecureAes Used to store AES initialization info.
+ * @param NextBlkLen Used to store the next encrypted block size info.
+ */
+typedef struct {
 	XSecure_Aes *SecureAes;	/* AES initialized structure */
 	u32 NextBlkLen;		/* Not required for user, used
 				 * for storing next block size
 				 */
- } XFpgaPs_PlEncryption;
+} XFpgaPs_PlEncryption;
 
- typedef struct {
+/**
+ * Structure to store Encryption parameters info
+ *
+ * @param PlEncrypt Used to store the PL encrypted Image details
+ * @param SecureHdr Used to store the Secure header
+ * @param Hdr Size of the secure header.
+ * @param SssInstance Used to store the secure switch instance info
+ */
+typedef struct {
 	XFpgaPs_PlEncryption PlEncrypt;	/* Encryption parameters */
 	u8 SecureHdr[XSECURE_SECURE_HDR_SIZE + XSECURE_SECURE_GCM_TAG_SIZE];
 	u8 Hdr;
 	XSecure_Sss SssInstance;
- } XFpgaPs_PlPartition;
+} XFpgaPs_PlPartition;
 
 /**
  * Structure to store the PL Image details.
  *
- * @XSecure_ImageInfo	Used to store the secure image data.
- * @PlAesInfo used to store the encrypted image data.
- * @Secure_Aes The AES-GCM driver instance data structure
- * @TotalBitPartCount Used to store the number of Authenticated partitions info.
- * @SecureOcmState Used to Preserve the initialization states for the OCM
+ * @param Secure_ImageInfo	Used to store the secure image data.
+ * @param PlAesInfo used to store the encrypted image data.
+ * @param Secure_Aes The AES-GCM driver instance data structure
+ * @param TotalBitPartCount Used to store the number of Authenticated partitions info.
+ * @param SecureOcmState Used to Preserve the initialization states for the OCM
  *                 use cases.
- * @RemaningBytes used to preserve the remaining byte to process Authenticated
+ * @param RemaningBytes used to preserve the remaining byte to process Authenticated
  *                bitstream Images.
- * @AcPtr Used to Access the authenticate certificate buffer address
- * @BitAddr Used to Access the Bitstream buffer Address.
+ * @param AcPtr Used to Access the authenticate certificate buffer address
+ * @param BitAddr Used to Access the Bitstream buffer Address.
  */
 typedef struct {
 	XSecure_ImageInfo SecureImageInfo;
