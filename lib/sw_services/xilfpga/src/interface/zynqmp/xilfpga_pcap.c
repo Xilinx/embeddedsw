@@ -247,8 +247,8 @@ static const u8 BootgenBinFormat[] = {
 };
 
 /*****************************************************************************/
-/* This API when called initializes the XFPGA interface with default settings.
- * It Sets function pointers for the instance.
+/**
+ * This API when called initializes the XFPGA interface with default settings.
  *
  * @param InstancePtr Pointer to the XFgpa structure.
  *
@@ -290,7 +290,10 @@ END:
 	return Status;
 }
 /*****************************************************************************/
-/* This function validate the Image image's boot header and image header,
+/**
+ * @cond nocomments
+ *
+ * This function validate the Bitstream Image boot header and image header info,
  * also copies all the required details to the ImageInfo pointer.
  *
  * @param InstancePtr Pointer to the XFpga structure.
@@ -398,7 +401,10 @@ END:
 
 }
 /*****************************************************************************/
-/** This function prepare the FPGA to receive configuration data.
+/**
+ * @cond nocomments
+ *
+ * This function prepare the FPGA to receive configuration data.
  *
  * @param InstancePtr Pointer to the XFpga structure.
  *
@@ -450,7 +456,10 @@ END:
 	return Status;
 }
 /*****************************************************************************/
-/* This function write count bytes of configuration data into the PL.
+/**
+ * @cond nocomments
+ *
+ * This function write count bytes of configuration data into the PL.
  *
  * @param InstancePtr Pointer to the XFpga structure.
  *
@@ -511,8 +520,11 @@ END:
 	return Status;
 }
 /*****************************************************************************/
-/** This Function sets FPGA into operating state after writing Configuration
- *  data.
+/**
+ * @cond nocomments
+ *
+ * This Function sets FPGA into operating state after writing Configuration
+ * data.
  *
  * @param InstancePtr Pointer to the XFpga structure.
  *
@@ -589,7 +601,10 @@ static u32 XFpga_PostConfigPcap(XFpga *InstancePtr)
 }
 
 /*****************************************************************************/
-/** Performs the necessary initialization of PCAP interface
+/**
+ * @cond nocomments
+ *
+ * Performs the necessary initialization of PCAP interface
  *
  * @param Flags Provides information about Crypto operation needs
  *        to be performed on the given Image (or) Data.
@@ -632,7 +647,10 @@ static u32 XFpga_PcapInit(u32 Flags)
 }
 
 /*****************************************************************************/
-/** Waits for PCAP transfer to complete
+/**
+ * @cond nocomments
+ *
+ * Waits for PCAP transfer to complete
  *
  * @param	None
  *
@@ -653,7 +671,10 @@ static u32 XFpga_PcapWaitForDone(void)
 }
 
 /*****************************************************************************/
-/** Writes data to PCAP interface
+/**
+ * @cond nocomments
+ *
+ * Writes data to PCAP interface
  *
  * @param Size Number of bytes that the DMA should write to the
  *        PCAP interface
@@ -692,7 +713,10 @@ END:
 
 #if defined(XFPGA_READ_CONFIG_DATA)
 /*****************************************************************************/
-/** This function waits for PCAP to come to idle state.
+/**
+ * @cond nocomments
+ *
+ * This function waits for PCAP to come to idle state.
  *
  * @param	None
  *
@@ -713,8 +737,12 @@ static u32 XFpga_PcapWaitForidle(void)
 #endif
 
 /*****************************************************************************/
-/** This function is used to Validate the user provided crypto flags
- *  with Image crypto flags.
+/**
+ * @cond nocomments
+ *
+ * This function is used to Validate the user provided crypto flags
+ * with Image crypto flags.
+ *
  * @param ImageInfo Pointer to XSecure_ImageInfo structure.
  * @param Flags It provides the information about Crypto operation needs
  *        to be performed on the given Image (or) Data.
@@ -780,7 +808,10 @@ END:
 }
 #ifdef XFPGA_SECURE_MODE
 /*****************************************************************************/
-/** Loads the secure Bitstream into the PL.
+/**
+ * @cond nocomments
+ *
+ * Loads the secure Bitstream into the PL.
  *
  * @param InstancePtr Pointer to the XFpga structure.
  *
@@ -824,7 +855,10 @@ return Status;
 }
 
 /*****************************************************************************/
-/* This function authenticates the Bitstream by using on-chip/external memory.
+/**
+ * @cond nocomments
+ *
+ * This function authenticates the Bitstream by using on-chip/external memory.
  * Sends the data to PCAP in blocks via AES engine if encryption
  * exists or directly to PCAP by CSUDMA if an encryption is not enabled.
  *
@@ -1018,7 +1052,9 @@ END:
 
 
 /*****************************************************************************/
-/*
+/**
+ * @cond nocomments
+ *
  * This function performs authentication the Blocks and store the
  * This SHA3 hashes on secure memory.
  *
@@ -1121,7 +1157,10 @@ END:
 	return Status;
 }
 /*****************************************************************************/
-/* This function Re-authenticates the Bitstream by using on-chip memory.
+/**
+ * @cond nocomments
+ *
+ * This function Re-authenticates the Bitstream by using on-chip memory.
  * Sends the data to PCAP in blocks via AES engine if encryption
  * exists or directly to PCAP by CSUDMA if an encryption is not enabled.
  *
@@ -1220,7 +1259,10 @@ END:
 }
 
 /*****************************************************************************/
-/* This is the function to write Encrypted data into PCAP interface
+/**
+ * @cond nocomments
+ *
+ * This is the function to write Encrypted data into PCAP interface
  *
  *
  * @param InstancePtr Pointer to the XFpga structure.
@@ -1272,7 +1314,9 @@ END:
 }
 
 /******************************************************************************/
-/*
+/**
+ * @cond nocomments
+ *
  * This API decrypts the chunks of data
  *
  * @param PartitionParams is a pointer to XFpgaPs_PlPartition
@@ -1423,7 +1467,9 @@ END:
 }
 
 /******************************************************************************/
-/*
+/**
+ * @cond nocomments
+ *
  * This function calculates the next block size and updates the required
  * parameters.
  *
@@ -1478,7 +1524,9 @@ END:
 }
 
 /******************************************************************************/
-/*
+/**
+ * @cond nocomments
+ *
  * This function is used to copy data to AES/PL.
  *
  * @param InstancePtr is an instance of CSUDMA
@@ -1507,7 +1555,9 @@ static void XFpga_DmaPlCopy(XCsuDma *InstancePtr, UINTPTR Src, u32 Size,
 }
 
 /******************************************************************************/
-/*
+/**
+ * @cond nocomments
+ *
  * This function sends data to AES engine which needs to be decrypted till the
  * end of the encryption block.
  *
@@ -1671,7 +1721,9 @@ END:
 }
 
 /******************************************************************************/
-/*
+/**
+ * @cond nocomments
+ *
  * This function decrypts the secure header when key rolling is enabled
  *
  * @param InstancePtr is an instance AES engine.
@@ -1754,7 +1806,10 @@ END:
 }
 
 /*****************************************************************************/
-/* This function initializes the instance pointer.
+/**
+ * @cond nocomments
+ *
+ * This function initializes the instance pointer.
  *
  * @param InstancePtr Pointer to the XSecure_Aes instance.
  * @param CsuDmaPtr Pointer to the XCsuDma instance.
@@ -1811,7 +1866,10 @@ END:
 #endif
 
 /****************************************************************************/
-/* This function waits for PL Done bit to be set or till timeout and resets
+/**
+ * @cond nocomments
+ *
+ * This function waits for PL Done bit to be set or till timeout and resets
  * PCAP after this.
  *
  * @param	None
@@ -1849,7 +1907,9 @@ END:
 }
 
 /*****************************************************************************/
-/*
+/**
+ * @cond nocomments
+ *
  * This function is used to power-up the PL
  *
  * @param	None
@@ -1882,7 +1942,9 @@ static u32 XFpga_PowerUpPl(void)
 	return Status;
 }
 /*************************************************************************/
-/*
+/**
+ * @cond nocomments
+ *
  * This function is used to request isolation restore, through PMU
  *
  * @param None.
@@ -1921,7 +1983,9 @@ static u32 XFpga_IsolationRestore(void)
 }
 
 /**************************************************************************/
-/*
+/**
+ * @cond nocomments
+ *
  * This function is used to start reset of the PL from PS EMIO pins
  *
  * @param	None.
@@ -1944,7 +2008,9 @@ void XFpga_PsPlGpioResetsLow(void)
 }
 
 /***************************************************************************/
-/*
+/**
+ * @cond nocomments
+ *
  * This function is used to release reset of the PL from PS EMIO pins
  *
  * @param	None.
@@ -1968,7 +2034,10 @@ void XFpga_PsPlGpioResetsHigh(void)
 
 
 /*****************************************************************************/
-/** Provides the STATUS of PCAP interface
+/**
+ * @cond nocomments
+ *
+ * Provides the STATUS of PCAP interface
  *
  * @param	None
  *
@@ -1984,7 +2053,8 @@ static u32 XFpga_PcapStatus(void)
 #if defined(XFPGA_READ_CONFIG_REG)
 /*****************************************************************************/
 /**
- * @ingroup xfpga_apis
+ * @cond nocomments
+ *
  * Returns the value of the specified configuration register.
  *
  * @param InstancePtr Pointer to the XFpga structure.
@@ -2112,6 +2182,7 @@ END:
 #if defined(XFPGA_READ_CONFIG_DATA)
 /*****************************************************************************/
 /**
+ * @cond nocomments
  *
  * This function performs the readback of fpga configuration data.
  *
@@ -2332,7 +2403,8 @@ END:
 
 #if defined(XFPGA_READ_CONFIG_DATA) || defined(XFPGA_READ_CONFIG_REG)
 /****************************************************************************/
-/*
+/**
+ * @cond nocomments
  *
  * Generates a Type 1 packet header that reads back the requested Configuration
  * register.
@@ -2375,6 +2447,7 @@ static u32 Xfpga_RegAddr(u8 Register, u8 OpCode, u16 Size)
 #if defined(XFPGA_READ_CONFIG_DATA)
 /****************************************************************************/
 /**
+ * @cond nocomments
  *
  * Generates a Type 2 packet header that reads back the requested Configuration
  * register.
@@ -2411,7 +2484,10 @@ static u32 Xfpga_Type2Pkt(u8 OpCode, u32 Size)
 #endif
 
 /*****************************************************************************/
-/** Sets the library firmware state
+/**
+ * @cond nocomments
+ *
+ * Sets the library firmware state
  *
  * @param	State xilfpga firmware state
  *
@@ -2444,7 +2520,10 @@ static u8 XFpga_GetFirmwareState(void)
 #endif
 
 /*****************************************************************************/
-/* This function is responsible for  identifying the Bitstream Endianness,
+/**
+ * @cond nocomments
+ *
+ * This function is responsible for  identifying the Bitstream Endianness,
  * and set the required csudma configurations before transfer the data
  * into the PL.
  *

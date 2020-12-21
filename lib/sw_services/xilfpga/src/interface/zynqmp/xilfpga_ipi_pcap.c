@@ -55,8 +55,7 @@ static u32 XFpga_IPI_PcapStatus(void);
 XMailbox XMboxInstance;
 
 /*****************************************************************************/
-/* This API when called initializes the XFPGA interface with default settings.
- * It Sets function pointers for the instance.
+/**This API when called initializes the XFPGA interface with default settings.
  *
  * @param InstancePtr Pointer to the XFgpa structure.
  *
@@ -86,7 +85,10 @@ END:
 }
 
 /*****************************************************************************/
-/* This function writes bitstream data into the PL.
+/**
+ * @cond nocomments
+ *
+ * This function writes bitstream data into the PL.
  *
  * @param InstancePtr Pointer to the XFpga structure.
  *
@@ -129,6 +131,7 @@ END:
 
 /*****************************************************************************/
 /**
+ * @cond nocomments
  *
  * This function performs the readback of fpga configuration data/registers.
  *
@@ -174,6 +177,7 @@ END:
 
 /*****************************************************************************/
 /**
+ * @cond nocomments
  *
  * This function performs the readback of fpga configuration data/registers.
  *
@@ -220,7 +224,10 @@ END:
 }
 
 /*****************************************************************************/
-/** Provides the STATUS of PCAP interface
+/**
+ * @cond nocomments
+ *
+ * Provides the STATUS of PCAP interface
  *
  * @param	None
  *

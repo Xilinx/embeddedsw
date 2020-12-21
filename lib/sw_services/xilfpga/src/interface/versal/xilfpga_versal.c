@@ -23,6 +23,7 @@
  * 5.3  Nava  06/29/20  Added asserts to validate input params.
  * 5.3  Nava  09/09/20  Replaced the asserts with input validations for non void
  *                      API's.
+ * 5.3  Nava  15/12/20  Fixed doxygen issues.
  * </pre>
  *
  * @note
@@ -54,8 +55,7 @@ XMailbox XMboxInstance;
 static u32 ReqBuffer[LOAD_PDI_MSG_LEN] = {0U};
 
 /*****************************************************************************/
-/* This API when called initializes the XFPGA interface with default settings.
- * It Sets function pointers for the instance.
+/**This API when called initializes the XFPGA interface with default settings.
  *
  * @param InstancePtr Pointer to the XFgpa structure.
  *
@@ -78,7 +78,10 @@ u32 XFpga_Initialize(XFpga *InstancePtr)
 }
 
 /*****************************************************************************/
-/* This function writes bitstream data into the PL.
+/**
+ * @cond nocomments
+ *
+ * This function writes bitstream data into the PL.
  *
  * @param InstancePtr Pointer to the XFpga structure.
  *
