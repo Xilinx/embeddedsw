@@ -1,0 +1,17 @@
+
+APP =
+APPSOURCES=*.c
+OUTS =
+CCF_OBJS =
+INCLUDES =
+BOARD_FLAG =
+OBJS =
+
+%.o: %.c
+	$(CC) ${LDFLAGS} ${BOARD_FLAG} $(INCLUDES) ${CFLAGS} -c $(APPSOURCES)
+
+all: $(CCF_OBJS)
+	$(CC) ${LDFLAGS} $(INCLUDES) $(OBJS) $(CCF_OBJS) -o $(OUTS) -ldfeccf
+
+clean:
+	rm -rf $(OUTS) *.o
