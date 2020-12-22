@@ -407,7 +407,6 @@ static XStatus NpdMbist(u32 *Args, u32 NumOfArgs)
 	for (i = 0; i < ARRAY_SIZE(DdrMcAddresses) && (0U != DdrMcAddresses[i]); i++) {
 		PmRmw32(DdrMcAddresses[i] + NOC_DDRMC_UB_CLK_GATE_OFFSET,
 			NOC_DDRMC_UB_CLK_GATE_ILA_EN_MASK, 0);
-		PmOut32(DdrMcAddresses[i] + NPI_PCSR_LOCK_OFFSET, 1);
 	}
 
 
@@ -428,6 +427,9 @@ static XStatus NpdMbist(u32 *Args, u32 NumOfArgs)
 		PmOut32(DdrMcAddresses[i] + NPI_PCSR_CONTROL_OFFSET, 0);
 		}
 
+	Status = XST_SUCCESS;
+
+done:
 	/* Assert PCSR Lock*/
 	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {
 		if (0U == NpdMemIcAddresses[i]) {
@@ -437,9 +439,10 @@ static XStatus NpdMbist(u32 *Args, u32 NumOfArgs)
 		PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_LOCK_OFFSET, 1);
 	}
 
-	Status = XST_SUCCESS;
+	for (i = 0; (i < ARRAY_SIZE(DdrMcAddresses)) && (0U != DdrMcAddresses[i]); i++) {
+		PmOut32(DdrMcAddresses[i] + NPI_PCSR_LOCK_OFFSET, 1);
+	}
 
-done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
