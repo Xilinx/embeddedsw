@@ -23,9 +23,9 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 /* Default system network configuration */
-#define XBIR_NW_DEFAULT_IP_ADDRESS	"192.168.1.111"
+#define XBIR_NW_DEFAULT_IP_ADDRESS	"192.168.0.111"
 #define XBIR_NW_DEFAULT_IP_MASK		"255.255.255.0"
-#define XBIR_NW_DEFAULT_GW_ADDRESS	"192.168.1.1"
+#define XBIR_NW_DEFAULT_GW_ADDRESS	"192.168.0.1"
 /* Protocol definition */
 #define XBIR_NW_HTTP_PORT	(80U)
 
