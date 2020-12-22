@@ -24,6 +24,8 @@
 *       mn     07/30/20 Read 16Bit value for Block Size Register
 * 3.11  sk     12/01/20 Tap programming sequence updates like disable OTAPEN
 *                       always, write zero to tap register for zero tap value.
+*       sk     12/17/20 Removed checking platform specific SD macros and used
+*                       Baseaddress instead.
 *
 * </pre>
 *
@@ -1111,13 +1113,12 @@ u32 XSdPs_CalcClock(XSdPs *InstancePtr, u32 SelFreq)
 ******************************************************************************/
 void XSdPs_DllRstCtrl(XSdPs *InstancePtr, u8 EnRst)
 {
-	u32 DeviceId;
+	u32 BaseAddress;
 	u32 DllCtrl;
 
-	DeviceId = InstancePtr->Config.DeviceId;
+	BaseAddress = InstancePtr->Config.BaseAddress;
 #ifdef versal
-#ifdef XPAR_PSV_PMC_SD_0_DEVICE_ID
-	if (DeviceId == 0U) {
+	if (BaseAddress == XSDPS_VERSAL_SD0_BASE) {
 #if EL1_NONSECURE && defined (__aarch64__)
 		(void)DllCtrl;
 
@@ -1132,8 +1133,6 @@ void XSdPs_DllRstCtrl(XSdPs *InstancePtr, u8 EnRst)
 		XSdPs_WriteReg(InstancePtr->SlcrBaseAddr, SD0_DLL_CTRL, DllCtrl);
 #endif /* EL1_NONSECURE && defined (__aarch64__) */
 	} else {
-#endif /* XPAR_PSV_PMC_SD_0_DEVICE_ID */
-		(void) DeviceId;
 #if EL1_NONSECURE && defined (__aarch64__)
 		(void)DllCtrl;
 
@@ -1147,13 +1146,9 @@ void XSdPs_DllRstCtrl(XSdPs *InstancePtr, u8 EnRst)
 		}
 		XSdPs_WriteReg(InstancePtr->SlcrBaseAddr, SD1_DLL_CTRL, DllCtrl);
 #endif
-#ifdef XPAR_PSV_PMC_SD_0_DEVICE_ID
 	}
-#endif /* XPAR_PSV_PMC_SD_0_DEVICE_ID */
 #else /* versal */
-
-#ifdef XPAR_PSU_SD_0_DEVICE_ID
-	if (DeviceId == 0U) {
+	if (BaseAddress == XSDPS_ZYNQMP_SD0_BASE) {
 #if EL1_NONSECURE && defined (__aarch64__)
 		(void)DllCtrl;
 
@@ -1168,8 +1163,6 @@ void XSdPs_DllRstCtrl(XSdPs *InstancePtr, u8 EnRst)
 		XSdPs_WriteReg(InstancePtr->SlcrBaseAddr, SD_DLL_CTRL, DllCtrl);
 #endif
 	} else {
-#endif /* XPAR_PSU_SD_0_DEVICE_ID */
-		(void) DeviceId;
 #if EL1_NONSECURE && defined (__aarch64__)
 		(void)DllCtrl;
 
@@ -1183,9 +1176,7 @@ void XSdPs_DllRstCtrl(XSdPs *InstancePtr, u8 EnRst)
 		}
 		XSdPs_WriteReg(InstancePtr->SlcrBaseAddr, SD_DLL_CTRL, DllCtrl);
 #endif
-#ifdef XPAR_PSU_SD_0_DEVICE_ID
 	}
-#endif
 #endif
 }
 
@@ -1205,18 +1196,18 @@ void XSdPs_DllRstCtrl(XSdPs *InstancePtr, u8 EnRst)
 ******************************************************************************/
 void XSdPs_ConfigTapDelay(XSdPs *InstancePtr)
 {
-	u32 DeviceId;
+	u32 BaseAddress;
 	u32 TapDelay;
 	u32 ITapDelay;
 	u32 OTapDelay;
 
-	DeviceId = InstancePtr->Config.DeviceId ;
+	BaseAddress = InstancePtr->Config.BaseAddress;
 	TapDelay = 0U;
 	ITapDelay = InstancePtr->ITapDelay;
 	OTapDelay = InstancePtr->OTapDelay;
 
 #ifdef versal
-	(void) DeviceId;
+	(void) BaseAddress;
 	if (ITapDelay) {
 		TapDelay = SD_ITAPCHGWIN;
 		XSdPs_WriteReg(InstancePtr->Config.BaseAddress, SD_ITAPDLY, TapDelay);
@@ -1238,8 +1229,7 @@ void XSdPs_ConfigTapDelay(XSdPs *InstancePtr)
 		XSdPs_WriteReg(InstancePtr->Config.BaseAddress, SD_OTAPDLY, 0x0);
 	}
 #else
-#ifdef XPAR_PSU_SD_0_DEVICE_ID
-	if (DeviceId == 0U) {
+	if (BaseAddress == XSDPS_ZYNQMP_SD0_BASE) {
 #if EL1_NONSECURE && defined (__aarch64__)
 		(void)TapDelay;
 		if (ITapDelay) {
@@ -1287,8 +1277,6 @@ void XSdPs_ConfigTapDelay(XSdPs *InstancePtr)
 		}
 #endif
 	} else {
-#endif
-		(void) DeviceId;
 		ITapDelay = ITapDelay << 16U;
 		OTapDelay = OTapDelay << 16U;
 #if EL1_NONSECURE && defined (__aarch64__)
@@ -1337,9 +1325,7 @@ void XSdPs_ConfigTapDelay(XSdPs *InstancePtr)
 			XSdPs_WriteReg(InstancePtr->SlcrBaseAddr, SD_OTAPDLY, TapDelay);
 		}
 #endif
-#ifdef XPAR_PSU_SD_0_DEVICE_ID
 	}
-#endif
 #endif /* versal */
 }
 
