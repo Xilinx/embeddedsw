@@ -1,3 +1,8 @@
+Changes for 2020.3
+===============================
+sdps_v3_11:
+Removed checking platform specific SD macros and used Baseaddress instead.
+
 Changes for 2020.2
 ===============================
 rfdc_v8_0::
