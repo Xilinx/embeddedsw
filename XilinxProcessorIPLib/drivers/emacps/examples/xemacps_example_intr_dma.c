@@ -103,6 +103,8 @@
 *           14/08/19 Move definition of Platform to _util file for common use.
 *           08/24/19 Add support for clock configuration in EL1 Non Secure for
 *                    Versal.
+* 3.14 sk   12/23/20 Remove documentation for None param in main function to fix
+* 		     the doxygen warning.
 *
 * </pre>
 *
@@ -305,8 +307,6 @@ void XEmacPs_SetMdioDivisor(XEmacPs *InstancePtr, XEmacPs_MdcDiv Divisor);
 *
 * This is the main function for the EmacPs example. This function is not
 * included if the example is generated from the TestAppGen test tool.
-*
-* @param	None.
 *
 * @return	XST_SUCCESS to indicate success, otherwise XST_FAILURE.
 *
