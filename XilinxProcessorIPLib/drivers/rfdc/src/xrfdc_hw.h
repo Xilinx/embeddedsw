@@ -90,6 +90,7 @@
 *       cog    10/14/20 Get I and Q data now supports warm bitstream swap.
 * 9.0   cog    11/25/20 Upversion.
 * 10.0  cog    11/26/20 Refactor and split files.
+*       cog    12/23/20 Fixed issue with IQ QMC on 48dr devices.
 *
 *</pre>
 *
@@ -937,6 +938,7 @@ extern "C" {
  */
 
 #define XRFDC_QMC_OFFST_CRCTN_MASK 0x00000FFFU /**< QMC offset correction factor */
+#define XRFDC_QMC_OFFST_CRCTN_SIGN_MASK 0x00000800 /**< QMC offset correction factor sign bit*/
 
 /* @} */
 
@@ -959,6 +961,7 @@ extern "C" {
  */
 
 #define XRFDC_QMC_PHASE_CRCTN_MASK 0x00000FFFU /**< QMC phase correction factor */
+#define XRFDC_QMC_PHASE_CRCTN_SIGN_MASK 0x00000800 /**< QMC phase correction factor sign bit*/
 
 /* @} */
 
