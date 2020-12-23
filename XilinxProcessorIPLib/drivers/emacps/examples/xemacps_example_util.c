@@ -27,6 +27,8 @@
 * 3.2	hk   09/30/15 Added support for TI PHY DP83867
 * 3.2   mus  02/20/16 Added support for microblaze.
 * 3.9   hk   02/12/19 Use selected speed in loopback mode.
+* 3.14  sk   12/23/20 Correct variable name to delay in EmacpsDelay() function
+* 		      to fix the doxygen warning.
 * </pre>
 *
 *****************************************************************************/
@@ -638,7 +640,7 @@ LONG EmacPsUtilTiPhyLoopback(XEmacPs * EmacPsInstancePtr,
 *
 * This function provides delays in seconds
 *
-* @param    Delay in seconds
+* @param    delay in seconds
 *
 * @return   None.
 *
