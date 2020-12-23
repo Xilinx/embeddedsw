@@ -7,7 +7,7 @@
 /**
 *
 * @file xiicps.h
-* @addtogroup iicps_v3_12
+* @addtogroup iicps_v3_13
 * @{
 * @details
 *
