@@ -7,7 +7,7 @@
 /**
 *
 * @file xwdtps_selftest.c
-* @addtogroup wdtps_v3_4
+* @addtogroup wdtps_v3_5
 * @{
 *
 * Contains diagnostic self-test functions for the XWdtPs driver.

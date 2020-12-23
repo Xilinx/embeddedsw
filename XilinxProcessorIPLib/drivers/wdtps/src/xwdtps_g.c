@@ -7,7 +7,7 @@
 /**
 *
 * @file xwdtps_g.c
-* @addtogroup wdtps_v3_4
+* @addtogroup wdtps_v3_5
 * @{
 *
 * This file contains a table that specifies the configuration of the watchdog
