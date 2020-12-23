@@ -31,6 +31,8 @@
 * 1.5   adk    09/05/19 Added volatile keyword for DstDone variable to disable
 *			optimizations.
 * 1.6   hk     11/18/19 Correct Versal INTR definition.
+* 1.9	sk     12/23/20 Add the documentation for XCsuDma_IntrExample() function
+* 			parameters to fix the doxygen warning.
 * </pre>
 *
 ******************************************************************************/
@@ -152,8 +154,12 @@ int main(void)
 * This function performs data transfer in loop back mode in interrupt mode
 * and verify the data.
 *
-* @param	DeviceId is the XPAR_<CSUDMA Instance>_DEVICE_ID value from
-*		xparameters.h.
+* @param	IntcInstancePtr is a pointer to the instance of the INTC.
+* @param	CsuDmaInstance contains a pointer to the CSU DMA instance
+* 		which is going to be connected to the interrupt controller.
+* @param	DeviceId is the XPAR_<CSUDMA Instance>_DEVICE_ID macro value.
+* @param	IntrId is the interrupt Id and is typically
+* 		XPAR_<CSUDMA_instance>_INTR macro value.
 *
 * @return
 *		- XST_SUCCESS if successful.
