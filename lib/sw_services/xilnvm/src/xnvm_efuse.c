@@ -37,6 +37,7 @@
 *	kal  09/03/2020 Fixed Security CoE review comments
 *	am   10/13/2020 Resolved MISRA C violations
 * 2.2   am   11/23/2020 Resolved MISRA C and Coverity warnings
+* 	kal  12/23/2020 Removed unused variables
 *
 * </pre>
 *
@@ -1227,7 +1228,6 @@ int XNvm_EfuseWriteRevocationId(u32 RevokeId)
 	int Status = XST_FAILURE;
 	u32 RevokeIdRow;
 	u32 RevokeIdBit;
-	u32 RevokeIdRd;
 	XNvm_EfuseRevokeIds WriteRevokeId = {0U};
 	XNvm_EfuseData EfuseData = {NULL};
 
@@ -1239,17 +1239,15 @@ int XNvm_EfuseWriteRevocationId(u32 RevokeId)
 	RevokeIdRow = (RevokeId / XNVM_EFUSE_MAX_BITS_IN_ROW);
 	RevokeIdBit = (RevokeId % XNVM_EFUSE_MAX_BITS_IN_ROW);
 
-	Status = XNvm_EfuseReadCache(RevokeIdRow, &RevokeIdRd);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
 	WriteRevokeId.RevokeId[RevokeIdRow] = ((u32)1U << RevokeIdBit);
 	WriteRevokeId.PrgmRevokeId = TRUE;
 
 	EfuseData.RevokeIds = &WriteRevokeId;
 
 	Status = XNvm_EfuseWrite(&EfuseData);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 END:
 	return Status;
 }
