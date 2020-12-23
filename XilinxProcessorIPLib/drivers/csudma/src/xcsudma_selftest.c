@@ -8,7 +8,7 @@
 /**
 *
 * @file xcsudma_selftest.c
-* @addtogroup csudma_v1_8
+* @addtogroup csudma_v1_9
 * @{
 *
 * This file contains a diagnostic self-test function for the CSU_DMA driver.
