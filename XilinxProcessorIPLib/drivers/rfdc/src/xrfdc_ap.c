@@ -21,7 +21,8 @@
 *
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
-* 10.0  cog    11/26/20 Refactor and split files..
+* 10.0  cog    11/26/20 Refactor and split files.
+*       cog    12/23/20 Fixed issue with IQ QMC on 48dr devices.
 *
 * </pre>
 *
@@ -70,6 +71,7 @@ u32 XRFdc_SetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id
 	u32 Index;
 	u32 NoOfBlocks;
 	u32 Offset;
+	u32 MBReg;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(QMCSettingsPtr != NULL);
@@ -83,6 +85,16 @@ u32 XRFdc_SetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id
 	}
 
 	Index = Block_Id;
+
+	if (Type == XRFDC_DAC_TILE) {
+		MBReg = XRFdc_RDReg(InstancePtr, XRFDC_BLOCK_BASE(Type, Tile_Id, Block_Id), XRFDC_DAC_MB_CFG_OFFSET,
+				    XRFDC_ALT_BOND_MASK);
+		if (MBReg == XRFDC_ALT_BOND_MASK) {
+			/*Account for internal routing cases*/
+			Index = XRFDC_BLK_ID1;
+		}
+	}
+
 	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) && (Type == XRFDC_ADC_TILE)) {
 		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
 		if (Block_Id == XRFDC_BLK_ID1) {
@@ -98,7 +110,7 @@ u32 XRFdc_SetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id
 			}
 		}
 	} else {
-		NoOfBlocks = Block_Id + 1U;
+		NoOfBlocks = Index + 1U;
 	}
 
 	for (; Index < NoOfBlocks;) {
@@ -106,7 +118,7 @@ u32 XRFdc_SetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id
 			/* ADC */
 			QMCConfigPtr = &InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Analog_Datapath[Index].QMC_Settings;
 		} else {
-			QMCConfigPtr = &InstancePtr->DAC_Tile[Tile_Id].DACBlock_Analog_Datapath[Index].QMC_Settings;
+			QMCConfigPtr = &InstancePtr->DAC_Tile[Tile_Id].DACBlock_Analog_Datapath[Block_Id].QMC_Settings;
 		}
 
 		BaseAddr = XRFDC_BLOCK_BASE(Type, Tile_Id, Index);
@@ -259,6 +271,7 @@ u32 XRFdc_GetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id
 {
 	u32 Status;
 	u32 BaseAddr;
+	u32 MBReg;
 	s32 PhaseCorrectionFactor;
 	u32 GainCorrectionFactor;
 	s32 OffsetCorrectionFactor;
@@ -274,7 +287,7 @@ u32 XRFdc_GetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id
 		goto RETURN_PATH;
 	}
 
-	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) && (Block_Id == XRFDC_BLK_ID1) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == XRFDC_ENABLED) && (Block_Id == XRFDC_BLK_ID1) &&
 	    (Type == XRFDC_ADC_TILE) &&
 	    (InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Block_Id].MixerInputDataType !=
 	     XRFDC_DATA_TYPE_IQ)) {
@@ -282,12 +295,16 @@ u32 XRFdc_GetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id
 	}
 
 	BaseAddr = XRFDC_BLOCK_BASE(Type, Tile_Id, Block_Id);
+	if (Type == XRFDC_DAC_TILE) {
+		MBReg = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_DAC_MB_CFG_OFFSET, XRFDC_ALT_BOND_MASK);
+		if (MBReg == XRFDC_ALT_BOND_MASK) {
+			/*Account for internal routing cases*/
+			BaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID1);
+		}
+	}
 
 	QMCSettingsPtr->EnableGain =
 		XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_QMC_CFG_OFFSET, XRFDC_QMC_CFG_EN_GAIN_MASK);
-	QMCSettingsPtr->EnablePhase =
-		XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_QMC_CFG_OFFSET, XRFDC_QMC_CFG_EN_PHASE_MASK) >>
-		XRFDC_QMC_CFG_PHASE_SHIFT;
 
 	/* Phase Correction factor */
 	if (((Type == XRFDC_ADC_TILE) &&
@@ -296,14 +313,20 @@ u32 XRFdc_GetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id
 	    ((Type == XRFDC_DAC_TILE) &&
 	     (InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Block_Id].MixerInputDataType ==
 	      XRFDC_DATA_TYPE_IQ))) {
+		QMCSettingsPtr->EnablePhase =
+			XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_QMC_CFG_OFFSET, XRFDC_QMC_CFG_EN_PHASE_MASK) >>
+			XRFDC_QMC_CFG_PHASE_SHIFT;
 		PhaseCorrectionFactor =
 			XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_QMC_PHASE_OFFSET, XRFDC_QMC_PHASE_CRCTN_MASK);
-		PhaseCorrectionFactor = (PhaseCorrectionFactor >> 11) == 0 ? PhaseCorrectionFactor :
-									     ((-1 ^ 0xFFF) | PhaseCorrectionFactor);
+		PhaseCorrectionFactor =
+			((PhaseCorrectionFactor & XRFDC_QMC_PHASE_CRCTN_SIGN_MASK) != XRFDC_QMC_PHASE_CRCTN_SIGN_MASK) ?
+				PhaseCorrectionFactor :
+				(s32)((-1 ^ XRFDC_QMC_PHASE_CRCTN_MASK) | PhaseCorrectionFactor);
 		QMCSettingsPtr->PhaseCorrectionFactor =
 			((PhaseCorrectionFactor * XRFDC_MAX_PHASE_CORR_FACTOR) / XRFDC_QMC_PHASE_MULT);
 	} else {
-		QMCSettingsPtr->PhaseCorrectionFactor = 0U;
+		QMCSettingsPtr->PhaseCorrectionFactor = XRFDC_DISABLED;
+		QMCSettingsPtr->EnablePhase = XRFDC_DISABLED;
 	}
 
 	/* Gain Correction factor */
@@ -312,7 +335,9 @@ u32 XRFdc_GetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id
 		((GainCorrectionFactor * XRFDC_MAX_GAIN_CORR_FACTOR) / XRFDC_QMC_GAIN_MULT);
 	OffsetCorrectionFactor = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_QMC_OFF_OFFSET, XRFDC_QMC_OFFST_CRCTN_MASK);
 	QMCSettingsPtr->OffsetCorrectionFactor =
-		(OffsetCorrectionFactor >> 11) == 0 ? OffsetCorrectionFactor : ((-1 ^ 0xFFF) | OffsetCorrectionFactor);
+		((OffsetCorrectionFactor & XRFDC_QMC_OFFST_CRCTN_SIGN_MASK) != XRFDC_QMC_OFFST_CRCTN_SIGN_MASK) ?
+			OffsetCorrectionFactor :
+			(s32)((-1 ^ XRFDC_QMC_OFFST_CRCTN_MASK) | OffsetCorrectionFactor);
 
 	/* Event Source */
 	QMCSettingsPtr->EventSource =

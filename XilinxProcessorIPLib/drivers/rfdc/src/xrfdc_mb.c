@@ -35,6 +35,7 @@
 *       cog    10/14/20 Get I and Q data now supports warm bitstream swap.
 * 9.0   cog    11/25/20 Upversion.
 * 10.0  cog    11/26/20 Refactor and split files.
+*       cog    12/23/20 Fixed issue with IQ QMC on 48dr devices.
 *
 * </pre>
 *
@@ -58,6 +59,7 @@ static void XRFdc_SB_R2C_C2R(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Mixe
 			     u32 DataPathIndex[], u32 BlockIndex[]);
 static void XRFdc_SB_C2C(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 MixerInOutDataType, u32 Mode,
 			 u32 DataPathIndex[], u32 BlockIndex[]);
+static void XRFdc_AltQMCRouting(XRFdc *InstancePtr, u32 Tile_Id, u32 Enable);
 /************************** Function Prototypes ******************************/
 
 /*****************************************************************************/
@@ -85,7 +87,7 @@ static void XRFdc_SB_C2C(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 MixerInO
 			 u32 DataPathIndex[], u32 BlockIndex[])
 {
 	u32 Block_Id;
-
+	u32 MBReg;
 	if ((Type == XRFDC_ADC_TILE) && (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1)) {
 		/* Update ConnectedIData and ConnectedQData for ADC 4GSPS */
 		InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].ConnectedIData =
@@ -124,6 +126,12 @@ static void XRFdc_SB_C2C(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 MixerInO
 		} else {
 			if (InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].NumSlices == XRFDC_DUAL_TILE) {
 				/* rerouting & configuration for alternative bonding. */
+				MBReg = XRFdc_RDReg(InstancePtr,
+						    XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID1),
+						    XRFDC_DAC_MB_CFG_OFFSET, XRFDC_ALT_BOND_MASK);
+				if (MBReg == XRFDC_DISABLED) {
+					XRFdc_AltQMCRouting(InstancePtr, Tile_Id, XRFDC_ENABLED);
+				}
 				XRFdc_ClrSetReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID1),
 						XRFDC_DAC_MB_CFG_OFFSET, XRFDC_ALT_BOND_MASK,
 						XRFDC_ENABLED << XRFDC_ALT_BOND_SHIFT);
@@ -180,6 +188,7 @@ static void XRFdc_SB_C2C(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 MixerInO
 static void XRFdc_SB_R2C_C2R(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 MixerInOutDataType, u32 Mode,
 			     u32 DataPathIndex[], u32 BlockIndex[])
 {
+	u32 MBReg;
 	if (Type == XRFDC_ADC_TILE) {
 		InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].ConnectedIData =
 			BlockIndex[0U];
@@ -187,6 +196,11 @@ static void XRFdc_SB_R2C_C2R(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Mixe
 	} else {
 		if (InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].NumSlices == XRFDC_DUAL_TILE) {
 			/* rerouting & configuration for alternative bonding. */
+			MBReg = XRFdc_RDReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID1),
+					    XRFDC_DAC_MB_CFG_OFFSET, XRFDC_ALT_BOND_MASK);
+			if (MBReg != XRFDC_DISABLED) {
+				XRFdc_AltQMCRouting(InstancePtr, Tile_Id, XRFDC_DISABLED);
+			}
 			XRFdc_ClrSetReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID1),
 					XRFDC_DAC_MB_CFG_OFFSET, XRFDC_ALT_BOND_MASK,
 					XRFDC_DISABLED << XRFDC_ALT_BOND_SHIFT);
@@ -235,6 +249,7 @@ static void XRFdc_SB_R2C_C2R(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Mixe
 static void XRFdc_MB_C2C(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 NoOfDataPaths, u32 MixerInOutDataType, u32 Mode,
 			 u32 DataPathIndex[], u32 BlockIndex[])
 {
+	u32 MBReg;
 	if ((Type == XRFDC_ADC_TILE) && (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1)) {
 		XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0], MixerInOutDataType,
 				    BlockIndex[0U], BlockIndex[0U] + 1U);
@@ -273,6 +288,12 @@ static void XRFdc_MB_C2C(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 NoOfDataP
 		} else {
 			if (InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].NumSlices == XRFDC_DUAL_TILE) {
 				/* rerouting & configuration for alternative bonding. */
+				MBReg = XRFdc_RDReg(InstancePtr,
+						    XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID1),
+						    XRFDC_DAC_MB_CFG_OFFSET, XRFDC_ALT_BOND_MASK);
+				if (MBReg == XRFDC_DISABLED) {
+					XRFdc_AltQMCRouting(InstancePtr, Tile_Id, XRFDC_ENABLED);
+				}
 				XRFdc_ClrSetReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID1),
 						XRFDC_DAC_MB_CFG_OFFSET, XRFDC_ALT_BOND_MASK,
 						XRFDC_ENABLED << XRFDC_ALT_BOND_SHIFT);
@@ -345,6 +366,12 @@ static void XRFdc_MB_C2C(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 NoOfDataP
 
 			if (InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].NumSlices == XRFDC_DUAL_TILE) {
 				/* rerouting & configuration for alternative bonding. */
+				MBReg = XRFdc_RDReg(InstancePtr,
+						    XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID1),
+						    XRFDC_DAC_MB_CFG_OFFSET, XRFDC_ALT_BOND_MASK);
+				if (MBReg == XRFDC_DISABLED) {
+					XRFdc_AltQMCRouting(InstancePtr, Tile_Id, XRFDC_ENABLED);
+				}
 				XRFdc_ClrSetReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID1),
 						XRFDC_DAC_MB_CFG_OFFSET, XRFDC_ALT_BOND_MASK,
 						XRFDC_ENABLED << XRFDC_ALT_BOND_SHIFT);
@@ -401,6 +428,7 @@ static void XRFdc_MB_C2C(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 NoOfDataP
 static void XRFdc_MB_R2C_C2R(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 NoOfDataPaths, u32 MixerInOutDataType,
 			     u32 Mode, u32 DataPathIndex[], u32 BlockIndex[])
 {
+	u32 MBReg;
 	if ((Type == XRFDC_ADC_TILE) && (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1)) {
 		/* Update ConnectedIData and ConnectedQData */
 		InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].ConnectedIData =
@@ -437,6 +465,12 @@ static void XRFdc_MB_R2C_C2R(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 NoOfD
 		} else {
 			if (InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].NumSlices == XRFDC_DUAL_TILE) {
 				/* rerouting & configuration for alternative bonding. */
+				MBReg = XRFdc_RDReg(InstancePtr,
+						    XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID1),
+						    XRFDC_DAC_MB_CFG_OFFSET, XRFDC_ALT_BOND_MASK);
+				if (MBReg != XRFDC_DISABLED) {
+					XRFdc_AltQMCRouting(InstancePtr, Tile_Id, XRFDC_DISABLED);
+				}
 				XRFdc_ClrSetReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID1),
 						XRFDC_DAC_MB_CFG_OFFSET, XRFDC_ALT_BOND_MASK,
 						XRFDC_DISABLED << XRFDC_ALT_BOND_SHIFT);
@@ -480,6 +514,12 @@ static void XRFdc_MB_R2C_C2R(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 NoOfD
 		} else {
 			if (InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].NumSlices == XRFDC_DUAL_TILE) {
 				/* rerouting & configuration for alternative bonding. */
+				MBReg = XRFdc_RDReg(InstancePtr,
+						    XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID1),
+						    XRFDC_DAC_MB_CFG_OFFSET, XRFDC_ALT_BOND_MASK);
+				if (MBReg != XRFDC_DISABLED) {
+					XRFdc_AltQMCRouting(InstancePtr, Tile_Id, XRFDC_DISABLED);
+				}
 				XRFdc_ClrSetReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID1),
 						XRFDC_DAC_MB_CFG_OFFSET, XRFDC_ALT_BOND_MASK,
 						XRFDC_DISABLED << XRFDC_ALT_BOND_SHIFT);
@@ -599,6 +639,57 @@ static u32 XRFdc_UpdateMBConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 No
 	Status = XRFDC_SUCCESS;
 RETURN_PATH:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* Static API to route QMC settings if switching to and from complex mode on
+* alternate bodnout devices.
+*
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param    Enable 0 for normal routing, 1 for IQ routing.
+* @return
+*           - None
+*
+* @note     Static API for DAC Tiles
+*
+******************************************************************************/
+static void XRFdc_AltQMCRouting(XRFdc *InstancePtr, u32 Tile_Id, u32 Enable)
+{
+	u32 CfgReg;
+	u32 GainReg;
+	u32 OfsReg;
+	u32 EventReg;
+	u32 OldBaseAddr;
+	u32 NewBaseAddr;
+
+	if (Enable == XRFDC_ENABLED) {
+		OldBaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID2);
+		NewBaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID1);
+	} else {
+		OldBaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID1);
+		NewBaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID2);
+	}
+
+	CfgReg = XRFdc_RDReg(InstancePtr, OldBaseAddr, XRFDC_QMC_CFG_OFFSET, XRFDC_QMC_CFG_EN_GAIN_MASK);
+	XRFdc_ClrSetReg(InstancePtr, NewBaseAddr, XRFDC_QMC_CFG_OFFSET, XRFDC_QMC_CFG_EN_GAIN_MASK, CfgReg);
+	XRFdc_ClrSetReg(InstancePtr, OldBaseAddr, XRFDC_QMC_CFG_OFFSET, XRFDC_QMC_CFG_EN_GAIN_MASK, XRFDC_DISABLED);
+
+	GainReg = XRFdc_RDReg(InstancePtr, OldBaseAddr, XRFDC_QMC_GAIN_OFFSET, XRFDC_QMC_GAIN_CRCTN_MASK);
+	XRFdc_ClrSetReg(InstancePtr, NewBaseAddr, XRFDC_QMC_GAIN_OFFSET, XRFDC_QMC_GAIN_CRCTN_MASK, GainReg);
+
+	OfsReg = XRFdc_RDReg(InstancePtr, OldBaseAddr, XRFDC_QMC_OFF_OFFSET, XRFDC_QMC_OFFST_CRCTN_MASK);
+	XRFdc_ClrSetReg(InstancePtr, NewBaseAddr, XRFDC_QMC_OFF_OFFSET, XRFDC_QMC_OFFST_CRCTN_MASK, OfsReg);
+
+	EventReg = XRFdc_RDReg(InstancePtr, OldBaseAddr, XRFDC_QMC_UPDT_OFFSET, XRFDC_QMC_UPDT_MODE_MASK);
+	XRFdc_ClrSetReg(InstancePtr, NewBaseAddr, XRFDC_QMC_UPDT_OFFSET, XRFDC_QMC_UPDT_MODE_MASK, EventReg);
+
+	XRFdc_ClrSetReg(InstancePtr, OldBaseAddr, XRFDC_DAC_UPDATE_DYN_OFFSET, XRFDC_UPDT_EVNT_MASK,
+			XRFDC_UPDT_EVNT_QMC_MASK);
+	XRFdc_ClrSetReg(InstancePtr, NewBaseAddr, XRFDC_DAC_UPDATE_DYN_OFFSET, XRFDC_UPDT_EVNT_MASK,
+			XRFDC_UPDT_EVNT_QMC_MASK);
 }
 
 /*****************************************************************************/
@@ -1055,7 +1146,7 @@ int XRFdc_GetConnectedQData(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block
 *
 ******************************************************************************/
 void XRFdc_SetConnectedIQData(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, int ConnectedIData,
-					    int ConnectedQData)
+			      int ConnectedQData)
 {
 	if (Type == XRFDC_ADC_TILE) {
 		InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Block_Id].ConnectedIData = ConnectedIData;
