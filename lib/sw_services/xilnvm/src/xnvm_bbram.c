@@ -22,6 +22,7 @@
 *	kal  09/03/2020 Fixed Security CoE review comments
 *	am   10/13/2020 Resolved MISRA C violations
 * 2.2   am   11/23/2020 Resolved MISRA C violation Rule 10.6
+* 	kal  12/23/2020 Disable BBRAM programming in error case also
 *
 * </pre>
 *
@@ -107,6 +108,7 @@ static int XNvm_BbramValidateAesKeyCrc(const u32* Key);
 int XNvm_BbramWriteAesKey(const u8* Key, u16 KeyLen)
 {
 	int Status = XST_FAILURE;
+	int DisableStatus = XST_FAILURE;
 	const u32 *AesKey = NULL;
 	u32 BbramKeyAddr;
 	u8 Idx;
@@ -145,8 +147,11 @@ int XNvm_BbramWriteAesKey(const u8* Key, u16 KeyLen)
 		goto END;
 	}
 
-	Status = XNvm_BbramDisablePgmMode();
 END:
+	DisableStatus = XNvm_BbramDisablePgmMode();
+	if ((DisableStatus != XST_SUCCESS) && (Status == XST_SUCCESS)) {
+		Status = DisableStatus;
+	}
 	return Status;
 }
 
