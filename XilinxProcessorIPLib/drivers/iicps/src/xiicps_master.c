@@ -48,6 +48,7 @@
 * 3.11  sd  02/06/20 Added clocking support.
 * 3.11  rna 02/12/20 Moved static data transfer functions to xiicps_xfer.c file
 *	    02/18/20 Modified latest code for MISRA-C:2012 Compliance.
+* 3.13  rna 11/24/20 Added timeout to XIicPs_MasterSendPolled function.
 * </pre>
 *
 ******************************************************************************/
@@ -56,12 +57,14 @@
 
 #include "xiicps.h"
 #include "xiicps_xfer.h"
+#include "sleep.h"
 
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define TX_MAX_LOOPCNT 1000000
 
 /************************** Function Prototypes ******************************/
 
@@ -274,7 +277,8 @@ s32 XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 	u32 StatusReg;
 	u32 BaseAddr;
 	u32 Intrs;
-	s32 Status;
+	s32 Status = (s32)XST_FAILURE;
+	u32 timeout = 0;
 	_Bool Value;
 
 	/*
@@ -364,6 +368,17 @@ s32 XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 		 * If there is an error, tell the caller.
 		 */
 		if ((IntrStatusReg & Intrs) != 0U) {
+			if ((IntrStatusReg & XIICPS_IXR_ARB_LOST_MASK) != 0U) {
+				Status = (s32) XST_IIC_ARB_LOST;
+			}
+			break;
+		}
+		/*
+		 * Timeout if stuck for more than 1 second
+		 */
+		usleep(1);
+		timeout++;
+		if (timeout == TX_MAX_LOOPCNT) {
 			break;
 		}
 	}
@@ -374,14 +389,9 @@ s32 XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 						(~XIICPS_CR_HOLD_MASK));
 	}
 
-	if ((IntrStatusReg & Intrs) != 0U) {
-		if ((IntrStatusReg & XIICPS_IXR_ARB_LOST_MASK) != 0U) {
-			Status = (s32) XST_IIC_ARB_LOST;
-		} else {
-			Status = (s32)XST_FAILURE;
-		}
-	} else {
-			Status = (s32)XST_SUCCESS;
+	/* Set the Status for XST_SUCCESS */
+	if (((IntrStatusReg & Intrs) == 0U) && (timeout != TX_MAX_LOOPCNT)) {
+		Status = XST_SUCCESS;
 	}
 
 	return Status;
