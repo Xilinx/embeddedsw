@@ -21,6 +21,8 @@
 *       kal   08/12/2020 Added PlHouseCleaning in case of any PL error.
 *       td    08/19/2020 Fixed MISRA C violations Rule 10.3
 *       bsv   10/13/2020 Code clean up
+* 1.03  kal   12/22/2020 Perform Cfu/Cfi recovery before re-triggering
+*                        PL House cleaning in case of error in PL loading.
 *
 * </pre>
 *
@@ -42,6 +44,8 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+static void XLoader_CfiErrHandler(const XCfupmc *InstancePtr);
+static void XLoader_CfuErrHandler(const XCfupmc *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 static XCframe XLoader_CframeIns = {0U}; /** CFRAME Driver Instance */
@@ -91,6 +95,56 @@ END:
 
 /*****************************************************************************/
 /**
+ * @brief	This function is used for Cframe error handling
+ *
+ * @param       InstancePtr is a pointer to the XCfupmc instance.
+ *
+ * @return      None
+ *
+ *****************************************************************************/
+static void XLoader_CfiErrHandler(const XCfupmc *InstancePtr)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	XCfupmc_CfiErrHandler(InstancePtr);
+	XCframe_ClearCframeErr(&XLoader_CframeIns);
+	XCfupmc_ClearIgnoreCfiErr(InstancePtr);
+
+	/** Clear ISRs */
+	XPlmi_UtilRMW(PMC_GLOBAL_PMC_ERR1_STATUS,
+			PMC_GLOBAL_PMC_ERR1_STATUS_CFRAME_MASK,
+			PMC_GLOBAL_PMC_ERR1_STATUS_CFRAME_MASK);
+	XPlmi_UtilRMW(PMC_GLOBAL_PMC_ERR2_STATUS,
+			PMC_GLOBAL_PMC_ERR2_STATUS_CFI_MASK,
+			PMC_GLOBAL_PMC_ERR2_STATUS_CFI_MASK);
+	XCfupmc_ClearCfuIsr(InstancePtr);
+
+	return;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is used for CFU error handling
+ *
+ * @param     	InstancePtr is a pointer to the XCfupmc instance.
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+static void XLoader_CfuErrHandler(const XCfupmc *InstancePtr)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	/** CFU error checking and handling */
+	XCfupmc_CfuErrHandler(InstancePtr);
+	XPlmi_UtilRMW(PMC_GLOBAL_PMC_ERR1_STATUS,
+			PMC_GLOBAL_PMC_ERR1_STATUS_CFU_MASK,
+			PMC_GLOBAL_PMC_ERR1_STATUS_CFU_MASK);
+	return;
+}
+
+/*****************************************************************************/
+/**
  * @brief This function is used to check the CFU ISR and PMC_ERR1 and PMC_ERR2
  * status registers to check for any errors in PL and call corresponding error
  * recovery functions if needed.
@@ -111,6 +165,8 @@ int XLoader_CframeErrorHandler(u32 ImageId)
 	u32 CfuStatus = XPlmi_In32(CFU_APB_CFU_STATUS);
 	XCfupmc XLoader_CfuIns = {0U}; /** CFU Driver Instance */
 
+	CountVal = XPlmi_In32(CFU_APB_CFU_QWORD_CNT);
+
 	XPlmi_Printf(DEBUG_GENERAL, "Error loading PL data: \n\r"
 		"CFU_ISR: 0x%08x, CFU_STATUS: 0x%08x \n\r"
 		"PMC ERR1: 0x%08x, PMC ERR2: 0x%08x\n\r",
@@ -122,29 +178,15 @@ int XLoader_CframeErrorHandler(u32 ImageId)
 	}
 
 	if (CfiErrStatus != 0U) {
-		XCfupmc_CfiErrHandler(&XLoader_CfuIns);
-		XCframe_ClearCframeErr(&XLoader_CframeIns);
-		XCfupmc_ClearIgnoreCfiErr(&XLoader_CfuIns);
-
-		/** Clear ISRs */
-		XPlmi_UtilRMW(PMC_GLOBAL_PMC_ERR1_STATUS,
-				PMC_GLOBAL_PMC_ERR1_STATUS_CFRAME_MASK,
-				PMC_GLOBAL_PMC_ERR1_STATUS_CFRAME_MASK);
-		XPlmi_UtilRMW(PMC_GLOBAL_PMC_ERR2_STATUS,
-				PMC_GLOBAL_PMC_ERR2_STATUS_CFI_MASK,
-				PMC_GLOBAL_PMC_ERR2_STATUS_CFI_MASK);
-		XCfupmc_ClearCfuIsr(&XLoader_CfuIns);
+		XLoader_CfiErrHandler(&XLoader_CfuIns);
 	}
 
-	/** CFU error checking and handling */
-	XCfupmc_CfuErrHandler(&XLoader_CfuIns);
-	XPlmi_UtilRMW(PMC_GLOBAL_PMC_ERR1_STATUS,
-			PMC_GLOBAL_PMC_ERR1_STATUS_CFU_MASK,
-			PMC_GLOBAL_PMC_ERR1_STATUS_CFU_MASK);
-
-	CountVal = XPlmi_In32(CFU_APB_CFU_QWORD_CNT);
+	XLoader_CfuErrHandler(&XLoader_CfuIns);
 
 	if ((CountVal != 0U) && (ImageId == PM_DEV_PLD_0)) {
+		XLoader_CfiErrHandler(&XLoader_CfuIns);
+		XLoader_CfuErrHandler(&XLoader_CfuIns);
+
 		Status = XPmPlDomain_RetriggerPlHouseClean();
 		if (XST_SUCCESS != Status) {
 			goto END;
