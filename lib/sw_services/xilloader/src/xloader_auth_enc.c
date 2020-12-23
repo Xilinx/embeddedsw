@@ -16,6 +16,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   12/16/20 First release
+*	kal  12/23/20 Initialize Status to XST_FAILURE in XLoader_AesKatTest
 *
 * </pre>
 *
@@ -2654,7 +2655,7 @@ END:
 ******************************************************************************/
 static int XLoader_AesKatTest(XLoader_SecureParams *SecurePtr)
 {
-	int Status = XST_SUCCESS;
+	int Status = XST_FAILURE;
 	u32 DpacmEfuseStatus;
 	u32 PlmDpacmKatStatus;
 
@@ -2685,6 +2686,8 @@ static int XLoader_AesKatTest(XLoader_SecureParams *SecurePtr)
 		}
 		SecurePtr->PdiPtr->PlmKatStatus |= XLOADER_AES_KAT_MASK;
 	}
+
+	Status = XST_SUCCESS;
 
 END:
 	return Status;
