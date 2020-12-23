@@ -7,7 +7,7 @@
 /**
 *
 * @file xiicps.c
-* @addtogroup iicps_v3_12
+* @addtogroup iicps_v3_13
 * @{
 *
 * Contains implementation of required functions for the XIicPs driver.

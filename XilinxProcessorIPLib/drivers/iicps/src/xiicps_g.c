@@ -7,7 +7,7 @@
 /**
 *
 * @file xiicps_g.c
-* @addtogroup iicps_v3_12
+* @addtogroup iicps_v3_13
 * @{
 *
 * This file contains a configuration table that specifies the configuration of

@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xiicps_slave.c
-* @addtogroup iicps_v3_12
+* @addtogroup iicps_v3_13
 * @{
 *
 * Handles slave transfers
