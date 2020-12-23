@@ -57,7 +57,7 @@
 #define PLATFORM_TIMER_INTR_RATE_HZ (4)
 
 static XTtcPs TimerInstance;
-static u16 Interval;
+static XInterval Interval;
 static u8 Prescaler;
 
 volatile int TcpFastTmrFlag = 0;
