@@ -17,6 +17,8 @@
  *                     instead of base address  as first parameter
  * 1.2	 ND	  09/02/20 Added support for New Av patgen. Added support for CRC for
  *					   format 422 for pixel width engine and PPC changes.
+ * 1.3	 ND	  12/26/20 Updated code for YUV422 related pt colorshift issue.
+ * 					   Added support for retraining on color format change.
 *******************************************************************************/
 
 #include "dppt.h"
@@ -2460,6 +2462,27 @@ static void Dprx_DetectResolution(void *InstancePtr)
 
 	rxMsamisc0 = ((XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 							XDP_RX_MSA_MISC0) >> 5) & 0x00000007);
+	Msa[0].SynchronousClockMode = rxMsamisc0 & 1;
+	dp_conf.bpc = Bpc[rxMsamisc0];
+	Msa[0].BitsPerColor = dp_conf.bpc;
+	Msa[0].Misc0 = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+				   XDP_RX_MSA_MISC0); //rxMsamisc0;
+	Msa[0].Misc1 = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+				   XDP_RX_MSA_MISC1);
+
+	if((Msa[0].Misc0 & 0x6) == 0x2) {
+		/* YUV422 */
+		DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat = XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422;
+		Msa[0].ComponentFormat = XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422;
+} else if ((Msa[0].Misc0 & 0x6) == 0x4){
+		/*YUV444 */
+		DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat = XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444;
+		Msa[0].ComponentFormat = XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444;
+	} else {
+		/* RGB */
+		DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat = XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB;
+		Msa[0].ComponentFormat = XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB;
+	}
 
 	if ((recv_clk_freq * 1000000) > 540000000 && dp_conf.LaneCount == 4) {
 		XDp_RxSetUserPixelWidth(DpRxSsInst.DpPtr, 0x04);
@@ -2475,15 +2498,7 @@ static void Dprx_DetectResolution(void *InstancePtr)
 		Msa[0].UserPixelWidth = 0x1;
 	}
 
-	Msa[0].SynchronousClockMode = rxMsamisc0 & 1;
-	dp_conf.bpc = Bpc[rxMsamisc0];
-	Msa[0].BitsPerColor = dp_conf.bpc;
-	Msa[0].Misc0 = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-				   XDP_RX_MSA_MISC0); //rxMsamisc0;
-	Msa[0].Misc1 = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-				   XDP_RX_MSA_MISC1);
-
-	XDp_RxSetLineReset(DpRxSsInst.DpPtr, 1);
+	XDp_RxSetLineReset(DpRxSsInst.DpPtr, XDP_TX_STREAM_ID1);
 
 	if (training_done == 1) {
 		xil_printf("\r\n *** Detected resolution: %lu x "
@@ -2499,8 +2514,8 @@ static void Dprx_DetectResolution(void *InstancePtr)
 	      User has to adjust this accordingly if there is change in pixel
 	      width programming
 	     */
-	    u8 Rx_Mode_422 =(XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-	                                          XDP_RX_MSA_MISC0) >> 1) & 0x3;
+		u8 Rx_Mode_422 =(Msa[0].Misc0 >> 1) & 0x3;
+
 
 	    if (Rx_Mode_422 != 0x1) {
 		XDp_WriteReg(XPAR_VIDEO_FRAME_CRC_RX_BASEADDR,
@@ -2653,8 +2668,14 @@ void Dprx_SetupTx(void *InstancePtr, u8 tx_with_msa, XVidC_VideoMode VmId)
 {
 	u32 Status;
 	u32 rxMsamisc0;
-	u8 format = user_config.user_format-1;
-	
+	u8 format = (Msa[0].Misc0 & 0x6) >> 1;
+	if(format==0)
+		format=XVIDC_CSF_RGB;
+	else if(format==1)
+		format = XVIDC_CSF_YCRCB_422;
+	else if(format == 2)
+		format = XVIDC_CSF_YCBCR_444;
+
 	/* Disabling TX and TX interrupts */
 	sink_power_cycle(400);
 	/* Disabling TX and RX interrupts */
@@ -2727,7 +2748,7 @@ void Dprx_SetupTx(void *InstancePtr, u8 tx_with_msa, XVidC_VideoMode VmId)
 	 * User can change coefficients here - By default 601 is used for YCbCr
 	 * */
 	XDp_TxCfgSetColorEncode(DpTxSsInst.DpPtr, XDP_TX_STREAM_ID1, \
-			(user_config.user_format-1), XVIDC_BT_601, XDP_DR_CEA);
+			format, XVIDC_BT_601, XDP_DR_CEA);
 
 	Status = DpTxSubsystem_Start(&DpTxSsInst, tx_with_msa);
 	Vpg_StreamSrcConfigure(DpTxSsInst.DpPtr, 0, 0);
@@ -3195,12 +3216,18 @@ void DpPt_TxSetMsaValuesImmediate(void *InstancePtr)
 			 XDP_RX_MSA_MISC0))
 	   & 0x6) == 0x2) {
 		/* YUV422 */
-		DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat = 0x1;
-		Msa[0].ComponentFormat = 0x1;
+		DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat = XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422;
+		Msa[0].ComponentFormat = XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422;
+} else if (((XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+			 XDP_RX_MSA_MISC0))
+	   & 0x6) == 0x4){
+		/*YUV444 */
+		DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat = XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444;
+		Msa[0].ComponentFormat = XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444;
 	} else {
-		/* RGB or YUV444 */
-		DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat = 0x0;
-		Msa[0].ComponentFormat = 0x0;
+		/* RGB*/
+		DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat = XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB;
+		Msa[0].ComponentFormat = XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB;
 	}
 }
 
@@ -4176,6 +4203,16 @@ void video_change_detect(u32 *count_track, u32 *rxMsamisc0_track,
 	 * re-train when the refresh is change. This tracks the refresh
 	 * rate ans restarts the TX if needed.
 	 * */
+	u32 format_change_track=0;
+	u8 colormode=0;
+	colormode=XDpRxss_GetColorComponent(&DpRxSsInst, XDP_TX_STREAM_ID1);
+	if(colormode == XVIDC_CSF_RGB)
+		format_change_track=XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB;
+	else if(colormode == XVIDC_CSF_YCRCB_444)
+		format_change_track=XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444;
+	else if(colormode == XVIDC_CSF_YCRCB_422)
+		format_change_track=XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422;
+
 	if (start_tracking == 1) {
 		if (*count_track < 5000) {
 			*count_track = *count_track + 1;
@@ -4241,6 +4278,11 @@ void video_change_detect(u32 *count_track, u32 *rxMsamisc0_track,
 			} else if ((dp_conf.bpc != *bpc_track)) {
 				xil_printf("BPC changed from %d to %d\r\n",
 						dp_conf.bpc, *bpc_track);
+				change_detected = 1;
+				start_tracking = 0;
+				*count_track = 0;
+			}
+			else if(format_change_track!= Msa[0].ComponentFormat){
 				change_detected = 1;
 				start_tracking = 0;
 				*count_track = 0;
@@ -4671,16 +4713,25 @@ void remap_start(struct dma_chan_parms *dma_struct)
 	u16 width;
 	width = ((dma_struct->WriteCfg.HoriSizeInput * 4) / BPC);
 
+    u8 color_format = 0;
+    if( Msa[0].ComponentFormat ==
+			XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) {
+	color_format = 0x3;
+    } else if (Msa[0].ComponentFormat ==
+			XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
+	color_format = 0x1;
+    }
+xil_printf("\r\n remap color format=%x\r\n",color_format);
 	remap_set(&rx_remap, dp_conf.pixel,
 		  4, // Rx side output is always 4ppc
-		  width, dma_struct->WriteCfg.VertSizeInput , 0);
+		  width, dma_struct->WriteCfg.VertSizeInput , color_format);
 
 	width = ((dma_struct->ReadCfg.HoriSizeInput * 4) / BPC);
 
 	remap_set(&tx_remap,
 		  4, // Tx side input is always 4ppc
 		  dp_conf.pixel, width,
-		  dma_struct->ReadCfg.VertSizeInput, 0);
+		  dma_struct->ReadCfg.VertSizeInput, color_format);
 
 	XV_axi4s_remap_EnableAutoRestart(&rx_remap);
 	XV_axi4s_remap_EnableAutoRestart(&tx_remap);
