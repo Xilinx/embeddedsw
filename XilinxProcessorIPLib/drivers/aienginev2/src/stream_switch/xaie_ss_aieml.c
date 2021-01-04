@@ -52,8 +52,8 @@ AieRC _XAieMl_AieTile_StrmSwCheckPortValidity(StrmSwPortType Slave,
 
 	switch(Slave) {
 	case TRACE:
-		if(Master == FIFO || Master == SOUTH || Master == DMA &&
-			MstrPortNum == 0U) {
+		if(Master == FIFO || Master == SOUTH || (Master == DMA &&
+			MstrPortNum == 0U)) {
 			break;
 		}
 		RC = XAIE_ERR_STREAM_PORT;
@@ -64,7 +64,7 @@ AieRC _XAieMl_AieTile_StrmSwCheckPortValidity(StrmSwPortType Slave,
 		}
 		break;
 	case DMA:
-		if(Master == DMA && SlvPortNum == MstrPortNum ||
+		if((Master == DMA && SlvPortNum == MstrPortNum) ||
 			Master != DMA){
 			break;
 		}
@@ -119,20 +119,20 @@ AieRC _XAieMl_MemTile_StrmSwCheckPortValidity(StrmSwPortType Slave,
 
 	switch(Slave) {
 	case TRACE:
-		if(Master == SOUTH || Master == DMA && MstrPortNum == 5U) {
+		if(Master == SOUTH || (Master == DMA && MstrPortNum == 5U)) {
 			break;
 		}
 		RC = XAIE_ERR_STREAM_PORT;
 		break;
 	case DMA:
-		if(Master == DMA && SlvPortNum == MstrPortNum ||
+		if((Master == DMA && SlvPortNum == MstrPortNum) ||
 				Master != DMA){
 			break;
 		}
 		RC = XAIE_ERR_STREAM_PORT;
 		break;
 	case CTRL:
-		if(Master == DMA && MstrPortNum != 5U || Master == CTRL) {
+		if((Master == DMA && MstrPortNum != 5U) || Master == CTRL) {
 			RC = XAIE_ERR_STREAM_PORT;
 		}
 		break;
