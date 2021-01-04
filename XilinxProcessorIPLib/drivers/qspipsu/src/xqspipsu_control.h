@@ -26,6 +26,7 @@
  * Ver   Who Date     Changes
  * ----- --- -------- -----------------------------------------------.
  * 1.11   akm  03/09/20 First release
+ * 1.13   akm  01/04/21 Fix MISRA-C violations.
  *
  * </pre>
  *

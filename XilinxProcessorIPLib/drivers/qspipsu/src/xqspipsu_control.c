@@ -20,6 +20,7 @@
  * Ver   Who Date     Changes
  * ----- --- -------- -----------------------------------------------
  * 1.11   akm  03/09/20 First release
+ * 1.13   akm  01/04/21 Fix MISRA-C violations.
  * </pre>
  *
  ******************************************************************************/
@@ -265,7 +266,7 @@ s32 XQspipsu_Calculate_Tapdelay(const XQspiPsu *InstancePtr, u8 Prescaler)
 			LBkModeReg |= USE_DLY_LPBK  << XQSPIPSU_LPBK_DLY_ADJ_USE_LPBK_SHIFT;
 #endif
 		} else {
-			Status = XST_FAILURE;
+			Status = (s32)XST_FAILURE;
 			goto END;
 		}
 

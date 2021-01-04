@@ -70,6 +70,7 @@
  * 1.11 akm 03/26/20 Fixed issue by updating XQspiPsu_CfgInitialize to return
  *		     XST_DEVICE_IS_STARTED instead of asserting, when the
  *		     instance is already configured.
+ * 1.13 akm 01/04/21 Fix MISRA-C violations.
  * </pre>
  *
  ******************************************************************************/
@@ -134,7 +135,7 @@ s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr,
 		Status = (s32)XST_DEVICE_IS_STARTED;
 	} else {
 		/* Set some default values. */
-		InstancePtr->IsBusy = FALSE;
+		InstancePtr->IsBusy = (u32)FALSE;
 		InstancePtr->Config.BaseAddress =
 			EffectiveAddr + XQSPIPSU_OFFSET;
 		InstancePtr->Config.ConnectionMode = ConfigPtr->ConnectionMode;
@@ -157,7 +158,7 @@ s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr,
 		InstancePtr->GenFifoCS = XQSPIPSU_GENFIFO_CS_LOWER;
 		InstancePtr->GenFifoBus = XQSPIPSU_GENFIFO_BUS_LOWER;
 		InstancePtr->IsUnaligned = 0;
-		InstancePtr->IsManualstart = TRUE;
+		InstancePtr->IsManualstart = (u8)TRUE;
 
 		/* Select QSPIPSU */
 		XQspiPsu_Select(InstancePtr, XQSPIPSU_SEL_GQSPI_MASK);
@@ -173,7 +174,7 @@ s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr,
 
 		InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
-		Status = XST_SUCCESS;
+		Status = (s32)XST_SUCCESS;
 	}
 
 	return Status;
@@ -323,7 +324,7 @@ void XQspiPsu_Abort(XQspiPsu *InstancePtr)
 	InstancePtr->TxBytes = 0;
 	InstancePtr->RxBytes = 0;
 	InstancePtr->GenFifoEntries = 0;
-	InstancePtr->IsBusy = FALSE;
+	InstancePtr->IsBusy = (u32)FALSE;
 }
 
 /*****************************************************************************/
@@ -372,7 +373,7 @@ void XQspiPsu_PollDataHandler(XQspiPsu *InstancePtr, u32 StatusReg)
 	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPSU_IDR_OFFSET,
 			(u32)XQSPIPSU_IER_RXNEMPTY_MASK |
 			(u32)XQSPIPSU_IER_POLL_TIME_EXPIRE_MASK);
-	InstancePtr->IsBusy = FALSE;
+	InstancePtr->IsBusy = (u32)FALSE;
 	if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA)
 			XQspiPsu_SetReadMode(InstancePtr, XQSPIPSU_READMODE_DMA);
 	/* De-select slave */
@@ -426,7 +427,7 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 	for (Index = 0; Index < (s32)NumMsg; Index++) {
 		if ((Msg[Index].ByteCount > XQSPIPSU_DMA_BYTES_MAX) &&
 				((Msg[Index].Flags & XQSPIPSU_MSG_FLAG_RX) != FALSE)) {
-			Status = XST_FAILURE;
+			Status = (s32)XST_FAILURE;
 			goto END;
 		}
 	}
@@ -434,7 +435,7 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 	 * Set the busy flag, which will be cleared when the transfer is
 	 * entirely done.
 	 */
-	InstancePtr->IsBusy = TRUE;
+	InstancePtr->IsBusy = (u32)TRUE;
 
 #if defined  (XCLOCKING)
 	Xil_ClockEnable(InstancePtr->Config.RefClk);
@@ -502,9 +503,9 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 	while ((QspiPsuStatusReg & XQSPIPSU_ISR_GENFIFOEMPTY_MASK) == FALSE);
 
 	/* Clear the busy flag. */
-	InstancePtr->IsBusy = FALSE;
+	InstancePtr->IsBusy = (u32)FALSE;
 
-	Status = XST_SUCCESS;
+	Status = (s32)XST_SUCCESS;
 
 #if defined  (XCLOCKING)
 	Xil_ClockDisable(InstancePtr->Config.RefClk);
@@ -556,14 +557,14 @@ s32 XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 #endif
 
 	if ((Msg[0].Flags & XQSPIPSU_MSG_FLAG_POLL) != FALSE) {
-		InstancePtr->IsBusy = TRUE;
+		InstancePtr->IsBusy = (u32)TRUE;
 		XQspiPsu_PollDataConfig(InstancePtr, Msg);
 	} else {
 		/* Check for ByteCount upper limit - 2^28 for DMA */
 		for (Index = 0; Index < (s32)NumMsg; Index++) {
 			if ((Msg[Index].ByteCount > XQSPIPSU_DMA_BYTES_MAX) &&
 					((Msg[Index].Flags & XQSPIPSU_MSG_FLAG_RX) != FALSE)) {
-				Status = XST_FAILURE;
+				Status = (s32)XST_FAILURE;
 				goto END;
 			}
 		}
@@ -571,7 +572,7 @@ s32 XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		 * Set the busy flag, which will be cleared when the transfer is
 		 * entirely done.
 		 */
-		InstancePtr->IsBusy = TRUE;
+		InstancePtr->IsBusy = (u32)TRUE;
 
 		InstancePtr->Msg = Msg;
 		InstancePtr->NumMsg = (s32)NumMsg;
@@ -596,7 +597,7 @@ s32 XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 			XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPSU_QSPIDMA_DST_I_EN_OFFSET,
 					XQSPIPSU_QSPIDMA_DST_I_EN_DONE_MASK);
 	}
-	Status = XST_SUCCESS;
+	Status = (s32)XST_SUCCESS;
 
 	END:
 	return Status;
@@ -744,7 +745,7 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 					XQSPIPSU_QSPIDMA_DST_I_EN_DONE_MASK);
 
 			/* Clear the busy flag. */
-			InstancePtr->IsBusy = FALSE;
+			InstancePtr->IsBusy = (u32)FALSE;
 #if defined  (XCLOCKING)
 			Xil_ClockDisable(InstancePtr->Config.RefClk);
 #endif
@@ -756,7 +757,7 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 	if ((TxRxFlag & XQSPIPSU_MSG_FLAG_POLL) != FALSE)
 		XQspiPsu_PollDataHandler(InstancePtr, QspiPsuStatusReg);
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -897,7 +898,7 @@ s32 XQspiPsu_StartDmaTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 	 * Set the busy flag, which will be cleared when the transfer is
 	 * entirely done.
 	 */
-	InstancePtr->IsBusy = TRUE;
+	InstancePtr->IsBusy = (u32)TRUE;
 
 	/* Select slave */
 	XQspiPsu_GenFifoEntryCSAssert(InstancePtr);
@@ -977,7 +978,7 @@ s32 XQspiPsu_CheckDmaDone(XQspiPsu *InstancePtr)
 		while ((QspiPsuStatusReg & XQSPIPSU_ISR_GENFIFOEMPTY_MASK) == FALSE);
 
 		/* Clear the busy flag. */
-		InstancePtr->IsBusy = FALSE;
+		InstancePtr->IsBusy = (u32)FALSE;
 
 		return (s32)XST_SUCCESS;
 	}
