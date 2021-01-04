@@ -131,8 +131,8 @@ s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr,
 	 * device and re-initialize, but prevents a user from inadvertently
 	 * initializing. This assumes the busy flag is cleared at startup.
 	 */
-	if (InstancePtr->IsBusy == (u32)TRUE ||
-	    InstancePtr->IsReady == XIL_COMPONENT_IS_READY) {
+	if ((InstancePtr->IsBusy == (u32)TRUE) ||
+	    (InstancePtr->IsReady == XIL_COMPONENT_IS_READY)) {
 		Status = (s32)XST_DEVICE_IS_STARTED;
 	} else {
 		/* Set some default values. */
