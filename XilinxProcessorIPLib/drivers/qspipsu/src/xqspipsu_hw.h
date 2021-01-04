@@ -33,8 +33,8 @@
 * </pre>
 *
 ******************************************************************************/
-#ifndef _XQSPIPSU_HW_H_		/* prevent circular inclusions */
-#define _XQSPIPSU_HW_H_		/* by using protection macros */
+#ifndef XQSPIPSU_HW_H		/* prevent circular inclusions */
+#define XQSPIPSU_HW_H		/* by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -880,5 +880,5 @@ extern "C" {
 #endif
 
 
-#endif /* _XQSPIPSU_H_ */
+#endif /* XQSPIPSU_H */
 /** @} */
