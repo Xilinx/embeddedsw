@@ -1,0 +1,17 @@
+
+APP =
+APPSOURCES=*.c
+OUTS =
+EQU_OBJS =
+INCLUDES =
+BOARD_FLAG =
+OBJS =
+
+%.o: %.c
+	$(CC) ${LDFLAGS} ${BOARD_FLAG} $(INCLUDES) ${CFLAGS} -c $(APPSOURCES)
+
+all: $(EQU_OBJS)
+	$(CC) ${LDFLAGS} $(INCLUDES) $(OBJS) $(EQU_OBJS) -o $(OUTS) -ldfeequ
+
+clean:
+	rm -rf $(OUTS) *.o
