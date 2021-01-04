@@ -79,11 +79,11 @@ void XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg)
 	GenFifoEntry |= InstancePtr->GenFifoBus;
 
 	/* Data */
-	if (((Msg->Flags) & XQSPIPSU_MSG_FLAG_STRIPE) != (u32)FALSE)
+	if (((Msg->Flags) & XQSPIPSU_MSG_FLAG_STRIPE) != (u32)FALSE) {
 		GenFifoEntry |= XQSPIPSU_GENFIFO_STRIPE;
-	else
+	} else {
 		GenFifoEntry &= ~XQSPIPSU_GENFIFO_STRIPE;
-
+	}
 	/* If Byte Count is less than 8 bytes do the transfer in IO mode */
 	if ((Msg->ByteCount < 8U) &&
 		(InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA)) {
@@ -162,10 +162,11 @@ void XQspiPsu_PollDataConfig(XQspiPsu *InstancePtr, XQspiPsu_Msg *FlashMsg)
 	GenFifoEntry |= InstancePtr->GenFifoBus;
 	GenFifoEntry |= InstancePtr->GenFifoCS;
 	GenFifoEntry |= (u32)XQSPIPSU_GENFIFO_MODE_SPI;
-	if (((FlashMsg->Flags) & XQSPIPSU_MSG_FLAG_STRIPE) != (u32)FALSE)
+	if (((FlashMsg->Flags) & XQSPIPSU_MSG_FLAG_STRIPE) != (u32)FALSE) {
 		GenFifoEntry |= XQSPIPSU_GENFIFO_STRIPE;
-	else
+	} else {
 		GenFifoEntry &= ~XQSPIPSU_GENFIFO_STRIPE;
+	}
 	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPSU_GEN_FIFO_OFFSET,
 			GenFifoEntry);
 

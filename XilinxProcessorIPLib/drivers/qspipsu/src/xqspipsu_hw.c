@@ -90,8 +90,9 @@ void XQspiPsu_FillTxFifo(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg, u32 Size)
 #endif
 
 	}
-	if (InstancePtr->TxBytes < 0)
+	if (InstancePtr->TxBytes < 0) {
 		InstancePtr->TxBytes = 0;
+	}
 }
 
 /*****************************************************************************/
@@ -171,9 +172,9 @@ void XQspiPsu_SetupRxDma(const XQspiPsu *InstancePtr,
 		DmaRxBytes = InstancePtr->RxBytes - Remainder;
 		Msg->ByteCount = (u32)DmaRxBytes;
 	}
-	if (InstancePtr->Config.IsCacheCoherent == 0U)
+	if (InstancePtr->Config.IsCacheCoherent == 0U) {
 		Xil_DCacheInvalidateRange((INTPTR)Msg->RxBfrPtr, Msg->ByteCount);
-
+	}
 	/* Write no. of words to DMA DST SIZE */
 	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 			XQSPIPSU_QSPIDMA_DST_SIZE_OFFSET, (u32)DmaRxBytes);
@@ -296,10 +297,11 @@ void XQspiPsu_RXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg)
 
 	if (((Msg->RxAddr64bit >= XQSPIPSU_RXADDR_OVER_32BIT) ||
 		(Msg->Xfer64bit != (u8)0U)) &&
-		(InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA))
+		(InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA)) {
 		XQspiPsu_Setup64BRxDma(InstancePtr, Msg);
-	else if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA)
+	} else if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
 		XQspiPsu_SetupRxDma(InstancePtr, Msg);
+	}
 }
 
 /*****************************************************************************/
@@ -484,12 +486,14 @@ u32 XQspiPsu_CreatePollDataConfig(const XQspiPsu *InstancePtr,
 	xil_printf("\nXQspiPsu_CreatePollDataConfig\r\n");
 #endif
 
-	if ((InstancePtr->GenFifoBus & XQSPIPSU_GENFIFO_BUS_UPPER) != (u32)FALSE)
+	if ((InstancePtr->GenFifoBus & XQSPIPSU_GENFIFO_BUS_UPPER) != (u32)FALSE) {
 		ConfigData = (u32)XQSPIPSU_SELECT_FLASH_BUS_LOWER <<
 				XQSPIPSU_POLL_CFG_EN_MASK_UPPER_SHIFT;
-	if ((InstancePtr->GenFifoBus & XQSPIPSU_GENFIFO_BUS_LOWER) != (u32)FALSE)
+	}
+	if ((InstancePtr->GenFifoBus & XQSPIPSU_GENFIFO_BUS_LOWER) != (u32)FALSE) {
 		ConfigData |= (u32)XQSPIPSU_SELECT_FLASH_BUS_LOWER <<
 				XQSPIPSU_POLL_CFG_EN_MASK_LOWER_SHIFT;
+	}
 	ConfigData |= (u32)(((u32)FlashMsg->PollBusMask <<
 			XQSPIPSU_POLL_CFG_MASK_EN_SHIFT) & XQSPIPSU_POLL_CFG_MASK_EN_MASK);
 	ConfigData |= (u32)(((u32)FlashMsg->PollData <<
@@ -689,8 +693,9 @@ void XQspiPsu_IORead(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		RxThr = RxThr*4;
 		XQspiPsu_ReadRxFifo(InstancePtr, Msg, RxThr);
 
-	} else if ((StatusReg & XQSPIPSU_ISR_GENFIFOEMPTY_MASK) != 0U)
+	} else if ((StatusReg & XQSPIPSU_ISR_GENFIFOEMPTY_MASK) != 0U) {
 		XQspiPsu_ReadRxFifo(InstancePtr, Msg, InstancePtr->RxBytes);
+	}
 }
 
 #if defined (ARMR5) || (__aarch64__)
