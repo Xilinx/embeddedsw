@@ -78,8 +78,6 @@ u32 XQspiPsu_CreatePollDataConfig(const XQspiPsu *InstancePtr,
 void XQspiPsu_PollDataHandler(XQspiPsu *InstancePtr, u32 StatusReg);
 u32 XQspiPsu_SelectSpiMode(u8 SpiMode);
 void XQspiPsu_SetDefaultConfig(XQspiPsu *InstancePtr);
-void StubStatusHandler(const void *CallBackRef, u32 StatusEvent,
-				u32 ByteCount);
 void XQspiPsu_FillTxFifo(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg, u32 Size);
 void XQspiPsu_ReadRxFifo(XQspiPsu *InstancePtr,	XQspiPsu_Msg *Msg, s32 Size);
 
