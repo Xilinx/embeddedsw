@@ -156,6 +156,7 @@
 * 2.4   mn     04/20/18 Remove looping check for PL accessible bit
 * 2.6   aad    11/18/19 Fixed typo in alarm macro comments
 * 2.7   aad    10/21/20 Modified code for MISRA-C:2012 Compliance.
+*	aad    17/12/20 Removed undefined function.
 *
 * </pre>
 *
@@ -602,7 +603,6 @@ static inline UINTPTR XSysMonPsu_GetEffBaseAddress(UINTPTR BaseAddress,
 s32 XSysMonPsu_CfgInitialize(XSysMonPsu *InstancePtr, XSysMonPsu_Config *ConfigPtr,
 			  u32 EffectiveAddr);
 void XSysMonPsu_Reset(XSysMonPsu *InstancePtr);
-void XSysMonPsu_Reset_FromLPD(XSysMonPsu *InstancePtr);
 u32 XSysMonPsu_GetStatus(XSysMonPsu *InstancePtr, u32 SysmonBlk);
 void XSysMonPsu_StartAdcConversion(XSysMonPsu *InstancePtr);
 u16 XSysMonPsu_GetAdcData(XSysMonPsu *InstancePtr, u8 Channel, u32 Block);
