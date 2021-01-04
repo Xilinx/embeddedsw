@@ -1,0 +1,16 @@
+###############################################################################
+# Copyright (C) 2020 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+###############################################################################
+OPTION psf_version = 2.1;
+
+BEGIN driver dfeequ
+
+  OPTION supported_peripherals = (xdfe_equalizer);
+  OPTION copyfiles = all;
+  OPTION driver_state = ACTIVE;
+  OPTION VERSION = 1.0;
+  OPTION NAME = dfeequ;
+
+END driver
