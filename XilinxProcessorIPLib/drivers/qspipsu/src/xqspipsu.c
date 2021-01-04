@@ -680,7 +680,7 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 		(MsgCnt < NumMsg) && ((TxRxFlag & XQSPIPSU_MSG_FLAG_RX) != (u32)FALSE)) {
 		if ((DmaIntrStatusReg &
 			XQSPIPSU_QSPIDMA_DST_I_STS_DONE_MASK) != (u32)FALSE) {
-			if (XQspiPsu_SetIOMode(InstancePtr, &Msg[MsgCnt])) {
+			if (XQspiPsu_SetIOMode(InstancePtr, &Msg[MsgCnt]) == (u32)TRUE) {
 				XQspiPsu_GenFifoEntryData(InstancePtr, &Msg[MsgCnt]);
 				XQspiPsu_ManualStartEnable(InstancePtr);
 			} else {
