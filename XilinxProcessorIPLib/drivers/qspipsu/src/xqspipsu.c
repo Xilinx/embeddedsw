@@ -118,7 +118,8 @@
  *
  ******************************************************************************/
 s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr,
-			   const XQspiPsu_Config *ConfigPtr, u32 EffectiveAddr)
+			   const XQspiPsu_Config *ConfigPtr,
+			   UINTPTR EffectiveAddr)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
