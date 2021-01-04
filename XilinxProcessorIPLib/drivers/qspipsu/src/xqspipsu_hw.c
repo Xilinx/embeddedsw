@@ -65,7 +65,7 @@ void XQspiPsu_FillTxFifo(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg, u32 Size)
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Msg != NULL);
-	Xil_AssertVoid(Size != 0);
+	Xil_AssertVoid(Size != 0U);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 #ifdef DEBUG
 	xil_printf("\nXQspiPsu_FillTxFifo\r\n");
@@ -75,12 +75,12 @@ void XQspiPsu_FillTxFifo(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg, u32 Size)
 			(void)Xil_MemCpy((u8 *)&Data, Msg->TxBfrPtr, 4);
 			Msg->TxBfrPtr += 4;
 			InstancePtr->TxBytes -= 4;
-			Count += 4;
+			Count += 4U;
 		} else {
 			(void)Xil_MemCpy((u8 *)&Data, Msg->TxBfrPtr,
 				(u32)InstancePtr->TxBytes);
 			Msg->TxBfrPtr += InstancePtr->TxBytes;
-			Count += InstancePtr->TxBytes;
+			Count += (u32)InstancePtr->TxBytes;
 			InstancePtr->TxBytes = 0;
 		}
 		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
@@ -329,8 +329,8 @@ void XQspiPsu_TXRXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 	xil_printf("\nXQspiPsu_TXRXSetup\r\n");
 #endif
 	/* Transmit */
-	if (((Msg->Flags & XQSPIPSU_MSG_FLAG_TX) != FALSE) &&
-			((Msg->Flags & XQSPIPSU_MSG_FLAG_RX) == FALSE)) {
+	if (((Msg->Flags & XQSPIPSU_MSG_FLAG_TX) != (u32)FALSE) &&
+			((Msg->Flags & XQSPIPSU_MSG_FLAG_RX) == (u32)FALSE)) {
 
 		*GenFifoEntry |= XQSPIPSU_GENFIFO_DATA_XFER;
 		*GenFifoEntry |= XQSPIPSU_GENFIFO_TX;
@@ -344,8 +344,8 @@ void XQspiPsu_TXRXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		InstancePtr->RxBytes = 0;
 	}
 	/*Receive*/
-	if (((Msg->Flags & XQSPIPSU_MSG_FLAG_RX) != FALSE) &&
-			((Msg->Flags & XQSPIPSU_MSG_FLAG_TX) == FALSE)) {
+	if (((Msg->Flags & XQSPIPSU_MSG_FLAG_RX) != (u32)FALSE) &&
+			((Msg->Flags & XQSPIPSU_MSG_FLAG_TX) == (u32)FALSE)) {
 
 		/* TX auto fill */
 		*GenFifoEntry &= ~XQSPIPSU_GENFIFO_TX;
@@ -360,8 +360,8 @@ void XQspiPsu_TXRXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		InstancePtr->TxBytes = 0;
 	}
 	/* If only dummy is requested as a separate entry */
-	if (((Msg->Flags & XQSPIPSU_MSG_FLAG_TX) == FALSE) &&
-			((Msg->Flags & XQSPIPSU_MSG_FLAG_RX) == FALSE)) {
+	if (((Msg->Flags & XQSPIPSU_MSG_FLAG_TX) == (u32)FALSE) &&
+			((Msg->Flags & XQSPIPSU_MSG_FLAG_RX) == (u32)FALSE)) {
 
 		*GenFifoEntry |= XQSPIPSU_GENFIFO_DATA_XFER;
 		*GenFifoEntry &= ~(XQSPIPSU_GENFIFO_TX | XQSPIPSU_GENFIFO_RX);
@@ -371,8 +371,8 @@ void XQspiPsu_TXRXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		InstancePtr->RecvBufferPtr = NULL;
 	}
 	/* Dummy and cmd sent by upper layer to received data */
-	if (((Msg->Flags & XQSPIPSU_MSG_FLAG_TX) != FALSE) &&
-			((Msg->Flags & XQSPIPSU_MSG_FLAG_RX) != FALSE)) {
+	if (((Msg->Flags & XQSPIPSU_MSG_FLAG_TX) != (u32)FALSE) &&
+			((Msg->Flags & XQSPIPSU_MSG_FLAG_RX) != (u32)FALSE)) {
 		*GenFifoEntry |= XQSPIPSU_GENFIFO_DATA_XFER;
 		*GenFifoEntry |= (XQSPIPSU_GENFIFO_TX | XQSPIPSU_GENFIFO_RX);
 
@@ -429,7 +429,7 @@ void XQspiPsu_GenFifoEntryDataLen(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		/* Exponent entries */
 		*GenFifoEntry |= XQSPIPSU_GENFIFO_EXP;
 		while (TempCount != 0U) {
-			if ((TempCount & XQSPIPSU_GENFIFO_EXP_START) != FALSE) {
+			if ((TempCount & XQSPIPSU_GENFIFO_EXP_START) != (u32)FALSE) {
 				*GenFifoEntry &= (u32)(~XQSPIPSU_GENFIFO_IMM_DATA_MASK);
 				*GenFifoEntry |= Exponent;
 	#ifdef DEBUG
@@ -444,7 +444,7 @@ void XQspiPsu_GenFifoEntryDataLen(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		}
 		/* Immediate entry */
 		*GenFifoEntry &= (u32)(~XQSPIPSU_GENFIFO_EXP);
-		if ((ImmData & 0xFFU) != FALSE) {
+		if ((ImmData & 0xFFU) != (u32)FALSE) {
 			*GenFifoEntry &= (u32)(~XQSPIPSU_GENFIFO_IMM_DATA_MASK);
 			*GenFifoEntry |= ImmData & 0xFFU;
 	#ifdef DEBUG
@@ -484,10 +484,10 @@ u32 XQspiPsu_CreatePollDataConfig(const XQspiPsu *InstancePtr,
 	xil_printf("\nXQspiPsu_CreatePollDataConfig\r\n");
 #endif
 
-	if ((InstancePtr->GenFifoBus & XQSPIPSU_GENFIFO_BUS_UPPER) != FALSE)
+	if ((InstancePtr->GenFifoBus & XQSPIPSU_GENFIFO_BUS_UPPER) != (u32)FALSE)
 		ConfigData = XQSPIPSU_SELECT_FLASH_BUS_LOWER <<
 				XQSPIPSU_POLL_CFG_EN_MASK_UPPER_SHIFT;
-	if ((InstancePtr->GenFifoBus & XQSPIPSU_GENFIFO_BUS_LOWER) != FALSE)
+	if ((InstancePtr->GenFifoBus & XQSPIPSU_GENFIFO_BUS_LOWER) != (u32)FALSE)
 		ConfigData |= XQSPIPSU_SELECT_FLASH_BUS_LOWER <<
 				XQSPIPSU_POLL_CFG_EN_MASK_LOWER_SHIFT;
 	ConfigData |= (u32)(((u32)FlashMsg->PollBusMask <<
@@ -513,7 +513,7 @@ u32 XQspiPsu_SelectSpiMode(u8 SpiMode)
 {
 	u32 Mask;
 
-	Xil_AssertNonvoid(SpiMode > 0);
+	Xil_AssertNonvoid(SpiMode > 0U);
 #ifdef DEBUG
 	xil_printf("\nXQspiPsu_SelectSpiMode\r\n");
 #endif
@@ -726,7 +726,7 @@ s32 XQspipsu_Set_TapDelay(const XQspiPsu *InstancePtr, u32 TapdelayBypass,
 	 * Do not allow to modify the Control Register while a transfer is in
 	 * progress. Not thread-safe.
 	 */
-	if (InstancePtr->IsBusy == TRUE) {
+	if (InstancePtr->IsBusy == (u32)TRUE) {
 		Status = (s32)XST_DEVICE_BUSY;
 	} else {
 #if EL1_NONSECURE && defined (__aarch64__) && !defined (versal)

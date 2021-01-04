@@ -397,7 +397,7 @@ static inline void XQspiPsu_ManualStartEnable(XQspiPsu *InstancePtr)
 	xil_printf("\nXQspiPsu_ManualStartEnable\r\n");
 #endif
 
-	if (InstancePtr->IsManualstart == TRUE) {
+	if (InstancePtr->IsManualstart == (u8)TRUE) {
 #ifdef DEBUG
 		xil_printf("\nManual Start\r\n");
 #endif
