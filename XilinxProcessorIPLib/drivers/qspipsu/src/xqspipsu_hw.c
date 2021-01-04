@@ -21,6 +21,7 @@
  * ----- --- -------- -----------------------------------------------
  * 1.11   akm  03/09/20 First release
  *         mn  03/30/20 Add xil_smc.h include for Xil_Smc calls
+ * 1.13   akm  01/04/21 Fix MISRA-C violations.
  *
  ******************************************************************************/
 
@@ -261,7 +262,7 @@ u32 XQspiPsu_SetIOMode(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg)
 				(XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET) &
 						~XQSPIPSU_CFG_MODE_EN_MASK));
 		InstancePtr->ReadMode =	XQSPIPSU_READMODE_IO;
-		Msg->ByteCount = (InstancePtr->RxBytes % 4);
+		Msg->ByteCount = (u32)(InstancePtr->RxBytes % 4);
 		Msg->RxBfrPtr += (InstancePtr->RxBytes - (InstancePtr->RxBytes % 4));
 		InstancePtr->IsUnaligned = 1;
 		return (u32) TRUE;
@@ -726,7 +727,7 @@ s32 XQspipsu_Set_TapDelay(const XQspiPsu *InstancePtr, u32 TapdelayBypass,
 	 * progress. Not thread-safe.
 	 */
 	if (InstancePtr->IsBusy == TRUE) {
-		Status = XST_DEVICE_BUSY;
+		Status = (s32)XST_DEVICE_BUSY;
 	} else {
 #if EL1_NONSECURE && defined (__aarch64__) && !defined (versal)
 		Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(XPS_SYS_CTRL_BASEADDR +
@@ -744,7 +745,7 @@ s32 XQspipsu_Set_TapDelay(const XQspiPsu *InstancePtr, u32 TapdelayBypass,
 		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 				XQSPIPSU_DATA_DLY_ADJ_OFFSET, Datadelay);
 
-		Status = XST_SUCCESS;
+		Status = (s32)XST_SUCCESS;
 	}
 	return Status;
 }

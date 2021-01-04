@@ -158,6 +158,7 @@
  *		     XST_DEVICE_IS_STARTED instead of asserting, when the
  *		     instance is already configured(CR#1058525).
  * 1.12	akm 09/02/20 Updated the Makefile to support parallel make execution.
+ * 1.13 akm 01/04/21 Fix MISRA-C violations.
  *
  * </pre>
  *

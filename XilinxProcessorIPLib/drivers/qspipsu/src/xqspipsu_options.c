@@ -44,6 +44,7 @@
 * 				XQspipsu_Calculate_Tapdelay().
 * 1.11 akm 03/09/20 Reorganize the source code, enable qspi controller and
 *		     interrupts in XQspiPsu_CfgInitialize() API.
+* 1.13 akm 01/04/21 Fix MISRA-C violations.
 *
 * </pre>
 *
@@ -155,7 +156,7 @@ s32 XQspiPsu_SetOptions(XQspiPsu *InstancePtr, u32 Options)
 				 ConfigReg);
 
 		if ((OptionsVal & XQSPIPSU_MANUAL_START_OPTION) != FALSE)
-			InstancePtr->IsManualstart = TRUE;
+			InstancePtr->IsManualstart = (u8)TRUE;
 #if !defined (versal)
 		if ((QspiPsuOptions & XQSPIPSU_LQSPI_MODE_OPTION) != FALSE) {
 			if ((Options & XQSPIPSU_LQSPI_LESS_THEN_SIXTEENMB) != FALSE)
@@ -175,7 +176,7 @@ s32 XQspiPsu_SetOptions(XQspiPsu *InstancePtr, u32 Options)
 			XQspiPsu_WriteReg(XQSPIPS_BASEADDR,XQSPIPSU_LQSPI_CR_OFFSET, ConfigReg);
 		}
 #endif
-		Status = XST_SUCCESS;
+		Status = (s32)XST_SUCCESS;
 	}
 	return Status;
 }
@@ -240,9 +241,9 @@ s32 XQspiPsu_ClearOptions(XQspiPsu *InstancePtr, u32 Options)
 				 ConfigReg);
 
 		if ((Options & XQSPIPSU_MANUAL_START_OPTION) != FALSE)
-			InstancePtr->IsManualstart = FALSE;
+			InstancePtr->IsManualstart = (u8)FALSE;
 
-		Status = XST_SUCCESS;
+		Status = (s32)XST_SUCCESS;
 	}
 
 	return Status;
@@ -339,7 +340,7 @@ s32 XQspiPsu_SetClkPrescaler(const XQspiPsu *InstancePtr, u8 Prescaler)
 #if defined (ARMR5) || (__aarch64__)
 		Status = XQspipsu_Calculate_Tapdelay(InstancePtr,Prescaler);
 #else
-		Status = XST_SUCCESS;
+		Status = (s32)XST_SUCCESS;
 #endif
 	}
 	return Status;
@@ -479,7 +480,7 @@ s32 XQspiPsu_SetReadMode(XQspiPsu *InstancePtr, u32 Mode)
 		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET,
 				 ConfigReg);
 
-		Status = XST_SUCCESS;
+		Status = (s32)XST_SUCCESS;
 	}
 #ifdef DEBUG
 	xil_printf("\nRead Mode is %08x\r\n", InstancePtr->ReadMode);
