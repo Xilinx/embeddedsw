@@ -155,6 +155,8 @@
 *                       for doxygen generation.
 * 2.3   mn     07/09/18 Fix Doxygen warning
 * 2.6   aad    11/02/20 Fix MISRAC Mandatory and Advisory errors.
+*       aad    12/17/20 Added missing function declarations and removed
+*			functions with no definitions.
 *
 * </pre>
 *
@@ -479,12 +481,13 @@ int XAdcPs_CfgInitialize(XAdcPs *InstancePtr,
 				XAdcPs_Config *ConfigPtr,
 				u32 EffectiveAddr);
 
+void XAdcPs_SetConfigRegister(XAdcPs *InstancePtr, u32 Data);
+u32 XAdcPs_GetConfigRegister(XAdcPs *InstancePtr);
 
-u32 XAdcPs_GetStatus(XAdcPs *InstancePtr);
+u32 XAdcPs_GetMiscStatus(XAdcPs *InstancePtr);
 
-u32 XAdcPs_GetAlarmOutputStatus(XAdcPs *InstancePtr);
-
-void XAdcPs_StartAdcConversion(XAdcPs *InstancePtr);
+void XAdcPs_SetMiscCtrlRegister(XAdcPs *InstancePtr, u32 Data);
+u32 XAdcPs_GetMiscCtrlRegister(XAdcPs *InstancePtr);
 
 void XAdcPs_Reset(XAdcPs *InstancePtr);
 
