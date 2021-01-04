@@ -75,6 +75,7 @@ void XQspiPsu_GenFifoEntryDataLen(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		u32 *GenFifoEntry);
 u32 XQspiPsu_CreatePollDataConfig(const XQspiPsu *InstancePtr,
 		const XQspiPsu_Msg *FlashMsg);
+void XQspiPsu_PollDataHandler(XQspiPsu *InstancePtr, u32 StatusReg);
 u32 XQspiPsu_SelectSpiMode(u8 SpiMode);
 void XQspiPsu_SetDefaultConfig(XQspiPsu *InstancePtr);
 void StubStatusHandler(const void *CallBackRef, u32 StatusEvent,
