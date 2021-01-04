@@ -65,7 +65,9 @@
 *
 * @return	XAIE_OK on success and error code on failure.
 *
-* @note		Internal API.
+* @note		Internal API. When PortType is TRACE and there are more than one
+*		TRACE ports in the Tile, PortNum 0 maps to CORE_TRACE_PORT and
+*		PortNum 1 maps to MEM_TRACE_PORT.
 *
 *******************************************************************************/
 static AieRC _XAie_StrmConfigSlv(const XAie_StrmMod *StrmMod,
@@ -169,7 +171,9 @@ static AieRC _StrmConfigMstr(const XAie_StrmMod *StrmMod,
 *
 * @return	XAIE_OK on success, Error code on failure.
 *
-* @note		Internal only.
+* @note		Internal API. When PortType is TRACE and there are more than one
+*		TRACE ports in the Tile, PortNum 0 maps to CORE_TRACE_PORT and
+*		PortNum 1 maps to MEM_TRACE_PORT.
 *
 *******************************************************************************/
 static AieRC _XAie_StreamSwitchConfigureCct(XAie_DevInst *DevInst,
@@ -254,7 +258,9 @@ static AieRC _XAie_StreamSwitchConfigureCct(XAie_DevInst *DevInst,
 *
 * @return	XAIE_OK on success, Error code on failure.
 *
-* @note		None.
+* @note		None. When PortType is TRACE and there are more than one TRACE
+*		ports in the Tile, PortNum 0 maps to CORE_TRACE_PORT and
+*		PortNum 1 maps to MEM_TRACE_PORT.
 *
 *******************************************************************************/
 AieRC XAie_StrmConnCctEnable(XAie_DevInst *DevInst, XAie_LocType Loc,
@@ -281,7 +287,9 @@ AieRC XAie_StrmConnCctEnable(XAie_DevInst *DevInst, XAie_LocType Loc,
 *
 * @return	XAIE_OK on success, Error code on failure.
 *
-* @note		None.
+* @note		None. When PortType is TRACE and there are more than one TRACE
+*		ports in the Tile, PortNum 0 maps to CORE_TRACE_PORT and
+*		PortNum 1 maps to MEM_TRACE_PORT.
 *
 *******************************************************************************/
 AieRC XAie_StrmConnCctDisable(XAie_DevInst *DevInst, XAie_LocType Loc,
@@ -308,7 +316,9 @@ AieRC XAie_StrmConnCctDisable(XAie_DevInst *DevInst, XAie_LocType Loc,
 *
 * @return	XAIE_OK on success, Error code on failure.
 *
-* @note		Internal only.
+* @note		Internal only. When PortType is TRACE and there are more than
+*		one TRACE ports in the Tile, PortNum 0 maps to CORE_TRACE_PORT
+*		and PortNum 1 maps to MEM_TRACE_PORT.
 *
 *******************************************************************************/
 static AieRC _XAie_StrmSlavePortConfig(XAie_DevInst *DevInst, XAie_LocType Loc,
@@ -369,7 +379,9 @@ static AieRC _XAie_StrmSlavePortConfig(XAie_DevInst *DevInst, XAie_LocType Loc,
 *
 * @return	XAIE_OK on success, Error code on failure.
 *
-* @note		None.
+* @note		None. When PortType is TRACE and there are more than one TRACE
+*		ports in the Tile, PortNum 0 maps to CORE_TRACE_PORT and
+*		PortNum 1 maps to MEM_TRACE_PORT.
 *
 *******************************************************************************/
 AieRC XAie_StrmPktSwSlavePortEnable(XAie_DevInst *DevInst, XAie_LocType Loc,
@@ -392,7 +404,9 @@ AieRC XAie_StrmPktSwSlavePortEnable(XAie_DevInst *DevInst, XAie_LocType Loc,
 *
 * @return	XAIE_OK on success, Error code on failure.
 *
-* @note		None.
+* @note		None. When PortType is TRACE and there are more than one TRACE
+*		ports in the Tile, PortNum 0 maps to CORE_TRACE_PORT and
+*		PortNum 1 maps to MEM_TRACE_PORT.
 *
 *******************************************************************************/
 AieRC XAie_StrmPktSwSlavePortDisable(XAie_DevInst *DevInst, XAie_LocType Loc,
@@ -568,7 +582,9 @@ AieRC XAie_StrmPktSwMstrPortDisable(XAie_DevInst *DevInst, XAie_LocType Loc,
 *
 * @return	XAIE_OK on success, Error code on failure.
 *
-* @note		Internal Only.
+* @note		Internal only. When PortType is TRACE and there are more than
+*		one TRACE ports in the Tile, PortNum 0 maps to CORE_TRACE_PORT
+*		and PortNum 1 maps to MEM_TRACE_PORT.
 *
 *******************************************************************************/
 static AieRC _XAie_StrmSlaveSlotConfig(XAie_DevInst *DevInst, XAie_LocType Loc,
@@ -649,7 +665,9 @@ static AieRC _XAie_StrmSlaveSlotConfig(XAie_DevInst *DevInst, XAie_LocType Loc,
 *
 * @return	XAIE_OK on success, Error code on failure.
 *
-* @note		None.
+* @note		None. When PortType is TRACE and there are more than one TRACE
+*		ports in the Tile, PortNum 0 maps to CORE_TRACE_PORT and
+*		PortNum 1 maps to MEM_TRACE_PORT.
 *
 *******************************************************************************/
 AieRC XAie_StrmPktSwSlaveSlotEnable(XAie_DevInst *DevInst, XAie_LocType Loc,
@@ -674,7 +692,9 @@ AieRC XAie_StrmPktSwSlaveSlotEnable(XAie_DevInst *DevInst, XAie_LocType Loc,
 *
 * @return	XAIE_OK on success, Error code on failure.
 *
-* @note		None.
+* @note		None. When PortType is TRACE and there are more than one TRACE
+*		ports in the Tile, PortNum 0 maps to CORE_TRACE_PORT and
+*		PortNum 1 maps to MEM_TRACE_PORT.
 *
 *******************************************************************************/
 AieRC XAie_StrmPktSwSlaveSlotDisable(XAie_DevInst *DevInst, XAie_LocType Loc,
@@ -700,7 +720,9 @@ AieRC XAie_StrmPktSwSlaveSlotDisable(XAie_DevInst *DevInst, XAie_LocType Loc,
 *
 * @return	XAIE_OK on success, Error code on failure.
 *
-* @note		None.
+* @note		None. When PortType is TRACE and there are more than one TRACE
+*		ports in the Tile, PortNum 0 maps to CORE_TRACE_PORT and
+*		PortNum 1 maps to MEM_TRACE_PORT.
 *
 *******************************************************************************/
 AieRC XAie_StrmSwLogicalToPhysicalPort(XAie_DevInst *DevInst, XAie_LocType Loc,
@@ -752,7 +774,9 @@ AieRC XAie_StrmSwLogicalToPhysicalPort(XAie_DevInst *DevInst, XAie_LocType Loc,
 *
 * @return	XAIE_OK on success, Error code on failure.
 *
-* @note		None.
+* @note		None. When PortType is TRACE and there are more than one TRACE
+*		ports in the Tile, PortNum 0 maps to CORE_TRACE_PORT and
+*		PortNum 1 maps to MEM_TRACE_PORT.
 *
 *******************************************************************************/
 AieRC XAie_StrmSwPhysicalToLogicalPort(XAie_DevInst *DevInst, XAie_LocType Loc,
