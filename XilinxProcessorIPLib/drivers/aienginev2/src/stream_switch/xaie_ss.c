@@ -726,6 +726,7 @@ AieRC XAie_StrmPktSwSlaveSlotDisable(XAie_DevInst *DevInst, XAie_LocType Loc,
 * @note		None. When PortType is TRACE and there are more than one TRACE
 *		ports in the Tile, PortNum 0 maps to CORE_TRACE_PORT and
 *		PortNum 1 maps to MEM_TRACE_PORT.
+*
 *******************************************************************************/
 AieRC XAie_StrmSwLogicalToPhysicalPort(XAie_DevInst *DevInst, XAie_LocType Loc,
 		XAie_StrmPortIntf Port, StrmSwPortType PortType, u8 PortNum,
