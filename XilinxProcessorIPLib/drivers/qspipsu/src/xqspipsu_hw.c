@@ -28,6 +28,7 @@
 /***************************** Include Files *********************************/
 
 #include "xqspipsu.h"
+#include "xqspipsu_control.h"
 #if defined (__aarch64__)
 #include "xil_smc.h"
 #endif
