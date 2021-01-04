@@ -485,10 +485,10 @@ u32 XQspiPsu_CreatePollDataConfig(const XQspiPsu *InstancePtr,
 #endif
 
 	if ((InstancePtr->GenFifoBus & XQSPIPSU_GENFIFO_BUS_UPPER) != (u32)FALSE)
-		ConfigData = XQSPIPSU_SELECT_FLASH_BUS_LOWER <<
+		ConfigData = (u32)XQSPIPSU_SELECT_FLASH_BUS_LOWER <<
 				XQSPIPSU_POLL_CFG_EN_MASK_UPPER_SHIFT;
 	if ((InstancePtr->GenFifoBus & XQSPIPSU_GENFIFO_BUS_LOWER) != (u32)FALSE)
-		ConfigData |= XQSPIPSU_SELECT_FLASH_BUS_LOWER <<
+		ConfigData |= (u32)XQSPIPSU_SELECT_FLASH_BUS_LOWER <<
 				XQSPIPSU_POLL_CFG_EN_MASK_LOWER_SHIFT;
 	ConfigData |= (u32)(((u32)FlashMsg->PollBusMask <<
 			XQSPIPSU_POLL_CFG_MASK_EN_SHIFT) & XQSPIPSU_POLL_CFG_MASK_EN_MASK);

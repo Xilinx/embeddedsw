@@ -251,12 +251,12 @@ s32 XQspipsu_Calculate_Tapdelay(const XQspiPsu *InstancePtr, u8 Prescaler)
 					 IOU_TAPDLY_BYPASS_LQSPI_RX_SHIFT);
 			LBkModeReg |= (USE_DLY_LPBK << XQSPIPSU_LPBK_DLY_ADJ_USE_LPBK_SHIFT);
 #if defined (versal)
-			delayReg |= USE_DATA_DLY_ADJ  <<
+			delayReg |= (u32)USE_DATA_DLY_ADJ  <<
 					XQSPIPSU_DATA_DLY_ADJ_USE_DATA_DLY_SHIFT;
 #else
-			delayReg |= (USE_DATA_DLY_ADJ  <<
+			delayReg |= ((u32)USE_DATA_DLY_ADJ  <<
 					XQSPIPSU_DATA_DLY_ADJ_USE_DATA_DLY_SHIFT) |
-							(DATA_DLY_ADJ_DLY  << XQSPIPSU_DATA_DLY_ADJ_DLY_SHIFT);
+							((u32)DATA_DLY_ADJ_DLY  << XQSPIPSU_DATA_DLY_ADJ_DLY_SHIFT);
 #endif
 		} else if (FreqDiv <= XQSPIPSU_FREQ_150MHZ) {
 #if defined (versal)
