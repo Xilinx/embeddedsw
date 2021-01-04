@@ -262,7 +262,7 @@ u32 XQspiPsu_SetIOMode(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg)
 				(XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET) &
 						~XQSPIPSU_CFG_MODE_EN_MASK));
 		InstancePtr->ReadMode =	XQSPIPSU_READMODE_IO;
-		Msg->ByteCount = (u32)(InstancePtr->RxBytes % 4);
+		Msg->ByteCount = (u32)InstancePtr->RxBytes % 4U;
 		Msg->RxBfrPtr += (InstancePtr->RxBytes - (InstancePtr->RxBytes % 4));
 		InstancePtr->IsUnaligned = 1;
 		return (u32) TRUE;
@@ -415,7 +415,7 @@ void XQspiPsu_GenFifoEntryDataLen(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 #endif
 
 	if (Msg->ByteCount <= XQSPIPSU_GENFIFO_IMM_DATA_MASK) {
-		*GenFifoEntry &= (u32)(~XQSPIPSU_GENFIFO_IMM_DATA_MASK);
+		*GenFifoEntry &= ~(u32)XQSPIPSU_GENFIFO_IMM_DATA_MASK;
 		*GenFifoEntry |= Msg->ByteCount;
 	#ifdef DEBUG
 	xil_printf("\nFifoEntry=%08x\r\n", GenFifoEntry);
@@ -430,7 +430,7 @@ void XQspiPsu_GenFifoEntryDataLen(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		*GenFifoEntry |= XQSPIPSU_GENFIFO_EXP;
 		while (TempCount != 0U) {
 			if ((TempCount & XQSPIPSU_GENFIFO_EXP_START) != (u32)FALSE) {
-				*GenFifoEntry &= (u32)(~XQSPIPSU_GENFIFO_IMM_DATA_MASK);
+				*GenFifoEntry &= ~(u32)XQSPIPSU_GENFIFO_IMM_DATA_MASK;
 				*GenFifoEntry |= Exponent;
 	#ifdef DEBUG
 				xil_printf("\nFifoEntry=%08x\r\n",
@@ -443,9 +443,9 @@ void XQspiPsu_GenFifoEntryDataLen(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 			Exponent++;
 		}
 		/* Immediate entry */
-		*GenFifoEntry &= (u32)(~XQSPIPSU_GENFIFO_EXP);
+		*GenFifoEntry &= ~(u32)XQSPIPSU_GENFIFO_EXP;
 		if ((ImmData & 0xFFU) != (u32)FALSE) {
-			*GenFifoEntry &= (u32)(~XQSPIPSU_GENFIFO_IMM_DATA_MASK);
+			*GenFifoEntry &= ~(u32)XQSPIPSU_GENFIFO_IMM_DATA_MASK;
 			*GenFifoEntry |= ImmData & 0xFFU;
 	#ifdef DEBUG
 			xil_printf("\nFifoEntry=%08x\r\n", GenFifoEntry);
@@ -576,10 +576,10 @@ void XQspiPsu_SetDefaultConfig(XQspiPsu *InstancePtr)
 	/* Set hold bit */
 	ConfigReg |= XQSPIPSU_CFG_WP_HOLD_MASK;
 	/* Clear prescalar by default */
-	ConfigReg &= (u32)(~XQSPIPSU_CFG_BAUD_RATE_DIV_MASK);
+	ConfigReg &= ~(u32)XQSPIPSU_CFG_BAUD_RATE_DIV_MASK;
 	/* CPOL CPHA 00 */
-	ConfigReg &= (u32)(~XQSPIPSU_CFG_CLK_PHA_MASK);
-	ConfigReg &= (u32)(~XQSPIPSU_CFG_CLK_POL_MASK);
+	ConfigReg &= ~(u32)XQSPIPSU_CFG_CLK_PHA_MASK;
+	ConfigReg &= ~(u32)XQSPIPSU_CFG_CLK_POL_MASK;
 
 	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 		XQSPIPSU_CFG_OFFSET, ConfigReg);

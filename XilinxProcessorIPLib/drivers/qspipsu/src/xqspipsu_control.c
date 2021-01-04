@@ -71,11 +71,11 @@ void XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg)
 
 	GenFifoEntry = 0x0U;
 	/* Bus width */
-	GenFifoEntry &= (u32)(~XQSPIPSU_GENFIFO_MODE_MASK);
+	GenFifoEntry &= ~(u32)XQSPIPSU_GENFIFO_MODE_MASK;
 	GenFifoEntry |= XQspiPsu_SelectSpiMode((u8)Msg->BusWidth);
 
 	GenFifoEntry |= InstancePtr->GenFifoCS;
-	GenFifoEntry &= (u32)(~XQSPIPSU_GENFIFO_BUS_MASK);
+	GenFifoEntry &= ~(u32)XQSPIPSU_GENFIFO_BUS_MASK;
 	GenFifoEntry |= InstancePtr->GenFifoBus;
 
 	/* Data */

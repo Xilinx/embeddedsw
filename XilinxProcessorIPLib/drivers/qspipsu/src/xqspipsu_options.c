@@ -330,7 +330,7 @@ s32 XQspiPsu_SetClkPrescaler(const XQspiPsu *InstancePtr, u8 Prescaler)
 		ConfigReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
 					      XQSPIPSU_CFG_OFFSET);
 
-		ConfigReg &= (u32)(~XQSPIPSU_CFG_BAUD_RATE_DIV_MASK);
+		ConfigReg &= ~(u32)XQSPIPSU_CFG_BAUD_RATE_DIV_MASK;
 		ConfigReg |= (u32) ((u32)Prescaler & (u32)XQSPIPSU_CR_PRESC_MAXIMUM) <<
 				    XQSPIPSU_CFG_BAUD_RATE_DIV_SHIFT;
 
