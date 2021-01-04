@@ -141,12 +141,13 @@ s32 XQspiPsu_SetOptions(XQspiPsu *InstancePtr, u32 Options)
 		 */
 		for (Index = 0U; Index < XQSPIPSU_NUM_OPTIONS; Index++) {
 			if ((OptionsVal & OptionsTable[Index].Option) ==
-					OptionsTable[Index].Option)
+					OptionsTable[Index].Option) {
 				/* Turn it on */
 				ConfigReg |= OptionsTable[Index].Mask;
-			else
-                /* Turn it off */
-                ConfigReg &= ~(OptionsTable[Index].Mask);
+			} else {
+				/* Turn it off */
+				ConfigReg &= ~(OptionsTable[Index].Mask);
+			}
 		}
 		/*
 		 * Now write the control register. Leave it to the upper layers
@@ -155,15 +156,16 @@ s32 XQspiPsu_SetOptions(XQspiPsu *InstancePtr, u32 Options)
 		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET,
 				 ConfigReg);
 
-		if ((OptionsVal & XQSPIPSU_MANUAL_START_OPTION) != (u32)FALSE)
+		if ((OptionsVal & XQSPIPSU_MANUAL_START_OPTION) != (u32)FALSE) {
 			InstancePtr->IsManualstart = (u8)TRUE;
+		}
 #if !defined (versal)
 		if ((QspiPsuOptions & XQSPIPSU_LQSPI_MODE_OPTION) != (u32)FALSE) {
-			if ((Options & XQSPIPSU_LQSPI_LESS_THEN_SIXTEENMB) != (u32)FALSE)
+			if ((Options & XQSPIPSU_LQSPI_LESS_THEN_SIXTEENMB) != (u32)FALSE) {
 				XQspiPsu_WriteReg(XQSPIPS_BASEADDR,XQSPIPSU_LQSPI_CR_OFFSET,XQSPIPS_LQSPI_CR_RST_STATE);
-			else
+			} else {
 				XQspiPsu_WriteReg(XQSPIPS_BASEADDR,XQSPIPSU_LQSPI_CR_OFFSET,XQSPIPS_LQSPI_CR_4_BYTE_STATE);
-
+			}
 			XQspiPsu_WriteReg(XQSPIPS_BASEADDR,XQSPIPSU_CFG_OFFSET,XQSPIPS_LQSPI_CFG_RST_STATE);
 			/* Enable the QSPI controller */
 			XQspiPsu_WriteReg(XQSPIPS_BASEADDR,XQSPIPSU_EN_OFFSET,XQSPIPSU_EN_MASK);
@@ -229,9 +231,10 @@ s32 XQspiPsu_ClearOptions(XQspiPsu *InstancePtr, u32 Options)
 		 * depending on whether the bit is set in the incoming options flag.
 		 */
 		for (Index = 0U; Index < XQSPIPSU_NUM_OPTIONS; Index++) {
-			if ((Options & OptionsTable[Index].Option) != (u32)FALSE)
+			if ((Options & OptionsTable[Index].Option) != (u32)FALSE) {
 				/* Turn it off */
 				ConfigReg &= ~OptionsTable[Index].Mask;
+			}
 		}
 		/*
 		 * Now write the control register. Leave it to the upper layers
@@ -240,8 +243,9 @@ s32 XQspiPsu_ClearOptions(XQspiPsu *InstancePtr, u32 Options)
 		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET,
 				 ConfigReg);
 
-		if ((Options & XQSPIPSU_MANUAL_START_OPTION) != (u32)FALSE)
+		if ((Options & XQSPIPSU_MANUAL_START_OPTION) != (u32)FALSE) {
 			InstancePtr->IsManualstart = (u8)FALSE;
+		}
 
 		Status = (s32)XST_SUCCESS;
 	}
@@ -282,8 +286,9 @@ u32 XQspiPsu_GetOptions(const XQspiPsu *InstancePtr)
 		 */
 		ConfigReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
 						      XQSPIPSU_CFG_OFFSET);
-		if ((ConfigReg & OptionsTable[Index].Mask) != (u32)FALSE)
+		if ((ConfigReg & OptionsTable[Index].Mask) != (u32)FALSE) {
 			OptionsFlag |= OptionsTable[Index].Option;
+		}
 	}
 	return OptionsFlag;
 }
