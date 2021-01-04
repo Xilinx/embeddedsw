@@ -235,7 +235,7 @@ s32 XQspipsu_Calculate_Tapdelay(const XQspiPsu *InstancePtr, u8 Prescaler)
 		goto END;
 	} else {
 
-		Divider = (1U << (Prescaler+1U));
+		Divider = (u32)1U << (Prescaler+1U);
 
 		FreqDiv = (InstancePtr->Config.InputClockHz)/Divider;
 

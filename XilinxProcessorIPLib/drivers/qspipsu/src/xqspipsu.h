@@ -225,7 +225,7 @@ typedef struct {
  */
 typedef struct {
 	u16 DeviceId;		/**< Unique ID  of device */
-	u32 BaseAddress;	/**< Base address of the device */
+	UINTPTR BaseAddress;	/**< Base address of the device */
 	u32 InputClockHz;	/**< Input clock frequency */
 	u8  ConnectionMode;	/**< Single, Stacked and Parallel mode */
 	u8  BusWidth;		/**< Bus width available on board */
@@ -499,8 +499,9 @@ static inline void StubStatusHandler(const void *CallBackRef, u32 StatusEvent,
 
 /* Initialization and reset */
 XQspiPsu_Config *XQspiPsu_LookupConfig(u16 DeviceId);
-s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr, const XQspiPsu_Config *ConfigPtr,
-				u32 EffectiveAddr);
+s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr,
+			   const XQspiPsu_Config *ConfigPtr,
+			   UINTPTR EffectiveAddr);
 void XQspiPsu_Reset(XQspiPsu *InstancePtr);
 void XQspiPsu_Abort(XQspiPsu *InstancePtr);
 
