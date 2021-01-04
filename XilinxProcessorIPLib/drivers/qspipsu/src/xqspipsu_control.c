@@ -79,7 +79,7 @@ void XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg)
 	GenFifoEntry |= InstancePtr->GenFifoBus;
 
 	/* Data */
-	if (((Msg->Flags) & XQSPIPSU_MSG_FLAG_STRIPE) != FALSE)
+	if (((Msg->Flags) & XQSPIPSU_MSG_FLAG_STRIPE) != (u32)FALSE)
 		GenFifoEntry |= XQSPIPSU_GENFIFO_STRIPE;
 	else
 		GenFifoEntry &= ~XQSPIPSU_GENFIFO_STRIPE;
@@ -100,7 +100,7 @@ void XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg)
 
 	/* One dummy GenFifo entry in case of IO mode */
 	if ((InstancePtr->ReadMode == XQSPIPSU_READMODE_IO) &&
-			((Msg->Flags & XQSPIPSU_MSG_FLAG_RX) != FALSE)) {
+			((Msg->Flags & XQSPIPSU_MSG_FLAG_RX) != (u32)FALSE)) {
 		GenFifoEntry = 0x0U;
 #ifdef DEBUG
 		xil_printf("\nDummy FifoEntry=%08x\r\n", GenFifoEntry);
@@ -162,7 +162,7 @@ void XQspiPsu_PollDataConfig(XQspiPsu *InstancePtr, XQspiPsu_Msg *FlashMsg)
 	GenFifoEntry |= InstancePtr->GenFifoBus;
 	GenFifoEntry |= InstancePtr->GenFifoCS;
 	GenFifoEntry |= (u32)XQSPIPSU_GENFIFO_MODE_SPI;
-	if (((FlashMsg->Flags) & XQSPIPSU_MSG_FLAG_STRIPE) != FALSE)
+	if (((FlashMsg->Flags) & XQSPIPSU_MSG_FLAG_STRIPE) != (u32)FALSE)
 		GenFifoEntry |= XQSPIPSU_GENFIFO_STRIPE;
 	else
 		GenFifoEntry &= ~XQSPIPSU_GENFIFO_STRIPE;
@@ -230,7 +230,7 @@ s32 XQspipsu_Calculate_Tapdelay(const XQspiPsu *InstancePtr, u8 Prescaler)
 	 * Do not allow the slave select to change while a transfer is in
 	 * progress. Not thread-safe.
 	 */
-	if (InstancePtr->IsBusy == TRUE) {
+	if (InstancePtr->IsBusy == (u32)TRUE) {
 		Status = (s32)XST_DEVICE_BUSY;
 		goto END;
 	} else {
