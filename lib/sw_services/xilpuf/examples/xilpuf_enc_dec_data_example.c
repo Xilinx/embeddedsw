@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020-2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -25,6 +25,8 @@
  *       am   08/14/20 Replacing function prototype and local status variable
  *                     from u32 and s32 to int.
  *       har  09/30/20 Replaced XPuf_printf with xil_printf
+ * 1.3   har  01/04/21 Added check and updated comments for
+ *                     XPUF_DATA_LEN_IN_BYTES
  *
  * @note
  *
@@ -34,7 +36,8 @@
  * Data to be encrypted by PUF KEY should be provided in string format.
  *
  * #define XPUF_DATA_LEN_IN_BYTES		(0U)
- * Length of data to be encrypted should be provided in bytes.
+ * Length of data to be encrypted should be provided in bytes, where number of
+ * bytes must be a multiple of 4.
  *
  * #define XPUF_IV				"000000000000000000000000"
  * IV should be provided in string format. It should be 24 characters long, valid
@@ -324,6 +327,12 @@ static int XPuf_VerifyDataEncDec(void)
 	else {
 		Status = XST_FAILURE;
 		xil_printf("Provided data length is wrong\r\n");
+		goto END;
+	}
+
+	if (XPUF_DATA_LEN_IN_BYTES % XPUF_WORD_LENGTH != 0U) {
+		Status = XST_FAILURE;
+		xil_printf("Provided data length is not multiple of 4\r\n");
 		goto END;
 	}
 
