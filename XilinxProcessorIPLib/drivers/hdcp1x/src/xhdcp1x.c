@@ -234,6 +234,12 @@ int XHdcp1x_CfgInitialize(XHdcp1x *InstancePtr, const XHdcp1x_Config *CfgPtr,
 	return (XST_SUCCESS);
 }
 
+void XHdcp1x_LateInit(XHdcp1x *InstancePtr)
+{
+	if (InstancePtr->Config.IsRx)
+		XHdcp1x_RxLoadBksvToBuf(InstancePtr);
+}
+
 /*****************************************************************************/
 /**
 * This function polls an HDCP interface.

@@ -1163,6 +1163,7 @@ XHdcp1x_Config *XHdcp1x_LookupConfig(u16 DeviceId);
 
 int XHdcp1x_CfgInitialize(XHdcp1x *InstancePtr, const XHdcp1x_Config *CfgPtr,
 		void *PhyIfPtr, UINTPTR EffectiveAddr);
+void XHdcp1x_LateInit(XHdcp1x *InstancePtr);
 
 int XHdcp1x_SelfTest(XHdcp1x *InstancePtr);
 
