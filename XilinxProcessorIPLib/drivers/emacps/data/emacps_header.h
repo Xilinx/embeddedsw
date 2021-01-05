@@ -13,11 +13,11 @@
 #ifdef XPAR_INTC_0_DEVICE_ID
 int EmacPsDmaIntrExample(XIntc *IntcInstancePtr,
 			  XEmacPs *EmacPsInstancePtr,
-			  u16 EmacPsDeviceId, u16 EmacPsIntrId);
+			  u16 EmacPsDeviceId);
 #else
 int EmacPsDmaIntrExample(XScuGic *IntcInstancePtr,
 			  XEmacPs *EmacPsInstancePtr,
-			  u16 EmacPsDeviceId, u16 EmacPsIntrId);
+			  u16 EmacPsDeviceId);
 #endif
 
 #endif

@@ -140,21 +140,16 @@
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #endif
 
-#if defined(XPAR_INTC_0_DEVICE_ID)
-#define EMACPS_IRPT_INTR	XPAR_AXI_INTC_0_PROCESSING_SYSTEM7_0_IRQ_P2F_ENET0_INTR
-#elif defined(XPAR_PSV_ETHERNET_0_DEVICE_ID) || \
-	defined(XPAR_PSU_ETHERNET_0_DEVICE_ID) || \
-	defined(XPAR_PS7_ETHERNET_0_DEVICE_ID)
-#define EMACPS_IRPT_INTR	XPS_GEM0_INT_ID
-#elif defined(XPAR_PSV_ETHERNET_1_DEVICE_ID) || \
-	defined(XPAR_PSU_ETHERNET_1_DEVICE_ID) || \
-	defined(XPAR_PS7_ETHERNET_1_DEVICE_ID)
-#define EMACPS_IRPT_INTR	XPS_GEM1_INT_ID
-#elif defined(XPAR_PSU_ETHERNET_2_DEVICE_ID)
-#define EMACPS_IRPT_INTR	XPS_GEM2_INT_ID
-#elif defined(XPAR_PSU_ETHERNET_3_DEVICE_ID)
-#define EMACPS_IRPT_INTR	XPS_GEM3_INT_ID
-#endif
+#define ZYNQ_EMACPS_0_BASEADDR 0xE000B000
+#define ZYNQ_EMACPS_1_BASEADDR 0xE000C000
+
+#define ZYNQMP_EMACPS_0_BASEADDR 0xFF0B0000
+#define ZYNQMP_EMACPS_1_BASEADDR 0xFF0C0000
+#define ZYNQMP_EMACPS_2_BASEADDR 0xFF0D0000
+#define ZYNQMP_EMACPS_3_BASEADDR 0xFF0E0000
+
+#define VERSAL_EMACPS_0_BASEADDR 0xFF0C0000
+#define VERSAL_EMACPS_1_BASEADDR 0xFF0D0000
 
 #define RXBD_CNT       32	/* Number of RxBDs to use */
 #define TXBD_CNT       32	/* Number of TxBDs to use */
@@ -181,8 +176,8 @@
 #endif
 
 #define CRL_GEM_DIV_MASK	0x003F3F00
-#define CRL_GEM_1G_DIV0		0x00000C00
-#define CRL_GEM_1G_DIV1		0x00010000
+#define CRL_GEM_DIV0_SHIFT	8
+#define CRL_GEM_DIV1_SHIFT	16
 
 #ifdef XPAR_PSV_CRL_0_S_AXI_BASEADDR
 #define CRL_GEM0_REF_CTRL	(XPAR_PSV_CRL_0_S_AXI_BASEADDR + 0x118)
@@ -280,7 +275,7 @@ u32 GemVersion;
  */
 LONG EmacPsDmaIntrExample(INTC *IntcInstancePtr,
 			  XEmacPs *EmacPsInstancePtr,
-			  u16 EmacPsDeviceId, u16 EmacPsIntrId);
+			  u16 EmacPsDeviceId);
 
 LONG EmacPsDmaSingleFrameIntrExample(XEmacPs * EmacPsInstancePtr);
 
@@ -331,8 +326,7 @@ int main(void)
 	 */
 	Status = EmacPsDmaIntrExample(&IntcInstance,
 				       &EmacPsInstance,
-				       EMACPS_DEVICE_ID,
-				       EMACPS_IRPT_INTR);
+				       EMACPS_DEVICE_ID);
 
 	if (Status != XST_SUCCESS) {
 		EmacPsUtilErrorTrap("Emacps intr dma Example Failed\r\n");
@@ -356,8 +350,6 @@ int main(void)
 *		driver.
 * @param	EmacPsDeviceId is Device ID of the EmacPs Device , typically
 *		XPAR_<EMACPS_instance>_DEVICE_ID value from xparameters.h.
-* @param	EmacPsIntrId is the Interrupt ID and is typically
-*		XPAR_<EMACPS_instance>_INTR value from xparameters.h.
 *
 * @return	XST_SUCCESS to indicate success, otherwise XST_FAILURE.
 *
@@ -366,30 +358,16 @@ int main(void)
 *****************************************************************************/
 LONG EmacPsDmaIntrExample(INTC * IntcInstancePtr,
 			  XEmacPs * EmacPsInstancePtr,
-			  u16 EmacPsDeviceId,
-			  u16 EmacPsIntrId)
+			  u16 EmacPsDeviceId)
 {
 	LONG Status;
 	XEmacPs_Config *Config;
 	XEmacPs_Bd BdTemplate;
+	u16 EmacPsIntrId;
 
 	/*************************************/
 	/* Setup device for first-time usage */
 	/*************************************/
-
-#if EL1_NONSECURE
-	/* Request device to indicate it is in use by this application */
-#ifdef XPAR_PSV_ETHERNET_0_DEVICE_ID
-	if (EmacPsIntrId == XPS_GEM0_INT_ID) {
-		Xil_Smc(PM_REQUEST_DEVICE_SMC_FID, DEV_GEM_0, 1, 0, 100, 1, 0, 0);
-	}
-#endif
-#ifdef XPAR_PSV_ETHERNET_1_DEVICE_ID
-	if (EmacPsIntrId == XPS_GEM1_INT_ID) {
-		Xil_Smc(PM_REQUEST_DEVICE_SMC_FID, DEV_GEM_1, 1, 0, 100, 1, 0, 0);
-	}
-#endif
-#endif
 
 	/*
 	 *  Initialize instance. Should be configured for DMA
@@ -399,6 +377,16 @@ LONG EmacPsDmaIntrExample(INTC * IntcInstancePtr,
 	 */
 	Config = XEmacPs_LookupConfig(EmacPsDeviceId);
 
+#if EL1_NONSECURE
+	/* Request device to indicate it is in use by this application */
+	if (Config->BaseAddress == VERSAL_EMACPS_0_BASEADDR) {
+		Xil_Smc(PM_REQUEST_DEVICE_SMC_FID, DEV_GEM_0, 1, 0, 100, 1, 0, 0);
+	}
+	if (Config->BaseAddress == VERSAL_EMACPS_0_BASEADDR) {
+		Xil_Smc(PM_REQUEST_DEVICE_SMC_FID, DEV_GEM_1, 1, 0, 100, 1, 0, 0);
+	}
+#endif
+
 	Status = XEmacPs_CfgInitialize(EmacPsInstancePtr, Config,
 					Config->BaseAddress);
 
@@ -406,6 +394,28 @@ LONG EmacPsDmaIntrExample(INTC * IntcInstancePtr,
 		EmacPsUtilErrorTrap("Error in initialize");
 		return XST_FAILURE;
 	}
+
+#if defined(XPAR_INTC_0_DEVICE_ID)
+	EmacPsIntrId = XPAR_AXI_INTC_0_PROCESSING_SYSTEM7_0_IRQ_P2F_ENET0_INTR;
+#else
+	if ((EmacPsInstancePtr->Config.BaseAddress == ZYNQ_EMACPS_0_BASEADDR) ||
+		(EmacPsInstancePtr->Config.BaseAddress == ZYNQMP_EMACPS_0_BASEADDR) ||
+		(EmacPsInstancePtr->Config.BaseAddress == VERSAL_EMACPS_0_BASEADDR)) {
+		EmacPsIntrId = XPS_GEM0_INT_ID;
+	} else if ((EmacPsInstancePtr->Config.BaseAddress == ZYNQ_EMACPS_1_BASEADDR) ||
+			(EmacPsInstancePtr->Config.BaseAddress == ZYNQMP_EMACPS_1_BASEADDR) ||
+			(EmacPsInstancePtr->Config.BaseAddress == VERSAL_EMACPS_1_BASEADDR)) {
+		EmacPsIntrId = XPS_GEM1_INT_ID;
+	} else if (EmacPsInstancePtr->Config.BaseAddress == ZYNQMP_EMACPS_2_BASEADDR) {
+#ifdef XPS_GEM2_INT_ID
+		EmacPsIntrId = XPS_GEM2_INT_ID;
+#endif
+	} else if (EmacPsInstancePtr->Config.BaseAddress == ZYNQMP_EMACPS_3_BASEADDR) {
+#ifdef XPS_GEM3_INT_ID
+		EmacPsIntrId = XPS_GEM3_INT_ID;
+#endif
+	}
+#endif
 
 	GemVersion = ((Xil_In32(Config->BaseAddress + 0xFC)) >> 16) & 0xFFF;
 
@@ -1359,6 +1369,8 @@ static void XEmacPsErrorHandler(void *Callback, u8 Direction, u32 ErrorWord)
 void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 {
 	u32 ClkCntrl;
+	u32 BaseAddress = EmacPsInstancePtr->Config.BaseAddress;
+
 	if (GemVersion == 2)
 	{
 		/*************************************/
@@ -1367,60 +1379,29 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 
 	/* SLCR unlock */
 	*(volatile unsigned int *)(SLCR_UNLOCK_ADDR) = SLCR_UNLOCK_KEY_VALUE;
-#ifndef __MICROBLAZE__
-	if (EmacPsIntrId == XPS_GEM0_INT_ID) {
+	if (BaseAddress == ZYNQ_EMACPS_0_BASEADDR) {
 #ifdef XPAR_PS7_ETHERNET_0_ENET_SLCR_1000MBPS_DIV0
 		/* GEM0 1G clock configuration*/
 		ClkCntrl =
 		*(volatile unsigned int *)(SLCR_GEM0_CLK_CTRL_ADDR);
 		ClkCntrl &= EMACPS_SLCR_DIV_MASK;
-		ClkCntrl |= (XPAR_PS7_ETHERNET_0_ENET_SLCR_1000MBPS_DIV1 << 20);
-		ClkCntrl |= (XPAR_PS7_ETHERNET_0_ENET_SLCR_1000MBPS_DIV0 << 8);
+		ClkCntrl |= (EmacPsInstancePtr->Config.S1GDiv1 << 20);
+		ClkCntrl |= (EmacPsInstancePtr->Config.S1GDiv0 << 8);
 		*(volatile unsigned int *)(SLCR_GEM0_CLK_CTRL_ADDR) =
 								ClkCntrl;
 #endif
-	} else if (EmacPsIntrId == XPS_GEM1_INT_ID) {
+	} else if (BaseAddress == ZYNQ_EMACPS_1_BASEADDR) {
 #ifdef XPAR_PS7_ETHERNET_1_ENET_SLCR_1000MBPS_DIV1
 		/* GEM1 1G clock configuration*/
 		ClkCntrl =
 		*(volatile unsigned int *)(SLCR_GEM1_CLK_CTRL_ADDR);
 		ClkCntrl &= EMACPS_SLCR_DIV_MASK;
-		ClkCntrl |= (XPAR_PS7_ETHERNET_1_ENET_SLCR_1000MBPS_DIV1 << 20);
-		ClkCntrl |= (XPAR_PS7_ETHERNET_1_ENET_SLCR_1000MBPS_DIV0 << 8);
+		ClkCntrl |= (EmacPsInstancePtr->Config.S1GDiv1 << 20);
+		ClkCntrl |= (EmacPsInstancePtr->Config.S1GDiv0 << 8);
 		*(volatile unsigned int *)(SLCR_GEM1_CLK_CTRL_ADDR) =
 								ClkCntrl;
 #endif
 	}
-#else
-#ifdef XPAR_AXI_INTC_0_PROCESSING_SYSTEM7_0_IRQ_P2F_ENET0_INTR
-	if (EmacPsIntrId == XPAR_AXI_INTC_0_PROCESSING_SYSTEM7_0_IRQ_P2F_ENET0_INTR) {
-#ifdef XPAR_PS7_ETHERNET_0_ENET_SLCR_1000MBPS_DIV0
-		/* GEM0 1G clock configuration*/
-		ClkCntrl =
-		*(volatile unsigned int *)(SLCR_GEM0_CLK_CTRL_ADDR);
-		ClkCntrl &= EMACPS_SLCR_DIV_MASK;
-		ClkCntrl |= (XPAR_PS7_ETHERNET_0_ENET_SLCR_1000MBPS_DIV1 << 20);
-		ClkCntrl |= (XPAR_PS7_ETHERNET_0_ENET_SLCR_1000MBPS_DIV0 << 8);
-		*(volatile unsigned int *)(SLCR_GEM0_CLK_CTRL_ADDR) =
-								ClkCntrl;
-#endif
-	}
-#endif
-#ifdef XPAR_AXI_INTC_0_PROCESSING_SYSTEM7_1_IRQ_P2F_ENET1_INTR
-	if (EmacPsIntrId == XPAR_AXI_INTC_0_PROCESSING_SYSTEM7_1_IRQ_P2F_ENET1_INTR) {
-#ifdef XPAR_PS7_ETHERNET_1_ENET_SLCR_1000MBPS_DIV1
-		/* GEM1 1G clock configuration*/
-		ClkCntrl =
-		*(volatile unsigned int *)(SLCR_GEM1_CLK_CTRL_ADDR);
-		ClkCntrl &= EMACPS_SLCR_DIV_MASK;
-		ClkCntrl |= (XPAR_PS7_ETHERNET_1_ENET_SLCR_1000MBPS_DIV1 << 20);
-		ClkCntrl |= (XPAR_PS7_ETHERNET_1_ENET_SLCR_1000MBPS_DIV0 << 8);
-		*(volatile unsigned int *)(SLCR_GEM1_CLK_CTRL_ADDR) =
-								ClkCntrl;
-#endif
-	}
-#endif
-#endif
 	/* SLCR lock */
 	*(unsigned int *)(SLCR_LOCK_ADDR) = SLCR_LOCK_KEY_VALUE;
 	#ifndef __MICROBLAZE__
@@ -1437,91 +1418,79 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 	if ((GemVersion == GEMVERSION_ZYNQMP) && ((Platform & PLATFORM_MASK) == PLATFORM_SILICON)) {
 
 #ifdef XPAR_PSU_CRL_APB_S_AXI_BASEADDR
-#ifdef XPAR_PSU_ETHERNET_0_DEVICE_ID
-		if (EmacPsIntrId == XPS_GEM0_INT_ID) {
+		if (BaseAddress == ZYNQMP_EMACPS_0_BASEADDR) {
 			/* GEM0 1G clock configuration*/
 			ClkCntrl =
 			*(volatile unsigned int *)(CRL_GEM0_REF_CTRL);
 			ClkCntrl &= ~CRL_GEM_DIV_MASK;
-			ClkCntrl |= CRL_GEM_1G_DIV1;
-			ClkCntrl |= CRL_GEM_1G_DIV0;
+			ClkCntrl |= EmacPsInstancePtr->Config.S1GDiv1 << CRL_GEM_DIV1_SHIFT;
+			ClkCntrl |= EmacPsInstancePtr->Config.S1GDiv0 << CRL_GEM_DIV0_SHIFT;
 			*(volatile unsigned int *)(CRL_GEM0_REF_CTRL) =
 									ClkCntrl;
 
 		}
-#endif
-#ifdef XPAR_PSU_ETHERNET_1_DEVICE_ID
-		if (EmacPsIntrId == XPS_GEM1_INT_ID) {
+		if (BaseAddress == ZYNQMP_EMACPS_1_BASEADDR) {
 
 			/* GEM1 1G clock configuration*/
 			ClkCntrl =
 			*(volatile unsigned int *)(CRL_GEM1_REF_CTRL);
 			ClkCntrl &= ~CRL_GEM_DIV_MASK;
-			ClkCntrl |= CRL_GEM_1G_DIV1;
-			ClkCntrl |= CRL_GEM_1G_DIV0;
+			ClkCntrl |= EmacPsInstancePtr->Config.S1GDiv1 << CRL_GEM_DIV1_SHIFT;
+			ClkCntrl |= EmacPsInstancePtr->Config.S1GDiv0 << CRL_GEM_DIV0_SHIFT;
 			*(volatile unsigned int *)(CRL_GEM1_REF_CTRL) =
 									ClkCntrl;
 		}
-#endif
-#ifdef XPAR_PSU_ETHERNET_2_DEVICE_ID
-		if (EmacPsIntrId == XPS_GEM2_INT_ID) {
+		if (BaseAddress == ZYNQMP_EMACPS_2_BASEADDR) {
 
 			/* GEM2 1G clock configuration*/
 			ClkCntrl =
 			*(volatile unsigned int *)(CRL_GEM2_REF_CTRL);
 			ClkCntrl &= ~CRL_GEM_DIV_MASK;
-			ClkCntrl |= CRL_GEM_1G_DIV1;
-			ClkCntrl |= CRL_GEM_1G_DIV0;
+			ClkCntrl |= EmacPsInstancePtr->Config.S1GDiv1 << CRL_GEM_DIV1_SHIFT;
+			ClkCntrl |= EmacPsInstancePtr->Config.S1GDiv0 << CRL_GEM_DIV0_SHIFT;
 			*(volatile unsigned int *)(CRL_GEM2_REF_CTRL) =
 									ClkCntrl;
 
 		}
-#endif
-#ifdef XPAR_PSU_ETHERNET_3_DEVICE_ID
-		if (EmacPsIntrId == XPS_GEM3_INT_ID) {
+		if (BaseAddress == ZYNQMP_EMACPS_3_BASEADDR) {
 			/* GEM3 1G clock configuration*/
 			ClkCntrl =
 			*(volatile unsigned int *)(CRL_GEM3_REF_CTRL);
 			ClkCntrl &= ~CRL_GEM_DIV_MASK;
-			ClkCntrl |= CRL_GEM_1G_DIV1;
-			ClkCntrl |= CRL_GEM_1G_DIV0;
+			ClkCntrl |= EmacPsInstancePtr->Config.S1GDiv1 << CRL_GEM_DIV1_SHIFT;
+			ClkCntrl |= EmacPsInstancePtr->Config.S1GDiv0 << CRL_GEM_DIV0_SHIFT;
 			*(volatile unsigned int *)(CRL_GEM3_REF_CTRL) =
 									ClkCntrl;
 		}
-#endif
 #endif
 	}
 	if ((GemVersion == GEMVERSION_VERSAL) &&
 		((Platform & PLATFORM_MASK_VERSAL) == PLATFORM_VERSALSIL)) {
 
 #ifdef XPAR_PSV_CRL_0_S_AXI_BASEADDR
-#ifdef XPAR_PSV_ETHERNET_0_DEVICE_ID
-		if (EmacPsIntrId == XPS_GEM0_INT_ID) {
+		if (BaseAddress == VERSAL_EMACPS_0_BASEADDR) {
 			/* GEM0 1G clock configuration*/
 #if EL1_NONSECURE
-			Xil_Smc(PM_SET_DIVIDER_SMC_FID, (((u64)XPAR_PSV_ETHERNET_0_ENET_SLCR_1000MBPS_DIV0 << 32) | CLK_GEM0_REF), 0, 0, 0, 0, 0, 0);
+			Xil_Smc(PM_SET_DIVIDER_SMC_FID, (((u64)EmacPsInstancePtr->Config.S1GDiv0 << 32) | CLK_GEM0_REF), 0, 0, 0, 0, 0, 0);
 #else
 			ClkCntrl = Xil_In32((UINTPTR)CRL_GEM0_REF_CTRL);
 			ClkCntrl &= ~CRL_GEM_DIV_VERSAL_MASK;
-			ClkCntrl |= XPAR_PSV_ETHERNET_0_ENET_SLCR_1000MBPS_DIV0 << CRL_GEM_DIV_VERSAL_SHIFT;
+			ClkCntrl |= EmacPsInstancePtr->Config.S1GDiv0 << CRL_GEM_DIV_VERSAL_SHIFT;
 			Xil_Out32((UINTPTR)CRL_GEM0_REF_CTRL, ClkCntrl);
 #endif
 		}
-#endif
-#ifdef XPAR_PSV_ETHERNET_1_DEVICE_ID
-		if (EmacPsIntrId == XPS_GEM1_INT_ID) {
+		if (BaseAddress == VERSAL_EMACPS_0_BASEADDR) {
 
 			/* GEM1 1G clock configuration*/
 #if EL1_NONSECURE
-			Xil_Smc(PM_SET_DIVIDER_SMC_FID, (((u64)XPAR_PSV_ETHERNET_1_ENET_SLCR_1000MBPS_DIV0 << 32) | CLK_GEM1_REF), 0, 0, 0, 0, 0, 0);
+			Xil_Smc(PM_SET_DIVIDER_SMC_FID, (((u64)EmacPsInstancePtr->Config.S1GDiv0 << 32) | CLK_GEM1_REF), 0, 0, 0, 0, 0, 0);
 #else
 			ClkCntrl = Xil_In32((UINTPTR)CRL_GEM1_REF_CTRL);
 			ClkCntrl &= ~CRL_GEM_DIV_VERSAL_MASK;
-			ClkCntrl |= XPAR_PSV_ETHERNET_1_ENET_SLCR_1000MBPS_DIV0 << CRL_GEM_DIV_VERSAL_SHIFT;
+			ClkCntrl |= EmacPsInstancePtr->Config.S1GDiv0 << CRL_GEM_DIV_VERSAL_SHIFT;
 			Xil_Out32((UINTPTR)CRL_GEM1_REF_CTRL, ClkCntrl);
 #endif
 		}
-#endif
 #endif
 	}
 }
