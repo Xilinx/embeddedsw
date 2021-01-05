@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -91,6 +91,8 @@
 * 9.0   cog    11/25/20 Upversion.
 * 10.0  cog    11/26/20 Refactor and split files.
 *       cog    12/23/20 Fixed issue with IQ QMC on 48dr devices.
+*       cog    01/05/21 Signal detector on/off counters needed to be flipped.
+*       cog    01/05/21 Second signal detector removed.
 *
 *</pre>
 *
@@ -264,11 +266,8 @@ extern "C" {
 
 #define XRFDC_ADC_SIG_DETECT_CTRL_OFFSET 0x114 /**< ADC Signal Detector Control */
 #define XRFDC_ADC_SIG_DETECT_THRESHOLD0_LEVEL_OFFSET 0x118 /**< ADC Signal Detector Threshold 0 */
-#define XRFDC_ADC_SIG_DETECT_THRESHOLD0_CNT_ON_OFFSET 0x11C /**< ADC Signal Detector Threshold 0 on Counter */
-#define XRFDC_ADC_SIG_DETECT_THRESHOLD0_CNT_OFF_OFFSET 0x120 /**< ADC Signal Detector Threshold 0 off Counter */
-#define XRFDC_ADC_SIG_DETECT_THRESHOLD1_LEVEL_OFFSET 0x124 /**< ADC Signal Detector Threshold 1 */
-#define XRFDC_ADC_SIG_DETECT_THRESHOLD1_CNT_ON_OFFSET 0x128 /**< ADC Signal Detector Threshold 1 on Counter */
-#define XRFDC_ADC_SIG_DETECT_THRESHOLD1_CNT_OFF_OFFSET 0x12C /**< ADC Signal Detector Threshold 1 off Counter */
+#define XRFDC_ADC_SIG_DETECT_THRESHOLD0_CNT_OFF_OFFSET 0x11C /**< ADC Signal Detector Threshold 0 on Counter */
+#define XRFDC_ADC_SIG_DETECT_THRESHOLD0_CNT_ON_OFFSET 0x120 /**< ADC Signal Detector Threshold 0 off Counter */
 #define XRFDC_ADC_SIG_DETECT_MAGN_OFFSET 0x130 /**< ADC Signal Detector Magintude */
 
 #define XRFDC_HSCOM_CLK_DSTR_OFFSET 0x088U /**< Clock Distribution Register*/

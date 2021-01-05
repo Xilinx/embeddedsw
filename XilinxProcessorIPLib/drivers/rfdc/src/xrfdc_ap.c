@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,8 @@
 * ----- ---    -------- -----------------------------------------------
 * 10.0  cog    11/26/20 Refactor and split files.
 *       cog    12/23/20 Fixed issue with IQ QMC on 48dr devices.
+*       cog    01/05/21 Signal detector on/off counters needed to be flipped.
+*       cog    01/05/21 Second signal detector removed.
 *
 * </pre>
 *
@@ -1795,17 +1797,11 @@ u32 XRFdc_SetSignalDetector(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc
 		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_CTRL_OFFSET, XRFDC_ADC_SIG_DETECT_MASK,
 				SignalDetCtrlReg);
 		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_THRESHOLD0_LEVEL_OFFSET,
-				 SettingsPtr->HighThreshold);
-		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_THRESHOLD1_LEVEL_OFFSET,
-				 SettingsPtr->LowThreshold);
+				 SettingsPtr->Threshold);
 		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_THRESHOLD0_CNT_ON_OFFSET,
-				 SettingsPtr->HighThreshOnTriggerCnt);
+				 SettingsPtr->ThreshOnTriggerCnt);
 		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_THRESHOLD0_CNT_OFF_OFFSET,
-				 SettingsPtr->HighThreshOffTriggerCnt);
-		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_THRESHOLD1_CNT_ON_OFFSET,
-				 SettingsPtr->LowThreshOnTriggerCnt);
-		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_THRESHOLD1_CNT_OFF_OFFSET,
-				 SettingsPtr->LowThreshOffTriggerCnt);
+				 SettingsPtr->ThreshOffTriggerCnt);
 	}
 
 	Status = XRFDC_SUCCESS;
@@ -1869,18 +1865,11 @@ u32 XRFdc_GetSignalDetector(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc
 
 	SettingsPtr->HysteresisEnable =
 		(SignalDetCtrlReg & XRFDC_ADC_SIG_DETECT_HYST_MASK) >> XRFDC_ADC_SIG_DETECT_HYST_SHIFT;
-	SettingsPtr->HighThreshold =
-		XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_THRESHOLD0_LEVEL_OFFSET);
-	SettingsPtr->LowThreshold =
-		XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_THRESHOLD1_LEVEL_OFFSET);
-	SettingsPtr->HighThreshOnTriggerCnt =
+	SettingsPtr->Threshold = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_THRESHOLD0_LEVEL_OFFSET);
+	SettingsPtr->ThreshOnTriggerCnt =
 		XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_THRESHOLD0_CNT_ON_OFFSET);
-	SettingsPtr->HighThreshOffTriggerCnt =
+	SettingsPtr->ThreshOffTriggerCnt =
 		XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_THRESHOLD0_CNT_OFF_OFFSET);
-	SettingsPtr->LowThreshOnTriggerCnt =
-		XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_THRESHOLD1_CNT_ON_OFFSET);
-	SettingsPtr->LowThreshOffTriggerCnt =
-		XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_THRESHOLD1_CNT_OFF_OFFSET);
 	Status = XRFDC_SUCCESS;
 RETURN_PATH:
 	return Status;
