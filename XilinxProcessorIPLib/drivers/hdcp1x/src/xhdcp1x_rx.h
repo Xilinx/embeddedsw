@@ -68,6 +68,7 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 
 void XHdcp1x_RxInit(XHdcp1x *InstancePtr);
+void XHdcp1x_RxLoadBksvToBuf(XHdcp1x *InstancePtr);
 int XHdcp1x_RxSetCallback(XHdcp1x *InstancePtr,
 		XHdcp1x_HandlerType HandlerType, void *CallbackFunc,
 		void *CallbackRef);

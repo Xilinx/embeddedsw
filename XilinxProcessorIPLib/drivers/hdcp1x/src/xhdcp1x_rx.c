@@ -292,6 +292,36 @@ int XHdcp1x_RxSetCallback(XHdcp1x *InstancePtr,
 	return (Status);
 }
 
+void XHdcp1x_RxLoadBksvToBuf(XHdcp1x *InstancePtr)
+{
+	u64 MyKsv = 0;
+	u8 Buf[8];
+	int IsEnabled = FALSE;
+
+	IsEnabled = XHdcp1x_CipherIsEnabled(InstancePtr);
+
+	/* Enable the crypto engine */
+	XHdcp1x_CipherEnable(InstancePtr);
+
+	/* Read MyKsv */
+	MyKsv = XHdcp1x_CipherGetLocalKsv(InstancePtr);
+
+	/* If unknown - try again for good luck */
+	if (MyKsv == 0) {
+		MyKsv = XHdcp1x_CipherGetLocalKsv(InstancePtr);
+	}
+
+	/* Initialize Bksv */
+	memset(Buf, 0, 8);
+	XHDCP1X_PORT_UINT_TO_BUF(Buf, MyKsv,
+			XHDCP1X_PORT_SIZE_BKSV * 8);
+	XHdcp1x_PortWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BKSV, Buf,
+			XHDCP1X_PORT_SIZE_BKSV);
+
+	if (!IsEnabled)
+		XHdcp1x_CipherDisable(InstancePtr);
+}
+
 /*****************************************************************************/
 /**
 * This function initializes a HDCP receiver state machine.
@@ -1093,21 +1123,6 @@ static void XHdcp1x_RxEnableState(XHdcp1x *InstancePtr)
 
 	/* Enable the crypto engine */
 	XHdcp1x_CipherEnable(InstancePtr);
-
-	/* Read MyKsv */
-	MyKsv = XHdcp1x_CipherGetLocalKsv(InstancePtr);
-
-	/* If unknown - try again for good luck */
-	if (MyKsv == 0) {
-		MyKsv = XHdcp1x_CipherGetLocalKsv(InstancePtr);
-	}
-
-	/* Initialize Bksv */
-	memset(Buf, 0, 8);
-	XHDCP1X_PORT_UINT_TO_BUF(Buf, MyKsv,
-			XHDCP1X_PORT_SIZE_BKSV * 8);
-	XHdcp1x_PortWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BKSV, Buf,
-			XHDCP1X_PORT_SIZE_BKSV);
 
 	/* Register the re-authentication callback */
 	XHdcp1x_PortSetCallback(InstancePtr,

@@ -145,9 +145,9 @@ static int XHdcp1x_PortHdmiRxDisable(XHdcp1x *InstancePtr)
 
 	/* Clear the hdcp registers */
 	Value = 0;
-	Offset = 0;
-	/* Clear HDCP register space from BKSV (0x0) to AKSV (0x10) */
-	NumLeft = 16;
+	Offset = 0x05;
+	/* Clear HDCP register space from 0x05 to AKSV (0x10) */
+	NumLeft = 11;
 	while (NumLeft-- > 0) {
 		XHdcp1x_PortHdmiRxWrite(InstancePtr, Offset++, &Value, 1);
 	}
