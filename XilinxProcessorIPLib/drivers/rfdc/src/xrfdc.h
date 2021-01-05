@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -265,6 +265,8 @@
 *       cog    12/02/20 Supplied FS was being saved rather than actual FS when
 *                       setting PLL.
 *       cog    12/04/20 Reduce scope of non user interface macros.
+*       cog    01/05/21 Signal detector on/off counters needed to be flipped.
+*       cog    01/05/21 Second signal detector removed.
 *
 * </pre>
 *
@@ -426,12 +428,9 @@ typedef struct {
 	u8 TimeConstant;
 	u8 Flush;
 	u8 EnableIntegrator;
-	u16 HighThreshold;
-	u16 LowThreshold;
-	u16 HighThreshOnTriggerCnt; /* the number of times value must exceed HighThreshold before turning on*/
-	u16 HighThreshOffTriggerCnt; /* the number of times value must be less than HighThreshold before turning off*/
-	u16 LowThreshOnTriggerCnt; /* the number of times value must exceed LowThreshold before turning on*/
-	u16 LowThreshOffTriggerCnt; /* the number of times value must be less than LowThreshold before turning off*/
+	u16 Threshold;
+	u16 ThreshOnTriggerCnt; /* the number of times value must exceed Threshold before turning on*/
+	u16 ThreshOffTriggerCnt; /* the number of times value must be less than Threshold before turning off*/
 	u8 HysteresisEnable;
 } XRFdc_Signal_Detector_Settings;
 /**
@@ -1425,7 +1424,7 @@ u32 XRFdc_GetSysRefSource(XRFdc *InstancePtr, u32 Type);
 double XRFdc_GetFabClkFreq(XRFdc *InstancePtr, u32 Type, u32 Tile_Id);
 u32 XRFdc_IsFifoEnabled(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id);
 void XRFdc_SetConnectedIQData(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, int ConnectedIData,
-					    int ConnectedQData);
+			      int ConnectedQData);
 u32 XRFdc_GetMultibandConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id);
 u32 XRFdc_CheckBlockEnabled(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id);
 u32 XRFdc_CheckTileEnabled(XRFdc *InstancePtr, u32 Type, u32 Tile_Id);
