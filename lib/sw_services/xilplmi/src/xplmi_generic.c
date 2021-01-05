@@ -40,6 +40,7 @@
 *       td   10/19/2020 MISRA C Fixes
 *       ana  10/19/2020 Added doxygen comments
 * 1.04  td   11/23/2020 MISRA C Rule 17.8 Fixes
+*       bsv  01/04/2021 Added support for LogString and LogAddress commands
 *
 * </pre>
 *
@@ -67,6 +68,11 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XPLMI_LOG_ADDR_ARG_LOW_ADDR_INDEX	(0U)
+#define XPLMI_LOG_ADDR_ARG_HIGH_ADDR_INDEX	(1U)
+#define XPLMI_LOG_ADDR_MAX_ARGS	(2U)
+#define XPLMI_MAX_LOG_STR_LEN	(256U)
+#define XPLMI_ERR_LOG_STRING	(2U)
 
 /************************** Function Prototypes ******************************/
 /**
@@ -1121,7 +1127,6 @@ static int XPlmi_SetBoard(XPlmi_Cmd *Cmd)
 /*****************************************************************************/
 /**
  * @brief	This function provides GET BOARD command execution.
- * 		No payload parameters
  *
  * @param	Cmd is pointer to the command structure
  *		Command payload parameters are
@@ -1137,7 +1142,7 @@ static int XPlmi_GetBoard(XPlmi_Cmd *Cmd)
 	int Status = XST_FAILURE;
 	u64 HighAddr = Cmd->Payload[0U];
 	u32 LowAddr = Cmd->Payload[1U];
-	u64 DestAddr = (HighAddr << 32U) | LowAddr;
+	u64 DestAddr = (HighAddr << XPLMI_NUM_BITS_IN_WORD) | LowAddr;
 	u32 Len = Cmd->Payload[2U];
 	u8* BoardName = XPlmi_BoardNameRW(Cmd, (u8)TRUE, &Len);
 
@@ -1156,7 +1161,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function sets the WDT parameters used in PLM
+ * @brief	This function sets the WDT parameters used in PLM.
  *
  * @param	Cmd is pointer to the command structure
  *		Command payload parameters are
@@ -1175,6 +1180,90 @@ static int XPlmi_SetWdtParam(XPlmi_Cmd *Cmd)
 	XPlmi_Printf(DEBUG_INFO, "Enabling WDT with Node:0x%08x, "
 		     "Periodicity: %u ms\n\r", NodeId, Periodicity);
 	Status = XPlmi_EnableWdt(NodeId, Periodicity);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function adds Debug string to PLM logs.
+ *
+ * @param	Cmd is pointer to the command structure
+ *		Command payload parameters are
+ *		- Debug String
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XPlmi_LogString(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+	u32 Len = Cmd->PayloadLen;
+	static u8 LogString[XPLMI_MAX_LOG_STR_LEN] __attribute__ ((aligned(4U)));
+	static u32 StringIndex = 0U;
+
+	if (Cmd->ProcessedLen == 0U) {
+		/* Check for array overflow */
+		if ((Cmd->Len * XPLMI_WORD_LEN) >= XPLMI_MAX_LOG_STR_LEN) {
+			Status = (int)XPLMI_ERR_LOG_STRING;
+			goto END;
+		}
+		Status = XPlmi_MemSet((u64)(u32)&LogString[0U], 0U,
+			XPLMI_MAX_LOG_STR_LEN /  XPLMI_WORD_LEN);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		StringIndex = 0U;
+	}
+
+	/* Append the payload to local buffer */
+	Status = Xil_SecureMemCpy(&LogString[StringIndex],
+		(XPLMI_MAX_LOG_STR_LEN - StringIndex), (u8 *)&Cmd->Payload[0U],
+		(Len * XPLMI_WORD_LEN));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	StringIndex += (Len * XPLMI_WORD_LEN);
+	if ((Cmd->ProcessedLen + Cmd->PayloadLen) == Cmd->Len) {
+		/* Print the string only when complete payload is received */
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%s", LogString);
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function reads the value at an address and displays and adds
+ * the value to PLM logs.
+ *
+ * @param	Cmd is pointer to the command structure
+ *		Command payload parameters are
+ *		- Low Address
+ *		- High Address (Optional)
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XPlmi_LogAddress(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+	u32 LowAddr = Cmd->Payload[XPLMI_LOG_ADDR_ARG_LOW_ADDR_INDEX];
+	u64 HighAddr = 0UL;
+	u64 Addr;
+	u32 Val;
+
+	if (Cmd->Len == XPLMI_LOG_ADDR_MAX_ARGS) {
+		/* This indicates non-zero 32-bit higher address */
+		HighAddr = Cmd->Payload[XPLMI_LOG_ADDR_ARG_HIGH_ADDR_INDEX];
+	}
+	Addr = (HighAddr << XPLMI_NUM_BITS_IN_WORD) | (u64)LowAddr;
+	Val = XPlmi_In64(Addr);
+
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Value at 0x%0x%08x: %0x\n\r",
+			(u32)(Addr >> XPLMI_NUM_BITS_IN_WORD), (u32)Addr, Val);
+	Status = XST_SUCCESS;
 
 	return Status;
 }
@@ -1221,6 +1310,8 @@ void XPlmi_GenericInit(void)
 		XPLMI_MODULE_COMMAND(XPlmi_SetBoard),
 		XPLMI_MODULE_COMMAND(XPlmi_GetBoard),
 		XPLMI_MODULE_COMMAND(XPlmi_SetWdtParam),
+		XPLMI_MODULE_COMMAND(XPlmi_LogString),
+		XPLMI_MODULE_COMMAND(XPlmi_LogAddress),
 	};
 
 	XPlmi_Generic.Id = XPLMI_MODULE_GENERIC_ID;

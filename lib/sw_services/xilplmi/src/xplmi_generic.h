@@ -32,6 +32,7 @@
 *       bm   08/03/2020 Added ReadBack Props & related API
 *       bm   10/14/2020 Code clean up
 *       td   10/19/2020 MISRA C Fixes
+* 1.04  bsv  01/04/2021 Added support for LogString and LogAddress commands
 *
 * </pre>
 *
@@ -79,6 +80,7 @@ typedef struct {
 #define XPLMI_SIXTEEN_BYTE_MASK			(0xFU)
 #define XPLMI_SIXTEEN_BYTE_VALUE		(0x10U)
 #define XPLMI_SIXTEEN_BYTE_WORDS		(XPLMI_SIXTEEN_BYTE_VALUE / XPLMI_WORD_LEN)
+#define XPLMI_NUM_BITS_IN_WORD			(32U)
 
 /* Max board name length supported is 256 bytes */
 #define XPLMI_MAX_NAME_LEN			(256U)
