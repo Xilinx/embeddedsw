@@ -199,6 +199,7 @@
 *		      return proper error message(CR#1018878).
 * 3.11   adk  10/03/20 Fix race condition for designs where interrupt pin is
 *                      connected to cascade slices.
+* 3.13   mus  12/22/20 Updated source code comments. It fixes CR#1080821
 * </pre>
 *
 ******************************************************************************/
@@ -278,12 +279,15 @@ extern "C" {
 typedef struct {
 	u16 DeviceId;		/**< Unique ID  of device */
 	UINTPTR BaseAddress;	/**< Register base address */
-	u32 AckBeforeService;	/**< Ack location per interrupt */
+	u32 AckBeforeService;	/**< 0 - Interrupt would be acked before service through primary interrupt handler
+								 1 - Interrupt would be acked after service through primary interrupt handler */
 	int FastIntr;		/**< Fast Interrupt enabled */
 	u32 IntVectorAddr;	/**< Interrupt Vector Address */
 	int NumberofIntrs;      /**< Number of HW Interrupt sources */
 	u8 VectorAddrWidth;		/**< Width of vector address */
-	u32 Options;		/**< Device options */
+	u32 Options;		/**< Device option
+							 XIN_SVC_SGL_ISR_OPTION - Primary interrupt handler services the highest priority pending interrupt and return
+							 XIN_SVC_ALL_ISRS_OPTION  - Primary interrupt handler services all of the pending interrupts and then return */
 	int IntcType;		/**< Intc type 0 - No Cascade Mode
 				               1 - primary instance
 				               2 - secondary instance
