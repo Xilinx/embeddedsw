@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,8 +21,9 @@
 *                       Moved definition of XPuf_ReadReg and XPuf_WriteReg to
 *                       xpuf.c
 *                       Renamed macros related to PUF Command register
-* 1.2	am	 08/19/2020 Resolved MISRA C violations.
+* 1.2	am   08/19/2020 Resolved MISRA C violations.
 *       har  09/30/2020 Removed header files which were not required
+* 1.3   har  01/06/2021 Added offset for PUF_CLEAR register and its definition
 *
 * </pre>
 *
@@ -50,6 +51,7 @@ extern "C" {
 #define XPUF_PMC_GLOBAL_PUF_SYN_ADDR_OFFSET		(0x00040020U)
 #define XPUF_PMC_GLOBAL_PUF_AUX_OFFSET			(0x00040024U)
 #define XPUF_PMC_GLOBAL_PUF_CHASH_OFFSET		(0x00040028U)
+#define XPUF_PMC_GLOBAL_PUF_CLEAR_OFFSET		(0x0004002CU)
 #define XPUF_PMC_GLOBAL_PUF_ID_0_OFFSET			(0x00040030U)
 
 /* PUF COMMAND register definition */
@@ -67,9 +69,13 @@ extern "C" {
 
 /* PUF STATUS register definition */
 #define XPUF_STATUS_SYNDROME_WORD_RDY		((u32)0x01U << 0U)
+#define XPUF_STATUS_ID_ZERO			((u32)0x01U << 1U)
 #define XPUF_STATUS_ID_RDY			((u32)0x01U << 2U)
 #define XPUF_STATUS_KEY_RDY			((u32)0x01U << 3U)
 #define XPUF_STATUS_PUF_DONE			((u32)0x01U << 30U)
+
+/* PUF CLEAR register definition */
+#define XPUF_CLEAR_ID				(0x1U)
 
 /*
  * EFUSE_CACHE Base Address
