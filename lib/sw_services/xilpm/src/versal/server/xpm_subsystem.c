@@ -55,6 +55,77 @@ done:
 	return Status;
 }
 
+static XStatus XPm_IsSecureAllowed(const u32 SubsystemId)
+{
+	/* TODO stub. Return XST_SUCCESS if subsystem is allowed to make secure requests */
+	(void)SubsystemId;
+	return XST_FAILURE;
+}
+
+XStatus XPmSubsystem_IsOperationAllowed(const u32 HostId, const u32 TargetId,
+					const u32 Operation)
+{
+	const XPm_Subsystem *TargetSubsystem = XPmSubsystem_GetById(TargetId);
+	u32 PermissionMask = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	XStatus Status = XST_FAILURE;
+
+	if ((PM_SUBSYS_PMC == TargetId) && (PM_SUBSYS_PMC != HostId)) {
+		Status = XPM_PM_NO_ACCESS;
+		DbgErr = XPM_INT_ERR_INVALID_SUBSYSTEMID;
+	} else if ((PM_SUBSYS_PMC == HostId) || (PM_SUBSYS_DEFAULT == HostId)) {
+		Status = XST_SUCCESS;
+		goto done;
+	} else if (PM_SUBSYS_DEFAULT == TargetId) {
+		/* Host is not PMC or default and target is default subsystem. */
+		Status = XPM_PM_NO_ACCESS;
+		DbgErr = XPM_INT_ERR_INVALID_SUBSYSTEMID;
+	} else {
+		/* Required by MISRA */
+	}
+
+	if ((NULL == TargetSubsystem)) {
+		Status = XST_INVALID_PARAM;
+		DbgErr = XPM_INT_ERR_INVALID_SUBSYSTEMID;
+		goto done;
+	}
+
+	switch (Operation)
+	{
+		case SUB_PERM_WAKE_MASK:
+			PermissionMask = TargetSubsystem->Perms.WakeupPerms;
+			break;
+		case SUB_PERM_PWRDWN_MASK:
+			PermissionMask = TargetSubsystem->Perms.PowerdownPerms;
+			break;
+		case SUB_PERM_SUSPEND_MASK:
+			PermissionMask = TargetSubsystem->Perms.SuspendPerms;
+			break;
+		default:
+			DbgErr = XST_INVALID_PARAM;
+			goto done;
+	}
+
+	/* Have Target check if Host can enact the operation */
+	if ((XST_SUCCESS == XPm_IsSecureAllowed(HostId)) &&
+	    (PermissionMask & (1U << SUBSYS_TO_S_BITPOS(HostId)))) {
+			Status = XST_SUCCESS;
+	} else if (PermissionMask & (1U << SUBSYS_TO_NS_BITPOS(HostId))) {
+		Status = XST_SUCCESS;
+	} else {
+		/* Required by MISRA */
+		Status = XPM_PM_NO_ACCESS;
+		DbgErr = XPM_INT_ERR_SUBSYS_ACCESS;
+	}
+
+done:
+	if (XST_SUCCESS != Status) {
+		XPm_PrintDbgErr(Status, DbgErr);
+	}
+
+	return Status;
+}
+
 u32 XPmSubsystem_GetIPIMask(u32 SubsystemId)
 {
 	XPm_Subsystem *Subsystem;
@@ -374,6 +445,8 @@ XPm_Subsystem *XPmSubsystem_GetByIndex(u32 SubSysIdx)
 XStatus XPm_IsWakeAllowed(u32 SubsystemId, u32 NodeId)
 {
 	XStatus Status = XST_FAILURE;
+	XPm_Device *Device = XPmDevice_GetById(NodeId);
+	u32 CoreSubsystemId;
 
 	if (NULL == XPmSubsystem_GetById(SubsystemId)) {
 		Status = XPM_INVALID_SUBSYSID;
@@ -392,21 +465,49 @@ XStatus XPm_IsWakeAllowed(u32 SubsystemId, u32 NodeId)
 				Status = XPM_INVALID_SUBSYSID;
 				break;
 			}
-			Status = XST_SUCCESS;
+			Status = XPmSubsystem_IsOperationAllowed(SubsystemId, NodeId, SUB_PERM_WAKE_MASK);
+			if (XST_SUCCESS != Status) {
+				Status = XPM_PM_NO_ACCESS;
+			}
+
 			break;
 		case (u32)XPM_NODECLASS_DEVICE:
-			if ((u32)XPM_NODESUBCL_DEV_CORE != NODESUBCLASS(NodeId))
+			if (((u32)XPM_NODECLASS_DEVICE != NODECLASS(NodeId)) ||
+			    ((u32)XPM_NODESUBCL_DEV_CORE != NODESUBCLASS(NodeId)))
 			{
 				Status = XST_INVALID_PARAM;
 				break;
 			}
-			Status = XST_SUCCESS;
+			/* Validate core before querying access */
+			if (NULL == Device) {
+				Status = XST_INVALID_PARAM;
+				break;
+			}
+			CoreSubsystemId = XPmDevice_GetSubsystemIdOfCore(Device);
+			if (INVALID_SUBSYSID == CoreSubsystemId) {
+				Status = XST_INVALID_PARAM;
+				break;
+			} else if ((PM_SUBSYS_PMC != CoreSubsystemId) &&
+				   (CoreSubsystemId == SubsystemId)) {
+				   Status = XST_SUCCESS;
+				   goto done;
+			} else {
+				/* Required by MISRA */
+			}
+
+			Status = XPmSubsystem_IsOperationAllowed(SubsystemId,
+								 CoreSubsystemId,
+								 SUB_PERM_WAKE_MASK);
+			if (XST_SUCCESS != Status) {
+				Status = XPM_PM_NO_ACCESS;
+				break;
+			}
+
 			break;
 		default:
 			Status = XST_INVALID_PARAM;
 			break;
 	}
-	/*TODO: Add validation based on permissions defined by user*/
 
 done:
 	return Status;

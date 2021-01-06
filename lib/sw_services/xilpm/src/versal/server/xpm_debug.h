@@ -470,6 +470,8 @@ extern "C" {
 #define XPM_INT_ERR_SUBSYS_SET_STATE		0x4606U
 /* Adding default subsystem while non-default subsystems are present */
 #define XPM_INT_ERR_OTHER_SUBSYS_ADDED		0x4607U
+/* Subsystem not allowed access */
+#define  XPM_INT_ERR_SUBSYS_ACCESS		0x4608U
 
 /************************* Power specific Errors *****************************/
 /************************** (0x4700) - (0x47FF) ******************************/
