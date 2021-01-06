@@ -65,6 +65,8 @@ Every driver, sw_apps and sw_services has one or more of these sub-directories:
 |		|- ....
 |		|- zynqmp_fsbl [described below]
 |		|- zynqmp_pmufw [described below]
+|		|- versal_plm [described below]
+|		|- versal_psmfw [described below]
 |	|- sw_services
 |		|- xilffs
 |		|- xilflash
@@ -107,3 +109,11 @@ How to compile FSBL:
 Building PMUFW from git:
 ==============================
 Please refer to the steps in Readme.txt which is at lib/sw_apps/zynqmp_pmufw/misc/ directory
+
+Building Versal PLM from git:
+==============================
+Please refer to the steps in Readme.txt which is at lib/sw_apps/versal_plm/misc/ directory
+
+Building Versal PSMFW from git:
+==============================
+Please refer to the steps in Readme.txt which is at lib/sw_apps/versal_psmfw/misc/ directory
