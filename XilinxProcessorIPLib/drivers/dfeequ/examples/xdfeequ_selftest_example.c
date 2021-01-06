@@ -25,6 +25,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.0   dc     12/06/20 Initial version
+* 1.1   dc     04/01/21 Set mgt si570 oscillator to 122.88MHz
 *
 * </pre>
 *
@@ -58,7 +59,13 @@
 #ifdef __BAREMETAL__
 #define printf xil_printf
 #endif
+
+#define XDFESI570_CURRENT_FREQUENCY 156.25
+#define XDFESI570_NEW_FREQUENCY 122.88
+
 /************************** Function Prototypes *****************************/
+extern int XDfeSi570_SetMgtOscillator(double CurrentFrequency,
+				      double NewFrequency);
 static int XDfeEqu_SelfTestExample(u16 DeviceId);
 
 /************************** Variable Definitions ****************************/
@@ -104,12 +111,22 @@ struct metal_device CustomDevice[1] = {
 int main(void)
 {
 	printf("Equalizer Selftest Example Test\r\n");
+
+#ifdef __BAREMETAL__
+	if (XST_SUCCESS !=
+	    XDfeSi570_SetMgtOscillator(XDFESI570_CURRENT_FREQUENCY,
+				       XDFESI570_NEW_FREQUENCY)) {
+		printf("Setting MGT oscillator failed\r\n");
+		return XST_FAILURE;
+	}
+#endif
+
 	/*
 	 * Run the Equalizer fabric rate example, specify the Device ID that is
 	 * generated in xparameters.h.
 	 */
 	if (XST_SUCCESS != XDfeEqu_SelfTestExample(XDFEEQU_DEVICE_ID)) {
-		printf(" Selftest Example Test failed\r\n");
+		printf("Selftest Example Test failed\r\n");
 		return XST_FAILURE;
 	}
 
@@ -122,10 +139,10 @@ int main(void)
 *
 * This function runs a test on the DFE Equalizer device using the driver APIs.
 * This function does the following tasks:
-*	- Create and system initialise the device driver instance.
+*	- Create and system initialize the device driver instance.
 *	- Reset the device.
 *	- Configure the device.
-*	- Initialise the device.
+*	- Initialize the device.
 *	- Activate the device.
 *	- Write and read coefficient.
 *	- DeActivate the device.
@@ -153,11 +170,11 @@ static int XDfeEqu_SelfTestExample(u16 DeviceId)
 		return XST_FAILURE;
 	}
 
-	/* Initialise the instance of channel filter driver */
+	/* Initialize the instance of channel filter driver */
 	InstancePtr = XDfeEqu_InstanceInit(DeviceId);
 	Config.DatapathMode = 0;
 
-	/* Go through initialisation states of the state machine */
+	/* Go through initialization states of the state machine */
 	XDfeEqu_Reset(InstancePtr);
 	XDfeEqu_Configure(InstancePtr, &Cfg);
 	XDfeEqu_Initialize(InstancePtr, &Config);
