@@ -48,6 +48,9 @@
 *                     XIntc_RegisterFastHandler APIs.
 * 3.12  mus  05/28/20 Updated XIntc_DeviceInterruptHandler to support software
 *                     interrupts
+* 3.13   mus  12/22/20 Updated source code comments. Also, moved description for
+*                      XIntc_LowLevelInterruptHandler after preprocessor
+*                      condition checking. It fixes CR#1080821
 *
 * </pre>
 *
@@ -80,6 +83,7 @@ static void XIntc_CascadeHandler(void *DeviceId);
 
 /************************** Variable Definitions *****************************/
 
+#ifdef XPAR_INTC_SINGLE_DEVICE_ID
 /*****************************************************************************/
 /**
 *
@@ -103,7 +107,6 @@ static void XIntc_CascadeHandler(void *DeviceId);
 * to be included in the driver compilation.
 *
 ******************************************************************************/
-#ifdef XPAR_INTC_SINGLE_DEVICE_ID
 void XIntc_LowLevelInterruptHandler(void)
 {
 	/*
@@ -365,7 +368,17 @@ void XIntc_SetIntrSvcOption(UINTPTR BaseAddress, int Option)
 *
 * @note
 *
-* Note that this function has no effect if the input base address is invalid.
+* This function has no effect if the input base address is invalid.
+* Following fields in XIntc_Config impacts interrupt handling,
+* 		1. AckBeforeService: If 1, primary interrupt handler acks
+* 							 interrupt before servicing it, else it would
+* 							 ack interrupt after servicing it (after calling
+*							 interrupt ID specific handler)
+* 		2. Options:
+* 			XIN_SVC_SGL_ISR_OPTION - primary interrupt handler services the
+* 								 highest priority pending interrupt and return
+* 			XIN_SVC_ALL_ISRS_OPTION - primary interrupt handler services all
+* 								 of the pending interrupts and then return
 *
 ******************************************************************************/
 void XIntc_RegisterHandler(UINTPTR BaseAddress, int InterruptId,
