@@ -44,7 +44,7 @@ else
 fi
 
 # copy bsp standalone code
-cp $STANDALONE_DIR/common/*  $BSP_DIR/libsrc/standalone/src/
+cp -r $STANDALONE_DIR/common/*  $BSP_DIR/libsrc/standalone/src/
 cp $STANDALONE_DIR/microblaze/*  $BSP_DIR/libsrc/standalone/src/
 cp -r $STANDALONE_DIR/profile  $BSP_DIR/libsrc/standalone/src/
 cp $WORKING_DIR/bspconfig.h $BSP_DIR/libsrc/standalone/src/
