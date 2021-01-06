@@ -11,6 +11,8 @@
 # 3.0     nsk    12/14/20 Modified the tcl to genrate canonical
 #                         and peripheral defines for CIPS3
 #                         designs
+#         nsk    01/06/21 Modified the generate proc to check
+#                         the hier prop if cips is present
 ###############################################################
 
 #----------------------------------------------------
@@ -23,11 +25,14 @@ proc generate {drv_handle} {
     set procname [hsi::get_cells -hier -filter {IP_NAME=="psv_pmc"}]
     set cips_ip [hsi::get_cells -hier -filter {IP_NAME==versal_cips}]
     set hier_prop 0
-    if {$cips_ip != ""} {
-        set hier_prop [common::get_property IS_HIERARCHICAL [hsi::get_cells -hier $cips_ip]]
+    if {$procname != ""} {
         define_addr_params_canonical $drv_handle "xparameters.h"
     } else {
         ::hsi::utils::define_addr_params $drv_handle "xparameters.h"
+    }
+
+    if {$cips_ip != ""} {
+        set hier_prop [common::get_property IS_HIERARCHICAL [hsi::get_cells -hier $cips_ip]]
     }
 
     if {$hier_prop == 1} {
