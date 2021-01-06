@@ -1193,8 +1193,13 @@ XStatus XPm_RequestSuspend(const u32 SubsystemId, const u32 TargetSubsystemId,
 		goto done;
 	}
 
-	/* TODO: Check if current subsystem has access to request target subsystem */
-	/* Failure in this case should return XPM_PM_NO_ACCESS */
+	Status = XPmSubsystem_IsOperationAllowed(SubsystemId, TargetSubsystemId,
+						 SUB_PERM_SUSPEND_MASK);
+	if (XST_SUCCESS != Status) {
+		Status = XPM_PM_NO_ACCESS;
+		PmErr("Subsystem %x not allowed to suspend Target %x\n", SubsystemId, TargetSubsystemId);
+		goto done;
+	}
 
 	/* TODO: Target subsystem must be active to get the suspend request */
 
@@ -1212,8 +1217,6 @@ XStatus XPm_RequestSuspend(const u32 SubsystemId, const u32 TargetSubsystemId,
 	if (NULL != PmRequestCb) {
 		(*PmRequestCb)(IpiMask, PM_INIT_SUSPEND_CB, Payload);
 	}
-
-	Status = XST_SUCCESS;
 
 done:
 	if (Status != XST_SUCCESS) {
