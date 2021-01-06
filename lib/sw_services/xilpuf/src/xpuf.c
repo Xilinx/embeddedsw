@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 *       har  10/17/2020 Added checks for mismatch between MSB of PUF shutter
 *                       value and Global Variation Filter option
 * 1.3   am   11/23/2020 Resolved MISRA C violation Rule 10.6
+*       har  01/06/2021 Added API to clear PUF ID
 *
 * </pre>
 *
@@ -62,10 +63,8 @@ typedef enum {
 /**
  * @brief	This function waits till Puf Syndrome ready bit is set.
  *
- * @param	None.
- *
- * @return	XST_SUCCESS		Syndrome word is ready.
- *			XST_FAILURE		Timeout occurred.
+ * @return	XST_SUCCESS	Syndrome word is ready.
+ *		XST_FAILURE	Timeout occurred.
  *
  *****************************************************************************/
 static inline int XPuf_WaitForPufSynWordRdy(void)
@@ -80,10 +79,8 @@ static inline int XPuf_WaitForPufSynWordRdy(void)
 /**
  * @brief	This function waits till Puf done bit is set.
  *
- * @param	None.
- *
- * @return	XST_SUCCESS		Puf Operation is done.
- *			XST_FAILURE		Timeout occurred.
+ * @return	XST_SUCCESS	Puf Operation is done.
+ *		XST_FAILURE	Timeout occurred.
  *
  *****************************************************************************/
 static inline int XPuf_WaitForPufDoneStatus(void)
@@ -380,6 +377,7 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 		}
 		else {
 			Status = XPUF_ERROR_PUF_DONE_KEY_ID_NT_RDY;
+			goto END;
 		}
 	}
 	else {
@@ -389,10 +387,42 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 		}
 		else {
 			Status = XPUF_ERROR_PUF_DONE_ID_NT_RDY;
+			goto END;
 		}
 	}
 
 END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function clears PUF ID
+ *
+ * @return	XST_SUCCESS - PUF ID is successfully cleared
+ *		XPUF_ERROR_PUF_ID_ZERO_TIMEOUT - Timeout occurred for clearing
+ *		PUF ID
+ *		XST_FAILURE - Unexpected event
+ *
+ *****************************************************************************/
+int XPuf_ClearPufID(void)
+{
+	int Status = XST_FAILURE;
+	int WaitStatus = XST_FAILURE;
+
+	XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_CLEAR_OFFSET,
+		XPUF_CLEAR_ID);
+
+	WaitStatus = (int)Xil_WaitForEvent((XPUF_PMC_GLOBAL_BASEADDR +
+		XPUF_PMC_GLOBAL_PUF_STATUS_OFFSET), XPUF_STATUS_ID_ZERO,
+		XPUF_STATUS_ID_ZERO, XPUF_STATUS_WAIT_TIMEOUT);
+	if (WaitStatus != XST_SUCCESS) {
+		Status = XPUF_ERROR_PUF_ID_ZERO_TIMEOUT;
+	}
+	else {
+		Status = XST_SUCCESS;
+	}
+
 	return Status;
 }
 

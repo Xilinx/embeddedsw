@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,7 @@
 *       har  10/17/2020 Updated default PUF shutter value
 *                       Added error code for mismatch in MSB of PUF shutter value
 *                       and Global Variation Filter option
+* 1.3   har  01/06/2021 Added prototype for the XPuf_ClearPufId and related macros
 *
 * </pre>
 *
@@ -85,13 +86,14 @@ extern "C" {
 /* Key regeneration time error codes */
 #define XPUF_ERROR_CHASH_NOT_PROGRAMMED			(0x10)
 #define XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT		(0x11)
-#define XPUF_ERROR_INVALID_REGENERATION_TYPE	(0x12)
+#define XPUF_ERROR_INVALID_REGENERATION_TYPE		(0x12)
 #define XPUF_ERROR_INVALID_PUF_OPERATION		(0x13)
 #define XPUF_ERROR_REGENERATION_INVALID			(0x14)
 #define XPUF_ERROR_REGEN_PUF_HD_INVALID			(0x15)
 #define XPUF_ERROR_INVALID_READ_HD_INPUT		(0x16)
 #define XPUF_ERROR_PUF_DONE_KEY_ID_NT_RDY		(0x17)
 #define XPUF_ERROR_PUF_DONE_ID_NT_RDY			(0x18)
+#define XPUF_ERROR_PUF_ID_ZERO_TIMEOUT			(0x19)
 
 /***************************** Type Definitions *******************************/
 typedef enum {
@@ -124,6 +126,7 @@ typedef struct {
 int XPuf_Registration(XPuf_Data *PufData);
 int XPuf_Regeneration(XPuf_Data *PufData);
 int XPuf_GenerateFuseFormat(XPuf_Data *PufData);
+int XPuf_ClearPufID(void);
 
 #ifdef __cplusplus
 }
