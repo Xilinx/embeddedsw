@@ -25,6 +25,36 @@ static u32 MaxSubsysIdx;
  */
 static u32 CurrentSubsystemId = INVALID_SUBSYSID;
 
+XStatus XPmSubsystem_AddPermission(const XPm_Subsystem *Host,
+				   XPm_Subsystem *Target,
+				   const u32 Operations)
+{
+	XStatus Status = XST_FAILURE;
+
+	if ((NULL == Target) || (NULL == Host) ||
+	    (PM_SUBSYS_DEFAULT == Host->Id)    || (PM_SUBSYS_PMC == Host->Id) ||
+	    (PM_SUBSYS_DEFAULT == Target->Id)  || (PM_SUBSYS_PMC == Target->Id)) {
+		goto done;
+	}
+
+	/*
+	 * For each operation update permission for secure and non secure
+	 * requests.
+	 */
+	Target->Perms.WakeupPerms	|= (1U & (Operations >> SUB_PERM_WAKE_SHIFT_NS))	<< SUBSYS_TO_NS_BITPOS(Host->Id);
+	Target->Perms.PowerdownPerms	|= (1U & (Operations >> SUB_PERM_PWRDWN_SHIFT_NS))	<< SUBSYS_TO_NS_BITPOS(Host->Id);
+	Target->Perms.SuspendPerms	|= (1U & (Operations >> SUB_PERM_SUSPEND_SHIFT_NS))	<< SUBSYS_TO_NS_BITPOS(Host->Id);
+
+	Target->Perms.WakeupPerms	|= (1U & (Operations >> SUB_PERM_WAKE_SHIFT_S))		<< SUBSYS_TO_S_BITPOS(Host->Id);
+	Target->Perms.PowerdownPerms	|= (1U & (Operations >> SUB_PERM_PWRDWN_SHIFT_S))	<< SUBSYS_TO_S_BITPOS(Host->Id);
+	Target->Perms.SuspendPerms	|= (1U & (Operations >> SUB_PERM_SUSPEND_SHIFT_S))	<< SUBSYS_TO_S_BITPOS(Host->Id);
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
 u32 XPmSubsystem_GetIPIMask(u32 SubsystemId)
 {
 	XPm_Subsystem *Subsystem;
@@ -280,14 +310,18 @@ done:
  *
  * @return XPm_Subsystem if successful else NULL
  *
- * @note   None
+ * @note
+ *  If the ID is greater than MAX_NUM_SUBSYSTEMS+2 then the ID is  outside of
+ *  supported IDs for subsystem permissions logic. The +2 is for PMC and
+ *  default subsystem.
  *
  ****************************************************************************/
 XPm_Subsystem * XPmSubsystem_GetById(u32 SubsystemId)
 {
 	XPm_Subsystem *SubSystem = NULL;
 
-	if (SubsystemId == INVALID_SUBSYSID) {
+	if ((INVALID_SUBSYSID == SubsystemId) ||
+	    ((MAX_NUM_SUBSYSTEMS + 2U) <= NODEINDEX(SubsystemId))) {
 		goto done;
 	}
 
@@ -602,6 +636,19 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 	    ((u32)XPM_NODESUBCL_SUBSYSTEM != NODESUBCLASS(SubsystemId)) ||
 	    ((u32)XPM_NODETYPE_SUBSYSTEM != NODETYPE(SubsystemId))) {
 		DbgErr = XPM_INT_ERR_INVALID_PARAM;
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+	/*
+	 * Ensure the subsystem being added is within the range of supported
+	 * subsystem IDs for the subsystem permissions logic.
+	 *
+	 * The '+2' is because the IDs that would be <2 are the default
+	 * subsystem and PMC, which are not part of the subsystem permissions
+	 * logic.
+	 */
+	if ((MAX_NUM_SUBSYSTEMS + 2U) <= NODEINDEX(SubsystemId)) {
+		DbgErr = XPM_INT_ERR_INVALID_SUBSYSTEMID;
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}

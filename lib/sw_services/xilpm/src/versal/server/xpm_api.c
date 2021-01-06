@@ -3954,7 +3954,7 @@ XStatus XPm_AddRequirement(const u32 SubsystemId, const u32 DeviceId, u32 Flags,
 {
 	XStatus Status = XST_INVALID_PARAM;
 	XPm_Device *Device = NULL;
-	XPm_Subsystem *Subsystem;
+	XPm_Subsystem *Subsystem, *TargetSubsystem;
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
 	if (Subsystem == NULL || Subsystem->State != (u8)ONLINE) {
@@ -3962,13 +3962,31 @@ XStatus XPm_AddRequirement(const u32 SubsystemId, const u32 DeviceId, u32 Flags,
 		goto done;
 	}
 
-	Device = (XPm_Device *)XPmDevice_GetById(DeviceId);
-	if (NULL == Device) {
-		Status = XPM_INVALID_DEVICEID;
-		goto done;
+	switch NODECLASS(DeviceId) {
+		case (u32)XPM_NODECLASS_DEVICE:
+			Device = (XPm_Device *)XPmDevice_GetById(DeviceId);
+			if (NULL == Device) {
+				Status = XPM_INVALID_DEVICEID;
+				goto done;
+			}
+			Status = XPmRequirement_Add(Subsystem, Device, Flags,
+						    Params, NumParams);
+			break;
+		case (u32)XPM_NODECLASS_SUBSYSTEM:
+			TargetSubsystem = XPmSubsystem_GetById(DeviceId);
+			if (NULL == TargetSubsystem) {
+				Status = XPM_INVALID_SUBSYSID;
+				goto done;
+			}
+			Status = XPmSubsystem_AddPermission(Subsystem,
+							    TargetSubsystem,
+							    Flags);
+			break;
+		default:
+			Status = XPM_INVALID_DEVICEID;
+			goto done;
 	}
 
-	Status = XPmRequirement_Add(Subsystem, Device, Flags, Params, NumParams);
 done:
 	if(Status != XST_SUCCESS) {
 		PmErr("Returned: 0x%x\n\r", Status);

@@ -15,6 +15,9 @@ extern "C" {
 #endif
 
 #define	INVALID_SUBSYSID			(0xFFFFFFFFU)
+#define MAX_NUM_SUBSYSTEMS			(16U)
+#define SUBSYS_TO_NS_BITPOS(x)			(NODE_INDEX_MASK & (x - 2U))
+#define SUBSYS_TO_S_BITPOS(x)			(NODE_INDEX_MASK & (x - 2U + MAX_NUM_SUBSYSTEMS))
 
 /**
  * Subsystem specific flags.
@@ -30,6 +33,18 @@ extern "C" {
 #define IS_SUBSYS_INIT_FINALIZED(Flags)	(SUBSYSTEM_INIT_FINALIZED ==	\
 					 ((Flags) & SUBSYSTEM_INIT_FINALIZED))
 
+#define SUB_PERM_WAKE_MASK			(0x1U << 0U)
+#define SUB_PERM_PWRDWN_MASK			(0x1U << 1U)
+#define SUB_PERM_SUSPEND_MASK			(0x1U << 2U)
+
+#define SUB_PERM_WAKE_SHIFT_NS			(0U)
+#define SUB_PERM_PWRDWN_SHIFT_NS		(1U)
+#define SUB_PERM_SUSPEND_SHIFT_NS		(2U)
+
+#define SUB_PERM_WAKE_SHIFT_S			(0U + MAX_NUM_SUBSYSTEMS)
+#define SUB_PERM_PWRDWN_SHIFT_S			(1U + MAX_NUM_SUBSYSTEMS)
+#define SUB_PERM_SUSPEND_SHIFT_S		(2U + MAX_NUM_SUBSYSTEMS)
+
 /**
  * Subsystem creation states.
  */
@@ -43,6 +58,16 @@ typedef enum {
 	MAX_STATE
 } XPm_SubsysState;
 
+struct XPm_Permissions {
+	/*
+	 *  bits[0:15] non secure operations
+	 *  bits[16:31] secure operations
+	 */
+	u32 WakeupPerms;
+	u32 SuspendPerms;
+	u32 PowerdownPerms;
+};
+
 typedef struct XPm_Subsystem XPm_Subsystem;
 
 /**
@@ -53,6 +78,7 @@ struct XPm_Subsystem {
 	u8 State; /**< Subsystem state */
 	u8 Flags; /**< Subsystem specific flags */
 	u32 IpiMask;
+	struct XPm_Permissions Perms;
 	struct XPm_Reqm *Requirements;
 		/**< Head of the requirement list for all devices. */
 	void (*NotifyCb)(u32 SubsystemId, const u32 EventId);
@@ -81,6 +107,9 @@ XStatus XPmSubsystem_Restart(u32 SubsystemId);
 XStatus XPmSubsystem_GetStatus(const u32 SubsystemId, const u32 DeviceId,
 			       XPm_DeviceStatus *const DeviceStatus);
 u32 XPmSubsystem_GetMaxSubsysIdx(void);
+XStatus XPmSubsystem_AddPermission(const XPm_Subsystem *Host,
+				   XPm_Subsystem *Target,
+				   const u32 Operations);
 
 #ifdef __cplusplus
 }
