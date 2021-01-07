@@ -142,7 +142,10 @@ AieRC _XAie_EccOnDM(XAie_DevInst *DevInst, XAie_LocType Loc)
 	 */
 	RegVal = EvntMod->XAie_EventNumber[XAIE_EVENT_BROADCAST_6_MEM -
 			EvntMod->EventMin];
-	XAie_Write32(DevInst, RegAddr, RegVal);
+	RC = XAie_Write32(DevInst, RegAddr, RegVal);
+	if(RC != XAIE_OK) {
+		return RC;
+	}
 
 	/*
 	 * Block event broadcast in all direction except east because core
@@ -241,7 +244,10 @@ AieRC _XAie_EccOnPM(XAie_DevInst *DevInst, XAie_LocType Loc)
 			CoreMod->EccEvntRegOff;
 	RegVal = EvntMod->XAie_EventNumber[XAIE_EVENT_PERF_CNT_0_CORE -
 			EvntMod->EventMin];
-	XAie_Write32(DevInst, RegAddr, RegVal);
+	RC = XAie_Write32(DevInst, RegAddr, RegVal);
+	if(RC != XAIE_OK) {
+		return RC;
+	}
 
 	/* Before configuring performance counter check if the DM in use */
 	CheckTileEccStatus = _XAie_GetTileBitPosFromLoc(DevInst, Loc);
