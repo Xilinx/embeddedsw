@@ -100,14 +100,15 @@ AieRC XAie_SetTimerTrigEventVal(XAie_DevInst *DevInst, XAie_LocType Loc,
 	/* Set up Timer low event value */
 	RegAddr = _XAie_GetTileAddr(DevInst, Loc.Row ,Loc.Col) +
 		TimerMod->TrigEventLowValOff;
-	XAie_Write32(DevInst, RegAddr, LowEventValue);
+	RC = XAie_Write32(DevInst, RegAddr, LowEventValue);
+	if(RC != XAIE_OK) {
+		return RC;
+	}
 
 	/* Set up Timer high event value */
 	RegAddr = _XAie_GetTileAddr(DevInst, Loc.Row ,Loc.Col) +
 		TimerMod->TrigEventHighValOff;
-	XAie_Write32(DevInst, RegAddr, HighEventValue);
-
-	return XAIE_OK;
+	return XAie_Write32(DevInst, RegAddr, HighEventValue);
 }
 
 /*****************************************************************************/
@@ -167,9 +168,8 @@ AieRC XAie_ResetTimer(XAie_DevInst *DevInst, XAie_LocType Loc,
 		TimerMod->CtrlOff;
 	Mask = TimerMod->CtrlReset.Mask;
 	RegVal = XAie_SetField(XAIE_RESETENABLE, TimerMod->CtrlReset.Lsb, Mask);
-	XAie_MaskWrite32(DevInst, RegAddr, Mask, RegVal);
 
-	return XAIE_OK;
+	return XAie_MaskWrite32(DevInst, RegAddr, Mask, RegVal);
 }
 
 /*****************************************************************************/
@@ -264,9 +264,8 @@ AieRC XAie_SetTimerResetEvent(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 	RegAddr = _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) +
 		TimerMod->CtrlOff;
-	XAie_Write32(DevInst, RegAddr, RegVal);
 
-	return XAIE_OK;
+	return XAie_Write32(DevInst, RegAddr, RegVal);
 }
 
 /*****************************************************************************/
