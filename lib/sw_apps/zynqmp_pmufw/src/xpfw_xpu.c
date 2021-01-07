@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2017 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -174,7 +174,10 @@ void XPfw_XpuIntrAck(void)
 	u32 MasterIdx;
 #endif
 
-	for (Idx = 0U; (Idx < ARRAYSIZE(XpuRegList)) && (XpuIntSts == 0U); Idx++) {
+	for (Idx = 0U; Idx < ARRAYSIZE(XpuRegList); Idx++) {
+		if (XpuIntSts != 0U) {
+			break;
+		}
 		XpuIntSts = XPfw_Read32(XpuRegList[Idx].BaseAddress + XPU_ISR_OFFSET);
 
 #ifdef XPU_INTR_DEBUG_PRINT_ENABLE
