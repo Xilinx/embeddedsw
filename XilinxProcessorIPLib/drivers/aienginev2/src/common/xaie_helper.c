@@ -287,11 +287,11 @@ void _XAie_SetBitInBitmap(u32 *Bitmap, u32 StartSetBit,
 	}
 }
 
-void XAie_Write32(XAie_DevInst *DevInst, u64 RegOff, u32 Value)
+AieRC XAie_Write32(XAie_DevInst *DevInst, u64 RegOff, u32 Value)
 {
 	const XAie_Backend *Backend = DevInst->Backend;
 
-	Backend->Ops.Write32((void*)(DevInst->IOInst), RegOff, Value);
+	return Backend->Ops.Write32((void*)(DevInst->IOInst), RegOff, Value);
 }
 
 u32 XAie_Read32(XAie_DevInst *DevInst, u64 RegOff)
@@ -301,11 +301,11 @@ u32 XAie_Read32(XAie_DevInst *DevInst, u64 RegOff)
 	return Backend->Ops.Read32((void*)(DevInst->IOInst), RegOff);
 }
 
-void XAie_MaskWrite32(XAie_DevInst *DevInst, u64 RegOff, u32 Mask, u32 Value)
+AieRC XAie_MaskWrite32(XAie_DevInst *DevInst, u64 RegOff, u32 Mask, u32 Value)
 {
 	const XAie_Backend *Backend = DevInst->Backend;
 
-	Backend->Ops.MaskWrite32((void *)(DevInst->IOInst), RegOff, Mask,
+	return Backend->Ops.MaskWrite32((void *)(DevInst->IOInst), RegOff, Mask,
 			Value);
 }
 
@@ -318,28 +318,29 @@ u32 XAie_MaskPoll(XAie_DevInst *DevInst, u64 RegOff, u32 Mask, u32 Value,
 			Value, TimeOutUs);
 }
 
-void XAie_BlockWrite32(XAie_DevInst *DevInst, u64 RegOff, u32 *Data, u32 Size)
+AieRC XAie_BlockWrite32(XAie_DevInst *DevInst, u64 RegOff, u32 *Data, u32 Size)
 {
 	const XAie_Backend *Backend = DevInst->Backend;
 
-	Backend->Ops.BlockWrite32((void *)(DevInst->IOInst), RegOff, Data,
+	return Backend->Ops.BlockWrite32((void *)(DevInst->IOInst), RegOff,
+			Data, Size);
+}
+
+AieRC XAie_BlockSet32(XAie_DevInst *DevInst, u64 RegOff, u32 Data, u32 Size)
+{
+	const XAie_Backend *Backend = DevInst->Backend;
+
+	return Backend->Ops.BlockSet32((void *)(DevInst->IOInst), RegOff, Data,
 			Size);
 }
 
-void XAie_BlockSet32(XAie_DevInst *DevInst, u64 RegOff, u32 Data, u32 Size)
-{
-	const XAie_Backend *Backend = DevInst->Backend;
-
-	Backend->Ops.BlockSet32((void *)(DevInst->IOInst), RegOff, Data, Size);
-}
-
-void XAie_CmdWrite(XAie_DevInst *DevInst, u8 Col, u8 Row, u8 Command,
+AieRC XAie_CmdWrite(XAie_DevInst *DevInst, u8 Col, u8 Row, u8 Command,
 		u32 CmdWd0, u32 CmdWd1, const char *CmdStr)
 {
 	const XAie_Backend *Backend = DevInst->Backend;
 
-	Backend->Ops.CmdWrite((void *)(DevInst->IOInst), Col, Row, Command,
-			CmdWd0, CmdWd1, CmdStr);
+	return Backend->Ops.CmdWrite((void *)(DevInst->IOInst), Col, Row,
+			Command, CmdWd0, CmdWd1, CmdStr);
 }
 
 AieRC XAie_RunOp(XAie_DevInst *DevInst, XAie_BackendOpCode Op, void *Arg)
