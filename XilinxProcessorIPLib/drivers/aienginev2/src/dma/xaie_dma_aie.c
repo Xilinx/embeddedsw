@@ -326,6 +326,7 @@ AieRC _XAie_ShimDmaWriteBd(XAie_DevInst *DevInst , XAie_DmaDesc *DmaDesc,
 AieRC _XAie_TileDmaWriteBd(XAie_DevInst *DevInst , XAie_DmaDesc *DmaDesc,
 		XAie_LocType Loc, u8 BdNum)
 {
+	AieRC RC;
 	u64 Addr;
 	u64 BdBaseAddr;
 	u32 BdWord[XAIE_TILEDMA_NUM_BD_WORDS];
@@ -453,7 +454,10 @@ AieRC _XAie_TileDmaWriteBd(XAie_DevInst *DevInst , XAie_DmaDesc *DmaDesc,
 	Addr = BdBaseAddr + _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
 
 	for(u8 i = 0U; i < XAIE_TILEDMA_NUM_BD_WORDS; i++) {
-		XAie_Write32(DevInst, Addr + i * 4U, BdWord[i]);
+		RC = XAie_Write32(DevInst, Addr + i * 4U, BdWord[i]);
+		if(RC != XAIE_OK) {
+			return RC;
+		}
 	}
 
 	return XAIE_OK;
