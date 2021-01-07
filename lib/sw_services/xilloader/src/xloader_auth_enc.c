@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,7 +16,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   12/16/20 First release
-*	kal  12/23/20 Initialize Status to XST_FAILURE in XLoader_AesKatTest
+*       kal  12/23/20 Initialize Status to XST_FAILURE in XLoader_AesKatTest
+*       kpt  01/06/21 Added redundancy for the loop in XLoader_CheckNonZeroPpk
 *
 * </pre>
 *
@@ -317,7 +318,7 @@ int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 			}
 		}
 	}
-	else if ((Status != XST_SUCCESS) && (StatusTmp != XST_SUCCESS)) {
+	else if ((Status == XST_FAILURE) && (StatusTmp == XST_FAILURE)) {
 		if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
 			(SecurePtr->IsAuthenticatedTmp == (u8)TRUE)) {
 			if (IsBhdrAuth == 0x00U) {
@@ -808,7 +809,7 @@ static int XLoader_DataAuth(const XLoader_SecureParams *SecurePtr, u8 *Hash,
 	 * Only boot header authentication is allowed when
 	 * none of PPK hash bits are programmed
 	 */
-	if ((Status != XST_SUCCESS) && (SStatus != XST_SUCCESS)) {
+	if ((Status == XST_FAILURE) && (SStatus == XST_FAILURE)) {
 		IsEfuseAuth = (u8)FALSE;
 		IsEfuseAuthTmp = (u8)FALSE;
 		/* If BHDR authentication is not enabled return error */
@@ -1170,7 +1171,7 @@ END:
 ******************************************************************************/
 static int XLoader_CheckNonZeroPpk(void)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 Index;
 
 	for (Index = XLOADER_EFUSE_PPK0_START_OFFSET;
@@ -1182,7 +1183,15 @@ static int XLoader_CheckNonZeroPpk(void)
 			break;
 		}
 	}
+	if (Index > (XLOADER_EFUSE_PPK2_END_OFFSET + XIH_PRTN_WORD_LEN)) {
+		Status = (int)XLOADER_ERR_GLITCH_DETECTED;
+		goto END;
+	}
+	if (Index <= XLOADER_EFUSE_PPK2_END_OFFSET) {
+		Status = XST_SUCCESS;
+	}
 
+END:
 	return Status;
 }
 
