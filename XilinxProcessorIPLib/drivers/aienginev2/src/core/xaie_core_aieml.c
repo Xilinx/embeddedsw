@@ -75,9 +75,7 @@ AieRC _XAieMl_CoreEnable(XAie_DevInst *DevInst, XAie_LocType Loc,
 	RegAddr = CoreMod->CoreCtrl->RegOff +
 		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
 
-	XAie_MaskWrite32(DevInst, RegAddr, Mask, Value);
-
-	return XAIE_OK;
+	return XAie_MaskWrite32(DevInst, RegAddr, Mask, Value);
 }
 
 /*****************************************************************************/
