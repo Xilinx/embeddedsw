@@ -25,6 +25,7 @@
 *       cog    12/23/20 Fixed issue with IQ QMC on 48dr devices.
 *       cog    01/05/21 Signal detector on/off counters needed to be flipped.
 *       cog    01/05/21 Second signal detector removed.
+*       cog    01/06/21 Added DAC data scaler APIs.
 *
 * </pre>
 *
@@ -3106,4 +3107,87 @@ u32 XRFdc_GetMixedMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
 	return InstancePtr->DAC_Tile[Tile_Id].DACBlock_Analog_Datapath[Block_Id].MixedMode;
 }
 
+/*****************************************************************************/
+/**
+*
+* Set data scaler for DAC block.
+*
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
+* @param    Enable  valid values are 1 (enable) and 0 (disable).
+*
+* @return
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
+*
+* @note     DAC blocks only.
+******************************************************************************/
+u32 XRFdc_SetDACDataScaler(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Enable)
+{
+	u32 Status;
+	u32 BaseAddr;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n DAC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
+		goto RETURN_PATH;
+	}
+
+	if (Enable > XRFDC_ENABLED) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR, "\n Bad enable parameter (%u) for DAC %u block %u in %s\r\n", Enable,
+			  Tile_Id, Block_Id, __func__);
+		goto RETURN_PATH;
+	}
+
+	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id);
+	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DATA_SCALER_OFFSET, XRFDC_DATA_SCALER_MASK, Enable);
+
+RETURN_PATH:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* Get data scaler for DAC block.
+*
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
+* @param    EnablePtr valid values are 1 (enable) and 0 (disable).
+*
+* @return
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
+*
+* @note     DAC blocks only.
+******************************************************************************/
+u32 XRFdc_GetDACDataScaler(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *EnablePtr)
+{
+	u32 Status;
+	u32 BaseAddr;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(EnablePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n DAC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
+		goto RETURN_PATH;
+	}
+
+	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id);
+	*EnablePtr = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_DATA_SCALER_OFFSET, XRFDC_DATA_SCALER_MASK);
+
+RETURN_PATH:
+	return Status;
+}
 /** @} */
