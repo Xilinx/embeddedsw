@@ -204,11 +204,13 @@ static u32 XAie_MetalIO_Read32(void *IOInst, u64 RegOff)
 * @note		Internal only.
 *
 *******************************************************************************/
-static void XAie_MetalIO_Write32(void *IOInst, u64 RegOff, u32 Data)
+static AieRC XAie_MetalIO_Write32(void *IOInst, u64 RegOff, u32 Data)
 {
 	XAie_MetalIO *MetalIOInst = (XAie_MetalIO *)IOInst;
 
 	metal_io_write32(MetalIOInst->io, RegOff, Data);
+
+	return XAIE_OK;
 }
 
 /*****************************************************************************/
@@ -227,7 +229,7 @@ static void XAie_MetalIO_Write32(void *IOInst, u64 RegOff, u32 Data)
 * @note		Internal only.
 *
 *******************************************************************************/
-static void XAie_MetalIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask,
+static AieRC XAie_MetalIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask,
 		u32 Data)
 {
 	u32 RegVal;
@@ -236,6 +238,8 @@ static void XAie_MetalIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask,
 	RegVal &= ~Mask;
 	RegVal |= Data;
 	XAie_MetalIO_Write32(IOInst, RegOff, RegVal);
+
+	return XAIE_OK;
 }
 
 /*****************************************************************************/
@@ -301,13 +305,15 @@ static u32 XAie_MetalIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
 * @note		Internal only.
 *
 *******************************************************************************/
-static void XAie_MetalIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data,
+static AieRC XAie_MetalIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data,
 		u32 Size)
 {
 	for(u32 i = 0; i < Size; i++) {
 		XAie_MetalIO_Write32(IOInst, RegOff + i * 4U, *Data);
 		Data++;
 	}
+
+	return XAIE_OK;
 }
 
 /*****************************************************************************/
@@ -326,12 +332,14 @@ static void XAie_MetalIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data,
 * @note		Internal only.
 *
 *******************************************************************************/
-static void XAie_MetalIO_BlockSet32(void *IOInst, u64 RegOff, u32 Data,
+static AieRC XAie_MetalIO_BlockSet32(void *IOInst, u64 RegOff, u32 Data,
 		u32 Size)
 {
 	for(u32 i = 0; i < Size; i++) {
 		XAie_MetalIO_Write32(IOInst, RegOff + i * 4U, Data);
 	}
+
+	return XAIE_OK;
 }
 
 /*****************************************************************************/
@@ -728,15 +736,17 @@ static u32 XAie_MetalIO_Read32(void *IOInst, u64 RegOff)
 	return 0;
 }
 
-static void XAie_MetalIO_Write32(void *IOInst, u64 RegOff, u32 Data)
+static AieRC XAie_MetalIO_Write32(void *IOInst, u64 RegOff, u32 Data)
 {
 	/* no-op */
 	(void)IOInst;
 	(void)RegOff;
 	(void)Data;
+
+	return XAIE_ERR;
 }
 
-static void XAie_MetalIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask,
+static AieRC XAie_MetalIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask,
 		u32 Data)
 {
 	/* no-op */
@@ -744,6 +754,8 @@ static void XAie_MetalIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask,
 	(void)RegOff;
 	(void)Mask;
 	(void)Data;
+
+	return XAIE_ERR;
 }
 
 static u32 XAie_MetalIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
@@ -758,7 +770,7 @@ static u32 XAie_MetalIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
 	return XAIE_FAILURE;
 }
 
-static void XAie_MetalIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data,
+static AieRC XAie_MetalIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data,
 		u32 Size)
 {
 	/* no-op */
@@ -766,9 +778,11 @@ static void XAie_MetalIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data,
 	(void)RegOff;
 	(void)Data;
 	(void)Size;
+
+	return XAIE_ERR;
 }
 
-static void XAie_MetalIO_BlockSet32(void *IOInst, u64 RegOff, u32 Data,
+static AieRC XAie_MetalIO_BlockSet32(void *IOInst, u64 RegOff, u32 Data,
 		u32 Size)
 {
 	/* no-op */
@@ -776,6 +790,8 @@ static void XAie_MetalIO_BlockSet32(void *IOInst, u64 RegOff, u32 Data,
 	(void)RegOff;
 	(void)Data;
 	(void)Size;
+
+	return XAIE_ERR;
 }
 
 static AieRC XAie_MetalIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
@@ -830,7 +846,7 @@ static AieRC XAie_MetalMemDetach(XAie_MemInst *MemInst)
 
 #endif /* __AIEMETAL__ */
 
-static void XAie_MetalIO_CmdWrite(void *IOInst, u8 Col, u8 Row, u8 Command,
+static AieRC XAie_MetalIO_CmdWrite(void *IOInst, u8 Col, u8 Row, u8 Command,
 		u32 CmdWd0, u32 CmdWd1, const char *CmdStr)
 {
 	/* no-op */
@@ -841,6 +857,8 @@ static void XAie_MetalIO_CmdWrite(void *IOInst, u8 Col, u8 Row, u8 Command,
 	(void)CmdWd0;
 	(void)CmdWd1;
 	(void)CmdStr;
+
+	return XAIE_ERR;
 }
 
 const XAie_Backend MetalBackend =
