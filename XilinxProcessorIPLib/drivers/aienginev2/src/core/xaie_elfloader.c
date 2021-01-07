@@ -243,10 +243,10 @@ static AieRC _XAie_WriteProgramSection(XAie_DevInst *DevInst, XAie_LocType Loc,
 		 * memory out of Progsec will not result in a segmentation
 		 * fault.
 		 */
-		XAie_BlockWrite32(DevInst, Addr, (u32 *)ProgSec,
+		RC = XAie_BlockWrite32(DevInst, Addr, (u32 *)ProgSec,
 				(Phdr->p_memsz + 4U - 1U) / 4U);
 
-		return XAIE_OK;
+		return RC;
 	}
 
 	/* Check if section can access out of bound memory location on device */
@@ -563,13 +563,20 @@ AieRC XAie_LoadElf(XAie_DevInst *DevInst, XAie_LocType Loc, const char *ElfPtr,
 	}
 
 	/* Send the stack range set command */
-	XAie_CmdWrite(DevInst, Loc.Col, Loc.Row, XAIESIM_CMDIO_CMD_SETSTACK,
-			StackSz.start, StackSz.end, XAIE_NULL);
+	RC = XAie_CmdWrite(DevInst, Loc.Col, Loc.Row,
+			XAIESIM_CMDIO_CMD_SETSTACK, StackSz.start, StackSz.end,
+			XAIE_NULL);
+	if(RC != XAIE_OK) {
+		return RC;
+	}
 
 	/* Load symbols if enabled */
 	if(LoadSym == XAIE_ENABLE) {
-		XAie_CmdWrite(DevInst, Loc.Col, Loc.Row,
+		RC = XAie_CmdWrite(DevInst, Loc.Col, Loc.Row,
 				XAIESIM_CMDIO_CMD_LOADSYM, 0, 0, ElfPtr);
+		if(RC != XAIE_OK) {
+			return RC;
+		}
 	}
 #endif
 	(void)LoadSym;
