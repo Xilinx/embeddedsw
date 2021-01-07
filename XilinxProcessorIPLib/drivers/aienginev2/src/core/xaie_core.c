@@ -892,9 +892,7 @@ AieRC XAie_CoreConfigAccumulatorControl(XAie_DevInst *DevInst,
 			AccumCtrl->CascadeOutput.Lsb,
 			AccumCtrl->CascadeOutput.Mask);
 
-	XAie_Write32(DevInst, RegAddr, RegVal);
-
-	return XAIE_OK;
+	return XAie_Write32(DevInst, RegAddr, RegVal);
 }
 
 /** @} */
