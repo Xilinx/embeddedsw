@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -77,6 +77,8 @@
 * 1.03  td   11/23/2020 Coverity Warning Fixes
 *       bsv  12/02/2020 Replace SemCfr APIs with generic Sem APIs
 *       bm   12/16/2020 Added PLM_SECURE_EXCLUDE macro
+*       kpt  01/06/2021 Added redundancy check for
+*                       XLoader_ReadAndVerifySecureHdrs
 *
 * </pre>
 *
@@ -434,6 +436,7 @@ END:
 static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 {
 	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp =  XST_FAILURE;
 	XLoader_SecureParams SecureParams = {0U};
 #ifdef PLM_SECURE_EXCLUDE
 	u8 IsEncrypted;
@@ -596,9 +599,10 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 	}
 #ifndef PLM_SECURE_EXCLUDE
 	else {
-		Status = XLoader_ReadAndVerifySecureHdrs(&SecureParams,
-					&(PdiPtr->MetaHdr));
-		if (Status != XST_SUCCESS) {
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp,
+			XLoader_ReadAndVerifySecureHdrs, &SecureParams,
+			&(PdiPtr->MetaHdr));
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_SECURE_METAHDR,
 						Status);
 			goto END;
