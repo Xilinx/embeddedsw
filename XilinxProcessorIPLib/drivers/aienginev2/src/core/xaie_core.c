@@ -135,9 +135,7 @@ AieRC XAie_CoreDisable(XAie_DevInst *DevInst, XAie_LocType Loc)
 	RegAddr = CoreMod->CoreCtrl->RegOff +
 		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
 
-	XAie_MaskWrite32(DevInst, RegAddr, Mask, Value);
-
-	return XAIE_OK;
+	return XAie_MaskWrite32(DevInst, RegAddr, Mask, Value);
 }
 
 /*****************************************************************************/
@@ -217,9 +215,7 @@ AieRC XAie_CoreReset(XAie_DevInst *DevInst, XAie_LocType Loc)
 	RegAddr = CoreMod->CoreCtrl->RegOff +
 		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
 
-	XAie_MaskWrite32(DevInst, RegAddr, Mask, Value);
-
-	return XAIE_OK;
+	return XAie_MaskWrite32(DevInst, RegAddr, Mask, Value);
 }
 
 /*****************************************************************************/
@@ -263,9 +259,7 @@ AieRC XAie_CoreUnreset(XAie_DevInst *DevInst, XAie_LocType Loc)
 	RegAddr = CoreMod->CoreCtrl->RegOff +
 		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
 
-	XAie_MaskWrite32(DevInst, RegAddr, Mask, Value);
-
-	return XAIE_OK;
+	return XAie_MaskWrite32(DevInst, RegAddr, Mask, Value);
 }
 
 /*****************************************************************************/
@@ -385,10 +379,8 @@ static AieRC _XAie_CoreDebugCtrlHalt(XAie_DevInst *DevInst, XAie_LocType Loc,
 	RegAddr = CoreMod->CoreDebug->RegOff +
 		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
 
-	XAie_MaskWrite32(DevInst, RegAddr, CoreMod->CoreDebug->DebugHalt.Mask,
-			Enable);
-
-	return XAIE_OK;
+	return XAie_MaskWrite32(DevInst, RegAddr,
+			CoreMod->CoreDebug->DebugHalt.Mask, Enable);
 }
 
 /*****************************************************************************/
@@ -552,9 +544,7 @@ AieRC XAie_CoreConfigDebugControl1(XAie_DevInst *DevInst, XAie_LocType Loc,
 	RegAddr = CoreMod->CoreDebug->DebugCtrl1Offset +
 		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
 
-	XAie_Write32(DevInst, RegAddr, RegVal);
-
-	return XAIE_OK;
+	return XAie_Write32(DevInst, RegAddr, RegVal);
 }
 
 /*****************************************************************************/
@@ -594,9 +584,7 @@ AieRC XAie_CoreClearDebugControl1(XAie_DevInst *DevInst, XAie_LocType Loc)
 	RegAddr = CoreMod->CoreDebug->DebugCtrl1Offset +
 		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
 
-	XAie_Write32(DevInst, RegAddr, 0U);
-
-	return XAIE_OK;
+	return XAie_Write32(DevInst, RegAddr, 0U);
 }
 
 /*****************************************************************************/
