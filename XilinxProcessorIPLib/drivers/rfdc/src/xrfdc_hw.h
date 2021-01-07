@@ -93,6 +93,7 @@
 *       cog    12/23/20 Fixed issue with IQ QMC on 48dr devices.
 *       cog    01/05/21 Signal detector on/off counters needed to be flipped.
 *       cog    01/05/21 Second signal detector removed.
+*       cog    01/06/21 Added DAC data scaler APIs.
 *
 *</pre>
 *
@@ -225,6 +226,7 @@ extern "C" {
 #define XRFDC_ADC_TI_TISK_DACP1_OFFSET 0x17CU /**< ADC Time skew DAC cal code of subadc ch1 Register */
 #define XRFDC_ADC_TI_TISK_DACP2_OFFSET 0x180U /**< ADC Time skew DAC cal code of subadc ch2 Register */
 #define XRFDC_ADC_TI_TISK_DACP3_OFFSET 0x184U /**< ADC Time skew DAC cal code of subadc ch3 Register */
+#define XRFDC_DATA_SCALER_OFFSET 0x190U /**< DAC Data Scaler Register */
 #define XRFDC_DAC_VOP_CTRL_OFFSET 0x198U /**< DAC variable output power control Register */
 #define XRFDC_ADC0_SUBDRP_ADDR_OFFSET 0x198U /**< subadc0, sub-drp address of target Register */
 #define XRFDC_ADC0_SUBDRP_DAT_OFFSET 0x19CU /**< subadc0, sub-drp data of target Register */
@@ -2085,6 +2087,16 @@ extern "C" {
 #define XRFDC_DAC_FIFO_DELAY_MASK 0x000000FFFU /**< DAC FIFO ReadPtr Delay */
 #define XRFDC_ADC_FIFO_DELAY_MASK 0x0000001C0U /**< ADC FIFO ReadPtr Delay */
 #define XRFDC_ADC_FIFO_DELAY_SHIFT 6U /**< ADC FIFO ReadPtr Shift */
+
+/* @} */
+
+/** @name Data Scaler register
+ *
+ * This register contains the data scaler ebable bit.
+ * @{
+ */
+
+#define XRFDC_DATA_SCALER_MASK 0x00000001U /**< Clock detect mask */
 
 /* @} */
 
