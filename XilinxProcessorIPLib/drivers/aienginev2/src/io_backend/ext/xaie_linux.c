@@ -389,7 +389,7 @@ static AieRC XAie_LinuxIO_Init(XAie_DevInst *DevInst)
 * @note		Internal only.
 *
 *******************************************************************************/
-static void XAie_LinuxIO_Write32(void *IOInst, u64 RegOff, u32 Value)
+static AieRC XAie_LinuxIO_Write32(void *IOInst, u64 RegOff, u32 Value)
 {
 	XAie_LinuxIO *LinuxIOInst = (XAie_LinuxIO *)IOInst;
 	int Ret;
@@ -407,7 +407,10 @@ static void XAie_LinuxIO_Write32(void *IOInst, u64 RegOff, u32 Value)
 	Ret = ioctl(LinuxIOInst->PartitionFd, AIE_REG_IOCTL, &Args);
 	if(Ret < 0) {
 		XAIE_ERROR("Register write failed for offset 0x%lx.\n", RegOff);
+		return XAIE_ERR;
 	}
+
+	return XAIE_OK;
 }
 
 /*****************************************************************************/
@@ -446,7 +449,7 @@ static u32 XAie_LinuxIO_Read32(void *IOInst, u64 RegOff)
 * @note		Internal only.
 *
 *******************************************************************************/
-static void XAie_LinuxIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask,
+static AieRC XAie_LinuxIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask,
 		u32 Value)
 {
 	XAie_LinuxIO *LinuxIOInst = (XAie_LinuxIO *)IOInst;
@@ -465,7 +468,10 @@ static void XAie_LinuxIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask,
 	Ret = ioctl(LinuxIOInst->PartitionFd, AIE_REG_IOCTL, &Args);
 	if(Ret < 0) {
 		XAIE_ERROR("Register write failed for offset 0x%lx.\n", RegOff);
+		return XAIE_ERR;
 	}
+
+	return XAIE_OK;
 }
 
 /*****************************************************************************/
@@ -723,7 +729,7 @@ static u32* _XAie_GetVirtAddrFromOffset(XAie_LinuxIO *IOInst, u64 RegOff,
 * @note		Internal only.
 *
 *******************************************************************************/
-static void XAie_LinuxIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data,
+static AieRC XAie_LinuxIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data,
 		u32 Size)
 {
 	XAie_LinuxIO *Inst = (XAie_LinuxIO *)IOInst;
@@ -733,7 +739,7 @@ static void XAie_LinuxIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data,
 	VirtAddr =  _XAie_GetVirtAddrFromOffset(Inst, RegOff, Size);
 	if(VirtAddr != NULL) {
 		_XAie_CopyDataToMem(VirtAddr, Data, Size);
-		return;
+		return XAIE_ERR;
 	}
 
 	/* Handle other registers */
@@ -741,6 +747,8 @@ static void XAie_LinuxIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data,
 		XAie_LinuxIO_Write32(IOInst, RegOff + i * 4U, *Data);
 		Data++;
 	}
+
+	return XAIE_OK;
 }
 
 /*****************************************************************************/
@@ -759,7 +767,7 @@ static void XAie_LinuxIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data,
 * @note		Internal only.
 *
 *******************************************************************************/
-static void XAie_LinuxIO_BlockSet32(void *IOInst, u64 RegOff, u32 Data,
+static AieRC XAie_LinuxIO_BlockSet32(void *IOInst, u64 RegOff, u32 Data,
 		u32 Size)
 {
 	XAie_LinuxIO *Inst = (XAie_LinuxIO *)IOInst;
@@ -771,13 +779,15 @@ static void XAie_LinuxIO_BlockSet32(void *IOInst, u64 RegOff, u32 Data,
 		for(u32 i = 0; i < Size; i++) {
 			*VirtAddr++ = Data;
 		}
-		return;
+		return XAIE_ERR;
 	}
 
 	/* Handle other registers */
 	for(u32 i = 0; i < Size; i++) {
 		XAie_LinuxIO_Write32(IOInst, RegOff + i * 4U, Data);
 	}
+
+	return XAIE_OK;
 }
 
 /*****************************************************************************/
@@ -1345,15 +1355,17 @@ static u32 XAie_LinuxIO_Read32(void *IOInst, u64 RegOff)
 	return 0;
 }
 
-static void XAie_LinuxIO_Write32(void *IOInst, u64 RegOff, u32 Data)
+static AieRC XAie_LinuxIO_Write32(void *IOInst, u64 RegOff, u32 Data)
 {
 	/* no-op */
 	(void)IOInst;
 	(void)RegOff;
 	(void)Data;
+
+	return XAIE_ERR;
 }
 
-static void XAie_LinuxIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask,
+static AieRC XAie_LinuxIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask,
 		u32 Data)
 {
 	/* no-op */
@@ -1361,6 +1373,8 @@ static void XAie_LinuxIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask,
 	(void)RegOff;
 	(void)Mask;
 	(void)Data;
+
+	return XAIE_ERR;
 }
 
 static u32 XAie_LinuxIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
@@ -1375,7 +1389,7 @@ static u32 XAie_LinuxIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
 	return XAIE_FAILURE;
 }
 
-static void XAie_LinuxIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data,
+static AieRC XAie_LinuxIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data,
 		u32 Size)
 {
 	/* no-op */
@@ -1383,9 +1397,11 @@ static void XAie_LinuxIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data,
 	(void)RegOff;
 	(void)Data;
 	(void)Size;
+
+	return XAIE_ERR;
 }
 
-static void XAie_LinuxIO_BlockSet32(void *IOInst, u64 RegOff, u32 Data,
+static AieRC XAie_LinuxIO_BlockSet32(void *IOInst, u64 RegOff, u32 Data,
 		u32 Size)
 {
 	/* no-op */
@@ -1393,6 +1409,8 @@ static void XAie_LinuxIO_BlockSet32(void *IOInst, u64 RegOff, u32 Data,
 	(void)RegOff;
 	(void)Data;
 	(void)Size;
+
+	return XAIE_ERR;
 }
 
 static XAie_MemInst* XAie_LinuxMemAllocate(XAie_DevInst *DevInst, u64 Size,
@@ -1447,7 +1465,7 @@ static AieRC XAie_LinuxMemDetach(XAie_MemInst *MemInst)
 
 #endif /* __AIELINUX__ */
 
-static void XAie_LinuxIO_CmdWrite(void *IOInst, u8 Col, u8 Row, u8 Command,
+static AieRC XAie_LinuxIO_CmdWrite(void *IOInst, u8 Col, u8 Row, u8 Command,
 		u32 CmdWd0, u32 CmdWd1, const char *CmdStr)
 {
 	/* no-op */
@@ -1458,6 +1476,8 @@ static void XAie_LinuxIO_CmdWrite(void *IOInst, u8 Col, u8 Row, u8 Command,
 	(void)CmdWd0;
 	(void)CmdWd1;
 	(void)CmdStr;
+
+	return XAIE_ERR;
 }
 
 const XAie_Backend LinuxBackend =
