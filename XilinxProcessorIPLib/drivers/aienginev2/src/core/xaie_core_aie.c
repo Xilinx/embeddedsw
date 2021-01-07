@@ -57,9 +57,7 @@ AieRC _XAie_CoreConfigureDone(XAie_DevInst *DevInst, XAie_LocType Loc,
 	RegAddr = CoreMod->CoreEvent->EnableEventOff +
 		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
 
-	XAie_MaskWrite32(DevInst, RegAddr, Mask, Value);
-
-	return XAIE_OK;
+	return XAie_MaskWrite32(DevInst, RegAddr, Mask, Value);
 }
 
 /*****************************************************************************/
@@ -81,6 +79,7 @@ AieRC _XAie_CoreConfigureDone(XAie_DevInst *DevInst, XAie_LocType Loc,
 AieRC _XAie_CoreEnable(XAie_DevInst *DevInst, XAie_LocType Loc,
 		const struct XAie_CoreMod *CoreMod)
 {
+	AieRC RC;
 	u32 Mask, Value;
 	u64 RegAddr;
 
@@ -90,7 +89,10 @@ AieRC _XAie_CoreEnable(XAie_DevInst *DevInst, XAie_LocType Loc,
 	RegAddr = CoreMod->CoreEvent->EnableEventOff +
 		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
 
-	XAie_MaskWrite32(DevInst, RegAddr, Mask, Value);
+	RC = XAie_MaskWrite32(DevInst, RegAddr, Mask, Value);
+	if(RC != XAIE_OK) {
+		return RC;
+	}
 
 	/* Enable the core */
 	Mask = CoreMod->CoreCtrl->CtrlEn.Mask;
@@ -98,9 +100,7 @@ AieRC _XAie_CoreEnable(XAie_DevInst *DevInst, XAie_LocType Loc,
 	RegAddr = CoreMod->CoreCtrl->RegOff +
 		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
 
-	XAie_MaskWrite32(DevInst, RegAddr, Mask, Value);
-
-	return XAIE_OK;
+	return XAie_MaskWrite32(DevInst, RegAddr, Mask, Value);
 }
 
 /*****************************************************************************/
