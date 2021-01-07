@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -14,7 +14,7 @@
 
 #if defined(ENABLE_SCHEDULER) && (defined(ENABLE_EM) || defined(ENABLE_WDT) || defined(ENABLE_SECURE))
 
-const XPfw_Module_t *CommonModPtr;
+static const XPfw_Module_t *CommonModPtr;
 
 /****************************************************************************/
 /**
