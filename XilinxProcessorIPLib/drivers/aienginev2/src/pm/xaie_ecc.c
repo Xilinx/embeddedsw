@@ -403,7 +403,10 @@ AieRC _XAie_EccOnMemTile(XAie_DevInst *DevInst, XAie_LocType Loc)
 			MemMod->EccEvntRegOff;
 	RegVal = EvntMod->XAie_EventNumber[XAIE_EVENT_PERF_CNT0_EVENT_MEM_TILE +
 			XAIE_ECC_PERFCOUNTER_ID - EvntMod->EventMin];
-	XAie_Write32(DevInst, RegAddr, RegVal);
+	RC = XAie_Write32(DevInst, RegAddr, RegVal);
+	if(RC != XAIE_OK) {
+		return RC;
+	}
 
 	/* Configure Performance counter 0 to generate event to trigger ECC */
 	RC = _XAie_EccPerfCntConfigMemTile(DevInst, Loc);
