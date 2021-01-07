@@ -85,9 +85,7 @@ static AieRC _XAie_IntrCtrlL1Config(XAie_DevInst *DevInst, XAie_LocType Loc,
 	RegAddr = _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) + RegOffset +
 					Switch * L1IntrMod->SwOff;
 
-	XAie_Write32(DevInst, RegAddr, XAIE_ENABLE << IntrId);
-
-	return XAIE_OK;
+	return XAie_Write32(DevInst, RegAddr, XAIE_ENABLE << IntrId);
 }
 
 /*****************************************************************************/
@@ -182,9 +180,7 @@ AieRC XAie_IntrCtrlL1IrqSet(XAie_DevInst *DevInst, XAie_LocType Loc,
 	RegOffset = L1IntrMod->BaseIrqRegOff + Switch * L1IntrMod->SwOff;
 	RegAddr = _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) + RegOffset;
 
-	XAie_Write32(DevInst, RegAddr, BroadcastId);
-
-	return XAIE_OK;
+	return XAie_Write32(DevInst, RegAddr, BroadcastId);
 }
 
 /*****************************************************************************/
@@ -252,9 +248,8 @@ AieRC XAie_IntrCtrlL1Event(XAie_DevInst *DevInst, XAie_LocType Loc,
 	EventMask = L1IntrMod->BaseIrqEventMask << EventLsb;
 	FldVal = XAie_SetField(MappedEvent, EventLsb, EventMask);
 	RegAddr = _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) + RegOffset;
-	XAie_MaskWrite32(DevInst, RegAddr, EventMask, FldVal);
 
-	return XAIE_OK;
+	return XAie_MaskWrite32(DevInst, RegAddr, EventMask, FldVal);
 }
 
 /*****************************************************************************/
@@ -312,9 +307,7 @@ AieRC XAie_IntrCtrlL1BroadcastBlock(XAie_DevInst *DevInst, XAie_LocType Loc,
 						Switch * L1IntrMod->SwOff;
 	RegAddr = _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) + RegOffset;
 
-	XAie_Write32(DevInst, RegAddr, ChannelBitMap);
-
-	return XAIE_OK;
+	return XAie_Write32(DevInst, RegAddr, ChannelBitMap);
 }
 
 /*****************************************************************************/
@@ -374,9 +367,7 @@ AieRC XAie_IntrCtrlL1BroadcastUnblock(XAie_DevInst *DevInst, XAie_LocType Loc,
 						Switch * L1IntrMod->SwOff;
 	RegAddr = _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) + RegOffset;
 
-	XAie_Write32(DevInst, RegAddr, ChannelBitMap);
-
-	return XAIE_OK;
+	return XAie_Write32(DevInst, RegAddr, ChannelBitMap);
 }
 
 /*****************************************************************************/
@@ -428,9 +419,7 @@ static AieRC _XAie_IntrCtrlL2Config(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 	RegAddr = _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) + RegOffset;
 
-	XAie_Write32(DevInst, RegAddr, ChannelBitMap);
-
-	return XAIE_OK;
+	return XAie_Write32(DevInst, RegAddr, ChannelBitMap);
 }
 
 /*****************************************************************************/
@@ -492,6 +481,7 @@ AieRC XAie_IntrCtrlL2Disable(XAie_DevInst *DevInst, XAie_LocType Loc,
 AieRC XAie_IntrCtrlL2IrqSet(XAie_DevInst *DevInst, XAie_LocType Loc,
 		u8 NoCIrqId)
 {
+	AieRC RC;
 	u64 RegAddr;
 	u32 RegOffset;
 	u8 TileType;
@@ -523,7 +513,10 @@ AieRC XAie_IntrCtrlL2IrqSet(XAie_DevInst *DevInst, XAie_LocType Loc,
 	ProtRegReq.Enable = XAIE_ENABLE;
 	XAie_RunOp(DevInst, XAIE_BACKEND_OP_SET_PROTREG, (void *)&ProtRegReq);
 
-	XAie_Write32(DevInst, RegAddr, NoCIrqId);
+	RC = XAie_Write32(DevInst, RegAddr, NoCIrqId);
+	if(RC != XAIE_OK) {
+		return RC;
+	}
 
 	ProtRegReq.Enable = XAIE_DISABLE;
 	XAie_RunOp(DevInst, XAIE_BACKEND_OP_SET_PROTREG, (void *)&ProtRegReq);
