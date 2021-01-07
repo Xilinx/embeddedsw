@@ -203,9 +203,8 @@ AieRC XAie_PerfCounterControlSet(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 	/* Compute absolute address and write to register */
 	RegAddr = _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) + RegOffset;
-	XAie_MaskWrite32(DevInst, RegAddr, FldMask, FldVal);
 
-	return XAIE_OK;
+	return XAie_MaskWrite32(DevInst, RegAddr, FldMask, FldVal);
 }
 
 /*****************************************************************************/
@@ -302,9 +301,9 @@ AieRC XAie_PerfCounterResetControlSet(XAie_DevInst *DevInst, XAie_LocType Loc,
 	/* Compute absolute address and write to register */
 	ResetRegAddr = _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) +
 		ResetRegOffset;
-	XAie_MaskWrite32(DevInst, ResetRegAddr, ResetFldMask, ResetFldVal);
 
-	return XAIE_OK;
+	return XAie_MaskWrite32(DevInst, ResetRegAddr, ResetFldMask,
+			ResetFldVal);
 }
 
 /*****************************************************************************/
@@ -373,9 +372,8 @@ AieRC XAie_PerfCounterSet(XAie_DevInst *DevInst, XAie_LocType Loc,
 	/* Compute absolute address and write to register */
 	CounterRegAddr = _XAie_GetTileAddr(DevInst, Loc.Row ,Loc.Col) +
 		CounterRegOffset;
-	XAie_Write32(DevInst, CounterRegAddr, CounterVal);
 
-	return XAIE_OK;
+	return XAie_Write32(DevInst, CounterRegAddr, CounterVal);
 }
 /*****************************************************************************/
 /* This API sets the performance counter event value for the given tile.
@@ -441,9 +439,8 @@ AieRC XAie_PerfCounterEventValueSet(XAie_DevInst *DevInst, XAie_LocType Loc,
 	/* Compute absolute address and write to register */
 	CounterRegAddr = _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) +
 		CounterRegOffset;
-	XAie_Write32(DevInst, CounterRegAddr, EventVal);
 
-	return XAIE_OK;
+	return XAie_Write32(DevInst, CounterRegAddr, EventVal);
 }
 
 /*****************************************************************************/
