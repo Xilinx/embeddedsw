@@ -1357,9 +1357,8 @@ AieRC XAie_DmaChannelSetStartQueue(XAie_DevInst *DevInst, XAie_LocType Loc,
 			DmaMod->ChProp->RptCount.Mask) |
 		XAie_SetField(EnTokenIssue, DmaMod->ChProp->EnToken.Lsb,
 			DmaMod->ChProp->EnToken.Mask);
-	XAie_Write32(DevInst, Addr, Val);
 
-	return XAIE_OK;
+	return XAie_Write32(DevInst, Addr, Val);
 }
 
 /*****************************************************************************/
@@ -1735,9 +1734,8 @@ AieRC XAie_DmaWriteChannel(XAie_DevInst *DevInst,
 			(DmaMod->ChProp->ControllerId.Mask)) |
 		XAie_SetField(DmaChannelDesc->FoTMode, (DmaMod->ChProp->FoTMode.Lsb),
 			(DmaMod->ChProp->FoTMode.Mask));
-	XAie_Write32(DevInst, Addr, Val);
 
-	return XAIE_OK;
+	return XAie_Write32(DevInst, Addr, Val);
 }
 
 /******************************************************************************/
