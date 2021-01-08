@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,7 @@
 * 1.02  kc   02/19/2020 Moved PLM banner print to XilPlmi
 *       kc   03/23/2020 Minor code cleanup
 *       ana  10/19/2020 Added doxygen comments
+* 1.03  bm   01/08/2021 Updated PmcCdo hook function name
 *
 * </pre>
 *
@@ -49,8 +50,8 @@ extern "C" {
 
 /************************** Variable Definitions *****************************/
 
-int XPlm_HookBeforePlmCdo(void *Arg);
-int XPlm_HookAfterPlmCdo(void *Arg);
+int XPlm_HookBeforePmcCdo(void *Arg);
+int XPlm_HookAfterPmcCdo(void *Arg);
 int XPlm_HookAfterBootPdi(void *Arg);
 
 #ifdef __cplusplus

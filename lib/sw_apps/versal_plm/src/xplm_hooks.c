@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
 *       kc   08/29/2019 Added xilpm hook to be called after plm cdo
 * 1.02  kc   02/19/2020 Moved PLM banner print to XilPlmi
 *       kc   03/23/2020 Minor code cleanup
+* 1.03  bm   01/08/2021 Updated PmcCdo function names and related comments
 *
 * </pre>
 *
@@ -43,15 +44,15 @@
 
 /*****************************************************************************/
 /**
-* @brief This function will be called before processing the PLM CDO. Before
+* @brief This function will be called before processing the PMC CDO. Before
 * this only PMC module initialization is done. Most of the HW state will be
-* as POR.Please note that PS LPD UART is not initialized by this time
+* as POR.
 *
 * @param	Arg is not used
 * @return	XST_SUCCESS always
 *
 *****************************************************************************/
-int XPlm_HookBeforePlmCdo(void *Arg)
+int XPlm_HookBeforePmcCdo(void *Arg)
 {
 	(void)Arg;
 
@@ -60,14 +61,14 @@ int XPlm_HookBeforePlmCdo(void *Arg)
 
 /*****************************************************************************/
 /**
-* @brief This function will be called after processing the PLM CDO. All the
-* PMC and LPD configuration(optional) will be completed by this time.
+* @brief This function will be called after processing the PMC CDO. All the
+* PMC configuration will be completed by this time.
 *
 * @param	Arg is not used
 * @return	XST_SUCCESS on success, any other value for error
 *
 *****************************************************************************/
-int XPlm_HookAfterPlmCdo(void *Arg)
+int XPlm_HookAfterPmcCdo(void *Arg)
 {
 	int Status = XST_FAILURE;
 
