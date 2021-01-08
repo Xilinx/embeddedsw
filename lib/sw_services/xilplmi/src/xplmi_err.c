@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,6 +35,9 @@
 *       bsv  09/21/2020 Set clock source to IRO before SRST for ES1 silicon
 *       bm   10/14/2020 Code clean up
 *       td   10/19/2020 MISRA C Fixes
+* 1.04  td   01/07/2021 Fix warning in PLM memory log regarding NULL handler for
+*                       PMC_PSM_NCR error
+*
 *
 * </pre>
 *
@@ -913,7 +916,8 @@ int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMask, u8 ActionId,
 		goto END;
 	}
 
-	if((XPLMI_EM_ACTION_CUSTOM == ActionId) && (NULL == ErrorHandler)) {
+	if((XPLMI_EM_ACTION_CUSTOM == ActionId) && (NULL == ErrorHandler) &&
+			(XPLMI_NODEIDX_ERROR_PMC_PSM_NCR != ErrorMask)) {
 		/* Null handler */
 		Status = XPLMI_INVALID_ERROR_HANDLER;
 		XPlmi_Printf(DEBUG_GENERAL, "Invalid Error Handler \n\r");
