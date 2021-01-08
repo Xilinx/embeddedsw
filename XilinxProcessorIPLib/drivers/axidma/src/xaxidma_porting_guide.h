@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xaxidma_porting_guide.h
-* @addtogroup axidma_v9_12
+* @addtogroup axidma_v9_13
 * @{
 *
 * This is a guide on how to move from using the xlldma driver to use xaxidma

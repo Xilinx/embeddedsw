@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xaxidma_selftest.c
-* @addtogroup axidma_v9_12
+* @addtogroup axidma_v9_13
 * @{
 *
 * Contains diagnostic/self-test functions for the XAxiDma component.
