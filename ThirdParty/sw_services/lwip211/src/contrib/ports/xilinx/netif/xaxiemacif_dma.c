@@ -917,7 +917,6 @@ XStatus init_axi_dma(struct xemac_s *xemac)
 	} while (0);
 #endif
 #endif
-#endif
 	return 0;
 }
 

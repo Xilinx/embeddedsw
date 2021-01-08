@@ -1,5 +1,7 @@
 Change Log for lwip
 =================================
+2020-01-08
+	* Remove references to deprecated Xilkernel.
 2020-10-09
 	* Fix the optimization out of delay code with level O2 by
 	  replacing the for loop with sleep for 1 second.
