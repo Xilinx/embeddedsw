@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2017 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +37,7 @@
 *       kpt  10/19/2020 Added support to validate checksum of image headers and
 *                       partition headers
 * 1.05  td   11/23/2020 Coverity Warning Fixes
+* 1.06  ma   01/08/2021 Changed maximum number of entries possible for ATF
 *
 * </pre>
 *
@@ -175,8 +176,11 @@ extern "C" {
 #define XIH_PRTN_FLAGS_DSTN_CPU_A72_0		(0x00U)
 #define XIH_PRTN_FLAGS_DSTN_CPU_A72_1		(0x20U)
 
-/* Number of entries possible in ATF: 4 cores * 2 (secure, nonsecure) */
-#define XILPDI_MAX_ENTRIES_FOR_ATF	(8U)
+/*
+ * Number of entries possible in ATF:
+ * 				2 cores * 3 (EL2 non-secure, EL1 secure and EL1 non-secure)
+ */
+#define XILPDI_MAX_ENTRIES_FOR_ATF	(6U)
 
 /*
  * Errors during XilPdi processing
