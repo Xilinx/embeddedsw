@@ -584,7 +584,6 @@ static err_t low_level_init(struct netif *netif)
 #endif
 #endif
 #endif
-#endif
 
 	/* set mac address */
 	XEmacLite_SetMacAddress(xemaclitep, (unsigned char*)(netif->hwaddr));
