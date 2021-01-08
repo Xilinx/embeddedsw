@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
 * 1.02  kc   02/26/2020 Added XPLM_SEM macro to include/disable SEM
 *                       functionality
 *       kc   03/23/2020 Minor code cleanup
+* 1.03  bm   01/08/2021 Updated PmcCdo hook function name
 *
 * </pre>
 *
@@ -70,9 +71,9 @@ int XPlm_AddStartUpTasks(void)
 	const struct XPlmi_TaskNode StartUpTaskList[] =
 	{
 		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_ModuleInit, 0U},
-		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_HookBeforePlmCdo, 0U},
+		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_HookBeforePmcCdo, 0U},
 		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_ProcessPlmCdo, 0U},
-		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_HookAfterPlmCdo, 0U},
+		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_HookAfterPmcCdo, 0U},
 		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_LoadBootPdi, 0U},
 		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_HookAfterBootPdi, 0U},
 #ifdef XPLM_SEM
