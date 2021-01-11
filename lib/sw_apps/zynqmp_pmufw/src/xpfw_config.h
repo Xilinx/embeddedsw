@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -270,7 +270,7 @@ extern "C" {
 #define DEBUG_MODE
 #endif
 
-#ifdef XPAR_PSU_DDRC_0_DEVICE_ID
+#ifdef XPAR_DDRCPSU_0_DEVICE_ID
 #if ENABLE_POS_VAL
 #define ENABLE_POS
 #endif
@@ -280,7 +280,7 @@ extern "C" {
 #endif
 #endif
 
-#ifdef XPAR_PSU_DDRC_0_DEVICE_ID
+#ifdef XPAR_DDRCPSU_0_DEVICE_ID
 #if ENABLE_DDR_SR_WR_VAL
 #define ENABLE_DDR_SR_WR
 #endif

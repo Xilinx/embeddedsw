@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -11,15 +11,16 @@
 #include <sleep.h>
 #include "pm_node_idle.h"
 #include "pm_common.h"
+#include "xpfw_default.h"
 
 #ifdef ENABLE_NODE_IDLING
 
 #define MAX_TIMEOUT 	10000		// Max Retry count
 
-#if defined(XPAR_PSU_TTC_0_DEVICE_ID)      || \
-	defined(XPAR_PSU_TTC_3_DEVICE_ID)  || \
-	defined(XPAR_PSU_TTC_6_DEVICE_ID)  || \
-	defined(XPAR_PSU_TTC_9_DEVICE_ID)
+#if defined(XPMU_XTTCPS_0)  || \
+	defined(XPMU_XTTCPS_3)  || \
+	defined(XPMU_XTTCPS_6)  || \
+	defined(XPMU_XTTCPS_9)
 
  /**
   * NodeTtcIdle() - Custom code to idle the TTC
@@ -70,8 +71,8 @@ void NodeTtcIdle(u32 FirstBaseAddress)
 }
 #endif
 
-#if defined(XPAR_PSU_SD_0_DEVICE_ID) || \
-	defined(XPAR_PSU_SD_1_DEVICE_ID)
+#if defined(XPMU_SD_0) || \
+	defined(XPMU_SD_1)
 
 #define IOU_SD_CTRL_OFFSET	0x00000310
 
@@ -112,8 +113,8 @@ void NodeSdioIdle(u32 BaseAddress)
 	/* Reset the eMMC card */
 	EmmcStatus = Xil_In32(IOU_SLCR_BASE + IOU_SD_CTRL_OFFSET);
 
-#ifdef XPAR_PSU_SD_0_DEVICE_ID
-	if ((BaseAddress == XPAR_PSU_SD_0_BASEADDR)
+#ifdef XPMU_SD_0
+	if ((BaseAddress == XPMU_SD_0_BASEADDR)
 			&& (EmmcStatus & SD0_EMMC_SEL_MASK)) {
 		Val = XSdPs_ReadReg8(BaseAddress, XSDPS_POWER_CTRL_OFFSET);
 		XSdPs_WriteReg8(BaseAddress, XSDPS_POWER_CTRL_OFFSET,
@@ -125,8 +126,8 @@ void NodeSdioIdle(u32 BaseAddress)
 	}
 #endif
 
-#ifdef XPAR_PSU_SD_1_DEVICE_ID
-	if ((BaseAddress == XPAR_PSU_SD_1_BASEADDR)
+#ifdef XPMU_SD_1
+	if ((BaseAddress == XPMU_SD_1_BASEADDR)
 			&& (EmmcStatus & SD1_EMMC_SEL_MASK)) {
 		Val = XSdPs_ReadReg8(BaseAddress, XSDPS_POWER_CTRL_OFFSET);
 		XSdPs_WriteReg8(BaseAddress, XSDPS_POWER_CTRL_OFFSET,
@@ -158,8 +159,8 @@ void NodeSdioIdle(u32 BaseAddress)
 #endif
 
 
-#if defined(XPAR_PSU_I2C_0_DEVICE_ID) || \
-	defined(XPAR_PSU_I2C_1_DEVICE_ID)
+#if defined(XPMU_I2C_0) || \
+	defined(XPMU_I2C_1)
 
 /**
  * NodeI2cIdle() - Custom code to idle the I2c
@@ -184,10 +185,10 @@ void NodeI2cIdle(u32 BaseAddress)
 #endif
 
 
-#if defined(XPAR_PSU_ETHERNET_0_DEVICE_ID) || \
-	defined(XPAR_PSU_ETHERNET_1_DEVICE_ID) || \
-	defined(XPAR_PSU_ETHERNET_2_DEVICE_ID) || \
-	defined(XPAR_PSU_ETHERNET_3_DEVICE_ID)
+#if defined(XPMU_ETHERNET_0) || \
+	defined(XPMU_ETHERNET_1) || \
+	defined(XPMU_ETHERNET_2) || \
+	defined(XPMU_ETHERNET_3)
 
 #define DMA_STOP_TIMEOUT		(500)
 #define REG_POLL_STATUS_DELAY		(3000) /* in us */
@@ -266,7 +267,7 @@ void NodeGemIdle(u32 BaseAddress)
 #endif
 
 
-#ifdef XPAR_PSU_QSPI_0_DEVICE_ID
+#ifdef XPAR_XQSPIPSU_0_DEVICE_ID
 
 /**
  * NodeQspiIdle() - Custom code to idle the QSPI
@@ -291,7 +292,7 @@ void NodeQspiIdle(u32 BaseAddress)
 
 #endif
 
-#if defined(XPAR_XUSBPSU_0_DEVICE_ID) || defined(XPAR_XUSBPSU_1_DEVICE_ID)
+#if defined(XPMU_USB_0) || defined(XPMU_USB_1)
 
 #define XUSBPSU_EP_PARAM_INDEX	3
 #define XUSBPSU_GSTS_OP_MODE	0x3
@@ -529,8 +530,8 @@ void NodeSataIdle(u32 BaseAddress)
 }
 #endif
 
-#if defined(XPAR_PSU_GDMA_0_DEVICE_ID) || \
-	defined(XPAR_PSU_ADMA_0_DEVICE_ID)
+#if defined(XPMU_ZDMA_8) || \
+	defined(XPMU_ZDMA_0)
 
 /**
  * NodeZdmaIdle() - Custom code to idle the ZDMA (GDMA and ADMA)
@@ -594,8 +595,8 @@ void NodeZdmaIdle(u32 BaseAddress)
 }
 #endif /* ZDMA */
 
-#if defined(XPAR_PSU_CAN_0_DEVICE_ID) || \
-	defined(XPAR_PSU_CAN_1_DEVICE_ID)
+#if defined(XPMU_CAN_0) || \
+	defined(XPMU_CAN_1)
 void NodeCanIdle(u32 BaseAddress)
 {
 	volatile u32 StatusReg;
@@ -609,7 +610,7 @@ void NodeCanIdle(u32 BaseAddress)
 }
 #endif /* CAN */
 
-#if defined(XPAR_PSU_NAND_0_DEVICE_ID)
+#if defined(XPAR_XNANDPSU_0_DEVICE_ID)
 void NodeNandIdle(u32 BaseAddress)
 {
 	volatile u32 StatusReg;

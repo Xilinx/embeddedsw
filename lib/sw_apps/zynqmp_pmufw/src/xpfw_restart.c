@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2017 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -41,17 +41,17 @@ FSBL_Store_Restore_Info_Struct FSBL_Store_Restore_Info = {0U};
 #define	XPFW_RESTART_STATE_DONE 2U
 
 /* Check if PMU has access to FPD WDT (psu_wdt_1) and LPD WDT (psu_wdt_0)*/
-#if defined(XPAR_PSU_WDT_1_DEVICE_ID) && defined(XPAR_PSU_WDT_0_DEVICE_ID)
+#if defined(XPMU_FPDWDT) && defined(XPMU_LPDWDT)
 	#include "xwdtps.h"
 	#define WDT_INSTANCE_COUNT	XPAR_XWDTPS_NUM_INSTANCES
-#else /* XPAR_PSU_WDT_1_DEVICE_ID */
+#else /* XPMU_FPDWDT */
 	#error "ENABLE_RECOVERY is defined but psu_wdt_0 & psu_wdt_1 is not assigned to PMU"
 #endif
 
 /* Check if PMU has access to TTC_9 */
-#ifdef XPAR_PSU_TTC_9_DEVICE_ID
+#ifdef XPMU_XTTCPS_9
 	#include "xttcps.h"
-#else /* XPAR_PSU_TTC_9_DEVICE_ID */
+#else /* XPMU_XTTCPS_9 */
 	#error "ENABLE_RECOVERY is defined but psu_tcc_9 is not assigned to PMU, APU recovery will not work"
 #endif
 
@@ -66,7 +66,7 @@ FSBL_Store_Restore_Info_Struct FSBL_Store_Restore_Info = {0U};
 #define WDT_CRV_SHIFT 12U
 #define WDT_PRESCALER 4096U
 
-#define WDT_CLK_PER_SEC ((XPAR_PSU_WDT_1_WDT_CLK_FREQ_HZ) / (WDT_PRESCALER))
+#define WDT_CLK_PER_SEC ((XPMU_FPDWDT_WDT_CLK) / (WDT_PRESCALER))
 
 #define TTC_PRESCALER			15U
 #define TTC_COUNT_PER_SEC		(XPAR_XTTCPS_0_TTC_CLK_FREQ_HZ / 65535U)
@@ -98,11 +98,11 @@ static XPfwRestartTracker RstTrackerList[] ={
 		{
 			.Master = &pmMasterApu_g,
 			.RestartState = XPFW_RESTART_STATE_BOOT,
-			.WdtBaseAddress = XPAR_PSU_WDT_1_BASEADDR,
+			.WdtBaseAddress = XPMU_FPDWDT_BASEADDR,
 			.WdtTimeout= WDT_DEFAULT_TIMEOUT_SEC,
 			.WdtPtr = &WdtInstance,
 			.WdtResetId = PM_RESET_SWDT_CRF,
-			.TtcDeviceId = XPAR_PSU_TTC_9_DEVICE_ID,
+			.TtcDeviceId = XPMU_XTTCPS_9,
 			.TtcTimeout = TTC_DEFAULT_NOTIFY_TIMEOUT_SEC,
 			.TtcPtr = &FpdTtcInstance,
 			.TtcResetId = PM_RESET_TTC3,
@@ -117,7 +117,7 @@ static XPfwRestartTracker RstTrackerList[] ={
 		{
 				.Master = &pmMasterRpu0_g,
 				.RestartState = XPFW_RESTART_STATE_BOOT,
-				.WdtBaseAddress = XPAR_PSU_WDT_0_BASEADDR,
+				.WdtBaseAddress = XPMU_LPDWDT_BASEADDR,
 				.WdtTimeout= WDT_DEFAULT_TIMEOUT_SEC,
 				.WdtPtr = &WdtInstance,
 				.WdtResetId = PM_RESET_SWDT_CRL,
@@ -136,7 +136,7 @@ static XPfwRestartTracker RstTrackerList[] ={
 		{
 				.Master = &pmMasterRpu_g,
 				.RestartState = XPFW_RESTART_STATE_BOOT,
-				.WdtBaseAddress = XPAR_PSU_WDT_0_BASEADDR,
+				.WdtBaseAddress = XPMU_LPDWDT_BASEADDR,
 				.WdtTimeout= WDT_DEFAULT_TIMEOUT_SEC,
 				.WdtPtr = &WdtInstance,
 				.WdtResetId = PM_RESET_SWDT_CRL,

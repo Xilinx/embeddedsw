@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2017 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -11,7 +11,7 @@
 #include "pm_common.h"
 #include "xpfw_config.h"
 #include "xparameters.h"
-#ifdef XPAR_PSU_QSPI_0_DEVICE_ID
+#ifdef XPAR_XQSPIPSU_0_DEVICE_ID
 	#include <xqspipsu.h>
 #else
 	#error "ENABLE_POS_QSPI is defined but qspi device is not available"

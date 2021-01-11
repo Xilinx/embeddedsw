@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -15,6 +15,7 @@
 #include "crf_apb.h"
 #include "crl_apb.h"
 #include "afi.h"
+#include "xpfw_default.h"
 
 /*********************************************************************
  * Macros
@@ -2897,12 +2898,12 @@ s32 PmClockGateSetState(PmClock* const clockPtr, const u8 enable)
 		status = XST_NO_FEATURE;
 		goto done;
 	}
-#if ((STDOUT_BASEADDRESS == XPAR_PSU_UART_0_BASEADDR) && defined(DEBUG_MODE))
+#if ((STDOUT_BASEADDRESS == XPMU_UART_0_BASEADDR) && defined(DEBUG_MODE))
 	if (&pmClockUart0.base == clockPtr) {
 		goto done;
 	}
 #endif
-#if ((STDOUT_BASEADDRESS == XPAR_PSU_UART_1_BASEADDR) && defined(DEBUG_MODE))
+#if ((STDOUT_BASEADDRESS == XPMU_UART_1_BASEADDR) && defined(DEBUG_MODE))
 	if (&pmClockUart1.base == clockPtr) {
 		goto done;
 	}

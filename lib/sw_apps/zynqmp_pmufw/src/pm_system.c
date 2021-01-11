@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -26,6 +26,7 @@
 #include "pm_pll.h"
 #include "pm_power.h"
 #include "rpu.h"
+#include "xpfw_default.h"
 
 #define OCM_START_ADDR		0xFFFC0000U
 #define OCM_END_ADDR		0xFFFFFFFFU
@@ -125,14 +126,14 @@ static PmSystemRequirement pmSystemReqs[] = {
 		.posCaps = 0U,
 	},
 #ifdef DEBUG_MODE
-#if (STDOUT_BASEADDRESS == XPAR_PSU_UART_0_BASEADDR)
+#if (STDOUT_BASEADDRESS == XPMU_UART_0_BASEADDR)
 	{
 		.slave = &pmSlaveUart0_g,
 		.caps = PM_CAP_ACCESS,
 		.posCaps = PM_CAP_ACCESS,
 	},
 #endif
-#if (STDOUT_BASEADDRESS == XPAR_PSU_UART_1_BASEADDR)
+#if (STDOUT_BASEADDRESS == XPMU_UART_1_BASEADDR)
 	{
 		.slave = &pmSlaveUart1_g,
 		.caps = PM_CAP_ACCESS,
@@ -428,13 +429,13 @@ static PmRegisterContext pmSystemRegs[] = {
 	{ .addr = 0XFF9A0108U, },
 	{ .addr = 0XFF9A0208U, },
 #ifdef DEBUG_MODE
-#if (STDOUT_BASEADDRESS == XPAR_PSU_UART_0_BASEADDR)
+#if (STDOUT_BASEADDRESS == XPMU_UART_0_BASEADDR)
 	{ .addr = 0XFF000034U, },
 	{ .addr = 0XFF000018U, },
 	{ .addr = 0XFF000000U, },
 	{ .addr = 0XFF000004U, }
 #endif
-#if (STDOUT_BASEADDRESS == XPAR_PSU_UART_1_BASEADDR)
+#if (STDOUT_BASEADDRESS == XPMU_UART_1_BASEADDR)
 	{ .addr = 0XFF010034U, },
 	{ .addr = 0XFF010018U, },
 	{ .addr = 0XFF010000U, },
