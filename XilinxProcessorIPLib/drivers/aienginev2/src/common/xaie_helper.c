@@ -309,7 +309,7 @@ AieRC XAie_MaskWrite32(XAie_DevInst *DevInst, u64 RegOff, u32 Mask, u32 Value)
 			Value);
 }
 
-u32 XAie_MaskPoll(XAie_DevInst *DevInst, u64 RegOff, u32 Mask, u32 Value,
+AieRC XAie_MaskPoll(XAie_DevInst *DevInst, u64 RegOff, u32 Mask, u32 Value,
 		u32 TimeOutUs)
 {
 	const XAie_Backend *Backend = DevInst->Backend;

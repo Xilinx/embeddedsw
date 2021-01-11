@@ -91,7 +91,7 @@ typedef struct XAie_BackendOps {
 	AieRC (*Write32)(void *IOInst, u64 RegOff, u32 Value);
 	u32 (*Read32)(void *IOInst,  u64 RegOff);
 	AieRC (*MaskWrite32)(void *IOInst, u64 RegOff, u32 Mask, u32 Value);
-	u32 (*MaskPoll)(void *IOInst, u64 RegOff, u32 Mask, u32 Value, u32 TimeOutUs);
+	AieRC (*MaskPoll)(void *IOInst, u64 RegOff, u32 Mask, u32 Value, u32 TimeOutUs);
 	AieRC (*BlockWrite32)(void *IOInst, u64 RegOff, u32 *Data, u32 Size);
 	AieRC (*BlockSet32)(void *IOInst, u64 RegOff, u32 Data, u32 Size);
 	AieRC (*CmdWrite)(void *IOInst, u8 Col, u8 Row, u8 Command, u32 CmdWd0,

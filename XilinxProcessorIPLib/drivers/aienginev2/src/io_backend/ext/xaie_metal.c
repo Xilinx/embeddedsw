@@ -253,15 +253,15 @@ static AieRC XAie_MetalIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask,
 * @param	Value: 32-bit value to poll for
 * @param	TimeOutUs: Timeout in micro seconds.
 *
-* @return	XAIE_SUCCESS or XAIE_FAILURE.
+* @return	XAIE_OK or XAIE_ERR.
 *
 * @note		Internal only.
 *
 *******************************************************************************/
-static u32 XAie_MetalIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
+static AieRC XAie_MetalIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
 		u32 TimeOutUs)
 {
-	u32 Ret = XAIE_FAILURE;
+	AieRC Ret = XAIE_ERR;
 	u32 Count, MinTimeOutUs;
 
 	/*
@@ -273,7 +273,7 @@ static u32 XAie_MetalIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
 
 	while (Count > 0U) {
 		if((XAie_MetalIO_Read32(IOInst, RegOff) & Mask) == Value) {
-			Ret = XAIE_SUCCESS;
+			Ret = XAIE_OK;
 			break;
 		}
 		usleep(MinTimeOutUs);
@@ -281,10 +281,10 @@ static u32 XAie_MetalIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
 	}
 
 	/* Check for the break from timed-out loop */
-	if((Ret == XAIE_FAILURE) &&
+	if((Ret == XAIE_ERR) &&
 			((XAie_MetalIO_Read32(IOInst, RegOff) & Mask) ==
 			 Value)) {
-		Ret = XAIE_SUCCESS;
+		Ret = XAIE_OK;
 	}
 
 	return Ret;
@@ -758,7 +758,7 @@ static AieRC XAie_MetalIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask,
 	return XAIE_ERR;
 }
 
-static u32 XAie_MetalIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
+static AieRC XAie_MetalIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
 		u32 TimeOutUs)
 {
 	/* no-op */
@@ -767,7 +767,7 @@ static u32 XAie_MetalIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
 	(void)Mask;
 	(void)Value;
 	(void)TimeOutUs;
-	return XAIE_FAILURE;
+	return XAIE_ERR;
 }
 
 static AieRC XAie_MetalIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data,
