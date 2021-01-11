@@ -94,6 +94,7 @@
 *       cog    01/05/21 Signal detector on/off counters needed to be flipped.
 *       cog    01/05/21 Second signal detector removed.
 *       cog    01/06/21 Added DAC data scaler APIs.
+*       cog    01/11/21 Tuning for autocalibration.
 *
 *</pre>
 *
@@ -443,6 +444,8 @@ extern "C" {
 #define XRFDC_CAL_TSCB_EN_SHIFT 15U /**< time skew coeff shift*/
 #define XRFDC_CAL_GCB_FLSH_SHIFT 12U /**< GCB accumulator flush shift*/
 #define XRFDC_CAL_GCB_ACEN_SHIFT 11U /**< GCB accumulator enable shift*/
+
+#define XRFDC_CAL_TSCB_TUNE_MASK 0x0FF0U /**< time skew tuning mask*/
 
 #define XRFDC_CAL_SLICE_SHIFT 16U /**<Coefficient shift for HSADCs*/
 

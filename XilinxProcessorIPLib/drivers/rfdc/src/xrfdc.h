@@ -268,6 +268,7 @@
 *       cog    01/05/21 Signal detector on/off counters needed to be flipped.
 *       cog    01/05/21 Second signal detector removed.
 *       cog    01/06/21 Added DAC data scaler APIs.
+*       cog    01/11/21 Tuning for autocalibration.
 *
 * </pre>
 *
@@ -1178,6 +1179,9 @@ typedef struct {
 #define XRFDC_CAL_BLOCK_OCB2 1
 #define XRFDC_CAL_BLOCK_GCB 2
 #define XRFDC_CAL_BLOCK_TSCB 3
+
+#define XRFDC_TSCB_TUNE_AUTOCAL 0x0550U
+#define XRFDC_TSCB_TUNE_NOT_AUTOCAL 0x0440U
 
 #define XRFDC_INV_SYNC_MODE_MAX 2
 
