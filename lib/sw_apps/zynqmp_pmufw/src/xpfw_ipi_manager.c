@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,14 +35,14 @@ s32 XPfw_IpiManagerInit(void)
 	u32 i;
 
 	/* Load Config for PMU IPI-0 */
-	Ipi0CfgPtr = XIpiPsu_LookupConfig(XPAR_XIPIPSU_0_DEVICE_ID);
+	Ipi0CfgPtr = XIpiPsu_LookupConfig(XPMU_IPI_0);
 	if (Ipi0CfgPtr == NULL) {
 		Status = XST_FAILURE;
 		goto Done;
 	}
 
 	/* Load Config for PMU IPI-1 */
-	Ipi1CfgPtr = XIpiPsu_LookupConfig(XPAR_XIPIPSU_1_DEVICE_ID);
+	Ipi1CfgPtr = XIpiPsu_LookupConfig(XPMU_IPI_1);
 	if (Ipi1CfgPtr == NULL) {
 		Status = XST_FAILURE;
 		goto Done;

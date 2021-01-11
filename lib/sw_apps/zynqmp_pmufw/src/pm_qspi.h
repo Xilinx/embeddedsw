@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2017 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -12,8 +12,9 @@ extern "C" {
 #endif
 
 #include "pm_common.h"
+#include "xpfw_default.h"
 
-#ifdef XPAR_PSU_QSPI_0_DEVICE_ID
+#ifdef XPAR_XQSPIPSU_0_DEVICE_ID
 /*
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily

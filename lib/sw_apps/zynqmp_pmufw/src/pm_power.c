@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -32,6 +32,7 @@
 #include "pm_gpp.h"
 #include "xpfw_aib.h"
 #include "pm_hooks.h"
+#include "xpfw_default.h"
 
 #define DEFINE_PM_POWER_CHILDREN(c)	.children = ((c)), \
 					.childCnt = ARRAY_SIZE((c))
@@ -553,9 +554,9 @@ s32 PmPowerDown(PmPower* const power)
 	if ((pmPowerIslandRpu_g.power.node.currState == PM_PWR_STATE_OFF) &&
                         (pmPowerDomainFpd_g.power.node.currState == PM_PWR_STATE_OFF)) {
 		PmRequirement* req;
-#if (STDOUT_BASEADDRESS == XPAR_PSU_UART_0_BASEADDR)
+#if (STDOUT_BASEADDRESS == XPMU_UART_0_BASEADDR)
 		req = PmRequirementGetNoMaster(&pmSlaveUart0_g);
-#elif (STDOUT_BASEADDRESS == XPAR_PSU_UART_1_BASEADDR)
+#elif (STDOUT_BASEADDRESS == XPMU_UART_1_BASEADDR)
 		req = PmRequirementGetNoMaster(&pmSlaveUart1_g);
 #endif
 		status = PmRequirementUpdate(req, 0U);
@@ -596,9 +597,9 @@ static s32 PmPowerUp(PmPower* const power)
 
 #ifdef DEBUG_MODE
 	PmRequirement* req;
-#if (STDOUT_BASEADDRESS == XPAR_PSU_UART_0_BASEADDR)
+#if (STDOUT_BASEADDRESS == XPMU_UART_0_BASEADDR)
 	req = PmRequirementGetNoMaster(&pmSlaveUart0_g);
-#elif (STDOUT_BASEADDRESS == XPAR_PSU_UART_1_BASEADDR)
+#elif (STDOUT_BASEADDRESS == XPMU_UART_1_BASEADDR)
 	req = PmRequirementGetNoMaster(&pmSlaveUart1_g);
 #endif
 	status = PmRequirementUpdate(req, PM_CAP_ACCESS);

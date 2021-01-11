@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -25,6 +25,7 @@
 #include "pm_node.h"
 #include "pm_clock.h"
 #include "pm_hooks.h"
+#include "xpfw_default.h"
 
 #define DDRC_BASE		0xFD070000U
 #define DDRC_MSTR		(DDRC_BASE + 0U)
@@ -379,7 +380,7 @@ static const PmStateTran pmDdrTransitions[] = {
 	},
 };
 
-#ifdef XPAR_PSU_DDRC_0_DEVICE_ID
+#ifdef XPAR_DDRCPSU_0_DEVICE_ID
 /* If it is required to enable drift */
 static u8 drift_enable_req __attribute__((__section__(".srdata")));
 
@@ -1952,7 +1953,7 @@ done:
 
 void ddr_io_prepare(void)
 {
-#ifdef XPAR_PSU_DDRC_0_DEVICE_ID
+#ifdef XPAR_DDRCPSU_0_DEVICE_ID
 	ddr_power_down_io();
 	ddr_io_retention_set(true);
 #endif
@@ -1964,7 +1965,7 @@ static const PmSlaveFsm pmSlaveDdrFsm = {
 	.statesCnt = PM_DDR_STATE_MAX,
 	.trans = pmDdrTransitions,
 	.transCnt = ARRAY_SIZE(pmDdrTransitions),
-#ifdef XPAR_PSU_DDRC_0_DEVICE_ID
+#ifdef XPAR_DDRCPSU_0_DEVICE_ID
 	.enterState = PmDdrFsmHandler,
 #else
 	.enterState = NULL,

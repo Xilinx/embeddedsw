@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -15,6 +15,7 @@
 #include "pm_gic_proxy.h"
 #include "pm_requirement.h"
 #include "pm_sram.h"
+#include "xpfw_default.h"
 
 /* Always-on slave has only one state */
 #define PM_AON_SLAVE_STATE	0U
@@ -683,8 +684,8 @@ static PmWakeEventEth pmEth0Wake = {
 	.wakeEnabled = false,
 	.receiveQptr = 0U,
 	.receiveQ1ptr = 0U,
-#ifdef XPAR_PSU_ETHERNET_0_DEVICE_ID
-	.baseAddr = XPAR_PSU_ETHERNET_0_BASEADDR,
+#ifdef XPMU_ETHERNET_0
+	.baseAddr = XPMU_ETHERNET_0_BASEADDR,
 #else
 	.baseAddr = 0U,
 #endif
@@ -729,8 +730,8 @@ static PmWakeEventEth pmEth1Wake = {
 	.wakeEnabled = false,
 	.receiveQptr = 0U,
 	.receiveQ1ptr = 0U,
-#ifdef XPAR_PSU_ETHERNET_1_DEVICE_ID
-	.baseAddr = XPAR_PSU_ETHERNET_1_BASEADDR,
+#ifdef XPMU_ETHERNET_1
+	.baseAddr = XPMU_ETHERNET_1_BASEADDR,
 #else
 	.baseAddr = 0U,
 #endif
@@ -775,8 +776,8 @@ static PmWakeEventEth pmEth2Wake = {
 	.wakeEnabled = false,
 	.receiveQptr = 0U,
 	.receiveQ1ptr = 0U,
-#ifdef XPAR_PSU_ETHERNET_2_DEVICE_ID
-	.baseAddr = XPAR_PSU_ETHERNET_2_BASEADDR,
+#ifdef XPMU_ETHERNET_2
+	.baseAddr = XPMU_ETHERNET_2_BASEADDR,
 #else
 	.baseAddr = 0U,
 #endif
@@ -821,8 +822,8 @@ static PmWakeEventEth pmEth3Wake = {
 	.wakeEnabled = false,
 	.receiveQptr = 0U,
 	.receiveQ1ptr = 0U,
-#ifdef XPAR_PSU_ETHERNET_3_DEVICE_ID
-	.baseAddr = XPAR_PSU_ETHERNET_3_BASEADDR,
+#ifdef XPMU_ETHERNET_3
+	.baseAddr = XPMU_ETHERNET_3_BASEADDR,
 #else
 	.baseAddr = 0U,
 #endif

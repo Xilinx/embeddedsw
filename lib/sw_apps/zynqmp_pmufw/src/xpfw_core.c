@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -112,8 +112,8 @@ XStatus XPfw_CoreConfigure(void)
 void XPfw_EnableSlvErr(void)
 {
 #ifdef ENABLE_NODE_IDLING
-#if defined XPAR_PSU_GDMA_0_DEVICE_ID || \
-	defined XPAR_PSU_ADMA_0_DEVICE_ID
+#if defined XPMU_ZDMA_8 || \
+	defined XPMU_ZDMA_0
 	u32 XZdma_BaseAddr;
 	u8 Channel;
 #endif
@@ -155,8 +155,8 @@ void XPfw_EnableSlvErr(void)
 #endif
 #endif
 
-#ifdef XPAR_PSU_GDMA_0_DEVICE_ID
-	XZdma_BaseAddr = XPAR_PSU_GDMA_0_BASEADDR;
+#ifdef XPMU_ZDMA_8
+	XZdma_BaseAddr = XPMU_ZDMA_8_BASEADDR;
 	for (Channel = 0; Channel < XZDMA_NUM_CHANNEL; Channel++) {
 		/* Enable SLVERR */
 		XPfw_Write32(XZdma_BaseAddr, SLVERR_MASK);
@@ -165,8 +165,8 @@ void XPfw_EnableSlvErr(void)
 	}
 #endif
 
-#ifdef XPAR_PSU_ADMA_0_DEVICE_ID
-	XZdma_BaseAddr = XPAR_PSU_ADMA_0_BASEADDR;
+#ifdef XPMU_ZDMA_0
+	XZdma_BaseAddr = XPMU_ZDMA_0_BASEADDR;
 	for (Channel = 0; Channel < XZDMA_NUM_CHANNEL; Channel++) {
 		/* Enable SLVERR */
 		XPfw_Write32(XZdma_BaseAddr, SLVERR_MASK);
@@ -182,7 +182,7 @@ void XPfw_EnableSlvErr(void)
 			CSUDMA_APB_ERR_RESP_MASK);
 
 #if defined ENABLE_POS_QSPI || \
-	defined XPAR_PSU_QSPI_0_DEVICE_ID
+	defined XPAR_XQSPIPSU_0_DEVICE_ID
 	/* Enable SLVERR */
 	XPfw_RMW32(QSPIDMA_DST_CTRL, XQSPIPSU_QSPIDMA_DST_CTRL_APB_ERR_RESP_MASK,
 			XQSPIPSU_QSPIDMA_DST_CTRL_APB_ERR_RESP_MASK);

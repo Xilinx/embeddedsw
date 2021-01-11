@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -17,63 +17,64 @@ extern "C" {
 #endif
 
 #include "xparameters.h"
+#include "xpfw_default.h"
 
-#if defined(XPAR_PSU_TTC_0_DEVICE_ID) || \
-	defined(XPAR_PSU_TTC_3_DEVICE_ID) || \
-	defined(XPAR_PSU_TTC_6_DEVICE_ID) || \
-	defined(XPAR_PSU_TTC_9_DEVICE_ID)
+#if defined(XPMU_XTTCPS_0) || \
+	defined(XPMU_XTTCPS_3) || \
+	defined(XPMU_XTTCPS_6) || \
+	defined(XPMU_XTTCPS_9)
 	#include <xttcps_hw.h>
 void NodeTtcIdle(u32 BaseAddress);
 #endif
 
-#if defined(XPAR_PSU_ETHERNET_0_DEVICE_ID) || \
-	defined(XPAR_PSU_ETHERNET_1_DEVICE_ID) || \
-	defined(XPAR_PSU_ETHERNET_2_DEVICE_ID) || \
-	defined(XPAR_PSU_ETHERNET_3_DEVICE_ID)
+#if defined(XPMU_ETHERNET_0) || \
+	defined(XPMU_ETHERNET_1) || \
+	defined(XPMU_ETHERNET_2) || \
+	defined(XPMU_ETHERNET_3)
 	#include <xemacps_hw.h>
 void NodeGemIdle(u32 BaseAddress);
 #endif
 
-#if defined(XPAR_PSU_UART_0_DEVICE_ID) || \
-	defined(XPAR_PSU_UART_1_DEVICE_ID)
+#if defined(XPMU_UART_0) || \
+	defined(XPMU_UART_1)
 	#include <xuartps_hw.h>
 #endif
 
-#if defined(XPAR_PSU_SPI_0_DEVICE_ID) || \
-	defined(XPAR_PSU_SPI_1_DEVICE_ID)
+#if defined(XPMU_SPI_0) || \
+	defined(XPMU_SPI_1)
 	#include <xspips_hw.h>
 #endif
 
-#if defined(XPAR_PSU_I2C_0_DEVICE_ID) || \
-	defined(XPAR_PSU_I2C_1_DEVICE_ID)
+#if defined(XPMU_I2C_0) || \
+	defined(XPMU_I2C_1)
 	#include <xiicps_hw.h>
 void NodeI2cIdle(u32 BaseAddress);
 #endif
 
-#if defined(XPAR_PSU_SD_0_DEVICE_ID) || \
-	defined(XPAR_PSU_SD_1_DEVICE_ID)
+#if defined(XPMU_SD_0) || \
+	defined(XPMU_SD_1)
 	#include <xsdps_hw.h>
 void NodeSdioIdle(u32 BaseAddress);
 #endif
 
-#ifdef XPAR_PSU_QSPI_0_DEVICE_ID
+#ifdef XPAR_XQSPIPSU_0_DEVICE_ID
 	#include <xqspipsu_hw.h>
 void NodeQspiIdle(u32 BaseAddress);
 #endif
 
-#ifdef XPAR_PSU_GPIO_0_DEVICE_ID
+#ifdef XPAR_XGPIOPS_0_DEVICE_ID
 	#include <xgpiops_hw.h>
 #endif
 
-#if defined(XPAR_XUSBPSU_0_DEVICE_ID) || \
-	defined(XPAR_XUSBPSU_1_DEVICE_ID)
+#if defined(XPMU_USB_0) || \
+	defined(XPMU_USB_1)
 #include "xusbpsu.h"
 #include "xusbpsu_endpoint.h"
 void NodeUsbIdle(u32 BaseAddress);
 #endif
 
 #ifdef XPAR_XDPPSU_0_DEVICE_ID
-#ifdef XPAR_PSU_DPDMA_DEVICE_ID
+#ifdef XPAR_XDPDMA_0_DEVICE_ID
 #include "xdpdma_hw.h"
 #endif
 #include "xdppsu_hw.h"
@@ -84,8 +85,8 @@ void NodeDpIdle(u32 BaseAddress);
 void NodeSataIdle(u32 BaseAddress);
 #endif
 
-#if defined(XPAR_PSU_ZDMA_0_DEVICE_ID) || \
-	defined(XPAR_PSU_ADMA_0_DEVICE_ID)
+#if defined(XPMU_ZDMA_8) || \
+	defined(XPMU_ZDMA_0)
 #include "xzdma_hw.h"
 void NodeZdmaIdle(u32 BaseAddress);
 /* Total number of channels and offset per DMA */
@@ -94,13 +95,13 @@ void NodeZdmaIdle(u32 BaseAddress);
 #define XZDMA_NUM_CHANNEL		8U	/* Number of channels */
 #endif
 
-#if defined(XPAR_PSU_CAN_0_DEVICE_ID) || \
-	defined(XPAR_PSU_CAN_1_DEVICE_ID)
+#if defined(XPMU_CAN_0) || \
+	defined(XPMU_CAN_1)
 #include "xcanps_hw.h"
 void NodeCanIdle(u32 BaseAddress);
 #endif
 
-#if defined(XPAR_PSU_NAND_0_DEVICE_ID)
+#if defined(XPAR_XNANDPSU_0_DEVICE_ID)
 #include "xnandpsu.h"
 void NodeNandIdle(u32 BaseAddress);
 #endif
