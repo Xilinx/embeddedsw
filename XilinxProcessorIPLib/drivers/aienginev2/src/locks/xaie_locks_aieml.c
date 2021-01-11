@@ -74,7 +74,7 @@ AieRC _XAieMl_LockRelease(XAie_DevInst *DevInst, const XAie_LockMod *LockMod,
 
 	if(XAie_MaskPoll(DevInst, RegAddr, XAIEML_LOCK_RESULT_MASK,
 				(XAIEML_LOCK_RESULT_SUCCESS <<
-				 XAIEML_LOCK_RESULT_LSB), TimeOut)) {
+				 XAIEML_LOCK_RESULT_LSB), TimeOut) != XAIE_OK) {
 
 		return XAIE_LOCK_RESULT_FAILED;
 	}
@@ -121,7 +121,7 @@ AieRC _XAieMl_LockAcquire(XAie_DevInst *DevInst, const XAie_LockMod *LockMod,
 
 	if(XAie_MaskPoll(DevInst, RegAddr, XAIEML_LOCK_RESULT_MASK,
 				(XAIEML_LOCK_RESULT_SUCCESS <<
-				 XAIEML_LOCK_RESULT_LSB), TimeOut)) {
+				 XAIEML_LOCK_RESULT_LSB), TimeOut) != XAIE_OK) {
 
 		return XAIE_LOCK_RESULT_FAILED;
 	}
