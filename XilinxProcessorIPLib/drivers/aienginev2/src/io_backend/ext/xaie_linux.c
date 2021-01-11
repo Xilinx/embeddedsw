@@ -739,7 +739,7 @@ static AieRC XAie_LinuxIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data,
 	VirtAddr =  _XAie_GetVirtAddrFromOffset(Inst, RegOff, Size);
 	if(VirtAddr != NULL) {
 		_XAie_CopyDataToMem(VirtAddr, Data, Size);
-		return XAIE_ERR;
+		return XAIE_OK;
 	}
 
 	/* Handle other registers */
@@ -779,7 +779,7 @@ static AieRC XAie_LinuxIO_BlockSet32(void *IOInst, u64 RegOff, u32 Data,
 		for(u32 i = 0; i < Size; i++) {
 			*VirtAddr++ = Data;
 		}
-		return XAIE_ERR;
+		return XAIE_OK;
 	}
 
 	/* Handle other registers */
