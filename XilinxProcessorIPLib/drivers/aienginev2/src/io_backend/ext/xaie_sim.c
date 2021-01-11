@@ -175,15 +175,15 @@ static AieRC XAie_SimIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask,
 * @param	Value: 32-bit value to poll for
 * @param	TimeOutUs: Timeout in micro seconds.
 *
-* @return	XAIE_SUCCESS or XAIE_FAILURE.
+* @return	XAIE_OK or XAIE_ERR.
 *
 * @note		Internal only.
 *
 *******************************************************************************/
-static u32 XAie_SimIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
+static AieRC XAie_SimIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
 		u32 TimeOutUs)
 {
-	u32 Ret = XAIE_FAILURE;
+	u32 Ret = XAIE_ERR;
 
 	/* Increment Timeout value to 1 if user passed value is 1 */
 	if(TimeOutUs == 0U)
@@ -191,7 +191,7 @@ static u32 XAie_SimIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
 
 	while(TimeOutUs > 0U) {
 		if((XAie_SimIO_Read32(IOInst, RegOff) & Mask) == Value) {
-			Ret = XAIE_SUCCESS;
+			Ret = XAIE_OK;
 			break;
 		}
 		usleep(1);
@@ -353,7 +353,7 @@ static AieRC XAie_SimIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask,
 	return XAIE_ERR;
 }
 
-static u32 XAie_SimIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
+static AieRC XAie_SimIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
 		u32 TimeOutUs)
 {
 	/* no-op */
@@ -362,7 +362,7 @@ static u32 XAie_SimIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
 	(void)Mask;
 	(void)Value;
 	(void)TimeOutUs;
-	return XAIE_FAILURE;
+	return XAIE_ERR;
 }
 
 static AieRC XAie_SimIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data,
