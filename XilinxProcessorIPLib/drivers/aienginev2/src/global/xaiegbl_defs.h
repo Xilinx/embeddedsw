@@ -45,8 +45,6 @@ typedef uint64_t		u64;
 
 #define XAIE_DEV_GEN_AIE		1U
 
-#define XAIE_SUCCESS			0U
-#define XAIE_FAILURE			1U
 #define XAIE_COMPONENT_IS_READY		1U
 
 #define XAIE_NULL			(void *)0U
