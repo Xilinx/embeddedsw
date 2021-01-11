@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,15 +35,6 @@
  * address divided by 2.
  */
 #define XBIR_IIC_SCLK_RATE		(100000U)
-#define XBIR_IIC_SLV_MON_LOOP_COUNT 	(0x00FFFFFFU)	/* Slave Monitor Loop
-								Count */
-
-/*
- * The page size determines how much data should be written at a time.
- * The write function should be called with this as a maximum byte count.
- */
-#define XBIR_IIC_MAX_SIZE		(64U)
-#define XBIR_IIC_PAGE_SIZE		(16U)
 
 /**************************** Type Definitions *******************************/
 
@@ -77,6 +68,21 @@ static XIicPs IicInstance = {0U};	/* The instance of the IIC device. */
 int Xbir_IicEepromReadData(u8 *BufferPtr, u16 ByteCount, u8 EepromAddr)
 {
 	int Status = XST_FAILURE;
+	/* Eeprom Page size is 32 bytes and hence 2 bytes for array */
+	u8 WriteBuffer[2U] = {0U};
+
+	Status = XIicPs_MasterSendPolled(&IicInstance, WriteBuffer,
+		sizeof(WriteBuffer), EepromAddr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/*
+	 * Wait until bus is idle to start another transfer.
+	 */
+	while (XIicPs_BusIsBusy(&IicInstance)) {
+		;
+	}
 
 	/* Receive the Data */
 	Status = XIicPs_MasterRecvPolled(&IicInstance, BufferPtr,
