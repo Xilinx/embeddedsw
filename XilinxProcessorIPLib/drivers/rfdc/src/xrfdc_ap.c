@@ -26,6 +26,7 @@
 *       cog    01/05/21 Signal detector on/off counters needed to be flipped.
 *       cog    01/05/21 Second signal detector removed.
 *       cog    01/06/21 Added DAC data scaler APIs.
+*       cog    01/11/21 Tuning for autocalibration.
 *
 * </pre>
 *
@@ -1342,6 +1343,7 @@ u32 XRFdc_SetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u8 C
 	XRFdc_Mixer_Settings Mixer_Settings = { 0 };
 	u32 NyquistZone = 0U;
 	u8 CalibrationModeReg;
+	u32 TimeSkewTuning;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
@@ -1429,18 +1431,23 @@ u32 XRFdc_SetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u8 C
 		switch (CalibrationMode) {
 		case XRFDC_CALIB_MODE1:
 			CalibrationModeReg = XRFDC_CALIB_MODE_NEG_ABS_SUM;
+			TimeSkewTuning = XRFDC_TSCB_TUNE_NOT_AUTOCAL;
 			break;
 		case XRFDC_CALIB_MODE2:
 			CalibrationModeReg = XRFDC_CALIB_MODE_ABS_DIFF;
+			TimeSkewTuning = XRFDC_TSCB_TUNE_NOT_AUTOCAL;
 			break;
 		default:
 			CalibrationModeReg = XRFDC_CALIB_MODE_MIXED;
+			TimeSkewTuning = XRFDC_TSCB_TUNE_AUTOCAL;
 			break;
 		}
 		for (; Index < NoOfBlocks; Index++) {
 			BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) + XRFDC_BLOCK_ADDR_OFFSET(Index);
 			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_TISK_CRL5_OFFSET, XRFDC_CAL_MODES_MASK,
 					CalibrationModeReg);
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_TISK_CRL0_OFFSET, XRFDC_CAL_TSCB_TUNE_MASK,
+					TimeSkewTuning);
 			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Analog_Datapath[Index].CalibrationMode =
 				CalibrationMode;
 		}
