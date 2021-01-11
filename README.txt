@@ -16,16 +16,19 @@ The standalone software is divided into following directories:
 		program 2nd level bitstream
 
 Every driver, sw_apps and sw_services has one or more of these sub-directories:
-1. data		- contains tcl, mdd, testapp tcl or header files used in SDK
+1. data		- contains tcl, mdd, testapp tcl or header files used in Vitis
 2. doc		- documentation of source code in form of pdf or html 
 3. examples	- illustrating different use cases of driver
 4. src		- driver interface code implementing functionality of IP
 
 <repo>
+|-LICENSES
+|
 |-ThirdParty
 |	|- bsp
-|		|- freertos1-_xilinx
+|		|- freertos10_xilinx
 |			|- data
+			|- examples
 |			|- src
 |				|- License
 |				|- Source
@@ -51,7 +54,7 @@ Every driver, sw_apps and sw_services has one or more of these sub-directories:
 |			|- src
 |				|- arm
 |					|- common
-|					|- cortexa53
+|					|- ARMv8
 |					|- cortexa9
 |					|- cortexr5
 |           	|- common
@@ -87,7 +90,7 @@ Every driver, sw_apps and sw_services has one or more of these sub-directories:
 Building FSBL from git:
 ==============================
 FSBL(zynq_fsbl/zynqmp_fsbl) has 3 directories.
-	1. data - It contains files for SDK
+	1. data - It contains files for Vitis
 	2. src  - It contains the FSBL source files
 	3. misc - It contains miscellaneous files required to
 		  compile FSBL.
