@@ -85,7 +85,7 @@ static AieRC _XAie_CoreWaitStatus(XAie_DevInst *DevInst, XAie_LocType Loc,
 		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
 
 	if(XAie_MaskPoll(DevInst, RegAddr, Mask, Value, TimeOut) !=
-			XAIE_SUCCESS) {
+			XAIE_OK) {
 		XAIE_DBG("Status poll time out\n");
 		return XAIE_CORE_STATUS_TIMEOUT;
 	}
