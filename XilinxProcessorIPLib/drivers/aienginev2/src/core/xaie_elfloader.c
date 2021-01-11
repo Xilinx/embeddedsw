@@ -447,12 +447,12 @@ AieRC XAie_LoadElfMem(XAie_DevInst *DevInst, XAie_LocType Loc,
 * @param	MapPtr: Path to the Map file.
 * @param	StackSzPtr: Pointer to the stack range structure.
 *
-* @return	XAIE_SUCCESS on success, else XAIE_FAILURE.
+* @return	XAIE_OK on success, else XAIE_ERR.
 *
 * @note		None.
 *
 *******************************************************************************/
-static u32 XAieSim_GetStackRange(const char *MapPtr,
+static AieRC XAieSim_GetStackRange(const char *MapPtr,
 		XAieSim_StackSz *StackSzPtr)
 {
 	FILE *Fd;
@@ -468,7 +468,7 @@ static u32 XAieSim_GetStackRange(const char *MapPtr,
 	Fd = fopen(MapPtr, "r");
 	if(Fd == NULL) {
 		XAIE_ERROR("Invalid Map file\n");
-		return XAIE_FAILURE;
+		return XAIE_ERR;
 	}
 
 	while(fgets(buffer, 200U, Fd) != NULL) {
@@ -482,9 +482,9 @@ static u32 XAieSim_GetStackRange(const char *MapPtr,
 	fclose(Fd);
 
 	if(StackSzPtr->start == 0xFFFFFFFFU) {
-		return XAIE_FAILURE;
+		return XAIE_ERR;
 	} else {
-		return XAIE_SUCCESS;
+		return XAIE_OK;
 	}
 }
 #endif
@@ -540,7 +540,7 @@ AieRC XAie_LoadElf(XAie_DevInst *DevInst, XAie_LocType Loc, const char *ElfPtr,
 	 * profiling an simulation. This code is retained as is from v1 except
 	 * minor changes to priting error message.
 	 */
-	u32 Status;
+	AieRC Status;
 	char *MapPath;
 	const char *MapPathSuffix = ".map";
 	XAieSim_StackSz StackSz;
@@ -557,7 +557,7 @@ AieRC XAie_LoadElf(XAie_DevInst *DevInst, XAie_LocType Loc, const char *ElfPtr,
 	free(MapPath);
 	XAIE_DBG("Stack start:%08x, end:%08x\n", StackSz.start,
 			StackSz.end);
-	if(Status != XAIE_SUCCESS) {
+	if(Status != XAIE_OK) {
 		XAIE_ERROR("Stack range definition failed\n");
 		return Status;
 	}
