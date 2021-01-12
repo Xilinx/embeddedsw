@@ -18,6 +18,8 @@
 * 1.00  bm   12/16/20 First release
 *       kal  12/23/20 Initialize Status to XST_FAILURE in XLoader_AesKatTest
 *       kpt  01/06/21 Added redundancy for the loop in XLoader_CheckNonZeroPpk
+*       kpt  01/12/21 Added check to validate keysrc for partitions when
+*                     DEC only efuse bits are set
 *
 * </pre>
 *
@@ -225,6 +227,8 @@ int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 			const XilPdi_PrtnHdr *PrtnHdr)
 {
 	int Status = XST_FAILURE;
+	volatile u32 ReadReg = 0U;
+	volatile u32 ReadRegTmp = 0U;
 
 	/* Check if encryption is enabled */
 	if (PrtnHdr->EncStatus != 0x00U) {
@@ -252,6 +256,19 @@ int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 		if (Status != XST_SUCCESS) {
 			XPlmi_Printf(DEBUG_INFO, "AES KAT test failed\n\r");
 			goto END;
+		}
+		/* Validate keysrc when DEC only efuse bits are set */
+		ReadReg = XPlmi_In32(XLOADER_EFUSE_SEC_MISC0_OFFSET) &
+				XLOADER_EFUSE_SEC_DEC_MASK;
+		ReadRegTmp = XPlmi_In32(XLOADER_EFUSE_SEC_MISC0_OFFSET) &
+				XLOADER_EFUSE_SEC_DEC_MASK;
+		if ((ReadReg != 0x00U) || (ReadRegTmp != 0x00U)) {
+			if ((SecurePtr->PrtnHdr->EncStatus == XLOADER_EFUSE_KEY) ||
+				(SecurePtr->PrtnHdr->EncStatus == XLOADER_BBRAM_KEY)) {
+				Status = XPlmi_UpdateStatus(
+						XLOADER_SEC_ENC_ONLY_KEYSRC_ERR, 0);
+				goto END;
+			}
 		}
 	}
 	Status = XST_SUCCESS;
