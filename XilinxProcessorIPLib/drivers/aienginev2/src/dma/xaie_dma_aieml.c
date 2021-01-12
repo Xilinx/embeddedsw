@@ -602,6 +602,7 @@ AieRC _XAieMl_DmaGetPendingBdCount(XAie_DevInst *DevInst, XAie_LocType Loc,
 		const XAie_DmaMod *DmaMod, u8 ChNum, XAie_DmaDirection Dir,
 		u8 *PendingBd)
 {
+	AieRC RC;
 	u64 Addr;
 	u32 Mask, StatusReg, TaskQSize;
 
@@ -609,7 +610,10 @@ AieRC _XAieMl_DmaGetPendingBdCount(XAie_DevInst *DevInst, XAie_LocType Loc,
 		DmaMod->ChStatusBase + ChNum * XAIEML_DMA_STATUS_CHNUM_OFFSET +
 		Dir * DmaMod->ChStatusOffset;
 
-	StatusReg = XAie_Read32(DevInst, Addr);
+	RC = XAie_Read32(DevInst, Addr, &StatusReg);
+	if(RC != XAIE_OK) {
+		return RC;
+	}
 
 	TaskQSize = XAie_GetField(StatusReg,
 			DmaMod->ChProp->DmaChStatus->Aie2DmaChStatus.TaskQSize.Lsb,

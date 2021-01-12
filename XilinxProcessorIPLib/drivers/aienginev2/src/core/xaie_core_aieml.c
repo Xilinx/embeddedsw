@@ -136,13 +136,18 @@ AieRC _XAieMl_CoreWaitForDone(XAie_DevInst *DevInst, XAie_LocType Loc,
 AieRC _XAieMl_CoreReadDoneBit(XAie_DevInst *DevInst, XAie_LocType Loc,
 		u8 *DoneBit, const struct XAie_CoreMod *CoreMod)
 {
+	AieRC RC;
 	u64 RegAddr;
 	u32 Data;
 
 	RegAddr = CoreMod->CoreSts->RegOff +
 		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
 
-	Data = XAie_Read32(DevInst, RegAddr);
+	RC = XAie_Read32(DevInst, RegAddr, &Data);
+	if(RC != XAIE_OK) {
+		return RC;
+	}
+
 	*DoneBit = (Data & CoreMod->CoreSts->Done.Mask) ? 1U : 0U;
 
 	return XAIE_OK;
