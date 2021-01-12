@@ -269,7 +269,7 @@ static void _XAie_CdoIO_NpiWrite32(void *IOInst, u32 RegOff, u32 RegVal)
 
 	RegAddr = CdoIOInst->NpiBaseAddr + RegOff;
 	cdo_Write32(RegAddr, RegVal);
-	return XAIE_OK;
+	return;
 }
 
 /*****************************************************************************/
