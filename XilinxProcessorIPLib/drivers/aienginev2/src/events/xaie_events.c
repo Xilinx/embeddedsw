@@ -1353,7 +1353,7 @@ AieRC XAie_EventReadStatus(XAie_DevInst *DevInst, XAie_LocType Loc,
 {
 	AieRC RC;
 	u64 RegAddr;
-	u32 RegOff;
+	u32 RegOff, RegVal;
 	u8 TileType, PhyEvent;
 	const XAie_EvntMod *EvntMod;
 
@@ -1389,7 +1389,12 @@ AieRC XAie_EventReadStatus(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 	RegOff = EvntMod->BaseStatusRegOff + (PhyEvent / 32U) * 4U;
 	RegAddr = _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) + RegOff;
-	*Status =  (XAie_Read32(DevInst, RegAddr) >> (PhyEvent % 32U)) & 1U;
+	RC = XAie_Read32(DevInst, RegAddr, &RegVal);
+	if(RC != XAIE_OK) {
+		return RC;
+	}
+
+	*Status =  (RegVal >> (PhyEvent % 32U)) & 1U;
 
 	return XAIE_OK;
 }

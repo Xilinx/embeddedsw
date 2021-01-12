@@ -290,8 +290,9 @@ AieRC XAie_SetTimerResetEvent(XAie_DevInst *DevInst, XAie_LocType Loc,
 AieRC XAie_ReadTimer(XAie_DevInst *DevInst, XAie_LocType Loc,
 		XAie_ModuleType Module, u64 *TimerVal)
 {
+	AieRC RC;
 	u32 CurValHigh, CurValLow;
-	u8 TileType, RC;
+	u8 TileType;
 	const XAie_TimerMod *TimerMod;
 
 	if((DevInst == XAIE_NULL) || (TimerVal == XAIE_NULL) ||
@@ -322,12 +323,17 @@ AieRC XAie_ReadTimer(XAie_DevInst *DevInst, XAie_LocType Loc,
 	}
 
 	/* Read the timer high and low values before wait */
-	CurValLow = XAie_Read32(DevInst,
-			_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) +
-			TimerMod->LowOff);
-	CurValHigh = XAie_Read32(DevInst,
-			_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) +
-			TimerMod->HighOff);
+	RC = XAie_Read32(DevInst, _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) +
+			TimerMod->LowOff, &CurValLow);
+	if(RC != XAIE_OK) {
+		return RC;
+	}
+
+	RC = XAie_Read32(DevInst, _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) +
+			TimerMod->HighOff, &CurValHigh);
+	if(RC != XAIE_OK) {
+		return RC;
+	}
 
 	*TimerVal = ((u64)CurValHigh << XAIE_TIMER_32BIT_SHIFT) | CurValLow;
 
@@ -395,24 +401,37 @@ AieRC XAie_WaitCycles(XAie_DevInst *DevInst, XAie_LocType Loc,
 	}
 
 	/* Read the timer high and low values before wait */
-	CurLow = XAie_Read32(DevInst,
-			_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) +
-			TimerMod->LowOff);
-	CurHigh = XAie_Read32(DevInst,
-			_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) +
-			TimerMod->HighOff);
+	RC = XAie_Read32(DevInst, _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) +
+			TimerMod->LowOff, &CurLow);
+	if(RC != XAIE_OK) {
+		return RC;
+	}
+
+	RC = XAie_Read32(DevInst, _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) +
+			TimerMod->HighOff, &CurHigh);
+	if(RC != XAIE_OK) {
+		return RC;
+	}
 
 	StartVal = ((u64)CurHigh << XAIE_TIMER_32BIT_SHIFT) | CurLow;
 	EndVal = StartVal + CycleCnt;
 
 	while(CurVal < EndVal) {
 		/* Read the timer high and low values */
-		CurLow = XAie_Read32(DevInst,
+		RC = XAie_Read32(DevInst,
 				_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) +
-				TimerMod->LowOff);
-		CurHigh = XAie_Read32(DevInst,
+				TimerMod->LowOff, &CurLow);
+		if(RC != XAIE_OK) {
+			return RC;
+		}
+
+		RC = XAie_Read32(DevInst,
 				_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) +
-				TimerMod->HighOff);
+				TimerMod->HighOff, &CurHigh);
+		if(RC != XAIE_OK) {
+			return RC;
+		}
+
 		CurVal = ((u64)CurHigh << XAIE_TIMER_32BIT_SHIFT) | CurLow;
 	}
 

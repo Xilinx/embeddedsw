@@ -118,17 +118,20 @@ static AieRC XAie_BaremetalIO_Write32(void *IOInst, u64 RegOff, u32 Value)
 *
 * @param	IOInst: IO instance pointer
 * @param	RegOff: Register offset to read from.
+* @param	Data: Pointer to store the 32 bit value
 *
-* @return	32-bit read value.
+* @return	XAIE_OK on success.
 *
 * @note		Internal only.
 *
 *******************************************************************************/
-static u32 XAie_BaremetalIO_Read32(void *IOInst, u64 RegOff)
+static AieRC XAie_BaremetalIO_Read32(void *IOInst, u64 RegOff, u32 *Data)
 {
 	XAie_BaremetalIO *BaremetalIOInst = (XAie_BaremetalIO *)IOInst;
 
-	return Xil_In32(BaremetalIOInst->BaseAddr + RegOff);
+	*Data = Xil_In32(BaremetalIOInst->BaseAddr + RegOff);
+
+	return XAIE_OK;
 }
 
 /*****************************************************************************/
@@ -150,14 +153,18 @@ static u32 XAie_BaremetalIO_Read32(void *IOInst, u64 RegOff)
 static AieRC XAie_BaremetalIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask,
 		u32 Value)
 {
-	u32 RegVal = XAie_BaremetalIO_Read32(IOInst, RegOff);
+	AieRC RC;
+	u32 RegVal;
+
+	RC = XAie_BaremetalIO_Read32(IOInst, RegOff, &RegVal);
+	if(RC != XAIE_OK) {
+		return RC;
+	}
 
 	RegVal &= ~Mask;
 	RegVal |= Value;
 
-	XAie_BaremetalIO_Write32(IOInst, RegOff, RegVal);
-
-	return XAIE_OK;
+	return XAie_BaremetalIO_Write32(IOInst, RegOff, RegVal);
 }
 
 /*****************************************************************************/
@@ -180,7 +187,7 @@ static AieRC XAie_BaremetalIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask,
 		u32 Value, u32 TimeOutUs)
 {
 	AieRC Ret = XAIE_ERR;
-	u32 Count, MinTimeOutUs;
+	u32 Count, MinTimeOutUs, RegVal;
 
 	/*
 	 * Any value less than 200 us becomes noticable overhead. This is based
@@ -190,7 +197,8 @@ static AieRC XAie_BaremetalIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask,
 	Count = ((u64)TimeOutUs + MinTimeOutUs - 1) / MinTimeOutUs;
 
 	while (Count > 0U) {
-		if((XAie_BaremetalIO_Read32(IOInst, RegOff) & Mask) == Value) {
+		XAie_BaremetalIO_Read32(IOInst, RegOff, &RegVal);
+		if((RegVal & Mask) == Value) {
 			Ret = XAIE_OK;
 			break;
 		}
@@ -199,8 +207,8 @@ static AieRC XAie_BaremetalIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask,
 	}
 
 	/* Check for the break from timed-out loop */
-	if((Ret == XAIE_ERR) &&
-			((XAie_BaremetalIO_Read32(IOInst, RegOff) & Mask) ==
+	XAie_BaremetalIO_Read32(IOInst, RegOff, &RegVal);
+	if((Ret == XAIE_ERR) && ((RegVal & Mask) ==
 			 Value)) {
 		Ret = XAIE_OK;
 	}
@@ -445,12 +453,13 @@ static AieRC XAie_BaremetalIO_Write32(void *IOInst, u64 RegOff, u32 Value)
 	return XAIE_ERR;
 }
 
-static u32 XAie_BaremetalIO_Read32(void *IOInst, u64 RegOff)
+static AieRC XAie_BaremetalIO_Read32(void *IOInst, u64 RegOff, u32 *Data)
 {
 	/* no-op */
 	(void)IOInst;
 	(void)RegOff;
-	return 0;
+	(void)Data;
+	return XAIE_ERR;
 }
 
 static AieRC XAie_BaremetalIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask,

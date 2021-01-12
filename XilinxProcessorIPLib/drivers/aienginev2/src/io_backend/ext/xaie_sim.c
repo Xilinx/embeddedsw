@@ -122,17 +122,20 @@ static AieRC XAie_SimIO_Write32(void *IOInst, u64 RegOff, u32 Value)
 *
 * @param	IOInst: IO instance pointer
 * @param	RegOff: Register offset to read from.
+* @param	Data: Pointer to store the 32 bit value
 *
-* @return	32-bit read value.
+* @return	XAIE_OK on success.
 *
 * @note		Internal only.
 *
 *******************************************************************************/
-static u32 XAie_SimIO_Read32(void *IOInst, u64 RegOff)
+static AieRC XAie_SimIO_Read32(void *IOInst, u64 RegOff, u32 *Data)
 {
 	XAie_SimIO *SimIOInst = (XAie_SimIO *)IOInst;
 
-	return ess_Read32(SimIOInst->BaseAddr + RegOff);
+	*Data = ess_Read32(SimIOInst->BaseAddr + RegOff);
+
+	return XAIE_OK;
 }
 
 /*****************************************************************************/
@@ -183,14 +186,17 @@ static AieRC XAie_SimIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask,
 static AieRC XAie_SimIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
 		u32 TimeOutUs)
 {
-	u32 Ret = XAIE_ERR;
+	AieRC Ret = XAIE_ERR;
+	u32 RegVal;
+
 
 	/* Increment Timeout value to 1 if user passed value is 1 */
 	if(TimeOutUs == 0U)
 		TimeOutUs++;
 
 	while(TimeOutUs > 0U) {
-		if((XAie_SimIO_Read32(IOInst, RegOff) & Mask) == Value) {
+		XAie_SimIO_Read32(IOInst, RegOff, &RegVal);
+		if((RegVal & Mask) == Value) {
 			Ret = XAIE_OK;
 			break;
 		}
@@ -333,11 +339,12 @@ static AieRC XAie_SimIO_Write32(void *IOInst, u64 RegOff, u32 Value)
 	return XAIE_ERR;
 }
 
-static u32 XAie_SimIO_Read32(void *IOInst, u64 RegOff)
+static AieRC XAie_SimIO_Read32(void *IOInst, u64 RegOff, u32 *Data)
 {
 	/* no-op */
 	(void)IOInst;
 	(void)RegOff;
+	(void)Data;
 	return 0;
 }
 

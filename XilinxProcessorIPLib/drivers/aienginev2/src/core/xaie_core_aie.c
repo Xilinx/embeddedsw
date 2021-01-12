@@ -137,7 +137,9 @@ AieRC _XAie_CoreWaitForDone(XAie_DevInst *DevInst, XAie_LocType Loc,
 	Count = ((u64)TimeOut + MinTimeOut - 1) / MinTimeOut;
 
 	while (Count > 0U) {
-		StatusReg = XAie_Read32(DevInst, StatusRegAddr);
+		if(XAie_Read32(DevInst, StatusRegAddr, &StatusReg) != XAIE_OK) {
+			return XAIE_ERR;
+		}
 		StatusReg = XAie_GetField(StatusReg, CoreMod->CoreSts->Done.Lsb,
 				CoreMod->CoreSts->Done.Mask);
 
@@ -146,7 +148,9 @@ AieRC _XAie_CoreWaitForDone(XAie_DevInst *DevInst, XAie_LocType Loc,
 			break;
 		}
 
-		DisEventReg = XAie_Read32(DevInst, EventRegAddr);
+		if(XAie_Read32(DevInst, EventRegAddr, &DisEventReg) != XAIE_OK){
+			return XAIE_ERR;
+		}
 		DisEventReg = XAie_GetField(DisEventReg,
 				CoreMod->CoreEvent->DisableEventOccurred.Lsb,
 				CoreMod->CoreEvent->DisableEventOccurred.Mask);
@@ -182,6 +186,7 @@ AieRC _XAie_CoreWaitForDone(XAie_DevInst *DevInst, XAie_LocType Loc,
 AieRC _XAie_CoreReadDoneBit(XAie_DevInst *DevInst, XAie_LocType Loc,
 		u8 *DoneBit, const struct XAie_CoreMod *CoreMod)
 {
+	AieRC RC;
 	u64 RegAddr;
 	u32 StatusReg, EventReg;
 
@@ -189,7 +194,11 @@ AieRC _XAie_CoreReadDoneBit(XAie_DevInst *DevInst, XAie_LocType Loc,
 	RegAddr = CoreMod->CoreSts->RegOff +
 		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
 
-	StatusReg = XAie_Read32(DevInst, RegAddr);
+	RC = XAie_Read32(DevInst, RegAddr, &StatusReg);
+	if(RC != XAIE_OK) {
+		return RC;
+	}
+
 	StatusReg = XAie_GetField(StatusReg, CoreMod->CoreSts->Done.Lsb,
 			CoreMod->CoreSts->Done.Mask);
 	if(StatusReg == 1U) {
@@ -200,7 +209,10 @@ AieRC _XAie_CoreReadDoneBit(XAie_DevInst *DevInst, XAie_LocType Loc,
 	/* Read enable events register */
 	RegAddr = CoreMod->CoreEvent->EnableEventOff +
 		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
-	EventReg = XAie_Read32(DevInst, RegAddr);
+	RC = XAie_Read32(DevInst, RegAddr, &EventReg);
+	if(RC != XAIE_OK) {
+		return RC;
+	}
 
 	EventReg = XAie_GetField(EventReg,
 			CoreMod->CoreEvent->DisableEventOccurred.Lsb,

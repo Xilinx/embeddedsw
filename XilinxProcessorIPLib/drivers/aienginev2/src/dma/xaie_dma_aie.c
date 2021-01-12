@@ -484,13 +484,17 @@ AieRC _XAie_DmaGetPendingBdCount(XAie_DevInst *DevInst, XAie_LocType Loc,
 		const XAie_DmaMod *DmaMod, u8 ChNum, XAie_DmaDirection Dir,
 		u8 *PendingBd)
 {
+	AieRC RC;
 	u64 Addr;
 	u32 StatusReg, StartQSize, Stalled, Status;
 
 	Addr = _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) +
 		DmaMod->ChStatusBase + Dir * DmaMod->ChStatusOffset;
 
-	StatusReg = XAie_Read32(DevInst, Addr);
+	RC = XAie_Read32(DevInst, Addr, &StatusReg);
+	if(RC != XAIE_OK) {
+		return RC;
+	}
 
 	StartQSize = XAie_GetField(StatusReg,
 			DmaMod->ChProp->DmaChStatus[ChNum].AieDmaChStatus.StartQSize.Lsb,

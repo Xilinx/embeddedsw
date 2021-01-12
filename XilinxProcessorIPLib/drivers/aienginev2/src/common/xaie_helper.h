@@ -85,7 +85,7 @@ u32 _XAie_GetFatalGroupErrors(XAie_DevInst *DevInst, XAie_LocType Loc,
 u32 _XAie_GetTileBitPosFromLoc(XAie_DevInst *DevInst, XAie_LocType Loc);
 void _XAie_SetBitInBitmap(u32 *Bitmap, u32 StartSetBit, u32 NumSetBit);
 AieRC XAie_Write32(XAie_DevInst *DevInst, u64 RegOff, u32 Value);
-u32 XAie_Read32(XAie_DevInst *DevInst, u64 RegOff);
+AieRC XAie_Read32(XAie_DevInst *DevInst, u64 RegOff, u32 *Data);
 AieRC XAie_MaskWrite32(XAie_DevInst *DevInst, u64 RegOff, u32 Mask, u32 Value);
 AieRC XAie_MaskPoll(XAie_DevInst *DevInst, u64 RegOff, u32 Mask, u32 Value,
 		u32 TimeOutUs);

@@ -114,19 +114,21 @@ static AieRC XAie_DebugIO_Write32(void *IOInst, u64 RegOff, u32 Value)
 *
 * @param	IOInst: IO instance pointer
 * @param	RegOff: Register offset to read from.
+* @param	Data: Pointer to store the 32 bit value
 *
-* @return	32-bit read value.
+* @return	XAIE_OK on success.
 *
 * @note		None.
 *
 *******************************************************************************/
-static u32 XAie_DebugIO_Read32(void *IOInst, u64 RegOff)
+static AieRC XAie_DebugIO_Read32(void *IOInst, u64 RegOff, u32 *Data)
 {
 	XAie_DebugIO *DebugIOInst = (XAie_DebugIO *)IOInst;
 
+	*Data = 0U;
 	printf("R: 0x%lx, 0x%x\n", DebugIOInst->BaseAddr + RegOff, 0);
 
-	return 0;
+	return XAIE_OK;
 }
 
 /*****************************************************************************/
