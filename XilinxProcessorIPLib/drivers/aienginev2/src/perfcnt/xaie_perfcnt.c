@@ -98,9 +98,8 @@ AieRC XAie_PerfCounterGet(XAie_DevInst *DevInst, XAie_LocType Loc,
 	/* Compute absolute address and write to register */
 	CounterRegAddr = _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) +
 		CounterRegOffset;
-	*CounterVal = XAie_Read32(DevInst, CounterRegAddr);
 
-	return XAIE_OK;
+	return XAie_Read32(DevInst, CounterRegAddr, CounterVal);
 }
 /*****************************************************************************/
 /* This API configures the control registers corresponding to the counters
@@ -679,7 +678,10 @@ AieRC XAie_PerfCounterGetControlConfig(XAie_DevInst *DevInst, XAie_LocType Loc,
 			(Counter / 2U * PerfMod->PerfCtrlOffsetAdd);
 	StartStopRegAddr = _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) +
 				StartStopRegOffset;
-	StartStopEvent = XAie_Read32(DevInst, StartStopRegAddr);
+	RC = XAie_Read32(DevInst, StartStopRegAddr, &StartStopEvent);
+	if(RC != XAIE_OK) {
+		return RC;
+	}
 
 	/* Get both start and stop event for given counter */
 	StartStopEvent >>= PerfMod->StartStopShift * (Counter % 2U);
@@ -702,7 +704,10 @@ AieRC XAie_PerfCounterGetControlConfig(XAie_DevInst *DevInst, XAie_LocType Loc,
 	ResetRegOffset = PerfMod->PerfCtrlResetBaseAddr;
 	ResetRegAddr = _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) +
 			ResetRegOffset;
-	RegEvent = XAie_Read32(DevInst, ResetRegAddr);
+	RC = XAie_Read32(DevInst, ResetRegAddr, &RegEvent);
+	if(RC != XAIE_OK) {
+		return RC;
+	}
 
 	/* Get reset event for given counter and store in the event pointer */
 	RegEvent = RegEvent >> Counter * PerfMod->ResetShift;

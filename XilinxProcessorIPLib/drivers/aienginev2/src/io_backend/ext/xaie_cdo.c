@@ -127,17 +127,19 @@ static AieRC XAie_CdoIO_Write32(void *IOInst, u64 RegOff, u32 Value)
 *
 * @param	IOInst: IO instance pointer
 * @param	RegOff: Register offset to read from.
+* @param	Data: Pointer to store the 32 bit value
 *
-* @return	32-bit read value.
+* @return	XAIE_OK on success.
 *
 * @note		None.
 * @note		Internal only.
 *
 *******************************************************************************/
-static u32 XAie_CdoIO_Read32(void *IOInst, u64 RegOff)
+static AieRC XAie_CdoIO_Read32(void *IOInst, u64 RegOff, u32 *Data)
 {
 	/* no-op */
-	return 0;
+	*Data = 0U;
+	return XAIE_OK;
 }
 
 /*****************************************************************************/
@@ -363,11 +365,12 @@ static AieRC XAie_CdoIO_Write32(void *IOInst, u64 RegOff, u32 Value)
 	return XAIE_ERR;
 }
 
-static u32 XAie_CdoIO_Read32(void *IOInst, u64 RegOff)
+static AieRC XAie_CdoIO_Read32(void *IOInst, u64 RegOff, u32 *Data)
 {
 	/* no-op */
 	(void)IOInst;
 	(void)RegOff;
+	(void)Data;
 	return 0;
 }
 

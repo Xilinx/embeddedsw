@@ -294,11 +294,11 @@ AieRC XAie_Write32(XAie_DevInst *DevInst, u64 RegOff, u32 Value)
 	return Backend->Ops.Write32((void*)(DevInst->IOInst), RegOff, Value);
 }
 
-u32 XAie_Read32(XAie_DevInst *DevInst, u64 RegOff)
+AieRC XAie_Read32(XAie_DevInst *DevInst, u64 RegOff, u32 *Data)
 {
 	const XAie_Backend *Backend = DevInst->Backend;
 
-	return Backend->Ops.Read32((void*)(DevInst->IOInst), RegOff);
+	return Backend->Ops.Read32((void*)(DevInst->IOInst), RegOff, Data);
 }
 
 AieRC XAie_MaskWrite32(XAie_DevInst *DevInst, u64 RegOff, u32 Mask, u32 Value)

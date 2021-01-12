@@ -177,17 +177,20 @@ finish:
 *
 * @param	IOInst: IO instance pointer
 * @param	RegOff: Register offset to read from.
+* @param	Data: Pointer to store the 32 bit value
 *
-* @return	32-bit read value.
+* @return	XAIE_OK on success.
 *
 * @note		Internal only.
 *
 *******************************************************************************/
-static u32 XAie_MetalIO_Read32(void *IOInst, u64 RegOff)
+static AieRC XAie_MetalIO_Read32(void *IOInst, u64 RegOff, u32 *Data)
 {
 	XAie_MetalIO *MetalIOInst = (XAie_MetalIO *)IOInst;
 
-	return metal_io_read32(MetalIOInst->io, RegOff);
+	*Data = metal_io_read32(MetalIOInst->io, RegOff);
+
+	return XAIE_OK;
 }
 
 /*****************************************************************************/
@@ -232,9 +235,14 @@ static AieRC XAie_MetalIO_Write32(void *IOInst, u64 RegOff, u32 Data)
 static AieRC XAie_MetalIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask,
 		u32 Data)
 {
+	AieRC RC;
 	u32 RegVal;
 
-	RegVal = XAie_MetalIO_Read32(IOInst, RegOff);
+	RC = XAie_MetalIO_Read32(IOInst, RegOff, RegVal);
+	if(RC != XAIE_OK) {
+		return RC;
+	}
+
 	RegVal &= ~Mask;
 	RegVal |= Data;
 	XAie_MetalIO_Write32(IOInst, RegOff, RegVal);
@@ -262,7 +270,7 @@ static AieRC XAie_MetalIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value
 		u32 TimeOutUs)
 {
 	AieRC Ret = XAIE_ERR;
-	u32 Count, MinTimeOutUs;
+	u32 Count, MinTimeOutUs, RegVal;
 
 	/*
 	 * Any value less than 200 us becomes noticable overhead. This is based
@@ -272,7 +280,8 @@ static AieRC XAie_MetalIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value
 	Count = ((u64)TimeOutUs + MinTimeOutUs - 1) / MinTimeOutUs;
 
 	while (Count > 0U) {
-		if((XAie_MetalIO_Read32(IOInst, RegOff) & Mask) == Value) {
+		XAie_MetalIO_Read32(IOInst, RegOff, &RegVal);
+		if((RegVal & Mask) == Value) {
 			Ret = XAIE_OK;
 			break;
 		}
@@ -281,8 +290,8 @@ static AieRC XAie_MetalIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value
 	}
 
 	/* Check for the break from timed-out loop */
-	if((Ret == XAIE_ERR) &&
-			((XAie_MetalIO_Read32(IOInst, RegOff) & Mask) ==
+	XAie_MetalIO_Read32(IOInst, RegOff, &RegVal);
+	if((Ret == XAIE_ERR) && ((RegVal & Mask) ==
 			 Value)) {
 		Ret = XAIE_OK;
 	}
@@ -728,12 +737,13 @@ static AieRC XAie_MetalIO_Init(XAie_DevInst *DevInst)
 	return XAIE_INVALID_BACKEND;
 }
 
-static u32 XAie_MetalIO_Read32(void *IOInst, u64 RegOff)
+static AieRC XAie_MetalIO_Read32(void *IOInst, u64 RegOff, u32 *Data)
 {
 	/* no-op */
 	(void)IOInst;
 	(void)RegOff;
-	return 0;
+	(void)Data;
+	return XAIE_ERR;
 }
 
 static AieRC XAie_MetalIO_Write32(void *IOInst, u64 RegOff, u32 Data)
