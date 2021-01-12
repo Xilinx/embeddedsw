@@ -157,11 +157,13 @@ static u32 XAie_CdoIO_Read32(void *IOInst, u64 RegOff)
 * @note		Internal only.
 *
 *******************************************************************************/
-static void XAie_CdoIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask,
+static AieRC XAie_CdoIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask,
 		u32 Value)
 {
 	XAie_CdoIO *CdoIOInst = (XAie_CdoIO *)IOInst;
 	cdo_MaskWrite32(CdoIOInst->BaseAddr + RegOff, Mask, Value);
+
+	return XAIE_OK;
 }
 
 /*****************************************************************************/
