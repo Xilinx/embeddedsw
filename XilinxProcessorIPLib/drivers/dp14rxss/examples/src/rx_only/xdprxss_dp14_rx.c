@@ -18,6 +18,7 @@
 * ---- --- -------- --------------------------------------------------
 * 1.00 nd 2/14/19  Common rx only application for zcu102 and vcu118
 * 1.1  ku 8/14/20  CRC Calculator configured for 4 PPC
+* 1.2  nd 1/12/21  Added Support for VSC
 * </pre>
 *
 ******************************************************************************/
@@ -875,6 +876,9 @@ u32 DpRxSs_Setup(void)
 
 	/* Load Custom EDID */
 	LoadEDID();
+
+	//Enable Rx for VSC capability
+	XDp_RxVSCEn(DpRxSsInst.DpPtr);
 
 	/* Disable All Interrupts*/
 	XDp_RxInterruptDisable(DpRxSsInst.DpPtr, 0xFFFFFFFF);
