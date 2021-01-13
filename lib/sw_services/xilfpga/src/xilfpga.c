@@ -695,7 +695,7 @@ static u32 XFpga_ValidateBitstreamParam(XFpga *InstancePtr,
 	u32 Status = XFPGA_INVALID_PARAM;
 
 	/* Validate the input arguments */
-	if ((InstancePtr == NULL) || (BitstreamImageAddr == NULL)) {
+	if ((InstancePtr == NULL) || (BitstreamImageAddr == 0U)) {
 		goto END;
 	}
 #ifdef versal
