@@ -108,7 +108,6 @@ XGpioPs Gpio;	/* The driver instance for GPIO Device. */
 *
 * Main function to call the example.
 *
-* @param	None
 *
 * @return
 *		- XST_SUCCESS if the example has completed successfully.
