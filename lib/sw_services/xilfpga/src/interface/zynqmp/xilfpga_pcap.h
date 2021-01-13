@@ -61,6 +61,7 @@
  * 5.2   Nava   12/18/19 Fix for security violation in the readback path.
  * 5.2   Nava   02/14/20 Added Bitstream loading support by using IPI services.
  * 5.3   Nava   06/16/20 Modified the date format from dd/mm to mm/dd.
+ * 6.0   Nava   01/07/21  Fixed misra-c required standard violations.
  * </pre>
  *
  * @note
@@ -237,7 +238,7 @@ typedef struct {
 typedef struct {
 	XFpgaPs_PlEncryption PlEncrypt;	/* Encryption parameters */
 	u8 SecureHdr[XSECURE_SECURE_HDR_SIZE + XSECURE_SECURE_GCM_TAG_SIZE];
-	u8 Hdr;
+	u32 Hdr;
 	XSecure_Sss SssInstance;
 } XFpgaPs_PlPartition;
 
