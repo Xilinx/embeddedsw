@@ -118,7 +118,6 @@ static u32 Output_Pin; /* LED button */
 *
 * Main function that invokes the GPIO Interrupt example.
 *
-* @param	None.
 *
 * @return
 *		- XST_SUCCESS if the example has completed successfully.
