@@ -147,7 +147,6 @@ static u8 TestDataOffset;	/* Test Data value added to the CAN data */
 *
 * This function is the main function of the Can Rx Watermark interrupt example.
 *
-* @param	None.
 *
 * @return
 *		- XST_SUCCESS if the example has completed successfully.
@@ -156,7 +155,7 @@ static u8 TestDataOffset;	/* Test Data value added to the CAN data */
 * @note		None
 *
 *****************************************************************************/
-int main()
+int main(void)
 {
 	int Status;
 

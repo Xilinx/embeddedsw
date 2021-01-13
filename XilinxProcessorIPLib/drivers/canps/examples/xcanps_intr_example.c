@@ -147,7 +147,6 @@ volatile static int SendDone;		/* Frame was sent successfully */
 *
 * This function is the main function of the Can interrupt example.
 *
-* @param	None.
 *
 * @return
 *		- XST_SUCCESS if the example has completed successfully.
@@ -157,7 +156,7 @@ volatile static int SendDone;		/* Frame was sent successfully */
 *
 *****************************************************************************/
 #ifndef TESTAPP_GEN
-int main()
+int main(void)
 {
 	int Status;
 
