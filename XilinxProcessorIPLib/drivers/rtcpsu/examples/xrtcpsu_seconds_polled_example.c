@@ -57,7 +57,6 @@ XRtcPsu Rtc_Psu;		/* Instance of the RTC Device */
 *
 * Main function to call the Rtc Seconds Polled mode example.
 *
-* @param	None
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
