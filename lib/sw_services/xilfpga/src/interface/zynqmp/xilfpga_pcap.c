@@ -986,7 +986,7 @@ static u32 XFpga_AuthPlChunksDdrOcm(XFpga *InstancePtr, u32 Size)
 	/* Copy authentication certificate to internal memory */
 	Status = XSecure_MemCopy((u8 *)AcBuf, (u8 *)InstancePtr->PLInfo.AcPtr,
 		XSECURE_AUTH_CERT_MIN_SIZE/(u32)XSECURE_WORD_LEN);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 
@@ -1094,14 +1094,14 @@ static u32 XFpga_AuthPlChunks(UINTPTR BitstreamAddr, u32 Size, UINTPTR AcAddr)
 	UINTPTR Temp_BitstreamAddr = BitstreamAddr;
 
 	Status = (u32)XSecure_Sha3Initialize(&Secure_Sha3, CsuDmaPtr);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 
 	(void)XSecure_Sha3Start(&Secure_Sha3);
 
 	RemainingBytes = Size;
-	while (RemainingBytes > 0) {
+	while (RemainingBytes > 0U) {
 		if (RemainingBytes > PL_CHUNK_SIZE_BYTES) {
 			ChunkSize = PL_CHUNK_SIZE_BYTES;
 		} else {
@@ -1118,7 +1118,7 @@ static u32 XFpga_AuthPlChunks(UINTPTR BitstreamAddr, u32 Size, UINTPTR AcAddr)
 		/* Generating SHA3 hash */
 		Status = XSecure_Sha3Update(&Secure_Sha3,
 				(u8 *)(UINTPTR)OcmAddr, ChunkSize);
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
 		XSecure_Sha3_ReadHash(&Secure_Sha3, Sha3Hash);
@@ -1139,12 +1139,12 @@ static u32 XFpga_AuthPlChunks(UINTPTR BitstreamAddr, u32 Size, UINTPTR AcAddr)
 
 	Status = XSecure_Sha3Update(&Secure_Sha3, (u8 *)(UINTPTR)OcmAddr,
 				AC_LEN - XSECURE_PARTITION_SIG_SIZE);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 
 	Status = XSecure_Sha3Finish(&Secure_Sha3, Sha3Hash);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 
@@ -1199,14 +1199,14 @@ static u32 XFpga_ReAuthPlChunksWriteToPl(XFpgaPs_PlPartition *PlAesInfo,
 	UINTPTR Temp_BitstreamAddr = BitstreamAddr;
 
 	Status = (u32)XSecure_Sha3Initialize(&Secure_Sha3, CsuDmaPtr);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 
 	(void)XSecure_Sha3Start(&Secure_Sha3);
 
 	RemainingBytes = Size;
-	while (RemainingBytes > 0) {
+	while (RemainingBytes > 0U) {
 		if (RemainingBytes > PL_CHUNK_SIZE_BYTES) {
 			ChunkSize = PL_CHUNK_SIZE_BYTES;
 		} else {
@@ -1223,7 +1223,7 @@ static u32 XFpga_ReAuthPlChunksWriteToPl(XFpgaPs_PlPartition *PlAesInfo,
 		/* Generating SHA3 hash */
 		Status = XSecure_Sha3Update(&Secure_Sha3,
 				(u8 *)OcmAddr, ChunkSize);
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
 
@@ -1354,7 +1354,7 @@ static u32 XFpga_DecrptPlChunks(XFpgaPs_PlPartition *PartitionParams,
 		Status = XSecure_AesDecryptInit(PartitionParams->PlEncrypt.SecureAes,
                                 (u8 *)XSECURE_DESTINATION_PCAP_ADDR, XSECURE_SECURE_HDR_SIZE,
                                 (u8 *)(SrcAddr + XSECURE_SECURE_HDR_SIZE));
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
 
@@ -1377,7 +1377,7 @@ static u32 XFpga_DecrptPlChunks(XFpgaPs_PlPartition *PartitionParams,
 		PartitionParams->PlEncrypt.SecureAes->KeySel =
 				XSECURE_CSU_AES_KEY_SRC_KUP;
 		Status = XSecure_AesKeySelNLoad(PartitionParams->PlEncrypt.SecureAes);
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
 		/* Point IV to the CSU IV register. */
@@ -1420,7 +1420,7 @@ static u32 XFpga_DecrptPlChunks(XFpgaPs_PlPartition *PartitionParams,
 		/* Configure AES engine */
 		Status = XSecure_SssAes(&PartitionParams->SssInstance,
 					XSECURE_SSS_DMA0, XSECURE_SSS_PCAP);
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
 
@@ -1449,7 +1449,7 @@ static u32 XFpga_DecrptPlChunks(XFpgaPs_PlPartition *PartitionParams,
 				XSECURE_CSU_AES_KEY_SRC_KUP;
 
 		Status = XSecure_AesKeySelNLoad(PartitionParams->PlEncrypt.SecureAes);
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
 
@@ -1506,7 +1506,7 @@ static u32 XFpga_DecrptSetUpNextBlk(XFpgaPs_PlPartition *PartitionParams)
 	/* Configure the SSS for AES. */
 	Status = XSecure_SssAes(&PartitionParams->SssInstance,
 				XSECURE_SSS_DMA0, XSECURE_SSS_PCAP);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 
@@ -1604,7 +1604,7 @@ static u32 XFpga_DecrptPl(XFpgaPs_PlPartition *PartitionParams,
 		/* Configure SSS for AES engine */
 		Status = XSecure_SssAes(&PartitionParams->SssInstance,
 					XSECURE_SSS_DMA0, XSECURE_SSS_PCAP);
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
 
@@ -1667,7 +1667,7 @@ static u32 XFpga_DecrptPl(XFpgaPs_PlPartition *PartitionParams,
 		/* Configure AES engine */
 		Status = XSecure_SssAes(&PartitionParams->SssInstance,
 					XSECURE_SSS_DMA0, XSECURE_SSS_PCAP);
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
 
@@ -1702,7 +1702,7 @@ static u32 XFpga_DecrptPl(XFpgaPs_PlPartition *PartitionParams,
 					XSECURE_CSU_AES_KEY_SRC_KUP;
 			Status = XSecure_AesKeySelNLoad(
 				PartitionParams->PlEncrypt.SecureAes);
-			if (Status != XST_SUCCESS) {
+			if (Status != (u32)XST_SUCCESS) {
 				goto END;
 			}
 			Status = XFpga_DecrptSetUpNextBlk(PartitionParams);
@@ -1780,7 +1780,7 @@ static u32 XFpga_DecrypSecureHdr(XSecure_Aes *InstancePtr, UINTPTR SrcAddr)
 							&ConfigurValues);
 
 	Status = XSecure_AesWaitForDone(InstancePtr);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 
@@ -1794,7 +1794,7 @@ static u32 XFpga_DecrypSecureHdr(XSecure_Aes *InstancePtr, UINTPTR SrcAddr)
 		Status = XSecure_AesKeyZero(InstancePtr);
 		XSecure_SetReset(InstancePtr->BaseAddress,
 				 XSECURE_CSU_AES_RESET_OFFSET);
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			Status = XFPGA_PCAP_UPDATE_ERR((u32)Status,
 						       XFPGA_FAILURE);
 		} else {
@@ -1850,7 +1850,7 @@ static u32 XFpga_AesInit(XSecure_Aes *InstancePtr,
 		Status = (u32)XSecure_AesInitialize(InstancePtr, CsuDmaPtr,
 						XSECURE_CSU_AES_KEY_SRC_KUP,
 						IvPtr, AesKupKey);
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
 	} else {
@@ -1858,7 +1858,7 @@ static u32 XFpga_AesInit(XSecure_Aes *InstancePtr,
 		Status = (u32)XSecure_AesInitialize(InstancePtr, CsuDmaPtr,
 						XSECURE_CSU_AES_KEY_SRC_DEV,
 						IvPtr, NULL);
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
 	}
@@ -1891,7 +1891,7 @@ static u32 XFpga_PLWaitForDone(void)
 				  CSU_PCAP_STATUS_PL_DONE_MASK,
 				  CSU_PCAP_STATUS_PL_DONE_MASK,
 				  PL_DONE_POLL_COUNT);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		Status = XFPGA_ERROR_PCAP_PL_DONE;
 		goto END;
 	}
@@ -1936,7 +1936,7 @@ static u32 XFpga_PowerUpPl(void)
 	Status = Xil_WaitForEvent(PMU_GLOBAL_PWRUP_STATUS,
 				  PMU_GLOBAL_PWR_PL_MASK, 0U,
 				  PL_DONE_POLL_COUNT);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		Status = XFPGA_ERROR_PL_POWER_UP;
 	} else {
 		Status = XFPGA_SUCCESS;
@@ -1976,7 +1976,7 @@ static u32 XFpga_IsolationRestore(void)
 	Status = Xil_WaitForEvent(PMU_GLOBAL_ISO_STATUS,
 				  PMU_GLOBAL_ISO_NONPCAP_MASK, 0U,
 				  PL_DONE_POLL_COUNT);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		Status = XFPGA_ERROR_PL_ISOLATION;
 	} else {
 		Status = XFPGA_SUCCESS;
