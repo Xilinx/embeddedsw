@@ -14,13 +14,13 @@
 #
 ##############################################################################
 
-## @BEGIN_CHANGELOG EDK_I
+## BEGIN_CHANGELOG EDK_I
 ##
 ##  - include header files
 ##    
-## @END_CHANGELOG
+## END_CHANGELOG
 
-## @BEGIN_CHANGELOG EDK_H
+## BEGIN_CHANGELOG EDK_H
 ##
 ##  - Added support for generation of multiple applications.
 ##    All TCL procedures are now required to have a software
@@ -29,18 +29,18 @@
 ##    This causes the variable to be loaded from memory with each access
 ##    and will cause a sufficient delay when run on hardware.
 ##    
-## @END_CHANGELOG
+## END_CHANGELOG
 ##
-## @BEGIN_CHANGELOG EDK_H_SP1
+## BEGIN_CHANGELOG EDK_H_SP1
 ##  - Generate GPIO testcode for PeripheralTest only instead of MemoryTest
 ##    because it is a peripheral, not a memory
-## @END_CHANGELOG
+## END_CHANGELOG
 ##
-## @BEGIN_CHANGELOG EDK_I
+## BEGIN_CHANGELOG EDK_I
 ##
 ##  - Do not generate test function in TCL procedure, instead call driver example function.
 ##    
-## @END_CHANGELOG
+## END_CHANGELOG
 
 # Uses $XILINX_EDK/bin/lib/xillib_sw.tcl
 

@@ -148,7 +148,6 @@ static volatile u32 IntrFlag; /* Interrupt Handler Flag */
 * for initializing the GPIO device, setting up interrupts and providing a
 * foreground loop such that interrupt can occur in the background.
 *
-* @param	None.
 *
 * @return
 *		- XST_SUCCESS to indicate success.

@@ -81,7 +81,6 @@
 * The purpose of this function is to illustrate how to use the GPIO low level
 * driver to turn on and off an LED.
 *
-* @param	None
 *
 * @return	Always 0
 *
@@ -89,7 +88,7 @@
 * The main function is returning an integer to prevent compiler warnings.
 *
 ******************************************************************************/
-int main()
+int main(void)
 {
 	u32 Data;
 	volatile int Delay;

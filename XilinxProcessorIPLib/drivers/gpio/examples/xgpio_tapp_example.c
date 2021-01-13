@@ -100,7 +100,6 @@ XGpio GpioInput;  /* The driver instance for GPIO Device configured as I/P */
 * Main function to call the example. This function is not included if the
 * example is generated from the Peripheral Tests in SDK.
 *
-* @param	None
 *
 * @return
 *		- XST_SUCCESS if successful

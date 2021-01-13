@@ -109,7 +109,6 @@ XGpio Gpio; /* The Instance of the GPIO Driver */
 * The purpose of this function is to illustrate how to use the GPIO
 * driver to turn on and off an LED.
 *
-* @param	None
 *
 * @return	XST_FAILURE to indicate that the GPIO Initialization had
 *		failed.
