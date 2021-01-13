@@ -63,7 +63,6 @@ XRtcPsu_Config *Config;
 *
 * Main function to call the Rtc set calibration example.
 *
-* @param	None
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *

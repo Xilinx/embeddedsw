@@ -57,7 +57,6 @@ XRtcPsu Rtc_Psu;		/* Instance of the RTC Device */
 *
 * Main function to call the Rtc Alarm Polled mode example.
 *
-* @param	None
 *
 * @return	XST_SUCCESS if succesful, otherwise XST_FAILURE
 *

@@ -80,7 +80,6 @@ volatile u32 PeriodicAlarms;
 *
 * Main function to call the RTC Alarm interrupt example.
 *
-* @param	None
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
 *

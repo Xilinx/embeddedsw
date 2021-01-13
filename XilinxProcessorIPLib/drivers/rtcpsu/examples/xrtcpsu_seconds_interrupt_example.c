@@ -76,7 +76,6 @@ u32 Seconds = 0;
 *
 * Main function to call the RTC Seconds interrupt example.
 *
-* @param	None
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
 *
