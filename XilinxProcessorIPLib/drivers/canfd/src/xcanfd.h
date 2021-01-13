@@ -1006,7 +1006,7 @@ typedef struct {
 * This routine returns Number with right most bit set
 * from the target input value.
 *
-* @param	Target value.
+* @param	Var is target value.
 *
 * @return	Number with right most bit set from the target value.
 *
