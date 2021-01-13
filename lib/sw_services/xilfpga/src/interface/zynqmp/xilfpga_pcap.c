@@ -1646,7 +1646,7 @@ static u32 XFpga_DecrptPl(XFpgaPs_PlPartition *PartitionParams,
 				if (Size < (XSECURE_SECURE_HDR_SIZE +
 					XSECURE_SECURE_GCM_TAG_SIZE)) {
 
-					if(SrcAddr == (UINTPTR)NULL) {
+					if(SrcAddr == 0U) {
 						goto END;
 					}
 
