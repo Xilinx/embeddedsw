@@ -68,7 +68,6 @@ XWdtTb WatchdogTimebase; /* Instance of WatchDog Timer Base */
 /**
 * Main function to call the Wdttb driver example.
 *
-* @param	None.
 *
 * @return
 *		- XST_SUCCESS if example ran successfully.

@@ -69,7 +69,6 @@ int XWdtTb_LowLevelExample(u32 WdtTbBaseAddress);
 /**
 * Main function to call the Wdttb low level example.
 *
-* @param	None.
 *
 * @return
 *		- XST_SUCCESS if successful.

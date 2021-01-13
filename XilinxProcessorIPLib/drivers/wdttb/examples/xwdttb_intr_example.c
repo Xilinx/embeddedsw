@@ -121,7 +121,6 @@ static volatile int WdtExpired;
 /**
 * Main function to call the WdtTb interrupt example.
 *
-* @param	None.
 *
 * @return
 *		- XST_SUCCESS if successful

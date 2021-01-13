@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xgwdt_gwdt_intr_example.c
+* @file xwdttb_gwdt_intr_example.c
 *
 * This file contains a design example using the Generic Watchdog Timer Device
 * (Gwdt) driver and hardware device using interrupt mode (for the GWDT
@@ -76,7 +76,6 @@ static volatile int GWdtExpired;
 /**
 * Main function to call the Generic Wdt interrupt example.
 *
-* @param	None.
 *
 * @return
 *		- XST_SUCCESS if successful
