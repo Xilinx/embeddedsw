@@ -56,7 +56,6 @@ XWdtPs Watchdog;		/* Instance of WatchDog Timer  */
 /**
 * Main function to call the self test example.
 *
-* @param	None
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
 *
