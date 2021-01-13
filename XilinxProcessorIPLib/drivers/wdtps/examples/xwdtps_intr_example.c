@@ -93,7 +93,6 @@ volatile u32 HandlerCalled;	/* flag is set when timeout interrupt occurs */
 /**
 * Main function to call the Wdt interrupt example.
 *
-* @param	None.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
