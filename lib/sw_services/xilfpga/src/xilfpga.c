@@ -52,6 +52,7 @@
  *                      violation. fixes this  issue by adding a separate
  *                      function arguments to read KeyAddr and
  *                      Size(Bitstream size).
+ * 6.0 Nava   01/07/21  Fixed misra-c required standard violations.
  *</pre>
  *
  *@note
@@ -333,7 +334,7 @@ u32 XFpga_ValidateImage(XFpga *InstancePtr,
 	if (InstancePtr->XFpga_ValidateBitstream == NULL) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
-		"%s Implementation not exists..\r\n", __FUNCTION__);
+		"XFpga_PL_ValidateImage Implementation not exists..\r\n");
 	} else {
 		Status = InstancePtr->XFpga_ValidateBitstream(InstancePtr);
 		if (Status != XFPGA_SUCCESS) {
@@ -365,7 +366,7 @@ u32 XFpga_PL_Preconfig(XFpga *InstancePtr)
 	if (InstancePtr->XFpga_PreConfig == NULL) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
-		"%s Implementation not exists..\r\n", __FUNCTION__);
+		"XFpga_PL_Preconfig Implementation not exists..\r\n");
 	} else {
 		Status = InstancePtr->XFpga_PreConfig(InstancePtr);
 		if (Status != XFPGA_SUCCESS) {
@@ -483,7 +484,7 @@ u32 XFpga_Write_Pl(XFpga *InstancePtr,UINTPTR BitstreamImageAddr,
 	if (InstancePtr->XFpga_WriteToPl == NULL) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
-		"%s Implementation not exists..\r\n", __FUNCTION__);
+		"XFpga_Write_Pl Implementation not exists..\r\n");
 	} else {
 		Status = InstancePtr->XFpga_WriteToPl(InstancePtr);
 		if (Status != XFPGA_SUCCESS) {
@@ -516,7 +517,7 @@ u32 XFpga_PL_PostConfig(XFpga *InstancePtr)
 	if (InstancePtr->XFpga_PostConfig == NULL) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
-		"%s Implementation not exists..\r\n", __FUNCTION__);
+		"XFpga_PL_PostConfig Implementation not exists..\r\n");
 	} else {
 		Status = InstancePtr->XFpga_PostConfig(InstancePtr);
 		if (Status != XFPGA_SUCCESS) {
@@ -565,7 +566,7 @@ u32 XFpga_GetPlConfigData(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 	if (InstancePtr->XFpga_GetConfigData == NULL) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
-		"%s Implementation not exists..\r\n", __FUNCTION__);
+		"XFpga_GetPlConfigData Implementation not exists..\r\n");
 	} else {
 		Status = InstancePtr->XFpga_GetConfigData(InstancePtr);
 	}
@@ -625,7 +626,7 @@ u32 XFpga_GetPlConfigReg(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 	if (InstancePtr->XFpga_GetConfigReg == NULL) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
-			"%s Implementation not exists..\r\n", __FUNCTION__);
+			"XFpga_GetPlConfigReg Implementation not exists..\r\n");
 	} else {
 		Status = InstancePtr->XFpga_GetConfigReg(InstancePtr);
 	}
@@ -656,7 +657,7 @@ u32 XFpga_InterfaceStatus(XFpga *InstancePtr)
 
 	if (InstancePtr->XFpga_GetInterfaceStatus == NULL) {
 		Xfpga_Printf(XFPGA_DEBUG,
-		"%s Implementation not exists..\r\n", __FUNCTION__);
+		"XFpga_InterfaceStatus Implementation not exists..\r\n");
 	} else {
 		RegVal = InstancePtr->XFpga_GetInterfaceStatus();
 	}
