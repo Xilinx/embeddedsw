@@ -985,7 +985,7 @@ static u32 XFpga_AuthPlChunksDdrOcm(XFpga *InstancePtr, u32 Size)
 
 	/* Copy authentication certificate to internal memory */
 	Status = XSecure_MemCopy((u8 *)AcBuf, (u8 *)InstancePtr->PLInfo.AcPtr,
-		XSECURE_AUTH_CERT_MIN_SIZE/(u32)XSECURE_WORD_LEN);
+		XSECURE_AUTH_CERT_MIN_SIZE/XSECURE_WORD_LEN);
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
@@ -1345,7 +1345,7 @@ static u32 XFpga_DecrptPlChunks(XFpgaPs_PlPartition *PartitionParams,
 	u32 Status = XFPGA_FAILURE;
 	UINTPTR SrcAddr = ChunkAdrs;
 	u32 Size = ChunkSize;
-	u64 NextBlkAddr = 0U;
+	UINTPTR NextBlkAddr = 0U;
 
 	XSecure_SssInitialize(&PartitionParams->SssInstance);
 
@@ -1437,7 +1437,7 @@ static u32 XFpga_DecrptPlChunks(XFpgaPs_PlPartition *PartitionParams,
 		Size = Size - (XFPGA_AES_TAG_SIZE - PartitionParams->Hdr);
 		if (Size != 0x00U) {
 			NextBlkAddr = SrcAddr +
-				((u64)XFPGA_AES_TAG_SIZE - (u64)PartitionParams->Hdr);
+				(XFPGA_AES_TAG_SIZE - PartitionParams->Hdr);
 		}
 		PartitionParams->Hdr = 0U;
 		(void)memset(PartitionParams->SecureHdr, 0, XFPGA_AES_TAG_SIZE);
@@ -1461,7 +1461,7 @@ static u32 XFpga_DecrptPlChunks(XFpgaPs_PlPartition *PartitionParams,
 		if ((NextBlkAddr != 0x00U) &&
 		(PartitionParams->PlEncrypt.SecureAes->SizeofData != 0U)) {
 			Status = XFpga_DecrptPl(PartitionParams,
-					(UINTPTR)NextBlkAddr, Size);
+						NextBlkAddr, Size);
 			if (Status != XFPGA_SUCCESS) {
 				goto END;
 			}
