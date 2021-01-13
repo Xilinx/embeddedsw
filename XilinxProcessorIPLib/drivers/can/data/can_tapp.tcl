@@ -12,20 +12,20 @@
 # 3.0     adk    10/12/13 Updated as per the New Tcl API's
 ##############################################################################
 
-## @BEGIN_CHANGELOG EDK_H
+## BEGIN_CHANGELOG EDK_H
 ##
 ##  - Added support for generation of multiple applications.
 ##    All TCL procedures are now required to have a software
 ##    project type as its first argument
 ##    
-## @END_CHANGELOG
+## END_CHANGELOG
 
-## @BEGIN_CHANGELOG EDK_MS4
+## BEGIN_CHANGELOG EDK_MS4
 ##
 ## 08/31/10 Fixed a bug in the tcl because of which Test App was not 
 ##	    getting generated properly - CR 572961
 ##    
-## @END_CHANGELOG
+## END_CHANGELOG
 
 
 # Uses $XILINX_EDK/bin/lib/xillib_sw.tcl
