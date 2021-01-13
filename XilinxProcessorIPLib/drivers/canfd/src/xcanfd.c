@@ -1356,7 +1356,7 @@ static void StubHandler(void)
 * DLC Field value in DLC Register.
 *
 * @param	Dlc Field in Data Length Code Register.
-* @param	Edl/Fdf Field in DLC register.
+* @param	Edl and Fdf Field in DLC register.
 *
 *
 * @return	Total Number of Bytes stored in each Buffer.
@@ -1614,6 +1614,8 @@ void XCanFd_PollQueue_Buffer(XCanFd *InstancePtr)
 * received.
 *
 * @param	InstancePtr is a pointer to the XCanFd instance to be worked on.
+*
+* @param	fifo_no is fifo number.
 *
 * @return	Value is the number of messages stored in FSR Register.
 *
