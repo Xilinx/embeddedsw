@@ -121,7 +121,7 @@ u32 XFpga_PL_BitStream_Load(XFpga *InstancePtr,
 		   "Use the updated 'XFpga_BitStream_Load()' API to perform\n"
 		   "the same functionality\r\n", __func__);
 
-	if (Flags & XFPGA_ENCRYPTION_USERKEY_EN) {
+	if ((Flags & XFPGA_ENCRYPTION_USERKEY_EN) == XFPGA_ENCRYPTION_USERKEY_EN) {
 		KeyPtr = AddrPtr_Size;
 		Size = 0U;
 	} else {
@@ -268,7 +268,7 @@ u32 XFpga_PL_ValidateImage(XFpga *InstancePtr,
                    "Use the updated 'XFpga_ValidateImage()' API to perform\n"
                    "the same functionality\r\n", __func__);
 
-	if (Flags & XFPGA_ENCRYPTION_USERKEY_EN) {
+	if ((Flags & XFPGA_ENCRYPTION_USERKEY_EN) == XFPGA_ENCRYPTION_USERKEY_EN) {
 		KeyPtr = AddrPtr_Size;
 		Size = 0U;
 	} else {
@@ -419,7 +419,7 @@ u32 XFpga_PL_Write(XFpga *InstancePtr,UINTPTR BitstreamImageAddr,
                    "Use the updated 'XFpga_Write_Pl()' API to perform\n"
                    "the same functionality\r\n", __func__);
 
-	if (Flags & XFPGA_ENCRYPTION_USERKEY_EN) {
+	if ((Flags & XFPGA_ENCRYPTION_USERKEY_EN) == XFPGA_ENCRYPTION_USERKEY_EN) {
 		KeyPtr = AddrPtr_Size;
 		Size = 0U;
 	} else {
