@@ -555,7 +555,7 @@ u32 XFpga_GetPlConfigData(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 	u32 Status = XFPGA_FAILURE;
 
 	/* Assert validates the input arguments */
-	if ((InstancePtr == NULL) || (ReadbackAddr == (UINTPTR)NULL) ||
+	if ((InstancePtr == NULL) || (ReadbackAddr == 0U) ||
 	    (NumFrames == 0U)) {
 		Status = XFPGA_INVALID_PARAM;
 		goto END;
@@ -601,7 +601,7 @@ u32 XFpga_GetPlConfigReg(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 	u32 Status = XFPGA_FAILURE;
 
 	/* Assert validates the input arguments */
-	if ((InstancePtr == NULL) ||(ReadbackAddr == (UINTPTR)NULL)) {
+	if ((InstancePtr == NULL) ||(ReadbackAddr == 0U)) {
 		Status = XFPGA_INVALID_PARAM;
 		goto END;
 	}
@@ -718,7 +718,7 @@ static u32 XFpga_ValidateBitstreamParam(XFpga *InstancePtr,
 	}
 
 	if (((Flags & XFPGA_ENCRYPTION_USERKEY_EN) != 0U) &&
-	    (KeyAddr == (UINTPTR)NULL)) {
+	    (KeyAddr == 0U)) {
 		goto END;
 	}
 #endif
