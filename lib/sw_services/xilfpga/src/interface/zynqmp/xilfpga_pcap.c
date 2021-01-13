@@ -1000,7 +1000,8 @@ static u32 XFpga_AuthPlChunksDdrOcm(XFpga *InstancePtr, u32 Size)
 	}
 
 	/* Authenticate Partition */
-	if(InstancePtr->WriteInfo.Flags & XFPGA_AUTHENTICATION_DDR_EN) {
+	if ((InstancePtr->WriteInfo.Flags & XFPGA_AUTHENTICATION_DDR_EN) ==
+	    XFPGA_AUTHENTICATION_DDR_EN) {
 		Status = XSecure_PartitionAuthentication(CsuDmaPtr,
 					(u8 *)InstancePtr->PLInfo.BitAddr, Size,
 					(u8 *)(UINTPTR)AcBuf);
