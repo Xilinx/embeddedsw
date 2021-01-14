@@ -1570,6 +1570,7 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
+	XPm_ResetNode *Rst;
 
 	if ((PM_SHUTDOWN_TYPE_SHUTDOWN != Type) &&
 	    (PM_SHUTDOWN_TYPE_RESET != Type)) {
@@ -1619,6 +1620,21 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType)
 		/* TODO */
 		break;
 	case PM_SHUTDOWN_SUBTYPE_RST_SYSTEM:
+		/*
+		 * Caller subystem may not be allowed to enact reset operation
+		 * upon PM_RST_PMC. XPmReset_SystemReset uses PM_RST_PMC.
+		 */
+		Rst = XPmReset_GetById(PM_RST_PMC);
+		if (NULL == Rst) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+
+		Status = XPmReset_IsOperationAllowed(SubsystemId, Rst);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
 		Status = XPmReset_SystemReset();
 		break;
 	default:
@@ -2496,9 +2512,9 @@ XStatus XPm_SetResetState(const u32 SubsystemId, const u32 IpiMask,
 			  const u32 ResetId, const u32 Action)
 {
 	int Status = XST_FAILURE;
-	XPm_ResetNode* Reset;
 	u32 SubClass = NODESUBCLASS(ResetId);
 	u32 SubType = NODETYPE(ResetId);
+	XPm_ResetNode* Reset;
 
 	Reset = XPmReset_GetById(ResetId);
 	if (NULL == Reset) {
@@ -2511,29 +2527,36 @@ XStatus XPm_SetResetState(const u32 SubsystemId, const u32 IpiMask,
 	 */
 	if (XSDB_IPI_INT_MASK != IpiMask) {
 		/*
-		 * Only peripheral and debug resets
+		 * Only peripheral, debug and particular specified resets
 		 * are allowed to control externally, on other masters.
 		 */
-		if ((u32)XPM_NODESUBCL_RESET_PERIPHERAL == SubClass) {
-			if ((u32)XPM_NODETYPE_RESET_PERIPHERAL != SubType) {
-				Status = XPM_PM_NO_ACCESS;
-				goto done;
-			}
-		} else if ((u32)XPM_NODESUBCL_RESET_DBG == SubClass) {
-			if ((u32)XPM_NODETYPE_RESET_DBG != SubType) {
+		if ((((u32)XPM_NODESUBCL_RESET_PERIPHERAL == SubClass) && ((u32)XPM_NODETYPE_RESET_PERIPHERAL == SubType)) ||
+		    (((u32)XPM_NODESUBCL_RESET_DBG == SubClass) && ((u32)XPM_NODETYPE_RESET_DBG == SubType))) {
+			/* Check if subsystem is allowed to access requested reset */
+			 Status = XPm_IsAccessAllowed(SubsystemId, ResetId);
+			 if (XST_SUCCESS != Status) {
 				Status = XPM_PM_NO_ACCESS;
 				goto done;
 			}
 		} else {
-			Status = XPM_PM_NO_ACCESS;
-			goto done;
-		}
+			/*
+			 * Only a certain list of resets is allowed to
+			 * use permissions policy.
+			 *
+			 * If with in this list, then check reset to
+			 * permission policy for access.
+			 */
+			Status = XPmReset_IsPermissionReset(ResetId);
+			if (XST_SUCCESS != Status) {
+				Status = XPM_PM_NO_ACCESS;
+				goto done;
+			}
 
-		/* Check if subsystem is allowed to access requested reset */
-		Status = XPm_IsAccessAllowed(SubsystemId, ResetId);
-		if (XST_SUCCESS != Status) {
-			Status = XPM_PM_NO_ACCESS;
-			goto done;
+			Status = XPmReset_IsOperationAllowed(SubsystemId, Reset);
+			if (XST_SUCCESS != Status) {
+				Status = XPM_PM_NO_ACCESS;
+				goto done;
+			}
 		}
 	}
 
@@ -3957,6 +3980,7 @@ XStatus XPm_AddRequirement(const u32 SubsystemId, const u32 DeviceId, u32 Flags,
 {
 	XStatus Status = XST_INVALID_PARAM;
 	XPm_Device *Device = NULL;
+	XPm_ResetNode *Rst = NULL;
 	XPm_Subsystem *Subsystem, *TargetSubsystem;
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
@@ -3984,6 +4008,20 @@ XStatus XPm_AddRequirement(const u32 SubsystemId, const u32 DeviceId, u32 Flags,
 			Status = XPmSubsystem_AddPermission(Subsystem,
 							    TargetSubsystem,
 							    Flags);
+			break;
+		case (u32)XPM_NODECLASS_RESET:
+			Rst = XPmReset_GetById(DeviceId);
+			if (NULL == Rst) {
+				Status = XST_INVALID_PARAM;
+				goto done;
+			}
+
+			Status = XPmReset_IsPermissionReset(DeviceId);
+			if (XST_SUCCESS != Status) {
+				Status = XST_INVALID_PARAM;
+				goto done;
+			}
+			Status = XPmReset_AddPermission(Rst, Subsystem, Flags);
 			break;
 		default:
 			Status = XPM_INVALID_DEVICEID;

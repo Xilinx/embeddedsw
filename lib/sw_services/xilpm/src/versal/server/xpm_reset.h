@@ -70,12 +70,16 @@ struct XPm_ResetNode {
 	uint8_t Width;
 	XPm_ResetOps *Ops;
 	XPm_ResetHandle *RstHandles; /**< Pointer to the reset/device pairs */
+	u32 AllowedSubsystems;
 };
 
 #define MAX_RESETS	XPM_NODEIDX_RST_MAX
 
 #define XPM_RST_STATE_DEASSERTED 0U
 #define XPM_RST_STATE_ASSERTED 1U
+
+#define RESET_PERM_SHIFT_NS	(0U)
+#define RESET_PERM_SHIFT_S	(0U + MAX_NUM_SUBSYSTEMS)
 
 /************************** Function Prototypes ******************************/
 
@@ -84,6 +88,12 @@ XPm_ResetNode* XPmReset_GetById(u32 ResetId);
 XStatus XPmReset_AssertbyId(u32 ResetId, const u32 Action);
 int XPmReset_CheckPermissions(XPm_Subsystem *Subsystem, u32 ResetId);
 int XPmReset_SystemReset(void);
+XStatus XPmReset_AddPermission(XPm_ResetNode *Rst,
+			       const XPm_Subsystem *Subsystem,
+			       const u32 Operations);
+XStatus XPmReset_IsPermissionReset(const u32 ResetId);
+XStatus XPmReset_IsOperationAllowed(const u32 SubsystemId,
+				    const XPm_ResetNode *Rst);
 
 #ifdef __cplusplus
 }

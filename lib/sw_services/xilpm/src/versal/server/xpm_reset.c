@@ -542,6 +542,92 @@ static u32 Reset_GetStatusCommon(XPm_ResetNode *Rst)
 	return ResetStatus;
 }
 
+/*
+ * These resets are specifically allowed and none else for permissions
+ * policy as these are the most common cases for users.
+ *
+ * The list of nodes may have elements removed or added in the future.
+ */
+XStatus XPmReset_IsPermissionReset(const u32 ResetId)
+{
+	unsigned int Index;
+	XStatus Status = XPM_PM_NO_ACCESS;
+	const u32 PermissionResets[] = {
+		PM_RST_PMC_POR,
+		PM_RST_PMC,
+		PM_RST_SYS_RST_1,
+		PM_RST_SYS_RST_2,
+		PM_RST_SYS_RST_3,
+		PM_RST_PL_POR,
+		PM_RST_NOC_POR,
+		PM_RST_PL_SRST,
+		PM_RST_NOC,
+		PM_RST_NPI,
+		PM_RST_PL0,
+		PM_RST_PL1,
+		PM_RST_PL2,
+		PM_RST_PL3,
+	};
+
+	for (Index = 0; Index < (ARRAY_SIZE(PermissionResets)); Index++) {
+		if (ResetId == PermissionResets[Index]) {
+			Status = XST_SUCCESS;
+			goto done;
+		}
+	}
+
+done:
+	return Status;
+}
+
+XStatus XPmReset_IsOperationAllowed(const u32 SubsystemId,
+				    const XPm_ResetNode *Rst)
+{
+	XStatus Status = XST_FAILURE;
+
+	if ((PM_SUBSYS_PMC == SubsystemId) ||
+	    (PM_SUBSYS_DEFAULT == SubsystemId)) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/* Have Target check if Host can enact the operation */
+	if ((XST_SUCCESS == XPm_IsSecureAllowed(SubsystemId)) &&
+	    (0U != (Rst->AllowedSubsystems & (1U << SUBSYS_TO_S_BITPOS(SubsystemId))))) {
+		Status = XST_SUCCESS;
+	} else if (0U != (Rst->AllowedSubsystems & (1U << SUBSYS_TO_NS_BITPOS(SubsystemId)))) {
+		Status = XST_SUCCESS;
+	} else {
+		Status = XPM_PM_NO_ACCESS;
+	}
+
+done:
+	return Status;
+}
+
+XStatus XPmReset_AddPermission(XPm_ResetNode *Rst,
+			       const XPm_Subsystem *Subsystem,
+			       const u32 Operations)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* PMC and default subsystem can always enact operations */
+	if ((NULL == Subsystem) || (PM_SUBSYS_DEFAULT == Subsystem->Id) ||
+	    (PM_SUBSYS_PMC == Subsystem->Id)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Rst->AllowedSubsystems |= (1U & (Operations >> RESET_PERM_SHIFT_NS)) << SUBSYS_TO_NS_BITPOS(Subsystem->Id);
+	Rst->AllowedSubsystems |= (1U & (Operations >> RESET_PERM_SHIFT_S)) << SUBSYS_TO_S_BITPOS(Subsystem->Id);
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+
 int XPmReset_CheckPermissions(XPm_Subsystem *Subsystem, u32 ResetId)
 {
 	int Status = XST_FAILURE;
