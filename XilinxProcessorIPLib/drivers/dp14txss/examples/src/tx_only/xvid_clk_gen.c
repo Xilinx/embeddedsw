@@ -1,6 +1,7 @@
 #include "xil_types.h"
 #include "xparameters.h"
 #include "xdptxss.h"
+#include "xdptxss_dp14_tx.h"
 
 #include "xclk_wiz.h"
 
