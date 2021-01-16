@@ -22,6 +22,9 @@
 ******************************************************************************/
 #include "xdptxss_dp14_tx.h"
 
+extern XDp_TxVscExtPacket VscPkt;
+u32 Ext_frame[3];
+
 lane_link_rate_struct lane_link_table[]=
 {
 	{XDP_TX_LANE_COUNT_SET_1,XDP_TX_LINK_BW_SET_162GBPS},
@@ -217,9 +220,19 @@ void format_help_menu(void)
 {
 	xil_printf("Choose Video Format \r\n"
 			   "For YCbCr - Only Color Square Pattern is Supported \r\n"
-			   "1 -->  RGB 			\r\n"
-			   "2 -->  YCbCR444		\r\n"
-			   "3 -->  YCbCr422		\r\n"
+			   "0 -->  RGB 			\r\n"
+			   "1 -->  YCbCR444		\r\n"
+			   "2 -->  YCbCr422		\r\n"
+			   "\r\n"
+			   "Press 'x' to return to main menu\r\n"
+			   "Press any key to show this menu again\r\n");
+}
+
+void vsc_help_menu(void)
+{
+	xil_printf("Choose to enable/disable VSC \r\n"
+			   "1 -->  Enable VSC 			\r\n"
+			   "2 -->  Disable VSC		\r\n"
 			   "\r\n"
 			   "Press 'x' to return to main menu\r\n"
 			   "Press any key to show this menu again\r\n");
@@ -292,6 +305,7 @@ void sub_help_menu(void)
 "7 - Display Link Configuration Status and user selected resolution, BPC\r\n"
 "8 - Display DPCD register Configurations\r\n"
 "9 - Read Auxiliary registers \r\n"
+"g - Enable/Disable VSC \r\n"
 "a - Enable/Disable Audio\r\n"
 "d - Power Up/Down sink\r\n"
 "e - Read EDID from sink\r\n"
@@ -812,7 +826,7 @@ void main_loop(){
 							user_config.user_format = Command;
 							xil_printf("You have selected %c\r\n",
 															CommandKey);
-							if((Command<=0)||(Command>3))
+							if((Command<0)||(Command>3))
 							{
 								format_help_menu();
 								done = 0;
@@ -824,7 +838,7 @@ void main_loop(){
 											user_config.user_format);
 								done = 1;
 							}
-							if(user_config.user_format!=1)
+							if(user_config.user_format!=0)
 							{
 							//Only Color Square is supported for YCbCr
 								user_config.user_pattern = 3;
@@ -858,6 +872,101 @@ void main_loop(){
 		case '8' :
 			//Display DPCD reg
 			XDpTxSs_ReportSinkCapInfo(&DpTxSsInst);
+			break;
+
+			/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
+		case 'g' :
+			if(XDpTxSs_CheckVscColorimetrySupport(&DpTxSsInst) == XST_SUCCESS){
+				xil_printf("Sink supports VSC\r\n");
+			}
+			else{
+				xil_printf("Sink doesnt support VSC\r\n");
+				break;
+			}
+
+			LineRate = get_LineRate();
+			LaneCount = get_Lanecounts();
+			exit = 0;
+			vsc_help_menu();
+			while (exit == 0) {
+				CommandKey = 0;
+				Command = 0;
+				CommandKey = inbyte_local();
+				if(CommandKey!=0){
+					Command = (int)CommandKey;
+					switch  (CommandKey)
+					{
+					   case 'x' :
+					   exit = 1;
+					   sub_help_menu ();
+					   break;
+
+					   default :
+							Command = Command - 48;
+							xil_printf("You have selected %c\r\n",
+															CommandKey);
+							if((Command<=0)||(Command>2))
+							{
+								vsc_help_menu();
+								done = 0;
+								break;
+							}
+							else
+							{
+								xil_printf("Setting option of %d\r\n",
+										Command);
+								done = 1;
+							}
+							if(Command==1){
+								xil_printf("Enabling VSC\r\n");
+								Ext_frame[0]=0x13050700;
+								Ext_frame[1]=0;
+								Ext_frame[2]=0x0;
+
+								Ext_frame[2]|=((user_config.user_format)<<COLOR_FORMAT_SHIFT);
+								if(user_config.user_bpc==6)
+									Ext_frame[2]|=(0<<BPC_SHIFT);
+								else if(user_config.user_bpc==8)
+									Ext_frame[2]|=(1<<BPC_SHIFT);
+								else if(user_config.user_bpc==10)
+									Ext_frame[2]|=(2<<BPC_SHIFT);
+								else if(user_config.user_bpc==12)
+									Ext_frame[2]|=(3<<BPC_SHIFT);
+								else if(user_config.user_bpc==16)
+									Ext_frame[2]|=(4<<BPC_SHIFT);
+								Ext_frame[2]|=(1<<DYNAMIC_RANGE_SHIFT);
+
+								/*Populating Vsc header*/
+								VscPkt.Header=Ext_frame[0];
+
+								/*Populating Vsc payload*/
+								for (i=0;i<8;i++){
+									if(i==4){
+										VscPkt.Payload[i]=Ext_frame[2];
+										continue;
+									}
+									VscPkt.Payload[i]=Ext_frame[1] ;
+								}
+
+								//Enable Colorimetry through VSC for Tx
+								XDpTxss_EnableVscColorimetry(&DpTxSsInst, 1);
+
+								//Set the Vsc data to Tx
+								XDpTxSs_SetVscExtendedPacket(&DpTxSsInst, VscPkt);
+							}
+							else if(Command==2){
+								xil_printf("Disabling VSC\r\n");
+								XDpTxss_EnableVscColorimetry(&DpTxSsInst, 0);
+							}
+							start_tx (LineRate, LaneCount,user_config);
+							LineRate = get_LineRate();
+							LaneCount = get_Lanecounts();
+							exit = done;
+						break;
+					}
+				}
+			}
+			sub_help_menu ();
 			break;
 
 			/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */

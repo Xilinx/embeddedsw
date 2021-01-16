@@ -235,6 +235,10 @@
 /* This switch is used to enable PHY compliance mode. */
 // Compliance mode only supported for ZCU102
 #define PHY_COMP 0
+
+#define COLOR_FORMAT_SHIFT 4
+#define BPC_SHIFT 8
+#define DYNAMIC_RANGE_SHIFT 15
 /***************** Macros (Inline Functions) Definitions *********************/
 
 

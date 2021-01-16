@@ -20,7 +20,8 @@
 * 			  				and VCK190 TX Only design
 * 1.01 KU		22/10/20	Added support for fabric 8b10b implementation of
 * 			  				of DP1.4
-*
+* 1.02 ND		01/12/21	Added support for VSC in application menu.
+* 							Changed options for Format menu.
 *
 * </pre>
 *
@@ -41,6 +42,8 @@ XIntc IntcInst;
 extern XDpTxSs DpTxSsInst;	/* The DPTX Subsystem instance.*/
 extern XTmrCtr TmrCtr; /* Timer instance.*/
 
+XDp_TxVscExtPacket VscPkt;	/* VSC Packet to populate the vsc data to be sent by
+								tx */
 
 #ifdef PLATFORM_MB
 XIic  IicPtr;
@@ -610,7 +613,6 @@ u32 DpTxSs_SetupIntrSystem(void)
 	XDpTxSs_SetCallBack(&DpTxSsInst, (XDPTXSS_HANDLER_DP_PE_VS_ADJUST),
 			(void *)DpPt_pe_vs_adjustHandler, &DpTxSsInst);
 
-
 	/* Set custom timer wait */
 //	XDpRxSs_SetUserTimerHandler(&DpRxSsInst, &CustomWaitUs, &TmrCtr);
 
@@ -963,8 +965,6 @@ void DpPt_LinkrateChgHandler(void *InstancePtr)
 	//update the previous link rate info at here
 	prev_line_rate = rate;
 }
-
-
 
 void DpPt_pe_vs_adjustHandler(void *InstancePtr){
 	u32 vswing;
@@ -1494,7 +1494,7 @@ u32 start_tx(u8 line_rate, u8 lane_count,user_config_struct user_config){
 	XVidC_VideoMode res_table = user_config.VideoMode_local;
 	u8 bpc = user_config.user_bpc;
 	u8 pat = user_config.user_pattern;
-	u8 format = user_config.user_format-1;
+	u8 format = user_config.user_format;
 	u8 C_VideoUserStreamPattern[8] = {0x10, 0x11, 0x12, 0x13, 0x14,
 												0x15, 0x16, 0x17}; //Duplicate
 
@@ -1523,6 +1523,26 @@ u32 start_tx(u8 line_rate, u8 lane_count,user_config_struct user_config){
     xil_printf (".");
     XDpTxSs_SetLaneCount(&DpTxSsInst, lane_count);
     xil_printf (".");
+
+    //Populate Color format and BPC to vsc packet
+    if(DpTxSsInst.DpPtr->TxInstance.ColorimetryThroughVsc){
+			u32 data=0;
+			data|=((user_config.user_format)<<COLOR_FORMAT_SHIFT);
+			if(user_config.user_bpc==6)
+				data|=(0<<BPC_SHIFT);
+			else if(user_config.user_bpc==8)
+				data|=(1<<BPC_SHIFT);
+			else if(user_config.user_bpc==10)
+				data|=(2<<BPC_SHIFT);
+			else if(user_config.user_bpc==12)
+				data|=(3<<BPC_SHIFT);
+			else if(user_config.user_bpc==16)
+				data|=(4<<BPC_SHIFT);
+			data|=(1<<DYNAMIC_RANGE_SHIFT);
+			VscPkt.Payload[4]=data;
+			XDpTxSs_SetVscExtendedPacket(&DpTxSsInst, VscPkt);
+    }
+
     if (res_table !=0) {
 		Status = XDpTxSs_SetVidMode(&DpTxSsInst, res_table);
 		if (Status != XST_SUCCESS) {
@@ -1751,6 +1771,8 @@ void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
 		VmId_ptm_hpd = GetPreferredVm(Edid_org, max_cap_new ,
 														max_cap_lanes_new&0x1F);
 		bpc_hpd = XVidC_EdidGetColorDepth(Edid_org);
+		if(bpc_hpd > XPAR_TX_SUBSYSTEM_V_DP_TXSS1_0_DP_MAX_BITS_PER_COLOR)
+			bpc_hpd=XPAR_TX_SUBSYSTEM_V_DP_TXSS1_0_DP_MAX_BITS_PER_COLOR;
 //		xil_printf ("BPC from EDID is %d\r\n",bpc_hpd);
 		if (VmId_ptm_hpd == XVIDC_VM_NOT_SUPPORTED) { //Fail Safe mode
 			VmId_ptm_hpd = XVIDC_VM_640x480_60_P;
