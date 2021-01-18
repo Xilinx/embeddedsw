@@ -318,8 +318,42 @@ proc get_all_masters_mask_txt { } {
 #=============================================================================#
 proc get_all_other_masters_mask_txt { master_name } {
 	set macro_list {}
+	global rpu0_as_power_management_master
+	global rpu1_as_power_management_master
+	global apu_as_power_management_master
+
 	foreach master $pmufw::master_list {
 		if { $master !=  $master_name && [is_ipi_defined $master] == 1 } {
+			if { ("psu_cortexa53_0" == $master_name) } {
+				if { ($rpu0_as_power_management_master == false) &&
+				     ("psu_cortexr5_0" == $master) } {
+					continue
+				}
+				if { ($rpu1_as_power_management_master == false) &&
+				     (0 == [is_rpu_lockstep]) &&
+				     ("psu_cortexr5_1" == $master) } {
+					continue
+				}
+			} elseif { ("psu_cortexr5_0" == $master_name) } {
+				if { ($apu_as_power_management_master == false) &&
+				     ("psu_cortexa53_0" == $master) } {
+					continue
+				}
+				if { ($rpu1_as_power_management_master == false) &&
+				     (0 == [is_rpu_lockstep]) &&
+				     ("psu_cortexr5_1" == $master) } {
+					continue
+				}
+			} elseif { (0 == [is_rpu_lockstep]) && ("psu_cortexr5_1" == $master_name) } {
+				if { ($apu_as_power_management_master == false) &&
+				     ("psu_cortexa53_0" == $master) } {
+					continue
+				}
+				if { ($rpu0_as_power_management_master == false) &&
+				     ("psu_cortexr5_0" == $master) } {
+					continue
+				}
+			}
 			lappend macro_list [get_ipi_mask_txt $master]
 		}
 	}
@@ -356,9 +390,66 @@ proc get_slave_perm_mask_txt { slave } {
 	}
 }
 
+#=============================================================================#
+# Get the ORed list of macros as Permission mask for a reset line related to given slave node
+#=============================================================================#
+proc get_periph_perm_mask_txt_for_rst_line { reset_line } {
+	set macro_list1 {}
+	set macro_list2 {}
+	set reset_management_master_list "[get_list_of_management_master "reset"]"
 
+	set line_node [dict get [dict get $pmufw::reset_line_map $reset_line] node ]
+	set periph_name [dict get [dict get $pmufw::node_map $line_node] periph]
+	set periph_type [dict get [dict get $pmufw::node_map $line_node] type]
 
+	if { ($periph_type == "slave")} {
+		foreach master $pmufw::master_list {
+			#Get the slave list for this master
+			set slave_list [get_mem_ranges -of_objects [get_cells -hier $master]];
+			#Search for the slave in list
+			set slave_index [lsearch $slave_list $periph_name]
+			#if found, add the macro to list
+			if { $slave_index >=0 && [is_ipi_defined $master] == 1 } {
+				set master_ipi_mask_txt [get_ipi_mask_txt $master]
+				lappend macro_list1 $master_ipi_mask_txt
+				if { (-1 != [string first "$master_ipi_mask_txt" "$reset_management_master_list"])} {
+					lappend macro_list2 $master_ipi_mask_txt
+				}
+			}
+		}
+	} elseif { ($periph_type == "memory") } {
+		if { ($periph_name == "psu_ddr")} {
+			set mem_perms [get_mem_perm_mask $periph_name]
+		} elseif { ($periph_name == "psu_ocm_0")} {
+			set ocm_bank_0_perms [get_mem_perm_mask "psu_ocm_0"]
+			set ocm_bank_1_perms [get_mem_perm_mask "psu_ocm_1"]
+			set ocm_bank_2_perms [get_mem_perm_mask "psu_ocm_2"]
+			set ocm_bank_3_perms [get_mem_perm_mask "psu_ocm_3"]
+			set mem_perms [expr ($ocm_bank_0_perms | $ocm_bank_1_perms | $ocm_bank_2_perms | $ocm_bank_3_perms)]
+		} else {
+			set mem_perms "0U"
+		}
+		foreach master $pmufw::master_list {
+			if { [expr (($mem_perms & [get_ipi_mask $master]) != 0)] &&
+			     [is_ipi_defined $master] == 1 } {
+				set master_ipi_mask_txt [get_ipi_mask_txt $master]
+				lappend macro_list1 $master_ipi_mask_txt
+				if { (-1 != [string first "$master_ipi_mask_txt" "$reset_management_master_list"])} {
+					lappend macro_list2 $master_ipi_mask_txt
+				}
+			}
+		}
+	}
 
+	#Return the ORed macro list
+	if { [llength $macro_list2] >0 } {
+		return [join $macro_list2 " | "];
+	} elseif { [llength $macro_list1] >0 } {
+		return [join $macro_list1 " | "];
+	} else {
+		return "0U";
+	}
+}
 
 #puts "PMUFW Config Generator"
 #puts [info script]
@@ -428,10 +519,10 @@ dict set node_map NODE_PL { label NODE_PL periph NA type others }
 
 # Create a map of all reset lines
 set reset_line_map [dict create]
-dict set reset_line_map XILPM_RESET_PCIE_CFG { label XILPM_RESET_PCIE_CFG type normal }
-dict set reset_line_map XILPM_RESET_PCIE_BRIDGE { label XILPM_RESET_PCIE_BRIDGE type normal }
-dict set reset_line_map XILPM_RESET_PCIE_CTRL { label XILPM_RESET_PCIE_CTRL type normal }
-dict set reset_line_map XILPM_RESET_DP { label XILPM_RESET_DP type normal }
+dict set reset_line_map XILPM_RESET_PCIE_CFG { label XILPM_RESET_PCIE_CFG type rst_periph node NODE_PCIE }
+dict set reset_line_map XILPM_RESET_PCIE_BRIDGE { label XILPM_RESET_PCIE_BRIDGE type rst_periph node NODE_PCIE }
+dict set reset_line_map XILPM_RESET_PCIE_CTRL { label XILPM_RESET_PCIE_CTRL type rst_periph node NODE_PCIE }
+dict set reset_line_map XILPM_RESET_DP { label XILPM_RESET_DP type rst_periph node NODE_DP }
 dict set reset_line_map XILPM_RESET_SWDT_CRF { label XILPM_RESET_SWDT_CRF type normal }
 dict set reset_line_map XILPM_RESET_AFI_FM5 { label XILPM_RESET_AFI_FM5 type normal }
 dict set reset_line_map XILPM_RESET_AFI_FM4 { label XILPM_RESET_AFI_FM4 type normal }
@@ -439,76 +530,76 @@ dict set reset_line_map XILPM_RESET_AFI_FM3 { label XILPM_RESET_AFI_FM3 type nor
 dict set reset_line_map XILPM_RESET_AFI_FM2 { label XILPM_RESET_AFI_FM2 type normal }
 dict set reset_line_map XILPM_RESET_AFI_FM1 { label XILPM_RESET_AFI_FM1 type normal }
 dict set reset_line_map XILPM_RESET_AFI_FM0 { label XILPM_RESET_AFI_FM0 type normal }
-dict set reset_line_map XILPM_RESET_GDMA { label XILPM_RESET_GDMA type normal }
-dict set reset_line_map XILPM_RESET_GPU_PP1 { label XILPM_RESET_GPU_PP1 type normal }
-dict set reset_line_map XILPM_RESET_GPU_PP0 { label XILPM_RESET_GPU_PP0 type normal }
-dict set reset_line_map XILPM_RESET_GPU { label XILPM_RESET_GPU type normal }
+dict set reset_line_map XILPM_RESET_GDMA { label XILPM_RESET_GDMA type rst_periph node NODE_GDMA }
+dict set reset_line_map XILPM_RESET_GPU_PP1 { label XILPM_RESET_GPU_PP1 type rst_periph node NODE_GPU_PP_1 }
+dict set reset_line_map XILPM_RESET_GPU_PP0 { label XILPM_RESET_GPU_PP0 type rst_periph node NODE_GPU_PP_0 }
+dict set reset_line_map XILPM_RESET_GPU { label XILPM_RESET_GPU type rst_periph node NODE_GPU }
 dict set reset_line_map XILPM_RESET_GT { label XILPM_RESET_GT type normal }
-dict set reset_line_map XILPM_RESET_SATA { label XILPM_RESET_SATA type normal }
-dict set reset_line_map XILPM_RESET_ACPU3_PWRON { label XILPM_RESET_ACPU3_PWRON type normal }
-dict set reset_line_map XILPM_RESET_ACPU2_PWRON { label XILPM_RESET_ACPU2_PWRON type normal }
-dict set reset_line_map XILPM_RESET_ACPU1_PWRON { label XILPM_RESET_ACPU1_PWRON type normal }
-dict set reset_line_map XILPM_RESET_ACPU0_PWRON { label XILPM_RESET_ACPU0_PWRON type normal }
-dict set reset_line_map XILPM_RESET_APU_L2 { label XILPM_RESET_APU_L2 type normal }
-dict set reset_line_map XILPM_RESET_ACPU3 { label XILPM_RESET_ACPU3 type normal }
-dict set reset_line_map XILPM_RESET_ACPU2 { label XILPM_RESET_ACPU2 type normal }
-dict set reset_line_map XILPM_RESET_ACPU1 { label XILPM_RESET_ACPU1 type normal }
-dict set reset_line_map XILPM_RESET_ACPU0 { label XILPM_RESET_ACPU0 type normal }
-dict set reset_line_map XILPM_RESET_DDR { label XILPM_RESET_DDR type normal }
+dict set reset_line_map XILPM_RESET_SATA { label XILPM_RESET_SATA type rst_periph node NODE_SATA }
+dict set reset_line_map XILPM_RESET_ACPU3_PWRON { label XILPM_RESET_ACPU3_PWRON type rst_proc proc APU }
+dict set reset_line_map XILPM_RESET_ACPU2_PWRON { label XILPM_RESET_ACPU2_PWRON type rst_proc proc APU }
+dict set reset_line_map XILPM_RESET_ACPU1_PWRON { label XILPM_RESET_ACPU1_PWRON type rst_proc proc APU }
+dict set reset_line_map XILPM_RESET_ACPU0_PWRON { label XILPM_RESET_ACPU0_PWRON type rst_proc proc APU }
+dict set reset_line_map XILPM_RESET_APU_L2 { label XILPM_RESET_APU_L2 type rst_proc proc APU }
+dict set reset_line_map XILPM_RESET_ACPU3 { label XILPM_RESET_ACPU3 type rst_proc proc APU }
+dict set reset_line_map XILPM_RESET_ACPU2 { label XILPM_RESET_ACPU2 type rst_proc proc APU }
+dict set reset_line_map XILPM_RESET_ACPU1 { label XILPM_RESET_ACPU1 type rst_proc proc APU }
+dict set reset_line_map XILPM_RESET_ACPU0 { label XILPM_RESET_ACPU0 type rst_proc proc APU }
+dict set reset_line_map XILPM_RESET_DDR { label XILPM_RESET_DDR type rst_periph node NODE_DDR }
 dict set reset_line_map XILPM_RESET_APM_FPD { label XILPM_RESET_APM_FPD type normal }
-dict set reset_line_map XILPM_RESET_SOFT { label XILPM_RESET_SOFT type normal }
-dict set reset_line_map XILPM_RESET_GEM0 { label XILPM_RESET_GEM0 type normal }
-dict set reset_line_map XILPM_RESET_GEM1 { label XILPM_RESET_GEM1 type normal }
-dict set reset_line_map XILPM_RESET_GEM2 { label XILPM_RESET_GEM2 type normal }
-dict set reset_line_map XILPM_RESET_GEM3 { label XILPM_RESET_GEM3 type normal }
-dict set reset_line_map XILPM_RESET_QSPI { label XILPM_RESET_QSPI type normal }
-dict set reset_line_map XILPM_RESET_UART0 { label XILPM_RESET_UART0 type normal }
-dict set reset_line_map XILPM_RESET_UART1 { label XILPM_RESET_UART1 type normal }
-dict set reset_line_map XILPM_RESET_SPI0 { label XILPM_RESET_SPI0 type normal }
-dict set reset_line_map XILPM_RESET_SPI1 { label XILPM_RESET_SPI1 type normal }
+dict set reset_line_map XILPM_RESET_SOFT { label XILPM_RESET_SOFT type rst_shared }
+dict set reset_line_map XILPM_RESET_GEM0 { label XILPM_RESET_GEM0 type rst_periph node NODE_ETH_0 }
+dict set reset_line_map XILPM_RESET_GEM1 { label XILPM_RESET_GEM1 type rst_periph node NODE_ETH_1 }
+dict set reset_line_map XILPM_RESET_GEM2 { label XILPM_RESET_GEM2 type rst_periph node NODE_ETH_2 }
+dict set reset_line_map XILPM_RESET_GEM3 { label XILPM_RESET_GEM3 type rst_periph node NODE_ETH_3 }
+dict set reset_line_map XILPM_RESET_QSPI { label XILPM_RESET_QSPI type rst_periph node NODE_QSPI }
+dict set reset_line_map XILPM_RESET_UART0 { label XILPM_RESET_UART0 type rst_periph node NODE_UART_0 }
+dict set reset_line_map XILPM_RESET_UART1 { label XILPM_RESET_UART1 type rst_periph node NODE_UART_1 }
+dict set reset_line_map XILPM_RESET_SPI0 { label XILPM_RESET_SPI0 type rst_periph node NODE_SPI_0 }
+dict set reset_line_map XILPM_RESET_SPI1 { label XILPM_RESET_SPI1 type rst_periph node NODE_SPI_1 }
 dict set reset_line_map XILPM_RESET_SDIO0 { label XILPM_RESET_SDIO0 type normal }
 dict set reset_line_map XILPM_RESET_SDIO1 { label XILPM_RESET_SDIO1 type normal }
-dict set reset_line_map XILPM_RESET_CAN0 { label XILPM_RESET_CAN0 type normal }
-dict set reset_line_map XILPM_RESET_CAN1 { label XILPM_RESET_CAN1 type normal }
-dict set reset_line_map XILPM_RESET_I2C0 { label XILPM_RESET_I2C0 type normal }
-dict set reset_line_map XILPM_RESET_I2C1 { label XILPM_RESET_I2C1 type normal }
-dict set reset_line_map XILPM_RESET_TTC0 { label XILPM_RESET_TTC0 type normal }
-dict set reset_line_map XILPM_RESET_TTC1 { label XILPM_RESET_TTC1 type normal }
-dict set reset_line_map XILPM_RESET_TTC2 { label XILPM_RESET_TTC2 type normal }
-dict set reset_line_map XILPM_RESET_TTC3 { label XILPM_RESET_TTC3 type normal }
+dict set reset_line_map XILPM_RESET_CAN0 { label XILPM_RESET_CAN0 type rst_periph node NODE_CAN_0 }
+dict set reset_line_map XILPM_RESET_CAN1 { label XILPM_RESET_CAN1 type rst_periph node NODE_CAN_1 }
+dict set reset_line_map XILPM_RESET_I2C0 { label XILPM_RESET_I2C0 type rst_periph node NODE_I2C_0 }
+dict set reset_line_map XILPM_RESET_I2C1 { label XILPM_RESET_I2C1 type rst_periph node NODE_I2C_1 }
+dict set reset_line_map XILPM_RESET_TTC0 { label XILPM_RESET_TTC0 type rst_periph node NODE_TTC_0 }
+dict set reset_line_map XILPM_RESET_TTC1 { label XILPM_RESET_TTC1 type rst_periph node NODE_TTC_1 }
+dict set reset_line_map XILPM_RESET_TTC2 { label XILPM_RESET_TTC2 type rst_periph node NODE_TTC_2 }
+dict set reset_line_map XILPM_RESET_TTC3 { label XILPM_RESET_TTC3 type rst_periph node NODE_TTC_3 }
 dict set reset_line_map XILPM_RESET_SWDT_CRL { label XILPM_RESET_SWDT_CRL type normal }
-dict set reset_line_map XILPM_RESET_NAND { label XILPM_RESET_NAND type normal }
-dict set reset_line_map XILPM_RESET_ADMA { label XILPM_RESET_ADMA type normal }
+dict set reset_line_map XILPM_RESET_NAND { label XILPM_RESET_NAND type rst_periph node NODE_NAND }
+dict set reset_line_map XILPM_RESET_ADMA { label XILPM_RESET_ADMA type rst_periph node NODE_ADMA }
 dict set reset_line_map XILPM_RESET_GPIO { label XILPM_RESET_GPIO type normal }
 dict set reset_line_map XILPM_RESET_IOU_CC { label XILPM_RESET_IOU_CC type normal }
 dict set reset_line_map XILPM_RESET_TIMESTAMP { label XILPM_RESET_TIMESTAMP type normal }
-dict set reset_line_map XILPM_RESET_RPU_R50 { label XILPM_RESET_RPU_R50 type normal }
-dict set reset_line_map XILPM_RESET_RPU_R51 { label XILPM_RESET_RPU_R51 type normal }
-dict set reset_line_map XILPM_RESET_RPU_AMBA { label XILPM_RESET_RPU_AMBA type normal }
-dict set reset_line_map XILPM_RESET_OCM { label XILPM_RESET_OCM type normal }
-dict set reset_line_map XILPM_RESET_RPU_PGE { label XILPM_RESET_RPU_PGE type normal }
-dict set reset_line_map XILPM_RESET_USB0_CORERESET { label XILPM_RESET_USB0_CORERESET type normal }
-dict set reset_line_map XILPM_RESET_USB1_CORERESET { label XILPM_RESET_USB1_CORERESET type normal }
-dict set reset_line_map XILPM_RESET_USB0_HIBERRESET { label XILPM_RESET_USB0_HIBERRESET type normal }
-dict set reset_line_map XILPM_RESET_USB1_HIBERRESET { label XILPM_RESET_USB1_HIBERRESET type normal }
-dict set reset_line_map XILPM_RESET_USB0_APB { label XILPM_RESET_USB0_APB type normal }
-dict set reset_line_map XILPM_RESET_USB1_APB { label XILPM_RESET_USB1_APB type normal }
-dict set reset_line_map XILPM_RESET_IPI { label XILPM_RESET_IPI type normal }
+dict set reset_line_map XILPM_RESET_RPU_R50 { label XILPM_RESET_RPU_R50 type rst_proc proc RPU_0 }
+dict set reset_line_map XILPM_RESET_RPU_R51 { label XILPM_RESET_RPU_R51 type rst_proc proc RPU_1 }
+dict set reset_line_map XILPM_RESET_RPU_AMBA { label XILPM_RESET_RPU_AMBA type rst_proc proc RPU }
+dict set reset_line_map XILPM_RESET_OCM { label XILPM_RESET_OCM type rst_periph node NODE_OCM_BANK_0 }
+dict set reset_line_map XILPM_RESET_RPU_PGE { label XILPM_RESET_RPU_PGE type rst_proc proc RPU }
+dict set reset_line_map XILPM_RESET_USB0_CORERESET { label XILPM_RESET_USB0_CORERESET type rst_periph node NODE_USB_0 }
+dict set reset_line_map XILPM_RESET_USB1_CORERESET { label XILPM_RESET_USB1_CORERESET type rst_periph node NODE_USB_1 }
+dict set reset_line_map XILPM_RESET_USB0_HIBERRESET { label XILPM_RESET_USB0_HIBERRESET type rst_periph node NODE_USB_0 }
+dict set reset_line_map XILPM_RESET_USB1_HIBERRESET { label XILPM_RESET_USB1_HIBERRESET type rst_periph node NODE_USB_1 }
+dict set reset_line_map XILPM_RESET_USB0_APB { label XILPM_RESET_USB0_APB type rst_periph node NODE_USB_0 }
+dict set reset_line_map XILPM_RESET_USB1_APB { label XILPM_RESET_USB1_APB type rst_periph node NODE_USB_1 }
+dict set reset_line_map XILPM_RESET_IPI { label XILPM_RESET_IPI type rst_shared }
 dict set reset_line_map XILPM_RESET_APM_LPD { label XILPM_RESET_APM_LPD type normal }
-dict set reset_line_map XILPM_RESET_RTC { label XILPM_RESET_RTC type normal }
+dict set reset_line_map XILPM_RESET_RTC { label XILPM_RESET_RTC type rst_periph node NODE_RTC }
 dict set reset_line_map XILPM_RESET_SYSMON { label XILPM_RESET_SYSMON type NA }
 dict set reset_line_map XILPM_RESET_AFI_FM6 { label XILPM_RESET_AFI_FM6 type normal }
 dict set reset_line_map XILPM_RESET_LPD_SWDT { label XILPM_RESET_LPD_SWDT type normal }
 dict set reset_line_map XILPM_RESET_FPD { label XILPM_RESET_FPD type rpu_only }
-dict set reset_line_map XILPM_RESET_RPU_DBG1 { label XILPM_RESET_RPU_DBG1 type normal }
-dict set reset_line_map XILPM_RESET_RPU_DBG0 { label XILPM_RESET_RPU_DBG0 type normal }
+dict set reset_line_map XILPM_RESET_RPU_DBG1 { label XILPM_RESET_RPU_DBG1 type rst_proc proc RPU }
+dict set reset_line_map XILPM_RESET_RPU_DBG0 { label XILPM_RESET_RPU_DBG0 type rst_proc proc RPU }
 dict set reset_line_map XILPM_RESET_DBG_LPD { label XILPM_RESET_DBG_LPD type normal }
 dict set reset_line_map XILPM_RESET_DBG_FPD { label XILPM_RESET_DBG_FPD type normal }
-dict set reset_line_map XILPM_RESET_APLL { label XILPM_RESET_APLL type normal }
-dict set reset_line_map XILPM_RESET_DPLL { label XILPM_RESET_DPLL type normal }
-dict set reset_line_map XILPM_RESET_VPLL { label XILPM_RESET_VPLL type normal }
-dict set reset_line_map XILPM_RESET_IOPLL { label XILPM_RESET_IOPLL type normal }
-dict set reset_line_map XILPM_RESET_RPLL { label XILPM_RESET_RPLL type normal }
+dict set reset_line_map XILPM_RESET_APLL { label XILPM_RESET_APLL type rst_proc proc APU }
+dict set reset_line_map XILPM_RESET_DPLL { label XILPM_RESET_DPLL type rst_shared }
+dict set reset_line_map XILPM_RESET_VPLL { label XILPM_RESET_VPLL type rst_shared }
+dict set reset_line_map XILPM_RESET_IOPLL { label XILPM_RESET_IOPLL type rst_shared }
+dict set reset_line_map XILPM_RESET_RPLL { label XILPM_RESET_RPLL type rst_proc proc RPU }
 dict set reset_line_map XILPM_RESET_GPO3_PL_0 { label XILPM_RESET_GPO3_PL_0 type normal }
 dict set reset_line_map XILPM_RESET_GPO3_PL_1 { label XILPM_RESET_GPO3_PL_1 type normal }
 dict set reset_line_map XILPM_RESET_GPO3_PL_2 { label XILPM_RESET_GPO3_PL_2 type normal }
@@ -541,7 +632,7 @@ dict set reset_line_map XILPM_RESET_GPO3_PL_28 { label XILPM_RESET_GPO3_PL_28 ty
 dict set reset_line_map XILPM_RESET_GPO3_PL_29 { label XILPM_RESET_GPO3_PL_29 type normal }
 dict set reset_line_map XILPM_RESET_GPO3_PL_30 { label XILPM_RESET_GPO3_PL_30 type normal }
 dict set reset_line_map XILPM_RESET_GPO3_PL_31 { label XILPM_RESET_GPO3_PL_31 type normal }
-dict set reset_line_map XILPM_RESET_RPU_LS { label XILPM_RESET_RPU_LS type normal }
+dict set reset_line_map XILPM_RESET_RPU_LS { label XILPM_RESET_RPU_LS type rst_proc proc RPU }
 dict set reset_line_map XILPM_RESET_PS_ONLY { label XILPM_RESET_PS_ONLY type normal }
 dict set reset_line_map XILPM_RESET_PL { label XILPM_RESET_PL type normal }
 dict set reset_line_map XILPM_RESET_GPIO5_EMIO_92 { label XILPM_RESET_GPIO5_EMIO_92 type normal }
@@ -809,12 +900,32 @@ proc get_power_domain_perm_mask_txt { pwr_domain } {
 	set macro_list {}
 
 	set pwr_perm_masters [dict get $pmufw::power_perms $pwr_domain]
+	global rpu0_as_power_management_master
+	global rpu1_as_power_management_master
+	global apu_as_power_management_master
 
 	foreach master $pwr_perm_masters {
 		if { [lsearch $pmufw::master_list $master] >= 0 &&
 		     [is_ipi_defined $master] == 1 } {
+			if { ($apu_as_power_management_master == false) &&
+			     ("psu_cortexa53_0" == $master) } {
+				continue
+			} elseif { ($rpu0_as_power_management_master == false) &&
+				   ("psu_cortexr5_0" == $master) } {
+				continue
+			} elseif { ($rpu1_as_power_management_master == false) &&
+				   (0 == [is_rpu_lockstep]) &&
+				   ("psu_cortexr5_1" == $master) } {
+				continue
+			}
+
 			lappend macro_list [get_ipi_mask_txt $master]
 		}
+	}
+
+	if { ((("NODE_APU" == $pwr_domain) || ("NODE_FPD" == $pwr_domain)) &&
+	      ([llength $macro_list] == 0)) } {
+		lappend macro_list [get_ipi_mask_txt "psu_cortexr5_0"]
 	}
 
 	#Return the ORed macro list
@@ -842,8 +953,99 @@ proc get_power_section { } {
 	return $power_text
 }
 
+#=============================================================================#
+# Return true if all masters are enabled as power/reset management masters else false.
+#=============================================================================#
+proc is_all_master_enabled { master_type } {
+	global rpu0_as_power_management_master
+	global rpu1_as_power_management_master
+	global apu_as_power_management_master
+	global rpu0_as_reset_management_master
+	global rpu1_as_reset_management_master
+	global apu_as_reset_management_master
+
+	if { ("power" == $master_type) } {
+		set rpu0_as_master $rpu0_as_power_management_master
+		set rpu1_as_master $rpu1_as_power_management_master
+		set apu_as_master  $apu_as_power_management_master
+	} elseif { ("reset" == $master_type) } {
+		set rpu0_as_master $rpu0_as_reset_management_master
+		set rpu1_as_master $rpu1_as_reset_management_master
+		set apu_as_master  $apu_as_reset_management_master
+	} else {
+		return -1
+	}
+
+	if { ($rpu0_as_master == true) &&
+	     ($apu_as_master == true) } {
+		if { (0 == [is_rpu_lockstep]) } {
+			if { ($rpu1_as_master == true) } {
+				return 1
+			} else {
+				return 0
+			}
+		} else {
+			return 1
+		}
+	} else {
+		return 0
+	}
+}
+#=============================================================================#
+# Return the list of power/reset management masters based on master type and
+# which are enabled in ORed form.
+#=============================================================================#
+proc get_list_of_management_master { master_type } {
+	set macro_list {}
+	global rpu0_as_power_management_master
+	global rpu1_as_power_management_master
+	global apu_as_power_management_master
+	global rpu0_as_reset_management_master
+	global rpu1_as_reset_management_master
+	global apu_as_reset_management_master
+
+	if { ("power" == $master_type) } {
+		set rpu0_as_master $rpu0_as_power_management_master
+		set rpu1_as_master $rpu1_as_power_management_master
+		set apu_as_master  $apu_as_power_management_master
+	} elseif { ("reset" == $master_type) } {
+		set rpu0_as_master $rpu0_as_reset_management_master
+		set rpu1_as_master $rpu1_as_reset_management_master
+		set apu_as_master  $apu_as_reset_management_master
+	} else {
+		return "0U";
+	}
+
+	foreach master $pmufw::master_list {
+		if { [is_ipi_defined $master] == 1 } {
+			if { ($rpu0_as_master == false) &&
+			     ("psu_cortexr5_0" == $master) } {
+				continue
+			}
+			if { ($rpu1_as_master == false) &&
+			     (0 == [is_rpu_lockstep]) &&
+			     ("psu_cortexr5_1" == $master) } {
+				continue
+			}
+			if { ($apu_as_master == false) &&
+			     ("psu_cortexa53_0" == $master) } {
+				continue
+			}
+			lappend macro_list [get_ipi_mask_txt $master]
+		}
+	}
+
+	#Return the ORed macro list
+	if { [llength $macro_list] > 0 } {
+		return [join $macro_list " | "];
+	} else {
+		return "0U";
+	}
+}
+
 proc get_reset_section { } {
 	set reset_text "\n"
+	set reset_management_master_list "[get_list_of_management_master "reset"]"
 
 	append reset_text "\tPM_CONFIG_RESET_SECTION_ID, /* Reset Section ID */" "\n"
 	append reset_text "\t[dict size $pmufw::reset_line_map]" "U, /* Number of resets */" "\n"
@@ -861,6 +1063,54 @@ proc get_reset_section { } {
 				append reset_text "\t$line_name, [get_ipi_mask_txt "psu_cortexr5_0"]," "\n"
 			} else {
 				append reset_text "\t$line_name, 0," "\n"
+			}
+		} elseif { (1 == [is_all_master_enabled "reset"]) && (($line_type == "rst_periph") ||
+			   ($line_type == "rst_shared" ) || ($line_type == "rst_proc")) } {
+			append reset_text "\t$line_name, [get_all_masters_mask_txt]," "\n"
+		} elseif { (0 == [is_all_master_enabled "reset"]) && (($line_type == "rst_periph") ||
+			   ($line_type == "rst_shared" ) || ($line_type == "rst_proc")) } {
+			if { $line_type == "rst_periph" } {
+				set perms [get_periph_perm_mask_txt_for_rst_line $reset_line]
+				append reset_text "\t$line_name, $perms," "\n"
+			} elseif { $line_type == "rst_shared" } {
+				append reset_text "\t$line_name, $reset_management_master_list," "\n"
+			} elseif { $line_type == "rst_proc" } {
+				set line_proc [dict get [dict get $pmufw::reset_line_map $reset_line] proc ]
+				set macro_list ""
+				set master_txt ""
+				if { $line_proc == "APU" } {
+					append master_txt [get_ipi_mask_txt "psu_cortexa53_0"]
+				} elseif {((($line_proc == "RPU_1") || ($line_proc == "RPU")) && ([is_rpu_lockstep])) ||
+					  ($line_proc == "RPU_0") } {
+					append master_txt [get_ipi_mask_txt "psu_cortexr5_0"]
+				} elseif { $line_proc == "RPU_1" } {
+					append master_txt [get_ipi_mask_txt "psu_cortexr5_1"]
+				} elseif { $line_proc == "RPU" } {
+					set master_rpu_0 [get_ipi_mask_txt "psu_cortexr5_0"]
+					set master_rpu_1 [get_ipi_mask_txt "psu_cortexr5_1"]
+					if { ((-1 == [string first "$master_rpu_0" "$reset_management_master_list"]) &&
+					      ([string length "$master_rpu_0"]) &&
+					      (-1 == [string first "$master_rpu_1" "$reset_management_master_list"]) &&
+					      ([string length "$master_rpu_1"])) } {
+						append master_txt "$master_rpu_0"
+						append master_txt " | "
+						append master_txt "$master_rpu_1"
+					}
+				}
+				if { (-1 == [string first "$master_txt" "$reset_management_master_list"]) &&
+				     ([string length "$master_txt"]) } {
+					append macro_list "$master_txt"
+				}
+				if { (0 == [string match "0U" "$reset_management_master_list"])} {
+					if { ([string length "$macro_list"]) } {
+						append macro_list " | "
+					}
+					append macro_list "$reset_management_master_list"
+				}
+				if { (0 == [string length "$macro_list"])} {
+					append macro_list "0U"
+				}
+				append reset_text "\t$line_name, $macro_list," "\n"
 			}
 		} else {
                         append reset_text "\t$line_name, 0," "\n"
@@ -905,6 +1155,16 @@ proc get_gpo_section {} {
 	return $gpo_text
 }
 
+proc get_shutdown_section { } {
+	set shutdown_text "\n"
+	set power_management_master_list "[get_list_of_management_master "power"]"
+
+	append shutdown_text "\tPM_CONFIG_SHUTDOWN_SECTION_ID, /* Shutdown Section ID */" "\n"
+	append shutdown_text "\t$power_management_master_list, /* System Shutdown/Restart Permission */" "\n"
+
+	return $shutdown_text
+}
+
 proc gen_cfg_data { cfg_fname } {
 # Open file and dump the data
 set cfg_fid [open $cfg_fname w]
@@ -915,6 +1175,7 @@ set pmufw::cfg_template [string map [list "<<SLAVE_SECTION_DATA>>" "[get_slave_s
 set pmufw::cfg_template [string map [list "<<PREALLOC_SECTION_DATA>>" "[get_prealloc_section]"] $pmufw::cfg_template]
 set pmufw::cfg_template [string map [list "<<POWER_SECTION_DATA>>" "[get_power_section]"] $pmufw::cfg_template]
 set pmufw::cfg_template [string map [list "<<RESET_SECTION_DATA>>" "[get_reset_section]"] $pmufw::cfg_template]
+set pmufw::cfg_template [string map [list "<<SHUTDOWN_SECTION_DATA>>" "[get_shutdown_section]"] $pmufw::cfg_template]
 set pmufw::cfg_template [string map [list "<<GPO_SECTION_DATA>>" "[get_gpo_section]"] $pmufw::cfg_template]
 
 puts $cfg_fid "$pmufw::cfg_template"

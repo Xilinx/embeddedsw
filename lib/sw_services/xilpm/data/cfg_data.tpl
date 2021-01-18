@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2017 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -68,8 +68,7 @@ __root const u32 XPm_ConfigObject[] =
 	0,					/* Permissions to set config */
 	/**********************************************************************/
 	/* SHUTDOWN SECTION */
-	PM_CONFIG_SHUTDOWN_SECTION_ID,		/* Section ID */
-	0,					/* Number of shutdown types */
+<<SHUTDOWN_SECTION_DATA>>
 	/**********************************************************************/
 	/* GPO SECTION */
 <<GPO_SECTION_DATA>>
