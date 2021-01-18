@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -49,6 +49,8 @@
 * 					  Xil_InitializeExistingMPURegConfig.
 * 					  Added a new array of structure of type XMpuConfig to
 * 					  represent the MPU configuration table.
+* 7.5   mus  01/13/21 Updated declaration to have section attribute, earlier
+*                     it was being done from mpu.c.
 * </pre>
 *
 
@@ -79,7 +81,7 @@ struct XMpuConfig{
 
 typedef struct XMpuConfig XMpu_Config[MAX_POSSIBLE_MPU_REGS];
 
-extern XMpu_Config Mpu_Config;
+extern XMpu_Config Mpu_Config __attribute__((section(".boot")));
 /************************** Constant Definitions *****************************/
 
 /************************** Variable Definitions *****************************/
