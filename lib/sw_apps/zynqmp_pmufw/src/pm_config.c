@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -401,9 +401,16 @@ done:
 static s32 PmConfigShutdownSectionHandler(u32* const addr)
 {
 	s32 status = XST_SUCCESS;
+	u32 permission;
 
-	/* Shutdown section doesn't have shutdown types information */
-	PmConfigSkipWords(addr, 1);
+	/* Read permission from config object */
+	permission = PmConfigReadNext(addr);
+
+	/* Set the permission in system config object */
+	status = PmSystemSetConfig(permission);
+	if (XST_SUCCESS != status) {
+		PmErr("Failed to set system config\r\n");
+	}
 
 	return status;
 }

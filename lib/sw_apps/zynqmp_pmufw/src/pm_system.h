@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -35,6 +35,8 @@ s32 PmSystemFinalizePowerOffSuspend(void);
 s32 PmSystemResumePowerOffSuspend(void);
 u32 PmSystemSuspendType(void);
 void PmSystemSetSuspendType(u32 type);
+bool PmMasterCanSysShutdown(const PmMaster* const master);
+s32 PmSystemSetConfig(const u32 perms);
 
 #ifdef __cplusplus
 }

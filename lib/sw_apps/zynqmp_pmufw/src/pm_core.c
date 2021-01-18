@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -1241,6 +1241,22 @@ static void PmSystemShutdown(PmMaster* const master, const u32 type,
 	s32 status = XST_SUCCESS;
 
 	PmInfo("%s> SystemShutdown(%lu, %lu)\r\n", master->name, type, subtype);
+
+	/* Check whether master has permission for system shutdown/restart or not,
+	 * If master has permission for system shutdown/restart then allow below
+	 * list of operations, else return XST_PM_NO_ACCESS as error.
+	 * 	1> System Restart/Shutdown
+	 *	2> PS-only Restart
+	 */
+	if ((PMF_SHUTDOWN_TYPE_SHUTDOWN == type) ||
+	    ((PMF_SHUTDOWN_TYPE_RESET == type) &&
+	    ((PMF_SHUTDOWN_SUBTYPE_PS_ONLY == subtype) ||
+	     (PMF_SHUTDOWN_SUBTYPE_SYSTEM == subtype)))) {
+		if (false == PmMasterCanSysShutdown(master)) {
+			status = XST_PM_NO_ACCESS;
+			goto done;
+		}
+	}
 
 	/* For shutdown type the subtype is irrelevant: shut the caller down */
 	if (PMF_SHUTDOWN_TYPE_SHUTDOWN == type) {
