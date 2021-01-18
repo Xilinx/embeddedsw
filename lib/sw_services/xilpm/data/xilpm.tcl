@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 ##############################################################################
 
@@ -10,6 +10,19 @@ proc generate {libhandle} {
 	set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
 	set proctype [common::get_property IP_NAME $hw_proc_handle]
 	set procname [common::get_property NAME    $hw_proc_handle]
+
+	global rpu0_as_power_management_master
+	global rpu1_as_power_management_master
+	global apu_as_power_management_master
+	global rpu0_as_reset_management_master
+	global rpu1_as_reset_management_master
+	global apu_as_reset_management_master
+	set rpu0_as_power_management_master [common::get_property CONFIG.rpu0_as_power_management_master $libhandle]
+	set rpu1_as_power_management_master [common::get_property CONFIG.rpu1_as_power_management_master $libhandle]
+	set apu_as_power_management_master [common::get_property CONFIG.apu_as_power_management_master $libhandle]
+	set rpu0_as_reset_management_master [common::get_property CONFIG.rpu0_as_reset_management_master $libhandle]
+	set rpu1_as_reset_management_master [common::get_property CONFIG.rpu1_as_reset_management_master $libhandle]
+	set apu_as_reset_management_master [common::get_property CONFIG.apu_as_reset_management_master $libhandle]
 
 	set zynqmp_dir "./src/zynqmp"
 	set versal_dir "./src/versal"
