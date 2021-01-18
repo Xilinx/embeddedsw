@@ -15,6 +15,7 @@
 
 /* Include Files */
 //#include "hdcp.h"
+#include "main.h"
 #include "keymgmt.h"
 #include "keymgmt_debug.h"
 #include "keymgmt_device.h"
@@ -273,9 +274,10 @@ KEYMGMTLDR_Init(
 #if DEBUG_HDCP_INIT
 	xil_printf("\t\t\t[Inside fn KEYMGMTLDR_Init]: KEYFILE_Init \r\n");
 #endif
+#ifndef USE_EEPROM_HDCP_KEYS
     /* Initialize the key file module */
     KEYFILE_Init();
-
+#endif
     /* Iterate through theHandlers */
     do
     {

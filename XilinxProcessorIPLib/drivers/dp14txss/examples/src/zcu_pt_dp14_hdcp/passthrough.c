@@ -167,11 +167,8 @@ void DpPt_Main(void){
 
 	/*Check if Sink supports Colorimetry through VSC*/
 	if(XDpTxSs_CheckVscColorimetrySupport(&DpTxSsInst) == XST_SUCCESS){
-		u32 result=0;
-		result=XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,VSC_CAP_APB_REG_OFFSET);
-		result=result | RX_VSC_CAP_ENABLE; 			//setting APB register bit[2] for DPCD 0X2210 address
-		XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,VSC_CAP_APB_REG_OFFSET,result);
-		XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,	XDP_RX_AUDIO_CONTROL, 0x1); //enabling vsc
+		//Enable Rx for VSC capability
+		XDp_RxVSCEn(DpRxSsInst.DpPtr);
 	}
 
 	// disabling this when compliance is enabled
@@ -303,6 +300,24 @@ void DpPt_Main(void){
 
 
 #if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
+#ifdef USE_EEPROM_HDCP_KEYS
+	extern uint32_t Hdcp14KeyA_test_Sz ;
+	extern uint8_t Hdcp14KeyA_test[336];
+	extern uint8_t Hdcp14KeyA[];
+	extern uint32_t Hdcp14KeyA_Sz ;
+	uint64_t* ptr_64=Hdcp14KeyA_test;
+	extern uint32_t Hdcp14KeyB_test_Sz ;
+	extern uint8_t Hdcp14KeyB_test[336];
+	extern uint8_t Hdcp14KeyB[];
+	extern uint32_t Hdcp14KeyB_Sz ;
+	memcpy(Hdcp14KeyA_test,Hdcp14KeyA,Hdcp14KeyA_Sz);
+
+	memcpy(Hdcp14KeyB_test,Hdcp14KeyB,Hdcp14KeyB_Sz);
+	extern uint8_t Hdcp14Key_test[672];
+	extern uint32_t Hdcp14Key_test_Sz;
+	memcpy(Hdcp14Key_test,Hdcp14KeyA_test,Hdcp14KeyA_test_Sz);
+	memcpy((Hdcp14Key_test + Hdcp14KeyA_test_Sz),Hdcp14KeyB_test,Hdcp14KeyB_test_Sz);
+#endif
 	KEYMGMT_Init();
 	XHdcp1xExample_Init();
 
@@ -1318,15 +1333,15 @@ void start_tx_after_rx (void) {
 	/*Check component Format*/
 	if(Msa[0].ComponentFormat ==
 			XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422){
-		user_config.user_format = XVIDC_CSF_YCRCB_422 + 1;
+		user_config.user_format = XVIDC_CSF_YCRCB_422;
 	}else if(Msa[0].ComponentFormat ==
 			XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444){
-		user_config.user_format = XVIDC_CSF_YCRCB_444 + 1;
+		user_config.user_format = XVIDC_CSF_YCRCB_444;
 	}else if(Msa[0].ComponentFormat ==
 			XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420){
-		user_config.user_format = XVIDC_CSF_YCRCB_420 + 1;
+		user_config.user_format = XVIDC_CSF_YCRCB_420;
 	} else {
-		user_config.user_format = XVIDC_CSF_RGB + 1;
+		user_config.user_format = XVIDC_CSF_RGB;
 	}
 
 	// This block is to use with 4K30 monitor.

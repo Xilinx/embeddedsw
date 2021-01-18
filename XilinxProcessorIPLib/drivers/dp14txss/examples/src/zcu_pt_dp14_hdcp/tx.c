@@ -998,7 +998,7 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 	XVidC_VideoMode res_table = user_config.VideoMode_local;
 	u8 bpc = user_config.user_bpc;
 	u8 pat = user_config.user_pattern;
-	u8 format = user_config.user_format-1;
+	u8 format = user_config.user_format;
 	u8 C_VideoUserStreamPattern[8] = {0x10, 0x11, 0x12, 0x13, 0x14,
 												0x15, 0x16, 0x17}; //Duplicate
 
