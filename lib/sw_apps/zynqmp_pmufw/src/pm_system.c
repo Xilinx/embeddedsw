@@ -1108,4 +1108,30 @@ void PmSystemSetSuspendType(u32 type)
 	pmSystem.suspendType = type;
 }
 
+/**
+ * PmMasterCanSysShutdown() - Check if master has permissions for system
+ *			      shutdown/restart.
+ * @master      Master which wants to shutdown/restart the system
+ *
+ * @return      True if master has permission to restart the system,
+ *              false otherwise
+ */
+bool PmMasterCanSysShutdown(const PmMaster* const master)
+{
+        return 0U != (pmSystem.systemRestartPerms & master->ipiMask);
+}
+
+/**
+ * PmSystemSetConfig() - Set configuration for system control
+ * @permissions Permissions to set (ORed IPI masks of permissible masters)
+ *
+ * @return	XST_SUCCESS, permissions are set
+ */
+s32 PmSystemSetConfig(const u32 perms)
+{
+	/* Set permission for system restart/shutdown */
+	pmSystem.systemRestartPerms = perms;
+
+	return XST_SUCCESS;
+}
 #endif
