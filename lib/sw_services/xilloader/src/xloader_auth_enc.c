@@ -20,6 +20,8 @@
 *       kpt  01/06/21 Added redundancy for the loop in XLoader_CheckNonZeroPpk
 *       kpt  01/12/21 Added check to validate keysrc for partitions when
 *                     DEC only efuse bits are set
+*       kpt  01/18/21 Added check to validate the index of for loop with lower
+*                     bounds of ppk offset in XLoader_CheckNonZeroPpk
 *
 * </pre>
 *
@@ -1189,7 +1191,7 @@ END:
 static int XLoader_CheckNonZeroPpk(void)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Index;
+	volatile u32 Index;
 
 	for (Index = XLOADER_EFUSE_PPK0_START_OFFSET;
 		Index <= XLOADER_EFUSE_PPK2_END_OFFSET;
@@ -1202,13 +1204,17 @@ static int XLoader_CheckNonZeroPpk(void)
 	}
 	if (Index > (XLOADER_EFUSE_PPK2_END_OFFSET + XIH_PRTN_WORD_LEN)) {
 		Status = (int)XLOADER_ERR_GLITCH_DETECTED;
-		goto END;
 	}
-	if (Index <= XLOADER_EFUSE_PPK2_END_OFFSET) {
+	else if (Index < XLOADER_EFUSE_PPK0_START_OFFSET) {
+		Status = (int)XLOADER_ERR_GLITCH_DETECTED;
+	}
+	else if (Index <= XLOADER_EFUSE_PPK2_END_OFFSET) {
 		Status = XST_SUCCESS;
 	}
+	else {
+		Status = XST_FAILURE;
+	}
 
-END:
 	return Status;
 }
 
