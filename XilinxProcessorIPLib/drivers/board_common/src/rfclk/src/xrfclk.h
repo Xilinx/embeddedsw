@@ -25,6 +25,7 @@
 *       dc     03/05/20 add protection for shared i2c1 MUX
 * 1.3   dc     03/10/20 update LMK/LMX config for MTS
 * 1.4   dc     03/30/20 new LMX config suppressing RF noise on dual output
+* 1.5   dc     18/01/21 pass GPIO Mux base address as parameter
 * </pre>
 *
 ******************************************************************************/
@@ -74,8 +75,10 @@ typedef int s32;
 
 u32 XRFClk_WriteReg(u32 ChipId, u32 Data);
 u32 XRFClk_ReadReg(u32 ChipId, u32 *Data);
-#if defined __BAREMETAL__ || defined XPS_BOARD_ZCU111
+#if defined XPS_BOARD_ZCU111
 u32 XRFClk_Init();
+#elif defined __BAREMETAL__
+u32 XRFClk_Init(u32 GpioMuxBaseAddress);
 #else
 u32 XRFClk_Init(int GpioId);
 #endif
