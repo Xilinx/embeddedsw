@@ -25,6 +25,7 @@
 * 1.2   dc     22/01/20 add version and list of LMK frequencies
 *       dc     03/05/20 add protection for shared i2c1 MUX
 * 1.3   dc     03/10/20 update LMK/LMX config for MTS
+* 1.5   dc     18/01/21 pass GPIO Mux base address as parameter
 * </pre>
 *
 ******************************************************************************/
@@ -146,11 +147,11 @@ u32 MuxOutRegStorage[RFCLK_CHIP_NUM];
 static int XRFClk_I2cIoExpanderConfig();
 #else
 #ifdef __BAREMETAL__
-#define GPIO_DEVICE_ADDR                                                       \
-	XPAR_PS_SUBSYSTEM_AXI_GPIO_SPI_MUX_DEVICE_ID /* GPIO base address */
+static u32 XRFClk_GpioMuxBaseAddress; /* GPIO base address */
 #endif
 #define GPIO_DATA_REG 0 /* GPIO data register offset address */
 #define GPIO_CONTROL_REG 4 /* GPIO control register offset address */
+#define GPIO_REG_MASK 0xfffffffC /* GPIO control register mask */
 #endif
 
 #ifdef __BAREMETAL__
@@ -267,7 +268,7 @@ static u32 XRFClk_InitGPIO(void)
 		return XST_FAILURE;
 	}
 #elif defined __BAREMETAL__
-	Xil_Out32(GPIO_DEVICE_ADDR + GPIO_CONTROL_REG, 0xfffffffC);
+	Xil_Out32(XRFClk_GpioMuxBaseAddress + GPIO_CONTROL_REG, GPIO_REG_MASK);
 #else
 	int expfd;
 	int dirfd;
@@ -377,7 +378,7 @@ static u32 XRFClk_MUX_SPI_SDO_GPIOPin(u8 ChipId)
 	}
 #elif defined(__BAREMETAL__)
 	/* Select MUX */
-	Xil_Out32(GPIO_DEVICE_ADDR, ChipId);
+	Xil_Out32(XRFClk_GpioMuxBaseAddress, ChipId);
 #else
 	int valfd;
 	char gpio_valpath[50];
@@ -988,9 +989,13 @@ u32 XRFClk_ReadReg(u32 ChipId, u32 *d)
 * @note		None
 *
 ****************************************************************************/
-#if defined __BAREMETAL__ || defined XPS_BOARD_ZCU111
+#if defined XPS_BOARD_ZCU111
 u32 XRFClk_Init()
 {
+#elif defined __BAREMETAL__
+u32 XRFClk_Init(u32 GpioMuxBaseAddress)
+{
+	XRFClk_GpioMuxBaseAddress = GpioMuxBaseAddress;
 #else
 u32 XRFClk_Init(int GpioId)
 {

@@ -18,6 +18,7 @@
 * 1.0   dc     07/21/19 Initial version
 * 1.1   dc     11/21/19 Remove xil dependencies from linux build
 *       dc     12/05/19 adjust LMX and LMK configs to a rftool needs
+* 1.5   dc     18/01/21 pass GPIO Mux base address as parameter
 *
 * </pre>
 *
@@ -131,8 +132,11 @@ int main()
 	u32 d;
 
 	printf("\n----------- START ------------\n");
-#if defined __BAREMETAL__ || defined XPS_BOARD_ZCU111
+#if defined XPS_BOARD_ZCU111
 	XRFClk_Init();
+#elif defined __BAREMETAL__
+	/* The base address is defined in xparameters.h */
+	XRFClk_Init(XPAR_PS_SUBSYSTEM_AXI_GPIO_SPI_MUX_DEVICE_ID);
 #else
 	/* The parameter is a gpioID, see Linux boot logging */
 	XRFClk_Init(486);
