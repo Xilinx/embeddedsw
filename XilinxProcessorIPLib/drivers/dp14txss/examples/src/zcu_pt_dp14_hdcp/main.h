@@ -108,6 +108,7 @@ extern XHdcp22_Repeater     Hdcp22Repeater;
 #define PT
 #define LB
 
+#define USE_EEPROM_HDCP_KEYS
 /************************** Constant Definitions *****************************/
 
 /*

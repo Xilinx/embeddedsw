@@ -7,6 +7,7 @@
 
 
 /* Include Files */
+#include "main.h"
 #include "keymgmt.h"
 #include "keymgmt_keyfile.h"
 #include <stdio.h>
@@ -223,8 +224,11 @@ doReadBram(
 			  theNumThisTime);
 
 
+#ifndef USE_EEPROM_HDCP_KEYS
+
       /* Decrypt it */
       aes256_decrypt_ecb(&theHandler->fContext, theU8Ptr);
+#endif
 
       /* Update for loop */
       theHandler->fReadIdx += theNumThisTime;
@@ -390,6 +394,7 @@ KEYFILE_Validate(
   void*       theKey
 )
 {
+#ifndef USE_EEPROM_HDCP_KEYS
   /* Locals */
   KEYFILE_tHandle theHandle = KEYFILE_HANDLE_NULL;
 
@@ -455,6 +460,22 @@ KEYFILE_Validate(
 
   /* Return */
   return (theHandle);
+#else
+	/* Locals */
+  extern uint8_t Hdcp14Key_test[672];
+  extern uint32_t Hdcp14Key_test_Sz;
+  KEYFILE_tHandle theHandle = KEYFILE_HANDLE_NULL;
+  tHandler*       theHandler = gMyHandlers;
+  theHandler->fBuf=Hdcp14Key_test;
+  theHandler->fBufSize=Hdcp14Key_test_Sz;
+  theHandler->fReadIdx=0;
+  theHandler->fFlags=0;
+  theHandle =0;
+
+  /* Return */
+  return (theHandle);
+
+#endif
 }
 
 

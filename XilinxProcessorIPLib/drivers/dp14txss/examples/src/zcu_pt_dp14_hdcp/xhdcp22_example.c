@@ -10,6 +10,7 @@
  *  Created on: Dec 17, 2018
  *      Author: jbaniset
  */
+#include "main.h"
 #include "xhdcp22_example.h"
 
 #ifdef XPAR_XDPRXSS_NUM_INSTANCES
@@ -186,12 +187,12 @@ int XHdcp22_LoadKeys_rx(uint8_t *Hdcp22Lc128, uint32_t Hdcp22Lc128Size,
 	 * stored location and return those.
 	 * For HDMI there is an EEPROM in which all the encrypted keys have stored,
 	 * For DP this is from the keys.c file*/
-
+#ifndef USE_EEPROM_HDCP_KEYS
 	/* HDCP 2.2 LC128 */
 	memcpy(Hdcp22Lc128, XHdcp22Lc128, Hdcp22Lc128Size);
 	/* Certificate */
 	memcpy(Hdcp22RxPrivateKey, XHdcp22RxPrivateKey, Hdcp22RxPrivateKeySize);
-
+#endif
 	return XST_SUCCESS;
 }
 
@@ -402,10 +403,10 @@ int XHdcp22_LoadKeys_tx(u8 *Hdcp22Lc128, u32 Hdcp22Lc128Size)
 	 * stored location and return those.
 	 * For HDMI there is an EEPROM in which all the encrypted keys have stored,
 	 * For DP this is from the keys.c file*/
-
+#ifndef USE_EEPROM_HDCP_KEYS
 	/* HDCP 2.2 LC128 */
 	memcpy(Hdcp22Lc128, XHdcp22Lc128, Hdcp22Lc128Size);
-
+#endif
 	return XST_SUCCESS;
 }
 
