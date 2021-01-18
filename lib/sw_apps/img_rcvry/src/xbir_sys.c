@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -94,8 +94,8 @@ static const u32 Xbir_UtilCrcTable[] = {
 };
 
 static Xbir_SysBootImgInfo BootImgStatus = \
-		{{0x41U, 0x42U, 0x55U, 0x4DU}, 1U, 4U, 0xAFB2BDB9U, \
-		{0U, 0U, 0U, 0U}, 0x200000U, 0xF80000U, 0x1E00000U};
+		{{0x41U, 0x42U, 0x55U, 0x4DU}, 1U, 4U, 0xAEB2BDB9U, \
+		{0U, 0U, 0U, 1U}, 0x200000U, 0xF80000U, 0x1E00000U};
 static u8 QspiBuffer[XBIR_SYS_QSPI_MAX_SUB_SECTOR_SIZE];
 static Xbir_SysInfo SysInfo = {0U};
 static Xbir_CCInfo CCInfo = {0U};
