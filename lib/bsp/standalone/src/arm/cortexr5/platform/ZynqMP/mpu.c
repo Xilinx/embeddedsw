@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,8 @@
 * 7.1   mus  09/11/19 Added warning message if DDR size is not in power of 2.
 *                     Fix for CR#1038577.
 * 7.2   asa  04/08/20 Fix warning in the function Init_MPU.
+* 7.5   mus  01/13/21 Removed redundant declaration for Mpu_Config,
+*                     declaration is present in xil_mpu.h.
 * </pre>
 *
 * @note
@@ -85,13 +87,11 @@ static const struct {
 void Init_MPU(void) __attribute__((__section__(".boot")));
 static void Xil_SetAttribute(u32 addr, u32 reg_size,s32 reg_num, u32 attrib) __attribute__((__section__(".boot")));
 static void Xil_DisableMPURegions(void) __attribute__((__section__(".boot")));
-extern XMpu_Config Mpu_Config __attribute__((section(".boot")));
 #elif defined (__ICCARM__)
 #pragma default_function_attributes = @ ".boot"
 void Init_MPU(void);
 static void Xil_SetAttribute(u32 addr, u32 reg_size,s32 reg_num, u32 attrib);
 static void Xil_DisableMPURegions(void);
-extern XMpu_Config Mpu_Config;
 #endif
 /*****************************************************************************
 *

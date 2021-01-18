@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,8 @@
 * 7.3   asa  09/25/20 Make changes to update the global array
 *                     Mpu_Config for the static regions created
 *                     during boot up.
+* 7.5   mus  01/13/21 Removed redundant declaration for Mpu_Config,
+*                     declaration is present in xil_mpu.h.
 * </pre>
 *
 * @note
@@ -83,13 +85,11 @@ static const struct {
 void Init_MPU(void) __attribute__((__section__(".boot")));
 static void Xil_SetAttribute(u32 addr, u32 reg_size,s32 reg_num, u32 attrib) __attribute__((__section__(".boot")));
 static void Xil_DisableMPURegions(void) __attribute__((__section__(".boot")));
-extern XMpu_Config Mpu_Config __attribute__((section(".boot")));
 #elif defined (__ICCARM__)
 #pragma default_function_attributes = @ ".boot"
 void Init_MPU(void);
 static void Xil_SetAttribute(u32 addr, u32 reg_size,s32 reg_num, u32 attrib);
 static void Xil_DisableMPURegions(void);
-extern XMpu_Config Mpu_Config;
 #endif
 /*****************************************************************************
 *
