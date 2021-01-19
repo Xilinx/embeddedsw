@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,9 @@
 *                     xparameters.h. Modified code to always use default timer
 *                     path for FreeRTOS BSP, based on the "FREERTOS_BSP" macro.
 *                     It fixes CR#1012363.
+* 7.5   dp   01/05/21 Updated COUNTS_PER_U/MSECOND, ITERS_PER_M/USEC macros to
+*                     round it off to nearest possible value so that delta error
+*                     in time calculations can be minimized.
 *
 * </pre>
 *
@@ -45,13 +48,13 @@
 
 #if defined (XSLEEP_TIMER_IS_AXI_TIMER)
 #define COUNTS_PER_SECOND (SLEEP_TIMER_FREQUENCY)
-#define COUNTS_PER_MSECOND (COUNTS_PER_SECOND / 1000)
-#define COUNTS_PER_USECOND (COUNTS_PER_SECOND / 1000000)
+#define COUNTS_PER_MSECOND ((COUNTS_PER_SECOND + 500) / 1000)
+#define COUNTS_PER_USECOND ((COUNTS_PER_SECOND + 500000)/ 1000000)
 #warning "May wait for more than the specified delay"
 #elif defined (XSLEEP_TIMER_IS_DEFAULT_TIMER) || defined (FREERTOS_BSP)
 #define ITERS_PER_SEC	(XPAR_CPU_CORE_CLOCK_FREQ_HZ / 4)
-#define ITERS_PER_MSEC	(ITERS_PER_SEC / 1000)
-#define ITERS_PER_USEC	(ITERS_PER_MSEC / 1000)
+#define ITERS_PER_MSEC	((ITERS_PER_SEC + 500) / 1000)
+#define ITERS_PER_USEC	((ITERS_PER_MSEC + 500) / 1000)
 #pragma message ("For the sleep routines, assembly instructions are used")
 #endif
 
