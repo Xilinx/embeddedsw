@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2001 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2001 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xspi_options.c
-* @addtogroup spi_v4_7
+* @addtogroup spi_v4_8
 * @{
 *
 * Contains functions for the configuration of the XSpi driver component.

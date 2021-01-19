@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2005 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2005 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xspi_sinit.c
-* @addtogroup spi_v4_7
+* @addtogroup spi_v4_8
 * @{
 *
 * The implementation of the XSpi component's static initialization
