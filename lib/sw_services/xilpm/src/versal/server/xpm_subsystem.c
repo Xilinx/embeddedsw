@@ -396,14 +396,17 @@ XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId)
 			goto done;
 		}
 	} else if (((u32)XPM_NODECLASS_POWER == NODECLASS(NodeId)) &&
-		   ((u32)XPM_NODESUBCL_POWER_DOMAIN == NODESUBCLASS(NodeId)) &&
-		   ((PM_SUBSYS_PMC != SubsystemId) &&
-		    (PM_SUBSYS_DEFAULT != SubsystemId))) {
-		/*
-		 * Only PMC and default subsystem can enact force power down
-		 * upon power domains.
-		 */
-		Status = XPM_PM_NO_ACCESS;
+		   ((u32)XPM_NODESUBCL_POWER_DOMAIN == NODESUBCLASS(NodeId))) {
+		if ((PM_SUBSYS_PMC == SubsystemId) ||
+		    (PM_SUBSYS_DEFAULT == SubsystemId)) {
+			Status = XST_SUCCESS;
+		} else {
+			/*
+			 * Only PMC and default subsystem can enact force power down
+			 * upon power domains.
+			 */
+			Status = XPM_PM_NO_ACCESS;
+		}
 		goto done;
 	} else {
 		Status = XPM_PM_NO_ACCESS;
