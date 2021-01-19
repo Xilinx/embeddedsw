@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -75,6 +75,7 @@
 *       bsv  10/13/2020 Code clean up
 *       ana  10/19/2020 Added doxygen comments
 * 1.03  bm   12/15/2020 Added XLOADER_SD_MAX_BOOT_FILES_LIMIT macro
+*       ma   01/12/2021 Added macro for invalid boot mode
 *
 * </pre>
 *
@@ -217,6 +218,7 @@ typedef enum {
 	XLOADER_PDI_SRC_EMMC_RAW_BP2 = (0x17),
 	XLOADER_PDI_SRC_EMMC0 = (0x18),
 	XLOADER_PDI_SRC_EMMC0_RAW = (0x19),
+	XLOADER_PDI_SRC_INVALID = (0xFF),
 } PdiSrc_t;
 
 /* Minor Error Codes */
