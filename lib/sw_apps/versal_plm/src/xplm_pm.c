@@ -21,6 +21,8 @@
 * 1.03  kc   08/04/2020 Initialized IpiMask to zero for PMC CDO commands
 *       kc   08/04/2020 Added default NPLL configuration for master SLR devices
 * 1.04  ma   01/12/2021 Initialize SlrType to invalid SLR type
+*                       Call PMC state clear function when error occurs while
+*                        processing PLM CDO
 *
 * </pre>
 *
@@ -216,6 +218,10 @@ int XPlm_ProcessPlmCdo(void *Arg)
 	Cdo.BufPtr = (u32 *)XPLMI_PMCRAM_BASEADDR;
 	Cdo.BufLen = XPLMI_PMCRAM_LEN;
 	Status = XPlmi_ProcessCdo(&Cdo);
+
+	if (XST_SUCCESS != Status) {
+		XLoader_PMCStateClear();
+	}
 
 END:
 	return Status;
