@@ -24,6 +24,7 @@
 * 1.03  rama 07/29/2020 Added module support for STL
 * 1.04  ma   01/12/2021 Directly call module init function instead of calling
 *                       in for-loop
+*                       Remove unused Status variable in XPlm_ErrInit
 *
 * </pre>
 *
@@ -86,12 +87,9 @@ static int XPlm_SecureInit(void)
  *****************************************************************************/
 static int XPlm_ErrInit(void)
 {
-	int Status = XST_FAILURE;
-
 	XPlmi_EmInit(XPm_SystemShutdown);
-	Status = XST_SUCCESS;
 
-	return Status;
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
