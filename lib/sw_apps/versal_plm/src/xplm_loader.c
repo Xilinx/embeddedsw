@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,7 @@
 *                       subsystem information
 *       bm   10/14/2020 Code clean up
 * 1.04  bm   12/16/2020 Added PLM_SECURE_EXCLUDE macro
+*       ma   01/12/2021 Initialize BootMode and PdiInstance with invalid value
 *
 * </pre>
 *
@@ -76,9 +77,9 @@ int XPlm_LoaderInit(void)
 int XPlm_LoadBootPdi(void *Arg)
 {
 	int Status = XST_FAILURE;
-	PdiSrc_t BootMode;
+	PdiSrc_t BootMode = XLOADER_PDI_SRC_INVALID;
 	XilPdi *PdiPtr;
-	static XilPdi PdiInstance;
+	static XilPdi PdiInstance = {0U};
 
 	(void )Arg;
 	XPlmi_Printf(DEBUG_PRINT_PERF, "PLM Initialization Time \n\r");
