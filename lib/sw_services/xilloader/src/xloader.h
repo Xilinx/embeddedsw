@@ -77,6 +77,7 @@
 * 1.03  bm   12/15/2020 Added XLOADER_SD_MAX_BOOT_FILES_LIMIT macro
 *       ma   01/12/2021 Added macro for invalid boot mode
 *                       Added macro for invalid SLR Type
+*                       Added function for PMC State clear
 *
 * </pre>
 *
@@ -378,6 +379,7 @@ int XLoader_CframeInit(void);
 void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr);
 XLoader_ImageInfo* XLoader_GetImageInfoEntry(u32 ImgID);
 int XLoader_LoadImageInfoTbl(u64 DestAddr, u32 MaxSize, u32 *NumEntries);
+void XLoader_PMCStateClear(void);
 
 /* Functions defined in xloader_prtn_load.c */
 int XLoader_LoadImagePrtns(XilPdi* PdiPtr);
