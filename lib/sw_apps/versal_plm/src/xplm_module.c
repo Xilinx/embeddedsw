@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,8 @@
 *       ma   08/01/2019 Removed LPD module init related code from PLM app
 * 1.02  kc   03/23/2020 Minor code cleanup
 * 1.03  rama 07/29/2020 Added module support for STL
+* 1.04  ma   01/12/2021 Directly call module init function instead of calling
+*                       in for-loop
 *
 * </pre>
 *
@@ -42,7 +44,6 @@
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
-typedef int (*ModuleInit)(void);
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -125,31 +126,50 @@ static int XPlm_PlmiInit(void)
 int XPlm_ModuleInit(void *Arg)
 {
 	int Status = XST_FAILURE;
-	u32 Index;
-	/**
-	 * It contains the all the init functions to be run for every module that
-	 * is present as a part of PLM.
-	 */
-	const ModuleInit ModuleList[] =
-	{
-		XPlm_PlmiInit,
-		XPlm_ErrInit,
-		XPlm_PmInit,
-		XPlm_LoaderInit,
-		XPlm_SecureInit,
-#ifdef PLM_ENABLE_STL
-		XPlm_StlInit,
-#endif
-	};
 
 	(void) Arg;
-	for (Index = 0U; Index < XPLMI_ARRAY_SIZE(ModuleList); Index++) {
-		Status = ModuleList[Index]();
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
+
+	/*
+	 * Call initialization function for the below modules:
+	 * 	-PLMI
+	 * 	-Error manager
+	 * 	-PM
+	 * 	-Loader
+	 * 	-Secure
+	 * 	-STL
+	 */
+
+	Status = XPlm_PlmiInit();
+	if (Status != XST_SUCCESS) {
+		goto END;
 	}
-	Status = XST_SUCCESS;
+
+	Status = XPlm_ErrInit();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XPlm_PmInit();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XPlm_LoaderInit();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XPlm_SecureInit();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+#ifdef PLM_ENABLE_STL
+	Status = XPlm_StlInit();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+#endif
 
 END:
 	return Status;
