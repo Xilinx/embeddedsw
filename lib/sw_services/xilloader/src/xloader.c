@@ -79,6 +79,7 @@
 *       bm   12/16/2020 Added PLM_SECURE_EXCLUDE macro
 *       kpt  01/06/2021 Added redundancy check for
 *                       XLoader_ReadAndVerifySecureHdrs
+*       ma   01/18/2021 Added function for PMC state clear
 *
 * </pre>
 *
@@ -95,6 +96,7 @@
 #include "xloader_usb.h"
 #include "xloader_ddr.h"
 #include "xloader_ospi.h"
+#include "xloader_secure.h"
 #include "xpm_device.h"
 #include "xpm_api.h"
 #include "xpm_subsystem.h"
@@ -2034,4 +2036,19 @@ static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 	}
 END:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is used to clear PMC state
+ *
+ *****************************************************************************/
+void XLoader_PMCStateClear(void)
+{
+	/* Clear PMC RAM CDO memory */
+	(void)XPlmi_MemSet(XPLMI_PMCRAM_CHUNK_MEMORY, XPLMI_DATA_INIT_PZM,
+			XLOADER_CHUNK_SIZE / XPLMI_WORD_LEN);
+
+	/* Clear secure state of PMC */
+	XLoader_SecureClear();
 }
