@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,7 @@
 #include "xbir_qspi.h"
 #include "xbir_qspi_hw.h"
 #include "xbir_config.h"
+#include "xbir_err.h"
 
 /************************** Constant Definitions *****************************/
 /*
@@ -112,12 +113,12 @@ static int Xbir_QspiFlashReadID(XQspiPsu *QspiPsuPtr)
 	} else if(ReadBuffer[0U] == ISSI_ID) {
 		FlashInfo.FlashMake = ISSI_ID;
 	} else {
-		Status = XBIR_ERROR_UNSUPPORTED_QSPI_VENDOR;
+		Status = XBIR_ERROR_QSPI_VENDOR;
 		goto END;
 	}
 	Status = Xbir_GetFlashInfo(ReadBuffer[0U], ReadBuffer[2U]);
 	if (Status != XST_SUCCESS) {
-		Status = XBIR_ERROR_UNSUPPORTED_QSPI_CONN_MODE;
+		Status = XBIR_ERROR_QSPI_CONN_MODE;
 		goto END;
 	}
 
@@ -232,14 +233,14 @@ int Xbir_QspiInit(void)
 	/* Initialize the QSPI driver so that it's ready to use */
 	QspiConfig =  XQspiPsu_LookupConfig(XBIR_QSPI_DEVICE_ID);
 	if (NULL == QspiConfig) {
-		Status = XBIR_QSPI_CONFIG_FAILED;
+		Status = XBIR_ERROR_QSPI_CONFIG;
 		goto END;
 	}
 
 	Status =  XQspiPsu_CfgInitialize(&QspiPsuInstance, QspiConfig,
 			QspiConfig->BaseAddress);
 	if (Status != XST_SUCCESS) {
-		Status = XBIR_QSPI_CONFIG_INIT_FAILED;
+		Status = XBIR_ERROR_QSPI_CONFIG_INIT;
 		goto END;
 	}
 
@@ -288,7 +289,7 @@ int Xbir_QspiInit(void)
 			break;
 
 		default:
-			Status = XBIR_ERROR_INVALID_QSPI_CONNECTION;
+			Status = XBIR_ERROR_INVALID_QSPI_CONN;
 			break;
 	}
 	if (Status != XST_SUCCESS) {
@@ -309,7 +310,7 @@ int Xbir_QspiInit(void)
 			break;
 
 		default:
-			Status = XBIR_ERROR_INVALID_QSPI_CONNECTION;
+			Status = XBIR_ERROR_INVALID_QSPI_CONN;
 			break;
 	}
 	if (Status != XST_SUCCESS) {
@@ -525,7 +526,7 @@ int Xbir_QspiRead(u32 SrcAddress, u8* DestAddress, u32 Length)
 			/* Enable QPI mode */
 			Status = Xbir_QspiMacronixEnableQPIMode(&QspiPsuInstance, ENABLE_QPI);
 			if (Status != XST_SUCCESS) {
-				Status = XBIR_QSPI_4BYTE_ENETER_ERROR;
+				Status = XBIR_ERROR_QSPI_4BYTE_ENTER;
 				goto END;
 			}
 
@@ -583,7 +584,7 @@ int Xbir_QspiRead(u32 SrcAddress, u8* DestAddress, u32 Length)
 			/* Disable QPI mode */
 			Status = Xbir_QspiMacronixEnableQPIMode(&QspiPsuInstance, DISABLE_QPI);
 			if (Status != XST_SUCCESS) {
-				Status = XBIR_QSPI_4BYTE_ENETER_ERROR;
+				Status = XBIR_ERROR_QSPI_4BYTE_ENTER;
 				goto END;
 			}
 		} else {
@@ -1160,7 +1161,7 @@ static int Xbir_FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr, u8 Enable)
 
 	Status = XQspiPsu_PolledTransfer(QspiPsuPtr, FlashMsg, 1U);
 	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+		goto END;
 	}
 
 	while (1U) {

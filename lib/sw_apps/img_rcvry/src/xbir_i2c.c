@@ -27,14 +27,9 @@
 #include "xstatus.h"
 
 #if defined(XPAR_XIICPS_NUM_INSTANCES)
+#include "xbir_err.h"
 
 /************************** Constant Definitions *****************************/
-/*
- * The following constant defines the address of the IIC Slave device on the
- * IIC bus. Note that since the address is only 7 bits, this constant is the
- * address divided by 2.
- */
-#define XBIR_IIC_SCLK_RATE		(100000U)
 
 /**************************** Type Definitions *******************************/
 
@@ -44,6 +39,9 @@
 #else
 #define XBIR_I2C_EEPROM_INDEX	(0U)
 #endif
+
+#define XBIR_IIC_SCLK_RATE		(100000U)
+#define XBIR_MAX_DELAY			(10000000U)
 
 /************************** Function Prototypes ******************************/
 
@@ -70,31 +68,44 @@ int Xbir_IicEepromReadData(u8 *BufferPtr, u16 ByteCount, u8 EepromAddr)
 	int Status = XST_FAILURE;
 	/* Eeprom Page size is 32 bytes and hence 2 bytes for array */
 	u8 WriteBuffer[2U] = {0U};
+	u32 TimeOutCount = XBIR_MAX_DELAY;
 
 	Status = XIicPs_MasterSendPolled(&IicInstance, WriteBuffer,
 		sizeof(WriteBuffer), EepromAddr);
 	if (Status != XST_SUCCESS) {
+		Status = XBIR_ERROR_IIC_MASTER_SEND;
 		goto END;
 	}
 
 	/*
 	 * Wait until bus is idle to start another transfer.
 	 */
-	while (XIicPs_BusIsBusy(&IicInstance)) {
-		;
+	while ((XIicPs_BusIsBusy(&IicInstance)) && (TimeOutCount > 0U)) {
+		TimeOutCount--;
+	}
+	if (TimeOutCount == 0U) {
+		Status = XBIR_ERROR_I2C_WRITE_TIMEOUT;
+		goto END;
 	}
 
 	/* Receive the Data */
 	Status = XIicPs_MasterRecvPolled(&IicInstance, BufferPtr,
 		ByteCount, EepromAddr);
 	if (Status != XST_SUCCESS) {
-		Status = XBIR_IIC_MASTER_RECV_POLLED_FAILED;
+		Status = XBIR_ERROR_IIC_MASTER_RECV;
 		goto END;
 	}
 
-	/* Wait until bus is idle to start another transfer */
-	while (XIicPs_BusIsBusy(&IicInstance)) {
-		;
+	/*
+	 * Wait until bus is idle to start another transfer.
+	 */
+	TimeOutCount = XBIR_MAX_DELAY;
+	while ((XIicPs_BusIsBusy(&IicInstance)) && (TimeOutCount > 0U)) {
+		TimeOutCount--;
+	}
+	if (TimeOutCount == 0U) {
+		Status = XBIR_ERROR_I2C_READ_TIMEOUT;
+		goto END;
 	}
 
 END:
@@ -118,25 +129,34 @@ int Xbir_IicInit (void)
 
 #if XPAR_XIICPS_NUM_INSTANCES
 	XIicPs_Config *ConfigPtr;	/* Pointer to configuration data */
+	u32 TimeOutCount = XBIR_MAX_DELAY;
 
 	/* Initialize the IIC driver so that it is ready to use */
 	ConfigPtr = XIicPs_LookupConfig(XBIR_I2C_EEPROM_INDEX);
 	if (ConfigPtr == NULL) {
-		Status = XBIR_IIC_LKP_CONFIG_FAILED;
+		Status = XBIR_ERROR_IIC_LKP_CONFIG;
 		goto END;
 	}
 
 	Status = XIicPs_CfgInitialize(&IicInstance, ConfigPtr,
 			ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
-		Status = XBIR_IIC_CONFIG_INIT_FAILED;
+		Status = XBIR_ERROR_IIC_CONFIG_INIT;
 		goto END;
 	}
 
 	/* Set the IIC serial clock rate */
 	Status = XIicPs_SetSClk(&IicInstance, XBIR_IIC_SCLK_RATE);
 	if (Status != XST_SUCCESS) {
-		Status = XBIR_IIC_SET_SCLK_FAILED;
+		Status = XBIR_ERROR_IIC_SET_SCLK;
+		goto END;
+	}
+
+	while ((XIicPs_BusIsBusy(&IicInstance)) && (TimeOutCount > 0U)) {
+		TimeOutCount--;
+	}
+	if (TimeOutCount == 0U) {
+		Status = XBIR_ERROR_IIC_SET_SCLK_TIMEOUT;
 		goto END;
 	}
 
