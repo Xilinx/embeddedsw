@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,9 @@
 *                         implementation. Now sleep routines will use Timer
 *                         specified by the user (i.e. Global timer/TTC timer)
 *       srm      01/11/18 Fixed the compilation warning.
+* 7.5   dp      01/05/21 Updated COUNTS_PER_USECOND macros to round it off to
+*                        nearest possible value so that delta error in time
+*                        calculations can be minimized.
 * </pre>
 *
 ******************************************************************************/
@@ -42,12 +45,8 @@
 #endif
 /****************************  Constant Definitions  ************************/
 
-#if defined (SLEEP_TIMER_BASEADDR)
-#define COUNTS_PER_USECOND  (COUNTS_PER_SECOND / 1000000 )
-#else
 /* Global Timer is always clocked at half of the CPU frequency */
-#define COUNTS_PER_USECOND  (COUNTS_PER_SECOND / 1000000 )
-#endif
+#define COUNTS_PER_USECOND  ((COUNTS_PER_SECOND + 500000)/1000000)
 
 /************************************************************************/
 #if !defined (SLEEP_TIMER_BASEADDR)

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,9 @@
 *                       implementation when default timer is selected by the user
 * 7.2   mus    01/29/20 Updated #defines to support PMU cycle counter for sleep
 *                       routines.
+* 7.5   dp      01/05/21 Updated COUNTS_PER_SECOND/USECOND and ITERS_PER_SEC/USEC
+*                        macros to round it off to nearest possible value so that
+*                        delta error in time calculations can be minimized.
 * </pre>
 *
 ******************************************************************************/
@@ -46,11 +49,10 @@ extern "C" {
 #ifdef SLEEP_TIMER_BASEADDR
 
 #define COUNTS_PER_SECOND				SLEEP_TIMER_FREQUENCY
-#define COUNTS_PER_USECOND 				COUNTS_PER_SECOND/1000000
 
 #else
-#define ITERS_PER_SEC  (XPAR_CPU_CORTEXR5_0_CPU_CLK_FREQ_HZ / 4)
-#define ITERS_PER_USEC  (XPAR_CPU_CORTEXR5_0_CPU_CLK_FREQ_HZ / 4000000)
+#define ITERS_PER_SEC  ((XPAR_CPU_CORTEXR5_0_CPU_CLK_FREQ_HZ + 2)/ 4)
+#define ITERS_PER_USEC  ((XPAR_CPU_CORTEXR5_0_CPU_CLK_FREQ_HZ + 2000000)/ 4000000)
 
 /*
  * These constants are applicable for the CortexR5 PMU cycle counter.
@@ -58,9 +60,10 @@ extern "C" {
  * on every 64th bit of processor cycle
  */
 
-#define COUNTS_PER_SECOND	(XPAR_CPU_CORTEXR5_0_CPU_CLK_FREQ_HZ / 64)
-#define COUNTS_PER_USECOND	(COUNTS_PER_SECOND/1000000)
+#define COUNTS_PER_SECOND	((XPAR_CPU_CORTEXR5_0_CPU_CLK_FREQ_HZ + 32)/ 64)
 #endif
+
+#define COUNTS_PER_USECOND	((COUNTS_PER_SECOND + 500000) / 1000000)
 
 #define IRQ_FIQ_MASK 	0xC0	/* Mask IRQ and FIQ interrupts in cpsr */
 
