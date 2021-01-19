@@ -16,6 +16,7 @@
 #      sd   09/03/19  Add support for versal ip name
 # 2.8  nsk  12/14/20  Modified the tcl to not to gnerate the instance
 #                     names.
+# 2.8  nsk  01/19/21  Updated to use IP_NAME for IPIs mapped.
 ##############################################################################
 
 #uses "xillib.tcl"
@@ -55,7 +56,12 @@ proc ipi_find_cpu {ipi_list param hw_proc} {
 	foreach ipi $ipi_list {
 		set param_name [string range $param [string length "CONFIG."] [string length $param]]
 		set param_value [common::get_property $param [hsi::get_cells -hier $ipi]]
-		if { [string match -nocase "*$param_value*" $hw_proc] } {
+		set ip_name [common::get_property IP_NAME [hsi::get_cells -hier $hw_proc]]
+		set index [string index $hw_proc end]
+		if {[string match -nocase $ip_name "psv_cortexr5"]} {
+			set ip_name "${ip_name}_$index"
+		}
+		if { [string match -nocase "*$param_value*" $ip_name] } {
 			lappend proc_ipi_slave $ipi
 		}
 	}

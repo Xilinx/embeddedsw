@@ -71,6 +71,7 @@
  * 		      Added file  xipipsu_buf.c and xipipsu_buf.h as part of it.
  * 2.7  sdd 09/03/20  Makefile update for parallel execution.
  * 2.8  nsk 12/14/20  Modified the driver tcl to not to use the instance names.
+ * 2.8  nsk 01/19/21  Updated the driver tcl to use IP_NAME for IPIs mapped.
  * </pre>
  *
  *****************************************************************************/
