@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
 * 1.02  kc   03/23/2020 Minor code cleanup
 * 1.03  kc   08/04/2020 Initialized IpiMask to zero for PMC CDO commands
 *       kc   08/04/2020 Added default NPLL configuration for master SLR devices
+* 1.04  ma   01/12/2021 Initialize SlrType to invalid SLR type
 *
 * </pre>
 *
@@ -180,7 +181,7 @@ int XPlm_ProcessPlmCdo(void *Arg)
 {
 	int Status = XST_FAILURE;
 	XPlmiCdo Cdo;
-	u32 SlrType;
+	u32 SlrType = XLOADER_SSIT_INVALID_SLR;
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s\n\r", __func__);
 	(void )Arg;
