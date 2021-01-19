@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,16 +37,6 @@ extern "C" {
 /* The values are specific to ZCU102 */
 #define XBIR_IIC_SYS_BOARD_EEPROM_ADDRESS	(0x50U)
 #define XBIR_IIC_CC_EEPROM_ADDRESS		(0x51U)
-
-/* Error codes */
-#define	XBIR_IIC_MUX_FAILED			(0x1U)
-#define	XBIR_IIC_LKP_CONFIG_FAILED		(0x2U)
-#define	XBIR_IIC_CONFIG_FAILED			(0x3U)
-#define	XBIR_IIC_CONFIG_INIT_FAILED		(0x4U)
-#define	XBIR_IIC_SLAVE_MONITOR_FAILED		(0x5U)
-#define	XBIR_IIC_MASTER_SEND_POLLED_FAILED	(0x6U)
-#define	XBIR_IIC_MASTER_RECV_POLLED_FAILED	(0x7U)
-#define	XBIR_IIC_SET_SCLK_FAILED		(0x8U)
 
 /************************** Variable Definitions *****************************/
 

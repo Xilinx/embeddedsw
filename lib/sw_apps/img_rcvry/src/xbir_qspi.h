@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,17 +31,6 @@ extern "C" {
 /***************************** Include Files *********************************/
 
 /************************** Constant Definitions *****************************/
-#define	XBIR_QSPI_CONFIG_FAILED			(0x20U)
-#define	XBIR_QSPI_CONFIG_INIT_FAILED		(0x21U)
-#define	XBIR_ERROR_QSPI_READ			(0x22U)
-#define	XBIR_QSPI_4BYTE_ENETER_ERROR		(0x23U)
-#define	XBIR_ERROR_INVALID_QSPI_CONNECTION	(0x24U)
-#define	XBIR_ERROR_QSPI_LENGTH			(0x25U)
-#define	XBIR_POLLED_TRANSFER_FAILED		(0x26U)
-#define	XBIR_ERROR_QSPI_MANUAL_START		(0x27U)
-#define	XBIR_ERROR_QSPI_PRESCALER_CLK		(0x28U)
-#define	XBIR_ERROR_UNSUPPORTED_QSPI_CONN_MODE	(0x29U)
-#define XBIR_ERROR_UNSUPPORTED_QSPI_VENDOR	(0x30U)
 
 /**************************** Type Definitions *******************************/
 
