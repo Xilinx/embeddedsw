@@ -76,6 +76,7 @@
 *       ana  10/19/2020 Added doxygen comments
 * 1.03  bm   12/15/2020 Added XLOADER_SD_MAX_BOOT_FILES_LIMIT macro
 *       ma   01/12/2021 Added macro for invalid boot mode
+*                       Added macro for invalid SLR Type
 *
 * </pre>
 *
@@ -160,6 +161,7 @@ extern "C" {
  */
 #define XLOADER_SSIT_MONOLITIC		(0x7U)
 #define XLOADER_SSIT_MASTER_SLR		(0x6U)
+#define XLOADER_SSIT_INVALID_SLR	(0x0U)
 
 /*
  * Flash Size macros
