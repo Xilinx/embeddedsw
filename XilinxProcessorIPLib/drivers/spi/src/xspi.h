@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2001 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2001 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xspi.h
-* @addtogroup spi_v4_7
+* @addtogroup spi_v4_8
 * @{
 * @details
 *
@@ -281,6 +281,8 @@
 * 4.7	akm  09/02/20 Updated the Makefile to support parallel make execution.
 * 4.7   akm  10/22/20 Removed dependency of Tx_Full flag while writing DTR
 *                     in between multiple transfers.
+* 4.8   akm  01/19/21 Fix multiple byte transfer hang issue, when FIFOs are
+*                     disabled.
 * </pre>
 *
 ******************************************************************************/
