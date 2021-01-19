@@ -907,6 +907,9 @@ void XDp_TxSetMsaValues(XDp *InstancePtr, u8 Stream)
 			StreamOffset[Stream - 1], MsaConfig->VStart);
 		XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_MISC0 +
 			StreamOffset[Stream - 1], MsaConfig->Misc0);
+		if (InstancePtr->TxInstance.ColorimetryThroughVsc) {
+			MsaConfig->Misc1|= XDP_DPCD_MSA_TIMING_PAR_IGNORED_MASK;
+		}
 		XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_MISC1 +
 			StreamOffset[Stream - 1], MsaConfig->Misc1);
 		XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_USER_PIXEL_WIDTH +
