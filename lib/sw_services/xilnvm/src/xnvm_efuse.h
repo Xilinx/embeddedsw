@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,10 +27,13 @@
 * 2.1   rpo  06/06/2020 Support added to write glitch configuration data.
 *       rpo  06/08/2020 Support added to program eFUSE halt boot bits to stop
 *                       at ROM stage.
-* 		am   08/19/2020 Resolved MISRA C violations.
-* 		kal  09/03/2020 Fixed Security CoE review comments
-*		am   10/13/2020 Resolved MISRA C violations
-*		ana  10/15/2020 Updated doxygen comments.
+* 	am   08/19/2020 Resolved MISRA C violations.
+* 	kal  09/03/2020 Fixed Security CoE review comments
+*	am   10/13/2020 Resolved MISRA C violations
+*	ana  10/15/2020 Updated doxygen comments.
+* 2.2	kal  01/07/2021	Added support to SecurityMisc1, BootEnvCtrl,MiscCtrl
+*			and remaining eFuses in SecCtrl eFuse rows programming
+*			and reading
 *
 * </pre>
 *
@@ -72,6 +75,7 @@ extern "C" {
 #define XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS	(127U)
 
 #define XNVM_NUM_OF_REVOKE_ID_FUSES			(8U)
+#define XNVM_NUM_OF_OFFCHIP_ID_FUSES			(8U)
 #define XNVM_USER_FUSE_START_NUM			(1U)
 #define XNVM_USER_FUSE_END_NUM				(63U)
 #define XNVM_NUM_OF_USER_FUSES				(63U)
@@ -158,6 +162,9 @@ typedef enum {
 						* DEC_ONLY eFuse programming */
 
 	XNVM_EFUSE_ERR_DEC_ONLY_ALREADY_PRGMD = 0xD0,/**<0xD0 - Dec only eFuse
+						* is already programmed */
+
+	XNVM_EFUSE_ERR_BOOT_ENV_CTRL_ALREADY_PRGMD = 0xE0,/**<0xE0 - BootEnvCtrl
 						* is already programmed */
 
 	XNVM_EFUSE_ERR_BIT_CANT_REVERT = 0xF0,/**<0xF0 - Already programmed eFuse
@@ -341,7 +348,15 @@ typedef enum {
 	XNVM_EFUSE_ERR_WRITE_PPK2_INVALID_BIT_1 = 0xAC00,/**<0xAC00 - Error in
 						* PPK2_INVALID_BIT_1
 						* efuse programming */
-
+	XNVM_EFUSE_ERR_WRITE_SAFETY_MISSION_EN = 0xAD00,/**<0xAD00 - Error in
+						* SAFETY_MISSION_EN
+						* efuse programming */
+	XNVM_EFUSE_ERR_WRITE_LBIST_EN = 0xAE00,/**<0xAE00 - Error in
+						* LBIST_EN
+						* efuse programming */
+	XNVM_EFUSE_ERR_WRITE_CRYPTO_KAT_EN = 0xAF00,/**<0xAF00 - Error in
+							 * CRYPTO_KAT_EN
+							 * efuse programming */
 	XNVM_EFUSE_ERR_WRITE_PUF_HELPER_DATA = 0xB000,/**<0xB000 - Error in
 						* Writing Puf helper data
 						* efuse programming */
@@ -369,35 +384,18 @@ typedef enum {
 	XNVM_EFUSE_ERR_WRITE_PUF_DIS = 0xB800,/**<0xB800 - Error in
 						* PUF_DIS
 						* efuse programming */
-
+	XNVM_EFUSE_ERR_WRITE_SECURITY_MISC_1 = 0xBD00,/**<0xBD00 - Error in
+						* SYSMON_MISC_1
+						* efuses programming */
+	XNVM_EFUSE_ERR_WRITE_BOOT_ENV_CTRL = 0xBE00,/**<0xBE00 - Error in
+						* BOOT_ENV_CTRL
+						* efuses programming */
 	XNVM_EFUSE_ERR_WRITE_REVOCATION_IDS = 0xC000,/**<0xC000 - Error in
 						* REVOCATION_IDS
 						* programming */
-	XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_0 = 0xC100,/**<0xC100 - Error in
-						* REVOCATION_ID_0
-						* efuse programming */
-	XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_1 = 0xC200,/**<0xC200 - Error in
-						* REVOCATION_ID_1
-						* efuse programming */
-	XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_2 = 0xC300,/**<0xC300 - Error in
-						* REVOCATION_ID_2
-						* efuse programming */
-	XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_3 = 0xC400,/**<0xC400 - Error in
-						* REVOCATION_ID_3
-						* efuse programming */
-	XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_4 = 0xC500,/**<0xC500 - Error in
-						* REVOCATION_ID_4
-						* efuse programming */
-	XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_5 = 0xC600,/**<0xC600 - Error in
-						* REVOCATION_ID_5
-						* efuse programming */
-	XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_6 = 0xC700,/**<0xC700 - Error in
-						* REVOCATION_ID_6
-						* efuse programming */
-	XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_7 = 0xC800,/**<0xC800 - Error in
-						* REVOCATION_ID_7
-						* efuse programming */
-
+	XNVM_EFUSE_ERR_WRITE_OFFCHIP_REVOKE_IDS = 0xC100,/**<0xC100 - Error in
+							* OFFCHIP_REVOKE
+							* programming */
 	XNVM_EFUSE_ERR_RD_SEC_CTRL_BITS = 0xD000,/**<0xD000 - Error in
 						* reading Sec Ctrl efuses */
 	XNVM_EFUSE_ERR_RD_MISC_CTRL_BITS = 0xD100,/**<0xD100 - Error in
@@ -523,6 +521,17 @@ typedef enum {
 }XNvm_RevocationId;
 
 typedef enum {
+	XNVM_EFUSE_OFFCHIP_REVOKE_ID_0 = 0,
+	XNVM_EFUSE_OFFCHIP_REVOKE_ID_1,
+	XNVM_EFUSE_OFFCHIP_REVOKE_ID_2,
+	XNVM_EFUSE_OFFCHIP_REVOKE_ID_3,
+	XNVM_EFUSE_OFFCHIP_REVOKE_ID_4,
+	XNVM_EFUSE_OFFCHIP_REVOKE_ID_5,
+	XNVM_EFUSE_OFFCHIP_REVOKE_ID_6,
+	XNVM_EFUSE_OFFCHIP_REVOKE_ID_7
+}XNvm_OffchipId;
+
+typedef enum {
 	XNVM_EFUSE_SEC_AES_DIS = 0,
 	XNVM_EFUSE_SEC_JTAG_ERROUT_DIS,
 	XNVM_EFUSE_SEC_JTAG_DIS,
@@ -564,15 +573,15 @@ typedef enum {
 	XNVM_EFUSE_MISC_PPK2_INVALID_BIT_0,
 	XNVM_EFUSE_MISC_PPK2_INVALID_BIT_1,
 	XNVM_EFUSE_MISC_SAFETY_MISSION_EN,
-	XNVM_EFUSE_LBIST_EN = 14,
-	XNVM_EFUSE_CRYPTO_KAT_EN,
-	XNVM_EFUSE_HALT_BOOT_ENV_BIT_0 = 19,
-	XNVM_EFUSE_HALT_BOOT_ENV_BIT_1,
-	XNVM_HALT_BOOT_ERROR_BIT_0,
-	XNVM_HALT_BOOT_ERROR_BIT_1,
-	XNVM_EFUSE_GD_ROM_MONITOR_EN = 29,
-	XNVm_EFUSE_GD_HALT_BOOT_EN_BIT_0,
-	XNVm_EFUSE_GD_HALT_BOOT_EN_BIT_1
+	XNVM_EFUSE_MISC_LBIST_EN = 14,
+	XNVM_EFUSE_MISC_CRYPTO_KAT_EN,
+	XNVM_EFUSE_MISC_HALT_BOOT_ENV_BIT_0 = 19,
+	XNVM_EFUSE_MISC_HALT_BOOT_ENV_BIT_1,
+	XNVM_EFUSE_MISC_HALT_BOOT_ERROR_BIT_0,
+	XNVM_EFUSE_MISC_HALT_BOOT_ERROR_BIT_1,
+	XNVM_EFUSE_MISC_GD_ROM_MONITOR_EN = 29,
+	XNVm_EFUSE_MISC_GD_HALT_BOOT_EN_BIT_0,
+	XNVm_EFUSE_MISC_GD_HALT_BOOT_EN_BIT_1
 }XNvm_MiscCtrlBitColumns;
 
 typedef struct {
@@ -628,12 +637,26 @@ typedef struct {
 }XNvm_EfuseMiscCtrlBits;
 
 typedef struct {
-	u8 SysmonTempMonEn;
-	u8 SysmonVoltMonEn;
-	u8 LpdNocScEn;
-	u8 PmcMbistEn;
 	u8 LpdMbistEn;
-}XNvm_EfuseSecurityMisc1Bits;
+	u8 PmcMbistEn;
+	u8 LpdNocScEn;
+	u8 SysmonVoltMonEn;
+	u8 SysmonTempMonEn;
+}XNvm_EfuseSecMisc1Bits;
+
+typedef struct {
+	u8 PrgmSysmonTempHot;
+	u8 PrgmSysmonVoltPmc;
+	u8 PrgmSysmonVoltPslp;
+	u8 PrgmSysmonTempCold;
+	u8 SysmonTempEn;
+	u8 SysmonVoltEn;
+	u8 SysmonVoltSoc;
+	u8 SysmonTempHot;
+	u8 SysmonVoltPmc;
+	u8 SysmonVoltPslp;
+	u8 SysmonTempCold;
+}XNvm_EfuseBootEnvCtrlBits;
 
 typedef struct {
 	u8 PrgmGlitch;
@@ -671,6 +694,11 @@ typedef struct {
 }XNvm_EfuseRevokeIds;
 
 typedef struct {
+	u8 PrgmOffchipId;
+	u32 OffChipId[XNVM_NUM_OF_OFFCHIP_ID_FUSES];
+}XNvm_EfuseOffChipIds;
+
+typedef struct {
 	u8 PrgmMetaHeaderIv;
 	u8 PrgmBlkObfusIv;
 	u8 PrgmPlmIv;
@@ -705,6 +733,10 @@ typedef struct {
 	XNvm_EfuseIvs *Ivs;
 	XNvm_EfuseUserData *UserFuses;
 	XNvm_EfuseGlitchCfgBits *GlitchCfgBits;
+	XNvm_EfuseBootEnvCtrlBits *BootEnvCtrl;
+	XNvm_EfuseSecMisc1Bits *Misc1Bits;
+	XNvm_EfuseOffChipIds *OffChipIds;
+
 }XNvm_EfuseData;
 
 /**
@@ -733,7 +765,10 @@ int XNvm_EfuseCheckAesUserKey1Crc(u32 Crc);
 int XNvm_EfuseWritePuf(const XNvm_EfusePufHd *PufHelperData);
 int XNvm_EfuseReadPuf(XNvm_EfusePufHd *PufHelperData);
 int XNvm_EfuseReadPufSecCtrlBits(XNvm_EfusePufSecCtrlBits *PufSecCtrlBits);
-
+int XNvm_EfuseReadSecMisc1Bits(XNvm_EfuseSecMisc1Bits *SecMisc1Bits);
+int XNvm_EfuseReadBootEnvCtrlBits(XNvm_EfuseBootEnvCtrlBits *BootEnvCtrlBits);
+int XNvm_EfuseReadOffchipRevokeId(u32 *OffchipIdPtr,
+                                        XNvm_OffchipId OffchipIdNum);
 #ifdef __cplusplus
 }
 #endif
