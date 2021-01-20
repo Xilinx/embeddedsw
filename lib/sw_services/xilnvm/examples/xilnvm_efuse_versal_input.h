@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,6 +36,40 @@
 *	TRUE halts the boot at ROM stage when any
 *	environmental error observed
 *	FALSE will not modify the control bit in eFUSE
+*
+* 	#define XNVM_EFUSE_REG_INIT_DIS			FALSE
+* 	TRUE permanently disables register initialization
+* 	FALSE will not modify this control bit of efuse.
+*
+* 	#define XNVM_EFUSE_BOOT_ENV_WR_LK		FALSE
+* 	TRUE will permanently disable the efuse programming
+* 	and hardware testbit programming on row 37 in EFUSE_0_MAP
+* 	and hardware testbit programming on row 43 in EFUSE_0_MAP
+* 	will be disabled as well.
+*	FALSE will not modify this control bit of efuse.
+*
+* 	#define XNVM_EFUSE_AUTH_JTAG_LOCK_DIS		FALSE
+* 	TRUE will disable the Authenticated JTAG feature after
+* 	secure lock down.
+* 	FALSE will not modify this control bit of efuse.
+*
+* 	#define XNVM_EFUSE_AUTH_JTAG_DIS		FALSE
+* 	TRUE will disable the Authenticated JTAG feature.
+* 	FALSE will not modify this control bit of efuse.
+*
+*	#define XNVM_EFUSE_JTAG_DIS			FALSE
+*	TRUE will disable all JTAG instructions.
+*	FALSE will not modify this control bit of efuse.
+*
+*	#define XNVM_EFUSE_JTAG_ERROR_OUT_DIS		FALSE
+*	TRUE will mask all errors reported in the JTAG ERROR_STATUS
+*	instruction and masks the ROM_STATE[3:0] status reported in
+*	the JTAG STATUS instruction.
+*	FALSE will not modify this control bit of efuse.
+*
+* 	#define XNVM_EFUSE_AES_DIS			FALSE
+* 	TRUE will disable the AES engine.
+* 	FALSE will not modify this control bit of efuse.
 *
 *	#define XNVM_EFUSE_PPK0_WR_LK			FALSE
 *	TRUE permanently disables writing to PPK0 eFuse.
@@ -84,6 +118,90 @@
 *	#define XNVM_EFUSE_PPK2_INVLD			FALSE
 *	TRUE invalidates the PPK2 hash stored in eFuses.
 *	FALSE will not modify this control bit of eFuse.
+*
+* 	#define XNVM_EFUSE_CRYPTO_KAT_EN		FALSE
+* 	TRUE will run KAT on the CRYPTO engines (AES,SHA,RSA)
+* 	prior to the first time being used.
+* 	FALSE will not modify this control bit of efuse.
+*
+* 	#define XNVM_EFUSE_LBIST_EN			FALSE
+* 	TRUE will make the firmware to run LBIST when briging up
+* 	LPD.
+* 	FALSE will not modify this control bit of efuse.
+*
+* 	#define XNVM_EFUSE_SAFETY_MISSION_EN		FALSE
+* 	TRUE will make the ERROR_OUT pin a different meaning.
+* 	When the eFUSE cache gets loaded - this pin asserted immediately.
+* 	The pin goes low when a safety state has been written
+* 	to the safety state register.
+* 	This is effectively an external signal to indicate safe state.
+*	FALSE will not modify this control bit of efuse.
+*
+* 	#define XNVM_EFUSE_SYSMON_TEMP_EN		FALSE
+* 	TRUE will enable first level architectural temperature check.
+* 	FALSE will not modify this control bit of efuse.
+*
+* 	#define XNVM_EFUSE_SYSMON_VOLT_EN		FALSE
+* 	TRUE will enable first level architectural voltage check.
+* 	FALSE will not modify this control bit of efuse.
+*
+* 	#define XNVM_EFUSE_SYSMON_TEMP_HOT		FALSE
+* 	TRUE will burn the boot time temparature upper limit provided
+* 	in XNVM_EFUSE_SYSMON_TEMP_HOT_FUSES.
+*	FALSE will ignore the boot time temparature upper limit provided
+*	in XNVM_EFUSE_SYSMON_TEMP_HOT_FUSES.
+*
+*	#define XNVM_EFUSE_SYSMON_VOLT_PMC		FALSE
+*	TRUE will burn the boot time voltage setting for VCCINT_PMC
+*	provided in XNVM_EFUSE_SYSMON_VOLT_PMC_FUSES.
+*	FALSE will ignore the boot time voltage setting for VCCINT_PMC
+*	provided in XNVM_EFUSE_SYSMON_VOLT_PMC_FUSES.
+*
+*	#define XNVM_EFUSE_SYSMON_VOLT_PSLP		FALSE
+*	TRUE will burn the boot time voltage setting for VCCINT_PSLP
+*	provided in XNVM_EFUSE_SYSMON_VOLT_PSLP_FUSE.
+*	FALSE will ignore the boot time voltage setting for VCCINT_PSLP
+*	provided in XNVM_EFUSE_SYSMON_VOLT_PSLP_FUSE.
+*
+*	#define XNVM_EFUSE_SYSMON_VOLT_SOC		FALSE
+*	TRUE will enable boot time voltage monitoring setting to HP
+*	voltage level.
+*	FALSE will not modify this control bit of efuse.
+*	0x0: MP voltage level
+*	0x1: HP voltage level
+*
+*	#define XNVM_EFUSE_SYSMON_TEMP_COLD		FALSE
+*	TRUE will burn the boot time temparature lower limit provided
+*	in XNVM_EFUSE_SYSMON_TEMP_COLD_FUSES.
+*	FALSE will ignore the boot time temparature lower limit provided
+*	in XNVM_EFUSE_SYSMON_TEMP_COLD_FUSES.
+*
+* 	#define XNVM_EFUSE_LPD_MBIST_EN			FALSE
+* 	TRUE will make the ROM code to run MBIST-clear on the LPD during
+* 	USB boot mode and the FW will run MBIST-clear on the LPD during
+* 	all other boot modes. Also checked by FW for secure lock down on the LPD
+* 	FALSE will not modify this control bit of efuse.
+*
+* 	#define XNVM_EFUSE_PMC_MBIST_EN			FALSE
+* 	TRUE will make the ROM code to run MBIST-clear on the PMC during
+* 	all boot modes. Also checked by ROM for secure lockdown.
+*	FALSE will not modify this control bit of efuse.
+*
+*	#define XNVM_EFUSE_LPD_NOC_SC_EN		FALSE
+*	TRUE will make the ROM code to run SCAN-clear on the LPD during
+*	USB boot or on the NOC on a SSIT slave SLR.
+*	Also checked by FW for secure lockdown
+*	FALSE will not modify this control bit of efuse.
+*
+*	#define XNVM_EFUSE_SYSMON_VOLT_MON_EN		FALSE
+*	TRUE will make the ROM will perform the voltage check specified
+*	in the BOOT_ENV_CTRL register.
+*	FALSE will not modify this control bit of efuse.
+*
+*	#define XNVM_EFUSE_SYSMON_TEMP_MON_EN		FALSE
+*	TRUE will make the ROM to perform the temperature check specified
+*	in the BOOT_ENV_CTRL register
+*	FALSE will not modify this control bit of efuse.
 *
 *	Following has to be set for programming required keys/data
 *------------------------------------------------------------------------------
@@ -181,6 +299,44 @@
 *	#define XNVM_EFUSE_WRITE_USER_FUSES			FALSE
 *	TRUE will burn User eFuses provided in XNVM_EFUSE_USER_FUSES.
 *	FALSE will ignore the value provided in XNVM_EFUSE_USER_FUSES.
+*
+* 	#define XNVM_EFUSE_SYSMON_TEMP_HOT_FUSES		0
+*	The value mentioned in this will be used to set the boot time
+*	temparature upper limit. Valid values are 0/1/2/3
+*	0: 125C
+*	1: 100C
+*	2: 110C
+*	3: 125C
+*	By default the value is 0.
+*
+*	#define XNVM_EFUSE_SYSMON_VOLT_PMC_FUSES		0
+*	The value mentioned in this will be used to set the boot time
+*	voltage setting for VCCINT_PMC. Valid values are 0/1/2/3
+*	limit.
+*	0x0: Full range check
+*	0x1: LP voltage level
+*	0x2: MP voltage level
+*	0x3: HP voltage level
+*	By default the value is 0.
+*
+* 	#define XNVM_EFUSE_SYSMON_VOLT_PSLP_FUSE		0
+*	The value mentioned in this will be used to set the boot time
+*	voltage setting for VCCINT_PSLP. Valid values are 0/1/2/3
+*	limit.
+*	0x0: Full range check
+*	0x1: LP voltage level
+*	0x2: MP voltage level
+*	0x3: HP voltage level
+*	By default the value is 0.
+*
+*	#define XNVM_EFUSE_SYSMON_TEMP_COLD_FUSES		0
+*	The value mentioned in this will be used to set the boot time
+*	temparature lower limit. Valid values are 0/1/2/3
+*	0: -55C
+*	1: 0C
+*	2: -40C
+*	3: -55C
+*	By default the value is 0.
 *
 *	Note: To program user eFuses you have to give the start User fuse number
 *	to be programmed at XNVM_EFUSE_PRGM_USER_FUSE_NUM and starting with
@@ -400,7 +556,78 @@
 *	Note that,for writing the Revocation Id 7 eFuse,
 *	XNVM_EFUSE_WRITE_REVOCATION_ID_7 should be set to TRUE.
 *
-*	#define
+* 	#define		XNVM_EFUSE_OFFCHIP_REVOKE_ID_0_FUSES	"00000000"
+*	The value  will be converted to hex buffer and written
+*	into the Versal eFuse array when write API used. This value should
+*	be given in string format. It should be 8 characters long, valid
+*	characters are 0-9,a-f,A-F. Any other character is considered as invalid
+*	string and will not burn the Offchip_Revoke Id 0 eFuse.
+*	Note that,for writing the Offchip_Revoke Id 0 eFuse,
+*	XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_0 should be set to TRUE.
+*
+*	#define		XNVM_EFUSE_OFFCHIP_REVOKE_ID_1_FUSES	"00000000"
+*	The value  will be converted to hex buffer and written
+*	into the Versal eFuse array when write API used. This value should
+*	be given in string format. It should be 8 characters long, valid
+*	characters are 0-9,a-f,A-F. Any other character is considered as invalid
+*	string and will not burn Offchip_Revoke Id 1 eFuse.
+*	Note that,for writing the Offchip_Revoke Id 1 eFuse,
+*	XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_1 should be set to TRUE.
+*
+*	#define		XNVM_EFUSE_OFFCHIP_REVOKE_ID_2_FUSES	"00000000"
+*	The value will be converted to hex buffer and written
+*	into the Versal eFUSE array when write API used. This value should
+*	be given in string format. It should be 8 characters long, valid
+*	characters are 0-9,a-f,A-F. Any other character is considered as invalid
+*	string and will not burn the Offchip_Revoke Id 2 Fuse.
+*	Note that,for writing the Offchip_Revoke Id 2 Fuse,
+*	XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_2 should be set to TRUE.
+*
+*	#define		XNVM_EFUSE_OFFCHIP_REVOKE_ID_3_FUSES	"00000000"
+*	The value will be converted to hex buffer and written
+*	into the Versal eFuse array when write API used. This value should
+*	be given in string format. It should be 8 characters long, valid
+*	characters are 0-9,a-f,A-F. Any other character is considered as invalid
+*	string and will not burn Offchip_Revoke Id 3 eFuse.
+*	Note that,for writing the Offchip_Revoke Id 3 eFuse,
+*	XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_3 should be set to TRUE.
+*
+*	#define		XNVM_EFUSE_OFFCHIP_REVOKE_ID_4_FUSES	"00000000"
+*	The value will be converted to hex buffer and written
+*	into the Versal eFuse array when write API used. This value should
+*	be given in string format. It should be 8 characters long, valid
+*	characters are 0-9,a-f,A-F. Any other character is considered as invalid
+*	string and will not burn Offchip_Revoke Id 4 eFuse.
+*	Note that,for writing the Offchip_Revoke Id 4 eFuse,
+*	XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_4 should be set to TRUE.
+*
+*	#define		XNVM_EFUSE_OFFCHIP_REVOKE_ID_5_FUSES	"00000000"
+*	The value will be converted to hex buffer and written
+*	into the Versal eFuse array when write API used. This value should
+*	be given in string format. It should be 8 characters long, valid
+*	characters are 0-9,a-f,A-F. Any other character is considered as invalid
+*	string and will not burn Offchip_Revoke Id 5 eFuse.
+*	Note that,for writing the Offchip_Revoke Id 5 eFuse,
+*	XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_5 should be set to TRUE.
+*
+*	#define		XNVM_EFUSE_OFFCHIP_REVOKE_ID_6_FUSES	"00000000"
+*	The value will be converted to hex buffer and written
+*	into the Versal eFuse array when write API used. This value should
+*	be given in string format. It should be 8 characters long, valid
+*	characters are 0-9,a-f,A-F. Any other character is considered as invalid
+*	string and will not burn Offchip_Revoke Id 6 eFuse.
+*	Note that,for writing the Offchip_Revoke Id 6 eFuse,
+*	XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_6 should be set to TRUE.
+*
+*	#define		XNVM_EFUSE_OFFCHIP_REVOKE_ID_7_FUSES	"00000000"
+*	The value  will be converted to hex buffer and written
+*	into the Versal eFuse array when write API used. This value should
+*	be given in string format. It should be 8 characters long, valid
+*	characters are 0-9,a-f,A-F. Any other character is considered as invalid
+*	string and will not burn Offchip_Revoke Id 7 eFuse.
+*	Note that,for writing the Offchip_Revoke Id 7 eFuse,
+*	XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_7 should be set to TRUE.
+*
 *	#define XNVM_EFUSE_CHECK_AES_KEY_CRC			FALSE
 *	Default value is FALSE
 *	TRUE will validate AES key stored in eFuse by calculating its CRC
@@ -465,6 +692,9 @@
 *       rpo    06/08/20 Support added to program eFUSE halt boot bits to stop
 *                       at ROM stage.
 *       kal    10/12/20 Address Seurity review comments.
+* 2.2	kal    01/07/21 Added support to SecurityMisc1, BootEnvCtrl,MiscCtrl
+*			and remaining eFuses in SecCtrl eFuse rows programming
+*			and reading
 *
 * </pre>
 *
@@ -487,22 +717,15 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /* Following defines should be defined either TRUE or FALSE */
-/**
- * Following define is to lock the glitch detection row (ANLG_TRIM_3[31])
- */
-#define XNVM_EFUSE_GLITCH_DET_WR_LK		FALSE
-/**
- * Following are the defines to select if the user wants to program
- * glitch miscellaneous control bits
- */
-#define XNVM_EFUSE_GD_HALT_BOOT_EN_1_0		FALSE
-#define XNVM_EFUSE_GD_ROM_MONITOR_EN		FALSE
-#define XNVM_EFUSE_GEN_ERR_HALT_BOOT_EN_1_0	FALSE
-#define XNVM_EFUSE_ENV_ERR_HALT_BOOT_EN_1_0	FALSE
+
 /**
  * Following is the define to select if the user wants to program
  * Secure control bits
  */
+#define XNVM_EFUSE_REG_INIT_DIS			FALSE
+#define XNVM_EFUSE_BOOT_ENV_WR_LK		FALSE
+#define XNVM_EFUSE_AUTH_JTAG_LOCK_DIS		FALSE
+#define XNVM_EFUSE_AUTH_JTAG_DIS		FALSE
 #define XNVM_EFUSE_PPK0_WR_LK			FALSE
 #define XNVM_EFUSE_PPK1_WR_LK			FALSE
 #define	XNVM_EFUSE_PPK2_WR_LK			FALSE
@@ -512,9 +735,51 @@ extern "C" {
 #define XNVM_EFUSE_USER_KEY_0_WR_LK		FALSE
 #define XNVM_EFUSE_USER_KEY_1_CRC_LK		FALSE
 #define XNVM_EFUSE_USER_KEY_1_WR_LK		FALSE
+#define XNVM_EFUSE_JTAG_DIS			FALSE
+#define XNVM_EFUSE_JTAG_ERROR_OUT_DIS		FALSE
+#define XNVM_EFUSE_AES_DIS			FALSE
+
+/**
+ * Following is the define to select if the user wants to program
+ * Misc control bits
+ */
+#define XNVM_EFUSE_GD_HALT_BOOT_EN_1_0		FALSE
+#define XNVM_EFUSE_GD_ROM_MONITOR_EN		FALSE
+#define XNVM_EFUSE_GEN_ERR_HALT_BOOT_EN_1_0	FALSE
+#define XNVM_EFUSE_ENV_ERR_HALT_BOOT_EN_1_0	FALSE
+#define XNVM_EFUSE_CRYPTO_KAT_EN		FALSE
+#define XNVM_EFUSE_LBIST_EN			FALSE
+#define XNVM_EFUSE_SAFETY_MISSION_EN		FALSE
 #define XNVM_EFUSE_PPK0_INVLD			FALSE
 #define XNVM_EFUSE_PPK1_INVLD			FALSE
 #define XNVM_EFUSE_PPK2_INVLD			FALSE
+
+/**
+ * Following is the define to select if the user wants to program
+ * BootEnvCtrl control bits
+ */
+#define XNVM_EFUSE_SYSMON_TEMP_EN		FALSE
+#define XNVM_EFUSE_SYSMON_VOLT_EN		FALSE
+#define XNVM_EFUSE_SYSMON_TEMP_HOT		FALSE
+#define XNVM_EFUSE_SYSMON_VOLT_PMC		FALSE
+#define XNVM_EFUSE_SYSMON_VOLT_PSLP		FALSE
+#define XNVM_EFUSE_SYSMON_VOLT_SOC		FALSE
+#define XNVM_EFUSE_SYSMON_TEMP_COLD		FALSE
+
+/**
+ * Following is the define to select if the user wants to program
+ * SecurityMisc1 control bits
+ */
+#define XNVM_EFUSE_LPD_MBIST_EN			FALSE
+#define XNVM_EFUSE_PMC_MBIST_EN			FALSE
+#define XNVM_EFUSE_LPD_NOC_SC_EN		FALSE
+#define XNVM_EFUSE_SYSMON_VOLT_MON_EN		FALSE
+#define XNVM_EFUSE_SYSMON_TEMP_MON_EN		FALSE
+
+/**
+ * Following define is to lock the glitch detection row (ANLG_TRIM_3[31])
+ */
+#define XNVM_EFUSE_GLITCH_DET_WR_LK		FALSE
 
 /**
  * Following is the define to select if the user wants to select Glitch configuration,
@@ -545,6 +810,15 @@ extern "C" {
 #define XNVM_EFUSE_WRITE_REVOCATION_ID_5	FALSE
 #define XNVM_EFUSE_WRITE_REVOCATION_ID_6	FALSE
 #define XNVM_EFUSE_WRITE_REVOCATION_ID_7	FALSE
+
+#define XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_0	FALSE
+#define XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_1	FALSE
+#define XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_2	FALSE
+#define XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_3	FALSE
+#define XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_4	FALSE
+#define XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_5	FALSE
+#define XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_6	FALSE
+#define XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_7	FALSE
 
 #define XNVM_EFUSE_WRITE_USER_FUSES		FALSE
 /**
@@ -585,6 +859,19 @@ extern "C" {
 #define XNVM_EFUSE_REVOCATION_ID_6_FUSES	"00000000"
 #define XNVM_EFUSE_REVOCATION_ID_7_FUSES	"00000000"
 
+#define XNVM_EFUSE_OFFCHIP_REVOKE_ID_0_FUSES	"00000000"
+#define XNVM_EFUSE_OFFCHIP_REVOKE_ID_1_FUSES	"00000000"
+#define XNVM_EFUSE_OFFCHIP_REVOKE_ID_2_FUSES	"00000000"
+#define XNVM_EFUSE_OFFCHIP_REVOKE_ID_3_FUSES	"00000000"
+#define XNVM_EFUSE_OFFCHIP_REVOKE_ID_4_FUSES	"00000000"
+#define XNVM_EFUSE_OFFCHIP_REVOKE_ID_5_FUSES	"00000000"
+#define XNVM_EFUSE_OFFCHIP_REVOKE_ID_6_FUSES	"00000000"
+#define XNVM_EFUSE_OFFCHIP_REVOKE_ID_7_FUSES	"00000000"
+
+#define XNVM_EFUSE_SYSMON_TEMP_HOT_FUSES	0
+#define XNVM_EFUSE_SYSMON_VOLT_PMC_FUSES	0
+#define XNVM_EFUSE_SYSMON_VOLT_PSLP_FUSE	0
+#define XNVM_EFUSE_SYSMON_TEMP_COLD_FUSES	0
 
 #define XNVM_EFUSE_PRGM_USER_FUSE_NUM		1U
 #define XNVM_EFUSE_NUM_OF_USER_FUSES		1U

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,7 +32,9 @@
  *	 am    10/10/2020 Changed function return type and type of
  *			  status variable from u32 to int
  *       kal   10/12/2020 Addressed Security review comments.
- *
+ * 2.2	 kal   01/07/2021 Added support to SecurityMisc1, BootEnvCtrl,MiscCtrl
+ *			  and remaining eFuses in SecCtrl eFuse rows programming
+ *			  and reading
  * </pre>
  *
  ******************************************************************************/
@@ -48,8 +50,11 @@
 #define XNVM_EFUSE_AES_KEY_STRING_LEN			(64U)
 #define XNVM_EFUSE_PPK_HASH_STRING_LEN			(64U)
 #define XNVM_EFUSE_ROW_STRING_LEN			(8U)
-#define XNVM_EFUSE_GLITCH_WR_LK_MASK		(0x80000000U)
-#define XNVM_EFUSE_DEC_EFUSE_ONLY_MASK		(0x0000ffffU)
+#define XNVM_EFUSE_GLITCH_WR_LK_MASK			(0x80000000U)
+#define XNVM_EFUSE_DEC_EFUSE_ONLY_MASK			(0x0000ffffU)
+#define XNVM_EFUSE_TEMP_VOLT_LIMIT_MAX			(3U)
+#define XNVM_EFUSE_VOLT_SOC_LIMIT			(1U)
+
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
@@ -77,12 +82,20 @@ static int XilNvm_EfuseInitDecOnly(XNvm_EfuseData *WriteEfuse,
 					XNvm_EfuseDecOnly *DecOnly);
 static int XilNvm_EfuseInitUserFuses(XNvm_EfuseData *WriteEfuse,
 					XNvm_EfuseUserData *Data);
+static int XilNvm_EfuseInitOffChipRevokeIds(XNvm_EfuseData *WriteEfuse,
+                                        XNvm_EfuseOffChipIds *OffChipIds);
+static int XilNvm_EfuseInitBootEnvCtrl(XNvm_EfuseData *WriteEfuse,
+				XNvm_EfuseBootEnvCtrlBits *BootEnvCtrl);
+static int XilNvm_EfuseInitSecMisc1Ctrl(XNvm_EfuseData *WriteEfuse,
+				XNvm_EfuseSecMisc1Bits *SecMisc1Bits);
 static int XilNvm_ValidateUserFuseStr(const char *UserFuseStr);
 static int XilNvm_PrepareAesKeyForWrite(char *KeyStr, u8 *Dst, u32 Len);
 static int XilNvm_PrepareIvForWrite(char *IvStr, u8 *Dst, u32 Len);
 static int XilNvm_ValidateIvString(const char *IvStr);
 static int XilNvm_ValidateHash(const char *Hash, u32 Len);
 static void XilNvm_FormatData(const u8 *OrgDataPtr, u8* SwapPtr, u32 Len);
+static int XilNvm_ValidateRevokeIds(const char *RevokeIdStr);
+
 /*****************************************************************************/
 int main(void)
 {
@@ -157,6 +170,9 @@ static int XilNvm_EfuseWriteFuses(void)
 	XNvm_EfuseMiscCtrlBits MiscCtrlBits = {0U};
 	XNvm_EfuseSecCtrlBits SecCtrlBits = {0U};
 	XNvm_EfuseRevokeIds RevokeIds = {0U};
+	XNvm_EfuseOffChipIds OffChipIds = {0U};
+	XNvm_EfuseBootEnvCtrlBits BootEnvCtrl = {0U};
+	XNvm_EfuseSecMisc1Bits SecMisc1Bits = {0U};
 	XNvm_EfuseUserData UserFuses = {0U};
 	u32 UserFusesArr[XNVM_EFUSE_NUM_OF_USER_FUSES];
 
@@ -190,12 +206,27 @@ static int XilNvm_EfuseWriteFuses(void)
 		goto END;
 	}
 
+	Status = XilNvm_EfuseInitBootEnvCtrl(&WriteEfuse, &BootEnvCtrl);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XilNvm_EfuseInitSecMisc1Ctrl(&WriteEfuse, &SecMisc1Bits);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	Status = XilNvm_EfuseInitRevocationIds(&WriteEfuse, &RevokeIds);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
 	Status = XilNvm_EfuseInitIVs(&WriteEfuse, &Ivs);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XilNvm_EfuseInitOffChipRevokeIds(&WriteEfuse, &OffChipIds);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -228,7 +259,8 @@ static int XilNvm_EfuseReadFuses(void)
 	XNvm_PpkHash EfusePpk = {0U};
 	XNvm_Iv EfuseIv = {0U};
 	XNvm_EfuseUserData ReadUserFuses = {0U};
-	u32 RdRevocationIds[XNVM_NUM_OF_REVOKE_ID_FUSES];
+	u32 RevocationId;
+	u32 OffChipId;
 	u32 UserFusesArr[XNVM_EFUSE_NUM_OF_USER_FUSES];
 	u32 ReadIv[XNVM_EFUSE_IV_LEN_IN_WORDS];
 	u32 ReadPpk[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS];
@@ -313,12 +345,24 @@ static int XilNvm_EfuseReadFuses(void)
 
 	xil_printf("Revocation ids read from cache \n\r");
 	for (Row = 0; Row < XNVM_NUM_OF_REVOKE_ID_FUSES; Row++) {
-		Status = XNvm_EfuseReadRevocationId(&RdRevocationIds[Row], Row);
+		Status = XNvm_EfuseReadRevocationId(&RevocationId, Row);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 		xil_printf("RevocationId%d Fuse:%08x\n\r",
-				Row, RdRevocationIds[Row]);
+				Row, RevocationId);
+	}
+
+	xil_printf("\n\r");
+
+	xil_printf("Offchip ids read from cache \n\r");
+	for (Row = 0; Row < XNVM_NUM_OF_OFFCHIP_ID_FUSES; Row++) {
+		Status = XNvm_EfuseReadOffchipRevokeId(&OffChipId, Row);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		xil_printf("OffChipId%d Fuse:%08x\n\r",
+				Row, OffChipId);
 	}
 
 	xil_printf("\n\r");
@@ -606,6 +650,7 @@ static int XilNvm_EfuseInitPpkHash(XNvm_EfuseData *WriteEfuse,
 		Status = XilNvm_ValidateHash((char *)XNVM_EFUSE_PPK0_HASH,
 					XNVM_EFUSE_PPK_HASH_STRING_LEN);
 		if(Status != XST_SUCCESS) {
+			xil_printf("Ppk0Hash string validation failed\r\n");
 			goto END;
 		}
 		Status = Xil_ConvertStringToHexBE((char *)XNVM_EFUSE_PPK0_HASH,
@@ -619,6 +664,7 @@ static int XilNvm_EfuseInitPpkHash(XNvm_EfuseData *WriteEfuse,
 		Status = XilNvm_ValidateHash((char *)XNVM_EFUSE_PPK1_HASH,
 					XNVM_EFUSE_PPK_HASH_STRING_LEN);
 		if(Status != XST_SUCCESS) {
+			xil_printf("Ppk1Hash string validation failed\r\n");
 			goto END;
 		}
 		Status = Xil_ConvertStringToHexBE((char *)XNVM_EFUSE_PPK1_HASH,
@@ -632,6 +678,7 @@ static int XilNvm_EfuseInitPpkHash(XNvm_EfuseData *WriteEfuse,
 		Status = XilNvm_ValidateHash((char *)XNVM_EFUSE_PPK2_HASH,
 					XNVM_EFUSE_PPK_HASH_STRING_LEN);
 		if(Status != XST_SUCCESS) {
+			xil_printf("Ppk1Hash string validation failed\r\n");
 			goto END;
 		}
 		Status = Xil_ConvertStringToHexBE((char *)XNVM_EFUSE_PPK2_HASH,
@@ -725,6 +772,13 @@ static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *WriteEfuse,
 {
 	int Status = XST_FAILURE;
 
+	SecCtrlBits->AesDis = XNVM_EFUSE_AES_DIS;
+	SecCtrlBits->JtagErrOutDis = XNVM_EFUSE_JTAG_ERROR_OUT_DIS;
+	SecCtrlBits->JtagDis = XNVM_EFUSE_JTAG_DIS;
+	SecCtrlBits->SecDbgDis = XNVM_EFUSE_AUTH_JTAG_DIS;
+	SecCtrlBits->SecLockDbgDis = XNVM_EFUSE_AUTH_JTAG_LOCK_DIS;
+	SecCtrlBits->BootEnvWrLk = XNVM_EFUSE_BOOT_ENV_WR_LK;
+	SecCtrlBits->RegInitDis = XNVM_EFUSE_REG_INIT_DIS;
 	SecCtrlBits->Ppk0WrLk = XNVM_EFUSE_PPK0_WR_LK;
 	SecCtrlBits->Ppk1WrLk = XNVM_EFUSE_PPK1_WR_LK;
 	SecCtrlBits->Ppk2WrLk = XNVM_EFUSE_PPK2_WR_LK;
@@ -735,7 +789,13 @@ static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *WriteEfuse,
 	SecCtrlBits->UserKey1CrcLk = XNVM_EFUSE_USER_KEY_1_CRC_LK;
 	SecCtrlBits->UserKey1WrLk = XNVM_EFUSE_USER_KEY_1_WR_LK;
 
-	if ((SecCtrlBits->Ppk0WrLk == TRUE) ||
+	if ((SecCtrlBits->AesDis == TRUE) ||
+		(SecCtrlBits->JtagErrOutDis == TRUE) ||
+		(SecCtrlBits->JtagDis == TRUE) ||
+		(SecCtrlBits->SecDbgDis == TRUE) ||
+		(SecCtrlBits->SecLockDbgDis == TRUE) ||
+		(SecCtrlBits->BootEnvWrLk == TRUE) ||
+		(SecCtrlBits->Ppk0WrLk == TRUE) ||
 		(SecCtrlBits->Ppk0WrLk == TRUE) ||
 		(SecCtrlBits->Ppk2WrLk == TRUE) ||
 		(SecCtrlBits->AesCrcLk == TRUE) ||
@@ -790,16 +850,163 @@ static int XilNvm_EfuseInitMiscCtrl(XNvm_EfuseData *WriteEfuse,
 	MiscCtrlBits->Ppk2Invalid = XNVM_EFUSE_PPK2_INVLD;
 	MiscCtrlBits->HaltBootError = XNVM_EFUSE_GEN_ERR_HALT_BOOT_EN_1_0;
 	MiscCtrlBits->HaltBootEnv = XNVM_EFUSE_ENV_ERR_HALT_BOOT_EN_1_0;
+	MiscCtrlBits->CryptoKatEn = XNVM_EFUSE_CRYPTO_KAT_EN;
+	MiscCtrlBits->LbistEn = XNVM_EFUSE_LBIST_EN;
+	MiscCtrlBits->SafetyMissionEn = XNVM_EFUSE_SAFETY_MISSION_EN;
 
 	if ((MiscCtrlBits->Ppk0Invalid == TRUE) ||
 		(MiscCtrlBits->Ppk1Invalid == TRUE) ||
 		(MiscCtrlBits->Ppk2Invalid == TRUE) ||
 		(MiscCtrlBits->HaltBootError == TRUE)||
-		(MiscCtrlBits->HaltBootEnv == TRUE)) {
+		(MiscCtrlBits->HaltBootEnv == TRUE) ||
+		(MiscCtrlBits->CryptoKatEn == TRUE) ||
+		(MiscCtrlBits->LbistEn == TRUE) ||
+		(MiscCtrlBits->SafetyMissionEn == TRUE)) {
 		WriteEfuse->MiscCtrlBits = MiscCtrlBits;
 	}
 
 	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+ * This function is used to initialize XNvm_EfuseSecMisc1Bits structure with
+ * user provided data and assign the same to global structure XNvm_EfuseData to
+ * program XNvm_EfuseSecMisc1Bits eFuses.
+ *
+ *typedef struct {
+ *	u8 LpdMbistEn;
+ *	u8 PmcMbistEn;
+ *	u8 LpdNocScEn;
+ *	u8 SysmonVoltMonEn;
+ *	u8 SysmonTempMonEn;
+ *}XNvm_EfuseSecMisc1Bits;
+
+ * @param	SecMisc1Bits	Pointer to XNvm_EfuseSecMisc1Bits structure
+ *
+ * @param	WriteEfuse	Pointer to XNvm_EfuseData structure
+ *
+ * @return
+ *		- XST_SUCCESS - If the initialization XNvm_EfuseSecMisc1Bits
+ *				structure is successful
+ *		- Error Code - On Failure.
+ *
+ ******************************************************************************/
+static int XilNvm_EfuseInitSecMisc1Ctrl(XNvm_EfuseData *WriteEfuse,
+					XNvm_EfuseSecMisc1Bits *SecMisc1Bits)
+{
+	SecMisc1Bits->LpdMbistEn = XNVM_EFUSE_LPD_MBIST_EN;
+	SecMisc1Bits->PmcMbistEn = XNVM_EFUSE_PMC_MBIST_EN;
+	SecMisc1Bits->LpdNocScEn = XNVM_EFUSE_LPD_NOC_SC_EN;
+	SecMisc1Bits->SysmonVoltMonEn = XNVM_EFUSE_SYSMON_VOLT_MON_EN;
+	SecMisc1Bits->SysmonTempMonEn = XNVM_EFUSE_SYSMON_TEMP_MON_EN;
+
+	if ((SecMisc1Bits->LpdMbistEn == TRUE) ||
+		(SecMisc1Bits->PmcMbistEn == TRUE) ||
+		(SecMisc1Bits->LpdNocScEn == TRUE) ||
+		(SecMisc1Bits->SysmonVoltMonEn == TRUE)||
+		(SecMisc1Bits->SysmonTempMonEn == TRUE)) {
+		WriteEfuse->Misc1Bits = SecMisc1Bits;
+	}
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+ * This function is used to initialize XNvm_EfuseBootEnvCtrlBits structure with
+ * user provided data and assign the same to global structure XNvm_EfuseData to
+ * program XNvm_EfuseBootEnvCtrlBits eFuses.
+ *
+ * typedef struct {
+ *	u8 PrgmSysmonTempHot;
+ *	u8 PrgmSysmonVoltPmc;
+ *	u8 PrgmSysmonVoltPslp;
+ * 	u8 PrgmSysmonVoltSoc;
+ *	u8 PrgmSysmonTempCold;
+ *	u8 SysmonTempEn;
+ *	u8 SysmonVoltEn;
+ * 	u8 SysmonTempHot;
+ *	u8 SysmonVoltPmc;
+ *	u8 SysmonVoltPslp;
+ *	u8 SysmonVoltSoc;
+ *	u8 SysmonTempCold;
+ * }XNvm_EfuseBootEnvCtrlBits;
+ *
+ * @param	SecMisc1Bits	Pointer to XNvm_EfuseBootEnvCtrlBits structure
+ *
+ * @param	WriteEfuse	Pointer to XNvm_EfuseData structure
+ *
+ * @return
+ *		- XST_SUCCESS - If the initialization XNvm_EfuseBootEnvCtrlBits
+ *				structure is successful
+ *		- Error Code - On Failure.
+ *
+ ******************************************************************************/
+static int XilNvm_EfuseInitBootEnvCtrl(XNvm_EfuseData *WriteEfuse,
+					XNvm_EfuseBootEnvCtrlBits *BootEnvCtrl)
+{
+	int Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+
+	BootEnvCtrl->SysmonTempEn = XNVM_EFUSE_SYSMON_TEMP_EN;
+	BootEnvCtrl->SysmonVoltEn = XNVM_EFUSE_SYSMON_VOLT_EN;
+	BootEnvCtrl->SysmonVoltSoc = XNVM_EFUSE_SYSMON_VOLT_SOC;
+	BootEnvCtrl->PrgmSysmonTempHot = XNVM_EFUSE_SYSMON_TEMP_HOT;
+	BootEnvCtrl->PrgmSysmonVoltPmc = XNVM_EFUSE_SYSMON_VOLT_PMC;
+	BootEnvCtrl->PrgmSysmonVoltPslp = XNVM_EFUSE_SYSMON_VOLT_PSLP;
+	BootEnvCtrl->PrgmSysmonTempCold = XNVM_EFUSE_SYSMON_TEMP_COLD;
+
+	if (BootEnvCtrl->PrgmSysmonTempHot == TRUE) {
+		if (XNVM_EFUSE_SYSMON_TEMP_HOT_FUSES >
+			XNVM_EFUSE_TEMP_VOLT_LIMIT_MAX) {
+			xil_printf("Invalid i/p for"
+				" XNVM_EFUSE_SYSMON_TEMP_HOT_FUSES\r\n");
+			goto END;
+		}
+		BootEnvCtrl->SysmonTempHot = XNVM_EFUSE_SYSMON_TEMP_HOT_FUSES;
+	}
+	if (BootEnvCtrl->PrgmSysmonVoltPmc == TRUE) {
+		if (XNVM_EFUSE_SYSMON_VOLT_PMC_FUSES >
+			XNVM_EFUSE_TEMP_VOLT_LIMIT_MAX) {
+			xil_printf("Invalid i/p for"
+				" XNVM_EFUSE_SYSMON_VOLT_PMC_FUSES\r\n");
+			goto END;
+		}
+		BootEnvCtrl->SysmonVoltPmc = XNVM_EFUSE_SYSMON_VOLT_PMC_FUSES;
+	}
+	if (BootEnvCtrl->PrgmSysmonVoltPslp == TRUE) {
+		if (XNVM_EFUSE_SYSMON_VOLT_PSLP_FUSE >
+			XNVM_EFUSE_TEMP_VOLT_LIMIT_MAX) {
+			xil_printf("Invalid i/p for"
+					 "XNVM_EFUSE_SYSMON_VOLT_PSLP_FUSE\r\n");
+			goto END;
+		}
+		BootEnvCtrl->SysmonVoltPslp = XNVM_EFUSE_SYSMON_VOLT_PSLP_FUSE;
+	}
+	if (BootEnvCtrl->PrgmSysmonTempCold == TRUE) {
+		if (XNVM_EFUSE_SYSMON_TEMP_COLD_FUSES >
+			XNVM_EFUSE_TEMP_VOLT_LIMIT_MAX) {
+			xil_printf("Invalid i/p for"
+					" XNVM_EFUSE_SYSMON_TEMP_COLD_FUSES\r\n");
+			goto END;
+		}
+		BootEnvCtrl->SysmonTempCold = XNVM_EFUSE_SYSMON_TEMP_COLD_FUSES;
+	}
+
+	if ((BootEnvCtrl->SysmonTempEn == TRUE) ||
+		(BootEnvCtrl->SysmonVoltEn == TRUE) ||
+		(BootEnvCtrl->SysmonVoltSoc == TRUE) ||
+		(BootEnvCtrl->PrgmSysmonTempHot == TRUE) ||
+		(BootEnvCtrl->PrgmSysmonVoltPmc == TRUE) ||
+		(BootEnvCtrl->PrgmSysmonVoltPslp == TRUE) ||
+		(BootEnvCtrl->PrgmSysmonTempCold == TRUE)) {
+		WriteEfuse->BootEnvCtrl = BootEnvCtrl;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
 }
 
 /****************************************************************************/
@@ -841,10 +1048,20 @@ static int XilNvm_EfuseInitRevocationIds(XNvm_EfuseData *WriteEfuse,
 	}
 
 	if (RevokeIds->PrgmRevokeId == TRUE) {
+		Status = XilNvm_ValidateRevokeIds(
+			(char *)XNVM_EFUSE_REVOCATION_ID_0_FUSES);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 		Status = Xil_ConvertStringToHex(
 			XNVM_EFUSE_REVOCATION_ID_0_FUSES,
 			&RevokeIds->RevokeId[XNVM_EFUSE_REVOCATION_ID_0],
 			XNVM_EFUSE_ROW_STRING_LEN);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Status = XilNvm_ValidateRevokeIds(
+			(char *)XNVM_EFUSE_REVOCATION_ID_1_FUSES);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -855,10 +1072,20 @@ static int XilNvm_EfuseInitRevocationIds(XNvm_EfuseData *WriteEfuse,
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
+		Status = XilNvm_ValidateRevokeIds(
+			(char *)XNVM_EFUSE_REVOCATION_ID_2_FUSES);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 		Status = Xil_ConvertStringToHex(
 			XNVM_EFUSE_REVOCATION_ID_2_FUSES,
 			&RevokeIds->RevokeId[XNVM_EFUSE_REVOCATION_ID_2],
 			XNVM_EFUSE_ROW_STRING_LEN);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Status = XilNvm_ValidateRevokeIds(
+			(char *)XNVM_EFUSE_REVOCATION_ID_3_FUSES);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -869,10 +1096,20 @@ static int XilNvm_EfuseInitRevocationIds(XNvm_EfuseData *WriteEfuse,
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
+		Status = XilNvm_ValidateRevokeIds(
+			(char *)XNVM_EFUSE_REVOCATION_ID_4_FUSES);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 		Status = Xil_ConvertStringToHex(
 			XNVM_EFUSE_REVOCATION_ID_4_FUSES,
 			&RevokeIds->RevokeId[XNVM_EFUSE_REVOCATION_ID_4],
 			XNVM_EFUSE_ROW_STRING_LEN);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Status = XilNvm_ValidateRevokeIds(
+			(char *)XNVM_EFUSE_REVOCATION_ID_5_FUSES);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -883,10 +1120,20 @@ static int XilNvm_EfuseInitRevocationIds(XNvm_EfuseData *WriteEfuse,
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
+		Status = XilNvm_ValidateRevokeIds(
+			(char *)XNVM_EFUSE_REVOCATION_ID_6_FUSES);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 		Status = Xil_ConvertStringToHex(
 			XNVM_EFUSE_REVOCATION_ID_6_FUSES,
 			&RevokeIds->RevokeId[XNVM_EFUSE_REVOCATION_ID_6],
 			XNVM_EFUSE_ROW_STRING_LEN);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Status = XilNvm_ValidateRevokeIds(
+			(char *)XNVM_EFUSE_REVOCATION_ID_7_FUSES);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -908,6 +1155,151 @@ END:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * This function is used to initialize XNvm_EfuseOffChipIds structure with user
+ * provided data and assign it to global structure  XNvm_EfuseData to program
+ * OffChip_Revoke ID eFuses
+ *
+ * typedef struct {
+ *	u8 PrgmOffchipId;
+ *	u32 OffChipId[XNVM_NUM_OF_OFFCHIP_ID_FUSES];
+ * }XNvm_EfuseOffChipIds;
+ *
+ * @param	WriteEfuse      Pointer to XNvm_EfuseData structure
+ *
+ * @param	OffChipIds	Pointer to XNvm_EfuseOffChipIds structure
+ *
+ * @return
+ *		- XST_SUCCESS - If the initialization of XNvm_EfuseOffChipIds
+ *				structure is successful
+ *		- Error Code - On Failure.
+ *
+ ******************************************************************************/
+static int XilNvm_EfuseInitOffChipRevokeIds(XNvm_EfuseData *WriteEfuse,
+					XNvm_EfuseOffChipIds *OffChipIds)
+{
+	int Status = XST_FAILURE;
+
+	if ((XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_0 |
+		XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_1 |
+		XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_2 |
+		XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_3 |
+		XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_4 |
+		XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_5 |
+		XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_6 |
+		XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_7) != 0U) {
+
+		OffChipIds->PrgmOffchipId = TRUE;
+	}
+
+	if (OffChipIds->PrgmOffchipId == TRUE) {
+		Status = XilNvm_ValidateRevokeIds(
+			(char *) XNVM_EFUSE_OFFCHIP_REVOKE_ID_0_FUSES);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Status = Xil_ConvertStringToHex(
+			XNVM_EFUSE_OFFCHIP_REVOKE_ID_0_FUSES,
+			&OffChipIds->OffChipId[XNVM_EFUSE_OFFCHIP_REVOKE_ID_0],
+			XNVM_EFUSE_ROW_STRING_LEN);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Status = XilNvm_ValidateRevokeIds(
+			(char *)XNVM_EFUSE_OFFCHIP_REVOKE_ID_1_FUSES);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Status = Xil_ConvertStringToHex(
+			XNVM_EFUSE_OFFCHIP_REVOKE_ID_1_FUSES,
+			&OffChipIds->OffChipId[XNVM_EFUSE_OFFCHIP_REVOKE_ID_1],
+			XNVM_EFUSE_ROW_STRING_LEN);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Status = XilNvm_ValidateRevokeIds(
+			(char *)XNVM_EFUSE_OFFCHIP_REVOKE_ID_2_FUSES);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Status = Xil_ConvertStringToHex(
+			XNVM_EFUSE_OFFCHIP_REVOKE_ID_2_FUSES,
+			&OffChipIds->OffChipId[XNVM_EFUSE_OFFCHIP_REVOKE_ID_2],
+			XNVM_EFUSE_ROW_STRING_LEN);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Status = XilNvm_ValidateRevokeIds(
+			(char *)XNVM_EFUSE_OFFCHIP_REVOKE_ID_3_FUSES);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Status = Xil_ConvertStringToHex(
+			XNVM_EFUSE_OFFCHIP_REVOKE_ID_3_FUSES,
+			&OffChipIds->OffChipId[XNVM_EFUSE_OFFCHIP_REVOKE_ID_3],
+			XNVM_EFUSE_ROW_STRING_LEN);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Status = XilNvm_ValidateRevokeIds(
+			(char *)XNVM_EFUSE_OFFCHIP_REVOKE_ID_4_FUSES);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Status = Xil_ConvertStringToHex(
+			XNVM_EFUSE_OFFCHIP_REVOKE_ID_4_FUSES,
+			&OffChipIds->OffChipId[XNVM_EFUSE_OFFCHIP_REVOKE_ID_4],
+			XNVM_EFUSE_ROW_STRING_LEN);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Status = XilNvm_ValidateRevokeIds(
+			(char *)XNVM_EFUSE_OFFCHIP_REVOKE_ID_5_FUSES);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Status = Xil_ConvertStringToHex(
+			XNVM_EFUSE_OFFCHIP_REVOKE_ID_5_FUSES,
+			&OffChipIds->OffChipId[XNVM_EFUSE_OFFCHIP_REVOKE_ID_5],
+			XNVM_EFUSE_ROW_STRING_LEN);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Status = XilNvm_ValidateRevokeIds(
+			(char *)XNVM_EFUSE_OFFCHIP_REVOKE_ID_6_FUSES);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Status = Xil_ConvertStringToHex(
+			XNVM_EFUSE_OFFCHIP_REVOKE_ID_6_FUSES,
+			&OffChipIds->OffChipId[XNVM_EFUSE_OFFCHIP_REVOKE_ID_6],
+			XNVM_EFUSE_ROW_STRING_LEN);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Status = XilNvm_ValidateRevokeIds(
+			(char *)XNVM_EFUSE_OFFCHIP_REVOKE_ID_7_FUSES);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Status = Xil_ConvertStringToHex(
+			XNVM_EFUSE_OFFCHIP_REVOKE_ID_7_FUSES,
+			&OffChipIds->OffChipId[XNVM_EFUSE_OFFCHIP_REVOKE_ID_7],
+			XNVM_EFUSE_ROW_STRING_LEN);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+
+	if (Status == XST_SUCCESS) {
+		WriteEfuse->OffChipIds = OffChipIds;
+	}
+
+	Status = XST_SUCCESS;
+END:
+	return Status;
+}
 /****************************************************************************/
 /**
  * This function is used to initialize XNvm_EfuseIvs structure with user
@@ -1018,6 +1410,7 @@ static int XilNvm_EfuseInitUserFuses(XNvm_EfuseData *WriteEfuse,
 		Status = XilNvm_ValidateUserFuseStr(
 				(char *)XNVM_EFUSE_USER_FUSES);
 		if (Status != XST_SUCCESS) {
+			xil_printf("UserFuse string validation failed\r\n");
 			goto END;
 		}
 		Status = Xil_ConvertStringToHex(
@@ -1055,6 +1448,8 @@ static int XilNvm_EfuseShowCtrlBits(void)
 	XNvm_EfuseSecCtrlBits SecCtrlBits;
 	XNvm_EfusePufSecCtrlBits PufSecCtrlBits;
 	XNvm_EfuseMiscCtrlBits MiscCtrlBits;
+	XNvm_EfuseSecMisc1Bits SecMisc1Bits;
+	XNvm_EfuseBootEnvCtrlBits BootEnvCtrlBits;
 
 	Status = XNvm_EfuseReadSecCtrlBits(&SecCtrlBits);
 	if (Status != XST_SUCCESS) {
@@ -1071,7 +1466,17 @@ static int XilNvm_EfuseShowCtrlBits(void)
 		goto END;
 	}
 
-	xil_printf("\r\nSecure and Control bits of eFuse:\n\r");
+	Status = XNvm_EfuseReadSecMisc1Bits(&SecMisc1Bits);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XNvm_EfuseReadBootEnvCtrlBits(&BootEnvCtrlBits);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	xil_printf("\r\nSecurity Control eFuses:\n\r");
 
 	if (SecCtrlBits.AesDis == TRUE) {
 		xil_printf("\r\nAES is disabled\n\r");
@@ -1170,6 +1575,9 @@ static int XilNvm_EfuseShowCtrlBits(void)
 	else {
 		xil_printf("Register Init is enabled\n\r");
 	}
+
+	xil_printf("\r\nPuf Control eFuses:\n\r");
+
 	if (PufSecCtrlBits.PufSynLk == TRUE) {
 		xil_printf("Programming Puf Syndrome data is disabled\n\r");
 	}
@@ -1200,6 +1608,9 @@ static int XilNvm_EfuseShowCtrlBits(void)
 	else {
 		xil_printf("Puf test 2 is enabled\n\r");
 	}
+
+	xil_printf("\r\nMisc Control eFuses:\n\r");
+
 	if (MiscCtrlBits.GlitchDetHaltBootEn != FALSE) {
 		xil_printf("GdHaltBootEn efuse is programmed\r\n");
 	}
@@ -1260,6 +1671,60 @@ static int XilNvm_EfuseShowCtrlBits(void)
 	else {
 		xil_printf("Ppk2 hash stored in efuse is valid\n\r");
 	}
+
+	xil_printf("\r\nSecurity Misc1 eFuses:\n\r");
+
+	if (SecMisc1Bits.LpdMbistEn != FALSE) {
+		xil_printf("LpdMbistEn efuse is programmed\n\r");
+	}
+	else {
+		xil_printf("LpdMbistEn efuse is not programmed\n\r");
+	}
+	if (SecMisc1Bits.PmcMbistEn != FALSE) {
+		xil_printf("PmcMbistEn efuse is programmed\n\r");
+	}
+	else {
+		xil_printf("PmcMbistEn efuse is not programmed\n\r");
+	}
+	if (SecMisc1Bits.LpdNocScEn != FALSE) {
+		xil_printf("LpdNocScEn efuse is programmed\n\r");
+	}
+	else {
+		xil_printf("LpdNocScEn efuse is not programmed\n\r");
+	}
+	if (SecMisc1Bits.SysmonVoltMonEn != FALSE) {
+		xil_printf("SysmonVoltMonEn efuse is programmed\n\r");
+	}
+	else {
+		xil_printf("SysmonVoltMonEn efuse is not programmed\n\r");
+	}
+	if (SecMisc1Bits.SysmonTempMonEn != FALSE) {
+		xil_printf("SysmonTempMonEn efuse is programmed\n\r");
+	}
+	else {
+		xil_printf("SysmonTempMonEn efuse is not programmed\n\r");
+	}
+
+	xil_printf("\r\nBoot Environmental Control eFuses:\n\r");
+
+	if (BootEnvCtrlBits.SysmonTempEn == TRUE) {
+		xil_printf("SysmonTempEn efuse is programmed\n\r");
+	}
+	else {
+		xil_printf("SysmonTempEn efuse is not programmed\n\r");
+	}
+	if (BootEnvCtrlBits.SysmonVoltEn == TRUE) {
+		xil_printf("SysmonVoltEn efuse is programmed\n\r");
+	}
+	else {
+		xil_printf("SysmonVoltEn efuse is not programmed\n\r");
+	}
+
+	xil_printf("SysmonTempHot : %d\n\r", BootEnvCtrlBits.SysmonTempHot);
+	xil_printf("SysmonVoltPmc : %d\n\r", BootEnvCtrlBits.SysmonVoltPmc);
+	xil_printf("SysmonVoltPslp : %d\n\r", BootEnvCtrlBits.SysmonVoltPslp);
+	xil_printf("SysmonVoltSoc : %d\n\r", BootEnvCtrlBits.SysmonVoltSoc);
+	xil_printf("SysmonTempCold : %d\n\r", BootEnvCtrlBits.SysmonTempCold);
 
 	Status = XST_SUCCESS;
 END:
@@ -1327,11 +1792,37 @@ static int XilNvm_PrepareIvForWrite(char *IvStr, u8 *Dst, u32 Len)
 
 	Status = XilNvm_ValidateIvString(IvStr);
 	if(Status != XST_SUCCESS) {
+		xil_printf("IV string validation failed\r\n");
 		goto END;
 	}
 	Status = Xil_ConvertStringToHexBE(IvStr, Dst, Len);
 
 END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * This function is validate the input string contains valid Revoke Id String
+ *
+ * @param   RevokeIdStr - Pointer to Revocation ID/OffChip_Revoke ID String
+ *
+ * @return
+ *	- XST_SUCCESS - On valid input Revoke Id string
+ *	- XST_INVALID_PARAM - On invalid length of the input string
+ ******************************************************************************/
+static int XilNvm_ValidateRevokeIds(const char *RevokeIdStr)
+{
+	int Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+
+	if((NULL == RevokeIdStr) ||
+		(strlen(RevokeIdStr) != XNVM_EFUSE_ROW_STRING_LEN)) {
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+	}
+	else {
+		Status = XST_SUCCESS;
+	}
+
 	return Status;
 }
 
