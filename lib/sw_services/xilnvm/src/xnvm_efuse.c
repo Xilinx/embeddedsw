@@ -248,7 +248,6 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 	}
 
 	if (WriteNvm->GlitchCfgBits != NULL) {
-
 		Status = XNvm_EfusePrgmGlitchCfgValues(WriteNvm->GlitchCfgBits);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -277,7 +276,6 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 	}
 
 	if (WriteNvm->AesKeys != NULL) {
-
 		Status = XNvm_EfusePrgmAesKeys(WriteNvm->AesKeys);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -285,7 +283,6 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 	}
 
 	if (WriteNvm->PpkHash != NULL) {
-
 		Status = XNvm_EfusePrgmPpkHash(WriteNvm->PpkHash);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -293,7 +290,6 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 	}
 
 	if (WriteNvm->Ivs != NULL) {
-
 		Status = XNvm_EfusePrgmIVs(WriteNvm->Ivs);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -301,7 +297,6 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 	}
 
 	if (WriteNvm->DecOnly != NULL) {
-
 		Status = XNvm_EfusePrgmDecOnly(WriteNvm->DecOnly);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -309,7 +304,6 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 	}
 
 	if (WriteNvm->RevokeIds != NULL) {
-
 		Status = XNvm_EfusePrgmRevocationIdFuses(WriteNvm->RevokeIds);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -324,14 +318,12 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 	}
 
 	if (WriteNvm->MiscCtrlBits != NULL) {
-
 		Status = XNvm_EfusePrgmPpkRevokeFuses(WriteNvm->MiscCtrlBits);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 
 		if(WriteNvm->MiscCtrlBits->HaltBootError == TRUE) {
-
 			Status = XNvm_EfusePrgmHaltBootonError(WriteNvm->MiscCtrlBits);
 			if (Status != XST_SUCCESS) {
 				goto END;
@@ -339,7 +331,6 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 		}
 
 		if(WriteNvm->MiscCtrlBits->HaltBootEnv == TRUE) {
-
 			Status = XNvm_EfusePrgmHaltBootEnvError(WriteNvm->MiscCtrlBits);
 			if (Status != XST_SUCCESS) {
 				goto END;
@@ -369,7 +360,6 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 	}
 
 	if (WriteNvm->UserFuses != NULL) {
-
 		Status = XNvm_EfusePrgmUserFuses(WriteNvm->UserFuses);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -391,7 +381,6 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 	}
 
 	if (WriteNvm->SecCtrlBits != NULL) {
-
 		Status = XNvm_EfuseWriteSecCtrl(WriteNvm->SecCtrlBits);
 		if (Status != XST_SUCCESS) {
 			goto END;
