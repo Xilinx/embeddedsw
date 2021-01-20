@@ -29,6 +29,7 @@
 *                       value and Global Variation Filter option
 * 1.3   am   11/23/2020 Resolved MISRA C violation Rule 10.6
 *       har  01/06/2021 Added API to clear PUF ID
+*       am   01/14/2021 Resolved HIS_CCM Code complexity violations
 *
 * </pre>
 *
@@ -57,7 +58,8 @@ typedef enum {
 } XPuf_PufRegistrationState;
 
 /********************Macros (Inline function) Definitions*********************/
-#define XPuf_Printf(type, ...)	if ((type) == (1U)) {xil_printf (__VA_ARGS__);}
+#define XPuf_Printf(DebugType, ...)	\
+	if ((DebugType) == (1U)) {xil_printf (__VA_ARGS__);}
 
 /*****************************************************************************/
 /**
@@ -125,9 +127,32 @@ static inline void XPuf_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
 	Xil_Out32((UINTPTR)(BaseAddress + RegOffset), Data);
 }
 
+/*****************************************************************************/
+/**
+ * @brief       This function configures the Global Variation Filter option provided
+ *              by user and updates Puf Cfg0 register
+ *
+ * @param       GlobalVarFilter - User configuration to enable/disable
+ *                                Global Variation Filter in PUF
+ *
+ *****************************************************************************/
+static inline void XPuf_CfgGlobalVariationFilter(const u8 GlobalVarFilter)
+{
+	if (GlobalVarFilter == TRUE) {
+		XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_CFG0_OFFSET,
+			(XPUF_CFG0_HASH_SEL | XPUF_CFG0_GLOBAL_FILTER_ENABLE));
+	}
+	else {
+		XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_CFG0_OFFSET,
+			XPUF_CFG0_HASH_SEL);
+	}
+}
+
 /************************** Function Prototypes ******************************/
 static void XPuf_CapturePufID(XPuf_Data *PufData);
 static int XPuf_ValidateAccessRules(const XPuf_Data *PufData);
+static int XPuf_UpdateHelperData(const XPuf_Data *PufData);
+static int XPuf_StartRegeneration(XPuf_Data *PufData);
 
 /************************** Function Definitions *****************************/
 
@@ -136,17 +161,16 @@ static int XPuf_ValidateAccessRules(const XPuf_Data *PufData);
  * @brief	This functions performs PUF registration
  *
  * @param	PufData - Pointer to XPuf_Data structure which includes options
- *						to configure PUF
+ *                        to configure PUF
  *
- * @return  XST_SUCCESS								PUF registration successful.
- *			XPUF_ERROR_INVALID_PARAM 				PufData is NULL.
- *			XPUF_ERROR_INVALID_SYNDROME_MODE		Incorrect Registration mode
- *			XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT	Timeout occurred while
- *													waiting for PUF Syndrome
- *													data.
- *			XPUF_ERROR_PUF_DONE_WAIT_TIMEOUT		Timeout occurred while
- *													waiting for PUF done bit
- *			XST_FAILURE								Unexpected event.
+ * @return  XST_SUCCESS - PUF registration successful
+ *          XPUF_ERROR_INVALID_PARAM - PufData is NULL
+ *          XPUF_ERROR_INVALID_SYNDROME_MODE      - Incorrect Registration mode
+ *          XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT - Timeout occurred while
+ *                                                  waiting for PUF Syndrome data
+ *          XPUF_ERROR_PUF_DONE_WAIT_TIMEOUT      - Timeout occurred while
+ *                                                  waiting for PUF done bit
+ *	    XST_FAILURE - Unexpected event
  *
  * @note	Helper data will be available in PufData->SyndromeData,
  *			PufData->Chash, PufData->Aux
@@ -180,14 +204,7 @@ int XPuf_Registration(XPuf_Data *PufData)
 		goto END;
 	}
 
-	if (PufData->GlobalVarFilter == TRUE) {
-		XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_CFG0_OFFSET,
-				(XPUF_CFG0_HASH_SEL | XPUF_CFG0_GLOBAL_FILTER_ENABLE));
-	}
-	else {
-		XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_CFG0_OFFSET,
-				XPUF_CFG0_HASH_SEL);
-	}
+	XPuf_CfgGlobalVariationFilter(PufData->GlobalVarFilter);
 
 	if (XPUF_SYNDROME_MODE_4K == PufData->RegMode) {
 		XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_CFG1_OFFSET,
@@ -249,34 +266,28 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function regenerate PUF data using helper data stored in eFUSE
- * 			or external memory.
+ * @brief       This function regenerate PUF data using helper data stored in eFUSE
+ *              or external memory
  *
- * @param	PufData - Pointer to XPuf_Data structure which includes options
- *			to configure PUF
+ * @param       PufData - Pointer to XPuf_Data structure which includes options
+ *                        to configure PUF
  *
- * @return	XST_SUCCESS								PUF Regeneration successful.
- *			XPUF_ERROR_INVALID_PARAM 				PufData is NULL.
- *			XPUF_ERROR_INVALID_REGENERATION_TYPE	Selection of invalid
- *													regeneration type.
- *			XPUF_ERROR_CHASH_NOT_PROGRAMMED			Helper data not provided.
- *			XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT		Timeout occurred while
- *													waiting for PUF done bit
- *			XPUF_ERROR_PUF_DONE_KEY_ID_NT_RDY		Key ready bit and ID ready
- *													bit is not set
- *			XPUF_ERROR_PUF_DONE_ID_NT_RDY			Id ready bit is not set
- *			XST_FAILURE								Unexpected event.
- *
- * @note	None.
+ * @return      XST_SUCCESS - PUF Regeneration successful
+ *              XPUF_ERROR_INVALID_PARAM - PufData is NULL
+ *              XPUF_ERROR_INVALID_REGENERATION_TYPE - Selection of invalid
+ *                                                     regeneration type
+ *              XPUF_ERROR_CHASH_NOT_PROGRAMMED      - Helper data not provided
+ *              XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT   - Timeout occurred while
+ *                                                     waiting for PUF done bit
+ *              XPUF_ERROR_PUF_DONE_KEY_ID_NT_RDY    - Key ready bit and ID ready
+ *                                                     bit is not set
+ *              XPUF_ERROR_PUF_DONE_ID_NT_RDY        - Id ready bit is not set
+ *              XST_FAILURE - Unexpected event
  *
  *****************************************************************************/
 int XPuf_Regeneration(XPuf_Data *PufData)
 {
 	volatile int Status = XST_FAILURE;
-	u32 PufChash;
-	u32 PufAux;
-	u32 PufStatus;
-	u32 Debug = XPUF_DEBUG_GENERAL;
 
 	if ((PufData == NULL) || (PufData->PufOperation == XPUF_REGISTRATION)) {
 		Status = XPUF_ERROR_INVALID_PARAM;
@@ -298,39 +309,14 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 		goto END;
 	}
 
-	if (PufData->ReadOption == XPUF_READ_FROM_RAM) {
-		PufChash = PufData->Chash;
-		PufAux = PufData->Aux;
-		if ((PufChash == 0U) || (PufAux == 0U)) {
-			Status = XPUF_ERROR_CHASH_NOT_PROGRAMMED;
-			XPuf_Printf(Debug, "PUF regeneration is not allowed"
-			", as PUF helper data is not provided/stored\r\n");
-			goto END;
-		}
-		XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_AUX_OFFSET,
-			PufAux);
-		XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR,
-			XPUF_PMC_GLOBAL_PUF_CHASH_OFFSET, PufChash);
-		XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR,
-			XPUF_PMC_GLOBAL_PUF_SYN_ADDR_OFFSET, PufData->SyndromeAddr);
-	}
-	else if (PufData->ReadOption == XPUF_READ_FROM_EFUSE_CACHE) {
-		XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR,
-			XPUF_PMC_GLOBAL_PUF_SYN_ADDR_OFFSET, XPUF_EFUSE_SYN_ADD_INIT);
-	}
-	else {
-		Status = XPUF_ERROR_INVALID_READ_HD_INPUT;
+	Status = XST_FAILURE;
+
+	Status = XPuf_UpdateHelperData(PufData);
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	if (PufData->GlobalVarFilter == TRUE) {
-		XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_CFG0_OFFSET,
-			(XPUF_CFG0_HASH_SEL | XPUF_CFG0_GLOBAL_FILTER_ENABLE));
-	}
-	else {
-		XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_CFG0_OFFSET,
-			XPUF_CFG0_HASH_SEL);
-	}
+	XPuf_CfgGlobalVariationFilter(PufData->GlobalVarFilter);
 
 	if (XPUF_SYNDROME_MODE_4K == PufData->RegMode) {
 		XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_CFG1_OFFSET,
@@ -344,51 +330,11 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 	XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_SHUT_OFFSET,
 		PufData->ShutterValue);
 
-	if(XPUF_REGEN_ID_ONLY == PufData->PufOperation) {
-		XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_CMD_OFFSET,
-			XPUF_CMD_REGEN_ID_ONLY);
-	}
-	else if(XPUF_REGEN_ON_DEMAND == PufData->PufOperation) {
-		 XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_CMD_OFFSET,
-			XPUF_CMD_REGEN_ON_DEMAND);
-	}
-	else {
-		Status = XPUF_ERROR_INVALID_REGENERATION_TYPE;
-		goto END;
-	}
-
 	Status = XST_FAILURE;
 
-	Status  = XPuf_WaitForPufDoneStatus();
+	Status = XPuf_StartRegeneration(PufData);
 	if (Status != XST_SUCCESS) {
-		XPuf_Printf(Debug,
-		"Error: Puf Regeneration failed!! \r\n");
-		Status = XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT;
 		goto END;
-	}
-
-	PufStatus = XPuf_ReadReg(XPUF_PMC_GLOBAL_BASEADDR,
-				XPUF_PMC_GLOBAL_PUF_STATUS_OFFSET);
-
-	if(XPUF_REGEN_ON_DEMAND == PufData->PufOperation) {
-		if (((PufStatus & XPUF_STATUS_KEY_RDY) == XPUF_STATUS_KEY_RDY) &&
-		((PufStatus & XPUF_STATUS_ID_RDY) == XPUF_STATUS_ID_RDY)) {
-			XPuf_CapturePufID(PufData);
-		}
-		else {
-			Status = XPUF_ERROR_PUF_DONE_KEY_ID_NT_RDY;
-			goto END;
-		}
-	}
-	else {
-		/* PufData->PufOperation = XPUF_REGEN_ID_ONLY */
-		if ((PufStatus & XPUF_STATUS_ID_RDY) == XPUF_STATUS_ID_RDY) {
-			XPuf_CapturePufID(PufData);
-		}
-		else {
-			Status = XPUF_ERROR_PUF_DONE_ID_NT_RDY;
-			goto END;
-		}
 	}
 
 END:
@@ -401,7 +347,7 @@ END:
  *
  * @return	XST_SUCCESS - PUF ID is successfully cleared
  *		XPUF_ERROR_PUF_ID_ZERO_TIMEOUT - Timeout occurred for clearing
- *		PUF ID
+ *                                               PUF ID
  *		XST_FAILURE - Unexpected event
  *
  *****************************************************************************/
@@ -431,9 +377,7 @@ int XPuf_ClearPufID(void)
  * @brief	This function captures PUF ID generated into XPuf_Data.
  *
  * @param	PufData - Pointer to XPuf_Data structure which includes options
- *			to configure PUF
- *
- * @return	None.
+ *                        to configure PUF
  *
  *****************************************************************************/
 static void XPuf_CapturePufID(XPuf_Data *PufData)
@@ -449,19 +393,19 @@ static void XPuf_CapturePufID(XPuf_Data *PufData)
 /*****************************************************************************/
 /**
  * @brief	This function validates if secure control bits for each PUF
- * 			operations are set or not.
+ *              operations are set or not
  *
  * @param	PufData - Pointer to XPuf_Data structure which includes options
- *			to configure PUF
+ *                        to configure PUF
  *
- * @return	XST_SUCCESS							secure control bits are not set
- *			XPUF_ERROR_REGISTRATION_INVALID		PUF registration is not allowed
- *			XPUF_ERROR_REGENERATION_INVALID		PUF regeneration is not allowed
- *			XPUF_ERROR_REGEN_PUF_HD_INVALID		PUF HD in eFUSE id invalidated
- *			XPUF_ERROR_INVALID_SYNDROME_MODE	if regeneration from eFUSE cache
- *				is selected with 12K syndrome mode
- *			XPUF_ERROR_INVALID_PUF_OPERATION	in case of invalid PUF operation
- *			XST_FAILURE							Unexpected event
+ * @return	XST_SUCCESS - secure control bits are not set
+ *              XPUF_ERROR_REGISTRATION_INVALID  - PUF registration is not allowed
+ *              XPUF_ERROR_REGENERATION_INVALID  - PUF regeneration is not allowed
+ *              XPUF_ERROR_REGEN_PUF_HD_INVALID  - PUF HD in eFUSE id invalidated
+ *              XPUF_ERROR_INVALID_SYNDROME_MODE - If regeneration from eFUSE cache
+ *                                                 is selected with 12K syndrome mode
+ *              XPUF_ERROR_INVALID_PUF_OPERATION - In case of invalid PUF operation
+ *              XST_FAILURE - Unexpected event
  *
  *****************************************************************************/
 static int XPuf_ValidateAccessRules(const XPuf_Data *PufData)
@@ -514,17 +458,144 @@ static int XPuf_ValidateAccessRules(const XPuf_Data *PufData)
 
 /*****************************************************************************/
 /**
+ * @brief       This function updates the helper data for PUF regeneration
+ *              according to the location of helper data provided by the user
  *
- * @brief	Converts the PUF Syndrome data to eFUSE writing format.
+ * @param       PufData - Pointer to XPuf_Data structure which includes options
+ *                        to configure PUF
+ *
+ * @return      XST_SUCCESS - On valid Read option
+ *              XPUF_ERROR_INVALID_READ_HD_INPUT - On invalid Read option
+ *              XST_FAILURE - On unexpected event
+ *
+ *****************************************************************************/
+static int XPuf_UpdateHelperData(const XPuf_Data *PufData)
+{
+	int Status = XST_FAILURE;
+	u32 PufChash;
+	u32 PufAux;
+
+	if (PufData->ReadOption == XPUF_READ_FROM_RAM) {
+		PufChash = PufData->Chash;
+		PufAux = PufData->Aux;
+		if ((PufChash == 0U) || (PufAux == 0U)) {
+			Status = XPUF_ERROR_CHASH_NOT_PROGRAMMED;
+			XPuf_Printf(XPUF_DEBUG_GENERAL,
+				"PUF regeneration is not allowed,"
+				"as PUF helper data is not provided/stored\r\n");
+			goto END;
+		}
+		XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_AUX_OFFSET,
+			PufAux);
+		XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR,
+			XPUF_PMC_GLOBAL_PUF_CHASH_OFFSET, PufChash);
+		XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR,
+			XPUF_PMC_GLOBAL_PUF_SYN_ADDR_OFFSET, PufData->SyndromeAddr);
+		Status = XST_SUCCESS;
+	}
+	else if (PufData->ReadOption == XPUF_READ_FROM_EFUSE_CACHE) {
+		XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR,
+			XPUF_PMC_GLOBAL_PUF_SYN_ADDR_OFFSET, XPUF_EFUSE_SYN_ADD_INIT);
+		Status = XST_SUCCESS;
+	}
+	else {
+		Status = XPUF_ERROR_INVALID_READ_HD_INPUT;
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief       This function triggers PUF Regeneration by configuring type of
+ *              regeneration provided by the user. It regenerates PUF Key and ID
+ *              depending on the type of regeneration using the helper data
+ *
+ * @param       PufData - Pointer to XPuf_Data structure which includes options
+ *                        to configure PUF
+ *
+ * @return      XST_SUCCESS - On Successful Regeneration
+ *              XPUF_ERROR_INVALID_REGENERATION_TYPE - On Selection of invalid
+ *                                                     regeneration type
+ *              XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT   - Timeout occurred while
+ *                                                     waiting for PUF done bit
+ *              XPUF_ERROR_PUF_DONE_KEY_ID_NT_RDY    - Key ready bit and ID ready
+ *                                                     bit is not set
+ *              XPUF_ERROR_PUF_DONE_ID_NT_RDY        - Id ready bit is not set
+ *
+ *****************************************************************************/
+static int XPuf_StartRegeneration(XPuf_Data *PufData)
+{
+	volatile int Status = XST_FAILURE;
+	u32 PufStatus;
+
+	if(XPUF_REGEN_ID_ONLY == PufData->PufOperation) {
+		XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_CMD_OFFSET,
+			XPUF_CMD_REGEN_ID_ONLY);
+	}
+	else if(XPUF_REGEN_ON_DEMAND == PufData->PufOperation) {
+		 XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_CMD_OFFSET,
+			XPUF_CMD_REGEN_ON_DEMAND);
+	}
+	else {
+		Status = XPUF_ERROR_INVALID_REGENERATION_TYPE;
+		goto END;
+	}
+
+	Status  = XPuf_WaitForPufDoneStatus();
+	if (Status != XST_SUCCESS) {
+		XPuf_Printf(XPUF_DEBUG_GENERAL,
+			"Error: Puf Regeneration failed!! \r\n");
+		Status = XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT;
+		goto END;
+	}
+
+	PufStatus = XPuf_ReadReg(XPUF_PMC_GLOBAL_BASEADDR,
+			XPUF_PMC_GLOBAL_PUF_STATUS_OFFSET);
+
+	Status = XST_FAILURE;
+
+	if(XPUF_REGEN_ON_DEMAND == PufData->PufOperation) {
+		if (((PufStatus & XPUF_STATUS_KEY_RDY) == XPUF_STATUS_KEY_RDY) &&
+			((PufStatus & XPUF_STATUS_ID_RDY) == XPUF_STATUS_ID_RDY)) {
+			XPuf_CapturePufID(PufData);
+			Status = XST_SUCCESS;
+		}
+		else {
+			Status = XPUF_ERROR_PUF_DONE_KEY_ID_NT_RDY;
+			goto END;
+		}
+	}
+	else {
+		/* PufData->PufOperation = XPUF_REGEN_ID_ONLY */
+		if ((PufStatus & XPUF_STATUS_ID_RDY) == XPUF_STATUS_ID_RDY) {
+			XPuf_CapturePufID(PufData);
+			Status = XST_SUCCESS;
+		}
+		else {
+			Status = XPUF_ERROR_PUF_DONE_ID_NT_RDY;
+			goto END;
+		}
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * @brief	Converts the PUF Syndrome data to eFUSE writing format
  *
  * @param	PufData - Pointer to XPuf_Data structure which includes options
- *			to configure PUF
+ *                        to configure PUF
  *
- * @return	XST_SUCCESS					Syndrome data is successfully trimmed
- *			XPUF_ERROR_INVALID_PARAM	PufData instance pointer is NULL
- * 			XST_FAILURE					Unexpected event
+ * @return	XST_SUCCESS - Syndrome data is successfully trimmed
+ *		XPUF_ERROR_INVALID_PARAM - PufData instance pointer is NULL
+ * 		XST_FAILURE - Unexpected event
  *
- * @note	Formatted data will be available at PufData->EfuseSynData.
+ * @note	Formatted data will be available at PufData->EfuseSynData
  *
  ******************************************************************************/
 int XPuf_GenerateFuseFormat(XPuf_Data *PufData)
