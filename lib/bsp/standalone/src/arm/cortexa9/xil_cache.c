@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2010 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -72,6 +72,8 @@
 * 6.6    asa 16/01/18 Changes made in Xil_L1DCacheInvalidate and Xil_L2CacheInvalidate
 *					  routines to ensure the stack data flushed only when the respective
 *					  caches are enabled. This fixes CR-992023.
+* 7.5    mus 01/19/21 Implement workaround for errata#588369 in Xil_DCacheFlushRange.
+*					  It fixes CR#1086022.
 *
 * </pre>
 *
@@ -468,7 +470,8 @@ void Xil_DCacheFlushRange(INTPTR adr, u32 len)
 		 */
 		end = LocalAddr + len;
 		LocalAddr &= ~(cacheline - 1U);
-
+		/* Disable Write-back and line fills */
+		Xil_L2WriteDebugCtrl(0x3U);
 		while (LocalAddr < end) {
 
 	/* Flush L1 Data cache line */
@@ -486,6 +489,8 @@ void Xil_DCacheFlushRange(INTPTR adr, u32 len)
 #endif
 			LocalAddr += cacheline;
 		}
+		/* Enable Write-back and line fills */
+		Xil_L2WriteDebugCtrl(0x0U);
 	}
 	dsb();
 	mtcpsr(currmask);
