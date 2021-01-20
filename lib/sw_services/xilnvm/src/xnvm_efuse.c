@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -38,6 +38,9 @@
 *	am   10/13/2020 Resolved MISRA C violations
 * 2.2   am   11/23/2020 Resolved MISRA C and Coverity warnings
 * 	kal  12/23/2020 Removed unused variables
+*	kal  01/07/2021	Added support to SecurityMisc1, BootEnvCtrl,MiscCtrl
+*			and remaining eFuses in SecCtrl eFuse rows programming
+*			and reading
 *
 * </pre>
 *
@@ -143,6 +146,8 @@ static int XNvm_EfuseValidatePpkWriteReq(const XNvm_EfusePpkHash *Hash);
 static int XNvm_EfuseValidateUserFusesWriteReq(const XNvm_EfuseUserData *WriteUserFuses);
 static int XNvm_EfuseValidateDecOnlyWriteReq(const XNvm_EfuseData *WriteReq);
 static int XNvm_EfuseValidateIV(const u32 *Iv, u32 Row);
+static int XNvm_ValidateBootEnvCtrlWriteReq(
+				const XNvm_EfuseBootEnvCtrlBits *BootEnvCtrl);
 static int XNvm_EfuseWritePufAux(u32 Aux);
 static int XNvm_EfuseWritePufChash(u32 Chash);
 static int XNvm_EfuseWritePufSynData(const u32 *SynData);
@@ -162,7 +167,13 @@ static int XNvm_EfusePrgmPpkRevokeFuses(const XNvm_EfuseMiscCtrlBits *PpkSelect)
 static int XNvm_EfusePrgmHaltBootonError(const XNvm_EfuseMiscCtrlBits *MiscCtrlData);
 static int XNvm_EfusePrgmHaltBootEnvError(const XNvm_EfuseMiscCtrlBits *MiscCtrlData);
 static int XNvm_EfusePrgmRevocationIdFuses(const XNvm_EfuseRevokeIds *RevokeIds);
+static int XNvm_EfusePrgmCryptoKatEn(const XNvm_EfuseMiscCtrlBits *MiscCtrlData);
+static int XNvm_EfusePrgmLbistEn(const XNvm_EfuseMiscCtrlBits *MiscCtrlData);
+static int XNvm_EfusePrgmSafetyMissionEn(const XNvm_EfuseMiscCtrlBits *MiscCtrlData);
 static int XNvm_EfusePrgmProtectionEfuse(void);
+static int XNvm_EfusePrgmOffChipRevokeFuses(const XNvm_EfuseOffChipIds *OffChipIds);
+static int XNvm_EfuseWriteBootEnvCtrl(const XNvm_EfuseBootEnvCtrlBits *BootEnvCtrl);
+static int XNvm_EfuseWriteSecMisc1Fuses(const XNvm_EfuseSecMisc1Bits *Misc1Bits);
 
 /*************************** Variable Definitions *****************************/
 
@@ -179,6 +190,9 @@ static int XNvm_EfusePrgmProtectionEfuse(void);
  * 		Revocation Ids
  * 		User Fuses
  * 		Secure and Control bits.
+ * 		Misc Ctrl bits.
+ * 		Security Misc1 bits.
+ * 		BootEnvCtrl bits.
  *
  * @param	WriteNvm - Pointer to Efuse data to be written.
  *
@@ -213,7 +227,10 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 		(WriteNvm->MiscCtrlBits == NULL) &&
 		(WriteNvm->Ivs == NULL) &&
 		(WriteNvm->UserFuses == NULL) &&
-		(WriteNvm->GlitchCfgBits == NULL)) {
+		(WriteNvm->GlitchCfgBits == NULL) &&
+		(WriteNvm->BootEnvCtrl == NULL) &&
+		(WriteNvm->Misc1Bits == NULL) &&
+		(WriteNvm->OffChipIds == NULL)) {
 		Status = (int)XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED;
 		goto END;
 	}
@@ -299,6 +316,13 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 		}
 	}
 
+	if (WriteNvm->OffChipIds != NULL) {
+		Status = XNvm_EfusePrgmOffChipRevokeFuses(WriteNvm->OffChipIds);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+
 	if (WriteNvm->MiscCtrlBits != NULL) {
 
 		Status = XNvm_EfusePrgmPpkRevokeFuses(WriteNvm->MiscCtrlBits);
@@ -321,11 +345,46 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 				goto END;
 			}
 		}
+
+		if (WriteNvm->MiscCtrlBits->CryptoKatEn == TRUE) {
+			Status = XNvm_EfusePrgmCryptoKatEn(WriteNvm->MiscCtrlBits);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+		}
+
+		if (WriteNvm->MiscCtrlBits->LbistEn == TRUE) {
+			Status = XNvm_EfusePrgmLbistEn(WriteNvm->MiscCtrlBits);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+		}
+
+		if (WriteNvm->MiscCtrlBits->SafetyMissionEn == TRUE) {
+			Status = XNvm_EfusePrgmSafetyMissionEn(WriteNvm->MiscCtrlBits);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+		}
 	}
 
 	if (WriteNvm->UserFuses != NULL) {
 
 		Status = XNvm_EfusePrgmUserFuses(WriteNvm->UserFuses);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+
+	if (WriteNvm->Misc1Bits != NULL) {
+		Status = XNvm_EfuseWriteSecMisc1Fuses(WriteNvm->Misc1Bits);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+
+	if (WriteNvm->BootEnvCtrl != NULL) {
+		Status = XNvm_EfuseWriteBootEnvCtrl(WriteNvm->BootEnvCtrl);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -592,7 +651,7 @@ int XNvm_EfuseReadSecCtrlBits(XNvm_EfuseSecCtrlBits *SecCtrlBits)
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_AES_DIS_MASK);
 	SecCtrlBits->JtagErrOutDis =
 		(u8)((RegData &
-		XNVM_EFUSE_CACHE_SECURITY_CONTROL_ERR_OUT_DIS_MASK) >>
+		XNVM_EFUSE_CACHE_SECURITY_CONTROL_JTAG_ERROUT_DIS_MASK) >>
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_JTAG_ERROR_OUT_DIS_SHIFT);
 	SecCtrlBits->JtagDis =
 		(u8)((RegData &
@@ -650,6 +709,116 @@ int XNvm_EfuseReadSecCtrlBits(XNvm_EfuseSecCtrlBits *SecCtrlBits)
 		(u8)((RegData &
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_REG_INIT_DIS_1_0_MASK) >>
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_REG_INIT_DIS_1_0_SHIFT);
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function is used to read the Security Misc1 bits from
+ *		cache.
+ *
+ * @param	SecMisc1Bits - Pointer to the XNvm_EfuseSecMisc1Bits which holds
+ * 				the security misc1 control bits.
+ *
+ * @return	- XST_SUCCESS - On Successful read.
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
+ *		- XNVM_EFUSE_ERR_CACHE_PARITY  - Error while Cache reload.
+ *
+ ******************************************************************************/
+int XNvm_EfuseReadSecMisc1Bits(XNvm_EfuseSecMisc1Bits *SecMisc1Bits)
+{
+	int Status = XST_FAILURE;
+	u32 RegData = 0U;
+
+	if (SecMisc1Bits == NULL) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+	Status = XNvm_EfuseReadCache(XNVM_EFUSE_SECURITY_MISC_1_ROW,
+			&RegData);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	SecMisc1Bits->LpdMbistEn =
+		(u8)((RegData &
+		XNVM_EFUSE_CACHE_SEC_MISC_1_LPD_MBIST_EN_2_0_MASK) >>
+		XNVM_EFUSE_CACHE_SEC_MISC_1_LPD_MBIST_EN_2_0_SHIFT);
+	SecMisc1Bits->PmcMbistEn =
+		(u8)((RegData &
+		XNVM_EFUSE_CACHE_SEC_MISC_1_PMC_MBIST_EN_2_0_MASK) >>
+		XNVM_EFUSE_CACHE_SEC_MISC_1_PMC_MBIST_EN_2_0_SHIFT);
+	SecMisc1Bits->LpdNocScEn =
+		(u8)((RegData &
+		XNVM_EFUSE_CACHE_SEC_MISC_1_LPD_NOC_SC_EN_2_0_MASK) >>
+		XNVM_EFUSE_CACHE_SEC_MISC_1_LPD_NOC_SC_EN_2_0_SHIFT);
+	SecMisc1Bits->SysmonVoltMonEn =
+		(u8)((RegData &
+		XNVM_EFUSE_CACHE_SEC_MISC_1_SYSMON_VOLT_MON_EN_1_0_MASK) >>
+		XNVM_EFUSE_CACHE_SEC_MISC_1_SYSMON_VOLT_MON_EN_1_0_SHIFT);
+	SecMisc1Bits->SysmonTempMonEn =
+		(u8)((RegData &
+		XNVM_EFUSE_CACHE_SEC_MISC_1_SYSMON_TEMP_MON_EN_1_0_MASK) >>
+		XNVM_EFUSE_CACHE_SEC_MISC_1_SYSMON_TEMP_MON_EN_1_0_SHIFT);
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function reads the Boot Environmental Control bits from
+ *		cache.
+ *
+ * @param	BootEnvCtrlBits - Pointer to the XNvm_EfuseBootEnvCtrlBits which
+ * 				holds the Boot Environmental control bits.
+ *
+ * @return	- XST_SUCCESS - On Successful read.
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
+ *		- XNVM_EFUSE_ERR_CACHE_PARITY  - Error while Cache reload.
+ *
+ ******************************************************************************/
+int XNvm_EfuseReadBootEnvCtrlBits(XNvm_EfuseBootEnvCtrlBits *BootEnvCtrlBits)
+{
+	int Status = XST_FAILURE;
+	u32 RegData = 0U;
+
+	if (BootEnvCtrlBits == NULL) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+	Status = XNvm_EfuseReadCache(XNVM_EFUSE_BOOT_ENV_CTRL_ROW,
+			&RegData);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	BootEnvCtrlBits->SysmonTempEn =
+		(u8)((RegData &
+		XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_EN_MASK) >>
+		XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_EN_SHIFT);
+	BootEnvCtrlBits->SysmonVoltEn =
+		(u8)((RegData &
+		XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_EN_MASK) >>
+		XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_EN_SHIFT);
+	BootEnvCtrlBits->SysmonTempHot =
+		(u8)((RegData &
+		XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_HOT_MASK) >>
+		XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_HOT_SHIFT);
+	BootEnvCtrlBits->SysmonVoltPmc =
+		(u8)((RegData &
+		XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_PMC_MASK) >>
+		XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_PMC_SHIFT);
+	BootEnvCtrlBits->SysmonVoltPslp =
+		(u8)((RegData &
+		XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_PSLP_MASK) >>
+		XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_PSLP_SHIFT);
+	BootEnvCtrlBits->SysmonVoltSoc =
+		(u8)((RegData &
+		XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_SOC_MASK) >>
+		XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_SOC_SHIFT);
+	BootEnvCtrlBits->SysmonTempCold =
+		(u8)((RegData &
+		XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_COLD_MASK) >>
+		XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_COLD_SHIFT);
 END:
 	return Status;
 }
@@ -1286,6 +1455,39 @@ END :
 
 /******************************************************************************/
 /**
+ * @brief	This function reads the Offchip revoke eFuse value from
+ * 		eFUSE cache.
+ *
+ * @param	OffchipFusePtr - Pointer to the data which hold the Offchip
+ * 				revoke ID values.
+ * @param 	OffchipFuseNum - Offchip fuse number to read.
+ *
+ * @return	- XST_SUCCESS - On successfull read.
+ *		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
+ *		- XNVM_EFUSE_ERR_CACHE_PARITY  - Error in Cache reload.
+ *
+ ******************************************************************************/
+int XNvm_EfuseReadOffchipRevokeId(u32 *OffchipIdPtr,
+					XNvm_OffchipId OffchipIdNum)
+{
+	int Status = XST_FAILURE;
+	u32 Row;
+
+	if ((OffchipIdPtr == NULL) ||
+		(OffchipIdNum < XNVM_EFUSE_OFFCHIP_REVOKE_ID_0) ||
+		(OffchipIdNum > XNVM_EFUSE_OFFCHIP_REVOKE_ID_7)) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+	}
+	else {
+		Row = XNVM_EFUSE_OFFCHIP_REVOKE_0_ROW + (u32)OffchipIdNum;
+		Status = XNvm_EfuseReadCache(Row, OffchipIdPtr);
+	}
+
+	return Status;
+}
+
+/******************************************************************************/
+/**
  * @brief	This function reads User eFuses from Cache.
  *
  *@param	UserFuseData - UserFuseData to be read from eFuse Cache.
@@ -1414,7 +1616,10 @@ static int XNvm_EfuseWriteSecCtrl(const XNvm_EfuseSecCtrlBits *SecCtrl)
 		goto END;
 	}
 
-	if ((SecCtrl->Ppk0WrLk != FALSE) ||
+	if ((SecCtrl->AesDis != FALSE) ||
+		(SecCtrl->JtagErrOutDis != FALSE) ||
+		(SecCtrl->JtagDis != FALSE) ||
+		(SecCtrl->Ppk0WrLk != FALSE) ||
 		(SecCtrl->Ppk1WrLk != FALSE) ||
 		(SecCtrl->Ppk2WrLk != FALSE) ||
 		(SecCtrl->AesCrcLk != FALSE) ||
@@ -1436,6 +1641,43 @@ static int XNvm_EfuseWriteSecCtrl(const XNvm_EfuseSecCtrlBits *SecCtrl)
 	else {
 		Status = XST_SUCCESS;
 		goto END;
+	}
+
+	if ((SecCtrl->AesDis != 0x00) &&
+		((RowDataVal &
+		XNVM_EFUSE_CACHE_SECURITY_CONTROL_AES_DIS_MASK) !=
+		XNVM_EFUSE_CACHE_SECURITY_CONTROL_AES_DIS_MASK)) {
+		Status = XNvm_EfusePgmAndVerifyBit(EfuseType, Row,
+					XNVM_EFUSE_SEC_AES_DIS);
+		if (Status != XST_SUCCESS) {
+			Status = (Status | XNVM_EFUSE_ERR_WRITE_AES_DIS);
+			goto END;
+		}
+	}
+
+	if ((SecCtrl->JtagErrOutDis != 0x00) &&
+		((RowDataVal &
+		XNVM_EFUSE_CACHE_SECURITY_CONTROL_JTAG_ERROUT_DIS_MASK) !=
+		XNVM_EFUSE_CACHE_SECURITY_CONTROL_JTAG_ERROUT_DIS_MASK)) {
+		Status = XNvm_EfusePgmAndVerifyBit(EfuseType, Row,
+					XNVM_EFUSE_SEC_JTAG_ERROUT_DIS);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+					XNVM_EFUSE_ERR_WRITE_JTAG_ERROUT_DIS);
+			goto END;
+		}
+	}
+
+	if ((SecCtrl->JtagDis != 0x00) &&
+		((RowDataVal &
+		XNVM_EFUSE_CACHE_SECURITY_CONTROL_JTAG_DIS_MASK) !=
+		XNVM_EFUSE_CACHE_SECURITY_CONTROL_JTAG_DIS_MASK)) {
+		Status = XNvm_EfusePgmAndVerifyBit(EfuseType, Row,
+					XNVM_EFUSE_SEC_JTAG_DIS);
+		if (Status != XST_SUCCESS) {
+			Status = (Status | XNVM_EFUSE_ERR_WRITE_JTAG_DIS);
+			goto END;
+		}
 	}
 
 	if ((SecCtrl->Ppk0WrLk != 0x00U) &&
@@ -1941,6 +2183,205 @@ END:
 
 /******************************************************************************/
 /**
+ * @brief	This function programs Security Misc1 eFuses specified by user.
+ *
+ * @param	Misc1Bits	Pointer to the XNvm_EfuseSecMisc1Bits structure,
+ * 				which holds the XNvm_EfuseSecMisc1Bits data to
+ * 				be written to the eFuse.
+ *
+ * @return	- XST_SUCCESS 	- On success.
+ *		- XNVM_EFUSE_ERR_INVALID_PARAM		- Invalid parameter.
+ *		- XNVM_EFUSE_ERR_WRITE_SECURITY_MISC_1	- Error while writing
+ *							SECURITY_MISC1 ROW.
+ *
+ ******************************************************************************/
+static int XNvm_EfuseWriteSecMisc1Fuses(const XNvm_EfuseSecMisc1Bits *Misc1Bits)
+{
+	int Status = XST_FAILURE;
+	u32 Row = XNVM_EFUSE_SECURITY_MISC_1_ROW;
+	u32 RowDataVal = 0U;
+	u32 WriteMask = 0U;
+
+	if (Misc1Bits == NULL) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((Misc1Bits->LpdMbistEn != FALSE) ||
+		(Misc1Bits->PmcMbistEn != FALSE) ||
+		(Misc1Bits->LpdNocScEn != FALSE) ||
+		(Misc1Bits->SysmonVoltMonEn != FALSE) ||
+		(Misc1Bits->SysmonTempMonEn != FALSE)) {
+
+		Status = XNvm_EfuseReadCache(Row, &RowDataVal);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+	else {
+		Status = XST_SUCCESS;
+		goto END;
+	}
+
+	if (Misc1Bits->LpdMbistEn == TRUE) {
+		WriteMask = (WriteMask | ((~RowDataVal) &
+				XNVM_EFUSE_CACHE_SEC_MISC_1_LPD_MBIST_EN_2_0_MASK));
+	}
+
+	if (Misc1Bits->PmcMbistEn == TRUE) {
+		WriteMask = (WriteMask | ((~RowDataVal) &
+				XNVM_EFUSE_CACHE_SEC_MISC_1_PMC_MBIST_EN_2_0_MASK));
+	}
+
+	if (Misc1Bits->LpdNocScEn == TRUE) {
+		WriteMask = (WriteMask | ((~RowDataVal) &
+				XNVM_EFUSE_CACHE_SEC_MISC_1_LPD_NOC_SC_EN_2_0_MASK));
+	}
+
+	if (Misc1Bits->SysmonVoltMonEn == TRUE) {
+		WriteMask = (WriteMask | ((~RowDataVal) &
+				XNVM_EFUSE_CACHE_SEC_MISC_1_SYSMON_VOLT_MON_EN_1_0_MASK));
+	}
+
+	if (Misc1Bits->SysmonTempMonEn == TRUE) {
+		WriteMask = (WriteMask | ((~RowDataVal) &
+				XNVM_EFUSE_CACHE_SEC_MISC_1_SYSMON_TEMP_MON_EN_1_0_MASK));
+	}
+
+	Status = XNvm_EfusePgmAndVerifyRows(
+			XNVM_EFUSE_SECURITY_MISC_1_ROW,
+			XNVM_EFUSE_SECURITY_MISC_1_NUM_OF_ROWS,
+			XNVM_EFUSE_PAGE_0,
+			&WriteMask);
+	if (Status != XST_SUCCESS) {
+		Status = (Status | XNVM_EFUSE_ERR_WRITE_SECURITY_MISC_1);
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END :
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function programs Boot Environmental Control eFuses with
+ * 		values specified by user.
+ *
+ * @param	BootEnvCtrl 	Pointer to the XNvm_EfuseBootEnvCtrlBits
+ * 				structure, which holds the
+ * 				XNvm_EfuseBootEnvCtrlBits data to be written
+ * 				to the eFuse.
+ *
+ * @return	- XST_SUCCESS - On success.
+ *		- XNVM_EFUSE_ERR_INVALID_PARAM       -  Invalid parameter.
+ *		- XNVM_EFUSE_ERR_WRITE_BOOT_ENV_CTRL - 	Error while writing
+ *							BOOT_ENV_CTRL ROW.
+ *
+ ******************************************************************************/
+static int XNvm_EfuseWriteBootEnvCtrl(const XNvm_EfuseBootEnvCtrlBits *BootEnvCtrl)
+{
+	int Status = XST_FAILURE;
+	u32 Row = XNVM_EFUSE_BOOT_ENV_CTRL_ROW;
+	u32 RowDataVal = 0U;
+	u32 WriteMask = 0U;
+
+	if (BootEnvCtrl == NULL) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((BootEnvCtrl->SysmonTempEn != FALSE) ||
+		(BootEnvCtrl->SysmonVoltEn != FALSE) ||
+		(BootEnvCtrl->SysmonVoltSoc != FALSE) ||
+		(BootEnvCtrl->PrgmSysmonTempHot != FALSE) ||
+		(BootEnvCtrl->PrgmSysmonVoltPmc != FALSE) ||
+		(BootEnvCtrl->PrgmSysmonVoltPslp != FALSE) ||
+		(BootEnvCtrl->PrgmSysmonTempCold != FALSE)) {
+
+		Status = XNvm_EfuseReadCache(Row, &RowDataVal);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+	else {
+		Status = XST_SUCCESS;
+		goto END;
+	}
+
+	if (BootEnvCtrl->SysmonTempEn == TRUE) {
+		WriteMask = (WriteMask | ((~RowDataVal) &
+			XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_EN_MASK));
+	}
+
+	if (BootEnvCtrl->SysmonVoltEn == TRUE) {
+		WriteMask = (WriteMask | ((~RowDataVal) &
+			XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_EN_MASK));
+	}
+
+	if (BootEnvCtrl->SysmonVoltSoc == TRUE) {
+		WriteMask = (WriteMask | ((~RowDataVal) &
+			XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_SOC_MASK));
+	}
+
+	if (BootEnvCtrl->PrgmSysmonTempHot == TRUE) {
+		if ((RowDataVal &
+		XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_HOT_MASK) == 0U) {
+			WriteMask = (WriteMask |
+			(((u32)BootEnvCtrl->SysmonTempHot <<
+			XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_HOT_SHIFT) &
+			XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_HOT_MASK));
+		}
+	}
+
+	if (BootEnvCtrl->PrgmSysmonVoltPmc == TRUE) {
+		if ((RowDataVal &
+		XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_PMC_MASK) == 0U) {
+			WriteMask = (WriteMask |
+			(((u32)BootEnvCtrl->SysmonVoltPmc <<
+			XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_PMC_SHIFT) &
+			XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_PMC_MASK));
+		}
+	}
+
+	if (BootEnvCtrl->PrgmSysmonVoltPslp == TRUE) {
+		if ((RowDataVal &
+		XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_PSLP_MASK) == 0U) {
+			WriteMask = (WriteMask |
+			(((u32)BootEnvCtrl->SysmonVoltPslp <<
+			XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_PSLP_SHIFT) &
+			XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_PSLP_MASK));
+		}
+	}
+
+	if (BootEnvCtrl->PrgmSysmonTempCold == TRUE) {
+		if ((RowDataVal &
+		XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_COLD_MASK) == 0U) {
+			WriteMask =
+			(WriteMask | (((u32)BootEnvCtrl->SysmonTempCold <<
+			XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_COLD_SHIFT) &
+			XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_COLD_MASK));
+		}
+	}
+
+	Status = XNvm_EfusePgmAndVerifyRows(
+			XNVM_EFUSE_BOOT_ENV_CTRL_ROW,
+			XNVM_EFUSE_BOOT_ENV_CTRL_NUM_OF_ROWS,
+			XNVM_EFUSE_PAGE_0,
+			&WriteMask);
+	if (Status != XST_SUCCESS) {
+		Status = (Status | XNVM_EFUSE_ERR_WRITE_BOOT_ENV_CTRL);
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END :
+	return Status;
+}
+/******************************************************************************/
+/**
  * @brief	This function is used to program below eFuses -
  * 		AES key
  * 		User key 0
@@ -2320,16 +2761,12 @@ END:
  * @param	RevokeIds - Pointer to XNvm_RevokeIdEfuse that contains
  * 						Revocation Id to write.
  *
- * @return - XST_SUCCESS - On successful write of Revocation Id.
- *	- XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_0 - Error in writing revoke id 0
- *	- XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_1 - Error in writing revoke id 1
- *	- XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_2 - Error in writing revoke id 2
- *	- XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_3 - Error in writing revoke id 3
- *	- XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_4 - Error in writing revoke id 4
- *	- XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_5 - Error in writing revoke id 5
- *	- XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_6 - Error in writing revoke id 6
- *	- XNVM_EFUSE_ERR_WRITE_REVOCATION_ID_7 - Error in writing revoke id 7
- *
+ * @return	- XST_SUCCESS - On successful write of Revocation Id.
+ *		- XNVM_EFUSE_ERR_WRITE_REVOCATION_IDS - Error in writing
+ *							revoke id eFuses.
+ *		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
+ *		- XNVM_EFUSE_ERR_CACHE_PARITY  - Error in Cache reload.
+
  ******************************************************************************/
 static int XNvm_EfusePrgmRevocationIdFuses(const XNvm_EfuseRevokeIds *RevokeIds)
 {
@@ -2368,6 +2805,56 @@ END:
 
 }
 
+/******************************************************************************/
+/**
+ * @brief	This function programs OffChip Revoke eFuses.
+ *
+ * @param	OffChipIds - Pointer to XNvm_EfuseOffChipIds that contains
+ * 						OffChipId to write.
+ *
+ * @return	- XST_SUCCESS - On successful write of OffChipId.
+ *		- XNVM_EFUSE_ERR_WRITE_OFFCHIP_REVOKE_IDS - Error in writing
+ *							OffChipId eFuses.
+ *		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
+ *		- XNVM_EFUSE_ERR_CACHE_PARITY  - Error in Cache reload.
+ ******************************************************************************/
+static int XNvm_EfusePrgmOffChipRevokeFuses(const XNvm_EfuseOffChipIds *OffChipIds)
+{
+	int Status = XST_FAILURE;
+	u32 PrgmOffChipIds[XNVM_NUM_OF_REVOKE_ID_FUSES] = {0U};
+
+	if (OffChipIds == NULL) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if (OffChipIds->PrgmOffchipId != 0x00U) {
+		Status = XNvm_EfuseComputeProgrammableBits(OffChipIds->OffChipId,
+					PrgmOffChipIds,
+					XNVM_EFUSE_OFFCHIP_REVOKE_0_ROW,
+					(XNVM_EFUSE_OFFCHIP_REVOKE_0_ROW +
+					XNVM_NUM_OF_OFFCHIP_ID_FUSES));
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+		Status = XNvm_EfusePgmAndVerifyRows(
+				XNVM_EFUSE_OFFCHIP_REVOKE_0_ROW,
+				XNVM_NUM_OF_OFFCHIP_ID_FUSES,
+				XNVM_EFUSE_PAGE_0,
+				PrgmOffChipIds);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRITE_OFFCHIP_REVOKE_IDS);
+			goto END;
+		}
+	}
+
+	Status = XST_SUCCESS;
+END:
+	return Status;
+
+}
 /******************************************************************************/
 /**
  * @brief	This function revokes the Ppk.
@@ -2578,6 +3065,122 @@ static int XNvm_EfusePrgmHaltBootEnvError(const XNvm_EfuseMiscCtrlBits *MiscCtrl
 			Status = (Status |
 				XNVM_EFUSE_ERR_WRITE_HALT_BOOT_BITS);
 			goto END;
+		}
+	}
+	else {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+	}
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function programs CryptoKat eFuse in MiscCtrl eFuse row.
+ *
+ * @param	MiscCtrlData - Pointer to XNvm_EfuseMiscCtrlBits structure which
+ *			holds MiscCtrlBits data to be programmed to eFuse
+ *
+ * @return	- XST_SUCCESS - On Success.
+ *		- XNVM_EFUSE_ERR_INVALID_PARAM		- On Invalid Parameter.
+ *		- XNVM_EFUSE_ERR_WRITE_CRYPTO_KAT_EN	- Error in writing
+ *							CryptoKat eFuse.
+ ******************************************************************************/
+static int XNvm_EfusePrgmCryptoKatEn(const XNvm_EfuseMiscCtrlBits *MiscCtrlData)
+{
+	int Status = XST_FAILURE;
+
+	if (MiscCtrlData == NULL) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if (MiscCtrlData->CryptoKatEn == TRUE) {
+		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+			XNVM_EFUSE_MISC_CTRL_ROW,
+			(u32)XNVM_EFUSE_MISC_CRYPTO_KAT_EN);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRITE_CRYPTO_KAT_EN);
+		}
+	}
+	else {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+	}
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function programs LbistEn eFuse in MiscCtrl eFuse row.
+ *
+ * @param	MiscCtrlData - Pointer to XNvm_EfuseMiscCtrlBits structure which
+ *			holds MiscCtrlBits data to be programmed to eFuse
+ *
+ * @return	- XST_SUCCESS - On Success.
+ *		- XNVM_EFUSE_ERR_INVALID_PARAM		- On Invalid Parameter.
+ *		- XNVM_EFUSE_ERR_WRITE_LBIST_EN		- Error in writing
+ *							LbistEn eFuse.
+ ******************************************************************************/
+static int XNvm_EfusePrgmLbistEn(const XNvm_EfuseMiscCtrlBits *MiscCtrlData)
+{
+	int Status = XST_FAILURE;
+
+	if (MiscCtrlData == NULL) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if (MiscCtrlData->LbistEn == TRUE) {
+		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+			XNVM_EFUSE_MISC_CTRL_ROW,
+			(u32)XNVM_EFUSE_MISC_LBIST_EN);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRITE_LBIST_EN);
+		}
+	}
+	else {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+	}
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function programs SafetyMissionEn eFuse in MiscCtrl
+ * 		eFuse row.
+ *
+ * @param	MiscCtrlData - Pointer to XNvm_EfuseMiscCtrlBits structure which
+ *			holds MiscCtrlBits data to be programmed to eFuse
+ *
+ * @return	- XST_SUCCESS - On Success.
+ *		- XNVM_EFUSE_ERR_INVALID_PARAM		- On Invalid Parameter.
+ *		- XNVM_EFUSE_ERR_WRITE_SAFETY_MISSION_EN- Error in writing
+ *							SafetyMissionEn eFuse.
+ ******************************************************************************/
+static int XNvm_EfusePrgmSafetyMissionEn(
+		const XNvm_EfuseMiscCtrlBits *MiscCtrlData)
+{
+	int Status = XST_FAILURE;
+
+	if (MiscCtrlData == NULL) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if (MiscCtrlData->LbistEn == TRUE) {
+		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+			XNVM_EFUSE_MISC_CTRL_ROW,
+			(u32)XNVM_EFUSE_MISC_SAFETY_MISSION_EN);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRITE_SAFETY_MISSION_EN);
 		}
 	}
 	else {
@@ -3053,6 +3656,14 @@ static int XNvm_EfuseValidateWriteReq(const XNvm_EfuseData *WriteChecks)
 			goto END;
 		}
 	}
+	if (WriteChecks->BootEnvCtrl != NULL) {
+		Status = XNvm_ValidateBootEnvCtrlWriteReq(
+				WriteChecks->BootEnvCtrl);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+
 	Status = XST_SUCCESS;
 END:
 	return Status;
@@ -3288,6 +3899,109 @@ END:
 
 /******************************************************************************/
 /**
+ * @brief	This function Validates BootEncCtrl row for programming.
+ *
+ * @param	WriteUserFuses - Pointer to BootEnvCtrl structure.
+ *
+ * @return	- XST_SUCCESS - if programming is successful.
+ *		- XNVM_EFUSE_ERR_BOOT_ENV_CTRL_ALREADY_PRGMD - Requested bits
+ *							are already programmed.
+ *  		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
+ *
+ ******************************************************************************/
+static int XNvm_ValidateBootEnvCtrlWriteReq(
+			const XNvm_EfuseBootEnvCtrlBits *BootEnvCtrl)
+{
+	int Status = XST_FAILURE;
+	u32 Row = XNVM_EFUSE_BOOT_ENV_CTRL_ROW;
+	u32 RowDataVal = 0U;
+
+	if (BootEnvCtrl == NULL) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((BootEnvCtrl->SysmonTempEn != FALSE) ||
+		(BootEnvCtrl->SysmonVoltEn != FALSE) ||
+		(BootEnvCtrl->SysmonVoltSoc != FALSE) ||
+		(BootEnvCtrl->PrgmSysmonTempHot != FALSE) ||
+		(BootEnvCtrl->PrgmSysmonVoltPmc != FALSE) ||
+		(BootEnvCtrl->PrgmSysmonVoltPslp != FALSE) ||
+		(BootEnvCtrl->PrgmSysmonTempCold != FALSE)) {
+
+		Status = XNvm_EfuseReadCache(Row, &RowDataVal);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+	else {
+		Status = XST_SUCCESS;
+		goto END;
+	}
+
+	if (BootEnvCtrl->SysmonTempEn == TRUE) {
+		if ((RowDataVal &
+		XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_EN_MASK) != 0U) {
+			Status = (int)XNVM_EFUSE_ERR_BOOT_ENV_CTRL_ALREADY_PRGMD;
+			goto END;
+		}
+	}
+
+	if (BootEnvCtrl->SysmonVoltEn == TRUE) {
+		if ((RowDataVal &
+		XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_EN_MASK) != 0U) {
+			Status = (int)XNVM_EFUSE_ERR_BOOT_ENV_CTRL_ALREADY_PRGMD;
+			goto END;
+		}
+	}
+
+	if (BootEnvCtrl->SysmonVoltSoc == TRUE) {
+		if ((RowDataVal &
+		XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_SOC_MASK) != 0U) {
+			Status = (int)XNVM_EFUSE_ERR_BOOT_ENV_CTRL_ALREADY_PRGMD;
+			goto END;
+		}
+	}
+
+	if (BootEnvCtrl->PrgmSysmonTempHot == TRUE) {
+		if ((RowDataVal &
+		XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_HOT_MASK) != 0U) {
+			Status = (int)XNVM_EFUSE_ERR_BOOT_ENV_CTRL_ALREADY_PRGMD;
+			goto END;
+		}
+	}
+
+	if (BootEnvCtrl->PrgmSysmonVoltPmc == TRUE) {
+		if ((RowDataVal &
+		XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_PMC_MASK) != 0U) {
+			Status = (int)XNVM_EFUSE_ERR_BOOT_ENV_CTRL_ALREADY_PRGMD;
+			goto END;
+		}
+	}
+
+	if (BootEnvCtrl->PrgmSysmonVoltPslp == TRUE) {
+		if ((RowDataVal &
+		XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_PSLP_MASK) != 0U) {
+			Status = (int)XNVM_EFUSE_ERR_BOOT_ENV_CTRL_ALREADY_PRGMD;
+			goto END;
+		}
+	}
+
+	if (BootEnvCtrl->PrgmSysmonTempCold == TRUE) {
+		if ((RowDataVal &
+		XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_COLD_MASK) != 0U) {
+			Status = (int)XNVM_EFUSE_ERR_BOOT_ENV_CTRL_ALREADY_PRGMD;
+			goto END;
+		}
+	}
+
+	Status = XST_SUCCESS;
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
  * @brief	This function Programs Protection eFuses.
  *
  * @return	- XST_SUCCESS - if protection efuse programming is successful.
@@ -3329,6 +4043,10 @@ static int XNvm_EfusePrgmProtectionEfuse(void)
 	u32 SecurityMisc1Data;
 	u32 MiscCtrlData;
 	u32 BootEnvCtrlRow;
+	u32 AnlgTrim3Row;
+	u32 AnlgTrim6Row;
+	u32 AnlgTrim7Row;
+	u32 TrimAms12Row;
 	u32 PufChashData;
 
 	SecurityCtrlData  = XNvm_EfuseReadReg(
@@ -3424,7 +4142,24 @@ static int XNvm_EfusePrgmProtectionEfuse(void)
 	BootEnvCtrlRow = XNvm_EfuseReadReg(
 			XNVM_EFUSE_CACHE_BASEADDR,
 			XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_OFFSET);
-	if (BootEnvCtrlRow != 0x00U) {
+	AnlgTrim3Row = XNvm_EfuseReadReg(
+			XNVM_EFUSE_CACHE_BASEADDR,
+			XNVM_EFUSE_CACHE_ANLG_TRIM_3_OFFSET);
+	AnlgTrim6Row = XNvm_EfuseReadReg(
+			XNVM_EFUSE_CACHE_BASEADDR,
+			XNVM_EFUSE_CACHE_ANLG_TRIM_6_OFFSET);
+	AnlgTrim7Row = XNvm_EfuseReadReg(
+			XNVM_EFUSE_CACHE_BASEADDR,
+			XNVM_EFUSE_CACHE_ANLG_TRIM_7_OFFSET);
+	TrimAms12Row = XNvm_EfuseReadReg(
+			XNVM_EFUSE_CACHE_BASEADDR,
+			XNVM_EFUSE_CACHE_TRIM_AMS_12_OFFSET);
+	if ((BootEnvCtrlRow != 0x00U) &&
+		(AnlgTrim3Row != 0x00U) &&
+		(AnlgTrim6Row != 0x00U) &&
+		(AnlgTrim7Row != 0x00U) &&
+		(TrimAms12Row != 0x00U)) {
+
 		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
 				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
 				XNVM_EFUSE_ROW_37_PROT_COLUMN);
