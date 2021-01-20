@@ -22,6 +22,7 @@
 *                     DEC only efuse bits are set
 *       kpt  01/18/21 Added check to validate the index of for loop with lower
 *                     bounds of ppk offset in XLoader_CheckNonZeroPpk
+*       har  01/19/21 Added support for P521 KAT
 *
 * </pre>
 *
@@ -60,22 +61,6 @@
 #define XLOADER_AES_KEY_ZEROED_STATUS_REG	(0xF11E0064U)
 #define XLOADER_AES_RESET_VAL			(0x1U)
 #define XLOADER_AES_RESET_REG			(0xF11E0010U)
-
-/*****************************************************************************/
-/**
-* @brief	This function returns authentication type by reading
-* authentication header.
-*
-* @param	AuthHdrPtr is a pointer to the Authentication header of the AC.
-*
-* @return	- XLOADER_AC_AH_PUB_ALG_RSA
-*		- XLOADER_AC_AH_PUB_ALG_ECDSA
-*
-******************************************************************************/
-static INLINE u32 XLoader_GetAuthType(const u32 *AuthHdrPtr)
-{
-	return ((*AuthHdrPtr) & XLOADER_AC_AH_PUB_ALG_MASK);
-}
 
 /*****************************************************************************/
 /**
@@ -793,31 +778,56 @@ static int XLoader_DataAuth(const XLoader_SecureParams *SecurePtr, u8 *Hash,
 	volatile u8 IsEfuseAuthTmp = (u8)TRUE;
 	u32 AuthType;
 	u32 IsBhdrAuth = XilPdi_IsBhdrAuthEnable(BootHdr);
+	u32 AuthKatMask;
 
-	AuthType = XLoader_GetAuthType(&AcPtr->AuthHdr);
+	AuthType = XLoader_GetAuthPubAlgo(&AcPtr->AuthHdr);
+	if (AuthType == XLOADER_PUB_STRENGTH_RSA_4096) {
+		AuthKatMask = XLOADER_RSA_KAT_MASK;
+	}
+	else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P384) {
+		AuthKatMask = XLOADER_ECC_P384_KAT_MASK;
+	}
+	else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P521) {
+		AuthKatMask = XLOADER_ECC_P521_KAT_MASK;
+	}
+	else {
+		/* Not supported */
+		XPlmi_Printf(DEBUG_INFO, "Authentication type is invalid\n\r");
+		Status = XLoader_UpdateMinorErr(XLOADER_SEC_INVALID_AUTH, 0);
+		goto END;
+	}
+
 	/*
 	 * Skip running the KAT for ECDSA or RSA if it is already run by ROM
 	 * KAT will be run only when the CYRPTO_KAT_EN bits in eFUSE are set
 	 */
-	if(((SecurePtr->PdiPtr->PlmKatStatus & XLOADER_RSA_KAT_MASK) == 0U)
-		&& (AuthType == XLOADER_AC_AH_PUB_ALG_RSA)) {
-		Status = XSecure_RsaPublicEncryptKat();
-		if(Status != XST_SUCCESS) {
-			XPlmi_Printf(DEBUG_GENERAL, "RSA KAT Failed\n\r");
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_KAT_FAILED, Status);
+	if ((SecurePtr->PdiPtr->PlmKatStatus & AuthKatMask) == 0U) {
+		if (AuthType == XLOADER_PUB_STRENGTH_RSA_4096) {
+			Status = XSecure_RsaPublicEncryptKat();
+			if (Status != XST_SUCCESS) {
+				XPlmi_Printf(DEBUG_GENERAL, "RSA KAT Failed\n\r");
+				Status = XPlmi_UpdateStatus(
+					XLOADER_ERR_KAT_FAILED, Status);
+				goto END;
+			}
+		}
+		else if ((AuthType == XLOADER_PUB_STRENGTH_ECDSA_P384) ||
+			(AuthType == XLOADER_PUB_STRENGTH_ECDSA_P521)) {
+			Status = XSecure_EllipticKat(AuthType);
+			if (Status != XST_SUCCESS) {
+				XPlmi_Printf(DEBUG_GENERAL, "ECC KAT Failed\n\r");
+				Status = XPlmi_UpdateStatus(
+					XLOADER_ERR_KAT_FAILED, Status);
+				goto END;
+			}
+		}
+		else {
+			/* Not supported */
+			XPlmi_Printf(DEBUG_INFO, "Authentication type is invalid\n\r");
+			Status = XLoader_UpdateMinorErr(XLOADER_SEC_INVALID_AUTH, 0);
 			goto END;
 		}
-		SecurePtr->PdiPtr->PlmKatStatus |= XLOADER_RSA_KAT_MASK;
-	}
-	if(((SecurePtr->PdiPtr->PlmKatStatus & XLOADER_ECC_KAT_MASK) == 0U)
-		&& (AuthType == XLOADER_AC_AH_PUB_ALG_ECDSA)) {
-		Status = XSecure_EllipticKat();
-		if(Status != XST_SUCCESS) {
-			XPlmi_Printf(DEBUG_GENERAL, "ECC KAT Failed\n\r");
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_KAT_FAILED, Status);
-			goto END;
-		}
-		SecurePtr->PdiPtr->PlmKatStatus |= XLOADER_ECC_KAT_MASK;
+		SecurePtr->PdiPtr->PlmKatStatus |= AuthKatMask;
 	}
 
 	/* If bits in PPK0/1/2 is programmed bh_auth is not allowed */
