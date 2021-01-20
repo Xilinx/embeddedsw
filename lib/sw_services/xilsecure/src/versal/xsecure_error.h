@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,11 +19,12 @@
  * 4.2   rpo  03/19/2020 Updated file version to sync with library version
  * 4.3   ana  06/05/2020 Added XSECURE_SHA3_FINISH_ERROR error code
  *       har  08/24/2020 Added ECDSA error codes
- *	 rpo  09/10/2020 Added Invalid argument error codes
- *	 rpo  09/21/2020 New error code added for crypto state mismatch
- *	 am   09/24/2020 Resolved MISRA C violations
+ *       rpo  09/10/2020 Added Invalid argument error codes
+ *       rpo  09/21/2020 New error code added for crypto state mismatch
+ *       am   09/24/2020 Resolved MISRA C violations
  *       har  10/12/2020 Addressed security review comments
  *       ana  10/15/2020 Updated doxygen comments
+ * 4.4   har  01/18/2021 Added error code for invalid ECC curve
  *
  * </pre>
  *
@@ -137,7 +138,8 @@ typedef enum {
 	XSECURE_ELLIPTIC_VER_SIGN_R_ZERO,               /**< 0xCC - R set to zero */
 	XSECURE_ELLIPTIC_VER_SIGN_S_ZERO,               /**< 0xCD - S set to zero */
 	XSECURE_ELLIPTIC_VER_SIGN_R_ORDER_ERROR,        /**< 0xCE - R is not within ECC order */
-	XSECURE_ELLIPTIC_VER_SIGN_S_ORDER_ERROR         /**< 0xCF - S is not within ECC order */
+	XSECURE_ELLIPTIC_VER_SIGN_S_ORDER_ERROR,        /**< 0xCF - S is not within ECC order */
+	XSECURE_ELLIPTIC_KAT_INVLD_CRV_ERROR   /**< 0xD0 - Curve not supported for KAT */
 
 } XSecure_ErrorCodes;
 /**

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,6 +16,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   12/16/20 First release
+*       har  01/18/21 Added macros related to P521 KAT
 *
 * </pre>
 *
@@ -54,9 +55,10 @@ extern "C" {
 
 #define XLOADER_SHA3_KAT_MASK		(0x00000010U)
 #define XLOADER_RSA_KAT_MASK		(0x00000020U)
-#define XLOADER_ECC_KAT_MASK		(0x00000040U)
+#define XLOADER_ECC_P384_KAT_MASK		(0x00000040U)
 #define XLOADER_AES_KAT_MASK		(0x00000080U)
 #define XLOADER_DPACM_KAT_MASK		(0x00000100U)
+#define XLOADER_ECC_P521_KAT_MASK		(0x00000200U)
 
 #define XLOADER_SPK_SIZE		(XSECURE_RSA_4096_KEY_SIZE + \
 						XSECURE_RSA_4096_KEY_SIZE \
@@ -80,10 +82,6 @@ extern "C" {
 						+ 8U \
 						+ XLOADER_BHDR_SIG_SIZE \
 						+ XLOADER_PARTITION_SIG_SIZE)
-
-#define XLOADER_AC_AH_PUB_ALG_MASK		(0x3U)
-#define XLOADER_AC_AH_PUB_ALG_RSA		(0x1U)
-#define XLOADER_AC_AH_PUB_ALG_ECDSA		(0x2U)
 
 #define XLOADER_AC_AH_PUB_STRENGTH_MASK		(0xF0U)
 #define XLOADER_AC_AH_PUB_STRENGTH_SHIFT	(0x4U)

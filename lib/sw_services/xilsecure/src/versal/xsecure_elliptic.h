@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -26,6 +26,7 @@
 *       har  10/12/20 Addressed security review comments
 *       har  10/14/20 Replaced ecdsa with elliptic in names of function and
 *                     macros
+* 4.4   har  01/18/21 Updated prototype for XSecure_EllipticKat
 *
 * </pre>
 *
@@ -45,7 +46,6 @@ extern "C" {
 /************************** Constant Definitions ****************************/
 #define XSECURE_ECC_P384_SIZE_IN_BYTES	(48U)
 #define XSECURE_ECC_P521_SIZE_IN_BYTES	(66U)
-#define XSECURE_SHA3_LEN_BYTES		(48U)
 #define XSECURE_ECC_P384_DATA_SIZE_WORDS	\
 					(XSECURE_ECC_P384_SIZE_IN_BYTES / XSECURE_WORD_SIZE)
 
@@ -69,7 +69,7 @@ int XSecure_EllipticValidateKey(XSecure_EllipticCrvTyp CrvType,
 	XSecure_EllipticKey *Key);
 int XSecure_EllipticVerifySign(XSecure_EllipticCrvTyp CrvType, const u8 *Hash,
 	const u32 HashLen, XSecure_EllipticKey *Key, XSecure_EllipticSign *Sign);
-int XSecure_EllipticKat(void);
+int XSecure_EllipticKat(u32 AuthCurve);
 
 #ifdef __cplusplus
 }
