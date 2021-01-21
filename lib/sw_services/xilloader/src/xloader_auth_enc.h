@@ -17,6 +17,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   12/16/20 First release
 *       har  01/18/21 Added macros related to P521 KAT
+*       kpt  01/21/21 Added macro for revoke id mask
 *
 * </pre>
 *
@@ -84,6 +85,7 @@ extern "C" {
 						+ XLOADER_PARTITION_SIG_SIZE)
 
 #define XLOADER_AC_AH_PUB_STRENGTH_MASK		(0xF0U)
+#define XLOADER_AC_AH_REVOKE_ID_MASK		(0xFFU)
 #define XLOADER_AC_AH_PUB_STRENGTH_SHIFT	(0x4U)
 #define XLOADER_PUB_STRENGTH_ECDSA_P384		(0x0U)
 #define XLOADER_PUB_STRENGTH_RSA_4096		(0x1U)

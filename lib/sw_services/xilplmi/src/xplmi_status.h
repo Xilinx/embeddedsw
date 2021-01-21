@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -58,6 +58,7 @@
 *       bsv  12/02/2020 Replaced SEM_CFR error code with generic SEM error code
 *       bm   12/15/2020 Added Update Multiboot related error codes
 *       bm   12/16/2020 Added error code when Secure code is not enabled.
+*       kpt  01/21/2021 Added error code for Auth Jtag revoke id failure
 *
 * </pre>
 *
@@ -531,6 +532,9 @@ typedef enum {
 		/**< 0x629 Error during memset for SecurePtr */
 	XLOADER_ERR_GLITCH_DETECTED,
 		/**< 0x62A Error glitch detected */
+	XLOADER_ERR_AUTH_JTAG_SPK_REVOKED,
+		/**< 0X62B Jtag Authentication failed when revoke id is
+		programmed */
 
 	XPLMI_ERR_CDO_CMD = 0x2000,
 		/**< 0x2XXX, CDO command handler has failed.
