@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -245,9 +245,10 @@ u32 XPmPsm_FwIsPresent(void)
 {
 	u32 Reg = 0U;
 	XPm_Psm *Psm;
+	const XPm_Power *Lpd = XPmPower_GetById(PM_POWER_LPD);
 
 	Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
-	if (NULL == Psm) {
+	if ((NULL == Psm) || ((u8)XPM_POWER_STATE_ON != Lpd->Node.State)) {
 		goto done;
 	}
 
