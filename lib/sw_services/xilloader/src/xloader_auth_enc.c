@@ -23,6 +23,7 @@
 *       kpt  01/18/21 Added check to validate the index of for loop with lower
 *                     bounds of ppk offset in XLoader_CheckNonZeroPpk
 *       har  01/19/21 Added support for P521 KAT
+*       kpt  01/21/21 Added check to verify revoke id before enabling Auth Jtag
 *
 * </pre>
 *
@@ -2897,7 +2898,9 @@ END:
 static int XLoader_AuthJtag(void)
 {
 	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
 	u32 AuthJtagDis = 0U;
+	u32 RevokeId = 0U;
 	XLoader_SecureParams SecureParams = {0U};
 	XSecure_Sha3Hash Sha3Hash = {0U};
 	XSecure_Sha3 Sha3Instance = {0U};
@@ -2932,7 +2935,6 @@ static int XLoader_AuthJtag(void)
 		goto END;
 	}
 
-
 	SecureParams.PmcDmaInstPtr = XPlmi_GetDmaInstance((u32)PMCDMA_0_DEVICE_ID);
 	if (SecureParams.PmcDmaInstPtr == NULL) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_GET_DMA, 0);
@@ -2947,6 +2949,16 @@ static int XLoader_AuthJtag(void)
 		goto END;
 	}
 
+	/* Verify Revoke Id */
+	RevokeId = SecureParams.AuthJtagMessagePtr->RevocationIdMsgType &
+			XLOADER_AC_AH_REVOKE_ID_MASK;
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_VerifyRevokeId,
+		RevokeId);
+	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_SPK_REVOKED,
+			Status);
+		goto END;
+	}
 
 	Status = XSecure_Sha3Initialize(&Sha3Instance, SecureParams.PmcDmaInstPtr);
 	if (Status != XST_SUCCESS) {
