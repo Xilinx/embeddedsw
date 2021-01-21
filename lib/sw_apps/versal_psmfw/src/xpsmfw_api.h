@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -62,12 +62,17 @@ extern "C" {
 				       XPSMFW_NODETYPE_DEV_CORE_RPU,	\
 				       XPSMFW_NODEIDX_DEV_RPU0_1)
 
+#define PSM_KEEP_ALIVE_COUNTER_ADDR	(0xF20140BCU)
+#define IPI_PSM_ISR_ADDR		(0xFF310010U)
+#define PMC_IPI_BIT			(0x2U)
+
 #define PM_PSM_TO_PLM_EVENT	(1U)
 
 #define PSM_API_DIRECT_PWR_DWN	(1U)
 #define PSM_API_DIRECT_PWR_UP	(2U)
 #define PSM_API_FPD_HOUSECLEAN	(3U)
 #define PSM_API_CCIX_EN		(4U)
+#define PSM_API_KEEP_ALIVE	(5U)
 
 /**
  *  PM init node functions

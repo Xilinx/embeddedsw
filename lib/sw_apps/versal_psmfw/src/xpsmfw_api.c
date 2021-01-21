@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -58,6 +58,33 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief	Process keep alive event from PLM to indicate that PSM is alive
+ * 		and healthy.
+ *
+ * @return	XST_SUCCESS
+ *
+ * @note	None
+ *
+ ****************************************************************************/
+static XStatus XPsmFw_KeepAliveEvent(void)
+{
+	u32 PsmKeepAliveCounter;
+
+	/* Ack the IPI interrupt first */
+	XPsmFw_Write32(IPI_PSM_ISR_ADDR, PMC_IPI_BIT);
+
+	/* Read keep alive counter value from RTCA register */
+	PsmKeepAliveCounter = XPsmFw_Read32(PSM_KEEP_ALIVE_COUNTER_ADDR);
+	/* Increment keep alive counter value */
+	PsmKeepAliveCounter++;
+	/* Write incremented keep alive counter value in RTCA register */
+	XPsmFw_Write32(PSM_KEEP_ALIVE_COUNTER_ADDR, PsmKeepAliveCounter);
+
+	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
  * @brief	Process IPI commands
  *
  * @param Payload	API ID and call arguments
@@ -85,6 +112,9 @@ XStatus XPsmFw_ProcessIpi(u32 *Payload)
 		case PSM_API_CCIX_EN:
 			XPsmFw_GicP2IrqEnable();
 			Status = XST_SUCCESS;
+			break;
+		case PSM_API_KEEP_ALIVE:
+			Status = XPsmFw_KeepAliveEvent();
 			break;
 		default:
 			Status = XST_INVALID_PARAM;
