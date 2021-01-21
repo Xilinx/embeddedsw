@@ -177,10 +177,10 @@ static int XDfeMix_SelfTestExample(u16 DeviceId)
 	XDfeMix_Activate(InstancePtr, true);
 
 	/* Write and read a dummy frequency configuration */
-	XDfeMix_WriteReg(InstancePtr, XDFEMIX_FREQ_CONTROL_WORD_NEXT,
+	XDfeMix_WriteReg(InstancePtr, XDFEMIX_FREQ_CONTROL_WORD,
 			 0x12345678);
 	if (0x12345678 !=
-	    XDfeMix_ReadReg(InstancePtr, XDFEMIX_FREQ_CONTROL_WORD_NEXT)) {
+	    XDfeMix_ReadReg(InstancePtr, XDFEMIX_FREQ_CONTROL_WORD)) {
 		return XST_FAILURE;
 	}
 
