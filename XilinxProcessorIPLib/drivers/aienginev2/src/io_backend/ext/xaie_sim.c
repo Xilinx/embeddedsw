@@ -157,7 +157,9 @@ static AieRC XAie_SimIO_Read32(void *IOInst, u64 RegOff, u32 *Data)
 static AieRC XAie_SimIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask,
 		u32 Value)
 {
-	u32 RegVal = XAie_SimIO_Read32(IOInst, RegOff);
+	u32 RegVal;
+
+	XAie_SimIO_Read32(IOInst, RegOff, &RegVal);
 
 	RegVal &= ~Mask;
 	RegVal |= Value;
