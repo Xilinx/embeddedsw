@@ -4343,7 +4343,7 @@ static inline int XNvm_EfuseUnlockController(void)
  ******************************************************************************/
 static inline void XNvm_EfuseDisablePowerDown(void)
 {
-	u32 PowerDownStatus;
+	volatile u32 PowerDownStatus = ~XNVM_EFUSE_PD_ENABLE;
 
 	PowerDownStatus = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 						XNVM_EFUSE_PD_REG_OFFSET);
