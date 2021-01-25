@@ -1890,7 +1890,7 @@ static int XNvm_EfuseWritePufSecCtrl(const XNvm_EfusePufSecCtrlBits *PufSecCtrlB
 	int Status = XST_FAILURE;
 	XNvm_EfuseType EfuseType = XNVM_EFUSE_PAGE_0;
 	u32 Row = XNVM_EFUSE_PUF_AUX_ROW;
-	u32 RowDataVal = 0U;
+	u32 RowDataVal = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
 
 	if (PufSecCtrlBits == NULL) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
