@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -75,6 +75,7 @@
 *                     Improved checks for sync in PDI DPACM Cfg and Efuse DPACM Cfg
 * 1.04  bm   12/16/20 Added PLM_SECURE_EXCLUDE macro. Also moved authentication and
 *                     encryption related code to xloader_auth_enc.c file
+*       bm   01/04/21 Updated checksum verification to be done at destination memory
 *
 * </pre>
 *
@@ -109,7 +110,7 @@ static int XLoader_ChecksumInit(XLoader_SecureParams *SecurePtr,
 static int XLoader_ProcessChecksumPrtn(XLoader_SecureParams *SecurePtr,
 	u64 DestAddr, u32 BlockSize, u8 Last);
 static int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
-	u32 Size, u8 Last);
+	u64 DataAddr, u32 Size, u8 Last);
 
 /************************** Variable Definitions *****************************/
 
@@ -385,6 +386,7 @@ void XLoader_SecureClear(void)
 * For every block, hash of next block is updated into expected hash.
 *
 * @param	SecurePtr is pointer to the XLoader_SecureParams instance.
+* @param	DataAddr is the address of the data present in the block
 * @param	Size is size of the data block to be processed
 *		which includes padding lengths and hash.
 * @param	Last notifies if the block to be processed is last or not.
@@ -393,11 +395,10 @@ void XLoader_SecureClear(void)
 *
 ******************************************************************************/
 static int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
-	u32 Size, u8 Last)
+	u64 DataAddr, u32 Size, u8 Last)
 {
 	volatile int Status = XST_FAILURE;
 	XSecure_Sha3 Sha3Instance;
-	u8 *Data = (u8 *)SecurePtr->ChunkAddr;
 	XSecure_Sha3Hash BlkHash = {0U};
 	u8 *ExpHash = (u8 *)SecurePtr->Sha3Hash;
 
@@ -419,7 +420,17 @@ static int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 		goto END;
 	}
 
-	Status = XSecure_Sha3Update(&Sha3Instance, (UINTPTR)Data, Size);
+	/* Update next chunk's hash from pmc ram */
+	if ((Last != (u8)TRUE) && (SecurePtr->IsCdo != (u8)TRUE)) {
+		Status = XSecure_Sha3Update64Bit(&Sha3Instance,
+				(u64)SecurePtr->ChunkAddr, XLOADER_SHA3_LEN);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_CALC_FAIL, Status);
+			goto END;
+		}
+	}
+
+	Status = XSecure_Sha3Update64Bit(&Sha3Instance, DataAddr, Size);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_CALC_FAIL, Status);
 		goto END;
@@ -446,18 +457,10 @@ static int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	/* Update the next expected hash  and data location */
 	if (Last != (u8)TRUE) {
 		Status = Xil_SecureMemCpy(ExpHash, XLOADER_SHA3_LEN,
-					Data, XLOADER_SHA3_LEN);
+					(u8 *)SecurePtr->ChunkAddr, XLOADER_SHA3_LEN);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		/* Here Authentication overhead is removed in the chunk */
-		SecurePtr->SecureData = (UINTPTR)Data + XLOADER_SHA3_LEN;
-		SecurePtr->SecureDataLen = Size - XLOADER_SHA3_LEN;
-	}
-	else {
-		/* This is the last block */
-		SecurePtr->SecureData = (UINTPTR)Data;
-		SecurePtr->SecureDataLen = Size;
 	}
 
 END:
@@ -585,22 +588,36 @@ static int XLoader_ProcessChecksumPrtn(XLoader_SecureParams *SecurePtr,
 		goto END;
 	}
 
-	/* Verify hash */
-	XSECURE_TEMPORAL_CHECK(END, Status,
-				XLoader_VerifyHashNUpdateNext,
-				SecurePtr, TotalSize, Last);
+	if (SecurePtr->IsCdo == (u8)TRUE) {
+		/* Verify hash */
+		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_VerifyHashNUpdateNext,
+			SecurePtr, SecurePtr->ChunkAddr, TotalSize, Last);
+	}
+
+	if (Last != (u8)TRUE) {
+		/* Here Authentication overhead is removed in the chunk */
+		SecurePtr->SecureData = SecurePtr->ChunkAddr + XLOADER_SHA3_LEN;
+		SecurePtr->SecureDataLen = TotalSize - XLOADER_SHA3_LEN;
+	}
+	else {
+		/* This is the last block */
+		SecurePtr->SecureData = SecurePtr->ChunkAddr;
+		SecurePtr->SecureDataLen = TotalSize;
+	}
 
 	if (SecurePtr->IsCdo != (u8)TRUE) {
 			/* Copy to destination address */
-		Status = XPlmi_DmaXfr((u64)SecurePtr->SecureData,
-						(u64)DestAddr,
-						SecurePtr->SecureDataLen / XIH_PRTN_WORD_LEN,
-						XPLMI_PMCDMA_0);
+		Status = XPlmi_DmaXfr((u64)SecurePtr->SecureData, (u64)DestAddr,
+				SecurePtr->SecureDataLen / XIH_PRTN_WORD_LEN,
+				XPLMI_PMCDMA_0);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(
 					XLOADER_ERR_DMA_TRANSFER, Status);
 			goto END;
 		}
+
+		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_VerifyHashNUpdateNext,
+			SecurePtr, DestAddr, SecurePtr->SecureDataLen, Last);
 	}
 
 	SecurePtr->NextBlkAddr = SrcAddr + TotalSize;

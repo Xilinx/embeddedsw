@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,7 @@
 *       rpo     09/10/20 Asserts are placed under XSECDEBUG macro
 * 4.3	am      09/24/20 Resolved MISRA C violations
 *       har     10/12/20 Addressed security review comments
+* 4.4   bm      01/13/21 Added XSecure_MemCpy64 api
 *
 * </pre>
 *
@@ -69,4 +70,30 @@ void XSecure_ReleaseReset(u32 BaseAddress, u32 Offset)
 void XSecure_SetReset(u32 BaseAddress, u32 Offset)
 {
 	XSecure_WriteReg(BaseAddress, Offset, XSECURE_RESET_SET);
+}
+
+/***************************************************************************/
+/**
+ * @brief	This function copies data from 64 bit address Src to 64 bit
+ * address Dst
+ *
+ * @param	DstAddr is the 64 bit destination address
+ * @param	SrcAddr is the 64 bit source address
+ * @param	Cnt is the number of bytes of data to be copied
+ *
+ ******************************************************************************/
+void XSecure_MemCpy64(u64 DstAddr, u64 SrcAddr, u32 Cnt)
+{
+	while (Cnt >= sizeof (int)) {
+		XSecure_Out64(DstAddr, XSecure_In64(SrcAddr));
+		DstAddr += sizeof(int);
+		SrcAddr += sizeof(int);
+		Cnt -= (u32)sizeof(int);
+	}
+	while (Cnt > 0U){
+		XSecure_OutByte64(DstAddr, XSecure_InByte64(SrcAddr));
+		DstAddr += 1U;
+		SrcAddr += 1U;
+		Cnt -= 1U;
+	}
 }

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -35,6 +35,7 @@
 *       har  10/12/20 Addressed security review comments
 *       am   10/19/20 Resolved MISRA C violations
 * 4.4   am   11/24/20 Resolved MISRA C violations
+*       bm   01/13/20 Added 64-bit support
 *
 * </pre>
 * @note
@@ -99,9 +100,9 @@ static inline int XSecure_Sha3WaitForDone(const XSecure_Sha3 *InstancePtr)
 
 /************************** Function Prototypes ******************************/
 static int XSecure_Sha3DmaTransfer(const XSecure_Sha3 *InstancePtr,
-	const UINTPTR InDataAddr, const u32 Size, u8 IsLastUpdate);
+	u64 InDataAddr, const u32 Size, u8 IsLastUpdate);
 static int XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr,
-	const UINTPTR InDataAddr, const u32 Size, u8 IsLastUpdate);
+	u64 InDataAddr, const u32 Size, u8 IsLastUpdate);
 static int XSecure_Sha3NistPadd(u8 *Dst, u32 MsgLen);
 
 /************************** Variable Definitions *****************************/
@@ -266,10 +267,11 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function updates the SHA3 engine with the input data
+ * located at a 64-bit address
  *
  * @param	InstancePtr	- Pointer to the XSecure_Sha3 instance
- * @param	InDataAddr	- Starting address of the data which has to be updated
- *				  to SHA engine
+ * @param	InDataAddr	- Starting 64 bit address of the data which has
+ *                                to be updated to SHA engine
  * @param	Size		- Size of the input data in bytes
  *
  * @return	- XST_SUCCESS - If the update is successful
@@ -278,7 +280,7 @@ END:
  * 		- XST_FAILURE - If there is a failure in SSS configuration
  *
  ******************************************************************************/
-int XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const UINTPTR InDataAddr,
+int XSecure_Sha3Update64Bit(XSecure_Sha3 *InstancePtr, u64 InDataAddr,
 						const u32 Size)
 {
 	int Status = XST_FAILURE;
@@ -334,6 +336,27 @@ END:
 
 /*****************************************************************************/
 /**
+ * @brief	This function updates the SHA3 engine with the input data
+ *
+ * @param	InstancePtr	- Pointer to the XSecure_Sha3 instance
+ * @param	InDataAddr	- Starting address of the data which has to be updated
+ *				  to SHA engine
+ * @param	Size		- Size of the input data in bytes
+ *
+ * @return	- XST_SUCCESS - If the update is successful
+ *		- XSECURE_SHA3_INVALID_PARAM - On invalid parameter
+ *		- XSECURE_SHA3_STATE_MISMATCH_ERROR - If State mismatch is occurred
+ * 		- XST_FAILURE - If there is a failure in SSS configuration
+ *
+ ******************************************************************************/
+int XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const UINTPTR InDataAddr,
+						const u32 Size)
+{
+	return XSecure_Sha3Update64Bit(InstancePtr, (u64)InDataAddr, Size);
+}
+
+/*****************************************************************************/
+/**
  * @brief	This function updates SHA3 engine with final data which includes
  * 		SHA3 padding and reads final hash on complete data
  *
@@ -379,7 +402,7 @@ int XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash)
 
 		Size = PadLen + InstancePtr->PartialLen;
 		Status = XSecure_Sha3DmaTransfer(InstancePtr,
-					(UINTPTR)InstancePtr->PartialData,
+					(u64)(UINTPTR)InstancePtr->PartialData,
 					Size, TRUE);
 		if (Status != XST_SUCCESS) {
 			goto END_RST;
@@ -535,7 +558,7 @@ END:
  *
  ******************************************************************************/
 static int XSecure_Sha3DmaTransfer(const XSecure_Sha3 *InstancePtr,
-	const UINTPTR InDataAddr, const u32 Size, u8 IsLastUpdate)
+	u64 InDataAddr, const u32 Size, u8 IsLastUpdate)
 {
 	int Status = XST_FAILURE;
 
@@ -582,16 +605,16 @@ ENDF:
  *
  ******************************************************************************/
 static int XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr,
-			const UINTPTR InDataAddr, const u32 Size, u8 IsLastUpdate)
+			u64 InDataAddr, const u32 Size, u8 IsLastUpdate)
 {
 	int Status = XST_FAILURE;
 	u32 RemainingDataLen;
 	u32 DmableDataLen;
-	const u8 *DmableData;
+	u64 DmableDataAddr;
 	u8 IsLast;
 	u32 PrevPartialLen;
 	u8 *PartialData;
-	const u8 *Data = (u8 *)InDataAddr;
+	u64 DataAddr = InDataAddr;
 
 	XSecure_AssertNonvoid(InstancePtr != NULL);
 	XSecure_AssertNonvoid(InstancePtr->Sha3State == XSECURE_SHA3_ENGINE_STARTED);
@@ -605,21 +628,20 @@ static int XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr,
 	{
 		/* Handle Partial data and non dword aligned data address */
 		if ((PrevPartialLen != 0U) ||
-		    (((UINTPTR)Data & XPMCDMA_ADDR_LSB_MASK) != 0U)) {
-			XSecure_MemCpy((void *)&PartialData[PrevPartialLen],
-				(const void *)Data,
+		    ((InDataAddr & (u64)XPMCDMA_ADDR_LSB_MASK) != 0U)) {
+			XSecure_MemCpy64((u64)(UINTPTR)&PartialData[PrevPartialLen], DataAddr,
 				XSECURE_SHA3_BLOCK_LEN - PrevPartialLen);
-			DmableData = PartialData;
+			DmableDataAddr = (u64)(UINTPTR)PartialData;
 			DmableDataLen = XSECURE_SHA3_BLOCK_LEN;
-			Data = &Data[XSECURE_SHA3_BLOCK_LEN - PrevPartialLen];
+			DataAddr = DataAddr + XSECURE_SHA3_BLOCK_LEN - PrevPartialLen;
 			RemainingDataLen = RemainingDataLen - DmableDataLen;
 		}
 		else {
 			/* Process data of size in multiple of dwords */
-			DmableData = Data;
+			DmableDataAddr = DataAddr;
 			DmableDataLen = RemainingDataLen -
 				(RemainingDataLen % XSECURE_SHA3_BLOCK_LEN);
-			Data = &Data[DmableDataLen];
+			DataAddr = DataAddr + (u64)DmableDataLen;
 			RemainingDataLen -= DmableDataLen;
 		}
 
@@ -627,7 +649,7 @@ static int XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr,
 			IsLast = TRUE;
 		}
 
-		Status = XSecure_Sha3DmaTransfer(InstancePtr, (UINTPTR)DmableData,
+		Status = XSecure_Sha3DmaTransfer(InstancePtr, DmableDataAddr,
 						DmableDataLen, IsLast);
 		if (Status != XST_SUCCESS){
 			(void)memset(&InstancePtr->PartialData, 0,
@@ -640,8 +662,8 @@ static int XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr,
 	/* Handle remaining data during processing of next data chunk or during
 	   data padding */
 	if(RemainingDataLen > 0U) {
-		XSecure_MemCpy((void *)&PartialData[PrevPartialLen],
-			(const void *)Data, RemainingDataLen - PrevPartialLen);
+		XSecure_MemCpy64((u64)(UINTPTR)&PartialData[PrevPartialLen],
+			DataAddr, RemainingDataLen - PrevPartialLen);
 	}
 	InstancePtr->PartialLen = RemainingDataLen;
 	(void)memset(&InstancePtr->PartialData[RemainingDataLen], 0,

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -78,6 +78,7 @@
 * 1.0   mmd     01/04/20 First release
 * 1.7	am 		09/24/20 Changed return type of XPmcDma_WaitForDoneTimeout
 *						 function from u32 to int
+* 1.9   bm      01/13/21 Update PmcDmaTransfer argument to u64
 *
 * </pre>
 *
@@ -381,7 +382,7 @@ static INLINE s32 XPmcDma_CfgInitialize(XPmcDma *InstancePtr, XPmcDma_Config *Cf
 *
 ******************************************************************************/
 static INLINE void XPmcDma_Transfer(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
-	UINTPTR Addr, u32 Size, u8 EnDataLast)
+	u64 Addr, u32 Size, u8 EnDataLast)
 {
 	XCsuDma_Transfer(InstancePtr, Channel, Addr, Size, EnDataLast);
 }
