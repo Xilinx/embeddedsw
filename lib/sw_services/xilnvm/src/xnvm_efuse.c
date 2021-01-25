@@ -41,6 +41,7 @@
 *	kal  01/07/2021	Added support to SecurityMisc1, BootEnvCtrl,MiscCtrl
 *			and remaining eFuses in SecCtrl eFuse rows programming
 *			and reading
+*	kal  01/25/2021	Initialized variables to more secure state
 *
 * </pre>
 *
@@ -5070,7 +5071,9 @@ END:
 static int XNvm_EfuseCheckForTBits(void)
 {
 	int Status = XST_FAILURE;
-	u32 ReadReg;
+	volatile u32 ReadReg = ~(XNVM_EFUSE_STATUS_TBIT_0 |
+			XNVM_EFUSE_STATUS_TBIT_1 |
+			XNVM_EFUSE_STATUS_TBIT_2 );
 	u32 TbitMask = (XNVM_EFUSE_STATUS_TBIT_0 |
 			XNVM_EFUSE_STATUS_TBIT_1 |
 			XNVM_EFUSE_STATUS_TBIT_2 );
