@@ -4770,8 +4770,8 @@ static int XNvm_EfusePgmAndVerifyBit(XNvm_EfuseType Page, u32 Row, u32 Col)
 static int XNvm_EfuseProtectionChecks(void)
 {
 	int Status = XST_FAILURE;
-	volatile u32 RegVal;
-	volatile u32 RegValTmp;
+	volatile u32 RegVal = 0U;
+	volatile u32 RegValTmp = 0U;
 	volatile u32 ProtVal;
 	volatile u32 ProtValTmp;
 	volatile u32 RowVal;
