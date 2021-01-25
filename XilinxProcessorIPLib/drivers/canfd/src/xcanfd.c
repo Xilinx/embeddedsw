@@ -586,9 +586,6 @@ int XCanFd_Addto_Queue(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	/* Poll TRR to check pending transmission requests */
-	XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
-			XCANFD_TRR_OFFSET);
 
 	TrrVal = XCanFd_GetFreeBuffer(InstancePtr);
 	if (InstancePtr->MultiBuffTrr == TRR_MASK_INIT_VAL) {
