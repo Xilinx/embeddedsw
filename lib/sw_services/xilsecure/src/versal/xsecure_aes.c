@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1788,10 +1788,10 @@ static int XSecure_AesDpaCmDecryptKat(const XSecure_Aes *AesInstance,
 
 	/* Configure the PMC DMA Tx/Rx for the incoming Block. */
 	XPmcDma_Transfer(AesInstance->PmcDmaPtr, XPMCDMA_DST_CHANNEL,
-		(UINTPTR)OutputPtr, XSECURE_AES_DMA_SIZE, XSECURE_AES_DMA_LAST_WORD_DISABLE);
+		(u64)(UINTPTR)OutputPtr, XSECURE_AES_DMA_SIZE, XSECURE_AES_DMA_LAST_WORD_DISABLE);
 
 	XPmcDma_Transfer(AesInstance->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
-		(UINTPTR)DataPtr, XSECURE_AES_DMA_SIZE, XSECURE_AES_DMA_LAST_WORD_ENABLE);
+		(u64)(UINTPTR)DataPtr, XSECURE_AES_DMA_SIZE, XSECURE_AES_DMA_LAST_WORD_ENABLE);
 
 	Status = XPmcDma_WaitForDoneTimeout(AesInstance->PmcDmaPtr, XPMCDMA_DST_CHANNEL);
 	if (Status != XST_SUCCESS) {

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -44,6 +44,7 @@
 *       am   09/24/20 Resolved MISRA C violations
 *       har  10/12/20 Addressed security review comments
 *       ana  10/15/20 Updated doxygen tags
+* 4.4   bm   01/13/20 Added support for 64-bit input data address
 *
 * </pre>
 *
@@ -128,6 +129,8 @@ int XSecure_Sha3Start(XSecure_Sha3 *InstancePtr);
 /* Data Transfer */
 int XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const UINTPTR InDataAddr,
 		       const u32 Size);
+int XSecure_Sha3Update64Bit(XSecure_Sha3 *InstancePtr, u64 InDataAddr,
+			const u32 Size);
 int XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash);
 
 

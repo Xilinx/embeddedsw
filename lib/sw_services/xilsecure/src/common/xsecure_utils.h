@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,7 @@
 *       har     10/12/20 Addressed security review comments
 *       am      10/10/20 Resolved Coverity warning
 * 4.4   am      11/24/20 Resolved MISRA C violations
+*       bm      01/13/21 Added 64 bit In and Out apis
 *
 * </pre>
 *
@@ -83,8 +84,6 @@ extern "C" {
  * @param	RegOffset   - Contains the offset from the base address of the
  *			      device
  *
- * @return	The value read from the register
- *
  ******************************************************************************/
 static inline u32 XSecure_ReadReg(u32 BaseAddress, u16 RegOffset)
 {
@@ -104,9 +103,6 @@ static inline u32 XSecure_ReadReg(u32 BaseAddress, u16 RegOffset)
  *				device
  * @param	RegisterValue - Is the value to be written to the register
  *
- * @return	None
- *
- *
  ******************************************************************************/
 static inline void XSecure_WriteReg(u32 BaseAddress,
 					u32 RegOffset, u32 RegisterValue)
@@ -114,15 +110,84 @@ static inline void XSecure_WriteReg(u32 BaseAddress,
 	Xil_Out32((UINTPTR)(BaseAddress + RegOffset), RegisterValue);
 }
 
+/*****************************************************************************/
+/**
+ * @brief        This function reads data from 64-bit addresss
+ *
+ * @param        Addr is the address
+ *
+ ******************************************************************************/
+static inline u32 XSecure_In64(u64 Addr)
+{
+	u32 ReadVal;
+#ifdef VERSAL_PLM
+	ReadVal = lwea(Addr);
+#else
+	ReadVal = (u32)Xil_In64(Addr);
+#endif
+	return ReadVal;
+}
+
+/*****************************************************************************/
+/**
+ * @brief        This function reads a byte from 64-bit address
+ *
+ * @param        Addr is the address
+ *
+ ******************************************************************************/
+static inline u8 XSecure_InByte64(u64 Addr)
+{
+	u8 ReadVal;
+#ifdef VERSAL_PLM
+	ReadVal = (u8)lbuea(Addr);
+#else
+	ReadVal = Xil_In8(Addr);
+#endif
+	return ReadVal;
+}
+
+/*****************************************************************************/
+/**
+ * @brief        This function writes data to 64-bit address
+ *
+ * @param        Addr is the address
+ * @param        Data is the value to be written
+ *
+ ******************************************************************************/
+static inline void XSecure_Out64(u64 Addr, u32 Data)
+{
+#ifdef VERSAL_PLM
+	swea(Addr, Data);
+#else
+	Xil_Out64(Addr, Data);
+#endif
+}
+
+/*****************************************************************************/
+/**
+ * @brief        This function writes a byte to a 64-bit address
+ *
+ * @param        Addr is the address
+ * @param        Data is the value to be written
+ *
+ ******************************************************************************/
+static inline void XSecure_OutByte64(u64 Addr, u8 Data)
+{
+#ifdef VERSAL_PLM
+	sbea(Addr, Data);
+#else
+	Xil_Out8(Addr, Data);
+#endif
+}
+
 #define XSecure_In32		(Xil_In32)
-#define XSecure_In64		(Xil_In64)
 #define XSecure_Out32		(Xil_Out32)
-#define XSecure_Out64		(Xil_Out64)
 #define XSecure_SecureOut32	(Xil_SecureOut32)
 
 /************************** Function Prototypes ******************************/
 void XSecure_SetReset(u32 BaseAddress, u32 Offset);
 void XSecure_ReleaseReset(u32 BaseAddress, u32 Offset);
+void XSecure_MemCpy64(u64 DstAddr, u64 SrcAddr, u32 Cnt);
 
 #ifdef __cplusplus
 }
