@@ -70,6 +70,7 @@
 #define XNVM_EFUSE_TOTAL_NUM_OF_ROWS		(768U)
 #define XNVM_EFUSE_TOTAL_PPK_HASH_ROWS  (XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS * 3U)
 #define XNVM_EFUSE_WORD_LEN			(4U)
+#define XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET	(0xFFFFFFFFU)
 
 /***************************** Type Definitions *******************************/
 /* Operation mode - Read, Program(Write) */
@@ -2870,7 +2871,7 @@ END:
 static int XNvm_EfusePrgmPpkRevokeFuses(const XNvm_EfuseMiscCtrlBits *PpkSelect)
 {
 	int Status = XST_FAILURE;
-	u32 RowData = 0U;
+	u32 RowData = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
 
 	if (PpkSelect == NULL) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
