@@ -1088,7 +1088,7 @@ int XCanFd_TxBuffer_Cancel_Request(XCanFd *InstancePtr,u32 BufferNumber)
 				RegVal = XCanFd_ReadReg(
 						InstancePtr->CanFdConfig.BaseAddress,
 						XCANFD_TCR_OFFSET);
-				while ((RegVal & (u32)1<<BufferNumber) != (u32)0) {
+				while ((RegVal & ((u32)1<<BufferNumber)) != (u32)0) {
 				RegVal = XCanFd_ReadReg(
 						InstancePtr->CanFdConfig.BaseAddress,
 						XCANFD_TCR_OFFSET);
@@ -1108,7 +1108,7 @@ int XCanFd_TxBuffer_Cancel_Request(XCanFd *InstancePtr,u32 BufferNumber)
 				RegVal = XCanFd_ReadReg(
 						InstancePtr->CanFdConfig.BaseAddress,
 						XCANFD_TCR_OFFSET);
-				while ((RegVal & (u32)1<<BufferNumber) != (u32)0) {
+				while ((RegVal & ((u32)1<<BufferNumber)) != (u32)0) {
 				RegVal = XCanFd_ReadReg(
 						InstancePtr->CanFdConfig.BaseAddress,
 						XCANFD_TCR_OFFSET);
