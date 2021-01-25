@@ -4289,7 +4289,7 @@ END:
 static inline int XNvm_EfuseLockController(void)
 {
 	int Status = XST_FAILURE;
-	u32 LockStatus;
+	volatile u32 LockStatus = ~XNVM_EFUSE_CTRL_WR_LOCKED;
 
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 			XNVM_EFUSE_WR_LOCK_REG_OFFSET,
