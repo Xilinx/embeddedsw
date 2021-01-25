@@ -4676,7 +4676,7 @@ static int XNvm_EfuseVerifyBit(XNvm_EfuseType Page, u32 Row, u32 Col)
 {
 	int Status = XST_FAILURE;
 	u32 RdAddr;
-	u32 RegData;
+	volatile u32 RegData = 0x00U;
 	u32 EventMask = 0x00U;
 
 	/*
