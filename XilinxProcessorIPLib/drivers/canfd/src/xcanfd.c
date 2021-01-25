@@ -1844,8 +1844,8 @@ static u32 XCanFd_SeqRecv_logic(XCanFd *InstancePtr, u32 ReadIndex, u32 FsrVal, 
 				InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_FIFO_1_RXDLC_OFFSET(ReadIndex));
 	}
-		FramePtr[1] = CanEDL;
-		Dlc = (u32)XCanFd_GetDlc2len(FramePtr[1] & XCANFD_DLCR_DLC_MASK,
+	FramePtr[1] = CanEDL;
+	Dlc = (u32)XCanFd_GetDlc2len(FramePtr[1] & XCANFD_DLCR_DLC_MASK,
 				(CanEDL & XCANFD_DLCR_EDL_MASK));
 
 		if ((CanEDL & XCANFD_DLCR_EDL_MASK) != (u32)0) {
