@@ -53,6 +53,29 @@
 
 #endif /* XAIE_DEBUG */
 
+/* Compute offset of field within a structure */
+#define XAIE_OFFSET_OF(structure, member) \
+	((uintptr_t)&(((structure *)0)->member))
+
+/* Compute a pointer to a structure given a pointer to one of its fields */
+#define XAIE_CONTAINER_OF(ptr, structure, member) \
+	(void*)((uintptr_t)(ptr) - XAIE_OFFSET_OF(structure, member))
+/**************************** Type Definitions *******************************/
+typedef enum {
+	XAIE_IO_WRITE,
+	XAIE_IO_BLOCKWRITE,
+	XAIE_IO_BLOCKSET,
+} XAie_TxnOpcode;
+
+typedef struct XAie_TxnCmd {
+	XAie_TxnOpcode Opcode;
+	u32 Mask;
+	u64 RegOff;
+	u32 Value;
+	u32 *Data;
+	u32 Size;
+} XAie_TxnCmd;
+
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
 /**
@@ -94,6 +117,11 @@ AieRC XAie_BlockSet32(XAie_DevInst *DevInst, u64 RegOff, u32 Data, u32 Size);
 AieRC XAie_CmdWrite(XAie_DevInst *DevInst, u8 Col, u8 Row, u8 Command,
 		u32 CmdWd0, u32 CmdWd1, const char *CmdStr);
 AieRC XAie_RunOp(XAie_DevInst *DevInst, XAie_BackendOpCode Op, void *Arg);
+AieRC _XAie_Txn_Start(XAie_DevInst *DevInst, u32 Flags);
+AieRC _XAie_Txn_Submit(XAie_DevInst *DevInst, XAie_TxnInst *TxnInst);
+XAie_TxnInst* _XAie_TxnExport(XAie_DevInst *DevInst);
+AieRC _XAie_TxnFree(XAie_TxnInst *Inst);
+void _XAie_TxnResourceCleanup(XAie_DevInst *DevInst);
 
 #endif		/* end of protection macro */
 /** @} */

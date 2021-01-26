@@ -30,6 +30,7 @@
 
 /***************************** Include Files *********************************/
 #include <string.h>
+#include <stdlib.h>
 
 #include "xaie_helper.h"
 #include "xaie_io.h"
@@ -101,6 +102,7 @@ AieRC XAie_CfgInitialize(XAie_DevInst *InstPtr, XAie_Config *ConfigPtr)
 	InstPtr->AieTileRowStart = ConfigPtr->AieTileRowStart;
 	InstPtr->AieTileNumRows = ConfigPtr->AieTileNumRows;
 	InstPtr->EccStatus = XAIE_ENABLE;
+	InstPtr->TxnList.Next = NULL;
 
 	memcpy(&InstPtr->PartProp, &ConfigPtr->PartProp,
 		sizeof(ConfigPtr->PartProp));
@@ -136,6 +138,9 @@ AieRC XAie_Finish(XAie_DevInst *DevInst)
 		XAIE_ERROR("Invalid Device Instance\n");
 		return XAIE_INVALID_ARGS;
 	}
+
+	/* Free transaction mode resources, if any */
+	_XAie_TxnResourceCleanup(DevInst);
 
 	CurrBackend = DevInst->Backend;
 	RC = CurrBackend->Ops.Finish(DevInst->IOInst);
@@ -497,4 +502,125 @@ AieRC XAie_TurnEccOn(XAie_DevInst *DevInst)
 
 	return XAIE_OK;
 }
+
+/*****************************************************************************/
+/**
+*
+* This api starts the execution of the driver in transaction mode. All the
+* resulting IO operations are stored in an internally managed buffer. The user
+* has to explicitly submit the transaction for the driver to execute the IO
+* operations to configure the device. The transaction instance allocated by this
+* api is tied to the thread id of the executing context. SubmitTransaction api
+* must be called from the same context with NULL for the TxnInst parameter.
+*
+* @param	DevInst - Device instance pointer.
+* @param	Flags - Flags passed by the user.
+*			XAIE_TRANSACTION_ENABLE/DISBALE_AUTO_FLUSH
+*
+* @return	XAIE_OK on success and error code on failure.
+*
+* @note		If the ENABLE_AUTO_FLUSH flag is set, the driver will
+*		automatically flush the transaction buffer when an API results
+*		in Read/MaskPoll/BlockWrite/BlockSet/CmdWrite/RunOp operation.
+*		If the DISABLE_AUTO_FLUSH flag is set, the driver will return an
+*		error when an API results in Read/MaskPoll/CmdWrite/RunOp
+*		operation. In both cases, the user has to call
+*		XAie_SubmitTransaction API to flush all the pending IO
+*		operations stored in the command buffer.
+*
+******************************************************************************/
+AieRC XAie_StartTransaction(XAie_DevInst *DevInst, u32 Flags)
+{
+	if((DevInst == XAIE_NULL) ||
+		(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid arguments\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	return _XAie_Txn_Start(DevInst, Flags);
+}
+
+/*****************************************************************************/
+/**
+*
+* This api executes all the pending IO operations stored in the command buffer.
+* The transaction instance returned by the StartTransaction api is tied to the
+* thread id of the executing context. If TxnInst is NULL, the transaction
+* instance is automatically fetched using the thread id of the current context.
+* If the TxnInst is not NULL, the transaction instance passed by the user is
+* executed.
+*
+* @param	DevInst - Device instance pointer.
+* @param	TxnInst - Transaction instance pointer.
+*
+* @return	XAIE_OK on success and Error code or failure.
+*
+* @note		None.
+*
+******************************************************************************/
+AieRC XAie_SubmitTransaction(XAie_DevInst *DevInst, XAie_TxnInst *TxnInst)
+{
+	if((DevInst == XAIE_NULL) ||
+		(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid arguments\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	return _XAie_Txn_Submit(DevInst, TxnInst);
+}
+
+/*****************************************************************************/
+/**
+*
+* This api copies an existing transaction instance and returns a copy of the
+* instance with all the commands for users to save the commands and use them
+* at a later point.
+*
+* @param	DevInst - Device instance pointer.
+*
+* @return	Pointer to copy of transaction instance on success and NULL
+*		on error.
+*
+* @note		The copy of the transaction instance must be explicitly freed
+*		using the XAie_FreeTransactionInstance API. If Auto flush was
+*		enabled during the creating of the initial transaction, the
+*		instance returned by this API will not have the commands that
+*		are already flushed. The transaction instance must be exported
+*		before it is submitted as the XAie_SubmitTransaction api will
+*		free all the resources associated with it.
+*
+******************************************************************************/
+XAie_TxnInst* XAie_ExportTransactionInstance(XAie_DevInst *DevInst)
+{
+	if((DevInst == XAIE_NULL) ||
+		(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid arguments\n");
+		return NULL;
+	}
+
+	return _XAie_TxnExport(DevInst);
+}
+
+/*****************************************************************************/
+/**
+*
+* This api releases the memory resources used by exported transaction instance.
+*
+* @param	TxnInst - Existing Transaction instance
+*
+* @return	XAIE_OK on success or error code on failure.
+*
+* @note		None.
+*
+******************************************************************************/
+AieRC XAie_FreeTransactionInstance(XAie_TxnInst *TxnInst)
+{
+	if(TxnInst == NULL) {
+		XAIE_ERROR("Invalid arguments\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	return _XAie_TxnFree(TxnInst);
+}
+
 /** @} */

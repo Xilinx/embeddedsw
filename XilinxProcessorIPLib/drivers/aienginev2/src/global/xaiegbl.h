@@ -49,11 +49,14 @@
 #define XAIE_PACKET_TYPE_MAX		0x7
 #define XAIE_TILES_BITMAP_SIZE          32
 
+#define XAIE_TRANSACTION_ENABLE_AUTO_FLUSH	0b1
+#define XAIE_TRANSACTION_DISABLE_AUTO_FLUSH	0b0
 /**************************** Type Definitions *******************************/
 typedef struct XAie_TileMod XAie_TileMod;
 typedef struct XAie_DmaMod XAie_DmaMod;
 typedef struct XAie_LockMod XAie_LockMod;
 typedef struct XAie_Backend XAie_Backend;
+typedef struct XAie_TxnCmd XAie_TxnCmd;
 
 /*
  * This typedef captures all the properties of a AIE Device
@@ -94,6 +97,11 @@ typedef struct {
 			 * is closed. */
 } XAie_PartitionProp;
 
+/* Generic linked list structure */
+typedef struct XAie_List {
+	struct XAie_List *Next;
+} XAie_List;
+
 /*
  * This typedef contains the attributes for an AIE partition. The structure is
  * setup during intialization.
@@ -117,7 +125,18 @@ typedef struct {
 	XAie_DevProp DevProp; /* Pointer to the device property. To be
 				     setup to AIE prop during intialization*/
 	XAie_PartitionProp PartProp; /* Partition property */
+	XAie_List TxnList; /* Head of the list of txn buffers */
 } XAie_DevInst;
+
+/* typedef to capture transaction buffer data */
+typedef struct {
+	u64 Tid;
+	u32 Flags;
+	u32 NumCmds;
+	u32 MaxCmds;
+	XAie_TxnCmd *CmdBuf;
+	XAie_List Node;
+} XAie_TxnInst;
 
 /* enum to capture cache property of allocate memory */
 typedef enum {
@@ -367,6 +386,10 @@ AieRC XAie_MemAttach(XAie_DevInst *DevInst, XAie_MemInst *MemInst, u64 DAddr,
 AieRC XAie_MemDetach(XAie_MemInst *MemInst);
 AieRC XAie_TurnEccOff(XAie_DevInst *DevInst);
 AieRC XAie_TurnEccOn(XAie_DevInst *DevInst);
+AieRC XAie_StartTransaction(XAie_DevInst *DevInst, u32 Flags);
+AieRC XAie_SubmitTransaction(XAie_DevInst *DevInst, XAie_TxnInst *TxnInst);
+XAie_TxnInst* XAie_ExportTransactionInstance(XAie_DevInst *DevInst);
+AieRC XAie_FreeTransactionInstance(XAie_TxnInst *TxnInst);
 
 /*****************************************************************************/
 /*
