@@ -84,6 +84,7 @@ typedef struct XAie_BackendTilesArray {
  * MemSyncForDev: Backend operation to prepare memory for Device access.
  * MemAttach    : Backend operation to attach memory to AI engine device.
  * MemDetach    : Backend operation to detach memory from AI engine device
+ * GetTid	: Backend operation to get unique thread id.
  */
 typedef struct XAie_BackendOps {
 	AieRC (*Init)(XAie_DevInst *DevInst);
@@ -105,6 +106,7 @@ typedef struct XAie_BackendOps {
 	AieRC (*MemSyncForDev)(XAie_MemInst *MemInst);
 	AieRC (*MemAttach)(XAie_MemInst *MemInst, u64 MemHandle);
 	AieRC (*MemDetach)(XAie_MemInst *MemInst);
+	u64 (*GetTid)(void);
 } XAie_BackendOps;
 
 /* Typedef to capture all backend information */

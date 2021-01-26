@@ -36,6 +36,7 @@
 
 #include "xaie_helper.h"
 #include "xaie_io.h"
+#include "xaie_io_common.h"
 #include "xaie_npi.h"
 
 /************************** Constant Definitions *****************************/
@@ -507,6 +508,7 @@ const XAie_Backend CdoBackend =
 	.Ops.MemSyncForDev = XAie_CdoMemSyncForDev,
 	.Ops.MemAttach = XAie_CdoMemAttach,
 	.Ops.MemDetach = XAie_CdoMemDetach,
+	.Ops.GetTid = XAie_IODummyGetTid,
 };
 
 /** @} */
