@@ -42,6 +42,7 @@
 
 #include "xaie_helper.h"
 #include "xaie_io.h"
+#include "xaie_io_common.h"
 #include "xaie_npi.h"
 
 /***************************** Macro Definitions *****************************/
@@ -438,6 +439,11 @@ static AieRC XAie_MetalIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 		{
 			XAIE_DBG("Backend doesn't support Op %u.\n", Op);
 			return XAIE_FEATURE_NOT_SUPPORTED;
+		}
+		case XAIE_BACKEND_OP_GETTID:
+		{
+			*((int *)Arg) = 0;
+			return XAIE_OK;
 		}
 		default:
 			RC = XAIE_FEATURE_NOT_SUPPORTED;
@@ -890,6 +896,7 @@ const XAie_Backend MetalBackend =
 	.Ops.MemSyncForDev = XAie_MetalMemSyncForDev,
 	.Ops.MemAttach = XAie_MetalMemAttach,
 	.Ops.MemDetach = XAie_MetalMemDetach,
+	.Ops.GetTid = XAie_IODummyGetTid,
 };
 
 /** @} */

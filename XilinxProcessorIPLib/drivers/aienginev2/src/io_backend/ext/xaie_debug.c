@@ -22,6 +22,7 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
+#include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -459,6 +460,11 @@ static AieRC XAie_DebugMemDetach(XAie_MemInst *MemInst)
 	return XAIE_OK;
 }
 
+static u64 XAie_DebugGetTid(void)
+{
+	return (u64)pthread_self();
+}
+
 const XAie_Backend DebugBackend =
 {
 	.Type = XAIE_IO_BACKEND_DEBUG,
@@ -478,6 +484,7 @@ const XAie_Backend DebugBackend =
 	.Ops.MemSyncForDev = XAie_DebugMemSyncForDev,
 	.Ops.MemAttach = XAie_DebugMemAttach,
 	.Ops.MemDetach = XAie_DebugMemDetach,
+	.Ops.GetTid = XAie_DebugGetTid,
 };
 
 /** @} */

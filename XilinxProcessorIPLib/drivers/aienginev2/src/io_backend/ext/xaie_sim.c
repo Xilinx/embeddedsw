@@ -36,6 +36,7 @@
 
 #include "xaie_helper.h"
 #include "xaie_io.h"
+#include "xaie_io_common.h"
 
 /****************************** Type Definitions *****************************/
 typedef struct {
@@ -483,6 +484,7 @@ const XAie_Backend SimBackend =
 	.Ops.MemSyncForDev = XAie_SimMemSyncForDev,
 	.Ops.MemAttach = XAie_SimMemAttach,
 	.Ops.MemDetach = XAie_SimMemDetach,
+	.Ops.GetTid = XAie_IODummyGetTid,
 };
 
 /** @} */

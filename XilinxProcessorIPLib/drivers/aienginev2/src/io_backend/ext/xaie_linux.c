@@ -28,6 +28,7 @@
 #include <fcntl.h>
 #include <limits.h>
 #include <linux/dma-buf.h>
+#include <pthread.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/ioctl.h>
@@ -1333,6 +1334,11 @@ static AieRC XAie_LinuxIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 	}
 }
 
+static u64 XAie_LinuxGetTid(void)
+{
+		return (u64)pthread_self();
+}
+
 #else
 
 static AieRC XAie_LinuxIO_Finish(void *IOInst)
@@ -1468,6 +1474,11 @@ static AieRC XAie_LinuxMemDetach(XAie_MemInst *MemInst)
 	return XAIE_ERR;
 }
 
+static u64 XAie_LinuxGetTid(void)
+{
+		return 0;
+}
+
 #endif /* __AIELINUX__ */
 
 static AieRC XAie_LinuxIO_CmdWrite(void *IOInst, u8 Col, u8 Row, u8 Command,
@@ -1504,6 +1515,7 @@ const XAie_Backend LinuxBackend =
 	.Ops.MemSyncForDev = XAie_LinuxMemSyncForDev,
 	.Ops.MemAttach = XAie_LinuxMemAttach,
 	.Ops.MemDetach = XAie_LinuxMemDetach,
+	.Ops.GetTid = XAie_LinuxGetTid,
 };
 
 /** @} */
