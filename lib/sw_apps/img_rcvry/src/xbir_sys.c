@@ -25,6 +25,7 @@
 #include "xgpiops.h"
 #include "sleep.h"
 #include "stdio.h"
+#include "xbir_err.h"
 
 /************************** Constant Definitions *****************************/
 #define XBIR_SYS_QSPI_MAX_SUB_SECTOR_SIZE	(8192U)/* 8KB */
@@ -166,12 +167,13 @@ static int Xbir_EthPhyReset (void)
 
 	ConfigPtr = XGpioPs_LookupConfig(XPAR_XGPIOPS_0_DEVICE_ID);
 	if (ConfigPtr == NULL) {
-		Xbir_Printf("GPIO look up config failed\n\r");
+		Xbir_Printf("ERROR: GPIO look up config failed\n\r");
 		goto END;
 	}
 
 	Status = XGpioPs_CfgInitialize(&Gpio, ConfigPtr, ConfigPtr->BaseAddr);
 	if (Status != XST_SUCCESS) {
+		Xbir_Printf("ERROR: GPIO config initialize failed\n\r");
 		goto END;
 	}
 
@@ -259,7 +261,7 @@ const Xbir_SysPersistentState * Xbir_SysGetBootImgStatus (void)
  *****************************************************************************/
 int Xbir_SysGetBootImgOffset (Xbir_SysBootImgId BootImgId, u32 *Offset)
 {
-	int Status = XST_FAILURE;
+	int Status = XBIR_ERROR_BOOT_IMG_ID;
 
 	if (XBIR_SYS_BOOT_IMG_A_ID == BootImgId) {
 		*Offset = BootImgStatus.BootImgAOffset;
@@ -268,6 +270,7 @@ int Xbir_SysGetBootImgOffset (Xbir_SysBootImgId BootImgId, u32 *Offset)
 		*Offset = BootImgStatus.BootImgBOffset;
 	}
 	else {
+		Xbir_Printf("ERROR: Invalid Boot Image ID\n\r");
 		goto END;
 	}
 
@@ -319,20 +322,19 @@ int Xbir_SysUpdateBootImgStatus (u8 ImgABootable, u8 ImgBBootable,
 	for (Idx = 0U; Idx < XBR_SYS_NUM_REDUNDANT_COPY; Idx++) {
 		Status = Xbir_SysWriteBootImageInfo(&BootImgInfo, Addr);
 		if (Status != XST_SUCCESS) {
-			Xbir_Printf("Failed During Write\r\n");
 			goto END;
 		}
 
 		Status = Xbir_QspiRead(Addr, (u8 *)&RdBootImgInfo,
 			sizeof(RdBootImgInfo));
 		if (Status != XST_SUCCESS) {
-			Xbir_Printf("Failed During readback\r\n");
+			Xbir_Printf("ERROR: Failed during readback\r\n");
+			Status = XBIR_ERROR_BOOT_IMG_ID;
 			goto END;
 		}
 
 		Status = Xbir_SysValidateBootImgInfo(&RdBootImgInfo, NULL);
 		if (Status != XST_SUCCESS) {
-			Xbir_Printf("Failed During validation\r\n");
 			goto END;
 		}
 
@@ -374,6 +376,8 @@ int Xbir_SysWriteFlash (u32 Offset, u8 *Data, u32 Size,
 
 	if (PrevPendingDataLen > 0U) {
 		if ((Size + PrevPendingDataLen) > sizeof(QspiBuffer)) {
+			Xbir_Printf("ERROR: Invalid image size\r\n");
+			Status = XBIR_ERROR_IMAGE_SIZE;
 			goto END;
 		}
 		memcpy (&QspiBuffer[PrevPendingDataLen], Data, Size);
@@ -385,6 +389,8 @@ int Xbir_SysWriteFlash (u32 Offset, u8 *Data, u32 Size,
 	while (DataSize >= PageSize) {
 		Status = Xbir_QspiWrite(WrAddr, WrBuff, PageSize);
 		if (Status != XST_SUCCESS) {
+			Xbir_Printf("ERROR: Image write failed\r\n");
+			Status = XBIR_ERROR_IMAGE_WRITE;
 			goto END;
 		}
 		WrAddr += PageSize;
@@ -401,6 +407,8 @@ int Xbir_SysWriteFlash (u32 Offset, u8 *Data, u32 Size,
 		if (DataSize > 0U) {
 			Status = Xbir_QspiWrite(WrAddr, WrBuff, DataSize);
 			if (Status != XST_SUCCESS) {
+				Xbir_Printf("ERROR: Image write failed\r\n");
+				Status = XBIR_ERROR_IMAGE_WRITE;
 				goto END;
 			}
 		}
@@ -423,7 +431,7 @@ END:
  *****************************************************************************/
 int Xbir_SysEraseBootImg (Xbir_SysBootImgId BootImgId)
 {
-	int Status = XST_FAILURE;
+	int Status = XBIR_ERROR_BOOT_IMG_ID;
 	u32 Offset;
 
 	if (XBIR_SYS_BOOT_IMG_A_ID == BootImgId) {
@@ -433,13 +441,15 @@ int Xbir_SysEraseBootImg (Xbir_SysBootImgId BootImgId)
 		Offset = BootImgStatus.BootImgBOffset;
 	}
 	else {
+		Xbir_Printf("ERROR: Invalid image ID\r\n");
 		goto END;
 	}
 
 	Status = Xbir_QspiFlashErase(Offset, XBIR_QSPI_MAX_BOOT_IMG_SIZE);
 	if (Status != XST_SUCCESS) {
-		Xbir_Printf("\r\nERROR: Flash Erase failed (%08X)\r\n",
-			 Status);
+		Xbir_Printf("ERROR: Qspi Flash erase failed during Boot Image"
+			"update\r\n", Status);
+		Status = XBIR_ERROR_IMAGE_ERASE;
 	}
 
 END:
@@ -556,12 +566,17 @@ static int Xbir_SysWriteBootImageInfo (Xbir_SysBootImgInfo *BootImgInfo,
 
 	Status = Xbir_QspiFlashErase(Offset, XBIR_QSPI_MAX_BOOT_IMG_INFO_SIZE);
 	if (Status != XST_SUCCESS) {
+		Xbir_Printf("ERROR: Qspi Flash erase failed during persistent"
+			"registers update\r\n", Status);
+		Status = XBIR_ERROR_PERSISTENT_REG_ERASE;
 		goto END;
 	}
 
 	Status = Xbir_QspiWrite(Offset, WriteBuffer, PageSize);
 	if (Status != XST_SUCCESS) {
-		Xbir_Printf("ERROR: Boot Img Info write failed\r\n");
+		Xbir_Printf("ERROR: Qspi Flash WRITE failed during persistent"
+			"registers update\r\n", Status);
+		Status = XBIR_ERROR_PERSISTENT_REG_WRITE;
 	}
 
 END:
@@ -585,7 +600,7 @@ END:
 static int Xbir_SysValidateBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo,
 	u32 *Checksum)
 {
-	int Status = XST_FAILURE;
+	int Status = XBIR_ERROR_PERSISTENT_REG_VAL_CHKSUM;
 	u32 ChkSum;
 
 	if ((BootImgInfo->IdStr[0U] == 'A') &&
@@ -597,6 +612,7 @@ static int Xbir_SysValidateBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo,
 			Status = XST_SUCCESS;
 		}
 		else {
+			Status = XBIR_ERROR_PERSISTENT_REG_VAL_CHKSUM;
 			Xbir_Printf("ERROR: Boot Img Info validation failed\r\n");
 		}
 
@@ -661,6 +677,10 @@ static int Xbir_SysWrvBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo, u32 Offset)
 
 	Status = Xbir_QspiRead(Offset, (u8 *)&RdBootImgInfo,
 		sizeof(RdBootImgInfo));
+	if (Status != XST_SUCCESS) {
+		Status = XBIR_ERROR_PERSISTENT_REG_READ;
+		goto END;
+	}
 
 	if (XST_SUCCESS == Status) {
 		Status = Xbir_SysValidateBootImgInfo(&RdBootImgInfo, NULL);
@@ -838,6 +858,7 @@ static int Xbir_SysCalculateCrc32 (u32 Offset, u32 Size, u32* Crc)
 
 		Status = Xbir_QspiRead(Addr, ReadBuffer, Len);
 		if (Status != XST_SUCCESS) {
+			Status = XBIR_ERROR_IMAGE_READ;
 			goto END;
 		}
 
@@ -873,7 +894,7 @@ END:
  *****************************************************************************/
 int Xbir_SysValidateCrc (Xbir_SysBootImgId BootImgId, u32 Size, u32 InCrc)
 {
-	u32 Status = XST_FAILURE;
+	u32 Status = XBIR_ERROR_BOOT_IMG_ID;
 	u32 Crc = 0U;
 	u32 Offset;
 
@@ -894,7 +915,7 @@ int Xbir_SysValidateCrc (Xbir_SysBootImgId BootImgId, u32 Size, u32 InCrc)
 	}
 	else {
 		Xbir_Printf("ERROR: Crc mismatch\r\n");
-		Status = XST_FAILURE;
+		Status = XBIR_ERROR_IMAGE_CHKSUM;
 	}
 
 	Xbir_Printf("Flash Img CRC = %08X, Sender Crc = %08X\r\n", Crc, InCrc);
