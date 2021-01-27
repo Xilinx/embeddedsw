@@ -42,6 +42,7 @@
 *			and remaining eFuses in SecCtrl eFuse rows programming
 *			and reading
 *	kal  01/25/2021	Initialized variables to more secure state
+*	kal  01/25/2021 Fix cache logic error in XNvm_EfuseReadCacheRange API
 *
 * </pre>
 *
@@ -4588,19 +4589,17 @@ static int XNvm_EfuseReadCacheRange(u32 StartRow, u8 RowCount, u32* RowData)
 {
 	int Status = XST_FAILURE;
 	u32 Row = StartRow;
-	u8 Count = RowCount;
+	u8 Count;
 	u32* Data = RowData;
 
-	do {
+	for (Count = 0; Count < RowCount; Count++) {
 		Status = XNvm_EfuseReadCache(Row, Data);
 		if (Status != XST_SUCCESS) {
 			break;
 		}
-		Count--;
 		Row++;
 		Data++;
 	}
-	while (Count > 0U);
 
 	return Status;
 }
