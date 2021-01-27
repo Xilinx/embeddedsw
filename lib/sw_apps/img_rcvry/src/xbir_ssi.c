@@ -20,6 +20,7 @@
 #include "xbir_ssi.h"
 #include "xbir_http.h"
 #include "xbir_util.h"
+#include "xbir_err.h"
 
 /************************** Constant Definitions *****************************/
 #define XBIR_SSI_JSON_OBJ_START			'{'
@@ -254,7 +255,7 @@ END:
  *****************************************************************************/
 int Xbir_SsiJsonBuildBootImgStatus (char *JsonStr, u16 JsonStrLen)
 {
-	int Status = XST_FAILURE;
+	int Status = XBIR_ERROR_BOOT_IMG_STATUS_LEN;
 	const Xbir_SysPersistentState *BootImgStatus;
 	u16 TotalLen;
 
@@ -272,6 +273,7 @@ int Xbir_SsiJsonBuildBootImgStatus (char *JsonStr, u16 JsonStrLen)
 		1U /*JSON_OBJ_EN */ + 12U;
 
 	if (TotalLen > JsonStrLen) {
+		Xbir_Printf("ERROR: Invalid Len of Boot Image Status data\r\n");
 		goto END;
 	}
 
@@ -334,6 +336,8 @@ int Xbir_SsiJsonCfgBootImgStatus (char *JsonStr, u16 JsonStrLen)
 	Str = Xbir_SsiStrRTrim(Str);
 	if (Str[0U] != XBIR_SSI_JSON_OBJ_START)
 	{
+		Xbir_Printf("ERROR: Invalid JSON OBJ START: BootImgStatus\r\n");
+		Status = XBIR_ERROR_JSON_OBJ_START;
 		goto END;
 	}
 	Str++;
@@ -364,6 +368,8 @@ int Xbir_SsiJsonCfgBootImgStatus (char *JsonStr, u16 JsonStrLen)
 				ImgABootable = 0U;
 			}
 			else {
+				Xbir_Printf("ERROR: Invalid value for ImageA Bootable\r\n");
+				Status = XBIR_ERROR_JSON_IMG_A_BOOTABLE_VAL;
 				break;
 			}
 		}
@@ -375,6 +381,8 @@ int Xbir_SsiJsonCfgBootImgStatus (char *JsonStr, u16 JsonStrLen)
 				ImgBBootable = 0U;
 			}
 			else {
+				Xbir_Printf("ERROR: Invalid value for ImageB Bootable\r\n");
+				Status = XBIR_ERROR_JSON_IMG_B_BOOTABLE_VAL;
 				break;
 			}
 		}
@@ -386,6 +394,8 @@ int Xbir_SsiJsonCfgBootImgStatus (char *JsonStr, u16 JsonStrLen)
 				ReqBootImg = 0x01U;
 			}
 			else {
+				Xbir_Printf("ERROR: Invalid Image name\r\n");
+				Status = XBIR_ERROR_JSON_IMG_NAME;
 				break;
 			}
 		}
@@ -400,6 +410,8 @@ int Xbir_SsiJsonCfgBootImgStatus (char *JsonStr, u16 JsonStrLen)
 		}
 
 		if (Seperator != XBIR_SSI_JSON_OBJ_SEPERATOR) {
+			Xbir_Printf("ERROR: Invalid JSON OBJ Separator\r\n");
+			Status = XBIR_ERROR_JSON_OBJ_SEPARATOR;
 			break;
 		}
 	}
@@ -445,6 +457,10 @@ int Xbir_SsiUpdateImgA (struct tcp_pcb *Tpcb, u8 *HttpReq,
 		Status = Xbir_SsiInitiateImgUpdate(Tpcb, HttpReq, HttpReqLen,
 			XBIR_SYS_BOOT_IMG_A_ID);
 	}
+	else {
+		Xbir_Printf("ERROR: mageA upload failed\r\n");
+		Status = XBIR_ERROR_IMG_A_UPLOAD;
+	}
 	return Status;
 }
 
@@ -476,6 +492,10 @@ int Xbir_SsiUpdateImgB (struct tcp_pcb *Tpcb, u8 *HttpReq,
 		Xbir_Printf("Initiating img B upload\r\n");
 		Status = Xbir_SsiInitiateImgUpdate(Tpcb, HttpReq, HttpReqLen,
 			XBIR_SYS_BOOT_IMG_B_ID);
+	}
+	else {
+		Xbir_Printf("ERROR: ImageB upload failed\r\n");
+		Status = XBIR_ERROR_IMG_B_UPLOAD;
 	}
 	return Status;
 }
@@ -569,11 +589,15 @@ u32 Xbir_SsiValidateLastUpdate (char *JsonStr, u16 JsonStrLen)
 				 BootImgStatus->ImgBBootable,
 				 XBIR_SYS_BOOT_IMG_B_ID);
 		}
+		else {
+			goto END;
+		}
 
 		if (Status == XST_SUCCESS) {
 			Xbir_Printf("Download Complete....\r\n");
 		}
 	}
+
 END:
 	return Status;
 }
@@ -856,8 +880,12 @@ static int Xbir_SsiUpdateImg (struct tcp_pcb *Tpcb, u8 *HttpReq,
 	if (HttpArg->RemainingRxLen <= HttpReqLen) {
 		HttpArg->RemainingRxLen = 0U;
 		Status = Xbir_HttpSendResponseJson(Tpcb, HttpReq, HttpReqLen,
-				XBIR_SSI_JSON_SUCCESS_RESPONSE,
-				strlen(XBIR_SSI_JSON_SUCCESS_RESPONSE));
+			XBIR_SSI_JSON_SUCCESS_RESPONSE,
+			strlen(XBIR_SSI_JSON_SUCCESS_RESPONSE));
+		if (Status != XST_SUCCESS) {
+			Xbir_Printf("ERROR: Failed to send HTTP response\r\n");
+			Status = XBIR_ERROR_SEND_SUCCESS_RESPONSE;
+		}
 	}
 	else {
 		HttpArg->RemainingRxLen -= HttpReqLen;
@@ -905,7 +933,7 @@ static int Xbir_SsiInitiateImgUpdate (struct tcp_pcb *Tpcb, u8 *HttpReq,
 	Xbir_Printf("Erasing img\r\n");
 	Status = Xbir_SysEraseBootImg(BootImgId);
 	if (Status != XST_SUCCESS) {
-		Xbir_Printf("Erase Failed\r\n");
+		Xbir_Printf("ERROR: Erase Failed\r\n");
 		goto END;
 	}
 	Xbir_Printf("Erasing complete\r\n");
