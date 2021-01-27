@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,7 @@
 * 4.3   rpo 06/25/2020 Updated file version to sync with library version
 *       am  09/24/2020 Resolved MISRA C violations
 *       har 10/12/2020 Addressed security review comments
+*       kpt 01/27/2021 Fixed bug in clearing tamper interrupt
 *
 * </pre>
 *
@@ -80,11 +81,6 @@ int XSecure_ProcessTamperResponse(void)
 {
 	int Status = XST_FAILURE;
 	u32 TamperResponse;
-
-	/**
-	 * Clear the tamper interrupt in PMC_GLOBAL
-	 */
-	Xil_Out32(PMC_GLOBAL_ISR_REG_ADDR, PMC_GLOBAL_ISR_TAMPER_INT);
 
 	/**
 	 * Check the reason for interrupt
