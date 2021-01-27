@@ -51,8 +51,11 @@ static void SomExtWdtToggle(void)
 #define AMS_CONFIG_REG1_OT_DIS_MASK 0x1U
 
 
-/* Calculate the OT Register Value as per EQN 2-10 in UG580*/
-#define OT_REG_VAL (((u32)(( (float)SOM_OT_DEGC + 279.42657680f)* 4096.0f / 507.5921310f) <<4) | 0x3U)
+/*
+ * Calculate the OT Register Value as per EQN 2-12 in UG580
+ * LSB 4 bits should be equal to 0x3 to enable OT alarm
+ */
+#define OT_REG_VAL (((u32)(( (float)SOM_OT_DEGC + 280.23087870f)* 4096.0f / 509.3140064f) <<4) | 0x3U)
 
 static void InitOverTempAlarm(void)
 {
