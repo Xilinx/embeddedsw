@@ -38,7 +38,7 @@
 #include "xaie_helper.h"
 
 /************************** Constant Definitions *****************************/
-#define XAIE_DEFAULT_NUM_CMDS 10U
+#define XAIE_DEFAULT_NUM_CMDS 1024U
 
 #define XAIE_TXN_INSTANCE_EXPORTED	0b10
 #define XAIE_TXN_INST_EXPORTED_MASK XAIE_TXN_INSTANCE_EXPORTED
