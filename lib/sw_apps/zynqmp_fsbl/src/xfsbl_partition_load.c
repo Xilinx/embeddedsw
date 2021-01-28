@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,6 +39,8 @@
 *       skd  02/02/20 Added register writes to PMU GLOBAL to indicate PL configuration
 *       har  09/22/20 Removed checks for IsCheckSumEnabled with authentication
 *                     and encryption
+*       bsv  28/01/21 Fix build issues in case SECURE and BITSTREAM code are
+*                     excluded
 *
 * </pre>
 *
@@ -1126,7 +1128,6 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	u32 ExecState;
 	u32 CpuNo;
 	XFsblPs_PartitionHeader * PartitionHeader;
-	u32 Length;
 
 #if defined(XFSBL_SECURE)
 	s32 SStatus;
@@ -1140,6 +1141,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 #endif
 #if defined(XFSBL_SECURE) ||  defined(XFSBL_BS)
 	PTRSIZE LoadAddress;
+	u32 Length;
 #endif
 #if defined(XFSBL_BS) && defined(XFSBL_PS_DDR)
 	u32 BitstreamWordSize;
@@ -1239,13 +1241,12 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	}
 #if defined(XFSBL_SECURE) ||  defined(XFSBL_BS)
 	LoadAddress = (PTRSIZE) PartitionHeader->DestinationLoadAddress;
-#endif
 
 #ifdef XFSBL_SECURE
 	if ((IsChecksumEnabled == TRUE) || (IsAuthenticationEnabled == TRUE) ||
 			(IsEncryptionEnabled == TRUE))	{
 #else
-	if ((IsChecksumEnabled == TRUE)) {
+	if (IsChecksumEnabled == TRUE) {
 #endif
 		Length = PartitionHeader->TotalDataWordLength * 4U;
 		Status = XFsbl_GetLoadAddress(DestinationCpu,
@@ -1264,6 +1265,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 			"Destination Device is PL, changing LoadAddress\r\n");
 		LoadAddress = XFSBL_DDR_TEMP_ADDRESS;
 	}
+#endif
 #endif
 
 	if (IsEncryptionEnabled == TRUE) {
@@ -1314,7 +1316,6 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		}
 #endif
 	}
-#endif
 
 	/* Checksum verification */
 	if (IsChecksumEnabled == TRUE) {
@@ -1327,7 +1328,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 			goto END;
 		}
 	}
-
+#endif
 	/**
 	 * Authentication Check
 	 */
