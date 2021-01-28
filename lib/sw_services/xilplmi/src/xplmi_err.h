@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 *       bsv  04/04/2020 Code clean up
 * 1.03  bsv  07/07/2020 Made functions used in single transaltion unit as
 *						static
+*       bsv  01/26/2021 Added APIs for checking and clearing NPI errors
 *
 * </pre>
 *
@@ -44,6 +45,7 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xplmi_debug.h"
 #include "xplmi_error_node.h"
+#include "xplmi_hw.h"
 
 /************************** Constant Definitions *****************************/
 /* Action to be taken when an error occurs */
@@ -123,6 +125,28 @@ static inline XPlmi_EventType XPlmi_EventNodeType(u32 Id)
 	return (XPlmi_EventType)Id;
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function checks if NPI is out of reset or not.
+ *
+ * @return	TRUE if NPI is out of reset, else FALSE
+ *
+******************************************************************************/
+static inline u8 XPlmi_NpiOutOfReset(void)
+{
+	u8 RegVal = (u8)((XPlmi_In32(CRP_RST_NONPS) &
+		CRP_RST_NONPS_NPI_RESET_MASK) >> CRP_RST_NONPS_NPI_RESET_SHIFT);
+
+	if (RegVal == 0U) {
+		RegVal = (u8)TRUE;
+	}
+	else {
+		RegVal = (u8)FALSE;
+	}
+
+	return RegVal;
+}
+
 /************************** Function Prototypes ******************************/
 void XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown);
 int XPlmi_PsEmInit(void);
@@ -131,6 +155,8 @@ int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMask, u8 ActionId,
 int XPlmi_EmDisable(u32 ErrorNodeId, u32 ErrorMask);
 void XPlmi_ErrIntrHandler(void *CallbackRef);
 void XPlmi_SetEmSubsystemId(u32 *Id);
+int XPlmi_CheckNpiErrors(void);
+void XPlmi_ClearNpiErrors(void);
 
 /* Functions defined in xplmi_err_cmd.c */
 void XPlmi_ErrModuleInit(void);

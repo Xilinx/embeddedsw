@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -54,6 +54,7 @@
 *       bsv  10/13/2020 Code clean up
 *       kpt  10/19/2020 Added error code for glitch detection
 *       td   10/19/2020 MISRA C Fixes
+*       bsv  01/26/2021 Added APIs for checking and clearing NPI errors
 *
 * </pre>
 *
@@ -204,6 +205,7 @@ typedef enum {
 						Number used to clear interrupt */
 	XPLMI_ERR_IO_MOD_INTR_NUM_DISABLE,	/**< 0x12B Invalid IoModule interrupt
 						Number used to disable interrupt */
+	XPLMI_NPI_ERR,	/**< 0x12C NPI errors */
 
 	/** Status codes used in PLM */
 	XPLM_ERR_TASK_CREATE = 0x200,	/**< 0x200 - Error when task create
