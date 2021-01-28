@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -34,7 +34,7 @@
  * @pulse	Function performing reset pulse operation
  */
 typedef struct PmResetOps {
-	void (*const assert)(const PmReset* const rst, const u32 action);
+	void (*const resetAssert)(const PmReset* const rst, const u32 action);
 	u32 (*const getStatus)(const PmReset* const s);
 	u32 (*const pulse)(const PmReset* const rst);
 } PmResetOps;
@@ -399,37 +399,37 @@ static u32 PmResetPulsePl(const PmReset* const rst)
 }
 
 static const PmResetOps pmResetOpsGeneric = {
-	.assert = PmResetAssertGen,
+	.resetAssert = PmResetAssertGen,
 	.getStatus = PmResetGetStatusGen,
 	.pulse = PmResetPulseGen,
 };
 
 static const PmResetOps pmResetOpsGpo = {
-	.assert = PmResetAssertGpo,
+	.resetAssert = PmResetAssertGpo,
 	.getStatus = PmResetGetStatusGpo,
 	.pulse = PmResetPulseGpo,
 };
 
 static const PmResetOps pmResetOpsRom = {
-	.assert = PmResetAssertRom,
+	.resetAssert = PmResetAssertRom,
 	.getStatus = PmResetGetStatusRom,
 	.pulse = PmResetPulseRom,
 };
 
 static const PmResetOps pmResetOpsNoAssert = {
-	.assert = NULL,
+	.resetAssert = NULL,
 	.getStatus = PmResetGetStatusRom,
 	.pulse = PmResetPulseRom,
 };
 
 static const PmResetOps pmResetOpsPl = {
-	.assert = PmResetAssertPl,
+	.resetAssert = PmResetAssertPl,
 	.getStatus = PmResetGetStatusPl,
 	.pulse = PmResetPulsePl,
 };
 
 static const PmResetOps pmResetOpsGpioBankIO = {
-	.assert = NULL,
+	.resetAssert = NULL,
 	.getStatus = PmResetGetStatusGpioBankIOs,
 	.pulse = PmResetPulseGpioBankIOs,
 };
@@ -1885,8 +1885,8 @@ s32 PmResetDoAssert(const PmReset *reset, u32 action)
 	switch (action) {
 	case PM_RESET_ACTION_RELEASE:
 	case PM_RESET_ACTION_ASSERT:
-		if (NULL != reset->ops->assert) {
-			reset->ops->assert(reset, action);
+		if (NULL != reset->ops->resetAssert) {
+			reset->ops->resetAssert(reset, action);
 		} else {
 			status = XST_INVALID_PARAM;
 		}
