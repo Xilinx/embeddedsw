@@ -24,6 +24,7 @@
 *       mn     07/30/20 Read 16Bit value for Block Size Register
 *       sk     12/01/20 Tap programming sequence updates like disable OTAPEN
 *                       always, write zero to tap register for zero tap value.
+*       sk     01/28/21 Limit the SD frequency to 19MHz (standard mode).
 *
 * </pre>
 *
@@ -226,6 +227,7 @@ s32 XSdPs_SdModeInit(XSdPs *InstancePtr)
 		}
 	}
 
+#ifdef HS_MODE_ENABLE
 	/* Get speed supported by device */
 	Status = XSdPs_Get_BusSpeed(InstancePtr, ReadBuff);
 	if (Status != XST_SUCCESS) {
@@ -277,6 +279,7 @@ s32 XSdPs_SdModeInit(XSdPs *InstancePtr)
 			}
 		}
 	}
+#endif
 
 	Status = XSdPs_SetBlkSize(InstancePtr, XSDPS_BLK_SIZE_512_MASK);
 	if (Status != XST_SUCCESS) {

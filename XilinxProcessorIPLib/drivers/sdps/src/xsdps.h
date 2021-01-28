@@ -135,6 +135,7 @@
 *       sk     12/01/20 Tap programming sequence updates like disable OTAPEN
 *                       always, write zero to tap register for zero tap value.
 *       sk     12/07/20 Fix eMMC DDR52 mode write/read issue.
+*       sk     01/28/21 Limit the SD frequency to 19MHz (standard mode).
 *
 * </pre>
 *
