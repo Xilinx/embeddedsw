@@ -80,6 +80,7 @@
 *       kpt  01/06/2021 Added redundancy check for
 *                       XLoader_ReadAndVerifySecureHdrs
 *       ma   01/18/2021 Added function for PMC state clear
+*       bsv  01/28/2021 Initialize ParentImgID to invalid value
 *
 * </pre>
 *
@@ -1306,7 +1307,7 @@ static int XLoader_VerifyImgInfo(const XLoader_ImageInfo *ImageInfo)
 	XPm_DeviceStatus DeviceStatus;
 	const XLoader_ImageInfo *ParentImageInfo;
 	u32 DummyArg = 0U;
-	u32 ParentImgID;
+	u32 ParentImgID = XLOADER_INVALID_IMG_ID;
 
 	if ((ImageInfo->ImgID != XLOADER_INVALID_IMG_ID) &&
 		(ImageInfo->UID != XLOADER_INVALID_UID) &&
