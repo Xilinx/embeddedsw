@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,7 +9,7 @@
 * @file xloader_prtn_load.c
 *
 * This is the file which contains partition load code for the Platform
-* loader..
+* loader.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -47,6 +47,7 @@
 *                       boot modes
 *       bsv  10/13/2020 Code clean up
 *       td   10/19/2020 MISRA C Fixes
+* 1.04  bsv  01/28/2021 Initialize variables to invalid values
 *
 * </pre>
 *
@@ -447,8 +448,8 @@ END:
 int XLoader_UpdateHandoffParam(XilPdi* PdiPtr)
 {
 	int Status = XST_FAILURE;
-	u32 DstnCpu;
-	u32 CpuNo;
+	u32 DstnCpu = XIH_PH_ATTRB_DSTN_CPU_NONE;
+	u32 CpuNo = XLOADER_MAX_HANDOFF_CPUS;
 	u32 PrtnNum = PdiPtr->PrtnNum;
 	/* Assign the partition header to local variable */
 	const XilPdi_PrtnHdr * PrtnHdr =
