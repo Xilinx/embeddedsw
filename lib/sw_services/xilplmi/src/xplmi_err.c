@@ -37,7 +37,7 @@
 *       td   10/19/2020 MISRA C Fixes
 * 1.04  td   01/07/2021 Fix warning in PLM memory log regarding NULL handler for
 *                       PMC_PSM_NCR error
-*
+*       bsv  01/29/2021 Added APIs for checking and clearing NPI errors
 *
 * </pre>
 *
@@ -49,7 +49,6 @@
 #include "xplmi_err.h"
 #include "xplmi.h"
 #include "xplmi_sysmon.h"
-#include "xplmi_hw.h"
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_SYSMON_CLK_SRC_IRO_VAL	(0U)
@@ -1207,4 +1206,64 @@ static void XPlmi_SysmonClkSetIro(void) {
 void XPlmi_SetEmSubsystemId(const u32 *Id)
 {
 	EmSubsystemId = *Id;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function clears NPI errors.
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+******************************************************************************/
+int XPlmi_CheckNpiErrors(void)
+{
+	int Status = XST_FAILURE;
+	u32 ErrVal;
+	u32 IsrVal = XPlmi_In32(NPI_NIR_REG_ISR);
+	u32 ErrTypeVal = XPlmi_In32(NPI_NIR_ERR_TYPE);
+	u32 ErrLogP0Info0Val = XPlmi_In32(NPI_NIR_ERR_LOG_P0_INFO_0);
+	u32 ErrLogP0Info1Val = XPlmi_In32(NPI_NIR_ERR_LOG_P0_INFO_1);
+
+	ErrVal =  IsrVal & NPI_NIR_REG_ISR_ERR_MASK;
+	ErrVal |= ErrTypeVal & NPI_NIR_ERR_TYPE_ERR_MASK;
+	if (ErrVal != 0U) {
+		XPlmi_Printf(DEBUG_GENERAL, "NPI_NIR_ISR: 0x%08x\n\r"
+			"NPI_NIR_ERR_TYPE: 0x%08x\n\r"
+			"NPI_NIR_ERR_LOG_P0_INFO_0: 0x%08x\n\r"
+			"NPI_NIR_ERR_LOG_P0_INFO_1: 0x%08x\n\r",
+			IsrVal, ErrTypeVal, ErrLogP0Info0Val, ErrLogP0Info1Val);
+		if (ErrVal == NPI_NIR_AXI_WRSTRB_ERR_MASK) {
+			XPlmi_Printf(DEBUG_GENERAL, "Warning: AXI_WRSTRB_ERR "
+				"is set.\n\r");
+			Status = XST_SUCCESS;
+		}
+	}
+	else {
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function clears NPI errors.
+ *
+ * @return	None
+ *
+******************************************************************************/
+void XPlmi_ClearNpiErrors(void)
+{
+	/* Unlock NPI address space */
+	XPlmi_Out32(NPI_NIR_REG_PCSR_LOCK, NPI_NIR_REG_PCSR_UNLOCK_VAL);
+	/* Clear ISR */
+	XPlmi_UtilRMW(NPI_NIR_REG_ISR, NPI_NIR_REG_ISR_ERR_MASK,
+		NPI_NIR_REG_ISR_ERR_MASK);
+	/* Clear error type registers */
+	XPlmi_UtilRMW(NPI_NIR_ERR_TYPE, NPI_NIR_ERR_TYPE_ERR_MASK,
+		~(NPI_NIR_ERR_TYPE_ERR_MASK));
+	XPlmi_Out32(NPI_NIR_ERR_LOG_P0_INFO_0, 0U);
+	XPlmi_Out32(NPI_NIR_ERR_LOG_P0_INFO_1, 0U);
+	/* Lock NPI address space */
+	XPlmi_Out32(NPI_NIR_REG_PCSR_LOCK, 0U);
 }
