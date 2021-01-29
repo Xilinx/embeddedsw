@@ -1339,6 +1339,39 @@ static u64 XAie_LinuxGetTid(void)
 		return (u64)pthread_self();
 }
 
+/*****************************************************************************/
+/**
+*
+* This is the IO function to submit a transaction to the kernel driver for
+* execution.
+*
+* @param	IOInst: IO instance pointer
+* @param	TxnInst: Pointer to the transaction instance.
+*
+* @return	XAIE_OK for success and error code for failure.
+*
+* @note		Internal only.
+*
+*******************************************************************************/
+static AieRC XAie_LinuxSubmitTxn(void *IOInst, XAie_TxnInst *TxnInst)
+{
+	XAie_LinuxIO *LinuxIOInst = (XAie_LinuxIO *)IOInst;
+	int Ret;
+	struct aie_txn_inst Args;
+
+	Args.num_cmds = TxnInst->NumCmds;
+	Args.cmdsptr = (u64)TxnInst->CmdBuf;
+
+	Ret = ioctl(LinuxIOInst->PartitionFd, AIE_TRANSACTION_IOCTL, &Args);
+	if(Ret < 0) {
+		XAIE_ERROR("Submitting transaction to device failed with "
+				"error code: %d\n", Ret);
+		return XAIE_ERR;
+	}
+
+	return XAIE_OK;
+}
+
 #else
 
 static AieRC XAie_LinuxIO_Finish(void *IOInst)
@@ -1479,6 +1512,13 @@ static u64 XAie_LinuxGetTid(void)
 		return 0;
 }
 
+static AieRC XAie_LinuxSubmitTxn(void *IOInst, XAie_TxnInst *TxnInst)
+{
+	(void)IOInst;
+	(void)TxnInst;
+	return XAIE_ERR;
+}
+
 #endif /* __AIELINUX__ */
 
 static AieRC XAie_LinuxIO_CmdWrite(void *IOInst, u8 Col, u8 Row, u8 Command,
@@ -1516,6 +1556,7 @@ const XAie_Backend LinuxBackend =
 	.Ops.MemAttach = XAie_LinuxMemAttach,
 	.Ops.MemDetach = XAie_LinuxMemDetach,
 	.Ops.GetTid = XAie_LinuxGetTid,
+	.Ops.SubmitTxn = XAie_LinuxSubmitTxn,
 };
 
 /** @} */

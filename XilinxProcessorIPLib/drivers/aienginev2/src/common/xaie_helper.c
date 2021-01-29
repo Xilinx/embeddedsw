@@ -510,7 +510,8 @@ static AieRC _XAie_ExecuteCmd(XAie_DevInst *DevInst, XAie_TxnCmd *Cmd,
 			break;
 		case XAIE_IO_BLOCKWRITE:
 			RC = Backend->Ops.BlockWrite32((void *)DevInst->IOInst,
-					Cmd->RegOff, Cmd->Data,
+					Cmd->RegOff,
+					(u32 *)(uintptr_t)Cmd->DataPtr,
 					Cmd->Size);
 			if(RC != XAIE_OK) {
 				XAIE_ERROR("Block Wr failed. Addr: 0x%lx\n",
@@ -519,7 +520,7 @@ static AieRC _XAie_ExecuteCmd(XAie_DevInst *DevInst, XAie_TxnCmd *Cmd,
 			}
 
 			if(!(Flags & XAIE_TXN_INST_EXPORTED_MASK)) {
-				free(Cmd->Data);
+				free((void *)Cmd->DataPtr);
 			}
 			break;
 		case XAIE_IO_BLOCKSET:
@@ -557,6 +558,11 @@ static AieRC _XAie_ExecuteCmd(XAie_DevInst *DevInst, XAie_TxnCmd *Cmd,
 static AieRC _XAie_Txn_FlushCmdBuf(XAie_DevInst *DevInst, XAie_TxnInst *TxnInst)
 {
 	AieRC RC;
+	const XAie_Backend *Backend = DevInst->Backend;
+
+	if(Backend->Ops.SubmitTxn != NULL) {
+		return Backend->Ops.SubmitTxn(DevInst->IOInst, TxnInst);
+	}
 
 	for(u32 i = 0U; i < TxnInst->NumCmds; i++) {
 		RC = _XAie_ExecuteCmd(DevInst, &TxnInst->CmdBuf[i],
@@ -674,8 +680,9 @@ XAie_TxnInst* _XAie_TxnExport(XAie_DevInst *DevInst)
 		XAie_TxnCmd *TmpCmd = &TmpInst->CmdBuf[i];
 		XAie_TxnCmd *Cmd = &Inst->CmdBuf[i];
 		if(TmpCmd->Opcode == XAIE_IO_BLOCKWRITE) {
-			Cmd->Data = (u32 *)malloc(sizeof(u32) * TmpCmd->Size);
-			if(Cmd->Data == NULL) {
+			Cmd->DataPtr = (u64)(uintptr_t)malloc(
+					sizeof(u32) * TmpCmd->Size);
+			if((void *)(uintptr_t)Cmd->DataPtr == NULL) {
 				XAIE_ERROR("Failed to allocate memory to copy "
 						"command %d\n", i);
 				free(Inst->CmdBuf);
@@ -683,8 +690,9 @@ XAie_TxnInst* _XAie_TxnExport(XAie_DevInst *DevInst)
 				return NULL;
 			}
 
-			Cmd->Data = (u32 *)memcpy((void *)Cmd->Data,
-					TmpCmd->Data,
+			Cmd->DataPtr = (u64)(uintptr_t)memcpy(
+					(void *)Cmd->DataPtr,
+					(void *)TmpCmd->DataPtr,
 					sizeof(u32) * TmpCmd->Size);
 		}
 	}
@@ -721,8 +729,9 @@ AieRC _XAie_TxnFree(XAie_TxnInst *Inst)
 
 	for(u32 i = 0; i < Inst->NumCmds; i++) {
 		XAie_TxnCmd *Cmd = &Inst->CmdBuf[i];
-		if((Cmd->Opcode == XAIE_IO_BLOCKWRITE) && (Cmd->Data != NULL)) {
-			free(Cmd->Data);
+		if((Cmd->Opcode == XAIE_IO_BLOCKWRITE) &&
+				((void *)(uintptr_t)Cmd->DataPtr != NULL)) {
+			free((void *)(uintptr_t)Cmd->DataPtr);
 		}
 	}
 
@@ -757,8 +766,8 @@ void _XAie_TxnResourceCleanup(XAie_DevInst *DevInst)
 		for(u32 i = 0; i < TxnInst->NumCmds; i++) {
 			XAie_TxnCmd *Cmd = &TxnInst->CmdBuf[i];
 			if((Cmd->Opcode == XAIE_IO_BLOCKWRITE) &&
-					(Cmd->Data != NULL)) {
-				free(Cmd->Data);
+					((void *)(uintptr_t)Cmd->DataPtr != NULL)) {
+				free((void *)(uintptr_t)Cmd->DataPtr);
 			}
 		}
 
@@ -975,8 +984,9 @@ AieRC XAie_BlockWrite32(XAie_DevInst *DevInst, u64 RegOff, u32 *Data, u32 Size)
 		Buf = memcpy((void *)Buf, (void *)Data, sizeof(u32) * Size);
 		TxnInst->CmdBuf[TxnInst->NumCmds].Opcode = XAIE_IO_BLOCKWRITE;
 		TxnInst->CmdBuf[TxnInst->NumCmds].RegOff = RegOff;
-		TxnInst->CmdBuf[TxnInst->NumCmds].Data = Buf;
+		TxnInst->CmdBuf[TxnInst->NumCmds].DataPtr = (u64)(uintptr_t)Buf;
 		TxnInst->CmdBuf[TxnInst->NumCmds].Size = Size;
+		TxnInst->CmdBuf[TxnInst->NumCmds].Mask = 0U;
 		TxnInst->NumCmds++;
 
 		return XAIE_OK;
@@ -1029,6 +1039,7 @@ AieRC XAie_BlockSet32(XAie_DevInst *DevInst, u64 RegOff, u32 Data, u32 Size)
 		TxnInst->CmdBuf[TxnInst->NumCmds].RegOff = RegOff;
 		TxnInst->CmdBuf[TxnInst->NumCmds].Value = Data;
 		TxnInst->CmdBuf[TxnInst->NumCmds].Size = Size;
+		TxnInst->CmdBuf[TxnInst->NumCmds].Mask = 0U;
 		TxnInst->NumCmds++;
 
 		return XAIE_OK;

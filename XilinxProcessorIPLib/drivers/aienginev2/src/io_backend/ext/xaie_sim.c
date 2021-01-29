@@ -485,6 +485,7 @@ const XAie_Backend SimBackend =
 	.Ops.MemAttach = XAie_SimMemAttach,
 	.Ops.MemDetach = XAie_SimMemDetach,
 	.Ops.GetTid = XAie_IODummyGetTid,
+	.Ops.SubmitTxn = NULL,
 };
 
 /** @} */
