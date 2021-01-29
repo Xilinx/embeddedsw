@@ -21,6 +21,7 @@
 * ----- ---    -------- -----------------------------------------------
 * 3.9   mn     03/03/20 Restructured the code for more readability and modularity
 *       mn     03/16/20 Move XSdPs_Select_Card API to User APIs
+* 3.12  sk     01/28/21 Added support for non-blocking write.
 *
 * </pre>
 *
@@ -46,6 +47,7 @@ s32 XSdPs_CmdTransfer(XSdPs *InstancePtr, u32 Cmd, u32 Arg, u32 BlkCnt);
 s32 XSdPs_SetupTransfer(XSdPs *InstancePtr);
 s32 XSdPs_Read(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff);
 s32 XSdPs_Write(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, const u8 *Buff);
+s32 XSdPs_CheckTransferComplete(XSdPs *InstancePtr);
 void XSdPs_Identify_UhsMode(XSdPs *InstancePtr, u8 *ReadBuff);
 s32 XSdPs_Uhs_ModeInit(XSdPs *InstancePtr, u8 Mode);
 s32 XSdPs_DllReset(XSdPs *InstancePtr);

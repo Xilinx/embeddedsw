@@ -24,6 +24,7 @@
 *                       XSdPs_Write APIs
 *       mn     10/15/20 Modify power cycle API to poll for SD bus lines to go
 *                       low for versal platform
+* 3.12  sk     01/28/21 Added support for non-blocking write.
 *
 * </pre>
 *
@@ -117,6 +118,60 @@ s32 XSdPs_Write(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, const u8 *Buff)
 		}
 	}
 
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function is used to check for the transfer complete.
+*
+* @param	InstancePtr is a pointer to the instance to be worked on.
+*
+* @return
+* 		- XST_SUCCESS if transfer was successful
+* 		- XST_FAILURE if failure
+* 		- XST_DEVICE_BUSY - if the transfer is still in progress
+*
+******************************************************************************/
+s32 XSdPs_CheckTransferComplete(XSdPs *InstancePtr)
+{
+	u16 StatusReg;
+	s32 Status;
+
+	if (InstancePtr->IsBusy == FALSE) {
+		Status = XST_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	/*
+	 * Check for transfer complete
+	 */
+	StatusReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+				XSDPS_NORM_INTR_STS_OFFSET);
+	if ((StatusReg & XSDPS_INTR_ERR_MASK) != 0U) {
+		/* Write to clear error bits */
+		XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
+				XSDPS_ERR_INTR_STS_OFFSET,
+				XSDPS_ERROR_INTR_ALL_MASK);
+		Status = XST_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	if ((StatusReg & XSDPS_INTR_TC_MASK) == 0U) {
+		Status = XST_DEVICE_BUSY;
+		goto RETURN_PATH;
+	}
+
+	/* Write to clear bit */
+	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
+			XSDPS_NORM_INTR_STS_OFFSET, XSDPS_INTR_TC_MASK);
+
+	InstancePtr->IsBusy = FALSE;
+
+	Status = XST_SUCCESS;
+
+RETURN_PATH:
 	return Status;
 }
 
