@@ -57,8 +57,9 @@
 * 1.04  td   11/23/2020 Added error code for XilPdi_ReadBootHdr failure
 *       bsv  12/02/2020 Replaced SEM_CFR error code with generic SEM error code
 *       bm   12/15/2020 Added Update Multiboot related error codes
-*       bm   12/16/2020 Added error code when Secure code is not enabled.
+*       bm   12/16/2020 Added error code when Secure code is not enabled
 *       kpt  01/21/2021 Added error code for Auth Jtag revoke id failure
+*       bsv  01/29/2021 Added APIs for checking and clearing NPI errors
 *
 * </pre>
 *
@@ -205,6 +206,7 @@ typedef enum {
 						Number used to clear interrupt */
 	XPLMI_ERR_IO_MOD_INTR_NUM_DISABLE,	/**< 0x12B Invalid IoModule interrupt
 						Number used to disable interrupt */
+	XPLMI_NPI_ERR,	/**< 0x12C NPI errors */
 
 	/** Status codes used in PLM */
 	XPLM_ERR_TASK_CREATE = 0x200,	/**< 0x200 - Error when task create

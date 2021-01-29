@@ -48,6 +48,7 @@
 *       bsv  10/13/2020 Code clean up
 *       td   10/19/2020 MISRA C Fixes
 * 1.04  bsv  01/28/2021 Initialize variables to invalid values
+*       bsv  01/29/2021 Added check for NPI errors after loading every partition
 *
 * </pre>
 *
@@ -68,6 +69,7 @@
 #include "xloader_ddr.h"
 #include "xplmi.h"
 #include "xil_util.h"
+#include "xplmi_err.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -135,6 +137,11 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 	for (PrtnIndex = 0U;
 		PrtnIndex < PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].NoOfPrtns;
 		++PrtnIndex) {
+		/* Clear NPI errors before loading each partition */
+		if (XPlmi_NpiOutOfReset() == (u8)TRUE) {
+			XPlmi_ClearNpiErrors();
+		}
+
 		if ((PdiPtr->CopyToMem == (u8)FALSE) && (PdiPtr->DelayLoad == (u8)FALSE)) {
 			XPlmi_Printf(DEBUG_GENERAL, "-------Loading Prtn No: 0x%0x\r\n",
 				PdiPtr->PrtnNum);
@@ -176,10 +183,23 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 			XPLMI_WORD_LEN);
 
 		++PdiPtr->PrtnNum;
+		if (XPlmi_NpiOutOfReset() == (u8)TRUE) {
+			Status = XPlmi_CheckNpiErrors();
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(XPLMI_NPI_ERR, Status);
+				goto END1;
+			}
+		}
 	}
 	Status = XST_SUCCESS;
 
 END:
+	if (Status != XST_SUCCESS) {
+		if (XPlmi_NpiOutOfReset() == (u8)TRUE) {
+			(void)XPlmi_CheckNpiErrors();
+		}
+	}
+END1:
 	return Status;
 }
 

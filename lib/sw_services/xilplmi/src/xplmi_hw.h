@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -40,6 +40,7 @@
 *                       and PCIE boot modes
 *       td   10/30/2020 Fixed MISRA C Rule 2.5 and added PMC_GLOBAL macros
 * 1.04  bm   11/10/2020 Added ROM_VALIDATION_DIGEST macro
+*       bsv  01/29/2021 Added APIs for checking and clearing NPI errors
 *
 * </pre>
 *
@@ -295,6 +296,20 @@ extern "C" {
  */
 #define PMC_GLOBAL_GICP_PMC_IRQ_ENABLE    (PMC_GLOBAL_BASEADDR + 0X000300A8U)
 
+/*
+ * Register: NPI_NIR
+ */
+#define NPI_NIR_BASEADDR	(0XF6000000U)
+#define NPI_NIR_REG_PCSR_LOCK	(NPI_NIR_BASEADDR + 0XCU)
+#define NPI_NIR_REG_PCSR_UNLOCK_VAL	(0XF9E8D7C6U)
+#define NPI_NIR_REG_ISR		(NPI_NIR_BASEADDR + 0X44U)
+#define NPI_NIR_REG_ISR_ERR_MASK	(0X7FU)
+#define NPI_NIR_ERR_TYPE	(NPI_NIR_BASEADDR + 0X204U)
+#define NPI_NIR_ERR_TYPE_ERR_MASK	(0X7U)
+#define NPI_NIR_AXI_WRSTRB_ERR_MASK	(0X40U)
+#define NPI_NIR_ERR_LOG_P0_INFO_0	(NPI_NIR_BASEADDR + 0X208U)
+#define NPI_NIR_ERR_LOG_P0_INFO_1	(NPI_NIR_BASEADDR + 0X20CU)
+
 /*****************************************************************************/
 /**
  * @brief        This function reads a 32-bit register
@@ -531,6 +546,10 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define CRP_RST_SBI_RESET_MASK			(0X00000001U)
 #define CRP_RST_PDMA				(CRP_BASEADDR + 0X00000328U)
 #define CRP_RST_PDMA_RESET1_MASK		(0X00000002U)
+#define CRP_RST_NONPS		(CRP_BASEADDR + 0X00000320U)
+#define CRP_RST_NONPS_NPI_RESET_MASK		(0X10U)
+#define CRP_RST_NONPS_NPI_RESET_SHIFT		(0X4U)
+
 /*
  * Register: CRP_RST_PS
  */
