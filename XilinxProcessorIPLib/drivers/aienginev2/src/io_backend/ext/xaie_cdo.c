@@ -509,6 +509,7 @@ const XAie_Backend CdoBackend =
 	.Ops.MemAttach = XAie_CdoMemAttach,
 	.Ops.MemDetach = XAie_CdoMemDetach,
 	.Ops.GetTid = XAie_IODummyGetTid,
+	.Ops.SubmitTxn = NULL,
 };
 
 /** @} */

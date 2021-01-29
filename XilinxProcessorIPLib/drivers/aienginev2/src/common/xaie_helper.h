@@ -72,7 +72,7 @@ typedef struct XAie_TxnCmd {
 	u32 Mask;
 	u64 RegOff;
 	u32 Value;
-	u32 *Data;
+	u64 DataPtr;
 	u32 Size;
 } XAie_TxnCmd;
 
