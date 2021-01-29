@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2013 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xsdps_include.h
-* @addtogroup sdps_v3_11
+* @addtogroup sdps_v3_12
 * @{
 *
 * This header file contains the identifiers and basic HW access driver

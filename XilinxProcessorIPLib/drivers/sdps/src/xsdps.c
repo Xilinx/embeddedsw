@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2013 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xsdps.c
-* @addtogroup sdps_v3_11
+* @addtogroup sdps_v3_12
 * @{
 *
 * Contains the interface functions of the XSdPs driver.
