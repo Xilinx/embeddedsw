@@ -137,6 +137,7 @@
 *       sk     12/07/20 Fix eMMC DDR52 mode write/read issue.
 *       sk     12/17/20 Removed checking platform specific SD macros and used
 *                       Baseaddress instead.
+* 3.12  sk     01/28/21 Added support for non-blocking write.
 *
 * </pre>
 *
@@ -303,6 +304,8 @@ s32 XSdPs_Get_Status(XSdPs *InstancePtr, u8 *SdStatReg);
 s32 XSdPs_Select_Card(XSdPs *InstancePtr);
 s32 XSdPs_StartReadTransfer(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff);
 s32 XSdPs_CheckReadTransfer(XSdPs *InstancePtr);
+s32 XSdPs_StartWriteTransfer(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff);
+s32 XSdPs_CheckWriteTransfer(XSdPs *InstancePtr);
 
 #ifdef __cplusplus
 }
