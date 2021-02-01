@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -564,4 +564,14 @@ XStatus XPmCpmDomain_Init(XPm_CpmDomain *CpmDomain, u32 Id, u32 BaseAddress,
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
+}
+
+inline void XPmCpmDomain_UnlockPcsr(u32 BaseAddress)
+{
+	PmOut32(BaseAddress + CPM_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
+}
+
+inline void XPmCpmDomain_LockPcsr(u32 BaseAddress)
+{
+	PmOut32(BaseAddress + CPM_PCSR_LOCK_OFFSET, PCSR_LOCK_VAL);
 }

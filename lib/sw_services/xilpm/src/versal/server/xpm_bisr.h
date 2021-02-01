@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +34,8 @@ extern "C" {
 #define GTM_TAG_ID	0x19
 
 #define PCSR_UNLOCK_VAL		(0xF9E8D7C6U)
+#define PCSR_LOCK_VAL		(0x1U)
+
 XStatus XPmBisr_Repair(u32 TagId);
 XStatus XPmBisr_NidbLaneRepair(void);
 int XPmBisr_TriggerLpd(void);

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -679,6 +679,10 @@ static void PostTopologyHook(void)
 	/* TODO: Remove this when PL topology handling is added */
 	/* Set all PL clock as read only so that Linux won't disable those */
 	XPmClock_SetPlClockAsReadOnly();
+
+	/* TODO: Remove this when custom CPM POR reset is added from topology */
+	/* Make CPM POR reset to custom reset */
+	XPmReset_MakeCpmPorResetCustom();
 }
 
 XStatus XPm_HookAfterPlmCdo(void)

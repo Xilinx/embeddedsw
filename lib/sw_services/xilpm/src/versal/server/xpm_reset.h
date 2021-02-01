@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -94,6 +94,7 @@ XStatus XPmReset_AddPermission(XPm_ResetNode *Rst,
 XStatus XPmReset_IsPermissionReset(const u32 ResetId);
 XStatus XPmReset_IsOperationAllowed(const u32 SubsystemId,
 				    const XPm_ResetNode *Rst);
+void XPmReset_MakeCpmPorResetCustom(void);
 
 #ifdef __cplusplus
 }
