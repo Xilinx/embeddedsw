@@ -178,6 +178,7 @@ extern "C" {
 
 #define XIH_ATTRB_EL_MASK			(0x18U)
 #define XIH_PRTN_FLAGS_EL_2			(0x10U)
+#define XIH_PRTN_FLAGS_EL_3			(0x18U)
 #define XIH_PRTN_FLAGS_DSTN_CPU_A72_0		(0x00U)
 #define XIH_PRTN_FLAGS_DSTN_CPU_A72_1		(0x20U)
 
