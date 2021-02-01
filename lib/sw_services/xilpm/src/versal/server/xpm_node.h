@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -699,6 +699,9 @@ typedef enum {
 	XPM_NODEIDX_MEMIC_NSU_52,
 	XPM_NODEIDX_MEMIC_NSU_53,
 	XPM_NODEIDX_MEMIC_NSU_54,
+	XPM_NODEIDX_MEMIC_NSU_55,
+	XPM_NODEIDX_MEMIC_NSU_56,
+	XPM_NODEIDX_MEMIC_NSU_57,
 
 	XPM_NODEIDX_MEMIC_MAX,
 } XPm_MemicNodeIndex;
@@ -975,6 +978,22 @@ typedef enum {
 	XPM_NODEIDX_DEV_VDU_1,
 	XPM_NODEIDX_DEV_VDU_2,
 	XPM_NODEIDX_DEV_VDU_3,
+
+	/* More GTM devices */
+	XPM_NODEIDX_DEV_GTM_10,
+	XPM_NODEIDX_DEV_GTM_11,
+	XPM_NODEIDX_DEV_GTM_12,
+	XPM_NODEIDX_DEV_GTM_13,
+	XPM_NODEIDX_DEV_GTM_14,
+	XPM_NODEIDX_DEV_GTM_15,
+	XPM_NODEIDX_DEV_GTM_16,
+	XPM_NODEIDX_DEV_GTM_17,
+	XPM_NODEIDX_DEV_GTM_18,
+	XPM_NODEIDX_DEV_GTM_19,
+	XPM_NODEIDX_DEV_GTM_20,
+	XPM_NODEIDX_DEV_GTM_21,
+	XPM_NODEIDX_DEV_GTM_22,
+	XPM_NODEIDX_DEV_GTM_23,
 
 	XPM_NODEIDX_DEV_MAX
 } XPm_DeviceNodeIndex;

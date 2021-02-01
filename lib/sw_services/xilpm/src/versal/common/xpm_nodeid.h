@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -534,6 +534,20 @@
 #define PM_DEV_VDU_1				(0x18644092U)
 #define PM_DEV_VDU_2				(0x18644093U)
 #define PM_DEV_VDU_3				(0x18644094U)
+#define PM_DEV_GTM_10				(0x1862c095U)
+#define PM_DEV_GTM_11				(0x1862c096U)
+#define PM_DEV_GTM_12				(0x1862c097U)
+#define PM_DEV_GTM_13				(0x1862c098U)
+#define PM_DEV_GTM_14				(0x1862c099U)
+#define PM_DEV_GTM_15				(0x1862c09aU)
+#define PM_DEV_GTM_16				(0x1862c09bU)
+#define PM_DEV_GTM_17				(0x1862c09cU)
+#define PM_DEV_GTM_18				(0x1862c09dU)
+#define PM_DEV_GTM_19				(0x1862c09eU)
+#define PM_DEV_GTM_20				(0x1862c09fU)
+#define PM_DEV_GTM_21				(0x1862c0a0U)
+#define PM_DEV_GTM_22				(0x1862c0a1U)
+#define PM_DEV_GTM_23				(0x1862c0a2U)
 /** @}
  * @endcond
  */
