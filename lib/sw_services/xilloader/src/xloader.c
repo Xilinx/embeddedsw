@@ -81,6 +81,7 @@
 *                       XLoader_ReadAndVerifySecureHdrs
 *       ma   01/18/2021 Added function for PMC state clear
 *       bsv  01/28/2021 Initialize ParentImgID to invalid value
+*       skd  02/01/2021 Added EL_3 check for partition in ATF HandoffParams
 *
 * </pre>
 *
@@ -1849,10 +1850,12 @@ void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr)
 
 	if ((ATFHandoffParams.NumEntries < XILPDI_MAX_ENTRIES_FOR_ATF) &&
 		(ATFHandoffParams.NumEntries == LoopCount)) {
-		ATFHandoffParams.NumEntries += 1U;
-		ATFHandoffParams.Entry[LoopCount].EntryPoint =
-				PrtnHdr->DstnExecutionAddr;
-		ATFHandoffParams.Entry[LoopCount].PrtnFlags = PrtnFlags;
+		if((PrtnFlags & XIH_ATTRB_EL_MASK) != XIH_PRTN_FLAGS_EL_3) {
+			ATFHandoffParams.NumEntries++;
+			ATFHandoffParams.Entry[LoopCount].EntryPoint =
+					PrtnHdr->DstnExecutionAddr;
+			ATFHandoffParams.Entry[LoopCount].PrtnFlags = PrtnFlags;
+		}
 	}
 }
 
