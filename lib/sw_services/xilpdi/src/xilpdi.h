@@ -38,6 +38,7 @@
 *                       partition headers
 * 1.05  td   11/23/2020 Coverity Warning Fixes
 * 1.06  ma   01/08/2021 Changed maximum number of entries possible for ATF
+*       har  02/01/2021 Added API to get PLM encryption key source
 *
 * </pre>
 *
@@ -56,6 +57,7 @@ extern "C" {
 #include "xil_types.h"
 #include "xstatus.h"
 #include "xil_printf.h"
+#include "xil_io.h"
 
 /************************** Constant Definitions *****************************/
 #define XIH_MIN_PRTNS			(1U)
@@ -65,6 +67,9 @@ extern "C" {
 
 /* Boot header address in PRAM copied by ROM*/
 #define XIH_BH_PRAM_ADDR		(0xF201E000U)
+
+/* Boot header Key source field */
+#define XIH_BH_AES_KEYSRC_OFFSET	(0x08U)
 
 /* Boot header Attr fields */
 #define XIH_BH_IMG_ATTRB_BH_AUTH_MASK	(0xC000U)
@@ -608,6 +613,19 @@ static inline u8 XilPdi_IsEncEnabled(const XilPdi_ImgHdrTbl *ImgHdrTblPtr)
 		(TRUE) : (FALSE);
 	IsEncTemp = IsEnc;
 	return (IsEnc | IsEncTemp);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function returns the PLM encryption key source in
+ *		Bootheader.
+ *
+ * @return	Encryption Key source
+ *
+ *****************************************************************************/
+static inline u32 XilPdi_GetPlmKeySrc(void)
+{
+	return Xil_In32(XIH_BH_PRAM_ADDR + XIH_BH_AES_KEYSRC_OFFSET);
 }
 
 /************************** Function Prototypes ******************************/

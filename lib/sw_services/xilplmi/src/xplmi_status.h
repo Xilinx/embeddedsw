@@ -60,6 +60,7 @@
 *       bm   12/16/2020 Added error code when Secure code is not enabled
 *       kpt  01/21/2021 Added error code for Auth Jtag revoke id failure
 *       bsv  01/29/2021 Added APIs for checking and clearing NPI errors
+*       har  02/01/2021 Added error code for mismatch of encryption key source
 *
 * </pre>
 *
@@ -537,6 +538,8 @@ typedef enum {
 	XLOADER_ERR_AUTH_JTAG_SPK_REVOKED,
 		/**< 0X62B Jtag Authentication failed when revoke id is
 		programmed */
+	XLOADER_ERR_METAHDR_KEYSRC_MISMATCH,
+		/**< 0x62C Metaheader Key Source does not match PLM Key Source */
 
 	XPLMI_ERR_CDO_CMD = 0x2000,
 		/**< 0x2XXX, CDO command handler has failed.
