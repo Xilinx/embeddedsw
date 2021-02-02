@@ -6,6 +6,9 @@ EXT = ../examples/aie_sim_test/ext/top
 LIBSOURCES = $(wildcard ./*/*.c) $(wildcard ./*/*/*.c)
 CFLAGS += -Wall -Wextra --std=c11
 
+DOCS_DIR = ../tmp
+DOXYGEN_CONFIG_FILE = ../docs/aie_driver_docs_config.dox
+
 ifneq (, $(findstring -D__AIEMETAL__,$(CFLAGS)))
   LDLIB += -lmetal
 endif
@@ -35,6 +38,14 @@ lib$(NAME).so: lib$(NAME).so.$(VERSION)
 
 %.o: %.c include
 	$(CC) $(CFLAGS) -I$(INCLUDEDIR) -I$(INCLUDEDIR)/xaiengine -c -fPIC $< -o $@
+
+doc-generate:
+	mkdir -p $(DOCS_DIR)
+	doxygen $(DOXYGEN_CONFIG_FILE)
+	cd $(DOCS_DIR)/latex; make; cd ..
+
+doc-clean:
+	rm -rf $(DOCS_DIR)
 
 clean:
 	rm -rf $(OUTS) *.so *.so.*
