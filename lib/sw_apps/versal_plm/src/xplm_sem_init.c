@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,8 @@
 *       kc   03/23/2020 Minor code cleanup
 *       hb   10/29/2020 Updated OwnerId for NPI scan scheduler
 * 1.02  rb   10/30/2020 Updated XilSEM Init API
+* 1.03  rb   01/28/2021 Added Sem PreInit API to have CDO command handler
+*                       initialization, removed unused header file
 *
 * </pre>
 *
@@ -31,8 +33,9 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+
 #include "xplm_sem_init.h"
-#include "xplmi_scheduler.h"
+
 #ifdef XPLM_SEM
 #include "xilsem.h"
 
@@ -65,6 +68,22 @@ int XPlm_SemInit(void *Arg)
 	(void)Arg;
 
 	Status = XSem_Init();
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief 	It calls the XilSEM Init API to registers CDO loader commands
+*
+* @return	Status as defined in xplmi_status.h
+*
+*****************************************************************************/
+int XPlm_SemPreInit(void)
+{
+	int Status = XST_FAILURE;
+
+	Status = XSem_PreInit();
 
 	return Status;
 }

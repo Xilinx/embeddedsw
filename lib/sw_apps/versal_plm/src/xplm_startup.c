@@ -22,6 +22,7 @@
 *                       functionality
 *       kc   03/23/2020 Minor code cleanup
 * 1.03  bm   01/08/2021 Updated PmcCdo hook function name
+* 1.04  rb   02/02/2021 Added XPLM_SEM macro to SEM header file
 *
 * </pre>
 *
@@ -34,7 +35,9 @@
 #include "xplm_pm.h"
 #include "xplm_module.h"
 #include "xplm_loader.h"
+#ifdef XPLM_SEM
 #include "xplm_sem_init.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
