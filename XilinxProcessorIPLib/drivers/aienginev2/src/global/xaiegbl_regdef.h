@@ -158,12 +158,30 @@ typedef struct {
 } XAie_StrmSwPortMap;
 
 /*
+ * This typedef captures the register fields required to configure stream switch
+ * deterministic merge registers
+ */
+typedef struct {
+	u8 NumArbitors;
+	u8 NumPositions;
+	u32 ArbConfigOffset;
+	u32 ConfigBase;
+	u32 EnableBase;
+	XAie_RegFldAttr SlvId0;
+	XAie_RegFldAttr SlvId1;
+	XAie_RegFldAttr PktCount0;
+	XAie_RegFldAttr PktCount1;
+	XAie_RegFldAttr Enable;
+} XAie_StrmSwDetMerge;
+
+/*
  * This typedef contains the attributes for Stream Switch Module
  */
 typedef struct {
 	u8 NumSlaveSlots;
 	u8 MaxMasterPhyPortId;
 	u8 MaxSlavePhyPortId;
+	u8 DetMergeFeature;
 	u32 SlvConfigBaseAddr;
 	u32 MstrConfigBaseAddr;
 	u32 PortOffset;		  /**< Offset between ports */
@@ -185,6 +203,7 @@ typedef struct {
 	const XAie_StrmPort *SlvSlotConfig;
 	const XAie_StrmSwPortMap *MasterPortMap;
 	const XAie_StrmSwPortMap *SlavePortMap;
+	const XAie_StrmSwDetMerge *DetMerge;
 
 	AieRC (*PortVerify)(StrmSwPortType Slave, u8 SlvPortNum,
 			StrmSwPortType Master, u8 MstrPortNum);
