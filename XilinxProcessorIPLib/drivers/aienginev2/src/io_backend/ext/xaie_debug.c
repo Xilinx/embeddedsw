@@ -22,7 +22,9 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
+#ifdef __linux__
 #include <pthread.h>
+#endif
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -462,7 +464,11 @@ static AieRC XAie_DebugMemDetach(XAie_MemInst *MemInst)
 
 static u64 XAie_DebugGetTid(void)
 {
+#ifdef __linux__
 	return (u64)pthread_self();
+#else
+	return 0;
+#endif
 }
 
 const XAie_Backend DebugBackend =
