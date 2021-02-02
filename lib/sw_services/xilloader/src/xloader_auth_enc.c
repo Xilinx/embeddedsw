@@ -24,6 +24,7 @@
 *                     bounds of ppk offset in XLoader_CheckNonZeroPpk
 *       har  01/19/21 Added support for P521 KAT
 *       kpt  01/21/21 Added check to verify revoke id before enabling Auth Jtag
+*       har  02/01/21 Added check for metaheader encryption source
 *
 * </pre>
 *
@@ -282,6 +283,7 @@ int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 	volatile u32 ReadRegTmp = 0x0U;
 	const XilPdi_BootHdr *BootHdr = &SecurePtr->PdiPtr->MetaHdr.BootHdr;
 	u32 IsBhdrAuth = XilPdi_IsBhdrAuthEnable(BootHdr);
+	u32 MetaHeaderKeySrc = SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl.EncKeySrc;
 
 	XPlmi_Printf(DEBUG_INFO,
 		"Performing security checks \n\r");
@@ -384,6 +386,20 @@ int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 		/* Header encryption is not compulsory */
 		XPlmi_Printf(DEBUG_DETAILED, "Encryption is not enabled\n\r");
 	}
+
+	/* Metaheader encryption key source for FPDI/PPDI should be same as
+	 * PLM Key source in Bootheader
+	 */
+	if ((SecurePtr->IsEncrypted == (u8)TRUE) &&
+		(SecurePtr->IsEncryptedTmp == (u8)TRUE) &&
+		(MetaHeaderKeySrc != XilPdi_GetPlmKeySrc())) {
+			XPlmi_Printf(DEBUG_INFO, "Metaheader Key Source does not"
+			" match PLM Key Source\n\r");
+			Status = XPlmi_UpdateStatus(
+				XLOADER_ERR_METAHDR_KEYSRC_MISMATCH, 0);
+			goto END;
+	}
+
 END:
 	return Status;
 }
