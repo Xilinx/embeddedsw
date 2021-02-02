@@ -25,6 +25,7 @@
 * 1.04  ma   01/12/2021 Directly call module init function instead of calling
 *                       in for-loop
 *                       Remove unused Status variable in XPlm_ErrInit
+* 1.05  rb   01/28/2021 Added Sem PreInit API call
 *
 * </pre>
 *
@@ -41,7 +42,9 @@
 #include "xplmi_err.h"
 #include "xplm_loader.h"
 #include "xplm_pm.h"
-
+#ifdef XPLM_SEM
+#include "xplm_sem_init.h"
+#endif
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -164,6 +167,12 @@ int XPlm_ModuleInit(void *Arg)
 
 #ifdef PLM_ENABLE_STL
 	Status = XPlm_StlInit();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+#endif
+#ifdef XPLM_SEM
+	Status = XPlm_SemPreInit();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
