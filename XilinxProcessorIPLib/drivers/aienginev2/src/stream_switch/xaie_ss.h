@@ -72,5 +72,12 @@ AieRC XAie_StrmSwLogicalToPhysicalPort(XAie_DevInst *DevInst, XAie_LocType Loc,
 AieRC XAie_StrmSwPhysicalToLogicalPort(XAie_DevInst *DevInst, XAie_LocType Loc,
 		XAie_StrmPortIntf Port, u8 PhyPortId, StrmSwPortType *PortType,
 		u8 *PortNum);
+AieRC XAie_StrmSwDeterministicMergeConfig(XAie_DevInst *DevInst,
+		XAie_LocType Loc, u8 Arbitor, StrmSwPortType Slave, u8 PortNum,
+		u8 PktCount, u8 Position);
+AieRC XAie_StrmSwDeterministicMergeEnable(XAie_DevInst *DevInst,
+		XAie_LocType Loc, u8 Arbitor);
+AieRC XAie_StrmSwDeterministicMergeDisable(XAie_DevInst *DevInst,
+		XAie_LocType Loc, u8 Arbitor);
 
 #endif		/* end of protection macro */
