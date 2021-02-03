@@ -75,6 +75,8 @@ static void XV_HdmiRxSs1_FrlLts2Callback(void *CallbackRef);
 static void XV_HdmiRxSs1_FrlLts3Callback(void *CallbackRef);
 static void XV_HdmiRxSs1_FrlLts4Callback(void *CallbackRef);
 static void XV_HdmiRxSs1_FrlLtsPCallback(void *CallbackRef);
+static void XV_HdmiRxSs1_VfpChanged(void *CallbackRef);
+static void XV_HdmiRxSs1_VrrReady(void *CallbackRef);
 
 static void XV_HdmiRxSs1_ConfigBridgeMode(XV_HdmiRxSs1 *InstancePtr);
 
@@ -412,6 +414,16 @@ static int XV_HdmiRxSs1_RegisterSubsysCallbacks(XV_HdmiRxSs1 *InstancePtr)
     XV_HdmiRx1_SetCallback(HdmiRxSs1Ptr->HdmiRx1Ptr,
 			  XV_HDMIRX1_HANDLER_FRL_LTSP,
 			  (void *)XV_HdmiRxSs1_FrlLtsPCallback,
+			  (void *)InstancePtr);
+
+    XV_HdmiRx1_SetCallback(HdmiRxSs1Ptr->HdmiRx1Ptr,
+			  XV_HDMIRX1_HANDLER_VFP_CHANGE,
+			  (void *)XV_HdmiRxSs1_VfpChanged,
+			  (void *)InstancePtr);
+
+    XV_HdmiRx1_SetCallback(HdmiRxSs1Ptr->HdmiRx1Ptr,
+			  XV_HDMIRX1_HANDLER_VRR_RDY,
+			  (void *)XV_HdmiRxSs1_VrrReady,
 			  (void *)InstancePtr);
   }
 
@@ -1258,12 +1270,16 @@ static void XV_HdmiRxSs1_StreamDownCallback(void *CallbackRef)
 {
   XV_HdmiRxSs1 *HdmiRxSs1Ptr = (XV_HdmiRxSs1 *)CallbackRef;
   XHdmiC_AVI_InfoFrame *AviInfoFramePtr;
+  XV_HdmiC_VideoTimingExtMeta *ExtMetaPtr;
+  XV_HdmiC_SrcProdDescIF *SpdIfPtr;
+  XVidC_VideoStream *VidCStream;
 
   if (HdmiRxSs1Ptr->HdmiRx1Ptr->Stream.IsFrl != TRUE) {
 	  /* Assert HDMI RX core resets */
 	  XV_HdmiRxSs1_RXCore_VRST(HdmiRxSs1Ptr, TRUE);
 	  XV_HdmiRxSs1_RXCore_LRST(HdmiRxSs1Ptr, TRUE);
   }
+  HdmiRxSs1Ptr->HdmiRx1Ptr->IsFirstVtemReceived = FALSE;
 
   /* Assert SYSCLK VID_IN bridge reset */
   XV_HdmiRxSs1_SYSRST(HdmiRxSs1Ptr, TRUE);
@@ -1273,6 +1289,17 @@ static void XV_HdmiRxSs1_StreamDownCallback(void *CallbackRef)
 
   AviInfoFramePtr = XV_HdmiRxSs1_GetAviInfoframe(HdmiRxSs1Ptr);
   memset((void *)AviInfoFramePtr, 0, sizeof(XHdmiC_AVI_InfoFrame));
+
+  XV_HdmiRx1_SetVrrIfType(HdmiRxSs1Ptr->HdmiRx1Ptr,
+		  XV_HDMIC_VRRINFO_TYPE_NONE);
+  ExtMetaPtr = XV_HdmiRx1_GetVidTimingExtMeta(HdmiRxSs1Ptr->HdmiRx1Ptr);
+  memset((void *)ExtMetaPtr, 0, sizeof(XV_HdmiC_VideoTimingExtMeta));
+
+  SpdIfPtr = XV_HdmiRx1_GetSrcProdDescIF(HdmiRxSs1Ptr->HdmiRx1Ptr);
+  memset((void *)SpdIfPtr, 0, sizeof(XV_HdmiC_SrcProdDescIF));
+
+  VidCStream = XV_HdmiRxSs1_GetVideoStream(HdmiRxSs1Ptr);
+  memset(&(VidCStream->BaseTiming), 0, sizeof(XVidC_VideoTiming));
 
 #ifdef XV_HDMIRXSS1_LOG_ENABLE
   XV_HdmiRxSs1_LogWrite(HdmiRxSs1Ptr, XV_HDMIRXSS1_LOG_EVT_STREAMDOWN, 0);
@@ -1653,6 +1680,22 @@ int XV_HdmiRxSs1_SetCallback(XV_HdmiRxSs1 *InstancePtr,
                                     (void *)CallbackRef);
             }
 #endif
+            Status = (XST_SUCCESS);
+            break;
+
+	/* Vfp Change */
+	case (XV_HDMIRXSS1_HANDLER_VFP_CH):
+            InstancePtr->VfpChangeCallback =
+			    (XV_HdmiRxSs1_Callback)CallbackFunc;
+            InstancePtr->VfpChangeRef = CallbackRef;
+            Status = (XST_SUCCESS);
+            break;
+
+	/* VRR ready */
+	case (XV_HDMIRXSS1_HANDLER_VRR_RDY):
+            InstancePtr->VrrRdyCallback =
+			    (XV_HdmiRxSs1_Callback)CallbackFunc;
+            InstancePtr->VrrRdyRef = CallbackRef;
             Status = (XST_SUCCESS);
             break;
 
@@ -2588,6 +2631,40 @@ void XV_HdmiRxSs1_AudioMute(XV_HdmiRxSs1 *InstancePtr, u8 Enable)
 /*****************************************************************************/
 /**
 *
+* This function controls HDMI RX VFP event enable/disable
+*
+* @param  Enable 0: disable VFP event 1: enable VFP event.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void XV_HdmiRxSs1_VfpControl(XV_HdmiRxSs1 *InstancePtr, u8 Enable)
+{
+	XV_HdmiRx1_VtdVfpEvent(InstancePtr->HdmiRx1Ptr, Enable);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function returns VRR infoframe type
+*
+* @param    InstancePtr is a pointer to the XV_HdmiRxSs1 instance.
+*
+* @return XV_HdmiRx1_VrrInfoframeType
+*
+* @note   None.
+*
+******************************************************************************/
+XV_HdmiC_VrrInfoFrame *XV_HdmiRxSs1_GetVrrIf(XV_HdmiRxSs1 *InstancePtr)
+{
+	return &(InstancePtr->HdmiRx1Ptr->VrrIF);
+}
+
+/*****************************************************************************/
+/**
+*
 * This function returns core ppc value
 *
 * @param  InstancePtr pointer to XV_HdmiRXSs instance
@@ -2656,4 +2733,22 @@ static void XV_HdmiRxSs1_FrlLtsPCallback(void *CallbackRef)
 #ifdef XV_HDMIRXSS1_LOG_ENABLE
 	XV_HdmiRxSs1_LogWrite(HdmiRxSs1Ptr, XV_HDMIRXSS1_LOG_EVT_FRL_LTSP, 0);
 #endif
+}
+
+static void XV_HdmiRxSs1_VfpChanged(void *CallbackRef)
+{
+	XV_HdmiRxSs1 *HdmiRxSs1Ptr = (XV_HdmiRxSs1 *)CallbackRef;
+
+	if (HdmiRxSs1Ptr->VfpChangeCallback)
+		HdmiRxSs1Ptr->VfpChangeCallback(HdmiRxSs1Ptr->VfpChangeRef);
+}
+
+static void XV_HdmiRxSs1_VrrReady(void *CallbackRef)
+{
+	XV_HdmiRxSs1 *HdmiRxSs1Ptr = (XV_HdmiRxSs1 *)CallbackRef;
+#ifdef XV_HDMIRXSS1_LOG_ENABLE
+	XV_HdmiRxSs1_LogWrite(HdmiRxSs1Ptr, XV_HDMIRXSS1_LOG_EVT_VRR_RDY, 0);
+#endif
+	if (HdmiRxSs1Ptr->VrrRdyCallback)
+		HdmiRxSs1Ptr->VrrRdyCallback(HdmiRxSs1Ptr->VrrRdyRef);
 }

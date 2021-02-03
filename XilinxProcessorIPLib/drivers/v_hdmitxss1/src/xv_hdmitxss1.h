@@ -442,6 +442,11 @@ typedef struct
 	XHdmiC_AudioInfoFrame AudioInfoframe;	/**< Audio InfoFrame */
 	XHdmiC_VSIF VSIF;						/**< Vendor Specific InfoFrame */
 
+    u8 VrrEnabled;	/* VRR set by user */
+    u8 FvaFactor;	/* FVA factor set by user */
+    u8 CnmvrrEnabled;	/* Cnmvrr enabled by user */
+    u8 VrrMode;
+
     XV_HdmiTxSs1_HdcpProtocol    HdcpProtocol;    /**< HDCP protocol selected */
 #ifdef USE_HDCP_TX
     /**< HDCP specific */
@@ -548,6 +553,16 @@ u8 XV_HdmiTxSs1_IsSinkHdcp22Capable(XV_HdmiTxSs1 *InstancePtr);
 void XV_HdmiTxSs1_SetDefaultPpc(XV_HdmiTxSs1 *InstancePtr, u8 Id);
 void XV_HdmiTxSs1_SetPpc(XV_HdmiTxSs1 *InstancePtr, u8 Id, u8 Ppc);
 XVidC_PixelsPerClock XV_HdmiTxSS1_GetCorePpc(XV_HdmiTxSs1 *InstancePtr);
+void XV_HdmiTxSs1_VrrControl(XV_HdmiTxSs1 *InstancePtr, u8 Enable);
+void XV_HdmiTxSs1_FSyncControl(XV_HdmiTxSs1 *InstancePtr, u8 Enable);
+
+void XV_HdmiTxSS1_SetVrrMode(XV_HdmiTxSs1 *InstancePtr,
+			u8 mode, u8 VrrEn, u8 FvaFactor, u8 CnmvrrEn);
+void XV_HdmiTxSS1_SetVrrVfpStretch(XV_HdmiTxSs1 *InstancePtr,
+					u16 StretchValue);
+void XV_HdmiTxSS1_DisableVrr(XV_HdmiTxSs1 *InstancePtr);
+void XV_HdmiTxSs1_SetVrrIf(XV_HdmiTxSs1 *InstancePtr,
+			XV_HdmiC_VrrInfoFrame *VrrIF);
 
 #ifdef XV_HDMITXSS1_LOG_ENABLE
 void XV_HdmiTxSs1_LogReset(XV_HdmiTxSs1 *InstancePtr);

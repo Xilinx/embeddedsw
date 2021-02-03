@@ -27,7 +27,7 @@
 #include "string.h"
 
 #define ANSI_COLOR_YELLOW  "\x1b[33m"
-
+#define ANSI_COLOR_RESET   "\x1b[0m"
 /************************** Constant Definitions *****************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -252,6 +252,7 @@ int XV_HdmiRx1_CfgInitialize(XV_HdmiRx1 *InstancePtr, XV_HdmiRx1_Config *CfgPtr,
 
 	/* Enable AUX peripheral interrupt */
 	XV_HdmiRx1_AuxIntrEnable(InstancePtr);
+	XV_HdmiRx1_AuxFSyncVrrChEvtEnable(InstancePtr);
 
 	/*
 	Audio peripheral
@@ -387,6 +388,9 @@ void XV_HdmiRx1_Clear(XV_HdmiRx1 *InstancePtr)
 	InstancePtr->AudCts = 0;
 	InstancePtr->AudN = 0;
 	InstancePtr->AudFormat = 0;
+
+	InstancePtr->IsErrorPrintCount = 0;
+	InstancePtr->IsFirstVtemReceived = FALSE;
 
 	/* Call stream down callback*/
 	if (InstancePtr->StreamDownCallback) {
@@ -1894,6 +1898,17 @@ int XV_HdmiRx1_GetVideoTiming(XV_HdmiRx1 *InstancePtr)
 	u8 Match;
 	u8 YUV420_Correction;
 	u8 IsInterlaced;
+	u8 VrrActive;
+
+
+	if ((InstancePtr->VrrIF.VrrIfType == XV_HDMIC_VRRINFO_TYPE_VTEM) &&
+			(InstancePtr->VrrIF.VidTimingExtMeta.VRREnabled)) {
+		VrrActive = TRUE;
+	} else if ((InstancePtr->VrrIF.VrrIfType == XV_HDMIC_VRRINFO_TYPE_SPDIF) &&
+			(InstancePtr->VrrIF.SrcProdDescIF.FreeSync.FreeSyncActive)) {
+		VrrActive = TRUE;
+	} else
+		VrrActive = FALSE;
 
 	/* If the colorspace is YUV420, then the
 	 * horizontal parameters must be doubled*/
@@ -2026,7 +2041,8 @@ int XV_HdmiRx1_GetVideoTiming(XV_HdmiRx1 *InstancePtr)
 
 	/* F0PVTotal*/
 	if (F0PVTotal != InstancePtr->Stream.Video.Timing.F0PVTotal) {
-		Match = FALSE;
+		if (!VrrActive)
+			Match = FALSE;
 	}
 
 	/* F1VTotal*/
@@ -2051,7 +2067,8 @@ int XV_HdmiRx1_GetVideoTiming(XV_HdmiRx1 *InstancePtr)
 
 	/* F0PVFrontPorch*/
 	if (F0PVFrontPorch != InstancePtr->Stream.Video.Timing.F0PVFrontPorch) {
-		Match = FALSE;
+		if (!VrrActive)
+			Match = FALSE;
 	}
 
 	/* F1VFrontPorch*/
@@ -2075,7 +2092,8 @@ int XV_HdmiRx1_GetVideoTiming(XV_HdmiRx1 *InstancePtr)
 
 	if (F0PVTotal !=
 	    (VActive + F0PVFrontPorch + F0PVSyncWidth + F0PVBackPorch)) {
-		Match = FALSE;
+		if (!VrrActive)
+			Match = FALSE;
 	}
 
 	if (IsInterlaced == 1) {
@@ -2423,4 +2441,142 @@ static void StubCallback(void *CallbackRef)
 {
 	Xil_AssertVoid(CallbackRef != NULL);
 	/* Xil_AssertVoidAlways(); */
+}
+
+XV_HdmiC_VideoTimingExtMeta *XV_HdmiRx1_GetVidTimingExtMeta(
+		XV_HdmiRx1 *InstancePtr)
+{
+	return &(InstancePtr->VrrIF.VidTimingExtMeta);
+}
+
+void XV_HdmiRx1_ParseVideoTimingExtMetaIF(XV_HdmiRx1 *InstancePtr)
+{
+	XV_HdmiC_VideoTimingExtMeta *ExtMeta;
+	u32 Data;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	ExtMeta = XV_HdmiRx1_GetVidTimingExtMeta(InstancePtr);
+	Data = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+					XV_HDMIRX1_AUX_VTEM_OFFSET);
+
+	ExtMeta->VRREnabled = Data & XV_HDMIRX1_AUX_VTEM_VRR_EN_MASK;
+	ExtMeta->MConstEnabled = (Data & XV_HDMIRX1_AUX_VTEM_M_CONST_MASK) >>
+					XV_HDMIRX1_AUX_VTEM_M_CONST_SHIFT;
+	ExtMeta->FVAFactorMinus1 = (Data & XV_HDMIRX1_AUX_VTEM_FVA_FACT_M1_MASK) >>
+					XV_HDMIRX1_AUX_VTEM_FVA_FACT_M1_SHIFT;
+	ExtMeta->BaseVFront = (Data & XV_HDMIRX1_AUX_VTEM_BASE_VFRONT_MASK) >>
+					XV_HDMIRX1_AUX_VTEM_BASE_VFRONT_SHIFT;
+	ExtMeta->BaseRefreshRate = (Data &
+			XV_HDMIRX1_AUX_VTEM_BASE_REFRESH_RATE_MASK) >>
+			XV_HDMIRX1_AUX_VTEM_BASE_REFRESH_RATE_SHIFT;
+	ExtMeta->RBEnabled = (Data & XV_HDMIRX1_AUX_VTEM_RB_MASK) >>
+				XV_HDMIRX1_AUX_VTEM_RB_SHIFT;
+}
+
+XV_HdmiC_SrcProdDescIF *XV_HdmiRx1_GetSrcProdDescIF(
+		XV_HdmiRx1 *InstancePtr)
+{
+	return &(InstancePtr->VrrIF.SrcProdDescIF);
+}
+
+void XV_HdmiRx1_ParseSrcProdDescInfoframe(XV_HdmiRx1 *InstancePtr)
+{
+	XV_HdmiC_SrcProdDescIF *SpdIfPtr;
+	XV_HdmiC_FreeSync *FreeSyncPtr;
+	XV_HdmiC_FreeSyncPro *FreeSyncProPtr;
+	u32 FsyncData, FsyncProData;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	SpdIfPtr = XV_HdmiRx1_GetSrcProdDescIF(InstancePtr);
+	FreeSyncPtr = &SpdIfPtr->FreeSync;
+	FreeSyncProPtr = &SpdIfPtr->FreeSyncPro;
+
+	FsyncData = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+				XV_HDMIRX1_AUX_FSYNC_OFFSET);
+
+	FreeSyncPtr->Version = FsyncData & XV_HDMIRX1_AUX_FSYNC_VERSION_MASK;
+	FreeSyncPtr->FreeSyncSupported = (FsyncData &
+				XV_HDMIRX1_AUX_FSYNC_SUPPORT_MASK) >>
+				XV_HDMIRX1_AUX_FSYNC_SUPPORT_SHIFT;
+	FreeSyncPtr->FreeSyncEnabled = (FsyncData &
+				XV_HDMIRX1_AUX_FSYNC_ENABLED_MASK) >>
+				XV_HDMIRX1_AUX_FSYNC_ENABLED_SHIFT;
+	FreeSyncPtr->FreeSyncActive = (FsyncData &
+				XV_HDMIRX1_AUX_FSYNC_ACTIVE_MASK) >>
+				XV_HDMIRX1_AUX_FSYNC_ACTIVE_SHIFT;
+	FreeSyncPtr->FreeSyncMinRefreshRate = (FsyncData &
+				XV_HDMIRX1_AUX_FSYNC_MIN_REF_RATE_MASK) >>
+				XV_HDMIRX1_AUX_FSYNC_MIN_REF_RATE_SHIFT;
+	FreeSyncPtr->FreeSyncMaxRefreshRate = (FsyncData &
+				XV_HDMIRX1_AUX_FSYNC_MAX_REF_RATE_MASK) >>
+				XV_HDMIRX1_AUX_FSYNC_MAX_REF_RATE_SHIFT;
+
+	if (FreeSyncPtr->Version == 2) {
+		FsyncProData = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+					XV_HDMIRX1_AUX_FSYNC_PRO_OF);
+		FreeSyncProPtr->NativeColorSpaceActive = (FsyncData &
+				XV_HDMIRX1_AUX_FSYNC_PRO_NTV_CS_ACT_MASK) >>
+				XV_HDMIRX1_AUX_FSYNC_PRO_NTV_CS_ACT_SHIFT;
+		FreeSyncProPtr->BrightnessControlActive = (FsyncData &
+				XV_HDMIRX1_AUX_FSYNC_PRO_BRIGHT_CTRL_ACT_MASK) >>
+				XV_HDMIRX1_AUX_FSYNC_PRO_BRIGHT_CTRL_ACT_SHIFT;
+		FreeSyncProPtr->LocalDimControlActive = (FsyncData &
+				XV_HDMIRX1_AUX_FSYNC_PRO_LDIMM_CTRL_ACT_MASK) >>
+				XV_HDMIRX1_AUX_FSYNC_PRO_LDIMM_CTRL_ACT_SHIFT;
+		FreeSyncProPtr->sRGBEOTFActive = FsyncProData &
+				XV_HDMIRX1_AUX_FSYNC_PRO_SRGB_EOTF_MASK;
+		FreeSyncProPtr->BT709EOTFActive = (FsyncProData &
+				XV_HDMIRX1_AUX_FSYNC_PRO_BT709_EOTF_MASK) >>
+				XV_HDMIRX1_AUX_FSYNC_PRO_BT709_EOTF_SHIFT;
+		FreeSyncProPtr->Gamma22EOTFActive = (FsyncProData &
+				XV_HDMIRX1_AUX_FSYNC_PRO_GAMMA_2_2_EOTF_MASK) >>
+				XV_HDMIRX1_AUX_FSYNC_PRO_GAMMA_2_2_EOTF_SHIFT;
+		FreeSyncProPtr->Gamma26EOTFActive = (FsyncProData &
+				XV_HDMIRX1_AUX_FSYNC_PRO_GAMMA_2_6_EOTF_MASK) >>
+				XV_HDMIRX1_AUX_FSYNC_PRO_GAMMA_2_6_EOTF_SHIFT;
+		FreeSyncProPtr->PQEOTFActive = (FsyncProData &
+				XV_HDMIRX1_AUX_FSYNC_PRO_PQ_EOTF_MASK) >>
+				XV_HDMIRX1_AUX_FSYNC_PRO_PQ_EOTF_SHIFT;
+		FreeSyncProPtr->BrightnessControl = (FsyncProData &
+				XV_HDMIRX1_AUX_FSYNC_PRO_BRIGHT_CTRL_MASK) >>
+				XV_HDMIRX1_AUX_FSYNC_PRO_BRIGHT_CTRL_SHIFT;
+	}
+}
+
+/*****************************************************************************/
+/**
+*
+* This function returns VRR infoframe type
+*
+* @param    InstancePtr is a pointer to the XHdmiRx1 core instance.
+*
+* @return XV_HdmiRx1_VrrInfoframeType
+*
+* @note   None.
+*
+******************************************************************************/
+XV_HdmiC_VrrInfoframeType XV_HdmiRx1_GetVrrIfType(XV_HdmiRx1 *InstancePtr)
+{
+	return InstancePtr->VrrIF.VrrIfType;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function Sets VRR infoframe type
+*
+* @param    InstancePtr is a pointer to the XHdmiRx1 core instance.
+* @param    Type of type XV_HdmiRx1_VrrInfoframeType
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void XV_HdmiRx1_SetVrrIfType(XV_HdmiRx1 *InstancePtr,
+		XV_HdmiC_VrrInfoframeType Type)
+{
+	InstancePtr->VrrIF.VrrIfType = Type;
 }

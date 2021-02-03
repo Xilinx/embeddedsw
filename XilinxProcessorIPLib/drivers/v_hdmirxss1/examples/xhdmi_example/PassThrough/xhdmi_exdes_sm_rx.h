@@ -146,6 +146,8 @@ typedef enum {
 	XV_RX_TRIG_HANDLER_HDCP_SET_CONTENTSTREAMTYPE,
 	XV_RX_TRIG_HANDLER_CLKSRC_CONFIG,
 	XV_RX_TRIG_HANDLER_CLKSRC_SEL,
+	XV_RX_TRIG_HANDLER_VRRVFPEVENT,
+	XV_RX_TRIG_HANDLER_VTEMEVENT,
 } XV_Rx_Trigger_CallbackHandler;
 
 typedef struct {
@@ -229,6 +231,10 @@ typedef struct {
 	void *RxClkSrcConfigCallbackRef;
 	XV_Rx_SM_Callback RxClkSrcSelCb;
 	void *RxClkSrcSelCallbackRef;
+	XV_Rx_SM_Callback RxVrrVfpCb;
+	void *RxVrrVfpCbRef;
+	XV_Rx_SM_Callback RxVtemCb;
+	void *RxVtemCbRef;
 #ifdef USE_HDCP_HDMI_RX
 	XV_Rx_SM_Callback HdcpSetContentStreamTypeCb;
 	void *HdcpSetContentStreamTypeCbRef;

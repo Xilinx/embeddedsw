@@ -172,7 +172,10 @@ typedef enum {
 	XV_HDMIRX1_HANDLER_FRL_LTS3,
 	XV_HDMIRX1_HANDLER_FRL_LTS4,
 	XV_HDMIRX1_HANDLER_FRL_LTSP,
-	XV_HDMIRX1_HANDLER_FRL_LTSL
+	XV_HDMIRX1_HANDLER_FRL_LTSL,
+	XV_HDMIRX1_HANDLER_VFP_CHANGE,		/**< Handler for VFP change
+						  * event */
+	XV_HDMIRX1_HANDLER_VRR_RDY,		/**<Handler for VRR rdy event */
 } XV_HdmiRx1_HandlerType;
 /*@}*/
 
@@ -389,6 +392,12 @@ typedef struct {
 	XV_HdmiRx1_Callback FrlLtsPCallback;		/**< Callback for sync loss callback */
 	void *FrlLtsPRef;				/**< To be passed to the link error callback */
 
+	XV_HdmiRx1_Callback VfpChangeCallback;		/**< Callback for VFP change callback */
+	void *VfpChangeRef;				/**< To be passed to the vfp change callback */
+
+	XV_HdmiRx1_Callback VrrRdyCallback;		/**< Callback for VRR ready callback */
+	void *VrrRdyRef;				/**< To be passed to the VRR ready callback */
+
 	/* HDMI RX stream */
 	XV_HdmiRx1_Stream Stream;			/**< HDMI RX stream information */
 
@@ -400,7 +409,11 @@ typedef struct {
 	u32 AudN;					/**< Audio N element */
 	XV_HdmiRx1_AudioFormatType AudFormat;		/**< Audio Format */
 
+	XV_HdmiC_VrrInfoFrame VrrIF;			/**< VRR infoframe SPDIF or VTEM */
+
+	u8 IsFirstVtemReceived;
 	u8  DBMessage;					/**< Debug Message for Logs */
+	u16  IsErrorPrintCount;      /**< Error Print is completed */
 } XV_HdmiRx1;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -1274,6 +1287,35 @@ typedef struct {
 /*****************************************************************************/
 /**
 *
+* This macro allow control to enable/disable the HDMI RX VFP event.
+*
+* @param	InstancePtr is a pointer to the XV_HdmiRx1 core instance.
+* @param	SetClr specifies TRUE/FALSE value to either enable or disable
+* 		the VFP Event
+*
+* @return	None.
+*
+* @note		C-style signature:
+*		void XV_HdmiRx1_VtdVfpEvent(XV_HdmiRx1 *InstancePtr, u8 SetClr)
+*
+******************************************************************************/
+#define XV_HdmiRx1_VtdVfpEvent(InstancePtr, SetClr) \
+{ \
+	if (SetClr) { \
+		XV_HdmiRx1_WriteReg((InstancePtr)->Config.BaseAddress, \
+				    (XV_HDMIRX1_VTD_CTRL_SET_OFFSET), \
+				    (XV_HDMIRX1_VTD_CTRL_VFP_ENABLE_MASK)); \
+	} \
+	else { \
+		XV_HdmiRx1_WriteReg((InstancePtr)->Config.BaseAddress, \
+				    (XV_HDMIRX1_VTD_CTRL_CLR_OFFSET), \
+				    (XV_HDMIRX1_VTD_CTRL_VFP_ENABLE_MASK)); \
+	} \
+}
+
+/*****************************************************************************/
+/**
+*
 * This macro sets the timebase in the HDMI RX Timing Detector peripheral.
 *
 * @param	InstancePtr is a pointer to the XV_HdmiRx1 core instance.
@@ -1536,6 +1578,44 @@ typedef struct {
 	XV_HdmiRx1_WriteReg((InstancePtr)->Config.BaseAddress, \
 			    (XV_HDMIRX1_AUX_CTRL_CLR_OFFSET), \
 			    (XV_HDMIRX1_AUX_CTRL_IE_MASK))
+
+/*****************************************************************************/
+/**
+*
+* This macro enables FSync/VRR event interrupt in the HDMI RX Auxiliary
+* (AUX) peripheral.
+*
+* @param	InstancePtr is a pointer to the XV_HdmiRx1 core instance.
+*
+* @return	None.
+*
+* @note		C-style signature:
+*		void XV_HdmiRx1_AuxFSyncVrrChEvtEnable(XV_HdmiRx1 *InstancePtr)
+*
+******************************************************************************/
+#define XV_HdmiRx1_AuxFSyncVrrChEvtEnable(InstancePtr) \
+	XV_HdmiRx1_WriteReg((InstancePtr)->Config.BaseAddress, \
+			    (XV_HDMIRX1_AUX_CTRL_SET_OFFSET), \
+			    (XV_HDMIRX1_AUX_CTRL_FSYNC_VRR_CH_EVT_MASK))
+
+/*****************************************************************************/
+/**
+*
+* This macro disables FSync/VRR event interrupt in the HDMI RX Auxiliary
+* (AUX) peripheral.
+*
+* @param	InstancePtr is a pointer to the XV_HdmiRx1 core instance.
+*
+* @return	None.
+*
+* @note		C-style signature:
+*		void XV_HdmiRx1_AuxFSyncVrrChEvtDisable(XV_HdmiRx1 *InstancePtr)
+*
+******************************************************************************/
+#define XV_HdmiRx1_AuxFSyncVrrChEvtDisable(InstancePtr) \
+	XV_HdmiRx1_WriteReg((InstancePtr)->Config.BaseAddress, \
+			    (XV_HDMIRX1_AUX_CTRL_CLR_OFFSET), \
+			    (XV_HDMIRX1_AUX_CTRL_FSYNC_VRR_CH_EVT_MASK))
 
 /*****************************************************************************/
 /**
@@ -1832,6 +1912,8 @@ void XV_HdmiRx1_UpdateEdFlags(XV_HdmiRx1 *InstancePtr);
 void XV_HdmiRx1_TmrStartMs(XV_HdmiRx1 *InstancePtr, u32 Milliseconds,
 		u8 TimerSelect);
 XVidC_VideoMode XV_HdmiRx1_LookupVmId(u8 Vic);
+void XV_HdmiRx1_ParseSrcProdDescInfoframe(XV_HdmiRx1 *InstancePtr);
+void XV_HdmiRx1_ParseVideoTimingExtMetaIF(XV_HdmiRx1 *InstancePtr);
 
 /* Fixed Rate Link */
 void XV_HdmiRx1_FrlModeEnable(XV_HdmiRx1 *InstancePtr, u8 LtpThreshold,
@@ -1881,6 +1963,13 @@ int XV_HdmiRx1_SetCallback(XV_HdmiRx1 *InstancePtr,
 		void *CallbackFunc,
 		void *CallbackRef);
 
+XV_HdmiC_VideoTimingExtMeta *XV_HdmiRx1_GetVidTimingExtMeta(
+				XV_HdmiRx1 *InstancePtr);
+XV_HdmiC_SrcProdDescIF *XV_HdmiRx1_GetSrcProdDescIF(
+			XV_HdmiRx1 *InstancePtr);
+XV_HdmiC_VrrInfoframeType XV_HdmiRx1_GetVrrIfType(XV_HdmiRx1 *InstancePtr);
+void XV_HdmiRx1_SetVrrIfType(XV_HdmiRx1 *InstancePtr,
+		XV_HdmiC_VrrInfoframeType Type);
 /************************** Variable Declarations ****************************/
 /************************** Variable Declarations ****************************/
 

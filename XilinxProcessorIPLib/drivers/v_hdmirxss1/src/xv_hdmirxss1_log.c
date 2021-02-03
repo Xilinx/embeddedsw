@@ -314,6 +314,9 @@ void XV_HdmiRxSs1_LogDisplay(XV_HdmiRxSs1 *InstancePtr)
 	case (XV_HDMIRXSS1_LOG_EVT_FRL_START):
 		xil_printf("FRL LTS:P (FRL Start)");
 		break;
+	case (XV_HDMIRXSS1_LOG_EVT_VRR_RDY):
+		xil_printf("VRR Ready event)");
+		break;
         default:
             xil_printf("Unknown event");
             break;

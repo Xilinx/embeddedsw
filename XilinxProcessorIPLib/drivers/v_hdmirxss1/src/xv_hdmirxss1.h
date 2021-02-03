@@ -115,6 +115,7 @@ typedef enum {
 	XV_HDMIRXSS1_LOG_EVT_FRL_LTSP,
 	XV_HDMIRXSS1_LOG_EVT_FRL_LTSL,
 	XV_HDMIRXSS1_LOG_EVT_FRL_START,
+	XV_HDMIRXSS1_LOG_EVT_VRR_RDY,
 	XV_HDMIRXSS1_LOG_EVT_DUMMY               /**< Dummy Event should be last */
 } XV_HdmiRxSs1_LogEvent;
 
@@ -251,8 +252,13 @@ typedef enum {
   XV_HDMIRXSS1_HANDLER_TMDS_CLK_RATIO,               /**< Handler type for
                                                          TMDS clock ratio
                                                          change */
-  XV_HDMIRXSS1_HANDLER_VIC_ERROR                      /**< Handler type for
+  XV_HDMIRXSS1_HANDLER_VIC_ERROR,                    /**< Handler type for
                                                          VIC error change */
+
+  XV_HDMIRXSS1_HANDLER_VFP_CH,                       /**< Handler type for VFP
+						       change */
+  XV_HDMIRXSS1_HANDLER_VRR_RDY,                      /**< Handler type for VRR
+						       ready */
 } XV_HdmiRxSs1_HandlerType;
 /*@}*/
 
@@ -419,6 +425,12 @@ typedef struct
   XV_HdmiRxSs1_Callback FrlLtsPCallback; /**< Callback for FRL LTS:P */
   void *FrlLtsPRef;  /**< To be passed to FRL LTS:P callback */
 
+  XV_HdmiRxSs1_Callback VfpChangeCallback; /**< Callback for vfp change event */
+  void *VfpChangeRef;  /**< To be passed to vfp change event callback */
+
+  XV_HdmiRxSs1_Callback VrrRdyCallback; /**< Callback for Vrr Ready event */
+  void *VrrRdyRef;  /**< To be passed to Vrr Ready event callback */
+
   /* Scratch pad*/
   u8 IsStreamConnected;         /**< HDMI RX Stream Connected */
   u8 IsStreamUp;                /**< HDMI RX Stream Up */
@@ -521,6 +533,8 @@ void XV_HdmiRxSs1_SetDefaultPpc(XV_HdmiRxSs1 *InstancePtr, u8 Id);
 void XV_HdmiRxSs1_SetPpc(XV_HdmiRxSs1 *InstancePtr, u8 Id, u8 Ppc);
 XVidC_PixelsPerClock XV_HdmiRxSs1_GetCorePpc(XV_HdmiRxSs1 *InstancePtr);
 void XV_HdmiRxSs1_AudioMute(XV_HdmiRxSs1 *InstancePtr, u8 Enable);
+void XV_HdmiRxSs1_VfpControl(XV_HdmiRxSs1 *InstancePtr, u8 Enable);
+XV_HdmiC_VrrInfoFrame *XV_HdmiRxSs1_GetVrrIf(XV_HdmiRxSs1 *InstancePtr);
 
 void XV_HdmiRxSs1_ReportCoreInfo(XV_HdmiRxSs1 *InstancePtr);
 void XV_HdmiRxSs1_DebugInfo(XV_HdmiRxSs1 *InstancePtr);
