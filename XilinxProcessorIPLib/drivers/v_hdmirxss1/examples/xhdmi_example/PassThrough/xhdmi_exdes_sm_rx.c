@@ -77,6 +77,8 @@ static void XV_Rx_HdmiRx_PhyReset_Cb(void *CallbackRef);
 static void XV_Rx_HdmiRx_FrlConfig_Cb(void *CallbackRef);
 static void XV_Rx_HdmiRx_FrlStart_Cb(void *CallbackRef);
 static void XV_Rx_HdmiRx_TmdsConfig_Cb(void *CallbackRef);
+static void XV_Rx_HdmiRX_VrrVfp_Cb(void *CallbackRef);
+static void XV_Rx_HdmiRX_VtemPkt_Cb(void *CallbackRef);
 
 static void XV_Rx_HdmiRx_StateDisconnected(XV_Rx *InstancePtr,
 					XV_Rx_Hdmi_Events Event,
@@ -491,7 +493,7 @@ static u32 XV_Rx_HdmiRx_StreamInit_CfgMmcm(XV_Rx *InstancePtr)
 
 	XVidC_VideoStream *HdmiRxSsVidStreamPtr;
 	u32 Status = XST_SUCCESS;
-	XVidC_PixelsPerClock Ppc_core;
+	XVidC_PixelsPerClock CorePpc;
 	/* Calculate RX MMCM parameters
 	 * In the application the YUV422 colordepth is 12 bits
 	 * However the HDMI transports YUV422 in 8 bits.
@@ -500,17 +502,18 @@ static u32 XV_Rx_HdmiRx_StreamInit_CfgMmcm(XV_Rx *InstancePtr)
 	 */
 
 	HdmiRxSsVidStreamPtr = XV_HdmiRxSs1_GetVideoStream(InstancePtr->HdmiRxSs);
+	CorePpc =  XV_HdmiRxSs1_GetCorePpc(InstancePtr->HdmiRxSs);
 
 	/* An additonal check can be added here, to ensure that the input
 	 * for mmcm params are valid here.
 	 */
-	Ppc_core = XV_HdmiRxSs1_GetCorePpc(InstancePtr->HdmiRxSs);
+
 	if (HdmiRxSsVidStreamPtr->ColorFormatId == XVIDC_CSF_YCRCB_422) {
 		Status = XHdmiphy1_HdmiCfgCalcMmcmParam(&Hdmiphy1,
 	                                        0,
 	                                        XHDMIPHY1_CHANNEL_ID_CH1,
 	                                        XHDMIPHY1_DIR_RX,
-	                                        Ppc_core,
+											CorePpc,
 	                                        XVIDC_BPC_8);
 	}
 	/* Other colorspaces */
@@ -519,7 +522,7 @@ static u32 XV_Rx_HdmiRx_StreamInit_CfgMmcm(XV_Rx *InstancePtr)
 	                                        0,
 	                                        XHDMIPHY1_CHANNEL_ID_CH1,
 	                                        XHDMIPHY1_DIR_RX,
-	                                        Ppc_core,
+											CorePpc,
 	                                        HdmiRxSsVidStreamPtr->ColorDepth);
 	}
 
@@ -579,6 +582,16 @@ u32 XV_Rx_SetTriggerCallbacks(XV_Rx *InstancePtr,
 		InstancePtr->RxClkSrcSelCb = Callback;
 		InstancePtr->RxClkSrcSelCallbackRef = CallbackRef;
 		Status = XST_SUCCESS;
+		break;
+
+	case XV_RX_TRIG_HANDLER_VRRVFPEVENT:
+		InstancePtr->RxVrrVfpCb = Callback;
+		InstancePtr->RxVrrVfpCbRef = CallbackRef;
+		break;
+
+	case XV_RX_TRIG_HANDLER_VTEMEVENT:
+		InstancePtr->RxVtemCb = Callback;
+		InstancePtr->RxVtemCbRef = CallbackRef;
 		break;
 
 #ifdef USE_HDCP_HDMI_RX
@@ -684,6 +697,17 @@ u32 XV_Rx_HdmiRxSs_Setup_Callbacks(XV_Rx *InstancePtr)
 					(void *)XV_Rx_HdmiRx_TmdsConfig_Cb,
 					(void *)InstancePtr);
 
+
+	Status |= XV_HdmiRxSs1_SetCallback(InstancePtr->HdmiRxSs,
+			        XV_HDMIRXSS1_HANDLER_VFP_CH,
+					(void *)XV_Rx_HdmiRX_VrrVfp_Cb,
+					(void *)InstancePtr);
+
+
+	Status |= XV_HdmiRxSs1_SetCallback(InstancePtr->HdmiRxSs,
+			        XV_HDMIRXSS1_HANDLER_VRR_RDY,
+					(void *)XV_Rx_HdmiRX_VtemPkt_Cb,
+					(void *)InstancePtr);
 	return Status;
 }
 
@@ -1445,6 +1469,31 @@ static void XV_Rx_HdmiRx_TmdsConfig_Cb(void *CallbackRef)
 	 */
 }
 
+static void XV_Rx_HdmiRX_VrrVfp_Cb (void *CallbackRef)
+{
+	Xil_AssertVoid(CallbackRef);
+
+	XV_Rx *recvInst = (XV_Rx *)CallbackRef;
+
+	if (recvInst->RxVrrVfpCb != NULL) {
+		recvInst->RxVrrVfpCb(recvInst->RxVrrVfpCbRef);
+	}
+
+}
+
+static void XV_Rx_HdmiRX_VtemPkt_Cb (void *CallbackRef)
+{
+	Xil_AssertVoid(CallbackRef);
+
+	XV_Rx *recvInst = (XV_Rx *)CallbackRef;
+
+	if (recvInst->RxVtemCb != NULL) {
+		recvInst->RxVtemCb(recvInst->RxVtemCbRef);
+	}
+
+
+}
+
 /******************* XV RX STATE MACHINE IMPLEMENTATION **********************/
 
 /*****************************************************************************/
@@ -1590,7 +1639,7 @@ static void XV_Rx_HdmiRx_ProcessEvents(XV_Rx *InstancePtr,
 		break;
 	}
 
-	if (NextState != CurrentState) {
+	if ( (NextState != CurrentState) | (NextState == XV_RX_HDMI_STATE_STREAMON)) {
 		xdbg_xv_rx_statemachine_print("%s,%d: Event %s : < "
 				"State %s -> State %s >\r\n", __func__,
 				__LINE__, XV_Rx_Hdmi_Rx_EventtoString(Event),
@@ -1939,7 +1988,7 @@ static void XV_Rx_HdmiRx_StateStreamOn(XV_Rx *InstancePtr,
 		break;
 
 	case XV_RX_HDMI_EVENT_STREAMUP:
-
+		*NextStatePtr = XV_RX_HDMI_STATE_STREAMON;
 		break;
 
 	case XV_RX_HDMI_EVENT_STREAMDOWN:

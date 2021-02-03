@@ -198,6 +198,7 @@ extern "C" {
 #define XV_HDMIRX1_VTD_CTRL_IE_MASK                  (1<<1)  	/**< VTD Control Interrupt Enable mask */
 #define XV_HDMIRX1_VTD_CTRL_FIELD_POL_MASK           (1<<2)  	/**< VTD Control field polarity mask */
 #define XV_HDMIRX1_VTD_CTRL_SYNC_LOSS_MASK           (1<<3)    /**< VTD Control field polarity mask */
+#define XV_HDMIRX1_VTD_CTRL_VFP_ENABLE_MASK          (1<<4)    /**< VTD VFP change interrupt enable mask */
 #define XV_HDMIRX1_VTD_CTRL_TIMEBASE_SHIFT           8      		/**< VTD Control timebase shift */
 #define XV_HDMIRX1_VTD_CTRL_TIMERBASE_MASK           0xffffff    /**< VTD Control timebase mask */
 
@@ -208,6 +209,7 @@ extern "C" {
 #define XV_HDMIRX1_VTD_STA_HS_POL_MASK               (1<<4)  /**< VTD Status Hsync Polarity mask */
 #define XV_HDMIRX1_VTD_STA_FMT_MASK                  (1<<5)  /**< VTD Status Format mask */
 #define XV_HDMIRX1_VTD_STA_SYNC_LOSS_EVT_MASK        (1<<6)  /**< VTD Status Sync Loss mask */
+#define XV_HDMIRX1_VTD_STA_VFP_CH_EVT_MASK           (1<<7)  /**< VTD Status Vfp value chage mask */
 
 /* DDC (Display Data Channel) peripheral register offsets.*/
 #define XV_HDMIRX1_DDC_BASE                          (4*64)
@@ -269,10 +271,14 @@ extern "C" {
 #define XV_HDMIRX1_AUX_CTRL_CLR_OFFSET               ((XV_HDMIRX1_AUX_BASE)+(3*4))    /**< AUX Control Register Clear offset */
 #define XV_HDMIRX1_AUX_STA_OFFSET                    ((XV_HDMIRX1_AUX_BASE)+(4*4))    /**< AUX Status Register offset */
 #define XV_HDMIRX1_AUX_DAT_OFFSET                    ((XV_HDMIRX1_AUX_BASE)+(5*4))    /**< AUX Data Register offset */
+#define XV_HDMIRX1_AUX_VTEM_OFFSET                   ((XV_HDMIRX1_AUX_BASE)+(7*4))    /**< AUX VTEM Register offset */
+#define XV_HDMIRX1_AUX_FSYNC_OFFSET                  ((XV_HDMIRX1_AUX_BASE)+(8*4))    /**< AUX FSYNC Register offset */
+#define XV_HDMIRX1_AUX_FSYNC_PRO_OF                  ((XV_HDMIRX1_AUX_BASE)+(9*4))    /**< AUX FYNC PRO Register offset */
 
 /* AUX peripheral Control register masks*/
 #define XV_HDMIRX1_AUX_CTRL_RUN_MASK                 (1<<0)  /**< AUX Control Run mask */
 #define XV_HDMIRX1_AUX_CTRL_IE_MASK                  (1<<1)  /**< AUX Control Interrupt Enable mask */
+#define XV_HDMIRX1_AUX_CTRL_FSYNC_VRR_CH_EVT_MASK    (1<<2)  /**< AUX Control FSync/VRR change event enable mask */
 
 /* AUX peripheral Status register masks and shifts*/
 #define XV_HDMIRX1_AUX_STA_IRQ_MASK                  (1<<0)  /**< AUX Status Interrupt mask */
@@ -282,6 +288,8 @@ extern "C" {
 #define XV_HDMIRX1_AUX_STA_GCP_MASK                  (1<<4)  /**< AUX Status General control packet mask */
 #define XV_HDMIRX1_AUX_STA_FIFO_EP_MASK              (1<<5)  /**< AUX Status FIFO Empty mask */
 #define XV_HDMIRX1_AUX_STA_FIFO_FL_MASK              (1<<6)  /**< AUX Status FIFO Full mask */
+#define XV_HDMIRX1_AUX_STA_VRR_CD_EVT_MASK           (1<<21) /**< AUX Status VRR CD mask */
+#define XV_HDMIRX1_AUX_STA_FSYNC_CD_EVT_MASK         (1<<22) /**< AUX Status FSYNC CD mask */
 #define XV_HDMIRX1_AUX_STA_GCP_CD_EVT_MASK           (1<<25) /**< AUX Status GCP ColorDepth mask */
 #define XV_HDMIRX1_AUX_STA_GCP_AVMUTE_MASK           (1<<31) /**< AUX Status GCP avmute mask */
 #define XV_HDMIRX1_AUX_STA_AVI_VIC_MASK              0xFF    /**< AUX Status AVI VIC mask */
@@ -290,8 +298,57 @@ extern "C" {
 #define XV_HDMIRX1_AUX_STA_GCP_PP_MASK               0x07    /**< AUX Status GCP pixel phase mask */
 #define XV_HDMIRX1_AUX_STA_AVI_VIC_SHIFT             8       /**< AUX Status AVI VIC Shift */
 #define XV_HDMIRX1_AUX_STA_AVI_CS_SHIFT              16      /**< AUX Status AVI colorspace Shift */
+#define XV_HDMIRX1_AUX_STA_FSYNC_RDY_SHIFT           24      /**< AUX Status FSYNC RDY shift */
+#define XV_HDMIRX1_AUX_STA_VRR_RDY_SHIFT             23      /**< AUX Status VRR RDY shift */
 #define XV_HDMIRX1_AUX_STA_GCP_CD_SHIFT              26      /**< AUX Status GCP colordepth Shift */
 #define XV_HDMIRX1_AUX_STA_GCP_PP_SHIFT              28      /**< AUX Status GCP pixel phase Shift */
+
+/* AUX VTEM register masks and shifts*/
+#define XV_HDMIRX1_AUX_VTEM_VRR_EN_MASK              (1<<0)    /**< AUX VTEM VRR Enable mask */
+#define XV_HDMIRX1_AUX_VTEM_M_CONST_MASK             (1<<1)    /**< AUX VTEM M_CONST mask */
+#define XV_HDMIRX1_AUX_VTEM_FVA_FACT_M1_MASK         ((0xF) << 2)   /**< AUX VTEM FVA Factor minus 1 mask */
+#define XV_HDMIRX1_AUX_VTEM_RB_MASK                  (1<<26)    /**< AUX VTEM Reduced blanking mask */
+#define XV_HDMIRX1_AUX_VTEM_BASE_VFRONT_MASK         ((0xFF) << 8)   /**< AUX VTEM Reduced blanking mask */
+#define XV_HDMIRX1_AUX_VTEM_BASE_REFRESH_RATE_MASK   ((0x3FF) << 16) /**< AUX VTEM Base refresh rate mask */
+#define XV_HDMIRX1_AUX_VTEM_M_CONST_SHIFT            1
+#define XV_HDMIRX1_AUX_VTEM_FVA_FACT_M1_SHIFT        2
+#define XV_HDMIRX1_AUX_VTEM_RB_SHIFT                 26
+#define XV_HDMIRX1_AUX_VTEM_BASE_VFRONT_SHIFT        8
+#define XV_HDMIRX1_AUX_VTEM_BASE_REFRESH_RATE_SHIFT  16
+
+
+/* AUX FSYNC register masks and shifts*/
+#define XV_HDMIRX1_AUX_FSYNC_VERSION_MASK            0xFF    /**< AUX FSYNC Version mask */
+#define XV_HDMIRX1_AUX_FSYNC_SUPPORT_MASK            (1<<8)    /**< AUX FSYNC Support mask */
+#define XV_HDMIRX1_AUX_FSYNC_ENABLED_MASK            (1<<9)    /**< AUX FSYNC Enabled mask */
+#define XV_HDMIRX1_AUX_FSYNC_ACTIVE_MASK             (1<<10)    /**< AUX FSYNC Active mask */
+#define XV_HDMIRX1_AUX_FSYNC_PRO_NTV_CS_ACT_MASK     (1<<11)    /**< AUX FSYNC Pro Native Color space active mask */
+#define XV_HDMIRX1_AUX_FSYNC_PRO_BRIGHT_CTRL_ACT_MASK    (1<<12)    /**< AUX FSYNC Pro Brightness Control Active mask */
+#define XV_HDMIRX1_AUX_FSYNC_PRO_LDIMM_CTRL_ACT_MASK     (1<<13)    /**< AUX FSYNC Pro Seamless Local Dimming Disable Control mask */
+#define XV_HDMIRX1_AUX_FSYNC_MIN_REF_RATE_MASK       (0xFF << 16)    /**< AUX FSYNC FreeSync Minimum refresh rate mask */
+#define XV_HDMIRX1_AUX_FSYNC_MAX_REF_RATE_MASK       (0xFF << 24)    /**< AUX FSYNC FreeSync Maximum refresh rate mask */
+#define XV_HDMIRX1_AUX_FSYNC_SUPPORT_SHIFT            8
+#define XV_HDMIRX1_AUX_FSYNC_ENABLED_SHIFT            9
+#define XV_HDMIRX1_AUX_FSYNC_ACTIVE_SHIFT             10
+#define XV_HDMIRX1_AUX_FSYNC_PRO_NTV_CS_ACT_SHIFT     11
+#define XV_HDMIRX1_AUX_FSYNC_PRO_BRIGHT_CTRL_ACT_SHIFT    12
+#define XV_HDMIRX1_AUX_FSYNC_PRO_LDIMM_CTRL_ACT_SHIFT     13
+#define XV_HDMIRX1_AUX_FSYNC_MIN_REF_RATE_SHIFT       16
+#define XV_HDMIRX1_AUX_FSYNC_MAX_REF_RATE_SHIFT       24
+
+
+/* AUX FSYNC PRO register masks and shifts*/
+#define XV_HDMIRX1_AUX_FSYNC_PRO_SRGB_EOTF_MASK      1         /**< AUX FSYNC SRGB_EOTF mask */
+#define XV_HDMIRX1_AUX_FSYNC_PRO_BT709_EOTF_MASK     (1<<1)    /**< AUX FSYNC BT709_EOTF mask */
+#define XV_HDMIRX1_AUX_FSYNC_PRO_GAMMA_2_2_EOTF_MASK (1<<2)    /**< AUX FSYNC GAMMA_2_2_EOTF mask */
+#define XV_HDMIRX1_AUX_FSYNC_PRO_GAMMA_2_6_EOTF_MASK (1<<3)    /**< AUX FSYNC GAMMA_2_6_EOTF mask */
+#define XV_HDMIRX1_AUX_FSYNC_PRO_PQ_EOTF_MASK        (1<<4)    /**< AUX FSYNC PQ_EOTF mask */
+#define XV_HDMIRX1_AUX_FSYNC_PRO_BRIGHT_CTRL_MASK    (0xFF << 16)    /**< AUX FSYNC BRIGHT_CTRL mask */
+#define XV_HDMIRX1_AUX_FSYNC_PRO_BT709_EOTF_SHIFT     1
+#define XV_HDMIRX1_AUX_FSYNC_PRO_GAMMA_2_2_EOTF_SHIFT 2
+#define XV_HDMIRX1_AUX_FSYNC_PRO_GAMMA_2_6_EOTF_SHIFT 3
+#define XV_HDMIRX1_AUX_FSYNC_PRO_PQ_EOTF_SHIFT        4
+#define XV_HDMIRX1_AUX_FSYNC_PRO_BRIGHT_CTRL_SHIFT    16
 
 
 /* Audio (AUD) peripheral register offsets.*/

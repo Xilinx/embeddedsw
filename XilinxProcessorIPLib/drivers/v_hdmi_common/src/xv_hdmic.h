@@ -489,6 +489,64 @@ typedef struct XHdmiC_DRM_InfoFrame {
 	u16 Max_Frame_Average_Light_Level;
 } XHdmiC_DRMInfoFrame;
 
+/**
+* This typedef contains Video Timing Extended Metadata
+* specific data structure.
+*/
+typedef struct {
+	u8	VRREnabled;
+	u8 	MConstEnabled;
+	u8	FVAFactorMinus1;
+	u8	BaseVFront;
+	u16	BaseRefreshRate;
+	u8	RBEnabled;
+} XV_HdmiC_VideoTimingExtMeta;
+
+typedef struct {
+	u8	Version;
+	u8	FreeSyncSupported;
+	u8	FreeSyncEnabled;
+	u8	FreeSyncActive;
+	u8	FreeSyncMinRefreshRate;
+	u8	FreeSyncMaxRefreshRate;
+} XV_HdmiC_FreeSync;
+
+typedef struct {
+	XV_HdmiC_FreeSync FreeSync;
+	u8	NativeColorSpaceActive;
+	u8	BrightnessControlActive;
+	u8	LocalDimControlActive;
+	u8	sRGBEOTFActive;
+	u8	BT709EOTFActive;
+	u8	Gamma22EOTFActive;
+	u8	Gamma26EOTFActive;
+	u8	PQEOTFActive;
+	u8	BrightnessControl;
+} XV_HdmiC_FreeSyncPro;
+
+/**
+* This typedef contains AMD Source Product Descriptor Infoframe
+* specific data structure.
+*/
+typedef union {
+	XV_HdmiC_FreeSync FreeSync;
+	XV_HdmiC_FreeSyncPro FreeSyncPro;
+} XV_HdmiC_SrcProdDescIF;
+
+typedef enum {
+	XV_HDMIC_VRRINFO_TYPE_NONE,
+	XV_HDMIC_VRRINFO_TYPE_VTEM,
+	XV_HDMIC_VRRINFO_TYPE_SPDIF,
+} XV_HdmiC_VrrInfoframeType;
+
+typedef struct {
+	XV_HdmiC_VrrInfoframeType VrrIfType;
+	union {
+		XV_HdmiC_VideoTimingExtMeta VidTimingExtMeta;
+		XV_HdmiC_SrcProdDescIF SrcProdDescIF;
+	};
+} XV_HdmiC_VrrInfoFrame;
+
 /*************************** Variable Declarations ****************************/
 extern const XHdmiC_VicTable VicTable[VICTABLE_SIZE];
 extern const XHdmiC_FrlRate FrlRateTable[];

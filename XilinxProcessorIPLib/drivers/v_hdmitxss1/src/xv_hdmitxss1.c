@@ -776,7 +776,7 @@ static int XV_HdmiTxSs1_VtcSetup(XV_HdmiTxSs1 *HdmiTxSs1Ptr)
   XVtc_Timing VideoTiming;
   u32 HdmiTx1_Hblank;
   u32 Vtc_Hblank;
-
+  u16  Vfpfva ;
   /* Disable Generator */
   XVtc_Reset(HdmiTxSs1Ptr->VtcPtr);
   XVtc_DisableGenerator(HdmiTxSs1Ptr->VtcPtr);
@@ -941,6 +941,24 @@ static int XV_HdmiTxSs1_VtcSetup(XV_HdmiTxSs1 *HdmiTxSs1Ptr)
   XVtc_Enable(HdmiTxSs1Ptr->VtcPtr);
   XVtc_EnableGenerator(HdmiTxSs1Ptr->VtcPtr);
   XVtc_RegUpdateEnable(HdmiTxSs1Ptr->VtcPtr);
+
+  /*update VRR Control Register */
+  if (HdmiTxSs1Ptr->VrrEnabled)
+    XVtc_SetAdaptiveSyncMode(HdmiTxSs1Ptr->VtcPtr, HdmiTxSs1Ptr->VrrMode);
+  else
+    XVtc_DisableAdaptiveSync(HdmiTxSs1Ptr->VtcPtr);
+
+  /*
+   * update VTC Stretch Register Only in Manual Mode and
+   * FVA > 1 , VRR Enabled and CNMVRR Enabled
+   */
+
+  /* Enable Adaptive-sync and set mode */
+  if ( (HdmiTxSs1Ptr->FvaFactor > 1) && (HdmiTxSs1Ptr->VrrEnabled) &&
+		(HdmiTxSs1Ptr->CnmvrrEnabled) && (!HdmiTxSs1Ptr->VrrMode)) {
+    Vfpfva = (VideoTiming.VActiveVideo * (HdmiTxSs1Ptr->FvaFactor - 1));
+    XVtc_SetVfpStretchLimit(HdmiTxSs1Ptr->VtcPtr, Vfpfva);
+  }
 
   return (XST_SUCCESS);
 }
@@ -1271,6 +1289,8 @@ static void XV_HdmiTxSs1_StreamUpCallback(void *CallbackRef)
 ******************************************************************************/
 static void XV_HdmiTxSs1_StreamDownCallback(void *CallbackRef)
 {
+  XV_HdmiC_VideoTimingExtMeta *ExtMetaPtr;
+  XV_HdmiC_SrcProdDescIF *SpdIfPtr;
   XV_HdmiTxSs1 *HdmiTxSs1Ptr = (XV_HdmiTxSs1 *)CallbackRef;
   /* Assert HDMI TXCore link reset */
   XV_HdmiTxSs1_TXCore_LRST(HdmiTxSs1Ptr, TRUE);
@@ -1285,6 +1305,14 @@ static void XV_HdmiTxSs1_StreamDownCallback(void *CallbackRef)
 
   /* Set stream up flag */
   HdmiTxSs1Ptr->IsStreamUp = (FALSE);
+
+  ExtMetaPtr = XV_HdmiTx1_GetVidTimingExtMeta(HdmiTxSs1Ptr->HdmiTx1Ptr);
+  memset((void *)ExtMetaPtr, 0, sizeof(XV_HdmiC_VideoTimingExtMeta));
+
+  SpdIfPtr = XV_HdmiTx1_GetSrcProdDescIF(HdmiTxSs1Ptr->HdmiTx1Ptr);
+  memset((void *)SpdIfPtr, 0, sizeof(XV_HdmiC_SrcProdDescIF));
+
+
 #ifdef XV_HDMITXSS1_LOG_ENABLE
   XV_HdmiTxSs1_LogWrite(HdmiTxSs1Ptr, XV_HDMITXSS1_LOG_EVT_STREAMDOWN, 0);
 #endif
@@ -2235,13 +2263,46 @@ u64 XV_HdmiTxSs1_SetStream(XV_HdmiTxSs1 *InstancePtr,
 		XVidC_3DInfo *Info3D)
 {
 	u64 TmdsClock = 0;
+	u32 PixelRate = 0;
+	u64 LnkClock;
+	u64 VidClock;
+
 	TmdsClock = XV_HdmiTx1_SetStream(InstancePtr->HdmiTx1Ptr,
 			VideoTiming, FrameRate, ColorFormat, Bpc,
-			InstancePtr->Config.Ppc, Info3D);
+			InstancePtr->Config.Ppc, Info3D,
+			InstancePtr->FvaFactor,InstancePtr->VrrEnabled,InstancePtr->CnmvrrEnabled);
+
 
 #ifdef XV_HDMITXSS1_LOG_ENABLE
 	XV_HdmiTxSs1_LogWrite(InstancePtr, XV_HDMITXSS1_LOG_EVT_SETSTREAM, 0);
 #endif
+
+	/* Calculate Link and Video Clocks */
+    if (InstancePtr->HdmiTx1Ptr->Stream.IsFrl == TRUE)  {
+
+		PixelRate = (TmdsClock * 8 )/ Bpc;
+		PixelRate = PixelRate / 1000 ;
+		VidClock = PixelRate/InstancePtr->HdmiTx1Ptr->Stream.CorePixPerClk;
+
+		if (ColorFormat == XVIDC_CSF_YCRCB_422) {
+			LnkClock = VidClock;
+		} else {
+			LnkClock = (VidClock * (Bpc)) / 8;
+		}
+		/* Configure HDMI TX FRL Link and Video Clock registers */
+		XV_HdmiTx1_SetFrlLinkClock(InstancePtr->HdmiTx1Ptr,
+					(u32)LnkClock);
+
+		XV_HdmiTx1_SetFrlVidClock(InstancePtr->HdmiTx1Ptr,
+				(u32)VidClock)
+
+		xdbg_printf(XDBG_DEBUG_GENERAL,
+				"\r\nXV_Tx_VideoSetupAndStart - TX CFG %d %d "
+				"LCLK %d VCLK %d\r\n",
+				(u32)LnkClock, (u32)VidClock);
+	}
+
+
 	if (TmdsClock == 0) {
 		xdbg_printf(XDBG_DEBUG_GENERAL,
 				"\r\nWarning: Sink does not support HDMI 2.0"
@@ -3126,6 +3187,156 @@ void XV_HdmiTxSS1_SetAppVersion(XV_HdmiTxSs1 *InstancePtr, u8 maj, u8 min)
 XVidC_PixelsPerClock XV_HdmiTxSS1_GetCorePpc(XV_HdmiTxSs1 *InstancePtr)
 {
 	return InstancePtr->HdmiTx1Ptr->Stream.CorePixPerClk;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function allows enabling/disabling of VRR in HDMI Tx
+*
+* @param  Enable 0: disable VRR 1: enable VRR
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void XV_HdmiTxSs1_VrrControl(XV_HdmiTxSs1 *InstancePtr, u8 Enable)
+{
+	XV_HdmiTx1_VrrControl(InstancePtr->HdmiTx1Ptr, Enable);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function allows enabling/disabling of FSync in HDMI Tx
+*
+* @param  Enable 0: disable FSync 1: enable FSync
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void XV_HdmiTxSs1_FSyncControl(XV_HdmiTxSs1 *InstancePtr, u8 Enable)
+{
+	XV_HdmiTx1_FSyncControl(InstancePtr->HdmiTx1Ptr, Enable);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function configures Video Timing Controller with Adaptive-Sync mode.
+*
+* @param	InstancePtr is a pointer to the XV_HdmiTxSs1 instance.
+* @param	mode is vtc mode. 0: Fixed stretch, 1: Auto
+* @param	VrrEn is to enable/disable VRR
+* @param	FvaFactor is to set FVA factor value
+* @param	CnmvrrEn is to enable/disable Cnmvrr
+*
+* @return	None.
+*
+* @note		Should be called before XV_HdmiTxSs1_SetStream atleast once for
+*		VRR use case.
+*
+******************************************************************************/
+void XV_HdmiTxSS1_SetVrrMode(XV_HdmiTxSs1 *InstancePtr,
+			u8 mode, u8 VrrEn, u8 FvaFactor, u8 CnmvrrEn)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->VtcPtr != NULL);
+
+	InstancePtr->VrrEnabled = VrrEn;
+	InstancePtr->CnmvrrEnabled = CnmvrrEn;
+	InstancePtr->FvaFactor = FvaFactor;
+	InstancePtr->VrrMode = mode;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function configures vertical front porch stretch limit in Video
+* Timing Controller.
+*
+* @param	InstancePtr is a pointer to the XV_HdmiTxSs1 instance.
+* @param	StretchValue is vertical front porch stretch value.
+*
+* @return	None.
+*
+* @note		Call after XV_HdmiTxSs1_SetStream and VRR mode is already set
+* 		through XV_HdmiTxSS1_SetVrrMode.
+*
+******************************************************************************/
+void XV_HdmiTxSS1_SetVrrVfpStretch(XV_HdmiTxSs1 *InstancePtr,
+					u16 StretchValue)
+{
+	XVidC_VideoStream *HdmiTxSs1VidStreamPtr;
+	XVidC_VideoTiming *TimingPtr;
+	u16 StretchLimit;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->VtcPtr != NULL);
+
+	HdmiTxSs1VidStreamPtr = XV_HdmiTxSs1_GetVideoStream(InstancePtr);
+	TimingPtr = &HdmiTxSs1VidStreamPtr->Timing;
+
+	if (!InstancePtr->VrrMode)
+		StretchLimit = StretchValue - TimingPtr->F0PVFrontPorch;
+	else
+		StretchLimit = StretchValue;
+
+	XVtc_SetVfpStretchLimit(InstancePtr->VtcPtr, StretchLimit);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function disables Adaptive-Sync feature in Video Timing Controller.
+*
+* @param	InstancePtr is a pointer to the XV_HdmiTxSs1 instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XV_HdmiTxSS1_DisableVrr(XV_HdmiTxSs1 *InstancePtr)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->VtcPtr != NULL);
+
+	/* Disable Adaptive-sync */
+	XVtc_DisableAdaptiveSync(InstancePtr->VtcPtr);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function allows setting VRR meta in core
+*
+* @param	InstancePtr is a pointer to the XV_HdmiTxSs1 instance.
+* @param	VrrIF is a pointer to the XV_HdmiC_VrrInfoFrame structure
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XV_HdmiTxSs1_SetVrrIf(XV_HdmiTxSs1 *InstancePtr,
+			XV_HdmiC_VrrInfoFrame *VrrIF)
+{
+	if (VrrIF->VrrIfType == XV_HDMIC_VRRINFO_TYPE_VTEM) {
+		XV_HdmiTx1_GenerateVideoTimingExtMetaIF(
+			InstancePtr->HdmiTx1Ptr, &VrrIF->VidTimingExtMeta);
+	} else if (VrrIF->VrrIfType == XV_HDMIC_VRRINFO_TYPE_SPDIF) {
+		XV_HdmiTx1_GenerateSrcProdDescInfoframe(
+				InstancePtr->HdmiTx1Ptr, &VrrIF->SrcProdDescIF);
+	} else {
+		xil_printf("No valid VRR infoframe type\n");
+	}
 }
 
 /*****************************************************************************/

@@ -923,11 +923,15 @@ u64 XV_HdmiTx1_SetStream(XV_HdmiTx1 *InstancePtr,
 		XVidC_ColorFormat ColorFormat,
 		XVidC_ColorDepth Bpc,
 		XVidC_PixelsPerClock Ppc,
-		XVidC_3DInfo *Info3D)
+		XVidC_3DInfo *Info3D,
+		u8 FVaFactor,
+		u8 VrrEnabled,
+		u8 CnmvrrEnabled)
 {
 	u64 TmdsClock;
 	u16 Vblank0;
 	u16 Vblank1;
+	u16 Vfpfva;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1023,8 +1027,9 @@ u64 XV_HdmiTx1_SetStream(XV_HdmiTx1 *InstancePtr,
 		InstancePtr->Stream.Video.ColorDepth = XVIDC_BPC_12;
 	}
 
-	InstancePtr->Stream.Vic = XV_HdmiTx1_LookupVic(
+/*	InstancePtr->Stream.Vic = XV_HdmiTx1_LookupVic(
 		InstancePtr->Stream.Video.VmId);
+*/
 
 	/* Set TX pixel rate*/
 	XV_HdmiTx1_SetPixelRate(InstancePtr);
@@ -1038,6 +1043,40 @@ u64 XV_HdmiTx1_SetStream(XV_HdmiTx1 *InstancePtr,
 	/* Calculate reference clock. First calculate the pixel clock */
 	TmdsClock = XV_HdmiTx1_GetTmdsClk(InstancePtr);
 
+	/*  update Timing Values for FVA & VRR */
+
+
+		if (FVaFactor > 1){
+			TmdsClock = TmdsClock * FVaFactor;
+		}
+		if (FVaFactor > 1) {
+			Vfpfva = (InstancePtr->Stream.Video.Timing.F0PVFrontPorch *
+					(FVaFactor)) +
+				(VideoTiming.VActive * (FVaFactor - 1));
+
+			if (VrrEnabled && CnmvrrEnabled) {
+				InstancePtr->Stream.Video.Timing.F0PVFrontPorch = InstancePtr->Stream.Video.Timing.F0PVFrontPorch *
+						FVaFactor;
+				InstancePtr->Stream.Video.Timing.F0PVSyncWidth = InstancePtr->Stream.Video.Timing.F0PVSyncWidth *
+						FVaFactor;
+				InstancePtr->Stream.Video.Timing.F0PVBackPorch = InstancePtr->Stream.Video.Timing.F0PVBackPorch *
+						FVaFactor;
+				InstancePtr->Stream.Video.Timing.F0PVTotal = InstancePtr->Stream.Video.Timing.VActive +
+						InstancePtr->Stream.Video.Timing.F0PVFrontPorch +
+						InstancePtr->Stream.Video.Timing.F0PVSyncWidth +
+						InstancePtr->Stream.Video.Timing.F0PVBackPorch;
+			} else {
+				InstancePtr->Stream.Video.Timing.F0PVFrontPorch = Vfpfva;
+				InstancePtr->Stream.Video.Timing.F0PVSyncWidth = InstancePtr->Stream.Video.Timing.F0PVSyncWidth *
+						FVaFactor;
+				InstancePtr->Stream.Video.Timing.F0PVBackPorch = InstancePtr->Stream.Video.Timing.F0PVBackPorch *
+								FVaFactor;
+				InstancePtr->Stream.Video.Timing.F0PVTotal = InstancePtr->Stream.Video.Timing.VActive +
+						InstancePtr->Stream.Video.Timing.F0PVFrontPorch +
+						InstancePtr->Stream.Video.Timing.F0PVSyncWidth +
+						InstancePtr->Stream.Video.Timing.F0PVBackPorch;
+			}
+		}
 	/* Store TMDS clock for future reference */
 	InstancePtr->Stream.TMDSClock = TmdsClock;
 
@@ -2870,4 +2909,97 @@ static void StubCallback(void *Callback)
 {
 	Xil_AssertVoid(Callback != NULL);
 	Xil_AssertVoidAlways();
+}
+
+XV_HdmiC_VideoTimingExtMeta *XV_HdmiTx1_GetVidTimingExtMeta(
+		XV_HdmiTx1 *InstancePtr)
+{
+	return &(InstancePtr->VrrIF.VidTimingExtMeta);
+}
+
+void XV_HdmiTx1_GenerateVideoTimingExtMetaIF(XV_HdmiTx1 *InstancePtr,
+			XV_HdmiC_VideoTimingExtMeta *ExtMeta)
+{
+	u32 Data = 0;
+	XV_HdmiC_VideoTimingExtMeta *Tx1ExtMeta;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	Tx1ExtMeta = XV_HdmiTx1_GetVidTimingExtMeta(InstancePtr);
+	/* Only for info/debugging, no functional usage */
+	memcpy(Tx1ExtMeta, ExtMeta, sizeof(XV_HdmiC_VideoTimingExtMeta));
+
+	Data |= ExtMeta->VRREnabled;
+	Data |= ExtMeta->MConstEnabled << XV_HDMITX1_AUX_VTEM_M_CONST_SHIFT;
+	Data |= ExtMeta->FVAFactorMinus1 <<
+		XV_HDMITX1_AUX_VTEM_FVA_FACT_M1_SHIFT;
+	Data |= ExtMeta->BaseVFront << XV_HDMITX1_AUX_VTEM_BASE_VFRONT_SHIFT;
+	Data |= ExtMeta->BaseRefreshRate <<
+		XV_HDMITX1_AUX_VTEM_BASE_REFRESH_RATE_SHIFT;
+	Data |= ExtMeta->RBEnabled << XV_HDMITX1_AUX_VTEM_RB_SHIFT;
+
+	XV_HdmiTx1_WriteReg(InstancePtr->Config.BaseAddress,
+			XV_HDMITX1_AUX_VTEM_OFFSET, Data);
+}
+
+XV_HdmiC_SrcProdDescIF *XV_HdmiTx1_GetSrcProdDescIF(
+		XV_HdmiTx1 *InstancePtr)
+{
+	return &(InstancePtr->VrrIF.SrcProdDescIF);
+}
+
+void XV_HdmiTx1_GenerateSrcProdDescInfoframe(XV_HdmiTx1 *InstancePtr,
+			XV_HdmiC_SrcProdDescIF *SpdIfPtr)
+{
+	XV_HdmiC_SrcProdDescIF *Tx1SpdIfPtr;
+	XV_HdmiC_FreeSync *FreeSyncPtr;
+	XV_HdmiC_FreeSyncPro *FreeSyncProPtr;
+	u32 FsyncData = 0, FsyncProData = 0;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	Tx1SpdIfPtr = XV_HdmiTx1_GetSrcProdDescIF(InstancePtr);
+	/* Only for info/debugging, no functional usage */
+	memcpy(Tx1SpdIfPtr, SpdIfPtr, sizeof(XV_HdmiC_SrcProdDescIF));
+
+	FreeSyncPtr = &SpdIfPtr->FreeSync;
+	FreeSyncProPtr = &SpdIfPtr->FreeSyncPro;
+
+	FsyncData |= FreeSyncPtr->Version;
+	FsyncData |= FreeSyncPtr->FreeSyncSupported <<
+		XV_HDMITX1_AUX_FSYNC_SUPPORT_SHIFT;
+	FsyncData |= FreeSyncPtr->FreeSyncEnabled <<
+		XV_HDMITX1_AUX_FSYNC_ENABLED_SHIFT;
+	FsyncData |= FreeSyncPtr->FreeSyncActive <<
+		XV_HDMITX1_AUX_FSYNC_ACTIVE_SHIFT;
+	FsyncData |= FreeSyncPtr->FreeSyncMinRefreshRate <<
+		XV_HDMITX1_AUX_FSYNC_MIN_REF_RATE_SHIFT;
+	FsyncData |= FreeSyncPtr->FreeSyncMaxRefreshRate <<
+		XV_HDMITX1_AUX_FSYNC_MAX_REF_RATE_SHIFT;
+
+	XV_HdmiTx1_WriteReg(InstancePtr->Config.BaseAddress,
+			XV_HDMITX1_AUX_FSYNC_OFFSET, FsyncData);
+
+	if (FreeSyncPtr->Version == 2) {
+		FsyncProData |= FreeSyncProPtr->NativeColorSpaceActive <<
+			XV_HDMITX1_AUX_FSYNC_PRO_NTV_CS_ACT_SHIFT;
+		FsyncProData |= FreeSyncProPtr->BrightnessControlActive <<
+			XV_HDMITX1_AUX_FSYNC_PRO_BRIGHT_CTRL_ACT_SHIFT;
+		FsyncProData |= FreeSyncProPtr->LocalDimControlActive <<
+			XV_HDMITX1_AUX_FSYNC_PRO_LDIMM_CTRL_ACT_SHIFT;
+		FsyncProData |= FreeSyncProPtr->sRGBEOTFActive;
+		FsyncProData |= FreeSyncProPtr->BT709EOTFActive <<
+			XV_HDMITX1_AUX_FSYNC_PRO_BT709_EOTF_SHIFT;
+		FsyncProData |= FreeSyncProPtr->Gamma22EOTFActive <<
+			XV_HDMITX1_AUX_FSYNC_PRO_GAMMA_2_2_EOTF_SHIFT;
+		FsyncProData |= FreeSyncProPtr->Gamma26EOTFActive <<
+			XV_HDMITX1_AUX_FSYNC_PRO_GAMMA_2_6_EOTF_SHIFT;
+		FsyncProData |= FreeSyncProPtr->PQEOTFActive <<
+			XV_HDMITX1_AUX_FSYNC_PRO_PQ_EOTF_SHIFT;
+		FsyncProData |= FreeSyncProPtr->BrightnessControl <<
+			XV_HDMITX1_AUX_FSYNC_PRO_BRIGHT_CTRL_SHIFT;
+
+		XV_HdmiTx1_WriteReg(InstancePtr->Config.BaseAddress,
+			XV_HDMITX1_AUX_FSYNC_PRO_OF, FsyncProData);
+	}
 }

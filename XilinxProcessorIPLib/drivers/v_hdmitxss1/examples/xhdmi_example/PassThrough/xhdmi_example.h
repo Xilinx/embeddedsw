@@ -192,9 +192,18 @@ typedef enum {
 #define KCU105_U80_MUX_SEL_NONE		0x00
 #endif
 
-#define I2C_MUX_ADDR    		0x74  /**< I2C Mux Address */
-#define I2C_CLK_ADDR    		0x7C  /**< I2C Clk Address IDT_8T49N241*/
+#define I2C_MUX_ADDR		0x74  /**< I2C Mux Address */
+#define I2C_CLK_ADDR		0x7C  /**< I2C Clk Address IDT_8T49N241*/
 
+#define VRR_MODE   1  /** 0 - NO VRR , 1 - MANUAL STRETCH , 2 - AUTO STRETCH */
+                      /** Note : In Auto Stretch Mode, Enable/Disable VRR is not supported.
+		                 VRR/FSYNC is always on in VTEM/AMD VSIF  Packet  */
+
+#define FVA_FACTOR 1
+#define CNMVRR     1
+#define EDID_INIT  1 // 0 - Default, 1- 2.1 VRR EDID, 2 - AMD FreeSync EDID
+
+//#define  VTEM2FSYNC 1 // Enable When RX is VRR and TX is Fsync
 /* Defining constants for colors in printing */
 #define ANSI_COLOR_RED		"\x1b[31m"
 #define ANSI_COLOR_GREEN    "\x1b[32m"

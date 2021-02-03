@@ -482,9 +482,7 @@ u32 XV_Tx_VideoSetupAndStart(XV_Tx *InstancePtr,
 
 	u8 VPhyGTQuadId = 0;
 	u64 TmdsClock = 0;
-	u64 LnkClock;
-	u64 VidClock;
-	XVidC_PixelsPerClock Ppc_core;
+	XVidC_PixelsPerClock CorePpc;
 
 	XHdmiphy1_ChannelId Hdmiphy1ChannelId = XHDMIPHY1_CHANNEL_ID_CHA;
 	XHdmiphy1 *VPhyInst = (XHdmiphy1 *)InstancePtr->VidPhy;
@@ -505,6 +503,7 @@ u32 XV_Tx_VideoSetupAndStart(XV_Tx *InstancePtr,
 			__func__, __LINE__, InstancePtr->ConfigInfo.LineRate);
 
 	/* XV_HdmiTxSS1_SetHdmiFrlMode(InstancePtr->HdmiTxSs); */
+	CorePpc =  XV_HdmiTxSS1_GetCorePpc(InstancePtr->HdmiTxSs);
 
 	if (InstancePtr->HdmiTxSs->HdmiTx1Ptr->Stream.IsFrl != TRUE) {
 		xdbg_xv_tx_print("VidMode != XHDMIC_VIDMODE_HDMI_FRL!!!\r\n");
@@ -521,7 +520,7 @@ u32 XV_Tx_VideoSetupAndStart(XV_Tx *InstancePtr,
 					InstancePtr->HdmiTxSs, FALSE);
 		}
 	}
-	Ppc_core = XV_HdmiTxSS1_GetCorePpc(InstancePtr->HdmiTxSs);
+
 	xdbg_xv_tx_print("%s,%d : VmId = %d, ColorDepth = %d,"
 			"ColorFormat = %d\r\n", __func__, __LINE__,
 			HdmiTxSsVidStreamPtr->VmId,
@@ -534,12 +533,12 @@ u32 XV_Tx_VideoSetupAndStart(XV_Tx *InstancePtr,
 			HdmiTxSsVidStreamPtr->ColorFormatId,
 			HdmiTxSsVidStreamPtr->ColorDepth,
 			NULL);
-
+    xil_printf("TMDS Clock:%d\r\n",TmdsClock);
 	xdbg_xv_tx_new_stream_setup_print("%s,%d. Tmds clock = %d \r\n"
 			"\tNew Hdmi Tx Stream Params : PPC %d, "
 			"ColorDepth %d, ColorFrmtId %d. \r\n",
 			__func__, __LINE__, TmdsClock,
-			Ppc_core,
+			CorePpc,
 			HdmiTxSsVidStreamPtr->ColorDepth,
 			HdmiTxSsVidStreamPtr->ColorFormatId);
 
@@ -561,14 +560,14 @@ u32 XV_Tx_VideoSetupAndStart(XV_Tx *InstancePtr,
 		Status = XHdmiphy1_SetHdmiTxParam(VPhyInst,
 						  VPhyGTQuadId,
 						  Hdmiphy1ChannelId,
-						  Ppc_core,
+						  CorePpc,
 						  HdmiTxSsVidStreamPtr->ColorDepth,
 						  HdmiTxSsVidStreamPtr->ColorFormatId);
 
 		xdbg_xv_tx_print("%s,%d. After configuring VidPhy Hdmi Tx Params : PPC %d, "
 			"ColorDepth %d, ColorFrmtId %d. \r\n",
 			__func__, __LINE__,
-			InstancePtr->HdmiTxSs->HdmiTx1Ptr->Stream.Video.PixPerClk,
+			CorePpc,
 			InstancePtr->HdmiTxSs->HdmiTx1Ptr->Stream.Video.ColorDepth,
 			InstancePtr->HdmiTxSs->HdmiTx1Ptr->Stream.Video.ColorFormatId);
 
@@ -585,36 +584,10 @@ u32 XV_Tx_VideoSetupAndStart(XV_Tx *InstancePtr,
 		/* Execute FRL register update */
 		XV_HdmiTx1_FrlExecute(InstancePtr->HdmiTxSs->HdmiTx1Ptr);
 
-		/* Calculate Link and Video Clocks */
-		u32 PixelRate;
-
-		PixelRate = (HdmiTxSsVidStreamPtr->Timing.HTotal *
-		             HdmiTxSsVidStreamPtr->Timing.F0PVTotal *
-		             HdmiTxSsVidStreamPtr->FrameRate) / 1000;
-
-		if (HdmiTxSsVidStreamPtr->ColorFormatId == XVIDC_CSF_YCRCB_420) {
-			PixelRate = PixelRate / 2;
-		}
-
-		VidClock = PixelRate/Ppc_core;
-
-		if (HdmiTxSsVidStreamPtr->ColorFormatId == XVIDC_CSF_YCRCB_422) {
-			LnkClock = VidClock;
-		} else {
-			LnkClock = (VidClock * (HdmiTxSsVidStreamPtr->ColorDepth)) / 8;
-		}
-
-		xil_printf("XV_Tx_VideoSetupAndStart - TX CFG: "
-			   "LCLK %d VCLK %d\r\n",
-			   (u32)LnkClock, (u32)VidClock);
-
 		/* Reset Bridge to clear the FIFO */
 		XV_HdmiTxSs1_VRST(InstancePtr->HdmiTxSs, TRUE);
 		XV_HdmiTxSs1_VRST(InstancePtr->HdmiTxSs, FALSE);
 
-		/* Configure HDMI TX FRL Link and Video Clock registers */
-		XV_HdmiTx1_SetFrlLinkClock(InstancePtr->HdmiTxSs->HdmiTx1Ptr,
-					   (u32)LnkClock);
 
 		if (InstancePtr->ConfigInfo.FrlCkeSrc ==
 		    XV_TX_HDMI_FRL_CKE_SRC_INTERNAL) {
@@ -628,9 +601,6 @@ u32 XV_Tx_VideoSetupAndStart(XV_Tx *InstancePtr,
 					__func__, __LINE__);
 			XV_Tx_SetFrlExtVidCkeGen(InstancePtr);
 		}
-
-		XV_HdmiTx1_SetFrlVidClock(InstancePtr->HdmiTxSs->HdmiTx1Ptr,
-				(u32)VidClock);
 
 		/* Execute FRL register update */
 		XV_HdmiTx1_FrlExecute(InstancePtr->HdmiTxSs->HdmiTx1Ptr);

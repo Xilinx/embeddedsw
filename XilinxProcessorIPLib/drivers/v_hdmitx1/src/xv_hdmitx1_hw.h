@@ -285,11 +285,17 @@ extern "C" {
                                 * Status Register *  offset */
 #define XV_HDMITX1_AUX_DAT_OFFSET        ((XV_HDMITX1_AUX_BASE)+(5*4)) /**< AUX
                                 * Data Register *  offset */
+#define XV_HDMITX1_AUX_VTEM_OFFSET                   ((XV_HDMITX1_AUX_BASE)+(6*4))    /**< AUX VTEM Register offset */
+#define XV_HDMITX1_AUX_FSYNC_OFFSET                  ((XV_HDMITX1_AUX_BASE)+(7*4))    /**< AUX FSYNC Register offset */
+#define XV_HDMITX1_AUX_FSYNC_PRO_OF                  ((XV_HDMITX1_AUX_BASE)+(8*4))    /**< AUX FYNC PRO Register offset */
+
 
 /* Auxiliary peripheral Control register masks*/
 #define XV_HDMITX1_AUX_CTRL_RUN_MASK         (1<<0)  /**< AUX Control Run mask */
 #define XV_HDMITX1_AUX_CTRL_IE_MASK          (1<<1)  /**< AUX Control Interrupt
                                                     * Enable mask */
+#define XV_HDMITX1_AUX_CTRL_VRR_EN_MASK      (1<<2)  /**< AUX Control VRR En mask */
+#define XV_HDMITX1_AUX_CTRL_FYSYNC_EN_MASK   (1<<3)  /**< AUX Control FSync En mask */
 
 /* Auxiliary peripheral Status register masks and shift*/
 #define XV_HDMITX1_AUX_STA_IRQ_MASK          (1<<0)  /**< AUX Status Interrupt
@@ -304,6 +310,30 @@ extern "C" {
                                                     *  mask */
 #define XV_HDMITX1_AUX_STA_FREE_PKTS_SHIFT   15  /**< AUX Status Free
                                                     *  Packets shift */
+/* AUX VTEM register masks and shifts*/
+#define XV_HDMITX1_AUX_VTEM_M_CONST_SHIFT            1
+#define XV_HDMITX1_AUX_VTEM_FVA_FACT_M1_SHIFT        2
+#define XV_HDMITX1_AUX_VTEM_RB_SHIFT                 26
+#define XV_HDMITX1_AUX_VTEM_BASE_VFRONT_SHIFT        8
+#define XV_HDMITX1_AUX_VTEM_BASE_REFRESH_RATE_SHIFT  16
+
+/* AUX FSYNC register masks and shifts*/
+#define XV_HDMITX1_AUX_FSYNC_SUPPORT_SHIFT            8
+#define XV_HDMITX1_AUX_FSYNC_ENABLED_SHIFT            9
+#define XV_HDMITX1_AUX_FSYNC_ACTIVE_SHIFT             10
+#define XV_HDMITX1_AUX_FSYNC_PRO_NTV_CS_ACT_SHIFT     11
+#define XV_HDMITX1_AUX_FSYNC_PRO_BRIGHT_CTRL_ACT_SHIFT    12
+#define XV_HDMITX1_AUX_FSYNC_PRO_LDIMM_CTRL_ACT_SHIFT     13
+#define XV_HDMITX1_AUX_FSYNC_MIN_REF_RATE_SHIFT       16
+#define XV_HDMITX1_AUX_FSYNC_MAX_REF_RATE_SHIFT       24
+
+/* AUX FSYNC PRO register masks and shifts*/
+#define XV_HDMITX1_AUX_FSYNC_PRO_BT709_EOTF_SHIFT     1
+#define XV_HDMITX1_AUX_FSYNC_PRO_GAMMA_2_2_EOTF_SHIFT 2
+#define XV_HDMITX1_AUX_FSYNC_PRO_GAMMA_2_6_EOTF_SHIFT 3
+#define XV_HDMITX1_AUX_FSYNC_PRO_PQ_EOTF_SHIFT        4
+#define XV_HDMITX1_AUX_FSYNC_PRO_BRIGHT_CTRL_SHIFT    16
+
 
 
 /* Audio (AUD) peripheral register offsets*/

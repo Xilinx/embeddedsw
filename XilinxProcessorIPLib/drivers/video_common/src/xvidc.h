@@ -587,6 +587,8 @@ typedef struct {
 	XVidC_VideoTiming	  Timing;
 	XVidC_Eotf		Eotf;
 	XVidC_ColorStd		ColorStd;
+	XVidC_FrameRate		  BaseFrameRate;
+	XVidC_VideoTiming	  BaseTiming;
 } XVidC_VideoStream;
 
 /**

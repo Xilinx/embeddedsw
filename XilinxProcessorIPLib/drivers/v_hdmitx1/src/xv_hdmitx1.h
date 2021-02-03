@@ -406,6 +406,7 @@ typedef struct {
 
 	/* Aux peripheral specific */
 	XHdmiC_Aux Aux;                         /**< AUX peripheral information */
+	XV_HdmiC_VrrInfoFrame VrrIF;		/**< VRR infoframe SPDIF or VTEM */
 
 	/* ACR CTS and N Source*/
 	XV_HdmiTx1_CTSNSource CTS_N_Source;
@@ -805,6 +806,64 @@ typedef struct {
 /*****************************************************************************/
 /**
 *
+* This macro allows enabling/disabling of VRR in HDMI Tx
+*
+* @param	InstancePtr is a pointer to the XV_HdmiTx1 core instance.
+* @param	SetClr specifies TRUE/FALSE value to either enable or disable
+* 		the VFP Event
+*
+* @return	None.
+*
+* @note		C-style signature:
+*		void XV_HdmiTx1_VrrControl(XV_HdmiTx1 *InstancePtr, u8 SetClr)
+*
+******************************************************************************/
+#define XV_HdmiTx1_VrrControl(InstancePtr, SetClr) \
+{ \
+	if (SetClr) { \
+		XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress, \
+				    (XV_HDMITX1_AUX_CTRL_SET_OFFSET), \
+				    (XV_HDMITX1_AUX_CTRL_VRR_EN_MASK)); \
+	} \
+	else { \
+		XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress, \
+				    (XV_HDMITX1_AUX_CTRL_CLR_OFFSET), \
+				    (XV_HDMITX1_AUX_CTRL_VRR_EN_MASK)); \
+	} \
+}
+
+/*****************************************************************************/
+/**
+*
+* This macro allows enabling/disabling of FSync in HDMI Tx
+*
+* @param	InstancePtr is a pointer to the XV_HdmiTx1 core instance.
+* @param	SetClr specifies TRUE/FALSE value to either enable or disable
+* 		the VFP Event
+*
+* @return	None.
+*
+* @note		C-style signature:
+*		void XV_HdmiTx1_FSyncControl(XV_HdmiTx1 *InstancePtr, u8 SetClr)
+*
+******************************************************************************/
+#define XV_HdmiTx1_FSyncControl(InstancePtr, SetClr) \
+{ \
+	if (SetClr) { \
+		XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress, \
+				    (XV_HDMITX1_AUX_CTRL_SET_OFFSET), \
+				    (XV_HDMITX1_AUX_CTRL_FYSYNC_EN_MASK)); \
+	} \
+	else { \
+		XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress, \
+				    (XV_HDMITX1_AUX_CTRL_CLR_OFFSET), \
+				    (XV_HDMITX1_AUX_CTRL_FYSYNC_EN_MASK)); \
+	} \
+}
+
+/*****************************************************************************/
+/**
+*
 * This macro disables interrupt in the HDMI TX AUX peripheral.
 *
 * @param    InstancePtr is a pointer to the XV_HdmiTx1 core instance.
@@ -1116,7 +1175,10 @@ u64 XV_HdmiTx1_SetStream(XV_HdmiTx1 *InstancePtr,
 		XVidC_ColorFormat ColorFormat,
 		XVidC_ColorDepth Bpc,
 		XVidC_PixelsPerClock Ppc,
-		XVidC_3DInfo *Info3D);
+		XVidC_3DInfo *Info3D,
+		u8 FVaFactor,
+		u8 VrrEnabled,
+		u8 CnmvrrEnabled);
 u64 XV_HdmiTx1_GetTmdsClk(XV_HdmiTx1 *InstancePtr);
 
 void XV_HdmiTx1_INT_VRST(XV_HdmiTx1 *InstancePtr, u8 Reset);
@@ -1202,6 +1264,15 @@ int XV_HdmiTx1_SetCallback(XV_HdmiTx1 *InstancePtr,
 		XV_HdmiTx1_HandlerType HandlerType,
 		void *CallbackFunc,
 		void *CallbackRef);
+
+XV_HdmiC_VideoTimingExtMeta *XV_HdmiTx1_GetVidTimingExtMeta(
+		XV_HdmiTx1 *InstancePtr);
+XV_HdmiC_SrcProdDescIF *XV_HdmiTx1_GetSrcProdDescIF(
+		XV_HdmiTx1 *InstancePtr);
+void XV_HdmiTx1_GenerateVideoTimingExtMetaIF(XV_HdmiTx1 *InstancePtr,
+			XV_HdmiC_VideoTimingExtMeta *ExtMeta);
+void XV_HdmiTx1_GenerateSrcProdDescInfoframe(XV_HdmiTx1 *InstancePtr,
+			XV_HdmiC_SrcProdDescIF *SpdIfPtr);
 
 /************************** Variable Declarations ****************************/
 
