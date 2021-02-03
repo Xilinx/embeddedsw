@@ -30,6 +30,7 @@
 *       am      10/10/20 Resolved Coverity warning
 * 4.4   am      11/24/20 Resolved MISRA C violations
 *       bm      01/13/21 Added 64 bit In and Out apis
+*       har     02/01/21 Removed Status variable from XSecure_ReadReg
 *
 * </pre>
 *
@@ -84,14 +85,12 @@ extern "C" {
  * @param	RegOffset   - Contains the offset from the base address of the
  *			      device
  *
+ * @return	The value read from the register
+ *
  ******************************************************************************/
 static inline u32 XSecure_ReadReg(u32 BaseAddress, u16 RegOffset)
 {
-	u32 Status = (u32)XST_FAILURE;
-
-	Status = Xil_In32((UINTPTR)(BaseAddress + RegOffset));
-
-	return Status;
+	return Xil_In32((UINTPTR)(BaseAddress + RegOffset));
 }
 
 /***************************************************************************/
