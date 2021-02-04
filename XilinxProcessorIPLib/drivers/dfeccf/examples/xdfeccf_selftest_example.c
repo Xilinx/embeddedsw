@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,7 +25,8 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.0   dc     12/06/20 Initial version
-* 1.1   dc     01/04/21 Set mgt si570 oscillator to 122.88MHz
+*       dc     01/04/21 Set mgt si570 oscillator to 122.88MHz
+*       dc     02/02/21 Remove hard coded device node name
 *
 * </pre>
 *
@@ -92,6 +93,9 @@ struct metal_device CustomDevice[1] = {
 		.irq_info = NULL,
 	},
 };
+#define XDFECCF_NODE_NAME XPAR_XDFECCF_0_DEV_NAME
+#else
+#define XDFECCF_NODE_NAME "xdfe_cc_filter"
 #endif
 
 /****************************************************************************/
@@ -171,7 +175,7 @@ static int XDfeCcf_SelfTestExample(u16 DeviceId)
 	}
 
 	/* Initialize the instance of channel filter driver */
-	InstancePtr = XDfeCcf_InstanceInit(DeviceId);
+	InstancePtr = XDfeCcf_InstanceInit(DeviceId, XDFECCF_NODE_NAME);
 	/* Go through initialization states of the state machine */
 	XDfeCcf_Reset(InstancePtr);
 	XDfeCcf_Configure(InstancePtr, &Cfg);

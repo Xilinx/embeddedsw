@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,7 @@
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     10/27/20 Initial release
+*       dc     02/02/21 Remove hard coded device node name
 *
 * </pre>
 *
@@ -46,7 +47,6 @@
 #define XDFECCF_CONFIG_DATA_PROPERTY "param-list" /* device tree property */
 #define XDFECCF_COMPATIBLE_STRING "xlnx,xdfe-cc-filter-1.0"
 #define XDFECCF_PLATFORM_DEVICE_DIR "/sys/bus/platform/devices/"
-#define XDFECCF_NODE_NAME "xdfe_cc_filter" /* device node name */
 #define XDFECCF_COMPATIBLE_PROPERTY "compatible" /* device tree property */
 #define XDFECCF_BUS_NAME "platform"
 #define XDFECCF_DEVICE_ID_SIZE 4U
@@ -136,6 +136,7 @@ static s32 XDfeCcf_Strrncmp(const char *Str1Ptr, const char *Str2Ptr,
 *           will be stored
 * @param    DeviceId contains the ID of the device to look up the
 *           CCF device name entry in "/sys/bus/platform/device"
+* @param    DeviceNodeName is device node name,
 *
 * @return
  *           - XST_SUCCESS if successful.
@@ -144,7 +145,7 @@ static s32 XDfeCcf_Strrncmp(const char *Str1Ptr, const char *Str2Ptr,
  *@note     None.
 *
 ******************************************************************************/
-static s32 XDfeCcf_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId)
+static s32 XDfeCcf_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId, const char *DeviceNodeName)
 {
 	char CompatibleString[100];
 	struct metal_device *DevicePtr;
@@ -168,8 +169,8 @@ static s32 XDfeCcf_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId)
 	for (i = 0; i < NumFiles; i++) {
 		/* Check the device signature */
 		if (0 != XDfeCcf_Strrncmp(DirentPtr[i]->d_name,
-					  XDFECCF_NODE_NAME,
-					  strlen(XDFECCF_NODE_NAME))) {
+					  DeviceNodeName,
+					  strlen(DeviceNodeName))) {
 			continue;
 		}
 
@@ -221,103 +222,6 @@ static s32 XDfeCcf_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId)
 	return Status;
 }
 
-/*****************************************************************************/
-/**
-*
-* Traverse "/sys/bus/platform/device" directory, to find ChFilter device id,
-* corresponding to provided node name. The device id is defined by the address
-* of the entry in the order from lowest to highest, eg.:
-* Id=0 for the ChFilter entry located to the lowest address,
-* Id=1 for the ChFilter entry located to the second lowest address,
-* Id=2 for the ChFilter entry located to the third lowest address, and so on.
-* If device entry corresponding to said node name is found, store Device Id in
-* output pointer DeviceId.
-*
-* @param    DeviceNamePtr contains full node name eg. "xdfe_cc_mixer@a7c40000"
-* @param    DeviceId is a pointer wher the device ID will be stored.
-*
-* @return
- *           - XST_SUCCESS if successful.
- *           - XST_FAILURE if device entry not found for given device id.
- *
- *@note     None.
-*
-******************************************************************************/
-s32 XDfeCcf_GetDeviceIdByDeviceName(char *DeviceNamePtr, u16 *DeviceId)
-{
-	char CompatibleString[100];
-	struct metal_device *DevicePtr;
-	struct dirent **DirentPtr;
-	char Len = strlen(XDFECCF_COMPATIBLE_STRING);
-	int NumFiles;
-	u16 DeviceIdCounter = 0;
-	u32 Status = XST_FAILURE;
-	int i = 0;
-
-	/* Make a list of files in directory in alphabetical order */
-	NumFiles = scandir(XDFECCF_PLATFORM_DEVICE_DIR, &DirentPtr, NULL,
-			   alphasort);
-	if (NumFiles < 0) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n scandir failed to open directory");
-		return XST_FAILURE;
-	}
-
-	/* Loop through the each device file in directory */
-	for (i = 0; i < NumFiles; i++) {
-		/* Check the device signature */
-		if (0 != XDfeCcf_Strrncmp(DirentPtr[i]->d_name,
-					  XDFECCF_NODE_NAME,
-					  strlen(XDFECCF_NODE_NAME))) {
-			continue;
-		}
-
-		/* Open a libmetal device platform */
-		if (metal_device_open("platform", DirentPtr[i]->d_name,
-				      &DevicePtr)) {
-			metal_log(METAL_LOG_ERROR,
-				  "\n Failed to open device %s",
-				  DirentPtr[i]->d_name);
-			continue;
-		}
-
-		/* Get a "compatible" device property */
-		if (0 > metal_linux_get_device_property(
-				DevicePtr, XDFECCF_COMPATIBLE_PROPERTY,
-				CompatibleString, Len)) {
-			metal_log(METAL_LOG_ERROR,
-				  "\n Failed to read device tree property");
-			metal_device_close(DevicePtr);
-			continue;
-		}
-
-		/* Check a "compatible" device property */
-		if (strncmp(CompatibleString, XDFECCF_COMPATIBLE_STRING, Len) !=
-		    0) {
-			metal_device_close(DevicePtr);
-			continue;
-		}
-
-		/* Does the node name match with expected? */
-		if (0 != strcmp(DeviceNamePtr, DirentPtr[i]->d_name)) {
-			DeviceIdCounter++;
-			metal_device_close(DevicePtr);
-			continue;
-		}
-
-		/* The device ID has been found */
-		*DeviceId = DeviceIdCounter;
-		metal_device_close(DevicePtr);
-		Status = XST_SUCCESS;
-		break;
-	}
-
-	while (NumFiles--) {
-		free(DirentPtr[NumFiles]);
-	}
-	free(DirentPtr);
-	return Status;
-}
 #endif
 
 /*****************************************************************************/
@@ -406,6 +310,7 @@ end_failure:
 *
 * @param    DeviceId contains the ID of the device to register/map
 * @param    DevicePtr is a pointer to the metal device.
+* @param    DeviceNodeName is device node name,
 *
 * @return
 *           - XST_SUCCESS if successful.
@@ -414,7 +319,7 @@ end_failure:
 * @note     None.
 *
 ******************************************************************************/
-u32 XDfeCcf_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr)
+u32 XDfeCcf_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr, const char *DeviceNodeName)
 {
 	u32 Status;
 #ifndef __BAREMETAL__
@@ -429,7 +334,7 @@ u32 XDfeCcf_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr)
 		metal_log(METAL_LOG_ERROR, "\n Failed to register device");
 		return Status;
 	}
-	Status = metal_device_open(XDFECCF_BUS_NAME, XPAR_XDFECCF_0_DEV_NAME,
+	Status = metal_device_open(XDFECCF_BUS_NAME, DeviceNodeName,
 				   DevicePtr);
 	if (Status != XST_SUCCESS) {
 		metal_log(METAL_LOG_ERROR, "\n Failed to open device CCF");
@@ -437,7 +342,7 @@ u32 XDfeCcf_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr)
 	}
 #else
 	/* Get device name */
-	Status = XDfeCcf_GetDeviceNameByDeviceId(DeviceName, DeviceId);
+	Status = XDfeCcf_GetDeviceNameByDeviceId(DeviceName, DeviceId, DeviceNodeName);
 	if (Status != XST_SUCCESS) {
 		metal_log(METAL_LOG_ERROR,
 			  "\n Failed to find ccf device with device id %d",
