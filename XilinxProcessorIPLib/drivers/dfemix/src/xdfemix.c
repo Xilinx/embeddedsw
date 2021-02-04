@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +18,7 @@
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     10/21/20 Initial version
+*       dc     02/02/21 Remove hard coded device node name
 * </pre>
 *
 ******************************************************************************/
@@ -52,7 +53,7 @@ extern XDfeMix XDfeMix_Mixer[XDFEMIX_MAX_NUM_INSTANCES];
 static u32 XDfeMix_DriverHasBeenRegisteredOnce = 0U;
 
 /************************** Function Definitions ****************************/
-extern u32 XDfeMix_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr);
+extern u32 XDfeMix_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr, const char *DeviceNodeName);
 extern u32 XDfeMix_LookupConfig(u16 DeviceId);
 extern u32 XDfeMix_CfgInitialize(XDfeMix *InstancePtr);
 
@@ -978,8 +979,15 @@ static u32 XDfeMix_GetCCNCOGain(const XDfeMix *InstancePtr, bool Next, u32 CCID)
 /**
 *
 * API Initialise one instancies of a Mixer driver.
+* Traverse "/sys/bus/platform/device" directory, to find Mixer device id,
+* corresponding to provided DeviceNodeName. The device id is defined by
+* the address of the entry in the order from lowest to highest, eg.:
+* Id=0 for the Equalizer entry located to the lowest address,
+* Id=1 for the Equalizer entry located to the second lowest address,
+* Id=2 for the Equalizer entry located to the third lowest address, and so on.
 *
 * @param    DeviceId contains the index number of the device instance,
+* @param    DeviceNodeName is device node name,
 *
 * @return
 *           - pointer to instance if successful.
@@ -988,7 +996,7 @@ static u32 XDfeMix_GetCCNCOGain(const XDfeMix *InstancePtr, bool Next, u32 CCID)
 * @note     None.
 *
 ******************************************************************************/
-XDfeMix *XDfeMix_InstanceInit(u16 DeviceId)
+XDfeMix *XDfeMix_InstanceInit(u16 DeviceId, const char *DeviceNodeName)
 {
 	u32 Index;
 
@@ -1017,7 +1025,7 @@ XDfeMix *XDfeMix_InstanceInit(u16 DeviceId)
 
 	/* Register libmetal for this OS process */
 	if (XST_SUCCESS !=
-	    XDfeMix_RegisterMetal(DeviceId, &DevicePtrStorage[DeviceId])) {
+	    XDfeMix_RegisterMetal(DeviceId, &DevicePtrStorage[DeviceId], DeviceNodeName)) {
 		XDfeMix_Mixer[DeviceId].StateId = XDFEMIX_STATE_NOT_READY;
 		return NULL;
 	}

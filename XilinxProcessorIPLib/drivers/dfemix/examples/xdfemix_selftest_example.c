@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,7 +25,8 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.0   dc     12/06/20 Initial version
-* 1.1   dc     04/01/21 Set mgt si570 oscillator to 122.88MHz
+*       dc     04/01/21 Set mgt si570 oscillator to 122.88MHz
+*       dc     02/02/21 Remove hard coded device node name
 *
 * </pre>
 *
@@ -60,8 +61,8 @@
 #define printf xil_printf
 #endif
 
-#define XDFESI570_CURRENT_FREQUENCY 156.25
-#define XDFESI570_NEW_FREQUENCY 122.88
+#define XDFESI570_CURRENT_FRMIXENCY 156.25
+#define XDFESI570_NEW_FRMIXENCY 122.88
 
 /************************** Function Prototypes *****************************/
 extern int XDfeSi570_SetMgtOscillator(double CurrentFrequency,
@@ -92,6 +93,9 @@ struct metal_device CustomDevice[1] = {
 		.irq_info = NULL,
 	},
 };
+#define XDFEMIX_NODE_NAME XPAR_XDFEMIX_0_DEV_NAME
+#else
+#define XDFEMIX_NODE_NAME "xdfe_cc_mixer"
 #endif
 
 /****************************************************************************/
@@ -114,8 +118,8 @@ int main(void)
 
 #ifdef __BAREMETAL__
 	if (XST_SUCCESS !=
-	    XDfeSi570_SetMgtOscillator(XDFESI570_CURRENT_FREQUENCY,
-				       XDFESI570_NEW_FREQUENCY)) {
+	    XDfeSi570_SetMgtOscillator(XDFESI570_CURRENT_FRMIXENCY,
+				       XDFESI570_NEW_FRMIXENCY)) {
 		printf("Setting MGT oscillator failed\r\n");
 		return XST_FAILURE;
 	}
@@ -169,7 +173,7 @@ static int XDfeMix_SelfTestExample(u16 DeviceId)
 	}
 
 	/* Initialize the instance of channel filter driver */
-	InstancePtr = XDfeMix_InstanceInit(DeviceId);
+	InstancePtr = XDfeMix_InstanceInit(DeviceId, XDFEMIX_NODE_NAME);
 	/* Go through initialization states of the state machine */
 	XDfeMix_Reset(InstancePtr);
 	XDfeMix_Configure(InstancePtr, &Cfg);
