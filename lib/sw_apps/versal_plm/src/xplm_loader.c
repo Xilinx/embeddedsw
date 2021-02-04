@@ -25,6 +25,7 @@
 *       bm   10/14/2020 Code clean up
 * 1.04  bm   12/16/2020 Added PLM_SECURE_EXCLUDE macro
 *       ma   01/12/2021 Initialize BootMode and PdiInstance with invalid value
+*       ma   02/03/2021 Remove redundant call to enable GIC SBI interrupt
 *
 * </pre>
 *
@@ -138,11 +139,6 @@ END:
 	if (Status != XST_SUCCESS) {
 		goto ERR_END;
 	}
-
-	/**
-	 * Enable the SBI RDY interrupt to get the next PDI
-	 */
-	XPlmi_PlmIntrEnable(XPLMI_SBI_DATA_RDY);
 
 ERR_END:
 	return Status;
