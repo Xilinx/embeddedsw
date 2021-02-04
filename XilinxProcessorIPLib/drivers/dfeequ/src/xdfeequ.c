@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +18,7 @@
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     09/03/20 Initial version
+*       dc     02/02/21 Remove hard coded device node name
 * </pre>
 *
 ******************************************************************************/
@@ -48,10 +49,10 @@
 extern struct metal_device CustomDevice[XDFEEQU_MAX_NUM_INSTANCES];
 #endif
 static struct metal_device *DevicePtrStorage[XDFEEQU_MAX_NUM_INSTANCES];
-XDfeEqu XDfeEqu_Equalizer[XDFEEQU_MAX_NUM_INSTANCES];
+extern XDfeEqu XDfeEqu_Equalizer[XDFEEQU_MAX_NUM_INSTANCES];
 
 /************************** Function Definitions ****************************/
-extern u32 XDfeEqu_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr);
+extern u32 XDfeEqu_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr, const char *DeviceNodeName);
 extern u32 XDfeEqu_LookupConfig(u16 DeviceId);
 extern u32 XDfeEqu_CfgInitialize(XDfeEqu *InstancePtr);
 
@@ -412,8 +413,15 @@ void XDfeEqu_PressTrigger(XDfeEqu *InstancePtr,
 /**
 *
 * API Initialise one instancies of a Equalizer driver.
+* Traverse "/sys/bus/platform/device" directory, to find Equalizer device id,
+* corresponding to provided DeviceNodeName. The device id is defined by
+* the address of the entry in the order from lowest to highest, eg.:
+* Id=0 for the Equalizer entry located to the lowest address,
+* Id=1 for the Equalizer entry located to the second lowest address,
+* Id=2 for the Equalizer entry located to the third lowest address, and so on.
 *
 * @param    DeviceId contains the index number of the device instance,
+* @param    DeviceNodeName is device node name,
 *
 * @return
 *           - pointer to instance if successful.
@@ -422,7 +430,7 @@ void XDfeEqu_PressTrigger(XDfeEqu *InstancePtr,
 * @note     None.
 *
 ******************************************************************************/
-XDfeEqu *XDfeEqu_InstanceInit(u16 DeviceId)
+XDfeEqu *XDfeEqu_InstanceInit(u16 DeviceId, const char *DeviceNodeName)
 {
 	static u32 XDfeEqu_DriverHasBeenRegisteredOnce = 0U;
 	u32 Index;
@@ -453,7 +461,7 @@ XDfeEqu *XDfeEqu_InstanceInit(u16 DeviceId)
 
 	/* Register libmetal for this OS process */
 	if (XST_SUCCESS !=
-	    XDfeEqu_RegisterMetal(DeviceId, &DevicePtrStorage[DeviceId])) {
+	    XDfeEqu_RegisterMetal(DeviceId, &DevicePtrStorage[DeviceId], DeviceNodeName)) {
 		XDfeEqu_Equalizer[DeviceId].StateId = XDFEEQU_STATE_NOT_READY;
 		return NULL;
 	}
