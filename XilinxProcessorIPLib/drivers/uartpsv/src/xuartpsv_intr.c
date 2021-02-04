@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartpsv_intr.c
-* @addtogroup uartpsv_v1_3
+* @addtogroup uartpsv_v1_4
 * @{
 *
 * This file contains the functions for interrupt handling
