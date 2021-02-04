@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,7 +25,8 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.0   dc     12/06/20 Initial version
-* 1.1   dc     04/01/21 Set mgt si570 oscillator to 122.88MHz
+*       dc     04/01/21 Set mgt si570 oscillator to 122.88MHz
+*       dc     02/02/21 Remove hard coded device node name
 *
 * </pre>
 *
@@ -92,6 +93,9 @@ struct metal_device CustomDevice[1] = {
 		.irq_info = NULL,
 	},
 };
+#define XDFEEQU_NODE_NAME XPAR_XDFEEQU_0_DEV_NAME
+#else
+#define XDFEEQU_NODE_NAME "xdfe_equalizer"
 #endif
 
 /****************************************************************************/
@@ -150,8 +154,8 @@ int main(void)
 * @param	DeviceId is the instances device Id.
 *
 * @return
-*		- XDFECCF_SUCCESS if the example has completed successfully.
-*		- XDFECCF_FAILURE if the example has failed.
+*		- XDFEEQU_SUCCESS if the example has completed successfully.
+*		- XDFEEQU_FAILURE if the example has failed.
 *
 * @note   	None
 *
@@ -171,7 +175,7 @@ static int XDfeEqu_SelfTestExample(u16 DeviceId)
 	}
 
 	/* Initialize the instance of channel filter driver */
-	InstancePtr = XDfeEqu_InstanceInit(DeviceId);
+	InstancePtr = XDfeEqu_InstanceInit(DeviceId, XDFEEQU_NODE_NAME);
 	Config.DatapathMode = 0;
 
 	/* Go through initialization states of the state machine */
