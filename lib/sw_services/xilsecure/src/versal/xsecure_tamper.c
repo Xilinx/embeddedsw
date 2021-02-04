@@ -20,6 +20,8 @@
 *       am  09/24/2020 Resolved MISRA C violations
 *       har 10/12/2020 Addressed security review comments
 *       kpt 01/27/2021 Fixed bug in clearing tamper interrupt
+*       kpt 02/04/2021 Added redundancy for tamper interrupt and response
+*                      checks
 *
 * </pre>
 *
@@ -30,6 +32,7 @@
 /***************************** Include Files *********************************/
 #include "xsecure_tamper.h"
 #include "xil_util.h"
+#include "xsecure_error.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -80,16 +83,25 @@ void XSecure_EnableTamperInterrupt(void)
 int XSecure_ProcessTamperResponse(void)
 {
 	int Status = XST_FAILURE;
-	u32 TamperResponse;
+	volatile u32 TamperResponse = PMC_GLOBAL_SLD_MASK;
+	volatile u32 TamperResponseTmp = PMC_GLOBAL_SLD_MASK;
+	volatile u32 IntVal = PMC_GLOBAL_ISR_TAMPER_INT;
+	volatile u32 IntValTmp = PMC_GLOBAL_ISR_TAMPER_INT;
 
 	/**
 	 * Check the reason for interrupt
 	 */
-	if ((Xil_In32(PMC_GLOBAL_ISR_REG_ADDR) &
-		PMC_GLOBAL_ISR_TAMPER_INT) ==
-		PMC_GLOBAL_ISR_TAMPER_INT) {
-		TamperResponse = Xil_In32(PMC_GLOBAL_TAMPER_RESP_0);
-		if ((TamperResponse & PMC_GLOBAL_SLD_MASK) != 0U) {
+	IntVal = Xil_In32(PMC_GLOBAL_ISR_REG_ADDR) &
+		PMC_GLOBAL_ISR_TAMPER_INT;
+	IntValTmp = Xil_In32(PMC_GLOBAL_ISR_REG_ADDR) &
+		PMC_GLOBAL_ISR_TAMPER_INT;
+	if ((IntVal == PMC_GLOBAL_ISR_TAMPER_INT) ||
+		(IntValTmp == PMC_GLOBAL_ISR_TAMPER_INT)) {
+		TamperResponse = Xil_In32(PMC_GLOBAL_TAMPER_RESP_0) &
+				PMC_GLOBAL_SLD_MASK;
+		TamperResponseTmp = Xil_In32(PMC_GLOBAL_TAMPER_RESP_0) &
+				PMC_GLOBAL_SLD_MASK;
+		if ((TamperResponse != 0U) || (TamperResponseTmp != 0U)) {
 			XSecure_SecureLockDown();
 
 			/**
@@ -105,10 +117,15 @@ int XSecure_ProcessTamperResponse(void)
 			 ;
 			};
 		}
+		else {
+			Status = (int)XSECURE_NO_TAMPER_RESPONSE;
+			goto END;
+		}
 	}
 
 	Status = XST_SUCCESS;
 
+END:
 	return Status;
 }
 
