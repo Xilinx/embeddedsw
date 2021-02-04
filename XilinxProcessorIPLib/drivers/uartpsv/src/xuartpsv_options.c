@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartpsv_options.c
-* @addtogroup uartpsv_v1_3
+* @addtogroup uartpsv_v1_4
 * @{
 *
 * The implementation of the options functions for the XUartPsv driver.
