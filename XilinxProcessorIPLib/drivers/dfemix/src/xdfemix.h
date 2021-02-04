@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -54,6 +54,7 @@
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     07/22/20 Initial version
+*       dc     02/02/21 Remove hard coded device node name
 * </pre>
 *
 ******************************************************************************/
@@ -320,9 +321,8 @@ typedef struct {
 
 /**************************** API declarations *******************************/
 /* System initialization API */
-XDfeMix *XDfeMix_InstanceInit(u16 DeviceId);
+XDfeMix *XDfeMix_InstanceInit(u16 DeviceId, const char *DeviceNodeName);
 void XDfeMix_InstanceClose(XDfeMix *InstancePtr);
-s32 XDfeMix_GetDeviceIdByDeviceName(char *DeviceNamePtr, u16 *DeviceId);
 
 /* Register access API */
 void XDfeMix_WriteReg(const XDfeMix *InstancePtr, u32 AddrOffset, u32 Data);
