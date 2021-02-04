@@ -10,6 +10,8 @@
 # Ver      Who    Date     Changes
 # -------- ------ -------- ----------------------------------------------------
 # 1.5      adk    11/22/17 Added peripheral test app support.
+# 1.11	   sk	  02/04/21 Update interrupt id and name to support CIPS3.0
+# 			   designs.
 ##############################################################################
 
 # Uses $XILINX_EDK/bin/lib/xillib_sw.tcl
@@ -75,6 +77,8 @@ proc gen_testfunc_call {swproj mhsinst} {
     }
 
     set ipname [common::get_property NAME $mhsinst]
+    set index [string index $ipname end]
+    set ip_name [common::get_property IP_NAME $mhsinst]
     set deviceid [::hsm::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
     set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
     if { $stdout == "" || $stdout == "none" } {
@@ -107,7 +111,7 @@ proc gen_testfunc_call {swproj mhsinst} {
             } then {
 		set intr_id "XPAR_${intcname}_${ipname}_${intr_pin_name}_INTR"
             } else {
-		set intr_id "XPAR_${ipname}_INTR"
+		set intr_id "XPAR_${ip_name}_${index}_INTR"
             }
 	    set intr_id [string toupper $intr_id]
 
@@ -144,7 +148,7 @@ proc gen_testfunc_call {swproj mhsinst} {
             } then {
                     set intr_id "XPAR_${intcname}_${ipname}_${intr_pin_name}_INTR"
             } else {
-        set intr_id "XPAR_${ipname}_INTR"
+		    set intr_id "XPAR_${ip_name}_${index}_INTR"
             }
 	set intr_id [string toupper $intr_id]
 
