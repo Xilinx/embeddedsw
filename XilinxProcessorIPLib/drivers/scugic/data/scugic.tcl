@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2011 - 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -77,7 +77,7 @@
 #                     using instance name. Instance names for GIC might vary
 #                     based on the HW design, so its better to avoid using
 #                     instance names directly. It fixes CR#1073003.
-# 4.4   mus  12/14/20 Updated get_psu_interrupt_id proc with additional checks
+# 4.5   mus  12/14/20 Updated get_psu_interrupt_id proc with additional checks
 #                     to fix BSP generation for specific designs. It fixes
 #                     CR#1084286.
 #
