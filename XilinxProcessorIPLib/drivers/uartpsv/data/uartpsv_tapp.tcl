@@ -8,6 +8,9 @@
 # Ver  Who Date     Changes
 # ---- --- -------- -----------------------------------------------
 # 1.0  sg  09/12/17 First Release
+# 1.4  sne 02/03/21 Updated uartpsv_tapp.tcl to support CIPS3.0 designs
+#		    In CIPS3.0 interrupt id not generating properly.
+#		    This patch fixes the interrupt id issue.
 ##############################################################################
 
 # Uses $XILINX_EDK/bin/lib/xillib_sw.tcl
@@ -85,6 +88,8 @@ proc gen_init_code {swproj mhsinst} {
 proc gen_testfunc_call {swproj mhsinst} {
 
   set ipname [common::get_property NAME $mhsinst]
+  set ip_name [common::get_property IP_NAME $mhsinst]
+  set intsnum [string index $mhsinst end]
   set testfunc_call ""
 
   if {$swproj == 0} {
@@ -175,7 +180,7 @@ proc gen_testfunc_call {swproj mhsinst} {
             } then {
                     set intr_id "XPAR_${intcname}_${ipname}_${intr_pin_name}_INTR"
             } else {
-        set intr_id "XPAR_${ipname}_INTR"
+        set intr_id "XPAR_${ip_name}_${intsnum}_INTR"
             }
 	set intr_id [string toupper $intr_id]
 
