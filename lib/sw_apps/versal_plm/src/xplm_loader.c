@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
 * 1.03  kc   06/12/2020 Added IPI mask to PDI CDO commands to get
 *                       subsystem information
 *       bm   10/14/2020 Code clean up
+*       ma   02/03/2021 Remove redundant call to enable GIC SBI interrupt
 *
 * </pre>
 *
@@ -137,11 +138,6 @@ END:
 	if (Status != XST_SUCCESS) {
 		goto ERR_END;
 	}
-
-	/**
-	 * Enable the SBI RDY interrupt to get the next PDI
-	 */
-	XPlmi_PlmIntrEnable(XPLMI_SBI_DATA_RDY);
 
 ERR_END:
 	return Status;
