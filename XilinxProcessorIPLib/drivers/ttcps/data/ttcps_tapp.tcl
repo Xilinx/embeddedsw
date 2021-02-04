@@ -10,6 +10,8 @@
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
 # 3.0   pkp  12/01/15 Initial Release
+# 3.13  mus  02/03/21 Updated to support CIPS3 based HW designs. It fixes
+#                     CR#1087461
 ##############################################################################
 
 # Uses $XILINX_EDK/bin/lib/xillib_sw.tcl
@@ -120,7 +122,7 @@ proc gen_testfunc_call {swproj mhsinst} {
     set intsnum [string index $mhsinst end]
     set device_id [expr {$intsnum * 3}]
     set deviceidname $deviceid
-    set deviceid [format %s%d%s [string range $deviceidname 0 12] $device_id [string range $deviceidname 14 end]]
+    set deviceid [format "XPAR_%s_%d_DEVICE_ID" [string toupper [string range [common::get_property NAME $mhsinst] 0 end-2]] $device_id]
     set isintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
     set intcvar intc
     set testfunc_call ""
@@ -137,7 +139,7 @@ proc gen_testfunc_call {swproj mhsinst} {
     if {${hasStdout} == 0} {
 
 	if {$isintr == 1} {
-        set intr_id [format %s_INTR [string range $deviceid 0 13]]
+        set intr_id [format XPAR_XTTCPS_%s_INTR $device_id]
 	set intr_id [string toupper $intr_id]
 
       append testfunc_call "
@@ -155,7 +157,7 @@ proc gen_testfunc_call {swproj mhsinst} {
   } else {
 
 	if {$isintr == 1} {
-        set intr_id [format %s_INTR [string range $deviceid 0 13]]
+        set intr_id [format XPAR_XTTCPS_%s_INTR $device_id]
 	set intr_id [string toupper $intr_id]
 
       append testfunc_call "
