@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartpsv_xfer.h
-* @addtogroup uartpsv_v1_3
+* @addtogroup uartpsv_v1_4
 * @{
 *
 * This header file contains the prototypes of objects used internally.
