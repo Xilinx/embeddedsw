@@ -436,6 +436,10 @@ int XV_HdmiTxSs1_CfgInitialize(XV_HdmiTxSs1 *InstancePtr,
   (void)memset((void *)&(HdmiTxSs1Ptr->VSIF), 0, sizeof(XHdmiC_VSIF));
   (void)memset((void *)&(HdmiTxSs1Ptr->AudioInfoframe), 0, sizeof(XHdmiC_AudioInfoFrame));
 
+  memset((void *)&HdmiTxSs1Ptr->DrmInfoframe, 0, sizeof(XHdmiC_DRMInfoFrame));
+  HdmiTxSs1Ptr->DrmInfoframe.Static_Metadata_Descriptor_ID = 0xff;
+  HdmiTxSs1Ptr->DrmInfoframe.EOTF = 0xff;
+
   /* Determine sub-cores included in the provided instance of subsystem */
   XV_HdmiTxSs1_GetIncludedSubcores(HdmiTxSs1Ptr, CfgPtr->DeviceId);
 
@@ -1305,6 +1309,9 @@ static void XV_HdmiTxSs1_StreamDownCallback(void *CallbackRef)
 
   /* Set stream up flag */
   HdmiTxSs1Ptr->IsStreamUp = (FALSE);
+
+  HdmiTxSs1Ptr->DrmInfoframe.Static_Metadata_Descriptor_ID = 0xff;
+  HdmiTxSs1Ptr->DrmInfoframe.EOTF = 0xff;
 
   ExtMetaPtr = XV_HdmiTx1_GetVidTimingExtMeta(HdmiTxSs1Ptr->HdmiTx1Ptr);
   memset((void *)ExtMetaPtr, 0, sizeof(XV_HdmiC_VideoTimingExtMeta));
@@ -2246,6 +2253,24 @@ XHdmiC_VSIF *XV_HdmiTxSs1_GetVSIF(XV_HdmiTxSs1 *InstancePtr)
 /*****************************************************************************/
 /**
 *
+* This function returns the pointer to HDMI 2.1 TX SS DRM InfoFrame
+* structure
+*
+* @param  InstancePtr pointer to XV_HdmiTxSs1 instance
+*
+* @return XHdmiC_DRMInfoFrame pointer
+*
+* @note   None.
+*
+******************************************************************************/
+XHdmiC_DRMInfoFrame *XV_HdmiTxSs1_GetDrmInfoframe(XV_HdmiTxSs1 *InstancePtr)
+{
+    return &InstancePtr->DrmInfoframe;
+}
+
+/*****************************************************************************/
+/**
+*
 * This function set HDMI TX susbsystem stream parameters
 *
 * @param  None.
@@ -2601,6 +2626,54 @@ void XV_HdmiTxSs1_ReportTiming(XV_HdmiTxSs1 *InstancePtr)
         (XV_HdmiTx1_GetSampleRate(InstancePtr->HdmiTx1Ptr)));
       xil_printf("\r\n");
 
+}
+
+/*****************************************************************************/
+/**
+*
+* This function prints the HDMI 2.1 TX SS DRM If information
+*
+* @param  Pointer to HDMI 2.1 Tx SS Instance.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void XV_HdmiTxSs1_ReportDRMInfo(XV_HdmiTxSs1 *InstancePtr)
+{
+	XHdmiC_DRMInfoFrame *DrmInfoFramePtr;
+
+	Xil_AssertVoid(InstancePtr);
+
+	DrmInfoFramePtr = XV_HdmiTxSs1_GetDrmInfoframe(InstancePtr);
+	if (DrmInfoFramePtr->EOTF != 0xff)
+		xil_printf("eotf: %d\r\n", DrmInfoFramePtr->EOTF);
+
+	if (DrmInfoFramePtr->Static_Metadata_Descriptor_ID == 0xFF) {
+		xil_printf("No DRM info\r\n");
+		return;
+	}
+
+	xil_printf("DRM IF info:\r\n");
+	xil_printf("desc id: %d\r\n",
+		   DrmInfoFramePtr->Static_Metadata_Descriptor_ID);
+	xil_printf("display primaries x0, y0, x1, y1, x2, y2: %d %d %d %d %d %d\r\n",
+		   DrmInfoFramePtr->disp_primaries[0].x,
+		   DrmInfoFramePtr->disp_primaries[0].y,
+		   DrmInfoFramePtr->disp_primaries[1].x,
+		   DrmInfoFramePtr->disp_primaries[1].y,
+		   DrmInfoFramePtr->disp_primaries[2].x,
+		   DrmInfoFramePtr->disp_primaries[2].y);
+	xil_printf("white point x, y: %d %d\r\n",
+		   DrmInfoFramePtr->white_point.x,
+		   DrmInfoFramePtr->white_point.y);
+	xil_printf("min/max display mastering luminance: %d %d\r\n",
+		   DrmInfoFramePtr->Min_Disp_Mastering_Luminance,
+		   DrmInfoFramePtr->Max_Disp_Mastering_Luminance);
+	xil_printf("Max_CLL: %d\r\n", DrmInfoFramePtr->Max_Content_Light_Level);
+	xil_printf("max_fall: %d\r\n",
+		   DrmInfoFramePtr->Max_Frame_Average_Light_Level);
 }
 
 /*****************************************************************************/

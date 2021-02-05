@@ -441,6 +441,7 @@ typedef struct
 	XHdmiC_AVI_InfoFrame AVIInfoframe;		/**< AVI InfoFrame */
 	XHdmiC_AudioInfoFrame AudioInfoframe;	/**< Audio InfoFrame */
 	XHdmiC_VSIF VSIF;						/**< Vendor Specific InfoFrame */
+	XHdmiC_DRMInfoFrame DrmInfoframe;	/**< DRM Infoframe */
 
     u8 VrrEnabled;	/* VRR set by user */
     u8 FvaFactor;	/* FVA factor set by user */
@@ -520,6 +521,7 @@ XHdmiC_Aux *XV_HdmiTxSs1_GetAuxiliary(XV_HdmiTxSs1 *InstancePtr);
 XHdmiC_AVI_InfoFrame *XV_HdmiTxSs1_GetAviInfoframe(XV_HdmiTxSs1 *InstancePtr);
 XHdmiC_AudioInfoFrame *XV_HdmiTxSs1_GetAudioInfoframe(XV_HdmiTxSs1 *InstancePtr);
 XHdmiC_VSIF *XV_HdmiTxSs1_GetVSIF(XV_HdmiTxSs1 *InstancePtr);
+XHdmiC_DRMInfoFrame *XV_HdmiTxSs1_GetDrmInfoframe(XV_HdmiTxSs1 *InstancePtr);
 u64 XV_HdmiTxSs1_SetStream(XV_HdmiTxSs1 *InstancePtr,
 		XVidC_VideoTiming VideoTiming,
 		XVidC_FrameRate FrameRate,
@@ -573,6 +575,7 @@ void XV_HdmiTxSs1_LogDisplay(XV_HdmiTxSs1 *InstancePtr);
 
 void XV_HdmiTxSs1_ReportCoreInfo(XV_HdmiTxSs1 *InstancePtr);
 void XV_HdmiTxSs1_ReportTiming(XV_HdmiTxSs1 *InstancePtr);
+void XV_HdmiTxSs1_ReportDRMInfo(XV_HdmiTxSs1 *InstancePtr);
 void XV_HdmiTxSs1_ReportAudio(XV_HdmiTxSs1 *InstancePtr);
 void XV_HdmiTxSs1_ReportSubcoreVersion(XV_HdmiTxSs1 *InstancePtr);
 
