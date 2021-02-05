@@ -125,6 +125,9 @@ void XV_HdmiRxSs1_ReportInfo(XV_HdmiRxSs1 *InstancePtr)
     xil_printf("Audio\r\n");
     xil_printf("---------\r\n");
     XV_HdmiRxSs1_ReportAudio(InstancePtr);
+    xil_printf("Static HDR DRM Info frame\r\n");
+    xil_printf("---------\r\n");
+    XV_HdmiRxSs1_ReportDRMInfo(InstancePtr);
     xil_printf("InfoFrame\r\n");
     xil_printf("---------\r\n");
     XV_HdmiRxSs1_ReportInfoFrame(InstancePtr);
@@ -482,6 +485,7 @@ int XV_HdmiRxSs1_CfgInitialize(XV_HdmiRxSs1 *InstancePtr,
     UINTPTR EffectiveAddr)
 {
   XV_HdmiRxSs1 *HdmiRxSs1Ptr = InstancePtr;
+  XHdmiC_DRMInfoFrame *DrmInfoFramePtr;
 
   /* Verify arguments */
   Xil_AssertNonvoid(HdmiRxSs1Ptr != NULL);
@@ -599,6 +603,11 @@ int XV_HdmiRxSs1_CfgInitialize(XV_HdmiRxSs1 *InstancePtr,
   /* Disable the Logging */
   HdmiRxSs1Ptr->EnableHDCPLogging = (FALSE);
   HdmiRxSs1Ptr->EnableHDMILogging = (FALSE);
+
+  /* Initialise the static HDR struct */
+  DrmInfoFramePtr = XV_HdmiRxSs1_GetDrmInfoframe(HdmiRxSs1Ptr);
+  DrmInfoFramePtr->Static_Metadata_Descriptor_ID = 0xFF;
+  DrmInfoFramePtr->EOTF = 0xFF;
 
   return(XST_SUCCESS);
 }
@@ -861,10 +870,13 @@ static void XV_HdmiRxSs1_AuxCallback(void *CallbackRef)
   XHdmiC_AVI_InfoFrame *AviInfoFramePtr;
   XHdmiC_GeneralControlPacket *GeneralControlPacketPtr;
   XHdmiC_AudioInfoFrame *AudioInfoFramePtr;
+  XHdmiC_DRMInfoFrame *DrmInfoFramePtr;
 
   AviInfoFramePtr = XV_HdmiRxSs1_GetAviInfoframe(HdmiRxSs1Ptr);
   GeneralControlPacketPtr = XV_HdmiRxSs1_GetGCP(HdmiRxSs1Ptr);
   AudioInfoFramePtr = XV_HdmiRxSs1_GetAudioInfoframe(HdmiRxSs1Ptr);
+  DrmInfoFramePtr = XV_HdmiRxSs1_GetDrmInfoframe(HdmiRxSs1Ptr);
+
   AuxPtr = XV_HdmiRxSs1_GetAuxiliary(HdmiRxSs1Ptr);
 
   if (AuxPtr->Header.Byte[0] == AUX_VSIF_TYPE){
@@ -876,7 +888,7 @@ static void XV_HdmiRxSs1_AuxCallback(void *CallbackRef)
 	  /* Parse Aux to retrieve Avi InfoFrame*/
 	  XV_HdmiC_ParseAVIInfoFrame(AuxPtr, AviInfoFramePtr);
 	  HdmiRxSs1Ptr->HdmiRx1Ptr->Stream.Video.ColorFormatId =
-	  			XV_HdmiRx1_GetAviColorSpace(HdmiRxSs1Ptr->HdmiRx1Ptr);
+				XV_HdmiRx1_GetAviColorSpace(HdmiRxSs1Ptr->HdmiRx1Ptr);
 	  HdmiRxSs1Ptr->HdmiRx1Ptr->Stream.Vic =
 				XV_HdmiRx1_GetAviVic(HdmiRxSs1Ptr->HdmiRx1Ptr);
 	  HdmiRxSs1Ptr->HdmiRx1Ptr->Stream.Video.AspectRatio =
@@ -892,6 +904,9 @@ static void XV_HdmiRxSs1_AuxCallback(void *CallbackRef)
 	  (void)memset((void *)AudioInfoFramePtr, 0, sizeof(XHdmiC_AudioInfoFrame));
 	  /* Parse Aux to retrieve Audio InfoFrame*/
 	  XV_HdmiC_ParseAudioInfoFrame(AuxPtr, AudioInfoFramePtr);
+  } else if (AuxPtr->Header.Byte[0] == AUX_DRM_INFOFRAME_TYPE) {
+	  (void)memset((void *)DrmInfoFramePtr, 0, sizeof(XHdmiC_DRMInfoFrame));
+	  XV_HdmiC_ParseDRMIF(AuxPtr, DrmInfoFramePtr);
   }
 
   /* Check if user callback has been registered*/
@@ -1273,6 +1288,7 @@ static void XV_HdmiRxSs1_StreamDownCallback(void *CallbackRef)
   XV_HdmiC_VideoTimingExtMeta *ExtMetaPtr;
   XV_HdmiC_SrcProdDescIF *SpdIfPtr;
   XVidC_VideoStream *VidCStream;
+  XHdmiC_DRMInfoFrame *DrmInfoFramePtr;
 
   if (HdmiRxSs1Ptr->HdmiRx1Ptr->Stream.IsFrl != TRUE) {
 	  /* Assert HDMI RX core resets */
@@ -1289,6 +1305,10 @@ static void XV_HdmiRxSs1_StreamDownCallback(void *CallbackRef)
 
   AviInfoFramePtr = XV_HdmiRxSs1_GetAviInfoframe(HdmiRxSs1Ptr);
   memset((void *)AviInfoFramePtr, 0, sizeof(XHdmiC_AVI_InfoFrame));
+
+  DrmInfoFramePtr = XV_HdmiRxSs1_GetDrmInfoframe(HdmiRxSs1Ptr);
+  DrmInfoFramePtr->Static_Metadata_Descriptor_ID = 0xFF;
+  DrmInfoFramePtr->EOTF = 0xFF;
 
   XV_HdmiRx1_SetVrrIfType(HdmiRxSs1Ptr->HdmiRx1Ptr,
 		  XV_HDMIC_VRRINFO_TYPE_NONE);
@@ -1923,6 +1943,24 @@ XHdmiC_AudioInfoFrame *XV_HdmiRxSs1_GetAudioInfoframe(XV_HdmiRxSs1 *InstancePtr)
 /*****************************************************************************/
 /**
 *
+* This function returns the pointer to HDMI 2.1 RX SS DRM InfoFrame
+* structure
+*
+* @param  InstancePtr pointer to XV_HdmiRxSs1 instance
+*
+* @return XHdmiC_DRMInfoFrame pointer
+*
+* @note   None.
+*
+******************************************************************************/
+XHdmiC_DRMInfoFrame *XV_HdmiRxSs1_GetDrmInfoframe(XV_HdmiRxSs1 *InstancePtr)
+{
+    return &InstancePtr->DrmInfoframe;
+}
+
+/*****************************************************************************/
+/**
+*
 * This function returns the pointer to HDMI RX SS Vendor Specific InfoFrame
 * structure
 *
@@ -2356,6 +2394,55 @@ void XV_HdmiRxSs1_ReportLinkQuality(XV_HdmiRxSs1 *InstancePtr)
 
 	/* Clear link error counters */
 	XV_HdmiRx1_ClearLinkStatus(InstancePtr->HdmiRx1Ptr);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function prints the HDMI 2.1 RX SS static HDR infoframe information
+*
+* @param  InstancePtr pointer to XV_HdmiRxSs1 instance
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void XV_HdmiRxSs1_ReportDRMInfo(XV_HdmiRxSs1 *InstancePtr)
+{
+	XHdmiC_DRMInfoFrame *DrmInfoFramePtr;
+
+	Xil_AssertVoid(InstancePtr);
+
+	DrmInfoFramePtr = XV_HdmiRxSs1_GetDrmInfoframe(InstancePtr);
+	if (DrmInfoFramePtr->EOTF != 0xFF)
+		xil_printf("eotf: %d\r\n", DrmInfoFramePtr->EOTF);
+
+	if (DrmInfoFramePtr->Static_Metadata_Descriptor_ID == 0xFF) {
+		xil_printf("No DRM info\r\n");
+		return;
+	}
+
+	xil_printf("DRM IF info:\n");
+	xil_printf("desc id: %d\r\n",
+		   DrmInfoFramePtr->Static_Metadata_Descriptor_ID);
+	xil_printf("display primaries x0, y0, x1, y1, x2, y2: %d %d %d %d %d %d\r\n",
+		   DrmInfoFramePtr->disp_primaries[0].x,
+		   DrmInfoFramePtr->disp_primaries[0].y,
+		   DrmInfoFramePtr->disp_primaries[1].x,
+		   DrmInfoFramePtr->disp_primaries[1].y,
+		   DrmInfoFramePtr->disp_primaries[2].x,
+		   DrmInfoFramePtr->disp_primaries[2].y);
+	xil_printf("white point x, y: %d %d\r\n",
+		   DrmInfoFramePtr->white_point.x,
+		   DrmInfoFramePtr->white_point.y);
+	xil_printf("min/max display mastering luminance: %d %d\r\n",
+		   DrmInfoFramePtr->Min_Disp_Mastering_Luminance,
+		   DrmInfoFramePtr->Max_Disp_Mastering_Luminance);
+	xil_printf("Max_CLL: %d\r\n",
+		   DrmInfoFramePtr->Max_Content_Light_Level);
+	xil_printf("max_fall: %d\r\n",
+		   DrmInfoFramePtr->Max_Frame_Average_Light_Level);
 }
 
 /*****************************************************************************/

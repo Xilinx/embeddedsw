@@ -447,6 +447,7 @@ typedef struct
   XHdmiC_GeneralControlPacket GCP;		/**< General Control Packet */
   XHdmiC_AudioInfoFrame AudioInfoframe;	/**< Audio InfoFrame */
   XHdmiC_VSIF VSIF;						/**< Vendor Specific InfoFrame */
+  XHdmiC_DRMInfoFrame DrmInfoframe;	/**< Static HDR infoframe */
 
   XVidC_DelayHandler UserTimerWaitUs; /**< Custom user function for
                                            delay/sleep. */
@@ -510,6 +511,7 @@ XHdmiC_Aux *XV_HdmiRxSs1_GetAuxiliary(XV_HdmiRxSs1 *InstancePtr);
 XHdmiC_AVI_InfoFrame *XV_HdmiRxSs1_GetAviInfoframe(XV_HdmiRxSs1 *InstancePtr);
 XHdmiC_AudioInfoFrame *XV_HdmiRxSs1_GetAudioInfoframe(XV_HdmiRxSs1 *InstancePtr);
 XHdmiC_VSIF *XV_HdmiRxSs1_GetVSIF(XV_HdmiRxSs1 *InstancePtr);
+XHdmiC_DRMInfoFrame *XV_HdmiRxSs1_GetDrmInfoframe(XV_HdmiRxSs1 *InstancePtr);
 XHdmiC_GeneralControlPacket *XV_HdmiRxSs1_GetGCP(XV_HdmiRxSs1 *InstancePtr);
 u32 XV_HdmiRxSs1_SetStream(XV_HdmiRxSs1 *InstancePtr,
     u32 Clock,
@@ -544,6 +546,7 @@ void XV_HdmiRxSs1_ReportLinkQuality(XV_HdmiRxSs1 *InstancePtr);
 void XV_HdmiRxSs1_ReportAudio(XV_HdmiRxSs1 *InstancePtr);
 void XV_HdmiRxSs1_ReportInfoFrame(XV_HdmiRxSs1 *InstancePtr);
 void XV_HdmiRxSs1_ReportSubcoreVersion(XV_HdmiRxSs1 *InstancePtr);
+void XV_HdmiRxSs1_ReportDRMInfo(XV_HdmiRxSs1 *InstancePtr);
 
 #ifdef XV_HDMIRXSS1_LOG_ENABLE
 void XV_HdmiRxSs1_LogReset(XV_HdmiRxSs1 *InstancePtr);
