@@ -146,7 +146,7 @@ typedef void (*vq_notify)(struct virtqueue *);
 			(vq)->vq_inuse = true;               \
 		else                                         \
 			VQASSERT(vq, !(vq)->vq_inuse,\
-				"VirtQueue already in use")  \
+				"VirtQueue already in use");  \
 	} while (0)
 
 #define VQUEUE_IDLE(vq)            ((vq)->vq_inuse = false)
