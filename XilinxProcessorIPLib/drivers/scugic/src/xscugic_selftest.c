@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xscugic_selftest.c
-* @addtogroup scugic_v4_3
+* @addtogroup scugic_v4_4
 * @{
 *
 * Contains diagnostic self-test functions for the XScuGic driver.
