@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -53,6 +53,9 @@
  *                      function arguments to read KeyAddr and
  *                      Size(Bitstream size).
  * 6.0 Nava   01/07/21  Fixed misra-c required standard violations.
+ * 6.0 Nava   01/08/21  Removed unwanted if else conditions.
+ * 6.0  Nava  20/01/21  Reset the status variable to fail to avoid safety
+ *                      violations.
  *</pre>
  *
  *@note
@@ -192,14 +195,21 @@ u32 XFpga_BitStream_Load(XFpga *InstancePtr,
 	}
 
 	/* Validate Bitstream Image */
+	Status = XFPGA_VALIDATE_ERROR;
 	Status = XFpga_ValidateImage(InstancePtr, BitstreamImageAddr,
 				     KeyPtr, Size, Flags);
 	if ((Status != XFPGA_OPS_NOT_IMPLEMENTED) &&
 	    (Status != XFPGA_SUCCESS)) {
 		goto END;
+	} else if (Status == XFPGA_OPS_NOT_IMPLEMENTED) {
+		InstancePtr->WriteInfo.BitstreamAddr = BitstreamImageAddr;
+		InstancePtr->WriteInfo.Flags = Flags;
+		InstancePtr->WriteInfo.KeyAddr = KeyAddr;
+		InstancePtr->WriteInfo.Size = Size;
 	}
 
 	/* Prepare the FPGA to receive configuration Data */
+	Status = XFPGA_PRE_CONFIG_ERROR;
 	Status = XFpga_PL_Preconfig(InstancePtr);
 	if ((Status != XFPGA_SUCCESS) &&
 	    (Status != XFPGA_OPS_NOT_IMPLEMENTED)) {
@@ -207,6 +217,7 @@ u32 XFpga_BitStream_Load(XFpga *InstancePtr,
 	}
 
 	/* write count bytes of configuration data into the PL */
+	Status = XFPGA_WRITE_BITSTREAM_ERROR;
 	Status = XFpga_Write_Pl(InstancePtr,
 			     InstancePtr->WriteInfo.BitstreamAddr,
 			     InstancePtr->WriteInfo.KeyAddr,
@@ -217,6 +228,7 @@ u32 XFpga_BitStream_Load(XFpga *InstancePtr,
 	}
 
 	/* set FPGA to operating state after writing */
+	Status = XFPGA_POST_CONFIG_ERROR;
 	Status = XFpga_PL_PostConfig(InstancePtr);
 	if (Status == XFPGA_OPS_NOT_IMPLEMENTED) {
 		Status = XFPGA_SUCCESS;
@@ -327,19 +339,21 @@ u32 XFpga_ValidateImage(XFpga *InstancePtr,
 		goto END;
 	}
 
-	InstancePtr->WriteInfo.BitstreamAddr = BitstreamImageAddr;
-	InstancePtr->WriteInfo.Flags = Flags;
-	InstancePtr->WriteInfo.KeyAddr = KeyAddr;
-	InstancePtr->WriteInfo.Size = Size;
 	if (InstancePtr->XFpga_ValidateBitstream == NULL) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
 		"XFpga_PL_ValidateImage Implementation not exists..\r\n");
-	} else {
-		Status = InstancePtr->XFpga_ValidateBitstream(InstancePtr);
-		if (Status != XFPGA_SUCCESS) {
-			Status = XFPGA_UPDATE_ERR(XFPGA_VALIDATE_ERROR, Status);
-		}
+		goto END;
+	}
+
+	InstancePtr->WriteInfo.BitstreamAddr = BitstreamImageAddr;
+	InstancePtr->WriteInfo.Flags = Flags;
+	InstancePtr->WriteInfo.KeyAddr = KeyAddr;
+	InstancePtr->WriteInfo.Size = Size;
+	Status = XFPGA_VALIDATE_ERROR;
+	Status = InstancePtr->XFpga_ValidateBitstream(InstancePtr);
+	if (Status != XFPGA_SUCCESS) {
+		Status = XFPGA_UPDATE_ERR(XFPGA_VALIDATE_ERROR, Status);
 	}
 
 END:
@@ -367,12 +381,13 @@ u32 XFpga_PL_Preconfig(XFpga *InstancePtr)
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
 		"XFpga_PL_Preconfig Implementation not exists..\r\n");
-	} else {
-		Status = InstancePtr->XFpga_PreConfig(InstancePtr);
-		if (Status != XFPGA_SUCCESS) {
-			Status = XFPGA_UPDATE_ERR(XFPGA_PRE_CONFIG_ERROR,
-						  Status);
-		}
+		goto END;
+	}
+
+	Status = InstancePtr->XFpga_PreConfig(InstancePtr);
+	if (Status != XFPGA_SUCCESS) {
+		Status = XFPGA_UPDATE_ERR(XFPGA_PRE_CONFIG_ERROR,
+					  Status);
 	}
 END:
 	return Status;
@@ -476,21 +491,22 @@ u32 XFpga_Write_Pl(XFpga *InstancePtr,UINTPTR BitstreamImageAddr,
 		goto END;
 	}
 
-	InstancePtr->WriteInfo.BitstreamAddr = BitstreamImageAddr;
-	InstancePtr->WriteInfo.Flags = Flags;
-	InstancePtr->WriteInfo.KeyAddr = KeyAddr;
-	InstancePtr->WriteInfo.Size = Size;
-
 	if (InstancePtr->XFpga_WriteToPl == NULL) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
 		"XFpga_Write_Pl Implementation not exists..\r\n");
-	} else {
-		Status = InstancePtr->XFpga_WriteToPl(InstancePtr);
-		if (Status != XFPGA_SUCCESS) {
-			Status = XFPGA_UPDATE_ERR(XFPGA_WRITE_BITSTREAM_ERROR,
-						  Status);
-		}
+		goto END;
+	}
+
+	InstancePtr->WriteInfo.BitstreamAddr = BitstreamImageAddr;
+	InstancePtr->WriteInfo.Flags = Flags;
+	InstancePtr->WriteInfo.KeyAddr = KeyAddr;
+	InstancePtr->WriteInfo.Size = Size;
+	Status = XFPGA_WRITE_BITSTREAM_ERROR;
+	Status = InstancePtr->XFpga_WriteToPl(InstancePtr);
+	if (Status != XFPGA_SUCCESS) {
+		Status = XFPGA_UPDATE_ERR(XFPGA_WRITE_BITSTREAM_ERROR,
+					  Status);
 	}
 
 END:
@@ -518,12 +534,13 @@ u32 XFpga_PL_PostConfig(XFpga *InstancePtr)
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
 		"XFpga_PL_PostConfig Implementation not exists..\r\n");
-	} else {
-		Status = InstancePtr->XFpga_PostConfig(InstancePtr);
-		if (Status != XFPGA_SUCCESS) {
-			Status = XFPGA_UPDATE_ERR(XFPGA_POST_CONFIG_ERROR,
-						  Status);
-		}
+		goto END;
+	}
+
+	Status = InstancePtr->XFpga_PostConfig(InstancePtr);
+	if (Status != XFPGA_SUCCESS) {
+		Status = XFPGA_UPDATE_ERR(XFPGA_POST_CONFIG_ERROR,
+					  Status);
 	}
 
 END:
@@ -561,15 +578,16 @@ u32 XFpga_GetPlConfigData(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 		goto END;
 	}
 
-	InstancePtr->ReadInfo.ReadbackAddr = ReadbackAddr;
-	InstancePtr->ReadInfo.ConfigReg_NumFrames = NumFrames;
 	if (InstancePtr->XFpga_GetConfigData == NULL) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
 		"XFpga_GetPlConfigData Implementation not exists..\r\n");
-	} else {
-		Status = InstancePtr->XFpga_GetConfigData(InstancePtr);
+		goto END;
 	}
+
+	InstancePtr->ReadInfo.ReadbackAddr = ReadbackAddr;
+	InstancePtr->ReadInfo.ConfigReg_NumFrames = NumFrames;
+	Status = InstancePtr->XFpga_GetConfigData(InstancePtr);
 
 END:
 	return Status;
@@ -600,9 +618,16 @@ u32 XFpga_GetPlConfigReg(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 {
 	u32 Status = XFPGA_FAILURE;
 
-	/* Assert validates the input arguments */
+	/* Validates the input arguments */
 	if ((InstancePtr == NULL) ||(ReadbackAddr == 0U)) {
 		Status = XFPGA_INVALID_PARAM;
+		goto END;
+	}
+
+	if (InstancePtr->XFpga_GetConfigReg == NULL) {
+		Status = XFPGA_OPS_NOT_IMPLEMENTED;
+		Xfpga_Printf(XFPGA_DEBUG,
+		"XFpga_GetPlConfigReg Implementation not exists..\r\n");
 		goto END;
 	}
 
@@ -622,14 +647,7 @@ u32 XFpga_GetPlConfigReg(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 
 	InstancePtr->ReadInfo.ReadbackAddr = ReadbackAddr;
 	InstancePtr->ReadInfo.ConfigReg_NumFrames = ConfigRegAddr;
-
-	if (InstancePtr->XFpga_GetConfigReg == NULL) {
-		Status = XFPGA_OPS_NOT_IMPLEMENTED;
-		Xfpga_Printf(XFPGA_DEBUG,
-			"XFpga_GetPlConfigReg Implementation not exists..\r\n");
-	} else {
-		Status = InstancePtr->XFpga_GetConfigReg(InstancePtr);
-	}
+	Status = InstancePtr->XFpga_GetConfigReg(InstancePtr);
 
 END:
 	return Status;
@@ -658,9 +676,10 @@ u32 XFpga_InterfaceStatus(XFpga *InstancePtr)
 	if (InstancePtr->XFpga_GetInterfaceStatus == NULL) {
 		Xfpga_Printf(XFPGA_DEBUG,
 		"XFpga_InterfaceStatus Implementation not exists..\r\n");
-	} else {
-		RegVal = InstancePtr->XFpga_GetInterfaceStatus();
+		goto END;
 	}
+
+	RegVal = InstancePtr->XFpga_GetInterfaceStatus();
 
 END:
 	return RegVal;
