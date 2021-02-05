@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2016 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -106,6 +106,8 @@
  * 6.0 Nava  01/07/21  Fixed misra-c required standard violations.
  * 6.0 Nava  20/01/21  Reset the status variable to fail to avoid safety
  *                     violations.
+ * 6.0 Nava  21/01/21  Make Status variable volatile to avoid compiler
+ *                     optimizations.
  * </pre>
  *
  * @note
@@ -318,7 +320,7 @@ END:
  *****************************************************************************/
 static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 {
-	u32 Status = XFPGA_FAILURE;
+	volatile u32 Status = XFPGA_FAILURE;
 	XSecure_ImageInfo *ImageHdrDataPtr =
 			&InstancePtr->PLInfo.SecureImageInfo;
 	u32 BitstreamPos = 0U;
@@ -430,7 +432,7 @@ END:
  *****************************************************************************/
 static u32 XFpga_PreConfigPcap(XFpga *InstancePtr)
 {
-	u32 Status = XFPGA_FAILURE;
+	volatile u32 Status = XFPGA_FAILURE;
 	u32 RegVal;
 
 	/* Enable the PCAP clk */
@@ -485,7 +487,7 @@ END:
  *****************************************************************************/
 static u32 XFpga_WriteToPlPcap(XFpga *InstancePtr)
 {
-	u32 Status = XFPGA_FAILURE;
+	volatile u32 Status = XFPGA_FAILURE;
 	u32 BitstreamSize;
 
 	if ((InstancePtr->WriteInfo.Flags & XFPGA_SECURE_FLAGS) != 0U)
@@ -701,7 +703,7 @@ static u32 XFpga_PcapWaitForDone(void)
  *****************************************************************************/
 static u32 XFpga_WriteToPcap(u32 Size, UINTPTR BitstreamAddr)
 {
-	u32 Status = XFPGA_FAILURE;
+	volatile u32 Status = XFPGA_FAILURE;
 
 	/*
 	 * Setup the  SSS, setup the PCAP to receive from DMA source
@@ -988,7 +990,7 @@ END:
  *****************************************************************************/
 static u32 XFpga_AuthPlChunksDdrOcm(XFpga *InstancePtr, u32 Size)
 {
-	u32 Status = XFPGA_FAILURE;
+	volatile u32 Status = XFPGA_FAILURE;
 	XFpgaPs_PlPartition *PlAesInfoPtr = &InstancePtr->PLInfo.PlAesInfo;
 	XSecure_ImageInfo *ImageInfo = &InstancePtr->PLInfo.SecureImageInfo;
 
@@ -1095,7 +1097,7 @@ END:
  ******************************************************************************/
 static u32 XFpga_AuthPlChunks(UINTPTR BitstreamAddr, u32 Size, UINTPTR AcAddr)
 {
-	u32 Status = XFPGA_FAILURE;
+	volatile u32 Status = XFPGA_FAILURE;
 	XSecure_Sha3 Secure_Sha3 = {0U};
 	u64 OcmAddr = OCM_PL_ADDR;
 	u32 ChunkSize;
@@ -1209,7 +1211,7 @@ static u32 XFpga_ReAuthPlChunksWriteToPl(XFpgaPs_PlPartition *PlAesInfo,
 					 UINTPTR BitstreamAddr,
 					 u32 Size, u32 Flags)
 {
-	u32 Status = XFPGA_FAILURE;
+	volatile u32 Status = XFPGA_FAILURE;
 	XSecure_Sha3 Secure_Sha3;
 	UINTPTR OcmAddr = OCM_PL_ADDR;
 	u32 ChunkSize;
@@ -1307,7 +1309,7 @@ END:
  *****************************************************************************/
 static u32 XFpga_WriteEncryptToPcap(XFpga *InstancePtr)
 {
-	u32 Status = XFPGA_FAILURE;
+	volatile u32 Status = XFPGA_FAILURE;
 	XSecure_ImageInfo *ImageHdrInfo = &InstancePtr->PLInfo.SecureImageInfo;
 	XSecure_Aes Secure_Aes = {0};
 	u8 *EncSrc;
@@ -1368,7 +1370,7 @@ END:
 static u32 XFpga_DecrptPlChunks(XFpgaPs_PlPartition *PartitionParams,
 				UINTPTR ChunkAdrs, u32 ChunkSize)
 {
-	u32 Status = XFPGA_FAILURE;
+	volatile u32 Status = XFPGA_FAILURE;
 	UINTPTR SrcAddr = ChunkAdrs;
 	u32 Size = ChunkSize;
 	UINTPTR NextBlkAddr = 0U;
@@ -1619,7 +1621,7 @@ static u32 XFpga_DecrptPl(XFpgaPs_PlPartition *PartitionParams,
 {
 
 	u32 Size = ChunkSize;
-	u32 Status = XFPGA_FAILURE;
+	volatile u32 Status = XFPGA_FAILURE;
 	UINTPTR SrcAddr = ChunkAdrs;
 	XCsuDma_Configure ConfigurValues = {0U};
 	UINTPTR NextBlkAddr = 0U;
@@ -1924,7 +1926,7 @@ END:
  *****************************************************************************/
 static u32 XFpga_PLWaitForDone(void)
 {
-	u32 Status = XFPGA_FAILURE;
+	volatile u32 Status = XFPGA_FAILURE;
 	u32 RegVal = 0U;
 
 	Status = Xil_WaitForEvent(CSU_PCAP_STATUS,
@@ -2111,7 +2113,7 @@ static u32 XFpga_PcapStatus(void)
  ****************************************************************************/
 static u32 XFpga_GetConfigRegPcap(const XFpga *InstancePtr)
 {
-	u32 Status = XFPGA_FAILURE;
+	volatile u32 Status = XFPGA_FAILURE;
 	u32 RegVal;
 	UINTPTR Address = InstancePtr->ReadInfo.ReadbackAddr;
 	u32 CmdIndex;
@@ -2244,7 +2246,7 @@ END:
  ****************************************************************************/
 static u32 XFpga_GetPLConfigDataPcap(const XFpga *InstancePtr)
 {
-	u32 Status = XFPGA_FAILURE;
+	volatile u32 Status = XFPGA_FAILURE;
 	UINTPTR Address = InstancePtr->ReadInfo.ReadbackAddr;
 	u32 NumFrames = InstancePtr->ReadInfo.ConfigReg_NumFrames;
 	u32 RegVal;

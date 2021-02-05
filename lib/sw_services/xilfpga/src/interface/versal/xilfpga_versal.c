@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,8 @@
  * 5.3  Nava  15/12/20  Fixed doxygen issues.
  * 6.0  Nava  20/01/21  Reset the status variable to fail to avoid safety
  *                      violations.
+ * 6.0  Nava  21/01/21  Make Status variable volatile to avoid compiler
+ *                      optimizations.
  * </pre>
  *
  * @note
@@ -94,7 +96,7 @@ u32 XFpga_Initialize(XFpga *InstancePtr)
  *****************************************************************************/
 static u32 XFpga_WriteToPl(XFpga *InstancePtr)
 {
-	u32 Status = XFPGA_FAILURE;
+	volatile u32 Status = XFPGA_FAILURE;
 	UINTPTR BitstreamAddr = InstancePtr->WriteInfo.BitstreamAddr;
 
 	Status = XMailbox_Initialize(&XMboxInstance, XMAILBOX_DEVICE_ID);

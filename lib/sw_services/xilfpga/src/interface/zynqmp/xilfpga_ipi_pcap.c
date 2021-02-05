@@ -30,6 +30,8 @@
  *                      Size(Bitstream size).
  * 6.0  Nava  20/01/21  Reset the status variable to fail to avoid safety
  *                      violations.
+ * 6.0  Nava  21/01/21  Make Status variable volatile to avoid compiler
+ *                      optimizations.
  * </pre>
  *
  * @note
@@ -109,7 +111,7 @@ END:
  *****************************************************************************/
 static u32 XFpga_IPI_WriteToPl(XFpga *InstancePtr)
 {
-	u32 Status = XFPGA_FAILURE;
+	volatile u32 Status = XFPGA_FAILURE;
 	u32 ReqBuffer[FPGA_MSG_LEN] = {0};
 	UINTPTR BitstreamAddr = InstancePtr->WriteInfo.BitstreamAddr;
 
@@ -163,7 +165,7 @@ END:
  ****************************************************************************/
 static u32 XFpga_IPI_GetPLConfigDataPcap(const XFpga *InstancePtr)
 {
-	u32 Status = XFPGA_FAILURE;
+	volatile u32 Status = XFPGA_FAILURE;
 	u32 ReqBuffer[FPGA_MSG_LEN] = {0};
 	UINTPTR ReadbackAddr = InstancePtr->ReadInfo.ReadbackAddr;
 
@@ -210,7 +212,7 @@ END:
  ****************************************************************************/
 static u32 XFpga_IPI_GetPLConfigRegPcap(const XFpga *InstancePtr)
 {
-	u32 Status = XFPGA_FAILURE;
+	volatile u32 Status = XFPGA_FAILURE;
 	u32 ReqBuffer[FPGA_MSG_LEN] = {0};
 	UINTPTR ReadbackAddr = InstancePtr->ReadInfo.ReadbackAddr;
 
@@ -256,7 +258,7 @@ END:
  *****************************************************************************/
 static u32 XFpga_IPI_PcapStatus(void)
 {
-	u32 Status = XFPGA_FAILURE;
+	volatile u32 Status = XFPGA_FAILURE;
 	u32 RegVal = XFPGA_INVALID_INTERFACE_STATUS;
 	u32 ReqBuffer[FPGA_IPI_RESP2] = {0};
 
