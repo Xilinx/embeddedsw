@@ -28,6 +28,8 @@
  *                      violation. fixes this  issue by adding a separate
  *                      function arguments to read KeyAddr and
  *                      Size(Bitstream size).
+ * 6.0  Nava  20/01/21  Reset the status variable to fail to avoid safety
+ *                      violations.
  * </pre>
  *
  * @note
@@ -128,13 +130,14 @@ static u32 XFpga_IPI_WriteToPl(XFpga *InstancePtr)
 	Status = XMailbox_SendData(&XMboxInstance, XMAILBOX_IPI3, ReqBuffer,
 				   FPGA_MSG_LEN, XILMBOX_MSG_TYPE_REQ,
 				   FPGA_IPI_TYPE_BLOCKING);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 
+	Status = XFPGA_FAILURE;
 	Status = XMailbox_Recv(&XMboxInstance, XMAILBOX_IPI3, ReqBuffer,
 			       FPGA_IPI_RESP1, XILMBOX_MSG_TYPE_RESP);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 
@@ -174,13 +177,14 @@ static u32 XFpga_IPI_GetPLConfigDataPcap(const XFpga *InstancePtr)
 	Status = XMailbox_SendData(&XMboxInstance, XMAILBOX_IPI3, ReqBuffer,
 				   FPGA_MSG_LEN, XILMBOX_MSG_TYPE_REQ,
 				   FPGA_IPI_TYPE_BLOCKING);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 
+	Status = XFPGA_FAILURE;
 	Status = XMailbox_Recv(&XMboxInstance, XMAILBOX_IPI3, ReqBuffer,
 			       FPGA_IPI_RESP2, XILMBOX_MSG_TYPE_RESP);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 
@@ -220,13 +224,14 @@ static u32 XFpga_IPI_GetPLConfigRegPcap(const XFpga *InstancePtr)
 	Status = XMailbox_SendData(&XMboxInstance, XMAILBOX_IPI3, ReqBuffer,
 				   FPGA_MSG_LEN, XILMBOX_MSG_TYPE_REQ,
 				   FPGA_IPI_TYPE_BLOCKING);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 
+	Status = XFPGA_FAILURE;
 	Status = XMailbox_Recv(&XMboxInstance, XMAILBOX_IPI3, ReqBuffer,
 			       FPGA_IPI_RESP2, XILMBOX_MSG_TYPE_RESP);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 
@@ -260,13 +265,14 @@ static u32 XFpga_IPI_PcapStatus(void)
 	Status = XMailbox_SendData(&XMboxInstance, XMAILBOX_IPI3, ReqBuffer,
 				   GET_STATUS_MSG_LEN, XILMBOX_MSG_TYPE_REQ,
 				   FPGA_IPI_TYPE_BLOCKING);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 
+	Status = XFPGA_FAILURE;
 	Status = XMailbox_Recv(&XMboxInstance, XMAILBOX_IPI3, ReqBuffer,
 			       FPGA_IPI_RESP2, XILMBOX_MSG_TYPE_RESP);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 

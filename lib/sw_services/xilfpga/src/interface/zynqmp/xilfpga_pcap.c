@@ -104,6 +104,8 @@
  *                     function arguments to read KeyAddr and
  *                     Size(Bitstream size).
  * 6.0 Nava  01/07/21  Fixed misra-c required standard violations.
+ * 6.0 Nava  20/01/21  Reset the status variable to fail to avoid safety
+ *                     violations.
  * </pre>
  *
  * @note
@@ -379,6 +381,7 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 	}
 
 	/* Validate the User Flags for the Image Crypto operation */
+	Status = XFPGA_FAILURE;
 	Status = XFpga_ValidateCryptoFlags(ImageHdrDataPtr,
 					   InstancePtr->WriteInfo.Flags);
 	if (Status != XFPGA_SUCCESS) {
@@ -446,6 +449,7 @@ static u32 XFpga_PreConfigPcap(XFpga *InstancePtr)
 		}
 
 		/* PS PL Isolation Restore */
+		Status = XFPGA_FAILURE;
 		Status = XFpga_IsolationRestore();
 		if (Status != XFPGA_SUCCESS) {
 			Xfpga_Printf(XFPGA_DEBUG,
@@ -456,6 +460,7 @@ static u32 XFpga_PreConfigPcap(XFpga *InstancePtr)
 		}
 	}
 
+	Status = XFPGA_FAILURE;
 	Status = XFpga_PcapInit(InstancePtr->WriteInfo.Flags);
 	if (Status != XFPGA_SUCCESS) {
 		Status = XFPGA_PCAP_UPDATE_ERR((u32)XPFGA_ERROR_PCAP_INIT, (u32)0U);
@@ -518,6 +523,7 @@ static u32 XFpga_WriteToPlPcap(XFpga *InstancePtr)
 		goto END;
 	}
 
+	Status = XFPGA_FAILURE;
 	Status = XFpga_PLWaitForDone();
 	if (Status != XFPGA_SUCCESS) {
 		Status = XFPGA_PCAP_UPDATE_ERR(Status, (u32)0U);
@@ -715,6 +721,7 @@ static u32 XFpga_WriteToPcap(u32 Size, UINTPTR BitstreamAddr)
 	/* Acknowledge the transfer has completed */
 	XCsuDma_IntrClear(CsuDmaPtr, XCSUDMA_SRC_CHANNEL, XCSUDMA_IXR_DONE_MASK);
 
+	Status = XFPGA_FAILURE;
 	Status = XFpga_PcapWaitForDone();
 END:
 	return Status;
@@ -933,6 +940,7 @@ static u32 XFpga_SecureBitstreamLoad(XFpga *InstancePtr)
 
 	while ((u32)InstancePtr->PLInfo.TotalBitPartCount != 0U) {
 
+		Status = XFPGA_FAILURE;
 		Status = XFpga_AuthPlChunksDdrOcm(InstancePtr, PL_PARTATION_SIZE);
 		if (Status != XFPGA_SUCCESS) {
 			goto END;
@@ -942,6 +950,7 @@ static u32 XFpga_SecureBitstreamLoad(XFpga *InstancePtr)
 	if ((InstancePtr->PLInfo.RemaningBytes != 0U) &&
 		((u32)InstancePtr->PLInfo.TotalBitPartCount == 0U)){
 
+		Status = XFPGA_FAILURE;
 		Status = XFpga_AuthPlChunksDdrOcm(InstancePtr,
 					InstancePtr->PLInfo.RemaningBytes);
 		if (Status != XFPGA_SUCCESS) {
@@ -991,6 +1000,7 @@ static u32 XFpga_AuthPlChunksDdrOcm(XFpga *InstancePtr, u32 Size)
 	}
 
 	/*Verify Spk */
+	Status = XFPGA_FAILURE;
 	Status = XSecure_VerifySpk((u8 *)AcBuf, ImageInfo->EfuseRsaenable);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = XFPGA_PCAP_UPDATE_ERR(
@@ -1000,6 +1010,7 @@ static u32 XFpga_AuthPlChunksDdrOcm(XFpga *InstancePtr, u32 Size)
 	}
 
 	/* Authenticate Partition */
+	Status = XFPGA_FAILURE;
 	if ((InstancePtr->WriteInfo.Flags & XFPGA_AUTHENTICATION_DDR_EN) ==
 	    XFPGA_AUTHENTICATION_DDR_EN) {
 		Status = XSecure_PartitionAuthentication(CsuDmaPtr,
@@ -1012,6 +1023,7 @@ static u32 XFpga_AuthPlChunksDdrOcm(XFpga *InstancePtr, u32 Size)
 				goto END;
 		}
 
+		Status = XFPGA_FAILURE;
 		if (((InstancePtr->WriteInfo.Flags &
 			XFPGA_ENCRYPTION_USERKEY_EN)!= 0U)||
 			((InstancePtr->WriteInfo.Flags &
@@ -1039,6 +1051,7 @@ static u32 XFpga_AuthPlChunksDdrOcm(XFpga *InstancePtr, u32 Size)
 			goto END;
 		}
 
+		Status = XFPGA_FAILURE;
 		Status = XFpga_ReAuthPlChunksWriteToPl(PlAesInfoPtr,
 					(UINTPTR)InstancePtr->PLInfo.BitAddr,
 					Size, InstancePtr->WriteInfo.Flags);
@@ -1109,6 +1122,7 @@ static u32 XFpga_AuthPlChunks(UINTPTR BitstreamAddr, u32 Size, UINTPTR AcAddr)
 			ChunkSize = RemainingBytes;
 		}
 
+		Status = XFPGA_FAILURE;
 		Status = XSecure_MemCopy((u8 *)(UINTPTR)OcmAddr,
 					 (u8 *)(UINTPTR)Temp_BitstreamAddr,
 					 ChunkSize/WORD_LEN);
@@ -1117,6 +1131,7 @@ static u32 XFpga_AuthPlChunks(UINTPTR BitstreamAddr, u32 Size, UINTPTR AcAddr)
 		}
 
 		/* Generating SHA3 hash */
+		Status = XFPGA_FAILURE;
 		Status = XSecure_Sha3Update(&Secure_Sha3,
 				(u8 *)(UINTPTR)OcmAddr, ChunkSize);
 		if (Status != (u32)XST_SUCCESS) {
@@ -1132,18 +1147,21 @@ static u32 XFpga_AuthPlChunks(UINTPTR BitstreamAddr, u32 Size, UINTPTR AcAddr)
 	}
 
 	/* Copy AC into the OCM */
+	Status = XFPGA_FAILURE;
 	Status = XSecure_MemCopy((u8 *)(UINTPTR)OcmAddr, (u8 *)(UINTPTR)AcAddr,
 							 AC_LEN/WORD_LEN);
 	if (Status != XFPGA_SUCCESS) {
 		goto END;
 	}
 
+	Status = XFPGA_FAILURE;
 	Status = XSecure_Sha3Update(&Secure_Sha3, (u8 *)(UINTPTR)OcmAddr,
 				AC_LEN - XSECURE_PARTITION_SIG_SIZE);
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 
+	Status = XFPGA_FAILURE;
 	Status = XSecure_Sha3Finish(&Secure_Sha3, Sha3Hash);
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
@@ -1159,6 +1177,7 @@ static u32 XFpga_AuthPlChunks(UINTPTR BitstreamAddr, u32 Size, UINTPTR AcAddr)
 	AcPtr += XSECURE_SPK_MOD_EXT_SIZE;
 	Key.Exponent = AcPtr;
 
+	Status = XFPGA_FAILURE;
 	Status = XSecure_DataAuth(Signature, &Key, Sha3Hash);
 END:
 	/* Set SHA under reset */
@@ -1214,6 +1233,7 @@ static u32 XFpga_ReAuthPlChunksWriteToPl(XFpgaPs_PlPartition *PlAesInfo,
 			ChunkSize = RemainingBytes;
 		}
 
+		Status = XFPGA_FAILURE;
 		Status = XSecure_MemCopy((u8 *)OcmAddr,
 					 (u8 *)(UINTPTR)Temp_BitstreamAddr,
 					 ChunkSize/WORD_LEN);
@@ -1222,6 +1242,7 @@ static u32 XFpga_ReAuthPlChunksWriteToPl(XFpgaPs_PlPartition *PlAesInfo,
 			goto END;
 		}
 		/* Generating SHA3 hash */
+		Status = XFPGA_FAILURE;
 		Status = XSecure_Sha3Update(&Secure_Sha3,
 				(u8 *)OcmAddr, ChunkSize);
 		if (Status != (u32)XST_SUCCESS) {
@@ -1242,6 +1263,7 @@ static u32 XFpga_ReAuthPlChunksWriteToPl(XFpgaPs_PlPartition *PlAesInfo,
 			goto END;
 		}
 
+		Status = XFPGA_FAILURE;
 		if (((Flags & XFPGA_ENCRYPTION_USERKEY_EN) != 0U)
 				|| ((Flags & XFPGA_ENCRYPTION_DEVKEY_EN) != 0U)) {
 			Status = XFpga_DecrptPlChunks(PlAesInfo, OcmAddr,
@@ -1259,6 +1281,7 @@ static u32 XFpga_ReAuthPlChunksWriteToPl(XFpgaPs_PlPartition *PlAesInfo,
 		RemainingBytes = RemainingBytes - ChunkSize;
 	}
 
+	Status = XFPGA_FAILURE;
 	Status = XSecure_Sha3Finish(&Secure_Sha3, Sha3Hash);
 
 END:
@@ -1302,6 +1325,7 @@ static u32 XFpga_WriteEncryptToPcap(XFpga *InstancePtr)
 	EncSrc = (u8 *)(UINTPTR)(InstancePtr->WriteInfo.BitstreamAddr +
 			((ImageHdrInfo->PartitionHdr->DataWordOffset) *
 						XSECURE_WORD_LEN));
+	Status = XFPGA_FAILURE;
 	Status = (u32)XSecure_AesDecrypt(&Secure_Aes,
 			(u8 *) XFPGA_DESTINATION_PCAP_ADDR, EncSrc,
 			ImageHdrInfo->PartitionHdr->UnEncryptedDataWordLength *
@@ -1312,6 +1336,7 @@ static u32 XFpga_WriteEncryptToPcap(XFpga *InstancePtr)
 				XFPGA_ERROR_AES_DECRYPT_PL, Status);
 		goto END;
 	}
+	Status = XFPGA_FAILURE;
 	Status = XFpga_PcapWaitForDone();
 	if (Status != XFPGA_SUCCESS) {
 		Status = XFPGA_PCAP_UPDATE_ERR(Status, (u32)0U);
@@ -1368,6 +1393,7 @@ static u32 XFpga_DecrptPlChunks(XFpgaPs_PlPartition *PartitionParams,
 				XSECURE_CSU_AES_KUP_WR_OFFSET,
 				XSECURE_CSU_AES_IV_WR | XSECURE_CSU_AES_KUP_WR);
 		/* Decrypting the Secure header */
+		Status = XFPGA_FAILURE;
 		Status = (u32)XSecure_AesDecryptUpdate(
 			PartitionParams->PlEncrypt.SecureAes,
 			(u8 *)(SrcAddr), XSECURE_SECURE_HDR_SIZE);
@@ -1377,6 +1403,7 @@ static u32 XFpga_DecrptPlChunks(XFpgaPs_PlPartition *PartitionParams,
 		}
 		PartitionParams->PlEncrypt.SecureAes->KeySel =
 				XSECURE_CSU_AES_KEY_SRC_KUP;
+		Status = XFPGA_FAILURE;
 		Status = XSecure_AesKeySelNLoad(PartitionParams->PlEncrypt.SecureAes);
 		if (Status != (u32)XST_SUCCESS) {
 			goto END;
@@ -1398,11 +1425,13 @@ static u32 XFpga_DecrptPlChunks(XFpgaPs_PlPartition *PartitionParams,
 		 * Decrypt next block after Secure header and
 		 * update the required fields
 		 */
+		Status = XFPGA_FAILURE;
 		Status = XFpga_DecrptSetUpNextBlk(PartitionParams);
 		if (Status != XFPGA_SUCCESS) {
 			goto END;
 		}
 
+		Status = XFPGA_FAILURE;
 		Status = XFpga_DecrptPl(PartitionParams, SrcAddr, Size);
 		if (Status != XFPGA_SUCCESS) {
 			goto END;
@@ -1428,6 +1457,7 @@ static u32 XFpga_DecrptPlChunks(XFpgaPs_PlPartition *PartitionParams,
 		(void)memcpy((u8 *)(PartitionParams->SecureHdr
 				+ PartitionParams->Hdr), (u8 *)SrcAddr,
 				XFPGA_AES_TAG_SIZE - PartitionParams->Hdr);
+		Status = XFPGA_FAILURE;
 		Status = XFpga_DecrypSecureHdr(
 			PartitionParams->PlEncrypt.SecureAes,
 			(UINTPTR)PartitionParams->SecureHdr);
@@ -1449,11 +1479,13 @@ static u32 XFpga_DecrptPlChunks(XFpgaPs_PlPartition *PartitionParams,
 		PartitionParams->PlEncrypt.SecureAes->KeySel =
 				XSECURE_CSU_AES_KEY_SRC_KUP;
 
+		Status = XFPGA_FAILURE;
 		Status = XSecure_AesKeySelNLoad(PartitionParams->PlEncrypt.SecureAes);
 		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
 
+		Status = XFPGA_FAILURE;
 		Status = XFpga_DecrptSetUpNextBlk(PartitionParams);
 		if (Status != XFPGA_SUCCESS) {
 			goto END;
@@ -1461,6 +1493,7 @@ static u32 XFpga_DecrptPlChunks(XFpgaPs_PlPartition *PartitionParams,
 
 		if ((NextBlkAddr != 0x00U) &&
 		(PartitionParams->PlEncrypt.SecureAes->SizeofData != 0U)) {
+			Status = XFPGA_FAILURE;
 			Status = XFpga_DecrptPl(PartitionParams,
 						NextBlkAddr, Size);
 			if (Status != XFPGA_SUCCESS) {
@@ -1660,12 +1693,14 @@ static u32 XFpga_DecrptPl(XFpgaPs_PlPartition *PartitionParams,
 		}
 
 		/* Wait PCAP done */
+		Status = XFPGA_FAILURE;
 		Status = XFpga_PcapWaitForDone();
 		if (Status != XFPGA_SUCCESS) {
 			goto END;
 		}
 
 		/* Configure AES engine */
+		Status = XFPGA_FAILURE;
 		Status = XSecure_SssAes(&PartitionParams->SssInstance,
 					XSECURE_SSS_DMA0, XSECURE_SSS_PCAP);
 		if (Status != (u32)XST_SUCCESS) {
@@ -1683,6 +1718,7 @@ static u32 XFpga_DecrptPl(XFpgaPs_PlPartition *PartitionParams,
 		/* Decrypting secure header and GCM tag address */
 		if ((PartitionParams->PlEncrypt.SecureAes->SizeofData == 0U) &&
 						(Size != 0U)) {
+			Status = XFPGA_FAILURE;
 			Status = XFpga_DecrypSecureHdr(
 				PartitionParams->PlEncrypt.SecureAes, SrcAddr);
 			if (Status != XFPGA_SUCCESS) {
@@ -1701,11 +1737,13 @@ static u32 XFpga_DecrptPl(XFpgaPs_PlPartition *PartitionParams,
 			 */
 			PartitionParams->PlEncrypt.SecureAes->KeySel =
 					XSECURE_CSU_AES_KEY_SRC_KUP;
+			Status = XFPGA_FAILURE;
 			Status = XSecure_AesKeySelNLoad(
 				PartitionParams->PlEncrypt.SecureAes);
 			if (Status != (u32)XST_SUCCESS) {
 				goto END;
 			}
+			Status = XFPGA_FAILURE;
 			Status = XFpga_DecrptSetUpNextBlk(PartitionParams);
 			if (Status != XFPGA_SUCCESS) {
 				goto END;
@@ -1792,6 +1830,7 @@ static u32 XFpga_DecrypSecureHdr(XSecure_Aes *InstancePtr, UINTPTR SrcAddr)
 
 	if (GcmStatus == 0U) {
 		/* Zerioze the Aes key */
+		Status = XFPGA_FAILURE;
 		Status = XSecure_AesKeyZero(InstancePtr);
 		XSecure_SetReset(InstancePtr->BaseAddress,
 				 XSECURE_CSU_AES_RESET_OFFSET);
@@ -1902,6 +1941,7 @@ static u32 XFpga_PLWaitForDone(void)
 	RegVal = RegVal | CSU_PCAP_RESET_RESET_MASK;
 	Xil_Out32(CSU_PCAP_RESET, RegVal);
 
+	Status = XFPGA_ERROR_PCAP_PL_DONE;
 	Status = Xil_WaitForEvent(CSU_PCAP_RESET,
 				  CSU_PCAP_RESET_RESET_MASK,
 				  CSU_PCAP_RESET_RESET_MASK,
@@ -2127,6 +2167,7 @@ static u32 XFpga_GetConfigRegPcap(const XFpga *InstancePtr)
 	XCsuDma_Transfer(CsuDmaPtr, XCSUDMA_DST_CHANNEL, Address, 1U, 0U);
 
 	/* Setup the source DMA channel */
+	Status = XFPGA_FAILURE;
 	Status = XFpga_PcapWaitForDone();
 	if (Status != XFPGA_SUCCESS) {
 		Xfpga_Printf(XFPGA_DEBUG, "Write to PCAP Failed\n\r");
@@ -2134,6 +2175,7 @@ static u32 XFpga_GetConfigRegPcap(const XFpga *InstancePtr)
 		goto END;
 	}
 
+	Status = XFPGA_FAILURE;
 	Status = XFpga_WriteToPcap(CmdIndex, (UINTPTR)CmdBuf);
 	if (Status != XFPGA_SUCCESS) {
 		Xfpga_Printf(XFPGA_DEBUG, "Write to PCAP Failed\n\r");
@@ -2148,6 +2190,7 @@ static u32 XFpga_GetConfigRegPcap(const XFpga *InstancePtr)
 	Xil_Out32(CSU_PCAP_RDWR, 0x1U);
 
 	/* wait for the DST_DMA to complete and the pcap to be IDLE */
+	Status = XFPGA_FAILURE;
 	Status = XCsuDma_WaitForDoneTimeout(CsuDmaPtr, XCSUDMA_DST_CHANNEL);
 	if (Status != XFPGA_SUCCESS) {
 		Xfpga_Printf(XFPGA_DEBUG, "Read from PCAP Failed\n\r");
@@ -2168,6 +2211,7 @@ static u32 XFpga_GetConfigRegPcap(const XFpga *InstancePtr)
 	CmdBuf[CmdIndex] = 0x20000000U; /* NOOP Word */
 	CmdIndex++;
 
+	Status = XFPGA_FAILURE;
 	Status = XFpga_WriteToPcap(CmdIndex, (UINTPTR)CmdBuf);
 	if (Status != XFPGA_SUCCESS) {
 		Xfpga_Printf(XFPGA_DEBUG, "Write to PCAP Failed\n\r");
@@ -2236,6 +2280,7 @@ static u32 XFpga_GetPLConfigDataPcap(const XFpga *InstancePtr)
 	Xil_Out32(PCAP_CLK_CTRL, RegVal | PCAP_CLK_EN_MASK);
 
 	/* Take PCAP out of Reset */
+	Status = XFPGA_FAILURE;
 	Status = XFpga_PcapInit(1U);
 	if (Status != XFPGA_SUCCESS) {
 		Status = XPFGA_ERROR_PCAP_INIT;
@@ -2319,6 +2364,7 @@ static u32 XFpga_GetPLConfigDataPcap(const XFpga *InstancePtr)
 	XCsuDma_Transfer(CsuDmaPtr, XCSUDMA_DST_CHANNEL,
 			 Address, NumFrames, 0U);
 
+	Status = XFPGA_FAILURE;
 	Status = XFpga_PcapWaitForDone();
 	if (Status != XFPGA_SUCCESS) {
 		Xfpga_Printf(XFPGA_DEBUG, "Write to PCAP Failed\n\r");
@@ -2326,6 +2372,7 @@ static u32 XFpga_GetPLConfigDataPcap(const XFpga *InstancePtr)
 		goto END;
 	}
 
+	Status = XFPGA_FAILURE;
 	Status = XFpga_WriteToPcap(cmdindex, (UINTPTR)CmdBuf);
 	if (Status != XFPGA_SUCCESS) {
 		Xfpga_Printf(XFPGA_DEBUG, "Write to PCAP Failed\n\r");
@@ -2341,6 +2388,7 @@ static u32 XFpga_GetPLConfigDataPcap(const XFpga *InstancePtr)
 
 
 	/* wait for the DST_DMA to complete and the pcap to be IDLE */
+	Status = XFPGA_FAILURE;
 	Status = XCsuDma_WaitForDoneTimeout(CsuDmaPtr, XCSUDMA_DST_CHANNEL);
 	if (Status != XFPGA_SUCCESS) {
 		Xfpga_Printf(XFPGA_DEBUG, "Read from PCAP Failed\n\r");
@@ -2351,6 +2399,7 @@ static u32 XFpga_GetPLConfigDataPcap(const XFpga *InstancePtr)
 	/* Acknowledge the transfer has completed */
 	XCsuDma_IntrClear(CsuDmaPtr, XCSUDMA_DST_CHANNEL, XCSUDMA_IXR_DONE_MASK);
 
+	Status = XFPGA_FAILURE;
 	Status = XFpga_PcapWaitForidle();
 	if (Status != XFPGA_SUCCESS) {
 		Xfpga_Printf(XFPGA_DEBUG, "Reading data from PL through PCAP Failed\n\r");
@@ -2391,6 +2440,7 @@ static u32 XFpga_GetPLConfigDataPcap(const XFpga *InstancePtr)
 	CmdBuf[cmdindex] = 0x20000000U; /* Type 1 NOOP Word 0 */
 	cmdindex++;
 
+	Status = XFPGA_FAILURE;
 	Status = XFpga_WriteToPcap(cmdindex, (UINTPTR)CmdBuf);
 	if (Status != XFPGA_SUCCESS) {
 		Xfpga_Printf(XFPGA_DEBUG, "Write to PCAP 1 Failed\n\r");

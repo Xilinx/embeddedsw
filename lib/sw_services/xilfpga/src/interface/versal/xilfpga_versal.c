@@ -24,6 +24,8 @@
  * 5.3  Nava  09/09/20  Replaced the asserts with input validations for non void
  *                      API's.
  * 5.3  Nava  15/12/20  Fixed doxygen issues.
+ * 6.0  Nava  20/01/21  Reset the status variable to fail to avoid safety
+ *                      violations.
  * </pre>
  *
  * @note
@@ -96,7 +98,7 @@ static u32 XFpga_WriteToPl(XFpga *InstancePtr)
 	UINTPTR BitstreamAddr = InstancePtr->WriteInfo.BitstreamAddr;
 
 	Status = XMailbox_Initialize(&XMboxInstance, XMAILBOX_DEVICE_ID);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 	if (InstancePtr->WriteInfo.Flags & PDI_LOAD_TYPE_MASK) {
@@ -111,17 +113,19 @@ static u32 XFpga_WriteToPl(XFpga *InstancePtr)
 		ReqBuffer[3U] = LOWER_32_BITS(BitstreamAddr);
 	}
 	/* Send an IPI Req Message */
+	Status = XFPGA_FAILURE;
 	Status = XMailbox_SendData(&XMboxInstance, XMAILBOX_IPIPMC, ReqBuffer,
 				   LOAD_PDI_MSG_LEN, XILMBOX_MSG_TYPE_REQ,
 				   FPGA_IPI_TYPE_BLOCKING);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		xil_printf("Sending Req Message Failed\n\r");
 		goto END;
 	}
 
+	Status = XFPGA_FAILURE;
 	Status = XMailbox_Recv(&XMboxInstance, XMAILBOX_IPIPMC, ReqBuffer,
 				FPGA_IPI_RESP1, XILMBOX_MSG_TYPE_RESP);
-	if (Status == XST_SUCCESS) {
+	if (Status == (u32)XST_SUCCESS) {
 		Status = ReqBuffer[0U];
 	}
 
