@@ -28,6 +28,8 @@
  *                      violations.
  * 6.0  Nava  21/01/21  Make Status variable volatile to avoid compiler
  *                      optimizations.
+ * 6.0  Nava  21/01/21  The usage of XMboxInstance variable is limited only
+ *                      to this file. So making this variable as static.
  * </pre>
  *
  * @note
@@ -55,7 +57,7 @@
 static u32 XFpga_WriteToPl(XFpga *InstancePtr);
 /************************** Variable Definitions *****************************/
 
-XMailbox XMboxInstance;
+static XMailbox XMboxInstance;
 static u32 ReqBuffer[LOAD_PDI_MSG_LEN] = {0U};
 
 /*****************************************************************************/

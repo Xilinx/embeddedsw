@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,8 @@
  *                      violations.
  * 6.0  Nava  21/01/21  Make Status variable volatile to avoid compiler
  *                      optimizations.
+ * 6.0  Nava  21/01/21  The usage of XMboxInstance variable is limited only
+ *                      to this file. So making this variable as static.
  * </pre>
  *
  * @note
@@ -64,7 +66,7 @@ static u32 XFpga_IPI_GetPLConfigRegPcap(const XFpga *InstancePtr);
 static u32 XFpga_IPI_PcapStatus(void);
 /************************** Variable Definitions *****************************/
 
-XMailbox XMboxInstance;
+static XMailbox XMboxInstance;
 
 /*****************************************************************************/
 /**This API when called initializes the XFPGA interface with default settings.
