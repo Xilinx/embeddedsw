@@ -54,8 +54,10 @@
  *                      Size(Bitstream size).
  * 6.0 Nava   01/07/21  Fixed misra-c required standard violations.
  * 6.0 Nava   01/08/21  Removed unwanted if else conditions.
- * 6.0  Nava  20/01/21  Reset the status variable to fail to avoid safety
+ * 6.0 Nava   20/01/21  Reset the status variable to fail to avoid safety
  *                      violations.
+ * 6.0 Nava   21/01/21  Make Status variable volatile to avoid compiler
+ *                      optimizations.
  *</pre>
  *
  *@note
@@ -184,7 +186,7 @@ u32 XFpga_BitStream_Load(XFpga *InstancePtr,
 			 UINTPTR BitstreamImageAddr,
 			 UINTPTR KeyAddr, u32 Size, u32 Flags)
 {
-	u32 Status = XFPGA_FAILURE;
+	volatile u32 Status = XFPGA_FAILURE;
 	UINTPTR	KeyPtr = KeyAddr;
 
 	/* Validate the input arguments */
@@ -329,7 +331,7 @@ u32 XFpga_ValidateImage(XFpga *InstancePtr,
 			UINTPTR BitstreamImageAddr,
 			UINTPTR KeyAddr, u32 Size, u32 Flags)
 {
-	u32 Status = XFPGA_VALIDATE_ERROR;
+	volatile u32 Status = XFPGA_VALIDATE_ERROR;
 	UINTPTR	KeyPtr = KeyAddr;
 
 	/* Validate the input arguments */
@@ -481,7 +483,7 @@ u32 XFpga_PL_Write(XFpga *InstancePtr,UINTPTR BitstreamImageAddr,
 u32 XFpga_Write_Pl(XFpga *InstancePtr,UINTPTR BitstreamImageAddr,
 		UINTPTR KeyAddr, u32 Size, u32 Flags)
 {
-	u32 Status = XFPGA_WRITE_BITSTREAM_ERROR;
+	volatile u32 Status = XFPGA_WRITE_BITSTREAM_ERROR;
 	UINTPTR KeyPtr = KeyAddr;
 
 	/* Validate the input arguments */
