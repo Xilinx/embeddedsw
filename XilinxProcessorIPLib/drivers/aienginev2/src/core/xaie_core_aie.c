@@ -124,21 +124,47 @@ AieRC _XAie_CoreEnable(XAie_DevInst *DevInst, XAie_LocType Loc,
 AieRC _XAie_CoreWaitForDone(XAie_DevInst *DevInst, XAie_LocType Loc,
 		u32 TimeOut, const struct XAie_CoreMod *CoreMod)
 {
-	u32 Mask, Value;
-	u64 EventRegAddr;
+	AieRC RC = XAIE_CORE_STATUS_TIMEOUT;
+	u32 Count, MinTimeOut, StatusReg, DisEventReg;
+	u64 StatusRegAddr, EventRegAddr;
 
-	Mask = CoreMod->CoreEvent->DisableEventOccurred.Mask;
-	Value = 1U << CoreMod->CoreEvent->DisableEventOccurred.Lsb;
+	StatusRegAddr = CoreMod->CoreSts->RegOff +
+		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
 	EventRegAddr = CoreMod->CoreEvent->EnableEventOff +
 		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
 
-	if(XAie_MaskPoll(DevInst, EventRegAddr, Mask, Value, TimeOut) !=
-			XAIE_OK) {
-		XAIE_DBG("Status poll time out\n");
-		return XAIE_CORE_STATUS_TIMEOUT;
+	MinTimeOut = 200;
+	Count = ((u64)TimeOut + MinTimeOut - 1) / MinTimeOut;
+
+	while (Count > 0U) {
+		if(XAie_Read32(DevInst, StatusRegAddr, &StatusReg) != XAIE_OK) {
+			return XAIE_ERR;
+		}
+		StatusReg = XAie_GetField(StatusReg, CoreMod->CoreSts->Done.Lsb,
+				CoreMod->CoreSts->Done.Mask);
+
+		if(StatusReg == 1U) {
+			RC = XAIE_OK;
+			break;
+		}
+
+		if(XAie_Read32(DevInst, EventRegAddr, &DisEventReg) != XAIE_OK){
+			return XAIE_ERR;
+		}
+		DisEventReg = XAie_GetField(DisEventReg,
+				CoreMod->CoreEvent->DisableEventOccurred.Lsb,
+				CoreMod->CoreEvent->DisableEventOccurred.Mask);
+
+		if(DisEventReg == 1U) {
+			RC = XAIE_OK;
+			break;
+		}
+
+		usleep(MinTimeOut);
+		Count--;
 	}
 
-	return XAIE_OK;
+	return RC;
 }
 
 /*****************************************************************************/
@@ -162,7 +188,23 @@ AieRC _XAie_CoreReadDoneBit(XAie_DevInst *DevInst, XAie_LocType Loc,
 {
 	AieRC RC;
 	u64 RegAddr;
-	u32 EventReg;
+	u32 StatusReg, EventReg;
+
+	/* Read core status register */
+	RegAddr = CoreMod->CoreSts->RegOff +
+		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
+
+	RC = XAie_Read32(DevInst, RegAddr, &StatusReg);
+	if(RC != XAIE_OK) {
+		return RC;
+	}
+
+	StatusReg = XAie_GetField(StatusReg, CoreMod->CoreSts->Done.Lsb,
+			CoreMod->CoreSts->Done.Mask);
+	if(StatusReg == 1U) {
+		*DoneBit = 1U;
+		return XAIE_OK;
+	}
 
 	/* Read enable events register */
 	RegAddr = CoreMod->CoreEvent->EnableEventOff +
