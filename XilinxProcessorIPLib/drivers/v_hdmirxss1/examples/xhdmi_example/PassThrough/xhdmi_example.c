@@ -3716,6 +3716,9 @@ void Info(void)
     xil_printf("Audio\r\n");
     xil_printf("---------\r\n");
     XV_HdmiTxSs1_ReportAudio(&HdmiTxSs);
+    xil_printf("Static HDR DRM Infoframe\r\n");
+    xil_printf("---------\r\n");
+    XV_HdmiTxSs1_ReportDRMInfo(&HdmiTxSs);
 #if defined(USE_HDCP_HDMI_TX)
     HdmiTxSs.EnableHDCPLogging = (FALSE);
     XV_HdmiTxSs1_HdcpInfo(&HdmiTxSs);
@@ -3734,6 +3737,9 @@ void Info(void)
     xil_printf("Audio\r\n");
     xil_printf("---------\r\n");
     XV_HdmiRxSs1_ReportAudio(&HdmiRxSs);
+    xil_printf("Static HDR DRM Infoframe\r\n");
+    xil_printf("---------\r\n");
+    XV_HdmiRxSs1_ReportDRMInfo(&HdmiRxSs);
 #if defined(USE_HDCP_HDMI_RX)
     HdmiRxSs.EnableHDCPLogging = (FALSE);
     XV_HdmiRxSs1_HdcpInfo(&HdmiRxSs);
