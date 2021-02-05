@@ -1203,7 +1203,7 @@ XHdmiC_Aux XV_HdmiC_SPDIF_GeneratePacket(XHdmiC_SPDInfoFrame *SPDInfoFrame)
 		Crc += aux.Header.Byte[Index];
 
 	/* Data */
-	for (Index = 1; Index < aux.Header.Byte[2] + 1; Index++)
+	for (Index = 1; Index < aux.Header.Byte[2] + 4; Index++)
 		Crc += aux.Data.Byte[Index];
 
 	Crc = 256 - Crc;
@@ -1300,7 +1300,7 @@ void XV_HdmiC_DRMIF_GeneratePacket(XHdmiC_DRMInfoFrame *DRMInfoFrame, XHdmiC_Aux
 		Crc += aux->Header.Byte[Index];
 
 	/* Data */
-	for (Index = 1; Index < aux->Header.Byte[2] + 1; Index++)
+	for (Index = 1; Index < aux->Header.Byte[2] + 4; Index++)
 		Crc += aux->Data.Byte[Index];
 
 	Crc = 256 - Crc;
