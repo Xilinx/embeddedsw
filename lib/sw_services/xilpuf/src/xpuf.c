@@ -30,6 +30,7 @@
 * 1.3   am   11/23/2020 Resolved MISRA C violation Rule 10.6
 *       har  01/06/2021 Added API to clear PUF ID
 *       am   01/14/2021 Resolved HIS_CCM Code complexity violations
+*       har  02/03/2021 Improved input validation check in XPuf_Regeneration
 *
 * </pre>
 *
@@ -289,7 +290,13 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 {
 	volatile int Status = XST_FAILURE;
 
-	if ((PufData == NULL) || (PufData->PufOperation == XPUF_REGISTRATION)) {
+	if (PufData == NULL) {
+		Status = XPUF_ERROR_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((PufData->PufOperation != XPUF_REGEN_ON_DEMAND) &&
+		(PufData->PufOperation != XPUF_REGEN_ID_ONLY)) {
 		Status = XPUF_ERROR_INVALID_PARAM;
 		goto END;
 	}
