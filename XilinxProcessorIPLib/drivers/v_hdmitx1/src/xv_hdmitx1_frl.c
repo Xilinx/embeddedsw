@@ -640,9 +640,17 @@ xil_printf("%X ", DdcBuf[ln]);
 					XV_HdmiTx1_SetFrlLtp(InstancePtr, 2,
 						XV_HDMITX1_LTP_NYQUIST_CLOCK);
 				} else {
-					XV_HdmiTx1_SetFrlLtp(InstancePtr,
-							     ln,
-							     DdcBuf[ln]);
+					/*
+					 * When FLT no timeout is cleared/False
+					 * and LTP request is 3 then don't
+					 * update the new LTP and continue with
+					 * previous. Refer Table 6-32 LTP3 row.
+					 */
+					if (DdcBuf[ln] != 3 ||
+					    InstancePtr->Stream.Frl.FltNoTimeout)
+						XV_HdmiTx1_SetFrlLtp(InstancePtr,
+								     ln,
+								     DdcBuf[ln]);
 				}
 			}
 			/* 0xE means FFE of the specific lane needs to be adjusted.
