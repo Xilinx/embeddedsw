@@ -508,7 +508,7 @@ done:
 	return Status;
 }
 
-static struct XPm_PowerDomainOps CpmOps[XPM_CPM_OPS_MAX] = {
+static const struct XPm_PowerDomainOps CpmOps[XPM_CPM_OPS_MAX] = {
 	[XPM_HC_CPM_OPS] = {
 		.InitStart = CpmInitStart,
 		.InitFinish = CpmInitFinish,
@@ -531,7 +531,7 @@ XStatus XPmCpmDomain_Init(XPm_CpmDomain *CpmDomain, u32 Id, u32 BaseAddress,
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	struct XPm_PowerDomainOps *Ops = NULL;
+	const struct XPm_PowerDomainOps *Ops = NULL;
 
 	if (Id == PM_POWER_CPM) {
 		Ops = &CpmOps[XPM_HC_CPM_OPS];
