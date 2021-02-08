@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,7 +22,8 @@
  *                       gets resolved before restart
  * 1.01  bsv  04/04/2020 Code clean up
  * 1.02  bm   10/14/2020 Code clean up
- * 		 td   10/19/2020 MISRA C Fixes
+ *       td   10/19/2020 MISRA C Fixes
+ * 1.03  bm   02/08/2021 Add GetSysmonPsv API
  *
  * </pre>
  *
@@ -32,7 +33,6 @@
 /***************************** Include Files *********************************/
 #include "xplmi_sysmon.h"
 #include "sleep.h"
-#include "xsysmonpsv.h"
 #include "xplmi_debug.h"
 #include "xplmi_hw.h"
 
@@ -50,6 +50,20 @@
 
 /*****************************************************************************/
 /**
+ * @brief	This function provides address of Sysmon Instance
+ *
+ * @return	Address of SysmonInst
+ *
+ *****************************************************************************/
+XSysMonPsv* XPlmi_GetSysmonInst(void)
+{
+	static XSysMonPsv SysMonInst;
+
+	return &SysMonInst;
+}
+
+/*****************************************************************************/
+/**
  * @brief	This function initializes the SysMon.
  *
  * @param	void
@@ -61,8 +75,7 @@ int XPlmi_SysMonInit(void)
 {
 	int Status = XST_FAILURE;
 	/* Instance of SysMon Driver */
-	static XSysMonPsv SysMonInst;
-	static XSysMonPsv *SysMonInstPtr = &SysMonInst;
+	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 	XSysMonPsv_Config *ConfigPtr;
 
 	ConfigPtr = XSysMonPsv_LookupConfig();

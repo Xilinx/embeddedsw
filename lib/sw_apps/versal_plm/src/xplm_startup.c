@@ -22,7 +22,8 @@
 *                       functionality
 *       kc   03/23/2020 Minor code cleanup
 * 1.03  bm   01/08/2021 Updated PmcCdo hook function name
-* 1.04  rb   02/02/2021 Added XPLM_SEM macro to SEM header file
+*       rb   02/02/2021 Added XPLM_SEM macro to SEM header file
+*       bm   02/08/2021 Renamed PlmCdo to PmcCdo
 *
 * </pre>
 *
@@ -75,7 +76,7 @@ int XPlm_AddStartUpTasks(void)
 	{
 		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_ModuleInit, 0U},
 		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_HookBeforePmcCdo, 0U},
-		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_ProcessPlmCdo, 0U},
+		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_ProcessPmcCdo, 0U},
 		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_HookAfterPmcCdo, 0U},
 		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_LoadBootPdi, 0U},
 		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_HookAfterBootPdi, 0U},

@@ -23,6 +23,7 @@
 * 1.04  ma   01/12/2021 Initialize SlrType to invalid SLR type
 *                       Call PMC state clear function when error occurs while
 *                        processing PLM CDO
+*       bm   02/08/2021 Added SysmonInit after processing PMC CDO
 *
 * </pre>
 *
@@ -37,6 +38,7 @@
 #include "xpm_subsystem.h"
 #include "xplmi_util.h"
 #include "xloader.h"
+#include "xplmi_sysmon.h"
 
 /************************** Constant Definitions *****************************/
 /*
@@ -172,14 +174,14 @@ END:
 
 /*****************************************************************************/
 /**
-* @brief This function executes the PLM CDO present in PMC RAM.
+* @brief This function executes the PMC CDO present in PMC RAM.
 *
 * @param	Arg Not used in the function
 *
 * @return	Status as defined in xplmi_status.h
 *
 *****************************************************************************/
-int XPlm_ProcessPlmCdo(void *Arg)
+int XPlm_ProcessPmcCdo(void *Arg)
 {
 	int Status = XST_FAILURE;
 	XPlmiCdo Cdo;
@@ -223,6 +225,10 @@ int XPlm_ProcessPlmCdo(void *Arg)
 		XLoader_PMCStateClear();
 	}
 
+	Status = XPlmi_SysMonInit();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 END:
 	return Status;
 }

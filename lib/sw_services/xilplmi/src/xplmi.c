@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,7 +37,6 @@
 /***************************** Include Files *********************************/
 #include "xplmi.h"
 #include "xplmi_err.h"
-#include "xplmi_sysmon.h"
 #include "xplmi_wdt.h"
 #include "xplmi_hw.h"
 
@@ -134,7 +133,6 @@ void XPlmi_LpdInit(void)
 #ifdef XPAR_XIPIPSU_0_DEVICE_ID
 		XPlmi_IpiInit,
 #endif
-		XPlmi_SysMonInit,
 		XPlmi_PsEmInit,
 	};
 

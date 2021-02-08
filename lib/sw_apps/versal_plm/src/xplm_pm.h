@@ -18,6 +18,7 @@
 * 1.00  kc   07/20/2018 Initial release
 * 1.01  rp   08/08/2019 Added code to send PM notify callback through IPI
 * 1.02  kc   03/23/2020 Minor code cleanup
+* 1.03  bm   02/08/2021 Renamed PlmCdo to PmcCdo
 *
 * </pre>
 *
@@ -44,7 +45,7 @@ extern "C" {
 /************************** Variable Definitions *****************************/
 
 int XPlm_PmInit(void);
-int XPlm_ProcessPlmCdo(void *Arg);
+int XPlm_ProcessPmcCdo(void *Arg);
 
 #ifdef __cplusplus
 }
