@@ -46,7 +46,7 @@
 XPciePsu_Config *XPciePsu_LookupConfig(u16 DeviceId)
 {
 	XPciePsu_Config *CfgPtr = NULL;
-	unsigned int Index;
+	u32 Index;
 
 	for (Index = 0; Index < XPciePsu_ConfigTableSize; Index++) {
 		if (XPciePsu_ConfigTable[Index].DeviceId == DeviceId) {
