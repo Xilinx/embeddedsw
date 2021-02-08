@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018-2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018-2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,7 @@
 
 #include "xpsmfw_init.h"
 #include "xpsmfw_default.h"
+#include "xpsmfw_stl.h"
 
 #define NOT_INITIALIZED			0xFFFFFFFFU
 
@@ -73,6 +74,13 @@ int XPsmFw_Init(void)
 #endif
 
 	Status = XST_SUCCESS;
+
+#ifdef PSM_ENABLE_STL
+	Status = XPsmFw_StartUpStlHook();
+	if (XST_SUCCESS != Status) {
+		XPsmFw_Printf(DEBUG_ERROR, "%s: Error! STL initialization failed\r\n", __func__);
+	}
+#endif
 
 	return Status;
 }
