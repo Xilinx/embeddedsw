@@ -33,6 +33,22 @@
 
 /***************************** Function Prototypes ****************************/
 
+/******************************************************************************/
+/*******************************************************************************/
+/**
+* This function calculates the Capability List Start Address from the Capabilty
+* Pointer Offset value. As per spec, of the first 16 bits in this offset,
+* least 2 significant bits must be ignored, hence the additional shifting.
+*
+* @param   Val   Capability pointer offset value
+*
+* @return  Capability List Start Address
+*
+*******************************************************************************/
+static u16 XPciePsu_GetCapabilityAddr(u32 Val)
+{
+	return ((u16)((Val >> 2U) & 0xFFFFU));
+}
 
 /******************************************************************************/
 /**
@@ -84,7 +100,7 @@ u8 XPciePsu_HasCapability(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 
 	while (CapBase != 0U) {
 		if (XPciePsu_ReadConfigSpace(InstancePtr, Bus, Device,
-		       Function, (u16)XPCIEPSU_DOUBLEWORD(CapBase), &CapBase) != (u8)XST_SUCCESS) {
+		       Function, XPciePsu_GetCapabilityAddr(CapBase), &CapBase) != (u8)XST_SUCCESS) {
 			goto End;
 		}
 		if (CapId == (CapBase & XPCIEPSU_CFG_CAP_ID_LOC)){
@@ -130,12 +146,12 @@ u64 XPciePsu_GetCapability(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 	while (CapBase != 0U) {
 		Adr = CapBase;
 		if (XPciePsu_ReadConfigSpace(InstancePtr, Bus, Device,
-			Function, (u16)XPCIEPSU_DOUBLEWORD(CapBase), &CapBase) != (u8)XST_SUCCESS) {
+			Function, XPciePsu_GetCapabilityAddr(CapBase), &CapBase) != (u8)XST_SUCCESS) {
 			goto End;
 		}
 		if (CapId == (CapBase & XPCIEPSU_CFG_CAP_ID_LOC)) {
 			Offset = XPciePsu_ComposeExternalConfigAddress(
-					Bus, Device, Function, (u16)XPCIEPSU_DOUBLEWORD(Adr));
+					Bus, Device, Function, XPciePsu_GetCapabilityAddr(Adr));
 			Location = (InstancePtr->Config.Ecam) + (Offset);
 			goto End;
 		}
@@ -169,7 +185,7 @@ u8 XPciePsu_PrintAllCapabilites(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 	xil_printf("CAP-IDs:");
 	while (CapBase != 0U) {
 		if (XPciePsu_ReadConfigSpace(InstancePtr, Bus, Device,
-			Function, (u16)XPCIEPSU_DOUBLEWORD(CapBase), &CapBase) != (u8)XST_SUCCESS) {
+			Function, XPciePsu_GetCapabilityAddr(CapBase), &CapBase) != (u8)XST_SUCCESS) {
 			return XST_FAILURE;
 		}
 		xil_printf("0x%X ", CapBase & XPCIEPSU_CFG_CAP_ID_LOC);

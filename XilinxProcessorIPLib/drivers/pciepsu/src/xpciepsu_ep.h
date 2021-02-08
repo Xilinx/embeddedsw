@@ -58,8 +58,6 @@ extern "C" {
 /**************************** Constant Definitions ****************************/
 
 /******************** Macros (Inline Functions) Definitions *******************/
-#define XPCIEPSU_LOWER32BITS(data_64bit) (data_64bit & 0xFFFFFFFFU)
-#define XPCIEPSU_UPPER32BITS(data_64bit) (data_64bit >> 32U)
 
 /****************************** Type Definitions ******************************/
 #define INGRESS_SIZE				0x20U
