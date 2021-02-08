@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -42,7 +42,7 @@ struct XPm_PowerDomainOps {
 struct XPm_PowerDomain {
 	XPm_Power Power; /**< Power: Power node base class */
 	XPm_Power *Children; /**< List of children power nodes */
-	struct XPm_PowerDomainOps *DomainOps; /**< house cleaning operations */
+	const struct XPm_PowerDomainOps *DomainOps; /**< house cleaning operations */
 	u32 Parents[MAX_POWERDOMAIN_PARENTS]; /**< List of Parent Rail Ids */
 	u16 InitMask; /**< Mask to indicate house cleaning functions present */
 	u16 InitFlag; /**< Flag to indicate house cleaning functions performed */
@@ -51,7 +51,7 @@ struct XPm_PowerDomain {
 /************************** Function Prototypes ******************************/
 XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
 			    u32 BaseAddress, XPm_Power *Parent,
-			    struct XPm_PowerDomainOps *Ops);
+			    struct XPm_PowerDomainOps const *Ops);
 XStatus XPmPowerDomain_AddParent(u32 Id, u32 *ParentNodes, u32 NumParents);
 XStatus XPm_PowerUpLPD(XPm_Node *Node);
 XStatus XPm_PowerDwnLPD(void);
