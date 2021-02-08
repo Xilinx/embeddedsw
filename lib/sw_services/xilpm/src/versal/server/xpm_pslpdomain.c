@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -617,7 +617,7 @@ static XStatus LpdXmpuCtrl(u32 *Args, u32 NumOfArgs)
 	return XPmProt_CommonXmpuCtrl(Args, NumOfArgs);
 }
 
-static struct XPm_PowerDomainOps LpdOps = {
+static const struct XPm_PowerDomainOps LpdOps = {
 	.InitStart = LpdInitStart,
 	.InitFinish = LpdInitFinish,
 	.ScanClear = LpdScanClear,
