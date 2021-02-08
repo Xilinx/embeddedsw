@@ -101,18 +101,17 @@ u8 XPciePsu_HasCapability(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 	while (CapBase != 0U) {
 		if (XPciePsu_ReadConfigSpace(InstancePtr, Bus, Device,
 		       Function, XPciePsu_GetCapabilityAddr(CapBase), &CapBase) != (u8)XST_SUCCESS) {
-			goto End;
+			break;
 		}
 		if (CapId == (CapBase & XPCIEPSU_CFG_CAP_ID_LOC)){
 			CapStatus =  CAP_PRESENT;
-			goto End;
+			break;
 		}
 
 
 		CapBase = (u32)((CapBase >> XPCIEPSU_CAP_SHIFT) & (u32)XPCIEPSU_CAP_PTR_LOC);
 	}
 
-End:
 	return CapStatus;
 
 }
@@ -147,17 +146,17 @@ u64 XPciePsu_GetCapability(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 		Adr = CapBase;
 		if (XPciePsu_ReadConfigSpace(InstancePtr, Bus, Device,
 			Function, XPciePsu_GetCapabilityAddr(CapBase), &CapBase) != (u8)XST_SUCCESS) {
-			goto End;
+			break;
 		}
 		if (CapId == (CapBase & XPCIEPSU_CFG_CAP_ID_LOC)) {
 			Offset = XPciePsu_ComposeExternalConfigAddress(
 					Bus, Device, Function, XPciePsu_GetCapabilityAddr(Adr));
 			Location = (InstancePtr->Config.Ecam) + (Offset);
-			goto End;
+			break;
 		}
 		CapBase = (u32)((CapBase >> XPCIEPSU_CAP_SHIFT) & (u32)XPCIEPSU_CAP_PTR_LOC);
 	}
-End:
+
 	return Location;
 }
 #endif

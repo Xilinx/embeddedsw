@@ -58,12 +58,12 @@ XPciePsu_Config *XPciePsu_LookupConfig(u16 DeviceId)
 					(XPciePsu_ConfigTable[Index].PMemMaxAddr == 0xffU) ||
 					(XPciePsu_ConfigTable[Index].PciReg == 0xffU)){
 				CfgPtr = NULL;
-				goto End;
+				break;
 			}
 			CfgPtr = &XPciePsu_ConfigTable[Index];
 			break;
 		}
 	}
-End:
+
 	return CfgPtr;
 }

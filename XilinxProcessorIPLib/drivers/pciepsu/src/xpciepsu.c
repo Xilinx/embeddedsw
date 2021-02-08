@@ -158,13 +158,15 @@ static int XPciePsu_PcieLinkUpTimeout(XPciePsu_Config *InstancePtr)
 	for (Retries = 0; Retries < XPCIEPSU_LINK_WAIT_MAX_RETRIES; Retries++) {
 		if (XPciePsu_PhyReady(InstancePtr) == (s32)XPCIEPSU_LINKUP_SUCCESS) {
 			Status =  (s32)XPCIEPSU_LINKUP_SUCCESS;
-			goto End;
+			break;
 		}
 		usleep(XPCIEPSU_LINK_WAIT_USLEEP_MIN);
 	}
 
-	XPciePsu_Err("PHY never cames up\r\n");
-End:
+	if (Retries == XPCIEPSU_LINK_WAIT_MAX_RETRIES ) {
+		XPciePsu_Err("PHY never came up\r\n");
+	}
+
 	return Status;
 }
 
@@ -282,21 +284,21 @@ static int XPciePsu_BridgeInit(XPciePsu *InstancePtr)
 	/* check link up */
 	if (XPciePsu_PcieLinkUp(CfgPtr) == (s32)XPCIEPSU_LINKUP_SUCCESS) {
 		XPciePsu_Dbg("Link is UP\r\n");
+
+		/* Disable all misc interrupts */
+		XPciePsu_WriteReg(CfgPtr->BrigReg, XPCIEPSU_MSGF_MISC_MASK,
+				  (u32)~MSGF_MISC_SR_MASKALL);
+
+		/* Disable all legacy interrupts */
+		XPciePsu_WriteReg(CfgPtr->BrigReg, XPCIEPSU_MSGF_LEG_MASK,
+				  (u32)~MSGF_LEG_SR_MASKALL);
+
+		Status = (s32)XST_SUCCESS;
 	} else {
 		XPciePsu_Err("Link is DOWN\r\n");
 		Status = (s32)XST_FAILURE;
-		goto End;
 	}
 
-	/* Disable all misc interrupts */
-	XPciePsu_WriteReg(CfgPtr->BrigReg, XPCIEPSU_MSGF_MISC_MASK,
-			  (u32)~MSGF_MISC_SR_MASKALL);
-
-	/* Disable all legacy interrupts */
-	XPciePsu_WriteReg(CfgPtr->BrigReg, XPCIEPSU_MSGF_LEG_MASK,
-			  (u32)~MSGF_LEG_SR_MASKALL);
-
-	Status = (s32)XST_SUCCESS;
 End:
 	return Status;
 }
@@ -363,25 +365,21 @@ u8 XPciePsu_ReadConfigSpace(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 
 	if ((Bus == 0U) && !((Device == 0U) && (Function == 0U))) {
 		*DataPtr = DATA_MASK_32;
-		goto End;
-	}
-
-	if (Bus > InstancePtr->MaxSupportedBusNo) {
+	} else if (Bus > InstancePtr->MaxSupportedBusNo) {
 		XPciePsu_Dbg("Bus:%d greater than Max supported buses:%d\n",
 				Bus, InstancePtr->MaxSupportedBusNo);
 		Ret = XST_FAILURE;
-		goto End;
+	} else {
+		/* Compose function configuration space location */
+		Location = XPciePsu_ComposeExternalConfigAddress(Bus, Device, Function,
+								 Offset);
+
+		/* Read data from that location */
+		Data = XPciePsu_ReadReg((InstancePtr->Config.Ecam), Location);
+
+		*DataPtr = Data;
 	}
 
-	/* Compose function configuration space location */
-	Location = XPciePsu_ComposeExternalConfigAddress(Bus, Device, Function,
-							 Offset);
-
-	/* Read data from that location */
-	Data = XPciePsu_ReadReg((InstancePtr->Config.Ecam), Location);
-
-	*DataPtr = Data;
-End:
 	return Ret;
 }
 
