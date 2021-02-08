@@ -682,8 +682,8 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u8 BusNum)
 	u32 Adr08;
 #if defined(__aarch64__) || defined(__arch64__)
 	u32 Adr09;
-	u32 Adr0A;
-	u32 Adr0B;
+	u32 Adr10;
+	u32 Adr11;
 #endif
 
 	int Ret;
@@ -806,8 +806,8 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u8 BusNum)
 					Adr08 = 0x0;
 #if defined(__aarch64__) || defined(__arch64__)
 					Adr09 = 0x0;
-					Adr0A = 0x0;
-					Adr0B = 0x0;
+					Adr10 = 0x0;
+					Adr11 = 0x0;
 #endif
 
 					/* Sets primary and secondary bus
@@ -852,13 +852,13 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u8 BusNum)
 						return;
 					}
 
-					Adr0A |= (u32)(InstancePtr->Config.PMemBaseAddr
+					Adr10 |= (u32)(InstancePtr->Config.PMemBaseAddr
 						  >> EIGHT_HEX_NIBBLES);
 					if (XPciePsu_WriteConfigSpace(
 						InstancePtr, BusNum,
 						PCIeDevNum, PCIeFunNum,
 						XPCIEPSU_CFG_P_UPPER_MEM_T1_REG,
-						Adr0A) != (u8)XST_SUCCESS) {
+						Adr10) != (u8)XST_SUCCESS) {
 						return;
 					}
 #endif
@@ -917,13 +917,13 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u8 BusNum)
 						XPCIEPSU_CFG_P_MEM_T1_REG, Adr09) != (u8)XST_SUCCESS) {
 						return;
 					}
-					Adr0B |= (u32)(InstancePtr->Config.PMemBaseAddr
+					Adr11 |= (u32)(InstancePtr->Config.PMemBaseAddr
 						  >> EIGHT_HEX_NIBBLES);
 					if (XPciePsu_WriteConfigSpace(
 						InstancePtr, BusNum,
 						PCIeDevNum, PCIeFunNum,
 						XPCIEPSU_CFG_P_LIMIT_MEM_T1_REG,
-						Adr0B) != (u8)XST_SUCCESS) {
+						Adr11) != (u8)XST_SUCCESS) {
 						return;
 					}
 #endif
