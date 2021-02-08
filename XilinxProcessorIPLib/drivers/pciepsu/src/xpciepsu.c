@@ -36,6 +36,66 @@
 
 /******************************************************************************/
 /**
+* This function reads a register value from specificied offset
+*
+* @param   BaseAddr   BaseAddr of the register
+* @param   RegOffset  Offset from the base address to be read
+*
+* @return  Register value
+*
+*******************************************************************************/
+u32 XPciePsu_ReadReg(UINTPTR BaseAddr, u32 RegOffset) {
+	return (Xil_In32(BaseAddr + RegOffset));
+}
+
+/******************************************************************************/
+/**
+* This function writes a register value to specificied offset
+*
+* @param   BaseAddr   Base Address of the register
+* @param   RegOffset  Offset from the base address to be written
+* @param   Val        Value to be written
+*
+* @return  none
+*
+*******************************************************************************/
+void XPciePsu_WriteReg(UINTPTR BaseAddr, u32 RegOffset, u32 Val) {
+	Xil_Out32((BaseAddr + RegOffset), Val);
+}
+
+/******************************************************************************/
+/**
+* This function writes a register value to specificied offset
+*
+* @param   BaseAddr   Base Address of the register
+* @param   RegOffset  Offset from the base address to be written
+* @param   Val        Value to be written
+*
+* @return  none
+*
+*******************************************************************************/
+#if defined(__aarch64__) || defined(__arch64__)
+void XPciePsu_WriteReg64(UINTPTR BaseAddr, u64 RegOffset, u64 Val) {
+	Xil_Out64((BaseAddr + RegOffset), Val);
+}
+#endif
+
+/******************************************************************************/
+/**
+* This function gets the Maximum supported Bus Number
+*
+* @param   EcamSize   Size of the ECAM space
+*
+* @return  Maximum supported number of buses
+*
+*******************************************************************************/
+static u32 XPciePsu_GetMaxBusNo(u32 EcamSize) {
+/* each bus required 1 MB ecam space */
+	return (((EcamSize) / (1024U * 1024U)) - 1U);
+}
+
+/******************************************************************************/
+/**
 * This function looks for phy is ready or not
 *
 * @param   InstancePtr pointer to XPciePsu_Config Instance Pointer
@@ -210,7 +270,7 @@ static int XPciePsu_BridgeInit(XPciePsu *InstancePtr)
                            E_ECAM_SIZE_SHIFT)));
 
 	/* Configure last bus numbers as max possible bus number */
-	InstancePtr->MaxSupportedBusNo = GET_MAX_BUS_NO(ECamSize);
+	InstancePtr->MaxSupportedBusNo = XPciePsu_GetMaxBusNo(ECamSize);
 
 	/* Write primary, secondary and subordinate bus numbers */
 	ECamVal = FirstBusNo;

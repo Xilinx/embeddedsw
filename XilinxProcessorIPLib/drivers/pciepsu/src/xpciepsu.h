@@ -60,17 +60,6 @@ extern "C" {
 /**************************** Constant Definitions ****************************/
 
 /******************** Macros (Inline Functions) Definitions *******************/
-#define XPciePsu_ReadReg(BaseAddr, RegOffset) Xil_In32((BaseAddr) + (RegOffset))
-
-#define XPciePsu_WriteReg(BaseAddr, RegOffset, Val)                            \
-	Xil_Out32((BaseAddr) + (RegOffset), (Val))
-
-#if defined(__aarch64__) || defined(__arch64__)
-
-#define XPciePsu_WriteReg64(BaseAddr, RegOffset, Val)                            \
-	Xil_Out64((BaseAddr) + (RegOffset), (Val))
-#endif
-
 #define ARRAY_SIZE(x)	sizeof(x) / sizeof(x[0])
 
 /****************************** Type Definitions ******************************/
@@ -130,6 +119,12 @@ u64 XPciePsu_GetCapability(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 #endif
 u8 XPciePsu_PrintAllCapabilites(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 		u8 Function);
+
+u32 XPciePsu_ReadReg(UINTPTR BaseAddr, u32 RegOffset);
+void XPciePsu_WriteReg(UINTPTR BaseAddr, u32 RegOffset, u32 Val);
+#if defined(__aarch64__) || defined(__arch64__)
+void XPciePsu_WriteReg64(UINTPTR BaseAddr, u64 RegOffset, u64 Val);
+#endif
 
 #ifdef __cplusplus
 }

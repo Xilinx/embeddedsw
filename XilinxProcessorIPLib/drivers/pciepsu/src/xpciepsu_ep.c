@@ -65,10 +65,10 @@ void XPciePsu_EP_BridgeInitialize(XPciePsu *PciePsuPtr)
 	/* Bridge Configurations */
 #if defined(__aarch64__) || defined(__arch64__)
 	XPciePsu_WriteReg64(PciePsuPtr->Config.BrigReg,
-			(u64)XPCIEPSU_E_BREG_BASE_LO,
+			XPCIEPSU_E_BREG_BASE_LO,
 			PciePsuPtr->Config.BrigReg);
-	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg,
-			(u64)XPCIEPSU_E_BREG_BASE_HI, 0U);
+	XPciePsu_WriteReg64(PciePsuPtr->Config.BrigReg,
+			XPCIEPSU_E_BREG_BASE_HI, 0U);
 #else
 	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg,
 			XPCIEPSU_E_BREG_BASE_LO,
@@ -202,14 +202,6 @@ int XPciePsu_EP_SetupIngress(XPciePsu *PciePsuPtr, u32 IngressNum, u32 BarNum,
 	 * Using Ingress Address Translation 0 to setup translation
 	 * to PS DDR
 	 */
-#if defined(__aarch64__) || defined(__arch64__)
-	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg,
-			(INGRESS0_SRC_BASE_LO + ((u64)IngressNum * INGRESS_SIZE)),
-			SrcLo & ~0xfU);
-	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg,
-			(INGRESS0_SRC_BASE_HI +
-			((u64)IngressNum * INGRESS_SIZE)), SrcHi);
-#else
 
 	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg,
 			(INGRESS0_SRC_BASE_LO + (IngressNum * INGRESS_SIZE)),
@@ -217,27 +209,18 @@ int XPciePsu_EP_SetupIngress(XPciePsu *PciePsuPtr, u32 IngressNum, u32 BarNum,
 	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg,
 			(INGRESS0_SRC_BASE_HI +
 			(IngressNum * INGRESS_SIZE)), SrcHi);
-#endif
 
 	XPciePsu_Dbg("Done writing the Ingress Src registers\r\n");
 
-	DestLo = (u32)XPCIEPSU_LOWER32BITS(Dst);
-	DestHi = (u32)XPCIEPSU_UPPER32BITS(Dst);
-#if defined(__aarch64__) || defined(__arch64__)
-	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg,
-			(INGRESS0_DST_BASE_LO +
-			((u64)IngressNum * INGRESS_SIZE)), DestLo);
-	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg,
-			(INGRESS0_DST_BASE_HI +
-			((u64)IngressNum * INGRESS_SIZE)), DestHi);
-#else
+	DestLo = LOWER_32_BITS(Dst);
+	DestHi = UPPER_32_BITS(Dst);
+
 	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg,
 			(INGRESS0_DST_BASE_LO +
 			(IngressNum * INGRESS_SIZE)), DestLo);
 	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg,
 			(INGRESS0_DST_BASE_HI +
 			(IngressNum * INGRESS_SIZE)), DestHi);
-#endif
 
 	XPciePsu_Dbg("Done writing the Ingress Dst registers\r\n");
 
@@ -249,13 +232,9 @@ int XPciePsu_EP_SetupIngress(XPciePsu *PciePsuPtr, u32 IngressNum, u32 BarNum,
 	Val |= (((u32)INGRESS_SIZE_ENCODING << INGRESS_SIZE_SHIFT) |
 		(u32)INGRESS_ENABLE | (u32)INGRESS_SECURITY_ENABLE);
 	Val |= INGRESS_RD_WR_ATTR;
-#if defined(__aarch64__) || defined(__arch64__)
-	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg,
-			(INGRESS0_CONTROL + ((u64)IngressNum * INGRESS_SIZE)), Val);
-#else
+
 	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg,
 			(INGRESS0_CONTROL + (IngressNum * INGRESS_SIZE)), Val);
-#endif
 
 	XPciePsu_Dbg("Done setting up the ingress trasnslation registers\r\n");
 	return (s32)XST_SUCCESS;

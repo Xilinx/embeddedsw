@@ -44,9 +44,6 @@ extern "C" {
 /* helper mecros */
 #define BIT(x) 					(((u32)1U) << (x))
 
-/* each bus required 1 MB ecam space */
-#define GET_MAX_BUS_NO(ecam_sz) 		(((ecam_sz) / (1024U * 1024U)) - 1U)
-
 #define BITSPERLONGLONG				64U
 
 #define GENMASK(h, l) \
