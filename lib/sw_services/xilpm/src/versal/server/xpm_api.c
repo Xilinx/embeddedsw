@@ -38,6 +38,7 @@
 #include "xpm_debug.h"
 #include "xpm_device.h"
 #include "xpm_regulator.h"
+#include "xplmi_sysmon.h"
 
 #define XPm_RegisterWakeUpHandler(GicId, SrcId, NodeId)	\
 	XPlmi_GicRegisterHandler(((GicId) << (8U)) | ((SrcId) << (16U)), \
@@ -4042,9 +4043,7 @@ done:
 static int XPm_GetTemperature(u32 const DeviceId, u32 *Result)
 {
 	int Status = XST_FAILURE;
-	static XSysMonPsv SysMonInst;
-	XSysMonPsv *SysMonInstPtr = &SysMonInst;
-	XSysMonPsv_Config *ConfigPtr;
+	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	if ((u32)XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) {
 		goto done;
@@ -4056,17 +4055,6 @@ static int XPm_GetTemperature(u32 const DeviceId, u32 *Result)
 	 */
 	if ((u32)XPM_NODETYPE_DEV_SOC != NODETYPE(DeviceId)) {
 		Status = XST_NO_FEATURE;
-		goto done;
-	}
-
-	/* Initialize the SysMon driver. */
-	ConfigPtr = XSysMonPsv_LookupConfig();
-	if (ConfigPtr == NULL) {
-		goto done;
-	}
-
-	Status = XSysMonPsv_CfgInitialize(SysMonInstPtr, ConfigPtr);
-	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
