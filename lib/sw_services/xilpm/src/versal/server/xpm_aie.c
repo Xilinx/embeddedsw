@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,7 +37,7 @@ static inline void AieRMW64(u64 addr, u32 Mask, u32 Value)
 }
 
 /* Buffer to hold AIE data memory zeroization elf*/
-static u32 ProgramMem[] __attribute__ ((aligned(16))) = {
+static const u32 ProgramMem[] __attribute__ ((aligned(16))) = {
 	0x0600703fU,
 	0x0a000804U,
 	0x000018c0U,
@@ -102,7 +102,7 @@ static struct AieArray AieInst = {
 	.IsSecure = 0U,
 };
 
-static struct AieArray ShimInst = {
+static const struct AieArray ShimInst = {
 	.NpiAddress = 0xF70A0000U,
 	.NocAddress = 0x20000000000U,
 	.NumCols = 50U,
@@ -220,7 +220,7 @@ static XStatus AieWaitForCoreDone(u32 Col, u32 Row)
  * @param Row Row index of the Core
  * @return Status Code
  *****************************************************************************/
-static XStatus ProgramCore(u32 Col, u32 Row, u32 *PrgData, u32 NumOfWords)
+static XStatus ProgramCore(u32 Col, u32 Row, const u32 *PrgData, u32 NumOfWords)
 {
 	u64 PrgAddr = TILE_BASEADDRESS(Col, Row) + AIE_PROGRAM_MEM_OFFSET;
 
