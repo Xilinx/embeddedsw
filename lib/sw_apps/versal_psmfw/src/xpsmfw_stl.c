@@ -19,4 +19,18 @@ XStatus XPsmFw_StartUpStlHook(void)
 {
 	return XST_SUCCESS;
 }
+
+/****************************************************************************/
+/**
+ * @brief	Hook function to run PSM STLs periodically
+ *
+ * @return	XST_SUCCESS or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
+XStatus XPsmFw_PeriodicStlHook(void)
+{
+	return XST_SUCCESS;
+}
 #endif /* PSM_ENABLE_STL */

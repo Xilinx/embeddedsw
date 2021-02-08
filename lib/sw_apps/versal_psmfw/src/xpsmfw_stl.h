@@ -15,6 +15,7 @@ extern "C" {
 #include "xpsmfw_default.h"
 
 XStatus XPsmFw_StartUpStlHook(void);
+XStatus XPsmFw_PeriodicStlHook(void);
 
 #endif /* PSM_ENABLE_STL */
 

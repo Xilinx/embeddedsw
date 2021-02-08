@@ -7,6 +7,7 @@
 #include "xpsmfw_api.h"
 #include "xpsmfw_ipi_manager.h"
 #include "xpsmfw_power.h"
+#include "xpsmfw_stl.h"
 #include "xpsmfw_gic.h"
 
 #define PACK_PAYLOAD(Payload, Arg0, Arg1)	\
@@ -68,6 +69,7 @@ done:
  ****************************************************************************/
 static XStatus XPsmFw_KeepAliveEvent(void)
 {
+	XStatus Status = XST_FAILURE;
 	u32 PsmKeepAliveCounter;
 
 	/* Ack the IPI interrupt first */
@@ -80,7 +82,14 @@ static XStatus XPsmFw_KeepAliveEvent(void)
 	/* Write incremented keep alive counter value in RTCA register */
 	XPsmFw_Write32(PSM_KEEP_ALIVE_COUNTER_ADDR, PsmKeepAliveCounter);
 
-	return XST_SUCCESS;
+
+#ifdef PSM_ENABLE_STL
+	Status = XPsmFw_PeriodicStlHook();
+#else
+	Status = XST_SUCCESS;
+#endif
+
+	return Status;
 }
 
 /****************************************************************************/
