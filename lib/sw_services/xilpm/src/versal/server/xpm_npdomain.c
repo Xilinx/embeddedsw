@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -509,7 +509,7 @@ done:
 	return Status;
 }
 
-static struct XPm_PowerDomainOps NpdOps = {
+static const struct XPm_PowerDomainOps NpdOps = {
 	.InitStart = NpdInitStart,
 	.InitFinish = NpdInitFinish,
 	.ScanClear = NpdScanClear,
