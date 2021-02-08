@@ -45,7 +45,7 @@
 *
 *******************************************************************************/
 void XPciePsu_EP_CfgInitialize(XPciePsu *PciePsuPtr,
-		XPciePsu_Config *ConfigPtr){
+		const XPciePsu_Config *ConfigPtr){
 	Xil_AssertVoid(ConfigPtr != NULL);
 	(void)memset(PciePsuPtr, 0, sizeof(XPciePsu));
 	(void)memcpy(&(PciePsuPtr->Config), ConfigPtr, sizeof(XPciePsu_Config));

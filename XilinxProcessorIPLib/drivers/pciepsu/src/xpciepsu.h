@@ -101,7 +101,7 @@ extern size_t XPciePsu_ConfigTableSize;
 
 XPciePsu_Config *XPciePsu_LookupConfig(u16 DeviceId);
 
-u32 XPciePsu_CfgInitialize(XPciePsu *InstancePtr, XPciePsu_Config *CfgPtr,
+u32 XPciePsu_CfgInitialize(XPciePsu *InstancePtr, const XPciePsu_Config *CfgPtr,
 			   UINTPTR EffectiveBrgAddress);
 u8 XPciePsu_EnumerateBus(XPciePsu *InstancePtr);
 u8 XPciePsu_ReadConfigSpace(XPciePsu *InstancePtr, u8 Bus, u8 Device,
