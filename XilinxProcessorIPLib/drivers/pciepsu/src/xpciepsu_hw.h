@@ -135,12 +135,6 @@ extern "C" {
 #define XPCIEPSU_PHY_LINKUP_BIT 		BIT(0U)
 #define XPCIEPSU_XPHY_RDY_LINKUP_BIT 		BIT(1U)
 
-#define XPciePsu_IsEcamBusy(InstancePtr)                                       \
-	((XPciePsu_ReadReg((InstancePtr)->Config.Ecam, PCIEPSU_BSC_OFFSET)     \
-	& PCIEPSU_BSC_ECAM_BUSY_MASK)                                        \
-		? TRUE                                                        \
-		: FALSE)
-
 /* Parameters for the waiting for link up routine */
 #define XPCIEPSU_LINK_WAIT_MAX_RETRIES 		10U
 #define XPCIEPSU_LINK_WAIT_USLEEP_MIN 		90000U
