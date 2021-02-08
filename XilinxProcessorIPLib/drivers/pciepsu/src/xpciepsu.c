@@ -446,11 +446,10 @@ static u32 XPciePsu_PositionRightmostSetbit(u64 Size)
 {
 	u32 Position = 0U;
 	u32 Bit = 1U;
-
 	/* ignore 4 bits */
-	Size = Size & (~(0xfU));
+	u64 Size_1 = Size & (~(0xfU));
 
-	while ((Size & Bit) == 0U) {
+	while ((Size_1 & Bit) == 0U) {
 		Bit = Bit << 1U;
 		Position++;
 	}
