@@ -1060,7 +1060,7 @@ u8 XPciePsu_EnumerateBus(XPciePsu *InstancePtr)
 *          err on failure
 *
 *******************************************************************************/
-u32 XPciePsu_CfgInitialize(XPciePsu *InstancePtr, XPciePsu_Config *CfgPtr,
+u32 XPciePsu_CfgInitialize(XPciePsu *InstancePtr, const XPciePsu_Config *CfgPtr,
 			   UINTPTR EffectiveBrgAddress)
 {
 	s32 Status;

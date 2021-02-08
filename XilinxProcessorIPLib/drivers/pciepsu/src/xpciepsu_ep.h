@@ -107,7 +107,7 @@ extern "C" {
 /***************************** Function Prototypes ****************************/
 void XPciePsu_EP_BridgeInitialize(XPciePsu *PciePsuPtr);
 void XPciePsu_EP_CfgInitialize(XPciePsu *PciePsuPtr,
-		XPciePsu_Config *ConfigPtr);
+		const XPciePsu_Config *ConfigPtr);
 void XPciePsu_EP_WaitForLinkup(XPciePsu *PciePsuPtr);
 void XPciePsu_EP_WaitForEnumeration(XPciePsu *PciePsuPtr);
 int XPciePsu_EP_SetupIngress(XPciePsu *PciePsuPtr, u32 IngressNum,

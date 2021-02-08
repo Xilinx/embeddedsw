@@ -112,7 +112,7 @@ int PcieInitRootComplex(XPciePsu *PciePsuPtr, u16 DeviceId)
 {
 	int Status;
 
-	XPciePsu_Config *ConfigPtr;
+	const XPciePsu_Config *ConfigPtr;
 
 	ConfigPtr = XPciePsu_LookupConfig(DeviceId);
 	Xil_AssertNonvoid(ConfigPtr != NULL);

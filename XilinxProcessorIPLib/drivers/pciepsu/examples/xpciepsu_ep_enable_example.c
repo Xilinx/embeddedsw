@@ -116,7 +116,7 @@ int main()
 
 int XPciePsu_InitEndPoint(XPciePsu *PciePsuPtr, u16 DeviceId)
 {
-	XPciePsu_Config *ConfigPtr;
+	const XPciePsu_Config *ConfigPtr;
 	ConfigPtr = XPciePsu_LookupConfig(DeviceId);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
 	if (ConfigPtr->PcieMode != XPCIEPSU_MODE_ENDPOINT) {
