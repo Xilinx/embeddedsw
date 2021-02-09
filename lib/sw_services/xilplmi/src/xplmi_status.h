@@ -61,6 +61,7 @@
 *       kpt  01/21/2021 Added error code for Auth Jtag revoke id failure
 *       bsv  01/29/2021 Added APIs for checking and clearing NPI errors
 *       har  02/01/2021 Added error code for mismatch of encryption key source
+*       bsv  02/09/2021 Added error code for invalid PdiSrc in subsystem Pdi load
 *
 * </pre>
 *
@@ -435,6 +436,9 @@ typedef enum {
 							is not valid (not a multiple of 32K) */
 	XLOADER_ERR_SECURE_NOT_ENABLED,		/**< 0x361 - Error as secure critical code
 							is excluded and Secure boot is attempted */
+	XLOADER_ERR_UNSUPPORTED_SUBSYSTEM_PDISRC,	/**< 0x362 - Error when
+						unsupported PdiSrc is used for
+						subsystem load */
 
 	/**< Security Major error codes */
 	XLOADER_ERR_INIT_GET_DMA = 0x600,
