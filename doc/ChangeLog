@@ -3,6 +3,9 @@ Changes for 2021.1
 sdps_v3_12:
 Added support for non-blocking write.
 
+spips_v3_6:
+Added polled mode TPM example
+
 Changes for 2020.3
 ===============================
 sdps_v3_11:
