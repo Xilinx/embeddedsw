@@ -470,8 +470,10 @@ void Xil_DCacheFlushRange(INTPTR adr, u32 len)
 		 */
 		end = LocalAddr + len;
 		LocalAddr &= ~(cacheline - 1U);
+#ifndef USE_AMP
 		/* Disable Write-back and line fills */
 		Xil_L2WriteDebugCtrl(0x3U);
+#endif
 		while (LocalAddr < end) {
 
 	/* Flush L1 Data cache line */
@@ -489,8 +491,10 @@ void Xil_DCacheFlushRange(INTPTR adr, u32 len)
 #endif
 			LocalAddr += cacheline;
 		}
+#ifndef USE_AMP
 		/* Enable Write-back and line fills */
 		Xil_L2WriteDebugCtrl(0x0U);
+#endif
 	}
 	dsb();
 	mtcpsr(currmask);
