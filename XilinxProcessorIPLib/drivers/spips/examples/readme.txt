@@ -44,4 +44,13 @@ This examples performs transfers in polled mode and has been tested with
 Aardvark Analyzer as Master.
 
 For details, see xspips_slave_polled_example.c.
+
+@section ex7 xspips_tpm_polled_example.c
+Contains an example on how to use the XSpips driver directly.
+This example shows the usage of the SPI driver(XSpiPs) in polled
+mode with Trusted Platform module device. This examples performs set of
+TPM commands in manual start using polling mode.
+
+For details, see xspips_tpm_polled_example.c.
+
 */
