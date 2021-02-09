@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +37,7 @@
 *       td   10/19/2020 MISRA C Fixes
 *       ana  10/19/2020 Added doxygen comments
 * 1.05  bm   12/15/2020 Added Update Multiboot command
+*       bsv  02/09/2021 Added input param validation for APIs
 *
 * </pre>
 *
@@ -203,6 +204,16 @@ static int XLoader_LoadSubsystemPdi(XPlmi_Cmd *Cmd)
 	PdiAddr = (u64)Cmd->Payload[XLOADER_CMD_LOAD_PDI_PDIADDR_HIGH_INDEX];
 	PdiAddr = ((u64)(Cmd->Payload[XLOADER_CMD_LOAD_PDI_PDIADDR_LOW_INDEX]) |
 			(PdiAddr << 32U));
+
+	/* Input parameter validation */
+	if (!((PdiSrc == XLOADER_PDI_SRC_QSPI24) ||
+		(PdiSrc == XLOADER_PDI_SRC_QSPI32) ||
+		(PdiSrc == XLOADER_PDI_SRC_OSPI) ||
+		(PdiSrc == XLOADER_PDI_SRC_DDR))) {
+		Status = XPlmi_UpdateStatus(
+			XLOADER_ERR_UNSUPPORTED_SUBSYSTEM_PDISRC, (int)PdiSrc);
+		goto END;
+	}
 
 	XPlmi_Printf(DEBUG_INFO, "Subsystem PDI Load: Started\n\r");
 
@@ -419,18 +430,17 @@ static int XLoader_UpdateMultiboot(XPlmi_Cmd *Cmd)
 	u32 MultiBootVal = XLOADER_DEFAULT_MULTIBOOT_VAL;
 	u32 RawBootVal = XLOADER_DEFAULT_RAWBOOT_VAL;
 	u8 FlashType;
-	u8 PdiSrc;
+	PdiSrc_t PdiSrc;
 
 	FlashType = (u8)(Cmd->Payload[XLOADER_CMD_MULTIBOOT_BOOTMODE_INDEX] &
 				XLOADER_CMD_MULTIBOOT_FLASHTYPE_MASK);
-	PdiSrc = (u8)((Cmd->Payload[XLOADER_CMD_MULTIBOOT_BOOTMODE_INDEX] &
+	PdiSrc = (PdiSrc_t)((Cmd->Payload[XLOADER_CMD_MULTIBOOT_BOOTMODE_INDEX] &
 			XLOADER_CMD_MULTIBOOT_PDISRC_MASK) >>
 			XLOADER_CMD_MULTIBOOT_PDISRC_SHIFT);
 	ImageLocation = Cmd->Payload[XLOADER_CMD_MULTIBOOT_IMG_LOCATION_INDEX];
 
-	if (((PdiSrc_t)PdiSrc == XLOADER_PDI_SRC_SD0) ||
-		((PdiSrc_t)PdiSrc == XLOADER_PDI_SRC_SD1) ||
-		((PdiSrc_t)PdiSrc == XLOADER_PDI_SRC_SD1_LS)) {
+	if ((PdiSrc == XLOADER_PDI_SRC_SD0) || (PdiSrc == XLOADER_PDI_SRC_SD1)
+		|| (PdiSrc == XLOADER_PDI_SRC_SD1_LS)) {
 		if (FlashType == XLOADER_FLASHTYPE_RAW) {
 			RawBootVal = XLOADER_SD_RAWBOOT_VAL;
 		}
@@ -443,7 +453,7 @@ static int XLoader_UpdateMultiboot(XPlmi_Cmd *Cmd)
 			goto END;
 		}
 	}
-	else if ((PdiSrc_t)PdiSrc == XLOADER_PDI_SRC_EMMC) {
+	else if (PdiSrc == XLOADER_PDI_SRC_EMMC) {
 		if (FlashType == XLOADER_FLASHTYPE_RAW) {
 			RawBootVal = XLOADER_SD_RAWBOOT_VAL;
 		}
@@ -464,9 +474,9 @@ static int XLoader_UpdateMultiboot(XPlmi_Cmd *Cmd)
 		}
 	}
 	else {
-		 if (((PdiSrc_t)PdiSrc != XLOADER_PDI_SRC_QSPI24) &&
-			((PdiSrc_t)PdiSrc != XLOADER_PDI_SRC_QSPI32) &&
-			((PdiSrc_t)PdiSrc != XLOADER_PDI_SRC_OSPI)) {
+		 if ((PdiSrc != XLOADER_PDI_SRC_QSPI24) &&
+			(PdiSrc != XLOADER_PDI_SRC_QSPI32) &&
+			(PdiSrc != XLOADER_PDI_SRC_OSPI)) {
 			XPlmi_Printf(DEBUG_GENERAL, "Unsupported PdiSrc\n");
 			Status = (int)XLOADER_ERR_UNSUPPORTED_MULTIBOOT_PDISRC;
 			goto END;
