@@ -3373,6 +3373,7 @@ lib/sw_apps/freertos_hello_world/data/freertos_hello_world.tcl
 lib/sw_apps/img_rcvry/data/img_rcvry.mss
 lib/sw_apps/img_rcvry/data/img_rcvry.tcl
 lib/sw_apps/img_rcvry/src/xbir_config.h
+lib/sw_apps/img_rcvry/src/xbir_err.h
 lib/sw_apps/img_rcvry/src/xbir_http.c
 lib/sw_apps/img_rcvry/src/xbir_http.h
 lib/sw_apps/img_rcvry/src/xbir_i2c.c
@@ -3402,6 +3403,8 @@ lib/sw_apps/imgsel/src/xis_common.c
 lib/sw_apps/imgsel/src/xis_config.h
 lib/sw_apps/imgsel/src/xis_debug.h
 lib/sw_apps/imgsel/src/xis_error.h
+lib/sw_apps/imgsel/src/xis_gpio.c
+lib/sw_apps/imgsel/src/xis_gpio.h
 lib/sw_apps/imgsel/src/xis_i2c.c
 lib/sw_apps/imgsel/src/xis_i2c.h
 lib/sw_apps/imgsel/src/xis_main.c
@@ -3485,6 +3488,11 @@ lib/sw_apps/versal_plm/src/xplm_stl.c
 lib/sw_apps/versal_plm/src/xplm_stl.h
 lib/sw_apps/versal_psmfw/data/versal_psmfw.mss
 lib/sw_apps/versal_psmfw/data/versal_psmfw.tcl
+lib/sw_apps/versal_psmfw/misc/bspconfig.h
+lib/sw_apps/versal_psmfw/misc/microblaze_interrupts_g.c
+lib/sw_apps/versal_psmfw/misc/xiomodule_g.c
+lib/sw_apps/versal_psmfw/misc/xipipsu_g.c
+lib/sw_apps/versal_psmfw/misc/xuartpsv_g.c
 lib/sw_apps/versal_psmfw/src/crf.h
 lib/sw_apps/versal_psmfw/src/crl.h
 lib/sw_apps/versal_psmfw/src/fpd_apu.h
@@ -3746,6 +3754,8 @@ lib/sw_apps/zynqmp_pmufw/src/xpfw_mod_rtc.c
 lib/sw_apps/zynqmp_pmufw/src/xpfw_mod_rtc.h
 lib/sw_apps/zynqmp_pmufw/src/xpfw_mod_sched.c
 lib/sw_apps/zynqmp_pmufw/src/xpfw_mod_sched.h
+lib/sw_apps/zynqmp_pmufw/src/xpfw_mod_som.c
+lib/sw_apps/zynqmp_pmufw/src/xpfw_mod_som.h
 lib/sw_apps/zynqmp_pmufw/src/xpfw_mod_stl.c
 lib/sw_apps/zynqmp_pmufw/src/xpfw_mod_stl.h
 lib/sw_apps/zynqmp_pmufw/src/xpfw_mod_ultra96.c
@@ -9112,6 +9122,7 @@ FILES:
 XilinxProcessorIPLib/drivers/aienginev2/src/perfcnt/xaie_perfcnt.c
 XilinxProcessorIPLib/drivers/aienginev2/src/perfcnt/xaie_perfcnt.h
 XilinxProcessorIPLib/drivers/v_sdirxss/examples/vck190_av_pt/xsdi_menu.h
+lib/sw_apps/versal_psmfw/src/Makefile
 --------------------------------------------------------------------------------
 
 
