@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xspips_hw.h
-* @addtogroup spips_v3_5
+* @addtogroup spips_v3_6
 * @{
 *
 * This header file contains the identifiers and basic driver functions (or
