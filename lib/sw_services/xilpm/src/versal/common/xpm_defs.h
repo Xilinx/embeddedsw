@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,9 @@ extern "C" {
 #define PM_VERSION_MAJOR    1UL
 #define PM_VERSION_MINOR    0UL
 #define PM_VERSION      ((PM_VERSION_MAJOR << 16) | PM_VERSION_MINOR)
+
+/* Macro to typecast PM API ID */
+#define PM_API(ApiId)	((u32)ApiId)
 
 /**
  *  PM abort reasons enumeration.
@@ -399,87 +402,75 @@ enum XPmNotifyEvent {
 #define XST_API_QUERY_DATA_VERSION	(2U)
 
 /* PM API ids */
-#define PM_GET_API_VERSION              1U
-#define PM_SET_CONFIGURATION            2U
-#define PM_GET_NODE_STATUS              3U
-#define PM_GET_OP_CHARACTERISTIC        4U
-#define PM_REGISTER_NOTIFIER            5U
-
-#define PM_REQUEST_SUSPEND              6U
-#define PM_SELF_SUSPEND                 7U
-#define PM_FORCE_POWERDOWN              8U
-#define PM_ABORT_SUSPEND                9U
-#define PM_REQUEST_WAKEUP               10U
-#define PM_SET_WAKEUP_SOURCE            11U
-#define PM_SYSTEM_SHUTDOWN              12U
-
-#define PM_REQUEST_NODE                 13U
-#define PM_RELEASE_NODE                 14U
-#define PM_SET_REQUIREMENT              15U
-#define PM_SET_MAX_LATENCY              16U
-
-#define PM_RESET_ASSERT                 17U
-#define PM_RESET_GET_STATUS             18U
-#define PM_MMIO_WRITE                   19U
-#define PM_MMIO_READ                    20U
-
-#define PM_INIT_FINALIZE                21U
-
-#define PM_FPGA_LOAD                    22U
-#define PM_FPGA_GET_STATUS              23U
-
-#define PM_GET_CHIPID                   24U
-
-#define PM_SECURE_RSA_AES               25U
-#define PM_SECURE_SHA                   26U
-#define PM_SECURE_RSA                   27U
-
-#define PM_PINCTRL_REQUEST              28U
-#define PM_PINCTRL_RELEASE              29U
-#define PM_PINCTRL_GET_FUNCTION         30U
-#define PM_PINCTRL_SET_FUNCTION         31U
-#define PM_PINCTRL_CONFIG_PARAM_GET     32U
-#define PM_PINCTRL_CONFIG_PARAM_SET     33U
-
-#define PM_IOCTL                        34U
-
-#define PM_QUERY_DATA                   35U
-
-#define PM_CLOCK_ENABLE                 36U
-#define PM_CLOCK_DISABLE                37U
-#define PM_CLOCK_GETSTATE               38U
-#define PM_CLOCK_SETDIVIDER             39U
-#define PM_CLOCK_GETDIVIDER             40U
-#define PM_CLOCK_SETRATE                41U
-#define PM_CLOCK_GETRATE                42U
-#define PM_CLOCK_SETPARENT              43U
-#define PM_CLOCK_GETPARENT              44U
-#define PM_SECURE_IMAGE                 45U
-#define PM_FPGA_READ                    46U
-#define PM_PLL_SET_PARAMETER		48U
-#define PM_PLL_GET_PARAMETER		49U
-#define PM_PLL_SET_MODE			50U
-#define PM_PLL_GET_MODE			51U
-
-#define PM_REGISTER_ACCESS		52U
-#define PM_EFUSE_ACCESS			53U
-
-#define PM_ADD_SUBSYSTEM		54U
-#define PM_DESTROY_SUBSYSTEM            55U
-
-#define PM_DESCRIBE_NODES		56U
-#define	PM_ADD_NODE			57U
-#define	PM_ADD_NODE_PARENT		58U
-#define	PM_ADD_NODE_NAME		59U
-#define PM_ADD_REQUIREMENT		60U
-#define PM_SET_CURRENT_SUBSYSTEM	61U
-#define PM_INIT_NODE			62U
-#define PM_FEATURE_CHECK		63U
-#define PM_ISO_CONTROL			64U
-#define PM_ACTIVATE_SUBSYSTEM		65U
-
-#define PM_API_MIN      PM_GET_API_VERSION
-#define PM_API_MAX      PM_ACTIVATE_SUBSYSTEM
+typedef enum {
+	PM_API_MIN,			/* 0x0 */
+	PM_GET_API_VERSION,		/* 0x1 */
+	PM_SET_CONFIGURATION,		/* 0x2 */
+	PM_GET_NODE_STATUS,		/* 0x3 */
+	PM_GET_OP_CHARACTERISTIC,	/* 0x4 */
+	PM_REGISTER_NOTIFIER,		/* 0x5 */
+	PM_REQUEST_SUSPEND,		/* 0x6 */
+	PM_SELF_SUSPEND,		/* 0x7 */
+	PM_FORCE_POWERDOWN,		/* 0x8 */
+	PM_ABORT_SUSPEND,		/* 0x9 */
+	PM_REQUEST_WAKEUP,		/* 0xA */
+	PM_SET_WAKEUP_SOURCE,		/* 0xB */
+	PM_SYSTEM_SHUTDOWN,		/* 0xC */
+	PM_REQUEST_NODE,		/* 0xD */
+	PM_RELEASE_NODE,		/* 0xE */
+	PM_SET_REQUIREMENT,		/* 0xF */
+	PM_SET_MAX_LATENCY,		/* 0x10 */
+	PM_RESET_ASSERT,		/* 0x11 */
+	PM_RESET_GET_STATUS,		/* 0x12 */
+	PM_MMIO_WRITE,			/* 0x13 */
+	PM_MMIO_READ,			/* 0x14 */
+	PM_INIT_FINALIZE,		/* 0x15 */
+	PM_FPGA_LOAD,			/* 0x16 */
+	PM_FPGA_GET_STATUS,		/* 0x17 */
+	PM_GET_CHIPID,			/* 0x18 */
+	PM_SECURE_RSA_AES,		/* 0x19 */
+	PM_SECURE_SHA,			/* 0x1A */
+	PM_SECURE_RSA,			/* 0x1B */
+	PM_PINCTRL_REQUEST,		/* 0x1C */
+	PM_PINCTRL_RELEASE,		/* 0x1D */
+	PM_PINCTRL_GET_FUNCTION,	/* 0x1E */
+	PM_PINCTRL_SET_FUNCTION,	/* 0x1F */
+	PM_PINCTRL_CONFIG_PARAM_GET,	/* 0x20 */
+	PM_PINCTRL_CONFIG_PARAM_SET,	/* 0x21 */
+	PM_IOCTL,			/* 0x22 */
+	PM_QUERY_DATA,			/* 0x23 */
+	PM_CLOCK_ENABLE,		/* 0x24 */
+	PM_CLOCK_DISABLE,		/* 0x25 */
+	PM_CLOCK_GETSTATE,		/* 0x26 */
+	PM_CLOCK_SETDIVIDER,		/* 0x27 */
+	PM_CLOCK_GETDIVIDER,		/* 0x28 */
+	PM_CLOCK_SETRATE,		/* 0x29 */
+	PM_CLOCK_GETRATE,		/* 0x2A */
+	PM_CLOCK_SETPARENT,		/* 0x2B */
+	PM_CLOCK_GETPARENT,		/* 0x2C */
+	PM_SECURE_IMAGE,		/* 0x2D */
+	PM_FPGA_READ,			/* 0x2E */
+	PM_API_RESERVED_1,		/* 0x2F */
+	PM_PLL_SET_PARAMETER,		/* 0x30 */
+	PM_PLL_GET_PARAMETER,		/* 0x31 */
+	PM_PLL_SET_MODE,		/* 0x32 */
+	PM_PLL_GET_MODE,		/* 0x33 */
+	PM_REGISTER_ACCESS,		/* 0x34 */
+	PM_EFUSE_ACCESS,		/* 0x35 */
+	PM_ADD_SUBSYSTEM,		/* 0x36 */
+	PM_DESTROY_SUBSYSTEM,		/* 0x37 */
+	PM_DESCRIBE_NODES,		/* 0x38 */
+	PM_ADD_NODE,			/* 0x39 */
+	PM_ADD_NODE_PARENT,		/* 0x3A */
+	PM_ADD_NODE_NAME,		/* 0x3B */
+	PM_ADD_REQUIREMENT,		/* 0x3C */
+	PM_SET_CURRENT_SUBSYSTEM,	/* 0x3D */
+	PM_INIT_NODE,			/* 0x3E */
+	PM_FEATURE_CHECK,		/* 0x3F */
+	PM_ISO_CONTROL,			/* 0x40 */
+	PM_ACTIVATE_SUBSYSTEM,		/* 0x41 */
+	PM_API_MAX			/* 0x42 */
+} XPm_ApiId;
 
 #ifdef __cplusplus
 }
