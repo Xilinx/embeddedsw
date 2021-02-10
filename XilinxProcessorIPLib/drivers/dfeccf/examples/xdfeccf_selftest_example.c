@@ -27,6 +27,7 @@
 * 1.0   dc     12/06/20 Initial version
 *       dc     01/04/21 Set mgt si570 oscillator to 122.88MHz
 *       dc     02/02/21 Remove hard coded device node name
+*       dc     02/08/21 align driver to curent specification
 *
 * </pre>
 *
@@ -68,6 +69,7 @@
 extern int XDfeSi570_SetMgtOscillator(double CurrentFrequency,
 				      double NewFrequency);
 static int XDfeCcf_SelfTestExample(u16 DeviceId);
+static int XDfeCcf_PassThroughTestExample(u16 DeviceId);
 
 /************************** Variable Definitions ****************************/
 #ifdef __BAREMETAL__
@@ -126,7 +128,7 @@ int main(void)
 #endif
 
 	/*
-	 * Run the DFE Channel Filter fabric rate example, specify the Device
+	 * Run the DFE Channel Filter init/close example, specify the Device
 	 * ID that is generated in xparameters.h.
 	 */
 	if (XST_SUCCESS != XDfeCcf_SelfTestExample(XDFECCF_DEVICE_ID)) {
@@ -134,7 +136,16 @@ int main(void)
 		return XST_FAILURE;
 	}
 
-	printf("Successfully ran Selftest Example Test\r\n");
+	/*
+	 * Run the DFE Channel Filter pass through example, specify the Device
+	 * ID that is generated in xparameters.h.
+	 */
+	if (XST_SUCCESS != XDfeCcf_PassThroughTestExample(XDFECCF_DEVICE_ID)) {
+		printf("Pass through Example Test failed\r\n");
+		return XST_FAILURE;
+	}
+
+	printf("Successfully ran Selftest and Pass Through Example Test\r\n");
 	return XST_SUCCESS;
 }
 
@@ -187,6 +198,68 @@ static int XDfeCcf_SelfTestExample(u16 DeviceId)
 	if (0x1234 != XDfeCcf_ReadReg(InstancePtr, XDFECCF_COEFF_VALUE)) {
 		return XST_FAILURE;
 	}
+
+	XDfeCcf_Deactivate(InstancePtr);
+	XDfeCcf_InstanceClose(InstancePtr);
+	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+*
+* This function runs a test on the DFE Channel Filter device using the
+* driver APIs.
+* This function does the following tasks:
+*	- Create and system initialize the device driver instance.
+*	- Reset the device.
+*	- Configure the device.
+*	- Initialize the device.
+	- Set the triggers
+*	- Activate the device.
+*	- Load a channel filter coefficients.
+	- Add Component Channel.
+*	- DeActivate the device.
+*
+* @param	DeviceId is the instances device Id.
+*
+* @return
+*		- XST_SUCCESS if the example has completed successfully.
+*		- XST_FAILURE if the example has failed.
+*
+* @note   	None
+*
+****************************************************************************/
+static int XDfeCcf_PassThroughTestExample(u16 DeviceId)
+{
+	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
+	XDfeCcf_Cfg Cfg;
+	XDfeCcf *InstancePtr = NULL;
+	XDfeCcf_Init Init;
+	XDfeCcf_TriggerCfg TriggerCfg;
+	XDfeCcf_Coefficients Coeffs = {
+		7, 1, { 0, 0, 0, (2<<15) - 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+	};
+	XDfeCcf_CarrierCfg CarrierCfg = { 0, 0, 0, 1, 0, 0, 0 };
+
+	/* Initialize libmetal */
+	if (0 != metal_init(&init_param)) {
+		(void)printf("ERROR: Failed to run metal initialization\n");
+		return XST_FAILURE;
+	}
+
+	/* Initialize the instance of channel filter driver */
+	InstancePtr = XDfeCcf_InstanceInit(DeviceId, XDFECCF_NODE_NAME);
+
+	/* Go through initialization states of the state machine */
+	XDfeCcf_Reset(InstancePtr);
+	XDfeCcf_Configure(InstancePtr, &Cfg);
+	XDfeCcf_Initialize(InstancePtr, &Init);
+	XDfeCcf_SetTriggersCfg(InstancePtr, &TriggerCfg);
+	XDfeCcf_Activate(InstancePtr, true);
+
+	/* Set coefficents and add channel */
+	XDfeCcf_LoadCoefficients(InstancePtr, 0, &Coeffs);
+	XDfeCcf_AddCC(InstancePtr, 0, &CarrierCfg);
 
 	XDfeCcf_Deactivate(InstancePtr);
 	XDfeCcf_InstanceClose(InstancePtr);

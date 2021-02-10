@@ -58,6 +58,7 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     09/03/20 Initial version
 *       dc     02/02/21 Remove hard coded device node name
+*       dc     02/08/21 align driver to curent specification
 * </pre>
 *
 ******************************************************************************/
@@ -148,7 +149,8 @@ typedef struct {
 	u32 Edge; /**< [0,1,2], 0 = Rising; 1 = Falling; 2 = Both */
 	u32 OneShot; /**< [0,1],
 		0 = Continuous: Once enabled trigger repeats continuously
-		1 = OneShot: Once enabled trigger occurs once and then disables */
+		1 = OneShot: Once enabled trigger occurs once and then
+			disables */
 } XDfeCcf_Trigger;
 
 /**
@@ -224,6 +226,12 @@ typedef struct {
 	u32 Flush; /**< [0,1] (Private) Indicate CC should be flush following
 			configuration update - set by helper functions when
 			building the configuration channel_id? */
+	u32 MappedId; /**< [0-7] (Private) Defines the hardblock ID value to be
+			used for the CC. Used to map arbitary/system CCID
+			values to available hard block TID values. Enumerated
+			incrementally from 0 to max supported CC for a given
+			IP configuration */
+	u32 Rate; /**< [1,2,4,8] Sample "rate" (period) of CC */
 	u32 Gain; /**< [0-(1<<16)-1] Gain setting for this CC */
 	u32 ImagCoeffSet; /**< [0-7] Identify the coefficient set for the
 			        complex data on this CC */
@@ -308,16 +316,16 @@ void XDfeCcf_Activate(XDfeCcf *InstancePtr, bool EnableLowPower);
 void XDfeCcf_Deactivate(XDfeCcf *InstancePtr);
 
 /* User APIs */
-u32 XDfeCcf_AddCC(XDfeCcf *InstancePtr, u32 CCID, u32 Rate,
+u32 XDfeCcf_AddCC(XDfeCcf *InstancePtr, u32 CCID,
 		  const XDfeCcf_CarrierCfg *CarrierCfg);
 void XDfeCcf_RemoveCC(XDfeCcf *InstancePtr, u32 CCID);
 void XDfeCcf_UpdateCC(XDfeCcf *InstancePtr, u32 CCID,
-		      const XDfeCcf_CarrierCfg *CarrierCfg);
+		      XDfeCcf_CarrierCfg *CarrierCfg);
 void XDfeCcf_UpdateAntenna(XDfeCcf *InstancePtr, u32 Ant, bool Enabled);
-void XDfeCcf_GetTriggers(const XDfeCcf *InstancePtr,
-			 XDfeCcf_TriggerCfg *TriggerCfg);
-void XDfeCcf_SetTriggers(const XDfeCcf *InstancePtr,
-			 XDfeCcf_TriggerCfg *TriggerCfg);
+void XDfeCcf_GetTriggersCfg(const XDfeCcf *InstancePtr,
+			    XDfeCcf_TriggerCfg *TriggerCfg);
+void XDfeCcf_SetTriggersCfg(const XDfeCcf *InstancePtr,
+			    XDfeCcf_TriggerCfg *TriggerCfg);
 void XDfeCcf_GetCC(const XDfeCcf *InstancePtr, u32 CCID,
 		   XDfeCcf_CarrierCfg *CarrierCfg);
 void XDfeCcf_GetActiveSets(const XDfeCcf *InstancePtr, u32 *IsActive);
@@ -327,6 +335,7 @@ void XDfeCcf_GetEventStatus(const XDfeCcf *InstancePtr, XDfeCcf_Status *Status);
 void XDfeCcf_ClearEventStatus(const XDfeCcf *InstancePtr);
 void XDfeCcf_SetInterruptMask(const XDfeCcf *InstancePtr,
 			      const XDfeCcf_InterruptMask *Mask);
+void XDfeCcf_GetDriverVersion(u32 *Major, u32 *Minor);
 
 #ifdef __cplusplus
 }
