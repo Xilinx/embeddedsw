@@ -19,6 +19,7 @@
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     10/27/20 Initial version
+*       dc     02/08/21 align driver to curent specification
 * </pre>
 *
 ******************************************************************************/
@@ -130,6 +131,8 @@ extern "C" {
 #define XDFECCF_ENABLE_ENABLED 1U
 #define XDFECCF_FLUSH_WIDTH 1U
 #define XDFECCF_FLUSH_OFFSET 1U
+#define XDFECCF_MAPPED_ID_WIDTH 4U
+#define XDFECCF_MAPPED_ID_OFFSET 4U
 #define XDFECCF_RE_COEFF_SET_WIDTH 3U
 #define XDFECCF_RE_COEFF_SET_OFFSET 8U
 #define XDFECCF_IM_COEFF_SET_WIDTH 3U

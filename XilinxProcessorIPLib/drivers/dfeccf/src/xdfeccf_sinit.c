@@ -20,6 +20,7 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     10/27/20 Initial release
 *       dc     02/02/21 Remove hard coded device node name
+*       dc     02/08/21 align driver to curent specification
 *
 * </pre>
 *
@@ -145,7 +146,8 @@ static s32 XDfeCcf_Strrncmp(const char *Str1Ptr, const char *Str2Ptr,
  *@note     None.
 *
 ******************************************************************************/
-static s32 XDfeCcf_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId, const char *DeviceNodeName)
+static s32 XDfeCcf_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId,
+					   const char *DeviceNodeName)
 {
 	char CompatibleString[100];
 	struct metal_device *DevicePtr;
@@ -168,8 +170,7 @@ static s32 XDfeCcf_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId, co
 	/* Loop through the each device file in directory */
 	for (i = 0; i < NumFiles; i++) {
 		/* Check the device signature */
-		if (0 != XDfeCcf_Strrncmp(DirentPtr[i]->d_name,
-					  DeviceNodeName,
+		if (0 != XDfeCcf_Strrncmp(DirentPtr[i]->d_name, DeviceNodeName,
 					  strlen(DeviceNodeName))) {
 			continue;
 		}
@@ -319,7 +320,8 @@ end_failure:
 * @note     None.
 *
 ******************************************************************************/
-u32 XDfeCcf_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr, const char *DeviceNodeName)
+u32 XDfeCcf_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr,
+			  const char *DeviceNodeName)
 {
 	u32 Status;
 #ifndef __BAREMETAL__
@@ -334,15 +336,15 @@ u32 XDfeCcf_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr, const c
 		metal_log(METAL_LOG_ERROR, "\n Failed to register device");
 		return Status;
 	}
-	Status = metal_device_open(XDFECCF_BUS_NAME, DeviceNodeName,
-				   DevicePtr);
+	Status = metal_device_open(XDFECCF_BUS_NAME, DeviceNodeName, DevicePtr);
 	if (Status != XST_SUCCESS) {
 		metal_log(METAL_LOG_ERROR, "\n Failed to open device CCF");
 		return Status;
 	}
 #else
 	/* Get device name */
-	Status = XDfeCcf_GetDeviceNameByDeviceId(DeviceName, DeviceId, DeviceNodeName);
+	Status = XDfeCcf_GetDeviceNameByDeviceId(DeviceName, DeviceId,
+						 DeviceNodeName);
 	if (Status != XST_SUCCESS) {
 		metal_log(METAL_LOG_ERROR,
 			  "\n Failed to find ccf device with device id %d",
