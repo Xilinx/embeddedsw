@@ -195,6 +195,7 @@
 * 9.0   cog    11/25/20 Upversion.
 *       cog    11/25/20 Added autocalibration mode for Gen 3 devices.
 * 10.0  cog    11/26/20 Refactor and split files.
+*       cog    02/10/21 Added custom startup API.
 *
 * </pre>
 *
@@ -707,6 +708,71 @@ u32 XRFdc_Reset(XRFdc *InstancePtr, u32 Type, int Tile_Id)
 /*****************************************************************************/
 /**
 *
+* The API starts the requested tile from a provided state and runs to the given
+* end state. It can restart a single tile and alternatively can restart all the
+* tiles.
+*
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3, and -1.
+* @param    StartState Valid values are XRFDC_START_STATE_*.
+* @param    Tile_Id Valid values are XRFDC_END_STATE_*.
+*
+* @return
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
+*
+* @note     If starting from/ending at XRFDC_START_STATE_OFF/XRFDC_END_STATE_OFF,
+*           register settings will be wiped.
+*
+******************************************************************************/
+u32 XRFdc_CustomStartUp(XRFdc *InstancePtr, u32 Type, int Tile_Id, u32 StartState, u32 EndState)
+{
+	u32 Status;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	if ((StartState != XRFDC_STATE_OFF) && (StartState != XRFDC_STATE_SHUTDOWN) &&
+	    (StartState != XRFDC_STATE_CLK_DET) && (StartState != XRFDC_STATE_CAL)) {
+		metal_log(METAL_LOG_ERROR, "\n Invalid start state (%u) in %s\r\n", StartState, __func__);
+		Status = XRFDC_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	if ((EndState != XRFDC_STATE_OFF) && (StartState != XRFDC_STATE_SHUTDOWN) && (EndState != XRFDC_STATE_PWRUP) &&
+	    (EndState != XRFDC_STATE_CLK_DET) && (EndState != XRFDC_STATE_CAL) && (EndState != XRFDC_STATE_FULL)) {
+		metal_log(METAL_LOG_ERROR, "\n Invalid end state (%u) in %s\r\n", EndState, __func__);
+		Status = XRFDC_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	if (StartState > EndState) {
+		metal_log(METAL_LOG_ERROR, "\n Start state (%u) can not be higher than end state (%u) in %s\r\n",
+			  StartState, EndState, __func__);
+		Status = XRFDC_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	if ((Type == XRFDC_DAC_TILE) && ((StartState == XRFDC_STATE_CAL) || (EndState == XRFDC_STATE_CAL))) {
+		metal_log(METAL_LOG_ERROR, "\n Invalid state for DAC tiles in %s\r\n", __func__);
+		Status = XRFDC_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	Status = XRFdc_RestartIPSM(InstancePtr, Type, Tile_Id, StartState, EndState);
+	if (Status != XRFDC_SUCCESS) {
+		goto RETURN_PATH;
+	}
+
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
 * This Static API will be used to wait for restart bit clears and also check
 * for PLL Lock if clock source is internal PLL.
 *
@@ -736,7 +802,7 @@ static u32 XRFdc_WaitForRestartClr(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u3
 		goto RETURN_PATH;
 	}
 
-	if ((ClkSrc == XRFDC_INTERNAL_PLL_CLK) && (End == XRFDC_SM_STATE15)) {
+	if ((ClkSrc == XRFDC_INTERNAL_PLL_CLK) && (End > XRFDC_STATE_CLK_DET)) {
 		/*
 		 * Wait for internal PLL to lock
 		 */
@@ -755,9 +821,9 @@ static u32 XRFdc_WaitForRestartClr(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u3
 			} else {
 				/* Wait for 1 msec */
 #ifdef __BAREMETAL__
-				usleep(1000);
+				usleep(XRFDC_PLL_LOCK_WAIT);
 #else
-				metal_sleep_usec(1000);
+				metal_sleep_usec(XRFDC_PLL_LOCK_WAIT);
 #endif
 				DelayCount++;
 				(void)XRFdc_GetPLLLockStatus(InstancePtr, Type, Tile_Id, &LockStatus);
@@ -765,23 +831,30 @@ static u32 XRFdc_WaitForRestartClr(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u3
 		}
 	}
 
-	/* Wait till restart bit clear */
-	DelayCount = 0U;
-	while (XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_RESTART_OFFSET) != 0U) {
-		if (DelayCount == XRFDC_PLL_LOCK_DLY_CNT) {
-			metal_log(METAL_LOG_ERROR, "\n %s %u timed out at state %u in %s\r\n",
-				  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id,
-				  XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_CURRENT_STATE_OFFSET), __func__);
-			Status = XRFDC_FAILURE;
-			goto RETURN_PATH;
-		} else {
-			/* Wait for 1 msec */
+	if (End == XRFDC_STATE_FULL) {
+		/* Wait till restart bit clear */
+		DelayCount = 0U;
+		while (XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_RESTART_OFFSET) != 0U) {
+			if (DelayCount == XRFDC_RESTART_CLR_DLY_CNT) {
+				metal_log(METAL_LOG_ERROR, "\n %s %u timed out at state %u in %s\r\n",
+					  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id,
+					  XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_CURRENT_STATE_OFFSET), __func__);
+				Status = XRFDC_FAILURE;
+				goto RETURN_PATH;
+			} else {
+				/* Wait for 1 msec */
 #ifdef __BAREMETAL__
-			usleep(1000);
+				usleep(XRFDC_RESTART_CLR_WAIT);
 #else
-			metal_sleep_usec(1000);
+				metal_sleep_usec(XRFDC_RESTART_CLR_WAIT);
 #endif
-			DelayCount++;
+				DelayCount++;
+			}
+		}
+	} else {
+		Status = XRFdc_WaitForState(InstancePtr, Type, Tile_Id, End);
+		if (Status == XRFDC_FAILURE) {
+			goto RETURN_PATH;
 		}
 	}
 
@@ -790,6 +863,48 @@ RETURN_PATH:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+*
+* This function is used to wait for a tile to reach a given state.
+*
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type represents ADC or DAC.
+* @param    Tile_Id Valid values are 0-3.
+* @param    State represents the state which the tile must reach.
+*
+* @return
+*           - XRFDC_SUCCESS if valid.
+*           - XRFDC_FAILURE if not valid.
+*
+******************************************************************************/
+u32 XRFdc_WaitForState(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 State)
+{
+	u32 DelayCount;
+	u32 TileState;
+
+	TileState = XRFdc_RDReg(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile_Id), XRFDC_CURRENT_STATE_OFFSET,
+				XRFDC_CURRENT_STATE_MASK);
+	DelayCount = 0U;
+	while (TileState < State) {
+		if (DelayCount == XRFDC_WAIT_ATTEMPTS_CNT) {
+			metal_log(METAL_LOG_ERROR, "\n timeout error in %s[%u] going to state %u in %s\r\n",
+				  (Type ? "DAC" : "ADC"), Tile_Id, State, __func__);
+			return XRFDC_FAILURE;
+		} else {
+			/* Wait for 0.1 msec */
+#ifdef __BAREMETAL__
+			usleep(XRFDC_STATE_WAIT);
+#else
+			metal_sleep_usec(XRFDC_STATE_WAIT);
+#endif
+			DelayCount++;
+			TileState = XRFdc_RDReg(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile_Id),
+						XRFDC_CURRENT_STATE_OFFSET, XRFDC_CURRENT_STATE_MASK);
+		}
+	}
+	return XRFDC_SUCCESS;
+}
 /*****************************************************************************/
 /**
 *

@@ -57,6 +57,7 @@
 *       cog    11/27/20 Added functionality for 6xdr devices.
 *       cog    12/02/20 Supplied FS was being saved rather than actual FS when
 *                       setting PLL.
+*       cog    02/10/21 Added custom startup API.
 * </pre>
 *
 ******************************************************************************/
@@ -403,7 +404,7 @@ static u32 XRFdc_CheckClkDistValid(XRFdc *InstancePtr, XRFdc_Distribution_Settin
 				  __func__);
 			goto RETURN_PATH;
 		}
-		if(TileLayout == XRFDC_4ADC_4DAC_TILES){
+		if (TileLayout == XRFDC_4ADC_4DAC_TILES) {
 			if (*Source < XRFDC_CLK_DST_TILE_227) {
 				if ((DistributionSettingsPtr->DAC[XRFDC_CLK_DST_TILE_228 - *Source].DistributedClock ==
 				     XRFDC_DIST_OUT_OUTDIV) ||
@@ -418,7 +419,8 @@ static u32 XRFdc_CheckClkDistValid(XRFdc *InstancePtr, XRFdc_Distribution_Settin
 							"\n Distribution full rate clock from DAC to ADC not Supported in %s\r\n",
 							__func__);
 						goto RETURN_PATH;
-					} else if ((*Source == XRFDC_CLK_DST_TILE_228) || (*Source == XRFDC_CLK_DST_TILE_231)) {
+					} else if ((*Source == XRFDC_CLK_DST_TILE_228) ||
+						   (*Source == XRFDC_CLK_DST_TILE_231)) {
 						Status = XRFDC_FAILURE;
 						metal_log(
 							METAL_LOG_ERROR,
@@ -434,7 +436,8 @@ static u32 XRFdc_CheckClkDistValid(XRFdc *InstancePtr, XRFdc_Distribution_Settin
 				      XRFDC_DIST_OUT_RX) &&
 				     (DistributionSettingsPtr->ADC[XRFDC_CLK_DST_TILE_224 - *Source].PLLEnable ==
 				      XRFDC_DISABLED))) {
-					if ((*Source == XRFDC_CLK_DST_TILE_224) || (*Source == XRFDC_CLK_DST_TILE_227)) {
+					if ((*Source == XRFDC_CLK_DST_TILE_224) ||
+					    (*Source == XRFDC_CLK_DST_TILE_227)) {
 						Status = XRFDC_FAILURE;
 						metal_log(
 							METAL_LOG_ERROR,
@@ -492,47 +495,6 @@ RETURN_PATH:
 		memset(DistributionSettingsPtr, 0, sizeof(XRFdc_Distribution_Settings));
 	}
 	return Status;
-}
-
-/*****************************************************************************/
-/**
-*
-* This function is used to wait for a tile to reach a given state.
-*
-* @param    InstancePtr is a pointer to the XRfdc instance.
-* @param    Type represents ADC or DAC.
-* @param    Tile_Id Valid values are 0-3.
-* @param    State represents the state which the tile must reach.
-*
-* @return
-*           - XRFDC_SUCCESS if valid.
-*           - XRFDC_FAILURE if not valid.
-*
-******************************************************************************/
-static u32 XRFdc_WaitForState(XRFdc *InstancePtr, u32 Type, u32 Tile, u32 State)
-{
-	u32 DelayCount;
-	u32 TileState;
-
-	TileState = XRFdc_RDReg(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile), 0xC, 0xF);
-	DelayCount = 0;
-	while (TileState < State) {
-		if (DelayCount == 10000) {
-			metal_log(METAL_LOG_ERROR, "\n timeout error in %s[%u] going to state %u in %s\r\n",
-				  (Type ? "DAC" : "ADC"), Tile, State, __func__);
-			return XRFDC_FAILURE;
-		} else {
-			/* Wait for 0.1 msec */
-#ifdef __BAREMETAL__
-			usleep(100);
-#else
-			metal_sleep_usec(100);
-#endif
-			DelayCount++;
-			TileState = XRFdc_RDReg(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile), 0xC, 0xF);
-		}
-	}
-	return XRFDC_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -780,10 +742,12 @@ u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 		XRFdc_DistTile2TypeTile(InstancePtr, Distribution->DistributionSource, &Type, &Tile);
 		if (Type == XRFDC_ADC_TILE) {
 			SettingsPtr = &DistributionSettingsPtr->ADC[Tile];
-			XRFdc_ClrSetReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_ADC_TILE, Tile), XRFDC_RESTART_STATE_OFFSET,
-				XRFDC_PWR_STATE_MASK, (XRFDC_SM_STATE1 << XRFDC_RSR_START_SHIFT) | XRFDC_SM_STATE1);
+			XRFdc_ClrSetReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_ADC_TILE, Tile),
+					XRFDC_RESTART_STATE_OFFSET, XRFDC_PWR_STATE_MASK,
+					(XRFDC_SM_STATE1 << XRFDC_RSR_START_SHIFT) | XRFDC_SM_STATE1);
 			/* Trigger restart */
-			XRFdc_WriteReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_ADC_TILE, Tile), XRFDC_RESTART_OFFSET, XRFDC_RESTART_MASK);
+			XRFdc_WriteReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_ADC_TILE, Tile), XRFDC_RESTART_OFFSET,
+				       XRFDC_RESTART_MASK);
 			StatusNonBlocking |= XRFdc_WaitForState(InstancePtr, XRFDC_ADC_TILE, Tile, XRFDC_SM_STATE1);
 		} else {
 			SettingsPtr = &DistributionSettingsPtr->DAC[Tile];
@@ -824,11 +788,14 @@ u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 						&Tile);
 			if (Type == XRFDC_ADC_TILE) {
 				SettingsPtr = &DistributionSettingsPtr->ADC[Tile];
-				XRFdc_ClrSetReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_ADC_TILE, Tile), XRFDC_RESTART_STATE_OFFSET,
-					XRFDC_PWR_STATE_MASK, (XRFDC_SM_STATE1 << XRFDC_RSR_START_SHIFT) | XRFDC_SM_STATE1);
+				XRFdc_ClrSetReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_ADC_TILE, Tile),
+						XRFDC_RESTART_STATE_OFFSET, XRFDC_PWR_STATE_MASK,
+						(XRFDC_SM_STATE1 << XRFDC_RSR_START_SHIFT) | XRFDC_SM_STATE1);
 				/* Trigger restart */
-				XRFdc_WriteReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_ADC_TILE, Tile), XRFDC_RESTART_OFFSET, XRFDC_RESTART_MASK);
-				StatusNonBlocking |= XRFdc_WaitForState(InstancePtr, XRFDC_ADC_TILE, Tile, XRFDC_SM_STATE1);
+				XRFdc_WriteReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_ADC_TILE, Tile),
+					       XRFDC_RESTART_OFFSET, XRFDC_RESTART_MASK);
+				StatusNonBlocking |=
+					XRFdc_WaitForState(InstancePtr, XRFDC_ADC_TILE, Tile, XRFDC_SM_STATE1);
 			} else {
 				SettingsPtr = &DistributionSettingsPtr->DAC[Tile];
 				StatusNonBlocking |= XRFdc_Shutdown(InstancePtr, Type, Tile);
@@ -869,11 +836,14 @@ u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 			XRFdc_DistTile2TypeTile(InstancePtr, (Distribution->DistributionSource - Delay), &Type, &Tile);
 			if (Type == XRFDC_ADC_TILE) {
 				SettingsPtr = &DistributionSettingsPtr->ADC[Tile];
-				XRFdc_ClrSetReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_ADC_TILE, Tile), XRFDC_RESTART_STATE_OFFSET,
-					XRFDC_PWR_STATE_MASK, (XRFDC_SM_STATE1 << XRFDC_RSR_START_SHIFT) | XRFDC_SM_STATE1);
+				XRFdc_ClrSetReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_ADC_TILE, Tile),
+						XRFDC_RESTART_STATE_OFFSET, XRFDC_PWR_STATE_MASK,
+						(XRFDC_SM_STATE1 << XRFDC_RSR_START_SHIFT) | XRFDC_SM_STATE1);
 				/* Trigger restart */
-				XRFdc_WriteReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_ADC_TILE, Tile), XRFDC_RESTART_OFFSET, XRFDC_RESTART_MASK);
-				StatusNonBlocking |= XRFdc_WaitForState(InstancePtr, XRFDC_ADC_TILE, Tile, XRFDC_SM_STATE1);
+				XRFdc_WriteReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_ADC_TILE, Tile),
+					       XRFDC_RESTART_OFFSET, XRFDC_RESTART_MASK);
+				StatusNonBlocking |=
+					XRFdc_WaitForState(InstancePtr, XRFDC_ADC_TILE, Tile, XRFDC_SM_STATE1);
 			} else {
 				SettingsPtr = &DistributionSettingsPtr->DAC[Tile];
 				StatusNonBlocking |= XRFdc_Shutdown(InstancePtr, Type, Tile);
@@ -906,11 +876,14 @@ u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 						&Tile);
 			if (Type == XRFDC_ADC_TILE) {
 				SettingsPtr = &DistributionSettingsPtr->ADC[Tile];
-				XRFdc_ClrSetReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_ADC_TILE, Tile), XRFDC_RESTART_STATE_OFFSET,
-					XRFDC_PWR_STATE_MASK, (XRFDC_SM_STATE1 << XRFDC_RSR_START_SHIFT) | XRFDC_SM_STATE1);
+				XRFdc_ClrSetReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_ADC_TILE, Tile),
+						XRFDC_RESTART_STATE_OFFSET, XRFDC_PWR_STATE_MASK,
+						(XRFDC_SM_STATE1 << XRFDC_RSR_START_SHIFT) | XRFDC_SM_STATE1);
 				/* Trigger restart */
-				XRFdc_WriteReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_ADC_TILE, Tile), XRFDC_RESTART_OFFSET, XRFDC_RESTART_MASK);
-				StatusNonBlocking |= XRFdc_WaitForState(InstancePtr, XRFDC_ADC_TILE, Tile, XRFDC_SM_STATE1);
+				XRFdc_WriteReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_ADC_TILE, Tile),
+					       XRFDC_RESTART_OFFSET, XRFDC_RESTART_MASK);
+				StatusNonBlocking |=
+					XRFdc_WaitForState(InstancePtr, XRFDC_ADC_TILE, Tile, XRFDC_SM_STATE1);
 			} else {
 				SettingsPtr = &DistributionSettingsPtr->DAC[Tile];
 				StatusNonBlocking |= XRFdc_Shutdown(InstancePtr, Type, Tile);
@@ -923,7 +896,6 @@ u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 		}
 		/*rest of tiles to right*/
 		for (Delay = 1; Delay < DelayRight; Delay++) {
-
 			if (((Delay + Distribution->DistributionSource) == DACEdgeTile) ||
 			    (FeedBackForInputRight == 0)) {
 				FeedBackForInputRight = 0;
@@ -955,11 +927,14 @@ u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 			XRFdc_DistTile2TypeTile(InstancePtr, (Distribution->DistributionSource + Delay), &Type, &Tile);
 			if (Type == XRFDC_ADC_TILE) {
 				SettingsPtr = &DistributionSettingsPtr->ADC[Tile];
-				XRFdc_ClrSetReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_ADC_TILE, Tile), XRFDC_RESTART_STATE_OFFSET,
-					XRFDC_PWR_STATE_MASK, (XRFDC_SM_STATE1 << XRFDC_RSR_START_SHIFT) | XRFDC_SM_STATE1);
+				XRFdc_ClrSetReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_ADC_TILE, Tile),
+						XRFDC_RESTART_STATE_OFFSET, XRFDC_PWR_STATE_MASK,
+						(XRFDC_SM_STATE1 << XRFDC_RSR_START_SHIFT) | XRFDC_SM_STATE1);
 				/* Trigger restart */
-				XRFdc_WriteReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_ADC_TILE, Tile), XRFDC_RESTART_OFFSET, XRFDC_RESTART_MASK);
-				StatusNonBlocking |= XRFdc_WaitForState(InstancePtr, XRFDC_ADC_TILE, Tile, XRFDC_SM_STATE1);
+				XRFdc_WriteReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_ADC_TILE, Tile),
+					       XRFDC_RESTART_OFFSET, XRFDC_RESTART_MASK);
+				StatusNonBlocking |=
+					XRFdc_WaitForState(InstancePtr, XRFDC_ADC_TILE, Tile, XRFDC_SM_STATE1);
 			} else {
 				SettingsPtr = &DistributionSettingsPtr->DAC[Tile];
 				StatusNonBlocking |= XRFdc_Shutdown(InstancePtr, Type, Tile);
@@ -1577,7 +1552,9 @@ static u32 XRFdc_SetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, double 
 
 	CalcSamplingRate = (Best_FeedbackDiv * RefClkFreq) / Best_OutputDiv;
 	/* Store Sampling Frequency in kHz */
-	XRFdc_WriteReg(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile_Id), XRFDC_PLL_FS, (u32)(CalcSamplingRate * XRFDC_MILLI));
+	XRFdc_WriteReg(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile_Id), XRFDC_PLL_FS,
+		       (u32)(CalcSamplingRate * XRFDC_MILLI));
+	/* Convert to GHz */
 	CalcSamplingRate /= XRFDC_MILLI;
 
 	if (Type == XRFDC_ADC_TILE) {
@@ -1841,10 +1818,12 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 			metal_log(METAL_LOG_DEBUG, "\n Requested tile (%s %u) uses external clock source in %s\r\n",
 				  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 			if (Type == XRFDC_ADC_TILE) {
-				InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.SampleRate = (double)(SamplingRate / XRFDC_MILLI);
+				InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.SampleRate =
+					(double)(SamplingRate / XRFDC_MILLI);
 				InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.RefClkFreq = RefClkFreq;
 			} else {
-				InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.SampleRate = (double)(SamplingRate / XRFDC_MILLI);
+				InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.SampleRate =
+					(double)(SamplingRate / XRFDC_MILLI);
 				InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.RefClkFreq = RefClkFreq;
 			}
 			Status = XRFDC_SUCCESS;

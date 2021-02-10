@@ -269,6 +269,7 @@
 *       cog    01/05/21 Second signal detector removed.
 *       cog    01/06/21 Added DAC data scaler APIs.
 *       cog    01/11/21 Tuning for autocalibration.
+*       cog    02/10/21 Added custom startup API.
 *
 * </pre>
 *
@@ -1045,6 +1046,13 @@ typedef struct {
 #define XRFDC_SM_STATE3 0x3U
 #define XRFDC_SM_STATE15 0xFU
 
+#define XRFDC_STATE_OFF 0x0U
+#define XRFDC_STATE_SHUTDOWN 0x1U
+#define XRFDC_STATE_PWRUP 0x3U
+#define XRFDC_STATE_CLK_DET 0x6U
+#define XRFDC_STATE_CAL 0xBU
+#define XRFDC_STATE_FULL 0xFU
+
 #define XRFDC_DECIM_4G_DATA_TYPE 0x3U
 #define XRFDC_DECIM_2G_IQ_DATA_TYPE 0x2U
 
@@ -1240,6 +1248,11 @@ typedef struct {
 #define XRFDC_DAC_VOP_BLDR_LOW_BITS_MASK 0xFU
 
 #define XRFDC_PLL_LOCK_DLY_CNT 1000U
+#define XRFDC_RESTART_CLR_DLY_CNT 1000U
+#define XRFDC_WAIT_ATTEMPTS_CNT 10000U
+#define XRFDC_STATE_WAIT 100U
+#define XRFDC_RESTART_CLR_WAIT 1000U
+#define XRFDC_PLL_LOCK_WAIT 1000U
 
 #define XRFDC_CLK_DIV_DP_FIRST_MODE 0x10U
 #define XRFDC_CLK_DIV_DP_OTHER_MODES 0x20U
@@ -1311,6 +1324,8 @@ u32 XRFdc_CfgInitialize(XRFdc *InstancePtr, XRFdc_Config *ConfigPtr);
 u32 XRFdc_StartUp(XRFdc *InstancePtr, u32 Type, int Tile_Id);
 u32 XRFdc_Shutdown(XRFdc *InstancePtr, u32 Type, int Tile_Id);
 u32 XRFdc_Reset(XRFdc *InstancePtr, u32 Type, int Tile_Id);
+u32 XRFdc_CustomStartUp(XRFdc *InstancePtr, u32 Type, int Tile_Id, u32 StartState, u32 EndState);
+u32 XRFdc_WaitForState(XRFdc *InstancePtr, u32 Type, u32 Tile, u32 State);
 u32 XRFdc_GetIPStatus(XRFdc *InstancePtr, XRFdc_IPStatus *IPStatusPtr);
 u32 XRFdc_GetBlockStatus(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, XRFdc_BlockStatus *BlockStatusPtr);
 u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id,
