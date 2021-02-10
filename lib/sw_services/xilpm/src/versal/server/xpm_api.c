@@ -48,12 +48,12 @@ u32 ResetReason;
 
 void (*PmRequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload);
 
-static XPlmi_ModuleCmd XPlmi_PmCmds[PM_API_MAX+1];
+static XPlmi_ModuleCmd XPlmi_PmCmds[PM_API_MAX];
 static XPlmi_Module XPlmi_Pm =
 {
 	XPLMI_MODULE_XILPM_ID,
 	XPlmi_PmCmds,
-	PM_API_MAX+1,
+	PM_API(PM_API_MAX),
 };
 static int (*PmRestartCb)(u32 ImageId, u32 *FuncId);
 
@@ -214,7 +214,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 
 	PmDbg("Processing Cmd %x\r\n", Cmd->CmdId);
 
-	if((Cmd->CmdId & 0xFFU) != PM_SET_CURRENT_SUBSYSTEM) {
+	if((Cmd->CmdId & 0xFFU) != PM_API(PM_SET_CURRENT_SUBSYSTEM)) {
 		SubsystemId = XPmSubsystem_GetCurrent();
 		if(SubsystemId != INVALID_SUBSYSID) {
 			PmDbg("Using current subsystemId: 0x%x\n\r", SubsystemId);
@@ -254,13 +254,13 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	}
 
 	switch (Cmd->CmdId & 0xFFU) {
-	case PM_GET_CHIPID:
+	case PM_API(PM_GET_CHIPID):
 		Status = XPm_GetChipID(&ApiResponse[0], &ApiResponse[1]);
 		break;
-	case PM_GET_API_VERSION:
+	case PM_API(PM_GET_API_VERSION):
 		Status = XPm_GetApiVersion(ApiResponse);
 		break;
-	case PM_REQUEST_WAKEUP:
+	case PM_API(PM_REQUEST_WAKEUP):
 		/* setAddress is encoded in the 1st bit of the low-word address */
 		SetAddress = Pload[1] & 0x1U;
 		/* addresses are word-aligned, ignore bit 0 */
@@ -270,162 +270,162 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 					   SetAddress, Address,
 					   Pload[3]);
 		break;
-	case PM_FORCE_POWERDOWN:
+	case PM_API(PM_FORCE_POWERDOWN):
 		Status = XPm_ForcePowerdown(SubsystemId, Pload[0], Pload[1]);
 		break;
-	case PM_SYSTEM_SHUTDOWN:
+	case PM_API(PM_SYSTEM_SHUTDOWN):
 		Status = XPm_SystemShutdown(SubsystemId, Pload[0], Pload[1]);
 		break;
-	case PM_SELF_SUSPEND:
+	case PM_API(PM_SELF_SUSPEND):
 		Status = XPm_SelfSuspend(SubsystemId, Pload[0],
 					 Pload[1], (u8)Pload[2],
 					 Pload[3], Pload[4]);
 		break;
-	case PM_REQUEST_SUSPEND:
+	case PM_API(PM_REQUEST_SUSPEND):
 		Status = XPm_RequestSuspend(SubsystemId, Pload[0], Pload[1], Pload[2], Pload[3]);
 		break;
-	case PM_ABORT_SUSPEND:
+	case PM_API(PM_ABORT_SUSPEND):
 		Status = XPm_AbortSuspend(SubsystemId, Pload[0], Pload[1]);
 		break;
-	case PM_SET_WAKEUP_SOURCE:
+	case PM_API(PM_SET_WAKEUP_SOURCE):
 		Status = XPm_SetWakeUpSource(SubsystemId, Pload[0], Pload[1], Pload[2]);
 		break;
-	case PM_CLOCK_SETRATE:
+	case PM_API(PM_CLOCK_SETRATE):
 		Status = XPm_SetClockRate(Cmd->IpiMask, Pload[0], Pload[1]);
 		break;
-	case PM_CLOCK_GETRATE:
+	case PM_API(PM_CLOCK_GETRATE):
 		Status = XPm_GetClockRate(Pload[0], ApiResponse);
 		break;
-	case PM_CLOCK_SETPARENT:
+	case PM_API(PM_CLOCK_SETPARENT):
 		Status = XPm_SetClockParent(SubsystemId, Pload[0], Pload[1]);
 		break;
-	case PM_CLOCK_GETPARENT:
+	case PM_API(PM_CLOCK_GETPARENT):
 		Status = XPm_GetClockParent(Pload[0], ApiResponse);
 		break;
-	case PM_CLOCK_ENABLE:
+	case PM_API(PM_CLOCK_ENABLE):
 		Status = XPm_SetClockState(SubsystemId, Pload[0], 1);
 		break;
-	case PM_CLOCK_DISABLE:
+	case PM_API(PM_CLOCK_DISABLE):
 		Status = XPm_SetClockState(SubsystemId, Pload[0], 0);
 		break;
-	case PM_CLOCK_GETSTATE:
+	case PM_API(PM_CLOCK_GETSTATE):
 		Status = XPm_GetClockState(Pload[0], ApiResponse);
 		break;
-	case PM_CLOCK_SETDIVIDER:
+	case PM_API(PM_CLOCK_SETDIVIDER):
 		Status = XPm_SetClockDivider(SubsystemId, Pload[0], Pload[1]);
 		break;
-	case PM_CLOCK_GETDIVIDER:
+	case PM_API(PM_CLOCK_GETDIVIDER):
 		Status = XPm_GetClockDivider(Pload[0], ApiResponse);
 		break;
-	case PM_PLL_SET_PARAMETER:
+	case PM_API(PM_PLL_SET_PARAMETER):
 		Status = XPm_SetPllParameter(SubsystemId, Pload[0], Pload[1], Pload[2]);
 		break;
-	case PM_PLL_GET_PARAMETER:
+	case PM_API(PM_PLL_GET_PARAMETER):
 		Status = XPm_GetPllParameter(Pload[0], Pload[1], ApiResponse);
 		break;
-	case PM_PLL_SET_MODE:
+	case PM_API(PM_PLL_SET_MODE):
 		Status = XPm_SetPllMode(SubsystemId, Pload[0], Pload[1]);
 		break;
-	case PM_PLL_GET_MODE:
+	case PM_API(PM_PLL_GET_MODE):
 		Status = XPm_GetPllMode(Pload[0], ApiResponse);
 		break;
-	case PM_REQUEST_NODE:
+	case PM_API(PM_REQUEST_NODE):
 		Status = XPm_RequestDevice(SubsystemId, Pload[0],
 					   Pload[1], Pload[2],
 					   Pload[3]);
 		break;
-	case PM_RELEASE_NODE:
+	case PM_API(PM_RELEASE_NODE):
 		Status = XPm_ReleaseDevice(SubsystemId, Pload[0]);
 		break;
-	case PM_SET_REQUIREMENT:
+	case PM_API(PM_SET_REQUIREMENT):
 		Status = XPm_SetRequirement(SubsystemId, Pload[0], Pload[1], Pload[2], Pload[3]);
 		break;
-	case PM_SET_MAX_LATENCY:
+	case PM_API(PM_SET_MAX_LATENCY):
 		Status = XPm_SetMaxLatency(SubsystemId, Pload[0],
 					   Pload[1]);
 		break;
-	case PM_GET_NODE_STATUS:
+	case PM_API(PM_GET_NODE_STATUS):
 		Status = XPm_GetDeviceStatus(SubsystemId, Pload[0], (XPm_DeviceStatus *)ApiResponse);
 		break;
-	case PM_QUERY_DATA:
+	case PM_API(PM_QUERY_DATA):
 		Status = XPm_Query(Pload[0], Pload[1], Pload[2],
 				   Pload[3], ApiResponse);
 		break;
-	case PM_RESET_ASSERT:
+	case PM_API(PM_RESET_ASSERT):
 		Status = XPm_SetResetState(SubsystemId, Cmd->IpiMask,
 					   Pload[0], Pload[1]);
 		break;
-	case PM_RESET_GET_STATUS:
+	case PM_API(PM_RESET_GET_STATUS):
 		Status = XPm_GetResetState(Pload[0], ApiResponse);
 		break;
-	case PM_ADD_SUBSYSTEM:
+	case PM_API(PM_ADD_SUBSYSTEM):
 		Status = XPm_AddSubsystem(Pload[0]);
 		break;
-	case PM_DESTROY_SUBSYSTEM:
+	case PM_API(PM_DESTROY_SUBSYSTEM):
 		Status = XPm_DestroySubsystem(Pload[0]);
 		break;
-	case PM_PINCTRL_REQUEST:
+	case PM_API(PM_PINCTRL_REQUEST):
 		Status = XPm_PinCtrlRequest(SubsystemId, Pload[0]);
 		break;
-	case PM_PINCTRL_RELEASE:
+	case PM_API(PM_PINCTRL_RELEASE):
 		Status = XPm_PinCtrlRelease(SubsystemId, Pload[0]);
 		break;
-	case PM_PINCTRL_GET_FUNCTION:
+	case PM_API(PM_PINCTRL_GET_FUNCTION):
 		Status = XPm_GetPinFunction(Pload[0], ApiResponse);
 		break;
-	case PM_PINCTRL_SET_FUNCTION:
+	case PM_API(PM_PINCTRL_SET_FUNCTION):
 		Status = XPm_SetPinFunction(SubsystemId, Pload[0], Pload[1]);
 		break;
-	case PM_PINCTRL_CONFIG_PARAM_GET:
+	case PM_API(PM_PINCTRL_CONFIG_PARAM_GET):
 		Status = XPm_GetPinParameter(Pload[0], Pload[1], ApiResponse);
 		break;
-	case PM_PINCTRL_CONFIG_PARAM_SET:
+	case PM_API(PM_PINCTRL_CONFIG_PARAM_SET):
 		Status = XPm_SetPinParameter(SubsystemId, Pload[0], Pload[1], Pload[2]);
 		break;
-	case PM_IOCTL:
+	case PM_API(PM_IOCTL):
 		Status = XPm_DevIoctl(SubsystemId, Pload[0], (pm_ioctl_id) Pload[1],
 				      Pload[2], Pload[3], ApiResponse);
 		break;
-	case PM_INIT_FINALIZE:
+	case PM_API(PM_INIT_FINALIZE):
 		Status = XPm_InitFinalize(SubsystemId);
 		break;
-	case PM_DESCRIBE_NODES:
+	case PM_API(PM_DESCRIBE_NODES):
 		Status = XPm_DescribeNodes(Len);
 		break;
-	case PM_ADD_NODE:
+	case PM_API(PM_ADD_NODE):
 		Status = XPm_AddNode(&Pload[0], Len);
 		break;
-	case PM_ADD_NODE_PARENT:
+	case PM_API(PM_ADD_NODE_PARENT):
 		Status = XPm_AddNodeParent(&Pload[0], Len);
 		break;
-	case PM_ADD_NODE_NAME:
+	case PM_API(PM_ADD_NODE_NAME):
 		Status = XPm_AddNodeName(&Pload[0], Len);
 		break;
-	case PM_ADD_REQUIREMENT:
+	case PM_API(PM_ADD_REQUIREMENT):
 		Status = XPm_AddRequirement(Pload[0], Pload[1], Pload[2], &Pload[3], Len-3U);
 		break;
-	case PM_SET_CURRENT_SUBSYSTEM:
+	case PM_API(PM_SET_CURRENT_SUBSYSTEM):
 		Status = XPm_SetCurrentSubsystem(Pload[0], Cmd->IpiMask);
 		break;
-	case PM_INIT_NODE:
+	case PM_API(PM_INIT_NODE):
 		Status = XPm_InitNode(Pload[0], Pload[1], &Pload[2], Len-2U);
 		break;
-	case PM_FEATURE_CHECK:
+	case PM_API(PM_FEATURE_CHECK):
 		Status = XPm_FeatureCheck(Pload[0], ApiResponse);
 		break;
-	case PM_ISO_CONTROL:
+	case PM_API(PM_ISO_CONTROL):
 		Status = XPm_IsoControl(Pload[0], Pload[1]);
 		break;
-	case PM_GET_OP_CHARACTERISTIC:
+	case PM_API(PM_GET_OP_CHARACTERISTIC):
 		Status = XPm_GetOpCharacteristic(Pload[0], Pload[1],
 						 ApiResponse);
 		break;
-	case PM_REGISTER_NOTIFIER:
+	case PM_API(PM_REGISTER_NOTIFIER):
 		Status = XPm_RegisterNotifier(SubsystemId, Pload[0],
 					      Pload[1], Pload[2],
 					      Pload[3], Cmd->IpiMask);
 		break;
-	case PM_ACTIVATE_SUBSYSTEM:
+	case PM_API(PM_ACTIVATE_SUBSYSTEM):
 		Status = XPm_ActivateSubsystem(SubsystemId, Cmd->IpiMask,
 					       Pload[0]);
 		break;
@@ -4216,58 +4216,58 @@ int XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
 	}
 
 	switch (ApiId) {
-	case PM_GET_API_VERSION:
-	case PM_GET_NODE_STATUS:
-	case PM_GET_OP_CHARACTERISTIC:
-	case PM_REGISTER_NOTIFIER:
-	case PM_REQUEST_SUSPEND:
-	case PM_SELF_SUSPEND:
-	case PM_FORCE_POWERDOWN:
-	case PM_ABORT_SUSPEND:
-	case PM_REQUEST_WAKEUP:
-	case PM_SET_WAKEUP_SOURCE:
-	case PM_SYSTEM_SHUTDOWN:
-	case PM_REQUEST_NODE:
-	case PM_RELEASE_NODE:
-	case PM_SET_REQUIREMENT:
-	case PM_SET_MAX_LATENCY:
-	case PM_RESET_ASSERT:
-	case PM_RESET_GET_STATUS:
-	case PM_INIT_FINALIZE:
-	case PM_GET_CHIPID:
-	case PM_PINCTRL_REQUEST:
-	case PM_PINCTRL_RELEASE:
-	case PM_PINCTRL_GET_FUNCTION:
-	case PM_PINCTRL_SET_FUNCTION:
-	case PM_PINCTRL_CONFIG_PARAM_GET:
-	case PM_PINCTRL_CONFIG_PARAM_SET:
-	case PM_IOCTL:
-	case PM_CLOCK_ENABLE:
-	case PM_CLOCK_DISABLE:
-	case PM_CLOCK_GETSTATE:
-	case PM_CLOCK_SETDIVIDER:
-	case PM_CLOCK_GETDIVIDER:
-	case PM_CLOCK_SETPARENT:
-	case PM_CLOCK_GETPARENT:
-	case PM_CLOCK_GETRATE:
-	case PM_PLL_SET_PARAMETER:
-	case PM_PLL_GET_PARAMETER:
-	case PM_PLL_SET_MODE:
-	case PM_PLL_GET_MODE:
-	case PM_ADD_SUBSYSTEM:
-	case PM_DESTROY_SUBSYSTEM:
-	case PM_DESCRIBE_NODES:
-	case PM_ADD_NODE:
-	case PM_ADD_NODE_PARENT:
-	case PM_ADD_NODE_NAME:
-	case PM_ADD_REQUIREMENT:
-	case PM_SET_CURRENT_SUBSYSTEM:
-	case PM_INIT_NODE:
-	case PM_FEATURE_CHECK:
+	case PM_API(PM_GET_API_VERSION):
+	case PM_API(PM_GET_NODE_STATUS):
+	case PM_API(PM_GET_OP_CHARACTERISTIC):
+	case PM_API(PM_REGISTER_NOTIFIER):
+	case PM_API(PM_REQUEST_SUSPEND):
+	case PM_API(PM_SELF_SUSPEND):
+	case PM_API(PM_FORCE_POWERDOWN):
+	case PM_API(PM_ABORT_SUSPEND):
+	case PM_API(PM_REQUEST_WAKEUP):
+	case PM_API(PM_SET_WAKEUP_SOURCE):
+	case PM_API(PM_SYSTEM_SHUTDOWN):
+	case PM_API(PM_REQUEST_NODE):
+	case PM_API(PM_RELEASE_NODE):
+	case PM_API(PM_SET_REQUIREMENT):
+	case PM_API(PM_SET_MAX_LATENCY):
+	case PM_API(PM_RESET_ASSERT):
+	case PM_API(PM_RESET_GET_STATUS):
+	case PM_API(PM_INIT_FINALIZE):
+	case PM_API(PM_GET_CHIPID):
+	case PM_API(PM_PINCTRL_REQUEST):
+	case PM_API(PM_PINCTRL_RELEASE):
+	case PM_API(PM_PINCTRL_GET_FUNCTION):
+	case PM_API(PM_PINCTRL_SET_FUNCTION):
+	case PM_API(PM_PINCTRL_CONFIG_PARAM_GET):
+	case PM_API(PM_PINCTRL_CONFIG_PARAM_SET):
+	case PM_API(PM_IOCTL):
+	case PM_API(PM_CLOCK_ENABLE):
+	case PM_API(PM_CLOCK_DISABLE):
+	case PM_API(PM_CLOCK_GETSTATE):
+	case PM_API(PM_CLOCK_SETDIVIDER):
+	case PM_API(PM_CLOCK_GETDIVIDER):
+	case PM_API(PM_CLOCK_SETPARENT):
+	case PM_API(PM_CLOCK_GETPARENT):
+	case PM_API(PM_CLOCK_GETRATE):
+	case PM_API(PM_PLL_SET_PARAMETER):
+	case PM_API(PM_PLL_GET_PARAMETER):
+	case PM_API(PM_PLL_SET_MODE):
+	case PM_API(PM_PLL_GET_MODE):
+	case PM_API(PM_ADD_SUBSYSTEM):
+	case PM_API(PM_DESTROY_SUBSYSTEM):
+	case PM_API(PM_DESCRIBE_NODES):
+	case PM_API(PM_ADD_NODE):
+	case PM_API(PM_ADD_NODE_PARENT):
+	case PM_API(PM_ADD_NODE_NAME):
+	case PM_API(PM_ADD_REQUIREMENT):
+	case PM_API(PM_SET_CURRENT_SUBSYSTEM):
+	case PM_API(PM_INIT_NODE):
+	case PM_API(PM_FEATURE_CHECK):
 		*Version = XST_API_BASE_VERSION;
 		Status = XST_SUCCESS;
 		break;
-	case PM_QUERY_DATA:
+	case PM_API(PM_QUERY_DATA):
 		*Version = XST_API_QUERY_DATA_VERSION;
 		Status = XST_SUCCESS;
 		break;
