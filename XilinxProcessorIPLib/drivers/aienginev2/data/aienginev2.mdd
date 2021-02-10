@@ -12,7 +12,6 @@ BEGIN driver aienginev2
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
   OPTION VERSION = 2.0;
-  OPTION DEPENDS = (aiefal);
   OPTION NAME = aienginev2;
 
 END driver
