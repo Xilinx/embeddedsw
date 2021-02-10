@@ -95,6 +95,7 @@
 *       cog    01/05/21 Second signal detector removed.
 *       cog    01/06/21 Added DAC data scaler APIs.
 *       cog    01/11/21 Tuning for autocalibration.
+*       cog    02/10/21 Added custom startup API.
 *
 *</pre>
 *
@@ -409,6 +410,16 @@ extern "C" {
 
 /* @} */
 
+/** @name Tile State - Tile state register
+ *
+ * This register contains bits for the current tile State.
+ * @{
+ */
+
+#define XRFDC_CURRENT_STATE_MASK 0x0000000FU /**< Current tile state mask*/
+
+/* @} */
+
 /** @name Calibration Mode - Calibration mode registers
  *
  * This register contains bits for calibration modes
@@ -416,7 +427,7 @@ extern "C" {
  * @{
  */
 
-#define XRFDC_CAL_MODES_MASK 0x0003 /**< Calibration modes for Gen 3 mask*/
+#define XRFDC_CAL_MODES_MASK 0x0003U /**< Calibration modes for Gen 3 mask*/
 
 /* @} */
 /** @name Calibration Coefficients - Calibration coefficients and disable registers
