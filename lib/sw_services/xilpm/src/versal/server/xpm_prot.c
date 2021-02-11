@@ -121,7 +121,7 @@ static const u8 RegnAddrOffsets[MAX_MEM_REGIONS] = {
  * @return A handle to given node; else NULL
  *
  ****************************************************************************/
-static XPm_Prot *XPmProt_GetById(const u32 Id)
+XPm_Prot *XPmProt_GetById(const u32 Id)
 {
 	XPm_Prot *Prot = NULL;
 
@@ -1175,6 +1175,54 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  Common handler for XPPU init node ops
+ *
+ * @param  Ppu: Xppu node object reference
+ * @param  Func: Xppu InitNode Function
+ * @param  Args: Args list
+ * @param  NumArgs: total number of args present in Args list
+ *
+ * @return XST_SUCCESS if successful else appropriate failure code
+ *
+ ****************************************************************************/
+static XStatus XPmProt_XppuCtrl(const XPm_ProtPpu *Ppu, u32 Func, const u32 *Args, u32 NumArgs)
+{
+	/* TBD: Implementation */
+
+	(void)Ppu;
+	(void)Func;
+	(void)Args;
+	(void)NumArgs;
+
+	return XST_NO_FEATURE;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Common handler for XMPU enable/disable control
+ *
+ * @param  Mpu: Xmpu node object reference
+ * @param  Func: Xmpu InitNode Function
+ * @param  Args: Args list
+ * @param  NumArgs: total number of args present in Args list
+ *
+ * @return XST_SUCCESS if successful else appropriate failure code
+ *
+ ****************************************************************************/
+static XStatus XPmProt_XmpuCtrl(const XPm_ProtMpu *Mpu, u32 Func, const u32 *Args, u32 NumArgs)
+{
+	/* TBD: Implementation */
+
+	(void)Mpu;
+	(void)Func;
+	(void)Args;
+	(void)NumArgs;
+
+	return XST_NO_FEATURE;
+}
+
+/****************************************************************************/
+/**
  * @brief  Initialize protection base class struct and add it to database
  *
  * @param  Prot: Pointer to an uninitialized protection class struct
@@ -1243,6 +1291,9 @@ XStatus XPmProtPpu_Init(XPm_ProtPpu *PpuNode,
 	/* Parent power domain */
 	PpuNode->Power = Power;
 
+	/* Node Ops */
+	PpuNode->Ops = &XPmProt_XppuCtrl;
+
 	/* Init apertures */
 	(void)memset(&PpuNode->A64k, 0, sizeof(PpuNode->A64k));
 	(void)memset(&PpuNode->A1m, 0, sizeof(PpuNode->A1m));
@@ -1282,6 +1333,9 @@ XStatus XPmProtMpu_Init(XPm_ProtMpu *MpuNode,
 	/* Init */
 	MpuNode->AlignCfg = 0;
 	MpuNode->Power = Power;
+
+	/* Node Ops */
+	MpuNode->Ops = &XPmProt_XmpuCtrl;
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);

@@ -933,6 +933,64 @@ done:
 	return Status;
 }
 
+static XStatus ProtInitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	const XPm_ProtPpu *Ppu = NULL;
+	const XPm_ProtMpu *Mpu = NULL;
+	const XPm_Power *Power = NULL;
+	u32 SubClass = NODESUBCLASS(NodeId);
+
+	switch (SubClass) {
+	case (u32)XPM_NODESUBCL_PROT_XPPU:
+		Ppu = (XPm_ProtPpu *)XPmProt_GetById(NodeId);
+		if (NULL == Ppu) {
+			DbgErr = XPM_INT_ERR_INVALID_NODE;
+			goto done;
+		}
+		Power = Ppu->Power;
+		break;
+	case (u32)XPM_NODESUBCL_PROT_XMPU:
+		Mpu = (XPm_ProtMpu *)XPmProt_GetById(NodeId);
+		if (NULL == Mpu) {
+			DbgErr = XPM_INT_ERR_INVALID_NODE;
+			goto done;
+		}
+		Power = Mpu->Power;
+		break;
+	default:
+		Status = XST_FAILURE;
+		DbgErr = XPM_INT_ERR_INVALID_PARAM;
+		break;
+	}
+
+	if ((NULL == Ppu) && (NULL == Mpu)) {
+		goto done;
+	}
+
+	/* Power parent of protection nodes must be in ON state */
+	if ((NULL == Power) ||
+	    ((u8)XPM_POWER_STATE_ON != Power->Node.State)) {
+		Status = XPM_INVALID_STATE;
+		DbgErr = XPM_INT_ERR_INVALID_PWR_STATE;
+		goto done;
+	}
+
+	if ((NULL != Ppu) && (NULL != Ppu->Ops)) {
+		Status = Ppu->Ops(Ppu, Function, Args, NumArgs);
+	} else if ((NULL != Mpu) && (NULL != Mpu->Ops)) {
+		Status = Mpu->Ops(Mpu, Function, Args, NumArgs);
+	} else {
+		Status = XST_NO_FEATURE;
+		DbgErr = XPM_INT_ERR_NO_FEATURE;
+	}
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
 /****************************************************************************/
 /**
  * @brief  This function allows to initialize the node.
@@ -961,6 +1019,11 @@ XStatus XPm_InitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs)
 		  ((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(NodeId)) &&
 		  ((u32)XPM_NODEIDX_DEV_PLD_MAX > NODEINDEX(NodeId))) {
 		Status = PldInitNode(NodeId, Function, Args, NumArgs);
+	} else if (((u32)XPM_NODECLASS_PROTECTION == NODECLASS(NodeId)) &&
+		   (((u32)XPM_NODESUBCL_PROT_XPPU == NODESUBCLASS(NodeId)) ||
+		   ((u32)XPM_NODESUBCL_PROT_XMPU == NODESUBCLASS(NodeId))) &&
+		   ((u32)XPM_NODEIDX_PROT_MAX > NODEINDEX(NodeId))) {
+		Status = ProtInitNode(NodeId, Function, Args, NumArgs);
 	} else {
 		Status = XPM_PM_INVALID_NODE;
 		DbgErr = XPM_INT_ERR_PLDEVICE_INITNODE;
