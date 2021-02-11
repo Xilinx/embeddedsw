@@ -1209,16 +1209,42 @@ static XStatus XPmProt_XppuCtrl(const XPm_ProtPpu *Ppu, u32 Func, const u32 *Arg
  * @return XST_SUCCESS if successful else appropriate failure code
  *
  ****************************************************************************/
-static XStatus XPmProt_XmpuCtrl(const XPm_ProtMpu *Mpu, u32 Func, const u32 *Args, u32 NumArgs)
+static XStatus XPmProt_XmpuCtrl(const XPm_ProtMpu *Mpu,
+				u32 Func,
+				const u32 *Args,
+				u32 NumArgs)
 {
-	/* TBD: Implementation */
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 NodeId = Mpu->Node.Id;
 
-	(void)Mpu;
-	(void)Func;
 	(void)Args;
 	(void)NumArgs;
 
-	return XST_NO_FEATURE;
+	switch (Func) {
+	case (u32)FUNC_XMPU_ENABLE:
+		Status = XPmProt_XmpuEnable(NodeId);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_XMPU_EN;
+			goto done;
+		}
+		break;
+	case (u32)FUNC_XMPU_DISABLE:
+		Status = XPmProt_XmpuDisable(NodeId);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_XMPU_DISABLE;
+			goto done;
+		}
+		break;
+	default:
+		Status = XST_NO_FEATURE;
+		DbgErr = XPM_INT_ERR_NO_FEATURE;
+		break;
+	}
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
 }
 
 /****************************************************************************/

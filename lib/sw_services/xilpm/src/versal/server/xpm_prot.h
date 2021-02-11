@@ -13,10 +13,20 @@
 extern "C" {
 #endif
 
-/* Protection node states */
+/*
+ * Protection node states
+ */
 enum XPm_ProtState {
 	XPM_PROT_DISABLED,
 	XPM_PROT_ENABLED,
+};
+
+/**
+ *  XMPU InitNode functions
+ */
+enum XPm_XmpuInitFunctions {
+	FUNC_XMPU_DISABLE,
+	FUNC_XMPU_ENABLE,
 };
 
 typedef struct XPm_Node XPm_Prot;
