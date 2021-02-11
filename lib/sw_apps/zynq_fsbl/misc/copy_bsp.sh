@@ -75,18 +75,18 @@ do
     cp -r $DRIVERS_DIR/$line/src $BSP_DIR/libsrc/$line
 # copy all the HSM generated driver files DRIVER_g.c
 #    cp $BOARD_DIR/x"$line"_g.c $BSP_DIR/libsrc/$line/src/
-     set BSP_SEQUENTIAL_MAKEFILES += $BSP_DIR/libsrc/$line/src/Makefile
+    BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/$line/src/Makefile"
 
 done < $DRIVERS_LIST
 
 # copy the libraries required
 cp -r $SERVICES_DIR/xilffs/ $BSP_DIR/libsrc/
 cp -r $SERVICES_DIR/xilffs/src/include/* $BSP_DIR/include/
-set BSP_SEQUENTIAL_MAKEFILES += $BSP_DIR/libsrc/xilffs/src/Makefile
+BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilffs/src/Makefile"
 
 cp -r $SERVICES_DIR/xilrsa/ $BSP_DIR/libsrc/
 cp -r $SERVICES_DIR/xilrsa/src/include/* $BSP_DIR/include/
-set BSP_SEQUENTIAL_MAKEFILES += $BSP_DIR/libsrc/xilrsa/src/Makefile
+BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilrsa/src/Makefile"
 
 #copy the xparameters.h
 cp $BOARD_DIR/xparameters.h $BSP_DIR/include/
