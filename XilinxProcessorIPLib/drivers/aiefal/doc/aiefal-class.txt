@@ -1,0 +1,238 @@
+@startuml
+skinparam linetype ortho
+skinparam classAttributeIconSize 0
+
+class XAieRsc {
+	+reserve()
+	+release()
+	+getRscInfo(&InfoMap)
+	+isReserved()
+	+isRunning()
+	+start()
+	+stop()
+	+setFuncName(Name)
+	+getFuncName()
+	#FuncName
+	#Rsc
+	#State
+}
+
+abstract XAieRscGroup {
+	+addRsc(TileLoc)
+	+removeRsc(TileLoc)
+	+addRsc(RscInfoMap)
+	+reserve()
+	+getRsc()
+	+isReserved()
+	+isRunning()
+	+release()
+	+start()
+	+stop()
+	+size()
+	+clear()
+	+setFuncName(Name)
+	#std::vector<shared_ptr<XAieRsc>> vRscs
+	#FuncName
+}
+
+class XAieRscContainer {
+	+XAieRscContainer(Name)
+	+genJson(ostream)
+	+addRsc(std::vector<XAieRscGroup<T>> &gRscs)
+	+addRsc(Rsc)
+	+clear()
+	+reverve()
+	+release()
+	+start()
+	+stop()
+	+isReserved()
+	+isRunning()
+	#std::vector<weak_ptr<XAieRsc>> vRscPtrs
+	#Name
+}
+
+class XAiePerfCounter {
+	+XAiePerfCounter(Loc)
+	+XAiePerfCounter(RscInfoMap)
+	+readValue()
+	+loc()
+	+getCounterEvent(&E)
+	+setEvents(Mod, StartE, EndE, RstE, EventVal)
+	+changeRstEvent()
+	+changeStartEvent()
+	+changeStopEvent()
+	+changeThreshold(Val)
+	-_reserveRsc()
+	-_releaseRsc()
+	-_start()
+	-_stop()
+	#StartEvent
+	#StopEvent
+	#RstEvent
+	#PerfThreshold
+	#PerfRsc
+	#XAieAie_LocType Loc
+}
+
+class XAieTraceCntr {
+	+XAieTraceCntr(Loc)
+	+XAieTraceCntr(RscInfoMap)
+	+addTraceEvents(TraceEvent)
+	+removeTraceEvents(TraceEvent)
+	+reserve()
+	+release()
+	+start()
+	+stop()
+	+readLoc()
+	+changeStartEvent(StartEvent)
+	+changeStopEvent(Stopvent)
+	+getCounterEvent()
+	#std::vector<XAieAie_UserRsc> vRscs
+	#std::vector<XAieAie_Events> vEvents
+	#StartEvent
+	#StopEvent
+	#XAieAie_LocType Loc
+	#TraceMode
+	#PacketType
+	#PacketId
+}
+
+class XAieTraceEvent {
+	+XAieTraceEvent(Loc)
+	+XAieTraceEvent(RscInfoMap)
+	+setTraceControl(TraceCntr)
+	+setEvent()
+	+getEvent()
+	+loc()
+	-_reserve()
+	-_release()
+	-_start()
+	-_stop()
+}
+
+class XAiePCEvent {
+	+XAiePCEvent(Loc)
+	+XAiePCEvent(RscInfoMap)
+	+XAiePCEvent(PcRsc)
+	+setPcAddr(Addr)
+	+getPcAddr(Addr)
+	+loc()
+}
+
+class XAiePCRange {
+	+XAiePCRange(Loc)
+	+XAiePCRange(RscInfoMap)
+	+XAiePCRange(Loc, PcRsc0, PCRsc1)
+	+setPcAddr(Addr0, Addr1)
+	+getPcAddr(Addr0, Addr1)
+	+loc()
+	-_reserve()
+	-_release()
+	-_start()
+	-_stop()
+}
+
+class XAieStreamPortSelect {
+	+XAieStreamPortSelect(Loc)
+	+XAieStreamPortSelect(RscInfoMap)
+	+setPortToSelect()
+	+getSSIdleEvent()
+	+getSSRunningEvent()
+	+getSSStalledEvent()
+	+getSSTlastEvent()
+	-_reserve()
+	-_release()
+	-_start()
+	-_stop()
+}
+
+class XAieAieBroadcast {
+	+XAieBroadcast(&vLocs, StartMod, EndMod)
+	+XAieBroadcast(RscInfoMap)
+	+setPath()
+	+getEvent(TileLoc, Mod)
+	+getBC()
+	-_reserve()
+	-_release()
+	#std::vector<XAieAie_LocType> vLocs
+	#std::vector<XAieAie_UserRsc> vRscs
+}
+
+class UserDefinedIOTrace {
+	+Tracers
+	+TraceEvents
+	+StreamPortsSelect
+	+StartEvent
+	+StopEvent
+}
+
+class UserDefinedIOProfile {
+	+StreamPortsSelects
+	+Broadcast
+	+PerfCounter1
+	+PerfCounter2
+}
+
+class UserDefinedTracePCEvents {
+	+CoreTracers
+	+MemTracers
+	+Broadcasts
+	+PCEvents
+	+TraceEvents
+}
+
+class UserDefinedDMATrace {
+	+MemTracers
+	+DmaTraceEvents
+}
+
+class UserDefinedPCRangesProfile {
+	+PCRanges
+	+PerfCounters
+}
+
+class UserDefinedHeatMap {
+	+ActivePerfCounters
+	+StallProfiers
+	+MemStallPerfCounters
+	+CascateStallPerfCounters
+	+LockStallPerfCounters
+	+StreamStallPerfCounters
+}
+
+XAieTraceCntr "1" <-- XAieTraceEvent
+
+XAieRsc <|-- XAieTraceEvent
+XAieRsc <|-- XAiePerfCounter
+XAieRsc <|-- XAiePCEvent
+XAieRsc <|-- XAiePCRange
+XAieRsc <|-- XAieStreamPortSelect
+XAieRsc <|-- XAieAieBroadcast
+
+XAiePerfCounter <|-- XAieActiveCycles
+XAiePerfCounter <|-- XAieStallCycles
+XAiePerfCounter <|-- XAieMemStallCycles
+XAiePerfCounter <|-- XAieStreamStallCycles
+XAiePerfCounter <|-- XAieLockStallCycles
+XAiePerfCounter <|-- XAieCascadeStallCycles
+
+XAiePCEvent "2" --* XAiePCRange
+
+XAieRscGroup "1" *-- "many" XAieRsc
+XAieRscContainer "1" --> "many" XAieRsc
+
+UserDefinedIOTrace *-- "multi" XAieRscGroup
+UserDefinedIOProfile *-- "multi" XAieRscGroup
+UserDefinedTracePCEvents *-- "multi" XAieRscGroup
+UserDefinedDMATrace *-- "multi" XAieRscGroup
+UserDefinedPCRangesProfile *-- "multi" XAieRscGroup
+UserDefinedHeatMap *-- "multi" XAieRscGroup
+
+UserDefinedIOTrace *-- "1" XAieRscContainer
+UserDefinedIOProfile *-- "1" XAieRscContainer
+UserDefinedTracePCEvents *-- "1" XAieRscContainer
+UserDefinedDMATrace *-- "1" XAieRscContainer
+UserDefinedPCRangesProfile *-- "1" XAieRscContainer
+UserDefinedHeatMap *-- "1" XAieRscContainer
+
+@enduml
