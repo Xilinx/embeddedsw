@@ -627,10 +627,13 @@ static XStatus XPmProt_XppuConfigure(const XPm_Requirement *Reqm, u32 Enable)
 	PmDbg("Device Node Id: 0x%x\r\n", Reqm->Device->Node.Id);
 
 	/*
-	 * For PMC Subsystem, with default requirements, do not re-configure any
-	 * apertures since PMC master is a part of default permission mask.
+	 * For PMC/Default Subsystem with default requirements,
+	 * do not re-configure any apertures since:
+	 *   - PMC master is a part of default permission mask.
+	 *   - Default subsystems do not support protection.
 	 */
-	if (((u32)PM_SUBSYS_PMC == Reqm->Subsystem->Id) &&
+	if ((((u32)PM_SUBSYS_PMC == Reqm->Subsystem->Id) ||
+	    ((u32)PM_SUBSYS_DEFAULT == Reqm->Subsystem->Id)) &&
 	    ((u16)REQ_NO_RESTRICTION == UsagePolicy)) {
 		Status = XST_SUCCESS;
 		goto done;
