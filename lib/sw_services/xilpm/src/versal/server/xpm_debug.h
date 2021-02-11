@@ -114,10 +114,6 @@ extern "C" {
 #define XPM_INT_ERR_FUNC_HOUSECLEAN_PL		0x3124U
 /* Error during init house clean complete function */
 #define XPM_INT_ERR_FUNC_HOUSECLEAN_COMPLETE	0x3125U
-/* Error during init XPPU control function */
-#define XPM_INT_ERR_FUNC_XPPU_CTRL		0x3126U
-/* Error during init XMPU control function */
-#define XPM_INT_ERR_FUNC_XMPU_CTRL		0x3127U
 
 /************************** LPD specific Errors ******************************/
 /************************** (0x3200) - (0x32FF) ******************************/

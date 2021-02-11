@@ -62,8 +62,6 @@ static const char *PmInitFunctions[FUNC_MAX_COUNT_PMINIT] = {
 	[FUNC_MBIST_CLEAR]		= "MBIST_CLEAR",
 	[FUNC_HOUSECLEAN_PL]		= "HOUSECLEAN_PL",
 	[FUNC_HOUSECLEAN_COMPLETE]	= "HOUSECLEAN_COMPLETE",
-	[FUNC_XPPU_CTRL]		= "XPPU_CTRL",
-	[FUNC_XMPU_CTRL]		= "XMPU_CTRL",
 };
 
 XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
@@ -1296,13 +1294,6 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 	PmDbg("%s for PwrDomain 0x%x Start\r\n", PmInitFunctions[Function],
 						  PwrDomain->Power.Node.Id);
 
-	if (((u8)XPM_POWER_STATE_ON == PwrDomain->Power.Node.State)
-	&&  ((u32)FUNC_XPPU_CTRL != Function)
-	&&  ((u32)FUNC_XMPU_CTRL != Function)) {
-		Status = XST_SUCCESS;
-		goto done;
-	}
-
 	/* Check PL power up at every init node command to see if we can run Pl houseclean*/
 	(void)XPmPlDomain_InitandHouseclean();
 
@@ -1530,36 +1521,6 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
                 }
 		Status = XST_SUCCESS;
                 break;
-	case (u32)FUNC_XPPU_CTRL:
-		if ((u8)XPM_POWER_STATE_ON != PwrDomain->Power.Node.State) {
-			DbgErr = XPM_INT_ERR_INVALID_PWR_STATE;
-			Status = XST_FAILURE;
-			goto done;
-		}
-		if ((NULL != Ops) && (NULL != Ops->XppuCtrl)) {
-			Status = Ops->XppuCtrl(Args, NumArgs);
-			if (XST_SUCCESS != Status) {
-				DbgErr = XPM_INT_ERR_FUNC_XPPU_CTRL;
-				goto done;
-			}
-		}
-		Status = XST_SUCCESS;
-		break;
-	case (u32)FUNC_XMPU_CTRL:
-		if ((u8)XPM_POWER_STATE_ON != PwrDomain->Power.Node.State) {
-			DbgErr = XPM_INT_ERR_INVALID_PWR_STATE;
-			Status = XST_FAILURE;
-			goto done;
-		}
-		if ((NULL != Ops) && (NULL != Ops->XmpuCtrl)) {
-			Status = Ops->XmpuCtrl(Args, NumArgs);
-			if (XST_SUCCESS != Status) {
-				DbgErr = XPM_INT_ERR_FUNC_XMPU_CTRL;
-				goto done;
-			}
-		}
-		Status = XST_SUCCESS;
-		break;
 	default:
 		DbgErr = XPM_INT_ERR_INVALID_FUNC;
 		Status = XST_INVALID_PARAM;
