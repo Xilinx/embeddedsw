@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -202,7 +202,7 @@ XPfw_PmIpiStatus XPfw_PmCheckIpiRequest(const u32 isrVal,
 	}
 
 	/* Api id is first argument in payload */
-	if ((*apiId >= PM_API_MIN) && (*apiId <= PM_API_MAX)) {
+	if ((*apiId > PM_API(PM_API_MIN)) && (*apiId < PM_API(PM_API_MAX))) {
 		/* Api id is within valid range */
 		status = XPFW_PM_IPI_IS_PM_CALL;
 	} else {
