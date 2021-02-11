@@ -20,6 +20,7 @@
  * 1.0   mn   08/17/18 Initial release
  *       mn   09/27/18 Modify code to add 2D Read/Write Eye Tests support
  *       mn   07/29/20 Modify code to use DRAM VRef for 2D Write Eye Test
+ * 1.2   mn   02/11/21 Added support for 16-Bit Bus Width
  *
  * </pre>
  *
@@ -230,8 +231,10 @@ extern "C" {
 #define XMT_2D_EYE_TEST			0x2U
 #define XMT_DDR_CONFIG_8_LANE			8U
 #define XMT_DDR_CONFIG_4_LANE			4U
+#define XMT_DDR_CONFIG_2_LANE			2U
 #define XMT_DDR_CONFIG_64BIT_WIDTH			64U
 #define XMT_DDR_CONFIG_32BIT_WIDTH			32U
+#define XMT_DDR_CONFIG_16BIT_WIDTH			16U
 
 #define XMT_DDR_TYPE_DDR3			0x01U
 #define XMT_DDR_TYPE_LPDDR2			0x04U
