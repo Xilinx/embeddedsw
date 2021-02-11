@@ -1,0 +1,16 @@
+@startuml
+title "Use Resource Allocated During Compilation"
+skinparam linetype ortho
+skinparam classAttributeIconSize 0
+[*] --> Initialized_and_Prereserved
+Initialized_and_Prereserved --> Reserved : reserve()
+Initialized_and_Prereserved --> Configured_and_Preserved : config_parameters
+Configured_and_Preserved -d-> Reserved_and_Configured : reserve()
+Reserved -u-> Reserved_and_Configured: config_parameters
+Reserved_and_Configured -u-> Configured_and_Preserved : free()
+Reserved_and_Configured -d-> Running : start()
+Running -u-> Reserved_and_Configured : stop()
+Reserved_and_Configured -l-> Configured : release()
+Configured_and_Preserved -l-> Configured: release()
+
+@enduml

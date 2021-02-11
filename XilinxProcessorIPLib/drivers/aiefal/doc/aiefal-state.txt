@@ -1,0 +1,14 @@
+@startuml
+title "Resource Allocated At Runtime"
+skinparam linetype ortho
+skinparam classAttributeIconSize 0
+[*] --> Initialized
+Initialized --> Reserved : reserve()
+Initialized --> Configured : config_parameters
+Reserved --> Reserved_and_Configured : config_parameters
+Configured --> Reserved_and_Configured : reserve()
+Reserved_and_Configured --> Configured : release()
+Reserved_and_Configured --> Running : start()
+Running --> Reserved_and_Configured : stop()
+
+@enduml
