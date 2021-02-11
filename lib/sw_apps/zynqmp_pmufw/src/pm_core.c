@@ -1974,9 +1974,9 @@ static bool PmApiApprovalCheck(const u32 apiId)
 
 	/* If the object is not loaded only APIs below can be processed */
 	switch (apiId) {
-	case PM_GET_API_VERSION:
-	case PM_GET_CHIPID:
-	case PM_SET_CONFIGURATION:
+	case PM_API(PM_GET_API_VERSION):
+	case PM_API(PM_GET_CHIPID):
+	case PM_API(PM_SET_CONFIGURATION):
 		approved = true;
 		break;
 	default:
@@ -2008,21 +2008,21 @@ void PmProcessRequest(PmMaster *const master, const u32 *pload)
 		goto done;
 	}
 	switch (pload[0]) {
-	case PM_SELF_SUSPEND:
+	case PM_API(PM_SELF_SUSPEND):
 		address = ((u64) pload[5]) << 32ULL;
 		address += pload[4];
 		PmSelfSuspend(master, pload[1], pload[2], pload[3], address);
 		break;
-	case PM_REQUEST_SUSPEND:
+	case PM_API(PM_REQUEST_SUSPEND):
 		PmRequestSuspend(master, pload[1], pload[2], pload[3], pload[4]);
 		break;
-	case PM_FORCE_POWERDOWN:
+	case PM_API(PM_FORCE_POWERDOWN):
 		PmForcePowerdown(master, pload[1], pload[2]);
 		break;
-	case PM_ABORT_SUSPEND:
+	case PM_API(PM_ABORT_SUSPEND):
 		PmAbortSuspend(master, pload[1], pload[2]);
 		break;
-	case PM_REQUEST_WAKEUP:
+	case PM_API(PM_REQUEST_WAKEUP):
 		/* setAddress is encoded in the 1st bit of the low-word address */
 		setAddress = pload[2] & 0x1U;
 		/* addresses are word-aligned, ignore bit 0 */
@@ -2030,136 +2030,136 @@ void PmProcessRequest(PmMaster *const master, const u32 *pload)
 		address += ((u64)pload[2] & ~((u64)0x1));
 		PmRequestWakeup(master, pload[1], setAddress, address, pload[4]);
 		break;
-	case PM_SET_WAKEUP_SOURCE:
+	case PM_API(PM_SET_WAKEUP_SOURCE):
 		PmSetWakeupSource(master, pload[1], pload[2], pload[3]);
 		break;
-	case PM_SYSTEM_SHUTDOWN:
+	case PM_API(PM_SYSTEM_SHUTDOWN):
 		PmSystemShutdown(master, pload[1], pload[2]);
 		break;
-	case PM_REQUEST_NODE:
+	case PM_API(PM_REQUEST_NODE):
 		PmRequestNode(master, pload[1], pload[2], pload[3], pload[4]);
 		break;
-	case PM_RELEASE_NODE:
+	case PM_API(PM_RELEASE_NODE):
 		PmReleaseNode(master, pload[1]);
 		break;
-	case PM_SET_REQUIREMENT:
+	case PM_API(PM_SET_REQUIREMENT):
 		PmSetRequirement(master, pload[1], pload[2], pload[3], pload[4]);
 		break;
-	case PM_SET_MAX_LATENCY:
+	case PM_API(PM_SET_MAX_LATENCY):
 		PmSetMaxLatency(master, pload[1], pload[2]);
 		break;
-	case PM_GET_API_VERSION:
+	case PM_API(PM_GET_API_VERSION):
 		PmGetApiVersion(master);
 		break;
-	case PM_SET_CONFIGURATION:
+	case PM_API(PM_SET_CONFIGURATION):
 		PmSetConfiguration(master, pload[1]);
 		break;
-	case PM_GET_NODE_STATUS:
+	case PM_API(PM_GET_NODE_STATUS):
 		PmGetNodeStatus(master, pload[1]);
 		break;
-	case PM_GET_OP_CHARACTERISTIC:
+	case PM_API(PM_GET_OP_CHARACTERISTIC):
 		PmGetOpCharacteristics(master, pload[1], pload[2]);
 		break;
-	case PM_REGISTER_NOTIFIER:
+	case PM_API(PM_REGISTER_NOTIFIER):
 		PmRegisterNotifier(master, pload[1], pload[2], pload[3], pload[4]);
 		break;
-	case PM_RESET_ASSERT:
+	case PM_API(PM_RESET_ASSERT):
 		PmResetAssert(master, pload[1], pload[2]);
 		break;
-	case PM_RESET_GET_STATUS:
+	case PM_API(PM_RESET_GET_STATUS):
 		PmResetGetStatus(master, pload[1]);
 		break;
-	case PM_MMIO_WRITE:
+	case PM_API(PM_MMIO_WRITE):
 		PmMmioWrite(master, pload[1], pload[2], pload[3]);
 		break;
-	case PM_MMIO_READ:
+	case PM_API(PM_MMIO_READ):
 		PmMmioRead(master, pload[1]);
 		break;
-	case PM_INIT_FINALIZE:
+	case PM_API(PM_INIT_FINALIZE):
 		PmInitFinalize(master);
 		break;
 #ifdef ENABLE_FPGA_LOAD
-	case PM_FPGA_LOAD:
+	case PM_API(PM_FPGA_LOAD):
 		PmFpgaLoad(master, pload[1], pload[2], pload[3], pload[4]);
 		break;
-	case PM_FPGA_GET_STATUS:
+	case PM_API(PM_FPGA_GET_STATUS):
 		PmFpgaGetStatus(master);
 		break;
 #if defined(ENABLE_FPGA_READ_CONFIG_DATA) || defined(ENABLE_FPGA_READ_CONFIG_REG)
-	case PM_FPGA_READ:
+	case PM_API(PM_FPGA_READ):
 		PmFpgaRead(master, pload[1], pload[2], pload[3], pload[4]);
 		break;
 #endif
 #endif
-	case PM_GET_CHIPID:
+	case PM_API(PM_GET_CHIPID):
 		PmGetChipid(master);
 		break;
 #ifdef ENABLE_SECURE
-	case PM_SECURE_SHA:
+	case PM_API(PM_SECURE_SHA):
 		PmSecureSha(master, pload[1], pload[2], pload[3], pload[4]);
 		break;
-	case PM_SECURE_RSA:
+	case PM_API(PM_SECURE_RSA):
 		PmSecureRsa(master, pload[1], pload[2], pload[3], pload[4]);
 		break;
-	case PM_SECURE_IMAGE:
+	case PM_API(PM_SECURE_IMAGE):
 		PmSecureImage(master, pload[1], pload[2], pload[3], pload[4]);
 		break;
-	case PM_SECURE_AES:
+	case PM_API(PM_SECURE_AES):
 		PmSecureAes(master, pload[1], pload[2]);
 		break;
 #endif
-	case PM_CLOCK_SETPARENT:
+	case PM_API(PM_CLOCK_SETPARENT):
 		PmClockSetParent(master, pload[1], pload[2]);
 		break;
-	case PM_CLOCK_GETPARENT:
+	case PM_API(PM_CLOCK_GETPARENT):
 		PmClockGetParent(master, pload[1]);
 		break;
-	case PM_CLOCK_ENABLE:
+	case PM_API(PM_CLOCK_ENABLE):
 		PmClockGateConfig(master, pload[1], 1U);
 		break;
-	case PM_CLOCK_DISABLE:
+	case PM_API(PM_CLOCK_DISABLE):
 		PmClockGateConfig(master, pload[1], 0U);
 		break;
-	case PM_CLOCK_GETSTATE:
+	case PM_API(PM_CLOCK_GETSTATE):
 		PmClockGetStatus(master, pload[1]);
 		break;
-	case PM_CLOCK_SETDIVIDER:
+	case PM_API(PM_CLOCK_SETDIVIDER):
 		PmClockSetDivider(master, pload[1], pload[2], pload[3]);
 		break;
-	case PM_CLOCK_GETDIVIDER:
+	case PM_API(PM_CLOCK_GETDIVIDER):
 		PmClockGetDivider(master, pload[1], pload[2]);
 		break;
-	case PM_PLL_SET_PARAM:
+	case PM_API(PM_PLL_SET_PARAM):
 		PmPllSetParam(master, pload[1], pload[2], pload[3]);
 		break;
-	case PM_PLL_GET_PARAM:
+	case PM_API(PM_PLL_GET_PARAM):
 		PmPllGetParam(master, pload[1], pload[2]);
 		break;
-	case PM_PLL_SET_MODE:
+	case PM_API(PM_PLL_SET_MODE):
 		PmPllSetMode(master, pload[1], pload[2]);
 		break;
-	case PM_PLL_GET_MODE:
+	case PM_API(PM_PLL_GET_MODE):
 		PmPllGetMode(master, pload[1]);
 		break;
-	case PM_EFUSE_ACCESS:
+	case PM_API(PM_EFUSE_ACCESS):
 		PmEfuseAccess(master, pload[1], pload[2]);
 		break;
-	case PM_PINCTRL_REQUEST:
+	case PM_API(PM_PINCTRL_REQUEST):
 		PmPinCtrlRequest(master, pload[1]);
 		break;
-	case PM_PINCTRL_RELEASE:
+	case PM_API(PM_PINCTRL_RELEASE):
 		PmPinCtrlRelease(master, pload[1]);
 		break;
-	case PM_PINCTRL_GET_FUNCTION:
+	case PM_API(PM_PINCTRL_GET_FUNCTION):
 		PmPinCtrlGetFunction(master, pload[1]);
 		break;
-	case PM_PINCTRL_SET_FUNCTION:
+	case PM_API(PM_PINCTRL_SET_FUNCTION):
 		PmPinCtrlSetFunction(master, pload[1], pload[2]);
 		break;
-	case PM_PINCTRL_CONFIG_PARAM_GET:
+	case PM_API(PM_PINCTRL_CONFIG_PARAM_GET):
 		PmPinCtrlConfigParamGet(master, pload[1], pload[2]);
 		break;
-	case PM_PINCTRL_CONFIG_PARAM_SET:
+	case PM_API(PM_PINCTRL_CONFIG_PARAM_SET):
 		PmPinCtrlConfigParamSet(master, pload[1], pload[2], pload[3]);
 		break;
 	default:
