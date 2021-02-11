@@ -81,8 +81,6 @@ struct XPm_ProtMpu {
 XStatus XPmProtPpu_Init(XPm_ProtPpu *PpuNode, u32 Id, u32 BaseAddr, XPm_Power *Power);
 XStatus XPmProtMpu_Init(XPm_ProtMpu *MpuNode, u32 Id, u32 BaseAddr, XPm_Power *Power);
 XStatus XPmProt_Configure(XPm_Requirement *Reqm, u32 Enable);
-XStatus XPmProt_CommonXppuCtrl(u32 *Args, u32 NumOfArgs);
-XStatus XPmProt_CommonXmpuCtrl(u32 *Args, u32 NumOfArgs);
 XPm_Prot *XPmProt_GetById(const u32 Id);
 
 #ifdef __cplusplus
