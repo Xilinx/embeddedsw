@@ -19,7 +19,7 @@
 /**
  * Protection nodes (XPPUs + XMPUs)
  */
-static XPm_Prot *PmProtNodes[XPM_NODEIDX_PROT_MAX];
+static XPm_Prot *PmProtections[XPM_NODEIDX_PROT_MAX];
 
 #define SIZE_64K				(0x10000U)
 #define SIZE_1M					(0x100000U)
@@ -118,7 +118,7 @@ static const u8 RegnAddrOffsets[MAX_MEM_REGIONS] = {
 /**
  * @brief  Initialize protection base class struct and add it to database
  *
- * @param  ProtNode: Pointer to an uninitialized protection class struct
+ * @param  Prot: Pointer to an uninitialized protection class struct
  * @param  Id: Node Id assigned to a XPPU/XMPU node
  * @param  BaseAddr: Base address of the given XPPU/XMPU
  *
@@ -127,7 +127,7 @@ static const u8 RegnAddrOffsets[MAX_MEM_REGIONS] = {
  * @note   This is internally called from XMPU/XPPU initialization routines
  *
  ****************************************************************************/
-static XStatus XPmProt_Init(XPm_Prot *ProtNode, u32 Id, u32 BaseAddr)
+static XStatus XPmProt_Init(XPm_Prot *Prot, u32 Id, u32 BaseAddr)
 {
 	XStatus Status = XST_FAILURE;
 	u32 NodeIndex = NODEINDEX(Id);
@@ -138,9 +138,9 @@ static XStatus XPmProt_Init(XPm_Prot *ProtNode, u32 Id, u32 BaseAddr)
 		goto done;
 	}
 
-	XPmNode_Init(&ProtNode->Node, Id, (u8)XPM_PROT_DISABLED, BaseAddr);
+	XPmNode_Init(Prot, Id, (u8)XPM_PROT_DISABLED, BaseAddr);
 
-	PmProtNodes[NodeIndex] = ProtNode;
+	PmProtections[NodeIndex] = Prot;
 	Status = XST_SUCCESS;
 
 done:
@@ -178,19 +178,9 @@ XStatus XPmProtPpu_Init(XPm_ProtPpu *PpuNode, u32 Id, u32 BaseAddr)
 	PpuNode->AperPermInitMask = 0;
 
 	/* Init addresses - 64k */
-	PpuNode->Aperture_64k.NumSupported = 0;
-	PpuNode->Aperture_64k.StartAddress = 0;
-	PpuNode->Aperture_64k.EndAddress = 0;
-
-	/* Init addresses - 1m */
-	PpuNode->Aperture_1m.NumSupported = 0;
-	PpuNode->Aperture_1m.StartAddress = 0;
-	PpuNode->Aperture_1m.EndAddress = 0;
-
-	/* Init addresses - 512mb */
-	PpuNode->Aperture_512m.NumSupported = 0;
-	PpuNode->Aperture_512m.StartAddress = 0;
-	PpuNode->Aperture_512m.EndAddress = 0;
+	memset(&PpuNode->A64k, 0, sizeof(PpuNode->A64k));
+	memset(&PpuNode->A1m, 0, sizeof(PpuNode->A1m));
+	memset(&PpuNode->A512m, 0, sizeof(PpuNode->A512m));
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
@@ -238,21 +228,21 @@ done:
  ****************************************************************************/
 static XPm_Prot *XPmProt_GetById(const u32 Id)
 {
-	XPm_Prot *ProtNode = NULL;
+	XPm_Prot *Prot = NULL;
 
 	if (((u32)XPM_NODECLASS_PROTECTION != NODECLASS(Id)) ||
 	    ((u32)XPM_NODEIDX_PROT_MAX <= NODEINDEX(Id))) {
 		goto done;
 	}
 
-	ProtNode = PmProtNodes[NODEINDEX(Id)];
+	Prot = PmProtections[NODEINDEX(Id)];
 	/* Check that internal ID is same as given ID or not. */
-	if ((NULL != ProtNode) && (Id != ProtNode->Node.Id)) {
-		ProtNode = NULL;
+	if ((NULL != Prot) && (Id != Prot->Id)) {
+		Prot = NULL;
 	}
 
 done:
-	return ProtNode;
+	return Prot;
 }
 
 /****************************************************************************/
@@ -266,20 +256,20 @@ done:
  ****************************************************************************/
 static XPm_Prot *XPmProt_GetByIndex(const u32 Idx)
 {
-	XPm_Prot *ProtNode = NULL;
+	XPm_Prot *Prot = NULL;
 
 	if ((u32)XPM_NODEIDX_PROT_MAX <= NODEINDEX(Idx)) {
 		goto done;
 	}
 
-	ProtNode = PmProtNodes[NODEINDEX(Idx)];
+	Prot = PmProtections[NODEINDEX(Idx)];
 	/* Check that internal Index is same as given Index or not. */
-	if ((NULL != ProtNode) && (Idx != NODEINDEX(ProtNode->Node.Id))) {
-		ProtNode = NULL;
+	if ((NULL != Prot) && (Idx != NODEINDEX(Prot->Id))) {
+		Prot = NULL;
 	}
 
 done:
-	return ProtNode;
+	return Prot;
 }
 
 /****************************************************************************/
@@ -364,7 +354,7 @@ static XStatus XPmProt_XppuEnable(u32 NodeId, u32 ApertureInitVal)
 	}
 
 	/* XPPU Base Address */
-	BaseAddr = PpuNode->ProtNode.Node.BaseAddress;
+	BaseAddr = PpuNode->Node.BaseAddress;
 
 	/* Set default aperture permission mask */
 	PpuNode->AperPermInitMask = ApertureInitVal & PERM_MASK;
@@ -383,16 +373,16 @@ static XStatus XPmProt_XppuEnable(u32 NodeId, u32 ApertureInitVal)
 
 	/* Get Number of Apertures supported */
 	PmIn32(BaseAddr + XPPU_M_APERTURE_64KB_OFFSET, RegVal);
-	PpuNode->Aperture_64k.NumSupported = RegVal;
-	Xil_AssertNonvoid((APER_64K_END - APER_64K_START + 1U) == PpuNode->Aperture_64k.NumSupported);
+	PpuNode->A64k.Total = RegVal;
+	Xil_AssertNonvoid((APER_64K_END - APER_64K_START + 1U) == PpuNode->A64k.Total);
 
 	PmIn32(BaseAddr + XPPU_M_APERTURE_1MB_OFFSET, RegVal);
-	PpuNode->Aperture_1m.NumSupported = RegVal;
-	Xil_AssertNonvoid((APER_1M_END - APER_1M_START + 1U) == PpuNode->Aperture_1m.NumSupported);
+	PpuNode->A1m.Total = RegVal;
+	Xil_AssertNonvoid((APER_1M_END - APER_1M_START + 1U) == PpuNode->A1m.Total);
 
 	PmIn32(BaseAddr + XPPU_M_APERTURE_512MB_OFFSET, RegVal);
-	PpuNode->Aperture_512m.NumSupported = RegVal;
-	Xil_AssertNonvoid((APER_512M_END - APER_512M_START + 1U) == PpuNode->Aperture_512m.NumSupported);
+	PpuNode->A512m.Total = RegVal;
+	Xil_AssertNonvoid((APER_512M_END - APER_512M_START + 1U) == PpuNode->A512m.Total);
 
 	/* Store parity bits settings */
 	PmIn32(BaseAddr + XPPU_CTRL_OFFSET, RegVal);
@@ -440,24 +430,24 @@ static XStatus XPmProt_XppuEnable(u32 NodeId, u32 ApertureInitVal)
 
 	/* Get Aperture start and end addresses */
 	PmIn32(BaseAddr + XPPU_BASE_64KB_OFFSET, RegVal);
-	PpuNode->Aperture_64k.StartAddress = RegVal;
-	PpuNode->Aperture_64k.EndAddress =
-		(PpuNode->Aperture_64k.StartAddress + (PpuNode->Aperture_64k.NumSupported * SIZE_64K) - 1U);
+	PpuNode->A64k.Start = RegVal;
+	PpuNode->A64k.End =
+		(PpuNode->A64k.Start + (PpuNode->A64k.Total * SIZE_64K) - 1U);
 
 	PmIn32(BaseAddr + XPPU_BASE_1MB_OFFSET, RegVal);
-	PpuNode->Aperture_1m.StartAddress = RegVal;
-	PpuNode->Aperture_1m.EndAddress =
-		(PpuNode->Aperture_1m.StartAddress + (PpuNode->Aperture_1m.NumSupported * SIZE_1M) - 1U);
+	PpuNode->A1m.Start = RegVal;
+	PpuNode->A1m.End =
+		(PpuNode->A1m.Start + (PpuNode->A1m.Total * SIZE_1M) - 1U);
 
 	PmIn32(BaseAddr + XPPU_BASE_512MB_OFFSET, RegVal);
-	PpuNode->Aperture_512m.StartAddress = RegVal;
-	PpuNode->Aperture_512m.EndAddress =
-		(PpuNode->Aperture_512m.StartAddress + (PpuNode->Aperture_512m.NumSupported * SIZE_512M) - 1U);
+	PpuNode->A512m.Start = RegVal;
+	PpuNode->A512m.End =
+		(PpuNode->A512m.Start + (PpuNode->A512m.Total * SIZE_512M) - 1U);
 
 	/* Enable Xppu */
 	PmRmw32(BaseAddr + XPPU_CTRL_OFFSET, XPPU_CTRL_ENABLE_MASK, XPPU_CTRL_ENABLE_MASK);
 
-	PpuNode->ProtNode.Node.State = (u8)XPM_PROT_ENABLED;
+	PpuNode->Node.State = (u8)XPM_PROT_ENABLED;
 
 	Status = XST_SUCCESS;
 
@@ -480,7 +470,7 @@ static XStatus XPmProt_XppuDisable(u32 NodeId)
 	XStatus Status = XST_FAILURE;
 	u32 Address, idx;
 	XPm_ProtPpu *PpuNode = (XPm_ProtPpu *)XPmProt_GetById(NodeId);
-	u32 PpuBase = PpuNode->ProtNode.Node.BaseAddress;
+	u32 PpuBase = PpuNode->Node.BaseAddress;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 PlatformVersion;
 
@@ -505,7 +495,7 @@ static XStatus XPmProt_XppuDisable(u32 NodeId)
 	/* Disable Xppu */
 	PmRmw32(PpuBase + XPPU_CTRL_OFFSET, XPPU_CTRL_ENABLE_MASK, ~XPPU_CTRL_ENABLE_MASK);
 
-	PpuNode->ProtNode.Node.State = (u8)XPM_PROT_DISABLED;
+	PpuNode->Node.State = (u8)XPM_PROT_DISABLED;
 
 	Status = XST_SUCCESS;
 
@@ -636,20 +626,20 @@ static XStatus XPmProt_XppuConfigure(const XPm_Requirement *Reqm, u32 Enable)
 	/* Find XPPU */
 	for (i = 0; i < (u32)XPM_NODEIDX_PROT_MAX; i++)
 	{
-		if ((PmProtNodes[i] != NULL)
-		&& ((u32)XPM_NODESUBCL_PROT_XPPU == NODESUBCLASS(PmProtNodes[i]->Node.Id))) {
+		if ((PmProtections[i] != NULL)
+		&& ((u32)XPM_NODESUBCL_PROT_XPPU == NODESUBCLASS(PmProtections[i]->Id))) {
 			/* XPPU Node specifics */
-			PpuNode = (XPm_ProtPpu *)PmProtNodes[i];
-			PpuBase = PpuNode->ProtNode.Node.BaseAddress;
+			PpuNode = (XPm_ProtPpu *)PmProtections[i];
+			PpuBase = PpuNode->Node.BaseAddress;
 			u32 ApertureOffset = 0;
 
 			/* XPPU Address boundaries */
-			u32 Aper64kStart = PpuNode->Aperture_64k.StartAddress;
-			u32 Aper64kEnd = PpuNode->Aperture_64k.EndAddress;
-			u32 Aper1mStart = PpuNode->Aperture_1m.StartAddress;
-			u32 Aper1mEnd = PpuNode->Aperture_1m.EndAddress;
-			// u32 Aper512mStart = PpuNode->Aperture_512m.StartAddress;
-			// u32 Aper512mEnd = PpuNode->Aperture_512m.EndAddress;
+			u32 Aper64kStart = PpuNode->A64k.Start;
+			u32 Aper64kEnd = PpuNode->A64k.End;
+			u32 Aper1mStart = PpuNode->A1m.Start;
+			u32 Aper1mEnd = PpuNode->A1m.End;
+			// u32 Aper512mStart = PpuNode->A512m.Start;
+			// u32 Aper512mEnd = PpuNode->A512m.End;
 
 			/* 64k */
 			if ((DeviceBaseAddr >= Aper64kStart) && (DeviceBaseAddr <= Aper64kEnd)) {
@@ -698,7 +688,7 @@ static XStatus XPmProt_XppuConfigure(const XPm_Requirement *Reqm, u32 Enable)
 	}
 
 	/* See if XPPU is enabled or not, if not, return */
-	if ((u8)XPM_PROT_DISABLED == PpuNode->ProtNode.Node.State) {
+	if ((u8)XPM_PROT_DISABLED == PpuNode->Node.State) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -797,13 +787,13 @@ static XStatus XPmProt_XmpuEnable(u32 NodeId)
 		goto done;
 	}
 
-	if ((u8)XPM_PROT_ENABLED == MpuNode->ProtNode.Node.State) {
+	if ((u8)XPM_PROT_ENABLED == MpuNode->Node.State) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
 
 	/* XMPU base address */
-	BaseAddr = MpuNode->ProtNode.Node.BaseAddress;
+	BaseAddr = MpuNode->Node.BaseAddress;
 
 	/* Read region alignment */
 	PmIn32(BaseAddr + XMPU_CTRL_OFFSET, RegVal);
@@ -819,7 +809,7 @@ static XStatus XPmProt_XmpuEnable(u32 NodeId)
 	PmDbg("XMPU NodeID: 0x%08x | CTRL: 0x%08x\r\n", NodeId, RegVal);
 
 	/* Enable SW state */
-	MpuNode->ProtNode.Node.State = (u8)XPM_PROT_ENABLED;
+	MpuNode->Node.State = (u8)XPM_PROT_ENABLED;
 
 	Status = XST_SUCCESS;
 
@@ -852,7 +842,7 @@ static XStatus XPmProt_XmpuDisable(u32 NodeId)
 	}
 
 	/* XMPU base address */
-	BaseAddr = MpuNode->ProtNode.Node.BaseAddress;
+	BaseAddr = MpuNode->Node.BaseAddress;
 
 	/* Starting region config address */
 	RegnCfgAddr = BaseAddr + XMPU_R00_CONFIG_OFFSET;
@@ -867,7 +857,7 @@ static XStatus XPmProt_XmpuDisable(u32 NodeId)
 	}
 
 	/* Disable SW state */
-	MpuNode->ProtNode.Node.State = (u8)XPM_PROT_DISABLED;
+	MpuNode->Node.State = (u8)XPM_PROT_DISABLED;
 
 	Status = XST_SUCCESS;
 
@@ -904,7 +894,7 @@ static XStatus XPmProt_XmpuSetupRegion(const XPm_Requirement *Reqm,
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
-	RegnCfgAddr = MpuNode->ProtNode.Node.BaseAddress
+	RegnCfgAddr = MpuNode->Node.BaseAddress
 		+ XMPU_R00_CONFIG_OFFSET
 		+ REGN_CONFIG_OFFSET(RegionId);
 
@@ -1011,11 +1001,11 @@ static XStatus XPmProt_XmpuConfigure(XPm_Requirement *Reqm, u32 Enable)
 	}
 
 	/* Return if XMPU is not enabled */
-	if ((u8)XPM_PROT_DISABLED == MpuNode->ProtNode.Node.State) {
+	if ((u8)XPM_PROT_DISABLED == MpuNode->Node.State) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
-	BaseAddr = MpuNode->ProtNode.Node.BaseAddress;
+	BaseAddr = MpuNode->Node.BaseAddress;
 
 	/* Region-0 addresses */
 	RegnStartLo = BaseAddr + XMPU_R00_START_LO_OFFSET;
