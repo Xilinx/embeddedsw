@@ -24,6 +24,12 @@ typedef struct XPm_ProtMpu XPm_ProtMpu;
 typedef struct XPm_ProtPpu XPm_ProtPpu;
 typedef struct XPm_PpuAperture XPm_PpuAperture;
 
+/* Protection Init Node Ops */
+typedef XStatus (*XPm_ProtPpuOps)
+	(const XPm_ProtPpu *Ppu, u32 Func, const u32 *Args, u32 NumArgs);
+typedef XStatus (*XPm_ProtMpuOps)
+	(const XPm_ProtMpu *Mpu, u32 Func, const u32 *Args, u32 NumArgs);
+
 /* Aperture information of an XPPU instance */
 struct XPm_PpuAperture {
 	u32 Total;		/**< Number of Supported Apertures */
@@ -35,6 +41,7 @@ struct XPm_PpuAperture {
 struct XPm_ProtPpu {
 	XPm_Prot Node;		/**< Node: Base Class */
 	XPm_Power *Power;	/**< Parent: Parent power node */
+	XPm_ProtPpuOps Ops;	/**< Node initialization operations */
 	XPm_PpuAperture A64k;	/**< Aperture 64k */
 	XPm_PpuAperture A1m;	/**< Aperture 1m */
 	XPm_PpuAperture A512m;	/**< Aperture 512m */
@@ -47,6 +54,7 @@ struct XPm_ProtPpu {
 struct XPm_ProtMpu {
 	XPm_Prot Node;		/**< Node: Base Class */
 	XPm_Power *Power;	/**< Parent: Parent power node */
+	XPm_ProtMpuOps Ops;	/**< Node initialization operations */
 	u8 AlignCfg;		/**< Region alignment: 4k or 1m aligned */
 };
 
@@ -56,6 +64,7 @@ XStatus XPmProtMpu_Init(XPm_ProtMpu *MpuNode, u32 Id, u32 BaseAddr, XPm_Power *P
 XStatus XPmProt_Configure(XPm_Requirement *Reqm, u32 Enable);
 XStatus XPmProt_CommonXppuCtrl(u32 *Args, u32 NumOfArgs);
 XStatus XPmProt_CommonXmpuCtrl(u32 *Args, u32 NumOfArgs);
+XPm_Prot *XPmProt_GetById(const u32 Id);
 
 #ifdef __cplusplus
 }
