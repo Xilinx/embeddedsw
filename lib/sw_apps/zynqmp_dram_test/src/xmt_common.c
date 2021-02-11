@@ -24,6 +24,7 @@
  *       mn   07/01/19 Add support to specify number of iteration for memtest
  *       mn   09/09/19 Correct the DDR type name for LPDDR4
  *       mn   07/29/20 Modify code to use DRAM VRef for 2D Write Eye Test
+ * 1.2   mn   02/11/21 Added support for 16-Bit Bus Width
  *
  * </pre>
  *
@@ -82,6 +83,9 @@ u32 XMt_GetDdrConfigParams(XMt_CfgData *XMtPtr)
 	} else if (BusWidth == 0x1U) {
 		XMtPtr->BusWidth = XMT_DDR_CONFIG_32BIT_WIDTH;
 		XMtPtr->DdrConfigLanes = XMT_DDR_CONFIG_4_LANE;
+	} else if (BusWidth == 0x2U) {
+		XMtPtr->BusWidth = XMT_DDR_CONFIG_16BIT_WIDTH;
+		XMtPtr->DdrConfigLanes = XMT_DDR_CONFIG_2_LANE;
 	} else {
 		Status = XST_FAILURE;
 		goto RETURN_PATH;
@@ -163,6 +167,8 @@ void XMt_PrintDdrConfigParams(XMt_CfgData *XMtPtr)
 		xil_printf("64-bit ");
 	} else if (XMtPtr->DdrConfigLanes == XMT_DDR_CONFIG_4_LANE) {
 		xil_printf("32-bit ");
+	} else if (XMtPtr->DdrConfigLanes == XMT_DDR_CONFIG_2_LANE) {
+		xil_printf("16-bit ");
 	} else {
 		xil_printf("UNKNOWN! ");
 	}
@@ -928,7 +934,7 @@ void XMt_PrintHelp(void)
 	xil_printf("   | 'i' | Print DDR information                                        |\r\n");
 	xil_printf("   | 'v' | Verbose Mode ON/OFF                                          |\r\n");
 	xil_printf("   | 'o' | Toggle cache enable/disable                                  |\r\n");
-	xil_printf("   | 'b' | Toggle between 32/64-bit bus widths                          |\r\n");
+	xil_printf("   | 'b' | Toggle between 16/32/64-bit bus widths                       |\r\n");
 	xil_printf("   | 'q' | Exit the DRAM Test                                           |\r\n");
 	xil_printf("   | 'h' | Print this help menu                                         |\r\n");
 	xil_printf("   +-----+--------------------------------------------------------------+\r\n");
@@ -946,6 +952,13 @@ void XMt_PrintHelp(void)
  *****************************************************************************/
 void XMt_PrintMemTestHeader(XMt_CfgData *XMtPtr)
 {
+	if (XMtPtr->DdrConfigLanes == XMT_DDR_CONFIG_2_LANE) {
+		xil_printf("---------+--------+-------------+-----------\r\n");
+		xil_printf("  TEST   | ERROR  | LANE ERRS   |  TIME\r\n");
+		xil_printf("         | COUNT  |  #0 ,  #1   |  (sec)\r\n");
+		xil_printf("---------+--------+-------------+-----------\r\n");
+	}
+
 	if (XMtPtr->DdrConfigLanes == XMT_DDR_CONFIG_4_LANE) {
 		xil_printf("---------+--------+-------------------------+-----------\r\n");
 		xil_printf("  TEST   | ERROR  |PER-BYTE-LANE ERROR COUNT|  TIME\r\n");
@@ -973,6 +986,12 @@ void XMt_PrintMemTestHeader(XMt_CfgData *XMtPtr)
  *****************************************************************************/
 void XMt_PrintEyeHeader(XMt_CfgData *XMtPtr)
 {
+	if (XMtPtr->DdrConfigLanes == XMT_DDR_CONFIG_2_LANE) {
+		xil_printf("-------+--------+--------+\r\n");
+		xil_printf("Offset | LANE-0 | LANE-1 |\r\n");
+		xil_printf("-------+--------+--------+\r\n");
+	}
+
 	if (XMtPtr->DdrConfigLanes == XMT_DDR_CONFIG_4_LANE) {
 		xil_printf("-------+--------+--------+--------+--------+\r\n");
 		xil_printf("Offset | LANE-0 | LANE-1 | LANE-2 | LANE-3 |\r\n");
@@ -998,6 +1017,12 @@ void XMt_PrintEyeHeader(XMt_CfgData *XMtPtr)
  *****************************************************************************/
 void XMt_PrintEyeResultsHeader(XMt_CfgData *XMtPtr)
 {
+	if (XMtPtr->DdrConfigLanes == XMT_DDR_CONFIG_2_LANE) {
+		xil_printf("---------+---------+\r\n");
+		xil_printf("  LANE-0 |  LANE-1 |\r\n");
+		xil_printf("---------+---------+\r\n");
+	}
+
 	if (XMtPtr->DdrConfigLanes == XMT_DDR_CONFIG_4_LANE) {
 		xil_printf("---------+---------+---------+---------+\r\n");
 		xil_printf("  LANE-0 |  LANE-1 |  LANE-2 |  LANE-3 |\r\n");
@@ -1023,6 +1048,12 @@ void XMt_PrintEyeResultsHeader(XMt_CfgData *XMtPtr)
  *****************************************************************************/
 void XMt_Print2DEyeResultsHeader(XMt_CfgData *XMtPtr)
 {
+	if (XMtPtr->DdrConfigLanes == XMT_DDR_CONFIG_2_LANE) {
+		xil_printf("-----+-----+-----+-----+-----+\r\n");
+		xil_printf("VREF | LL0 | LL1 | RL0 | RL1 |\r\n");
+		xil_printf("-----+-----+-----+-----+-----+\r\n");
+	}
+
 	if (XMtPtr->DdrConfigLanes == XMT_DDR_CONFIG_4_LANE) {
 		xil_printf("-----+-----+-----+-----+-----+-----+-----+-----+-----+\r\n");
 		xil_printf("VREF | LL0 | LL1 | LL2 | LL3 | RL0 | RL1 | RL2 | RL3 |\r\n");
@@ -1048,6 +1079,21 @@ void XMt_Print2DEyeResultsHeader(XMt_CfgData *XMtPtr)
  *****************************************************************************/
 void XMt_PrintLine(XMt_CfgData *XMtPtr, u8 LineCode)
 {
+	if (XMtPtr->DdrConfigLanes == XMT_DDR_CONFIG_2_LANE) {
+		if (LineCode == 1U) {
+			xil_printf("--------------------");
+		} else if (LineCode == 2U) {
+			xil_printf("-------+--------+--------+\r\n");
+		} else if (LineCode == 3U) {
+			xil_printf("---------+---------+\r\n");
+		} else if (LineCode == 4U) {
+			xil_printf("---------+--------+-------------+-----------\r\n");
+		} else if (LineCode == 5U) {
+			xil_printf("-----+-----+-----+-----+-----+\r\n");
+		} else {
+			xil_printf("\r\n");
+		}
+	}
 	if (XMtPtr->DdrConfigLanes == XMT_DDR_CONFIG_4_LANE) {
 		if (LineCode == 1U) {
 			xil_printf("----------------------------------------");
