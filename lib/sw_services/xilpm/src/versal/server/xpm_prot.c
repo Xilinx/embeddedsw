@@ -462,6 +462,75 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  Run Dynamic Re-Configuration of XPPU
+ *
+ * @param  PpuNode: Handle to a XPPU instance
+ * @param  PermCheckAddr: Aperture permission check address
+ * @param  PermCheckMask: Aperture permission check mask
+ * @param  AperIdx: Aperture index
+ * @param  AperAddr: Aperture address
+ * @param  AperVal: Aperture Value to be written
+ *
+ * @return N/A
+ *
+ * @note   This function runs the configuration sequence to dynamically
+ * modify the XPPU configuration
+ *
+ ****************************************************************************/
+static void XPmProt_XppuDynReconfig(const XPm_ProtPpu *PpuNode,
+				    u32 PermCheckAddr,
+				    u32 PermCheckMask,
+				    u32 AperIdx,
+				    u32 AperAddr,
+				    u32 AperVal)
+{
+	u32 Platform = XPm_GetPlatform();
+	u32 PlatformVersion = XPm_GetPlatformVersion();
+	u32 PpuBaseAddr = PpuNode->Node.BaseAddress;
+
+	if ((PLATFORM_VERSION_SILICON == Platform) &&
+	    ((u32)PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
+		/* Disable XPPU */
+		PmRmw32(PpuBaseAddr + XPPU_CTRL_OFFSET,
+				XPPU_CTRL_ENABLE_MASK,
+				~XPPU_CTRL_ENABLE_MASK);
+
+		/* Disable permission check of the required aperture */
+		PmRmw32(PermCheckAddr, PermCheckMask, 0);
+
+		/* Program permissions of the aperture to be reconfigured */
+		XPmProt_XppuSetAperture(PpuNode, AperAddr, AperVal);
+
+		/* Enable permission check of the required aperture */
+		PmRmw32(PermCheckAddr, PermCheckMask, PermCheckMask);
+
+		/* Enable XPPU */
+		PmRmw32(PpuBaseAddr + XPPU_CTRL_OFFSET,
+				XPPU_CTRL_ENABLE_MASK,
+				XPPU_CTRL_ENABLE_MASK);
+
+	} else {
+		/* Program aperture index to be reconfigured */
+		PmOut32(PpuBaseAddr + XPPU_DYNAMIC_RECONFIG_APER_ADDR_OFFSET, AperIdx);
+
+		/* Program permissions of the aperture to be reconfigured */
+		XPmProt_XppuSetAperture(PpuNode,
+				PpuBaseAddr + XPPU_DYNAMIC_RECONFIG_APER_PERM_OFFSET,
+				AperVal);
+
+		/* Indicate new permission are available in dynamic reconfig registers */
+		PmOut32(PpuBaseAddr + XPPU_DYNAMIC_RECONFIG_EN_OFFSET, 1);
+
+		/* Update aperture to be reconfigured with new permissions */
+		XPmProt_XppuSetAperture(PpuNode, AperAddr, AperVal);
+
+		/* Indicate new permission are available in permission memory */
+		PmOut32(PpuBaseAddr + XPPU_DYNAMIC_RECONFIG_EN_OFFSET, 0);
+	}
+}
+
+/****************************************************************************/
+/**
  * @brief  Configure XPPU according to access control policies from
  *         given subsystem requirement for the peripheral device
  *
@@ -488,7 +557,6 @@ static XStatus XPmProt_XppuConfigure(const XPm_Requirement *Reqm, u32 Enable)
 	u32 PermissionRegAddress = 0;
 	u32 PermissionRegMask = 0;
 	u32 Security = SECURITY_POLICY((u32)Reqm->Flags);
-	u32 PlatformVersion;
 	u16 UsagePolicy = USAGE_POLICY(Reqm->Flags);
 
 	PmDbg("Xppu configure: 0x%x\r\n", Enable);
@@ -620,41 +688,13 @@ static XStatus XPmProt_XppuConfigure(const XPm_Requirement *Reqm, u32 Enable)
 		}
 	}
 
-	PmDbg("PermissionRegAddress 0x%08x Permissions 0x%08x RegMask 0x%x \r\n",
-			PermissionRegAddress, Permissions, PermissionRegMask);
-
-	PlatformVersion = XPm_GetPlatformVersion();
-
-	if ((PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
-	    ((u32)PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
-		/* Set XPPU control to 0 */
-		PmRmw32(PpuBase + XPPU_CTRL_OFFSET, XPPU_CTRL_ENABLE_MASK, ~XPPU_CTRL_ENABLE_MASK);
-
-		/* Set Enable Permission check of the required apertures to 0 */
-		PmRmw32(PermissionRegAddress, PermissionRegMask, 0);
-
-		/* Program permissions of the apertures that need to be reconfigured */
-		XPmProt_XppuSetAperture(PpuNode, ApertureAddress, Permissions);
-
-		/* Enable back permission check of the apertures */
-		PmRmw32(PermissionRegAddress, PermissionRegMask, PermissionRegMask);
-
-		/* Set XPPU control to 1 */
-		PmRmw32(PpuBase + XPPU_CTRL_OFFSET, XPPU_CTRL_ENABLE_MASK, XPPU_CTRL_ENABLE_MASK);
-
-	} else {
-		/* Configure Dynamic reconfig enable registers before changing XPPU config */
-		PmOut32(PpuBase + XPPU_DYNAMIC_RECONFIG_APER_ADDR_OFFSET, DynamicReconfigAddrOffset);
-		XPmProt_XppuSetAperture(PpuNode,
-				PpuBase + XPPU_DYNAMIC_RECONFIG_APER_PERM_OFFSET, Permissions);
-		PmOut32(PpuBase + XPPU_DYNAMIC_RECONFIG_EN_OFFSET, 1);
-
-		/* Write values to Aperture */
-		XPmProt_XppuSetAperture(PpuNode, ApertureAddress, Permissions);
-
-		/* Disable dynamic reconfig enable once done */
-		PmOut32(PpuBase + XPPU_DYNAMIC_RECONFIG_EN_OFFSET, 0);
-	}
+	/* Run the dynamic reconfiguration sequence */
+	XPmProt_XppuDynReconfig(PpuNode,
+				PermissionRegAddress,
+				PermissionRegMask,
+				DynamicReconfigAddrOffset,
+				ApertureAddress,
+				Permissions);
 
 	Status = XST_SUCCESS;
 
