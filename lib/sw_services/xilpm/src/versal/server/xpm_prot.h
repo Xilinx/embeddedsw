@@ -34,6 +34,7 @@ struct XPm_PpuAperture {
 /* Protection - XPPU Class */
 struct XPm_ProtPpu {
 	XPm_Prot Node;		/**< Node: Base Class */
+	XPm_Power *Power;	/**< Parent: Parent power node */
 	XPm_PpuAperture A64k;	/**< Aperture 64k */
 	XPm_PpuAperture A1m;	/**< Aperture 1m */
 	XPm_PpuAperture A512m;	/**< Aperture 512m */
@@ -45,12 +46,13 @@ struct XPm_ProtPpu {
 /* Protection - XMPU Class */
 struct XPm_ProtMpu {
 	XPm_Prot Node;		/**< Node: Base Class */
+	XPm_Power *Power;	/**< Parent: Parent power node */
 	u8 AlignCfg;		/**< Region alignment: 4k or 1m aligned */
 };
 
 /************************** Function Prototypes ******************************/
-XStatus XPmProtPpu_Init(XPm_ProtPpu *PpuNode, u32 Id, u32 BaseAddr);
-XStatus XPmProtMpu_Init(XPm_ProtMpu *MpuNode, u32 Id, u32 BaseAddr);
+XStatus XPmProtPpu_Init(XPm_ProtPpu *PpuNode, u32 Id, u32 BaseAddr, XPm_Power *Power);
+XStatus XPmProtMpu_Init(XPm_ProtMpu *MpuNode, u32 Id, u32 BaseAddr, XPm_Power *Power);
 XStatus XPmProt_Configure(XPm_Requirement *Reqm, u32 Enable);
 XStatus XPmProt_CommonXppuCtrl(u32 *Args, u32 NumOfArgs);
 XStatus XPmProt_CommonXmpuCtrl(u32 *Args, u32 NumOfArgs);

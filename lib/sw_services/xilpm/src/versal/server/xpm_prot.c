@@ -1214,11 +1214,15 @@ done:
  * @param  PpuNode: Pointer to an uninitialized XPPU data structure
  * @param  Id: Node Id assigned to a XPPU node
  * @param  BaseAddr: Base address of the given XPPU
+ * @param  Power: Node Id of the parent power domain node
  *
  * @return XST_SUCCESS if successful; appropriate failure code otherwise
  *
  ****************************************************************************/
-XStatus XPmProtPpu_Init(XPm_ProtPpu *PpuNode, u32 Id, u32 BaseAddr)
+XStatus XPmProtPpu_Init(XPm_ProtPpu *PpuNode,
+			u32 Id,
+			u32 BaseAddr,
+			XPm_Power *Power)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr;
@@ -1235,6 +1239,9 @@ XStatus XPmProtPpu_Init(XPm_ProtPpu *PpuNode, u32 Id, u32 BaseAddr)
 
 	/* Default aperture mask */
 	PpuNode->AperPermInitMask = 0;
+
+	/* Parent power domain */
+	PpuNode->Power = Power;
 
 	/* Init apertures */
 	(void)memset(&PpuNode->A64k, 0, sizeof(PpuNode->A64k));
@@ -1253,11 +1260,15 @@ done:
  * @param  MpuNode: Pointer to an uninitialized XMPU data structure
  * @param  Id: Node Id assigned to a XMPU node
  * @param  BaseAddr: Base address of the given XMPU
+ * @param  Power: Node Id of the parent power domain node
  *
  * @return XST_SUCCESS if successful; appropriate failure code otherwise
  *
  ****************************************************************************/
-XStatus XPmProtMpu_Init(XPm_ProtMpu *MpuNode, u32 Id, u32 BaseAddr)
+XStatus XPmProtMpu_Init(XPm_ProtMpu *MpuNode,
+			u32 Id,
+			u32 BaseAddr,
+			XPm_Power *Power)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -1270,6 +1281,7 @@ XStatus XPmProtMpu_Init(XPm_ProtMpu *MpuNode, u32 Id, u32 BaseAddr)
 
 	/* Init */
 	MpuNode->AlignCfg = 0;
+	MpuNode->Power = Power;
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
