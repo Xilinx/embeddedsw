@@ -592,31 +592,6 @@ done:
 	return Status;
 }
 
-
-/****************************************************************************/
-/**
- * @brief  This function configures xppu for LPD
- *
- * @return XST_SUCCESS if successful else XST_FAILURE
- *
- ****************************************************************************/
-static XStatus LpdXppuCtrl(u32 *Args, u32 NumOfArgs)
-{
-	return XPmProt_CommonXppuCtrl(Args, NumOfArgs);
-}
-
-/****************************************************************************/
-/**
- * @brief  This function configures xmpu for OCM
- *
- * @return XST_SUCCESS if successful else XST_FAILURE
- *
- ****************************************************************************/
-static XStatus LpdXmpuCtrl(u32 *Args, u32 NumOfArgs)
-{
-	return XPmProt_CommonXmpuCtrl(Args, NumOfArgs);
-}
-
 static const struct XPm_PowerDomainOps LpdOps = {
 	.InitStart = LpdInitStart,
 	.InitFinish = LpdInitFinish,
@@ -625,8 +600,6 @@ static const struct XPm_PowerDomainOps LpdOps = {
 	.Lbist = LpdLbist,
 	.Bisr = LpdBisr,
 	.HcComplete = LpdHcComplete,
-	.XppuCtrl = LpdXppuCtrl,
-	.XmpuCtrl = LpdXmpuCtrl,
 };
 
 XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd, u32 Id, u32 BaseAddress,
