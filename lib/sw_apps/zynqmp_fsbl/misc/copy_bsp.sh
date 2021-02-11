@@ -65,7 +65,7 @@ fi
 mkdir -p $BSP_DIR/libsrc/xilffs
 cp -r $SERVICES_DIR/xilffs/src $BSP_DIR/libsrc/xilffs/
 cp -r $SERVICES_DIR/xilffs/src/include/* $BSP_DIR/include/
-set BSP_SEQUENTIAL_MAKEFILES += $BSP_DIR/libsrc/xilffs/src/Makefile
+BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilffs/src/Makefile"
 
 mkdir -p $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/Makefile $BSP_DIR/libsrc/xilsecure/src/
@@ -73,13 +73,13 @@ cp -r $SERVICES_DIR/xilsecure/src/common/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/zynqmp/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/common/*.h $BSP_DIR/include/
 cp -r $SERVICES_DIR/xilsecure/src/zynqmp/*.h $BSP_DIR/include/
-set BSP_SEQUENTIAL_MAKEFILES += $BSP_DIR/libsrc/xilsecure/src/Makefile
+BSP_SEQUENTIAL_MAKEFILES="BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilsecure/src/Makefile"
 
 cp -r $SERVICES_DIR/xilpm/ $BSP_DIR/libsrc/
 cp -r $SERVICES_DIR/xilpm/src/zynqmp/client/common/* $BSP_DIR/libsrc/xilpm/src/
 cp -r $SERVICES_DIR/xilpm/src/zynqmp/client/common/*.h $BSP_DIR/include/
 cp $WORKING_DIR/pm_cfg_obj.c  $BSP_DIR/libsrc/xilpm/src/
-set BSP_SEQUENTIAL_MAKEFILES += $BSP_DIR/libsrc/xilpm/src/zynqmp/client/common/Makefile
+BSP_SEQUENTIAL_MAKEFILES="BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilpm/src/zynqmp/client/common/Makefile"
 
 rm -rf $BSP_DIR/libsrc/xilpm/src/zynqmp/
 rm -rf $BSP_DIR/libsrc/xilpm/src/versal/
@@ -161,7 +161,7 @@ do
 
 	# copy all the HSM generated driver files DRIVER_g.c
 	#   cp $BOARD_DIR/x"$line"_g.c $BSP_DIR/libsrc/$line/src/
-	set BSP_SEQUENTIAL_MAKEFILES += $BSP_DIR/libsrc/$line/src/Makefile
+	BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/$line/src/Makefile"
 
 done < $DRIVERS_LIST
 
