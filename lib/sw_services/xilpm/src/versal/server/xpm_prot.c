@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -53,6 +53,22 @@ static XPm_Prot *PmProtections[XPM_NODEIDX_PROT_MAX];
 #define PERM(ApertureAddr)	((ApertureAddr) & XPPU_APERTURE_PERMISSION_MASK)
 #define TZ(ApertureAddr)	((ApertureAddr) & XPPU_APERTURE_TRUSTZONE_MASK)
 #define APER_PERM(Tz, Perms)	(TZ(((Tz) << XPPU_APERTURE_TRUSTZONE_OFFSET)) | PERM((Perms)))
+
+#define APERIDX_64K_TO_OFFSET(AperIdx)		((AperIdx) - APER_64K_START)
+#define APERIDX_1M_TO_OFFSET(AperIdx)		((AperIdx) - APER_1M_START)
+#define APERIDX_512M_TO_OFFSET(AperIdx)		((AperIdx) - APER_512M_START)
+
+#define APER_ADDR(Base, Start, Offset)		((Base) + (Start) + ((Offset) * 4U))
+#define APERADDR_64K(Base, Offset)		(APER_ADDR(Base, XPPU_APERTURE_0_OFFSET, Offset))
+#define APERADDR_1M(Base, Offset)		(APER_ADDR(Base, XPPU_APERTURE_384_OFFSET, Offset))
+#define APERADDR_512M(Base)			(APER_ADDR(Base, XPPU_APERTURE_400_OFFSET, 0U))
+
+#define PERM_CHECK_REG_ADDR(Base, AperIdx)	\
+		((Base) + \
+		 (((AperIdx) / 32U) * 4U) + \
+		 XPPU_ENABLE_PERM_CHECK_REG00_OFFSET)
+#define PERM_CHECK_REG_MASK(AperIdx)		\
+		((u32)1U << ((AperIdx) % 32U))
 
 /**
  * Max XMPU regions count
@@ -181,7 +197,9 @@ done:
  *         for Aperture depending on the parity enable flag
  *
  ****************************************************************************/
-static void XPmProt_XppuSetAperture(const XPm_ProtPpu *PpuNode, u32 AperAddr, u32 AperVal)
+static void XPmProt_XppuSetAperture(const XPm_ProtPpu *PpuNode,
+				    u32 AperAddr,
+				    u32 AperVal)
 {
 	u32 i, RegVal, Field, FieldParity, Tz;
 	u32 Parity = 0;
@@ -527,6 +545,52 @@ static void XPmProt_XppuDynReconfig(const XPm_ProtPpu *PpuNode,
 		/* Indicate new permission are available in permission memory */
 		PmOut32(PpuBaseAddr + XPPU_DYNAMIC_RECONFIG_EN_OFFSET, 0);
 	}
+}
+
+/****************************************************************************/
+/**
+ * @brief  Reconfigure an aperture with given permissions
+ *
+ * @param  PpuNode: Handle to a XPPU instance
+ * @param  AperIdx: Aperture index
+ * @param  AperVal: Aperture value to be written
+
+ * @return XST_SUCCESS if successful else appropriate failure code
+ *
+ ****************************************************************************/
+static XStatus XPmProt_XppuReconfig(const XPm_ProtPpu *PpuNode,
+				    u32 AperIdx,
+				    u32 AperVal)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Offset = 0;
+	u32 PermCheckAddr = 0;
+	u32 PermCheckMask = 0;
+	u32 AperAddr = 0;
+	u32 PpuBaseAddr = PpuNode->Node.BaseAddress;
+
+	if (APER_64K_END >= AperIdx) {
+		Offset = APERIDX_64K_TO_OFFSET(AperIdx);
+		AperAddr = APERADDR_64K(PpuBaseAddr, Offset);
+	} else if ((APER_1M_START <= AperIdx) && (APER_1M_END >= AperIdx)) {
+		Offset = APERIDX_1M_TO_OFFSET(AperIdx);
+		AperAddr = APERADDR_1M(PpuBaseAddr, Offset);
+	} else if (APER_512M_START == AperIdx) {
+		AperAddr = APERADDR_512M(PpuBaseAddr);
+	} else {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+	PermCheckAddr = PERM_CHECK_REG_ADDR(PpuBaseAddr, AperIdx);
+	PermCheckMask = PERM_CHECK_REG_MASK(AperIdx);
+
+	XPmProt_XppuDynReconfig(PpuNode, PermCheckAddr, PermCheckMask,
+				AperIdx, AperAddr, AperVal);
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
 }
 
 /****************************************************************************/
@@ -1185,16 +1249,54 @@ done:
  * @return XST_SUCCESS if successful else appropriate failure code
  *
  ****************************************************************************/
-static XStatus XPmProt_XppuCtrl(const XPm_ProtPpu *Ppu, u32 Func, const u32 *Args, u32 NumArgs)
+static XStatus XPmProt_XppuCtrl(const XPm_ProtPpu *Ppu,
+				u32 Func,
+				const u32 *Args,
+				u32 NumArgs)
 {
-	/* TBD: Implementation */
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 NodeId = Ppu->Node.Id;
 
-	(void)Ppu;
-	(void)Func;
-	(void)Args;
-	(void)NumArgs;
+	switch (Func) {
+	case (u32)FUNC_XPPU_ENABLE:
+		if ((NULL == Args) || (NumArgs != 1U)) {
+			DbgErr = XPM_INT_ERR_INVALID_ARGS;
+			goto done;
+		}
+		Status = XPmProt_XppuEnable(NodeId, Args[0]);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_XPPU_EN;
+			goto done;
+		}
+		break;
+	case (u32)FUNC_XPPU_DISABLE:
+		Status = XPmProt_XppuDisable(NodeId);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_XPPU_DISABLE;
+			goto done;
+		}
+		break;
+	case (u32)FUNC_XPPU_RECONFIG:
+		if ((NULL == Args) || (NumArgs != 2U)) {
+			DbgErr = XPM_INT_ERR_INVALID_ARGS;
+			goto done;
+		}
+		Status = XPmProt_XppuReconfig(Ppu, Args[0], Args[1]);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_XPPU_RECONFIG;
+			goto done;
+		}
+		break;
+	default:
+		Status = XST_NO_FEATURE;
+		DbgErr = XPM_INT_ERR_NO_FEATURE;
+		break;
+	}
 
-	return XST_NO_FEATURE;
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
 }
 
 /****************************************************************************/
@@ -1264,10 +1366,9 @@ static XStatus XPmProt_Init(XPm_Prot *Prot, u32 Id, u32 BaseAddr)
 {
 	XStatus Status = XST_FAILURE;
 	u32 NodeIndex = NODEINDEX(Id);
-	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	if ((u32)XPM_NODEIDX_PROT_MAX <= NodeIndex) {
-		DbgErr = XPM_INT_ERR_INVALID_NODE_IDX;
+		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
@@ -1277,7 +1378,6 @@ static XStatus XPmProt_Init(XPm_Prot *Prot, u32 Id, u32 BaseAddr)
 	Status = XST_SUCCESS;
 
 done:
-	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -1299,11 +1399,9 @@ XStatus XPmProtPpu_Init(XPm_ProtPpu *PpuNode,
 			XPm_Power *Power)
 {
 	XStatus Status = XST_FAILURE;
-	u16 DbgErr;
 
 	Status = XPmProt_Init(&PpuNode->Node, Id, BaseAddr);
 	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_PROT_INIT;
 		goto done;
 	}
 
@@ -1326,7 +1424,6 @@ XStatus XPmProtPpu_Init(XPm_ProtPpu *PpuNode,
 	(void)memset(&PpuNode->A512m, 0, sizeof(PpuNode->A512m));
 
 done:
-	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -1348,11 +1445,9 @@ XStatus XPmProtMpu_Init(XPm_ProtMpu *MpuNode,
 			XPm_Power *Power)
 {
 	XStatus Status = XST_FAILURE;
-	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	Status = XPmProt_Init(&MpuNode->Node, Id, BaseAddr);
 	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_PROT_INIT;
 		goto done;
 	}
 
@@ -1364,6 +1459,5 @@ XStatus XPmProtMpu_Init(XPm_ProtMpu *MpuNode,
 	MpuNode->Ops = &XPmProt_XmpuCtrl;
 
 done:
-	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }

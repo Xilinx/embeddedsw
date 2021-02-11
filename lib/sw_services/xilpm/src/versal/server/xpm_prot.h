@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -13,12 +13,21 @@
 extern "C" {
 #endif
 
-/*
+/**
  * Protection node states
  */
 enum XPm_ProtState {
 	XPM_PROT_DISABLED,
 	XPM_PROT_ENABLED,
+};
+
+/**
+ *  XPPU InitNode functions
+ */
+enum XPm_XppuInitFunctions {
+	FUNC_XPPU_DISABLE,
+	FUNC_XPPU_ENABLE,
+	FUNC_XPPU_RECONFIG,
 };
 
 /**

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -426,20 +426,20 @@ extern "C" {
 
 /*********************** Protection specific Errors **************************/
 /************************** (0x4400) - (0x44FF) ******************************/
-/* Error during protection init */
-#define XPM_INT_ERR_PROT_INIT			0x4400U
 /* Invalid region */
-#define XPM_INT_ERR_INVALID_REGION		0x4401U
+#define XPM_INT_ERR_INVALID_REGION		0x4400U
 /* Error during setup region */
-#define XPM_INT_ERR_SETUP_REGION		0x4402U
+#define XPM_INT_ERR_SETUP_REGION		0x4401U
 /* Error during XPPU configuration */
-#define XPM_INT_ERR_XPPU_CONFIG			0x4403U
+#define XPM_INT_ERR_XPPU_CONFIG			0x4402U
 /* Error during XMPU configuration */
-#define XPM_INT_ERR_XMPU_CONFIG			0x4404U
+#define XPM_INT_ERR_XMPU_CONFIG			0x4403U
 /* Error during XPPU Enable*/
-#define XPM_INT_ERR_XPPU_EN			0x4405U
+#define XPM_INT_ERR_XPPU_EN			0x4404U
 /* Error during XPPU disable */
-#define XPM_INT_ERR_XPPU_DISABLE		0x4406U
+#define XPM_INT_ERR_XPPU_DISABLE		0x4405U
+/* Error during XPPU dynamic reconfig */
+#define XPM_INT_ERR_XPPU_RECONFIG		0x4406U
 /* Error during XMPU enable */
 #define XPM_INT_ERR_XMPU_EN			0x4407U
 /* Error during XMPU disable */
