@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -344,18 +344,6 @@ done:
         return Status;
 }
 
-/****************************************************************************/
-/**
- * @brief  This function configures xmpu for FPD_SLAVES
- *
- * @return XST_SUCCESS if successful else XST_FAILURE
- *
- ****************************************************************************/
-static XStatus FpdXmpuCtrl(u32 *Args, u32 NumOfArgs)
-{
-	return XPmProt_CommonXmpuCtrl(Args, NumOfArgs);
-}
-
 static struct XPm_PowerDomainOps FpdOps = {
 	.InitStart = FpdInitStart,
 	.InitFinish = FpdInitFinish,
@@ -363,7 +351,6 @@ static struct XPm_PowerDomainOps FpdOps = {
 	.Bisr = FpdBisr,
 	.Mbist = FpdMbistClear,
 	.HcComplete = FpdHcComplete,
-	.XmpuCtrl = FpdXmpuCtrl,
 };
 
 XStatus XPmPsFpDomain_Init(XPm_PsFpDomain *PsFpd, u32 Id, u32 BaseAddress,
