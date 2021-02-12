@@ -179,7 +179,7 @@ exclusion
 ******************************************************************************/
 
 #ifndef XCAN_H			/* prevent circular inclusions */
-#define XCAN_H			/* by using protection macros */
+#define XCAN_H			/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -199,7 +199,7 @@ extern "C" {
 #define XCAN_MODE_NORMAL	0x00000002 /**< Normal mode */
 #define XCAN_MODE_LOOPBACK	0x00000004 /**< Loop Back mode */
 #define XCAN_MODE_SLEEP		0x00000008 /**< Sleep mode */
-/* @} */
+/** @} */
 
 /** @name Callback identifiers used as parameters to XCan_SetHandler()
  *  @{
@@ -208,7 +208,7 @@ extern "C" {
 #define XCAN_HANDLER_RECV   2 /**< Handler type for frame reception interrupt */
 #define XCAN_HANDLER_ERROR  3 /**< Handler type for error interrupt */
 #define XCAN_HANDLER_EVENT  4 /**< Handler type for all other interrupts */
-/* @} */
+/** @} */
 
 /**************************** Type Definitions *******************************/
 

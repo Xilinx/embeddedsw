@@ -29,7 +29,7 @@
 ******************************************************************************/
 
 #ifndef XCAN_L_H		/* prevent circular inclusions */
-#define XCAN_L_H		/* by using protection macros */
+#define XCAN_L_H		/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -83,27 +83,27 @@ extern "C" {
 #define XCAN_AFIR3_OFFSET	0x078  /**< Acceptance Filter ID Register 3 */
 #define XCAN_AFMR4_OFFSET	0x07C  /**< Acceptance Filter Mask Register 4 */
 #define XCAN_AFIR4_OFFSET	0x080  /**< Acceptance Filter ID Register 4 */
-/* @} */
+/** @} */
 
 /** @name Software Reset Register
  *  @{
  */
 #define XCAN_SRR_CEN_MASK	0x00000002  /**< Can Enable Mask */
 #define XCAN_SRR_SRST_MASK	0x00000001  /**< Reset Mask */
-/* @} */
+/** @} */
 
 /** @name Mode Select Register
  *  @{
  */
 #define XCAN_MSR_LBACK_MASK	0x00000002  /**< Loop Back Mode Select Mask */
 #define XCAN_MSR_SLEEP_MASK	0x00000001  /**< Sleep Mode Select Mask */
-/* @} */
+/** @} */
 
 /** @name Baud Rate Prescaler register
  *  @{
  */
 #define XCAN_BRPR_BRP_MASK	0x000000FF  /**< Baud Rate Prescaler Mask */
-/* @} */
+/** @} */
 
 /** @name Bit Timing Register
  *  @{
@@ -113,7 +113,7 @@ extern "C" {
 #define XCAN_BTR_TS2_MASK	0x00000070  /**< Time Segment 2 Mask */
 #define XCAN_BTR_TS2_SHIFT	4	    /**< Time Segment 2 Shift */
 #define XCAN_BTR_TS1_MASK	0x0000000F  /**< Time Segment 1 Mask */
-/* @} */
+/** @} */
 
 /** @name Error Counter Register
  *  @{
@@ -121,7 +121,7 @@ extern "C" {
 #define XCAN_ECR_REC_MASK	0x0000FF00  /**< Receive Error Counter Mask */
 #define XCAN_ECR_REC_SHIFT	8	    /**< Receive Error Counter Shift */
 #define XCAN_ECR_TEC_MASK	0x000000FF  /**< Transmit Error Counter Mask */
-/* @} */
+/** @} */
 
 /** @name Error Status Register
  *  @{
@@ -131,7 +131,7 @@ extern "C" {
 #define XCAN_ESR_STER_MASK	0x00000004  /**< Stuff Error Mask */
 #define XCAN_ESR_FMER_MASK	0x00000002  /**< Form Error Mask */
 #define XCAN_ESR_CRCER_MASK	0x00000001  /**< CRC Error Mask */
-/* @} */
+/** @} */
 
 /** @name Status Register
  *  @{
@@ -148,7 +148,7 @@ extern "C" {
 #define XCAN_SR_SLEEP_MASK	0x00000004  /**< Sleep Mode Mask */
 #define XCAN_SR_LBACK_MASK	0x00000002  /**< Loop Back Mode Mask */
 #define XCAN_SR_CONFIG_MASK	0x00000001  /**< Configuration Mode Mask */
-/* @} */
+/** @} */
 
 /** @name Interrupt Status/Enable/Clear Register
  *  @{
@@ -177,7 +177,8 @@ extern "C" {
 				XCAN_IXR_TXFLL_MASK  | \
 				XCAN_IXR_TXOK_MASK   | \
 				XCAN_IXR_ARBLST_MASK)
-/* @} */
+					/**< Mask for basic interrupts */
+/** @} */
 
 /** @name CAN Frame Identifier (TX High Priority Buffer/TX/RX/Acceptance Filter
 Mask/Acceptance Filter ID)
@@ -186,20 +187,20 @@ Mask/Acceptance Filter ID)
 #define XCAN_IDR_ID1_MASK	0xFFE00000  /**< Standard Messg Ident Mask */
 #define XCAN_IDR_ID1_SHIFT	21	    /**< Standard Messg Ident Shift */
 #define XCAN_IDR_SRR_MASK	0x00100000  /**< Substitute Remote TX Req */
-#define XCAN_IDR_SRR_SHIFT	20
+#define XCAN_IDR_SRR_SHIFT	20	    /**< Shift Value for SRR */
 #define XCAN_IDR_IDE_MASK	0x00080000  /**< Identifier Extension Mask */
 #define XCAN_IDR_IDE_SHIFT	19	    /**< Identifier Extension Shift */
 #define XCAN_IDR_ID2_MASK	0x0007FFFE  /**< Extended Message Ident Mask */
 #define XCAN_IDR_ID2_SHIFT	1	    /**< Extended Message Ident Shift */
 #define XCAN_IDR_RTR_MASK	0x00000001  /**< Remote TX Request Mask */
-/* @} */
+/** @} */
 
 /** @name CAN Frame Data Length Code (TX High Priority Buffer/TX/RX)
  *  @{
  */
 #define XCAN_DLCR_DLC_MASK	0xF0000000  /**< Data Length Code Mask */
 #define XCAN_DLCR_DLC_SHIFT	28  	    /**< Data Length Code Shift */
-/* @} */
+/** @} */
 
 /** @name CAN Frame Data Word 1 (TX High Priority Buffer/TX/RX)
  *  @{
@@ -211,7 +212,7 @@ Mask/Acceptance Filter ID)
 #define XCAN_DW1R_DB2_MASK	0x0000FF00  /**< Data Byte 2 Mask */
 #define XCAN_DW1R_DB2_SHIFT	8	    /**< Data Byte 2 Shift */
 #define XCAN_DW1R_DB3_MASK	0x000000FF  /**< Data Byte 3 Mask */
-/* @} */
+/** @} */
 
 /** @name CAN Frame Data Word 2 (TX High Priority Buffer/TX/RX)
  *  @{
@@ -223,7 +224,7 @@ Mask/Acceptance Filter ID)
 #define XCAN_DW2R_DB6_MASK	0x0000FF00  /**< Data Byte 6 Mask */
 #define XCAN_DW2R_DB6_SHIFT	8	    /**< Data Byte 6 Shift */
 #define XCAN_DW2R_DB7_MASK	0x000000FF  /**< Data Byte 7 */
-/* @} */
+/** @} */
 
 /** @name Acceptance Filter Register
  *  @{
@@ -234,13 +235,14 @@ Mask/Acceptance Filter ID)
 #define XCAN_AFR_UAF1_MASK	0x00000001  /**< Use Acceptance Filter No.1 */
 #define XCAN_AFR_UAF_ALL_MASK	(XCAN_AFR_UAF4_MASK | XCAN_AFR_UAF3_MASK | \
 				 XCAN_AFR_UAF2_MASK | XCAN_AFR_UAF1_MASK)
-/* @} */
+					   /**< Mask for Acceptance Filters */
+/** @} */
 
 /** @name CAN frame length constants
  *  @{
  */
 #define XCAN_MAX_FRAME_SIZE 16	/**< Maximum CAN frame length in bytes */
-/* @} */
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
