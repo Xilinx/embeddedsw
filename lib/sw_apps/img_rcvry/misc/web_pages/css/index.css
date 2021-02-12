@@ -81,6 +81,12 @@ table {
 	background-color: #eee;
 }
 
+.statustbl td:nth-child(1) {
+	text-align: right;
+	width: 60%;
+}
+
+
 .btn {
 	background-color: #e00000;
 	border: none;
@@ -185,7 +191,19 @@ table {
 
 }
 
-@media screen and (max-width:820px) {
+.sysimginfo {
+	padding: 0px 5px 0px 10px;
+	color: #ffffff;
+	border-radius: 10px;
+	background: #282d3f;
+}
+
+.sysimginfotbl td:nth-child(1) {
+	width: 20%;
+	font-size:20px;
+}
+
+@media screen and (max-width:1200px) {
 	.column_body {
 		width: 100%;
 	}
