@@ -1,12 +1,12 @@
 /******************************************************************************
-* Copyright (C) 2003 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2003 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 * @file xgpio_sinit.c
-* @addtogroup gpio_v4_7
+* @addtogroup gpio_v4_8
 * @{
 *
 * The implementation of the XGpio driver's static initialization
