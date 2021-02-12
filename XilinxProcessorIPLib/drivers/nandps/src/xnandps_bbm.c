@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2009 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2009 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xnandps_bbm.c
-* @addtogroup nandps_v2_6
+* @addtogroup nandps_v2_7
 * @{
 * This file implements the Bad Block Management (BBM) functionality.
 * See xnandps_bbm.h for more details.
