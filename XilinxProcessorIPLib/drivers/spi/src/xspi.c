@@ -460,6 +460,7 @@ void XSpi_Reset(XSpi *InstancePtr)
 * unwanted memory writes. This implies that the byte count passed in as an
 * argument must be the smaller of the two buffers if they differ in size.
 * Here are some sample usages:
+*
 * <pre>
 *	XSpi_Transfer(InstancePtr, SendBuf, RecvBuf, ByteCount)
 *	The caller wishes to send and receive, and provides two different
@@ -481,6 +482,7 @@ void XSpi_Reset(XSpi *InstancePtr)
 *	what it sends. The device must send N bytes of data if it wishes to
 *	receive N bytes of data.
 * </pre>
+*
 * In interrupt mode, though this function takes a buffer as an argument, the
 * driver can only transfer a limited number of bytes at time. It transfers only
 * one byte at a time if there are no FIFOs, or it can transfer the number of
@@ -514,7 +516,7 @@ void XSpi_Reset(XSpi *InstancePtr)
 *		- XST_SPI_NO_SLAVE indicates the device is configured as a
 *		master and a slave has not yet been selected.
 *
-* @notes
+* @note
 *
 * This function is not thread-safe.  The higher layer software must ensure that
 * no two threads are transferring data on the SPI bus at the same time.
@@ -949,14 +951,14 @@ u32 XSpi_GetSlaveSelect(XSpi *InstancePtr)
 * the amount of processing performed such as transferring data to a thread
 * context. One of the following status events is passed to the status handler.
 * <pre>
-*   - XST_SPI_MODE_FAULT	A mode fault error occurred, meaning another
+*   XST_SPI_MODE_FAULT		A mode fault error occurred, meaning another
 *				master tried to select this device as a slave
 *				when this device was configured to be a master.
 *				Any transfer in progress is aborted.
 *
-*   - XST_SPI_TRANSFER_DONE	The requested data transfer is done
+*   XST_SPI_TRANSFER_DONE	The requested data transfer is done
 *
-*   - XST_SPI_TRANSMIT_UNDERRUN	As a slave device, the master clocked
+*   XST_SPI_TRANSMIT_UNDERRUN	As a slave device, the master clocked
 *				data but there were none available in the
 *				transmit register/FIFO. This typically means the
 *				slave application did not issue a transfer
@@ -964,17 +966,18 @@ u32 XSpi_GetSlaveSelect(XSpi *InstancePtr)
 *				could not fill the transmit register/FIFO fast
 *				enough.
 *
-*   - XST_SPI_RECEIVE_OVERRUN	The SPI device lost data. Data was received
+*   XST_SPI_RECEIVE_OVERRUN	The SPI device lost data. Data was received
 *				but the receive data register/FIFO was full.
 *				This indicates that the device is receiving data
 *				faster than the processor/driver can consume it.
 *
-*   - XST_SPI_SLAVE_MODE_FAULT	A slave SPI device was selected as a slave while
+*   XST_SPI_SLAVE_MODE_FAULT	A slave SPI device was selected as a slave while
 *				it was disabled.  This indicates the master is
 *				already transferring data (which is being
 *				dropped until the slave application issues a
 *				transfer).
 * </pre>
+*
 * @param	InstancePtr is a pointer to the XSpi instance to be worked on.
 * @param	CallBackRef is the upper layer callback reference passed back
 *		when the callback function is invoked.

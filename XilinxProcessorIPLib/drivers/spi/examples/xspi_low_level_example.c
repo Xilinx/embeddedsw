@@ -87,7 +87,6 @@ u16 Buffer[BUFFER_SIZE];
 /**
 * This function is the main function of the SPI Low Level example.
 *
-* @param	None
 *
 * @return	XST_SUCCESS to indicate success, else XST_FAILURE to indicate
 *		Failure.

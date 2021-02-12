@@ -173,14 +173,13 @@ u8 WriteBuffer[STM_PAGE_SIZE + STM_READ_WRITE_EXTRA_BYTES];
 *
 * Main function to execute the Flash example.
 *
-* @param	None
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
 * @note		None
 *
 ******************************************************************************/
-int main()
+int main(void)
 {
 	int Status;
 	u32 Index;

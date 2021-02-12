@@ -182,7 +182,6 @@ EepromBuffer WriteBuffer;
 * device driver. This test writes and reads data from a Microchip serial EEPROM.
 * This part must be present in the hardware to use this example.
 *
-* @param 	None
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
@@ -194,7 +193,7 @@ EepromBuffer WriteBuffer;
 * read a status of 0xFF for the status register as the bus is pulled up.
 *
 *****************************************************************************/
-int main()
+int main(void)
 {
 	int Status;
 	u8 *BufferPtr;
