@@ -182,7 +182,6 @@ u8 WriteBuffer[PAGE_SIZE + DATA_OFFSET];
 *
 * Main function to call the QSPI Flash example.
 *
-* @param	None
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
@@ -213,7 +212,9 @@ int main(void)
 * device driver in Linear mode. This function writes data to the serial
 * FLASH in QSPI mode and reads data in Linear QSPI mode.
 *
-* @param	None.
+* @param	QspiInstancePtr is a pointer to the QSPIPS driver to use.
+* @param	QspiDeviceId is the XPAR_<QSPIPS_instance>_DEVICE_ID value
+*		from xparameters.h.
 *
 * @return	XST_SUCCESS if successful, else XST_FAILURE.
 *
@@ -580,7 +581,6 @@ void FlashErase(XQspiPs *QspiPtr, u32 Address, u32 ByteCount)
 *
 * This function reads serial FLASH ID connected to the SPI interface.
 *
-* @param	None.
 *
 * @return	XST_SUCCESS if read id, otherwise XST_FAILURE.
 *

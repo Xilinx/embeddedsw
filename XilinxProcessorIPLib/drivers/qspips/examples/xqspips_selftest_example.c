@@ -55,7 +55,6 @@ XQspiPs Qspi;			/* The instance of the QSPI device */
 /**
 * Main function to call the Qspi Selftest example.
 *
-* @param	None
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
 *
