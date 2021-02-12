@@ -185,7 +185,7 @@ void XQspiPsu_SetupRxDma(const XQspiPsu *InstancePtr,
 /**
  *
  * This function sets up the RX DMA operation on a 32bit Machine
- * For 64bit Dma transfers..
+ * For 64bit Dma transfers.
  *
  * @param	InstancePtr is a pointer to the XQspiPsu instance.
  * @param	Msg is a pointer to the structure containing transfer data.
@@ -393,7 +393,7 @@ void XQspiPsu_TXRXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
  *
  * @param	InstancePtr is a pointer to the XQspiPsu instance.
  * @param	Msg is a pointer to the structure containing transfer data.
- * @param	Index of the current message to be handled.
+ * @param	GenFifoEntry is index of the current message to be handled.
  *
  * @return
  *		- XST_SUCCESS if successful.
@@ -464,11 +464,9 @@ void XQspiPsu_GenFifoEntryDataLen(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
  *
  * This function creates Poll config register data to write
  *
- * @param	BusMask is mask to enable/disable upper/lower data bus masks.
+ * @param	InstancePtr is a pointer to the XQspiPsu instance.
  *
- * @param	DataBusMask is Data bus mask value during poll operation.
- *
- * @param	Data is the poll data value to write into config register.
+ * @param	FlashMsg is a pointer to the structure containing transfer data.
  *
  * @return	None
  *
@@ -756,3 +754,4 @@ s32 XQspipsu_Set_TapDelay(const XQspiPsu *InstancePtr, u32 TapdelayBypass,
 	return Status;
 }
 #endif
+/** @} */
