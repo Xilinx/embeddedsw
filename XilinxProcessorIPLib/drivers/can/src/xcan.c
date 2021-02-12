@@ -1031,7 +1031,7 @@ XCan_Config *XCan_GetConfig(unsigned int InstanceIndex)
 }
 
 /*****************************************************************************/
-/*
+/**
 *
 * This function initializes a XCan instance/driver.  This function is utilized
 * by XCan_Initialize() or XCan_VmInitialize(), depending on if Virtual Memory
@@ -1098,7 +1098,6 @@ static void Initialize(XCan *InstancePtr, XCan_Config * ConfigPtr)
 * handlers are set to this callback. It is considered an error for this handler
 * to be invoked.
 *
-* @param	None.
 *
 * @return	None.
 *
