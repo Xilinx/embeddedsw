@@ -16,18 +16,18 @@
 # 3.5      ms     04/18/17 Modified tcl file to add suffix U for all macros
 #                          definitions of uartns550 in xparameters.h
 ##############################################################################
-## @BEGIN_CHANGELOG EDK_L
+## BEGIN_CHANGELOG EDK_L
 ##    Deprecated the CLOCK_HZ parameter in mdd and updated the Tcl to obtain the
 ##    bus frequency during libgen.
 ##
-## @END_CHANGELOG
+## END_CHANGELOG
 ##
-## @BEGIN_CHANGELOG EDK_LS3
+## BEGIN_CHANGELOG EDK_LS3
 ##    Updated to obtain external clock frequency from either the port "xin" or
 ##    the new parameter C_EXTERNAL_XIN_CLK_HZ (if frequecy can't be read from xin)
 ##    when C_HAS_EXTERNAL_XIN is set to 1
 ##
-## @END_CHANGELOG
+## END_CHANGELOG
 
 
 proc generate {drv_handle} {

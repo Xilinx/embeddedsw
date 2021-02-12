@@ -131,7 +131,6 @@ static volatile int TotalErrorCount;
 *
 * Main function to call the UartNs550 interrupt example.
 *
-* @param	None.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *

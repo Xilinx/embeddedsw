@@ -62,7 +62,6 @@ XUartNs550 UartNs550;		/* The instance of the UART Driver */
 /**
 * Main function to call the example.
 *
-* @param	None.
 *
 * @return
 *		- XST_FAILURE if the Test Failed.

@@ -80,7 +80,6 @@ u8 RecvBuffer[TEST_BUFFER_SIZE];	/* Buffer for Receiving Data */
 * Main function to call the example. This function is not included if the
 * example is generated from the TestAppGen test tool.
 *
-* @param	None.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
