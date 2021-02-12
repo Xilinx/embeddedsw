@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2009 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2009 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xnandps_hw.h
-* @addtogroup nandps_v2_6
+* @addtogroup nandps_v2_7
 * @{
 *
 * This file contains identifiers and low-level macros/functions for the NAND
