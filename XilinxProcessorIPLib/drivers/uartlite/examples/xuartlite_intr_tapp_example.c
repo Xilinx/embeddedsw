@@ -136,7 +136,6 @@ static volatile int TotalSentCount;
 *
 * Main function to call the UartLite interrupt example.
 *
-* @param	None.
 *
 * @return	XST_SUCCESS if successful, else XST_FAILURE.
 *
