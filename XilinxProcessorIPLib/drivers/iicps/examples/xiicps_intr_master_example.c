@@ -87,7 +87,6 @@ volatile u32 TotalErrorCount;
 *
 * Main function to call the example.
 *
-* @param	None.
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
 *

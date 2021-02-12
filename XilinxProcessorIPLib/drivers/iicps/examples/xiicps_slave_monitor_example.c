@@ -79,7 +79,6 @@ XIicPs IicInstance;		/* The instance of the IIC device. */
 *
 * Main function to call the Slave Monitor example.
 *
-* @param	None.
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
 *
@@ -164,15 +163,13 @@ static int IicPsConfig(u16 DeviceId, u32 Int_Id)
 *
 * This function checks the availability of a slave using slave monitor mode.
 *
-* @param	DeviceId is the Device ID of the IicPs Device and is the
-*		XPAR_<IICPS_instance>_DEVICE_ID value from xparameters.h
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
 * @note 	None.
 *
 *******************************************************************************/
-int IicPsSlaveMonitorExample()
+int IicPsSlaveMonitorExample(void)
 {
 	int Status;
 	int Index;
@@ -366,8 +363,6 @@ static int SetupInterruptSystem(XIicPs *IicPsPtr, u32 Int_Id)
 * @param	CallBackRef contains a callback reference from the driver, in
 *		this case it is the instance pointer for the IIC driver.
 * @param	Event contains the specific kind of event that has occurred.
-* @param	EventData contains the number of bytes sent or received for sent
-*		and receive events.
 *
 * @return	None.
 *

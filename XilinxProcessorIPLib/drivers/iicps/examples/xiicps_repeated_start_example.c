@@ -129,7 +129,6 @@ u8 ReadBuffer[MAX_SIZE*20];	/* Read buffer for reading a page. */
 /**
 * Main function to call the Iic repeated start example.
 *
-* @param	None.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
@@ -162,7 +161,6 @@ int main(void)
 * This function writes, reads, and verifies the data to the IIC EEPROM.
 * Page write is used. Buffered read with repeated start option is done.
 *
-* @param	None.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *

@@ -5,7 +5,7 @@
 
 /*****************************************************************************/
 /**
-* @file xiicps_polled_multimaster_example.c
+* @file xiicps_polled_multi_master_example.c
 *
 * Design example is to demonstrate multi-master support in polled mode.
 * In case arbitration lost there will be retry..
@@ -77,7 +77,6 @@ u8 RecvBuffer[TEST_BUFFER_SIZE];    /**< Buffer for Receiving Data */
 *
 * Main function to call the polled master example.
 *
-* @param	None.
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
 *
