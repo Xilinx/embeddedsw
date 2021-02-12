@@ -36,8 +36,8 @@
 *
 ******************************************************************************/
 
-#ifndef XWDTTB_L_H		/* prevent circular inclusions */
-#define XWDTTB_L_H		/* by using protection macros */
+#ifndef XWDTTB_L_H		/**< prevent circular inclusions */
+#define XWDTTB_L_H		/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {

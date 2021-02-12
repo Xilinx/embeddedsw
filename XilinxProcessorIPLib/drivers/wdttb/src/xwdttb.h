@@ -169,7 +169,7 @@
 ******************************************************************************/
 
 #ifndef XWDTTB_H		/* prevent circular inclusions */
-#define XWDTTB_H		/* by using protection macros */
+#define XWDTTB_H		/**< by using protection macros */
 
 /***************************** Include Files *********************************/
 
@@ -225,7 +225,7 @@ typedef struct {
 } XWdtTb;
 
 /************************** Variable Definitions *****************************/
-extern XWdtTb_Config XWdtTb_ConfigTable[];
+extern XWdtTb_Config XWdtTb_ConfigTable[];	/**< Configuration table */
 
 /***************** Macros (Inline Functions) Definitions *********************/
 /*****************************************************************************/

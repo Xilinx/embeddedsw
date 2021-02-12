@@ -24,8 +24,8 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
-#ifndef XWDTTB_CONFIG_H                /* prevent circular inclusions */
-#define XWDTTB_CONFIG_H                /* by using protection macros */
+#ifndef XWDTTB_CONFIG_H                /**< prevent circular inclusions */
+#define XWDTTB_CONFIG_H                /**< by using protection macros */
 
 #include "xwdttb.h"
 

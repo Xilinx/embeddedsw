@@ -130,6 +130,8 @@ extern "C" {
 #define XWT_GW_WR_OFFSET        0x2FD0U    /**< Generic Watchdog Warm Reset
 						Register Offset */
 
+/** @} */
+
 /** @name Register offsets for the AXI Timebase WDT core. Each register is 32
 *   bits.
 *  @{
@@ -139,7 +141,7 @@ extern "C" {
 #define XWT_TWCSR1_OFFSET	0x04U	/**< Control/Status Register 1
                                           *  Offset */
 #define XWT_TBR_OFFSET		0x08U	/**< Timebase Register Offset */
-/* @} */
+/** @} */
 
 /** @name Control/Status Register 0 bits
 *  @{
@@ -147,13 +149,13 @@ extern "C" {
 #define XWT_CSR0_WRS_MASK	0x00000008U	/**< Reset status Mask */
 #define XWT_CSR0_WDS_MASK	0x00000004U	/**< Timer state Mask */
 #define XWT_CSR0_EWDT1_MASK	0x00000002U	/**< Enable bit 1 Mask */
-/* @} */
+/** @} */
 
 /** @name Control/Status Register 0/1 bits
 *  @{
 */
 #define XWT_CSRX_EWDT2_MASK	0x00000001U	/**< Enable bit 2 Mask */
-/* @} */
+/** @} */
 
 /** @name Master Write Control bits
 *  @{
@@ -161,7 +163,7 @@ extern "C" {
 #define XWT_MWR_AEN_MASK	0x00000002U	/**< Always Enable Mask */
 #define XWT_MWR_MWC_MASK	0x00000001U	/**< Master Write Control
 						   * Mask */
-/* @} */
+/** @} */
 
 /** @name Enable & Status Register bits
 *  @{
@@ -187,7 +189,7 @@ extern "C" {
 						  *  Shift */
 #define XWT_ESR_WCFG_SHIFT	1U		/**< Wrong Configuration
 						  *  Shift */
-/* @} */
+/** @} */
 
 /** @name Function Control Register bits
 *  @{
@@ -212,7 +214,7 @@ extern "C" {
 #define XWT_FCR_SSTE_SHIFT	4U		/**< Second Sequence Timer
 						  *  Enable Shift */
 #define XWT_FCR_WM_SHIFT	1U		/**< Window WDT Mode Shift */
-/* @} */
+/** @} */
 
 /** @name Generic Watchdog Control and Status Register  bits
  *  @{
@@ -220,19 +222,26 @@ extern "C" {
 #define XWT_GWCSR_GWEN_MASK     0x00000001U     /**< Watchdog enable bit */
 #define XWT_GWCSR_GWS1_MASK     0x00000002U     /**< Generic_wdt_interrupt bit */
 #define XWT_GWCSR_GWS2_MASK     0x00000004U     /**< Generic_wdt_reset bit  */
+/** @} */
+
+/* @name Generic Watchdog Warm Reset Register bits
+ * @{
+ */
+#define XWT_GW_WR_MASK          0x00000001U         /**< Enable Generic Watchdog Warm Reset Register */
+#define XWT_GWRR_MASK           0x00000001U         /**< Generic watchdog Refresh Register */
 /* @} */
 
-/* @name Generic Control status Register bits */
-#define XWT_GW_WR_MASK          0x00000001U         /* Enable Generic Watchdog Warm Reset Register */
-#define XWT_GWRR_MASK           0x00000001U         /* Generic watchdog Refresh Register */
-
-#define XWT_START_VALUE         8U                  /* Width of Win WDT values between 8-31 */
-#define XWT_END_VALUE           31U                 /* Width of Win WDT values between 8-31 */
-#define XWT_ZERO                0U                  /* Flag for 0 value*/
-#define XWT_ONE                 1U                  /* Flag for 1 value */
-#define XWT_MAX_BYTE_SEGMENT    4U                  /* Max Byte segment value */
-#define XWT_GWDT		0U		    /* Flag for GWDT */
-#define XWT_WWDT		1U		    /* Flag for WWDT */
+/* @name Useful macros
+ * @{
+ */
+#define XWT_START_VALUE         8U                  /**< Width of Win WDT values between 8-31 */
+#define XWT_END_VALUE           31U                 /**< Width of Win WDT values between 8-31 */
+#define XWT_ZERO                0U                  /**< Flag for 0 value*/
+#define XWT_ONE                 1U                  /**< Flag for 1 value */
+#define XWT_MAX_BYTE_SEGMENT    4U                  /**< Max Byte segment value */
+#define XWT_GWDT		0U		    /**< Flag for GWDT */
+#define XWT_WWDT		1U		    /**< Flag for WWDT */
+/* @} */
 /**************************** Type Definitions *******************************/
 
 
@@ -243,6 +252,7 @@ extern "C" {
 */
 #define XWdtTb_In32		Xil_In32	/**< Input Operations */
 #define XWdtTb_Out32		Xil_Out32	/**< Output Operations */
+/** @} */
 
 /****************************************************************************/
 /**
@@ -281,7 +291,6 @@ extern "C" {
 ******************************************************************************/
 #define XWdtTb_WriteReg(BaseAddress, RegOffset, RegisterValue) \
 	XWdtTb_Out32((BaseAddress) + ((u32)RegOffset), (u32)(RegisterValue))
-/*@}*/
 
 /************************** Function Prototypes ******************************/
 
