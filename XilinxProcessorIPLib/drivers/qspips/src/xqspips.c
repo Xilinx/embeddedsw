@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xqspips.c
-* @addtogroup qspips_v3_8
+* @addtogroup qspips_v3_9
 * @{
 *
 * Contains implements the interface functions of the XQspiPs driver.
