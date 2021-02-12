@@ -99,7 +99,7 @@
 *
 ******************************************************************************/
 #ifndef XGPIOPS_H		/* prevent circular inclusions */
-#define XGPIOPS_H		/* by using protection macros */
+#define XGPIOPS_H		/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -123,7 +123,7 @@ extern "C" {
 #define XGPIOPS_IRQ_TYPE_EDGE_BOTH	0x02U  /**< Interrupt on both edges */
 #define XGPIOPS_IRQ_TYPE_LEVEL_HIGH	0x03U  /**< Interrupt on high level */
 #define XGPIOPS_IRQ_TYPE_LEVEL_LOW	0x04U  /**< Interrupt on low level */
-/*@}*/
+/** @}*/
 
 #define XGPIOPS_BANK_MAX_PINS		(u32)32 /**< Max pins in a GPIO bank */
 #define XGPIOPS_BANK0			0x00U  /**< GPIO Bank 0 */

@@ -47,12 +47,12 @@
 
 
 /*****************************************************************************/
-/*
+/**
 *
 * This function resets the GPIO module by writing reset values to
 * all registers
 *
-* @param	Base address of GPIO module
+* @param	BaseAddress address of GPIO module
 *
 * @return	None
 *
