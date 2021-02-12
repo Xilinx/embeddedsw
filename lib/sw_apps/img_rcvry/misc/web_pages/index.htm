@@ -96,43 +96,63 @@
 			<div class="column_body">
 				<h2>Boot Image Status</h2>
 				<hr>
-				<form action="" method="GET" onsubmit="onCfg(); return false;">
-					<div class="column_opt">
-						<p><b>Image A</b></p>
-						<input type="radio" id="imgAnb" name="imgAstate" value=0>
-						<label for="imgAbootable">Non Bootable</label><br>
-						<input type="radio" id="imgAb" name="imgAstate" value=1>
-						<label for="imgAbootable">Bootable</label><br>
+				<div class="row_body">
+					<div class="sysimginfo">
+						<table id="sysimginfotbl">
+							<tr class="sysimginfotbl">
+								<td rowspan="4">Current Status</td>
+								<td style="width:40%; text-align: right;">Image A : </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td style="text-align: right;">Image B : </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td style="text-align: right;">Requested Boot Image : </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td style="text-align: right;">Last Booted Image : </td>
+								<td> </td>
+							</tr>
+						</table>
 					</div>
 
-					<div class="column_opt">
-						<p><b>Image B</b></p>
-						<input type="radio" id="imgBnb" name="imgBstate" value=0>
-						<label for="imgBbootable">Non Bootable</label><br>
-						<input type="radio" id="imgBb" name="imgBstate" value=1>
-						<label for="imgBbootable">Bootable</label><br>
-					</div>
+					<div>
+						<form action="" method="GET" onsubmit="onCfg(); return false;">
+							<div class="column_opt">
+								<p><b>Image A</b></p>
+								<input type="radio" id="imgAnb" name="imgAstate" value=0>
+								<label for="imgAbootable">Non Bootable</label><br>
+								<input type="radio" id="imgAb" name="imgAstate" value=1>
+								<label for="imgAbootable">Bootable</label><br>
+							</div>
 
-					<div class="column_opt">
-						<p><b>Requested Boot Image</b></p>
-						<input type="radio" id="reqAimg" name="reqimg" value=0>
-						<label for="imgA">Image A</label><br>
-						<input type="radio" id="reqBimg" name="reqimg" value=1>
-						<label for="imgB">Image B</label><br>
-					</div>
+							<div class="column_opt">
+								<p><b>Image B</b></p>
+								<input type="radio" id="imgBnb" name="imgBstate" value=0>
+								<label for="imgBbootable">Non Bootable</label><br>
+								<input type="radio" id="imgBb" name="imgBstate" value=1>
+								<label for="imgBbootable">Bootable</label><br>
+							</div>
 
-					<div class="column_opt">
-						</br>
-						<p><b>Last Image Booted</b></p>
-						<p id="LastBootImg" style="padding:0 10px">Image B</p>
-					</div>
+							<div class="column_opt">
+								<p><b>Requested Boot Image</b></p>
+								<input type="radio" id="reqAimg" name="reqimg" value=0>
+								<label for="imgA">Image A</label><br>
+								<input type="radio" id="reqBimg" name="reqimg" value=1>
+								<label for="imgB">Image B</label><br>
+							</div>
 
-					<div class="column_opt">
-						</br>
-						</br>
-						<button type="submit" id="sbmt_btn" class="btn btn_act">Configure</button>
+							<div class="column_opt">
+								</br>
+								<button type="submit" id="sbmt_btn" class="btn btn_act">Configure</button>
+								</br> </br> </br>
+							</div>
+						</form>
 					</div>
-				</form>
+				</div>
 			</div>
 
 			<div class="column_body">
