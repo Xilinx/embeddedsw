@@ -72,7 +72,6 @@ u8 WriteBuffer[NAND_TEST_BLOCK_SIZE];	/**< Block sized write buffer */
 *
 * Main function to execute the Nand Flash read write example.
 *
-* @param	None.
 *
 * @return
 *		- XST_SUCCESS if the example has completed successfully.
