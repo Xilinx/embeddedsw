@@ -69,7 +69,6 @@ u8 RecvBuffer[TEST_BUFFER_SIZE];	/* Buffer for Receiving Data */
 *
 * Main function to call the polled slave example.
 *
-* @param	None.
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
 *

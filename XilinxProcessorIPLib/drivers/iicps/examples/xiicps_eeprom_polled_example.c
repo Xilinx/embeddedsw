@@ -131,7 +131,6 @@ u32 PageSize;
 /**
 * Main function to call the Iic EEPROM polled example.
 *
-* @param	None.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
@@ -163,14 +162,13 @@ int main(void)
 * This function writes, reads, and verifies the data to the IIC EEPROM. It
 * does the write as a single page write, performs a buffered read.
 *
-* @param	None.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
 * @note		None.
 *
 ******************************************************************************/
-s32 IicPsEepromPolledExample()
+s32 IicPsEepromPolledExample(void)
 {
 	u32 Index;
 	s32 Status;

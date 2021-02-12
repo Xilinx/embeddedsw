@@ -230,7 +230,7 @@ extern "C" {
 #define XIICPS_EVENT_RX_UNF			0x0200U  /**< RX underflow */
 /*@}*/
 
-/** @name Role constants
+/** name Role constants
  *
  * These constants are used to pass into the device setup routines to
  * set up the device according to transfer direction.

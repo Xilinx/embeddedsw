@@ -92,7 +92,6 @@ volatile u32 TotalErrorCount;
 *
 * Main function to call the interrupt example in the slave mode.
 *
-* @param	None
 *
 * @return
 *		- XST_SUCCESS if successful.
