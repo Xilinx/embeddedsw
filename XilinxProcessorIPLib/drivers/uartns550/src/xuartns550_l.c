@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartns550_l.c
-* @addtogroup uartns550_v3_7
+* @addtogroup uartns550_v3_8
 * @{
 *
 * This file contains low-level driver functions that can be used to access the
