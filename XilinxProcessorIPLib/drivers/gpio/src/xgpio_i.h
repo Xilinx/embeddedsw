@@ -27,7 +27,7 @@
 ******************************************************************************/
 
 #ifndef XGPIO_I_H		/* prevent circular inclusions */
-#define XGPIO_I_H		/* by using protection macros */
+#define XGPIO_I_H		/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {

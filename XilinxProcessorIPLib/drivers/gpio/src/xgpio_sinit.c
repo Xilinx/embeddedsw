@@ -38,7 +38,7 @@
 /************************** Constant Definitions ****************************/
 
 #ifndef XPAR_XGPIO_NUM_INSTANCES
-#define XPAR_XGPIO_NUM_INSTANCES		0
+#define XPAR_XGPIO_NUM_INSTANCES		0 /**< GPIO instances */
 #endif
 
 /**************************** Type Definitions ******************************/

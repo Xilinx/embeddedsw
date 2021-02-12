@@ -48,7 +48,7 @@
 ******************************************************************************/
 
 #ifndef XGPIO_L_H		/* prevent circular inclusions */
-#define XGPIO_L_H		/* by using protection macros */
+#define XGPIO_L_H		/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -77,12 +77,12 @@ extern "C" {
 #define XGPIO_ISR_OFFSET	0x120 /**< Interrupt status register */
 #define XGPIO_IER_OFFSET	0x128 /**< Interrupt enable register */
 
-/* @} */
+/** @} */
 
 /* The following constant describes the offset of each channels data and
  * tristate register from the base address.
  */
-#define XGPIO_CHAN_OFFSET  8
+#define XGPIO_CHAN_OFFSET  8	/**< Channel offeset */
 
 /** @name Interrupt Status and Enable Register bitmaps and masks
  *
@@ -93,7 +93,7 @@ extern "C" {
 #define XGPIO_IR_MASK		0x3 /**< Mask of all bits */
 #define XGPIO_IR_CH1_MASK	0x1 /**< Mask for the 1st channel */
 #define XGPIO_IR_CH2_MASK	0x2 /**< Mask for the 2nd channel */
-/*@}*/
+/** @}*/
 
 
 /** @name Global Interrupt Enable Register bitmaps and masks
@@ -101,8 +101,8 @@ extern "C" {
  * Bit definitions for the Global Interrupt  Enable register
  * @{
  */
-#define XGPIO_GIE_GINTR_ENABLE_MASK	0x80000000
-/*@}*/
+#define XGPIO_GIE_GINTR_ENABLE_MASK	0x80000000 /**< Mask for Global Interrupt */
+/** @}*/
 
 
 
@@ -111,8 +111,8 @@ extern "C" {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-#define XGpio_In32  Xil_In32
-#define XGpio_Out32 Xil_Out32
+#define XGpio_In32  Xil_In32	/**< Input Operations */
+#define XGpio_Out32 Xil_Out32	/**< Output Operations */
 
 
 /****************************************************************************/
