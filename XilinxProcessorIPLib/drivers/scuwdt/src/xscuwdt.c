@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xscuwdt.c
-* @addtogroup scuwdt_v2_3
+* @addtogroup scuwdt_v2_4
 * @{
 *
 * Contains the implementation of interface functions of the XScuWdt driver.

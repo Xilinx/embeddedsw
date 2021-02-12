@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xscuwdt_hw.h
-* @addtogroup scuwdt_v2_3
+* @addtogroup scuwdt_v2_4
 * @{
 *
 * This file contains the hardware interface to the Xilinx SCU private Watch Dog
