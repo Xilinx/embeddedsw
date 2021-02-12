@@ -186,7 +186,6 @@ u8 WriteBuffer[MAX_DATA + DATA_OFFSET];
 *
 * Main function to call the SPI Flash example.
 *
-* @param	None
 *
 * @return
 *		- XST_SUCCESS if successful
@@ -231,7 +230,6 @@ int main(void)
 *
 * @param	SpiIntrId is the Interrupt Id for SPI in the system.
 *
-* @param	None.
 *
 * @return
 *		- XST_SUCCESS if successful

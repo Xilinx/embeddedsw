@@ -178,7 +178,6 @@ EepromBuffer WriteBuffer;
 *
 * Main function to call the Spi Eeprom example.
 *
-* @param	None
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *

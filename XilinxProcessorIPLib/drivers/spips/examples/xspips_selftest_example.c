@@ -55,7 +55,6 @@ XSpiPs Spi;			/* The instance of the SPI device */
 /**
 * Main function to call the Spi SelfTest example.
 *
-* @param	None
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
 *
