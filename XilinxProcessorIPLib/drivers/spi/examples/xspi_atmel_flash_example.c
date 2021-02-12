@@ -185,14 +185,13 @@ u8 WriteBuffer[ATMEL_PAGE_SIZE + ATMEL_READ_WRITE_EXTRA_BYTES];
 *
 * Main function to execute the Atmel Flash example.
 *
-* @param	None
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
 * @note		None
 *
 ******************************************************************************/
-int main()
+int main(void)
 {
 	int Status;
 	u32 Index;
@@ -335,7 +334,7 @@ int main()
 * interface.
 *
 * @param	SpiPtr is a pointer to the SPI driver component to use.
-* @param	Addr is the address from which the data is to be read from
+* @param	Address is the address from which the data is to be read from
 *		the Flash.
 * @param	ByteCount is the number of bytes to read.
 *

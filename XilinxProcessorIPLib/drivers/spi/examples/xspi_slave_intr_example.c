@@ -124,7 +124,6 @@ static volatile int TransferInProgress;
 *
 * Main function to call the Spi Slave example in interrupt mode.
 *
-* @param	None
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *

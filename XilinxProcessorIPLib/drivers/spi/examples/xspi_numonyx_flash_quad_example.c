@@ -214,7 +214,6 @@ static u8 TestByte = 0x20;
 *
 * Main function to run the quad flash example.
 *
-* @param	None
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *

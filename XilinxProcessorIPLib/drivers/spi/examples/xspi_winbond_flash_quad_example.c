@@ -191,7 +191,6 @@ static u8 TestByte = 0x20;
 *
 * Main function to run the quad flash example.
 *
-* @param	None
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
@@ -568,6 +567,7 @@ int SpiFlashWriteEnable(XSpi *SpiPtr)
 * @param	SpiPtr is a pointer to the instance of the Spi device.
 * @param	Addr is the address in the Buffer, where to write the data.
 * @param	ByteCount is the number of bytes to be written.
+* @param 	WriteCmd is the command used for writing data to flash.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
@@ -636,6 +636,7 @@ int SpiFlashWrite(XSpi *SpiPtr, u32 Addr, u32 ByteCount, u8 WriteCmd)
 * @param	Addr is the starting address in the Flash Memory from which the
 *		data is to be read.
 * @param	ByteCount is the number of bytes to be read.
+* @param	ReadCmd is the command used for reading data from flash.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
@@ -855,7 +856,7 @@ int SpiFlashGetStatus(XSpi *SpiPtr)
 *
 * This function sets the QuadEnable bit in Winbond flash.
 *
-* @param	None
+* @param	SpiPtr is a pointer to the instance of the Spi device.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
@@ -954,7 +955,7 @@ int SpiFlashQuadEnable(XSpi *SpiPtr)
 * This function enabled High Performance Mode in Winbond flash, so that data can
 * be read from the flash using DIO and QIO commands.
 *
-* @param	None
+* @param	SpiPtr is a pointer to the instance of the Spi device.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
