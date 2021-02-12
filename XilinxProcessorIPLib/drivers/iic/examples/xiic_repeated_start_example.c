@@ -104,7 +104,6 @@ volatile u8 ReceiveComplete;
 /**
 * Main function to call the Repeated Start example.
 *
-* @param	None.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
@@ -132,7 +131,6 @@ int main(void)
 /**
 * This function writes and reads the data to the IIC Slave.
 *
-* @param	None.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *

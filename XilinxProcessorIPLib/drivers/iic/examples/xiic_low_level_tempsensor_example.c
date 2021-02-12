@@ -79,7 +79,6 @@ int LowLevelTempSensorExample(u32 IicBaseAddress,
 * The purpose of this function is to illustrate how to use the IIC level 0
 * driver to read the temperature.
 *
-* @param	None
 *
 * @return	Always 0
 *

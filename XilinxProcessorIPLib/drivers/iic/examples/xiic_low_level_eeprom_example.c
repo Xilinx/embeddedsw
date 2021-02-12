@@ -162,7 +162,6 @@ u8 EepromIicAddr;		  /* Variable for storing Eeprom IIC address */
 /**
 * Main function to call the low level EEPROM example.
 *
-* @param	None.
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
 *
@@ -191,14 +190,13 @@ int main(void)
 * The function uses the low level driver of IIC to read and write to the
 * IIC EEPROM board. The addresses tested are from 128 to 192.
 *
-* @param	None.
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
 *
 * @note		None.
 *
 ****************************************************************************/
-int IicLowLevelEeprom()
+int IicLowLevelEeprom(void)
 {
 	int Status;
 	unsigned BytesRead;

@@ -107,7 +107,6 @@ volatile struct {
 * The purpose of this function is to illustrate how to use the IIC driver to
 * read the temperature.
 *
-* @param	None
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
 *

@@ -163,7 +163,6 @@ volatile u8 BusNotBusy;
 /**
 * Main function to call the Multi Master example.
 *
-* @param	None.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
@@ -191,14 +190,13 @@ int main(void)
 /**
 * This function writes the data to the IIC EEPROM.
 *
-* @param	None.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
 * @note		None.
 *
 ****************************************************************************/
-int IicMultiMasterExample()
+int IicMultiMasterExample(void)
 {
 	u8 Index;
 	int Status;
