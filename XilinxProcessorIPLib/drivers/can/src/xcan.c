@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2005 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2005 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xcan.c
-* @addtogroup can_v3_5
+* @addtogroup can_v3_6
 * @{
 *
 * The XCan driver. Functions in this file are the minimum required functions
