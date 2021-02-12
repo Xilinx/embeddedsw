@@ -56,7 +56,7 @@
 * Resets QSPI by disabling the device and bringing it to reset state through
 * register writes.
 *
-* @param	None
+* @param	BaseAddress
 *
 * @return	None.
 *
@@ -133,7 +133,7 @@ void XQspiPs_ResetHw(u32 BaseAddress)
 *
 * Initializes QSPI to Linear mode with default QSPI boot settings.
 *
-* @param	None
+* @param	BaseAddress
 *
 * @return	None.
 *

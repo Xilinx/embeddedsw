@@ -418,7 +418,6 @@ u32 MaxData = PAGE_COUNT*256;
 *
 * Main function to call the QSPI Flash example.
 *
-* @param	None
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
@@ -452,7 +451,9 @@ int main(void)
 * flash devices greater than 128Mb.
 * This function reads and writes data in I/O mode.
 *
-* @param	None.
+* @param	QspiInstancePtr is a pointer to the QSPIPS driver to use.
+* @param        QspiDeviceId is the XPAR_<QSPIPS_instance>_DEVICE_ID value
+*               from xparameters.h
 *
 * @return	XST_SUCCESS if successful, else XST_FAILURE.
 *
@@ -652,7 +653,7 @@ int QspiG128FlashExample(XQspiPs *QspiInstancePtr, u16 QspiDeviceId)
 * @param	Command is the command used to write data to the flash. QSPI
 *		device supports only Page Program command to write data to the
 *		flash.
-* @param	Pointer to the write buffer (which is to be transmitted)
+* @param	WriteBfrptr is the pointer to the write buffer(which is to be transmitted)
 *
 * @return	None.
 *
@@ -768,7 +769,8 @@ void FlashWrite(XQspiPs *QspiPtr, u32 Address, u32 ByteCount, u8 Command,
 * @param	Address contains the address of the first sector which needs to
 *		be erased.
 * @param	ByteCount contains the total size to be erased.
-* @param	Pointer to the write buffer (which is to be transmitted)
+* @param	WriteBfrPtr is Pointer to the write buffer
+*		(which is to be transmitted)
 *
 * @return	None.
 *
@@ -1008,9 +1010,10 @@ void FlashErase(XQspiPs *QspiPtr, u32 Address, u32 ByteCount, u8 *WriteBfrPtr)
 * Winbond 128Mbit
 *
 * @param	QspiPtr is a pointer to the QSPI driver component to use.
-* @param	Pointer to the write buffer (which is to be transmitted)
-* @param	Pointer to the read buffer to which valid received data should be
-* 			written
+* @param	WriteBfrPtr is pointer to the write buffer
+*		(which is to be transmitted)
+* @param	ReadBfrPtr is pointer to the read buffer to which valid
+*		received data should be written.
 *
 * @return	XST_SUCCESS if read id, otherwise XST_FAILURE.
 *
@@ -1186,9 +1189,10 @@ int FlashReadID(XQspiPs *QspiPtr, u8 *WriteBfrPtr, u8 *ReadBfrPtr)
 * @param	ByteCount contains the total size to be erased.
 * @param	Command is the command used to read data from the flash. Supports
 * 			normal, fast, dual and quad read commands.
-* @param	Pointer to the write buffer which contains data to be transmitted
-* @param	Pointer to the read buffer to which valid received data should be
-* 			written
+* @param	WriteBfrPtr is pointer to the write buffer which contains
+*		data to be transmitted
+* @param	ReadBfrPtr is pointer to the read buffer to which valid
+*		received data should be written
 *
 * @return	none.
 *
@@ -1300,7 +1304,8 @@ void FlashRead(XQspiPs *QspiPtr, u32 Address, u32 ByteCount, u8 Command,
 * This functions selects the current bank
 *
 * @param	QspiPtr is a pointer to the QSPI driver component to use.
-* @param	Pointer to the write buffer which contains data to be transmitted
+* @param	WriteBfrPtr to the write buffer which contains data to be
+*			transmitted.
 * @param	BankSel is the bank to be selected in the flash device(s).
 *
 * @return	XST_SUCCESS if bank selected, otherwise XST_FAILURE.
@@ -1358,7 +1363,7 @@ int SendBankSelect(XQspiPs *QspiPtr, u8 *WriteBfrPtr, u32 BankSel)
 * flash device has a single die. Works for both Spansion and Micron
 *
 * @param	QspiPtr is a pointer to the QSPI driver component to use.
-* @param	WritBfrPtr is the pointer to command+address to be sent
+* @param	WriteBfrPtr is the pointer to command+address to be sent
 *
 * @return	None
 *
@@ -1425,7 +1430,7 @@ void BulkErase(XQspiPs *QspiPtr, u8 *WriteBfrPtr)
 * Micron 512Mbit and 1Gbit
 *
 * @param	QspiPtr is a pointer to the QSPI driver component to use.
-* @param	WritBfrPtr is the pointer to command+address to be sent
+* @param	WriteBfrPtr is the pointer to command+address to be sent
 *
 * @return	None
 *
