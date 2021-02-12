@@ -162,7 +162,7 @@ RETURN_PATH:
 *
 *
 * @param	InstancePtr is a pointer to the XSdPs instance.
-* @param	SCR - buffer to store SCR register returned by card.
+* @param	ReadBuff - buffer to store SCR register returned by card.
 *
 * @return
 *		- XST_SUCCESS if successful.

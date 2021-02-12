@@ -65,7 +65,6 @@ u8 SourceAddress[10*1024] __attribute__ ((aligned(32)));
 *
 * Main function to call the SD example.
 *
-* @param	None
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *

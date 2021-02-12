@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsdps_include.h
+* @file xsdps_core.h
 * @addtogroup sdps_v3_12
 * @{
 *
@@ -115,3 +115,4 @@ void XSdps_Smc(XSdPs *InstancePtr, u32 RegOffset, u32 Mask, u32 Val);
 #endif
 
 #endif
+/** @} */
