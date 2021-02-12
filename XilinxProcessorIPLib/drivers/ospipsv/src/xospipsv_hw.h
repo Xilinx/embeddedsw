@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xospipsv_hw.h
-* @addtogroup ospipsv_v1_3
+* @addtogroup ospipsv_v1_4
 * @{
 *
 * This file contains low level access functions using the base address

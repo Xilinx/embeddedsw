@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xospipsv_sinit.c
-* @addtogroup ospipsv_v1_3
+* @addtogroup ospipsv_v1_4
 * @{
 *
 * The implementation of the XOspiPsv component's static initialization
