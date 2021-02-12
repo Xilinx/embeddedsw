@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartps_selftest.c
-* @addtogroup uartps_v3_10
+* @addtogroup uartps_v3_11
 * @{
 *
 * This file contains the self-test functions for the XUartPs driver.
