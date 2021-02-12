@@ -10,17 +10,17 @@
 # 3.0      adk    12/10/13 Updated as per the New Tcl API's
 ##############################################################################
 
-## @BEGIN_CHANGELOG EDK_I
+## BEGIN_CHANGELOG EDK_I
 ##
 ##  - include header files
 ##    
-## @END_CHANGELOG
+## END_CHANGELOG
 
-## @BEGIN_CHANGELOG EDK_H
+## BEGIN_CHANGELOG EDK_H
 ##
 ##  - Initial Revision
 ##    
-## @END_CHANGELOG
+## END_CHANGELOG
 
 # Uses $XILINX_EDK/bin/lib/xillib_sw.tcl
 
