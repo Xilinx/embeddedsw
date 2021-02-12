@@ -82,14 +82,13 @@ static void SendSlaveData(XIic *InstancePtr);
 * to the Cfg_Initialize() function and must be called before any functions in
 * this file are called.
 *
-* @param	None.
 *
 * @return 	None.
 *
 * @note		None.
 *
 ******************************************************************************/
-void XIic_SlaveInclude()
+void XIic_SlaveInclude(void)
 {
 	XIic_AddrAsSlaveFuncPtr = AddrAsSlaveHandler;
 	XIic_NotAddrAsSlaveFuncPtr = NotAddrAsSlaveHandler;

@@ -109,7 +109,6 @@ volatile u8 SlaveWrite;
 /**
 * Main function to call the IIC Slave example.
 *
-* @param	None.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
@@ -138,14 +137,13 @@ int main(void)
 * This function writes and reads the data as a slave. The IIC master on the bus
 * initiates the transfers.
 *
-* @param	None.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
 * @note		None.
 *
 ******************************************************************************/
-int IicSlaveExample()
+int IicSlaveExample(void)
 {
 	int Status;
 	u8 Index;

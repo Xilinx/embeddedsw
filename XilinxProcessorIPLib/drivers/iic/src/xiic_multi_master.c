@@ -63,14 +63,13 @@ static void ArbitrationLostHandler(XIic *InstancePtr);
 * to allowing any multi-master events to occur, such as after the driver is
 * initialized.
 *
-* @param	None.
 *
 * @return 	None.
 *
 * @note		None.
 *
 ******************************************************************************/
-void XIic_MultiMasterInclude()
+void XIic_MultiMasterInclude(void)
 {
 	XIic_ArbLostFuncPtr = ArbitrationLostHandler;
 	XIic_BusNotBusyFuncPtr = BusNotBusyHandler;

@@ -151,7 +151,6 @@ u8 ReadBuffer[PAGE_SIZE];	/* Read buffer for reading a page.  */
 /**
 * Main function to call the low level Dynamic EEPROM example.
 *
-* @param	None.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *

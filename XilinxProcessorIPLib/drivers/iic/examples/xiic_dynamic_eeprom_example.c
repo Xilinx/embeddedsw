@@ -174,7 +174,6 @@ u8 EepromIicAddr;		/* Variable for storing Eeprom IIC address */
 *
 * Main function to call the Dynamic EEPROM example.
 *
-* @param	None.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
@@ -204,14 +203,13 @@ int main(void)
 * Dynamic controller mode. It does the write as a single page write, performs a
 * buffered read.
 *
-* @param	None.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
 * @note		None.
 *
 ******************************************************************************/
-int IicDynEepromExample()
+int IicDynEepromExample(void)
 {
 	u8 Index;
 	int Status;

@@ -8,17 +8,17 @@
 # -------- ------ -------- ------------------------------------
 # 3.0     adk    12/10/13 Updated as per the New Tcl API's
 ##############################################################################
-## @BEGIN_CHANGELOG EDK_M
+## BEGIN_CHANGELOG EDK_M
 ##  Removed the local ::hsi::utils::define_canonical_xpars API as there is
 ##  a common API in the tcl of the tools
 ##
-## @END_CHANGELOG
+## END_CHANGELOG
 
-## @BEGIN_CHANGELOG EDK_LS3
+## BEGIN_CHANGELOG EDK_LS3
 ##   Updated to handle the corner cases described in CR #518193 while
 ##   generating canonical definitions
 ##
-## @END_CHANGELOG
+## END_CHANGELOG
 
 #uses "xillib.tcl"
 
