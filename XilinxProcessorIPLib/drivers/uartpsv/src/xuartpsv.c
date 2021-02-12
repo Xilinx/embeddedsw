@@ -569,7 +569,7 @@ s32 XUartPsv_SetBaudRate(XUartPsv *InstancePtr, u32 BaudRate)
  * 	5. Enable the Uart
  *
  * @param	InstancePtr is a pointer to the XUartPsv instance
- * @param	Control Register value to be written
+ * @param	CtrlRegister value to be written
  *
  * @return	None.
  *

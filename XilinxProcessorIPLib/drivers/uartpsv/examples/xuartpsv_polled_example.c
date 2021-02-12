@@ -77,7 +77,6 @@ int TotalErrorCount;
 *
 * Main function to call the Uart Polled mode example.
 *
-* @param	None
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
 *

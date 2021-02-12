@@ -60,7 +60,6 @@ XUartPsv Uart_Psv;		/* The instance of the UARTPSV Driver */
 *
 * Main function to call the Hello World example.
 *
-* @param	None
 *
 * @return
 *		- XST_FAILURE if the Test Failed .
