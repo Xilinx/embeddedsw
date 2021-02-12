@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xcanps_sinit.c
-* @addtogroup canps_v3_5
+* @addtogroup canps_v3_6
 * @{
 *
 * This file contains the implementation of the XCanPs driver's static
