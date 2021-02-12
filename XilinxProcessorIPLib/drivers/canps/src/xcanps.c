@@ -50,7 +50,7 @@
 static void StubHandler(void);
 
 /*****************************************************************************/
-/*
+/**
 *
 * This function initializes a XCanPs instance/driver.
 *
@@ -1197,7 +1197,7 @@ u8 XCanPs_GetTxIntrWatermark(XCanPs *InstancePtr)
 
 
 /******************************************************************************/
-/*
+/**
  * This routine is a stub for the asynchronous callbacks. The stub is here in
  * case the upper layer forgot to set the handler(s). On initialization, all
  * handlers are set to this callback. It is considered an error for this handler

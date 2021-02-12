@@ -189,7 +189,7 @@
 *
 ******************************************************************************/
 #ifndef XCANPS_H			/* prevent circular inclusions */
-#define XCANPS_H			/* by using protection macros */
+#define XCANPS_H			/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -211,7 +211,7 @@ extern "C" {
 #define XCANPS_MODE_LOOPBACK	0x00000004U /**< Loop Back mode */
 #define XCANPS_MODE_SLEEP	0x00000008U /**< Sleep mode */
 #define XCANPS_MODE_SNOOP	0x00000010U /**< Snoop mode */
-/* @} */
+/** @} */
 
 /** @name Callback identifiers used as parameters to XCanPs_SetHandler()
  *  @{
@@ -220,7 +220,7 @@ extern "C" {
 #define XCANPS_HANDLER_RECV 2U /**< Handler type for frame reception interrupt*/
 #define XCANPS_HANDLER_ERROR  3U /**< Handler type for error interrupt */
 #define XCANPS_HANDLER_EVENT  4U /**< Handler type for all other interrupts */
-/* @} */
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
@@ -281,26 +281,26 @@ typedef struct {
 	 * Callback and callback reference for TXOK interrupt.
 	 */
 	XCanPs_SendRecvHandler SendHandler;
-	void *SendRef;
+	void *SendRef;		/**< Reference Pointer for Send */
 
 	/**
 	 * Callback and callback reference for RXOK/RXNEMP/RXFLL interrupts.
 	 */
 	XCanPs_SendRecvHandler RecvHandler;
-	void *RecvRef;
+	void *RecvRef;		/**< Reference Pointer for Receive */
 
 	/**
 	 * Callback and callback reference for ERROR interrupt.
 	 */
 	XCanPs_ErrorHandler ErrorHandler;
-	void *ErrorRef;
+	void *ErrorRef;		/**< Reference Pointer for Error */
 
 	/**
 	 * Callback  and callback reference for RXOFLW/RXUFLW/TXBFLL/TXFLL/
 	 * Wakeup/Sleep/Bus off/ARBLST interrupts.
 	 */
 	XCanPs_EventHandler EventHandler;
-	void *EventRef;
+	void *EventRef;		 /**< Reference Pointer for Event */
 	u32 IsBusy;              /**< A transfer is in progress (state) */
 
 } XCanPs;
