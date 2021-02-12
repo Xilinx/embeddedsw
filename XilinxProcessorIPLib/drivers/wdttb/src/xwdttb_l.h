@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xwdttb_l.h
-* @addtogroup wdttb_v5_1
+* @addtogroup wdttb_v5_2
 * @{
 *
 * This header file contains identifiers and basic driver functions (or
