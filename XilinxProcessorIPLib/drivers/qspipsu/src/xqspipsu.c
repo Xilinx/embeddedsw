@@ -338,8 +338,7 @@ void XQspiPsu_Abort(XQspiPsu *InstancePtr)
  *
  *
  * @param       InstancePtr is a pointer to the XQspiPsu instance.
- * @param       Msg is a pointer to the structure containing transfer data.l
- * @param       Index is the message number to be transferred.
+ * @param       StatusReg is the Interrupt status Register value.
  *
  * @return	None.
  *
@@ -823,7 +822,7 @@ void XQspiPsu_SetStatusHandler(XQspiPsu *InstancePtr, void *CallBackRef,
  * @brief
  * This API enables/ disables Write Protect pin on the flash parts.
  *
- * @param	QspiPsuPtr is a pointer to the QSPIPSU driver component to use.
+ * @param	InstancePtr is a pointer to the QSPIPSU driver component to use.
  *
  * @param	Toggle is a value of the GPIO pin
  *

@@ -10,7 +10,6 @@
  * @file xqspipsu_control.h
  * @addtogroup qspipsu_v1_13
  * @{
- * @details
  *
  * This is the header file for the implementation of QSPIPSU driver.
  * Generic QSPI interface allows for communication to any QSPI slave device.

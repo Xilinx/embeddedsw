@@ -48,7 +48,6 @@
  *
  * @param	InstancePtr is a pointer to the XQspiPsu instance.
  * @param	Msg is a pointer to the structure containing transfer data.
- * @param	Index of the current message to be handled.
  *
  * @return
  *		- XST_SUCCESS if successful.
@@ -116,7 +115,6 @@ void XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg)
  *
  * @param	InstancePtr is a pointer to the XQspiPsu instance.
  *
- * @param	Statuscommand is the status command which send by controller.
  *
  * @param	FlashMsg is a pointer to the structure containing transfer data
  *
@@ -278,3 +276,4 @@ s32 XQspipsu_Calculate_Tapdelay(const XQspiPsu *InstancePtr, u8 Prescaler)
 	}
 }
 #endif
+/** @} */
