@@ -38,6 +38,7 @@
 *       ana  10/19/2020 Added doxygen comments
 * 1.05  bm   12/15/2020 Added Update Multiboot command
 *       bsv  02/09/2021 Added input param validation for APIs
+*       bsv  02/12/2021 Initialize pointer variable to NULL before use
 *
 * </pre>
 *
@@ -252,7 +253,7 @@ END:
 static int XLoader_GetImageInfo(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
-	const XLoader_ImageInfo *ImageInfo;
+	const XLoader_ImageInfo *ImageInfo = NULL;
 
 	if (Cmd->Payload[XLOADER_CMD_GET_IMG_INFO_IMGID_INDEX] ==
 		XLOADER_INVALID_IMG_ID) {
