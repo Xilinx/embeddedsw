@@ -58,7 +58,6 @@ XScuWdt Watchdog;		/* Cortex SCU Private WatchDog Timer Instance */
 *
 * Main function to call the Scu Priver Wdt polled mode example.
 *
-* @param	None.
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
 *

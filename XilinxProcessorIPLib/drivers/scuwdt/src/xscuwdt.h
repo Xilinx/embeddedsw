@@ -105,6 +105,7 @@
 *                    incremental builds. It would help to reduce compilaton
 *                    time.
 * 2.3	sne 09/16/20 Fixed MISRA-C violations.
+* 2.4	sne 02/04/21 Fixed Doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
