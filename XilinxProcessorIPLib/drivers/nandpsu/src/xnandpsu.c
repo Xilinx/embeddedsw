@@ -1706,9 +1706,7 @@ static s32 XNandPsu_ProgramPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 * This function sends ONFI Program Page command to flash.
 *
 * @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	Target is the chip select value.
 * @param	Page is the page address value to program.
-* @param	Col is the column address value to program.
 * @param	Buf is the data buffer to program.
 *
 * @return
@@ -1977,7 +1975,6 @@ static s32 XNandPsu_ReadPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 * This function reads spare bytes from flash.
 *
 * @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	Target is the chip select value.
 * @param	Page is the page address value to read.
 * @param	Buf is the data buffer to fill in.
 *
@@ -2567,9 +2564,10 @@ static s32 XNandPsu_InitExtEcc(XNandPsu *InstancePtr, OnfiExtPrmPage *ExtPrm)
 *
 * @param	InstancePtr is a pointer to the XNandPsu instance.
 * @param	Cmd1 is the first Onfi Command.
-* @param	Cmd1 is the second Onfi Command.
+* @param	Cmd2 is the second Onfi Command.
 * @param	EccState is the flag to set Ecc State.
 * @param	DmaMode is the flag to set DMA mode.
+* @param	AddrCycles is the number of Address Cycles.
 *
 * @return
 *		None

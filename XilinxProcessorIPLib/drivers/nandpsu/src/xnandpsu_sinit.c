@@ -45,7 +45,7 @@ extern XNandPsu_Config XNandPsu_ConfigTable[];
 * Looks up the controller configuration based on the unique controller ID. A
 * table contains the configuration info for each controller in the system.
 *
-* @param	DeviceID is the ID of the controller to look up the
+* @param	DevID is the ID of the controller to look up the
 *		configuration for.
 *
 * @return
