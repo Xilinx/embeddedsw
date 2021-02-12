@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -57,6 +57,8 @@
 #define XBIR_SSI_JSON_SUCCESS_RESPONSE		"{\"Status\":\"Success\"}"
 
 #define XBIR_SSI_CARD_COUNT			(2U)
+#define XBIR_SSI_IMG_BOOTABLE			(1U)
+#define XBIR_SSI_IMG_NON_BOOTABLE		(0U)
 
 /**************************** Type Definitions *******************************/
 typedef enum {
@@ -450,15 +452,15 @@ int Xbir_SsiUpdateImgA (struct tcp_pcb *Tpcb, u8 *HttpReq,
 	BootImgStatus = Xbir_SysGetBootImgStatus();
 
 	Xbir_Printf("Making the boot img A non-bootable\r\n");
-	Status = Xbir_SysUpdateBootImgStatus(0U, BootImgStatus->ImgBBootable,
-		BootImgStatus->RequestedBootImg);
+	Status = Xbir_SysUpdateBootImgStatus(XBIR_SSI_IMG_NON_BOOTABLE,
+		BootImgStatus->ImgBBootable, BootImgStatus->RequestedBootImg);
 	if (XST_SUCCESS == Status) {
 		Xbir_Printf("Initiating img A upload\r\n");
 		Status = Xbir_SsiInitiateImgUpdate(Tpcb, HttpReq, HttpReqLen,
 			XBIR_SYS_BOOT_IMG_A_ID);
 	}
 	else {
-		Xbir_Printf("ERROR: mageA upload failed\r\n");
+		Xbir_Printf("ERROR: ImageA upload failed\r\n");
 		Status = XBIR_ERROR_IMG_A_UPLOAD;
 	}
 	return Status;
@@ -486,7 +488,8 @@ int Xbir_SsiUpdateImgB (struct tcp_pcb *Tpcb, u8 *HttpReq,
 	BootImgStatus = Xbir_SysGetBootImgStatus();
 
 	Xbir_Printf("Making the boot img B non-bootable\r\n");
-	Status = Xbir_SysUpdateBootImgStatus(BootImgStatus->ImgBBootable, 0U,
+	Status = Xbir_SysUpdateBootImgStatus(BootImgStatus->ImgABootable,
+		XBIR_SSI_IMG_NON_BOOTABLE,
 		BootImgStatus->RequestedBootImg);
 	if (XST_SUCCESS == Status) {
 		Xbir_Printf("Initiating img B upload\r\n");
@@ -579,14 +582,14 @@ u32 Xbir_SsiValidateLastUpdate (char *JsonStr, u16 JsonStrLen)
 		BootImgStatus = Xbir_SysGetBootImgStatus();
 		if (XBIR_SYS_BOOT_IMG_A_ID == Xbir_SsiLastImgUpload) {
 			Xbir_Printf("Making the boot image A requested image\r\n");
-			Status = Xbir_SysUpdateBootImgStatus(BootImgStatus->ImgABootable,
+			Status = Xbir_SysUpdateBootImgStatus(XBIR_SSI_IMG_BOOTABLE,
 				 BootImgStatus->ImgBBootable,
 				 XBIR_SYS_BOOT_IMG_A_ID);
 		}
 		else if (XBIR_SYS_BOOT_IMG_B_ID == Xbir_SsiLastImgUpload) {
 			Xbir_Printf("Making the boot image B requested image\r\n");
 			Status = Xbir_SysUpdateBootImgStatus(BootImgStatus->ImgABootable,
-				 BootImgStatus->ImgBBootable,
+				 XBIR_SSI_IMG_BOOTABLE,
 				 XBIR_SYS_BOOT_IMG_B_ID);
 		}
 		else {
