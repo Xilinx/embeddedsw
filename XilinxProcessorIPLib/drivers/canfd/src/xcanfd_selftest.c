@@ -38,7 +38,7 @@
 
 /************************** Constant Definitions ****************************/
 
-#define XCANFD_MAX_FRAME_SIZE_IN_BYTES 72
+#define XCANFD_MAX_FRAME_SIZE_IN_BYTES 72 /**< Maximum Frame size */
 
 /**************************** Type Definitions ******************************/
 
@@ -47,31 +47,31 @@
 /************************** Variable Definitions ****************************/
 
 /* Buffers to hold frames to send and receive. */
-static u32 TxFrame[XCANFD_MAX_FRAME_SIZE_IN_BYTES];
-static u32 RxFrame[XCANFD_MAX_FRAME_SIZE_IN_BYTES];
+static u32 TxFrame[XCANFD_MAX_FRAME_SIZE_IN_BYTES]; /**< TxFrame Buffer */
+static u32 RxFrame[XCANFD_MAX_FRAME_SIZE_IN_BYTES]; /**< RxFrame Buffer */
 
 /************************** Function Prototypes *****************************/
 
 /* Message Id Constant. */
-#define TEST_MESSAGE_ID	1024
+#define TEST_MESSAGE_ID	1024	/**< Message id */
 
 /* CAN Dlc Value */
-#define TEST_CANFD_DLC	8
+#define TEST_CANFD_DLC	8	/**< DLC Value */
 
 /* CAN FD FilterIndex Value */
-#define TEST_MAIL_BOX_MASK 0xFFFFFFFFU
+#define TEST_MAIL_BOX_MASK 0xFFFFFFFFU	/**< Mailbox Fileter Index Value */
 
-#define TEST_BRPR_BAUD_PRESCALAR	29
+#define TEST_BRPR_BAUD_PRESCALAR	29 /**< Baud Rate Prescalar */
 
-#define TEST_BTR_SYNCJUMPWIDTH		3
-#define TEST_BTR_SECOND_TIMESEGMENT	2
-#define TEST_BTR_FIRST_TIMESEGMENT	15
+#define TEST_BTR_SYNCJUMPWIDTH		3  /**< Synchronization Jump Width */
+#define TEST_BTR_SECOND_TIMESEGMENT	2  /**< Time Segment 2 */
+#define TEST_BTR_FIRST_TIMESEGMENT	15 /**< Time Segment 1 */
 
-#define TEST_FBRPR_BAUD_PRESCALAR	29
+#define TEST_FBRPR_BAUD_PRESCALAR	29 /**< Baud Rate Prescalar for canfd */
 
-#define TEST_FBTR_SYNCJUMPWIDTH		3
-#define TEST_FBTR_SECOND_TIMESEGMENT	2
-#define TEST_FBTR_FIRST_TIMESEGMENT	15
+#define TEST_FBTR_SYNCJUMPWIDTH		3  /**< Synchronization Jump Width for Canfd */
+#define TEST_FBTR_SECOND_TIMESEGMENT	2  /**< Time Segment 2 for Canfd */
+#define TEST_FBTR_FIRST_TIMESEGMENT	15 /**< Time Segment 1 for Canfd */
 
 /**
 *

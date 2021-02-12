@@ -1334,7 +1334,6 @@ XCanFd_Config *XCanFd_GetConfig(unsigned int InstanceIndex)
 * handlers are set to this callback. It is considered an error for this handler
 * to be invoked.
 *
-* @param	None.
 *
 * @return	None.
 *
@@ -1781,7 +1780,7 @@ void XCanFd_Disable_Tranceiver_Delay_Compensation(XCanFd *InstancePtr)
 *
 * This function calculates the index position of the right most set bit.
 *
-* @param	GlobalTrrValue
+* @param	u is GlobalTrrValue
 *
 * @return	Index location of right most set bit
 *
@@ -1806,11 +1805,11 @@ static int XCanfd_TrrVal_Get_SetBit_Position(u32 u) {
 * value.
 *
 * @param	InstancePtr is a pointer to the XCanFd instance to be worked on.
-* @param	Current RI(Read Index) maintained by Can Core.
-* @param    Fifo Status Registor value.
+* @param	ReadIndex is Current RI(Read Index) maintained by Can Core.
+* @param    	FsrVal is Fifo Status Registor value.
 * @param	FramePtr is a pointer to a 32-bit aligned buffer where the
 *		    CAN/CAN FD frame is to be written.
-* @param    Target fifo number
+* @param    	fifo_no is target fifo number
 *
 * @return	- XST_SUCCESS after all operations
 *

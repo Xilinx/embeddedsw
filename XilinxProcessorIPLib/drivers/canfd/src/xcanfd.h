@@ -261,7 +261,7 @@ exclusion
 ******************************************************************************/
 
 #ifndef XCANFD_H			/* prevent circular inclusions */
-#define XCANFD_H			/* by using protection macros */
+#define XCANFD_H			/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -277,27 +277,28 @@ extern "C" {
  *  @{
  */
 #if defined (CANFD_v1_0)
-#define XCANFD_MAX_SJW_VALUE 0x10
-#define XCANFD_MAX_TS1_VALUE 0x40
-#define XCANFD_MAX_TS2_VALUE 0x20
+#define XCANFD_MAX_SJW_VALUE 0x10  /**< Synchronization Jump Width */
+#define XCANFD_MAX_TS1_VALUE 0x40  /**< Time Segment 1 */
+#define XCANFD_MAX_TS2_VALUE 0x20  /**< Time Segment 2 */
 #else
-#define XCANFD_MAX_SJW_VALUE 0x80
-#define XCANFD_MAX_TS1_VALUE 0x100
-#define XCANFD_MAX_TS2_VALUE 0x80
+#define XCANFD_MAX_SJW_VALUE 0x80  /**< Synchronization Jump Width */
+#define XCANFD_MAX_TS1_VALUE 0x100 /**< Time Segment 1 */
+#define XCANFD_MAX_TS2_VALUE 0x80  /**< Time Segment 2 */
 #endif
-
+/** @} */
 /** @name CAN Fast Bit rate fields
  *  @{
  */
 #if defined (CANFD_v1_0)
-#define XCANFD_MAX_F_SJW_VALUE 0x03
-#define XCANFD_MAX_F_TS1_VALUE 0x0F
-#define XCANFD_MAX_F_TS2_VALUE 0x07
+#define XCANFD_MAX_F_SJW_VALUE 0x03 /**< Synchronization Jump Width for Data Phase*/
+#define XCANFD_MAX_F_TS1_VALUE 0x0F /**< Time Segment 1 for Data Phase */
+#define XCANFD_MAX_F_TS2_VALUE 0x07 /**< Time Segment 2 for Data Phase */
 #else
-#define XCANFD_MAX_F_SJW_VALUE 0x10
-#define XCANFD_MAX_F_TS1_VALUE 0x20
-#define XCANFD_MAX_F_TS2_VALUE 0x10
+#define XCANFD_MAX_F_SJW_VALUE 0x10 /**< Synchronization Jump Width for Data Phase */
+#define XCANFD_MAX_F_TS1_VALUE 0x20 /**< Time Segment 1 for Data Phase */
+#define XCANFD_MAX_F_TS2_VALUE 0x10 /**< Time Segment 2 for Data Phase */
 #endif
+/** @} */
 /** @name CAN operation modes
  *  @{
  */
@@ -313,7 +314,7 @@ extern "C" {
 #define XCANFD_MODE_BR		0x0000000B /**< Bus-Off Recovery Mode */
 #define XCANFD_RX_FIFO_0	         0 /**< Selection for RX Fifo 0 */
 #define XCANFD_RX_FIFO_1	         1 /**< Selection for RX Fifo 1 */
-/* @} */
+/** @} */
 
 /** @name Callback identifiers used as parameters to XCanFd_SetHandler()
  *  @{
@@ -324,7 +325,7 @@ extern "C" {
 								 */
 #define XCANFD_HANDLER_ERROR  3 /**< Handler type for error interrupt */
 #define XCANFD_HANDLER_EVENT  4 /**< Handler type for all other interrupts */
-/* @} */
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
@@ -341,7 +342,7 @@ typedef struct {
 } XCanFd_Config;
 
 /************************** Variable Definitions *****************************/
-extern XCanFd_Config XCanFd_ConfigTable[];
+extern XCanFd_Config XCanFd_ConfigTable[]; /**< Config table */
 
 /*****************************************************************************/
 /**
@@ -396,17 +397,23 @@ typedef struct {
 	u32 GlobalTrrMask;  /**< used in multibuffer send case
 							to update TRR Register */
 
+	/** Callback for TXOK interrupts */
 	XCanFd_SendRecvHandler SendHandler;
-	void *SendRef;
+	void *SendRef;	   /**< This will be passed to the TXOK interrupt callback */
 
+	/** Callback for RXOK interrupt */
 	XCanFd_SendRecvHandler RecvHandler;
-	void *RecvRef;
+	void *RecvRef;	  /**< This will be passed to the RXOK interrupt callback */
 
+	/** Callback for ERROR interrupt */
 	XCanFd_ErrorHandler ErrorHandler;
-	void *ErrorRef;
+	void *ErrorRef;   /**< This will be passed to the ERROR interrupt callback */
 
+	/** Callback for RXOFLW/RXUFLW/TXBFLL/TXFLL/Wakeup/Sleep/Bus off/ARBLST
+	 *  interrupts
+	 */
 	XCanFd_EventHandler EventHandler;
-	void *EventRef;
+	void *EventRef;	  /**< This will be passed to the EventHandler callback */
 
 }XCanFd;
 
