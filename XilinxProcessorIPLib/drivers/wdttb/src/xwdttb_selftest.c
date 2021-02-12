@@ -52,10 +52,11 @@
 #include "xwdttb.h"
 
 /************************** Constant Definitions *****************************/
-#define XWT_MAX_SELFTEST_LOOP_COUNT	0x00010000U
-#define XWT_FW_COUNT			0x0U
-#define XWT_SW_COUNT			0x10000U
-#define XWT_GWOR_COUNT                  0x00001000U
+#define XWT_MAX_SELFTEST_LOOP_COUNT	0x00010000U /**< Loopt count */
+#define XWT_FW_COUNT			0x0U	    /**< Fist Window count */
+#define XWT_SW_COUNT			0x10000U    /**< Second window count */
+#define XWT_GWOR_COUNT			0x00001000U /**< Generic Watchdog
+						     * Offset Regiser */
 /**************************** Type Definitions *******************************/
 
 
