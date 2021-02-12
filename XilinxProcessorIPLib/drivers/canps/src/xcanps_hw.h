@@ -39,7 +39,7 @@
 ******************************************************************************/
 
 #ifndef XCANPS_HW_H		/* prevent circular inclusions */
-#define XCANPS_HW_H		/* by using protection macros */
+#define XCANPS_HW_H		/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -95,14 +95,14 @@ extern "C" {
 #define XCANPS_AFIR3_OFFSET	  	0x00000078U /**< Acceptance Filter ID 3 */
 #define XCANPS_AFMR4_OFFSET	  	0x0000007CU /**< Acceptance Filter Mask  4 */
 #define XCANPS_AFIR4_OFFSET	  	0x00000080U /**< Acceptance Filter ID 4 */
-/* @} */
+/** @} */
 
 /** @name Software Reset Register (SRR) Bit Definitions and Masks
  *  @{
  */
 #define XCANPS_SRR_CEN_MASK		0x00000002U  /**< Can Enable */
 #define XCANPS_SRR_SRST_MASK	0x00000001U  /**< Reset */
-/* @} */
+/** @} */
 
 /** @name Mode Select Register (MSR) Bit Definitions and Masks
  *  @{
@@ -110,31 +110,31 @@ extern "C" {
 #define XCANPS_MSR_SNOOP_MASK	0x00000004U /**< Snoop Mode Select */
 #define XCANPS_MSR_LBACK_MASK	0x00000002U /**< Loop Back Mode Select */
 #define XCANPS_MSR_SLEEP_MASK	0x00000001U /**< Sleep Mode Select */
-/* @} */
+/** @} */
 
 /** @name Baud Rate Prescaler register (BRPR) Bit Definitions and Masks
  *  @{
  */
 #define XCANPS_BRPR_BRP_MASK	0x000000FFU /**< Baud Rate Prescaler */
-/* @} */
+/** @} */
 
 /** @name Bit Timing Register (BTR) Bit Definitions and Masks
  *  @{
  */
 #define XCANPS_BTR_SJW_MASK	0x00000180U /**< Synchronization Jump Width */
-#define XCANPS_BTR_SJW_SHIFT	7U
+#define XCANPS_BTR_SJW_SHIFT	7U	    /**< Shift Value for SJW */
 #define XCANPS_BTR_TS2_MASK	0x00000070U /**< Time Segment 2 */
-#define XCANPS_BTR_TS2_SHIFT	4U
+#define XCANPS_BTR_TS2_SHIFT	4U	    /**< Shift Value for TS2 */
 #define XCANPS_BTR_TS1_MASK	0x0000000FU /**< Time Segment 1 */
-/* @} */
+/** @} */
 
 /** @name Error Counter Register (ECR) Bit Definitions and Masks
  *  @{
  */
 #define XCANPS_ECR_REC_MASK	0x0000FF00U /**< Receive Error Counter */
-#define XCANPS_ECR_REC_SHIFT		 8U
+#define XCANPS_ECR_REC_SHIFT		 8U /**< Shift Value for REC */
 #define XCANPS_ECR_TEC_MASK	0x000000FFU /**< Transmit Error Counter */
-/* @} */
+/** @} */
 
 /** @name Error Status Register (ESR) Bit Definitions and Masks
  *  @{
@@ -144,7 +144,7 @@ extern "C" {
 #define XCANPS_ESR_STER_MASK	0x00000004U /**< Stuff Error */
 #define XCANPS_ESR_FMER_MASK	0x00000002U /**< Form Error */
 #define XCANPS_ESR_CRCER_MASK	0x00000001U /**< CRC Error */
-/* @} */
+/** @} */
 
 /** @name Status Register (SR) Bit Definitions and Masks
  *  @{
@@ -154,7 +154,7 @@ extern "C" {
 #define XCANPS_SR_TXFLL_MASK	0x00000400U /**< TX FIFO is full */
 #define XCANPS_SR_TXBFLL_MASK	0x00000200U /**< TX High Priority Buffer full */
 #define XCANPS_SR_ESTAT_MASK	0x00000180U /**< Error Status */
-#define XCANPS_SR_ESTAT_SHIFT			 7U
+#define XCANPS_SR_ESTAT_SHIFT	7U	    /**< Shift value for ESTAT */
 #define XCANPS_SR_ERRWRN_MASK	0x00000040U /**< Error Warning */
 #define XCANPS_SR_BBSY_MASK		0x00000020U /**< Bus Busy */
 #define XCANPS_SR_BIDLE_MASK	0x00000010U /**< Bus Idle */
@@ -162,7 +162,7 @@ extern "C" {
 #define XCANPS_SR_SLEEP_MASK	0x00000004U /**< Sleep Mode */
 #define XCANPS_SR_LBACK_MASK	0x00000002U /**< Loop Back Mode */
 #define XCANPS_SR_CONFIG_MASK	0x00000001U /**< Configuration Mode */
-/* @} */
+/** @} */
 
 /** @name Interrupt Status/Enable/Clear Register Bit Definitions and Masks
  *  @{
@@ -195,13 +195,14 @@ extern "C" {
 				(u32)XCANPS_IXR_TXFLL_MASK  | \
 				(u32)XCANPS_IXR_TXOK_MASK   | \
 				(u32)XCANPS_IXR_ARBLST_MASK)
-/* @} */
+				/**< Basic interrupts */
+/** @} */
 
 /** @name CAN Timestamp Control Register (TCR) Bit Definitions and Masks
  *  @{
  */
 #define XCANPS_TCR_CTS_MASK	0x00000001U /**< Clear Timestamp counter mask */
-/* @} */
+/** @} */
 
 /** @name CAN Watermark Register (WIR) Bit Definitions and Masks
  *  @{
@@ -210,55 +211,55 @@ extern "C" {
 #define XCANPS_WIR_EW_MASK 	0x00003F00U /**< Tx Empty Threshold mask */
 #define XCANPS_WIR_EW_SHIFT 	0x00000008U /**< Tx Empty Threshold shift */
 
-/* @} */
+/** @} */
 
 /** @name CAN Frame Identifier (TX High Priority Buffer/TX/RX/Acceptance Filter
 				Mask/Acceptance Filter ID)
  *  @{
  */
 #define XCANPS_IDR_ID1_MASK	0xFFE00000U /**< Standard Messg Identifier */
-#define XCANPS_IDR_ID1_SHIFT	21U
+#define XCANPS_IDR_ID1_SHIFT	21U	    /**< Shift Value for ID1 */
 #define XCANPS_IDR_SRR_MASK	0x00100000U /**< Substitute Remote TX Req */
-#define XCANPS_IDR_SRR_SHIFT	20U
+#define XCANPS_IDR_SRR_SHIFT	20U	    /**< Shift Value for SRR */
 #define XCANPS_IDR_IDE_MASK	0x00080000U /**< Identifier Extension */
-#define XCANPS_IDR_IDE_SHIFT	19U
+#define XCANPS_IDR_IDE_SHIFT	19U	    /**< Shift Value for IDE */
 #define XCANPS_IDR_ID2_MASK	0x0007FFFEU /**< Extended Message Ident */
-#define XCANPS_IDR_ID2_SHIFT	1U
+#define XCANPS_IDR_ID2_SHIFT	1U	    /**< Shift Value for ID2 */
 #define XCANPS_IDR_RTR_MASK	0x00000001U /**< Remote TX Request */
-/* @} */
+/** @} */
 
 /** @name CAN Frame Data Length Code (TX High Priority Buffer/TX/RX)
  *  @{
  */
 #define XCANPS_DLCR_DLC_MASK	 0xF0000000U	/**< Data Length Code */
-#define XCANPS_DLCR_DLC_SHIFT	 28U
+#define XCANPS_DLCR_DLC_SHIFT	 28U		/**< Shift Value for DLC */
 #define XCANPS_DLCR_TIMESTAMP_MASK 0x0000FFFFU	/**< Timestamp Mask (Rx only) */
 
-/* @} */
+/** @} */
 
 /** @name CAN Frame Data Word 1 (TX High Priority Buffer/TX/RX)
  *  @{
  */
 #define XCANPS_DW1R_DB0_MASK	0xFF000000U /**< Data Byte 0 */
-#define XCANPS_DW1R_DB0_SHIFT	24U
+#define XCANPS_DW1R_DB0_SHIFT	24U	    /**< Shift Value for Data Byte 0 */
 #define XCANPS_DW1R_DB1_MASK	0x00FF0000U /**< Data Byte 1 */
-#define XCANPS_DW1R_DB1_SHIFT	16U
+#define XCANPS_DW1R_DB1_SHIFT	16U	    /**< Shift Value for Data Byte 1 */
 #define XCANPS_DW1R_DB2_MASK	0x0000FF00U /**< Data Byte 2 */
-#define XCANPS_DW1R_DB2_SHIFT	8U
+#define XCANPS_DW1R_DB2_SHIFT	8U	    /**< Shift Value for Data Byte 2 */
 #define XCANPS_DW1R_DB3_MASK	0x000000FFU /**< Data Byte 3 */
-/* @} */
+/** @} */
 
 /** @name CAN Frame Data Word 2 (TX High Priority Buffer/TX/RX)
  *  @{
  */
 #define XCANPS_DW2R_DB4_MASK	0xFF000000U /**< Data Byte 4 */
-#define XCANPS_DW2R_DB4_SHIFT	24U
+#define XCANPS_DW2R_DB4_SHIFT	24U	    /**< Shift Value for Data Byte 4 */
 #define XCANPS_DW2R_DB5_MASK	0x00FF0000U /**< Data Byte 5 */
-#define XCANPS_DW2R_DB5_SHIFT	16U
+#define XCANPS_DW2R_DB5_SHIFT	16U	    /**< Shift Value for Data Bbyet 5 */
 #define XCANPS_DW2R_DB6_MASK	0x0000FF00U /**< Data Byte 6 */
-#define XCANPS_DW2R_DB6_SHIFT	8U
+#define XCANPS_DW2R_DB6_SHIFT	8U	    /**< Shift Value for Data Byte 6 */
 #define XCANPS_DW2R_DB7_MASK	0x000000FFU /**< Data Byte 7 */
-/* @} */
+/** @} */
 
 /** @name Acceptance Filter Register (AFR) Bit Definitions and Masks
  *  @{
@@ -271,23 +272,24 @@ extern "C" {
 					(u32)XCANPS_AFR_UAF3_MASK | \
 					(u32)XCANPS_AFR_UAF2_MASK | \
 					(u32)XCANPS_AFR_UAF1_MASK)
-/* @} */
+					/**< Mask for Acceptance Filers */
+/** @} */
 
 /** @name CAN frame length constants
  *  @{
  */
 #define XCANPS_MAX_FRAME_SIZE sizeof(u32)*16U /**< Maximum CAN frame length in bytes */
-/* @} */
+/** @} */
 
 /* For backwards compatibility */
-#define XCANPS_TXBUF_ID_OFFSET   XCANPS_TXHPB_ID_OFFSET
-#define XCANPS_TXBUF_DLC_OFFSET  XCANPS_TXHPB_DLC_OFFSET
-#define XCANPS_TXBUF_DW1_OFFSET  XCANPS_TXHPB_DW1_OFFSET
-#define XCANPS_TXBUF_DW2_OFFSET  XCANPS_TXHPB_DW2_OFFSET
+#define XCANPS_TXBUF_ID_OFFSET   XCANPS_TXHPB_ID_OFFSET	 /**< TX High Priority Buffer ID */
+#define XCANPS_TXBUF_DLC_OFFSET  XCANPS_TXHPB_DLC_OFFSET /**< TX High Priority Buffer DLC */
+#define XCANPS_TXBUF_DW1_OFFSET  XCANPS_TXHPB_DW1_OFFSET /**< TX High Priority Buf Data 1 */
+#define XCANPS_TXBUF_DW2_OFFSET  XCANPS_TXHPB_DW2_OFFSET /**< TX High Priority Buf Data Word 2 */
 
-#define XCANPS_RXFWIR_RXFLL_MASK XCANPS_WIR_FW_MASK
-#define XCANPS_RXWIR_OFFSET 	 XCANPS_WIR_OFFSET
-#define XCANPS_IXR_RXFLL_MASK 	 XCANPS_IXR_RXFWMFLL_MASK
+#define XCANPS_RXFWIR_RXFLL_MASK XCANPS_WIR_FW_MASK  /**< Rx Full Threshold mask */
+#define XCANPS_RXWIR_OFFSET 	 XCANPS_WIR_OFFSET  /**< Watermark Interrupt Reg */
+#define XCANPS_IXR_RXFLL_MASK 	 XCANPS_IXR_RXFWMFLL_MASK /**< Rx FIFO Watermark Full */
 
 
 

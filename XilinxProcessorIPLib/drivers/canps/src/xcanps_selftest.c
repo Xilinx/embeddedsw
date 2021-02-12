@@ -42,8 +42,9 @@
 /************************** Constant Definitions ****************************/
 
 #define XCANPS_MAX_FRAME_SIZE_IN_WORDS ((XCANPS_MAX_FRAME_SIZE) / (sizeof(u32)))
+				   /**< Flag for Max Frame size */
 
-#define FRAME_DATA_LENGTH	8U /* Frame Data field length */
+#define FRAME_DATA_LENGTH	8U /**< Frame Data field length */
 
 /**************************** Type Definitions ******************************/
 
@@ -51,12 +52,12 @@
 
 /************************** Variable Definitions ****************************/
 
-/*
+/**
  * Buffers to hold frames to send and receive. These are declared as global so
  * that they are not on the stack.
  */
-static u32 TxFrame[XCANPS_MAX_FRAME_SIZE_IN_WORDS];
-static u32 RxFrame[XCANPS_MAX_FRAME_SIZE_IN_WORDS];
+static u32 TxFrame[XCANPS_MAX_FRAME_SIZE_IN_WORDS]; /**< Txframe buffer */
+static u32 RxFrame[XCANPS_MAX_FRAME_SIZE_IN_WORDS]; /**< Rxframe buffer */
 
 /************************** Function Prototypes *****************************/
 
