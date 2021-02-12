@@ -1,12 +1,12 @@
 /******************************************************************************
-* Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /******************************************************************************/
 /**
 * @file xgpio_i.h
-* @addtogroup gpio_v4_7
+* @addtogroup gpio_v4_8
 * @{
 *
 * This header file contains internal identifiers, which are those shared
