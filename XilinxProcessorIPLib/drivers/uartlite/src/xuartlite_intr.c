@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartlite_intr.c
-* @addtogroup uartlite_v3_5
+* @addtogroup uartlite_v3_6
 * @{
 *
 * This file contains interrupt-related functions for the UART Lite component
