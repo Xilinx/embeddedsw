@@ -73,7 +73,7 @@
 *
 ******************************************************************************/
 #ifndef XWDTPS_H		/* prevent circular inclusions */
-#define XWDTPS_H		/* by using protection macros */
+#define XWDTPS_H		/**< by using protection macros */
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
