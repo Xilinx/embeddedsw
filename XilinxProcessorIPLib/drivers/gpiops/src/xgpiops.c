@@ -52,10 +52,10 @@
 
 /************************** Function Prototypes ******************************/
 
-extern void StubHandler(void *CallBackRef, u32 Bank, u32 Status);
+extern void StubHandler(void *CallBackRef, u32 Bank, u32 Status); /**< Stub handler */
 
 /*****************************************************************************/
-/*
+/**
 *
 * This function initializes a XGpioPs instance/driver.
 * All members of the XGpioPs instance structure are initialized and
@@ -659,7 +659,7 @@ u32 XGpioPs_GetOutputEnablePin(const XGpioPs *InstancePtr, u32 Pin)
 }
 
 /****************************************************************************/
-/*
+/**
 *
 * Get the Bank number and the Pin number in the Bank, for the given PinNumber
 * in the GPIO device.
