@@ -67,7 +67,6 @@ XUartPs Uart_Ps;		/* The instance of the UART Driver */
 *
 * Main function to call the Hello World example.
 *
-* @param	None
 *
 * @return
 *		- XST_FAILURE if the Test Failed .

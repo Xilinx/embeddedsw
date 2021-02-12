@@ -86,7 +86,6 @@ u8 SendBuffer[TEST_BUFFER_SIZE];	/* Buffer for Transmitting Data */
 *
 * Main function to call the Uart Echo example.
 *
-* @param	None
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
 *
