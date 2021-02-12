@@ -38,7 +38,7 @@
 ******************************************************************************/
 
 #ifndef XCANFD_HW_H		/* prevent circular inclusions */
-#define XCANFD_HW_H		/* by using protection macros */
+#define XCANFD_HW_H		/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -82,7 +82,7 @@ extern "C" {
 #define XCANFD_RSD1_OFFSET	0x0A4U  /**< Reserved */
 #define XCANFD_RSD2_OFFSET	0x0A8U  /**< Reserved */
 #define XCANFD_RSD3_OFFSET	0x0ACU  /**< Reserved */
-/* @} */
+/** @} */
 
 /** @name Mail box mode registers
  * @{
@@ -106,9 +106,9 @@ extern "C" {
 #define XCANFD_MAILBOX_RB_MASK_BASE_OFFSET	0x2F00U  /**< Mailbox RxBuffer
 							 Mask Register */
 #endif
-#define XCANFD_MAILBOX_NXT_RB			4U
-#define XCANFD_MBRXBUF_MASK		0x0000FFFFU
-/* @} */
+#define XCANFD_MAILBOX_NXT_RB			4U	/**< Mailbox Next Buffer */
+#define XCANFD_MBRXBUF_MASK		0x0000FFFFU	/**< Mailbox Max Rx Buffer mask */
+/** @} */
 
 /** @name TxBuffer Element ID Registers
  * Tx Message Buffer Element Start Address - 0x0100   (2304 Bytes)
@@ -119,35 +119,35 @@ extern "C" {
 							Mask */
 #define XCANFD_TXFIFO_0_BASE_ID_OFFSET  0x0100U  /**< Tx Message Buffer Element
 							0 ID Register  */
-/* @} */
+/** @} */
 
 /** @name TxBuffer Element DLC Registers
 * @{
 */
 #define XCANFD_TXFIFO_0_BASE_DLC_OFFSET 0x0104U  /**< Tx Message Buffer Element
 							0 DLC Register  */
-/* @} */
+/** @} */
 
 /** @name TxBuffer Element DW Registers
 * @{
 */
 #define XCANFD_TXFIFO_0_BASE_DW0_OFFSET 0x0108U  /**< Tx Message Buffer Element
 							0 DW Register  */
-/* @} */
+/** @} */
 
 /** @name TXEVENT Buffer Element ID Registers
 * @{
 */
 #define XCANFD_TXEFIFO_0_BASE_ID_OFFSET  0x2000U  /**< Tx Event Message Buffer
 							Element 0 ID Register  */
-/* @} */
+/** @} */
 
 /** @name TXEVENT Buffer Element DLC Registers
 * @{
 */
 #define XCANFD_TXEFIFO_0_BASE_DLC_OFFSET  0x2004U  /**< Tx Event Message Buffer
                                                   Element 0 DLC Register  */
-/* @} */
+/** @} */
 /** @name Rx Message Buffer Element ID Registers.
  * Start Address - 0x1100   (2304 Bytes)
 			     End Address   - 0x19FF
@@ -160,7 +160,7 @@ extern "C" {
 #define XCANFD_RXFIFO_0_BASE_ID_OFFSET  0x2100U  /**< Rx Message Buffer Element
 							0 ID Register  */
 #endif
-/* @} */
+/** @} */
 
 /** @name Rx Message Buffer Element DLC Registers.
 * @{
@@ -172,7 +172,7 @@ extern "C" {
 #define XCANFD_RXFIFO_0_BASE_DLC_OFFSET 0x2104U  /**< Rx Message Buffer Element
 							0 DLC Register  */
 #endif
-/* @} */
+/** @} */
 
 /** @name Rx Message Buffer Element DW Registers.
 * @{
@@ -184,7 +184,7 @@ extern "C" {
 #define XCANFD_RXFIFO_0_BASE_DW0_OFFSET 0x2108U /**< Rx Message Buffer Element
 							0 DW Register  */
 #endif
-/* @} */
+/** @} */
 /** @name Rx Message Buffer Element FIFO 1 ID Registers.
  * Start Address - 0x4100
 			     End Address   - 0x52b8
@@ -192,7 +192,7 @@ extern "C" {
 */
 #define XCANFD_RXFIFO_1_BUFFER_0_BASE_ID_OFFSET  0x4100U  /**< Rx Message Buffer Element
 							0 ID Register  */
-/* @} */
+/** @} */
 
 /** @name Rx Message Buffer Element FIFO 1 DLC Registers.
  * Start Address - 0x4104
@@ -201,7 +201,7 @@ extern "C" {
 */
 #define XCANFD_RXFIFO_1_BUFFER_0_BASE_DLC_OFFSET 0x4104U  /**< Rx Message Buffer Element
 							0 DLC Register  */
-/* @} */
+/** @} */
 
 /** @name Rx Message Buffer Element FIFO 1 SW Registers.
  * Start Address - 0x4108
@@ -210,7 +210,7 @@ extern "C" {
 */
 #define XCANFD_RXFIFO_1_BUFFER_0_BASE_DW0_OFFSET 0x4108U /**< Rx Message Buffer Element
 							0 DW Register  */
-/* @} */
+/** @} */
 
 /** @name Rx Message Buffer Element ID,DLC,DW Sizes.
 * @{
@@ -221,14 +221,14 @@ extern "C" {
 						 Next DLC AT Offset */
 #define XCANFD_RXFIFO_NEXTDW_OFFSET	72U	/**< Rx Message Buffer Element
 						 Next DW AT Offset */
-/* @} */
+/** @} */
 
 /** @name EDL and BRS Masks.
 * @{
 */
 #define XCANFD_DLCR_EDL_MASK	0x08000000U  /**< EDL Mask in DLC Register */
 #define XCANFD_DLCR_BRS_MASK	0x04000000U  /**< BRS Mask in DLC Register */
-/* @} */
+/** @} */
 
 /** @name Acceptance Filter Mask Registers
  *  @{
@@ -240,9 +240,9 @@ extern "C" {
 #define XCANFD_AFMR_BASE_OFFSET	0x0A00U  /**<Acceptance Filter Mask Register */
 #define XCANFD_AFIDR_BASE_OFFSET 0x0A04U  /**< Acceptance Filter ID Register */
 #endif
-#define XCANFD_AFMR_NXT_OFFSET	8U
+#define XCANFD_AFMR_NXT_OFFSET	8U	/**< Acceptance Filter Next Offset */
 
-#define XCANFD_AFIDR_NXT_OFFSET	 8U
+#define XCANFD_AFIDR_NXT_OFFSET	 8U	/**< Acceptance Filter ID Next Offset */
 #define XCANFD_AFR_OFFSET	0x0E0U  /**< Acceptance Filter Register */
 #define XCANFD_FSR_OFFSET	0x0E8U  /**< Receive FIFO Status Register */
 #define XCANFD_NOOF_AFR		32U	/**< Number Of Acceptance FIlter
@@ -250,10 +250,10 @@ extern "C" {
 #define XCANFD_WIR_OFFSET	0x0ECU  /**< Rx FIFO Water Mark Register */
 #if defined (CANFD_v1_0)
 #define XCANFD_WIR_MASK	0x0000001FU  /**< Rx FIFO Full watermark Mask */
-#define XCANFD_WM_FIFO0_THRESHOLD  31
+#define XCANFD_WM_FIFO0_THRESHOLD  31/**< Watermark Threshold Value */
 #else
 #define XCANFD_WIR_MASK	0x0000003FU  /**< Rx FIFO Full watermark Mask */
-#define XCANFD_WM_FIFO0_THRESHOLD  63
+#define XCANFD_WM_FIFO0_THRESHOLD  63/**< Watermark Threshold Value */
 #endif
 #define XCANFD_WMR_RXFWM_1_MASK 0x00003F00U /**< RX FIFO 1 Full Watermark
                                                Mask */
@@ -263,19 +263,19 @@ extern "C" {
                                                Mask */
 #define XCANFD_WMR_RXFP_SHIFT 16U /**< Receive filter partition
                                                Mask */
-#define XCANFD_TXEVENT_WIR_OFFSET 0x000000A4U
-#define XCANFD_TXEVENT_WIR_MASK   0x0FU
+#define XCANFD_TXEVENT_WIR_OFFSET 0x000000A4U /**< TX FIFO Watermark Offset */
+#define XCANFD_TXEVENT_WIR_MASK   0x0FU       /**< TX Event Watermark Mask */
 #define XCANFD_TIMESTAMPR_OFFSET	0x0028U	/**< Time Stamp Register */
 #define XCANFD_CTS_MASK		0x00000001U /**< Time Stamp Counter Clear */
 #define XCANFD_DAR_MASK		0x00000010U/**< Disable AutoRetransmission */
-/* @} */
+/** @} */
 
 /** @name Software Reset Register
  *  @{
  */
 #define XCANFD_SRR_CEN_MASK	0x00000002U  /**< Can Enable Mask */
 #define XCANFD_SRR_SRST_MASK	0x00000001U  /**< Reset Mask */
-/* @} */
+/** @} */
 
 /** @name Mode Select Register
  *  @{
@@ -291,13 +291,13 @@ extern "C" {
 #define XCANFD_MSR_SBR_MASK	0x00000040U  /**< Start Bus-Off Recovery Mask */
 #define XCANFD_MSR_ABR_MASK     0x00000080U  /**< Auto Bus-Off Recovery Mask */
 #define XCANFD_MSR_CONFIG_MASK	0x000000F8U  /**< Configuration Mode Mask */
-/* @} */
+/** @} */
 
 /** @name Baud Rate Prescaler register
  *  @{
  */
 #define XCANFD_BRPR_BRP_MASK	0x000000FFU  /**< Baud Rate Prescaler Mask */
-/* @} */
+/** @} */
 
 /** @name Bit Timing Register
  *  @{
@@ -320,7 +320,7 @@ extern "C" {
 #define XCANFD_F_BRPR_TDC_ENABLE_MASK	0x00010000U	/**< Transceiver Delay
 							compensation Enable
 							Maskk */
-/* @} */
+/** @} */
 
 /** @name Fast Bit Timing Register
  *  @{
@@ -336,7 +336,7 @@ extern "C" {
 #endif
 #define XCANFD_F_BTR_TS2_SHIFT	8U	    /**< Time Segment 2 Shift */
 #define XCANFD_F_BTR_SJW_SHIFT	16U	    /**< Sync Jump Width Shift */
-/* @} */
+/** @} */
 
 /** @name Error Counter Register
  *  @{
@@ -344,7 +344,7 @@ extern "C" {
 #define XCANFD_ECR_REC_MASK	0x0000FF00U  /**< Receive Error Counter Mask */
 #define XCANFD_ECR_REC_SHIFT	8U	    /**< Receive Error Counter Shift */
 #define XCANFD_ECR_TEC_MASK	0x000000FFU  /**< Transmit Error Counter Mask */
-/* @} */
+/** @} */
 
 /** @name Error Status Register
  *  @{
@@ -358,7 +358,7 @@ extern "C" {
 #define XCANFD_ESR_F_STER_MASK	0x00000400U  /**< F_Stuff Error Mask */
 #define XCANFD_ESR_F_FMER_MASK	0x00000200U  /**< F_Form Error Mask */
 #define XCANFD_ESR_F_CRCER_MASK	0x00000100U  /**< F_CRC Error Mask */
-/* @} */
+/** @} */
 
 /** @name Status Register
  *  @{
@@ -380,7 +380,7 @@ extern "C" {
 #define XCANFD_SR_BSFR_CONFIG_MASK 0x00000400U /**< Bus-Off recovery Mode
 						   Indicator Mask */
 #define XCANFD_SR_NISO_MASK	0x00000800U /**< Non-ISO Core Mask */
-/* @} */
+/** @} */
 
 /** @name Interrupt Status/Enable/Clear Register
  *  @{
@@ -465,14 +465,15 @@ extern "C" {
 				XCANFD_IXR_RXFWMFLL_1_MASK  | \
 				XCANFD_IXR_TXEOFLW_MASK     | \
 				XCANFD_IXR_TXEWMFLL_MASK)
+				/**< Mask for Basic interrupts */
 #endif
-/* @} */
+/** @} */
 
 /** @name Transmit Ready request All Mask
  *  @{
  */
-#define XCANFD_TRR_MASK 0xFFFFFFFFU
-/* @} */
+#define XCANFD_TRR_MASK 0xFFFFFFFFU /**< Transmit Ready request All Mask */
+/** @} */
 
 /** @name CAN Frame Identifier (TX High Priority Buffer/TX/RX/Acceptance Filter
 Mask/Acceptance Filter ID)
@@ -481,14 +482,14 @@ Mask/Acceptance Filter ID)
 #define XCANFD_IDR_ID1_MASK	0xFFE00000U  /**< Standard Messg Ident Mask */
 #define XCANFD_IDR_ID1_SHIFT	21U	    /**< Standard Messg Ident Shift */
 #define XCANFD_IDR_SRR_MASK	0x00100000U  /**< Substitute Remote TX Req */
-#define XCANFD_IDR_SRR_SHIFT	20U
+#define XCANFD_IDR_SRR_SHIFT	20U	     /**< Substitue Remote TX Shift */
 #define XCANFD_IDR_IDE_MASK	0x00080000U  /**< Identifier Extension Mask */
 #define XCANFD_IDR_IDE_SHIFT	19U	    /**< Identifier Extension Shift */
 #define XCANFD_IDR_ID2_MASK	0x0007FFFEU  /**< Extended Message Ident Mask */
 #define XCANFD_IDR_ID2_SHIFT	1U	    /**< Extended Message Ident Shift
 						*/
 #define XCANFD_IDR_RTR_MASK	0x00000001U  /**< Remote TX Request Mask */
-/* @} */
+/** @} */
 
 /** @name CAN Frame Data Length Code (TX High Priority Buffer/TX/RX)
  *  @{
@@ -514,13 +515,13 @@ Mask/Acceptance Filter ID)
 #define XCANFD_DLC13 0xD0000000U	/**< Data Length Code 13 */
 #define XCANFD_DLC14 0xE0000000U	/**< Data Length Code 14 */
 #define XCANFD_DLC15 0xF0000000U	/**< Data Length Code 15 */
-/* @} */
+/** @} */
 
 /** @name Acceptance Filter Register
  *  @{
  */
-#define XCANFD_AFR_UAF_ALL_MASK	0xFFFFFFFFU
-/* @} */
+#define XCANFD_AFR_UAF_ALL_MASK	0xFFFFFFFFU /**< Acceptance Filter Register */
+/** @} */
 
 /** @name CAN Receive FIFO Status Register
  *  @{
@@ -540,7 +541,7 @@ Mask/Acceptance Filter ID)
 #define XCANFD_FSR_FL_1_SHIFT	24U  /**< Fill Level Mask FIFO 1 */
 #define XCANFD_FSR_RI_1_SHIFT	16U  /**< Read Index Mask FIFO 1 */
 #define XCANFD_FSR_IRI_MASK	0x00000080U  /**< Increment Read Index Mask */
-/* @} */
+/** @} */
 /** @name CAN RX FIFO Watermark Register
  *  @{
  */
@@ -554,6 +555,7 @@ Mask/Acceptance Filter ID)
  #define XCANFD_WMR_RXFWM_1_MASK 0x00003F00U /**< RX FIFO 1 Full Watermark
                                                Mask */
 
+/** @} */
  /** @name TX Event FIFO Registers
  *  @{
  */
@@ -574,6 +576,7 @@ Mask/Acceptance Filter ID)
  #define XCANFD_TXE_IRI_SHIFT  7U /**< TX Event FIFO
                                     Increment Read Index SHIFT */
 
+/** @} */
 /** @name CAN TxBuffer Ready Request Served Interrupt Enable Register Masks
  *  @{
  */
@@ -642,7 +645,9 @@ Mask/Acceptance Filter ID)
 #define XCANFD_TXBUFFER31_RDY_RQT_MASK	0x80000000U	/**< TxBuffer31 Ready
 							Request Mask */
 #define XCANFD_TXBUFFER_ALL_RDY_RQT_MASK	0xFFFFFFFFU
-/* @} */
+							/**< TxBuffer Ready
+							Request Mask for ALL */
+/** @} */
 
 /** @name CAN TxBuffer Cancel Request Served Interrupt Enable Register Masks
  *  @{
@@ -742,8 +747,10 @@ Mask/Acceptance Filter ID)
 #define XCANFD_TXBUFFER31_CANCEL_RQT_MASK	0x80000000U	/**< TxBuffer31
 								Cancel 	Request
 								Mask */
-#define XCANFD_TXBUFFER_CANCEL_RQT_ALL_MASK 0xFFFFFFFFU
-/* @} */
+#define XCANFD_TXBUFFER_CANCEL_RQT_ALL_MASK 0xFFFFFFFFU		/**< TxBuffer
+								Cancel Request
+								Mask for ALL */
+/** @} */
 
 /** @name CAN RxBuffer Full Register
  *  @{
@@ -844,43 +851,43 @@ Mask/Acceptance Filter ID)
 								Mask */
 #define XCANFD_RXBUFFER47_FULL_MASK	0x00008000U	/**< RxBuffer47 Full
 								Mask */
-/* @} */
+/** @} */
 
 /** @name CAN frame length constants
  *  @{
  */
 #define XCANFD_MAX_FRAME_SIZE 72U	/**< Maximum CAN frame length in bytes
 					 */
-#define XCANFD_TXE_MESSAGE_SIZE 8U
+#define XCANFD_TXE_MESSAGE_SIZE 8U	/**< TX Message Size */
 #define XCANFD_DW_BYTES	4U		/**< Data Word Bytes */
 #define XST_NOBUFFER	33L	/**< All Buffers (32) are filled */
 #define XST_BUFFER_ALREADY_FILLED	34L	/**< Given Buffer is Already
 						filled */
-#define XST_INVALID_DLC	16L	/**< Invalid Dlc code */
-#define TRR_POS_MASK            0x1U
-#define MAX_BUFFER_VAL          32U
-#define FAST_MATH_MASK1         0xDB6DB6DBU
-#define FAST_MATH_MASK2         0x49249249U
-#define FAST_MATH_MASK3         0xC71C71C7U
-#define TRR_INIT_VAL            0x00000000U
-#define TRR_MASK_INIT_VAL       0xFFFFFFFFU
-#define DESIGN_RANGE_1          15U
-#define DESIGN_RANGE_2          31U
-#define CONTROL_STATUS_1        0U
-#define CONTROL_STATUS_2        1U
-#define CONTROL_STATUS_3        2U
-#define EXTRACTION_MASK         63U
-#define SHIFT1                          1U
-#define SHIFT2                          2U
-#define SHIFT3                          3U
-#define TDC_MAX_OFFSET      32U
-#define TDC_SHIFT                       8U
-#define MAX_BUFFER_INDEX    32U
-#define MIN_FILTER_INDEX        0U
-#define MAX_FILTER_INDEX        32U
-#define EDL_CANFD		1U
-#define EDL_CAN			0U
-/* @} */
+#define XST_INVALID_DLC		16L		/**< Invalid Dlc code */
+#define TRR_POS_MASK            0x1U		/**< TRR Position Mask */
+#define MAX_BUFFER_VAL          32U		/**< Max Buffer Value */
+#define FAST_MATH_MASK1         0xDB6DB6DBU	/**< Fast Math Mask 1 */
+#define FAST_MATH_MASK2         0x49249249U	/**< Fast Math Mask 2 */
+#define FAST_MATH_MASK3         0xC71C71C7U	/**< Fast Math Mask 3 */
+#define TRR_INIT_VAL            0x00000000U	/**< TRR Initial value */
+#define TRR_MASK_INIT_VAL       0xFFFFFFFFU	/**< TRR Mask Initial value */
+#define DESIGN_RANGE_1          15U		/**< Design Range 1 */
+#define DESIGN_RANGE_2          31U		/**< Design Range 2 */
+#define CONTROL_STATUS_1        0U		/**< Control Status 1 */
+#define CONTROL_STATUS_2        1U		/**< Control Status 2 */
+#define CONTROL_STATUS_3        2U		/**< Congrol Status 3 */
+#define EXTRACTION_MASK         63U		/**< Extraction Mask */
+#define SHIFT1			1U		/**< Flag for Shift 1 */
+#define SHIFT2			2U		/**< Flag for Shift 2 */
+#define SHIFT3			3U		/**< Flag for Shift 3 */
+#define TDC_MAX_OFFSET		32U		/**< TDC Max Offset */
+#define TDC_SHIFT		8U		/**< Shift Value for TDC */
+#define MAX_BUFFER_INDEX	32U		/**< Max Buffer Index */
+#define MIN_FILTER_INDEX        0U		/**< Minimum Filter Index */
+#define MAX_FILTER_INDEX        32U		/**< Maximum Filter Index */
+#define EDL_CANFD		1U		/**< Extended Data Length for CANFD */
+#define EDL_CAN			0U		/**< Extended Data Length for CAN */
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
