@@ -55,7 +55,6 @@ XUartPsv Uart_Psv;		/* Instance of the UARTPSV Device */
 *
 * Main function to call the example.
 *
-* @param	None
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE
 *
