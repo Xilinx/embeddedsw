@@ -138,6 +138,7 @@
 *       sk     12/17/20 Removed checking platform specific SD macros and used
 *                       Baseaddress instead.
 * 3.12  sk     01/28/21 Added support for non-blocking write.
+*       sk     02/12/21 Fix the issue in reading CID and CSD.
 *
 * </pre>
 *

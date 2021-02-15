@@ -25,6 +25,7 @@
 *       mn     10/15/20 Modify power cycle API to poll for SD bus lines to go
 *                       low for versal platform
 * 3.12  sk     01/28/21 Added support for non-blocking write.
+*       sk     02/12/21 Fix the issue in reading CID and CSD.
 *
 * </pre>
 *
@@ -561,16 +562,16 @@ s32 XSdPs_GetCardId(XSdPs *InstancePtr)
 	}
 
 	InstancePtr->CardID[0] =
-			XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+			XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
 			XSDPS_RESP0_OFFSET);
 	InstancePtr->CardID[1] =
-			XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+			XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
 			XSDPS_RESP1_OFFSET);
 	InstancePtr->CardID[2] =
-			XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+			XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
 			XSDPS_RESP2_OFFSET);
 	InstancePtr->CardID[3] =
-			XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+			XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
 			XSDPS_RESP3_OFFSET);
 
 	if(InstancePtr->CardType == XSDPS_CARD_SD) {
@@ -641,6 +642,11 @@ s32 XSdPs_GetCsd(XSdPs *InstancePtr)
 			XSDPS_RESP2_OFFSET);
 	CSD[3] = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
 			XSDPS_RESP3_OFFSET);
+
+	InstancePtr->CardSpecData[0] = CSD[0];
+	InstancePtr->CardSpecData[1] = CSD[1];
+	InstancePtr->CardSpecData[2] = CSD[2];
+	InstancePtr->CardSpecData[3] = CSD[3];
 
 	if (InstancePtr->CardType != XSDPS_CARD_SD) {
 		InstancePtr->Card_Version = (u8)((u32)(CSD[3] & CSD_SPEC_VER_MASK) >>18U);
