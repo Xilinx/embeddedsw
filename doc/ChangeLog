@@ -2,6 +2,7 @@ Changes for 2021.1
 ===============================
 sdps_v3_12:
 Added support for non-blocking write.
+Fix the issues in reading the CID and CSD.
 
 spips_v3_6:
 Added polled mode TPM example
