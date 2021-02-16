@@ -62,6 +62,7 @@
 *       bsv  01/29/2021 Added APIs for checking and clearing NPI errors
 *       har  02/01/2021 Added error code for mismatch of encryption key source
 *       bsv  02/09/2021 Added error code for invalid PdiSrc in subsystem Pdi load
+*       bm   02/12/2021 Updated obsolete error code as reserved
 *
 * </pre>
 *
@@ -425,7 +426,7 @@ typedef enum {
 							destination address or length params passed to
 							XLoader_DdrCopy are not word aligned */
 	XLOADER_ERR_INIT_CDO,	/**< 0x35B - XPlmi_InitCdo failed */
-	XLOADER_ERR_READ_BOOT_HDR,	/**< 0x35C - Error during XilPdi_ReadBootHdr */
+	XLOADER_ERR_RESERVED_ERR1,	/**< 0x35C - Reserved for Future use */
 	XLOADER_ERR_UNSUPPORTED_MULTIBOOT_FLASH_TYPE, /**<0X35D - Error due to unsupported Flash Type
 							used with Update Multiboot command */
 	XLOADER_ERR_UNSUPPORTED_MULTIBOOT_PDISRC, /**< 0x35E - Error due to unsupported PdiSrc

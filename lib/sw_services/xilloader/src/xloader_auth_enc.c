@@ -25,6 +25,7 @@
 *       har  01/19/21 Added support for P521 KAT
 *       kpt  01/21/21 Added check to verify revoke id before enabling Auth Jtag
 *       har  02/01/21 Added check for metaheader encryption source
+*       bm   02/12/21 Updated logic to use BootHdr directly from PMC RAM
 *
 * </pre>
 *
@@ -281,7 +282,7 @@ int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 	volatile int StatusTmp = XST_SUCCESS;
 	volatile u32 ReadReg = 0x0U;
 	volatile u32 ReadRegTmp = 0x0U;
-	const XilPdi_BootHdr *BootHdr = &SecurePtr->PdiPtr->MetaHdr.BootHdr;
+	const XilPdi_BootHdr *BootHdr = SecurePtr->PdiPtr->MetaHdr.BootHdrPtr;
 	u32 IsBhdrAuth = XilPdi_IsBhdrAuthEnable(BootHdr);
 	u32 MetaHeaderKeySrc = SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl.EncKeySrc;
 
@@ -755,7 +756,7 @@ void XLoader_UpdateKekSrc(XilPdi *PdiPtr)
 
 	XPlmi_Printf(DEBUG_INFO, "Identifying KEK's corresponding RED "
 			"key availability status\n\r");
-	switch(PdiPtr->MetaHdr.BootHdr.EncStatus) {
+	switch(PdiPtr->MetaHdr.BootHdrPtr->EncStatus) {
 	case XLOADER_BH_BLK_KEY:
 		PdiPtr->KekStatus = XLOADER_BHDR_RED_KEY;
 		break;
@@ -790,7 +791,7 @@ static int XLoader_DataAuth(const XLoader_SecureParams *SecurePtr, u8 *Hash,
 	volatile int Status = XST_FAILURE;
 	volatile int SStatus = XST_SUCCESS;
 	XLoader_AuthCertificate *AcPtr = (XLoader_AuthCertificate *)SecurePtr->AcPtr;
-	const XilPdi_BootHdr *BootHdr = &SecurePtr->PdiPtr->MetaHdr.BootHdr;
+	const XilPdi_BootHdr *BootHdr = SecurePtr->PdiPtr->MetaHdr.BootHdrPtr;
 	volatile u8 IsEfuseAuth = (u8)TRUE;
 	volatile u8 IsEfuseAuthTmp = (u8)TRUE;
 	u32 AuthType;
@@ -2038,7 +2039,7 @@ static int XLoader_AesKeySelect(const XLoader_SecureParams *SecurePtr,
 {
 	int Status = XST_FAILURE;
 	u32 *KekStatus = &SecurePtr->PdiPtr->KekStatus;
-	XilPdi_BootHdr *BootHdr = &SecurePtr->PdiPtr->MetaHdr.BootHdr;
+	const XilPdi_BootHdr *BootHdr = SecurePtr->PdiPtr->MetaHdr.BootHdrPtr;
 
 	XPlmi_Printf(DEBUG_INFO, "Key source is %0x\n\r", KeyDetails->PdiKeySrc);
 	switch (KeyDetails->PdiKeySrc) {

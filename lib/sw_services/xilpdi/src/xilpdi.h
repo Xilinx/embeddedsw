@@ -39,6 +39,7 @@
 * 1.05  td   11/23/2020 Coverity Warning Fixes
 * 1.06  ma   01/08/2021 Changed maximum number of entries possible for ATF
 *       har  02/01/2021 Added API to get PLM encryption key source
+*       bm   02/12/2021 Updated logic to use BootHdr directly from PMC RAM
 *
 * </pre>
 *
@@ -89,7 +90,6 @@ extern "C" {
 #define SMAP_BUS_WIDTH_32_WORD1				(0x000000DDU)
 
 /* Defines for length of the headers */
-#define XIH_BH_LEN			(0x128U)
 #define XIH_IHT_LEN			(128U)
 #define XIH_IH_LEN			(64U)
 #define XIH_PH_LEN			(128U)
@@ -226,7 +226,6 @@ typedef struct {
  * It contains all the information of boot header table in order.
  */
 typedef struct {
-	u32 SmapBusWidth[SMAP_BUS_WIDTH_WORD_LEN]; /**< SMAP Bus Width */
 	u32 WidthDetection; /**< Width Detection 0xAA995566 */
 	u32 ImgIden;  /**< Image Identification */
 	u32 EncStatus;  /**< Encryption Status */
@@ -321,7 +320,7 @@ typedef struct {
  * partition headers.
  */
 typedef struct {
-	XilPdi_BootHdr BootHdr; /**< Boot Header */
+	const XilPdi_BootHdr *BootHdrPtr; /**< Boot Header Pointer */
 	XilPdi_ImgHdrTbl ImgHdrTbl; /**< Img header table structure */
 	XilPdi_ImgHdr ImgHdr[XIH_MAX_PRTNS]; /**< Prtn header */
 	XilPdi_PrtnHdr PrtnHdr[XIH_MAX_PRTNS]; /**< Prtn header */
@@ -632,7 +631,7 @@ static inline u32 XilPdi_GetPlmKeySrc(void)
 /************************** Function Prototypes ******************************/
 int XilPdi_ValidatePrtnHdr(const XilPdi_PrtnHdr *PrtnHdr);
 int XilPdi_ValidateImgHdrTbl(const XilPdi_ImgHdrTbl *ImgHdrTbl);
-int XilPdi_ReadBootHdr(XilPdi_MetaHdr *MetaHdrPtr);
+void XilPdi_ReadBootHdr(XilPdi_MetaHdr *MetaHdrPtr);
 int XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr *MetaHdrPtr);
 int XilPdi_ReadAndVerifyImgHdr(XilPdi_MetaHdr *MetaHdrPtr);
 int XilPdi_ReadAndVerifyPrtnHdr(XilPdi_MetaHdr *MetaHdrPtr);
