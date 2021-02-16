@@ -19,6 +19,7 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     10/21/20 Initial version
 *       dc     02/02/21 Remove hard coded device node name
+*       dc     02/15/21 align driver to curent specification
 * </pre>
 *
 ******************************************************************************/
@@ -42,6 +43,15 @@
 #define XDFEMIX_PHASE_OFFSET_ROUNDING_BITS 14U
 #define XDFEMIX_U32_NUM_BITS 32U
 
+#define XDFEMIXER_CURRENT false
+#define XDFEMIXER_NEXT true
+
+#define XDFEMIXER_PHACC_DISABLE false
+#define XDFEMIXER_PHACC_ENABLE true
+
+#define XDFEMIX_DRIVER_VERSION_MINOR 0U
+#define XDFEMIX_DRIVER_VERSION_MAJOR 1U
+
 /************************** Function Prototypes *****************************/
 
 /************************** Variable Definitions ****************************/
@@ -55,7 +65,7 @@ static u32 XDfeMix_DriverHasBeenRegisteredOnce = 0U;
 /************************** Function Definitions ****************************/
 extern u32 XDfeMix_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr, const char *DeviceNodeName);
 extern u32 XDfeMix_LookupConfig(u16 DeviceId);
-extern u32 XDfeMix_CfgInitialize(XDfeMix *InstancePtr);
+extern void XDfeMix_CfgInitialize(XDfeMix *InstancePtr);
 
 /************************** Register Access Functions ***********************/
 
@@ -85,7 +95,7 @@ void XDfeMix_WriteReg(const XDfeMix *InstancePtr, u32 AddrOffset, u32 Data)
 * Read a value from register from a Mixer instance.
 *
 * @param    InstancePtr is a pointer to the DFE driver instance.
-* @param    AddrOffset is address offset relativ to instance base address.
+* @param    AddrOffset is address offset relative to instance base address.
 *
 * @return   Register value.
 *
@@ -249,19 +259,21 @@ static void XDfeMix_CreateCCSequence(u32 SeqLen,
 * @note     None
 *
 ****************************************************************************/
-static u32 XDfeMix_Add_CCID(u32 CCID, u32 Rate,
-			    XDfeMix_CCSequence *CCIDSequence)
+static u32 XDfeMix_AddCCID(u32 CCID, u32 Rate, XDfeMix_CCSequence *CCIDSequence)
 {
 	u32 Index;
 	u32 SeqLen;
-	u32 SeqMult = 1;
+	u32 SeqMult;
 	u32 CCIDCount;
 	u32 EmptyCCID = XDFEMIX_NO_EMPTY_CCID_FLAG;
+	Xil_AssertNonvoid((Rate == 1U) || (Rate == 2U) || (Rate == 4U) || (Rate == 8U) || (Rate == 16U));
 	Xil_AssertNonvoid(CCIDSequence != NULL);
 
-	if (0 == CCIDSequence->Length) {
-		XDfeMix_CreateCCSequence(Rate, CCIDSequence);
-	}
+	/* Assumptions:
+	   Rate can be 1, 2, 4 or 8. (include 16 (question))
+	   If the function exits with an error the CCIDSequence argument should
+	   remain unchanged. Implements a "greedy" allocation of sequence
+	   locations */
 	/* Determine if there is space in the sequence for the new CCID,
 	   test for an empty slot. */
 	for (Index = 0; Index < CCIDSequence->Length; Index++) {
@@ -282,15 +294,9 @@ static u32 XDfeMix_Add_CCID(u32 CCID, u32 Rate,
 	   represent the new CCID rate. */
 	SeqLen = CCIDSequence->Length;
 	/* Calculate Rate/SeqLen */
-	if (Rate > SeqLen) {
-		SeqMult = Rate / SeqLen;
-		/* Fail if (Rate/SeqLen) is not an integer */
-		if (Rate != SeqMult * SeqLen) {
-			metal_log(METAL_LOG_ERROR,
-				  "Rate/SeqLen not integer %s\n", __func__);
-			return XST_FAILURE;
-		}
-	}
+	SeqMult = Rate / SeqLen;
+	/* Note when SeqMult > 1 the rate constraints mean it should also be
+	   an integer value. */
 	if (SeqMult > 1U) {
 		/* Rate is greater than the current sequence so extend and
 		   repeat the existing sequence */
@@ -316,7 +322,7 @@ static u32 XDfeMix_Add_CCID(u32 CCID, u32 Rate,
 	for (Index = EmptyCCID; Index < CCIDSequence->Length; Index++) {
 		if (CCIDSequence->CCID[Index] == XDFEMIX_SEQUENCE_ENTRY_NULL) {
 			CCIDCount--;
-			if (0 == CCIDCount) {
+			if (0U == CCIDCount) {
 				break;
 			}
 		}
@@ -336,7 +342,7 @@ static u32 XDfeMix_Add_CCID(u32 CCID, u32 Rate,
 			/* Mark location for this CCID */
 			CCIDSequence->CCID[Index] = CCID;
 			CCIDCount--;
-			if (0 == CCIDCount) {
+			if (0U == CCIDCount) {
 				break;
 			}
 		}
@@ -412,8 +418,7 @@ static void XDfeMix_SetAntennaGainL(const XDfeMix *InstancePtr, u32 AntennaId,
 * @param    InstancePtr is a pointer to the Mixer instance.
 * @param    CCCfg is a configuration data container.
 * @param    CCID is a Channel ID.
-* @param    Rate is a NCO rate value.
-* @param    NCO is a Channel ID.
+* @param    DUCDDCCfg is DUC/DDC configuration container.
 *
 * @return   None
 *
@@ -421,73 +426,17 @@ static void XDfeMix_SetAntennaGainL(const XDfeMix *InstancePtr, u32 AntennaId,
 *
 ****************************************************************************/
 static void XDfeMix_SetCCDDC(const XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg,
-			     u32 CCID, u32 Rate, u32 NCO)
+			     u32 CCID, const XDfeMix_DUCDDCCfg *DUCDDCCfg)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(CCCfg != NULL);
 	Xil_AssertVoid(CCID < XDFEMIX_CC_NUM);
-	Xil_AssertVoid(Rate <= XDFEMIX_RATE_MAX);
-	Xil_AssertVoid(NCO <= XDFEMIX_NCO_MAX);
+	Xil_AssertVoid(DUCDDCCfg != NULL);
+	Xil_AssertVoid(DUCDDCCfg->Rate <= XDFEMIX_RATE_MAX);
+	Xil_AssertVoid(DUCDDCCfg->NCO <= XDFEMIX_NCO_MAX);
 
-	CCCfg->DUCDDCCfg[CCID].NCO = NCO;
-	CCCfg->DUCDDCCfg[CCID].Rate = Rate;
-}
-
-/****************************************************************************/
-/**
-*
-* Write NEXT CC configuration from CCCfg.
-*
-* @param    InstancePtr is a pointer to the Mixer instance.
-* @param    CCCfg is a configuration data container.
-*
-* @return   None
-*
-* @note     None
-*
-****************************************************************************/
-static void XDfeMix_SetCCCfg(const XDfeMix *InstancePtr,
-			     const XDfeMix_CCCfg *CCCfg)
-{
-	u32 Data, Offset;
-	u32 Index;
-
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(CCCfg != NULL);
-
-	Offset = XDFEMIX_SEQUENCE_LENGTH_NEXT;
-	XDfeMix_WrRegBitField(InstancePtr, Offset,
-			      XDFEMIX_SEQUENCE_LENGTH_WIDTH,
-			      XDFEMIX_SEQUENCE_LENGTH_OFFSET,
-			      CCCfg->Sequence.Length);
-
-	for (Index = 0; Index < XDFEMIX_CCID_SEQUENCE_SIZE; Index++) {
-		Offset = XDFEMIX_CCID_SEQUENCE_NEXT + ((Index * sizeof(u32)));
-		XDfeMix_WrRegBitField(InstancePtr, Offset,
-				      XDFEMIX_CCID_SEQUENCE_WIDTH,
-				      XDFEMIX_CCID_SEQUENCE_OFFSET,
-				      CCCfg->Sequence.CCID[Index]);
-	}
-
-	for (Index = 0; Index < XDFEMIX_DUC_DDC_MAPPING_SIZE; Index++) {
-		Offset = XDFEMIX_DUC_DDC_MAPPING_NEXT + ((Index * sizeof(u32)));
-		Data = XDfeMix_ReadReg(InstancePtr, Offset);
-		Data = XDfeMix_WrBitField(XDFEMIX_DUC_DDC_MAPPING_NCO_WIDTH,
-					  XDFEMIX_DUC_DDC_MAPPING_NCO_OFFSET,
-					  Data, CCCfg->DUCDDCCfg[Index].NCO);
-		Data = XDfeMix_WrBitField(XDFEMIX_DUC_DDC_MAPPING_RATE_WIDTH,
-					  XDFEMIX_DUC_DDC_MAPPING_RATE_OFFSET,
-					  Data, CCCfg->DUCDDCCfg[Index].Rate);
-		XDfeMix_WriteReg(InstancePtr, Offset, Data);
-	}
-
-	Offset = XDFEMIX_ANTENNA_GAIN_NEXT;
-	Data = XDfeMix_ReadReg(InstancePtr, Offset);
-	for (Index = 0; Index < InstancePtr->Config.NumAntenna; Index++) {
-		Data = XDfeMix_WrBitField(XDFEMIX_ONE_ANTENNA_GAIN_WIDTH, Index,
-					  Data, CCCfg->AntennaCfg[Index]);
-	}
-	XDfeMix_WriteReg(InstancePtr, Offset, Data);
+	CCCfg->DUCDDCCfg[CCID].NCO = DUCDDCCfg->NCO;
+	CCCfg->DUCDDCCfg[CCID].Rate = DUCDDCCfg->Rate;
 }
 
 /****************************************************************************/
@@ -507,6 +456,8 @@ static void XDfeMix_SetCCCfg(const XDfeMix *InstancePtr,
 static void XDfeMix_GetCCCfg(const XDfeMix *InstancePtr, bool Next,
 			     XDfeMix_CCCfg *CCCfg)
 {
+	u32 SeqLen;
+	u32 AntennaCfg = 0U;
 	u32 Data;
 	u32 Offset;
 	u32 Index;
@@ -514,21 +465,15 @@ static void XDfeMix_GetCCCfg(const XDfeMix *InstancePtr, bool Next,
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(CCCfg != NULL);
 
-	if (Next == true) {
-		Offset = XDFEMIX_SEQUENCE_LENGTH_NEXT;
-		Data = XDfeMix_ReadReg(InstancePtr, Offset);
-		CCCfg->Sequence.Length =
-			XDfeMix_RdBitField(XDFEMIX_SEQUENCE_LENGTH_WIDTH,
-					   XDFEMIX_SEQUENCE_LENGTH_OFFSET,
-					   Data);
-		for (Index = 0; Index < XDFEMIX_CCID_SEQUENCE_SIZE; Index++) {
-			Offset = XDFEMIX_CCID_SEQUENCE_NEXT +
-				 ((Index * sizeof(u32)));
-			Data = XDfeMix_ReadReg(InstancePtr, Offset);
+	if (Next == XDFEMIXER_NEXT) {
+		/* Read sequence length */
+		SeqLen = XDfeMix_ReadReg(InstancePtr, XDFEMIX_SEQUENCE_LENGTH_NEXT);
+		CCCfg->Sequence.Length = SeqLen + 1U;
+
+		/* Read CCID sequence and carrier configurations */
+		for (Index = 0; Index < XDFEMIX_SEQUENCE_SIZE; Index++) {
 			CCCfg->Sequence.CCID[Index] =
-				XDfeMix_RdBitField(XDFEMIX_CCID_SEQUENCE_WIDTH,
-						   XDFEMIX_CCID_SEQUENCE_OFFSET,
-						   Data);
+				XDfeMix_ReadReg(InstancePtr, XDFEMIX_SEQUENCE_NEXT + (Index * sizeof(u32)));
 		}
 
 		for (Index = 0; Index < XDFEMIX_DUC_DDC_MAPPING_SIZE; Index++) {
@@ -543,30 +488,23 @@ static void XDfeMix_GetCCCfg(const XDfeMix *InstancePtr, bool Next,
 				XDFEMIX_DUC_DDC_MAPPING_RATE_OFFSET, Data);
 		}
 
-		Offset = XDFEMIX_ANTENNA_GAIN_NEXT;
-		Data = XDfeMix_ReadReg(InstancePtr, Offset);
-		for (Index = 0; Index < InstancePtr->Config.NumAntenna;
-		     Index++) {
-			CCCfg->AntennaCfg[Index] = XDfeMix_RdBitField(
-				XDFEMIX_ONE_ANTENNA_GAIN_WIDTH, Index, Data);
+		/* Read Antenna configuration */
+		AntennaCfg = XDfeMix_ReadReg(InstancePtr,
+					     XDFEMIX_ANTENNA_GAIN_NEXT);
+		for (Index = 0; Index < XDFEMIX_ANT_NUM_MAX; Index++) {
+			CCCfg->AntennaCfg[Index] = (AntennaCfg >> Index) & 0x01U;
 		}
 	} else {
-		Offset = XDFEMIX_SEQUENCE_LENGTH_CURRENT;
-		Data = XDfeMix_ReadReg(InstancePtr, Offset);
-		CCCfg->Sequence.Length =
-			XDfeMix_RdBitField(XDFEMIX_SEQUENCE_LENGTH_WIDTH,
-					   XDFEMIX_SEQUENCE_LENGTH_OFFSET,
-					   Data);
-		for (Index = 0; Index < XDFEMIX_CCID_SEQUENCE_SIZE; Index++) {
-			Offset = XDFEMIX_CCID_SEQUENCE_CURRENT +
-				 ((Index * sizeof(u32)));
-			Data = XDfeMix_ReadReg(InstancePtr, Offset);
+		/* Read sequence length */
+		SeqLen = XDfeMix_ReadReg(InstancePtr, XDFEMIX_SEQUENCE_LENGTH_CURRENT);
+		CCCfg->Sequence.Length = SeqLen + 1U;
+
+		for (Index = 0; Index < XDFEMIX_SEQUENCE_SIZE; Index++) {
 			CCCfg->Sequence.CCID[Index] =
-				XDfeMix_RdBitField(XDFEMIX_CCID_SEQUENCE_WIDTH,
-						   XDFEMIX_CCID_SEQUENCE_OFFSET,
-						   Data);
+				XDfeMix_ReadReg(InstancePtr, XDFEMIX_SEQUENCE_CURRENT + (Index * sizeof(u32)));
 		}
 
+		/* Read CCID sequence and carrier configurations */
 		for (Index = 0; Index < XDFEMIX_DUC_DDC_MAPPING_SIZE; Index++) {
 			Offset = XDFEMIX_DUC_DDC_MAPPING_CURRENT +
 				 (Index * sizeof(u32));
@@ -579,14 +517,67 @@ static void XDfeMix_GetCCCfg(const XDfeMix *InstancePtr, bool Next,
 				XDFEMIX_DUC_DDC_MAPPING_RATE_OFFSET, Data);
 		}
 
-		Offset = XDFEMIX_ANTENNA_GAIN_CURRENT;
-		Data = XDfeMix_ReadReg(InstancePtr, Offset);
-		for (Index = 0; Index < InstancePtr->Config.NumAntenna;
-		     Index++) {
-			CCCfg->AntennaCfg[Index] = XDfeMix_RdBitField(
-				XDFEMIX_ONE_ANTENNA_GAIN_WIDTH, Index, Data);
+		/* Read Antenna configuration */
+		AntennaCfg = XDfeMix_ReadReg(InstancePtr,
+					     XDFEMIX_ANTENNA_GAIN_CURRENT);
+		for (Index = 0; Index < XDFEMIX_ANT_NUM_MAX; Index++) {
+			CCCfg->AntennaCfg[Index] = (AntennaCfg >> Index) & 0x01U;
 		}
 	}
+}
+
+/****************************************************************************/
+/**
+*
+* Write NEXT CC configuration from CCCfg.
+*
+* @param    InstancePtr is a pointer to the Mixer instance.
+* @param    CCCfg is a configuration data container.
+*
+* @return   None
+*
+* @note     None
+*
+****************************************************************************/
+static void XDfeMix_SetNextCCCfg(const XDfeMix *InstancePtr,
+			     const XDfeMix_CCCfg *CCCfg)
+{
+	u32 SeqLen = 0U;
+	u32 AntennaCfg = 0U;
+	u32 DucDdcConfig;
+	u32 Index;
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(CCCfg != NULL);
+
+	/* Write sequence length */
+	if (0U < CCCfg->Sequence.Length) {
+		SeqLen = CCCfg->Sequence.Length - 1U;
+	}
+	XDfeMix_WriteReg(InstancePtr, XDFEMIX_SEQUENCE_LENGTH_NEXT, SeqLen);
+
+	/* Write CCID sequence and carrier configurations */
+	for (Index = 0; Index < XDFEMIX_SEQUENCE_SIZE; Index++) {
+		XDfeMix_WriteReg(InstancePtr,
+				 XDFEMIX_SEQUENCE_NEXT + (sizeof(u32) * Index),
+				 CCCfg->Sequence.CCID[Index]);
+	}
+
+	for (Index = 0; Index < XDFEMIX_DUC_DDC_MAPPING_SIZE; Index++) {
+		DucDdcConfig = XDfeMix_ReadReg(InstancePtr, XDFEMIX_DUC_DDC_MAPPING_NEXT + ((Index * sizeof(u32))));
+		DucDdcConfig = XDfeMix_WrBitField(XDFEMIX_DUC_DDC_MAPPING_NCO_WIDTH,
+					  XDFEMIX_DUC_DDC_MAPPING_NCO_OFFSET,
+					  DucDdcConfig, CCCfg->DUCDDCCfg[Index].NCO);
+		DucDdcConfig = XDfeMix_WrBitField(XDFEMIX_DUC_DDC_MAPPING_RATE_WIDTH,
+					  XDFEMIX_DUC_DDC_MAPPING_RATE_OFFSET,
+					  DucDdcConfig, CCCfg->DUCDDCCfg[Index].Rate);
+		XDfeMix_WriteReg(InstancePtr, XDFEMIX_DUC_DDC_MAPPING_NEXT + ((Index * sizeof(u32))), DucDdcConfig);
+	}
+
+	/* Write Antenna configuration */
+	for (Index = 0; Index < XDFEMIX_ANT_NUM_MAX; Index++) {
+		AntennaCfg += ((CCCfg->AntennaCfg[Index] & 0x01U) << Index);
+	}
+	XDfeMix_WriteReg(InstancePtr, XDFEMIX_ANTENNA_GAIN_NEXT, AntennaCfg);
 }
 
 /****************************************************************************/
@@ -608,7 +599,7 @@ static u32 XDfeMix_GetPhaccIndex(const XDfeMix *InstancePtr, bool Next, u32 CCID
 	u32 Offset;
 	u32 Nco;
 
-	if (Next == true) {
+	if (Next == XDFEMIXER_NEXT) {
 		Offset = XDFEMIX_DUC_DDC_MAPPING_NEXT;
 	} else {
 		Offset = XDFEMIX_DUC_DDC_MAPPING_CURRENT;
@@ -790,7 +781,7 @@ static void XDfeMix_SetCCPhaseAccumEnable(const XDfeMix *InstancePtr, bool Next,
 
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	if (Enable == true) {
+	if (Enable == XDFEMIXER_PHACC_ENABLE) {
 		Data = 1U;
 	}
 	Index = XDfeMix_GetPhaccIndex(InstancePtr, Next, CCID);
@@ -825,9 +816,9 @@ static void XDfeMix_GetCCPhaseAccumEnable(const XDfeMix *InstancePtr, bool Next,
 	Data = XDfeMix_ReadReg(InstancePtr,
 			       XDFEMIX_PHASE_ACC_ENABLE + Index);
 	if (Data == 1U) {
-		*Enable = true;
+		*Enable = XDFEMIXER_PHACC_ENABLE;
 	} else {
-		*Enable = false;
+		*Enable = XDFEMIXER_PHACC_DISABLE;
 	}
 }
 
@@ -892,8 +883,8 @@ static void XDfeMix_DerivePhaseOffset(const XDfeMix *InstancePtr,
 		PhaseAccDiff >> XDFEMIX_PHASE_OFFSET_ROUNDING_BITS;
 	/* Add 1 if bit 13 = 1 which means that rounding is greater or equal
 	   than (2^14)/2 */
-	if (PhaseAccDiff & (1 << (XDFEMIX_PHASE_OFFSET_ROUNDING_BITS - 1))) {
-		PhaseOffset->PhaseOffset += 1;
+	if (PhaseAccDiff & ((u32)1 << (XDFEMIX_PHASE_OFFSET_ROUNDING_BITS - 1U))) {
+		PhaseOffset->PhaseOffset += 1U;
 	}
 }
 
@@ -973,6 +964,126 @@ static u32 XDfeMix_GetCCNCOGain(const XDfeMix *InstancePtr, bool Next, u32 CCID)
 	return XDfeMix_ReadReg(InstancePtr, XDFEMIX_NCO_GAIN + Index);
 }
 
+/****************************************************************************/
+/**
+*
+* Write register CORE.PL_MIXER_DELAY with value 2.
+*
+* @param    InstancePtr is a pointer to the Mixer instance.
+*
+* @return   None
+*
+* @note     None
+*
+****************************************************************************/
+static void XDfeMix_SetPLMixerDelay(const XDfeMix *InstancePtr)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	XDfeMix_WriteReg(InstancePtr, PL_MIXER_DELAY, PL_MIXER_DELAY_VALUE);
+}
+
+/****************************************************************************/
+/**
+*
+* Read Triggers, set enable bit of update trigger. If register source, then
+* trigger will be applied immediately.
+*
+* @param    InstancePtr is a pointer to the Mixer instance.
+*
+* @return   None
+*
+* @note     None
+*
+****************************************************************************/
+static void XDfeMix_EnableCCUpdateTrigger(const XDfeMix *InstancePtr)
+{
+	u32 Data;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	Data = XDfeMix_ReadReg(InstancePtr, XDFEMIX_TRIGGERS_CC_UPDATE_OFFSET);
+	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ENABLE_WIDTH,
+				  XDFEMIX_TRIGGERS_ENABLE_OFFSET, Data,
+				  XDFEMIX_TRIGGERS_ENABLE_ENABLED);
+	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_CC_UPDATE_OFFSET, Data);
+}
+
+/****************************************************************************/
+/**
+*
+* Read Triggers, set enable bit of LowPower trigger. If register source, then
+* trigger will be applied immediately.
+*
+* @param    InstancePtr is a pointer to the Mixer instance.
+*
+* @return   None
+*
+* @note     None
+*
+****************************************************************************/
+static void XDfeMix_EnableLowPowerTrigger(const XDfeMix *InstancePtr)
+{
+	u32 Data;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	Data = XDfeMix_ReadReg(InstancePtr, XDFEMIX_TRIGGERS_LOW_POWER_OFFSET);
+	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ENABLE_WIDTH,
+				  XDFEMIX_TRIGGERS_ENABLE_OFFSET, Data,
+				  XDFEMIX_TRIGGERS_ENABLE_ENABLED);
+	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_LOW_POWER_OFFSET, Data);
+}
+/****************************************************************************/
+/**
+*
+* Read Triggers, set enable bit of Activate trigger. If register source, then
+* trigger will be applied immediately.
+*
+* @param    InstancePtr is a pointer to the Mixer instance.
+*
+* @return   None
+*
+* @note     None
+*
+****************************************************************************/
+static void XDfeMix_EnableActivateTrigger(const XDfeMix *InstancePtr)
+{
+	u32 Data;
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	Data = XDfeMix_ReadReg(InstancePtr, XDFEMIX_TRIGGERS_ACTIVATE_OFFSET);
+	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ENABLE_WIDTH,
+				  XDFEMIX_TRIGGERS_ENABLE_OFFSET, Data,
+				  XDFEMIX_TRIGGERS_ENABLE_ENABLED);
+	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_ACTIVATE_OFFSET, Data);
+}
+
+/****************************************************************************/
+/**
+*
+* Read Triggers, reset enable bit of LowPower trigger.
+*
+* @param    InstancePtr is a pointer to the Mixer instance.
+*
+* @return   None
+*
+* @note     None
+*
+****************************************************************************/
+static void XDfeMix_DisableLowPowerTrigger(const XDfeMix *InstancePtr)
+{
+	u32 Data;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	Data = XDfeMix_ReadReg(InstancePtr, XDFEMIX_TRIGGERS_LOW_POWER_OFFSET);
+	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ENABLE_WIDTH,
+				  XDFEMIX_TRIGGERS_ENABLE_OFFSET, Data,
+				  XDFEMIX_TRIGGERS_ENABLE_DISABLED);
+	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_LOW_POWER_OFFSET, Data);
+}
+
 /*************************** Init API ***************************************/
 
 /*****************************************************************************/
@@ -991,7 +1102,7 @@ static u32 XDfeMix_GetCCNCOGain(const XDfeMix *InstancePtr, bool Next, u32 CCID)
 *
 * @return
 *           - pointer to instance if successful.
-*           - NULL if error occurs.
+*           - NULL on error.
 *
 * @note     None.
 *
@@ -1025,13 +1136,13 @@ XDfeMix *XDfeMix_InstanceInit(u16 DeviceId, const char *DeviceNodeName)
 
 	/* Register libmetal for this OS process */
 	if (XST_SUCCESS !=
-	    XDfeMix_RegisterMetal(DeviceId, &DevicePtrStorage[DeviceId], DeviceNodeName)) {
+	    (signed)XDfeMix_RegisterMetal(DeviceId, &DevicePtrStorage[DeviceId], DeviceNodeName)) {
 		XDfeMix_Mixer[DeviceId].StateId = XDFEMIX_STATE_NOT_READY;
 		return NULL;
 	}
 
 	/* Setup config data */
-	if (XST_FAILURE == XDfeMix_LookupConfig(DeviceId)) {
+	if (XST_FAILURE == (signed)XDfeMix_LookupConfig(DeviceId)) {
 		XDfeMix_Mixer[DeviceId].StateId = XDFEMIX_STATE_NOT_READY;
 		return NULL;
 	}
@@ -1108,9 +1219,11 @@ void XDfeMix_Reset(XDfeMix *InstancePtr)
 void XDfeMix_Configure(XDfeMix *InstancePtr, XDfeMix_Cfg *Cfg)
 {
 	u32 Version;
+	u32 ModelParam;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFEMIX_STATE_RESET);
+	Xil_AssertVoid(Cfg != NULL);
 
 	/* Read vearsion */
 	Version = XDfeMix_ReadReg(InstancePtr, XDFEMIX_VERSION_OFFSET);
@@ -1127,7 +1240,30 @@ void XDfeMix_Configure(XDfeMix *InstancePtr, XDfeMix_Cfg *Cfg)
 		XDfeMix_RdBitField(XDFEMIX_VERSION_MAJOR_WIDTH,
 				   XDFEMIX_VERSION_MAJOR_OFFSET, Version);
 
-	/* Copy configs model parameters from InstancePtr */
+	/* Read model parameters */
+	ModelParam = XDfeMix_ReadReg(InstancePtr, XDFEMIX_MODEL_PARAM_OFFSET);
+	InstancePtr->Config.BypassDDC =
+			XDfeMix_RdBitField(XDFEMIX_MODEL_PARAM_BYPASS_DUC_WIDTH,
+				   XDFEMIX_MODEL_PARAM_BYPASS_DUC_OFFSET, ModelParam);
+	InstancePtr->Config.BypassMixer =
+			XDfeMix_RdBitField(XDFEMIX_MODEL_PARAM_BYPASS_MIXER_WIDTH,
+				   XDFEMIX_MODEL_PARAM_BYPASS_MIXER_OFFSET, ModelParam);
+	InstancePtr->Config.EnableMixIf =
+			XDfeMix_RdBitField(XDFEMIX_MODEL_PARAM_ENABLE_MIX_IF_WIDTH,
+				   XDFEMIX_MODEL_PARAM_ENABLE_MIX_IF_OFFSET, ModelParam);
+	InstancePtr->Config.Mode =
+			XDfeMix_RdBitField(XDFEMIX_MODEL_PARAM_MODE_WIDTH,
+				   XDFEMIX_MODEL_PARAM_MODE_OFFSET, ModelParam);
+	InstancePtr->Config.NumAntenna =
+			XDfeMix_RdBitField(XDFEMIX_MODEL_PARAM_NUM_ANTENNA_WIDTH,
+				   XDFEMIX_MODEL_PARAM_NUM_ANTENNA_OFFSET, ModelParam);
+	InstancePtr->Config.NumCCPerAntenna =
+			XDfeMix_RdBitField(XDFEMIX_MODEL_PARAM_NUM_CC_PER_ANTENNA_WIDTH,
+				   XDFEMIX_MODEL_PARAM_NUM_CC_PER_ANTENNA_OFFSET, ModelParam);
+	InstancePtr->Config.NumSlotChannels =
+			XDfeMix_RdBitField(XDFEMIX_MODEL_PARAM_NUM_SLOT_CHANNELS_WIDTH,
+				   XDFEMIX_MODEL_PARAM_NUM_SLOT_CHANNELS_OFFSET, ModelParam);
+
 	Cfg->ModelParams.BypassDDC = InstancePtr->Config.BypassDDC;
 	Cfg->ModelParams.BypassMixer = InstancePtr->Config.BypassMixer;
 	Cfg->ModelParams.EnableMixIf = InstancePtr->Config.EnableMixIf;
@@ -1150,15 +1286,53 @@ void XDfeMix_Configure(XDfeMix *InstancePtr, XDfeMix_Cfg *Cfg)
 *
 * @return   None
 *
-* @note		None
+* @note     None
 *
 ****************************************************************************/
 void XDfeMix_Initialize(XDfeMix *InstancePtr)
 {
+	XDfeMix_Trigger CCUpdate;
+	u32 Data;
+	u32 Index;
+	u32 Offset;
+
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFEMIX_STATE_CONFIGURED);
 
-	/* TODO */
+	XDfeMix_SetPLMixerDelay(InstancePtr);
+
+	/* Set NULL sequence and ensure all CCs are disabled. Not all registers
+	   will be cleared by reset as they are implemented using DRAM. This
+	   step sets all CC_CONFIGURATION.CARRIER_CONFIGURATION.CURRENT[*].
+	   DUC_DDC to 0 ensuring the Hardblock will remain disabled following
+	   the first call to XDFEMIXilterActivate. */
+	for (Index = 0; Index < XDFEMIX_SEQ_LENGTH_MAX; Index++) {
+		Offset = XDFEMIX_SEQUENCE_NEXT + (sizeof(u32) * Index);
+		XDfeMix_WriteReg(InstancePtr, Offset,
+				 XDFEMIX_SEQUENCE_ENTRY_NULL);
+	}
+	for (Index = 0; Index < XDFEMIX_CC_NUM; Index++) {
+		Offset = XDFEMIX_DUC_DDC_MAPPING_NEXT +
+			 (sizeof(u32) * Index);
+		XDfeMix_WriteReg(InstancePtr, Offset, 0U);
+	}
+
+	/* Trigger CC_UPDATE immediately using Register source to update
+	   CURRENT from NEXT */
+	CCUpdate.Enable = 1U;
+	CCUpdate.OneShot = 1U;
+	CCUpdate.Source = 0U;
+	Data = XDfeMix_ReadReg(InstancePtr, XDFEMIX_TRIGGERS_CC_UPDATE_OFFSET);
+	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ONE_SHOT_WIDTH,
+				  XDFEMIX_TRIGGERS_ONE_SHOT_OFFSET, Data,
+				  CCUpdate.OneShot);
+	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ENABLE_WIDTH,
+				  XDFEMIX_TRIGGERS_ENABLE_OFFSET, Data,
+				  CCUpdate.Enable);
+	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_SOURCE_WIDTH,
+				  XDFEMIX_TRIGGERS_SOURCE_OFFSET, Data,
+				  CCUpdate.Source);
+	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_CC_UPDATE_OFFSET, Data);
 
 	InstancePtr->StateId = XDFEMIX_STATE_INITIALISED;
 }
@@ -1171,7 +1345,7 @@ void XDfeMix_Initialize(XDfeMix *InstancePtr)
 *       "operational".
 *
 * @param    InstancePtr is a pointer to the Mixer instance.
-* @param    EnableLowPower is an falg indicateing low power.
+* @param    EnableLowPower is an falg indicating low power.
 *
 * @return   None
 *
@@ -1180,17 +1354,25 @@ void XDfeMix_Initialize(XDfeMix *InstancePtr)
 ******************************************************************************/
 void XDfeMix_Activate(XDfeMix *InstancePtr, bool EnableLowPower)
 {
+	u32 Data;
+
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFEMIX_STATE_INITIALISED);
 
+	Data = XDfeMix_ReadReg(InstancePtr, XDFEMIX_STATE_OPERATIONAL_OFFSET);
+	if (1U == Data) {
+		return;
+	}
+
 	/* Enable the Activate trigger and set to one-shot */
-	XDfeMix_EnableActivatePowerTrigger(InstancePtr);
+	XDfeMix_EnableActivateTrigger(InstancePtr);
 
 	/* Enable the LowPower trigger, set to continuous triggering */
 	if (EnableLowPower == true) {
 		XDfeMix_EnableLowPowerTrigger(InstancePtr);
 	}
 
+	/* Mixer is operational now, change a state */
 	InstancePtr->StateId = XDFEMIX_STATE_OPERATIONAL;
 }
 
@@ -1210,17 +1392,22 @@ void XDfeMix_Activate(XDfeMix *InstancePtr, bool EnableLowPower)
 ******************************************************************************/
 void XDfeMix_Deactivate(XDfeMix *InstancePtr)
 {
+	u32 Data;
+
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFEMIX_STATE_OPERATIONAL);
 
-	/* Disable LowPower trigger (may not be enabled) */
-	XDfeMix_WrRegBitField(InstancePtr, XDFEMIX_TRIGGERS_LOW_POWER_OFFSET,
-			      XDFEMIX_TRIGGERS_ENABLE_WIDTH,
-			      XDFEMIX_TRIGGERS_ENABLE_OFFSET,
-			      XDFEMIX_TRIGGERS_ENABLE_DISABLED);
+	Data = XDfeMix_ReadReg(InstancePtr, XDFEMIX_STATE_OPERATIONAL_OFFSET);
+	if (0U == Data) {
+		return;
+	}
 
-	/* Enable Deactivate trigger and set to one-shot */
-	XDfeMix_EnableActivatePowerTrigger(InstancePtr);
+	/* Disable LowPower trigger (may not be enabled) */
+	XDfeMix_DisableLowPowerTrigger(InstancePtr);
+
+	/* Enable Activate trigger (toggles state between operational
+	   and intialized) */
+	XDfeMix_EnableActivateTrigger(InstancePtr);
 
 	InstancePtr->StateId = XDFEMIX_STATE_INITIALISED;
 }
@@ -1230,46 +1417,61 @@ void XDfeMix_Deactivate(XDfeMix *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Add specified CCID, with specified rate, NCO mapping and associated phase
-* accumulator configuration.
+* Add specified CCID, with specified configuration.
 * If there is insufficient capacity for the new CC the function will return
-* an error (non zero value).
+* an error.
 * Initiate CC update (enable CCUpdate trigger one-shot).
 *
 * @param    InstancePtr is a pointer to the Mixer instance.
 * @param    CCID is a Channel ID.
-* @param    Rate is a NCO rate value.
-* @param    NCO is a Channel ID.
-* @param    Freq is a frequencu setting for CC.
-* @param    Phase is a phase setting for CC.
-* @param    NCOGain is a NCO gain value.
+* @param    CarrierCfg is a CC configuration container.
 *
-* @return   None
+* @return
+*           - XST_SUCCESS if successful.
+*           - XST_FAILURE if error occurs.
 *
 * @note     None
 *
 ****************************************************************************/
-void XDfeMix_AddCC(XDfeMix *InstancePtr, u32 CCID, u32 Rate, u32 NCO,
-		   XDfeMix_Frequency *Freq, XDfeMix_Phase *Phase, u32 NCOGain)
+u32 XDfeMix_AddCC(const XDfeMix *InstancePtr, u32 CCID,
+		  XDfeMix_CarrierCfg *CarrierCfg)
 {
-	XDfeMix_CCCfg NextCCCfg;
+	XDfeMix_CCCfg CCCfg;
+	u32 AddSuccess;
 
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEMIX_STATE_OPERATIONAL);
-	Xil_AssertVoid(CCID < XDFEMIX_CC_NUM);
-	Xil_AssertVoid(Rate <= XDFEMIX_RATE_MAX);
-	Xil_AssertVoid(NCO <= XDFEMIX_NCO_MAX);
-	Xil_AssertVoid(Freq != NULL);
-	Xil_AssertVoid(Phase != NULL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->StateId == XDFEMIX_STATE_OPERATIONAL);
+	Xil_AssertNonvoid(CCID <= XDFEMIX_CC_NUM);
+	Xil_AssertNonvoid(CarrierCfg != NULL);
+	Xil_AssertNonvoid(CarrierCfg->DUCDDCCfg.Rate <= XDFEMIX_RATE_MAX);
+	Xil_AssertNonvoid(CarrierCfg->DUCDDCCfg.NCO <= XDFEMIX_NCO_MAX);
 
-	XDfeMix_GetCCCfg(InstancePtr, true, &NextCCCfg);
-	(void)XDfeMix_Add_CCID(CCID, Rate, &NextCCCfg.Sequence);
-	XDfeMix_SetCCDDC(InstancePtr, &NextCCCfg, CCID, Rate, NCO);
-	XDfeMix_SetCCCfg(InstancePtr, &NextCCCfg);
-	XDfeMix_SetCCFrequency(InstancePtr, true, CCID, Freq);
-	XDfeMix_SetCCPhase(InstancePtr, true, CCID, Phase);
-	XDfeMix_SetCCNCOGain(InstancePtr, true, CCID, NCOGain);
+	/* Read current CC configuration. Note that XDfeMix_Initialise writes
+	   a NULL CC sequence to H/W */
+	XDfeMix_GetCCCfg(InstancePtr, XDFEMIXER_CURRENT, &CCCfg);
+
+	/* Try to add CC to sequence and update carrier configuration */
+	AddSuccess = XDfeMix_AddCCID(CCID, CarrierCfg->DUCDDCCfg.Rate, &CCCfg.Sequence);
+	if (AddSuccess == (unsigned)XST_FAILURE) {
+		metal_log(METAL_LOG_ERROR, "CC not added to a sequence in %s\n",
+			  __func__);
+		return XST_FAILURE;
+	}
+
+	/* If add is successful update next configuration and trigger update */
+	XDfeMix_SetCCDDC(InstancePtr, &CCCfg, CCID, &CarrierCfg->DUCDDCCfg);
+	XDfeMix_SetNextCCCfg(InstancePtr, &CCCfg);
+	XDfeMix_SetCCFrequency(InstancePtr, XDFEMIXER_NEXT, CCID, &CarrierCfg->NCO.FrequencyCfg);
+	XDfeMix_SetCCPhase(InstancePtr, XDFEMIXER_NEXT, CCID, &CarrierCfg->NCO.PhaseCfg);
+	XDfeMix_SetCCNCOGain(InstancePtr, XDFEMIXER_NEXT, CCID, CarrierCfg->NCO.NCOGain);
+	/*
+	 *  PHACCs configured, but not running.
+	 *  NCOs not running.
+	 *  Antenna contribution disabled.
+	 */
 	XDfeMix_EnableCCUpdateTrigger(InstancePtr);
+
+	return XST_SUCCESS;
 }
 
 /****************************************************************************/
@@ -1286,16 +1488,25 @@ void XDfeMix_AddCC(XDfeMix *InstancePtr, u32 CCID, u32 Rate, u32 NCO,
 * @note     None
 *
 ****************************************************************************/
-void XDfeMix_RemoveCC(XDfeMix *InstancePtr, u32 CCID)
+void XDfeMix_RemoveCC(const XDfeMix *InstancePtr, u32 CCID)
 {
-	XDfeMix_CCCfg NextCCCfg;
+	XDfeMix_CCCfg CCCfg;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFEMIX_STATE_OPERATIONAL);
-	Xil_AssertVoid(CCID < XDFEMIX_CC_NUM);
+	Xil_AssertVoid(CCID <= XDFEMIX_CC_NUM);
 
-	XDfeMix_GetCCCfg(InstancePtr, false, &NextCCCfg);
-	XDfeMix_RemoveCCID(CCID, &NextCCCfg.Sequence);
+	/* Read current CC configuration */
+	XDfeMix_GetCCCfg(InstancePtr, XDFEMIXER_CURRENT, &CCCfg);
+
+	/* Remove CCID from sequence and mark carrier configuration as
+	   disabled */
+	XDfeMix_RemoveCCID(CCID, &CCCfg.Sequence);
+
+	CCCfg.DUCDDCCfg[CCID].Rate = 0U;
+
+	/* Update next configuration and trigger update */
+	XDfeMix_SetNextCCCfg(InstancePtr, &CCCfg);
 	XDfeMix_EnableCCUpdateTrigger(InstancePtr);
 }
 
@@ -1317,7 +1528,7 @@ void XDfeMix_RemoveCC(XDfeMix *InstancePtr, u32 CCID)
 * @note     None
 *
 ****************************************************************************/
-void XDfeMix_MoveCC(XDfeMix *InstancePtr, u32 CCID, u32 Rate, u32 FromNCO,
+void XDfeMix_MoveCC(const XDfeMix *InstancePtr, u32 CCID, u32 Rate, u32 FromNCO,
 		    u32 ToNCO)
 {
 	XDfeMix_CCCfg NextCCCfg;
@@ -1330,25 +1541,28 @@ void XDfeMix_MoveCC(XDfeMix *InstancePtr, u32 CCID, u32 Rate, u32 FromNCO,
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFEMIX_STATE_OPERATIONAL);
-	Xil_AssertVoid(CCID < XDFEMIX_CC_NUM);
+	Xil_AssertVoid(CCID <= XDFEMIX_CC_NUM);
 	Xil_AssertVoid(Rate <= XDFEMIX_RATE_MAX);
 	Xil_AssertVoid(FromNCO <= XDFEMIX_NCO_MAX);
 	Xil_AssertVoid(ToNCO <= XDFEMIX_NCO_MAX);
 
-	XDfeMix_GetCCCfg(InstancePtr, true, &NextCCCfg);
-	XDfeMix_SetCCCfg(InstancePtr, &NextCCCfg);
-	NCOGain = XDfeMix_GetCCNCOGain(InstancePtr, false, CCID);
-	XDfeMix_SetCCNCOGain(InstancePtr, true, CCID, NCOGain);
-	XDfeMix_GetCCFrequency(InstancePtr, false, CCID, &Freq);
-	XDfeMix_SetCCFrequency(InstancePtr, true, CCID, &Freq);
-	XDfeMix_SetCCPhaseAccumEnable(InstancePtr, true, CCID, true);
+	XDfeMix_GetCCCfg(InstancePtr, XDFEMIXER_CURRENT, &NextCCCfg);
+	XDfeMix_SetNextCCCfg(InstancePtr, &NextCCCfg);
+	/* Copy NCO */
+	NCOGain = XDfeMix_GetCCNCOGain(InstancePtr, XDFEMIXER_CURRENT, CCID);
+	XDfeMix_SetCCNCOGain(InstancePtr, XDFEMIXER_NEXT, CCID, NCOGain);
+	XDfeMix_GetCCFrequency(InstancePtr, XDFEMIXER_CURRENT, CCID, &Freq);
+	XDfeMix_SetCCFrequency(InstancePtr, XDFEMIXER_NEXT, CCID, &Freq);
+	XDfeMix_SetCCPhaseAccumEnable(InstancePtr, XDFEMIXER_NEXT, CCID, XDFEMIXER_PHACC_ENABLE);
+	/* Align phase */
 	XDfeMix_CapturePhase(InstancePtr);
-	XDfeMix_GetCCPhase(InstancePtr, false, CCID, &PhaseCurrent);
-	XDfeMix_GetCCPhase(InstancePtr, true, CCID, &PhaseNext);
+	XDfeMix_GetCCPhase(InstancePtr, XDFEMIXER_CURRENT, CCID, &PhaseCurrent);
+	XDfeMix_GetCCPhase(InstancePtr, XDFEMIXER_NEXT, CCID, &PhaseNext);
 	XDfeMix_DerivePhaseOffset(InstancePtr, &PhaseCurrent, &PhaseNext,
 				  &PhaseOffset);
 	XDfeMix_SetPhaseOffset(InstancePtr, &Freq, &PhaseDiff);
-	XDfeMix_SetCCFrequency(InstancePtr, true, CCID, &Freq);
+	XDfeMix_SetCCFrequency(InstancePtr, XDFEMIXER_NEXT, CCID, &Freq);
+
 	XDfeMix_EnableCCUpdateTrigger(InstancePtr);
 }
 
@@ -1356,7 +1570,7 @@ void XDfeMix_MoveCC(XDfeMix *InstancePtr, u32 CCID, u32 Rate, u32 FromNCO,
 /**
 *
 * Placeholder. This would be used to update frequency etc without updating
-* sequence. - TODO
+* sequence.
 *
 * @return   None
 *
@@ -1383,7 +1597,7 @@ void XDfeMix_UpdateCC(const XDfeMix *InstancePtr)
 * @note     None
 *
 ****************************************************************************/
-void XDfeMix_SetAntennaGain(XDfeMix *InstancePtr, u32 AntennaId,
+void XDfeMix_SetAntennaGain(const XDfeMix *InstancePtr, u32 AntennaId,
 			    u32 AntennaGain)
 {
 	XDfeMix_CCCfg CCCfg;
@@ -1392,8 +1606,8 @@ void XDfeMix_SetAntennaGain(XDfeMix *InstancePtr, u32 AntennaId,
 	Xil_AssertVoid(AntennaGain <= 1U);
 	Xil_AssertVoid(AntennaId <= XDFEMIX_ANT_NUM_MAX);
 
-	XDfeMix_GetCCCfg(InstancePtr, false, &CCCfg);
-	XDfeMix_SetCCCfg(InstancePtr, &CCCfg);
+	XDfeMix_GetCCCfg(InstancePtr, XDFEMIXER_CURRENT, &CCCfg);
+	XDfeMix_SetNextCCCfg(InstancePtr, &CCCfg);
 	XDfeMix_SetAntennaGainL(InstancePtr, AntennaId, AntennaGain);
 	XDfeMix_EnableCCUpdateTrigger(InstancePtr);
 }
@@ -1411,7 +1625,7 @@ void XDfeMix_SetAntennaGain(XDfeMix *InstancePtr, u32 AntennaId,
 * @note     None
 *
 ****************************************************************************/
-void XDfeMix_GetTriggers(const XDfeMix *InstancePtr,
+void XDfeMix_GetTriggersCfg(const XDfeMix *InstancePtr,
 			 XDfeMix_TriggerCfg *TriggerCfg)
 {
 	u32 Val;
@@ -1420,6 +1634,7 @@ void XDfeMix_GetTriggers(const XDfeMix *InstancePtr,
 	Xil_AssertVoid(InstancePtr->StateId != XDFEMIX_STATE_NOT_READY);
 	Xil_AssertVoid(TriggerCfg != NULL);
 
+	/* Read ACTIVATE triggers */
 	Val = XDfeMix_ReadReg(InstancePtr, XDFEMIX_TRIGGERS_ACTIVATE_OFFSET);
 	TriggerCfg->Activate.Enable =
 		XDfeMix_RdBitField(XDFEMIX_TRIGGERS_ENABLE_WIDTH,
@@ -1437,6 +1652,7 @@ void XDfeMix_GetTriggers(const XDfeMix *InstancePtr,
 		XDfeMix_RdBitField(XDFEMIX_TRIGGERS_ONE_SHOT_WIDTH,
 				   XDFEMIX_TRIGGERS_ONE_SHOT_OFFSET, Val);
 
+	/* Read LOW_POWER triggers */
 	Val = XDfeMix_ReadReg(InstancePtr, XDFEMIX_TRIGGERS_LOW_POWER_OFFSET);
 	TriggerCfg->LowPower.Enable =
 		XDfeMix_RdBitField(XDFEMIX_TRIGGERS_ENABLE_WIDTH,
@@ -1454,6 +1670,7 @@ void XDfeMix_GetTriggers(const XDfeMix *InstancePtr,
 		XDfeMix_RdBitField(XDFEMIX_TRIGGERS_ONE_SHOT_WIDTH,
 				   XDFEMIX_TRIGGERS_ONE_SHOT_OFFSET, Val);
 
+	/* Read CC_UPDATE triggers */
 	Val = XDfeMix_ReadReg(InstancePtr, XDFEMIX_TRIGGERS_CC_UPDATE_OFFSET);
 	TriggerCfg->CCUpdate.Enable =
 		XDfeMix_RdBitField(XDFEMIX_TRIGGERS_ENABLE_WIDTH,
@@ -1485,68 +1702,55 @@ void XDfeMix_GetTriggers(const XDfeMix *InstancePtr,
 * @note     None
 *
 ****************************************************************************/
-void XDfeMix_SetTriggers(const XDfeMix *InstancePtr,
-			 const XDfeMix_TriggerCfg *TriggerCfg)
+void XDfeMix_SetTriggersCfg(const XDfeMix *InstancePtr,
+			 XDfeMix_TriggerCfg *TriggerCfg)
 {
-	u32 Data;
+	u32 Val;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFEMIX_STATE_INITIALISED);
 	Xil_AssertVoid(TriggerCfg != NULL);
 
-	Data = XDfeMix_ReadReg(InstancePtr, XDFEMIX_TRIGGERS_ACTIVATE_OFFSET);
-	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ENABLE_WIDTH,
-				  XDFEMIX_TRIGGERS_ENABLE_OFFSET, Data,
-				  TriggerCfg->Activate.Enable);
-	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_SOURCE_WIDTH,
-				  XDFEMIX_TRIGGERS_SOURCE_OFFSET, Data,
-				  TriggerCfg->Activate.Source);
-	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_TUSER_BIT_WIDTH,
-				  XDFEMIX_TRIGGERS_TUSER_BIT_OFFSET, Data,
-				  TriggerCfg->Activate.TUSERBit);
-	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_SIGNAL_EDGE_WIDTH,
-				  XDFEMIX_TRIGGERS_SIGNAL_EDGE_OFFSET, Data,
-				  TriggerCfg->Activate.Edge);
-	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ONE_SHOT_WIDTH,
-				  XDFEMIX_TRIGGERS_ONE_SHOT_OFFSET, Data,
-				  TriggerCfg->Activate.OneShot);
-	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_ACTIVATE_OFFSET, Data);
+	/* Write public trigger configuration members and ensure private
+	   members (_Enable & _OneShot) are set appropriately */
 
-	Data = XDfeMix_ReadReg(InstancePtr, XDFEMIX_TRIGGERS_LOW_POWER_OFFSET);
-	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ENABLE_WIDTH,
-				  XDFEMIX_TRIGGERS_ENABLE_OFFSET, Data,
-				  TriggerCfg->LowPower.Enable);
-	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_SOURCE_WIDTH,
-				  XDFEMIX_TRIGGERS_SOURCE_OFFSET, Data,
-				  TriggerCfg->LowPower.Source);
-	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_TUSER_BIT_WIDTH,
-				  XDFEMIX_TRIGGERS_TUSER_BIT_OFFSET, Data,
-				  TriggerCfg->LowPower.TUSERBit);
-	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_SIGNAL_EDGE_WIDTH,
-				  XDFEMIX_TRIGGERS_SIGNAL_EDGE_OFFSET, Data,
-				  TriggerCfg->LowPower.Edge);
-	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ONE_SHOT_WIDTH,
-				  XDFEMIX_TRIGGERS_ONE_SHOT_OFFSET, Data,
-				  TriggerCfg->LowPower.OneShot);
-	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_LOW_POWER_OFFSET, Data);
+	/* Activate defined as OneShot (as per the programming model) */
+	TriggerCfg->Activate.Enable = 0U;
+	TriggerCfg->Activate.OneShot = 1U;
+	/* Read/set/write ACTIVATE triggers */
+	Val = XDfeMix_ReadReg(InstancePtr, XDFEMIX_TRIGGERS_ACTIVATE_OFFSET);
+	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ENABLE_WIDTH,
+				 XDFEMIX_TRIGGERS_ENABLE_OFFSET, Val,
+				 TriggerCfg->Activate.Enable);
+	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ONE_SHOT_WIDTH,
+				 XDFEMIX_TRIGGERS_ONE_SHOT_OFFSET, Val,
+				 TriggerCfg->Activate.OneShot);
+	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_ACTIVATE_OFFSET, Val);
 
-	Data = XDfeMix_ReadReg(InstancePtr, XDFEMIX_TRIGGERS_CC_UPDATE_OFFSET);
-	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ENABLE_WIDTH,
-				  XDFEMIX_TRIGGERS_ENABLE_OFFSET, Data,
-				  TriggerCfg->CCUpdate.Enable);
-	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_SOURCE_WIDTH,
-				  XDFEMIX_TRIGGERS_SOURCE_OFFSET, Data,
-				  TriggerCfg->CCUpdate.Source);
-	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_TUSER_BIT_WIDTH,
-				  XDFEMIX_TRIGGERS_TUSER_BIT_OFFSET, Data,
-				  TriggerCfg->CCUpdate.TUSERBit);
-	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_SIGNAL_EDGE_WIDTH,
-				  XDFEMIX_TRIGGERS_SIGNAL_EDGE_OFFSET, Data,
-				  TriggerCfg->CCUpdate.Edge);
-	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ONE_SHOT_WIDTH,
-				  XDFEMIX_TRIGGERS_ONE_SHOT_OFFSET, Data,
-				  TriggerCfg->CCUpdate.OneShot);
-	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_CC_UPDATE_OFFSET, Data);
+	/* LowPower defined as Continuous */
+	TriggerCfg->LowPower.Enable = 0U;
+	TriggerCfg->LowPower.OneShot = 0U;
+	/* Read LOW_POWER triggers */
+	Val = XDfeMix_ReadReg(InstancePtr, XDFEMIX_TRIGGERS_LOW_POWER_OFFSET);
+	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ENABLE_WIDTH,
+				 XDFEMIX_TRIGGERS_ENABLE_OFFSET, Val,
+				 TriggerCfg->LowPower.Enable);
+	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ONE_SHOT_WIDTH,
+				 XDFEMIX_TRIGGERS_ONE_SHOT_OFFSET, Val,
+				 TriggerCfg->LowPower.OneShot);
+	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_LOW_POWER_OFFSET, Val);
+
+	/* CCUpdate defined as OneShot */
+	TriggerCfg->CCUpdate.Enable = 0U;
+	TriggerCfg->CCUpdate.OneShot = 1U;
+	Val = XDfeMix_ReadReg(InstancePtr, XDFEMIX_TRIGGERS_CC_UPDATE_OFFSET);
+	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ENABLE_WIDTH,
+				 XDFEMIX_TRIGGERS_ENABLE_OFFSET, Val,
+				 TriggerCfg->CCUpdate.Enable);
+	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ONE_SHOT_WIDTH,
+				 XDFEMIX_TRIGGERS_ONE_SHOT_OFFSET, Val,
+				 TriggerCfg->CCUpdate.OneShot);
+	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_CC_UPDATE_OFFSET, Val);
 }
 
 /****************************************************************************/
@@ -1620,95 +1824,21 @@ void XDfeMix_GetMixerStatus(const XDfeMix *InstancePtr, u32 CCID,
 				   XDFEMIX_MIXER_STATUS_OVERFLOW_NCO_OFFSET, Val);
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Read Triggers, set enable bit of update trigger. If register source, then
-* trigger will be applied immediately.
+* This API is used to get the driver version.
 *
-* @param    InstancePtr is a pointer to the Mixer instance.
+* @param    Version is driver version numbers.
 *
 * @return   None
 *
-* @note     None
+* @note     None.
 *
-****************************************************************************/
-void XDfeMix_EnableCCUpdateTrigger(const XDfeMix *InstancePtr)
+******************************************************************************/
+void XDfeMix_GetVersions(XDfeMix_Version *Version)
 {
-	u32 Data;
-
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((InstancePtr->StateId == XDFEMIX_STATE_INITIALISED) ||
-		       (InstancePtr->StateId == XDFEMIX_STATE_OPERATIONAL));
-
-	Data = XDfeMix_ReadReg(InstancePtr, XDFEMIX_TRIGGERS_CC_UPDATE_OFFSET);
-	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ENABLE_WIDTH,
-				  XDFEMIX_TRIGGERS_ENABLE_OFFSET, Data,
-				  XDFEMIX_TRIGGERS_ENABLE_ENABLED);
-	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ONE_SHOT_WIDTH,
-				  XDFEMIX_TRIGGERS_ONE_SHOT_OFFSET, Data,
-				  XDFEMIX_TRIGGERS_ONE_SHOT_ONESHOT);
-	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_CC_UPDATE_OFFSET, Data);
-}
-
-/****************************************************************************/
-/**
-*
-* Read Triggers, set enable bit of LowPower trigger. If register source, then
-* trigger will be applied immediately.
-*
-* @param    InstancePtr is a pointer to the Mixer instance.
-*
-* @return   None
-*
-* @note     None
-*
-****************************************************************************/
-void XDfeMix_EnableLowPowerTrigger(const XDfeMix *InstancePtr)
-{
-	u32 Data;
-
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEMIX_STATE_OPERATIONAL);
-
-	Data = XDfeMix_ReadReg(InstancePtr, XDFEMIX_TRIGGERS_LOW_POWER_OFFSET);
-	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ENABLE_WIDTH,
-				  XDFEMIX_TRIGGERS_ENABLE_OFFSET, Data,
-				  XDFEMIX_TRIGGERS_ENABLE_ENABLED);
-	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ONE_SHOT_WIDTH,
-				  XDFEMIX_TRIGGERS_ONE_SHOT_OFFSET, Data,
-				  XDFEMIX_TRIGGERS_ONE_SHOT_ONESHOT);
-	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_LOW_POWER_OFFSET, Data);
-}
-/****************************************************************************/
-/**
-*
-* Read Triggers, set enable bit of Activate trigger. If register source, then
-* trigger will be applied immediately.
-*
-* @param    InstancePtr is a pointer to the Mixer instance.
-*
-* @return   None
-*
-* @note     None
-*
-****************************************************************************/
-void XDfeMix_EnableActivatePowerTrigger(XDfeMix *InstancePtr)
-{
-	u32 Data;
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((InstancePtr->StateId == XDFEMIX_STATE_INITIALISED) ||
-		       (InstancePtr->StateId == XDFEMIX_STATE_OPERATIONAL));
-
-	Data = XDfeMix_ReadReg(InstancePtr, XDFEMIX_TRIGGERS_ACTIVATE_OFFSET);
-	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ENABLE_WIDTH,
-				  XDFEMIX_TRIGGERS_ENABLE_OFFSET, Data,
-				  XDFEMIX_TRIGGERS_ENABLE_ENABLED);
-	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ONE_SHOT_WIDTH,
-				  XDFEMIX_TRIGGERS_ONE_SHOT_OFFSET, Data,
-				  XDFEMIX_TRIGGERS_ONE_SHOT_ONESHOT);
-	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_ACTIVATE_OFFSET, Data);
-
-	InstancePtr->StateId = XDFEMIX_STATE_OPERATIONAL;
+	Version->Major = XDFEMIX_DRIVER_VERSION_MAJOR;
+	Version->Minor = XDFEMIX_DRIVER_VERSION_MINOR;
 }
 /** @} */
