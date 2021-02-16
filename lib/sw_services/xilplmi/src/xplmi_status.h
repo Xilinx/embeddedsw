@@ -63,6 +63,7 @@
 *       har  02/01/2021 Added error code for mismatch of encryption key source
 *       bsv  02/09/2021 Added error code for invalid PdiSrc in subsystem Pdi load
 *       bm   02/12/2021 Updated obsolete error code as reserved
+*       ma   02/12/2021 Added error code for IPI CRC mismatch and read error
 *
 * </pre>
 *
@@ -210,6 +211,11 @@ typedef enum {
 	XPLMI_ERR_IO_MOD_INTR_NUM_DISABLE,	/**< 0x12B Invalid IoModule interrupt
 						Number used to disable interrupt */
 	XPLMI_NPI_ERR,	/**< 0x12C NPI errors */
+	XPLMI_IPI_CRC_MISMATCH_ERR,	/**< 0x12D - IPI CRC mismatch error */
+	XPLMI_IPI_READ_ERR, /**< 0x12E - Error in processing IPI request
+						It could be due to invalid message length error when
+						CRC is enabled or invalid buffer address error from
+						driver */
 
 	/** Status codes used in PLM */
 	XPLM_ERR_TASK_CREATE = 0x200,	/**< 0x200 - Error when task create
