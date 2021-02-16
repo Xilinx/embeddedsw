@@ -155,6 +155,7 @@ static XStatus PsOnlyResetAssert(XPm_ResetNode *Rst)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
+	const XPm_Subsystem *DefaultSubsys = XPmSubsystem_GetById(PM_SUBSYS_DEFAULT);
 
 	XPm_Power *LpdPower = XPmPower_GetById(PM_POWER_LPD);
 	if (NULL == LpdPower) {
@@ -177,6 +178,15 @@ static XStatus PsOnlyResetAssert(XPm_ResetNode *Rst)
 		if (Status != XST_SUCCESS) {
 			PmErr("Error %d in Powerdown of LPD %d\r\n", Status);
 			goto done;
+		}
+		/**
+		 * Change default subsystem state to POWERED_OFF as all
+		 * processors are powered off after force power down LPD.
+		 */
+		if ((NULL != DefaultSubsys) &&
+		    ((u8)ONLINE == DefaultSubsys->State)) {
+			Status = XPmSubsystem_SetState(PM_SUBSYS_DEFAULT,
+						       (u32)POWERED_OFF);
 		}
 	} else {
 		/**
