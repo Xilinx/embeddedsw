@@ -316,30 +316,30 @@ void XCsiSs_ReportCoreInfo(XCsiSs *InstancePtr)
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	xdbg_printf(XDBG_DEBUG_INFO,"\n\r  ->MIPI CSI Subsystem Cores\n\r");
+	xdbg_printf(XDBG_DEBUG_GENERAL,"\n\r  ->MIPI CSI Subsystem Cores\n\r");
 
 	/* Report all the included cores in the subsystem instance */
 	if (InstancePtr->CsiPtr) {
-		xdbg_printf(XDBG_DEBUG_INFO,"    : CSI Rx Controller \n\r");
+		xdbg_printf(XDBG_DEBUG_GENERAL,"    : CSI Rx Controller \n\r");
 	}
 
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	if (InstancePtr->DphyPtr) {
-		xdbg_printf(XDBG_DEBUG_INFO,"    : DPhy ");
+		xdbg_printf(XDBG_DEBUG_GENERAL,"    : DPhy ");
 		if (InstancePtr->Config.IsDphyRegIntfcPresent) {
-			xdbg_printf(XDBG_DEBUG_INFO,"with ");
+			xdbg_printf(XDBG_DEBUG_GENERAL,"with ");
 		}
 		else {
-			xdbg_printf(XDBG_DEBUG_INFO,"without ");
+			xdbg_printf(XDBG_DEBUG_GENERAL,"without ");
 		}
 
-		xdbg_printf(XDBG_DEBUG_INFO,"register interface \n\r");
+		xdbg_printf(XDBG_DEBUG_GENERAL,"register interface \n\r");
 	}
 #endif
 
 #if (XPAR_XIIC_NUM_INSTANCES > 0)
 	if (InstancePtr->IicPtr) {
-		xdbg_printf(XDBG_DEBUG_INFO,"	: IIC \n\r");
+		xdbg_printf(XDBG_DEBUG_GENERAL,"	: IIC \n\r");
 	}
 #endif
 }
@@ -472,7 +472,7 @@ static u32 CsiSs_SubCoreInitCsi(XCsiSs *CsiSsPtr)
 	XCsi_Config *ConfigPtr;
 
 	/* Get core configuration */
-	xdbg_printf(XDBG_DEBUG_INFO, "->Initializing CSI Rx Controller...\n\r");
+	xdbg_printf(XDBG_DEBUG_GENERAL, "->Initializing CSI Rx Controller...\n\r");
 	ConfigPtr = XCsi_LookupConfig(CsiSsPtr->Config.CsiInfo.DeviceId);
 	if (ConfigPtr == NULL) {
 		xdbg_printf(XDBG_DEBUG_ERROR,"CSISS ERR:: CSI not found\n\r");
@@ -522,7 +522,7 @@ static u32 CsiSs_SubCoreInitIic(XCsiSs *CsiSsPtr)
 	XIic_Config *ConfigPtr;
 
 	/* Get core configuration */
-	xdbg_printf(XDBG_DEBUG_INFO,"->Initializing IIC MIPI CSI "
+	xdbg_printf(XDBG_DEBUG_GENERAL,"->Initializing IIC MIPI CSI "
 		"subsystem.\n\r");
 	ConfigPtr = XIic_LookupConfig(CsiSsPtr->Config.IicInfo.DeviceId);
 	if (!ConfigPtr) {
@@ -575,7 +575,7 @@ static u32 CsiSs_SubCoreInitDphy(XCsiSs *CsiSsPtr)
 	XDphy_Config *ConfigPtr;
 
 	/* Get core configuration */
-	xdbg_printf(XDBG_DEBUG_INFO, "->Initializing DPHY ...\n\r");
+	xdbg_printf(XDBG_DEBUG_GENERAL, "->Initializing DPHY ...\n\r");
 	ConfigPtr = XDphy_LookupConfig(CsiSsPtr->Config.DphyInfo.DeviceId);
 	if (!ConfigPtr) {
 		xdbg_printf(XDBG_DEBUG_ERROR,"CSISS ERR:: DPHY not found\n\r");
