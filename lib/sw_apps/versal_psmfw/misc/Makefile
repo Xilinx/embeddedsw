@@ -8,6 +8,9 @@ SUBDIRS := $(patsubst %/Makefile, %, $(BSP_MAKEFILES))
 BSP_PARALLEL_MAKEFILES := $(filter-out $(BSP_SEQUENTIAL_MAKEFILES),$(BSP_MAKEFILES))
 SEQ_SUBDIRS := $(patsubst %/Makefile, %, $(BSP_SEQUENTIAL_MAKEFILES))
 PAR_SUBDIRS := $(patsubst %/Makefile, %, $(BSP_PARALLEL_MAKEFILES))
+COMPILER := mb-gcc
+ARCHIVER := mb-ar
+ASSEMBLER := mb-as
 
 ifneq (,$(findstring win,$(RDI_PLATFORM)))
  SHELL = CMD
@@ -28,7 +31,7 @@ par_libs: $(addsuffix /make.libs,$(PAR_SUBDIRS))
 	@echo 'Finished building libraries parallelly.'
 
 archive:
-	mb-ar -r  $(LIBRARIES) $(wildcard $(PROCESSOR)/lib/*.o)
+	$(ARCHIVER) -r  $(LIBRARIES) $(wildcard $(PROCESSOR)/lib/*.o)
 
 clean: $(addsuffix /make.clean,$(SUBDIRS))
 	rm -f ${PROCESSOR}/lib/libxil.a
@@ -38,11 +41,11 @@ $(PROCESSOR)/lib/libxil.a: $(PROCESSOR)/lib/libxil_init.a
 
 %/make.include: $(if $(wildcard $(PROCESSOR)/lib/libxil_init.a),$(PROCESSOR)/lib/libxil.a,)
 	@echo "Running Make include in $(subst /make.include,,$@)"
-	$(MAKE) -C $(subst /make.include,,$@) -s include  "SHELL=$(SHELL)" "COMPILER=mb-gcc" "ASSEMBLER=mb-as" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare" "EXTRA_COMPILER_FLAGS=-g -ffunction-sections -fdata-sections -Wall -Wextra"
+	$(MAKE) -C $(subst /make.include,,$@) -s include  "SHELL=$(SHELL)" "COMPILER=$(COMPILER)" "ASSEMBLER=$(ASSEMBLER)" "ARCHIVER=$(ARCHIVER)" "COMPILER_FLAGS=  -O2 -c -mcpu=v -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare" "EXTRA_COMPILER_FLAGS=-g -ffunction-sections -fdata-sections -Wall -Wextra"
 
 %/make.libs: include
 	@echo "Running Make libs in $(subst /make.libs,,$@)"
-	$(MAKE) -C $(subst /make.libs,,$@) -s libs  "SHELL=$(SHELL)" "COMPILER=mb-gcc" "ASSEMBLER=mb-as" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare" "EXTRA_COMPILER_FLAGS=-g -ffunction-sections -fdata-sections -Wall -Wextra"
+	$(MAKE) -C $(subst /make.libs,,$@) -s libs  "SHELL=$(SHELL)" "COMPILER=$(COMPILER)" "ASSEMBLER=$(ASSEMBLER)" "ARCHIVER=$(ARCHIVER)" "COMPILER_FLAGS=  -O2 -c -mcpu=v -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare" "EXTRA_COMPILER_FLAGS=-g -ffunction-sections -fdata-sections -Wall -Wextra"
 
 %/make.clean:
 	$(MAKE) -C $(subst /make.clean,,$@) -s clean
