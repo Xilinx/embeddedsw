@@ -7,6 +7,9 @@ Fix the issues in reading the CID and CSD.
 spips_v3_6:
 Added polled mode TPM example
 
+ipipsu_v2_9:
+Added support for CRC on IPI messages.
+
 Changes for 2020.3
 ===============================
 sdps_v3_11:
