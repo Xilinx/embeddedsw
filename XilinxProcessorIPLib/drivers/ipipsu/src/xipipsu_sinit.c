@@ -1,12 +1,12 @@
 /******************************************************************************
-* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /**
 *
 * @file xipipsu_sinit.c
-* @addtogroup ipipsu_v2_8
+* @addtogroup ipipsu_v2_9
 * @{
 *
 * The implementation of the XIpiPsu component's static initialization
