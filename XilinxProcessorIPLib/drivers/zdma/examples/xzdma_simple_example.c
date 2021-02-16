@@ -32,6 +32,8 @@
 * 1.7   adk    21/03/19  Fix alignment pragmas in the example for IAR compiler.
 *	       19/04/19  Rename the dma buffers to avoid peripheral
 *			 test compilation errors with armclang compiler.
+* 1.12	sk	02/16/21 Add the documentation for XZDma_SimpleExample()
+*			 function parameters to fix the doxygen warning.
 * </pre>
 *
 ******************************************************************************/
@@ -142,8 +144,12 @@ int main(void)
 * This function does a test of the data transfer in simple mode of normal mode
 * on the ZDMA driver.
 *
-* @param	DeviceId is the XPAR_<ZDMA Instance>_DEVICE_ID value from
-*		xparameters.h.
+* @param	IntcInstPtr is a pointer to the instance of the INTC.
+* @param	ZdmaInstPtr contains a pointer to the ZDMA instance which
+*		is going to be connected to the interrupt controller.
+* @param	DeviceId is the XPAR_<ZDMA Instance>_DEVICE_ID macro value.
+* @param	IntrId is the interrupt Id and is typically
+*		XPAR_<ZDMA_instance>_INTR macro value.
 *
 * @return
 *		- XST_SUCCESS if successful.
