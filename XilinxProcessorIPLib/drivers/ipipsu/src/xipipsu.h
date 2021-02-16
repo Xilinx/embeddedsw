@@ -1,12 +1,12 @@
 /******************************************************************************
-* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
  * @file xipipsu.h
-* @addtogroup ipipsu_v2_8
+* @addtogroup ipipsu_v2_9
 * @{
 * @details
  *
@@ -72,6 +72,7 @@
  * 2.7  sdd 09/03/20  Makefile update for parallel execution.
  * 2.8  nsk 12/14/20  Modified the driver tcl to not to use the instance names.
  * 2.8  nsk 01/19/21  Updated the driver tcl to use IP_NAME for IPIs mapped.
+ * 2.9  ma  02/12/21  Added IPI CRC functionality
  * </pre>
  *
  *****************************************************************************/
@@ -92,6 +93,18 @@ extern "C" {
 #define XIPIPSU_BUF_TYPE_MSG	(0x001U)
 #define XIPIPSU_BUF_TYPE_RESP	(0x002U)
 #define XIPIPSU_MAX_MSG_LEN		XIPIPSU_MSG_BUF_SIZE
+#define XIPIPSU_CRC_INDEX		(0x7U)
+#define XIPIPSU_W0_TO_W6_SIZE	(28U)
+
+/* CRC Mismatch error code */
+#define XIPIPSU_CRC_ERROR		(0xFL)
+
+/* Enable CRC check for IPI messsages */
+#define ENABLE_IPI_CRC_VAL	(0x0U)
+
+#if ENABLE_IPI_CRC_VAL
+#define ENABLE_IPI_CRC
+#endif
 /**************************** Type Definitions *******************************/
 /**
  * Data structure used to refer IPI Targets
