@@ -530,7 +530,7 @@ static s32 XDsiTxSs_SubCoreInitDsi(XDsiTxSs *DsiTxSsPtr)
 	}
 
 	/* Get core configuration */
-	xdbg_printf(XDBG_DEBUG_INFO, ">Initializing DSI Tx Controller...\n\r");
+	xdbg_printf(XDBG_DEBUG_GENERAL, ">Initializing DSI Tx Controller...\n\r");
 	ConfigPtr = XDsi_LookupConfig(DsiTxSsPtr->Config.DsiInfo.DeviceId);
 	if (ConfigPtr == NULL) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "DSITXSS ERR:: DSI not found\n\r");
@@ -586,7 +586,7 @@ static s32 XDsiTxSs_SubCoreInitDphy(XDsiTxSs *DsiTxSsPtr)
 	}
 
 	/* Get core configuration */
-	xdbg_printf(XDBG_DEBUG_INFO, "->Initializing DPHY ...\n\r");
+	xdbg_printf(XDBG_DEBUG_GENERAL, "->Initializing DPHY ...\n\r");
 	ConfigPtr = XDphy_LookupConfig(DsiTxSsPtr->Config.DphyInfo.DeviceId);
 	if (!ConfigPtr) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "DSITXSS ERR:: DPHY not found \n\r");
