@@ -1290,6 +1290,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 PldPwrNodeDependency[NUM_PLD0_PWR_DOMAIN_DEPENDENCY] = {PM_POWER_PLD};
 	const XPm_PlDevice *PlDevice;
+	XPm_Power *PowerParent;
 
 	PmDbg("%s for PwrDomain 0x%x Start\r\n", PmInitFunctions[Function],
 						  PwrDomain->Power.Node.Id);
@@ -1331,6 +1332,15 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			}
 		}
 		PwrDomain->Power.Node.State = (u8)XPM_POWER_STATE_ON;
+		PowerParent = PwrDomain->Power.Parent;
+		if (NULL != PowerParent) {
+			Status = PowerParent->HandleEvent(&PowerParent->Node,
+							XPM_POWER_EVENT_PWR_UP);
+			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_PWR_PARENT_UP;
+				break;
+			}
+		}
 		XPmNotifier_Event(PwrDomain->Power.Node.Id, (u32)EVENT_STATE_CHANGE);
 		/*
 		 * Note: Fallback mechanism for PLD topology. In case PL topology

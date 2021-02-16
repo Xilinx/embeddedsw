@@ -482,10 +482,6 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 		case (u8)XPM_POWER_STATE_ON:
 			if ((u32)XPM_POWER_EVENT_PWR_UP == Event) {
 				Status = XST_SUCCESS;
-				if (NULL != Power->Parent) {
-					Status = Power->Parent->HandleEvent(
-						 &Power->Parent->Node, XPM_POWER_EVENT_PWR_UP);
-				}
 				Power->UseCount++;
 			} else if ((u32)XPM_POWER_EVENT_PWR_DOWN == Event) {
 				Status = XST_SUCCESS;
@@ -500,12 +496,10 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 					/* Todo: Start timer to poll PSM status register */
 					/* Hack */
 					Status = Power->HandleEvent(Node, XPM_POWER_EVENT_TIMER);
-				} else {
+				} else if (1U < Power->UseCount) {
 					Power->UseCount--;
-					if (NULL != Power->Parent) {
-						Status = Power->Parent->HandleEvent(
-							 &Power->Parent->Node, XPM_POWER_EVENT_PWR_DOWN);
-					}
+				} else {
+					/* Required by MISRA */
 				}
 			} else {
 				/* Required by MISRA */
@@ -516,7 +510,9 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 				Status = XST_SUCCESS;
 				/* Todo: Read PSM status register */
 				if (TRUE /* Hack: Power node is down */) {
-					Power->UseCount--;
+					if (1U == Power->UseCount) {
+						Power->UseCount--;
+					}
 					if (NULL != Power->Parent) {
 						Node->State = (u8)XPM_POWER_STATE_PWR_DOWN_PARENT;
 						Power->WfParentUseCnt = Power->Parent->UseCount - 1U;
