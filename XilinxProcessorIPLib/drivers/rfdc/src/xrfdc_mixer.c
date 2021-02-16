@@ -52,6 +52,7 @@
 *                       mixer settings for Gen 1/2 devices.
 * 9.0   cog    11/25/20 Upversion.
 * 10.0  cog    11/26/20 Refactor and split files.
+*       cog    02/16/21 Fixed issue with the fine mix auto scale setting.
 * </pre>
 *
 ******************************************************************************/
@@ -324,6 +325,11 @@ u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 			ReadReg &= ~XRFDC_FINE_MIX_SCALE_MASK;
 			InstancePtr->UpdateMixerScale = 0x1U;
 		} else {
+			if (MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_R2C) {
+				ReadReg |= XRFDC_FINE_MIX_SCALE_MASK;
+			} else {
+				ReadReg &= ~XRFDC_FINE_MIX_SCALE_MASK;
+			}
 			InstancePtr->UpdateMixerScale = 0x0U;
 		}
 		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_MXR_MODE_OFFSET, ReadReg);
