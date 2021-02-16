@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,7 @@
  *                       SET BOARD command via IPI
  *       bm   10/14/2020 Code clean up
  *       td   10/19/2020 MISRA C Fixes
+ *       ma   02/12/2021 Return unique error codes in case of IPI read errors
  *
  * </pre>
  *
@@ -141,19 +142,17 @@ int XPlmi_IpiDispatchHandler(void *Data)
 		if ((SrcCpuMask & IpiMaskList[MaskIndex]) != 0U) {
 			Status = XPlmi_IpiRead(IpiMaskList[MaskIndex], &Payload[0U],
 				XPLMI_IPI_MAX_MSG_LEN, XIPIPSU_BUF_TYPE_MSG);
-			if (Status != XST_SUCCESS) {
+
+			if (XST_SUCCESS != Status) {
 				goto END;
 			}
+
 			Cmd.CmdId = Payload[0U];
 			Cmd.IpiMask = IpiMaskList[MaskIndex];
 			Status = XPlmi_ValidateIpiCmd(Cmd.CmdId);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XPLMI_ERR_IPI_CMD, 0);
-				Cmd.Response[0U] = (u32)Status;
-				/* Send response to caller */
-				XPlmi_IpiWrite(Cmd.IpiMask, Cmd.Response,
-					XPLMI_CMD_RESP_SIZE, XIPIPSU_BUF_TYPE_RESP);
-				continue;
+				goto END;
 			}
 
 			Cmd.Len = (Cmd.CmdId >> 16U) & 255U;
@@ -164,17 +163,19 @@ int XPlmi_IpiDispatchHandler(void *Data)
 				Cmd.Payload = (u32 *)&Payload[1U];
 			}
 			Status = XPlmi_CmdExecute(&Cmd);
-			Cmd.Response[0U] = (u32)Status;
 
+END:
+			Cmd.Response[0U] = (u32)Status;
 			/* Send response to caller */
-			XPlmi_IpiWrite(Cmd.IpiMask, Cmd.Response, XPLMI_CMD_RESP_SIZE,
-				XIPIPSU_BUF_TYPE_RESP);
+			(void)XPlmi_IpiWrite(Cmd.IpiMask, Cmd.Response,
+					XPLMI_CMD_RESP_SIZE, XIPIPSU_BUF_TYPE_RESP);
 		}
 	}
 
-	XPlmi_Printf(DEBUG_DETAILED, "%s: IPI processed.\n\r", __func__);
 	if (XST_SUCCESS != Status) {
 		XPlmi_Printf(DEBUG_GENERAL, "%s: Error: Unhandled IPI received\n\r", __func__);
+	} else {
+		XPlmi_Printf(DEBUG_DETAILED, "%s: IPI processed.\n\r", __func__);
 	}
 
 	if ((LpdInitialized & LPD_INITIALIZED) == LPD_INITIALIZED) {
@@ -184,7 +185,6 @@ int XPlmi_IpiDispatchHandler(void *Data)
 		}
 	}
 
-END:
 	/* Clear and enable the GIC IPI interrupt */
 	StatusTmp = XPlmi_PlmIntrClear(XPLMI_IPI_IRQ);
 	if ((StatusTmp != XST_SUCCESS) && (Status == XST_SUCCESS)) {
@@ -222,11 +222,11 @@ int XPlmi_IpiWrite(u32 DestCpuMask, u32 *MsgPtr, u32 MsgLen, u8 Type)
 				goto END;
 			}
 		}
-		XPlmi_Printf(DEBUG_DETAILED, "%s: IPI write status: 0x%x\r\n",
-				__func__, Status);
 	}
 
 END:
+	XPlmi_Printf(DEBUG_DETAILED, "%s: IPI write status: 0x%x\r\n",
+				__func__, Status);
 	return Status;
 }
 
@@ -252,12 +252,22 @@ int XPlmi_IpiRead(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen, u8 Type)
 		Status = XIpiPsu_ReadMessage(&IpiInst, SrcCpuMask, MsgPtr, MsgLen,
 				Type);
 		if (Status != XST_SUCCESS) {
+			if (XIPIPSU_CRC_ERROR == Status) {
+				XPlmi_Printf(DEBUG_GENERAL,
+						"%s: IPI CRC validation failed\r\n", __func__);
+				Status = XPlmi_UpdateStatus(XPLMI_IPI_CRC_MISMATCH_ERR, 0);
+			} else {
+				XPlmi_Printf(DEBUG_GENERAL,
+						"%s: IPI Buffer address or Message Length "
+						"is invalid\r\n", __func__);
+				Status = XPlmi_UpdateStatus(XPLMI_IPI_READ_ERR, 0);
+			}
 			goto END;
 		}
 	}
-	XPlmi_Printf(DEBUG_DETAILED, "%s: IPI read status: 0x%x\r\n", __func__, Status);
 
 END:
+	XPlmi_Printf(DEBUG_DETAILED, "%s: IPI read status: 0x%x\r\n", __func__, Status);
 	return Status;
 }
 
