@@ -30,6 +30,7 @@
  *                      optimizations.
  * 6.0  Nava  21/01/21  The usage of XMboxInstance variable is limited only
  *                      to this file. So making this variable as static.
+ * 6.0  Nava  11/02/21  Avoid reuse of request buffer.
  * </pre>
  *
  * @note
@@ -99,6 +100,7 @@ u32 XFpga_Initialize(XFpga *InstancePtr)
 static u32 XFpga_WriteToPl(XFpga *InstancePtr)
 {
 	volatile u32 Status = XFPGA_FAILURE;
+	u32 RecBuffer = XFPGA_FAILURE;
 	UINTPTR BitstreamAddr = InstancePtr->WriteInfo.BitstreamAddr;
 
 	Status = XMailbox_Initialize(&XMboxInstance, XMAILBOX_DEVICE_ID);
@@ -127,10 +129,10 @@ static u32 XFpga_WriteToPl(XFpga *InstancePtr)
 	}
 
 	Status = XFPGA_FAILURE;
-	Status = XMailbox_Recv(&XMboxInstance, XMAILBOX_IPIPMC, ReqBuffer,
+	Status = XMailbox_Recv(&XMboxInstance, XMAILBOX_IPIPMC, &RecBuffer,
 				FPGA_IPI_RESP1, XILMBOX_MSG_TYPE_RESP);
 	if (Status == (u32)XST_SUCCESS) {
-		Status = ReqBuffer[0U];
+		Status = RecBuffer;
 	}
 
 END:
