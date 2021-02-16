@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xzdma.c
-* @addtogroup zdma_v1_10
+* @addtogroup zdma_v1_11
 * @{
 *
 * This file contains the implementation of the interface functions for ZDMA
