@@ -43,7 +43,7 @@ proc generate {drv_handle} {
 				# if substring CSI_DATATYPE is present in the string
 				if {[regexp -nocase {CSI_DATATYPE} $line]} {
 					# using string map to replace true with 1 and false with 0
-					set line [string map {RGB444 0x20 RGB555 0x21 RGB565 0x22 RGB666 0x23 RGB888 0x24 RAW6 0x28 RAW7 0x29 RAW8 0x2A RAW10 0x2B RAW12 0x2C RAW14 0x2D YUV422_8bit 0x1E} $line]
+					set line [string map {RGB444 0x20 RGB555 0x21 RGB565 0x22 RGB666 0x23 RGB888 0x24 RAW6 0x28 RAW7 0x29 RAW8 0x2A RAW10 0x2B RAW12 0x2C RAW14 0x2D YUV422_8bit 0x1E YUV422_10bit 0x1F} $line]
 				}
 
 				# if substring C_CSI_EN_ACTIVELANES is present in the string
