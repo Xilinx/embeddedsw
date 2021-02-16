@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2017 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +34,7 @@
 *       kpt  10/19/2020 Added support to validate checksum of image headers and
 *                       partition headers
 * 1.04  td   11/23/2020 Coverity Warning Fixes
+*       bm   02/12/2021 Updated logic to use BootHdr directly from PMC RAM
 *
 * </pre>
 *
@@ -243,32 +244,18 @@ END:
 *
 * @param	MetaHdrPtr is pointer to Meta Header
 *
-* @return	XST_SUCCESS on successful read
-*           Errors as mentioned in xilpdi.h on failure
-*
 *****************************************************************************/
-int XilPdi_ReadBootHdr(XilPdi_MetaHdr * MetaHdrPtr)
+void XilPdi_ReadBootHdr(XilPdi_MetaHdr *MetaHdrPtr)
 {
-	int Status = XST_FAILURE;
+	MetaHdrPtr->BootHdrPtr = (XilPdi_BootHdr *)(UINTPTR)XIH_BH_PRAM_ADDR;
 
-	Status = Xil_SecureMemCpy((void *)&(MetaHdrPtr->BootHdr.WidthDetection),
-			(XIH_BH_LEN - SMAP_BUS_WIDTH_LENGTH),
-			(void *)(UINTPTR)XIH_BH_PRAM_ADDR,
-			(XIH_BH_LEN - SMAP_BUS_WIDTH_LENGTH));
-	if (Status != XST_SUCCESS) {
-		XilPdi_Printf("Boot Header memcpy failed\n\r");
-		goto END;
-	}
 	/*
 	 * Print FW Rsvd fields Details
 	 */
 	XilPdi_Printf("Boot Header Attributes: 0x%0lx \n\r",
-		MetaHdrPtr->BootHdr.ImgAttrb);
+		MetaHdrPtr->BootHdrPtr->ImgAttrb);
 	XilPdi_Printf("Meta Header Offset: 0x%0lx \n\r",
-		MetaHdrPtr->BootHdr.BootHdrFwRsvd.MetaHdrOfst);
-
-END:
-	return Status;
+		MetaHdrPtr->BootHdrPtr->BootHdrFwRsvd.MetaHdrOfst);
 }
 
 /****************************************************************************/
@@ -292,7 +279,7 @@ int XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr * MetaHdrPtr)
 	 * and update the Image Header Table structure
 	 */
 	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
-			MetaHdrPtr->BootHdr.BootHdrFwRsvd.MetaHdrOfst,
+			MetaHdrPtr->BootHdrPtr->BootHdrFwRsvd.MetaHdrOfst,
 			(u64)(UINTPTR) &(SmapBusWidthCheck),
 			SMAP_BUS_WIDTH_LENGTH, 0x0U);
 	if (XST_SUCCESS != Status) {
@@ -316,7 +303,7 @@ int XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr * MetaHdrPtr)
 	}
 
 	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
-			MetaHdrPtr->BootHdr.BootHdrFwRsvd.MetaHdrOfst +
+			MetaHdrPtr->BootHdrPtr->BootHdrFwRsvd.MetaHdrOfst +
 			SMAP_BUS_WIDTH_LENGTH,
 			(u64)(UINTPTR) &(MetaHdrPtr->ImgHdrTbl) + Offset,
 			(XIH_IHT_LEN - Offset), 0x0U);

@@ -82,6 +82,7 @@
 *       ma   01/18/2021 Added function for PMC state clear
 *       bsv  01/28/2021 Initialize ParentImgID to invalid value
 *       skd  02/01/2021 Added EL_3 check for partition in ATF HandoffParams
+*       bm   02/12/2021 Updated logic to use BootHdr directly from PMC RAM
 *
 * </pre>
 *
@@ -452,11 +453,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 	 * Read meta header from PDI source
 	 */
 	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
-		Status = XilPdi_ReadBootHdr(&PdiPtr->MetaHdr);
-		if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_READ_BOOT_HDR, Status);
-			goto END;
-		}
+		XilPdi_ReadBootHdr(&PdiPtr->MetaHdr);
 		PdiPtr->ImageNum = 1U;
 		PdiPtr->PrtnNum = 1U;
 		if ((PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI24) ||
@@ -491,12 +488,8 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 		PdiPtr->PrtnNum = 0U;
 		PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->PdiAddr;
 		/* Read Boot header */
-		Status = XilPdi_ReadBootHdr(&PdiPtr->MetaHdr);
-		if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_READ_BOOT_HDR, Status);
-			goto END;
-		}
-		Status = XPlmi_MemSetBytes(&(PdiPtr->MetaHdr.BootHdr.BootHdrFwRsvd.MetaHdrOfst),
+		XilPdi_ReadBootHdr(&PdiPtr->MetaHdr);
+		Status = XPlmi_MemSetBytes(&(PdiPtr->MetaHdr.BootHdrPtr->BootHdrFwRsvd.MetaHdrOfst),
 			sizeof(XilPdi_BootHdrFwRsvd), 0U, sizeof(XilPdi_BootHdrFwRsvd));
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET, (int)XLOADER_ERR_MEMSET_BOOT_HDR_FW_RSVD);
