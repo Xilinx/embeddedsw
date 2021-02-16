@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -60,7 +60,6 @@ struct XPm_Master *pm_get_master_by_node(const enum XPmNodeId nid);
 #define APU_2_PWRCTL_CPUPWRDWNREQ_MASK	0x00000004U
 #define APU_3_PWRCTL_CPUPWRDWNREQ_MASK	0x00000008U
 
-#define IPI_W0_TO_W6_SIZE		28U
 #define IPI_RPU_MASK			0x00000100U
 
 #define UNDEFINED_CPUID		(~0U)
