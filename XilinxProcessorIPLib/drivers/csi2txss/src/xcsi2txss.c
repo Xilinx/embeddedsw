@@ -297,24 +297,24 @@ void XCsi2TxSs_ReportCoreInfo(XCsi2TxSs *InstancePtr)
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	xdbg_printf(XDBG_DEBUG_INFO,"\n\r ->MIPI CSI2 TX Subsystem Cores\n\r");
+	xdbg_printf(XDBG_DEBUG_GENERAL,"\n\r ->MIPI CSI2 TX Subsystem Cores\n\r");
 
 	/* Report all the included cores in the subsystem instance */
 	if (InstancePtr->CsiPtr) {
-		xdbg_printf(XDBG_DEBUG_INFO,"    : CSI2 Tx Controller \n\r");
+		xdbg_printf(XDBG_DEBUG_GENERAL,"    : CSI2 Tx Controller \n\r");
 	}
 
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	if (InstancePtr->DphyPtr) {
-		xdbg_printf(XDBG_DEBUG_INFO,"    : DPhy ");
+		xdbg_printf(XDBG_DEBUG_GENERAL,"    : DPhy ");
 		if (InstancePtr->Config.IsDphyRegIntfcPresent) {
-			xdbg_printf(XDBG_DEBUG_INFO,"with ");
+			xdbg_printf(XDBG_DEBUG_GENERAL,"with ");
 		}
 		else {
-			xdbg_printf(XDBG_DEBUG_INFO,"without ");
+			xdbg_printf(XDBG_DEBUG_GENERAL,"without ");
 		}
 
-		xdbg_printf(XDBG_DEBUG_INFO,"register interface \n\r");
+		xdbg_printf(XDBG_DEBUG_GENERAL,"register interface \n\r");
 	}
 #endif
 
@@ -360,7 +360,7 @@ static u32 Csi2TxSs_SubCoreInitCsi(XCsi2TxSs *CsiSsPtr)
 	XCsi2Tx_Config *ConfigPtr;
 
 	/* Get core configuration */
-	xdbg_printf(XDBG_DEBUG_INFO, "->Initializing CSI2 Tx Controller.\n\r");
+	xdbg_printf(XDBG_DEBUG_GENERAL, "->Initializing CSI2 Tx Controller.\n\r");
 	ConfigPtr = XCsi2Tx_LookupConfig(CsiSsPtr->Config.CsiInfo.DeviceId);
 	if (ConfigPtr == NULL) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
@@ -413,7 +413,7 @@ static u32 Csi2TxSs_SubCoreInitDphy(XCsi2TxSs *CsiSsPtr)
 	XDphy_Config *ConfigPtr;
 
 	/* Get core configuration */
-	xdbg_printf(XDBG_DEBUG_INFO, "->Initializing DPHY ...\n\r");
+	xdbg_printf(XDBG_DEBUG_GENERAL, "->Initializing DPHY ...\n\r");
 	ConfigPtr = XDphy_LookupConfig(CsiSsPtr->Config.DphyInfo.DeviceId);
 	if (!ConfigPtr) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
