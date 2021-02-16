@@ -18,6 +18,7 @@
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     10/21/20 Initial version
+*       dc     02/15/21 align driver to curent specification
 * </pre>
 *
 ******************************************************************************/
@@ -81,8 +82,8 @@ void XDfeMix_GetInterruptMask(const XDfeMix *InstancePtr,
 * @note     None
 *
 ****************************************************************************/
-void XDfeMix_SetInterruptMask(XDfeMix *InstancePtr,
-			      XDfeMix_InterruptMask *Flags)
+void XDfeMix_SetInterruptMask(const XDfeMix *InstancePtr,
+			      const XDfeMix_InterruptMask *Flags)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Flags != NULL);

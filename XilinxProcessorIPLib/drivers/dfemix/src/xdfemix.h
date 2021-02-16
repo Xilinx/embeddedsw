@@ -55,6 +55,7 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     07/22/20 Initial version
 *       dc     02/02/21 Remove hard coded device node name
+*       dc     02/15/21 align driver to curent specification
 * </pre>
 *
 ******************************************************************************/
@@ -96,10 +97,6 @@ extern "C" {
 
 #define XDFEMIX_RATE_MAX 5U /**< Maximum rate Id */
 #define XDFEMIX_NCO_MAX 4U /**< Maximum NCO number */
-
-#define XDFEMIX_TRIGGER_SOURCE_IMMEDIATE 0U
-#define XDFEMIX_TRIGGER_SOURCE_TUSER 1U
-#define XDFEMIX_TRIGGER_SOURCE_TLAST 2U
 
 /**************************** Type Definitions *******************************/
 /*********** start - common code to all Logiccores ************/
@@ -157,15 +154,13 @@ typedef struct {
  * All IP triggers.
  */
 typedef struct {
-	XDfeMix_Trigger
-		Activate; /**< Toggle between "Initialized", ultra-low power
-		state, and "Operational". One-shot trigger, disabled following
-		a single event */
-	XDfeMix_Trigger
-		LowPower; /**< Toggle between "Low-power" and "Operational"
-		 state */
-	XDfeMix_Trigger CCUpdate; /**< Transition to next CC configuration.
-		Will initiate flush based on CC configuration */
+	XDfeMix_Trigger Activate; /**< Toggle between "Initialized",
+		ultra-low power state, and "Operational". One-shot trigger,
+		disabled following a single event */
+	XDfeMix_Trigger LowPower; /**< Toggle between "Low-power"
+		and "Operational" state */
+	XDfeMix_Trigger CCUpdate; /**< Transition to next CC
+		configuration. Will initiate flush based on CC configuration */
 } XDfeMix_TriggerCfg;
 
 /**
@@ -242,16 +237,37 @@ typedef struct {
  */
 typedef struct {
 	u32 NCO; /**< [0-4] DUC/DDC NCO assignment */
-	u32 Rate; /**< [0-5].Interpolation/decimation rate */
+	u32 Rate; /**< [0-5].Interpolation/decimation rate:
+			0: Disabled
+			1: 1x interpolation/decimation
+			2: 2x interpolation/decimation
+			3: 4x interpolation/decimation
+			4: 8x interpolation/decimation
+			5: 16x interpolation/decimation */
 } XDfeMix_DUCDDCCfg;
+
+/**
+ * Configuration for a single CC (implementation note: notice that there are
+ * 2 parts, one part (DUCDDCCfg) mapping to the CCCfg state, and another that
+ * is written directly to NCO registers (xDFECCMixerNCOT). Note that CC Filter
+ * does not have the second part. However from an API perspective this is
+ * hidden.
+ */
+typedef struct {
+	XDfeMix_DUCDDCCfg DUCDDCCfg; /**< Defines settings for single CC's
+		DUC/DDC */
+	XDfeMix_NCO NCO; /**< Defines settings for single CC's NCO */
+} XDfeMix_CarrierCfg;
 
 /**
  * Full CC configuration.
  */
 typedef struct {
 	XDfeMix_CCSequence Sequence; /**< CCID sequence */
-	XDfeMix_DUCDDCCfg DUCDDCCfg[16]; /**< DUC/DDC configurations */
-	u32 AntennaCfg[8]; /**< [0: 0dB,1:-6dB] Antenna gain adjustment */
+	XDfeMix_DUCDDCCfg DUCDDCCfg[16]; /**< DUC/DDC configurations for all
+		CCs */
+	u32 AntennaCfg[8]; /**< [0: 0dB,1:-6dB] Antenna gain adjustment for all
+		antenna */
 } XDfeMix_CCCfg;
 
 /**
@@ -336,26 +352,26 @@ void XDfeMix_Activate(XDfeMix *InstancePtr, bool EnableLowPower);
 void XDfeMix_Deactivate(XDfeMix *InstancePtr);
 
 /* User APIs */
-void XDfeMix_AddCC(XDfeMix *InstancePtr, u32 CCID, u32 Rate, u32 NCO,
-		   XDfeMix_Frequency *Freq, XDfeMix_Phase *Phase, u32 NCOGain);
-void XDfeMix_RemoveCC(XDfeMix *InstancePtr, u32 CCID);
-void XDfeMix_MoveCC(XDfeMix *InstancePtr, u32 CCID, u32 Rate, u32 FromNCO,
+u32 XDfeMix_AddCC(const XDfeMix *InstancePtr, u32 CCID,
+		  XDfeMix_CarrierCfg *CarrierCfg);
+void XDfeMix_RemoveCC(const XDfeMix *InstancePtr, u32 CCID);
+void XDfeMix_MoveCC(const XDfeMix *InstancePtr, u32 CCID, u32 Rate, u32 FromNCO,
 		    u32 ToNCO);
 void XDfeMix_UpdateCC(const XDfeMix *InstancePtr);
-void XDfeMix_SetAntennaGain(XDfeMix *InstancePtr, u32 AntennaId,
+void XDfeMix_SetAntennaGain(const XDfeMix *InstancePtr, u32 AntennaId,
 			    u32 AntennaGain);
-void XDfeMix_GetTriggers(const XDfeMix *InstancePtr,
+void XDfeMix_GetTriggersCfg(const XDfeMix *InstancePtr,
 			 XDfeMix_TriggerCfg *TriggerCfg);
-void XDfeMix_SetTriggers(const XDfeMix *InstancePtr,
-			 const XDfeMix_TriggerCfg *TriggerCfg);
+void XDfeMix_SetTriggersCfg(const XDfeMix *InstancePtr,
+			 XDfeMix_TriggerCfg *TriggerCfg);
 void XDfeMix_GetDUCDDCStatus(const XDfeMix *InstancePtr, u32 CCID,
 			     XDfeMix_DUCDDCStatus *DUCDDCStatus);
 void XDfeMix_GetMixerStatus(const XDfeMix *InstancePtr, u32 CCID,
 			    XDfeMix_MixerStatus *MixerStatus);
 void XDfeMix_GetInterruptMask(const XDfeMix *InstancePtr,
 			      XDfeMix_InterruptMask *Flags);
-void XDfeMix_SetInterruptMask(XDfeMix *InstancePtr,
-			      XDfeMix_InterruptMask *Flags);
+void XDfeMix_SetInterruptMask(const XDfeMix *InstancePtr,
+			      const XDfeMix_InterruptMask *Flags);
 void XDfeMix_InterruptEnable(const XDfeMix *InstancePtr,
 			     const XDfeMix_InterruptMask *Flags);
 void XDfeMix_InterruptDisable(const XDfeMix *InstancePtr,
@@ -364,9 +380,7 @@ void XDfeMix_GetInterruptStatus(const XDfeMix *InstancePtr,
 				XDfeMix_InterruptMask *Flags);
 void XDfeMix_ClearInterruptStatus(const XDfeMix *InstancePtr,
 				  const XDfeMix_InterruptMask *Flags);
-void XDfeMix_EnableCCUpdateTrigger(const XDfeMix *InstancePtr);
-void XDfeMix_EnableLowPowerTrigger(const XDfeMix *InstancePtr);
-void XDfeMix_EnableActivatePowerTrigger(XDfeMix *InstancePtr);
+void XDfeMix_GetVersions(XDfeMix_Version *Version);
 
 #ifdef __cplusplus
 }

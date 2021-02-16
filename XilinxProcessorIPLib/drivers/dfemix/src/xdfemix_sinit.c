@@ -20,6 +20,7 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     07/22/20 Initial release
 *       dc     02/02/21 Remove hard coded device node name
+*       dc     02/15/21 align driver to curent specification
 *
 * </pre>
 *
@@ -79,6 +80,9 @@ extern int metal_linux_get_device_property(struct metal_device *device,
 					   const char *property_name,
 					   void *output, int len);
 #endif
+u32 XDfeMix_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr, const char *DeviceNodeName);
+u32 XDfeMix_LookupConfig(u16 DeviceId);
+void XDfeMix_CfgInitialize(XDfeMix *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 #ifdef __BAREMETAL__
@@ -293,13 +297,6 @@ u32 XDfeMix_LookupConfig(u16 DeviceId)
 	XDfeMix_Mixer[DeviceId].Config.NumAntenna = ntohl(d);
 
 	if (XST_SUCCESS != metal_linux_get_device_property(
-				   Dev, Name = XDFEMIX_NUM_CC_PER_ANTENNA_CFG,
-				   &d, XDFEMIX_WORD_SIZE)) {
-		goto end_failure;
-	}
-	XDfeMix_Mixer[DeviceId].Config.NumCCPerAntenna = ntohl(d);
-
-	if (XST_SUCCESS != metal_linux_get_device_property(
 				   Dev, Name = XDFEMIX_NUM_SLOT_CHANNELS_CFG,
 				   &d, XDFEMIX_WORD_SIZE)) {
 		goto end_failure;
@@ -348,6 +345,7 @@ end_failure:
 
 	XDfeMix_Mixer[DeviceId].Config.BaseAddr =
 		XDfeMix_ConfigTable[DeviceId].BaseAddr;
+
 	return XST_SUCCESS;
 #endif
 }
@@ -379,20 +377,20 @@ u32 XDfeMix_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr, const c
 
 #ifdef __BAREMETAL__
 	Status = metal_register_generic_device(*DevicePtr);
-	if (Status != XST_SUCCESS) {
+	if ((signed)Status != XST_SUCCESS) {
 		metal_log(METAL_LOG_ERROR, "\n Failed to register device");
 		return Status;
 	}
 	Status = metal_device_open(XDFEMIX_BUS_NAME, DeviceNodeName,
 				   DevicePtr);
-	if (Status != XST_SUCCESS) {
+	if ((signed)Status != XST_SUCCESS) {
 		metal_log(METAL_LOG_ERROR, "\n Failed to open device Mixer");
 		return Status;
 	}
 #else
 	/* Get device name */
 	Status = XDfeMix_GetDeviceNameByDeviceId(DeviceName, DeviceId, DeviceNodeName);
-	if (Status != XST_SUCCESS) {
+	if ((signed)Status != XST_SUCCESS) {
 		metal_log(METAL_LOG_ERROR,
 			  "\n Failed to find mixer device with device id %d",
 			  DeviceId);
@@ -401,7 +399,7 @@ u32 XDfeMix_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr, const c
 
 	/* open the device metal instance */
 	Status = metal_device_open(XDFEMIX_BUS_NAME, DeviceName, DevicePtr);
-	if (Status != XST_SUCCESS) {
+	if ((signed)Status != XST_SUCCESS) {
 		metal_log(METAL_LOG_ERROR, "\n Failed to open device %s.\n",
 			  DeviceName);
 		return Status;
