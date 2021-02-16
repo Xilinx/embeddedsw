@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -150,56 +150,6 @@ void XPm_SuspendFinalize(void)
 	XPm_ClientSuspendFinalize();
 }
 
-#ifdef ENABLE_IPI_CRC
-/*****************************************************************************/
-/**
-*
-* This function calculates the CRC for the data
-*
-* @param	BufAddr - buffer on which CRC is calculated
-* @param	BufSize - size of the buffer
-*
-* @return	Checksum - 16 bit CRC value
-*
-* @note		None.
-*
-******************************************************************************/
-static u32 XPm_CalculateCRC(u32 BufAddr, u32 BufSize)
-{
-	const u32 CrcInit = 0x4F4EU;
-	const u32 Order = 16U;
-	const u32 Polynom = 0x8005U;
-	u32 i;
-	u32 j;
-	u32 c;
-	u32 Bit;
-	u32 Crc = CrcInit;
-	u32 DataIn;
-	u32 CrcMask, CrcHighBit;
-
-	CrcMask = ((u32)(((u32)1 << (Order - (u32)1)) -(u32)1) << (u32)1) | (u32)1;
-	CrcHighBit = (u32)((u32)1 << (Order - (u32)1));
-	for(i = 0U; i < BufSize; i++) {
-		DataIn = Xil_In8(BufAddr + i);
-		c = (u32)DataIn;
-		j = 0x80U;
-		while(0U != j) {
-			Bit = Crc & CrcHighBit;
-			Crc <<= 1U;
-			if(0U != (c & j)) {
-				Bit ^= CrcHighBit;
-			}
-			if(0U != Bit) {
-				Crc ^= Polynom;
-			}
-			j >>= 1U;
-		}
-		Crc &= CrcMask;
-	}
-	return Crc;
-}
-#endif
-
 /****************************************************************************/
 /**
  * @brief  Sends IPI request to the PMU
@@ -224,15 +174,6 @@ static XStatus pm_ipi_send(struct XPm_Master *const master,
 		pm_dbg("%s: ERROR: Timeout expired\n", __func__);
 		goto done;
 	}
-
-#ifdef ENABLE_IPI_CRC
-	/*
-	 * Note : The last word payload[7] in IPI Msg is reserved for CRC.
-	 * This is only for safety applications.
-	 */
-	payload[7] = XPm_CalculateCRC((UINTPTR)payload, IPI_W0_TO_W6_SIZE);
-
-#endif
 
 	status = XIpiPsu_WriteMessage(master->ipi, IPI_PMU_PM_INT_MASK,
 				      payload, PAYLOAD_ARG_CNT,
@@ -285,19 +226,6 @@ static XStatus pm_ipi_buff_read32(struct XPm_Master *const master,
 		pm_dbg("%s xilpm: ERROR reading from PMU's IPI response buffer\n", __func__);
 		goto done;
 	}
-
-#ifdef ENABLE_IPI_CRC
-	/*
-	 * Note : The last word response[7] in IPI Msg is reserved for CRC.
-	 * Compute the CRC and compare.
-	 * This is only for safety applications.
-	 */
-	if (response[7] != XPm_CalculateCRC((UINTPTR)response, IPI_W0_TO_W6_SIZE)) {
-		pm_dbg("%s: xilpm: ERROR IPI buffer CRC mismatch\n", __func__);
-		status = (XStatus)XST_FAILURE;
-		goto done;
-	}
-#endif
 
 	/*
 	 * Read response from IPI buffer
