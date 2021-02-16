@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,40 @@ XPm_Power *XPmPower_GetById(u32 Id)
 		Power = PmPowers[NodeIndex];
 		/* Validate power node ID is same as given ID. */
 		if ((NULL != Power) && (Id != Power->Node.Id)) {
+			Power = NULL;
+		}
+	}
+
+	return Power;
+}
+
+/****************************************************************************/
+/**
+ * @brief	Get handle to requested power node by "only" Node INDEX
+ *
+ * @param PwrIndex	Power Node Index
+ *
+ * @return	Pointer to requested XPm_Power, NULL otherwise
+ *
+ * @note	Requires ONLY Node Index
+ *
+ * Caller should be _careful_ while using this function as it skips the checks
+ * for validating the class, subclass and type of the power before and after
+ * retrieving the node from the database. Use this only where it is absolutely
+ * necessary, otherwise use XPmPower_GetById() which is more strict
+ * and requires 'complete' Node ID for retrieving the handle.
+ *
+ ****************************************************************************/
+XPm_Power *XPmPower_GetByIndex(const u32 PwrIndex)
+{
+	XPm_Power *Power = NULL;
+
+	/* Validate power node index is less than maximum power node index. */
+	if ((u32)XPM_NODEIDX_POWER_MAX > PwrIndex) {
+		Power = PmPowers[PwrIndex];
+		/* Validate power node index is same as given index. */
+		if ((NULL != Power) &&
+		    (PwrIndex != NODEINDEX(Power->Node.Id))) {
 			Power = NULL;
 		}
 	}
