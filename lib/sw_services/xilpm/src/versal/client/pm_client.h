@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,8 +21,10 @@ extern "C" {
 /* User needs to enable this macro to enable prints of client library */
 /* #define DEBUG_MODE */
 
-#define PAYLOAD_ARG_CNT			(6U)	/* 1 for API ID + 5 for API arguments */
-#define RESPONSE_ARG_CNT		(4U)	/* 1 for status + 3 for values */
+/* 1 for API ID + 5 for API arguments + 1 for reserved + 1 for CRC */
+#define PAYLOAD_ARG_CNT			(8U)
+/* 1 for status + 3 for values + 3 for reserved + 1 for CRC */
+#define RESPONSE_ARG_CNT		(8U)
 #define PM_IPI_TIMEOUT			(~0U)
 #define TARGET_IPI_INT_MASK		XPAR_XIPIPS_TARGET_PSV_PMC_0_CH0_MASK
 
