@@ -29,7 +29,7 @@
 
 /**
  * PmResetOps - Reset operations
- * @assert	Assert or release reset line
+ * @resetAssert	Assert or release reset line
  * @getStatus	Get current status of reset line
  * @pulse	Function performing reset pulse operation
  */
