@@ -24,10 +24,6 @@ static XIpiPsu *Ipi0InstPtr = &Ipi0Inst;
 static XIpiPsu *Ipi1InstPtr = &Ipi1Inst;
 u32 IpiMaskList[XPFW_IPI_MASK_COUNT] = {0U};
 
-#ifdef ENABLE_IPI_CRC
-#define XPFW_IPI_W0_TO_W6_SIZE 28U
-#endif
-
 s32 XPfw_IpiManagerInit(void)
  {
 	s32 Status;
@@ -90,16 +86,7 @@ s32 XPfw_IpiWriteMessage(const XPfw_Module_t *ModPtr, u32 DestCpuMask, u32 *MsgP
 	}
 
 	MsgPtr[0] = (MsgPtr[0] & 0x0000FFFFU) | ((u32)ModPtr->IpiId << 16U);
-#ifdef ENABLE_IPI_CRC
-	/* For CRC, IPI message should have max allowed length i.e.,8 words */
-	MsgLen = XPFW_IPI_MAX_MSG_LEN;
 
-	/*
-	 * Note : The last word MsgPtr[7] in IPI Msg is reserved for CRC.
-	 * This is only for safety applications.
-	 */
-	MsgPtr[7] = XPfw_CalculateCRC((u32)MsgPtr, XPFW_IPI_W0_TO_W6_SIZE);
-#endif
 	Status = XIpiPsu_WriteMessage(Ipi1InstPtr, DestCpuMask, MsgPtr, MsgLen,
 	XIPIPSU_BUF_TYPE_MSG);
 
@@ -118,16 +105,7 @@ s32 XPfw_IpiWriteResponse(const XPfw_Module_t *ModPtr, u32 DestCpuMask, u32 *Msg
 	}
 
 	MsgPtr[0] = (MsgPtr[0] & 0x0000FFFFU) | ((u32)ModPtr->IpiId << 16U);
-#ifdef ENABLE_IPI_CRC
-	/* For CRC, IPI message should have max allowed length i.e.,8 words */
-	MsgLen = XPFW_IPI_MAX_MSG_LEN;
 
-	/*
-	 * Note : The last word MsgPtr[7] in IPI Msg is reserved for CRC.
-	 * This is only for safety applications.
-	 */
-	MsgPtr[7] = XPfw_CalculateCRC((u32)MsgPtr, XPFW_IPI_W0_TO_W6_SIZE);
-#endif
 	Status = XIpiPsu_WriteMessage(Ipi0InstPtr, DestCpuMask, MsgPtr, MsgLen,
 			XIPIPSU_BUF_TYPE_RESP);
 
@@ -140,6 +118,7 @@ s32 XPfw_IpiReadMessage(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen)
 	s32 Status = XST_FAILURE;
 	u32 RespBuf[XPFW_IPI_MAX_MSG_LEN] = {0};
 
+	/* Check if MsgPtr is NULL and return error */
 	if (MsgPtr == NULL) {
 		Status = XST_FAILURE;
 		goto Done;
@@ -149,43 +128,25 @@ s32 XPfw_IpiReadMessage(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen)
 	Status = XIpiPsu_ReadMessage(Ipi0InstPtr, SrcCpuMask, MsgPtr, MsgLen,
 			XIPIPSU_BUF_TYPE_MSG);
 
-#ifdef ENABLE_IPI_CRC
-	if (XST_SUCCESS != Status) {
-		goto Done;
-	}
-
-	/* For CRC, IPI message should have max allowed length i.e.,8 words */
-	if (XPFW_IPI_MAX_MSG_LEN != MsgLen) {
-		Status = XST_FAILURE;
-		goto Done;
-	}
-
-	/*
-	 * Note : The last word MsgPtr[7] in IPI Msg is reserved for CRC.
-	 * Compute the CRC and compare.
-	 * This is only for safety applications.
-	 */
-	if (MsgPtr[7] != XPfw_CalculateCRC((u32)MsgPtr, XPFW_IPI_W0_TO_W6_SIZE)) {
-		/* Write error occurrence to PERS register and trigger FW Error1 */
+	/* Check for IPI CRC error */
+	if (XIPIPSU_CRC_ERROR == Status) {
+		/* Write error occurrence to PERS register */
 		XPfw_RMW32(PMU_GLOBAL_PERS_GLOB_GEN_STORAGE5, IPI_CRC_ERROR_OCCURRED,
 					IPI_CRC_ERROR_OCCURRED);
+
+		/* Trigger FW Error1 */
 		XPfw_RMW32(PMU_LOCAL_PMU_SERV_ERR, PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK,
 					PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK);
 		XPfw_RMW32(PMU_LOCAL_PMU_SERV_ERR, PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK,
 					0x0U);
 		XPfw_Printf(DEBUG_ERROR, "ERROR: IPI buffer CRC mismatch\r\n");
 		Status = XST_FAILURE;
-		goto Done;
 	}
-#endif
 
 Done:
 	/* Send response for failure status */
 	if (XST_SUCCESS != Status) {
 		RespBuf[0] = (u32)Status;
-#ifdef ENABLE_IPI_CRC
-		RespBuf[7] = XPfw_CalculateCRC((u32)RespBuf, XPFW_IPI_W0_TO_W6_SIZE);
-#endif
 		Status = XIpiPsu_WriteMessage(Ipi0InstPtr, SrcCpuMask, RespBuf,
 				XPFW_IPI_MAX_MSG_LEN, XIPIPSU_BUF_TYPE_RESP);
 	}
@@ -197,6 +158,7 @@ s32 XPfw_IpiReadResponse(const XPfw_Module_t *ModPtr, u32 SrcCpuMask, u32 *MsgPt
 	s32 Status = XST_FAILURE;
 	u32 MsgHeader = 0U;
 
+	/* Check if ModPtr and MsgPtr are NULL and return error */
 	if ((ModPtr == NULL) || (MsgPtr == NULL)) {
 		Status = XST_FAILURE;
 		goto Done;
@@ -218,30 +180,20 @@ s32 XPfw_IpiReadResponse(const XPfw_Module_t *ModPtr, u32 SrcCpuMask, u32 *MsgPt
 	Status = XIpiPsu_ReadMessage(Ipi1InstPtr, SrcCpuMask, MsgPtr, MsgLen,
 			XIPIPSU_BUF_TYPE_RESP);
 
-#ifdef ENABLE_IPI_CRC
-	/* For CRC, IPI message should have max allowed length i.e.,8 words */
-	if (XPFW_IPI_MAX_MSG_LEN != MsgLen) {
-		Status = XST_FAILURE;
-		goto Done;
-	}
-	/*
-	 * Note : The last word MsgPtr[7] in IPI Msg is reserved for CRC.
-	 * Compute the CRC and compare.
-	 * This is only for safety applications.
-	 */
-	if (MsgPtr[7] != XPfw_CalculateCRC((u32)MsgPtr, XPFW_IPI_W0_TO_W6_SIZE)) {
-		/* Write error occurrence to PERS register and trigger FW Error1 */
+	/* Check for IPI CRC error */
+	if (XIPIPSU_CRC_ERROR == Status) {
+		/* Write error occurrence to PERS register */
 		XPfw_RMW32(PMU_GLOBAL_PERS_GLOB_GEN_STORAGE5, IPI_CRC_ERROR_OCCURRED,
 					IPI_CRC_ERROR_OCCURRED);
+
+		/* Trigger FW Error1 */
 		XPfw_RMW32(PMU_LOCAL_PMU_SERV_ERR, PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK,
 					PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK);
 		XPfw_RMW32(PMU_LOCAL_PMU_SERV_ERR, PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK,
 					0x0U);
 		XPfw_Printf(DEBUG_ERROR, "ERROR: IPI buffer CRC mismatch\r\n");
 		Status = XST_FAILURE;
-		goto Done;
 	}
-#endif
 
 Done:
 	return Status;
