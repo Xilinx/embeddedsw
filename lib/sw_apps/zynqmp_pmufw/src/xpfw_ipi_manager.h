@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -15,7 +15,6 @@ extern "C" {
 #include "xpfw_default.h"
 #include "xpfw_module.h"
 #include "xipipsu.h"
-#include "xpfw_crc.h"
 #include "xparameters.h"
 
 #define XPFW_IPI_MASK_COUNT XIPIPSU_MAX_TARGETS
