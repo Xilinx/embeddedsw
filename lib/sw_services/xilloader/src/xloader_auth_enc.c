@@ -26,6 +26,8 @@
 *       kpt  01/21/21 Added check to verify revoke id before enabling Auth Jtag
 *       har  02/01/21 Added check for metaheader encryption source
 *       bm   02/12/21 Updated logic to use BootHdr directly from PMC RAM
+*       kpt  02/16/21 Corrected check to return valid error code in case of
+*                     MetaHeader IV mismatch and fixed gcc warning
 *
 * </pre>
 *
@@ -256,7 +258,7 @@ int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 			if ((SecurePtr->PrtnHdr->EncStatus == XLOADER_EFUSE_KEY) ||
 				(SecurePtr->PrtnHdr->EncStatus == XLOADER_BBRAM_KEY)) {
 				Status = XPlmi_UpdateStatus(
-						XLOADER_SEC_ENC_ONLY_KEYSRC_ERR, 0);
+						XLOADER_ERR_PRTN_ENC_ONLY_KEYSRC, 0);
 				goto END;
 			}
 		}
@@ -2797,11 +2799,10 @@ static int XLoader_ValidateIV(const u32 *IHPtr, const u32 *EfusePtr)
 		XPlmi_Printf(DEBUG_INFO, "IV range check failed for bits[31:0]\r\n");
 	}
 
+END:
 	if (Status != XST_SUCCESS) {
 		Status = XLoader_UpdateMinorErr(XLOADER_SEC_IV_METAHDR_RANGE_ERROR, 0);
 	}
-
-END:
 	return Status;
 }
 
