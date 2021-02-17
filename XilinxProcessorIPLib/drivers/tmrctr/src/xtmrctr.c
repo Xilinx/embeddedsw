@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xtmrctr.c
-* @addtogroup tmrctr_v4_7
+* @addtogroup tmrctr_v4_8
 * @{
 *
 * Contains required functions for the XTmrCtr driver.
@@ -41,6 +41,8 @@
 *                     is used to configure PWM to operate for specific period
 *                     and high time. XTmrCtr_PwmEnable and XTmrCtr_PwmDisable
 *                     are used to enable/disable the PWM output.
+* 4.8   dp   02/12/21 Fix compilation errors that arise when -Werror=conversion
+*                     is enabled in compilation flags.
 * </pre>
 *
 ******************************************************************************/
@@ -306,7 +308,7 @@ void XTmrCtr_Stop(XTmrCtr * InstancePtr, u8 TmrCtrNumber)
 	/*
 	 * Disable the timer counter such that it's not running
 	 */
-	ControlStatusReg &= ~(XTC_CSR_ENABLE_TMR_MASK);
+	ControlStatusReg &= (u32)~(XTC_CSR_ENABLE_TMR_MASK);
 
 	/*
 	 * Write out the updated value to the actual register.
@@ -532,7 +534,7 @@ u8 XTmrCtr_PwmConfigure(XTmrCtr *InstancePtr, u32 PwmPeriod, u32 PwmHighTime)
 					XTC_TIMER_0, XTC_TCSR_OFFSET);
 	CounterControlReg |=
 		(XTC_CSR_DOWN_COUNT_MASK | XTC_CSR_AUTO_RELOAD_MASK);
-	CounterControlReg &= ~(XTC_CSR_CASC_MASK | XTC_CSR_EXT_GENERATE_MASK);
+	CounterControlReg &= (u32)~(XTC_CSR_CASC_MASK | XTC_CSR_EXT_GENERATE_MASK);
 	XTmrCtr_WriteReg(InstancePtr->BaseAddress, XTC_TIMER_0,
 					XTC_TCSR_OFFSET, CounterControlReg);
 
@@ -540,7 +542,7 @@ u8 XTmrCtr_PwmConfigure(XTmrCtr *InstancePtr, u32 PwmPeriod, u32 PwmHighTime)
 					XTC_TIMER_1, XTC_TCSR_OFFSET);
 	CounterControlReg |=
 		(XTC_CSR_DOWN_COUNT_MASK | XTC_CSR_AUTO_RELOAD_MASK);
-	CounterControlReg &= ~(XTC_CSR_CASC_MASK | XTC_CSR_EXT_GENERATE_MASK);
+	CounterControlReg &= (u32)~(XTC_CSR_CASC_MASK | XTC_CSR_EXT_GENERATE_MASK);
 	XTmrCtr_WriteReg(InstancePtr->BaseAddress, XTC_TIMER_1,
 					XTC_TCSR_OFFSET, CounterControlReg);
 
@@ -566,16 +568,16 @@ u8 XTmrCtr_PwmConfigure(XTmrCtr *InstancePtr, u32 PwmPeriod, u32 PwmHighTime)
 	/* Configure timers in generate mode */
 	CounterControlReg = XTmrCtr_ReadReg(InstancePtr->BaseAddress,
 					XTC_TIMER_0, XTC_TCSR_OFFSET);
-	CounterControlReg &= ~(XTC_CSR_CAPTURE_MODE_MASK);
+	CounterControlReg &= (u32)~(XTC_CSR_CAPTURE_MODE_MASK);
 	XTmrCtr_WriteReg(InstancePtr->BaseAddress, XTC_TIMER_0,
 					XTC_TCSR_OFFSET, CounterControlReg);
 	CounterControlReg = XTmrCtr_ReadReg(InstancePtr->BaseAddress,
 					XTC_TIMER_1, XTC_TCSR_OFFSET);
-	CounterControlReg &= ~(XTC_CSR_CAPTURE_MODE_MASK);
+	CounterControlReg &= (u32)~(XTC_CSR_CAPTURE_MODE_MASK);
 	XTmrCtr_WriteReg(InstancePtr->BaseAddress, XTC_TIMER_1,
 					XTC_TCSR_OFFSET, CounterControlReg);
 
-	return (((float)High / Period * 100));
+	return (u8)XTC_ROUND_DIV(High * 100, Period);
 }
 
 /*****************************************************************************/
@@ -667,14 +669,14 @@ void XTmrCtr_PwmDisable(XTmrCtr *InstancePtr)
 	CounterControlReg = XTmrCtr_ReadReg(InstancePtr->BaseAddress,
 					XTC_TIMER_0, XTC_TCSR_OFFSET);
 	CounterControlReg &=
-			~(XTC_CSR_ENABLE_PWM_MASK | XTC_CSR_EXT_GENERATE_MASK);
+			(u32)~(XTC_CSR_ENABLE_PWM_MASK | XTC_CSR_EXT_GENERATE_MASK);
 	XTmrCtr_WriteReg(InstancePtr->BaseAddress, XTC_TIMER_0,
 					XTC_TCSR_OFFSET, CounterControlReg);
 
 	CounterControlReg = XTmrCtr_ReadReg(InstancePtr->BaseAddress,
 					XTC_TIMER_1, XTC_TCSR_OFFSET);
 	CounterControlReg &=
-			~(XTC_CSR_ENABLE_PWM_MASK | XTC_CSR_EXT_GENERATE_MASK);
+			(u32)~(XTC_CSR_ENABLE_PWM_MASK | XTC_CSR_EXT_GENERATE_MASK);
 	XTmrCtr_WriteReg(InstancePtr->BaseAddress, XTC_TIMER_1,
 					XTC_TCSR_OFFSET, CounterControlReg);
 
