@@ -119,6 +119,8 @@ static const XAie_RegCoreEvents AieCoreEventReg =
 	.DisableEventOccurred.Mask = XAIEGBL_CORE_ENAEVE_DISEVTOCC_MASK,
 	.DisableEvent.Lsb =  XAIEGBL_CORE_ENAEVE_DISEVT_LSB,
 	.DisableEvent.Mask =  XAIEGBL_CORE_ENAEVE_DISEVT_MASK,
+	.EnableEvent.Lsb = XAIEGBL_CORE_ENAEVE_ENAEVT_LSB,
+	.EnableEvent.Mask = XAIEGBL_CORE_ENAEVE_ENAEVT_MASK,
 };
 
 /*

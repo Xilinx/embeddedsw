@@ -590,6 +590,66 @@ AieRC XAie_CoreClearDebugControl1(XAie_DevInst *DevInst, XAie_LocType Loc)
 /*****************************************************************************/
 /*
 *
+* This API configures the enable events register with enable event. This
+* configuration will be used to enable the core when a particular event occurs.
+*
+* @param	DevInst: Device Instance
+* @param	Loc: Location of the aie tile.
+* @param	Event: Event to enable the core.
+*
+* @return	XAIE_OK on success, Error code on failure.
+*
+* @note		None.
+*
+******************************************************************************/
+AieRC XAie_CoreConfigureEnableEvent(XAie_DevInst *DevInst, XAie_LocType Loc,
+		XAie_Events Event)
+{
+	u8 TileType, MappedEvent;
+	u32 Mask, Value;
+	u64 RegAddr;
+	const XAie_CoreMod *CoreMod;
+	const XAie_EvntMod *EvntMod;
+
+	if((DevInst == XAIE_NULL) ||
+			(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid Device Instance\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	if(TileType != XAIEGBL_TILE_TYPE_AIETILE) {
+		XAIE_ERROR("Invalid Tile Type\n");
+		return XAIE_INVALID_TILE;
+	}
+
+	CoreMod = DevInst->DevProp.DevMod[TileType].CoreMod;
+	EvntMod = &DevInst->DevProp.DevMod[TileType].EvntMod[XAIE_CORE_MOD];
+
+	if(Event < EvntMod->EventMin || Event > EvntMod->EventMax) {
+		XAIE_ERROR("Invalid event ID\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	Event -= EvntMod->EventMin;
+	MappedEvent = EvntMod->XAie_EventNumber[Event];
+	if(MappedEvent == XAIE_EVENT_INVALID) {
+		XAIE_ERROR("Invalid event ID\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	RegAddr = CoreMod->CoreEvent->EnableEventOff +
+		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
+
+	Mask = CoreMod->CoreEvent->EnableEvent.Mask;
+	Value = MappedEvent << CoreMod->CoreEvent->EnableEvent.Lsb;
+
+	return XAie_MaskWrite32(DevInst, RegAddr, Mask, Value);
+}
+
+/*****************************************************************************/
+/*
+*
 * This API configures the enable events register with disable event. This
 * configuration will be used to check if the core has triggered the disable
 * event.
