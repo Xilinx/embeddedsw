@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,7 @@
 * 1.03  kc   07/28/2020 Moved LpdInitialized from xplmi_debug.c to xplmi.c
 *       bm   10/14/2020 Code clean up
 *       td   10/19/2020 MISRA C Fixes
+* 1.04  bm   02/01/2021 Add XPlmi_Print functions using xil_vprintf
 *
 * </pre>
 *
@@ -43,6 +44,7 @@
 #include "xplmi_hw.h"
 #include "xplmi_status.h"
 #include "xparameters.h"
+#include <stdarg.h>
 
 /* PLM specific outbyte function */
 void outbyte(char8 c);
@@ -158,4 +160,47 @@ void outbyte(char8 c)
 
 	XPlmi_OutByte64(DebugLog.LogBuffer.CurrentAddr, (u8)c);
 	++DebugLog.LogBuffer.CurrentAddr;
+}
+
+/*****************************************************************************/
+/**
+ * @brief   This function prints debug messages with timestamp
+ *
+ * @param   DebugType is the PLM Debug level for the message
+ * @param   Ctrl1 is the format specified string to print
+ * @param   ... variable arguments that define the format specifiers in Ctrl1
+ *
+ *****************************************************************************/
+void XPlmi_Print(u32 DebugType, const char8 *Ctrl1, ...)
+{
+	va_list Args;
+
+	va_start(Args, Ctrl1);
+
+	if(((DebugType) & (DebugLog.LogLevel)) != (u8)FALSE) {
+		XPlmi_PrintPlmTimeStamp();
+		xil_vprintf(Ctrl1, Args);
+	}
+	va_end(Args);
+}
+
+/*****************************************************************************/
+/**
+ * @brief   This function prints debug messages without timestamp
+ *
+ * @param   DebugType is the PLM Debug level for the message
+ * @param   Ctrl1 is the format specified string to print
+ * @param   ... variable arguments that define the format specifiers in Ctrl1
+ *
+ *****************************************************************************/
+void XPlmi_Print_WoTS(u32 DebugType, const char8 *Ctrl1, ...)
+{
+	va_list Args;
+
+	va_start(Args, Ctrl1);
+
+	if(((DebugType) & (DebugLog.LogLevel)) != (u8)FALSE) {
+		xil_vprintf(Ctrl1, Args);
+	}
+	va_end(Args);
 }

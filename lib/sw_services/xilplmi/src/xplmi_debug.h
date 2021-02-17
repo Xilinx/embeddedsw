@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,7 @@
 *       bsv  04/04/2020 Code clean up
 * 1.03  kc   07/28/2020 Moved LpdInitialized from xplmi_debug.c to xplmi.c
 *       bm   10/14/2020 Code clean up
+* 1.04  bm   02/01/2021 Add XPlmi_Print functions using xil_vprintf
 *
 * </pre>
 *
@@ -56,6 +57,12 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 
+/************************** Function Prototypes ******************************/
+/* Functions defined in xplmi_debug.c */
+int XPlmi_InitUart(void);
+void XPlmi_Print(u32 DebugType, const char8 *Ctrl1, ...);
+void XPlmi_Print_WoTS(u32 DebugType, const char8 *Ctrl1, ...);
+
 /***************** Macros (Inline Functions) Definitions *********************/
 #ifdef PLM_PRINT_PERF
 #define DEBUG_PRINT_PERF	DEBUG_PRINT_ALWAYS
@@ -77,6 +84,17 @@ extern "C" {
 #define XPlmiDbgCurrentTypes (0U)
 #endif
 
+#define XPlmi_Printf(DebugType, ...) \
+	if(((DebugType) & (XPlmiDbgCurrentTypes)) != (u8)FALSE) { \
+		XPlmi_Print(DebugType, __VA_ARGS__);\
+	}
+
+/* Prints without TimeStamp */
+#define XPlmi_Printf_WoTS(DebugType, ...) \
+	if(((DebugType) & (XPlmiDbgCurrentTypes)) != (u8)FALSE) { \
+		XPlmi_Print_WoTS(DebugType, __VA_ARGS__);\
+	}
+
 /* Check if UART is present in design */
 #if defined (STDOUT_BASEADDRESS)
 /* Check if MDM uart or PS Uart */
@@ -88,22 +106,7 @@ extern "C" {
 #endif
 #endif
 
-/************************** Function Prototypes ******************************/
-/* Functions defined in xplmi_debug.c */
-int XPlmi_InitUart(void);
-
 /************************** Variable Definitions *****************************/
-#define XPlmi_Printf(DebugType, ...) \
-	if(((DebugType) & (DebugLog.LogLevel)) != (u8)FALSE) { \
-		XPlmi_PrintPlmTimeStamp(); \
-		xil_printf (__VA_ARGS__); \
-	}
-
-/* Prints without TimeStamp */
-#define XPlmi_Printf_WoTimeStamp(DebugType, ...) \
-	if(((DebugType) & (DebugLog.LogLevel)) != (u8)FALSE) { \
-		xil_printf (__VA_ARGS__); \
-	}
 
 #ifdef __cplusplus
 }

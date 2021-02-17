@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,9 +11,13 @@
 #include "xpm_pmc.h"
 #include "xpm_psfpdomain.h"
 #include "xpm_pslpdomain.h"
+#include <stdarg.h>
 
 #define MAX_BYTEBUFFER_SIZE	(32U * 1024U)
 #define NOT_INITIALIZED	0xFFFFFFFFU
+#define DBG_STR_IDX(DebugType) ((((DebugType) & XPM_DEBUG_MASK) >> \
+					XPM_DEBUG_SHIFT) - 1U)
+
 static u8 ByteBuffer[MAX_BYTEBUFFER_SIZE];
 static u8 *FreeBytes = ByteBuffer;
 
@@ -295,4 +299,19 @@ u32 XPm_GetIdCode(void)
 	}
 
 	return DevIdCode;
+}
+
+void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...)
+{
+	va_list Args;
+	static const char *PrefixStr[] = {"ALERT", "ERR", "WARN", "INFO", "DBG"};
+	u32 Idx = DBG_STR_IDX(DebugType);
+
+	va_start(Args, Ctrl1);
+	if ((((DebugType) & (DebugLog.LogLevel)) != (u8)FALSE) &&
+		(Idx < (u32)ARRAY_SIZE(PrefixStr))) {
+		xil_printf("%s %s: ", PrefixStr[Idx], Fnstr);
+		xil_vprintf(Ctrl1, Args);
+	}
+	va_end(Args);
 }

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2017 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,7 @@
 *       td   10/19/2020 MISRA C Fixes
 * 1.04  bsv  11/05/2020 Added prints while polling in UtilPoll APIs
 *       td   11/23/2020 MISRA C Rule 17.8 Fixes
+*       bm   02/16/2021 Renamed print functions used in XPlmi_PrintArray
 *
 * </pre>
 *
@@ -315,15 +316,14 @@ void XPlmi_PrintArray (u32 DebugType, const u64 BufAddr, u32 Len, const char *St
 		XPlmi_Printf(DebugType, "%s START, Len:0x%08x\r\n 0x%08x%08x: ",
 			     Str, Len, (u32)(Addr >> 32U), (u32)Addr);
 		for (Index = 0U; Index < Len; Index++) {
-			XPlmi_Printf_WoTimeStamp(DebugType, "0x%08x ",
-				XPlmi_In64(Addr));
+			XPlmi_Printf_WoTS(DebugType, "0x%08x ", XPlmi_In64(Addr));
 			if (((Index + 1U) % XPLMI_WORD_LEN) == 0U) {
-				XPlmi_Printf_WoTimeStamp(DebugType,
-				"\r\n 0x%08x%08x: ", (u32)(Addr >> 32U), (u32)Addr);
+				XPlmi_Printf_WoTS(DebugType, "\r\n 0x%08x%08x: ",
+					(u32)(Addr >> 32U), (u32)Addr);
 			}
 			Addr += XPLMI_WORD_LEN;
 		}
-		XPlmi_Printf_WoTimeStamp(DebugType, "\r\n");
+		XPlmi_Printf_WoTS(DebugType, "\r\n");
 		XPlmi_Printf(DebugType, "%s END\r\n", Str);
 	}
 	return;
