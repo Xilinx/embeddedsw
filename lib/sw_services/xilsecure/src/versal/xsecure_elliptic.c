@@ -26,6 +26,7 @@
 *       har 10/14/20  Replaced ecdsa with elliptic in names of function and
 *                     macros
 * 4.4   har 01/18/20  Added support for ECDSA P521 KAT
+*       kpt 02/14/21  Added redundancy for ECDSA hash length check
 *
 * </pre>
 *
@@ -137,6 +138,7 @@ int XSecure_EllipticGenerateSignature(XSecure_EllipticCrvTyp CrvType, const u8* 
 	int GenStatus = XST_FAILURE;
 	EcdsaCrvInfo *Crv = NULL;
 	u8 PaddedHash[XSECURE_ECC_P521_SIZE_IN_BYTES] = {0U};
+	volatile u32 HashLenTmp = 0xFFFFFFFFU;
 
 	if ((CrvType != XSECURE_ECC_NIST_P384) &&
 			(CrvType != XSECURE_ECC_NIST_P521)) {
@@ -149,7 +151,9 @@ int XSecure_EllipticGenerateSignature(XSecure_EllipticCrvTyp CrvType, const u8* 
 		goto END;
 	}
 
-	if (HashLen > XSECURE_ECC_P521_SIZE_IN_BYTES) {
+	HashLenTmp = HashLen;
+	if ((HashLen > XSECURE_ECC_P521_SIZE_IN_BYTES) ||
+		(HashLenTmp > XSECURE_ECC_P521_SIZE_IN_BYTES)) {
 		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
 		goto END;
 	}
@@ -282,6 +286,7 @@ int XSecure_EllipticVerifySign(XSecure_EllipticCrvTyp CrvType, const u8 *Hash,
 	volatile int VerifyStatus = XST_FAILURE;
 	EcdsaCrvInfo *Crv = NULL;
 	u8 PaddedHash[XSECURE_ECC_P521_SIZE_IN_BYTES] = {0U};
+	volatile u32 HashLenTmp = 0xFFFFFFFFU;
 
 	if ((CrvType != XSECURE_ECC_NIST_P384) && (CrvType != XSECURE_ECC_NIST_P521)) {
 		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
@@ -293,7 +298,9 @@ int XSecure_EllipticVerifySign(XSecure_EllipticCrvTyp CrvType, const u8 *Hash,
 		goto END;
 	}
 
-	if (HashLen > XSECURE_ECC_P521_SIZE_IN_BYTES) {
+	HashLenTmp = HashLen;
+	if ((HashLen > XSECURE_ECC_P521_SIZE_IN_BYTES) ||
+		(HashLenTmp > XSECURE_ECC_P521_SIZE_IN_BYTES)) {
 		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
 		goto END;
 	}
