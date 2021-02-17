@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2004 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2004 - 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -17,6 +17,9 @@
 # 4.7      mus    08/31/20 Updated makefile to support parallel make and
 #                          incremental builds. It would help to reduce
 #                          compilation time.
+# 4.8      dp     02/12/21 Fix compilation errors that arise when
+#                          -Werror=conversion is enabled in compilation flags.
+#
 ##############################################################################
 ## @BEGIN_CHANGELOG EDK_M
 ##
@@ -37,7 +40,7 @@ BEGIN driver tmrctr
   OPTION supported_peripherals = (axi_timer);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 4.7;
+  OPTION VERSION = 4.8;
   OPTION NAME = tmrctr;
 
 END driver

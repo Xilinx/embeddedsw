@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xtmrctr_options.c
-* @addtogroup tmrctr_v4_7
+* @addtogroup tmrctr_v4_8
 * @{
 *
 * Contains configuration options functions for the XTmrCtr component.
