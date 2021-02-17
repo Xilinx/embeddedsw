@@ -1,7 +1,7 @@
 /******************************************************************************
 *
 * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
-* Copyright (C) 2009-2020 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2009-2021 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy of
 * this software and associated documentation files (the "Software"), to deal in
@@ -93,7 +93,14 @@ FIQLoop:
 
 .align 4
 FreeRTOS_Undefined:				/* Undefined handler */
-	b		.
+	stmdb	sp!,{r0-r3,r12,lr}		/* state save from compiled code */
+	ldr     r0, =UndefinedExceptionAddr
+	sub     r1, lr, #4
+	str     r1, [r0]            		/* Store address of instruction causing undefined exception */
+
+	blx	UndefinedException		/* UndefinedException: call C function here */
+	ldmia	sp!,{r0-r3,r12,lr}		/* state restore from compiled code */
+	movs	pc, lr
 
 .align 4
 FreeRTOS_DataAbortHandler:		/* Data Abort handler */
@@ -101,6 +108,9 @@ FreeRTOS_DataAbortHandler:		/* Data Abort handler */
 	dsb
 #endif
 	stmdb	sp!,{r0-r3,r12,lr}	/* state save from compiled code */
+	ldr     r0, =DataAbortAddr
+	sub     r1, lr, #8
+	str     r1, [r0]            /* Store address of instruction causing undefined exception */
 	blx	DataAbortInterrupt		/*DataAbortInterrupt :call C function here */
 	ldmia	sp!,{r0-r3,r12,lr}	/* state restore from compiled code */
 	subs	pc, lr, #4			/* adjust return */
@@ -111,6 +121,9 @@ FreeRTOS_PrefetchAbortHandler:	/* Prefetch Abort handler */
 	dsb
 #endif
 	stmdb	sp!,{r0-r3,r12,lr}	/* state save from compiled code */
+	ldr     r0, =PrefetchAbortAddr
+	sub     r1, lr, #4
+	str     r1, [r0]            /* Stores instruction causing prefetch abort */
 	blx	PrefetchAbortInterrupt	/* PrefetchAbortInterrupt: call C function here */
 	ldmia	sp!,{r0-r3,r12,lr}	/* state restore from compiled code */
 	subs	pc, lr, #4			/* adjust return */
