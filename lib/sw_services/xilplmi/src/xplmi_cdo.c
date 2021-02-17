@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +31,7 @@
 *       bm   10/14/2020 Code clean up
 *       td	 10/19/2020 MISRA C Fixes
 * 1.03  td   11/23/2020 MISRA C Rule 17.8 Fixes
+*       bm   02/17/2021 Add overflow check for payloadlen
 *
 * </pre>
 *
@@ -79,6 +80,9 @@ static u32 XPlmi_CmdSize(const u32 *Buf, u32 Len)
 			Size = XPLMI_LONG_CMD_HDR_LEN;
 			if (Len >= Size) {
 				PayloadLen = Buf[1U];
+			}
+			if (PayloadLen > XPLMI_MAX_LONG_CMD_LEN) {
+				PayloadLen = XPLMI_MAX_LONG_CMD_LEN;
 			}
 		}
 		Size += PayloadLen;

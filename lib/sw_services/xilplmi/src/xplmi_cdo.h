@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 *						static
 *       bsv  09/30/2020 Fix typo
 *       bm   10/14/2020 Code clean up
+* 1.03  bm   02/17/2021 Add Max payload length for long commands
 *
 * </pre>
 *
@@ -62,6 +63,9 @@ extern "C" {
 
 /* Define for Long command header length */
 #define XPLMI_LONG_CMD_HDR_LEN		(2U)
+
+/* Define for Max Long command length */
+#define XPLMI_MAX_LONG_CMD_LEN		(0xFFFFFFFDU)
 
 /* Define for Short command length shift */
 #define XPLMI_SHORT_CMD_LEN_SHIFT	(16U)
