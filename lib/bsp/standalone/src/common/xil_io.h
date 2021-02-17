@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,8 @@
 *                         xil_io.h and made them as static inline
 *       am       10/13/20 Changed the return type of Xil_SecureOut32 function
 *                         from u32 to int
+* 7.50  dp       02/12/21 Fix compilation error in Xil_EndianSwap32() that occur
+*                         when -Werror=conversion compiler flag is enabled
 *
 * </pre>
 ******************************************************************************/
@@ -298,8 +300,8 @@ static INLINE __attribute__((always_inline)) u32 Xil_EndianSwap32(u32 Data)
 
 	/* byte swap each of the 16 bit half words */
 
-	LoWord = (((LoWord & 0xFF00U) >> 8U) | ((LoWord & 0x00FFU) << 8U));
-	HiWord = (((HiWord & 0xFF00U) >> 8U) | ((HiWord & 0x00FFU) << 8U));
+	LoWord = (u16)(((LoWord & 0xFF00U) >> 8U) | ((LoWord & 0x00FFU) << 8U));
+	HiWord = (u16)(((HiWord & 0xFF00U) >> 8U) | ((HiWord & 0x00FFU) << 8U));
 
 	/* swap the half words before returning the value */
 
