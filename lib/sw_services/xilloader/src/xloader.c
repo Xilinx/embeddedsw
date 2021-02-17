@@ -83,6 +83,7 @@
 *       bsv  01/28/2021 Initialize ParentImgID to invalid value
 *       skd  02/01/2021 Added EL_3 check for partition in ATF HandoffParams
 *       bm   02/12/2021 Updated logic to use BootHdr directly from PMC RAM
+*       kpt  02/16/2021 Updated error code when secure validations are failed
 *
 * </pre>
 *
@@ -535,6 +536,8 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 	Status = XLoader_SecureValidations(&SecureParams);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_INFO,"Failed at secure validations\n\r");
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_SECURE_NOT_ALLOWED,
+				Status);
 		goto END;
 	}
 

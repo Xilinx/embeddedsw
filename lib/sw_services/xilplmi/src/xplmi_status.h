@@ -64,6 +64,8 @@
 *       bsv  02/09/2021 Added error code for invalid PdiSrc in subsystem Pdi load
 *       bm   02/12/2021 Updated obsolete error code as reserved
 *       ma   02/12/2021 Added error code for IPI CRC mismatch and read error
+*       kpt  02/16/2021 Added error codes for invalid key source when encryption
+*                       only is enabled and when secure validations are failed.
 *
 * </pre>
 *
@@ -551,6 +553,10 @@ typedef enum {
 		programmed */
 	XLOADER_ERR_METAHDR_KEYSRC_MISMATCH,
 		/**< 0x62C Metaheader Key Source does not match PLM Key Source */
+	XLOADER_ERR_PRTN_ENC_ONLY_KEYSRC,
+		/**< 0x62D Invalid key source when encryption only is enabled */
+	XLOADER_ERR_SECURE_NOT_ALLOWED,
+		/**< 0x62E Error when secure validations are failed */
 
 	XPLMI_ERR_CDO_CMD = 0x2000,
 		/**< 0x2XXX, CDO command handler has failed.
