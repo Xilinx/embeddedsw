@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xaxiethernet_porting_guide.h
-* @addtogroup axiethernet_v5_11
+* @addtogroup axiethernet_v5_12
 * @{
 *
 * This is a guide on how to move from using the ll temac driver to use the

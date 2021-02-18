@@ -1,12 +1,12 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /**
 *
 * @file xaxiethernet.c
-* @addtogroup axiethernet_v5_11
+* @addtogroup axiethernet_v5_12
 * @{
 *
 * The APIs in this file takes care of the primary functionalities of the driver.

@@ -1,12 +1,12 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /**
 *
 * @file xaxiethernet_sinit.c
-* @addtogroup axiethernet_v5_11
+* @addtogroup axiethernet_v5_12
 * @{
 *
 * This file contains static initialization functionality for Axi Ethernet driver.
