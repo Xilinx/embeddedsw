@@ -15,24 +15,38 @@ extern "C" {
 
 /************* User Configurable Options ***************/
 
-/* PMUFW print levels */
-#define XPFW_PRINT_VAL (1U)
-#define XPFW_DEBUG_ERROR_VAL (0U)
-#define XPFW_DEBUG_DETAILED_VAL (0U)
+/**
+ * PMU Firmware print levels
+ *
+ * XPFW_PRINT : Prints PMU Firmware header and any mandatory prints
+ * XPFW_DEBUG_ERROR : Enables Firmware error prints
+ * XPFW_DEBUG_DETAILED : Enables Firmware detailed prints
+ */
+#ifndef XPFW_PRINT_VAL
+#define XPFW_PRINT_VAL						(1U)
+#endif
+
+#ifndef XPFW_DEBUG_ERROR_VAL
+#define XPFW_DEBUG_ERROR_VAL				(0U)
+#endif
+
+#ifndef XPFW_DEBUG_DETAILED_VAL
+#define XPFW_DEBUG_DETAILED_VAL				(0U)
+#endif
 
 /**
  * PMUFW Debug options
  */
 
-#if XPFW_PRINT_VAL
+#if (XPFW_PRINT_VAL) && (!defined(XPFW_PRINT))
 #define XPFW_PRINT
 #endif
 
-#if XPFW_DEBUG_ERROR_VAL
+#if (XPFW_DEBUG_ERROR_VAL) && (!defined(XPFW_DEBUG_ERROR))
 #define XPFW_DEBUG_ERROR
 #endif
 
-#if XPFW_DEBUG_DETAILED_VAL
+#if (XPFW_DEBUG_DETAILED_VAL) && (!defined(XPFW_DEBUG_DETAILED))
 #define XPFW_DEBUG_DETAILED
 #endif
 
@@ -96,49 +110,153 @@ extern "C" {
  * 	- BOARD_SHUTDOWN_PIN_STATE : Tells what should be the state of board power
  * 	                             line when system shutdown request comes
  */
+#ifndef ENABLE_PM_VAL
+#define	ENABLE_PM_VAL						(1U)
+#endif
 
-#define	ENABLE_PM_VAL					(1U)
-#define	ENABLE_EM_VAL					(0U)
-#define	ENABLE_SCHEDULER_VAL			(1U)
-#define ENABLE_MOD_ULTRA96_VAL			(0U)
-#define	ENABLE_RECOVERY_VAL				(0U)
-#define	ENABLE_RECOVERY_RESET_SYSTEM_VAL		(0U)
-#define	ENABLE_RECOVERY_RESET_PS_ONLY_VAL		(0U)
-#define	ENABLE_ESCALATION_VAL			(0U)
-#define CHECK_HEALTHY_BOOT_VAL			(0U)
-#define	ENABLE_WDT_VAL					(0U)
-#define ENABLE_CUSTOM_MOD_VAL			(0U)
-#define	ENABLE_STL_VAL					(0U)
-#define	ENABLE_RTC_TEST_VAL				(0U)
-#define	ENABLE_FPGA_LOAD_VAL			(1U)
-#define ENABLE_FPGA_READ_CONFIG_DATA_VAL		(1U)
-#define ENABLE_FPGA_READ_CONFIG_REG_VAL			(1U)
-#define	ENABLE_SECURE_VAL				(1U)
-#define ENABLE_EFUSE_ACCESS				(0U)
-#define	XPU_INTR_DEBUG_PRINT_ENABLE_VAL	(0U)
+#ifndef ENABLE_EM_VAL
+#define	ENABLE_EM_VAL						(0U)
+#endif
 
-#define	PM_LOG_LEVEL_VAL				(0U)
-#define	IDLE_PERIPHERALS_VAL			(0U)
-#define	ENABLE_NODE_IDLING_VAL			(0U)
-#define	DEBUG_MODE_VAL					(0U)
-#define	ENABLE_POS_VAL					(0U)
+#ifndef ENABLE_SCHEDULER_VAL
+#define	ENABLE_SCHEDULER_VAL				(1U)
+#endif
+
+#ifndef ENABLE_MOD_ULTRA96_VAL
+#define ENABLE_MOD_ULTRA96_VAL				(0U)
+#endif
+
+#ifndef ENABLE_RECOVERY_VAL
+#define	ENABLE_RECOVERY_VAL					(0U)
+#endif
+
+#ifndef ENABLE_RECOVERY_RESET_SYSTEM_VAL
+#define	ENABLE_RECOVERY_RESET_SYSTEM_VAL	(0U)
+#endif
+
+#ifndef ENABLE_RECOVERY_RESET_PS_ONLY_VAL
+#define	ENABLE_RECOVERY_RESET_PS_ONLY_VAL	(0U)
+#endif
+
+#ifndef ENABLE_ESCALATION_VAL
+#define	ENABLE_ESCALATION_VAL				(0U)
+#endif
+
+#ifndef CHECK_HEALTHY_BOOT_VAL
+#define CHECK_HEALTHY_BOOT_VAL				(0U)
+#endif
+
+#ifndef ENABLE_WDT_VAL
+#define	ENABLE_WDT_VAL						(0U)
+#endif
+
+#ifndef ENABLE_CUSTOM_MOD_VAL
+#define ENABLE_CUSTOM_MOD_VAL				(0U)
+#endif
+
+#ifndef ENABLE_STL_VAL
+#define	ENABLE_STL_VAL						(0U)
+#endif
+
+#ifndef ENABLE_RTC_TEST_VAL
+#define	ENABLE_RTC_TEST_VAL					(0U)
+#endif
+
+#ifndef ENABLE_FPGA_LOAD_VAL
+#define	ENABLE_FPGA_LOAD_VAL				(1U)
+#endif
+
+#ifndef ENABLE_FPGA_READ_CONFIG_DATA_VAL
+#define ENABLE_FPGA_READ_CONFIG_DATA_VAL	(1U)
+#endif
+
+#ifndef ENABLE_FPGA_READ_CONFIG_REG_VAL
+#define ENABLE_FPGA_READ_CONFIG_REG_VAL		(1U)
+#endif
+
+#ifndef ENABLE_SECURE_VAL
+#define	ENABLE_SECURE_VAL					(1U)
+#endif
+
+#ifndef ENABLE_EFUSE_ACCESS
+#define ENABLE_EFUSE_ACCESS					(0U)
+#endif
+
+#ifndef XPU_INTR_DEBUG_PRINT_ENABLE_VAL
+#define	XPU_INTR_DEBUG_PRINT_ENABLE_VAL		(0U)
+#endif
+
+#ifndef PM_LOG_LEVEL_VAL
+#define	PM_LOG_LEVEL_VAL					(0U)
+#endif
+
+#ifndef IDLE_PERIPHERALS_VAL
+#define	IDLE_PERIPHERALS_VAL				(0U)
+#endif
+
+#ifndef ENABLE_NODE_IDLING_VAL
+#define	ENABLE_NODE_IDLING_VAL				(0U)
+#endif
+
+#ifndef DEBUG_MODE_VAL
+#define	DEBUG_MODE_VAL						(0U)
+#endif
+
+#ifndef ENABLE_POS_VAL
+#define	ENABLE_POS_VAL						(0U)
+#endif
+
+#ifndef ENABLE_DDR_SR_WR_VAL
 #define	ENABLE_DDR_SR_WR_VAL				(0U)
+#endif
+
+#ifndef DISABLE_CLK_PERMS_VAL
 #define DISABLE_CLK_PERMS_VAL				(0U)
-#define ENABLE_UNUSED_RPU_PWR_DWN_VAL			(1U)
+#endif
 
-#define	PMU_MIO_INPUT_PIN_VAL			(0U)
-#define	BOARD_SHUTDOWN_PIN_VAL			(0U)
-#define	BOARD_SHUTDOWN_PIN_STATE_VAL	(0U)
+#ifndef ENABLE_UNUSED_RPU_PWR_DWN_VAL
+#define ENABLE_UNUSED_RPU_PWR_DWN_VAL		(1U)
+#endif
 
-#define CONNECT_PMU_GPO_2_VAL			(1U)
-#define CONNECT_PMU_GPO_3_VAL			(1U)
-#define CONNECT_PMU_GPO_4_VAL			(1U)
-#define CONNECT_PMU_GPO_5_VAL			(1U)
+#ifndef PMU_MIO_INPUT_PIN_VAL
+#define	PMU_MIO_INPUT_PIN_VAL				(0U)
+#endif
 
-#define SECURE_ACCESS_VAL		(0U)
+#ifndef BOARD_SHUTDOWN_PIN_VAL
+#define	BOARD_SHUTDOWN_PIN_VAL				(0U)
+#endif
 
-#define USE_DDR_FOR_APU_RESTART_VAL		(1U)
-#define ENABLE_RPU_RUN_MODE_VAL (0U)
+#ifndef BOARD_SHUTDOWN_PIN_STATE_VAL
+#define	BOARD_SHUTDOWN_PIN_STATE_VAL		(0U)
+#endif
+
+#ifndef CONNECT_PMU_GPO_2_VAL
+#define CONNECT_PMU_GPO_2_VAL				(1U)
+#endif
+
+#ifndef CONNECT_PMU_GPO_3_VAL
+#define CONNECT_PMU_GPO_3_VAL				(1U)
+#endif
+
+#ifndef CONNECT_PMU_GPO_4_VAL
+#define CONNECT_PMU_GPO_4_VAL				(1U)
+#endif
+
+#ifndef CONNECT_PMU_GPO_5_VAL
+#define CONNECT_PMU_GPO_5_VAL				(1U)
+#endif
+
+#ifndef SECURE_ACCESS_VAL
+#define SECURE_ACCESS_VAL					(0U)
+#endif
+
+#ifndef USE_DDR_FOR_APU_RESTART_VAL
+#define USE_DDR_FOR_APU_RESTART_VAL			(1U)
+#endif
+
+#ifndef ENABLE_RPU_RUN_MODE_VAL
+#define ENABLE_RPU_RUN_MODE_VAL				(0U)
+#endif
 
 /*
  * XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT
@@ -165,108 +283,129 @@ extern "C" {
  * 		its value is greater than XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT
  *
  */
-#define XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT		(90U)	/* ms */
-#define XPFW_CFG_PMU_FPGA_WDT_TIMEOUT			(500U)	/* ms */
-#define XPFW_CFG_PMU_SHA3_WDT_TIMEOUT			(500U)	/* ms */
-#define XPFW_CFG_PMU_RSA_WDT_TIMEOUT			(500U)	/* ms */
-#define XPFW_CFG_PMU_AES_WDT_TIMEOUT			(500U)	/* ms */
-#define XPFW_CFG_PMU_SECURE_IMG_LOAD_WDT_TIMEOUT	(500U)	/* ms */
+#ifndef XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT
+#define XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT			(90U) /* ms */
+#endif
 
+#ifndef XPFW_CFG_PMU_FPGA_WDT_TIMEOUT
+#define XPFW_CFG_PMU_FPGA_WDT_TIMEOUT				(500U) /* ms */
+#endif
 
-#if ENABLE_PM_VAL
+#ifndef XPFW_CFG_PMU_SHA3_WDT_TIMEOUT
+#define XPFW_CFG_PMU_SHA3_WDT_TIMEOUT				(500U) /* ms */
+#endif
+
+#ifndef XPFW_CFG_PMU_RSA_WDT_TIMEOUT
+#define XPFW_CFG_PMU_RSA_WDT_TIMEOUT				(500U) /* ms */
+#endif
+
+#ifndef XPFW_CFG_PMU_AES_WDT_TIMEOUT
+#define XPFW_CFG_PMU_AES_WDT_TIMEOUT				(500U) /* ms */
+#endif
+
+#ifndef XPFW_CFG_PMU_SECURE_IMG_LOAD_WDT_TIMEOUT
+#define XPFW_CFG_PMU_SECURE_IMG_LOAD_WDT_TIMEOUT	(500U) /* ms */
+#endif
+
+#if (ENABLE_PM_VAL) && (!defined(ENABLE_PM))
 #define ENABLE_PM
 #endif
 
-#if ENABLE_EM_VAL
+#if (ENABLE_EM_VAL) && (!defined(ENABLE_EM))
 #define ENABLE_EM
 #endif
 
-#if ENABLE_SCHEDULER_VAL
+#if (ENABLE_SCHEDULER_VAL) && (!defined(ENABLE_SCHEDULER))
 #define ENABLE_SCHEDULER
 #endif
 
-#if ENABLE_MOD_ULTRA96_VAL
+#if (ENABLE_MOD_ULTRA96_VAL) && (!defined(ENABLE_MOD_ULTRA96))
 #define ENABLE_MOD_ULTRA96
 #endif
 
-#if ENABLE_RECOVERY_VAL
+#if (ENABLE_RECOVERY_VAL) && (!defined(ENABLE_RECOVERY))
 #define ENABLE_RECOVERY
 #endif
 
-#if ENABLE_RECOVERY_RESET_SYSTEM_VAL
+#if (ENABLE_RECOVERY_RESET_SYSTEM_VAL) && \
+	(!defined(ENABLE_RECOVERY_RESET_SYSTEM))
 #define ENABLE_RECOVERY_RESET_SYSTEM
 #endif
 
-#if ENABLE_RECOVERY_RESET_PS_ONLY_VAL
+#if (ENABLE_RECOVERY_RESET_PS_ONLY_VAL) && \
+	(!defined(ENABLE_RECOVERY_RESET_PS_ONLY))
 #define ENABLE_RECOVERY_RESET_PS_ONLY
 #endif
 
-#if ENABLE_ESCALATION_VAL
+#if (ENABLE_ESCALATION_VAL) && (!defined(ENABLE_ESCALATION))
 #define ENABLE_ESCALATION
 #endif
 
-#if CHECK_HEALTHY_BOOT_VAL
+#if (CHECK_HEALTHY_BOOT_VAL) && (!defined(CHECK_HEALTHY_BOOT))
 #define CHECK_HEALTHY_BOOT
 #endif
 
-#if ENABLE_WDT_VAL
+#if (ENABLE_WDT_VAL) && (!defined(ENABLE_WDT))
 #define ENABLE_WDT
 #endif
 
-#if ENABLE_CUSTOM_MOD_VAL
+#if (ENABLE_CUSTOM_MOD_VAL) && (!defined(ENABLE_CUSTOM_MOD))
 #define ENABLE_CUSTOM_MOD
 #endif
 
-#if ENABLE_STL_VAL
+#if (ENABLE_STL_VAL) && (!defined(ENABLE_STL))
 #define ENABLE_STL
 #endif
 
-#if ENABLE_RTC_TEST_VAL
+#if (ENABLE_RTC_TEST_VAL) && (!defined(ENABLE_RTC_TEST))
 #define ENABLE_RTC_TEST
 #endif
 
-#if ENABLE_RPU_RUN_MODE_VAL
+#if (ENABLE_RPU_RUN_MODE_VAL) && (!defined(ENABLE_RPU_RUN_MODE))
 #define ENABLE_RPU_RUN_MODE
 #endif
 
-#if ENABLE_FPGA_LOAD_VAL
+#if (ENABLE_FPGA_LOAD_VAL) && (!defined(ENABLE_FPGA_LOAD))
 #define ENABLE_FPGA_LOAD
 #endif
 
-#if ENABLE_FPGA_READ_CONFIG_DATA_VAL
+#if (ENABLE_FPGA_READ_CONFIG_DATA_VAL) && \
+	(!defined(ENABLE_FPGA_READ_CONFIG_DATA))
 #define ENABLE_FPGA_READ_CONFIG_DATA
 #endif
 
-#if ENABLE_FPGA_READ_CONFIG_REG_VAL
+#if (ENABLE_FPGA_READ_CONFIG_REG_VAL) && \
+	(!defined(ENABLE_FPGA_READ_CONFIG_REG))
 #define ENABLE_FPGA_READ_CONFIG_REG
 #endif
 
-#if ENABLE_SECURE_VAL
+#if (ENABLE_SECURE_VAL) && (!defined(ENABLE_SECURE))
 #define ENABLE_SECURE
 #endif
 
-#if XPU_INTR_DEBUG_PRINT_ENABLE_VAL
+#if (XPU_INTR_DEBUG_PRINT_ENABLE_VAL) && \
+	(!defined(XPU_INTR_DEBUG_PRINT_ENABLE))
 #define XPU_INTR_DEBUG_PRINT_ENABLE
 #endif
 
-#if PM_LOG_LEVEL_VAL > 0
+#if (PM_LOG_LEVEL_VAL > 0) && (!defined(PM_LOG_LEVEL))
 #define PM_LOG_LEVEL	PM_LOG_LEVEL_VAL
 #endif
 
-#if IDLE_PERIPHERALS_VAL
+#if (IDLE_PERIPHERALS_VAL) && (!defined(IDLE_PERIPHERALS))
 #define IDLE_PERIPHERALS
 #endif
 
-#if ENABLE_NODE_IDLING_VAL
+#if (ENABLE_NODE_IDLING_VAL) && (!defined(ENABLE_NODE_IDLING))
 #define ENABLE_NODE_IDLING
 #endif
 
-#if DEBUG_MODE_VAL
+#if (DEBUG_MODE_VAL) && (!defined(DEBUG_MODE))
 #define DEBUG_MODE
 #endif
 
 #ifdef XPAR_DDRCPSU_0_DEVICE_ID
-#if ENABLE_POS_VAL
+#if (ENABLE_POS_VAL) && (!defined(ENABLE_POS))
 #define ENABLE_POS
 #endif
 #else
@@ -276,7 +415,7 @@ extern "C" {
 #endif
 
 #ifdef XPAR_DDRCPSU_0_DEVICE_ID
-#if ENABLE_DDR_SR_WR_VAL
+#if (ENABLE_DDR_SR_WR_VAL) && (!defined(ENABLE_DDR_SR_WR))
 #define ENABLE_DDR_SR_WR
 #endif
 #else
@@ -285,63 +424,65 @@ extern "C" {
 #endif
 #endif
 
-#if DISABLE_CLK_PERMS_VAL
+#if (DISABLE_CLK_PERMS_VAL) && (!defined(DISABLE_CLK_PERMS))
 #define DISABLE_CLK_PERMS
 #endif
 
-#if ENABLE_UNUSED_RPU_PWR_DWN_VAL
+#if (ENABLE_UNUSED_RPU_PWR_DWN_VAL) && (!defined(ENABLE_UNUSED_RPU_PWR_DWN))
 #define ENABLE_UNUSED_RPU_PWR_DWN
 #endif
 
-#if PMU_MIO_INPUT_PIN_VAL
+#if (PMU_MIO_INPUT_PIN_VAL) && (!defined(PMU_MIO_INPUT_PIN))
 #define PMU_MIO_INPUT_PIN			0U
 #endif
 
-#if BOARD_SHUTDOWN_PIN_VAL
+#if (BOARD_SHUTDOWN_PIN_VAL) && (!defined(BOARD_SHUTDOWN_PIN))
 #define BOARD_SHUTDOWN_PIN			2U
 #endif
 
-#if BOARD_SHUTDOWN_PIN_STATE_VAL
+#if (BOARD_SHUTDOWN_PIN_STATE_VAL) && (!defined(BOARD_SHUTDOWN_PIN_STATE))
 #define BOARD_SHUTDOWN_PIN_STATE	0U
 #endif
 
-#if SECURE_ACCESS_VAL
+#if (SECURE_ACCESS_VAL) && (!defined(SECURE_ACCESS))
 #define SECURE_ACCESS
 #endif
 
-#if ENABLE_EFUSE_ACCESS
+#if (ENABLE_EFUSE_ACCESS) && (!defined(EFUSE_ACCESS))
 #define EFUSE_ACCESS
 #endif
 
 /* FPD WDT recovery action */
+#ifndef SWDT_EM_ACTION
 #ifdef ENABLE_RECOVERY
 #define SWDT_EM_ACTION EM_ACTION_CUSTOM
 #else
 #define SWDT_EM_ACTION EM_ACTION_SRST
 #endif
+#endif
 
-#ifdef ENABLE_POS
+#if defined(ENABLE_POS) && (!defined(ENABLE_POS_QSPI))
 #define ENABLE_POS_QSPI
 #endif
 
-#if CONNECT_PMU_GPO_2_VAL
+#if (CONNECT_PMU_GPO_2_VAL) && (!defined(CONNECT_PMU_GPO_2))
 #define CONNECT_PMU_GPO_2
 #endif
 
-#if CONNECT_PMU_GPO_3_VAL
+#if (CONNECT_PMU_GPO_3_VAL) && (!defined(CONNECT_PMU_GPO_3))
 #define CONNECT_PMU_GPO_3
 #endif
 
-#if CONNECT_PMU_GPO_4_VAL
+#if (CONNECT_PMU_GPO_4_VAL) && (!defined(CONNECT_PMU_GPO_4))
 #define CONNECT_PMU_GPO_4
 #endif
 
-#if CONNECT_PMU_GPO_5_VAL
+#if (CONNECT_PMU_GPO_5_VAL) && (!defined(CONNECT_PMU_GPO_5))
 #define CONNECT_PMU_GPO_5
 #endif
 
 #ifdef XPAR_DDRCPSU_0_DEVICE_ID
-#if USE_DDR_FOR_APU_RESTART_VAL
+#if (USE_DDR_FOR_APU_RESTART_VAL) && (!defined(USE_DDR_FOR_APU_RESTART))
 #define USE_DDR_FOR_APU_RESTART
 #endif
 #endif
