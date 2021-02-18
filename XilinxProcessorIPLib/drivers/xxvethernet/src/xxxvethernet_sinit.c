@@ -1,12 +1,12 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /**
 *
 * @file xxxvethernet_sinit.c
-* @addtogroup xxvethernet_v1_5
+* @addtogroup xxvethernet_v1_6
 * @{
 *
 * This file contains static initialization functionality for XXV Ethernet driver.
