@@ -125,7 +125,7 @@ struct netif *
 xemac_add(struct netif *netif,
 	ip_addr_t *ipaddr, ip_addr_t *netmask, ip_addr_t *gw,
 	unsigned char *mac_ethernet_address,
-	unsigned mac_baseaddr)
+	UINTPTR mac_baseaddr)
 {
 	int i;
 
@@ -145,7 +145,7 @@ xemac_add(struct netif *netif,
 			case xemac_type_xps_emaclite:
 #ifdef XLWIP_CONFIG_INCLUDE_EMACLITE
 				return netif_add(netif, ipaddr, netmask, gw,
-					(void*)(UINTPTR)mac_baseaddr,
+					(void*)mac_baseaddr,
 					xemacliteif_init,
 #if NO_SYS
 					ethernet_input
@@ -159,7 +159,7 @@ xemac_add(struct netif *netif,
 			case xemac_type_axi_ethernet:
 #ifdef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET
 				return netif_add(netif, ipaddr, netmask, gw,
-					(void*)(UINTPTR)mac_baseaddr,
+					(void*)mac_baseaddr,
 					xaxiemacif_init,
 #if NO_SYS
 					ethernet_input
@@ -174,7 +174,7 @@ xemac_add(struct netif *netif,
 			case xemac_type_emacps:
 #ifdef XLWIP_CONFIG_INCLUDE_GEM
 				return netif_add(netif, ipaddr, netmask, gw,
-						(void*)(UINTPTR)mac_baseaddr,
+						(void*)mac_baseaddr,
 						xemacpsif_init,
 #if NO_SYS
 						ethernet_input
