@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -41,6 +41,7 @@
 *       ana  10/19/2020 Added doxygen comments
 * 1.04  td   11/23/2020 MISRA C Rule 17.8 Fixes
 *       bsv  01/04/2021 Added support for LogString and LogAddress commands
+*       bm   02/17/2021 Added const to XPlmi_GenericCmds variable
 *
 * </pre>
 *
@@ -1285,7 +1286,7 @@ static int XPlmi_LogAddress(XPlmi_Cmd *Cmd)
 void XPlmi_GenericInit(void)
 {
 	/* Contains the array of PLM generic commands */
-	static XPlmi_ModuleCmd XPlmi_GenericCmds[] =
+	static const XPlmi_ModuleCmd XPlmi_GenericCmds[] =
 	{
 		XPLMI_MODULE_COMMAND(XPlmi_Features),
 		XPLMI_MODULE_COMMAND(XPlmi_MaskPoll),
