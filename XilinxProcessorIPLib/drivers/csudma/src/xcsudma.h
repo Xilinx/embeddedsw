@@ -99,6 +99,7 @@
 *			 processors and cache functionality.
 * 1.7	sk	08/26/20 Fix MISRA-C violations.
 * 1.8   nsk     12/14/20 Updated the tcl to not to use the instance names.
+* 1.9	sk	02/11/21 Add description for the dmatype macros.
 * </pre>
 *
 ******************************************************************************/
@@ -149,9 +150,9 @@ typedef enum {
  */
 #define XCSUDMA_SIZE_MAX 0x07FFFFFFU	/**< Maximum allowed no of words */
 
-#define XCSUDMA_DMATYPEIS_CSUDMA 	0U
-#define XCSUDMA_DMATYPEIS_PMCDMA0	1U
-#define XCSUDMA_DMATYPEIS_PMCDMA1	2U
+#define XCSUDMA_DMATYPEIS_CSUDMA 	0U	/**< DMA is CSUDMA  */
+#define XCSUDMA_DMATYPEIS_PMCDMA0	1U	/**< DMA is PMCDMA0 */
+#define XCSUDMA_DMATYPEIS_PMCDMA1	2U	/**< DMA is PMCDMA1 */
 
 /*@}*/
 

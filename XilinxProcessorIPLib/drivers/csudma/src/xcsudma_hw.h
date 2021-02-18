@@ -19,6 +19,8 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 1.0   vnsld  22/10/14 First release
+* 1.9	sk     02/11/21 Add description for XPS_CRP_BASEADDRESS and
+* 			XCSUDMA_DONE_TIMEOUT_VAL macros.
 * </pre>
 *
 ******************************************************************************/
@@ -59,7 +61,7 @@ extern "C" {
 #define XCSUDMA_FUTURE_ECO_OFFSET 0xFFCU /**< Future potential ECO Offset */
 /*@}*/
 
-/** @name CSU Base address and CSU_DMA reset offset
+/** @name CSU Base address, CRP Base Address and CSU_DMA reset offset
  * @{
  */
 #define XCSU_BASEADDRESS	0xFFCA0000U
@@ -67,7 +69,7 @@ extern "C" {
 #define XCSU_DMA_RESET_OFFSET	0x0000000CU	/**< CSU_DMA Reset offset */
 
 #ifndef XPS_CRP_BASEADDRESS
-#define XPS_CRP_BASEADDRESS	0xF1260000U
+#define XPS_CRP_BASEADDRESS	0xF1260000U	/**< CRP Base Address */
 #endif
 /*@}*/
 
@@ -244,7 +246,12 @@ extern "C" {
 						  *  address */
 /*@}*/
 
-#define XCSUDMA_DONE_TIMEOUT_VAL 300000000U
+/** @name Software done timeout value
+ * @{
+ */
+#define XCSUDMA_DONE_TIMEOUT_VAL 300000000U	/**< SW timeout loop value
+						  *  for transfer completion */
+/*@}*/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
