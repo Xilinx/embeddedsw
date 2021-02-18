@@ -65,7 +65,8 @@
  * @note     None.
  *
  * **************************************************************************/
-static u32 XDpDma_GetPendingTransaction(XDpDma *InstancePtr, u32 ChannelNum)
+static u32 XDpDma_GetPendingTransaction(const XDpDma *InstancePtr,
+					const u32 ChannelNum)
 {
 	u32 RegVal;
 	RegVal = XDpDma_ReadReg(InstancePtr->Config.BaseAddr,
@@ -91,7 +92,8 @@ static u32 XDpDma_GetPendingTransaction(XDpDma *InstancePtr, u32 ChannelNum)
  * @note     None.
  *
  * **************************************************************************/
-static int32_t XDpDma_WaitPendingTransaction(XDpDma *InstancePtr, u8 ChannelNum)
+static int32_t XDpDma_WaitPendingTransaction(const XDpDma *InstancePtr,
+					     const u8 ChannelNum)
 {
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -230,7 +232,8 @@ static void XDpDma_UpdateVideoDescriptor(XDpDma_Channel *Channel)
  * @note     None.
  *
  * **************************************************************************/
-static void XDpDma_SetDescriptorAddress(XDpDma *InstancePtr, u8 ChannelNum)
+static void XDpDma_SetDescriptorAddress(const XDpDma *InstancePtr,
+					u8 ChannelNum)
 {
 	u32 AddrOffset;
 	u32 AddrEOffset;
@@ -241,7 +244,7 @@ static void XDpDma_SetDescriptorAddress(XDpDma *InstancePtr, u8 ChannelNum)
 	AddrEOffset = XDPDMA_CH0_DSCR_STRT_ADDRE +
 					(XDPDMA_CH_OFFSET * (u32)ChannelNum);
 
-	XDpDma_Descriptor *Descriptor = NULL;
+	const XDpDma_Descriptor *Descriptor = NULL;
 	switch(ChannelNum) {
 	case XDPDMA_VIDEO_CHANNEL0:
 		Descriptor = InstancePtr->Video.Channel[ChannelNum].Current;
@@ -289,7 +292,7 @@ static void XDpDma_SetDescriptorAddress(XDpDma *InstancePtr, u8 ChannelNum)
  * **************************************************************************/
 static void XDpDma_SetupAudioDescriptor(XDpDma_Descriptor *CurrDesc,
 					u32 DataSize, u64 BuffAddr,
-					XDpDma_Descriptor *NextDesc)
+					const XDpDma_Descriptor *NextDesc)
 {
 	Xil_AssertVoid(CurrDesc != NULL);
 	Xil_AssertVoid(DataSize != 0U);
@@ -333,7 +336,7 @@ static void XDpDma_SetupAudioDescriptor(XDpDma_Descriptor *CurrDesc,
  * @note     None.
  *
  * **************************************************************************/
-void XDpDma_CfgInitialize(XDpDma *InstancePtr, XDpDma_Config *CfgPtr)
+void XDpDma_CfgInitialize(XDpDma *InstancePtr, const XDpDma_Config *CfgPtr)
 {
 	InstancePtr->Config.DeviceId = CfgPtr->DeviceId;
 	InstancePtr->Config.BaseAddr = CfgPtr->BaseAddr;
@@ -494,7 +497,7 @@ int32_t XDpDma_SetGraphicsFormat(XDpDma *InstancePtr, XAVBuf_VideoFormat Format)
  * @note     .
  *
  * **************************************************************************/
-void XDpDma_SetQOS(XDpDma *InstancePtr, u8 QOS)
+void XDpDma_SetQOS(const XDpDma *InstancePtr, u8 QOS)
 {
 	u8 Index;
 	u32 RegVal = 0;
@@ -673,7 +676,7 @@ int32_t XDpDma_ReTrigger(XDpDma *InstancePtr, XDpDma_ChannelType Channel)
  *
  * **************************************************************************/
 void XDpDma_InitVideoDescriptor(XDpDma_Descriptor *CurrDesc,
-				XDpDma_FrameBuffer *FrameBuffer)
+				const XDpDma_FrameBuffer *FrameBuffer)
 {
 	Xil_AssertVoid(CurrDesc != NULL);
 	Xil_AssertVoid(FrameBuffer != NULL);
@@ -709,7 +712,7 @@ void XDpDma_InitVideoDescriptor(XDpDma_Descriptor *CurrDesc,
  *
  * **************************************************************************/
 void XDpDma_InitAudioDescriptor(XDpDma_AudioChannel *Channel,
-			       XDpDma_AudioBuffer *AudioBuffer)
+				const XDpDma_AudioBuffer *AudioBuffer)
 {
 	u32 Size;
 	u64 Address;
@@ -961,8 +964,8 @@ void XDpDma_SetupChannel(XDpDma *InstancePtr, XDpDma_ChannelType Channel)
 {
 	XDpDma_Channel *Chan;
 	XDpDma_AudioChannel *AudChan;
-	XDpDma_FrameBuffer *FB;
-	XDpDma_AudioBuffer *AudioBuffer;
+	const XDpDma_FrameBuffer *FB;
+	const XDpDma_AudioBuffer *AudioBuffer;
 	u8 Index, NumPlanes;
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Channel <= AudioChan1);
