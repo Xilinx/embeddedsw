@@ -127,7 +127,7 @@ proc gen_testfunc_call {swproj mhsinst} {
       Status = XCsuDma_IntrExample(&${intcvar}, &${ipname}, \\
                                  ${deviceid}, \\
                                  ${intr_id});
-   }"
+   }
 
    }
 } else {
