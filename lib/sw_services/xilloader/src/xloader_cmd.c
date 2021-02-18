@@ -39,6 +39,7 @@
 * 1.05  bm   12/15/2020 Added Update Multiboot command
 *       bsv  02/09/2021 Added input param validation for APIs
 *       bsv  02/12/2021 Initialize pointer variable to NULL before use
+*       bm   02/18/2021 Added const to XLoader_Cmds
 *
 * </pre>
 *
@@ -541,7 +542,7 @@ static int XLoader_UnImplementedCmd(XPlmi_Cmd *Cmd)
  * @brief	Contains the array of PLM loader commands
  *
  *****************************************************************************/
-static XPlmi_ModuleCmd XLoader_Cmds[] =
+static const XPlmi_ModuleCmd XLoader_Cmds[] =
 {
 	XPLMI_MODULE_COMMAND(XLoader_Features),
 	XPLMI_MODULE_COMMAND(XLoader_LoadSubsystemPdi),

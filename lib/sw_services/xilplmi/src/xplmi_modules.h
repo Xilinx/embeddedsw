@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
 * 1.01  bsv  04/04/2020 Code clean up
 * 1.02  rama 08/12/2020 Added STL module ID
 *       bm   10/14/2020 Code clean up
+* 1.03  bm   02/17/2021 Added const to CmdAry
 *
 * </pre>
 *
@@ -57,7 +58,7 @@ typedef struct {
 
 typedef struct {
 	u32 Id;
-	XPlmi_ModuleCmd *CmdAry;
+	const XPlmi_ModuleCmd *CmdAry;
 	u32 CmdCnt;
 } XPlmi_Module;
 

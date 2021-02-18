@@ -23,6 +23,7 @@
 *       bsv  04/04/2020 Code clean up
 * 1.03  bm   10/14/2020 Code clean up
 *       ana  10/19/2020 Added doxygen comments
+* 1.04  bm   02/18/2021 Added const to XPlmi_ErrCmds
 *
 * </pre>
 *
@@ -178,7 +179,7 @@ END:
  * @brief	Contains the array of PLM error commands
  *
  *****************************************************************************/
-static XPlmi_ModuleCmd XPlmi_ErrCmds[] =
+static const XPlmi_ModuleCmd XPlmi_ErrCmds[] =
 {
 	XPLMI_MODULE_COMMAND(XPlmi_CmdEmFeatures),
 	XPLMI_MODULE_COMMAND(XPlmi_CmdEmSetAction),
