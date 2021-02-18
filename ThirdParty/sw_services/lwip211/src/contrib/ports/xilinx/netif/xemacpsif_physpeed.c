@@ -173,7 +173,7 @@ u32_t phymapemac1[32];
 #if defined (PCM_PMA_CORE_PRESENT) || defined (CONFIG_LINKSPEED_AUTODETECT)
 static u32_t get_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr);
 #endif
-static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed);
+static void SetUpSLCRDivisors(UINTPTR mac_baseaddr, s32_t speed);
 #if defined (CONFIG_LINKSPEED1000) || defined (CONFIG_LINKSPEED100) \
 	|| defined (CONFIG_LINKSPEED10)
 static u32_t configure_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr, u32_t speed);
@@ -787,14 +787,14 @@ static u32_t configure_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr, u32_t s
 #endif
 #endif /*PCM_PMA_CORE_PRESENT*/
 
-static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed)
+static void SetUpSLCRDivisors(UINTPTR mac_baseaddr, s32_t speed)
 {
-	volatile u32_t slcrBaseAddress;
+	volatile UINTPTR slcrBaseAddress;
 	u32_t SlcrDiv0 = 0;
 	u32_t SlcrDiv1 = 0;
 	u32_t SlcrTxClkCntrl;
 	u32_t gigeversion;
-	volatile u32_t CrlApbBaseAddr;
+	volatile UINTPTR CrlApbBaseAddr;
 	u32_t CrlApbDiv0 = 0;
 	u32_t CrlApbDiv1 = 0;
 	u32_t CrlApbGemCtrl;
@@ -813,7 +813,7 @@ static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed)
 			slcrBaseAddress = SLCR_GEM1_CLK_CTRL_ADDR;
 		}
 
-		if(Xil_In32((UINTPTR)slcrBaseAddress) &
+		if(Xil_In32(slcrBaseAddress) &
 			SLCR_GEM_SRCSEL_EMIO) {
 				return;
 		}
@@ -857,11 +857,11 @@ static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed)
 		}
 
 		if (SlcrDiv0 != 0 && SlcrDiv1 != 0) {
-			SlcrTxClkCntrl = Xil_In32((UINTPTR)slcrBaseAddress);
+			SlcrTxClkCntrl = Xil_In32(slcrBaseAddress);
 			SlcrTxClkCntrl &= EMACPS_SLCR_DIV_MASK;
 			SlcrTxClkCntrl |= (SlcrDiv1 << 20);
 			SlcrTxClkCntrl |= (SlcrDiv0 << 8);
-			Xil_Out32((UINTPTR)slcrBaseAddress, SlcrTxClkCntrl);
+			Xil_Out32(slcrBaseAddress, SlcrTxClkCntrl);
 			Xil_Out32(SLCR_LOCK_ADDR, SLCR_LOCK_KEY_VALUE);
 		} else {
 			xil_printf("Clock Divisors incorrect - Please check\r\n");
@@ -953,7 +953,7 @@ static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed)
 								0, 0, 0, 0, 0, 0);
 			CrlApbGemCtrl = RegRead.Arg0 >> 32;
 		#else
-			CrlApbGemCtrl = Xil_In32((UINTPTR)CrlApbBaseAddr);
+			CrlApbGemCtrl = Xil_In32(CrlApbBaseAddr);
         #endif
 			CrlApbGemCtrl &= ~CRL_APB_GEM_DIV0_MASK;
 			CrlApbGemCtrl |= CrlApbDiv0 << CRL_APB_GEM_DIV0_SHIFT;
@@ -967,7 +967,7 @@ static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed)
 				0, 0, 0, 0, 0, 0);
 			} while((RegRead.Arg0 >> 32) != CrlApbGemCtrl);
 		#else
-			Xil_Out32((UINTPTR)CrlApbBaseAddr, CrlApbGemCtrl);
+			Xil_Out32(CrlApbBaseAddr, CrlApbGemCtrl);
         #endif
 		} else {
 			xil_printf("Clock Divisors incorrect - Please check\r\n");
@@ -1022,11 +1022,11 @@ static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed)
 #if EL1_NONSECURE
 			Xil_Smc(PM_SET_DIVIDER_SMC_FID, (((u64)CrlApbDiv0 << 32) | ClkId), 0, 0, 0, 0, 0, 0);
 #else
-			CrlApbGemCtrl = Xil_In32((UINTPTR)CrlApbBaseAddr);
+			CrlApbGemCtrl = Xil_In32(CrlApbBaseAddr);
 			CrlApbGemCtrl &= ~VERSAL_CRL_GEM_DIV_MASK;
 			CrlApbGemCtrl |= CrlApbDiv0 << VERSAL_CRL_APB_GEM_DIV_SHIFT;
 
-			Xil_Out32((UINTPTR)CrlApbBaseAddr, CrlApbGemCtrl);
+			Xil_Out32(CrlApbBaseAddr, CrlApbGemCtrl);
 #endif
 		} else {
 			xil_printf("Clock Divisors incorrect - Please check\r\n");

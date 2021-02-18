@@ -72,7 +72,7 @@ void 		xemacif_input_thread(struct netif *netif);
 struct netif *	xemac_add(struct netif *netif,
 	ip_addr_t *ipaddr, ip_addr_t *netmask, ip_addr_t *gw,
 	unsigned char *mac_ethernet_address,
-	unsigned mac_baseaddr);
+	UINTPTR mac_baseaddr);
 #if defined (__arm__) || defined (__aarch64__)
 void xemacpsif_resetrx_on_no_rxdata(struct netif *netif);
 #endif
