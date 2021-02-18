@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 * @file xbram_intr.c
-* @addtogroup bram_v4_5
+* @addtogroup bram_v4_6
 * @{
 *
 * Implements BRAM interrupt processing functions for the
