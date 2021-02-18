@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -15,7 +15,7 @@
  *
  * @note IRQ_ENABLE register is write-only, So its state is stored here
  */
-static u32 InterruptRegsiter;
+static u32 InterruptRegister;
 
 static void XPfw_NullHandler(void)
 {
@@ -247,12 +247,12 @@ void XPfw_InterruptInit(void)
 	XPfw_Write32(PMU_IOMODULE_IRQ_ENABLE, 0U);
 	Xil_ExceptionDisable();
 	XPfw_Write32(PMU_IOMODULE_IRQ_ACK, 0xffffffffU);
-	InterruptRegsiter = PMU_IOMODULE_IRQ_ENABLE_CSU_PMU_SEC_LOCK_MASK;
+	InterruptRegister = PMU_IOMODULE_IRQ_ENABLE_CSU_PMU_SEC_LOCK_MASK;
 }
 
 void XPfw_InterruptStart(void)
 {
-	XPfw_Write32(PMU_IOMODULE_IRQ_ENABLE, InterruptRegsiter);
+	XPfw_Write32(PMU_IOMODULE_IRQ_ENABLE, InterruptRegister);
 	Xil_ExceptionEnable();
 }
 
@@ -293,12 +293,12 @@ void XPfw_InterruptHandler(void)
 
 void XPfw_InterruptDisable(u32 Mask)
 {
-	InterruptRegsiter = InterruptRegsiter & (~Mask);
-	XPfw_Write32(PMU_IOMODULE_IRQ_ENABLE, InterruptRegsiter);
+	InterruptRegister = InterruptRegister & (~Mask);
+	XPfw_Write32(PMU_IOMODULE_IRQ_ENABLE, InterruptRegister);
 }
 
 void XPfw_InterruptEnable(u32 Mask)
 {
-	InterruptRegsiter = InterruptRegsiter | Mask;
-	XPfw_Write32(PMU_IOMODULE_IRQ_ENABLE, InterruptRegsiter);
+	InterruptRegister = InterruptRegister | Mask;
+	XPfw_Write32(PMU_IOMODULE_IRQ_ENABLE, InterruptRegister);
 }
