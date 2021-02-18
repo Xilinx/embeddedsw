@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
+    Copyright (C) 2016 - 2021 Xilinx, Inc. All rights reserved.
 
     Permission is hereby granted, free of charge, to any person obtaining a copy of
     this software and associated documentation files (the "Software"), to deal in
@@ -648,43 +648,43 @@ enum stm_trace_events {
 #endif
 
 #ifndef traceTASK_NOTIFY_TAKE_BLOCK
-    #define traceTASK_NOTIFY_TAKE_BLOCK() {                         \
+    #define traceTASK_NOTIFY_TAKE_BLOCK(uxIndexToWait) {                         \
         FREERTOS_EMIT_EVENT(FREERTOS_TASK_NOTIFY_TAKE_BLOCK);       \
     }
 #endif
 
 #ifndef traceTASK_NOTIFY_TAKE
-    #define traceTASK_NOTIFY_TAKE() {                               \
+    #define traceTASK_NOTIFY_TAKE(uxIndexToWait) {                               \
         FREERTOS_EMIT_EVENT(FREERTOS_TASK_NOTIFY_TAKE);             \
     }
 #endif
 
 #ifndef traceTASK_NOTIFY_WAIT_BLOCK
-    #define traceTASK_NOTIFY_WAIT_BLOCK() {                         \
+    #define traceTASK_NOTIFY_WAIT_BLOCK(uxIndexToWait ) {                         \
         FREERTOS_EMIT_EVENT(FREERTOS_TASK_NOTIFY_WAIT_BLOCK);       \
     }
 #endif
 
 #ifndef traceTASK_NOTIFY_WAIT
-    #define traceTASK_NOTIFY_WAIT() {                               \
+    #define traceTASK_NOTIFY_WAIT(uxIndexToWait) {                               \
         FREERTOS_EMIT_EVENT(FREERTOS_TASK_NOTIFY_WAIT);             \
     }
 #endif
 
 #ifndef traceTASK_NOTIFY
-    #define traceTASK_NOTIFY() {                                    \
+    #define traceTASK_NOTIFY(uxIndexToNotify) {                                    \
         FREERTOS_EMIT_EVENT(FREERTOS_TASK_NOTIFY);                  \
     }
 #endif
 
 #ifndef traceTASK_NOTIFY_FROM_ISR
-    #define traceTASK_NOTIFY_FROM_ISR() {                           \
+    #define traceTASK_NOTIFY_FROM_ISR(uxIndexToNotify) {                           \
         FREERTOS_EMIT_EVENT(FREERTOS_TASK_NOTIFY_FROM_ISR);         \
     }
 #endif
 
 #ifndef traceTASK_NOTIFY_GIVE_FROM_ISR
-    #define traceTASK_NOTIFY_GIVE_FROM_ISR() {                      \
+    #define traceTASK_NOTIFY_GIVE_FROM_ISR(uxIndexToNotify) {                      \
         FREERTOS_EMIT_EVENT(FREERTOS_TASK_NOTIFY_GIVE_FROM_ISR);    \
     }
 #endif
