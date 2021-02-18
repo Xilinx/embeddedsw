@@ -67,14 +67,20 @@ void XDpDma_InterruptHandler(XDpDma *InstancePtr)
 	}
 
 	if ((RegVal & XDPDMA_ISR_DSCR_DONE4_MASK) != 0U) {
-		XDpDma_SetChannelState(InstancePtr, AudioChan0, XDPDMA_DISABLE);
+		if (XDpDma_SetChannelState(InstancePtr, AudioChan0,
+				XDPDMA_DISABLE) == (int32_t)XST_FAILURE) {
+			xil_printf("Failed to disable DpDma AudioChan0\r\n");
+		}
 		InstancePtr->Audio[0].Current = NULL;
 		XDpDma_WriteReg(InstancePtr->Config.BaseAddr, XDPDMA_ISR,
 				XDPDMA_ISR_DSCR_DONE4_MASK);
 	}
 
 	if ((RegVal & XDPDMA_ISR_DSCR_DONE5_MASK) != 0U) {
-		XDpDma_SetChannelState(InstancePtr, AudioChan1, XDPDMA_DISABLE);
+		if (XDpDma_SetChannelState(InstancePtr, AudioChan1,
+				XDPDMA_DISABLE) == (int32_t)XST_FAILURE) {
+			xil_printf("Failed to disable DpDma AudioChan1\r\n");
+		}
 		InstancePtr->Audio[1].Current = NULL;
 		XDpDma_WriteReg(InstancePtr->Config.BaseAddr, XDPDMA_ISR,
 				XDPDMA_ISR_DSCR_DONE5_MASK);
@@ -100,13 +106,21 @@ void XDpDma_VSyncHandler(XDpDma *InstancePtr)
 	/* Video Channel Trigger/Retrigger Handler */
 	if(InstancePtr->Video.TriggerStatus == XDPDMA_TRIGGER_EN) {
 		XDpDma_SetupChannel(InstancePtr, VideoChan);
-		XDpDma_SetChannelState(InstancePtr, VideoChan,
-				       XDPDMA_ENABLE);
-		XDpDma_Trigger(InstancePtr, VideoChan);
+		if (XDpDma_SetChannelState(InstancePtr, VideoChan,
+				XDPDMA_ENABLE) == (int32_t)XST_FAILURE) {
+			xil_printf("Failed to enable DpDma VideoChan\r\n");
+		}
+		if (XDpDma_Trigger(InstancePtr, VideoChan) ==
+						(int32_t)XST_FAILURE) {
+			xil_printf("Failed to trigger DpDma VideoChan\r\n");
+		}
 	}
 	else if(InstancePtr->Video.TriggerStatus == XDPDMA_RETRIGGER_EN) {
 		XDpDma_SetupChannel(InstancePtr, VideoChan);
-		XDpDma_ReTrigger(InstancePtr, VideoChan);
+		if (XDpDma_ReTrigger(InstancePtr, VideoChan) ==
+						(int32_t)XST_FAILURE) {
+			xil_printf("Failed to ReTrigger DpDma VideoChan\r\n");
+		}
 	} else {
 		/* Do nothing if TriggerStatus is XDPDMA_TRIGGER_DONE or
 		 * XDPDMA_RETRIGGER_DONE
@@ -116,13 +130,21 @@ void XDpDma_VSyncHandler(XDpDma *InstancePtr)
 	/* Graphics Channel Trigger/Retrigger Handler */
 	if(InstancePtr->Gfx.TriggerStatus == XDPDMA_TRIGGER_EN) {
 		XDpDma_SetupChannel(InstancePtr, GraphicsChan);
-		XDpDma_SetChannelState(InstancePtr, GraphicsChan,
-				       XDPDMA_ENABLE);
-		XDpDma_Trigger(InstancePtr, GraphicsChan);
+		if (XDpDma_SetChannelState(InstancePtr, GraphicsChan,
+				       XDPDMA_ENABLE) == (int32_t)XST_FAILURE) {
+			xil_printf("Failed to enable DpDma GraphicsChan\r\n");
+		}
+		if(XDpDma_Trigger(InstancePtr, GraphicsChan) ==
+					(int32_t)XST_FAILURE) {
+			xil_printf("Failed to trigger DpDma GraphicsChan\r\n");
+		}
 	}
 	else if(InstancePtr->Gfx.TriggerStatus == XDPDMA_RETRIGGER_EN) {
 		XDpDma_SetupChannel(InstancePtr, GraphicsChan);
-		XDpDma_ReTrigger(InstancePtr, GraphicsChan);
+		if(XDpDma_ReTrigger(InstancePtr, GraphicsChan) ==
+					(int32_t)XST_FAILURE) {
+			xil_printf("Failed to ReTrigger DpDma GraphicChan\r\n");
+		}
 	} else {
 		/* Do nothing if TriggerStatus is XDPDMA_TRIGGER_DONE or
 		 * XDPDMA_RETRIGGER_DONE
@@ -132,17 +154,27 @@ void XDpDma_VSyncHandler(XDpDma *InstancePtr)
 	/* Audio Channel 0 Trigger Handler */
 	if(InstancePtr->Audio[0].TriggerStatus == XDPDMA_TRIGGER_EN) {
 		XDpDma_SetupChannel(InstancePtr, AudioChan0);
-		XDpDma_SetChannelState(InstancePtr, AudioChan0,
-				       XDPDMA_ENABLE);
-		XDpDma_Trigger(InstancePtr, AudioChan0);
+		if (XDpDma_SetChannelState(InstancePtr, AudioChan0,
+				       XDPDMA_ENABLE) == (int32_t)XST_FAILURE) {
+			xil_printf("Failed to enable DpDma AudioChan0\r\n");
+		}
+		if(XDpDma_Trigger(InstancePtr, AudioChan0) ==
+						(int32_t)XST_FAILURE) {
+			xil_printf("Failed to trigger DpDma AudioChan0\r\n");
+		}
 	}
 
 	/* Audio Channel 1 Trigger Handler */
 	if(InstancePtr->Audio[1].TriggerStatus == XDPDMA_TRIGGER_EN) {
 		XDpDma_SetupChannel(InstancePtr, AudioChan1);
-		XDpDma_SetChannelState(InstancePtr, AudioChan1,
-				       XDPDMA_ENABLE);
-		XDpDma_Trigger(InstancePtr, AudioChan1);
+		if (XDpDma_SetChannelState(InstancePtr, AudioChan1,
+				       XDPDMA_ENABLE) == (int32_t)XST_FAILURE) {
+			xil_printf("Failed to enable DpDma AudioChan1\r\n");
+		}
+		if(XDpDma_Trigger(InstancePtr, AudioChan1) ==
+						(int32_t)XST_FAILURE) {
+			xil_printf("Failed to trigger DpDma AudioChan1\r\n");
+		}
 	}
 	/* Clear VSync Interrupt */
 	XDpDma_WriteReg(InstancePtr->Config.BaseAddr, XDPDMA_ISR,
