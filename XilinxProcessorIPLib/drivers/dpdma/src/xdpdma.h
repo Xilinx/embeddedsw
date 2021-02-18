@@ -230,14 +230,14 @@ typedef struct {
 
 void XDpDma_CfgInitialize(XDpDma *InstancePtr, XDpDma_Config *CfgPtr);
 XDpDma_Config *XDpDma_LookupConfig(u16 DeviceId);
-int XDpDma_SetChannelState(XDpDma *InstancePtr, XDpDma_ChannelType Channel,
+int32_t XDpDma_SetChannelState(XDpDma *InstancePtr, XDpDma_ChannelType Channel,
 					XDpDma_ChannelState ChannelState);
 void XDpDma_SetQOS(XDpDma *InstancePtr, u8 QOS);
 void XDpDma_SetupChannel(XDpDma *InstancePtr, XDpDma_ChannelType Channel);
-int XDpDma_SetVideoFormat(XDpDma *InstancePtr, XAVBuf_VideoFormat Format);
-int XDpDma_SetGraphicsFormat(XDpDma *InstancePtr, XAVBuf_VideoFormat Format);
-int XDpDma_Trigger(XDpDma *InstancePtr, XDpDma_ChannelType Channel);
-int XDpDma_ReTrigger(XDpDma *InstancePtr, XDpDma_ChannelType Channel);
+int32_t XDpDma_SetVideoFormat(XDpDma *InstancePtr, XAVBuf_VideoFormat Format);
+int32_t XDpDma_SetGraphicsFormat(XDpDma *InstancePtr, XAVBuf_VideoFormat Format);
+int32_t XDpDma_Trigger(XDpDma *InstancePtr, XDpDma_ChannelType Channel);
+int32_t XDpDma_ReTrigger(XDpDma *InstancePtr, XDpDma_ChannelType Channel);
 void XDpDma_InterruptEnable(XDpDma *InstancePtr, u32 Mask);
 void XDpDma_InterruptHandler(XDpDma *InstancePtr);
 void XDpDma_VSyncHandler(XDpDma *InstancePtr);
@@ -251,7 +251,7 @@ void XDpDma_DisplayGfxFrameBuffer(XDpDma *InstancePtr,
 				   XDpDma_FrameBuffer *Plane);
 void XDpDma_InitAudioDescriptor(XDpDma_AudioChannel *Channel,
 			       XDpDma_AudioBuffer *AudioBuffer);
-int XDpDma_PlayAudio(XDpDma *InstancePtr, XDpDma_AudioBuffer *Buffer,
+int32_t XDpDma_PlayAudio(XDpDma *InstancePtr, XDpDma_AudioBuffer *Buffer,
 		      u8 ChannelNum);
 
 /*************************** Variable Declarations ****************************/
