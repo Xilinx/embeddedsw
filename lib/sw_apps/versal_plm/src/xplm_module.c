@@ -25,7 +25,8 @@
 * 1.04  ma   01/12/2021 Directly call module init function instead of calling
 *                       in for-loop
 *                       Remove unused Status variable in XPlm_ErrInit
-* 1.05  rb   01/28/2021 Added Sem PreInit API call
+*       rb   01/28/2021 Added Sem PreInit API call
+*       bm   02/17/2021 Reinitialize Status in XPlm_ModuleInit to add redundancy
 *
 * </pre>
 *
@@ -126,7 +127,7 @@ static int XPlm_PlmiInit(void)
  *****************************************************************************/
 int XPlm_ModuleInit(void *Arg)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 
 	(void) Arg;
 
@@ -159,6 +160,9 @@ int XPlm_ModuleInit(void *Arg)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+	/* Reinitialize Status to add redundancy */
+	Status = XST_FAILURE;
 
 	Status = XPlm_SecureInit();
 	if (Status != XST_SUCCESS) {
