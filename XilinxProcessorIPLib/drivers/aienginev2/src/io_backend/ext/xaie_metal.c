@@ -239,7 +239,7 @@ static AieRC XAie_MetalIO_MaskWrite32(void *IOInst, u64 RegOff, u32 Mask,
 	AieRC RC;
 	u32 RegVal;
 
-	RC = XAie_MetalIO_Read32(IOInst, RegOff, RegVal);
+	RC = XAie_MetalIO_Read32(IOInst, RegOff, &RegVal);
 	if(RC != XAIE_OK) {
 		return RC;
 	}
@@ -439,11 +439,6 @@ static AieRC XAie_MetalIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 		{
 			XAIE_DBG("Backend doesn't support Op %u.\n", Op);
 			return XAIE_FEATURE_NOT_SUPPORTED;
-		}
-		case XAIE_BACKEND_OP_GETTID:
-		{
-			*((int *)Arg) = 0;
-			return XAIE_OK;
 		}
 		default:
 			RC = XAIE_FEATURE_NOT_SUPPORTED;
