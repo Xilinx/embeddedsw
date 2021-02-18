@@ -1,12 +1,12 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /**
 *
 * @file xaxiethernet_hw.h
-* @addtogroup axiethernet_v5_11
+* @addtogroup axiethernet_v5_12
 * @{
 *
 * This header file contains identifiers and macros that can be used to access
