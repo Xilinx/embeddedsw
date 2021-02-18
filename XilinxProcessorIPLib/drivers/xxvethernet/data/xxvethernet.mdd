@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # MODIFICATION HISTORY:
@@ -15,7 +15,7 @@ BEGIN driver xxvethernet
   OPTION supported_peripherals = (xxv_ethernet usxgmii);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.5;
+  OPTION VERSION = 1.6;
   OPTION NAME = xxvethernet;
 
 END driver
