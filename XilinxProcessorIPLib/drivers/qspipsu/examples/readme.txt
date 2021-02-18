@@ -58,4 +58,24 @@ The hardware which this example runs on, must have a serial Flash(Micron
 N25Q or Spansion S25FL) for it to run.
 
 For details, see xqspipsu_generic_flash_non_blocking_read_example.c.
+
+@section ex6 xqspipsu_generic_nand flash_interrupt_example.c
+Contains an example on how to use the XQspipsu driver directly
+with a QSPI NAND Flash device.
+The example writes to flash and reads it back in DMA mode.
+This examples runs with GENFIFO Manual start. It runs in interrupt mode.
+The hardware which this example runs on, must have a QSPI NAND Flash
+(Winbound 512MBits) for it to run.
+
+For details, see xqspipsu_generic_nand flash_polled_example.c.
+
+@section ex7 xqspipsu_generic_nand flash_polled_example.c
+Contains an example on how to use the XQspipsu driver directly
+with a QSPI NAND Flash device.
+The example writes to flash and reads it back in DMA mode.
+This examples runs with GENFIFO Manual start. It runs in polled mode.
+The hardware which this example runs on, must have a QSPI NAND Flash
+(Winbound 512MBits) for it to run.
+
+For details, see xqspipsu_generic_nand flash_polled_example.c.
 */
