@@ -76,6 +76,7 @@
 * 1.04  bm   12/16/20 Added PLM_SECURE_EXCLUDE macro. Also moved authentication and
 *                     encryption related code to xloader_auth_enc.c file
 *       bm   01/04/21 Updated checksum verification to be done at destination memory
+*       kpt  02/18/21 Fixed logical error in partition next chunk copy in encryption cases
 *
 * </pre>
 *
@@ -321,31 +322,21 @@ static int XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr,
 		SecurePtr->NextChunkAddr = XPLMI_PMCRAM_CHUNK_MEMORY;
 	}
 
-#ifndef PLM_SECURE_EXCLUDE
-	if (TotalLen <= ChunkLen) {
-		if (SecurePtr->IsEncrypted == (u8)TRUE) {
-			CopyLen = SecurePtr->RemainingEncLen - CopyLen;
-		}
-		else {
-			CopyLen = TotalLen;
-		}
-	}
-	else {
-		if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
-			(SecurePtr->IsCheckSumEnabled == (u8)TRUE)) {
-			CopyLen = CopyLen + XLOADER_SHA3_LEN;
-		}
-	}
-#else
 	if (TotalLen <= ChunkLen) {
 		CopyLen = TotalLen;
 	}
 	else {
+		#ifndef PLM_SECURE_EXCLUDE
+		if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
+			(SecurePtr->IsCheckSumEnabled == (u8)TRUE)) {
+			CopyLen = CopyLen + XLOADER_SHA3_LEN;
+		}
+		#else
 		if (SecurePtr->IsCheckSumEnabled == (u8)TRUE) {
 			CopyLen = CopyLen + XLOADER_SHA3_LEN;
 		}
+		#endif
 	}
-#endif
 
 	SecurePtr->IsNextChunkCopyStarted = (u8)TRUE;
 
