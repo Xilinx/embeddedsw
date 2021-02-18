@@ -19,6 +19,7 @@
 * 1.0   hk   06/16/17 First release
 *       hk   02/15/18 Add support for USXGMII
 * 1.5   rsp  06/08/20 Fix Xil_poll_timeout compilation error on microblaze.
+* 1.6	sk   02/18/21 Use UINTPTR instead of u32 for BaseAddress variable.
 *
 * </pre>
 *
@@ -296,7 +297,7 @@ void XxvEthernetUtilFrameMemClear(EthernetFrame * FramePtr)
 ******************************************************************************/
 int XxvEthernetUtilEnterLocalLoopback(XXxvEthernet *XxvEthernetInstancePtr)
 {
-	u32 BaseAddress = XxvEthernetInstancePtr->Config.BaseAddress;
+	UINTPTR BaseAddress = XxvEthernetInstancePtr->Config.BaseAddress;
 
 	XXxvEthernet_WriteReg(BaseAddress, XXE_MODE_OFFSET,
 			XXxvEthernet_ReadReg(BaseAddress, XXE_MODE_OFFSET) |
@@ -333,7 +334,7 @@ int XxvEthernetUtilEnterLocalLoopback(XXxvEthernet *XxvEthernetInstancePtr)
 ******************************************************************************/
 int XxvEthernetUtilUsxgmiiSetup(XXxvEthernet *XxvEthernetInstancePtr, u32 Rate, u32 Duplex)
 {
-	u32 BaseAddress = XxvEthernetInstancePtr->Config.BaseAddress;
+	UINTPTR BaseAddress = XxvEthernetInstancePtr->Config.BaseAddress;
 	u32 Status;
 	u32 ANSR;
 	int to = 0, to_cnt = 0;
@@ -398,7 +399,7 @@ int XxvEthernetUtilUsxgmiiSetup(XXxvEthernet *XxvEthernetInstancePtr, u32 Rate, 
 ******************************************************************************/
 int XxvEthernetUtilUsxgmiiSetupBypassAN(XXxvEthernet *XxvEthernetInstancePtr, u32 Rate, u32 Duplex)
 {
-	u32 BaseAddress = XxvEthernetInstancePtr->Config.BaseAddress;
+	UINTPTR BaseAddress = XxvEthernetInstancePtr->Config.BaseAddress;
 	u32 Status;
 	u32 ANSR;
 	int to = 0, to_cnt = 0;

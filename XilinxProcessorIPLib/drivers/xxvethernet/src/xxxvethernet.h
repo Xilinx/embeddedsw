@@ -112,6 +112,8 @@
 * 1.1   mj   3/30/18  Add Macro XXxvEthernet_IsMcDma(InstancePtr) to check
 *                     McDma is connected or not.
 * 1.4   rsp  05/08/20 Include sleep.h header
+* 1.6	sk   02/18/21 Use UINTPTR instead of u32 for XxvDevBaseAddress
+* 		      variable.
 * </pre>
 *
 ******************************************************************************/
@@ -225,7 +227,7 @@ typedef struct XXxvEthernet_Config {
 			  *   Xxv Ethernet's AXI4-Stream interface -
 			  *   MCDMA in this case
 			  */
-	u32 XxvDevBaseAddress; /**< XxvDevBaseAddress is the base address of
+	UINTPTR XxvDevBaseAddress; /**< XxvDevBaseAddress is the base address of
 				 *  the device attached to the Xxv Ethernet's
 				 *  AXI4-Stream interface.
 				 */
