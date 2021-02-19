@@ -36,6 +36,7 @@
 *	am   08/19/2020 Resolved MISRA C violations.
 *	kal  09/03/2020 Fixed Security CoE review comments
 *	am   10/13/2020 Resolved MISRA C violations
+*	kal  02/19/2021 Fix cache logic error in XNvm_EfuseReadCacheRange API
 *
 * </pre>
 *
@@ -3856,19 +3857,17 @@ static int XNvm_EfuseReadCacheRange(u32 StartRow, u8 RowCount, u32* RowData)
 {
 	int Status = XST_FAILURE;
 	u32 Row = StartRow;
-	u8 Count = RowCount;
+	u8 Count;
 	u32* Data = RowData;
 
-	do {
+	for (Count = 0; Count < RowCount; Count++) {
 		Status = XNvm_EfuseReadCache(Row, Data);
 		if (Status != XST_SUCCESS) {
 			break;
 		}
-		Count--;
 		Row++;
 		Data++;
 	}
-	while (Count > 0U);
 
 	return Status;
 }
