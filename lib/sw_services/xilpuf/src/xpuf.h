@@ -30,6 +30,7 @@
 *                       Added error code for mismatch in MSB of PUF shutter value
 *                       and Global Variation Filter option
 * 1.3   har  01/06/2021 Added prototype for the XPuf_ClearPufId and related macros
+*            02/19/2021 Added error code for syndrome data underflow and overflow
 *
 * </pre>
 *
@@ -61,7 +62,7 @@ extern "C" {
 #define XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS		(127U)
 #define XPUF_12K_PUF_SYN_LEN_IN_WORDS			(350U)
 #define XPUF_SHUTTER_VALUE				(0x81000100U)
-#define XPUF_ID_LEN_IN_WORDS					(0x8U)
+#define XPUF_ID_LEN_IN_WORDS				(0x8U)
 #define XPUF_WORD_LENGTH				(0x4U)
 
 #define XPUF_REGISTRATION				(0x0U)
@@ -76,12 +77,14 @@ extern "C" {
 #define XPUF_LAST_WORD_MASK				(0xFFFFFFF0U)
 
 /* Key registration time error codes */
-#define XPUF_ERROR_INVALID_PARAM				(0x02)
+#define XPUF_ERROR_INVALID_PARAM			(0x02)
 #define XPUF_ERROR_INVALID_SYNDROME_MODE		(0x03)
-#define XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT	(0x04)
+#define XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT		(0x04)
 #define XPUF_ERROR_PUF_DONE_WAIT_TIMEOUT		(0x07)
 #define XPUF_ERROR_REGISTRATION_INVALID			(0x08)
 #define XPUF_SHUTTER_GVF_MISMATCH			(0x09)
+#define XPUF_ERROR_SYN_DATA_UNDERFLOW			(0x0A)
+#define XPUF_ERROR_SYN_DATA_OVERFLOW			(0x0B)
 
 /* Key regeneration time error codes */
 #define XPUF_ERROR_CHASH_NOT_PROGRAMMED			(0x10)
