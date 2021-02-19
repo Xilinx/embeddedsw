@@ -31,6 +31,7 @@
 *       har  01/06/2021 Added API to clear PUF ID
 *       am   01/14/2021 Resolved HIS_CCM Code complexity violations
 *       har  02/03/2021 Improved input validation check in XPuf_Regeneration
+*       har  02/12/2021 Replaced while loop in PUF registration with for loop
 *
 * </pre>
 *
@@ -51,12 +52,6 @@
 #define XPUF_STATUS_WAIT_TIMEOUT		(1000000U)
 					/* Recommended software timeout is 1 second */
 #define XPUF_SHUT_GLB_VAR_FLTR_ENABLED_SHIFT	(31)
-
-typedef enum {
-	XPUF_REGISTRATION_NOT_STARTED,
-	XPUF_REGISTRATION_STARTED,
-	XPUF_REGISTRATION_COMPLETE
-} XPuf_PufRegistrationState;
 
 /********************Macros (Inline function) Definitions*********************/
 #define XPuf_Printf(DebugType, ...)	\
@@ -180,8 +175,6 @@ static int XPuf_StartRegeneration(XPuf_Data *PufData);
 int XPuf_Registration(XPuf_Data *PufData)
 {
 	volatile int Status = XST_FAILURE;
-	XPuf_PufRegistrationState RegistrationStatus =
-		XPUF_REGISTRATION_NOT_STARTED;
 	u32 MaxSyndromeSizeInWords;
 	u32 Idx = 0U;
 
@@ -228,39 +221,40 @@ int XPuf_Registration(XPuf_Data *PufData)
 	XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_CMD_OFFSET,
 		XPUF_CMD_REGISTRATION);
 
-	RegistrationStatus = XPUF_REGISTRATION_STARTED;
 	Status = XST_FAILURE;
 
-	while (RegistrationStatus != XPUF_REGISTRATION_COMPLETE) {
+	for (Idx = 0; Idx < MaxSyndromeSizeInWords; Idx++) {
 		Status = XPuf_WaitForPufSynWordRdy();
 		if (Status != XST_SUCCESS) {
 			Status = XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT;
-			break;
+			goto END;
 		}
-
 		PufData->SyndromeData[Idx] = XPuf_ReadReg(XPUF_PMC_GLOBAL_BASEADDR,
 			XPUF_PMC_GLOBAL_PUF_WORD_OFFSET);
-		Status = XST_FAILURE;
-
-		if (Idx == (MaxSyndromeSizeInWords - 1U)) {
-			Status  = XPuf_WaitForPufDoneStatus();
-			if (Status != XST_SUCCESS) {
-				Status = XPUF_ERROR_PUF_DONE_WAIT_TIMEOUT;
-				break;
-			}
-			RegistrationStatus = XPUF_REGISTRATION_COMPLETE;
-
-			PufData->Chash = XPuf_ReadReg(XPUF_PMC_GLOBAL_BASEADDR,
-				XPUF_PMC_GLOBAL_PUF_CHASH_OFFSET);
-			PufData->Aux = XPuf_ReadReg(XPUF_PMC_GLOBAL_BASEADDR,
-				XPUF_PMC_GLOBAL_PUF_AUX_OFFSET);
-
-			XPuf_CapturePufID(PufData);
-
-			Status = XST_SUCCESS;
-		}
-		Idx++;
 	}
+
+	if (Idx == MaxSyndromeSizeInWords) {
+		Status = XST_FAILURE;
+		Status  = XPuf_WaitForPufDoneStatus();
+		if (Status != XST_SUCCESS) {
+			Status = XPUF_ERROR_PUF_DONE_WAIT_TIMEOUT;
+			goto END;
+		}
+		PufData->Chash = XPuf_ReadReg(XPUF_PMC_GLOBAL_BASEADDR,
+			XPUF_PMC_GLOBAL_PUF_CHASH_OFFSET);
+		PufData->Aux = XPuf_ReadReg(XPUF_PMC_GLOBAL_BASEADDR,
+			XPUF_PMC_GLOBAL_PUF_AUX_OFFSET);
+		XPuf_CapturePufID(PufData);
+	}
+	else if (Idx < MaxSyndromeSizeInWords) {
+		Status = XPUF_ERROR_SYN_DATA_UNDERFLOW;
+		goto END;
+	}
+	else {
+		Status = XPUF_ERROR_SYN_DATA_OVERFLOW;
+		goto END;
+	}
+
 END:
 	return Status;
 }
