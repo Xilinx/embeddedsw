@@ -56,6 +56,7 @@
 *       har  10/12/2020 Addressed security review comments
 *       am   10/10/2020 Resolved Coverity warnings
 * 4.4   am   11/24/2020 Resolved MISRA C and Coverity warnings
+*       har  02/12/2021 Separated input validation checks for Instance pointer
 *
 * </pre>
 *
@@ -628,9 +629,14 @@ int XSecure_AesKekDecrypt(const XSecure_Aes *InstancePtr,
 	XSecure_AesDmaCfg AesDmaCfg = {0U};
 
 	/* Validate the input arguments */
-	if ((InstancePtr == NULL) || (IvAddr == 0x00U)) {
+	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
+	}
+
+	if (IvAddr == 0x00U) {
+		Status = (int)XSECURE_AES_INVALID_PARAM;
+		goto END_RST;
 	}
 
 	if ((DecKeySrc >= XSECURE_MAX_KEY_SOURCES) ||
@@ -748,26 +754,26 @@ int XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	int Status = XST_FAILURE;
 
 	/* Validate the input arguments */
-	if ((InstancePtr == NULL) || (IvAddr == 0x00U)) {
+	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END1;
+		goto END;
 	}
 
 	if ((KeySrc >= XSECURE_MAX_KEY_SOURCES) ||
-		(KeySrc < XSECURE_AES_BBRAM_KEY)) {
+		(KeySrc < XSECURE_AES_BBRAM_KEY) || (IvAddr == 0x00U)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END;
+		goto END_RST;
 	}
 
 	if ((XSECURE_AES_KEY_SIZE_128 != KeySize) &&
 		 (XSECURE_AES_KEY_SIZE_256 != KeySize)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END;
+		goto END_RST;
 	}
 
 	if (InstancePtr->AesState == XSECURE_AES_UNINITIALIZED) {
 		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
-		goto END;
+		goto END_RST;
 	}
 
 	if(InstancePtr->NextBlkLen == 0U) {
@@ -778,7 +784,7 @@ int XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	/* Key selected does not allow decryption */
 	if (AesKeyLookupTbl[KeySrc].DecAllowed == FALSE) {
 		Status = XST_FAILURE;
-		goto END;
+		goto END_RST;
 	}
 
 	/* Configure AES for decryption */
@@ -787,14 +793,14 @@ int XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 
 	Status = XSecure_AesOpInit(InstancePtr, KeySrc, KeySize, IvAddr);
 	if (Status != XST_SUCCESS) {
-		goto END;
+		goto END_RST;
 	}
 	/* Update the state */
 	InstancePtr->AesState = XSECURE_AES_DECRYPT_INITIALIZED;
 
 	Status = XST_SUCCESS;
 
-END:
+END_RST:
 	if (Status != XST_SUCCESS) {
 		/*
 		 * Issue a soft to reset to AES engine and
@@ -806,7 +812,7 @@ END:
 			XSECURE_AES_SOFT_RST_OFFSET);
 	}
 
-END1:
+END:
 	return Status;
 }
 
@@ -838,19 +844,20 @@ int XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	XSecure_AesDmaCfg AesDmaCfg = {0U};
 
 	/* Validate the input arguments */
-	if ((InstancePtr == NULL) || ((Size % XSECURE_WORD_SIZE) != 0x00U)) {
-		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END1;
-	}
-
-	if ((IsLastChunk != TRUE) && (IsLastChunk != FALSE)) {
+	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
+	}
+
+	if (((IsLastChunk != TRUE) && (IsLastChunk != FALSE)) ||
+		((Size % XSECURE_WORD_SIZE) != 0x00U)) {
+		Status = (int)XSECURE_AES_INVALID_PARAM;
+		goto END_RST;
 	}
 
 	if (InstancePtr->AesState != XSECURE_AES_DECRYPT_INITIALIZED) {
 		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
-		goto END;
+		goto END_RST;
 	}
 
 	AesDmaCfg.SrcDataAddr = InDataAddr;
@@ -862,7 +869,7 @@ int XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 
 	Status = XSecure_AesPmcDmaCfgByteSwap(InstancePtr, AesDmaCfg, Size);
 
-END:
+END_RST:
 	/* Clear endianness */
 	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
 				XPMCDMA_SRC_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
@@ -879,7 +886,7 @@ END:
 			XSECURE_AES_SOFT_RST_OFFSET);
 	}
 
-END1:
+END:
 	return Status;
 }
 
@@ -907,14 +914,19 @@ int XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 	XSecure_AesDmaCfg AesDmaCfg = {0U};
 
 	/* Validate the input arguments */
-	if ((InstancePtr == NULL) || (GcmTagAddr == 0x00U)) {
+	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END1;
+		goto END;
+	}
+
+	if (GcmTagAddr == 0x00U) {
+		Status = (int)XSECURE_AES_INVALID_PARAM;
+		goto END_RST;
 	}
 
 	if (InstancePtr->AesState != XSECURE_AES_DECRYPT_INITIALIZED) {
 		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
-		goto END;
+		goto END_RST;
 	}
 
 	XSecure_WriteReg(InstancePtr->BaseAddress,
@@ -926,7 +938,7 @@ int XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 
 	Status = XSecure_AesPmcDmaCfgByteSwap(InstancePtr, AesDmaCfg, XSECURE_SECURE_GCM_TAG_SIZE);
 	if (Status != XST_SUCCESS) {
-		goto END;
+		goto END_RST;
 	}
 
 	Status = XST_FAILURE;
@@ -934,7 +946,7 @@ int XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 	/* Wait for AES Decryption completion. */
 	Status = XSecure_AesWaitForDone(InstancePtr);
 	if (Status != XST_SUCCESS) {
-		goto END;
+		goto END_RST;
 	}
 
 	Status = XST_FAILURE;
@@ -950,14 +962,14 @@ int XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 	if ((RegVal != XSECURE_AES_STATUS_GCM_TAG_PASS_MASK) ||
 	   (RegValTmp != XSECURE_AES_STATUS_GCM_TAG_PASS_MASK)) {
 		Status = (int)XSECURE_AES_GCM_TAG_MISMATCH;
-		goto END;
+		goto END_RST;
 	}
 
 	Status = XST_FAILURE;
 
 	Status = XSecure_AesGetNxtBlkLen(InstancePtr, &InstancePtr->NextBlkLen);
 
-END:
+END_RST:
 	/* Clear endianness */
 	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
 		XSECURE_DISABLE_BYTE_SWAP);
@@ -974,7 +986,7 @@ END:
 			XSECURE_AES_SOFT_RST_OFFSET);
 	}
 
-END1:
+END:
 	return Status;
 }
 
@@ -1059,26 +1071,26 @@ int XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	int Status = XST_FAILURE;
 
 	/* Validate the input arguments */
-	if ((InstancePtr == NULL) || (IvAddr == 0x00U)) {
+	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END1;
+		goto END;
 	}
 
 	if ((KeySrc >= XSECURE_MAX_KEY_SOURCES) ||
-		(KeySrc < XSECURE_AES_BBRAM_KEY)) {
+		(KeySrc < XSECURE_AES_BBRAM_KEY) || (IvAddr == 0x00U)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END;
+		goto END_RST;
 	}
 
 	if ((KeySize != XSECURE_AES_KEY_SIZE_128) &&
 		(KeySize != XSECURE_AES_KEY_SIZE_256)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END;
+		goto END_RST;
 	}
 
 	if (InstancePtr->AesState == XSECURE_AES_UNINITIALIZED) {
 		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
-		goto END;
+		goto END_RST;
 	}
 
 	XSecure_ReleaseReset(InstancePtr->BaseAddress,
@@ -1087,7 +1099,7 @@ int XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	/* Key selected does not allow Encryption */
 	if (AesKeyLookupTbl[KeySrc].EncAllowed == FALSE) {
 		Status = XST_FAILURE;
-		goto END;
+		goto END_RST;
 	}
 
 	/* Configure AES for Encryption */
@@ -1096,19 +1108,19 @@ int XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 
 	Status = XSecure_AesOpInit(InstancePtr, KeySrc, KeySize, IvAddr);
 	if(Status != XST_SUCCESS) {
-		goto END;
+		goto END_RST;
 	}
 
 	InstancePtr->AesState = XSECURE_AES_ENCRYPT_INITIALIZED;
 
-END:
+END_RST:
 	if (Status != XST_SUCCESS) {
 		InstancePtr->AesState = XSECURE_AES_INITIALIZED;
 		XSecure_SetReset(InstancePtr->BaseAddress,
 			XSECURE_AES_SOFT_RST_OFFSET);
 	}
 
-END1:
+END:
 	return Status;
 }
 
@@ -1140,19 +1152,20 @@ int XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	XSecure_AesDmaCfg AesDmaCfg = {0U};
 
 	/* Validate the input arguments */
-	if ((InstancePtr == NULL) || ((Size % XSECURE_WORD_SIZE) != 0x00U)) {
-		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END1;
-	}
-
-	if ((IsLastChunk != TRUE) && (IsLastChunk != FALSE)) {
+	if ((InstancePtr == NULL) ) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
+	}
+
+	if (((IsLastChunk != TRUE) && (IsLastChunk != FALSE)) ||
+		((Size % XSECURE_WORD_SIZE) != 0x00U)) {
+		Status = (int)XSECURE_AES_INVALID_PARAM;
+		goto END_RST;
 	}
 
 	if (InstancePtr->AesState != XSECURE_AES_ENCRYPT_INITIALIZED) {
 		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
-		goto END;
+		goto END_RST;
 	}
 
 	AesDmaCfg.SrcDataAddr = InDataAddr;
@@ -1164,10 +1177,10 @@ int XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 
 	Status = XSecure_AesPmcDmaCfgByteSwap(InstancePtr, AesDmaCfg, Size);
 	if (Status != XST_SUCCESS) {
-		goto END;
+		goto END_RST;
 	}
 
-END:
+END_RST:
 	/* Clear endianness */
 	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
 				XPMCDMA_SRC_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
@@ -1179,7 +1192,7 @@ END:
 			XSECURE_AES_SOFT_RST_OFFSET);
 	}
 
-END1:
+END:
 	return Status;
 }
 
@@ -1204,14 +1217,19 @@ int XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 	XSecure_AesDmaCfg AesDmaCfg = {0U};
 
 	/* Validate the input arguments */
-	if ((InstancePtr == NULL) || (GcmTagAddr == 0x00U)) {
+	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END1;
+		goto END;
+	}
+
+	if (GcmTagAddr == 0x00U) {
+		Status = (int)XSECURE_AES_INVALID_PARAM;
+		goto END_RST;
 	}
 
 	if (InstancePtr->AesState != XSECURE_AES_ENCRYPT_INITIALIZED) {
 		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
-		goto END;
+		goto END_RST;
 	}
 
 	XSecure_WriteReg(InstancePtr->BaseAddress,
@@ -1224,7 +1242,7 @@ int XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 	Status = XSecure_AesPmcDmaCfgByteSwap(InstancePtr, AesDmaCfg,
 		XSECURE_SECURE_GCM_TAG_SIZE);
 	if (Status != XST_SUCCESS) {
-		goto END;
+		goto END_RST;
 	}
 
 	Status = XST_FAILURE;
@@ -1232,7 +1250,7 @@ int XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 	/* Wait for AES Decryption completion. */
 	Status = XSecure_AesWaitForDone(InstancePtr);
 
-END:
+END_RST:
 	InstancePtr->AesState = XSECURE_AES_INITIALIZED;
 
 	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
@@ -1254,7 +1272,7 @@ END:
 		Status = SStatus;
 	}
 
-END1:
+END:
 	return Status;
 }
 
@@ -1433,18 +1451,18 @@ int XSecure_AesKeyZero(const XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc)
 	/* Validate the input arguments */
 	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END1;
+		goto END;
 	}
 
 	if ((KeySrc > XSECURE_AES_ALL_KEYS) ||
 		(KeySrc < XSECURE_AES_BBRAM_KEY)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END;
+		goto END_CLR;
 	}
 
 	if (InstancePtr->AesState == XSECURE_AES_UNINITIALIZED) {
 		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
-		goto END;
+		goto END_CLR;
 	}
 	if (KeySrc == XSECURE_AES_ALL_KEYS) {
 		Mask = XSECURE_AES_KEY_CLEAR_ALL_KEYS_MASK;
@@ -1457,7 +1475,7 @@ int XSecure_AesKeyZero(const XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc)
 	}
 	else {
 		Status = XST_INVALID_PARAM;
-		goto END;
+		goto END_CLR;
 	}
 
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_AES_KEY_CLEAR_OFFSET,
@@ -1472,11 +1490,11 @@ int XSecure_AesKeyZero(const XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc)
 		Status = (int)XSECURE_AES_KEY_CLEAR_ERROR;
 	}
 
-END:
+END_CLR:
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_AES_KEY_CLEAR_OFFSET,
 		XSECURE_AES_KEY_CLR_REG_CLR_MASK);
 
-END1:
+END:
 	return Status;
 }
 
@@ -1506,7 +1524,7 @@ int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 
 	if (AesInstance == NULL) {
 		Status = (int)XSECURE_AESKAT_INVALID_PARAM;
-		goto END1;
+		goto END;
 	}
 
 	/* Write AES key */
@@ -1514,7 +1532,7 @@ int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 			XSECURE_AES_KEY_SIZE_256, (UINTPTR)KatKey);
 	if (Status != XST_SUCCESS) {
 		Status = (int)XSECURE_AES_KAT_WRITE_KEY_FAILED_ERROR;
-		goto END;
+		goto END_CLR;
 	}
 
 	Status = XST_FAILURE;
@@ -1523,7 +1541,7 @@ int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 			XSECURE_AES_KEY_SIZE_256, (UINTPTR)KatIv);
 	if (Status != XST_SUCCESS) {
 		Status = (int)XSECURE_AES_KAT_DECRYPT_INIT_FAILED_ERROR;
-		goto END;
+		goto END_CLR;
 	}
 
 	Status = XST_FAILURE;
@@ -1532,7 +1550,7 @@ int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 			(UINTPTR)DstVal, XSECURE_SECURE_GCM_TAG_SIZE, (UINTPTR)KatGcmTag);
 	if (Status != XST_SUCCESS) {
 		Status = (int)XSECURE_AES_KAT_GCM_TAG_MISMATCH_ERROR;
-		goto END;
+		goto END_CLR;
 	}
 
 	/* Initialized to error */
@@ -1541,7 +1559,7 @@ int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 		if (DstVal[Index] != KatOutput[Index]) {
 			/* Comparison failure of decrypted data */
 			Status = (int)XSECURE_AES_KAT_DATA_MISMATCH_ERROR;
-			goto END;
+			goto END_CLR;
 		}
 	}
 
@@ -1549,13 +1567,13 @@ int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 		Status = XST_SUCCESS;
 	}
 
-END:
+END_CLR:
 	SStatus = XSecure_AesKeyZero(AesInstance, XSECURE_AES_USER_KEY_7);
 	if(Status == XST_SUCCESS) {
 		Status = SStatus;
 	}
 
-END1:
+END:
 	return Status;
 }
 
