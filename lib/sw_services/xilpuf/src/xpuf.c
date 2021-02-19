@@ -32,6 +32,8 @@
 *       am   01/14/2021 Resolved HIS_CCM Code complexity violations
 *       har  02/03/2021 Improved input validation check in XPuf_Regeneration
 *       har  02/12/2021 Replaced while loop in PUF registration with for loop
+*       har  02/12/2021 Added a redundancy check for MaxSyndromeSizeInWords to
+*                       avoid potential buffer overflow
 *
 * </pre>
 *
@@ -175,7 +177,7 @@ static int XPuf_StartRegeneration(XPuf_Data *PufData);
 int XPuf_Registration(XPuf_Data *PufData)
 {
 	volatile int Status = XST_FAILURE;
-	u32 MaxSyndromeSizeInWords;
+	volatile u32 MaxSyndromeSizeInWords;
 	u32 Idx = 0U;
 
 	if (PufData == NULL) {
@@ -220,6 +222,16 @@ int XPuf_Registration(XPuf_Data *PufData)
 
 	XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_CMD_OFFSET,
 		XPUF_CMD_REGISTRATION);
+
+	/*
+	 * Recheck MaxSyndromeSizeInWords before use to avoid overflow
+	 */
+	if (XPUF_SYNDROME_MODE_4K == PufData->RegMode) {
+		MaxSyndromeSizeInWords = XPUF_4K_PUF_SYN_LEN_IN_WORDS;
+	}
+	else {
+		MaxSyndromeSizeInWords = XPUF_12K_PUF_SYN_LEN_IN_WORDS;
+	}
 
 	Status = XST_FAILURE;
 
