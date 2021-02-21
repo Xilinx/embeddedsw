@@ -28,6 +28,7 @@
 *       dc     01/04/21 Set mgt si570 oscillator to 122.88MHz
 *       dc     02/02/21 Remove hard coded device node name
 *       dc     02/15/21 align driver to curent specification
+*       dc     02/22/21 include HW in versioning
 *
 * </pre>
 *
@@ -192,8 +193,7 @@ static int XDfeMix_SelfTestExample(u16 DeviceId)
 	XDfeMix_Activate(InstancePtr, true);
 
 	/* Write and read a dummy frequency configuration */
-	XDfeMix_WriteReg(InstancePtr, XDFEMIX_FREQ_CONTROL_WORD,
-			 0x12345678);
+	XDfeMix_WriteReg(InstancePtr, XDFEMIX_FREQ_CONTROL_WORD, 0x12345678);
 	if (0x12345678 !=
 	    XDfeMix_ReadReg(InstancePtr, XDFEMIX_FREQ_CONTROL_WORD)) {
 		return XST_FAILURE;
@@ -245,28 +245,14 @@ static int XDfeMix_AddCCTestExample(u16 DeviceId)
 	u32 PhaseDualModSel = 0x17;
 	u32 NCOGain = 1;
 	XDfeMix_TriggerCfg TriggerCfg;
-	XDfeMix_CarrierCfg CarrierCfg = {
-		{
-			NCO,
-			Rate
-		},
-		{
-			{
-				FrequencyControlWord,
-				FrequencySingleModCount,
-				FrequencyDualModCount,
-				{
-					FrequencyPhaseOffset
-				}
-			},
-			{
-				PhaseAcc,
-				PhaseDualModCount,
-				PhaseDualModSel
-			},
-			NCOGain
-		}
-	};
+	XDfeMix_CarrierCfg CarrierCfg = { { NCO, Rate },
+					  { { FrequencyControlWord,
+					      FrequencySingleModCount,
+					      FrequencyDualModCount,
+					      { FrequencyPhaseOffset } },
+					    { PhaseAcc, PhaseDualModCount,
+					      PhaseDualModSel },
+					    NCOGain } };
 
 	/* Initialize libmetal */
 	if (0 != metal_init(&init_param)) {
