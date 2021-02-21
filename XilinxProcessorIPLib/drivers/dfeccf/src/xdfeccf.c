@@ -20,6 +20,7 @@
 * 1.0   dc     10/29/20 Initial version
 *       dc     02/02/21 Remove hard coded device node name
 *       dc     02/08/21 align driver to curent specification
+*       dc     02/22/21 include HW in versioning
 * </pre>
 *
 ******************************************************************************/
@@ -39,7 +40,7 @@
 /**************************** Macros Definitions ****************************/
 #define XDFECCF_SEQUENCE_ENTRY_NULL 8U /**< Null sequence entry flag */
 #define XDFECCF_NO_EMPTY_CCID_FLAG 0xFFFFU /**< Not Empty CCID flag */
-#define XDFECCF_COEFF_LOAD_TIMEOUT 100 /**< Units of 10us */
+#define XDFECCF_COEFF_LOAD_TIMEOUT 100U /**< Units of 10us */
 #define XDFECCF_ACTIVE_SET_NUM 8U /**< Maximum number of active sets */
 #define XDFECCF_U32_NUM_BITS 32U
 
@@ -57,10 +58,10 @@ extern XDfeCcf XDfeCcf_ChFilter[XDFECCF_MAX_NUM_INSTANCES];
 static u32 XDfeCcf_DriverHasBeenRegisteredOnce = 0U;
 
 /************************** Function Definitions ****************************/
-extern u32 XDfeCcf_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr,
+extern s32 XDfeCcf_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr,
 				 const char *DeviceNodeName);
-extern u32 XDfeCcf_LookupConfig(u16 DeviceId);
-extern u32 XDfeCcf_CfgInitialize(XDfeCcf *InstancePtr);
+extern s32 XDfeCcf_LookupConfig(u16 DeviceId);
+extern void XDfeCcf_CfgInitialize(XDfeCcf *InstancePtr);
 
 /************************** Register Access Functions ***********************/
 
@@ -81,7 +82,7 @@ extern u32 XDfeCcf_CfgInitialize(XDfeCcf *InstancePtr);
 void XDfeCcf_WriteReg(const XDfeCcf *InstancePtr, u32 AddrOffset, u32 Data)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	metal_io_write32(InstancePtr->Io, AddrOffset, Data);
+	metal_io_write32(InstancePtr->Io, (unsigned long)AddrOffset, Data);
 }
 
 /****************************************************************************/
@@ -100,7 +101,7 @@ void XDfeCcf_WriteReg(const XDfeCcf *InstancePtr, u32 AddrOffset, u32 Data)
 u32 XDfeCcf_ReadReg(const XDfeCcf *InstancePtr, u32 AddrOffset)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	return metal_io_read32(InstancePtr->Io, AddrOffset);
+	return metal_io_read32(InstancePtr->Io, (unsigned long)AddrOffset);
 }
 
 /****************************************************************************/
@@ -258,7 +259,7 @@ static u32 XDfeCcf_AddCCID(u32 CCID, u32 Rate, XDfeCcf_CCSequence *CCIDSequence)
 {
 	u32 Index;
 	u32 SeqLen;
-	u32 SeqMult = 1;
+	u32 SeqMult;
 	u32 CCIDCount;
 	u32 EmptyCCID = XDFECCF_NO_EMPTY_CCID_FLAG;
 	Xil_AssertNonvoid(CCIDSequence != NULL);
@@ -316,7 +317,7 @@ static u32 XDfeCcf_AddCCID(u32 CCID, u32 Rate, XDfeCcf_CCSequence *CCIDSequence)
 	for (Index = EmptyCCID; Index < CCIDSequence->Length; Index++) {
 		if (CCIDSequence->CCID[Index] == XDFECCF_SEQUENCE_ENTRY_NULL) {
 			CCIDCount--;
-			if (0 == CCIDCount) {
+			if (0U == CCIDCount) {
 				break;
 			}
 		}
@@ -336,7 +337,7 @@ static u32 XDfeCcf_AddCCID(u32 CCID, u32 Rate, XDfeCcf_CCSequence *CCIDSequence)
 			/* Mark location for this CCID */
 			CCIDSequence->CCID[Index] = CCID;
 			CCIDCount--;
-			if (0 == CCIDCount) {
+			if (0U == CCIDCount) {
 				break;
 			}
 		}
@@ -427,7 +428,7 @@ static void XDfeCcf_GetCurrentCCCfg(const XDfeCcf *InstancePtr,
 
 	/* Read sequence length */
 	SeqLen = XDfeCcf_ReadReg(InstancePtr, XDFECCF_SEQUENCE_LENGTH_CURRENT);
-	CurrCCCfg->Sequence.Length = SeqLen + 1;
+	CurrCCCfg->Sequence.Length = SeqLen + 1U;
 
 	/* Read CCID sequence and carrier configurations */
 	for (Index = 0; Index < XDFECCF_CC_NUM; Index++) {
@@ -470,8 +471,8 @@ static void XDfeCcf_SetNextCCCfg(const XDfeCcf *InstancePtr,
 	Xil_AssertVoid(NextCCCfg != NULL);
 
 	/* Write sequence length */
-	if (0 < NextCCCfg->Sequence.Length) {
-		SeqLen = NextCCCfg->Sequence.Length - 1;
+	if (0U < NextCCCfg->Sequence.Length) {
+		SeqLen = NextCCCfg->Sequence.Length - 1U;
 	}
 	XDfeCcf_WriteReg(InstancePtr, XDFECCF_SEQUENCE_LENGTH_NEXT, SeqLen);
 
@@ -529,7 +530,7 @@ static void XDfeCcf_SetNextCCCfg(const XDfeCcf *InstancePtr,
 *
 ****************************************************************************/
 static u32 XDfeCcf_NextMappedId(const XDfeCcf *InstancePtr,
-				XDfeCcf_CCCfg *CCCfg, u32 *ID)
+				const XDfeCcf_CCCfg *CCCfg, u32 *ID)
 {
 	XDfeCcf_ModelParameters ModelParams;
 	u32 Used[XDFECCF_CC_NUM];
@@ -655,7 +656,7 @@ static void XDfeCcf_EnableLowPowerTrigger(const XDfeCcf *InstancePtr)
 * @note     None
 *
 ****************************************************************************/
-static void XDfeCcf_EnableActivateTrigger(XDfeCcf *InstancePtr)
+static void XDfeCcf_EnableActivateTrigger(const XDfeCcf *InstancePtr)
 {
 	u32 Data;
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -1019,7 +1020,7 @@ void XDfeCcf_Deactivate(XDfeCcf *InstancePtr)
 * @note     None
 *
 ****************************************************************************/
-u32 XDfeCcf_AddCC(XDfeCcf *InstancePtr, u32 CCID,
+u32 XDfeCcf_AddCC(const XDfeCcf *InstancePtr, u32 CCID,
 		  const XDfeCcf_CarrierCfg *CarrierCfg)
 {
 	XDfeCcf_CCCfg CCCfg;
@@ -1040,7 +1041,7 @@ u32 XDfeCcf_AddCC(XDfeCcf *InstancePtr, u32 CCID,
 	/* Get next mapped ID. This should be done before trying to add a new
 	   CCID */
 	IDAvailable = XDfeCcf_NextMappedId(InstancePtr, &CCCfg, &NextMappedID);
-	if (IDAvailable == XST_FAILURE) {
+	if (IDAvailable == (u32)XST_FAILURE) {
 		metal_log(METAL_LOG_ERROR, "ID is not available in %s\n",
 			  __func__);
 		return XST_FAILURE;
@@ -1048,7 +1049,7 @@ u32 XDfeCcf_AddCC(XDfeCcf *InstancePtr, u32 CCID,
 
 	/* Try to add CC to sequence and update carrier configuration */
 	AddSuccess = XDfeCcf_AddCCID(CCID, CarrierCfg->Rate, &CCCfg.Sequence);
-	if (AddSuccess == XST_SUCCESS) {
+	if (AddSuccess == (u32)XST_SUCCESS) {
 		/* Update carrier configuration, mark flush as we need to clear
 		   data registers */
 		CCCfg.CarrierCfg[CCID].Gain = CarrierCfg->Gain;
@@ -1090,7 +1091,7 @@ u32 XDfeCcf_AddCC(XDfeCcf *InstancePtr, u32 CCID,
 * @note     None
 *
 ****************************************************************************/
-void XDfeCcf_RemoveCC(XDfeCcf *InstancePtr, u32 CCID)
+void XDfeCcf_RemoveCC(const XDfeCcf *InstancePtr, u32 CCID)
 {
 	XDfeCcf_CCCfg CCCfg;
 
@@ -1127,7 +1128,7 @@ void XDfeCcf_RemoveCC(XDfeCcf *InstancePtr, u32 CCID)
 * @note     None
 *
 ****************************************************************************/
-void XDfeCcf_UpdateCC(XDfeCcf *InstancePtr, u32 CCID,
+void XDfeCcf_UpdateCC(const XDfeCcf *InstancePtr, u32 CCID,
 		      XDfeCcf_CarrierCfg *CarrierCfg)
 {
 	XDfeCcf_CCCfg CCCfg;
@@ -1178,7 +1179,7 @@ void XDfeCcf_UpdateCC(XDfeCcf *InstancePtr, u32 CCID,
 * @note     None
 *
 ****************************************************************************/
-void XDfeCcf_UpdateAntenna(XDfeCcf *InstancePtr, u32 Ant, bool Enabled)
+void XDfeCcf_UpdateAntenna(const XDfeCcf *InstancePtr, u32 Ant, bool Enabled)
 {
 	XDfeCcf_CCCfg CCCfg;
 
@@ -1190,7 +1191,11 @@ void XDfeCcf_UpdateAntenna(XDfeCcf *InstancePtr, u32 Ant, bool Enabled)
 	XDfeCcf_GetCurrentCCCfg(InstancePtr, &CCCfg);
 
 	/* Update antenna enablement */
-	CCCfg.AntennaCfg[Ant] = (u32)Enabled;
+	if (Enabled == true) {
+		CCCfg.AntennaCfg[Ant] = 1U;
+	} else {
+		CCCfg.AntennaCfg[Ant] = 0U;
+	}
 
 	/* Update next configuration and trigger update */
 	XDfeCcf_SetNextCCCfg(InstancePtr, &CCCfg);
@@ -1445,7 +1450,7 @@ void XDfeCcf_LoadCoefficients(const XDfeCcf *InstancePtr, u32 Set,
 {
 	u32 NumValues;
 	u32 IsOdd;
-	double CoeffSum = 0L;
+	s32 CoeffSum = 0;
 	double ScaleFactor;
 	u32 Shift;
 	u32 LoadActive;
@@ -1458,7 +1463,7 @@ void XDfeCcf_LoadCoefficients(const XDfeCcf *InstancePtr, u32 Set,
 
 	/* Determine scale shift value using expression defined in
 	   Channel Filter FIR (R16) #DetailedDescription */
-	IsOdd = Coeffs->Num % 2;
+	IsOdd = Coeffs->Num % 2U;
 	if (0U != Coeffs->Symmetric) {
 		NumValues = (Coeffs->Num + 1U) / 2U;
 	} else {
@@ -1470,13 +1475,13 @@ void XDfeCcf_LoadCoefficients(const XDfeCcf *InstancePtr, u32 Set,
 	}
 
 	if (0U != Coeffs->Symmetric) {
-		CoeffSum = 2U * CoeffSum;
+		CoeffSum = 2 * CoeffSum;
 		if (0U != IsOdd) {
 			CoeffSum = CoeffSum - Coeffs->Value[NumValues - 1U];
 		}
 	}
 
-	ScaleFactor = CoeffSum / (256 * ((u32)1 << 15));
+	ScaleFactor = (double)CoeffSum / (256U * ((u32)1 << 15));
 	Shift = (u32)floor(fabs(log2(ScaleFactor)));
 
 	/* Check is load in progress */
@@ -1487,7 +1492,7 @@ void XDfeCcf_LoadCoefficients(const XDfeCcf *InstancePtr, u32 Set,
 			break;
 		}
 		usleep(10);
-		if (Index == (XDFECCF_COEFF_LOAD_TIMEOUT - 1)) {
+		if (Index == (XDFECCF_COEFF_LOAD_TIMEOUT - 1U)) {
 			Xil_AssertVoidAlways();
 		}
 	}
@@ -1525,16 +1530,38 @@ void XDfeCcf_LoadCoefficients(const XDfeCcf *InstancePtr, u32 Set,
 *
 * This API is used to get the driver version.
 *
-* @param    Version is driver version numbers.
+* @param    SwVersion is driver version numbers.
+* @param    HwVersion is HW version numbers.
 *
 * @return   None
 *
 * @note     None.
 *
 ******************************************************************************/
-void XDfeCcf_GetVersions(XDfeCcf_Version *Version)
+void XDfeCcf_GetVersions(const XDfeCcf *InstancePtr, XDfeCcf_Version *SwVersion,
+			 XDfeCcf_Version *HwVersion)
 {
-	Version->Major = XDFECCF_DRIVER_VERSION_MAJOR;
-	Version->Minor = XDFECCF_DRIVER_VERSION_MINOR;
+	u32 Version;
+
+	Xil_AssertVoid(InstancePtr->StateId != XDFECCF_STATE_NOT_READY);
+
+	/* Driver version */
+	SwVersion->Major = XDFECCF_DRIVER_VERSION_MAJOR;
+	SwVersion->Minor = XDFECCF_DRIVER_VERSION_MINOR;
+
+	/* Component HW version */
+	Version = XDfeCcf_ReadReg(InstancePtr, XDFECCF_VERSION_OFFSET);
+	HwVersion->Patch =
+		XDfeCcf_RdBitField(XDFECCF_VERSION_PATCH_WIDTH,
+				   XDFECCF_VERSION_PATCH_OFFSET, Version);
+	HwVersion->Revision =
+		XDfeCcf_RdBitField(XDFECCF_VERSION_REVISION_WIDTH,
+				   XDFECCF_VERSION_REVISION_OFFSET, Version);
+	HwVersion->Minor =
+		XDfeCcf_RdBitField(XDFECCF_VERSION_MINOR_WIDTH,
+				   XDFECCF_VERSION_MINOR_OFFSET, Version);
+	HwVersion->Major =
+		XDfeCcf_RdBitField(XDFECCF_VERSION_MAJOR_WIDTH,
+				   XDFECCF_VERSION_MAJOR_OFFSET, Version);
 }
 /** @} */

@@ -59,6 +59,7 @@
 * 1.0   dc     09/03/20 Initial version
 *       dc     02/02/21 Remove hard coded device node name
 *       dc     02/08/21 align driver to curent specification
+*       dc     02/22/21 include HW in versioning
 * </pre>
 *
 ******************************************************************************/
@@ -211,7 +212,7 @@ typedef struct {
 		    when non-symmetric max is 128. */
 	u32 Symmetric; /**< [0,1] Select the use of symetric or non-symetric
 			  filter */
-	u32 Value[128]; /**< [Signed real numbers]. Array of coefficients, when
+	s16 Value[128]; /**< [Signed real numbers]. Array of coefficients, when
 			   symmetric only the first (Num+1)/2 coefficients
 			   are provided */
 } XDfeCcf_Coefficients;
@@ -316,12 +317,12 @@ void XDfeCcf_Activate(XDfeCcf *InstancePtr, bool EnableLowPower);
 void XDfeCcf_Deactivate(XDfeCcf *InstancePtr);
 
 /* User APIs */
-u32 XDfeCcf_AddCC(XDfeCcf *InstancePtr, u32 CCID,
+u32 XDfeCcf_AddCC(const XDfeCcf *InstancePtr, u32 CCID,
 		  const XDfeCcf_CarrierCfg *CarrierCfg);
-void XDfeCcf_RemoveCC(XDfeCcf *InstancePtr, u32 CCID);
-void XDfeCcf_UpdateCC(XDfeCcf *InstancePtr, u32 CCID,
+void XDfeCcf_RemoveCC(const XDfeCcf *InstancePtr, u32 CCID);
+void XDfeCcf_UpdateCC(const XDfeCcf *InstancePtr, u32 CCID,
 		      XDfeCcf_CarrierCfg *CarrierCfg);
-void XDfeCcf_UpdateAntenna(XDfeCcf *InstancePtr, u32 Ant, bool Enabled);
+void XDfeCcf_UpdateAntenna(const XDfeCcf *InstancePtr, u32 Ant, bool Enabled);
 void XDfeCcf_GetTriggersCfg(const XDfeCcf *InstancePtr,
 			    XDfeCcf_TriggerCfg *TriggerCfg);
 void XDfeCcf_SetTriggersCfg(const XDfeCcf *InstancePtr,
@@ -335,7 +336,8 @@ void XDfeCcf_GetEventStatus(const XDfeCcf *InstancePtr, XDfeCcf_Status *Status);
 void XDfeCcf_ClearEventStatus(const XDfeCcf *InstancePtr);
 void XDfeCcf_SetInterruptMask(const XDfeCcf *InstancePtr,
 			      const XDfeCcf_InterruptMask *Mask);
-void XDfeCcf_GetDriverVersion(u32 *Major, u32 *Minor);
+void XDfeCcf_GetVersions(const XDfeCcf *InstancePtr, XDfeCcf_Version *SwVersion,
+			 XDfeCcf_Version *HwVersion);
 
 #ifdef __cplusplus
 }
