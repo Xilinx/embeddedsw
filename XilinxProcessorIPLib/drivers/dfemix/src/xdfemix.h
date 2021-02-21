@@ -56,6 +56,7 @@
 * 1.0   dc     07/22/20 Initial version
 *       dc     02/02/21 Remove hard coded device node name
 *       dc     02/15/21 align driver to curent specification
+*       dc     02/22/21 include HW in versioning
 * </pre>
 *
 ******************************************************************************/
@@ -95,7 +96,7 @@ extern "C" {
 #define XDFEMIX_ANT_NUM_MAX 8U /**< Maximum anntena number */
 #define XDFEMIX_SEQ_LENGTH_MAX 16U /**< Maximum sequence length */
 
-#define XDFEMIX_RATE_MAX 5U /**< Maximum rate Id */
+#define XDFEMIX_RATE_MAX 16U /**< Maximum rate Id */
 #define XDFEMIX_NCO_MAX 4U /**< Maximum NCO number */
 
 /**************************** Type Definitions *******************************/
@@ -353,7 +354,7 @@ void XDfeMix_Deactivate(XDfeMix *InstancePtr);
 
 /* User APIs */
 u32 XDfeMix_AddCC(const XDfeMix *InstancePtr, u32 CCID,
-		  XDfeMix_CarrierCfg *CarrierCfg);
+		  const XDfeMix_CarrierCfg *CarrierCfg);
 void XDfeMix_RemoveCC(const XDfeMix *InstancePtr, u32 CCID);
 void XDfeMix_MoveCC(const XDfeMix *InstancePtr, u32 CCID, u32 Rate, u32 FromNCO,
 		    u32 ToNCO);
@@ -361,9 +362,9 @@ void XDfeMix_UpdateCC(const XDfeMix *InstancePtr);
 void XDfeMix_SetAntennaGain(const XDfeMix *InstancePtr, u32 AntennaId,
 			    u32 AntennaGain);
 void XDfeMix_GetTriggersCfg(const XDfeMix *InstancePtr,
-			 XDfeMix_TriggerCfg *TriggerCfg);
+			    XDfeMix_TriggerCfg *TriggerCfg);
 void XDfeMix_SetTriggersCfg(const XDfeMix *InstancePtr,
-			 XDfeMix_TriggerCfg *TriggerCfg);
+			    XDfeMix_TriggerCfg *TriggerCfg);
 void XDfeMix_GetDUCDDCStatus(const XDfeMix *InstancePtr, u32 CCID,
 			     XDfeMix_DUCDDCStatus *DUCDDCStatus);
 void XDfeMix_GetMixerStatus(const XDfeMix *InstancePtr, u32 CCID,
@@ -380,7 +381,8 @@ void XDfeMix_GetInterruptStatus(const XDfeMix *InstancePtr,
 				XDfeMix_InterruptMask *Flags);
 void XDfeMix_ClearInterruptStatus(const XDfeMix *InstancePtr,
 				  const XDfeMix_InterruptMask *Flags);
-void XDfeMix_GetVersions(XDfeMix_Version *Version);
+void XDfeMix_GetVersions(const XDfeMix *InstancePtr, XDfeMix_Version *SwVersion,
+			 XDfeMix_Version *HwVersion);
 
 #ifdef __cplusplus
 }

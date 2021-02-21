@@ -21,6 +21,7 @@
 * 1.0   dc     07/22/20 Initial release
 *       dc     02/02/21 Remove hard coded device node name
 *       dc     02/15/21 align driver to curent specification
+*       dc     02/22/21 include HW in versioning
 *
 * </pre>
 *
@@ -80,13 +81,9 @@ extern int metal_linux_get_device_property(struct metal_device *device,
 					   const char *property_name,
 					   void *output, int len);
 #endif
-u32 XDfeMix_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr, const char *DeviceNodeName);
-u32 XDfeMix_LookupConfig(u16 DeviceId);
-void XDfeMix_CfgInitialize(XDfeMix *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 #ifdef __BAREMETAL__
-extern struct metal_device CustomDevice[XDFEMIX_MAX_NUM_INSTANCES];
 extern XDfeMix_Config XDfeMix_ConfigTable[XPAR_XDFEMIX_NUM_INSTANCES];
 #endif
 XDfeMix XDfeMix_Mixer[XDFEMIX_MAX_NUM_INSTANCES];
@@ -154,7 +151,8 @@ static s32 XDfeMix_Strrncmp(const char *Str1Ptr, const char *Str2Ptr,
  *@note     None.
 *
 ******************************************************************************/
-static s32 XDfeMix_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId, const char *DeviceNodeName)
+static s32 XDfeMix_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId,
+					   const char *DeviceNodeName)
 {
 	char CompatibleString[100];
 	struct metal_device *DevicePtr;
@@ -177,8 +175,7 @@ static s32 XDfeMix_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId, co
 	/* Loop through the each device file in directory */
 	for (i = 0; i < NumFiles; i++) {
 		/* Check the device signature */
-		if (0 != XDfeMix_Strrncmp(DirentPtr[i]->d_name,
-					  DeviceNodeName,
+		if (0 != XDfeMix_Strrncmp(DirentPtr[i]->d_name, DeviceNodeName,
 					  strlen(DeviceNodeName))) {
 			continue;
 		}
@@ -251,7 +248,7 @@ static s32 XDfeMix_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId, co
 *           pointing to the config returned.
 *
 ******************************************************************************/
-u32 XDfeMix_LookupConfig(u16 DeviceId)
+s32 XDfeMix_LookupConfig(u16 DeviceId)
 {
 #ifndef __BAREMETAL__
 	struct metal_device *Dev = XDfeMix_Mixer[DeviceId].Device;
@@ -366,9 +363,10 @@ end_failure:
 * @note     None.
 *
 ******************************************************************************/
-u32 XDfeMix_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr, const char *DeviceNodeName)
+s32 XDfeMix_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr,
+			  const char *DeviceNodeName)
 {
-	u32 Status;
+	s32 Status;
 #ifndef __BAREMETAL__
 	char DeviceName[100];
 #endif
@@ -377,20 +375,20 @@ u32 XDfeMix_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr, const c
 
 #ifdef __BAREMETAL__
 	Status = metal_register_generic_device(*DevicePtr);
-	if ((signed)Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		metal_log(METAL_LOG_ERROR, "\n Failed to register device");
 		return Status;
 	}
-	Status = metal_device_open(XDFEMIX_BUS_NAME, DeviceNodeName,
-				   DevicePtr);
-	if ((signed)Status != XST_SUCCESS) {
+	Status = metal_device_open(XDFEMIX_BUS_NAME, DeviceNodeName, DevicePtr);
+	if (Status != XST_SUCCESS) {
 		metal_log(METAL_LOG_ERROR, "\n Failed to open device Mixer");
 		return Status;
 	}
 #else
 	/* Get device name */
-	Status = XDfeMix_GetDeviceNameByDeviceId(DeviceName, DeviceId, DeviceNodeName);
-	if ((signed)Status != XST_SUCCESS) {
+	Status = XDfeMix_GetDeviceNameByDeviceId(DeviceName, DeviceId,
+						 DeviceNodeName);
+	if (Status != XST_SUCCESS) {
 		metal_log(METAL_LOG_ERROR,
 			  "\n Failed to find mixer device with device id %d",
 			  DeviceId);
@@ -399,7 +397,7 @@ u32 XDfeMix_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr, const c
 
 	/* open the device metal instance */
 	Status = metal_device_open(XDFEMIX_BUS_NAME, DeviceName, DevicePtr);
-	if ((signed)Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		metal_log(METAL_LOG_ERROR, "\n Failed to open device %s.\n",
 			  DeviceName);
 		return Status;
