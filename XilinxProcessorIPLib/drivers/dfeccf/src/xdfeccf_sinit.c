@@ -21,7 +21,7 @@
 * 1.0   dc     10/27/20 Initial release
 *       dc     02/02/21 Remove hard coded device node name
 *       dc     02/08/21 align driver to curent specification
-*
+*       dc     02/22/21 include HW in versioning
 * </pre>
 *
 ******************************************************************************/
@@ -78,7 +78,6 @@ extern int metal_linux_get_device_property(struct metal_device *device,
 
 /************************** Variable Definitions *****************************/
 #ifdef __BAREMETAL__
-extern struct metal_device CustomDevice[XDFECCF_MAX_NUM_INSTANCES];
 extern XDfeCcf_Config XDfeCcf_ConfigTable[XPAR_XDFECCF_NUM_INSTANCES];
 #endif
 XDfeCcf XDfeCcf_ChFilter[XDFECCF_MAX_NUM_INSTANCES];
@@ -243,7 +242,7 @@ static s32 XDfeCcf_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId,
 *           pointing to the config returned.
 *
 ******************************************************************************/
-u32 XDfeCcf_LookupConfig(u16 DeviceId)
+s32 XDfeCcf_LookupConfig(u16 DeviceId)
 {
 #ifndef __BAREMETAL__
 	struct metal_device *Dev = XDfeCcf_ChFilter[DeviceId].Device;
@@ -259,6 +258,7 @@ u32 XDfeCcf_LookupConfig(u16 DeviceId)
 	}
 	XDfeCcf_ChFilter[DeviceId].Config.BaseAddr = ntohl(BaseAddr);
 
+	/* Get a config data from devicetree */
 	if (XST_SUCCESS !=
 	    metal_linux_get_device_property(Dev, Name = XDFECCF_NUM_ANTENNA_CFG,
 					    &d, XDFECCF_WORD_SIZE)) {
@@ -320,10 +320,10 @@ end_failure:
 * @note     None.
 *
 ******************************************************************************/
-u32 XDfeCcf_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr,
+s32 XDfeCcf_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr,
 			  const char *DeviceNodeName)
 {
-	u32 Status;
+	s32 Status;
 #ifndef __BAREMETAL__
 	char DeviceName[100];
 #endif
@@ -362,7 +362,6 @@ u32 XDfeCcf_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr,
 #endif
 
 	/* Map CCF device IO region */
-	/* TODO - this has to be revisited when device IP got delivered! */
 	XDfeCcf_ChFilter[DeviceId].Io = metal_device_io_region(*DevicePtr, 0U);
 	if (XDfeCcf_ChFilter[DeviceId].Io == NULL) {
 		metal_log(METAL_LOG_ERROR,

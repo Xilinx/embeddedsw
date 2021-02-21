@@ -28,6 +28,7 @@
 *       dc     01/04/21 Set mgt si570 oscillator to 122.88MHz
 *       dc     02/02/21 Remove hard coded device node name
 *       dc     02/08/21 align driver to curent specification
+*       dc     02/22/21 include HW in versioning
 *
 * </pre>
 *
@@ -237,7 +238,7 @@ static int XDfeCcf_PassThroughTestExample(u16 DeviceId)
 	XDfeCcf_Init Init;
 	XDfeCcf_TriggerCfg TriggerCfg;
 	XDfeCcf_Coefficients Coeffs = {
-		7, 1, { 0, 0, 0, (2<<15) - 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+		7, 1, { 0, 0, 0, (2 << 15) - 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 	};
 	XDfeCcf_CarrierCfg CarrierCfg = { 0, 0, 0, 1, 0, 0, 0 };
 
