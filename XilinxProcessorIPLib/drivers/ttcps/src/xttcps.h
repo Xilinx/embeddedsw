@@ -144,6 +144,8 @@
 * 3.5   srm  10/06/17 Added new typedef XMatchRegValue for match register width
 * 3.8   aru  12/19/18 Modified in XTtcPs_ClearInterruptStatus function to clear
 *                     Interrupt status register by reading instead of writing it.
+* 3.14   mus 02/22/21 Updated XTtcPs_ClearInterruptStatus to fix compiler warning.
+*                     It fixes CR#1084697.
 * </pre>
 *
 ******************************************************************************/
@@ -469,6 +471,7 @@ typedef u32 XMatchRegValue;
 *
 ******************************************************************************/
 #define XTtcPs_ClearInterruptStatus(InstancePtr, InterruptMask) \
+		(void) 	InterruptMask; \
 		InstReadReg((InstancePtr), XTTCPS_ISR_OFFSET)
 
 
