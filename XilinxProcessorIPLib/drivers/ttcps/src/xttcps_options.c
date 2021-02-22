@@ -7,7 +7,7 @@
 /**
 *
 * @file xttcps_options.c
-* @addtogroup ttcps_v3_13
+* @addtogroup ttcps_v3_14
 * @{
 *
 * This file contains functions to get or set option features for the device.

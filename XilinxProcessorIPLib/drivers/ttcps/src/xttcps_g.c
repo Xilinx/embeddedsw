@@ -7,7 +7,7 @@
 /**
 *
 * @file xttcps_g.c
-* @addtogroup ttcps_v3_13
+* @addtogroup ttcps_v3_14
 * @{
 *
 * This file contains a configuration table where each entry is the
