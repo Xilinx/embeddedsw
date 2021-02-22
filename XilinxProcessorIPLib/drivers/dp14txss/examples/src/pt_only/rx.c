@@ -438,6 +438,14 @@ void DpRxSs_VerticalBlankHandler(void *InstancePtr)
 
 void DpRxSs_TrainingLostHandler(void *InstancePtr)
 {
+	/* Reset CRC Test Counter in DP DPCD Space */
+	XVidFrameCrc_Reset(&VidFrameCRC_rx);
+	VidFrameCRC_rx.TEST_CRC_CNT = 0;
+	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+			 XDP_RX_CRC_CONFIG,
+			 (VidFrameCRC_rx.TEST_CRC_SUPPORTED << 5 |
+					 VidFrameCRC_rx.TEST_CRC_CNT));
+
 	XDp_RxGenerateHpdInterrupt(DpRxSsInst.DpPtr, 750);
 	XDpRxSs_AudioDisable(&DpRxSsInst);
 	XDp_RxDtgDis(DpRxSsInst.DpPtr);
