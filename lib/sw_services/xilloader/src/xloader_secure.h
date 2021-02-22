@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -44,6 +44,7 @@
 *       bsv  10/19/20 Parallel DMA changes
 *       kpt  10/19/2020 Code clean up
 *       har  10/19/20 Replaced ECDSA in header files
+*       kpt  02/19/21 Added macro for revoke id mask
 *
 * </pre>
 *
@@ -118,6 +119,7 @@ extern "C" {
 
 #define XLOADER_AC_AH_PUB_STRENGTH_MASK		(0xF0U)
 #define XLOADER_AC_AH_PUB_STRENGTH_SHIFT	(0x4U)
+#define XLOADER_AC_AH_REVOKE_ID_MASK		(0xFFU)
 #define XLOADER_PUB_STRENGTH_ECDSA_P384		(0x0U)
 #define XLOADER_PUB_STRENGTH_RSA_4096		(0x1U)
 #define XLOADER_PUB_STRENGTH_ECDSA_P521		(0x2U)

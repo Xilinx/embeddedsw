@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -70,6 +70,7 @@
 *       td   10/19/20 MISRA C Fixes
 *       bsv  10/19/20 Parallel DMA related changes
 *       har  10/19/20 Replaced ECDSA in function calls
+*       kpt  02/19/21 Added check to verify revoke id before enabling Auth Jtag
 *
 * </pre>
 *
@@ -3383,7 +3384,9 @@ END:
 static int XLoader_AuthJtag(void)
 {
 	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
 	u32 AuthJtagDis = 0U;
+	u32 RevokeId = 0xFFFFFFFFU;
 	XLoader_SecureParams SecureParams = {0U};
 	XSecure_Sha3Hash Sha3Hash = {0U};
 	XSecure_Sha3 Sha3Instance = {0U};
@@ -3399,7 +3402,6 @@ static int XLoader_AuthJtag(void)
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_DMA_XFR, 0);
 		goto END;
 	}
-
 
 	/* Check efuse bits for secure debug disable */
 	AuthJtagDis = XPlmi_In32(XLOADER_EFUSE_CACHE_SECURITY_CONTROL_OFFSET) &
@@ -3418,7 +3420,6 @@ static int XLoader_AuthJtag(void)
 		goto END;
 	}
 
-
 	SecureParams.PmcDmaInstPtr = XPlmi_GetDmaInstance((u32)PMCDMA_0_DEVICE_ID);
 	if (SecureParams.PmcDmaInstPtr == NULL) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_GET_DMA, 0);
@@ -3433,6 +3434,15 @@ static int XLoader_AuthJtag(void)
 		goto END;
 	}
 
+	RevokeId = SecureParams.AuthJtagMessagePtr->RevocationIdMsgType &
+			XLOADER_AC_AH_REVOKE_ID_MASK;
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_VerifyRevokeId,
+			RevokeId);
+	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_SPK_REVOKED,
+			Status);
+		goto END;
+	}
 
 	Status = XSecure_Sha3Initialize(&Sha3Instance, SecureParams.PmcDmaInstPtr);
 	if (Status != XST_SUCCESS) {
@@ -3441,7 +3451,6 @@ static int XLoader_AuthJtag(void)
 		goto END;
 	}
 
-
 	Status = XSecure_Sha3Start(&Sha3Instance);
 	if (Status != XLOADER_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_HASH_CALCULATION_FAIL,
@@ -3449,14 +3458,12 @@ static int XLoader_AuthJtag(void)
 		goto END;
 	}
 
-
 	Status = XSecure_Sha3LastUpdate(&Sha3Instance);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_HASH_CALCULATION_FAIL,
 			 Status);
 		goto END;
 	}
-
 
 	Status = XSecure_Sha3Update(&Sha3Instance,
 		 (UINTPTR)&(SecureParams.AuthJtagMessagePtr->AuthHdr),
@@ -3466,7 +3473,6 @@ static int XLoader_AuthJtag(void)
 			XLOADER_ERR_AUTH_JTAG_HASH_CALCULATION_FAIL, Status);
 		goto END;
 	}
-
 
 	Status = XSecure_Sha3Finish(&Sha3Instance, &Sha3Hash);
 	if (Status != XST_SUCCESS) {

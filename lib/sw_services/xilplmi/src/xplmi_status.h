@@ -55,6 +55,7 @@
 *       kpt  10/19/2020 Added error code for glitch detection
 *       td   10/19/2020 MISRA C Fixes
 *       bsv  01/26/2021 Added APIs for checking and clearing NPI errors
+*       kpt  02/19/2021 Added error code for Auth Jtag revoke id failure
 *
 * </pre>
 *
@@ -521,6 +522,9 @@ typedef enum {
 		/**< 0x629 Error during memset for SecurePtr */
 	XLOADER_ERR_GLITCH_DETECTED,
 		/**< 0x62A Error glitch detected */
+	XLOADER_ERR_AUTH_JTAG_SPK_REVOKED,
+		/**< 0x62B Jtag Authentication failed when revoke id is
+		programmed */
 
 	XPLMI_ERR_CDO_CMD = 0x2000,
 		/**< 0x2XXX, CDO command handler has failed.
