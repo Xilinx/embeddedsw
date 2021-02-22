@@ -39,7 +39,9 @@
 * 							Added support for Fabric 8b10b for Versal
 * 1.08 KU 11/19/20 2021.1 - Updated the CRC IP register programming
 * 							for VSC based resolution.
-*
+* 1.09 ND 02/22/21 2021.1 - Updated changes to reset Test_crc counter in DP dpcd
+* 							space to avoid Race condition. Updated changes
+* 							related to CRC being written to DPCD for 422 format.
 * </pre>
 *
 ******************************************************************************/
@@ -955,10 +957,9 @@ void CalculateCRC(void)
     /* Write CRC values to DPCD TEST CRC space. */
     XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
                  XDP_RX_CRC_COMP0,
-                 (VidFrameCRC_rx.Mode_422 == 0x1) ? 0 : VidFrameCRC_rx.Pixel_r);
+				 VidFrameCRC_rx.Pixel_r);
     XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
                  XDP_RX_CRC_COMP1,
-                 (VidFrameCRC_rx.Mode_422==0x1) ? VidFrameCRC_rx.Pixel_b :
                                                   VidFrameCRC_rx.Pixel_g);
     /* Check for 422 format and move CR/CB
      * calculated CRC to G component.
@@ -966,13 +967,13 @@ void CalculateCRC(void)
      * */
     XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
                  XDP_RX_CRC_COMP2,
-                 (VidFrameCRC_rx.Mode_422 == 0x1) ? VidFrameCRC_rx.Pixel_r :
                                                     VidFrameCRC_rx.Pixel_b);
-
+    if(DpRxSsInst.no_video_trigger == 0){
     VidFrameCRC_rx.TEST_CRC_CNT = 1;
     XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_CONFIG,
                  (VidFrameCRC_rx.TEST_CRC_SUPPORTED << 5 |
                   VidFrameCRC_rx.TEST_CRC_CNT));
+    }
 
     xil_printf("[Video CRC] R/Cr: 0x%x, G/Y: 0x%x, B/Cb: 0x%x\r\n\n",
                VidFrameCRC_rx.Pixel_r, VidFrameCRC_rx.Pixel_g,

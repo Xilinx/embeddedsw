@@ -254,7 +254,7 @@
  *Some GPUs may need larger value, So user may tune if needed
  */
 #define DP_BS_IDLE_TIMEOUT      (0x047868C0*PHY_COMP)+(0x0091FFFF*!PHY_COMP)
-#define VBLANK_WAIT_COUNT       (20+(180*PHY_COMP))
+#define VBLANK_WAIT_COUNT       50
 //Wait for Following number of infoframes before asserting info
 //frame captured
 #define AUD_INFO_COUNT          20
