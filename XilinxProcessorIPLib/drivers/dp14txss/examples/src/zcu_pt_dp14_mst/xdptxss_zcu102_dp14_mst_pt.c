@@ -17,6 +17,12 @@
 * 1.02 ND  02/14/19 mcdp related function call now need dprxss instance address
 *                   instead of base address  as first parameter
 * 1.03 ND  09/11/20 Added support for New AV pattern generator
+* 1.04 ND  02/12/21 Added case 'z' to display menu in PT mode.
+* 					Added support to set the MSA values for the tx according to
+* 					the selected stream to be displayed front the menu.
+* 					Added the enabling of vblank interrupts for all streams in
+* 					Dprx_InterruptHandlerActRx() handler.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -1151,6 +1157,10 @@ void Dprx_InterruptHandlerActRx(void *InstancePtr)
 	/* ACT Receive Interrupt Handler */
 //	ActCount++;
 //	xil_printf("ACT \r\n");
+    XDp_RxInterruptEnable(DpRxSsInst.DpPtr,
+                    XDP_RX_INTERRUPT_MASK_VBLANK_MASK);
+    XDp_RxInterruptEnable1(DpRxSsInst.DpPtr,
+                    0x10410);
 
 }
 
