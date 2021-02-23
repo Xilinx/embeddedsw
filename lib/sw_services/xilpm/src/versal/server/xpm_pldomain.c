@@ -803,7 +803,7 @@ XStatus XPmPlDomain_InitandHouseclean(void)
 	u32 LocalPlatformType = PlatformTypeTmp; /* Copy volatile to local to avoid MISRA */
 
 	/* Check if housecleaning needs to be bypassed */
-	if ((PLATFORM_VERSION_FCV == PlatformType) ||
+	if ((PLATFORM_VERSION_FCV == PlatformType) &&
 	    (PLATFORM_VERSION_FCV == LocalPlatformType)) {
 		PlpdHouseCleanBypass = 1;
 		PlpdHouseCleanBypassTmp = 1;
