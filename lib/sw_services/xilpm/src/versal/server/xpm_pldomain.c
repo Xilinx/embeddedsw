@@ -367,6 +367,12 @@ static XStatus GtyHouseClean(void)
 			}
 			PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET, 1);
 		}
+
+		if (i != ARRAY_SIZE(GtyAddresses)) {
+			DbgErr = XPM_INT_ERR_GTY_MEM_CLEAR_LOOP;
+			Status = XST_FAILURE;
+			goto done;
+		}
 	}
 
 	Status = XST_SUCCESS;
