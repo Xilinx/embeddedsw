@@ -560,6 +560,9 @@ static AieRC _XAie_Txn_FlushCmdBuf(XAie_DevInst *DevInst, XAie_TxnInst *TxnInst)
 	AieRC RC;
 	const XAie_Backend *Backend = DevInst->Backend;
 
+	XAIE_DBG("Flushing %d commands from transaction buffer\n",
+			TxnInst->NumCmds);
+
 	if(Backend->Ops.SubmitTxn != NULL) {
 		return Backend->Ops.SubmitTxn(DevInst->IOInst, TxnInst);
 	}
