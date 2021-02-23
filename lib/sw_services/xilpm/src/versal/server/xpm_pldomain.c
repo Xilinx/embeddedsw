@@ -325,7 +325,7 @@ static XStatus GtyHouseClean(void)
 	}
 
 	u32 LocalPlpdHCBypass = PlpdHouseCleanBypassTmp; /* Copy volatile to local to avoid MISRA */
-	if ((0U == PlpdHouseCleanBypass) && (0U == LocalPlpdHCBypass)) {
+	if ((0U == PlpdHouseCleanBypass) || (0U == LocalPlpdHCBypass)) {
 		/* Bisr repair - Bisr should be triggered only for Addresses for which repair
 		 * data is found and so not calling in loop. Trigger is handled in below routine
 		 * */
@@ -658,7 +658,7 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 	PldCfuLock(Pld, 0U);
 
 	u32 LocalPlpdHCBypass = PlpdHouseCleanBypassTmp; /* Copy volatile to local to avoid MISRA */
-	if ((0U == PlpdHouseCleanBypass) && (0U == LocalPlpdHCBypass)) {
+	if ((0U == PlpdHouseCleanBypass) || (0U == LocalPlpdHCBypass)) {
 		Status = PlHouseClean(PLHCLEAN_INIT_NODE);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_PL_HC;
@@ -904,7 +904,7 @@ XStatus XPmPlDomain_InitandHouseclean(void)
 	}
 
 	u32 LocalPlpdHCBypass = PlpdHouseCleanBypassTmp; /* Copy volatile to local to avoid MISRA */
-	if ((0U == PlpdHouseCleanBypass) && (0U == LocalPlpdHCBypass)) {
+	if ((0U == PlpdHouseCleanBypass) || (0U == LocalPlpdHCBypass)) {
 		XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (PlHouseClean), (PLHCLEAN_EARLY_BOOT));
 		/* Required for redundancy */
 		XStatus LocalStatus = StatusTmp; /* Copy volatile to local to avoid MISRA */
