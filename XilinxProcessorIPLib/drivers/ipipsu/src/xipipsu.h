@@ -73,6 +73,7 @@
  * 2.8  nsk 12/14/20  Modified the driver tcl to not to use the instance names.
  * 2.8  nsk 01/19/21  Updated the driver tcl to use IP_NAME for IPIs mapped.
  * 2.9  ma  02/12/21  Added IPI CRC functionality
+ *	sdd 02/17/21 Fixed doxygen warnings.
  * </pre>
  *
  *****************************************************************************/
@@ -124,7 +125,7 @@ typedef struct {
 	u32 BufferIndex; /**< Index of the IPI Message Buffer */
 	u32 IntId; /**< Interrupt ID on GIC **/
 	u32 TargetCount; /**< Number of available IPI Targets */
-	XIpiPsu_Target TargetList[XIPIPSU_MAX_TARGETS] ; /** < List of IPI Targets */
+	XIpiPsu_Target TargetList[XIPIPSU_MAX_TARGETS] ; /**< List of IPI Targets */
 } XIpiPsu_Config;
 
 /**

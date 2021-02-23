@@ -26,6 +26,7 @@
 * 2.4	sd	07/11/18	Fix a doxygen reported warning
 * 2.6	sd	04/02/20	Restructured the code for more readability and modularity
 * 2.9   ma  02/12/21    Added IPI CRC functionality
+* 	sdd	  02/17/21	Doxygen fixes
 * </pre>
 *
 *****************************************************************************/
@@ -42,6 +43,10 @@
 #define NUM_BITS_IN_BYTE		0x8U
 
 /************************** Variable Definitions *****************************/
+/**
+ * The IPIPSU configuration table, sized by the number of instances
+ * defined in xparameters.h.
+ */
 extern XIpiPsu_Config XIpiPsu_ConfigTable[XPAR_XIPIPSU_NUM_INSTANCES];
 
 /****************************************************************************/
