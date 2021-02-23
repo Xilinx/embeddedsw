@@ -308,6 +308,8 @@ extern "C" {
 #define XPM_INT_ERR_GTY_INIT		0x3717U
 /* Error during PLD rail control */
 #define XPM_INT_ERR_PLD_RAIL_CONTROL		0X3718U
+/* Error during redundancy check for GTY Memory clear loop */
+#define XPM_INT_ERR_GTY_MEM_CLEAR_LOOP		0x3719U
 
 /************************** NPD specific Errors ******************************/
 /************************** (0x3800) - (0x38FF) ******************************/
