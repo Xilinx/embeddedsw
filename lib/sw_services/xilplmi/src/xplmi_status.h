@@ -56,6 +56,8 @@
 *       td   10/19/2020 MISRA C Fixes
 *       bsv  01/26/2021 Added APIs for checking and clearing NPI errors
 *       kpt  02/19/2021 Added error code for Auth Jtag revoke id failure
+*       kpt  02/22/2021 Added error code for invalid key source when encryption
+*                       only is enabled
 *
 * </pre>
 *
@@ -525,6 +527,8 @@ typedef enum {
 	XLOADER_ERR_AUTH_JTAG_SPK_REVOKED,
 		/**< 0x62B Jtag Authentication failed when revoke id is
 		programmed */
+	XLOADER_ERR_PRTN_ENCONLY_KEYSRC,
+		/**< 0x62C Invalid key source when encryption only is enabled */
 
 	XPLMI_ERR_CDO_CMD = 0x2000,
 		/**< 0x2XXX, CDO command handler has failed.

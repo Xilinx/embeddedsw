@@ -71,6 +71,8 @@
 *       bsv  10/19/20 Parallel DMA related changes
 *       har  10/19/20 Replaced ECDSA in function calls
 *       kpt  02/19/21 Added check to verify revoke id before enabling Auth Jtag
+*       kpt  02/23/21 Added check to validate keysrc for partitions when DEC
+*                     only efuse bits are set
 *
 * </pre>
 *
@@ -207,6 +209,8 @@ int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	u64 ChecksumOffset;
 	u64 AcOffset;
 	volatile u32 AuthCertificateOfstTmp;
+	volatile u32 ReadReg = 0xFFFFFFFFU;
+	volatile u32 ReadRegTmp = 0xFFFFFFFFU;
 	u32 ChecksumType;
 
 	Status = XPlmi_MemSetBytes(SecurePtr, sizeof(XLoader_SecureParams), 0U,
@@ -349,6 +353,20 @@ int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	 * and metaheader is not encrypted
 	 */
 	if (SecurePtr->IsEncrypted == (u8)TRUE) {
+		/* Validate keysrc when DEC only efuse bits are set */
+		ReadReg = XPlmi_In32(XLOADER_EFUSE_SEC_MISC0_OFFSET) &
+				XLOADER_EFUSE_SEC_DEC_MASK;
+		ReadRegTmp = XPlmi_In32(XLOADER_EFUSE_SEC_MISC0_OFFSET) &
+				XLOADER_EFUSE_SEC_DEC_MASK;
+		if ((ReadReg != 0U) || (ReadRegTmp != 0U)) {
+			if ((SecurePtr->PrtnHdr->EncStatus == XLOADER_EFUSE_KEY)
+				|| (SecurePtr->PrtnHdr->EncStatus ==
+					XLOADER_BBRAM_KEY)) {
+				Status = XPlmi_UpdateStatus(
+					XLOADER_ERR_PRTN_ENCONLY_KEYSRC, 0);
+				goto END;
+			}
+		}
 		Status = XLoader_AesKatTest(SecurePtr);
 		if (Status != XLOADER_SUCCESS) {
 			XPlmi_Printf(DEBUG_INFO, "AES KAT test failed\n\r");
