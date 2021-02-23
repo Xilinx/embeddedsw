@@ -488,7 +488,10 @@ static XStatus Cpm5MbistClear(u32 *Args, u32 NumOfArgs)
 	PmOut32(Cpm->CpmSlcrSecureBaseAddr + CPM5_SLCR_SECURE_WPROTS_OFFSET,
 		0x1);
 
-	for (i = 0; 0U != GtyAddresses[i]; ++i) {
+	for (i = 0U; i < ARRAY_SIZE(GtyAddresses); ++i) {
+		if (0U == GtyAddresses[i]) {
+			continue;
+		}
 		PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
 		/* Mbist */
 		XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (Cpm5GtypMbist), (GtyAddresses[i]));
@@ -501,6 +504,11 @@ static XStatus Cpm5MbistClear(u32 *Args, u32 NumOfArgs)
 		}
 
 		PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET, 1);
+	}
+
+	if (ARRAY_SIZE(GtyAddresses) != i) {
+		Status = XST_FAILURE;
+		DbgErr = XPM_INT_ERR_CPM5_MBIST_LOOP;
 	}
 
 done:
