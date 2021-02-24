@@ -43,6 +43,7 @@
 *			and reading
 *	kal  01/25/2021	Initialized variables to more secure state
 *	kal  01/25/2021 Fix cache logic error in XNvm_EfuseReadCacheRange API
+*	kal  02/22/2021	Add redundancy to loop in XNvm_EfusePgmAndVerifyRows
 *
 * </pre>
 *
@@ -4235,7 +4236,7 @@ static int XNvm_EfusePgmAndVerifyRows(u32 StartRow, u8 RowCount,
 	int Status = XST_FAILURE;
 	u32 Data;
 	u32 Row = StartRow;
-	u8 Count = RowCount;
+	u8 Count = 0U;
 	const u32* DataPtr = RowData;
 	u32 Idx;
 
@@ -4246,19 +4247,20 @@ static int XNvm_EfusePgmAndVerifyRows(u32 StartRow, u8 RowCount,
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
-	if ((DataPtr == NULL) || (Count == 0U)) {
+	if (DataPtr == NULL) {
 
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
-	do {
-		Data = *DataPtr;
+	while (Count < RowCount) {
+
+		Data = DataPtr[Count];
 		Idx = 0U;
-		while(Data != 0U) {
-			if((Data & 0x01U) == 0x01U) {
-				Status = XNvm_EfusePgmAndVerifyBit(
-					EfuseType, Row, Idx);
+		while ((Data != 0U) && (Idx < XNVM_EFUSE_MAX_BITS_IN_ROW)) {
+			if ((Data & 0x01U) == 0x01U) {
+				Status = XNvm_EfusePgmAndVerifyBit(EfuseType,
+								Row, Idx);
 				if (Status != XST_SUCCESS) {
 					goto END;
 				}
@@ -4267,13 +4269,17 @@ static int XNvm_EfusePgmAndVerifyRows(u32 StartRow, u8 RowCount,
 			Data = Data >> 1U;
 		}
 
-		Count--;
+		Count++;
 		Row++;
-		DataPtr++;
 	}
-	while (Count > 0U);
 
-	Status = XST_SUCCESS;
+	if (Count != RowCount) {
+		Status = (int)XNVM_EFUSE_ERR_GLITCH_DETECTED;
+	}
+	else {
+		Status = XST_SUCCESS;
+	}
+
 END:
 	return Status;
 }
