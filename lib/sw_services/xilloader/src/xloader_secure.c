@@ -73,6 +73,8 @@
 *       kpt  02/19/21 Added check to verify revoke id before enabling Auth Jtag
 *       kpt  02/23/21 Added check to validate keysrc for partitions when DEC
 *                     only efuse bits are set
+*       kpt  02/24/21 Fixed logical error in partition next chunk copy in
+*                     encryption cases
 *
 * </pre>
 *
@@ -663,15 +665,7 @@ u32 XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr, u32 TotalLen,
 		SecurePtr->NextChunkAddr = XPLMI_PMCRAM_CHUNK_MEMORY;
 	}
 	if (TotalLen <= ChunkLen) {
-		if (((SecurePtr->IsEncrypted == (u8)TRUE) &&
-			((SecurePtr->IsAuthenticated == (u8)TRUE) ||
-			(SecurePtr->IsCheckSumEnabled == (u8)TRUE))) ||
-			(SecurePtr->IsEncrypted == (u8)TRUE)) {
-			CopyLen = SecurePtr->RemainingEncLen - CopyLen;
-		}
-		else {
-			CopyLen = TotalLen;
-		}
+		CopyLen = TotalLen;
 	}
 	else {
 		if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
