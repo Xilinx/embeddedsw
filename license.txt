@@ -1,3 +1,6 @@
+
+
+
 COPYRIGHT TEXT:
 ---------------
 
@@ -3485,6 +3488,11 @@ lib/sw_apps/versal_plm/src/xplm_stl.c
 lib/sw_apps/versal_plm/src/xplm_stl.h
 lib/sw_apps/versal_psmfw/data/versal_psmfw.mss
 lib/sw_apps/versal_psmfw/data/versal_psmfw.tcl
+lib/sw_apps/versal_psmfw/misc/bspconfig.h
+lib/sw_apps/versal_psmfw/misc/microblaze_interrupts_g.c
+lib/sw_apps/versal_psmfw/misc/xiomodule_g.c
+lib/sw_apps/versal_psmfw/misc/xipipsu_g.c
+lib/sw_apps/versal_psmfw/misc/xuartpsv_g.c
 lib/sw_apps/versal_psmfw/src/crf.h
 lib/sw_apps/versal_psmfw/src/crl.h
 lib/sw_apps/versal_psmfw/src/fpd_apu.h
@@ -9112,6 +9120,7 @@ FILES:
 XilinxProcessorIPLib/drivers/aienginev2/src/perfcnt/xaie_perfcnt.c
 XilinxProcessorIPLib/drivers/aienginev2/src/perfcnt/xaie_perfcnt.h
 XilinxProcessorIPLib/drivers/v_sdirxss/examples/vck190_av_pt/xsdi_menu.h
+lib/sw_apps/versal_psmfw/src/Makefile
 --------------------------------------------------------------------------------
 
 
