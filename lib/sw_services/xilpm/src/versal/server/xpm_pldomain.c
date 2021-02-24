@@ -619,26 +619,27 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 		}
 	}
 
-	/*
-	 * NOTE:
-	 *   Refer CR-1072789 and  EDT-1007075
-	 * VNPI output reset to VCCINT connected slaves is clamped at the wrong value.
-	 * To work around this in XCVC1902, NPI_RESET should be toggled after VCCINT power up.
-	 */
-	if (PMC_TAP_IDCODE_DEV_SBFMLY_VC1902 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK)) {
-		Status = XPmReset_AssertbyId(PM_RST_NPI, (u32)PM_RESET_ACTION_PULSE);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_RST_NPI;
-			Status = XPM_ERR_RESET;
-			goto done;
-		}
-	}
-
 	Pld = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
 	if (NULL == Pld) {
 		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		Status = XST_FAILURE;
 		goto done;
+	}
+
+	/*
+	 * NOTE:
+	 *   Refer CR-1072789 and  EDT-1007075
+	 * VNPI output reset to VCCINT connected slaves is clamped at the wrong value.
+	 * To work around this in XCVC1902, NPI_RESET should be asserted through the
+	 * PL_SOC Isolation and then de-asserted after PL_SOC Isolation is removed
+	 */
+	if (PMC_TAP_IDCODE_DEV_SBFMLY_VC1902 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK)) {
+		Status = XPmReset_AssertbyId(PM_RST_NPI, (u32)PM_RESET_ACTION_ASSERT);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_RST_NPI;
+			Status = XPM_ERR_RESET;
+			goto done;
+		}
 	}
 
 	/* Remove PL-SOC isolation */
@@ -652,6 +653,15 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_PMC_SOC_NPI_ISO;
 		goto done;
+	}
+
+	if (PMC_TAP_IDCODE_DEV_SBFMLY_VC1902 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK)) {
+		Status = XPmReset_AssertbyId(PM_RST_NPI, (u32)PM_RESET_ACTION_RELEASE);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_RST_NPI;
+			Status = XPM_ERR_RESET;
+			goto done;
+		}
 	}
 
 	/* Unlock CFU writes */
