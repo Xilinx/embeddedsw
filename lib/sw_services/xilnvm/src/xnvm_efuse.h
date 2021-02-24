@@ -34,6 +34,7 @@
 * 2.2	kal  01/07/2021	Added support to SecurityMisc1, BootEnvCtrl,MiscCtrl
 *			and remaining eFuses in SecCtrl eFuse rows programming
 *			and reading
+*	kal  01/28/2021 Added new error code for glitch detection
 *
 * </pre>
 *
@@ -474,6 +475,10 @@ typedef enum {
 						* Programming, no data is
 						* provided for Programming.
 						* All Data pointers are NULL */
+	XNVM_EFUSE_ERR_GLITCH_DETECTED = 0x20000,/**<0x20000
+						 * Glitch detected, due to which
+						 * requested eFuses may be
+						 * partially programmed */
 	XNVM_EFUSE_ERR_FUSE_PROTECTED = 0x40000,/**< 0x40000
 						* Requested eFUSE is write
 						* protected. */
