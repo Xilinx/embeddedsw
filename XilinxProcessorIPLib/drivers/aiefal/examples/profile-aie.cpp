@@ -75,9 +75,6 @@ public:
 			}
 		}
 	}
-	void genJson(ostream *io) {
-		Container.genJson(io);
-	}
 private:
 	XAieRscGroup<XAieActiveCycles> vActive;
 	XAieRscGroup<XAieStallCycles> vStall;

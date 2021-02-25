@@ -98,55 +98,6 @@ using namespace xaiefal::log;
 			return RC;
 		}
 		/**
-		 * This function returns absolute tile location info from
-		 * relative tile location mapping.
-		 *
-		 * @param Dev AI engine device
-		 * @param info resource information mapping
-		 * @param L returns absolute tile location if information is
-		 *	    found in the mapping successfully.
-		 * @return XAIE_OK for success, error code for failure
-		 */
-		AieRC getTileFromInfo(const std::map<std::string,
-			std::vector<std::string>> &info,
-			XAie_LocType &L) {
-			XAie_LocType rL;
-			string TTypeStr;
-			AieRC RC = XAIE_OK;
-			std::map<std::string, std::vector<std::string>>::const_iterator it;
-			//auto it;
-
-			it = info.find("tile_type");
-			if (it == info.end()) {
-				Logger::log(LogLevel::ERROR) << __func__ <<
-					"failed perf counter, no tile type is found." << endl;
-				RC = XAIE_INVALID_ARGS;
-			}
-			if (RC == XAIE_OK) {
-				TTypeStr = it->second[0];
-				it = info.find(TTypeStr + "_column");
-				if (it == info.end()) {
-					Logger::log(LogLevel::ERROR) << __func__ <<
-						"failed perf counter, no tile column is found." << endl;
-					RC = XAIE_INVALID_ARGS;
-				}
-			}
-			if (RC == XAIE_OK) {
-				rL.Col = (uint8_t)(std::stoi(it->second[0]) & 0xF);
-				it = info.find(TTypeStr + "_row");
-				if (it == info.end()) {
-					Logger::log(LogLevel::ERROR) << __func__ <<
-						"failed perf counter, no tile row is found." << endl;
-					RC = XAIE_INVALID_ARGS;
-				}
-			}
-			if (RC == XAIE_OK) {
-				rL.Row = (uint8_t)(std::stoi(it->second[0]) & 0xF);
-			}
-			RC = getLoc(rL, TTypeStr, L);
-			return RC;
-		}
-		/**
 		 * This function converts absolute tile location into tile type
 		 * relative tile location. E.g. tile(1, 1), its relative
 		 * location can be tile(1, 0) of core tile depending on the

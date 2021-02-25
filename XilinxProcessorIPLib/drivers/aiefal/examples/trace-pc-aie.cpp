@@ -199,9 +199,6 @@ public:
 	AieRC stop() {
 		return Container.stop();
 	}
-	void genJson(ostream *io) {
-		Container.genJson(io);
-	}
 private:
 	std::shared_ptr<XAieDev> Aie;
 	XAieRscContainer Container;
@@ -245,7 +242,6 @@ int main(void)
 	TracePcRange.start();
 	TracePcRange.stop();
 	TracePcRange.release();
-	//TracePC.getRscJson();
 
 	return 0;
 }

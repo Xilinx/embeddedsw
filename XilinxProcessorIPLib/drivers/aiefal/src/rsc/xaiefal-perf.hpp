@@ -598,63 +598,6 @@ using namespace xaiefal::log;
 			}
 			return RC;
 		}
-		AieRC _getRscInfo(std::map<std::string, std::vector<std::string>> &info) const {
-			XAie_LocType rL;
-			string tmpstr;
-			uint8_t HwEvent;
-
-			info.insert(std::make_pair("type", std::vector<std::string>(1, "Counter")));
-			Aie->getRelativeLoc(Loc, rL, tmpstr);
-			info.insert(std::make_pair("tile_type",
-				std::vector<std::string>(1, tmpstr)));
-			info.insert(std::make_pair(tmpstr + "_row",
-				std::vector<std::string>(1, std::to_string(rL.Row))));
-			info.insert(std::make_pair(tmpstr + "_column",
-				std::vector<std::string>(1, std::to_string(rL.Col))));
-			info.insert(std::make_pair(tmpstr + "_row",
-				std::vector<std::string>(1, std::to_string(rL.Row))));
-			Aie->modToString(Rsc.Mod, tmpstr);
-			info.insert(std::make_pair("module",
-				std::vector<std::string>(1, tmpstr)));
-			Aie->modToString(Mod, tmpstr);
-			info.insert(std::make_pair("expect_module",
-				std::vector<std::string>(1, tmpstr)));
-			info.insert(std::make_pair("counter_id",
-				std::vector<std::string>(1, std::to_string((uint32_t)Rsc.RscId))));
-			info.insert(std::make_pair("threshold",
-				std::vector<std::string>(1, std::to_string(EventVal))));
-			XAie_EventLogicalToPhysicalConv(Aie->dev(), Loc, StartMod, StartEvent, &HwEvent);
-			info.insert(std::make_pair("start",
-				std::vector<std::string>(1, std::to_string((uint32_t)HwEvent))));
-			if (StartMod != Mod) {
-				Aie->modToString(StartMod, tmpstr);
-				info.insert(std::make_pair("start_module",
-					std::vector<std::string>(1, tmpstr)));
-				info.insert(std::make_pair("start_broadcast",
-					std::vector<std::string>(1, std::to_string((uint32_t)StartBC->getBc()))));
-			}
-			XAie_EventLogicalToPhysicalConv(Aie->dev(), Loc, StopMod, StopEvent, &HwEvent);
-			info.insert(std::make_pair("stop",
-				std::vector<std::string>(1, std::to_string((uint32_t)HwEvent))));
-			if (StopMod != Mod) {
-				Aie->modToString(StopMod, tmpstr);
-				info.insert(std::make_pair("stop_module",
-					std::vector<std::string>(1, tmpstr)));
-				info.insert(std::make_pair("stop_broadcast",
-					std::vector<std::string>(1, std::to_string((uint32_t)StopBC->getBc()))));
-			}
-			XAie_EventLogicalToPhysicalConv(Aie->dev(), Loc, RstMod, RstEvent, &HwEvent);
-			info.insert(std::make_pair("reset",
-				std::vector<std::string>(1, std::to_string((uint32_t)HwEvent))));
-			if (RstMod != Mod) {
-				Aie->modToString(RstMod, tmpstr);
-				info.insert(std::make_pair("reset_module",
-					std::vector<std::string>(1, tmpstr)));
-				info.insert(std::make_pair("reset_broadcast",
-					std::vector<std::string>(1, std::to_string((uint32_t)RstBC->getBc()))));
-			}
-			return XAIE_OK;
-		}
 		virtual AieRC _startPrepend() {
 			return XAIE_OK;
 		}

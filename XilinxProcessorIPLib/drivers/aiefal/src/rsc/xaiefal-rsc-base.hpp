@@ -281,26 +281,6 @@ using namespace xaiefal::log;
 			return Ret;
 		}
 		/**
-		 * This function returns a map of hardware resources information
-		 * and configuration information of this resource.
-		 *
-		 * @param info to return a map of resource information
-		 * @return XAIE_OK for success, error code for failure.
-		 */
-		AieRC getRscInfo(std::map<std::string,
-			std::vector<std::string>> &info) const {
-			AieRC RC;
-
-			if (State.Reserved == 0) {
-				Logger::log(LogLevel::ERROR) << __func__ <<
-					"failed, not reserved." << endl;
-				RC = XAIE_ERR;
-			} else {
-				RC = _getRscInfo(info);
-			}
-			return RC;
-		}
-		/**
 		 * This function sets function name this resource is used for.
 		 */
 		void setFuncName(const std::string &Name) {
@@ -356,18 +336,6 @@ using namespace xaiefal::log;
 		 * @return XAIE_OK for success, error code for failure.
 		 */
 		virtual AieRC _stop() {return XAIE_OK;}
-		/**
-		 * This function will be called by getRscInfo(). It returns
-		 * information of this resource.
-		 *
-		 * @param info to return a vector of resource information
-		 * @return XAIE_OK for success, error code for failure.
-		 */
-		virtual AieRC _getRscInfo(std::map<std::string,
-				std::vector<std::string>> &info) const {
-			(void)info;
-			return XAIE_OK;
-		}
 	public:
 		/**
 		 * this function should goes into c driver
@@ -876,29 +844,6 @@ using namespace xaiefal::log;
 		XAieRscContainer() = delete;
 		XAieRscContainer(const std::string &N): Name(N) {}
 		~XAieRscContainer() {}
-		/**
-		 * This function generate resource information in JSON format.
-		 * It gets all the resources references from this meta data
-		 * contianer, and prints them into Json format.
-		 *
-		 * @param C AI engine resource container
-		 * @param io output stream
-		 * @return XAIE_OK for success, error code for failure.
-		 */
-		AieRC genJson(ostream *io) const {
-			(void)io;
-			// TODO:Print Name to json
-			for (int i = 0; i < (int)vRefs.size(); i++) {
-				auto R = vRefs[i].lock();
-
-				if (R != nullptr) {
-					if (R->isReserved() == true) {
-						//print resource info
-					}
-				}
-			}
-			return XAIE_OK;
-		}
 		/**
 		 * This function returns the name of this meta data container.
 		 * The name of this meta data container is set by the
