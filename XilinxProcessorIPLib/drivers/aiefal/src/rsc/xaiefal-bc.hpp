@@ -21,27 +21,20 @@ namespace xaiefal {
 	class XAieBroadcast: public XAieRsc {
 	public:
 		XAieBroadcast() = delete;
-		XAieBroadcast(std::shared_ptr<XAieDevHandle> DevHd):
-			XAieRsc(DevHd) {}
-		XAieBroadcast(XAieDev &Dev):
-			XAieBroadcast(Dev.getDevHandle()) {}
-		/**
-		 * This function sets the broadcast path.
-		 *
-		 * @param vL tiles of the broadcast path
-		 * @param StartM module type of the starting tile of the path
-		 * @param EndM module type of the ending tile of the path
-		 * @return XAIE_OK for success, error code for failure
-		 */
-		AieRC initialize(const std::vector<XAie_LocType> &vL,
-				XAie_ModuleType StartM, XAie_ModuleType EndM) {
+		XAieBroadcast(std::shared_ptr<XAieDevHandle> DevHd,
+			const std::vector<XAie_LocType> &vL,
+			XAie_ModuleType StartM, XAie_ModuleType EndM):
+			XAieRsc(DevHd) {
 			StartMod = StartM;
 			EndMod = EndM;
 			vLocs = vL;
 			State.Initialized = 1;
 			State.Configured = 1;
-			return XAIE_OK;
 		}
+		XAieBroadcast(XAieDev &Dev,
+			const std::vector<XAie_LocType> &vL,
+			XAie_ModuleType StartM, XAie_ModuleType EndM):
+			XAieBroadcast(Dev.getDevHandle(), vL, StartM, EndM) {}
 		~XAieBroadcast() {}
 		/**
 		 * This function returns the broadcast channel ID

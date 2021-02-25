@@ -441,16 +441,16 @@ namespace xaiefal {
 
 				vL.push_back(Loc);
 				if (StartMod != Rsc.Mod) {
-					StartBC = new XAieBroadcast(AieHd);
-					StartBC->initialize(vL, StartMod, Rsc.Mod);
+					StartBC = new XAieBroadcast(AieHd, vL,
+						StartMod, Rsc.Mod);
 					RC = StartBC->reserve();
 					if (RC != XAIE_OK) {
 						delete StartBC;
 					}
 				}
 				if (RC == XAIE_OK && StopMod != Rsc.Mod) {
-					StopBC = new XAieBroadcast(AieHd);
-					StopBC->initialize(vL, StartMod, Rsc.Mod);
+					StopBC = new XAieBroadcast(AieHd, vL,
+							StartMod, Rsc.Mod);
 					RC = StopBC->reserve();
 					if (RC != XAIE_OK) {
 						delete StopBC;
@@ -462,8 +462,8 @@ namespace xaiefal {
 				}
 				if (RC == XAIE_OK && RstEvent != XAIE_EVENT_NONE_CORE &&
 					RstMod != Rsc.Mod) {
-					RstBC = new XAieBroadcast(AieHd);
-					RstBC->initialize(vL, StartMod, Rsc.Mod);
+					RstBC = new XAieBroadcast(AieHd, vL,
+							StartMod, Rsc.Mod);
 					RC = RstBC->reserve();
 					if (RC != XAIE_OK) {
 						delete RstBC;
