@@ -367,7 +367,7 @@ namespace xaiefal {
 		XAieTraceEvent() = delete;
 		XAieTraceEvent(std::shared_ptr<XAieDevHandle> DevHd,
 			XAie_LocType L, XAie_ModuleType M):
-			XAieSingleTileRsc(DevHd, L, M), BC(DevHd) {}
+			XAieSingleTileRsc(DevHd, L, M) {}
 		XAieTraceEvent(XAieDev &Dev,
 			XAie_LocType L, XAie_ModuleType M):
 			XAieTraceEvent(Dev.getDevHandle(), L, M) {}
@@ -499,8 +499,9 @@ namespace xaiefal {
 				std::vector<XAie_LocType> vL;
 
 				vL.push_back(Loc);
-				BC.initialize(vL, XAIE_CORE_MOD, XAIE_MEM_MOD);
-				RC = BC.reserve();
+				BC = std::make_shared<XAieBroadcast>(AieHd, vL,
+					XAIE_CORE_MOD, XAIE_MEM_MOD);
+				RC = BC->reserve();
 				if (RC != XAIE_OK) {
 					Logger::log(LogLevel::ERROR) << "trace event " << __func__ << " (" <<
 						(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row <<
@@ -521,7 +522,7 @@ namespace xaiefal {
 				" Event Mod=" << Mod << "Event=" << Event << std::endl;
 			TraceCntr->releaseTraceSlot(Slot);
 			if (EventMod != TraceCntr->getModule()) {
-				BC.release();
+				BC->release();
 			}
 			return XAIE_OK;
 		}
@@ -534,11 +535,12 @@ namespace xaiefal {
 				" Event Mod=" << EventMod << "Event=" << Event << std::endl;
 			if (EventMod != TraceCntr->getModule()) {
 				RC = XAie_EventBroadcast(dev(), Loc, EventMod,
-						BC.getBc(), Event);
+						BC->getBc(), Event);
 				if (RC == XAIE_OK) {
 					XAie_Events BcE;
 
-					BC.getEvent(Loc, TraceCntr->getModule(), BcE);
+					BC->getEvent(Loc,
+						TraceCntr->getModule(), BcE);
 					RC = TraceCntr->setTraceEvent(Slot, BcE);
 				}
 			} else {
@@ -562,7 +564,7 @@ namespace xaiefal {
 				RC = lRC;
 			}
 			if (Mod != TraceCntr->getModule()) {
-				lRC = BC.stop();
+				lRC = BC->stop();
 				if (lRC != XAIE_OK) {
 					RC = lRC;
 				}
@@ -573,7 +575,7 @@ namespace xaiefal {
 		std::shared_ptr<XAieTraceCntr> TraceCntr;
 		XAie_Events Event; /**< event to trace */
 		XAie_ModuleType EventMod; /**< event module type */
-		XAieBroadcast BC; /**< broadcast resource if need to broadcast event to tracer */
+		std::shared_ptr<XAieBroadcast> BC; /**< broadcast resource if need to broadcast event to tracer */
 		uint8_t Slot; /**< trace slot */
 	};
 	/**
