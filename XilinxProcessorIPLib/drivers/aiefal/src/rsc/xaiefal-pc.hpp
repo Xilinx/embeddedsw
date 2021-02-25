@@ -19,7 +19,8 @@ namespace xaiefal {
 	class XAiePCEvent: public XAieSingleTileRsc {
 	public:
 		//TODO: should be replaced with SSW AIE driver rsc manager
-		static AieRC XAieAllocRsc(std::shared_ptr<XAieDev> Dev, const XAie_LocType &L,
+		static AieRC XAieAllocRsc(std::shared_ptr<XAieDevHandle> Dev,
+				XAie_LocType L,
 				XAie_UserRsc &R) {
 			uint64_t *bits;
 			int bit, sbit;
@@ -50,7 +51,7 @@ namespace xaiefal {
 			}
 			return RC;
 		}
-		static void XAieReleaseRsc(std::shared_ptr<XAieDev> Dev,
+		static void XAieReleaseRsc(std::shared_ptr<XAieDevHandle> Dev,
 				const XAie_UserRsc &R) {
 			uint64_t *bits;
 			int pos;
@@ -65,19 +66,13 @@ namespace xaiefal {
 		}
 	public:
 		XAiePCEvent() = delete;
-		XAiePCEvent(std::shared_ptr<XAieDev> Dev, const XAie_LocType &L):
-			XAieSingleTileRsc(Dev, L), PcAddr(0) {
-			uint32_t TType = _XAie_GetTileTypefromLoc(Aie->dev(), Loc);
-
-			if (TType != XAIEGBL_TILE_TYPE_AIETILE) {
-				Logger::log(LogLevel::ERROR) << "PC event " <<
-					__func__ << " (" <<
-					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
-					" tile is not core tile." << std::endl;
-			} else {
-				State.Initialized = 1;
-			}
+		XAiePCEvent(std::shared_ptr<XAieDevHandle> DevHd,
+			XAie_LocType L):
+			XAieSingleTileRsc(DevHd, L, XAIE_CORE_MOD), PcAddr(0) {
+			State.Initialized = 1;
 		}
+		XAiePCEvent(XAieDev &Dev, XAie_LocType L):
+			XAiePCEvent(Dev.getDevHandle(), L) {};
 		/**
 		 * This function updates PC address of the PC event.
 		 *
@@ -87,8 +82,8 @@ namespace xaiefal {
 		AieRC updatePcAddr(uint32_t Addr) {
 			PcAddr = Addr;
 			if (State.Running == 1) {
-				XAie_EventPCDisable(Aie->dev(), Loc, Rsc.RscId);
-				XAie_EventPCEnable(Aie->dev(), Loc, Rsc.RscId, PcAddr);
+				XAie_EventPCDisable(dev(), Loc, Rsc.RscId);
+				XAie_EventPCEnable(dev(), Loc, Rsc.RscId, PcAddr);
 			} else {
 				State.Configured = 1;
 			}
@@ -128,13 +123,13 @@ namespace xaiefal {
 		AieRC _reserve() {
 			AieRC RC;
 
-			if (_XAie_GetTileTypefromLoc(Aie->dev(), Loc) != XAIEGBL_TILE_TYPE_AIETILE) {
+			if (_XAie_GetTileTypefromLoc(dev(), Loc) != XAIEGBL_TILE_TYPE_AIETILE) {
 				Logger::log(LogLevel::ERROR) << "PC event " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
 					" tile is not core tile." << std::endl;
 				RC = XAIE_ERR;
 			} else {
-				RC = XAiePCEvent::XAieAllocRsc(Aie, Loc, Rsc);
+				RC = XAiePCEvent::XAieAllocRsc(AieHd, Loc, Rsc);
 				if (RC != XAIE_OK) {
 					Logger::log(LogLevel::ERROR) << "PC event " << __func__ << " (" <<
 						(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
@@ -144,15 +139,15 @@ namespace xaiefal {
 			return RC;
 		}
 		AieRC _release() {
-			XAiePCEvent::XAieReleaseRsc(Aie, Rsc);
+			XAiePCEvent::XAieReleaseRsc(AieHd, Rsc);
 
 			return XAIE_OK;
 		}
 		AieRC _start() {
-			return XAie_EventPCEnable(Aie->dev(), Loc, Rsc.RscId, PcAddr);
+			return XAie_EventPCEnable(dev(), Loc, Rsc.RscId, PcAddr);
 		}
 		AieRC _stop() {
-			return XAie_EventPCDisable(Aie->dev(), Loc, Rsc.RscId);
+			return XAie_EventPCDisable(dev(), Loc, Rsc.RscId);
 		}
 	};
 
@@ -163,8 +158,9 @@ namespace xaiefal {
 	class XAiePCRange: public XAieSingleTileRsc {
 	public:
 		XAiePCRange() = delete;
-		XAiePCRange(std::shared_ptr<XAieDev> Dev, const XAie_LocType &L):
-			XAieSingleTileRsc(Dev, L) {
+		XAiePCRange(std::shared_ptr<XAieDevHandle> DevHd,
+			XAie_LocType L):
+			XAieSingleTileRsc(DevHd, L) {
 			for (int i = 0;
 				i < (int)(sizeof(PcAddrs)/sizeof(PcAddrs[0]));
 				i++) {
@@ -172,6 +168,8 @@ namespace xaiefal {
 			}
 			State.Initialized = 1;
 		}
+		XAiePCRange(XAieDev &Dev, XAie_LocType L):
+			XAiePCRange(Dev.getDevHandle(), L) {};
 		/**
 		 * This function updates PC addresses of the range.
 		 *
@@ -183,10 +181,10 @@ namespace xaiefal {
 			PcAddrs[0] = Addr0;
 			PcAddrs[1] = Addr1;
 			if (State.Running == 1) {
-				XAie_EventPCDisable(Aie->dev(), Loc, Rscs[0].RscId);
-				XAie_EventPCDisable(Aie->dev(), Loc, Rscs[1].RscId);
-				XAie_EventPCEnable(Aie->dev(), Loc, Rscs[0].RscId, PcAddrs[0]);
-				XAie_EventPCEnable(Aie->dev(), Loc, Rscs[1].RscId, PcAddrs[1]);
+				XAie_EventPCDisable(dev(), Loc, Rscs[0].RscId);
+				XAie_EventPCDisable(dev(), Loc, Rscs[1].RscId);
+				XAie_EventPCEnable(dev(), Loc, Rscs[0].RscId, PcAddrs[0]);
+				XAie_EventPCEnable(dev(), Loc, Rscs[1].RscId, PcAddrs[1]);
 			} else {
 				State.Configured = 1;
 			}
@@ -222,14 +220,6 @@ namespace xaiefal {
 			}
 			return RC;
 		}
-		/**
-		 * This function returns counter tile location
-		 *
-		 * @return counter tile location
-		 */
-		const XAie_LocType& loc() const {
-			return Loc;
-		}
 	protected:
 		uint32_t PcAddrs[2]; /**< starting and end PC addresses */
 		XAie_UserRsc Rscs[2]; /**< start and end PC events */
@@ -237,18 +227,18 @@ namespace xaiefal {
 		AieRC _reserve() {
 			AieRC RC;
 
-			if (_XAie_GetTileTypefromLoc(Aie->dev(), Loc) != XAIEGBL_TILE_TYPE_AIETILE) {
+			if (_XAie_GetTileTypefromLoc(dev(), Loc) != XAIEGBL_TILE_TYPE_AIETILE) {
 				Logger::log(LogLevel::ERROR) << "PC range " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
 					" not core tile." << std::endl;
 				RC = XAIE_ERR;
 			} else {
-				RC = XAiePCEvent::XAieAllocRsc(Aie, Loc, Rscs[0]);
+				RC = XAiePCEvent::XAieAllocRsc(AieHd, Loc, Rscs[0]);
 				if (RC == XAIE_OK) {
-					RC = XAiePCEvent::XAieAllocRsc(Aie, Loc, Rscs[1]);
+					RC = XAiePCEvent::XAieAllocRsc(AieHd, Loc, Rscs[1]);
 					if (RC == XAIE_OK && Rscs[1].RscId != (Rscs[0].RscId + 1)) {
-						XAiePCEvent::XAieReleaseRsc(Aie, Rscs[1]);
-						XAiePCEvent::XAieReleaseRsc(Aie, Rscs[0]);
+						XAiePCEvent::XAieReleaseRsc(AieHd, Rscs[1]);
+						XAiePCEvent::XAieReleaseRsc(AieHd, Rscs[0]);
 						RC = XAIE_ERR;
 					}
 				}
@@ -264,17 +254,17 @@ namespace xaiefal {
 			return RC;
 		}
 		AieRC _release() {
-			XAiePCEvent::XAieReleaseRsc(Aie, Rscs[0]);
-			XAiePCEvent::XAieReleaseRsc(Aie, Rscs[1]);
+			XAiePCEvent::XAieReleaseRsc(AieHd, Rscs[0]);
+			XAiePCEvent::XAieReleaseRsc(AieHd, Rscs[1]);
 
 			return XAIE_OK;
 		}
 		AieRC _start() {
 			AieRC RC;
 
-			RC = XAie_EventPCEnable(Aie->dev(), Loc, Rscs[0].RscId, PcAddrs[0]);
+			RC = XAie_EventPCEnable(dev(), Loc, Rscs[0].RscId, PcAddrs[0]);
 			if (RC == XAIE_OK) {
-				RC = XAie_EventPCEnable(Aie->dev(), Loc, Rscs[1].RscId, PcAddrs[1]);
+				RC = XAie_EventPCEnable(dev(), Loc, Rscs[1].RscId, PcAddrs[1]);
 			}
 			if (RC != XAIE_OK) {
 				Logger::log(LogLevel::ERROR) << "PC range " << __func__ << " (" <<
@@ -287,8 +277,8 @@ namespace xaiefal {
 			int iRC;
 			AieRC RC;
 
-			iRC = (int)XAie_EventPCDisable(Aie->dev(), Loc, Rscs[0].RscId);
-			iRC |= (int)XAie_EventPCDisable(Aie->dev(), Loc, Rscs[1].RscId);
+			iRC = (int)XAie_EventPCDisable(dev(), Loc, Rscs[0].RscId);
+			iRC |= (int)XAie_EventPCDisable(dev(), Loc, Rscs[1].RscId);
 
 			if (iRC != (int)XAIE_OK) {
 				Logger::log(LogLevel::ERROR) << "PC range " << __func__ << " (" <<

@@ -31,6 +31,20 @@ namespace xaiefal {
 			if (DevPtr == nullptr) {
 				throw std::invalid_argument("AI engine device is NULL");
 			}
+
+			//TODO: the following bitmaps initialization should be removed
+			memset(XAieBroadcastCoreBits, 0, sizeof(XAieBroadcastCoreBits));
+			memset(XAieBroadcastMemBits, 0, sizeof(XAieBroadcastCoreBits));
+			memset(XAieBroadcastShimBits, 0, sizeof(XAieBroadcastCoreBits));
+
+			memset(XAiePerfCoreBits, 0, sizeof(XAiePerfCoreBits));
+			memset(XAiePerfMemBits, 0, sizeof(XAiePerfCoreBits));
+			memset(XAiePerfShimBits, 0, sizeof(XAiePerfCoreBits));
+
+			memset(XAiePcEventBits, 0, sizeof(XAiePcEventBits));
+
+			memset(XAieSSCoreTBits, 0, sizeof(XAieSSCoreTBits));
+			memset(XAieSSShimTBits, 0, sizeof(XAieSSShimTBits));
 		}
 		~XAieDevHandle() {
 			if (FinishOnDestruct) {
@@ -53,6 +67,21 @@ namespace xaiefal {
 		std::shared_ptr<XAieDevHandle> getPtr() {
 			return shared_from_this();
 		}
+
+		// TODO: the following bitmaps should be removed
+		uint16_t XAieBroadcastCoreBits[400*16/sizeof(uint16_t)];
+		uint16_t XAieBroadcastMemBits[400*16/sizeof(uint16_t)];
+		uint16_t XAieBroadcastShimBits[400*16/sizeof(uint16_t)];
+
+		uint64_t XAiePerfCoreBits[400 * 4/sizeof(uint64_t)];
+		uint64_t XAiePerfMemBits[400 * 2/sizeof(uint64_t)];
+		uint64_t XAiePerfShimBits[50 * 2/sizeof(uint64_t)];
+
+		uint64_t XAiePcEventBits[400 * 4/sizeof(uint64_t)];
+
+		uint64_t XAieSSCoreTBits[400 * 8/sizeof(uint64_t)];
+		uint64_t XAieSSShimTBits[50 * 2/sizeof(uint64_t)];
+
 	private:
 		XAie_DevInst *Dev;
 		bool FinishOnDestruct;
@@ -231,21 +260,6 @@ namespace xaiefal {
 			}
 			return RC;
 		}
-
-		// TODO: the following bitmaps should be removed
-		uint16_t XAieBroadcastCoreBits[400*16/sizeof(uint16_t)];
-		uint16_t XAieBroadcastMemBits[400*16/sizeof(uint16_t)];
-		uint16_t XAieBroadcastShimBits[400*16/sizeof(uint16_t)];
-
-		uint64_t XAiePerfCoreBits[400 * 4/sizeof(uint64_t)];
-		uint64_t XAiePerfMemBits[400 * 2/sizeof(uint64_t)];
-		uint64_t XAiePerfShimBits[50 * 2/sizeof(uint64_t)];
-
-		uint64_t XAiePcEventBits[400 * 4/sizeof(uint64_t)];
-
-		uint64_t XAieSSCoreTBits[400 * 8/sizeof(uint64_t)];
-		uint64_t XAieSSShimTBits[50 * 2/sizeof(uint64_t)];
-
 	private:
 		std::shared_ptr<XAieDevHandle> AieHandle; /**< AI engine device
 							    handle */
@@ -404,19 +418,5 @@ namespace xaiefal {
 					XAie_TileLoc(c, r)));
 			}
 		}
-
-		//TODO: the following bitmaps initialization should be removed
-		memset(XAieBroadcastCoreBits, 0, sizeof(XAieBroadcastCoreBits));
-		memset(XAieBroadcastMemBits, 0, sizeof(XAieBroadcastCoreBits));
-		memset(XAieBroadcastShimBits, 0, sizeof(XAieBroadcastCoreBits));
-
-		memset(XAiePerfCoreBits, 0, sizeof(XAiePerfCoreBits));
-		memset(XAiePerfMemBits, 0, sizeof(XAiePerfCoreBits));
-		memset(XAiePerfShimBits, 0, sizeof(XAiePerfCoreBits));
-
-		memset(XAiePcEventBits, 0, sizeof(XAiePcEventBits));
-
-		memset(XAieSSCoreTBits, 0, sizeof(XAieSSCoreTBits));
-		memset(XAieSSShimTBits, 0, sizeof(XAieSSShimTBits));
 	}
 }

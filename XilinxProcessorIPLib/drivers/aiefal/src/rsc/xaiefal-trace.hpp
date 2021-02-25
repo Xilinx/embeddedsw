@@ -17,66 +17,28 @@ namespace xaiefal {
 	 * @class XAieTraceCntr
 	 * @brief Trace Event resource class
 	 */
-	class XAieTraceCntr: public XAieRsc {
+	class XAieTraceCntr: public XAieSingleTileRsc {
 	public:
 		XAieTraceCntr() = delete;
-		XAieTraceCntr(std::shared_ptr<XAieDev> Dev, const XAie_LocType &L):
-			XAieRsc(Dev), Loc(L), Pkt() {
-			uint32_t TType = _XAie_GetTileTypefromLoc(Aie->dev(), Loc);
-
-			if (TType == XAIEGBL_TILE_TYPE_MAX) {
-				State.Initialized = 0;
-			} else {
-				if (TType == XAIEGBL_TILE_TYPE_SHIMPL ||
-					TType == XAIEGBL_TILE_TYPE_SHIMNOC) {
-					Mod = XAIE_PL_MOD;
-				} else if (TType == XAIEGBL_TILE_TYPE_AIETILE) {
-					Mod = XAIE_CORE_MOD;
-				} else {
-					Mod = XAIE_MEM_MOD;
-				}
-				XAie_EventPhysicalToLogicalConv(Aie->dev(), Loc, Mod, 0, &StartEvent);
-				StopEvent = StartEvent;
-				Mode = XAIE_TRACE_EVENT_TIME;
-				TraceSlotBits = 0;
-				State.Initialized = 1;
+		XAieTraceCntr(std::shared_ptr<XAieDevHandle> DevHd,
+			XAie_LocType L, XAie_ModuleType M):
+			XAieSingleTileRsc(DevHd, L, M), Pkt() {
+			XAie_EventPhysicalToLogicalConv(dev(), Loc, Mod, 0,
+				&StartEvent);
+			StopEvent = StartEvent;
+			Mode = XAIE_TRACE_EVENT_TIME;
+			TraceSlotBits = 0;
+			for(uint32_t i = 0;
+				i < sizeof(Events)/sizeof(Events[0]);
+				i++) {
+				Events[i] = StartEvent;
 			}
+			State.Initialized = 1;
 		}
-		XAieTraceCntr(std::shared_ptr<XAieDev> Dev, const XAie_LocType &L,
-			XAie_ModuleType M):
-			XAieTraceCntr(Dev, L) {
-			Mod = M;
-			if (_XAie_CheckModule(Aie->dev(), Loc, Mod) != XAIE_OK) {
-				State.Initialized = 0;
-				Logger::log(LogLevel::ERROR) << __func__ <<
-					"Invalid tile and module." << std::endl;
-			}
-		}
-		/**
-		 * This funtion sets module of the Trace control.
-		 *
-		 * @param M module of the the trace control
-		 * @return XAIE_OK for success, error code for failure
-		 */
-		AieRC setModule(XAie_ModuleType M) {
-			AieRC RC;
+		XAieTraceCntr(XAieDev &Dev,
+			XAie_LocType L, XAie_ModuleType M):
+			XAieTraceCntr(Dev.getDevHandle(), L, M) {}
 
-			if (State.Reserved == 1) {
-				Logger::log(LogLevel::ERROR) << __func__ <<
-					"failed for trace control, already reserved." << std::endl;
-				RC = XAIE_ERR;
-			} else if (_XAie_CheckModule(Aie->dev(), Loc, Mod) != XAIE_OK) {
-				Logger::log(LogLevel::ERROR) << __func__ <<
-					"failed for trace control, invalid module for tile." << std::endl;
-				RC = XAIE_INVALID_ARGS;
-			} else {
-				Mod = M;
-				State.Initialized = 1;
-				RC = XAIE_OK;
-			}
-			return RC;
-
-		}
 		/**
 		 * This funtion gets module of the Trace control.
 		 *
@@ -134,7 +96,7 @@ namespace xaiefal {
 				XAie_Events E;
 
 				TraceSlotBits &= ~(1 << Slot);
-				XAie_EventPhysicalToLogicalConv(Aie->dev(), Loc, Mod, 0, &E);
+				XAie_EventPhysicalToLogicalConv(dev(), Loc, Mod, 0, &E);
 				Events[Slot] = E;
 				RC = XAIE_OK;
 			}
@@ -176,7 +138,7 @@ namespace xaiefal {
 				RC = XAIE_INVALID_ARGS;
 			} else {
 				if (E == XAIE_EVENT_NONE_CORE) {
-					XAie_EventPhysicalToLogicalConv(Aie->dev(), Loc, Mod, 0, &E);
+					XAie_EventPhysicalToLogicalConv(dev(), Loc, Mod, 0, &E);
 				}
 				Events[Slot] = E;
 				RC = XAIE_OK;
@@ -212,10 +174,10 @@ namespace xaiefal {
 			} else {
 				uint8_t HwE;
 
-				RC = XAie_EventLogicalToPhysicalConv(Aie->dev(), Loc,
+				RC = XAie_EventLogicalToPhysicalConv(dev(), Loc,
 						Mod, StartE, &HwE);
 				if (RC == XAIE_OK) {
-					RC = XAie_EventLogicalToPhysicalConv(Aie->dev(), Loc,
+					RC = XAie_EventLogicalToPhysicalConv(dev(), Loc,
 						Mod, StopE, &HwE);
 				}
 			}
@@ -307,14 +269,6 @@ namespace xaiefal {
 			}
 			return NumEvents;
 		}
-		/**
-		 * This function returns tile location.
-		 *
-		 * @return counter tile location
-		 */
-		const XAie_LocType &loc() const {
-			return Loc;
-		}
 	protected:
 		AieRC _reserve() {
 			//TODO: check C driver to see if the trace control is
@@ -340,12 +294,12 @@ namespace xaiefal {
 					vSlot.push_back((uint8_t)i);
 				}
 			}
-			RC = XAie_TraceEventList(Aie->dev(), Loc, Mod, vE.data(), vSlot.data(),
+			RC = XAie_TraceEventList(dev(), Loc, Mod, vE.data(), vSlot.data(),
 				vE.size());
 			if (RC == XAIE_OK) {
-				RC = XAie_TracePktConfig(Aie->dev(), Loc, Mod, Pkt);
+				RC = XAie_TracePktConfig(dev(), Loc, Mod, Pkt);
 				if (RC == XAIE_OK) {
-					RC = XAie_TraceControlConfig(Aie->dev(),
+					RC = XAie_TraceControlConfig(dev(),
 						Loc, Mod, StartEvent,
 						StopEvent, Mode);
 				}
@@ -362,13 +316,13 @@ namespace xaiefal {
 			// cause issues on outstanding contents in
 			// the trace buffer.
 			// Reset the start, stop, and the trace events only.
-			RC = XAie_TraceControlConfigReset(Aie->dev(), Loc, Mod);
+			RC = XAie_TraceControlConfigReset(dev(), Loc, Mod);
 			if (RC == XAIE_OK) {
 				for (uint8_t s = 0;
 					s < (uint8_t)sizeof(TraceSlotBits) * 8;
 					s++) {
 					if ((TraceSlotBits & (1 << s)) != 0) {
-						XAie_TraceEventReset(Aie->dev(), Loc,
+						XAie_TraceEventReset(dev(), Loc,
 							Mod, s);
 					}
 				}
@@ -376,8 +330,6 @@ namespace xaiefal {
 			return RC;
 		}
 
-		XAie_LocType Loc; /**< tile location */
-		XAie_ModuleType Mod; /**< module */
 		uint8_t TraceSlotBits; /**< trace slots bitmap */
 		XAie_Events Events[8]; /**< events to trace */
 		XAie_Events StartEvent; /**< trace control start event */
@@ -395,7 +347,7 @@ namespace xaiefal {
 					if ((TraceSlotBits & (1 << i)) == 0) {
 						continue;
 					}
-					XAie_EventPhysicalToLogicalConv(Aie->dev(), Loc, Mod, 0, &E);
+					XAie_EventPhysicalToLogicalConv(dev(), Loc, Mod, 0, &E);
 					if (Events[i] != E) {
 						State.Configured = 1;
 						break;
@@ -413,8 +365,12 @@ namespace xaiefal {
 	class XAieTraceEvent: public XAieSingleTileRsc {
 	public:
 		XAieTraceEvent() = delete;
-		XAieTraceEvent(std::shared_ptr<XAieDev> Dev, const XAie_LocType &L):
-			XAieSingleTileRsc(Dev, L), BC(Dev) {}
+		XAieTraceEvent(std::shared_ptr<XAieDevHandle> DevHd,
+			XAie_LocType L, XAie_ModuleType M):
+			XAieSingleTileRsc(DevHd, L, M), BC(DevHd) {}
+		XAieTraceEvent(XAieDev &Dev,
+			XAie_LocType L, XAie_ModuleType M):
+			XAieTraceEvent(Dev.getDevHandle(), L, M) {}
 		~XAieTraceEvent() {}
 		/**
 		 * This function initializes the trace event by assigning the
@@ -429,7 +385,7 @@ namespace xaiefal {
 			AieRC RC = XAIE_OK;
 
 			if (State.Reserved == 0) {
-				uint32_t TType = _XAie_GetTileTypefromLoc(Aie->dev(),
+				uint32_t TType = _XAie_GetTileTypefromLoc(dev(),
 					Loc);
 				XAie_Events E;
 
@@ -474,7 +430,7 @@ namespace xaiefal {
 			AieRC RC;
 			uint8_t HwEvent;
 
-			RC = XAie_EventLogicalToPhysicalConv(Aie->dev(), Loc,
+			RC = XAie_EventLogicalToPhysicalConv(dev(), Loc,
 					M, E, &HwEvent);
 			if (RC != XAIE_OK) {
 				Logger::log(LogLevel::ERROR) << "trace event " << __func__ << " (" <<
@@ -488,7 +444,7 @@ namespace xaiefal {
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row <<
 					") Event Mod=" << M << " Event=" << E <<
 					" trace event already in used" << std::endl;
-			} else if (State.Reserved == 1 && M != Mod) {
+			} else if (State.Reserved == 1 && M != EventMod) {
 				RC = XAIE_INVALID_ARGS;
 				Logger::log(LogLevel::ERROR) << "trace event " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row <<
@@ -496,7 +452,7 @@ namespace xaiefal {
 					" trace event already reserved, input event module is different to the one already set" << std::endl;
 			} else {
 				Event = E;
-				Mod = M;
+				EventMod = M;
 				State.Configured = 1;
 			}
 			return RC;
@@ -520,7 +476,7 @@ namespace xaiefal {
 				RC = XAIE_ERR;
 			} else {
 				E = Event;
-				M = Mod;
+				M = EventMod;
 				RC = XAIE_OK;
 			}
 			return RC;
@@ -539,7 +495,7 @@ namespace xaiefal {
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row <<
 					") trace control Mod=" << TraceCntr->getModule() <<
 					" Event Mod=" << Mod << " no trace slot" << std::endl;
-			} else if (Mod != TraceCntr->getModule()) {
+			} else if (EventMod != TraceCntr->getModule()) {
 				std::vector<XAie_LocType> vL;
 
 				vL.push_back(Loc);
@@ -564,7 +520,7 @@ namespace xaiefal {
 				") trace control Mod=" << TraceCntr->getModule() <<
 				" Event Mod=" << Mod << "Event=" << Event << std::endl;
 			TraceCntr->releaseTraceSlot(Slot);
-			if (Mod != TraceCntr->getModule()) {
+			if (EventMod != TraceCntr->getModule()) {
 				BC.release();
 			}
 			return XAIE_OK;
@@ -575,9 +531,9 @@ namespace xaiefal {
 			Logger::log(LogLevel::DEBUG) << "trace event " << __func__ << " (" <<
 				(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row <<
 				") trace control Mod=" << TraceCntr->getModule() <<
-				" Event Mod=" << Mod << "Event=" << Event << std::endl;
-			if (Mod != TraceCntr->getModule()) {
-				RC = XAie_EventBroadcast(Aie->dev(), Loc, Mod,
+				" Event Mod=" << EventMod << "Event=" << Event << std::endl;
+			if (EventMod != TraceCntr->getModule()) {
+				RC = XAie_EventBroadcast(dev(), Loc, EventMod,
 						BC.getBc(), Event);
 				if (RC == XAIE_OK) {
 					XAie_Events BcE;
@@ -599,7 +555,7 @@ namespace xaiefal {
 				") trace control Mod=" << TraceCntr->getModule() <<
 				" Event Mod=" << Mod << "Event=" << Event << std::endl;
 			RC = XAIE_OK;
-			XAie_EventPhysicalToLogicalConv(Aie->dev(), Loc,
+			XAie_EventPhysicalToLogicalConv(dev(), Loc,
 					TraceCntr->getModule(), 0, &E);
 			lRC = TraceCntr->setTraceEvent(Slot, E);
 			if (lRC != XAIE_OK) {
@@ -616,6 +572,7 @@ namespace xaiefal {
 	protected:
 		std::shared_ptr<XAieTraceCntr> TraceCntr;
 		XAie_Events Event; /**< event to trace */
+		XAie_ModuleType EventMod; /**< event module type */
 		XAieBroadcast BC; /**< broadcast resource if need to broadcast event to tracer */
 		uint8_t Slot; /**< trace slot */
 	};
@@ -625,38 +582,24 @@ namespace xaiefal {
 	 *	  An XAieTracing object contains AI engine trace control and
 	 *	  events to trace.
 	 */
-	class XAieTracing: public XAieRsc {
+	class XAieTracing: public XAieSingleTileRsc {
 	public:
 		XAieTracing() = delete;
-		XAieTracing(std::shared_ptr<XAieDev> Dev, const XAie_LocType &L):
-			XAieRsc(Dev) {
-			TraceCntr = std::make_shared<XAieTraceCntr>(Dev, L);
+		XAieTracing(std::shared_ptr<XAieDevHandle> DevHd,
+			XAie_LocType L, XAie_ModuleType M):
+			XAieSingleTileRsc(DevHd, L, M) {
+			TraceCntr = std::make_shared<XAieTraceCntr>(DevHd, L,
+				M);
+			State.Initialized = 1;
 		}
-		XAieTracing(std::shared_ptr<XAieDev> Dev, const XAie_LocType &L,
-			XAie_ModuleType M): XAieTracing(Dev, L) {
+		XAieTracing(XAieDev &Dev, XAie_LocType L,
+			XAie_ModuleType M):
+			XAieSingleTileRsc(Dev, L, M) {
 			TraceCntr = std::make_shared<XAieTraceCntr>(Dev, L, M);
-			if (TraceCntr->isInitialized()) {
-				State.Initialized = 1;
-			}
+			State.Initialized = 1;
 		}
 		~XAieTracing() {
 			Events.clear();
-		}
-		/**
-		 * This funtion sets module of the Trace control.
-		 *
-		 * @param M module of the the trace control
-		 * @return XAIE_OK for success, error code for failure
-		 */
-		AieRC setModule(XAie_ModuleType M) {
-			AieRC RC;
-
-			RC = TraceCntr->setModule(M);
-			if (RC == XAIE_OK) {
-				State.Initialized = 1;
-			}
-			return RC;
-
 		}
 		/**
 		 * This function adds an event to trace.
@@ -683,7 +626,7 @@ namespace xaiefal {
 					"failed for tracing, resource reserved." << std::endl;
 				RC = XAIE_ERR;
 			} else {
-				XAieTraceEvent TraceE(Aie, TraceCntr->loc());
+				XAieTraceEvent TraceE(AieHd, TraceCntr->loc(), Mod);
 
 				TraceE.initialize(TraceCntr);
 				RC = TraceE.setEvent(M, E);
@@ -836,14 +779,6 @@ namespace xaiefal {
 		 */
 		uint32_t getMaxTraceEvents() const {
 			return TraceCntr->getMaxTraceEvents();
-		}
-		/**
-		 * This function returns tile location
-		 *
-		 * @return counter tile location
-		 */
-		const XAie_LocType &loc() const {
-			return TraceCntr->loc();
 		}
 	protected:
 		AieRC _reserve() {

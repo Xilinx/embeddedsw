@@ -62,8 +62,14 @@ namespace xaiefal {
 	class XAieRsc {
 	public:
 		XAieRsc() = delete;
-		XAieRsc(std::shared_ptr<XAieDev> &Dev):
-			State(), Aie(Dev) {}
+		XAieRsc(std::shared_ptr<XAieDevHandle> DevHd):
+			State(), AieHd(DevHd) {
+			if (!DevHd) {
+				throw std::invalid_argument("aie rsc: empty device handle");
+			}
+		}
+		XAieRsc(XAieDev &Dev):
+			State(), AieHd(Dev.getDevHandle()) {}
 		virtual ~XAieRsc() {
 			if (State.Running == 1) {
 				stop();
@@ -260,10 +266,17 @@ namespace xaiefal {
 			return FuncName;
 		}
 	protected:
+		/**
+		 * This funtion returns AI engine device
+		 */
+		XAie_DevInst *dev() {
+			return AieHd->dev();
+		}
+
 		XAieRscState State; /**< resource state */
 		std::string FuncName; /**< function name which resource is used
 					   for */
-		std::shared_ptr<XAieDev> Aie; /**< AI engine device instance */
+		std::shared_ptr<XAieDevHandle> AieHd; /**< AI engine device instance */
 
 	private:
 		/**
@@ -365,37 +378,43 @@ namespace xaiefal {
 	class XAieSingleTileRsc: public XAieRsc {
 	public:
 		XAieSingleTileRsc() = delete;
-		XAieSingleTileRsc(std::shared_ptr<XAieDev> &Dev,
-			const XAie_LocType &L):
-			XAieRsc(Dev), Loc(L) {
-			uint32_t TType = _XAie_GetTileTypefromLoc(Aie->dev(), Loc);
-
-			if (TType == XAIEGBL_TILE_TYPE_MAX) {
-				Logger::log(LogLevel::ERROR) << typeid(*this).name() << " " <<
-					__func__ << " (" <<
-					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
-					" Invalid tile." << std::endl;
-			} else {
-				if (TType == XAIEGBL_TILE_TYPE_SHIMPL ||
-					TType == XAIEGBL_TILE_TYPE_SHIMNOC) {
-					Mod = XAIE_PL_MOD;
-				} else if (TType == XAIEGBL_TILE_TYPE_AIETILE) {
-					Mod = XAIE_CORE_MOD;
-				} else {
-					Mod = XAIE_MEM_MOD;
-				}
+		XAieSingleTileRsc(std::shared_ptr<XAieDevHandle> DevHd,
+			XAie_LocType L, XAie_ModuleType M):
+			XAieRsc(DevHd), Loc(L), Mod(M) {
+			if (_XAie_CheckModule(AieHd->dev(), Loc, M) !=
+				XAIE_OK) {
+				throw std::invalid_argument("invalid module tile");
 			}
 		}
-		XAieSingleTileRsc(std::shared_ptr<XAieDev> &Dev,
-			const XAie_LocType &L, XAie_ModuleType M):
-			XAieRsc(Dev), Loc(L), Mod(M) {}
+		XAieSingleTileRsc(XAieDev &Dev,
+			XAie_LocType L, XAie_ModuleType M):
+			XAieSingleTileRsc(Dev.getDevHandle(), L, M) {}
+		XAieSingleTileRsc(std::shared_ptr<XAieDevHandle> DevHd,
+			XAie_LocType L):
+			XAieRsc(DevHd), Loc(L) {
+			uint8_t TType = _XAie_GetTileTypefromLoc(
+					AieHd->dev(), L);
+			if (TType == XAIEGBL_TILE_TYPE_MAX) {
+				throw std::invalid_argument("Invalid tile");
+			}
+			if (TType == XAIEGBL_TILE_TYPE_AIETILE) {
+				Mod = XAIE_CORE_MOD;
+			} else if (TType == XAIEGBL_TILE_TYPE_SHIMPL ||
+					TType == XAIEGBL_TILE_TYPE_SHIMNOC) {
+				Mod = XAIE_PL_MOD;
+			} else {
+				Mod = XAIE_MEM_MOD;
+			}
+		}
+		XAieSingleTileRsc(XAieDev &Dev, XAie_LocType L):
+			XAieSingleTileRsc(Dev.getDevHandle(), L) {}
 		virtual ~XAieSingleTileRsc() {}
 		/**
 		 * This function returns tile location
 		 *
 		 * @return tile location
 		 */
-		const XAie_LocType& loc() const {
+		XAie_LocType loc() const {
 			return Loc;
 		}
 		/**
@@ -440,11 +459,10 @@ namespace xaiefal {
 	class XAieRscGroup {
 	public:
 		XAieRscGroup() = delete;
-		XAieRscGroup(std::shared_ptr<XAieDev> &Dev, const std::string &Name = ""):
+		XAieRscGroup(std::shared_ptr<XAieDev> Dev, const std::string &Name = ""):
 			Aie(Dev), FuncName(Name) {}
-		~XAieRscGroup() {
-			vRscs.clear();
-		}
+		~XAieRscGroup() {}
+
 		/**
 		 * This function adds a tile to the resource group.
 		 * It will construct resource for the specified tile and add it

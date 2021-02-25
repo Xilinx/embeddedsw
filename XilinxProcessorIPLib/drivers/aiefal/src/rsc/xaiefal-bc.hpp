@@ -21,7 +21,10 @@ namespace xaiefal {
 	class XAieBroadcast: public XAieRsc {
 	public:
 		XAieBroadcast() = delete;
-		XAieBroadcast(std::shared_ptr<XAieDev> &Dev): XAieRsc(Dev) {}
+		XAieBroadcast(std::shared_ptr<XAieDevHandle> DevHd):
+			XAieRsc(DevHd) {}
+		XAieBroadcast(XAieDev &Dev):
+			XAieBroadcast(Dev.getDevHandle()) {}
 		/**
 		 * This function sets the broadcast path.
 		 *
@@ -63,7 +66,7 @@ namespace xaiefal {
 		 * @param E for returning broadcast event
 		 * @return XAIE_OK for success, error code for failure
 		 */
-		AieRC getEvent(const XAie_LocType &L, XAie_ModuleType M, XAie_Events &E) {
+		AieRC getEvent(XAie_LocType L, XAie_ModuleType M, XAie_Events &E) {
 			AieRC RC = XAIE_INVALID_ARGS;
 
 			if (State.Reserved == 0) {
@@ -91,11 +94,11 @@ namespace xaiefal {
 		}
 	private:
 		AieRC _reserve() {
-			return XAieBroadcast::XAieAllocRsc(Aie, vLocs, StartMod, EndMod, vRscs);
+			return XAieBroadcast::XAieAllocRsc(AieHd, vLocs, StartMod, EndMod, vRscs);
 		}
 		AieRC _release() {
 			for (int i = 0; i < (int)vRscs.size(); i++) {
-				XAieBroadcast::XAieReleaseRsc(Aie, vRscs[i]);
+				XAieBroadcast::XAieReleaseRsc(AieHd, vRscs[i]);
 			}
 			return XAIE_OK;
 		}
@@ -105,7 +108,7 @@ namespace xaiefal {
 		std::vector<XAie_LocType> vLocs; /**< tiles on the channel */
 		std::vector<XAie_UserRsc> vRscs; /**< broadcast channel allocated r esources */
 	private:
-		static void getAieBCTileBits(std::shared_ptr<XAieDev> Dev,
+		static void getAieBCTileBits(std::shared_ptr<XAieDevHandle> Dev,
 				const XAie_LocType &L, uint16_t &bits) {
 			uint32_t i;
 
@@ -121,7 +124,7 @@ namespace xaiefal {
 		/**
 		 * TODO: will not be required of bitmap is moved to device driver
 		 */
-		static AieRC XAieAllocRsc(std::shared_ptr<XAieDev> Dev,
+		static AieRC XAieAllocRsc(std::shared_ptr<XAieDevHandle> Dev,
 				const std::vector<XAie_LocType> &vL,
 				XAie_ModuleType startM, XAie_ModuleType endM,
 				std::vector<XAie_UserRsc> &vR) {
@@ -324,7 +327,7 @@ namespace xaiefal {
 		/**
 		 * TODO: will not be required of bitmap is moved to device driver
 		 */
-		static void XAieReleaseRsc(std::shared_ptr<XAieDev> Dev,
+		static void XAieReleaseRsc(std::shared_ptr<XAieDevHandle> Dev,
 				const XAie_UserRsc &R) {
 
 			if ((R.Loc.Row == 0 && R.Mod != XAIE_PL_MOD) ||
