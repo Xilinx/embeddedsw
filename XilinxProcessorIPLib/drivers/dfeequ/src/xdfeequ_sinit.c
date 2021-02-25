@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfeequ_sinit.c
-* @addtogroup dfeequ_v1_0
+* @addtogroup xdfeequ_v1_0
 * @{
 *
 * The implementation of the XDfeEqu component's static initialization
@@ -20,6 +20,7 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     09/03/20 Initial release
 *       dc     02/02/21 Remove hard coded device node name
+*       dc     02/22/21 align driver to current specification
 *
 * </pre>
 *
@@ -79,7 +80,6 @@ extern int metal_linux_get_device_property(struct metal_device *device,
 
 /************************** Variable Definitions *****************************/
 #ifdef __BAREMETAL__
-extern struct metal_device CustomDevice[XDFEEQU_MAX_NUM_INSTANCES];
 extern XDfeEqu_Config XDfeEqu_ConfigTable[XPAR_XDFEEQU_NUM_INSTANCES];
 #endif
 XDfeEqu XDfeEqu_Equalizer[XDFEEQU_MAX_NUM_INSTANCES];
@@ -147,7 +147,8 @@ static s32 XDfeEqu_Strrncmp(const char *Str1Ptr, const char *Str2Ptr,
  *@note     None.
 *
 ******************************************************************************/
-static s32 XDfeEqu_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId, const char *DeviceNodeName)
+static s32 XDfeEqu_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId,
+					   const char *DeviceNodeName)
 {
 	char CompatibleString[100];
 	struct metal_device *DevicePtr;
@@ -170,8 +171,7 @@ static s32 XDfeEqu_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId, co
 	/* Loop through the each device file in directory */
 	for (i = 0; i < NumFiles; i++) {
 		/* Check the device signature */
-		if (0 != XDfeEqu_Strrncmp(DirentPtr[i]->d_name,
-					  DeviceNodeName,
+		if (0 != XDfeEqu_Strrncmp(DirentPtr[i]->d_name, DeviceNodeName,
 					  strlen(DeviceNodeName))) {
 			continue;
 		}
@@ -244,7 +244,7 @@ static s32 XDfeEqu_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId, co
 *           pointing to the config returned.
 *
 ******************************************************************************/
-u32 XDfeEqu_LookupConfig(u16 DeviceId)
+s32 XDfeEqu_LookupConfig(u16 DeviceId)
 {
 #ifndef __BAREMETAL__
 	struct metal_device *Dev = XDfeEqu_Equalizer[DeviceId].Device;
@@ -266,14 +266,14 @@ u32 XDfeEqu_LookupConfig(u16 DeviceId)
 					    &d, XDFEEQU_WORD_SIZE)) {
 		goto end_failure;
 	}
-	XDfeEqu_Equalizer[DeviceId].Config.DataIWidth = ntohl(d);
+	XDfeEqu_Equalizer[DeviceId].Config.SampleWidth = ntohl(d);
 
 	if (XST_SUCCESS !=
 	    metal_linux_get_device_property(Dev, Name = XDFEEQU_DATA_OWIDTH_CFG,
 					    &d, XDFEEQU_WORD_SIZE)) {
 		goto end_failure;
 	}
-	XDfeEqu_Equalizer[DeviceId].Config.DataOWidth = ntohl(d);
+	XDfeEqu_Equalizer[DeviceId].Config.ComplexModel = ntohl(d);
 
 	if (XST_SUCCESS != metal_linux_get_device_property(
 				   Dev, Name = XDFEEQU_NUM_CHANNELS_CFG, &d,
@@ -301,10 +301,10 @@ end_failure:
 #else
 	XDfeEqu_Equalizer[DeviceId].Config.NumChannels =
 		XDfeEqu_ConfigTable[DeviceId].NumChannels;
-	XDfeEqu_Equalizer[DeviceId].Config.DataIWidth =
-		XDfeEqu_ConfigTable[DeviceId].DataIWidth;
-	XDfeEqu_Equalizer[DeviceId].Config.DataOWidth =
-		XDfeEqu_ConfigTable[DeviceId].DataOWidth;
+	XDfeEqu_Equalizer[DeviceId].Config.SampleWidth =
+		XDfeEqu_ConfigTable[DeviceId].SampleWidth;
+	XDfeEqu_Equalizer[DeviceId].Config.ComplexModel =
+		XDfeEqu_ConfigTable[DeviceId].ComplexModel;
 	XDfeEqu_Equalizer[DeviceId].Config.TuserWidth =
 		XDfeEqu_ConfigTable[DeviceId].TuserWidth;
 
@@ -330,9 +330,10 @@ end_failure:
 * @note     None.
 *
 ******************************************************************************/
-u32 XDfeEqu_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr, const char *DeviceNodeName)
+s32 XDfeEqu_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr,
+			  const char *DeviceNodeName)
 {
-	u32 Status;
+	s32 Status;
 #ifndef __BAREMETAL__
 	char DeviceName[100];
 #endif
@@ -345,8 +346,7 @@ u32 XDfeEqu_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr, const c
 		metal_log(METAL_LOG_ERROR, "\n Failed to register device");
 		return Status;
 	}
-	Status = metal_device_open(XDFEEQU_BUS_NAME, DeviceNodeName,
-				   DevicePtr);
+	Status = metal_device_open(XDFEEQU_BUS_NAME, DeviceNodeName, DevicePtr);
 	if (Status != XST_SUCCESS) {
 		metal_log(METAL_LOG_ERROR,
 			  "\n Failed to open device Equalizer");
@@ -354,7 +354,8 @@ u32 XDfeEqu_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr, const c
 	}
 #else
 	/* Get device name */
-	Status = XDfeEqu_GetDeviceNameByDeviceId(DeviceName, DeviceId, DeviceNodeName);
+	Status = XDfeEqu_GetDeviceNameByDeviceId(DeviceName, DeviceId,
+						 DeviceNodeName);
 	if (Status != XST_SUCCESS) {
 		metal_log(
 			METAL_LOG_ERROR,
@@ -411,7 +412,7 @@ void XDfeEqu_CfgInitialize(XDfeEqu *InstancePtr)
 	if (InstancePtr->Io == NULL) {
 		InstancePtr->Io =
 			(struct metal_io_region *)metal_allocate_memory(
-				sizeof(struct metal_io_region));
+				(unsigned)sizeof(struct metal_io_region));
 		metal_io_init(
 			InstancePtr->Io,
 			(void *)(metal_phys_addr_t)InstancePtr->Config.BaseAddr,

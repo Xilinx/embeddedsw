@@ -19,6 +19,7 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     09/03/20 Initial version
 *       dc     02/02/21 Remove hard coded device node name
+*       dc     02/22/21 align driver to current specification
 * </pre>
 *
 ******************************************************************************/
@@ -37,10 +38,14 @@
 
 /**************************** Macros Definitions ****************************/
 #define XDFEEQU_SEQUENCE_ENTRY_NULL 8U /**< Null sequence entry flag */
-#define XDFEEQU_CEILING(x, y) (((x) + (y)-1U) / (y)) /**< U32 ceiling */
 #define XDFEEQU_NO_EMPTY_CCID_FLAG 0xFFFFU /**< Not Empty CCID flag */
-#define XDFEEQU_TIMEOUT 1000 /**< Units of us declared in XDFEEQU_WAIT */
-#define XDFEEQU_WAIT 10 /**< Units of us */
+#define XDFEEQU_U32_NUM_BITS 32U
+#define XDFEEQU_COEFF_LOAD_TIMEOUT                                             \
+	1000U /**< Units of us declared in XDFEEQU_WAIT */
+#define XDFEEQU_WAIT 10U /**< Units of us */
+
+#define XDFEEQU_DRIVER_VERSION_MINOR 0U
+#define XDFEEQU_DRIVER_VERSION_MAJOR 1U
 
 /************************** Function Prototypes *****************************/
 
@@ -50,11 +55,13 @@ extern struct metal_device CustomDevice[XDFEEQU_MAX_NUM_INSTANCES];
 #endif
 static struct metal_device *DevicePtrStorage[XDFEEQU_MAX_NUM_INSTANCES];
 extern XDfeEqu XDfeEqu_Equalizer[XDFEEQU_MAX_NUM_INSTANCES];
+static u32 XDfeEqu_DriverHasBeenRegisteredOnce = 0U;
 
 /************************** Function Definitions ****************************/
-extern u32 XDfeEqu_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr, const char *DeviceNodeName);
-extern u32 XDfeEqu_LookupConfig(u16 DeviceId);
-extern u32 XDfeEqu_CfgInitialize(XDfeEqu *InstancePtr);
+extern s32 XDfeEqu_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr,
+				 const char *DeviceNodeName);
+extern s32 XDfeEqu_LookupConfig(u16 DeviceId);
+extern void XDfeEqu_CfgInitialize(XDfeEqu *InstancePtr);
 
 /************************** Register Access Functions ***********************/
 
@@ -75,7 +82,7 @@ extern u32 XDfeEqu_CfgInitialize(XDfeEqu *InstancePtr);
 void XDfeEqu_WriteReg(const XDfeEqu *InstancePtr, u32 AddrOffset, u32 Data)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	metal_io_write32(InstancePtr->Io, AddrOffset, Data);
+	metal_io_write32(InstancePtr->Io, (unsigned long)AddrOffset, Data);
 }
 
 /****************************************************************************/
@@ -94,7 +101,7 @@ void XDfeEqu_WriteReg(const XDfeEqu *InstancePtr, u32 AddrOffset, u32 Data)
 u32 XDfeEqu_ReadReg(const XDfeEqu *InstancePtr, u32 AddrOffset)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	return metal_io_read32(InstancePtr->Io, AddrOffset);
+	return metal_io_read32(InstancePtr->Io, (unsigned long)AddrOffset);
 }
 
 /****************************************************************************/
@@ -120,6 +127,7 @@ void XDfeEqu_WrRegBitField(const XDfeEqu *InstancePtr, u32 Offset,
 	u32 Tmp;
 	u32 Val;
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((FieldOffset + FieldWidth) <= XDFEEQU_U32_NUM_BITS);
 
 	Data = XDfeEqu_ReadReg(InstancePtr, Offset);
 	Val = (FieldData & (((u32)1U << FieldWidth) - 1U)) << FieldOffset;
@@ -148,6 +156,7 @@ u32 XDfeEqu_RdRegBitField(const XDfeEqu *InstancePtr, u32 Offset,
 {
 	u32 Data;
 	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid((FieldOffset + FieldWidth) <= XDFEEQU_U32_NUM_BITS);
 
 	Data = XDfeEqu_ReadReg(InstancePtr, Offset);
 	return ((Data >> FieldOffset) & (((u32)1U << FieldWidth) - 1U));
@@ -169,6 +178,7 @@ u32 XDfeEqu_RdRegBitField(const XDfeEqu *InstancePtr, u32 Offset,
 ****************************************************************************/
 u32 XDfeEqu_RdBitField(u32 FieldWidth, u32 FieldOffset, u32 Data)
 {
+	Xil_AssertNonvoid((FieldOffset + FieldWidth) <= XDFEEQU_U32_NUM_BITS);
 	return (((Data >> FieldOffset) & (((u32)1U << FieldWidth) - 1U)));
 }
 /****************************************************************************/
@@ -190,6 +200,8 @@ u32 XDfeEqu_WrBitField(u32 FieldWidth, u32 FieldOffset, u32 Data, u32 Val)
 {
 	u32 BitFieldSet;
 	u32 BitFieldClear;
+	Xil_AssertNonvoid((FieldOffset + FieldWidth) <= XDFEEQU_U32_NUM_BITS);
+
 	BitFieldSet = (Val & (((u32)1U << FieldWidth) - 1U)) << FieldOffset;
 	BitFieldClear =
 		Data & (~((((u32)1U << FieldWidth) - 1U) << FieldOffset));
@@ -198,213 +210,293 @@ u32 XDfeEqu_WrBitField(u32 FieldWidth, u32 FieldOffset, u32 Data, u32 Val)
 
 /************************ DFE Common functions ******************************/
 
-/****************************************************************************/
-/**
-*
-* Generates a "null"(8) CCID sequence of specified length.
-*
-* @param    SeqLen is a CC ID
-* @param    CCIDSequence is a CC sequence array
-*
-* @return   None
-*
-* @note     None
-*
-****************************************************************************/
-static void XDfeEqu_CreateCCSequence(u32 SeqLen,
-				     XDfeEqu_CCSequence *CCIDSequence)
-{
-	u32 Index;
-	Xil_AssertVoid(SeqLen < XDFEEQU_SEQ_LENGTH_MAX);
-	Xil_AssertVoid(CCIDSequence != NULL);
-
-	/* Set sequence length and mark all sequence entries as null (8) */
-	CCIDSequence->Length = SeqLen;
-	for (Index = 0; Index < XDFEEQU_SEQ_LENGTH_MAX; Index++) {
-		CCIDSequence->CCID[Index] = XDFEEQU_SEQUENCE_ENTRY_NULL;
-	}
-}
-
-/****************************************************************************/
-/**
-*
-* Add the specified CCID, with the given rate, to the CC sequence. If there
-* is insufficient capacity for the new CCID return an error. Implements
-* a "greedy" allocation of sequence locations.
-*
-* @param    CCID is a CC ID
-* @param    Rate is a Rate for a given CC ID (can be 1,2,4,8,16)
-* @param    CCIDSequence is a CC sequence array
-*
-* @return
-*           - XST_SUCCESS if successful.
-*           - XST_FAILURE if error occurs.
-*
-* @note     None
-*
-****************************************************************************/
-static u32 XDfeEqu_AddCCID(u32 CCID, u32 Rate, XDfeEqu_CCSequence *CCIDSequence)
-{
-	u32 Index;
-	u32 SeqLen;
-	u32 SeqMult = 1;
-	u32 CCIDCount;
-	u32 EmptyCCID = XDFEEQU_NO_EMPTY_CCID_FLAG;
-	Xil_AssertNonvoid(CCIDSequence != NULL);
-
-	if (0 == CCIDSequence->Length) {
-		XDfeEqu_CreateCCSequence(Rate, CCIDSequence);
-	}
-	/* Determine if there is space in the sequence for the new CCID,
-	   test for an empty slot. */
-	for (Index = 0; Index < CCIDSequence->Length; Index++) {
-		/* search for the first "null" */
-		if (CCIDSequence->CCID[Index] == XDFEEQU_SEQUENCE_ENTRY_NULL) {
-			EmptyCCID = Index;
-			break;
-		}
-	}
-
-	if (EmptyCCID == XDFEEQU_NO_EMPTY_CCID_FLAG) {
-		metal_log(METAL_LOG_ERROR, "No space for new sequence in %s\n",
-			  __func__);
-		return XST_FAILURE;
-	}
-
-	/* Determine if we need to extend, and repeat, the existing sequence to
-	   represent the new CCID rate. */
-	SeqLen = CCIDSequence->Length;
-	/* Calculate Rate/SeqLen */
-	if (Rate > SeqLen) {
-		SeqMult = Rate / SeqLen;
-		/* Fail if (Rate/SeqLen) is not an integer */
-		if (Rate != SeqMult * SeqLen) {
-			metal_log(METAL_LOG_ERROR,
-				  "Rate/SeqLen not integer %s\n", __func__);
-			return XST_FAILURE;
-		}
-	}
-	if (SeqMult > 1U) {
-		/* Rate is greater than the current sequence so extend and
-		   repeat the existing sequence */
-		if ((SeqMult * SeqLen) > XDFEEQU_SEQ_LENGTH_MAX) {
-			metal_log(METAL_LOG_ERROR,
-				  "Not enough space for new sequence in %s\n",
-				  __func__);
-			return XST_FAILURE;
-		}
-		CCIDSequence->Length = SeqMult * SeqLen;
-		for (Index = SeqLen; Index < CCIDSequence->Length; Index++) {
-			CCIDSequence->CCID[Index] =
-				CCIDSequence->CCID[Index % SeqLen];
-		}
-	}
-
-	/* Determine if we find a suitable space in the sequence to add this
-	   CCID. Starting at the first empty location can we place the
-	   appropriate number of CCID entries. */
-	SeqLen = CCIDSequence->Length;
-	CCIDCount = SeqLen / Rate; /* Number of entries required in this
-				      sequence for the CCID */
-	for (Index = EmptyCCID; Index < CCIDSequence->Length; Index++) {
-		if (CCIDSequence->CCID[Index] == XDFEEQU_SEQUENCE_ENTRY_NULL) {
-			CCIDCount--;
-			if (0 == CCIDCount) {
-				break;
-			}
-		}
-	}
-	if (CCIDCount != 0U) {
-		/* Not placed all required CCID entries */
-		metal_log(METAL_LOG_ERROR,
-			  "Not placed all required CCID entries in %s\n",
-			  __func__);
-		return XST_FAILURE;
-	}
-
-	/* Everything is OK. Loop again to mark CCID */
-	CCIDCount = SeqLen / Rate;
-	for (Index = EmptyCCID; Index < CCIDSequence->Length; Index++) {
-		if (CCIDSequence->CCID[Index] == XDFEEQU_SEQUENCE_ENTRY_NULL) {
-			/* Mark location for this CCID */
-			CCIDSequence->CCID[Index] = CCID;
-			CCIDCount--;
-			if (0 == CCIDCount) {
-				break;
-			}
-		}
-	}
-
-	return XST_SUCCESS;
-}
-
-/****************************************************************************/
-/**
-*
-* Remove the specified CCID from the CC sequence. Will replace the CCID
-* entries with null (8).
-*
-* @param    CCID is a CC ID
-* @param    CCIDSequence is a CC sequence array
-*
-* @return   None
-*
-* @note     None
-*
-****************************************************************************/
-static void XDfeEqu_RemoveCCID(u32 CCID, XDfeEqu_CCSequence *CCIDSequence)
-{
-	u32 Index;
-	Xil_AssertVoid(CCIDSequence != NULL);
-	Xil_AssertVoid(CCIDSequence->Length <= XDFEEQU_SEQ_LENGTH_MAX);
-
-	/* Replace each CCID entry with null (8) */
-	for (Index = 0; Index < CCIDSequence->Length; Index++) {
-		if (CCIDSequence->CCID[Index] == CCID) {
-			CCIDSequence->CCID[Index] = XDFEEQU_SEQUENCE_ENTRY_NULL;
-		}
-	}
-}
-
 /************************ Low Level Functions *******************************/
 
 /****************************************************************************/
 /**
 *
-* Fire a trigger.
+* Set equalizer filter coefficients in Real mode.
 *
 * @param    InstancePtr is a pointer to the Equalizer instance.
-* @param    TriggerSource is a trigger data container.
+* @param    ChannelField is a flag which bits indicate channel is enabled.
+* @param    EqCoeffs is equalizer coefficients container.
+* @param    NumValues is number of taps.
+* @param    Shift is shift value.
 *
 * @return   None
 *
 * @note     None
 *
-******************************************************************************/
-void XDfeEqu_PressTrigger(XDfeEqu *InstancePtr,
-			  const XDfeEqu_Trigger *TriggerSource)
+****************************************************************************/
+static void XDfeEqu_LoadRealCoefficients(const XDfeEqu *InstancePtr,
+					 u32 ChannelField,
+					 const XDfeEqu_Coefficients *EqCoeffs,
+					 u32 NumValues, u32 Shift)
 {
-	/* Set the Next Control Trigger Source register (0x28).
-	   When it is set to TUSER the Trigger_Source.TUSERBit field specifies
-	   which bit of TUSER to trigger on (0 to 63) */
-	if (TriggerSource->Source == XDFEEQU_TRIGGER_SOURCE_TUSER) {
-		XDfeEqu_WrRegBitField(InstancePtr,
-				      XDFEEQU_NEXT_CONTROL_TRIGGER_OFFSET,
-				      XDFEEQU_TUSER_BIT_WIDTH,
-				      XDFEEQU_TUSER_BIT_OFFSET,
-				      TriggerSource->TUSERBit);
+	u32 Offset;
+	u32 Index;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->StateId == XDFEEQU_STATE_OPERATIONAL);
+	Xil_AssertVoid(ChannelField <
+		       ((u32)1U << XDFEEQU_CHANNEL_FIELD_FIELD_WIDTH));
+	Xil_AssertVoid(EqCoeffs != NULL);
+	Xil_AssertVoid(EqCoeffs->Set < (1U << XDFEEQU_SET_TO_WRITE_SET_WIDTH));
+	Xil_AssertVoid(EqCoeffs->NUnits <= XDFEEQU_MAX_NUMBER_OF_UNITS_REAL);
+
+	/* Write the co-efficient set buffer with the following information */
+	Offset = XDFEEQU_COEFFICIENT_SET;
+	for (Index = 0; Index < NumValues; Index++) {
+		XDfeEqu_WriteReg(InstancePtr, Offset,
+				 (u32)(EqCoeffs->Coefficients[Index]));
+		Offset += (u32)sizeof(u32);
+	}
+	Offset = XDFEEQU_SET_TO_WRITE_OFFSET;
+	XDfeEqu_WriteReg(InstancePtr, Offset, EqCoeffs->Set);
+	Offset = XDFEEQU_NUMBER_OF_UNITS_OFFSET;
+	XDfeEqu_WriteReg(InstancePtr, Offset, EqCoeffs->NUnits);
+	Offset = XDFEEQU_SHIFT_VALUE_OFFSET;
+	XDfeEqu_WriteReg(InstancePtr, Offset, Shift);
+
+	/* Set the Channel_Field register (0x010C) with the value in
+	   Channel_Field. This initiates the write of the co-efficients. */
+	Offset = XDFEEQU_CHANNEL_FIELD_OFFSET;
+	XDfeEqu_WriteReg(InstancePtr, Offset, ChannelField);
+}
+
+/****************************************************************************/
+/**
+*
+* Set equalizer filter coefficients in Complex mode.
+*
+* @param    InstancePtr is a pointer to the Equalizer instance.
+* @param    ChannelField is a flag whic bits indicate channel is enabled.
+* @param    EqCoeffs is equalizer coefficients container.
+* @param    NumValues is number of taps.
+* @param    Shift is shift value.
+*
+* @return   None
+*
+* @note     None
+*
+****************************************************************************/
+static void
+XDfeEqu_LoadComplexCoefficients(const XDfeEqu *InstancePtr, u32 ChannelField,
+				const XDfeEqu_Coefficients *EqCoeffs,
+				u32 NumValues, u32 Shift)
+{
+	u32 Offset;
+	u32 LoadDone;
+	u32 Index;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->StateId == XDFEEQU_STATE_OPERATIONAL);
+	Xil_AssertVoid(ChannelField <
+		       ((u32)1U << XDFEEQU_CHANNEL_FIELD_FIELD_WIDTH));
+	Xil_AssertVoid(EqCoeffs != NULL);
+	Xil_AssertVoid(EqCoeffs->Set < (1U << XDFEEQU_SET_TO_WRITE_SET_WIDTH));
+	Xil_AssertVoid(EqCoeffs->NUnits <= XDFEEQU_MAX_NUMBER_OF_UNITS_COMPLEX);
+
+	/* Write the co-efficient set buffer with the following information */
+	Offset = XDFEEQU_COEFFICIENT_SET;
+	for (Index = 0; Index < NumValues; Index++) {
+		XDfeEqu_WriteReg(InstancePtr, Offset,
+				 (u32)(EqCoeffs->Coefficients[Index]));
+		XDfeEqu_WriteReg(
+			InstancePtr,
+			Offset + (XDFEEQU_IM_COEFFICIENT_SET_OFFSET *
+				  sizeof(u32)),
+			(u32)(EqCoeffs->Coefficients[Index + NumValues]));
+		Offset += (u32)sizeof(u32);
+	}
+	Offset = XDFEEQU_SET_TO_WRITE_OFFSET;
+	XDfeEqu_WriteReg(InstancePtr, Offset, EqCoeffs->Set);
+	Offset = XDFEEQU_NUMBER_OF_UNITS_OFFSET;
+	XDfeEqu_WriteReg(InstancePtr, Offset, EqCoeffs->NUnits);
+	Offset = XDFEEQU_SHIFT_VALUE_OFFSET;
+	XDfeEqu_WriteReg(InstancePtr, Offset, Shift);
+
+	/* Set the Channel_Field register (0x010C) with the value in
+	   Channel_Field. This initiates the write of the co-efficients. */
+	Offset = XDFEEQU_CHANNEL_FIELD_OFFSET;
+	XDfeEqu_WriteReg(InstancePtr, Offset, ChannelField);
+
+	/* The software should wait for bit 8 in the Channel_Field register
+	   to go low before returning. */
+	for (Index = 0; Index < XDFEEQU_COEFF_LOAD_TIMEOUT; Index++) {
+		LoadDone = XDfeEqu_RdRegBitField(
+			InstancePtr, Offset, XDFEEQU_CHANNEL_FIELD_DONE_WIDTH,
+			XDFEEQU_CHANNEL_FIELD_DONE_OFFSET);
+		if (XDFEEQU_CHANNEL_FIELD_DONE_LOADING_DONE == LoadDone) {
+			break;
+		}
+		usleep(XDFEEQU_WAIT);
+		if (Index == (XDFEEQU_COEFF_LOAD_TIMEOUT - 1U)) {
+			Xil_AssertVoidAlways();
+		}
 	}
 
-	/* When the Trigger_Source is set to TLAST TUSER the polarity of the
-	   trigger source signal is set by the Trigger_Source.Polarity field */
-	if ((TriggerSource->Source == XDFEEQU_TRIGGER_SOURCE_TUSER) ||
-	    (TriggerSource->Source == XDFEEQU_TRIGGER_SOURCE_TLAST)) {
-		XDfeEqu_WrRegBitField(InstancePtr,
-				      XDFEEQU_NEXT_CONTROL_TRIGGER_OFFSET,
-				      XDFEEQU_SIGNAL_INVERSION_WIDTH,
-				      XDFEEQU_SIGNAL_INVERSION_OFFSET,
-				      TriggerSource->Polarity);
+	/* Write the co-efficient set buffer with the following information */
+	Offset = XDFEEQU_COEFFICIENT_SET;
+	for (Index = 0; Index < NumValues; Index++) {
+		XDfeEqu_WriteReg(
+			InstancePtr, Offset,
+			(u32)(-EqCoeffs->Coefficients[Index + NumValues]));
+		XDfeEqu_WriteReg(InstancePtr,
+				 Offset + (XDFEEQU_IM_COEFFICIENT_SET_OFFSET *
+					   sizeof(u32)),
+				 (u32)(EqCoeffs->Coefficients[Index]));
+		Offset += (u32)sizeof(u32);
 	}
+	Offset = XDFEEQU_SET_TO_WRITE_OFFSET;
+	XDfeEqu_WriteReg(InstancePtr, Offset, EqCoeffs->Set + 1U);
+	Offset = XDFEEQU_NUMBER_OF_UNITS_OFFSET;
+	XDfeEqu_WriteReg(InstancePtr, Offset, EqCoeffs->NUnits);
+	Offset = XDFEEQU_SHIFT_VALUE_OFFSET;
+	XDfeEqu_WriteReg(InstancePtr, Offset, Shift);
+
+	/* Set the Channel_Field register (0x010C) with the value in
+	   Channel_Field. This initiates the write of the co-efficients. */
+	Offset = XDFEEQU_CHANNEL_FIELD_OFFSET;
+	XDfeEqu_WriteReg(InstancePtr, Offset, ChannelField);
+}
+
+/****************************************************************************/
+/**
+*
+* Set equalizer filter coefficients in Matrix mode.
+*
+* @param    InstancePtr is a pointer to the Equalizer instance.
+* @param    ChannelField is a flag whic bits indicate channel is enabled.
+* @param    EqCoeffs is equalizer coefficients container.
+* @param    NumValues is number of taps.
+* @param    Shift is shift value.
+*
+* @return   None
+*
+* @note     None
+*
+****************************************************************************/
+static void XDfeEqu_LoadMatrixCoefficients(const XDfeEqu *InstancePtr,
+					   u32 ChannelField,
+					   const XDfeEqu_Coefficients *EqCoeffs,
+					   u32 NumValues, u32 Shift)
+{
+	u32 Offset;
+	u32 Index;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->StateId == XDFEEQU_STATE_OPERATIONAL);
+	Xil_AssertVoid(ChannelField <
+		       ((u32)1U << XDFEEQU_CHANNEL_FIELD_FIELD_WIDTH));
+	Xil_AssertVoid(EqCoeffs != NULL);
+	Xil_AssertVoid(EqCoeffs->Set < (1U << XDFEEQU_SET_TO_WRITE_SET_WIDTH));
+	Xil_AssertVoid(EqCoeffs->NUnits <= XDFEEQU_MAX_NUMBER_OF_UNITS_COMPLEX);
+
+	/* Write the co-efficient set buffer with the following information */
+	Offset = XDFEEQU_COEFFICIENT_SET;
+	for (Index = 0; Index < NumValues; Index++) {
+		XDfeEqu_WriteReg(InstancePtr, Offset,
+				 (u32)(EqCoeffs->Coefficients[Index]));
+		XDfeEqu_WriteReg(
+			InstancePtr,
+			Offset + (XDFEEQU_IM_COEFFICIENT_SET_OFFSET *
+				  sizeof(u32)),
+			(u32)(EqCoeffs->Coefficients[Index + NumValues]));
+		Offset += (u32)sizeof(u32);
+	}
+	Offset = XDFEEQU_SET_TO_WRITE_OFFSET;
+	XDfeEqu_WriteReg(InstancePtr, Offset, EqCoeffs->Set);
+	Offset = XDFEEQU_NUMBER_OF_UNITS_OFFSET;
+	XDfeEqu_WriteReg(InstancePtr, Offset, EqCoeffs->NUnits);
+	Offset = XDFEEQU_SHIFT_VALUE_OFFSET;
+	XDfeEqu_WriteReg(InstancePtr, Offset, Shift);
+
+	/* Set the Channel_Field register (0x010C) with the value in
+	   Channel_Field. This initiates the write of the co-efficients. */
+	Offset = XDFEEQU_CHANNEL_FIELD_OFFSET;
+	XDfeEqu_WriteReg(InstancePtr, Offset, ChannelField);
+}
+
+/****************************************************************************/
+/**
+*
+* Read Triggers, set enable bit of LowPower trigger. If register source, then
+* trigger will be applied immediately.
+*
+* @param    InstancePtr is a pointer to the Mixer instance.
+*
+* @return   None
+*
+* @note     None
+*
+****************************************************************************/
+static void XDfeEqu_EnableLowPowerTrigger(const XDfeEqu *InstancePtr)
+{
+	u32 Data;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	Data = XDfeEqu_ReadReg(InstancePtr,
+			       XDFEEQU_DYNAMIC_POWER_DOWN_MODE_TRIGGER_OFFSET);
+	Data = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_ENABLE_WIDTH,
+				  XDFEEQU_TRIGGERS_ENABLE_OFFSET, Data,
+				  XDFEEQU_TRIGGERS_ENABLE_ENABLED);
+	XDfeEqu_WriteReg(InstancePtr,
+			 XDFEEQU_DYNAMIC_POWER_DOWN_MODE_TRIGGER_OFFSET, Data);
+}
+/****************************************************************************/
+/**
+*
+* Read Triggers, set enable bit of Activate trigger. If register source, then
+* trigger will be applied immediately.
+*
+* @param    InstancePtr is a pointer to the Mixer instance.
+*
+* @return   None
+*
+* @note     None
+*
+****************************************************************************/
+static void XDfeEqu_EnableActivateTrigger(const XDfeEqu *InstancePtr)
+{
+	u32 Data;
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	Data = XDfeEqu_ReadReg(InstancePtr,
+			       XDFEEQU_NEXT_CONTROL_TRIGGER_OFFSET);
+	Data = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_ENABLE_WIDTH,
+				  XDFEEQU_TRIGGERS_ENABLE_OFFSET, Data,
+				  XDFEEQU_TRIGGERS_ENABLE_ENABLED);
+	XDfeEqu_WriteReg(InstancePtr, XDFEEQU_NEXT_CONTROL_TRIGGER_OFFSET,
+			 Data);
+}
+
+/****************************************************************************/
+/**
+*
+* Read Triggers, reset enable bit of LowPower trigger.
+*
+* @param    InstancePtr is a pointer to the Mixer instance.
+*
+* @return   None
+*
+* @note     None
+*
+****************************************************************************/
+static void XDfeEqu_DisableLowPowerTrigger(const XDfeEqu *InstancePtr)
+{
+	u32 Data;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	Data = XDfeEqu_ReadReg(InstancePtr,
+			       XDFEEQU_DYNAMIC_POWER_DOWN_MODE_TRIGGER_OFFSET);
+	Data = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_ENABLE_WIDTH,
+				  XDFEEQU_TRIGGERS_ENABLE_OFFSET, Data,
+				  XDFEEQU_TRIGGERS_ENABLE_DISABLED);
+	XDfeEqu_WriteReg(InstancePtr,
+			 XDFEEQU_DYNAMIC_POWER_DOWN_MODE_TRIGGER_OFFSET, Data);
 }
 
 /*************************** Init API ***************************************/
@@ -432,7 +524,6 @@ void XDfeEqu_PressTrigger(XDfeEqu *InstancePtr,
 ******************************************************************************/
 XDfeEqu *XDfeEqu_InstanceInit(u16 DeviceId, const char *DeviceNodeName)
 {
-	static u32 XDfeEqu_DriverHasBeenRegisteredOnce = 0U;
 	u32 Index;
 
 	Xil_AssertNonvoid(DeviceId < XDFEEQU_MAX_NUM_INSTANCES);
@@ -460,8 +551,9 @@ XDfeEqu *XDfeEqu_InstanceInit(u16 DeviceId, const char *DeviceNodeName)
 	}
 
 	/* Register libmetal for this OS process */
-	if (XST_SUCCESS !=
-	    XDfeEqu_RegisterMetal(DeviceId, &DevicePtrStorage[DeviceId], DeviceNodeName)) {
+	if (XST_SUCCESS != XDfeEqu_RegisterMetal(DeviceId,
+						 &DevicePtrStorage[DeviceId],
+						 DeviceNodeName)) {
 		XDfeEqu_Equalizer[DeviceId].StateId = XDFEEQU_STATE_NOT_READY;
 		return NULL;
 	}
@@ -531,8 +623,8 @@ void XDfeEqu_Reset(XDfeEqu *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Read configuration from device tree/xparameters.h and IP registers.
-* S/W reset removed.
+* Read configuration from device tree/xparameters.h and IP registers. S/W
+* reset removed by setting bit 0 of the Master Reset register (0x4) low.
 *
 * @param    InstancePtr is a pointer to the Equalizer instance.
 * @param    Cfg is a pointer to the device config structure.
@@ -545,9 +637,11 @@ void XDfeEqu_Reset(XDfeEqu *InstancePtr)
 void XDfeEqu_Configure(XDfeEqu *InstancePtr, XDfeEqu_Cfg *Cfg)
 {
 	u32 Version;
+	u32 ModelParam;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFEEQU_STATE_RESET);
+	Xil_AssertVoid(Cfg != NULL);
 
 	/* Read vearsion */
 	Version = XDfeEqu_ReadReg(InstancePtr, XDFEEQU_VERSION_OFFSET);
@@ -565,8 +659,25 @@ void XDfeEqu_Configure(XDfeEqu *InstancePtr, XDfeEqu_Cfg *Cfg)
 				   XDFEEQU_VERSION_MAJOR_OFFSET, Version);
 
 	/* Copy configs model parameters from InstancePtr */
-	Cfg->ModelParams.DataIWidth = InstancePtr->Config.DataIWidth;
-	Cfg->ModelParams.DataOWidth = InstancePtr->Config.DataOWidth;
+	ModelParam = XDfeEqu_ReadReg(InstancePtr, XDFEEQU_MODEL_PARAM_OFFSET);
+	InstancePtr->Config.NumChannels =
+		XDfeEqu_RdBitField(XDFEEQU_MODEL_PARAM_NUM_CHANNELS_WIDTH,
+				   XDFEEQU_MODEL_PARAM_NUM_CHANNELS_OFFSET,
+				   ModelParam);
+	InstancePtr->Config.SampleWidth =
+		XDfeEqu_RdBitField(XDFEEQU_MODEL_PARAM_SAMPLE_WIDTH_WIDTH,
+				   XDFEEQU_MODEL_PARAM_SAMPLE_WIDTH_OFFSET,
+				   ModelParam);
+	InstancePtr->Config.ComplexModel =
+		XDfeEqu_RdBitField(XDFEEQU_MODEL_PARAM_COMPLEX_MODE_WIDTH,
+				   XDFEEQU_MODEL_PARAM_COMPLEX_MODE_OFFSET,
+				   ModelParam);
+	InstancePtr->Config.TuserWidth =
+		XDfeEqu_RdBitField(XDFEEQU_MODEL_PARAM_TUSER_WIDTH_WIDTH,
+				   XDFEEQU_MODEL_PARAM_TUSER_WIDTH_OFFSET,
+				   ModelParam);
+	Cfg->ModelParams.SampleWidth = InstancePtr->Config.SampleWidth;
+	Cfg->ModelParams.ComplexModel = InstancePtr->Config.ComplexModel;
 	Cfg->ModelParams.NumChannels = InstancePtr->Config.NumChannels;
 	Cfg->ModelParams.TuserWidth = InstancePtr->Config.TuserWidth;
 
@@ -582,8 +693,8 @@ void XDfeEqu_Configure(XDfeEqu *InstancePtr, XDfeEqu_Cfg *Cfg)
 * The software sets bit 2 of the Next Control register (0x24). This is set
 * high if Config.DatapathMode is set to complex or matrix and low if it is
 * set to real.
-* The software then sets the Next Control Trigger Source register (0x28) to
-* IMMEDIATE.
+* The software then sets the Next Control Trigger Source register (0x28).
+* Enable high, Source 0, _OneShot high.
 *
 * @param    InstancePtr is a pointer to the Equalizer instance.
 * @param    Config is a configuration data container.
@@ -595,6 +706,7 @@ void XDfeEqu_Configure(XDfeEqu *InstancePtr, XDfeEqu_Cfg *Cfg)
 ****************************************************************************/
 void XDfeEqu_Initialize(XDfeEqu *InstancePtr, const XDfeEqu_EqConfig *Config)
 {
+	XDfeEqu_Trigger Update;
 	u32 Data;
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFEEQU_STATE_CONFIGURED);
@@ -602,12 +714,6 @@ void XDfeEqu_Initialize(XDfeEqu *InstancePtr, const XDfeEqu_EqConfig *Config)
 	Xil_AssertVoid(Config->DatapathMode <= XDFEEQU_DATAPATH_MODE_MATRIX);
 
 	Data = XDfeEqu_ReadReg(InstancePtr, XDFEEQU_NEXT_CONTROL_OFFSET);
-
-	/* Set bit 0 of the Next Control register (0x24) low. */
-	Data = XDfeEqu_WrBitField(XDFEEQU_POWERDOWN_MODE_WIDTH,
-				  XDFEEQU_POWERDOWN_MODE_OFFSET, Data,
-				  XDFEEQU_POWER_UP);
-
 	/* The software sets bit 2 of the Next Control register to:
 	   - high if Config.DatapathMode is set to complex or matrix
 	   - low if Config.DatapathMode is set to real. */
@@ -620,13 +726,31 @@ void XDfeEqu_Initialize(XDfeEqu *InstancePtr, const XDfeEqu_EqConfig *Config)
 					  XDFEEQU_COMPLEX_MODE_OFFSET, Data,
 					  XDFEEQU_COMPLEX_MODE);
 	}
+	/* Set bit 0 of the Next Control register (0x24) low */
+	Data = XDfeEqu_WrBitField(XDFEEQU_POWERDOWN_MODE_WIDTH,
+				  XDFEEQU_POWERDOWN_MODE_OFFSET, Data,
+				  XDFEEQU_POWERDOWN_MODE_POWERDOWN);
+
 	XDfeEqu_WriteReg(InstancePtr, XDFEEQU_NEXT_CONTROL_OFFSET, Data);
 
-	/* Set the Next Control Trigger Source register (0x28) to IMMEDIATE. */
-	XDfeEqu_WrRegBitField(InstancePtr, XDFEEQU_NEXT_CONTROL_TRIGGER_OFFSET,
-			      XDFEEQU_NEXT_TRIGGER_SOURCE_WIDTH,
-			      XDFEEQU_NEXT_TRIGGER_SOURCE_OFFSET,
-			      XDFEEQU_TRIGGER_SOURCE_IMMEDIATE);
+	/* The software then sets the Next Control Trigger Source register
+	   (0x28). _Enable high, Source 0, _OneShot high. */
+	Update.Enable = 1U;
+	Update.OneShot = 1U;
+	Update.Source = 0U;
+	Data = XDfeEqu_ReadReg(InstancePtr,
+			       XDFEEQU_NEXT_CONTROL_TRIGGER_OFFSET);
+	Data = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_ONE_SHOT_WIDTH,
+				  XDFEEQU_TRIGGERS_ONE_SHOT_OFFSET, Data,
+				  Update.OneShot);
+	Data = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_ENABLE_WIDTH,
+				  XDFEEQU_TRIGGERS_ENABLE_OFFSET, Data,
+				  Update.Enable);
+	Data = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_SOURCE_WIDTH,
+				  XDFEEQU_TRIGGERS_SOURCE_OFFSET, Data,
+				  Update.Source);
+	XDfeEqu_WriteReg(InstancePtr, XDFEEQU_NEXT_CONTROL_TRIGGER_OFFSET,
+			 Data);
 
 	InstancePtr->StateId = XDFEEQU_STATE_INITIALISED;
 }
@@ -636,29 +760,32 @@ void XDfeEqu_Initialize(XDfeEqu *InstancePtr, const XDfeEqu_EqConfig *Config)
 *
 * Activate chfilter.
 * First set bit 0 of the Next Control register (0x24) high.
-* Then set the Next Control Trigger Source register (0x28) depending on the
-* Trigger_Source. Trigger_Source can be set to:
-*    - IMMEDIATE,
-*    - TLAST_LOW,
-*    - TLAST_HIGH,
-* When it is set to TUSER the Trigger_Source.TUSERBit field specifies which
-* bit of TUSER to trigger on (0 to 63). When the Trigger_Source is set
-* to TLAST TUSER the polarity of the trigger source signal is set by
-* the Trigger_Source.Polarity field.
+* The software then sets the _Enable bit in the Next Control Trigger Source
+* register (0x28) high. If EnableLowPower is true the software also sets
+* the Enable bit of the Dynamic Powerdown Mode Trigger Source register (0x34)
+* high.
 *
 * @param    InstancePtr is a pointer to the Equalizer instance.
-* @param    TriggerSource is a trigger data container.
+* @param    EnableLowPower is a flag indicating low power.
 *
 * @return   None
 *
 * @note     None
 *
 ******************************************************************************/
-void XDfeEqu_Activate(XDfeEqu *InstancePtr,
-		      const XDfeEqu_Trigger *TriggerSource)
+void XDfeEqu_Activate(XDfeEqu *InstancePtr, bool EnableLowPower)
 {
+	u32 IsOperational;
+
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFEEQU_STATE_INITIALISED);
+
+	/* Do nothing if the block already operational */
+	IsOperational =
+		XDfeEqu_ReadReg(InstancePtr, XDFEEQU_CURRENT_CONTROL_OFFSET);
+	if (IsOperational == XDFEEQU_POWERDOWN_MODE_POWERUP) {
+		return;
+	}
 
 	/* Set bit 0 of the Next Control register (0x24) high. */
 	XDfeEqu_WrRegBitField(InstancePtr, XDFEEQU_NEXT_CONTROL_OFFSET,
@@ -666,8 +793,17 @@ void XDfeEqu_Activate(XDfeEqu *InstancePtr,
 			      XDFEEQU_POWERDOWN_MODE_OFFSET,
 			      XDFEEQU_POWERDOWN_MODE_POWERUP);
 
-	XDfeEqu_PressTrigger(InstancePtr, TriggerSource);
+	/* Enable the Activate trigger */
+	XDfeEqu_EnableActivateTrigger(InstancePtr);
 
+	/* Enable the LowPower trigger */
+	if (EnableLowPower == true) {
+		XDfeEqu_EnableLowPowerTrigger(InstancePtr);
+	} else {
+		XDfeEqu_DisableLowPowerTrigger(InstancePtr);
+	}
+
+	/* Equalizer is operational now, change a state */
 	InstancePtr->StateId = XDFEEQU_STATE_OPERATIONAL;
 }
 
@@ -676,29 +812,30 @@ void XDfeEqu_Activate(XDfeEqu *InstancePtr,
 *
 * DeActivate chfilter.
 * First set bit 0 of the Next Control register (0x24) low.
-* Then set the Next Control Trigger Source register (0x28) depending on the
-* Trigger_Source. Trigger_Source can be set to:
-*    - IMMEDIATE,
-*    - TLAST_LOW,
-*    - TLAST_HIGH,
-*    - TUSER{x}_LOW or
-*    - TUSER{x}_HIGH.
-* Where x is a number in the range 0 to 63 that indicates the bit of TUSER to
-* use as the trigger.
+* The software then sets the _Enable bit in the Next Control Trigger Source
+* register (0x28) high. The software also sets the _Enable bit of the Dynamic
+* Powerdown Mode Trigger Source register (0x34) low.
 *
 * @param    InstancePtr is a pointer to the Equalizer instance.
-* @param    TriggerSource is a trigger data container.
 *
 * @return   None
 *
 * @note     None
 *
 ******************************************************************************/
-void XDfeEqu_Deactivate(XDfeEqu *InstancePtr,
-			const XDfeEqu_Trigger *TriggerSource)
+void XDfeEqu_Deactivate(XDfeEqu *InstancePtr)
 {
+	u32 IsOperational;
+
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFEEQU_STATE_OPERATIONAL);
+
+	/* Do nothing if the block already deactivated */
+	IsOperational =
+		XDfeEqu_ReadReg(InstancePtr, XDFEEQU_CURRENT_CONTROL_OFFSET);
+	if (IsOperational == XDFEEQU_POWERDOWN_MODE_POWERDOWN) {
+		return;
+	}
 
 	/* Set bit 0 of the Next Control register (0x24) low. */
 	XDfeEqu_WrRegBitField(InstancePtr, XDFEEQU_CURRENT_CONTROL_OFFSET,
@@ -706,7 +843,12 @@ void XDfeEqu_Deactivate(XDfeEqu *InstancePtr,
 			      XDFEEQU_POWERDOWN_MODE_OFFSET,
 			      XDFEEQU_POWERDOWN_MODE_POWERDOWN);
 
-	XDfeEqu_PressTrigger(InstancePtr, TriggerSource);
+	/* Disable LowPower trigger (may not be enabled) */
+	XDfeEqu_DisableLowPowerTrigger(InstancePtr);
+
+	/* Enable Activate trigger (toggles state between operational
+	   and intialized) */
+	XDfeEqu_EnableActivateTrigger(InstancePtr);
 
 	InstancePtr->StateId = XDFEEQU_STATE_INITIALISED;
 }
@@ -716,69 +858,206 @@ void XDfeEqu_Deactivate(XDfeEqu *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Get an used coefficients settings.
+* The software first sets bits 7:4 of the Next Control register (0x24) with
+* the values in Config.Real_Datapath_Set, Config.Im_Datapath_Set.
+* In real mode bits 5:4 are set to the value held in Config.Real_Datapath_Set.
+* Bits 7:6 are set to the value held in Config.Real_Datapath_Set.
+* In complex mode bits 5:4 are set to the value held in
+* Config.Real_Datapath_Set. Bits 7:6 are set to the value held in
+* Config.Real_Datapath_Set plus 1.
+* In matrix mode bits 5:4 are set to the value held in
+* Config.Real_Datapath_Set. Bits 7:6 are set to the value held in
+* Config.Im_Datapath_Set.
+* The software sets bit 1 depending on Config.Flush.
+* The software then sets the _Enable bit in the Next Control Trigger Source
+* register (0x28) high.
 *
 * @param    InstancePtr is a pointer to the Equalizer instance.
 * @param    Config configuration container.
-* @param    TriggerSource sets a trigger source.
 *
 * @return   None
 *
 * @note     None
 *
 ****************************************************************************/
-void XDfeEqu_SwitchCoefficientSet(XDfeEqu *InstancePtr,
-				  const XDfeEqu_EqConfig *Config,
-				  const XDfeEqu_Trigger *TriggerSource)
+void XDfeEqu_Update(const XDfeEqu *InstancePtr, const XDfeEqu_EqConfig *Config)
 {
 	u32 Offset;
 	u32 Data;
-	u32 Tmp;
+	u32 ReTmp;
+	u32 ImTmp;
+	u32 CoeffTmp;
+	u32 FlushTmp;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Config != NULL);
-	Xil_AssertVoid(TriggerSource != NULL);
 
 	Offset = XDFEEQU_CURRENT_CONTROL_OFFSET;
 	Data = XDfeEqu_ReadReg(InstancePtr, Offset);
-	if (XDFEEQU_DATAPATH_MODE_REAL == Config->DatapathMode) {
-		Tmp = ((Config->RealDatapathSet &
-			XDFEEQU_COEFF_SET_CONTROL_MASK)
-		       << XDFEEQU_COEFF_SET_CONTROL_IM_OFFSET) |
-		      (Config->RealDatapathSet &
-		       XDFEEQU_COEFF_SET_CONTROL_MASK);
-	} else if (XDFEEQU_DATAPATH_MODE_COMPLEX == Config->DatapathMode) {
-		Tmp = (((Config->RealDatapathSet &
-			 XDFEEQU_COEFF_SET_CONTROL_MASK) +
-			1U)
-		       << XDFEEQU_COEFF_SET_CONTROL_IM_OFFSET) |
-		      (Config->RealDatapathSet &
-		       XDFEEQU_COEFF_SET_CONTROL_MASK);
-	} else {
-		Tmp = ((Config->ImDatapathSet & XDFEEQU_COEFF_SET_CONTROL_MASK)
-		       << XDFEEQU_COEFF_SET_CONTROL_IM_OFFSET) |
-		      (Config->RealDatapathSet &
-		       XDFEEQU_COEFF_SET_CONTROL_MASK);
-	}
 
 	/* Set bits 7:4 of the Next Control register (0x24) with the values in
 	   Config.Real_Datapath_Set, Config.Im_Datapath_Set. */
+	ReTmp = Config->RealDatapathSet & XDFEEQU_COEFF_SET_CONTROL_MASK;
+	if (XDFEEQU_DATAPATH_MODE_COMPLEX == Config->DatapathMode) {
+		ImTmp = Config->RealDatapathSet + 1U;
+	} else {
+		ImTmp = Config->ImDatapathSet;
+	}
+	ImTmp &= XDFEEQU_COEFF_SET_CONTROL_MASK;
+	CoeffTmp = ReTmp | (ImTmp << XDFEEQU_COEFF_SET_CONTROL_IM_OFFSET);
 	Data = XDfeEqu_WrBitField(XDFEEQU_COEFF_SET_CONTROL_WIDTH,
-				  XDFEEQU_COEFF_SET_CONTROL_OFFSET, Data, Tmp);
+				  XDFEEQU_COEFF_SET_CONTROL_OFFSET, Data,
+				  CoeffTmp);
+
+	/* The software sets bit 1 depending on Config.Flush */
+	FlushTmp = Config->Flush & XDFEEQU_FLUSH_BUFFERS_WIDTH;
+	Data = XDfeEqu_WrBitField(XDFEEQU_FLUSH_BUFFERS_WIDTH,
+				  XDFEEQU_FLUSH_BUFFERS_OFFSET, Data, FlushTmp);
+
 	XDfeEqu_WriteReg(InstancePtr, XDFEEQU_NEXT_CONTROL_OFFSET, Data);
-
-	/* Set the Next Control Trigger Source register (0x28) depending on
-	   the Trigger_Source. */
-	XDfeEqu_PressTrigger(InstancePtr, TriggerSource);
+	XDfeEqu_EnableActivateTrigger(InstancePtr);
 }
 
 /****************************************************************************/
 /**
 *
-* Set equalizer filter coefficients in Real mode.
+* Return current trigger configuration.
+*
+* @param    InstancePtr is a pointer to the Ccf instance.
+* @param    TriggerCfg is a triger configuration container.
+*
+* @return   None
+*
+* @note     None
+*
+****************************************************************************/
+void XDfeEqu_GetTriggersCfg(const XDfeEqu *InstancePtr,
+			    XDfeEqu_TriggerCfg *TriggerCfg)
+{
+	u32 Val;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(TriggerCfg != NULL);
+
+	/* Read ACTIVATE triggers */
+	Val = XDfeEqu_ReadReg(InstancePtr, XDFEEQU_NEXT_CONTROL_TRIGGER_OFFSET);
+	TriggerCfg->Activate.Enable =
+		XDfeEqu_RdBitField(XDFEEQU_TRIGGERS_ENABLE_WIDTH,
+				   XDFEEQU_TRIGGERS_ENABLE_OFFSET, Val);
+	TriggerCfg->Activate.Source =
+		XDfeEqu_RdBitField(XDFEEQU_TRIGGERS_SOURCE_WIDTH,
+				   XDFEEQU_TRIGGERS_SOURCE_OFFSET, Val);
+	TriggerCfg->Activate.TUSERBit =
+		XDfeEqu_RdBitField(XDFEEQU_TRIGGERS_TUSER_BIT_WIDTH,
+				   XDFEEQU_TRIGGERS_TUSER_BIT_OFFSET, Val);
+	TriggerCfg->Activate.Edge =
+		XDfeEqu_RdBitField(XDFEEQU_TRIGGERS_SIGNAL_EDGE_WIDTH,
+				   XDFEEQU_TRIGGERS_SIGNAL_EDGE_OFFSET, Val);
+	TriggerCfg->Activate.OneShot =
+		XDfeEqu_RdBitField(XDFEEQU_TRIGGERS_ONE_SHOT_WIDTH,
+				   XDFEEQU_TRIGGERS_ONE_SHOT_OFFSET, Val);
+
+	/* Read LOW_POWER triggers */
+	Val = XDfeEqu_ReadReg(InstancePtr,
+			      XDFEEQU_DYNAMIC_POWER_DOWN_MODE_TRIGGER_OFFSET);
+	TriggerCfg->LowPower.Enable =
+		XDfeEqu_RdBitField(XDFEEQU_TRIGGERS_ENABLE_WIDTH,
+				   XDFEEQU_TRIGGERS_ENABLE_OFFSET, Val);
+	TriggerCfg->LowPower.Source =
+		XDfeEqu_RdBitField(XDFEEQU_TRIGGERS_SOURCE_WIDTH,
+				   XDFEEQU_TRIGGERS_SOURCE_OFFSET, Val);
+	TriggerCfg->LowPower.TUSERBit =
+		XDfeEqu_RdBitField(XDFEEQU_TRIGGERS_TUSER_BIT_WIDTH,
+				   XDFEEQU_TRIGGERS_TUSER_BIT_OFFSET, Val);
+	TriggerCfg->LowPower.Edge =
+		XDfeEqu_RdBitField(XDFEEQU_TRIGGERS_SIGNAL_EDGE_WIDTH,
+				   XDFEEQU_TRIGGERS_SIGNAL_EDGE_OFFSET, Val);
+	TriggerCfg->LowPower.OneShot =
+		XDfeEqu_RdBitField(XDFEEQU_TRIGGERS_ONE_SHOT_WIDTH,
+				   XDFEEQU_TRIGGERS_ONE_SHOT_OFFSET, Val);
+}
+
+/****************************************************************************/
+/**
+*
+* Set trigger configuration.
+*
+* @param    InstancePtr is a pointer to the Ccf instance.
+* @param    TriggerCfg is a triger configuration container.
+*
+* @return   None
+*
+* @note     None
+*
+****************************************************************************/
+void XDfeEqu_SetTriggersCfg(const XDfeEqu *InstancePtr,
+			    XDfeEqu_TriggerCfg *TriggerCfg)
+{
+	u32 Val;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->StateId == XDFEEQU_STATE_INITIALISED);
+	Xil_AssertVoid(TriggerCfg != NULL);
+
+	/* Write public trigger configuration members and ensure private
+	   members (_Enable & _OneShot) are set appropriately */
+
+	/* Activate defined as OneShot (as per the programming model) */
+	TriggerCfg->Activate.Enable = 0U;
+	TriggerCfg->Activate.OneShot = 1U;
+
+	/* Read/set/write ACTIVATE triggers */
+	Val = XDfeEqu_ReadReg(InstancePtr, XDFEEQU_NEXT_CONTROL_TRIGGER_OFFSET);
+	Val = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_ENABLE_WIDTH,
+				 XDFEEQU_TRIGGERS_ENABLE_OFFSET, Val,
+				 TriggerCfg->Activate.Enable);
+	Val = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_SOURCE_WIDTH,
+				 XDFEEQU_TRIGGERS_SOURCE_OFFSET, Val,
+				 TriggerCfg->Activate.Source);
+	Val = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_TUSER_BIT_WIDTH,
+				 XDFEEQU_TRIGGERS_TUSER_BIT_OFFSET, Val,
+				 TriggerCfg->Activate.TUSERBit);
+	Val = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_SIGNAL_EDGE_WIDTH,
+				 XDFEEQU_TRIGGERS_SIGNAL_EDGE_OFFSET, Val,
+				 TriggerCfg->Activate.Edge);
+	Val = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_ONE_SHOT_WIDTH,
+				 XDFEEQU_TRIGGERS_ONE_SHOT_OFFSET, Val,
+				 TriggerCfg->Activate.OneShot);
+	XDfeEqu_WriteReg(InstancePtr, XDFEEQU_NEXT_CONTROL_TRIGGER_OFFSET, Val);
+
+	/* LowPower defined as Continuous */
+	TriggerCfg->LowPower.Enable = 0U;
+	TriggerCfg->LowPower.OneShot = 0U;
+	/* Read/Set/Write LOW_POWER triggers */
+	Val = XDfeEqu_ReadReg(InstancePtr,
+			      XDFEEQU_DYNAMIC_POWER_DOWN_MODE_TRIGGER_OFFSET);
+	Val = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_ENABLE_WIDTH,
+				 XDFEEQU_TRIGGERS_ENABLE_OFFSET, Val,
+				 TriggerCfg->LowPower.Enable);
+	Val = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_SOURCE_WIDTH,
+				 XDFEEQU_TRIGGERS_SOURCE_OFFSET, Val,
+				 TriggerCfg->LowPower.Source);
+	Val = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_TUSER_BIT_WIDTH,
+				 XDFEEQU_TRIGGERS_TUSER_BIT_OFFSET, Val,
+				 TriggerCfg->LowPower.TUSERBit);
+	Val = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_SIGNAL_EDGE_WIDTH,
+				 XDFEEQU_TRIGGERS_SIGNAL_EDGE_OFFSET, Val,
+				 TriggerCfg->LowPower.Edge);
+	Val = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_ONE_SHOT_WIDTH,
+				 XDFEEQU_TRIGGERS_ONE_SHOT_OFFSET, Val,
+				 TriggerCfg->LowPower.OneShot);
+	XDfeEqu_WriteReg(InstancePtr,
+			 XDFEEQU_DYNAMIC_POWER_DOWN_MODE_TRIGGER_OFFSET, Val);
+}
+
+/****************************************************************************/
+/**
+*
+* Set equalizer filter coefficients in Real, Complex or Matrix mode.
 *
 * @param    InstancePtr is a pointer to the Equalizer instance.
 * @param    ChannelField is a flag whic bits indicate channel is enabled.
+* @param    Mode is an equalizer mode.
 * @param    EqCoeffs is equalizer coefficients container.
 *
 * @return   None
@@ -786,190 +1065,74 @@ void XDfeEqu_SwitchCoefficientSet(XDfeEqu *InstancePtr,
 * @note     None
 *
 ****************************************************************************/
-void XDfeEqu_LoadRealCoefficients(const XDfeEqu *InstancePtr, u32 ChannelField,
-				  const XDfeEqu_Coeff *EqCoeffs)
+void XDfeEqu_LoadCoefficients(const XDfeEqu *InstancePtr, u32 ChannelField,
+			      u32 Mode, const XDfeEqu_Coefficients *EqCoeffs)
 {
-	u32 Offset;
-	u32 Data;
+	u32 NumValues;
+	s32 CoeffSum = 0;
+	double ScaleFactor;
+	u32 Shift;
+	u32 LoadDone;
+	u32 SumItemNum;
 	u32 Index;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFEEQU_STATE_OPERATIONAL);
 	Xil_AssertVoid(ChannelField <
 		       ((u32)1U << XDFEEQU_CHANNEL_FIELD_FIELD_WIDTH));
+	Xil_AssertVoid(Mode <= XDFEEQU_DATAPATH_MODE_MATRIX);
 	Xil_AssertVoid(EqCoeffs != NULL);
-	Xil_AssertVoid(EqCoeffs != NULL);
-	Xil_AssertVoid(EqCoeffs->Set > (1U << XDFEEQU_SET_TO_WRITE_SET_WIDTH));
-	Xil_AssertVoid(EqCoeffs->NUnits == 0U);
+	Xil_AssertVoid(EqCoeffs->Set < (1U << XDFEEQU_SET_TO_WRITE_SET_WIDTH));
+	Xil_AssertVoid(EqCoeffs->NUnits > 0U);
 
-	/* Write the co-efficient set buffer with the following information */
-	Offset = XDFEEQU_SET_TO_WRITE_OFFSET;
-	XDfeEqu_WriteReg(InstancePtr, Offset, EqCoeffs->Set);
-	Offset = XDFEEQU_NUMBER_OF_UNITS_OFFSET;
-	XDfeEqu_WriteReg(InstancePtr, Offset, EqCoeffs->NUnits);
-	Offset = XDFEEQU_SHIFT_VALUE_OFFSET;
-	XDfeEqu_WriteReg(InstancePtr, Offset, EqCoeffs->Shift);
-	Offset = XDFEEQU_COEFFICIENT_SET;
-	for (Index = 0; Index < XDFEEQU_COEFFICIENT_SET_MAX; Index++) {
-		XDfeEqu_WriteReg(InstancePtr, Offset,
-				 EqCoeffs->Coefficients[Index]);
-		Offset += sizeof(u32);
+	/* Determine scale shift value using expression given in specification
+	   item 10 in complex equalizer. */
+	NumValues = EqCoeffs->NUnits * XDFEEQU_TAP_UNIT_SIZE;
+	if (Mode == XDFEEQU_DATAPATH_MODE_REAL) {
+		SumItemNum = NumValues;
+	} else {
+		/* Complex is data number x2 */
+		SumItemNum = 2U * NumValues;
 	}
 
-	/* Set the Channel_Field register (0x010C) with the value in
-	   Channel_Field. This initiates the write of the co-efficients. */
-	Offset = XDFEEQU_CHANNEL_FIELD_OFFSET;
-	XDfeEqu_WriteReg(InstancePtr, Offset, ChannelField);
+	for (Index = 0; Index < SumItemNum; Index++) {
+		CoeffSum += EqCoeffs->Coefficients[Index];
+	}
 
-	/* The software should wait for bit 8 in the Channel_Field register
-	   to go low before returning. */
-	for (Index = 0; Index < XDFEEQU_TIMEOUT; Index++) {
-		Data = XDfeEqu_RdRegBitField(InstancePtr, Offset,
-					     XDFEEQU_CHANNEL_FIELD_DONE_WIDTH,
-					     XDFEEQU_CHANNEL_FIELD_DONE_OFFSET);
-		if (Data == 0U) {
+	/* The following two lines are a formula to claculate a shift value.
+	   Coefficient AXI stream will have TLAST to indicate that all
+	   coefficients, shift values, num_active_units associated with one
+	   co-efficient set have arrived. The first value on co-efficient
+	   stream will be a shift value associated with that co-efficient
+	   set. */
+	ScaleFactor = (double)CoeffSum / (256U * ((u32)1 << 15));
+	Shift = (u32)floor(fabs(log2(ScaleFactor)));
+
+	/* Check is load in progress */
+	for (Index = 0; Index < XDFEEQU_COEFF_LOAD_TIMEOUT; Index++) {
+		LoadDone = XDfeEqu_RdRegBitField(
+			InstancePtr, XDFEEQU_CHANNEL_FIELD_OFFSET,
+			XDFEEQU_CHANNEL_FIELD_DONE_WIDTH,
+			XDFEEQU_CHANNEL_FIELD_DONE_OFFSET);
+		if (XDFEEQU_CHANNEL_FIELD_DONE_LOADING_DONE == LoadDone) {
 			break;
 		}
 		usleep(XDFEEQU_WAIT);
-		if (Index == (XDFEEQU_TIMEOUT - 1)) {
+		if (Index == (XDFEEQU_COEFF_LOAD_TIMEOUT - 1U)) {
 			Xil_AssertVoidAlways();
 		}
 	}
-}
 
-/****************************************************************************/
-/**
-*
-* Set equalizer filter coefficients in Complex mode.
-*
-* @param    InstancePtr is a pointer to the Equalizer instance.
-* @param    ChannelField is a flag whic bits indicate channel is enabled.
-* @param    EqCoeffs is equalizer coefficients container.
-*
-* @return   None
-*
-* @note     None
-*
-****************************************************************************/
-void XDfeEqu_LoadComplexCoefficients(const XDfeEqu *InstancePtr,
-				     u32 ChannelField,
-				     const XDfeEqu_Coeff *EqCoeffs)
-{
-	u32 Offset;
-	u32 Data;
-	u32 Index;
-
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEEQU_STATE_OPERATIONAL);
-	Xil_AssertVoid(ChannelField <
-		       ((u32)1U << XDFEEQU_CHANNEL_FIELD_FIELD_WIDTH));
-	Xil_AssertVoid(EqCoeffs != NULL);
-	Xil_AssertVoid(EqCoeffs != NULL);
-	Xil_AssertVoid(EqCoeffs->Set > (1U << XDFEEQU_SET_TO_WRITE_SET_WIDTH));
-	Xil_AssertVoid(EqCoeffs->NUnits == 0U);
-
-	/* Write the co-efficient set buffer with the following information */
-	Offset = XDFEEQU_SET_TO_WRITE_OFFSET;
-	XDfeEqu_WriteReg(InstancePtr, Offset, EqCoeffs->Set);
-	Offset = XDFEEQU_NUMBER_OF_UNITS_OFFSET;
-	XDfeEqu_WriteReg(InstancePtr, Offset, EqCoeffs->NUnits);
-	Offset = XDFEEQU_SHIFT_VALUE_OFFSET;
-	XDfeEqu_WriteReg(InstancePtr, Offset, EqCoeffs->Shift);
-
-	/* TODO */
-	Offset = XDFEEQU_COEFFICIENT_SET;
-	for (Index = 0; Index < XDFEEQU_COEFFICIENT_SET_MAX; Index++) {
-		XDfeEqu_WriteReg(InstancePtr, Offset,
-				 EqCoeffs->Coefficients[Index]);
-		Offset += sizeof(u32);
-	}
-
-	/* Set the Channel_Field register (0x010C) with the value in
-	   Channel_Field. This initiates the write of the co-efficients. */
-	Offset = XDFEEQU_CHANNEL_FIELD_OFFSET;
-	XDfeEqu_WriteReg(InstancePtr, Offset, ChannelField);
-
-	/* The software should wait for bit 8 in the Channel_Field register
-	   to go low before returning. */
-	for (Index = 0; Index < XDFEEQU_TIMEOUT; Index++) {
-		Data = XDfeEqu_RdRegBitField(InstancePtr, Offset,
-					     XDFEEQU_CHANNEL_FIELD_DONE_WIDTH,
-					     XDFEEQU_CHANNEL_FIELD_DONE_OFFSET);
-		if (Data == 0U) {
-			break;
-		}
-		usleep(XDFEEQU_WAIT);
-		if (Index == (XDFEEQU_TIMEOUT - 1)) {
-			Xil_AssertVoidAlways();
-		}
-	}
-}
-
-/****************************************************************************/
-/**
-*
-* Set equalizer filter coefficients in Matrix mode.
-*
-* @param    InstancePtr is a pointer to the Equalizer instance.
-* @param    ChannelField is a flag whic bits indicate channel is enabled.
-* @param    EqCoeffs is equalizer coefficients container.
-*
-* @return   None
-*
-* @note     None
-*
-****************************************************************************/
-void XDfeEqu_LoadMatrixCoefficients(const XDfeEqu *InstancePtr,
-				    u32 ChannelField,
-				    const XDfeEqu_Coeff *EqCoeffs)
-{
-	u32 Offset;
-	u32 Data;
-	u32 Index;
-
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEEQU_STATE_OPERATIONAL);
-	Xil_AssertVoid(ChannelField <
-		       ((u32)1U << XDFEEQU_CHANNEL_FIELD_FIELD_WIDTH));
-	Xil_AssertVoid(EqCoeffs != NULL);
-	Xil_AssertVoid(EqCoeffs != NULL);
-	Xil_AssertVoid(EqCoeffs->Set > (1U << XDFEEQU_SET_TO_WRITE_SET_WIDTH));
-	Xil_AssertVoid(EqCoeffs->NUnits == 0U);
-
-	/* Write the co-efficient set buffer with the following information */
-	Offset = XDFEEQU_SET_TO_WRITE_OFFSET;
-	XDfeEqu_WriteReg(InstancePtr, Offset, EqCoeffs->Set);
-	Offset = XDFEEQU_NUMBER_OF_UNITS_OFFSET;
-	XDfeEqu_WriteReg(InstancePtr, Offset, EqCoeffs->NUnits);
-	Offset = XDFEEQU_SHIFT_VALUE_OFFSET;
-	XDfeEqu_WriteReg(InstancePtr, Offset, EqCoeffs->Shift);
-
-	/* TODO */
-	Offset = XDFEEQU_COEFFICIENT_SET;
-	for (Index = 0; Index < XDFEEQU_COEFFICIENT_SET_MAX; Index++) {
-		XDfeEqu_WriteReg(InstancePtr, Offset,
-				 EqCoeffs->Coefficients[Index]);
-		Offset += sizeof(u32);
-	}
-
-	/* Set the Channel_Field register (0x010C) with the value in
-	   Channel_Field. This initiates the write of the co-efficients. */
-	Offset = XDFEEQU_CHANNEL_FIELD_OFFSET;
-	XDfeEqu_WriteReg(InstancePtr, Offset, ChannelField);
-
-	/* The software should wait for bit 8 in the Channel_Field register
-	   to go low before returning. */
-	for (Index = 0; Index < XDFEEQU_TIMEOUT; Index++) {
-		Data = XDfeEqu_RdRegBitField(InstancePtr, Offset,
-					     XDFEEQU_CHANNEL_FIELD_DONE_WIDTH,
-					     XDFEEQU_CHANNEL_FIELD_DONE_OFFSET);
-		if (Data == 0U) {
-			break;
-		}
-		usleep(XDFEEQU_WAIT);
-		if (Index == (XDFEEQU_TIMEOUT - 1)) {
-			Xil_AssertVoidAlways();
-		}
+	/* Write filter coefficients and initiate load */
+	if (Mode == XDFEEQU_DATAPATH_MODE_REAL) {
+		XDfeEqu_LoadRealCoefficients(InstancePtr, ChannelField,
+					     EqCoeffs, NumValues, Shift);
+	} else if (Mode == XDFEEQU_DATAPATH_MODE_COMPLEX) {
+		XDfeEqu_LoadComplexCoefficients(InstancePtr, ChannelField,
+						EqCoeffs, NumValues, Shift);
+	} else {
+		XDfeEqu_LoadMatrixCoefficients(InstancePtr, ChannelField,
+					       EqCoeffs, NumValues, Shift);
 	}
 }
 
@@ -979,134 +1142,77 @@ void XDfeEqu_LoadMatrixCoefficients(const XDfeEqu *InstancePtr,
 * Get used coefficients settings.
 *
 * @param    InstancePtr is a pointer to the Equalizer instance.
-* @param    Config configuration container.
+* @param    RealSet is a pointer to a real value.
+* @param    ImagSet is a pointer to a imaginary value.
 *
 * @return   None
 *
 * @note     None
 *
 ****************************************************************************/
-void XDfeEqu_GetCoefficientSet(const XDfeEqu *InstancePtr,
-			       XDfeEqu_EqConfig *Config)
+void XDfeEqu_GetActiveSets(const XDfeEqu *InstancePtr, u32 *RealSet,
+			   u32 *ImagSet)
 {
-	u32 Offset;
 	u32 Data;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFEEQU_STATE_OPERATIONAL);
-	Xil_AssertVoid(Config != NULL);
+	Xil_AssertVoid(RealSet != NULL);
+	Xil_AssertVoid(ImagSet != NULL);
 
 	/* Gets the values in bits 7:4 of the Current control register and
 	   populates Config.Real_Datapath_Set and Config.Im_Datapath_Set. */
-	Offset = XDFEEQU_CURRENT_CONTROL_OFFSET;
-	Data = XDfeEqu_ReadReg(InstancePtr, Offset);
+	Data = XDfeEqu_ReadReg(InstancePtr, XDFEEQU_CURRENT_CONTROL_OFFSET);
 	if (0U != (Data & (1U << XDFEEQU_COMPLEX_MODE_OFFSET))) {
-		Config->ImDatapathSet =
-			((Data >> XDFEEQU_COEFF_SET_CONTROL_OFFSET) >>
-			 XDFEEQU_COEFF_SET_CONTROL_IM_OFFSET) &
-			XDFEEQU_COEFF_SET_CONTROL_MASK;
-		Config->RealDatapathSet =
-			(Data >> XDFEEQU_COEFF_SET_CONTROL_OFFSET) &
-			XDFEEQU_COEFF_SET_CONTROL_MASK;
+		*ImagSet = ((Data >> XDFEEQU_COEFF_SET_CONTROL_OFFSET) >>
+			    XDFEEQU_COEFF_SET_CONTROL_IM_OFFSET) &
+			   XDFEEQU_COEFF_SET_CONTROL_MASK;
+		*RealSet = (Data >> XDFEEQU_COEFF_SET_CONTROL_OFFSET) &
+			   XDFEEQU_COEFF_SET_CONTROL_MASK;
 	} else {
-		Config->ImDatapathSet = 0U;
-		Config->RealDatapathSet =
-			(Data >> XDFEEQU_COEFF_SET_CONTROL_OFFSET) &
-			((1U << XDFEEQU_COEFF_SET_CONTROL_WIDTH) - 1U);
+		*ImagSet = 0U;
+		*RealSet = (Data >> XDFEEQU_COEFF_SET_CONTROL_OFFSET) &
+			   ((1U << XDFEEQU_COEFF_SET_CONTROL_WIDTH) - 1U);
 	}
 }
 
-/****************************************************************************/
+/*****************************************************************************/
 /**
 *
-* Flush buffers.
+* This API is used to get the driver version.
 *
-* @param    InstancePtr is a pointer to the Equalizer instance.
-* @param    TriggerSource sets a trigger source.
+* @param    SwVersion is driver version numbers.
+* @param    HwVersion is HW version numbers.
 *
 * @return   None
 *
-* @note     None
+* @note     None.
 *
-****************************************************************************/
-void XDfeEqu_FlushBuffers(XDfeEqu *InstancePtr,
-			  const XDfeEqu_Trigger *TriggerSource)
+******************************************************************************/
+void XDfeEqu_GetVersions(const XDfeEqu *InstancePtr, XDfeEqu_Version *SwVersion,
+			 XDfeEqu_Version *HwVersion)
 {
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEEQU_STATE_OPERATIONAL);
-	Xil_AssertVoid(TriggerSource != NULL);
+	u32 Version;
 
-	/* Sets bit 1 of the Next Control register (0x24) high. This bit will
-	   self-clear after the buffer flush has been triggered. */
-	XDfeEqu_WrRegBitField(InstancePtr, XDFEEQU_NEXT_CONTROL_OFFSET,
-			      XDFEEQU_FLUSH_BUFFERS_WIDTH,
-			      XDFEEQU_FLUSH_BUFFERS_OFFSET, 1U);
+	Xil_AssertVoid(InstancePtr->StateId != XDFEEQU_STATE_NOT_READY);
 
-	/* Set the Next Control Trigger Source register (0x28) depending on
-	   the Trigger_Source. */
-	XDfeEqu_PressTrigger(InstancePtr, TriggerSource);
+	/* Driver version */
+	SwVersion->Major = XDFEEQU_DRIVER_VERSION_MAJOR;
+	SwVersion->Minor = XDFEEQU_DRIVER_VERSION_MINOR;
+
+	/* Component HW version */
+	Version = XDfeEqu_ReadReg(InstancePtr, XDFEEQU_VERSION_OFFSET);
+	HwVersion->Patch =
+		XDfeEqu_RdBitField(XDFEEQU_VERSION_PATCH_WIDTH,
+				   XDFEEQU_VERSION_PATCH_OFFSET, Version);
+	HwVersion->Revision =
+		XDfeEqu_RdBitField(XDFEEQU_VERSION_REVISION_WIDTH,
+				   XDFEEQU_VERSION_REVISION_OFFSET, Version);
+	HwVersion->Minor =
+		XDfeEqu_RdBitField(XDFEEQU_VERSION_MINOR_WIDTH,
+				   XDFEEQU_VERSION_MINOR_OFFSET, Version);
+	HwVersion->Major =
+		XDfeEqu_RdBitField(XDFEEQU_VERSION_MAJOR_WIDTH,
+				   XDFEEQU_VERSION_MAJOR_OFFSET, Version);
 }
-
-/****************************************************************************/
-/**
-*
-* Set a data path mode.
-*
-* @param    InstancePtr is a pointer to the Equalizer instance.
-* @param    TriggerSource sets a trigger source.
-* @param    Mode is a Power down flag.
-*
-* @return   None
-*
-* @note     None
-*
-****************************************************************************/
-void XDfeEqu_SetPowerMode(XDfeEqu *InstancePtr,
-			  const XDfeEqu_Trigger *TriggerSource, u32 Mode)
-{
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEEQU_STATE_OPERATIONAL);
-	Xil_AssertVoid(TriggerSource != NULL);
-
-	/* Set the Dynamic Power Down Mode register (0x2C) depending on
-	   Trigger_Source and Mode. Mode can be on or off. */
-	XDfeEqu_WrRegBitField(InstancePtr,
-			      XDFEEQU_DYNAMIC_POWER_DOWN_MODE_OFFSET,
-			      XDFEEQU_DYNAMIC_POWER_DOWN_MODE_NEXT_MODE_WIDTH,
-			      XDFEEQU_DYNAMIC_POWER_DOWN_MODE_NEXT_MODE_OFFSET,
-			      Mode);
-
-	/* Set the Next Control Trigger Source register (0x28) depending on
-	   the Trigger_Source. */
-	XDfeEqu_PressTrigger(InstancePtr, TriggerSource);
-}
-
-/****************************************************************************/
-/**
-*
-* Get a data path mode.
-*
-* @param    InstancePtr is a pointer to the Equalizer instance.
-* @param    TriggerSource sets a trigger source.
-* @param    Mode is a pointer to power down status.
-*
-* @return   None
-*
-* @note     None
-*
-****************************************************************************/
-void XDfeEqu_GetPowerMode(XDfeEqu *InstancePtr, u32 *Mode)
-{
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEEQU_STATE_OPERATIONAL);
-	Xil_AssertVoid(Mode != NULL);
-
-	/* Set the Dynamic Power Down Mode register (0x2C) depending on
-	   Trigger_Source and Mode. Mode can be on or off. */
-	*Mode = XDfeEqu_RdRegBitField(
-		InstancePtr, XDFEEQU_DYNAMIC_POWER_DOWN_MODE_OFFSET,
-		XDFEEQU_DYNAMIC_POWER_DOWN_MODE_CURRENT_MODE_WIDTH,
-		XDFEEQU_DYNAMIC_POWER_DOWN_MODE_CURRENT_MODE_OFFSET);
-}
-
 /** @} */
