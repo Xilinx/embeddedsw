@@ -218,15 +218,7 @@ namespace xaiefal {
 		 * @return true if resource has been initialized, false otherwise.
 		 */
 		bool isInitialized() const {
-			bool Ret;
-
-			if (State.Initialized == 0) {
-				Ret = false;
-			} else {
-				Ret = true;
-
-			}
-			return Ret;
+			return State.Initialized;
 		}
 		/**
 		 * This function checks if resource has been reserved.
@@ -234,15 +226,7 @@ namespace xaiefal {
 		 * @return true if resource has been reserved, false otherwise.
 		 */
 		bool isReserved() const {
-			bool Ret;
-
-			if (State.Reserved == 0) {
-				Ret = false;
-			} else {
-				Ret = true;
-
-			}
-			return Ret;
+			return State.Reserved;
 		}
 		/**
 		 * This function checks if resource has been configured.
@@ -251,15 +235,7 @@ namespace xaiefal {
 		 *	   false otherwise.
 		 */
 		bool isConfigured() const {
-			bool Ret;
-
-			if (State.Configured == 0) {
-				Ret = false;
-			} else {
-				Ret = true;
-
-			}
-			return Ret;
+			return State.Configured;
 		}
 		/**
 		 * This function checks if resource is in use.
@@ -267,14 +243,7 @@ namespace xaiefal {
 		 * @return true if resource is in use, falsei otherwise.
 		 */
 		bool isRunning() const {
-			bool Ret;
-
-			if (State.Running == 0) {
-				Ret = false;
-			} else {
-				Ret = true;
-			}
-			return Ret;
+			return State.Running;
 		}
 		/**
 		 * This function sets function name this resource is used for.
