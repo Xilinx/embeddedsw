@@ -175,7 +175,7 @@ namespace xaiefal {
 		StrmSwPortType PortType; /**< port type master, or slave */
 		uint8_t PortNum; /**< port number */
 	protected:
-		AieRC _reserveRsc() {
+		AieRC _reserve() {
 			AieRC RC;
 
 			RC = XAieStreamPortSelect::XAieAllocRsc(Aie, Loc, Rsc);
@@ -186,7 +186,7 @@ namespace xaiefal {
 			}
 			return RC;
 		}
-		AieRC _releaseRsc() {
+		AieRC _release() {
 			XAieStreamPortSelect::XAieReleaseRsc(Aie, Rsc);
 
 			return XAIE_OK;

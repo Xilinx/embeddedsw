@@ -125,7 +125,7 @@ namespace xaiefal {
 	protected:
 		uint32_t PcAddr; /**< PC address */
 	private:
-		AieRC _reserveRsc() {
+		AieRC _reserve() {
 			AieRC RC;
 
 			if (_XAie_GetTileTypefromLoc(Aie->dev(), Loc) != XAIEGBL_TILE_TYPE_AIETILE) {
@@ -143,7 +143,7 @@ namespace xaiefal {
 			}
 			return RC;
 		}
-		AieRC _releaseRsc() {
+		AieRC _release() {
 			XAiePCEvent::XAieReleaseRsc(Aie, Rsc);
 
 			return XAIE_OK;
@@ -234,7 +234,7 @@ namespace xaiefal {
 		uint32_t PcAddrs[2]; /**< starting and end PC addresses */
 		XAie_UserRsc Rscs[2]; /**< start and end PC events */
 	private:
-		AieRC _reserveRsc() {
+		AieRC _reserve() {
 			AieRC RC;
 
 			if (_XAie_GetTileTypefromLoc(Aie->dev(), Loc) != XAIEGBL_TILE_TYPE_AIETILE) {
@@ -263,7 +263,7 @@ namespace xaiefal {
 			}
 			return RC;
 		}
-		AieRC _releaseRsc() {
+		AieRC _release() {
 			XAiePCEvent::XAieReleaseRsc(Aie, Rscs[0]);
 			XAiePCEvent::XAieReleaseRsc(Aie, Rscs[1]);
 
