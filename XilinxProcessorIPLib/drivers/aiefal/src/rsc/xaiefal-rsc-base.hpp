@@ -322,7 +322,7 @@ namespace xaiefal {
 				mask = 1 << lstart;
 				for (int b = lstart; b <= lend; b++, mask <<= 1) {
 					if ((*sbits & mask) == 0) {
-						ret = b;
+						ret = b + start - lstart;
 						break;
 					}
 				}
