@@ -265,7 +265,7 @@ namespace xaiefal {
 		const std::string& getFuncName() const {
 			return FuncName;
 		}
-	protected:
+
 		/**
 		 * This funtion returns AI engine device
 		 */
@@ -273,6 +273,7 @@ namespace xaiefal {
 			return AieHd->dev();
 		}
 
+	protected:
 		XAieRscState State; /**< resource state */
 		std::string FuncName; /**< function name which resource is used
 					   for */
@@ -464,6 +465,33 @@ namespace xaiefal {
 		~XAieRscGroup() {}
 
 		/**
+		 * This function adds a resource to the resource group.
+		 *
+		 * @param R AI engine resource shared pointer
+		 * @return XAIE_OK for success, error code for failure.
+		 */
+		AieRC addRsc(std::shared_ptr<T> R) {
+			bool toAdd = true;
+
+			if (R->dev() != Aie->dev()) {
+				Logger::log(LogLevel::ERROR) <<
+					"failed to add resource to group, ai dev mistached." <<
+					std::endl;
+				return XAIE_INVALID_ARGS;
+			}
+			for (auto lR: vRscs) {
+				if (lR->loc().Col == R->loc().Col &&
+					lR->loc().Row == R->loc().Row) {
+					toAdd = false;
+					break;
+				}
+			}
+			if (toAdd) {
+				vRscs.push_back(R);
+			}
+			return XAIE_OK;
+		}
+		/**
 		 * This function adds a tile to the resource group.
 		 * It will construct resource for the specified tile and add it
 		 * to the group.
@@ -471,21 +499,43 @@ namespace xaiefal {
 		 * @param L Tile location
 		 * @return XAIE_OK for success, error code for failure.
 		 */
-		AieRC addRsc(const XAie_LocType &L) {
+		AieRC addRsc(XAie_LocType L) {
 			bool toAdd = true;
 
-			for (int i = 0; i < (int)vRscs.size(); i++) {
-				if (vRscs[i]->loc().Col == L.Col &&
-					vRscs[i]->loc().Row == L.Row) {
+			for (auto R: vRscs) {
+				if (R->loc().Col == L.Col &&
+					R->loc().Row == L.Row) {
 					toAdd = false;
 					break;
 				}
 			}
 			if (toAdd) {
-				auto R = std::make_shared<T>(Aie, L);
+				vRscs.push_back(std::make_shared<T>(*(Aie.get()), L));
+			}
+			return XAIE_OK;
+		}
+		/**
+		 * This function adds a tile to the resource group.
+		 * It will construct resource for the specified tile and add it
+		 * to the group.
+		 *
+		 * @param L Tile location
+		 * @param Args other arguments such as module type
+		 * @return XAIE_OK for success, error code for failure.
+		 */
+		template <typename... A>
+		AieRC addRsc(XAie_LocType L, A... Args) {
+			bool toAdd = true;
 
-				R->setFuncName(FuncName);
-				vRscs.push_back(std::move(R));
+			for (auto R: vRscs) {
+				if (R->loc().Col == L.Col &&
+					R->loc().Row == L.Row) {
+					toAdd = false;
+					break;
+				}
+			}
+			if (toAdd) {
+				vRscs.push_back(std::make_shared<T>(*(Aie.get()), L, Args...));
 			}
 			return XAIE_OK;
 		}
@@ -498,9 +548,8 @@ namespace xaiefal {
 		 * @return XAIE_OK.
 		 */
 		AieRC addRsc(const std::vector<XAie_LocType> &vL) {
-			//TODO: can validate the tile
-			for (int i = 0; i < (int)vL.size(); i++) {
-				addRsc(vL[i]);
+			for (auto L: vL) {
+				addRsc(L);
 			}
 			return XAIE_OK;
 		}
@@ -510,16 +559,15 @@ namespace xaiefal {
 		 * It will construct resource for the specified tile and add it
 		 * to the group.
 		 *
-		 * @param L Tile location
-		 * @param p extra property name, such as module type
+		 * @param vL Tiles location
+		 * @param Args other arguments, such as module type
 		 * @return XAIE_OK for success, error code for failure.
 		 */
-		template<typename P>
-		AieRC addRsc(const XAie_LocType &L, P p) {
-			auto R = std::make_shared<T>(Aie, L, p);
-
-			R->setFuncName(FuncName);
-			vRscs.push_back(std::move(R));
+		template <typename... A>
+		AieRC addRsc(const std::vector<XAie_LocType> &vL, A... Args) {
+			for (auto L: vL) {
+				addRsc(L, Args...);
+			}
 			return XAIE_OK;
 		}
 		/**
@@ -532,13 +580,14 @@ namespace xaiefal {
 		 */
 		AieRC removeRsc(const std::vector<XAie_LocType> &vL) {
 			//TODO: validate tile
-			for (int i = 0; i < (int)vL.size(); i++) {
-				for (int j = 0; j < (int)vRscs.size(); j++) {
-					if (vRscs[i]->loc().Col == vL[i].Col &&
-						vRscs[i]->loc().Row == vL[i].Row) {
-						vRscs[i]->stop();
-						vRscs[i]->release();
-						vRscs.erase(vRscs.begin() + j);
+			for (auto L: vL) {
+				for (auto i = vRscs.begin(), e = vRscs.end();
+					i != e; ++i) {
+					if ((*i)->loc().Col == L.Col &&
+						(*i)->loc().Row == L.Row) {
+						auto j = i;
+						i--;
+						vRscs.erase(j);
 					}
 				}
 			}
@@ -778,11 +827,11 @@ namespace xaiefal {
 		 * @return weak pointer of the resource for success, weak
 		 *	   pointer of null.
 		 */
-		std::weak_ptr<T> getRef(int i) {
+		std::shared_ptr<T> getRef(int i) {
 			if (i >= 0 && i < (int)vRscs.size()) {
 				return vRscs[i];
 			} else {
-				return std::weak_ptr<T>();
+				return std::shared_ptr<T>();
 			}
 		}
 		/**
@@ -845,7 +894,7 @@ namespace xaiefal {
 		 *	  references to add
 		 * @return XAIE_OK for success, error code for failure
 		 */
-		AieRC addRsc(std::vector<std::weak_ptr<XAieRsc>> &vR) {
+		AieRC addRsc(std::vector<std::shared_ptr<XAieRsc>> &vR) {
 			for (int i = 0; i < (int)vR.size(); i++) {
 				addRsc(vR[i]);
 			}
@@ -866,7 +915,7 @@ namespace xaiefal {
 				auto R = gR.getRef(i);
 
 				for (int j = 0; j < (int)vRefs.size(); j++) {
-					if (vRefs[j].lock() == R.lock()) {
+					if (vRefs[j].lock() == R) {
 						toAdd = false;
 						break;
 					}
@@ -884,11 +933,11 @@ namespace xaiefal {
 		 * @param R AI engine resource object reference to add
 		 * @return XAIE_OK for success, error code for failure
 		 */
-		AieRC addRsc(std::weak_ptr<XAieRsc> R) {
+		AieRC addRsc(std::shared_ptr<XAieRsc> R) {
 			bool toAdd = true;
 
 			for (int i = 0; i < (int)vRefs.size(); i++) {
-				if (vRefs[i].lock() == R.lock()) {
+				if (vRefs[i].lock() == R) {
 					toAdd = false;
 					break;
 				}
