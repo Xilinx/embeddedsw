@@ -16,20 +16,18 @@ namespace xaiefal {
 	 * @class XAieComboEvent
 	 * @brief AI engine combo event resource class
 	 */
-	class XAieComboEvent: public XAieRsc {
+	class XAieComboEvent: public XAieSingleTileRsc {
 	public:
 		XAieComboEvent() = delete;
-		XAieComboEvent(std::shared_ptr<XAieDev> Dev, const XAie_LocType &L):
-			XAieRsc(Dev), Loc(L) {}
-		XAieComboEvent(std::shared_ptr<XAieDev> Dev, const XAie_LocType &L,
-			XAie_ModuleType M):
-			XAieComboEvent(Dev, L) {
-			Mod = M;
-			if (_XAie_CheckModule(Aie->dev(), Loc, Mod) == XAIE_OK) {
-				vEvents.resize(2);
-				State.Initialized = 1;
-			}
+		XAieComboEvent(std::shared_ptr<XAieDevHandle> DevHd,
+			XAie_LocType L, XAie_ModuleType M):
+			XAieSingleTileRsc(DevHd, L, M) {
+			vEvents.resize(2);
+			State.Initialized = 1;
 		}
+		XAieComboEvent(XAieDev &Dev,
+			XAie_LocType L, XAie_ModuleType M):
+			XAieComboEvent(Dev.getDevHandle(), L, M) {}
 		/**
 		 * This function sets the module and number of input events.
 		 *
@@ -52,7 +50,7 @@ namespace xaiefal {
 					" invalid number of events." << std::endl;
 				RC = XAIE_INVALID_ARGS;
 			} else {
-				RC = _XAie_CheckModule(Aie->dev(), Loc, M);
+				RC = _XAie_CheckModule(dev(), Loc, M);
 				if (RC != XAIE_OK) {
 					Logger::log(LogLevel::ERROR) << "combo event " << __func__ << " (" <<
 						(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row <<
@@ -100,7 +98,7 @@ namespace xaiefal {
 				for (int i = 0; i < (int)vE.size(); i++) {
 					uint8_t HwEvent;
 
-					RC = XAie_EventLogicalToPhysicalConv(Aie->dev(), Loc,
+					RC = XAie_EventLogicalToPhysicalConv(dev(), Loc,
 							Mod, vE[i], &HwEvent);
 					if (RC != XAIE_OK) {
 						Logger::log(LogLevel::ERROR) << "combo event " << __func__ << " (" <<
@@ -142,7 +140,7 @@ namespace xaiefal {
 				RC = XAIE_ERR;
 			} else {
 				XAie_Events BaseE;
-				uint32_t TType = _XAie_GetTileTypefromLoc(Aie->dev(), Loc);
+				uint32_t TType = _XAie_GetTileTypefromLoc(dev(), Loc);
 
 				if (TType == XAIEGBL_TILE_TYPE_AIETILE) {
 					if (Mod == XAIE_CORE_MOD) {
@@ -189,8 +187,6 @@ namespace xaiefal {
 			return RC;
 		}
 	protected:
-		XAie_LocType Loc; /**< tile location */
-		XAie_ModuleType Mod; /**< module */
 		std::vector<XAie_Events> vEvents; /**< input events */
 		std::vector<XAie_EventComboOps> vOps; /**< combo operations */
 		std::vector<XAie_UserRsc> vRscs; /**< combo events resources */
@@ -216,7 +212,7 @@ namespace xaiefal {
 				if (i == 0) {
 					StartCId = ComboId;
 				}
-				RC = XAie_EventComboConfig(Aie->dev(), Loc, Mod,
+				RC = XAie_EventComboConfig(dev(), Loc, Mod,
 						ComboId, vOps[i/2], vEvents[i], vEvents[i+1]);
 				if (RC != XAIE_OK) {
 					Logger::log(LogLevel::ERROR) << "combo event " << __func__ << " (" <<
@@ -225,14 +221,14 @@ namespace xaiefal {
 					for (XAie_EventComboId tId = StartCId;
 						tId < ComboId;
 						tId = (XAie_EventComboId)((int)tId + i)) {
-						XAie_EventComboReset(Aie->dev(), Loc, Mod,
+						XAie_EventComboReset(dev(), Loc, Mod,
 								tId);
 					}
 					break;
 				}
 			}
 			if (RC == XAIE_OK && vOps.size() == 3) {
-				RC = XAie_EventComboConfig(Aie->dev(), Loc, Mod,
+				RC = XAie_EventComboConfig(dev(), Loc, Mod,
 					XAIE_EVENT_COMBO2, vOps[2], vEvents[0], vEvents[0]);
 				if (RC != XAIE_OK) {
 					Logger::log(LogLevel::ERROR) << "combo event " << __func__ << " (" <<
@@ -252,7 +248,7 @@ namespace xaiefal {
 					} else {
 						ComboId = XAIE_EVENT_COMBO1;
 					}
-					XAie_EventComboReset(Aie->dev(), Loc, Mod, ComboId);
+					XAie_EventComboReset(dev(), Loc, Mod, ComboId);
 					ComboId = (XAie_EventComboId)((uint32_t)ComboId + 1);
 				}
 			}

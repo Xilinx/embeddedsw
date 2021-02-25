@@ -22,7 +22,8 @@ namespace xaiefal {
 	class XAieStreamPortSelect: public XAieSingleTileRsc {
 	private:
 		//TODO: should be replaced with SSW AIE driver rsc manager
-		static AieRC XAieAllocRsc(std::shared_ptr<XAieDev> Dev, const XAie_LocType &L,
+		static AieRC XAieAllocRsc(std::shared_ptr<XAieDevHandle> Dev,
+				XAie_LocType L,
 				XAie_UserRsc &R) {
 			uint64_t *bits;
 			int bit, sbit;
@@ -52,7 +53,7 @@ namespace xaiefal {
 			}
 			return RC;
 		}
-		static void XAieReleaseRsc(std::shared_ptr<XAieDev> Dev,
+		static void XAieReleaseRsc(std::shared_ptr<XAieDevHandle> Dev,
 				const XAie_UserRsc &R) {
 			uint64_t *bits;
 			int pos;
@@ -69,10 +70,13 @@ namespace xaiefal {
 		}
 	public:
 		XAieStreamPortSelect() = delete;
-		XAieStreamPortSelect(std::shared_ptr<XAieDev> Dev, const XAie_LocType &L):
-			XAieSingleTileRsc(Dev, L) {
+		XAieStreamPortSelect(std::shared_ptr<XAieDevHandle> DevHd,
+			XAie_LocType L):
+			XAieSingleTileRsc(DevHd, L) {
 			State.Initialized = 1;
 		}
+		XAieStreamPortSelect(XAieDev &Dev, XAie_LocType L):
+			XAieSingleTileRsc(Dev.getDevHandle(), L) {}
 		/**
 		 * This function sets which port to select.
 		 * It needs to be called before start() which configures the hardware.
@@ -178,7 +182,7 @@ namespace xaiefal {
 		AieRC _reserve() {
 			AieRC RC;
 
-			RC = XAieStreamPortSelect::XAieAllocRsc(Aie, Loc, Rsc);
+			RC = XAieStreamPortSelect::XAieAllocRsc(AieHd, Loc, Rsc);
 			if (RC != XAIE_OK) {
 				Logger::log(LogLevel::ERROR) << "Stream port select " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
@@ -187,14 +191,14 @@ namespace xaiefal {
 			return RC;
 		}
 		AieRC _release() {
-			XAieStreamPortSelect::XAieReleaseRsc(Aie, Rsc);
+			XAieStreamPortSelect::XAieReleaseRsc(AieHd, Rsc);
 
 			return XAIE_OK;
 		}
 		AieRC _start() {
 			AieRC RC;
 
-			RC = XAie_EventSelectStrmPort(Aie->dev(), Loc, Rsc.RscId,
+			RC = XAie_EventSelectStrmPort(dev(), Loc, Rsc.RscId,
 					PortIntf, PortType, PortNum);
 			if (RC != XAIE_OK) {
 				Logger::log(LogLevel::ERROR) << "Stream port select " << __func__ << " (" <<
@@ -206,7 +210,7 @@ namespace xaiefal {
 		AieRC _stop() {
 			AieRC RC;
 
-			RC = XAie_EventSelectStrmPortReset(Aie->dev(), Loc, Rsc.RscId);
+			RC = XAie_EventSelectStrmPortReset(dev(), Loc, Rsc.RscId);
 			if (RC != XAIE_OK) {
 				Logger::log(LogLevel::ERROR) << "Stream port select " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<

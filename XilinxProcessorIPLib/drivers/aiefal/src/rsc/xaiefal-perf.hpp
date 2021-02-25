@@ -29,7 +29,7 @@ namespace xaiefal {
 	class XAiePerfCounter : public XAieSingleTileRsc {
 	private:
 		//TODO: should be replaced with SSW AIE driver rsc manager
-		static AieRC XAieAllocRsc(std::shared_ptr<XAieDev> Dev, const XAie_LocType &L,
+		static AieRC XAieAllocRsc(std::shared_ptr<XAieDevHandle> Dev, XAie_LocType L,
 				XAie_ModuleType M, XAie_UserRsc &R) {
 			uint64_t *bits;
 			int sbit, bits2check;
@@ -94,7 +94,7 @@ namespace xaiefal {
 			}
 			return RC;
 		}
-		static void XAieReleaseRsc(std::shared_ptr<XAieDev> Dev,
+		static void XAieReleaseRsc(std::shared_ptr<XAieDevHandle> Dev,
 				const XAie_UserRsc &R) {
 			uint64_t *bits;
 			int pos;
@@ -119,29 +119,20 @@ namespace xaiefal {
 		}
 	public:
 		XAiePerfCounter() = delete;
-		XAiePerfCounter(std::shared_ptr<XAieDev> &Dev, const XAie_LocType &L):
-			XAieSingleTileRsc(Dev, L), CrossMod(false) {
-			StartEvent = XAIE_EVENT_NONE_CORE;
-			StopEvent = XAIE_EVENT_NONE_CORE;
-			RstEvent = XAIE_EVENT_NONE_CORE;
+		XAiePerfCounter(std::shared_ptr<XAieDevHandle> DevHd,
+			XAie_LocType L, XAie_ModuleType M,
+			bool CrossM = false):
+			XAieSingleTileRsc(DevHd, L, M), CrossMod(CrossM) {
 			StartMod = Mod;
 			StopMod = Mod;
 			RstMod = Mod;
-			StartBC = nullptr;
-			StopBC = nullptr;
-			RstBC = nullptr;
+			RstEvent = XAIE_EVENT_NONE_CORE;
+			State.Initialized = 1;
 		}
-		XAiePerfCounter(std::shared_ptr<XAieDev> Dev, const XAie_LocType &L,
-			XAie_ModuleType M):
-			XAieSingleTileRsc(Dev, L, M), CrossMod(false) {
-			if (_XAie_CheckModule(Aie->dev(), Loc, Mod) == XAIE_OK) {
-				State.Initialized = 1;
-			} else {
-				Logger::log(LogLevel::ERROR) << "perfcount " << __func__ << " (" <<
-					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
-					" Expect Mod= " << M << " Invalid tile and module combination" << std::endl;
-			}
-		}
+		XAiePerfCounter(XAieDev &Dev,
+			XAie_LocType L, XAie_ModuleType M,
+			bool CrossM = false):
+			XAiePerfCounter(Dev.getDevHandle(), L, M, CrossM) {}
 		~XAiePerfCounter() {
 			if (State.Reserved == 1) {
 				if (StartMod != Rsc.Mod) {
@@ -181,14 +172,14 @@ namespace xaiefal {
 			} else {
 				uint8_t HwEvent;
 
-				RC = XAie_EventLogicalToPhysicalConv(Aie->dev(), Loc,
+				RC = XAie_EventLogicalToPhysicalConv(dev(), Loc,
 					StartM, StartE, &HwEvent);
 				if (RC == XAIE_OK) {
-					RC = XAie_EventLogicalToPhysicalConv(Aie->dev(), Loc,
+					RC = XAie_EventLogicalToPhysicalConv(dev(), Loc,
 						StopM, StopE, &HwEvent);
 				}
 				if (RC == XAIE_OK && RstE != XAIE_EVENT_NONE_CORE) {
-					RC = XAie_EventLogicalToPhysicalConv(Aie->dev(), Loc,
+					RC = XAie_EventLogicalToPhysicalConv(dev(), Loc,
 						RstM, RstE, &HwEvent);
 				}
 				if (RC == XAIE_OK) {
@@ -211,32 +202,6 @@ namespace xaiefal {
 						" RstEvent=" <<RstM << "," << RstE << " " <<
 						std::endl;
 				}
-			}
-			return RC;
-		}
-		/**
-		 * This function sets if allow to allocate perfcounter from a
-		 * different module than the expected one in the same tile.
-		 *
-		 * This function needs to be called before reserving resource.
-		 *
-		 * @param EnableCrossMod true to allow cross module, false
-		 *	  otherwise.
-		 * @return XAIE_OK for success, XAIE_ERR if resource has been
-		 *	   reserved.
-		 */
-		AieRC setCrossMod(bool EnableCrossMod)
-		{
-			AieRC RC;
-
-			if (State.Reserved == 1) {
-				Logger::log(LogLevel::ERROR) << "perfcount " << __func__ << " (" <<
-					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
-					" Expect Mod= " << Mod << " resource reserved." << std::endl;
-				RC = XAIE_ERR;
-			} else {
-				CrossMod = EnableCrossMod;
-				RC = XAIE_OK;
 			}
 			return RC;
 		}
@@ -278,7 +243,7 @@ namespace xaiefal {
 			} else {
 				uint8_t HwEvent;
 
-				RC = XAie_EventLogicalToPhysicalConv(Aie->dev(),
+				RC = XAie_EventLogicalToPhysicalConv(dev(),
 						Loc, M, E, &HwEvent);
 				if (RC == XAIE_OK) {
 					RstEvent = E;
@@ -339,7 +304,7 @@ namespace xaiefal {
 			} else {
 				uint8_t HwEvent;
 
-				RC = XAie_EventLogicalToPhysicalConv(Aie->dev(), Loc,
+				RC = XAie_EventLogicalToPhysicalConv(dev(), Loc,
 						M, E, &HwEvent);
 				if (RC == XAIE_OK) {
 					StartEvent = E;
@@ -376,7 +341,7 @@ namespace xaiefal {
 			} else {
 				uint8_t HwEvent;
 
-				RC = XAie_EventLogicalToPhysicalConv(Aie->dev(), Loc,
+				RC = XAie_EventLogicalToPhysicalConv(dev(), Loc,
 						M, E, &HwEvent);
 				if (RC == XAIE_OK) {
 					StopEvent = E;
@@ -402,7 +367,7 @@ namespace xaiefal {
 					" resource not in use." << std::endl;
 				RC = XAIE_ERR;
 			} else {
-				RC = XAie_PerfCounterGet(Aie->dev(), Loc, Rsc.Mod,
+				RC = XAie_PerfCounterGet(dev(), Loc, Rsc.Mod,
 					Rsc.RscId, &R);
 			}
 			return RC;
@@ -454,9 +419,9 @@ namespace xaiefal {
 	private:
 		AieRC _reserve() {
 			AieRC RC;
-			uint32_t TType = _XAie_GetTileTypefromLoc(Aie->dev(), Loc);
+			uint32_t TType = _XAie_GetTileTypefromLoc(dev(), Loc);
 
-			RC = XAiePerfCounter::XAieAllocRsc(Aie, Loc, Mod, Rsc);
+			RC = XAiePerfCounter::XAieAllocRsc(AieHd, Loc, Mod, Rsc);
 			if (RC != XAIE_OK) {
 				if (TType == XAIEGBL_TILE_TYPE_AIETILE &&
 					CrossMod) {
@@ -467,7 +432,7 @@ namespace xaiefal {
 					} else {
 						lM = XAIE_CORE_MOD;
 					}
-					RC = XAieAllocRsc(Aie, Loc, lM, Rsc);
+					RC = XAieAllocRsc(AieHd, Loc, lM, Rsc);
 				}
 			}
 			if (RC  == XAIE_OK &&
@@ -476,7 +441,7 @@ namespace xaiefal {
 
 				vL.push_back(Loc);
 				if (StartMod != Rsc.Mod) {
-					StartBC = new XAieBroadcast(Aie);
+					StartBC = new XAieBroadcast(AieHd);
 					StartBC->initialize(vL, StartMod, Rsc.Mod);
 					RC = StartBC->reserve();
 					if (RC != XAIE_OK) {
@@ -484,7 +449,7 @@ namespace xaiefal {
 					}
 				}
 				if (RC == XAIE_OK && StopMod != Rsc.Mod) {
-					StopBC = new XAieBroadcast(Aie);
+					StopBC = new XAieBroadcast(AieHd);
 					StopBC->initialize(vL, StartMod, Rsc.Mod);
 					RC = StopBC->reserve();
 					if (RC != XAIE_OK) {
@@ -497,7 +462,7 @@ namespace xaiefal {
 				}
 				if (RC == XAIE_OK && RstEvent != XAIE_EVENT_NONE_CORE &&
 					RstMod != Rsc.Mod) {
-					RstBC = new XAieBroadcast(Aie);
+					RstBC = new XAieBroadcast(AieHd);
 					RstBC->initialize(vL, StartMod, Rsc.Mod);
 					RC = RstBC->reserve();
 					if (RC != XAIE_OK) {
@@ -513,7 +478,7 @@ namespace xaiefal {
 					}
 				}
 				if (RC != XAIE_OK) {
-					XAiePerfCounter::XAieReleaseRsc(Aie, Rsc);
+					XAiePerfCounter::XAieReleaseRsc(AieHd, Rsc);
 				}
 			}
 
@@ -538,7 +503,7 @@ namespace xaiefal {
 				RstBC->release();
 				delete RstBC;
 			}
-			XAiePerfCounter::XAieReleaseRsc(Aie, Rsc);
+			XAiePerfCounter::XAieReleaseRsc(AieHd, Rsc);
 			return XAIE_OK;
 		}
 		AieRC _start() {
@@ -552,22 +517,22 @@ namespace xaiefal {
 
 				if (StartMod != Rsc.Mod) {
 					StartBC->getEvent(Loc, Rsc.Mod, lStartE);
-					RC = XAie_EventBroadcast(Aie->dev(), Loc, StartMod, StartBC->getBc(), StartEvent);
+					RC = XAie_EventBroadcast(dev(), Loc, StartMod, StartBC->getBc(), StartEvent);
 				}
 				if (RC == XAIE_OK && StopMod != Rsc.Mod) {
 					StopBC->getEvent(Loc, Rsc.Mod, lStopE);
-					XAie_EventBroadcast(Aie->dev(), Loc, StopMod, StopBC->getBc(), StopEvent);
+					XAie_EventBroadcast(dev(), Loc, StopMod, StopBC->getBc(), StopEvent);
 				}
 				if (RC == XAIE_OK && RstEvent != XAIE_EVENT_NONE_CORE && RstMod != Rsc.Mod) {
 					RstBC->getEvent(Loc, Rsc.Mod, lRstE);
-					RC = XAie_EventBroadcast(Aie->dev(), Loc, RstMod, RstBC->getBc(), RstEvent);
+					RC = XAie_EventBroadcast(dev(), Loc, RstMod, RstBC->getBc(), RstEvent);
 				}
 				if (RC == XAIE_OK) {
-					RC = XAie_PerfCounterControlSet(Aie->dev(), Loc, Rsc.Mod,
+					RC = XAie_PerfCounterControlSet(dev(), Loc, Rsc.Mod,
 						Rsc.RscId, lStartE, lStopE);
 				}
 				if (RC == XAIE_OK && RstEvent != XAIE_EVENT_NONE_CORE) {
-					RC = XAie_PerfCounterResetControlSet(Aie->dev(), Loc,
+					RC = XAie_PerfCounterResetControlSet(dev(), Loc,
 						Rsc.Mod, Rsc.RscId, lRstE);
 				}
 			}
@@ -584,9 +549,9 @@ namespace xaiefal {
 			AieRC RC;
 			int iRC;
 
-			iRC = (int)XAie_PerfCounterControlReset(Aie->dev(), Loc, Rsc.Mod, Rsc.RscId);
-			iRC |= (int)XAie_PerfCounterResetControlReset(Aie->dev(), Loc, Rsc.Mod, Rsc.RscId);
-			iRC |= (int)XAie_PerfCounterReset(Aie->dev(), Loc, Rsc.Mod, Rsc.RscId);
+			iRC = (int)XAie_PerfCounterControlReset(dev(), Loc, Rsc.Mod, Rsc.RscId);
+			iRC |= (int)XAie_PerfCounterResetControlReset(dev(), Loc, Rsc.Mod, Rsc.RscId);
+			iRC |= (int)XAie_PerfCounterReset(dev(), Loc, Rsc.Mod, Rsc.RscId);
 			if (iRC != (int)XAIE_OK) {
 				Logger::log(LogLevel::ERROR) << "perfcount " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
