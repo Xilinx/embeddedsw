@@ -14,11 +14,7 @@ TEST_GROUP(Tracing)
 
 TEST(Tracing, Basic)
 {
-	std::shared_ptr<XAieDev> AiePtr;
-	std::shared_ptr<XAieTracing> Tracing;
-	XAie_LocType Loc = XAie_TileLoc(1,1);
 	AieRC RC;
-	uint32_t Result;
 
 	XAie_SetupConfig(ConfigPtr, HW_GEN, XAIE_BASE_ADDR,
 			XAIE_COL_SHIFT, XAIE_ROW_SHIFT,
@@ -31,8 +27,8 @@ TEST(Tracing, Basic)
 	RC = XAie_CfgInitialize(&(DevInst), &ConfigPtr);
 	CHECK_EQUAL(RC, XAIE_OK);
 
-	AiePtr = std::make_shared<XAieDev>(&DevInst, true);
-	Tracing = std::make_shared<XAieTracing>(AiePtr, Loc, XAIE_CORE_MOD);
+	XAieDev Aie(&DevInst, true);
+	auto Tracing = Aie.tile(1,1).core().traceControl();
 
 	RC = Tracing->reserve();
 	CHECK_EQUAL(RC, XAIE_OK);

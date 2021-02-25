@@ -14,9 +14,6 @@ TEST_GROUP(PerfCounter)
 
 TEST(PerfCounter, Basic)
 {
-	std::shared_ptr<XAieDev> AiePtr;
-	std::shared_ptr<XAiePerfCounter> PCounter;
-	XAie_LocType Loc = XAie_TileLoc(1,1);
 	AieRC RC;
 	XAie_ModuleType Mod;
 	XAie_Events CounterE;
@@ -33,8 +30,8 @@ TEST(PerfCounter, Basic)
 	RC = XAie_CfgInitialize(&(DevInst), &ConfigPtr);
 	CHECK_EQUAL(RC, XAIE_OK);
 
-	AiePtr = std::make_shared<XAieDev>(&DevInst, true);
-	PCounter = std::make_shared<XAiePerfCounter>(AiePtr, Loc);
+	auto Aie = std::make_shared<XAieDev>(&DevInst, true);
+	auto PCounter = Aie->tile(1,1).core().perfCounter();
 
 	RC = PCounter->initialize(XAIE_CORE_MOD, XAIE_EVENT_ACTIVE_CORE,
 		   XAIE_CORE_MOD, XAIE_EVENT_DISABLED_CORE);
@@ -75,13 +72,7 @@ TEST(PerfCounter, Basic)
 
 TEST(PerfCounter, CrossMod)
 {
-	std::shared_ptr<XAieDev> AiePtr;
-	std::shared_ptr<XAiePerfCounter> PCounter0, PCounter1, PCounter2,
-		PCounter3, PCounter4;
-	XAie_LocType Loc = XAie_TileLoc(1,1);
 	AieRC RC;
-	XAie_ModuleType Mod;
-	XAie_Events CounterE;
 	uint32_t Result;
 	bool CrossMod;
 
@@ -96,8 +87,8 @@ TEST(PerfCounter, CrossMod)
 	RC = XAie_CfgInitialize(&(DevInst), &ConfigPtr);
 	CHECK_EQUAL(RC, XAIE_OK);
 
-	AiePtr = std::make_shared<XAieDev>(&DevInst, true);
-	PCounter0 = std::make_shared<XAiePerfCounter>(AiePtr, Loc);
+	XAieDev Aie(&DevInst, true);
+	auto PCounter0 = Aie.tile(1,1).core().perfCounter();
 
 	RC = PCounter0->initialize(XAIE_CORE_MOD, XAIE_EVENT_ACTIVE_CORE,
 		   XAIE_CORE_MOD, XAIE_EVENT_DISABLED_CORE);
@@ -106,26 +97,16 @@ TEST(PerfCounter, CrossMod)
 	// Test Cross Mod
 	CrossMod = PCounter0->getCrossMod();
 	CHECK_EQUAL(CrossMod, false);
-	RC = PCounter0->setCrossMod(true);
-	CHECK_EQUAL(RC, XAIE_OK);
-	CrossMod = PCounter0->getCrossMod();
-	CHECK_EQUAL(CrossMod, true);
-
-	// Test setting Cross Mod after reservation
-	RC = PCounter0->reserve();
-	CHECK_EQUAL(RC, XAIE_OK);
-	RC = PCounter0->setCrossMod(false);
-	CHECK_EQUAL(RC, XAIE_ERR);
-	RC = PCounter0->release();
-	CHECK_EQUAL(RC, XAIE_OK);
 
 	// Test Perf Counter reservation fail when cross mode
 	// is Enabled.
 	std::shared_ptr<XAiePerfCounter> PCounter;
-	PCounter1 = std::make_shared<XAiePerfCounter>(AiePtr, Loc, XAIE_CORE_MOD);
-	PCounter2 = std::make_shared<XAiePerfCounter>(AiePtr, Loc, XAIE_CORE_MOD);
-	PCounter3 = std::make_shared<XAiePerfCounter>(AiePtr, Loc, XAIE_CORE_MOD);
-	PCounter4 = std::make_shared<XAiePerfCounter>(AiePtr, Loc, XAIE_CORE_MOD);
+	auto PCounter1 = Aie.tile(1,1).perfCounter();
+	auto PCounter2 = Aie.tile(1,1).perfCounter();
+	auto PCounter3 = Aie.tile(1,1).perfCounter();
+	auto PCounter4 = Aie.tile(1,1).perfCounter();
+	CrossMod = PCounter1->getCrossMod();
+	CHECK_EQUAL(CrossMod, true);
 
 	RC = PCounter1->initialize(XAIE_CORE_MOD, XAIE_EVENT_ACTIVE_CORE,
 		   XAIE_CORE_MOD, XAIE_EVENT_DISABLED_CORE);
@@ -147,13 +128,6 @@ TEST(PerfCounter, CrossMod)
 	RC = PCounter2->reserve();
 	CHECK_EQUAL(RC, XAIE_OK);
 	RC = PCounter3->reserve();
-	CHECK_EQUAL(RC, XAIE_OK);
-
-	RC = PCounter4->reserve();
-	CHECK_FALSE(RC == XAIE_OK);
-
-	// Enable cross mode to reserve will pass
-	RC = PCounter4->setCrossMod(true);
 	CHECK_EQUAL(RC, XAIE_OK);
 	RC = PCounter4->reserve();
 	CHECK_EQUAL(RC, XAIE_OK);
