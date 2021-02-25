@@ -27,6 +27,7 @@
 * 1.0   dc     12/06/20 Initial version
 *       dc     04/01/21 Set mgt si570 oscillator to 122.88MHz
 *       dc     02/02/21 Remove hard coded device node name
+*       dc     02/22/21 align driver to current specification
 *
 * </pre>
 *
@@ -166,7 +167,6 @@ static int XDfeEqu_SelfTestExample(u16 DeviceId)
 	XDfeEqu_Cfg Cfg;
 	XDfeEqu *InstancePtr = NULL;
 	XDfeEqu_EqConfig Config;
-	XDfeEqu_Trigger TriggerSource;
 
 	/* Initialize libmetal */
 	if (0 != metal_init(&init_param)) {
@@ -182,7 +182,7 @@ static int XDfeEqu_SelfTestExample(u16 DeviceId)
 	XDfeEqu_Reset(InstancePtr);
 	XDfeEqu_Configure(InstancePtr, &Cfg);
 	XDfeEqu_Initialize(InstancePtr, &Config);
-	XDfeEqu_Activate(InstancePtr, &TriggerSource);
+	XDfeEqu_Activate(InstancePtr, true);
 
 	/* Write and read a dummy Coefficient[0] value */
 	XDfeEqu_WriteReg(InstancePtr, XDFEEQU_COEFFICIENT_SET, 0x1234);
@@ -190,7 +190,7 @@ static int XDfeEqu_SelfTestExample(u16 DeviceId)
 		return XST_FAILURE;
 	}
 
-	XDfeEqu_Deactivate(InstancePtr, &TriggerSource);
+	XDfeEqu_Deactivate(InstancePtr);
 	XDfeEqu_InstanceClose(InstancePtr);
 	return XST_SUCCESS;
 }

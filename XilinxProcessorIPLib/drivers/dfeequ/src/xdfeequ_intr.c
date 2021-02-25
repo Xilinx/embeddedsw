@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfeequ_intr.c
-* @addtogroup xdfeequ_intr_v1_0
+* @addtogroup xdfeequ_v1_0
 * @{
 *
 * This file contains functions related to Equalizer interrupt handling.
@@ -18,6 +18,7 @@
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     12/10/20 Initial version
+*       dc     02/22/21 align driver to current specification
 * </pre>
 *
 ******************************************************************************/
@@ -114,14 +115,14 @@ void XDfeEqu_ClearEventStatus(const XDfeEqu *InstancePtr, u32 ChannelId)
 *
 ****************************************************************************/
 void XDfeEqu_SetInterruptMask(const XDfeEqu *InstancePtr, u32 ChannelField,
-			      u32 StatusMask)
+			      const XDfeEqu_InterruptMask *StatusMask)
 {
 	u32 Index;
 	u32 Offset;
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFEEQU_STATE_OPERATIONAL);
 	Xil_AssertVoid(ChannelField < ((u32)1U << XDFEEQU_CHANNEL_NUM));
-	Xil_AssertVoid(StatusMask <
+	Xil_AssertVoid(StatusMask->Status <
 		       (1U << XDFEEQU_CHANNEL_STATUS_MASK_ENABLE_WIDTH));
 
 	/* Sets the Status Mask register for each channel selected in Channel_Field. */
@@ -129,7 +130,8 @@ void XDfeEqu_SetInterruptMask(const XDfeEqu *InstancePtr, u32 ChannelField,
 		if (0U != (ChannelField & ((u32)1U << Index))) {
 			Offset = XDFEEQU_CHANNEL_0_STATUS_MASK_OFFSET +
 				 (XDFEEQU_CHANNEL_STATUS_OFFSET * Index);
-			XDfeEqu_WriteReg(InstancePtr, Offset, StatusMask);
+			XDfeEqu_WriteReg(InstancePtr, Offset,
+					 StatusMask->Status);
 		}
 	}
 }

@@ -44,6 +44,7 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     09/03/20 Initial version
 *       dc     02/02/21 Remove hard coded device node name
+*       dc     02/22/21 align driver to current specification
 * </pre>
 *
 ******************************************************************************/
@@ -73,8 +74,8 @@ extern "C" {
 #define Xil_AssertNonvoid(Expression) assert(Expression)
 #define Xil_AssertVoid(Expression) assert(Expression)
 #define Xil_AssertVoidAlways() assert(0)
-#define XST_SUCCESS 0U
-#define XST_FAILURE 1U
+#define XST_SUCCESS 0L
+#define XST_FAILURE 1L
 #else
 #define XDFEEQU_MAX_NUM_INSTANCES XPAR_XDFEEQU_NUM_INSTANCES
 #endif
@@ -89,10 +90,6 @@ extern "C" {
 #define XDFEEQU_CHANNEL_NUM 8U
 #define XDFEEQU_MAX_NUMBER_OF_UNITS_COMPLEX 0x3U
 #define XDFEEQU_MAX_NUMBER_OF_UNITS_REAL 0x6U
-
-#define XDFEEQU_TRIGGER_SOURCE_IMMEDIATE 0U
-#define XDFEEQU_TRIGGER_SOURCE_TUSER 1U
-#define XDFEEQU_TRIGGER_SOURCE_TLAST 2U
 
 #define XDFEEQU_DATAPATH_MODE_REAL 0U
 #define XDFEEQU_DATAPATH_MODE_COMPLEX 1U
@@ -134,6 +131,8 @@ typedef struct {
  * Trigger configuration.
  */
 typedef struct {
+	u32 Enable; /**< [0,1], 0 = Disabled: Trigger disabled;
+		1 = Enabled: Trigger enabled */
 	u32 Source; /**< [0,1,2],
 		0 = IMMEDIATE: write to the trigger configuration register
 			immediately
@@ -141,18 +140,23 @@ typedef struct {
 		2 = TLAST: write on Edge detected on TLAST */
 	u32 TUSERBit; /**< [0-7], Species which TUSER bit is used by
 		the trigger */
-	u32 Polarity; /**< [0,1], 0 = Active High, 1 = Active Low */
+	u32 Edge; /**< [0,1,2], 0 = Rising; 1 = Falling; 2 = Both */
+	u32 OneShot; /**< [0,1],
+		0 = Continuous: Once enabled trigger repeats continuously
+		1 = OneShot: Once enabled trigger occurs once and then
+			disables */
 } XDfeEqu_Trigger;
 
 /**
- * Defines a CCID sequence.
+ * All IP triggers.
  */
 typedef struct {
-	u32 Length; /**< [1-16] Sequence length */
-	u32 CCID[XDFEEQU_SEQ_LENGTH_MAX]; /**< [0-15].Array of CCID's
-		arranged in the order the CCIDs are required to be processed
-		in the channel filter */
-} XDfeEqu_CCSequence;
+	XDfeEqu_Trigger Activate; /**< Toggle between "Initialized",
+		ultra-low power state, and "Operational". One-shot trigger,
+		disabled following a single event */
+	XDfeEqu_Trigger LowPower; /**< Toggle between "Low-power"
+		and "Operational" state */
+} XDfeEqu_TriggerCfg;
 
 /*********** end - common code to all Logiccores ************/
 /**
@@ -160,9 +164,9 @@ typedef struct {
  * tree/xparameters.h
  */
 typedef struct {
-	u32 DataIWidth;
-	u32 DataOWidth;
 	u32 NumChannels;
+	u32 SampleWidth;
+	u32 ComplexModel;
 	u32 TuserWidth;
 } XDfeEqu_ModelParameters;
 
@@ -179,31 +183,30 @@ typedef struct {
  * Equalizer Coefficients Structure.
  */
 typedef struct {
-	u32 Coefficients[24]; /**< Signed real numbers. Array of
-		Co-efficients */
-	u32 Set; /**< [0-3] Co-efficient set that the co-efficients apply to */
 	u32 NUnits; /**< [1-6] Number of active units. 1 - 6 in real mode.
 		1 - 3 in complex and matrix mode. */
+	u32 Set; /**< [0-3] Co-efficient set that the co-efficients apply to */
+	s16 Coefficients[24]; /**< Signed real numbers. Array of
+		Co-efficients */
 	u32 Shift; /**< [0-7] Shift value. Set by the formula given in
 		specification item 10 in complex equalizer */
-} XDfeEqu_Coeff;
+} XDfeEqu_Coefficients;
 
 /**
  * Equalizer Configuration Structure.
  */
 typedef struct {
+	u32 Flush; /**< [0,1] Set high to flush the buffers */
 	u32 DatapathMode; /**< [real, complex, matrix]
 		Set depending on whether the equalizer is running in real,
 		complex or matrix mode.
 		Each of the 8 channels consists of 2 sub-channels (shown in
 		figure below in xDFEEqualizerCoefficientsT description).
 		In complex and matrix modes the 2 sub-channels form a single
-		filter channel acting on the real and imaginary parts of
-		the data.
+		filter channel acting on the real and imaginary parts of the
+		data.
 		In real mode the 2 sub-channels act as independent filter
-		channels acting on the 2 real samples at the input.Set
-		depending on whether the equalizer is running in real
-		 or complex mode */
+		channels acting on the 2 real samples at the input. */
 	u32 RealDatapathSet; /**< [0-3] Co-efficient set to use for real
 		datapath (Ha and Hb in complex and matrix mode. Ha, Hb, Hc
 		and Hd in real mode). In complex mode the datapath set is
@@ -236,9 +239,9 @@ typedef struct {
 typedef struct {
 	u32 DeviceId;
 	metal_phys_addr_t BaseAddr;
-	u32 DataIWidth;
-	u32 DataOWidth;
 	u32 NumChannels;
+	u32 SampleWidth;
+	u32 ComplexModel;
 	u32 TuserWidth;
 } XDfeEqu_Config;
 
@@ -265,35 +268,26 @@ u32 XDfeEqu_ReadReg(const XDfeEqu *InstancePtr, u32 AddrOffset);
 void XDfeEqu_Reset(XDfeEqu *InstancePtr);
 void XDfeEqu_Configure(XDfeEqu *InstancePtr, XDfeEqu_Cfg *Cfg);
 void XDfeEqu_Initialize(XDfeEqu *InstancePtr, const XDfeEqu_EqConfig *Config);
-void XDfeEqu_Activate(XDfeEqu *InstancePtr,
-		      const XDfeEqu_Trigger *TriggerSource);
-void XDfeEqu_Deactivate(XDfeEqu *InstancePtr,
-			const XDfeEqu_Trigger *TriggerSource);
+void XDfeEqu_Activate(XDfeEqu *InstancePtr, bool EnableLowPower);
+void XDfeEqu_Deactivate(XDfeEqu *InstancePtr);
 
 /* User APIs */
-void XDfeEqu_SwitchCoefficientSet(XDfeEqu *InstancePtr,
-				  const XDfeEqu_EqConfig *Config,
-				  const XDfeEqu_Trigger *TriggerSource);
-void XDfeEqu_LoadRealCoefficients(const XDfeEqu *InstancePtr, u32 ChannelField,
-				  const XDfeEqu_Coeff *EqCoeffs);
-void XDfeEqu_LoadComplexCoefficients(const XDfeEqu *InstancePtr,
-				     u32 ChannelField,
-				     const XDfeEqu_Coeff *EqCoeffs);
-void XDfeEqu_LoadMatrixCoefficients(const XDfeEqu *InstancePtr,
-				    u32 ChannelField,
-				    const XDfeEqu_Coeff *EqCoeffs);
+void XDfeEqu_Update(const XDfeEqu *InstancePtr, const XDfeEqu_EqConfig *Config);
+void XDfeEqu_GetTriggersCfg(const XDfeEqu *InstancePtr,
+			    XDfeEqu_TriggerCfg *TriggerCfg);
+void XDfeEqu_SetTriggersCfg(const XDfeEqu *InstancePtr,
+			    XDfeEqu_TriggerCfg *TriggerCfg);
+void XDfeEqu_LoadCoefficients(const XDfeEqu *InstancePtr, u32 ChannelField,
+			      u32 Mode, const XDfeEqu_Coefficients *EqCoeffs);
 void XDfeEqu_GetEventStatus(const XDfeEqu *InstancePtr, u32 ChannelId,
 			    XDfeEqu_Status *Status);
 void XDfeEqu_ClearEventStatus(const XDfeEqu *InstancePtr, u32 ChannelId);
 void XDfeEqu_SetInterruptMask(const XDfeEqu *InstancePtr, u32 ChannelField,
-			      u32 StatusMask);
-void XDfeEqu_GetCoefficientSet(const XDfeEqu *InstancePtr,
-			       XDfeEqu_EqConfig *Config);
-void XDfeEqu_FlushBuffers(XDfeEqu *InstancePtr,
-			  const XDfeEqu_Trigger *TriggerSource);
-void XDfeEqu_SetPowerMode(XDfeEqu *InstancePtr,
-			  const XDfeEqu_Trigger *TriggerSource, u32 Mode);
-void XDfeEqu_GetPowerMode(XDfeEqu *InstancePtr, u32 *Mode);
+			      const XDfeEqu_InterruptMask *StatusMask);
+void XDfeEqu_GetActiveSets(const XDfeEqu *InstancePtr, u32 *RealSet,
+			   u32 *ImagSet);
+void XDfeEqu_GetVersions(const XDfeEqu *InstancePtr, XDfeEqu_Version *SwVersion,
+			 XDfeEqu_Version *HwVersion);
 
 #ifdef __cplusplus
 }
