@@ -7,7 +7,6 @@
 #pragma once
 
 namespace xaiefal {
-namespace log {
 	enum class LogLevel {
 		DEBUG,
 		INFO,
@@ -75,5 +74,4 @@ namespace log {
 		}
 
 	};
-}
 }

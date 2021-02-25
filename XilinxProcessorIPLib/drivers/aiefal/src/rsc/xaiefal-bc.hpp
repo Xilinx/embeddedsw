@@ -12,8 +12,6 @@
 #pragma once
 
 namespace xaiefal {
-namespace resource {
-using namespace xaiefal::log;
 	/**
 	 * @class XAieBroadcast
 	 * @brief class for broadcast channel resource.
@@ -360,5 +358,4 @@ using namespace xaiefal::log;
 			}
 		}
 	};
-}
 }

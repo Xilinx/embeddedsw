@@ -10,11 +10,6 @@
 #pragma once
 
 namespace xaiefal {
-namespace profile {
-using namespace xaiefal;
-using namespace xaiefal::log;
-using namespace xaiefal::resource;
-
 	class XAieActiveCycles: public XAiePerfCounter {
 	public:
 		XAieActiveCycles() = delete;
@@ -42,5 +37,4 @@ using namespace xaiefal::resource;
 		}
 	};
 
-}
 }

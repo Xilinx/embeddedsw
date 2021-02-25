@@ -12,8 +12,6 @@
 #pragma once
 
 namespace xaiefal {
-namespace resource {
-using namespace xaiefal::log;
 	/**
 	 * @class XAieComboEvent
 	 * @brief AI engine combo event resource class
@@ -261,5 +259,4 @@ using namespace xaiefal::log;
 			return XAIE_OK;
 		}
 	};
-}
 }

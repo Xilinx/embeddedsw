@@ -14,8 +14,6 @@
 #pragma once
 
 namespace xaiefal {
-namespace resource {
-using namespace xaiefal::log;
 	/**
 	 * @class XAiePerfCounter
 	 * @brief class for Perfcounter resource.
@@ -600,5 +598,4 @@ using namespace xaiefal::log;
 			return XAIE_OK;
 		}
 	};
-}
 }

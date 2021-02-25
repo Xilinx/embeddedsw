@@ -18,8 +18,6 @@
 #pragma once
 
 namespace xaiefal {
-namespace resource {
-using namespace xaiefal::log;
 	enum class XAieRscType {
 		PCOUNTER,
 		BC,
@@ -1097,5 +1095,4 @@ using namespace xaiefal::log;
 		std::string Name; /**< Name of the meta data resource container */
 		std::vector<std::weak_ptr<XAieRsc>> vRefs;
 	};
-}
 }

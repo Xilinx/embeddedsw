@@ -2,6 +2,8 @@
 
 #include "CppUTest/CommandLineTestRunner.h"
 
+using namespace xaiefal;
+
 int main(int ac, char** av)
 {
 

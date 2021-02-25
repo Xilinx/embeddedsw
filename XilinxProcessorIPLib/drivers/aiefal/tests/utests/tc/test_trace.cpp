@@ -6,6 +6,8 @@
 
 #include "common/tc_config.h"
 
+using namespace xaiefal;
+
 TEST_GROUP(Tracing)
 {
 };

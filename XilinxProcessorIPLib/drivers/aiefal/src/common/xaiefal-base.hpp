@@ -17,7 +17,6 @@
 #pragma once
 
 namespace xaiefal {
-using namespace xaiefal::log;
 	/**
 	 * @class XAieDev
 	 * @brief AI engine device class. It defines AI engine device

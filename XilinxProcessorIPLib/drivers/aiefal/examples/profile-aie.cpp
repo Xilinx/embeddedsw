@@ -21,6 +21,7 @@
 #define XAIE_AIE_TILE_NUM_ROWS 8
 
 using namespace std;
+using namespace xaiefal;
 
 class XAieHeatMap {
 public:
