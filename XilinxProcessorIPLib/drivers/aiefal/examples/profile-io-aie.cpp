@@ -154,9 +154,6 @@ public:
 				"PerfCount=" << R << endl;
 		}
 	}
-	void genJson(ostream *io) {
-		Container.genJson(io);
-	}
 private:
 	std::shared_ptr<XAieDev> Aie;
 	XAie_LocType StartLoc;
@@ -202,7 +199,6 @@ int main(void)
 	ProfileIO.printResult();
 	ProfileIO.stop();
 	ProfileIO.release();
-	//ProfileIO.getRscJson();
 
 	return 0;
 }
