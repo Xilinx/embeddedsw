@@ -101,6 +101,10 @@ namespace xaiefal {
 		std::vector<XAie_LocType> vLocs; /**< tiles on the channel */
 		std::vector<XAie_UserRsc> vRscs; /**< broadcast channel allocated r esources */
 	private:
+		/**
+		 * TODO: Following function will not be required.
+		 * Bitmap will be moved to device driver
+		 */
 		static void getAieBCTileBits(std::shared_ptr<XAieDevHandle> Dev,
 				const XAie_LocType &L, uint16_t &bits) {
 			uint32_t i;
@@ -113,9 +117,10 @@ namespace xaiefal {
 				bits = Dev->XAieBroadcastMemBits[i] | Dev->XAieBroadcastCoreBits[i];
 			}
 		}
-	public:
+
 		/**
-		 * TODO: will not be required of bitmap is moved to device driver
+		 * TODO: Following function will not be required.
+		 * Bitmap will be moved to device driver
 		 */
 		static AieRC XAieAllocRsc(std::shared_ptr<XAieDevHandle> Dev,
 				const std::vector<XAie_LocType> &vL,
@@ -318,7 +323,8 @@ namespace xaiefal {
 			return XAIE_OK;
 		}
 		/**
-		 * TODO: will not be required of bitmap is moved to device driver
+		 * TODO: Following function will not be required.
+		 * Bitmap will be moved to device driver
 		 */
 		static void XAieReleaseRsc(std::shared_ptr<XAieDevHandle> Dev,
 				const XAie_UserRsc &R) {
