@@ -404,7 +404,7 @@ namespace xaiefal {
 		 * @param L returns tile location
 		 * @param M returns module type
 		 * @param I returns resource ID
-		 * @returns XAIE_OK for success, error code for failure
+		 * @return XAIE_OK for success, error code for failure
 		 */
 		AieRC getRscId(XAie_LocType &L, XAie_ModuleType &M,
 				uint32_t &I) {
