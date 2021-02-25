@@ -24,9 +24,7 @@ namespace xaiefal {
 		std::ofstream of;
 		std::ofstream ofnull;
 
-		~Logger() {
-			of.close();
-		}
+		~Logger() {}
 
 		void setLogLevel(LogLevel L) {
 			Level = L;
