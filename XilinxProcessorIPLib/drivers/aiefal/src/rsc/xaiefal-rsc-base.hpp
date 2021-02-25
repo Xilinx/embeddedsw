@@ -17,8 +17,6 @@
 
 #pragma once
 
-using namespace std;
-
 namespace xaiefal {
 namespace resource {
 using namespace xaiefal::log;
@@ -100,11 +98,11 @@ using namespace xaiefal::log;
 
 			if (State.Reserved == 1) {
 				Logger::log(LogLevel::ERROR) << __func__ << " " <<
-					typeid(*this).name() << " resource has been allocated." << endl;
+					typeid(*this).name() << " resource has been allocated." << std::endl;
 				RC = XAIE_ERR;
 			} else if (State.Initialized == 0) {
 				Logger::log(LogLevel::ERROR) << __func__ << " " <<
-					typeid(*this).name() << " resource not configured." << endl;
+					typeid(*this).name() << " resource not configured." << std::endl;
 				RC = XAIE_ERR;
 			} else {
 				RC = _reserve();
@@ -127,7 +125,7 @@ using namespace xaiefal::log;
 
 			if (State.Running == 1) {
 				Logger::log(LogLevel::ERROR) << __func__ << " " <<
-					typeid(*this).name() << "resource is running." << endl;
+					typeid(*this).name() << "resource is running." << std::endl;
 				RC = XAIE_ERR;
 			} else if (State.Reserved == 1) {
 				RC = _release();
@@ -152,12 +150,12 @@ using namespace xaiefal::log;
 
 			if (State.Prereserved == 0) {
 				Logger::log(LogLevel::ERROR) << __func__ << " " <<
-					typeid(*this).name() << " resource is not preserved." << endl;
+					typeid(*this).name() << " resource is not preserved." << std::endl;
 				RC = XAIE_INVALID_ARGS;
 			} else {
 				if (State.Running == 1) {
 					Logger::log(LogLevel::ERROR) << __func__ << " " <<
-						typeid(*this).name() << " resource is running." << endl;
+						typeid(*this).name() << " resource is running." << std::endl;
 					RC = XAIE_INVALID_ARGS;
 				} else if (State.Reserved == 1) {
 					RC = _free();
@@ -186,12 +184,12 @@ using namespace xaiefal::log;
 					}
 				} else {
 					Logger::log(LogLevel::ERROR) << __func__ << " " <<
-						typeid(*this).name() << " resource is not configured." << endl;
+						typeid(*this).name() << " resource is not configured." << std::endl;
 					RC = XAIE_ERR;
 				}
 			} else {
 				Logger::log(LogLevel::ERROR) << __func__ << " " <<
-					typeid(*this).name() << " resource is not allocated." << endl;
+					typeid(*this).name() << " resource is not allocated." << std::endl;
 				RC = XAIE_ERR;
 			}
 			return RC;
@@ -409,7 +407,7 @@ using namespace xaiefal::log;
 				Logger::log(LogLevel::ERROR) << typeid(*this).name() << " " <<
 					__func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
-					" Invalid tile." << endl;
+					" Invalid tile." << std::endl;
 			} else {
 				if (TType == XAIEGBL_TILE_TYPE_SHIMPL ||
 					TType == XAIEGBL_TILE_TYPE_SHIMNOC) {
@@ -450,7 +448,7 @@ using namespace xaiefal::log;
 					__func__ << "(" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
 					" Expect Mod= " << Mod <<
-					" resource not reserved." << endl;
+					" resource not reserved." << std::endl;
 				RC = XAIE_ERR;
 			} else {
 				L = Loc;
@@ -593,7 +591,7 @@ using namespace xaiefal::log;
 
 			 if (vRscs.size() == 0) {
 				Logger::log(LogLevel::ERROR) << __func__ <<
-					"failed to reserve, no resource specified." << endl;
+					"failed to reserve, no resource specified." << std::endl;
 				RC = XAIE_ERR;
 			} else {
 				RC = XAIE_OK;
@@ -608,7 +606,7 @@ using namespace xaiefal::log;
 						Logger::log(LogLevel::ERROR) << __func__ <<
 							"failed to reserve tile(" <<
 							(uint32_t)vRscs[i]->loc().Col << "," <<
-							(uint32_t)vRscs[i]->loc().Row << ")." << endl;
+							(uint32_t)vRscs[i]->loc().Row << ")." << std::endl;
 						failedL = vRscs[i]->loc();
 						RC = XAIE_ERR;
 						break;
@@ -649,7 +647,7 @@ using namespace xaiefal::log;
 					Logger::log(LogLevel::ERROR) << __func__ <<
 						"failed to release tile(" <<
 						(uint32_t)vRscs[i]->loc().Col << "," <<
-						(uint32_t)vRscs[i]->loc().Row << ")." << endl;
+						(uint32_t)vRscs[i]->loc().Row << ")." << std::endl;
 				}
 			}
 			return RC;
@@ -665,7 +663,7 @@ using namespace xaiefal::log;
 
 			 if (vRscs.size() == 0) {
 				Logger::log(LogLevel::ERROR) << __func__ <<
-					"failed to reserve, no resource specified." << endl;
+					"failed to reserve, no resource specified." << std::endl;
 				RC = XAIE_ERR;
 			} else {
 				for (int i = 0; i < (int)vRscs.size(); i++) {
@@ -677,7 +675,7 @@ using namespace xaiefal::log;
 						Logger::log(LogLevel::ERROR) << __func__ <<
 							"failed to start tile(" <<
 							(uint32_t)vRscs[i]->loc().Col << "," <<
-							(uint32_t)vRscs[i]->loc().Row << ")." << endl;
+							(uint32_t)vRscs[i]->loc().Row << ")." << std::endl;
 						break;
 					}
 				}
@@ -701,7 +699,7 @@ using namespace xaiefal::log;
 					Logger::log(LogLevel::ERROR) << __func__ <<
 						"failed to stop tile(" <<
 						(uint32_t)vRscs[i]->loc().Col << "," <<
-						(uint32_t)vRscs[i]->loc().Row << ")." << endl;
+						(uint32_t)vRscs[i]->loc().Row << ")." << std::endl;
 					RC = lRC;
 				}
 			}
@@ -779,7 +777,7 @@ using namespace xaiefal::log;
 			}
 			if (canClear == false) {
 				Logger::log(LogLevel::ERROR) << __func__ <<
-					"failed resource group, rsources allocated." << endl;
+					"failed resource group, rsources allocated." << std::endl;
 				RC = XAIE_ERR;
 			} else {
 				vRscs.clear();
@@ -945,7 +943,7 @@ using namespace xaiefal::log;
 
 			 if (vRefs.size() == 0) {
 				Logger::log(LogLevel::ERROR) << __func__ <<
-					"failed to reserve, no resource references specified." << endl;
+					"failed to reserve, no resource references specified." << std::endl;
 				RC = XAIE_ERR;
 			} else {
 				RC = XAIE_OK;

@@ -16,8 +16,6 @@
 
 #pragma once
 
-using namespace std;
-
 namespace xaiefal {
 using namespace xaiefal::log;
 	/**
@@ -58,7 +56,7 @@ using namespace xaiefal::log;
 		 * @param MString returns module type name in string
 		 * @return XAIE_OK for success, error code for failure
 		 */
-		AieRC modToString(XAie_ModuleType Mod, string &MString) {
+		AieRC modToString(XAie_ModuleType Mod, std::string &MString) {
 			AieRC RC = XAIE_OK;
 
 			if (Mod == XAIE_CORE_MOD) {
@@ -70,7 +68,8 @@ using namespace xaiefal::log;
 			} else {
 				RC = XAIE_INVALID_ARGS;
 				Logger::log(LogLevel::ERROR) << __func__ <<
-					"failed. invalid module type." << endl;
+					"failed. invalid module type." <<
+					std::endl;
 			}
 			return RC;
 		}
@@ -81,7 +80,8 @@ using namespace xaiefal::log;
 		 * @param Mod returns module type
 		 * @return XAIE_OK for success, error code for failure
 		 */
-		AieRC stringToMod(const string &MString, XAie_ModuleType &Mod) {
+		AieRC stringToMod(const std::string &MString,
+			XAie_ModuleType &Mod) {
 			AieRC RC = XAIE_OK;
 
 			if (MString == "core") {
@@ -93,7 +93,7 @@ using namespace xaiefal::log;
 			} else {
 				RC = XAIE_INVALID_ARGS;
 				Logger::log(LogLevel::ERROR) << __func__ <<
-				"failed. invalid module string." << endl;
+				"failed. invalid module string." << std::endl;
 			}
 			return RC;
 		}
@@ -109,7 +109,7 @@ using namespace xaiefal::log;
 		 * @return XAIE_OK
 		 */
 		AieRC getRelativeLoc(const XAie_LocType &L, XAie_LocType &rL,
-			string &TTypeStr) const {
+			std::string &TTypeStr) const {
 			uint8_t Type = _XAie_GetTileTypefromLoc(AiePtr, L);
 
 			rL.Col = L.Col;
@@ -132,7 +132,8 @@ using namespace xaiefal::log;
 		 * @param L returns the absolute tile location
 		 * @return XAIE_OK for success, error code for failure
 		 */
-		AieRC getLoc(const XAie_LocType &rL, const string &TTypeStr,
+		AieRC getLoc(const XAie_LocType &rL,
+			const std::string &TTypeStr,
 			XAie_LocType &L) const {
 
 			AieRC RC;
@@ -140,7 +141,8 @@ using namespace xaiefal::log;
 				if (rL.Row >= AiePtr->AieTileNumRows) {
 					RC = XAIE_INVALID_ARGS;
 				} else {
-					L.Row = rL.Row + AiePtr->AieTileRowStart;
+					L.Row = rL.Row +
+						AiePtr->AieTileRowStart;
 					RC = XAIE_OK;
 				}
 			} else if (TTypeStr == "shim") {
@@ -155,7 +157,8 @@ using namespace xaiefal::log;
 			}
 			if (RC != XAIE_OK) {
 				Logger::log(LogLevel::ERROR) << __func__ <<
-					"failed. invalid location." << endl;
+					"failed. invalid location." <<
+					std::endl;
 			}
 			return RC;
 		}

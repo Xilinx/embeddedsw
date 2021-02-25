@@ -11,8 +11,6 @@
 
 #pragma once
 
-using namespace std;
-
 namespace xaiefal {
 namespace resource {
 using namespace xaiefal::log;
@@ -48,19 +46,19 @@ using namespace xaiefal::log;
 			if (State.Reserved == 1) {
 				Logger::log(LogLevel::ERROR) << "combo event " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row <<
-					" Mod=" << Mod <<  " already reserved." << endl;
+					" Mod=" << Mod <<  " already reserved." << std::endl;
 				RC = XAIE_ERR;
 			} else if (ENum < 2 || ENum > 4) {
 				Logger::log(LogLevel::ERROR) << "combo event " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row <<
-					" invalid number of events." << endl;
+					" invalid number of events." << std::endl;
 				RC = XAIE_INVALID_ARGS;
 			} else {
 				RC = _XAie_CheckModule(Aie->dev(), Loc, M);
 				if (RC != XAIE_OK) {
 					Logger::log(LogLevel::ERROR) << "combo event " << __func__ << " (" <<
 						(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row <<
-						" set Mod=" << M <<  " invalid tile module combination." << endl;
+						" set Mod=" << M <<  " invalid tile module combination." << std::endl;
 					RC = XAIE_INVALID_ARGS;
 				} else {
 					vEvents.resize(ENum);
@@ -91,14 +89,14 @@ using namespace xaiefal::log;
 			if (State.Initialized == 0) {
 				Logger::log(LogLevel::ERROR) << "combo event " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row <<
-					" Mod=" << Mod <<  " not initialized with Mod and num of events." << endl;
+					" Mod=" << Mod <<  " not initialized with Mod and num of events." << std::endl;
 				RC = XAIE_ERR;
 			} else if ((vE.size() != vEvents.size()) || (vOp.size() > 3) ||
 			    (vE.size() <= 2 && vOp.size() > 1) ||
 			    (vE.size() > 2 && vOps.size() < 2)) {
 				Logger::log(LogLevel::ERROR) << "combo event " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row <<
-					" Mod=" << Mod <<  " invalid number of input events and ops." << endl;
+					" Mod=" << Mod <<  " invalid number of input events and ops." << std::endl;
 				RC = XAIE_INVALID_ARGS;
 			} else {
 				for (int i = 0; i < (int)vE.size(); i++) {
@@ -109,7 +107,7 @@ using namespace xaiefal::log;
 					if (RC != XAIE_OK) {
 						Logger::log(LogLevel::ERROR) << "combo event " << __func__ << " (" <<
 							(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row <<
-							" Mod=" << Mod <<  " invalid E=" << vE[i] << endl;
+							" Mod=" << Mod <<  " invalid E=" << vE[i] << std::endl;
 						break;
 					} else {
 						vEvents[i] = vE[i];
@@ -142,7 +140,7 @@ using namespace xaiefal::log;
 			if (State.Reserved == 0) {
 				Logger::log(LogLevel::ERROR) << "combo event " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row <<
-					" Mod=" << Mod <<  " resource is not reserved." << endl;
+					" Mod=" << Mod <<  " resource is not reserved." << std::endl;
 				RC = XAIE_ERR;
 			} else {
 				XAie_Events BaseE;
@@ -187,7 +185,7 @@ using namespace xaiefal::log;
 			} else {
 				Logger::log(LogLevel::ERROR) << "combo event " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row <<
-					" Mod=" << Mod <<  " no input events specified." << endl;
+					" Mod=" << Mod <<  " no input events specified." << std::endl;
 				RC = XAIE_ERR;
 			}
 			return RC;
@@ -225,7 +223,7 @@ using namespace xaiefal::log;
 				if (RC != XAIE_OK) {
 					Logger::log(LogLevel::ERROR) << "combo event " << __func__ << " (" <<
 						(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row <<
-						" Mod=" << Mod <<  " failed to config combo " << ComboId << endl;
+						" Mod=" << Mod <<  " failed to config combo " << ComboId << std::endl;
 					for (XAie_EventComboId tId = StartCId;
 						tId < ComboId;
 						tId = (XAie_EventComboId)((int)tId + i)) {
@@ -241,7 +239,7 @@ using namespace xaiefal::log;
 				if (RC != XAIE_OK) {
 					Logger::log(LogLevel::ERROR) << "combo event " << __func__ << " (" <<
 						(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row <<
-						" Mod=" << Mod <<  " failed to config combo " << XAIE_EVENT_COMBO2 << endl;
+						" Mod=" << Mod <<  " failed to config combo " << XAIE_EVENT_COMBO2 << std::endl;
 				}
 			}
 			return RC;

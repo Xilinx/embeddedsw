@@ -11,8 +11,6 @@
 
 #pragma once
 
-using namespace std;
-
 namespace xaiefal {
 namespace resource {
 using namespace xaiefal::log;
@@ -74,7 +72,7 @@ using namespace xaiefal::log;
 				Logger::log(LogLevel::ERROR) << "broadcast object " << __func__ << " (" <<
 					(uint32_t)L.Col << "," << (uint32_t)L.Row << ")" <<
 					" Mod= " << M <<
-					" resource not reserved." << endl;
+					" resource not reserved." << std::endl;
 				RC = XAIE_ERR;
 			} else {
 				for (int i = 0; i < (int)vLocs.size(); i++) {
@@ -185,7 +183,7 @@ using namespace xaiefal::log;
 			    (vL[0].Row != 0 && startM == XAIE_PL_MOD) ||
 			    (vL.back().Row != 0 && endM == XAIE_PL_MOD)) {
 				Logger::log(LogLevel::ERROR) << __func__ <<
-					"BC: invalid tiles and modules combination." << endl;
+					"BC: invalid tiles and modules combination." << std::endl;
 				return XAIE_ERR;
 			}
 			bits = 0;
@@ -203,7 +201,7 @@ using namespace xaiefal::log;
 			}
 			if (bci < 0) {
 				Logger::log(LogLevel::ERROR) << __func__ <<
-					"BC: no free BC." << endl;
+					"BC: no free BC." << std::endl;
 				return XAIE_ERR;
 			}
 			for (int i = 0; i < (int)vL.size(); i++) {
@@ -334,7 +332,7 @@ using namespace xaiefal::log;
 			if ((R.Loc.Row == 0 && R.Mod != XAIE_PL_MOD) ||
 			    (R.Loc.Row != 0 && R.Mod == XAIE_PL_MOD)) {
 				Logger::log(LogLevel::ERROR) << __func__ <<
-					"BC: invalid tile and module." << endl;
+					"BC: invalid tile and module." << std::endl;
 			} else if (R.Mod == XAIE_PL_MOD) {
 				int i = R.Loc.Col;
 

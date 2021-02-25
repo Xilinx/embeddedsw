@@ -11,8 +11,6 @@
 
 #pragma once
 
-using namespace std;
-
 namespace xaiefal {
 namespace resource {
 using namespace xaiefal::log;
@@ -93,7 +91,7 @@ using namespace xaiefal::log;
 			if (State.Running == 1) {
 				Logger::log(LogLevel::ERROR) << "Stream port select " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
-					" resource is in use." << endl;
+					" resource is in use." << std::endl;
 				RC = XAIE_ERR;
 			} else {
 				PortIntf = PIntf;
@@ -116,7 +114,7 @@ using namespace xaiefal::log;
 			if (State.Reserved == 0) {
 				Logger::log(LogLevel::ERROR) << "Stream port select " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
-					" resource not reserved." << endl;
+					" resource not reserved." << std::endl;
 				RC = XAIE_ERR;
 			} else {
 				if (Loc.Row == 0) {
@@ -186,7 +184,7 @@ using namespace xaiefal::log;
 			if (RC != XAIE_OK) {
 				Logger::log(LogLevel::ERROR) << "Stream port select " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
-					" resource not available." << endl;
+					" resource not available." << std::endl;
 			}
 			return RC;
 		}
@@ -203,7 +201,7 @@ using namespace xaiefal::log;
 			if (RC != XAIE_OK) {
 				Logger::log(LogLevel::ERROR) << "Stream port select " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
-					" failed to start." << endl;
+					" failed to start." << std::endl;
 			}
 			return RC;
 		}
@@ -214,7 +212,7 @@ using namespace xaiefal::log;
 			if (RC != XAIE_OK) {
 				Logger::log(LogLevel::ERROR) << "Stream port select " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
-					" failed to stop." << endl;
+					" failed to stop." << std::endl;
 			}
 			return RC;
 		}

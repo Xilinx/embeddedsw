@@ -13,8 +13,6 @@
 
 #pragma once
 
-using namespace std;
-
 namespace xaiefal {
 namespace resource {
 using namespace xaiefal::log;
@@ -46,7 +44,7 @@ using namespace xaiefal::log;
 						<< "invalid tile("
 						<< (unsigned)L.Col << ","
 						<< (unsigned)L.Row
-						<< "for core mod." << endl;
+						<< "for core mod." << std::endl;
 					RC = XAIE_INVALID_ARGS;
 				} else {
 					bits = Dev->XAiePerfCoreBits;
@@ -59,7 +57,7 @@ using namespace xaiefal::log;
 						<< "invalid tile("
 						<< (unsigned)L.Col << ","
 						<< (unsigned)L.Row
-						<< "for mem mod." << endl;
+						<< "for mem mod." << std::endl;
 					RC = XAIE_INVALID_ARGS;
 				} else {
 					bits = Dev->XAiePerfMemBits;
@@ -72,7 +70,7 @@ using namespace xaiefal::log;
 						<< "invalid tile("
 						<< (unsigned)L.Col << ","
 						<< (unsigned)L.Row
-						<< "for PL mod." << endl;
+						<< "for PL mod." << std::endl;
 					RC = XAIE_INVALID_ARGS;
 				} else {
 					bits = Dev->XAiePerfShimBits;
@@ -81,7 +79,7 @@ using namespace xaiefal::log;
 				}
 			} else {
 				Logger::log(LogLevel::ERROR) << __func__ <<
-					"invalid module type" << endl;
+					"invalid module type" << std::endl;
 				RC = XAIE_INVALID_ARGS;
 			}
 			if (RC == XAIE_OK) {
@@ -107,7 +105,7 @@ using namespace xaiefal::log;
 			if ((R.Loc.Row == 0 && R.Mod != XAIE_PL_MOD) ||
 			    (R.Loc.Row != 0 && R.Mod == XAIE_PL_MOD)) {
 				Logger::log(LogLevel::ERROR) << __func__ <<
-					"PCount: invalid tile and module." << endl;
+					"PCount: invalid tile and module." << std::endl;
 				return;
 			} else if (R.Mod == XAIE_PL_MOD) {
 				bits = Dev->XAiePerfShimBits;
@@ -143,7 +141,7 @@ using namespace xaiefal::log;
 			} else {
 				Logger::log(LogLevel::ERROR) << "perfcount " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
-					" Expect Mod= " << M << " Invalid tile and module combination" << endl;
+					" Expect Mod= " << M << " Invalid tile and module combination" << std::endl;
 			}
 		}
 		~XAiePerfCounter() {
@@ -177,7 +175,7 @@ using namespace xaiefal::log;
 			if (State.Reserved == 1) {
 				Logger::log(LogLevel::ERROR) << "perfcount " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
-					" Expect Mod= " << Mod << " resource reserved." << endl;
+					" Expect Mod= " << Mod << " resource reserved." << std::endl;
 				return XAIE_ERR;
 			} else {
 				uint8_t HwEvent;
@@ -210,7 +208,7 @@ using namespace xaiefal::log;
 						" StartEvent=" <<StartM << "," << StartE << " " <<
 						" StopEvent=" <<StopM << "," << StopE << " " <<
 						" RstEvent=" <<RstM << "," << RstE << " " <<
-						endl;
+						std::endl;
 				}
 			}
 			return RC;
@@ -233,7 +231,7 @@ using namespace xaiefal::log;
 			if (State.Reserved == 1) {
 				Logger::log(LogLevel::ERROR) << "perfcount " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
-					" Expect Mod= " << Mod << " resource reserved." << endl;
+					" Expect Mod= " << Mod << " resource reserved." << std::endl;
 				RC = XAIE_ERR;
 			} else {
 				CrossMod = EnableCrossMod;
@@ -267,14 +265,14 @@ using namespace xaiefal::log;
 				Logger::log(LogLevel::ERROR) << "perfcount " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
 					" Expect Mod= " << Mod << " Actual Mod=" << Rsc.Mod <<
-					" resource is in use" << endl;
+					" resource is in use" << std::endl;
 				RC = XAIE_ERR;
 			} else if (State.Reserved == 1 && M != RstMod) {
 				Logger::log(LogLevel::ERROR) << "perfcount " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
 					" Expect Mod= " << Mod << " Actual Mod=" << Rsc.Mod <<
 					" resource is reserved, event module type cannot change." <<
-					endl;
+					std::endl;
 				RC = XAIE_INVALID_ARGS;
 			} else {
 				uint8_t HwEvent;
@@ -303,7 +301,7 @@ using namespace xaiefal::log;
 				Logger::log(LogLevel::ERROR) << "perfcount " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
 					" Expect Mod= " << Mod << " Actual Mod=" << Rsc.Mod <<
-					" resource is in use." << endl;
+					" resource is in use." << std::endl;
 				RC = XAIE_ERR;
 			} else {
 				EventVal = Val;
@@ -328,14 +326,14 @@ using namespace xaiefal::log;
 				Logger::log(LogLevel::ERROR) << "perfcount " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
 					" Expect Mod= " << Mod << " Actual Mod=" << Rsc.Mod <<
-					" resource is in use." << endl;
+					" resource is in use." << std::endl;
 				RC = XAIE_ERR;
 			} else if (State.Reserved == 1 && M != StartMod) {
 				Logger::log(LogLevel::ERROR) << "perfcount " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
 					" Expect Mod= " << Mod << " Actual Mod=" << Rsc.Mod <<
 					" resource is reserved, event module type cannot change." <<
-					endl;
+					std::endl;
 				RC = XAIE_INVALID_ARGS;
 			} else {
 				uint8_t HwEvent;
@@ -364,14 +362,14 @@ using namespace xaiefal::log;
 				Logger::log(LogLevel::ERROR) << "perfcount " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
 					" Expect Mod= " << Mod << " Actual Mod=" << Rsc.Mod <<
-					" resource is in use." << endl;
+					" resource is in use." << std::endl;
 				RC = XAIE_ERR;
 			} else if (State.Reserved == 1 && M != StopMod) {
 				Logger::log(LogLevel::ERROR) << "perfcount " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
 					" Expect Mod= " << Mod << " Actual Counter Mod=" << Rsc.Mod <<
 					" resource is reserved, event module type cannot change." <<
-					endl;
+					std::endl;
 				RC = XAIE_INVALID_ARGS;
 			} else {
 				uint8_t HwEvent;
@@ -399,7 +397,7 @@ using namespace xaiefal::log;
 				Logger::log(LogLevel::ERROR) << "perfcount " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
 					" Expect Mod= " << Mod <<
-					" resource not in use." << endl;
+					" resource not in use." << std::endl;
 				RC = XAIE_ERR;
 			} else {
 				RC = XAie_PerfCounterGet(Aie->dev(), Loc, Rsc.Mod,
@@ -421,7 +419,7 @@ using namespace xaiefal::log;
 				Logger::log(LogLevel::ERROR) << "perfcount " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
 					" Expect Mod= " << Mod <<
-					" resource not allocated." << endl;
+					" resource not allocated." << std::endl;
 				RC = XAIE_ERR;
 			} else {
 				if (Rsc.Mod == XAIE_CORE_MOD) {
@@ -521,7 +519,7 @@ using namespace xaiefal::log;
 				Logger::log(LogLevel::ERROR) << "perfcount " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
 					" Expect Mod= " << Mod <<
-					" resource not available." << endl;
+					" resource not available." << std::endl;
 			}
 			return RC;
 		}
@@ -576,7 +574,7 @@ using namespace xaiefal::log;
 				Logger::log(LogLevel::ERROR) << "perfcount " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
 					" Expect Mod= " << Mod << " Actual Mod=" << Rsc.Mod <<
-					" failed to start." << endl;
+					" failed to start." << std::endl;
 			}
 			return RC;
 		}
@@ -591,7 +589,7 @@ using namespace xaiefal::log;
 				Logger::log(LogLevel::ERROR) << "perfcount " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
 					" Expect Mod= " << Mod << " Actual Mod=" << Rsc.Mod <<
-					" failed to stop." << endl;
+					" failed to stop." << std::endl;
 				RC = XAIE_ERR;
 			} else {
 				RC = XAIE_OK;
