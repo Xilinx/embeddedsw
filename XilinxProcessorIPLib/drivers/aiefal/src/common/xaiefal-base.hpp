@@ -9,6 +9,7 @@
 #include <functional>
 #include <map>
 #include <memory>
+#include <stdexcept>
 #include <unordered_map>
 #include <vector>
 #include <xaiengine.h>
@@ -18,34 +19,101 @@
 
 namespace xaiefal {
 	/**
+	 * @class XAieDevHandle
+	 * @brief AI engine low level device pointer handle.
+	 */
+	class XAieDevHandle: public std::enable_shared_from_this<XAieDevHandle>{
+	public:
+		XAieDevHandle(XAie_DevInst *DevPtr,
+			bool TurnOnFinishOnDestruct = false):
+			Dev(DevPtr),
+			FinishOnDestruct(TurnOnFinishOnDestruct) {
+			if (DevPtr == nullptr) {
+				throw std::invalid_argument("AI engine device is NULL");
+			}
+		}
+		~XAieDevHandle() {
+			if (FinishOnDestruct) {
+				XAie_Finish(Dev);
+			}
+		}
+		/**
+		 * This function returns AI engine device pointer.
+		 *
+		 * @return AI engine device instance pointer
+		 */
+		XAie_DevInst *dev() {
+			return Dev;
+		}
+		/**
+		 * This function returns AI engine handle shared pointer
+		 *
+		 * @return AI engine device shared pointer
+		 */
+		std::shared_ptr<XAieDevHandle> getPtr() {
+			return shared_from_this();
+		}
+	private:
+		XAie_DevInst *Dev;
+		bool FinishOnDestruct;
+	};
+
+	class XAieMod;
+	class XAieTile;
+
+	/**
 	 * @class XAieDev
 	 * @brief AI engine device class. It defines AI engine device
 	 *	  operations.
 	 */
 	class XAieDev {
 	public:
+		XAieDev() = delete;
 		XAieDev(XAie_DevInst *DevPtr,
-			bool TurnOnFinishOnDestruct = false):
-			AiePtr(DevPtr),
-			FinishOnDestruct(TurnOnFinishOnDestruct) {
-			//TODO: the following bitmaps initialization should be removed
-			memset(XAieBroadcastCoreBits, 0, sizeof(XAieBroadcastCoreBits));
-			memset(XAieBroadcastMemBits, 0, sizeof(XAieBroadcastCoreBits));
-			memset(XAieBroadcastShimBits, 0, sizeof(XAieBroadcastCoreBits));
+			bool TurnOnFinishOnDestruct = false);
+		~XAieDev() {}
 
-			memset(XAiePerfCoreBits, 0, sizeof(XAiePerfCoreBits));
-			memset(XAiePerfMemBits, 0, sizeof(XAiePerfCoreBits));
-			memset(XAiePerfShimBits, 0, sizeof(XAiePerfCoreBits));
-
-			memset(XAiePcEventBits, 0, sizeof(XAiePcEventBits));
-
-			memset(XAieSSCoreTBits, 0, sizeof(XAieSSCoreTBits));
-			memset(XAieSSShimTBits, 0, sizeof(XAieSSShimTBits));
-		}
-		~XAieDev() {
-			if (FinishOnDestruct) {
-				XAie_Finish(AiePtr);
+		/**
+		 * This function returns a tile object reference.
+		 *
+		 * @param L tile Location
+		 * @return tile object reference
+		 */
+		XAieTile &tile(XAie_LocType L) {
+			if (L.Col > NumCols || L.Row > NumRows) {
+				throw std::invalid_argument("Invalid tile location");
 			}
+			return Tiles[L.Col * NumRows + L.Row];
+		}
+
+		/**
+		 * This function returns a tile object reference.
+		 *
+		 * @param C absolute column index
+		 * @param R absolute row index, 0 is shim row
+		 * @return tile object reference
+		 */
+		XAieTile &tile(uint8_t C, uint32_t R) {
+			return tile(XAie_TileLoc(C, R));
+		}
+
+		/**
+		 * This function returns AI engine device pointer.
+		 *
+		 * @return AI engine device pointer.
+		 */
+
+		XAie_DevInst *dev() {
+			return AieHandle->dev();
+		}
+
+		/**
+		 * This function returns AI engine device handle
+		 *
+		 * @return AI engine device handle
+		 */
+		std::shared_ptr<XAieDevHandle> getDevHandle() {
+			return AieHandle->getPtr();
 		}
 
 		/**
@@ -107,13 +175,15 @@ namespace xaiefal {
 		 * @param TTypeStr returns the tile type in string
 		 * @return XAIE_OK
 		 */
-		AieRC getRelativeLoc(const XAie_LocType &L, XAie_LocType &rL,
+		AieRC getRelativeLoc(XAie_LocType L, XAie_LocType &rL,
 			std::string &TTypeStr) const {
-			uint8_t Type = _XAie_GetTileTypefromLoc(AiePtr, L);
+			uint8_t Type = _XAie_GetTileTypefromLoc(
+					AieHandle->dev(), L);
 
 			rL.Col = L.Col;
 			if (Type == XAIEGBL_TILE_TYPE_AIETILE) {
-				rL.Row = L.Row - AiePtr->AieTileRowStart;
+				rL.Row = L.Row -
+					AieHandle->dev()->AieTileRowStart;
 				TTypeStr = "core";
 			} else {
 				rL.Row = L.Row;
@@ -131,17 +201,17 @@ namespace xaiefal {
 		 * @param L returns the absolute tile location
 		 * @return XAIE_OK for success, error code for failure
 		 */
-		AieRC getLoc(const XAie_LocType &rL,
-			const std::string &TTypeStr,
+		AieRC getLoc(XAie_LocType rL, const std::string &TTypeStr,
 			XAie_LocType &L) const {
 
 			AieRC RC;
 			if (TTypeStr == "core") {
-				if (rL.Row >= AiePtr->AieTileNumRows) {
+				if (rL.Row >=
+					AieHandle->dev()->AieTileNumRows) {
 					RC = XAIE_INVALID_ARGS;
 				} else {
 					L.Row = rL.Row +
-						AiePtr->AieTileRowStart;
+						AieHandle->dev()->AieTileRowStart;
 					RC = XAIE_OK;
 				}
 			} else if (TTypeStr == "shim") {
@@ -161,14 +231,7 @@ namespace xaiefal {
 			}
 			return RC;
 		}
-		/**
-		 * This function returns AI engine device pointer.
-		 *
-		 * @return AI engine device pointer.
-		 */
-		XAie_DevInst *dev() {
-			return AiePtr;
-		}
+
 		// TODO: the following bitmaps should be removed
 		uint16_t XAieBroadcastCoreBits[400*16/sizeof(uint16_t)];
 		uint16_t XAieBroadcastMemBits[400*16/sizeof(uint16_t)];
@@ -184,7 +247,176 @@ namespace xaiefal {
 		uint64_t XAieSSShimTBits[50 * 2/sizeof(uint64_t)];
 
 	private:
-		XAie_DevInst *AiePtr;
-		bool FinishOnDestruct;
+		std::shared_ptr<XAieDevHandle> AieHandle; /**< AI engine device
+							    handle */
+		uint32_t NumCols; /**< number of AI engine columns */
+		uint32_t NumRows; /**< number of AI engine rows */
+		std::vector<XAieTile> Tiles;
 	};
+
+	/**
+	 * @class XAieMod
+	 * @brief AI enigne module. It defines AI engine module operations.
+	 *	  such as get resource within a module.
+	 */
+	class XAieMod {
+	public:
+		XAieMod() {};
+		XAieMod(XAieDev &Dev, XAie_LocType L, XAie_ModuleType M):
+			AieHandle(Dev.getDevHandle()), Loc(L), Mod(M) {
+			if (_XAie_CheckModule(AieHandle->dev(), Loc, M) !=
+				XAIE_OK) {
+				throw std::invalid_argument("Invalid module and tile");
+			}
+			AieHandle = Dev.getDevHandle();
+		}
+		~XAieMod() {}
+
+		/**
+		 * This function returns tile location
+		 *
+		 * @return tile location
+		 */
+		XAie_LocType loc() const {
+			return Loc;
+		}
+
+		/**
+		 * This function returns module type
+		 *
+		 * @return module type
+		 */
+		XAie_ModuleType mod() const {
+			return Mod;
+		}
+	private:
+		std::shared_ptr<XAieDevHandle> AieHandle; /**< AI engine device
+							    handle */
+		XAie_LocType Loc; /**< Tile location */
+		XAie_ModuleType Mod; /**< Module type */
+	};
+	/**
+	 * @class XAieTile
+	 * @brief AI enigne tile. It defines AI engine tile operations.
+	 *	  such as get resource within a tile, or get a module.
+	 */
+	class XAieTile {
+	public:
+		XAieTile() {}
+		XAieTile(XAieDev &Dev, XAie_LocType L):
+			AieHandle(Dev.getDevHandle()), Loc(L) {
+			uint32_t TType;
+
+			TType = _XAie_GetTileTypefromLoc(Dev.dev(), Loc);
+
+			if (TType == XAIEGBL_TILE_TYPE_MAX) {
+				throw std::invalid_argument("Invalid tile");
+			}
+			if (TType == XAIEGBL_TILE_TYPE_AIETILE) {
+				Mods.push_back(XAieMod(Dev, L, XAIE_MEM_MOD));
+				Mods.push_back(XAieMod(Dev, L, XAIE_CORE_MOD));
+			} else {
+				if (TType == XAIEGBL_TILE_TYPE_SHIMPL ||
+					TType == XAIEGBL_TILE_TYPE_SHIMNOC) {
+					Mods.push_back(XAieMod(Dev, L, XAIE_PL_MOD));
+				} else {
+					Mods.push_back(XAieMod(Dev, L, XAIE_MEM_MOD));
+				}
+			}
+			AieHandle = Dev.getDevHandle();
+		}
+		~XAieTile() {}
+
+		/**
+		 * This function returns tile location
+		 *
+		 * @return tile location
+		 */
+		XAie_LocType loc() const {
+			return Loc;
+		}
+
+		/**
+		 * This function returns module reference.
+		 *
+		 * @param Mod module type
+		 * @return module reference
+		 */
+		XAieMod &module (XAie_ModuleType Mod) {
+			if (_XAie_CheckModule(AieHandle->dev(), Loc, Mod) !=
+				XAIE_OK) {
+				std::string str = "module " +
+					std::to_string(Mod) + " not in tile.";
+
+				throw std::invalid_argument(str);
+			}
+			if (Mod == XAIE_CORE_MOD) {
+				return Mods[1];
+			} else {
+				return Mods[0];
+			}
+		}
+
+		/**
+		 * This function returns core module reference.
+		 *
+		 * @return core module reference
+		 */
+		XAieMod &core() {
+			return module(XAIE_CORE_MOD);
+		}
+
+		/**
+		 * This function returns memory module reference.
+		 *
+		 * @return memory module reference
+		 */
+		XAieMod &mem() {
+			return module(XAIE_MEM_MOD);
+		}
+
+		/**
+		 * This function returns pl module reference.
+		 *
+		 * @return pl module reference
+		 */
+		XAieMod &pl() {
+			return module(XAIE_PL_MOD);
+		}
+	private:
+		std::shared_ptr<XAieDevHandle> AieHandle; /**< AI engine device
+							    handle */
+		XAie_LocType Loc;
+		std::vector<XAieMod> Mods;
+	};
+
+	inline XAieDev::XAieDev(XAie_DevInst *DevPtr,
+		bool TurnOnFinishOnDestruct) {
+
+		AieHandle = std::make_shared<XAieDevHandle>(DevPtr,
+			TurnOnFinishOnDestruct);
+
+		NumCols = DevPtr->NumCols;
+		NumRows = DevPtr->NumRows;
+		for (uint32_t c = 0; c < NumCols; c++) {
+			for (uint32_t r = 0; r < NumRows; r++) {
+				Tiles.push_back(XAieTile(*this,
+					XAie_TileLoc(c, r)));
+			}
+		}
+
+		//TODO: the following bitmaps initialization should be removed
+		memset(XAieBroadcastCoreBits, 0, sizeof(XAieBroadcastCoreBits));
+		memset(XAieBroadcastMemBits, 0, sizeof(XAieBroadcastCoreBits));
+		memset(XAieBroadcastShimBits, 0, sizeof(XAieBroadcastCoreBits));
+
+		memset(XAiePerfCoreBits, 0, sizeof(XAiePerfCoreBits));
+		memset(XAiePerfMemBits, 0, sizeof(XAiePerfCoreBits));
+		memset(XAiePerfShimBits, 0, sizeof(XAiePerfCoreBits));
+
+		memset(XAiePcEventBits, 0, sizeof(XAiePcEventBits));
+
+		memset(XAieSSCoreTBits, 0, sizeof(XAieSSCoreTBits));
+		memset(XAieSSShimTBits, 0, sizeof(XAieSSShimTBits));
+	}
 }
