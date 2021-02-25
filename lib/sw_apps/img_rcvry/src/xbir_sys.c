@@ -39,7 +39,8 @@
 #define XBIR_MIO_75_MASK	(0x800000U)
 #define XBIR_MIO_73_MASK	(0x200000U)
 #define XBIR_MIO_71_MASK	(0x80000U)
-#define XBIR_WAIT_TIME_FOR_PHY_RESET_IN_US	(2L)
+#define XBIR_LATCH_TIME_FOR_PHY_RESET_IN_US	(200L)
+#define XBIR_POST_RESET_STABILIZATION_TIME_FOR_PHY_IN_US	(250000L)
 #define XBIR_BYTE_HEX_LEN	(2U)
 
 /**************************** Type Definitions *******************************/
@@ -185,11 +186,12 @@ static int Xbir_EthPhyReset (void)
 
 	/*
 	 * Asserting the active low GPIO, which pushes the PHY into reset,
-	 * wait for 2us and then deasserting the GPIO to bring PHY out of reset
+	 * wait for 200us and then deasserting the GPIO to bring PHY out of reset
 	 */
 	XGpioPs_WritePin(&Gpio, XBIR_ETH_PHY_MIO_38, XBIR_GPIO_LOW);
-	usleep(XBIR_WAIT_TIME_FOR_PHY_RESET_IN_US);
+	usleep(XBIR_LATCH_TIME_FOR_PHY_RESET_IN_US);
 	XGpioPs_WritePin(&Gpio, XBIR_ETH_PHY_MIO_38, XBIR_GPIO_HIGH);
+	usleep(XBIR_POST_RESET_STABILIZATION_TIME_FOR_PHY_IN_US);
 
 END:
 	return Status;
