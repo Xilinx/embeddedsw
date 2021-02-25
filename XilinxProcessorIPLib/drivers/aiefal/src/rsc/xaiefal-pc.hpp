@@ -12,8 +12,6 @@
 #pragma once
 
 namespace xaiefal {
-namespace resource {
-using namespace xaiefal::log;
 	/**
 	 * @class XAiePCEvent
 	 * @brief AI engine PC event resource class
@@ -303,5 +301,4 @@ using namespace xaiefal::log;
 			return RC;
 		}
 	};
-}
 }

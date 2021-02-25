@@ -12,8 +12,6 @@
 #pragma once
 
 namespace xaiefal {
-namespace resource {
-using namespace xaiefal::log;
 	/**
 	 * @class XAieStreamPortSelect
 	 * @brief class for stream port select resource
@@ -217,5 +215,4 @@ using namespace xaiefal::log;
 			return RC;
 		}
 	};
-}
 }

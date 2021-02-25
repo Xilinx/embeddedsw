@@ -15,8 +15,3 @@
 #include <xaiefal/rsc/xaiefal-ss.hpp>
 #include <xaiefal/rsc/xaiefal-trace.hpp>
 
-#pragma once
-
-using namespace xaiefal;
-using namespace xaiefal::resource;
-using namespace xaiefal::profile;

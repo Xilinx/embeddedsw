@@ -13,8 +13,6 @@
 #pragma once
 
 namespace xaiefal {
-namespace resource {
-using namespace xaiefal::log;
 	/**
 	 * @class XAieTraceCntr
 	 * @brief Trace Event resource class
@@ -933,5 +931,4 @@ using namespace xaiefal::log;
 			}
 		}
 	};
-}
 }
