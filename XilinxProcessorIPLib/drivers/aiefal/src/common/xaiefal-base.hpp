@@ -382,7 +382,7 @@ namespace xaiefal {
 		 */
 		std::shared_ptr<XAieTraceEvent> traceEvent() {
 			return std::make_shared<XAieTraceEvent>(AieHandle,
-				Loc, Mod);
+				Loc, Mod, TraceCntr);
 		}
 
 		/**

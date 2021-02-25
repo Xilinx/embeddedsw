@@ -36,8 +36,8 @@ namespace xaiefal {
 			State.Initialized = 1;
 		}
 		XAieTraceCntr(XAieDev &Dev,
-			XAie_LocType L, XAie_ModuleType M):
-			XAieTraceCntr(Dev.getDevHandle(), L, M) {}
+			XAie_LocType &L, XAie_ModuleType M):
+			XAieSingleTileRsc(Dev, L, M), Pkt() {}
 
 		/**
 		 * This funtion gets module of the Trace control.
@@ -366,59 +366,26 @@ namespace xaiefal {
 	public:
 		XAieTraceEvent() = delete;
 		XAieTraceEvent(std::shared_ptr<XAieDevHandle> DevHd,
-			XAie_LocType L, XAie_ModuleType M):
-			XAieSingleTileRsc(DevHd, L, M) {}
+			XAie_LocType L, XAie_ModuleType M,
+			std::shared_ptr<XAieTraceCntr> TCntr):
+			XAieSingleTileRsc(DevHd, L, M) {
+			if (!TCntr) {
+				throw std::invalid_argument("Trace event failed, empty trace control");
+			}
+			if (TCntr->dev() != DevHd->dev() ||
+				TCntr->getModule() != Mod) {
+				throw std::invalid_argument("Trace event failed,trace control aiedev or module mismatched");
+			}
+			TraceCntr = std::move(TCntr);
+			State.Initialized = 1;
+		}
 		XAieTraceEvent(XAieDev &Dev,
 			XAie_LocType L, XAie_ModuleType M):
-			XAieTraceEvent(Dev.getDevHandle(), L, M) {}
-		~XAieTraceEvent() {}
-		/**
-		 * This function initializes the trace event by assigning the
-		 * trace control object.
-		 *
-		 * @param TraceCPtr AI engine module trace control this trace
-		 *	  event belong to. It includes which modules, and what
-		 *	  is the trace operation mode.
-		 * @return XAIE_OK for success, error code for failure.
-		 */
-		AieRC initialize(std::shared_ptr<XAieTraceCntr> TraceCPtr) {
-			AieRC RC = XAIE_OK;
-
-			if (State.Reserved == 0) {
-				uint32_t TType = _XAie_GetTileTypefromLoc(dev(),
-					Loc);
-				XAie_Events E;
-
-				if (TType == XAIEGBL_TILE_TYPE_MAX) {
-					RC = XAIE_INVALID_ARGS;
-				} else if (TType == XAIEGBL_TILE_TYPE_SHIMNOC ||
-					TType == XAIEGBL_TILE_TYPE_SHIMPL) {
-					E = XAIE_EVENT_NONE_PL;
-					if (TraceCPtr->getModule() != XAIE_PL_MOD) {
-						Logger::log(LogLevel::ERROR) << "trace event " << __func__ << " (" <<
-							(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row <<
-							") trace control tile type mismatched." << std::endl;
-						RC = XAIE_INVALID_ARGS;
-					}
-				} else {
-					if (TraceCPtr->getModule() == XAIE_MEM_MOD) {
-						E = XAIE_EVENT_NONE_MEM;
-					}
-				}
-				if (RC == XAIE_OK) {
-					Event = E;
-					Mod = TraceCPtr->getModule();
-					TraceCntr = std::move(TraceCPtr);
-					State.Initialized = 1;
-				}
-			} else {
-				RC = XAIE_ERR;
-				Logger::log(LogLevel::ERROR) << "trace event " << __func__ << " (" <<
-					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row <<
-					") Event Mod=" << Mod << " already reserved." << std::endl;
-			}
-			return RC;
+			XAieSingleTileRsc(Dev, L, M) {
+			TraceCntr = Dev.tile(L).module(M).traceControl();
+			State.Initialized = 1;
 		}
+		~XAieTraceEvent() {}
 		/**
 		 * This function sets event to trace.
 		 *
@@ -597,7 +564,7 @@ namespace xaiefal {
 		XAieTracing(XAieDev &Dev, XAie_LocType L,
 			XAie_ModuleType M):
 			XAieSingleTileRsc(Dev, L, M) {
-			TraceCntr = std::make_shared<XAieTraceCntr>(Dev, L, M);
+			TraceCntr = Dev.tile(L).module(M).traceControl();
 			State.Initialized = 1;
 		}
 		~XAieTracing() {
@@ -628,9 +595,8 @@ namespace xaiefal {
 					"failed for tracing, resource reserved." << std::endl;
 				RC = XAIE_ERR;
 			} else {
-				XAieTraceEvent TraceE(AieHd, TraceCntr->loc(), Mod);
+				XAieTraceEvent TraceE(AieHd, Loc, Mod, TraceCntr);
 
-				TraceE.initialize(TraceCntr);
 				RC = TraceE.setEvent(M, E);
 				if (RC != XAIE_OK) {
 					Logger::log(LogLevel::ERROR) << __func__ <<
