@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,8 @@ typedef struct XPm_CpmDomain {
 XStatus XPmCpmDomain_Init(XPm_CpmDomain *CpmDomain, u32 Id, u32 BaseAddress,
 			  XPm_Power *Parent, u32 *OtherBaseAddresses,
 			  u32 OtherBaseAddressesCnt);
+void XPmCpmDomain_UnlockPcsr(u32 BaseAddress);
+void XPmCpmDomain_LockPcsr(u32 BaseAddress);
 
 #ifdef __cplusplus
 }

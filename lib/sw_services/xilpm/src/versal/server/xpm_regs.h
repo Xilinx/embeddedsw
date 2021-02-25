@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -411,6 +411,8 @@ extern "C" {
 #define CPM_PCSR_MASK_OFFSET					(0x00000000U)
 #define CPM_PCSR_MASK_SCAN_CLEAR_TRIGGER_WEN_MASK		(0x00000800U)
 #define CPM_PCSR_PCR_OFFSET					(0x00000004U)
+/* CPM_POR bit is same as ODISABLE3 bit in the PCR register */
+#define CPM_POR_MASK						(0x00000020U)
 #define CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK			(0x00000800U)
 #define CPM_PCSR_PSR_OFFSET					(0x00000008U)
 #define CPM_PCSR_PSR_SCAN_CLEAR_DONE_MASK			(0x00000002U)

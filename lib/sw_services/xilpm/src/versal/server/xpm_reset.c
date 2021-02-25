@@ -1,9 +1,10 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 
+#include "xpm_cpmdomain.h"
 #include "xpm_reset.h"
 #include "xpm_debug.h"
 #include "xpm_device.h"
@@ -18,6 +19,7 @@
 static XStatus Reset_AssertCommon(XPm_ResetNode *Rst, const u32 Action);
 static XStatus Reset_AssertCustom(XPm_ResetNode *Rst, const u32 Action);
 static u32 Reset_GetStatusCommon(XPm_ResetNode *Rst);
+static u32 Reset_GetStatusCustom(XPm_ResetNode *Rst);
 static XStatus SetResetNode(u32 Id, XPm_ResetNode *Rst);
 
 static XPm_ResetNode *RstNodeList[(u32)XPM_NODEIDX_RST_MAX];
@@ -33,7 +35,7 @@ static XPm_ResetOps ResetOps[XPM_RSTOPS_MAX] = {
 	},
 	[XPM_RSTOPS_CUSTOM] = {
 			.SetState = Reset_AssertCustom,
-			.GetState = Reset_GetStatusCommon,
+			.GetState = Reset_GetStatusCustom,
 	},
 };
 
@@ -68,6 +70,15 @@ static void XPmReset_Init(XPm_ResetNode *Rst, u32 Id, u32 ControlReg, u8 Shift, 
 
 	for (i=0; i<NumParents; i++) {
 		Rst->Parents[i] = (u16)(NODEINDEX(Parents[i]));
+	}
+}
+
+void XPmReset_MakeCpmPorResetCustom(void)
+{
+	XPm_ResetNode *CpmRst = XPmReset_GetById(PM_RST_CPM_POR);
+
+	if (NULL != CpmRst) {
+		CpmRst->Ops = &ResetOps[XPM_RSTOPS_CUSTOM];
 	}
 }
 
@@ -374,6 +385,75 @@ done:
 	return Status;
 }
 
+static XStatus CpmResetSetState(const u32 State)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_CpmDomain *Cpm;
+	u32 CpmPcsrReg;
+	u32 Platform =  XPm_GetPlatform();
+	u32 PlatformVersion = XPm_GetPlatformVersion();
+	u32 IdCode = XPm_GetIdCode();
+
+	/* CPM POR register is not available for ES1 platforms so skip */
+	/* NOTE: This is verified on S80 */
+	if ((PLATFORM_VERSION_SILICON == Platform) &&
+	    (PLATFORM_VERSION_SILICON_ES1 != PlatformVersion) &&
+	    (PMC_TAP_IDCODE_DEV_SBFMLY_VC1902 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK))) {
+		Cpm = (XPm_CpmDomain *)XPmPower_GetById(PM_POWER_CPM);
+		if (NULL == Cpm) {
+			Status = XST_FAILURE;
+			goto done;
+		}
+
+		XPmCpmDomain_UnlockPcsr(Cpm->CpmPcsrBaseAddr);
+
+		/* TODO: Remove this when topology have CPM reset register */
+		CpmPcsrReg = Cpm->CpmPcsrBaseAddr + CPM_PCSR_PCR_OFFSET;
+		if (XPM_RST_STATE_DEASSERTED == State) {
+			PmRmw32(CpmPcsrReg, CPM_POR_MASK, 0U);
+		} else {
+			PmRmw32(CpmPcsrReg, CPM_POR_MASK, CPM_POR_MASK);
+		}
+
+		XPmCpmDomain_LockPcsr(Cpm->CpmPcsrBaseAddr);
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+static XStatus CpmResetAssert(XPm_ResetNode *Rst)
+{
+	(void)Rst;
+
+	return CpmResetSetState(XPM_RST_STATE_ASSERTED);
+}
+
+static XStatus CpmResetRelease(XPm_ResetNode *Rst)
+{
+	(void)Rst;
+
+	return CpmResetSetState(XPM_RST_STATE_DEASSERTED);
+}
+
+static XStatus CpmResetPulse(XPm_ResetNode *Rst)
+{
+	(void)Rst;
+	XStatus Status = XST_FAILURE;
+
+	Status = CpmResetSetState(XPM_RST_STATE_ASSERTED);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = CpmResetSetState(XPM_RST_STATE_DEASSERTED);
+
+done:
+	return Status;
+}
+
 static const struct ResetCustomOps {
 	u32 ResetIdx;
 	XStatus (*const ActionAssert)(XPm_ResetNode *Rst);
@@ -413,6 +493,12 @@ static const struct ResetCustomOps {
 		.ActionAssert = &AieResetAssert,
 		.ActionRelease = &AieResetRelease,
 		.ActionPulse = &AieResetPulse,
+	},
+	{
+		.ResetIdx = (u32)XPM_NODEIDX_RST_CPM_POR,
+		.ActionAssert = &CpmResetAssert,
+		.ActionRelease = &CpmResetRelease,
+		.ActionPulse = &CpmResetPulse,
 	},
 };
 
@@ -528,6 +614,56 @@ XStatus XPmReset_AssertbyId(u32 ResetId, const u32 Action)
 	}
 
 	return Status;
+}
+
+static u32 GetCpmPorResetStatus(void)
+{
+	u32 ResetStatus = XPM_RST_STATE_DEASSERTED;
+	XPm_CpmDomain *Cpm;
+	u32 PcrValue;
+	u32 Platform =  XPm_GetPlatform();
+	u32 PlatformVersion = XPm_GetPlatformVersion();
+	u32 IdCode = XPm_GetIdCode();
+
+	/* CPM POR register is not available for ES1 platforms so skip */
+	/* NOTE: This is verified on S80 */
+	if ((PLATFORM_VERSION_SILICON == Platform) &&
+	    (PLATFORM_VERSION_SILICON_ES1 != PlatformVersion) &&
+	    (PMC_TAP_IDCODE_DEV_SBFMLY_VC1902 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK))) {
+		Cpm = (XPm_CpmDomain *)XPmPower_GetById(PM_POWER_CPM);
+		if (NULL == Cpm) {
+			PmErr("CPM Domain is not present\r\n");
+			goto done;
+		}
+
+		XPmCpmDomain_UnlockPcsr(Cpm->CpmPcsrBaseAddr);
+
+		/* TODO: Remove this when topology have CPM reset register */
+		PmIn32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_PCR_OFFSET, PcrValue);
+		if (0U == (PcrValue & CPM_POR_MASK)) {
+			ResetStatus = XPM_RST_STATE_DEASSERTED;
+		} else {
+			ResetStatus = XPM_RST_STATE_ASSERTED;
+		}
+
+		XPmCpmDomain_LockPcsr(Cpm->CpmPcsrBaseAddr);
+	}
+
+done:
+	return ResetStatus;
+}
+
+static u32 Reset_GetStatusCustom(XPm_ResetNode *Rst)
+{
+	u32 ResetStatus = 0U;
+
+	if (PM_RST_CPM_POR == Rst->Node.Id) {
+		ResetStatus = GetCpmPorResetStatus();
+	} else {
+		ResetStatus = Reset_GetStatusCommon(Rst);
+	}
+
+	return ResetStatus;
 }
 
 static u32 Reset_GetStatusCommon(XPm_ResetNode *Rst)
