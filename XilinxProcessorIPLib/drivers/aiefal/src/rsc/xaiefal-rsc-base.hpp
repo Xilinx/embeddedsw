@@ -629,19 +629,22 @@ namespace xaiefal {
 				RC = XAIE_ERR;
 			} else {
 				RC = XAIE_OK;
-				for (int i = 0; i < (int)vRscs.size(); i++) {
+				for (auto i = vRscs.begin(), e = vRscs.end();
+					i != e; ++i) {
 					AieRC lRC;
 
-					lRC = vRscs[i]->reserve();
+					lRC = (*i)->reserve();
 					if (lRC != XAIE_OK) {
-						for (int j = 0; j < i; j++) {
-							vRscs[j]->release();
+						for (auto j = vRscs.begin(),
+							ne = vRscs.end();
+							j != ne; ++j) {
+							(*j)->release();
 						}
 						Logger::log(LogLevel::ERROR) << __func__ <<
 							"failed to reserve tile(" <<
-							(uint32_t)vRscs[i]->loc().Col << "," <<
-							(uint32_t)vRscs[i]->loc().Row << ")." << std::endl;
-						failedL = vRscs[i]->loc();
+							(uint32_t)(*i)->loc().Col << "," <<
+							(uint32_t)(*i)->loc().Row << ")." << std::endl;
+						failedL = (*i)->loc();
 						RC = XAIE_ERR;
 						break;
 					}
@@ -672,16 +675,16 @@ namespace xaiefal {
 		AieRC release() {
 			AieRC RC = XAIE_OK;
 
-			for (int i = 0; i < (int)vRscs.size(); i++) {
+			for (auto R: vRscs) {
 				AieRC lRC;
 
-				lRC = vRscs[i]->release();
+				lRC = R->release();
 				if (lRC != XAIE_OK) {
 					RC = XAIE_ERR;
 					Logger::log(LogLevel::ERROR) << __func__ <<
 						"failed to release tile(" <<
-						(uint32_t)vRscs[i]->loc().Col << "," <<
-						(uint32_t)vRscs[i]->loc().Row << ")." << std::endl;
+						(uint32_t)R->loc().Col << "," <<
+						(uint32_t)R->loc().Row << ")." << std::endl;
 				}
 			}
 			return RC;
@@ -700,16 +703,19 @@ namespace xaiefal {
 					"failed to reserve, no resource specified." << std::endl;
 				RC = XAIE_ERR;
 			} else {
-				for (int i = 0; i < (int)vRscs.size(); i++) {
-					RC = vRscs[i]->start();
+				for (auto i = vRscs.begin(), e = vRscs.end();
+					i != e; ++i) {
+					RC = (*i)->start();
 					if (RC != XAIE_OK) {
-						for (int j = 0; j < i; j++) {
-							vRscs[i]->stop();
+						for (auto j = vRscs.begin(),
+							ne = vRscs.end();
+							j != ne; ++j) {
+							(*j)->stop();
 						}
 						Logger::log(LogLevel::ERROR) << __func__ <<
 							"failed to start tile(" <<
-							(uint32_t)vRscs[i]->loc().Col << "," <<
-							(uint32_t)vRscs[i]->loc().Row << ")." << std::endl;
+							(uint32_t)(*i)->loc().Col << "," <<
+							(uint32_t)(*i)->loc().Row << ")." << std::endl;
 						break;
 					}
 				}
@@ -725,15 +731,15 @@ namespace xaiefal {
 		AieRC stop() {
 			AieRC RC = XAIE_OK;
 
-			for (int i = 0; i < (int)vRscs.size(); i++) {
+			for (auto R: vRscs) {
 				AieRC lRC;
 
-				lRC = vRscs[i]->stop();
+				lRC = R->stop();
 				if (lRC != XAIE_OK) {
 					Logger::log(LogLevel::ERROR) << __func__ <<
 						"failed to stop tile(" <<
-						(uint32_t)vRscs[i]->loc().Col << "," <<
-						(uint32_t)vRscs[i]->loc().Row << ")." << std::endl;
+						(uint32_t)R->loc().Col << "," <<
+						(uint32_t)R->loc().Row << ")." << std::endl;
 					RC = lRC;
 				}
 			}
@@ -752,8 +758,8 @@ namespace xaiefal {
 			if (vRscs.size() == 0) {
 				Ret = false;
 			} else {
-				for (int i = 0; i < (int)vRscs.size(); i++) {
-					if (vRscs[i]->isReserved() == false) {
+				for (auto R: vRscs) {
+					if (R->isReserved() == false) {
 						Ret = false;
 						break;
 					}
@@ -774,8 +780,8 @@ namespace xaiefal {
 			if (vRscs.size() == 0) {
 				Ret = false;
 			} else {
-				for (int i = 0; i < (int)vRscs.size(); i++) {
-					if (vRscs[i]->isRunning() == false) {
+				for (auto R: vRscs) {
+					if (R->isRunning() == false) {
 						Ret = false;
 						break;
 					}
@@ -803,8 +809,8 @@ namespace xaiefal {
 			AieRC RC;
 			bool canClear = true;
 
-			for (int i = 0; i < (int)vRscs.size(); i++) {
-				if (vRscs[i]->isReserved() == true) {
+			for (auto R: vRscs) {
+				if (R->isReserved() == true) {
 					canClear = false;
 					break;
 				}
@@ -844,8 +850,7 @@ namespace xaiefal {
 		 */
 		T& tile(const XAie_LocType &L) {
 			T *R = nullptr;
-			for (int i = 0; i < (int)vRscs.size(); i++) {
-				auto lR = vRscs[i].get();
+			for (auto lR: vRscs) {
 				if (lR->loc().Col == L.Col &&
 					lR->loc().Row == L.Row) {
 					R = lR;
@@ -895,8 +900,8 @@ namespace xaiefal {
 		 * @return XAIE_OK for success, error code for failure
 		 */
 		AieRC addRsc(std::vector<std::shared_ptr<XAieRsc>> &vR) {
-			for (int i = 0; i < (int)vR.size(); i++) {
-				addRsc(vR[i]);
+			for (auto R: vR) {
+				addRsc(R);
 			}
 			return XAIE_OK;
 		}
@@ -914,8 +919,8 @@ namespace xaiefal {
 				bool toAdd = true;
 				auto R = gR.getRef(i);
 
-				for (int j = 0; j < (int)vRefs.size(); j++) {
-					if (vRefs[j].lock() == R) {
+				for (auto Ref: vRefs) {
+					if (Ref.lock() == R) {
 						toAdd = false;
 						break;
 					}
@@ -936,8 +941,8 @@ namespace xaiefal {
 		AieRC addRsc(std::shared_ptr<XAieRsc> R) {
 			bool toAdd = true;
 
-			for (int i = 0; i < (int)vRefs.size(); i++) {
-				if (vRefs[i].lock() == R) {
+			for (auto Ref: vRefs) {
+				if (Ref.lock() == R) {
 					toAdd = false;
 					break;
 				}
@@ -959,7 +964,7 @@ namespace xaiefal {
 		 * from the container.
 		 */
 		void clean() {
-			for (int i = 0; i < (int)vRefs.size(); i++) {
+			for (size_t i = 0; i < vRefs.size(); i++) {
 				if (vRefs[i].lock() == nullptr) {
 					vRefs.erase(vRefs.begin() + i);
 				}
@@ -981,8 +986,8 @@ namespace xaiefal {
 				RC = XAIE_ERR;
 			} else {
 				RC = XAIE_OK;
-				for (int i = 0; i < (int)vRefs.size(); i++) {
-					auto R = vRefs[i].lock();
+				for (auto Ref: vRefs) {
+					auto R = Ref.lock();
 
 					if (R != nullptr) {
 						AieRC lRC;
@@ -995,8 +1000,8 @@ namespace xaiefal {
 					}
 				}
 				if (RC != XAIE_OK) {
-					for (int i = 0; i < (int)vRefs.size(); i++) {
-						auto R = vRefs[i].lock();
+					for (auto Ref: vRefs) {
+						auto R = Ref.lock();
 
 						if (R != nullptr) {
 							R->release();
@@ -1030,9 +1035,9 @@ namespace xaiefal {
 		AieRC release() {
 			AieRC RC = XAIE_OK;
 
-			for (int i = 0; i < (int)vRefs.size(); i++) {
+			for (auto Ref: vRefs) {
 				AieRC lRC;
-				auto R = vRefs[i].lock();
+				auto R = Ref.lock();
 
 				if (R != nullptr) {
 					lRC = R->release();
@@ -1052,15 +1057,13 @@ namespace xaiefal {
 		AieRC start() {
 			AieRC RC;
 
-			for (int i = 0; i < (int)vRefs.size(); i++) {
-				auto R = vRefs[i].lock();
+			for (auto Ref: vRefs) {
+				auto R = Ref.lock();
 
 				if (R != nullptr) {
 					RC = R->start();
 					if (RC != XAIE_OK) {
-						for (int j = 0; j < i; j++) {
-							R->stop();
-						}
+						stop();
 						break;
 					}
 				}
@@ -1074,8 +1077,8 @@ namespace xaiefal {
 		 * @return XAIE_OK for success, error code for failure.
 		 */
 		AieRC stop() {
-			for (int i = 0; i < (int)vRefs.size(); i++) {
-				auto R = vRefs[i].lock();
+			for (auto Ref: vRefs) {
+				auto R = Ref.lock();
 
 				if (R != nullptr) {
 					R->stop();
@@ -1093,8 +1096,8 @@ namespace xaiefal {
 		bool isReserved() const {
 			bool Ret = false;
 
-			for (int i = 0; i < (int)vRefs.size(); i++) {
-				auto R = vRefs[i].lock();
+			for (auto Ref: vRefs) {
+				auto R = Ref.lock();
 
 				if (R != nullptr) {
 					if (R->isReserved()) {
@@ -1115,8 +1118,8 @@ namespace xaiefal {
 		bool isRunning() const {
 			bool Ret = false;
 
-			for (int i = 0; i < (int)vRefs.size(); i++) {
-				auto R = vRefs[i].lock();
+			for (auto Ref: vRefs) {
+				auto R = Ref.lock();
 
 				if (R != nullptr) {
 					if (R->isRunning()) {
