@@ -89,6 +89,15 @@ namespace xaiefal {
 
 	class XAieMod;
 	class XAieTile;
+	class XAieBroadcast;
+	class XAiePerfCounter;
+	class XAieTraceCntr;
+	class XAieTraceEvent;
+	class XAieActiveCycles;
+	class XAieStallCycles;
+	class XAiePCEvent;
+	class XAiePCRange;
+	class XAieStreamPortSelect;
 
 	/**
 	 * @class XAieDev
@@ -143,6 +152,29 @@ namespace xaiefal {
 		 */
 		std::shared_ptr<XAieDevHandle> getDevHandle() {
 			return AieHandle->getPtr();
+		}
+
+		/**
+		 * This function returns broadcast resource software object
+		 * within a tile.
+		 *
+		 * @param vL vector of tile locations
+		 * @param StartM starting module of the broadcast channel
+		 * @param EndM Ending module of the broadcast channel
+		 * @return broadcast channel software object pointer within a
+		 *  tile.
+		 *
+		 * Please note that this function will not request hardware
+		 * resource. After this function is called, in order to reserve
+		 * the hardware resource, it will need to call reserve()
+		 * function of the resource class.
+		 */
+		std::shared_ptr<XAieBroadcast> broadcast(
+			std::vector<XAie_LocType> &vL, XAie_ModuleType StartM,
+			XAie_ModuleType EndM) {
+			auto BC = std::make_shared<XAieBroadcast>(*this, vL,
+					StartM, EndM);
+			return BC;
 		}
 
 		/**
@@ -283,6 +315,8 @@ namespace xaiefal {
 				throw std::invalid_argument("Invalid module and tile");
 			}
 			AieHandle = Dev.getDevHandle();
+			TraceCntr = std::make_shared<XAieTraceCntr>(AieHandle,
+					Loc, Mod);
 		}
 		~XAieMod() {}
 
@@ -303,11 +337,121 @@ namespace xaiefal {
 		XAie_ModuleType mod() const {
 			return Mod;
 		}
+
+		/**
+		 * This function returns perfcounter resource software object
+		 * of the module.
+		 *
+		 * @return perfconter software object pointer
+		 *
+		 * Please note that this function will not request hardware
+		 * resource. After this function is called, in order to reserve
+		 * the hardware resource, it will need to call reserve()
+		 * function of the resource class.
+		 */
+		std::shared_ptr<XAiePerfCounter> perfCounter() {
+			return std::make_shared<XAiePerfCounter>(AieHandle,
+					Loc, Mod);
+		}
+
+		/**
+		 * This function returns trace control resource software object
+		 * of the module.
+		 *
+		 * @return trace control software object pointer
+		 *
+		 * Please note that this function will not request hardware
+		 * resource. After this function is called, in order to reserve
+		 * the hardware resource, it will need to call reserve()
+		 * function of the resource class.
+		 */
+		std::shared_ptr<XAieTraceCntr> traceControl() {
+			return TraceCntr;
+		}
+
+		/**
+		 * This function returns trace event resource software object
+		 * of the module.
+		 *
+		 * @return trace event software object pointer
+		 *
+		 * Please note that this function will not request hardware
+		 * resource. After this function is called, in order to reserve
+		 * the hardware resource, it will need to call reserve()
+		 * function of the resource class.
+		 */
+		std::shared_ptr<XAieTraceEvent> traceEvent() {
+			return std::make_shared<XAieTraceEvent>(AieHandle,
+				Loc, Mod);
+		}
+
+		/**
+		 * This function returns perfcounter resource software object
+		 * for active cycles.
+		 *
+		 * @return perfconter software object pointer
+		 *
+		 * Please note that this function will not request hardware
+		 * resource. After this function is called, in order to reserve
+		 * the hardware resource, it will need to call reserve()
+		 * function of the resource class.
+		 */
+		std::shared_ptr<XAieActiveCycles> activeCycles() {
+			return std::make_shared<XAieActiveCycles>(AieHandle,
+					Loc);
+		}
+
+
+		/**
+		 * This function returns perfcounter resource software object
+		 * for stall cycles.
+		 *
+		 * @return perfconter software object pointer
+		 *
+		 * Please note that this function will not request hardware
+		 * resource. After this function is called, in order to reserve
+		 * the hardware resource, it will need to call reserve()
+		 * function of the resource class.
+		 */
+		std::shared_ptr<XAieStallCycles> stallCycles() {
+			return std::make_shared<XAieStallCycles>(AieHandle,
+					Loc);
+		}
+
+		/**
+		 * This function returns PC event resource software object.
+		 *
+		 * @return PC event software object pointer
+		 *
+		 * Please note that this function will not request hardware
+		 * resource. After this function is called, in order to reserve
+		 * the hardware resource, it will need to call reserve()
+		 * function of the resource class.
+		 */
+		std::shared_ptr<XAiePCEvent> pcEvent() {
+			return std::make_shared<XAiePCEvent>(AieHandle, Loc);
+		}
+
+		/**
+		 * This function returns PC range resource software object.
+		 *
+		 * @return PC range software object pointer
+		 *
+		 * Please note that this function will not request hardware
+		 * resource. After this function is called, in order to reserve
+		 * the hardware resource, it will need to call reserve()
+		 * function of the resource class.
+		 */
+		std::shared_ptr<XAiePCRange> pcRange() {
+			return std::make_shared<XAiePCRange>(AieHandle, Loc);
+		}
+
 	private:
 		std::shared_ptr<XAieDevHandle> AieHandle; /**< AI engine device
 							    handle */
 		XAie_LocType Loc; /**< Tile location */
 		XAie_ModuleType Mod; /**< Module type */
+		std::shared_ptr<XAieTraceCntr> TraceCntr; /**< trace control pointer */
 	};
 	/**
 	 * @class XAieTile
@@ -396,6 +540,75 @@ namespace xaiefal {
 		 */
 		XAieMod &pl() {
 			return module(XAIE_PL_MOD);
+		}
+
+		/**
+		 * This function returns broadcast resource software object
+		 * within a tile.
+		 *
+		 * @return broadcast channel software object pointer within a
+		 *  tile.
+		 *
+		 * Please note that this function will not request hardware
+		 * resource. After this function is called, in order to reserve
+		 * the hardware resource, it will need to call reserve()
+		 * function of the resource class.
+		 */
+		std::shared_ptr<XAieBroadcast> broadcast() {
+			std::vector<XAie_LocType> vL;
+			XAie_ModuleType StartM, EndM;
+
+			vL.push_back(Loc);
+			if (_XAie_CheckModule(AieHandle->dev(), Loc, XAIE_CORE_MOD)
+				== XAIE_OK) {
+				StartM = XAIE_CORE_MOD;
+				EndM = XAIE_MEM_MOD;
+			} else if (_XAie_CheckModule(AieHandle->dev(), Loc,
+				XAIE_PL_MOD) == XAIE_OK) {
+				StartM = XAIE_PL_MOD;
+				EndM = XAIE_PL_MOD;
+			} else {
+				StartM = XAIE_MEM_MOD;
+				EndM = XAIE_MEM_MOD;
+			}
+			auto BC = std::make_shared<XAieBroadcast>(AieHandle,
+				vL, StartM, EndM);
+			return BC;
+		}
+
+		/**
+		 * This function returns perfcounter software object
+		 * within a tile.
+		 *
+		 * @return perfcounter software object pointer within a tile.
+		 *
+		 * Please note that this function will not request hardware
+		 * resource. After this function is called, in order to reserve
+		 * the hardware resource, it will need to call reserve()
+		 * function of the resource class.
+		 */
+		std::shared_ptr<XAiePerfCounter> perfCounter() {
+			auto C = std::make_shared<XAiePerfCounter>(AieHandle,
+					Loc, Mods[0].mod(), true);
+			return C;
+		}
+
+		/**
+		 * This function returns stream switch port select software
+		 * object within a tile.
+		 *
+		 * @return stream switch port select software object pointer
+		 *	   within a tile.
+		 *
+		 * Please note that this function will not request hardware
+		 * resource. After this function is called, in order to reserve
+		 * the hardware resource, it will need to call reserve()
+		 * function of the resource class.
+		 */
+		std::shared_ptr<XAieStreamPortSelect> sswitchPort() {
+			auto SS = std::make_shared<XAieStreamPortSelect>(
+					AieHandle, Loc);
+			return SS;
 		}
 	private:
 		std::shared_ptr<XAieDevHandle> AieHandle; /**< AI engine device
