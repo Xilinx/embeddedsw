@@ -159,8 +159,11 @@ namespace xaiefal {
 		/**
 		 * This function sets the perfcounter start, stop, reset events.
 		 *
+		 * @param StartM start event module type
 		 * @param StartE start event
+		 * @param StopM stop event module type
 		 * @param StopE stop event
+		 * @param RstM reset event module type
 		 * @param RstE reset event, default is XAIE_EVENT_NONE_CORE,
 		 *	       that is no reset event.
 		 * @return XAIE_OK for success, error code for failure
@@ -350,6 +353,7 @@ namespace xaiefal {
 		 * It needs to be called before counter is configured in hardware.
 		 * That is it needs to be called before start().
 		 *
+		 * @param M module type of the event
 		 * @param E stop event
 		 * @return XAIE_OK for success, error code for failure
 		 */

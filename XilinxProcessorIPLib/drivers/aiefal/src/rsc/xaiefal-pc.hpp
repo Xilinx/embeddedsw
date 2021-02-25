@@ -107,7 +107,7 @@ namespace xaiefal {
 		 * It needs to be called after reserve() succeeds.
 		 *
 		 * @param E return the PC range event.
-		 * @param XAIE_OK for success, error code for failure
+		 * @return XAIE_OK for success, error code for failure
 		 */
 		AieRC getEvent(XAie_Events &E) const {
 			AieRC RC = XAIE_OK;
@@ -206,7 +206,7 @@ namespace xaiefal {
 		 * It needs to be called after reserve() succeeds.
 		 *
 		 * @param E return the PC range event.
-		 * @param XAIE_OK for success, error code for failure
+		 * @return XAIE_OK for success, error code for failure
 		 */
 		AieRC getEvent(XAie_Events &E) const {
 			AieRC RC = XAIE_OK;
