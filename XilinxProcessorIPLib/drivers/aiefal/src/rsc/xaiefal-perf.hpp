@@ -27,96 +27,6 @@ namespace xaiefal {
 	 * start/stop/reset events will be reserved.
 	 */
 	class XAiePerfCounter : public XAieSingleTileRsc {
-	private:
-		//TODO: should be replaced with SSW AIE driver rsc manager
-		static AieRC XAieAllocRsc(std::shared_ptr<XAieDevHandle> Dev, XAie_LocType L,
-				XAie_ModuleType M, XAie_UserRsc &R) {
-			uint64_t *bits;
-			int sbit, bits2check;
-			AieRC RC = XAIE_OK;
-
-			(void)Dev;
-			if (M == XAIE_CORE_MOD) {
-				if (L.Row == 0) {
-					Logger::log(LogLevel::ERROR) << __func__
-						<< "invalid tile("
-						<< (unsigned)L.Col << ","
-						<< (unsigned)L.Row
-						<< "for core mod." << std::endl;
-					RC = XAIE_INVALID_ARGS;
-				} else {
-					bits = Dev->XAiePerfCoreBits;
-					sbit = (L.Col * 8 + (L.Row - 1)) * 4;
-					bits2check = 4;
-				}
-			} else if (M == XAIE_MEM_MOD) {
-				if (L.Row == 0) {
-					Logger::log(LogLevel::ERROR) << __func__
-						<< "invalid tile("
-						<< (unsigned)L.Col << ","
-						<< (unsigned)L.Row
-						<< "for mem mod." << std::endl;
-					RC = XAIE_INVALID_ARGS;
-				} else {
-					bits = Dev->XAiePerfMemBits;
-					sbit = (L.Col * 8 + (L.Row - 1)) * 2;
-					bits2check = 2;
-				}
-			} else if (M == XAIE_PL_MOD) {
-				if (L.Row != 0) {
-					Logger::log(LogLevel::ERROR) << __func__
-						<< "invalid tile("
-						<< (unsigned)L.Col << ","
-						<< (unsigned)L.Row
-						<< "for PL mod." << std::endl;
-					RC = XAIE_INVALID_ARGS;
-				} else {
-					bits = Dev->XAiePerfShimBits;
-					sbit = L.Col * 2;
-					bits2check = 2;
-				}
-			} else {
-				Logger::log(LogLevel::ERROR) << __func__ <<
-					"invalid module type" << std::endl;
-				RC = XAIE_INVALID_ARGS;
-			}
-			if (RC == XAIE_OK) {
-				int bit = XAieRsc::alloc_rsc_bit(bits, sbit, bits2check);
-
-				if (bit < 0) {
-					RC = XAIE_ERR;
-				} else {
-					R.Loc = L;
-					R.Mod = M;
-					R.Type = XAieRscType::PCOUNTER;
-					R.RscId = bit - sbit;
-				}
-			}
-			return RC;
-		}
-		static void XAieReleaseRsc(std::shared_ptr<XAieDevHandle> Dev,
-				const XAie_UserRsc &R) {
-			uint64_t *bits;
-			int pos;
-
-			(void)Dev;
-			if ((R.Loc.Row == 0 && R.Mod != XAIE_PL_MOD) ||
-			    (R.Loc.Row != 0 && R.Mod == XAIE_PL_MOD)) {
-				Logger::log(LogLevel::ERROR) << __func__ <<
-					"PCount: invalid tile and module." << std::endl;
-				return;
-			} else if (R.Mod == XAIE_PL_MOD) {
-				bits = Dev->XAiePerfShimBits;
-				pos = R.Loc.Col * 2 + R.RscId;
-			} else if (R.Mod == XAIE_CORE_MOD) {
-				bits = Dev->XAiePerfCoreBits;
-				pos = (R.Loc.Col * 8 + (R.Loc.Row - 1)) * 4 + R.RscId;
-			} else {
-				bits = Dev->XAiePerfMemBits;
-				pos = (R.Loc.Col * 8 + (R.Loc.Row - 1)) * 2 + R.RscId;
-			}
-			XAieRsc::clear_rsc_bit(bits, pos);
-		}
 	public:
 		XAiePerfCounter() = delete;
 		XAiePerfCounter(std::shared_ptr<XAieDevHandle> DevHd,
@@ -565,6 +475,103 @@ namespace xaiefal {
 		}
 		virtual AieRC _startPrepend() {
 			return XAIE_OK;
+		}
+	private:
+		/**
+		 * TODO: Following function will not be required.
+		 * Bitmap will be moved to device driver
+		 */
+		static AieRC XAieAllocRsc(std::shared_ptr<XAieDevHandle> Dev, XAie_LocType L,
+				XAie_ModuleType M, XAie_UserRsc &R) {
+			uint64_t *bits;
+			int sbit, bits2check;
+			AieRC RC = XAIE_OK;
+
+			(void)Dev;
+			if (M == XAIE_CORE_MOD) {
+				if (L.Row == 0) {
+					Logger::log(LogLevel::ERROR) << __func__
+						<< "invalid tile("
+						<< (unsigned)L.Col << ","
+						<< (unsigned)L.Row
+						<< "for core mod." << std::endl;
+					RC = XAIE_INVALID_ARGS;
+				} else {
+					bits = Dev->XAiePerfCoreBits;
+					sbit = (L.Col * 8 + (L.Row - 1)) * 4;
+					bits2check = 4;
+				}
+			} else if (M == XAIE_MEM_MOD) {
+				if (L.Row == 0) {
+					Logger::log(LogLevel::ERROR) << __func__
+						<< "invalid tile("
+						<< (unsigned)L.Col << ","
+						<< (unsigned)L.Row
+						<< "for mem mod." << std::endl;
+					RC = XAIE_INVALID_ARGS;
+				} else {
+					bits = Dev->XAiePerfMemBits;
+					sbit = (L.Col * 8 + (L.Row - 1)) * 2;
+					bits2check = 2;
+				}
+			} else if (M == XAIE_PL_MOD) {
+				if (L.Row != 0) {
+					Logger::log(LogLevel::ERROR) << __func__
+						<< "invalid tile("
+						<< (unsigned)L.Col << ","
+						<< (unsigned)L.Row
+						<< "for PL mod." << std::endl;
+					RC = XAIE_INVALID_ARGS;
+				} else {
+					bits = Dev->XAiePerfShimBits;
+					sbit = L.Col * 2;
+					bits2check = 2;
+				}
+			} else {
+				Logger::log(LogLevel::ERROR) << __func__ <<
+					"invalid module type" << std::endl;
+				RC = XAIE_INVALID_ARGS;
+			}
+			if (RC == XAIE_OK) {
+				int bit = XAieRsc::alloc_rsc_bit(bits, sbit, bits2check);
+
+				if (bit < 0) {
+					RC = XAIE_ERR;
+				} else {
+					R.Loc = L;
+					R.Mod = M;
+					R.Type = XAieRscType::PCOUNTER;
+					R.RscId = bit - sbit;
+				}
+			}
+			return RC;
+		}
+		/**
+		 * TODO: Following function will not be required.
+		 * Bitmap will be moved to device driver
+		 */
+		static void XAieReleaseRsc(std::shared_ptr<XAieDevHandle> Dev,
+				const XAie_UserRsc &R) {
+			uint64_t *bits;
+			int pos;
+
+			(void)Dev;
+			if ((R.Loc.Row == 0 && R.Mod != XAIE_PL_MOD) ||
+			    (R.Loc.Row != 0 && R.Mod == XAIE_PL_MOD)) {
+				Logger::log(LogLevel::ERROR) << __func__ <<
+					"PCount: invalid tile and module." << std::endl;
+				return;
+			} else if (R.Mod == XAIE_PL_MOD) {
+				bits = Dev->XAiePerfShimBits;
+				pos = R.Loc.Col * 2 + R.RscId;
+			} else if (R.Mod == XAIE_CORE_MOD) {
+				bits = Dev->XAiePerfCoreBits;
+				pos = (R.Loc.Col * 8 + (R.Loc.Row - 1)) * 4 + R.RscId;
+			} else {
+				bits = Dev->XAiePerfMemBits;
+				pos = (R.Loc.Col * 8 + (R.Loc.Row - 1)) * 2 + R.RscId;
+			}
+			XAieRsc::clear_rsc_bit(bits, pos);
 		}
 	};
 }

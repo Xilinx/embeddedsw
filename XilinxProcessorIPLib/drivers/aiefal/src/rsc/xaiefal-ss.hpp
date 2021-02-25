@@ -20,54 +20,6 @@ namespace xaiefal {
 	 * select resource first.
 	 */
 	class XAieStreamPortSelect: public XAieSingleTileRsc {
-	private:
-		//TODO: should be replaced with SSW AIE driver rsc manager
-		static AieRC XAieAllocRsc(std::shared_ptr<XAieDevHandle> Dev,
-				XAie_LocType L,
-				XAie_UserRsc &R) {
-			uint64_t *bits;
-			int bit, sbit;
-			AieRC RC = XAIE_OK;
-
-			(void)Dev;
-			if (L.Row == 0) {
-				bits = Dev->XAieSSShimTBits;
-				sbit = L.Col * 8;
-			} else {
-				bits = Dev->XAieSSCoreTBits;
-				sbit = (L.Col * 8 + (L.Row - 1)) * 8;
-			}
-			bit = XAieRsc::alloc_rsc_bit(bits, sbit, 8);
-
-			if (bit < 0) {
-				RC = XAIE_ERR;
-			} else {
-				R.Loc = L;
-				if (L.Row == 0) {
-					R.Mod = XAIE_PL_MOD;
-				} else {
-					R.Mod = XAIE_CORE_MOD;
-				}
-				R.Type = XAieRscType::SSWITCHSELECT;
-				R.RscId = bit - sbit;
-			}
-			return RC;
-		}
-		static void XAieReleaseRsc(std::shared_ptr<XAieDevHandle> Dev,
-				const XAie_UserRsc &R) {
-			uint64_t *bits;
-			int pos;
-
-			(void)Dev;
-			if (R.Mod == XAIE_PL_MOD) {
-				bits = Dev->XAieSSShimTBits;
-				pos = R.Loc.Col * 8 + R.RscId;
-			} else {
-				bits = Dev->XAieSSCoreTBits;
-				pos = (R.Loc.Col * 8 + (R.Loc.Row - 1)) * 8 + R.RscId;
-			}
-			XAieRsc::clear_rsc_bit(bits, pos);
-		}
 	public:
 		XAieStreamPortSelect() = delete;
 		XAieStreamPortSelect(std::shared_ptr<XAieDevHandle> DevHd,
@@ -217,6 +169,61 @@ namespace xaiefal {
 					" failed to stop." << std::endl;
 			}
 			return RC;
+		}
+	private:
+		/**
+		 * TODO: Following function will not be required.
+		 * Bitmap will be moved to device driver
+		 */
+		static AieRC XAieAllocRsc(std::shared_ptr<XAieDevHandle> Dev,
+				XAie_LocType L,
+				XAie_UserRsc &R) {
+			uint64_t *bits;
+			int bit, sbit;
+			AieRC RC = XAIE_OK;
+
+			(void)Dev;
+			if (L.Row == 0) {
+				bits = Dev->XAieSSShimTBits;
+				sbit = L.Col * 8;
+			} else {
+				bits = Dev->XAieSSCoreTBits;
+				sbit = (L.Col * 8 + (L.Row - 1)) * 8;
+			}
+			bit = XAieRsc::alloc_rsc_bit(bits, sbit, 8);
+
+			if (bit < 0) {
+				RC = XAIE_ERR;
+			} else {
+				R.Loc = L;
+				if (L.Row == 0) {
+					R.Mod = XAIE_PL_MOD;
+				} else {
+					R.Mod = XAIE_CORE_MOD;
+				}
+				R.Type = XAieRscType::SSWITCHSELECT;
+				R.RscId = bit - sbit;
+			}
+			return RC;
+		}
+		/**
+		 * TODO: Following function will not be required.
+		 * Bitmap will be moved to device driver
+		 */
+		static void XAieReleaseRsc(std::shared_ptr<XAieDevHandle> Dev,
+				const XAie_UserRsc &R) {
+			uint64_t *bits;
+			int pos;
+
+			(void)Dev;
+			if (R.Mod == XAIE_PL_MOD) {
+				bits = Dev->XAieSSShimTBits;
+				pos = R.Loc.Col * 8 + R.RscId;
+			} else {
+				bits = Dev->XAieSSCoreTBits;
+				pos = (R.Loc.Col * 8 + (R.Loc.Row - 1)) * 8 + R.RscId;
+			}
+			XAieRsc::clear_rsc_bit(bits, pos);
 		}
 	};
 }
