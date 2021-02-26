@@ -28,6 +28,7 @@
 * 2.1	am   08/19/2020 Resolved MISRA C violations.
 * 	kal  09/03/2020 Fixed Security CoE review comments
 *	am   10/13/2020 Resolved MISRA C violations
+* 2.2	kal  01/27/2021 Added XNvm_ZeroizeAndVerify API
 *
 * </pre>
 *
@@ -138,4 +139,37 @@ u32 XNvm_AesCrcCalc(const u32 *Key)
 	}
 
 	return Crc;
+}
+
+/*****************************************************************************/
+/*
+ * @brief	This function is used to zeroize the memory
+ *
+ * @param	DataPtr Pointer to the memory which need to be zeroized.
+ * @param	Length	Length of the data in bytes.
+ *
+ * @return
+ *		- XST_SUCCESS: If Zeroization is successful.
+ *		- XST_FAILURE: If Zeroization is not successful.
+ ********************************************************************************/
+int XNvm_ZeroizeAndVerify(u8 *DataPtr, const u32 Length)
+{
+	u32 Index;
+	int Status = XST_FAILURE;
+
+	/* Clear the decrypted data */
+	(void)memset(DataPtr, 0, Length);
+
+	/* Read it back to verify */
+	 for (Index = 0U; Index < Length; Index++) {
+		if (DataPtr[Index] != 0x00U) {
+			goto END;
+		}
+	}
+	if (Index == Length) {
+		Status = XST_SUCCESS;
+	}
+
+END:
+	return Status;
 }

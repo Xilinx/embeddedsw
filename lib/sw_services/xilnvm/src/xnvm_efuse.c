@@ -44,6 +44,7 @@
 *	kal  01/25/2021	Initialized variables to more secure state
 *	kal  01/25/2021 Fix cache logic error in XNvm_EfuseReadCacheRange API
 *	kal  02/22/2021	Add redundancy to loop in XNvm_EfusePgmAndVerifyRows
+*	kal  02/26/2021 Fix all SW-BP-ZEROIZE related review comments
 *
 * </pre>
 *
@@ -1180,6 +1181,7 @@ END:
 int XNvm_EfuseReadPuf(XNvm_EfusePufHd *PufHelperData)
 {
 	int Status = XST_FAILURE;
+	int ClearStatus = XST_FAILURE;
 	u32 PufSynRowNum;
 
 	if (PufHelperData == NULL) {
@@ -1199,23 +1201,34 @@ int XNvm_EfuseReadPuf(XNvm_EfusePufHd *PufHelperData)
 					PufHelperData->EfuseSynData);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_RD_PUF_SYN_DATA);
-		goto END;
+		goto END_RST;
 	}
 
 	Status = XNvm_EfuseReadCache(XNVM_EFUSE_PUF_CHASH_ROW,
 					&(PufHelperData->Chash));
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_RD_PUF_CHASH);
-		goto END;
+		goto END_RST;
 	}
 	Status = XNvm_EfuseReadCache(XNVM_EFUSE_PUF_AUX_ROW,
 				&(PufHelperData->Aux));
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_RD_PUF_AUX);
+		goto END_RST;
 	}
 
 	PufHelperData->Aux = PufHelperData->Aux &
 				XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_ECC_23_0_MASK;
+
+END_RST:
+	if (Status != XST_SUCCESS) {
+		ClearStatus = XNvm_ZeroizeAndVerify((u8 *)PufHelperData,
+						sizeof(XNvm_EfusePufHd));
+		if (ClearStatus != XST_SUCCESS) {
+			Status = (Status | XNVM_EFUSE_ERR_IN_ZEROIZATION);
+		}
+	}
+	return Status;
 
 END:
 	return Status;
