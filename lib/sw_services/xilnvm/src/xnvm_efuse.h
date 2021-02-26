@@ -110,7 +110,7 @@ typedef enum {
 
 	/* Error codes for EFuse */
 	XNVM_EFUSE_ERR_INVALID_PARAM = 0x2,/**< 0x2 - Passed invalid param. */
-	XNVM_EFUSE_ERR_RD,/**< 0x3 - Error while reading.*/
+	XNVM_EFUSE_ERR_IN_ZEROIZATION,/**< 0x3 - Error while reading.*/
 	XNVM_EFUSE_ERR_RD_TIMEOUT,/**< 0x4 - Read Timeout.*/
 	XNVM_EFUSE_ERR_CACHE_PARITY,/**< 0x5 - Error in Cache reload.*/
 	XNVM_EFUSE_ERR_LOCK,/**< 0x6 - Error while Locking the controller */

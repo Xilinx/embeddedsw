@@ -59,7 +59,7 @@ extern "C" {
 #define XNVM_MAX_AES_KEY_LEN_IN_CHARS	XNVM_256_BITS_AES_KEY_LEN_IN_CHARS
 #define XNVM_AES_KEY_SIZE_IN_WORDS	(XNVM_256_BITS_AES_KEY_LEN_IN_BYTES / 4U)
 #define XNVM_IV_STRING_LEN		(24U)
-
+#define XNVM_WORD_LEN			(4U)
 /**
  * @}
  * @endcond
@@ -70,6 +70,7 @@ extern "C" {
 /*************************** Function Prototypes ******************************/
 int XNvm_ValidateAesKey(const char *Key);
 u32 XNvm_AesCrcCalc(const u32 *Key);
+int XNvm_ZeroizeAndVerify(u8 *DataPtr, const u32 Length);
 
 #ifdef __cplusplus
 }
