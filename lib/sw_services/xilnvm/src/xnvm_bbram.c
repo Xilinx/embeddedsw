@@ -24,6 +24,7 @@
 * 2.2   am   11/23/2020 Resolved MISRA C violation Rule 10.6
 * 	kal  12/23/2020 Disable BBRAM programming in error case also
 *	kal  01/27/2021	Zeroize BBRAM in case of CRC mismatch
+*			Zeroize BBRAM User Data in case of write failure
 *
 * </pre>
 *
@@ -214,6 +215,9 @@ int XNvm_BbramWriteUsrData(u32 UsrData)
 		ReadReg = XNvm_BbramReadReg(XNVM_BBRAM_8_REG);
 		if (ReadReg == UsrData) {
 			Status = XST_SUCCESS;
+		}
+		else {
+			XNvm_BbramWriteReg(XNVM_BBRAM_8_REG, 0U);
 		}
 	}
 
