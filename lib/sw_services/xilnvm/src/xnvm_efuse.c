@@ -1103,6 +1103,7 @@ END :
 int XNvm_EfuseReadIv(XNvm_Iv *EfuseIv, XNvm_IvType IvType)
 {
 	int Status = XST_FAILURE;
+	int ClearStatus = XST_FAILURE;
 
 	if (EfuseIv == NULL) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
@@ -1125,7 +1126,7 @@ int XNvm_EfuseReadIv(XNvm_Iv *EfuseIv, XNvm_IvType IvType)
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
 				XNVM_EFUSE_ERR_RD_META_HEADER_IV_RANGE);
-			goto END;
+			goto END_RST;
 		}
 	}
 	else if (IvType == XNVM_EFUSE_BLACK_IV) {
@@ -1136,7 +1137,7 @@ int XNvm_EfuseReadIv(XNvm_Iv *EfuseIv, XNvm_IvType IvType)
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
 					XNVM_EFUSE_ERR_RD_BLACK_IV);
-			goto END;
+			goto END_RST;
 		}
 	}
 	else if (IvType == XNVM_EFUSE_PLM_IV_RANGE) {
@@ -1145,7 +1146,7 @@ int XNvm_EfuseReadIv(XNvm_Iv *EfuseIv, XNvm_IvType IvType)
 						EfuseIv->Iv);
 		if (Status != XST_SUCCESS) {
 			Status = (Status | XNVM_EFUSE_ERR_RD_PLM_IV_RANGE);
-			goto END;
+			goto END_RST;
 		}
 	}
 	else {
@@ -1154,12 +1155,23 @@ int XNvm_EfuseReadIv(XNvm_Iv *EfuseIv, XNvm_IvType IvType)
 					XNVM_EFUSE_IV_NUM_OF_ROWS,
 					EfuseIv->Iv);
 		if (Status != XST_SUCCESS) {
-		Status = (Status | XNVM_EFUSE_ERR_RD_DATA_PARTITION_IV_RANGE);
-			goto END;
+			Status = (Status | XNVM_EFUSE_ERR_RD_DATA_PARTITION_IV_RANGE);
+			goto END_RST;
 		}
 	}
 
 	Status = XST_SUCCESS;
+
+END_RST:
+	if (Status != XST_SUCCESS) {
+		ClearStatus = XNvm_ZeroizeAndVerify((u8 *)EfuseIv,
+							sizeof(XNvm_Iv));
+		if (ClearStatus != XST_SUCCESS) {
+			Status = (Status | XNVM_EFUSE_ERR_IN_ZEROIZATION);
+		}
+	}
+
+	return Status;
 
 END:
 	return Status;
