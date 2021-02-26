@@ -23,6 +23,7 @@
 *	am   10/13/2020 Resolved MISRA C violations
 * 2.2   am   11/23/2020 Resolved MISRA C violation Rule 10.6
 * 	kal  12/23/2020 Disable BBRAM programming in error case also
+*	kal  01/27/2021	Zeroize BBRAM in case of CRC mismatch
 *
 * </pre>
 *
@@ -109,6 +110,7 @@ int XNvm_BbramWriteAesKey(const u8* Key, u16 KeyLen)
 {
 	int Status = XST_FAILURE;
 	int DisableStatus = XST_FAILURE;
+	int ZeroizeStatus = XST_FAILURE;
 	const u32 *AesKey = NULL;
 	u32 BbramKeyAddr;
 	u8 Idx;
@@ -125,8 +127,8 @@ int XNvm_BbramWriteAesKey(const u8* Key, u16 KeyLen)
 	 * As per hardware design, zeroization is must between two BBRAM
 	 * AES CRC Check requests
 	 */
-	Status = XNvm_BbramZeroize();
-	if (Status != XST_SUCCESS) {
+	ZeroizeStatus = XNvm_BbramZeroize();
+	if (ZeroizeStatus != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -144,7 +146,11 @@ int XNvm_BbramWriteAesKey(const u8* Key, u16 KeyLen)
 
 	Status = XNvm_BbramValidateAesKeyCrc(AesKey);
 	if (Status != XST_SUCCESS) {
-		goto END;
+		ZeroizeStatus = XNvm_BbramZeroize();
+		if (ZeroizeStatus != XST_SUCCESS) {
+			Status = (Status | ZeroizeStatus);
+			goto END;
+		}
 	}
 
 END:
