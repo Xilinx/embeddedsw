@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2009 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2009 - 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -13,6 +13,9 @@
 #                         designs
 #         nsk    01/06/21 Modified the generate proc to check
 #                         the hier prop if cips is present
+# 3.0     nsk    02/26/21 Modified the generate proc to
+#                         generate both canonical and
+#                         peripheral defines
 ###############################################################
 
 #----------------------------------------------------
@@ -22,22 +25,10 @@
 global set ipmap [dict create]
 
 proc generate {drv_handle} {
-    set procname [hsi::get_cells -hier -filter {IP_NAME=="psv_pmc"}]
-    set cips_ip [hsi::get_cells -hier -filter {IP_NAME==versal_cips}]
-    set hier_prop 0
-    if {$procname != ""} {
-        define_addr_params_canonical $drv_handle "xparameters.h"
-    } else {
-        ::hsi::utils::define_addr_params $drv_handle "xparameters.h"
-    }
-
-    if {$cips_ip != ""} {
-        set hier_prop [common::get_property IS_HIERARCHICAL [hsi::get_cells -hier $cips_ip]]
-    }
-
-    if {$hier_prop == 1} {
-        ::hsi::utils::define_addr_params $drv_handle "xparameters.h"
-    }
+    global paramlist
+    set paramlist ""
+    define_addr_params $drv_handle "xparameters.h" "peripheral"
+    define_addr_params $drv_handle "xparameters.h" "canonical"
 }
 
 proc find_addr_params {periph} {
@@ -68,13 +59,30 @@ proc find_addr_params {periph} {
    return $addr_params
 }
 
-proc get_ip_param_name {periph_handle param {device_id ""}} {
+proc get_ip_param_name {periph_handle param type {device_id ""}} {
 
-   set name [common::get_property IP_NAME $periph_handle ]
+   global paramlist
+   set dev_id $device_id
+   if {[string match -nocase $type "canonical"]} {
+       set name [common::get_property IP_NAME $periph_handle ]
+       # For the IPS psv_fpd_smmutcu_0 and psv_fpd_maincci_0 the IP_NAME is same
+       # so duplicate macros will be defined in xparameters.h, so use NAME
+       # instead of IP_NAME. will remove this check, once it is fixed
+       if {[string match -nocase $name "psv_fpd_smmutcu"]} {
+           set prop [common::get_property CONFIG.C_S_AXI_BASEADDR $periph_handle]
+           if {$prop == 0xFD000000} {
+               set name [common::get_property NAME $periph_handle ]
+           }
+       }
+   } else {
+       set name [common::get_property NAME $periph_handle ]
+       set dev_id ""
+   }
    set name [string toupper $name]
    set name [format "XPAR_%s_" $name]
+   set devname $name
    set param [string toupper $param]
-   if {$device_id == ""} {
+   if {$dev_id == ""} {
        if {[string match C_* $param]} {
            set name [format "%s%s" $name [string range $param 2 end]]
        } else {
@@ -89,11 +97,31 @@ proc get_ip_param_name {periph_handle param {device_id ""}} {
        }
    }
 
+   # Update the global parameter list, so that we will check for duplicate entries
+   # when we write to xparameters.h file.
+   if {[lsearch -nocase $paramlist $name] == -1} {
+        set paramlist [lappend paramlist $name]
+   } else {
+	return ""
+   }
+
+   # For peripheral names, do not use device ids
+   if {$dev_id == ""} {
+      if {[string match C_* $param]} {
+          set name [format "%s%s" $devname [string range $param 2 end]]
+      } else {
+          set name [format "%s%s" $devname $param]
+      }
+   }
+
    return $name
 }
-proc define_addr_params_canonical {drv_handle file_name} {
+proc define_addr_params {drv_handle file_name type} {
 
+   global ipmap
+   set ipmap [dict create]
    set addr_params [list]
+   global paramlist
    # Open include file
    set file_handle [::hsi::utils::open_include_file $file_name]
    # Get all peripherals connected to this driver
@@ -102,6 +130,7 @@ proc define_addr_params_canonical {drv_handle file_name} {
 
    foreach periph $periphs {
 	set name [common::get_property IP_NAME $periph]
+	set inst_name [common::get_property NAME $periph]
 	set is_nr [regexp -all {[_][0-9]$} $name]
 	if {$is_nr == 0} {
 		set device_id [get_count $name]
@@ -109,19 +138,40 @@ proc define_addr_params_canonical {drv_handle file_name} {
 		set device_id ""
 	}
    puts $file_handle ""
-   puts $file_handle "/* Canonical Definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
 
    set addr_params ""
    set addr_params [find_addr_params $periph]
-
+   set periph_change 0
    foreach arg $addr_params {
        set value [::hsi::utils::get_param_value $periph $arg]
        if {$value != ""} {
            set value [::hsi::utils::format_addr_string $value $arg]
 	   if {$device_id == ""} {
-	       puts $file_handle "#define [get_ip_param_name $periph $arg] $value"
+               set addrparam [get_ip_param_name $periph $arg $type]
+               if {$addrparam != ""} {
+			if {$periph_change == 0} {
+			set periph_change 1
+			if {[string match -nocase $type "canonical"]} {
+				puts $file_handle "/* Canonical Definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
+			   } else {
+			       puts $file_handle "/* Peripheral Definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
+			   }
+			}
+	           puts $file_handle "#define $addrparam $value"
+              }
 	   } else {
-	       puts $file_handle "#define [get_ip_param_name $periph $arg $device_id] $value"
+               set addrparam [get_ip_param_name $periph $arg $type $device_id]
+               if {$addrparam != ""} {
+		    if {$periph_change == 0} {
+			set periph_change 1
+			if {[string match -nocase $type "canonical"]} {
+				puts $file_handle "/* Canonical Definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
+		       } else {
+				puts $file_handle "/* Peripheral Definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
+			}
+		    }
+	            puts $file_handle "#define $addrparam $value"
+		}
 	   }
 
        }
