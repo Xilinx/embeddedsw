@@ -55,7 +55,7 @@ int UartPsvPolledExample(u16 DeviceId);
 
 /************************** Variable Definitions ***************************/
 
-XUartPsv UartPsv;		/* Instance of the UART Device */
+static XUartPsv UartPsv;		/* Instance of the UART Device */
 
 /*
  * The following buffers are used in this example to send and receive data
@@ -63,14 +63,6 @@ XUartPsv UartPsv;		/* Instance of the UART Device */
  */
 static u8 SendBuffer[TEST_BUFFER_SIZE];	/* Buffer for Transmitting Data */
 static u8 RecvBuffer[TEST_BUFFER_SIZE];	/* Buffer for Receiving Data */
-
-/*
- * The following counters are used to determine when the entire buffer has
- * been sent and received.
- */
-volatile int TotalReceivedCount;
-volatile int TotalSentCount;
-int TotalErrorCount;
 
 /**************************************************************************/
 /**
@@ -130,7 +122,7 @@ int UartPsvPolledExample(u16 DeviceId)
 	XUartPsv_Config *Config;
 	int Index;
 	int BadByteCount = 0;
-	unsigned int ReceivedCount;
+	unsigned int TotalSentCount, ReceivedCount;
 
 	/*
 	 * Initialize the UART driver so that it's ready to use.
@@ -168,6 +160,10 @@ int UartPsvPolledExample(u16 DeviceId)
 	TotalSentCount = XUartPsv_Send(&UartPsv, SendBuffer, TEST_BUFFER_SIZE);
 
 	while (XUartPsv_IsTransmitbusy(UartPsv.Config.BaseAddress));
+	if (TotalSentCount != TEST_BUFFER_SIZE) {
+		return XST_FAILURE;
+	}
+
 	ReceivedCount = 0;
 	while (ReceivedCount < TEST_BUFFER_SIZE) {
 		ReceivedCount +=
