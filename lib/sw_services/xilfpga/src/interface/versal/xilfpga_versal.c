@@ -23,14 +23,15 @@
  * 5.3  Nava  06/29/20  Added asserts to validate input params.
  * 5.3  Nava  09/09/20  Replaced the asserts with input validations for non void
  *                      API's.
- * 5.3  Nava  15/12/20  Fixed doxygen issues.
- * 6.0  Nava  20/01/21  Reset the status variable to fail to avoid safety
+ * 5.3  Nava  12/15/20  Fixed doxygen issues.
+ * 6.0  Nava  01/20/21  Reset the status variable to fail to avoid safety
  *                      violations.
- * 6.0  Nava  21/01/21  Make Status variable volatile to avoid compiler
+ * 6.0  Nava  01/21/21  Make Status variable volatile to avoid compiler
  *                      optimizations.
- * 6.0  Nava  21/01/21  The usage of XMboxInstance variable is limited only
+ * 6.0  Nava  01/21/21  The usage of XMboxInstance variable is limited only
  *                      to this file. So making this variable as static.
- * 6.0  Nava  11/02/21  Avoid reuse of request buffer.
+ * 6.0  Nava  02/11/21  Avoid reuse of request buffer.
+ * 6.0  Nava  02/22/21  Fixed doxygen issues.
  * </pre>
  *
  * @note
@@ -41,6 +42,9 @@
 #include "xilmailbox.h"
 
 /************************** Constant Definitions *****************************/
+/**
+ *@cond nocomments
+ */
 #define PDI_LOAD		0x30701U
 #define DELAYED_PDI_LOAD	0x30702U
 #define LOAD_PDI_MSG_LEN	0x4U
@@ -49,6 +53,9 @@
 #define FPGA_PDI_SRC_DDR	0xFU
 #define FPGA_IPI_TYPE_BLOCKING	0x1U
 #define PDI_LOAD_TYPE_MASK	BIT(0)
+/**
+ *@endcond
+ */
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -62,9 +69,9 @@ static XMailbox XMboxInstance;
 static u32 ReqBuffer[LOAD_PDI_MSG_LEN] = {0U};
 
 /*****************************************************************************/
-/**This API when called initializes the XFPGA interface with default settings.
+/**This API, when called, initializes the XFPGA interface with default settings.
  *
- * @param InstancePtr Pointer to the XFgpa structure.
+ * @param InstancePtr Pointer to the XFpga structure.
  *
  * @return Returns Status
  *		- XFPGA_SUCCESS on success

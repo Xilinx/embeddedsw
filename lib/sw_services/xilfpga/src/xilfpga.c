@@ -54,10 +54,11 @@
  *                      Size(Bitstream size).
  * 6.0 Nava   01/07/21  Fixed misra-c required standard violations.
  * 6.0 Nava   01/08/21  Removed unwanted if else conditions.
- * 6.0 Nava   20/01/21  Reset the status variable to fail to avoid safety
+ * 6.0 Nava   01/20/21  Reset the status variable to fail to avoid safety
  *                      violations.
- * 6.0 Nava   21/01/21  Make Status variable volatile to avoid compiler
+ * 6.0 Nava   01/21/21  Make Status variable volatile to avoid compiler
  *                      optimizations.
+ * 6.0 Nava   02/22/21  Fixed doxygen issues.
  *</pre>
  *
  *@note
@@ -73,24 +74,24 @@ static u32 XFpga_ValidateBitstreamParam(XFpga *InstancePtr,
 
 /*****************************************************************************/
 /**The API is used to load the bitstream file into the PL region.
- * It supports vivado generated Bitstream(*.bit, *.bin) and bootgen
- * generated Bitstream(*.bin) loading, Passing valid Bitstream size
- * (AddrPtr_Size) info is mandatory for vivado generated Bitstream,
- * For bootgen generated Bitstreams it will take Bitstream size from
- * the Bitstream Header.
+ * It supports the Vivado-generated bitstream(*.bit, *.bin) and
+ * Bootgen-generated bitstream(*.bin) loading, Passing valid
+ * bitstream size(Size) information is mandatory for Vivado-generated
+ * bitstream, For Bootgen-generated bitstreams bitstream size is taken
+ * from the bitstream header.
  *
- *@param InstancePtr Pointer to the XFgpa structure.
+ *@param InstancePtr Pointer to the XFpga structure.
  *
- *@param BitstreamImageAddr  Linear memory Bitstream image base address
+ *@param BitstreamImageAddr  Linear memory bitstream image base address
  *
- *@param AddrPtr_Size  Aes key address which is used for Decryption (or)
- *                     In none Secure Bitstream used it is used store size
- *                     of Bitstream Image.
+ *@param AddrPtr_Size  Aes key address which is used for decryption (or)
+ *                     In none secure bitstream used it is used store size
+ *                     of bitstream image.
  *
- *@param Flags Flags are used to specify the type of Bitstream file.
+ *@param Flags Flags are used to specify the type of bitstream file.
  *                      * BIT(0) - Bitstream type
- *                                      * 0 - Full Bitstream
- *                                      * 1 - Partial Bitstream
+ *                                      * 0 - Full bitstream
+ *                                      * 1 - Partial bitstream
  *                                      * 1 - Enable
  *                      * BIT(1) - Authentication using DDR
  *                                      * 1 - Enable
@@ -112,6 +113,11 @@ static u32 XFpga_ValidateBitstreamParam(XFpga *InstancePtr,
  *      - XFPGA_PRE_CONFIG_ERROR.
  *      - XFPGA_WRITE_BITSTREAM_ERROR.
  *      - XFPGA_POST_CONFIG_ERROR.
+ *
+ *@note
+ *      - This API will be deprecated in the 2022.1 release.
+ *        Use the updated 'XFpga_BitStream_Load()' API to
+ *        perform the same functionality.
  *
  *****************************************************************************/
 u32 XFpga_PL_BitStream_Load(XFpga *InstancePtr,
@@ -142,24 +148,24 @@ u32 XFpga_PL_BitStream_Load(XFpga *InstancePtr,
 
 /*****************************************************************************/
 /**The API is used to load the bitstream file into the PL region.
- * It supports vivado generated Bitstream(*.bit, *.bin) and bootgen
- * generated Bitstream(*.bin) loading, Passing valid Bitstream size
- * (Size) info is mandatory for vivado generated Bitstream,
- * For bootgen generated Bitstreams it will take Bitstream size from
- * the Bitstream Header.
+ * It supports the Vivado-generated bitstream(*.bit, *.bin) and
+ * Bootgen-generated bitstream(*.bin) loading, Passing valid
+ * bitstream size(Size) information is mandatory for Vivado-generated
+ * bitstream, For Bootgen-generated bitstreams bitstream size is taken
+ * from the bitstream header.
  *
- *@param InstancePtr Pointer to the XFgpa structure.
+ *@param InstancePtr Pointer to the XFpga structure.
  *
- *@param BitstreamImageAddr  Linear memory Bitstream image base address
+ *@param BitstreamImageAddr  Linear memory bitstream image base address
  *
- *@param KeyAddr Aes key address which is used for Decryption.
+ *@param KeyAddr Aes key address which is used for decryption.
  *
- *@param Size Used to store size of Bitstream Image.
+ *@param Size Used to store size of bitstream image.
  *
- *@param Flags Flags are used to specify the type of Bitstream file.
+ *@param Flags Flags are used to specify the type of bitstream file.
  *			* BIT(0) - Bitstream type
- *					* 0 - Full Bitstream
- *					* 1 - Partial Bitstream
+ *					* 0 - Full bitstream
+ *					* 1 - Partial bitstream
  *			* BIT(1) - Authentication using DDR
  *					* 1 - Enable
  *					* 0 - Disable
@@ -241,20 +247,20 @@ END:
 
 /*****************************************************************************/
 /**
- * This function is used to validate the Bitstream Image
+ * This function is used to validate the bitstream image.
  *
- * @param InstancePtr Pointer to the XFgpa structure
+ * @param InstancePtr Pointer to the XFpga structure
  *
- * @param BitstreamImageAddr  Linear memory Bitstream image base address
+ * @param BitstreamImageAddr  Linear memory bitstream image base address
  *
- * @param AddrPtr_Size  Aes key address which is used for Decryption (or)
- *                      In none Secure Bitstream used it is used store size
- *                      of Bitstream Image.
+ * @param AddrPtr_Size  Aes key address which is used for decryption (or)
+ *                      In none secure bitstream used it is used store size
+ *                      of bitstream image.
  *
- * @param Flags Flags are used to specify the type of Bitstream file.
- *                      * BIT(0) - Bitstream type
- *                                      * 0 - Full Bitstream
- *                                      * 1 - Partial Bitstream
+ * @param Flags Flags are used to specify the type of bitstream file.
+ *                      * BIT(0) - bitstream type
+ *                                      * 0 - Full bitstream
+ *                                      * 1 - Partial bitstream
  *                      * BIT(1) - Authentication using DDR
  *                                      * 1 - Enable
  *                                      * 0 - Disable
@@ -269,6 +275,12 @@ END:
  *                                      * 0 - Disable
  *
  * @return Codes as mentioned in xilfpga.h
+ *
+ * @note
+ *      - This API will be deprecated in the 2022.1 release.
+ *        Use the updated 'XFpga_ValidateImage()' API to
+ *        perform the same functionality.
+ *
  *****************************************************************************/
 u32 XFpga_PL_ValidateImage(XFpga *InstancePtr,
                            UINTPTR BitstreamImageAddr,
@@ -298,20 +310,20 @@ u32 XFpga_PL_ValidateImage(XFpga *InstancePtr,
 
 /*****************************************************************************/
 /**
- * This function is used to validate the Bitstream Image
+ * This function is used to validate the bitstream image.
  *
- * @param InstancePtr Pointer to the XFgpa structure
+ * @param InstancePtr Pointer to the XFpga structure
  *
- * @param BitstreamImageAddr  Linear memory Bitstream image base address
+ * @param BitstreamImageAddr  Linear memory bitstream image base address
  *
- * @param KeyAddr Aes key address which is used for Decryption.
+ * @param KeyAddr Aes key address which is used for decryption.
  *
- * @param Size Used to store size of Bitstream Image.
+ * @param Size Used to store size of bitstream image.
  *
- * @param Flags Flags are used to specify the type of Bitstream file.
+ * @param Flags Flags are used to specify the type of bitstream file.
  *			* BIT(0) - Bitstream type
- *					* 0 - Full Bitstream
- *					* 1 - Partial Bitstream
+ *					* 0 - Full bitstream
+ *					* 1 - Partial bitstream
  *			* BIT(1) - Authentication using DDR
  *					* 1 - Enable
  *					* 0 - Disable
@@ -363,9 +375,9 @@ END:
 }
 
 /*****************************************************************************/
-/**This function prepare the FPGA to receive configuration data.
+/**This function prepares the FPGA to receive configuration data.
  *
- * @param InstancePtr is the pointer to the XFgpa.
+ * @param InstancePtr is the pointer to the XFpga.
  *
  * @return Codes as mentioned in xilfpga.h
  *****************************************************************************/
@@ -396,20 +408,20 @@ END:
 }
 
 /*****************************************************************************/
-/**This function write count bytes of configuration data into the PL.
+/**This function writes the count bytes of configuration data into the PL.
  *
- * @param InstancePtr Pointer to the XFgpa structure
+ * @param InstancePtr Pointer to the XFpga structure
  *
- * @param BitstreamImageAddr  Linear memory Bitstream image base address
+ * @param BitstreamImageAddr  Linear memory bitstream image base address
  *
- * @param AddrPtr_Size  Aes key address which is used for Decryption (or)
- *                      In none Secure Bitstream used it is used store size
- *                      of Bitstream Image.
+ * @param AddrPtr_Size  Aes key address which is used for decryption (or)
+ *                      In none secure bitstream used it is used store size
+ *                      of bitstream image.
  *
- * @param Flags Flags are used to specify the type of Bitstream file.
+ * @param Flags Flags are used to specify the type of bitstream file.
  *                      * BIT(0) - Bitstream type
- *                                      * 0 - Full Bitstream
- *                                      * 1 - Partial Bitstream
+ *                                      * 0 - Full bitstream
+ *                                      * 1 - Partial bitstream
  *                      * BIT(1) - Authentication using DDR
  *                                      * 1 - Enable
  *                                      * 0 - Disable
@@ -424,6 +436,12 @@ END:
  *                                      * 0 - Disable
  *
  * @return Codes as mentioned in xilfpga.h
+ *
+ * @note
+ *      - This API will be deprecated in the 2022.1 release.
+ *        Use the updated 'XFpga_Write_Pl()' API to perform
+ *        the same functionality.
+ *
  *****************************************************************************/
 u32 XFpga_PL_Write(XFpga *InstancePtr,UINTPTR BitstreamImageAddr,
                    UINTPTR AddrPtr_Size, u32 Flags)
@@ -451,20 +469,20 @@ u32 XFpga_PL_Write(XFpga *InstancePtr,UINTPTR BitstreamImageAddr,
 }
 
 /*****************************************************************************/
-/**This function write count bytes of configuration data into the PL.
+/**This function writes the count bytes of configuration data into the PL.
  *
- * @param InstancePtr Pointer to the XFgpa structure
+ * @param InstancePtr Pointer to the XFpga structure
  *
- * @param BitstreamImageAddr  Linear memory Bitstream image base address
+ * @param BitstreamImageAddr  Linear memory bitstream image base address
  *
- * @param KeyAddr Aes key address which is used for Decryption.
+ * @param KeyAddr Aes key address which is used for decryption.
  *
- * @param Size Used to store size of Bitstream Image.
+ * @param Size Used to store size of bitstream image.
  *
- * @param Flags Flags are used to specify the type of Bitstream file.
+ * @param Flags Flags are used to specify the type of bitstream file.
  *			* BIT(0) - Bitstream type
- *					* 0 - Full Bitstream
- *					* 1 - Partial Bitstream
+ *					* 0 - Full bitstream
+ *					* 1 - Partial bitstream
  *			* BIT(1) - Authentication using DDR
  *					* 1 - Enable
  *					* 0 - Disable
@@ -516,9 +534,9 @@ END:
 }
 
 /*****************************************************************************/
-/** This function set FPGA to operating state after writing.
+/** This function sets the FPGA to the operating state after writing.
  *
- * @param InstancePtr Pointer to the XFgpa structure
+ * @param InstancePtr Pointer to the XFpga structure
  *
  * @return Codes as mentioned in xilfpga.h
  *****************************************************************************/
@@ -554,18 +572,18 @@ END:
 /**
  * This function provides functionality to read back the PL configuration data
  *
- * @param InstancePtr Pointer to the XFgpa structure
+ * @param InstancePtr Pointer to the XFpga structure
  *
  * @param ReadbackAddr Address which is used to store the PL readback data.
  *
- * @param NumFrames The number of Fpga configuration frames to read.
+ * @param NumFrames The number of FPGA configuration frames to read.
  *
  * @return
- *	- XFPGA_SUCCESS if successful
- *	- XFPGA_FAILURE if unsuccessful
- *	- XFPGA_OPS_NOT_IMPLEMENTED if implementation not exists.
+ *	- XFPGA_SUCCESS, if successful
+ *	- XFPGA_FAILURE, if unsuccessful
+ *	- XFPGA_OPS_NOT_IMPLEMENTED, if implementation not exists.
  * @note
- *	- This API is not supported for versal platform.
+ *	- This API is not supported for the Versal platform.
  *
  ****************************************************************************/
 u32 XFpga_GetPlConfigData(XFpga *InstancePtr, UINTPTR ReadbackAddr,
@@ -599,20 +617,20 @@ END:
 /**
  * This function provides PL specific configuration register values
  *
- * @param InstancePtr Pointer to the XFgpa structure
+ * @param InstancePtr Pointer to the XFpga structure
  *
  * @param ReadbackAddr Address which is used to store the PL Configuration
  *		       register data.
  *
  * @param ConfigRegAddr Configuration register address as mentioned in the
- *			ug570.
+ *			UG570.
  *
  * @return
- *	- XFPGA_SUCCESS if successful
- *	- XFPGA_FAILURE if unsuccessful
- *	- XFPGA_OPS_NOT_IMPLEMENTED if implementation not exists.
+ *	- XFPGA_SUCCESS if, successful
+ *	- XFPGA_FAILURE if, unsuccessful
+ *	- XFPGA_OPS_NOT_IMPLEMENTED, if implementation not exists.
  * @note
- *      - This API is not supported for versal platform.
+ *      - This API is not supported for the Versal platform.
  *
  ****************************************************************************/
 u32 XFpga_GetPlConfigReg(XFpga *InstancePtr, UINTPTR ReadbackAddr,
@@ -656,14 +674,14 @@ END:
 }
 
 /*****************************************************************************/
-/** This function provides the STATUS of PL programming interface
+/** This function provides the status of the PL programming interface
  *
- * @param InstancePtr Pointer to the XFgpa structure
+ * @param InstancePtr Pointer to the XFpga structure
  *
  * @return Status of the PL programming interface
  *
  * @note
- *      - This API is not supported for versal platform.
+ *      - This API is not supported for the Versal platform.
  *
  *****************************************************************************/
 u32 XFpga_InterfaceStatus(XFpga *InstancePtr)
@@ -692,17 +710,17 @@ END:
 /**
  * @cond nocomments
  *
- * @brief This function is used to validate the Bitstream parameters.
+ * @brief This function is used to validate the bitstream parameters.
  *
- * @param InstancePtr Pointer to the XFgpa structure.
+ * @param InstancePtr Pointer to the XFpga structure.
  *
- * @param BitstreamImageAddr Linear memory Bitstream image base address
+ * @param BitstreamImageAddr Linear memory bitstream image base address
  *
- * @param KeyAddr Aes key address which is used for Decryption.
+ * @param KeyAddr Aes key address which is used for decryption.
  *
- * @param Size Used to store size of Bitstream Image.
+ * @param Size Used to store size of bitstream image.
  *
- * @param Flags Flags are used to specify the type of Bitstream file.
+ * @param Flags Flags are used to specify the type of bitstream file.
  *
  * @return
  *      - XFPGA_SUCCESS on success
