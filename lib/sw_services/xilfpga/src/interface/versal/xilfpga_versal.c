@@ -32,6 +32,9 @@
  *                      to this file. So making this variable as static.
  * 6.0  Nava  02/11/21  Avoid reuse of request buffer.
  * 6.0  Nava  02/22/21  Fixed doxygen issues.
+ * 6.0  Nava  02/23/21  To avoid the security glitch with IPI request buffer
+ *                      contents added proper validation logic to fill the
+ *                      IPI request buffer.
  * </pre>
  *
  * @note
@@ -52,7 +55,6 @@
 #define XMAILBOX_DEVICE_ID	0x0U
 #define FPGA_PDI_SRC_DDR	0xFU
 #define FPGA_IPI_TYPE_BLOCKING	0x1U
-#define PDI_LOAD_TYPE_MASK	BIT(0)
 /**
  *@endcond
  */
@@ -114,17 +116,24 @@ static u32 XFpga_WriteToPl(XFpga *InstancePtr)
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
-	if (InstancePtr->WriteInfo.Flags & PDI_LOAD_TYPE_MASK) {
+
+	if ((InstancePtr->WriteInfo.Flags & XFPGA_DELAYED_PDI_LOAD) ==
+	    XFPGA_DELAYED_PDI_LOAD) {
 		ReqBuffer[0U] = DELAYED_PDI_LOAD;
 		ReqBuffer[1U] = (u32)BitstreamAddr; /* Image ID */
 		ReqBuffer[2U] = 0U;
 		ReqBuffer[3U] = 0U;
-	} else {
+	} else if ((InstancePtr->WriteInfo.Flags & XFPGA_PDI_LOAD) ==
+		   XFPGA_PDI_LOAD) {
 		ReqBuffer[0U] = PDI_LOAD;
 		ReqBuffer[1U] = FPGA_PDI_SRC_DDR;
 		ReqBuffer[2U] = UPPER_32_BITS(BitstreamAddr);
 		ReqBuffer[3U] = LOWER_32_BITS(BitstreamAddr);
+	} else {
+		Status = XFPGA_FAILURE;
+		goto END;
 	}
+
 	/* Send an IPI Req Message */
 	Status = XFPGA_FAILURE;
 	Status = XMailbox_SendData(&XMboxInstance, XMAILBOX_IPIPMC, ReqBuffer,
