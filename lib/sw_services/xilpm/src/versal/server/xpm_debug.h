@@ -182,6 +182,8 @@ extern "C" {
 #define XPM_INT_ERR_DEVICE_RELEASE		0x3312U
 /* Error during device change state */
 #define XPM_INT_ERR_DEVICE_CHANGE_STATE	0x3313U
+/* Error during set virtual device node */
+#define XPM_INT_ERR_SET_VIRT_DEV		0x3314U
 
 /************************* Reset specific Errors *****************************/
 /************************** (0x3400) - (0x34FF) ******************************/
