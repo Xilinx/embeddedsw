@@ -104,10 +104,11 @@
  *                     function arguments to read KeyAddr and
  *                     Size(Bitstream size).
  * 6.0 Nava  01/07/21  Fixed misra-c required standard violations.
- * 6.0 Nava  20/01/21  Reset the status variable to fail to avoid safety
+ * 6.0 Nava  01/20/21  Reset the status variable to fail to avoid safety
  *                     violations.
- * 6.0 Nava  21/01/21  Make Status variable volatile to avoid compiler
+ * 6.0 Nava  01/21/21  Make Status variable volatile to avoid compiler
  *                     optimizations.
+ * 6.0 Nava  02/22/21  Fixed doxygen issues.
  * </pre>
  *
  * @note
@@ -117,6 +118,9 @@
 #include "xilfpga.h"
 
 /************************** Constant Definitions *****************************/
+/**
+ *@cond nocomments
+ */
 #ifdef __MICROBLAZE__
 #define XPBR_SERV_EXT_PWRUPPLD		119U
 #define XPBR_SERV_EXT_PLNONPCAPISO	162U
@@ -184,6 +188,9 @@ typedef u32 (*XpbrServHndlr_t) (void);
 #else
 #define XFPGA_SECURE_READBACK_MODE_EN	0U
 #endif
+/**
+ *@endcond
+ */
 
 /************************** Function Prototypes ******************************/
 static u32 XFpga_PcapWaitForDone(void);
@@ -261,9 +268,9 @@ static const u8 BootgenBinFormat[] = {
 
 /*****************************************************************************/
 /**
- * This API when called initializes the XFPGA interface with default settings.
+ * This API, when called, initializes the XFPGA interface with default settings.
  *
- * @param InstancePtr Pointer to the XFgpa structure.
+ * @param InstancePtr Pointer to the XFpga structure.
  *
  * @return Returns Status
  *		- XFPGA_SUCCESS on success

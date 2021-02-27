@@ -28,12 +28,13 @@
  *                      violation. fixes this  issue by adding a separate
  *                      function arguments to read KeyAddr and
  *                      Size(Bitstream size).
- * 6.0  Nava  20/01/21  Reset the status variable to fail to avoid safety
+ * 6.0  Nava  01/20/21  Reset the status variable to fail to avoid safety
  *                      violations.
- * 6.0  Nava  21/01/21  Make Status variable volatile to avoid compiler
+ * 6.0  Nava  01/21/21  Make Status variable volatile to avoid compiler
  *                      optimizations.
- * 6.0  Nava  21/01/21  The usage of XMboxInstance variable is limited only
+ * 6.0  Nava  01/21/21  The usage of XMboxInstance variable is limited only
  *                      to this file. So making this variable as static.
+ * 6.0  Nava  02/22/21  Fixed doxygen issues.
  * </pre>
  *
  * @note
@@ -44,6 +45,9 @@
 #include "xilmailbox.h"
 
 /************************** Constant Definitions *****************************/
+/**
+ *@cond nocomments
+ */
 #define PM_FPGA_LOAD		0x16U
 #define PM_FPGA_GET_STATUS	0x17U
 #define PM_FPGA_READ		0x2EU
@@ -54,6 +58,9 @@
 #define FPGA_IPI_TYPE_BLOCKING	0x1U
 #define FPGA_IPI_RESP1		0x1U
 #define FPGA_IPI_RESP2		0x2U
+/**
+ *@endcond
+ */
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -69,9 +76,9 @@ static u32 XFpga_IPI_PcapStatus(void);
 static XMailbox XMboxInstance;
 
 /*****************************************************************************/
-/**This API when called initializes the XFPGA interface with default settings.
+/**This API, when called, initializes the XFPGA interface with default settings.
  *
- * @param InstancePtr Pointer to the XFgpa structure.
+ * @param InstancePtr Pointer to the XFpga structure.
  *
  * @return Returns Status
  *		- XFPGA_SUCCESS on success

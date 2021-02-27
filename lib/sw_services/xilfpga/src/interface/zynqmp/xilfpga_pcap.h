@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -61,7 +61,8 @@
  * 5.2   Nava   12/18/19 Fix for security violation in the readback path.
  * 5.2   Nava   02/14/20 Added Bitstream loading support by using IPI services.
  * 5.3   Nava   06/16/20 Modified the date format from dd/mm to mm/dd.
- * 6.0   Nava   01/07/21  Fixed misra-c required standard violations.
+ * 6.0   Nava   01/07/21 Fixed misra-c required standard violations.
+ * 6.0   Nava   02/22/21 Fixed doxygen issues.
  * </pre>
  *
  * @note
@@ -82,7 +83,9 @@ extern "C" {
 #include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
-
+/**
+ *@cond nocomments
+ */
 #define PL_DONE_POLL_COUNT  300000U
 #define PL_RESET_PERIOD_IN_US  1U
 
@@ -212,6 +215,9 @@ extern "C" {
 
 #define XFPGA_STATE_MASK	0x00FF0000U
 #define XFPGA_STATE_SHIFT	16U
+/**
+ *@endcond
+ */
 
 /**************************** Type Definitions *******************************/
 /**
