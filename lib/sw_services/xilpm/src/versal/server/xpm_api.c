@@ -3470,11 +3470,11 @@ static XStatus AddPeriphDevice(u32 *Args, u32 PowerId)
 {
 	XStatus Status = XST_FAILURE;
 	u32 DeviceId;
-	u32 Index;
+	u32 Type;
 	u32 GicProxyMask;
 	u32 GicProxyGroup;
-
-	XPm_Periph *Device;
+	XPm_Periph *PeriphDevice;
+	XPm_Device *VirtDevice;
 	XPm_Power *Power;
 	u32 BaseAddr;
 
@@ -3482,16 +3482,10 @@ static XStatus AddPeriphDevice(u32 *Args, u32 PowerId)
 	BaseAddr = Args[2];
 	GicProxyMask = Args[3];
 	GicProxyGroup = Args[4];
-
-	Index = NODEINDEX(DeviceId);
+	Type = NODETYPE(DeviceId);
 
 	Power = XPmPower_GetById(PowerId);
 	if (NULL == Power) {
-		Status = XST_DEVICE_NOT_FOUND;
-		goto done;
-	}
-
-	if (Index >= (u32)XPM_NODEIDX_DEV_MAX) {
 		Status = XST_DEVICE_NOT_FOUND;
 		goto done;
 	}
@@ -3501,14 +3495,25 @@ static XStatus AddPeriphDevice(u32 *Args, u32 PowerId)
 		goto done;
 	}
 
-	Device = (XPm_Periph *)XPm_AllocBytes(sizeof(XPm_Periph));
-	if (NULL == Device) {
-		Status = XST_BUFFER_TOO_SMALL;
-		goto done;
-	}
+	if (((u32)XPM_NODETYPE_DEV_VIRT_GGS == Type) ||
+	    ((u32)XPM_NODETYPE_DEV_VIRT_PGGS == Type)) {
+		VirtDevice = (XPm_Device *)XPm_AllocBytes(sizeof(XPm_Device));
+		if (NULL == VirtDevice) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
 
-	Status = XPmPeriph_Init(Device, DeviceId, BaseAddr, Power, NULL, NULL,
-				GicProxyMask, GicProxyGroup);
+		Status = XPmVirtDev_DeviceInit(VirtDevice, DeviceId, Power);
+	} else {
+		PeriphDevice = (XPm_Periph *)XPm_AllocBytes(sizeof(XPm_Periph));
+		if (NULL == PeriphDevice) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+
+		Status = XPmPeriph_Init(PeriphDevice, DeviceId, BaseAddr, Power, NULL, NULL,
+					GicProxyMask, GicProxyGroup);
+	}
 
 done:
 	return Status;
@@ -4083,6 +4088,7 @@ XStatus XPm_AddRequirement(const u32 SubsystemId, const u32 DeviceId, u32 Flags,
 	XPm_Device *Device = NULL;
 	XPm_ResetNode *Rst = NULL;
 	XPm_Subsystem *Subsystem, *TargetSubsystem;
+	u32 Type;
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
 	if (Subsystem == NULL || Subsystem->State != (u8)ONLINE) {
@@ -4092,13 +4098,18 @@ XStatus XPm_AddRequirement(const u32 SubsystemId, const u32 DeviceId, u32 Flags,
 
 	switch NODECLASS(DeviceId) {
 		case (u32)XPM_NODECLASS_DEVICE:
-			Device = (XPm_Device *)XPmDevice_GetById(DeviceId);
-			if (NULL == Device) {
-				Status = XPM_INVALID_DEVICEID;
-				goto done;
+			Type = NODETYPE(DeviceId);
+			if (((u32)XPM_NODETYPE_DEV_VIRT_PGGS == Type) ||
+			    ((u32)XPM_NODETYPE_DEV_VIRT_GGS == Type)) {
+				Status = XPmIoctl_AddRegPermission(Subsystem, DeviceId, Flags);
+			} else {
+				Device = (XPm_Device *)XPmDevice_GetById(DeviceId);
+				if (NULL == Device) {
+					Status = XST_INVALID_PARAM;
+					goto done;
+				}
+				Status = XPmRequirement_Add(Subsystem, Device, Flags, Params, NumParams);
 			}
-			Status = XPmRequirement_Add(Subsystem, Device, Flags,
-						    Params, NumParams);
 			break;
 		case (u32)XPM_NODECLASS_SUBSYSTEM:
 			TargetSubsystem = XPmSubsystem_GetById(DeviceId);

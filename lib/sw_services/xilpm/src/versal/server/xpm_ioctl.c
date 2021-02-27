@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #include "xpm_defs.h"
@@ -13,8 +13,17 @@
 #include "sleep.h"
 #include "xpm_aie.h"
 #include "xpm_api.h"
+#include "xpm_debug.h"
+#include "xpm_device.h"
+#include "xpm_periph.h"
+#include "xpm_requirement.h"
 
 static u32 PsmGgsValues[GGS_REGS] = {0U};
+
+static u32 PggsReadPermissions[PSM_PGGS_REGS + PMC_PGGS_REGS];
+static u32 PggsWritePermissions[PSM_PGGS_REGS + PMC_PGGS_REGS];
+static u32 GgsReadPermissions[GGS_REGS];
+static u32 GgsWritePermissions[GGS_REGS];
 
 /****************************************************************************/
 /**
@@ -481,6 +490,157 @@ done:
 	return Status;
 }
 
+XStatus XPmIoctl_AddRegPermission(XPm_Subsystem *Subsystem, u32 DeviceId,
+				  u32 Operations)
+{
+	XStatus Status = XST_FAILURE;
+	u32 RegNum = NODEINDEX(DeviceId);
+	u32 SubsystemId = Subsystem->Id;
+	u32 Type = NODETYPE(DeviceId);
+	u32 *ReadPerm, *WritePerm;
+	u32 AddNodeArgs[5U] = { DeviceId, PM_POWER_PMC, 0, 0, 0};
+	XPm_Device *Device;
+
+	Status = XPm_AddNode(AddNodeArgs, ARRAY_SIZE(AddNodeArgs));
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Device = XPmDevice_GetById(DeviceId);
+	if (NULL == Device) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
+	if ((PM_SUBSYS_PMC == SubsystemId) ||
+	    (PM_SUBSYS_DEFAULT == SubsystemId)) {
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	}
+
+	switch (Type) {
+	case (u32)XPM_NODETYPE_DEV_VIRT_PGGS:
+		/* Normalize to permissions indices range for PGGS */
+		RegNum -= XPM_NODEIDX_DEV_VIRT_PGGS_0;
+		ReadPerm =  &PggsReadPermissions[RegNum];
+		WritePerm = &PggsWritePermissions[RegNum];
+		break;
+	case (u32)XPM_NODETYPE_DEV_VIRT_GGS:
+		ReadPerm =  &GgsReadPermissions[RegNum];
+		WritePerm = &GgsWritePermissions[RegNum];
+		break;
+	default:
+		Status = XPM_INVALID_TYPEID;
+		goto done;
+	}
+
+	*ReadPerm |= PERM_BITMASK(Operations, IOCTL_PERM_READ_SHIFT_NS,
+				  SUBSYS_TO_NS_BITPOS(SubsystemId));
+	*ReadPerm |= PERM_BITMASK(Operations, IOCTL_PERM_READ_SHIFT_S,
+				  SUBSYS_TO_S_BITPOS(SubsystemId));
+	*WritePerm |= PERM_BITMASK(Operations, IOCTL_PERM_WRITE_SHIFT_NS,
+				  SUBSYS_TO_NS_BITPOS(SubsystemId));
+	*WritePerm |= PERM_BITMASK(Operations, IOCTL_PERM_WRITE_SHIFT_S,
+				  SUBSYS_TO_S_BITPOS(SubsystemId));
+
+	Status = XPmRequirement_Add(Subsystem, Device,
+				    (u32)REQUIREMENT_FLAGS(1U, PM_CAP_ACCESS, 0U, 0U, 0U,
+				    (u32)REQ_ACCESS_SECURE_NONSECURE,
+				    (u32)REQ_NO_RESTRICTION), NULL, 0U);
+
+done:
+	return Status;
+
+}
+
+static XStatus XPmIoctl_IsRegRequested(u32 SubsystemId, u32 RegNum,
+				       u32 Type)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Requirement *Reqm = NULL;
+	u32 DeviceId;
+
+	switch (Type) {
+	case (u32)XPM_NODETYPE_DEV_VIRT_PGGS:
+		RegNum += GGS_MAX;
+		break;
+	case (u32)XPM_NODETYPE_DEV_VIRT_GGS:
+		break;
+	default:
+		Status = XPM_INVALID_TYPEID;
+		goto done;
+	}
+
+	DeviceId = NODEID(XPM_NODECLASS_DEVICE, XPM_NODESUBCL_DEV_PERIPH,
+			  Type, RegNum);
+
+	if (NULL == XPmDevice_GetById(DeviceId)) {
+		Status = XPM_INVALID_DEVICEID;
+		goto done;
+	}
+
+	if (NULL == XPmSubsystem_GetById(SubsystemId)) {
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	}
+
+	Reqm = XPmDevice_FindRequirement(DeviceId, SubsystemId);
+	if (NULL == Reqm) {
+		Status = XPM_ERR_DEVICE_STATUS;
+		goto done;
+	}
+
+	if (1U != Reqm->Allocated) {
+		Status = XST_FAILURE;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+
+}
+
+static XStatus XPmIoctl_IsOperationAllowed(u32 RegNum, u32 SubsystemId,
+					   u32 *Perms, u32 Type)
+{
+	XStatus Status = XST_FAILURE;
+	u32 PermissionMask = 0;
+
+	/*
+	 * RegNum is validated later in each operation so do not need to
+	 * validate here in case of PMC and default subsystems. PMC and
+	 * default subsystems are always allowed to enact operations.
+	 */
+	if ((PM_SUBSYS_PMC == SubsystemId) ||
+	    (PM_SUBSYS_DEFAULT == SubsystemId)) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/* Other subsystems have RegNum validated in this function. */
+	Status = XPmIoctl_IsRegRequested(SubsystemId, RegNum, Type);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	PermissionMask = Perms[RegNum];
+
+	/* Have Target check if Host can enact the operation */
+	if ((XST_SUCCESS == XPm_IsSecureAllowed(SubsystemId)) &&
+	    (PermissionMask & (1U << SUBSYS_TO_S_BITPOS(SubsystemId)))) {
+		Status = XST_SUCCESS;
+	} else if (PermissionMask & (1U << SUBSYS_TO_NS_BITPOS(SubsystemId))) {
+		Status = XST_SUCCESS;
+	} else {
+		Status = XPM_PM_NO_ACCESS;
+	}
+
+done:
+	return Status;
+}
+
+
 static int XPm_ReadPggs(u32 PggsNum, u32 *Value)
 {
 	int Status = XST_FAILURE;
@@ -694,15 +854,43 @@ int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id Ioctl
 		Status = XPm_SetSdTapDelay(DeviceId, Arg1, Arg2);
 		break;
 	case IOCTL_WRITE_GGS:
+		Status = XPmIoctl_IsOperationAllowed(Arg1, SubsystemId,
+						     GgsWritePermissions,
+						     XPM_NODETYPE_DEV_VIRT_GGS);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
 		Status = XPm_WriteGgs(Arg1, Arg2);
 		break;
 	case IOCTL_READ_GGS:
+		Status = XPmIoctl_IsOperationAllowed(Arg1, SubsystemId,
+						     GgsReadPermissions,
+						     XPM_NODETYPE_DEV_VIRT_GGS);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
 		Status = XPm_ReadGgs(Arg1, Response);
 		break;
 	case IOCTL_WRITE_PGGS:
+		Status = XPmIoctl_IsOperationAllowed(Arg1, SubsystemId,
+						     PggsWritePermissions,
+						     XPM_NODETYPE_DEV_VIRT_PGGS);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
 		Status = XPm_WritePggs(Arg1, Arg2);
 		break;
 	case IOCTL_READ_PGGS:
+		Status = XPmIoctl_IsOperationAllowed(Arg1, SubsystemId,
+						     PggsReadPermissions,
+						     XPM_NODETYPE_DEV_VIRT_PGGS);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
 		Status = XPm_ReadPggs(Arg1, Response);
 		break;
 	case IOCTL_SET_BOOT_HEALTH_STATUS:
