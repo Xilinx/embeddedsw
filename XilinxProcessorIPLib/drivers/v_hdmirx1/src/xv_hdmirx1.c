@@ -2580,3 +2580,85 @@ void XV_HdmiRx1_SetVrrIfType(XV_HdmiRx1 *InstancePtr,
 {
 	InstancePtr->VrrIF.VrrIfType = Type;
 }
+
+/*****************************************************************************/
+/**
+*
+* This function sets the Dynamic HDR buffer address
+*
+* @param    InstancePtr is a pointer to the XHdmiRx1 core instance.
+* @param    Addr is an address in 64bit format.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void XV_HdmiRx1_DynHDR_SetAddr(XV_HdmiRx1 *InstancePtr, u64 Addr)
+{
+	u32 tmpaddr;
+
+	Xil_AssertVoid(InstancePtr);
+	Xil_AssertVoid(Addr);
+	Xil_AssertVoid(!(Addr & 0x3F));
+
+	if (!InstancePtr->Config.DynamicHDR) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,
+			    "\r\nWarning: HdmiRx1 Dynamic HDR disabled\r\n");
+		return;
+	}
+
+	tmpaddr = (u32)Addr;
+	XV_HdmiRx1_WriteReg((InstancePtr)->Config.BaseAddress,
+			    XV_HDMIRX1_AUX_DYN_HDR_MEMADDR_LSB_OFFSET,
+			    tmpaddr);
+
+	tmpaddr = (u32)((Addr & 0xFFFFFFFF00000000) >> 32);
+	XV_HdmiRx1_WriteReg((InstancePtr)->Config.BaseAddress,
+			    XV_HDMIRX1_AUX_DYN_HDR_MEMADDR_MSB_OFFSET,
+			    tmpaddr);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function gets the Dynamic HDR packet type, length, whether graphics
+* overlay and errors if any.
+*
+* @param    InstancePtr is a pointer to the XHdmiRx1 core instance.
+* @param    RxDynHdrInfoPtr is a pointer to XHdmiRx1 Dynamic HDR info instance.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void XV_HdmiRx1_DynHDR_GetInfo(XV_HdmiRx1 *InstancePtr,
+			       XV_HdmiRx1_DynHDR_Info *RxDynHdrInfoPtr)
+{
+	u32 tmp;
+
+	Xil_AssertVoid(InstancePtr);
+	Xil_AssertVoid(RxDynHdrInfoPtr);
+
+	if (!InstancePtr->Config.DynamicHDR) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,
+			    "\r\nWarning: HdmiRx1 Dynamic HDR disabled\r\n");
+		return;
+	}
+
+	tmp = XV_HdmiRx1_ReadReg((InstancePtr)->Config.BaseAddress,
+				 XV_HDMIRX1_AUX_DYN_HDR_INFO_OFFSET);
+	RxDynHdrInfoPtr->pkt_type = tmp &
+		XV_HDMIRX1_AUX_DYN_HDR_INFO_PKT_TYPE_MASK;
+	RxDynHdrInfoPtr->pkt_length = (tmp &
+		XV_HDMIRX1_AUX_DYN_HDR_INFO_PKT_LEN_MASK) >>
+		XV_HDMIRX1_AUX_DYN_HDR_INFO_PKT_LEN_SHIFT;
+
+	tmp = XV_HdmiRx1_ReadReg((InstancePtr)->Config.BaseAddress,
+				 XV_HDMIRX1_AUX_DYN_HDR_STS_OFFSET);
+	RxDynHdrInfoPtr->gof = tmp & XV_HDMIRX1_AUX_DYN_HDR_STS_GOF_MASK;
+	RxDynHdrInfoPtr->err = (XV_HdmiRx1_DynHdrErrType)((tmp &
+		XV_HDMIRX1_AUX_DYN_HDR_STS_ERR_MASK) >>
+		XV_HDMIRX1_AUX_DYN_HDR_STS_ERR_MASK);
+}

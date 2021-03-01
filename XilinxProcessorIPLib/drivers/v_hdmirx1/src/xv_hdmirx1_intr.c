@@ -447,6 +447,12 @@ int XV_HdmiRx1_SetCallback(XV_HdmiRx1 *InstancePtr,
 		Status = (XST_SUCCESS);
 		break;
 
+	case (XV_HDMIRX1_HANDLER_DYN_HDR):
+		InstancePtr->DynHdrCallback = (XV_HdmiRx1_Callback)CallbackFunc;
+		InstancePtr->DynHdrRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
 	default:
 		Status = (XST_INVALID_PARAM);
 		break;
@@ -692,6 +698,9 @@ static void HdmiRx1_VtdIntrHandler(XV_HdmiRx1 *InstancePtr)
 					*	(XV_HDMIRX1_VTD_CTRL_SYNC_LOSS_MASK));
 					*/
 
+					/* Enable the Dynamic HDR Datamover */
+					XV_HdmiRx1_DynHDR_DM_Enable(InstancePtr);
+
 					/* Call stream up callback */
 					if (InstancePtr->StreamUpCallback) {
 						InstancePtr->StreamUpCallback(
@@ -746,6 +755,8 @@ static void HdmiRx1_VtdIntrHandler(XV_HdmiRx1 *InstancePtr)
 					XV_HdmiRx1_INT_LRST(InstancePtr, TRUE);
 					XV_HdmiRx1_INT_LRST(InstancePtr, FALSE);
 					XV_HdmiRx1_AuxDisable(InstancePtr);
+					/* Disable the Dynamic HDR Datamover */
+					XV_HdmiRx1_DynHDR_DM_Disable(InstancePtr);
 					if (InstancePtr->StreamDownCallback) {
 						InstancePtr->StreamDownCallback(
 							InstancePtr->StreamDownRef);
@@ -1017,6 +1028,9 @@ static void HdmiRx1_PioIntrHandler(XV_HdmiRx1 *InstancePtr)
 			XV_HdmiRx1_DdcScdcClear(InstancePtr);
 			XV_HdmiRx1_FrlReset(InstancePtr, TRUE);
 
+			/* Disable the Dynamic HDR Datamover */
+			XV_HdmiRx1_DynHDR_DM_Disable(InstancePtr);
+
 			/* Check if user callback has been registered*/
 			if (InstancePtr->ConnectCallback) {
 				InstancePtr->ConnectCallback(
@@ -1208,6 +1222,9 @@ static void HdmiRx1_PioIntrHandler(XV_HdmiRx1 *InstancePtr)
 				XV_HdmiRx1_WriteReg(InstancePtr->Config.BaseAddress,
 					(XV_HDMIRX1_VTD_CTRL_CLR_OFFSET),
 					(XV_HDMIRX1_VTD_CTRL_SYNC_LOSS_MASK));
+
+				/* Disable the Dynamic HDR Datamover */
+				XV_HdmiRx1_DynHDR_DM_Disable(InstancePtr);
 
 				/* Call stream down callback*/
 				if (InstancePtr->StreamDownCallback) {
@@ -1488,6 +1505,17 @@ static void HdmiRx1_AuxIntrHandler(XV_HdmiRx1 *InstancePtr)
 	Status = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
 				    (XV_HDMIRX1_AUX_STA_OFFSET));
 
+	/* Get Dynamic HDR packet and set next buffer address */
+	if (Status & XV_HDMIRX1_AUX_STA_DYN_HDR_EVT_MASK) {
+		/* Clear event flag */
+		XV_HdmiRx1_WriteReg(InstancePtr->Config.BaseAddress,
+				    (XV_HDMIRX1_AUX_STA_OFFSET),
+				    (XV_HDMIRX1_AUX_STA_DYN_HDR_EVT_MASK));
+
+		if (InstancePtr->DynHdrCallback)
+			InstancePtr->DynHdrCallback(InstancePtr->DynHdrRef);
+	}
+
 	/* Check for GCP colordepth event */
 	if ((Status) & (XV_HDMIRX1_AUX_STA_GCP_CD_EVT_MASK)) {
 		/* Clear event flag */
@@ -1510,6 +1538,10 @@ static void HdmiRx1_AuxIntrHandler(XV_HdmiRx1 *InstancePtr)
 					"Mode Stream Down===\r\n" ANSI_COLOR_RESET);
 #endif
 			    XV_HdmiRx1_AuxDisable(InstancePtr);
+
+			    /* Disable the Dynamic HDR Datamover */
+			    XV_HdmiRx1_DynHDR_DM_Disable(InstancePtr);
+
 				if (InstancePtr->StreamDownCallback) {
 					InstancePtr->StreamDownCallback(
 							InstancePtr->StreamDownRef);
@@ -1607,6 +1639,9 @@ static void HdmiRx1_AuxIntrHandler(XV_HdmiRx1 *InstancePtr)
 				InstancePtr->Stream.State =
 					XV_HDMIRX1_STATE_STREAM_INIT;
 			     XV_HdmiRx1_AuxDisable(InstancePtr);
+
+			     /* Disable the Dynamic HDR Datamover */
+			     XV_HdmiRx1_DynHDR_DM_Disable(InstancePtr);
 
 			     if (InstancePtr->StreamDownCallback) {
 				    InstancePtr->StreamDownCallback(
@@ -1805,6 +1840,9 @@ static void HdmiRx1_FrlIntrHandler(XV_HdmiRx1 *InstancePtr)
 					(XV_HDMIRX1_FRL_STA_OFFSET),
 					XV_HDMIRX1_FRL_STA_RATE_EVT_MASK);
 
+		/* Disable the Dynamic HDR Datamover */
+		XV_HdmiRx1_DynHDR_DM_Disable(InstancePtr);
+
 		if (InstancePtr->StreamDownCallback) {
 			InstancePtr->StreamDownCallback(InstancePtr->StreamDownRef);
 		}
@@ -1949,6 +1987,9 @@ xil_printf(ANSI_COLOR_YELLOW "RX: INTR LTP_DET\r\n" ANSI_COLOR_RESET);
 			XV_HdmiRx1_EXT_SYSRST(InstancePtr, TRUE);
 			/* Disable VTD */
 			XV_HdmiRx1_VtdDisable(InstancePtr);
+
+			/* Disable the Dynamic HDR Datamover */
+			XV_HdmiRx1_DynHDR_DM_Disable(InstancePtr);
 
 			if (InstancePtr->StreamDownCallback) {
 				InstancePtr->StreamDownCallback(InstancePtr->StreamDownRef);

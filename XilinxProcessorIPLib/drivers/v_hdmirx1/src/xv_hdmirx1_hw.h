@@ -130,6 +130,13 @@ extern "C" {
                                                                * mask */
 #define XV_HDMIRX1_PIO_OUT_EXT_SYSRST_MASK           (1<<22) /**< PIO Out EXT_SYSRST
                                                          * mask */
+/*
+ * This bit is used to flush out the Dynamic HDR Data Mover.
+ * Write 1 to flush pending transaction and 0 for normal operation.
+ */
+#define XV_HDMIRX1_PIO_OUT_DYN_HDR_DM_EN_MASK		(1 << 23) /**< PIO Out Dynamic
+								    *  HDR Data Mover
+								    *  enable mask */
 
 /* PIO peripheral PIO In register masks*/
 #define XV_HDMIRX1_PIO_IN_DET_MASK                   (1<<0) /**< PIO In cable detect mask */
@@ -274,6 +281,10 @@ extern "C" {
 #define XV_HDMIRX1_AUX_VTEM_OFFSET                   ((XV_HDMIRX1_AUX_BASE)+(7*4))    /**< AUX VTEM Register offset */
 #define XV_HDMIRX1_AUX_FSYNC_OFFSET                  ((XV_HDMIRX1_AUX_BASE)+(8*4))    /**< AUX FSYNC Register offset */
 #define XV_HDMIRX1_AUX_FSYNC_PRO_OF                  ((XV_HDMIRX1_AUX_BASE)+(9*4))    /**< AUX FYNC PRO Register offset */
+#define XV_HDMIRX1_AUX_DYN_HDR_INFO_OFFSET		((XV_HDMIRX1_AUX_BASE) + (10 * 4))    /**< AUX Dynamic HDR Info offset */
+#define XV_HDMIRX1_AUX_DYN_HDR_STS_OFFSET		((XV_HDMIRX1_AUX_BASE) + (11 * 4))    /**< AUX Dynamic HDR Status offset */
+#define XV_HDMIRX1_AUX_DYN_HDR_MEMADDR_LSB_OFFSET	((XV_HDMIRX1_AUX_BASE) + (12 * 4))    /**< AUX Lower address Dynamic HDR Status offset */
+#define XV_HDMIRX1_AUX_DYN_HDR_MEMADDR_MSB_OFFSET	((XV_HDMIRX1_AUX_BASE) + (13 * 4))    /**< AUX Higher address Dynamic HDR Status offset */
 
 /* AUX peripheral Control register masks*/
 #define XV_HDMIRX1_AUX_CTRL_RUN_MASK                 (1<<0)  /**< AUX Control Run mask */
@@ -288,6 +299,7 @@ extern "C" {
 #define XV_HDMIRX1_AUX_STA_GCP_MASK                  (1<<4)  /**< AUX Status General control packet mask */
 #define XV_HDMIRX1_AUX_STA_FIFO_EP_MASK              (1<<5)  /**< AUX Status FIFO Empty mask */
 #define XV_HDMIRX1_AUX_STA_FIFO_FL_MASK              (1<<6)  /**< AUX Status FIFO Full mask */
+#define XV_HDMIRX1_AUX_STA_DYN_HDR_EVT_MASK	(1 << 20) /**< AUX Status Dynamic HDR packet received event mask */
 #define XV_HDMIRX1_AUX_STA_VRR_CD_EVT_MASK           (1<<21) /**< AUX Status VRR CD mask */
 #define XV_HDMIRX1_AUX_STA_FSYNC_CD_EVT_MASK         (1<<22) /**< AUX Status FSYNC CD mask */
 #define XV_HDMIRX1_AUX_STA_GCP_CD_EVT_MASK           (1<<25) /**< AUX Status GCP ColorDepth mask */
@@ -350,6 +362,17 @@ extern "C" {
 #define XV_HDMIRX1_AUX_FSYNC_PRO_PQ_EOTF_SHIFT        4
 #define XV_HDMIRX1_AUX_FSYNC_PRO_BRIGHT_CTRL_SHIFT    16
 
+/* AUX Dynamic HDR Info register masks and shifts */
+#define XV_HDMIRX1_AUX_DYN_HDR_INFO_PKT_LEN_MASK	(0xffff << 16)
+#define XV_HDMIRX1_AUX_DYN_HDR_INFO_PKT_TYPE_MASK	(0xffff)
+#define XV_HDMIRX1_AUX_DYN_HDR_INFO_PKT_LEN_SHIFT	(16)
+#define XV_HDMIRX1_AUX_DYN_HDR_INFO_PKT_TYPE_SHIFT	(0)
+
+/* AUX Dynamic HDR Status register masks and shifts */
+#define XV_HDMIRX1_AUX_DYN_HDR_STS_GOF_MASK	(1)		/**< Graphics Overlay Flag */
+#define XV_HDMIRX1_AUX_DYN_HDR_STS_ERR_MASK	(0x3 << 1)	/**< Errors asserted while writing ot memory */
+#define XV_HDMIRX1_AUX_DYN_HDR_STS_GOF_SHIFT	(0)
+#define XV_HDMIRX1_AUX_DYN_HDR_STS_ERR_SHIFT	(1)
 
 /* Audio (AUD) peripheral register offsets.*/
 #define XV_HDMIRX1_AUD_BASE                          (6*64)

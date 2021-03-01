@@ -176,6 +176,7 @@ typedef enum {
 	XV_HDMIRX1_HANDLER_VFP_CHANGE,		/**< Handler for VFP change
 						  * event */
 	XV_HDMIRX1_HANDLER_VRR_RDY,		/**<Handler for VRR rdy event */
+	XV_HDMIRX1_HANDLER_DYN_HDR,		/**< Handler for Dynamic HDR */
 } XV_HdmiRx1_HandlerType;
 /*@}*/
 
@@ -238,6 +239,7 @@ typedef struct {
 	u32 FRLClkFreqkHz;
 	u32 VideoClkFreqkHz;
 	u32 MaxFrlRate; /** < Maximum FRL Rate Supporte */
+	u32 DynamicHDR; /**< Dynamic HDR supported */
 	XV_HdmiRx1_EdidSize EdidRamSize;
 } XV_HdmiRx1_Config;
 
@@ -247,7 +249,7 @@ typedef struct {
 typedef struct {
 	u8	Active;		/**< Active flag. This flag is set when
 				  *  an acitve audio stream was detected */
-	u8 	Channels;	/**< Channels */
+	u8	Channels;	/**< Channels */
 } XV_HdmiRx1_AudioStream;
 
 /**
@@ -278,6 +280,24 @@ typedef struct {
 	u16 RsCounter;
 	u8 CedTimer;
 } XV_HdmiRx1_Stream;
+
+/** @name HDMI RX Dynamic HDR Error type
+* @{
+*/
+typedef enum {
+	XV_HDMIRX1_DYNHDR_ERR_SEQID = 1, /* Sequence id or ECC error */
+	XV_HDMIRX1_DYNHDR_ERR_MEMWR = 2, /* Memory write error */
+} XV_HdmiRx1_DynHdrErrType;
+
+/**
+* This typedef contains HDMI RX stream specific Dynamic HDR info.
+*/
+typedef struct {
+	XV_HdmiRx1_DynHdrErrType err; /* Error type */
+	u16 pkt_type;	/* Packet Type */
+	u16 pkt_length; /* Packet length */
+	u8 gof;		/* Graphics Overlay Flag */
+} XV_HdmiRx1_DynHDR_Info;
 
 /**
 * Callback type for interrupt.
@@ -397,6 +417,9 @@ typedef struct {
 
 	XV_HdmiRx1_Callback VrrRdyCallback;		/**< Callback for VRR ready callback */
 	void *VrrRdyRef;				/**< To be passed to the VRR ready callback */
+
+	XV_HdmiRx1_Callback DynHdrCallback;		/**< Callback for Dynamic HDR event */
+	void *DynHdrRef;				/**< To be passed to Dynamic HDR event callback */
 
 	/* HDMI RX stream */
 	XV_HdmiRx1_Stream Stream;			/**< HDMI RX stream information */
@@ -1863,6 +1886,42 @@ typedef struct {
 			    (XV_HDMIRX1_DDC_CTRL_SET_OFFSET), \
 			    (XV_HDMIRX1_DDC_CTRL_RMSG_CLR_MASK))
 
+/*****************************************************************************/
+/**
+*
+* This macro enables the data mover for Dynamic HDR.
+*
+* @param	InstancePtr is a pointer to the XV_HdmiRx1 core instance.
+*
+* @return	None.
+*
+* @note		C-style signature:
+*		void XV_HdmiRx1_DynHDR_DM_Enable(XV_HdmiRx1 *InstancePtr)
+*
+******************************************************************************/
+#define XV_HdmiRx1_DynHDR_DM_Enable(InstancePtr) \
+	XV_HdmiRx1_WriteReg((InstancePtr)->Config.BaseAddress, \
+			    XV_HDMIRX1_PIO_OUT_SET_OFFSET, \
+			    XV_HDMIRX1_PIO_OUT_DYN_HDR_DM_EN_MASK)
+
+/*****************************************************************************/
+/**
+*
+* This macro disables the data mover for Dynamic HDR.
+*
+* @param	InstancePtr is a pointer to the XV_HdmiRx1 core instance.
+*
+* @return	None.
+*
+* @note		C-style signature:
+*		void XV_HdmiRx1_DynHDR_DM_Disable(XV_HdmiRx1 *InstancePtr)
+*
+******************************************************************************/
+#define XV_HdmiRx1_DynHDR_DM_Disable(InstancePtr) \
+	XV_HdmiRx1_WriteReg((InstancePtr)->Config.BaseAddress, \
+			    XV_HDMIRX1_PIO_OUT_CLR_OFFSET, \
+			    XV_HDMIRX1_PIO_OUT_DYN_HDR_DM_EN_MASK)
+
 /************************** Function Prototypes ******************************/
 
 /* Initialization function in xv_hdmirx1_sinit.c */
@@ -1970,6 +2029,10 @@ XV_HdmiC_SrcProdDescIF *XV_HdmiRx1_GetSrcProdDescIF(
 XV_HdmiC_VrrInfoframeType XV_HdmiRx1_GetVrrIfType(XV_HdmiRx1 *InstancePtr);
 void XV_HdmiRx1_SetVrrIfType(XV_HdmiRx1 *InstancePtr,
 		XV_HdmiC_VrrInfoframeType Type);
+void XV_HdmiRx1_DynHDR_SetAddr(XV_HdmiRx1 *InstancePtr, u64 Addr);
+void XV_HdmiRx1_DynHDR_GetInfo(XV_HdmiRx1 *InstancePtr,
+			       XV_HdmiRx1_DynHDR_Info *RxDynInfoPtr);
+
 /************************** Variable Declarations ****************************/
 /************************** Variable Declarations ****************************/
 
