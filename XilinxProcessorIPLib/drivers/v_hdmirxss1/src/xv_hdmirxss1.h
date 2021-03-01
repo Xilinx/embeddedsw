@@ -116,6 +116,7 @@ typedef enum {
 	XV_HDMIRXSS1_LOG_EVT_FRL_LTSL,
 	XV_HDMIRXSS1_LOG_EVT_FRL_START,
 	XV_HDMIRXSS1_LOG_EVT_VRR_RDY,
+	XV_HDMIRXSS1_LOG_EVT_DYN_HDR,
 	XV_HDMIRXSS1_LOG_EVT_DUMMY               /**< Dummy Event should be last */
 } XV_HdmiRxSs1_LogEvent;
 
@@ -259,6 +260,8 @@ typedef enum {
 						       change */
   XV_HDMIRXSS1_HANDLER_VRR_RDY,                      /**< Handler type for VRR
 						       ready */
+  XV_HDMIRXSS1_HANDLER_DYN_HDR,                      /**< Handler type for
+						       Dynamic HDR*/
 } XV_HdmiRxSs1_HandlerType;
 /*@}*/
 
@@ -288,6 +291,7 @@ typedef struct
   XVidC_PixelsPerClock Ppc;         /**< Supported Pixel per Clock */
   u8 MaxBitsPerPixel;               /**< Maximum  Supported Color Depth */
   u32 MaxFrlRate;                   /** < Maximum FRL Rate Supporte */
+  u32 DynamicHDR;	/**< Dynamic HDR supported */
   u32 AxiLiteClkFreq;               /**< AXI Lite Clock Frequency in Hz */
   XV_HdmiRxSs1_SubCore HdcpTimer;    /**< Sub-core instance configuration */
   XV_HdmiRxSs1_SubCore Hdcp14;       /**< Sub-core instance configuration */
@@ -431,6 +435,9 @@ typedef struct
   XV_HdmiRxSs1_Callback VrrRdyCallback; /**< Callback for Vrr Ready event */
   void *VrrRdyRef;  /**< To be passed to Vrr Ready event callback */
 
+  XV_HdmiRxSs1_Callback DynHdrCallback; /**< Callback for Dynamic HDR event */
+  void *DynHdrRef;  /**< To be passed to Dynamic HDR event callback */
+
   /* Scratch pad*/
   u8 IsStreamConnected;         /**< HDMI RX Stream Connected */
   u8 IsStreamUp;                /**< HDMI RX Stream Up */
@@ -471,6 +478,24 @@ typedef struct
   u8                            *Hdcp14KeyPtr;   /**< Pointer to HDCP 1.4 key */
 #endif
 } XV_HdmiRxSs1;
+
+/** @name HDMI RX SS Dynamic HDR Error type
+* @{
+*/
+typedef enum {
+	XV_HDMIRXSS1_DYNHDR_ERR_SEQID = 1, /* Sequence id or ECC error */
+	XV_HDMIRXSS1_DYNHDR_ERR_MEMWR = 2, /* Memory write error */
+} XV_HdmiRxSs1_DynHdrErrType;
+
+/**
+* This typedef contains HDMI RX stream specific Dynamic HDR info.
+*/
+typedef struct {
+	XV_HdmiRxSs1_DynHdrErrType err; /* Error type */
+	u16 pkt_type;	/* Packet Type */
+	u16 pkt_length; /* Packet length */
+	u8 gof;		/* Graphics Overlay Flag */
+} XV_HdmiRxSs1_DynHDR_Info;
 
 /************************** Macros Definitions *******************************/
 #ifdef USE_HDCP_RX
@@ -537,6 +562,12 @@ XVidC_PixelsPerClock XV_HdmiRxSs1_GetCorePpc(XV_HdmiRxSs1 *InstancePtr);
 void XV_HdmiRxSs1_AudioMute(XV_HdmiRxSs1 *InstancePtr, u8 Enable);
 void XV_HdmiRxSs1_VfpControl(XV_HdmiRxSs1 *InstancePtr, u8 Enable);
 XV_HdmiC_VrrInfoFrame *XV_HdmiRxSs1_GetVrrIf(XV_HdmiRxSs1 *InstancePtr);
+
+void XV_HdmiRxSs1_DynHDR_DM_Enable(XV_HdmiRxSs1 *InstancePtr);
+void XV_HdmiRxSs1_DynHDR_DM_Disable(XV_HdmiRxSs1 *InstancePtr);
+void XV_HdmiRxSs1_DynHDR_SetAddr(XV_HdmiRxSs1 *InstancePtr, u64 Addr);
+void XV_HdmiRxSs1_DynHDR_GetInfo(XV_HdmiRxSs1 *InstancePtr,
+				 XV_HdmiRxSs1_DynHDR_Info *RxDynInfoPtr);
 
 void XV_HdmiRxSs1_ReportCoreInfo(XV_HdmiRxSs1 *InstancePtr);
 void XV_HdmiRxSs1_DebugInfo(XV_HdmiRxSs1 *InstancePtr);

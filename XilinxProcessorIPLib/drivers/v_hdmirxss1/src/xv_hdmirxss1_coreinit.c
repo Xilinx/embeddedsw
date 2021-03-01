@@ -258,7 +258,7 @@ int XV_HdmiRxSs1_SubcoreInitHdcp14(XV_HdmiRxSs1 *HdmiRxSs1Ptr)
       /* Clear the event queue */
       XV_HdmiRxSs1_HdcpClearEvents(HdmiRxSs1Ptr);
 
-      XHdcp1x_LateInit(HdmiRxSsPtr->Hdcp14Ptr);
+      XHdcp1x_LateInit(HdmiRxSs1Ptr->Hdcp14Ptr);
     }
   }
   return(XST_SUCCESS);
