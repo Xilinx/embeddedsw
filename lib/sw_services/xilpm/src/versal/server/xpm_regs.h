@@ -767,6 +767,7 @@ extern "C" {
  * PMC Analog Registers
  */
 #define PMC_ANLG_CFG_POR_CNT_SKIP_OFFSET		    (0x00000030U)
+#define PMC_ANLG_CFG_POR_CNT_SKIP_OFFSET_VAL_MASK	    (0x00000001U)
 
 /**
  * SysMon Registers

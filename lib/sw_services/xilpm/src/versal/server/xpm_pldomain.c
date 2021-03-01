@@ -77,10 +77,11 @@ static XStatus PldGtyMbist(u32 BaseAddress)
 		DbgErr = XPM_INT_ERR_MEM_CLEAR_PASS_TIMEOUT;
 		goto done;
 	}
+
+done:
 	/* Unwrite trigger bits */
 	PmOut32(BaseAddress + GTY_PCSR_MASK_OFFSET, GTY_PCSR_MEM_CLEAR_TRIGGER_MASK);
 	PmOut32(BaseAddress + GTY_PCSR_CONTROL_OFFSET, 0);
-done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
@@ -360,10 +361,7 @@ static XStatus GtyHouseClean(void)
 			if ((XST_SUCCESS != Status) || (XST_SUCCESS != LocalStatus)) {
 				/* Gt Mem clear is found to be failing on some parts.
 				 Just print message and return not to break execution */
-				PmInfo("ERROR: GT Mem clear Failed\r\n");
-				Status = XST_SUCCESS;
-				PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET, 1);
-				goto done;
+				PmErr("ERROR: GT Mem clear Failed for 0x%x\r\n", GtyAddresses[i]);
 			}
 			PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET, 1);
 		}
@@ -737,6 +735,204 @@ done:
 
 /*****************************************************************************/
 /**
+* @brief This function applies NPI, PL_POR Reset and Disables NPI Clock
+*
+* @param      None
+*
+* @return      XST_FAILURE if error / XST_SUCCESS if success
+*
+*****************************************************************************/
+
+static XStatus AssertResetDisableClk(void)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+
+	/* Assert NPI Reset */
+	Status = XPmReset_AssertbyId(PM_RST_NPI, (u32)PM_RESET_ACTION_ASSERT);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_RST_NPI;
+		goto done;
+	}
+
+	/* Assert POR for PL */
+	Status = XPmReset_AssertbyId(PM_RST_PL_POR, (u32)PM_RESET_ACTION_ASSERT);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PL_POR;
+		goto done;
+	}
+
+	/* Disable NPI Clock */
+	Status = XPm_SetClockState(PM_SUBSYS_PMC, PM_CLK_NPI_REF, 0U);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_DIS_NPI_REF_CLK;
+		goto done;
+	}
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief This function de-asserts NPI, PL_POR Reset and enables NPI Clock
+*
+* @param      Pmc BaseAddress
+*
+* @return      XST_FAILURE if error / XST_SUCCESS if success
+*
+*****************************************************************************/
+
+static XStatus RemoveResetEnableClk(u32 PmcBaseAddress)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 BaseAddress;
+
+	/* Enable NPI Clock */
+	Status = XPm_SetClockState(PM_SUBSYS_PMC, PM_CLK_NPI_REF, 1U);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_EN_NPI_REF_CLK;
+		goto done;
+	}
+
+	/* De-assert NPI Reset */
+	Status = XPmReset_AssertbyId(PM_RST_NPI, (u32)PM_RESET_ACTION_RELEASE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_RST_NPI;
+		goto done;
+	}
+
+	/* Remove POR for PL */
+	Status = XPmReset_AssertbyId(PM_RST_PL_POR, (u32)PM_RESET_ACTION_RELEASE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PL_POR;
+		goto done;
+	}
+
+	/* Check for PL POR Status is de-asserted */
+	BaseAddress = PmcBaseAddress + PMC_GLOBAL_PL_STATUS_OFFSET;
+
+	Status = XPm_PollForMask(BaseAddress,
+				 PMC_GLOBAL_PL_STATUS_POR_PL_B_MASK,
+				 XPM_POLL_TIMEOUT);
+	if(XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PL_POR_STATUS;
+		goto done;
+	}
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief This function applies CR-1089919 GTY workaround
+*
+* @param      Pointer to XPmc device
+*
+* @return      XST_FAILURE if error / XST_SUCCESS if success
+*
+*****************************************************************************/
+
+static XStatus GtyWorkAround(const XPm_Pmc *Pmc)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+
+	Status = AssertResetDisableClk();
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ASSERT_RST_DIS_CLK;
+		goto done;
+	}
+
+	/* Remove PL-SOC isolation */
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_SOC, FALSE_IMMEDIATE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PL_SOC_ISO;
+		goto done;
+	}
+
+	usleep(1);
+
+	/* Remove PMC-SOC-NPI isolation */
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_SOC_NPI, FALSE_IMMEDIATE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PMC_SOC_NPI_ISO;
+		goto done;
+	}
+
+	/* Enable PL-SOC isolation */
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_SOC, TRUE_VALUE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PL_SOC_ISO;
+		goto done;
+	}
+
+	usleep(1);
+
+	/* Remove PL-SOC isolation */
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_SOC, FALSE_IMMEDIATE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PL_SOC_ISO;
+		goto done;
+	}
+
+	usleep(1);
+
+	Status = RemoveResetEnableClk(Pmc->PmcGlobalBaseAddr);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_REMOVE_RST_EN_CLK;
+		goto done;
+	}
+
+		/* Enable PL-SOC isolation */
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_SOC, TRUE_VALUE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PL_SOC_ISO;
+		goto done;
+	}
+
+	usleep(1);
+
+	Status = AssertResetDisableClk();
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ASSERT_RST_DIS_CLK;
+		goto done;
+	}
+
+	/* Remove PL-SOC isolation */
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_SOC, FALSE_IMMEDIATE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PL_SOC_ISO;
+		goto done;
+	}
+
+	usleep(1);
+
+	/* Remove PMC-SOC-NPI isolation */
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_SOC_NPI, FALSE_IMMEDIATE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PMC_SOC_NPI_ISO;
+		goto done;
+	}
+
+	Status = RemoveResetEnableClk(Pmc->PmcGlobalBaseAddr);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_REMOVE_RST_EN_CLK;
+		goto done;
+	}
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+
+}
+
+/*****************************************************************************/
+/**
 * @brief This function initializes and performs housecleaning for PL domain
 *
 * @param       None
@@ -820,6 +1016,16 @@ XStatus XPmPlDomain_InitandHouseclean(void)
 				 XPM_POLL_TIMEOUT);
 	if(XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_PL_POR_STATUS;
+		goto done;
+	}
+
+	PmOut32(Pmc->PmcAnalogBaseAddr + PMC_ANLG_CFG_POR_CNT_SKIP_OFFSET,
+		PMC_ANLG_CFG_POR_CNT_SKIP_OFFSET_VAL_MASK);
+
+	/* CR-1089919: Workaround for GT MBIST/Memory Access/PCSR access issues */
+	Status = GtyWorkAround(Pmc);
+	if (XST_SUCCESS !=  Status) {
+		DbgErr = XPM_INT_ERR_GT_WORKAROUND;
 		goto done;
 	}
 

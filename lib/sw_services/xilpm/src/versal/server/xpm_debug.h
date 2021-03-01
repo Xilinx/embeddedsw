@@ -296,6 +296,16 @@ extern "C" {
 #define XPM_INT_ERR_PL_POR_STATUS		0x3716U
 /* Error during initialization of GTY Address Array */
 #define XPM_INT_ERR_GTY_INIT		0x3717U
+/* Error during disabling NPI Ref Clk */
+#define XPM_INT_ERR_DIS_NPI_REF_CLK		0x3718U
+/* Error during enabling NPI Ref Clk */
+#define XPM_INT_ERR_EN_NPI_REF_CLK		0x3719U
+/* Error while asserting PL_POR, NPI Reset or disabling NPI Clk */
+#define XPM_INT_ASSERT_RST_DIS_CLK		0x371AU
+/* Error while removing PL_POR, NPI Reset or enabling NPI Clk */
+#define XPM_INT_REMOVE_RST_EN_CLK		0x371BU
+/* Error while applying GTY workaround */
+#define XPM_INT_ERR_GT_WORKAROUND		0x371CU
 
 /************************** NPD specific Errors ******************************/
 /************************** (0x3800) - (0x38FF) ******************************/
