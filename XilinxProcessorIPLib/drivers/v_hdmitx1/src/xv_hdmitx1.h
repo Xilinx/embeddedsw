@@ -163,7 +163,8 @@ typedef enum {
 	XV_HDMITX1_HANDLER_FRL_LTS4,
 	XV_HDMITX1_HANDLER_FRL_LTSP,
 	XV_HDMITX1_HANDLER_FRL_LTSL,
-	XV_HDMITX1_HANDLER_CED_UPDATE
+	XV_HDMITX1_HANDLER_CED_UPDATE,
+	XV_HDMITX1_HANDLER_DYNHDR_MWT,
 } XV_HdmiTx1_HandlerType;
 /*@}*/
 
@@ -229,6 +230,7 @@ typedef struct {
 	UINTPTR BaseAddress;    /**< BaseAddress is the physical
 				  * base address of the core's registers */
 	u32 MaxFrlRate ;	/**< Maximum FRL Rate Supported */
+	u32 DynHdr;		/**< Dynamic HDR supported */
 	u32 AxiLiteClkFreq;
 } XV_HdmiTx1_Config;
 
@@ -404,6 +406,10 @@ typedef struct {
 	void *CedUpdateRef;			/**< To be passed to the
 						  *  link error callback */
 
+	XV_HdmiTx1_Callback DynHdrMtwCallback;	/**< Callback for Dynamic HDR
+						  *  MTW Start */
+	void *DynHdrMtwRef;			/**< To be passed to the
+						  *  Dynamic HDR callback */
 	/* Aux peripheral specific */
 	XHdmiC_Aux Aux;                         /**< AUX peripheral information */
 	XV_HdmiC_VrrInfoFrame VrrIF;		/**< VRR infoframe SPDIF or VTEM */
@@ -858,6 +864,278 @@ typedef struct {
 		XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress, \
 				    (XV_HDMITX1_AUX_CTRL_CLR_OFFSET), \
 				    (XV_HDMITX1_AUX_CTRL_FYSYNC_EN_MASK)); \
+	} \
+}
+
+/*****************************************************************************/
+/**
+*
+* This macro enables the data mover for Dynamic HDR in HDMI Tx
+*
+* @param	InstancePtr is a pointer to the XV_HdmiTx1 core instance.
+*
+* @return	None.
+*
+* @note		C-style signature:
+*		void XV_HdmiTx1_DynHdr_DM_Enable(XV_HdmiTx1 *InstancePtr)
+*
+******************************************************************************/
+#define XV_HdmiTx1_DynHdr_DM_Enable(InstancePtr) \
+{ \
+	if (InstancePtr->Config.DynHdr) { \
+		XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress, \
+				    XV_HDMITX1_PIO_OUT_SET_OFFSET, \
+				    XV_HDMITX1_PIO_OUT_DYN_HDR_DM_EN_MASK); \
+	} \
+}
+
+/*****************************************************************************/
+/**
+*
+* This macro disables the data mover for Dynamic HDR in HDMI Tx
+*
+* @param	InstancePtr is a pointer to the XV_HdmiTx1 core instance.
+*
+* @return	None.
+*
+* @note		C-style signature:
+*		void XV_HdmiTx1_DynHdr_DM_Disable(XV_HdmiTx1 *InstancePtr)
+*
+******************************************************************************/
+#define XV_HdmiTx1_DynHdr_DM_Disable(InstancePtr) \
+{ \
+	if (InstancePtr->Config.DynHdr) { \
+		XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress, \
+				    XV_HDMITX1_PIO_OUT_CLR_OFFSET, \
+				    XV_HDMITX1_PIO_OUT_DYN_HDR_DM_EN_MASK); \
+	} \
+}
+
+/*****************************************************************************/
+/**
+*
+* This macro allows enabling/disabling of Dynamic HDR in HDMI Tx
+*
+* @param	InstancePtr is a pointer to the XV_HdmiTx1 core instance.
+* @param	SetClr specifies TRUE/FALSE value to either enable or disable
+* 		the Dynamic HDR
+*
+* @return	None.
+*
+* @note		C-style signature:
+*		void XV_HdmiTx1_DynHdrControl(XV_HdmiTx1 *InstancePtr, u8 SetClr)
+*
+******************************************************************************/
+#define XV_HdmiTx1_DynHdr_Control(InstancePtr, SetClr) \
+{ \
+	if (InstancePtr->Config.DynHdr) { \
+		if (SetClr) { \
+			XV_HdmiTx1_DynHdr_DM_Enable(InstancePtr); \
+			XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress, \
+					    (XV_HDMITX1_AUX_CTRL_SET_OFFSET), \
+					    (XV_HDMITX1_AUX_CTRL_DYNHDR_EN_MASK)); \
+		} \
+		else { \
+			XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress, \
+					    (XV_HDMITX1_AUX_CTRL_CLR_OFFSET), \
+					    (XV_HDMITX1_AUX_CTRL_DYNHDR_EN_MASK)); \
+			XV_HdmiTx1_DynHdr_DM_Disable(InstancePtr); \
+		} \
+	} \
+}
+
+/*****************************************************************************/
+/**
+*
+* This macro allows enabling/disabling of FAPA Location Dynamic HDR in HDMI Tx
+*
+* @param	InstancePtr is a pointer to the XV_HdmiTx1 core instance.
+* @param	SetClr specifies TRUE/FALSE value for FAPA location.
+*
+* @return	None.
+*
+* @note		C-style signature:
+*		void XV_HdmiTx1_DynHdr_FAPA_Control(XV_HdmiTx1 *InstancePtr,
+*		u8 SetClr)
+*
+******************************************************************************/
+#define XV_HdmiTx1_DynHdr_FAPA_Control(InstancePtr, SetClr) \
+{ \
+	if (InstancePtr->Config.DynHdr) { \
+		if (SetClr) { \
+			XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress, \
+					    (XV_HDMITX1_AUX_CTRL_SET_OFFSET), \
+					    (XV_HDMITX1_AUX_CTRL_DYNHDR_FAPA_LOC_MASK)); \
+		} \
+		else { \
+			XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress, \
+					    (XV_HDMITX1_AUX_CTRL_CLR_OFFSET), \
+					    (XV_HDMITX1_AUX_CTRL_DYNHDR_FAPA_LOC_MASK)); \
+		} \
+	} \
+}
+
+/*****************************************************************************/
+/**
+*
+* This macro allows enabling/disabling of GOF Dynamic HDR in HDMI Tx
+*
+* @param	InstancePtr is a pointer to the XV_HdmiTx1 core instance.
+* @param	SetClr specifies TRUE/FALSE value to either enable or disable
+* 		the GOF (Graphics Overlay Flag)
+*
+* @return	None.
+*
+* @note		C-style signature:
+*		void XV_HdmiTx1_DynHdr_GOF_Control(XV_HdmiTx1 *InstancePtr,
+*		u8 SetClr)
+*
+******************************************************************************/
+#define XV_HdmiTx1_DynHdr_GOF_Control(InstancePtr, SetClr) \
+{ \
+	if (InstancePtr->Config.DynHdr) { \
+		if (SetClr) { \
+			XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress, \
+					    (XV_HDMITX1_AUX_CTRL_SET_OFFSET), \
+					    (XV_HDMITX1_AUX_CTRL_DYNHDR_GOF_EN_MASK)); \
+		} \
+		else { \
+			XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress, \
+					    (XV_HDMITX1_AUX_CTRL_CLR_OFFSET), \
+					    (XV_HDMITX1_AUX_CTRL_DYNHDR_GOF_EN_MASK)); \
+		} \
+	} \
+}
+
+/*****************************************************************************/
+/**
+*
+* This macro allows set/clear of GOF Value Dynamic HDR in HDMI Tx
+*
+* @param	InstancePtr is a pointer to the XV_HdmiTx1 core instance.
+* @param	SetClr specifies TRUE/FALSE value to either set or clear
+* 		the GOF (Graphics Overlay Flag) Value
+*
+* @return	None.
+*
+* @note		C-style signature:
+*		void XV_HdmiTx1_DynHdr_GOFVal_Control(XV_HdmiTx1 *InstancePtr,
+*		u8 SetClr)
+*
+******************************************************************************/
+#define XV_HdmiTx1_DynHdr_GOFVal_Control(InstancePtr, SetClr) \
+{ \
+	if (InstancePtr->Config.DynHdr) { \
+		if (SetClr) { \
+			XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress, \
+					    (XV_HDMITX1_AUX_CTRL_SET_OFFSET), \
+					    (XV_HDMITX1_AUX_CTRL_DYNHDR_GOF_VAL_MASK)); \
+		} \
+		else { \
+			XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress, \
+					    (XV_HDMITX1_AUX_CTRL_CLR_OFFSET), \
+					    (XV_HDMITX1_AUX_CTRL_DYNHDR_GOF_VAL_MASK)); \
+		} \
+	} \
+}
+
+/*****************************************************************************/
+/**
+*
+* This macro allows to set the MTW bit to clear it for Dynamic HDR in HDMI Tx
+*
+* @param	InstancePtr is a pointer to the XV_HdmiTx1 core instance.
+*
+* @return	None.
+*
+* @note		C-style signature:
+*		void XV_HdmiTx1_DynHdr_MTW_Clear(XV_HdmiTx1 *InstancePtr)
+*
+******************************************************************************/
+#define XV_HdmiTx1_DynHdr_MTW_Clear(InstancePtr) \
+{ \
+	u32 val; \
+	if (InstancePtr->Config.DynHdr) { \
+		val = XV_HdmiTx1_ReadReg((InstancePtr)->Config.BaseAddress, \
+					 XV_HDMITX1_AUX_STA_OFFSET); \
+		val |= XV_HDMITX1_AUX_STA_DYNHDR_MTW_MASK; \
+		XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress, \
+				    (XV_HDMITX1_AUX_STA_OFFSET), \
+				    val); \
+	} \
+}
+
+/*****************************************************************************/
+/**
+*
+* This macro gets the read status of Data Mover for Dynamic HDR in HDMI Tx
+*
+* @param	InstancePtr is a pointer to the XV_HdmiTx1 core instance.
+*
+* @return	u32 val - 0 means ok else memory read error
+*
+* @note		C-style signature:
+*		u32 XV_HdmiTx1_DynHdr_GetReadStatus(XV_HdmiTx1 *InstancePtr)
+*
+******************************************************************************/
+#define XV_HdmiTx1_DynHdr_GetReadStatus(InstancePtr) \
+	(XV_HdmiTx1_ReadReg((InstancePtr)->Config.BaseAddress, \
+			   XV_HDMITX1_AUX_STA_OFFSET) & \
+			XV_HDMITX1_AUX_DYNHDR_RD_STS_MASK);
+
+/*****************************************************************************/
+/**
+*
+* This macro sets the Header packet type and length for Dynamic HDR in HDMI Tx
+*
+* @param	InstancePtr is a pointer to the XV_HdmiTx1 core instance.
+* @param	PktLength is a u16 length of Dynamic HDR packet.
+* @param	PktType is a u16 Type of Dynamic HDR packet.
+*
+* @return	None.
+*
+* @note		C-style signature:
+*		void XV_HdmiTx1_DynHdr_SetPacket(XV_HdmiTx1 *InstancePtr,
+*						u16 PacketLength, u16 PacketType)
+*
+******************************************************************************/
+#define XV_HdmiTx1_DynHdr_SetPacket(InstancePtr, PktLen, PktType) \
+{ \
+	if (InstancePtr->Config.DynHdr) { \
+		u32 val = (u16)PktType | \
+		((u16)PktLen << XV_HDMITX1_AUX_DYNHDR_PKT_LENGTH_SHIFT); \
+		XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress, \
+				    XV_HDMITX1_AUX_DYNHDR_PKT_OFFSET, \
+				    val); \
+	} \
+}
+
+/*****************************************************************************/
+/**
+*
+* This macro sets the buffer address for Dynamic HDR in HDMI Tx
+*
+* @param	InstancePtr is a pointer to the XV_HdmiTx1 core instance.
+* @param	Addr is a u64 which contains the buffer address
+*
+* @return	None.
+*
+* @note		C-style signature:
+*		void XV_HdmiTx1_DynHdr_SetAddr(XV_HdmiTx1 *InstancePtr, u64 Addr)
+*
+******************************************************************************/
+#define XV_HdmiTx1_DynHdr_SetAddr(InstancePtr, Addr) \
+{ \
+	if (InstancePtr->Config.DynHdr) { \
+		u32 val; \
+		val = (u32)Addr; \
+		XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress, \
+				    XV_HDMITX1_AUX_DYNHDR_ADDR_LSB_OFFSET, \
+				    val); \
+		val = (u32)(((u64)Addr & 0xFFFFFFFF00000000) >> 32); \
+		XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress, \
+				    XV_HDMITX1_AUX_DYNHDR_ADDR_MSB_OFFSET, \
+				    val); \
 	} \
 }
 

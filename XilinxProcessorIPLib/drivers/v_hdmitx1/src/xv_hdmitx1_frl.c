@@ -1039,6 +1039,8 @@ int XV_HdmiTx1_FrlStreamStart(XV_HdmiTx1 *InstancePtr)
 	/* Set stream status to up */
 	InstancePtr->Stream.State = XV_HDMITX1_STATE_STREAM_UP;
 
+	XV_HdmiTx1_DynHdr_DM_Enable(InstancePtr);
+
 	/* Jump to steam up call back */
 	if (InstancePtr->StreamUpCallback) {
 		InstancePtr->StreamUpCallback(InstancePtr->StreamUpRef);
@@ -1086,6 +1088,8 @@ int XV_HdmiTx1_FrlStreamStop(XV_HdmiTx1 *InstancePtr)
 
 	/* Set stream status to up */
 	InstancePtr->Stream.State = XV_HDMITX1_STATE_STREAM_DOWN;
+
+	XV_HdmiTx1_DynHdr_DM_Disable(InstancePtr);
 
 	/* Jump to steam up call back */
 	if (InstancePtr->StreamDownCallback) {

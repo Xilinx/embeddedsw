@@ -39,6 +39,7 @@
 static void HdmiTx1_PioIntrHandler(XV_HdmiTx1 *InstancePtr);
 static void HdmiTx1_DdcIntrHandler(XV_HdmiTx1 *InstancePtr);
 static void HdmiTx1_FrlIntrHandler(XV_HdmiTx1 *InstancePtr);
+static void HdmiTx1_AuxIntrHandler(XV_HdmiTx1 *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 
@@ -109,6 +110,18 @@ void XV_HdmiTx1_IntrHandler(void *InstancePtr)
 		/* Jump to DDC handler */
 		HdmiTx1_FrlIntrHandler(HdmiTx1Ptr);
 	}
+
+	/* Aux */
+	Data = XV_HdmiTx1_ReadReg(HdmiTx1Ptr->Config.BaseAddress,
+				  (XV_HDMITX1_AUX_STA_OFFSET)) &
+				  (XV_HDMITX1_AUX_STA_IRQ_MASK);
+
+	/* Check for IRQ flag set */
+	if (Data) {
+		/* Jump to Aux handler */
+		HdmiTx1_AuxIntrHandler(HdmiTx1Ptr);
+	}
+
 }
 
 /*****************************************************************************/
@@ -293,6 +306,13 @@ int XV_HdmiTx1_SetCallback(XV_HdmiTx1 *InstancePtr,
 		Status = (XST_SUCCESS);
 		break;
 
+	/* Dynamic HDR MTW_Update*/
+	case (XV_HDMITX1_HANDLER_DYNHDR_MWT):
+		InstancePtr->DynHdrMtwCallback = (XV_HdmiTx1_Callback)CallbackFunc;
+		InstancePtr->DynHdrMtwRef = CallbackRef;
+		Status = (XST_SUCCESS);
+		break;
+
 	default:
 		Status = (XST_INVALID_PARAM);
 		break;
@@ -357,9 +377,19 @@ static void HdmiTx1_PioIntrHandler(XV_HdmiTx1 *InstancePtr)
 					InstancePtr->StreamDownCallback(
 							InstancePtr->StreamDownRef);
 				}
+
+				/*
+				 * Since stream has gone down, disable data mover
+				 * for dynamic HDR
+				 */
+				XV_HdmiTx1_DynHdr_DM_Disable(InstancePtr);
+
 			}
 			/* Clear connected flag*/
 			InstancePtr->Stream.IsConnected = (FALSE);
+
+			/* On HPD disconnect data mover may hang. So disable */
+			XV_HdmiTx1_DynHdr_DM_Disable(InstancePtr);
 		}
 
 		/* Check if user callback has been registered*/
@@ -447,6 +477,8 @@ xil_printf(" up\n\r" ANSI_COLOR_RESET);
 				/* Enable audio */
 				/*XV_HdmiTx1_AudioEnable(InstancePtr);*/
 
+				XV_HdmiTx1_DynHdr_DM_Enable(InstancePtr);
+
 				/* Check if user callback has been registered*/
 				if (InstancePtr->StreamUpCallback) {
 					InstancePtr->StreamUpCallback(
@@ -472,6 +504,11 @@ xil_printf(" down\n\r" ANSI_COLOR_RESET);
 				InstancePtr->StreamDownCallback(
 						InstancePtr->StreamDownRef);
 			}
+			/*
+			 * Since stream has gone down, disable data mover
+			 * for dynamic HDR
+			 */
+			XV_HdmiTx1_DynHdr_DM_Disable(InstancePtr);
 		}
 	}
 }
@@ -546,3 +583,39 @@ static void HdmiTx1_FrlIntrHandler(XV_HdmiTx1 *InstancePtr)
 	}
 }
 
+/*****************************************************************************/
+/**
+*
+* This function is the HDMI TX Aux interrupt handler.
+*
+* This handler reads corresponding event interrupt from the Auxiliary Status
+* register. It determines the source of the interrupts and calls according
+* callbacks.
+*
+* @param    InstancePtr is a pointer to the HDMI TX core instance.
+*
+* @return   None.
+*
+* @note     None.
+*
+******************************************************************************/
+static void HdmiTx1_AuxIntrHandler(XV_HdmiTx1 *InstancePtr)
+{
+	u32 Event;
+
+	/* Read Aux status register.*/
+	Event = XV_HdmiTx1_ReadReg(InstancePtr->Config.BaseAddress,
+				   XV_HDMITX1_AUX_STA_OFFSET);
+
+	/* Clear event flags */
+	XV_HdmiTx1_WriteReg(InstancePtr->Config.BaseAddress,
+			    XV_HDMITX1_AUX_STA_OFFSET,
+			    Event);
+
+	/* Dynamic HDR MTW event has occurred */
+	if (Event & XV_HDMITX1_AUX_STA_DYNHDR_MTW_MASK) {
+		if (InstancePtr->DynHdrMtwCallback) {
+			InstancePtr->DynHdrMtwCallback(InstancePtr->DynHdrMtwRef);
+		}
+	}
+}

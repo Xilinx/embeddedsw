@@ -10,12 +10,14 @@ proc generate {drv_handle} {
     "C_BASEADDR" \
     "C_HIGHADDR" \
     "C_MAX_FRL_RATE" \
+    "C_DYNAMIC_HDR" \
     "AXI_LITE_FREQ_HZ"
 
     xdefine_config_file $drv_handle "xv_hdmitx1_g.c" "XV_HdmiTx1" \
     "DEVICE_ID" \
     "C_BASEADDR" \
     "C_MAX_FRL_RATE" \
+    "C_DYNAMIC_HDR" \
     "AXI_LITE_FREQ_HZ"
 
     xdefine_canonical_xpars $drv_handle "xparameters.h" "XV_HdmiTx1" \
@@ -24,6 +26,7 @@ proc generate {drv_handle} {
     "C_BASEADDR" \
     "C_HIGHADDR" \
     "C_MAX_FRL_RATE" \
+    "C_DYNAMIC_HDR" \
     "AXI_LITE_FREQ_HZ"
 }
 
