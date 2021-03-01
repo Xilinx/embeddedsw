@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xsysmonpsv.c
-* @addtogroup sysmonpsv_v2_0
+* @addtogroup sysmonpsv_v2_1
 *
 * Functions in this file are the minimum required functions for the XSysMonPsv
 * driver. See xsysmonpsv.h for a detailed description of the driver.
@@ -24,6 +24,8 @@
 * 1.2   aad    06/11/20 Corrected the configuration assignment
 * 2.0   aad    07/31/20 Added new APIs to set threshold values, alarm
 *                       config and modes for temperature and voltages
+* 2.1	aad    02/24/21 Added documentation and support for production
+*                       silicon.
 *
 * </pre>
 *
@@ -413,7 +415,13 @@ void XSysMonPsv_SetOTTempThreshold(XSysMonPsv *InstancePtr,
 * @return	Temperature value requested
 *		XSYSMONPSV_FAILURE if invalid value requested
 *
-* @note		None.
+* @note         XSYSMONPSV_VAL_VREF_MIN and XSYSMONPSV_VAL_VREF_MAX are only
+*               supported for ES1 silicon to get min and max temperature values.
+*               XSYSMONPSV_VAL_VREF_MIN and XSYSMONPSV_VAL_VREF_MAX are not
+*               supported on production silicon.
+*               Use XSYSMONPSV_VAL to get the current temperature value on
+*               production silicon. XSYSMONPSV_VAL is not supported on ES1
+*               silicon.
 *
 ******************************************************************************/
 u32 XSysMonPsv_ReadDeviceTemp(XSysMonPsv *InstancePtr, XSysMonPsv_Val Value)
@@ -424,10 +432,14 @@ u32 XSysMonPsv_ReadDeviceTemp(XSysMonPsv *InstancePtr, XSysMonPsv_Val Value)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	switch(Value) {
+		/* Use to read the current device minimum temperature
+		 * Only valid for ES1 silicon. */
 		case XSYSMONPSV_VAL_VREF_MIN:
 			Offset = XSYSMONPSV_DEVICE_TEMP_MIN;
 			break;
 
+		/* Use to read the current device maximum temperature
+		 * Only valid for ES1 silicon. */
 		case XSYSMONPSV_VAL_VREF_MAX:
 			Offset = XSYSMONPSV_DEVICE_TEMP_MAX;
 			break;
@@ -438,6 +450,12 @@ u32 XSysMonPsv_ReadDeviceTemp(XSysMonPsv *InstancePtr, XSysMonPsv_Val Value)
 
 		case XSYSMONPSV_VAL_MAX:
 			Offset = XSYSMONPSV_DEVICE_TEMP_MAX_MAX;
+			break;
+
+		/* Use for reading current device temperature
+		 * only applicable on Production silicon. */
+		case XSYSMONPSV_VAL:
+			Offset = XSYSMONPSV_DEVICE_TEMP;
 			break;
 
 		default:
