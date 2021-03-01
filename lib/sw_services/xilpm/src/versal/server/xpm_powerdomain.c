@@ -1175,9 +1175,6 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		goto done;
 	}
 
-	/* Check PL power up at every init node command to see if we can run Pl houseclean*/
-	(void)XPmPlDomain_InitandHouseclean();
-
 	switch (Function) {
 	case (u32)FUNC_INIT_START:
 		PwrDomain->Power.Node.State = (u8)XPM_POWER_STATE_INITIALIZING;

@@ -661,6 +661,8 @@ XStatus XPm_HookAfterPlmCdo(void)
 	u32 SysmonAddr;
 
 	/*
+	 * TODO: Re-introduce Early Housecleaning
+	 * Rationale:
 	 * There is a silicon problem where on 2-4% of Versal ES1 XCVC1902 devices
 	 * you can get 12A of VCCINT_PL current before CFI housecleaning is run.
 	 * The problem is eliminated when PL Vgg frame housecleaning is run
@@ -668,7 +670,6 @@ XStatus XPm_HookAfterPlmCdo(void)
 	 * Otherwise also, PL housecleaning needs to be trigerred asap to reduce
 	 * boot time.
 	 */
-	(void)XPmPlDomain_InitandHouseclean();
 
 	/* On Boot, Update PMC SAT0 & SAT1 sysmon trim */
 	SysmonAddr = XPm_GetSysmonByIndex((u32)XPM_NODEIDX_MONITOR_SYSMON_PMC_0);
