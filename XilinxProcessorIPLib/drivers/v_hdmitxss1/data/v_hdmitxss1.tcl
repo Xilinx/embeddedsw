@@ -20,6 +20,7 @@ proc generate {drv_handle} {
                     "C_INCLUDE_LOW_RESO_VID" \
                     "C_INCLUDE_YUV420_SUP" \
                     "C_MAX_FRL_RATE" \
+		    "C_DYNAMIC_HDR" \
                     "AXI_LITE_FREQ_HZ"
 
   hier_ip_define_config_file $drv_handle "xv_hdmitxss1_g.c" "XV_HdmiTxSs1" \
@@ -31,6 +32,7 @@ proc generate {drv_handle} {
                     "C_INCLUDE_LOW_RESO_VID" \
                     "C_INCLUDE_YUV420_SUP" \
                     "C_MAX_FRL_RATE" \
+		    "C_DYNAMIC_HDR" \
                     "AXI_LITE_FREQ_HZ"
 
   hier_ip_define_canonical_xpars $drv_handle "xparameters.h" \
@@ -43,6 +45,7 @@ proc generate {drv_handle} {
                     "C_INCLUDE_LOW_RESO_VID" \
                     "C_INCLUDE_YUV420_SUP" \
                     "C_MAX_FRL_RATE" \
+		    "C_DYNAMIC_HDR" \
                     "AXI_LITE_FREQ_HZ"
 }
 

@@ -94,6 +94,7 @@ static void XV_HdmiTxSs1_FrlLts3Callback(void *CallbackRef);
 static void XV_HdmiTxSs1_FrlLts4Callback(void *CallbackRef);
 static void XV_HdmiTxSs1_FrlLtsPCallback(void *CallbackRef);
 static void XV_HdmiTxSs1_CedUpdateCallback(void *CallbackRef);
+static void XV_HdmiTxSs1_DynHdrMtwCallback(void *CallbackRef);
 
 static u32 XV_HdmiTxSS1_GetVidMaskColorValue(XV_HdmiTxSs1 *InstancePtr,
 											u16 Value);
@@ -360,6 +361,11 @@ static int XV_HdmiTxSs1_RegisterSubsysCallbacks(XV_HdmiTxSs1 *InstancePtr)
     					  XV_HDMITX1_HANDLER_CED_UPDATE,
     					  (void *)XV_HdmiTxSs1_CedUpdateCallback,
     					  (void *)InstancePtr);
+
+    XV_HdmiTx1_SetCallback(HdmiTxSs1Ptr->HdmiTx1Ptr,
+			   XV_HDMITX1_HANDLER_DYNHDR_MWT,
+			   (void *)XV_HdmiTxSs1_DynHdrMtwCallback,
+			   (void *)InstancePtr);
   }
 
   return(XST_SUCCESS);
@@ -1357,6 +1363,26 @@ static void XV_HdmiTxSs1_ErrorCallback(void *CallbackRef)
 
 /*****************************************************************************/
 /**
+* This function is called whenever user needs to be informed of an MTW End
+* condition.
+*
+* @param  None.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+static void XV_HdmiTxSs1_DynHdrMtwCallback(void *CallbackRef)
+{
+	XV_HdmiTxSs1 *HdmiTxSs1Ptr = (XV_HdmiTxSs1 *)CallbackRef;
+
+	if (HdmiTxSs1Ptr->DynHdrMtwCallback)
+		HdmiTxSs1Ptr->DynHdrMtwCallback(HdmiTxSs1Ptr->DynHdrMtwRef);
+}
+
+/*****************************************************************************/
+/**
 *
 * This function installs an asynchronous callback function for the given
 * HandlerType:
@@ -1579,7 +1605,14 @@ int XV_HdmiTxSs1_SetCallback(XV_HdmiTxSs1 *InstancePtr,
             Status = (XST_SUCCESS);
           break;
 
-        default:
+	  /* Dynamic HDR MTW Event*/
+	case (XV_HDMITXSS1_HANDLER_DYNHDR_MWT):
+	  InstancePtr->DynHdrMtwCallback = (XV_HdmiTxSs1_Callback)CallbackFunc;
+	  InstancePtr->DynHdrMtwRef = CallbackRef;
+	  Status = (XST_SUCCESS);
+	  break;
+
+	default:
             Status = (XST_INVALID_PARAM);
             break;
     }
@@ -2802,6 +2835,9 @@ void XV_HdmiTxSs1_ReportInfo(XV_HdmiTxSs1 *InstancePtr)
     xil_printf("Audio\r\n");
     xil_printf("---------\r\n");
     XV_HdmiTxSs1_ReportAudio(InstancePtr);
+    xil_printf("Static HDR DRM Infoframe\r\n");
+    xil_printf("---------\r\n");
+    XV_HdmiTxSs1_ReportDRMInfo(InstancePtr);
 }
 
 /******************************************************************************/
@@ -3533,6 +3569,140 @@ void XV_HdmiTxSS1_StartFRLStream(XV_HdmiTxSs1 *InstancePtr)
 #endif
 
 	}
+}
+
+/*****************************************************************************/
+/**
+* This function will enable/disable Dynamic HDR
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTxSs1 core instance.
+* @param    Flag set to TRUE/FALSE.
+* @return   void.
+*
+* @note     None.
+*
+******************************************************************************/
+void XV_HdmiTxSs1_DynHdr_Control(XV_HdmiTxSs1 *InstancePtr, u8 Flag)
+{
+	Xil_AssertVoid(InstancePtr);
+
+	if (!InstancePtr->Config.DynHdr) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,
+			    "\r\nWarning: HdmiTxSs1 Dynamic HDR disabled!\r\n");
+		return;
+	}
+
+	XV_HdmiTx1_DynHdr_Control(InstancePtr->HdmiTx1Ptr, Flag);
+}
+
+/*****************************************************************************/
+/**
+* This function will enable/disable GOF for Dynamic HDR
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTxSs1 core instance.
+* @param    Flag set to TRUE/FALSE.
+* @return   void.
+*
+* @note     None.
+*
+******************************************************************************/
+void XV_HdmiTxSs1_DynHdr_GOF_Control(XV_HdmiTxSs1 *InstancePtr, u8 Flag)
+{
+	Xil_AssertVoid(InstancePtr);
+	if (!InstancePtr->Config.DynHdr) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,
+			    "\r\nWarning: HdmiTxSs1 Dynamic HDR disabled!\r\n");
+		return;
+	}
+
+	XV_HdmiTx1_DynHdr_GOF_Control(InstancePtr->HdmiTx1Ptr, Flag);
+}
+
+/*****************************************************************************/
+/**
+* This function will configure the HDMI Tx for Dynamic HDR.
+* The configuration should be updated and called by application in
+* Dynamic HDR MTW callback.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTxSs1 core instance.
+* @param    CfgPtr is a pointer to XV_HdmiTxSs1_DynHdr_Config instance
+*
+* @return   void.
+*
+* @note     None.
+*
+******************************************************************************/
+void XV_HdmiTxSs1_DynHdr_Cfg(XV_HdmiTxSs1 *InstancePtr,
+			     XV_HdmiTxSs1_DynHdr_Config *CfgPtr)
+{
+	Xil_AssertVoid(InstancePtr);
+	Xil_AssertVoid(CfgPtr);
+	Xil_AssertVoid(CfgPtr->Address);
+	/* 64 bit aligned address */
+	Xil_AssertVoid(!(CfgPtr->Address & 0x3F));
+
+	if (!InstancePtr->Config.DynHdr) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,
+			    "\r\nWarning: HdmiTxSs1 Dynamic HDR disabled!\r\n");
+		return;
+	}
+	XV_HdmiTx1_DynHdr_GOFVal_Control(InstancePtr, CfgPtr->GOF);
+	XV_HdmiTx1_DynHdr_FAPA_Control(InstancePtr, CfgPtr->FAPA);
+	XV_HdmiTx1_DynHdr_SetPacket(InstancePtr, CfgPtr->PktLength, CfgPtr->PktType);
+	XV_HdmiTx1_DynHdr_SetAddr(InstancePtr, CfgPtr->Address);
+}
+
+/*****************************************************************************/
+/**
+* This function will enable or disable the Data Mover in Dynamic HDR
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTxSs1 core instance.
+* @param    Flag 0 to disable and 1 to enable the Data Mover
+*
+* @return   void.
+*
+* @note     None.
+*
+******************************************************************************/
+void XV_HdmiTxSs1_DynHdr_DM_Control(XV_HdmiTxSs1 *InstancePtr, u8 Flag)
+{
+	Xil_AssertVoid(InstancePtr);
+
+	if (!InstancePtr->Config.DynHdr) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,
+			    "\r\nWarning: HdmiTxSs1 Dynamic HDR disabled!\r\n");
+		return;
+	}
+
+	if (Flag) {
+		XV_HdmiTx1_DynHdr_DM_Enable(InstancePtr->HdmiTx1Ptr);
+	} else {
+		XV_HdmiTx1_DynHdr_DM_Disable(InstancePtr->HdmiTx1Ptr);
+	}
+}
+
+/*****************************************************************************/
+/**
+* This function will read the error status of the Data Mover for Dynamic HDR
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTxSs1 core instance.
+*
+* @return   0 - if no error else 1
+*
+* @note     None.
+*
+******************************************************************************/
+u32 XV_HdmiTxSs1_DynHdr_GetErr(XV_HdmiTxSs1 *InstancePtr)
+{
+	Xil_AssertNonvoid(InstancePtr);
+
+	if (!InstancePtr->Config.DynHdr) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,
+			    "\r\nWarning: HdmiTxSs1 Dynamic HDR disabled!\r\n");
+		return 0;
+	}
+
+	return XV_HdmiTx1_DynHdr_GetReadStatus(InstancePtr);
 }
 
 static void XV_HdmiTxSs1_FrlLtsLCallback(void *CallbackRef)
