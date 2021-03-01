@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xsysmonpsv_hw.h
-* @addtogroup sysmonpsv_v2_0
+* @addtogroup sysmonpsv_v2_1
 *
 * This header file contains the identifiers and basic driver functions (or
 * macros) that can be used to access the device. Other driver functions
@@ -21,6 +21,7 @@
 * 1.0   aad    11/09/18 First release
 * 1.1   aad    07/11/19 Fixed NEW_DATA_MASK
 * 2.0   aad    10/12/20 MISRAC Violations
+* 2.1	aad    02/24/21 Added additional macro to support production silicon.
 *
 * </pre>
 *
@@ -1832,6 +1833,14 @@ extern "C" {
 #define XSYSMONPSV_DEVICE_TEMP_MAX_VAL_WIDTH   16U
 #define XSYSMONPSV_DEVICE_TEMP_MAX_VAL_MASK    0X0000FFFFU
 
+/**
+ * Register: XSYSMONPSV_DEVICE_TEMP
+ */
+#define XSYSMONPSV_DEVICE_TEMP     0X00001030U
+
+#define XSYSMONPSV_DEVICE_TEMP_VAL_SHIFT   0U
+#define XSYSMONPSV_DEVICE_TEMP_VAL_WIDTH   16U
+#define XSYSMONPSV_DEVICE_TEMP_VAL_MASK    0X0000FFFFU
 /**
  * Register: XSYSMONPSV_DEVICE_TEMP_MIN
  */

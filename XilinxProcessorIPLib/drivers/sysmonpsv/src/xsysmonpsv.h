@@ -1,12 +1,12 @@
 /******************************************************************************
-* Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 * @file xsysmonpsv.h
-* @addtogroup sysmonpsv_v2_0
+* @addtogroup sysmonpsv_v2_1
 *
 * The XSysMon driver supports the Xilinx System Monitor device on Versal
 *
@@ -79,6 +79,14 @@
 * of the device by both these interfaces. The user has to take care of this
 * situation in the user application code.
 *
+*  <b> Note </b>
+*  For ES1 silicon the temperature alarms are based on comparison of
+*  XSYSMONPSV_DEVICE_TEMP_MAX/MIN with XSYSMONPSV_DEVICE_TEMP_TH_UPPER/LOWER
+*  respectively.
+*  For Production silicon, only supports a single temperature measurement which
+*  is compared with XSYSMONPSV_DEVICE_TEMP_TH_UPPER/LOWER to generate temperature
+*  based alarms.
+*
 *
 *
 * <br><br>
@@ -95,6 +103,8 @@
 *                       config and modes for temperature and voltages.
 *                       Added new interrupt handling structure.
 *       aad    10/12/20 Fixed MISRAC violations
+* 2.1	aad    02/24/21 Added additional documentation to support production
+*			silicon.
 *
 * </pre>
 *
@@ -172,7 +182,9 @@ typedef enum {
  * @{
  */
 typedef enum {
-	XSYSMONPSV_VAL,			/**< Supply Value */
+	XSYSMONPSV_VAL,			/**< Current Value for temperature
+					 (for production silicon only)
+					  and supply */
 	XSYSMONPSV_VAL_MIN,		/**< Minimum Value reached since
 					  reset */
 	XSYSMONPSV_VAL_MAX,		/**< Maximum Value reached since
