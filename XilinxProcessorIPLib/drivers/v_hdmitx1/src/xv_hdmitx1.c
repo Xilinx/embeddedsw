@@ -121,6 +121,8 @@ int XV_HdmiTx1_CfgInitialize(XV_HdmiTx1 *InstancePtr, XV_HdmiTx1_Config *CfgPtr,
 
 	InstancePtr->TmdsConfigCallback = (XV_HdmiTx1_Callback)((void *)StubCallback);
 
+	InstancePtr->DynHdrMtwCallback = (XV_HdmiTx1_Callback)((void *)StubCallback);
+
 	/* Maximum FRL Rate Supported */
 	InstancePtr->Stream.Frl.MaxFrlRate =  InstancePtr->Config.MaxFrlRate;
 

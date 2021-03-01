@@ -195,7 +195,9 @@ extern "C" {
                                                         * mask */
 #define XV_HDMITX1_PIO_OUT_EXT_SYSRST_MASK    (1<<22) /**< PIO Out EXT_SYSRST
                                                          * mask */
-
+#define XV_HDMITX1_PIO_OUT_DYN_HDR_DM_EN_MASK	(1 << 23) /**< PIO Out Dynamic
+							    *  HDR Data Mover
+							    *  Enable */
 
 /* PIO peripheral PIO In register masks*/
 #define XV_HDMITX1_PIO_IN_LNK_RDY_MASK       (1<<0)  /**< PIO In link ready
@@ -288,6 +290,9 @@ extern "C" {
 #define XV_HDMITX1_AUX_VTEM_OFFSET                   ((XV_HDMITX1_AUX_BASE)+(6*4))    /**< AUX VTEM Register offset */
 #define XV_HDMITX1_AUX_FSYNC_OFFSET                  ((XV_HDMITX1_AUX_BASE)+(7*4))    /**< AUX FSYNC Register offset */
 #define XV_HDMITX1_AUX_FSYNC_PRO_OF                  ((XV_HDMITX1_AUX_BASE)+(8*4))    /**< AUX FYNC PRO Register offset */
+#define XV_HDMITX1_AUX_DYNHDR_PKT_OFFSET	(XV_HDMITX1_AUX_BASE + (9 * 4))		/**< AUX Dynamic HDR Packet offset */
+#define XV_HDMITX1_AUX_DYNHDR_ADDR_LSB_OFFSET	(XV_HDMITX1_AUX_BASE + (10 * 4))	/**< AUX Dynamic HDR Address LSB offset */
+#define XV_HDMITX1_AUX_DYNHDR_ADDR_MSB_OFFSET	(XV_HDMITX1_AUX_BASE + (11 * 4))	/**< AUX Dynamic HDR Address MSB offset */
 
 
 /* Auxiliary peripheral Control register masks*/
@@ -296,6 +301,10 @@ extern "C" {
                                                     * Enable mask */
 #define XV_HDMITX1_AUX_CTRL_VRR_EN_MASK      (1<<2)  /**< AUX Control VRR En mask */
 #define XV_HDMITX1_AUX_CTRL_FYSYNC_EN_MASK   (1<<3)  /**< AUX Control FSync En mask */
+#define XV_HDMITX1_AUX_CTRL_DYNHDR_EN_MASK	(1 << 4)  /**< AUX Control Enable Dynamic HDR mask */
+#define XV_HDMITX1_AUX_CTRL_DYNHDR_GOF_EN_MASK	(1 << 5)  /**< AUX Control Enable Graphic Overlay Flag mask */
+#define XV_HDMITX1_AUX_CTRL_DYNHDR_GOF_VAL_MASK	(1 << 6)  /**< AUX Control Graphic Overlay Flag value mask */
+#define XV_HDMITX1_AUX_CTRL_DYNHDR_FAPA_LOC_MASK	(1 << 7)  /**< AUX Control FAPA Location value mask */
 
 /* Auxiliary peripheral Status register masks and shift*/
 #define XV_HDMITX1_AUX_STA_IRQ_MASK          (1<<0)  /**< AUX Status Interrupt
@@ -310,6 +319,13 @@ extern "C" {
                                                     *  mask */
 #define XV_HDMITX1_AUX_STA_FREE_PKTS_SHIFT   15  /**< AUX Status Free
                                                     *  Packets shift */
+/* Interrupt asserted on every MTW Start. W1C */
+#define XV_HDMITX1_AUX_STA_DYNHDR_MTW_MASK	(1 << 8) /**< AUX Status Dynamic HDR MTW started */
+/* 1 : Error received while reading the memory
+ * 0 : Memory response is clean
+ */
+#define XV_HDMITX1_AUX_DYNHDR_RD_STS_MASK	(1 << 9) /**< AUX Status Dynamic HDR read response */
+
 /* AUX VTEM register masks and shifts*/
 #define XV_HDMITX1_AUX_VTEM_M_CONST_SHIFT            1
 #define XV_HDMITX1_AUX_VTEM_FVA_FACT_M1_SHIFT        2
@@ -334,7 +350,10 @@ extern "C" {
 #define XV_HDMITX1_AUX_FSYNC_PRO_PQ_EOTF_SHIFT        4
 #define XV_HDMITX1_AUX_FSYNC_PRO_BRIGHT_CTRL_SHIFT    16
 
-
+#define XV_HDMITX1_AUX_DYNHDR_PKT_TYPE_MASK	(0xffff)
+#define XV_HDMITX1_AUX_DYNHDR_PKT_LENGTH_MASK	(0xffff << 16)
+#define XV_HDMITX1_AUX_DYNHDR_PKT_TYPE_SHIFT	(0)
+#define XV_HDMITX1_AUX_DYNHDR_PKT_LENGTH_SHIFT	(16)
 
 /* Audio (AUD) peripheral register offsets*/
 /* The AUD is the forth peripheral on the local bus*/
