@@ -77,6 +77,7 @@ static void XV_HdmiRxSs1_FrlLts4Callback(void *CallbackRef);
 static void XV_HdmiRxSs1_FrlLtsPCallback(void *CallbackRef);
 static void XV_HdmiRxSs1_VfpChanged(void *CallbackRef);
 static void XV_HdmiRxSs1_VrrReady(void *CallbackRef);
+static void XV_HdmiRxSs1_DynHdrEvtCallback(void *CallbackRef);
 
 static void XV_HdmiRxSs1_ConfigBridgeMode(XV_HdmiRxSs1 *InstancePtr);
 
@@ -428,6 +429,10 @@ static int XV_HdmiRxSs1_RegisterSubsysCallbacks(XV_HdmiRxSs1 *InstancePtr)
 			  XV_HDMIRX1_HANDLER_VRR_RDY,
 			  (void *)XV_HdmiRxSs1_VrrReady,
 			  (void *)InstancePtr);
+    XV_HdmiRx1_SetCallback(HdmiRxSs1Ptr->HdmiRx1Ptr,
+			   XV_HDMIRX1_HANDLER_DYN_HDR,
+			  (void *)XV_HdmiRxSs1_DynHdrEvtCallback,
+			  (void *)InstancePtr);
   }
 
   return(XST_SUCCESS);
@@ -661,6 +666,8 @@ void XV_HdmiRxSs1_Stop(XV_HdmiRxSs1 *InstancePtr)
 #ifdef XV_HDMIRXSS1_LOG_ENABLE
   XV_HdmiRxSs1_LogWrite(InstancePtr, XV_HDMIRXSS1_LOG_EVT_STOP, 0);
 #endif
+
+  XV_HdmiRx1_DynHDR_DM_Disable(InstancePtr->HdmiRx1Ptr);
 }
 
 /*****************************************************************************/
@@ -1719,6 +1726,14 @@ int XV_HdmiRxSs1_SetCallback(XV_HdmiRxSs1 *InstancePtr,
             Status = (XST_SUCCESS);
             break;
 
+	/* Dynamic HDR  */
+	case (XV_HDMIRXSS1_HANDLER_DYN_HDR):
+	    InstancePtr->DynHdrCallback =
+	    (XV_HdmiRxSs1_Callback)CallbackFunc;
+	    InstancePtr->DynHdrRef = CallbackRef;
+	    Status = (XST_SUCCESS);
+	    break;
+
         default:
             Status = (XST_INVALID_PARAM);
             break;
@@ -2766,6 +2781,115 @@ XVidC_PixelsPerClock XV_HdmiRxSs1_GetCorePpc(XV_HdmiRxSs1 *InstancePtr)
 	return InstancePtr->HdmiRx1Ptr->Stream.CorePixPerClk;
 }
 
+/*****************************************************************************/
+/**
+*
+* This function enables the Data mover in Dynamic HDR
+*
+* @param  InstancePtr pointer to XV_HdmiRXSs instance
+*
+* @return None
+*
+* @note   None.
+*
+******************************************************************************/
+void XV_HdmiRxSs1_DynHDR_DM_Enable(XV_HdmiRxSs1 *InstancePtr)
+{
+	Xil_AssertVoid(InstancePtr);
+
+	if (!InstancePtr->Config.DynamicHDR) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,
+			    "\r\nWarning: HdmiRxSs1 Dynamic HDR disabled\r\n");
+		return;
+	}
+
+	XV_HdmiRx1_DynHDR_DM_Enable(InstancePtr->HdmiRx1Ptr);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function disables the Data mover in Dynamic HDR
+*
+* @param  InstancePtr pointer to XV_HdmiRXSs instance
+*
+* @return None
+*
+* @note   None.
+*
+******************************************************************************/
+void XV_HdmiRxSs1_DynHDR_DM_Disable(XV_HdmiRxSs1 *InstancePtr)
+{
+	Xil_AssertVoid(InstancePtr);
+
+	if (!InstancePtr->Config.DynamicHDR) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,
+			    "\r\nWarning: HdmiRxSs1 Dynamic HDR disabled\r\n");
+		return;
+	}
+
+	XV_HdmiRx1_DynHDR_DM_Disable(InstancePtr->HdmiRx1Ptr);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function sets the buffer address for Dyanamic HDR
+*
+* @param  InstancePtr pointer to XV_HdmiRXSs instance
+* @param  Addr 64 bit address
+*
+* @return None
+*
+* @note   None.
+*
+******************************************************************************/
+void XV_HdmiRxSs1_DynHDR_SetAddr(XV_HdmiRxSs1 *InstancePtr, u64 Addr)
+{
+	Xil_AssertVoid(InstancePtr);
+	Xil_AssertVoid(Addr);
+	/* 64 bit aligned address */
+	Xil_AssertVoid(!(Addr & 0x3F));
+
+	if (!InstancePtr->Config.DynamicHDR) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,
+			    "\r\nWarning: HdmiRxSs1 Dynamic HDR disabled\r\n");
+		return;
+	}
+
+	XV_HdmiRx1_DynHDR_SetAddr(InstancePtr->HdmiRx1Ptr, Addr);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function sets the buffer address for Dyanamic HDR
+*
+* @param  InstancePtr pointer to XV_HdmiRXSs instance
+* @param  RxDynHdrInfo pointer to dynamic hdr info structure. This is passed
+*	  by the application.
+*
+* @return None
+*
+* @note   None.
+*
+******************************************************************************/
+void XV_HdmiRxSs1_DynHDR_GetInfo(XV_HdmiRxSs1 *InstancePtr,
+				 XV_HdmiRxSs1_DynHDR_Info *RxDynHdrInfo)
+{
+	Xil_AssertVoid(InstancePtr);
+	Xil_AssertVoid(RxDynHdrInfo);
+
+	if (!InstancePtr->Config.DynamicHDR) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,
+			    "\r\nWarning: HdmiRxSs1 Dynamic HDR disabled\r\n");
+		return;
+	}
+
+	XV_HdmiRx1_DynHDR_GetInfo(InstancePtr->HdmiRx1Ptr,
+				  (XV_HdmiRx1_DynHDR_Info *)RxDynHdrInfo);
+}
+
 static void XV_HdmiRxSs1_FrlLtsLCallback(void *CallbackRef)
 {
 	XV_HdmiRxSs1 *HdmiRxSs1Ptr = (XV_HdmiRxSs1 *)CallbackRef;
@@ -2838,4 +2962,12 @@ static void XV_HdmiRxSs1_VrrReady(void *CallbackRef)
 #endif
 	if (HdmiRxSs1Ptr->VrrRdyCallback)
 		HdmiRxSs1Ptr->VrrRdyCallback(HdmiRxSs1Ptr->VrrRdyRef);
+}
+
+static void XV_HdmiRxSs1_DynHdrEvtCallback(void *CallbackRef)
+{
+	XV_HdmiRxSs1 *HdmiRxSs1Ptr = (XV_HdmiRxSs1 *)CallbackRef;
+
+	if (HdmiRxSs1Ptr->DynHdrCallback)
+		HdmiRxSs1Ptr->DynHdrCallback(HdmiRxSs1Ptr->DynHdrRef);
 }
