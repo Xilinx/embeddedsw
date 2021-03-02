@@ -3,7 +3,6 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-
 /*
  * This is an automatically generated file from script.
  * Please do not modify this!
@@ -11,10 +10,11 @@
 #ifndef XPM_NODEID_H_
 #define XPM_NODEID_H_
 
-/** @defgroup xilpmpwrnodes Power Nodes
-@ingroup xilpmnodeids
-@{
-*/
+/**
+ * @defgroup xilpmpwrnodes Power Nodes
+ * @ingroup xilpmnodeids
+ * @{
+ */
 #define PM_POWER_PMC				(0x4208001U)
 #define PM_POWER_LPD				(0x4210002U)
 #define PM_POWER_FPD				(0x420c003U)
@@ -64,14 +64,14 @@
 #define PM_POWER_VCCINT_RAM			(0x432802eU)
 #define PM_POWER_VCCAUX				(0x432802fU)
 #define PM_POWER_VCCINT_PL			(0x4328030U)
-/** @}
- * @endcond
- */
+/** @endcond */
+/** @} */
 
-/** @defgroup xilpmrstnodes Reset Nodes
-@ingroup xilpmnodeids
-@{
-*/
+/**
+ * @defgroup xilpmrstnodes Reset Nodes
+ * @ingroup xilpmnodeids
+ * @{
+ */
 #define PM_RST_PMC_POR				(0xc30c001U)
 #define PM_RST_PMC				(0xc410002U)
 #define PM_RST_PS_POR				(0xc30c003U)
@@ -171,10 +171,11 @@
 #define PM_RST_AIE_SHIM				(0xc10405fU)
 /** @} */
 
-/** @defgroup xilpmclknodes Clock nodes
-@ingroup xilpmnodeids
-@{
-*/
+/**
+ * @defgroup xilpmclknodes Clock Nodes
+ * @ingroup xilpmnodeids
+ * @{
+ */
 #define PM_CLK_PMC_PLL				(0x8104001U)
 #define PM_CLK_APU_PLL				(0x8104002U)
 #define PM_CLK_RPU_PLL				(0x8104003U)
@@ -296,10 +297,11 @@
 #define PM_CLK_PL_FPD_ALT_REF_CLK		(0x830c078U)
 /** @} */
 
-/** @defgroup xilpmmionodes MIO nodes
-@ingroup xilpmnodeids
-@{
-*/
+/**
+ * @defgroup xilpmmionodes MIO Nodes
+ * @ingroup xilpmnodeids
+ * @{
+ */
 #define PM_STMIC_LMIO_0				(0x14104001U)
 #define PM_STMIC_LMIO_1				(0x14104002U)
 #define PM_STMIC_LMIO_2				(0x14104003U)
@@ -380,10 +382,11 @@
 #define PM_STMIC_PMIO_51			(0x1410804eU)
 /** @} */
 
-/** @defgroup xilpmdvcnodes Device nodes
-@ingroup xilpmnodeids
-@{
-*/
+/**
+ * @defgroup xilpmdvcnodes Device Nodes
+ * @ingroup xilpmnodeids
+ * @{
+ */
 #define PM_DEV_PLD_0				(0x18700000U)
 #define PM_DEV_PMC_PROC				(0x18104001U)
 #define PM_DEV_PSM_PROC				(0x18108002U)
@@ -548,24 +551,24 @@
 #define PM_DEV_GTM_21				(0x1862c0a0U)
 #define PM_DEV_GTM_22				(0x1862c0a1U)
 #define PM_DEV_GTM_23				(0x1862c0a2U)
-/** @}
- * @endcond
- */
+/** @endcond */
+/** @} */
 
-/** @defgroup xilpmsubsysnodes Subsystem nodes
-@ingroup xilpmnodeids
-@{
-*/
+/**
+ * @defgroup xilpmsubsysnodes Subsystem Nodes
+ * @ingroup xilpmnodeids
+ * @{
+ */
 #define PM_SUBSYS_DEFAULT			(0x1c000000U)
 #define PM_SUBSYS_PMC				(0x1c000001U)
 /** @} */
 
 /**
  * @cond INTERNAL
- * @defgroup xilpmisonodes Isolation nodes
-@ingroup xilpmnodeids
-@{
-*/
+ * @defgroup xilpmisonodes Isolation Nodes
+ * @ingroup xilpmnodeids
+ * @{
+ */
 #define PM_ISO_FPD_PL_TEST			(0x20000000U)
 #define PM_ISO_FPD_PL				(0x20000001U)
 #define PM_ISO_FPD_SOC				(0x20000002U)
@@ -607,8 +610,7 @@
 #define PM_ISO_XRAM_PL_AXI2			(0x20000026U)
 #define PM_ISO_XRAM_PL_AXILITE			(0x20000027U)
 #define PM_ISO_XRAM_PL_FABRIC			(0x20000028U)
-/** @}
- * @endcond
- */
+/** @} */
+/** @endcond */
 
 #endif /* XPM_NODEID_H_ */
