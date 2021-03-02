@@ -161,9 +161,8 @@ u32 _XAie_GetNumRows(XAie_DevInst *DevInst, u8 TileType)
 	{       NumRows = DevInst->AieTileNumRows;
 		break;
 	}
-	case XAIEGBL_TILE_TYPE_RESERVED:
-	{
-		NumRows = 0U;
+	case XAIEGBL_TILE_TYPE_MEMTILE:
+	{	NumRows = DevInst->MemTileNumRows;
 		break;
 	}
 	default:
@@ -200,6 +199,11 @@ u32 _XAie_GetStartRow(XAie_DevInst *DevInst, u8 TileType)
 	}
 	case XAIEGBL_TILE_TYPE_AIETILE:
 	{	StartRow = DevInst->AieTileRowStart;
+		break;
+	}
+	case XAIEGBL_TILE_TYPE_MEMTILE:
+	{
+		StartRow = DevInst->MemTileRowStart;
 		break;
 	}
 	default:
