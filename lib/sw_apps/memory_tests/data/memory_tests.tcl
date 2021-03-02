@@ -1,3 +1,5 @@
+set [namespace current]::memcfg "";
+
 proc swapp_get_name {} {
     return "Memory Tests";
 }
@@ -117,6 +119,9 @@ proc get_mem_props {data type memlist} {
 #	- dict keys = unique memory instance names (Instance name + Base Name + Address Block)
 #	- key data  = base, high, HW memory instance, IP type, access type (RD/WR/RW), memory type (BRAM, OCM, etc), section type (CODE, DATA, etc)
 proc get_mem_info { proc_instance } {
+    if { [set [namespace current]::memcfg] != "" } {
+        return [set [namespace current]::memcfg]
+    }
     set memdata [dict create iranges {} dranges {} idranges {}]
 
     set imemlist [hsi::get_mem_ranges -of_objects [hsi::get_cells -hier $proc_instance] -filter { IS_INSTRUCTION == true && IS_DATA != true && MEM_TYPE == "MEMORY"}];
@@ -125,6 +130,7 @@ proc get_mem_info { proc_instance } {
     get_mem_props memdata "iranges" $imemlist
     get_mem_props memdata "dranges" $dmemlist
     get_mem_props memdata "idranges" $idmemlist
+    set [namespace current]::memcfg $memdata
     return $memdata
 }
 
@@ -261,6 +267,11 @@ proc get_required_mem_size {} {
 proc swapp_is_supported_hw {} {
     # check for uart peripheral
     check_stdout_hw;
+    set proc_instance [hsi::get_sw_processor];
+    set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $proc_instance]];
+    set memdata [get_mem_info $proc_instance]
+    set code_mem [get_program_code_memory $proc_type $memdata]
+    set data_mem [get_program_data_memory $proc_type $memdata]
 }
 
 proc swapp_is_supported_sw {} {
