@@ -67,7 +67,7 @@ void XPmNode_Init(XPm_Node *Node, u32 Id, u8 State, u32 BaseAddress);
 #define MEM_REGN_DEV_NODE_MAX	(16U)
 
 /* Node class types */
-typedef enum class {
+typedef enum {
 	XPM_NODECLASS_MIN,
 
 	XPM_NODECLASS_POWER,
