@@ -58,6 +58,7 @@
 *       kpt  02/19/2021 Added error code for Auth Jtag revoke id failure
 *       kpt  02/22/2021 Added error code for invalid key source when encryption
 *                       only is enabled
+*	    bsv  02/28/2021 Added code to avoid unaligned NPI writes
 *
 * </pre>
 *
@@ -209,6 +210,8 @@ typedef enum {
 	XPLMI_ERR_IO_MOD_INTR_NUM_DISABLE,	/**< 0x12B Invalid IoModule interrupt
 						Number used to disable interrupt */
 	XPLMI_NPI_ERR,	/**< 0x12C NPI errors */
+	XPLMI_ERR_UNALIGNED_DMA_XFER = 0x12F,	/**< 0x12F - Error during DMA involving
+			of unaligned SrcAddr, DestAddr or number of words */
 
 	/** Status codes used in PLM */
 	XPLM_ERR_TASK_CREATE = 0x200,	/**< 0x200 - Error when task create

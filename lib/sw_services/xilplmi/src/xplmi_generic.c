@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,6 +39,7 @@
 *       bm   10/14/2020 Code clean up
 *       td   10/19/2020 MISRA C Fixes
 *       ana  10/19/2020 Added doxygen comments
+*	    bsv  02/28/2021 Added code to avoid unaligned NPI writes
 *
 * </pre>
 *
@@ -66,6 +67,9 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XPLMI_SRC_ALIGN_REQ	(0U)
+#define XPLMI_DEST_ALIGN_REQ	(1U)
+#define XPLMI_LEN_ALIGN_REQ	(2U)
 
 /************************** Function Prototypes ******************************/
 /**
@@ -75,7 +79,8 @@
 static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
         XPlmi_Cmd* Cmd);
 static XPlmi_ReadBackProps* XPlmi_GetReadBackPropsInstance(void);
-static int XPlmi_NpiUnalignedXfer(u64 SrcAddr, u64 DestAddr, u32 Count);
+static int XPlmi_DmaUnalignedXfer(u64* SrcAddr, u64* DestAddr, u32* Len,
+	u8 Flag);
 
 /************************** Variable Definitions *****************************/
 
@@ -356,6 +361,8 @@ static int XPlmi_DmaWrite(XPlmi_Cmd *Cmd)
 	u32 Len = Cmd->PayloadLen;
 	u32 Flags;
 	u32 DestOffset = 0U;
+	u32 UnalignedWordCount;
+	u32 Offset;
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
 
@@ -375,12 +382,33 @@ static int XPlmi_DmaWrite(XPlmi_Cmd *Cmd)
 	DestAddr = ((u64)Cmd->ResumeData[1U] | (DestAddr << 32U));
 	DestAddr += (((u64)Cmd->ProcessedLen - DestOffset) * XPLMI_WORD_LEN);
 
+	Status = XPlmi_DmaUnalignedXfer(&SrcAddr, &DestAddr, &Len,
+		XPLMI_DEST_ALIGN_REQ);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_UNALIGNED_DMA_XFER,
+			Status);
+		goto END;
+	}
+
+	UnalignedWordCount = Len % XPLMI_WORD_LEN;
+	Len = Len - UnalignedWordCount;
+
 	/* Set DMA flags to DMA0 and INCR */
 	Flags = XPLMI_PMCDMA_0;
-
 	Status = XPlmi_DmaXfr(SrcAddr, DestAddr, Len, Flags);
 	if(Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Failed\n\r");
+		goto END;
+	}
+
+	Offset = Len * XPLMI_WORD_LEN;
+	SrcAddr += Offset;
+	DestAddr += Offset;
+	Status = XPlmi_DmaUnalignedXfer(&SrcAddr, &DestAddr,
+		&UnalignedWordCount, XPLMI_LEN_ALIGN_REQ);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_UNALIGNED_DMA_XFER,
+			Status);
 		goto END;
 	}
 
@@ -527,16 +555,17 @@ static int XPlmi_Write64(XPlmi_Cmd *Cmd)
 static int XPlmi_NpiRead(u64 SrcAddr, u64 DestAddr, u32 Len)
 {
 	int Status = XST_FAILURE;
-	u32 Count = 0U;
+	u32 Count = Len;
 	u32 Offset;
-	u32 ProcWords = 0U;
 	u32 XferLen;
 	XPlmi_ReadBackProps *ReadBackPtr = XPlmi_GetReadBackPropsInstance();
+	u64 Dest = DestAddr;
+	u64 Src = SrcAddr;
 
 	/* Check if Readback Dest Addr is Overriden */
 	if ((XPLMI_READBACK_DEF_DST_ADDR != ReadBackPtr->DestAddr) &&
-			(XPLMI_SBI_DEST_ADDR != DestAddr)) {
-		DestAddr = ReadBackPtr->DestAddr;
+			(XPLMI_SBI_DEST_ADDR != Dest)) {
+		Dest = ReadBackPtr->DestAddr;
 		if ((Len + ReadBackPtr->ProcessedLen) > ReadBackPtr->MaxSize) {
 			Status = XPLMI_ERR_READBACK_BUFFER_OVERFLOW;
 			XPlmi_Printf(DEBUG_GENERAL,
@@ -549,32 +578,20 @@ static int XPlmi_NpiRead(u64 SrcAddr, u64 DestAddr, u32 Len)
 	 * 16 byte aligned. Use XPlmi_Out64 till the destination address
 	 * becomes 16 byte aligned.
 	 */
-	if (((SrcAddr & XPLMI_SIXTEEN_BYTE_MASK) != 0U) ||
-		(Len < XPLMI_SIXTEEN_BYTE_WORDS)) {
-		if (Len < XPLMI_SIXTEEN_BYTE_WORDS) {
-			Count = Len;
-		}
-		else {
-			Count = (u32)(SrcAddr & XPLMI_SIXTEEN_BYTE_MASK);
-			Count = (u32)(((u32)XPLMI_SIXTEEN_BYTE_VALUE - Count) /
-					(u32)XPLMI_WORD_LEN);
-		}
-		Status = XPlmi_NpiUnalignedXfer(SrcAddr, DestAddr, Count);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-		ProcWords += Count;
+	Status = XPlmi_DmaUnalignedXfer(&Src, &Dest, &Count,
+		XPLMI_SRC_ALIGN_REQ);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_UNALIGNED_DMA_XFER,
+			Status);
+		goto END;
 	}
 
-	XferLen = (Len - ProcWords) & (~(XPLMI_WORD_LEN - 1U));
-	Offset = ProcWords * XPLMI_WORD_LEN;
+	XferLen = Count & (~(XPLMI_WORD_LEN - 1U));
 
-	if (DestAddr != XPLMI_SBI_DEST_ADDR) {
-		Status = XPlmi_DmaXfr((u64)(SrcAddr + Offset),
-				(u64)(DestAddr + Offset), XferLen, XPLMI_PMCDMA_0);
+	if (Dest != XPLMI_SBI_DEST_ADDR) {
+		Status = XPlmi_DmaXfr(Src, Dest, XferLen, XPLMI_PMCDMA_0);
 	} else {
-		Status = XPlmi_DmaSbiXfer((u64)(SrcAddr + Offset),
-				XferLen, XPLMI_PMCDMA_1);
+		Status = XPlmi_DmaSbiXfer(Src, XferLen, XPLMI_PMCDMA_1);
 	}
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -583,21 +600,20 @@ static int XPlmi_NpiRead(u64 SrcAddr, u64 DestAddr, u32 Len)
 	/* For NPI_READ command, Offset variable should
 	 *  be updated with the unaligned bytes.
 	 */
-	ProcWords += XferLen;
-	Offset = ProcWords * XPLMI_WORD_LEN;
-
-	if (ProcWords < Len) {
-		XferLen = Len - ProcWords;
-		Status = XPlmi_NpiUnalignedXfer((u64)(SrcAddr + Offset),
-				(u64)(DestAddr + Offset), XferLen);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-		ProcWords += XferLen;
+	Offset = XferLen * XPLMI_WORD_LEN;
+	Src += Offset;
+	Dest += Offset;
+	Count = Count - XferLen;
+	Status = XPlmi_DmaUnalignedXfer(&Src, &Dest, &Count,
+		XPLMI_LEN_ALIGN_REQ);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_UNALIGNED_DMA_XFER,
+			Status);
+		goto END;
 	}
 
 	if ((XPLMI_READBACK_DEF_DST_ADDR != ReadBackPtr->DestAddr) &&
-			(XPLMI_SBI_DEST_ADDR != DestAddr)) {
+			(XPLMI_SBI_DEST_ADDR != Dest)) {
 		ReadBackPtr->ProcessedLen += Len;
 		ReadBackPtr->DestAddr += ((u64)Len * XPLMI_WORD_LEN);
 	}
@@ -608,33 +624,56 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function does unaligned Npi transfer
+ * @brief	This function does unaligned DMA transfers.
  *
- * @param	SrcAddr is Source Address in Npi address space
+ * @param	SrcAddr is Source Address space
  * @param   	DestAddr is the Destination Address
- * @param	Count is the number of words to transfer
+ * @param	Len is the number of words to transfer out of which only
+ *		unaligned words(0, 1, 2 or 3) would be transferred via
+ *		memory writes in this API.
+ * @param	Flag is the parameter that indicates whether SrcAddr, DestAddr
+ *		or Len should be made aligned with 16 bytes
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XPlmi_NpiUnalignedXfer(u64 SrcAddr, u64 DestAddr, u32 Count)
+static int XPlmi_DmaUnalignedXfer(u64* SrcAddr, u64* DestAddr, u32* Len,
+	u8 Flag)
 {
 	int Status = XST_FAILURE;
 	u32 RegVal;
-	u32 Index = 0;
+	u8 Offset;
+	u8 Count;
 
-	if (DestAddr != XPLMI_SBI_DEST_ADDR) {
-		for (Index = 0; Index < Count; Index++) {
-			RegVal = XPlmi_In64(SrcAddr + ((u64)Index * XPLMI_WORD_LEN));
-			XPlmi_Out64(DestAddr + ((u64)Index * XPLMI_WORD_LEN), RegVal);
-		}
-		Status = XST_SUCCESS;
-	} else {
-		Status = XPlmi_DmaSbiXfer(SrcAddr, Count, XPLMI_PMCDMA_1);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
+	if (Flag == XPLMI_SRC_ALIGN_REQ) {
+		Offset = (u8)(XPLMI_WORD_LEN -
+			(((*SrcAddr) & XPLMI_SIXTEEN_BYTE_MASK) / XPLMI_WORD_LEN));
+		Count = Offset % XPLMI_WORD_LEN;
 	}
+	else if (Flag == XPLMI_DEST_ALIGN_REQ) {
+		Offset = (u8)(XPLMI_WORD_LEN -
+			(((*DestAddr) & XPLMI_SIXTEEN_BYTE_MASK) / XPLMI_WORD_LEN));
+		Count = Offset % XPLMI_WORD_LEN;
+	}
+	else if (Flag == XPLMI_LEN_ALIGN_REQ) {
+		Count = (u8)((*Len) % XPLMI_WORD_LEN);
+	}
+	else {
+		goto END;
+	}
+
+	if (Count > *Len) {
+		Count = (u8)*Len;
+	}
+	*Len -= Count;
+	while (Count > 0U) {
+		RegVal = XPlmi_In64(*SrcAddr);
+		XPlmi_Out64(*DestAddr, RegVal);
+		*SrcAddr += XPLMI_WORD_LEN;
+		*DestAddr += XPLMI_WORD_LEN;
+		--Count;
+	}
+	Status = XST_SUCCESS;
 
 END:
 	return Status;
