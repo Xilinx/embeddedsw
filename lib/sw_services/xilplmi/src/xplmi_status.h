@@ -66,6 +66,7 @@
 *       ma   02/12/2021 Added error code for IPI CRC mismatch and read error
 *       kpt  02/16/2021 Added error codes for invalid key source when encryption
 *                       only is enabled and when secure validations are failed.
+*	    bsv  02/28/2021 Added code to avoid unaligned NPI writes
 *
 * </pre>
 *
@@ -218,6 +219,8 @@ typedef enum {
 						It could be due to invalid message length error when
 						CRC is enabled or invalid buffer address error from
 						driver */
+	XPLMI_ERR_UNALIGNED_DMA_XFER,	/**< 0x12F - Error during DMA involving
+			of unaligned SrcAddr, DestAddr or number of words */
 
 	/** Status codes used in PLM */
 	XPLM_ERR_TASK_CREATE = 0x200,	/**< 0x200 - Error when task create
