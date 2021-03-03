@@ -79,6 +79,9 @@ static u8 BlackKey[XPUF_RED_KEY_LEN_IN_BYTES];
 static u8 GcmTag[XPUF_GCM_TAG_SIZE];
 #endif
 
+static XSysMonPsv SysMonInst;      /* System Monitor driver instance */
+static XSysMonPsv_Config *ConfigPtr;
+
 /************************** Function Prototypes ******************************/
 static int XPuf_ValidateUserInput(void);
 static int XPuf_GenerateKey(void);
@@ -88,6 +91,7 @@ static void XPuf_ShowPufSecCtrlBits(void);
 static void XPuf_ShowData(const u8* Data, u32 Len);
 static int XPuf_FormatAesKey(const u8* Key, u8* FormattedKey, u32 KeyLen);
 static void XPuf_ReverseData(const u8 *OrgDataPtr, u8* SwapPtr, u32 Len);
+static int XPuf_InitSysMon(XSysMonPsv *SysMonInstPtr);
 
 #if (XPUF_WRITE_SEC_CTRL_BITS == TRUE)
 static int XPuf_WritePufSecCtrlBits(void);
@@ -331,6 +335,18 @@ static int XPuf_GenerateKey(void)
 
 	PrgmPufHelperData.PrgmPufHelperData = TRUE;
 
+	PrgmPufHelperData.EnvMonitorDis = XPUF_ENV_MONITOR_DISABLE;
+	if (PrgmPufHelperData.EnvMonitorDis == TRUE) {
+		PrgmPufHelperData.SysMonInstPtr = NULL;
+	}
+	else {
+		PrgmPufHelperData.SysMonInstPtr = &SysMonInst;
+		Status = XPuf_InitSysMon(PrgmPufHelperData.SysMonInstPtr);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+
 	Status = XNvm_EfuseWritePuf(&PrgmPufHelperData);
 	if (Status != XST_SUCCESS)
 	{
@@ -495,12 +511,24 @@ static int XPuf_ProgramBlackKey(void)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfuseAesKeys WriteAesKeys = {0U};
-	XNvm_EfuseData WriteData = {NULL};
+	XNvm_EfuseData WriteData = {0U};
 	XPuf_WriteBlackKeyOption BlackKeyWriteOption =
 					XPUF_WRITE_BLACK_KEY_OPTION;
 	u8 FlashBlackKey[XPUF_RED_KEY_LEN_IN_BYTES] = {0};
 
 	XPuf_ReverseData(FormattedBlackKey, FlashBlackKey, XPUF_RED_KEY_LEN_IN_BYTES);
+
+	WriteData.EnvMonitorDis = XPUF_ENV_MONITOR_DISABLE;
+	if (WriteData.EnvMonitorDis == TRUE) {
+		WriteData.SysMonInstPtr = NULL;
+	}
+	else {
+		WriteData.SysMonInstPtr = &SysMonInst;
+		Status = XPuf_InitSysMon(WriteData.SysMonInstPtr);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
 
 	switch (BlackKeyWriteOption) {
 
@@ -555,6 +583,7 @@ static int XPuf_ProgramBlackKey(void)
 			break;
 	}
 
+END:
 	return Status;
 }
 
@@ -589,7 +618,18 @@ static int XPuf_WritePufSecCtrlBits(void)
 	PrgmPufHelperData.PufSecCtrlBits.PufRegenDis = PUF_REGEN_DIS;
 	PrgmPufHelperData.PufSecCtrlBits.PufHdInvalid = PUF_HD_INVLD;
 	PrgmPufHelperData.PufSecCtrlBits.PufSynLk = PUF_SYN_LK;
+	PrgmPufHelperData.EnvMonitorDis = XPUF_ENV_MONITOR_DISABLE;
 
+	if (PrgmPufHelperData.EnvMonitorDis == TRUE) {
+		PrgmPufHelperData.SysMonInstPtr = NULL;
+	}
+	else {
+		PrgmPufHelperData.SysMonInstPtr = &SysMonInst;
+		Status = XPuf_InitSysMon(PrgmPufHelperData.SysMonInstPtr);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
 	Status = XNvm_EfuseWritePuf(&PrgmPufHelperData);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Error in programming PUF Security Control bits %x\r\n", Status);
@@ -742,4 +782,38 @@ static void XPuf_ShowData(const u8* Data, u32 Len)
 		xil_printf("%02x", Data[Index]);
 	}
 	xil_printf("\r\n");
+}
+
+/******************************************************************************/
+/**
+ *
+ * @brief	This function initializes ConfigPtr of the SysMon Instance.
+ *
+ * @param	SysMonInstPtr - Pointer to the Sysmon instance pointer.
+ *
+ * @return	- XST_SUCCESS - On successfully initializing the ConfigPtr.
+ *		- XST_FAILURE - On Failure.
+ *
+ ******************************************************************************/
+static int XPuf_InitSysMon(XSysMonPsv *SysMonInstPtr)
+{
+	int Status = XST_FAILURE;
+
+	if (SysMonInstPtr == NULL) {
+		goto END;
+	}
+
+	ConfigPtr = XSysMonPsv_LookupConfig();
+	if (ConfigPtr == NULL) {
+		goto END;
+	}
+
+	Status = XSysMonPsv_CfgInitialize(SysMonInstPtr, ConfigPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
 }
