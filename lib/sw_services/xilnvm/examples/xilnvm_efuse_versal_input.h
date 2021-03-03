@@ -365,6 +365,13 @@
 *	XNVM_EFUSE_READ_NUM_OF_USER_FUSES - Number of eFuses to be read
 *	By default it reads XNVM_EFUSE_NUM_OF_USER_FUSES
 *
+*	#define XNVM_EFUSE_ENV_MONITOR_DISABLE			FALSE
+*	TRUE will disable the temparature and voltage checks before eFuse
+*	programming.
+*	FALSE will not disable the temparature and voltage checks before eFuse
+*	programming.
+*	By default the value will be FALSE.
+*
 *	#define XNVM_EFUSE_GLITCH_CFG	"00000000"
 *	The value mentioned in this will be converted to hex buffer and written
 *	into the Versal eFuse array when write API used. This value should be
@@ -695,6 +702,7 @@
 * 2.2	kal    01/07/21 Added support to SecurityMisc1, BootEnvCtrl,MiscCtrl
 *			and remaining eFuses in SecCtrl eFuse rows programming
 *			and reading
+*	kal    02/20/21 Added new macro for Environmental Monitor Disable
 *
 * </pre>
 *
@@ -821,6 +829,9 @@ extern "C" {
 #define XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_7	FALSE
 
 #define XNVM_EFUSE_WRITE_USER_FUSES		FALSE
+
+#define XNVM_EFUSE_ENV_MONITOR_DISABLE		FALSE
+
 /**
  * Following defines should be given in the form of hex string.
  * The length of AES_KEY string must be 64, PPK hash should be 64 for
