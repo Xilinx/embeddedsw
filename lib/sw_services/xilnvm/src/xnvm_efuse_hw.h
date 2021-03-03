@@ -26,6 +26,8 @@
 * 2.2   am   11/23/2020 Resolved MISRA C violations
 *	kal  01/07/2021	Added new macros for BootEnvCtrl and SecurityMisc1
 *			eFuse rows
+*	kal  02/20/2021 Added new macros for sysmon measure registers
+*
 * </pre>
 *
 * @note
@@ -55,6 +57,14 @@ extern "C" {
 
 #define XNVM_CRP_EFUSE_REF_CLK_SELSRC		(XNVM_CRP_EFUSE_REF_CLK_IN)
 
+/* PMC sysmon sat0 base address definition */
+#define XNVM_EFUSE_SYSMONPSV_SAT0_BASEADDR		(0xF1280000U)
+
+/* PMC sysmon sat1 base address definition */
+#define XNVM_EFUSE_SYSMONPSV_SAT1_BASEADDR		(0xF1290000U)
+
+/* PMC sysmon measure0 offset */
+#define XNVM_EFUSE_SYSMONPSV_SAT_MEASURE0_OFFSET	(0x00000524U)
 
 /* eFUSE Controller base address definition */
 #define XNVM_EFUSE_CTRL_BASEADDR			(0xF1240000U)
@@ -230,6 +240,20 @@ extern "C" {
 #define XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_PSLP_SHIFT		(10U)
 #define XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_SOC_SHIFT		(9U)
 #define XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_COLD_SHIFT		(0U)
+
+/* access_type: rw  */
+#define XNVM_EFUSE_SYSMON_SAT_ADDR_ID_MASK              (0x3fc00000U)
+#define XNVM_EFUSE_SYSMON_SAT_CONFIG_MODE_MASK          (0x00300000U)
+#define XNVM_EFUSE_SYSMON_SAT_CONFIG_AMUX_CTRL_MASK     (0x000f0000U)
+#define XNVM_EFUSE_SYSMON_SAT_CONFIG_ABUS_SW1_MASK      (0x0000ff00U)
+#define XNVM_EFUSE_SYSMON_SAT_CONFIG_ABUS_SW0_MASK      (0x000000ffU)
+
+/* access_type: rw  */
+#define XNVM_EFUSE_SYSMON_SAT_ADDR_ID_SHIFT   		(22U)
+#define XNVM_EFUSE_SYSMON_SAT_CONFIG_MODE_SHIFT   	(20U)
+#define XNVM_EFUSE_SYSMON_SAT_CONFIG_AMUX_CTRL_SHIFT   	(16U)
+#define XNVM_EFUSE_SYSMON_SAT_CONFIG_ABUS_SW1_SHIFT   	(8U)
+#define XNVM_EFUSE_SYSMON_SAT_CONFIG_ABUS_SW0_SHIFT   	(0U)
 
 /* EFUSE ROWS */
 #define XNVM_EFUSE_TBITS_XILINX_CTRL_ROW		(0U)

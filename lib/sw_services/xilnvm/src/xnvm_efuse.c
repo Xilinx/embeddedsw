@@ -45,6 +45,8 @@
 *	kal  01/25/2021 Fix cache logic error in XNvm_EfuseReadCacheRange API
 *	kal  02/22/2021	Add redundancy to loop in XNvm_EfusePgmAndVerifyRows
 *	kal  02/26/2021 Fix all SW-BP-ZEROIZE related review comments
+*	kal  03/02/2021 Add Environmental monitoring support before eFuse
+*			programming
 *
 * </pre>
 *
@@ -74,6 +76,14 @@
 #define XNVM_EFUSE_TOTAL_PPK_HASH_ROWS  (XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS * 3U)
 #define XNVM_EFUSE_WORD_LEN			(4U)
 #define XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET	(0xFFFFFFFFU)
+#define XNVM_EFUSE_SYSMON_VCCPMC_AMUX_CTRL	(0x0bU)
+#define XNVM_EFUSE_SYSMON_VCCPMC_ABUS_SW1	(0x00U)
+#define XNVM_EFUSE_SYSMON_VCCPMC_ABUS_SW0	(0x02U)
+#define XNVM_EFUSE_SYSMON_VCCPMC_MODE		(0x00U)
+#define XNVM_EFUSE_SYSMON_NUM_MEASURE_REGS	(0x20U)
+#define XNVM_EFUSE_SYSMON_NUM_SUPPLIES_PER_FLAG	(32U)
+#define XNVM_EFUSE_SYSMONPSV_TIMEOUT		(100000U)
+#define XNVM_EFUSE_FRACTION_MUL_VALUE		(1000000U)
 
 /***************************** Type Definitions *******************************/
 /* Operation mode - Read, Program(Write) */
@@ -89,6 +99,9 @@ typedef enum {
 } XNvm_EfuseRdMode;
 
 /****************** Macros (Inline Functions) Definitions *********************/
+
+#define XNvm_Printf(DebugType, ...)	\
+	if ((DebugType) == (1U)) {xil_printf (__VA_ARGS__);}
 
 /******************************************************************************/
 /**
@@ -179,6 +192,9 @@ static int XNvm_EfusePrgmProtectionEfuse(void);
 static int XNvm_EfusePrgmOffChipRevokeFuses(const XNvm_EfuseOffChipIds *OffChipIds);
 static int XNvm_EfuseWriteBootEnvCtrl(const XNvm_EfuseBootEnvCtrlBits *BootEnvCtrl);
 static int XNvm_EfuseWriteSecMisc1Fuses(const XNvm_EfuseSecMisc1Bits *Misc1Bits);
+static int XNvm_EfusePmcVoltageCheck(float Voltage);
+static int XNvm_EfuseTemparatureCheck(float Temparature);
+static int XNvm_EfuseTempAndVoltChecks(const XSysMonPsv *SysMonInstPtr);
 
 /*************************** Variable Definitions *****************************/
 
@@ -238,6 +254,18 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 		(WriteNvm->OffChipIds == NULL)) {
 		Status = (int)XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED;
 		goto END;
+	}
+
+	if ((WriteNvm->EnvMonitorDis != TRUE)) {
+		if (WriteNvm->SysMonInstPtr == NULL) {
+			Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+			goto END;
+		}
+		Status = XNvm_EfuseTempAndVoltChecks(WriteNvm->SysMonInstPtr);
+		if (Status != XST_SUCCESS) {
+			Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
+			goto END;
+		}
 	}
 
 	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM,
@@ -865,6 +893,19 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHd *PufHelperData)
 		goto END;
 	}
 
+	if (PufHelperData->EnvMonitorDis != TRUE) {
+		if (PufHelperData->SysMonInstPtr == NULL) {
+			Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+			goto END;
+		}
+		Status = XNvm_EfuseTempAndVoltChecks(
+					PufHelperData->SysMonInstPtr);
+		if (Status != XST_SUCCESS) {
+			Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
+			goto END;
+		}
+	}
+
 	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM,
 					XNVM_EFUSE_MARGIN_RD);
 	if (Status != XST_SUCCESS) {
@@ -1068,7 +1109,7 @@ END:
 int XNvm_EfuseWriteIVs(XNvm_EfuseIvs *EfuseIv)
 {
 	int Status = XST_FAILURE;
-	XNvm_EfuseData WriteIvs = {NULL};
+	XNvm_EfuseData WriteIvs = {0U};
 
 	if (EfuseIv == NULL) {
 		Status = (int)XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED;
@@ -1369,7 +1410,7 @@ END:
 int XNvm_EfuseRevokePpk(XNvm_PpkType PpkRevoke)
 {
 	int Status = XST_FAILURE;
-	XNvm_EfuseData EfuseData = {NULL};
+	XNvm_EfuseData EfuseData = {0U};
 	XNvm_EfuseMiscCtrlBits MiscCtrlBits = {0U};
 
 	if ((PpkRevoke != XNVM_EFUSE_PPK0) &&
@@ -1416,7 +1457,7 @@ int XNvm_EfuseWriteRevocationId(u32 RevokeId)
 	u32 RevokeIdRow;
 	u32 RevokeIdBit;
 	XNvm_EfuseRevokeIds WriteRevokeId = {0U};
-	XNvm_EfuseData EfuseData = {NULL};
+	XNvm_EfuseData EfuseData = {0U};
 
 	if (RevokeId > (XNVM_MAX_REVOKE_ID_FUSES - 1U)) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
@@ -1566,7 +1607,7 @@ END:
 int XNvm_EfuseWriteUserFuses(XNvm_EfuseUserData *WriteUserFuses)
 {
 	int Status = XST_FAILURE;
-	XNvm_EfuseData UserFusesData = {NULL};
+	XNvm_EfuseData UserFusesData = {0};
 
 	if (WriteUserFuses == NULL) {
 		Status = (int)XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED;
@@ -5119,5 +5160,325 @@ static int XNvm_EfuseCheckForTBits(void)
 
 	Status = XST_SUCCESS;
 END :
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function checks Device Temparature for
+ * 		LP,MP and HP devices based on the Efuse value.
+ *
+ * @return	- XST_SUCCESS - On Temparature within thresholds.
+ *		- XST_FAILURE - On Temparature not within thresholds.
+ *
+ ******************************************************************************/
+static int XNvm_EfuseTemparatureCheck(float Temparature)
+{
+	int Status = XST_FAILURE;
+	u32 ReadReg = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
+	u32 EfuseTempMax = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
+	u32 EfuseTempMin = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
+	float TempMin;
+	float TempMax;
+
+	Status = XNvm_EfuseReadCache(XNVM_EFUSE_BOOT_ENV_CTRL_ROW,
+			&ReadReg);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	EfuseTempMax = (ReadReg &
+		XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_HOT_MASK) >>
+		XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_HOT_SHIFT;
+	EfuseTempMin = (ReadReg &
+		XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_COLD_MASK) >>
+		XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_COLD_SHIFT;
+
+	switch (EfuseTempMax) {
+		case XNVM_EFUSE_LP_RANGE_CHECK:
+			TempMax = XNVM_EFUSE_TEMP_LP_MAX;
+			break;
+		case XNVM_EFUSE_MP_RANGE_CHECK:
+			TempMax = XNVM_EFUSE_TEMP_MP_MAX;
+			break;
+		case XNVM_EFUSE_HP_RANGE_CHECK:
+			TempMax = XNVM_EFUSE_TEMP_HP_MAX;
+			break;
+		default:
+			TempMax = XNVM_EFUSE_FULL_RANGE_TEMP_MAX;
+			break;
+	}
+
+	switch (EfuseTempMin) {
+		case XNVM_EFUSE_LP_RANGE_CHECK:
+			TempMin = XNVM_EFUSE_TEMP_LP_MIN;
+			break;
+		case XNVM_EFUSE_MP_RANGE_CHECK:
+			TempMin = XNVM_EFUSE_TEMP_MP_MIN;
+			break;
+		case XNVM_EFUSE_HP_RANGE_CHECK:
+			TempMin = XNVM_EFUSE_TEMP_HP_MIN;
+			break;
+		default:
+			TempMin = XNVM_EFUSE_FULL_RANGE_TEMP_MIN;
+			break;
+	}
+
+	if ((Temparature < TempMin) || (Temparature > TempMax)) {
+		Status = XST_FAILURE;
+	}
+	else {
+		Status = XST_SUCCESS;
+	}
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function checks VCC_PMC voltage checks for
+ * 		LP,MP and HP devices based on the Efuse value.
+ *
+ * @return	- XST_SUCCESS - On VCC_PMC within thresholds.
+ *		- XST_FAILURE - On VCC_PMC not within thresholds.
+ *
+ ******************************************************************************/
+static int XNvm_EfusePmcVoltageCheck(float Voltage)
+{
+	int Status = XST_FAILURE;
+	u32 ReadReg = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
+	u32 EfuseVoltVal = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
+	float VoltMin;
+	float VoltMax;
+
+	Status = XNvm_EfuseReadCache(XNVM_EFUSE_BOOT_ENV_CTRL_ROW,
+			&ReadReg);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	EfuseVoltVal = (ReadReg &
+			XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_PMC_MASK) >>
+			XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_PMC_SHIFT;
+
+	switch (EfuseVoltVal) {
+		case XNVM_EFUSE_LP_RANGE_CHECK:
+			VoltMin = XNVM_EFUSE_VCC_PMC_LP_MIN;
+			VoltMax = XNVM_EFUSE_VCC_PMC_LP_MAX;
+			break;
+		case XNVM_EFUSE_MP_RANGE_CHECK:
+			VoltMin = XNVM_EFUSE_VCC_PMC_MP_MIN;
+			VoltMax = XNVM_EFUSE_VCC_PMC_MP_MAX;
+			break;
+		case XNVM_EFUSE_HP_RANGE_CHECK:
+			VoltMin = XNVM_EFUSE_VCC_PMC_HP_MIN;
+			VoltMax = XNVM_EFUSE_VCC_PMC_HP_MAX;
+			break;
+		default:
+			VoltMin = XNVM_EFUSE_VCC_PMC_LP_MIN;
+			VoltMax = XNVM_EFUSE_VCC_PMC_HP_MAX;
+			break;
+	}
+	if ((Voltage < VoltMin) || (Voltage > VoltMax)) {
+		Status = XST_FAILURE;
+	}
+	else {
+		Status = XST_SUCCESS;
+	}
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function performs the Temparature and Voltage checks to
+ * 		ensure that they are in limits before eFuse programming.
+ *
+ * @param	SysMonInstPtr - Pointer to SysMon instance.
+ *
+ * @return	- XST_SUCCESS - On successful Voltage and Temparature checks.
+ *		- XNVM_EFUSE_ERROR_READ_VOLTAGE_OUT_OF_RANGE - Voltage is
+ *								out of range
+ *		- XNVM_EFUSE_ERROR_READ_TMEPERATURE_OUT_OF_RANGE - Temparature
+ *								is out of range
+ *
+ ******************************************************************************/
+static int XNvm_EfuseTempAndVoltChecks(const XSysMonPsv *SysMonInstPtr)
+{
+	int Status = XST_FAILURE;
+	u32 ReadReg = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
+	u32 SupplyReg = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
+	u32 TimeOut = XNVM_EFUSE_SYSMONPSV_TIMEOUT;
+	u32 Mode;
+	u32 Index;
+	u32 AbusSw1;
+	u32 AbusSw0;
+	u32 AmuxCtrl;
+	u32 RawTemp;
+	u32 RawVoltage;
+	int FractionalPart;
+	int IntegralPart;
+	float Voltage;
+	float Temparature;
+	u32 Offset;
+	u32 Shift;
+	char Signchar = ' ';
+
+	if (SysMonInstPtr == NULL) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if (SysMonInstPtr->IsReady != XIL_COMPONENT_IS_READY) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	/* Unlock the sysmon register space */
+	XSysMonPsv_WriteReg(
+			SysMonInstPtr->Config.BaseAddress + XSYSMONPSV_PCSR_LOCK,
+			XNVM_EFUSE_SYSMON_LOCK_CODE);
+
+	for (Index = 0U; Index < XNVM_EFUSE_SYSMON_NUM_MEASURE_REGS; Index++) {
+		ReadReg = XSysMonPsv_ReadReg(XNVM_EFUSE_SYSMONPSV_SAT0_BASEADDR +
+				(XNVM_EFUSE_SYSMONPSV_SAT_MEASURE0_OFFSET +
+				 (XNVM_EFUSE_WORD_LEN * Index)));
+		AbusSw0 = (ReadReg &
+				XNVM_EFUSE_SYSMON_SAT_CONFIG_ABUS_SW0_MASK) >>
+				XNVM_EFUSE_SYSMON_SAT_CONFIG_ABUS_SW0_SHIFT;
+		AbusSw1 = (ReadReg &
+				XNVM_EFUSE_SYSMON_SAT_CONFIG_ABUS_SW1_MASK) >>
+				XNVM_EFUSE_SYSMON_SAT_CONFIG_ABUS_SW1_SHIFT;
+		AmuxCtrl = (ReadReg &
+				XNVM_EFUSE_SYSMON_SAT_CONFIG_AMUX_CTRL_MASK) >>
+				XNVM_EFUSE_SYSMON_SAT_CONFIG_AMUX_CTRL_SHIFT;
+		Mode = (ReadReg &
+				XNVM_EFUSE_SYSMON_SAT_CONFIG_MODE_MASK) >>
+				XNVM_EFUSE_SYSMON_SAT_CONFIG_MODE_SHIFT;
+
+		if ((XNVM_EFUSE_SYSMON_VCCPMC_ABUS_SW1 == AbusSw1) &&
+			(XNVM_EFUSE_SYSMON_VCCPMC_ABUS_SW0 == AbusSw0) &&
+			(XNVM_EFUSE_SYSMON_VCCPMC_AMUX_CTRL == AmuxCtrl) &&
+			(XNVM_EFUSE_SYSMON_VCCPMC_MODE == Mode)) {
+			SupplyReg = (ReadReg &
+					XNVM_EFUSE_SYSMON_SAT_ADDR_ID_MASK) >>
+					XNVM_EFUSE_SYSMON_SAT_ADDR_ID_SHIFT;
+			break;
+		}
+	}
+	if (SupplyReg == XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET) {
+		for (Index = 0U; Index < XNVM_EFUSE_SYSMON_NUM_MEASURE_REGS;
+			Index++) {
+			ReadReg = XSysMonPsv_ReadReg(
+				XNVM_EFUSE_SYSMONPSV_SAT1_BASEADDR +
+				(XNVM_EFUSE_SYSMONPSV_SAT_MEASURE0_OFFSET +
+				(XNVM_EFUSE_WORD_LEN * Index)));
+			AbusSw0 = (ReadReg &
+				XNVM_EFUSE_SYSMON_SAT_CONFIG_ABUS_SW0_MASK) >>
+				XNVM_EFUSE_SYSMON_SAT_CONFIG_ABUS_SW0_SHIFT;
+			AbusSw1 = (ReadReg &
+				XNVM_EFUSE_SYSMON_SAT_CONFIG_ABUS_SW1_MASK) >>
+				XNVM_EFUSE_SYSMON_SAT_CONFIG_ABUS_SW1_SHIFT;
+			AmuxCtrl = (ReadReg &
+				XNVM_EFUSE_SYSMON_SAT_CONFIG_AMUX_CTRL_MASK) >>
+				XNVM_EFUSE_SYSMON_SAT_CONFIG_AMUX_CTRL_SHIFT;
+			Mode = (ReadReg &
+				XNVM_EFUSE_SYSMON_SAT_CONFIG_MODE_MASK) >>
+				XNVM_EFUSE_SYSMON_SAT_CONFIG_MODE_SHIFT;
+
+			if ((XNVM_EFUSE_SYSMON_VCCPMC_ABUS_SW1 == AbusSw1) &&
+				(XNVM_EFUSE_SYSMON_VCCPMC_ABUS_SW0 == AbusSw0) &&
+				(XNVM_EFUSE_SYSMON_VCCPMC_AMUX_CTRL == AmuxCtrl) &&
+				(XNVM_EFUSE_SYSMON_VCCPMC_MODE == Mode)) {
+				SupplyReg = (ReadReg &
+					XNVM_EFUSE_SYSMON_SAT_ADDR_ID_MASK) >>
+					XNVM_EFUSE_SYSMON_SAT_ADDR_ID_SHIFT;
+				break;
+			}
+		}
+	}
+
+	if (SupplyReg == XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET) {
+		Status = (int)XNVM_EFUSE_ERROR_NO_SUPPLIES_ENABLED;
+		goto END;
+	}
+	Offset = XNVM_EFUSE_WORD_LEN *
+		(SupplyReg / XNVM_EFUSE_SYSMON_NUM_SUPPLIES_PER_FLAG);
+	Shift = SupplyReg % XNVM_EFUSE_SYSMON_NUM_SUPPLIES_PER_FLAG;
+
+	while (TimeOut > 0U) {
+		/* Read the New data flag */
+		ReadReg = XSysMonPsv_ReadReg(SysMonInstPtr->Config.BaseAddress +
+				Offset + XSYSMONPSV_NEW_DATA_FLAG0);
+
+		ReadReg &= ((u32)1U << Shift);
+		if (ReadReg != 0x00U) {
+			break;
+		}
+		TimeOut--;
+	}
+
+	if (TimeOut == 0U) {
+		if (ReadReg == 0x00U) {
+			Status = (int)XNVM_EFUSE_ERROR_SYSMON_NO_NEW_DATA;
+			goto END;
+		}
+		else {
+			/* Clear the New data flag if its set */
+			XSysMonPsv_WriteReg(SysMonInstPtr->Config.BaseAddress +
+				Offset + XSYSMONPSV_NEW_DATA_FLAG0, ReadReg);
+		}
+	}
+
+	if (ReadReg != 0x00U) {
+		RawVoltage = XSysMonPsv_ReadReg(
+				SysMonInstPtr->Config.BaseAddress +
+				XSYSMONPSV_SUPPLY +
+				(SupplyReg * XNVM_EFUSE_WORD_LEN));
+
+		Voltage = XSysMonPsv_RawToVoltage(RawVoltage);
+		IntegralPart = (int)Voltage;
+		FractionalPart = (Voltage - IntegralPart) *
+					XNVM_EFUSE_FRACTION_MUL_VALUE;
+		XNvm_Printf(XNVM_DEBUG_GENERAL,"Voltage = %d.%06dV \r\n",
+				IntegralPart, FractionalPart);
+		Status = XNvm_EfusePmcVoltageCheck(Voltage);
+		if (Status != XST_SUCCESS) {
+			Status = (int)XNVM_EFUSE_ERROR_READ_VOLTAGE_OUT_OF_RANGE;
+			goto END;
+		}
+	}
+
+	RawTemp = XSysMonPsv_ReadReg(SysMonInstPtr->Config.BaseAddress +
+			XSYSMONPSV_TEMP_SAT);
+	Temparature = XSysMonPsv_FixedToFloat(RawTemp);
+
+	if (Temparature < 0.0f) {
+		Signchar = '-';
+	}
+
+	IntegralPart = (int)Temparature;
+	FractionalPart = (Temparature - IntegralPart) *
+				XNVM_EFUSE_FRACTION_MUL_VALUE;
+
+	/* Convert IntegralPart and FractionalPart to absolute values */
+	IntegralPart = (IntegralPart < 0) ? -IntegralPart : IntegralPart;
+	FractionalPart = (FractionalPart < 0) ? -FractionalPart : FractionalPart;
+
+	XNvm_Printf(XNVM_DEBUG_GENERAL,
+		"Device temperature on the chip = %c%d.%06dC \r\n",
+		Signchar, IntegralPart,FractionalPart);
+
+	Status = XNvm_EfuseTemparatureCheck(Temparature);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XNVM_EFUSE_ERROR_READ_TMEPERATURE_OUT_OF_RANGE;
+	}
+	else {
+		Status = XST_SUCCESS;
+	}
+
+END:
 	return Status;
 }
