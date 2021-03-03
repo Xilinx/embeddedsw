@@ -35,6 +35,8 @@
 *			and remaining eFuses in SecCtrl eFuse rows programming
 *			and reading
 *	kal  01/28/2021 Added new error code for glitch detection
+*	kal  02/20/2021 Added new error codes for detecting voltage and
+*			temparature out of range cases
 *
 * </pre>
 *
@@ -53,11 +55,21 @@ extern "C" {
 #include "xil_io.h"
 #include "xil_types.h"
 #include "xstatus.h"
+#include "xsysmonpsv.h"
 
 /*************************** Constant Definitions *****************************/
 /**@cond xnvm_internal
  * @{
  */
+/* Enable printfs by setting XNVM_DEBUG to 1 */
+#define XNVM_DEBUG	(0U)
+
+#if (XNVM_DEBUG)
+#define XNVM_DEBUG_GENERAL (1U)
+#else
+#define XNVM_DEBUG_GENERAL (0U)
+#endif
+
 /* Key and Iv length definitions for Versal eFuse */
 #define XNVM_EFUSE_AES_KEY_LEN_IN_WORDS			(8U)
 #define XNVM_EFUSE_IV_LEN_IN_WORDS                      (3U)
@@ -89,6 +101,30 @@ extern "C" {
 /*Macros for eFUSE CTRL WRITE LOCKED and UNLOCKED */
 #define XNVM_EFUSE_CTRL_WR_LOCKED	(0x01U)
 #define XNVM_EFUSE_CTRL_WR_UNLOCKED	(0x00U)
+
+#define XNVM_EFUSE_FULL_RANGE_TEMP_MIN	(-55.0f)
+#define XNVM_EFUSE_FULL_RANGE_TEMP_MAX	(125.0f)
+
+#define XNVM_EFUSE_TEMP_LP_MIN		(0.0f)
+#define XNVM_EFUSE_TEMP_LP_MAX		(100.0f)
+#define XNVM_EFUSE_TEMP_MP_MIN		(-40.0f)
+#define XNVM_EFUSE_TEMP_MP_MAX		(110.0f)
+#define XNVM_EFUSE_TEMP_HP_MIN		(-55.0f)
+#define XNVM_EFUSE_TEMP_HP_MAX		(125.0f)
+
+#define XNVM_EFUSE_FULL_RANGE_CHECK		(0U)
+#define XNVM_EFUSE_LP_RANGE_CHECK		(1U)
+#define XNVM_EFUSE_MP_RANGE_CHECK		(2U)
+#define XNVM_EFUSE_HP_RANGE_CHECK		(3U)
+
+#define XNVM_EFUSE_VCC_PMC_LP_MIN		(0.676f)
+#define XNVM_EFUSE_VCC_PMC_LP_MAX		(0.724f)
+#define XNVM_EFUSE_VCC_PMC_MP_MIN		(0.775f)
+#define XNVM_EFUSE_VCC_PMC_MP_MAX		(0.825f)
+#define XNVM_EFUSE_VCC_PMC_HP_MIN		(0.854f)
+#define XNVM_EFUSE_VCC_PMC_HP_MAX		(0.906f)
+
+#define XNVM_EFUSE_SYSMON_LOCK_CODE	(0xF9E8D7C6U)
 
 /**
 * @}
@@ -475,6 +511,19 @@ typedef enum {
 						* Programming, no data is
 						* provided for Programming.
 						* All Data pointers are NULL */
+	XNVM_EFUSE_ERROR_READ_TMEPERATURE_OUT_OF_RANGE = 0xF100,/**<0xF100 - Error
+						* before programming eFuse,
+						* Temparature is out of range */
+	XNVM_EFUSE_ERROR_READ_VOLTAGE_OUT_OF_RANGE = 0xF200,/**<0xF200 - Error
+						* before programming eFuse,
+						* Voltage is out of range */
+	XNVM_EFUSE_ERROR_NO_SUPPLIES_ENABLED = 0xF300,/**<0xF200 - Error
+						* before programming eFuse,
+						* no supplies are enabled */
+	XNVM_EFUSE_ERROR_SYSMON_NO_NEW_DATA = 0xF400,/**<0xF400 - Error
+						* before programming eFuse,
+						* new data is not available */
+
 	XNVM_EFUSE_ERR_GLITCH_DETECTED = 0x20000,/**<0x20000
 						 * Glitch detected, due to which
 						 * requested eFuses may be
@@ -723,12 +772,16 @@ typedef struct {
 typedef struct {
 	XNvm_EfusePufSecCtrlBits PufSecCtrlBits;
 	u8 PrgmPufHelperData;
+	u8 EnvMonitorDis;
+	XSysMonPsv *SysMonInstPtr;
 	u32 EfuseSynData[XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS];
 	u32 Chash;
 	u32 Aux;
 }XNvm_EfusePufHd;
 
 typedef struct {
+	u8 EnvMonitorDis;
+	XSysMonPsv *SysMonInstPtr;
 	XNvm_EfuseAesKeys *AesKeys;
 	XNvm_EfusePpkHash *PpkHash;
 	XNvm_EfuseDecOnly *DecOnly;
