@@ -602,9 +602,17 @@ typedef struct XAie_L2IntrMod {
 } XAie_L2IntrMod;
 
 /*
+ * This structure captures all attributes related to resource manager.
+ */
+typedef struct XAie_ResourceManager {
+	u32 *PerfCntBitmap;
+} XAie_ResourceManager;
+
+/*
  * This typedef contains all the modules for a Tile type
  */
 typedef struct XAie_TileMod {
+	 const u8 NumModules;
 	const XAie_CoreMod *CoreMod;
 	const XAie_StrmMod *StrmSw;
 	const XAie_DmaMod  *DmaMod;
@@ -618,6 +626,7 @@ typedef struct XAie_TileMod {
 	const XAie_ClockMod *ClockMod;
 	const XAie_L1IntrMod *L1IntrMod;
 	const XAie_L2IntrMod *L2IntrMod;
+	XAie_ResourceManager RscMapping;
 } XAie_TileMod;
 
 #endif

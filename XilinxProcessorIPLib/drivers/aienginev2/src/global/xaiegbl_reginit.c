@@ -2854,6 +2854,7 @@ XAie_TileMod AieMod[] =
 		/*
 		 * AIE Tile Module indexed using XAIEGBL_TILE_TYPE_AIETILE
 		 */
+		.NumModules = 2U,
 		.CoreMod = &AieCoreMod,
 		.StrmSw  = &AieTileStrmSw,
 		.DmaMod  = &AieTileDmaMod,
@@ -2872,6 +2873,7 @@ XAie_TileMod AieMod[] =
 		/*
 		 * AIE Shim Noc Module indexed using XAIEGBL_TILE_TYPE_SHIMNOC
 		 */
+		.NumModules = 1U,
 		.CoreMod = NULL,
 		.StrmSw  = &AieShimStrmSw,
 		.DmaMod  = &AieShimDmaMod,
@@ -2890,6 +2892,7 @@ XAie_TileMod AieMod[] =
 		/*
 		 * AIE Shim PL Module indexed using XAIEGBL_TILE_TYPE_SHIMPL
 		 */
+		.NumModules = 1U,
 		.CoreMod = NULL,
 		.StrmSw  = &AieShimStrmSw,
 		.DmaMod  = NULL,
@@ -2908,6 +2911,7 @@ XAie_TileMod AieMod[] =
 		/*
 		 * AIE Reserved Module indexed using XAIEGBL_TILE_TYPE_RESERVED
 		 */
+		.NumModules = NULL,
 		.CoreMod = NULL,
 		.StrmSw  = NULL,
 		.DmaMod  = NULL,
