@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +33,7 @@
 *       har  09/30/2020 Deprecated Family Key support
 *       har  10/12/2020 Addressed security review comments
 *       ana  10/15/2020 Updated doxygen tags
+* 4.4   har  03/02/2021 Added prototype for XSecure_AesUpdateAad
 *
 * </pre>
 *
@@ -196,6 +197,8 @@ int XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 int XSecure_AesDecryptKat(XSecure_Aes *AesInstance);
 
 int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance);
+
+int XSecure_AesUpdateAad(XSecure_Aes *InstancePtr, u64 AadAddr, u32 AadSize);
 
 #ifdef __cplusplus
 }

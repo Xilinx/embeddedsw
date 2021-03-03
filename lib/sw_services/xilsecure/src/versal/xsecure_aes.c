@@ -57,6 +57,7 @@
 *       am   10/10/2020 Resolved Coverity warnings
 * 4.4   am   11/24/2020 Resolved MISRA C and Coverity warnings
 *       har  02/12/2021 Separated input validation checks for Instance pointer
+*       har  03/02/2021 Added support for AES AAD
 *
 * </pre>
 *
@@ -84,6 +85,8 @@
 #define XSECURE_KAT_AES_SPLIT_DATA_SIZE		(4U)
 #define XSECURE_KAT_KEY_SIZE_IN_WORDS		(8U)
 #define XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS	(16U)
+#define XSECURE_AES_AAD_ENABLE			(0x1U)
+#define XSECURE_AES_AAD_DISABLE			(0x0U)
 
 static const u32 KatKey[XSECURE_KAT_KEY_SIZE_IN_WORDS] =
 			  {0xD55455D7U, 0x2B247897U, 0xC4BF1CDU , 0x1A2D14EDU,
@@ -598,6 +601,80 @@ END:
 
 /*****************************************************************************/
 /**
+ * @brief	This function is used to update the AES engine with
+		Additional Authenticated Data(AAD).
+ *
+ * @param	InstancePtr	- Pointer to the XSecure_Aes instance
+ * @param	AadAddr		- Address of the additional authenticated data
+ * @param	AadSize		- Size of additional authenticated data in bytes,
+ *				  whereas number of bytes provided should be
+ *				  multiples of 4
+ *
+ * @return	- XST_SUCCESS - On successful update of AAD
+ *		- XSECURE_AES_INVALID_PARAM - On invalid parameter
+ *		- XSECURE_AES_STATE_MISMATCH_ERROR - If State mismatch occurs
+ *		- XST_FAILURE - On failure to update AAD
+ *
+ * @note	The API must be called after XSecure_AesEncryptInit() or
+ *		XSecure_AesDecryptInit()
+ *
+ ******************************************************************************/
+int XSecure_AesUpdateAad(XSecure_Aes *InstancePtr, u64 AadAddr, u32 AadSize)
+{
+	int Status = XST_FAILURE;
+	XSecure_AesDmaCfg AesDmaCfg = {0U};
+
+	/* Validate the input arguments */
+	if (InstancePtr == NULL) {
+		Status = (int)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((AadAddr == 0x00U) || ((AadSize % XSECURE_WORD_SIZE) != 0x00U)) {
+		Status = (int)XSECURE_AES_INVALID_PARAM;
+		goto END_RST;
+	}
+
+	if ((InstancePtr->AesState != XSECURE_AES_ENCRYPT_INITIALIZED) &&
+		(InstancePtr->AesState != XSECURE_AES_DECRYPT_INITIALIZED)) {
+		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
+		goto END_RST;
+	}
+
+	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_AES_AAD_OFFSET,
+		XSECURE_AES_AAD_ENABLE);
+
+	AesDmaCfg.SrcDataAddr = AadAddr;
+	AesDmaCfg.SrcChannelCfg = TRUE;
+	AesDmaCfg.IsLastChunkSrc = FALSE;
+
+	Status = XSecure_AesPmcDmaCfgByteSwap(InstancePtr, AesDmaCfg, AadSize);
+	if (Status != XST_SUCCESS) {
+		goto END_AAD;
+	}
+
+END_AAD:
+	/* Clear endianness */
+	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
+		XPMCDMA_SRC_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
+	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
+		XPMCDMA_DST_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
+	/* Disable AAD */
+	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_AES_AAD_OFFSET,
+		XSECURE_AES_AAD_DISABLE);
+
+END_RST:
+	if (Status != XST_SUCCESS) {
+		InstancePtr->AesState = XSECURE_AES_INITIALIZED;
+		XSecure_SetReset(InstancePtr->BaseAddress,
+			XSECURE_AES_SOFT_RST_OFFSET);
+	}
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
  * @brief	This function decrypts the key which is in KEK/Obfuscated key form
  * 		exists and not exist in either of the boot header/Efuse/BBRAM and
  * 		updates the mentioned destination red key register with
@@ -690,7 +767,8 @@ int XSecure_AesKekDecrypt(const XSecure_Aes *InstancePtr,
 	AesDmaCfg.SrcDataAddr = IvAddr;
 	AesDmaCfg.IsLastChunkSrc = TRUE;
 
-	Status = XSecure_AesPmcDmaCfgByteSwap(InstancePtr, AesDmaCfg, XSECURE_SECURE_GCM_TAG_SIZE);
+	Status = XSecure_AesPmcDmaCfgByteSwap(InstancePtr, AesDmaCfg,
+		XSECURE_SECURE_GCM_TAG_SIZE);
 	if (Status != XST_SUCCESS) {
 		goto END_RST;
 	}
@@ -936,7 +1014,8 @@ int XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 	AesDmaCfg.SrcDataAddr = GcmTagAddr;
 	AesDmaCfg.IsLastChunkSrc = FALSE;
 
-	Status = XSecure_AesPmcDmaCfgByteSwap(InstancePtr, AesDmaCfg, XSECURE_SECURE_GCM_TAG_SIZE);
+	Status = XSecure_AesPmcDmaCfgByteSwap(InstancePtr, AesDmaCfg,
+		XSECURE_SECURE_GCM_TAG_SIZE);
 	if (Status != XST_SUCCESS) {
 		goto END_RST;
 	}
@@ -1806,12 +1885,15 @@ static int XSecure_AesDpaCmDecryptKat(const XSecure_Aes *AesInstance,
 
 	/* Configure the PMC DMA Tx/Rx for the incoming Block. */
 	XPmcDma_Transfer(AesInstance->PmcDmaPtr, XPMCDMA_DST_CHANNEL,
-		(u64)(UINTPTR)OutputPtr, XSECURE_AES_DMA_SIZE, XSECURE_AES_DMA_LAST_WORD_DISABLE);
+		(u64)(UINTPTR)OutputPtr, XSECURE_AES_DMA_SIZE,
+		XSECURE_AES_DMA_LAST_WORD_DISABLE);
 
 	XPmcDma_Transfer(AesInstance->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
-		(u64)(UINTPTR)DataPtr, XSECURE_AES_DMA_SIZE, XSECURE_AES_DMA_LAST_WORD_ENABLE);
+		(u64)(UINTPTR)DataPtr, XSECURE_AES_DMA_SIZE,
+		XSECURE_AES_DMA_LAST_WORD_ENABLE);
 
-	Status = XPmcDma_WaitForDoneTimeout(AesInstance->PmcDmaPtr, XPMCDMA_DST_CHANNEL);
+	Status = XPmcDma_WaitForDoneTimeout(AesInstance->PmcDmaPtr,
+		XPMCDMA_DST_CHANNEL);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -1907,7 +1989,8 @@ static int XSecure_AesKeyLoad(const XSecure_Aes *InstancePtr,
 			  (KeySize == XSECURE_AES_KEY_SIZE_256));
 
 	/* Load Key Size */
-	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_AES_KEY_SIZE_OFFSET, (u32)KeySize);
+	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_AES_KEY_SIZE_OFFSET,
+		(u32)KeySize);
 
 	/* AES key source selection */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
@@ -2111,7 +2194,8 @@ static int XSecure_AesPmcDmaCfgByteSwap(const XSecure_Aes *InstancePtr,
 
 	if (AesDmaCfg.SrcChannelCfg == TRUE) {
 		/* Wait for the SRC DMA completion. */
-		Status = XPmcDma_WaitForDoneTimeout(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL);
+		Status = XPmcDma_WaitForDoneTimeout(InstancePtr->PmcDmaPtr,
+			XPMCDMA_SRC_CHANNEL);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -2124,7 +2208,8 @@ static int XSecure_AesPmcDmaCfgByteSwap(const XSecure_Aes *InstancePtr,
 	if ((AesDmaCfg.DestChannelCfg == TRUE) &&
 		((u32)AesDmaCfg.DestDataAddr != XSECURE_AES_NO_CFG_DST_DMA)) {
 		/* Wait for the DEST DMA completion. */
-		Status = XPmcDma_WaitForDoneTimeout(InstancePtr->PmcDmaPtr, XPMCDMA_DST_CHANNEL);
+		Status = XPmcDma_WaitForDoneTimeout(InstancePtr->PmcDmaPtr,
+			XPMCDMA_DST_CHANNEL);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
