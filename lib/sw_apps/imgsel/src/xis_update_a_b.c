@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -42,6 +42,33 @@
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
 /**
+ * This function is used to calculate the checksum of QSPI registers data
+ * @param	PersData QSPI registers data.
+ *
+ * @return	returns checksum of QSPI registers data
+ *
+ ******************************************************************************/
+static u32 XIs_CheckSumCalculation(u32 *PersData, u8 Update)
+{
+	u32 Index = 0U;
+	u32 ChkSum = 0U;
+
+	for(Index = 0U; Index < XIS_LENGTH; Index++) {
+		if( Index != (XIS_CHECKSUM_OFFSET / 4U)) {
+			ChkSum += PersData[Index];
+		}
+	}
+	ChkSum  = 0xFFFFFFFFU - ChkSum;
+
+	if(Update == TRUE) {
+		PersData[XIS_CHECKSUM_OFFSET / 4U] = ChkSum;
+	}
+
+	return ChkSum;
+}
+
+/*****************************************************************************/
+/**
  * This function is used to validate the QSPI registers data
  * @param	ReadDataBuffer QSPI registers data.
  *
@@ -53,7 +80,6 @@
 static int XIs_DataValidations(u8 *ReadDataBuffer)
 {
 	int Status = XST_FAILURE;
-	u32 Index = 0U;
 	u32 ChkSum = 0U;
 	u32 *PersRegData = (u32 *)ReadDataBuffer;
 
@@ -70,12 +96,7 @@ static int XIs_DataValidations(u8 *ReadDataBuffer)
 		Status = XIS_REGISTERS_LENGTH_MISMATCH_ERROR;
 		goto END;
 	}
-	for(Index = 0; Index < XIS_LENGTH; Index++) {
-		if( Index != (XIS_CHECKSUM_OFFSET / 4U)) {
-			ChkSum += PersRegData[Index];
-		}
-	}
-	ChkSum = (~(ChkSum) & 0xFFFFFFFFU);
+	ChkSum = XIs_CheckSumCalculation(PersRegData, (u8)FALSE);
 	if(ChkSum != PersRegData[XIS_CHECKSUM_OFFSET / 4U]) {
 		XIs_Printf(DEBUG_GENERAL, "Chksum:%08x", ChkSum);
 		Status = XIS_CHECKSUM_MISMATCH_ERROR;
@@ -168,6 +189,7 @@ int XIs_UpdateABMultiBootValue(void)
 
 	if(ReadDataBuffer[XIS_LAST_BOOTED_IMAGE] != CurrentImage) {
 		ReadDataBuffer[XIS_LAST_BOOTED_IMAGE] = CurrentImage;
+		(void)XIs_CheckSumCalculation((u32*)ReadDataBuffer, (u8)TRUE);
 		Status = XIs_QspiWrite(XIS_PERS_REGISTER_BASE_ADDRESS,
 						(u8 *)ReadDataBuffer, XIS_SIZE_4K);
 		if(Status != XST_SUCCESS) {
