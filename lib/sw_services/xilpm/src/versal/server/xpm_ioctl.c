@@ -501,15 +501,18 @@ XStatus XPmIoctl_AddRegPermission(XPm_Subsystem *Subsystem, u32 DeviceId,
 	u32 AddNodeArgs[5U] = { DeviceId, PM_POWER_PMC, 0, 0, 0};
 	XPm_Device *Device;
 
-	Status = XPm_AddNode(AddNodeArgs, ARRAY_SIZE(AddNodeArgs));
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
+	/* Ensure device is added before trying to use it. */
 	Device = XPmDevice_GetById(DeviceId);
 	if (NULL == Device) {
-		Status = XST_DEVICE_NOT_FOUND;
-		goto done;
+		Status = XPm_AddNode(AddNodeArgs, ARRAY_SIZE(AddNodeArgs));
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		Device = XPmDevice_GetById(DeviceId);
+		if (NULL == Device) {
+			Status = XST_DEVICE_NOT_FOUND;
+			goto done;
+		}
 	}
 
 	if ((PM_SUBSYS_PMC == SubsystemId) ||
