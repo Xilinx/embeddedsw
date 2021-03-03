@@ -112,6 +112,10 @@
  * It is recommended to always enable this option to ensure entropy. It can
  * be configured as FALSE to disable Global Variation Filter.
  *
+ * #define XPUF_ENV_MONITOR_DISABLE		(FALSE)
+ * This option should be configured as TRUE to disable the temparature and voltage
+ * checks before eFuses programming.
+ *
  ******************************************************************************/
 #ifndef XILPUF_EXAMPLE_H
 #define XILPUF_EXAMPLE_H
@@ -169,6 +173,8 @@ extern "C" {
 #define PUF_HD_INVLD				(FALSE)
 #define PUF_SYN_LK				(FALSE)
 #endif
+
+#define XPUF_ENV_MONITOR_DISABLE          	(FALSE)
 
 /**************************** Type Definitions *******************************/
 typedef enum {
