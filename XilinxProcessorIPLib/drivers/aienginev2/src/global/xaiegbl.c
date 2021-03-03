@@ -34,6 +34,7 @@
 
 #include "xaie_helper.h"
 #include "xaie_io.h"
+#include "xaie_rsc_internal.h"
 #include "xaiegbl.h"
 #include "xaiegbl_defs.h"
 #include "xaiegbl_regdef.h"
@@ -104,6 +105,11 @@ AieRC XAie_CfgInitialize(XAie_DevInst *InstPtr, XAie_Config *ConfigPtr)
 	InstPtr->EccStatus = XAIE_ENABLE;
 	InstPtr->TxnList.Next = NULL;
 
+	RC = _XAie_RscMgrInit(InstPtr);
+	if(RC != XAIE_OK) {
+		return RC;
+	}
+
 	memcpy(&InstPtr->PartProp, &ConfigPtr->PartProp,
 		sizeof(ConfigPtr->PartProp));
 
@@ -146,6 +152,11 @@ AieRC XAie_Finish(XAie_DevInst *DevInst)
 	RC = CurrBackend->Ops.Finish(DevInst->IOInst);
 	if (RC != XAIE_OK) {
 		XAIE_ERROR("Failed to close backend instance.\n");
+		return RC;
+	}
+
+	RC = _XAie_RscMgrFinish(DevInst);
+	if(RC != XAIE_OK) {
 		return RC;
 	}
 

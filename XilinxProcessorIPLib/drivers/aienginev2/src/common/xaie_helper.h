@@ -107,6 +107,7 @@ u32 _XAie_GetFatalGroupErrors(XAie_DevInst *DevInst, XAie_LocType Loc,
 		XAie_ModuleType Module);
 u32 _XAie_GetTileBitPosFromLoc(XAie_DevInst *DevInst, XAie_LocType Loc);
 void _XAie_SetBitInBitmap(u32 *Bitmap, u32 StartSetBit, u32 NumSetBit);
+void _XAie_ClrBitInBitmap(u32 *Bitmap, u32 StartBit, u32 NumBit);
 AieRC XAie_Write32(XAie_DevInst *DevInst, u64 RegOff, u32 Value);
 AieRC XAie_Read32(XAie_DevInst *DevInst, u64 RegOff, u32 *Data);
 AieRC XAie_MaskWrite32(XAie_DevInst *DevInst, u64 RegOff, u32 Mask, u32 Value);
@@ -122,6 +123,8 @@ AieRC _XAie_Txn_Submit(XAie_DevInst *DevInst, XAie_TxnInst *TxnInst);
 XAie_TxnInst* _XAie_TxnExport(XAie_DevInst *DevInst);
 AieRC _XAie_TxnFree(XAie_TxnInst *Inst);
 void _XAie_TxnResourceCleanup(XAie_DevInst *DevInst);
+u32 _XAie_GetNumRows(XAie_DevInst *DevInst, u8 TileType);
+u32 _XAie_GetStartRow(XAie_DevInst *DevInst, u8 TileType);
 
 #endif		/* end of protection macro */
 /** @} */

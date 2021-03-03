@@ -137,6 +137,78 @@ AieRC _XAie_CheckModule(XAie_DevInst *DevInst,
 
 /*****************************************************************************/
 /**
+* This function is used to get no. of rows for the given tiletype.
+*
+* @param        DevInst: Device Instance
+* @param        TileType: Type of tile
+*
+* @return       BitmapNumRows: Number of rows for given tiletype
+*
+* @note         Internal API only.
+*
+*******************************************************************************/
+u32 _XAie_GetNumRows(XAie_DevInst *DevInst, u8 TileType)
+{
+	u32 NumRows;
+
+	switch(TileType) {
+	case XAIEGBL_TILE_TYPE_SHIMNOC:
+	case XAIEGBL_TILE_TYPE_SHIMPL:
+	{       NumRows = 1U;
+		break;
+	}
+	case XAIEGBL_TILE_TYPE_AIETILE:
+	{       NumRows = DevInst->AieTileNumRows;
+		break;
+	}
+	default:
+	{
+		XAIE_ERROR("Invalid Tiletype\n");
+		return 0;
+	}
+	}
+
+	return NumRows;
+}
+
+/*****************************************************************************/
+/**
+* This function is used to get start row for the given tiletype.
+*
+* @param        DevInst: Device Instance
+* @param        TileType: Type of tile
+*
+* @return       StartRow: Start row for given tiletype
+*
+* @note         Internal API only.
+*
+*******************************************************************************/
+u32 _XAie_GetStartRow(XAie_DevInst *DevInst, u8 TileType)
+{
+	u32 StartRow;
+
+	switch(TileType) {
+	case XAIEGBL_TILE_TYPE_SHIMNOC:
+	case XAIEGBL_TILE_TYPE_SHIMPL:
+	{       StartRow = DevInst->ShimRow;
+		break;
+	}
+	case XAIEGBL_TILE_TYPE_AIETILE:
+	{	StartRow = DevInst->AieTileRowStart;
+		break;
+	}
+	default:
+	{
+		XAIE_ERROR("Invalid Tiletype\n");
+		return 0;
+	}
+	}
+
+	return StartRow;
+}
+
+/*****************************************************************************/
+/**
 *
 * To configure stream switch master registers, slave index has to be calculated
 * from the internal data structure. The routine calculates the slave index for
@@ -293,6 +365,28 @@ void _XAie_SetBitInBitmap(u32 *Bitmap, u32 StartSetBit,
 	for(u32 i = StartSetBit; i < StartSetBit + NumSetBit; i++) {
 		Bitmap[i / (sizeof(Bitmap[0]) * 8U)] |=
 			1U << (i % (sizeof(Bitmap[0]) * 8U));
+	}
+}
+
+/*****************************************************************************/
+/**
+** This API clears number of bits from given start bit in the given bitmap.
+*
+* @param        Bitmap: bitmap to be set
+* @param        StartBit: Bit position in the bitmap
+* @param        NumBit: Number of bits to be set.
+*
+* @return       None
+*
+* @note         This API is internal, hence all the argument checks are taken
+*               care of in the caller API.
+*
+******************************************************************************/
+void _XAie_ClrBitInBitmap(u32 *Bitmap, u32 StartBit, u32 NumBit)
+{
+	for(u32 i = StartBit; i < StartBit + NumBit; i++) {
+		Bitmap[i / (sizeof(Bitmap[0]) * 8U)] &=
+			~(1U << (i % (sizeof(Bitmap[0]) * 8U)));
 	}
 }
 

@@ -352,6 +352,29 @@ typedef enum{
 	XAIE_PL_MOD,
 } XAie_ModuleType;
 
+/* This enum is used to capture all resource types managed by resource manager*/
+typedef enum {
+	XAIE_PERFCNT_RSC,
+} XAie_RscType;
+
+/*
+ * This structure is used to return resource as per availibility from the
+ * driver.
+ */
+typedef struct {
+	XAie_LocType Loc;
+	XAie_ModuleType Mod;
+	XAie_RscType RscType;
+	u32 RscId;
+} XAie_UserRsc;
+
+/* This structure is used to request a resource by the user. */
+typedef struct {
+	XAie_LocType Loc;
+	XAie_ModuleType Mod;
+	u32 NumRscPerTile;
+} XAie_UserRscReq;
+
 /* This enum contains reset input values. */
 typedef enum {
 	XAIE_RESETDISABLE,
