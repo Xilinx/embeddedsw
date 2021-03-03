@@ -40,7 +40,7 @@
  * @note     None.
  *
  * **************************************************************************/
-void XDpDma_InterruptEnable(const XDpDma *InstancePtr, const u32 Mask)
+void XDpDma_InterruptEnable(XDpDma *InstancePtr, u32 Mask)
 {
 	XDpDma_WriteReg(InstancePtr->Config.BaseAddr, XDPDMA_IEN, Mask);
 }
