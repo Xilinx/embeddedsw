@@ -263,9 +263,9 @@ static void XDpDma_SetDescriptorAddress(XDpDma *InstancePtr, u8 ChannelNum)
 
 	DescAddr = (UINTPTR) Descriptor;
 	XDpDma_WriteReg(InstancePtr->Config.BaseAddr, AddrEOffset,
-		Upper_32_Bits(DescAddr));
+		UPPER_32_BITS(DescAddr));
 	XDpDma_WriteReg(InstancePtr->Config.BaseAddr, AddrOffset,
-			Lower_32_Bits(DescAddr));
+			LOWER_32_BITS(DescAddr));
 }
 
 /*************************************************************************/
@@ -308,9 +308,9 @@ static void XDpDma_SetupAudioDescriptor(XDpDma_Descriptor *CurrDesc,
 	CurrDesc->ADDR_EXT = (((u32)
 			       (BuffAddr >> XDPDMA_DESCRIPTOR_SRC_ADDR_WIDTH) <<
 			       XDPDMA_DESCRIPTOR_ADDR_EXT_SRC_ADDR_EXT_SHIFT)) |
-			       (Upper_32_Bits(DescAddr));
-	CurrDesc->NEXT_DESR = Lower_32_Bits(DescAddr);
-	CurrDesc->SRC_ADDR =  Lower_32_Bits(BuffAddr);
+			       (UPPER_32_BITS(DescAddr));
+	CurrDesc->NEXT_DESR = LOWER_32_BITS(DescAddr);
+	CurrDesc->SRC_ADDR =  LOWER_32_BITS(BuffAddr);
 }
 
 /*************************************************************************/
@@ -669,9 +669,9 @@ void XDpDma_InitVideoDescriptor(XDpDma_Descriptor *CurrDesc,
 	CurrDesc->ADDR_EXT = (((u32)(FrameBuffer->Address >>
 				XDPDMA_DESCRIPTOR_SRC_ADDR_WIDTH) <<
 			       XDPDMA_DESCRIPTOR_ADDR_EXT_SRC_ADDR_EXT_SHIFT) |
-				(Upper_32_Bits(DescAddr)));
-	CurrDesc->NEXT_DESR = Lower_32_Bits(DescAddr);
-	CurrDesc->SRC_ADDR = Lower_32_Bits(FrameBuffer->Address);
+				(UPPER_32_BITS(DescAddr)));
+	CurrDesc->NEXT_DESR = LOWER_32_BITS(DescAddr);
+	CurrDesc->SRC_ADDR = LOWER_32_BITS(FrameBuffer->Address);
 }
 
 /*************************************************************************/
@@ -877,11 +877,11 @@ int32_t XDpDma_PlayAudio(XDpDma *InstancePtr, XDpDma_AudioBuffer *Buffer,
 			Channel->Descriptor3.Control = XDPDMA_DESC_PREAMBLE |
 				XDPDMA_DESC_UPDATE | XDPDMA_DESC_IGNR_DONE;
 			Channel->Descriptor3.NEXT_DESR =
-				Lower_32_Bits(DescAddr);
+				LOWER_32_BITS(DescAddr);
 			Channel->Descriptor3.ADDR_EXT &=
 				~XDPDMA_DESCRIPTOR_ADDR_EXT_DSC_NXT_MASK;
 			Channel->Descriptor3.ADDR_EXT |=
-				Upper_32_Bits(DescAddr);
+				UPPER_32_BITS(DescAddr);
 			Channel->Current = &Channel->Descriptor4;
 			Channel->Used = 1;
 			XDpDma_InitAudioDescriptor(Channel, Buffer);
@@ -903,11 +903,11 @@ int32_t XDpDma_PlayAudio(XDpDma *InstancePtr, XDpDma_AudioBuffer *Buffer,
 			Channel->Descriptor7.Control = XDPDMA_DESC_PREAMBLE |
 				XDPDMA_DESC_UPDATE | XDPDMA_DESC_IGNR_DONE;
 			Channel->Descriptor7.NEXT_DESR =
-				Lower_32_Bits(DescAddr);
+				LOWER_32_BITS(DescAddr);
 			Channel->Descriptor7.ADDR_EXT &=
 				~XDPDMA_DESCRIPTOR_ADDR_EXT_DSC_NXT_MASK;
 			Channel->Descriptor7.ADDR_EXT |=
-				Upper_32_Bits(DescAddr);
+				UPPER_32_BITS(DescAddr);
 			Channel->Current = &Channel->Descriptor0;
 			XDpDma_InitAudioDescriptor(Channel, Buffer);
 		}

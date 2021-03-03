@@ -1735,9 +1735,8 @@ extern "C" {
  *		u32 XDpDma_ReadReg(u32 BaseAddress, u32 RegOffset
  *
 *******************************************************************************/
-static inline u32 XDpDma_ReadReg(u32 BaseAddress, u32 RegOffset) {
-	return XDpDma_In32((BaseAddress) + (RegOffset));
-}
+#define XDpDma_ReadReg(BaseAddress, RegOffset) \
+					XDpDma_In32((BaseAddress) + (RegOffset))
 
 /******************************************************************************/
 /**
@@ -1753,9 +1752,8 @@ static inline u32 XDpDma_ReadReg(u32 BaseAddress, u32 RegOffset) {
  *		void XDpDma_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
  *
 *******************************************************************************/
-static inline void XDpDma_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data) {
-	XDpDma_Out32((BaseAddress) + (RegOffset), (Data));
-}
+#define XDpDma_WriteReg(BaseAddress, RegOffset, Data) \
+				XDpDma_Out32((BaseAddress) + (RegOffset), (Data))
 
 
 /******************************************************************************/
@@ -1774,12 +1772,10 @@ static inline void XDpDma_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data) {
  *							u32 RegOffset, u32 Data)
  *
 *******************************************************************************/
-static inline void
-XDpDma_ReadModifyWrite(u32 BaseAddress, u32 RegOffset,u32 Data, u32 Mask) {
-	XDpDma_Out32((BaseAddress) + (RegOffset), ((XDpDma_In32((BaseAddress)
-			+ (RegOffset)) & ~(Mask)) | (Data)));
-}
-
+#define XDpDma_ReadModifyWrite(BaseAddress, RegOffset, Data, Mask) \
+				XDpDma_WriteReg((BaseAddress), (RegOffset), \
+				((XDpDma_ReadReg(BaseAddress, RegOffset) &  \
+				 ~(Mask)) | Data))
 
 #ifdef __cplusplus
 }

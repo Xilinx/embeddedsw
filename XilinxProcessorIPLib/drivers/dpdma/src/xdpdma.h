@@ -262,32 +262,6 @@ int32_t XDpDma_PlayAudio(XDpDma *InstancePtr, XDpDma_AudioBuffer *Buffer,
  */
 extern XDpDma_Config XDpDma_ConfigTable[XPAR_XDPDMA_NUM_INSTANCES];
 
-/**
- * @brief  Returns 0-31 bits of a number
- * @param  number : Number being accessed.
- * @return Bits 0-31 of number
- */
-static inline u32 Lower_32_Bits (u64 number) {
-	return ((u32)(number));
-}
-
-/**
- * @brief  Returns 32-63 bits of a number.
- * @param  number : Number being accessed.
- * @return Bits 32-63 of number.
- *
- * @note    A basic shift-right of a 64- or 32-bit quantity.
- *          Use this to suppress the "right shift count >= width of type"
- *          warning when that quantity is 32-bits.
- */
-#if defined (__aarch64__) || defined (__arch64__)
-static inline u32 Upper_32_Bits (u64 number) {
-	return ((u32)(((number) >> 16) >> 16));
-}
-#else
-	return 0U;
-#endif
-
 #ifdef __cplusplus
 }
 #endif
