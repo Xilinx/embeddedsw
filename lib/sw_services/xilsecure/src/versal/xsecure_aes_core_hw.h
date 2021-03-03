@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -20,6 +20,7 @@
 *       kpt  08/06/20 Added XSECURE_AES_KEY_DEC_RESET_MASK macro
 *       am   09/24/20 Resolved MISRA C violations
 *       har  10/12/20 Addressed security review comments
+* 4.4   har  03/02/21 Added register offset for AAD
 *
 * </pre>
 *
@@ -181,6 +182,11 @@ extern "C" {
  * Register: XSECURE_AES_KEY_ZEROED_STATUS
  */
 #define XSECURE_AES_KEY_ZEROED_STATUS_OFFSET		(0x00000064U)
+
+/**
+ * Register: XSECURE_AES_AAD
+ */
+#define XSECURE_AES_AAD_OFFSET				(0x0000006CU)
 
 /**
  * Register: XSECURE_AES_CM_EN
