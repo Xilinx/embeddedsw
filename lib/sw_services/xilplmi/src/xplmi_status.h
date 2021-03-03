@@ -66,7 +66,8 @@
 *       ma   02/12/2021 Added error code for IPI CRC mismatch and read error
 *       kpt  02/16/2021 Added error codes for invalid key source when encryption
 *                       only is enabled and when secure validations are failed.
-*	    bsv  02/28/2021 Added code to avoid unaligned NPI writes
+*       bsv  02/28/2021 Added code to avoid unaligned NPI writes
+*       har  03/02/2021 Added error code for faulire to update AAD
 *
 * </pre>
 *
@@ -560,6 +561,9 @@ typedef enum {
 		/**< 0x62D Invalid key source when encryption only is enabled */
 	XLOADER_ERR_SECURE_NOT_ALLOWED,
 		/**< 0x62E Error when secure validations are failed */
+	XLOADER_ERR_HDR_AAD_UPDATE_FAIL,
+		/**< 0x62F Updating IHT as AAD failed during secure header
+		  * decryption */
 
 	XPLMI_ERR_CDO_CMD = 0x2000,
 		/**< 0x2XXX, CDO command handler has failed.

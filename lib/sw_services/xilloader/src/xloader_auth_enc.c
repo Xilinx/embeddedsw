@@ -28,6 +28,7 @@
 *       bm   02/12/21 Updated logic to use BootHdr directly from PMC RAM
 *       kpt  02/16/21 Corrected check to return valid error code in case of
 *                     MetaHeader IV mismatch and fixed gcc warning
+*       har  03/02/21 Added support to verify IHT as AAD for first secure header
 *
 * </pre>
 *
@@ -2575,6 +2576,16 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 		XSECURE_AES_KEY_SIZE_256, (UINTPTR)MetaHdr->ImgHdrTbl.IvMetaHdr);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_AES_OP_FAIL, Status);
+		goto END;
+	}
+
+	Status = XSecure_AesUpdateAad(&SecurePtr->AesInstance,
+		(UINTPTR)&(MetaHdr->ImgHdrTbl), XIH_IHT_LEN);
+	if (Status != XST_SUCCESS) {
+		XPlmi_Printf(DEBUG_INFO, "Updating Image header Table as AAD "
+			"failed during secure header decryption\n\r");
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_AAD_UPDATE_FAIL,
+			Status);
 		goto END;
 	}
 
