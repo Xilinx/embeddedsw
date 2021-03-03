@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * ----- ------ -------- -------------------------------------------------
 * 4.1   vns    08/06/19 First Release
 * 4.3   har    10/12/20 Addressed security review comments
+* 4.4   har    03/02/21 Added support for AAD
 *
 * </pre>
 ******************************************************************************/
@@ -46,12 +47,16 @@
 	"1234567808F070B030D0509010E060A020C0408000A5DE08D85898A5A5FEDCA10134" \
 	"ABCDEF12345678900987654321123487654124456679874309713627463801AD1056"
 
+#define XSECURE_AAD			"67e21cf3cb29e0dcbc4d8b1d0cc5334b"
+
 #define XSECURE_DATA_SIZE		(68)
 #define XSECURE_DATA_SIZE_IN_BITS	(XSECURE_DATA_SIZE * 8U)
 #define XSECURE_IV_SIZE			(12)
 #define XSECURE_IV_SIZE_IN_BITS		(XSECURE_IV_SIZE * 8U)
 #define XSECURE_KEY_SIZE		(32)
 #define XSECURE_KEY_SIZE_IN_BITS	(XSECURE_KEY_SIZE * 8U)
+#define XSECURE_AAD_SIZE		(16)
+#define XSECURE_AAD_SIZE_IN_BITS	(XSECURE_AAD_SIZE * 8U)
 
 #define XSECURE_PMCDMA_DEVICEID	PMCDMA_0_DEVICE_ID
 
@@ -76,6 +81,8 @@ static u8 EncData[XSECURE_DATA_SIZE]__attribute__ ((aligned (64)))
 				__attribute__ ((section (".data.EncData")));
 static u8 GcmTag[XSECURE_SECURE_GCM_TAG_SIZE]__attribute__ ((aligned (64)))
 				__attribute__ ((section (".data.GcmTag")));
+static u8 Aad[XSECURE_AAD_SIZE]__attribute__ ((aligned (64)))
+				__attribute__ ((section (".data.Aad")));
 #elif defined (__ICCARM__)
 #pragma data_alignment = 64
 static u8 Data[XSECURE_DATA_SIZE];
@@ -84,7 +91,9 @@ static u8 DecData[XSECURE_DATA_SIZE];
 #pragma data_alignment = 64
 static u8 EncData[XSECURE_DATA_SIZE ];
 #pragma data_alignment = 64
-static u8 GcmTag[XSECURE_SECURE_GCM_TAG_SIZE]
+static u8 GcmTag[XSECURE_SECURE_GCM_TAG_SIZE];
+#pragma data_alignment = 64
+static u8 Aad[XSECURE_AAD_SIZE];
 #endif
 
 /************************** Function Definitions ******************************/
@@ -119,6 +128,13 @@ int main(void)
 	if (Status != XST_SUCCESS) {
 		xil_printf(
 			"String Conversion error (Data):%08x !!!\r\n", Status);
+		goto END;
+	}
+
+	Status = Xil_ConvertStringToHexBE((const char *) (XSECURE_AAD), Aad,
+		XSECURE_AAD_SIZE_IN_BITS);
+	if (Status != XST_SUCCESS) {
+		xil_printf("String Conversion error (AAD):%08x !!!\r\n", Status);
 		goto END;
 	}
 
@@ -202,6 +218,12 @@ static s32 SecureAesExample(void)
 		goto END;
 	}
 
+	Status = XSecure_AesUpdateAad(&Secure_Aes, (u64)Aad, XSECURE_AAD_SIZE);
+	if (Status != XST_SUCCESS) {
+		xil_printf(" Aes update aad failed %x\n\r", Status);
+		goto END;
+	}
+
 	Status = XSecure_AesEncryptUpdate(&Secure_Aes, (u64)Data,(u64)EncData,
 						XSECURE_DATA_SIZE, TRUE);
 	if (Status != XST_SUCCESS) {
@@ -239,15 +261,27 @@ static s32 SecureAesExample(void)
 		xil_printf("Error in decrypt init ");
 		goto END;
 	}
+
+	Status = XSecure_AesUpdateAad(&Secure_Aes, (u64)Aad, XSECURE_AAD_SIZE);
+	if (Status != XST_SUCCESS) {
+		xil_printf(" Aes update aad failed %x\n\r", Status);
+		goto END;
+	}
+
 	Status = XSecure_AesDecryptUpdate(&Secure_Aes, (u64)EncData, (u64)DecData,
 						 XSECURE_DATA_SIZE, TRUE);
+	if (Status != XST_SUCCESS) {
+		xil_printf(" Aes update  failed %x\n\r", Status);
+		goto END;
+	}
+
 	Status = XSecure_AesDecryptFinal(&Secure_Aes, (u64)GcmTag);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Decryption failure- GCM tag was not matched\n\r");
 		goto END;
 	}
 
-	xil_printf("Decrypted data %x \n\r", DecData);
+	xil_printf("Decrypted data \n\r");
 	for (Index = 0; Index < XSECURE_DATA_SIZE; Index++) {
 		xil_printf("%02x", DecData[Index]);
 	}
