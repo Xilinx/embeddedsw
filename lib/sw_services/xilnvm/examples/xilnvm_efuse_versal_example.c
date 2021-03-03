@@ -35,6 +35,8 @@
  * 2.2	 kal   01/07/2021 Added support to SecurityMisc1, BootEnvCtrl,MiscCtrl
  *			  and remaining eFuses in SecCtrl eFuse rows programming
  *			  and reading
+ *	 kal   02/20/2021 Added Environmental Monitor Disable interface support
+ *
  * </pre>
  *
  ******************************************************************************/
@@ -56,6 +58,11 @@
 #define XNVM_EFUSE_VOLT_SOC_LIMIT			(1U)
 
 /**************************** Type Definitions *******************************/
+
+/**************************** Variable Definitions ***************************/
+
+static XSysMonPsv SysMonInst;      /* System Monitor driver instance */
+static XSysMonPsv_Config *ConfigPtr = NULL;
 
 /************************** Function Prototypes ******************************/
 static int XilNvm_EfuseWriteFuses(void);
@@ -138,6 +145,7 @@ END:
  * filled with the data to be written to eFuse.
  *
  * typedef struct {
+ * 	u8 EnvMonitorDis;
  *	XNvm_EfuseAesKeys *AesKeys;
  *	XNvm_EfusePpkHash *PpkHash;
  *	XNvm_EfuseDecOnly *DecOnly;
@@ -162,7 +170,7 @@ static int XilNvm_EfuseWriteFuses(void)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfuseIvs Ivs = {0U};
-	XNvm_EfuseData WriteEfuse = {NULL};
+	XNvm_EfuseData WriteEfuse = {0U};
 	XNvm_EfuseGlitchCfgBits GlitchData = {0U};
 	XNvm_EfuseAesKeys AesKeys = {0U};
 	XNvm_EfusePpkHash PpkHash = {0U};
@@ -235,6 +243,24 @@ static int XilNvm_EfuseWriteFuses(void)
 	Status = XilNvm_EfuseInitUserFuses(&WriteEfuse, &UserFuses);
 	if(Status != XST_SUCCESS) {
 		goto END;
+	}
+
+	WriteEfuse.EnvMonitorDis = XNVM_EFUSE_ENV_MONITOR_DISABLE;
+	if (WriteEfuse.EnvMonitorDis == TRUE) {
+		WriteEfuse.SysMonInstPtr = NULL;
+	}
+	else {
+		WriteEfuse.SysMonInstPtr = &SysMonInst;
+		ConfigPtr = XSysMonPsv_LookupConfig();
+		if (ConfigPtr == NULL) {
+			goto END;
+		}
+
+		Status = XSysMonPsv_CfgInitialize(WriteEfuse.SysMonInstPtr,
+							ConfigPtr);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	}
 
 	Status = XNvm_EfuseWrite(&WriteEfuse);
