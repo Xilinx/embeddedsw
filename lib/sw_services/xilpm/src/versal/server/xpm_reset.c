@@ -764,8 +764,10 @@ XStatus XPmReset_AddPermission(XPm_ResetNode *Rst,
 		goto done;
 	}
 
-	Rst->AllowedSubsystems |= (1U & (Operations >> RESET_PERM_SHIFT_NS)) << SUBSYS_TO_NS_BITPOS(Subsystem->Id);
-	Rst->AllowedSubsystems |= (1U & (Operations >> RESET_PERM_SHIFT_S)) << SUBSYS_TO_S_BITPOS(Subsystem->Id);
+	Rst->AllowedSubsystems |=  PERM_BITMASK(Operations, RESET_PERM_SHIFT_NS,
+						SUBSYS_TO_NS_BITPOS(Subsystem->Id));
+	Rst->AllowedSubsystems |=  PERM_BITMASK(Operations, RESET_PERM_SHIFT_S,
+						SUBSYS_TO_S_BITPOS(Subsystem->Id));
 
 	Status = XST_SUCCESS;
 

@@ -41,13 +41,25 @@ XStatus XPmSubsystem_AddPermission(const XPm_Subsystem *Host,
 	 * For each operation update permission for secure and non secure
 	 * requests.
 	 */
-	Target->Perms.WakeupPerms	|= (1U & (Operations >> SUB_PERM_WAKE_SHIFT_NS))	<< SUBSYS_TO_NS_BITPOS(Host->Id);
-	Target->Perms.PowerdownPerms	|= (1U & (Operations >> SUB_PERM_PWRDWN_SHIFT_NS))	<< SUBSYS_TO_NS_BITPOS(Host->Id);
-	Target->Perms.SuspendPerms	|= (1U & (Operations >> SUB_PERM_SUSPEND_SHIFT_NS))	<< SUBSYS_TO_NS_BITPOS(Host->Id);
+	Target->Perms.WakeupPerms	|= PERM_BITMASK(Operations,
+							SUB_PERM_WAKE_SHIFT_NS,
+							SUBSYS_TO_NS_BITPOS(Host->Id));
+	Target->Perms.PowerdownPerms	|= PERM_BITMASK(Operations,
+							SUB_PERM_PWRDWN_SHIFT_NS,
+							SUBSYS_TO_NS_BITPOS(Host->Id));
+	Target->Perms.SuspendPerms	|= PERM_BITMASK(Operations,
+							SUB_PERM_SUSPEND_SHIFT_NS,
+							SUBSYS_TO_NS_BITPOS(Host->Id));
 
-	Target->Perms.WakeupPerms	|= (1U & (Operations >> SUB_PERM_WAKE_SHIFT_S))		<< SUBSYS_TO_S_BITPOS(Host->Id);
-	Target->Perms.PowerdownPerms	|= (1U & (Operations >> SUB_PERM_PWRDWN_SHIFT_S))	<< SUBSYS_TO_S_BITPOS(Host->Id);
-	Target->Perms.SuspendPerms	|= (1U & (Operations >> SUB_PERM_SUSPEND_SHIFT_S))	<< SUBSYS_TO_S_BITPOS(Host->Id);
+	Target->Perms.WakeupPerms	|= PERM_BITMASK(Operations,
+							SUB_PERM_WAKE_SHIFT_NS,
+							SUBSYS_TO_S_BITPOS(Host->Id));
+	Target->Perms.PowerdownPerms	|= PERM_BITMASK(Operations,
+							SUB_PERM_PWRDWN_SHIFT_NS,
+							SUBSYS_TO_S_BITPOS(Host->Id));
+	Target->Perms.SuspendPerms	|= PERM_BITMASK(Operations,
+							SUB_PERM_SUSPEND_SHIFT_NS,
+							SUBSYS_TO_S_BITPOS(Host->Id));
 
 	Status = XST_SUCCESS;
 
