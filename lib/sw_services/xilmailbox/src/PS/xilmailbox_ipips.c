@@ -20,6 +20,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   adk  14/02/19    Initial Release
  * 1.1   sd   16/08/19    Initialise status variable
+ * 1.3   sd   03/03/21    Doxygen Fixes
  *</pre>
  *
  *@note
@@ -233,6 +234,19 @@ static u32 XIpiPs_RecvData(XMailbox *InstancePtr, void *MsgBufferPtr,
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * This function registers an irq
+ *
+ * @param IntcInstancePtr Pointer to the scugic instance
+ * @param InstancePtr Pointer to the XMailbox instance
+ * @param IpiIntrId is the interrupt id of the IPI
+ *
+ * @return
+ *	- XST_SUCCESS if successful
+ *	- XST_FAILURE if unsuccessful
+ *
+ ****************************************************************************/
 static XStatus XIpiPs_RegisterIrq(XScuGic *IntcInstancePtr,
 				  XMailbox *InstancePtr,
 				  u32 IpiIntrId) {
@@ -285,6 +299,15 @@ static XStatus XIpiPs_RegisterIrq(XScuGic *IntcInstancePtr,
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * This function implements the interrupt handler
+ *
+ * @param XMailboxPtr Pointer to the XMailbox instance
+ *
+ * @return	None
+ *
+ ****************************************************************************/
 static void XIpiPs_IntrHandler(void *XMailboxPtr)
 {
 	XMailbox *InstancePtr = (XMailbox *)((void *)XMailboxPtr);
@@ -299,6 +322,15 @@ static void XIpiPs_IntrHandler(void *XMailboxPtr)
 	}
 }
 
+/*****************************************************************************/
+/**
+ * This function implements the interrupt handler for errors
+ *
+ * @param XMailboxPtr Pointer to the XMailbox instance
+ *
+ * @return	None
+ *
+ ****************************************************************************/
 static void XIpiPs_ErrorIntrHandler(void *XMailboxPtr)
 {
 	XMailbox *InstancePtr = (XMailbox *)((void *)XMailboxPtr);
