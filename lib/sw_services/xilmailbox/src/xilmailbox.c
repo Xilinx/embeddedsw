@@ -21,6 +21,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   adk  14/02/19    Initial Release
  * 1.1   sd   16/08/19    Initialise status variable
+ * 1.3   sd   03/03/21    Doxygen Fixes
  *</pre>
  *
  *@note
@@ -145,8 +146,8 @@ u32 XMailbox_Recv(XMailbox *InstancePtr, u32 SourceId, void *BufferPtr,
 *
 * @param	InstancePtr is a pointer to the XMailbox instance.
 * @param	HandlerType specifies which callback is to be attached.
-* @param	CallBackFunc is the address of the callback function.
-* @param	CallBackRef is a user data item that will be passed to the
+* @param	CallBackFuncPtr is the address of the callback function.
+* @param	CallBackRefPtr is a user data item that will be passed to the
 * 		callback function when it is invoked.
 *
 * @return

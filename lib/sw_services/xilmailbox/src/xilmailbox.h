@@ -41,6 +41,7 @@
  * 1.0   adk  14/02/19    Initial Release
  *       adk  06/03/19    In the mld file updated supported peripheral option
  *			  with A72 and PMC.
+ * 1.3   sd   03/03/21    Doxygen Fixes
  *</pre>
  *
  *@note
@@ -61,36 +62,29 @@ extern "C" {
 #include "xilmailbox_ipips.h"
 
 /************************** Constant Definitions *****************************/
-#define XILMBOX_MSG_TYPE_REQ	(0x00000001U)
-#define XILMBOX_MSG_TYPE_RESP	(0x00000002U)
-#define XMAILBOX_MAX_MSG_LEN	8U
+#define XILMBOX_MSG_TYPE_REQ	(0x00000001U) /**< Message type buffer */
+#define XILMBOX_MSG_TYPE_RESP	(0x00000002U) /**< Response type buffer */
+#define XMAILBOX_MAX_MSG_LEN	8U     /**< Maximum message length */
 
 /**************************** Type Definitions *******************************/
-typedef void (*XMailbox_RecvHandler) (void *CallBackRefPtr);
-typedef void (*XMailbox_ErrorHandler) (void *CallBackRefPtr, u32 ErrorMask);
+typedef void (*XMailbox_RecvHandler) (void *CallBackRefPtr); /**< Receive handler */
+typedef void (*XMailbox_ErrorHandler) (void *CallBackRefPtr, u32 ErrorMask); /**< Error handler */
 
 /**
- * @XMbox_IPI_Send:	    Triggers an IPI to a destination CPU
- * @XMbox_IPI_SendData:     Sends an IPI message to a destination CPU
- * @XMbox_IPI_Recv:         Reads an IPI message
- * @RecvHandler:            Callback for rx IPI event
- * @ErrorHandler:           Callback for error event
- * @ErroRef:                To be passed to the error interrupt callback
- * @RecvRef:                To be passed to the receive interrupt callback.
- * @Agent:                  Used to store IPI Channel information.
+ * Data structure used to refer XilMailbox
  */
 typedef struct XMboxTag {
-	u32 (*XMbox_IPI_Send)(struct XMboxTag *InstancePtr, u8 Is_Blocking);
+	u32 (*XMbox_IPI_Send)(struct XMboxTag *InstancePtr, u8 Is_Blocking); /**< Triggers an IPI to a destination CPU */
 	u32 (*XMbox_IPI_SendData)(struct XMboxTag *InstancePtr, void *BufferPtr,
-				  u32 MsgLen, u8 BufferType, u8 Is_Blocking);
+				  u32 MsgLen, u8 BufferType, u8 Is_Blocking); /**< Sends an IPI message to a destination CPU */
 	u32 (*XMbox_IPI_Recv)(struct XMboxTag *InstancePtr, void *BufferPtr,
-			      u32 MsgLen, u8 BufferType);
-	XMailbox_RecvHandler RecvHandler;
-	XMailbox_ErrorHandler ErrorHandler;
-	void *ErrorRefPtr;
-	void *RecvRefPtr;
-	XMailbox_Agent Agent;
-} XMailbox;
+			      u32 MsgLen, u8 BufferType); /**< Reads an IPI message */
+	XMailbox_RecvHandler RecvHandler;   /**< Recieve handler */
+	XMailbox_ErrorHandler ErrorHandler; /**< Callback for rx IPI event */
+	void *ErrorRefPtr; /**<  To be passed to the error interrupt callback */
+	void *RecvRefPtr;  /**< To be passed to the receive interrupt callback */
+	XMailbox_Agent Agent; /**< Agent to store IPI channel information */
+} XMailbox; /**< XilMailbox structure */
 
 /**
  * This typedef contains XMAILBOX Handler Types.
