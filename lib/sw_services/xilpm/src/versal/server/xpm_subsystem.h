@@ -45,6 +45,8 @@ extern "C" {
 #define SUB_PERM_PWRDWN_SHIFT_S			(1U + MAX_NUM_SUBSYSTEMS)
 #define SUB_PERM_SUSPEND_SHIFT_S		(2U + MAX_NUM_SUBSYSTEMS)
 
+#define PERM_BITMASK(Op, OpShift, SubShift)	((1U & (Op >> OpShift))	<< SubShift)
+
 /**
  * Subsystem creation states.
  */
