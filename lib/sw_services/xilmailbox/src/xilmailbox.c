@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
  *
  * @file xilmailbox.c
- * @addtogroup xilmailbox_v1_1
+ * @addtogroup xilmailbox_v1_3
  * @{
  * @details
  *
