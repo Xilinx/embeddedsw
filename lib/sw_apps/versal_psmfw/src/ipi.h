@@ -36,6 +36,7 @@ extern "C" {
 #define IPI_BASEADDR      ((u32)0XFF300000U)
 
 #define IPI_PSM_ISR    ( ( IPI_BASEADDR ) + ((u32)0x00010010U) )
+#define IPI_PSM_ISR_PMC_MASK	((u32)0x00000002U)
 
 #ifdef __cplusplus
 }
