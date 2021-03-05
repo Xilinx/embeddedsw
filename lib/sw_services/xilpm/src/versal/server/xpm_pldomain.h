@@ -7,7 +7,9 @@
 #ifndef XPM_PLDOMAIN_H_
 #define XPM_PLDOMAIN_H_
 
+#include "xpm_bisr.h"
 #include "xpm_powerdomain.h"
+#include "xpm_regs.h"
 #include "xcframe.h"
 #include "xcfupmc.h"
 
@@ -30,6 +32,26 @@ typedef struct XPm_PlDomain {
 #define XPM_PL_TRIM_CRAM         (0x2U)
 #define XPM_PL_TRIM_BRAM         (0x3U)
 #define XPM_PL_TRIM_URAM         (0x4U)
+
+/*****************************************************************************/
+/**
+ * @brief This function unlocks the GTY PCSR registers.
+ *
+ *****************************************************************************/
+static inline void XPmPlDomain_UnlockGtyPcsr(u32 BaseAddr)
+{
+	PmOut32(BaseAddr + GTY_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
+}
+
+/*****************************************************************************/
+/**
+ * @brief This function locks the GTY PCSR registers.
+ *
+ *****************************************************************************/
+static inline void XPmPlDomain_LockGtyPcsr(u32 BaseAddr)
+{
+	PmOut32(BaseAddr + GTY_PCSR_LOCK_OFFSET, PCSR_LOCK_VAL);
+}
 
 /************************** Function Prototypes ******************************/
 XStatus XPmPlDomain_InitandHouseclean(void);

@@ -78,7 +78,6 @@
 #define DDRMC_NPI_CACHE_DATA_REGISTER_OFFSET		(0x258U)
 #define DDRMC_NPI_PCSR_CONTROL_REGISTER_OFFSET		(0x004U)
 #define DDRMC_NPI_PCSR_MASK_REGISTER_OFFSET		(0x000U)
-#define DDRMC_NPI_PCSR_LOCK_REGISTER_OFFSET		(0x00CU)
 #define DDRMC_NPI_PCSR_BISR_TRIGGER_MASK		(0x02000000U)
 #define DDRMC_NPI_CACHE_STATUS_BISR_DONE_MASK		(0x00000001U)
 #define DDRMC_NPI_CACHE_STATUS_BISR_PASS_MASK		(0x00000002U)
@@ -311,7 +310,7 @@ static XStatus XPmBisr_RepairGty(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional,
 	*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
 
 	/* Unlock PCSR */
-	PmOut32(BaseAddr + GTY_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
+	XPmPlDomain_UnlockGtyPcsr(BaseAddr);
 
 	/* Trigger Bisr */
 	PmOut32(BaseAddr + GTY_PCSR_MASK_OFFSET, GTY_PCSR_BISR_TRIGGER_MASK);
@@ -321,22 +320,24 @@ static XStatus XPmBisr_RepairGty(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional,
 	Status = XPm_PollForMask(BaseAddr + GTY_PCSR_STATUS_OFFSET, GTY_PCSR_STATUS_BISR_DONE_MASK, XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_BISR_DONE_TIMEOUT;
-		goto done;
+		goto fail;
 	}
 
 	PmIn32(BaseAddr + GTY_PCSR_STATUS_OFFSET, RegValue);
 	if ((RegValue & GTY_PCSR_STATUS_BISR_PASS_MASK) != GTY_PCSR_STATUS_BISR_PASS_MASK) {
 		DbgErr = XPM_INT_ERR_BISR_PASS;
 		Status = XST_FAILURE;
-		goto done;
+		goto fail;
 	}
 
 	/* Unwrite Trigger Bit */
 	PmOut32(BaseAddr + GTY_PCSR_MASK_OFFSET, GTY_PCSR_BISR_TRIGGER_MASK);
 	PmOut32(BaseAddr + GTY_PCSR_CONTROL_OFFSET, 0);
 
+fail:
 	/* Lock PCSR */
-	PmOut32(BaseAddr + GTY_PCSR_LOCK_OFFSET, 1);
+	XPmPlDomain_LockGtyPcsr(BaseAddr);
+
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -638,7 +639,7 @@ static XStatus XPmBisr_RepairDdrMc(u32 EfuseTagAddr, u32 TagSize, u32 TagOptiona
 	}
 
 	/* Unlock PCSR */
-	PmOut32(BaseAddr + DDRMC_NPI_PCSR_LOCK_REGISTER_OFFSET, PCSR_UNLOCK_VAL);
+	XPmNpDomain_UnlockNpiPcsr(BaseAddr);
 
 	/* Enable Bisr clock */
 	PmRmw32(BaseAddr + DDRMC_NPI_CLK_GATE_REGISTER_OFFSET, DDRMC_NPI_CLK_GATE_BISREN_MASK, DDRMC_NPI_CLK_GATE_BISREN_MASK);
@@ -653,14 +654,14 @@ static XStatus XPmBisr_RepairDdrMc(u32 EfuseTagAddr, u32 TagSize, u32 TagOptiona
 				 XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_BISR_DONE_TIMEOUT;
-		goto done;
+		goto fail;
 	}
 
 	PmIn32(BaseAddr + DDRMC_NPI_CACHE_STATUS_REGISTER_OFFSET, RegValue);
 	if ((RegValue & DDRMC_NPI_CACHE_STATUS_BISR_PASS_MASK) != DDRMC_NPI_CACHE_STATUS_BISR_PASS_MASK) {
 		DbgErr = XPM_INT_ERR_BISR_PASS;
 		Status = XST_FAILURE;
-		goto done;
+		goto fail;
 	}
 
 	/* Disable Bisr Clock */
@@ -670,8 +671,9 @@ static XStatus XPmBisr_RepairDdrMc(u32 EfuseTagAddr, u32 TagSize, u32 TagOptiona
 	PmOut32(BaseAddr + DDRMC_NPI_PCSR_MASK_REGISTER_OFFSET, DDRMC_NPI_PCSR_BISR_TRIGGER_MASK);
 	PmOut32(BaseAddr + DDRMC_NPI_PCSR_CONTROL_REGISTER_OFFSET, 0);
 
+fail:
 	/* Lock PCSR */
-	PmOut32(BaseAddr + DDRMC_NPI_PCSR_LOCK_REGISTER_OFFSET, 1);
+	XPmNpDomain_LockNpiPcsr(BaseAddr);
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
@@ -1017,7 +1019,7 @@ static XStatus XPmBisr_RepairXram(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAdd
 	BisrDataDestAddr = BaseAddr + (u64)XRAM_SLCR_BISR_CACHE_DATA_0_OFFSET;
 
 	/* Write unlock code to PCSR_LOCK register */
-	PmOut32(BaseAddr + XRAM_SLCR_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
+	XPmPsLpDomain_UnlockPcsr(BaseAddr);
 
 	/* Clear the BISR Test Data */
 	PmOut32(BaseAddr + XRAM_SLCR_PCSR_MASK_OFFSET,
@@ -1059,12 +1061,12 @@ static XStatus XPmBisr_RepairXram(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAdd
 	PmOut32(BaseAddr + XRAM_SLCR_PCSR_PCR_OFFSET, 0x0);
 	PmOut32(BaseAddr + XRAM_SLCR_PCSR_MASK_OFFSET, 0x0);
 
-	/* Write unlock code to PCSR_LOCK register */
-	PmOut32(BaseAddr + XRAM_SLCR_PCSR_LOCK_OFFSET, 0x0);
-
 	Status = XST_SUCCESS;
 
 done:
+	/* Write lock code to PCSR_LOCK register */
+	XPmPsLpDomain_LockPcsr(BaseAddr);
+
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
