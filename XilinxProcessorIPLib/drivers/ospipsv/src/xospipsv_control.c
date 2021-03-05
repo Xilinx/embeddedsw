@@ -21,6 +21,7 @@
 * 1.2   sk  02/20/20 First release
 * 1.3   sk   04/09/20 Added support for 64-bit address read from 32-bit proc.
 * 1.4   sk   02/18/21 Added support for Dual byte opcode.
+*       sk   02/18/21 Updated RX Tuning algorithm for Master DLL mode.
 *
 * </pre>
 *
@@ -318,6 +319,7 @@ u32 XOspiPsv_ExecuteRxTuning(XOspiPsv *InstancePtr, XOspiPsv_Msg *FlashMsg,
 	u8 Dummy_Flag = 0;
 	u8 Count;
 	u8 Dummy = FlashMsg->Dummy;
+	u8 MaxIndex = 0, MinIndex = 0;
 
 	MaxTap = (u8)((u32)(TERA_MACRO/InstancePtr->Config.InputClockHz) / (u32)160);
 	if (InstancePtr->DllMode == XOSPIPSV_DLL_MASTER_MODE) {
@@ -354,11 +356,27 @@ u32 XOspiPsv_ExecuteRxTuning(XOspiPsv *InstancePtr, XOspiPsv_Msg *FlashMsg,
 			} while((InstancePtr->DeviceIdData == *DeviceIdInfo) && (Count <= (u8)10U));
 			if (InstancePtr->DeviceIdData == *DeviceIdInfo) {
 				if (RXTapFound == 0U) {
-					RXMin_Tap = Index;
-					RXMax_Tap = Index;
+					if (InstancePtr->DllMode == XOSPIPSV_DLL_MASTER_MODE) {
+						RXMin_Tap = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+							XOSPIPSV_DLL_OBSERVABLE_UPPER_REG) &
+							XOSPIPSV_DLL_OBSERVABLE_UPPER_RX_DECODER_OUTPUT_FLD_MASK;
+						RXMax_Tap = RXMin_Tap;
+						MaxIndex = Index;
+						MinIndex = Index;
+					} else {
+						RXMin_Tap = Index;
+						RXMax_Tap = Index;
+					}
 					RXTapFound = 1;
 				} else {
-					RXMax_Tap = Index;
+					if (InstancePtr->DllMode == XOSPIPSV_DLL_MASTER_MODE) {
+						RXMax_Tap = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+							XOSPIPSV_DLL_OBSERVABLE_UPPER_REG) &
+							XOSPIPSV_DLL_OBSERVABLE_UPPER_RX_DECODER_OUTPUT_FLD_MASK;
+						MaxIndex = Index;
+					} else {
+						RXMax_Tap = Index;
+					}
 				}
 			}
 			if ((InstancePtr->DeviceIdData != *DeviceIdInfo) || (Index == MaxTap)) {
@@ -367,10 +385,16 @@ u32 XOspiPsv_ExecuteRxTuning(XOspiPsv *InstancePtr, XOspiPsv_Msg *FlashMsg,
 					if (WindowSize > Max_WindowSize) {
 						Dummy_Flag = Dummy_Incr;
 						Max_WindowSize = WindowSize;
-						Avg_RXTap = (RXMin_Tap + RXMax_Tap) / 2U;
+						if (InstancePtr->DllMode == XOSPIPSV_DLL_MASTER_MODE) {
+							Avg_RXTap = (MaxIndex + MinIndex) / 2U;
+						} else {
+							Avg_RXTap = (RXMin_Tap + RXMax_Tap) / 2U;
+						}
 					}
 					RXTapFound = 0U;
-					break;
+					if (WindowSize >= 3U) {
+						break;
+					}
 				}
 			}
 		}
