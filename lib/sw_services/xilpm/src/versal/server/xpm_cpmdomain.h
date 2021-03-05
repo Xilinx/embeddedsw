@@ -7,7 +7,9 @@
 #ifndef XPM_CPMDOMAIN_H_
 #define XPM_CPMDOMAIN_H_
 
+#include "xpm_bisr.h"
 #include "xpm_powerdomain.h"
+#include "xpm_regs.h"
 #include "xpm_defs.h"
 
 #ifdef __cplusplus
@@ -25,13 +27,30 @@ typedef struct XPm_CpmDomain {
 	u32 CpmCrCpmBaseAddr; /**< CPM CRCPM Base address */
 } XPm_CpmDomain;
 
+/*****************************************************************************/
+/**
+ * @brief This function unlocks the CPM PCSR registers.
+ *
+ *****************************************************************************/
+static inline void XPmCpmDomain_UnlockPcsr(u32 BaseAddress)
+{
+	PmOut32(BaseAddress + CPM_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
+}
+
+/*****************************************************************************/
+/**
+ * @brief This function locks the CPM PCSR registers.
+ *
+ *****************************************************************************/
+static inline void XPmCpmDomain_LockPcsr(u32 BaseAddress)
+{
+	PmOut32(BaseAddress + CPM_PCSR_LOCK_OFFSET, PCSR_LOCK_VAL);
+}
+
 /************************** Function Prototypes ******************************/
 XStatus XPmCpmDomain_Init(XPm_CpmDomain *CpmDomain, u32 Id, u32 BaseAddress,
 			  XPm_Power *Parent, u32 *OtherBaseAddresses,
 			  u32 OtherBaseAddressesCnt);
-void XPmCpmDomain_UnlockPcsr(u32 BaseAddress);
-void XPmCpmDomain_LockPcsr(u32 BaseAddress);
-
 #ifdef __cplusplus
 }
 #endif
