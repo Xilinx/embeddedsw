@@ -51,6 +51,24 @@ xilplmi_v1_3:
 Added provision to check for any NPI errors after loading every partition
 All DMA writes have been made to align with 16 bytes on Destination address
 and number of bytes transferred
+While updating shared data, disable interrupts
+Updated macros as per the newly generated ones from generic driver
+
+xilloader_v1_3:
+In case of error in PL loading, CFU/CFI recovery is performed before
+re-triggering PL House cleaning
+Added check to verify revoke id before enabling Auth JTAG
+Added check to validate keysrc for partitions when dec only is set and error
+is thrown in case of wrong keysrc selection
+Fixed logical error in partition next chunk copy in encryption cases for SMAP
+boot mode
+
+xilsecure_v4_4:
+Removed tamper interrupt clear statement which was wrongly placed before
+checking the status of interrupt
+
+xilnvm_v2_2:
+Fixed logical error in eFUSE cache read functionality
 
 standalone_v7_4:
 Updated standalone tcl to support CIPS 3.0
@@ -58,6 +76,8 @@ Updated standalone tcl to support CIPS 3.0
 freertos10_xilinx_v1_8:
 Updated tcl to support CIPS 3.0
 
+versal_plm:
+Removed redundant function call to enable GIC SBI interrupt while loading PDI
 
 Changes for 2020.2
 ===============================
