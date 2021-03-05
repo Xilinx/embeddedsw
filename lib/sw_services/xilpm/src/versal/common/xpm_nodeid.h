@@ -555,6 +555,20 @@
 /** @} */
 
 /**
+ * @addtogroup xilpmdvcnodes
+ * @{
+ */
+#define PM_DEV_GGS_0				(0x18248000U)
+#define PM_DEV_GGS_1				(0x18248001U)
+#define PM_DEV_GGS_2				(0x18248002U)
+#define PM_DEV_GGS_3				(0x18248003U)
+#define PM_DEV_PGGS_0				(0x1824c004U)
+#define PM_DEV_PGGS_1				(0x1824c005U)
+#define PM_DEV_PGGS_2				(0x1824c006U)
+#define PM_DEV_PGGS_3				(0x1824c007U)
+/** @} */
+
+/**
  * @defgroup xilpmsubsysnodes Subsystem Nodes
  * @ingroup xilpmnodeids
  * @{
