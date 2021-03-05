@@ -163,7 +163,7 @@ XStatus XPmPowerDomain_ApplyAmsTrim(u32 DestAddress, u32 PowerDomainId, u32 Sate
 	EfuseCacheBaseAddress = EfuseCache->Node.BaseAddress;
 
 	/* Unlock writes */
-	PmOut32(DestAddress + NPI_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
+	XPmNpDomain_UnlockNpiPcsr(DestAddress);
 
 	if (0U == CacheRead) {
 		/* Read EFUSE_CACHE.TSENS_INT_OFFSET_5_0*/
@@ -272,15 +272,16 @@ XStatus XPmPowerDomain_ApplyAmsTrim(u32 DestAddress, u32 PowerDomainId, u32 Sate
 		break;
 	}
 	if (XST_SUCCESS != Status) {
-		goto done;
+		goto fail;
 	}
 
 	if (0U != DeltaVal) {
 		PmRmw32(DestAddress + EFUSE_CONFIG0_OFFSET,  EFUSE_CONFIG0_DELTA_MASK, (DeltaVal << EFUSE_CONFIG0_DELTA_SHIFT));
 	}
 
+fail:
 	/* Lock writes */
-	PmOut32(DestAddress + NPI_PCSR_LOCK_OFFSET, 1);
+	XPmNpDomain_LockNpiPcsr(DestAddress);
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
