@@ -40,6 +40,7 @@
 *       sk  08/19/20 Reduced the usleep delay while checking transfer done.
 *       sk   10/06/20 Clear the ISR for polled mode transfers.
 * 1.4   sk   02/18/21 Added support for Dual byte opcode.
+*       sk   02/18/21 Updated RX Tuning algorithm for Master DLL mode.
 *
 * </pre>
 *
@@ -230,8 +231,8 @@ extern XOspiPsv_Config XOspiPsv_ConfigTable[];
 #define XOSPIPSV_REMAP_ADDR_VAL		0x40000000U
 #define XOSPIPSV_SDR_TX_VAL			0x5U
 #define XOSPIPSV_DDR_TX_VAL			0x0U
-#define XOSPIPSV_DDR_TX_VAL_MASTER		0x19U
-#define XOSPIPSV_SDR_TX_VAL_MASTER		0x39U
+#define XOSPIPSV_DDR_TX_VAL_MASTER		0x1EU
+#define XOSPIPSV_SDR_TX_VAL_MASTER		0x3CU
 
 #define XOSPIPSV_HWPIN_RESET	0x0U
 #define XOSPIPSV_INBAND_RESET	0x1U
