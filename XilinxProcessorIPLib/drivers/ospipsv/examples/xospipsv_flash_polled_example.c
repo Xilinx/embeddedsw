@@ -35,6 +35,7 @@
 * 1.1   sk  07/23/19 Based on RX Tuning, updated the dummy cycles.
 *       sk  08/08/19 Issue device reset to bring back to default state.
 * 1.3   sk  05/27/20 Added Stacked mode support.
+* 1.4   sk  02/18/21 Added support for Macronix flash and DualByte commands.
 *
 *</pre>
 *
@@ -141,6 +142,7 @@ u8 WriteBuffer[(PAGE_COUNT * MAX_PAGE_SIZE)] __attribute__ ((aligned(4)));
 #endif
 
 u8 CmdBfr[8];
+u8 FSRFlag;
 
 /*
  * The following constants specify the max amount of data and the size of the
@@ -360,6 +362,11 @@ u32 XOspiPsv_Get_Proto(XOspiPsv *OspiPsvInstancePtr, int Read)
 {
 	u32 Val;
 
+	if (FlashMake == MACRONIX_OCTAL_ID_BYTE0) {
+		Val = XOSPIPSV_READ_1_1_1;
+		return Val;
+	}
+
 	if(Read) {
 		Val = XOSPIPSV_READ_1_8_8;
 	} else {
@@ -407,6 +414,10 @@ int FlashReadID(XOspiPsv *OspiPsvPtr)
 		FlashMsg.Dummy += 8;
 		FlashMsg.Proto = XOSPIPSV_READ_8_0_8;
 	}
+
+	if (OspiPsvPtr->DualByteOpcodeEn != 0U)
+		FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
+
 	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -423,6 +434,11 @@ int FlashReadID(XOspiPsv *OspiPsvPtr)
 	ReadId = ((ReadBfrPtr[0] << 16) | (ReadBfrPtr[1] << 8) | ReadBfrPtr[2]);
 
 	FlashMake = ReadBfrPtr[0];
+
+	if (FlashMake == MACRONIX_OCTAL_ID_BYTE0)
+		FSRFlag = 0;
+	else
+		FSRFlag = 1;
 
 	Status = CalculateFCTIndex(ReadId, &FCTIndex);
 	if (Status != XST_SUCCESS) {
@@ -469,6 +485,9 @@ int FlashLinearWrite(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 		FlashMsg.Proto = XOSPIPSV_WRITE_8_0_0;
 	}
 
+	if (OspiPsvPtr->DualByteOpcodeEn != 0U)
+		FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
+
 	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
@@ -487,6 +506,9 @@ int FlashLinearWrite(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 		FlashMsg.Proto = XOSPIPSV_WRITE_8_8_8;
 	}
 	FlashMsg.IsDDROpCode = 0;
+	if (OspiPsvPtr->DualByteOpcodeEn != 0U)
+		FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
+
 	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
@@ -546,6 +568,9 @@ int FlashIoWrite(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 			FlashMsg.Proto = XOSPIPSV_WRITE_8_0_0;
 		}
 
+		if (OspiPsvPtr->DualByteOpcodeEn != 0U)
+			FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
+
 		Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 		if (Status != XST_SUCCESS)
 			return XST_FAILURE;
@@ -572,6 +597,10 @@ int FlashIoWrite(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 		if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
 			FlashMsg.Proto = XOSPIPSV_WRITE_8_8_8;
 		}
+
+		if (OspiPsvPtr->DualByteOpcodeEn != 0U)
+			FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
+
 		Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 		if (Status != XST_SUCCESS)
 			return XST_FAILURE;
@@ -590,18 +619,29 @@ int FlashIoWrite(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 			FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
 			FlashMsg.IsDDROpCode = 0;
 			FlashMsg.Proto = 0;
+			FlashMsg.Addr = 0;
 			if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
 				FlashMsg.Proto = XOSPIPSV_READ_8_0_8;
 				FlashMsg.ByteCount = 2;
 				FlashMsg.Dummy += 8;
 			}
 
+			if (OspiPsvPtr->DualByteOpcodeEn != 0U)
+				FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
+
 			Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 			if (Status != XST_SUCCESS)
 				return XST_FAILURE;
 
-			if ((FlashStatus[0] & 0x80) != 0)
-				break;
+			if (FSRFlag) {
+				if ((FlashStatus[0] & 0x80) != 0) {
+					break;
+				}
+			} else {
+				if ((FlashStatus[0] & 0x01) == 0) {
+					break;
+				}
+			}
 		}
 }
 	return 0;
@@ -741,6 +781,9 @@ int FlashErase(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 			FlashMsg.Proto = XOSPIPSV_WRITE_8_0_0;
 		}
 
+		if (OspiPsvPtr->DualByteOpcodeEn != 0U)
+			FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
+
 		Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 		if (Status != XST_SUCCESS)
 			return XST_FAILURE;
@@ -759,6 +802,10 @@ int FlashErase(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 		if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
 			FlashMsg.Proto = XOSPIPSV_WRITE_8_8_0;
 		}
+
+		if (OspiPsvPtr->DualByteOpcodeEn != 0U)
+			FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
+
 		Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
@@ -774,19 +821,29 @@ int FlashErase(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 			FlashMsg.Dummy = OspiPsvPtr->Extra_DummyCycle;
 			FlashMsg.IsDDROpCode = 0;
 			FlashMsg.Proto = 0;
+			FlashMsg.Addr = 0;
 			if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
 				FlashMsg.Proto = XOSPIPSV_READ_8_0_8;
 				FlashMsg.ByteCount = 2;
 				FlashMsg.Dummy += 8;
 			}
 
+			if (OspiPsvPtr->DualByteOpcodeEn != 0U)
+				FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
+
 			Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 			if (Status != XST_SUCCESS) {
 				return XST_FAILURE;
 			}
 
-			if ((FlashStatus[0] & 0x80) != 0) {
-				break;
+			if (FSRFlag) {
+				if ((FlashStatus[0] & 0x80) != 0) {
+					break;
+				}
+			} else {
+				if ((FlashStatus[0] & 0x01) == 0) {
+					break;
+				}
 			}
 		}
 		Address += Flash_Config_Table[FCTIndex].SectSize;
@@ -820,8 +877,6 @@ int FlashRead(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 	u32 BytesToRead;
 	u32 ByteCnt = ByteCount;
 
-	xil_printf("ReadCmd 0x%x\r\n", Flash_Config_Table[FCTIndex].ReadCmd);
-
 	if ((Address < Flash_Config_Table[FCTIndex].FlashDeviceSize) &&
 		((Address + ByteCount) >= Flash_Config_Table[FCTIndex].FlashDeviceSize) &&
 		(OspiPsvPtr->Config.ConnectionMode == XOSPIPSV_CONNECTION_MODE_STACKED)) {
@@ -850,8 +905,16 @@ int FlashRead(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 		FlashMsg.IsDDROpCode = 0;
 		if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
 			FlashMsg.Proto = XOSPIPSV_READ_8_8_8;
-			FlashMsg.Dummy = 16 + OspiPsvPtr->Extra_DummyCycle;
+			if (FlashMake == MACRONIX_OCTAL_ID_BYTE0) {
+				FlashMsg.Dummy = 20 + OspiPsvPtr->Extra_DummyCycle;
+				FlashMsg.Opcode = (u8)(Flash_Config_Table[FCTIndex].ReadCmd >> 8);
+			}
 		}
+
+		xil_printf("ReadCmd 0x%x\r\n", FlashMsg.Opcode);
+
+		if (OspiPsvPtr->DualByteOpcodeEn != 0U)
+			FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
 
 		Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 		if (Status != XST_SUCCESS) {
@@ -906,6 +969,9 @@ int BulkErase(XOspiPsv *OspiPsvPtr, u8 *WriteBfrPtr)
 		FlashMsg.Proto = XOSPIPSV_WRITE_8_0_0;
 	}
 
+	if (OspiPsvPtr->DualByteOpcodeEn != 0U)
+		FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
+
 	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 	if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
@@ -930,6 +996,9 @@ int BulkErase(XOspiPsv *OspiPsvPtr, u8 *WriteBfrPtr)
 		FlashMsg.Proto = XOSPIPSV_WRITE_8_0_0;
 	}
 
+	if (OspiPsvPtr->DualByteOpcodeEn != 0U)
+		FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
+
 	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 	if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
@@ -951,12 +1020,22 @@ int BulkErase(XOspiPsv *OspiPsvPtr, u8 *WriteBfrPtr)
 			FlashMsg.Dummy += 8;
 		}
 
+		if (OspiPsvPtr->DualByteOpcodeEn != 0U)
+			FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
+
 		Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 		if (Status != XST_SUCCESS)
 			return XST_FAILURE;
 
-		if ((FlashStatus[0] & 0x80) != 0)
-			break;
+		if (FSRFlag) {
+			if ((FlashStatus[0] & 0x80) != 0) {
+				break;
+			}
+		} else {
+			if ((FlashStatus[0] & 0x01) == 0) {
+				break;
+			}
+		}
 	}
 	return XST_SUCCESS;
 }
@@ -1007,6 +1086,9 @@ int DieErase(XOspiPsv *OspiPsvPtr, u8 *WriteBfrPtr)
 			FlashMsg.Proto = XOSPIPSV_WRITE_8_0_0;
 		}
 
+		if (OspiPsvPtr->DualByteOpcodeEn != 0U)
+			FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
+
 		Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 		if (Status != XST_SUCCESS)
 			return XST_FAILURE;
@@ -1024,6 +1106,9 @@ int DieErase(XOspiPsv *OspiPsvPtr, u8 *WriteBfrPtr)
 		if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
 			FlashMsg.Proto = XOSPIPSV_WRITE_8_0_0;
 		}
+
+		if (OspiPsvPtr->DualByteOpcodeEn != 0U)
+			FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
 
 		Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 		if (Status != XST_SUCCESS)
@@ -1045,11 +1130,22 @@ int DieErase(XOspiPsv *OspiPsvPtr, u8 *WriteBfrPtr)
 				FlashMsg.Dummy += 8;
 			}
 
+			if (OspiPsvPtr->DualByteOpcodeEn != 0U)
+				FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
+
 			Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 			if (Status != XST_SUCCESS)
 				return XST_FAILURE;
-			if ((FlashStatus[0] & 0x80) != 0)
-				break;
+
+			if (FSRFlag) {
+				if ((FlashStatus[0] & 0x80) != 0) {
+					break;
+				}
+			} else {
+				if ((FlashStatus[0] & 0x01) == 0) {
+					break;
+				}
+			}
 		}
 	}
 	return 0;
@@ -1080,6 +1176,9 @@ int FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, int Enable)
 	u8 FlashStatus[2] __attribute__ ((aligned(4)));
 #endif
 
+	if (FlashMake == MACRONIX_OCTAL_ID_BYTE0)
+		return XST_SUCCESS;
+
 	if(Enable)
 		Command = ENTER_4B_ADDR_MODE;
 	else
@@ -1097,6 +1196,10 @@ int FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, int Enable)
 	if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
 		FlashMsg.Proto = XOSPIPSV_WRITE_8_0_0;
 	}
+
+	if (OspiPsvPtr->DualByteOpcodeEn != 0U)
+		FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
+
 	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -1115,6 +1218,9 @@ int FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, int Enable)
 	if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
 		FlashMsg.Proto = XOSPIPSV_WRITE_8_0_0;
 	}
+
+	if (OspiPsvPtr->DualByteOpcodeEn != 0U)
+		FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
 
 	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 	if (Status != XST_SUCCESS)
@@ -1137,12 +1243,22 @@ int FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, int Enable)
 			FlashMsg.Dummy += 8;
 		}
 
+		if (OspiPsvPtr->DualByteOpcodeEn != 0U)
+			FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
+
 		Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 		if (Status != XST_SUCCESS)
 			return XST_FAILURE;
 
-		if ((FlashStatus[0] & 0x80) != 0)
-			break;
+		if (FSRFlag) {
+			if ((FlashStatus[0] & 0x80) != 0) {
+				break;
+			}
+		} else {
+			if ((FlashStatus[0] & 0x01) == 0) {
+				break;
+			}
+		}
 	}
 
 	switch (FlashMake) {
@@ -1159,6 +1275,9 @@ int FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, int Enable)
 		if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
 			FlashMsg.Proto = XOSPIPSV_WRITE_8_0_0;
 		}
+
+		if (OspiPsvPtr->DualByteOpcodeEn != 0U)
+			FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
 
 		Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 		if (Status != XST_SUCCESS)
@@ -1188,6 +1307,10 @@ int FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, int Enable)
 int FlashSetSDRDDRMode(XOspiPsv *OspiPsvPtr, int Mode)
 {
 	int Status;
+	u8 Write_Reg_Opcode = WRITE_CONFIG_REG;
+	u8 Read_Reg_Opcode = READ_CONFIG_REG;
+	u8 AddrSize = 3;
+	u8 Dummy = 8;
 #ifdef __ICCARM__
 #pragma data_alignment = 4
 	u8 ConfigReg[2];
@@ -1198,12 +1321,39 @@ int FlashSetSDRDDRMode(XOspiPsv *OspiPsvPtr, int Mode)
 	u8 Data[2] __attribute__ ((aligned(4)));
 #endif
 
+	if (FlashMake == MACRONIX_OCTAL_ID_BYTE0) {
+		Write_Reg_Opcode = WRITE_CONFIG2_REG_MX;
+		Read_Reg_Opcode = READ_CONFIG2_REG_MX;
+		AddrSize = 4;
+		if (Mode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+			Dummy = 4;
+			OspiPsvPtr->DeviceIdData = 0;
+			OspiPsvPtr->DeviceIdData = ((ReadBfrPtr[0] << 8) | ReadBfrPtr[0]);
+			OspiPsvPtr->DeviceIdData |= ((ReadBfrPtr[1] << 24) | (ReadBfrPtr[1] << 16));
+		} else {
+			Dummy = 0;
+			OspiPsvPtr->DeviceIdData = 0;
+			OspiPsvPtr->DeviceIdData = ((ReadBfrPtr[3] << 24) | (ReadBfrPtr[2] << 16) |
+					(ReadBfrPtr[1] << 8) | ReadBfrPtr[0]);
+		}
+	}
+
 	if (Mode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
-		Data[0] = 0xE7;
-		Data[1] = 0xE7;
+		if (FlashMake == MACRONIX_OCTAL_ID_BYTE0) {
+			Data[0] = 0x2;
+			Data[1] = 0x2;
+		} else {
+			Data[0] = 0xE7;
+			Data[1] = 0xE7;
+		}
 	} else {
-		Data[0] = 0xFF;
-		Data[1] = 0xFF;
+		if (FlashMake == MACRONIX_OCTAL_ID_BYTE0) {
+			Data[0] = 0x0;
+			Data[1] = 0x0;
+		} else {
+			Data[0] = 0xFF;
+			Data[1] = 0xFF;
+		}
 	}
 
 
@@ -1220,6 +1370,9 @@ int FlashSetSDRDDRMode(XOspiPsv *OspiPsvPtr, int Mode)
 		FlashMsg.Proto = XOSPIPSV_WRITE_8_0_0;
 	}
 
+	if (OspiPsvPtr->DualByteOpcodeEn != 0U)
+		FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
+
 	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -1228,9 +1381,9 @@ int FlashSetSDRDDRMode(XOspiPsv *OspiPsvPtr, int Mode)
 	if (OspiPsvPtr->OpMode == XOSPIPSV_DAC_EN_OPTION)
 		XOspiPsv_ConfigureAutoPolling(OspiPsvPtr, Mode);
 
-	FlashMsg.Opcode = WRITE_CONFIG_REG;
+	FlashMsg.Opcode = Write_Reg_Opcode;
 	FlashMsg.Addrvalid = 1;
-	FlashMsg.Addrsize = 3;
+	FlashMsg.Addrsize = AddrSize;
 	FlashMsg.Addr = 0x0;
 	FlashMsg.TxBfrPtr = Data;
 	FlashMsg.RxBfrPtr = NULL;
@@ -1244,24 +1397,41 @@ int FlashSetSDRDDRMode(XOspiPsv *OspiPsvPtr, int Mode)
 		FlashMsg.ByteCount = 2;
 	}
 
+	if (OspiPsvPtr->DualByteOpcodeEn != 0U)
+		FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
+
 	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
+
+	if (Mode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		if ((FlashMake == MACRONIX_OCTAL_ID_BYTE0) && (OspiPsvPtr->DualByteOpcodeEn == 0U)) {
+			Status = XOspiPsv_ConfigDualByteOpcode(OspiPsvPtr, XOSPIPSV_DUAL_BYTE_OP_ENABLE);
+			if (Status != XST_SUCCESS)
+				return XST_FAILURE;
+		}
+	} else {
+		if (OspiPsvPtr->DualByteOpcodeEn != 0U) {
+			Status = XOspiPsv_ConfigDualByteOpcode(OspiPsvPtr, XOSPIPSV_DUAL_BYTE_OP_DISABLE);
+			if (Status != XST_SUCCESS)
+				return XST_FAILURE;
+		}
+	}
 
 	Status = XOspiPsv_SetSdrDdrMode(OspiPsvPtr, Mode);
 	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
 
 	/* Read Configuration register */
-	FlashMsg.Opcode = READ_CONFIG_REG;
-	FlashMsg.Addrsize = 3;
+	FlashMsg.Opcode = Read_Reg_Opcode;
+	FlashMsg.Addrsize = AddrSize;
 	FlashMsg.Addr = 0x0;
 	FlashMsg.Addrvalid = 1;
 	FlashMsg.TxBfrPtr = NULL;
 	FlashMsg.RxBfrPtr = ConfigReg;
 	FlashMsg.ByteCount = 1;
 	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
-	FlashMsg.Dummy = 8 + OspiPsvPtr->Extra_DummyCycle;
+	FlashMsg.Dummy = Dummy + OspiPsvPtr->Extra_DummyCycle;
 	FlashMsg.IsDDROpCode = 0;
 	FlashMsg.Proto = 0;
 	if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
@@ -1270,6 +1440,10 @@ int FlashSetSDRDDRMode(XOspiPsv *OspiPsvPtr, int Mode)
 		FlashMsg.Proto = XOSPIPSV_READ_8_8_8;
 		FlashMsg.Addrsize = 4;
 	}
+
+	if (OspiPsvPtr->DualByteOpcodeEn != 0U)
+		FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
+
 	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
