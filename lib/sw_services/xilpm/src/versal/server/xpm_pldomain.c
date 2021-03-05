@@ -316,12 +316,12 @@ static XStatus GtyHouseClean(void)
 		if (0U == GtyAddresses[i]) {
 			continue;
 		}
-		PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
+		XPmPlDomain_UnlockGtyPcsr(GtyAddresses[i]);
 		/* Deassert INITCTRL */
 		PmOut32(GtyAddresses[i] + GTY_PCSR_MASK_OFFSET,
 			GTY_PCSR_INITCTRL_MASK);
 		PmOut32(GtyAddresses[i] + GTY_PCSR_CONTROL_OFFSET, 0);
-		PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET, 1);
+		XPmPlDomain_LockGtyPcsr(GtyAddresses[i]);
 	}
 
 	u32 LocalPlpdHCBypass = PlpdHouseCleanBypassTmp; /* Copy volatile to local to avoid MISRA */
@@ -351,8 +351,7 @@ static XStatus GtyHouseClean(void)
 			if (0U == GtyAddresses[i]) {
 				continue;
 			}
-			PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET,
-				PCSR_UNLOCK_VAL);
+			XPmPlDomain_UnlockGtyPcsr(GtyAddresses[i]);
 			/* Mbist */
 			XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (PldGtyMbist), (GtyAddresses[i]));
 			XStatus LocalStatus = StatusTmp; /* Copy volatile to local to avoid MISRA */
@@ -362,10 +361,10 @@ static XStatus GtyHouseClean(void)
 				 Just print message and return not to break execution */
 				PmInfo("ERROR: GT Mem clear Failed\r\n");
 				Status = XST_SUCCESS;
-				PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET, 1);
+				XPmPlDomain_LockGtyPcsr(GtyAddresses[i]);
 				goto done;
 			}
-			PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET, 1);
+			XPmPlDomain_LockGtyPcsr(GtyAddresses[i]);
 		}
 
 		if (i != ARRAY_SIZE(GtyAddresses)) {
@@ -672,14 +671,14 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 		Status = PlHouseClean(PLHCLEAN_INIT_NODE);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_PL_HC;
-			goto done;
+			goto fail;
 		}
 	}
 
 	Status = PldCfuInit();
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_CFU_INIT;
-		goto done;
+		goto fail;
 	}
 
 	if ((PLATFORM_VERSION_SILICON == Platform) || (PLATFORM_VERSION_FCV == Platform)) {
@@ -712,7 +711,7 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 		Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCAUX_VCCRAM, FALSE_IMMEDIATE);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_VCCAUX_VCCRAM_ISO;
-			goto done;
+			goto fail;
 		}
 	}
 
@@ -725,7 +724,7 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 		Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCRAM_SOC, FALSE_IMMEDIATE);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_VCCRAM_SOC_ISO;
-			goto done;
+			goto fail;
 		}
 	} else {
 		Status = XST_FAILURE;
@@ -733,6 +732,7 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 
 	XCfupmc_GlblSeqInit(&CfupmcIns);
 
+fail:
 	/* Lock CFU writes */
 	PldCfuLock(Pld, 1U);
 
@@ -989,15 +989,13 @@ XStatus XPmPlDomain_RetriggerPlHouseClean(void)
 	}
 
 	/* Unlock CFU writes */
-        PldCfuLock(Pld, 0U);
+	PldCfuLock(Pld, 0U);
 
 	Status = PlHouseClean(PLHCLEAN_INIT_NODE);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
 
 	/* Lock CFU writes */
-        PldCfuLock(Pld, 1U);
+	PldCfuLock(Pld, 1U);
+
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
