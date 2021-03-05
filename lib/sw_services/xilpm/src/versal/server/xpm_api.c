@@ -969,9 +969,13 @@ static XStatus ProtInitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumAr
 		goto done;
 	}
 
-	/* Power parent of protection nodes must be in ON state */
+	/**
+	 * For LPD/FPD CDOs, the protection configuration will be after HC,
+	 * So parent power node can be in an initializing state.
+	 */
 	if ((NULL == Power) ||
-	    ((u8)XPM_POWER_STATE_ON != Power->Node.State)) {
+	    (((u8)XPM_POWER_STATE_INITIALIZING != Power->Node.State) &&
+	    ((u8)XPM_POWER_STATE_ON != Power->Node.State))) {
 		Status = XPM_INVALID_STATE;
 		DbgErr = XPM_INT_ERR_INVALID_PWR_STATE;
 		goto done;
