@@ -70,7 +70,7 @@
 *       td   10/19/20 MISRA C Fixes
 *       bsv  10/19/20 Parallel DMA related changes
 *       har  10/19/20 Replaced ECDSA in function calls
-*       kpt  02/19/21 Added check to verify revoke id before enabling Auth Jtag
+* 1.04  kpt  02/19/21 Added check to verify revoke id before enabling Auth Jtag
 *       kpt  02/23/21 Added check to validate keysrc for partitions when DEC
 *                     only efuse bits are set
 *       kpt  02/24/21 Fixed logical error in partition next chunk copy in

@@ -54,11 +54,11 @@
 *       bsv  10/13/2020 Code clean up
 *       kpt  10/19/2020 Added error code for glitch detection
 *       td   10/19/2020 MISRA C Fixes
-*       bsv  01/26/2021 Added APIs for checking and clearing NPI errors
+* 1.04  bsv  01/26/2021 Added APIs for checking and clearing NPI errors
 *       kpt  02/19/2021 Added error code for Auth Jtag revoke id failure
 *       kpt  02/22/2021 Added error code for invalid key source when encryption
 *                       only is enabled
-*	    bsv  02/28/2021 Added code to avoid unaligned NPI writes
+*       bsv  02/28/2021 Added code to avoid unaligned NPI writes
 *
 * </pre>
 *

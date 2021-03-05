@@ -39,7 +39,7 @@
 *       bm   10/14/2020 Code clean up
 *       td   10/19/2020 MISRA C Fixes
 *       ana  10/19/2020 Added doxygen comments
-*	    bsv  02/28/2021 Added code to avoid unaligned NPI writes
+* 1.04  bsv  02/28/2021 Added code to avoid unaligned NPI writes
 *
 * </pre>
 *

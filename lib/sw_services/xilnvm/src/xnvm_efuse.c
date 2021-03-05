@@ -36,7 +36,7 @@
 *	am   08/19/2020 Resolved MISRA C violations.
 *	kal  09/03/2020 Fixed Security CoE review comments
 *	am   10/13/2020 Resolved MISRA C violations
-*	kal  02/19/2021 Fix cache logic error in XNvm_EfuseReadCacheRange API
+* 2.2   kal  02/19/2021 Fix cache logic error in XNvm_EfuseReadCacheRange API
 *
 * </pre>
 *

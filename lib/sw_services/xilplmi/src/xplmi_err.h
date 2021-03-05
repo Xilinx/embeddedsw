@@ -28,7 +28,7 @@
 *       bsv  04/04/2020 Code clean up
 * 1.03  bsv  07/07/2020 Made functions used in single transaltion unit as
 *						static
-*       bsv  01/26/2021 Added APIs for checking and clearing NPI errors
+* 1.04  bsv  01/26/2021 Added APIs for checking and clearing NPI errors
 *
 * </pre>
 *

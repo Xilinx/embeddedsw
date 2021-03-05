@@ -38,7 +38,7 @@
 *       bsv  09/21/2020 Set clock source to IRO before SRST for ES1 silicon
 *       bsv  09/30/2020 Added parallel DMA support for SBI, JTAG, SMAP
 *                       and PCIE boot modes
-*       bsv  01/26/2021 Added APIs for checking and clearing NPI errors
+* 1.04  bsv  01/26/2021 Added APIs for checking and clearing NPI errors
 *
 * </pre>
 *

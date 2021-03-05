@@ -32,7 +32,7 @@
 *       bm   08/03/2020 Added ReadBack Props & related API
 *       bm   10/14/2020 Code clean up
 *       td   10/19/2020 MISRA C Fixes
-*	    bsv  02/28/2021 Added code to avoid unaligned NPI writes
+* 1.04	bsv  02/28/2021 Added code to avoid unaligned NPI writes
 *
 * </pre>
 *

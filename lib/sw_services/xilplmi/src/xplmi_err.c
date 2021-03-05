@@ -35,7 +35,7 @@
 *       bsv  09/21/2020 Set clock source to IRO before SRST for ES1 silicon
 *       bm   10/14/2020 Code clean up
 *       td   10/19/2020 MISRA C Fixes
-*       bsv  01/26/2021 Added APIs for checking and clearing NPI errors
+* 1.04  bsv  01/26/2021 Added APIs for checking and clearing NPI errors
 *
 * </pre>
 *

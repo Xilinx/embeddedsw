@@ -44,7 +44,7 @@
 *       bsv  10/19/20 Parallel DMA changes
 *       kpt  10/19/2020 Code clean up
 *       har  10/19/20 Replaced ECDSA in header files
-*       kpt  02/19/21 Added macro for revoke id mask
+* 1.04  kpt  02/19/21 Added macro for revoke id mask
 *
 * </pre>
 *

@@ -23,7 +23,7 @@
 * 1.03  kc   06/12/2020 Added IPI mask to PDI CDO commands to get
 *                       subsystem information
 *       bm   10/14/2020 Code clean up
-*       ma   02/03/2021 Remove redundant call to enable GIC SBI interrupt
+* 1.04  ma   02/03/2021 Remove redundant call to enable GIC SBI interrupt
 *
 * </pre>
 *
