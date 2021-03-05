@@ -48,6 +48,8 @@
 *		      CR#865787.
 * 3.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototype of XUartLite_CfgInitialize API.
+* 3.6   rna  02/19/21 Added 'XUartLite_GetSR' internal API to read Status
+*                     register and update the error stats.
 *
 * </pre>
 *
@@ -202,7 +204,7 @@ unsigned int XUartLite_Send(XUartLite *InstancePtr, u8 *DataBufferPtr,
 	 * Enter a critical region by disabling the UART interrupts to allow
 	 * this call to stop a previous operation that may be interrupt driven.
 	 */
-	StatusRegister = XUartLite_GetStatusReg(InstancePtr->RegBaseAddress);
+	StatusRegister = XUartLite_GetSR(InstancePtr);
 
 	XUartLite_WriteReg(InstancePtr->RegBaseAddress,
 				XUL_CONTROL_REG_OFFSET, 0);
@@ -285,7 +287,7 @@ unsigned int XUartLite_Recv(XUartLite *InstancePtr, u8 *DataBufferPtr,
 	 * Enter a critical region by disabling all the UART interrupts to allow
 	 * this call to stop a previous operation that may be interrupt driven
 	 */
-	StatusRegister = XUartLite_GetStatusReg(InstancePtr->RegBaseAddress);
+	StatusRegister = XUartLite_GetSR(InstancePtr);
 	XUartLite_WriteReg(InstancePtr->RegBaseAddress,
 				XUL_CONTROL_REG_OFFSET, 0);
 
@@ -460,13 +462,13 @@ unsigned int XUartLite_SendBuffer(XUartLite *InstancePtr)
 	/*
 	 * Read the status register to determine if the transmitter is full
 	 */
-	StatusRegister = XUartLite_GetStatusReg(InstancePtr->RegBaseAddress);
+	StatusRegister = XUartLite_GetSR(InstancePtr);
 
 	/*
 	 * Enter a critical region by disabling all the UART interrupts to allow
 	 * this call to stop a previous operation that may be interrupt driven
 	 */
-	StatusRegister = XUartLite_GetStatusReg(InstancePtr->RegBaseAddress);
+	StatusRegister = XUartLite_GetSR(InstancePtr);
 	XUartLite_WriteReg(InstancePtr->RegBaseAddress,
 				XUL_CONTROL_REG_OFFSET, 0);
 
@@ -490,9 +492,7 @@ unsigned int XUartLite_SendBuffer(XUartLite *InstancePtr)
 
 		SentCount++;
 
-		StatusRegister =
-			XUartLite_GetStatusReg(InstancePtr->RegBaseAddress);
-
+		StatusRegister = XUartLite_GetSR(InstancePtr);
 	}
 
 	/*
@@ -563,7 +563,7 @@ unsigned int XUartLite_ReceiveBuffer(XUartLite *InstancePtr)
 	 * Enter a critical region by disabling all the UART interrupts to allow
 	 * this call to stop a previous operation that may be interrupt driven
 	 */
-	StatusRegisterVal = XUartLite_GetStatusReg(InstancePtr->RegBaseAddress);
+	StatusRegisterVal = XUartLite_GetSR(InstancePtr);
 	XUartLite_WriteReg(InstancePtr->RegBaseAddress,
 				XUL_CONTROL_REG_OFFSET, 0);
 	/*
@@ -576,8 +576,7 @@ unsigned int XUartLite_ReceiveBuffer(XUartLite *InstancePtr)
 		 * Read the Status Register to determine if there is any data in
 		 * the receiver/FIFO
 		 */
-		StatusRegister =
-			XUartLite_GetStatusReg(InstancePtr->RegBaseAddress);
+		StatusRegister = XUartLite_GetSR(InstancePtr);
 
 		/*
 		 * If there is data ready to be removed, then put the next byte
@@ -589,7 +588,6 @@ unsigned int XUartLite_ReceiveBuffer(XUartLite *InstancePtr)
 				XUartLite_ReadReg(InstancePtr->RegBaseAddress,
 							XUL_RX_FIFO_OFFSET);
 
-			XUartLite_UpdateStats(InstancePtr, StatusRegister);
 		}
 
 		/*
@@ -624,6 +622,34 @@ unsigned int XUartLite_ReceiveBuffer(XUartLite *InstancePtr)
 	return ReceivedCount;
 }
 
+/****************************************************************************/
+/**
+*
+* This function reads the status register and updates the error stats, before
+* returning the status register value. The status register is a clear on read
+* register, so the errors if occurred have to be recorded everytime status
+* register is read. This function is designed to be an internal function for
+* the XUartLite component such that it may be called from wherever the status
+* register needs to be read from the other driver functions.
+*
+* @param        InstancePtr is a pointer to the XUartLite instance.
+*
+* @return       The value of status register.
+*
+* @note         None.
+*
+*****************************************************************************/
+u8 XUartLite_GetSR(XUartLite *InstancePtr)
+{
+	u8 StatusRegister;
 
+	StatusRegister = XUartLite_GetStatusReg(InstancePtr->RegBaseAddress);
+	/*
+	 * Update Stats everytime status reg is read as it is a clear on read
+	 * register and as a result, there is a chance of missing the errors.
+	 */
+	XUartLite_UpdateStats(InstancePtr, StatusRegister);
+	return StatusRegister;
+}
 
 /** @} */
