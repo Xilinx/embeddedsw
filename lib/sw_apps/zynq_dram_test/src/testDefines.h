@@ -1,3 +1,8 @@
+/******************************************************************************
+* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+ ******************************************************************************/
+
 #ifndef _TEST_DEFINES_H_
 #define _TEST_DEFINES_H_
 
