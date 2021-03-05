@@ -20,6 +20,7 @@
 * ----- --- -------- -----------------------------------------------
 * 1.2   sk  02/20/20 First release
 * 1.3   sk   04/09/20 Added support for 64-bit address read from 32-bit proc.
+* 1.4   sk   02/18/21 Added support for Dual byte opcode.
 *
 * </pre>
 *
@@ -60,6 +61,7 @@ u32 XOspiPsv_Stig_Read(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 {
 	u32 Reqaddr;
 	u32 Status;
+	u32 RegVal;
 
 	if (InstancePtr->RxBytes <= 0U) {
 		Status = (u32)XST_FAILURE;
@@ -77,6 +79,16 @@ u32 XOspiPsv_Stig_Read(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 	XOspiPsv_Setup_Stig_Ctrl(InstancePtr, (u32)Msg->Opcode,
 		1, (u32)InstancePtr->RxBytes - (u32)1, Reqaddr, 0, (u32)Msg->Addrsize - (u32)1,
 		0, 0, (u32)Msg->Dummy, 0);
+
+	if (InstancePtr->DualByteOpcodeEn != 0U) {
+		RegVal = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+					XOSPIPSV_OPCODE_EXT_LOWER_REG);
+		RegVal &= ~(u32)XOSPIPSV_OPCODE_EXT_LOWER_REG_EXT_STIG_OPCODE_FLD_MASK;
+		RegVal |= ((u32)Msg->ExtendedOpcode <<
+				(u32)XOSPIPSV_OPCODE_EXT_LOWER_REG_EXT_STIG_OPCODE_FLD_SHIFT);
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_OPCODE_EXT_LOWER_REG, RegVal);
+	}
 
 	/* Execute command */
 	Status = XOspiPsv_Exec_Flash_Cmd(InstancePtr);
@@ -111,6 +123,7 @@ u32 XOspiPsv_Stig_Write(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 	u32 Reqwridataen;
 	u32 ByteCount;
 	u32 Status;
+	u32 RegVal;
 
 	if (Msg->Addrvalid != 0U) {
 		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
@@ -130,6 +143,16 @@ u32 XOspiPsv_Stig_Write(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 	XOspiPsv_Setup_Stig_Ctrl(InstancePtr, (u32)Msg->Opcode,
 		0, 0, Reqaddr, 0, (u32)Msg->Addrsize - (u32)1,
 		Reqwridataen, (u32)ByteCount - (u32)1, 0, 0);
+
+	if (InstancePtr->DualByteOpcodeEn != 0U) {
+		RegVal = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+					XOSPIPSV_OPCODE_EXT_LOWER_REG);
+		RegVal &= ~(u32)XOSPIPSV_OPCODE_EXT_LOWER_REG_EXT_STIG_OPCODE_FLD_MASK;
+		RegVal |= ((u32)Msg->ExtendedOpcode <<
+				(u32)XOSPIPSV_OPCODE_EXT_LOWER_REG_EXT_STIG_OPCODE_FLD_SHIFT);
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_OPCODE_EXT_LOWER_REG, RegVal);
+	}
 
 	/* Exec cmd */
 	Status = XOspiPsv_Exec_Flash_Cmd(InstancePtr);
@@ -294,6 +317,7 @@ u32 XOspiPsv_ExecuteRxTuning(XOspiPsv *InstancePtr, XOspiPsv_Msg *FlashMsg,
 	u8 Dummy_Incr;
 	u8 Dummy_Flag = 0;
 	u8 Count;
+	u8 Dummy = FlashMsg->Dummy;
 
 	MaxTap = (u8)((u32)(TERA_MACRO/InstancePtr->Config.InputClockHz) / (u32)160);
 	if (InstancePtr->DllMode == XOSPIPSV_DLL_MASTER_MODE) {
@@ -301,11 +325,7 @@ u32 XOspiPsv_ExecuteRxTuning(XOspiPsv *InstancePtr, XOspiPsv_Msg *FlashMsg,
 	}
 	for (Dummy_Incr = 0U; Dummy_Incr <= 1U; Dummy_Incr++) {
 		if (Dummy_Incr != 0U) {
-			if (InstancePtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
-				FlashMsg->Dummy = 9U;
-			} else {
-				FlashMsg->Dummy = 1U;
-			}
+				FlashMsg->Dummy = Dummy + 1U;
 		}
 		for (Index = 0U; Index <= MaxTap; Index++) {
 			XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,

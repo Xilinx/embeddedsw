@@ -39,6 +39,7 @@
 *       sk   05/27/20 Added support for reading C_OSPI_MODE param.
 *       sk  08/19/20 Reduced the usleep delay while checking transfer done.
 *       sk   10/06/20 Clear the ISR for polled mode transfers.
+* 1.4   sk   02/18/21 Added support for Dual byte opcode.
 *
 * </pre>
 *
@@ -95,6 +96,7 @@ typedef struct {
 	u8 IsDDROpCode;	/**< 1 if opcode is DDR command, 0 otherwise */
 	u64 RxAddr64bit; /**< Provide 64-bit read address for 32-bit platform */
 	u8 Xfer64bit; /**< Set to 1 when reading from 64-bit addr otherwise 0 */
+	u8 ExtendedOpcode; /**< Extended opcode in dual-byte opcode mode */
 } XOspiPsv_Msg;
 
 /**
@@ -131,6 +133,7 @@ typedef struct {
 	u32 DeviceIdData;	/* Contains Device Id Data information */
 	u8 Extra_DummyCycle;
 	u8 DllMode;
+	u8 DualByteOpcodeEn;	/* Flag to indicate Dual Byte Opcode */
 #ifdef __ICCARM__
 #pragma pack(push, 8)
 	u8 UnalignReadBuffer[4];	/**< Buffer used to read the unaligned bytes in DMA */
@@ -243,6 +246,9 @@ extern XOspiPsv_Config XOspiPsv_ConfigTable[];
 #define XOSPIPSV_CONNECTION_MODE_SINGLE		0x0U
 #define XOSPIPSV_CONNECTION_MODE_STACKED	0x1U
 
+#define XOSPIPSV_DUAL_BYTE_OP_DISABLE	0x0U
+#define XOSPIPSV_DUAL_BYTE_OP_ENABLE	0x1U
+
 #define XOSPIPSV_RXADDR_OVER_32BIT		0x100000000U
 
 /* Initialization and reset */
@@ -266,6 +272,7 @@ u32 XOspiPsv_DeviceReset(u8 Type);
 u32 XOspiPsv_StartDmaTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg);
 u32 XOspiPsv_CheckDmaDone(XOspiPsv *InstancePtr);
 u32 XOspiPsv_SetDllDelay(XOspiPsv *InstancePtr);
+u32 XOspiPsv_ConfigDualByteOpcode(XOspiPsv *InstancePtr, u8 Enable);
 #ifdef __cplusplus
 }
 #endif
