@@ -35,17 +35,27 @@
 
 static XIOModule IOModule;
 
-static void XPsmFw_IpiHandler(void)
+static void XPsmFw_InterruptIpiHandler(void)
 {
 	u32 Mask;
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 
 	Mask = XPsmFw_Read32(IPI_PSM_ISR);
+
+	/* If IPI is not from PMC print error and exit */
+	if (IPI_PSM_ISR_PMC_MASK != (IPI_PSM_ISR_PMC_MASK & Mask)) {
+		XPsmFw_Printf(DEBUG_ERROR, "Invalid IPI interrupt\r\n");
+		goto done;
+	}
+
 #ifdef XPAR_XIPIPSU_0_DEVICE_ID
-	Status = XPsmFw_DispatchIpiHandler(Mask);
+	Status = XPsmFw_DispatchIpiHandler(IPI_PSM_ISR_PMC_MASK);
 #else
 	XPsmFw_Printf(DEBUG_ERROR, "PSM IPI channel is not enabled\r\n");
 #endif
+
+done:
+	/*Clear PSM IPI ISR */
 	XPsmFw_Write32(IPI_PSM_ISR, Mask);
 
 	if (XST_SUCCESS != Status) {
@@ -133,7 +143,7 @@ static void XPsmfw_InterruptGicP2Handler(void)
 
 /* Structure for Top level interrupt table */
 static struct HandlerTable g_TopLevelInterruptTable[] = {
-	{PSM_IOMODULE_IRQ_PENDING_IPI_MASK, XPsmFw_IpiHandler},
+	{PSM_IOMODULE_IRQ_PENDING_IPI_MASK, XPsmFw_InterruptIpiHandler},
 	{PSM_IOMODULE_IRQ_PENDING_PWR_UP_REQ_MASK, XPsmfw_InterruptPwrUpHandler},
 	{PSM_IOMODULE_IRQ_PENDING_PWR_DWN_REQ_MASK, XPsmfw_InterruptPwrDwnHandler},
 	{PSM_IOMODULE_IRQ_PENDING_WAKE_UP_REQ_MASK, XPsmfw_InterruptWakeupHandler},

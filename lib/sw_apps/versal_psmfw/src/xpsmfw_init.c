@@ -69,7 +69,7 @@ int XPsmFw_Init(void)
 		XPsmFw_Printf(DEBUG_ERROR, "%s: Error! IPI Manager Initialization failed\r\n", __func__);
 	}
 	
-	/* FIXME: Clear IPI0 status and enable IPI interrupts. Do it else where*/
+	/* Clear all IPI interrupts */
 	XPsmFw_Write32(IPI_PSM_ISR, MASK32_ALL_HIGH);
 #endif
 

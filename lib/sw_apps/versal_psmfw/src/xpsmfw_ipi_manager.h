@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,12 +36,7 @@ extern "C" {
 #ifdef XPAR_XIPIPSU_0_DEVICE_ID
 #include "xipipsu.h"
 
-/* Instance of IPI Driver */
-//extern XIpiPsu *IpiInstPtr;
-
 #define XPSMFW_IPI_MASK_COUNT 	XIPIPSU_MAX_TARGETS
-extern u32 IpiMaskList[XPSMFW_IPI_MASK_COUNT];
-
 #define XPSMFW_IPI_MAX_MSG_LEN XIPIPSU_MAX_MSG_LEN
 
 #endif /* XPAR_XIPIPSU_0_DEVICE_ID */
@@ -60,9 +55,9 @@ extern u32 IpiMaskList[XPSMFW_IPI_MASK_COUNT];
  * Initialize the IPI driver instance
  * This should be called in the core init
  */
-s32 XPsmfw_IpiManagerInit(void);
+XStatus XPsmfw_IpiManagerInit(void);
 
-int XPsmFw_DispatchIpiHandler(u32 SrcMask);
+XStatus XPsmFw_DispatchIpiHandler(u32 SrcMask);
 
 XStatus XPsmFw_IpiSend(u32 IpiMask, u32 *Payload);
 

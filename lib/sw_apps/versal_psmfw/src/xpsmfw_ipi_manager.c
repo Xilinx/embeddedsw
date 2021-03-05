@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018-2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018-2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,13 +31,11 @@
 /* Instance of IPI Driver */
 static XIpiPsu IpiInst;
 static XIpiPsu *IpiInstPtr = &IpiInst;
-u32 IpiMaskList[XPSMFW_IPI_MASK_COUNT] = {0U};
 
-s32 XPsmfw_IpiManagerInit(void)
+XStatus XPsmfw_IpiManagerInit(void)
  {
-	s32 Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XIpiPsu_Config *IpiCfgPtr;
-	u32 i;
 
 	/* Load Config for PSM IPI */
 	IpiCfgPtr = XIpiPsu_LookupConfig(XPAR_XIPIPSU_0_DEVICE_ID);
@@ -47,18 +45,14 @@ s32 XPsmfw_IpiManagerInit(void)
 		XPsmFw_Printf(DEBUG_ERROR, "IPI lookup config failed\r\n");
 		goto Done;
 	}
-	/* Init Mask List */
-	for (i = 0U; i < XPSMFW_IPI_MASK_COUNT; i++) {
-		IpiMaskList[i] = IpiCfgPtr->TargetList[i].Mask;
-	}
+
 	/* Initialize the IPI driver */
 	Status = XIpiPsu_CfgInitialize(IpiInstPtr, IpiCfgPtr,
 			IpiCfgPtr->BaseAddress);
 
-	/* Enable IPIs from all Masters */
-	for (i = 0U; i < XPSMFW_IPI_MASK_COUNT; i++) {
-		XIpiPsu_InterruptEnable(IpiInstPtr, IpiCfgPtr->TargetList[i].Mask);
-	}
+	/* Enable IPIs from PMC */
+	XIpiPsu_InterruptEnable(IpiInstPtr, IPI_PSM_ISR_PMC_MASK);
+
 	XPsmFw_Printf(DEBUG_DETAILED, "IPI interrupts are enabled\r\n");
 
 Done:
@@ -70,32 +64,25 @@ Done:
  *
  * @IpiInstPtr		Pointer to the IPI instance
  */
-int XPsmFw_DispatchIpiHandler(u32 SrcMask)
+XStatus XPsmFw_DispatchIpiHandler(u32 SrcMask)
 {
-	int Status = XST_FAILURE;
-	u32 MaskIndex;
+	XStatus Status = XST_FAILURE;
 	u32 Payload[XPSMFW_IPI_MAX_MSG_LEN];
 	u32 Response[XPSMFW_IPI_MAX_MSG_LEN];
 
 	XPsmFw_Printf(DEBUG_DETAILED, "In IPI handler\r\n");
 
-	for (MaskIndex = 0U; MaskIndex < XPSMFW_IPI_MASK_COUNT; MaskIndex++) {
-		if ((SrcMask & IpiMaskList[MaskIndex]) != 0U) {
-			Status = XIpiPsu_ReadMessage(IpiInstPtr, IpiMaskList[MaskIndex],
-			        &Payload[0], XPSMFW_IPI_MAX_MSG_LEN, XIPIPSU_BUF_TYPE_MSG);
-			if (XST_SUCCESS != Status) {
-				XPsmFw_Printf(DEBUG_ERROR, "Failure to read IPI msg\r\n");
-			} else {
-				Status = XPsmFw_ProcessIpi(&Payload[0]);
+	Status = XIpiPsu_ReadMessage(IpiInstPtr, IPI_PSM_ISR_PMC_MASK, &Payload[0],
+			XPSMFW_IPI_MAX_MSG_LEN, XIPIPSU_BUF_TYPE_MSG);
+	if (XST_SUCCESS != Status) {
+		XPsmFw_Printf(DEBUG_ERROR, "Failure to read IPI msg\r\n");
+	} else {
+		Status = XPsmFw_ProcessIpi(&Payload[0]);
 
-				Response[0] = (u32)Status;
-				Status = XPsmFw_IpiSendResponse(IPI_PSM_IER_PMC_MASK,
-								Response);
-			}
-		} else {
-			Status = XST_SUCCESS;
-		}
+		Response[0] = (u32)Status;
+		Status = XPsmFw_IpiSendResponse(IPI_PSM_IER_PMC_MASK, Response);
 	}
+
 	return Status;
 }
 
@@ -159,12 +146,12 @@ done:
 }
 #else
 
-s32 XPsmfw_IpiManagerInit(void)
+XStatus XPsmfw_IpiManagerInit(void)
 {
 	return XST_FAILURE;
 }
 
-int XPsmFw_DispatchIpiHandler(u32 SrcMask)
+XStatus XPsmFw_DispatchIpiHandler(u32 SrcMask)
 {
 	(void)SrcMask;
 
