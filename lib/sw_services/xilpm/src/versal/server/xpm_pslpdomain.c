@@ -415,7 +415,7 @@ static XStatus XramMbist(void)
 	BaseAddr = Device->Node.BaseAddress;
 
 	/* Unlock PCSR */
-	PmOut32(BaseAddr + XRAM_SLCR_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
+	XPmPsLpDomain_UnlockPcsr(BaseAddr);
 
 	/* Write to Memclear Trigger */
 	PmOut32(BaseAddr + XRAM_SLCR_PCSR_MASK_OFFSET, XRAM_MEM_CLEAR_TRIGGER_0_MASK);
@@ -425,7 +425,7 @@ static XStatus XramMbist(void)
 		      XRAM_MEM_CLEAR_TRIGGER_0_MASK, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
 		DbgErr = XPM_INT_ERR_REG_WRT_XRAM_PCSR_MASK;
-		goto done;
+		goto fail;
 	}
 
 	PmOut32(BaseAddr + XRAM_SLCR_PCSR_PCR_OFFSET, XRAM_MEM_CLEAR_TRIGGER_0_MASK);
@@ -435,7 +435,7 @@ static XStatus XramMbist(void)
 		      XRAM_MEM_CLEAR_TRIGGER_0_MASK, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
 		DbgErr = XPM_INT_ERR_REG_WRT_XRAM_MEM_CLEAR_TRIGGER_0_MASK;
-		goto done;
+		goto fail;
 	}
 
 	/* Poll for Memclear done */
@@ -444,7 +444,7 @@ static XStatus XramMbist(void)
 			XRAM_SLCR_PCSR_PSR_MEM_CLEAR_DONE_3_TO_1_MASK, XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_MEM_CLEAR_DONE_TIMEOUT;
-		goto done;
+		goto fail;
 	}
 
 	/* Check Memclear pass/fail status */
@@ -456,17 +456,18 @@ static XStatus XramMbist(void)
 		XRAM_SLCR_PCSR_PSR_MEM_CLEAR_PASS_3_TO_1_MASK))) {
 		DbgErr = XPM_INT_ERR_MEM_CLEAR_PASS_TIMEOUT;
 		Status = XST_FAILURE;
-		goto done;
+		goto fail;
 	}
 
 	/* Unwrite the trigger bits */
 	PmOut32(BaseAddr + XRAM_SLCR_PCSR_PCR_OFFSET, 0x0);
 	PmOut32(BaseAddr + XRAM_SLCR_PCSR_MASK_OFFSET, 0x0);
 
-	/* Lock PCSR */
-	PmOut32(BaseAddr + XRAM_SLCR_PCSR_LOCK_OFFSET, 0x0);
-
 	Status = XST_SUCCESS;
+
+fail:
+	/* Lock PCSR */
+	XPmPsLpDomain_LockPcsr(BaseAddr);
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
