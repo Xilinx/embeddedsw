@@ -12,6 +12,7 @@
 #include "sleep.h"
 #include "xpm_device.h"
 #include "xpm_debug.h"
+#include "xpm_pldomain.h"
 #include "xpm_psm_api.h"
 
 #define XPM_HC_CPM_OPS			0U
@@ -60,9 +61,9 @@ static XStatus CpmInitStart(u32 *Args, u32 NumOfArgs)
 
 		/*TODO: Topology is not passing cpm reset register
 		right now, so hard coded for now */
-	        PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
+		XPmCpmDomain_UnlockPcsr(Cpm->CpmPcsrBaseAddr);
 		PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_ECO_OFFSET, 0);
-	        PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_LOCK_OFFSET, 1);
+		XPmCpmDomain_LockPcsr(Cpm->CpmPcsrBaseAddr);
 	}
 
 done:
@@ -173,7 +174,7 @@ static XStatus Cpm5ScanClear(u32 *Args, u32 NumOfArgs)
 	}
 
 	/* Unlock PCSR */
-	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
+	XPmCpmDomain_UnlockPcsr(Cpm->CpmPcsrBaseAddr);
 
 	/* Run scan clear on CPM */
 	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_MASK_OFFSET,
@@ -184,7 +185,7 @@ static XStatus Cpm5ScanClear(u32 *Args, u32 NumOfArgs)
 		      CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
 		DbgErr = XPM_INT_ERR_REG_WRT_CPM5SCNCLR_PCSR_MASK;
-		goto done;
+		goto fail;
 	}
 
 	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_PCR_OFFSET,
@@ -195,7 +196,7 @@ static XStatus Cpm5ScanClear(u32 *Args, u32 NumOfArgs)
 		      CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
 		DbgErr = XPM_INT_ERR_REG_WRT_CPM5SCNCLR_PCSR_PCR;
-		goto done;
+		goto fail;
 	}
 
 	/* Wait for Scan Clear do be done */
@@ -204,7 +205,7 @@ static XStatus Cpm5ScanClear(u32 *Args, u32 NumOfArgs)
 				 XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_SCAN_CLEAR_TIMEOUT;
-		goto done;
+		goto fail;
 	}
 	/* Check if Scan Clear Passed */
 	Status = XPm_PollForMask(Cpm->CpmPcsrBaseAddr + CPM_PCSR_PSR_OFFSET,
@@ -212,15 +213,16 @@ static XStatus Cpm5ScanClear(u32 *Args, u32 NumOfArgs)
 				 XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_SCAN_PASS_TIMEOUT;
-		goto done;
+		goto fail;
 	}
 
 	/* Disable writes to PCR */
 	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_MASK_OFFSET,
 		0x0);
 
+fail:
 	/* Lock PCSR */
-	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_LOCK_OFFSET, 1);
+	XPmCpmDomain_LockPcsr(Cpm->CpmPcsrBaseAddr);
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
@@ -320,7 +322,7 @@ static XStatus CpmMbistClear(u32 *Args, u32 NumOfArgs)
 			  0xFF, 0xFF, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
 		DbgErr = XPM_INT_ERR_REG_WRT_CPMMBISTCLR_SLCRSECU_MBIST_RST;
-		goto done;
+		goto fail;
 	}
 
 	PmOut32(Cpm->CpmSlcrSecureBaseAddr +
@@ -330,7 +332,7 @@ static XStatus CpmMbistClear(u32 *Args, u32 NumOfArgs)
 			  0xFF, 0xFF, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
 		DbgErr = XPM_INT_ERR_REG_WRT_CPMMBISTCLR_SLCRSECU_MBIST_SETUP;
-		goto done;
+		goto fail;
 	}
 
 	PmOut32(Cpm->CpmSlcrSecureBaseAddr +
@@ -340,7 +342,7 @@ static XStatus CpmMbistClear(u32 *Args, u32 NumOfArgs)
 			  0xFF, 0xFF, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
 		DbgErr = XPM_INT_ERR_REG_WRT_CPMMBISTCLR_SLCRSECU_MBIST_PGEN;
-		goto done;
+		goto fail;
 	}
 
 	/* Wait till its done */
@@ -349,7 +351,7 @@ static XStatus CpmMbistClear(u32 *Args, u32 NumOfArgs)
 				 0xFF, XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_MBIST_DONE_TIMEOUT;
-		goto done;
+		goto fail;
 	}
 
 	/* Check status */
@@ -358,7 +360,7 @@ static XStatus CpmMbistClear(u32 *Args, u32 NumOfArgs)
 	if (0xFFU != (RegValue & 0xFFU)) {
 		DbgErr = XPM_INT_ERR_MBIST_GOOD;
 		Status = XST_FAILURE;
-		goto done;
+		goto fail;
 	}
 
 	/* Unwrite trigger bits */
@@ -369,6 +371,7 @@ static XStatus CpmMbistClear(u32 *Args, u32 NumOfArgs)
 	PmOut32(Cpm->CpmSlcrSecureBaseAddr +
 		CPM_SLCR_SECURE_OD_MBIST_PG_EN_OFFSET, 0x0);
 
+fail:
 	/* Lock Writes */
 	PmOut32(Cpm->CpmSlcrSecureBaseAddr + CPM_SLCR_SECURE_WPROT0_OFFSET, 1);
 
@@ -498,18 +501,17 @@ static XStatus Cpm5MbistClear(u32 *Args, u32 NumOfArgs)
 		if (0U == GtyAddresses[i]) {
 			continue;
 		}
-		PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
+		XPmPlDomain_UnlockGtyPcsr(GtyAddresses[i]);
 		/* Mbist */
 		XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (Cpm5GtypMbist), (GtyAddresses[i]));
 		XStatus LocalStatus = StatusTmp; /* Copy volatile to local to avoid MISRA */
 		/* Required for redundancy */
 		if ((XST_SUCCESS != Status) || (XST_SUCCESS != LocalStatus)) {
 			DbgErr = XPM_INT_ERR_MBIST;
-			PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET, 1);
+			XPmPlDomain_LockGtyPcsr(GtyAddresses[i]);
 			goto done;
 		}
-
-		PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET, 1);
+		XPmPlDomain_LockGtyPcsr(GtyAddresses[i]);
 	}
 
 	if (ARRAY_SIZE(GtyAddresses) != i) {
@@ -578,14 +580,4 @@ XStatus XPmCpmDomain_Init(XPm_CpmDomain *CpmDomain, u32 Id, u32 BaseAddress,
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
-}
-
-inline void XPmCpmDomain_UnlockPcsr(u32 BaseAddress)
-{
-	PmOut32(BaseAddress + CPM_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
-}
-
-inline void XPmCpmDomain_LockPcsr(u32 BaseAddress)
-{
-	PmOut32(BaseAddress + CPM_PCSR_LOCK_OFFSET, PCSR_LOCK_VAL);
 }
