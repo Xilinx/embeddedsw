@@ -25,7 +25,7 @@
 * 2.00a ktn  10/20/09 The macros have been renamed to remove _m from
 *		      the name. XUartLite_mClearStats macro is removed and
 *		      XUartLite_ClearStats function should be used in its place.
-
+* 3.6   rna  02/19/21 Added 'XUartLite_GetSR' internal API.
 * </pre>
 *
 *****************************************************************************/
@@ -89,6 +89,7 @@ extern XUartLite_Config XUartLite_ConfigTable[];
 
 unsigned int XUartLite_SendBuffer(XUartLite *InstancePtr);
 unsigned int XUartLite_ReceiveBuffer(XUartLite *InstancePtr);
+u8 XUartLite_GetSR(XUartLite *InstancePtr);
 
 #ifdef __cplusplus
 }
