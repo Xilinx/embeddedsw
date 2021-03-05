@@ -7,7 +7,9 @@
 #ifndef XPM_PSLPDOMAIN_H_
 #define XPM_PSLPDOMAIN_H_
 
+#include "xpm_bisr.h"
 #include "xpm_powerdomain.h"
+#include "xpm_regs.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -126,6 +128,26 @@ struct XPm_PsLpDomain {
 	u32 LpdSlcrSecureBaseAddr; /**< LPD SLCR Secure base address */
 	u8 LpdBisrFlags;
 };
+
+/*****************************************************************************/
+/**
+ * @brief This function unlocks the XRAM PCSR registers.
+ *
+ *****************************************************************************/
+static inline void XPmPsLpDomain_UnlockPcsr(u32 BaseAddr)
+{
+	PmOut32(BaseAddr + XRAM_SLCR_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
+}
+
+/*****************************************************************************/
+/**
+ * @brief This function locks the XRAM PCSR registers.
+ *
+ *****************************************************************************/
+static inline void XPmPsLpDomain_LockPcsr(u32 BaseAddr)
+{
+	PmOut32(BaseAddr + XRAM_SLCR_PCSR_LOCK_OFFSET, 0x0U);
+}
 
 /************************** Function Prototypes ******************************/
 XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd, u32 Id, u32 BaseAddress,
