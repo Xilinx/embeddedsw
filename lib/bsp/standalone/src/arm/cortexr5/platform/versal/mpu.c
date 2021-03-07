@@ -23,6 +23,9 @@
 *                     during boot up.
 * 7.5   mus  01/13/21 Removed redundant declaration for Mpu_Config,
 *                     declaration is present in xil_mpu.h.
+* 7.5   asa  03/07/21 Ensure that Update_MpuConfig_Array stays in .boot section
+*                     as it is used only during bootup.
+*                     Add function header to Init_MPU function.
 * </pre>
 *
 * @note
@@ -85,6 +88,7 @@ static const struct {
 void Init_MPU(void) __attribute__((__section__(".boot")));
 static void Xil_SetAttribute(u32 addr, u32 reg_size,s32 reg_num, u32 attrib) __attribute__((__section__(".boot")));
 static void Xil_DisableMPURegions(void) __attribute__((__section__(".boot")));
+static inline void Update_MpuConfig_Array(u32 Addr,u32 RegSize,u32 RegNum, u32 Attrib) __attribute__((__section__(".boot")));
 #elif defined (__ICCARM__)
 #pragma default_function_attributes = @ ".boot"
 void Init_MPU(void);
@@ -112,6 +116,16 @@ static inline void Update_MpuConfig_Array(u32 Addr,u32 RegSize,u32 RegNum,
 	Mpu_Config[RegNum].Attribute = Attrib;
 }
 
+/*****************************************************************************
+*
+* Initialize MPU for during bootup with predefined region attributes.
+*
+* @param	None.
+*
+* @return	None.
+*
+*
+******************************************************************************/
 void Init_MPU(void)
 {
 	u32 Addr;

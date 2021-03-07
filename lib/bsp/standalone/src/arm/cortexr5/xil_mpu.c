@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,12 @@
 * 					  represent the MPU configuration table.
 * 6.8  aru  07/02/18 Returned the pointer instead of address
 *			of that pointer in Xil_MemMap().
+* 7.5  asa  03/01/21  Ensure that Mpu_Config does not stay in .boot/.vector
+*                     sections which generally should be executable code
+*                     which can be allocated and not written.
+*                     Mpu_Config array is populated during boot time, hence
+*                     cannot be placed in .bss or .data section. Putting
+*                     Mpu_Config in a new .bootdata section.
 * </pre>
 *
 *
@@ -83,9 +89,9 @@ static const struct {
 };
 
 #if defined (__GNUC__)
-XMpu_Config Mpu_Config __attribute__((section(".boot")));
+XMpu_Config Mpu_Config __attribute__((section(".bootdata")));
 #elif defined (__ICCARM__)
-#pragma default_function_attributes = @ ".boot"
+#pragma default_function_attributes = @ ".bootdata"
 XMpu_Config Mpu_Config;
 #endif
 
