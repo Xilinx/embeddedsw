@@ -34,6 +34,7 @@
  *       td   10/19/2020 MISRA C Fixes
  * 1.03  ma   02/12/2021 Return unique error codes in case of IPI read errors
  *       ma   03/04/2021 Code clean up
+ *       ma   03/04/2021 Added access check for IPI commands
  *
  * </pre>
  *
@@ -55,7 +56,8 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static int XPlmi_ValidateIpiCmd(u32 CmdId);
+static int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex);
+static u32 XPlmi_GetIpiReqType(u32 CmdId, u32 SrcIndex);
 
 /************************** Variable Definitions *****************************/
 
@@ -144,9 +146,9 @@ int XPlmi_IpiDispatchHandler(void *Data)
 
 			Cmd.CmdId = Payload[0U];
 			Cmd.IpiMask = IpiInst.Config.TargetList[MaskIndex].Mask;
-			Status = XPlmi_ValidateIpiCmd(Cmd.CmdId);
+			Status = XPlmi_ValidateIpiCmd(&Cmd,
+					IpiInst.Config.TargetList[MaskIndex].BufferIndex);
 			if (Status != XST_SUCCESS) {
-				Status = XPlmi_UpdateStatus(XPLMI_ERR_IPI_CMD, 0);
 				goto END;
 			}
 
@@ -305,49 +307,146 @@ int XPlmi_IpiPollForAck(u32 DestCpuMask, u32 TimeOutCount)
 
 /*****************************************************************************/
 /**
- * @brief	This function checks whether the CmdID passed is supported
+ * @brief	This function checks whether the Cmd passed is supported
  * 			via IPI mechanism or not.
  *
- * @param	CmddId is the command ID
+ * @param	CmddId is the module ID
+ * @param	ApiId is the API ID
+ *
+ * @return	XST_SUCCESS on success and XST_FAILURE on failure
+ *
+ *****************************************************************************/
+static int XPlmi_ValidateCmd(u32 ModuleId, u32 ApiId)
+{
+	int Status = XST_FAILURE;
+
+	/* Validate IPI Command */
+	switch (ModuleId) {
+		case XPLMI_MODULE_GENERIC_ID:
+			/*
+			 * Only Device ID, Event Logging and Get Board
+			 * commands are allowed through IPI.
+			 * All other commands are allowed only from CDO file.
+			 */
+			if ((ApiId == XPLMI_PLM_GENERIC_DEVICE_ID_VAL) ||
+					(ApiId == XPLMI_PLM_GENERIC_EVENT_LOGGING_VAL) ||
+					(ApiId == XPLMI_PLM_MODULES_FEATURES_VAL) ||
+					(ApiId == XPLMI_PLM_MODULES_GET_BOARD_VAL)) {
+				Status = XST_SUCCESS;
+			}
+			break;
+
+		case XPLMI_MODULE_ERROR_ID:
+			/*
+			 * Only features command is allowed in EM module through IPI.
+			 * Other EM commands are allowed only from CDO file.
+			 */
+			if (ApiId == XPLMI_PLM_MODULES_FEATURES_VAL) {
+				Status = XST_SUCCESS;
+			}
+			break;
+
+		default:
+			/* Other module's commands are allowed through IPI */
+			Status = XST_SUCCESS;
+			break;
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function checks whether the Cmd passed is supported
+ * 			via IPI mechanism or not.
+ *
+ * @param	Cmd is the pointer to Cmd structure
+ * @param	SrcIndex is the source index of IPI command
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XPlmi_ValidateIpiCmd(u32 CmdId)
+static int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex)
 {
 	int Status = XST_FAILURE;
-	u32 CmdHndlr = (CmdId & XPLMI_CMD_MODULE_ID_MASK) >>
+	u32 CmdHndlr = (Cmd->CmdId & XPLMI_CMD_MODULE_ID_MASK) >>
 			XPLMI_CMD_MODULE_ID_SHIFT;
-	u32 ApiId = CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK;
+	u32 ApiId = Cmd->CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK;
 
-	if (CmdHndlr == XPLMI_MODULE_GENERIC_ID) {
-		/*
-		 * Only Device ID, Event Logging and Get Board
-		 * commands are allowed through IPI.
-		 * All other commands are allowed only from CDO file.
-		 */
-		if ((ApiId == XPLMI_PLM_GENERIC_DEVICE_ID_VAL) ||
-			(ApiId == XPLMI_PLM_GENERIC_EVENT_LOGGING_VAL) ||
-			(ApiId == XPLMI_PLM_MODULES_FEATURES_VAL) ||
-			(ApiId == XPLMI_PLM_MODULES_GET_BOARD_VAL)) {
-			Status = XST_SUCCESS;
-		}
-	} else if ((CmdHndlr == XPLMI_MODULE_ERROR_ID) &&
-				(ApiId == XPLMI_PLM_MODULES_FEATURES_VAL)) {
-		/*
-		 * Only features command is allowed in EM module through IPI.
-		 * Other EM commands are allowed only from CDO file.
-		 */
-		Status = XST_SUCCESS;
-	} else if (CmdHndlr != XPLMI_MODULE_ERROR_ID) {
-		/*
-		 * Other module's commands are allowed through IPI.
-		 */
-		Status = XST_SUCCESS;
-	} else {
-		/* Added for MISRA C */
+	/* Validate module number and source IPI index*/
+	if ((CmdHndlr >= XPLMI_MAX_MODULES) ||
+		(SrcIndex == IPI_NO_BUF_CHANNEL_INDEX)) {
+		/* Return error code if IPI validation failed */
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_IPI_CMD, 0);
+		goto END;
 	}
 
+	/* Validate IPI Command */
+	Status = XPlmi_ValidateCmd(CmdHndlr, ApiId);
+	if (XST_SUCCESS != Status) {
+		/* Return error code if IPI validation failed */
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_IPI_CMD, 0);
+		goto END;
+	}
+
+	/* Get IPI request type */
+	Cmd->IpiReqType = XPlmi_GetIpiReqType(Cmd->CmdId, SrcIndex);
+	/*
+	 * Check command IPI access if module has registered the handler
+	 * If handler is not registered, do nothing
+	 */
+	if (Modules[CmdHndlr]->CheckIpiAccess != NULL) {
+		Status = Modules[CmdHndlr]->CheckIpiAccess(Cmd->CmdId,
+				Cmd->IpiReqType);
+		/* Return error code if IPI access failed */
+		if (XST_SUCCESS != Status) {
+			Status = XPlmi_UpdateStatus(XPLMI_IPI_ACCESS_ERR, 0);
+		}
+	}
+
+END:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function checks for the IPI command access permission and
+ *          returns IPI request type to the caller
+ *
+ * @param	CmdId is command ID
+ * @param	SrcIndex is the source IPI index
+ *
+ * @return	IpiReqType IPI command request type
+ *
+ *****************************************************************************/
+static u32 XPlmi_GetIpiReqType(u32 CmdId, u32 SrcIndex)
+{
+	u32 CmdPerm = CmdId & IPI_CMD_HDR_SECURE_BIT_MASK;
+	u32 ChannelPerm = XPLMI_CMD_NON_SECURE;
+	u32 IpiReqType = XPLMI_CMD_NON_SECURE;
+
+	/* Treat command as non-secure if Command type is non-secure */
+	if (XPLMI_CMD_SECURE != CmdPerm) {
+		goto END;
+	}
+
+	/*
+	 * Read source agent IPI aperture TZ register
+	 * and check source to PMC request type
+	 */
+	ChannelPerm = XPlmi_In32((IPI_APER_TZ_000_ADDR +
+			(SrcIndex * XPLMI_WORD_LEN)));
+	ChannelPerm &= IPI_APER_TZ_PMC_REQ_BUF_MASK;
+
+	/*
+	 * Request type is secure if both Channel type and Command type
+	 * are secure
+	 */
+	if (ChannelPerm == XPLMI_CMD_SECURE) {
+		IpiReqType = XPLMI_CMD_SECURE;
+	}
+
+END:
+	return IpiReqType;
 }
 #endif /* XPAR_XIPIPSU_0_DEVICE_ID */

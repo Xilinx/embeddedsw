@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,7 @@
 * 1.03  bm   10/14/2020 Code clean up
 *       ana  10/19/2020 Added doxygen comments
 * 1.04  bm   02/18/2021 Added const to XPlmi_ErrCmds
+*       ma   03/04/2021 Assign CheckIpiAccessHandler to NULL for EM module
 *
 * </pre>
 *
@@ -195,6 +196,7 @@ static XPlmi_Module XPlmi_ErrModule =
 	XPLMI_MODULE_ERROR_ID,
 	XPlmi_ErrCmds,
 	XPLMI_ARRAY_SIZE(XPlmi_ErrCmds),
+	NULL,
 };
 
 /*****************************************************************************/

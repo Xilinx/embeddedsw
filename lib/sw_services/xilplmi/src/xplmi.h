@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,7 @@
 *       td   10/19/2020 MISRA C Fixes
 * 1.3   nsk  12/14/2020 Modified xplmi_event_logging.c to use Canonical
 *                       names.
+* 1.4   ma   03/04/2021 Added IPI security defines
 *
 * </pre>
 *
@@ -62,6 +63,10 @@ extern "C" {
  * PMCRAM CHUNK SIZE
  */
 #define XPLMI_CHUNK_SIZE	(0x10000U)
+
+/* IPI command Secure/Non-secure flags */
+#define XPLMI_CMD_SECURE					0x0U
+#define XPLMI_CMD_NON_SECURE				0x1U
 
 /**************************** Type Definitions *******************************/
 #define UART_INITIALIZED	((u8)(1U << 0U))

@@ -68,6 +68,7 @@
 *                       only is enabled and when secure validations are failed.
 *       bsv  02/28/2021 Added code to avoid unaligned NPI writes
 *       har  03/02/2021 Added error code for faulire to update AAD
+*       ma   03/04/2021 Added error code for PLMI IPI access failure
 *
 * </pre>
 *
@@ -222,6 +223,8 @@ typedef enum {
 						driver */
 	XPLMI_ERR_UNALIGNED_DMA_XFER,	/**< 0x12F - Error during DMA involving
 			of unaligned SrcAddr, DestAddr or number of words */
+	XPLMI_IPI_ACCESS_ERR, /**< 0x130 - Access permissions failed for PLMI IPI
+						command received */
 
 	/** Status codes used in PLM */
 	XPLM_ERR_TASK_CREATE = 0x200,	/**< 0x200 - Error when task create

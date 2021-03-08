@@ -30,6 +30,7 @@
 *                       boot modes
 *       bm   10/14/2020 Code clean up
 * 1.03  ma   03/04/2021 Removed duplicate defines
+*       ma   03/03/2021 Added IpiReqType member in XPlmi_Cmd structure
 *
 * </pre>
 *
@@ -80,6 +81,7 @@ struct XPlmi_Cmd {
 	u32 ResumeData[XPLMI_CMD_RESUME_DATALEN];
 	u32 DeferredError;
 	XPlmi_KeyHoleParams KeyHoleParams;
+	u32 IpiReqType;
 };
 
 /***************** Macros (Inline Functions) Definitions *********************/
