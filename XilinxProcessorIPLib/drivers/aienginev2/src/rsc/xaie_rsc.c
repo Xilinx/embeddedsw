@@ -22,6 +22,7 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
+#include <stdio.h>
 #include <stdlib.h>
 
 #include "xaie_rsc.h"
@@ -671,4 +672,36 @@ AieRC XAie_RequestAllocatedPerfcnt(XAie_DevInst *DevInst, u32 NumReq,
 	return XAIE_OK;
 }
 
+/*****************************************************************************/
+/**
+* This API is used to dump the total allocated resources to a file.
+*
+* @param	DevInst: Device Instance
+* @param	File: Path of the file which will contain the information of
+*		      all the allocated resources.
+*
+* @return	XAIE_OK on success and error code on failure.
+*
+*******************************************************************************/
+AieRC XAie_SaveAllocatedRscsToFile(XAie_DevInst *DevInst, const char *File)
+{
+	FILE *F;
+
+	if((DevInst == XAIE_NULL) || (File == NULL) ||
+		(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid pointer\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	F = fopen(File, "w");
+	if (F == NULL) {
+		XAIE_ERROR("Not able to open file to dump resources.\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	/* TODO: scan resources bitmap and output them into the file */
+
+	fclose(F);
+	return XAIE_OK;
+}
 /** @} */

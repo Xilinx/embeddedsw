@@ -36,6 +36,7 @@ AieRC XAie_FreePerfcnt(XAie_DevInst *DevInst, u32 UserRscNum,
 		XAie_UserRsc *Rscs);
 AieRC XAie_RequestAllocatedPerfcnt(XAie_DevInst *DevInst, u32 NumReq,
 		XAie_UserRsc *RscReq);
+AieRC XAie_SaveAllocatedRscsToFile(XAie_DevInst *DevInst, const char *File);
 
 /*****************************************************************************/
 /*
