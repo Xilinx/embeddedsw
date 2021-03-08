@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +31,7 @@
 * 1.02  bsv  06/02/2020 Added code to support GET BOARD command and disallow
 *                       SET BOARD command via IPI
 *       bm   10/14/2020 Code clean up
+* 1.03  ma   03/04/2021 Added IPI secure related defines
 *
 * </pre>
 *
@@ -62,6 +63,14 @@ extern "C" {
 #define IPI_BASEADDR				(0xFF300000U)
 #define IPI_PMC_ISR					(IPI_BASEADDR + 0x20010U)
 #define IPI_PMC_ISR_PSM_BIT_MASK	(0x1U)
+#define IPI_NO_BUF_CHANNEL_INDEX	(0xFFFFU)
+
+/* Command header secure bit defines */
+#define IPI_CMD_HDR_SECURE_BIT_MASK		(0x1000000U)
+
+/* IPI Aperture TZ register base address */
+#define IPI_APER_TZ_000_ADDR			(0xFF3000BCU)
+#define IPI_APER_TZ_PMC_REQ_BUF_MASK	(0x4U)
 
 /**************************** Type Definitions *******************************/
 

@@ -42,7 +42,9 @@
 * 1.04  td   11/23/2020 MISRA C Rule 17.8 Fixes
 *       bsv  01/04/2021 Added support for LogString and LogAddress commands
 *       bm   02/17/2021 Added const to XPlmi_GenericCmds variable
-*	bsv  02/28/2021 Added code to avoid unaligned NPI writes
+*	    bsv  02/28/2021 Added code to avoid unaligned NPI writes
+*       ma   03/04/2021 Added XPlmi_CheckIpiAccess handler to check access for
+*                       secure IPI commands
 *
 * </pre>
 *
@@ -1307,6 +1309,44 @@ static int XPlmi_LogAddress(XPlmi_Cmd *Cmd)
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function checks if the IPI command is accessible or not
+ *
+ * @param	CmdId is the Command ID
+ * @param	IpiReqType is the IPI command request type
+ *
+ * @return	XST_SUCCESS on success and XST_FAILURE on failure
+ *
+ *****************************************************************************/
+static int XPlmi_CheckIpiAccess(u32 CmdId, u32 IpiReqType)
+{
+	int Status = XST_FAILURE;
+	u32 ModuleCmdId = CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK;
+
+	/* Secure check for PLMI IPI commands */
+	switch (ModuleCmdId) {
+		/*
+		 * Check IPI request type for Get Device ID, Event Logging and Get
+		 * Board IPI commands and allow access only if the request is secure
+		 */
+		case XPLMI_PLM_GENERIC_DEVICE_ID_VAL:
+		case XPLMI_PLM_GENERIC_EVENT_LOGGING_VAL:
+		case XPLMI_PLM_MODULES_GET_BOARD_VAL:
+			if (XPLMI_CMD_SECURE == IpiReqType) {
+				Status = XST_SUCCESS;
+			}
+			break;
+
+		/* Allow access for all other IPI commands */
+		default:
+			Status = XST_SUCCESS;
+			break;
+	}
+
+	return Status;
+}
+
 /**
  * @{
  * @cond xplmi_internal
@@ -1356,6 +1396,7 @@ void XPlmi_GenericInit(void)
 	XPlmi_Generic.Id = XPLMI_MODULE_GENERIC_ID;
 	XPlmi_Generic.CmdAry = XPlmi_GenericCmds;
 	XPlmi_Generic.CmdCnt = XPLMI_ARRAY_SIZE(XPlmi_GenericCmds);
+	XPlmi_Generic.CheckIpiAccess = XPlmi_CheckIpiAccess;
 
 	XPlmi_ModuleRegister(&XPlmi_Generic);
 }

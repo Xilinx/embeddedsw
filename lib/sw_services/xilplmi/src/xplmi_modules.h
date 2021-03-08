@@ -21,6 +21,7 @@
 * 1.02  rama 08/12/2020 Added STL module ID
 *       bm   10/14/2020 Code clean up
 * 1.03  bm   02/17/2021 Added const to CmdAry
+*       ma   03/04/2021 Added CheckIpiAccessHandler handler to XPlmi_Module
 *
 * </pre>
 *
@@ -60,6 +61,7 @@ typedef struct {
 	u32 Id;
 	const XPlmi_ModuleCmd *CmdAry;
 	u32 CmdCnt;
+	int (*CheckIpiAccess)(u32 CmdId, u32 IpiReqType);
 } XPlmi_Module;
 
 /***************** Macros (Inline Functions) Definitions *********************/
