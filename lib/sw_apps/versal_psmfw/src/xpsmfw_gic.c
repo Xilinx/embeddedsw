@@ -27,10 +27,12 @@
 
 #define CHECK_BIT(reg, mask)	(((reg) & (mask)) == (mask))
 
+static u32 CpmPowerId = XPSMFW_POWER_CPM;
+
 static struct GicP2HandlerTable_t GicHandlerTable[] = {
-	{PSM_GLOBAL_GICP2_IRQ_STATUS_CPM_CORR_ERR_MASK, XPsmFw_DvsecWrite},
-	{PSM_GLOBAL_GICP2_IRQ_STATUS_CPM_MISC_MASK, XPsmFw_DvsecRead},
-	{PSM_GLOBAL_GICP2_IRQ_STATUS_PL_MASK, XPsmFw_DvsecPLHandler},
+	{PSM_GLOBAL_GICP2_IRQ_STATUS_CPM_CORR_ERR_MASK, XPsmFw_DvsecWrite, XPsmFw_Cpm5DvsecHandler},
+	{PSM_GLOBAL_GICP2_IRQ_STATUS_CPM_MISC_MASK, XPsmFw_DvsecRead, XPsmFw_Cpm5DvsecHandler},
+	{PSM_GLOBAL_GICP2_IRQ_STATUS_PL_MASK, XPsmFw_DvsecPLHandler, XPsmFw_Cpm5DvsecPLHandler},
 };
 
 /******************************************************************************/
@@ -53,7 +55,11 @@ void XPsmFw_DispatchGicP2Handler(u32 GicP2Status, u32 GicP2IntMask)
 		if (CHECK_BIT(GicP2Status, GicHandlerTable[Idx].Mask) &&
 		    !CHECK_BIT(GicP2IntMask, GicHandlerTable[Idx].Mask)) {
 			/* Call gic handler */
-			GicHandlerTable[Idx].Handler();
+			if (CpmPowerId == XPSMFW_POWER_CPM5) {
+				GicHandlerTable[Idx].Cpm5Handler();
+			} else {
+				GicHandlerTable[Idx].CpmHandler();
+			}
 		}
 
 		/* Ack the service */
@@ -102,6 +108,8 @@ void XPsmFw_GicP2IrqDisable(u32 PowerId)
  *****************************************************************************/
 void XPsmFw_GicP2IrqEnable(u32 PowerId)
 {
+	CpmPowerId = PowerId;
+
 	if (PowerId == XPSMFW_POWER_CPM) {
 		u32 IntMask = PSM_GLOBAL_GICP2_IRQ_STATUS_CPM_CORR_ERR_MASK |
 			      PSM_GLOBAL_GICP2_IRQ_STATUS_CPM_MISC_MASK     |

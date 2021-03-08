@@ -34,7 +34,8 @@ extern "C" {
 typedef void (*GicHandlerFunction_t)(void);
 struct GicP2HandlerTable_t {
         u32 Mask;
-	GicHandlerFunction_t Handler;
+	GicHandlerFunction_t CpmHandler;
+	GicHandlerFunction_t Cpm5Handler;
 };
 
 void XPsmFw_DispatchGicP2Handler(u32 GicP2Status, u32 GicP2IntMask);
