@@ -32,7 +32,8 @@
  *                       SET BOARD command via IPI
  *       bm   10/14/2020 Code clean up
  *       td   10/19/2020 MISRA C Fixes
- *       ma   02/12/2021 Return unique error codes in case of IPI read errors
+ * 1.03  ma   02/12/2021 Return unique error codes in case of IPI read errors
+ *       ma   03/04/2021 Code clean up
  *
  * </pre>
  *
@@ -61,7 +62,6 @@ static int XPlmi_ValidateIpiCmd(u32 CmdId);
 /*****************************************************************************/
 /* Instance of IPI Driver */
 static XIpiPsu IpiInst;
-static u32 IpiMaskList[XPLMI_IPI_MASK_COUNT] = {0U};
 
 /*****************************************************************************/
 /**
@@ -83,11 +83,6 @@ int XPlmi_IpiInit(void)
 	if (IpiCfgPtr == NULL) {
 		Status = XST_FAILURE;
 		goto END;
-	}
-
-	/* Init Mask Lists */
-	for (Index = 0U; Index < XPLMI_IPI_MASK_COUNT; Index++) {
-		IpiMaskList[Index] = IpiCfgPtr->TargetList[Index].Mask;
 	}
 
 	/* Initialize the Instance pointer */
@@ -139,16 +134,16 @@ int XPlmi_IpiDispatchHandler(void *Data)
 	SrcCpuMask = Xil_In32(IPI_PMC_ISR);
 
 	for (MaskIndex = 0; MaskIndex < XPLMI_IPI_MASK_COUNT; MaskIndex++) {
-		if ((SrcCpuMask & IpiMaskList[MaskIndex]) != 0U) {
-			Status = XPlmi_IpiRead(IpiMaskList[MaskIndex], &Payload[0U],
-				XPLMI_IPI_MAX_MSG_LEN, XIPIPSU_BUF_TYPE_MSG);
+		if ((SrcCpuMask & IpiInst.Config.TargetList[MaskIndex].Mask) != 0U) {
+			Status = XPlmi_IpiRead(IpiInst.Config.TargetList[MaskIndex].Mask,
+					&Payload[0U], XPLMI_IPI_MAX_MSG_LEN, XIPIPSU_BUF_TYPE_MSG);
 
 			if (XST_SUCCESS != Status) {
 				goto END;
 			}
 
 			Cmd.CmdId = Payload[0U];
-			Cmd.IpiMask = IpiMaskList[MaskIndex];
+			Cmd.IpiMask = IpiInst.Config.TargetList[MaskIndex].Mask;
 			Status = XPlmi_ValidateIpiCmd(Cmd.CmdId);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XPLMI_ERR_IPI_CMD, 0);
@@ -321,30 +316,30 @@ int XPlmi_IpiPollForAck(u32 DestCpuMask, u32 TimeOutCount)
 static int XPlmi_ValidateIpiCmd(u32 CmdId)
 {
 	int Status = XST_FAILURE;
-	u32 CmdHndlr = CmdId & XPLMI_CMD_HNDLR_MASK;
-	u32 PlmCmdId = CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK;
+	u32 CmdHndlr = (CmdId & XPLMI_CMD_MODULE_ID_MASK) >>
+			XPLMI_CMD_MODULE_ID_SHIFT;
+	u32 ApiId = CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK;
 
-	if (CmdHndlr == XPLMI_CMD_HNDLR_PLM_VAL) {
+	if (CmdHndlr == XPLMI_MODULE_GENERIC_ID) {
 		/*
 		 * Only Device ID, Event Logging and Get Board
 		 * commands are allowed through IPI.
 		 * All other commands are allowed only from CDO file.
 		 */
-		if ((PlmCmdId == XPLMI_PLM_GENERIC_DEVICE_ID_VAL) ||
-			(PlmCmdId == XPLMI_PLM_GENERIC_EVENT_LOGGING_VAL) ||
-			(PlmCmdId == XPLMI_PLM_MODULES_FEATURES_VAL) ||
-			(PlmCmdId == XPLMI_PLM_MODULES_GET_BOARD_VAL)) {
+		if ((ApiId == XPLMI_PLM_GENERIC_DEVICE_ID_VAL) ||
+			(ApiId == XPLMI_PLM_GENERIC_EVENT_LOGGING_VAL) ||
+			(ApiId == XPLMI_PLM_MODULES_FEATURES_VAL) ||
+			(ApiId == XPLMI_PLM_MODULES_GET_BOARD_VAL)) {
 			Status = XST_SUCCESS;
 		}
-	} else if ((CmdHndlr == XPLMI_CMD_HNDLR_EM_VAL) &&
-				((CmdId & XPLMI_CMD_API_ID_MASK) ==
-					XPLMI_PLM_MODULES_FEATURES_VAL)) {
+	} else if ((CmdHndlr == XPLMI_MODULE_ERROR_ID) &&
+				(ApiId == XPLMI_PLM_MODULES_FEATURES_VAL)) {
 		/*
 		 * Only features command is allowed in EM module through IPI.
 		 * Other EM commands are allowed only from CDO file.
 		 */
 		Status = XST_SUCCESS;
-	} else if (CmdHndlr != XPLMI_CMD_HNDLR_EM_VAL) {
+	} else if (CmdHndlr != XPLMI_MODULE_ERROR_ID) {
 		/*
 		 * Other module's commands are allowed through IPI.
 		 */

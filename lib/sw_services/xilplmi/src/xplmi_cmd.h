@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,7 @@
 *       bsv  09/30/2020 Added parallel DMA support for SBI, JTAG, SMAP and PCIE
 *                       boot modes
 *       bm   10/14/2020 Code clean up
+* 1.03  ma   03/04/2021 Removed duplicate defines
 *
 * </pre>
 *
@@ -51,9 +52,7 @@ extern "C" {
 #define XPLMI_CMD_LEN_MASK			(0xFF0000U)
 #define XPLMI_CMD_RESP_SIZE			(8U)
 #define XPLMI_CMD_RESUME_DATALEN		(8U)
-#define XPLMI_CMD_HNDLR_MASK			(0xFF00U)
-#define XPLMI_CMD_HNDLR_PLM_VAL			(0x100U)
-#define XPLMI_CMD_HNDLR_EM_VAL			(0x800U)
+#define XPLMI_CMD_MODULE_ID_SHIFT		(8U)
 
 /**************************** Type Definitions *******************************/
 typedef struct XPlmi_Cmd XPlmi_Cmd;
