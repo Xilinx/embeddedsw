@@ -40,6 +40,8 @@
 *       bsv  02/09/2021 Added input param validation for APIs
 *       bsv  02/12/2021 Initialize pointer variable to NULL before use
 *       bm   02/18/2021 Added const to XLoader_Cmds
+*       ma   03/04/2021 Added XLoader_CheckIpiAccess handler for checking
+*                       secure access for IPI commands
 *
 * </pre>
 *
@@ -56,6 +58,7 @@
 #include "xplmi_modules.h"
 #include "xplmi_wdt.h"
 #include "xplmi_event_logging.h"
+#include "xplmi.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -107,6 +110,10 @@ static XPlmi_Module XPlmi_Loader;
 #define XLOADER_DEFAULT_MULTIBOOT_VAL			(0U)
 #define XLOADER_DEFAULT_RAWBOOT_VAL			(0U)
 #define XLOADER_SD_FILE_SYSTEM_VAL			(0xF0000000U)
+
+/* Loader command defines */
+#define XLOADER_CMD_READBACK_CMD_ID				(0x7U)
+#define XLOADER_CMD_UPDATE_MULTIBOOT_CMD_ID	(0x8U)
 
 /************************** Function Prototypes ******************************/
 
@@ -539,6 +546,43 @@ static int XLoader_UnImplementedCmd(XPlmi_Cmd *Cmd)
 
 /*****************************************************************************/
 /**
+ * @brief	This function checks if the IPI command is accessible or not
+ *
+ * @param	CmdId is the Command ID
+ * @param	IpiReqType is the IPI command request type
+ *
+ * @return	XST_SUCCESS on success and XST_FAILURE on failure
+ *
+ *****************************************************************************/
+static int XLoader_CheckIpiAccess(u32 CmdId, u32 IpiReqType)
+{
+	int Status = XST_FAILURE;
+	u32 ModuleCmdId = CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK;
+
+	/* Secure check for Loader IPI commands */
+	switch (ModuleCmdId) {
+		/*
+		 * Check IPI request type for Readback and Update Multiboot IPI
+		 * commands and allow access only if the request is secure
+		 */
+		case XLOADER_CMD_READBACK_CMD_ID:
+		case XLOADER_CMD_UPDATE_MULTIBOOT_CMD_ID:
+			if (XPLMI_CMD_SECURE == IpiReqType) {
+				Status = XST_SUCCESS;
+			}
+			break;
+
+		/* Allow access for all other IPI commands */
+		default:
+			Status = XST_SUCCESS;
+			break;
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
  * @brief	Contains the array of PLM loader commands
  *
  *****************************************************************************/
@@ -565,6 +609,7 @@ static XPlmi_Module XPlmi_Loader =
 	XPLMI_MODULE_LOADER_ID,
 	XLoader_Cmds,
 	XPLMI_ARRAY_SIZE(XLoader_Cmds),
+	XLoader_CheckIpiAccess,
 };
 
 /*****************************************************************************/
