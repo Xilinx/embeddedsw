@@ -34,7 +34,9 @@ extern "C" {
 void XPsmFw_DvsecRead(void);
 void XPsmFw_DvsecWrite(void);
 void XPsmFw_DvsecPLHandler(void);
-void XPsmFw_GicP2IrqDisable(void);
+void XPsmFw_GicP2IrqDisable(u32 PowerId);
+void XPsmFw_Cpm5DvsecHandler(void);
+void XPsmFw_Cpm5DvsecPLHandler(void);
 
 #ifdef __cplusplus
 }
