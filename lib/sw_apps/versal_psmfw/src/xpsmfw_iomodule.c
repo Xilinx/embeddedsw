@@ -264,6 +264,82 @@ int SetUpInterruptSystem(void)
     return XST_SUCCESS;
 }
 
+#ifdef PSM_ENABLE_STL
+/******************************************************************************/
+/**
+*
+* This function registers the STL interrupt handler to the processor.
+*
+* @param InteruptNumber		Interrupt number
+* @param StlInterruptHandler	Pointer to STL interrupt handler which needs to
+* 				register
+*
+* @return   XST_SUCCESS or error code.
+*
+* @note     None.
+*
+****************************************************************************/
+int XPsmFw_RegisterStlInterruptHandler(u8 InteruptNumber,
+				       XInterruptHandler StlInterruptHandler)
+{
+	int Status = XST_FAILURE;
+
+	if ((NULL == StlInterruptHandler) ||
+	    (XPAR_IOMODULE_INTC_MAX_INTR_SIZE <= InteruptNumber)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	XIOModule_Disable(&IOModule, InteruptNumber);
+
+	Status = XIOModule_Connect(&IOModule, InteruptNumber,
+				   StlInterruptHandler, NULL);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	XIOModule_Enable(&IOModule, InteruptNumber);
+
+done:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+*
+* This function restores the default interrupt handler.
+*
+* @param InteruptNumber		Interrupt number
+*
+* @return   XST_SUCCESS or error code.
+*
+* @note     None.
+*
+****************************************************************************/
+int XPsmFw_RestoreInterruptHandler(u8 InteruptNumber)
+{
+	int Status = XST_FAILURE;
+
+	if (XPAR_IOMODULE_INTC_MAX_INTR_SIZE <= InteruptNumber) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	XIOModule_Disable(&IOModule, InteruptNumber);
+
+	Status = XIOModule_Connect(&IOModule, InteruptNumber,
+				   (XInterruptHandler)XPsmFw_IntrHandler, NULL);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	XIOModule_Enable(&IOModule, InteruptNumber);
+
+done:
+	return Status;
+}
+#endif
+
 /**
  * XPsmFw_IntrHandler() - Interrupt handler
  *
