@@ -353,23 +353,43 @@ done:
  * @brief This Function sends a CCIX_EN IPI to PSM if it design used is a
  * valid CPM CCIX design.
  *
- * @param None
+ * @param PowerId	NodeId of CPM Power Domain
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code.
  *
  * @note none
  *
  ****************************************************************************/
-XStatus XPm_CCIXEnEvent(void)
+XStatus XPm_CCIXEnEvent(u32 PowerId)
 {
 	u32 Payload[PAYLOAD_ARG_CNT];
 	XStatus Status = XST_FAILURE;
+	u32 RegAddr;
 	u32 RegVal;
 
-	PmIn32(PCIE_ATTRIB_0_TDVSEC_NXT_PTR, RegVal);
+	switch (PowerId) {
+	case PM_POWER_CPM5:
+		RegAddr	= CPM5_PCIE_ATTRIB_0_TDVSEC_NXT_PTR;
+		Status = XST_SUCCESS;
+		break;
+	case PM_POWER_CPM:
+		RegAddr	= PCIE_ATTRIB_0_TDVSEC_NXT_PTR;
+		Status = XST_SUCCESS;
+		break;
+	default:
+		Status = XPM_INVALID_PWRDOMAIN;
+		break;
+	}
+
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	PmIn32(RegAddr, RegVal);
 
 	if (RegVal == DVSEC_PCSR_START_ADDR)  {
 		Payload[0] = PSM_API_CCIX_EN;
+		Payload[1] = PowerId;
 
 		Status = XPm_IpiSend(PSM_IPI_INT_MASK, Payload);
 		if (XST_SUCCESS != Status) {

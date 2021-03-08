@@ -50,7 +50,7 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId);
 XStatus XPm_WakeUpEvent(const u32 DeviceId);
 XStatus XPm_DirectPwrUp(const u32 DeviceId);
 XStatus XPm_DirectPwrDwn(const u32 DeviceId);
-XStatus XPm_CCIXEnEvent(void);
+XStatus XPm_CCIXEnEvent(u32 PowerId);
 
 #ifdef __cplusplus
 }
