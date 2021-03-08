@@ -54,6 +54,7 @@ static XPlmi_Module XPlmi_Pm =
 	XPLMI_MODULE_XILPM_ID,
 	XPlmi_PmCmds,
 	PM_API(PM_API_MAX),
+	NULL,
 };
 static int (*PmRestartCb)(u32 ImageId, u32 *FuncId);
 
