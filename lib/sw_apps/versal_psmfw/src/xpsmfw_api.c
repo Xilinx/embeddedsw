@@ -119,7 +119,7 @@ XStatus XPsmFw_ProcessIpi(u32 *Payload)
 			Status = XPsmFw_FpHouseClean(Payload[1]);
 			break;
 		case PSM_API_CCIX_EN:
-			XPsmFw_GicP2IrqEnable();
+			XPsmFw_GicP2IrqEnable(Payload[1]);
 			Status = XST_SUCCESS;
 			break;
 		case PSM_API_KEEP_ALIVE:

@@ -39,7 +39,7 @@ struct GicP2HandlerTable_t {
 
 void XPsmFw_DispatchGicP2Handler(u32 GicP2Status, u32 GicP2IntMask);
 
-void XPsmFw_GicP2IrqEnable(void);
+void XPsmFw_GicP2IrqEnable(u32 PowerId);
 
 #ifdef __cplusplus
 }

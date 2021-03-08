@@ -29,6 +29,8 @@
 extern "C" {
 #endif
 
+#include "xpsmfw_api.h"
+
 void XPsmFw_DvsecRead(void);
 void XPsmFw_DvsecWrite(void);
 void XPsmFw_DvsecPLHandler(void);

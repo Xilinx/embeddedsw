@@ -91,21 +91,23 @@ void XPsmFw_GicP2IrqDisable(void)
 /**
  * @brief	Enables GICProxy2 interrupts.
  *
- * @param	None
+ * @param	PowerId		NodeId of power domain (CPM/CPM5)
  *
  * @return	None
  *
  * @note	None
  *
  *****************************************************************************/
-void XPsmFw_GicP2IrqEnable(void)
+void XPsmFw_GicP2IrqEnable(u32 PowerId)
 {
-	u32 IntMask = PSM_GLOBAL_GICP2_IRQ_STATUS_CPM_CORR_ERR_MASK |
-		      PSM_GLOBAL_GICP2_IRQ_STATUS_CPM_MISC_MASK     |
-		      PSM_GLOBAL_GICP2_IRQ_STATUS_PL_MASK;
+	if (PowerId == XPSMFW_POWER_CPM) {
+		u32 IntMask = PSM_GLOBAL_GICP2_IRQ_STATUS_CPM_CORR_ERR_MASK |
+			      PSM_GLOBAL_GICP2_IRQ_STATUS_CPM_MISC_MASK     |
+			      PSM_GLOBAL_GICP2_IRQ_STATUS_PL_MASK;
 
-	XPsmFw_Write32(PSM_GLOBAL_GICP2_INT_EN, IntMask);
+		XPsmFw_Write32(PSM_GLOBAL_GICP2_INT_EN, IntMask);
 
-	/* Enable GIC PSM irq */
-	XPsmFw_Write32(PSM_GLOBAL_GICP_PSM_IRQ_EN, PSM_GLOBAL_GICP_GICP2_MASK);
+		/* Enable GIC PSM irq */
+		XPsmFw_Write32(PSM_GLOBAL_GICP_PSM_IRQ_EN, PSM_GLOBAL_GICP_GICP2_MASK);
+	}
 }
