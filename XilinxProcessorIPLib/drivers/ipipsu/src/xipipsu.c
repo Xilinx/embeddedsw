@@ -26,7 +26,8 @@
 * 2.4	sd	07/11/18	Fix a doxygen reported warning
 * 2.6	sd	04/02/20	Restructured the code for more readability and modularity
 * 2.9   ma  02/12/21    Added IPI CRC functionality
-* 	sdd	  02/17/21	Doxygen fixes
+* 	    sdd	02/17/21	Doxygen fixes
+*       ma  03/04/21    Initialize BufferIndex during IPI config init
 * </pre>
 *
 *****************************************************************************/
@@ -76,6 +77,7 @@ XStatus XIpiPsu_CfgInitialize(XIpiPsu *InstancePtr, XIpiPsu_Config * CfgPtr,
 	InstancePtr->Config.BaseAddress = EffectiveAddress;
 	InstancePtr->Config.BitMask = CfgPtr->BitMask;
 	InstancePtr->Config.IntId = CfgPtr->IntId;
+	InstancePtr->Config.BufferIndex = CfgPtr->BufferIndex;
 
 	InstancePtr->Config.TargetCount = CfgPtr->TargetCount;
 
