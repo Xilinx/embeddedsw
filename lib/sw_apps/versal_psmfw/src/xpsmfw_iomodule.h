@@ -238,6 +238,11 @@ extern "C" {
 int XPsmFw_IoModuleInit(u16 DeviceId);
 int SetUpInterruptSystem(void);
 void XPsmFw_IntrHandler(void *IntrNumber);
+#ifdef PSM_ENABLE_STL
+int XPsmFw_RegisterStlInterruptHandler(u8 InteruptNumber,
+				       XInterruptHandler StlInterruptHandler);
+int XPsmFw_RestoreInterruptHandler(u8 InteruptNumber);
+#endif
 
 #ifdef __cplusplus
 }
