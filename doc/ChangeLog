@@ -42,6 +42,21 @@ freertos10_xilinx_v1_8:
 Updated tcl to support CIPS 3.0
 
 
+sysmonpsv_v2_1:
+Updated the driver documentation and added support for
+production silicon
+
+xilpm_v3_3:
+Versal: server: Enhance PLD topology handling
+Versal: server: Update device names
+Versal: server: Update default subsystem pre alloc section
+Versal: server: Clear PSM wakeup bit so that it goes in to sleep state
+Versal: server: Fix houseclean sequences
+Versal: server: Fix LPD BISR sequence
+Versal: server: Fix Gty MBIST sequence
+Versal: server: Update CPM POR reset type
+
+
 Changes for 2020.2
 ===============================
 rfdc_v8_0::
