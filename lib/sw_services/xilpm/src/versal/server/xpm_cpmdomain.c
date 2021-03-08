@@ -127,17 +127,27 @@ done:
 static XStatus CpmInitFinish(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
+	u32 PowerId;
 
 	/* This function does not use the args */
 	(void)Args;
 	(void)NumOfArgs;
 
+	if (XPmPower_GetById(PM_POWER_CPM5) != NULL) {
+		PowerId = PM_POWER_CPM5;
+	} else if (XPmPower_GetById(PM_POWER_CPM) != NULL) {
+		PowerId = PM_POWER_CPM;
+	} else {
+		Status = XPM_INVALID_PWRDOMAIN;
+		goto done;
+	}
 	/* Send a CCIX_EN IPI to PSM if its a valid CPM CCIX design */
-	Status = XPm_CCIXEnEvent();
+	Status = XPm_CCIXEnEvent(PowerId);
 	if (XST_SUCCESS != Status) {
 		PmErr("Failed to send CCIX_EN IPI to PSM, Return: 0x%x\r\n",
 		      Status);
 	}
+done:
 	return Status;
 }
 
