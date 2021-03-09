@@ -35,6 +35,7 @@
  * 6.0  Nava  02/23/21  To avoid the security glitch with IPI request buffer
  *                      contents added proper validation logic to fill the
  *                      IPI request buffer.
+ * 6.0  Nava  03/09/21  Added function pointer validation check.
  * </pre>
  *
  * @note
@@ -70,6 +71,9 @@ static u32 XFpga_WriteToPl(XFpga *InstancePtr);
 static XMailbox XMboxInstance;
 static u32 ReqBuffer[LOAD_PDI_MSG_LEN] = {0U};
 
+/* Create a constant pointer to XFpga_WriteToPl. */
+u32 (*const Write_To_Pl)(struct XFpgatag *InstancePtr) = XFpga_WriteToPl;
+
 /*****************************************************************************/
 /**This API, when called, initializes the XFPGA interface with default settings.
  *
@@ -87,7 +91,11 @@ u32 XFpga_Initialize(XFpga *InstancePtr)
 	if (InstancePtr != NULL) {
 		(void)memset(InstancePtr, 0U, sizeof(*InstancePtr));
 		InstancePtr->XFpga_WriteToPl = XFpga_WriteToPl;
-		Status = XFPGA_SUCCESS;
+
+		/* Check the pointer was assigned correctly. */
+		if (InstancePtr->XFpga_WriteToPl == Write_To_Pl) {
+			Status = XFPGA_SUCCESS;
+		}
 	}
 
 	return Status;
