@@ -446,7 +446,7 @@ static AieRC XAie_CdoIO_CmdWrite(void *IOInst, u8 Col, u8 Row, u8 Command,
 	(void)CmdWd1;
 	(void)CmdStr;
 
-	return XAIE_ERR;
+	return XAIE_OK;
 }
 
 static XAie_MemInst* XAie_CdoMemAllocate(XAie_DevInst *DevInst, u64 Size,
