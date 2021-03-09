@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -159,17 +159,17 @@ u32 XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask)
 	u32 SubsystemId = INVALID_SUBSYSID;
 	XPm_Subsystem *Subsystem;
 
-	/* If default subsystem is active, return default subsystem id
-	  as it does not have ipi channel mapped to it.*/
-	Subsystem = XPmSubsystem_GetById(PM_SUBSYS_DEFAULT);
-	if ((NULL != Subsystem) && ((u8)OFFLINE != Subsystem->State)) {
-		SubsystemId = Subsystem->Id;
+	/*
+	 * Subsystem with least one IPI channel
+	 * will have non-zero IPI mask.
+	 */
+	if (0U == IpiMask) {
 		goto done;
 	}
 
 	Subsystem = PmSubsystems;
 	while (NULL != Subsystem) {
-		if ((Subsystem->IpiMask == IpiMask) &&
+		if (((Subsystem->IpiMask & IpiMask) == IpiMask) &&
 		    ((u8)OFFLINE != Subsystem->State)) {
 			SubsystemId = Subsystem->Id;
 			break;
@@ -789,6 +789,13 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 		{PM_DEV_GEM_0, (u32)XPM_MAX_CAPABILITY},
 		{PM_DEV_GEM_1, (u32)XPM_MAX_CAPABILITY},
 		{PM_DEV_RPU0_0, (u32)PM_CAP_ACCESS},
+		{PM_DEV_IPI_0, (u32)PM_CAP_ACCESS},
+		{PM_DEV_IPI_1, (u32)PM_CAP_ACCESS},
+		{PM_DEV_IPI_2, (u32)PM_CAP_ACCESS},
+		{PM_DEV_IPI_3, (u32)PM_CAP_ACCESS},
+		{PM_DEV_IPI_4, (u32)PM_CAP_ACCESS},
+		{PM_DEV_IPI_5, (u32)PM_CAP_ACCESS},
+		{PM_DEV_IPI_6, (u32)PM_CAP_ACCESS},
 	};
 
 	if (((u32)XPM_NODECLASS_SUBSYSTEM != NODECLASS(SubsystemId)) ||
