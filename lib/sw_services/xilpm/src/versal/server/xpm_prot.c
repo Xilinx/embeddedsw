@@ -127,6 +127,38 @@ static const u8 RegnAddrOffsets[MAX_MEM_REGIONS] = {
  */
 #define REGN_ADDR_OFFSET(region)	((u32)RegnAddrOffsets[(region)])
 
+/**
+ * Returns true if given NodeId is part of the device exclusion list
+ */
+static u32 XPmProt_IsExcluded(u32 NodeId)
+{
+	u32 i = 0;
+	u32 Excluded = 0U;
+
+	/**
+	 * Device exclusion list
+	 *  - Contains devices for which no dynamic reconfiguration
+	 *  of protection unit will be supported.
+	 */
+	static const u32 ExcludedDevs[] = {
+		PM_DEV_IPI_0,
+		PM_DEV_IPI_1,
+		PM_DEV_IPI_2,
+		PM_DEV_IPI_3,
+		PM_DEV_IPI_4,
+		PM_DEV_IPI_5,
+		PM_DEV_IPI_6,
+		PM_DEV_IPI_PMC,
+	};
+
+	for (i = 0U; i < ARRAY_SIZE(ExcludedDevs); i++) {
+		if (ExcludedDevs[i] == NodeId) {
+			Excluded = 1U;
+			break;
+		}
+	}
+	return Excluded;
+}
 
 /****************************************************************************/
 /**
@@ -640,6 +672,14 @@ static XStatus XPmProt_XppuConfigure(const XPm_Requirement *Reqm, u32 Enable)
 	}
 
 	/*
+	 * Skip dynamic reconfiguration for the excluded device.
+	 */
+	if (1U == XPmProt_IsExcluded(Reqm->Device->Node.Id)) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/*
 	 * NOTE:
 	 *  For PMC, PSM, DDR, any other memory devices than TCM and nodes that
 	 *  do not have a base address mapped in topology (i.e. abstract nodes),
@@ -648,7 +688,7 @@ static XStatus XPmProt_XppuConfigure(const XPm_Requirement *Reqm, u32 Enable)
 	 *  for these devices.
 	 */
 	DeviceBaseAddr = XPmProt_GetDevBaseAddr(Reqm->Device);
-	if (0x0U == DeviceBaseAddr) {
+	if (0U == DeviceBaseAddr) {
 		PmDbg("Aperture permission config not supported for device: 0x%08x\r\n",
 				Reqm->Device->Node.Id);
 		Status = XST_SUCCESS;
