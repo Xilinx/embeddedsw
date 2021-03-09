@@ -302,6 +302,13 @@ int XV_HdmiC_VSIF_ParsePacket(XHdmiC_Aux *AuxPtr, XHdmiC_VSIF  *VSIFPtr)
         VSIFPtr->IEEE_ID |= (temp << (Index * 8));
     }
 
+    /*
+     * Check if the IEEE_ID is 0x000C03 as per
+     * Table H1 from HDMI 1.4b spec
+     */
+    if (VSIFPtr->IEEE_ID != 0xC03)
+	    return XST_FAILURE;
+
     /* HDMI Video Format */
     temp = (pData[4] & XHDMIC_VSIF_VIDEO_FORMAT_MASK) >> XHDMIC_VSIF_VIDEO_FORMAT_SHIFT;
     if (temp >= XHDMIC_VSIF_VF_UNKNOWN) {
