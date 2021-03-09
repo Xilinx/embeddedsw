@@ -46,7 +46,7 @@ static const char *PmDevEvents[] = {
 	"TIMER",
 };
 
-static u32 IpiMasks[][2] = {
+static const u32 IpiMasks[][2] = {
 	{ PM_DEV_IPI_0, IPI_0_MASK },
 	{ PM_DEV_IPI_1, IPI_1_MASK },
 	{ PM_DEV_IPI_2, IPI_2_MASK },
@@ -1428,10 +1428,13 @@ XStatus XPmDevice_Request(const u32 SubsystemId,
 	Status = Device->DeviceOps->Request(Device, Subsystem, Capabilities,
 					    QoS);
 	if (XST_SUCCESS == Status) {
-		/* Assign IPI mask to subsystem if IPI devices are requested. */
+		/**
+		 * More than one IPI channels can be associated with a subsystem;
+		 * Update its IPI mask accordingly when an IPI channel is requested.
+		 */
 		for (Idx = 0; Idx < ARRAY_SIZE(IpiMasks); Idx++) {
 			if (IpiMasks[Idx][0] == Device->Node.Id) {
-				Subsystem->IpiMask = IpiMasks[Idx][1];
+				Subsystem->IpiMask |= IpiMasks[Idx][1];
 				break;
 			}
 		}
