@@ -218,26 +218,37 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	if((Cmd->CmdId & 0xFFU) != PM_API(PM_SET_CURRENT_SUBSYSTEM)) {
 		SubsystemId = XPmSubsystem_GetCurrent();
 		if(SubsystemId != INVALID_SUBSYSID) {
-			PmDbg("Using current subsystemId: 0x%x\n\r", SubsystemId);
+			PmDbg("Using current SubsystemId: 0x%x\r\n",
+					SubsystemId);
 		} else if ((0U == Cmd->IpiMask) && (0U != Cmd->SubsystemId)) {
-			SubsystemId = Cmd->SubsystemId;
-			PmDbg("Using subsystemId passed by PLM: 0x%x\n\r", SubsystemId);
-
-			/* PLD node ids are used as image ids for PLD images */
-			if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(SubsystemId)) &&
-				((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(SubsystemId))) {
+			u32 Class = NODECLASS(Cmd->SubsystemId);
+			u32 SubClass = NODESUBCLASS(Cmd->SubsystemId);
+			/**
+			 * Subsystem Id passed from PLM here is the Image Id;
+			 * thus map it to appropriate subsystems if applicable.
+			 */
+			if (((u32)XPM_NODECLASS_DEVICE == Class) &&
+			    ((u32)XPM_NODESUBCL_DEV_PL == SubClass)) {
+				/* Use PMC Subsystem Id for PLD images */
 				SubsystemId = PM_SUBSYS_PMC;
-			}
-			/* Use PMC subsystem ID for power domain CDOs. */
-			if ((u32)XPM_NODECLASS_POWER == NODECLASS(SubsystemId)) {
+			} else if ((u32)XPM_NODECLASS_POWER == Class) {
+				/* Use PMC Subsystem Id for power domain CDOs */
 				SubsystemId = PM_SUBSYS_PMC;
+			} else {
+				/* Use given Image Id as Subsystem Id */
+				SubsystemId = Cmd->SubsystemId;
 			}
+			PmDbg("Using SubsystemId 0x%x, SubsystemId passed by PLM: 0x%x\r\n",
+					SubsystemId, Cmd->SubsystemId);
 		} else if (0U != Cmd->IpiMask) {
 			SubsystemId = XPmSubsystem_GetSubSysIdByIpiMask(Cmd->IpiMask);
-			PmDbg("Using subsystemId mapped to IPI: 0x%x\n\r", SubsystemId);
+			PmDbg("Using SubsystemId 0x%0x assigned to IPI mask 0x%x\r\n",
+					SubsystemId, Cmd->IpiMask);
 		} else {
-			/* Required due to MISRA */
-			PmDbg("[%d] Unknown else case\r\n", __LINE__);
+			PmErr("Invalid IPI mask 0x%x or SubsystemId 0x%x\r\n",
+					Cmd->IpiMask, Cmd->SubsystemId);
+			Status = XST_INVALID_PARAM;
+			goto done;
 		}
 
 		Subsystem = XPmSubsystem_GetById(SubsystemId);
@@ -246,8 +257,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 				PmDbg("Command from XSDB master\r\n");
 			} else {
 				/* Subsystem must not be offline here */
-				PmErr("Invalid SubsystemId 0x%x\n\r",
-				      SubsystemId);
+				PmErr("Invalid SubsystemId 0x%x\n\r", SubsystemId);
 				Status = XPM_INVALID_SUBSYSID;
 				goto done;
 			}
@@ -439,7 +449,8 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	if (XST_SUCCESS == Status) {
 		Cmd->ResumeHandler = NULL;
 	} else {
-		PmErr("Error 0x%x while processing command 0x%x\r\n", Status, Cmd->CmdId);
+		PmErr("Error 0x%x while processing command 0x%x\r\n",
+				Status, Cmd->CmdId);
 		PmDbg("Command payload: 0x%x, 0x%x, 0x%x, 0x%x\r\n",
 			Pload[0], Pload[1], Pload[2], Pload[3]);
 	}
@@ -449,7 +460,8 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	Status = Xil_SecureMemCpy(&Cmd->Response[1], sizeof(ApiResponse),
 			ApiResponse, sizeof(ApiResponse));
 	if (XST_SUCCESS != Status) {
-		PmErr("Error 0x%x while copying the Cmd 0x%x return payload\r\n", Status, Cmd->CmdId);
+		PmErr("Error 0x%x while copying the Cmd 0x%x return payload\r\n",
+				Status, Cmd->CmdId);
 		goto done;
 	}
 
