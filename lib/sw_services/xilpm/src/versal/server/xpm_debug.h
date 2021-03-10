@@ -312,6 +312,8 @@ extern "C" {
 #define XPM_INT_ERR_PLD_RAIL_CONTROL		0X3718U
 /* Error during redundancy check for GTY Memory clear loop */
 #define XPM_INT_ERR_GTY_MEM_CLEAR_LOOP		0x3719U
+/* Error during Laguna repair */
+#define XPM_INT_ERR_LAGUNA_REPAIR      0x371AU
 
 /************************** NPD specific Errors ******************************/
 /************************** (0x3800) - (0x38FF) ******************************/

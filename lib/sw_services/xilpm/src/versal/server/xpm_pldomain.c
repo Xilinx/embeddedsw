@@ -389,6 +389,7 @@ static XStatus PlHouseClean(u32 TriggerTime)
 	u32 Platform = XPm_GetPlatform();
 	u32 PlatformVersion = XPm_GetPlatformVersion();
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u8 DeviceType;
 
 
 	if (PLHCLEAN_EARLY_BOOT == TriggerTime) {
@@ -467,7 +468,18 @@ static XStatus PlHouseClean(u32 TriggerTime)
 			goto done;
 		}
 
-		/* LAGUNA REPAIR - not needed for now */
+		/* LAGUNA REPAIR */
+		/* Read PMC_TAP to check if device is SSIT device */
+		DeviceType = PMC_TAP_SLR_TYPE_MASK & XPm_In32(PMC_TAP_BASEADDR +
+				PMC_TAP_SLR_TYPE_OFFSET);
+
+		if ((0U != DeviceType) && (7U != DeviceType)) {
+			Status = XPmBisr_Repair(LAGUNA_TAG_ID);
+			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_LAGUNA_REPAIR;
+				goto done;
+			}
+		}
 
 		/* There is no status for Bisr done in hard ip. But we must ensure
 		 * BISR is complete before scan clear */

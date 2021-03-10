@@ -25,6 +25,7 @@ extern "C" {
 #define PMC_SYSMON_BASEADDR					(0xF1270000U)
 #define PCIEA_ATTRIB_DMA_BASEADDR				(0xFCA70000U)
 #define CPM5_PCIE_ATTRIB_0_BASEADDR				(0xFCE08000U)
+#define CFRAME_BCAST_REG_BASEADDR              (0xF12EE000U)
 
 /**
  * PMC Global module
@@ -398,6 +399,15 @@ extern "C" {
 #define AMS_ROOT_TOKEN_MNGR_BYPASS_PL_MASK			(0x00100000U)
 
 /**
+ * CFRAME Module
+ */
+#define CFRAME_REG_CMD_OFFSET                  (0x00000060U)
+#define CFRAME_REG_FAR_OFFSET                  (0x00000010U)
+#define CFRAME_REG_FRCNT_OFFSET                (0x00000050U)
+#define CFRAME_REG_FDRI_OFFSET                 (0x00000040U)
+#define CFRAME_REG_FAR_BLOCKTYPE_SHIFT             (20U)
+
+/**
  * CFU APB Module
  */
 #define CFU_APB_CFU_FGCR_OFFSET					(0x00000018U)
@@ -405,6 +415,10 @@ extern "C" {
 #define CFU_APB_CFU_MASK_INIT_COMPLETE_ENABLE_MASK		(0x00000001U)
 #define CFU_APB_CFU_STATUS_OFFSET				(0x00000100U)
 #define CFU_APB_CFU_PROTECT_OFFSET				(0x00000014U)
+#define CFU_APB_CFU_ROW_RANGE_OFFSET               (0x0000006CU)
+#define CFU_APB_CFU_ROW_RANGE_HALF_FSR_MASK            (0x00000020U)
+#define CFU_APB_CFU_ROW_RANGE_HALF_FSR_SHIFT	(5U)
+
 
 /**
  * CPM PCSR Module
