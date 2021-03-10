@@ -45,6 +45,8 @@
 *	    bsv  02/28/2021 Added code to avoid unaligned NPI writes
 *       ma   03/04/2021 Added XPlmi_CheckIpiAccess handler to check access for
 *                       secure IPI commands
+*       ma   03/10/2021 Removed Get Device Id and Get Board commands from
+*                       secure commands list
 *
 * </pre>
 *
@@ -1327,12 +1329,10 @@ static int XPlmi_CheckIpiAccess(u32 CmdId, u32 IpiReqType)
 	/* Secure check for PLMI IPI commands */
 	switch (ModuleCmdId) {
 		/*
-		 * Check IPI request type for Get Device ID, Event Logging and Get
-		 * Board IPI commands and allow access only if the request is secure
+		 * Check IPI request type for Event Logging IPI command
+		 * and allow access only if the request is secure
 		 */
-		case XPLMI_PLM_GENERIC_DEVICE_ID_VAL:
 		case XPLMI_PLM_GENERIC_EVENT_LOGGING_VAL:
-		case XPLMI_PLM_MODULES_GET_BOARD_VAL:
 			if (XPLMI_CMD_SECURE == IpiReqType) {
 				Status = XST_SUCCESS;
 			}
