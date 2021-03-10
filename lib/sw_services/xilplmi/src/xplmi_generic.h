@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +34,7 @@
 *       td   10/19/2020 MISRA C Fixes
 * 1.04  bsv  01/04/2021 Added support for LogString and LogAddress commands
 *	    bsv  02/28/2021 Added code to avoid unaligned NPI writes
+*	    ma   03/10/2021 Added define for Loader set image info command
 *
 * </pre>
 *
@@ -91,11 +92,14 @@ typedef struct {
 #define XPLMI_MASKPOLL_FLAGS_MASK		(0x3U)
 #define XPLMI_MASKPOLL_FLAGS_SUCCESS		(0x1U)
 #define XPLMI_MASKPOLL_FLAGS_DEFERRED_ERR	(0x2U)
+
+/* Defines related to module commands */
 #define XPLMI_PLM_GENERIC_CMD_ID_MASK		(0xFFU)
 #define XPLMI_PLM_MODULES_FEATURES_VAL		(0x00U)
 #define XPLMI_PLM_GENERIC_DEVICE_ID_VAL		(0x12U)
 #define XPLMI_PLM_GENERIC_EVENT_LOGGING_VAL	(0x13U)
 #define XPLMI_PLM_MODULES_GET_BOARD_VAL		(0x15U)
+#define XPLMI_PLM_LOADER_SET_IMG_INFO_VAL	(0x4U)
 
 /************************** Function Prototypes ******************************/
 void XPlmi_GenericInit(void);

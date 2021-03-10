@@ -35,6 +35,7 @@
  * 1.03  ma   02/12/2021 Return unique error codes in case of IPI read errors
  *       ma   03/04/2021 Code clean up
  *       ma   03/04/2021 Added access check for IPI commands
+ *       ma   03/10/2021 Added code to disallow set image info Loader command
  *
  * </pre>
  *
@@ -310,7 +311,7 @@ int XPlmi_IpiPollForAck(u32 DestCpuMask, u32 TimeOutCount)
  * @brief	This function checks whether the Cmd passed is supported
  * 			via IPI mechanism or not.
  *
- * @param	CmddId is the module ID
+ * @param	ModuleId is the module ID
  * @param	ApiId is the API ID
  *
  * @return	XST_SUCCESS on success and XST_FAILURE on failure
@@ -342,6 +343,16 @@ static int XPlmi_ValidateCmd(u32 ModuleId, u32 ApiId)
 			 * Other EM commands are allowed only from CDO file.
 			 */
 			if (ApiId == XPLMI_PLM_MODULES_FEATURES_VAL) {
+				Status = XST_SUCCESS;
+			}
+			break;
+
+		case XPLMI_MODULE_LOADER_ID:
+			/*
+			 * Except Set Image Info command, all other commands are allowed
+			 * in Loader module through IPI.
+			 */
+			if (ApiId != XPLMI_PLM_LOADER_SET_IMG_INFO_VAL) {
 				Status = XST_SUCCESS;
 			}
 			break;
