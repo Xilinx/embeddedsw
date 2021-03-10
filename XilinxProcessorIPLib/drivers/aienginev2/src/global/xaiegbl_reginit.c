@@ -2911,7 +2911,7 @@ XAie_TileMod AieMod[] =
 		/*
 		 * AIE Reserved Module indexed using XAIEGBL_TILE_TYPE_RESERVED
 		 */
-		.NumModules = NULL,
+		.NumModules = 0U,
 		.CoreMod = NULL,
 		.StrmSw  = NULL,
 		.DmaMod  = NULL,
