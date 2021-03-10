@@ -270,6 +270,8 @@
 *       cog    01/06/21 Added DAC data scaler APIs.
 *       cog    01/11/21 Tuning for autocalibration.
 *       cog    02/10/21 Added custom startup API.
+*       cog    03/08/21 MTS now scans reference tile first. This has required a
+*                       change to the prototype of XRFdc_MultiConverter_Init.
 *
 * </pre>
 *
@@ -1314,6 +1316,7 @@ typedef struct {
 #define XRFDC_MTS_NOT_ENABLED 512U
 #define XRFDC_MTS_SYSREF_GATE_ERROR 2048U
 #define XRFDC_MTS_SYSREF_FREQ_NDONE 4096U
+#define XRFDC_MTS_BAD_REF_TILE 8192U
 
 /*****************************************************************************/
 /************************** Function Prototypes ******************************/
@@ -1452,7 +1455,8 @@ u32 XRFdc_GetMaxSampleRate(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, double *Ma
 u32 XRFdc_GetMinSampleRate(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, double *MinSampleRatePtr);
 double XRFdc_GetDriverVersion(void);
 u32 XRFdc_MultiConverter_Sync(XRFdc *InstancePtr, u32 Type, XRFdc_MultiConverter_Sync_Config *ConfigPtr);
-void XRFdc_MultiConverter_Init(XRFdc_MultiConverter_Sync_Config *ConfigPtr, int *PLL_CodesPtr, int *T1_CodesPtr);
+u32 XRFdc_MultiConverter_Init(XRFdc_MultiConverter_Sync_Config *ConfigPtr, int *PLL_CodesPtr, int *T1_CodesPtr,
+			      u32 RefTile);
 u32 XRFdc_MTS_Sysref_Config(XRFdc *InstancePtr, XRFdc_MultiConverter_Sync_Config *DACSyncConfigPtr,
 			    XRFdc_MultiConverter_Sync_Config *ADCSyncConfigPtr, u32 SysRefEnable);
 u32 XRFdc_GetMTSEnable(XRFdc *InstancePtr, u32 Type, u32 Tile, u32 *EnablePtr);
