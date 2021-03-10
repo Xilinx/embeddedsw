@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -45,6 +45,8 @@
 *       cog    12/04/20 PLL DTC Scan was not being done in cases where the
 *                       output divider works out to 1.
 *       cog    12/04/20 Reduce scope of non user interface macros.
+*       cog    03/08/21 MTS now scans reference tile first. This has required a
+*                       change to the prototype of XRFdc_MultiConverter_Init.
 *
 * </pre>
 *
@@ -608,6 +610,63 @@ static u32 XRFdc_MTS_Dtc_Scan(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_M
 		Status |= XRFdc_MTS_Sysref_Count(InstancePtr, Type, XRFDC_MTS_DTC_COUNT);
 		XRFdc_MTS_Sysref_Ctrl(InstancePtr, Type, Tile_Id, 0, 1, 0);
 	}
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This API Scans the DTC codes and determine the optimal capture code for
+* PLL cases
+*
+*
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param    SettingsPtr dtc settings structure.
+*
+* @return
+*         - XRFDC_MTS_OK if successful.
+*         - XRFDC_MTS_TIMEOUT if timeout occurs.
+*
+* @note     None.
+*
+******************************************************************************/
+static u32 XRFdc_MTS_Dtc_Scan_PLL(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
+				  XRFdc_MultiConverter_Sync_Config *ConfigPtr)
+{
+	u32 Status;
+	u32 BaseAddr;
+	u32 NetCtrlReg;
+	u32 DistCtrlReg;
+
+	Status = XRFDC_MTS_OK;
+	BaseAddr = XRFDC_DRP_BASE(Type, Tile_Id) + XRFDC_HSCOM_ADDR;
+	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
+		NetCtrlReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_MTS_CLKSTAT);
+		if ((NetCtrlReg & XRFDC_MTS_PLLEN_M) != XRFDC_DISABLED) {
+			/* DTC Scan PLL */
+			if (Tile_Id == ConfigPtr->RefTile) {
+				metal_log(METAL_LOG_INFO, "\nDTC Scan PLL\n");
+			}
+			ConfigPtr->DTC_Set_PLL.RefTile = ConfigPtr->RefTile;
+			Status |= XRFdc_MTS_Dtc_Scan(InstancePtr, Type, Tile_Id, &ConfigPtr->DTC_Set_PLL);
+		}
+	} else {
+		NetCtrlReg = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CLK_NETWORK_CTRL1,
+					 (XRFDC_NET_CTRL_CLK_T1_SRC_LOCAL | XRFDC_NET_CTRL_CLK_T1_SRC_DIST));
+		DistCtrlReg =
+			XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_HSCOM_CLK_DSTR_OFFSET, XRFDC_DIST_CTRL_DIST_SRC_PLL);
+
+		if ((NetCtrlReg == XRFDC_DISABLED) || (DistCtrlReg != XRFDC_DISABLED)) {
+			/* DTC Scan PLL */
+			if (Tile_Id == ConfigPtr->RefTile) {
+				metal_log(METAL_LOG_INFO, "\nDTC Scan PLL\n");
+			}
+			ConfigPtr->DTC_Set_PLL.RefTile = ConfigPtr->RefTile;
+			Status |= XRFdc_MTS_Dtc_Scan(InstancePtr, Type, Tile_Id, &ConfigPtr->DTC_Set_PLL);
+		}
+	}
 
 	return Status;
 }
@@ -1122,19 +1181,29 @@ u32 XRFdc_MTS_Sysref_Config(XRFdc *InstancePtr, XRFdc_MultiConverter_Sync_Config
 * @param    ConfigPtr pointer to Multi-tile sync config structure.
 * @param    PLL_CodesPtr pointer to PLL analog sysref capture.
 * @param    T1_CodesPtr pointer to T1 analog sysref capture.
+* @param    RefTile the tile ID of the reference tile.
 *
-* @note     None.
+* @return
+*       - XRFDC_MTS_OK if successful.
+*       - XRFDC_MTS_BAD_REF_TILE if bad reference tile value is supplied.
 *
 * @note     None.
 *
 ******************************************************************************/
-void XRFdc_MultiConverter_Init(XRFdc_MultiConverter_Sync_Config *ConfigPtr, int *PLL_CodesPtr, int *T1_CodesPtr)
+u32 XRFdc_MultiConverter_Init(XRFdc_MultiConverter_Sync_Config *ConfigPtr, int *PLL_CodesPtr, int *T1_CodesPtr,
+			      u32 RefTile)
 {
+	u32 Status;
 	u32 Index;
 
-	Xil_AssertVoid(ConfigPtr != NULL);
+	Xil_AssertNonvoid(ConfigPtr != NULL);
 
-	ConfigPtr->RefTile = 0U;
+	if (RefTile > XRFDC_TILE_ID_MAX) {
+		Status = XRFDC_MTS_BAD_REF_TILE;
+		metal_log(METAL_LOG_ERROR, "Bad reference tile selection (%u) in%s\n", RefTile, __func__);
+		goto RETURN_PATH;
+	}
+	ConfigPtr->RefTile = RefTile;
 	ConfigPtr->DTC_Set_PLL.Scan_Mode = (PLL_CodesPtr == NULL) ? XRFDC_MTS_SCAN_INIT : XRFDC_MTS_SCAN_RELOAD;
 	ConfigPtr->DTC_Set_T1.Scan_Mode = (T1_CodesPtr == NULL) ? XRFDC_MTS_SCAN_INIT : XRFDC_MTS_SCAN_RELOAD;
 	ConfigPtr->DTC_Set_PLL.IsPLL = 1U;
@@ -1159,6 +1228,9 @@ void XRFdc_MultiConverter_Init(XRFdc_MultiConverter_Sync_Config *ConfigPtr, int 
 		ConfigPtr->DTC_Set_PLL.DTC_Code[Index] = -1;
 		ConfigPtr->DTC_Set_T1.DTC_Code[Index] = -1;
 	}
+	Status = XRFDC_MTS_OK;
+RETURN_PATH:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -1192,8 +1264,6 @@ u32 XRFdc_MultiConverter_Sync(XRFdc *InstancePtr, u32 Type, XRFdc_MultiConverter
 	u32 BaseAddr;
 	u32 TileState;
 	u32 BlockStatus;
-	u32 NetCtrlReg;
-	u32 DistCtrlReg;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
@@ -1242,45 +1312,26 @@ u32 XRFdc_MultiConverter_Sync(XRFdc *InstancePtr, u32 Type, XRFdc_MultiConverter
 	/* Update distribution */
 	Status |= XRFdc_MTS_Sysref_Dist(InstancePtr, -1);
 
-	/* Scan DTCs for each tile */
+	/* Scan DTCs for each tile starting with the reference tile */
+	Status |= XRFdc_MTS_Dtc_Scan_PLL(InstancePtr, Type, ConfigPtr->RefTile, ConfigPtr);
 	for (Index = XRFDC_TILE_ID0; Index < XRFDC_TILE_ID4; Index++) {
+		if (Index == ConfigPtr->RefTile) {
+			continue;
+		}
 		if ((ConfigPtr->Tiles & (1U << Index)) != 0U) {
-			/* Run DTC Scan for T1/PLL */
-			BaseAddr = XRFDC_DRP_BASE(Type, Index) + XRFDC_HSCOM_ADDR;
-			if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
-				RegData = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_MTS_CLKSTAT);
-				if ((RegData & XRFDC_MTS_PLLEN_M) != XRFDC_DISABLED) {
-					/* DTC Scan PLL */
-					if (Index == XRFDC_BLK_ID0) {
-						metal_log(METAL_LOG_INFO, "\nDTC Scan PLL\n");
-					}
-					ConfigPtr->DTC_Set_PLL.RefTile = ConfigPtr->RefTile;
-					Status |= XRFdc_MTS_Dtc_Scan(InstancePtr, Type, Index, &ConfigPtr->DTC_Set_PLL);
-				}
-			} else {
-				NetCtrlReg =
-					XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CLK_NETWORK_CTRL1,
-						    (XRFDC_NET_CTRL_CLK_T1_SRC_LOCAL | XRFDC_NET_CTRL_CLK_T1_SRC_DIST));
-				DistCtrlReg = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_HSCOM_CLK_DSTR_OFFSET,
-							  XRFDC_DIST_CTRL_DIST_SRC_PLL);
-
-				if ((NetCtrlReg == XRFDC_DISABLED) || (DistCtrlReg != XRFDC_DISABLED)) {
-					/* DTC Scan PLL */
-					if (Index == XRFDC_BLK_ID0) {
-						metal_log(METAL_LOG_INFO, "\nDTC Scan PLL\n");
-					}
-					ConfigPtr->DTC_Set_PLL.RefTile = ConfigPtr->RefTile;
-					Status |= XRFdc_MTS_Dtc_Scan(InstancePtr, Type, Index, &ConfigPtr->DTC_Set_PLL);
-				}
-			}
+			/* Run DTC Scan for PLL */
+			Status |= XRFdc_MTS_Dtc_Scan_PLL(InstancePtr, Type, Index, ConfigPtr);
 		}
 	}
-
-	/* Scan DTCs for each tile T1 */
-	metal_log(METAL_LOG_INFO, "\nDTC Scan T1\n", 0);
+	/* Scan DTCs for each tile T1 starting with the reference tile */
+	metal_log(METAL_LOG_INFO, "\nDTC Scan T1\n");
+	ConfigPtr->DTC_Set_T1.RefTile = ConfigPtr->RefTile;
+	Status |= XRFdc_MTS_Dtc_Scan(InstancePtr, Type, ConfigPtr->RefTile, &ConfigPtr->DTC_Set_T1);
 	for (Index = XRFDC_TILE_ID0; Index < XRFDC_TILE_ID4; Index++) {
 		if ((ConfigPtr->Tiles & (1U << Index)) != 0U) {
-			ConfigPtr->DTC_Set_T1.RefTile = ConfigPtr->RefTile;
+			if (Index == ConfigPtr->RefTile) {
+				continue;
+			}
 			Status |= XRFdc_MTS_Dtc_Scan(InstancePtr, Type, Index, &ConfigPtr->DTC_Set_T1);
 		}
 	}
@@ -1290,10 +1341,8 @@ u32 XRFdc_MultiConverter_Sync(XRFdc *InstancePtr, u32 Type, XRFdc_MultiConverter
 
 	/* Measure latency */
 	Status |= XRFdc_MTS_GetMarker(InstancePtr, Type, ConfigPtr->Tiles, &Markers, ConfigPtr->Marker_Delay);
-
 	/* Calculate latency difference and adjust for it */
 	Status |= XRFdc_MTS_Latency(InstancePtr, Type, ConfigPtr, &Markers);
-
 	return Status;
 }
 

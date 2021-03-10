@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +34,8 @@
 * 7.0   cog    07/25/19 Updated example for new metal register API.
 * 8.1   cog    08/28/20 Make the example toatally generic, updated information.
 * 10.0  cog    11/26/20 xrfdc_mts.h is now integrated to xrfdc.h.
+*       cog    03/08/21 MTS now scans reference tile first. This has required a
+*                       change to the prototype of XRFdc_MultiConverter_Init.
 *
 * </pre>
 *
@@ -172,7 +174,7 @@ int RFdcMTS_Example(u16 RFdcDeviceId)
     printf("\n=== Run DAC Sync ===\n");
 
     /* Initialize DAC MTS Settings */
-    XRFdc_MultiConverter_Init (&DAC_Sync_Config, 0, 0);
+    XRFdc_MultiConverter_Init (&DAC_Sync_Config, 0, 0, XRFDC_TILE_ID0);
     DAC_Sync_Config.Tiles = 0x3;	/* Sync DAC tiles 0 and 1 */
 
     status_dac = XRFdc_MultiConverter_Sync(RFdcInstPtr, XRFDC_DAC_TILE,
@@ -187,7 +189,7 @@ int RFdcMTS_Example(u16 RFdcDeviceId)
     printf("\n=== Run ADC Sync ===\n");
 
     /* Initialize ADC MTS Settings */
-    XRFdc_MultiConverter_Init (&ADC_Sync_Config, 0, 0);
+    XRFdc_MultiConverter_Init (&ADC_Sync_Config, 0, 0, XRFDC_TILE_ID0);
     ADC_Sync_Config.Tiles = 0xF;	/* Sync ADC tiles 0, 1, 2, 3 */
 
     status_adc = XRFdc_MultiConverter_Sync(RFdcInstPtr, XRFDC_ADC_TILE,
