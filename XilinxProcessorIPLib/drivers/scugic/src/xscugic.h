@@ -166,6 +166,9 @@
 * 4.1   mus  06/19/19 Added API's XScuGic_MarkCoreAsleep and
 *                     XScuGic_MarkCoreAwake to mark processor core as
 *                     asleep or awake. Fix for CR#1027220.
+* 4.5   asa  03/07/21 Included a header file xil_spinlock.h to ensure that
+*                     GIC driver can use newly introduced spinlock
+*                     functionality.
 *
 * </pre>
 *
@@ -185,6 +188,7 @@ extern "C" {
 #include "xil_io.h"
 #include "xscugic_hw.h"
 #include "xil_exception.h"
+#include "xil_spinlock.h"
 
 /************************** Constant Definitions *****************************/
 

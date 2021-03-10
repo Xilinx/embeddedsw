@@ -67,6 +67,16 @@
 *                     fixes CR#1033401.
 * 4.3   mus  05/11/20 Added assert checks in XScuGic_EnableIntr and
 *                     XScuGic_DisableIntr API. It fixes CR#1063034.
+* 4.5   asa  03/07/21 Added spinlock protection for critical sections in the
+*                     code. The sections are critical when applications
+*                     running on separate CPUs (R5s or A9s) try to update
+*                     the same register. The spinlock mechanism used here
+*                     used exclusive load and store instructions. To ensure
+*                     that legacy behavior is not broken, unless someone
+*                     enables spinlocks explicitely in their applications
+*                     the existing flow will remain unchanged. On how to
+*                     enable spinlocks, please refer to the documentations
+*                     at: lib/bsp/standalone/src/arm/common/gcc/xil_spinlock.c
 * </pre>
 *
 ******************************************************************************/
@@ -123,7 +133,7 @@ static void DistInit(XScuGic_Config *Config)
 	#warning "Building GIC for AMP"
 
 	/*
-	 * The distrubutor should not be initialized by FreeRTOS in the case of
+	 * The distributor should not be initialized by FreeRTOS in the case of
 	 * AMP -- it is assumed that Linux is the master of this device in that
 	 * case.
 	 */
@@ -372,8 +382,8 @@ void XScuGic_DeviceInterruptHandler(void *DeviceId)
 	 * multiple processors.
 	 */
 	/*
-	 * If pre-eption is required:
-	 * Re-enable pre-emption by setting the CPSR I bit for non-secure ,
+	 * If preemption is required:
+	 * Re-enable preemption by setting the CPSR I bit for non-secure ,
 	 * interrupts or the F bit for secure interrupts
 	 */
 
@@ -533,6 +543,15 @@ void XScuGic_SetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
 		return;
 	}
 #endif
+
+	/*
+	 * Call spinlock to protect multiple applications running at separate
+	 * CPUs to write to the same register. This macro also ensures that
+	 * the spinlock mechanism is used only if spinlock is enabled by
+	 * user.
+	 */
+	XIL_SPINLOCK();
+
 	/*
 	 * Determine the register to write to using the Int_Id.
 	 */
@@ -576,6 +595,12 @@ void XScuGic_SetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
 	 */
 	XScuGic_WriteReg(DistBaseAddress, XSCUGIC_INT_CFG_OFFSET_CALC(Int_Id),
 				RegValue);
+
+	/*
+	 * Release the lock previously taken. This macro ensures that the lock
+	 * is given only if spinlock mechanism is enabled by the user.
+	 */
+	XIL_SPINUNLOCK();
 }
 
 /****************************************************************************/
@@ -666,6 +691,13 @@ void XScuGic_InterruptMapFromCpuByDistAddr(u32 DistBaseAddress,
 			RegValue);
 	}
 #else
+	/*
+	 * Call spinlock to protect multiple applications running at separate
+	 * CPUs to write to the same register. This macro also ensures that
+	 * the spinlock mechanism is used only if spinlock is enabled by
+	 * user.
+	 */
+	XIL_SPINLOCK();
 	RegValue = XScuGic_ReadReg(DistBaseAddress,
 					XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id));
 
@@ -677,6 +709,11 @@ void XScuGic_InterruptMapFromCpuByDistAddr(u32 DistBaseAddress,
 	XScuGic_WriteReg(DistBaseAddress,
 					XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id),
 					RegValue);
+	/*
+	 * Release the lock previously taken. This macro ensures that the lock
+	 * is given only if spinlock mechanism is enabled by the user.
+	 */
+	XIL_SPINUNLOCK();
 #endif
 }
 
@@ -716,6 +753,14 @@ void XScuGic_InterruptUnmapFromCpuByDistAddr(u32 DistBaseAddress,
 		xil_printf("Error: Unable to unmap interrupt id %d from core %d",Int_Id,Cpu_Id);
 	}
 #else
+    /*
+	 * Call spinlock to protect multiple applications running at separate
+	 * CPUs to write to the same register. This macro also ensures that
+	 * the spinlock mechanism is used only if spinlock is enabled by
+	 * user.
+	 */
+	XIL_SPINLOCK();
+
 	RegValue = XScuGic_ReadReg(DistBaseAddress,
 				XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id));
 
@@ -725,6 +770,12 @@ void XScuGic_InterruptUnmapFromCpuByDistAddr(u32 DistBaseAddress,
 	RegValue &= ~(Cpu_Id << (Offset*8U));
 	XScuGic_WriteReg(DistBaseAddress,
 			XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id), RegValue);
+
+	/*
+	 * Release the lock previously taken. This macro ensures that the lock
+	 * is given only if spinlock mechanism is enabled by the user.
+	 */
+	XIL_SPINUNLOCK();
 #endif
 }
 
@@ -748,6 +799,14 @@ void XScuGic_UnmapAllInterruptsFromCpuByDistAddr(u32 DistBaseAddress,
 	u32 Target_Cpu;
 	u32 LocalCpuID = (1U << Cpu_Id);
 
+	/*
+	 * Call spinlock to protect multiple applications running at separate
+	 * CPUs to write to the same register. This macro also ensures that
+	 * the spinlock mechanism is used only if spinlock is enabled by
+	 * user.
+	 */
+	XIL_SPINLOCK();
+
 	LocalCpuID |= LocalCpuID << 8U;
 	LocalCpuID |= LocalCpuID << 16U;
 
@@ -762,6 +821,12 @@ void XScuGic_UnmapAllInterruptsFromCpuByDistAddr(u32 DistBaseAddress,
 			XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id), Target_Cpu);
 
 	}
+
+	/*
+	 * Release the lock previously taken. This macro ensures that the lock
+	 * is given only if spinlock mechanism is enabled by the user.
+	 */
+	XIL_SPINUNLOCK();
 }
 
 /*****************************************************************************/
@@ -805,8 +870,20 @@ void XScuGic_EnableIntr (u32 DistBaseAddress, u32 Int_Id)
 #endif
 
 	XScuGic_InterruptMapFromCpuByDistAddr(DistBaseAddress, Cpu_Id, Int_Id);
+	/*
+	 * Call spinlock to protect multiple applications running at separate
+	 * CPUs to write to the same register. This macro also ensures that
+	 * the spinlock mechanism is used only if spinlock is enabled by
+	 * user.
+	 */
+	XIL_SPINLOCK();
 	XScuGic_WriteReg((DistBaseAddress), XSCUGIC_ENABLE_SET_OFFSET +
 			(((Int_Id) / 32U) * 4U), (0x00000001U << ((Int_Id) % 32U)));
+	/*
+	 * Release the lock previously taken. This macro ensures that the lock
+	 * is given only if spinlock mechanism is enabled by the user.
+	 */
+	XIL_SPINUNLOCK();
 }
 
 /*****************************************************************************/
@@ -850,8 +927,20 @@ void XScuGic_DisableIntr (u32 DistBaseAddress, u32 Int_Id)
 	}
 #endif
 	XScuGic_InterruptUnmapFromCpuByDistAddr(DistBaseAddress, Cpu_Id, Int_Id);
+	/*
+	 * Call spinlock to protect multiple applications running at separate
+	 * CPUs to write to the same register. This macro also ensures that
+	 * the spinlock mechanism is used only if spinlock is enabled by
+	 * user.
+	 */
+	XIL_SPINLOCK();
 	XScuGic_WriteReg((DistBaseAddress), XSCUGIC_DISABLE_OFFSET +
 			(((Int_Id) / 32U) * 4U), (0x00000001U << ((Int_Id) % 32U)));
+	/*
+	 * Release the lock previously taken. This macro ensures that the lock
+	 * is given only if spinlock mechanism is enabled by the user.
+	 */
+	XIL_SPINUNLOCK();
 }
 
 /** @} */
