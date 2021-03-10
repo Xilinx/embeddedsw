@@ -47,6 +47,7 @@
 #define TAG_ID_TYPE_GTYP				(12U)
 #define TAG_ID_TYPE_GTM					(13U)
 #define TAG_ID_TYPE_XRAM				(14U)
+#define TAG_ID_TYPE_LAGUNA             (15U)
 #define TAG_ID_ARRAY_SIZE				(256U)
 
 #define PMC_EFUSE_BISR_UNKN_TAG_ID			(0x1U)
@@ -178,6 +179,26 @@
 #define XRAM_SLCR_PCSR_PSR_BISR_DONE_MASK		(0x00004000U)
 #define XRAM_SLCR_PCSR_PSR_BISR_PASS_MASK		(0x00008000U)
 
+/* Laguna Repair */
+#define LAGUNA_REPAIR_VAL_MASK         (0xFC000000U)
+#define LAGUNA_REPAIR_VAL_SHIFT        (26U)
+#define LAGUNA_REPAIR_X_MASK           (0x03FC0000U)
+#define LAGUNA_REPAIR_X_SHIFT          (18U)
+#define LAGUNA_REPAIR_Y1_MASK          (0x0003FE00U)
+#define LAGUNA_REPAIR_Y1_SHIFT         (9U)
+#define LAGUNA_REPAIR_Y0_MASK          (0x000001FFU)
+#define LAGUNA_REPAIR_Y0_SHIFT         (0U)
+#define LAGUNA_REPAIR_BIT0_MASK        (0x00000001U)
+#define LAGUNA_REPAIR_BIT1_MASK        (0x00000002U)
+#define LAGUNA_REPAIR_BIT2_MASK        (0x00000004U)
+#define LAGUNA_REPAIR_BIT3_MASK        (0x00000008U)
+#define LAGUNA_REPAIR_BIT4_MASK        (0x00000010U)
+#define LAGUNA_REPAIR_BIT5_MASK        (0x00000020U)
+#define FDRO_BASEADDR              (0xF12C2000U)
+#define FSR_TILE_END               (95U)
+#define HALF_FSR_START             (48U)
+#define RCLK_TILE_START            (48U)
+
 typedef struct XPm_NidbEfuseGrpInfo {
 	u8 RdnCntl;
 	u16 NpiBase;
@@ -207,6 +228,7 @@ static void XPmBisr_InitTagIdList(void)
 	XPmTagIdWhiteList[GTYP_TAG_ID] = TAG_ID_VALID_MASK | TAG_ID_TYPE_GTYP;
 	XPmTagIdWhiteList[GTM_TAG_ID] = TAG_ID_VALID_MASK | TAG_ID_TYPE_GTM;
 	XPmTagIdWhiteList[XRAM_TAG_ID] = TAG_ID_VALID_MASK | TAG_ID_TYPE_XRAM;
+	XPmTagIdWhiteList[LAGUNA_TAG_ID] = TAG_ID_VALID_MASK | TAG_ID_TYPE_LAGUNA;
 
 	return;
 }
@@ -1071,6 +1093,193 @@ done:
 	return Status;
 }
 
+static void XPmBisr_LagunaRmwOneFrame(XPm_PlDomain *Pld, u8 RowIndex,
+		u8 LowerTile, u8 UpperTile, u32 LagunaRepairX, u32 LagunaRepairVal)
+{
+	u32 FrameAddr;
+	u32 CFrameAddr;
+	u32 FrameData[100];
+	u32 CurrentFdroAddr;
+	u32 CurrentFdriAddr;
+	u8 i;
+
+	/* Construct type-6 frame address */
+	FrameAddr = ((u32)6U << CFRAME_REG_FAR_BLOCKTYPE_SHIFT) + LagunaRepairX;
+
+	/* Get CFRAME Address */
+	CFrameAddr = Pld->Cframe0RegBaseAddr + (XCFRAME_FRAME_OFFSET * RowIndex);
+
+	/*
+	 * Set CFRAME command to read configuration data. CFRAME uses 128-bit wide
+	 * bus so each write must write 4 words.
+	 */
+	/* Write command register to read configuration data */
+	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 0U, 4U);
+	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 4U, 0U);
+	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 8U, 0U);
+	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 12U, 0U);
+	/* Set frame address */
+	XPm_Out32((CFrameAddr + CFRAME_REG_FAR_OFFSET) + 0U, FrameAddr);
+	XPm_Out32((CFrameAddr + CFRAME_REG_FAR_OFFSET) + 4U, 0U);
+	XPm_Out32((CFrameAddr + CFRAME_REG_FAR_OFFSET) + 8U, 0U);
+	XPm_Out32((CFrameAddr + CFRAME_REG_FAR_OFFSET) + 12U, 0U);
+	/* Set read count to one frame. One frame is 25 quadwords */
+	XPm_Out32((CFrameAddr + CFRAME_REG_FRCNT_OFFSET) + 0U, 0x19U);
+	XPm_Out32((CFrameAddr + CFRAME_REG_FRCNT_OFFSET) + 4U, 0U);
+	XPm_Out32((CFrameAddr + CFRAME_REG_FRCNT_OFFSET) + 8U, 0U);
+	XPm_Out32((CFrameAddr + CFRAME_REG_FRCNT_OFFSET) + 12U, 0U);
+
+	CurrentFdroAddr = FDRO_BASEADDR;
+
+	/* Read 100 words of Frame data */
+	for (i = 0; i < 100; i++) {
+		FrameData[i] = XPm_In32(CurrentFdroAddr);
+		CurrentFdroAddr += 4U;
+	}
+
+	/*
+	 * Modify Frame data with repair value.
+	 * RCLK occupies words 48-51 so skip these four words.
+	 * Only 6 bits in a word needs to be modified with repair value.
+	 */
+	for (i = LowerTile; i < UpperTile; i++) {
+		if (i < RCLK_TILE_START) {
+			FrameData[i] |= ((LagunaRepairVal & LAGUNA_REPAIR_BIT0_MASK) << 6U);
+			FrameData[i] |= ((LagunaRepairVal & LAGUNA_REPAIR_BIT1_MASK) << 10U);
+			FrameData[i] |= ((LagunaRepairVal & LAGUNA_REPAIR_BIT2_MASK) << 14U);
+			FrameData[i] |= ((LagunaRepairVal & LAGUNA_REPAIR_BIT3_MASK) << 18U);
+			FrameData[i] |= ((LagunaRepairVal & LAGUNA_REPAIR_BIT4_MASK) << 22U);
+			FrameData[i] |= ((LagunaRepairVal & LAGUNA_REPAIR_BIT5_MASK) << 26U);
+		} else {
+			FrameData[i+4] |= ((LagunaRepairVal & LAGUNA_REPAIR_BIT0_MASK) << 6U);
+			FrameData[i+4] |= ((LagunaRepairVal & LAGUNA_REPAIR_BIT1_MASK) << 10U);
+			FrameData[i+4] |= ((LagunaRepairVal & LAGUNA_REPAIR_BIT2_MASK) << 14U);
+			FrameData[i+4] |= ((LagunaRepairVal & LAGUNA_REPAIR_BIT3_MASK) << 18U);
+			FrameData[i+4] |= ((LagunaRepairVal & LAGUNA_REPAIR_BIT4_MASK) << 22U);
+			FrameData[i+4] |= ((LagunaRepairVal & LAGUNA_REPAIR_BIT5_MASK) << 26U);
+		}
+	}
+
+	/*
+	 * Set CFRAME command to write configuration data.
+	 * CFRAME uses 128-bit wide bus so each write must write 4 words.
+	 */
+	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 0U, 1U);
+	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 4U, 0U);
+	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 8U, 0U);
+	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 12U, 0U);
+
+	CurrentFdriAddr = CFrameAddr + CFRAME_REG_FDRI_OFFSET;
+
+	/* Write 100 words of Frame data */
+	for (i = 0; i < 100; i++) {
+		XPm_Out32(CurrentFdriAddr, FrameData[i]);
+		CurrentFdriAddr += 4;
+	}
+}
+
+static u32 XPmBisr_RepairLaguna(u32 EfuseTagAddr, u32 TagSize)
+{
+	XPm_PlDomain *Pld;
+	u32 TagRow = 0;
+	u32 TagData;
+	u32 TagDataAddr;
+	u32 LagunaRepairVal;
+	u32 LagunaRepairX;
+	u32 LagunaRepairY0;
+	u32 LagunaRepairY1;
+	u32 HalfFsr;
+	u32 NumberOfRows;
+	u8 Row0;
+	u8 Row1;
+	u8 Tile0;
+	u8 Tile1;
+	u8 LowerTile;
+	u8 UpperTile;
+	u8 RowIndex;
+
+	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
+
+	TagDataAddr = EfuseTagAddr + 4U;
+
+	Pld = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
+	if (NULL == Pld) {
+		/* Return negative address so error can be identified by caller*/
+		TagDataAddr = ~0U;
+		goto done;
+	}
+
+	if (NULL == EfuseCache) {
+		/* Return negative address so error can be identified by caller */
+		TagDataAddr = ~0U;
+		goto done;
+	}
+
+	/* Broadcast row on command */
+	XPm_Out32((CFRAME_BCAST_REG_BASEADDR + CFRAME_REG_CMD_OFFSET) + 0U, 2U);
+	XPm_Out32((CFRAME_BCAST_REG_BASEADDR + CFRAME_REG_CMD_OFFSET) + 4U, 0U);
+	XPm_Out32((CFRAME_BCAST_REG_BASEADDR + CFRAME_REG_CMD_OFFSET) + 8U, 0U);
+	XPm_Out32((CFRAME_BCAST_REG_BASEADDR + CFRAME_REG_CMD_OFFSET) + 12U, 0U);
+
+	/* Get device row info */
+	HalfFsr = (XPm_In32(Pld->CfuApbBaseAddr + CFU_APB_CFU_ROW_RANGE_OFFSET) &
+		(u32)CFU_APB_CFU_ROW_RANGE_HALF_FSR_MASK) >>
+		CFU_APB_CFU_ROW_RANGE_HALF_FSR_SHIFT;
+	NumberOfRows = XPm_In32(Pld->CfuApbBaseAddr + CFU_APB_CFU_ROW_RANGE_OFFSET)
+		& (u32)CFU_APB_CFU_ROW_RANGE_NUM_MASK;
+
+	while (TagRow < TagSize) {
+		if (TagDataAddr == (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET) ||
+			TagDataAddr == (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET)) {
+				TagDataAddr += 4U;
+		}
+
+		TagData = XPm_In32(TagDataAddr);
+		TagRow++;
+		TagDataAddr += 4U;
+
+		/* Set up Laguna pointer coordinates */
+		LagunaRepairVal = (TagData & LAGUNA_REPAIR_VAL_MASK) >> LAGUNA_REPAIR_VAL_SHIFT;
+		LagunaRepairX = (TagData & LAGUNA_REPAIR_X_MASK) >> LAGUNA_REPAIR_X_SHIFT;
+		LagunaRepairY1 =(TagData & LAGUNA_REPAIR_Y1_MASK) >> LAGUNA_REPAIR_Y1_SHIFT;
+		LagunaRepairY0 = (TagData & LAGUNA_REPAIR_Y0_MASK) >> LAGUNA_REPAIR_Y0_SHIFT;
+
+		/* Get row index of Y0 and Y1. 96 tiles per FSR row */
+		Row0 = (u8)(LagunaRepairY0 / 96U);
+		Row1 = (u8)(LagunaRepairY1 / 96U);
+
+		/* Get tile index within FSR row */
+		Tile0 = LagunaRepairY0 % 96U;
+		Tile1 = LagunaRepairY1 % 96U;
+
+		/* Walk through each FSR row that requires repair */
+		for (RowIndex = Row0; RowIndex <= Row1; RowIndex++) {
+			LowerTile = 0U;
+			UpperTile = FSR_TILE_END;
+
+			/* Bottom row requires repair */
+			if (RowIndex == Row0) {
+				LowerTile = Tile0;
+			}
+
+			/* Top row requires repair */
+			if (RowIndex == Row1) {
+				UpperTile = Tile1;
+				if ((RowIndex == (NumberOfRows - 1U)) && (HalfFsr == 1U)) {
+					LowerTile += HALF_FSR_START;
+					UpperTile += HALF_FSR_START;
+				}
+			}
+
+			XPmBisr_LagunaRmwOneFrame(Pld, RowIndex, LowerTile, UpperTile,
+					LagunaRepairX, LagunaRepairVal);
+		}
+	}
+
+done:
+	return TagDataAddr;
+}
+
 XStatus XPmBisr_Repair(u32 TagId)
 {
 	XStatus Status = XST_FAILURE;
@@ -1180,6 +1389,12 @@ XStatus XPmBisr_Repair(u32 TagId)
 						break;
 					case TAG_ID_TYPE_XRAM:
 						Status = XPmBisr_RepairXram(EfuseCurrAddr, EfuseBisrSize, &EfuseNextAddr);
+						break;
+					case TAG_ID_TYPE_LAGUNA:
+						EfuseNextAddr = XPmBisr_RepairLaguna(EfuseCurrAddr, EfuseBisrSize);
+						if (EfuseNextAddr != ~0U) {
+							Status = XST_SUCCESS;
+						}
 						break;
 					default: //block type not recognized, no function to handle it
 						XPmBisr_SwError(PMC_EFUSE_BISR_BAD_TAG_TYPE);
