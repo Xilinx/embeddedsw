@@ -205,7 +205,7 @@ extern XRtcPsu_Config XRtcPsu_ConfigTable[];
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-#define XRTC_CALIBRATION_VALUE 0x8000U
+#define XRTC_CALIBRATION_VALUE 0x7FFFU
 #define XRTC_TYPICAL_OSC_FREQ 32768U
 
 /****************************************************************************/
