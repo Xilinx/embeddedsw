@@ -192,9 +192,23 @@ namespace xaiefal {
 		std::vector<XAie_UserRsc> vRscs; /**< combo events resources */
 	private:
 		AieRC _reserve() {
+			// TODO: reserve from c driver
+			Rsc.Mod = vRscs[0].Mod;
+			if (vRscs.size() <= 2) {
+				// Only two input events, it can be combo0 or
+				// combo1
+				if (vRscs[0].RscId < 2) {
+					Rsc.RscId = 0;
+				} else {
+					Rsc.RscId = 1;
+				}
+			} else {
+				Rsc.RscId = 2;
+			}
 			return XAIE_OK;
 		}
 		AieRC _release() {
+			// TODO: release from c driver
 			return XAIE_OK;
 		}
 		AieRC _start() {
