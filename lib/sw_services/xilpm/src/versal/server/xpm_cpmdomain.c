@@ -110,12 +110,6 @@ static XStatus Cpm5InitStart(u32 *Args, u32 NumofArgs)
 		Device = XPmDevice_GetById(GT_DEVID((u32)XPM_NODEIDX_DEV_GTYP_CPM5_MIN + i));
 		if (NULL != Device) {
 			GtyAddresses[i] = Device->Node.BaseAddress;
-			/* De-assert InitCtrl */
-			PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
-			PmOut32(GtyAddresses[i] + GTY_PCSR_MASK_OFFSET,
-				GTY_PCSR_INITCTRL_MASK);
-			PmOut32(GtyAddresses[i] + GTY_PCSR_CONTROL_OFFSET, 0U);
-			PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET, 1U);
 		}
 	}
 
