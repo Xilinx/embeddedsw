@@ -62,13 +62,13 @@
 *       bsv  01/29/2021 Added APIs for checking and clearing NPI errors
 *       har  02/01/2021 Added error code for mismatch of encryption key source
 *       bsv  02/09/2021 Added error code for invalid PdiSrc in subsystem Pdi load
-*       bm   02/12/2021 Updated obsolete error code as reserved
 *       ma   02/12/2021 Added error code for IPI CRC mismatch and read error
 *       kpt  02/16/2021 Added error codes for invalid key source when encryption
 *                       only is enabled and when secure validations are failed.
 *       bsv  02/28/2021 Added code to avoid unaligned NPI writes
 *       har  03/02/2021 Added error code for faulire to update AAD
 *       ma   03/04/2021 Added error code for PLMI IPI access failure
+*       bm   03/04/2021 Added error code for invalid elf load address
 *
 * </pre>
 *
@@ -441,7 +441,8 @@ typedef enum {
 							destination address or length params passed to
 							XLoader_DdrCopy are not word aligned */
 	XLOADER_ERR_INIT_CDO,	/**< 0x35B - XPlmi_InitCdo failed */
-	XLOADER_ERR_RESERVED_ERR1,	/**< 0x35C - Reserved for Future use */
+	XLOADER_ERR_INVALID_ELF_LOAD_ADDR,	/**< 0x35C - Error when the load address of the
+							elf is not valid */
 	XLOADER_ERR_UNSUPPORTED_MULTIBOOT_FLASH_TYPE, /**<0X35D - Error due to unsupported Flash Type
 							used with Update Multiboot command */
 	XLOADER_ERR_UNSUPPORTED_MULTIBOOT_PDISRC, /**< 0x35E - Error due to unsupported PdiSrc

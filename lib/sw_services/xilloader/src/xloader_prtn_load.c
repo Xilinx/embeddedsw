@@ -49,6 +49,7 @@
 *       td   10/19/2020 MISRA C Fixes
 * 1.04  bsv  01/28/2021 Initialize variables to invalid values
 *       bsv  01/29/2021 Added check for NPI errors after loading every partition
+*       bm   03/04/2021 Added address range check before loading elfs
 *
 * </pre>
 *
@@ -300,7 +301,15 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	u32 Mode = 0U;
 	u32 CapAccess = (u32)PM_CAP_ACCESS;
 	u32 CapContext = (u32)PM_CAP_CONTEXT;
+	u64 Addr = PrtnParams->DeviceCopy.DestAddr;
+	u32 Len = PrtnHdr->UnEncDataWordLen * XIH_PRTN_WORD_LEN;
 
+	Status = XPlmi_VerifyAddrRange(Addr, Addr + Len - 1U);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_ELF_LOAD_ADDR,
+				Status);
+		goto END;
+	}
 	PrtnParams->DstnCpu = XilPdi_GetDstnCpu(PrtnHdr);
 
 	/*
