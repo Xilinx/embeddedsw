@@ -22,6 +22,9 @@ extern "C" {
 #include "ff.h"
 
 /************************** Constant Definitions *****************************/
+#define XBIR_HTTP_MAX_BOUNDARY_LEN	(1024U)
+
+
 /* Clear callback functions and close connection */
 static inline void Xbir_HttpClose(struct tcp_pcb * Tpcb)
 {
@@ -35,10 +38,12 @@ typedef struct {
 	u32 Count;		/* Http Arg count */
 	FIL Fil;		/* File Handler */
 	u32 Fsize;		/* File size */
-	u32 RemainingRxLen;	/* Remaining byte to be received during file
-				upload */
 	u32 PktCount;		/* Packet count */
 	u32 Offset;		/* File offset during file upload */
+	u32 ContentLen;		/* Content Length of HTTP Req */
+	u32 BoundaryLen;	/* Boundary Len of Boundary in HTTP Req */
+	u8 Boundary[XBIR_HTTP_MAX_BOUNDARY_LEN + 1U]; /* Boundary marker in
+				HTTP Req */
 } Xbir_HttpArg;
 
 /************************** Function Prototypes ******************************/
