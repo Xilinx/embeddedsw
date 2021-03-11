@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -34,6 +34,7 @@
 * 6.0   vns  03/12/19 Modified function call XSecure_RsaDecrypt to
 *                     XSecure_RsaPublicEncrypt, as XSecure_RsaDecrypt is
 *                     deprecated.
+* 7.0   bsv  03/11/21 Fixed build issues
 *
 * </pre>
 *
@@ -42,24 +43,21 @@
 /***************************** Include Files *********************************/
 #include "xfsbl_hw.h"
 #include "xfsbl_bs.h"
-
-#ifdef XFSBL_SECURE
-
 #include "xfsbl_authentication.h"
+#ifdef XFSBL_SECURE
 #include "xfsbl_csu_dma.h"
 
 u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen);
 u32 XFsbl_PpkVer(u64 AcOffset, u32 HashLen);
 void XFsbl_ReadPpkHash(u32 *PpkHash, u8 PpkSelect);
+#endif
 /*****************************************************************************/
-
-static XSecure_Rsa SecureRsa;
-
 #if defined(XFSBL_BS)
 extern u8 ReadBuffer[READ_BUFFER_SIZE];
 #endif
-
+#ifdef XFSBL_SECURE
 u8 EfusePpkKey[XFSBL_PPK_SIZE]__attribute__ ((aligned (32))) = {0U};
+static XSecure_Rsa SecureRsa;
 
 /*****************************************************************************/
 /**
@@ -417,88 +415,6 @@ u32 XFsbl_Authentication(const XFsblPs * FsblInstancePtr, u64 PartitionOffset,
 END:
         return Status;
 }
-#ifndef XFSBL_PS_DDR
-#ifdef XFSBL_BS
-/*****************************************************************************/
-/**
- *
- * @param      FsblInstancePtr - FSBL Instance Pointer
- * @param      Ctx - SHA Ctx Pointer
- * @param      PartitionOffset - Start Offset
- * @param      PatitionLen - Data Len for SHA calculation
- * @param      HashLen - SHA3
- * @param      ParitionHash - Pointer to store hash
- *
- * @return     XFSBL_SUCCESS - In case of Success
- *             XFSBL_FAILURE - In case of Failure
- *
- ******************************************************************************/
-u32 XFsbl_ShaUpdate_DdrLess(const XFsblPs *FsblInstancePtr, void *Ctx,
-		u64 PartitionOffset, u32 PartitionLen,
-		u32 HashLen, u8 *PartitionHash)
-{
-	u32 Status = XFSBL_SUCCESS;
-	/**
-	 * bitstream partion in DDR less system, Chunk by chunk copy
-	 * into OCM and update SHA module
-	 */
-	u32 NumChunks = 0U;
-	u32 RemainingBytes = 0U;
-	u32 Index = 0U;
-	u32 StartAddrByte = PartitionOffset;
-
-	NumChunks = PartitionLen / READ_BUFFER_SIZE;
-	RemainingBytes = (PartitionLen % READ_BUFFER_SIZE);
-
-			/* Start the SHA engine */
-		(void)XFsbl_ShaStart(Ctx, HashLen);
-
-		XFsbl_Printf(DEBUG_INFO,
-			"XFsbl_PartitionVer: NumChunks :%0d, RemainingBytes : %0d \r\n",
-			NumChunks, RemainingBytes);
-
-		for(Index = 0; Index < NumChunks; Index++)
-		{
-			if(XFSBL_SUCCESS !=FsblInstancePtr->DeviceOps.DeviceCopy(
-					StartAddrByte, (PTRSIZE)ReadBuffer,
-					READ_BUFFER_SIZE))
-			{
-				XFsbl_Printf(DEBUG_GENERAL,
-					"XFsblPartitionVer: Device "
-					"to OCM copy of partition failed \r\n");
-				Status = XFSBL_FAILURE;
-				goto END;
-			}
-
-			XFsbl_ShaUpdate(Ctx, (u8 *)ReadBuffer,
-						READ_BUFFER_SIZE, HashLen);
-
-			StartAddrByte += READ_BUFFER_SIZE;
-		}
-
-		/* Send the residual bytes if Size is not buffer size multiple */
-		if(RemainingBytes != 0)
-		{
-			if(XFSBL_SUCCESS!=FsblInstancePtr->DeviceOps.DeviceCopy(
-						StartAddrByte, (PTRSIZE)ReadBuffer,
-						RemainingBytes))
-			{
-				XFsbl_Printf(DEBUG_GENERAL,
-					"XFsblPartitionVer: Device "
-					"to OCM copy of partition failed (last chunk)\r\n");
-				Status = XFSBL_FAILURE;
-				goto END;
-			}
-
-			XFsbl_ShaUpdate(Ctx, (u8 *)ReadBuffer,
-						RemainingBytes, HashLen);
-		}
-END:
-		return Status;
-
-}
-#endif
-#endif
 
 /*****************************************************************************/
 /*
@@ -789,3 +705,85 @@ END:
 }
 
 #endif /* end of XFSBL_SECURE */
+#ifndef XFSBL_PS_DDR
+#ifdef XFSBL_BS
+/*****************************************************************************/
+/**
+ *
+ * @param      FsblInstancePtr - FSBL Instance Pointer
+ * @param      Ctx - SHA Ctx Pointer
+ * @param      PartitionOffset - Start Offset
+ * @param      PatitionLen - Data Len for SHA calculation
+ * @param      HashLen - SHA3
+ * @param      ParitionHash - Pointer to store hash
+ *
+ * @return     XFSBL_SUCCESS - In case of Success
+ *             XFSBL_FAILURE - In case of Failure
+ *
+ ******************************************************************************/
+u32 XFsbl_ShaUpdate_DdrLess(const XFsblPs *FsblInstancePtr, void *Ctx,
+		u64 PartitionOffset, u32 PartitionLen,
+		u32 HashLen, u8 *PartitionHash)
+{
+	u32 Status = XFSBL_SUCCESS;
+	/**
+	 * bitstream partion in DDR less system, Chunk by chunk copy
+	 * into OCM and update SHA module
+	 */
+	u32 NumChunks = 0U;
+	u32 RemainingBytes = 0U;
+	u32 Index = 0U;
+	u32 StartAddrByte = PartitionOffset;
+
+	NumChunks = PartitionLen / READ_BUFFER_SIZE;
+	RemainingBytes = (PartitionLen % READ_BUFFER_SIZE);
+
+			/* Start the SHA engine */
+		(void)XFsbl_ShaStart(Ctx, HashLen);
+
+		XFsbl_Printf(DEBUG_INFO,
+			"XFsbl_PartitionVer: NumChunks :%0d, RemainingBytes : %0d \r\n",
+			NumChunks, RemainingBytes);
+
+		for(Index = 0; Index < NumChunks; Index++)
+		{
+			if(XFSBL_SUCCESS !=FsblInstancePtr->DeviceOps.DeviceCopy(
+					StartAddrByte, (PTRSIZE)ReadBuffer,
+					READ_BUFFER_SIZE))
+			{
+				XFsbl_Printf(DEBUG_GENERAL,
+					"XFsblPartitionVer: Device "
+					"to OCM copy of partition failed \r\n");
+				Status = XFSBL_FAILURE;
+				goto END;
+			}
+
+			XFsbl_ShaUpdate(Ctx, (u8 *)ReadBuffer,
+						READ_BUFFER_SIZE, HashLen);
+
+			StartAddrByte += READ_BUFFER_SIZE;
+		}
+
+		/* Send the residual bytes if Size is not buffer size multiple */
+		if(RemainingBytes != 0)
+		{
+			if(XFSBL_SUCCESS!=FsblInstancePtr->DeviceOps.DeviceCopy(
+						StartAddrByte, (PTRSIZE)ReadBuffer,
+						RemainingBytes))
+			{
+				XFsbl_Printf(DEBUG_GENERAL,
+					"XFsblPartitionVer: Device "
+					"to OCM copy of partition failed (last chunk)\r\n");
+				Status = XFSBL_FAILURE;
+				goto END;
+			}
+
+			XFsbl_ShaUpdate(Ctx, (u8 *)ReadBuffer,
+						RemainingBytes, HashLen);
+		}
+END:
+		return Status;
+
+}
+#endif
+#endif
