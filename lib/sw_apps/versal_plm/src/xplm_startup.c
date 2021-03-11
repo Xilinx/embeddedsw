@@ -24,6 +24,7 @@
 * 1.03  bm   01/08/2021 Updated PmcCdo hook function name
 *       rb   02/02/2021 Added XPLM_SEM macro to SEM header file
 *       bm   02/08/2021 Renamed PlmCdo to PmcCdo
+*       rb   03/09/2021 Updated Sem Scan Init API call
 *
 * </pre>
 *
@@ -81,7 +82,7 @@ int XPlm_AddStartUpTasks(void)
 		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_LoadBootPdi, 0U},
 		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_HookAfterBootPdi, 0U},
 #ifdef XPLM_SEM
-		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_SemInit, 0U}
+		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_SemScanInit, 0U}
 #endif
 	};
 
