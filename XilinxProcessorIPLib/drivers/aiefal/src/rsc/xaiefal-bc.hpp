@@ -85,6 +85,23 @@ namespace xaiefal {
 			}
 			return RC;
 		}
+		/**
+		 * This function returns broadcast channel information
+		 *
+		 * @param vL returns vector of tiles of the channel
+		 * @param StartM returns start module
+		 * @param EndM returns end module
+		 * @return XAIE_OK
+		 */
+		AieRC getChannel(std::vector<XAie_LocType> &vL,
+				 XAie_ModuleType &StartM,
+				 XAie_ModuleType &EndM) {
+			vL = vLocs;
+			StartM = StartMod;
+			EndM = EndMod;
+
+			return XAIE_OK;
+		}
 	private:
 		AieRC _reserve() {
 			return XAieBroadcast::XAieAllocRsc(AieHd, vLocs, StartMod, EndMod, vRscs);
