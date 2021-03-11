@@ -180,6 +180,22 @@ static XStatus Cpm5ScanClear(u32 *Args, u32 NumOfArgs)
 	/* Unlock PCSR */
 	XPmCpmDomain_UnlockPcsr(Cpm->CpmPcsrBaseAddr);
 
+	/*
+	 * De-assert the HOLDSTATE bit and release open the clock gates in CPM
+	 */
+	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_MASK_OFFSET,
+		CPM_PCSR_MASK_SCAN_CLEAR_HOLDSTATE_WEN_MASK);
+	/* Check that the register value written properly or not! */
+	PmChkRegRmw32((Cpm->CpmPcsrBaseAddr + CPM_PCSR_MASK_OFFSET),
+		      CPM_PCSR_MASK_SCAN_CLEAR_HOLDSTATE_WEN_MASK,
+		      CPM_PCSR_MASK_SCAN_CLEAR_HOLDSTATE_WEN_MASK, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_CPM5SCNCLR_PCSR_MASK;
+		goto fail;
+	}
+
+	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_PCR_OFFSET, 0U);
+
 	/* Run scan clear on CPM */
 	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_MASK_OFFSET,
 		CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK);
@@ -219,6 +235,21 @@ static XStatus Cpm5ScanClear(u32 *Args, u32 NumOfArgs)
 		DbgErr = XPM_INT_ERR_SCAN_PASS_TIMEOUT;
 		goto fail;
 	}
+
+	/* Assert the HOLDSTATE bit and release open the clock gates in CPM */
+	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_MASK_OFFSET,
+		CPM_PCSR_MASK_SCAN_CLEAR_HOLDSTATE_WEN_MASK);
+	/* Check that the register value written properly or not! */
+	PmChkRegRmw32((Cpm->CpmPcsrBaseAddr + CPM_PCSR_MASK_OFFSET),
+		      CPM_PCSR_MASK_SCAN_CLEAR_HOLDSTATE_WEN_MASK,
+		      CPM_PCSR_MASK_SCAN_CLEAR_HOLDSTATE_WEN_MASK, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_CPM5SCNCLR_PCSR_MASK;
+		goto fail;
+	}
+
+	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_PCR_OFFSET,
+		CPM_PCSR_PCR_HOLDSTATE_MASK);
 
 	/* Disable writes to PCR */
 	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_MASK_OFFSET,
