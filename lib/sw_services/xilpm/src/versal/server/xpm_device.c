@@ -1047,8 +1047,8 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 			goto done;
 		}
 	} else if (((u32)XPM_NODESUBCL_DEV_PERIPH == NODESUBCLASS(Id)) &&
-		  (((u32)XPM_NODETYPE_DEV_VIRT_GGS == NODETYPE(Id)) ||
-		   ((u32)XPM_NODETYPE_DEV_VIRT_PGGS == NODETYPE(Id)))) {
+		  (((u32)XPM_NODETYPE_DEV_GGS == NODETYPE(Id)) ||
+		   ((u32)XPM_NODETYPE_DEV_PGGS == NODETYPE(Id)))) {
 		Status = SetVirtDeviceNode(Id, Device);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_SET_VIRT_DEV;
@@ -1292,8 +1292,8 @@ XPm_Device *XPmDevice_GetById(const u32 DeviceId)
 			PmDbg("Memory type other than OCM or DDR\r\n");
 			break;
 		}
-	} else if (((u32)XPM_NODETYPE_DEV_VIRT_GGS == NODETYPE(DeviceId)) ||
-		   ((u32)XPM_NODETYPE_DEV_VIRT_PGGS == NODETYPE(DeviceId))) {
+	} else if (((u32)XPM_NODETYPE_DEV_GGS == NODETYPE(DeviceId)) ||
+		   ((u32)XPM_NODETYPE_DEV_PGGS == NODETYPE(DeviceId))) {
 		if ((u32)XPM_NODEIDX_DEV_VIRT_MAX <= NODEINDEX(DeviceId)) {
 			goto done;
 		}

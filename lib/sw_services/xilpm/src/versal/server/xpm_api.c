@@ -3512,8 +3512,8 @@ static XStatus AddPeriphDevice(u32 *Args, u32 PowerId)
 		goto done;
 	}
 
-	if (((u32)XPM_NODETYPE_DEV_VIRT_GGS == Type) ||
-	    ((u32)XPM_NODETYPE_DEV_VIRT_PGGS == Type)) {
+	if (((u32)XPM_NODETYPE_DEV_GGS == Type) ||
+	    ((u32)XPM_NODETYPE_DEV_PGGS == Type)) {
 		VirtDevice = (XPm_Device *)XPm_AllocBytes(sizeof(XPm_Device));
 		if (NULL == VirtDevice) {
 			Status = XST_BUFFER_TOO_SMALL;
@@ -4116,8 +4116,8 @@ XStatus XPm_AddRequirement(const u32 SubsystemId, const u32 DeviceId, u32 Flags,
 	switch NODECLASS(DeviceId) {
 		case (u32)XPM_NODECLASS_DEVICE:
 			Type = NODETYPE(DeviceId);
-			if (((u32)XPM_NODETYPE_DEV_VIRT_PGGS == Type) ||
-			    ((u32)XPM_NODETYPE_DEV_VIRT_GGS == Type)) {
+			if (((u32)XPM_NODETYPE_DEV_PGGS == Type) ||
+			    ((u32)XPM_NODETYPE_DEV_GGS == Type)) {
 				Status = XPmIoctl_AddRegPermission(Subsystem, DeviceId, Flags);
 			} else {
 				Device = (XPm_Device *)XPmDevice_GetById(DeviceId);

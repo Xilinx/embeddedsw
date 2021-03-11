@@ -65,7 +65,7 @@ extern "C" {
 #define IOCTL_PERM_READ_SHIFT_S			(IOCTL_PERM_READ_SHIFT_NS + MAX_NUM_SUBSYSTEMS)
 #define IOCTL_PERM_WRITE_SHIFT_S		(IOCTL_PERM_WRITE_SHIFT_NS + MAX_NUM_SUBSYSTEMS)
 
-#define GGS_MAX					(XPM_NODEIDX_DEV_VIRT_GGS_3)
+#define GGS_MAX					(XPM_NODEIDX_DEV_GGS_3)
 
 int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id IoctlId,
 	      const u32 Arg1, const u32 Arg2, u32 *const Response);

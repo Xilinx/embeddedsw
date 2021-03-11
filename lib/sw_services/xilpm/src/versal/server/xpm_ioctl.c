@@ -522,13 +522,13 @@ XStatus XPmIoctl_AddRegPermission(XPm_Subsystem *Subsystem, u32 DeviceId,
 	}
 
 	switch (Type) {
-	case (u32)XPM_NODETYPE_DEV_VIRT_PGGS:
+	case (u32)XPM_NODETYPE_DEV_PGGS:
 		/* Normalize to permissions indices range for PGGS */
-		RegNum -= XPM_NODEIDX_DEV_VIRT_PGGS_0;
+		RegNum -= XPM_NODEIDX_DEV_PGGS_0;
 		ReadPerm =  &PggsReadPermissions[RegNum];
 		WritePerm = &PggsWritePermissions[RegNum];
 		break;
-	case (u32)XPM_NODETYPE_DEV_VIRT_GGS:
+	case (u32)XPM_NODETYPE_DEV_GGS:
 		ReadPerm =  &GgsReadPermissions[RegNum];
 		WritePerm = &GgsWritePermissions[RegNum];
 		break;
@@ -564,10 +564,10 @@ static XStatus XPmIoctl_IsRegRequested(u32 SubsystemId, u32 RegNum,
 	u32 DeviceId;
 
 	switch (Type) {
-	case (u32)XPM_NODETYPE_DEV_VIRT_PGGS:
+	case (u32)XPM_NODETYPE_DEV_PGGS:
 		RegNum += GGS_MAX;
 		break;
-	case (u32)XPM_NODETYPE_DEV_VIRT_GGS:
+	case (u32)XPM_NODETYPE_DEV_GGS:
 		break;
 	default:
 		Status = XPM_INVALID_TYPEID;
@@ -859,7 +859,7 @@ int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id Ioctl
 	case IOCTL_WRITE_GGS:
 		Status = XPmIoctl_IsOperationAllowed(Arg1, SubsystemId,
 						     GgsWritePermissions,
-						     XPM_NODETYPE_DEV_VIRT_GGS);
+						     XPM_NODETYPE_DEV_GGS);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
@@ -869,7 +869,7 @@ int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id Ioctl
 	case IOCTL_READ_GGS:
 		Status = XPmIoctl_IsOperationAllowed(Arg1, SubsystemId,
 						     GgsReadPermissions,
-						     XPM_NODETYPE_DEV_VIRT_GGS);
+						     XPM_NODETYPE_DEV_GGS);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
@@ -879,7 +879,7 @@ int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id Ioctl
 	case IOCTL_WRITE_PGGS:
 		Status = XPmIoctl_IsOperationAllowed(Arg1, SubsystemId,
 						     PggsWritePermissions,
-						     XPM_NODETYPE_DEV_VIRT_PGGS);
+						     XPM_NODETYPE_DEV_PGGS);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
@@ -889,7 +889,7 @@ int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id Ioctl
 	case IOCTL_READ_PGGS:
 		Status = XPmIoctl_IsOperationAllowed(Arg1, SubsystemId,
 						     PggsReadPermissions,
-						     XPM_NODETYPE_DEV_VIRT_PGGS);
+						     XPM_NODETYPE_DEV_PGGS);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
