@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -25,6 +25,7 @@
  *       mn   09/09/19 Correct the DDR type name for LPDDR4
  *       mn   07/29/20 Modify code to use DRAM VRef for 2D Write Eye Test
  * 1.2   mn   02/11/21 Added support for 16-Bit Bus Width
+ *       mn   03/10/21 Fixed doxygen warnings
  *
  * </pre>
  *
@@ -218,8 +219,6 @@ void XMt_SelectRank(s32 Rank)
 /**
  * This function is used to disable VT compensation
  *
- * @param none
- *
  * @return none
  *
  * @note none
@@ -249,8 +248,6 @@ void XMt_DisableVtcomp(void)
 /**
  * This function is used to enable VT compensation
  *
- * @param none
- *
  * @return none
  *
  * @note none
@@ -269,8 +266,6 @@ void XMt_EnableVtcomp(void)
 /**
  * This function is used to enable Refresh During Training
  *
- * @param none
- *
  * @return none
  *
  * @note none
@@ -285,8 +280,6 @@ void XMt_EnableRefresh(void)
 /**
  * This function is used to disable Refresh During Training
  *
- * @param none
- *
  * @return none
  *
  * @note none
@@ -300,8 +293,6 @@ void XMt_DisableRefresh(void)
 /*****************************************************************************/
 /**
  * This function is used to enable DFI
- *
- * @param none
  *
  * @return none
  *
@@ -334,8 +325,6 @@ void XMt_DfiEnable(void)
 /*****************************************************************************/
 /**
  * This function is used to disable DFI
- *
- * @param none
  *
  * @return none
  *
@@ -888,8 +877,6 @@ void XMt_Print2DEyeResults(XMt_CfgData *XMtPtr, u32 VRef)
 /*****************************************************************************/
 /**
  * This function is used to print the help menu
- *
- * @param none
  *
  * @return none
  *

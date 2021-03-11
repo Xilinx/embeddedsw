@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -20,6 +20,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   mn   08/17/18 Initial release
  *       mn   09/27/18 Modify code to add 2D Read/Write Eye Tests support
+ * 1.1   mn   03/10/21 Fixed doxygen warnings
  *
  * </pre>
  *
@@ -389,8 +390,6 @@ static void XMt_PrintReadEyeResults(XMt_CfgData *XMtPtr)
 /**
  * This function is used for exception handling while running this test
  *
- * @param none
- *
  * @return none
  *
  * @note none
@@ -407,8 +406,6 @@ static void XMt_RdEyeSyncAbortHandler(void)
 /*****************************************************************************/
 /**
  * This function is used for exception handling while running this test
- *
- * @param none
  *
  * @return none
  *
