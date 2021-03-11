@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -228,7 +228,6 @@ Xbir_HttpArg *Xbir_HttpPallocArg (void)
 	memset(&HttpArg->Fil, 0, sizeof(HttpArg->Fil));
 	HttpArg->Fsize = 0;
 	HttpArg->PktCount = 0;
-	HttpArg->RemainingRxLen = 0;
 
 	return HttpArg;
 }

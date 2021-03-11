@@ -52,7 +52,6 @@
 #define XBIR_SSI_IMG_DOWNLOAD_CONTENT_TYPE	\
 	"Content-Type: multipart/form-data; boundary="
 #define XBIR_SSI_IMG_DOWNLOAD_CONTENT_LEN	"Content-Length: "
-#define XBIR_SSI_IMG_MAX_BOUNDARY_LEN		(1024U)
 
 #define XBIR_SSI_JSON_SUCCESS_RESPONSE		"{\"Status\":\"Success\"}"
 
@@ -78,8 +77,10 @@ static const char* Xbir_SsiJsonGetSeperator (const char *JsonStr,
 	char *Seperator);
 static const char* Xbir_SsiJsonGetVal(const char *JsonStr, char *Val,
 	u16 ValLen);
-static int Xbir_SsiGetImgInfo (u8 *HttpReq, u32 HttpReqLen, u8 **ImgData,
-	u32 *ImgSize, u32 *ContentLen);
+static int Xbir_SsiGetImgInfo (Xbir_HttpArg *HttpArg, u8 *HttpReq,
+	u32 HttpReqLen, u8 **ImgData);
+static int Xbir_SsiFindImgInHttpReq(Xbir_HttpArg *HttpArg, u8 *HttpReq,
+	const u32 HttpReqLen, u8 **ImgData);
 int Xbir_SsiProcessRemainingReq (struct tcp_pcb *Tpcb, u8 *HttpReq,
 	u16 HttpReqLen);
 static int Xbir_SsiUpdateImg (struct tcp_pcb *Tpcb, u8 *HttpReq,
@@ -523,8 +524,22 @@ int Xbir_SsiProcessAdditionalPayload (struct tcp_pcb *Tpcb, u8 *HttpReq,
 	u16 HttpReqLen)
 {
 	int Status = XST_FAILURE;
+	u32 ImgSize;
+	u32 ImgSizeInThisPkt;
+	u8 *ImgData;
+	Xbir_HttpArg *HttpArg = (Xbir_HttpArg *)Tpcb->callback_arg;
 
-	Status = Xbir_SsiUpdateImg(Tpcb, HttpReq, HttpReqLen);
+	if (HttpArg->Fsize == 0U) {
+		Status = Xbir_SsiFindImgInHttpReq (HttpArg, HttpReq,
+				HttpReqLen, &ImgData);
+		ImgSizeInThisPkt = HttpReqLen - (u16)(ImgData - HttpReq);
+		ImgSize = HttpArg->Fsize;
+		Status = Xbir_SsiUpdateImg(Tpcb, ImgData, ImgSizeInThisPkt);
+		Xbir_SsiLastUploadSize = ImgSize;
+	}
+	else {
+		Status = Xbir_SsiUpdateImg(Tpcb, HttpReq, HttpReqLen);
+	}
 
 	return Status;
 }
@@ -751,87 +766,114 @@ static const char* Xbir_SsiJsonGetVal(const char *JsonStr, char *Val,
  * This function parses the HTTP packet to extract the information about image
  * to be uploaded.
  *
+ * @param	HttpArg		Pointer to Xbir_HttpArg instance
  * @param	HttpReq		HTTP payload
  * @param	HttpReqLen	HTTP payload length
  * @param	ImgData		Stores pointer to start of image data in HTTP
  *				request
- * @param	ImgLen		Size of the image that is getting downloaded
- * @param	ContentLen	Content length stored in HTTP request
  *
  * @return	XST_SUCCESS if the information of the image getting downlodaded
  *			is extracted successfully from input HTTP request
  *		XST_FAILURE otherwise
  *
  *****************************************************************************/
-static int Xbir_SsiGetImgInfo (u8 *HttpReq, u32 HttpReqLen, u8 **ImgData,
-	u32 *ImgSize, u32 *ContentLen)
+static int Xbir_SsiGetImgInfo (Xbir_HttpArg *HttpArg, u8 *HttpReq,
+	u32 HttpReqLen, u8 **ImgData)
 {
 	int Status = XST_FAILURE;
 	char *Line = (char *) HttpReq;
-	char* FileInfo = NULL;
 	u32 Len = 0U;
 	u32 Size;
-	u16 BoundaryLen = 0U;
-	XBIR_HTTP_REQ_PARSE_ACTION Action = XBIR_HTTP_REQ_GET_CONTENT_TYPE;
-	char Boundary[XBIR_SSI_IMG_MAX_BOUNDARY_LEN + 1U] = "--";
 
-	Line = strtok(Line, "\r\n");
-	Len += strnlen(Line, HttpReqLen);
-	while((Line != NULL) && (Len < HttpReqLen) && (Status == XST_FAILURE)) {
-		switch (Action) {
-		case XBIR_HTTP_REQ_GET_CONTENT_TYPE:
-			Size = strlen(XBIR_SSI_IMG_DOWNLOAD_CONTENT_TYPE);
-			if (strncmp(XBIR_SSI_IMG_DOWNLOAD_CONTENT_TYPE,	Line,
-				Size) == 0U) {
-				strncpy(&Boundary[strlen(Boundary)],
-					Line + Size,
-					XBIR_SSI_IMG_MAX_BOUNDARY_LEN);
-				BoundaryLen = strnlen(Boundary,
-					XBIR_SSI_IMG_MAX_BOUNDARY_LEN);
-				Xbir_Printf("[%u] Boundary (%u): %s\r\n",
-					XBIR_HTTP_REQ_GET_CONTENT_TYPE,
-					BoundaryLen, Boundary);
-
-				Action = XBIR_HTTP_REQ_GET_CONTENT_LEN;
-			}
-			break;
-
-		case XBIR_HTTP_REQ_GET_CONTENT_LEN:
+	Line = strtok(Line, "\n");
+	Len += strnlen(Line, HttpReqLen) + 1U;
+	while((Line != NULL) && (Len < HttpReqLen)) {
+		Size = strlen(XBIR_SSI_IMG_DOWNLOAD_CONTENT_TYPE);
+		if ((strncmp(XBIR_SSI_IMG_DOWNLOAD_CONTENT_TYPE, Line,
+			Size) == 0U) && (HttpArg->BoundaryLen == 0U)) {
+			HttpArg->Boundary[0U] = '-';
+			HttpArg->Boundary[1U] = '-';
+			strncpy((char *) &HttpArg->Boundary[2U], Line + Size,
+					XBIR_HTTP_MAX_BOUNDARY_LEN);
+			HttpArg->BoundaryLen = strnlen((char *) HttpArg->Boundary,
+					XBIR_HTTP_MAX_BOUNDARY_LEN);
+		}
+		else {
 			Size = strlen(XBIR_SSI_IMG_DOWNLOAD_CONTENT_LEN);
 			if (strncmp(XBIR_SSI_IMG_DOWNLOAD_CONTENT_LEN, Line,
 				Size) == 0U) {
-				*ContentLen = atol(&Line[Size]);
-				Xbir_Printf("[%u] Length= %u\r\n",
-					XBIR_HTTP_REQ_GET_CONTENT_LEN,
-					*ContentLen);
-				Action = XBIR_HTTP_REQ_GET_BOUDARY;
+				HttpArg->ContentLen = atol(&Line[Size]);
 			}
-			break;
-
-		case XBIR_HTTP_REQ_GET_BOUDARY:
-			if (strncmp(Boundary, Line, BoundaryLen) == 0) {
-				Action = XBIR_HTTP_REQ_GET_CONTENT;
-				FileInfo = Line;
-				Xbir_Printf("[%u]\r\n", XBIR_HTTP_REQ_GET_BOUDARY);
-			}
-			break;
-
-		case XBIR_HTTP_REQ_GET_CONTENT:
-			if (Line[0U] == '\r') {
-				*ImgSize = *ContentLen -
-					(u64)(Line - FileInfo) - 2U -
-					BoundaryLen - 5U;
-				Xbir_Printf("ImgSize = %ld\r\n", *ImgSize);
-				*ImgData = (u8 *)Line + 2U;
-				Status = XST_SUCCESS;
-			}
-			break;
-
-		default:
-			break;
 		}
 
 		if (Status == XST_FAILURE) {
+			Line = strtok(NULL, "\n");
+			Len += (strnlen (Line, HttpReqLen) + 1U);
+			if (Line[0U] == '\r' || Line[0U] == '\n')
+				break;
+		}
+	}
+
+	if (Len < HttpReqLen) {
+		Status = Xbir_SsiFindImgInHttpReq(HttpArg, &HttpReq[Len],
+			(HttpReqLen - Len), ImgData);
+	}
+	else {
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief
+ * This function Finds the image in the HTTP Request
+ *
+ * @param	HttpArg		Pointer to Xbir_HttpArg instance
+ * @param	HttpReq		HTTP payload
+ * @param	HttpReqLen	HTTP payload length
+ * @param	ImgData		Stores pointer to start of image data in HTTP
+ *				request
+ *
+ * @return	XST_SUCCESS if we find the image information of the image in
+			HTTP request
+ *		XST_FAILURE otherwise
+ *
+ *****************************************************************************/
+int Xbir_SsiFindImgInHttpReq(Xbir_HttpArg *HttpArg, u8 *HttpReq,
+	const u32 HttpReqLen, u8 **ImgData)
+{
+	int Status = XST_FAILURE;
+	u32 BoundaryFound = FALSE;
+	char *Line = (char *) HttpReq;
+	char *FileInfo = NULL;
+	u32 Len = 0U;
+
+	Line = strtok(Line, "\n");
+	Len += strnlen(Line, HttpReqLen);
+
+	while((Line != NULL) && (Len < HttpReqLen) && (Status != XST_SUCCESS)) {
+		if (BoundaryFound == FALSE) {
+			if (strncmp((char *)HttpArg->Boundary, Line,
+				HttpArg->BoundaryLen) == 0U) {
+				FileInfo = Line;
+				BoundaryFound = TRUE;
+			}
+		}
+		else {
+			if (Line[0U] == '\r') {
+				HttpArg->Fsize = HttpArg->ContentLen -
+					(u64)(Line - FileInfo) - 2U -
+					HttpArg->BoundaryLen - 5U;
+				*ImgData = (u8 *)Line + 2U;
+				Xbir_Printf ("Size of Image to be downloaded = %u\r\n",
+					HttpArg->Fsize);
+				Status = XST_SUCCESS;
+			}
+		}
+
+		if (Status != XST_SUCCESS) {
 			Line  = strtok(NULL, "\n");
 			Len += strnlen (Line, HttpReqLen);
 		}
@@ -880,18 +922,12 @@ static int Xbir_SsiUpdateImg (struct tcp_pcb *Tpcb, u8 *HttpReq,
 		HttpArg->Offset += DataSize;
 	}
 
-	if (HttpArg->RemainingRxLen <= HttpReqLen) {
-		HttpArg->RemainingRxLen = 0U;
+	if (HttpArg->Fsize == 0U) {
 		Status = Xbir_HttpSendResponseJson(Tpcb, HttpReq, HttpReqLen,
-			XBIR_SSI_JSON_SUCCESS_RESPONSE,
-			strlen(XBIR_SSI_JSON_SUCCESS_RESPONSE));
-		if (Status != XST_SUCCESS) {
-			Xbir_Printf("ERROR: Failed to send HTTP response\r\n");
-			Status = XBIR_ERROR_SEND_SUCCESS_RESPONSE;
-		}
+				XBIR_SSI_JSON_SUCCESS_RESPONSE,
+				strlen(XBIR_SSI_JSON_SUCCESS_RESPONSE));
 	}
 	else {
-		HttpArg->RemainingRxLen -= HttpReqLen;
 		Status = XST_SUCCESS;
 	}
 
@@ -918,17 +954,15 @@ static int Xbir_SsiInitiateImgUpdate (struct tcp_pcb *Tpcb, u8 *HttpReq,
 {
 	int Status = XST_SUCCESS;
 	u8 *ImgData;
-	u8 *ImgHdr;
-	Xbir_HttpArg *HttpArg;
+	Xbir_HttpArg *HttpArg = (Xbir_HttpArg *)Tpcb->callback_arg;
 	u32 ImgSize;
-	u32 ContentLen;
 	u32 ImgSizeInThisPkt;
 	u32 Offset;
 
-	ImgHdr = (u8 *) strstr((char *)HttpReq, "\r\n\r\n") + strlen("\r\n\r\n");
-
-	Status = Xbir_SsiGetImgInfo (HttpReq, HttpReqLen, &ImgData,
-		&ImgSize, &ContentLen);
+	HttpArg->Fsize = 0U;
+	HttpArg->BoundaryLen = 0U;
+	HttpArg->ContentLen = 0U;
+	Status = Xbir_SsiGetImgInfo (HttpArg, HttpReq, HttpReqLen, &ImgData);
 	if (XST_FAILURE == Status) {
 		goto END;
 	}
@@ -936,7 +970,7 @@ static int Xbir_SsiInitiateImgUpdate (struct tcp_pcb *Tpcb, u8 *HttpReq,
 	Xbir_Printf("Erasing img\r\n");
 	Status = Xbir_SysEraseBootImg(BootImgId);
 	if (Status != XST_SUCCESS) {
-		Xbir_Printf("ERROR: Erase Failed\r\n");
+		Xbir_Printf("Erase Failed\r\n");
 		goto END;
 	}
 	Xbir_Printf("Erasing complete\r\n");
@@ -945,18 +979,17 @@ static int Xbir_SsiInitiateImgUpdate (struct tcp_pcb *Tpcb, u8 *HttpReq,
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-
-	HttpArg = (Xbir_HttpArg *)Tpcb->callback_arg;
-	HttpArg->Fsize = ImgSize;
-	HttpArg->RemainingRxLen = ContentLen - (u16)(ImgData - ImgHdr);
 	HttpArg->Offset = Offset;
-	ImgSizeInThisPkt = HttpReqLen - (u16)(ImgData - HttpReq);
 
-	Xbir_Printf("Starting image update\r\n");
-	Status = Xbir_SsiUpdateImg (Tpcb, ImgData, ImgSizeInThisPkt);
+	if (HttpArg->Fsize > 0U) {
+		ImgSizeInThisPkt = HttpReqLen - (u16)(ImgData - HttpReq);
+		ImgSize = HttpArg->Fsize;
+		Xbir_Printf("Starting image update\r\n");
+		Status = Xbir_SsiUpdateImg (Tpcb, ImgData, ImgSizeInThisPkt);
+		Xbir_SsiLastUploadSize = ImgSize;
+	}
 
 	Xbir_SsiLastImgUpload = BootImgId;
-	Xbir_SsiLastUploadSize = ImgSize;
 
 END:
 	return Status;
