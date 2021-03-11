@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -21,6 +21,7 @@
  * 3.0   vns  01/23/18  Added XFsbl_Sha3PadSelect() API to change SHA3 padding
  *                      to KECCAK SHA3 padding.
  * 4.0   har  06/17/20  Removed references to unused algorithms
+ * 5.0   bsv  03/11/21  Fixed build issues
  *
  * </pre>
  *
@@ -59,26 +60,21 @@ void XFsbl_ShaDigest(const u8 *In, const u32 Size, u8 *Out, u32 HashLen)
 	}
 }
 
-#ifdef XFSBL_SECURE
 /*****************************************************************************
  *
- * This function selects the padding type to be used for SHA3 hash calculation
+ * @param	None
  *
- * @param	PadType	Padding type to be used for hash calculation.
- *
- * @return	XST_SUCCESS on successful selection.
- *              XST_FAILURE if selection is failed.
+ * @return	None
  *
  ******************************************************************************/
-u32 XFsbl_Sha3PadSelect(XSecure_Sha3PadType PadType)
+void XFsbl_ShaFinish(void * Ctx, u8 * Hash, u32 HashLen)
 {
-	u32 Status;
 
-	Status = XSecure_Sha3PadSelection(&SecureSha3, PadType);
-
-	return Status;
+	if(XFSBL_HASH_TYPE_SHA3 == HashLen)
+	{
+		XSecure_Sha3Finish(&SecureSha3, Hash);
+	}
 }
-
 /*****************************************************************************
  *
  * @param	None
@@ -112,20 +108,23 @@ void XFsbl_ShaUpdate(void * Ctx, u8 * Data, u32 Size, u32 HashLen)
 	}
 }
 
+#ifdef XFSBL_SECURE
 /*****************************************************************************
  *
- * @param	None
+ * This function selects the padding type to be used for SHA3 hash calculation
  *
- * @return	None
+ * @param	PadType	Padding type to be used for hash calculation.
+ *
+ * @return	XST_SUCCESS on successful selection.
+ *              XST_FAILURE if selection is failed.
  *
  ******************************************************************************/
-void XFsbl_ShaFinish(void * Ctx, u8 * Hash, u32 HashLen)
+u32 XFsbl_Sha3PadSelect(XSecure_Sha3PadType PadType)
 {
+	u32 Status;
 
-	if(XFSBL_HASH_TYPE_SHA3 == HashLen)
-	{
-		XSecure_Sha3Finish(&SecureSha3, Hash);
-	}
+	Status = XSecure_Sha3PadSelection(&SecureSha3, PadType);
+
+	return Status;
 }
-
 #endif
