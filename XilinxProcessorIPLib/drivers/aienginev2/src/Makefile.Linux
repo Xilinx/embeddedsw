@@ -4,7 +4,7 @@ CC ?= gcc
 CP = cp
 EXT = ../examples/aie_sim_test/ext/top
 LIBSOURCES = $(wildcard ./*/*.c) $(wildcard ./*/*/*.c)
-CFLAGS += -Wall -Wextra
+CFLAGS += -Wall -Wextra --std=c11
 
 ifneq (, $(findstring -D__AIEMETAL__,$(CFLAGS)))
   LDLIB += -lmetal
