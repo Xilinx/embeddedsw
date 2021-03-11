@@ -20,51 +20,17 @@ namespace xaiefal {
 	public:
 		XAieComboEvent() = delete;
 		XAieComboEvent(std::shared_ptr<XAieDevHandle> DevHd,
-			XAie_LocType L, XAie_ModuleType M):
+			XAie_LocType L, XAie_ModuleType M, uint32_t ENum = 2):
 			XAieSingleTileRsc(DevHd, L, M) {
-			vEvents.resize(2);
+			if (ENum > 4 || ENum < 2) {
+				throw std::invalid_argument("Combo event failed, invalid input events number");
+			}
+			vEvents.resize(ENum);
 			State.Initialized = 1;
 		}
 		XAieComboEvent(XAieDev &Dev,
-			XAie_LocType L, XAie_ModuleType M):
-			XAieComboEvent(Dev.getDevHandle(), L, M) {}
-		/**
-		 * This function sets the module and number of input events.
-		 *
-		 * @param M module
-		 * @param ENum number of input events it. (2 to 4)
-		 * @return XAIE_OK for success, error code for failure.
-		 */
-		AieRC initialize(XAie_ModuleType M, uint32_t ENum) {
-			AieRC RC;
-
-			(void)M;
-			if (State.Reserved == 1) {
-				Logger::log(LogLevel::ERROR) << "combo event " << __func__ << " (" <<
-					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row <<
-					" Mod=" << Mod <<  " already reserved." << std::endl;
-				RC = XAIE_ERR;
-			} else if (ENum < 2 || ENum > 4) {
-				Logger::log(LogLevel::ERROR) << "combo event " << __func__ << " (" <<
-					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row <<
-					" invalid number of events." << std::endl;
-				RC = XAIE_INVALID_ARGS;
-			} else {
-				RC = _XAie_CheckModule(dev(), Loc, M);
-				if (RC != XAIE_OK) {
-					Logger::log(LogLevel::ERROR) << "combo event " << __func__ << " (" <<
-						(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row <<
-						" set Mod=" << M <<  " invalid tile module combination." << std::endl;
-					RC = XAIE_INVALID_ARGS;
-				} else {
-					vEvents.resize(ENum);
-					State.Initialized = 1;
-					State.Configured = 1;
-					RC = XAIE_OK;
-				}
-			}
-			return RC;
-		}
+			XAie_LocType L, XAie_ModuleType M, uint32_t ENum = 2):
+			XAieComboEvent(Dev.getDevHandle(), L, M, ENum) {}
 		/**
 		 * This function sets input events, and combo operations.
 		 *
@@ -192,7 +158,21 @@ namespace xaiefal {
 		std::vector<XAie_UserRsc> vRscs; /**< combo events resources */
 	private:
 		AieRC _reserve() {
+			AieRC RC;
+
 			// TODO: reserve from c driver
+			for (int i = 0; i < (int)vEvents.size(); i++) {
+				XAie_UserRsc R;
+
+				RC = XAieComboEvent::XAieAllocRsc(AieHd, Loc, Mod, R);
+				if (RC != XAIE_OK) {
+					for (int j = 0; j < i; j++) {
+						XAieComboEvent::XAieReleaseRsc(AieHd, vRscs[j]);
+					}
+				} else {
+					vRscs.push_back(R);
+				}
+			}
 			Rsc.Mod = vRscs[0].Mod;
 			if (vRscs.size() <= 2) {
 				// Only two input events, it can be combo0 or
@@ -209,6 +189,10 @@ namespace xaiefal {
 		}
 		AieRC _release() {
 			// TODO: release from c driver
+			for (auto r: vRscs) {
+				XAieComboEvent::XAieReleaseRsc(AieHd, r);
+			}
+			vRscs.clear();
 			return XAIE_OK;
 		}
 		AieRC _start() {
@@ -267,6 +251,79 @@ namespace xaiefal {
 				}
 			}
 			return XAIE_OK;
+		}
+	private:
+		/**
+		 * TODO: Following function will not be required.
+		 * Bitmap will be moved to c device driver
+		 */
+		static AieRC XAieAllocRsc(std::shared_ptr<XAieDevHandle> Dev, XAie_LocType L,
+				XAie_ModuleType M, XAie_UserRsc &R) {
+			uint64_t *bits;
+			int sbit;
+			AieRC RC = XAIE_OK;
+
+			(void)Dev;
+			if ((R.Loc.Row == 0 && R.Mod != XAIE_PL_MOD) ||
+			    (R.Loc.Row != 0 && R.Mod == XAIE_PL_MOD)) {
+				Logger::log(LogLevel::ERROR) << __func__ <<
+					"Combo: invalid tile and module." << std::endl;
+				return XAIE_INVALID_ARGS;
+			}
+			if (M == XAIE_CORE_MOD) {
+				bits = Dev->XAieComboCoreBits;
+				sbit = (L.Col * 8 + (L.Row - 1)) * 4;
+			} else if (M == XAIE_MEM_MOD) {
+				bits = Dev->XAieComboMemBits;
+				sbit = (L.Col * 8 + (L.Row - 1)) * 4;
+			} else if (M == XAIE_PL_MOD) {
+				bits = Dev->XAieComboShimBits;
+				sbit = L.Col * 4;
+			} else {
+				Logger::log(LogLevel::ERROR) << __func__ <<
+					"invalid module type" << std::endl;
+				RC = XAIE_INVALID_ARGS;
+			}
+			if (RC == XAIE_OK) {
+				int bits2check = 4;
+				int bit = XAieRsc::alloc_rsc_bit(bits, sbit, bits2check);
+
+				if (bit < 0) {
+					RC = XAIE_ERR;
+				} else {
+					R.Loc = L;
+					R.Mod = M;
+					R.RscId = bit - sbit;
+				}
+			}
+			return RC;
+		}
+		/**
+		 * TODO: Following function will not be required.
+		 * Bitmap will be moved to device driver
+		 */
+		static void XAieReleaseRsc(std::shared_ptr<XAieDevHandle> Dev,
+				const XAie_UserRsc &R) {
+			uint64_t *bits;
+			int pos;
+
+			(void)Dev;
+			if ((R.Loc.Row == 0 && R.Mod != XAIE_PL_MOD) ||
+			    (R.Loc.Row != 0 && R.Mod == XAIE_PL_MOD)) {
+				Logger::log(LogLevel::ERROR) << __func__ <<
+					"PCount: invalid tile and module." << std::endl;
+				return;
+			} else if (R.Mod == XAIE_PL_MOD) {
+				bits = Dev->XAieComboShimBits;
+				pos = R.Loc.Col * 4 + R.RscId;
+			} else if (R.Mod == XAIE_CORE_MOD) {
+				bits = Dev->XAieComboCoreBits;
+				pos = (R.Loc.Col * 8 + (R.Loc.Row - 1)) * 4 + R.RscId;
+			} else {
+				bits = Dev->XAieComboMemBits;
+				pos = (R.Loc.Col * 8 + (R.Loc.Row - 1)) * 4 + R.RscId;
+			}
+			XAieRsc::clear_rsc_bit(bits, pos);
 		}
 	};
 }
