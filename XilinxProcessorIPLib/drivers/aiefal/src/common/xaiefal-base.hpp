@@ -34,17 +34,21 @@ namespace xaiefal {
 
 			//TODO: the following bitmaps initialization should be removed
 			memset(XAieBroadcastCoreBits, 0, sizeof(XAieBroadcastCoreBits));
-			memset(XAieBroadcastMemBits, 0, sizeof(XAieBroadcastCoreBits));
-			memset(XAieBroadcastShimBits, 0, sizeof(XAieBroadcastCoreBits));
+			memset(XAieBroadcastMemBits, 0, sizeof(XAieBroadcastMemBits));
+			memset(XAieBroadcastShimBits, 0, sizeof(XAieBroadcastShimBits));
 
 			memset(XAiePerfCoreBits, 0, sizeof(XAiePerfCoreBits));
-			memset(XAiePerfMemBits, 0, sizeof(XAiePerfCoreBits));
-			memset(XAiePerfShimBits, 0, sizeof(XAiePerfCoreBits));
+			memset(XAiePerfMemBits, 0, sizeof(XAiePerfMemBits));
+			memset(XAiePerfShimBits, 0, sizeof(XAiePerfShimBits));
 
 			memset(XAiePcEventBits, 0, sizeof(XAiePcEventBits));
 
 			memset(XAieSSCoreTBits, 0, sizeof(XAieSSCoreTBits));
 			memset(XAieSSShimTBits, 0, sizeof(XAieSSShimTBits));
+
+			memset(XAieComboCoreBits, 0, sizeof(XAieComboCoreBits));
+			memset(XAieComboMemBits, 0, sizeof(XAieComboMemBits));
+			memset(XAieComboShimBits, 0, sizeof(XAieComboShimBits));
 		}
 		~XAieDevHandle() {
 			if (FinishOnDestruct) {
@@ -82,6 +86,10 @@ namespace xaiefal {
 		uint64_t XAieSSCoreTBits[400 * 8/sizeof(uint64_t)];
 		uint64_t XAieSSShimTBits[50 * 2/sizeof(uint64_t)];
 
+		uint64_t XAieComboCoreBits[400 * 4/sizeof(uint64_t)];
+		uint64_t XAieComboMemBits[400 * 4/sizeof(uint64_t)];
+		uint64_t XAieComboShimBits[50 * 4/sizeof(uint64_t)];
+
 	private:
 		XAie_DevInst *Dev;
 		bool FinishOnDestruct;
@@ -90,6 +98,7 @@ namespace xaiefal {
 	class XAieMod;
 	class XAieTile;
 	class XAieBroadcast;
+	class XAieComboEvent;
 	class XAiePerfCounter;
 	class XAieTraceCntr;
 	class XAieTraceEvent;
@@ -444,6 +453,23 @@ namespace xaiefal {
 		 */
 		std::shared_ptr<XAiePCRange> pcRange() {
 			return std::make_shared<XAiePCRange>(AieHandle, Loc);
+		}
+
+		/**
+		 * This function returns combo event resource software object.
+		 *
+		 * @ENum number of input events
+		 * @return combo event software object pointer
+		 *
+		 * Please note that this function will not request hardware
+		 * resource. After this function is called, in order to reserve
+		 * the hardware resource, it will need to call reserve()
+		 * function of the resource class.
+		 */
+		std::shared_ptr<XAieComboEvent> comboEvent(uint32_t ENum = 2) {
+			return std::make_shared<XAieComboEvent>(AieHandle,
+								Loc, Mod,
+								ENum);
 		}
 
 	private:
