@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -10,6 +10,7 @@
 # 1.01  pc   03/24/20 Update copyright year
 # 1.02  pc   06/05/20 Remove unused params
 # 1.03  pc   07/16/20 Update syntax to fetch CIPS HIP properties
+# 1.04  rb   03/09/21 Update SEM parameters as per CIPS 3.0
 ##############################################################################
 
 #---------------------------------------------
@@ -68,8 +69,8 @@ proc xgen_opts_file {libhandle} {
 
 	# Export SEM options to xparameters.h if SEM CFRAME and/or NPI reg scan is enabled
 
-	set sem_cfrscan_en [getCIPSProperty CONFIG.SEM_CONFIG_MEM_SCAN]
-	set sem_npiscan_en [getCIPSProperty CONFIG.SEM_CONFIG_NPI_SCAN]
+	set sem_cfrscan_en [getCIPSProperty CONFIG.SEM_MEM_SCAN]
+	set sem_npiscan_en [getCIPSProperty CONFIG.SEM_NPI_SCAN]
 
 	if {($sem_cfrscan_en == 1)||($sem_npiscan_en == 1)} {
 	  # Open xparameters.h file

@@ -27,6 +27,7 @@
 *                       Remove unused Status variable in XPlm_ErrInit
 *       rb   01/28/2021 Added Sem PreInit API call
 *       bm   02/17/2021 Reinitialize Status in XPlm_ModuleInit to add redundancy
+*       rb   03/09/2021 Updated Sem Init API call
 *
 * </pre>
 *
@@ -176,7 +177,7 @@ int XPlm_ModuleInit(void *Arg)
 	}
 #endif
 #ifdef XPLM_SEM
-	Status = XPlm_SemPreInit();
+	Status = XPlm_SemInit();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

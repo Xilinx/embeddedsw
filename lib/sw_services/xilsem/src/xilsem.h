@@ -3,14 +3,12 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-
 /*****************************************************************************/
 /**
 *
 * @file xilsem.h
 *
-* This is the file which contains xilsem related interafce code.
-* This will be inteface for xilsem library
+* This is the file which contains xilsem related interface code.
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -20,6 +18,7 @@
 * 1.01  rb   10/30/2020 Added XSem_Init declaration
 * 1.02  gm   11/30/2020 Added SEM Start and Stop API declaration
 * 1.03  rb   01/28/2021 Added SEM Pre Init API declaration
+* 1.04  rb   03/09/2021 Updates Sem Init API call, removed unused APIs
 *
 * </pre>
 *
@@ -29,7 +28,6 @@
 
 #ifndef XIL_SEM_H
 #define XIL_SEM_H
-
 
 #ifdef __cplusplus
 extern "C" {
@@ -43,13 +41,8 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
-int XSem_CfrInit(void);
-int XSem_NpiInit(void);
-int XSem_NpiRunScan();
-int XSem_CfrStopScan(void);
-int XSem_CfrStartScan(void);
-int XSem_Init(void);
-int XSem_PreInit(void);
+int XSem_Init (void);
+int XSem_InitScan (void);
 int XSem_StartScan (void);
 int XSem_StopScan (void);
 
@@ -57,4 +50,4 @@ int XSem_StopScan (void);
 }
 #endif
 
-#endif		/* XIL_SEM_H */
+#endif	/* XIL_SEM_H */

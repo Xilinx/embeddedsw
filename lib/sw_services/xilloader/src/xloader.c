@@ -84,6 +84,7 @@
 *       skd  02/01/2021 Added EL_3 check for partition in ATF HandoffParams
 *       bm   02/12/2021 Updated logic to use BootHdr directly from PMC RAM
 *       kpt  02/16/2021 Updated error code when secure validations are failed
+*       rb   03/09/2021 Updated Sem Scan Init API call
 *
 * </pre>
 *
@@ -1431,7 +1432,7 @@ static int XLoader_LoadImage(XilPdi *PdiPtr)
 	if ((PdiPtr->PdiType != XLOADER_PDI_TYPE_FULL) &&
 		(NODESUBCLASS(PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID)
 		== (u32)XPM_NODESUBCL_DEV_PL)) {
-		Status = XSem_Init();
+		Status = XSem_InitScan();
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_SEM_INIT, Status);
 			goto END;

@@ -8,7 +8,7 @@
 *
 * @file xplm_sem_init.c
 *
-* This file contains the startup tasks related code for PLM.
+* This file contains the SEM Init APIs.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -25,6 +25,7 @@
 * 1.02  rb   10/30/2020 Updated XilSEM Init API
 * 1.03  rb   01/28/2021 Added Sem PreInit API to have CDO command handler
 *                       initialization, removed unused header file
+*       rb   03/09/2021 Updated Sem Init API call
 *
 * </pre>
 *
@@ -53,19 +54,14 @@
 
 /*****************************************************************************/
 /**
- * @brief This function call all the init functions of all xilsem
- * modules. As a part of init functions, modules can initiate scan on both cfi
- * npi, scan will be decided based on the CIPS params in xparameters.h.
+ * @brief	It calls the XilSEM Init API to register CDO loader commands
  *
- * @param	Arg is not used
- *
- * @return	Status as defined in XilSem library
+ * @return	Status as defined in XilSEM library
  *
  *****************************************************************************/
-int XPlm_SemInit(void *Arg)
+int XPlm_SemInit(void)
 {
 	int Status = XST_FAILURE;
-	(void)Arg;
 
 	Status = XSem_Init();
 
@@ -74,16 +70,22 @@ int XPlm_SemInit(void *Arg)
 
 /*****************************************************************************/
 /**
-* @brief 	It calls the XilSEM Init API to registers CDO loader commands
-*
-* @return	Status as defined in xplmi_status.h
-*
-*****************************************************************************/
-int XPlm_SemPreInit(void)
+ * @brief	This function calls the scan init functions of XilSEM.
+ *		As a part of this, XilSEM library can initiate
+ *		scan on both CRAM and NPI.
+ *		Scan will be decided based on the CIPS params in xparameters.h.
+ *
+ * @param	Arg is not used
+ *
+ * @return	Status as defined in XilSEM library
+ *
+ *****************************************************************************/
+int XPlm_SemScanInit(void *Arg)
 {
 	int Status = XST_FAILURE;
+	(void)Arg;
 
-	Status = XSem_PreInit();
+	Status = XSem_InitScan();
 
 	return Status;
 }

@@ -22,6 +22,7 @@
 *                       functionality
 *       kc   03/23/2020 Minor code cleanup
 * 1.02  rb   01/28/2021 Added Sem PreInit prototype, updated header file
+*       rb   03/09/2021 Updated Sem Init API call
 *
 * </pre>
 *
@@ -47,8 +48,8 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-int XPlm_SemInit(void *Arg);
-int XPlm_SemPreInit(void);
+int XPlm_SemInit(void);
+int XPlm_SemScanInit(void *Arg);
 
 /************************** Variable Definitions *****************************/
 
