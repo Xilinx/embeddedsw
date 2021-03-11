@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -25,6 +25,7 @@
  * 1.1   mn   06/15/20 Improved random value generation for Read/Write Tests
  *       mn   09/08/20 Modified code to support designs with only DDR1 region
  * 1.2   mn   02/11/21 Added support for 16-Bit Bus Width
+ *       mn   03/10/21 Fixed doxygen warnings
  *
  * </pre>
  *
@@ -749,8 +750,6 @@ void XMt_RunEyeMemtest(XMt_CfgData *XMtPtr, u64 StartAddr, u32 Len)
 /*****************************************************************************/
 /**
  * This is the Memory Test main function.
- *
- * @param none
  *
  * @return none
  *
