@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,8 @@
 *                     Added FSBL_PL_CLEAR_EXCLUDE_VAL, FSBL_USB_EXCLUDE_VAL,
 *                     FSBL_PROT_BYPASS_EXCLUDE_VAL configurations
 * 3.0   vns  03/07/18 Added FSBL_FORCE_ENC_EXCLUDE_VAL configuration
+* 4.0   ma   02/18/21 Added provision to define macros both using compiler
+*                     build flags and this file without redefinition warning
 *
 *</pre>
 *
@@ -64,28 +66,39 @@ extern "C" {
  *     - FSBL_DEBUG_DETAILED Defining this will print information with
  *       all data exchanged.
  */
+#ifndef FSBL_PRINT_VAL
 #define FSBL_PRINT_VAL              (1U)
+#endif
+
+#ifndef FSBL_DEBUG_VAL
 #define FSBL_DEBUG_VAL              (0U)
+#endif
+
+#ifndef FSBL_DEBUG_INFO_VAL
 #define FSBL_DEBUG_INFO_VAL         (0U)
+#endif
+
+#ifndef FSBL_DEBUG_DETAILED_VAL
 #define FSBL_DEBUG_DETAILED_VAL     (0U)
+#endif
 
 /**
  * FSBL Debug options
  */
 
-#if FSBL_PRINT_VAL
+#if (FSBL_PRINT_VAL) && (!defined(FSBL_PRINT))
 #define FSBL_PRINT
 #endif
 
-#if FSBL_DEBUG_VAL
+#if (FSBL_DEBUG_VAL) && (!defined(FSBL_DEBUG))
 #define FSBL_DEBUG
 #endif
 
-#if FSBL_DEBUG_INFO_VAL
+#if (FSBL_DEBUG_INFO_VAL) && (!defined(FSBL_DEBUG_INFO))
 #define FSBL_DEBUG_INFO
 #endif
 
-#if FSBL_DEBUG_DETAILED_VAL
+#if (FSBL_DEBUG_DETAILED_VAL) && (!defined(FSBL_DEBUG_DETAILED))
 #define FSBL_DEBUG_DETAILED
 #endif
 
@@ -110,79 +123,124 @@ extern "C" {
  *     - FSBL_FORCE_ENC_EXCLUDE_VAL Forcing encryption for every partition
  *       when ENC only bit is blown will be excluded.
  */
+#ifndef FSBL_NAND_EXCLUDE_VAL
 #define FSBL_NAND_EXCLUDE_VAL			(0U)
-#define FSBL_QSPI_EXCLUDE_VAL			(0U)
-#define FSBL_SD_EXCLUDE_VAL			(0U)
-#define FSBL_SECURE_EXCLUDE_VAL			(0U)
-#define FSBL_BS_EXCLUDE_VAL				(0U)
-#define FSBL_EARLY_HANDOFF_EXCLUDE_VAL	(1U)
-#define FSBL_WDT_EXCLUDE_VAL			(0U)
-#define FSBL_PERF_EXCLUDE_VAL			(1U)
-#define FSBL_A53_TCM_ECC_EXCLUDE_VAL	(1U)
-#define FSBL_PL_CLEAR_EXCLUDE_VAL		(1U)
-#define FSBL_USB_EXCLUDE_VAL			(1U)
-#define FSBL_PROT_BYPASS_EXCLUDE_VAL	(1U)
-#define FSBL_PARTITION_LOAD_EXCLUDE_VAL (0U)
-#define FSBL_FORCE_ENC_EXCLUDE_VAL		(0U)
-#define FSBL_DDR_SR_EXCLUDE_VAL			(1U)
+#endif
 
-#if FSBL_NAND_EXCLUDE_VAL
+#ifndef FSBL_QSPI_EXCLUDE_VAL
+#define FSBL_QSPI_EXCLUDE_VAL			(0U)
+#endif
+
+#ifndef FSBL_SD_EXCLUDE_VAL
+#define FSBL_SD_EXCLUDE_VAL				(0U)
+#endif
+
+#ifndef FSBL_SECURE_EXCLUDE_VAL
+#define FSBL_SECURE_EXCLUDE_VAL			(0U)
+#endif
+
+#ifndef FSBL_BS_EXCLUDE_VAL
+#define FSBL_BS_EXCLUDE_VAL				(0U)
+#endif
+
+#ifndef FSBL_EARLY_HANDOFF_EXCLUDE_VAL
+#define FSBL_EARLY_HANDOFF_EXCLUDE_VAL	(1U)
+#endif
+
+#ifndef FSBL_WDT_EXCLUDE_VAL
+#define FSBL_WDT_EXCLUDE_VAL			(0U)
+#endif
+
+#ifndef FSBL_PERF_EXCLUDE_VAL
+#define FSBL_PERF_EXCLUDE_VAL			(1U)
+#endif
+
+#ifndef FSBL_A53_TCM_ECC_EXCLUDE_VAL
+#define FSBL_A53_TCM_ECC_EXCLUDE_VAL	(1U)
+#endif
+
+#ifndef FSBL_PL_CLEAR_EXCLUDE_VAL
+#define FSBL_PL_CLEAR_EXCLUDE_VAL		(1U)
+#endif
+
+#ifndef FSBL_USB_EXCLUDE_VAL
+#define FSBL_USB_EXCLUDE_VAL			(1U)
+#endif
+
+#ifndef FSBL_PROT_BYPASS_EXCLUDE_VAL
+#define FSBL_PROT_BYPASS_EXCLUDE_VAL	(1U)
+#endif
+
+#ifndef FSBL_PARTITION_LOAD_EXCLUDE_VAL
+#define FSBL_PARTITION_LOAD_EXCLUDE_VAL (0U)
+#endif
+
+#ifndef FSBL_FORCE_ENC_EXCLUDE_VAL
+#define FSBL_FORCE_ENC_EXCLUDE_VAL		(0U)
+#endif
+
+#ifndef FSBL_DDR_SR_EXCLUDE_VAL
+#define FSBL_DDR_SR_EXCLUDE_VAL			(1U)
+#endif
+
+#if (FSBL_NAND_EXCLUDE_VAL) && (!defined(FSBL_NAND_EXCLUDE))
 #define FSBL_NAND_EXCLUDE
 #endif
 
-#if FSBL_QSPI_EXCLUDE_VAL
+#if (FSBL_QSPI_EXCLUDE_VAL) && (!defined(FSBL_QSPI_EXCLUDE))
 #define FSBL_QSPI_EXCLUDE
 #endif
 
-#if FSBL_SD_EXCLUDE_VAL
+#if (FSBL_SD_EXCLUDE_VAL) && (!defined(FSBL_SD_EXCLUDE))
 #define FSBL_SD_EXCLUDE
 #endif
 
-#if FSBL_SECURE_EXCLUDE_VAL
+#if (FSBL_SECURE_EXCLUDE_VAL) && (!defined(FSBL_SECURE_EXCLUDE))
 #define FSBL_SECURE_EXCLUDE
 #endif
 
-#if FSBL_BS_EXCLUDE_VAL
+#if (FSBL_BS_EXCLUDE_VAL) && (!defined(FSBL_BS_EXCLUDE))
 #define FSBL_BS_EXCLUDE
 #endif
 
-#if FSBL_EARLY_HANDOFF_EXCLUDE_VAL
+#if (FSBL_EARLY_HANDOFF_EXCLUDE_VAL) && (!defined(FSBL_EARLY_HANDOFF_EXCLUDE))
 #define FSBL_EARLY_HANDOFF_EXCLUDE
 #endif
 
-#if FSBL_WDT_EXCLUDE_VAL
+#if (FSBL_WDT_EXCLUDE_VAL) && (!defined(FSBL_WDT_EXCLUDE))
 #define FSBL_WDT_EXCLUDE
 #endif
 
-#if FSBL_PERF_EXCLUDE_VAL
+#if (FSBL_PERF_EXCLUDE_VAL) && (!defined(FSBL_PERF_EXCLUDE))
 #define FSBL_PERF_EXCLUDE
 #endif
 
-#if FSBL_A53_TCM_ECC_EXCLUDE_VAL
+#if (FSBL_A53_TCM_ECC_EXCLUDE_VAL) && (!defined(FSBL_A53_TCM_ECC_EXCLUDE))
 #define FSBL_A53_TCM_ECC_EXCLUDE
 #endif
 
-#if FSBL_PL_CLEAR_EXCLUDE_VAL
+#if (FSBL_PL_CLEAR_EXCLUDE_VAL) && (!defined(FSBL_PL_CLEAR_EXCLUDE))
 #define FSBL_PL_CLEAR_EXCLUDE
 #endif
 
-#if FSBL_USB_EXCLUDE_VAL
+#if (FSBL_USB_EXCLUDE_VAL) && (!defined(FSBL_USB_EXCLUDE))
 #define FSBL_USB_EXCLUDE
 #endif
 
-#if FSBL_PROT_BYPASS_EXCLUDE_VAL
+#if (FSBL_PROT_BYPASS_EXCLUDE_VAL) && (!defined(FSBL_PROT_BYPASS_EXCLUDE))
 #define FSBL_PROT_BYPASS_EXCLUDE
 #endif
 
-#if FSBL_PARTITION_LOAD_EXCLUDE_VAL
+#if (FSBL_PARTITION_LOAD_EXCLUDE_VAL) && \
+	(!defined(FSBL_PARTITION_LOAD_EXCLUDE))
 #define FSBL_PARTITION_LOAD_EXCLUDE
 #endif
 
-#if FSBL_FORCE_ENC_EXCLUDE_VAL
+#if (FSBL_FORCE_ENC_EXCLUDE_VAL) && (!defined(FSBL_FORCE_ENC_EXCLUDE))
 #define FSBL_FORCE_ENC_EXCLUDE
 #endif
 
-#if (FSBL_DDR_SR_EXCLUDE_VAL == 0U)
+#if (FSBL_DDR_SR_EXCLUDE_VAL == 0U) && (!defined(XFSBL_ENABLE_DDR_SR))
 #define XFSBL_ENABLE_DDR_SR
 #endif
 /************************** Function Prototypes ******************************/
