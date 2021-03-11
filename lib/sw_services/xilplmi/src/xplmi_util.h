@@ -28,6 +28,7 @@
 *                       and XPlmi_Strcpy
 *       bm   10/14/2020 Code clean up
 *       td   10/19/2020 MISRA C Fixes
+* 1.04  bm   03/04/2021 Add VerifyAddrRange API
 *
 * </pre>
 *
@@ -68,6 +69,7 @@ void XPlmi_UtilWrite64(u32 HighAddr, u32 LowAddr, u32 Value);
 int XPlmi_UtilPollForMask64(u32 HighAddr, u32 LowAddr, u32 Mask,
 	u32 TimeOutInUs);
 void XPlmi_PrintArray (u32 DebugType, const u64 BufAddr, u32 Len, const char *Str);
+int XPlmi_VerifyAddrRange(u64 StartAddr, u64 EndAddr);
 
 #ifdef __cplusplus
 }

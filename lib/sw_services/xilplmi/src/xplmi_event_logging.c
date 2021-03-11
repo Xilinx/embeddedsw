@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,8 +26,9 @@
 * 1.02  bm   10/14/2020 Code clean up
 * 		td   10/19/2020 MISRA C Fixes
 *       ana  10/19/2020 Added doxygen comments
-* 1.3   nsk  12/14/2020 Modify the peripheral definitions to canonical
+* 1.03  nsk  12/14/2020 Modify the peripheral definitions to canonical
 *                       definitions.
+*       bm   03/04/2021 Add Address range check for Log Buffers
 *
 * </pre>
 *
@@ -42,12 +43,20 @@
 #include "xplmi_debug.h"
 #include "xplmi_hw.h"
 #include "xplmi.h"
+#include "xplmi_util.h"
 
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XPLMI_DEBUG_LOG_BUFFER_HIGH_ADDR	((u64)XPLMI_DEBUG_LOG_BUFFER_ADDR + \
+						XPLMI_DEBUG_LOG_BUFFER_LEN - 1U)
+#define XPLMI_TRACE_LOG_BUFFER_HIGH_ADDR	((u64)XPLMI_TRACE_LOG_BUFFER_ADDR + \
+						XPLMI_TRACE_LOG_BUFFER_LEN - 1U)
+
+#define XPLMI_TRACE_LOG_BUFFER	(0U)
+#define XPLMI_DEBUG_LOG_BUFFER	(1U)
 
 /************************** Function Prototypes ******************************/
 
@@ -144,6 +153,76 @@ static int XPlmi_RetrieveBufferData(const XPlmi_CircularBuffer * Buffer, u64 Des
 END:
 	return Status;
 }
+
+/*****************************************************************************/
+/**
+ * @brief	This function configures Log Buffer with the given memory address
+ * and size. It also validates the given address range
+ *
+ * @param 	LogBuffer is the circular buffer structure to be configured
+ * @param 	StartAddr is the starting address of the given buffer
+ * @param 	NumBytes is number of bytes the circular buffer can hold
+ * @param 	BufType is the type of log buffer
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XPlmi_ConfigureLogMem(XPlmi_CircularBuffer *LogBuffer, u64 StartAddr,
+		u32 NumBytes, u8 BufType)
+{
+	int Status = XST_FAILURE;
+	u64 EndAddr = 0U;
+
+	if (NumBytes != 0U) {
+		EndAddr = StartAddr + NumBytes - 1U;
+		Status = XPlmi_VerifyAddrRange(StartAddr, EndAddr);
+		if ((Status != XST_SUCCESS) &&
+			(BufType == XPLMI_TRACE_LOG_BUFFER) &&
+			((StartAddr < (u64)XPLMI_TRACE_LOG_BUFFER_ADDR) ||
+			(EndAddr > (u64)XPLMI_TRACE_LOG_BUFFER_HIGH_ADDR))) {
+			Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_LOG_BUF_ADDR,
+					Status);
+		}
+		else if ((Status != XST_SUCCESS) &&
+			(BufType == XPLMI_DEBUG_LOG_BUFFER) &&
+			((StartAddr < (u64)XPLMI_DEBUG_LOG_BUFFER_ADDR) ||
+			(EndAddr > (u64)XPLMI_DEBUG_LOG_BUFFER_HIGH_ADDR))) {
+			Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_LOG_BUF_ADDR,
+					Status);
+		}
+		else {
+			LogBuffer->StartAddr = StartAddr;
+			LogBuffer->CurrentAddr = StartAddr;
+			LogBuffer->Len = NumBytes;
+			LogBuffer->IsBufferFull = (u8)FALSE;
+			Status = XST_SUCCESS;
+		}
+	} else {
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_LOG_BUF_LEN,
+					Status);
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function retrieves buffer info into cmd response.
+ *
+ * @param 	Cmd is the pointer to command structure
+ * @param 	LogBuffer is the Circular buffer structure to be retrieved
+ *
+ *****************************************************************************/
+static void XPlmi_RetrieveBufferInfo(XPlmi_Cmd *Cmd,
+		const XPlmi_CircularBuffer *LogBuffer)
+{
+	Cmd->Response[1U] = (u32)(LogBuffer->StartAddr >> 32U);
+	Cmd->Response[2U] = (u32)(LogBuffer->StartAddr & 0xFFFFFFFFU);
+	Cmd->Response[3U] = (u32)(LogBuffer->CurrentAddr - LogBuffer->StartAddr);
+	Cmd->Response[4U] = LogBuffer->Len;
+	Cmd->Response[5U] = LogBuffer->IsBufferFull;
+}
+
 /**
  * @}
  * @endcond
@@ -182,10 +261,10 @@ int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
 {
 	int Status = XST_FAILURE;
 	u32 LoggingCmd = Cmd->Payload[0U];
-	u32 Arg1 = Cmd->Payload[1U];
-	u32 Arg2 = Cmd->Payload[2U];
+	u64 Arg1 = (u64)Cmd->Payload[1U];
+	u64 Arg2 = (u64)Cmd->Payload[2U];
 	u32 Arg3 = Cmd->Payload[3U];
-	u64 Addr;
+	u64 StartAddr;
 
 	switch (LoggingCmd) {
 		case XPLMI_LOGGING_CMD_CONFIG_LOG_LEVEL:
@@ -193,70 +272,34 @@ int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
 				DebugLog.LogLevel = (u8)Arg1;
 				Status = XST_SUCCESS;
 			} else {
-				Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_LOG_LEVEL, Status);
+				Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_LOG_LEVEL,
+						Status);
 			}
 			break;
 		case XPLMI_LOGGING_CMD_CONFIG_LOG_MEM:
-			if (Arg3 != 0U) {
-				Addr = ((u64)Arg1 << 32U) | Arg2;
-				if (((Addr >= XPLMI_PMCRAM_BASEADDR) &&
-					(Addr < XPLMI_DEBUG_LOG_BUFFER_ADDR)) ||
-					((Addr >= XPAR_RAM_INSTR_CNTLR_0_S_AXI_BASEADDR) &&
-					(Addr <= XPAR_RAM_DATA_CNTLR_0_S_AXI_HIGHADDR))) {
-					Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_LOG_BUF_ADDR, Status);
-				} else {
-					DebugLog.LogBuffer.StartAddr = Addr;
-					DebugLog.LogBuffer.CurrentAddr = Addr;
-					DebugLog.LogBuffer.Len = Arg3;
-					DebugLog.LogBuffer.IsBufferFull = (u8)FALSE;
-					Status = XST_SUCCESS;
-				}
-			} else {
-				Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_LOG_BUF_LEN, Status);
-			}
+			StartAddr = (Arg1 << 32U) | Arg2;
+			Status = XPlmi_ConfigureLogMem(&DebugLog.LogBuffer,
+					StartAddr, Arg3, XPLMI_DEBUG_LOG_BUFFER);
 			break;
 		case XPLMI_LOGGING_CMD_RETRIEVE_LOG_DATA:
 			Status = XPlmi_RetrieveBufferData(&DebugLog.LogBuffer,
-				((u64)Arg1 << 32U) | Arg2);
+				(Arg1 << 32U) | Arg2);
 			break;
 		case XPLMI_LOGGING_CMD_RETRIEVE_LOG_BUFFER_INFO:
-			Cmd->Response[1U] = (u32)(DebugLog.LogBuffer.StartAddr >> 32U);
-			Cmd->Response[2U] = (u32)(DebugLog.LogBuffer.StartAddr & 0xFFFFFFFFU);
-			Cmd->Response[3U] = (u32)(DebugLog.LogBuffer.CurrentAddr -
-					DebugLog.LogBuffer.StartAddr);
-			Cmd->Response[4U] = DebugLog.LogBuffer.Len;
-			Cmd->Response[5U] = DebugLog.LogBuffer.IsBufferFull;
+			XPlmi_RetrieveBufferInfo(Cmd, &DebugLog.LogBuffer);
 			Status = XST_SUCCESS;
 			break;
 		case XPLMI_LOGGING_CMD_CONFIG_TRACE_MEM:
-			if (Arg3 != 0U) {
-				Addr = ((u64)Arg1 << 32U) | Arg2;
-				if (((Addr >= XPLMI_PMCRAM_BASEADDR) &&
-					(Addr < XPLMI_TRACE_LOG_BUFFER_ADDR)) ||
-					((Addr >= XPAR_RAM_INSTR_CNTLR_0_S_AXI_BASEADDR) &&
-					(Addr <= XPAR_RAM_DATA_CNTLR_0_S_AXI_HIGHADDR))) {
-					Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_LOG_BUF_ADDR, Status);
-				} else {
-					TraceLog.StartAddr = Addr;
-					TraceLog.CurrentAddr = Addr;
-					TraceLog.Len = Arg3;
-					TraceLog.IsBufferFull = (u8)FALSE;
-					Status = XST_SUCCESS;
-				}
-			} else {
-				Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_LOG_BUF_LEN, Status);
-			}
+			StartAddr = (Arg1 << 32U) | Arg2;
+			Status = XPlmi_ConfigureLogMem(&TraceLog, StartAddr,
+					Arg3, XPLMI_TRACE_LOG_BUFFER);
 			break;
 		case XPLMI_LOGGING_CMD_RETRIEVE_TRACE_DATA:
-			Status = XPlmi_RetrieveBufferData(&TraceLog, ((u64)Arg1 << 32U) | Arg2);
+			Status = XPlmi_RetrieveBufferData(&TraceLog,
+					(Arg1 << 32U) | Arg2);
 			break;
 		case XPLMI_LOGGING_CMD_RETRIEVE_TRACE_BUFFER_INFO:
-			Cmd->Response[1U] = (u32)(TraceLog.StartAddr >> 32U);
-			Cmd->Response[2U] = (u32)(TraceLog.StartAddr & 0xFFFFFFFFU);
-			Cmd->Response[3U] = (u32)(TraceLog.CurrentAddr -
-					TraceLog.StartAddr);
-			Cmd->Response[4U] = TraceLog.Len;
-			Cmd->Response[5U] = TraceLog.IsBufferFull;
+			XPlmi_RetrieveBufferInfo(Cmd, &TraceLog);
 			Status = XST_SUCCESS;
 			break;
 		default:
