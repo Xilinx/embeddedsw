@@ -1,0 +1,15 @@
+# ==============================================================
+# Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+# Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+# ==============================================================
+OPTION psf_version = 2.1;
+
+BEGIN driver v_warp_init
+
+ OPTION supported_peripherals = (v_warp_init_v1_0 );
+ OPTION driver_state = ACTIVE;
+ OPTION copyfiles = all;
+ OPTION name = v_warp_init;
+ OPTION version = 1.0;
+
+END driver
