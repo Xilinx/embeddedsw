@@ -300,6 +300,7 @@ static XStatus Cpm5Bisr(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 i;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -315,6 +316,19 @@ static XStatus Cpm5Bisr(u32 *Args, u32 NumOfArgs)
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_CPM5_BISR_REPAIR;
 		goto done;
+	}
+
+	for (i = 0; i < ARRAY_SIZE(GtyAddresses); ++i) {
+		if (0U == GtyAddresses[i]) {
+			continue;
+		}
+
+		/* De-assert InitCtrl */
+		PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
+		PmOut32(GtyAddresses[i] + GTY_PCSR_MASK_OFFSET,
+			GTY_PCSR_INITCTRL_MASK);
+		PmOut32(GtyAddresses[i] + GTY_PCSR_CONTROL_OFFSET, 0U);
+		PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET, 1U);
 	}
 
 	/* Bisr on GTYP_CPM5 */
