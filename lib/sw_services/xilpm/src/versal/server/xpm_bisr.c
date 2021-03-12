@@ -603,9 +603,6 @@ static XStatus XPmBisr_RepairCpm5(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAdd
 		goto done;
 	}
 
-	/* Unwrite trigger bit */
-	PmOut32(Cpm->CpmSlcrBaseAddr + CPM5_SLCR_BISR_CACHE_CTRL_OFFSET, 0x0);
-
 	/* Enable write protection */
 	PmOut32(Cpm->CpmSlcrBaseAddr + CPM5_SLCR_WPROTP_OFFSET, 0x1);
 
