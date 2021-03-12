@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2005 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2005 - 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # MODIFICATION HISTORY:
@@ -87,6 +87,9 @@
 ##                  display message related to unconnected pins in HW design.
 ##                  Now, with this change, BSP generation would not be aborted
 ##                  anymore. It fixes CR#1073535.
+##    03/12/21  mus xredefine_intc prints message in case of unconnected pins
+##                  in HW design, replace "ERROR" in that message with
+##                  "WARNING". It fixes CR#1091294.
 ##
 ##
 ## @END_CHANGELOG
@@ -564,7 +567,7 @@ proc xredefine_intc {drvhandle config_inc} {
 
         set num_intr_inputs [common::get_property CONFIG.C_NUM_INTR_INPUTS $periph]
 	if {$num_intr_inputs != [ expr $total_source_intrs + $num_or_gate_instance_traversed - $num_or_gate_inputs]} {
-	    puts "ERROR: unconnected interrupt pins in the design \n"
+	    puts "WARNING: unconnected interrupt pins in the design \n"
 	    return
 	}
 
