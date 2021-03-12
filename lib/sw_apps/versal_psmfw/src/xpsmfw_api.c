@@ -94,6 +94,58 @@ static XStatus XPsmFw_KeepAliveEvent(void)
 
 /****************************************************************************/
 /**
+ * @brief	Enable/Disable Isolation
+ *
+ * @param IsolationId	Isolation index
+ * @param Action	True - To enable Isolation
+ * 			False - To disable Isolation
+ *
+ * @return	None
+ *
+ * @note	None
+ *
+ ****************************************************************************/
+static XStatus XPsmFw_DomainIso(u32 IsolationIdx, u32 Action)
+{
+	XStatus Status = XST_FAILURE;
+
+	if (TRUE == Action) {
+		if (XPSMFW_NODEIDX_ISO_CPM5_LPD_DFX == IsolationIdx) {
+			XPsmFw_RMW32(PSM_LOCAL_MISC_CNTRL,
+				     PSM_LOCAL_MISC_CNTRL_CPM5_LPD_DFX,
+				     PSM_LOCAL_MISC_CNTRL_CPM5_LPD_DFX);
+		} else if (XPSMFW_NODEIDX_ISO_CPM5_LPD == IsolationIdx) {
+			XPsmFw_RMW32(PSM_LOCAL_MISC_CNTRL,
+				     PSM_LOCAL_MISC_CNTRL_CPM5_LPD,
+				     PSM_LOCAL_MISC_CNTRL_CPM5_LPD);
+		} else {
+			XPsmFw_Printf(DEBUG_ERROR, "Iso Idx:0x%x not identified\n\r",
+			   IsolationIdx);
+			goto done;
+		}
+	} else if (FALSE == Action) {
+		if (XPSMFW_NODEIDX_ISO_CPM5_LPD_DFX == IsolationIdx) {
+			XPsmFw_RMW32(PSM_LOCAL_MISC_CNTRL,
+				     PSM_LOCAL_MISC_CNTRL_CPM5_LPD_DFX, 0U);
+		} else if (XPSMFW_NODEIDX_ISO_CPM5_LPD == IsolationIdx) {
+			XPsmFw_RMW32(PSM_LOCAL_MISC_CNTRL,
+				     PSM_LOCAL_MISC_CNTRL_CPM5_LPD, 0U);
+		} else {
+			XPsmFw_Printf(DEBUG_ERROR, "Iso Idx:0x%x not identified\n\r",
+			   IsolationIdx);
+			goto done;
+		}
+	} else {
+		/* Required for MISRA */
+	}
+
+	Status = XST_SUCCESS;
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief	Process IPI commands
  *
  * @param Payload	API ID and call arguments
@@ -124,6 +176,9 @@ XStatus XPsmFw_ProcessIpi(u32 *Payload)
 			break;
 		case PSM_API_KEEP_ALIVE:
 			Status = XPsmFw_KeepAliveEvent();
+			break;
+		case PSM_API_DOMAIN_ISO:
+			Status = XPsmFw_DomainIso(Payload[1], Payload[2]);
 			break;
 		default:
 			Status = XST_INVALID_PARAM;

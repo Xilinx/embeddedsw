@@ -49,7 +49,8 @@ extern "C" {
 #define XPSMFW_NODEIDX_DEV_RPU0_1	(6U)
 #define XPSMFW_NODEIDX_POWER_CPM	(7U)
 #define XPSMFW_NODEIDX_POWER_CPM5	(39U)
-
+#define XPSMFW_NODEIDX_ISO_CPM5_LPD	(34U)
+#define XPSMFW_NODEIDX_ISO_CPM5_LPD_DFX	(35U)
 
 #define XPSMFW_DEV_ACPU_0	NODEID(XPSMFW_NODECLASS_DEVICE,		\
 				       XPSMFW_NODESUBCL_DEV_CORE,	\
@@ -92,6 +93,7 @@ extern "C" {
 #define PSM_API_FPD_HOUSECLEAN	(3U)
 #define PSM_API_CCIX_EN		(4U)
 #define PSM_API_KEEP_ALIVE	(5U)
+#define PSM_API_DOMAIN_ISO	(6U)
 
 /**
  *  PM init node functions
