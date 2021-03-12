@@ -374,6 +374,8 @@ extern "C" {
 #define XPM_INT_ERR_PL_CPM_RST_CPI1_ISO		0x4007U
 /* Error in CPM5 MBIST loop redundancy check */
 #define XPM_INT_ERR_CPM5_MBIST_LOOP		0x4008U
+/* Error during LPD-CPM5 Isolation enable/disable */
+#define XPM_INT_ERR_LPD_CPM5_ISO		0x4009U
 
 /************************** AIE specific Errors ******************************/
 /************************** (0x4100) - (0x41FF) ******************************/
