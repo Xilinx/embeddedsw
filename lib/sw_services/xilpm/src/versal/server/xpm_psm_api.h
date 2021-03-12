@@ -22,6 +22,7 @@ extern "C" {
 #define PSM_API_DIRECT_PWR_UP			(2U)
 #define PSM_API_FPD_HOUSECLEAN			(3U)
 #define PSM_API_CCIX_EN				(4U)
+#define PSM_API_DOMAIN_ISO			(6U)
 
 #define PSM_TO_PLM_EVENT_ADDR			(0xFFC3FF00U)
 #define PSM_TO_PLM_EVENT_VERSION		(0x2U)
