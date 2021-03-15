@@ -22,6 +22,7 @@
 * 1.0  sg   09/18/17  First Release
 * 1.2  rna  01/20/20  Add function to Program control register following
 *		      the sequence mentioned in TRM
+* 1.4  rna  03/12/21  Add read,write of LCR in 'XUartPsv_SetBaudRate' from TRM
 * </pre>
 *
 ******************************************************************************/
@@ -454,6 +455,7 @@ s32 XUartPsv_SetBaudRate(XUartPsv *InstancePtr, u32 BaudRate)
 	u32 Best_Error = 0xFFFFFFFFU;
 	u32 PercentError;
 	u32 InputClk;
+	u32 Temp;
 
 	/* Asserts validate the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -545,6 +547,11 @@ s32 XUartPsv_SetBaudRate(XUartPsv *InstancePtr, u32 BaudRate)
 			XUARTPSV_UARTIBRD_OFFSET, Best_BAUDIDIV);
 	XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
 			XUARTPSV_UARTFBRD_OFFSET, Best_BAUDFDIV);
+
+	/* As per TRM, do write of LCR after writing to baud rate registers */
+	Temp = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress, XUARTPSV_UARTLCR_OFFSET);
+	XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XUARTPSV_UARTLCR_OFFSET, Temp);
 
 	/* Enable TX and RX */
 
