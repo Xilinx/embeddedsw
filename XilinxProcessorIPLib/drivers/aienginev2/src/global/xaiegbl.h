@@ -57,6 +57,7 @@ typedef struct XAie_DmaMod XAie_DmaMod;
 typedef struct XAie_LockMod XAie_LockMod;
 typedef struct XAie_Backend XAie_Backend;
 typedef struct XAie_TxnCmd XAie_TxnCmd;
+typedef struct XAie_ResourceManager XAie_ResourceManager;
 
 /*
  * This typedef captures all the properties of a AIE Device
@@ -121,6 +122,7 @@ typedef struct {
 	u32 MemInUse[XAIE_TILES_BITMAP_SIZE];/* Bitmap for ECC status of DM */
 	u32 CoreInUse[XAIE_TILES_BITMAP_SIZE];/* Bitmap for ECC status of PM */
 	const XAie_Backend *Backend; /* Backend IO properties */
+	XAie_ResourceManager *RscMapping;
 	void *IOInst;	       /* IO Instance for the backend */
 	XAie_DevProp DevProp; /* Pointer to the device property. To be
 				     setup to AIE prop during intialization*/
@@ -363,8 +365,8 @@ typedef enum {
  */
 typedef struct {
 	XAie_LocType Loc;
-	XAie_ModuleType Mod;
-	XAie_RscType RscType;
+	u32 Mod;
+	u32 RscType;
 	u32 RscId;
 } XAie_UserRsc;
 

@@ -626,7 +626,6 @@ typedef struct XAie_TileMod {
 	const XAie_ClockMod *ClockMod;
 	const XAie_L1IntrMod *L1IntrMod;
 	const XAie_L2IntrMod *L2IntrMod;
-	XAie_ResourceManager RscMapping;
 } XAie_TileMod;
 
 #endif
