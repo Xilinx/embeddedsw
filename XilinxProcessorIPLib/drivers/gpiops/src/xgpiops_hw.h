@@ -136,7 +136,7 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 
-void XGpioPs_ResetHw(u32 BaseAddress);
+void XGpioPs_ResetHw(UINTPTR BaseAddress);
 
 #ifdef __cplusplus
 }

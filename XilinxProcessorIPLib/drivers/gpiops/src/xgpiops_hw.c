@@ -59,7 +59,7 @@
 * @note		None.
 *
 ******************************************************************************/
-void XGpioPs_ResetHw(u32 BaseAddress)
+void XGpioPs_ResetHw(UINTPTR BaseAddress)
 {
 	u32 BankCount;
 	u32 Platform,MaxBanks;
