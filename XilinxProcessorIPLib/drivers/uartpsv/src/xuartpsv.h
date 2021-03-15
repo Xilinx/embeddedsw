@@ -109,7 +109,7 @@
 * 1.3  rna  04/05/20  Change input format for XUartPsv_SetDataFormat function
 *		      to reflect the Linecontrol register
 * 1.4  sne  02/03/21  Updated uartpsv_tapp.tcl to support CIPS3.0 hier designs.
-*
+*      rna  03/15/21  Updated 'XUartPsv_SetBaudRate' function
 * </pre>
 *
 ******************************************************************************/
