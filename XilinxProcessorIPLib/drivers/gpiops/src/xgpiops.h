@@ -202,6 +202,9 @@ typedef struct {
         u32 PmcGpio;                    /**< Flag for accessing PS GPIO for versal*/
 } XGpioPs;
 
+/************************** Variable Definitions *****************************/
+extern XGpioPs_Config XGpioPs_ConfigTable[];
+
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/

@@ -40,8 +40,6 @@
 
 /************************** Function Prototypes ******************************/
 
-/************************** Variable Definitions *****************************/
-extern XGpioPs_Config XGpioPs_ConfigTable[XPAR_XGPIOPS_NUM_INSTANCES];
 
 /*****************************************************************************/
 /**
