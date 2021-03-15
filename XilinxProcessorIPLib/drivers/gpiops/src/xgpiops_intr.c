@@ -277,7 +277,7 @@ u32 XGpioPs_IntrGetEnabledPin(const XGpioPs *InstancePtr, u32 Pin)
 				    ((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
 				    XGPIOPS_INTMASK_OFFSET);
 
-	return (((IntrReg & ((u32)1 << PinNumber)) != (u32)0)? FALSE : TRUE);
+	return (((IntrReg & ((u32)1 << PinNumber)) != (u32)0)? (u32)FALSE : (u32)TRUE);
 }
 
 /****************************************************************************/
@@ -350,7 +350,7 @@ u32 XGpioPs_IntrGetStatusPin(const XGpioPs *InstancePtr, u32 Pin)
 				   ((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
 				   XGPIOPS_INTSTS_OFFSET);
 
-	return (((IntrReg & ((u32)1 << PinNumber)) != (u32)0)? TRUE : FALSE);
+	return (((IntrReg & ((u32)1 << PinNumber)) != (u32)0)? (u32)TRUE : (u32)FALSE);
 }
 
 /****************************************************************************/
