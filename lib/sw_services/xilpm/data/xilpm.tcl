@@ -61,7 +61,7 @@ proc generate {libhandle} {
 
 	# Generate config object
 	if {($proctype == "psu_cortexa53") || ($proctype == "psu_cortexr5")} {
-		pmufw::gen_cfg_data [file join src pm_cfg_obj.c]
+		pmufw::gen_cfg_data [file join src pm_cfg_obj.c] $proctype
 	}
 }
 

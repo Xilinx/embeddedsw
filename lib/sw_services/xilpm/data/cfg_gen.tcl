@@ -844,13 +844,16 @@ $master_prealloc_txt
 	return $master_prealloc_txt
 }
 
-proc get_prealloc_section { } {
+proc get_prealloc_section { proc_type } {
 	set prealloc_text "\n"
 	set apu_prealloc_list {NODE_DDR NODE_L2 NODE_OCM_BANK_0 NODE_OCM_BANK_1 NODE_OCM_BANK_2 NODE_OCM_BANK_3 NODE_I2C_0 NODE_I2C_1 NODE_SD_1 NODE_QSPI NODE_PL}
 	if { [is_ipi_defined psu_cortexa53_0] == 1 } {
 		append apu_prealloc_list { NODE_IPI_APU}
 	}
-	set r5_0_prealloc_list {NODE_TCM_0_A NODE_TCM_0_B NODE_TCM_1_A NODE_TCM_1_B NODE_DDR NODE_OCM_BANK_0 NODE_OCM_BANK_1 NODE_OCM_BANK_2 NODE_OCM_BANK_3 NODE_I2C_0 NODE_I2C_1 NODE_SD_1 NODE_QSPI NODE_PL NODE_ADMA}
+	set r5_0_prealloc_list {NODE_TCM_0_A NODE_TCM_0_B NODE_TCM_1_A NODE_TCM_1_B}
+	if { "psu_cortexr5" == $proc_type } {
+		append r5_0_prealloc_list { NODE_DDR NODE_OCM_BANK_0 NODE_OCM_BANK_1 NODE_OCM_BANK_2 NODE_OCM_BANK_3 NODE_I2C_0 NODE_I2C_1 NODE_SD_1 NODE_QSPI NODE_PL NODE_ADMA}
+	}
 	if { [is_ipi_defined psu_cortexr5_0] == 1 } {
 		append r5_0_prealloc_list { NODE_IPI_RPU_0}
 	}
@@ -1165,14 +1168,14 @@ proc get_shutdown_section { } {
 	return $shutdown_text
 }
 
-proc gen_cfg_data { cfg_fname } {
+proc gen_cfg_data { cfg_fname proc_type } {
 # Open file and dump the data
 set cfg_fid [open $cfg_fname w]
 
 set pmufw::cfg_template [string map [list "<<MASTER_IPI_MASK_DEF>>" "[get_master_ipidef]"] $pmufw::cfg_template]
 set pmufw::cfg_template [string map [list "<<MASTER_SECTION_DATA>>" "[get_master_section]"] $pmufw::cfg_template]
 set pmufw::cfg_template [string map [list "<<SLAVE_SECTION_DATA>>" "[get_slave_section]"] $pmufw::cfg_template]
-set pmufw::cfg_template [string map [list "<<PREALLOC_SECTION_DATA>>" "[get_prealloc_section]"] $pmufw::cfg_template]
+set pmufw::cfg_template [string map [list "<<PREALLOC_SECTION_DATA>>" "[get_prealloc_section $proc_type]"] $pmufw::cfg_template]
 set pmufw::cfg_template [string map [list "<<POWER_SECTION_DATA>>" "[get_power_section]"] $pmufw::cfg_template]
 set pmufw::cfg_template [string map [list "<<RESET_SECTION_DATA>>" "[get_reset_section]"] $pmufw::cfg_template]
 set pmufw::cfg_template [string map [list "<<SHUTDOWN_SECTION_DATA>>" "[get_shutdown_section]"] $pmufw::cfg_template]
