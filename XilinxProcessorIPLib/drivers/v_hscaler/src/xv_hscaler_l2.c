@@ -69,13 +69,8 @@ extern const short XV_hscaler_fixedcoeff_taps12_ScalingRatio4[XV_HSCALER_MAX_H_P
 static void XV_HScalerSelectCoeff(XV_Hscaler_l2 *InstancePtr,
                                   u32 WidthIn,
                                   u32 WidthOut);
-static void CalculatePhases(XV_Hscaler_l2 *HscPtr,
-                            u32 WidthIn,
-                            u32 WidthOut,
-                            u32 PixelRate);
 
-static void XV_HScalerSetCoeff(XV_Hscaler_l2 *HscPtr);
-static void XV_HScalerSetPhase(XV_Hscaler_l2 *HscPtr);
+static void XV_HScalerSetCoeff(XV_Hscaler_l2* HscPtr);
 
 /*****************************************************************************/
 /**
@@ -330,59 +325,51 @@ void XV_HScalerLoadExtCoeff(XV_Hscaler_l2 *InstancePtr,
   InstancePtr->UseExtCoeff = TRUE;
 }
 
-/*****************************************************************************/
-/**
-* This function calculates the phases for 1 line. Same phase info is used for
-* full frame
-*
-* @param  HscPtr is a pointer to the core instance to be worked on.
-* @param  WidthIn is the input frame width
-* @param  WidthOut is the scaled frame width
-* @param  PixelRate is the number of pixels per clock being processed
-*
-* @return None
-*
-******************************************************************************/
-static void CalculatePhases(XV_Hscaler_l2 *HscPtr,
-                            u32 WidthIn,
-                            u32 WidthOut,
-                            u32 PixelRate)
-{
+static void CalculateAndApplyPhases(XV_Hscaler_l2* HscPtr,
+                                    u32 WidthIn,
+                                    u32 WidthOut,
+                                    u32 PixelRate) {
     int loopWidth;
     int x,s;
     int offset = 0;
     int xWritePos = 0;
     u64 OutputWriteEn;
-    int GetNewPix;
     u64 PhaseH;
+    u64 currentPhaseH, currentPhaseH_H, lastPhaseH;
     u64 arrayIdx;
-    int xReadPos = 0;
-    int nrRds = 0;
-    int nrRdsClck = 0;
-    int MaxPhases = (1<<HscPtr->Hsc.Config.PhaseShift);
-    loopWidth = ((WidthIn > WidthOut) ? WidthIn + (HscPtr->Hsc.Config.PixPerClk-1)
-                                      : WidthOut  +(HscPtr->Hsc.Config.PixPerClk-1))/HscPtr->Hsc.Config.PixPerClk;
+    u32 val, lsb, msb;
+    UINTPTR baseAddr;
 
+    baseAddr = XV_hscaler_Get_HwReg_phasesH_V_BaseAddress(&HscPtr->Hsc);
+    int MaxPhases = (1 << HscPtr->Hsc.Config.PhaseShift);
+
+    loopWidth =
+        ((WidthIn > WidthOut) ? WidthIn + (HscPtr->Hsc.Config.PixPerClk - 1)
+                              : WidthOut + (HscPtr->Hsc.Config.PixPerClk - 1)) /
+        HscPtr->Hsc.Config.PixPerClk;
 
     arrayIdx = 0;
-    for (x=0; x<loopWidth; x++)
-    {
-        HscPtr->phasesH[x] = 0;
-	HscPtr->phasesH_H[x] = 0;
-	nrRdsClck = 0;
-        for (s=0; s<HscPtr->Hsc.Config.PixPerClk; s++)
-        {
-            PhaseH = (offset>>(STEP_PRECISION_SHIFT-HscPtr->Hsc.Config.PhaseShift)) & (MaxPhases-1);//(HSC_PHASES-1);
-            GetNewPix = 0;
+    currentPhaseH = 0;
+
+    // x goes from - to the max of width in / width out. with a CEIL function on
+    // pix per clk
+    for (x = 0; x < loopWidth; x++) {
+        lastPhaseH = currentPhaseH;
+        currentPhaseH = 0;
+        currentPhaseH_H = 0;
+
+        // Assume 1ppc
+        for (s = 0; s < HscPtr->Hsc.Config.PixPerClk; s++) {
+            PhaseH = (offset >>
+                      (STEP_PRECISION_SHIFT - HscPtr->Hsc.Config.PhaseShift)) &
+                     (MaxPhases - 1);  //(HSC_PHASES-1);
             OutputWriteEn = 0;
             if ((offset >> STEP_PRECISION_SHIFT) != 0)
             {
                 // read a new input sample
-                GetNewPix = 1;
-                offset = offset - (1<<STEP_PRECISION_SHIFT);
+                offset = offset - (1 << STEP_PRECISION_SHIFT);
                 OutputWriteEn = 0;
                 arrayIdx++;
-                xReadPos++;
             }
 
             if (((offset >> STEP_PRECISION_SHIFT) == 0) && (xWritePos< (int)WidthOut))
@@ -393,160 +380,68 @@ static void CalculatePhases(XV_Hscaler_l2 *HscPtr,
                 xWritePos++;
             }
 
-	    if (HscPtr->Hsc.Config.PixPerClk == XVIDC_PPC_8)
-	    {
-		    if (s < 4 ) {
-			    HscPtr->phasesH[x] |= (PhaseH << (s*11));
-			    HscPtr->phasesH[x] |= (arrayIdx << (6 + (s*11)));
-			    HscPtr->phasesH[x] |= (OutputWriteEn << (10 + (s*11)));
-		    } else {
-			    HscPtr->phasesH_H[x] |= (PhaseH << ((s-4)*11));
-			    HscPtr->phasesH_H[x] |= (arrayIdx << (6 + ((s-4)*11)));
-			    HscPtr->phasesH_H[x] |= (OutputWriteEn << (10 + ((s-4)*11)));
-		    }
-	    } else if (HscPtr->Hsc.Config.PixPerClk == XVIDC_PPC_4) {
-              HscPtr->phasesH[x] = HscPtr->phasesH[x] | (PhaseH << (s*10));
-              HscPtr->phasesH[x] = HscPtr->phasesH[x] | (arrayIdx << (6 + (s*10)));
-              HscPtr->phasesH[x] = HscPtr->phasesH[x] | (OutputWriteEn << (9 + (s*10)));
+            if (HscPtr->Hsc.Config.PixPerClk == XVIDC_PPC_8) {
+                if (s < 4) {
+                    currentPhaseH |= (PhaseH << (s * 11));
+                    currentPhaseH |= (arrayIdx << (6 + (s * 11)));
+                    currentPhaseH |= (OutputWriteEn << (10 + (s * 11)));
+                } else {
+                    currentPhaseH_H |= (PhaseH << ((s - 4) * 11));
+                    currentPhaseH_H |= (arrayIdx << (6 + ((s - 4) * 11)));
+                    currentPhaseH_H |= (OutputWriteEn << (10 + ((s - 4) * 11)));
+                }
+            } else if (HscPtr->Hsc.Config.PixPerClk == XVIDC_PPC_4) {
+                currentPhaseH = currentPhaseH | (PhaseH << (s * 10));
+                currentPhaseH = currentPhaseH | (arrayIdx << (6 + (s * 10)));
+                currentPhaseH =
+                    currentPhaseH | (OutputWriteEn << (9 + (s * 10)));
+            } else {
+                currentPhaseH = currentPhaseH | (PhaseH << (s * 9));
+                currentPhaseH = currentPhaseH | (arrayIdx << (6 + (s * 9)));
+                currentPhaseH =
+                    currentPhaseH | (OutputWriteEn << (8 + (s * 9)));
             }
-            else
-            {
-              HscPtr->phasesH[x] = HscPtr->phasesH[x] | (PhaseH << (s*9));
-              HscPtr->phasesH[x] = HscPtr->phasesH[x] | (arrayIdx << (6 + (s*9)));
-              HscPtr->phasesH[x] = HscPtr->phasesH[x] | (OutputWriteEn << (8 + (s*9)));
-            }
-
-            if (GetNewPix) nrRdsClck++;
         }
         if (arrayIdx>=HscPtr->Hsc.Config.PixPerClk)
             arrayIdx &= (HscPtr->Hsc.Config.PixPerClk-1);
 
-        nrRds += nrRdsClck;
-        if (nrRds >= HscPtr->Hsc.Config.PixPerClk)
-            nrRds -= HscPtr->Hsc.Config.PixPerClk;
+        switch (HscPtr->Hsc.Config.PixPerClk) {
+            case XVIDC_PPC_1:
+                // Use the current and last values.  Note, this might have an
+                // off-by-one error...
+                if ((x % 2) == 1) {
+                    lsb = (u32)(lastPhaseH & XHSC_MASK_LOW_16BITS);
+                    msb = (u32)(currentPhaseH & XHSC_MASK_LOW_16BITS);
+                    val = (msb << 16 | lsb);
+                    Xil_Out32(baseAddr + ((x - 1) / 2) * 4, val);
+                }
+                break;
+
+            case XVIDC_PPC_2:
+                val = currentPhaseH & XHSC_MASK_LOW_32BITS;
+                Xil_Out32(baseAddr + x * 4, val);
+                break;
+
+            case XVIDC_PPC_4:
+                lsb = (u32)(currentPhaseH & XHSC_MASK_LOW_32BITS);
+                msb = (u32)((currentPhaseH >> 32) & XHSC_MASK_LOW_32BITS);
+                Xil_Out32(baseAddr + (2 * x) * 4, lsb);
+                Xil_Out32(baseAddr + ((2 * x) + 1) * 4, msb);
+                break;
+
+            case XVIDC_PPC_8:
+                val = currentPhaseH & XHSC_MASK_LOW_32BITS;
+                Xil_Out32(baseAddr + ((x * 4) * 4), val);
+                val = (u32)(currentPhaseH >> 32) & XHSC_MASK_LOW_32BITS;
+                val |= (u32)((currentPhaseH_H & XHSC_MASK_LOW_32BITS) << 12);
+                Xil_Out32(baseAddr + (((x * 4) + 1) * 4), val);
+                val = (u32)((currentPhaseH_H & XHSC_MASK_LOW_32BITS) >> 20);
+                val |= (u32)(((currentPhaseH_H >> 32) & XHSC_MASK_LOW_12BITS)
+                             << 12);
+                Xil_Out32(baseAddr + (((x * 4) + 2) * 4), val);
+                break;
+        }
     }
-}
-
-/*****************************************************************************/
-/**
-* This function programs the phase data into core registers
-*
-* @param  HscPtr is a pointer to the core instance to be worked on.
-*
-* @return None
-*
-* @Note  This version of driver does not make use of computed coefficients.
-*        User must load the coefficients, using the provided API, before
-*        scaler can be used
-******************************************************************************/
-static void XV_HScalerSetPhase(XV_Hscaler_l2 *HscPtr)
-{
-  u32 loopWidth;
-  UINTPTR baseAddr;
-  //program phases
-  baseAddr = XV_hscaler_Get_HwReg_phasesH_V_BaseAddress(&HscPtr->Hsc);
-  loopWidth = HscPtr->Hsc.Config.MaxWidth/HscPtr->Hsc.Config.PixPerClk;
-  switch(HscPtr->Hsc.Config.PixPerClk)
-  {
-    case XVIDC_PPC_1:
-            {
-              u32 val, lsb, msb, index, i;
-
-              /* PhaseH is 64bits but only lower 16b of each entry is valid
-               * Form 32b word with 16bit LSB from 2 consecutive entries
-               * Need 1 32b write to get 2 entries into IP registers
-               * (i is array loc and index is address offset)
-               */
-              index = 0;
-              for(i=0; i < loopWidth; i+=2)
-              {
-                lsb = (u32)(HscPtr->phasesH[i]   & (u64)XHSC_MASK_LOW_16BITS);
-                msb = (u32)(HscPtr->phasesH[i+1] & (u64)XHSC_MASK_LOW_16BITS);
-                val = (msb<<16 | lsb);
-                Xil_Out32(baseAddr+(index*4), val);
-                ++index;
-              }
-            }
-            break;
-
-    case XVIDC_PPC_2:
-            {
-              u32 val, i;
-
-              /* PhaseH is 64bits but only lower 32b of each entry is valid
-               * Need 1 32b write to get each entry into IP registers
-               */
-              for(i=0; i < loopWidth; ++i)
-              {
-                val = (u32)(HscPtr->phasesH[i] & XHSC_MASK_LOW_32BITS);
-                Xil_Out32(baseAddr+(i*4), val);
-              }
-            }
-            break;
-
-    case XVIDC_PPC_4:
-            {
-              u32 lsb, msb, index, offset, i;
-              u64 phaseHData;
-
-              /* PhaseH is 64bits and each entry has valid 32b MSB & LSB
-               * Need 2 32b writes to get each entry into IP registers
-               * (index is array loc and offset is address offset)
-               */
-              index = 0;
-              offset = 0;
-              for(i=0; i < loopWidth; ++i)
-              {
-                phaseHData = HscPtr->phasesH[index];
-                lsb = (u32)(phaseHData & XHSC_MASK_LOW_32BITS);
-                msb = (u32)((phaseHData>>32) & XHSC_MASK_LOW_32BITS);
-                Xil_Out32(baseAddr+(offset*4), lsb);
-                Xil_Out32(baseAddr+((offset+1)*4), msb);
-                ++index;
-                offset += 2;
-              }
-            }
-            break;
-    case XVIDC_PPC_8:
-	    {
-		u32 bits_0_31, bits_32_63, bits_64_95;
-		u32 index, offset, i;
-		u64 phaseHData, phaseHData_H;
-		/*
-		 * PhaseH and PhaseH_H are 64bits and each entry has valid 44
-		 * bits. PhaseH has lower 44 bits and PhaseH_H has higer 44 bits
-		 * Need to form 3 32b writes form the total 88 bits, and
-		 * write each 32bits into IP registers.
-		 * (index is array loc and offset is address offset)
-		 */
-		index = 0;
-		offset = 0;
-		for(i=0; i < loopWidth; i++) {
-			bits_0_31 = 0;
-			bits_32_63 = 0;
-			bits_64_95 = 0;
-			phaseHData = HscPtr->phasesH[index];
-			phaseHData_H = HscPtr->phasesH_H[index];
-
-			bits_0_31 = (u32)(phaseHData & XHSC_MASK_LOW_32BITS);
-			bits_32_63 = (u32)((phaseHData>>32) & XHSC_MASK_LOW_32BITS);
-			bits_32_63 |= ((u32)((phaseHData_H & XHSC_MASK_LOW_20BITS)) << 12);
-			bits_64_95 = (((u32)(phaseHData_H & XHSC_MASK_LOW_32BITS)) >> 20);
-			bits_64_95 |= (((u32)(phaseHData_H>>32) & XHSC_MASK_LOW_12BITS) << 12);
-			Xil_Out32(baseAddr+(offset*4), bits_0_31);
-			Xil_Out32(baseAddr+((offset+1)*4), bits_32_63);
-			Xil_Out32(baseAddr+((offset+2)*4), bits_64_95);
-			/*(offset+3)*4 register is reserved,so increment offset by 4*/
-			offset += 4;
-			index++;
-		}
-	    }
-	    break;
-
-
-    default:
-           break;
-  }
 }
 
 
@@ -636,11 +531,7 @@ int XV_HScalerSetup(XV_Hscaler_l2  *InstancePtr,
     XV_HScalerSetCoeff(InstancePtr);
   }
 
-  /* Compute Phase for 1 line */
-  CalculatePhases(InstancePtr, WidthIn, WidthOut, PixelRate);
-
-  /* Program computed Phase into the IP register bank */
-  XV_HScalerSetPhase(InstancePtr);
+    CalculateAndApplyPhases(InstancePtr, WidthIn, WidthOut, PixelRate);
 
   XV_hscaler_Set_HwReg_Height(&InstancePtr->Hsc,        HeightIn);
   XV_hscaler_Set_HwReg_WidthIn(&InstancePtr->Hsc,       WidthIn);
