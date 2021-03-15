@@ -94,6 +94,7 @@
 * 3.7	sne  12/04/19 Reverted versal examples support.
 * 3.8   sne  08/28/20 Modify Makefile to support parallel make execution.
 * 3.8	sne  09/17/20 Added description for Versal PS and PMC GPIO pins.
+* 3.9	sne  03/15/21 Fixed MISRA-C violations.
 *
 * </pre>
 *
