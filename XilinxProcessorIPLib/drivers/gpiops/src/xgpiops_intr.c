@@ -53,8 +53,6 @@
 
 /************************** Function Prototypes ******************************/
 
-void StubHandler(const void *CallBackRef, u32 Bank, u32 Status);
-
 /****************************************************************************/
 /**
 *
@@ -777,29 +775,5 @@ void XGpioPs_IntrHandler(const XGpioPs *InstancePtr)
 					(IntrStatus & IntrEnabled));
 		}
 	}
-}
-
-/*****************************************************************************/
-/**
-*
-* This is a stub for the status callback. The stub is here in case the upper
-* layers do not set the handler.
-*
-* @param	CallBackRef is a pointer to the upper layer callback reference
-* @param	Bank is the GPIO Bank in which an interrupt occurred.
-* @param	Status is the Interrupt status of the GPIO bank.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-void StubHandler(const void *CallBackRef, u32 Bank, u32 Status)
-{
-	(void) CallBackRef;
-	(void) Bank;
-	(void) Status;
-
-	Xil_AssertVoidAlways();
 }
 /** @} */
