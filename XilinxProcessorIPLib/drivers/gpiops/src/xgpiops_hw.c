@@ -154,11 +154,11 @@ void XGpioPs_ResetHw(UINTPTR BaseAddress)
                                 XGPIOPS_INTTYPE_BANK1_RESET);
                 /* Bank 3 Int type */
                 XGpioPs_WriteReg(BaseAddress,
-                                (((u32)3 * XGPIOPS_REG_MASK_OFFSET) + XGPIOPS_INTTYPE_OFFSET),
+                                (((u32)3 * XGPIOPS_REG_MASK_OFFSET) + (u32)XGPIOPS_INTTYPE_OFFSET),
                                 XGPIOPS_INTTYPE_BANK3_RESET);
                 /* Bank 4 Int type */
                 XGpioPs_WriteReg(BaseAddress,
-                                (((u32)4 * XGPIOPS_REG_MASK_OFFSET) + XGPIOPS_INTTYPE_OFFSET),
+                                (((u32)4 * XGPIOPS_REG_MASK_OFFSET) + (u32)XGPIOPS_INTTYPE_OFFSET),
                                 XGPIOPS_INTTYPE_BANK4_RESET);
         }
         else
@@ -217,21 +217,21 @@ void XGpioPs_ResetHw(UINTPTR BaseAddress)
                                 XGPIOPS_INTTYPE_BANK1_RESET);
                 /* Bank 2 Int type */
                 XGpioPs_WriteReg(BaseAddress,
-                                (((u32)2 * XGPIOPS_REG_MASK_OFFSET) + XGPIOPS_INTTYPE_OFFSET),
+                                (((u32)2 * XGPIOPS_REG_MASK_OFFSET) + (u32)XGPIOPS_INTTYPE_OFFSET),
                                 XGPIOPS_INTTYPE_BANK2_RESET);
                 /* Bank 3 Int type */
                 XGpioPs_WriteReg(BaseAddress,
-                                (((u32)3 * XGPIOPS_REG_MASK_OFFSET) + XGPIOPS_INTTYPE_OFFSET),
+                                (((u32)3 * XGPIOPS_REG_MASK_OFFSET) + (u32)XGPIOPS_INTTYPE_OFFSET),
                                 XGPIOPS_INTTYPE_BANK3_RESET);
 
                 if (Platform == (u32)XPLAT_ZYNQ_ULTRA_MP) {
                         /* Bank 4 Int type */
                         XGpioPs_WriteReg(BaseAddress,
-                                        (((u32)4 * XGPIOPS_REG_MASK_OFFSET) + XGPIOPS_INTTYPE_OFFSET),
+                                        (((u32)4 * XGPIOPS_REG_MASK_OFFSET) + (u32)XGPIOPS_INTTYPE_OFFSET),
                                         XGPIOPS_INTTYPE_BANK4_RESET);
                         /* Bank 5 Int type */
                         XGpioPs_WriteReg(BaseAddress,
-                                        (((u32)5 * XGPIOPS_REG_MASK_OFFSET) + XGPIOPS_INTTYPE_OFFSET),
+                                        (((u32)5 * XGPIOPS_REG_MASK_OFFSET) + (u32)XGPIOPS_INTTYPE_OFFSET),
                                         XGPIOPS_INTTYPE_BANK5_RESET);
                 }
         }
