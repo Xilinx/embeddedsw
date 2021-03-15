@@ -41,6 +41,10 @@ typedef enum {
 	XAIE_BACKEND_OP_CONFIG_SHIMDMABD,
 	XAIE_BACKEND_OP_REQUEST_TILES,
 	XAIE_BACKEND_OP_RELEASE_TILES,
+	XAIE_BACKEND_OP_REQUEST_RESOURCE,
+	XAIE_BACKEND_OP_RELEASE_RESOURCE,
+	XAIE_BACKEND_OP_FREE_RESOURCE,
+	XAIE_BACKEND_OP_REQUEST_ALLOCATED_RESOURCE,
 } XAie_BackendOpCode;
 
 /*
@@ -58,6 +62,23 @@ typedef struct XAie_BackendTilesArray {
 	XAie_LocType *Locs;
 	u32 NumTiles;
 } XAie_BackendTilesArray;
+
+/*
+ * Typedef for structure for tiles resource
+ */
+typedef struct XAie_BackendTilesRsc {
+	u32 *Bitmap;
+	u32 MaxRscVal;
+	u32 BitmapOffset;
+	u32 NumRscPerTile;
+	u32 RscId;
+	u32 StartBit;
+	u32 StaticBitmapOffset;
+	XAie_RscType RscType;
+	XAie_LocType Loc;
+	XAie_ModuleType Mod;
+	XAie_UserRsc *Rscs;
+} XAie_BackendTilesRsc;
 
 /*
  * Typdef to capture all the backend IO operations
