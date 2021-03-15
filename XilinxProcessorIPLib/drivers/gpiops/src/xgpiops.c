@@ -77,7 +77,7 @@ extern void StubHandler(void *CallBackRef, u32 Bank, u32 Status); /**< Stub hand
 s32 XGpioPs_CfgInitialize(XGpioPs *InstancePtr, const XGpioPs_Config *ConfigPtr,
 				u32 EffectiveAddr)
 {
-	s32 Status = XST_SUCCESS;
+	s32 Status = (s32)0;
 	u8 i;
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);

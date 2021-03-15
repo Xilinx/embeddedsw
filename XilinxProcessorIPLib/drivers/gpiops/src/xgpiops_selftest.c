@@ -62,7 +62,7 @@
 ******************************************************************************/
 s32 XGpioPs_SelfTest(const XGpioPs *InstancePtr)
 {
-	s32 Status = XST_SUCCESS;
+	s32 Status = (s32)0;
 	u32 IntrEnabled;
 	u32 CurrentIntrType = 0U;
 	u32 CurrentIntrPolarity = 0U;
@@ -95,7 +95,7 @@ s32 XGpioPs_SelfTest(const XGpioPs *InstancePtr)
 	if ((IntrType != IntrTestValue) && (IntrPolarity != IntrTestValue) &&
 	    (IntrOnAny != IntrTestValue)) {
 
-		Status = XST_FAILURE;
+		Status = (s32)XST_FAILURE;
 	}
 
 	/*
