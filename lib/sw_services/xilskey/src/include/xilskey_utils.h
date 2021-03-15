@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2013 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2013 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -69,6 +69,8 @@
 *                        XSK_EFUSEPS_ERROR_PUF_CHASH_ALREADY_PROGRAMMED
 * 7.0   am      10/04/20 Resolved MISRA C violations
 * 7.1   am      11/26/20 Resolved Coverity warnings
+* 	kal	02/28/21 Added Error code
+* 			 XSK_EFUSEPS_PUF_CANT_BE_USED_FOR_USER_DATA
 *
 * </pre>
 *
@@ -765,6 +767,13 @@ typedef enum {
 	XSK_EFUSEPS_ERROR_READ = 0x00B0U,/**< 0x00B0<br>Error in reading. */
 	XSK_EFUSEPS_ERROR_BYTES_REQUEST = 0x00C0U, /**< 0x00C0<br>Error in
 						* requested byte count. */
+	XSK_EFUSEPS_PUF_CANT_BE_USED_FOR_USER_DATA = 0x00C1U, /**<0x00C0<br>Error
+						* when requested for PUF HD
+						* eFuses programming for user
+						* data, but as Chash is already
+						* programmed which means that
+						* PUF HD is already programmed
+						* with syndrome data */
 	XSK_EFUSEPS_ERROR_RESRVD_BITS_PRGRMG = 0x00D0U, /**< 0x00D0<br>Error in
 						* programming reserved bits. */
 	XSK_EFUSEPS_ERROR_ADDR_ACCESS = 0x00E0U, /**< 0x00E0<br>Error in

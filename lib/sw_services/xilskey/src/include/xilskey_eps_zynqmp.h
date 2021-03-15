@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -44,7 +44,8 @@
 * 6.9   kal     03/16/20 Added macro for AES key offset for IPI calls.
 *       ana     04/07/20 Removed IsPpk0Sha3Hash and IsPpk1Sha3Hash variabes,
 *                        as these are not required with only sha3 support.
-* 7.0	am		10/04/20 Resolved MISRA C violations
+* 7.0	am	10/04/20 Resolved MISRA C violations
+* 7.1	kal	02/28/21 Added new macro for number of eFuse rows per page
 *
 * </pre>
 *
@@ -139,6 +140,8 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_USR6_FUSE	(6U)
 #define XSK_ZYNQMP_EFUSEPS_USR7_FUSE	(7U)
 
+#define XSK_ZYNQMP_EFUSEPS_NUM_OF_ROWS_PER_PAGE		(64U)
+
 #define XSK_EFUSEPS_TPRGM_VALUE \
 	(((5.0f) * (XSK_ZYNQMP_EFUSEPS_PS_REF_CLK_FREQ)) / (1000000.0f))
 #define XSK_EFUSEPS_TRD_VALUE	\
@@ -181,6 +184,7 @@ extern "C" {
 								/**< Shift macro for SEC_CTRL
 								 *   if it has 2 bits */
 #define XSK_EFUSEPS_OFFSET_MASK			(0xFFU)
+#define XSK_EFUSEPS_PUF_ROW_OFFSET_MASK		(0x7FU)
 #define XSK_EFUSEPS_ONE_WORD			(1U)
 #define XSK_EFUSEPS_BYTES_IN_WORD		(4U)
 
@@ -361,6 +365,8 @@ typedef struct {
 	u32 Size;	/**< Size in words */
 	u32 Offset;	/**< offset */
 	u32 Flag;	/**< Flag - 0 : to read efuse and Flag - 1 : to write efuse */
+	u32 PufUserFuse;/**< PufUserFuse - 0 : Puf HD eFuses for only PUF HD
+				PufUserFuse - 1 : Puf HD eFuses for User Data */
 }XilSKey_Efuse;
 
 /***************** Macros (Inline Functions) Definitions *******************/

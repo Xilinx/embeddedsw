@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (c) 2013 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2013 - 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -29,6 +29,8 @@
 #       mmd  09/05/19 Added support for enabling/disabling sysmon intialization
 #       vns  09/23/19 Added master SLR input into bsp settings to add new device
 # 6.9   kpt  02/16/20 Fixed Coverity warnings
+# 7.1   kal  03/09/21 Added support for eFuse classification compile time
+#                     options
 #
 ##############################################################################
 
@@ -47,4 +49,8 @@ BEGIN LIBRARY xilskey
   PARAM name = device_numslr, desc = "Number of SLRs", type = int, default = 1;
   PARAM name = device_masterslr, desc = "Master SLR number", type = int, default = 0;
   PARAM name = override_sysmon_cfg, desc = "Override Sysmon configuration", type = bool, default = true;
+  PARAM name = access_secure_crit_efuse, desc = "Enables writing and reading of security critical efuses for ZynqMp", type = bool, default = false;
+  PARAM name = access_key_manage_efuse, desc = "Enables writing and reading of key management efuses for ZynqMp", type = bool, default = false;
+  PARAM name = access_user_efuse, desc = "Enables writing and reading of user efuses for ZynqMp", type = bool, default = false;
+
 END LIBRARY
