@@ -183,7 +183,7 @@ typedef void (*XGpioPs_Handler) (void *CallBackRef, u32 Bank, u32 Status);
  */
 typedef struct {
 	u16 DeviceId;		/**< Unique ID of device */
-	u32 BaseAddr;		/**< Register base address */
+	UINTPTR BaseAddr;		/**< Register base address */
 } XGpioPs_Config;
 
 /**
