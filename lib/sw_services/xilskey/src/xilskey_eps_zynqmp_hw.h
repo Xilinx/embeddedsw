@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,8 @@
 * 6.2   vns     03/10/17 Added support for LBIST, LPD and FPD sc enable,
 *                        PBR_BOOT_ERROR.
 * 6.7   arc     01/05/19 Fixed MISRA-C violations.
+* 7.1	kal	02/28/21 Added new macros for eFuse classification
+*
 * </pre>
 *
 ******************************************************************************/
@@ -1130,6 +1132,13 @@ extern "C" {
 #define XSK_ZYNQMP_CSU_PUF_TM_TR_US_MASK	(0X03000000U)
 #define XSK_ZYNQMP_CSU_PUF_TM_TR_ER_MASK	(0X00FF0000U)
 #define XSK_ZYNQMP_CSU_PUF_TM_TR_FRR_MASK	(0X00000001U)
+
+#define XSK_ZYNQMP_CRITICAL_SEC_CTRL_READ_MASK		(0X5FFFFFFFU)
+#define XSK_ZYNQMP_KEY_MANAGE_SEC_CTRL_READ_MASK	(0XA0000000U)
+#define XSK_ZYNQMP_USER_FUSE_MISC_CTRL_READ_MASK	(0X000000FFU)
+#define XSK_ZYNQMP_CRITICAL_MISC_CTRL_READ_MASK		(0X00FE0000U)
+#define XSK_ZYNQMP_CRITICAL_PUF_MISC_READ_MASK		(0X10FFFFFFU)
+#define XSK_ZYNQMP_KEY_MANAGE_PUF_MISC_READ_MASK	(0X70000000U)
 
 #ifdef __cplusplus
 }

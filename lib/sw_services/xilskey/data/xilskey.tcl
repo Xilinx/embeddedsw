@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (c) 2013 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2013 - 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -60,6 +60,9 @@ proc xgen_opts_file {libhandle} {
 
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 	set override_sysmon_cfg [common::get_property CONFIG.override_sysmon_cfg $libhandle]
+	set access_secure_crit_efuse [common::get_property CONFIG.access_secure_crit_efuse $libhandle]
+	set access_user_efuse [common::get_property CONFIG.access_user_efuse $libhandle]
+	set access_key_manage_efuse [common::get_property CONFIG.access_key_manage_efuse $libhandle]
 
 	set file_handle [::hsi::utils::open_include_file "xparameters.h"]
 
@@ -95,6 +98,18 @@ proc xgen_opts_file {libhandle} {
 		file delete -force ./src/xilskey_bbram.c
 		file delete -force ./src/include/xilskey_epl.h
 		file delete -force ./src/include/xilskey_eps.h
+
+		if {$access_secure_crit_efuse == true} {
+			puts $file_handle "\n#define XSK_ACCESS_SECURE_CRITICAL_EFUSE \n"
+		}
+
+		if {$access_user_efuse == true} {
+			puts $file_handle "\n#define XSK_ACCESS_USER_EFUSE \n"
+		}
+
+		if {$access_key_manage_efuse == true} {
+			puts $file_handle "\n#define XSK_ACCESS_KEY_MANAGE_EFUSE \n"
+		}
         }
 
 	if {$proc_type == "psu_pmu"} {
