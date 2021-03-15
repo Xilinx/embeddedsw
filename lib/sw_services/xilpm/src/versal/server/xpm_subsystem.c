@@ -211,21 +211,9 @@ int XPmSubsystem_InitFinalize(const u32 SubsystemId)
 	XPm_Device *Device;
 	XPm_Requirement *Reqm;
 	int DeviceInUse = 0;
-	u32 Idx, Idx2;
-	u32 Platform;
-	u32 PlatformVersion;
-
-	/* TODO: Remove this device list when CDO change is available */
-	u32 ExcludeDevList[] = {
-		PM_DEV_L2_BANK_0,
-		PM_DEV_IPI_0,
-		PM_DEV_IPI_1,
-		PM_DEV_IPI_2,
-		PM_DEV_IPI_3,
-		PM_DEV_IPI_4,
-		PM_DEV_IPI_5,
-		PM_DEV_IPI_6,
-	};
+	u32 Idx;
+	u32 Platform = XPm_GetPlatform();
+	u32 PlatformVersion = XPm_GetPlatformVersion();
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
 	if (NULL == Subsystem) {
@@ -235,18 +223,23 @@ int XPmSubsystem_InitFinalize(const u32 SubsystemId)
 
 	Subsystem->Flags |= SUBSYSTEM_INIT_FINALIZED;
 
-	for (Idx = 1; Idx < (u32)XPM_NODEIDX_DEV_MAX; Idx++) {
+	for (Idx = (u32)XPM_NODEIDX_DEV_MIN + 1U;
+	     Idx < (u32)XPM_NODEIDX_DEV_MAX; Idx++) {
 		DeviceInUse = 0;
 
 		Device = XPmDevice_GetByIndex(Idx);
-		/* Exclude devices which are expected not to be requested by anyone
-		but should be kept on for basic functionalities to work
-		Soc, PMC, Efuse are required for basic boot
-		Ams root is root device for all sysmons and required for
-		any sysmon activities
-		Usage of GTs is board dependednt and used by multiple devices
-		so should be kept on*/
+		/*
+		 * Exclude devices which are expected not to be requested by
+		 * any subsystem but should be kept on for basic functionalities
+		 * to work:
+		 *	- Soc, PMC, Efuse are required for basic boot
+		 *	- Ams root is required for any sysmon activities
+		 *	- Usage of GTs is board dependent and used by multiple
+		 *	devices so should be kept on
+		 *	- Misc devices: L2 Bank 0
+		 */
 		if ((NULL == Device) ||
+		    ((u32)PM_DEV_L2_BANK_0 == Device->Node.Id) ||
 		    ((u32)XPM_NODETYPE_DEV_SOC == NODETYPE(Device->Node.Id)) ||
 		    ((u32)XPM_NODETYPE_DEV_GT == NODETYPE(Device->Node.Id)) ||
 		    ((u32)XPM_NODETYPE_DEV_CORE_PMC == NODETYPE(Device->Node.Id)) ||
@@ -254,19 +247,6 @@ int XPmSubsystem_InitFinalize(const u32 SubsystemId)
 		    ((u32)XPM_NODEIDX_DEV_AMS_ROOT == NODEINDEX(Device->Node.Id))) {
 			continue;
 		}
-
-		/* Skip if device falls in ExcludeDevList */
-		for (Idx2 = 0; Idx2 < ARRAY_SIZE(ExcludeDevList); Idx2++) {
-			if (Device->Node.Id == ExcludeDevList[Idx2]) {
-				break;
-			}
-		}
-		if (Idx2 < ARRAY_SIZE(ExcludeDevList)) {
-			continue;
-		}
-
-		Platform = XPm_GetPlatform();
-		PlatformVersion = XPm_GetPlatformVersion();
 
 		if (((u32)PM_DEV_GPIO == Device->Node.Id) &&
 		    ((u32)PLATFORM_VERSION_SILICON == Platform) &&
