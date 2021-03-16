@@ -24,6 +24,7 @@
 * 1.02  kc   02/19/2020 Moved PLM banner print to XilPlmi
 *       kc   03/23/2020 Minor code cleanup
 *       td   10/19/2020 MISRA C Fixes
+* 1.03  skd  03/16/2021 Warnings Fixed
 *
 * </pre>
 *
@@ -36,7 +37,6 @@
 #include "xplm_proc.h"
 #include "xplm_startup.h"
 #include "xpm_api.h"
-#include "xpm_pldomain.h"
 #include "xpm_subsystem.h"
 
 /************************** Constant Definitions *****************************/

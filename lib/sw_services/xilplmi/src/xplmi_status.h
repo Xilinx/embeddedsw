@@ -19,7 +19,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   07/13/2018 Initial release
 * 1.01  bsv  06/11/2019 Added TCM power up code to Xilloader to fix issue in
-*						R5-1 split mode functionality
+*                       R5-1 split mode functionality
 *       bsv  06/17/2019 Added support for CFI and CFU error handling
 *       bsv  06/26/2019 Added secondary boot support
 *       vnsl 07/30/2019 Added code to load secure headers
@@ -31,7 +31,7 @@
 *       kc   12/17/2019 Add deferred error mechanism for mask poll
 *       bsv  02/12/2020 Added support for SD/eMMC raw boot mode
 *       bsv  02/13/2020 XilPlmi generic commands should not be supported
-* 						via IPI
+*                       via IPI
 *       ma   02/18/2020 Added event logging code
 *       bsv  02/23/2020 Added multi partition support for SD/eMMC FS boot modes
 *       kc   02/27/2020 Added SEM support for partial reconfiguration
@@ -64,11 +64,12 @@
 *       bsv  02/09/2021 Added error code for invalid PdiSrc in subsystem Pdi load
 *       ma   02/12/2021 Added error code for IPI CRC mismatch and read error
 *       kpt  02/16/2021 Added error codes for invalid key source when encryption
-*                       only is enabled and when secure validations are failed.
+*                       only is enabled and when secure validations are failed
 *       bsv  02/28/2021 Added code to avoid unaligned NPI writes
 *       har  03/02/2021 Added error code for faulire to update AAD
 *       ma   03/04/2021 Added error code for PLMI IPI access failure
 *       bm   03/04/2021 Added error code for invalid elf load address
+*       skd  03/12/2021 Added error codes for PSM keep alive failure
 *
 * </pre>
 *
@@ -242,6 +243,15 @@ typedef enum {
 					  for master SLR devices */
 	XPLM_ERR_STL_MOD,		/**< 0x205 - Error initializing
 					  the STL Module */
+	XPLM_ERR_KEEP_ALIVE_TASK_CREATE,	/**< 0x206 - Error while
+						  creating PSM keep alive
+						  task */
+	XPLM_ERR_KEEP_ALIVE_TASK_REMOVE,	/**< 0x207 - Error while
+						  removing PSM keep alive
+						  task */
+	XPLM_ERR_PSM_NOT_ALIVE,			/**< 0x208 - PSM is not alive */
+	XPLM_ERR_IPI_SEND,			/**< 0x209 - Error while sending
+						     IPI */
 
 	/** Status codes used in XLOADER */
 	XLOADER_UNSUPPORTED_BOOT_MODE = 0x300, /**< 0x300 - Error for
