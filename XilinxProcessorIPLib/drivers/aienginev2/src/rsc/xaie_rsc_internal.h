@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,10 +29,15 @@
 /************************** Enum *********************************************/
 
 /************************** Function Prototypes  *****************************/
+/* Global resource management APIs */
 AieRC _XAie_RscMgrInit(XAie_DevInst *DevInst);
 AieRC _XAie_RscMgrFinish(XAie_DevInst *DevInst);
+
+/* Performance counter resource management internal APIs */
 AieRC _XAie_PerfCntRscInit(XAie_DevInst *DevInst);
 AieRC _XAie_PerfCntRscFinish(XAie_DevInst *DevInst);
+
+/* Common resource management helper APIs */
 AieRC _XAie_CheckLocsValidity(XAie_DevInst *DevInst, u32 NumReq,
 		XAie_UserRsc *RscReq);
 AieRC _XAie_FindAvailableRsc(u32 *Bitmap, u32 StaticBitmapOffset,
