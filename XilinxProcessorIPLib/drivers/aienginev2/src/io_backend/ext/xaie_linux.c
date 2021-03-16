@@ -44,6 +44,7 @@
 
 #include "xaie_helper.h"
 #include "xaie_io.h"
+#include "xaie_io_common.h"
 #include "xaie_npi.h"
 
 /***************************** Macro Definitions *****************************/
