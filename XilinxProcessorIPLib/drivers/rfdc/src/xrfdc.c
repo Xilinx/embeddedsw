@@ -5769,10 +5769,11 @@ u32 XRFdc_SetDACVOP(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 uACurrent
 	}
 
 	uACurrentNext =
-		((float)(XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_DAC_MC_CFG3_OFFSET, XRFDC_DAC_MC_CFG3_CSGAIN_MASK)) *
-		 XRFDC_STEP_I_UA(InstancePtr->RFdc_Config.SiRevision)) +
+		((float)(XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_DAC_MC_CFG3_OFFSET, XRFDC_DAC_MC_CFG3_CSGAIN_MASK) >>
+		XRFDC_DAC_MC_CFG3_CSGAIN_SHIFT) * XRFDC_STEP_I_UA(InstancePtr->RFdc_Config.SiRevision)) +
 		(float)XRFDC_MIN_I_UA_INT(InstancePtr->RFdc_Config.SiRevision);
 
+	// Smooths the transition from the current output power to the desired
 	while (uACurrentInt != uACurrentNext) {
 		if (uACurrentNext < uACurrentInt) {
 			uACurrentNext += uACurrentNext / 10;
