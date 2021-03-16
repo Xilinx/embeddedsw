@@ -75,6 +75,7 @@
  * 2.9  ma  02/12/21  Added IPI CRC functionality
  *	sdd 02/17/21 Fixed doxygen warnings.
  *	sdd 03/10/21 Fixed misrac warnings.
+ *		     Fixed doxygen warnings.
  * </pre>
  *
  *****************************************************************************/
@@ -92,17 +93,17 @@ extern "C" {
 #include "xipipsu_hw.h"
 
 /************************** Constant Definitions *****************************/
-#define XIPIPSU_BUF_TYPE_MSG	(0x001U)
-#define XIPIPSU_BUF_TYPE_RESP	(0x002U)
-#define XIPIPSU_MAX_MSG_LEN		XIPIPSU_MSG_BUF_SIZE
-#define XIPIPSU_CRC_INDEX		(0x7U)
-#define XIPIPSU_W0_TO_W6_SIZE	(28U)
+#define XIPIPSU_BUF_TYPE_MSG	(0x001U) /**< Message type buffer */
+#define XIPIPSU_BUF_TYPE_RESP	(0x002U) /**< Response buffer */
+#define XIPIPSU_MAX_MSG_LEN		XIPIPSU_MSG_BUF_SIZE /**< Maximum message length */
+#define XIPIPSU_CRC_INDEX		(0x7U) /**< Index where the CRC is stored */
+#define XIPIPSU_W0_TO_W6_SIZE	(28U)	       /**< Size of the word 0 to word 6 */
 
 /* CRC Mismatch error code */
-#define XIPIPSU_CRC_ERROR		(0xFL)
+#define XIPIPSU_CRC_ERROR		(0xFL) /**< CRC error occurred */
 
-/* Enable CRC check for IPI messsages */
-#define ENABLE_IPI_CRC_VAL	(0x0U)
+/* Enable CRC check for IPI messages */
+#define ENABLE_IPI_CRC_VAL	(0x0U) /**< Enable CRC */
 
 #if ENABLE_IPI_CRC_VAL
 #define ENABLE_IPI_CRC
