@@ -43,15 +43,8 @@
 *******************************************************************************/
 AieRC _XAie_RscMgrFinish(XAie_DevInst *DevInst)
 {
-	AieRC RC;
-
-	RC = _XAie_PerfCntRscFinish(DevInst);
-	if(RC != XAIE_OK) {
-		XAIE_ERROR("Unable to deallocate memory for perfcnt bitmaps\n");
-		return XAIE_ERR;
-	}
-
-	return RC;
+	_XAie_PerfCntRscFinish(DevInst);
+	return XAIE_OK;
 }
 
 /*****************************************************************************/

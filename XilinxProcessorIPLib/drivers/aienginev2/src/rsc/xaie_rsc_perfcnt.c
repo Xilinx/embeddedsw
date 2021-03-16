@@ -100,20 +100,18 @@ AieRC _XAie_PerfCntRscInit(XAie_DevInst *DevInst)
 *
 * @param	DevInst: Device Instance
 *
-* @return	XAIE_OK on success
+* @return	None.
 *
 * @note		Internal only.
 *
 *******************************************************************************/
-AieRC _XAie_PerfCntRscFinish(XAie_DevInst *DevInst)
+void _XAie_PerfCntRscFinish(XAie_DevInst *DevInst)
 {
 	for(u32 i = 0; i < XAIEGBL_TILE_TYPE_MAX; i++) {
 		if(i == XAIEGBL_TILE_TYPE_SHIMNOC)
 			continue;
 		free(DevInst->RscMapping[i].PerfCntBitmap);
 	}
-
-	return XAIE_OK;
 }
 
 /*****************************************************************************/
