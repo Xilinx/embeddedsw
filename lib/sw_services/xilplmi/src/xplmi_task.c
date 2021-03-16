@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,8 @@
 *       bm   10/14/2020 Code clean up
 *       td   10/19/2020 MISRA C Fixes
 * 1.04  kc   11/30/2020 Disable interrupts while updating shared data
+* 1.05  skd  03/12/2021 Added provision to skip scheduling a task if it is
+*                       already present in queue
 *
 * </pre>
 *
@@ -70,23 +72,33 @@ XPlmi_TaskNode * XPlmi_TaskCreate(TaskPriority_t Priority,
 	XPlmi_TaskNode *Task = NULL;
 	u32 Index;
 
+	if(Handler == NULL) {
+		goto END;
+	}
+
 	/* Assign free task node */
 	for (Index = 0U; Index < XPLMI_TASK_MAX; Index++) {
 		Task = &Tasks[Index];
-		if (Task->Handler == NULL) {
+		if ((Task->Handler == Handler) &&
+		    (Task->PrivData == PrivData)) {
+			/* Found the task */
+		} else if (Task->Handler == NULL) {
 			Task->Priority = Priority;
 			Task->Delay = 0U;
 			metal_list_init(&Task->TaskNode);
 			Task->Handler = Handler;
 			Task->PrivData = PrivData;
-			break;
+		} else {
+			continue;
 		}
+		break;
 	}
 	if (Index >= XPLMI_TASK_MAX) {
 		XPlmi_Printf(DEBUG_GENERAL, "Task create failed \n\r");
 		Task = NULL;
 	}
 
+END:
 	return Task;
 }
 
