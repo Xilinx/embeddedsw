@@ -29,6 +29,7 @@
 * 	    sdd	02/17/21	Doxygen fixes
 *       ma  03/04/21    Initialize BufferIndex during IPI config init
 *	sdd 03/10/21	Fixed misrac warnings.
+*		     	Fixed doxygen warnings.
 * </pre>
 *
 *****************************************************************************/
@@ -39,11 +40,11 @@
 #include "xipipsu_buf.h"
 
 /************************** Constant Definitions *****************************/
-#define POLYNOM					0x8005U
-#define INITIAL_CRC_VAL			0x4F4EU
-#define CRC16_MASK				0xFFFFU
-#define CRC16_HIGH_BIT_MASK		0x8000U
-#define NUM_BITS_IN_BYTE		0x8U
+#define POLYNOM					0x8005U /**< Polynomial */
+#define INITIAL_CRC_VAL			0x4F4EU		/**< Initial crc value */
+#define CRC16_MASK				0xFFFFU /**< CRC mask */
+#define CRC16_HIGH_BIT_MASK		0x8000U		/**< CRC high bit mask */
+#define NUM_BITS_IN_BYTE		0x8U		/**< 8 bits in a byte */
 
 /****************************************************************************/
 /**
