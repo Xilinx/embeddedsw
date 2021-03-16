@@ -41,7 +41,7 @@
  * 			XIPIPSU_MAX_BUFF_INDEX+1 if not valid
  *
  */
-u32 XIpiPsu_GetBufferIndex(const XIpiPsu *InstancePtr, u32 CpuMask)
+static u32 XIpiPsu_GetBufferIndex(const XIpiPsu *InstancePtr, u32 CpuMask)
 {
 	u32 BufferIndex;
 	u32 Index;
