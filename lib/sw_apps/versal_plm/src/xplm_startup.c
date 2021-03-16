@@ -25,6 +25,8 @@
 *       rb   02/02/2021 Added XPLM_SEM macro to SEM header file
 *       bm   02/08/2021 Renamed PlmCdo to PmcCdo
 *       rb   03/09/2021 Updated Sem Scan Init API call
+*       skd  03/16/2021 Added XPlm_CreateKeepAliveTask to task list
+*                       for psm is alive feature
 *
 * </pre>
 *
@@ -69,6 +71,11 @@ int XPlm_AddStartUpTasks(void)
 	int Status = XST_FAILURE;
 	u32 Index;
 	XPlmi_TaskNode *Task;
+#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+	static u32 MilliSeconds = XPLM_DEFAULT_FTTI_TIME;
+	void *PtrMilliSeconds = &MilliSeconds;
+#endif /* XPAR_XIPIPSU_0_DEVICE_ID */
+
 	/**
 	 * Start up tasks of the PLM.
 	 * Current they point to the loading of the Boot PDI.
@@ -81,11 +88,13 @@ int XPlm_AddStartUpTasks(void)
 		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_HookAfterPmcCdo, 0U},
 		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_LoadBootPdi, 0U},
 		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_HookAfterBootPdi, 0U},
+#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_CreateKeepAliveTask, PtrMilliSeconds},
+#endif /* XPAR_XIPIPSU_0_DEVICE_ID */
 #ifdef XPLM_SEM
 		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_SemScanInit, 0U}
 #endif
 	};
-
 
 	for (Index = 0U; Index < ARRAY_SIZE(StartUpTaskList); Index++) {
 		Task = XPlmi_TaskCreate(StartUpTaskList[Index].Priority,

@@ -24,6 +24,7 @@
 *                       Call PMC state clear function when error occurs while
 *                        processing PLM CDO
 *       bm   02/08/2021 Added SysmonInit after processing PMC CDO
+*       skd  03/16/2021 Added code to monitor if psm is alive or not
 *
 * </pre>
 *
@@ -32,23 +33,26 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xplm_pm.h"
 #include "xplm_default.h"
+#include "xplm_pm.h"
 #include "xpm_api.h"
+#include "xpm_ipi.h"
+#include "xpm_psm.h"
 #include "xpm_subsystem.h"
+#include "xplmi_scheduler.h"
 #include "xplmi_util.h"
 #include "xloader.h"
 #include "xplmi_sysmon.h"
 
 /************************** Constant Definitions *****************************/
-/*
+/**
  * NPLL CFG params
  * LOCK_DLY[31:25]=0x3f, LOCK_CNT[22:13]=0x2EE, LFHF[11:10]=0x3,
  * CP[8:5]=0x3, RES[3:0]=0x5
  */
 #define XPLM_NOCPLL_CFG_VAL		(0x7E5DCC65U)
 
-/*
+/**
  * NPLL CTRL params
  * POST_SRC[26:24]=0x0, PRE_SRC[22:20]=0x0, CLKOUTDIV[17:16]=0x3,
  * FBDIV[15:8]=0x48, BYPASS[3]=0x1, RESET[0]=0x1
@@ -61,6 +65,14 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+static void XPlm_PmRequestCb(const u32 IpiMask, const XPmApiCbId_t EventId, u32 *Payload);
+static int XPlm_ConfigureDefaultNPll(void);
+#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+static u32 XPlm_UpdateCounterVal(u8 Val);
+static int XPlm_SendKeepAliveEvent(void);
+static int XPlm_KeepAliveTask(void *Arg);
+static int XPlm_RemoveKeepAliveTask(void);
+#endif /* XPAR_XIPIPSU_0_DEVICE_ID */
 
 /************************** Variable Definitions *****************************/
 
@@ -108,8 +120,6 @@ static void XPlm_PmRequestCb(const u32 IpiMask, const XPmApiCbId_t EventId, u32 
 /**
 * @brief It calls the XilPm initialization API to initialize its structures.
 *
-* @param	None
-*
 * @return	Status as defined in xplmi_status.h
 *
 *****************************************************************************/
@@ -136,8 +146,6 @@ END:
 /**
 * @brief This function configures the NPLL equal to slave SLR ROM NPLL
 *        frequency. It is only required for master SLR devices.
-*
-* @param	None
 *
 * @return	Status as defined in xplmi_status.h
 *
@@ -209,7 +217,7 @@ int XPlm_ProcessPmcCdo(void *Arg)
 	 *  - PMC block configuration
 	 */
 
-	/** Process the PLM CDO */
+	/* Process the PLM CDO */
 	Status = XPlmi_InitCdo(&Cdo);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -232,3 +240,199 @@ int XPlm_ProcessPmcCdo(void *Arg)
 END:
 	return Status;
 }
+
+#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+/*****************************************************************************/
+/**
+* @brief	This function updates the counter value
+*
+* @param	Val to Increment or Clear the CounterVal variable
+*
+* @return	CounterVal
+*
+*****************************************************************************/
+static u32 XPlm_UpdateCounterVal(u8 Val)
+{
+	static u32 CounterVal = 0U;
+
+	if(Val == XPLM_PSM_COUNTER_INCREMENT) {
+		/* Increment the counter value */
+		CounterVal++;
+	}else if(Val == XPLM_PSM_COUNTER_CLEAR){
+		/* Clear the counter value */
+		CounterVal = 0U;
+	} else{
+		/* To avoid Misra-C violation  */
+	}
+
+	return CounterVal;
+}
+
+/*****************************************************************************/
+/**
+* @brief	This function sends keep alive IPI event to PSM
+*
+* @return	Status as defined in xplmi_status.h
+*
+*****************************************************************************/
+static int XPlm_SendKeepAliveEvent(void)
+{
+	int Status = XST_FAILURE;
+	u32 Payload[XPLMI_IPI_MAX_MSG_LEN] = {0U};
+
+	/* Assign PSM keep alive API ID to IPI payload[0] */
+	Payload[0U] = XPLM_PSM_API_KEEP_ALIVE;
+
+	/* Send IPI for keep alive event to PSM */
+	Status = XPm_IpiSend(PSM_IPI_INT_MASK, Payload);
+	if (XST_SUCCESS != Status) {
+		XPlmi_Printf(DEBUG_GENERAL, "%s Error in IPI send: %0x\r\n",
+				__func__, Status);
+		/* Update status in case of error */
+		Status = XPlmi_UpdateStatus(XPLM_ERR_IPI_SEND, Status);
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief	This function checks if PSM is alive and healthy.
+*
+* @param	Arg Not used in the function currently
+*
+* @return	Status as defined in xplmi_status.h
+*
+*****************************************************************************/
+static int XPlm_KeepAliveTask(void *Arg)
+{
+	int Status = XST_FAILURE;
+	u32 ActualCounterValue;
+	static u8 PsmKeepAliveStatus = XPLM_PSM_ALIVE_NOT_STARTED;
+
+	(void)Arg;
+
+	/**
+	 * Check if PSM is running and PSMFW is loaded and no error occurred
+	 * from PSM Keep alive event.
+	 */
+	if (((u8)TRUE == XPmPsm_FwIsPresent()) && (XPLM_PSM_ALIVE_ERR !=
+	    PsmKeepAliveStatus)) {
+		/**
+		 * Check if the keep alive task called for first time then skip
+		 * comparing keep alive counter value.
+		 */
+		if (XPLM_PSM_ALIVE_STARTED == PsmKeepAliveStatus) {
+			/**
+			 * Read keep alive counter value from RTCA(Run time
+			 * configuration area) register.
+			 */
+			ActualCounterValue = XPlmi_In32(XPLM_PSM_ALIVE_COUNTER_ADDR);
+			/* Increment expected keep alive counter value */
+			(void)XPlm_UpdateCounterVal(XPLM_PSM_COUNTER_INCREMENT);
+			/**
+			 * Check if PSM incremented keep alive counter value or
+			 * not. Return error if counter value is not matched
+			 * with expected value.
+			 */
+			if (ActualCounterValue != XPlm_UpdateCounterVal(XPLM_PSM_COUNTER_RETURN)) {
+				XPlmi_Printf(DEBUG_GENERAL, "%s ERROR: PSM is not alive\r\n",
+						__func__);
+				/* Clear RTCA register */
+				XPlmi_Out32(XPLM_PSM_ALIVE_COUNTER_ADDR,
+						0U);
+				/* Clear expected counter value */
+				(void)XPlm_UpdateCounterVal(XPLM_PSM_COUNTER_CLEAR);
+				/* Update PSM keep alive status for error */
+				PsmKeepAliveStatus = XPLM_PSM_ALIVE_ERR;
+				/* Remove Keep alive task in case of error */
+				Status = XPlm_RemoveKeepAliveTask();
+				/* Update the error status */
+				Status = XPlmi_UpdateStatus(XPLM_ERR_PSM_NOT_ALIVE,
+								Status);
+				goto END;
+			}
+		}
+
+		/* Send keep alive IPI event to PSM */
+		Status = XPlm_SendKeepAliveEvent();
+		if (XST_SUCCESS != Status) {
+			/* Remove Keep alive task in case of error */
+			(void)XPlm_RemoveKeepAliveTask();
+			goto END;
+		}
+
+		PsmKeepAliveStatus = XPLM_PSM_ALIVE_STARTED;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief This function creates keep alive scheduler task
+*
+* @param PtrMilliSeconds periodicity of the task (must be > 10ms)
+*
+* @return	Status as defined in xplmi_status.h
+*
+*****************************************************************************/
+int XPlm_CreateKeepAliveTask(void *PtrMilliSeconds)
+{
+	int Status = XST_FAILURE;
+	u32 MilliSeconds = *(u32*)PtrMilliSeconds;
+
+	/**
+	 * Validate input parameter (MilliSeconds) which needs to be greater
+	 * than minimum FTTI time (10ms).
+	 */
+	if (XPLM_MIN_FTTI_TIME > MilliSeconds) {
+		Status = XPlmi_UpdateStatus(XPLM_ERR_KEEP_ALIVE_TASK_CREATE,
+						XST_INVALID_PARAM);
+		goto END;
+	}
+
+	/* Clear keep alive counter */
+	XPlmi_Out32(XPLM_PSM_ALIVE_COUNTER_ADDR, 0U);
+	(void)XPlm_UpdateCounterVal(XPLM_PSM_COUNTER_CLEAR);
+
+	/**
+	 * Add keep alive task in scheduler which runs at every
+	 * XPLM_DEFAULT_FTTI_TIME period.
+	 */
+	Status = XPlmi_SchedulerAddTask(XPLM_PSM_HEALTH_CHK, XPlm_KeepAliveTask,
+			MilliSeconds, XPLM_TASK_PRIORITY_1);
+	if (XST_SUCCESS != Status) {
+		Status = XPlmi_UpdateStatus(XPLM_ERR_KEEP_ALIVE_TASK_CREATE,
+						Status);
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief This function remove keep alive scheduler task
+*
+* @return	Status as defined in xplmi_status.h
+*
+*****************************************************************************/
+static int XPlm_RemoveKeepAliveTask(void)
+{
+	int Status = XST_FAILURE;
+
+	/* Remove keep alive task from scheduler */
+	Status = XPlmi_SchedulerRemoveTask(XPLM_PSM_HEALTH_CHK,
+						XPlm_KeepAliveTask, 0U);
+	if (XST_SUCCESS != Status) {
+		/* Update minor error value to status */
+		Status = (int)XPLM_PSM_ALIVE_REMOVE_TASK_ERR;
+	}
+
+	return Status;
+}
+#endif /* XPAR_XIPIPSU_0_DEVICE_ID */
