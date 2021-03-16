@@ -14,6 +14,7 @@ Added polled mode TPM example
 
 ipipsu_v2_9:
 Added support for CRC on IPI messages.
+Fixed MISRAC issues
 
 Changes for 2020.3
 ===============================
