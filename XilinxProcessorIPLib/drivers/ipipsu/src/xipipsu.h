@@ -74,6 +74,7 @@
  * 2.8  nsk 01/19/21  Updated the driver tcl to use IP_NAME for IPIs mapped.
  * 2.9  ma  02/12/21  Added IPI CRC functionality
  *	sdd 02/17/21 Fixed doxygen warnings.
+ *	sdd 03/10/21 Fixed misrac warnings.
  * </pre>
  *
  *****************************************************************************/
@@ -120,7 +121,7 @@ typedef struct {
  */
 typedef struct {
 	u32 DeviceId; /**< Unique ID  of device */
-	u32 BaseAddress; /**< Base address of the device */
+	UINTPTR BaseAddress; /**< Base address of the device */
 	u32 BitMask; /**< BitMask to be used to identify this CPU */
 	u32 BufferIndex; /**< Index of the IPI Message Buffer */
 	u32 IntId; /**< Interrupt ID on GIC **/
@@ -268,6 +269,13 @@ typedef struct {
 	XIpiPsu_ReadReg((InstancePtr)->Config.BaseAddress, \
 		XIPIPSU_OBS_OFFSET)
 /****************************************************************************/
+/************************** Variable Definitions *****************************/
+/**
+ * The IPIPSU configuration table, sized by the number of instances
+ * defined in xparameters.h.
+ */
+extern XIpiPsu_Config XIpiPsu_ConfigTable[XPAR_XIPIPSU_NUM_INSTANCES];
+
 /************************** Function Prototypes *****************************/
 
 /* Static lookup function implemented in xipipsu_sinit.c */
@@ -283,7 +291,7 @@ void XIpiPsu_Reset(XIpiPsu *InstancePtr);
 
 XStatus XIpiPsu_TriggerIpi(XIpiPsu *InstancePtr, u32 DestCpuMask);
 
-XStatus XIpiPsu_PollForAck(XIpiPsu *InstancePtr, u32 DestCpuMask,
+XStatus XIpiPsu_PollForAck(const XIpiPsu *InstancePtr, u32 DestCpuMask,
 		u32 TimeOutCount);
 
 XStatus XIpiPsu_ReadMessage(XIpiPsu *InstancePtr, u32 SrcCpuMask, u32 *MsgPtr,
@@ -291,10 +299,7 @@ XStatus XIpiPsu_ReadMessage(XIpiPsu *InstancePtr, u32 SrcCpuMask, u32 *MsgPtr,
 
 XStatus XIpiPsu_WriteMessage(XIpiPsu *InstancePtr, u32 DestCpuMask, u32 *MsgPtr,
 		u32 MsgLength, u8 BufferType);
-u32* XIpiPsu_GetBufferAddress(XIpiPsu *InstancePtr, u32 SrcCpuMask,
-		u32 DestCpuMask, u32 BufferType);
 
-u32 XIpiPsu_GetBufferIndex(const XIpiPsu *InstancePtr, u32 CpuMask);
 void XIpiPsu_SetConfigTable(u32 DeviceId, XIpiPsu_Config *ConfigTblPtr);
 
 #ifdef __cplusplus
