@@ -72,22 +72,55 @@
 /**
  * This typedef declares the driver instances of all the cores in the subsystem
  */
-typedef struct
-{
-  XAxis_Switch Router;
-  XGpio RstAxis;      //Reset for IP's running at AXIS Clk
-  XGpio RstAximm;     //Reset for IP's with AXI MM interface
+#ifndef XPAR_XAXIS_SWITCH_NUM_INSTANCES
+#define XPAR_XAXIS_SWITCH_NUM_INSTANCES 0
+#endif
+XAxis_Switch Routers[XPAR_XAXIS_SWITCH_NUM_INSTANCES];
 
-  XV_Hcresampler_l2 Hcrsmplr;
-  XV_Vcresampler_l2 VcrsmplrIn;
-  XV_Vcresampler_l2 VcrsmplrOut;
-  XV_Vscaler_l2 Vscaler;
-  XV_Hscaler_l2 Hscaler;
-  XAxiVdma Vdma;
-  XV_Lbox_l2 Lbox;
-  XV_Csc_l2 Csc;
-  XV_Deint_l2 Deint;
-}XVprocSs_SubCores;
+#ifndef XPAR_XV_HCRESAMPLER_NUM_INSTANCES
+#define XPAR_XV_HCRESAMPLER_NUM_INSTANCES 0
+#endif
+static XV_Hcresampler_l2 Hcrsmplrs[XPAR_XV_HCRESAMPLER_NUM_INSTANCES];
+
+#ifndef XPAR_XV_VCRESAMPLER_NUM_INSTANCES
+#define XPAR_XV_VCRESAMPLER_NUM_INSTANCES 0
+#endif
+static XV_Vcresampler_l2 Vcrsmplrs[XPAR_XV_VCRESAMPLER_NUM_INSTANCES];
+
+#ifndef XPAR_XV_VSCALER_NUM_INSTANCES
+#define XPAR_XV_VSCALER_NUM_INSTANCES 0
+#endif
+static XV_Vscaler_l2 Vscalers[XPAR_XV_VSCALER_NUM_INSTANCES];
+
+#ifndef XPAR_XV_HSCALER_NUM_INSTANCES
+#define XPAR_XV_HSCALER_NUM_INSTANCES 0
+#endif
+static XV_Hscaler_l2 Hscalers[XPAR_XV_HSCALER_NUM_INSTANCES];
+
+#ifndef XPAR_XAXIVDMA_NUM_INSTANCES
+#define XPAR_XAXIVDMA_NUM_INSTANCES 0
+#endif
+static XAxiVdma Vdmas[XPAR_XAXIVDMA_NUM_INSTANCES];
+
+#ifndef XPAR_XV_LETTERBOX_NUM_INSTANCES
+#define XPAR_XV_LETTERBOX_NUM_INSTANCES 0
+#endif
+static XV_Lbox_l2 Lboxes[XPAR_XV_LETTERBOX_NUM_INSTANCES];
+
+#ifndef XPAR_XV_CSC_NUM_INSTANCES
+#define XPAR_XV_CSC_NUM_INSTANCES 0
+#endif
+static XV_Csc_l2 Cscs[XPAR_XV_CSC_NUM_INSTANCES];
+
+#ifndef XPAR_XV_DEINTERLACER_NUM_INSTANCES
+#define XPAR_XV_DEINTERLACER_NUM_INSTANCES 0
+#endif
+static XV_Deint_l2 Deints[XPAR_XV_DEINTERLACER_NUM_INSTANCES];
+
+typedef struct {
+    XGpio RstAxis;   // Reset for IP's running at AXIS Clk
+    XGpio RstAximm;  // Reset for IP's with AXI MM interface
+} XVprocSs_SubCores;
 
 /**************************** Local Global ***********************************/
 //Define Driver instance of all sub-core included in the design */
@@ -271,42 +304,61 @@ void XVprocSs_SetUserTimerHandler(XVprocSs *InstancePtr,
 
 /*****************************************************************************/
 /**
-* This function queries the subsystem instance configuration to determine
-* the included sub-cores. For each sub-core that is present in the design
-* the sub-core driver instance is binded with the subsystem sub-core driver
-* handle
-*
-* @param  XVprocSsPtr is a pointer to the Subsystem instance to be worked on.
-*
-* @return None
-*
-******************************************************************************/
-static void GetIncludedSubcores(XVprocSs *XVprocSsPtr)
-{
-  XVprocSsPtr->HcrsmplrPtr    = ((XVprocSsPtr->Config.HCrsmplr.IsPresent)   \
-                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].Hcrsmplr)    : NULL);
-  XVprocSsPtr->VcrsmplrInPtr  = ((XVprocSsPtr->Config.VCrsmplrIn.IsPresent)  \
-                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].VcrsmplrIn)  : NULL);
-  XVprocSsPtr->VcrsmplrOutPtr = ((XVprocSsPtr->Config.VCrsmplrOut.IsPresent) \
-                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].VcrsmplrOut) : NULL);
-  XVprocSsPtr->VscalerPtr     = ((XVprocSsPtr->Config.Vscale.IsPresent)      \
-                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].Vscaler)     : NULL);
-  XVprocSsPtr->HscalerPtr     = ((XVprocSsPtr->Config.Hscale.IsPresent)      \
-                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].Hscaler)     : NULL);
-  XVprocSsPtr->VdmaPtr        = ((XVprocSsPtr->Config.Vdma.IsPresent)        \
-                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].Vdma)        : NULL);
-  XVprocSsPtr->LboxPtr        = ((XVprocSsPtr->Config.Lbox.IsPresent)        \
-                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].Lbox)        : NULL);
-  XVprocSsPtr->CscPtr         = ((XVprocSsPtr->Config.Csc.IsPresent)         \
-                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].Csc)         : NULL);
-  XVprocSsPtr->DeintPtr       = ((XVprocSsPtr->Config.Deint.IsPresent)       \
-                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].Deint)       : NULL);
-  XVprocSsPtr->RouterPtr      = ((XVprocSsPtr->Config.Router.IsPresent)      \
-                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].Router)      : NULL);
-  XVprocSsPtr->RstAxisPtr     = ((XVprocSsPtr->Config.RstAxis.IsPresent)     \
-                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].RstAxis)     : NULL);
-  XVprocSsPtr->RstAximmPtr    = ((XVprocSsPtr->Config.RstAximm.IsPresent)    \
-                              ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].RstAximm)    : NULL);
+ * This function queries the subsystem instance configuration to determine
+ * the included sub-cores. For each sub-core that is present in the design
+ * the sub-core driver instance is binded with the subsystem sub-core driver
+ * handle
+ *
+ * @param  XVprocSsPtr is a pointer to the Subsystem instance to be worked on.
+ *
+ * @return None
+ *
+ ******************************************************************************/
+static void GetIncludedSubcores(XVprocSs* XVprocSsPtr) {
+    XVprocSsPtr->HcrsmplrPtr =
+        ((XVprocSsPtr->Config.HCrsmplr.IsPresent)
+             ? (&Hcrsmplrs[XVprocSsPtr->Config.HCrsmplr.DeviceId])
+             : NULL);
+    XVprocSsPtr->VcrsmplrInPtr =
+        ((XVprocSsPtr->Config.VCrsmplrIn.IsPresent)
+             ? (&Vcrsmplrs[XVprocSsPtr->Config.VCrsmplrIn.DeviceId])
+             : NULL);
+    XVprocSsPtr->VcrsmplrOutPtr =
+        ((XVprocSsPtr->Config.VCrsmplrOut.IsPresent)
+             ? (&Vcrsmplrs[XVprocSsPtr->Config.VCrsmplrOut.DeviceId])
+             : NULL);
+    XVprocSsPtr->VscalerPtr =
+        ((XVprocSsPtr->Config.Vscale.IsPresent)
+             ? (&Vscalers[XVprocSsPtr->Config.Vscale.DeviceId])
+             : NULL);
+    XVprocSsPtr->HscalerPtr =
+        ((XVprocSsPtr->Config.Hscale.IsPresent)
+             ? (&Hscalers[XVprocSsPtr->Config.Hscale.DeviceId])
+             : NULL);
+    XVprocSsPtr->VdmaPtr = ((XVprocSsPtr->Config.Vdma.IsPresent)
+                                ? (&Vdmas[XVprocSsPtr->Config.Vdma.DeviceId])
+                                : NULL);
+    XVprocSsPtr->LboxPtr = ((XVprocSsPtr->Config.Lbox.IsPresent)
+                                ? (&Lboxes[XVprocSsPtr->Config.Lbox.DeviceId])
+                                : NULL);
+    XVprocSsPtr->CscPtr = ((XVprocSsPtr->Config.Csc.IsPresent)
+                               ? (&Cscs[XVprocSsPtr->Config.Csc.DeviceId])
+                               : NULL);
+    XVprocSsPtr->DeintPtr = ((XVprocSsPtr->Config.Deint.IsPresent)
+                                 ? (&Deints[XVprocSsPtr->Config.Deint.DeviceId])
+                                 : NULL);
+    XVprocSsPtr->RouterPtr =
+        ((XVprocSsPtr->Config.Router.IsPresent)
+             ? (&Routers[XVprocSsPtr->Config.Router.DeviceId])
+             : NULL);
+    XVprocSsPtr->RstAxisPtr =
+        ((XVprocSsPtr->Config.RstAxis.IsPresent)
+             ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].RstAxis)
+             : NULL);
+    XVprocSsPtr->RstAximmPtr =
+        ((XVprocSsPtr->Config.RstAximm.IsPresent)
+             ? (&subcoreRepo[XVprocSsPtr->Config.DeviceId].RstAximm)
+             : NULL);
 }
 
 /*****************************************************************************/
