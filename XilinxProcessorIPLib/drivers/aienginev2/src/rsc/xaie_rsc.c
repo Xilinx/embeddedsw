@@ -44,6 +44,8 @@
 AieRC _XAie_RscMgrFinish(XAie_DevInst *DevInst)
 {
 	_XAie_PerfCntRscFinish(DevInst);
+
+	free(DevInst->RscMapping);
 	return XAIE_OK;
 }
 
