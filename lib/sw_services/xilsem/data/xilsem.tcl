@@ -11,6 +11,7 @@
 # 1.02  pc   06/05/20 Remove unused params
 # 1.03  pc   07/16/20 Update syntax to fetch CIPS HIP properties
 # 1.04  rb   03/09/21 Update SEM parameters as per CIPS 3.0
+# 1.05  rb   03/16/21 Created server directory and handling
 ##############################################################################
 
 #---------------------------------------------
@@ -22,9 +23,28 @@ proc sem_drc {libhandle} {
 }
 
 proc generate {libhandle} {
+	set sw_proc_handle [hsi::get_sw_processor]
+	set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
+	set proctype [common::get_property IP_NAME $hw_proc_handle]
+	set procname [common::get_property NAME    $hw_proc_handle]
 
+	set server_dir "./src/server/"
+
+	switch $proctype {
+		"psu_pmc" -
+		"psv_pmc" {
+			copy_files_to_src $server_dir
+		}
+
+		"default"  {error "Error: Processor type $proctype is not supported\n"}
+	}
 }
 
+proc copy_files_to_src {dir_path} {
+	foreach entry [glob -directory $dir_path -nocomplain *] {
+		file copy -force $entry "./src"
+	}
+}
 
 #-------
 # post_generate: called after generate called on all libraries
