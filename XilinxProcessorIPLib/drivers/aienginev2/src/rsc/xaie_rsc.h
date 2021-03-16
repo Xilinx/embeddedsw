@@ -28,6 +28,7 @@
 
 /************************** Enum *********************************************/
 /************************** Function Prototypes  *****************************/
+/* Performance counter resource management APIs */
 AieRC XAie_RequestPerfcnt(XAie_DevInst *DevInst, u32 NumTiles,
 		XAie_UserRscReq *RscReq, u32 UserRscNum, XAie_UserRsc *Rscs);
 AieRC XAie_ReleasePerfcnt(XAie_DevInst *DevInst, u32 UserRscNum,
