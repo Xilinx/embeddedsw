@@ -101,7 +101,6 @@ FSBL(zynq_fsbl/zynqmp_fsbl) has 3 directories.
 		  supported.
 		  
 
-
 How to compile FSBL:
 	Zynq:
 	Please refer to the steps in Readme.txt which is at lib/sw_apps/zynq_fsbl/misc/ directory
