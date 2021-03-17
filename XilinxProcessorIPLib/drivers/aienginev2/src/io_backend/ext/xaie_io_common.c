@@ -25,12 +25,86 @@
 #include <stdlib.h>
 
 #include "xaie_io.h"
-#include "xaie_rsc.h"
-#include "xaie_rsc_internal.h"
 #include "xaie_helper.h"
 /*****************************************************************************/
 /***************************** Macro Definitions *****************************/
 /************************** Function Definitions *****************************/
+/*****************************************************************************/
+/**
+* This API finds free resource after checking static and runtime allocated
+* resource status in bitmap.
+*
+* @param	Bitmap: Bitmap of the resource
+* @param	StaticBitmapOffset: Offset for static bitmap
+* @param	StartBit: Index for the resource start bit in the bitmap
+* @param	MaxRscVal: Number of resource per tile
+* @param	Index: Pointer to store free resource found
+*
+* @return	XAIE_OK on success.
+*
+* @note		Internal only.
+*
+*******************************************************************************/
+static AieRC _XAie_FindAvailableRsc(u32 *Bitmap, u32 StaticBitmapOffset,
+		u32 StartBit, u32 MaxRscVal, u32 *Index)
+{
+	for(u32 i = StartBit; i < StartBit + MaxRscVal; i++) {
+		if(!((CheckBit(Bitmap, i)) |
+				CheckBit(Bitmap, (i + StaticBitmapOffset)))) {
+			*Index = i - StartBit;
+			return XAIE_OK;
+		}
+	}
+
+	return XAIE_ERR;
+}
+
+/*****************************************************************************/
+/**
+* This API grants resource based on availibility for the given location and
+* marks that rsc as in use in the relevant bitmap.
+*
+* @param	Bitmap: Bitmap of the resource
+* @param	StartBit: Index for the resource start bit in the bitmap
+* @param	StaticBitmapOffset: Offset for static bitmap
+* @param	NumRscPerTile: Number of resource requested per tile
+* @param	MaxRscVal: Maximum number of resource per tile
+* @param	RscArrPerTile: Pointer to store available resource
+*
+* @return	XAIE_OK on success.
+*
+* @note		Internal only.
+*
+*******************************************************************************/
+static AieRC _XAie_RequestRsc(u32 *Bitmap, u32 StartBit,
+		u32 StaticBitmapOffset, u32 NumRscPerTile, u32 MaxRscVal,
+		u32 *RscArrPerTile)
+{
+	AieRC RC;
+
+	/* Check for the requested resource in the bitmap locally */
+	for(u32 i = 0; i < NumRscPerTile; i++) {
+		u32 Index;
+		RC = _XAie_FindAvailableRsc(Bitmap, StaticBitmapOffset,
+				StartBit, MaxRscVal, &Index);
+		if(RC != XAIE_OK) {
+			/* Clear bitmap if any resource request failed */
+			for(u32 j = 0; j < i; j++)
+				_XAie_ClrBitInBitmap(Bitmap, RscArrPerTile[j]
+				+ StartBit, 1U);
+			XAIE_ERROR("Unable to find free resource\n");
+
+			return XAIE_ERR;
+		}
+
+		/* Set the bit as allocated if the request was successful*/
+		_XAie_SetBitInBitmap(Bitmap, Index + StartBit, 1U);
+		RscArrPerTile[i] = Index;
+	}
+
+	return XAIE_OK;
+}
+
 /*****************************************************************************/
 /**
 * The API grants resource based on availibility and marks that

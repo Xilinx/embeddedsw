@@ -40,11 +40,6 @@ void _XAie_PerfCntRscFinish(XAie_DevInst *DevInst);
 /* Common resource management helper APIs */
 AieRC _XAie_CheckLocsValidity(XAie_DevInst *DevInst, u32 NumReq,
 		XAie_UserRsc *RscReq);
-AieRC _XAie_FindAvailableRsc(u32 *Bitmap, u32 StaticBitmapOffset,
-		u32 StartBit, u32 MaxRscVal, u32 *Index);
-AieRC _XAie_RequestRsc(u32 *Bitmap, u32 StartBit,
-		u32 StaticBitmapOffset, u32 NumRscPerTile, u32 MaxRscVal,
-		u32 *RscArrPerTile);
 u32 _XAie_GetStartBit(XAie_DevInst *DevInst, XAie_LocType Loc, u32 MaxRscVal);
 
 /*****************************************************************************/
