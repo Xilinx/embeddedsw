@@ -658,4 +658,29 @@ namespace xaiefal {
 			}
 		}
 	}
+
+	/**
+	 * This function returns the estimated module type of an AI enigne
+	 * event enum value.
+	 *
+	 * @param E input event enum
+	 * @return estimated module type
+	 *
+	 * Please note that this funciton will not check if the input event
+	 * is valid or not, it will returns the estimated module type of the
+	 * event.
+	 */
+	static inline XAie_ModuleType XAieEstimateModFromEvent(XAie_Events E)
+	{
+		XAie_ModuleType M;
+
+		if (E < XAIE_EVENT_NONE_MEM) {
+			M = XAIE_CORE_MOD;
+		} else if (E < XAIE_EVENT_NONE_PL) {
+			M = XAIE_MEM_MOD;
+		} else {
+			M = XAIE_PL_MOD;
+		}
+		return M;
+	}
 }

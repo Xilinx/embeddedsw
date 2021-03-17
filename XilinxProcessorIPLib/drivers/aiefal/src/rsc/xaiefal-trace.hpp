@@ -33,11 +33,23 @@ namespace xaiefal {
 				i++) {
 				Events[i] = StartEvent;
 			}
+			StartMod = Mod;
+			StopMod = Mod;
 			State.Initialized = 1;
 		}
 		XAieTraceCntr(XAieDev &Dev,
 			XAie_LocType &L, XAie_ModuleType M):
 			XAieSingleTileRsc(Dev, L, M), Pkt() {}
+		~XAieTraceCntr() {
+			if (State.Reserved == 1) {
+				if (StartMod != Mod) {
+					delete StartBC;
+				}
+				if (StopMod != Mod) {
+					delete StopBC;
+				}
+			}
+		}
 
 		/**
 		 * This funtion gets module of the Trace control.
@@ -158,6 +170,7 @@ namespace xaiefal {
 		 * @return XAIE_OK for success, error code for failure
 		 */
 		AieRC setCntrEvent(XAie_Events StartE, XAie_Events StopE) {
+			XAie_ModuleType StartM, StopM;
 			AieRC RC;
 
 			Logger::log(LogLevel::DEBUG) << __func__ << " " <<
@@ -174,16 +187,29 @@ namespace xaiefal {
 			} else {
 				uint8_t HwE;
 
+				StartM = XAieEstimateModFromEvent(StartE);
+				StopM = XAieEstimateModFromEvent(StopE);
 				RC = XAie_EventLogicalToPhysicalConv(dev(), Loc,
-						Mod, StartE, &HwE);
+						StartM, StartE, &HwE);
 				if (RC == XAIE_OK) {
 					RC = XAie_EventLogicalToPhysicalConv(dev(), Loc,
-						Mod, StopE, &HwE);
+						StopM, StopE, &HwE);
+				}
+				if ((StartM != Mod || StopM != Mod) &&
+					State.Reserved == 1) {
+					Logger::log(LogLevel::ERROR) << __func__ <<
+						"failed, trace reserved," <<
+						"but start/stop event not of the same module of trace control. " <<
+						"Please set control event before reserve() if they are of different mod" <<
+						std::endl;
+					RC = XAIE_ERR;
 				}
 			}
 			if (RC == XAIE_OK) {
 				StartEvent = StartE;
 				StopEvent = StopE;
+				StartMod = StartM;
+				StopMod = StopM;
 				changeToConfigured();
 			}
 			return RC;
@@ -271,12 +297,48 @@ namespace xaiefal {
 		}
 	protected:
 		AieRC _reserve() {
+			AieRC RC;
 			//TODO: check C driver to see if the trace control is
 			// in use
-			return XAIE_OK;
+			RC = XAIE_OK;
+			if (StartMod != Mod) {
+				std::vector<XAie_LocType> vL;
+
+				vL.push_back(Loc);
+				StartBC = new XAieBroadcast(AieHd, vL,
+					StartMod, Mod);
+				RC = StartBC->reserve();
+				if (RC != XAIE_OK) {
+					delete StartBC;
+				}
+			}
+			if (RC == XAIE_OK && StopMod != Mod) {
+				std::vector<XAie_LocType> vL;
+
+				vL.push_back(Loc);
+				StopBC = new XAieBroadcast(AieHd, vL,
+						StartMod, Mod);
+				RC = StopBC->reserve();
+				if (RC != XAIE_OK) {
+					delete StopBC;
+					if (StartMod != Mod) {
+						StartBC->release();
+						delete StartBC;
+					}
+				}
+			}
+			return RC;
 		}
 
 		AieRC _release() {
+			if (StartMod != Mod) {
+				StartBC->release();
+				delete StartBC;
+			}
+			if (StopMod != Mod) {
+				StopBC->release();
+				delete StopBC;
+			}
 			// TODO: release the trace module to the C driver
 			return XAIE_OK;
 		}
@@ -285,6 +347,8 @@ namespace xaiefal {
 			AieRC RC;
 			std::vector<XAie_Events> vE;
 			std::vector<u8> vSlot;
+			XAie_Events lStartE = StartEvent;
+			XAie_Events lStopE = StopEvent;
 
 			Logger::log(LogLevel::DEBUG) << "trace control " << __func__ << " (" <<
 				(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ") Mod=" << Mod << std::endl;
@@ -294,14 +358,34 @@ namespace xaiefal {
 					vSlot.push_back((uint8_t)i);
 				}
 			}
-			RC = XAie_TraceEventList(dev(), Loc, Mod, vE.data(), vSlot.data(),
-				vE.size());
+			RC = XAIE_OK;
+			if (StartMod != Mod) {
+				StartBC->getEvent(Loc, Mod, lStartE);
+				RC = XAie_EventBroadcast(dev(), Loc, StartMod,
+						StartBC->getBc(), StartEvent);
+				if (RC == XAIE_OK) {
+					RC = StartBC->start();
+				}
+			}
+			if (RC == XAIE_OK && StopMod != Mod) {
+				StopBC->getEvent(Loc, Mod, lStopE);
+				XAie_EventBroadcast(dev(), Loc, StopMod,
+						StopBC->getBc(), StopEvent);
+				if (RC == XAIE_OK) {
+					RC = StopBC->start();
+				}
+			}
+			if (RC == XAIE_OK) {
+				RC = XAie_TraceEventList(dev(), Loc, Mod,
+						vE.data(), vSlot.data(),
+						vE.size());
+			}
 			if (RC == XAIE_OK) {
 				RC = XAie_TracePktConfig(dev(), Loc, Mod, Pkt);
 				if (RC == XAIE_OK) {
 					RC = XAie_TraceControlConfig(dev(),
-						Loc, Mod, StartEvent,
-						StopEvent, Mode);
+						Loc, Mod, lStartE, lStopE,
+						Mode);
 				}
 			}
 			return RC;
@@ -327,6 +411,22 @@ namespace xaiefal {
 					}
 				}
 			}
+			if (RC == XAIE_OK && StartMod != Mod) {
+				StartBC->getEvent(Loc, Mod, StartEvent);
+				RC = XAie_EventBroadcastReset(dev(), Loc,
+						StartMod, StartBC->getBc());
+				if (RC == XAIE_OK) {
+					RC = StartBC->stop();
+				}
+			}
+			if (StopMod != Mod) {
+				StopBC->getEvent(Loc, Mod, StopEvent);
+				RC = XAie_EventBroadcastReset(dev(), Loc,
+						StopMod, StopBC->getBc());
+				if (RC == XAIE_OK) {
+					RC = StopBC->stop();
+				}
+			}
 			return RC;
 		}
 
@@ -334,6 +434,10 @@ namespace xaiefal {
 		XAie_Events Events[8]; /**< events to trace */
 		XAie_Events StartEvent; /**< trace control start event */
 		XAie_Events StopEvent; /**< trace control stop event */
+		XAie_ModuleType StartMod; /**< start event module */
+		XAie_ModuleType StopMod; /**< stop event module */
+		XAieBroadcast *StartBC; /**< start Event braodcast resource */
+		XAieBroadcast *StopBC; /**< stop Event braodcast resource */
 		XAie_Packet Pkt; /**< trace packet setup */
 		XAie_TraceMode Mode; /**< trace operation mode */
 	private:
