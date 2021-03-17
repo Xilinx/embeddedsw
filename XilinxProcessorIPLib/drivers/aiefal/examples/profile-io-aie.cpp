@@ -135,7 +135,7 @@ public:
 			XAie_EventBroadcast(Aie->dev(), StartLoc, XAIE_PL_MOD,
 				BCRsc->getBc(),
 				XAIE_EVENT_USER_EVENT_0_PL);
-
+			BCRsc->start();
 			vSSelects.start();
 			vProfilers.start();
 
