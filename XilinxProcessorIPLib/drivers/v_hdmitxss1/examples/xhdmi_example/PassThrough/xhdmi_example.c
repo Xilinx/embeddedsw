@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,7 @@
 * 1.02  KU     30/11/20 AVI InfoFrame Version set to 3 for resolutions
 * 			VIC > 127
 * 			Onsemi redriver tweaked for TMDS mode in TX
+* 1.03  ssh    03/17/21 Added EdidHdmi20_t, PsIic0 and PsIic1 declarations
 *
 * </pre>
 *
@@ -174,6 +175,7 @@ XV_HdmiC_VrrInfoFrame VrrInforFrame ;
 /* HDMI TX SS structure */
 XV_HdmiTxSs1    HdmiTxSs;
 u8 HdmiTxErrorFlag = 0;
+EdidHdmi EdidHdmi_t;
 
 #ifdef XPAR_XV_TPG_NUM_INSTANCES
 /* Test Pattern Generator Structure */
