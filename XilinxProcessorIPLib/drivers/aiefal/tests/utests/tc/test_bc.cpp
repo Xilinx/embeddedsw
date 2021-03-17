@@ -9,6 +9,27 @@
 using namespace std;
 using namespace xaiefal;
 
+static bool is_equal_vLocs(const std::vector<XAie_LocType> vL0,
+			   const std::vector<XAie_LocType> vL1)
+{
+	bool is_equal = false;
+
+	if (vL0.size() != vL1.size()) {
+		return false;
+	}
+
+	auto l0 = vL0.begin();
+	auto l1 = vL1.begin();
+	while (l0 != vL0.end() && l1 != vL1.end()) {
+		if ((*l0).Col == (*l1).Col && (*l0).Row == (*l1).Row) {
+			is_equal = true;
+		}
+		l0++;
+		l1++;
+	}
+	return is_equal;
+}
+
 TEST_GROUP(Broadcast)
 {
 };
@@ -43,23 +64,67 @@ TEST(Broadcast, Basic)
 	CHECK_EQUAL(RC, XAIE_OK);
 	CHECK_EQUAL(StartM, StartM);
 	CHECK_EQUAL(EndM, EndM);
-	CHECK_EQUAL(vL.size(), vL1.size());
-	auto l0 = vL.begin();
-	auto l1 = vL1.begin();
-	bool is_equal = false;
-	while (l0 != vL.end() && l1 != vL1.end()) {
-		if ((*l0).Col == (*l1).Col && (*l0).Row == (*l1).Row) {
-			is_equal = true;
-		}
-		l0++;
-		l1++;
-	}
-	CHECK_TRUE(is_equal);
+	CHECK_TRUE(is_equal_vLocs(vL, vL1));
 
 	RC = BC->reserve();
 	CHECK_EQUAL(RC, XAIE_OK);
 
+	RC = BC->start();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = BC->stop();
+	CHECK_EQUAL(RC, XAIE_OK);
 
 	RC = BC->release();
 	CHECK_EQUAL(RC, XAIE_OK);
+
+	/* test broadcast within a tile */
+	auto BC0 = Aie.tile(1,1).broadcast();
+	RC = BC0->reserve();
+	CHECK_EQUAL(RC, XAIE_OK);
+	std::vector<XAie_LocType> vL0;
+	vL0.push_back(XAie_TileLoc(1,1));
+	RC = BC0->getChannel(vL1, StartM, EndM);
+	CHECK_EQUAL(RC, XAIE_OK);
+	CHECK_TRUE(is_equal_vLocs(vL0, vL1));
+	int BcId0 = BC0->getBc();
+
+	auto BC1 = Aie.tile(1,1).broadcast();
+	RC = BC1->reserve();
+	CHECK_EQUAL(RC, XAIE_OK);
+	RC = BC1->getChannel(vL1, StartM, EndM);
+	CHECK_EQUAL(RC, XAIE_OK);
+	CHECK_TRUE(is_equal_vLocs(vL0, vL1));
+	int BcId1 = BC1->getBc();
+	CHECK_EQUAL(BcId0 + 1, BcId1);
+
+	auto BC2 = Aie.tile(1,1).broadcast();
+	RC = BC2->reserve();
+	CHECK_EQUAL(RC, XAIE_OK);
+	RC = BC2->getChannel(vL1, StartM, EndM);
+	CHECK_EQUAL(RC, XAIE_OK);
+	CHECK_TRUE(is_equal_vLocs(vL0, vL1));
+	int BcId2 = BC2->getBc();
+	CHECK_EQUAL(BcId1 + 1, BcId2);
+
+	auto BC3 = Aie.tile(1,1).broadcast();
+	RC = BC3->reserve();
+	CHECK_EQUAL(RC, XAIE_OK);
+	RC = BC3->getChannel(vL1, StartM, EndM);
+	CHECK_EQUAL(RC, XAIE_OK);
+	CHECK_TRUE(is_equal_vLocs(vL0, vL1));
+	int BcId3 = BC3->getBc();
+	CHECK_EQUAL(BcId2 + 1, BcId3);
+
+	RC = BC3->release();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	auto BC3_ = Aie.tile(1,1).broadcast();
+	RC = BC3_->reserve();
+	CHECK_EQUAL(RC, XAIE_OK);
+	RC = BC3_->getChannel(vL1, StartM, EndM);
+	CHECK_EQUAL(RC, XAIE_OK);
+	CHECK_TRUE(is_equal_vLocs(vL0, vL1));
+	int BcId3_ = BC3_->getBc();
+	CHECK_EQUAL(BcId2 + 1, BcId3_);
 }
