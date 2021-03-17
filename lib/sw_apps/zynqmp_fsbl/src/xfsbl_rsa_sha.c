@@ -22,6 +22,7 @@
  *                      to KECCAK SHA3 padding.
  * 4.0   har  06/17/20  Removed references to unused algorithms
  * 5.0   bsv  03/11/21  Fixed build issues
+ *       kpt  03/16/21  Updated function headers with appropriate description
  *
  * </pre>
  *
@@ -44,10 +45,16 @@
 static XSecure_Sha3 SecureSha3;
 
 /*****************************************************************************
+ * This function calculates SHA3 hash for the given input data.
  *
- * @param	None
+ * @param       In      Pointer to the input data provided for hashing
+ * @param       Size    Size of the input data provided for hashing
+ * @param       Out     Pointer to the location where the resulting hash will
+ *                      be written
+ * @param       HashLen Length of the hash that is used to determine the sha3
+ *                      hashing
  *
- * @return	None
+ * @return      None
  *
  ******************************************************************************/
 void XFsbl_ShaDigest(const u8 *In, const u32 Size, u8 *Out, u32 HashLen)
@@ -61,10 +68,16 @@ void XFsbl_ShaDigest(const u8 *In, const u32 Size, u8 *Out, u32 HashLen)
 }
 
 /*****************************************************************************
+ * This function updates SHA3 engine with final data which includes SHA3
+ * padding and reads final hash on complete data.
  *
- * @param	None
+ * @param       Ctx     Pointer to a callback function
+ * @param       Hash    Pointer to the location where the resulting
+ *                      hash will be written
+ * @param       HashLen Length of the hash that is used to determine sha3
+ *                      hashing
  *
- * @return	None
+ * @return      None
  *
  ******************************************************************************/
 void XFsbl_ShaFinish(void * Ctx, u8 * Hash, u32 HashLen)
@@ -76,10 +89,13 @@ void XFsbl_ShaFinish(void * Ctx, u8 * Hash, u32 HashLen)
 	}
 }
 /*****************************************************************************
+ * This function starts the SHA3 engine.
  *
- * @param	None
+ * @param       Ctx     Pointer to a callback function
+ * @param       HashLen Length of the hash that is used to determine sha3
+ *                      hashing
  *
- * @return	None
+ * @return      None
  *
  ******************************************************************************/
 void XFsbl_ShaStart(void * Ctx, u32 HashLen)
@@ -94,10 +110,17 @@ void XFsbl_ShaStart(void * Ctx, u32 HashLen)
 
 
 /*****************************************************************************
+ * This function updates the input data to SHA3 engine.
  *
- * @param	None
+ * @param       Ctx      Pointer to a callback function
+ * @param       Data     Pointer to the input data that is used for
+ *                       hash calculation
+ * @param       Size     Size of the input data that is provided
+ *                       for hash calculation
+ * @param       HashLen  Length of the hash that is used to determine sha3
+ *                       hashing
  *
- * @return	None
+ * @return      None
  *
  ******************************************************************************/
 void XFsbl_ShaUpdate(void * Ctx, u8 * Data, u32 Size, u32 HashLen)
