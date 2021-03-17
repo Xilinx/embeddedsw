@@ -28,11 +28,61 @@ TEST(Tracing, Basic)
 	CHECK_EQUAL(RC, XAIE_OK);
 
 	XAieDev Aie(&DevInst, true);
-	auto Tracing = Aie.tile(1,1).core().traceControl();
+	auto Tracing = Aie.tile(1,1).mem().traceControl();
+	auto TraceE = Aie.tile(1,1).mem().traceEvent();
 
 	RC = Tracing->reserve();
 	CHECK_EQUAL(RC, XAIE_OK);
 
+	RC = TraceE->reserve();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = TraceE->setEvent(XAIE_MEM_MOD, XAIE_EVENT_USER_EVENT_1_MEM);
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = Tracing->setCntrEvent(XAIE_EVENT_USER_EVENT_2_MEM, XAIE_EVENT_USER_EVENT_3_MEM);
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = TraceE->start();
+	CHECK_EQUAL(RC, XAIE_OK);
+
 	RC = Tracing->start();
-	CHECK_EQUAL(RC, XAIE_ERR);
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = Tracing->stop();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = Tracing->release();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = TraceE->stop();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = TraceE->release();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	/* Cross module test */
+	RC = TraceE->setEvent(XAIE_CORE_MOD, XAIE_EVENT_USER_EVENT_1_CORE);
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = Tracing->setCntrEvent(XAIE_EVENT_USER_EVENT_2_CORE, XAIE_EVENT_USER_EVENT_3_CORE);
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = Tracing->reserve();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = TraceE->reserve();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = TraceE->start();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = Tracing->start();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = Tracing->stop();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = Tracing->release();
+	CHECK_EQUAL(RC, XAIE_OK);
 }
