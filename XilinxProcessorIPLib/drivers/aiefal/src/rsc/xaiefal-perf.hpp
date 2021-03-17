@@ -428,14 +428,23 @@ namespace xaiefal {
 				if (StartMod != Rsc.Mod) {
 					StartBC->getEvent(Loc, Rsc.Mod, lStartE);
 					RC = XAie_EventBroadcast(dev(), Loc, StartMod, StartBC->getBc(), StartEvent);
+					if (RC == XAIE_OK) {
+						RC = StartBC->start();
+					}
 				}
 				if (RC == XAIE_OK && StopMod != Rsc.Mod) {
 					StopBC->getEvent(Loc, Rsc.Mod, lStopE);
 					XAie_EventBroadcast(dev(), Loc, StopMod, StopBC->getBc(), StopEvent);
+					if (RC == XAIE_OK) {
+						RC = StopBC->start();
+					}
 				}
 				if (RC == XAIE_OK && RstEvent != XAIE_EVENT_NONE_CORE && RstMod != Rsc.Mod) {
 					RstBC->getEvent(Loc, Rsc.Mod, lRstE);
 					RC = XAie_EventBroadcast(dev(), Loc, RstMod, RstBC->getBc(), RstEvent);
+					if (RC == XAIE_OK) {
+						RC = RstBC->start();
+					}
 				}
 				if (RC == XAIE_OK) {
 					RC = XAie_PerfCounterControlSet(dev(), Loc, Rsc.Mod,
@@ -462,6 +471,25 @@ namespace xaiefal {
 			iRC = (int)XAie_PerfCounterControlReset(dev(), Loc, Rsc.Mod, Rsc.RscId);
 			iRC |= (int)XAie_PerfCounterResetControlReset(dev(), Loc, Rsc.Mod, Rsc.RscId);
 			iRC |= (int)XAie_PerfCounterReset(dev(), Loc, Rsc.Mod, Rsc.RscId);
+
+			if (StartMod != Rsc.Mod) {
+				StartBC->getEvent(Loc, Rsc.Mod, StartEvent);
+				iRC |= XAie_EventBroadcastReset(dev(), Loc,
+						StartMod, StartBC->getBc());
+				iRC |= StartBC->stop();
+			}
+			if (StopMod != Rsc.Mod) {
+				StopBC->getEvent(Loc, Rsc.Mod, StopEvent);
+				iRC |= XAie_EventBroadcastReset(dev(), Loc,
+						StopMod, StopBC->getBc());
+				iRC |= StopBC->stop();
+			}
+			if (RstEvent != XAIE_EVENT_NONE_CORE && RstMod != Rsc.Mod) {
+				RstBC->getEvent(Loc, Rsc.Mod, RstEvent);
+				iRC |= XAie_EventBroadcastReset(dev(), Loc,
+						RstMod, RstBC->getBc());
+				iRC |= RstBC->stop();
+			}
 			if (iRC != (int)XAIE_OK) {
 				Logger::log(LogLevel::ERROR) << "perfcount " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
