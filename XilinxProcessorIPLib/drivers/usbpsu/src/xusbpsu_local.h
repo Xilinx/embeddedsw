@@ -18,12 +18,13 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.0   pm    03/23/20 First release
+* 1.9   pm    03/15/21 Fixed doxygen warnings
 *
 * </pre>
 *
 *****************************************************************************/
 #ifndef XUSBPSU_LOCAL_H  /* Prevent circular inclusions */
-#define XUSBPSU_LOCAL_H  /* by using protection macros  */
+#define XUSBPSU_LOCAL_H  /**< by using protection macros  */
 
 #ifdef __cplusplus
 extern "C" {
@@ -33,7 +34,7 @@ extern "C" {
 #include "xusbpsu.h"
 
 /************************** Constant Definitions *****************************/
-#ifdef XUSBPSU_HIBERNATION_ENABLE
+#ifdef XUSBPSU_HIBERNATION_ENABLE  /**< HIBERNATION Flag ENABLE */
 
 #define XUSBPSU_NON_STICKY_SAVE_RETRIES		500U
 #define XUSBPSU_PWR_STATE_RETRIES		1500U
