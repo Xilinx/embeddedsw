@@ -73,22 +73,22 @@ namespace xaiefal {
 		}
 
 		// TODO: the following bitmaps should be removed
-		uint16_t XAieBroadcastCoreBits[400*16/sizeof(uint16_t)];
-		uint16_t XAieBroadcastMemBits[400*16/sizeof(uint16_t)];
-		uint16_t XAieBroadcastShimBits[400*16/sizeof(uint16_t)];
+		uint16_t XAieBroadcastCoreBits[400];
+		uint16_t XAieBroadcastMemBits[400];
+		uint16_t XAieBroadcastShimBits[50];
 
-		uint64_t XAiePerfCoreBits[400 * 4/sizeof(uint64_t)];
-		uint64_t XAiePerfMemBits[400 * 2/sizeof(uint64_t)];
-		uint64_t XAiePerfShimBits[50 * 2/sizeof(uint64_t)];
+		uint64_t XAiePerfCoreBits[400 * 4 / 64];
+		uint64_t XAiePerfMemBits[400 * 2 / 64];
+		uint64_t XAiePerfShimBits[50 * 2 / 64];
 
-		uint64_t XAiePcEventBits[400 * 4/sizeof(uint64_t)];
+		uint64_t XAiePcEventBits[400 * 4 / 64];
 
-		uint64_t XAieSSCoreTBits[400 * 8/sizeof(uint64_t)];
-		uint64_t XAieSSShimTBits[50 * 2/sizeof(uint64_t)];
+		uint64_t XAieSSCoreTBits[400 * 8 / 64];
+		uint64_t XAieSSShimTBits[50 * 2 / 64];
 
-		uint64_t XAieComboCoreBits[400 * 4/sizeof(uint64_t)];
-		uint64_t XAieComboMemBits[400 * 4/sizeof(uint64_t)];
-		uint64_t XAieComboShimBits[50 * 4/sizeof(uint64_t)];
+		uint64_t XAieComboCoreBits[400 * 4 / 64];
+		uint64_t XAieComboMemBits[400 * 4 / 64];
+		uint64_t XAieComboShimBits[50 * 4 / 64];
 
 	private:
 		XAie_DevInst *Dev;
