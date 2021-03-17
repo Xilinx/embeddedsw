@@ -42,6 +42,7 @@
 *       bm   02/18/2021 Added const to XLoader_Cmds
 *       ma   03/04/2021 Added XLoader_CheckIpiAccess handler for checking
 *                       secure access for IPI commands
+*       bm   03/16/2021 Added Image Upgrade support
 *
 * </pre>
 *
@@ -59,6 +60,8 @@
 #include "xplmi_wdt.h"
 #include "xplmi_event_logging.h"
 #include "xplmi.h"
+#include "xpm_api.h"
+#include "xpm_nodeid.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -92,6 +95,8 @@ static XPlmi_Module XPlmi_Loader;
 #define XLOADER_CMD_READBACK_MAXLEN_INDEX		(5U)
 #define XLOADER_CMD_MULTIBOOT_BOOTMODE_INDEX		(0U)
 #define XLOADER_CMD_MULTIBOOT_IMG_LOCATION_INDEX	(1U)
+#define XLOADER_CMD_IMGSTORE_PDIADDR_HIGH_INDEX		(0U)
+#define XLOADER_CMD_IMGSTORE_PDIADDR_LOW_INDEX		(1U)
 #define XLOADER_RESP_CMD_EXEC_STATUS_INDEX	(0U)
 #define XLOADER_RESP_CMD_FEATURES_CMD_SUPPORTED	(1U)
 #define XLOADER_RESP_CMD_READBACK_PROCESSED_LEN_INDEX	(1U)
@@ -523,10 +528,108 @@ END:
 	return Status;
 }
 
+/*****************************************************************************/
 /**
- * @{
- * @cond xloader_internal
- */
+ * @brief	This function adds PdiAddress to ImageStore PdiList
+ *  Command payload parameters are
+ *	- High PdiAddr - Upper 32 bit value of PdiAddr
+ *	- Low PdiAddr - Lower 32 bit value of PdiAddr
+ *
+ * @param	Cmd is pointer to the command structure
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XLoader_AddImageStorePdi(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+	u64 PdiAddr = (u64)Cmd->Payload[XLOADER_CMD_IMGSTORE_PDIADDR_HIGH_INDEX];
+	XLoader_ImageStore *PdiList = XLoader_GetPdiList();
+	u8 Index = 0U;
+
+	if (PdiList->Count >= XLOADER_MAX_PDI_LIST) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_PDI_LIST_FULL, 0);
+		goto END;
+	}
+	PdiAddr = ((u64)Cmd->Payload[XLOADER_CMD_IMGSTORE_PDIADDR_LOW_INDEX]) |
+			(PdiAddr << 32U);
+	for (Index = 0U; Index < PdiList->Count; Index++) {
+		if (PdiList->PdiAddr[Index] == PdiAddr) {
+			break;
+		}
+	}
+	if (Index > PdiList->Count) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_PDI_ADDR_EXISTS, 0);
+		goto END;
+	}
+
+	Status = XLoader_DdrOps(XLOADER_REQUEST_DDR);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	PdiList->PdiAddr[Index] = PdiAddr;
+	PdiList->Count++;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function removes PdiAddress from ImageStore PdiList
+ *  Command payload parameters are
+ *	- High PdiAddr - Upper 32 bit value of PdiAddr
+ *	- Low PdiAddr - Lower 32 bit value of PdiAddr
+ *
+ * @param	Cmd is pointer to the command structure
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XLoader_RemoveImageStorePdi(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+	u64 PdiAddr = (u64)Cmd->Payload[XLOADER_CMD_IMGSTORE_PDIADDR_HIGH_INDEX];
+	u8 Index = 0U;
+	u8 ShiftIdx = 0U;
+	XLoader_ImageStore *PdiList = XLoader_GetPdiList();
+
+	if (PdiList->Count == 0U) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_PDI_LIST_EMPTY, 0);
+		goto END;
+	}
+
+	PdiAddr = ((u64)Cmd->Payload[XLOADER_CMD_IMGSTORE_PDIADDR_LOW_INDEX]) |
+			(PdiAddr << 32U);
+	/* If PdiAddr matches with any entry in the List, remove it */
+	for (Index = 0U; Index < PdiList->Count; Index++) {
+		if (PdiList->PdiAddr[Index] == PdiAddr) {
+			for (ShiftIdx = Index; ShiftIdx < (PdiList->Count - 1U);
+				ShiftIdx++) {
+				PdiList->PdiAddr[ShiftIdx] =
+					PdiList->PdiAddr[ShiftIdx + 1U];
+			}
+			break;
+		}
+	}
+	if (Index == PdiList->Count) {
+		Status = XPlmi_UpdateStatus(
+				XLOADER_ERR_PDI_ADDR_NOT_FOUND, 0);
+		goto END;
+	}
+	PdiList->Count--;
+	if (PdiList->Count == 0U) {
+		Status = XLoader_DdrOps(XLOADER_RELEASE_DDR);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
 /*****************************************************************************/
 /**
  * @brief	This function can act as a placeholder for Unimplemented cmds
@@ -543,6 +646,11 @@ static int XLoader_UnImplementedCmd(XPlmi_Cmd *Cmd)
 
 	return XST_SUCCESS;
 }
+
+/**
+ * @{
+ * @cond xloader_internal
+ */
 
 /*****************************************************************************/
 /**
@@ -596,7 +704,9 @@ static const XPlmi_ModuleCmd XLoader_Cmds[] =
 	XPLMI_MODULE_COMMAND(XLoader_GetImageInfoList),
 	XPLMI_MODULE_COMMAND(XLoader_UnImplementedCmd),
 	XPLMI_MODULE_COMMAND(XLoader_LoadReadBackPdi),
-	XPLMI_MODULE_COMMAND(XLoader_UpdateMultiboot)
+	XPLMI_MODULE_COMMAND(XLoader_UpdateMultiboot),
+	XPLMI_MODULE_COMMAND(XLoader_AddImageStorePdi),
+	XPLMI_MODULE_COMMAND(XLoader_RemoveImageStorePdi)
 };
 
 /*****************************************************************************/

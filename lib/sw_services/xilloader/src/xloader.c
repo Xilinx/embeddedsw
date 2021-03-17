@@ -85,6 +85,7 @@
 *       bm   02/12/2021 Updated logic to use BootHdr directly from PMC RAM
 *       kpt  02/16/2021 Updated error code when secure validations are failed
 *       rb   03/09/2021 Updated Sem Scan Init API call
+*       bm   03/16/2021 Added Image Upgrade support
 *
 * </pre>
 *
@@ -135,7 +136,7 @@ static int XLoader_VerifyImgInfo(const XLoader_ImageInfo *ImageInfo);
 static int XLoader_GetChildRelation(u32 ChildImgID, u32 ParentImgID, u32 *IsChild);
 static int XLoader_InvalidateChildImgInfo(u32 ParentImgID, u32 *ChangeCount);
 static int XLoader_LoadImage(XilPdi *PdiPtr);
-static int XLoader_ReloadImage(u32 ImageId, const u32 *FuncID);
+static int XLoader_ReloadImage(XilPdi *PdiPtr, u32 ImageId, const u32 *FuncID);
 static int XLoader_StartImage(XilPdi *PdiPtr);
 static int XLoader_StoreImageInfo(const XLoader_ImageInfo *ImageInfo);
 
@@ -506,6 +507,17 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 		goto END;
 	}
 
+	/*
+	 * Check the validity of Img Hdr Table fields
+	 */
+	Status = XilPdi_ValidateImgHdrTbl(&(PdiPtr->MetaHdr.ImgHdrTbl));
+	if (Status != XST_SUCCESS) {
+		XPlmi_Printf(DEBUG_GENERAL, "Image Header Table Validation "
+					"failed\n\r");
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMGHDR_TBL, Status);
+		goto END;
+	}
+
 #ifndef PLM_SECURE_EXCLUDE
 	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
 		/* Update KEK red key availability status */
@@ -559,17 +571,6 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 	}
 #endif
 
-	/*
-	 * Check the validity of Img Hdr Table fields
-	 */
-	Status = XilPdi_ValidateImgHdrTbl(&(PdiPtr->MetaHdr.ImgHdrTbl));
-	if (Status != XST_SUCCESS) {
-		XPlmi_Printf(DEBUG_GENERAL, "Image Header Table Validation "
-					"failed\n\r");
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMGHDR_TBL, Status);
-		goto END;
-	}
-
 	/* Perform IDCODE and Extended IDCODE checks */
 	if(XPLMI_PLATFORM == PMC_TAP_VERSION_SILICON) {
 		Status = XLoader_IdCodeCheck(&(PdiPtr->MetaHdr.ImgHdrTbl));
@@ -617,6 +618,51 @@ END:
 
 /*****************************************************************************/
 /**
+ * @brief	This function is used to request or release DDR.
+ *
+ * @param	Type is DDR request or release type
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XLoader_DdrOps(u8 Type) {
+	int Status = XST_FAILURE;
+	static u8 DdrRequested = XLOADER_DDR_NOT_REQUESTED;
+	u32 CapAccess = (u32)PM_CAP_ACCESS;
+	u32 CapContext = (u32)PM_CAP_CONTEXT;
+
+	if ((DdrRequested == XLOADER_DDR_NOT_REQUESTED) &&
+		((Type == XLOADER_REQUEST_DDR) ||
+		(Type == XLOADER_HOLD_DDR))) {
+		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_DDR_0,
+				CapAccess | CapContext, XPM_DEF_QOS, 0U);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_DDR_0, 0);
+			goto END;
+		}
+		DdrRequested = Type;
+	}
+	else if ((DdrRequested == XLOADER_REQUEST_DDR) &&
+		(Type == XLOADER_RELEASE_DDR)) {
+		Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_DDR_0);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(
+				XLOADER_ERR_RELEASE_PM_DEV_DDR_0, 0);
+			goto END;
+		}
+		DdrRequested = XLOADER_DDR_NOT_REQUESTED;
+	}
+	else {
+		/* Ignore other request or release types */
+		Status = XST_SUCCESS;
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
  * @brief	This function is used to load and start images. It reads
  * meta header, loads the images as present in the PDI and starts images based
  * on hand-off information present in PDI.
@@ -639,9 +685,6 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 	u32 PrtnIndex;
 	u32 UPdiSrc = (u32)(PdiPtr->PdiSrc);
 	u32 DeviceFlags = UPdiSrc & XLOADER_PDISRC_FLAGS_MASK;
-	u8 DdrRequested = (u8)FALSE;
-	u32 CapAccess = (u32)PM_CAP_ACCESS;
-	u32 CapContext = (u32)PM_CAP_CONTEXT;
 
 	/*
 	 * From the meta header present in PDI pointer, read the subsystem
@@ -661,14 +704,9 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 				XILPDI_IH_ATTRIB_COPY_MEMORY_SHIFT;
 
 			if (PdiPtr->CopyToMem == (u8)TRUE) {
-				if (DdrRequested == (u8)FALSE) {
-					Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_DDR_0,
-						CapAccess | CapContext, XPM_DEF_QOS, 0U);
-					if (Status != XST_SUCCESS) {
-						Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_DDR_0, 0);
-						goto END;
-					}
-					DdrRequested = (u8)TRUE;
+				Status = XLoader_DdrOps(XLOADER_HOLD_DDR);
+				if (Status != XST_SUCCESS) {
+					goto END;
 				}
 				PdiPtr->CopyToMemAddr =
 						PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].CopyToMemoryAddr;
@@ -1446,6 +1484,19 @@ END:
 
 /*****************************************************************************/
 /**
+ * @brief	This function provides pointer to PdiList
+ *
+ * @return	pointer to PdiList
+ *
+ *****************************************************************************/
+XLoader_ImageStore* XLoader_GetPdiList(void)
+{
+	static XLoader_ImageStore PdiList = {0};
+	return &PdiList;
+}
+
+/*****************************************************************************/
+/**
  * @brief	This function is used to restart the image in PDI. This function
  * will take ImageId as an input and based on the subsystem info available, it
  * will read the image partitions, loads them and hand-off to the required CPUs
@@ -1460,18 +1511,77 @@ END:
 int XLoader_RestartImage(u32 ImageId, u32 *FuncID)
 {
 	int Status = XST_FAILURE;
+	XilPdi *PdiPtr = &SubsystemPdiIns;
+	const XLoader_ImageStore *PdiList = XLoader_GetPdiList();
+	int Index = 0;
+	u64 PdiAddr;
 
-	Status = XLoader_ReloadImage(ImageId, FuncID);
+	/*
+	 * Scan through PdiList for the given ImageId and restart image from
+	 * that respective PDI if ImageId is found
+	 */
+	for (Index = (int)PdiList->Count - 1; Index >= 0; Index--) {
+		PdiAddr = PdiList->PdiAddr[Index];
+		PdiPtr->CopyToMem = (u8)FALSE;
+		PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
+		Status = XLoader_PdiInit(PdiPtr, XLOADER_PDI_SRC_DDR, PdiAddr);
+		if (Status != XST_SUCCESS) {
+			goto END1;
+		}
+
+		XPlmi_Printf(DEBUG_GENERAL, "Loading from PdiAddr: "
+			"0x%0x%08x\n\r", (u32)(PdiAddr >> 32U),
+			(u32)PdiAddr);
+		Status = XLoader_ReloadImage(PdiPtr, ImageId,
+				FuncID);
+		if (Status != XST_SUCCESS) {
+			goto END1;
+		}
+
+		Status = XLoader_StartImage(PdiPtr);
+		if (Status != XST_SUCCESS) {
+			goto END1;
+		}
+END1:
+		if (Status != XST_SUCCESS) {
+			if ((Status != (int)XLOADER_ERR_IMG_ID_NOT_FOUND) &&
+				(Status != (int)XLOADER_ERR_FUNCTION_ID_MISMATCH)) {
+				XPlmi_Printf(DEBUG_GENERAL, "Restart Image "
+					"Failed with PLM Error: 0x%0x\n\r",
+					Status);
+				XPlmi_Printf(DEBUG_GENERAL, "Fallback to next"
+					" PDI started...\n\r");
+			}
+		}
+		else {
+			goto END;
+		}
+	}
+
+	/*
+	 * Load image from BootPdi if the image is not found or loading is
+	 * unsuccessful in the above PdiList
+	 */
+	PdiPtr = BootPdiPtr;
+	XPlmi_Printf(DEBUG_GENERAL, "Loading from BootPdi\n\r");
+	Status = XLoader_ReloadImage(PdiPtr, ImageId, FuncID);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XLoader_StartImage(BootPdiPtr);
+	Status = XLoader_StartImage(PdiPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
 END:
+	if (Index >= 0) {
+		XPlmi_Out32(PMC_GLOBAL_DONE, XLOADER_PDI_LOAD_COMPLETE);
+	}
+	else {
+		PdiPtr->PdiType = XLOADER_PDI_TYPE_FULL;
+	}
+
 	return Status;
 }
 
@@ -1487,17 +1597,18 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XLoader_ReloadImage(u32 ImageId, const u32 *FuncID)
+static int XLoader_ReloadImage(XilPdi *PdiPtr, u32 ImageId, const u32 *FuncID)
 {
 	int Status = XST_FAILURE;
 	int SStatus = XST_FAILURE;
-	XilPdi* PdiPtr = BootPdiPtr;
 	PdiSrc_t PdiSrc = PdiPtr->PdiSrc;
 	u32 UPdiSrc = (u32)(PdiPtr->PdiSrc);
 	u32 DeviceFlags = UPdiSrc & XLOADER_PDISRC_FLAGS_MASK;
 	u32 PrtnNum = 0U;
 	u32 Index = 0U;
 	u32 CapAccess = (u32)PM_CAP_ACCESS;
+
+	XPlmi_SetPlmMode(XPLMI_MODE_CONFIGURATION);
 
 	for (Index = 0U; Index < PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs;
 		++Index) {
@@ -1520,17 +1631,19 @@ static int XLoader_ReloadImage(u32 ImageId, const u32 *FuncID)
 		}
 	}
 
-	PdiPtr->CopyToMem = XilPdi_GetCopyToMemory(
-		&PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum]) >>
-		XILPDI_IH_ATTRIB_COPY_MEMORY_SHIFT;
-	if (PdiPtr->CopyToMem == (u8)TRUE) {
-		PdiPtr->PdiSrc = XLOADER_PDI_SRC_DDR;
-		UPdiSrc = (u32)(PdiPtr->PdiSrc);
-		DeviceFlags = UPdiSrc & XLOADER_PDISRC_FLAGS_MASK;
-		PdiPtr->PdiType = XLOADER_PDI_TYPE_RESTORE;
-		PdiPtr->CopyToMem = (u8)FALSE;
-		PdiPtr->CopyToMemAddr =
+	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
+		PdiPtr->CopyToMem = XilPdi_GetCopyToMemory(
+			&PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum]) >>
+			XILPDI_IH_ATTRIB_COPY_MEMORY_SHIFT;
+		if (PdiPtr->CopyToMem == (u8)TRUE) {
+			PdiPtr->PdiSrc = XLOADER_PDI_SRC_DDR;
+			UPdiSrc = (u32)(PdiPtr->PdiSrc);
+			DeviceFlags = UPdiSrc & XLOADER_PDISRC_FLAGS_MASK;
+			PdiPtr->PdiType = XLOADER_PDI_TYPE_RESTORE;
+			PdiPtr->CopyToMem = (u8)FALSE;
+			PdiPtr->CopyToMemAddr =
 				PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].CopyToMemoryAddr;
+		}
 	}
 	PdiPtr->DelayHandoff = (u16)FALSE;
 	PdiPtr->DelayLoad = (u8)FALSE;
@@ -1653,7 +1766,6 @@ END:
 
 	XPlmi_SetPlmMode(XPLMI_MODE_OPERATIONAL);
 	PdiPtr->PdiSrc = PdiSrc;
-	PdiPtr->PdiType = XLOADER_PDI_TYPE_FULL;
 
 #ifndef PLM_DEBUG_MODE
 	SStatus = XPlmi_MemSet(XPLMI_PMCRAM_CHUNK_MEMORY, XPLMI_DATA_INIT_PZM,

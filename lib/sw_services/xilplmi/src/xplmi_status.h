@@ -466,6 +466,17 @@ typedef enum {
 	XLOADER_ERR_UNSUPPORTED_SUBSYSTEM_PDISRC,	/**< 0x362 - Error when
 						unsupported PdiSrc is used for
 						subsystem load */
+	XLOADER_ERR_PDI_LIST_FULL,		/**< 0x363 - Error when PdiList is full and user
+							is trying to add a new PdiAddr */
+	XLOADER_ERR_PDI_ADDR_EXISTS,		/**< 0x364 - Error when PdiAddr that is being
+							added already exists in the PdiList */
+	XLOADER_ERR_PDI_LIST_EMPTY,		/**< 0x365 - Error when PdiList is empty and user
+							is trying to remove a PdiAddr */
+	XLOADER_ERR_PDI_ADDR_NOT_FOUND,		/**< 0x366 - Error when the PdiAddr that is being tried
+							to remove does not exist in the PdiList */
+	XLOADER_ERR_RELEASE_PM_DEV_DDR_0,	/**< 0x367 - Failed to XPM Release Device for
+							PM_DEV_DDR_0 */
+
 
 	/**< Security Major error codes */
 	XLOADER_ERR_INIT_GET_DMA = 0x600,

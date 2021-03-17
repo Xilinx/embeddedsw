@@ -78,6 +78,7 @@
 *       ma   01/12/2021 Added macro for invalid boot mode
 *                       Added macro for invalid SLR Type
 *                       Added function for PMC State clear
+*       bm   03/16/2021 Added Image Upgrade support
 *
 * </pre>
 *
@@ -272,6 +273,14 @@ enum {
 
 #define XLOADER_AUTH_JTAG_INT_STATUS_POLL_INTERVAL	(1000U)
 #define XLOADER_SHA3_LEN				(48U)
+
+#define XLOADER_MAX_PDI_LIST		(32U)
+
+#define XLOADER_DDR_NOT_REQUESTED	(0U)
+#define XLOADER_REQUEST_DDR		(1U)
+#define XLOADER_HOLD_DDR		(2U)
+#define XLOADER_RELEASE_DDR		(3U)
+
 /**************************** Type Definitions *******************************/
 /*
  * This stores the handoff Address of the different cpu's
@@ -360,6 +369,11 @@ typedef struct {
 	u8 IsBufferFull;
 } XLoader_ImageInfoTbl;
 
+typedef struct {
+	u64 PdiAddr[XLOADER_MAX_PDI_LIST];
+	u8 Count;
+} XLoader_ImageStore;
+
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
@@ -380,6 +394,8 @@ void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr);
 XLoader_ImageInfo* XLoader_GetImageInfoEntry(u32 ImgID);
 int XLoader_LoadImageInfoTbl(u64 DestAddr, u32 MaxSize, u32 *NumEntries);
 void XLoader_PMCStateClear(void);
+XLoader_ImageStore* XLoader_GetPdiList(void);
+int XLoader_DdrOps(u8 Type);
 
 /* Functions defined in xloader_prtn_load.c */
 int XLoader_LoadImagePrtns(XilPdi* PdiPtr);
