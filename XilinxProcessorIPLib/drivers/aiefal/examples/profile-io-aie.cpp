@@ -26,7 +26,7 @@ using namespace xaiefal;
 class XAieProfileIO {
 public:
 	XAieProfileIO() = delete;
-	XAieProfileIO(std::shared_ptr<XAieDev> Dev, const std::string &Name = ""):
+	XAieProfileIO(std::shared_ptr<XAieDev> Dev):
 		Aie(Dev),
 		vSSelects(Dev), vProfilers(Dev) {}
 	AieRC setIOPorts(const XAie_LocType &sL, XAie_StrmPortIntf sPortIntf,
@@ -80,7 +80,6 @@ public:
 	}
 	AieRC reserve() {
 		AieRC RC;
-		XAie_LocType failedL;
 
 		if (vProfilers.isReserved()) {
 			RC = XAIE_OK;
@@ -121,6 +120,7 @@ public:
 		vProfilers.release();
 		vSSelects.release();
 		BCRsc->release();
+		return XAIE_OK;
 	}
 	AieRC start() {
 		AieRC RC;
@@ -149,6 +149,7 @@ public:
 		vProfilers.stop();
 		vSSelects.stop();
 		BCRsc->stop();
+		return XAIE_OK;
 	}
 	void printResult() {
 		Logger::log(LogLevel::INFO) << " === Profile results. ==== " << std::endl;
