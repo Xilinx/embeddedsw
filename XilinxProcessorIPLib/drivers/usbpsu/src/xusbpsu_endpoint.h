@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
  *
  * @file xusbpsu_endpoint.h
-* @addtogroup usbpsu_v1_8
+* @addtogroup usbpsu_v1_9
 * @{
  *
  * This is an internal file containing the definitions for endpoints. It is
