@@ -107,10 +107,122 @@ namespace xaiefal {
 			return XAieBroadcast::XAieAllocRsc(AieHd, vLocs, StartMod, EndMod, vRscs);
 		}
 		AieRC _release() {
-			for (int i = 0; i < (int)vRscs.size(); i++) {
-				XAieBroadcast::XAieReleaseRsc(AieHd, vRscs[i]);
+			for (auto r: vRscs) {
+				XAieBroadcast::XAieReleaseRsc(AieHd, r);
 			}
+			vRscs.clear();
 			return XAIE_OK;
+		}
+		AieRC _start() {
+			AieRC RC;
+
+			for (auto r = vRscs.begin(); r != vRscs.end(); r++) {
+				auto nr = r + 1;
+
+				u8 bc_block = XAIE_EVENT_BROADCAST_ALL;
+
+				if (nr != vRscs.end()) {
+					if ((*nr).Loc.Col > (*r).Loc.Col) {
+						bc_block &= ~XAIE_EVENT_BROADCAST_EAST;
+					} else if ((*nr).Loc.Col < (*r).Loc.Col) {
+						bc_block &= ~XAIE_EVENT_BROADCAST_WEST;
+					} else if ((*nr).Loc.Row == (*r).Loc.Row) {
+						if ((*r).Mod == XAIE_CORE_MOD) {
+							bc_block &= ~XAIE_EVENT_BROADCAST_EAST;
+						} else {
+							bc_block &= ~XAIE_EVENT_BROADCAST_WEST;
+						}
+					} else if ((*nr).Loc.Row < (*r).Loc.Row) {
+						bc_block &= ~XAIE_EVENT_BROADCAST_SOUTH;
+					} else {
+						bc_block &= ~XAIE_EVENT_BROADCAST_NORTH;
+					}
+				}
+
+				if (r != vRscs.begin()) {
+					auto pr = r - 1;
+
+					if ((*pr).Loc.Col > (*r).Loc.Col) {
+						bc_block &= ~XAIE_EVENT_BROADCAST_EAST;
+					} else if ((*pr).Loc.Col < (*r).Loc.Col) {
+						bc_block &= ~XAIE_EVENT_BROADCAST_WEST;
+					} else if ((*pr).Loc.Row == (*r).Loc.Row) {
+						if ((*r).Mod == XAIE_CORE_MOD) {
+							bc_block &= ~XAIE_EVENT_BROADCAST_EAST;
+						} else {
+							bc_block &= ~XAIE_EVENT_BROADCAST_WEST;
+						}
+					} else if ((*pr).Loc.Row < (*r).Loc.Row) {
+						bc_block &= ~XAIE_EVENT_BROADCAST_SOUTH;
+					} else {
+						bc_block &= ~XAIE_EVENT_BROADCAST_NORTH;
+					}
+				}
+
+				if ((*r).Mod == XAIE_PL_MOD) {
+					RC = XAie_EventBroadcastBlockDir(dev(),
+						(*r).Loc, (*r).Mod,
+						XAIE_EVENT_SWITCH_A,
+						(*r).RscId,
+						bc_block & (~XAIE_EVENT_BROADCAST_EAST));
+					if (RC != XAIE_OK) {
+						break;
+					}
+					RC = XAie_EventBroadcastBlockDir(dev(),
+						(*r).Loc, (*r).Mod,
+						XAIE_EVENT_SWITCH_B,
+						(*r).RscId,
+						bc_block & (~XAIE_EVENT_BROADCAST_WEST));
+					if (RC != XAIE_OK) {
+						break;
+					}
+				} else {
+					RC = XAie_EventBroadcastBlockDir(dev(),
+						(*r).Loc, (*r).Mod,
+						XAIE_EVENT_SWITCH_A,
+						(*r).RscId,
+						bc_block);
+					if (RC != XAIE_OK) {
+						break;
+					}
+				}
+			}
+			if (RC != XAIE_OK) {
+				Logger::log(LogLevel::ERROR) << "BC: " <<
+					" failed to stop." << std::endl;
+			}
+			return RC;
+		}
+		AieRC _stop() {
+			AieRC RC;
+			int iRC = XAIE_OK;
+
+			for (auto r: vRscs) {
+				if (r.Loc.Row == 0) {
+					// Unblock SHIM tile switch A and B
+					iRC |= XAie_EventBroadcastUnblockDir(dev(),
+						r.Loc, r.Mod,
+						XAIE_EVENT_SWITCH_A, r.RscId,
+						XAIE_EVENT_BROADCAST_ALL);
+					iRC |= XAie_EventBroadcastUnblockDir(dev(),
+						r.Loc, r.Mod,
+						XAIE_EVENT_SWITCH_B, r.RscId,
+						XAIE_EVENT_BROADCAST_ALL);
+				} else {
+					iRC |= XAie_EventBroadcastUnblockDir(dev(),
+						r.Loc, r.Mod,
+						XAIE_EVENT_SWITCH_A, r.RscId,
+						XAIE_EVENT_BROADCAST_ALL);
+				}
+			}
+			if (iRC != (int)XAIE_OK) {
+				Logger::log(LogLevel::ERROR) << "BC: " <<
+					" failed to stop." << std::endl;
+				RC = XAIE_ERR;
+			} else {
+				RC = XAIE_OK;
+			}
+			return RC;
 		}
 	private:
 		XAie_ModuleType StartMod; /**< module type of the starting module on the channel */
@@ -123,15 +235,18 @@ namespace xaiefal {
 		 * Bitmap will be moved to device driver
 		 */
 		static void getAieBCTileBits(std::shared_ptr<XAieDevHandle> Dev,
-				const XAie_LocType &L, uint16_t &bits) {
+				XAie_LocType L, const XAie_ModuleType M, uint16_t &bits) {
 			uint32_t i;
 
 			if (L.Row == 0) {
 				i = L.Col;
 				bits = Dev->XAieBroadcastShimBits[i];
+			} else if (M == XAIE_MEM_MOD) {
+				i = L.Col * 8 + L.Row - 1;
+				bits = Dev->XAieBroadcastMemBits[i];
 			} else {
 				i = L.Col * 8 + L.Row - 1;
-				bits = Dev->XAieBroadcastMemBits[i] | Dev->XAieBroadcastCoreBits[i];
+				bits = Dev->XAieBroadcastCoreBits[i];
 			}
 		}
 
@@ -190,6 +305,7 @@ namespace xaiefal {
 							}
 						}
 					}
+					return XAIE_OK;
 				} else {
 					return XAIE_ERR;
 				}
@@ -200,14 +316,88 @@ namespace xaiefal {
 			    (vL.back().Row != 0 && endM == XAIE_PL_MOD)) {
 				Logger::log(LogLevel::ERROR) << __func__ <<
 					"BC: invalid tiles and modules combination." << std::endl;
-				return XAIE_ERR;
+				return XAIE_INVALID_ARGS;
 			}
 			bits = 0;
-			for (int i = 0; i < (int)vL.size(); i++) {
+			for (size_t i = 0; i < vL.size(); i++) {
+				XAie_UserRsc R;
+				size_t ni;
 				uint16_t lbits;
+				XAie_ModuleType M = startM;
+				uint32_t TType;
 
-				getAieBCTileBits(Dev, vL[i], lbits);
+				TType = _XAie_GetTileTypefromLoc(Dev->dev(),
+						vL[i]);
+				if (TType == XAIEGBL_TILE_TYPE_MAX) {
+					Logger::log(LogLevel::ERROR) << __func__ <<
+						"BC: invalid tile (" << vL[i].Col <<
+						"," << vL[i].Row <<")" <<
+						std::endl;
+					return XAIE_INVALID_ARGS;
+				}
+
+				R.Loc.Col = vL[i].Col;
+				R.Loc.Row = vL[i].Row;
+				R.Mod = M;
+				getAieBCTileBits(Dev, vL[i], M, lbits);
 				bits |= lbits;
+				vR.push_back(R);
+
+				if (i == (vL.size() - 1) && endM != M) {
+					getAieBCTileBits(Dev, vL[i], endM, lbits);
+					bits |= lbits;
+					R.Mod = endM;
+					vR.push_back(R);
+				}
+				ni = i + 1;
+				if (ni >= vL.size()) {
+					break;
+				}
+				if (vL[ni].Row == vL[i].Row &&
+					vL[ni].Col == vL[i].Col) {
+					Logger::log(LogLevel::ERROR) << __func__ <<
+						"BC: duplicated tiles in the vector." <<
+						std::endl;
+					return XAIE_INVALID_ARGS;
+				}
+				if (vL[ni].Row != vL[i].Row) {
+					if ((vL[ni].Col != vL[i].Col) ||
+						(vL[ni].Row > vL[i].Row &&
+						 (vL[ni].Row - vL[i].Row) > 1) ||
+						(vL[ni].Row < vL[i].Row &&
+						 (vL[i].Row - vL[ni].Row) > 1)) {
+						Logger::log(LogLevel::ERROR) << __func__ <<
+							"BC: discontinuous input tiles." <<
+							std::endl;
+						return XAIE_INVALID_ARGS;
+					}
+				} else {
+					if ((vL[ni].Col > vL[i].Col &&
+					     (vL[ni].Col - vL[i].Col) > 1) ||
+					    (vL[ni].Col < vL[i].Col &&
+					     (vL[i].Col - vL[ni].Col) > 1)) {
+						Logger::log(LogLevel::ERROR) << __func__ <<
+							"BC: discontinuous input tiles." <<
+							std::endl;
+						return XAIE_INVALID_ARGS;
+					}
+					if (vL[ni].Col > vL[i].Col &&
+						startM == XAIE_CORE_MOD) {
+						getAieBCTileBits(Dev, vL[i],
+							 XAIE_MEM_MOD, lbits);
+						bits |= lbits;
+						R.Mod = XAIE_MEM_MOD;
+						vR.push_back(R);
+					} else if (vL[ni].Col < vL[i].Col &&
+						startM == XAIE_MEM_MOD) {
+						getAieBCTileBits(Dev, vL[i],
+							 XAIE_CORE_MOD, lbits);
+						bits |= lbits;
+						R.Mod = XAIE_CORE_MOD;
+						vR.push_back(R);
+					}
+				}
+
 			}
 			for (int i = 0; i < 16; i++) {
 				if ((bits & (1 << i)) == 0) {
@@ -218,124 +408,24 @@ namespace xaiefal {
 			if (bci < 0) {
 				Logger::log(LogLevel::ERROR) << __func__ <<
 					"BC: no free BC." << std::endl;
-				return XAIE_ERR;
+				return XAIE_INVALID_ARGS;
 			}
-			for (int i = 0; i < (int)vL.size(); i++) {
-				XAie_UserRsc R;
-				if (vL[i].Row == 0) {
-					int t = 16 * vL[i].Col;
+			for (auto r = vR.begin(); r != vR.end(); r++) {
+				uint16_t *lbits_ptr;
+				uint32_t j;
 
-					Dev->XAieBroadcastShimBits[t] |= 1 << bci;
-					R.Loc = vL[i];
-					R.Mod = XAIE_PL_MOD;
-					R.Type = XAieRscType::BC;
-					R.RscId = bci;
-					vR.push_back(R);
+				if ((*r).Loc.Row == 0) {
+					j = (*r).Loc.Col;
+					lbits_ptr = &Dev->XAieBroadcastShimBits[j];
+				} else if ((*r).Mod == XAIE_MEM_MOD) {
+					j = (*r).Loc.Col * 8 + (*r).Loc.Row - 1;
+					lbits_ptr = &Dev->XAieBroadcastMemBits[j];
 				} else {
-					int t = 16 * (8 * vL[i].Col + vL[i].Row);
-
-					Dev->XAieBroadcastMemBits[t] |= 1 << bci;
-					Dev->XAieBroadcastCoreBits[t] |= 1 << bci;
-					R.Loc = vL[i];
-					R.Mod = XAIE_CORE_MOD;
-					R.Type = XAieRscType::BC;
-					R.RscId = bci;
-					vR.push_back(R);
-					R.Mod = XAIE_MEM_MOD;
-					vR.push_back(R);
+					j = (*r).Loc.Col * 8 + (*r).Loc.Row - 1;
+					lbits_ptr = &Dev->XAieBroadcastCoreBits[j];
 				}
-				if (i < (int)vL.size() - 1)  {
-					if (vL[i].Row != vL[i + 1].Row) {
-						// Vertical
-						if (vL[i].Row == 0) {
-							XAie_EventBroadcastBlockDir(Dev->dev(), vL[i],
-								XAIE_PL_MOD, XAIE_EVENT_SWITCH_A,
-								bci,
-								XAIE_EVENT_BROADCAST_WEST);
-							XAie_EventBroadcastBlockDir(Dev->dev(), vL[i],
-								XAIE_PL_MOD, XAIE_EVENT_SWITCH_B,
-								bci,
-								XAIE_EVENT_BROADCAST_EAST);
-						} else {
-							XAie_EventBroadcastBlockDir(Dev->dev(), vL[i],
-								XAIE_CORE_MOD, XAIE_EVENT_SWITCH_A,
-								bci,
-								XAIE_EVENT_BROADCAST_WEST);
-							XAie_EventBroadcastBlockDir(Dev->dev(), vL[i],
-								XAIE_MEM_MOD, XAIE_EVENT_SWITCH_B,
-								bci,
-								XAIE_EVENT_BROADCAST_EAST);
-						}
-						if (vL[i].Row < vL[i + 1].Row) {
-							if (vL[i].Row != 0) {
-								XAie_EventBroadcastBlockDir(Dev->dev(), vL[i],
-									XAIE_CORE_MOD, XAIE_EVENT_SWITCH_A,
-									bci,
-									XAIE_EVENT_BROADCAST_SOUTH);
-								XAie_EventBroadcastBlockDir(Dev->dev(), vL[i],
-									XAIE_MEM_MOD, XAIE_EVENT_SWITCH_B,
-									bci,
-									XAIE_EVENT_BROADCAST_SOUTH);
-							}
-						} else {
-							XAie_EventBroadcastBlockDir(Dev->dev(), vL[i],
-								XAIE_CORE_MOD, XAIE_EVENT_SWITCH_A,
-								bci,
-								XAIE_EVENT_BROADCAST_NORTH);
-							XAie_EventBroadcastBlockDir(Dev->dev(), vL[i],
-								XAIE_MEM_MOD, XAIE_EVENT_SWITCH_B,
-								bci,
-								XAIE_EVENT_BROADCAST_NORTH);
-						}
-					} else {
-						if (vL[i].Row == 0) {
-							XAie_EventBroadcastBlockDir(Dev->dev(), vL[i],
-								XAIE_PL_MOD, XAIE_EVENT_SWITCH_A,
-								bci,
-								XAIE_EVENT_BROADCAST_NORTH | XAIE_EVENT_BROADCAST_SOUTH);
-							XAie_EventBroadcastBlockDir(Dev->dev(), vL[i],
-								XAIE_PL_MOD, XAIE_EVENT_SWITCH_B,
-								bci,
-								XAIE_EVENT_BROADCAST_NORTH | XAIE_EVENT_BROADCAST_SOUTH);
-						} else {
-							XAie_EventBroadcastBlockDir(Dev->dev(), vL[i],
-								XAIE_CORE_MOD, XAIE_EVENT_SWITCH_A,
-								bci,
-								XAIE_EVENT_BROADCAST_NORTH | XAIE_EVENT_BROADCAST_SOUTH);
-							XAie_EventBroadcastBlockDir(Dev->dev(), vL[i],
-								XAIE_MEM_MOD, XAIE_EVENT_SWITCH_B,
-								bci,
-								XAIE_EVENT_BROADCAST_NORTH | XAIE_EVENT_BROADCAST_SOUTH);
-						}
-						if (vL[i].Col < vL[1 + 1].Col) {
-							if (vL[i].Row == 0) {
-								XAie_EventBroadcastBlockDir(Dev->dev(), vL[i],
-									XAIE_PL_MOD, XAIE_EVENT_SWITCH_A,
-									bci,
-									XAIE_EVENT_BROADCAST_WEST);
-
-							} else {
-								XAie_EventBroadcastBlockDir(Dev->dev(), vL[i],
-									XAIE_CORE_MOD, XAIE_EVENT_SWITCH_A,
-									bci,
-									XAIE_EVENT_BROADCAST_WEST);
-							}
-						} else {
-							if (vL[i].Row == 0) {
-								XAie_EventBroadcastBlockDir(Dev->dev(), vL[i],
-									XAIE_PL_MOD, XAIE_EVENT_SWITCH_B,
-									bci,
-									XAIE_EVENT_BROADCAST_EAST);
-
-							} else {
-								XAie_EventBroadcastBlockDir(Dev->dev(), vL[i],
-									XAIE_MEM_MOD, XAIE_EVENT_SWITCH_B,
-									bci,
-									XAIE_EVENT_BROADCAST_EAST);
-							}
-						}
-					}
-				}
+				*lbits_ptr |= (1 << bci);
+				(*r).RscId = (uint32_t)bci;
 			}
 			return XAIE_OK;
 		}
@@ -354,26 +444,14 @@ namespace xaiefal {
 				int i = R.Loc.Col;
 
 				Dev->XAieBroadcastShimBits[i] &= ~(1 << R.RscId);
-				XAie_EventBroadcastUnblockDir(Dev->dev(), R.Loc, R.Mod,
-						XAIE_EVENT_SWITCH_A, R.RscId,
-						XAIE_EVENT_BROADCAST_ALL);
-				XAie_EventBroadcastUnblockDir(Dev->dev(), R.Loc, R.Mod,
-						XAIE_EVENT_SWITCH_B, R.RscId,
-						XAIE_EVENT_BROADCAST_ALL);
 			} else if (R.Mod == XAIE_CORE_MOD) {
 				int i = R.Loc.Col * 8 + (R.Loc.Row - 1);
 
 				Dev->XAieBroadcastCoreBits[i] &= ~(1 << R.RscId);
-				XAie_EventBroadcastUnblockDir(Dev->dev(), R.Loc, R.Mod,
-						XAIE_EVENT_SWITCH_A, R.RscId,
-						XAIE_EVENT_BROADCAST_ALL);
 			} else {
 				int i = R.Loc.Col * 8 + (R.Loc.Row - 1);
 
 				Dev->XAieBroadcastMemBits[i] &= ~(1 << R.RscId);
-				XAie_EventBroadcastUnblockDir(Dev->dev(), R.Loc, R.Mod,
-						XAIE_EVENT_SWITCH_A, R.RscId,
-						XAIE_EVENT_BROADCAST_ALL);
 			}
 		}
 	};

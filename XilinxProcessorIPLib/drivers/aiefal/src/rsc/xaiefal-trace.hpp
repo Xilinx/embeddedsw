@@ -508,7 +508,16 @@ namespace xaiefal {
 
 					BC->getEvent(Loc,
 						TraceCntr->getModule(), BcE);
-					RC = TraceCntr->setTraceEvent(Slot, BcE);
+					RC = BC->start();
+					if (RC == XAIE_OK) {
+						RC = TraceCntr->setTraceEvent(Slot, BcE);
+					} else {
+						Logger::log(LogLevel::ERROR) << "trace event " << __func__ << " (" <<
+							(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row <<
+							") trace control Mod=" << TraceCntr->getModule() <<
+							" Event Mod=" << EventMod << "Event=" << Event <<
+							" failed." << std::endl;
+					}
 				}
 			} else {
 				RC = TraceCntr->setTraceEvent(Slot, Event);
@@ -530,7 +539,7 @@ namespace xaiefal {
 			if (lRC != XAIE_OK) {
 				RC = lRC;
 			}
-			if (Mod != TraceCntr->getModule()) {
+			if (EventMod != TraceCntr->getModule()) {
 				lRC = BC->stop();
 				if (lRC != XAIE_OK) {
 					RC = lRC;
