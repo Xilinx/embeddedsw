@@ -107,7 +107,7 @@ typedef struct {
 	 * (Non-EDID related)*/
 } EdidHdmi;
 
-EdidHdmi EdidHdmi_t;
+extern EdidHdmi EdidHdmi_t;
 #endif
 #ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
 /*
