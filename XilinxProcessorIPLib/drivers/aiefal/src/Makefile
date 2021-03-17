@@ -7,9 +7,7 @@
 INCLUDEDIR_ROOT=../../../include
 INCLUDEDIR=$(INCLUDEDIR_ROOT)/xaiefal
 INCLUDES=$(wildcard *.hpp) $(wildcard */*.hpp)
-$(warning "$(INCLUDES)")
 TDIRS=$(addsuffix /,$(addprefix $(INCLUDEDIR)/,$(dir $(wildcard */*.hpp))))
-$(warning "$(TDIRS)")
 TINCLUDES=$(addprefix $(INCLUDEDIR)/,$(INCLUDES))
 
 libs: print_msg_xaiefal
