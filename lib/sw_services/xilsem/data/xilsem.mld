@@ -11,6 +11,7 @@
 # 1.02  pc   06-05-20 Uprev library to v1.2. Remove unused params
 # 1.03  rb   03-09-21 Uprev library to v1.3. Remove unused option
 # 1.04  rb   03-16-21 Adds SUPPORTED_PERIPHERALS option
+# 1.05  rb   03-17-21 Adds psv_cortexr5 in supported peripherals
 #
 ##############################################################################
 
@@ -20,7 +21,7 @@ BEGIN LIBRARY xilsem
   OPTION drc = sem_drc;
   OPTION copyfiles = all;
   OPTION REQUIRES_OS = (standalone);
-  OPTION SUPPORTED_PERIPHERALS = (psu_pmc psv_pmc);
+  OPTION SUPPORTED_PERIPHERALS = (psu_pmc psv_pmc psv_cortexr5);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilsem,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Versal Soft Error Mitigation Library";
   OPTION VERSION = 1.3;

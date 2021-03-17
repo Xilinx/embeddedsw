@@ -12,6 +12,7 @@
 # 1.03  pc   07/16/20 Update syntax to fetch CIPS HIP properties
 # 1.04  rb   03/09/21 Update SEM parameters as per CIPS 3.0
 # 1.05  rb   03/16/21 Created server directory and handling
+# 1.06  rb   03/16/21 Created R5 client directory and handling
 ##############################################################################
 
 #---------------------------------------------
@@ -28,12 +29,17 @@ proc generate {libhandle} {
 	set proctype [common::get_property IP_NAME $hw_proc_handle]
 	set procname [common::get_property NAME    $hw_proc_handle]
 
+	set client_dir "./src/client/"
 	set server_dir "./src/server/"
 
 	switch $proctype {
 		"psu_pmc" -
 		"psv_pmc" {
 			copy_files_to_src $server_dir
+		}
+
+		"psv_cortexr5" {
+			copy_files_to_src $client_dir
 		}
 
 		"default"  {error "Error: Processor type $proctype is not supported\n"}
