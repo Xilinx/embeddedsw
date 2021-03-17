@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -100,6 +100,7 @@
 *                              toggle HPD
 *       mmo    03/08/19 Added "IsStreamUpHDCP" to enable the HDCP
 *                              Authentication on the first VSYNC of TX
+* 3.05  ssh    03/17/21 Added PsIic0 and PsIic1 declarations
 * </pre>
 *
 ******************************************************************************/
@@ -181,6 +182,10 @@ XHdcp_Repeater     HdcpRepeater;
 static XScuGic     Intc;
 #else
 static XIntc       Intc;
+#endif
+
+#if defined (ARMR5) || ((__aarch64__) && (!defined XPS_BOARD_ZCU104))
+XIicPs Ps_Iic0, Ps_Iic1;
 #endif
 
 /* HDMI Application Menu: Data Structure */
