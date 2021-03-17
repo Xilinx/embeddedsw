@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   sg   06/06/16 First release
+* 1.9   pm   03/15/21 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -41,7 +42,7 @@
 
 /************************** Variable Definitions *****************************/
 
-extern XUsbPsu_Config XUsbPsu_ConfigTable[];
+extern XUsbPsu_Config XUsbPsu_ConfigTable[]; /**< Configuration table */
 
 
 /*****************************************************************************/
