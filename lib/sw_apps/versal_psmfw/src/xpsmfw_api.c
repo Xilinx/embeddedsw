@@ -118,6 +118,14 @@ static XStatus XPsmFw_DomainIso(u32 IsolationIdx, u32 Action)
 			XPsmFw_RMW32(PSM_LOCAL_MISC_CNTRL,
 				     PSM_LOCAL_MISC_CNTRL_CPM5_LPD,
 				     PSM_LOCAL_MISC_CNTRL_CPM5_LPD);
+		} else if (XPSMFW_NODEIDX_ISO_CPM5_PL == IsolationIdx) {
+			XPsmFw_RMW32(PSM_LOCAL_MISC_CNTRL,
+				     PSM_LOCAL_MISC_CNTRL_CPM5_PL,
+				     PSM_LOCAL_MISC_CNTRL_CPM5_PL);
+		} else if (XPSMFW_NODEIDX_ISO_CPM5_PL_DFX == IsolationIdx) {
+			XPsmFw_RMW32(PSM_LOCAL_MISC_CNTRL,
+				     PSM_LOCAL_MISC_CNTRL_CPM5_PL_DFX,
+				     PSM_LOCAL_MISC_CNTRL_CPM5_PL_DFX);
 		} else {
 			XPsmFw_Printf(DEBUG_ERROR, "Iso Idx:0x%x not identified\n\r",
 			   IsolationIdx);
@@ -130,6 +138,12 @@ static XStatus XPsmFw_DomainIso(u32 IsolationIdx, u32 Action)
 		} else if (XPSMFW_NODEIDX_ISO_CPM5_LPD == IsolationIdx) {
 			XPsmFw_RMW32(PSM_LOCAL_MISC_CNTRL,
 				     PSM_LOCAL_MISC_CNTRL_CPM5_LPD, 0U);
+		} else if (XPSMFW_NODEIDX_ISO_CPM5_PL == IsolationIdx) {
+			XPsmFw_RMW32(PSM_LOCAL_MISC_CNTRL,
+				     PSM_LOCAL_MISC_CNTRL_CPM5_PL, 0U);
+		} else if (XPSMFW_NODEIDX_ISO_CPM5_PL_DFX == IsolationIdx) {
+			XPsmFw_RMW32(PSM_LOCAL_MISC_CNTRL,
+				     PSM_LOCAL_MISC_CNTRL_CPM5_PL_DFX, 0U);
 		} else {
 			XPsmFw_Printf(DEBUG_ERROR, "Iso Idx:0x%x not identified\n\r",
 			   IsolationIdx);
