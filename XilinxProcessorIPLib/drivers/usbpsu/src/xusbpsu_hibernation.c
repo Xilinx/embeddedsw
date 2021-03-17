@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xusbpsu_hibernation.c
-* @addtogroup usbpsu_v1_8
+* @addtogroup usbpsu_v1_9
 * @{
 *
 * This patch adds hibernation support to usbpsu driver when dwc3 is operating
