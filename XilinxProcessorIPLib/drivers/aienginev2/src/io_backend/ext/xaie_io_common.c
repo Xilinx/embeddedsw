@@ -194,13 +194,14 @@ AieRC _XAie_FreeRscCommon(XAie_BackendTilesRsc *Args)
 *******************************************************************************/
 AieRC _XAie_RequestAllocatedRscCommon(XAie_BackendTilesRsc *Args)
 {
-	/* Check if rsc is not allocated statically */
-	if(CheckBit(Args->Bitmap, (Args->StartBit + Args->StaticBitmapOffset))) {
+	/* Check if rsc is not allocated in runtime */
+	if(!(CheckBit(Args->Bitmap, Args->StartBit))) {
 		/* Mark the resource granted in the runtime bitmap */
 		_XAie_SetBitInBitmap(Args->Bitmap, Args->StartBit, 1U);
 		return XAIE_OK;
 	}
 
+	XAIE_ERROR("Resource in use\n");
 	return XAIE_INVALID_ARGS;
 }
 
