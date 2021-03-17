@@ -150,7 +150,9 @@ static XStatus XPsmFw_DomainIso(u32 IsolationIdx, u32 Action)
 			goto done;
 		}
 	} else {
-		/* Required for MISRA */
+		XPsmFw_Printf(DEBUG_ERROR, "%s: Action: 0x%x not defined\r\n",
+			      __func__, Action);
+		goto done;
 	}
 
 	Status = XST_SUCCESS;
