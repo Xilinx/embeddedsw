@@ -28,7 +28,7 @@
 *       ana  10/19/2020 Added doxygen comments
 * 1.03  nsk  12/14/2020 Modify the peripheral definitions to canonical
 *                       definitions.
-*       bm   03/04/2021 Add Address range check for Log Buffers
+* 1.04  bm   03/04/2021 Add Address range check for Log Buffers
 *
 * </pre>
 *

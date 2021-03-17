@@ -32,6 +32,8 @@
 *       td   11/23/2020 MISRA C Rule 17.8 Fixes
 *       bm   02/16/2021 Renamed print functions used in XPlmi_PrintArray
 *       bm   03/04/2021 Add VerifyAddrRange API
+*       bm   03/17/2021 Mark reserved address region as invalid in
+*                       VerifyAddrRange API
 *
 * </pre>
 *
@@ -58,6 +60,8 @@
 #define XPLMI_TCM0_HIGH_ADDR		(0xFFE3FFFFU)
 #define XPLMI_TCM1_BASE_ADDR		(0xFFE90000U)
 #define XPLMI_TCM1_HIGH_ADDR		(0xFFEBFFFFU)
+#define XPLMI_RSVD_BASE_ADDR		(0xA0000000U)
+#define XPLMI_RSVD_HIGH_ADDR		(0xA3FFFFFFU)
 #define XPLMI_M_AXI_FPD_MEM_HIGH_ADDR	(0xBFFFFFFFU)
 
 /************************** Function Prototypes ******************************/
@@ -386,9 +390,15 @@ int XPlmi_VerifyAddrRange(u64 StartAddr, u64 EndAddr)
 
 	if ((EndAddr <= (u64)XPLMI_M_AXI_FPD_MEM_HIGH_ADDR) ||
 		(StartAddr > (u64)XPAR_PSV_OCM_RAM_0_S_AXI_HIGHADDR)) {
-		/* Addr range less than AXI FPD high addr or greater than
-			OCM high address is valid */
-		Status = XST_SUCCESS;
+		if ((StartAddr >= (u64)XPLMI_RSVD_BASE_ADDR) &&
+			(EndAddr <= (u64)XPLMI_RSVD_HIGH_ADDR)) {
+			Status = XST_FAILURE;
+		}
+		else {
+			/* Addr range less than AXI FPD high addr or greater
+				than OCM high address is valid */
+			Status = XST_SUCCESS;
+		}
 	}
 
 END:
