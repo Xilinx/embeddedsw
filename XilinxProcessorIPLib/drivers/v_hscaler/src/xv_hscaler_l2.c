@@ -344,8 +344,8 @@ static void CalculateAndApplyPhases(XV_Hscaler_l2* HscPtr,
     int MaxPhases = (1 << HscPtr->Hsc.Config.PhaseShift);
 
     loopWidth =
-        ((WidthIn > WidthOut) ? WidthIn + (HscPtr->Hsc.Config.PixPerClk - 1)
-                              : WidthOut + (HscPtr->Hsc.Config.PixPerClk - 1)) /
+        ((WidthIn > WidthOut) ? (WidthIn + (HscPtr->Hsc.Config.PixPerClk - 1))
+                              : (WidthOut + (HscPtr->Hsc.Config.PixPerClk - 1))) /
         HscPtr->Hsc.Config.PixPerClk;
 
     arrayIdx = 0;
@@ -358,7 +358,6 @@ static void CalculateAndApplyPhases(XV_Hscaler_l2* HscPtr,
         currentPhaseH = 0;
         currentPhaseH_H = 0;
 
-        // Assume 1ppc
         for (s = 0; s < HscPtr->Hsc.Config.PixPerClk; s++) {
             PhaseH = (offset >>
                       (STEP_PRECISION_SHIFT - HscPtr->Hsc.Config.PhaseShift)) &
