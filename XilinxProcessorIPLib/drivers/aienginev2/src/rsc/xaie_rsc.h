@@ -26,7 +26,31 @@
 /***************************** Include Files *********************************/
 #include "xaiegbl.h"
 
+/**************************** Type Definitions *******************************/
+/*
+ * This structure is used to return resource as per availibility from the
+ * driver.
+ */
+typedef struct {
+	XAie_LocType Loc;
+	u32 Mod;
+	u32 RscType;
+	u32 RscId;
+} XAie_UserRsc;
+
+/* This structure is used to request a resource by the user. */
+typedef struct {
+	XAie_LocType Loc;
+	XAie_ModuleType Mod;
+	u32 NumRscPerTile;
+} XAie_UserRscReq;
+
 /************************** Enum *********************************************/
+/* This enum is used to capture all resource types managed by resource manager*/
+typedef enum {
+	XAIE_PERFCNT_RSC,
+} XAie_RscType;
+
 /************************** Function Prototypes  *****************************/
 /* Performance counter resource management APIs */
 AieRC XAie_RequestPerfcnt(XAie_DevInst *DevInst, u32 NumTiles,
