@@ -58,6 +58,16 @@ FSR register is saved as part of the task context.  portINITIAL_FSR is the value
 given to the FSR register when the initial context is set up for a task being
 created. */
 #define portINITIAL_FSR				( 0U )
+
+/* Let the user override the pre-loading of the initial R15 (sub routine
+return address) with the address of prvTaskExitError() in case is messes
+up unwinding of the stack in the debugger. */
+#ifdef configTASK_RETURN_ADDRESS
+	#define portTASK_RETURN_ADDRESS	configTASK_RETURN_ADDRESS
+#else
+	#define portTASK_RETURN_ADDRESS	prvTaskExitError
+#endif
+
 /*
  * Global counter used for calculation of run time statistics of tasks.
  * Defined only when the relevant option is turned on
@@ -104,6 +114,10 @@ volatile uint32_t ulTaskSwitchRequested = 0UL;
 by the Xilinx library API functions. */
 static XIntc xInterruptControllerInstance;
 
+/*
+ * Used to catch tasks that attempt to return from their implementing function.
+ */
+static void prvTaskExitError( void );
 /*-----------------------------------------------------------*/
 
 /*
@@ -190,7 +204,7 @@ extern void _start1( void );
 	pxTopOfStack--;
 	*pxTopOfStack = ( StackType_t ) pxCode;	/* R14 - return address for interrupt. */
 	pxTopOfStack--;
-	*pxTopOfStack = ( StackType_t ) _start1;	/* R15 - return address for subroutine. */
+	*pxTopOfStack = ( StackType_t ) portTASK_RETURN_ADDRESS;	/* R15 - return address for subroutine. */
 
 	#ifdef portPRE_LOAD_STACK_FOR_DEBUGGING
 		pxTopOfStack--;
@@ -305,6 +319,20 @@ extern void VPortYieldASM( void );
 #endif
 	}
 	portEXIT_CRITICAL();
+}
+/*-----------------------------------------------------------*/
+
+static void prvTaskExitError( void )
+{
+	/* A function that implements a task must not exit or attempt to return to
+	its caller as there is nothing to return to.  If a task wants to exit it
+	should instead call vTaskDelete( NULL ).
+
+	Artificially force an assert() to be triggered if configASSERT() is
+	defined, then stop here so application writers can catch the error. */
+	configASSERT( uxCriticalNesting == ~0UL );
+	portDISABLE_INTERRUPTS();
+	for( ;; );
 }
 /*-----------------------------------------------------------*/
 
