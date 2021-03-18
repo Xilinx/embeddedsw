@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2013 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2013 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -61,6 +61,8 @@
 *       vns     03/18/20 Fixed Armcc compilation errors
 * 7.0	am      10/04/20 Resolved MISRA C violations
 * 7.1   am      11/26/20 Resolved Coverity warnings
+*       kpt     03/17/21 Corrected error code when VCCINT levels are out of
+*                        range in XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks
 *
 * </pre>
 *
@@ -456,7 +458,7 @@ u32 XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks(void)
 	XilSKey_ZynqMP_EfusePs_ReadSysmonVol(&XAdcInstance);
 	if ((XAdcInstance.V < (u32)XSK_EFUSEPS_VCC_PSINTLP_MIN_RAW) ||
 			((XAdcInstance.V > (u32)XSK_EFUSEPS_VCC_PSINTLP_MAX_RAW))) {
-		Status = (u32)XSK_EFUSEPS_ERROR_READ_VCCPAUX_VOLTAGE_OUT_OF_RANGE;
+		Status = (u32)XSK_EFUSEPS_ERROR_READ_VCCPINT_VOLTAGE_OUT_OF_RANGE;
 		goto END;
 	}
 	Status = (u32)XST_SUCCESS;
