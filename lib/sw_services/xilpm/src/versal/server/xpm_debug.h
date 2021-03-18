@@ -33,6 +33,8 @@ extern "C" {
 #define XPM_INT_ERR_PWR_DOMAIN_OFF		0x3007U
 /* Error due to rail control during init */
 #define XPM_INT_ERR_PWR_DOMAIN_RAIL_CONTROL	0X3008U
+/* Invalid arguments for NOC clock gating */
+#define XPM_INT_ERR_NOC_CLOCK_GATING		0x3009U
 
 /*********************** Generic House Cleaning Errors ***********************/
 /*************************** (0x3100) - (0x31FF) *****************************/

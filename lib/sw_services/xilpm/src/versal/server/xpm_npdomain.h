@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -47,6 +47,8 @@ static inline void XPmNpDomain_LockNpiPcsr(u32 BaseAddr)
 XStatus XPmNpDomain_Init(XPm_NpDomain *Npd, u32 Id, u32 BaseAddress,
 			 XPm_Power *Parent);
 XStatus XPmNpDomain_MemIcInit(u32 DeviceId, u32 BaseAddr);
+XStatus XPmNpDomain_IsNpdIdle(XPm_Node *Node);
+XStatus XPmNpDomain_ClockGate(XPm_Node *Node, u8 State);
 
 #ifdef __cplusplus
 }

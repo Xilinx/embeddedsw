@@ -387,13 +387,13 @@ static XStatus SendPowerDownReq(XPm_Node *Node)
 			Status = XPm_PowerDwnNoC();
 			break;
 		case (u32)XPM_NODEIDX_POWER_ME:
-			Status = XPm_PowerDwnME();
+			Status = XPm_PowerDwnME(Node);
 			break;
 		case (u32)XPM_NODEIDX_POWER_PLD:
-			Status = XPm_PowerDwnPLD();
+			Status = XPm_PowerDwnPLD(Node);
 			break;
 		case (u32)XPM_NODEIDX_POWER_CPM:
-			Status = XPm_PowerDwnCPM();
+			Status = XPm_PowerDwnCPM(Node);
 			break;
 		default:
 			Status = XST_INVALID_PARAM;

@@ -1211,9 +1211,14 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 			goto done;
 		}
 
-		/* If subsystem is using DDR, enable self-refresh as post suspend requirement*/
+		/*
+		 * If subsystem is using DDR and NOC Power Domain is idle,
+		 * enable self-refresh as post suspend requirement
+		 */
+		XPm_Node *DDR_Node = (XPm_Node *)XPmDevice_GetById((u32)PM_DEV_DDR_0);
 		Reqm = XPmDevice_FindRequirement(PM_DEV_DDR_0, SubsystemId);
-		if (XST_SUCCESS == XPmRequirement_IsExclusive(Reqm)) {
+		if ((XST_SUCCESS == XPmRequirement_IsExclusive(Reqm)) &&
+		    (XST_SUCCESS == XPmNpDomain_IsNpdIdle(DDR_Node))) {
 			Status = XPmDevice_SetRequirement(SubsystemId, PM_DEV_DDR_0,
 							  (u32)PM_CAP_CONTEXT, 0);
 			if (XST_SUCCESS != Status) {

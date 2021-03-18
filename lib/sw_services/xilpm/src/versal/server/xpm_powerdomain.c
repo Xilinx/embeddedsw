@@ -633,6 +633,12 @@ XStatus XPm_PowerUpPLD(XPm_Node *Node)
 		Status = XST_SUCCESS;
 		goto done;
 	} else {
+		Status = XPmNpDomain_ClockGate(Node, 1);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_NOC_CLOCK_GATING;
+			goto done;
+		}
+
 		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_INIT_START, NULL, 0);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_FUNC_INIT_START;
@@ -656,7 +662,7 @@ done:
 	return Status;
 }
 
-XStatus XPm_PowerDwnPLD(void)
+XStatus XPm_PowerDwnPLD(XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -782,6 +788,11 @@ XStatus XPm_PowerDwnPLD(void)
 		goto done;
 	}
 
+	Status = XPmNpDomain_ClockGate(Node, 0);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_NOC_CLOCK_GATING;
+	}
+
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -790,18 +801,24 @@ done:
 XStatus XPm_PowerUpME(XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	(void)Node;
+	Status = XPmNpDomain_ClockGate(Node, 1);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_NOC_CLOCK_GATING;
+	}
 
 	/* TODO: Reload ME CDO */
-	Status = XST_SUCCESS;
 
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
-XStatus XPm_PowerDwnME(void)
+XStatus XPm_PowerDwnME(XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* TODO: Isolate ME */
 
@@ -809,24 +826,33 @@ XStatus XPm_PowerDwnME(void)
 
 	/* TODO: Send PMC_I2C command to turn of ME power rail */
 
-	Status = XST_SUCCESS;
+	Status = XPmNpDomain_ClockGate(Node, 0);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_NOC_CLOCK_GATING;
+	}
 
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
 XStatus XPm_PowerUpCPM(XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	(void)Node;
+	Status = XPmNpDomain_ClockGate(Node, 1);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_NOC_CLOCK_GATING;
+	}
 
 	/* TODO: Reload CPM CDO */
-	Status = XST_SUCCESS;
 
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
-XStatus XPm_PowerDwnCPM(void)
+XStatus XPm_PowerDwnCPM(XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -874,6 +900,11 @@ XStatus XPm_PowerDwnCPM(void)
 	}
 
 	/* TODO: Send PMC_I2C command to turn off CPM power rail */
+
+	Status = XPmNpDomain_ClockGate(Node, 0);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_NOC_CLOCK_GATING;
+	}
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
