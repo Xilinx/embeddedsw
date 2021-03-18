@@ -161,6 +161,11 @@ u32 _XAie_GetNumRows(XAie_DevInst *DevInst, u8 TileType)
 	{       NumRows = DevInst->AieTileNumRows;
 		break;
 	}
+	case XAIEGBL_TILE_TYPE_RESERVED:
+	{
+		NumRows = 0U;
+		break;
+	}
 	default:
 	{
 		XAIE_ERROR("Invalid Tiletype\n");
