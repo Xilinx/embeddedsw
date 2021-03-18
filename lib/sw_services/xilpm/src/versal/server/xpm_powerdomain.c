@@ -78,7 +78,6 @@ XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
 		goto done;
 	}
 
-	PowerDomain->Children = NULL;
 	PowerDomain->DomainOps = Ops;
 	if (NULL != Parent) {
 		PowerDomain->Parents[0] = Parent->Node.Id;
@@ -112,7 +111,8 @@ XStatus XPmPowerDomain_AddParent(u32 Id, u32 *ParentNodes, u32 NumParents)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_PowerDomain *PowerD;
-	u32 i;
+	XPm_PowerDomain *ParentPowerD;
+	u32 i, j;
 
 	PowerD = (XPm_PowerDomain *)XPmPower_GetById(Id);
 
@@ -121,13 +121,34 @@ XStatus XPmPowerDomain_AddParent(u32 Id, u32 *ParentNodes, u32 NumParents)
 		goto done;
 	}
 
-	if ((MAX_POWERDOMAIN_PARENTS - 1U) < NumParents) {
+	if ((MAX_POWERDOMAINS - 1U) < NumParents) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
 	for (i = 0; i < NumParents; i++) {
 		PowerD->Parents[i + 1U] = ParentNodes[i];
+
+		/* Add Id as child of each parent node */
+		ParentPowerD = (XPm_PowerDomain *)XPmPower_GetById(ParentNodes[i]);
+		if (NULL == ParentPowerD) {
+			Status = XPM_PM_INVALID_NODE;
+			goto done;
+		}
+
+		for (j = 0U; j < MAX_POWERDOMAINS; j++) {
+			if (ParentPowerD->Children[j] != 0U) {
+				continue;
+			}
+
+			ParentPowerD->Children[j] = Id;
+			break;
+		}
+
+		if (MAX_POWERDOMAINS == j) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
 	}
 
 	Status = XST_SUCCESS;
@@ -1149,16 +1170,16 @@ done:
 XStatus XPmPower_UpdateRailStats(XPm_PowerDomain *PwrDomain, u8 State)
 {
 	XStatus Status = XST_FAILURE;
-	u16 i=0, j=0;
+	u32 i=0, j=0;
 	XPm_PowerDomain *ParentDomain;
 	XPm_Rail *ParentRail;
 
 	/* Update rail node usecounts */
-	for (i = 0; i < MAX_POWERDOMAIN_PARENTS && (0U != PwrDomain->Parents[i]); i++) {
+	for (i = 0; ((i < MAX_POWERDOMAINS) && (0U != PwrDomain->Parents[i])); i++) {
 		/* If power domain is the parent, scan through its rails */
 		if ((u32)XPM_NODESUBCL_POWER_DOMAIN == NODESUBCLASS(PwrDomain->Parents[i])) {
 			ParentDomain = (XPm_PowerDomain *)XPmPower_GetById(PwrDomain->Parents[i]);
-			for (j = 0; j < MAX_POWERDOMAIN_PARENTS && (0U != ParentDomain->Parents[j]); j++) {
+			for (j = 0; ((j < MAX_POWERDOMAINS) && (0U != ParentDomain->Parents[j])); j++) {
 				if ((u32)XPM_NODESUBCL_POWER_RAIL == NODESUBCLASS(ParentDomain->Parents[j])) {
 					ParentRail = (XPm_Rail *)XPmPower_GetById(ParentDomain->Parents[j]);
 					if ((u8)XPM_POWER_STATE_ON == State) {

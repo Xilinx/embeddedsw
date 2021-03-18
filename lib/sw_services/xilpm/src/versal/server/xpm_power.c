@@ -577,7 +577,6 @@ XStatus XPmPower_Init(XPm_Power *Power,
 	u32 Id, u32 BaseAddress, XPm_Power *Parent)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_PowerDomain *PowerDomain;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* Todo: Uncomment this after integrating with CDO handler */
@@ -590,25 +589,17 @@ XStatus XPmPower_Init(XPm_Power *Power,
 	XPmNode_Init(&Power->Node, Id, (u8)XPM_POWER_STATE_OFF, BaseAddress);
 
 	Power->Parent = Parent;
-	Power->NextPeer = NULL;
 	Power->HandleEvent = HandlePowerEvent;
 	Power->UseCount = 0;
 	Power->WfParentUseCnt = 0;
 	Power->PwrDnLatency = 0;
 	Power->PwrUpLatency = 0;
-
-	if ((NULL != Parent) && ((u32)XPM_NODESUBCL_POWER_DOMAIN ==
-				 NODESUBCLASS(Parent->Node.Id))) {
-		PowerDomain = (XPm_PowerDomain *)Parent;
-		Power->NextPeer = PowerDomain->Children;
-		PowerDomain->Children = Power;
-	}
-
 	Status = SetPowerNode(Id, Power);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_INVALID_PARAM;
 		goto done;
 	}
+
 	Status = XST_SUCCESS;
 
 done:

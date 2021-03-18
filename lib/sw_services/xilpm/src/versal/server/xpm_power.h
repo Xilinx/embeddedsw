@@ -52,7 +52,6 @@ struct XPm_I2cCmd {
 struct XPm_Power {
 	XPm_Node Node; /**< Node: Node base class */
 	XPm_Power *Parent; /**< Parent: Parent node in the power topology */
-	XPm_Power *NextPeer; /**< NextPeer: Next power node of the same parent  */
 	u8 UseCount; /**< No. of devices currently using this power node */
 	u8 WfParentUseCnt; /**< Pending use count of the parent */
 	u16 PwrDnLatency; /**< Latency (in us) for transition to OFF state */
