@@ -1,0 +1,17 @@
+
+APP =
+APPSOURCES=*.c
+OUTS =
+PRACH_OBJS =
+INCLUDES =
+BOARD_FLAG =
+OBJS =
+
+%.o: %.c
+	$(CC) ${LDFLAGS} ${BOARD_FLAG} $(INCLUDES) ${CFLAGS} -c $(APPSOURCES)
+
+all: $(PRACH_OBJS)
+	$(CC) ${LDFLAGS} $(INCLUDES) $(OBJS) $(PRACH_OBJS) -o $(OUTS) -ldfeprach
+
+clean:
+	rm -rf $(OUTS) *.o
