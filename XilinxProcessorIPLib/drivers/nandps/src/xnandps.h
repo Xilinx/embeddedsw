@@ -155,6 +155,7 @@
 * 2.4   nsk    06/20/18    Fixed BBT offset overflow in XNandPs_WriteBbt()
 *			   and XNandPs_ReadBbt().
 * 2.6	akm    09/03/20    Updated the Makefile to support parallel make execution.
+* 2.7   sg     03/18/21    Added validation check for parameter page.
 *
 * </pre>
 *
@@ -182,6 +183,8 @@ extern "C" {
 						  flash */
 #define XNANDPS_MAX_SPARE_SIZE		512	/**< Max spare bytes of a NAND
 						  flash page */
+#define XNANDPS_MAX_LUNS		8	/**< Max number of LUNs */
+#define XNANDPS_MAX_PAGES_PER_BLOCK	512 	/**< Max number pages per block */
 #define XNANDPS_ECC_BLOCK_SIZE		512	/**< ECC block size */
 #define XNANDPS_ECC_BYTES		3	/**< ECC bytes per ECC block */
 

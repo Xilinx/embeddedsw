@@ -29,6 +29,7 @@
 * 1.04a nm     04/25/2013  Implemented PR# 699544. Added page cache read
 *			   and program commands to ONFI command list.
 *			   Reading the cache features during read param page.
+* 2.7   sg     03/18/21    Added validation check for parameter page.
 * </pre>
 *
 ******************************************************************************/
@@ -492,6 +493,14 @@ int Onfi_NandInit(XNandPs *InstancePtr)
 			Status = Onfi_ReadParamPage(InstancePtr,
 					(u8 *)&Nand_Geometry);
 			if (Status != XST_FAILURE) {
+				if (Nand_Geometry.BytesPerPage > XNANDPS_MAX_PAGE_SIZE ||
+					Nand_Geometry.SpareBytesPerPage > XNANDPS_MAX_SPARE_SIZE ||
+					Nand_Geometry.PagesPerBlock > XNANDPS_MAX_PAGES_PER_BLOCK ||
+					Nand_Geometry.BlocksPerLun > XNANDPS_MAX_BLOCKS ||
+					Nand_Geometry.NumLuns > XNANDPS_MAX_LUNS) {
+					return XST_FAILURE;
+				}
+
 				InstancePtr->Geometry.NumLun =
 					Nand_Geometry.NumLuns;
 				InstancePtr->Geometry.PagesPerBlock =
