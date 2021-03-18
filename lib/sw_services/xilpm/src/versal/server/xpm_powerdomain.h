@@ -56,11 +56,11 @@ XStatus XPm_PowerDwnLPD(void);
 XStatus XPm_PowerUpFPD(XPm_Node *Node);
 XStatus XPm_PowerDwnFPD(XPm_Node *Node);
 XStatus XPm_PowerUpPLD(XPm_Node *Node);
-XStatus XPm_PowerDwnPLD(void);
+XStatus XPm_PowerDwnPLD(XPm_Node *Node);
 XStatus XPm_PowerUpME(XPm_Node *Node);
-XStatus XPm_PowerDwnME(void);
+XStatus XPm_PowerDwnME(XPm_Node *Node);
 XStatus XPm_PowerUpCPM(XPm_Node *Node);
-XStatus XPm_PowerDwnCPM(void);
+XStatus XPm_PowerDwnCPM(XPm_Node *Node);
 XStatus XPm_PowerUpNoC(XPm_Node *Node);
 XStatus XPm_PowerDwnNoC(void);
 XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,6 +38,7 @@ XStatus XPmMemDevice_Init(XPm_MemDevice *MemDevice,
 		u32 BaseAddress,
 		XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset,
 		u32 MemStartAddress, u32 MemEndAddress);
+XStatus XPmDDRDevice_IsInSelfRefresh(void);
 
 #ifdef __cplusplus
 }

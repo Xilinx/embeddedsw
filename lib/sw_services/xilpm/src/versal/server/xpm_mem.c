@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,6 +10,8 @@
 #include "xpm_powerdomain.h"
 #include "xpm_mem.h"
 #include "xpm_rpucore.h"
+#include "xpm_npdomain.h"
+#include "xpm_debug.h"
 
 #define XPM_TCM_BASEADDRESS_MODE_OFFSET	0x80000U
 
@@ -49,9 +51,54 @@ static const XPm_StateTran XPmDDRDevTransitions[] = {
 	},
 };
 
+/****************************************************************************/
+/**
+ * @brief  This function checks whether DRAMs are in self-refresh mode
+ *
+ * @return XST_SUCCESS if DRAMs are in self-refresh mode or no DDRMC is
+ *	   configured for the design, XST_FAILURE if DRAMs are not in
+ *	   self-refresh mode
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPmDDRDevice_IsInSelfRefresh(void)
+{
+	XStatus Status = XST_SUCCESS;
+	const XPm_Device *Device;
+	u32 BaseAddress;
+	u32 Reg, IsActive;
+	u32 i;
+
+	for (i = (u32)XPM_NODEIDX_DEV_DDRMC_MIN; i <= (u32)XPM_NODEIDX_DEV_DDRMC_MAX;
+	     i++) {
+		Device = XPmDevice_GetById(DDRMC_DEVID(i));
+		if (NULL == Device) {
+			continue;
+		}
+
+		BaseAddress = Device->Node.BaseAddress;
+		PmIn32((BaseAddress + NPI_PCSR_CONTROL_OFFSET), IsActive);
+		if (DDRMC_UB_PCSR_CONTROL_PCOMPLETE_MASK !=
+		    (IsActive & DDRMC_UB_PCSR_CONTROL_PCOMPLETE_MASK)) {
+			continue;
+		}
+
+		Reg = XPm_In32(BaseAddress + DDRMC_MAIN_UB_OFFSET + DDRMC_MAIN_REG_COM_4_OFFSET);
+		if ((Reg & DDRMC_MAIN_DRAM_MODE_REPORT_MASK) != DDRMC_MAIN_SELF_REFRESH_MODE) {
+			Status = XST_FAILURE;
+			goto done;
+		}
+	}
+
+done:
+	return Status;
+}
+
 static XStatus XPmDDRDevice_EnterSelfRefresh(void)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	XPm_Device *Device;
 	u32 BaseAddress;
 	u32 Reg, IsActive;
@@ -102,19 +149,32 @@ static XStatus XPmDDRDevice_EnterSelfRefresh(void)
 		XPm_Out32(Reg, 0);
 	}
 
-	Status = XST_SUCCESS;
+	Device = XPmDevice_GetById(DDRMC_DEVID((u32)XPM_NODEIDX_DEV_DDRMC_MIN));
+	Status = XPmNpDomain_ClockGate((XPm_Node *)Device, 0);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_NOC_CLOCK_GATING;
+	}
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
 static XStatus XPmDDRDevice_ExitSelfRefresh(void)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	XPm_Device *Device;
 	u32 BaseAddress;
 	u32 Reg, IsActive;
 	u32 i;
+
+	Device = XPmDevice_GetById(DDRMC_DEVID((u32)XPM_NODEIDX_DEV_DDRMC_MIN));
+	Status = XPmNpDomain_ClockGate((XPm_Node *)Device, 1);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_NOC_CLOCK_GATING;
+		goto done;
+	}
 
 	for (i = (u32)XPM_NODEIDX_DEV_DDRMC_MIN; i <= (u32)XPM_NODEIDX_DEV_DDRMC_MAX;
 	     i++) {
@@ -161,9 +221,8 @@ static XStatus XPmDDRDevice_ExitSelfRefresh(void)
 		XPm_Out32(Reg, 0);
 	}
 
-	Status = XST_SUCCESS;
-
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 

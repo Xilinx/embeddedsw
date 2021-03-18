@@ -17,6 +17,7 @@
 #include "xpm_debug.h"
 #include "xpm_rail.h"
 #include "xpm_device.h"
+#include "xpm_mem.h"
 
 #define XPM_NODEIDX_DEV_DDRMC_MIN	XPM_NODEIDX_DEV_DDRMC_0
 #define XPM_NODEIDX_DEV_DDRMC_MAX	XPM_NODEIDX_DEV_DDRMC_3
@@ -587,6 +588,176 @@ XStatus XPmNpDomain_MemIcInit(u32 DeviceId, u32 BaseAddr)
 	NpdMemIcAddresses[Idx] = BaseAddr;
 
 	Status = XST_SUCCESS;
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function checks whether all power domains that depend on NOC
+ *	   power domain are powered off.
+ *
+ * @param  Node		Node pointer of a device or a power domain that depends
+ *			on NOC power domain
+ *
+ * @return XST_SUCCESS if NOC power domain is quiescent, XST_FAILURE if NOC
+ *	   power domain is not quiescent due to one of depend power domains
+ *	   is not powered off, or the Node is not a depend power domain of NOC
+ *
+ * @note  None
+ *
+ ****************************************************************************/
+XStatus XPmNpDomain_IsNpdIdle(XPm_Node *Node)
+{
+	XStatus Status = XST_SUCCESS;
+	XPm_PowerDomain *PowerD;
+	XPm_Power *Walk;
+	u32 i;
+
+	/* Return failure if Node does not depend on NOC power domain */
+	PowerD = (XPm_PowerDomain *)Node;
+	if (PowerD->Power.Parent->Node.Id != (u32)PM_POWER_NOC) {
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	/* Check idleness of NOC's dependent power domains */
+	PowerD = (XPm_PowerDomain *)PowerD->Power.Parent;
+	for (i = 0U; ((i < (u32)MAX_POWERDOMAINS) && (PowerD->Children[i] != 0U));
+	     i++) {
+		Walk = (XPm_Power *)XPmPower_GetById(PowerD->Children[i]);
+		/* Skip the power domain that is related to the caller */
+		if (Walk->Node.Id == Node->Id) {
+			continue;
+		}
+
+		/*
+		 * The PL_SYSMON power domain depends on NOC power domain but
+		 * it does not use the NOC transport layer, therefore it is
+		 * excluded from this consideration.
+		 */
+		if (Walk->Node.Id == (u32)PM_POWER_PL_SYSMON) {
+			continue;
+		}
+
+		/*
+		 * If 'UseCount' of a power domain that depends on NOC is not 0,
+		 * then the power domain is in use and therefore not idle.
+		 */
+		if (Walk->UseCount != 0U) {
+			Status = XST_FAILURE;
+			goto done;
+		}
+	}
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function turns the NOC clock off/on by gateing the clock.
+ *
+ * @param  Node		Node pointer of a device or a power domain that depends
+ *			on NOC power domain
+ * @param  State	Requested state for the clock: 0 - Off, 1 - On
+ *
+ * @return XST_SUCCESS if successful to change the clock state, or if the NOC
+ *	   power domain is not idle due to one of it's depend power domain is
+ *	   not powered off.  Otherwise, return a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPmNpDomain_ClockGate(XPm_Node *Node, u8 State)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	XPm_Power *Power;
+	u32 BaseAddress, Reg;
+	u32 SlrType;
+	u32 Clock_State;
+
+	/* Node's parent power dmain should be NOC */
+	Power = (XPm_Power *)Node;
+	if (NODECLASS(Power->Node.Id) == (u32)XPM_NODECLASS_DEVICE) {
+		if (Power->Parent->Node.Id != (u32)PM_POWER_NOC) {
+			DbgErr = XPM_INT_ERR_INVALID_NODE;
+			goto done;
+		}
+	} else if ((NODECLASS(Power->Node.Id) == (u32)XPM_NODECLASS_POWER) &&
+		   (NODESUBCLASS(Power->Node.Id) == (u32)XPM_NODESUBCL_POWER_DOMAIN)) {
+		XPm_PowerDomain *PowerD = (XPm_PowerDomain *)Node;
+		u32 i = 0U;
+		while (i < MAX_POWERDOMAINS) {
+			Power = (XPm_Power *)XPmPower_GetById(PowerD->Parents[i]);
+			i++;
+			if (Power->Node.Id == (u32)PM_POWER_NOC) {
+				break;
+			}
+		}
+
+		if (MAX_POWERDOMAINS == i) {
+			DbgErr = XPM_INT_ERR_INVALID_NODE;
+			goto done;
+		}
+	} else {
+		DbgErr = XPM_INT_ERR_INVALID_NODE;
+		goto done;
+	}
+
+	/* Support monolithic devices for now */
+	SlrType = XPm_GetSlrType();
+	if (SlrType != SLR_TYPE_MONOLITHIC_DEV) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/* If NOC Power Domain is not idle, just return */
+	if ((0U == State) && (XPmNpDomain_IsNpdIdle(Node) != XST_SUCCESS)) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/* Unlock NOC_NPS_0 */
+	BaseAddress = NOC_PACKET_SWITCH_BASEADDR;
+	Reg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
+	XPm_Out32(Reg, NPI_PCSR_UNLOCK_VAL);
+
+	/* Current state of the NOC clock */
+	Reg = BaseAddress + NOC_NPS_0_REG_CLOCK_MUX_OFFSET;
+	Clock_State = XPm_In32(Reg);
+
+	switch (State) {
+	case 0U:
+		/* If DRAMs are not in self-refresh mode, just return */
+		if (XPmDDRDevice_IsInSelfRefresh() != XST_SUCCESS) {
+			Status = XST_SUCCESS;
+			break;
+		}
+
+		/*
+		 * Turn off the NOC clock by setting bits[3:2] to 1
+		 * and leave bits[1:0] unmodified.
+		 */
+		XPm_Out32(Reg, (Clock_State | 0xCU));
+		Status = XST_SUCCESS;
+		break;
+	case 1U:
+		/* Turn on the NOC clock by clearing bits[3:2] */
+		XPm_Out32(Reg, (Clock_State & 0x3U));
+		Status = XST_SUCCESS;
+		break;
+	default:
+		DbgErr = XST_INVALID_PARAM;
+		break;
+	}
+
+	/* Lock NOC_NPS_0 */
+	Reg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
+	XPm_Out32(Reg, 0U);
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
