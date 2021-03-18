@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -101,6 +101,7 @@
 *       mmo    03/08/19 Added "IsStreamUpHDCP" to enable the HDCP
 *                              Authentication on the first VSYNC of TX
 *       ku     05/19/20 Fixed  Removed the IPS register wa for Versal
+* 3.05  ssh    03/17/21 Added EdidHdmi20_t, PsIic0 and PsIic1 declarations
 * </pre>
 *
 ******************************************************************************/
@@ -189,6 +190,9 @@ u8                 Hdmiphy1PllLayoutErrorFlag;
 XV_HdmiTxSs        HdmiTxSs;
 XV_HdmiTxSs_Config *XV_HdmiTxSs_ConfigPtr;
 
+EdidHdmi20 EdidHdmi20_t;
+
+
 #ifdef XPAR_XV_TPG_NUM_INSTANCES
 /* Test Pattern Generator Structure */
 XV_tpg             Tpg;
@@ -266,6 +270,14 @@ XHdmi_Menu         HdmiMenu;
  *  */
 u8                 IsPassThrough = (FALSE);
 u8                 StartTxAfterRxFlag = (FALSE);
+
+#if defined (ARMR5) || ((__aarch64__) && (!defined XPS_BOARD_ZCU104))
+XIicPs Ps_Iic0, Ps_Iic1;
+#define PS_IIC_CLK 100000
+#endif
+#ifdef versal
+XIic Iic0;
+#endif
 
 /* General HDMI Application Variable Declaration (Scratch Pad) */
 
