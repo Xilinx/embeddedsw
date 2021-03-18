@@ -47,6 +47,7 @@
 *                       secure IPI commands
 *       ma   03/10/2021 Removed Get Device Id and Get Board commands from
 *                       secure commands list
+*       ma   03/18/2021 Added support for Marker command
 *
 * </pre>
 *
@@ -1313,6 +1314,29 @@ static int XPlmi_LogAddress(XPlmi_Cmd *Cmd)
 
 /*****************************************************************************/
 /**
+ * @brief	This function provides Marker command execution.
+ *
+ * @param	Cmd is pointer to the command structure
+ *              Command payload parameters are
+ *              - Type
+ *              - String
+ *
+ * @return	XST_SUCCESS
+ *
+ *****************************************************************************/
+static int XPlmi_Marker(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+
+	XPlmi_Printf(DEBUG_DETAILED, "%s %p\n\r", __func__, Cmd);
+	/* Return success */
+	Status = XST_SUCCESS;
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
  * @brief	This function checks if the IPI command is accessible or not
  *
  * @param	CmdId is the Command ID
@@ -1391,6 +1415,7 @@ void XPlmi_GenericInit(void)
 		XPLMI_MODULE_COMMAND(XPlmi_SetWdtParam),
 		XPLMI_MODULE_COMMAND(XPlmi_LogString),
 		XPLMI_MODULE_COMMAND(XPlmi_LogAddress),
+		XPLMI_MODULE_COMMAND(XPlmi_Marker),
 	};
 
 	XPlmi_Generic.Id = XPLMI_MODULE_GENERIC_ID;
