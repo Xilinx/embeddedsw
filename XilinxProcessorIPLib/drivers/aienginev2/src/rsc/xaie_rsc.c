@@ -44,6 +44,7 @@
 AieRC _XAie_RscMgrFinish(XAie_DevInst *DevInst)
 {
 	_XAie_PerfCntRscFinish(DevInst);
+	_XAie_UserEventsRscFinish(DevInst);
 
 	free(DevInst->RscMapping);
 	return XAIE_OK;
@@ -76,6 +77,16 @@ AieRC _XAie_RscMgrInit(XAie_DevInst *DevInst)
 		XAIE_ERROR("Unable to allocate memory for perfcnt bitmaps\n");
 		return XAIE_ERR;
 	}
+
+	RC = _XAie_UserEventsRscInit(DevInst);
+	if(RC != XAIE_OK) {
+		goto CleanPerfCntRsc;
+	}
+
+	return RC;
+
+CleanPerfCntRsc:
+	_XAie_PerfCntRscFinish(DevInst);
 
 	return RC;
 }
