@@ -147,6 +147,7 @@
 *                          warnings.
 # 1.6	sd     06/02/20    Added Clock support
 * 1.6	sd     20/03/20    Added compilation flag
+* 1.8   sg     03/18/21    Added validation check for parameter page.
 *
 * </pre>
 *
@@ -192,6 +193,8 @@ extern "C" {
 #define XNANDPSU_MAX_BLOCKS		16384U	/**< Max number of Blocks */
 #define XNANDPSU_MAX_SPARE_SIZE		0x800U	/**< Max spare bytes of a NAND
 						  flash page of 16K */
+#define XNANDPSU_MAX_LUNS		8U	/**< Max number of LUNs */
+#define XNANDPSU_MAX_PAGES_PER_BLOCK	512U 	/**< Max number pages per block */
 
 #define XNANDPSU_INTR_POLL_TIMEOUT	0xF000000U
 

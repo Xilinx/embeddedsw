@@ -83,6 +83,7 @@
 *                       warnings.
 * 1.6	sd     06/02/20    Added Clock support
 * 1.6	sd     20/03/20    Added compilation flag
+* 1.8   sg     03/18/21	   Added validation check for parameter page.
 *
 * </pre>
 *
@@ -133,7 +134,7 @@ static const XNandPsu_EccMatrix EccMatrix[] = {
 
 static s32 XNandPsu_FlashInit(XNandPsu *InstancePtr);
 
-static void XNandPsu_InitGeometry(XNandPsu *InstancePtr, OnfiParamPage *Param);
+static s32 XNandPsu_InitGeometry(XNandPsu *InstancePtr, OnfiParamPage *Param);
 
 static void XNandPsu_InitFeatures(XNandPsu *InstancePtr, OnfiParamPage *Param);
 
@@ -366,7 +367,10 @@ static s32 XNandPsu_FlashInit(XNandPsu *InstancePtr)
 		}
 		/* Fill Geometry for the first target */
 		if (Target == 0U) {
-			XNandPsu_InitGeometry(InstancePtr, &Param[Index]);
+			Status = XNandPsu_InitGeometry(InstancePtr, &Param[Index]);
+			if (Status != XST_SUCCESS) {
+				goto Out;
+			}
 			XNandPsu_InitFeatures(InstancePtr, &Param[Index]);
 			if ((!InstancePtr->Features.EzNand) != 0U) {
 				Status =XNandPsu_CheckOnDie(InstancePtr,&Param[Index]);
@@ -439,21 +443,66 @@ Out:
 * @param	Param is pointer to the ONFI parameter page.
 *
 * @return
-*		None
+*               - XST_SUCCESS if successful.
+*               - XST_FAILURE if failed.
 *
 * @note		None
 *
 ******************************************************************************/
-static void XNandPsu_InitGeometry(XNandPsu *InstancePtr, OnfiParamPage *Param)
+static s32 XNandPsu_InitGeometry(XNandPsu *InstancePtr, OnfiParamPage *Param)
 {
+	s32 Status = XST_FAILURE;
+
 	/* Assert the input arguments. */
 	Xil_AssertVoid(Param != NULL);
 
+	if (Param->BytesPerPage > XNANDPSU_MAX_PAGE_SIZE) {
+#ifdef XNANDPSU_DEBUG
+			xil_printf("%s: Invalid Bytes Per Page %d\r\n",
+					__func__, Param->BytesPerPage);
+#endif
+			goto Out;
+	}
 	InstancePtr->Geometry.BytesPerPage = Param->BytesPerPage;
+
+
+	if (Param->SpareBytesPerPage > XNANDPSU_MAX_SPARE_SIZE) {
+#ifdef XNANDPSU_DEBUG
+			xil_printf("%s: Invalid Spare Bytes Per Page %d\r\n",
+					__func__, Param->SpareBytesPerPage);
+#endif
+			goto Out;
+	}
 	InstancePtr->Geometry.SpareBytesPerPage = Param->SpareBytesPerPage;
+
+	if (Param->PagesPerBlock > XNANDPSU_MAX_PAGES_PER_BLOCK) {
+#ifdef XNANDPSU_DEBUG
+			xil_printf("%s: Invalid Page Count Per Block %d\r\n",
+					__func__, Param->PagesPerBlock);
+#endif
+			goto Out;
+	}
 	InstancePtr->Geometry.PagesPerBlock = Param->PagesPerBlock;
+
+
+	if (Param->BlocksPerLun > XNANDPSU_MAX_BLOCKS) {
+#ifdef XNANDPSU_DEBUG
+			xil_printf("%s: Invalid block count per LUN %d\r\n",
+					__func__, Param->BlocksPerLun);
+#endif
+			goto Out;
+	}
 	InstancePtr->Geometry.BlocksPerLun = Param->BlocksPerLun;
+
+	if (Param->NumLuns > XNANDPSU_MAX_LUNS) {
+#ifdef XNANDPSU_DEBUG
+			xil_printf("%s: Invalid LUN count %d\r\n",
+					__func__, Param->NumLuns);
+#endif
+			goto Out;
+	}
 	InstancePtr->Geometry.NumLuns = Param->NumLuns;
+
 	InstancePtr->Geometry.RowAddrCycles = Param->AddrCycles & 0xFU;
 	InstancePtr->Geometry.ColAddrCycles = (Param->AddrCycles >> 4U) & 0xFU;
 	InstancePtr->Geometry.NumBitsPerCell = Param->BitsPerCell;
@@ -492,6 +541,9 @@ static void XNandPsu_InitGeometry(XNandPsu *InstancePtr, OnfiParamPage *Param)
 					InstancePtr->Geometry.NumTargetPages);
 
 #endif
+	Status = XST_SUCCESS;
+Out:
+	return Status;
 }
 
 /*****************************************************************************/
