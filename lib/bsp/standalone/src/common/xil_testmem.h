@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2009 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2009 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -73,6 +73,13 @@
 * Ver    Who    Date    Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.00a hbm  08/25/09 First release
+* 7.5   mus  03/10/21 Added new set of Xil_TestMem32, Xil_TestMem16 and
+*                     Xil_TestMem8 APIs to support memory test for memory
+*                     regions mapped at extended addresses
+*                     (addresses > 4 GB). These new set of APIs would be
+*                     compiled only for 32 bit Microblaze processor, if
+*                     XPAR_MICROBLAZE_ADDR_SIZE is greater than 32.
+*                     It fixes CR#1089129.
 * </pre>
 *
 ******************************************************************************/
@@ -86,6 +93,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
+#include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -111,16 +119,28 @@ extern "C" {
 #define XIL_TESTMEM_MAXTEST         XIL_TESTMEM_FIXEDPATTERN
 /* @} */
 
+#if !defined(__aarch64__) && !defined(__arch64__)
+#define	NUM_OF_BITS_IN_BYTE	8U
+#define	NUM_OF_BYTES_IN_HW	2U
+#define	NUM_OF_BITS_IN_HW	16U
+#define	NUM_OF_BYTES_IN_WORD	4U
+#define	NUM_OF_BITS_IN_WORD	32U
+#endif
 /***************** Macros (Inline Functions) Definitions *********************/
 
 
 /************************** Function Prototypes ******************************/
 
 /* xutil_testmem prototypes */
-
+#if defined(__MICROBLAZE__) && !defined(__arch64__) && (XPAR_MICROBLAZE_ADDR_SIZE > 32)
+extern s32 Xil_TestMem32(u32 AddrLow, u32 AddrHigh, u32 Words, u32 Pattern, u8 Subtest);
+extern s32 Xil_TestMem16(u32 AddrLow, u32 AddrHigh, u32 Words, u16 Pattern, u8 Subtest);
+extern s32 Xil_TestMem8(u32 AddrLow, u32 AddrHigh, u32 Words, u8 Pattern, u8 Subtest);
+#else
 extern s32 Xil_TestMem32(u32 *Addr, u32 Words, u32 Pattern, u8 Subtest);
 extern s32 Xil_TestMem16(u16 *Addr, u32 Words, u16 Pattern, u8 Subtest);
 extern s32 Xil_TestMem8(u8 *Addr, u32 Words, u8 Pattern, u8 Subtest);
+#endif
 
 #ifdef __cplusplus
 }
