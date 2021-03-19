@@ -53,6 +53,15 @@ static AieRC _XAie_EccPerfCntConfig(XAie_DevInst *DevInst, XAie_LocType Loc)
 {
 	AieRC RC;
 
+	/* Reserve perf counter 0 of Core Module for ECC */
+	XAie_UserRsc ReturnRsc = {Loc, XAIE_CORE_MOD, XAIE_PERFCNT_RSC,
+		XAIE_ECC_CORE_PERCOUNTER_ID};
+	RC = XAie_RequestAllocatedPerfcnt(DevInst, 1U, &ReturnRsc);
+	if(RC != XAIE_OK) {
+		XAIE_ERROR("Unable to reserve perf counter for ECC\n");
+		return XAIE_ERR;
+	}
+
 	/*
 	* Configure perf count event value register for core module's
 	* perf counter 0 with the decided ECC scrub clock count.
