@@ -31,6 +31,7 @@
 *                       and Global Variation Filter option
 * 1.3   har  01/06/2021 Added prototype for the XPuf_ClearPufId and related macros
 *            02/19/2021 Added error code for syndrome data underflow and overflow
+*       har  03/08/2021 Added error code for IRO frequency mismatch
 *
 * </pre>
 *
@@ -83,8 +84,8 @@ extern "C" {
 #define XPUF_ERROR_PUF_DONE_WAIT_TIMEOUT		(0x07)
 #define XPUF_ERROR_REGISTRATION_INVALID			(0x08)
 #define XPUF_SHUTTER_GVF_MISMATCH			(0x09)
-#define XPUF_ERROR_SYN_DATA_UNDERFLOW			(0x0A)
-#define XPUF_ERROR_SYN_DATA_OVERFLOW			(0x0B)
+#define XPUF_ERROR_SYN_DATA_ERROR			(0x0A)
+#define XPUF_IRO_FREQ_MISMATCH				(0x0B)
 
 /* Key regeneration time error codes */
 #define XPUF_ERROR_CHASH_NOT_PROGRAMMED			(0x10)

@@ -24,6 +24,7 @@
 * 1.2	am   08/19/2020 Resolved MISRA C violations.
 *       har  09/30/2020 Removed header files which were not required
 * 1.3   har  01/06/2021 Added offset for PUF_CLEAR register and its definition
+*       har  03/08/2021 Added offset for IRO frequency
 *
 * </pre>
 *
@@ -94,6 +95,14 @@ extern "C" {
 
 /* Reset value of PUF_SYN_ADDR register */
 #define XPUF_EFUSE_SYN_ADD_INIT			(0xF1250A04U)
+
+/*
+ * EFUSE_CTRL Base Address
+ */
+#define XPUF_EFUSE_CTRL_BASEADDR		(0xF1240000U)
+
+#define XPUF_ANLG_OSC_SW_1LP_OFFSET		(0x00000060U)
+
 
 /***************** Macros (Inline Functions) Definitions ********************/
 
