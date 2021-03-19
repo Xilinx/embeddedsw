@@ -34,6 +34,7 @@
 *       har  02/12/2021 Replaced while loop in PUF registration with for loop
 *       har  02/12/2021 Added a redundancy check for MaxSyndromeSizeInWords to
 *                       avoid potential buffer overflow
+*       har  03/08/2021 Added checks for IRO frequency
 *
 * </pre>
 *
@@ -146,6 +147,31 @@ static inline void XPuf_CfgGlobalVariationFilter(const u8 GlobalVarFilter)
 	}
 }
 
+/*****************************************************************************/
+/**
+ *
+ * @brief	This function checks if the IRO frequency at time of PUF
+ *		operation matches IRO frequency at boot i.e. 320 MHz.
+ *
+ * @return	XST_SUCCESS if IRO frequency is 320 MHz
+ *		XPUF_IRO_FREQ_MISMATCH - IRO frequency is not 320 MHz
+ *
+ *****************************************************************************/
+static inline int XPuf_CheckIroFreq()
+{
+	int Status = XPUF_IRO_FREQ_MISMATCH;
+
+	if (XPuf_ReadReg(XPUF_EFUSE_CTRL_BASEADDR,
+		XPUF_ANLG_OSC_SW_1LP_OFFSET) != 0U) {
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
 /************************** Function Prototypes ******************************/
 static void XPuf_CapturePufID(XPuf_Data *PufData);
 static int XPuf_ValidateAccessRules(const XPuf_Data *PufData);
@@ -192,6 +218,11 @@ int XPuf_Registration(XPuf_Data *PufData)
 	if (((PufData->ShutterValue >> XPUF_SHUT_GLB_VAR_FLTR_ENABLED_SHIFT) ^
 		PufData->GlobalVarFilter) == TRUE) {
 		Status = XPUF_SHUTTER_GVF_MISMATCH;
+		goto END;
+	}
+
+	Status = XPuf_CheckIroFreq();
+	if(Status != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -258,12 +289,8 @@ int XPuf_Registration(XPuf_Data *PufData)
 			XPUF_PMC_GLOBAL_PUF_AUX_OFFSET);
 		XPuf_CapturePufID(PufData);
 	}
-	else if (Idx < MaxSyndromeSizeInWords) {
-		Status = XPUF_ERROR_SYN_DATA_UNDERFLOW;
-		goto END;
-	}
 	else {
-		Status = XPUF_ERROR_SYN_DATA_OVERFLOW;
+		Status = XPUF_ERROR_SYN_DATA_ERROR;
 		goto END;
 	}
 
@@ -314,6 +341,11 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 	if (((PufData->ShutterValue >> XPUF_SHUT_GLB_VAR_FLTR_ENABLED_SHIFT) ^
 		PufData->GlobalVarFilter) == TRUE) {
 		Status = XPUF_SHUTTER_GVF_MISMATCH;
+		goto END;
+	}
+
+	Status = XPuf_CheckIroFreq();
+	if(Status != XST_SUCCESS) {
 		goto END;
 	}
 
