@@ -29,6 +29,7 @@
 *       kpt  02/16/21 Corrected check to return valid error code in case of
 *                     MetaHeader IV mismatch and fixed gcc warning
 *       har  03/02/21 Added support to verify IHT as AAD for first secure header
+*       har  03/17/21 Cleaned up code to use the secure state of boot
 *
 * </pre>
 *
@@ -126,6 +127,7 @@ static int XLoader_AuthJtag(void);
 static int XLoader_CheckAuthJtagIntStatus(void *Arg);
 static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	u32 Size, u8 Last);
+static int XLoader_CheckSecureState(u32 RegVal, u32 Var, u32 ExpectedValue);
 
 /************************** Variable Definitions *****************************/
 static XLoader_AuthCertificate AuthCert;
@@ -219,8 +221,8 @@ int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 			const XilPdi_PrtnHdr *PrtnHdr)
 {
 	int Status = XST_FAILURE;
-	volatile u32 ReadReg = 0U;
-	volatile u32 ReadRegTmp = 0U;
+	u32 ReadReg = 0U;
+	u32 SecureStateSHWRoT = XLoader_GetSHWRoT(NULL);
 
 	/* Check if encryption is enabled */
 	if (PrtnHdr->EncStatus != 0x00U) {
@@ -249,12 +251,24 @@ int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 			XPlmi_Printf(DEBUG_INFO, "AES KAT test failed\n\r");
 			goto END;
 		}
-		/* Validate keysrc when DEC only efuse bits are set */
-		ReadReg = XPlmi_In32(XLOADER_EFUSE_SEC_MISC0_OFFSET) &
-				XLOADER_EFUSE_SEC_DEC_MASK;
-		ReadRegTmp = XPlmi_In32(XLOADER_EFUSE_SEC_MISC0_OFFSET) &
-				XLOADER_EFUSE_SEC_DEC_MASK;
-		if ((ReadReg != 0x00U) || (ReadRegTmp != 0x00U)) {
+		/* Check Secure State of the device.
+		 * If S-HWRoT is enabled, then validate keysrc
+		 */
+		ReadReg = XPlmi_In32(XPLMI_RTCFG_SECURESTATE_SHWROT_ADDR);
+		Status = XLoader_CheckSecureState(ReadReg, SecureStateSHWRoT,
+			XPLMI_RTCFG_SECURESTATE_SHWROT);
+		if (Status != XST_SUCCESS) {
+			Status = XLoader_CheckSecureState(ReadReg, SecureStateSHWRoT,
+				XPLMI_RTCFG_SECURESTATE_EMUL_SHWROT);
+			if (Status != XST_SUCCESS) {
+				if (ReadReg != SecureStateSHWRoT) {
+					Status = XPlmi_UpdateStatus(
+						XLOADER_ERR_GLITCH_DETECTED, 0);
+				}
+				goto END;
+			}
+		}
+		else {
 			if ((SecurePtr->PrtnHdr->EncStatus == XLOADER_EFUSE_KEY) ||
 				(SecurePtr->PrtnHdr->EncStatus == XLOADER_BBRAM_KEY)) {
 				Status = XPlmi_UpdateStatus(
@@ -280,25 +294,66 @@ END:
 ******************************************************************************/
 int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 {
-	volatile int Status = XST_SUCCESS;
-	volatile int StatusTmp = XST_SUCCESS;
-	volatile u32 ReadReg = 0x0U;
-	volatile u32 ReadRegTmp = 0x0U;
-	const XilPdi_BootHdr *BootHdr = SecurePtr->PdiPtr->MetaHdr.BootHdrPtr;
-	u32 IsBhdrAuth = XilPdi_IsBhdrAuthEnable(BootHdr);
+	int Status = XST_FAILURE;
+	u32 ReadAuthReg = 0x0U;
+	u32 ReadEncReg = 0x0U;
+	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
+	u32 SecureStateSHWRoT = XLoader_GetSHWRoT(NULL);
 	u32 MetaHeaderKeySrc = SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl.EncKeySrc;
 
 	XPlmi_Printf(DEBUG_INFO,
 		"Performing security checks \n\r");
 	/*
-	 * Checking if authentication is compulsory
-	 * If bits in PPK0/1/2 is programmed bh_auth is not allowed
+	 * Check Secure State of device
+	 * If A-HWROT is enabled then authentication is mandatory for metaheader
+	 * and BHDR authentication must be disabled
 	 */
-	 Status = XLoader_CheckNonZeroPpk();
-	 StatusTmp = Status;
-	/* Authentication is compulsory */
-	if ((Status == XST_SUCCESS) && (StatusTmp == XST_SUCCESS)) {
-		Status = XST_FAILURE;
+	ReadAuthReg = XPlmi_In32(XPLMI_RTCFG_SECURESTATE_AHWROT_ADDR);
+	Status = XLoader_CheckSecureState(ReadAuthReg, SecureStateAHWRoT,
+		XPLMI_RTCFG_SECURESTATE_AHWROT);
+	if (Status != XST_SUCCESS) {
+		Status = XLoader_CheckSecureState(ReadAuthReg, SecureStateAHWRoT,
+			XPLMI_RTCFG_SECURESTATE_EMUL_AHWROT);
+		if (Status != XST_SUCCESS) {
+			Status = XLoader_CheckSecureState(ReadAuthReg, SecureStateAHWRoT,
+				XPLMI_RTCFG_SECURESTATE_NONSECURE);
+			if (Status != XST_SUCCESS) {
+				if (ReadAuthReg != SecureStateAHWRoT) {
+					Status = XPlmi_UpdateStatus(
+						XLOADER_ERR_GLITCH_DETECTED, 0);
+				}
+				goto END;
+			}
+			else {
+				if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
+					(SecurePtr->IsAuthenticatedTmp == (u8)TRUE)) {
+					Status = XPlmi_UpdateStatus(
+						XLOADER_ERR_AUTH_EN_PPK_HASH_ZERO, 0);
+					goto END;
+				}
+			}
+		}
+		else {
+			if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
+				(SecurePtr->IsAuthenticatedTmp == (u8)TRUE)) {
+				/*
+				 * BHDR authentication is
+				 * enabled and PPK hash is not programmed
+				 */
+				XPlmi_Printf(DEBUG_INFO,
+					"Authentication with BH enabled\n\r");
+				Status = XST_SUCCESS;
+			}
+			else {
+				/* Authentication is not compulsory */
+				XPlmi_Printf(DEBUG_DETAILED,
+					"Authentication is not enabled\n\r");
+				Status = XST_SUCCESS;
+			}
+		}
+	}
+	else {
+		/* Authentication is compulsory */
 		if ((SecurePtr->IsAuthenticated == (u8)FALSE) &&
 			(SecurePtr->IsAuthenticatedTmp == (u8)FALSE)) {
 			XPlmi_Printf(DEBUG_INFO,
@@ -309,65 +364,34 @@ int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 			goto END;
 		}
 		else {
-			if (IsBhdrAuth != 0x00U) {
-				XPlmi_Printf(DEBUG_INFO,
-				"Boot header authentication is not allowed"
-				 "when HWROT is enabled\n\r");
-				Status = XPlmi_UpdateStatus(
-					XLOADER_ERR_HWROT_BH_AUTH_NOT_ALLOWED, 0);
-				goto END;
-			}
-			else {
-				/*
-				 * Authentication is true and BHDR
-				 * authentication is not enabled
-				 */
-				Status = XST_SUCCESS;
-				XPlmi_Printf(DEBUG_DETAILED,
-					"HWROT- Authentication is enabled\n\r");
-			}
+			Status = XST_SUCCESS;
+			XPlmi_Printf(DEBUG_DETAILED,
+				"HWROT- Authentication is enabled\n\r");
 		}
 	}
-	else if ((Status == XST_FAILURE) && (StatusTmp == XST_FAILURE)) {
-		if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
-			(SecurePtr->IsAuthenticatedTmp == (u8)TRUE)) {
-			if (IsBhdrAuth == 0x00U) {
-				XPlmi_Printf(DEBUG_INFO,
-				"eFUSE PPK(s) are zero and Boot header authentication"
-				" is disabled, loading PDI with authentication"
-				" enabled is not allowed\n\r");
-				Status = XPlmi_UpdateStatus(
-					XLOADER_ERR_AUTH_EN_PPK_HASH_ZERO, 0);
-				goto END;
-			}
-			else {
-				/*
-				 * BHDR authentication is
-				 * enabled and PPK hash is not programmed
-				 */
-				XPlmi_Printf(DEBUG_INFO,
-					"Authentication with BH enabled\n\r");
-				Status = XST_SUCCESS;
-			}
-		}
-		else {
-			/* Authentication is not compulsory */
-			XPlmi_Printf(DEBUG_DETAILED,
-				"Authentication is not enabled\n\r");
-			Status = XST_SUCCESS;
+
+	/* Check Secure State of the device.
+	 * If S-HWRoT is enabled, then metaheader must be encrypted
+	 */
+	ReadEncReg = XPlmi_In32(XPLMI_RTCFG_SECURESTATE_SHWROT_ADDR);
+	Status = XLoader_CheckSecureState(ReadEncReg, SecureStateSHWRoT,
+		XPLMI_RTCFG_SECURESTATE_SHWROT);
+	if (Status != XST_SUCCESS) {
+		Status = XLoader_CheckSecureState(ReadEncReg, SecureStateSHWRoT,
+			XPLMI_RTCFG_SECURESTATE_EMUL_SHWROT);
+		if (Status != XST_SUCCESS) {
+			Status = XLoader_CheckSecureState(ReadEncReg, SecureStateSHWRoT,
+				XPLMI_RTCFG_SECURESTATE_NONSECURE);
+				if (Status != XST_SUCCESS) {
+					if (ReadEncReg != SecureStateSHWRoT) {
+						Status = XPlmi_UpdateStatus(
+							XLOADER_ERR_GLITCH_DETECTED, 0);
+					}
+					goto END;
+				}
 		}
 	}
 	else {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_GLITCH_DETECTED, 0);
-		goto END;
-	}
-
-	ReadReg = XPlmi_In32(XLOADER_EFUSE_SEC_MISC0_OFFSET) &
-			  XLOADER_EFUSE_SEC_DEC_MASK;
-	ReadRegTmp = XPlmi_In32(XLOADER_EFUSE_SEC_MISC0_OFFSET) &
-				 XLOADER_EFUSE_SEC_DEC_MASK;
-	/* Checking if encryption is compulsory */
-	if ((ReadReg != 0x0U) || (ReadRegTmp != 0x0U)) {
 		if ((SecurePtr->IsEncrypted == (u8)FALSE) &&
 			(SecurePtr->IsEncryptedTmp == (u8)FALSE)) {
 			XPlmi_Printf(DEBUG_INFO, "DEC_ONLY mode is set,"
@@ -384,10 +408,6 @@ int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 				goto END;
 			}
 		}
-	}
-	else {
-		/* Header encryption is not compulsory */
-		XPlmi_Printf(DEBUG_DETAILED, "Encryption is not enabled\n\r");
 	}
 
 	/* Metaheader encryption key source for FPDI/PPDI should be same as
@@ -790,15 +810,14 @@ void XLoader_UpdateKekSrc(XilPdi *PdiPtr)
 static int XLoader_DataAuth(const XLoader_SecureParams *SecurePtr, u8 *Hash,
 	u8 *Signature)
 {
-	volatile int Status = XST_FAILURE;
-	volatile int SStatus = XST_SUCCESS;
+	int Status = XST_FAILURE;
 	XLoader_AuthCertificate *AcPtr = (XLoader_AuthCertificate *)SecurePtr->AcPtr;
-	const XilPdi_BootHdr *BootHdr = SecurePtr->PdiPtr->MetaHdr.BootHdrPtr;
 	volatile u8 IsEfuseAuth = (u8)TRUE;
 	volatile u8 IsEfuseAuthTmp = (u8)TRUE;
 	u32 AuthType;
-	u32 IsBhdrAuth = XilPdi_IsBhdrAuthEnable(BootHdr);
 	u32 AuthKatMask;
+	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
+	u32 ReadAuthReg = 0x0U;
 
 	AuthType = XLoader_GetAuthPubAlgo(&AcPtr->AuthHdr);
 	if (AuthType == XLOADER_PUB_STRENGTH_RSA_4096) {
@@ -850,46 +869,33 @@ static int XLoader_DataAuth(const XLoader_SecureParams *SecurePtr, u8 *Hash,
 		SecurePtr->PdiPtr->PlmKatStatus |= AuthKatMask;
 	}
 
-	/* If bits in PPK0/1/2 is programmed bh_auth is not allowed */
-	Status = XST_SUCCESS;
-	Status = XLoader_CheckNonZeroPpk();
-	SStatus = Status;
-	/*
-	 * Only boot header authentication is allowed when
-	 * none of PPK hash bits are programmed
+	/* Check Secure state of device
+	 * If A-HWRoT is disabled then BHDR authentication is allowed
 	 */
-	if ((Status == XST_FAILURE) && (SStatus == XST_FAILURE)) {
-		IsEfuseAuth = (u8)FALSE;
-		IsEfuseAuthTmp = (u8)FALSE;
-		/* If BHDR authentication is not enabled return error */
-		if (IsBhdrAuth == 0x00U) {
-			XPlmi_Printf(DEBUG_INFO,
-			"None of the PPKs are programmed and also boot header"
-				" authentication is not enabled\n\r");
-			Status = XLoader_UpdateMinorErr(
-				XLOADER_SEC_AUTH_EN_PPK_HASH_NONZERO, 0x0);
+	ReadAuthReg = XPlmi_In32(XPLMI_RTCFG_SECURESTATE_AHWROT_ADDR);
+	Status = XLoader_CheckSecureState(ReadAuthReg, SecureStateAHWRoT,
+		XPLMI_RTCFG_SECURESTATE_AHWROT);
+	if (Status != XST_SUCCESS) {
+		Status = XLoader_CheckSecureState(ReadAuthReg, SecureStateAHWRoT,
+			XPLMI_RTCFG_SECURESTATE_EMUL_AHWROT);
+		if (Status != XST_SUCCESS) {
+			if (ReadAuthReg != SecureStateAHWRoT) {
+				Status = XLoader_UpdateMinorErr(
+					XLOADER_SEC_GLITCH_DETECTED_ERROR, 0x0);
+			}
 			goto END;
 		}
+		else {
+			IsEfuseAuth = (u8)FALSE;
+			IsEfuseAuthTmp = (u8)FALSE;
+		}
 	}
-	/* Only efuse RSA authentication is allowed */
-	else if((Status == XST_SUCCESS) && (SStatus == XST_SUCCESS)) {
+	else {
 		Status = XST_FAILURE;
 		IsEfuseAuth = (u8)TRUE;
 		IsEfuseAuthTmp = (u8)TRUE;
-		/* If BHDR authentication is enabled return error */
-		if (IsBhdrAuth != 0x00U) {
-			XPlmi_Printf(DEBUG_INFO, "Boot header authentication is not allowed"
-				"when HWROT is enabled\n\r");
-			Status = XLoader_UpdateMinorErr(XLOADER_SEC_AUTH_EN_PPK_HASH_NONZERO,
-				0x0);
-			goto END;
-		}
 		/* Validate PPK hash */
 		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_PpkVerify, SecurePtr);
-	}
-	else {
-		Status = XLoader_UpdateMinorErr(XLOADER_SEC_GLITCH_DETECTED_ERROR, 0x0);
-			goto END;
 	}
 
 	/* Perform SPK Validation */
@@ -2482,6 +2488,8 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 	XLoader_AesKekInfo KeyDetails;
 	u32 Offset;
 	u32 RegVal;
+	u32 ReadEncReg = 0x0U;
+	u32 SecureStateSHWRoT = XLoader_GetSHWRoT(NULL);
 
 	if (SecurePtr->IsAuthenticated == (u8)TRUE) {
 		TotalSize = TotalSize - XLOADER_AUTH_CERT_MIN_SIZE;
@@ -2493,12 +2501,28 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 		goto END;
 	}
 
-	/* Enforce Black IV for ENC only */
-	if (((XPlmi_In32(XLOADER_EFUSE_SEC_MISC0_OFFSET) &
-		XLOADER_EFUSE_SEC_DEC_MASK) != 0x0U) &&
-		((SecurePtr->PdiPtr->KekStatus & XLOADER_EFUSE_RED_KEY) == 0x0U)) {
-		XLoader_ReadIV(SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl.KekIv,
-			(u32*)XLOADER_EFUSE_IV_BLACK_OBFUS_START_OFFSET);
+	/* Check Secure State of device
+	 * If S-HWRoT is enabled then it is mandatory to use Black IV
+	 */
+	ReadEncReg = XPlmi_In32(XPLMI_RTCFG_SECURESTATE_SHWROT_ADDR);
+	Status = XLoader_CheckSecureState(ReadEncReg, SecureStateSHWRoT,
+		XPLMI_RTCFG_SECURESTATE_SHWROT);
+	if (Status != XST_SUCCESS) {
+		Status = XLoader_CheckSecureState(ReadEncReg, SecureStateSHWRoT,
+			XPLMI_RTCFG_SECURESTATE_EMUL_SHWROT);
+		if (Status != XST_SUCCESS) {
+			if (ReadEncReg != SecureStateSHWRoT) {
+				Status = XPlmi_UpdateStatus(
+					XLOADER_ERR_GLITCH_DETECTED, 0);
+			}
+			goto END;
+		}
+	}
+	else {
+		if ((SecurePtr->PdiPtr->KekStatus & XLOADER_EFUSE_RED_KEY) == 0x0U) {
+			XLoader_ReadIV(SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl.KekIv,
+				(u32*)XLOADER_EFUSE_IV_BLACK_OBFUS_START_OFFSET);
+		}
 	}
 
 	KeyDetails.PufHdLocation = XilPdi_GetPufHdMetaHdr(&MetaHdr->ImgHdrTbl) >>
@@ -2811,18 +2835,31 @@ int XLoader_AddAuthJtagToScheduler(void)
 {
 	int Status = XST_FAILURE;
 	u32 AuthJtagDis;
+	u32 ReadAuthReg = 0x0U;
+	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
 
 	AuthJtagDis = XPlmi_In32(XLOADER_EFUSE_CACHE_SECURITY_CONTROL_OFFSET) &
 		XLOADER_AUTH_JTAG_DIS_MASK;
-	Status = XLoader_CheckNonZeroPpk();
 
-	if ((AuthJtagDis != XLOADER_AUTH_JTAG_DIS_MASK) &&
-		(Status == XST_SUCCESS)) {
-		Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_LOADER_ID,
-			XLoader_CheckAuthJtagIntStatus,
-			XLOADER_AUTH_JTAG_INT_STATUS_POLL_INTERVAL, XPLM_TASK_PRIORITY_1);
+	if (AuthJtagDis != XLOADER_AUTH_JTAG_DIS_MASK) {
+		ReadAuthReg = XPlmi_In32(XPLMI_RTCFG_SECURESTATE_AHWROT_ADDR);
+		Status = XLoader_CheckSecureState(ReadAuthReg, SecureStateAHWRoT,
+			XPLMI_RTCFG_SECURESTATE_AHWROT);
 		if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus( XLOADER_ERR_ADD_TASK_SCHEDULER, 0);
+			if (ReadAuthReg != SecureStateAHWRoT) {
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_GLITCH_DETECTED, 0);
+			}
+			else {
+				Status = XST_SUCCESS;
+			}
+		}
+		else {
+			Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_LOADER_ID,
+				XLoader_CheckAuthJtagIntStatus,
+				XLOADER_AUTH_JTAG_INT_STATUS_POLL_INTERVAL, XPLM_TASK_PRIORITY_1);
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus( XLOADER_ERR_ADD_TASK_SCHEDULER, 0);
+			}
 		}
 	}
 	else {
@@ -2896,6 +2933,8 @@ static int XLoader_AuthJtag(void)
 	static u8 AuthFailCounter = 0U;
 	XLoader_AuthJtagMessage AuthJtagMessage
 		__attribute__ ((aligned (16U))) = {0U};
+	u32 ReadAuthReg = 0x0U;
+	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
 
 	SecureParams.AuthJtagMessagePtr = &AuthJtagMessage;
 	Status = XPlmi_DmaXfr(XLOADER_PMC_TAP_AUTH_JTAG_DATA_OFFSET,
@@ -2915,12 +2954,20 @@ static int XLoader_AuthJtag(void)
 		goto END;
 	}
 
-	Status = XST_FAILURE;
-	/* Check eFUSE bits for HwRoT */
-	Status = XLoader_CheckNonZeroPpk();
+	/* Check Secure State of device
+	 * If A-HWRoT is not enabled then return error
+	 */
+	ReadAuthReg = XPlmi_In32(XPLMI_RTCFG_SECURESTATE_AHWROT_ADDR);
+	Status = XLoader_CheckSecureState(ReadAuthReg, SecureStateAHWRoT,
+		XPLMI_RTCFG_SECURESTATE_AHWROT);
 	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_EFUSE_AUTH_COMPULSORY,
-			0);
+		if (ReadAuthReg != SecureStateAHWRoT) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_GLITCH_DETECTED, 0);
+		}
+		else {
+			Status = XPlmi_UpdateStatus(
+				XLOADER_ERR_AUTH_JTAG_EFUSE_AUTH_COMPULSORY, 0);
+		}
 		goto END;
 	}
 
@@ -3378,6 +3425,31 @@ static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 		SecurePtr->SecureData = (UINTPTR)Data;
 		SecurePtr->SecureDataLen = Size;
 	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief	This function checks if the secure state of boot matches the
+*		expected value or not.
+*
+* @param	RegVal - Value of secure state stored in register
+*		Var - Value of secure state stored in variable
+*		ExpectedValue - Expected value of secure state
+*
+* @return	XST_SUCCESS on success and error code on failure
+*
+******************************************************************************/
+static int XLoader_CheckSecureState(u32 RegVal, u32 Var, u32 ExpectedValue)
+{
+	int Status = XST_FAILURE;
+
+	if ((RegVal != Var) || (RegVal != ExpectedValue)) {
+		goto END;
+	}
+	Status = XST_SUCCESS;
 
 END:
 	return Status;
