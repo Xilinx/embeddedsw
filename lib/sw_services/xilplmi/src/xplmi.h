@@ -31,6 +31,8 @@
 * 1.3   nsk  12/14/2020 Modified xplmi_event_logging.c to use Canonical
 *                       names.
 * 1.4   ma   03/04/2021 Added IPI security defines
+*       har  03/17/2021 Added Secure State register for authentication and
+*                       encryption
 *
 * </pre>
 *
@@ -88,6 +90,8 @@ extern "C" {
 #define XPLMI_RTCFG_IMGINFOTBL_ADDRLOW_ADDR	(XPLMI_RTCFG_BASEADDR + 0x40U)
 #define XPLMI_RTCFG_IMGINFOTBL_ADDRHIGH_ADDR	(XPLMI_RTCFG_BASEADDR + 0x44U)
 #define XPLMI_RTCFG_IMGINFOTBL_LEN_ADDR		(XPLMI_RTCFG_BASEADDR + 0x48U)
+#define XPLMI_RTCFG_SECURESTATE_AHWROT_ADDR	(XPLMI_RTCFG_BASEADDR + 0x14CU)
+#define XPLMI_RTCFG_SECURESTATE_SHWROT_ADDR	(XPLMI_RTCFG_BASEADDR + 0x150U)
 
 /* Masks of PLM RunTime Configuration Registers */
 #define XPLMI_RTCFG_IMGINFOTBL_NUM_ENTRIES_MASK	(0x0000FFFFU)
@@ -101,6 +105,13 @@ extern "C" {
 #define XPLMI_RTCFG_IMGINFOTBL_ADDR_HIGH	(0x0U)
 #define XPLMI_RTCFG_IMGINFOTBL_LEN		(0x0U)
 #define XPLMI_RTCFG_IDENTIFICATION		(0x41435452U)
+#define XPLMI_RTCFG_SECURESTATE_AHWROT		(0xA5A5A5A5U)
+#define XPLMI_RTCFG_SECURESTATE_SHWROT		(0x96969696U)
+
+/* Values of Secure State Register */
+#define XPLMI_RTCFG_SECURESTATE_EMUL_AHWROT	(0x5A5A5A5AU)
+#define XPLMI_RTCFG_SECURESTATE_EMUL_SHWROT	(0x69696969U)
+#define XPLMI_RTCFG_SECURESTATE_NONSECURE	(0xD2D2D2D2U)
 
 /*
  * Using FW_IS_PRESENT to indicate Boot PDI loading is completed
