@@ -21,6 +21,7 @@
 *       dc     02/02/21 Remove hard coded device node name
 *       dc     02/15/21 align driver to curent specification
 *       dc     02/22/21 include HW in versioning
+*       dc     03/18/21 New model parameter list
 * </pre>
 *
 ******************************************************************************/
@@ -416,7 +417,7 @@ static void XDfeMix_SetAntennaGainL(const XDfeMix *InstancePtr, u32 AntennaId,
 /****************************************************************************/
 /**
 *
-* Set CCCfg.DUCDDCCfg[CCID] with Rate and NCO.
+* Set Rate and NCO.in DUC-DDC configuration for CCID.
 *
 * @param    InstancePtr is a pointer to the Mixer instance.
 * @param    CCCfg is a configuration data container.
@@ -481,16 +482,16 @@ static void XDfeMix_GetCCCfg(const XDfeMix *InstancePtr, bool Next,
 				XDFEMIX_SEQUENCE_NEXT + (Index * sizeof(u32)));
 		}
 
-		for (Index = 0; Index < XDFEMIX_DUC_DDC_MAPPING_SIZE; Index++) {
-			Offset = XDFEMIX_DUC_DDC_MAPPING_NEXT +
+		for (Index = 0; Index < XDFEMIX_CC_CONFIG_SIZE; Index++) {
+			Offset = XDFEMIX_CC_CONFIG_NEXT +
 				 ((Index * sizeof(u32)));
 			Data = XDfeMix_ReadReg(InstancePtr, Offset);
 			CCCfg->DUCDDCCfg[Index].NCO = XDfeMix_RdBitField(
-				XDFEMIX_DUC_DDC_MAPPING_NCO_WIDTH,
-				XDFEMIX_DUC_DDC_MAPPING_NCO_OFFSET, Data);
+				XDFEMIX_CC_CONFIG_NCO_WIDTH,
+				XDFEMIX_CC_CONFIG_NCO_OFFSET, Data);
 			CCCfg->DUCDDCCfg[Index].Rate = XDfeMix_RdBitField(
-				XDFEMIX_DUC_DDC_MAPPING_RATE_WIDTH,
-				XDFEMIX_DUC_DDC_MAPPING_RATE_OFFSET, Data);
+				XDFEMIX_CC_CONFIG_RATE_WIDTH,
+				XDFEMIX_CC_CONFIG_RATE_OFFSET, Data);
 		}
 
 		/* Read Antenna configuration */
@@ -513,16 +514,16 @@ static void XDfeMix_GetCCCfg(const XDfeMix *InstancePtr, bool Next,
 		}
 
 		/* Read CCID sequence and carrier configurations */
-		for (Index = 0; Index < XDFEMIX_DUC_DDC_MAPPING_SIZE; Index++) {
-			Offset = XDFEMIX_DUC_DDC_MAPPING_CURRENT +
+		for (Index = 0; Index < XDFEMIX_CC_CONFIG_SIZE; Index++) {
+			Offset = XDFEMIX_CC_CONFIG_CURRENT +
 				 (Index * sizeof(u32));
 			Data = XDfeMix_ReadReg(InstancePtr, Offset);
 			CCCfg->DUCDDCCfg[Index].NCO = XDfeMix_RdBitField(
-				XDFEMIX_DUC_DDC_MAPPING_NCO_WIDTH,
-				XDFEMIX_DUC_DDC_MAPPING_NCO_OFFSET, Data);
+				XDFEMIX_CC_CONFIG_NCO_WIDTH,
+				XDFEMIX_CC_CONFIG_NCO_OFFSET, Data);
 			CCCfg->DUCDDCCfg[Index].Rate = XDfeMix_RdBitField(
-				XDFEMIX_DUC_DDC_MAPPING_RATE_WIDTH,
-				XDFEMIX_DUC_DDC_MAPPING_RATE_OFFSET, Data);
+				XDFEMIX_CC_CONFIG_RATE_WIDTH,
+				XDFEMIX_CC_CONFIG_RATE_OFFSET, Data);
 		}
 
 		/* Read Antenna configuration */
@@ -538,7 +539,7 @@ static void XDfeMix_GetCCCfg(const XDfeMix *InstancePtr, bool Next,
 /****************************************************************************/
 /**
 *
-* Write NEXT CC configuration from CCCfg.
+* Write NEXT CC configuration.
 *
 * @param    InstancePtr is a pointer to the Mixer instance.
 * @param    CCCfg is a configuration data container.
@@ -571,22 +572,22 @@ static void XDfeMix_SetNextCCCfg(const XDfeMix *InstancePtr,
 				 CCCfg->Sequence.CCID[Index]);
 	}
 
-	for (Index = 0; Index < XDFEMIX_DUC_DDC_MAPPING_SIZE; Index++) {
+	for (Index = 0; Index < XDFEMIX_CC_CONFIG_SIZE; Index++) {
 		DucDdcConfig = XDfeMix_ReadReg(InstancePtr,
-					       XDFEMIX_DUC_DDC_MAPPING_NEXT +
+					       XDFEMIX_CC_CONFIG_NEXT +
 						       ((Index * sizeof(u32))));
 		DucDdcConfig =
-			XDfeMix_WrBitField(XDFEMIX_DUC_DDC_MAPPING_NCO_WIDTH,
-					   XDFEMIX_DUC_DDC_MAPPING_NCO_OFFSET,
+			XDfeMix_WrBitField(XDFEMIX_CC_CONFIG_NCO_WIDTH,
+					   XDFEMIX_CC_CONFIG_NCO_OFFSET,
 					   DucDdcConfig,
 					   CCCfg->DUCDDCCfg[Index].NCO);
 		DucDdcConfig =
-			XDfeMix_WrBitField(XDFEMIX_DUC_DDC_MAPPING_RATE_WIDTH,
-					   XDFEMIX_DUC_DDC_MAPPING_RATE_OFFSET,
+			XDfeMix_WrBitField(XDFEMIX_CC_CONFIG_RATE_WIDTH,
+					   XDFEMIX_CC_CONFIG_RATE_OFFSET,
 					   DucDdcConfig,
 					   CCCfg->DUCDDCCfg[Index].Rate);
 		XDfeMix_WriteReg(InstancePtr,
-				 XDFEMIX_DUC_DDC_MAPPING_NEXT +
+				 XDFEMIX_CC_CONFIG_NEXT +
 					 ((Index * sizeof(u32))),
 				 DucDdcConfig);
 	}
@@ -619,14 +620,14 @@ static u32 XDfeMix_GetPhaccIndex(const XDfeMix *InstancePtr, bool Next,
 	u32 Nco;
 
 	if (Next == XDFEMIXER_NEXT) {
-		Offset = XDFEMIX_DUC_DDC_MAPPING_NEXT;
+		Offset = XDFEMIX_CC_CONFIG_NEXT;
 	} else {
-		Offset = XDFEMIX_DUC_DDC_MAPPING_CURRENT;
+		Offset = XDFEMIX_CC_CONFIG_CURRENT;
 	}
 	Offset += CCID * sizeof(u32);
 	Nco = XDfeMix_RdRegBitField(InstancePtr, Offset,
-				    XDFEMIX_DUC_DDC_MAPPING_NCO_WIDTH,
-				    XDFEMIX_DUC_DDC_MAPPING_NCO_OFFSET);
+				    XDFEMIX_CC_CONFIG_NCO_WIDTH,
+				    XDFEMIX_CC_CONFIG_NCO_OFFSET);
 	return (Nco * XDFEMIX_PHAC_CCID_ADDR_STEP);
 }
 
@@ -1249,41 +1250,54 @@ void XDfeMix_Configure(XDfeMix *InstancePtr, XDfeMix_Cfg *Cfg)
 				   XDFEMIX_VERSION_MAJOR_OFFSET, Version);
 
 	/* Read model parameters */
-	ModelParam = XDfeMix_ReadReg(InstancePtr, XDFEMIX_MODEL_PARAM_OFFSET);
-	InstancePtr->Config.BypassDDC =
-		XDfeMix_RdBitField(XDFEMIX_MODEL_PARAM_BYPASS_DUC_WIDTH,
-				   XDFEMIX_MODEL_PARAM_BYPASS_DUC_OFFSET,
-				   ModelParam);
-	InstancePtr->Config.BypassMixer =
-		XDfeMix_RdBitField(XDFEMIX_MODEL_PARAM_BYPASS_MIXER_WIDTH,
-				   XDFEMIX_MODEL_PARAM_BYPASS_MIXER_OFFSET,
-				   ModelParam);
-	InstancePtr->Config.EnableMixIf =
-		XDfeMix_RdBitField(XDFEMIX_MODEL_PARAM_ENABLE_MIX_IF_WIDTH,
-				   XDFEMIX_MODEL_PARAM_ENABLE_MIX_IF_OFFSET,
-				   ModelParam);
+	ModelParam = XDfeMix_ReadReg(InstancePtr, XDFEMIX_MODEL_PARAM_1_OFFSET);
 	InstancePtr->Config.Mode =
-		XDfeMix_RdBitField(XDFEMIX_MODEL_PARAM_MODE_WIDTH,
-				   XDFEMIX_MODEL_PARAM_MODE_OFFSET, ModelParam);
+		XDfeMix_RdBitField(XDFEMIX_MODEL_PARAM_1_MODE_WIDTH,
+				   XDFEMIX_MODEL_PARAM_1_MODE_OFFSET, ModelParam);
 	InstancePtr->Config.NumAntenna =
-		XDfeMix_RdBitField(XDFEMIX_MODEL_PARAM_NUM_ANTENNA_WIDTH,
-				   XDFEMIX_MODEL_PARAM_NUM_ANTENNA_OFFSET,
+		XDfeMix_RdBitField(XDFEMIX_MODEL_PARAM_1_NUM_ANTENNA_WIDTH,
+				   XDFEMIX_MODEL_PARAM_1_NUM_ANTENNA_OFFSET,
 				   ModelParam);
-	InstancePtr->Config.NumCCPerAntenna = XDfeMix_RdBitField(
-		XDFEMIX_MODEL_PARAM_NUM_CC_PER_ANTENNA_WIDTH,
-		XDFEMIX_MODEL_PARAM_NUM_CC_PER_ANTENNA_OFFSET, ModelParam);
-	InstancePtr->Config.NumSlotChannels =
-		XDfeMix_RdBitField(XDFEMIX_MODEL_PARAM_NUM_SLOT_CHANNELS_WIDTH,
-				   XDFEMIX_MODEL_PARAM_NUM_SLOT_CHANNELS_OFFSET,
+	InstancePtr->Config.MaxUseableCcids =
+		XDfeMix_RdBitField(XDFEMIX_MODEL_PARAM_1_MAX_USEABLE_CCIDS_WIDTH,
+				   XDFEMIX_MODEL_PARAM_1_MAX_USEABLE_CCIDS_OFFSET,
+				   ModelParam);
+	InstancePtr->Config.Lanes =
+		XDfeMix_RdBitField(XDFEMIX_MODEL_PARAM_1_LANES_WIDTH,
+				   XDFEMIX_MODEL_PARAM_1_LANES_OFFSET,
+				   ModelParam);
+	InstancePtr->Config.AntennaInterleave =
+		XDfeMix_RdBitField(XDFEMIX_MODEL_PARAM_1_ANTENNA_INTERLEAVE_WIDTH,
+				   XDFEMIX_MODEL_PARAM_1_ANTENNA_INTERLEAVE_OFFSET,
+				   ModelParam);
+	InstancePtr->Config.MixerCps =
+		XDfeMix_RdBitField(XDFEMIX_MODEL_PARAM_1_MIXER_CPS_WIDTH,
+				   XDFEMIX_MODEL_PARAM_1_MIXER_CPS_OFFSET,
 				   ModelParam);
 
-	Cfg->ModelParams.BypassDDC = InstancePtr->Config.BypassDDC;
-	Cfg->ModelParams.BypassMixer = InstancePtr->Config.BypassMixer;
-	Cfg->ModelParams.EnableMixIf = InstancePtr->Config.EnableMixIf;
+	ModelParam = XDfeMix_ReadReg(InstancePtr, XDFEMIX_MODEL_PARAM_2_OFFSET);
+	InstancePtr->Config.DataIWidth =
+		XDfeMix_RdBitField(XDFEMIX_MODEL_PARAM_2_DATA_IWIDTH_WIDTH,
+				   XDFEMIX_MODEL_PARAM_2_DATA_IWIDTH_OFFSET,
+				   ModelParam);
+	InstancePtr->Config.DataOWidth =
+		XDfeMix_RdBitField(XDFEMIX_MODEL_PARAM_2_DATA_OWIDTH_WIDTH,
+				   XDFEMIX_MODEL_PARAM_2_DATA_OWIDTH_OFFSET,
+				   ModelParam);
+	InstancePtr->Config.TUserWidth =
+		XDfeMix_RdBitField(XDFEMIX_MODEL_PARAM_2_TUSER_WIDTH_WIDTH,
+				   XDFEMIX_MODEL_PARAM_2_TUSER_WIDTH_OFFSET,
+				   ModelParam);
+
 	Cfg->ModelParams.Mode = InstancePtr->Config.Mode;
 	Cfg->ModelParams.NumAntenna = InstancePtr->Config.NumAntenna;
-	Cfg->ModelParams.NumCCPerAntenna = InstancePtr->Config.NumCCPerAntenna;
-	Cfg->ModelParams.NumSlotChannels = InstancePtr->Config.NumSlotChannels;
+	Cfg->ModelParams.MaxUseableCcids = InstancePtr->Config.MaxUseableCcids;
+	Cfg->ModelParams.Lanes = InstancePtr->Config.Lanes;
+	Cfg->ModelParams.AntennaInterleave = InstancePtr->Config.AntennaInterleave;
+	Cfg->ModelParams.MixerCps = InstancePtr->Config.MixerCps;
+	Cfg->ModelParams.DataIWidth = InstancePtr->Config.DataIWidth;
+	Cfg->ModelParams.DataOWidth = InstancePtr->Config.DataOWidth;
+	Cfg->ModelParams.TUserWidth = InstancePtr->Config.TUserWidth;
 
 	/* Release RESET */
 	XDfeMix_WriteReg(InstancePtr, XDFEMIX_RESET_OFFSET, XDFEMIX_RESET_OFF);
@@ -1325,7 +1339,7 @@ void XDfeMix_Initialize(XDfeMix *InstancePtr)
 				 XDFEMIX_SEQUENCE_ENTRY_NULL);
 	}
 	for (Index = 0; Index < XDFEMIX_CC_NUM; Index++) {
-		Offset = XDFEMIX_DUC_DDC_MAPPING_NEXT + (sizeof(u32) * Index);
+		Offset = XDFEMIX_CC_CONFIG_NEXT + (sizeof(u32) * Index);
 		XDfeMix_WriteReg(InstancePtr, Offset, 0U);
 	}
 

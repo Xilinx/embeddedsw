@@ -57,6 +57,7 @@
 *       dc     02/02/21 Remove hard coded device node name
 *       dc     02/15/21 align driver to curent specification
 *       dc     02/22/21 include HW in versioning
+*       dc     03/18/21 New model parameter list
 * </pre>
 *
 ******************************************************************************/
@@ -179,13 +180,15 @@ typedef struct {
  * Mixer model parameters structure. Data defined in Device tree/xparameters.h
  */
 typedef struct {
-	u32 BypassDDC; /**< [0,1] */
-	u32 BypassMixer; /**< [0,1] */
-	u32 EnableMixIf; /**< [0,1] */
 	u32 Mode; /**< [0,1] 0=downlink, 1=uplink */
-	u32 NumAntenna; /**< [1-8] */
-	u32 NumCCPerAntenna; /**< [1-8] */
-	u32 NumSlotChannels; /**< [1-4] */
+	u32 NumAntenna; /**< [1,2,4,8] */
+	u32 MaxUseableCcids; /**< [4,8] */
+	u32 Lanes; /**< [1-4] */
+	u32 AntennaInterleave; /**< [1,2,4,8] */
+	u32 MixerCps; /**< [1,2,4] */
+	u32 DataIWidth; /**< [16,24] */
+	u32 DataOWidth; /**< [16,24] */
+	u32 TUserWidth; /**< [0-64] */
 } XDfeMix_ModelParameters;
 
 /**
@@ -317,13 +320,15 @@ typedef struct {
 typedef struct {
 	u32 DeviceId;
 	metal_phys_addr_t BaseAddr;
-	u32 BypassDDC; /**< [0,1] */
-	u32 BypassMixer; /**< [0,1] */
-	u32 EnableMixIf; /**< [0,1] */
 	u32 Mode; /**< [0,1] 0=downlink, 1=uplink */
-	u32 NumAntenna; /**< [1-8] */
-	u32 NumCCPerAntenna; /**< [1-8] */
-	u32 NumSlotChannels; /**< [1-4] */
+	u32 NumAntenna; /**< [1,2,4,8] */
+	u32 MaxUseableCcids; /**< [4,8] */
+	u32 Lanes; /**< [1-4] */
+	u32 AntennaInterleave; /**< [1,2,4,8] */
+	u32 MixerCps; /**< [1,2,4] */
+	u32 DataIWidth; /**< [16,24] */
+	u32 DataOWidth; /**< [16,24] */
+	u32 TUserWidth; /**< [0-64] */
 } XDfeMix_Config;
 
 /**
