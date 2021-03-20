@@ -47,6 +47,7 @@
 *       har  11/27/20 Added macros related to PDI DpaCm configuration
 * 1.04  bm   12/16/20 Added PLM_SECURE_EXCLUDE macro. Also moved authentication and
 *                     encryption related code to xloader_auth_enc.h file
+*       har  03/17/21 Added API to set the secure state of device
 *
 * </pre>
 *
@@ -82,6 +83,13 @@ extern "C" {
 #define XLOADER_SEC_BUF_CLEAR_ERR		((u32)0x80U << 8U) /* Error in clearing buffer */
 #define XLOADER_SEC_BUF_CLEAR_SUCCESS	((u32)0x40U << 8U) /* Buffer is successfully cleared */
 
+#define XLOADER_EFUSE_PPK0_START_OFFSET			(0xF1250100U)
+#define XLOADER_EFUSE_PPK1_START_OFFSET			(0xF1250120U)
+#define XLOADER_EFUSE_PPK2_START_OFFSET			(0xF1250140U)
+#define XLOADER_EFUSE_PPK2_END_OFFSET			(0xF125015CU)
+#define XLOADER_EFUSE_SEC_MISC0_OFFSET			(0xF12500E4U)
+#define XLOADER_EFUSE_SEC_DEC_MASK			(0x0000FFFFU)
+
 /**************************** Type Definitions *******************************/
 
 /***************************** Function Prototypes ***************************/
@@ -93,6 +101,9 @@ int XLoader_SecureCopy(XLoader_SecureParams *SecurePtr, u64 DestAddr, u32 Size);
 void XLoader_SecureClear(void);
 int XLoader_SecureChunkCopy(XLoader_SecureParams *SecurePtr, u64 SrcAddr,
 			u8 Last, u32 BlockSize, u32 TotalSize);
+u32 XLoader_GetAHWRoT(const u32* AHWRoTPtr);
+u32 XLoader_GetSHWRoT(const u32* SHWRoTPtr);
+int XLoader_SetSecureState(void);
 
 #ifdef __cplusplus
 }
