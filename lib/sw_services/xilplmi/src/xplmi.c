@@ -27,6 +27,8 @@
 *       bm   10/14/2020 Code clean up
 *       td   10/19/2020 MISRA C Fixes
 * 1.04  bm   10/28/2020 Added ROM Version Print
+*       har  03/17/2021 Added code for run time initialization of Secure State
+*                       registers
 *
 * </pre>
 *
@@ -105,6 +107,10 @@ static void XPlmi_RunTimeConfigInit(void)
 				XPLMI_RTCFG_IMGINFOTBL_ADDR_HIGH);
 	XPlmi_Out32(XPLMI_RTCFG_IMGINFOTBL_LEN_ADDR,
 				XPLMI_RTCFG_IMGINFOTBL_LEN);
+	XPlmi_Out32(XPLMI_RTCFG_SECURESTATE_AHWROT_ADDR,
+				XPLMI_RTCFG_SECURESTATE_AHWROT);
+	XPlmi_Out32(XPLMI_RTCFG_SECURESTATE_SHWROT_ADDR,
+				XPLMI_RTCFG_SECURESTATE_SHWROT);
 }
 
 /*****************************************************************************/
