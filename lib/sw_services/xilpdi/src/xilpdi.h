@@ -40,6 +40,7 @@
 * 1.06  ma   01/08/2021 Changed maximum number of entries possible for ATF
 *       har  02/01/2021 Added API to get PLM encryption key source
 *       bm   02/12/2021 Updated logic to use BootHdr directly from PMC RAM
+*       har  03/17/2021 Removed XilPdi_IsBhdrAuthEnable
 *
 * </pre>
 *
@@ -71,6 +72,7 @@ extern "C" {
 
 /* Boot header Key source field */
 #define XIH_BH_AES_KEYSRC_OFFSET	(0x08U)
+#define XIH_BH_IMG_ATTRB_OFFSET		(0x24U)
 
 /* Boot header Attr fields */
 #define XIH_BH_IMG_ATTRB_BH_AUTH_MASK	(0xC000U)
@@ -556,25 +558,6 @@ static inline u32 XilPdi_GetDelayHandoff(const XilPdi_ImgHdr *ImgHdr)
 static inline u32 XilPdi_GetSBD(const XilPdi_ImgHdrTbl *ImgHdrTbl)
 {
 	return (ImgHdrTbl->Attr & XIH_IHT_ATTR_SBD_MASK);
-}
-
-/****************************************************************************/
-/**
-* @brief	This function will return whether boot header authentication is
-* enabled or not.
-*
-* @param	BootHdr is pointer to the boot header
-*
-* @return 	TRUE if boot header authentication is enabled.
-*			FALSE if boot header authentication is disabled.
-*
-*****************************************************************************/
-static inline u32 XilPdi_IsBhdrAuthEnable(const XilPdi_BootHdr *BootHdr)
-{
-	u32 BhAuth = (BootHdr->ImgAttrb & XIH_BH_IMG_ATTRB_BH_AUTH_MASK) >>
-					XIH_BH_IMG_ATTRB_BH_AUTH_SHIFT;
-
-	return ((BhAuth == XIH_BH_IMG_ATTRB_BH_AUTH_VALUE) ? (u8)TRUE : (u8)FALSE);
 }
 
 /*****************************************************************************/
