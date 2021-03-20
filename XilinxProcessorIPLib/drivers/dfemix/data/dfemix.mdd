@@ -1,16 +1,27 @@
 ###############################################################################
-# Copyright (C) 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
-###############################################################################
+##############################################################################
+# MODIFICATION HISTORY:
+#
+# Ver      Who    Date      Changes
+# -------- ------ --------- ----------------------------------------------------
+# 1.0      dc     07/22/20  Initial version
+#          dc     03/18/21  Add compiler and linker option
+##############################################################################
+
 OPTION psf_version = 2.1;
 
 BEGIN driver dfemix
 
   OPTION supported_peripherals = (xdfe_cc_mixer);
-  OPTION copyfiles = all;
   OPTION driver_state = ACTIVE;
+  OPTION copyfiles = all;
   OPTION VERSION = 1.0;
   OPTION NAME = dfemix;
+  OPTION depends = libmetal;
+  OPTION APP_COMPILER_FLAGS = "-D __BAREMETAL__";
+  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lgcc,-lc,-lmetal,--end-group";
 
 END driver
