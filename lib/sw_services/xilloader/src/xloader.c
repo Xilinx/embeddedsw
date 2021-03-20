@@ -86,6 +86,7 @@
 *       kpt  02/16/2021 Updated error code when secure validations are failed
 *       rb   03/09/2021 Updated Sem Scan Init API call
 *       bm   03/16/2021 Added Image Upgrade support
+*       har  03/17/2021 Added API call to set the secure state
 *
 * </pre>
 *
@@ -294,6 +295,12 @@ int XLoader_Init(void)
 	}
 
 	Status = XLoader_CframeInit();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/* Setting the secure state of boot in registers and global variables */
+	Status = XLoader_SetSecureState();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

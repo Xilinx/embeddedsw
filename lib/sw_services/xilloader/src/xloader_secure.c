@@ -77,6 +77,7 @@
 *                     encryption related code to xloader_auth_enc.c file
 *       bm   01/04/21 Updated checksum verification to be done at destination memory
 *       kpt  02/18/21 Fixed logical error in partition next chunk copy in encryption cases
+*       har  03/17/21 Added API to set the secure state of device
 *
 * </pre>
 *
@@ -112,6 +113,7 @@ static int XLoader_ProcessChecksumPrtn(XLoader_SecureParams *SecurePtr,
 	u64 DestAddr, u32 BlockSize, u8 Last);
 static int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	u64 DataAddr, u32 Size, u8 Last);
+static int XLoader_CheckNonZeroPpk(void);
 
 /************************** Variable Definitions *****************************/
 
@@ -668,6 +670,215 @@ int XLoader_SecureChunkCopy(XLoader_SecureParams *SecurePtr, u64 SrcAddr,
 			goto END;
 		}
 	}
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief	This function checks if PPK is programmed.
+*
+* @return	XST_SUCCESS on success and error code on failure
+*
+******************************************************************************/
+static int XLoader_CheckNonZeroPpk(void)
+{
+	volatile int Status = XST_FAILURE;
+	volatile u32 Index;
+
+	for (Index = XLOADER_EFUSE_PPK0_START_OFFSET;
+		Index <= XLOADER_EFUSE_PPK2_END_OFFSET;
+		Index = Index + XIH_PRTN_WORD_LEN) {
+		/* Any bit of PPK hash are non-zero break and return success */
+		if (XPlmi_In32(Index) != 0x0U) {
+			Status = XST_SUCCESS;
+			break;
+		}
+	}
+	if (Index > (XLOADER_EFUSE_PPK2_END_OFFSET + XIH_PRTN_WORD_LEN)) {
+		Status = (int)XLOADER_ERR_GLITCH_DETECTED;
+	}
+	else if (Index < XLOADER_EFUSE_PPK0_START_OFFSET) {
+		Status = (int)XLOADER_ERR_GLITCH_DETECTED;
+	}
+	else if (Index <= XLOADER_EFUSE_PPK2_END_OFFSET) {
+		Status = XST_SUCCESS;
+	}
+	else {
+		Status = XST_FAILURE;
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief	This function returns the state of authenticated boot
+*
+* @param	AHWRoTPtr - Always NULL except at time of initialization of
+*		SecureStateAHWRoT variable
+*
+* @return	XPLMI_RTCFG_SECURESTATE_AHWROT - PPK fuses are programmed
+*		XPLMI_RTCFG_SECURESTATE_EMUL_AHWROT - BHDR auth is enabled
+*		XPLMI_RTCFG_SECURESTATE_NONSECURE - Neither PPK fuses are
+*		programmed nor BH auth is enabled
+*
+******************************************************************************/
+u32 XLoader_GetAHWRoT(const u32* AHWRoTPtr)
+{
+	static u32 SecureStateAHWRoT = 0U;
+	if (AHWRoTPtr != NULL) {
+		SecureStateAHWRoT = *AHWRoTPtr;
+	}
+	return SecureStateAHWRoT;
+}
+
+/*****************************************************************************/
+/**
+* @brief	This function returns the state of encrypted boot
+*
+* @param	SHWRoTPtr - Always NULL except at time of initialization of
+*		SecureStateSHWRoT variable
+*
+* @return	XPLMI_RTCFG_SECURESTATE_SHWROT - Any DEC only fuse is programmed
+*		XPLMI_RTCFG_SECURESTATE_EMUL_SHWROT - PLM is encrypted
+*		XPLMI_RTCFG_SECURESTATE_NONSECURE - Neither DEC only fuses are
+*		programmed nor PLM is encrypted
+*
+******************************************************************************/
+u32 XLoader_GetSHWRoT(const u32* SHWRoTPtr)
+{
+	static u32 SecureStateSHWRoT = 0U;
+	if (SHWRoTPtr != NULL) {
+		SecureStateSHWRoT = *SHWRoTPtr;
+	}
+	return SecureStateSHWRoT;
+}
+
+
+/*****************************************************************************/
+/**
+* @brief	This function reads the value of PPK efuse bits, DEC only efuse
+*		bits and fields in bootheader and accordingly sets the Secure
+*		State of boot.
+*
+* @return	XST_SUCCESS in case of SUCCESS and error code in case of failure
+*
+* @note		The Secure State of the device will be stored in two 32-bit
+*		registers in RTC area of PMCRAM and two global variables
+		-one for authenticated boot and other for encrypted boot, for
+		redundancy.
+*
+******************************************************************************/
+int XLoader_SetSecureState(void)
+{
+	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
+	volatile u32 ReadReg;
+	volatile u32 ReadRegTmp;
+	volatile u8 IsBhdrAuth;
+	volatile u8 IsBhdrAuthTmp;
+	volatile u32 PlmEncStatus;
+	volatile u32 PlmEncStatusTmp;
+	u32 AHWRoT;
+	u32 SHWRoT;
+
+	/*
+	 * Checks for secure state for authentication
+	 */
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_CheckNonZeroPpk);
+	if ((Status == XST_SUCCESS) && (StatusTmp == XST_SUCCESS)) {
+		/*
+		 * PPK fuses are programmed
+		 */
+		AHWRoT = XPLMI_RTCFG_SECURESTATE_AHWROT;
+	}
+	else if ((Status != XST_SUCCESS) && (StatusTmp != XST_SUCCESS)) {
+		IsBhdrAuth = (u8)((XPlmi_In32(XIH_BH_PRAM_ADDR + XIH_BH_IMG_ATTRB_OFFSET) &
+			XIH_BH_IMG_ATTRB_BH_AUTH_MASK) >>
+			XIH_BH_IMG_ATTRB_BH_AUTH_SHIFT);
+		IsBhdrAuthTmp = (u8)((XPlmi_In32(XIH_BH_PRAM_ADDR + XIH_BH_IMG_ATTRB_OFFSET) &
+			XIH_BH_IMG_ATTRB_BH_AUTH_MASK) >>
+			XIH_BH_IMG_ATTRB_BH_AUTH_SHIFT);
+		if ((IsBhdrAuth == XIH_BH_IMG_ATTRB_BH_AUTH_VALUE) &&
+			(IsBhdrAuthTmp == XIH_BH_IMG_ATTRB_BH_AUTH_VALUE)) {
+			/*
+			 * BHDR authentication is enabled
+			 */
+			AHWRoT = XPLMI_RTCFG_SECURESTATE_EMUL_AHWROT;
+		}
+		else if ((IsBhdrAuth != XIH_BH_IMG_ATTRB_BH_AUTH_VALUE) &&
+			(IsBhdrAuthTmp != XIH_BH_IMG_ATTRB_BH_AUTH_VALUE)) {
+			/*
+			 * Authentication is not enabled in efuse or BHDR.
+			 */
+			AHWRoT = XPLMI_RTCFG_SECURESTATE_NONSECURE;
+		}
+		else {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_GLITCH_DETECTED, 0);
+			goto END;
+		}
+	}
+	else {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_GLITCH_DETECTED, 0);
+		goto END;
+	}
+	/*
+	 * Set the secure state for authentication in register and global variable
+	 */
+	(void)XLoader_GetAHWRoT(&AHWRoT);
+	Status = Xil_SecureOut32(XPLMI_RTCFG_SECURESTATE_AHWROT_ADDR, AHWRoT);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/*
+	 * Checks for secure state for encryption.
+	 */
+	ReadReg = XPlmi_In32(XLOADER_EFUSE_SEC_MISC0_OFFSET) &
+		XLOADER_EFUSE_SEC_DEC_MASK;
+	ReadRegTmp = XPlmi_In32(XLOADER_EFUSE_SEC_MISC0_OFFSET) &
+		XLOADER_EFUSE_SEC_DEC_MASK;
+	if ((ReadReg != 0x0U) && (ReadRegTmp != 0x0U)) {
+		/*
+		 * One or more DEC_ONLY efuse bits are programmed
+		 */
+		SHWRoT = XPLMI_RTCFG_SECURESTATE_SHWROT;
+	}
+	else if ((ReadReg == 0x0U) && (ReadRegTmp == 0x0U)) {
+		XSECURE_TEMPORAL_IMPL(PlmEncStatus, PlmEncStatusTmp,
+		XilPdi_GetPlmKeySrc);
+		if ((PlmEncStatus != 0x0U) && (PlmEncStatusTmp != 0x0U)) {
+			/*
+			 * PLM is encrypted
+			 */
+			SHWRoT = XPLMI_RTCFG_SECURESTATE_EMUL_SHWROT;
+		}
+		else if ((PlmEncStatus == 0x0U) && (PlmEncStatusTmp == 0x0U)) {
+			/*
+			 * None of the DEC_ONLY efuse bits are programmed and
+			 * PLM is not encrypted
+			 */
+			SHWRoT = XPLMI_RTCFG_SECURESTATE_NONSECURE;
+		}
+		else {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_GLITCH_DETECTED, 0);
+			goto END;
+		}
+	}
+	else {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_GLITCH_DETECTED, 0);
+		goto END;
+	}
+	/*
+	 * Set the secure state for encryption in register and global variable
+	 */
+	(void)XLoader_GetSHWRoT(&SHWRoT);
+	Status = Xil_SecureOut32(XPLMI_RTCFG_SECURESTATE_SHWROT_ADDR, SHWRoT);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 END:
 	return Status;
 }

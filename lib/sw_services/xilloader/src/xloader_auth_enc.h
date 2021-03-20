@@ -18,6 +18,8 @@
 * 1.00  bm   12/16/20 First release
 *       har  01/18/21 Added macros related to P521 KAT
 *       kpt  01/21/21 Added macro for revoke id mask
+*       har  03/17/21 Moved macros required for Secure state out of
+*                     PLM_SECURE_EXCLUDE macro
 *
 * </pre>
 *
@@ -150,11 +152,8 @@ extern "C" {
 #define XLOADER_EFUSE_REVOCATION_ID_0_OFFSET		(0xF12500B0U)
 #define XLOADER_EFUSE_REVOCATION_ID_7_OFFSET		(0xF12500CCU)
 
-#define XLOADER_EFUSE_SEC_MISC0_OFFSET			(0xF12500E4U)
 #define XLOADER_EFUSE_SEC_MISC1_OFFSET			(0xF12500E8U)
-
 #define XLOADER_EFUSE_SEC_DPA_DIS_MASK			(0xFFFF0000U)
-#define XLOADER_EFUSE_SEC_DEC_MASK			(0x0000FFFFU)
 
 #define XLOADER_REVOCATION_IDMAX			(0xFFU)
 
