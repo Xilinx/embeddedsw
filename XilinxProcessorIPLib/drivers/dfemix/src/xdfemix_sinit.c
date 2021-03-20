@@ -22,6 +22,7 @@
 *       dc     02/02/21 Remove hard coded device node name
 *       dc     02/15/21 align driver to curent specification
 *       dc     02/22/21 include HW in versioning
+*       dc     03/18/21 New model parameter list
 *
 * </pre>
 *
@@ -55,18 +56,16 @@
 #define XDFEMIX_CONFIG_DATA_SIZE sizeof(XDfeMix_Config)
 #define XDFEMIX_BASEADDR_PROPERTY "reg" /* device tree property */
 #define XDFEMIX_BASEADDR_SIZE 8U
-#define XDFEMIX_BYPASS_DDC_CFG "xlnx,bypass-ddc"
-#define XDFEMIX_BYPASS_MIXER_CFG "xlnx,bypass-mixer"
+
+#define XDFEMIX_MODE_CFG "xlnx,mode"
+#define XDFEMIX_NUM_ANTENNA_CFG "xlnx,num-antenna"
+#define XDFEMIX_MAX_USABLE_CCIDS_CFG "xlnx,max-useable-ccids"
+#define XDFEMIX_LANES_CFG "xlnx,lanes"
+#define XDFEMIX_ANTENNA_INTERLEAVE_CFG "xlnx,antenna-interleave"
+#define XDFEMIX_MIXER_CPS_CFG "xlnx,mixer-cps"
 #define XDFEMIX_DATA_IWIDTH_CFG "xlnx,data-iwidth"
 #define XDFEMIX_DATA_OWIDTH_CFG "xlnx,data-owidth"
-#define XDFEMIX_ENABLE_MIX_IF_CFG "xlnx,enable-mix-if"
-#define XDFEMIX_NUM_ANTENNA_CFG "xlnx,num-antenna"
-#define XDFEMIX_NUM_CC_PER_ANTENNA_CFG "xlnx,num-cc-per-antenna"
-#define XDFEMIX_NUM_SLOT_CHANNELS_CFG "xlnx,num-slot-channels"
-#define XDFEMIX_NUM_SLOTS_CFG "xlnx,num-slots"
 #define XDFEMIX_TUSER_WIDTH_CFG "xlnx,tuser-width"
-#define XDFEMIX_VERSION_REGISTER_CFG "xlnx,version-register"
-#define XDFEMIX_MODE_CFG "xlnx,mode"
 #define XDFEMIX_MODE_SIZE 10U
 #define XDFEMIX_WORD_SIZE 4U
 
@@ -265,26 +264,55 @@ s32 XDfeMix_LookupConfig(u16 DeviceId)
 	XDfeMix_Mixer[DeviceId].Config.BaseAddr = ntohl(BaseAddr);
 
 	/* Get a config data from devicetree */
+
 	if (XST_SUCCESS !=
-	    metal_linux_get_device_property(Dev, Name = XDFEMIX_BYPASS_DDC_CFG,
+	    metal_linux_get_device_property(Dev, Name = XDFEMIX_TUSER_WIDTH_CFG,
 					    &d, XDFEMIX_WORD_SIZE)) {
 		goto end_failure;
 	}
-	XDfeMix_Mixer[DeviceId].Config.BypassDDC = ntohl(d);
+	XDfeMix_Mixer[DeviceId].Config.TUserWidth = ntohl(d);
+
+	if (XST_SUCCESS !=
+	    metal_linux_get_device_property(Dev, Name = XDFEMIX_DATA_OWIDTH_CFG,
+					    &d, XDFEMIX_WORD_SIZE)) {
+		goto end_failure;
+	}
+	XDfeMix_Mixer[DeviceId].Config.DataOWidth = ntohl(d);
+
+	if (XST_SUCCESS !=
+	    metal_linux_get_device_property(Dev, Name = XDFEMIX_DATA_IWIDTH_CFG,
+					    &d, XDFEMIX_WORD_SIZE)) {
+		goto end_failure;
+	}
+	XDfeMix_Mixer[DeviceId].Config.DataIWidth = ntohl(d);
+
+	if (XST_SUCCESS !=
+	    metal_linux_get_device_property(Dev, Name = XDFEMIX_MIXER_CPS_CFG,
+					    &d, XDFEMIX_WORD_SIZE)) {
+		goto end_failure;
+	}
+	XDfeMix_Mixer[DeviceId].Config.MixerCps = ntohl(d);
+
+	if (XST_SUCCESS !=
+	    metal_linux_get_device_property(Dev, Name = XDFEMIX_ANTENNA_INTERLEAVE_CFG,
+					    &d, XDFEMIX_WORD_SIZE)) {
+		goto end_failure;
+	}
+	XDfeMix_Mixer[DeviceId].Config.AntennaInterleave = ntohl(d);
 
 	if (XST_SUCCESS != metal_linux_get_device_property(
-				   Dev, Name = XDFEMIX_BYPASS_MIXER_CFG, &d,
+				   Dev, Name = XDFEMIX_LANES_CFG, &d,
 				   XDFEMIX_WORD_SIZE)) {
 		goto end_failure;
 	}
-	XDfeMix_Mixer[DeviceId].Config.BypassMixer = ntohl(d);
+	XDfeMix_Mixer[DeviceId].Config.Lanes = ntohl(d);
 
 	if (XST_SUCCESS != metal_linux_get_device_property(
-				   Dev, Name = XDFEMIX_ENABLE_MIX_IF_CFG, &d,
+				   Dev, Name = XDFEMIX_MAX_USABLE_CCIDS_CFG, &d,
 				   XDFEMIX_WORD_SIZE)) {
 		goto end_failure;
 	}
-	XDfeMix_Mixer[DeviceId].Config.EnableMixIf = ntohl(d);
+	XDfeMix_Mixer[DeviceId].Config.MaxUseableCcids = ntohl(d);
 
 	if (XST_SUCCESS !=
 	    metal_linux_get_device_property(Dev, Name = XDFEMIX_NUM_ANTENNA_CFG,
@@ -292,13 +320,6 @@ s32 XDfeMix_LookupConfig(u16 DeviceId)
 		goto end_failure;
 	}
 	XDfeMix_Mixer[DeviceId].Config.NumAntenna = ntohl(d);
-
-	if (XST_SUCCESS != metal_linux_get_device_property(
-				   Dev, Name = XDFEMIX_NUM_SLOT_CHANNELS_CFG,
-				   &d, XDFEMIX_WORD_SIZE)) {
-		goto end_failure;
-	}
-	XDfeMix_Mixer[DeviceId].Config.NumSlotChannels = ntohl(d);
 
 	char str[20];
 	if (XST_SUCCESS !=
@@ -325,20 +346,24 @@ end_failure:
 	metal_device_close(Dev);
 	return XST_FAILURE;
 #else
-	XDfeMix_Mixer[DeviceId].Config.BypassDDC =
-		XDfeMix_ConfigTable[DeviceId].BypassDDC;
-	XDfeMix_Mixer[DeviceId].Config.BypassMixer =
-		XDfeMix_ConfigTable[DeviceId].BypassMixer;
-	XDfeMix_Mixer[DeviceId].Config.EnableMixIf =
-		XDfeMix_ConfigTable[DeviceId].EnableMixIf;
 	XDfeMix_Mixer[DeviceId].Config.Mode =
 		XDfeMix_ConfigTable[DeviceId].Mode;
 	XDfeMix_Mixer[DeviceId].Config.NumAntenna =
 		XDfeMix_ConfigTable[DeviceId].NumAntenna;
-	XDfeMix_Mixer[DeviceId].Config.NumCCPerAntenna =
-		XDfeMix_ConfigTable[DeviceId].NumCCPerAntenna;
-	XDfeMix_Mixer[DeviceId].Config.NumSlotChannels =
-		XDfeMix_ConfigTable[DeviceId].NumSlotChannels;
+	XDfeMix_Mixer[DeviceId].Config.MaxUseableCcids =
+		XDfeMix_ConfigTable[DeviceId].MaxUseableCcids;
+	XDfeMix_Mixer[DeviceId].Config.Lanes =
+		XDfeMix_ConfigTable[DeviceId].Lanes;
+	XDfeMix_Mixer[DeviceId].Config.AntennaInterleave =
+		XDfeMix_ConfigTable[DeviceId].AntennaInterleave;
+	XDfeMix_Mixer[DeviceId].Config.MixerCps =
+		XDfeMix_ConfigTable[DeviceId].MixerCps;
+	XDfeMix_Mixer[DeviceId].Config.DataIWidth =
+		XDfeMix_ConfigTable[DeviceId].DataIWidth;
+	XDfeMix_Mixer[DeviceId].Config.DataOWidth =
+		XDfeMix_ConfigTable[DeviceId].DataOWidth;
+	XDfeMix_Mixer[DeviceId].Config.TUserWidth =
+		XDfeMix_ConfigTable[DeviceId].TUserWidth;
 
 	XDfeMix_Mixer[DeviceId].Config.BaseAddr =
 		XDfeMix_ConfigTable[DeviceId].BaseAddr;

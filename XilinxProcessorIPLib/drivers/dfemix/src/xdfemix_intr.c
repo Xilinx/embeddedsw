@@ -19,6 +19,7 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     10/21/20 Initial version
 *       dc     02/15/21 align driver to curent specification
+*       dc     03/18/21 New model parameter list
 * </pre>
 *
 ******************************************************************************/
@@ -85,12 +86,25 @@ void XDfeMix_GetInterruptMask(const XDfeMix *InstancePtr,
 void XDfeMix_SetInterruptMask(const XDfeMix *InstancePtr,
 			      const XDfeMix_InterruptMask *Flags)
 {
+	u32 Data = 0;
+
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Flags != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFEMIX_STATE_OPERATIONAL);
 
-	XDfeMix_InterruptDisable(InstancePtr, Flags);
-	XDfeMix_InterruptEnable(InstancePtr, Flags);
+	Data = XDfeMix_WrBitField(XDFEMIX_DUC_DDC_OVERFLOW_WIDTH,
+				  XDFEMIX_DUC_DDC_OVERFLOW_OFFSET, Data,
+				  Flags->DUCDDCOverflow);
+	Data = XDfeMix_WrBitField(XDFEMIX_MIXER_OVERFLOW_WIDTH,
+				  XDFEMIX_MIXER_OVERFLOW_OFFSET, Data,
+				  Flags->MixerOverflow);
+	Data = XDfeMix_WrBitField(XDFEMIX_CC_UPDATE_TRIGGERED_WIDTH,
+				  XDFEMIX_CC_UPDATE_TRIGGERED_OFFSET, Data,
+				  Flags->DLCCUpdate);
+	Data = XDfeMix_WrBitField(XDFEMIX_CC_SEQUENCE_ERROR_WIDTH,
+				  XDFEMIX_CC_SEQUENCE_ERROR_OFFSET, Data,
+				  Flags->DLCCSequenceError);
+	XDfeMix_WriteReg(InstancePtr, XDFEMIX_IMR, Data);
 }
 
 /****************************************************************************/
