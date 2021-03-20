@@ -70,6 +70,7 @@
 *       ma   03/04/2021 Added error code for PLMI IPI access failure
 *       bm   03/04/2021 Added error code for invalid elf load address
 *       skd  03/12/2021 Added error codes for PSM keep alive failure
+*       har  03/17/2021 Updated description for XLOADER_ERR_SECURE_NOT_ALLOWED
 *
 * </pre>
 *
@@ -585,7 +586,7 @@ typedef enum {
 	XLOADER_ERR_PRTN_ENC_ONLY_KEYSRC,
 		/**< 0x62D Invalid key source when encryption only is enabled */
 	XLOADER_ERR_SECURE_NOT_ALLOWED,
-		/**< 0x62E Error when secure validations are failed */
+		/**< 0x62E Error when state of boot is non secure */
 	XLOADER_ERR_HDR_AAD_UPDATE_FAIL,
 		/**< 0x62F Updating IHT as AAD failed during secure header
 		  * decryption */
