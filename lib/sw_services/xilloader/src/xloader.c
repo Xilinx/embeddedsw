@@ -556,8 +556,6 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 	Status = XLoader_SecureValidations(&SecureParams);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_INFO,"Failed at secure validations\n\r");
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_SECURE_NOT_ALLOWED,
-				Status);
 		goto END;
 	}
 
