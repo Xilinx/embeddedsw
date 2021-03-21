@@ -58,6 +58,8 @@
 * 4.4   am   11/24/2020 Resolved MISRA C and Coverity warnings
 *       har  02/12/2021 Separated input validation checks for Instance pointer
 *       har  03/02/2021 Added support for AES AAD
+*       kpt  03/21/2021 Added volatile keyword for SStatus variable in
+*                       XSecure_AesDecryptKat to avoid compiler optimization.
 *
 * </pre>
 *
@@ -1596,7 +1598,7 @@ END:
 int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 {
 	volatile int Status = XST_FAILURE;
-	int SStatus = XST_FAILURE;
+	volatile int SStatus = XST_FAILURE;
 	u32 Index;
 
 	u32 DstVal[XSECURE_KAT_MSG_SIZE_IN_WORDS] = {0U};
