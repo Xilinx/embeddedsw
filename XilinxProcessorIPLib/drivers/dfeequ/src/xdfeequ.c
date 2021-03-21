@@ -20,6 +20,7 @@
 * 1.0   dc     09/03/20 Initial version
 *       dc     02/02/21 Remove hard coded device node name
 *       dc     02/22/21 align driver to current specification
+*       dc     03/15/21 Add data latency api
 * </pre>
 *
 ******************************************************************************/
@@ -43,6 +44,9 @@
 #define XDFEEQU_COEFF_LOAD_TIMEOUT                                             \
 	1000U /**< Units of us declared in XDFEEQU_WAIT */
 #define XDFEEQU_WAIT 10U /**< Units of us */
+#define XDFEEQU_DELAY_MAX                                                      \
+	(1U << XDFEEQU_DELAY_WIDTH) /**< Maximum delay value */
+#define XDFEEQU_TAP_MAX 24U /**< Maximum tap value */
 
 #define XDFEEQU_DRIVER_VERSION_MINOR 0U
 #define XDFEEQU_DRIVER_VERSION_MAJOR 1U
@@ -778,11 +782,14 @@ void XDfeEqu_Activate(XDfeEqu *InstancePtr, bool EnableLowPower)
 	u32 IsOperational;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEEQU_STATE_INITIALISED);
+	Xil_AssertVoid((InstancePtr->StateId == XDFEEQU_STATE_INITIALISED) ||
+		       (InstancePtr->StateId == XDFEEQU_STATE_OPERATIONAL));
 
 	/* Do nothing if the block already operational */
 	IsOperational =
-		XDfeEqu_ReadReg(InstancePtr, XDFEEQU_CURRENT_CONTROL_OFFSET);
+		XDfeEqu_RdRegBitField(InstancePtr, XDFEEQU_NEXT_CONTROL_OFFSET,
+				      XDFEEQU_POWERDOWN_MODE_WIDTH,
+				      XDFEEQU_POWERDOWN_MODE_OFFSET);
 	if (IsOperational == XDFEEQU_POWERDOWN_MODE_POWERUP) {
 		return;
 	}
@@ -798,9 +805,19 @@ void XDfeEqu_Activate(XDfeEqu *InstancePtr, bool EnableLowPower)
 
 	/* Enable the LowPower trigger */
 	if (EnableLowPower == true) {
+		XDfeEqu_WrRegBitField(InstancePtr,
+				      XDFEEQU_NEXT_DYNAMIC_POWERDOWN_OFFSET,
+				      XDFEEQU_DYNAMIC_POWERDOWN_MODE_WIDTH,
+				      XDFEEQU_DYNAMIC_POWERDOWN_MODE_OFFSET,
+				      XDFEEQU_DYNAMIC_POWERDOWN_MODE_ENABLED);
 		XDfeEqu_EnableLowPowerTrigger(InstancePtr);
 	} else {
-		XDfeEqu_DisableLowPowerTrigger(InstancePtr);
+		XDfeEqu_WrRegBitField(InstancePtr,
+				      XDFEEQU_NEXT_DYNAMIC_POWERDOWN_OFFSET,
+				      XDFEEQU_DYNAMIC_POWERDOWN_MODE_WIDTH,
+				      XDFEEQU_DYNAMIC_POWERDOWN_MODE_OFFSET,
+				      XDFEEQU_DYNAMIC_POWERDOWN_MODE_DISABLED);
+		XDfeEqu_EnableLowPowerTrigger(InstancePtr);
 	}
 
 	/* Equalizer is operational now, change a state */
@@ -828,23 +845,26 @@ void XDfeEqu_Deactivate(XDfeEqu *InstancePtr)
 	u32 IsOperational;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEEQU_STATE_OPERATIONAL);
+	Xil_AssertVoid((InstancePtr->StateId == XDFEEQU_STATE_INITIALISED) ||
+		       (InstancePtr->StateId == XDFEEQU_STATE_OPERATIONAL));
 
 	/* Do nothing if the block already deactivated */
 	IsOperational =
-		XDfeEqu_ReadReg(InstancePtr, XDFEEQU_CURRENT_CONTROL_OFFSET);
+		XDfeEqu_RdRegBitField(InstancePtr, XDFEEQU_NEXT_CONTROL_OFFSET,
+				      XDFEEQU_POWERDOWN_MODE_WIDTH,
+				      XDFEEQU_POWERDOWN_MODE_OFFSET);
 	if (IsOperational == XDFEEQU_POWERDOWN_MODE_POWERDOWN) {
 		return;
 	}
+
+	/* Disable LowPower trigger (may not be enabled) */
+	XDfeEqu_DisableLowPowerTrigger(InstancePtr);
 
 	/* Set bit 0 of the Next Control register (0x24) low. */
 	XDfeEqu_WrRegBitField(InstancePtr, XDFEEQU_CURRENT_CONTROL_OFFSET,
 			      XDFEEQU_POWERDOWN_MODE_WIDTH,
 			      XDFEEQU_POWERDOWN_MODE_OFFSET,
 			      XDFEEQU_POWERDOWN_MODE_POWERDOWN);
-
-	/* Disable LowPower trigger (may not be enabled) */
-	XDfeEqu_DisableLowPowerTrigger(InstancePtr);
 
 	/* Enable Activate trigger (toggles state between operational
 	   and intialized) */
@@ -1115,22 +1135,28 @@ void XDfeEqu_LoadCoefficients(const XDfeEqu *InstancePtr, u32 ChannelField,
 			XDFEEQU_CHANNEL_FIELD_DONE_WIDTH,
 			XDFEEQU_CHANNEL_FIELD_DONE_OFFSET);
 		if (XDFEEQU_CHANNEL_FIELD_DONE_LOADING_DONE == LoadDone) {
+			/* Loading is finished */
 			break;
 		}
 		usleep(XDFEEQU_WAIT);
 		if (Index == (XDFEEQU_COEFF_LOAD_TIMEOUT - 1U)) {
+			/* Loading still on, this is serious problem block
+			   the system */
 			Xil_AssertVoidAlways();
 		}
 	}
 
-	/* Write filter coefficients and initiate load */
+	/* Write filter coefficients and initiate new coefficient load */
 	if (Mode == XDFEEQU_DATAPATH_MODE_REAL) {
+		/* Mode == real */
 		XDfeEqu_LoadRealCoefficients(InstancePtr, ChannelField,
 					     EqCoeffs, NumValues, Shift);
 	} else if (Mode == XDFEEQU_DATAPATH_MODE_COMPLEX) {
+		/* Mode == complex */
 		XDfeEqu_LoadComplexCoefficients(InstancePtr, ChannelField,
 						EqCoeffs, NumValues, Shift);
 	} else {
+		/* Mode == matrix */
 		XDfeEqu_LoadMatrixCoefficients(InstancePtr, ChannelField,
 					       EqCoeffs, NumValues, Shift);
 	}
@@ -1174,6 +1200,76 @@ void XDfeEqu_GetActiveSets(const XDfeEqu *InstancePtr, u32 *RealSet,
 		*RealSet = (Data >> XDFEEQU_COEFF_SET_CONTROL_OFFSET) &
 			   ((1U << XDFEEQU_COEFF_SET_CONTROL_WIDTH) - 1U);
 	}
+}
+
+/****************************************************************************/
+/**
+*
+* Set the delay which will be added to TUSER and TLAST (delay matched through
+* the IP).
+*
+* @param    InstancePtr is a pointer to the Equalizer instance.
+* @param    Delay is a requested delay variable.
+*
+* @return   None
+*
+* @note     None
+*
+****************************************************************************/
+void XDfeEqu_SetTUserDelay(const XDfeEqu *InstancePtr, u32 Delay)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->StateId == XDFEEQU_STATE_INITIALISED);
+	Xil_AssertVoid(Delay < XDFEEQU_DELAY_MAX);
+
+	XDfeEqu_WriteReg(InstancePtr, XDFEEQU_DELAY, Delay);
+}
+
+/****************************************************************************/
+/**
+*
+* Read the delay which is be added to TUSER and TLAST (delay matched through
+* the IP).
+*
+* @param    InstancePtr is a pointer to the Equalizer instance.
+*
+* @return   Delay value
+*
+* @note     None
+*
+****************************************************************************/
+u32 XDfeEqu_GetTUserDelay(const XDfeEqu *InstancePtr)
+{
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	return XDfeEqu_RdRegBitField(InstancePtr, XDFEEQU_DELAY,
+				     XDFEEQU_DELAY_WIDTH, XDFEEQU_DELAY_OFFSET);
+}
+
+/****************************************************************************/
+/**
+*
+* Returns CONFIG.DATA_LATENCY.VALUE + tap where tap is between 0 and 23 in
+* real mode and between 0 and 11 in complex/matrix mode.
+*
+* @param    InstancePtr is a pointer to the Equalizer instance.
+* @param    Tap is a tap variable.
+*
+* @return   Data latency value.
+*
+* @note     None
+*
+****************************************************************************/
+u32 XDfeEqu_GetTDataDelay(const XDfeEqu *InstancePtr, u32 Tap)
+{
+	u32 Data;
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(Tap < XDFEEQU_TAP_MAX);
+
+	Data = XDfeEqu_RdRegBitField(InstancePtr, XDFEEQU_DATA_LATENCY,
+				     XDFEEQU_DATA_LATENCY_WIDTH,
+				     XDFEEQU_DATA_LATENCY_OFFSET);
+	return (Data + Tap);
 }
 
 /*****************************************************************************/

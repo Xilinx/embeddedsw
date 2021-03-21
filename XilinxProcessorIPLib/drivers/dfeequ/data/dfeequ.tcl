@@ -6,7 +6,8 @@
 # MODIFICATION HISTORY:
 # Ver      Who    Date     Changes
 # -------- ------ -------- ----------------------------------------------------
-# 1.0      dc     02/12/20 Initial Version.
+# 1.0      dc     09/03/20 Initial version
+#          dc     03/15/21 Add data latency api
 ###############################################################################
 
 proc generate {drv_handle} {
@@ -29,7 +30,7 @@ proc mix_define_include_file {drv_handle file_name drv_string args} {
     set arg "NUM_INSTANCES"
     set posn [lsearch -exact $args $arg]
     if {$posn > -1} {
-        puts $file_handle "/* Definitions for driver [string toupper [common::get_property name $drv_handle]] */"
+        puts $file_handle "\n/* Definitions for driver [string toupper [common::get_property name $drv_handle]] */"
         # Define NUM_INSTANCES
         puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] [llength $periphs]$uSuffix"
         set args [lreplace $args $posn $posn]
@@ -149,18 +150,18 @@ proc mix_define_canonical_xpars {drv_handle file_name drv_string args} {
             puts $file_handle ""
             incr i
         }
+
+        puts $file_handle "\n/******************************************************************/\n"
+
+        puts $file_handle "/* Xilinx Equalizer Device Name */"
+        set lvalue [::hsi::utils::get_driver_param_name $canonical_name DEV_NAME]
+        set rvalue [::hsi::utils::get_param_value $periph C_BASEADDR]
+        regsub -all {^0x} $rvalue {} rvalue
+        set ipname [get_property IP_NAME [get_cells -hier $drv_handle]]
+        puts $file_handle "#define $lvalue \"[string tolower $rvalue].$ipname\""
+
+        puts $file_handle "\n/******************************************************************/\n"
     }
-
-    puts $file_handle "\n/******************************************************************/\n"
-
-    puts $file_handle "/* Xilinx Channel Filter Device Name */"
-    set lvalue [::hsi::utils::get_driver_param_name $canonical_name DEV_NAME]
-    set rvalue [::hsi::utils::get_param_value $periph C_BASEADDR]
-    regsub -all {^0x} $rvalue {} rvalue
-    set ipname [get_property IP_NAME [get_cells -hier $drv_handle]]
-    puts $file_handle "#define $lvalue \"[string tolower $rvalue].$ipname\""
-
-    puts $file_handle "\n/******************************************************************/\n"
     close $file_handle
 }
 
