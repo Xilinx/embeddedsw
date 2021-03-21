@@ -20,6 +20,7 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     09/03/20 Initial version
 *       dc     02/22/21 align driver to current specification
+*       dc     03/15/21 Add data latency api
 * </pre>
 *
 ******************************************************************************/
@@ -54,6 +55,13 @@ extern "C" {
 #define XDFEEQU_MODEL_PARAM_COMPLEX_MODE_OFFSET 16U
 #define XDFEEQU_MODEL_PARAM_TUSER_WIDTH_WIDTH 7U
 #define XDFEEQU_MODEL_PARAM_TUSER_WIDTH_OFFSET 24U
+
+#define XDFEEQU_DELAY 0x0CU /**< Register offset */
+#define XDFEEQU_DELAY_WIDTH 6U
+#define XDFEEQU_DELAY_OFFSET 0U
+#define XDFEEQU_DATA_LATENCY 0x10U /**< Register offset */
+#define XDFEEQU_DATA_LATENCY_WIDTH 4U
+#define XDFEEQU_DATA_LATENCY_OFFSET 0U
 
 #define XDFEEQU_CURRENT_CONTROL_OFFSET 0x20U /* Register offset */
 #define XDFEEQU_NEXT_CONTROL_OFFSET 0x24U /* Register offset */
@@ -102,10 +110,10 @@ extern "C" {
 
 #define XDFEEQU_CURRENT_DYNAMIC_POWERDOWN_OFFSET 0x2CU /* Register offset */
 #define XDFEEQU_NEXT_DYNAMIC_POWERDOWN_OFFSET 0x30U /* Register offset */
-#define XDFEEQU_POWERDOWN_MODE_WIDTH 1U
-#define XDFEEQU_POWERDOWN_MODE_OFFSET 0U
-#define XDFEEQU_POWERDOWN_MODE_DISABLED 0U
-#define XDFEEQU_POWERDOWN_MODE_ENABLED 1U
+#define XDFEEQU_DYNAMIC_POWERDOWN_MODE_WIDTH 1U
+#define XDFEEQU_DYNAMIC_POWERDOWN_MODE_OFFSET 0U
+#define XDFEEQU_DYNAMIC_POWERDOWN_MODE_ENABLED 0U
+#define XDFEEQU_DYNAMIC_POWERDOWN_MODE_DISABLED 1U
 
 /* Status */
 #define XDFEEQU_CHANNEL_0_STATUS_OFFSET 0x40U /* Register offset */

@@ -45,6 +45,7 @@
 * 1.0   dc     09/03/20 Initial version
 *       dc     02/02/21 Remove hard coded device node name
 *       dc     02/22/21 align driver to current specification
+*       dc     03/15/21 Add data latency api
 * </pre>
 *
 ******************************************************************************/
@@ -286,6 +287,9 @@ void XDfeEqu_SetInterruptMask(const XDfeEqu *InstancePtr, u32 ChannelField,
 			      const XDfeEqu_InterruptMask *StatusMask);
 void XDfeEqu_GetActiveSets(const XDfeEqu *InstancePtr, u32 *RealSet,
 			   u32 *ImagSet);
+void XDfeEqu_SetTUserDelay(const XDfeEqu *InstancePtr, u32 Delay);
+u32 XDfeEqu_GetTUserDelay(const XDfeEqu *InstancePtr);
+u32 XDfeEqu_GetTDataDelay(const XDfeEqu *InstancePtr, u32 Tap);
 void XDfeEqu_GetVersions(const XDfeEqu *InstancePtr, XDfeEqu_Version *SwVersion,
 			 XDfeEqu_Version *HwVersion);
 
