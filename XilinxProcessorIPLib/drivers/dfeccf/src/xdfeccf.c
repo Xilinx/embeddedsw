@@ -21,6 +21,7 @@
 *       dc     02/02/21 Remove hard coded device node name
 *       dc     02/08/21 align driver to curent specification
 *       dc     02/22/21 include HW in versioning
+*       dc     03/16/21 update activate & deactivate api
 * </pre>
 *
 ******************************************************************************/
@@ -941,13 +942,18 @@ void XDfeCcf_Initialize(XDfeCcf *InstancePtr, const XDfeCcf_Init *Init)
 ******************************************************************************/
 void XDfeCcf_Activate(XDfeCcf *InstancePtr, bool EnableLowPower)
 {
-	u32 Data;
+	u32 IsOperational;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFECCF_STATE_INITIALISED);
+	Xil_AssertVoid((InstancePtr->StateId == XDFECCF_STATE_INITIALISED) ||
+		       (InstancePtr->StateId == XDFECCF_STATE_OPERATIONAL));
 
-	Data = XDfeCcf_ReadReg(InstancePtr, XDFECCF_STATE_OPERATIONAL_OFFSET);
-	if (1U == Data) {
+	/* Do nothing if the block already operational */
+	IsOperational = XDfeCcf_RdRegBitField(
+		InstancePtr, XDFECCF_STATE_OPERATIONAL_OFFSET,
+		XDFECCF_STATE_OPERATIONAL_BITFIELD_WIDTH,
+		XDFECCF_STATE_OPERATIONAL_BITFIELD_OFFSET);
+	if (IsOperational == XDFECCF_STATE_OPERATIONAL_YES) {
 		return;
 	}
 
@@ -979,13 +985,18 @@ void XDfeCcf_Activate(XDfeCcf *InstancePtr, bool EnableLowPower)
 ******************************************************************************/
 void XDfeCcf_Deactivate(XDfeCcf *InstancePtr)
 {
-	u32 Data;
+	u32 IsOperational;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFECCF_STATE_OPERATIONAL);
+	Xil_AssertVoid((InstancePtr->StateId == XDFECCF_STATE_INITIALISED) ||
+		       (InstancePtr->StateId == XDFECCF_STATE_OPERATIONAL));
 
-	Data = XDfeCcf_ReadReg(InstancePtr, XDFECCF_STATE_OPERATIONAL_OFFSET);
-	if (0U == Data) {
+	/* Do nothing if the block already deactivated */
+	IsOperational = XDfeCcf_RdRegBitField(
+		InstancePtr, XDFECCF_STATE_OPERATIONAL_OFFSET,
+		XDFECCF_STATE_OPERATIONAL_BITFIELD_WIDTH,
+		XDFECCF_STATE_OPERATIONAL_BITFIELD_OFFSET);
+	if (IsOperational == XDFECCF_STATE_OPERATIONAL_NO) {
 		return;
 	}
 
@@ -1398,8 +1409,14 @@ void XDfeCcf_GetCC(const XDfeCcf *InstancePtr, u32 CCID,
 ****************************************************************************/
 void XDfeCcf_GetActiveSets(const XDfeCcf *InstancePtr, u32 *IsActive)
 {
+	u32 Offset;
 	u32 Index;
 	u32 SeqLen;
+	u32 CCID;
+	u32 Val;
+	u32 ReCoefSet;
+	u32 ImCoefSet;
+	u32 Enable;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFECCF_STATE_OPERATIONAL);
@@ -1413,17 +1430,27 @@ void XDfeCcf_GetActiveSets(const XDfeCcf *InstancePtr, u32 *IsActive)
 	/* Read all coefficient sets in use and update IsActive */
 	SeqLen = XDfeCcf_ReadReg(InstancePtr, XDFECCF_SEQUENCE_LENGTH_CURRENT);
 	for (Index = 0; Index < SeqLen; Index++) {
-		u32 CCID = XDfeCcf_ReadReg(InstancePtr,
-					   XDFECCF_SEQUENCE_CURRENT +
-						   (sizeof(u32) * Index));
-		u32 Val = XDfeCcf_ReadReg(
-			InstancePtr, XDFECCF_CARRIER_CONFIGURATION_CURRENT +
-					     (sizeof(u32) * CCID));
-		u32 ReCoefSet =
+		Offset = XDFECCF_CARRIER_CONFIGURATION_CURRENT +
+			 (sizeof(u32) * Index);
+		Enable = XDfeCcf_RdRegBitField(InstancePtr, Offset,
+					       XDFECCF_ENABLE_OFFSET,
+					       XDFECCF_ENABLE_WIDTH);
+		if (Enable == XDFECCF_ENABLE_DISABLED) {
+			/* Skip this CC, it's not enabled */
+			continue;
+		}
+
+		/* CC is enabled, than activate coeficients */
+		Offset = XDFECCF_SEQUENCE_CURRENT + (sizeof(u32) * Index);
+		CCID = XDfeCcf_ReadReg(InstancePtr, Offset);
+		Offset = XDFECCF_CARRIER_CONFIGURATION_CURRENT +
+			 (sizeof(u32) * CCID);
+		Val = XDfeCcf_ReadReg(InstancePtr, Offset);
+		ReCoefSet =
 			XDfeCcf_RdBitField(XDFECCF_RE_COEFF_SET_WIDTH,
 					   XDFECCF_RE_COEFF_SET_OFFSET, Val);
 		IsActive[ReCoefSet] = 1U;
-		u32 ImCoefSet =
+		ImCoefSet =
 			XDfeCcf_RdBitField(XDFECCF_IM_COEFF_SET_WIDTH,
 					   XDFECCF_IM_COEFF_SET_OFFSET, Val);
 		IsActive[ImCoefSet] = 1U;

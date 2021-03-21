@@ -20,6 +20,7 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     10/27/20 Initial version
 *       dc     02/08/21 align driver to curent specification
+*       dc     03/16/21 update activate & deactivate api
 * </pre>
 *
 ******************************************************************************/
@@ -60,6 +61,10 @@ extern "C" {
 
 /* State */
 #define XDFECCF_STATE_OPERATIONAL_OFFSET 0x10U /**< Register offset */
+#define XDFECCF_STATE_OPERATIONAL_BITFIELD_WIDTH 1U
+#define XDFECCF_STATE_OPERATIONAL_BITFIELD_OFFSET 0U
+#define XDFECCF_STATE_OPERATIONAL_NO 0U
+#define XDFECCF_STATE_OPERATIONAL_YES 1U
 #define XDFECCF_STATE_LOW_POWER_OFFSET 0x14U /**< Register offset */
 
 /* Triggers */
