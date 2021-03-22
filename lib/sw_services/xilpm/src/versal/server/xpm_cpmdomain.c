@@ -612,6 +612,13 @@ XStatus XPmCpmDomain_Init(XPm_CpmDomain *CpmDomain, u32 Id, u32 BaseAddress,
 		Status = XST_FAILURE;
 	}
 
+	/* Hack because topology is not passing correct info */
+	if (Id == PM_POWER_CPM5) {
+		CpmDomain->CpmSlcrBaseAddr = CPM5_SLCR_BASEADDR;
+		CpmDomain->CpmSlcrSecureBaseAddr = CPM5_SLCR_SECURE_BASEADDR;
+		CpmDomain->CpmCrCpmBaseAddr = CPM5_CRX_BASEADDR;
+	}
+
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
