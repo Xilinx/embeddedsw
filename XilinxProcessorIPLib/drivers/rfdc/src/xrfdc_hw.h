@@ -97,6 +97,7 @@
 *       cog    01/11/21 Tuning for autocalibration.
 *       cog    02/10/21 Added custom startup API.
 *       cog    03/12/21 Allow ADC to divide and redistribute full rate clock.
+*       cog    03/12/21 Tweaks for improved calibration performance.
 *
 *</pre>
 *
@@ -313,6 +314,7 @@ extern "C" {
 #define XRFDC_CURRENT_STATE_OFFSET 0x0CU /**< Current state register */
 #define XRFDC_CLOCK_DETECT_OFFSET 0x80U /**< Clock detect register */
 #define XRFDC_STATUS_OFFSET 0x228U /**< Common status register */
+#define XRFDC_CAL_DIV_BYP_OFFSET 0x100U /**< Calibration divider bypass register */
 #define XRFDC_COMMON_INTR_STS 0x100U /**< Common Intr Status register */
 #define XRFDC_COMMON_INTR_ENABLE 0x104U /**< Common Intr enable register */
 #define XRFDC_INTR_STS 0x200U /**< Intr status register */
@@ -328,6 +330,8 @@ extern "C" {
 #define XRFDC_TDD_CTRL_SLICE_OFFSET(X) (0x260 + (X * 0x04U)) /**< TDD control registers */
 #define XRFDC_PLL_FREQ 0x300U /**< PLL output frequency (before divider) register */
 #define XRFDC_PLL_FS 0x304U /**< Sampling rate register */
+#define XRFDC_CAL_TMR_MULT_OFFSET 0x30CU /**< Calibration timer register */
+#define XRFDC_CAL_DLY_OFFSET 0x310U /**< Calibration delay register */
 #define XRFDC_FIFO_ENABLE 0x230U /**< FIFO Enable and Disable */
 #define XRFDC_PLL_SDM_CFG0 0x00U /**< PLL Configuration bits for sdm */
 #define XRFDC_PLL_SDM_SEED0 0x18U /**< PLL Bits for sdm LSB */
@@ -2114,6 +2118,16 @@ extern "C" {
  */
 
 #define XRFDC_DATA_SCALER_MASK 0x00000001U /**< Clock detect mask */
+
+/* @} */
+
+/** @name Calibration divider bypass register
+ *
+ * This register contains the calibration divider bypass enable bit.
+ * @{
+ */
+
+#define XRFDC_CAL_DIV_BYP_MASK 0x00000004U /**< Calibration divider bypass mask */
 
 /* @} */
 
