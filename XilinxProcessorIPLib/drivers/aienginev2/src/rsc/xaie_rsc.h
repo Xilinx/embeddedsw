@@ -49,6 +49,7 @@ typedef struct {
 /* This enum is used to capture all resource types managed by resource manager*/
 typedef enum {
 	XAIE_PERFCNT_RSC,
+	XAIE_MAX_RSC,
 } XAie_RscType;
 
 /************************** Function Prototypes  *****************************/

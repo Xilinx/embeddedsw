@@ -27,20 +27,43 @@
 #include "xaiegbl.h"
 
 /************************** Enum *********************************************/
+/**************************** Type Definitions *******************************/
+typedef struct {
+	u32 StaticBitmapOffset;
+	u32 BitmapOffset;
+	u32 StartBit;
+	u32 MaxRscVal;
+} XAie_BitmapOffsets;
 
 /************************** Function Prototypes  *****************************/
 /* Global resource management APIs */
 AieRC _XAie_RscMgrInit(XAie_DevInst *DevInst);
 AieRC _XAie_RscMgrFinish(XAie_DevInst *DevInst);
-
-/* Performance counter resource management internal APIs */
-AieRC _XAie_PerfCntRscInit(XAie_DevInst *DevInst);
-void _XAie_PerfCntRscFinish(XAie_DevInst *DevInst);
+AieRC _XAie_RscMgr_RequestRsc(XAie_DevInst *DevInst, u32 NumReq,
+		XAie_UserRscReq *RscReq, XAie_UserRsc *Rscs,
+		XAie_RscType RscType);
+AieRC _XAie_RscMgr_FreeRscs(XAie_DevInst *DevInst, u32 RscNum,
+		XAie_UserRsc *Rscs, XAie_RscType RscType);
+AieRC _XAie_RscMgr_ReleaseRscs(XAie_DevInst *DevInst, u32 RscNum,
+		XAie_UserRsc *Rscs, XAie_RscType RscType);
+AieRC _XAie_RscMgr_RequestAllocatedRsc(XAie_DevInst *DevInst, u32 NumReq,
+		XAie_UserRsc *Rscs, XAie_RscType RscType);
 
 /* Common resource management helper APIs */
 AieRC _XAie_CheckLocsValidity(XAie_DevInst *DevInst, u32 NumReq,
 		XAie_UserRsc *RscReq);
 u32 _XAie_GetStartBit(XAie_DevInst *DevInst, XAie_LocType Loc, u32 MaxRscVal);
+AieRC _XAie_RscMgrRequestApi_CheckArgs(XAie_DevInst *DevInst, u32 NumReq,
+		XAie_UserRscReq *RscReq, u32 UserRscNum, XAie_UserRsc *Rscs);
+AieRC _XAie_RscMgrRscApi_CheckArgs(XAie_DevInst *DevInst, u32 RscNum,
+		XAie_UserRsc *Rscs, XAie_RscType RscType);
+AieRC _XAie_RscMgr_CheckModforReqs(XAie_DevInst *DevInst, u32 NumReq,
+		XAie_UserRscReq *RscReq);
+u32 _XAie_RscMgr_GetMaxRscVal(XAie_DevInst *DevInst, XAie_RscType RscType,
+		XAie_LocType Loc, XAie_ModuleType Mod);
+void _XAie_RscMgr_GetBitmapOffsets(XAie_DevInst *DevInst, XAie_RscType RscType,
+		XAie_LocType Loc, XAie_ModuleType Mod,
+		XAie_BitmapOffsets *Offsets);
 
 /*****************************************************************************/
 /**
