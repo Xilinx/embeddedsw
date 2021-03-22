@@ -46,8 +46,7 @@
  */
 typedef enum {
 	/* All core module events of aie tile */
-	XAIE_EVENT_ENUM_MAX = 0x7FFFFFFF,
-	XAIE_EVENT_NONE_CORE = 0,
+	XAIE_EVENT_NONE_CORE,
 	XAIE_EVENT_TRUE_CORE,
 	XAIE_EVENT_GROUP_0_CORE,
 	XAIE_EVENT_TIMER_SYNC_CORE,
