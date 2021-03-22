@@ -272,6 +272,7 @@
 *       cog    02/10/21 Added custom startup API.
 *       cog    03/08/21 MTS now scans reference tile first. This has required a
 *                       change to the prototype of XRFdc_MultiConverter_Init.
+*       cog    03/12/21 Tweaks for improved calibration performance.
 *
 * </pre>
 *
@@ -1317,6 +1318,9 @@ typedef struct {
 #define XRFDC_MTS_SYSREF_GATE_ERROR 2048U
 #define XRFDC_MTS_SYSREF_FREQ_NDONE 4096U
 #define XRFDC_MTS_BAD_REF_TILE 8192U
+
+#define XRFDC_CAL_AXICLK_MULT 12.17085774
+#define XRFDC_CAL_DIV_CUTOFF_FREQ(X) (X ? 5.0 : 2.5)
 
 /*****************************************************************************/
 /************************** Function Prototypes ******************************/

@@ -59,6 +59,7 @@
 *                       setting PLL.
 *       cog    02/10/21 Added custom startup API.
 *       cog    03/12/21 Allow ADC to divide and redistribute full rate clock.
+*       cog    03/12/21 Tweaks for improved calibration performance.
 * </pre>
 *
 ******************************************************************************/
@@ -1811,6 +1812,7 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 	u32 PLLBypVal;
 	u32 NetCtrlReg = 0x0U;
 	u32 NorthClk = 0x0U;
+	u32 FGDelay = 0x0U;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
@@ -2086,6 +2088,23 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 		XRFdc_WriteReg(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile_Id), XRFDC_PLL_FS, PLLFS);
 	}
 	XRFdc_WriteReg(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile_Id), XRFDC_PLL_FREQ, PLLFreq);
+
+	if ((InstancePtr->RFdc_Config.IPType >= XRFDC_GEN3) && (Type == XRFDC_ADC_TILE)) {
+		BaseAddr = XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id);
+		if (InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.SampleRate >
+		    XRFDC_CAL_DIV_CUTOFF_FREQ(XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id))) {
+			FGDelay = (u32)(XRFdc_ReadReg(InstancePtr, BaseAddr, XRFDC_CAL_TMR_MULT_OFFSET) *
+					XRFDC_CAL_AXICLK_MULT);
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_DIV_BYP_OFFSET, XRFDC_CAL_DIV_BYP_MASK,
+					XRFDC_CAL_DIV_BYP_MASK);
+			XRFdc_WriteReg(InstancePtr, BaseAddr, XRFDC_CAL_DLY_OFFSET, FGDelay);
+		} else {
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_DIV_BYP_OFFSET, XRFDC_CAL_DIV_BYP_MASK,
+					XRFDC_DISABLED);
+			XRFdc_WriteReg(InstancePtr, BaseAddr, XRFDC_CAL_DLY_OFFSET, 0U);
+		}
+	}
+
 	/*
 	 * Re-start the ADC or DAC tile if tile was shut down in this function
 	 */
