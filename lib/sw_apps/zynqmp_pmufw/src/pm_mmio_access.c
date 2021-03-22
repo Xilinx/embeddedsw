@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -842,6 +842,15 @@ static const PmAccessRegion pmAccessTable[] = {
 		.endAddr = PMU_GLOBAL_MBIST_SETUP,
 		.access = MMIO_ACCESS_WO(IPI_PMU_0_IER_APU_MASK |
 					 IPI_PMU_0_IER_RPU_0_MASK |
+					 IPI_PMU_0_IER_RPU_1_MASK),
+	},
+#endif
+#ifdef ENABLE_EM
+	/* PMU Local FW error register */
+	{
+		.startAddr = PMU_LOCAL_PMU_SERV_ERR,
+		.endAddr = PMU_LOCAL_PMU_SERV_ERR,
+		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_RPU_0_MASK |
 					 IPI_PMU_0_IER_RPU_1_MASK),
 	},
 #endif
