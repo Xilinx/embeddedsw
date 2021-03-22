@@ -605,7 +605,7 @@ typedef struct XAie_L2IntrMod {
  * This structure captures all attributes related to resource manager.
  */
 typedef struct XAie_ResourceManager {
-	u32 *PerfCntBitmap;
+	u32 **Bitmaps;
 } XAie_ResourceManager;
 
 /*
