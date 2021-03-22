@@ -8,7 +8,11 @@
 #include "xpm_regs.h"
 #include "xpm_powerdomain.h"
 #include "xpm_device.h"
+#include "xpm_ipi.h"
 #include "xpm_pldomain.h"
+#include "xpm_psm_api.h"
+#include "xpm_psm.h"
+#include "xpm_debug.h"
 
 /*TODO: Below data should come from topology */
 static XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
@@ -365,6 +369,34 @@ static void DisablePlXramIso(void)
 	return;
 }
 
+static int XPmDomainIso_SendEventToPsm(u32 IsoIdx, u32 Enable)
+{
+	int Status = XST_FAILURE;
+	u16 DbgErr;
+	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
+
+	if (1U != XPmPsm_FwIsPresent()) {
+		DbgErr = XPM_INT_ERR_PSMFW_NOT_PRESENT;
+		Status = XST_NOT_ENABLED;
+		goto done;
+	}
+
+	Payload[0U] = PSM_API_DOMAIN_ISO;
+	Payload[1U] = IsoIdx;
+	Payload[2U] = Enable;
+
+	Status = XPm_IpiSend(PSM_IPI_INT_MASK, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = XPm_IpiReadStatus(PSM_IPI_INT_MASK);
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
 XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 {
 	XStatus Status = XST_FAILURE;
@@ -391,7 +423,14 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 	 */
 	if ((TRUE_VALUE == Enable) || (TRUE_PENDING_REMOVE == Enable)) {
 		if (XPmDomainIso_List[IsoIdx].Polarity == (u8)PM_ACTIVE_HIGH) {
-			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, Mask);
+			if (((u32)XPM_NODEIDX_ISO_LPD_CPM5_DFX == IsoIdx) ||
+			    ((u32)XPM_NODEIDX_ISO_LPD_CPM5 == IsoIdx)) {
+				Status = XPmDomainIso_SendEventToPsm(IsoIdx,
+								     TRUE_VALUE);
+			} else {
+				XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress,
+					  Mask, Mask);
+			}
 		} else {
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, 0);
 			if ((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR == IsoIdx) {
@@ -409,7 +448,14 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 		}
 	} else if(Enable == FALSE_IMMEDIATE) {
 		if (XPmDomainIso_List[IsoIdx].Polarity == (u8)PM_ACTIVE_HIGH) {
-			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, 0);
+			if (((u32)XPM_NODEIDX_ISO_LPD_CPM5_DFX == IsoIdx) ||
+			    ((u32)XPM_NODEIDX_ISO_LPD_CPM5 == IsoIdx)) {
+				Status = XPmDomainIso_SendEventToPsm(IsoIdx,
+								     FALSE_VALUE);
+			} else {
+				XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress,
+					  Mask, 0U);
+			}
 		} else {
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, Mask);
 			if ((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR == IsoIdx) {
@@ -433,7 +479,14 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 			DisablePlXramIso();
 		}
 		if (XPmDomainIso_List[IsoIdx].Polarity == (u8)PM_ACTIVE_HIGH) {
-			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, 0);
+			if (((u32)XPM_NODEIDX_ISO_LPD_CPM5_DFX == IsoIdx) ||
+			    ((u32)XPM_NODEIDX_ISO_LPD_CPM5 == IsoIdx)) {
+				Status = XPmDomainIso_SendEventToPsm(IsoIdx,
+								     FALSE_VALUE);
+			} else {
+				XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress,
+					  Mask, 0U);
+			}
 		} else {
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, Mask);
 			if ((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR == IsoIdx) {
@@ -484,6 +537,8 @@ XStatus XPmDomainIso_GetState(u32 IsoIdx, XPm_IsoStates *State)
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
+
+	/* TODO: Implement GetState for isolations present in PSM */
 
 	Mask = XPmDomainIso_List[IsoIdx].Mask;
 	Base = XPmDomainIso_List[IsoIdx].Node.BaseAddress;
