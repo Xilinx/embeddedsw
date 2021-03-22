@@ -27,6 +27,8 @@
 *                     macros
 * 4.4   har 01/18/20  Added support for ECDSA P521 KAT
 *       kpt 02/14/21  Added redundancy for ECDSA hash length check
+*       har 03/22/21  Added volatile keyword to status variables used in
+*                     XSECURE_TEMPORAL_CHECK
 *
 * </pre>
 *
@@ -135,7 +137,7 @@ int XSecure_EllipticGenerateSignature(XSecure_EllipticCrvTyp CrvType, const u8* 
 	const u32 HashLen, const u8* D, const u8* K, XSecure_EllipticSign *Sign)
 {
 	int Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
-	int GenStatus = XST_FAILURE;
+	volatile int GenStatus = XST_FAILURE;
 	EcdsaCrvInfo *Crv = NULL;
 	u8 PaddedHash[XSECURE_ECC_P521_SIZE_IN_BYTES] = {0U};
 	volatile u32 HashLenTmp = 0xFFFFFFFFU;
@@ -209,7 +211,7 @@ int XSecure_EllipticValidateKey(XSecure_EllipticCrvTyp CrvType,
 	XSecure_EllipticKey *Key)
 {
 	int Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
-	int ValidateStatus = XST_FAILURE;
+	volatile int ValidateStatus = XST_FAILURE;
 	EcdsaCrvInfo *Crv = NULL;
 
 	if ((CrvType != XSECURE_ECC_NIST_P384) &&
