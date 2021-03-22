@@ -344,7 +344,8 @@ extern "C" {
 #define XPM_INT_ERR_PLL_PERMISSION		0x3907U
 /* Error during clock disable */
 #define XPM_INT_ERR_CLK_DISABLE			0x3908U
-
+/* Error enabling CPM_TOPSW_REF clk */
+#define XPM_INT_ERR_CPM_TOPSW_REF_CLK_ENABLE	0x3909U
 
 /************************** CPM specific Errors ******************************/
 /************************** (0x4000) - (0x40FF) ******************************/

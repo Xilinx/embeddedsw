@@ -13,6 +13,7 @@
 #include "xpm_device.h"
 #include "xpm_debug.h"
 #include "xpm_psm_api.h"
+#include "xpm_api.h"
 
 #define XPM_HC_CPM_OPS			0U
 #define XPM_HC_CPM5_OPS			1U
@@ -248,6 +249,13 @@ static XStatus Cpm5ScanClear(u32 *Args, u32 NumOfArgs)
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_CPM5, FALSE_VALUE);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_LPD_CPM5_ISO;
+		goto done;
+	}
+
+	/* Enable CPM CPM_TOPSW_REF clock */
+	Status = XPm_SetClockState(PM_SUBSYS_PMC, PM_CLK_CPM_TOPSW_REF, 1U);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_CPM_TOPSW_REF_CLK_ENABLE;
 	}
 
 	/* Lock PCSR */
