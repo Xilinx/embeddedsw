@@ -75,6 +75,15 @@ u32 _XAie_GetTotalNumRscs(XAie_DevInst *DevInst, u8 TileType,
 		}
 		return NumRscs;
 	}
+	case XAIE_PC_EVENTS_RSC:
+	{
+		const XAie_EvntMod *EventMod;
+		for(u8 i = 0U; i < NumMods; i++) {
+			EventMod = &DevInst->DevProp.DevMod[TileType].EvntMod[i];
+			NumRscs += EventMod->NumPCEvents;
+		}
+		return NumRscs;
+	}
 	default:
 		return 0U;
 	}
@@ -462,6 +471,15 @@ u32 _XAie_RscMgr_GetMaxRscVal(XAie_DevInst *DevInst, XAie_RscType RscType,
 		TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
 		EventMod = _XAie_GetEventMod(DevInst, TileType, Mod);
 		return EventMod->NumUserEvents;
+	}
+	case XAIE_PC_EVENTS_RSC:
+	{
+		const XAie_EvntMod *EventMod;
+		u8 TileType;
+
+		TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+		EventMod = _XAie_GetEventMod(DevInst, TileType, Mod);
+		return EventMod->NumPCEvents;
 	}
 	default:
 		return 0U;

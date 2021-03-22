@@ -50,6 +50,7 @@ typedef struct {
 typedef enum {
 	XAIE_PERFCNT_RSC,
 	XAIE_USER_EVENTS_RSC,
+	XAIE_PC_EVENTS_RSC,
 	XAIE_MAX_RSC,
 } XAie_RscType;
 
@@ -74,6 +75,15 @@ AieRC XAie_FreeUserEvents(XAie_DevInst *DevInst, u32 UserRscNum,
 AieRC XAie_RequestAllocatedUserEvents(XAie_DevInst *DevInst, u32 NumReq,
 		XAie_UserRsc *RscReq);
 
+/* PC Events resource management APIs */
+AieRC XAie_RequestPCEvents(XAie_DevInst *DevInst, u32 NumReq,
+		XAie_UserRscReq *RscReq, u32 UserRscNum, XAie_UserRsc *Rscs);
+AieRC XAie_ReleasePCEvents(XAie_DevInst *DevInst, u32 UserRscNum,
+		XAie_UserRsc *Rscs);
+AieRC XAie_FreePCEvents(XAie_DevInst *DevInst, u32 UserRscNum,
+		XAie_UserRsc *Rscs);
+AieRC XAie_RequestAllocatedPCEvents(XAie_DevInst *DevInst, u32 NumReq,
+		XAie_UserRsc *RscReq);
 /*****************************************************************************/
 /*
 *
