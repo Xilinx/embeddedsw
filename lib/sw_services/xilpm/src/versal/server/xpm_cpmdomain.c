@@ -244,6 +244,12 @@ static XStatus Cpm5ScanClear(u32 *Args, u32 NumOfArgs)
 	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_MASK_OFFSET,
 		0x0);
 
+	/* Remove isolation between CPM5 and LPD */
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_CPM5, FALSE_VALUE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_LPD_CPM5_ISO;
+	}
+
 	/* Lock PCSR */
 	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_LOCK_OFFSET, 1);
 
