@@ -96,6 +96,7 @@
 *       cog    01/06/21 Added DAC data scaler APIs.
 *       cog    01/11/21 Tuning for autocalibration.
 *       cog    02/10/21 Added custom startup API.
+*       cog    03/12/21 Allow ADC to divide and redistribute full rate clock.
 *
 *</pre>
 *
@@ -1580,6 +1581,8 @@ extern "C" {
  */
 
 #define XRFDC_RX_PR_MC_CFG0_MASK 0x0000FFFFU /**< RX Pair MC Config0 */
+#define XRFDC_RX_PR_MC_CFG0_PSNK_MASK 0x00002000U /**< RX Pair MC Config0 */
+#define XRFDC_RX_PR_MC_CFG0_IDIV_MASK 0x00000010U /**< RX Pair MC Config0 */
 
 /* @} */
 
