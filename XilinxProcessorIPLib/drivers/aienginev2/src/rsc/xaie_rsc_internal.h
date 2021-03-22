@@ -37,10 +37,6 @@ AieRC _XAie_RscMgrFinish(XAie_DevInst *DevInst);
 AieRC _XAie_PerfCntRscInit(XAie_DevInst *DevInst);
 void _XAie_PerfCntRscFinish(XAie_DevInst *DevInst);
 
-/* User events resource management internal APIs */
-AieRC _XAie_UserEventsRscInit(XAie_DevInst *DevInst);
-void _XAie_UserEventsRscFinish(XAie_DevInst *DevInst);
-
 /* Common resource management helper APIs */
 AieRC _XAie_CheckLocsValidity(XAie_DevInst *DevInst, u32 NumReq,
 		XAie_UserRsc *RscReq);

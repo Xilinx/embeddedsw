@@ -606,7 +606,6 @@ typedef struct XAie_L2IntrMod {
  */
 typedef struct XAie_ResourceManager {
 	u32 *PerfCntBitmap;
-	u32 *UserEventsBitmap;
 } XAie_ResourceManager;
 
 /*
