@@ -66,6 +66,15 @@ u32 _XAie_GetTotalNumRscs(XAie_DevInst *DevInst, u8 TileType,
 		}
 		return NumRscs;
 	}
+	case XAIE_USER_EVENTS_RSC:
+	{
+		const XAie_EvntMod *EventMod;
+		for(u8 i = 0U; i < NumMods; i++) {
+			EventMod = &DevInst->DevProp.DevMod[TileType].EvntMod[i];
+			NumRscs += EventMod->NumUserEvents;
+		}
+		return NumRscs;
+	}
 	default:
 		return 0U;
 	}
@@ -398,6 +407,28 @@ static const XAie_PerfMod *_XAie_GetPerfMod(XAie_DevInst *DevInst, u8 TileType,
 
 /*****************************************************************************/
 /**
+* This API gets EventMod from device instance, TileType and Module
+*
+* @param	DevInst: Device Instance
+* @param	TileType: Type of tile
+* @param	Mod: Module - MEM, CORE or PL.
+*
+* @return	Pointer to performance counter module
+*
+* @note		Internal only.
+*
+*******************************************************************************/
+static const XAie_EvntMod *_XAie_GetEventMod(XAie_DevInst *DevInst, u8 TileType,
+		XAie_ModuleType Mod)
+{
+	if(Mod == XAIE_PL_MOD)
+		return &DevInst->DevProp.DevMod[TileType].EvntMod[0U];
+	else
+		return &DevInst->DevProp.DevMod[TileType].EvntMod[Mod];
+}
+
+/*****************************************************************************/
+/**
 * This API returns the max resource value for a give location, resource type and
 * module.
 *
@@ -422,6 +453,15 @@ u32 _XAie_RscMgr_GetMaxRscVal(XAie_DevInst *DevInst, XAie_RscType RscType,
 		TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
 		PerfMod = _XAie_GetPerfMod(DevInst, TileType, Mod);
 		return PerfMod->MaxCounterVal;
+	}
+	case XAIE_USER_EVENTS_RSC:
+	{
+		const XAie_EvntMod *EventMod;
+		u8 TileType;
+
+		TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+		EventMod = _XAie_GetEventMod(DevInst, TileType, Mod);
+		return EventMod->NumUserEvents;
 	}
 	default:
 		return 0U;

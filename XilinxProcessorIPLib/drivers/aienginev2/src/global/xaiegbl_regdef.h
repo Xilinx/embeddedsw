@@ -496,6 +496,12 @@ typedef struct XAie_EventGroup {
 	u32 ResetValue;
 } XAie_EventGroup;
 
+/* structure to capture RscId to Events mapping */
+typedef struct {
+	u8 RscId;
+	XAie_Events Event;
+} XAie_EventMap;
+
 /* This typedef contains attributes of Events module */
 typedef struct XAie_EvntMod {
 	const u8 *XAie_EventNumber;	/* Array of event numbers with true event val */
@@ -533,6 +539,8 @@ typedef struct XAie_EvntMod {
 	XAie_RegFldAttr PCAddr;
 	XAie_RegFldAttr PCValid;
 	u32 BaseStatusRegOff;
+	u8 NumUserEvents;
+	const XAie_EventMap *UserEventMap;
 } XAie_EvntMod;
 
 /* This typedef contains attributes of timer module */
