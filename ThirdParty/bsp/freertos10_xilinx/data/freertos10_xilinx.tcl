@@ -1,5 +1,5 @@
 
-# Copyright (C) 2015 - 2020 Xilinx, Inc.
+# Copyright (C) 2015 - 2021 Xilinx, Inc.
 #
 # This file is part of the FreeRTOS port.
 #
@@ -140,6 +140,7 @@ proc generate {os_handle} {
 
 	set standalone_version [get_standalone_version]
 	set have_tick_timer 0
+	global axi_timer_connected
 	set sw_proc_handle [hsi::get_sw_processor]
 	set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
 	set proctype [common::get_property IP_NAME $hw_proc_handle]
@@ -1213,7 +1214,7 @@ proc generate {os_handle} {
 		} else {
 			set ttc_ips [get_cell -hier -filter {IP_NAME== "psu_ttc"}]
 		}
-		if { [llength $ttc_ips] != 0 } {
+		if { [llength $ttc_ips] != 0 && $axi_timer_connected == 0 } {
 			foreach ttc_ip $ttc_ips {
 			set base_addr [get_base_value $ttc_ip]
 			set base_addr [string trimleft $base_addr "0x"]
@@ -1631,6 +1632,8 @@ proc mb_drc_checks { sw_proc_handle hw_proc_handle os_handle } {
 	puts [format "slave_ifs %s bus_name %s" $slave_ifs $bus_name]
 	set timer_count 0
 	set timer_has_intr 0
+	global axi_timer_connected
+	set axi_timer_connected 0
 
 	# check for a valid timer
         set axi_timer_ips [get_cell -hier -filter {IP_NAME== "axi_timer"}]
@@ -1641,6 +1644,7 @@ proc mb_drc_checks { sw_proc_handle hw_proc_handle os_handle } {
                  set isintr [::hsm::utils::is_ip_interrupting_current_proc $axi_timer_ip]
                  if {$isintr == 1} {
                      set timer_has_intr 1
+                     set axi_timer_connected 1
                  }
               }
          } else {
