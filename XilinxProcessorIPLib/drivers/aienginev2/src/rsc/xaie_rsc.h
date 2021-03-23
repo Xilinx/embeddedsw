@@ -49,6 +49,7 @@ typedef struct {
 /* This enum is used to capture all resource types managed by resource manager*/
 typedef enum {
 	XAIE_PERFCNT_RSC,
+	XAIE_USER_EVENTS_RSC,
 	XAIE_MAX_RSC,
 } XAie_RscType;
 
@@ -61,6 +62,16 @@ AieRC XAie_ReleasePerfcnt(XAie_DevInst *DevInst, u32 UserRscNum,
 AieRC XAie_FreePerfcnt(XAie_DevInst *DevInst, u32 UserRscNum,
 		XAie_UserRsc *Rscs);
 AieRC XAie_RequestAllocatedPerfcnt(XAie_DevInst *DevInst, u32 NumReq,
+		XAie_UserRsc *RscReq);
+
+/* User Events resource management APIs */
+AieRC XAie_RequestUserEvents(XAie_DevInst *DevInst, u32 NumReq,
+		XAie_UserRscReq *RscReq, u32 UserRscNum, XAie_UserRsc *Rscs);
+AieRC XAie_ReleaseUserEvents(XAie_DevInst *DevInst, u32 UserRscNum,
+		XAie_UserRsc *Rscs);
+AieRC XAie_FreeUserEvents(XAie_DevInst *DevInst, u32 UserRscNum,
+		XAie_UserRsc *Rscs);
+AieRC XAie_RequestAllocatedUserEvents(XAie_DevInst *DevInst, u32 NumReq,
 		XAie_UserRsc *RscReq);
 
 /*****************************************************************************/

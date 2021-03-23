@@ -2437,6 +2437,27 @@ static const XAie_EventGroup AiePlGroupEvent[] =
 	},
 };
 
+/* mapping of user events for core module */
+static const XAie_EventMap AieTileCoreModUserEventMap =
+{
+	.RscId = 0U,
+	.Event = XAIE_EVENT_USER_EVENT_0_CORE,
+};
+
+/* mapping of user events for memory module */
+static const XAie_EventMap AieTileMemModUserEventStart =
+{
+	.RscId = 0U,
+	.Event = XAIE_EVENT_USER_EVENT_0_MEM,
+};
+
+/* mapping of user events for memory module */
+static const XAie_EventMap ShimTilePlModUserEventStart =
+{
+	.RscId = 0U,
+	.Event = XAIE_EVENT_USER_EVENT_0_PL,
+};
+
 /*
  * Data structure to capture core and memory module events properties
  * For memory module default error group mask enables,
@@ -2504,6 +2525,8 @@ static const XAie_EvntMod AieTileEvntMod[] =
 		.PCAddr = {XAIE_FEATURE_UNAVAILABLE, XAIE_FEATURE_UNAVAILABLE},
 		.PCValid = {XAIE_FEATURE_UNAVAILABLE, XAIE_FEATURE_UNAVAILABLE},
 		.BaseStatusRegOff = XAIEGBL_MEM_EVTSTA0,
+		.NumUserEvents = 4U,
+		.UserEventMap = &AieTileMemModUserEventStart,
 	},
 	{
 		.XAie_EventNumber = AieTileCoreModEventMapping,
@@ -2541,6 +2564,8 @@ static const XAie_EvntMod AieTileEvntMod[] =
 		.PCAddr = {XAIEGBL_CORE_PCEVT0_PCADD_LSB, XAIEGBL_CORE_PCEVT0_PCADD_MASK},
 		.PCValid = {XAIEGBL_CORE_PCEVT0_VAL_LSB, XAIEGBL_CORE_PCEVT0_VAL_MASK},
 		.BaseStatusRegOff = XAIEGBL_CORE_EVTSTA0,
+		.NumUserEvents = 4U,
+		.UserEventMap = &AieTileCoreModUserEventMap,
 	},
 };
 
@@ -2595,6 +2620,8 @@ static const XAie_EvntMod AieNocEvntMod =
 	.PCAddr = {XAIE_FEATURE_UNAVAILABLE, XAIE_FEATURE_UNAVAILABLE},
 	.PCValid = {XAIE_FEATURE_UNAVAILABLE, XAIE_FEATURE_UNAVAILABLE},
 	.BaseStatusRegOff = XAIEGBL_PL_EVTSTA0,
+	.NumUserEvents = 4U,
+	.UserEventMap = &ShimTilePlModUserEventStart,
 };
 
 /* Data structure to capture PL module events properties.
@@ -2648,6 +2675,8 @@ static const XAie_EvntMod AiePlEvntMod =
 	.PCAddr = {XAIE_FEATURE_UNAVAILABLE, XAIE_FEATURE_UNAVAILABLE},
 	.PCValid = {XAIE_FEATURE_UNAVAILABLE, XAIE_FEATURE_UNAVAILABLE},
 	.BaseStatusRegOff = XAIEGBL_PL_EVTSTA0,
+	.NumUserEvents = 4U,
+	.UserEventMap = &ShimTilePlModUserEventStart,
 };
 
 /* Data structure to capture core and mem module timer properties */
