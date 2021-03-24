@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2017 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +18,9 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   bvikram  02/01/17 First release
 * 2.0   bvikram  09/30/20 Fix USB boot issue
+* 3.0   bvikram  03/24/21 Clear CSU_SSS_CFG register in XFsbl_UsbCopy to
+*                         clear SHA and AES nibbles and avoid DMA corrupting
+*                         destination data
 *
 * </pre>
 *
@@ -175,9 +178,7 @@ u32 XFsbl_UsbCopy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 	}
 
 	/* Setup the  SSS for DMA */
-	u32 RegVal = XFsbl_In32(CSU_CSU_SSS_CFG) & XFSBL_CSU_SSS_DMA_MASK;
-	u32	RegVal1 = RegVal | XFSBL_CSU_SSS_SRC_DEST_DMA;
-	XFsbl_Out32(CSU_CSU_SSS_CFG, RegVal1);
+	XFsbl_Out32(CSU_CSU_SSS_CFG, XFSBL_CSU_SSS_SRC_DEST_DMA);
 
 	/* Set up the Destination DMA Channel*/
 	XCsuDma_Transfer(&CsuDma, XCSUDMA_DST_CHANNEL, DestAddress, Length/4U, 0);
