@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2017 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  *******************************************************************************/
 
@@ -18,6 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   bvikram  02/01/17 First release
 * 2.0   bvikram  09/30/20 Fix USB boot mode
+* 3.0   bvikram  03/24/21 Fix compilation warnings
 *
 * </pre>
 *
@@ -193,7 +194,6 @@ u32 XFsbl_Ch9SetupStrDescReply(u8 *BufPtr, u32 BufferLen, u8 Index)
 	char* String;
 	u32 StringLen;
 	u32 DescLen;
-	s32 SStatus;
 	XFsblPs_UsbStdStringDesc StringDesc;
 
 	if (Index >= STRING_DESCRIPTORS_NUM) {
@@ -261,7 +261,6 @@ END:
  ******************************************************************************/
 u32 XFsbl_Ch9SetupDevDescReply(u8 *BufPtr, u32 BufferLen)
 {
-	s32 SStatus;
 	u32 DevDescLength;
 
 	/* Check buffer pointer is there and buffer is big enough. */
@@ -298,7 +297,6 @@ END:
  ******************************************************************************/
 u32 XFsbl_Ch9SetupCfgDescReply(u8 *BufPtr, u32 BufferLen)
 {
-	s32 SStatus;
 	u8 *Config;
 	u32 CfgDescLen;
 
