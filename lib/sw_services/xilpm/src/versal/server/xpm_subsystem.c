@@ -204,6 +204,35 @@ done:
         return Status;
 }
 
+/*
+ * Handle the healthy boot notification from the subsystem
+ */
+static XStatus XPmSubsystem_NotifyHealthyBoot(const u32 SubsystemId)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_Device *Device;
+	u32 Idx;
+
+	for (Idx = (u32)XPM_NODEIDX_DEV_HB_MON_0;
+			Idx < (u32)XPM_NODEIDX_DEV_HB_MON_MAX; Idx++) {
+		/*
+		 * Iterate through available Healthy Boot Monitor nodes
+		 * and release it, if it is part of the given subsystem
+		 */
+		Device = XPmDevice_GetHbMonDeviceByIndex(Idx);
+		if ((NULL != Device) &&
+			(NULL != XPmDevice_FindRequirement(Device->Node.Id, SubsystemId))) {
+			Status = XPmDevice_Release(SubsystemId, Device->Node.Id);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		}
+	}
+	Status = XST_SUCCESS;
+done:
+	return Status;
+}
+
 int XPmSubsystem_InitFinalize(const u32 SubsystemId)
 {
 	int Status = XST_FAILURE;
@@ -222,6 +251,15 @@ int XPmSubsystem_InitFinalize(const u32 SubsystemId)
 	}
 
 	Subsystem->Flags |= SUBSYSTEM_INIT_FINALIZED;
+
+	/*
+	 * As the subsystem boot is successfully,
+	 * notify healthy to stop healthy boot monitors
+	 */
+	Status = XPmSubsystem_NotifyHealthyBoot(SubsystemId);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	for (Idx = (u32)XPM_NODEIDX_DEV_MIN + 1U;
 	     Idx < (u32)XPM_NODEIDX_DEV_MAX; Idx++) {
