@@ -7,10 +7,47 @@
 #include "xpm_periph.h"
 #include "xpm_gic_proxy.h"
 #include "xpm_defs.h"
+#include "xpm_requirement.h"
+#include "xplmi_err.h"
+#include "xplmi_scheduler.h"
 
 static struct XPm_PeriphOps GenericOps = {
 	.SetWakeupSource = XPmGicProxy_WakeEventSet,
 };
+
+/*
+ ***************************************************************
+ * Healthy Boot Scheduler related global variable Initialization
+ ***************************************************************
+ */
+static u32  HbMon_IsSchedRunning = 0U;
+
+/*
+ * Timeout (in ms) List for each Healthy boot node when its
+ * active (0 if not active)
+ */
+static u32 HbMon_TimeoutList[XPM_NODEIDX_DEV_HB_MON_MAX];
+
+/* Scheduler Interval in ms */
+static const u32 HbMon_SchedFreq = HBMON_SCHED_PERIOD;
+
+/*
+ * Unique Owner ID. Keep it same as Node id of first HBMon node
+ * TODO: Replace this with PM_DEV_HBMON_0 when availble in
+ * xpm_nodeid.h
+ */
+static const u32 HbMon_SchedId = NODEID(XPM_NODECLASS_DEVICE,
+					XPM_NODESUBCL_DEV_PERIPH,
+					XPM_NODETYPE_DEV_HB_MON,
+					XPM_NODEIDX_DEV_HB_MON_0);
+
+/* Function prototypes for scheduler and timers*/
+static int HbMon_Scheduler(void *data);
+static XStatus HbMon_StartTimer(u32 HbMonId, u32 TimeoutVal);
+static void HbMon_StopTimer(u32 HbMonId);
+
+/************************************************************/
+
 
 XStatus XPmPeriph_Init(XPm_Periph *Periph, u32 Id, u32 BaseAddress,
 		       XPm_Power *Power, XPm_ClockNode *Clock,
@@ -106,10 +143,10 @@ done:
 static const XPm_StateCap XPmHbMonDeviceStates[] = {
 	{
 		.State = (u8)XPM_DEVSTATE_UNUSED,
-		.Cap = XPM_MIN_CAPABILITY,
+		.Cap = (u32)XPM_MIN_CAPABILITY,
 	}, {
 		.State = (u8)XPM_DEVSTATE_RUNNING,
-		.Cap = PM_CAP_ACCESS,
+		.Cap = (u32)PM_CAP_ACCESS,
 	},
 };
 
@@ -127,17 +164,39 @@ static const XPm_StateTran XPmHbMonDevTransitions[] = {
 
 static XStatus HandleHbMonDeviceState(XPm_Device* const Device, const u32 NextState)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
+	u32 HbMon_Id = NODEINDEX(Device->Node.Id);
 
 	switch (Device->Node.State) {
 	case (u8)XPM_DEVSTATE_UNUSED:
 		if ((u32)XPM_DEVSTATE_RUNNING == NextState) {
-		    //todo: Start the timer
+			/* Extract the timeout value from the requirement
+			 * structure. It is assumed that this node
+			 * will not be shared with any subsystem, so
+			 * there should be only one requirement
+			 */
+			u32 Timeout = Device->Requirements->Curr.QoS;
+
+			Status = HbMon_StartTimer(HbMon_Id, Timeout);
+
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+
+			/* Update the subsystemId for the error node.
+			 * This is required for subsystem restart action
+			 * config in the error node.
+			 */
+			XPlmi_UpdateErrorSubsystemId(XPLMI_EVENT_ERROR_SW_ERR,
+							(u32)XPLMI_NODEIDX_ERROR_HB_MON_0 + HbMon_Id,
+							Device->Requirements->Subsystem->Id);
+			Status = XST_SUCCESS;
 		}
 		break;
 	case (u8)XPM_DEVSTATE_RUNNING:
 		if ((u32)XPM_DEVSTATE_UNUSED == NextState) {
-		    //todo: stop the timer.
+			HbMon_StopTimer(HbMon_Id);
+			Status = XST_SUCCESS;
 		}
 		break;
 	default:
@@ -145,6 +204,7 @@ static XStatus HandleHbMonDeviceState(XPm_Device* const Device, const u32 NextSt
 		break;
 	}
 
+done:
 	return Status;
 }
 
@@ -167,4 +227,102 @@ XStatus XPmHbMonDev_Init(XPm_Device *Device, u32 Id, XPm_Power *Power)
 
 done:
 	return Status;
+}
+
+static XStatus HbMon_StartTimer(u32 HbMonId, u32 TimeoutVal)
+{
+	XStatus Status = XST_FAILURE;
+
+	if (TimeoutVal == 0U) {
+		Status = XST_FAILURE;
+		PmErr("Invalid Timeoutvalue [%lu] for HbMonId[%lu]\r\n",
+					TimeoutVal, HbMonId);
+		goto done;
+	}
+
+	if (0U == HbMon_IsSchedRunning) {
+		/*
+		 * Start the scheduler if not running
+		 */
+		Status = XPlmi_SchedulerAddTask(HbMon_SchedId, HbMon_Scheduler,
+						HbMon_SchedFreq, XPLM_TASK_PRIORITY_0);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		HbMon_IsSchedRunning = 1U;
+	}
+
+	/* Set Timeout in ms. */
+	HbMon_TimeoutList[HbMonId] = TimeoutVal;
+
+	/*
+	 * To ensure minimum time before triggering recovery,
+	 * absorb the possible 100ms margin of error (task can be triggered
+	 * 100ms faster than expected, if this is not done) by adding 100 to
+	 * the timeout value. Also check the overflow condition.
+	 */
+	if (TimeoutVal <= (UINT32_MAX - HbMon_SchedFreq)) {
+		HbMon_TimeoutList[HbMonId] += HbMon_SchedFreq;
+	}
+
+	Status = XST_SUCCESS;
+done:
+	return Status;
+}
+
+static void HbMon_StopTimer(u32 HbMonId)
+{
+	HbMon_TimeoutList[HbMonId] = 0U;
+}
+
+/*
+ * Handler for the scheduled task.
+ * This will be called periodically every 'HbMon_SchedFreq' ms
+ */
+static int HbMon_Scheduler(void *data)
+{
+	(void)data;
+	XStatus Status = XST_FAILURE;
+	u32 ActiveMonitors = 0U;
+	u32 Idx;
+
+	for (Idx = (u32)XPM_NODEIDX_DEV_HB_MON_0;
+			Idx < (u32)XPM_NODEIDX_DEV_HB_MON_MAX; Idx++)
+	{
+		if (HbMon_TimeoutList[Idx] == 0U) {
+			continue;
+		}
+
+		ActiveMonitors++;
+
+		if (HbMon_TimeoutList[Idx] <= HbMon_SchedFreq) {
+			PmErr("Healthy Boot Timer %lu Expired. Triggering recovery\r\n",
+									Idx);
+			HbMon_TimeoutList[Idx] = 0U;
+			XPlmi_HandleSwError(XPLMI_EVENT_ERROR_SW_ERR,
+						(u32)XPLMI_NODEIDX_ERROR_HB_MON_0 + Idx);
+		} else {
+			HbMon_TimeoutList[Idx] = HbMon_TimeoutList[Idx] - HbMon_SchedFreq;
+		}
+	}
+
+	/*
+	 * Disable the scheduler if no monitors were active during this pass.
+	 * Note: We are waiting for next pass, even when the action is triggered
+	 * during this pass.
+	 */
+	if (ActiveMonitors == 0U) {
+		Status = XPlmi_SchedulerRemoveTask(HbMon_SchedId, HbMon_Scheduler,
+								HbMon_SchedFreq);
+		if (XST_SUCCESS == Status) {
+			HbMon_IsSchedRunning = 0U;
+		} else {
+			PmErr("Removal of scheduler failed. Assuming it is still running \r\n");
+			goto done;
+		}
+	}
+
+	Status = XST_SUCCESS;
+done:
+	return (int)Status;
 }

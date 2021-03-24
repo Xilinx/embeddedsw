@@ -15,6 +15,8 @@ extern "C" {
 
 typedef struct XPm_Periph XPm_Periph;
 
+#define HBMON_SCHED_PERIOD	(100U)
+
 /* Core Operations */
 struct XPm_PeriphOps {
 	void (*SetWakeupSource)(XPm_Periph *Periph, u8 Enable);
