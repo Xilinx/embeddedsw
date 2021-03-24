@@ -615,7 +615,8 @@ AieRC _XAie_RscMgr_RequestRsc(XAie_DevInst *DevInst, u32 NumReq,
 			/* Clear resource marking for all previous requests */
 			_XAie_RscMgr_FreeRscs(DevInst, UserRscIndex, Rscs,
 					RscType);
-			XAIE_ERROR("Unable to request performance counters\n");
+			XAIE_ERROR("Unable to request resources. RscType: %d\n",
+					RscType);
 			return XAIE_INVALID_ARGS;
 		}
 		for(u32 j = 0U; j < RscReq[i].NumRscPerTile; j++) {
@@ -780,7 +781,8 @@ AieRC _XAie_RscMgr_RequestAllocatedRsc(XAie_DevInst *DevInst, u32 NumReq,
 			/* Clear resource marking for all previous requests */
 			_XAie_RscMgr_FreeRscs(DevInst, UserRscIndex, Rscs,
 					RscType);
-			XAIE_ERROR("Unable to request performance counters\n");
+			XAIE_ERROR("Unable to request resources. RscType: %d\n",
+					RscType);
 			return XAIE_INVALID_ARGS;
 		}
 
