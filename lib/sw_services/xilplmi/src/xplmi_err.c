@@ -38,6 +38,7 @@
 * 1.04  td   01/07/2021 Fix warning in PLM memory log regarding NULL handler for
 *                       PMC_PSM_NCR error
 *       bsv  01/29/2021 Added APIs for checking and clearing NPI errors
+*       pj   03/03/2021 Added API to update Subystem Id of the error node
 *
 * </pre>
 *
@@ -360,6 +361,25 @@ static struct XPlmi_Error_t ErrorTable[XPLMI_NODEIDX_ERROR_PSMERR2_MAX] = {
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 };
 
+/****************************************************************************/
+/**
+* @brief    This function updates the SubystemId for the given error index.
+*
+* @param    ErrorNodeId is the node ID for the error event
+* @param    ErrorIndex is the index of the error received
+* @param    SubsystemId is the Subsystem ID for the error node.
+*
+* @return   None
+*
+****************************************************************************/
+void XPlmi_UpdateErrorSubsystemId(u32 ErrorNodeId, u32 ErrorIndex, u32 SubsystemId)
+{
+	(void) ErrorNodeId;
+	if (ErrorIndex < XPLMI_NODEIDX_ERROR_PSMERR2_MAX) {
+		ErrorTable[ErrorIndex].SubsystemId = SubsystemId;
+	}
+}
+
 /*****************************************************************************/
 /**
  * @brief	This function triggers Power on Reset
@@ -608,6 +628,7 @@ static void XPlmi_EmClearError(u32 ErrorNodeId, u32 ErrorMask)
 	case XPLMI_NODETYPE_EVENT_PSM_ERR2:
 		/* Clear previous errors */
 		XPlmi_Out32(PSM_GLOBAL_REG_PSM_ERR2_STATUS, RegMask);
+
 		break;
 	default:
 		/* Invalid Error Type */

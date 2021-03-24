@@ -153,6 +153,8 @@ void XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown);
 int XPlmi_PsEmInit(void);
 int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMask, u8 ActionId,
 		XPlmi_ErrorHandler_t ErrorHandler);
+void XPlmi_UpdateErrorSubsystemId(u32 ErrorNodeId, u32 ErrorIndex,
+				u32 SubsystemId);
 int XPlmi_EmDisable(u32 ErrorNodeId, u32 ErrorMask);
 void XPlmi_ErrIntrHandler(void *CallbackRef);
 void XPlmi_SetEmSubsystemId(const u32 *Id);
