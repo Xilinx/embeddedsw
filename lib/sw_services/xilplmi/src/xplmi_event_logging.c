@@ -30,6 +30,7 @@
 *                       definitions.
 * 1.04  bm   03/04/2021 Add Address range check for Log Buffers
 *       ma   03/24/2021 Store DebugLog structure to RTCA
+*       ma   03/24/2021 Fix issue in log level configuration
 *
 * </pre>
 *
@@ -265,6 +266,7 @@ int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
 
 	switch (LoggingCmd) {
 		case XPLMI_LOGGING_CMD_CONFIG_LOG_LEVEL:
+			Arg1 = (u64)((1U << (u32)Arg1) - 1U);
 			if (Arg1 <= XPlmiDbgCurrentTypes) {
 				DebugLog->LogLevel = (u8)Arg1;
 				Status = XST_SUCCESS;
