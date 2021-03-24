@@ -87,6 +87,7 @@
 *       rb   03/09/2021 Updated Sem Scan Init API call
 *       bm   03/16/2021 Added Image Upgrade support
 *       har  03/17/2021 Added API call to set the secure state
+*       ma   03/24/2021 Redirect XilPdi prints to XilLoader
 *
 * </pre>
 *
@@ -464,6 +465,13 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 	 */
 	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
 		XilPdi_ReadBootHdr(&PdiPtr->MetaHdr);
+		/*
+		 * Print FW Rsvd fields Details
+		 */
+		XPlmi_Printf(DEBUG_INFO, "Boot Header Attributes: 0x%x\n\r",
+				PdiPtr->MetaHdr.BootHdrPtr->ImgAttrb);
+		XPlmi_Printf(DEBUG_INFO, "Meta Header Offset: 0x%x\n\r",
+				PdiPtr->MetaHdr.BootHdrPtr->BootHdrFwRsvd.MetaHdrOfst);
 		PdiPtr->ImageNum = 1U;
 		PdiPtr->PrtnNum = 1U;
 		if ((PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI24) ||
@@ -499,6 +507,13 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 		PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->PdiAddr;
 		/* Read Boot header */
 		XilPdi_ReadBootHdr(&PdiPtr->MetaHdr);
+		/*
+		 * Print FW Rsvd fields Details
+		 */
+		XPlmi_Printf(DEBUG_INFO, "Boot Header Attributes: 0x%x\n\r",
+				PdiPtr->MetaHdr.BootHdrPtr->ImgAttrb);
+		XPlmi_Printf(DEBUG_INFO, "Meta Header Offset: 0x%x\n\r",
+				PdiPtr->MetaHdr.BootHdrPtr->BootHdrFwRsvd.MetaHdrOfst);
 		Status = XPlmi_MemSetBytes(&(PdiPtr->MetaHdr.BootHdrPtr->BootHdrFwRsvd.MetaHdrOfst),
 			sizeof(XilPdi_BootHdrFwRsvd), 0U, sizeof(XilPdi_BootHdrFwRsvd));
 		if (Status != XST_SUCCESS) {
@@ -518,6 +533,27 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 	 * Check the validity of Img Hdr Table fields
 	 */
 	Status = XilPdi_ValidateImgHdrTbl(&(PdiPtr->MetaHdr.ImgHdrTbl));
+	/*
+	 * Print the Img header table details
+	 * Print the Bootgen version
+	 */
+	XPlmi_Printf(DEBUG_INFO, "--------Image Header Table Details--------\n\r");
+	XPlmi_Printf(DEBUG_INFO, "Boot Gen Version: 0x%x\n\r",
+			PdiPtr->MetaHdr.ImgHdrTbl.Version);
+	XPlmi_Printf(DEBUG_INFO, "No of Images: 0x%x\n\r",
+			PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs);
+	XPlmi_Printf(DEBUG_INFO, "Image Header Address: 0x%x\n\r",
+			PdiPtr->MetaHdr.ImgHdrTbl.ImgHdrAddr);
+	XPlmi_Printf(DEBUG_INFO, "No of Partitions: 0x%x\n\r",
+			PdiPtr->MetaHdr.ImgHdrTbl.NoOfPrtns);
+	XPlmi_Printf(DEBUG_INFO, "Partition Header Address: 0x%x\n\r",
+			PdiPtr->MetaHdr.ImgHdrTbl.PrtnHdrAddr);
+	XPlmi_Printf(DEBUG_INFO, "Secondary Boot Device Address: 0x%x\n\r",
+			PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr);
+	XPlmi_Printf(DEBUG_INFO, "IDCODE: 0x%x \n\r",
+			PdiPtr->MetaHdr.ImgHdrTbl.Idcode);
+	XPlmi_Printf(DEBUG_INFO, "Attributes: 0x%x\n\r",
+			PdiPtr->MetaHdr.ImgHdrTbl.Attr);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL, "Image Header Table Validation "
 					"failed\n\r");
@@ -592,12 +628,17 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 	 */
 	if (SecureParams.SecureEn != (u8)TRUE) {
 		PdiPtr->MetaHdr.Flag = XILPDI_METAHDR_RD_HDRS_FROM_DEVICE;
+		/* Read IHT and PHT to structures and verify checksum */
+		XPlmi_Printf(DEBUG_INFO, "Reading 0x%x Image Headers\n\r",
+				PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs);
 		Status = XilPdi_ReadAndVerifyImgHdr(&(PdiPtr->MetaHdr));
 		if (XST_SUCCESS != Status) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_IMGHDR, Status);
 			goto END;
 		}
 
+		XPlmi_Printf(DEBUG_INFO, "Reading 0x%x Partition Headers\n\r",
+				PdiPtr->MetaHdr.ImgHdrTbl.NoOfPrtns);
 		Status = XilPdi_ReadAndVerifyPrtnHdr(&PdiPtr->MetaHdr);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTNHDR, Status);

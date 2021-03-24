@@ -50,6 +50,7 @@
 * 1.04  bsv  01/28/2021 Initialize variables to invalid values
 *       bsv  01/29/2021 Added check for NPI errors after loading every partition
 *       bm   03/04/2021 Added address range check before loading elfs
+*       ma   03/24/2021 Redirect XilPdi prints to XilLoader
 *
 * </pre>
 *
@@ -234,6 +235,23 @@ static int XLoader_PrtnHdrValidation(const XilPdi_PrtnHdr * PrtnHdr, u32 PrtnNum
 	}
 
 END:
+	/*
+	 * Print Prtn Hdr Details
+	 */
+	XPlmi_Printf(DEBUG_INFO, "UnEncrypted data length: 0x%x\n\r",
+				PrtnHdr->UnEncDataWordLen);
+	XPlmi_Printf(DEBUG_INFO, "Encrypted data length: 0x%x\n\r",
+				PrtnHdr->EncDataWordLen);
+	XPlmi_Printf(DEBUG_INFO, "Total data word length: 0x%x\n\r",
+				PrtnHdr->TotalDataWordLen);
+	XPlmi_Printf(DEBUG_INFO, "Destination load address: 0x%lx\n\r",
+				PrtnHdr->DstnLoadAddr);
+	XPlmi_Printf(DEBUG_INFO, "Execution address: 0x%lx\n\r",
+				PrtnHdr->DstnExecutionAddr);
+	XPlmi_Printf(DEBUG_INFO, "Data word offset: 0x%x\n\r",
+				PrtnHdr->DataWordOfst);
+	XPlmi_Printf(DEBUG_INFO, "Partition attributes: 0x%x\n\r",
+				PrtnHdr->PrtnAttrb);
 	return Status;
 }
 
