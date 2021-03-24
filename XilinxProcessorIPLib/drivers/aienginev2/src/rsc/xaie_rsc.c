@@ -29,6 +29,8 @@
 #include "xaie_helper.h"
 /*****************************************************************************/
 /***************************** Macro Definitions *****************************/
+#define XAIE_TRACE_CTRL_RSCS_PER_MOD	1U
+
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
 /**
@@ -81,6 +83,13 @@ u32 _XAie_GetTotalNumRscs(XAie_DevInst *DevInst, u8 TileType,
 		for(u8 i = 0U; i < NumMods; i++) {
 			EventMod = &DevInst->DevProp.DevMod[TileType].EvntMod[i];
 			NumRscs += EventMod->NumPCEvents;
+		}
+		return NumRscs;
+	}
+	case XAIE_TRACE_CTRL_RSC:
+	{
+		for(u8 i = 0U; i < NumMods; i++) {
+			NumRscs += XAIE_TRACE_CTRL_RSCS_PER_MOD;
 		}
 		return NumRscs;
 	}
@@ -480,6 +489,10 @@ u32 _XAie_RscMgr_GetMaxRscVal(XAie_DevInst *DevInst, XAie_RscType RscType,
 		TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
 		EventMod = _XAie_GetEventMod(DevInst, TileType, Mod);
 		return EventMod->NumPCEvents;
+	}
+	case XAIE_TRACE_CTRL_RSC:
+	{
+		return XAIE_TRACE_CTRL_RSCS_PER_MOD;
 	}
 	default:
 		return 0U;

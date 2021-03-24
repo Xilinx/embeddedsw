@@ -51,6 +51,7 @@ typedef enum {
 	XAIE_PERFCNT_RSC,
 	XAIE_USER_EVENTS_RSC,
 	XAIE_PC_EVENTS_RSC,
+	XAIE_TRACE_CTRL_RSC,
 	XAIE_MAX_RSC,
 } XAie_RscType;
 
@@ -84,6 +85,17 @@ AieRC XAie_FreePCEvents(XAie_DevInst *DevInst, u32 UserRscNum,
 		XAie_UserRsc *Rscs);
 AieRC XAie_RequestAllocatedPCEvents(XAie_DevInst *DevInst, u32 NumReq,
 		XAie_UserRsc *RscReq);
+
+/* Trace control resource management API */
+AieRC XAie_RequestTraceCtrl(XAie_DevInst *DevInst, u32 NumReq,
+		XAie_UserRscReq *RscReq, u32 UserRscNum, XAie_UserRsc *Rscs);
+AieRC XAie_ReleaseTraceCtrl(XAie_DevInst *DevInst, u32 UserRscNum,
+		XAie_UserRsc *Rscs);
+AieRC XAie_FreeTraceCtrl(XAie_DevInst *DevInst, u32 UserRscNum,
+		XAie_UserRsc *Rscs);
+AieRC XAie_RequestAllocatedTraceCtrl(XAie_DevInst *DevInst, u32 NumReq,
+		XAie_UserRsc *RscReq);
+
 /*****************************************************************************/
 /*
 *
