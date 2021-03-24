@@ -186,6 +186,8 @@ extern "C" {
 #define XPM_INT_ERR_DEVICE_CHANGE_STATE	0x3313U
 /* Error during set virtual device node */
 #define XPM_INT_ERR_SET_VIRT_DEV		0x3314U
+/* Error during set healthy boot monitor device node */
+#define XPM_INT_ERR_SET_HB_MON_DEV		0x3315U
 
 /************************* Reset specific Errors *****************************/
 /************************** (0x3400) - (0x34FF) ******************************/

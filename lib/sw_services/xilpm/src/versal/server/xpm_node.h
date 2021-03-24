@@ -216,6 +216,7 @@ typedef enum {
 	XPM_NODETYPE_DEV_VDU,
 	XPM_NODETYPE_DEV_GGS,
 	XPM_NODETYPE_DEV_PGGS,
+	XPM_NODETYPE_DEV_HB_MON,
 } XPm_DeviceNodeType;
 
 typedef enum {
@@ -1032,6 +1033,16 @@ typedef enum {
 
 	XPM_NODEIDX_DEV_VIRT_MAX,
 } XPm_VirtualDeviceNodeIndex;
+
+typedef enum {
+	/* Healthy Boot Monitor nodes */
+	XPM_NODEIDX_DEV_HB_MON_0,
+	XPM_NODEIDX_DEV_HB_MON_1,
+	XPM_NODEIDX_DEV_HB_MON_2,
+	XPM_NODEIDX_DEV_HB_MON_3,
+
+	XPM_NODEIDX_DEV_HB_MON_MAX,
+} XPm_HBMonDeviceNodeIndex;
 
 /**
  * Subsystem IDs
