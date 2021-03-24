@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xaxicdma_g.c
-* @addtogroup axicdma_v4_8
+* @addtogroup axicdma_v4_9
 * @{
 *
 * Provide a template for user to define their own hardware settings.

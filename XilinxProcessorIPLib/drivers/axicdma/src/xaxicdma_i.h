@@ -1,12 +1,12 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
  *  @file xaxicdma_i.h
-* @addtogroup axicdma_v4_8
+* @addtogroup axicdma_v4_9
 * @{
  *
  * Header file for utility functions shared by driver files.
