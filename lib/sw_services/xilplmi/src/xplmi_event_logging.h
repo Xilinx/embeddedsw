@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
 *       bsv  04/04/2020 Code clean up
 * 1.02  kc   06/18/2020 Made static functions inline
 *       bm   10/14/2020 Code clean up
+*       ma   03/24/2021 Store DebugLog structure to RTCA
 *
 * </pre>
 *
@@ -47,9 +48,9 @@ extern "C" {
 /* Circular buffer Structure */
 typedef struct {
 	u64 StartAddr;
-	u64 CurrentAddr;
 	u32 Len;
-	u8 IsBufferFull;
+	u32 Offset:31;
+	u32 IsBufferFull:1;
 } XPlmi_CircularBuffer;
 
 typedef struct {
@@ -153,8 +154,10 @@ static inline void XPlmi_TraceLog5(u32 Header, u32 Arg1, u32 Arg2, u32 Arg3)
 	XPlmi_StoreTraceLog(TraceBuffer, XPLMI_ARRAY_SIZE(TraceBuffer));
 }
 
+void XPlmi_InitDebugLogBuffer(void);
+
 /************************** Variable Definitions *****************************/
-extern XPlmi_LogInfo DebugLog;
+extern XPlmi_LogInfo *DebugLog;
 
 #ifdef __cplusplus
 }

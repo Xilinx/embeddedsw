@@ -308,7 +308,7 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...)
 	u32 Idx = DBG_STR_IDX(DebugType);
 
 	va_start(Args, Ctrl1);
-	if ((((DebugType) & (DebugLog.LogLevel)) != (u8)FALSE) &&
+	if ((((DebugType) & (DebugLog->LogLevel)) != (u8)FALSE) &&
 		(Idx < (u32)ARRAY_SIZE(PrefixStr))) {
 		xil_printf("%s %s: ", PrefixStr[Idx], Fnstr);
 		xil_vprintf(Ctrl1, Args);

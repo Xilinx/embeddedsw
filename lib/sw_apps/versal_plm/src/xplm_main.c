@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,7 @@
 *       kc   03/23/2020 Minor code cleanup
 *       td   10/19/2020 MISRA C Fixes
 * 1.03  skd  03/16/2021 Warnings Fixed
+*       ma   03/24/2021 Store DebugLog structure to RTCA
 *
 * </pre>
 *
@@ -63,6 +64,9 @@ static int XPlm_Init(void);
 int main(void)
 {
 	int Status = XST_FAILURE;
+
+	/* Initialize debug log structure */
+	XPlmi_InitDebugLogBuffer();
 
 #ifdef DEBUG_UART_MDM
 	/** If MDM UART, banner can be printed before any initialization */

@@ -26,6 +26,7 @@
 *       bm   10/14/2020 Code clean up
 *       td   10/19/2020 MISRA C Fixes
 * 1.04  bm   02/01/2021 Add XPlmi_Print functions using xil_vprintf
+*       ma   03/24/2021 Store DebugLog structure to RTCA
 *
 * </pre>
 *
@@ -146,20 +147,24 @@ END:
  *****************************************************************************/
 void outbyte(char8 c)
 {
+	u64 CurrentAddr;
 #ifdef STDOUT_BASEADDRESS
 	if(((LpdInitialized) & UART_INITIALIZED) == UART_INITIALIZED) {
 		XUartPsv_SendByte(STDOUT_BASEADDRESS, (u8)c);
 	}
 #endif
 
-	if (DebugLog.LogBuffer.CurrentAddr >=
-			(DebugLog.LogBuffer.StartAddr + DebugLog.LogBuffer.Len)) {
-		DebugLog.LogBuffer.CurrentAddr = DebugLog.LogBuffer.StartAddr;
-		DebugLog.LogBuffer.IsBufferFull = (u8)TRUE;
+	CurrentAddr = DebugLog->LogBuffer.StartAddr + DebugLog->LogBuffer.Offset;
+	if (CurrentAddr >=
+			(DebugLog->LogBuffer.StartAddr + DebugLog->LogBuffer.Len)) {
+		DebugLog->LogBuffer.Offset = 0x0U;
+		DebugLog->LogBuffer.IsBufferFull = TRUE;
+		CurrentAddr = DebugLog->LogBuffer.StartAddr;
 	}
 
-	XPlmi_OutByte64(DebugLog.LogBuffer.CurrentAddr, (u8)c);
-	++DebugLog.LogBuffer.CurrentAddr;
+	XPlmi_OutByte64(CurrentAddr, (u8)c);
+	++DebugLog->LogBuffer.Offset;
+
 }
 
 /*****************************************************************************/
@@ -177,7 +182,7 @@ void XPlmi_Print(u32 DebugType, const char8 *Ctrl1, ...)
 
 	va_start(Args, Ctrl1);
 
-	if(((DebugType) & (DebugLog.LogLevel)) != (u8)FALSE) {
+	if(((DebugType) & (DebugLog->LogLevel)) != (u8)FALSE) {
 		XPlmi_PrintPlmTimeStamp();
 		xil_vprintf(Ctrl1, Args);
 	}
@@ -199,7 +204,7 @@ void XPlmi_Print_WoTS(u32 DebugType, const char8 *Ctrl1, ...)
 
 	va_start(Args, Ctrl1);
 
-	if(((DebugType) & (DebugLog.LogLevel)) != (u8)FALSE) {
+	if(((DebugType) & (DebugLog->LogLevel)) != (u8)FALSE) {
 		xil_vprintf(Ctrl1, Args);
 	}
 	va_end(Args);

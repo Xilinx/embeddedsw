@@ -29,6 +29,7 @@
 * 1.03  nsk  12/14/2020 Modify the peripheral definitions to canonical
 *                       definitions.
 * 1.04  bm   03/04/2021 Add Address range check for Log Buffers
+*       ma   03/24/2021 Store DebugLog structure to RTCA
 *
 * </pre>
 *
@@ -65,20 +66,14 @@
  * @{
  * @cond xplmi_internal
  */
-XPlmi_LogInfo DebugLog = {
-	.LogBuffer.StartAddr = XPLMI_DEBUG_LOG_BUFFER_ADDR,
-	.LogBuffer.Len = XPLMI_DEBUG_LOG_BUFFER_LEN,
-	.LogBuffer.CurrentAddr = XPLMI_DEBUG_LOG_BUFFER_ADDR,
-	.LogBuffer.IsBufferFull = (u8)FALSE,
-	.LogLevel = (u8)XPlmiDbgCurrentTypes,
-};
+XPlmi_LogInfo *DebugLog = (XPlmi_LogInfo *)(UINTPTR)XPLMI_RTCFG_DBG_LOG_BUF_ADDR;
 
 /* Trace log buffer */
 static XPlmi_CircularBuffer TraceLog = {
 	.StartAddr = XPLMI_TRACE_LOG_BUFFER_ADDR,
 	.Len = XPLMI_TRACE_LOG_BUFFER_LEN,
-	.CurrentAddr = XPLMI_TRACE_LOG_BUFFER_ADDR,
-	.IsBufferFull = (u8)FALSE,
+	.Offset = 0x0U,
+	.IsBufferFull = (u32)FALSE,
 };
 
 
@@ -121,17 +116,19 @@ static void XPlmi_RetrieveRemBytes(u64 SourceAddr, u64 DestAddr, u32 Len)
 static int XPlmi_RetrieveBufferData(const XPlmi_CircularBuffer * Buffer, u64 DestAddr)
 {
 	int Status = XST_FAILURE;
+	u64 CurrentAddr;
 	u32 Len;
 
-	if (Buffer->IsBufferFull == (u8)TRUE) {
-		Len = (u32)((Buffer->StartAddr + Buffer->Len) - Buffer->CurrentAddr);
-		Status = XPlmi_DmaXfr(Buffer->CurrentAddr, DestAddr, (Len / XPLMI_WORD_LEN),
+	if (Buffer->IsBufferFull == (u32)TRUE) {
+		Len = (u32)(Buffer->Len - Buffer->Offset);
+		CurrentAddr = (Buffer->StartAddr + (u64)Buffer->Offset);
+		Status = XPlmi_DmaXfr(CurrentAddr, DestAddr, (Len / XPLMI_WORD_LEN),
 			XPLMI_PMCDMA_0);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 		/* Retrieve remaining bytes */
-		XPlmi_RetrieveRemBytes(Buffer->CurrentAddr, DestAddr, Len);
+		XPlmi_RetrieveRemBytes(CurrentAddr, DestAddr, Len);
 		Status = XPlmi_DmaXfr(Buffer->StartAddr, DestAddr + Len,
 				((Buffer->Len - Len) / XPLMI_WORD_LEN), XPLMI_PMCDMA_0);
 		if (Status != XST_SUCCESS) {
@@ -192,9 +189,9 @@ static int XPlmi_ConfigureLogMem(XPlmi_CircularBuffer *LogBuffer, u64 StartAddr,
 		}
 		else {
 			LogBuffer->StartAddr = StartAddr;
-			LogBuffer->CurrentAddr = StartAddr;
+			LogBuffer->Offset = 0x0U;
 			LogBuffer->Len = NumBytes;
-			LogBuffer->IsBufferFull = (u8)FALSE;
+			LogBuffer->IsBufferFull = (u32)FALSE;
 			Status = XST_SUCCESS;
 		}
 	} else {
@@ -218,7 +215,7 @@ static void XPlmi_RetrieveBufferInfo(XPlmi_Cmd *Cmd,
 {
 	Cmd->Response[1U] = (u32)(LogBuffer->StartAddr >> 32U);
 	Cmd->Response[2U] = (u32)(LogBuffer->StartAddr & 0xFFFFFFFFU);
-	Cmd->Response[3U] = (u32)(LogBuffer->CurrentAddr - LogBuffer->StartAddr);
+	Cmd->Response[3U] = (u32)(LogBuffer->Offset);
 	Cmd->Response[4U] = LogBuffer->Len;
 	Cmd->Response[5U] = LogBuffer->IsBufferFull;
 }
@@ -269,7 +266,7 @@ int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
 	switch (LoggingCmd) {
 		case XPLMI_LOGGING_CMD_CONFIG_LOG_LEVEL:
 			if (Arg1 <= XPlmiDbgCurrentTypes) {
-				DebugLog.LogLevel = (u8)Arg1;
+				DebugLog->LogLevel = (u8)Arg1;
 				Status = XST_SUCCESS;
 			} else {
 				Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_LOG_LEVEL,
@@ -278,15 +275,15 @@ int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
 			break;
 		case XPLMI_LOGGING_CMD_CONFIG_LOG_MEM:
 			StartAddr = (Arg1 << 32U) | Arg2;
-			Status = XPlmi_ConfigureLogMem(&DebugLog.LogBuffer,
+			Status = XPlmi_ConfigureLogMem(&DebugLog->LogBuffer,
 					StartAddr, Arg3, XPLMI_DEBUG_LOG_BUFFER);
 			break;
 		case XPLMI_LOGGING_CMD_RETRIEVE_LOG_DATA:
-			Status = XPlmi_RetrieveBufferData(&DebugLog.LogBuffer,
+			Status = XPlmi_RetrieveBufferData(&DebugLog->LogBuffer,
 				(Arg1 << 32U) | Arg2);
 			break;
 		case XPLMI_LOGGING_CMD_RETRIEVE_LOG_BUFFER_INFO:
-			XPlmi_RetrieveBufferInfo(Cmd, &DebugLog.LogBuffer);
+			XPlmi_RetrieveBufferInfo(Cmd, &DebugLog->LogBuffer);
 			Status = XST_SUCCESS;
 			break;
 		case XPLMI_LOGGING_CMD_CONFIG_TRACE_MEM:
@@ -339,15 +336,29 @@ void XPlmi_StoreTraceLog(u32 *TraceData, u32 Len)
 	TraceData[2U] = (u32)PerfTime.TPerfMsFrac;
 
 	for (Index = 0U; Index < Len; Index++) {
-		if (TraceLog.CurrentAddr >=
+		if ((TraceLog.StartAddr + TraceLog.Offset) >=
 				(TraceLog.StartAddr + TraceLog.Len)) {
-			TraceLog.CurrentAddr = TraceLog.StartAddr;
-			TraceLog.IsBufferFull = (u8)TRUE;
+			TraceLog.Offset = 0x0U;
+			TraceLog.IsBufferFull = (u32)TRUE;
 		}
 
-		XPlmi_Out64(TraceLog.CurrentAddr, TraceData[Index]);
-		TraceLog.CurrentAddr += XPLMI_WORD_LEN;
+		XPlmi_Out64((TraceLog.StartAddr + TraceLog.Offset), TraceData[Index]);
+		TraceLog.Offset += XPLMI_WORD_LEN;
 	}
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function initializes the the DebugLog structure.
+ *
+ *****************************************************************************/
+void XPlmi_InitDebugLogBuffer(void)
+{
+	DebugLog->LogBuffer.StartAddr = XPLMI_DEBUG_LOG_BUFFER_ADDR;
+	DebugLog->LogBuffer.Len = XPLMI_DEBUG_LOG_BUFFER_LEN;
+	DebugLog->LogBuffer.Offset = 0x0U;
+	DebugLog->LogBuffer.IsBufferFull = (u32)FALSE;
+	DebugLog->LogLevel = (u8)XPlmiDbgCurrentTypes;
 }
 
 /**
