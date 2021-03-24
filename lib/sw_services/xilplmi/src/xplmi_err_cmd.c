@@ -25,6 +25,7 @@
 *       ana  10/19/2020 Added doxygen comments
 * 1.04  bm   02/18/2021 Added const to XPlmi_ErrCmds
 *       ma   03/04/2021 Assign CheckIpiAccessHandler to NULL for EM module
+*       pj   03/24/2021 Added support for software error nodes
 *
 * </pre>
 *
@@ -135,7 +136,8 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 	if ((NodeId != XPLMI_EVENT_ERROR_PMC_ERR1) &&
 		(NodeId != XPLMI_EVENT_ERROR_PMC_ERR2) &&
 		(NodeId != XPLMI_EVENT_ERROR_PSM_ERR1) &&
-		(NodeId != XPLMI_EVENT_ERROR_PSM_ERR2)) {
+		(NodeId != XPLMI_EVENT_ERROR_PSM_ERR2) &&
+		(NodeId != XPLMI_EVENT_ERROR_SW_ERR)) {
 		Status = XPLMI_INVALID_NODE_ID;
 		goto END;
 	}
