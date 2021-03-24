@@ -2533,7 +2533,7 @@ static const XAie_EvntMod AieTileEvntMod[] =
 		.BaseStatusRegOff = XAIEGBL_MEM_EVTSTA0,
 		.NumUserEvents = 4U,
 		.UserEventMap = &AieTileMemModUserEventStart,
-		.PCEventMap = &AieTileCoreModPCEventMap,
+		.PCEventMap = NULL,
 	},
 	{
 		.XAie_EventNumber = AieTileCoreModEventMapping,
@@ -2573,7 +2573,7 @@ static const XAie_EvntMod AieTileEvntMod[] =
 		.BaseStatusRegOff = XAIEGBL_CORE_EVTSTA0,
 		.NumUserEvents = 4U,
 		.UserEventMap = &AieTileCoreModUserEventMap,
-		.PCEventMap = NULL,
+		.PCEventMap = &AieTileCoreModPCEventMap,
 	},
 };
 
