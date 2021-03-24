@@ -141,6 +141,8 @@ XPm_Device *XPmDevice_GetByIndex(const u32 DeviceIndex);
 
 XPm_Device *XPmDevice_GetPlDeviceByIndex(const u32 DeviceIndex);
 
+XPm_Device *XPmDevice_GetHbMonDeviceByIndex(const u32 DeviceIndex);
+
 XStatus XPm_CheckCapabilities(XPm_Device *Device, u32 Caps);
 
 XStatus XPmDevice_Request(const u32 SubsystemId, const u32 DeviceId,
