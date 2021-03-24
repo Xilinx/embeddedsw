@@ -52,6 +52,12 @@ TEST(Tracing, Basic)
 	RC = Tracing->stop();
 	CHECK_EQUAL(RC, XAIE_OK);
 
+	int TracingStartBc = Tracing->getStartBc();
+	CHECK_EQUAL(TracingStartBc, -EINVAL);
+
+	int TraceBc = TraceE->getBc();
+	CHECK_EQUAL(TracingStartBc, -EINVAL);
+
 	RC = Tracing->release();
 	CHECK_EQUAL(RC, XAIE_OK);
 
@@ -74,6 +80,12 @@ TEST(Tracing, Basic)
 	RC = TraceE->reserve();
 	CHECK_EQUAL(RC, XAIE_OK);
 
+	TracingStartBc = Tracing->getStartBc();
+	CHECK_EQUAL(TracingStartBc, 0);
+
+	TraceBc = TraceE->getBc();
+	CHECK_EQUAL(TracingStartBc, 0);
+
 	RC = TraceE->start();
 	CHECK_EQUAL(RC, XAIE_OK);
 
@@ -85,4 +97,11 @@ TEST(Tracing, Basic)
 
 	RC = Tracing->release();
 	CHECK_EQUAL(RC, XAIE_OK);
+
+	TracingStartBc = Tracing->getStartBc();
+	CHECK_EQUAL(TracingStartBc, -EPERM);
+
+	TraceBc = TraceE->getBc();
+	CHECK_EQUAL(TracingStartBc, -EPERM);
+
 }
