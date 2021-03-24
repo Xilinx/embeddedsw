@@ -157,6 +157,7 @@ void XPlmi_UpdateErrorSubsystemId(u32 ErrorNodeId, u32 ErrorIndex,
 				u32 SubsystemId);
 int XPlmi_EmDisable(u32 ErrorNodeId, u32 ErrorMask);
 void XPlmi_ErrIntrHandler(void *CallbackRef);
+void XPlmi_HandleSwError(u32 ErrorNodeId, u32 ErrorIndex);
 void XPlmi_SetEmSubsystemId(const u32 *Id);
 int XPlmi_CheckNpiErrors(void);
 void XPlmi_ClearNpiErrors(void);
