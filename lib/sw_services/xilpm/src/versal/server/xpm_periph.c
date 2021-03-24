@@ -99,3 +99,72 @@ XStatus XPmVirtDev_DeviceInit(XPm_Device *Device, u32 Id, XPm_Power *Power)
 done:
 	return Status;
 }
+
+/*
+ * Implementation for Healthy Boot Monitor
+ */
+static const XPm_StateCap XPmHbMonDeviceStates[] = {
+	{
+		.State = (u8)XPM_DEVSTATE_UNUSED,
+		.Cap = XPM_MIN_CAPABILITY,
+	}, {
+		.State = (u8)XPM_DEVSTATE_RUNNING,
+		.Cap = PM_CAP_ACCESS,
+	},
+};
+
+static const XPm_StateTran XPmHbMonDevTransitions[] = {
+	{
+		.FromState = (u32)XPM_DEVSTATE_RUNNING,
+		.ToState = (u32)XPM_DEVSTATE_UNUSED,
+		.Latency = XPM_DEF_LATENCY,
+	}, {
+		.FromState = (u32)XPM_DEVSTATE_UNUSED,
+		.ToState = (u32)XPM_DEVSTATE_RUNNING,
+		.Latency = XPM_DEF_LATENCY,
+	},
+};
+
+static XStatus HandleHbMonDeviceState(XPm_Device* const Device, const u32 NextState)
+{
+	XStatus Status = XST_SUCCESS;
+
+	switch (Device->Node.State) {
+	case (u8)XPM_DEVSTATE_UNUSED:
+		if ((u32)XPM_DEVSTATE_RUNNING == NextState) {
+		    //todo: Start the timer
+		}
+		break;
+	case (u8)XPM_DEVSTATE_RUNNING:
+		if ((u32)XPM_DEVSTATE_UNUSED == NextState) {
+		    //todo: stop the timer.
+		}
+		break;
+	default:
+		Status = XST_FAILURE;
+		break;
+	}
+
+	return Status;
+}
+
+static const XPm_DeviceFsm XPmHbMonDeviceFsm = {
+	DEFINE_DEV_STATES(XPmHbMonDeviceStates),
+	DEFINE_DEV_TRANS(XPmHbMonDevTransitions),
+	.EnterState = HandleHbMonDeviceState,
+};
+
+XStatus XPmHbMonDev_Init(XPm_Device *Device, u32 Id, XPm_Power *Power)
+{
+	XStatus Status = XST_FAILURE;
+
+	Status = XPmDevice_Init(Device, Id, 0U, Power, NULL, NULL);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Device->DeviceFsm = &XPmHbMonDeviceFsm;
+
+done:
+	return Status;
+}
