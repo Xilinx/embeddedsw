@@ -39,6 +39,7 @@
 *                       PMC_PSM_NCR error
 *       bsv  01/29/2021 Added APIs for checking and clearing NPI errors
 *       pj   03/03/2021 Added API to update Subystem Id of the error node
+*       pj   03/03/2021 Added API to trigger error handling from software
 *
 * </pre>
 *
@@ -438,6 +439,44 @@ static void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 ErrorIndex)
 
 /****************************************************************************/
 /**
+* @brief    This function handles the Software error trigged from within PLM.
+*
+* @param    ErrorNodeId is the node ID for the error event
+* @param    ErrorIndex is the index of the error received
+*
+* @return   None
+*
+****************************************************************************/
+void XPlmi_HandleSwError(u32 ErrorNodeId, u32 ErrorIndex)
+{
+	/*
+	 * Todo: Validate the error to be within sw error
+	 * range
+	 */
+	switch (ErrorTable[ErrorIndex].Action) {
+	case XPLMI_EM_ACTION_POR:
+		XPlmi_PORHandler();
+		break;
+	case XPLMI_EM_ACTION_SRST:
+		XPlmi_SoftResetHandler();
+		break;
+	case XPLMI_EM_ACTION_CUSTOM:
+	case XPLMI_EM_ACTION_SUBSYS_SHUTDN:
+	case XPLMI_EM_ACTION_SUBSYS_RESTART:
+		(void)XPlmi_EmDisable(ErrorNodeId, ErrorIndex);
+		if (ErrorTable[ErrorIndex].Handler != NULL) {
+			ErrorTable[ErrorIndex].Handler(ErrorNodeId, ErrorIndex);
+		}
+		break;
+	default:
+		XPlmi_Printf(DEBUG_GENERAL, "Invalid Error Action "
+				"for software errors. Error ID: 0x%x\r\n", ErrorIndex);
+		break;
+	}
+}
+
+/****************************************************************************/
+/**
 * @brief    This function is the interrupt handler for PSM Errors.
 *
 * @param    ErrorNodeId is the node ID for the error event
@@ -628,7 +667,6 @@ static void XPlmi_EmClearError(u32 ErrorNodeId, u32 ErrorMask)
 	case XPLMI_NODETYPE_EVENT_PSM_ERR2:
 		/* Clear previous errors */
 		XPlmi_Out32(PSM_GLOBAL_REG_PSM_ERR2_STATUS, RegMask);
-
 		break;
 	default:
 		/* Invalid Error Type */
