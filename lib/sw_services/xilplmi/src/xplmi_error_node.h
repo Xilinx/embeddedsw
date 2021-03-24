@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,7 @@
 * 1.01  ma   02/28/2020 Error actions related changes
 *       bsv  04/04/2020 Code clean up
 * 1.02  bm   10/14/2020 Code clean up
+* 1.04  pj   03/24/2021 Added Software Error node for Healthy boot monitoring
 *
 * </pre>
 *
@@ -40,6 +41,7 @@ extern "C" {
 #define XPLMI_EVENT_ERROR_PMC_ERR2	(0x28104000U)
 #define XPLMI_EVENT_ERROR_PSM_ERR1	(0x28108000U)
 #define XPLMI_EVENT_ERROR_PSM_ERR2	(0x2810C000U)
+#define XPLMI_EVENT_ERROR_SW_ERR	(0x28110000U)
 
 #define XPLMI_NODE_TYPE_MASK		(0xFC000U)
 #define XPLMI_NODE_TYPE_SHIFT		(0xEU)
@@ -50,6 +52,7 @@ typedef enum {
 	XPLMI_NODETYPE_EVENT_PMC_ERR2, /**< 0x1 */
 	XPLMI_NODETYPE_EVENT_PSM_ERR1, /**< 0x2 */
 	XPLMI_NODETYPE_EVENT_PSM_ERR2, /**< 0x3 */
+	XPLMI_NODETYPE_EVENT_SW_ERR,   /**< 0x4 */
 } XPlmi_EventType;
 
 /*
@@ -183,6 +186,14 @@ typedef enum {
 #define XPLMI_NODEIDX_ERROR_LPD_XPPU		(0x73U)
 #define XPLMI_NODEIDX_ERROR_FPD_XMPU		(0x74U)
 #define XPLMI_NODEIDX_ERROR_PSMERR2_MAX		(0x75U)
+
+/* Software Errors */
+/* Health Boot Monitoring errors */
+#define XPLMI_NODEIDX_ERROR_HB_MON_0		(0x80U)
+#define XPLMI_NODEIDX_ERROR_HB_MON_1		(0x81U)
+#define XPLMI_NODEIDX_ERROR_HB_MON_2		(0x82U)
+#define XPLMI_NODEIDX_ERROR_HB_MON_3		(0x83U)
+#define XPLMI_NODEIDX_ERROR_SW_ERR_MAX		(0x84U)
 
 /**************************** Type Definitions *******************************/
 

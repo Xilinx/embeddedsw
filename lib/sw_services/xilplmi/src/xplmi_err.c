@@ -38,8 +38,9 @@
 * 1.04  td   01/07/2021 Fix warning in PLM memory log regarding NULL handler for
 *                       PMC_PSM_NCR error
 *       bsv  01/29/2021 Added APIs for checking and clearing NPI errors
-*       pj   03/03/2021 Added API to update Subystem Id of the error node
-*       pj   03/03/2021 Added API to trigger error handling from software
+*       pj   03/24/2021 Added API to update Subystem Id of the error node
+*       pj   03/24/2021 Added API to trigger error handling from software.
+*                       Added SW Error event and Ids for Healthy Boot errors
 *
 * </pre>
 *
@@ -124,7 +125,7 @@ void XPlmi_ErrMgr(int ErrStatus)
  * Structure to define error action type and handler if error to be handled
  * by PLM
  */
-static struct XPlmi_Error_t ErrorTable[XPLMI_NODEIDX_ERROR_PSMERR2_MAX] = {
+static struct XPlmi_Error_t ErrorTable[XPLMI_NODEIDX_ERROR_SW_ERR_MAX] = {
 	[XPLMI_NODEIDX_ERROR_BOOT_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_BOOT_NCR] =
@@ -360,6 +361,14 @@ static struct XPlmi_Error_t ErrorTable[XPLMI_NODEIDX_ERROR_PSMERR2_MAX] = {
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_FPD_XMPU] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	[XPLMI_NODEIDX_ERROR_HB_MON_0] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	[XPLMI_NODEIDX_ERROR_HB_MON_1] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	[XPLMI_NODEIDX_ERROR_HB_MON_2] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	[XPLMI_NODEIDX_ERROR_HB_MON_3] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 };
 
 /****************************************************************************/
@@ -376,7 +385,7 @@ static struct XPlmi_Error_t ErrorTable[XPLMI_NODEIDX_ERROR_PSMERR2_MAX] = {
 void XPlmi_UpdateErrorSubsystemId(u32 ErrorNodeId, u32 ErrorIndex, u32 SubsystemId)
 {
 	(void) ErrorNodeId;
-	if (ErrorIndex < XPLMI_NODEIDX_ERROR_PSMERR2_MAX) {
+	if (ErrorIndex < XPLMI_NODEIDX_ERROR_SW_ERR_MAX) {
 		ErrorTable[ErrorIndex].SubsystemId = SubsystemId;
 	}
 }
@@ -449,29 +458,39 @@ static void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 ErrorIndex)
 ****************************************************************************/
 void XPlmi_HandleSwError(u32 ErrorNodeId, u32 ErrorIndex)
 {
-	/*
-	 * Todo: Validate the error to be within sw error
-	 * range
-	 */
-	switch (ErrorTable[ErrorIndex].Action) {
-	case XPLMI_EM_ACTION_POR:
-		XPlmi_PORHandler();
-		break;
-	case XPLMI_EM_ACTION_SRST:
-		XPlmi_SoftResetHandler();
-		break;
-	case XPLMI_EM_ACTION_CUSTOM:
-	case XPLMI_EM_ACTION_SUBSYS_SHUTDN:
-	case XPLMI_EM_ACTION_SUBSYS_RESTART:
-		(void)XPlmi_EmDisable(ErrorNodeId, ErrorIndex);
-		if (ErrorTable[ErrorIndex].Handler != NULL) {
-			ErrorTable[ErrorIndex].Handler(ErrorNodeId, ErrorIndex);
+	if ((ErrorNodeId == XPLMI_EVENT_ERROR_SW_ERR) &&
+			(ErrorIndex < XPLMI_NODEIDX_ERROR_SW_ERR_MAX) &&
+			(ErrorIndex >= XPLMI_NODEIDX_ERROR_HB_MON_0)) {
+		switch (ErrorTable[ErrorIndex].Action) {
+		case XPLMI_EM_ACTION_POR:
+			XPlmi_PORHandler();
+			break;
+		case XPLMI_EM_ACTION_SRST:
+			XPlmi_SoftResetHandler();
+			break;
+		case XPLMI_EM_ACTION_ERROUT:
+			/*
+			 * Trigger error out using PMC_CR error
+			 */
+			XPlmi_Out32(PMC_GLOBAL_PMC_ERR1_TRIG,
+					PMC_GLOBAL_PMC_ERR1_STATUS_PSM_CR_MASK);
+			break;
+		case XPLMI_EM_ACTION_CUSTOM:
+		case XPLMI_EM_ACTION_SUBSYS_SHUTDN:
+		case XPLMI_EM_ACTION_SUBSYS_RESTART:
+			(void)XPlmi_EmDisable(ErrorNodeId, ErrorIndex);
+			if (ErrorTable[ErrorIndex].Handler != NULL) {
+				ErrorTable[ErrorIndex].Handler(ErrorNodeId, ErrorIndex);
+			}
+			break;
+		default:
+			XPlmi_Printf(DEBUG_GENERAL, "Invalid Error Action "
+					"for software errors. Error ID: 0x%x\r\n", ErrorIndex);
+			break;
 		}
-		break;
-	default:
-		XPlmi_Printf(DEBUG_GENERAL, "Invalid Error Action "
-				"for software errors. Error ID: 0x%x\r\n", ErrorIndex);
-		break;
+	} else {
+		XPlmi_Printf(DEBUG_GENERAL, "Invalid SW Error Node: 0x%x and ErrorId: 0x%x\r\n",
+									ErrorNodeId, ErrorIndex);
 	}
 }
 
@@ -668,6 +687,13 @@ static void XPlmi_EmClearError(u32 ErrorNodeId, u32 ErrorMask)
 		/* Clear previous errors */
 		XPlmi_Out32(PSM_GLOBAL_REG_PSM_ERR2_STATUS, RegMask);
 		break;
+	case XPLMI_NODETYPE_EVENT_SW_ERR:
+		/* Clear previous erros */
+		if (ErrorTable[ErrorMask].Action == XPLMI_EM_ACTION_ERROUT) {
+			RegMask = PMC_GLOBAL_PMC_ERR1_STATUS_PSM_CR_MASK;
+			XPlmi_Out32(PMC_GLOBAL_PMC_ERR1_STATUS, RegMask);
+		}
+		break;
 	default:
 		/* Invalid Error Type */
 		XPlmi_Printf(DEBUG_GENERAL,
@@ -691,7 +717,7 @@ int XPlmi_EmDisable(u32 ErrorNodeId, u32 ErrorMask)
 	int Status = XST_FAILURE;
 	u32 RegMask;
 
-	if (ErrorMask >= XPLMI_NODEIDX_ERROR_PSMERR2_MAX) {
+	if (ErrorMask >= XPLMI_NODEIDX_ERROR_SW_ERR_MAX) {
 		/* Invalid Error ID */
 		Status = XPLMI_INVALID_ERROR_ID;
 		goto END;
@@ -730,6 +756,10 @@ int XPlmi_EmDisable(u32 ErrorNodeId, u32 ErrorMask)
 		XPlmi_Out32(PSM_GLOBAL_REG_PSM_IRQ2_DIS, RegMask);
 		Status = XST_SUCCESS;
 		break;
+	case XPLMI_NODETYPE_EVENT_SW_ERR:
+		/* Do nothing */
+		Status = XST_SUCCESS;
+		break;
 	default:
 		/* Invalid Error Type */
 		Status = XPLMI_INVALID_ERROR_TYPE;
@@ -757,7 +787,7 @@ static int XPlmi_EmEnablePOR(u32 ErrorNodeId, u32 ErrorMask)
 	int Status = XST_FAILURE;
 	u32 RegMask;
 
-	if (ErrorMask >= XPLMI_NODEIDX_ERROR_PSMERR2_MAX) {
+	if (ErrorMask >= XPLMI_NODEIDX_ERROR_SW_ERR_MAX) {
 		Status = XPLMI_INVALID_ERROR_ID;
 		goto END;
 	}
@@ -779,6 +809,10 @@ static int XPlmi_EmEnablePOR(u32 ErrorNodeId, u32 ErrorMask)
 		break;
 	case XPLMI_NODETYPE_EVENT_PSM_ERR2:
 		XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR2_EN, RegMask);
+		Status = XST_SUCCESS;
+		break;
+	case XPLMI_NODETYPE_EVENT_SW_ERR:
+		/* Do nothing */
 		Status = XST_SUCCESS;
 		break;
 	default:
@@ -807,7 +841,7 @@ static int XPlmi_EmEnableSRST(u32 ErrorNodeId, u32 ErrorMask)
 	int Status = XST_FAILURE;
 	u32 RegMask;
 
-	if (ErrorMask >= XPLMI_NODEIDX_ERROR_PSMERR2_MAX) {
+	if (ErrorMask >= XPLMI_NODEIDX_ERROR_SW_ERR_MAX) {
 		Status = XPLMI_INVALID_ERROR_ID;
 		goto END;
 	}
@@ -829,6 +863,10 @@ static int XPlmi_EmEnableSRST(u32 ErrorNodeId, u32 ErrorMask)
 		break;
 	case XPLMI_NODETYPE_EVENT_PSM_ERR2:
 		XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR2_EN, RegMask);
+		Status = XST_SUCCESS;
+		break;
+	case XPLMI_NODETYPE_EVENT_SW_ERR:
+		/* Do nothing */
 		Status = XST_SUCCESS;
 		break;
 	default:
@@ -858,7 +896,7 @@ static int XPlmi_EmEnablePSError(u32 ErrorNodeId, u32 ErrorMask)
 	u32 RegMask;
 
 	/* If Error ID is not in range, fail */
-	if (ErrorMask >= XPLMI_NODEIDX_ERROR_PSMERR2_MAX) {
+	if (ErrorMask >= XPLMI_NODEIDX_ERROR_SW_ERR_MAX) {
 		Status = XPLMI_INVALID_ERROR_ID;
 		goto END;
 	}
@@ -881,6 +919,15 @@ static int XPlmi_EmEnablePSError(u32 ErrorNodeId, u32 ErrorMask)
 		break;
 	case XPLMI_NODETYPE_EVENT_PSM_ERR2:
 		XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR2_EN, RegMask);
+		Status = XST_SUCCESS;
+		break;
+	case XPLMI_NODETYPE_EVENT_SW_ERR:
+		/*
+		 * Do nothing
+		 * Error out will be trigerred through software using
+		 * PMC_CR error trigger bit. PMC_CR is configured
+		 * to error out by default and is not configurable.
+		 */
 		Status = XST_SUCCESS;
 		break;
 	default:
@@ -909,7 +956,7 @@ static int XPlmi_EmEnableInt(u32 ErrorNodeId, u32 ErrorMask)
 	int Status = XST_FAILURE;
 	u32 RegMask;
 
-	if (ErrorMask >= XPLMI_NODEIDX_ERROR_PSMERR2_MAX) {
+	if (ErrorMask >= XPLMI_NODEIDX_ERROR_SW_ERR_MAX) {
 		/* Invalid Error Id */
 		Status = XPLMI_INVALID_ERROR_ID;
 		goto END;
@@ -932,6 +979,10 @@ static int XPlmi_EmEnableInt(u32 ErrorNodeId, u32 ErrorMask)
 		break;
 	case XPLMI_NODETYPE_EVENT_PSM_ERR2:
 		XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR2_EN, RegMask);
+		Status = XST_SUCCESS;
+		break;
+	case XPLMI_NODETYPE_EVENT_SW_ERR:
+		/* Do nothing */
 		Status = XST_SUCCESS;
 		break;
 	default:
@@ -965,7 +1016,7 @@ int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMask, u8 ActionId,
 	int Status = XST_FAILURE;
 
 	/* Check for Valid Error ID */
-	if ((ErrorMask >= XPLMI_NODEIDX_ERROR_PSMERR2_MAX) ||
+	if ((ErrorMask >= XPLMI_NODEIDX_ERROR_SW_ERR_MAX) ||
 		(ErrorTable[ErrorMask].Action == XPLMI_EM_ACTION_INVALID)) {
 		/* Invalid Error Id */
 		Status = XPLMI_INVALID_ERROR_ID;
