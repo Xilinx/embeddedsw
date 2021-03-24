@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,7 @@
 *       skd  07/29/2020 Added non-blocking DMA support for Ospi copy
 *       skd  08/21/2020 Added support for GIGADEVICE and ISSI flash parts
 *       bsv  10/13/2020 Code clean up
+*       ma   03/24/2021 Minor updates to prints in XilLoader
 *
 * </pre>
 *
@@ -552,7 +553,7 @@ END1:
 #ifdef	PLM_PRINT_PERF_DMA
 	XPlmi_MeasurePerfTime(OspiCopyTime, &PerfTime);
 	XPlmi_Printf(DEBUG_PRINT_PERF,
-	" %u.%06u ms OSPI Copy time: SrcAddr: 0x%08x, DestAddr: 0x%0x08x,"
+	" %u.%03u ms OSPI Copy time: SrcAddr: 0x%08x, DestAddr: 0x%0x08x,"
 	"%u Bytes, Flags: 0x%0x\n\r",
 	(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac,
 	SrcAddrLow, (u32)(DestAddr >> 32U), (u32)DestAddr, Length, Flags);

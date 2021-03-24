@@ -28,6 +28,7 @@
 *       bm   10/14/2020 Code clean up
 *       td   10/19/2020 MISRA C Fixes
 * 1.04  td   11/23/2020 MISRA C Rule 17.8 Fixes
+*       ma   03/24/2021 Reduced minimum digits of time stamp decimals to 3
 *
 * </pre>
 *
@@ -603,7 +604,7 @@ END:
 #ifdef PLM_PRINT_PERF_DMA
 	XPlmi_MeasurePerfTime(XfrTime, &PerfTime);
 	XPlmi_Printf(DEBUG_PRINT_PERF,
-		" %u.%06u ms DMA Xfr time: SrcAddr: 0x%0x%08x, DestAddr: 0x%0x%08x,"
+		" %u.%03u ms DMA Xfr time: SrcAddr: 0x%0x%08x, DestAddr: 0x%0x%08x,"
 		"%u Bytes, Flags: 0x%0x\n\r",
 		(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac,
 		(u32)(SrcAddr >> 32U), (u32)SrcAddr, (u32)(DestAddr >> 32U),

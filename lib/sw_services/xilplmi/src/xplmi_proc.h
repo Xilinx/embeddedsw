@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,7 @@
 * 1.03  bm   10/14/2020 Code clean up
 * 		td   10/19/2020 MISRA C Fixes
 * 1.04  td   11/23/2020 MISRA C Rule 10.4 Fixes
+*       ma   03/24/2021 Reduced minimum digits of time stamp decimals to 3
 *
 * </pre>
 *
@@ -71,6 +72,7 @@ extern "C" {
 #define XPLMI_PIT_FREQ_DIVISOR		(100U)
 #define XPLMI_GIGA			(1e9)
 #define XPLMI_MEGA			(1e6)
+#define XPLMI_MILLI			(1e3)
 
 /**************************** Type Definitions *******************************/
 /*

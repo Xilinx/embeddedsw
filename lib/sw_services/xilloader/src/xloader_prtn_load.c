@@ -51,6 +51,7 @@
 *       bsv  01/29/2021 Added check for NPI errors after loading every partition
 *       bm   03/04/2021 Added address range check before loading elfs
 *       ma   03/24/2021 Redirect XilPdi prints to XilLoader
+*       ma   03/24/2021 Minor updates to prints in XilLoader
 *
 * </pre>
 *
@@ -112,7 +113,7 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 
 	if ((PdiPtr->CopyToMem == (u8)FALSE) && (PdiPtr->DelayLoad == (u8)FALSE)) {
 		XPlmi_Printf(DEBUG_GENERAL,
-			"+++++++Loading Image No: 0x%0x, Name: %s, Id: 0x%08x\n\r",
+			"+++Loading Image#: 0x%0x, Name: %s, Id: 0x%08x\n\r",
 			PdiPtr->ImageNum,
 			(char *)PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgName,
 			PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
@@ -120,14 +121,14 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 	else {
 		if (PdiPtr->DelayLoad == (u8)TRUE) {
 			XPlmi_Printf(DEBUG_GENERAL,
-				"+++++++Skipping Image No: 0x%0x, Name: %s, Id: 0x%08x\n\r",
+				"+++Skipping Image#: 0x%0x, Name: %s, Id: 0x%08x\n\r",
 				PdiPtr->ImageNum,
 				(char *)PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgName,
 				PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
 		}
 		if (PdiPtr->CopyToMem == (u8)TRUE) {
 			XPlmi_Printf(DEBUG_GENERAL,
-				"+++++++Copying Image No: 0x%0x, Name: %s, Id: 0x%08x\n\r",
+				"+++Copying Image#: 0x%0x, Name: %s, Id: 0x%08x\n\r",
 				PdiPtr->ImageNum,
 				(char *)PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgName,
 				PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
@@ -145,17 +146,20 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 		}
 
 		if ((PdiPtr->CopyToMem == (u8)FALSE) && (PdiPtr->DelayLoad == (u8)FALSE)) {
-			XPlmi_Printf(DEBUG_GENERAL, "-------Loading Prtn No: 0x%0x\r\n",
-				PdiPtr->PrtnNum);
+			XPlmi_Printf(DEBUG_GENERAL, "---Loading Partition#: 0x%0x, "
+					"Id: 0x%0x\r\n", PdiPtr->PrtnNum,
+					PdiPtr->MetaHdr.PrtnHdr[PdiPtr->PrtnNum].PrtnId);
 		}
 		else {
 			if (PdiPtr->DelayLoad == (u8)TRUE) {
-				XPlmi_Printf(DEBUG_GENERAL, "-------Skipping Prtn No: 0x%0x\r\n",
-					PdiPtr->PrtnNum);
+				XPlmi_Printf(DEBUG_GENERAL, "---Skipping Partition#: 0x%0x, "
+						"Id: 0x%0x\r\n", PdiPtr->PrtnNum,
+						PdiPtr->MetaHdr.PrtnHdr[PdiPtr->PrtnNum].PrtnId);
 			}
 			if (PdiPtr->CopyToMem == (u8)TRUE) {
-				XPlmi_Printf(DEBUG_GENERAL, "-------Copying Prtn No: 0x%0x\r\n",
-					PdiPtr->PrtnNum);
+				XPlmi_Printf(DEBUG_GENERAL, "---Copying Partition#: 0x%0x, "
+						"Id: 0x%0x\r\n", PdiPtr->PrtnNum,
+						PdiPtr->MetaHdr.PrtnHdr[PdiPtr->PrtnNum].PrtnId);
 			}
 		}
 
@@ -179,7 +183,7 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 		}
 		XPlmi_MeasurePerfTime(PrtnLoadTime, &PerfTime);
 		XPlmi_Printf(DEBUG_PRINT_PERF,
-			" %u.%06u ms for PrtnNum: %u, Size: %u Bytes\n\r",
+			" %u.%03u ms for Partition#: 0x%0x, Size: %u Bytes\n\r",
 			(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac, PdiPtr->PrtnNum,
 			(PdiPtr->MetaHdr.PrtnHdr[PdiPtr->PrtnNum].TotalDataWordLen) *
 			XPLMI_WORD_LEN);
@@ -224,7 +228,7 @@ static int XLoader_PrtnHdrValidation(const XilPdi_PrtnHdr * PrtnHdr, u32 PrtnNum
 	if (XilPdi_GetPrtnOwner(PrtnHdr) != XIH_PH_ATTRB_PRTN_OWNER_PLM) {
 		/* If the partition doesn't belong to PLM, skip the partition */
 		XPlmi_Printf(DEBUG_GENERAL, "Not owned by PLM,"
-				"skipping the Prtn 0x%08x\n\r", PrtnNum);
+				"skipping the Partition# 0x%08x\n\r", PrtnNum);
 		goto END;
 	}
 

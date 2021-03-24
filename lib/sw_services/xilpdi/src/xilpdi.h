@@ -42,6 +42,8 @@
 *       bm   02/12/2021 Updated logic to use BootHdr directly from PMC RAM
 *       har  03/17/2021 Removed XilPdi_IsBhdrAuthEnable
 *       ma   03/24/2021 Redirect XilPdi prints to XilLoader
+*       ma   03/24/2021 Change ImgName to u8 to print max characters of
+*                       PDI image names
 *
 * </pre>
 *
@@ -216,6 +218,9 @@ extern "C" {
 #define XILPDI_METAHDR_RD_HDRS_FROM_DEVICE		(0x0U)
 #define XILPDI_METAHDR_RD_HDRS_FROM_MEMBUF		(0x1U)
 
+/* Array size for image name */
+#define XILPDI_IMG_NAME_ARRAY_SIZE				(16U)
+
 /**************************** Type Definitions *******************************/
 
 /*
@@ -282,7 +287,7 @@ typedef struct {
 	u32 NoOfPrtns; /**< Number of partitions in the image */
 	u32 EncRevokeID; /**< Revocation ID of meta header */
 	u32 ImgAttr; /**< Image Attributes */
-	u32 ImgName[4U]; /**< Image Name */
+	u8 ImgName[XILPDI_IMG_NAME_ARRAY_SIZE]; /**< Image Name */
 	u32 ImgID; /**< Image ID */
 	u32 UID; /**< Unique ID */
 	u32 PUID; /**< Parent UID */

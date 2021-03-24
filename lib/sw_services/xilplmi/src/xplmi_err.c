@@ -1221,46 +1221,47 @@ int XPlmi_PsEmInit(void)
  *****************************************************************************/
 static void XPlmi_DumpRegisters(void)
 {
-	XPlmi_Printf(DEBUG_GENERAL, "====Register Dump============\n\r");
+	XPlmi_Printf(DEBUG_GENERAL, "============Register Dump============\n\r");
 
-	XPlmi_Printf(DEBUG_GENERAL, "IDCODE: 0x%08x\n\r",
+	XPlmi_Printf(DEBUG_GENERAL, "PMC_TAP_IDCODE: 0x%08x\n\r",
 		XPlmi_In32(PMC_TAP_IDCODE));
-	XPlmi_Printf(DEBUG_GENERAL, "EXTENDED IDCODE: 0x%08x\n\r",
+	XPlmi_Printf(DEBUG_GENERAL, "EFUSE_CACHE_IP_DISABLE_0(EXTENDED IDCODE): "
+			"0x%08x\n\r",
 		XPlmi_In32(EFUSE_CACHE_IP_DISABLE_0));
-	XPlmi_Printf(DEBUG_GENERAL, "Version: 0x%08x\n\r",
+	XPlmi_Printf(DEBUG_GENERAL, "PMC_TAP_VERSION: 0x%08x\n\r",
 		XPlmi_In32(PMC_TAP_VERSION));
-	XPlmi_Printf(DEBUG_GENERAL, "Bootmode User: 0x%08x\n\r",
+	XPlmi_Printf(DEBUG_GENERAL, "CRP_BOOT_MODE_USER: 0x%08x\n\r",
 		XPlmi_In32(CRP_BOOT_MODE_USER));
-	XPlmi_Printf(DEBUG_GENERAL, "Bootmode POR: 0x%08x\n\r",
+	XPlmi_Printf(DEBUG_GENERAL, "CRP_BOOT_MODE_POR: 0x%08x\n\r",
 		XPlmi_In32(CRP_BOOT_MODE_POR));
-	XPlmi_Printf(DEBUG_GENERAL, "Reset Reason: 0x%08x\n\r",
+	XPlmi_Printf(DEBUG_GENERAL, "CRP_RESET_REASON: 0x%08x\n\r",
 		XPlmi_In32(CRP_RESET_REASON));
-	XPlmi_Printf(DEBUG_GENERAL, "Multiboot: 0x%08x\n\r",
+	XPlmi_Printf(DEBUG_GENERAL, "PMC_GLOBAL_PMC_MULTI_BOOT: 0x%08x\n\r",
 		XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT));
-	XPlmi_Printf(DEBUG_GENERAL, "PMC PWR Status: 0x%08x\n\r",
+	XPlmi_Printf(DEBUG_GENERAL, "PMC_GLOBAL_PWR_STATUS: 0x%08x\n\r",
 		XPlmi_In32(PMC_GLOBAL_PWR_STATUS));
-	XPlmi_Printf(DEBUG_GENERAL, "PMC GSW Err: 0x%08x\n\r",
+	XPlmi_Printf(DEBUG_GENERAL, "PMC_GLOBAL_PMC_GSW_ERR: 0x%08x\n\r",
 		XPlmi_In32(PMC_GLOBAL_PMC_GSW_ERR));
-	XPlmi_Printf(DEBUG_GENERAL, "PLM Error: 0x%08x\n\r",
+	XPlmi_Printf(DEBUG_GENERAL, "PMC_GLOBAL_PLM_ERR: 0x%08x\n\r",
 		XPlmi_In32(PMC_GLOBAL_PLM_ERR));
-	XPlmi_Printf(DEBUG_GENERAL, "PMC ERR OUT1 Status: 0x%08x\n\r",
+	XPlmi_Printf(DEBUG_GENERAL, "PMC_GLOBAL_PMC_ERR1_STATUS: 0x%08x\n\r",
 		XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS));
-	XPlmi_Printf(DEBUG_GENERAL, "PMC ERR OUT2 Status: 0x%08x\n\r",
+	XPlmi_Printf(DEBUG_GENERAL, "PMC_GLOBAL_PMC_ERR2_STATUS: 0x%08x\n\r",
 		XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS));
-	XPlmi_Printf(DEBUG_GENERAL, "GICP0 IRQ Status: 0x%08x\n\r",
+	XPlmi_Printf(DEBUG_GENERAL, "PMC_GLOBAL_GICP0_IRQ_STATUS: 0x%08x\n\r",
 		XPlmi_In32(PMC_GLOBAL_GICP0_IRQ_STATUS));
-	XPlmi_Printf(DEBUG_GENERAL, "GICP1 IRQ Status: 0x%08x\n\r",
+	XPlmi_Printf(DEBUG_GENERAL, "PMC_GLOBAL_GICP1_IRQ_STATUS: 0x%08x\n\r",
 		XPlmi_In32(PMC_GLOBAL_GICP1_IRQ_STATUS));
-	XPlmi_Printf(DEBUG_GENERAL, "GICP2 IRQ Status: 0x%08x\n\r",
+	XPlmi_Printf(DEBUG_GENERAL, "PMC_GLOBAL_GICP2_IRQ_STATUS: 0x%08x\n\r",
 		XPlmi_In32(PMC_GLOBAL_GICP2_IRQ_STATUS));
-	XPlmi_Printf(DEBUG_GENERAL, "GICP3 IRQ Status: 0x%08x\n\r",
+	XPlmi_Printf(DEBUG_GENERAL, "PMC_GLOBAL_GICP3_IRQ_STATUS: 0x%08x\n\r",
 		XPlmi_In32(PMC_GLOBAL_GICP3_IRQ_STATUS));
-	XPlmi_Printf(DEBUG_GENERAL, "GICP4 IRQ Status: 0x%08x\n\r",
+	XPlmi_Printf(DEBUG_GENERAL, "PMC_GLOBAL_GICP4_IRQ_STATUS: 0x%08x\n\r",
 		XPlmi_In32(PMC_GLOBAL_GICP4_IRQ_STATUS));
-	XPlmi_Printf(DEBUG_GENERAL, "GICPPMC IRQ Status: 0x%08x\n\r",
+	XPlmi_Printf(DEBUG_GENERAL, "PMC_GLOBAL_GICP_PMC_IRQ_STATUS: 0x%08x\n\r",
 		XPlmi_In32(PMC_GLOBAL_GICP_PMC_IRQ_STATUS));
 
-	XPlmi_Printf(DEBUG_GENERAL, "====Register Dump============\n\r");
+	XPlmi_Printf(DEBUG_GENERAL, "============Register Dump============\n\r");
 }
 
 /*****************************************************************************/

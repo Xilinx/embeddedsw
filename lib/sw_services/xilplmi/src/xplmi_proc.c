@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,7 @@
 * 1.03  bm   10/14/2020 Code clean up
 * 		td   10/19/2020 MISRA C Fixes
 * 1.04  td   11/23/2020 MISRA C Rule 10.4 Fixes
+*       ma   03/24/2021 Reduced minimum digits of time stamp decimals to 3
 *
 * </pre>
 *
@@ -167,6 +168,7 @@ static void XPlmi_GetPerfTime(u64 TCur, u64 TStart, XPlmi_PerfTime *PerfTime)
 	PerfTemp /= XPLMI_MEGA;
 	PerfTime->TPerfMs = (u64)PerfTemp;
 	PerfTime->TPerfMsFrac = PerfNs % (u64)XPLMI_MEGA;
+	PerfTime->TPerfMsFrac /= (u64)XPLMI_MILLI;
 }
 
 /*****************************************************************************/
@@ -209,7 +211,7 @@ void XPlmi_PrintRomTime(void)
 	/* Print time stamp of PLM */
 	XPlmi_GetPerfTime((XPLMI_PIT1_CYCLE_VALUE << 32U) |
 		XPLMI_PIT2_CYCLE_VALUE, PmcRomTime, &PerfTime);
-	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%u.%06u ms: ROM Time\r\n",
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%u.%03u ms: ROM Time\r\n",
 		(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
 }
 
@@ -229,7 +231,7 @@ void XPlmi_PrintPlmTimeStamp(void)
 	/* Print time stamp of PLM */
 	XPlmi_MeasurePerfTime((XPLMI_PIT1_CYCLE_VALUE << 32U) |
 		XPLMI_PIT2_CYCLE_VALUE, &PerfTime);
-	xil_printf("[%u.%06u]", (u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
+	xil_printf("[%u.%03u]", (u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
 }
 
 /*****************************************************************************/
