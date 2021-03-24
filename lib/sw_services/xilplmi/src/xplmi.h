@@ -33,6 +33,7 @@
 * 1.4   ma   03/04/2021 Added IPI security defines
 *       har  03/17/2021 Added Secure State register for authentication and
 *                       encryption
+*       ma   03/24/2021 Added RTCA Debug Log Address define
 *
 * </pre>
 *
@@ -87,6 +88,7 @@ extern "C" {
 #define XPLMI_RTCFG_RTCA_ADDR			(XPLMI_RTCFG_BASEADDR + 0x0U)
 #define XPLMI_RTCFG_VERSION_ADDR		(XPLMI_RTCFG_BASEADDR + 0x4U)
 #define XPLMI_RTCFG_SIZE_ADDR			(XPLMI_RTCFG_BASEADDR + 0x8U)
+#define XPLMI_RTCFG_DBG_LOG_BUF_ADDR	(XPLMI_RTCFG_BASEADDR + 0x10U)
 #define XPLMI_RTCFG_IMGINFOTBL_ADDRLOW_ADDR	(XPLMI_RTCFG_BASEADDR + 0x40U)
 #define XPLMI_RTCFG_IMGINFOTBL_ADDRHIGH_ADDR	(XPLMI_RTCFG_BASEADDR + 0x44U)
 #define XPLMI_RTCFG_IMGINFOTBL_LEN_ADDR		(XPLMI_RTCFG_BASEADDR + 0x48U)
