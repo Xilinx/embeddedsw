@@ -1,6 +1,7 @@
 // (c) Copyright(C) 2020 - 2021 by Xilinx, Inc. All rights reserved.
 // SPDX-License-Identifier: MIT
 
+#include <cerrno>
 #include <fstream>
 #include <functional>
 #include <string.h>
@@ -295,6 +296,58 @@ namespace xaiefal {
 			}
 			return NumEvents;
 		}
+		/**
+		 * This function returns the trace control start event broadcast
+		 * event if trace event needs broadcasting.
+		 *
+		 * @return broadcast channel if trace event is reserved, and
+		 *	   broadcast is required, error code for failure.
+		 */
+		int getStartBc() {
+			int BcId;
+
+			if (State.Reserved == 1) {
+				if (StartMod != Mod) {
+					BcId = StartBC->getBc();
+				} else {
+					BcId = -EINVAL;
+				}
+			} else {
+				Logger::log(LogLevel::ERROR) << "trace control " << __func__ << " (" <<
+					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row <<
+					") trace control Mod=" << Mod <<
+					" not reserved" << Mod << std::endl;
+				BcId = -EPERM;
+			}
+
+			return BcId;
+		}
+		/**
+		 * This function returns the trace control stop event broadcast
+		 * event if trace event needs broadcasting.
+		 *
+		 * @return broadcast channel if trace event is reserved, and
+		 *	   broadcast is required, error code for failure.
+		 */
+		int getStopBc() {
+			int BcId;
+
+			if (State.Reserved == 1) {
+				if (StopMod != Mod) {
+					BcId = StopBC->getBc();
+				} else {
+					BcId = -EINVAL;
+				}
+			} else {
+				Logger::log(LogLevel::ERROR) << "trace control " << __func__ << " (" <<
+					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row <<
+					") trace control Mod=" << Mod <<
+					" not reserved" << Mod << std::endl;
+				BcId = -EPERM;
+			}
+
+			return BcId;
+		}
 	protected:
 		AieRC _reserve() {
 			AieRC RC;
@@ -551,6 +604,33 @@ namespace xaiefal {
 				RC = XAIE_OK;
 			}
 			return RC;
+		}
+		/**
+		 * This function returns the trace event broadcast event if
+		 * trace event needs broadcasting.
+		 *
+		 * @return broadcast channel if trace event is reserved, and
+		 *	   broadcast is required, error code for failure.
+		 */
+		int getBc() {
+			int BcId;
+
+			if (State.Reserved == 1) {
+				if (EventMod != TraceCntr->getModule()) {
+					BcId = BC->getBc();
+				} else {
+					BcId = -EINVAL;
+				}
+			} else {
+				Logger::log(LogLevel::ERROR) << "trace event " << __func__ << " (" <<
+					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row <<
+					") trace control Mod=" << TraceCntr->getModule() <<
+					" Event Mod=" << EventMod <<
+					" resource not reserved." << std::endl;
+				BcId = -EPERM;
+			}
+
+			return BcId;
 		}
 	protected:
 		AieRC _reserve() {
