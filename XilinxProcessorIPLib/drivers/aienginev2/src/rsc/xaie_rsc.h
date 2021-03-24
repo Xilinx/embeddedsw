@@ -52,6 +52,7 @@ typedef enum {
 	XAIE_USER_EVENTS_RSC,
 	XAIE_PC_EVENTS_RSC,
 	XAIE_TRACE_CTRL_RSC,
+	XAIE_SS_EVENT_PORTS_RSC,
 	XAIE_MAX_RSC,
 } XAie_RscType;
 
@@ -84,6 +85,16 @@ AieRC XAie_ReleasePCEvents(XAie_DevInst *DevInst, u32 UserRscNum,
 AieRC XAie_FreePCEvents(XAie_DevInst *DevInst, u32 UserRscNum,
 		XAie_UserRsc *Rscs);
 AieRC XAie_RequestAllocatedPCEvents(XAie_DevInst *DevInst, u32 NumReq,
+		XAie_UserRsc *RscReq);
+
+/* Stream switch event port selection resource management APIs */
+AieRC XAie_RequestSSEventPortSelect(XAie_DevInst *DevInst, u32 NumReq,
+		XAie_UserRscReq *RscReq, u32 UserRscNum, XAie_UserRsc *Rscs);
+AieRC XAie_ReleaseSSEventPortSelect(XAie_DevInst *DevInst, u32 UserRscNum,
+		XAie_UserRsc *Rscs);
+AieRC XAie_FreeSSEventPortSelect(XAie_DevInst *DevInst, u32 UserRscNum,
+		XAie_UserRsc *Rscs);
+AieRC XAie_RequestAllocatedSSEventPortSelect(XAie_DevInst *DevInst, u32 NumReq,
 		XAie_UserRsc *RscReq);
 
 /* Trace control resource management API */
