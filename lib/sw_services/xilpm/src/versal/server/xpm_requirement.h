@@ -23,7 +23,8 @@ typedef struct XPm_Reqm XPm_Requirement;
 struct XPm_ReqmInfo {
 	u32 Capabilities:4; /**< Device capabilities (1-hot) */
 	u32 Latency:21; /**< Maximum device latency */
-	u32 QoS:7; /**< QoS requirement */
+	u32 Reserved:7; /**< Reserved for future use */
+	u32 QoS; /**< QoS requirement */
 };
 
 typedef enum {
