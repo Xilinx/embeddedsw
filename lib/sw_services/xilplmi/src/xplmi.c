@@ -29,6 +29,7 @@
 * 1.04  bm   10/28/2020 Added ROM Version Print
 *       har  03/17/2021 Added code for run time initialization of Secure State
 *                       registers
+*       ma   03/24/2021 Print early logs
 *
 * </pre>
 *
@@ -174,6 +175,13 @@ void XPlmi_PrintPlmBanner(void)
 	u32 MultiBoot;
 
 	if ((u8)FALSE == IsBannerPrinted) {
+		/* Print early log */
+		if (DebugLog->LogBuffer.IsBufferFull == (u32)FALSE) {
+			DebugLog->PrintToBuf = (u8)FALSE;
+			XPlmi_OutByte64(DebugLog->LogBuffer.StartAddr + DebugLog->LogBuffer.Offset, 0U);
+			XPlmi_Printf_WoTS(DEBUG_PRINT_ALWAYS, "%s", (UINTPTR)DebugLog->LogBuffer.StartAddr);
+			DebugLog->PrintToBuf = (u8)TRUE;
+		}
 		/* Print the PLM Banner */
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
 			"****************************************\n\r");

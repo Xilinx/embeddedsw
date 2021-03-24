@@ -359,6 +359,7 @@ void XPlmi_InitDebugLogBuffer(void)
 	DebugLog->LogBuffer.Offset = 0x0U;
 	DebugLog->LogBuffer.IsBufferFull = (u32)FALSE;
 	DebugLog->LogLevel = (u8)XPlmiDbgCurrentTypes;
+	DebugLog->PrintToBuf = (u8)TRUE;
 }
 
 /**
