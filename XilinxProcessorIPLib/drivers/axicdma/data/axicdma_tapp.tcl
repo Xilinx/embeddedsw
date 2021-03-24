@@ -11,6 +11,10 @@
 #  4.7     adk    01/04/20 Updated the API check_if_ddr_is_present() to check
 #			   ddr is present or not for the current processor
 #                          instance instead of entire design configuration.
+#  4.9	   sk	  03/24/21 Add a condition in check_if_ddr_is_present() API
+#			   to get the IP_NAMES of only cells as the
+#			   get_mem_ranges returns both the external interface
+#			   port and cells.
 ##############################################################################
 
 ## @BEGIN_CHANGELOG EDK_I_SP1
@@ -337,9 +341,13 @@ proc check_if_ddr_is_present {mhsinst} {
      set ips [hsi::get_mem_ranges -of_objects [hsi::get_cells -hier [hsi::get_sw_processor]]]
      set ddrpresent -1
      set migddrpresent -1
+     set periph ""
 
      foreach ip $ips {
-	set periph [get_property IP_NAME [hsi::get_cells -hier $ip]]
+	set ip_names [hsi::get_cells -hier $ip]
+	if {$ip_names != ""} {
+		set periph [get_property IP_NAME [hsi::get_cells -hier $ip]]
+	}
 	set ddrpresent [string first "ddr" $periph]
 	set migddrpresent [string first "mig" $periph]
 	set nocpresent [string first "noc" $periph]
