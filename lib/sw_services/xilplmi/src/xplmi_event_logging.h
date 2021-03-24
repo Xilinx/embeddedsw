@@ -56,6 +56,7 @@ typedef struct {
 typedef struct {
 	XPlmi_CircularBuffer LogBuffer;
 	u8 LogLevel;
+	u8 PrintToBuf;
 } XPlmi_LogInfo;
 
 

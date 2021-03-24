@@ -27,6 +27,7 @@
 *       td   10/19/2020 MISRA C Fixes
 * 1.04  bm   02/01/2021 Add XPlmi_Print functions using xil_vprintf
 *       ma   03/24/2021 Store DebugLog structure to RTCA
+*       ma   03/24/2021 Print logs to memory when PrintToBuf is TRUE
 *
 * </pre>
 *
@@ -154,17 +155,18 @@ void outbyte(char8 c)
 	}
 #endif
 
-	CurrentAddr = DebugLog->LogBuffer.StartAddr + DebugLog->LogBuffer.Offset;
-	if (CurrentAddr >=
-			(DebugLog->LogBuffer.StartAddr + DebugLog->LogBuffer.Len)) {
-		DebugLog->LogBuffer.Offset = 0x0U;
-		DebugLog->LogBuffer.IsBufferFull = TRUE;
-		CurrentAddr = DebugLog->LogBuffer.StartAddr;
+	if (DebugLog->PrintToBuf == (u8)TRUE) {
+		CurrentAddr = DebugLog->LogBuffer.StartAddr + DebugLog->LogBuffer.Offset;
+		if (CurrentAddr >=
+				(DebugLog->LogBuffer.StartAddr + DebugLog->LogBuffer.Len)) {
+			DebugLog->LogBuffer.Offset = 0x0U;
+			DebugLog->LogBuffer.IsBufferFull = TRUE;
+			CurrentAddr = DebugLog->LogBuffer.StartAddr;
+		}
+
+		XPlmi_OutByte64(CurrentAddr, (u8)c);
+		++DebugLog->LogBuffer.Offset;
 	}
-
-	XPlmi_OutByte64(CurrentAddr, (u8)c);
-	++DebugLog->LogBuffer.Offset;
-
 }
 
 /*****************************************************************************/
