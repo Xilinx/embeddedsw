@@ -88,6 +88,7 @@
 *       bm   03/16/2021 Added Image Upgrade support
 *       har  03/17/2021 Added API call to set the secure state
 *       ma   03/24/2021 Redirect XilPdi prints to XilLoader
+*       ma   03/24/2021 Minor updates to prints in XilLoader
 *
 * </pre>
 *
@@ -434,7 +435,7 @@ static int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 END:
 	XPlmi_MeasurePerfTime(PdiInitTime, &PerfTime);
 	XPlmi_Printf(DEBUG_PRINT_PERF,
-		"%u.%06u ms: PDI initialization time\n\r",
+		"%u.%03u ms: PDI initialization time\n\r",
 		(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
 	return Status;
 }
@@ -591,7 +592,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 	Status = XST_FAILURE;
 	Status = XLoader_SecureValidations(&SecureParams);
 	if (Status != XST_SUCCESS) {
-		XPlmi_Printf(DEBUG_INFO,"Failed at secure validations\n\r");
+		XPlmi_Printf(DEBUG_INFO, "Error: Failed at secure validations\n\r");
 		goto END;
 	}
 
@@ -1491,7 +1492,7 @@ static int XLoader_LoadImage(XilPdi *PdiPtr)
 		}
 	}
 
-	PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgName[3U] = 0U;
+	PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgName[XILPDI_IMG_NAME_ARRAY_SIZE - 1U] = 0;
 	PdiPtr->CurImgId = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID;
 	/* Update current subsystem ID for EM */
 	XPlmi_SetEmSubsystemId(&PdiPtr->CurImgId);

@@ -199,7 +199,7 @@ void XPlmi_PrintPlmBanner(void)
 				(PmcVersion / 16U), (PmcVersion % 16U),
 				(PsVersion / 16U), (PsVersion % 16U));
 		XPlmi_PrintRomVersion();
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "BOOTMODE: %u, MULTIBOOT: 0x%x"
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "BOOTMODE: 0x%x, MULTIBOOT: 0x%x"
 				"\n\r", BootMode, MultiBoot);
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
 			"****************************************\n\r");

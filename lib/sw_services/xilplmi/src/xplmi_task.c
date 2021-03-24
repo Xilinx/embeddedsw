@@ -26,6 +26,7 @@
 * 1.04  kc   11/30/2020 Disable interrupts while updating shared data
 * 1.05  skd  03/12/2021 Added provision to skip scheduling a task if it is
 *                       already present in queue
+*       ma   03/24/2021 Reduced minimum digits of time stamp decimals to 3
 *
 * </pre>
 *
@@ -224,7 +225,7 @@ void XPlmi_TaskDispatchLoop(void)
 			Status = Task->Handler(Task->PrivData);
 #ifdef PLM_DEBUG_INFO
 			XPlmi_MeasurePerfTime(TaskStartTime, &PerfTime);
-			XPlmi_Printf(DEBUG_PRINT_PERF, "%u.%06u ms: Task Time\n\r",
+			XPlmi_Printf(DEBUG_PRINT_PERF, "%u.%03u ms: Task Time\n\r",
 				(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
 #endif
 			if (Status != (int)XPLMI_TASK_INPROGRESS) {

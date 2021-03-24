@@ -32,6 +32,7 @@
 *       td	 10/19/2020 MISRA C Fixes
 * 1.03  td   11/23/2020 MISRA C Rule 17.8 Fixes
 *       bm   02/17/2021 Add overflow check for payloadlen
+*       ma   03/24/2021 Reduced minimum digits of time stamp decimals to 3
 *
 * </pre>
 *
@@ -509,7 +510,7 @@ END:
 #ifdef PLM_PRINT_PERF_CDO_PROCESS
 	XPlmi_MeasurePerfTime(ProcessTime, &PerfTime);
 	XPlmi_Printf(DEBUG_PRINT_PERF,
-			"%u.%06u ms Cdo Processing time\n\r",
+			"%u.%03u ms Cdo Processing time\n\r",
 			(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
 #endif
 	return Status;

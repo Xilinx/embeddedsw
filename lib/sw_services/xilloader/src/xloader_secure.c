@@ -78,6 +78,7 @@
 *       bm   01/04/21 Updated checksum verification to be done at destination memory
 *       kpt  02/18/21 Fixed logical error in partition next chunk copy in encryption cases
 *       har  03/17/21 Added API to set the secure state of device
+*       ma   03/24/21 Minor updates to prints in XilLoader
 *
 * </pre>
 *
@@ -554,8 +555,8 @@ static int XLoader_ProcessChecksumPrtn(XLoader_SecureParams *SecurePtr,
 	u32 TotalSize = BlockSize;
 	u64 SrcAddr;
 
-	XPlmi_Printf(DEBUG_DETAILED,
-			"Processing Block %u \n\r", SecurePtr->BlockNum);
+	XPlmi_Printf(DEBUG_INFO,
+			"Processing Block %u\n\r", SecurePtr->BlockNum);
 	SecurePtr->ProcessedLen = 0U;
 	/* 1st block */
 	if (SecurePtr->BlockNum == 0x0U) {

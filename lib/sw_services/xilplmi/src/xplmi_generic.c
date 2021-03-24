@@ -246,7 +246,7 @@ static int XPlmi_MaskPoll(XPlmi_Cmd *Cmd)
 #ifdef PLM_PRINT_PERF_POLL
 	XPlmi_MeasurePerfTime(PollTime, &PerfTime);
 	XPlmi_Printf(DEBUG_PRINT_PERF,
-		" %u.%06u ms Poll Time: Addr: 0x%0x,  Mask: 0x%0x,"
+		" %u.%03u ms Poll Time: Addr: 0x%0x,  Mask: 0x%0x,"
 		" ExpVal: 0x%0x, Timeout: %u \r\n",
 		(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac,
 		Addr, Mask, ExpectedValue, TimeOutInUs);
