@@ -30,6 +30,7 @@
 *                     MetaHeader IV mismatch and fixed gcc warning
 *       har  03/02/21 Added support to verify IHT as AAD for first secure header
 *       har  03/17/21 Cleaned up code to use the secure state of boot
+*       ma   03/24/21 Redirect XilPdi prints to XilLoader
 *
 * </pre>
 *
@@ -693,6 +694,8 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 		MetaHdr->XMemCpy = Xil_SecureMemCpy;
 
 		/* Read IHT and PHT to structures and verify checksum */
+		XPlmi_Printf(DEBUG_INFO, "Reading 0x%x Image Headers\n\r",
+				MetaHdr->ImgHdrTbl.NoOfImgs);
 		Status = XilPdi_ReadAndVerifyImgHdr(MetaHdr);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(
@@ -718,6 +721,8 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 		/* Update buffer address to point to PHs */
 		MetaHdr->BufferAddr = (u64)(SecurePtr->ChunkAddr) +
 					((u64)(MetaHdr->ImgHdrTbl.NoOfImgs) * XIH_IH_LEN);
+		XPlmi_Printf(DEBUG_INFO, "Reading 0x%x Partition Headers\n\r",
+				MetaHdr->ImgHdrTbl.NoOfPrtns);
 		Status = XilPdi_ReadAndVerifyPrtnHdr(MetaHdr);
 		if(Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(

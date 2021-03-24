@@ -35,6 +35,7 @@
 *                       partition headers
 * 1.04  td   11/23/2020 Coverity Warning Fixes
 *       bm   02/12/2021 Updated logic to use BootHdr directly from PMC RAM
+*       ma   03/24/2021 Redirect XilPdi prints to XilLoader
 *
 * </pre>
 *
@@ -153,27 +154,6 @@ int XilPdi_ValidateImgHdrTbl(const XilPdi_ImgHdrTbl * ImgHdrTbl)
 	}
 
 END:
-	/*
-	 * Print the Img header table details
-	 * Print the Bootgen version
-	 */
-	XilPdi_Printf("--------Img Hdr Tbl Details-------- \n\r");
-	XilPdi_Printf("Boot Gen Ver: 0x%0lx \n\r",
-			ImgHdrTbl->Version);
-	XilPdi_Printf("No of Images: 0x%0lx \n\r",
-			ImgHdrTbl->NoOfImgs);
-	XilPdi_Printf("Image Hdr Addr: 0x%0lx \n\r",
-			ImgHdrTbl->ImgHdrAddr);
-	XilPdi_Printf("No of Prtns: 0x%0lx \n\r",
-			ImgHdrTbl->NoOfPrtns);
-	XilPdi_Printf("Prtn Hdr Addr: 0x%0lx \n\r",
-			ImgHdrTbl->PrtnHdrAddr);
-	XilPdi_Printf("Secondary Boot Device Address: 0x%0lx \n\r",
-			ImgHdrTbl->SBDAddr);
-	XilPdi_Printf("IDCODE: 0x%0lx \n\r",
-			ImgHdrTbl->Idcode);
-	XilPdi_Printf("Attributes: 0x%0lx \n\r",
-			ImgHdrTbl->Attr);
 	return Status;
 }
 
@@ -214,24 +194,6 @@ int XilPdi_ValidatePrtnHdr(const XilPdi_PrtnHdr * PrtnHdr)
 		goto END;
 	}
 
-	/*
-	 * Print Prtn Hdr Details
-	 */
-	XilPdi_Printf("UnEnc data Len: 0x%0lx \n\r",
-				PrtnHdr->UnEncDataWordLen);
-	XilPdi_Printf("Data word offset: 0x%0lx \n\r",
-				PrtnHdr->EncDataWordLen);
-	XilPdi_Printf("Total Data word length: 0x%0lx \n\r",
-				PrtnHdr->TotalDataWordLen);
-	XilPdi_Printf("Dstn Load Addr: 0x%0lx \n\r",
-				PrtnHdr->DstnLoadAddr);
-	XilPdi_Printf("Execution Addr: 0x%0lx \n\r",
-				PrtnHdr->DstnExecutionAddr);
-	XilPdi_Printf("Data word offset: 0x%0lx \n\r",
-				PrtnHdr->DataWordOfst);
-	XilPdi_Printf("Prtn Attrb: 0x%0lx \n\r",
-				PrtnHdr->PrtnAttrb);
-
 	Status = XST_SUCCESS;
 
 END:
@@ -248,14 +210,6 @@ END:
 void XilPdi_ReadBootHdr(XilPdi_MetaHdr *MetaHdrPtr)
 {
 	MetaHdrPtr->BootHdrPtr = (XilPdi_BootHdr *)(UINTPTR)XIH_BH_PRAM_ADDR;
-
-	/*
-	 * Print FW Rsvd fields Details
-	 */
-	XilPdi_Printf("Boot Header Attributes: 0x%0lx \n\r",
-		MetaHdrPtr->BootHdrPtr->ImgAttrb);
-	XilPdi_Printf("Meta Header Offset: 0x%0lx \n\r",
-		MetaHdrPtr->BootHdrPtr->BootHdrFwRsvd.MetaHdrOfst);
 }
 
 /****************************************************************************/
@@ -334,8 +288,6 @@ int XilPdi_ReadAndVerifyImgHdr(XilPdi_MetaHdr * MetaHdrPtr)
 
 	NoOfImgs = MetaHdrPtr->ImgHdrTbl.NoOfImgs;
 
-	XilPdi_Printf("Reading %u Image Headers \n\r", NoOfImgs);
-
 	/*
 	 * Read the Img headers of 64 bytes
 	 * and update the Image Header structure for all images
@@ -363,8 +315,7 @@ int XilPdi_ReadAndVerifyImgHdr(XilPdi_MetaHdr * MetaHdrPtr)
 		Status = XilPdi_ValidateChecksum(&MetaHdrPtr->ImgHdr[ImgIndex],
 				XIH_IH_LEN / XIH_PRTN_WORD_LEN);
 		if (XST_SUCCESS != Status) {
-			XilPdi_Printf("Image %u Checksum Failed \n\r",
-					ImgIndex);
+			Status = XILPDI_ERR_IH_CHECKSUM;
 			goto END;
 		}
 	}
@@ -393,8 +344,6 @@ int XilPdi_ReadAndVerifyPrtnHdr(XilPdi_MetaHdr * MetaHdrPtr)
 
 	NoOfPrtns = MetaHdrPtr->ImgHdrTbl.NoOfPrtns;
 
-	XilPdi_Printf("Reading %u Partition Headers \n\r", NoOfPrtns);
-
 	/* Read partition headers into partition structures */
 
 	/* Performs device copy */
@@ -420,8 +369,7 @@ int XilPdi_ReadAndVerifyPrtnHdr(XilPdi_MetaHdr * MetaHdrPtr)
 				&MetaHdrPtr->PrtnHdr[PrtnIndex],
 				XIH_PH_LEN / XIH_PRTN_WORD_LEN);
 		if (XST_SUCCESS != Status) {
-			XilPdi_Printf("Partition %u Checksum Failed \n\r",
-					PrtnIndex);
+			Status = XILPDI_ERR_PH_CHECKSUM;
 			goto END;
 		}
 	}
@@ -450,8 +398,7 @@ int XilPdi_ValidateHdrs(const XilPdi_MetaHdr *MetaHdrPtr)
 		Status = XilPdi_ValidateChecksum(&MetaHdrPtr->ImgHdr[Index],
 						XIH_IH_LEN / XIH_PRTN_WORD_LEN);
 		if (Status != XST_SUCCESS) {
-			XilPdi_Printf("Image %u Checksum Failed \n\r",
-					       Index);
+			Status = XILPDI_ERR_IH_CHECKSUM;
 			goto END;
 		}
 	}
@@ -459,8 +406,7 @@ int XilPdi_ValidateHdrs(const XilPdi_MetaHdr *MetaHdrPtr)
 		Status = XilPdi_ValidateChecksum(&MetaHdrPtr->PrtnHdr[Index],
 						XIH_PH_LEN / XIH_PRTN_WORD_LEN);
 		if (Status != XST_SUCCESS) {
-			XilPdi_Printf("Partition %u Checksum Failed \n\r",
-					       Index);
+			Status = XILPDI_ERR_PH_CHECKSUM;
 			goto END;
 		}
 	}

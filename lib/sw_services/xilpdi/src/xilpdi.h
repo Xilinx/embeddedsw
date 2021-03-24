@@ -41,6 +41,7 @@
 *       har  02/01/2021 Added API to get PLM encryption key source
 *       bm   02/12/2021 Updated logic to use BootHdr directly from PMC RAM
 *       har  03/17/2021 Removed XilPdi_IsBhdrAuthEnable
+*       ma   03/24/2021 Redirect XilPdi prints to XilLoader
 *
 * </pre>
 *
@@ -199,6 +200,8 @@ extern "C" {
 #define XILPDI_ERR_TOTAL_LENGTH		(0x5)
 #define XILPDI_ERR_PRTN_TYPE		(0x6)
 #define XILPDI_ERR_NO_OF_IMGS		(0x7)
+#define XILPDI_ERR_IH_CHECKSUM		(0x40)
+#define XILPDI_ERR_PH_CHECKSUM		(0x80)
 
 /*
  * Image Header Attributes
