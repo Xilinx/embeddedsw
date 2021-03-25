@@ -14,6 +14,18 @@ extern "C" {
 #ifdef PSM_ENABLE_STL
 #include "xpsmfw_default.h"
 
+/*
+ * STL Module ID and Command for Error notification
+ */
+#define XSTL_MODULE_ID		(0x0AUL)
+#define XSTL_ERR_NOTIFY_CMD  0x06U
+
+/*
+ * STL IPI HEADER
+ */
+#define XSTL_HEADER(len, ApiId)		(((len) << 16U) | (XSTL_MODULE_ID << 8U) | ((u32)ApiId))
+
+/************************ Function Prototype ************************/
 XStatus XPsmFw_StartUpStlHook(void);
 XStatus XPsmFw_PeriodicStlHook(void);
 
