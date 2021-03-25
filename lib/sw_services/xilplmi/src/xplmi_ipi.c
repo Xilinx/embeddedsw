@@ -36,6 +36,7 @@
  *       ma   03/04/2021 Code clean up
  *       ma   03/04/2021 Added access check for IPI commands
  *       ma   03/10/2021 Added code to disallow set image info Loader command
+ *       bsv  03/24/2021 All IPIs to be acknowledged in XPlmi_IpiDispatchHandler
  *
  * </pre>
  *
@@ -130,6 +131,7 @@ int XPlmi_IpiDispatchHandler(void *Data)
 	u32 MaskIndex;
 	XPlmi_Cmd Cmd = {0U};
 	int StatusTmp = XST_FAILURE;
+	u8 PendingPsmIpi = (u8)FALSE;
 
 	/* For MISRA C */
 	(void )Data;
@@ -138,6 +140,10 @@ int XPlmi_IpiDispatchHandler(void *Data)
 
 	for (MaskIndex = 0; MaskIndex < XPLMI_IPI_MASK_COUNT; MaskIndex++) {
 		if ((SrcCpuMask & IpiInst.Config.TargetList[MaskIndex].Mask) != 0U) {
+			Cmd.IpiMask = IpiInst.Config.TargetList[MaskIndex].Mask;
+			if (IPI_PMC_ISR_PSM_BIT_MASK == Cmd.IpiMask) {
+				PendingPsmIpi = (u8)TRUE;
+			}
 			Status = XPlmi_IpiRead(IpiInst.Config.TargetList[MaskIndex].Mask,
 					&Payload[0U], XPLMI_IPI_MAX_MSG_LEN, XIPIPSU_BUF_TYPE_MSG);
 
@@ -146,7 +152,6 @@ int XPlmi_IpiDispatchHandler(void *Data)
 			}
 
 			Cmd.CmdId = Payload[0U];
-			Cmd.IpiMask = IpiInst.Config.TargetList[MaskIndex].Mask;
 			Status = XPlmi_ValidateIpiCmd(&Cmd,
 					IpiInst.Config.TargetList[MaskIndex].BufferIndex);
 			if (Status != XST_SUCCESS) {
@@ -160,6 +165,14 @@ int XPlmi_IpiDispatchHandler(void *Data)
 			} else {
 				Cmd.Payload = (u32 *)&Payload[1U];
 			}
+
+			/* Ack PSM IPIs before running handlers */
+			if (IPI_PMC_ISR_PSM_BIT_MASK == Cmd.IpiMask) {
+				PendingPsmIpi = (u8)FALSE;
+				XPlmi_Out32(IPI_PMC_ISR,
+					IPI_PMC_ISR_PSM_BIT_MASK);
+			}
+
 			Status = XPlmi_CmdExecute(&Cmd);
 
 END:
@@ -167,6 +180,13 @@ END:
 			/* Send response to caller */
 			(void)XPlmi_IpiWrite(Cmd.IpiMask, Cmd.Response,
 					XPLMI_CMD_RESP_SIZE, XIPIPSU_BUF_TYPE_RESP);
+			/* Ack all IPIs */
+			if ((LpdInitialized & LPD_INITIALIZED) == LPD_INITIALIZED) {
+				if ((IPI_PMC_ISR_PSM_BIT_MASK != Cmd.IpiMask) ||
+					(PendingPsmIpi == (u8)TRUE)) {
+						XPlmi_Out32(IPI_PMC_ISR, Cmd.IpiMask);
+				}
+			}
 		}
 	}
 
@@ -174,13 +194,6 @@ END:
 		XPlmi_Printf(DEBUG_GENERAL, "%s: Error: Unhandled IPI received\n\r", __func__);
 	} else {
 		XPlmi_Printf(DEBUG_DETAILED, "%s: IPI processed.\n\r", __func__);
-	}
-
-	if ((LpdInitialized & LPD_INITIALIZED) == LPD_INITIALIZED) {
-		/* Do not ack the PSM IPI interrupt as it is acked in LibPM */
-		if (0U == (SrcCpuMask & IPI_PMC_ISR_PSM_BIT_MASK)) {
-			XPlmi_Out32(IPI_PMC_ISR, SrcCpuMask);
-		}
 	}
 
 	/* Clear and enable the GIC IPI interrupt */
