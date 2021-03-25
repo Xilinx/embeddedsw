@@ -41,6 +41,7 @@
 *       pj   03/24/2021 Added API to update Subystem Id of the error node
 *       pj   03/24/2021 Added API to trigger error handling from software.
 *                       Added SW Error event and Ids for Healthy Boot errors
+*       bm   03/24/2021 Added logic to store error status in RTCA
 *
 * </pre>
 *
@@ -1108,6 +1109,8 @@ END:
 void XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown)
 {
 	u32 Index;
+	u32 PmcErr1Status = 0U;
+	u32 PmcErr2Status = 0U;
 
 	/* Register Error module commands */
 	XPlmi_ErrModuleInit();
@@ -1117,6 +1120,19 @@ void XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown)
 	XPlmi_Out32(PMC_GLOBAL_PMC_ERR_OUT1_DIS, MASK32_ALL_HIGH);
 	XPlmi_Out32(PMC_GLOBAL_PMC_IRQ1_DIS, MASK32_ALL_HIGH);
 	XPlmi_Out32(PMC_GLOBAL_PMC_SRST1_DIS, MASK32_ALL_HIGH);
+
+	PmcErr1Status = XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS);
+	PmcErr2Status = XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
+	XPlmi_Out32(XPLMI_RTCFG_PMC_ERR1_STATUS_ADDR, PmcErr1Status);
+	XPlmi_Out32(XPLMI_RTCFG_PMC_ERR2_STATUS_ADDR, PmcErr2Status);
+	if (PmcErr1Status != 0U) {
+		XPlmi_Printf(DEBUG_GENERAL, "PMC_GLOBAL_PMC_ERR1_STATUS: "
+			"0x%08x\n\r", PmcErr1Status);
+	}
+	if (PmcErr2Status != 0U) {
+		XPlmi_Printf(DEBUG_GENERAL, "PMC_GLOBAL_PMC_ERR2_STATUS: "
+			"0x%08x\n\r", PmcErr2Status);
+	}
 
 	/* Clear the error status registers */
 	XPlmi_Out32(PMC_GLOBAL_PMC_ERR1_STATUS, MASK32_ALL_HIGH);
@@ -1169,11 +1185,26 @@ int XPlmi_PsEmInit(void)
 {
 	int Status = XST_FAILURE;
 	u32 Index;
+	u32 PsmErr1Status = 0U;
+	u32 PsmErr2Status = 0U;
 
 	/* Disable all the Error Actions */
 	XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR1_DIS, MASK32_ALL_HIGH);
 	XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR1_DIS, MASK32_ALL_HIGH);
 	XPlmi_Out32(PSM_GLOBAL_REG_PSM_IRQ1_DIS, MASK32_ALL_HIGH);
+
+	PsmErr1Status = XPlmi_In32(PSM_GLOBAL_REG_PSM_ERR1_STATUS);
+	PsmErr2Status = XPlmi_In32(PSM_GLOBAL_REG_PSM_ERR2_STATUS);
+	XPlmi_Out32(XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR, PsmErr1Status);
+	XPlmi_Out32(XPLMI_RTCFG_PSM_ERR2_STATUS_ADDR, PsmErr2Status);
+	if (PsmErr1Status != 0U) {
+		XPlmi_Printf(DEBUG_GENERAL, "PSM_GLOBAL_REG_PSM_ERR1_STATUS: "
+			"0x%08x\n\r", PsmErr1Status);
+	}
+	if (PsmErr2Status != 0U) {
+		XPlmi_Printf(DEBUG_GENERAL, "PSM_GLOBAL_REG_PSM_ERR2_STATUS: "
+			"0x%08x\n\r", PsmErr2Status);
+	}
 
 	/* Clear the error status registers */
 	XPlmi_Out32(PSM_GLOBAL_REG_PSM_ERR1_STATUS, MASK32_ALL_HIGH);
