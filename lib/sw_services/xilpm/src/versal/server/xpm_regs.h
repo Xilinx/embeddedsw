@@ -710,8 +710,6 @@ extern "C" {
 /**
  * IPI register masks
  */
-#define IPI_PMC_ISR_ADDR					(0xFF320010U)
-#define PSM_IPI_BIT						(0x1U)
 #define PMC_IPI_MASK						(0x00000002U)
 #define IPI_0_MASK						(0x00000004U)
 #define IPI_1_MASK						(0x00000008U)

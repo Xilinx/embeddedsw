@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -42,9 +42,6 @@ static int XPm_ProcessPsmCmd(XPlmi_Cmd * Cmd)
 	int Status = XST_FAILURE, EventStatus;
 	u32 Idx;
 	XPm_Power *Lpd;
-
-	/* Ack the IPI interrupt first */
-	PmOut32(IPI_PMC_ISR_ADDR, PSM_IPI_BIT);
 
 	PmDbg("Processing Psm Event\n\r");
 
