@@ -278,7 +278,7 @@ static const  XAie_DmaBdProp Aie2MemTileDmaProp =
 {
 	.AddrAlignMask = 0x3,
 	.AddrAlignShift = 0x2,
-	.AddrMask = (1U << 20U) - 1U,
+	.AddrMask = (3U << 19U) - 1U,
 	.LenActualOffset = 0U,
 	.Buffer = &Aie2MemTileBufferProp,
 	.DoubleBuffer = &Aie2MemTileDoubleBufferProp,
