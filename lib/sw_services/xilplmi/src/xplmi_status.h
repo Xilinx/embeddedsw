@@ -66,10 +66,11 @@
 *       kpt  02/16/2021 Added error codes for invalid key source when encryption
 *                       only is enabled and when secure validations are failed
 *       bsv  02/28/2021 Added code to avoid unaligned NPI writes
-*       har  03/02/2021 Added error code for faulire to update AAD
+* 1.05  har  03/02/2021 Added error code for failure to update AAD
 *       ma   03/04/2021 Added error code for PLMI IPI access failure
 *       bm   03/04/2021 Added error code for invalid elf load address
 *       skd  03/12/2021 Added error codes for PSM keep alive failure
+*       bm   03/16/2021 Added error codes for Image Upgrade logic
 *       har  03/17/2021 Updated description for XLOADER_ERR_SECURE_NOT_ALLOWED
 *
 * </pre>

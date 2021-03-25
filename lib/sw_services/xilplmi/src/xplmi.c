@@ -30,6 +30,7 @@
 *       har  03/17/2021 Added code for run time initialization of Secure State
 *                       registers
 *       ma   03/24/2021 Print early logs
+*       bm   03/24/2021 Added RTCA initialization for Error Status registers
 *
 * </pre>
 *
@@ -112,6 +113,10 @@ static void XPlmi_RunTimeConfigInit(void)
 				XPLMI_RTCFG_SECURESTATE_AHWROT);
 	XPlmi_Out32(XPLMI_RTCFG_SECURESTATE_SHWROT_ADDR,
 				XPLMI_RTCFG_SECURESTATE_SHWROT);
+	XPlmi_Out32(XPLMI_RTCFG_PMC_ERR1_STATUS_ADDR, 0U);
+	XPlmi_Out32(XPLMI_RTCFG_PMC_ERR2_STATUS_ADDR, 0U);
+	XPlmi_Out32(XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR, 0U);
+	XPlmi_Out32(XPLMI_RTCFG_PSM_ERR2_STATUS_ADDR, 0U);
 }
 
 /*****************************************************************************/

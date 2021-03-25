@@ -34,6 +34,7 @@
 *       har  03/17/2021 Added Secure State register for authentication and
 *                       encryption
 *       ma   03/24/2021 Added RTCA Debug Log Address define
+*       bm   03/24/2021 Added RTCA defines for Error Status registers
 *
 * </pre>
 *
@@ -94,6 +95,10 @@ extern "C" {
 #define XPLMI_RTCFG_IMGINFOTBL_LEN_ADDR		(XPLMI_RTCFG_BASEADDR + 0x48U)
 #define XPLMI_RTCFG_SECURESTATE_AHWROT_ADDR	(XPLMI_RTCFG_BASEADDR + 0x14CU)
 #define XPLMI_RTCFG_SECURESTATE_SHWROT_ADDR	(XPLMI_RTCFG_BASEADDR + 0x150U)
+#define XPLMI_RTCFG_PMC_ERR1_STATUS_ADDR	(XPLMI_RTCFG_BASEADDR + 0x154U)
+#define XPLMI_RTCFG_PMC_ERR2_STATUS_ADDR	(XPLMI_RTCFG_BASEADDR + 0x158U)
+#define XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR	(XPLMI_RTCFG_BASEADDR + 0x15CU)
+#define XPLMI_RTCFG_PSM_ERR2_STATUS_ADDR	(XPLMI_RTCFG_BASEADDR + 0x160U)
 
 /* Masks of PLM RunTime Configuration Registers */
 #define XPLMI_RTCFG_IMGINFOTBL_NUM_ENTRIES_MASK	(0x0000FFFFU)
