@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -96,6 +96,7 @@ int XPmSubsystem_InitFinalize(const u32 SubsystemId)
 	int Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
 	XPm_Device *Device;
+	const XPm_Power *Power;
 	XPm_Requirement *Reqm;
 	int DeviceInUse = 0;
 	u32 Idx, Idx2;
@@ -126,6 +127,23 @@ int XPmSubsystem_InitFinalize(const u32 SubsystemId)
 		DeviceInUse = 0;
 
 		Device = XPmDevice_GetByIndex(Idx);
+		if (NULL == Device) {
+			continue;
+		}
+
+		/* Exclude device if its parent power domain is OFF */
+		Power = Device->Power;
+		if ((u32)XPM_NODESUBCL_POWER_ISLAND ==
+		    NODESUBCLASS(Power->Node.Id)) {
+			/* Get parent of island */
+			Power = Power->Parent;
+		}
+		if (((u32)XPM_NODESUBCL_POWER_DOMAIN ==
+		     NODESUBCLASS(Power->Node.Id)) &&
+		    ((u8)XPM_POWER_STATE_OFF == Power->Node.State)) {
+			continue;
+		}
+
 		/* Exclude devices which are expected not to be requested by anyone
 		but should be kept on for basic functionalities to work
 		Soc, PMC, Efuse are required for basic boot
@@ -133,8 +151,7 @@ int XPmSubsystem_InitFinalize(const u32 SubsystemId)
 		any sysmon activities
 		Usage of GTs is board dependednt and used by multiple devices
 		so should be kept on*/
-		if ((NULL == Device) ||
-		    ((u32)XPM_NODETYPE_DEV_SOC == NODETYPE(Device->Node.Id)) ||
+		if (((u32)XPM_NODETYPE_DEV_SOC == NODETYPE(Device->Node.Id)) ||
 		    ((u32)XPM_NODETYPE_DEV_GT == NODETYPE(Device->Node.Id)) ||
 		    ((u32)XPM_NODETYPE_DEV_CORE_PMC == NODETYPE(Device->Node.Id)) ||
 		    ((u32)XPM_NODETYPE_DEV_EFUSE == NODETYPE(Device->Node.Id)) ||
@@ -154,7 +171,6 @@ int XPmSubsystem_InitFinalize(const u32 SubsystemId)
 
 		Platform = XPm_GetPlatform();
 		PlatformVersion = XPm_GetPlatformVersion();
-
 		if (((u32)PM_DEV_GPIO == Device->Node.Id) &&
 		    ((u32)PLATFORM_VERSION_SILICON == Platform) &&
 		    ((u32)PLATFORM_VERSION_SILICON_ES1 == PlatformVersion))
