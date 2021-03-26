@@ -407,6 +407,8 @@ done:
 	IPI_RESPONSE1(master->ipiMask, (u32)status);
 }
 
+static void PmProbeRpuState(void);
+
 /**
  * PmRequestWakeup() - Power-up processor or subsystem
  * @master  Master who initiated the request
@@ -450,6 +452,10 @@ static void PmRequestWakeup(const PmMaster *const master, const u32 node,
 			status = XST_INVALID_PARAM;
 			goto done;
 		}
+	}
+
+	if ((NODE_RPU == node) || (NODE_RPU_0 == node) || (NODE_RPU_1 == node)) {
+		PmProbeRpuState();
 	}
 
 	status = PmMasterWakeProc(proc);
