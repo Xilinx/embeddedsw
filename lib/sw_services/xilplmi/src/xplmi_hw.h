@@ -42,6 +42,7 @@
 * 1.04  bm   11/10/2020 Added ROM_VALIDATION_DIGEST macro
 *       bsv  01/29/2021 Added APIs for checking and clearing NPI errors
 *       pj   03/24/2021 Added Macros for PSM_CR MASK and trigger
+*       skd  03/25/2021 Macros re-definitions compilation warning fixes
 *
 * </pre>
 *
@@ -69,7 +70,9 @@ extern "C" {
 /*
  * PMC_GLOBAL Base Address
  */
+#ifndef PMC_GLOBAL_BASEADDR
 #define PMC_GLOBAL_BASEADDR     (0XF1110000U)
+#endif
 
 /*
  * Register: PMC_GLOBAL_GLOBAL_CNTRL
@@ -143,7 +146,9 @@ extern "C" {
  * Register: PMC_GLOBAL_DOMAIN_ISO_CNTRL
  */
 #define PMC_GLOBAL_DOMAIN_ISO_CNTRL    (PMC_GLOBAL_BASEADDR + 0X00010000U)
+#ifndef PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_CFRAME_MASK
 #define PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_CFRAME_MASK   (0X00000400U)
+#endif
 
 /*
  * Register: PMC_GLOBAL_PMC_FW_ERR
@@ -428,8 +433,12 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 /*
  * Definitions required from pmc_tap.h
  */
+#ifndef PMC_TAP_BASEADDR
 #define PMC_TAP_BASEADDR		(0XF11A0000U)
+#endif
+#ifndef PMC_TAP_IDCODE
 #define PMC_TAP_IDCODE		(PMC_TAP_BASEADDR + 0X00000000U)
+#endif
 #define PMC_TAP_IDCODE_SI_REV_MASK	(0xF0000000U)
 #define PMC_TAP_IDCODE_SBFMLY_MASK	(0x001C0000U)
 #define PMC_TAP_IDCODE_DEV_MASK		(0x0003F000U)
@@ -442,7 +451,9 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define PMC_TAP_IDCODE_ES1_VC1902	(PMC_TAP_IDCODE_SI_REV_1 | \
 	PMC_TAP_IDCODE_SBFMLY_S | PMC_TAP_IDCODE_DEV_80)
 
+#ifndef PMC_TAP_VERSION
 #define PMC_TAP_VERSION		(PMC_TAP_BASEADDR + 0X00000004U)
+#endif
 #define PMC_TAP_VERSION_PLATFORM_SHIFT		(24U)
 #define PMC_TAP_VERSION_PS_VERSION_SHIFT		(8U)
 #define PMC_TAP_VERSION_PS_VERSION_MASK		(0X0000FF00U)
@@ -548,7 +559,9 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define CRP_BOOT_MODE_USER		(CRP_BASEADDR + 0X00000200U)
 #define CRP_BOOT_MODE_USER_BOOT_MODE_MASK		(0X0000000FU)
 #define CRP_BOOT_MODE_POR		(CRP_BASEADDR + 0X00000204U)
+#ifndef CRP_RESET_REASON
 #define CRP_RESET_REASON		(CRP_BASEADDR + 0X00000220U)
+#endif
 #define CRP_RST_SBI				(CRP_BASEADDR + 0X00000324U)
 #define CRP_RST_SBI_RESET_MASK			(0X00000001U)
 #define CRP_RST_PDMA				(CRP_BASEADDR + 0X00000328U)
