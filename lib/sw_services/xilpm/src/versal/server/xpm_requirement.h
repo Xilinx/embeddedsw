@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -70,7 +70,6 @@ enum XPm_ReqNsRegionCheckType {
 	REQ_ACCESS_STRICT_CHECKING,	/**< Secure requests may only access a secure region */
 };
 
-#define MAX_REQ_PARAMS			(1U)
 #define REG_FLAGS_USAGE_MASK		(0x3U)
 #define REG_FLAGS_SECURITY_MASK		(0x4U)
 #define REG_FLAGS_SECURITY_OFFSET	(0x2U)
@@ -136,18 +135,17 @@ struct XPm_Reqm {
 	XPm_Device *Device; /**< Device used by the subsystem */
 	XPm_Requirement *NextDevice; /**< Requirement on the next device from this subsystem */
 	XPm_Requirement *NextSubsystem; /**< Requirement from the next subsystem on this device */
-	u32 Params[MAX_REQ_PARAMS]; /**< Params */
 	XPm_ReqmInfo Curr; /**< Current requirements */
 	XPm_ReqmInfo Next; /**< Pending requirements */
+	u32 AperPerm; /**< Aperture permission mask for the given peripheral */
 	u16 Flags;	  /** Flags */
 	u8 Allocated; /**< Device has been allocated to the subsystem */
 	u8 SetLatReq; /**< Latency has been set from the subsystem */
-	u8 NumParams; /**< Params count */
 };
 
 /************************** Function Prototypes ******************************/
 
-XStatus XPmRequirement_Add(XPm_Subsystem *Subsystem, XPm_Device *Device, u32 Flags, u32 *Params, u32 NumParams);
+XStatus XPmRequirement_Add(XPm_Subsystem *Subsystem, XPm_Device *Device, u32 Flags, u32 AperPerm);
 void XPm_RequiremntUpdate(XPm_Requirement *Reqm);
 XStatus XPmRequirement_Release(XPm_Requirement *Reqm, XPm_ReleaseScope Scope);
 void XPmRequirement_Clear(XPm_Requirement* Reqm);

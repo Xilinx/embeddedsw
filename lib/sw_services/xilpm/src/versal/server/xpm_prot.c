@@ -777,10 +777,10 @@ static XStatus XPmProt_XppuConfigure(const XPm_Requirement *Reqm, u32 Enable)
 
 		/* Configure XPPU Aperture */
 		if ((UsagePolicy == (u16)REQ_NONSHARED) || (UsagePolicy == (u16)REQ_TIME_SHARED)) {
-			Permissions = (DefPerms | APER_PERM(Security, Reqm->Params[0]));
+			Permissions = (DefPerms | APER_PERM(Security, Reqm->AperPerm));
 		} else if (UsagePolicy == (u16)REQ_SHARED) {
 			/* if device is shared, permissions need to be ORed with existing */
-			Permissions |= (DefPerms | APER_PERM(Security, Reqm->Params[0]));
+			Permissions |= (DefPerms | APER_PERM(Security, Reqm->AperPerm));
 		} else if (UsagePolicy == (u16)REQ_NO_RESTRICTION) {
 			Permissions = PERM_MASK;
 		} else {
@@ -791,7 +791,7 @@ static XStatus XPmProt_XppuConfigure(const XPm_Requirement *Reqm, u32 Enable)
 		if (UsagePolicy != (u16)REQ_NO_RESTRICTION) {
 			/* Configure XPPU to disable masters belonging to this subsystem */
 			Permissions = (Permissions | XPPU_APERTURE_TRUSTZONE_MASK);
-			Permissions = (Permissions & (~PERM(Reqm->Params[0])));
+			Permissions = (Permissions & (~PERM(Reqm->AperPerm)));
 		}
 	}
 
