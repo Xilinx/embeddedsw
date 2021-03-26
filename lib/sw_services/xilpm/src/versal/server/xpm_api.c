@@ -202,6 +202,138 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  This function adds the Healthy boot monitor node through software.
+ *
+ * @param  DeviceId 	Device Id
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+static XStatus XPm_AddHbMonDevice(const u32 DeviceId)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Device *Device = NULL;
+
+	if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(DeviceId)) &&
+			((u32)XPM_NODETYPE_DEV_HB_MON == NODETYPE(DeviceId))) {
+		Device = (XPm_Device *)XPmDevice_GetById(DeviceId);
+		if (NULL == Device) {
+			/*
+			 * Add the device node if doesn't exist.
+			 * Assuming all the virtual devices will have
+			 * PM_POWER_PMC as power node.
+			 */
+			u32 AddNodeArgs[5U] = { DeviceId, PM_POWER_PMC, 0, 0, 0};
+			Status = XPm_AddNode(AddNodeArgs, ARRAY_SIZE(AddNodeArgs));
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		}
+	}
+	Status = XST_SUCCESS;
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function links a device to a subsystem so requirement
+ *         assignment could be made by XPm_RequestDevice() or
+ *         XPm_SetRequirement() call.
+ *
+ * @param  SubsystemId	Subsystem Id
+ * @param  DeviceId 	Device Id
+ * @param  Flags        Bit[0:1] - No-restriction(0)/Shared(1)/Time-Shared(2)/Nonshared(3)
+ *                      Bit[2] - Secure(1)/Nonsecure(0) (Device mode)
+ *                      Bit[3] - Read access policy (Allowed(0)/Not-allowed(1))
+ *                      Bit[4] - Write access policy (Allowed(0)/Not-allowed(1))
+ *                      Bit[5] - Non-secure region check policy (Relaxed(0)/Strict(1))
+ *                      Bit[6] - Pre-alloc flag
+ * @param  AperPerm	Aperture permission mask for the given peripheral
+ * @param  PreallocCaps	Pre-alloc capability bits
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+static XStatus XPm_AddRequirement(const u32 SubsystemId, const u32 DeviceId,
+				  u32 Flags, u32 AperPerm, u32 PreallocCaps)
+{
+	XStatus Status = XST_INVALID_PARAM;
+	XPm_Device *Device = NULL;
+	XPm_ResetNode *Rst = NULL;
+	XPm_Subsystem *Subsystem, *TargetSubsystem;
+	u32 Type = NODETYPE(DeviceId);
+
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if ((NULL == Subsystem) || ((u8)ONLINE != Subsystem->State)) {
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	}
+
+	switch NODECLASS(DeviceId) {
+	case (u32)XPM_NODECLASS_DEVICE:
+		if (((u32)XPM_NODETYPE_DEV_PGGS == Type) ||
+		    ((u32)XPM_NODETYPE_DEV_GGS == Type)) {
+			Status = XPmIoctl_AddRegPermission(Subsystem, DeviceId, Flags);
+		} else if ((u32)XPM_NODETYPE_DEV_HB_MON == Type) {
+			/* Add the Healthy boot monitor node */
+			Status = XPm_AddHbMonDevice(DeviceId);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		} else {
+			Device = (XPm_Device *)XPmDevice_GetById(DeviceId);
+			if (NULL == Device) {
+				Status = XST_INVALID_PARAM;
+				goto done;
+			}
+			Status = XPmRequirement_Add(Subsystem, Device, Flags,
+						    AperPerm, PreallocCaps);
+		}
+		break;
+	case (u32)XPM_NODECLASS_SUBSYSTEM:
+		TargetSubsystem = XPmSubsystem_GetById(DeviceId);
+		if (NULL == TargetSubsystem) {
+			Status = XPM_INVALID_SUBSYSID;
+			goto done;
+		}
+		Status = XPmSubsystem_AddPermission(Subsystem, TargetSubsystem,
+						    Flags);
+		break;
+	case (u32)XPM_NODECLASS_RESET:
+		Rst = XPmReset_GetById(DeviceId);
+		if (NULL == Rst) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+
+		Status = XPmReset_IsPermissionReset(DeviceId);
+		if (XST_SUCCESS != Status) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+		Status = XPmReset_AddPermission(Rst, Subsystem, Flags);
+		break;
+	default:
+		Status = XPM_INVALID_DEVICEID;
+		break;
+	}
+
+done:
+	if (XST_SUCCESS != Status) {
+		PmErr("Returned: 0x%x\n\r", Status);
+	}
+	return Status;
+}
+
 static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 {
 	u32 ApiResponse[XPLMI_CMD_RESP_SIZE-1] = {0};
@@ -4093,145 +4225,6 @@ XStatus XPm_AddNode(u32 *Args, u32 NumArgs)
 		break;
 	}
 
-	return Status;
-}
-
-/****************************************************************************/
-/**
- * @brief  This function adds the Healthy boot monitor node through software.
- *
- * @param  DeviceId 	Device Id
- *
- * @return XST_SUCCESS if successful else XST_FAILURE or an error code
- * or a reason code
- *
- * @note   None
- *
- ****************************************************************************/
-static XStatus XPm_AddHbMonDevice(const u32 DeviceId)
-{
-	XStatus Status = XST_FAILURE;
-	XPm_Device *Device = NULL;
-
-	if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(DeviceId)) &&
-			((u32)XPM_NODETYPE_DEV_HB_MON == NODETYPE(DeviceId))) {
-		Device = (XPm_Device *)XPmDevice_GetById(DeviceId);
-		if (NULL == Device) {
-			/*
-			 * Add the device node if doesn't exist.
-			 * Assuming all the virtual devices will have
-			 * PM_POWER_PMC as power node.
-			 */
-			u32 AddNodeArgs[5U] = { DeviceId, PM_POWER_PMC, 0, 0, 0};
-			Status = XPm_AddNode(AddNodeArgs, ARRAY_SIZE(AddNodeArgs));
-			if (XST_SUCCESS != Status) {
-				goto done;
-			}
-		}
-	}
-	Status = XST_SUCCESS;
-done:
-	return Status;
-}
-
-/****************************************************************************/
-/**
- * @brief  This function links a device to a subsystem so requirement
- *         assignment could be made by XPm_RequestDevice() or
- *         XPm_SetRequirement() call.
- *
- * @param  SubsystemId	Subsystem Id
- * @param  DeviceId 	Device Id
- * @param  Flags        Bit[0:1] - No-restriction(0)/Shared(1)/Time-Shared(2)/Nonshared(3)
- *                      Bit[2] - Secure(1)/Nonsecure(0) (Device mode)
- *                      Bit[3] - Read access policy (Allowed(0)/Not-allowed(1))
- *                      Bit[4] - Write access policy (Allowed(0)/Not-allowed(1))
- *                      Bit[5] - Non-secure region check policy (Relaxed(0)/Strict(1))
- *                      Bit[6] - Pre-alloc flag
- * @param  AperPerm	Aperture permission mask for the given peripheral
- * @param  PreallocCaps	Pre-alloc capability bits
- *
- * @return XST_SUCCESS if successful else XST_FAILURE or an error code
- * or a reason code
- *
- * @note   None
- *
- ****************************************************************************/
-XStatus XPm_AddRequirement(const u32 SubsystemId, const u32 DeviceId, u32 Flags,
-			   u32 AperPerm, u32 PreallocCaps)
-{
-	XStatus Status = XST_INVALID_PARAM;
-	XPm_Device *Device = NULL;
-	XPm_ResetNode *Rst = NULL;
-	XPm_Subsystem *Subsystem, *TargetSubsystem;
-	u32 Type = NODETYPE(DeviceId);
-
-	Subsystem = XPmSubsystem_GetById(SubsystemId);
-	if (Subsystem == NULL || Subsystem->State != (u8)ONLINE) {
-		Status = XPM_INVALID_SUBSYSID;
-		goto done;
-	}
-
-	/*
-	 * Add the Healthy boot monitor node
-	 */
-	if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(DeviceId)) &&
-			((u32)XPM_NODETYPE_DEV_HB_MON == Type)) {
-		Status = XPm_AddHbMonDevice(DeviceId);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-	}
-
-	switch NODECLASS(DeviceId) {
-		case (u32)XPM_NODECLASS_DEVICE:
-			if (((u32)XPM_NODETYPE_DEV_PGGS == Type) ||
-			    ((u32)XPM_NODETYPE_DEV_GGS == Type)) {
-				Status = XPmIoctl_AddRegPermission(Subsystem, DeviceId, Flags);
-			} else {
-				Device = (XPm_Device *)XPmDevice_GetById(DeviceId);
-				if (NULL == Device) {
-					Status = XST_INVALID_PARAM;
-					goto done;
-				}
-				Status = XPmRequirement_Add(Subsystem, Device,
-							    Flags, AperPerm,
-							    PreallocCaps);
-			}
-			break;
-		case (u32)XPM_NODECLASS_SUBSYSTEM:
-			TargetSubsystem = XPmSubsystem_GetById(DeviceId);
-			if (NULL == TargetSubsystem) {
-				Status = XPM_INVALID_SUBSYSID;
-				goto done;
-			}
-			Status = XPmSubsystem_AddPermission(Subsystem,
-							    TargetSubsystem,
-							    Flags);
-			break;
-		case (u32)XPM_NODECLASS_RESET:
-			Rst = XPmReset_GetById(DeviceId);
-			if (NULL == Rst) {
-				Status = XST_INVALID_PARAM;
-				goto done;
-			}
-
-			Status = XPmReset_IsPermissionReset(DeviceId);
-			if (XST_SUCCESS != Status) {
-				Status = XST_INVALID_PARAM;
-				goto done;
-			}
-			Status = XPmReset_AddPermission(Rst, Subsystem, Flags);
-			break;
-		default:
-			Status = XPM_INVALID_DEVICEID;
-			goto done;
-	}
-
-done:
-	if(Status != XST_SUCCESS) {
-		PmErr("Returned: 0x%x\n\r", Status);
-	}
 	return Status;
 }
 

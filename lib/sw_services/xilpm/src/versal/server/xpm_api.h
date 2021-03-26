@@ -128,8 +128,6 @@ XStatus XPm_AbortSuspend(const u32 SubsystemId, const u32 Reason,
 			 const u32 DeviceId);
 XStatus XPm_RequestSuspend(const u32 SubsystemId, const u32 TargetSubsystemId,
 			   const u32 Ack, const u32 Latency, const u32 State);
-XStatus XPm_AddRequirement(const u32 SubsystemId, const u32 DeviceId, u32 Flags,
-			   u32 AperPerm, u32 PreallocCaps);
 XStatus XPm_InitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs);
 int XPm_FeatureCheck(const u32 ApiId, u32 *const Version);
 XStatus XPm_IsoControl(u32 NodeId, u32 Enable);
