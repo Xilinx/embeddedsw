@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,11 +9,9 @@
 #include "xpm_power.h"
 #include "xpm_api.h"
 
-static XStatus XPmRequirement_Init(XPm_Requirement *Reqm,
-		XPm_Subsystem *Subsystem, XPm_Device *Device,  u32 Flags, u32 *Params, u32 NumParams)
+static void XPmRequirement_Init(XPm_Requirement *Reqm, XPm_Subsystem *Subsystem,
+				XPm_Device *Device, u32 Flags, u32 AperPerm)
 {
-	XStatus Status = XST_FAILURE;
-
 	/* Prepend to subsystem's device reqm list */
 	Reqm->NextDevice = Subsystem->Requirements;
 	Subsystem->Requirements = Reqm;
@@ -26,20 +24,8 @@ static XStatus XPmRequirement_Init(XPm_Requirement *Reqm,
 
 	Reqm->Allocated = 0;
 	Reqm->SetLatReq = 0;
-
 	Reqm->Flags = (u16)(Flags & REG_FLAGS_MASK);
-
-	if ((NULL != Params) && (0U != NumParams) && (NumParams <= MAX_REQ_PARAMS)) {
-		Status = Xil_SecureMemCpy(Reqm->Params, NumParams * sizeof(*Params),
-				Params, NumParams * sizeof(*Params));
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-		Reqm->NumParams = (u8)NumParams;
-	} else {
-		(void)memset(Reqm->Params, 0, sizeof(Reqm->Params));
-		Reqm->NumParams = 0;
-	}
+	Reqm->AperPerm = AperPerm;
 
 	Reqm->Curr.Capabilities = XPM_MIN_CAPABILITY;
 	Reqm->Curr.Latency = XPM_MAX_LATENCY;
@@ -47,14 +33,9 @@ static XStatus XPmRequirement_Init(XPm_Requirement *Reqm,
 	Reqm->Next.Capabilities = XPM_MIN_CAPABILITY;
 	Reqm->Next.Latency = XPM_MAX_LATENCY;
 	Reqm->Next.QoS = XPM_MAX_QOS;
-
-	Status = XST_SUCCESS;
-
-done:
-	return Status;
 }
 
-XStatus XPmRequirement_Add(XPm_Subsystem *Subsystem, XPm_Device *Device, u32 Flags, u32 *Params, u32 NumParams)
+XStatus XPmRequirement_Add(XPm_Subsystem *Subsystem, XPm_Device *Device, u32 Flags, u32 AperPerm)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Requirement *Reqm;
@@ -65,7 +46,9 @@ XStatus XPmRequirement_Add(XPm_Subsystem *Subsystem, XPm_Device *Device, u32 Fla
 		goto done;
 	}
 
-	Status = XPmRequirement_Init(Reqm, Subsystem, Device, Flags, Params, NumParams);
+	XPmRequirement_Init(Reqm, Subsystem, Device, Flags, AperPerm);
+	Status = XST_SUCCESS;
+
 done:
 	return Status;
 }

@@ -413,7 +413,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		Status = XPm_AddNodeName(&Pload[0], Len);
 		break;
 	case PM_API(PM_ADD_REQUIREMENT):
-		Status = XPm_AddRequirement(Pload[0], Pload[1], Pload[2], &Pload[3], Len-3U);
+		Status = XPm_AddRequirement(Pload[0], Pload[1], Pload[2], Pload[3]);
 		break;
 	case PM_API(PM_SET_CURRENT_SUBSYSTEM):
 		Status = XPm_SetCurrentSubsystem(Pload[0], Cmd->IpiMask);
@@ -4139,10 +4139,14 @@ done:
  *
  * @param  SubsystemId	Subsystem Id
  * @param  DeviceId 	Device Id
- * @param  Flags 		Bit0-2 - No restriction/ Shared/Time Shared/Nonshared/ - 0,1,2,3
- *						Bit 3 -Secure(1)/Nonsecure(0) (Device mode)
- * @param  Params 		Optional: XPPU- master id mask for peripherals
- * @param  NumParams 	Number of params
+ * @param  Flags        Bit[0:1] - No-restriction(0)/Shared(1)/Time-Shared(2)/Nonshared(3)
+ *                      Bit[2] - Secure(1)/Nonsecure(0) (Device mode)
+ *                      Bit[3] - Read access policy (Allowed(0)/Not-allowed(1))
+ *                      Bit[4] - Write access policy (Allowed(0)/Not-allowed(1))
+ *                      Bit[5] - Non-secure region check policy (Relaxed(0)/Strict(1))
+ *                      Bit[8:14] - Capability
+ *                      Bit[15] - Pre-alloc flags
+ * @param  AperPerm	Aperture permission mask for the given peripheral
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -4150,7 +4154,8 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_AddRequirement(const u32 SubsystemId, const u32 DeviceId, u32 Flags, u32 *Params, u32 NumParams)
+XStatus XPm_AddRequirement(const u32 SubsystemId, const u32 DeviceId, u32 Flags,
+			   u32 AperPerm)
 {
 	XStatus Status = XST_INVALID_PARAM;
 	XPm_Device *Device = NULL;
@@ -4186,7 +4191,7 @@ XStatus XPm_AddRequirement(const u32 SubsystemId, const u32 DeviceId, u32 Flags,
 					Status = XST_INVALID_PARAM;
 					goto done;
 				}
-				Status = XPmRequirement_Add(Subsystem, Device, Flags, Params, NumParams);
+				Status = XPmRequirement_Add(Subsystem, Device, Flags, AperPerm);
 			}
 			break;
 		case (u32)XPM_NODECLASS_SUBSYSTEM:

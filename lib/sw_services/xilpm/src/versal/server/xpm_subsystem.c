@@ -919,7 +919,7 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 						REQUIREMENT_FLAGS(Prealloc, Capability, 0U, 0U, 0U,
 							(u32)REQ_ACCESS_SECURE_NONSECURE,
 							(u32)REQ_NO_RESTRICTION),
-						NULL, 0);
+						0U);
 				if (XST_SUCCESS != Status) {
 					DbgErr = XPM_INT_ERR_ADD_REQUIREMENT;
 					goto done;
@@ -934,7 +934,7 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 						(u32)REQUIREMENT_FLAGS(0U, 0U, 0U, 0U, 0U,
 							(u32)REQ_ACCESS_SECURE_NONSECURE,
 							(u32)REQ_NO_RESTRICTION),
-						NULL, 0);
+						0U);
 				if (XST_SUCCESS != Status) {
 					DbgErr = XPM_INT_ERR_ADD_REQUIREMENT;
 					goto done;
