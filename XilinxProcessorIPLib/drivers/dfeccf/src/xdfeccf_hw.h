@@ -21,6 +21,7 @@
 * 1.0   dc     10/27/20 Initial version
 *       dc     02/08/21 align driver to curent specification
 *       dc     03/16/21 update activate & deactivate api
+*       dc     03/25/21 Device tree item name change
 * </pre>
 *
 ******************************************************************************/
@@ -53,8 +54,8 @@ extern "C" {
 #define XDFECCF_MODEL_PARAM_NUM_ANTENNA_OFFSET 4U
 #define XDFECCF_MODEL_PARAM_NUM_CC_PER_ANTENNA_WIDTH 4U
 #define XDFECCF_MODEL_PARAM_NUM_CC_PER_ANTENNA_OFFSET 8U
-#define XDFECCF_MODEL_PARAM_NUM_SLOT_CHANNELS_WIDTH 3U
-#define XDFECCF_MODEL_PARAM_NUM_SLOT_CHANNELS_OFFSET 12U
+#define XDFECCF_MODEL_PARAM_ANTENNA_INTERLEAVE_WIDTH 3U
+#define XDFECCF_MODEL_PARAM_ANTENNA_INTERLEAVE_OFFSET 12U
 #define XDFECCF_GAIN_STG_EN_OFFSET 0x0C /**< Register offset */
 #define XDFECCF_GAIN_STG_EN_DISABLED 0x00
 #define XDFECCF_GAIN_STG_EN_ENABLED 0x01

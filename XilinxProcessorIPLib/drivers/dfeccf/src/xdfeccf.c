@@ -22,6 +22,7 @@
 *       dc     02/08/21 align driver to curent specification
 *       dc     02/22/21 include HW in versioning
 *       dc     03/16/21 update activate & deactivate api
+*       dc     03/25/21 Device tree item name change
 * </pre>
 *
 ******************************************************************************/
@@ -214,33 +215,6 @@ u32 XDfeCcf_WrBitField(u32 FieldWidth, u32 FieldOffset, u32 Data, u32 Val)
 /****************************************************************************/
 /**
 *
-* Generates a "null"(8) CCID sequence of specified length.
-*
-* @param    SeqLen is a CC ID
-* @param    CCIDSequence is a CC sequence array
-*
-* @return   None
-*
-* @note     None
-*
-****************************************************************************/
-static void XDfeCcf_CreateCCSequence(u32 SeqLen,
-				     XDfeCcf_CCSequence *CCIDSequence)
-{
-	u32 Index;
-	Xil_AssertVoid(SeqLen < XDFECCF_SEQ_LENGTH_MAX);
-	Xil_AssertVoid(CCIDSequence != NULL);
-
-	/* Set sequence length and mark all sequence entries as null (8) */
-	CCIDSequence->Length = SeqLen;
-	for (Index = 0; Index < XDFECCF_SEQ_LENGTH_MAX; Index++) {
-		CCIDSequence->CCID[Index] = XDFECCF_SEQUENCE_ENTRY_NULL;
-	}
-}
-
-/****************************************************************************/
-/**
-*
 * Add the specified CCID, with the given rate, to the CC sequence. If there
 * is insufficient capacity for the new CCID return an error. Implements
 * a "greedy" allocation of sequence locations.
@@ -376,34 +350,6 @@ static void XDfeCcf_RemoveCCID(u32 CCID, XDfeCcf_CCSequence *CCIDSequence)
 }
 
 /************************ Low Level Functions *******************************/
-
-/****************************************************************************/
-/**
-*
-* Create a "null" CC configuration with the specified sequence length.
-*
-* @param    SequenceLength is a sequence length.
-* @param    CCCfg is CC configuration container.
-*
-* @return   None
-*
-* @note     None
-*
-****************************************************************************/
-static void XDfeCcf_CreateCCCfg(u32 SequenceLength, XDfeCcf_CCCfg *CCCfg)
-{
-	u32 Index;
-	Xil_AssertVoid(CCCfg != NULL);
-	Xil_AssertVoid(SequenceLength <= XDFECCF_SEQ_LENGTH_MAX);
-
-	/* Create null sequence of SequenceLength and populate CCfg */
-	XDfeCcf_CreateCCSequence(SequenceLength, &CCCfg->Sequence);
-
-	/* Set all carrier configurations to null (disabled) */
-	for (Index = 0; Index < XDFECCF_CC_NUM; Index++) {
-		CCCfg->CarrierCfg[Index].Enable = 0U;
-	}
-}
 
 /****************************************************************************/
 /**
@@ -556,9 +502,9 @@ static u32 XDfeCcf_NextMappedId(const XDfeCcf *InstancePtr,
 	ModelParams.NumCCPerAntenna = XDfeCcf_RdBitField(
 		XDFECCF_MODEL_PARAM_NUM_CC_PER_ANTENNA_WIDTH,
 		XDFECCF_MODEL_PARAM_NUM_CC_PER_ANTENNA_OFFSET, Val);
-	ModelParams.NumAntSlot =
-		XDfeCcf_RdBitField(XDFECCF_MODEL_PARAM_NUM_SLOT_CHANNELS_WIDTH,
-				   XDFECCF_MODEL_PARAM_NUM_SLOT_CHANNELS_OFFSET,
+	ModelParams.AntenaInterleave =
+		XDfeCcf_RdBitField(XDFECCF_MODEL_PARAM_ANTENNA_INTERLEAVE_WIDTH,
+				   XDFECCF_MODEL_PARAM_ANTENNA_INTERLEAVE_OFFSET,
 				   Val);
 
 	for (Index = 0U; Index < ModelParams.NumCCPerAntenna; Index++) {
@@ -831,6 +777,7 @@ void XDfeCcf_Reset(XDfeCcf *InstancePtr)
 void XDfeCcf_Configure(XDfeCcf *InstancePtr, XDfeCcf_Cfg *Cfg)
 {
 	u32 Version;
+	u32 ModelParam;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFECCF_STATE_RESET);
@@ -850,10 +797,23 @@ void XDfeCcf_Configure(XDfeCcf *InstancePtr, XDfeCcf_Cfg *Cfg)
 		XDfeCcf_RdBitField(XDFECCF_VERSION_MAJOR_WIDTH,
 				   XDFECCF_VERSION_MAJOR_OFFSET, Version);
 
+	ModelParam = XDfeCcf_ReadReg(InstancePtr, XDFECCF_MODEL_PARAM_OFFSET);
+	InstancePtr->Config.NumAntenna =
+		XDfeCcf_RdBitField(XDFECCF_MODEL_PARAM_NUM_ANTENNA_WIDTH,
+				   XDFECCF_MODEL_PARAM_NUM_ANTENNA_OFFSET, ModelParam);
+	InstancePtr->Config.NumCCPerAntenna =
+		XDfeCcf_RdBitField(XDFECCF_MODEL_PARAM_NUM_CC_PER_ANTENNA_WIDTH,
+				   XDFECCF_MODEL_PARAM_NUM_CC_PER_ANTENNA_OFFSET,
+				   ModelParam);
+	InstancePtr->Config.AntenaInterleave =
+		XDfeCcf_RdBitField(XDFECCF_MODEL_PARAM_ANTENNA_INTERLEAVE_WIDTH,
+				   XDFECCF_MODEL_PARAM_ANTENNA_INTERLEAVE_OFFSET,
+				   ModelParam);
+
 	/* Copy configs model parameters from InstancePtr */
 	Cfg->ModelParams.NumAntenna = InstancePtr->Config.NumAntenna;
 	Cfg->ModelParams.NumCCPerAntenna = InstancePtr->Config.NumCCPerAntenna;
-	Cfg->ModelParams.NumAntSlot = InstancePtr->Config.NumAntSlot;
+	Cfg->ModelParams.AntenaInterleave = InstancePtr->Config.AntenaInterleave;
 
 	/* Release RESET */
 	XDfeCcf_WriteReg(InstancePtr, XDFECCF_RESET_OFFSET, XDFECCF_RESET_OFF);

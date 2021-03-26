@@ -60,6 +60,7 @@
 *       dc     02/02/21 Remove hard coded device node name
 *       dc     02/08/21 align driver to curent specification
 *       dc     02/22/21 include HW in versioning
+*       dc     03/25/21 Device tree item name change
 * </pre>
 *
 ******************************************************************************/
@@ -185,7 +186,7 @@ typedef struct {
 typedef struct {
 	u32 NumAntenna; /**< [1-8] */
 	u32 NumCCPerAntenna; /**< [1-8] */
-	u32 NumAntSlot; /**< [1-8] */
+	u32 AntenaInterleave; /**< [1-8] */
 } XDfeCcf_ModelParameters;
 
 /**
@@ -261,7 +262,7 @@ typedef struct {
 		the GAIN stage of the filter on the real channel */
 	u32 OverflowAfterGainImag; /**< [0,1] Overflow or underflow occurred in
 		the GAIN stage of the filter on the imaginary channel */
-	u32 OveflowAntenna; /**< [0,7] Lowest number antenna on which first
+	u32 OverflowAntenna; /**< [0,7] Lowest number antenna on which first
 		overflow, or underflow, occurred */
 	u32 OverflowCCID; /**< [0,7] CCID on which first overflow, or
 		underflow, occurred */
@@ -287,7 +288,7 @@ typedef struct {
 	metal_phys_addr_t BaseAddr; /**< Instance base address */
 	u32 NumAntenna; /**< Number of antenas */
 	u32 NumCCPerAntenna; /**< Number of channels per antenna */
-	u32 NumAntSlot; /**< Number of Antenna slots */
+	u32 AntenaInterleave; /**< Number of Antenna slots */
 } XDfeCcf_Config;
 
 /**

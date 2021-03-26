@@ -18,6 +18,7 @@
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     12/10/20 Initial version
+*       dc     03/25/21 Device tree item name change
 * </pre>
 *
 ******************************************************************************/
@@ -78,7 +79,7 @@ void XDfeCcf_GetEventStatus(const XDfeCcf *InstancePtr, XDfeCcf_Status *Status)
 		XDfeCcf_RdBitField(XDFECCF_OVERFLOW_AFTER_GAIN_IMAG_WIDTH,
 				   XDFECCF_OVERFLOW_AFTER_GAIN_IMAG_OFFSET,
 				   Val);
-	Status->OveflowAntenna = XDfeCcf_RdBitField(
+	Status->OverflowAntenna = XDfeCcf_RdBitField(
 		XDFECCF_ANTENNA_WIDTH, XDFECCF_ANTENNA_OFFSET, Val);
 	Status->OverflowCCID = XDfeCcf_RdBitField(XDFECCF_CCID_WIDTH,
 						  XDFECCF_CCID_OFFSET, Val);
@@ -101,8 +102,7 @@ void XDfeCcf_ClearEventStatus(const XDfeCcf *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFECCF_STATE_OPERATIONAL);
 
-	XDfeCcf_WriteReg(InstancePtr, XDFECCF_COEFF_CFG,
-			 XDFECCF_IRQ_FLAGS_MASK);
+	XDfeCcf_WriteReg(InstancePtr, XDFECCF_ISR, XDFECCF_IRQ_FLAGS_MASK);
 }
 
 /****************************************************************************/
