@@ -975,6 +975,30 @@ done:
 	return Status;
 }
 
+static XStatus HandleDeviceAttr(XPm_Requirement *Reqm, u32 ReqCaps,
+				u32 PrevState, u32 Enable)
+{
+	XStatus Status = XST_FAILURE;
+
+	Status = SetDevCohVirtAttr(Reqm, ReqCaps, (u8)PM_CAP_COHERENT, Enable);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = SetDevCohVirtAttr(Reqm, ReqCaps, (u8)PM_CAP_VIRTUALIZED, Enable);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = SetSecurityAttr(Reqm, ReqCaps, PrevState);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+done:
+	return Status;
+}
+
 static XStatus HandleDeviceState(XPm_Device* const Device, const u32 NextState)
 {
 	XStatus Status = XST_FAILURE;
@@ -1086,17 +1110,7 @@ static XStatus Request(XPm_Device *Device, XPm_Subsystem *Subsystem,
 		goto done;
 	}
 
-	Status = SetDevCohVirtAttr(Reqm, Capabilities, (u8)PM_CAP_COHERENT, 1U);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	Status = SetDevCohVirtAttr(Reqm, Capabilities, (u8)PM_CAP_VIRTUALIZED, 1U);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	Status = SetSecurityAttr(Reqm, Capabilities, PrevState);
+	Status = HandleDeviceAttr(Reqm, Capabilities, PrevState, 1U);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -1217,17 +1231,7 @@ static XStatus Release(XPm_Device *Device, XPm_Subsystem *Subsystem)
 		goto done;
 	}
 
-	Status = SetDevCohVirtAttr(Reqm, 0U, (u8)PM_CAP_COHERENT, 0U);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	Status = SetDevCohVirtAttr(Reqm, 0U, (u8)PM_CAP_VIRTUALIZED, 0U);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	Status = SetSecurityAttr(Reqm, 0U, PrevState);
+	Status = HandleDeviceAttr(Reqm, 0U, PrevState, 0U);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
