@@ -35,6 +35,7 @@ struct XPm_PowerDomainOps {
 	XStatus (*PlHouseclean)(u32 *Args, u32 NumOfArgs);
 	XStatus (*MemInit)(u32 *Args, u32 NumOfArgs);
 	XStatus (*HcComplete)(u32 *Args, u32 NumOfArgs);
+	const u16 InitMask;	/**< Mask to indicate which Ops are present */
 };
 
 struct XPm_PowerDomain {
@@ -42,8 +43,7 @@ struct XPm_PowerDomain {
 	const struct XPm_PowerDomainOps *DomainOps; /**< house cleaning operations */
 	u32 Parents[MAX_POWERDOMAINS]; /**< List of Parent Rail Ids */
 	u32 Children[MAX_POWERDOMAINS]; /**< List of depedent children Ids */
-	u16 InitMask; /**< Mask to indicate house cleaning functions present */
-	u16 InitFlag; /**< Flag to indicate house cleaning functions performed */
+	u16 InitFlag; /**< Flag to indicate which Ops are performed */
 };
 
 /************************** Function Prototypes ******************************/

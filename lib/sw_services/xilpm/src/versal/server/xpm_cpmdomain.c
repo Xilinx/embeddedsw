@@ -605,6 +605,12 @@ static const struct XPm_PowerDomainOps CpmOps[XPM_CPM_OPS_MAX] = {
 		.ScanClear = CpmScanClear,
 		.Bisr = CpmBisr,
 		.Mbist = CpmMbistClear,
+		/* Mask to indicate which Ops are present */
+		.InitMask = (BIT16(FUNC_INIT_START) |
+			     BIT16(FUNC_INIT_FINISH) |
+			     BIT16(FUNC_SCAN_CLEAR) |
+			     BIT16(FUNC_BISR) |
+			     BIT16(FUNC_MBIST_CLEAR))
 	},
 	[XPM_HC_CPM5_OPS] = {
 		.InitStart = Cpm5InitStart,
@@ -612,6 +618,12 @@ static const struct XPm_PowerDomainOps CpmOps[XPM_CPM_OPS_MAX] = {
 		.ScanClear = Cpm5ScanClear,
 		.Bisr = Cpm5Bisr,
 		.Mbist = Cpm5MbistClear,
+		/* Mask to indicate which Ops are present */
+		.InitMask = (BIT16(FUNC_INIT_START) |
+			     BIT16(FUNC_INIT_FINISH) |
+			     BIT16(FUNC_SCAN_CLEAR) |
+			     BIT16(FUNC_BISR) |
+			     BIT16(FUNC_MBIST_CLEAR))
 	},
 };
 

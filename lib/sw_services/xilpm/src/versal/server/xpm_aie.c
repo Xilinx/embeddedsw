@@ -734,6 +734,13 @@ static struct XPm_PowerDomainOps AieOps = {
 	.Bisr = AieBisr,
 	.Mbist = AieMbistClear,
 	.MemInit = AieMemInit,
+	/* Mask to indicate which Ops are present */
+	.InitMask = (BIT16(FUNC_INIT_START) |
+		     BIT16(FUNC_INIT_FINISH) |
+		     BIT16(FUNC_SCAN_CLEAR) |
+		     BIT16(FUNC_BISR) |
+		     BIT16(FUNC_MBIST_CLEAR) |
+		     BIT16(FUNC_MEM_INIT))
 };
 
 XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,

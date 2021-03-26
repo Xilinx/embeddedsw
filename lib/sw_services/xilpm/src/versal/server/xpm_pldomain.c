@@ -951,6 +951,9 @@ static const struct XPm_PowerDomainOps PldOps = {
 	.InitStart = PldInitStart,
 	.InitFinish = PldInitFinish,
 	.PlHouseclean = NULL,
+	/* Mask to indicate which Ops are present */
+	.InitMask = (BIT16(FUNC_INIT_START) |
+		     BIT16(FUNC_INIT_FINISH))
 };
 
 XStatus XPmPlDomain_Init(XPm_PlDomain *PlDomain, u32 Id, u32 BaseAddress,

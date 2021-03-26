@@ -351,6 +351,13 @@ static struct XPm_PowerDomainOps FpdOps = {
 	.Bisr = FpdBisr,
 	.Mbist = FpdMbistClear,
 	.HcComplete = FpdHcComplete,
+	/* Mask to indicate which Ops are present */
+	.InitMask = (BIT16(FUNC_INIT_START) |
+		     BIT16(FUNC_INIT_FINISH) |
+		     BIT16(FUNC_SCAN_CLEAR) |
+		     BIT16(FUNC_BISR) |
+		     BIT16(FUNC_MBIST_CLEAR) |
+		     BIT16(FUNC_HOUSECLEAN_COMPLETE))
 };
 
 XStatus XPmPsFpDomain_Init(XPm_PsFpDomain *PsFpd, u32 Id, u32 BaseAddress,
