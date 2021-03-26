@@ -56,6 +56,9 @@ enum XPmCapability {
 	PM_CAP_CONTEXT = 0x2U, /**< Configuration and contents retained */
 	PM_CAP_WAKEUP = 0x4U, /**< Enabled as a wake-up source */
 	PM_CAP_UNUSABLE = 0x8U, /**< Not usable */
+	PM_CAP_SECURE = 0x10U, /**< Secure access type (non-secure/secure) */
+	PM_CAP_COHERENT	= 0x20U, /**< Device Coherency */
+	PM_CAP_VIRTUALIZED = 0x40U, /**< Device Virtualization */
 };
 
 /* Usage status, returned by PmGetNodeStatus */
