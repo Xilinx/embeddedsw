@@ -771,6 +771,81 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 	return Status;
 }
 
+static XStatus XPmSetCoherency(XPm_Requirement *Reqm, u32 ReqCaps, u32 Enable)
+{
+	XStatus Status = XST_FAILURE;
+	u8 CurrCaps = 0U;
+	u32 BaseAddr, Offset, Mask;
+	XPm_Power *FpdPower = NULL;
+	const XPm_Requirement *DevReqm = NULL;
+	const XPm_DeviceAttr *DevAttr = Reqm->Device->DevAttr;
+
+	/* Skip if device does not have any coherency attributes */
+	if ((NULL == DevAttr) || (0U == DevAttr->Coherency.Mask) ||
+	    (0U == DevAttr->CohVirtBaseAddr)) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	if (1U == Enable) {
+		/* Do nothing if coherency capability is not requested */
+		if (0U == (ReqCaps & (u32)(PM_CAP_COHERENT))) {
+			Status = XST_SUCCESS;
+			goto done;
+		}
+	} else {
+		/* Update AttrCaps flag of requirement */
+		if (0U != (Reqm->AttrCaps & PM_CAP_COHERENT)) {
+			Reqm->AttrCaps &= (u8)(~PM_CAP_COHERENT);
+		} else {
+			Status = XST_SUCCESS;
+			goto done;
+		}
+	}
+
+	BaseAddr = DevAttr->CohVirtBaseAddr;
+	Offset = DevAttr->Coherency.Offset;
+	Mask = DevAttr->Coherency.Mask;
+
+	FpdPower = XPmPower_GetById(PM_POWER_FPD);
+	if (NULL == FpdPower) {
+		goto done;
+	}
+
+	DevReqm = Reqm->Device->Requirements;
+	while (NULL != DevReqm) {
+		if (1U == DevReqm->Allocated) {
+			CurrCaps |= DevReqm->AttrCaps;
+		}
+		DevReqm = DevReqm->NextSubsystem;
+	}
+	/* Do nothing if attribute is already set */
+	if (0U != (CurrCaps & PM_CAP_COHERENT)) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	if (1U == Enable) {
+		Status = FpdPower->HandleEvent(&FpdPower->Node,
+						XPM_POWER_EVENT_PWR_UP);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		PmRmw32(BaseAddr + Offset, Mask, Mask);
+		Reqm->AttrCaps |= PM_CAP_COHERENT;
+	} else {
+		PmRmw32(BaseAddr + Offset, Mask, 0U);
+		Status = FpdPower->HandleEvent(&FpdPower->Node,
+						XPM_POWER_EVENT_PWR_DOWN);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+done:
+	return Status;
+}
+
 static XStatus HandleDeviceState(XPm_Device* const Device, const u32 NextState)
 {
 	XStatus Status = XST_FAILURE;
@@ -865,15 +940,22 @@ static XStatus Request(XPm_Device *Device, XPm_Subsystem *Subsystem,
 
 	Status = Device->DeviceOps->SetRequirement(Device, Subsystem,
 						   Capabilities, QoS);
-
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
 	Status = XPmProt_Configure(Reqm, 1U);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = XPmSetCoherency(Reqm, Capabilities, 1U);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 done:
-	if(Status != XST_SUCCESS) {
+	if (XST_SUCCESS != Status) {
 		PmErr("Returned: 0x%x\n\r", Status);
 	}
 	return Status;
@@ -934,14 +1016,13 @@ static XStatus SetRequirement(XPm_Device *Device, XPm_Subsystem *Subsystem,
 	}
 
 done:
-	if(Status != XST_SUCCESS) {
+	if (XST_SUCCESS != Status) {
 		PmErr("Returned: 0x%x\n\r", Status);
 	}
 	return Status;
 }
 
-static XStatus Release(XPm_Device *Device,
-		XPm_Subsystem *Subsystem)
+static XStatus Release(XPm_Device *Device, XPm_Subsystem *Subsystem)
 {
 	XStatus Status = XPM_ERR_DEVICE_RELEASE;
 	XPm_Requirement *Reqm;
@@ -980,9 +1061,17 @@ static XStatus Release(XPm_Device *Device,
 	Device->WfDealloc = 0;
 
 	Status = XPmProt_Configure(Reqm, 0U);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = XPmSetCoherency(Reqm, 0U, 0U);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 done:
-	if(Status != XST_SUCCESS) {
+	if (XST_SUCCESS != Status) {
 		PmErr("Returned: 0x%x\n\r", Status);
 	}
 	return Status;
