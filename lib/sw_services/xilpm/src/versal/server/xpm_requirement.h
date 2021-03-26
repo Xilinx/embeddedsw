@@ -138,6 +138,11 @@ struct XPm_Reqm {
 	u8 Allocated; /**< Device has been allocated to the subsystem */
 	u8 SetLatReq; /**< Latency has been set from the subsystem */
 	u8 PreallocCaps;  /**< Preallocated capabilities */
+	u8 AttrCaps;	/**
+			 * Other capabilities like security, coherency and virtualization.
+			 * This does not play any role for device state transition so
+			 * it is keep as a separate variable.
+			 */
 };
 
 /************************** Function Prototypes ******************************/
