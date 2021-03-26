@@ -71,7 +71,6 @@ XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	u16 InitMask = 0;
 	Status = XPmPower_Init(&PowerDomain->Power, Id, BaseAddress, Parent);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_POWER_DOMAIN_INIT;
@@ -83,23 +82,6 @@ XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
 		PowerDomain->Parents[0] = Parent->Node.Id;
 	}
 
-	if ((NULL != Ops) && (NULL != Ops->ScanClear)) {
-		InitMask |= BIT(FUNC_SCAN_CLEAR);
-	}
-
-	if ((NULL != Ops) && (NULL != Ops->Bisr)) {
-		InitMask |= BIT(FUNC_BISR);
-	}
-
-	if ((NULL != Ops) && (NULL != Ops->Mbist)) {
-		InitMask |= BIT(FUNC_MBIST_CLEAR);
-	}
-
-	if ((NULL != Ops) && (NULL != Ops->Lbist)) {
-		InitMask |= BIT(FUNC_LBIST);
-	}
-
-	PowerDomain->InitMask = InitMask;
 	Status = XST_SUCCESS;
 
 done:
@@ -1276,12 +1258,15 @@ static void XPmPower_UpdateResetFlags(XPm_PowerDomain *PwrDomain,
 		 * Mark domain init status bit in DomainInitStatusReg if
 		 * initialization is done.
 		 */
-		if (PwrDomain->InitFlag == PwrDomain->InitMask) {
+		if ((NULL != PwrDomain->DomainOps) &&
+		    (PwrDomain->InitFlag == PwrDomain->DomainOps->InitMask)) {
 			PmRmw32(XPM_DOMAIN_INIT_STATUS_REG, DomainStatusMask,
 				DomainStatusMask);
 		}
 	} else if (FUNC_INIT_START == FuncId) {
-
+		/*
+		 * Reset flags to indicate Ops are yet to be performed.
+		 */
 		PwrDomain->InitFlag = 0;
 
 		/*
@@ -1334,6 +1319,33 @@ done:
 	return;
 }
 
+static u32 XPmPowerDomain_SkipOp(const XPm_PowerDomain *PwrDomain,
+				 u32 Function)
+{
+	u16 Skip;
+
+	switch (Function) {
+	case (u32)FUNC_INIT_START:
+	case (u32)FUNC_INIT_FINISH:
+	case (u32)FUNC_SCAN_CLEAR:
+	case (u32)FUNC_BISR:
+	case (u32)FUNC_LBIST:
+	case (u32)FUNC_MEM_INIT:
+	case (u32)FUNC_MBIST_CLEAR:
+	case (u32)FUNC_HOUSECLEAN_PL:
+	case (u32)FUNC_HOUSECLEAN_COMPLETE:
+		/* Skip if it has been executed before */
+		Skip = (PwrDomain->InitFlag >> Function) & 1U;
+		break;
+	default:
+		/* Do not skip by default */
+		Skip = 0U;
+		break;
+	}
+
+	return Skip;
+}
+
 XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 				  u32 *Args, u32 NumArgs)
 {
@@ -1350,6 +1362,20 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 
 	/* Check PL power up at every init node command to see if we can run Pl houseclean*/
 	(void)XPmPlDomain_InitandHouseclean();
+
+	/*
+	 * Skip running a domain operation in either case:
+	 *   - If the domain is already powered on
+	 *   - If the operation has been executed before
+	 */
+	if (((u8)XPM_POWER_STATE_ON == PwrDomain->Power.Node.State) ||
+	    (0U != XPmPowerDomain_SkipOp(PwrDomain, Function))) {
+		PmAlert("Skipping %s for 0x%x\r\n",
+				PmInitFunctions[Function],
+				PwrDomain->Power.Node.Id);
+		Status = XST_SUCCESS;
+		goto done;
+	}
 
 	switch (Function) {
 	case (u32)FUNC_INIT_START:
@@ -1368,6 +1394,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 				DbgErr = XPM_INT_ERR_FUNC_INIT_START;
 				goto done;
 			}
+			PwrDomain->InitFlag |= BIT16(FUNC_INIT_START);
 		}
 		Status = XST_SUCCESS;
 		break;
@@ -1383,6 +1410,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 				DbgErr = XPM_INT_ERR_FUNC_INIT_FINISH;
 				goto done;
 			}
+			PwrDomain->InitFlag |= BIT16(FUNC_INIT_FINISH);
 		}
 		PwrDomain->Power.Node.State = (u8)XPM_POWER_STATE_ON;
 		PowerParent = PwrDomain->Power.Parent;
@@ -1467,7 +1495,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 				DbgErr = XPM_INT_ERR_FUNC_SCAN_CLEAR;
 				goto done;
 			}
-			PwrDomain->InitFlag |= BIT(FUNC_SCAN_CLEAR);
+			PwrDomain->InitFlag |= BIT16(FUNC_SCAN_CLEAR);
 		}
 		Status = XST_SUCCESS;
 		break;
@@ -1489,7 +1517,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 				DbgErr = XPM_INT_ERR_FUNC_BISR;
 				goto done;
 			}
-			PwrDomain->InitFlag |= BIT(FUNC_BISR);
+			PwrDomain->InitFlag |= BIT16(FUNC_BISR);
 		}
 		Status = XST_SUCCESS;
 		break;
@@ -1512,7 +1540,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 				DbgErr = XPM_INT_ERR_FUNC_LBIST;
 				goto done;
 			}
-			PwrDomain->InitFlag |= BIT(FUNC_LBIST);
+			PwrDomain->InitFlag |= BIT16(FUNC_LBIST);
 		}
 		Status = XST_SUCCESS;
 		break;
@@ -1535,7 +1563,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 				DbgErr = XPM_INT_ERR_FUNC_MBIST_CLEAR;
 				goto done;
 			}
-			PwrDomain->InitFlag |= BIT(FUNC_MBIST_CLEAR);
+			PwrDomain->InitFlag |= BIT16(FUNC_MBIST_CLEAR);
 		}
 		Status = XST_SUCCESS;
 		break;
@@ -1551,6 +1579,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 				DbgErr = XPM_INT_ERR_FUNC_HOUSECLEAN_PL;
 				goto done;
 			}
+			PwrDomain->InitFlag |= BIT16(FUNC_HOUSECLEAN_PL);
 		}
 		Status = XST_SUCCESS;
 		break;
@@ -1566,6 +1595,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 				DbgErr = XPM_INT_ERR_FUNC_MEM_INIT;
                                 goto done;
                         }
+			PwrDomain->InitFlag |= BIT16(FUNC_MEM_INIT);
                 }
 		Status = XST_SUCCESS;
                 break;
@@ -1581,6 +1611,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 				DbgErr = XPM_INT_ERR_FUNC_HOUSECLEAN_COMPLETE;
                                 goto done;
                         }
+			PwrDomain->InitFlag |= BIT16(FUNC_HOUSECLEAN_COMPLETE);
                 }
 		Status = XST_SUCCESS;
                 break;

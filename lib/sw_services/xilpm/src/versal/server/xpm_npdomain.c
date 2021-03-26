@@ -551,6 +551,12 @@ static const struct XPm_PowerDomainOps NpdOps = {
 	.ScanClear = NpdScanClear,
 	.Mbist = NpdMbist,
 	.Bisr = NpdBisr,
+	/* Mask to indicate which Ops are present */
+	.InitMask = (BIT16(FUNC_INIT_START) |
+		     BIT16(FUNC_INIT_FINISH) |
+		     BIT16(FUNC_SCAN_CLEAR) |
+		     BIT16(FUNC_BISR) |
+		     BIT16(FUNC_MBIST_CLEAR))
 };
 
 XStatus XPmNpDomain_Init(XPm_NpDomain *Npd, u32 Id, u32 BaseAddress,

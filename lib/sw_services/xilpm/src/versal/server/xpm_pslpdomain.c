@@ -601,6 +601,14 @@ static const struct XPm_PowerDomainOps LpdOps = {
 	.Lbist = LpdLbist,
 	.Bisr = LpdBisr,
 	.HcComplete = LpdHcComplete,
+	/* Mask to indicate which Ops are present */
+	.InitMask = (BIT16(FUNC_INIT_START) |
+		     BIT16(FUNC_INIT_FINISH) |
+		     BIT16(FUNC_SCAN_CLEAR) |
+		     BIT16(FUNC_MBIST_CLEAR) |
+		     BIT16(FUNC_LBIST) |
+		     BIT16(FUNC_BISR) |
+		     BIT16(FUNC_HOUSECLEAN_COMPLETE))
 };
 
 XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd, u32 Id, u32 BaseAddress,
