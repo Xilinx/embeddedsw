@@ -500,6 +500,7 @@ XStatus XPmIoctl_AddRegPermission(XPm_Subsystem *Subsystem, u32 DeviceId,
 	u32 *ReadPerm, *WritePerm;
 	u32 AddNodeArgs[5U] = { DeviceId, PM_POWER_PMC, 0, 0, 0};
 	XPm_Device *Device;
+	u32 ReqmFlags;
 
 	/* Ensure device is added before trying to use it. */
 	Device = XPmDevice_GetById(DeviceId);
@@ -546,18 +547,18 @@ XStatus XPmIoctl_AddRegPermission(XPm_Subsystem *Subsystem, u32 DeviceId,
 	*WritePerm |= PERM_BITMASK(Operations, IOCTL_PERM_WRITE_SHIFT_S,
 				  SUBSYS_TO_S_BITPOS(SubsystemId));
 
-	Status = XPmRequirement_Add(Subsystem, Device,
-				    (u32)REQUIREMENT_FLAGS(1U, PM_CAP_ACCESS, 0U, 0U, 0U,
-				    (u32)REQ_ACCESS_SECURE_NONSECURE,
-				    (u32)REQ_NO_RESTRICTION), 0U);
+	ReqmFlags = REQUIREMENT_FLAGS(1U, 0U, 0U, 0U,
+				      (u32)REQ_ACCESS_SECURE_NONSECURE,
+				      (u32)REQ_NO_RESTRICTION);
+	Status = XPmRequirement_Add(Subsystem, Device, ReqmFlags, 0U,
+				    (u32)PM_CAP_ACCESS);
 
 done:
 	return Status;
 
 }
 
-static XStatus XPmIoctl_IsRegRequested(u32 SubsystemId, u32 RegNum,
-				       u32 Type)
+static XStatus XPmIoctl_IsRegRequested(u32 SubsystemId, u32 RegNum, u32 Type)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Requirement *Reqm = NULL;

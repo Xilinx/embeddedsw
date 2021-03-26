@@ -413,7 +413,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		Status = XPm_AddNodeName(&Pload[0], Len);
 		break;
 	case PM_API(PM_ADD_REQUIREMENT):
-		Status = XPm_AddRequirement(Pload[0], Pload[1], Pload[2], Pload[3]);
+		Status = XPm_AddRequirement(Pload[0], Pload[1], Pload[2], Pload[3], Pload[4]);
 		break;
 	case PM_API(PM_SET_CURRENT_SUBSYSTEM):
 		Status = XPm_SetCurrentSubsystem(Pload[0], Cmd->IpiMask);
@@ -4144,9 +4144,9 @@ done:
  *                      Bit[3] - Read access policy (Allowed(0)/Not-allowed(1))
  *                      Bit[4] - Write access policy (Allowed(0)/Not-allowed(1))
  *                      Bit[5] - Non-secure region check policy (Relaxed(0)/Strict(1))
- *                      Bit[8:14] - Capability
- *                      Bit[15] - Pre-alloc flags
+ *                      Bit[6] - Pre-alloc flag
  * @param  AperPerm	Aperture permission mask for the given peripheral
+ * @param  PreallocCaps	Pre-alloc capability bits
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -4155,7 +4155,7 @@ done:
  *
  ****************************************************************************/
 XStatus XPm_AddRequirement(const u32 SubsystemId, const u32 DeviceId, u32 Flags,
-			   u32 AperPerm)
+			   u32 AperPerm, u32 PreallocCaps)
 {
 	XStatus Status = XST_INVALID_PARAM;
 	XPm_Device *Device = NULL;
@@ -4191,7 +4191,9 @@ XStatus XPm_AddRequirement(const u32 SubsystemId, const u32 DeviceId, u32 Flags,
 					Status = XST_INVALID_PARAM;
 					goto done;
 				}
-				Status = XPmRequirement_Add(Subsystem, Device, Flags, AperPerm);
+				Status = XPmRequirement_Add(Subsystem, Device,
+							    Flags, AperPerm,
+							    PreallocCaps);
 			}
 			break;
 		case (u32)XPM_NODECLASS_SUBSYSTEM:

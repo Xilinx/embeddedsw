@@ -761,11 +761,11 @@ XStatus XPmSubsystem_Configure(u32 SubsystemId)
 	PmDbg("Configuring Subsystem: 0x%x\r\n", SubsystemId);
 	Reqm = Subsystem->Requirements;
 	while (NULL != Reqm) {
-		if ((1U != Reqm->Allocated) && (0x1U == ISPREALLOCREQUIRED((u32)Reqm->Flags))) {
+		if ((1U != Reqm->Allocated) && (1U == PREALLOC((u32)Reqm->Flags))) {
 			DeviceId = Reqm->Device->Node.Id;
-			PmDbg("Prealloc Node: 0x%x Capabilities: 0x%x\r\n", DeviceId, CAPABILITY(Reqm->Flags));
+			PmDbg("Prealloc Node: 0x%x Capabilities: 0x%x\r\n", DeviceId, Reqm->PreallocCaps);
 			Status = XPm_RequestDevice(SubsystemId, DeviceId,
-					   CAPABILITY((u32)Reqm->Flags), XPM_DEF_QOS, 0);
+						Reqm->PreallocCaps, XPM_DEF_QOS, 0);
 			if (XST_SUCCESS != Status) {
 				PmErr("Requesting prealloc device 0x%x failed.\n\r", DeviceId);
 				Status = XPM_ERR_DEVICE_REQ;
@@ -916,10 +916,10 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 					}
 				}
 				Status = XPmRequirement_Add(Subsystem, Device,
-						REQUIREMENT_FLAGS(Prealloc, Capability, 0U, 0U, 0U,
+						REQUIREMENT_FLAGS(Prealloc, 0U, 0U, 0U,
 							(u32)REQ_ACCESS_SECURE_NONSECURE,
 							(u32)REQ_NO_RESTRICTION),
-						0U);
+						0U, Capability);
 				if (XST_SUCCESS != Status) {
 					DbgErr = XPM_INT_ERR_ADD_REQUIREMENT;
 					goto done;
@@ -931,10 +931,10 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 			XPm_Device *Device = XPmDevice_GetPlDeviceByIndex(i);
 			if (NULL != Device) {
 				Status = XPmRequirement_Add(Subsystem, Device,
-						(u32)REQUIREMENT_FLAGS(0U, 0U, 0U, 0U, 0U,
+						(u32)REQUIREMENT_FLAGS(0U, 0U, 0U, 0U,
 							(u32)REQ_ACCESS_SECURE_NONSECURE,
 							(u32)REQ_NO_RESTRICTION),
-						0U);
+						0U, 0U);
 				if (XST_SUCCESS != Status) {
 					DbgErr = XPM_INT_ERR_ADD_REQUIREMENT;
 					goto done;
