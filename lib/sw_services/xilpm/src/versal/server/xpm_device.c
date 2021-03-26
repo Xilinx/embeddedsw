@@ -2257,3 +2257,59 @@ u32 XPm_GetSysmonByIndex(const u32 SysmonIndex)
 done:
 	return BaseAddress;
 }
+
+/****************************************************************************/
+/**
+ * @brief  Add device security, virtualization and coherency attributes
+ *
+ * @param  Args		CDO command arguments
+ * @param  NumArgs	Total number of arguments
+ *
+ * @return Status of the operation.
+ *
+ ****************************************************************************/
+XStatus AddDevAttributes(const u32 *Args, const u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_DeviceAttr *DevAttr = NULL;
+	XPm_Device *Dev = XPmDevice_GetById(Args[0]);
+
+	/* Check for device presence and sufficient arguments */
+	if ((NULL == Dev) || (NumArgs < 9U)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	DevAttr = (XPm_DeviceAttr *)XPm_AllocBytes(sizeof(XPm_DeviceAttr));
+	if (NULL == DevAttr) {
+		Status = XST_BUFFER_TOO_SMALL;
+		goto done;
+	}
+
+	/* Store the security attributes */
+	DevAttr->SecurityBaseAddr = Args[6];
+	DevAttr->Security[0].Offset = (u16)((Args[7] >> 16U) & 0xFFFFU);
+	DevAttr->Security[0].Mask = (u16)(Args[7] & 0xFFFFU);
+	DevAttr->Security[1].Offset = (u16)((Args[8] >> 16U) & 0xFFFFU);
+	DevAttr->Security[1].Mask = (u16)(Args[8] & 0xFFFFU);
+
+	/* Check for the coherency and virtualization attributes */
+	if (NumArgs > 9U) {
+		if (NumArgs < 12U) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+
+		DevAttr->CohVirtBaseAddr = Args[9];
+		DevAttr->Coherency.Offset = (u16)((Args[10] >> 16U) & 0xFFFFU);
+		DevAttr->Coherency.Mask = (u16)(Args[10] & 0xFFFFU);
+		DevAttr->Virtualization.Offset = (u16)((Args[11] >> 16U) & 0xFFFFU);
+		DevAttr->Virtualization.Mask = (u16)(Args[11] & 0xFFFFU);
+	}
+
+	Dev->DevAttr = DevAttr;
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}

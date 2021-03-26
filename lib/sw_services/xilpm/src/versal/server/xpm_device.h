@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -59,6 +59,7 @@ typedef enum {
 
 typedef struct XPm_DeviceNode XPm_Device;
 typedef struct XPm_DeviceOps XPm_DeviceOps;
+typedef struct XPm_DeviceAttr XPm_DeviceAttr;
 
 /* Device Operations */
 struct XPm_DeviceOps {
@@ -116,9 +117,24 @@ struct XPm_DeviceNode {
 	u8 WfDealloc; /**< Deallocation is pending */
 	u8 WfPwrUseCnt; /**< Pending power use count */
 	XPm_DeviceOps *DeviceOps; /**< Device operations */
+	XPm_DeviceAttr *DevAttr;  /**< Device attributes */
 	const XPm_DeviceFsm* DeviceFsm; /**< Device finite state machine */
 	XStatus (* HandleEvent)(XPm_Node *Node, u32 Event);
 		/**< HandleEvent: Pointer to event handler */
+};
+
+struct XPm_RegAttr {
+	u32 Offset:16;
+	u32 Mask:16;
+};
+
+/* Device attributes for security, coherency and virtualization */
+struct XPm_DeviceAttr {
+	u32 SecurityBaseAddr;
+	struct XPm_RegAttr Security[2];
+	u32 CohVirtBaseAddr;
+	struct XPm_RegAttr Coherency;
+	struct XPm_RegAttr Virtualization;
 };
 
 /************************** Function Prototypes ******************************/
@@ -177,6 +193,7 @@ int XPmDevice_IsRequested(const u32 DeviceId, const u32 SubsystemId);
 int XPmDevice_GetWakeupLatency(const u32 DeviceId, u32 *Latency);
 XStatus XPm_SetSysmonNode(u32 Id, u32 BaseAddress);
 u32 XPm_GetSysmonByIndex(const u32 SysmonIndex);
+XStatus AddDevAttributes(const u32 *Args, const u32 NumArgs);
 
 #ifdef __cplusplus
 }
