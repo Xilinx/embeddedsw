@@ -309,7 +309,7 @@ typedef struct {
  * The typedef captures all the buffer descriptor properties for AIE DMAs
  */
 typedef struct {
-	u64 AddrMask;
+	u64 AddrMax;
 	u8 AddrAlignMask;
 	u8 AddrAlignShift;
 	u8 LenActualOffset;
