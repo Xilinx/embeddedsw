@@ -348,6 +348,11 @@ extern "C" {
 #define LPD_SLCR_SECURE_ADMA_0_OFFSET				(0x00000060U)
 
 /**
+ * Register: FPD_SLCR_SECURE
+ */
+#define FPD_SLCR_SECURE_WPROT0_OFFSET				(0x00000000U)
+
+/**
  * FPD_SLCR Module
  */
 #define FPD_SLCR_WPROT0_OFFSET					(0x00000000U)
