@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2009 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2009 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -14,7 +14,7 @@
  * should be such that if divided by the macro CLOCKS_PER_SEC the
  * result should yield the time in seconds.
  *
- * The value "(clock_t)-1" means that the processor time is not
+ * The value "0" means that the processor time is not
  * available.
  *
  */
@@ -24,5 +24,5 @@
 
 clock_t (clock)(void)
 {
-  return ((clock_t) -1);
+  return (0);
 }
