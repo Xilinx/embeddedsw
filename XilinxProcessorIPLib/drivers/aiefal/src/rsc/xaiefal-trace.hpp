@@ -658,6 +658,9 @@ namespace xaiefal {
 					Rsc.Mod = Mod;
 					Rsc.RscId = Slot;
 				}
+			} else {
+				Rsc.Mod = Mod;
+				Rsc.RscId = Slot;
 			}
 			return RC;
 		}
