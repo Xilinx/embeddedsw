@@ -1311,7 +1311,7 @@ static const XAie_DmaBdProp AieTileDmaProp =
 {
 	.AddrAlignMask = 0x3,
 	.AddrAlignShift = 0x2,
-	.AddrMask = (1U << 16U) - 1U,
+	.AddrMax = 0x10000,
 	.LenActualOffset = 1U,
 	.Buffer = &AieTileDmaBufferProp,
 	.DoubleBuffer = &AieTileDmaDoubleBufferProp,
@@ -1485,7 +1485,7 @@ static const XAie_DmaBdProp AieShimDmaProp =
 {
 	.AddrAlignMask = 0xF,
 	.AddrAlignShift = 0x0,
-	.AddrMask = (1UL << 48U) - 1U,
+	.AddrMax = 0x1000000000000,
 	.LenActualOffset = 0U,
 	.Buffer = &AieShimDmaBufferProp,
 	.DoubleBuffer = NULL,

@@ -222,8 +222,8 @@ AieRC XAie_DmaSetDoubleBuffer(XAie_DmaDesc *DmaDesc, u64 Addr, XAie_Lock Acq,
 	}
 
 	if(((Addr & DmaMod->BdProp->AddrAlignMask) != 0U) ||
-			((Addr + DmaDesc->AddrDesc.Length) &
-			 ~DmaMod->BdProp->AddrMask)) {
+			((Addr + DmaDesc->AddrDesc.Length) >
+			 DmaMod->BdProp->AddrMax)) {
 		XAIE_ERROR("Invalid Address\n");
 		return XAIE_INVALID_ADDRESS;
 	}
@@ -286,7 +286,7 @@ AieRC XAie_DmaSetAddrLen(XAie_DmaDesc *DmaDesc, u64 Addr, u32 Len)
 
 	DmaMod = DmaDesc->DmaMod;
 	if(((Addr & DmaMod->BdProp->AddrAlignMask) != 0U) ||
-			((Addr + Len) & ~DmaMod->BdProp->AddrMask)) {
+			((Addr + Len) > DmaMod->BdProp->AddrMax)) {
 		XAIE_ERROR("Invalid Address\n");
 		return XAIE_INVALID_ADDRESS;
 	}
@@ -347,7 +347,7 @@ AieRC XAie_DmaSetAddrOffsetLen(XAie_DmaDesc *DmaDesc, XAie_MemInst *MemInst,
 	Addr = Offset + MemInst->DevAddr;
 	DmaMod = DmaDesc->DmaMod;
 	if(((Addr & DmaMod->BdProp->AddrAlignMask) != 0U) ||
-			((Offset + Len) & ~DmaMod->BdProp->AddrMask)) {
+			((Offset + Len) > DmaMod->BdProp->AddrMax)) {
 		XAIE_ERROR("DMA Set Address Offset failed, Invalid Address Offset\n");
 		return XAIE_INVALID_ADDRESS;
 	}
@@ -390,7 +390,7 @@ AieRC XAie_DmaSetMultiDimAddr(XAie_DmaDesc *DmaDesc, XAie_DmaTensor *Tensor,
 
 	DmaMod = DmaDesc->DmaMod;
 	if(((Addr & DmaMod->BdProp->AddrAlignMask) != 0U) ||
-			((Addr + Len) & ~DmaMod->BdProp->AddrMask)) {
+			((Addr + Len) > DmaMod->BdProp->AddrMax)) {
 		XAIE_ERROR("Invalid Address\n");
 		return XAIE_INVALID_ADDRESS;
 	}
