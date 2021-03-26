@@ -743,10 +743,16 @@ namespace xaiefal {
 	public:
 		XAieTracing() = delete;
 		XAieTracing(std::shared_ptr<XAieDevHandle> DevHd,
-			XAie_LocType L, XAie_ModuleType M):
+			XAie_LocType L, XAie_ModuleType M, std::shared_ptr<XAieTraceCntr> TCntr):
 			XAieSingleTileRsc(DevHd, L, M) {
-			TraceCntr = std::make_shared<XAieTraceCntr>(DevHd, L,
-				M);
+			if (!TCntr) {
+				throw std::invalid_argument("Trace event failed, empty trace control");
+			}
+			if (TCntr->dev() != DevHd->dev() ||
+				TCntr->getModule() != Mod) {
+				throw std::invalid_argument("Trace event failed,trace control aiedev or module mismatched");
+			}
+			TraceCntr = std::move(TCntr);
 			State.Initialized = 1;
 		}
 		XAieTracing(XAieDev &Dev, XAie_LocType L,
@@ -943,7 +949,7 @@ namespace xaiefal {
 			Logger::log(LogLevel::DEBUG) << "tracing " << __func__ << " ("
 				<< (uint32_t)TraceCntr->loc().Col << "," << (uint32_t)TraceCntr->loc().Row <<
 				") Mod=" << (uint32_t)TraceCntr->getModule() << std::endl;
-			if (RC == XAIE_OK) {
+			if (RC == XAIE_OK && !(TraceCntr->isReserved())) {
 				RC = TraceCntr->reserve();
 			}
 			for (int i = 0; i < (int)Events.size(); i++) {
