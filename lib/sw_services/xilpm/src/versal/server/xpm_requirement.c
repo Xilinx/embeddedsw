@@ -11,7 +11,7 @@
 
 static void XPmRequirement_Init(XPm_Requirement *Reqm, XPm_Subsystem *Subsystem,
 				XPm_Device *Device, u32 Flags, u32 AperPerm,
-				u32 PreallocCaps)
+				u32 PreallocCaps, u32 QoS)
 {
 	/* Prepend to subsystem's device reqm list */
 	Reqm->NextDevice = Subsystem->Requirements;
@@ -31,14 +31,14 @@ static void XPmRequirement_Init(XPm_Requirement *Reqm, XPm_Subsystem *Subsystem,
 
 	Reqm->Curr.Capabilities = XPM_MIN_CAPABILITY;
 	Reqm->Curr.Latency = XPM_MAX_LATENCY;
-	Reqm->Curr.QoS = XPM_MAX_QOS;
+	Reqm->Curr.QoS = QoS;
 	Reqm->Next.Capabilities = XPM_MIN_CAPABILITY;
 	Reqm->Next.Latency = XPM_MAX_LATENCY;
-	Reqm->Next.QoS = XPM_MAX_QOS;
+	Reqm->Next.QoS = QoS;
 }
 
 XStatus XPmRequirement_Add(XPm_Subsystem *Subsystem, XPm_Device *Device,
-			   u32 Flags, u32 AperPerm, u32 PreallocCaps)
+			   u32 Flags, u32 AperPerm, u32 PreallocCaps, u32 QoS)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Requirement *Reqm;
@@ -50,7 +50,7 @@ XStatus XPmRequirement_Add(XPm_Subsystem *Subsystem, XPm_Device *Device,
 	}
 
 	XPmRequirement_Init(Reqm, Subsystem, Device, Flags, AperPerm,
-			    PreallocCaps);
+			    PreallocCaps, QoS);
 	Status = XST_SUCCESS;
 
 done:

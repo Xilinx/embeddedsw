@@ -551,7 +551,7 @@ XStatus XPmIoctl_AddRegPermission(XPm_Subsystem *Subsystem, u32 DeviceId,
 				      (u32)REQ_ACCESS_SECURE_NONSECURE,
 				      (u32)REQ_NO_RESTRICTION);
 	Status = XPmRequirement_Add(Subsystem, Device, ReqmFlags, 0U,
-				    (u32)PM_CAP_ACCESS);
+				    (u32)PM_CAP_ACCESS, XPM_DEF_QOS);
 
 done:
 	return Status;
