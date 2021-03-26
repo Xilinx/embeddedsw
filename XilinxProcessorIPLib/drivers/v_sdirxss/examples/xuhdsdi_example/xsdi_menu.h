@@ -75,10 +75,10 @@ typedef enum
 	XSDI_AES_CAPTURE_PLAYBACK
 } XSdi_AudioMOde;
 
-u8 XSDIAudioMode;
+extern u8 XSDIAudioMode;
 #ifdef XPAR_XSDIAUD_NUM_INSTANCES
-XSdiAud SdiExtract;		/* Instance of the SDI Extract device */
-XSdiAud SdiEmbed;		/* Instance of the SDI Embed device */
+extern XSdiAud SdiExtract;		/* Instance of the SDI Extract device */
+extern XSdiAud SdiEmbed;		/* Instance of the SDI Embed device */
 #endif
 /************************** Function Prototypes ******************************/
 void XSdi_MenuInitialize(XSdi_Menu *InstancePtr, u32 UartBaseAddress);
