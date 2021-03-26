@@ -3807,7 +3807,6 @@ static XStatus XPm_AddDevice(u32 *Args, u32 NumArgs)
 		}
 	}
 
-
 	switch (SubClass) {
 	case (u32)XPM_NODESUBCL_DEV_CORE:
 		Status = AddProcDevice(Args, PowerId);
@@ -3830,6 +3829,10 @@ static XStatus XPm_AddDevice(u32 *Args, u32 NumArgs)
 	default:
 		Status = XST_INVALID_PARAM;
 		break;
+	}
+
+	if (NumArgs > 6U) {
+		Status = AddDevAttributes(Args, NumArgs);
 	}
 
 done:
