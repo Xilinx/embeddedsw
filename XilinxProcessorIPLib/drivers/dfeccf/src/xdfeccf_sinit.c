@@ -22,6 +22,7 @@
 *       dc     02/02/21 Remove hard coded device node name
 *       dc     02/08/21 align driver to curent specification
 *       dc     02/22/21 include HW in versioning
+*       dc     03/25/21 Device tree item name change
 * </pre>
 *
 ******************************************************************************/
@@ -58,7 +59,7 @@
 #define XDFECCF_NUM_ANTENNA_CFG "xlnx,num-antenna"
 #define XDFECCF_NUM_CC_PER_ANTENNA_CFG "xlnx,num-cc-per-antenna"
 #define XDFECCF_NUM_SLOT_CHANNELS_CFG "xlnx,num-slot-channels"
-#define XDFECCF_NUM_SLOTS_CFG "xlnx,num-slots"
+#define XDFECCF_ANTENNA_INTERLEAVE_CFG "xlnx,antenna-interleave"
 #define XDFECCF_TUSER_WIDTH_CFG "xlnx,tuser-width"
 #define XDFECCF_VERSION_REGISTER_CFG "xlnx,version-register"
 #define XDFECCF_MODE_SIZE 10U
@@ -274,11 +275,11 @@ s32 XDfeCcf_LookupConfig(u16 DeviceId)
 	XDfeCcf_ChFilter[DeviceId].Config.NumCCPerAntenna = ntohl(d);
 
 	if (XST_SUCCESS !=
-	    metal_linux_get_device_property(Dev, Name = XDFECCF_NUM_SLOTS_CFG,
+	    metal_linux_get_device_property(Dev, Name = XDFECCF_ANTENNA_INTERLEAVE_CFG,
 					    &d, XDFECCF_WORD_SIZE)) {
 		goto end_failure;
 	}
-	XDfeCcf_ChFilter[DeviceId].Config.NumAntSlot = ntohl(d);
+	XDfeCcf_ChFilter[DeviceId].Config.AntenaInterleave = ntohl(d);
 
 	XDfeCcf_ChFilter[DeviceId].Config.DeviceId = DeviceId;
 
@@ -294,8 +295,8 @@ end_failure:
 		XDfeCcf_ConfigTable[DeviceId].NumAntenna;
 	XDfeCcf_ChFilter[DeviceId].Config.NumCCPerAntenna =
 		XDfeCcf_ConfigTable[DeviceId].NumCCPerAntenna;
-	XDfeCcf_ChFilter[DeviceId].Config.NumAntSlot =
-		XDfeCcf_ConfigTable[DeviceId].NumAntSlot;
+	XDfeCcf_ChFilter[DeviceId].Config.AntenaInterleave =
+		XDfeCcf_ConfigTable[DeviceId].AntenaInterleave;
 
 	XDfeCcf_ChFilter[DeviceId].Config.BaseAddr =
 		XDfeCcf_ConfigTable[DeviceId].BaseAddr;
