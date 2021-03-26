@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@ extern "C" {
 typedef struct XPm_PsFpDomain {
 	XPm_PowerDomain Domain; /**< Power domain node base class */
 	u32 FpdSlcrBaseAddr; /**< FPD SLCR base address */
+	u32 FpdSlcrSecureBaseAddr; /**< FPD SLCR SECURE base address */
 } XPm_PsFpDomain;
 
 /************************** Function Prototypes ******************************/
