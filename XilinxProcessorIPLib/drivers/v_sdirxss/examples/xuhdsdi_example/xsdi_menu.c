@@ -29,6 +29,9 @@
 #endif
 /************************** Constant Definitions *****************************/
 
+u8 XSDIAudioMode;
+XSdiAud SdiExtract;		/* Instance of the SDI Extract device */
+XSdiAud SdiEmbed;		/* Instance of the SDI Embed device */
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
