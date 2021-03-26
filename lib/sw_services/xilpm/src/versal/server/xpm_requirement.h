@@ -72,21 +72,20 @@ enum XPm_ReqNsRegionCheckType {
 
 #define REG_FLAGS_USAGE_MASK		(0x3U)
 #define REG_FLAGS_SECURITY_MASK		(0x4U)
-#define REG_FLAGS_SECURITY_OFFSET	(0x2U)
+#define REG_FLAGS_SECURITY_OFFSET	(2U)
 /**
  * Following bits are only applicable for Memory Region nodes
  */
 #define REG_FLAGS_RD_POLICY_MASK	(0x8U)
-#define REG_FLAGS_RD_POLICY_OFFSET	(0x3U)
+#define REG_FLAGS_RD_POLICY_OFFSET	(3U)
 #define REG_FLAGS_WR_POLICY_MASK	(0x10U)
-#define REG_FLAGS_WR_POLICY_OFFSET	(0x4U)
+#define REG_FLAGS_WR_POLICY_OFFSET	(4U)
 #define REG_FLAGS_NSREGN_CHECK_MASK	(0x20U)
-#define REG_FLAGS_NSREGN_CHECK_OFFSET	(0x5U)
+#define REG_FLAGS_NSREGN_CHECK_OFFSET	(5U)
 
-#define REG_FLAGS_CAPABILITY_OFFSET	(0x8U)
-#define REG_FLAGS_CAPABILITY_MASK	(0x7F00U)
-#define REG_FLAGS_PREALLOC_OFFSET	(0xFU)
-#define REG_FLAGS_PREALLOC_MASK		(0x8000U)
+#define REG_FLAGS_PREALLOC_MASK		(0x40U)
+#define REG_FLAGS_PREALLOC_OFFSET	(6U)
+
 /**
  * Combined mask for requirement flags
  */
@@ -95,7 +94,6 @@ enum XPm_ReqNsRegionCheckType {
 				 REG_FLAGS_RD_POLICY_MASK |\
 				 REG_FLAGS_WR_POLICY_MASK |\
 				 REG_FLAGS_NSREGN_CHECK_MASK |\
-				 REG_FLAGS_CAPABILITY_MASK |\
 				 REG_FLAGS_PREALLOC_MASK)
 
 /**
@@ -107,9 +105,8 @@ enum XPm_ReqNsRegionCheckType {
  *     - Read Policy
  *     - Write Policy
  */
-#define REQUIREMENT_FLAGS(Prealloc, Capability, RegnCheck, Wr, Rd, Security, Usage) \
+#define REQUIREMENT_FLAGS(Prealloc, RegnCheck, Wr, Rd, Security, Usage) \
 				(((u32)(Prealloc) << (REG_FLAGS_PREALLOC_OFFSET)) | \
-				 ((u32)(Capability) << (REG_FLAGS_CAPABILITY_OFFSET)) | \
 				 ((u32)(RegnCheck) << (REG_FLAGS_NSREGN_CHECK_OFFSET)) | \
 				 ((u32)(Wr) << (REG_FLAGS_WR_POLICY_OFFSET)) | \
 				 ((u32)(Rd) << (REG_FLAGS_RD_POLICY_OFFSET)) | \
@@ -124,8 +121,7 @@ enum XPm_ReqNsRegionCheckType {
 #define RD_POLICY(Flags)	(((Flags) & REG_FLAGS_RD_POLICY_MASK) >> REG_FLAGS_RD_POLICY_OFFSET)
 #define WR_POLICY(Flags)	(((Flags) & REG_FLAGS_WR_POLICY_MASK) >> REG_FLAGS_WR_POLICY_OFFSET)
 #define REGN_CHECK_POLICY(Flags)(((Flags) & REG_FLAGS_NSREGN_CHECK_MASK) >> REG_FLAGS_NSREGN_CHECK_OFFSET)
-#define CAPABILITY(Flags)	(((Flags) & REG_FLAGS_CAPABILITY_MASK) >> REG_FLAGS_CAPABILITY_OFFSET)
-#define ISPREALLOCREQUIRED(Flags)(((Flags) & REG_FLAGS_PREALLOC_MASK) >> REG_FLAGS_PREALLOC_OFFSET)
+#define PREALLOC(Flags)		(((Flags) & REG_FLAGS_PREALLOC_MASK) >> REG_FLAGS_PREALLOC_OFFSET)
 
 /**
  * The requirement class.
@@ -141,11 +137,12 @@ struct XPm_Reqm {
 	u16 Flags;	  /** Flags */
 	u8 Allocated; /**< Device has been allocated to the subsystem */
 	u8 SetLatReq; /**< Latency has been set from the subsystem */
+	u8 PreallocCaps;  /**< Preallocated capabilities */
 };
 
 /************************** Function Prototypes ******************************/
 
-XStatus XPmRequirement_Add(XPm_Subsystem *Subsystem, XPm_Device *Device, u32 Flags, u32 AperPerm);
+XStatus XPmRequirement_Add(XPm_Subsystem *Subsystem, XPm_Device *Device, u32 Flags, u32 AperPerm, u32 PreallocCaps);
 void XPm_RequiremntUpdate(XPm_Requirement *Reqm);
 XStatus XPmRequirement_Release(XPm_Requirement *Reqm, XPm_ReleaseScope Scope);
 void XPmRequirement_Clear(XPm_Requirement* Reqm);

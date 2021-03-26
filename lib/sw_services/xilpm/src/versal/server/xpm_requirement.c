@@ -10,7 +10,8 @@
 #include "xpm_api.h"
 
 static void XPmRequirement_Init(XPm_Requirement *Reqm, XPm_Subsystem *Subsystem,
-				XPm_Device *Device, u32 Flags, u32 AperPerm)
+				XPm_Device *Device, u32 Flags, u32 AperPerm,
+				u32 PreallocCaps)
 {
 	/* Prepend to subsystem's device reqm list */
 	Reqm->NextDevice = Subsystem->Requirements;
@@ -26,6 +27,7 @@ static void XPmRequirement_Init(XPm_Requirement *Reqm, XPm_Subsystem *Subsystem,
 	Reqm->SetLatReq = 0;
 	Reqm->Flags = (u16)(Flags & REG_FLAGS_MASK);
 	Reqm->AperPerm = AperPerm;
+	Reqm->PreallocCaps = (u8)PreallocCaps;
 
 	Reqm->Curr.Capabilities = XPM_MIN_CAPABILITY;
 	Reqm->Curr.Latency = XPM_MAX_LATENCY;
@@ -35,7 +37,8 @@ static void XPmRequirement_Init(XPm_Requirement *Reqm, XPm_Subsystem *Subsystem,
 	Reqm->Next.QoS = XPM_MAX_QOS;
 }
 
-XStatus XPmRequirement_Add(XPm_Subsystem *Subsystem, XPm_Device *Device, u32 Flags, u32 AperPerm)
+XStatus XPmRequirement_Add(XPm_Subsystem *Subsystem, XPm_Device *Device,
+			   u32 Flags, u32 AperPerm, u32 PreallocCaps)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Requirement *Reqm;
@@ -46,7 +49,8 @@ XStatus XPmRequirement_Add(XPm_Subsystem *Subsystem, XPm_Device *Device, u32 Fla
 		goto done;
 	}
 
-	XPmRequirement_Init(Reqm, Subsystem, Device, Flags, AperPerm);
+	XPmRequirement_Init(Reqm, Subsystem, Device, Flags, AperPerm,
+			    PreallocCaps);
 	Status = XST_SUCCESS;
 
 done:
