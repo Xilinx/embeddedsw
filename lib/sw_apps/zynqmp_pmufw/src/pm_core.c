@@ -146,7 +146,7 @@ static void PmLogInt(const u32 line, const u32 errno, const u32 value,
  * PmKillBoardPower() - Power-off board by sending KILL signal to power chip
  */
 #if defined(BOARD_SHUTDOWN_PIN) && defined(BOARD_SHUTDOWN_PIN_STATE)
-static void PmKillBoardPower(void)
+void PmKillBoardPower(void)
 {
 	u32 reg = XPfw_Read32(PMU_LOCAL_GPO1_READ);
 	u32 mask = PMU_IOMODULE_GPO1_MIO_0_MASK << BOARD_SHUTDOWN_PIN;
@@ -161,6 +161,8 @@ static void PmKillBoardPower(void)
 	XPfw_RMW32((IOU_SLCR_BASE + mioPinOffset),
 			0x000000FEU, 0x00000008U);
 }
+#else
+void PmKillBoardPower(void) { }
 #endif
 
 /**
