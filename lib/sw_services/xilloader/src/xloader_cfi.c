@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
 *       bsv   10/13/2020 Code clean up
 * 1.03  kal   12/22/2020 Perform Cfu/Cfi recovery before re-triggering
 *                        PL House cleaning in case of error in PL loading.
+* 1.04  skd   03/25/2021 Compilation warning fix
 *
 * </pre>
 *
@@ -31,11 +32,11 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include "xpm_pldomain.h"
 #include "xplmi_hw.h"
 #include "xloader.h"
 #include "xcframe.h"
 #include "xplmi_util.h"
-#include "xpm_pldomain.h"
 
 /************************** Constant Definitions *****************************/
 

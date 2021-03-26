@@ -28,9 +28,10 @@
 *       bsv  04/04/2020 Code clean up
 *       kc   04/23/2020 Added interrupt support for SEU event
 * 1.03  bm   10/14/2020 Code clean up
-* 		td   10/19/2020 MISRA C Fixes
+*       td   10/19/2020 MISRA C Fixes
 * 1.04  td   11/23/2020 MISRA C Rule 10.4 Fixes
 *       ma   03/24/2021 Reduced minimum digits of time stamp decimals to 3
+*       skd  03/25/2021 Compilation warning fix
 *
 * </pre>
 *
@@ -620,7 +621,7 @@ int XPlmi_RegisterHandler(u32 IntrId, GicIntHandler_t Handler, void *Data)
 
 		case XPLMI_IOMODULE_CFRAME_SEU:
 			Status = XPlmi_IoModuleRegisterHandler(IoModIntrNum,
-				      (XInterruptHandler)Handler, Data);
+				      (XInterruptHandler)(void*)Handler, Data);
 			break;
 
 		default:
