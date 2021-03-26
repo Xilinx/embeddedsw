@@ -287,15 +287,9 @@ namespace xaiefal {
 		 * @return number of reserved events.
 		 */
 		uint32_t getReservedTraceEvents() const {
-			uint32_t NumEvents = 0;
-			uint8_t TmpSlots = TraceSlotBits;
+			std::bitset<8> bits(TraceSlotBits);
 
-			for (int i = 0; i < (int)sizeof(TraceSlotBits) * 8; i++) {
-				if ((TmpSlots & (uint32_t)1) != 0) {
-					NumEvents++;
-				}
-			}
-			return NumEvents;
+			return bits.count();
 		}
 		/**
 		 * This function returns the trace control start event broadcast
