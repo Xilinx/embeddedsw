@@ -771,7 +771,8 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 	return Status;
 }
 
-static XStatus XPmSetCoherency(XPm_Requirement *Reqm, u32 ReqCaps, u32 Enable)
+static XStatus SetDevCohVirtAttr(XPm_Requirement *Reqm, u32 ReqCaps,
+				 u8 Capability, u32 Enable)
 {
 	XStatus Status = XST_FAILURE;
 	u8 CurrCaps = 0U;
@@ -780,32 +781,43 @@ static XStatus XPmSetCoherency(XPm_Requirement *Reqm, u32 ReqCaps, u32 Enable)
 	const XPm_Requirement *DevReqm = NULL;
 	const XPm_DeviceAttr *DevAttr = Reqm->Device->DevAttr;
 
-	/* Skip if device does not have any coherency attributes */
-	if ((NULL == DevAttr) || (0U == DevAttr->Coherency.Mask) ||
-	    (0U == DevAttr->CohVirtBaseAddr)) {
+	/* Skip if device does not have any attributes */
+	if (NULL == DevAttr) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
 
+	/* Get base address, mask and offset based on capability */
+	BaseAddr = DevAttr->CohVirtBaseAddr;
+	if ((u8)(PM_CAP_COHERENT) == Capability) {
+		Offset = DevAttr->Coherency.Offset;
+		Mask = DevAttr->Coherency.Mask;
+	} else {
+		Offset = DevAttr->Virtualization.Offset;
+		Mask = DevAttr->Virtualization.Mask;
+	}
+
+	/* Do nothing if required attributes are not present */
+	if ((0U == Mask) || (0U == BaseAddr)) {
+		Status = XST_SUCCESS;
+                goto done;
+	}
+
 	if (1U == Enable) {
-		/* Do nothing if coherency capability is not requested */
-		if (0U == (ReqCaps & (u32)(PM_CAP_COHERENT))) {
+		/* Do nothing if capability is not requested */
+		if (0U == (ReqCaps & Capability)) {
 			Status = XST_SUCCESS;
 			goto done;
 		}
 	} else {
 		/* Update AttrCaps flag of requirement */
-		if (0U != (Reqm->AttrCaps & PM_CAP_COHERENT)) {
-			Reqm->AttrCaps &= (u8)(~PM_CAP_COHERENT);
+		if (0U != (Reqm->AttrCaps & Capability)) {
+			Reqm->AttrCaps &= (~Capability);
 		} else {
 			Status = XST_SUCCESS;
 			goto done;
 		}
 	}
-
-	BaseAddr = DevAttr->CohVirtBaseAddr;
-	Offset = DevAttr->Coherency.Offset;
-	Mask = DevAttr->Coherency.Mask;
 
 	FpdPower = XPmPower_GetById(PM_POWER_FPD);
 	if (NULL == FpdPower) {
@@ -820,7 +832,7 @@ static XStatus XPmSetCoherency(XPm_Requirement *Reqm, u32 ReqCaps, u32 Enable)
 		DevReqm = DevReqm->NextSubsystem;
 	}
 	/* Do nothing if attribute is already set */
-	if (0U != (CurrCaps & PM_CAP_COHERENT)) {
+	if (0U != (CurrCaps & Capability)) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -832,7 +844,7 @@ static XStatus XPmSetCoherency(XPm_Requirement *Reqm, u32 ReqCaps, u32 Enable)
 			goto done;
 		}
 		PmRmw32(BaseAddr + Offset, Mask, Mask);
-		Reqm->AttrCaps |= PM_CAP_COHERENT;
+		Reqm->AttrCaps |= Capability;
 	} else {
 		PmRmw32(BaseAddr + Offset, Mask, 0U);
 		Status = FpdPower->HandleEvent(&FpdPower->Node,
@@ -949,7 +961,12 @@ static XStatus Request(XPm_Device *Device, XPm_Subsystem *Subsystem,
 		goto done;
 	}
 
-	Status = XPmSetCoherency(Reqm, Capabilities, 1U);
+	Status = SetDevCohVirtAttr(Reqm, Capabilities, (u8)PM_CAP_COHERENT, 1U);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = SetDevCohVirtAttr(Reqm, Capabilities, (u8)PM_CAP_VIRTUALIZED, 1U);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -1065,7 +1082,12 @@ static XStatus Release(XPm_Device *Device, XPm_Subsystem *Subsystem)
 		goto done;
 	}
 
-	Status = XPmSetCoherency(Reqm, 0U, 0U);
+	Status = SetDevCohVirtAttr(Reqm, 0U, (u8)PM_CAP_COHERENT, 0U);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = SetDevCohVirtAttr(Reqm, 0U, (u8)PM_CAP_VIRTUALIZED, 0U);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
