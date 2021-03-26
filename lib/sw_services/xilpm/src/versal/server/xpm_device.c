@@ -1271,7 +1271,7 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 				(u32)REQUIREMENT_FLAGS(0U, 0U, 0U, 0U,
 					(u32)REQ_ACCESS_SECURE_NONSECURE,
 					(u32)REQ_NO_RESTRICTION),
-				0U, 0U);
+				0U, 0U, XPM_DEF_QOS);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_ADD_REQUIREMENT;
 			goto done;

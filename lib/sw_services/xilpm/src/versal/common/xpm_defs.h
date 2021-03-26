@@ -100,13 +100,13 @@ typedef struct XPm_DeviceStatus {
 /* Requirement limits */
 #define XPM_MAX_CAPABILITY	((u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT | (u32)PM_CAP_WAKEUP)
 #define XPM_MAX_LATENCY		(0xFFFFU)
-#define XPM_MAX_QOS			(100)
-#define XPM_MIN_CAPABILITY	(0)
-#define XPM_MIN_LATENCY		(0)
-#define XPM_MIN_QOS			(0)
+#define XPM_MAX_QOS		(100U)
+#define XPM_MIN_CAPABILITY	(0U)
+#define XPM_MIN_LATENCY		(0U)
+#define XPM_MIN_QOS		(0U)
 #define XPM_DEF_CAPABILITY	XPM_MAX_CAPABILITY
 #define XPM_DEF_LATENCY		XPM_MAX_LATENCY
-#define XPM_DEF_QOS			XPM_MAX_QOS
+#define XPM_DEF_QOS		XPM_MAX_QOS
 
 /* Device node status */
 #define NODE_STATE_OFF			(0U)

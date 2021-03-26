@@ -763,9 +763,9 @@ XStatus XPmSubsystem_Configure(u32 SubsystemId)
 	while (NULL != Reqm) {
 		if ((1U != Reqm->Allocated) && (1U == PREALLOC((u32)Reqm->Flags))) {
 			DeviceId = Reqm->Device->Node.Id;
-			PmDbg("Prealloc Node: 0x%x Capabilities: 0x%x\r\n", DeviceId, Reqm->PreallocCaps);
 			Status = XPm_RequestDevice(SubsystemId, DeviceId,
-						Reqm->PreallocCaps, XPM_DEF_QOS, 0);
+						   Reqm->PreallocCaps,
+						   Reqm->Curr.QoS, 0U);
 			if (XST_SUCCESS != Status) {
 				PmErr("Requesting prealloc device 0x%x failed.\n\r", DeviceId);
 				Status = XPM_ERR_DEVICE_REQ;
@@ -919,7 +919,7 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 						REQUIREMENT_FLAGS(Prealloc, 0U, 0U, 0U,
 							(u32)REQ_ACCESS_SECURE_NONSECURE,
 							(u32)REQ_NO_RESTRICTION),
-						0U, Capability);
+						0U, Capability, XPM_DEF_QOS);
 				if (XST_SUCCESS != Status) {
 					DbgErr = XPM_INT_ERR_ADD_REQUIREMENT;
 					goto done;
@@ -934,7 +934,7 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 						(u32)REQUIREMENT_FLAGS(0U, 0U, 0U, 0U,
 							(u32)REQ_ACCESS_SECURE_NONSECURE,
 							(u32)REQ_NO_RESTRICTION),
-						0U, 0U);
+						0U, 0U, XPM_DEF_QOS);
 				if (XST_SUCCESS != Status) {
 					DbgErr = XPM_INT_ERR_ADD_REQUIREMENT;
 					goto done;
