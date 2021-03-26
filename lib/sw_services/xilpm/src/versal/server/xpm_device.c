@@ -15,6 +15,7 @@
 #include "xpm_pmc.h"
 #include "xpm_mem.h"
 #include "xpm_pslpdomain.h"
+#include "xpm_psfpdomain.h"
 #include "xpm_requirement.h"
 #include "xpm_debug.h"
 #include "xpm_pldevice.h"
@@ -24,6 +25,10 @@
 #define XPM_PSM_RAM_SIZE                (0x40000U)
 
 #define SD_DLL_DIV_MAP_RESET_VAL	(0x50505050U)
+
+/* Device security bit in register */
+#define DEV_NONSECURE			(1U)
+#define DEV_SECURE			(0U)
 
 static const char *PmDevStates[] = {
 	"UNUSED",
@@ -771,6 +776,118 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 	return Status;
 }
 
+static XStatus CheckSecurityAccess(const XPm_Requirement *Reqm, u32 ReqCaps)
+{
+	XStatus Status = XST_SUCCESS;
+
+	/**
+	 * Check if requirement policy allows non-secure master and
+	 * non-secure master can only make device to non-secure
+	 */
+	if ((XST_SUCCESS != XPm_IsSecureAllowed(Reqm->Subsystem->Id)) &&
+	    (((u16)REQ_ACCESS_SECURE == SECURITY_POLICY(Reqm->Flags)) ||
+	     (0U != (ReqCaps & (u32)(PM_CAP_SECURE))))) {
+		Status = XPM_PM_NO_ACCESS;
+	}
+
+	return Status;
+}
+
+static XStatus SetSecurityAttr(XPm_Requirement *Reqm, u32 ReqCaps, u32 PrevState)
+{
+	XStatus Status = XST_FAILURE;
+	u32 CurrSecState;
+	u32 Is_CapSecure = 0U;
+	u32 BaseAddr, Offset1, Mask1, Offset2, Mask2;
+	const XPm_DeviceAttr *DevAttr = Reqm->Device->DevAttr;
+	const XPm_PsLpDomain *Lpd = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
+	const XPm_PsFpDomain *Fpd = (XPm_PsFpDomain *)XPmPower_GetById(PM_POWER_FPD);
+
+	/**
+	 * Skip if device does not have any security attributes.
+	 * Security[1] attribute is optional.
+	 */
+	if ((NULL == DevAttr) || (0U == DevAttr->Security[0].Mask) ||
+	    (0U == DevAttr->SecurityBaseAddr)) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	if ((NULL == Lpd) || (NULL == Fpd)) {
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	BaseAddr = DevAttr->SecurityBaseAddr;
+	Offset1 = DevAttr->Security[0].Offset;
+	Mask1 = DevAttr->Security[0].Mask;
+	Offset2 = DevAttr->Security[1].Offset;
+	Mask2 = DevAttr->Security[1].Mask;
+
+	if (0U != (ReqCaps & (u32)(PM_CAP_SECURE))) {
+		Is_CapSecure = 1U;
+	}
+
+	/* Here 1 value in bit corresponds to non-secure config */
+	CurrSecState = XPm_In32(BaseAddr + Offset1) & Mask1;
+
+	/* Do nothing if device is still ON after release */
+	if ((0U == Reqm->Allocated) &&
+	    ((u8)XPM_DEVSTATE_RUNNING == Reqm->Device->Node.State)) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	if ((1U == Reqm->Allocated) &&
+	    ((u32)XPM_DEVSTATE_RUNNING == PrevState)) {
+		/**
+		 * Return error if current device state does not match
+		 * with the received request.
+		 */
+		if (((1U == Is_CapSecure) && (DEV_NONSECURE == CurrSecState)) ||
+		    ((0U == Is_CapSecure) && (DEV_SECURE == CurrSecState))) {
+			Status = XPM_PM_NO_ACCESS;
+			goto done;
+		} else {
+			Status = XST_SUCCESS;
+			goto done;
+		}
+	}
+
+	if (BaseAddr == Lpd->LpdSlcrSecureBaseAddr) {
+		XPm_Out32(Lpd->LpdSlcrSecureBaseAddr + LPD_SLCR_SECURE_WPROT0_OFFSET, 0x0U);
+	} else if (BaseAddr == Fpd->FpdSlcrSecureBaseAddr) {
+		XPm_Out32(Fpd->FpdSlcrSecureBaseAddr + FPD_SLCR_SECURE_WPROT0_OFFSET, 0x0U);
+	} else {
+		/* Required due to MISRA */
+	}
+
+	if (1U == Is_CapSecure) {
+		PmRmw32(BaseAddr + Offset1, Mask1, 0);
+		if (0U != Mask2) {
+			PmRmw32(BaseAddr + Offset2, Mask2, 0);
+		}
+		Reqm->AttrCaps |= (u8)(PM_CAP_SECURE);
+	} else {
+		PmRmw32(BaseAddr + Offset1, Mask1, Mask1);
+		if (0U != Mask2) {
+			PmRmw32(BaseAddr + Offset2, Mask2, Mask2);
+		}
+	}
+
+	if (BaseAddr == Lpd->LpdSlcrSecureBaseAddr) {
+		XPm_Out32(Lpd->LpdSlcrSecureBaseAddr + LPD_SLCR_SECURE_WPROT0_OFFSET, 0x1U);
+	} else if (BaseAddr == Fpd->FpdSlcrSecureBaseAddr) {
+		XPm_Out32(Fpd->FpdSlcrSecureBaseAddr + FPD_SLCR_SECURE_WPROT0_OFFSET, 0x1U);
+	} else {
+		/* Required due to MISRA */
+	}
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
 static XStatus SetDevCohVirtAttr(XPm_Requirement *Reqm, u32 ReqCaps,
 				 u8 Capability, u32 Enable)
 {
@@ -915,16 +1032,24 @@ static XStatus Request(XPm_Device *Device, XPm_Subsystem *Subsystem,
 	XStatus Status = XPM_ERR_DEVICE_REQ;
 	XPm_Requirement *Reqm;
 	u16 UsagePolicy = 0;
+	u32 PrevState;
+
 	if (((u8)XPM_DEVSTATE_UNUSED != Device->Node.State) &&
 	    ((u8)XPM_DEVSTATE_RUNNING != Device->Node.State) &&
 	    ((u8)XPM_DEVSTATE_RUNTIME_SUSPEND != Device->Node.State)) {
 			Status = XST_DEVICE_BUSY;
 			goto done;
 	}
+	PrevState = Device->Node.State;
 
 	/* Check whether this device assigned to the subsystem */
 	Reqm = FindReqm(Device, Subsystem);
 	if (NULL == Reqm) {
+		goto done;
+	}
+
+	Status = CheckSecurityAccess(Reqm, Capabilities);
+	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
@@ -967,6 +1092,11 @@ static XStatus Request(XPm_Device *Device, XPm_Subsystem *Subsystem,
 	}
 
 	Status = SetDevCohVirtAttr(Reqm, Capabilities, (u8)PM_CAP_VIRTUALIZED, 1U);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = SetSecurityAttr(Reqm, Capabilities, PrevState);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -1043,6 +1173,7 @@ static XStatus Release(XPm_Device *Device, XPm_Subsystem *Subsystem)
 {
 	XStatus Status = XPM_ERR_DEVICE_RELEASE;
 	XPm_Requirement *Reqm;
+	u32 PrevState;
 
 	if (((u8)XPM_DEVSTATE_UNUSED != Device->Node.State) &&
 	    ((u8)XPM_DEVSTATE_RUNNING != Device->Node.State) &&
@@ -1051,13 +1182,18 @@ static XStatus Release(XPm_Device *Device, XPm_Subsystem *Subsystem)
 			Status = XST_DEVICE_BUSY;
 			goto done;
 	}
+	PrevState = Device->Node.State;
 
 	Device->PendingReqm = FindReqm(Device, Subsystem);
 	if (NULL == Device->PendingReqm) {
 		goto done;
 	}
-
 	Reqm = Device->PendingReqm;
+
+	Status = CheckSecurityAccess(Reqm, 0U);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	if (0U == Device->PendingReqm->Allocated) {
 		Status = XST_SUCCESS;
@@ -1068,7 +1204,6 @@ static XStatus Release(XPm_Device *Device, XPm_Subsystem *Subsystem)
 
 	Status = Device->DeviceOps->SetRequirement(Device, Subsystem, 0,
 						   XPM_DEF_QOS);
-
 	if (XST_SUCCESS != Status) {
 		Status = XPM_ERR_DEVICE_RELEASE;
 		goto done;
@@ -1088,6 +1223,11 @@ static XStatus Release(XPm_Device *Device, XPm_Subsystem *Subsystem)
 	}
 
 	Status = SetDevCohVirtAttr(Reqm, 0U, (u8)PM_CAP_VIRTUALIZED, 0U);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = SetSecurityAttr(Reqm, 0U, PrevState);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
