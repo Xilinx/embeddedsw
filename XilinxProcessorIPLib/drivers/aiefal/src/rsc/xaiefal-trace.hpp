@@ -7,6 +7,7 @@
 #include <string.h>
 #include <vector>
 #include <xaiengine.h>
+#include <bitset>
 
 #include <xaiefal/rsc/xaiefal-bc.hpp>
 #include <xaiefal/rsc/xaiefal-rsc-base.hpp>
@@ -39,7 +40,7 @@ namespace xaiefal {
 			State.Initialized = 1;
 		}
 		XAieTraceCntr(XAieDev &Dev,
-			XAie_LocType &L, XAie_ModuleType M):
+			XAie_LocType L, XAie_ModuleType M):
 			XAieSingleTileRsc(Dev, L, M), Pkt() {}
 		~XAieTraceCntr() {
 			if (State.Reserved == 1) {
