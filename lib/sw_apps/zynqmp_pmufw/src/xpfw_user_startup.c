@@ -24,7 +24,7 @@
 
 #include "xpfw_mod_ultra96.h"
 #include "xpfw_mod_rpu.h"
-#include "xpfw_mod_som.h"
+
 
 #if defined (XPAR_LPD_IS_CACHE_COHERENT) || defined (XPAR_FPD_IS_CACHE_COHERENT) || defined (XPAR_PL_IS_CACHE_COHERENT)
 /*****************************************************************************
@@ -76,5 +76,4 @@ void XPfw_UserStartUp(void)
 
 	ModUltra96Init();
 	ModCommonInit();
-	ModSomInit();
 }
