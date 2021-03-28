@@ -681,4 +681,119 @@ AieRC XAie_RequestAllocatedSSEventPortSelect(XAie_DevInst *DevInst, u32 NumReq,
 			XAIE_SS_EVENT_PORTS_RSC);
 }
 
+/*****************************************************************************/
+/**
+* This API returns the resource id for a given group event, location and module.
+*
+* @param	DevInst: Device Instance
+* @param	Loc: Location of Tile
+* @param	Mod: Module type
+* @param	Event: Event enum
+*
+* @return	Resource ID on success and XAIE_USER_EVENT_MAX on failure.
+*
+* @note		Internal only.
+*
+*******************************************************************************/
+static u8 _XAie_GetRscIdfromGroupEvents(XAie_DevInst *DevInst,
+		XAie_LocType Loc, XAie_ModuleType Mod, XAie_Events Event)
+{
+	u8 TileType;
+	const XAie_EvntMod *EvntMod;
+
+	TileType =  _XAie_GetTileTypefromLoc(DevInst, Loc);
+	EvntMod = &DevInst->DevProp.DevMod[TileType].EvntMod[Mod];
+
+	for(u8 i = 0U; i < EvntMod->NumGroupEvents; i++) {
+		if(EvntMod->Group[i].GroupEvent == Event)
+			return EvntMod->Group[i].GroupOff;
+	}
+
+	return 0xFF;
+}
+
+/*****************************************************************************/
+/**
+* This API shall be used to request particular Group event that was allocated
+* statically.
+*
+* @param	DevInst: Device Instance
+* @param	NumReq: Number of requests
+* @param	Rscs: Contains parameters to return reource such as counter ids,
+* 		      Location, Module, resource type.
+* 		      It needs to be allocated from user application.
+*
+* @return	XAIE_OK on success.
+*
+* @note		If any request fails, it returns failure.
+* 		A statically allocated resource is granted if that resource was
+* 		requested during compile time. After granting, this API marks
+* 		that resource as allocated in the runtime pool of resources.
+*
+*******************************************************************************/
+AieRC XAie_RequestAllocatedGroupEvents(XAie_DevInst *DevInst, u32 NumReq,
+		XAie_UserRsc *RscReq)
+{
+	AieRC RC;
+
+	RC = _XAie_RscMgrRscApi_CheckArgs(DevInst, NumReq, RscReq,
+			XAIE_GROUP_EVENTS_RSC);
+	if(RC != XAIE_OK)
+		return RC;
+
+	/* Check validity of the user events passed by the user */
+	for(u32 i = 0U; i < NumReq; i++) {
+		RC = _XAie_CheckEventValidity(DevInst,
+				_XAie_GetTileTypefromLoc(DevInst, RscReq[i].Loc),
+				RscReq[i].Mod, RscReq[i].RscId);
+		if(RC != XAIE_OK)
+			return RC;
+	}
+
+	/* map RscId from event enums to bit resources */
+	for(u32 i = 0U; i < NumReq; i++) {
+		RscReq[i].RscId = _XAie_GetRscIdfromGroupEvents(DevInst,
+				RscReq[i].Loc, RscReq[i].Mod, RscReq[i].RscId);
+	}
+
+	return _XAie_RscMgr_RequestAllocatedRsc(DevInst, NumReq, RscReq,
+			XAIE_GROUP_EVENTS_RSC);
+}
+
+/*****************************************************************************/
+/**
+* This API shall be used to free a particular runtime allocated Group Event.
+*
+* @param	DevInst: Device Instance
+* @param	UserRscNum: Size of Rscs array.
+* @param	Rscs: Contains parameters to release resource such as
+*		      counter ids, Location, Module, resource type.
+* 		      It needs to be allocated from user application.
+*
+* @return	XAIE_OK on success.
+*
+* @note		Freeing a particular resource, frees that resource from
+* 		runtime pool of resources only. That resource may still be
+* 		available for use if allocated statically.
+*
+*******************************************************************************/
+AieRC XAie_FreeGroupEvents(XAie_DevInst *DevInst, u32 UserRscNum,
+		XAie_UserRsc *Rscs)
+{
+	AieRC RC;
+
+	RC = _XAie_RscMgrRscApi_CheckArgs(DevInst, UserRscNum, Rscs,
+			XAIE_GROUP_EVENTS_RSC);
+	if(RC != XAIE_OK)
+		return RC;
+
+	/* map RscId from event enums to bit resources */
+	for(u32 i = 0U; i < UserRscNum; i++) {
+		Rscs[i].RscId = _XAie_GetRscIdfromGroupEvents(DevInst,
+				Rscs[i].Loc, Rscs[i].Mod, Rscs[i].RscId);
+	}
+
+	return _XAie_RscMgr_FreeRscs(DevInst, UserRscNum, Rscs,
+			XAIE_GROUP_EVENTS_RSC);
+}
 /** @} */
