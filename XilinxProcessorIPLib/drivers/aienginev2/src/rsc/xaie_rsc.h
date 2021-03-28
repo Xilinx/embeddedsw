@@ -53,6 +53,7 @@ typedef enum {
 	XAIE_PC_EVENTS_RSC,
 	XAIE_TRACE_CTRL_RSC,
 	XAIE_SS_EVENT_PORTS_RSC,
+	XAIE_GROUP_EVENTS_RSC,
 	XAIE_MAX_RSC,
 } XAie_RscType;
 
@@ -106,6 +107,12 @@ AieRC XAie_FreeTraceCtrl(XAie_DevInst *DevInst, u32 UserRscNum,
 		XAie_UserRsc *Rscs);
 AieRC XAie_RequestAllocatedTraceCtrl(XAie_DevInst *DevInst, u32 NumReq,
 		XAie_UserRsc *RscReq);
+
+/* Group Events Resource management APIs */
+AieRC XAie_RequestAllocatedGroupEvents(XAie_DevInst *DevInst, u32 NumReq,
+		XAie_UserRsc *RscReq);
+AieRC XAie_FreeGroupEvents(XAie_DevInst *DevInst, u32 UserRscNum,
+		XAie_UserRsc *Rscs);
 
 /*****************************************************************************/
 /*
