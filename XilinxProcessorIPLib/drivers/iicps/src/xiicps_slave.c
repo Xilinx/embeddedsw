@@ -446,8 +446,6 @@ s32 XIicPs_SlaveRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 * Completion events and errors are signaled to upper layer for proper
 * handling.
 *
-* <pre>
-*
 * The interrupts that are handled are:
 * - DATA
 *	If the instance is sending, it means that the master wants to read more
@@ -471,7 +469,6 @@ s32 XIicPs_SlaveRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 * - Other interrupts
 *	These interrupts are marked as error.
 *
-* </pre>
 *
 * @param	InstancePtr is a pointer to the XIicPs instance.
 *
