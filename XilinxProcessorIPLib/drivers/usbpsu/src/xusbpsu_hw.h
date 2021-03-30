@@ -162,8 +162,8 @@ extern "C" {
 #define XUSBPSU_GUSB2PHYCFG_SUSPHY              (0x00000001U << 6U) /**< Suspend USB2.0 HS/FS/LS PHY */
 
 /* Global USB3 PIPE Control Register */
-#define XUSBPSU_GUSB3PIPECTL_PHYSOFTRST         0x80000000U /* USB3 PHY Soft Reset */
-#define XUSBPSU_GUSB3PIPECTL_SUSPHY             0x00020000U /* Suspend USB3.0 SS PHY (Suspend_en) */
+#define XUSBPSU_GUSB3PIPECTL_PHYSOFTRST         0x80000000U /**< USB3 PHY Soft Reset */
+#define XUSBPSU_GUSB3PIPECTL_SUSPHY             0x00020000U /**< Suspend USB3.0 SS PHY (Suspend_en) */
 
 /* Global TX Fifo Size Register */
 #define XUSBPSU_GTXFIFOSIZ_TXFDEF(n)            ((u32)(n) & (u32)0xffffU) /**< TxFIFO Depth */
@@ -199,11 +199,11 @@ extern "C" {
 #define XUSBPSU_DCFG_LPM_CAP                    (0x00000001U << 22U) /**< LPM Capable */
 
 /* Device Control Register */
-#define XUSBPSU_DCTL_RUN_STOP                   0x80000000U /* Run/Stop bit 31 */
-#define XUSBPSU_DCTL_CSFTRST                    0x40000000U /* Core Soft Reset bit 30 */
-#define XUSBPSU_DCTL_LSFTRST                    0x20000000U /* Reserved */
+#define XUSBPSU_DCTL_RUN_STOP                   0x80000000U /**< Run/Stop bit 31 */
+#define XUSBPSU_DCTL_CSFTRST                    0x40000000U /**< Core Soft Reset bit 30 */
+#define XUSBPSU_DCTL_LSFTRST                    0x20000000U /**< Reserved for DB-2.90a */
 
-#define XUSBPSU_DCTL_HIRD_THRES_MASK            0x1F000000U /* HIRD Threshold mask */
+#define XUSBPSU_DCTL_HIRD_THRES_MASK            0x1F000000U /**< HIRD Threshold mask */
 #define XUSBPSU_DCTL_HIRD_THRES(n)              ((u32)(n) << 24U) /**< HIRD Threshold */
 
 #define XUSBPSU_DCTL_APPL1RES                   (0x00000001U << 23U) /**< LPM Response */
@@ -218,19 +218,19 @@ extern "C" {
 #define XUSBPSU_DCTL_TRGTULST_SS_INACT          (XUSBPSU_DCTL_TRGTULST(6U)) /**< SS_INACT */
 
 /* These apply for core versions 1.94a and later */
-#define XUSBPSU_DCTL_KEEP_CONNECT               0x00080000U /* Keep Connect */
-#define XUSBPSU_DCTL_L1_HIBER_EN                0x00040000U /* L1 Hibernation Enable */
-#define XUSBPSU_DCTL_CRS                        0x00020000U /* Controller Restore State */
-#define XUSBPSU_DCTL_CSS                        0x00010000U /* Controller Save State */
+#define XUSBPSU_DCTL_KEEP_CONNECT               0x00080000U /**< Keep Connect */
+#define XUSBPSU_DCTL_L1_HIBER_EN                0x00040000U /**< L1 Hibernation Enable */
+#define XUSBPSU_DCTL_CRS                        0x00020000U /**< Controller Restore State */
+#define XUSBPSU_DCTL_CSS                        0x00010000U /**< Controller Save State */
 
-#define XUSBPSU_DCTL_INITU2ENA                  0x00001000U /* Initiate U2 Enable */
-#define XUSBPSU_DCTL_ACCEPTU2ENA                0x00000800U /* Accept U2 Enable */
-#define XUSBPSU_DCTL_INITU1ENA                  0x00000400U /* Initiate U1 Enable */
-#define XUSBPSU_DCTL_ACCEPTU1ENA                0x00000200U /* Accept U1 Enable */
+#define XUSBPSU_DCTL_INITU2ENA                  0x00001000U /**< Initiate U2 Enable */
+#define XUSBPSU_DCTL_ACCEPTU2ENA                0x00000800U /**< Accept U2 Enable */
+#define XUSBPSU_DCTL_INITU1ENA                  0x00000400U /**< Initiate U1 Enable */
+#define XUSBPSU_DCTL_ACCEPTU1ENA                0x00000200U /**< Accept U1 Enable */
 #define XUSBPSU_DCTL_TSTCTRL_MASK               (0x0000000fU << 1U) /**< Test Control */
 
-#define XUSBPSU_DCTL_ULSTCHNGREQ_MASK           (0x0000000FU << 5U) /**<  */
-#define XUSBPSU_DCTL_ULSTCHNGREQ(n) (((u32)(n) << 5U) & XUSBPSU_DCTL_ULSTCHNGREQ_MASK) /**<  */
+#define XUSBPSU_DCTL_ULSTCHNGREQ_MASK           (0x0000000FU << 5U) /**< USB/Link state change request mask value */
+#define XUSBPSU_DCTL_ULSTCHNGREQ(n) (((u32)(n) << 5U) & XUSBPSU_DCTL_ULSTCHNGREQ_MASK) /**< USB/Link state change request */
 
 #define XUSBPSU_DCTL_ULSTCHNG_NO_ACTION         (XUSBPSU_DCTL_ULSTCHNGREQ(0U)) /**< NO_ACTION */
 #define XUSBPSU_DCTL_ULSTCHNG_SS_DISABLED       (XUSBPSU_DCTL_ULSTCHNGREQ(4U)) /**< SS_DISABLED */
@@ -300,11 +300,11 @@ extern "C" {
 /* Register for LPD block */
 #if defined (PLATFORM_ZYNQMP)
 #define RST_LPD_TOP				0x23CU /**< Software Reset Control for LPD System */
-#define USB0_CORE_RST				0x40U /* USB0 core reset */
-#define USB1_CORE_RST				0x80U /* USB1 core reset */
+#define USB0_CORE_RST				0x40U /**< USB0 core reset */
+#define USB1_CORE_RST				0x80U /**< USB1 core reset */
 #else
 #define RST_LPD_TOP				0x0314U /**< Software Reset Control for LPD System */
-#define USB0_CORE_RST				0x01U /* USB0 core reset */
+#define USB0_CORE_RST				0x01U /**< USB0 core reset */
 #endif
 
 
