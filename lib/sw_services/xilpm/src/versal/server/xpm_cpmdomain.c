@@ -503,12 +503,6 @@ static XStatus Cpm5MbistClear(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-	/*
-	 * TODO: Skip CPM5 MBIST temporarily. Remove this workaround when CPM5
-	 * 	 MBIST issue will fix.
-	 */
-	return XST_SUCCESS;
-
 	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
 		Status = XST_SUCCESS;
 		goto done;
