@@ -89,6 +89,21 @@ static XStatus SetPowerNode(u32 Id, XPm_Power *PwrNode)
 	return Status;
 }
 
+static void ResetPowerDomainOpFlags(XPm_Power *PwrNode)
+{
+	XPm_PowerDomain *PwrDomain = (XPm_PowerDomain *)PwrNode;
+	u32 SubClass = NODESUBCLASS(PwrNode->Node.Id);
+
+	/*
+	 * Reset domain init flags, so operations can be performed
+	 * Note:
+	 *   Call this function only through the Power node FSM
+	 *   when the state of a node is powered off (~ usecount == 0)
+	 */
+	if ((u32)XPM_NODESUBCL_POWER_DOMAIN == SubClass) {
+		PwrDomain->InitFlag = 0U;
+	}
+}
 
 static XStatus PowerUpXram(XPm_Node *Node)
 {
@@ -523,6 +538,7 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 						Status = Power->HandleEvent(Node, XPM_POWER_EVENT_TIMER);
 					} else {
 						Node->State = (u8)XPM_POWER_STATE_OFF;
+						ResetPowerDomainOpFlags(Power);
 						XPmNotifier_Event(Node->Id, (u32)EVENT_STATE_CHANGE);
 					}
 				} else {
@@ -536,6 +552,7 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 				if (Power->WfParentUseCnt == Power->Parent->UseCount) {
 					Node->State = (u8)XPM_POWER_STATE_OFF;
 					Power->WfParentUseCnt = 0;
+					ResetPowerDomainOpFlags(Power);
 					XPmNotifier_Event(Node->Id, (u32)EVENT_STATE_CHANGE);
 				} else {
 					/* Todo: Restart timer to poll parent state */
