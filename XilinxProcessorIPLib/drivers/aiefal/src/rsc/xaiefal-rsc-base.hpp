@@ -847,7 +847,7 @@ namespace xaiefal {
 			for (auto lR: vRscs) {
 				if (lR->loc().Col == L.Col &&
 					lR->loc().Row == L.Row) {
-					R = lR;
+					R = lR.get();
 				}
 			}
 			return *R;
