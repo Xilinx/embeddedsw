@@ -161,7 +161,7 @@ namespace xaiefal {
 
 				if ((*r).Mod == XAIE_PL_MOD) {
 					RC = XAie_EventBroadcastBlockDir(dev(),
-						(*r).Loc, (*r).Mod,
+						(*r).Loc, (XAie_ModuleType)(*r).Mod,
 						XAIE_EVENT_SWITCH_A,
 						(*r).RscId,
 						bc_block & (~XAIE_EVENT_BROADCAST_EAST));
@@ -169,7 +169,7 @@ namespace xaiefal {
 						break;
 					}
 					RC = XAie_EventBroadcastBlockDir(dev(),
-						(*r).Loc, (*r).Mod,
+						(*r).Loc, (XAie_ModuleType)(*r).Mod,
 						XAIE_EVENT_SWITCH_B,
 						(*r).RscId,
 						bc_block & (~XAIE_EVENT_BROADCAST_WEST));
@@ -178,7 +178,7 @@ namespace xaiefal {
 					}
 				} else {
 					RC = XAie_EventBroadcastBlockDir(dev(),
-						(*r).Loc, (*r).Mod,
+						(*r).Loc, (XAie_ModuleType)(*r).Mod,
 						XAIE_EVENT_SWITCH_A,
 						(*r).RscId,
 						bc_block);
@@ -201,16 +201,16 @@ namespace xaiefal {
 				if (r.Loc.Row == 0) {
 					// Unblock SHIM tile switch A and B
 					iRC |= XAie_EventBroadcastUnblockDir(dev(),
-						r.Loc, r.Mod,
+						r.Loc, (XAie_ModuleType)r.Mod,
 						XAIE_EVENT_SWITCH_A, r.RscId,
 						XAIE_EVENT_BROADCAST_ALL);
 					iRC |= XAie_EventBroadcastUnblockDir(dev(),
-						r.Loc, r.Mod,
+						r.Loc, (XAie_ModuleType)r.Mod,
 						XAIE_EVENT_SWITCH_B, r.RscId,
 						XAIE_EVENT_BROADCAST_ALL);
 				} else {
 					iRC |= XAie_EventBroadcastUnblockDir(dev(),
-						r.Loc, r.Mod,
+						r.Loc, (XAie_ModuleType)r.Mod,
 						XAIE_EVENT_SWITCH_A, r.RscId,
 						XAIE_EVENT_BROADCAST_ALL);
 				}

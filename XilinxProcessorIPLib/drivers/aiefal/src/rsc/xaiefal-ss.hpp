@@ -201,7 +201,6 @@ namespace xaiefal {
 				} else {
 					R.Mod = XAIE_CORE_MOD;
 				}
-				R.Type = XAieRscType::SSWITCHSELECT;
 				R.RscId = bit - sbit;
 			}
 			return RC;
