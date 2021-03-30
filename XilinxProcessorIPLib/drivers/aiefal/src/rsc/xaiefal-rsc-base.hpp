@@ -433,7 +433,7 @@ namespace xaiefal {
 				RC = XAIE_ERR;
 			} else {
 				L = Loc;
-				M = (XAie_ModuleType)Rsc.Mod;
+				M = static_cast<XAie_ModuleType>(Rsc.Mod);
 				I = Rsc.RscId;
 				RC = XAIE_OK;
 			}
