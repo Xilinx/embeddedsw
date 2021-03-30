@@ -753,7 +753,7 @@ static inline void *XUsbPsu_get_drvdata(struct XUsbPsu *InstancePtr) {
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance to be
 *		worked on.
-* @param	*data is a void pointer
+* @param	data is a void pointer
 *
 * @return	None.
 *
@@ -773,7 +773,7 @@ static inline void XUsbPsu_set_drvdata(struct XUsbPsu *InstancePtr,
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance to be
 *		worked on.
-* @param	(*func) USB Chapter9 function handler
+* @param	func USB Chapter9 function handler
 *
 * @return	None.
 *
@@ -794,7 +794,7 @@ static inline void XUsbPsu_set_ch9handler(
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance to be
 *		worked on.
-* @param	(*func) USB Reset function handler
+* @param	func USB Reset function handler
 *
 * @return	None.
 *
@@ -815,7 +815,7 @@ static inline void XUsbPsu_set_rsthandler(
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance to be
 *		worked on.
-* @param	(*func) USB Disconnect function handler
+* @param	func USB Disconnect function handler
 *
 * @return	None.
 *
