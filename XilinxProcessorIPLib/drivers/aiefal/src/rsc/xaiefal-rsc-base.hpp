@@ -28,12 +28,6 @@ namespace xaiefal {
 		TRACEEVENT,
 		COMBOEVENT,
 	};
-	struct XAie_UserRsc {
-		XAie_LocType Loc;
-		XAie_ModuleType Mod;
-		uint32_t RscId;
-		XAieRscType Type;
-	};
 
 	class XAieRsc;
 	/**
@@ -439,7 +433,7 @@ namespace xaiefal {
 				RC = XAIE_ERR;
 			} else {
 				L = Loc;
-				M = Rsc.Mod;
+				M = (XAie_ModuleType)Rsc.Mod;
 				I = Rsc.RscId;
 				RC = XAIE_OK;
 			}
