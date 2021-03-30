@@ -575,8 +575,8 @@ namespace xaiefal {
 		AieRC removeRsc(const std::vector<XAie_LocType> &vL) {
 			//TODO: validate tile
 			for (auto L: vL) {
-				for (auto i = vRscs.begin(), e = vRscs.end();
-					i != e; ++i) {
+				for (auto i = vRscs.begin();
+					i != vRscs.end(); ++i) {
 					if ((*i)->loc().Col == L.Col &&
 						(*i)->loc().Row == L.Row) {
 						auto j = i;
