@@ -22,6 +22,7 @@
 *       bm   10/14/2020 Code clean up
 * 1.03  bm   02/17/2021 Added const to CmdAry
 *       ma   03/04/2021 Added CheckIpiAccessHandler handler to XPlmi_Module
+*       rama 03/22/2021 Added STL module ID to support STL execution
 *
 * </pre>
 *
@@ -50,6 +51,7 @@ extern "C" {
 #define XPLMI_MODULE_LOADER_ID			(7U)
 #define XPLMI_MODULE_ERROR_ID			(8U)
 
+#define XPLMI_MODULE_STL_ID				(10U)
 #define XPLMI_MODULE_COMMAND(FUNC)		{ (FUNC) }
 
 /**************************** Type Definitions *******************************/

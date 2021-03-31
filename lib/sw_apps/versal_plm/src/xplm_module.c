@@ -28,6 +28,7 @@
 *       rb   01/28/2021 Added Sem PreInit API call
 *       bm   02/17/2021 Reinitialize Status in XPlm_ModuleInit to add redundancy
 *       rb   03/09/2021 Updated Sem Init API call
+*       rama 03/22/2021 Fixed compilation warning on STL inclusion
 *
 * </pre>
 *
@@ -46,6 +47,9 @@
 #include "xplm_pm.h"
 #ifdef XPLM_SEM
 #include "xplm_sem_init.h"
+#endif
+#ifdef PLM_ENABLE_STL
+#include "xplm_stl.h"
 #endif
 /************************** Constant Definitions *****************************/
 

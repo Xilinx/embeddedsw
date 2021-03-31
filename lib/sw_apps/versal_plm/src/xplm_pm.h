@@ -20,6 +20,8 @@
 * 1.02  kc   03/23/2020 Minor code cleanup
 * 1.03  bm   02/08/2021 Renamed PlmCdo to PmcCdo
 *       skd  03/16/2021 Added code to monitor if psm is alive or not
+*       rama 03/22/2021 Added hook for STL periodic execution and
+*                       FTTI configuration support for keep alive task
 *
 * </pre>
 *
@@ -46,6 +48,7 @@ extern "C" {
 #define XPLM_PSM_ALIVE_STARTED			(1U)
 #define XPLM_PSM_ALIVE_ERR				(2U)
 #define XPLM_PSM_ALIVE_REMOVE_TASK_ERR	(3U)
+#define XPLM_PSM_ALIVE_RETURN           (4U)
 #define XPLM_PSM_COUNTER_CLEAR			(0U)
 #define XPLM_PSM_COUNTER_INCREMENT		(1U)
 #define XPLM_PSM_COUNTER_RETURN			(2U)
@@ -63,6 +66,7 @@ int XPlm_PmInit(void);
 int XPlm_ProcessPmcCdo(void *Arg);
 #ifdef XPAR_XIPIPSU_0_DEVICE_ID
 int XPlm_CreateKeepAliveTask(void *PtrMilliSeconds);
+int XPlm_RemoveKeepAliveTask(void);
 #endif /* XPAR_XIPIPSU_0_DEVICE_ID */
 
 #ifdef __cplusplus
