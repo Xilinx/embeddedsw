@@ -25,6 +25,8 @@
 *                        processing PLM CDO
 *       bm   02/08/2021 Added SysmonInit after processing PMC CDO
 *       skd  03/16/2021 Added code to monitor if psm is alive or not
+*       rama 03/22/2021 Added hook for STL periodic execution and
+*                       FTTI configuration support for keep alive task
 *
 * </pre>
 *
@@ -43,6 +45,9 @@
 #include "xplmi_util.h"
 #include "xloader.h"
 #include "xplmi_sysmon.h"
+#ifdef PLM_ENABLE_STL
+#include "xplm_stl.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 /**
@@ -71,7 +76,7 @@ static int XPlm_ConfigureDefaultNPll(void);
 static u32 XPlm_UpdateCounterVal(u8 Val);
 static int XPlm_SendKeepAliveEvent(void);
 static int XPlm_KeepAliveTask(void *Arg);
-static int XPlm_RemoveKeepAliveTask(void);
+static u8 XPlm_SetAliveStsVal(u8 Val);
 #endif /* XPAR_XIPIPSU_0_DEVICE_ID */
 
 /************************** Variable Definitions *****************************/
@@ -297,6 +302,27 @@ static int XPlm_SendKeepAliveEvent(void)
 
 /*****************************************************************************/
 /**
+* @brief	This function updates the keep alive status variable
+*
+* @param	Val to set the status as started or not started or error
+*
+* @return	PsmKeepAliveStatus
+*
+*****************************************************************************/
+static u8 XPlm_SetAliveStsVal(u8 Val)
+{
+	static u8 PsmKeepAliveStatus = XPLM_PSM_ALIVE_NOT_STARTED;
+
+	if(Val != XPLM_PSM_ALIVE_RETURN) {
+		/* Update the Keep Alive Status */
+		PsmKeepAliveStatus = Val;
+	}
+
+	return PsmKeepAliveStatus;
+}
+
+/*****************************************************************************/
+/**
 * @brief	This function checks if PSM is alive and healthy.
 *
 * @param	Arg Not used in the function currently
@@ -308,7 +334,9 @@ static int XPlm_KeepAliveTask(void *Arg)
 {
 	int Status = XST_FAILURE;
 	u32 ActualCounterValue;
-	static u8 PsmKeepAliveStatus = XPLM_PSM_ALIVE_NOT_STARTED;
+#ifdef PLM_ENABLE_STL
+	int StlStatus = XST_FAILURE;
+#endif
 
 	(void)Arg;
 
@@ -317,12 +345,12 @@ static int XPlm_KeepAliveTask(void *Arg)
 	 * from PSM Keep alive event.
 	 */
 	if (((u8)TRUE == XPmPsm_FwIsPresent()) && (XPLM_PSM_ALIVE_ERR !=
-	    PsmKeepAliveStatus)) {
+	    XPlm_SetAliveStsVal(XPLM_PSM_ALIVE_RETURN))) {
 		/**
 		 * Check if the keep alive task called for first time then skip
 		 * comparing keep alive counter value.
 		 */
-		if (XPLM_PSM_ALIVE_STARTED == PsmKeepAliveStatus) {
+		if (XPLM_PSM_ALIVE_STARTED == XPlm_SetAliveStsVal(XPLM_PSM_ALIVE_RETURN)) {
 			/**
 			 * Read keep alive counter value from RTCA(Run time
 			 * configuration area) register.
@@ -344,7 +372,7 @@ static int XPlm_KeepAliveTask(void *Arg)
 				/* Clear expected counter value */
 				(void)XPlm_UpdateCounterVal(XPLM_PSM_COUNTER_CLEAR);
 				/* Update PSM keep alive status for error */
-				PsmKeepAliveStatus = XPLM_PSM_ALIVE_ERR;
+				(void)XPlm_SetAliveStsVal(XPLM_PSM_ALIVE_ERR);
 				/* Remove Keep alive task in case of error */
 				Status = XPlm_RemoveKeepAliveTask();
 				/* Update the error status */
@@ -362,12 +390,20 @@ static int XPlm_KeepAliveTask(void *Arg)
 			goto END;
 		}
 
-		PsmKeepAliveStatus = XPLM_PSM_ALIVE_STARTED;
+		/* Update PSM keep alive status as successfully started */
+		(void)XPlm_SetAliveStsVal(XPLM_PSM_ALIVE_STARTED);
 	}
 
 	Status = XST_SUCCESS;
 
 END:
+#ifdef PLM_ENABLE_STL
+	/* Execute STL periodic Tasks */
+	StlStatus = XPlm_PeriodicStlHook();
+	if (XST_SUCCESS == Status) {
+		Status = StlStatus;
+	}
+#endif
 	return Status;
 }
 
@@ -395,9 +431,10 @@ int XPlm_CreateKeepAliveTask(void *PtrMilliSeconds)
 		goto END;
 	}
 
-	/* Clear keep alive counter */
+	/* Clear keep alive counter and status as not started */
 	XPlmi_Out32(XPLM_PSM_ALIVE_COUNTER_ADDR, 0U);
 	(void)XPlm_UpdateCounterVal(XPLM_PSM_COUNTER_CLEAR);
+	XPlm_SetAliveStsVal(XPLM_PSM_ALIVE_NOT_STARTED);
 
 	/**
 	 * Add keep alive task in scheduler which runs at every
@@ -421,7 +458,7 @@ END:
 * @return	Status as defined in xplmi_status.h
 *
 *****************************************************************************/
-static int XPlm_RemoveKeepAliveTask(void)
+int XPlm_RemoveKeepAliveTask(void)
 {
 	int Status = XST_FAILURE;
 
