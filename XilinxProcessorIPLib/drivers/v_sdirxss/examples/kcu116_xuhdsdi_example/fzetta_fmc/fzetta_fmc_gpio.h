@@ -28,7 +28,7 @@
 #include <stdio.h>
 #include "xgpio.h"
 
-XGpio fzetta_fmc_GpioOutput; /* The driver instance for GPIO Device configured as O/P */
+extern XGpio fzetta_fmc_GpioOutput; /* The driver instance for GPIO Device configured as O/P */
 
 /*****************************************************************************/
 /**
