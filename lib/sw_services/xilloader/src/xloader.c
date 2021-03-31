@@ -89,6 +89,7 @@
 *       har  03/17/2021 Added API call to set the secure state
 *       ma   03/24/2021 Redirect XilPdi prints to XilLoader
 *       ma   03/24/2021 Minor updates to prints in XilLoader
+*       har  03/31/2021 Added code to update PDI ID in RTC area of PMC RAM
 *
 * </pre>
 *
@@ -534,6 +535,12 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 	 * Check the validity of Img Hdr Table fields
 	 */
 	Status = XilPdi_ValidateImgHdrTbl(&(PdiPtr->MetaHdr.ImgHdrTbl));
+
+	/*
+	 * Update the PDI ID in the RTC area of PMC RAM
+	 */
+	XPlmi_Out32(XPLMI_RTCFG_PDI_ID_ADDR, PdiPtr->MetaHdr.ImgHdrTbl.PdiId);
+
 	/*
 	 * Print the Img header table details
 	 * Print the Bootgen version
