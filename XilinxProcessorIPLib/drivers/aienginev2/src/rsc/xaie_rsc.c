@@ -648,6 +648,56 @@ AieRC _XAie_RscMgr_RequestRsc(XAie_DevInst *DevInst, u32 NumReq,
 	return XAIE_OK;
 }
 
+AieRC _XAie_RscMgr_RequestRscContiguous(XAie_DevInst *DevInst, u32 NumReq,
+		XAie_UserRscReq *RscReq, XAie_UserRsc *Rscs,
+		XAie_RscType RscType, u8 NumContigRsc)
+{
+	AieRC RC;
+	u32 UserRscIndex = 0U;
+
+	for(u32 i = 0U; i < NumReq; i++) {
+		XAie_BackendTilesRsc TilesRsc;
+		XAie_BitmapOffsets Offsets;
+		u8 TileType;
+
+		TileType = _XAie_GetTileTypefromLoc(DevInst, RscReq[i].Loc);
+		_XAie_RscMgr_GetBitmapOffsets(DevInst, RscType,
+				RscReq[i].Loc, RscReq[i].Mod, &Offsets);
+
+		TilesRsc.Bitmap = DevInst->RscMapping[TileType].Bitmaps[RscType];
+		TilesRsc.RscType = RscType;
+		TilesRsc.MaxRscVal = Offsets.MaxRscVal;
+		TilesRsc.BitmapOffset = Offsets.BitmapOffset;
+		TilesRsc.StartBit = Offsets.StartBit;
+		TilesRsc.StaticBitmapOffset = Offsets.StaticBitmapOffset;
+		TilesRsc.Loc = RscReq[i].Loc;
+		TilesRsc.Mod = RscReq[i].Mod;
+		TilesRsc.NumRscPerTile = RscReq[i].NumRscPerTile;
+		TilesRsc.Flags = XAIE_RSC_MGR_CONTIG_FLAG;
+		TilesRsc.NumContigRscs = NumContigRsc;
+		TilesRsc.Rscs = &Rscs[UserRscIndex];
+
+		RC = XAie_RunOp(DevInst, XAIE_BACKEND_OP_REQUEST_RESOURCE,
+				(void *)&TilesRsc);
+		if(RC != XAIE_OK) {
+			/* Clear resource marking for all previous requests */
+			_XAie_RscMgr_FreeRscs(DevInst, UserRscIndex, Rscs,
+					RscType);
+			XAIE_ERROR("Unable to request resources. RscType: %d\n",
+					RscType);
+			return XAIE_INVALID_ARGS;
+		}
+		for(u32 j = 0U; j < RscReq[i].NumRscPerTile; j++) {
+			Rscs[UserRscIndex].Loc = RscReq[i].Loc;
+			Rscs[UserRscIndex].Mod = RscReq[i].Mod;
+			Rscs[UserRscIndex].RscType = RscType;
+			UserRscIndex++;
+		}
+	}
+
+	return XAIE_OK;
+}
+
 /*****************************************************************************/
 /**
 * This API shall be used to free a particular runtime allocated resource.

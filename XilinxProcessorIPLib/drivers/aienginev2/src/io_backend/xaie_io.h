@@ -29,6 +29,8 @@
 #include "xaie_rsc.h"
 #include "xaiegbl.h"
 
+/***************************** Macro Definitions *****************************/
+#define XAIE_RSC_MGR_CONTIG_FLAG	0x1
 /****************************** Type Definitions *****************************/
 
 /*
@@ -75,6 +77,8 @@ typedef struct XAie_BackendTilesRsc {
 	u32 RscId;
 	u32 StartBit;
 	u32 StaticBitmapOffset;
+	u32 Flags;
+	u8 NumContigRscs;
 	XAie_RscType RscType;
 	XAie_LocType Loc;
 	XAie_ModuleType Mod;

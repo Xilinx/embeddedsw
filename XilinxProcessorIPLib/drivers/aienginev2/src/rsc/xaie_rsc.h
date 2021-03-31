@@ -87,6 +87,8 @@ AieRC XAie_FreePCEvents(XAie_DevInst *DevInst, u32 UserRscNum,
 		XAie_UserRsc *Rscs);
 AieRC XAie_RequestAllocatedPCEvents(XAie_DevInst *DevInst, u32 NumReq,
 		XAie_UserRsc *RscReq);
+AieRC XAie_RequestPCRangeEvents(XAie_DevInst *DevInst, u32 NumReq,
+		XAie_UserRscReq *RscReq, u32 UserRscNum, XAie_UserRsc *Rscs);
 
 /* Stream switch event port selection resource management APIs */
 AieRC XAie_RequestSSEventPortSelect(XAie_DevInst *DevInst, u32 NumReq,
