@@ -28,8 +28,8 @@
 #include <stdio.h>
 #include "xiic.h"
 
-XIic_Config *fzetta_fmc_Iic_ConfigPtr;	/* Pointer to configuration data */
-XIic fzetta_fmc_Iic; /* The driver instance for IIC Device */
+extern XIic_Config *fzetta_fmc_Iic_ConfigPtr;	/* Pointer to configuration data */
+extern XIic fzetta_fmc_Iic; /* The driver instance for IIC Device */
 
 #define XBAR_IIC_WRITE_ADDR 0x50
 /*****************************************************************************/

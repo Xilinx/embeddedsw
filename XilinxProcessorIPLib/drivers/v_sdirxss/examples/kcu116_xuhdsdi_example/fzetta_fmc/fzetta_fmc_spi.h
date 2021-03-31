@@ -28,8 +28,8 @@
 #include <stdio.h>
 #include "xspi.h"
 
-XSpi_Config *fzetta_fmc_Spi_ConfigPtr;	/* Pointer to Configuration data */
-XSpi fzetta_fmc_Spi; /* The instance of the SPI device */
+extern XSpi_Config *fzetta_fmc_Spi_ConfigPtr;	/* Pointer to Configuration data */
+extern XSpi fzetta_fmc_Spi; /* The instance of the SPI device */
 
 typedef enum{
 	SPI_RCLKR = 0x01, //Reclocker Device ID
