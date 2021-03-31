@@ -796,4 +796,67 @@ AieRC XAie_FreeGroupEvents(XAie_DevInst *DevInst, u32 UserRscNum,
 	return _XAie_RscMgr_FreeRscs(DevInst, UserRscNum, Rscs,
 			XAIE_GROUP_EVENTS_RSC);
 }
+
+/*****************************************************************************/
+/**
+* This API shall be used to request PC Range events in pool. The API grants PC
+* events based on availibility and marks that resource status in
+* relevant bitmap. For every PC Range requested, two PC events are marked as
+* allocated. UserRscNum should always be double the NumReq.
+*
+* @param	DevInst: Device Instance
+* @param	RscReq: Contains parameters related to resource request.
+* 			tile loc, module, no. of resource request per tile.
+* @param	NumReq: Number of requests
+* @param	UserRscNum: Size of Rscs array. Must be NumReq * NumRscPerTile
+* @param	Rscs: Contains parameters to return reource such as counter ids,
+* 		      Location, Module, resource type.
+* 		      It needs to be allocated from user application.
+*
+* @return	XAIE_OK on success.
+*
+* @note		If any request out of pool requests fails, it returns failure.
+* 		The pool request allocation checks static as well as runtime
+* 		bitmaps for availibity and marks runtime bitmap for any
+* 		granted resource.
+*
+*******************************************************************************/
+AieRC XAie_RequestPCRangeEvents(XAie_DevInst *DevInst, u32 NumReq,
+		XAie_UserRscReq *RscReq, u32 UserRscNum, XAie_UserRsc *Rscs)
+{
+	AieRC RC;
+
+	RC = _XAie_RscMgrRequestApi_CheckArgs(DevInst, NumReq, RscReq,
+			UserRscNum, Rscs);
+	if(RC != XAIE_OK)
+		return RC;
+
+	RC = _XAie_RscMgr_CheckModforReqs(DevInst, NumReq, RscReq);
+	if(RC != XAIE_OK)
+		return RC;
+
+	/*
+	 * UserRscNum > 2U * NumReq as two PC Events are allocated for every
+	 * PCRange request.
+	 */
+	if((NumReq * 2U) < UserRscNum) {
+		XAIE_ERROR("Insufficient memory to return allocated rscs\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	/* PC Range events are always in a pairs of two */
+	RC = _XAie_RscMgr_RequestRscContiguous(DevInst, NumReq, RscReq, Rscs,
+			XAIE_PC_EVENTS_RSC, 2U);
+	if(RC != XAIE_OK)
+		return RC;
+
+	/* map rsc id returned to user event enum */
+	for(u32 i = 0U; i < UserRscNum; i++) {
+		Rscs[i].RscId = _XAie_GetPCEventfromRscId(DevInst, Rscs[i].Loc,
+				Rscs[i].Mod, Rscs[i].RscId);
+	}
+
+	return XAIE_OK;
+}
+
 /** @} */

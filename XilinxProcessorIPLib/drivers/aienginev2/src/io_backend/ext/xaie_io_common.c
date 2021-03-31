@@ -61,6 +61,46 @@ static AieRC _XAie_FindAvailableRsc(u32 *Bitmap, u32 StaticBitmapOffset,
 
 /*****************************************************************************/
 /**
+* This API finds free resource after checking static and runtime allocated
+* resource status in bitmap. This API checks for contiguous free bits.
+*
+* @param	Bitmap: Bitmap of the resource
+* @param	SBmOff: Offset for static bitmap
+* @param	StartBit: Index for the resource start bit in the bitmap
+* @param	MaxRscVal: Number of resource per tile
+* @param	Index: Pointer to store free resource found
+* @param	NumContigRscs: Number of conitguous resource required
+*
+* @return	XAIE_OK on success.
+*
+* @note		Internal only.
+*
+*******************************************************************************/
+static AieRC _XAie_FindAvailableRscContig(u32 *Bitmap, u32 SBmOff,
+		u32 StartBit, u32 MaxRscVal, u32 *Index, u8 NumContigRscs)
+{
+	for(u32 i = StartBit; i < StartBit + MaxRscVal; i += NumContigRscs) {
+		u32 j;
+
+		if(!((CheckBit(Bitmap, i)) |
+				CheckBit(Bitmap, (i + SBmOff)))) {
+			*Index = i - StartBit;
+			for(j = i + 1; j < i + NumContigRscs; j++) {
+				if(CheckBit(Bitmap, j) ||
+						CheckBit(Bitmap, (j + SBmOff)))
+					break;
+			}
+
+			if(j == (i + NumContigRscs))
+				return XAIE_OK;
+		}
+	}
+
+	return XAIE_ERR;
+}
+
+/*****************************************************************************/
+/**
 * This API grants resource based on availibility for the given location and
 * marks that rsc as in use in the relevant bitmap.
 *
@@ -107,6 +147,52 @@ static AieRC _XAie_RequestRsc(u32 *Bitmap, u32 StartBit,
 
 /*****************************************************************************/
 /**
+* This API grants resource based on availibility for the given location and
+* marks that rsc as in use in the relevant bitmap. The API checks for contiguous
+* bits available in the bitmap.
+*
+* @param	Bitmap: Bitmap of the resource
+* @param	StartBit: Index for the resource start bit in the bitmap
+* @param	StaticBitmapOffset: Offset for static bitmap
+* @param	NumRscPerTile: Number of resource requested per tile
+* @param	MaxRscVal: Maximum number of resource per tile
+* @param	RscArrPerTile: Pointer to store available resource
+* @param	NumContigRscs: Number of conitguous resource required
+*
+* @return	XAIE_OK on success.
+*
+* @note		Internal only.
+*
+*******************************************************************************/
+AieRC _XAie_RequestRscContig(u32 *Bitmaps, u32 StartBit,
+		u32 StaticBitmapOffset, u32 NumRscPerTile, u32 MaxRscVal,
+		u32 *RscArrPerTile, u8 NumContigRscs)
+{
+	AieRC RC;
+
+	/* Check for the requested resource in the bitmap locally */
+	for(u32 i = 0U; i < NumRscPerTile; i += NumContigRscs) {
+		u32 Index;
+
+		RC = _XAie_FindAvailableRscContig(Bitmaps, StaticBitmapOffset,
+				StartBit, MaxRscVal, &Index, NumContigRscs);
+		if(RC != XAIE_OK)
+			return XAIE_ERR;
+
+		for(u8 j = 0U; j < NumContigRscs; j++)
+			RscArrPerTile[i + j] = Index + j;
+	}
+
+	/* Set the bit as allocated if the request was successful*/
+	for(u32 i = 0U; i < NumRscPerTile; i++) {
+		_XAie_SetBitInBitmap(Bitmaps, RscArrPerTile[i], 1U);
+	}
+
+	return XAIE_OK;
+}
+
+/*****************************************************************************/
+/**
 * The API grants resource based on availibility and marks that
 * resource status in relevant bitmap.
 *
@@ -122,6 +208,23 @@ AieRC _XAie_RequestRscCommon(XAie_BackendTilesRsc *Args)
 {
 	AieRC RC;
 	u32 RscArrPerTile[Args->NumRscPerTile];
+
+	if(Args->Flags == XAIE_RSC_MGR_CONTIG_FLAG) {
+		RC = _XAie_RequestRscContig(Args->Bitmap, Args->StartBit,
+				Args->StaticBitmapOffset, Args->NumRscPerTile,
+				Args->MaxRscVal, RscArrPerTile,
+				Args->NumContigRscs);
+		if(RC == XAIE_OK) {
+			/*
+			 * Return resource granted to caller by populating
+			 * UserRsc
+			 */
+			for(u32 j = 0; j < Args->NumRscPerTile; j++)
+				Args->Rscs[j].RscId = RscArrPerTile[j];
+		}
+
+		return RC;
+	}
 
 	RC = _XAie_RequestRsc(Args->Bitmap,
 		Args->StartBit, Args->StaticBitmapOffset, Args->NumRscPerTile,
