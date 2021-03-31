@@ -2,7 +2,7 @@
  * Copyright (c) 2014, Mentor Graphics Corporation
  * All rights reserved.
  *
- * Copyright (c) 2015 Xilinx, Inc. All rights reserved.
+ * Copyright (c) 2021 Xilinx, Inc. All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -10,58 +10,28 @@
 #include "xparameters.h"
 #include "xil_exception.h"
 #include "xil_printf.h"
-#include "xscugic.h"
+#include "FreeRTOS.h"
 #include "xil_cache.h"
 #include <metal/sys.h>
 #include <metal/irq.h>
 #include "platform_info.h"
 
-
-#define INTC_DEVICE_ID		XPAR_SCUGIC_0_DEVICE_ID
-
-static XScuGic xInterruptController;
-
 /* Interrupt Controller setup */
 static int app_gic_initialize(void)
 {
-	u32 Status;
-	XScuGic_Config *IntcConfig;	/* The configuration parameters of the interrupt controller */
-
-	Xil_ExceptionDisable();
+	/*
+	 * Register the ISR with the interrupt controller instance
+	 * initialized by porting layer.
+	 */
+	xPortInstallInterruptHandler(SGI_NOTIFICATION,
+				     (Xil_ExceptionHandler)metal_xlnx_irq_isr,
+				     (void *)SGI_NOTIFICATION);
 
 	/*
-	 * Initialize the interrupt controller driver
+	 * Enable interrupt for SGI_NOTIFICATION.
+	 * This calls XScuGic_InterruptMaptoCpu() via XScuGic_Enable()
 	 */
-	IntcConfig = XScuGic_LookupConfig(INTC_DEVICE_ID);
-	if (NULL == IntcConfig) {
-		return XST_FAILURE;
-	}
-
-	Status = XScuGic_CfgInitialize(&xInterruptController, IntcConfig,
-				       IntcConfig->CpuBaseAddress);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-	/*
-	 * Register the interrupt handler to the hardware interrupt handling
-	 * logic in the ARM processor.
-	 */
-	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT,
-			(Xil_ExceptionHandler)XScuGic_InterruptHandler,
-			&xInterruptController);
-
-	/* Disable the interrupt before enabling exception to avoid interrupts
-	 * received before exception is enabled.
-	 */
-	XScuGic_Disable(&xInterruptController, SGI_NOTIFICATION);
-
-	Xil_ExceptionEnable();
-
-	/* Connect notificaiton interrupt ID with ISR */
-	XScuGic_Connect(&xInterruptController, SGI_NOTIFICATION,
-			(Xil_ExceptionHandler)metal_xlnx_irq_isr,
-			(void *)SGI_NOTIFICATION);
+	vPortEnableInterrupt(SGI_NOTIFICATION);
 
 	return 0;
 }
