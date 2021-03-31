@@ -44,6 +44,7 @@
 *       ma   03/24/2021 Redirect XilPdi prints to XilLoader
 *       ma   03/24/2021 Change ImgName to u8 to print max characters of
 *                       PDI image names
+*       har  03/31/2021 Added PdiId in XilPdi_ImgHdrTbl structure
 *
 * </pre>
 *
@@ -267,7 +268,8 @@ typedef struct {
 	u32 SBDAddr; /**< Secondary Boot device address */
 	u32 Idcode; /**< Device ID Code */
 	u32 Attr; /**< Attributes */
-	u32 Rsrvd[4U]; /**< Reserved for future use */
+	u32 PdiId; /**< PDI ID */
+	u32 Rsrvd[3U]; /**< Reserved for future use */
 	u32 TotalHdrLen; /**< Total size of Meta header AC + encryption overload */
 	u32 IvMetaHdr[3U]; /**< Iv for decrypting SH of meta header */
 	u32 EncKeySrc; /**< Encryption key source for decrypting SH of headers */

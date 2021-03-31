@@ -31,6 +31,7 @@
 *                       registers
 *       ma   03/24/2021 Print early logs
 *       bm   03/24/2021 Added RTCA initialization for Error Status registers
+*       har  03/31/2021 Added RTCA initialization for PDI ID
 *
 * </pre>
 *
@@ -117,6 +118,7 @@ static void XPlmi_RunTimeConfigInit(void)
 	XPlmi_Out32(XPLMI_RTCFG_PMC_ERR2_STATUS_ADDR, 0U);
 	XPlmi_Out32(XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR, 0U);
 	XPlmi_Out32(XPLMI_RTCFG_PSM_ERR2_STATUS_ADDR, 0U);
+	XPlmi_Out32(XPLMI_RTCFG_PDI_ID_ADDR, XPLMI_RTCFG_PDI_ID);
 }
 
 /*****************************************************************************/
