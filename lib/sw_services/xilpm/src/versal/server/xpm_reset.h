@@ -93,7 +93,8 @@ XStatus XPmReset_AddPermission(XPm_ResetNode *Rst,
 			       const u32 Operations);
 XStatus XPmReset_IsPermissionReset(const u32 ResetId);
 XStatus XPmReset_IsOperationAllowed(const u32 SubsystemId,
-				    const XPm_ResetNode *Rst);
+				    const XPm_ResetNode *Rst,
+				    const u32 CmdType);
 void XPmReset_MakeCpmPorResetCustom(void);
 
 #ifdef __cplusplus

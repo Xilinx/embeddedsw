@@ -467,7 +467,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		Status = XPm_ForcePowerdown(SubsystemId, Pload[0], Pload[1], Cmd->IpiReqType);
 		break;
 	case PM_API(PM_SYSTEM_SHUTDOWN):
-		Status = XPm_SystemShutdown(SubsystemId, Pload[0], Pload[1]);
+		Status = XPm_SystemShutdown(SubsystemId, Pload[0], Pload[1], Cmd->IpiReqType);
 		break;
 	case PM_API(PM_SELF_SUSPEND):
 		Status = XPm_SelfSuspend(SubsystemId, Pload[0],
@@ -547,7 +547,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		break;
 	case PM_API(PM_RESET_ASSERT):
 		Status = XPm_SetResetState(SubsystemId, Cmd->IpiMask,
-					   Pload[0], Pload[1]);
+					   Pload[0], Pload[1], Cmd->IpiReqType);
 		break;
 	case PM_API(PM_RESET_GET_STATUS):
 		Status = XPm_GetResetState(Pload[0], ApiResponse);
@@ -1865,6 +1865,7 @@ done:
  * @param SubsystemId		Subsystem ID
  * @param  Type				Shutdown type
  * @param SubType			Shutdown subtype
+ * @param CmdType			IPI command request type
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -1873,7 +1874,8 @@ done:
  * the request has been received.
  *
  ****************************************************************************/
-XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType)
+XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType,
+			   const u32 CmdType)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
@@ -1937,7 +1939,7 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType)
 			goto done;
 		}
 
-		Status = XPmReset_IsOperationAllowed(SubsystemId, Rst);
+		Status = XPmReset_IsOperationAllowed(SubsystemId, Rst, CmdType);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
@@ -2804,6 +2806,7 @@ done:
  *			- PM_RESET_ACTION_RELEASE for Release Reset
  *			- PM_RESET_ACTION_ASSERT for Assert Reset
  *			- PM_RESET_ACTION_PULSE for Pulse Reset
+ * @param CmdType	IPI command request type
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -2816,7 +2819,8 @@ done:
  *
  ****************************************************************************/
 XStatus XPm_SetResetState(const u32 SubsystemId, const u32 IpiMask,
-			  const u32 ResetId, const u32 Action)
+			  const u32 ResetId, const u32 Action,
+			  const u32 CmdType)
 {
 	int Status = XST_FAILURE;
 	u32 SubClass = NODESUBCLASS(ResetId);
@@ -2859,7 +2863,7 @@ XStatus XPm_SetResetState(const u32 SubsystemId, const u32 IpiMask,
 				goto done;
 			}
 
-			Status = XPmReset_IsOperationAllowed(SubsystemId, Reset);
+			Status = XPmReset_IsOperationAllowed(SubsystemId, Reset, CmdType);
 			if (XST_SUCCESS != Status) {
 				Status = XPM_PM_NO_ACCESS;
 				goto done;
