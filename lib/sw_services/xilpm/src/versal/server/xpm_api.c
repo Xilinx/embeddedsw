@@ -488,7 +488,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 					   Pload[3], Cmd->IpiReqType);
 		break;
 	case PM_API(PM_FORCE_POWERDOWN):
-		Status = XPm_ForcePowerdown(SubsystemId, Pload[0], Pload[1]);
+		Status = XPm_ForcePowerdown(SubsystemId, Pload[0], Pload[1], Cmd->IpiReqType);
 		break;
 	case PM_API(PM_SYSTEM_SHUTDOWN):
 		Status = XPm_SystemShutdown(SubsystemId, Pload[0], Pload[1]);
@@ -1680,6 +1680,7 @@ done:
  * @param SubsystemId	Subsystem ID
  * @param Node 		Processor or domain node or subsystem to be powered down
  * @param Ack		Ack request
+ * @param CmdType	IPI command request type
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -1688,7 +1689,8 @@ done:
  *         and PLM does not wait for their WFI interrupt.
  *
  ****************************************************************************/
-XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
+XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
+			   const u32 CmdType)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Core *Core;
@@ -1811,7 +1813,7 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
 				continue;
 			}
 			Status = XPm_ForcePowerdown(SubsystemId, Power->Node.Id,
-						    0U);
+						    0U, CmdType);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
@@ -1839,7 +1841,7 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
 			if ((1U == Reqm->Allocated) &&
 			    ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(Reqm->Device->Node.Id))) {
 				DeviceId = Reqm->Device->Node.Id;
-				Status = XPm_ForcePowerdown(SubsystemId, DeviceId, 0U);
+				Status = XPm_ForcePowerdown(SubsystemId, DeviceId, 0U, CmdType);
 				if (XST_SUCCESS != Status) {
 					goto done;
 				}
