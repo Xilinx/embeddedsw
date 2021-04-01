@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartpsv_intr.c
-* @addtogroup uartpsv_v1_4
+* @addtogroup uartpsv_v1_5
 * @{
 *
 * This file contains the functions for interrupt handling

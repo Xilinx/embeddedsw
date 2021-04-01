@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartpsv_xfer.h
-* @addtogroup uartpsv_v1_4
+* @addtogroup uartpsv_v1_5
 * @{
 *
 * This header file contains the prototypes of objects used internally.

@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartpsv_hw.c
-* @addtogroup uartpsv_v1_4
+* @addtogroup uartpsv_v1_5
 * @{
 *
 *
