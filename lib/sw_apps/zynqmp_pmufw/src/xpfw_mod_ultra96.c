@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -72,6 +72,10 @@ static void Ultra96PowerButtonHandler(void)
 		 */
 		XPfw_CoreRemoveTask(Ultra96ModPtr, ULTRA96_PWR_BTN_POLL_PERIOD_MS, Ultra96PowerButtonHandler);
 
+	#ifdef ENABLE_DIRECT_POWEROFF_ULTRA96
+		/* Turn-Off the board directly by toggling MIO */
+		PmKillBoardPower();
+	#else
 		/* Initiate Shutdown for all masters in the system */
 		/* TODO: All the PM related calls below should be wrapped into a single API
 		 *       like PmIntiateSystemShutdown in PM Module and this module needs to call it.
@@ -99,6 +103,7 @@ static void Ultra96PowerButtonHandler(void)
 						SUSPEND_REASON_SYS_SHUTDOWN, 1, 0, 0);
 			}
 		}
+	#endif /* ENABLE_DIRECT_POWEROFF_ULTRA96 */
 	}
 }
 
