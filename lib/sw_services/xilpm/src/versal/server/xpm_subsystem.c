@@ -238,7 +238,6 @@ int XPmSubsystem_InitFinalize(const u32 SubsystemId)
 	int Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
 	XPm_Device *Device;
-	const XPm_Power *Power;
 	XPm_Requirement *Reqm;
 	int DeviceInUse = 0;
 	u32 Idx;
@@ -267,23 +266,6 @@ int XPmSubsystem_InitFinalize(const u32 SubsystemId)
 		DeviceInUse = 0;
 
 		Device = XPmDevice_GetByIndex(Idx);
-		if (NULL == Device) {
-			continue;
-		}
-
-		/* Exclude device if its parent power domain is OFF */
-		Power = Device->Power;
-		if ((u32)XPM_NODESUBCL_POWER_ISLAND ==
-		    NODESUBCLASS(Power->Node.Id)) {
-			/* Get parent of island */
-			Power = Power->Parent;
-		}
-		if (((u32)XPM_NODESUBCL_POWER_DOMAIN ==
-		     NODESUBCLASS(Power->Node.Id)) &&
-		    ((u8)XPM_POWER_STATE_OFF == Power->Node.State)) {
-			continue;
-		}
-
 		/*
 		 * Exclude devices which are expected not to be requested by
 		 * any subsystem but should be kept on for basic functionalities
@@ -294,7 +276,8 @@ int XPmSubsystem_InitFinalize(const u32 SubsystemId)
 		 *	devices so should be kept on
 		 *	- Misc devices: L2 Bank 0
 		 */
-		if (((u32)PM_DEV_L2_BANK_0 == Device->Node.Id) ||
+		if ((NULL == Device) ||
+		    ((u32)PM_DEV_L2_BANK_0 == Device->Node.Id) ||
 		    ((u32)XPM_NODETYPE_DEV_SOC == NODETYPE(Device->Node.Id)) ||
 		    ((u32)XPM_NODETYPE_DEV_GT == NODETYPE(Device->Node.Id)) ||
 		    ((u32)XPM_NODETYPE_DEV_CORE_PMC == NODETYPE(Device->Node.Id)) ||
