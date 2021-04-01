@@ -115,7 +115,7 @@
 ******************************************************************************/
 
 #ifndef XUARTPSV_H		/* prevent circular inclusions */
-#define XUARTPSV_H		/* by using protection macros */
+#define XUARTPSV_H		/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -136,10 +136,10 @@ extern "C" {
  * numbers are based only on the testing that has been done. The hardware
  * is capable of other baud rates.
  */
-#define XUARTPSV_MAX_RATE  	921600U
-#define XUARTPSV_MIN_RATE  	110U
+#define XUARTPSV_MAX_RATE  	921600U		/**< Maximum baud rate */
+#define XUARTPSV_MIN_RATE  	110U		/**< Minimum baud rate */
 
-#define XUARTPSV_DFT_BAUDRATE	115200U 	/* Default baud rate */
+#define XUARTPSV_DFT_BAUDRATE	115200U 	/**< Default baud rate */
 
 /** @name Configuration options
  * @{
@@ -161,7 +161,7 @@ extern "C" {
 #define XUARTPSV_OPTION_ASSERT_RTS	0x0004U	/**< Assert the RTS bit */
 #define XUARTPSV_OPTION_ASSERT_DTR	0x0002U	/**< Assert the DTR bit */
 #define XUARTPSV_OPTION_SET_FCM	0x0001U	/**< Turn on flow control mode */
-/*@}*/
+/** @} */
 
 
 /** @name Channel Operational Mode
@@ -175,7 +175,7 @@ extern "C" {
 #define XUARTPSV_OPER_MODE_NORMAL  	(u8)0x00U/**< Normal Mode */
 #define XUARTPSV_OPER_MODE_LOCAL_LOOP	(u8)0x02U/**< Local Loop back Mode */
 
-/* @} */
+/** @} */
 
 /** @name Data format values
  *
@@ -204,7 +204,7 @@ extern "C" {
 
 #define XUARTPSV_FORMAT_2_STOP_BIT 	1U	/**< 2 stop bits */
 #define XUARTPSV_FORMAT_1_STOP_BIT 	0U	/**< 1 stop bit */
-/*@}*/
+/** @} */
 
 /** @name Callback events
  *
@@ -222,7 +222,7 @@ extern "C" {
 #define XUARTPSV_EVENT_PARE_FRAME_BRKE 6U
 					/**< A receive parity, frame,break error detected */
 #define XUARTPSV_EVENT_RECV_ORERR	7U /**< A receive overrun error detected */
-/*@}*/
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
@@ -242,9 +242,9 @@ typedef struct {
  * interrupt mode.
  */
 typedef struct {
-	u8 *NextBytePtr;
-	u32 RequestedBytes;
-	u32 RemainingBytes;
+	u8 *NextBytePtr;			/**< Pointer to hold byte address */
+	u32 RequestedBytes;			/**< Number of bytes requested in transfer */
+	u32 RemainingBytes;			/**< Number of bytes remaining in transfer */
 } XUartPsvBuffer;
 
 /**
@@ -286,15 +286,15 @@ typedef struct {
 	u32 IsReady;				/**< Device is initialized and ready */
 	u32 BaudRate;				/**< Current baud rate */
 
-	XUartPsvBuffer SendBuffer;
-	XUartPsvBuffer ReceiveBuffer;
+	XUartPsvBuffer SendBuffer;		/**< Buffer to hold tx data */
+	XUartPsvBuffer ReceiveBuffer;		/**< Buffer to hold rx data */
 
-	XUartPsv_Handler Handler;
+	XUartPsv_Handler Handler;		/**< Function ptr to hold user handler */
 	void *CallBackRef;			/**< Callback reference for event handler */
 } XUartPsv;
 
 /************************** Variable Definitions *****************************/
-extern XUartPsv_Config XUartPsv_ConfigTable[];
+extern XUartPsv_Config XUartPsv_ConfigTable[];	/**< Config structure */
 
 /***************** Macros (Inline Functions) Definitions *********************/
 

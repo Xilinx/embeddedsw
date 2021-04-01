@@ -35,7 +35,7 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-#define XUARTPSV_TOTAL_BYTES (u8)32
+#define XUARTPSV_TOTAL_BYTES (u8)32	/**< No. of bytes in transfer */
 
 /************************** Variable Definitions *****************************/
 

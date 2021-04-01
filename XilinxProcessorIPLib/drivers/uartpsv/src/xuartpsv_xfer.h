@@ -22,7 +22,7 @@
 *
 ******************************************************************************/
 #ifndef XUARTPSV_XFER_H		/* prevent circular inclusions */
-#define XUARTPSV_XFER_H		/* by using protection macros */
+#define XUARTPSV_XFER_H		/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
