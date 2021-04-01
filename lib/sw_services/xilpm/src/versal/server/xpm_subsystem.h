@@ -91,13 +91,13 @@ struct XPm_Subsystem {
 
 u32 XPmSubsystem_GetIPIMask(u32 SubsystemId);
 u32 XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask);
-XStatus XPm_IsWakeAllowed(u32 SubsystemId, u32 NodeId);
+XStatus XPm_IsWakeAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType);
 XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId);
 XStatus XPmSubsystem_SetState(const u32 SubsystemId, const u32 State);
 XStatus XPmSubsystem_Configure(u32 SubsystemId);
 XStatus XPmSubsystem_Add(u32 SubsystemId);
 XStatus XPmSubsystem_Destroy(u32 SubsystemId);
-XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId);
+XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType);
 XStatus XPmSubsystem_ForceDownCleanup(u32 SubsystemId);
 int XPmSubsystem_InitFinalize(const u32 SubsystemId);
 int XPmSubsystem_Idle(u32 SubsystemId);
@@ -113,7 +113,7 @@ XStatus XPmSubsystem_AddPermission(const XPm_Subsystem *Host,
 				   XPm_Subsystem *Target,
 				   const u32 Operations);
 XStatus XPmSubsystem_IsOperationAllowed(const u32 HostId, const u32 Target,
-					const u32 Operation);
+					const u32 Operation, const u32 CmdType);
 XStatus XPm_IsSecureAllowed(const u32 SubsystemId);
 
 #ifdef __cplusplus
