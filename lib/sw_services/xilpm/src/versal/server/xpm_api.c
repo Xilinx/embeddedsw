@@ -461,7 +461,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		Address += Pload[1] & (~(u64)0x1U);
 		Status = XPm_RequestWakeUp(SubsystemId, Pload[0],
 					   SetAddress, Address,
-					   Pload[3]);
+					   Pload[3], Cmd->IpiReqType);
 		break;
 	case PM_API(PM_FORCE_POWERDOWN):
 		Status = XPm_ForcePowerdown(SubsystemId, Pload[0], Pload[1]);
@@ -1515,7 +1515,8 @@ int XPm_GicProxyWakeUp(const u32 PeriphIdx)
 		goto done;
 	}
 
-	Status = XPm_RequestWakeUp(PM_SUBSYS_PMC, Periph->WakeProcId, 0, 0, 0);
+	Status = XPm_RequestWakeUp(PM_SUBSYS_PMC, Periph->WakeProcId, 0, 0, 0,
+				   XPLMI_CMD_SECURE);
 
 done:
 	return Status;
@@ -1556,6 +1557,7 @@ done:
  * - 1 : set start address
  * @param  Address	Address from which to resume when woken up.
  * @param  Ack		Ack request
+ * @param  CmdType	IPI command request type
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -1566,7 +1568,8 @@ done:
  ****************************************************************************/
 XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 			  const u32 SetAddress, const u64 Address,
-			  const u32 Ack)
+			  const u32 Ack,
+			  const u32 CmdType)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Core *Core;
@@ -1576,6 +1579,7 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 
 	/* Warning Fix */
 	(void) (Ack);
+	(void) CmdType;
 
 	/*Validate access first */
 	Status = XPm_IsWakeAllowed(SubsystemId, DeviceId);
