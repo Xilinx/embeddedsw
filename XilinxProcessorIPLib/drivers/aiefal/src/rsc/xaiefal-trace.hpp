@@ -520,7 +520,8 @@ namespace xaiefal {
 		XAieTraceEvent(std::shared_ptr<XAieDevHandle> DevHd,
 			XAie_LocType L, XAie_ModuleType M,
 			std::shared_ptr<XAieTraceCntr> TCntr):
-			XAieSingleTileRsc(DevHd, L, M) {
+			XAieSingleTileRsc(DevHd, L, M),
+			EventMod(M) {
 			if (!TCntr) {
 				throw std::invalid_argument("Trace event failed, empty trace control");
 			}
@@ -533,7 +534,8 @@ namespace xaiefal {
 		}
 		XAieTraceEvent(XAieDev &Dev,
 			XAie_LocType L, XAie_ModuleType M):
-			XAieSingleTileRsc(Dev, L, M) {
+			XAieSingleTileRsc(Dev, L, M),
+			EventMod(M) {
 			TraceCntr = Dev.tile(L).module(M).traceControl();
 			State.Initialized = 1;
 		}
