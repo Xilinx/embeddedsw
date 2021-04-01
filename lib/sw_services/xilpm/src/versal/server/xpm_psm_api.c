@@ -16,6 +16,7 @@
 #include "xpm_subsystem.h"
 #include "xpm_requirement.h"
 #include "sleep.h"
+#include "xplmi.h"
 
 static XPlmi_ModuleCmd XPlmi_PsmCmds[PSM_API_MAX+1];
 static XPlmi_Module XPlmi_Psm =
@@ -338,7 +339,8 @@ XStatus XPm_WakeUpEvent(const u32 DeviceId)
 		/* Update the state and its parent use counts in case of CPU idle */
 		Status = XPmCore_AfterDirectWakeUp(Core);
 	} else {
-		Status = XPm_RequestWakeUp(PM_SUBSYS_PMC, DeviceId, 0, 0, 0);
+		Status = XPm_RequestWakeUp(PM_SUBSYS_PMC, DeviceId, 0, 0, 0,
+					   XPLMI_CMD_SECURE);
 	}
 
 done:

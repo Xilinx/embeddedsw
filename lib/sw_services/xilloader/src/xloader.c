@@ -90,6 +90,7 @@
 *       ma   03/24/2021 Redirect XilPdi prints to XilLoader
 *       ma   03/24/2021 Minor updates to prints in XilLoader
 *       har  03/31/2021 Added code to update PDI ID in RTC area of PMC RAM
+*       bl   04/01/2021 Add extra arg for calls to XPm_RequestWakeUp
 *
 * </pre>
 *
@@ -966,7 +967,8 @@ static int XLoader_StartImage(XilPdi *PdiPtr)
 				XLoader_Printf(DEBUG_INFO, "Request APU0 "
 						"wakeup\r\n");
 				Status = XPm_RequestWakeUp(PM_SUBSYS_PMC,
-					PM_DEV_ACPU_0, 1U, HandoffAddr, 0U);
+					PM_DEV_ACPU_0, 1U, HandoffAddr, 0U,
+					XPLMI_CMD_SECURE);
 				if (Status != XST_SUCCESS) {
 					Status = XPlmi_UpdateStatus(
 						XLOADER_ERR_WAKEUP_A72_0, Status);
@@ -979,7 +981,8 @@ static int XLoader_StartImage(XilPdi *PdiPtr)
 				XLoader_Printf(DEBUG_INFO, "Request APU1"
 						"wakeup\r\n");
 				Status = XPm_RequestWakeUp(PM_SUBSYS_PMC,
-					PM_DEV_ACPU_1, 1U, HandoffAddr, 0U);
+					PM_DEV_ACPU_1, 1U, HandoffAddr, 0U,
+					XPLMI_CMD_SECURE);
 				if (Status != XST_SUCCESS) {
 					Status = XPlmi_UpdateStatus(
 						XLOADER_ERR_WAKEUP_A72_1, Status);
@@ -990,7 +993,8 @@ static int XLoader_StartImage(XilPdi *PdiPtr)
 				XLoader_Printf(DEBUG_INFO, "Request RPU 0 "
 						"wakeup\r\n");
 				Status = XPm_RequestWakeUp(PM_SUBSYS_PMC,
-					PM_DEV_RPU0_0, 1U, HandoffAddr, 0U);
+					PM_DEV_RPU0_0, 1U, HandoffAddr, 0U,
+					XPLMI_CMD_SECURE);
 				if (Status != XST_SUCCESS) {
 					Status = XPlmi_UpdateStatus(
 						XLOADER_ERR_WAKEUP_R5_0, Status);
@@ -1001,7 +1005,8 @@ static int XLoader_StartImage(XilPdi *PdiPtr)
 				XLoader_Printf(DEBUG_INFO, "Request RPU 1 "
 						"wakeup\r\n");
 				Status = XPm_RequestWakeUp(PM_SUBSYS_PMC,
-					PM_DEV_RPU0_1, 1U, HandoffAddr, 0U);
+					PM_DEV_RPU0_1, 1U, HandoffAddr, 0U,
+					XPLMI_CMD_SECURE);
 				if (Status != XST_SUCCESS) {
 					Status = XPlmi_UpdateStatus(
 						XLOADER_ERR_WAKEUP_R5_1, Status);
@@ -1012,7 +1017,8 @@ static int XLoader_StartImage(XilPdi *PdiPtr)
 				XLoader_Printf(DEBUG_INFO, "Request RPU "
 						"wakeup\r\n");
 				Status = XPm_RequestWakeUp(PM_SUBSYS_PMC,
-					PM_DEV_RPU0_0, 1U, HandoffAddr, 0U);
+					PM_DEV_RPU0_0, 1U, HandoffAddr, 0U,
+					XPLMI_CMD_SECURE);
 				if (Status != XST_SUCCESS) {
 					Status = XPlmi_UpdateStatus(
 						XLOADER_ERR_WAKEUP_R5_L, Status);
@@ -1022,7 +1028,8 @@ static int XLoader_StartImage(XilPdi *PdiPtr)
 			case XIH_PH_ATTRB_DSTN_CPU_PSM:
 				XLoader_Printf(DEBUG_INFO, "Request PSM wakeup\r\n");
 				Status = XPm_RequestWakeUp(PM_SUBSYS_PMC,
-						PM_DEV_PSM_PROC, 0U, 0U, 0U);
+						PM_DEV_PSM_PROC, 0U, 0U, 0U,
+						XPLMI_CMD_SECURE);
 				if (Status != XST_SUCCESS) {
 					Status = XPlmi_UpdateStatus(
 						XLOADER_ERR_WAKEUP_PSM, Status);

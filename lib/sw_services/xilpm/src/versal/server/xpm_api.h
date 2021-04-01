@@ -38,7 +38,8 @@ XStatus XPm_DestroySubsystem(u32 SubsystemId);
 XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 			const u32 SetAddress,
 			const u64 Address,
-			const u32 Ack);
+			const u32 Ack,
+			const u32 CmdType);
 
 XStatus XPm_ForcePowerdown(u32 SubsystemId,
                              const u32 NodeId,
