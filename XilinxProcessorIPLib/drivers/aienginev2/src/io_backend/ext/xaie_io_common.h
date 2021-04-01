@@ -29,10 +29,11 @@ static inline u64 XAie_IODummyGetTid(void)
 	return 0;
 }
 
-AieRC _XAie_RequestRscCommon(XAie_BackendTilesRsc *Arg);
+AieRC _XAie_RequestRscCommon(XAie_DevInst *DevInst, XAie_BackendTilesRsc *Arg);
 AieRC _XAie_ReleaseRscCommon(XAie_BackendTilesRsc *Arg);
 AieRC _XAie_FreeRscCommon(XAie_BackendTilesRsc *Arg);
-AieRC _XAie_RequestAllocatedRscCommon(XAie_BackendTilesRsc *Arg);
+AieRC _XAie_RequestAllocatedRscCommon(XAie_DevInst *DevInst,
+		XAie_BackendTilesRsc *Arg);
 
 #endif /* XAIE_IO_COMMON_H */
 

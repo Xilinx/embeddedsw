@@ -26,6 +26,10 @@
 /***************************** Include Files *********************************/
 #include "xaiegbl.h"
 
+/***************************** Macro Definitions *****************************/
+#define XAIE_NUM_BROADCAST_CHANNELS	16U
+#define XAIE_BROADCAST_CHANNEL_MASK	0xFFFF
+
 /**************************** Type Definitions *******************************/
 /*
  * This structure is used to return resource as per availibility from the
@@ -53,6 +57,7 @@ typedef enum {
 	XAIE_TRACE_CTRL_RSC,
 	XAIE_PC_EVENTS_RSC,
 	XAIE_SS_EVENT_PORTS_RSC,
+	XAIE_BCAST_CHANNEL_RSC,
 	XAIE_COMBO_EVENTS_RSC,
 	XAIE_GROUP_EVENTS_RSC,
 	XAIE_MAX_RSC,
@@ -126,6 +131,14 @@ AieRC XAie_FreeComboEvents(XAie_DevInst *DevInst, u32 UserRscNum,
 		XAie_UserRsc *Rscs);
 AieRC XAie_RequestAllocatedComboEvents(XAie_DevInst *DevInst, u32 NumReq,
 		XAie_UserRsc *RscReq);
+
+/* Broadcast channel resource management APIs */
+AieRC XAie_RequestBroadcastChannel(XAie_DevInst *DevInst, u32 *UserRscNum,
+		XAie_UserRsc *Rscs, u8 BroadcastAllFlag);
+AieRC XAie_RequestSpecificBroadcastChannel(XAie_DevInst *DevInst, u32 BcId,
+		u32 *UserRscNum, XAie_UserRsc *Rscs, u8 BroadcastAllFlag);
+AieRC XAie_ReleaseBroadcastChannel(XAie_DevInst *DevInst, u32 UserRscNum,
+		XAie_UserRsc *Rscs);
 
 /*****************************************************************************/
 /*

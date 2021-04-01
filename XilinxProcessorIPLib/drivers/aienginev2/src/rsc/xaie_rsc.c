@@ -119,6 +119,13 @@ u32 _XAie_GetTotalNumRscs(XAie_DevInst *DevInst, u8 TileType,
 		}
 		return NumRscs;
 	}
+	case XAIE_BCAST_CHANNEL_RSC:
+	{
+		for(u8 i = 0U; i < NumMods; i++) {
+			NumRscs += XAIE_NUM_BROADCAST_CHANNELS;
+		}
+		return NumRscs;
+	}
 	default:
 		return 0U;
 	}
@@ -296,6 +303,43 @@ u32 _XAie_GetStartBit(XAie_DevInst *DevInst, XAie_LocType Loc, u32 MaxRscVal)
 
 	return _XAie_GetTileRscStartBitPosFromLoc(BitmapNumRows, Loc,
 		MaxRscVal, StartRow);
+}
+
+/*****************************************************************************/
+/**
+* This API populates UserRsc with rsc id and marks the rsc allocation in the
+* broadcast channel bitmap.
+*
+* @param        DevInst: Device Instance
+* @param        UserRscNum: Pointer for size of UserRsc array
+* @param        Rscs: UserRsc return to user
+* @param        ChannelIndex: Index of the common channel for broadcast
+*
+* @return       None.
+*
+* @note         Internal only.
+
+*******************************************************************************/
+void _XAie_MarkChannelBitmapAndRscId(XAie_DevInst *DevInst,
+		u32 UserRscNum, XAie_UserRsc *Rscs, u32 ChannelIndex)
+{
+	u8 TileType;
+	u32 *Bitmap;
+	XAie_BitmapOffsets Offsets;
+
+	for(u32 i = 0; i < UserRscNum; i++) {
+		TileType = _XAie_GetTileTypefromLoc(DevInst, Rscs[i].Loc);
+		Bitmap = DevInst->RscMapping[TileType].
+				Bitmaps[XAIE_BCAST_CHANNEL_RSC];
+		_XAie_RscMgr_GetBitmapOffsets(DevInst, XAIE_BCAST_CHANNEL_RSC,
+				Rscs[i].Loc, Rscs[i].Mod, &Offsets);
+
+		/* Mark allocation for common channel id in BC channel bitmap */
+		_XAie_SetBitInBitmap(Bitmap, ChannelIndex + Offsets.StartBit,
+				1U);
+		/* Return resource granted to caller by populating RscId */
+		Rscs[i].RscId = ChannelIndex;
+	}
 }
 
 /*****************************************************************************/
@@ -542,6 +586,8 @@ u32 _XAie_RscMgr_GetMaxRscVal(XAie_DevInst *DevInst, XAie_RscType RscType,
 	{
 		return XAIE_COMBO_EVENTS_PER_MOD;
 	}
+	case XAIE_BCAST_CHANNEL_RSC:
+		return XAIE_NUM_BROADCAST_CHANNELS;
 	default:
 		return 0U;
 	}
