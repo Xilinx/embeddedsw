@@ -32,6 +32,8 @@
 *       bsv  01/29/2021 Added APIs for checking and clearing NPI errors
 * 1.05  pj   03/24/2021 Added API for updating the SubsystemId of the error node
 *                       Added API for handling and trigger sofware errors
+*       bl   04/01/2021 Update XPlmi_ShutdownHandler_t typedef to remove
+*                       warning
 *
 * </pre>
 *
@@ -84,7 +86,7 @@ extern "C" {
 typedef void (*XPlmi_ErrorHandler_t) (u32 ErrorId, u32 ErrorMask);
 /* Pointer to Shutdown Handler Function */
 typedef s32 (*XPlmi_ShutdownHandler_t)(u32 SubsystemId, const u32 Type,
-		const u32 SubType);
+		const u32 SubType, const u32 CmdType);
 
 /* Data Structure to hold Error Info */
 struct XPlmi_Error_t {
