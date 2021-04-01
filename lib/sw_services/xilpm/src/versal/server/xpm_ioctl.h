@@ -68,7 +68,8 @@ extern "C" {
 #define GGS_MAX					(XPM_NODEIDX_DEV_GGS_3)
 
 int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id IoctlId,
-	      const u32 Arg1, const u32 Arg2, u32 *const Response);
+	      const u32 Arg1, const u32 Arg2, u32 *const Response,
+	      const u32 CmdType);
 XStatus XPmIoctl_AddRegPermission(XPm_Subsystem *Subsystem, u32 DeviceId,
 				  u32 Operations);
 #ifdef __cplusplus

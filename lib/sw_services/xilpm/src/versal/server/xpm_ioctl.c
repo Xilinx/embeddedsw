@@ -17,6 +17,7 @@
 #include "xpm_device.h"
 #include "xpm_periph.h"
 #include "xpm_requirement.h"
+#include "xplmi.h"
 
 static u32 PsmGgsValues[GGS_REGS] = {0U};
 
@@ -601,7 +602,7 @@ done:
 }
 
 static XStatus XPmIoctl_IsOperationAllowed(u32 RegNum, u32 SubsystemId,
-					   u32 *Perms, u32 Type)
+					   u32 *Perms, u32 Type, u32 CmdType)
 {
 	XStatus Status = XST_FAILURE;
 	u32 PermissionMask = 0;
@@ -626,7 +627,7 @@ static XStatus XPmIoctl_IsOperationAllowed(u32 RegNum, u32 SubsystemId,
 	PermissionMask = Perms[RegNum];
 
 	/* Have Target check if Host can enact the operation */
-	if ((XST_SUCCESS == XPm_IsSecureAllowed(SubsystemId)) &&
+	if ((XPLMI_CMD_SECURE == CmdType) &&
 	    (PermissionMask & (1U << SUBSYS_TO_S_BITPOS(SubsystemId)))) {
 		Status = XST_SUCCESS;
 	} else if (PermissionMask & (1U << SUBSYS_TO_NS_BITPOS(SubsystemId))) {
@@ -784,7 +785,7 @@ done:
 }
 
 int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id IoctlId,
-	      const u32 Arg1, const u32 Arg2, u32 *const Response)
+	      const u32 Arg1, const u32 Arg2, u32 *const Response, const u32 CmdType)
 {
 	int Status = XPM_ERR_IOCTL;
 	XPm_Pmc *Pmc;
@@ -855,7 +856,8 @@ int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id Ioctl
 	case IOCTL_WRITE_GGS:
 		Status = XPmIoctl_IsOperationAllowed(Arg1, SubsystemId,
 						     GgsWritePermissions,
-						     XPM_NODETYPE_DEV_GGS);
+						     XPM_NODETYPE_DEV_GGS,
+						     CmdType);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
@@ -865,7 +867,8 @@ int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id Ioctl
 	case IOCTL_READ_GGS:
 		Status = XPmIoctl_IsOperationAllowed(Arg1, SubsystemId,
 						     GgsReadPermissions,
-						     XPM_NODETYPE_DEV_GGS);
+						     XPM_NODETYPE_DEV_GGS,
+						     CmdType);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
@@ -875,7 +878,8 @@ int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id Ioctl
 	case IOCTL_WRITE_PGGS:
 		Status = XPmIoctl_IsOperationAllowed(Arg1, SubsystemId,
 						     PggsWritePermissions,
-						     XPM_NODETYPE_DEV_PGGS);
+						     XPM_NODETYPE_DEV_PGGS,
+						     CmdType);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
@@ -885,7 +889,8 @@ int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id Ioctl
 	case IOCTL_READ_PGGS:
 		Status = XPmIoctl_IsOperationAllowed(Arg1, SubsystemId,
 						     PggsReadPermissions,
-						     XPM_NODETYPE_DEV_PGGS);
+						     XPM_NODETYPE_DEV_PGGS,
+						     CmdType);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
