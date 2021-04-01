@@ -17,6 +17,8 @@
 
 #pragma once
 
+#define XAIE_RSC_ID_ANY 0xFFFFFFFFU
+
 namespace xaiefal {
 	/**
 	 * @class XAieDevHandle

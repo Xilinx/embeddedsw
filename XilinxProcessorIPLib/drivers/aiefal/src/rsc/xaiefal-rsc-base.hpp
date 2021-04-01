@@ -61,9 +61,12 @@ namespace xaiefal {
 			if (!DevHd) {
 				throw std::invalid_argument("aie rsc: empty device handle");
 			}
+			preferredId = XAIE_RSC_ID_ANY;
 		}
 		XAieRsc(XAieDev &Dev):
-			State(), AieHd(Dev.getDevHandle()) {}
+			State(), AieHd(Dev.getDevHandle()) {
+				preferredId = XAIE_RSC_ID_ANY;
+			}
 		virtual ~XAieRsc() {
 			if (State.Running == 1) {
 				stop();
@@ -75,6 +78,40 @@ namespace xaiefal {
 				}
 			}
 		}
+		/**
+		* This function sets a resource's id to a requested id value.
+		* Resources that can have their id set always have XAIE_RSC_ID_ANY as
+		* a default value.
+		*
+		* @param id requested id for resource
+		* @param isStatticAllocated to indicate if the resource has been allocated at static time.
+		*
+		* @return XAIE_OK for success, and error code for failure.
+		*/
+
+		AieRC setPreferredId(uint32_t id, bool isStaticAllocated = false) {
+			AieRC RC;
+
+			if (State.Reserved == 1) {
+				RC = XAIE_INVALID_ARGS;
+			} else {
+				preferredId = id;
+				RC = XAIE_OK;
+				if (isStaticAllocated) {
+					if (id == XAIE_RSC_ID_ANY) {
+						RC = XAIE_INVALID_ARGS;
+						Logger::log(LogLevel::ERROR) << __func__ << " " <<
+							typeid(*this).name() <<
+							" If Rsc ID is any, cannot be statically allocated" << std::endl;
+					} else {
+						State.Prereserved = 1;
+					}
+				}
+			}
+
+			return RC;
+		}
+
 		/**
 		 * This function reserves the resource.
 		 * Once the resource is reserved, the underline hardware
@@ -272,7 +309,7 @@ namespace xaiefal {
 		std::string FuncName; /**< function name which resource is used
 					   for */
 		std::shared_ptr<XAieDevHandle> AieHd; /**< AI engine device instance */
-
+		uint32_t preferredId; /**< preferred resource Id*/
 	private:
 		/**
 		 * This function will be called by reserve(). It allows child
