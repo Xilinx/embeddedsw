@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartpsv_sinit.c
-* @addtogroup uartpsv_v1_4
+* @addtogroup uartpsv_v1_5
 * @{
 *
 * The implementation of the XUartPsv driver's static initialization
