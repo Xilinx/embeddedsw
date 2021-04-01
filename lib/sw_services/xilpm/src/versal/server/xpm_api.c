@@ -475,7 +475,8 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 					 Pload[3], Pload[4]);
 		break;
 	case PM_API(PM_REQUEST_SUSPEND):
-		Status = XPm_RequestSuspend(SubsystemId, Pload[0], Pload[1], Pload[2], Pload[3]);
+		Status = XPm_RequestSuspend(SubsystemId, Pload[0], Pload[1],
+					    Pload[2], Pload[3], Cmd->IpiReqType);
 		break;
 	case PM_API(PM_ABORT_SUSPEND):
 		Status = XPm_AbortSuspend(SubsystemId, Pload[0], Pload[1]);
@@ -1436,6 +1437,7 @@ done:
  * @param Ack			Ack request
  * @param Latency		Desired wakeup latency
  * @param State			Desired power state
+ * @param CmdType		IPI command request type
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -1445,13 +1447,15 @@ done:
  *
  ****************************************************************************/
 XStatus XPm_RequestSuspend(const u32 SubsystemId, const u32 TargetSubsystemId,
-			   const u32 Ack, const u32 Latency, const u32 State)
+			   const u32 Ack, const u32 Latency, const u32 State,
+			   const u32 CmdType)
 {
 	XStatus Status = XST_FAILURE;
 	u32 IpiMask = 0;
 	u32 Payload[5] = {0};
 	/* Warning Fix */
 	(void) (Ack);
+	(void) (CmdType);
 
 	IpiMask = XPmSubsystem_GetIPIMask(TargetSubsystemId);
 	if (0U == IpiMask) {
