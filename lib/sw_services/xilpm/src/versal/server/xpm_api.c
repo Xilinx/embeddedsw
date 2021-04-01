@@ -254,29 +254,58 @@ done:
  *              * Node must be present in the database through topology CDO
  *              or otherwise
  *
- * @note   Refer to top level handler XPm_AddRequirement() for overall handling.
+ * @param  SubsystemId  Subsystem Id
+ * @param  DeviceId     Device Id
+ * @param  Flags        Bit[0:1] - No-restriction(0)/Shared(1)/Time-Shared(2)/Nonshared(3)
+ *                      Bit[2] - Secure(1)/Nonsecure(0) (Device mode)
+ *                      Bit[3] - Read access policy (Allowed(0)/Not-allowed(1))
+ *                      Bit[4] - Write access policy (Allowed(0)/Not-allowed(1))
+ *                      Bit[5] - Non-secure region check policy (Relaxed(0)/Strict(1))
+ *                      Bit[6] - Pre-alloc flag
+ * @param  Args		Node specific arguments
+ *			- Aperture permission mask for the given peripheral
+ *			- Pre-alloc capability bits
+ *			- Quality of Service
+ * @param  NumArgs	Total number of arguments
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ *
+ * @note   None
  *
  ****************************************************************************/
 static XStatus XPm_AddDevRequirement(XPm_Subsystem *Subsystem, u32 DeviceId,
-				     u32 Flags, u32 AperPerm, u32 PreallocCaps,
-				     u32 QoS)
+				     u32 Flags, u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
+	u32 DevType = NODETYPE(DeviceId);
+	u32 AperPerm, PreallocCaps, QoS;
 	XPm_Device *Device = NULL;
 
-	switch (NODETYPE(DeviceId)) {
-	case (u32)XPM_NODETYPE_DEV_GGS:
-	case (u32)XPM_NODETYPE_DEV_PGGS:
-		/* Add ggs/pggs node with the given permissions */
-		Status = XPmIoctl_AddRegPermission(Subsystem, DeviceId,
-						   Flags);
+	if ((DevType == (u32)XPM_NODETYPE_DEV_GGS) ||
+	    (DevType == (u32)XPM_NODETYPE_DEV_PGGS)) {
 		/* Prealloc requirement */
 		Flags = REQUIREMENT_FLAGS(1U, 0U, 0U, 0U,
-				(u32)REQ_ACCESS_SECURE_NONSECURE,
-				(u32)REQ_NO_RESTRICTION);
+					  (u32)REQ_ACCESS_SECURE_NONSECURE,
+					  (u32)REQ_NO_RESTRICTION);
 		AperPerm = 0U;
 		PreallocCaps = (u32)PM_CAP_ACCESS;
 		QoS = XPM_DEF_QOS;
+	} else {
+		/* This is a general case for adding requirements */
+		if (6U > NumArgs) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+		AperPerm = Args[3];
+		PreallocCaps = Args[4];
+		QoS = Args[5];
+	}
+
+	switch (DevType) {
+	case (u32)XPM_NODETYPE_DEV_GGS:
+	case (u32)XPM_NODETYPE_DEV_PGGS:
+		/* Add ggs/pggs node with the given permissions */
+		Status = XPmIoctl_AddRegPermission(Subsystem, DeviceId, Flags);
 		break;
 	case (u32)XPM_NODETYPE_DEV_HB_MON:
 		/* Add healthy boot monitor node */
@@ -287,7 +316,6 @@ static XStatus XPm_AddDevRequirement(XPm_Subsystem *Subsystem, u32 DeviceId,
 		Status = XST_SUCCESS;
 		break;
 	}
-
 	/* Error out if special handling failed before */
 	if (XST_SUCCESS != Status) {
 		goto done;
@@ -299,8 +327,8 @@ static XStatus XPm_AddDevRequirement(XPm_Subsystem *Subsystem, u32 DeviceId,
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
-	Status = XPmRequirement_Add(Subsystem, Device, Flags,
-				    AperPerm, PreallocCaps, QoS);
+	Status = XPmRequirement_Add(Subsystem, Device, Flags, AperPerm,
+				    PreallocCaps, QoS);
 
 done:
 	if (XST_SUCCESS != Status) {
@@ -315,17 +343,8 @@ done:
  *         requirement assignment could be made by XPm_RequestDevice() or
  *         XPm_SetRequirement() call.
  *
- * @param  SubsystemId	Subsystem Id
- * @param  DeviceId 	Device Id
- * @param  Flags        Bit[0:1] - No-restriction(0)/Shared(1)/Time-Shared(2)/Nonshared(3)
- *                      Bit[2] - Secure(1)/Nonsecure(0) (Device mode)
- *                      Bit[3] - Read access policy (Allowed(0)/Not-allowed(1))
- *                      Bit[4] - Write access policy (Allowed(0)/Not-allowed(1))
- *                      Bit[5] - Non-secure region check policy (Relaxed(0)/Strict(1))
- *                      Bit[6] - Pre-alloc flag
- * @param  AperPerm	Aperture permission mask for the given peripheral
- * @param  PreallocCaps	Pre-alloc capability bits
- * @param  QoS		Quality of Service
+ * @param  Args		Node specific arguments
+ * @param  NumArgs	Number of arguments
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -333,44 +352,49 @@ done:
  * @note   None
  *
  ****************************************************************************/
-static XStatus XPm_AddRequirement(const u32 SubsystemId, const u32 DeviceId,
-				  u32 Flags, u32 AperPerm, u32 PreallocCaps,
-				  u32 QoS)
+static XStatus XPm_AddRequirement(u32 *Args, const u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
+	u32 SubsysId, DevId, Flags;
 	XPm_ResetNode *Rst = NULL;
-	XPm_Subsystem *Subsystem, *TargetSubsystem;
+	XPm_Subsystem *Subsys, *TarSubsys;
 
-	Subsystem = XPmSubsystem_GetById(SubsystemId);
-	if ((NULL == Subsystem) || ((u8)ONLINE != Subsystem->State)) {
+	/* Check the minimum basic arguments required for this command */
+	if (3U > NumArgs) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* Parse the basic arguments */
+	SubsysId = Args[0];
+	DevId = Args[1];
+	Flags = Args[2];
+
+	Subsys = XPmSubsystem_GetById(SubsysId);
+	if ((NULL == Subsys) || ((u8)ONLINE != Subsys->State)) {
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
 
-	switch NODECLASS(DeviceId) {
+	switch (NODECLASS(DevId)) {
 	case (u32)XPM_NODECLASS_DEVICE:
-		Status = XPm_AddDevRequirement(Subsystem, DeviceId, Flags,
-					       AperPerm, PreallocCaps, QoS);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
+		Status = XPm_AddDevRequirement(Subsys, DevId, Flags, Args, NumArgs);
 		break;
 	case (u32)XPM_NODECLASS_SUBSYSTEM:
-		TargetSubsystem = XPmSubsystem_GetById(DeviceId);
-		if (NULL == TargetSubsystem) {
+		TarSubsys = XPmSubsystem_GetById(DevId);
+		if (NULL == TarSubsys) {
 			Status = XPM_INVALID_SUBSYSID;
 			goto done;
 		}
-		Status = XPmSubsystem_AddPermission(Subsystem, TargetSubsystem,
-						    Flags);
+		Status = XPmSubsystem_AddPermission(Subsys, TarSubsys, Flags);
 		break;
 	case (u32)XPM_NODECLASS_RESET:
-		Rst = XPmReset_GetById(DeviceId);
+		Rst = XPmReset_GetById(DevId);
 		if (NULL == Rst) {
 			Status = XST_INVALID_PARAM;
 			goto done;
 		}
-		Status = XPmReset_AddPermission(Rst, Subsystem, Flags);
+		Status = XPmReset_AddPermission(Rst, Subsys, Flags);
 		break;
 	default:
 		Status = XPM_INVALID_DEVICEID;
@@ -595,8 +619,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		Status = XPm_AddNodeName(&Pload[0], Len);
 		break;
 	case PM_API(PM_ADD_REQUIREMENT):
-		Status = XPm_AddRequirement(Pload[0], Pload[1], Pload[2],
-					    Pload[3], Pload[4], Pload[5]);
+		Status = XPm_AddRequirement(&Pload[0], Len);
 		break;
 	case PM_API(PM_SET_CURRENT_SUBSYSTEM):
 		Status = XPm_SetCurrentSubsystem(Pload[0], Cmd->IpiMask);
