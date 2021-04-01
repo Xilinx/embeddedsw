@@ -52,13 +52,13 @@ XStatus XPmSubsystem_AddPermission(const XPm_Subsystem *Host,
 							SUBSYS_TO_NS_BITPOS(Host->Id));
 
 	Target->Perms.WakeupPerms	|= PERM_BITMASK(Operations,
-							SUB_PERM_WAKE_SHIFT_NS,
+							SUB_PERM_WAKE_SHIFT_S,
 							SUBSYS_TO_S_BITPOS(Host->Id));
 	Target->Perms.PowerdownPerms	|= PERM_BITMASK(Operations,
-							SUB_PERM_PWRDWN_SHIFT_NS,
+							SUB_PERM_PWRDWN_SHIFT_S,
 							SUBSYS_TO_S_BITPOS(Host->Id));
 	Target->Perms.SuspendPerms	|= PERM_BITMASK(Operations,
-							SUB_PERM_SUSPEND_SHIFT_NS,
+							SUB_PERM_SUSPEND_SHIFT_S,
 							SUBSYS_TO_S_BITPOS(Host->Id));
 
 	Status = XST_SUCCESS;
