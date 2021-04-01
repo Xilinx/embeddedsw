@@ -98,6 +98,7 @@
 *       cog    02/10/21 Added custom startup API.
 *       cog    03/12/21 Allow ADC to divide and redistribute full rate clock.
 *       cog    03/12/21 Tweaks for improved calibration performance.
+*       cog    04/01/21 The threshold under/over value masks should be 14 bits.
 *
 *</pre>
 *
@@ -1095,7 +1096,7 @@ extern "C" {
  * @{
  */
 
-#define XRFDC_TRSHD0_UNDER_MASK 0x00007FFFU /**< Threshold0 under Threshold[14:0] */
+#define XRFDC_TRSHD0_UNDER_MASK 0x00003FFFU /**< Threshold0 under Threshold[13:0] */
 
 /* @} */
 
@@ -1106,7 +1107,7 @@ extern "C" {
  * @{
  */
 
-#define XRFDC_TRSHD0_OVER_MASK 0x00007FFFU /**< Threshold0 under Threshold[14:0] */
+#define XRFDC_TRSHD0_OVER_MASK 0x00003FFFU /**< Threshold0 under Threshold[13:0] */
 
 /* @} */
 
@@ -1153,7 +1154,7 @@ extern "C" {
  * @{
  */
 
-#define XRFDC_TRSHD1_UNDER_MASK 0x00007FFFU /**< Threshold1 under Threshold[14:0] */
+#define XRFDC_TRSHD1_UNDER_MASK 0x00003FFFU /**< Threshold1 under Threshold[13:0] */
 
 /* @} */
 
@@ -1164,7 +1165,7 @@ extern "C" {
  * @{
  */
 
-#define XRFDC_TRSHD1_OVER_MASK 0x00007FFFU /**< Threshold1 under Threshold[14:0] */
+#define XRFDC_TRSHD1_OVER_MASK 0x00003FFFU /**< Threshold1 under Threshold[13:0] */
 
 /* @} */
 
