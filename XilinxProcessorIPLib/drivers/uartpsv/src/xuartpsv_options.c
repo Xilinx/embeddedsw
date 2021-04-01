@@ -37,14 +37,14 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Variable Definitions *****************************/
-/*
+/**
  * The following data type is a map from an option to the offset in the
  * register to which it belongs as well as its bit mask in that register.
  */
 typedef struct {
-	u16 Option;
-	u16 RegisterOffset;
-	u32 Mask;
+	u16 Option;			/**< Option to select */
+	u16 RegisterOffset;		/**< Address offset of register */
+	u32 Mask;			/**< Mask to set/clear in register */
 } Mapping;
 
 /*
@@ -74,7 +74,7 @@ static Mapping XUartPsv_OptionsTable[] = {
 
 /* Create a constant for the number of entries in the table */
 
-#define XUARTPSV_NUM_OPTIONS	  (sizeof(XUartPsv_OptionsTable) / sizeof(Mapping))
+#define XUARTPSV_NUM_OPTIONS	  (sizeof(XUartPsv_OptionsTable) / sizeof(Mapping)) /**< No. of options */
 
 /************************** Function Prototypes ******************************/
 

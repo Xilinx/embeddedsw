@@ -43,7 +43,7 @@
  * baud rate that will be generated using the specified clock and the
  * desired baud rate.
  */
-#define XUARTPSV_MAX_BAUD_ERROR_RATE	3U	/* max % error allowed */
+#define XUARTPSV_MAX_BAUD_ERROR_RATE	3U	/**< max % error allowed */
 
 /**************************** Type Definitions *******************************/
 
