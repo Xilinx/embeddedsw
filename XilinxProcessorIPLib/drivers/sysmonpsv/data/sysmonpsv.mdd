@@ -10,7 +10,7 @@ BEGIN driver sysmonpsv
   OPTION supported_peripherals = (pmc_sysmon psv_pmc_sysmon);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 2.1;
+  OPTION VERSION = 2.2;
   OPTION NAME = sysmonpsv;
 
 END driver

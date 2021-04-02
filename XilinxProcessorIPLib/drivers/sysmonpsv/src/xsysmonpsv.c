@@ -7,7 +7,7 @@
 /**
 *
 * @file xsysmonpsv.c
-* @addtogroup sysmonpsv_v2_1
+* @addtogroup sysmonpsv_v2_2
 *
 * Functions in this file are the minimum required functions for the XSysMonPsv
 * driver. See xsysmonpsv.h for a detailed description of the driver.
