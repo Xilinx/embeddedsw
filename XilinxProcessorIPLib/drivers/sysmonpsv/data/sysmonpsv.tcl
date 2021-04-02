@@ -9,9 +9,10 @@
 #
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
-# 1.0   aad  30/01/19 First release
-# 	aad  25/02/19 Fix XSysMonPsv_Supply list enum when no supplies
+# 1.0   aad  01/30/19 First release
+# 	aad  02/25/19 Fix XSysMonPsv_Supply list enum when no supplies
 # 		      are configured
+# 2.1   aad  03/29/21 Add supply names in string format.
 #
 ##############################################################################
 
@@ -192,6 +193,25 @@ proc generate_sysmon_config {drv_handle file_name drv_string args} {
     }
     puts $config_file "\n\};"
     puts $config_file "\n";
+
+    set proc_instance [hsi::get_sw_processor]
+    set hw_processor [common::get_property HW_INSTANCE $proc_instance]
+    set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]]
+    if {$proc_type == "psv_cortexa72" || $proc_type == "psv_cortexr5" || $proc_type == "psu_cortexa72" ||
+	    $proc_type == "psu_cortexr5"} {
+	    puts $config_file "const char * [format "\ %s_Supply_Arr" $drv_string]\[\] = {"
+	    for {set index 0} {$index < 160} {incr index} {
+		    set measid "C_MEAS_${index}"
+		    set value [common::get_property CONFIG.$measid $drv_handle]
+		    if {[llength $value] == 0} {
+				set local_value [common::get_property CONFIG.$measid $periph]
+				if {[string compare -nocase $local_value ""] != 0} {
+					puts $config_file "\t\"${local_value}\","
+				}
+		    }
+	   }
+	   puts $config_file "};"
+    }
     close $config_file
     generate_sysmon_supplies $drv_handle  "xsysmonpsv_supplylist.h" "XSysMonPsv"
 }
