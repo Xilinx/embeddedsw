@@ -684,6 +684,7 @@ AieRC _XAie_RscMgr_RequestRsc(XAie_DevInst *DevInst, u32 NumReq,
 		TilesRsc.Mod = RscReq[i].Mod;
 		TilesRsc.NumRscPerTile = RscReq[i].NumRscPerTile;
 		TilesRsc.Rscs = &Rscs[UserRscIndex];
+		TilesRsc.Flags = 0;
 
 		RC = XAie_RunOp(DevInst, XAIE_BACKEND_OP_REQUEST_RESOURCE,
 				(void *)&TilesRsc);

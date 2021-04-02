@@ -9,6 +9,7 @@
 #include <functional>
 #include <map>
 #include <memory>
+#include <mutex>
 #include <stdexcept>
 #include <unordered_map>
 #include <vector>
@@ -47,6 +48,33 @@ namespace xaiefal {
 			memset(XAieComboCoreBits, 0, sizeof(XAieComboCoreBits));
 			memset(XAieComboMemBits, 0, sizeof(XAieComboMemBits));
 			memset(XAieComboShimBits, 0, sizeof(XAieComboShimBits));
+
+			XAieGroupEventMapCore[0] = XAIE_EVENT_GROUP_0_CORE;
+			XAieGroupEventMapCore[1] = XAIE_EVENT_GROUP_PC_EVENT_CORE;
+			XAieGroupEventMapCore[2] = XAIE_EVENT_GROUP_CORE_STALL_CORE;
+			XAieGroupEventMapCore[3] = XAIE_EVENT_GROUP_CORE_PROGRAM_FLOW_CORE;
+			XAieGroupEventMapCore[4] = XAIE_EVENT_GROUP_ERRORS_0_CORE;
+			XAieGroupEventMapCore[5] = XAIE_EVENT_GROUP_ERRORS_1_CORE;
+			XAieGroupEventMapCore[6] = XAIE_EVENT_GROUP_STREAM_SWITCH_CORE;
+			XAieGroupEventMapCore[7] = XAIE_EVENT_GROUP_BROADCAST_CORE;
+			XAieGroupEventMapCore[8] = XAIE_EVENT_GROUP_USER_EVENT_CORE;
+
+			XAieGroupEventMapMem[0] = XAIE_EVENT_GROUP_0_MEM;
+			XAieGroupEventMapMem[1] = XAIE_EVENT_GROUP_WATCHPOINT_MEM;
+			XAieGroupEventMapMem[2] = XAIE_EVENT_GROUP_DMA_ACTIVITY_MEM;
+			XAieGroupEventMapMem[3] = XAIE_EVENT_GROUP_LOCK_MEM;
+			XAieGroupEventMapMem[4] = XAIE_EVENT_GROUP_MEMORY_CONFLICT_MEM;
+			XAieGroupEventMapMem[5] = XAIE_EVENT_GROUP_ERRORS_MEM;
+			XAieGroupEventMapMem[6] = XAIE_EVENT_GROUP_BROADCAST_MEM;
+			XAieGroupEventMapMem[7] = XAIE_EVENT_GROUP_USER_EVENT_MEM;
+
+			XAieGroupEventMapPl[0] = XAIE_EVENT_GROUP_0_PL;
+			XAieGroupEventMapPl[1] = XAIE_EVENT_GROUP_DMA_ACTIVITY_PL;
+			XAieGroupEventMapPl[2] = XAIE_EVENT_GROUP_LOCK_PL;
+			XAieGroupEventMapPl[3] = XAIE_EVENT_GROUP_ERRORS_PL;
+			XAieGroupEventMapPl[4] = XAIE_EVENT_GROUP_STREAM_SWITCH_PL;
+			XAieGroupEventMapPl[5] = XAIE_EVENT_GROUP_BROADCAST_A_PL;
+			XAieGroupEventMapPl[6] = XAIE_EVENT_GROUP_USER_EVENT_PL;
 		}
 		~XAieDevHandle() {
 			if (FinishOnDestruct) {
@@ -84,6 +112,10 @@ namespace xaiefal {
 		uint64_t XAieComboMemBits[400 * 4 / 64];
 		uint64_t XAieComboShimBits[50 * 4 / 64];
 
+		// TODO: Configure group event should be moved to c driver
+		uint32_t XAieGroupEventMapCore[9];
+		uint32_t XAieGroupEventMapMem[8];
+		uint32_t XAieGroupEventMapPl[8];
 	private:
 		XAie_DevInst *Dev;
 		bool FinishOnDestruct;
@@ -93,6 +125,8 @@ namespace xaiefal {
 	class XAieTile;
 	class XAieBroadcast;
 	class XAieComboEvent;
+	class XAieGroupEvent;
+	class XAieGroupEventHandle;
 	class XAiePerfCounter;
 	class XAieTraceCntr;
 	class XAieTraceEvent;
@@ -466,12 +500,35 @@ namespace xaiefal {
 								ENum);
 		}
 
+		/**
+		 * This function returns group event handle object shared pointer
+		 *
+		 * @E group event
+		 * @return group event handle software object pointer
+		 *
+		 * Please note that this function will not request hardware
+		 * resource. After this function is called, in order to reserve
+		 * the hardware resource, it will need to call reserve()
+		 * function of the resource class.
+		 */
+		std::shared_ptr<XAieGroupEventHandle> groupEvent(XAie_Events E) {
+			auto G = GroupEvents.find(E);
+			if (G != GroupEvents.end()) {
+				return std::make_shared<XAieGroupEventHandle>(
+						AieHandle, GroupEvents[E]);
+			}
+			auto gEPtr = std::make_shared<XAieGroupEvent>(AieHandle, Loc, Mod, E);
+			GroupEvents.emplace(E, gEPtr);
+			return std::make_shared<XAieGroupEventHandle>(AieHandle,
+					gEPtr);
+		}
 	private:
 		std::shared_ptr<XAieDevHandle> AieHandle; /**< AI engine device
 							    handle */
 		XAie_LocType Loc; /**< Tile location */
 		XAie_ModuleType Mod; /**< Module type */
 		std::shared_ptr<XAieTraceCntr> TraceCntr; /**< trace control pointer */
+		std::map<XAie_Events, std::shared_ptr<XAieGroupEvent>> GroupEvents; /**< Group Events */
 	};
 	/**
 	 * @class XAieTile
