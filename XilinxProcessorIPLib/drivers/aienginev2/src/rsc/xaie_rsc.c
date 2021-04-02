@@ -667,7 +667,7 @@ AieRC _XAie_RscMgr_RequestRsc(XAie_DevInst *DevInst, u32 NumReq,
 	u32 UserRscIndex = 0U;
 
 	for(u32 i = 0U; i < NumReq; i++) {
-		XAie_BackendTilesRsc TilesRsc;
+		XAie_BackendTilesRsc TilesRsc = {};
 		XAie_BitmapOffsets Offsets;
 		u8 TileType;
 
@@ -716,7 +716,7 @@ AieRC _XAie_RscMgr_RequestRscContiguous(XAie_DevInst *DevInst, u32 NumReq,
 	u32 UserRscIndex = 0U;
 
 	for(u32 i = 0U; i < NumReq; i++) {
-		XAie_BackendTilesRsc TilesRsc;
+		XAie_BackendTilesRsc TilesRsc = {};
 		XAie_BitmapOffsets Offsets;
 		u8 TileType;
 
@@ -780,7 +780,7 @@ AieRC _XAie_RscMgr_FreeRscs(XAie_DevInst *DevInst, u32 RscNum,
 		XAie_UserRsc *Rscs, XAie_RscType RscType)
 {
 	for(u32 i =0U; i < RscNum; i++) {
-		XAie_BackendTilesRsc TilesRsc;
+		XAie_BackendTilesRsc TilesRsc = {};
 		XAie_BitmapOffsets Offsets;
 		u8 TileType;
 
@@ -829,7 +829,7 @@ AieRC _XAie_RscMgr_ReleaseRscs(XAie_DevInst *DevInst, u32 RscNum,
 		XAie_UserRsc *Rscs, XAie_RscType RscType)
 {
 	for(u32 i =0U; i < RscNum; i++) {
-		XAie_BackendTilesRsc TilesRsc;
+		XAie_BackendTilesRsc TilesRsc = {};
 		XAie_BitmapOffsets Offsets;
 		u8 TileType;
 
@@ -884,7 +884,7 @@ AieRC _XAie_RscMgr_RequestAllocatedRsc(XAie_DevInst *DevInst, u32 NumReq,
 	u32 UserRscIndex = 0U;
 
 	for(u32 i =0U; i < NumReq; i++) {
-		XAie_BackendTilesRsc TilesRsc;
+		XAie_BackendTilesRsc TilesRsc = {};
 		XAie_BitmapOffsets Offsets;
 		u8 TileType;
 
