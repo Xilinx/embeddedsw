@@ -782,7 +782,7 @@ XStatus XPmSubsystem_Configure(u32 SubsystemId)
 			DeviceId = Reqm->Device->Node.Id;
 			Status = XPm_RequestDevice(SubsystemId, DeviceId,
 						   Reqm->PreallocCaps,
-						   Reqm->Curr.QoS, 0U);
+						   Reqm->PreallocQoS, 0U);
 			if (XST_SUCCESS != Status) {
 				PmErr("Requesting prealloc device 0x%x failed.\n\r", DeviceId);
 				Status = XPM_ERR_DEVICE_REQ;

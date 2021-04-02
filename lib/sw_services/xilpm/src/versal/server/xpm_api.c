@@ -278,7 +278,7 @@ static XStatus XPm_AddDevRequirement(XPm_Subsystem *Subsystem, u32 DeviceId,
 {
 	XStatus Status = XST_FAILURE;
 	u32 DevType = NODETYPE(DeviceId);
-	u32 AperPerm, PreallocCaps, QoS;
+	u32 AperPerm, PreallocCaps, PreallocQoS;
 	XPm_Device *Device = NULL;
 
 	switch (DevType) {
@@ -309,7 +309,7 @@ static XStatus XPm_AddDevRequirement(XPm_Subsystem *Subsystem, u32 DeviceId,
 					  (u32)REQ_NO_RESTRICTION);
 		AperPerm = 0U;
 		PreallocCaps = (u32)PM_CAP_ACCESS;
-		QoS = XPM_DEF_QOS;
+		PreallocQoS = XPM_DEF_QOS;
 	} else {
 		/* This is a general case for adding requirements */
 		if (6U > NumArgs) {
@@ -318,7 +318,7 @@ static XStatus XPm_AddDevRequirement(XPm_Subsystem *Subsystem, u32 DeviceId,
 		}
 		AperPerm = Args[3];
 		PreallocCaps = Args[4];
-		QoS = Args[5];
+		PreallocQoS = Args[5];
 	}
 
 	/* Device must be present in the topology at this point */
@@ -328,7 +328,7 @@ static XStatus XPm_AddDevRequirement(XPm_Subsystem *Subsystem, u32 DeviceId,
 		goto done;
 	}
 	Status = XPmRequirement_Add(Subsystem, Device, Flags, AperPerm,
-				    PreallocCaps, QoS);
+				    PreallocCaps, PreallocQoS);
 
 done:
 	if (XST_SUCCESS != Status) {
