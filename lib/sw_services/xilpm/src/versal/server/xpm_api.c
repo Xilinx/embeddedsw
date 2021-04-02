@@ -281,26 +281,6 @@ static XStatus XPm_AddDevRequirement(XPm_Subsystem *Subsystem, u32 DeviceId,
 	u32 AperPerm, PreallocCaps, QoS;
 	XPm_Device *Device = NULL;
 
-	if ((DevType == (u32)XPM_NODETYPE_DEV_GGS) ||
-	    (DevType == (u32)XPM_NODETYPE_DEV_PGGS)) {
-		/* Prealloc requirement */
-		Flags = REQUIREMENT_FLAGS(1U, 0U, 0U, 0U,
-					  (u32)REQ_ACCESS_SECURE_NONSECURE,
-					  (u32)REQ_NO_RESTRICTION);
-		AperPerm = 0U;
-		PreallocCaps = (u32)PM_CAP_ACCESS;
-		QoS = XPM_DEF_QOS;
-	} else {
-		/* This is a general case for adding requirements */
-		if (6U > NumArgs) {
-			Status = XST_INVALID_PARAM;
-			goto done;
-		}
-		AperPerm = Args[3];
-		PreallocCaps = Args[4];
-		QoS = Args[5];
-	}
-
 	switch (DevType) {
 	case (u32)XPM_NODETYPE_DEV_GGS:
 	case (u32)XPM_NODETYPE_DEV_PGGS:
@@ -319,6 +299,26 @@ static XStatus XPm_AddDevRequirement(XPm_Subsystem *Subsystem, u32 DeviceId,
 	/* Error out if special handling failed before */
 	if (XST_SUCCESS != Status) {
 		goto done;
+	}
+
+	if (((u32)XPM_NODETYPE_DEV_GGS == DevType) ||
+	    ((u32)XPM_NODETYPE_DEV_PGGS == DevType)) {
+		/* Prealloc requirement */
+		Flags = REQUIREMENT_FLAGS(1U, 0U, 0U, 0U,
+					  (u32)REQ_ACCESS_SECURE_NONSECURE,
+					  (u32)REQ_NO_RESTRICTION);
+		AperPerm = 0U;
+		PreallocCaps = (u32)PM_CAP_ACCESS;
+		QoS = XPM_DEF_QOS;
+	} else {
+		/* This is a general case for adding requirements */
+		if (6U > NumArgs) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+		AperPerm = Args[3];
+		PreallocCaps = Args[4];
+		QoS = Args[5];
 	}
 
 	/* Device must be present in the topology at this point */
