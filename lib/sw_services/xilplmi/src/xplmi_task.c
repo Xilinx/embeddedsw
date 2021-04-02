@@ -27,6 +27,9 @@
 * 1.05  skd  03/12/2021 Added provision to skip scheduling a task if it is
 *                       already present in queue
 *       ma   03/24/2021 Reduced minimum digits of time stamp decimals to 3
+*       skd  03/31/2021 Adding non periodic tasks even if a task
+*                       with the same handler exists, to ensure no
+*                       interrupt task handlers get missed
 *
 * </pre>
 *
@@ -69,35 +72,23 @@ static struct metal_list TaskQueue[XPLMI_TASK_PRIORITIES];
 XPlmi_TaskNode * XPlmi_TaskCreate(TaskPriority_t Priority,
 	int (*Handler)(void *Arg), void *PrivData)
 {
-	static XPlmi_TaskNode Tasks[XPLMI_TASK_MAX];
 	XPlmi_TaskNode *Task = NULL;
-	u32 Index;
 
 	if(Handler == NULL) {
 		goto END;
 	}
 
-	/* Assign free task node */
-	for (Index = 0U; Index < XPLMI_TASK_MAX; Index++) {
-		Task = &Tasks[Index];
-		if ((Task->Handler == Handler) &&
-		    (Task->PrivData == PrivData)) {
-			/* Found the task */
-		} else if (Task->Handler == NULL) {
-			Task->Priority = Priority;
-			Task->Delay = 0U;
-			metal_list_init(&Task->TaskNode);
-			Task->Handler = Handler;
-			Task->PrivData = PrivData;
-		} else {
-			continue;
-		}
-		break;
+	/* Get a free task node */
+	Task = XPlmi_GetTaskInstance(NULL, NULL);
+	if (Task == NULL) {
+		XPlmi_Printf(DEBUG_GENERAL, "Task creation failed \n\r");
+		goto END;
 	}
-	if (Index >= XPLMI_TASK_MAX) {
-		XPlmi_Printf(DEBUG_GENERAL, "Task create failed \n\r");
-		Task = NULL;
-	}
+	Task->Priority = Priority;
+	Task->Delay = 0U;
+	metal_list_init(&Task->TaskNode);
+	Task->Handler = Handler;
+	Task->PrivData = PrivData;
 
 END:
 	return Task;
@@ -120,6 +111,36 @@ static void XPlmi_TaskDelete(XPlmi_TaskNode *Task)
 	Task->Delay = 0U;
 	Task->PrivData = NULL;
 	Task->Handler = NULL;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function returns the instance of the task with matching
+ * handler and private data.
+ *
+ * @param	Handler is pointer to the task handler
+ * @param	PrivData is argument to be passed to the task handler
+ *
+ * @return	Instance of the task in case of a match, NULL otherwise
+ *
+ *****************************************************************************/
+XPlmi_TaskNode * XPlmi_GetTaskInstance(int (*Handler)(void *Arg), const void *PrivData)
+{
+	XPlmi_TaskNode *Task = NULL;
+	static XPlmi_TaskNode Tasks[XPLMI_TASK_MAX];
+	u8 Index;
+
+	/* Assign free task node */
+	for (Index = 0U; Index < XPLMI_TASK_MAX; Index++) {
+		Task = &Tasks[Index];
+		if ((Task->Handler == Handler) &&
+		    (Task->PrivData == PrivData)) {
+			break;
+		}
+		Task = NULL;
+	}
+
+	return Task;
 }
 
 /*****************************************************************************/

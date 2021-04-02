@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,9 @@
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *       bm   10/14/2020 Code clean up
 *       td   10/19/2020 MISRA C Fixes
+* 1.03  skd  03/31/2021 Adding non periodic tasks even if a task
+*                       with the same handler exists, to ensure no
+*                       interrupt task handlers get missed
 *
 * </pre>
 *
@@ -151,15 +154,22 @@ void XPlmi_SchedulerHandler(void *Data)
 	for (Idx = 0U; Idx < XPLMI_SCHED_MAX_TASK; Idx++) {
 		/* Check if the task is triggered and has a valid Callback */
 		if (XPlmi_IsTaskActive(&Sched, Idx) == (u8)TRUE) {
-			/* Add the Task to the PLM Task Queue */
-			Task = XPlmi_TaskCreate(Sched.TaskList[Idx].Priority,
+			/* Skip the task, if its already present in the queue */
+			if (XPlmi_GetTaskInstance(
+				Sched.TaskList[Idx].CustomerFunc, NULL)
+					== NULL) {
+				Task = XPlmi_TaskCreate(
+					Sched.TaskList[Idx].Priority,
 					Sched.TaskList[Idx].CustomerFunc, NULL);
-			if (Task == NULL) {
-				Status = XPlmi_UpdateStatus(XPLM_ERR_TASK_CREATE, 0x0);
-				XPlmi_Printf(DEBUG_GENERAL, "Task Creation Err:0x%x\n\r", Status);
-				goto END;
+				if (Task == NULL) {
+					Status = XPlmi_UpdateStatus(
+						XPLM_ERR_TASK_CREATE, 0x0);
+					XPlmi_Printf(DEBUG_GENERAL,
+					     "Task Creation Err:0x%x\n\r", Status);
+					goto END;
+				}
+				XPlmi_TaskTriggerNow(Task);
 			}
-			XPlmi_TaskTriggerNow(Task);
 			/* Remove the task from scheduler if it is non-periodic*/
 			if (Sched.TaskList[Idx].Interval == 0U) {
 				Sched.TaskList[Idx].OwnerId = 0U;

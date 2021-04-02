@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,9 @@
 * 1.01  kc   07/16/2019 Added PERF macro to print task times
 * 1.02  kc   02/17/2020 Task dispatcher updated with round robin from FCFS
 *       bsv  04/04/2020 Code clean up
+* 1.03  skd  03/31/2021 Adding non periodic tasks even if a task
+*                       with the same handler exists, to ensure no
+*                       interrupt task handlers get missed
 *
 * </pre>
 *
@@ -76,6 +79,7 @@ XPlmi_TaskNode * XPlmi_TaskCreate(TaskPriority_t Priority,
 void XPlmi_TaskTriggerNow(XPlmi_TaskNode * Task);
 void XPlmi_TaskInit(void);
 void XPlmi_TaskDispatchLoop(void);
+XPlmi_TaskNode * XPlmi_GetTaskInstance(int (*Handler)(void *Arg), const void *PrivData);
 
 /************************** Variable Definitions *****************************/
 
