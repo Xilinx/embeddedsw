@@ -134,18 +134,26 @@ namespace xaiefal {
 		AieRC _reserve() {
 			AieRC RC;
 
-			RC = XAieStreamPortSelect::XAieAllocRsc(AieHd, Loc, Rsc);
+			if (preferredId == XAIE_RSC_ID_ANY) {
+				XAie_UserRscReq Req = {Loc, Mod, 1};
+				RC = XAie_RequestSSEventPortSelect(AieHd->dev(), 1, &Req, 1, &Rsc);
+			} else {
+				Rsc.RscType = XAIE_SS_EVENT_PORTS_RSC;
+				Rsc.Loc.Col = Loc.Col;
+				Rsc.Loc.Row = Loc.Row;
+				Rsc.Mod = static_cast<uint32_t>(Mod);
+				Rsc.RscId = preferredId;
+				RC = XAie_RequestAllocatedSSEventPortSelect(AieHd->dev(), 1, &Rsc);
+			}
 			if (RC != XAIE_OK) {
 				Logger::log(LogLevel::ERROR) << "Stream port select " << __func__ << " (" <<
-					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
+					static_cast<uint32_t>(Loc.Col) << "," << static_cast<uint32_t>(Loc.Row) << ")" <<
 					" resource not available." << std::endl;
 			}
 			return RC;
 		}
 		AieRC _release() {
-			XAieStreamPortSelect::XAieReleaseRsc(AieHd, Rsc);
-
-			return XAIE_OK;
+			return XAie_ReleaseSSEventPortSelect(AieHd->dev(), 1, &Rsc);
 		}
 		AieRC _start() {
 			AieRC RC;
@@ -169,60 +177,6 @@ namespace xaiefal {
 					" failed to stop." << std::endl;
 			}
 			return RC;
-		}
-	private:
-		/**
-		 * TODO: Following function will not be required.
-		 * Bitmap will be moved to device driver
-		 */
-		static AieRC XAieAllocRsc(std::shared_ptr<XAieDevHandle> Dev,
-				XAie_LocType L,
-				XAie_UserRsc &R) {
-			uint64_t *bits;
-			int bit, sbit;
-			AieRC RC = XAIE_OK;
-
-			(void)Dev;
-			if (L.Row == 0) {
-				bits = Dev->XAieSSShimTBits;
-				sbit = L.Col * 8;
-			} else {
-				bits = Dev->XAieSSCoreTBits;
-				sbit = (L.Col * 8 + (L.Row - 1)) * 8;
-			}
-			bit = XAieRsc::alloc_rsc_bit(bits, sbit, 8);
-
-			if (bit < 0) {
-				RC = XAIE_ERR;
-			} else {
-				R.Loc = L;
-				if (L.Row == 0) {
-					R.Mod = XAIE_PL_MOD;
-				} else {
-					R.Mod = XAIE_CORE_MOD;
-				}
-				R.RscId = bit - sbit;
-			}
-			return RC;
-		}
-		/**
-		 * TODO: Following function will not be required.
-		 * Bitmap will be moved to device driver
-		 */
-		static void XAieReleaseRsc(std::shared_ptr<XAieDevHandle> Dev,
-				const XAie_UserRsc &R) {
-			uint64_t *bits;
-			int pos;
-
-			(void)Dev;
-			if (R.Mod == XAIE_PL_MOD) {
-				bits = Dev->XAieSSShimTBits;
-				pos = R.Loc.Col * 8 + R.RscId;
-			} else {
-				bits = Dev->XAieSSCoreTBits;
-				pos = (R.Loc.Col * 8 + (R.Loc.Row - 1)) * 8 + R.RscId;
-			}
-			XAieRsc::clear_rsc_bit(bits, pos);
 		}
 	};
 }

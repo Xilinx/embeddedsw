@@ -42,9 +42,6 @@ namespace xaiefal {
 
 			memset(XAiePcEventBits, 0, sizeof(XAiePcEventBits));
 
-			memset(XAieSSCoreTBits, 0, sizeof(XAieSSCoreTBits));
-			memset(XAieSSShimTBits, 0, sizeof(XAieSSShimTBits));
-
 			memset(XAieComboCoreBits, 0, sizeof(XAieComboCoreBits));
 			memset(XAieComboMemBits, 0, sizeof(XAieComboMemBits));
 			memset(XAieComboShimBits, 0, sizeof(XAieComboShimBits));
@@ -104,9 +101,6 @@ namespace xaiefal {
 		uint16_t XAieBroadcastShimBits[50];
 
 		uint64_t XAiePcEventBits[400 * 4 / 64];
-
-		uint64_t XAieSSCoreTBits[400 * 8 / 64];
-		uint64_t XAieSSShimTBits[50 * 2 / 64];
 
 		uint64_t XAieComboCoreBits[400 * 4 / 64];
 		uint64_t XAieComboMemBits[400 * 4 / 64];
