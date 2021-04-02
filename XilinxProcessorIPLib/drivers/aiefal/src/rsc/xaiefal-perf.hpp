@@ -360,7 +360,7 @@ namespace xaiefal {
 				Rsc.RscType = XAIE_PERFCNT_RSC;
 				Rsc.Loc.Col = Loc.Col;
 				Rsc.Loc.Row = Loc.Row;
-				Rsc.Mod = Mod;
+				Rsc.Mod = static_cast<uint32_t>(Mod);
 				Rsc.RscId = preferredId;
 				RC = XAie_RequestAllocatedPerfcnt(AieHd->dev(), 1, &Rsc);
 			}
