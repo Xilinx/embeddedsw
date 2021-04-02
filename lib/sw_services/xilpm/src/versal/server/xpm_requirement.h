@@ -134,6 +134,7 @@ struct XPm_Reqm {
 	XPm_ReqmInfo Curr; /**< Current requirements */
 	XPm_ReqmInfo Next; /**< Pending requirements */
 	u32 AperPerm; /**< Aperture permission mask for the given peripheral */
+	u32 PreallocQoS;  /**< Preallocated QoS value */
 	u16 Flags;	  /** Flags */
 	u8 Allocated; /**< Device has been allocated to the subsystem */
 	u8 SetLatReq; /**< Latency has been set from the subsystem */
@@ -148,7 +149,7 @@ struct XPm_Reqm {
 /************************** Function Prototypes ******************************/
 
 XStatus XPmRequirement_Add(XPm_Subsystem *Subsystem, XPm_Device *Device,
-			   u32 Flags, u32 AperPerm, u32 PreallocCaps, u32 QoS);
+			   u32 Flags, u32 AperPerm, u32 PreallocCaps, u32 PreallocQoS);
 void XPm_RequiremntUpdate(XPm_Requirement *Reqm);
 XStatus XPmRequirement_Release(XPm_Requirement *Reqm, XPm_ReleaseScope Scope);
 void XPmRequirement_Clear(XPm_Requirement* Reqm);
