@@ -10,6 +10,7 @@
 #include <xaiefal/profile/xaiefal-profile.hpp>
 #include <xaiefal/rsc/xaiefal-bc.hpp>
 #include <xaiefal/rsc/xaiefal-events.hpp>
+#include <xaiefal/rsc/xaiefal-groupevent.hpp>
 #include <xaiefal/rsc/xaiefal-pc.hpp>
 #include <xaiefal/rsc/xaiefal-perf.hpp>
 #include <xaiefal/rsc/xaiefal-ss.hpp>
