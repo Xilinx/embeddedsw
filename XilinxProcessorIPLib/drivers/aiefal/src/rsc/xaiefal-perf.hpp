@@ -409,6 +409,8 @@ namespace xaiefal {
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
 					" Expect Mod= " << Mod <<
 					" resource not available." << std::endl;
+			} else {
+				RC = _reserveAppend();
 			}
 			return RC;
 		}
@@ -425,6 +427,7 @@ namespace xaiefal {
 				RstBC->release();
 				delete RstBC;
 			}
+			_releaseAppend();
 			return XAie_ReleasePerfcnt(AieHd->dev(), 1, &Rsc);
 		}
 		AieRC _start() {
@@ -508,11 +511,20 @@ namespace xaiefal {
 					" failed to stop." << std::endl;
 				RC = XAIE_ERR;
 			} else {
-				RC = XAIE_OK;
+				RC = _stopAppend();
 			}
 			return RC;
 		}
 		virtual AieRC _startPrepend() {
+			return XAIE_OK;
+		}
+		virtual AieRC _reserveAppend() {
+			return XAIE_OK;
+		}
+		virtual AieRC _stopAppend() {
+			return XAIE_OK;
+		}
+		virtual AieRC _releaseAppend() {
 			return XAIE_OK;
 		}
 	};

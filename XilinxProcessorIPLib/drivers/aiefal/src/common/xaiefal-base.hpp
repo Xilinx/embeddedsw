@@ -451,8 +451,10 @@ namespace xaiefal {
 		 * function of the resource class.
 		 */
 		std::shared_ptr<XAieStallCycles> stallCycles() {
+			auto StallG = groupEvent(XAIE_EVENT_GROUP_CORE_STALL_CORE);
+			auto FlowG = groupEvent(XAIE_EVENT_GROUP_CORE_PROGRAM_FLOW_CORE);
 			return std::make_shared<XAieStallCycles>(AieHandle,
-					Loc);
+					Loc, StallG, FlowG);
 		}
 
 		/**
