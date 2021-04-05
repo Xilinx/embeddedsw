@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file	xilsecure_versal_aes_example.c
+* @file	xilsecure_versal_aes_client_example.c
 * @addtogroup xsecure_versal_aes_example XilSecure AES API Example Generic Usage
 * @{
 *
@@ -23,16 +23,16 @@
 * 4.1   vns    08/06/19 First Release
 * 4.3   har    10/12/20 Addressed security review comments
 * 4.4   har    03/02/21 Added support for AAD
+* 	kal    03/23/21 Updated example for client support
 *
 * </pre>
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
-#include "xparameters.h"
-#include "xsecure_aes.h"
+#include "xil_cache.h"
 #include "xil_util.h"
-#include "xpmcdma.h"
+#include "xsecure_aesclient.h"
+#include "xsecure_defs.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -59,6 +59,8 @@
 #define XSECURE_AAD_SIZE_IN_BITS	(XSECURE_AAD_SIZE * 8U)
 
 #define XSECURE_PMCDMA_DEVICEID	PMCDMA_0_DEVICE_ID
+#define XSECURE_SECURE_GCM_TAG_SIZE	(16U)
+#define XSECURE_AES_KEY_SIZE_256 	(2U)
 
 /**************************** Type Definitions *******************************/
 
@@ -67,10 +69,13 @@
 /************************** Function Prototypes ******************************/
 
 static s32 SecureAesExample(void);
+static u32 SecureIpiConfigure(XIpiPsu *const IpiInstPtr);
 
 /************************** Variable Definitions *****************************/
 static u8 Iv[XSECURE_IV_SIZE];
 static u8 Key[XSECURE_KEY_SIZE];
+
+static XIpiPsu IpiInst;
 
 #if defined (__GNUC__)
 static u8 Data[XSECURE_DATA_SIZE]__attribute__ ((aligned (64)))
@@ -97,11 +102,33 @@ static u8 Aad[XSECURE_AAD_SIZE];
 #endif
 
 /************************** Function Definitions ******************************/
+
+
+
+/*****************************************************************************/
+/**
+*
+* Main function to call the SecureAesExample function
+*
+* @param	None
+*
+* @return
+*		- XST_FAILURE if the Aes failed.
+*
+******************************************************************************/
 int main(void)
 {
 	int Status = XST_FAILURE;
 
-	Xil_DCacheDisable();
+	Status = SecureIpiConfigure(&IpiInst);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XSecure_ConfigIpi(&IpiInst);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	/* Covert strings to buffers */
 	Status = Xil_ConvertStringToHexBE(
@@ -138,6 +165,11 @@ int main(void)
 		goto END;
 	}
 
+	Xil_DCacheFlushRange((UINTPTR)Iv, XSECURE_IV_SIZE);
+	Xil_DCacheFlushRange((UINTPTR)Data, XSECURE_DATA_SIZE);
+	Xil_DCacheFlushRange((UINTPTR)Key, XSECURE_KEY_SIZE);
+	Xil_DCacheFlushRange((UINTPTR)Aad, XSECURE_AAD_SIZE);
+
 	/* Encryption and decryption of the data */
 	Status = SecureAesExample();
 	if(Status == XST_SUCCESS) {
@@ -145,6 +177,43 @@ int main(void)
 	}
 	else {
 		xil_printf("\r\nVersal AES example failed\r\n");
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function configures the IPI
+*
+* @param	IpiInstPtr	Pointer to IPI instance
+*
+* @return
+* 		- XST_SUCCESS if Ipi configuration is successful
+*		- XST_FAILURE if Ipi configuration is failed.
+*
+******************************************************************************/
+static u32 SecureIpiConfigure(XIpiPsu *const IpiInstPtr)
+{
+	u32 Status = XST_FAILURE;
+	XIpiPsu_Config *IpiCfgPtr;
+
+	/* Look Up the config data */
+	IpiCfgPtr = XIpiPsu_LookupConfig(XPAR_XIPIPSU_0_DEVICE_ID);
+	if (NULL == IpiCfgPtr) {
+		Status = XST_FAILURE;
+		xil_printf("%s ERROR in getting CfgPtr\n");
+		goto END;
+	}
+
+	/* Init with the Cfg Data */
+	Status = XIpiPsu_CfgInitialize(IpiInstPtr, IpiCfgPtr,
+						IpiCfgPtr->BaseAddress);
+	if (XST_SUCCESS != Status) {
+		xil_printf("%s ERROR #%d in configuring IPI\n",Status);
+		goto END;;
 	}
 
 END:
@@ -170,30 +239,20 @@ END:
 /** //! [Generic AES example] */
 static s32 SecureAesExample(void)
 {
-	XPmcDma_Config *Config;
 	s32 Status = XST_FAILURE;
 	u32 Index;
-	XPmcDma PmcDmaInstance;
-	XSecure_Aes Secure_Aes;
 
-	/* Initialize PMC DMA driver */
-	Config = XPmcDma_LookupConfig(XSECURE_PMCDMA_DEVICEID);
-	if (NULL == Config) {
-		return XST_FAILURE;
-	}
+	/* Initialize the Aes driver so that it's ready to use */
+	Status = XSecure_AesInitialize();
 
-	Status = XPmcDma_CfgInitialize(&PmcDmaInstance, Config,
-					Config->BaseAddress);
 	if (Status != XST_SUCCESS) {
+		xil_printf(" Aes encrypt init is failed\n\r");
 		goto END;
 	}
 
-	/* Initialize the Aes driver so that it's ready to use */
-	XSecure_AesInitialize(&Secure_Aes, &PmcDmaInstance);
-
 	/* Write AES key */
-	Status = XSecure_AesWriteKey(&Secure_Aes, XSECURE_AES_USER_KEY_0,
-				XSECURE_AES_KEY_SIZE_256, (u64)Key);
+	Status = XSecure_AesWriteKey(XSECURE_AES_USER_KEY_0,
+				XSECURE_AES_KEY_SIZE_256, (u64)&Key);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Failure at key write\n\r");
 		goto END;
@@ -205,37 +264,38 @@ static s32 SecureAesExample(void)
 	}
 	xil_printf( "\r\n\n");
 
-	/* Encryption of Data */
-	/*
-	 * If all the data to be encrypted is contiguous one can call
-	 * XSecure_AesEncryptData API directly after
-	 * XSecure_AesEncryptInit() call
-	 */
-	Status = XSecure_AesEncryptInit(&Secure_Aes, XSECURE_AES_USER_KEY_0,
-					XSECURE_AES_KEY_SIZE_256, (u64)Iv);
+	Xil_DCacheInvalidateRange((UINTPTR)EncData, XSECURE_DATA_SIZE);
+	Xil_DCacheInvalidateRange((UINTPTR)GcmTag, XSECURE_SECURE_GCM_TAG_SIZE);
+
+	Status = XSecure_AesEncryptInit(XSECURE_AES_USER_KEY_0,
+			XSECURE_AES_KEY_SIZE_256, (u64)&Iv);
+
 	if (Status != XST_SUCCESS) {
 		xil_printf(" Aes encrypt init is failed\n\r");
 		goto END;
 	}
 
-	Status = XSecure_AesUpdateAad(&Secure_Aes, (u64)Aad, XSECURE_AAD_SIZE);
+	Status = XSecure_AesUpdateAad((u64)Aad, XSECURE_AAD_SIZE);
 	if (Status != XST_SUCCESS) {
 		xil_printf(" Aes update aad failed %x\n\r", Status);
 		goto END;
 	}
 
-	Status = XSecure_AesEncryptUpdate(&Secure_Aes, (u64)Data,(u64)EncData,
+	Status = XSecure_AesEncryptUpdate((u64)&Data,(u64)EncData,
 						XSECURE_DATA_SIZE, TRUE);
 	if (Status != XST_SUCCESS) {
 		xil_printf(" Aes encrypt update is failed\n\r");
 		goto END;
 	}
 
-	Status = XSecure_AesEncryptFinal(&Secure_Aes, (u64)GcmTag);
+	Status = XSecure_AesEncryptFinal((u64)&GcmTag);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Failed at GCM tag generation\n\r");
 		goto END;
 	}
+
+	Xil_DCacheInvalidateRange((UINTPTR)EncData, XSECURE_DATA_SIZE);
+	Xil_DCacheInvalidateRange((UINTPTR)GcmTag, XSECURE_SECURE_GCM_TAG_SIZE);
 
 	xil_printf("Encrypted data: \n\r");
 	for (Index = 0; Index < XSECURE_DATA_SIZE; Index++) {
@@ -249,37 +309,36 @@ static s32 SecureAesExample(void)
 	}
 	xil_printf( "\r\n\n");
 
+	Xil_DCacheInvalidateRange((UINTPTR)DecData, XSECURE_DATA_SIZE);
+
 	/* Decrypt's the encrypted data */
-	/*
-	 * If data to be decrypted is contiguous one can also call
-	 * single API XSecure_AesDecryptData after
-	 * XSecure_AesDecryptInit() call
-	 */
-	Status = XSecure_AesDecryptInit(&Secure_Aes, XSECURE_AES_USER_KEY_0,
-					XSECURE_AES_KEY_SIZE_256, (u64)Iv);
+	Status = XSecure_AesDecryptInit(XSECURE_AES_USER_KEY_0,
+					XSECURE_AES_KEY_SIZE_256, (u64)&Iv);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Error in decrypt init ");
 		goto END;
 	}
 
-	Status = XSecure_AesUpdateAad(&Secure_Aes, (u64)Aad, XSECURE_AAD_SIZE);
+	Status = XSecure_AesUpdateAad((u64)Aad, XSECURE_AAD_SIZE);
 	if (Status != XST_SUCCESS) {
 		xil_printf(" Aes update aad failed %x\n\r", Status);
 		goto END;
 	}
 
-	Status = XSecure_AesDecryptUpdate(&Secure_Aes, (u64)EncData, (u64)DecData,
+	Status = XSecure_AesDecryptUpdate((u64)&EncData, (u64)&DecData,
 						 XSECURE_DATA_SIZE, TRUE);
 	if (Status != XST_SUCCESS) {
-		xil_printf(" Aes update  failed %x\n\r", Status);
+		xil_printf("Aes decrypt update failed %x\n\r", Status);
 		goto END;
 	}
 
-	Status = XSecure_AesDecryptFinal(&Secure_Aes, (u64)GcmTag);
+	Status = XSecure_AesDecryptFinal((u64)&GcmTag);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Decryption failure- GCM tag was not matched\n\r");
 		goto END;
 	}
+
+	Xil_DCacheInvalidateRange((UINTPTR)DecData, XSECURE_DATA_SIZE);
 
 	xil_printf("Decrypted data \n\r");
 	for (Index = 0; Index < XSECURE_DATA_SIZE; Index++) {
