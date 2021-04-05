@@ -19,6 +19,7 @@
 * 1.02  gm   11/30/2020 Added SEM Start and Stop API declaration
 * 1.03  rb   01/28/2021 Added SEM Pre Init API declaration
 * 1.04  rb   03/09/2021 Updates Sem Init API call, removed unused APIs
+* 1.05  rb   03/31/2021 Provided XMPU register update config and API
 *
 * </pre>
 *
@@ -36,6 +37,20 @@ extern "C" {
 /***************************** Include Files *********************************/
 /***************************** Global variables ******************************/
 
+/**
+ * XMPU Config Database
+ */
+typedef struct {
+	u32 DdrmcNocAddr; /**< DDRMC NOC address */
+	u32 XmpuRegionNum; /**< XMPU region number */
+	u32 XmpuConfig; /**< XMPU entry config */
+	u32 XmpuStartAddrLo; /**< XMPU start address lower portion */
+	u32 XmpuStartAddrUp; /**< XMPU start address upper portion */
+	u32 XmpuEndAddrLo; /**< XMPU end address lower portion */
+	u32 XmpuEndAddrUp; /**< XMPU end address upper portion */
+	u32 XmpuMaster; /**< XMPU master ID and mask */
+}XSem_XmpuCfg;
+
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -45,6 +60,7 @@ int XSem_Init (void);
 int XSem_InitScan (void);
 int XSem_StartScan (void);
 int XSem_StopScan (void);
+int XSem_XmpuRegUpdate(XSem_XmpuCfg *XmpuCfg);
 
 #ifdef __cplusplus
 }
