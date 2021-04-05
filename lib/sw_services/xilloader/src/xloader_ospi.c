@@ -29,7 +29,7 @@
 *       skd  07/29/2020 Added non-blocking DMA support for Ospi copy
 *       skd  08/21/2020 Added support for GIGADEVICE and ISSI flash parts
 *       bsv  10/13/2020 Code clean up
-*       ma   03/24/2021 Minor updates to prints in XilLoader
+* 1.03  ma   03/24/2021 Minor updates to prints in XilLoader
 *
 * </pre>
 *

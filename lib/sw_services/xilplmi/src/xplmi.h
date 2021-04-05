@@ -28,9 +28,9 @@
 *       bsv  09/30/2020 Added XPLMI_CHUNK_SIZE macro
 *       bm   10/14/2020 Code clean up
 *       td   10/19/2020 MISRA C Fixes
-* 1.3   nsk  12/14/2020 Modified xplmi_event_logging.c to use Canonical
+* 1.04  nsk  12/14/2020 Modified xplmi_event_logging.c to use Canonical
 *                       names.
-* 1.4   ma   03/04/2021 Added IPI security defines
+* 1.05  ma   03/04/2021 Added IPI security defines
 *       har  03/17/2021 Added Secure State register for authentication and
 *                       encryption
 *       ma   03/24/2021 Added RTCA Debug Log Address define

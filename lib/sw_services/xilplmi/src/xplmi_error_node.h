@@ -19,7 +19,7 @@
 * 1.01  ma   02/28/2020 Error actions related changes
 *       bsv  04/04/2020 Code clean up
 * 1.02  bm   10/14/2020 Code clean up
-* 1.04  pj   03/24/2021 Added Software Error node for Healthy boot monitoring
+* 1.03  pj   03/24/2021 Added Software Error node for Healthy boot monitoring
 *
 * </pre>
 *

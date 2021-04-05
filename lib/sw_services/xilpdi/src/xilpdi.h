@@ -37,7 +37,7 @@
 *       kpt  10/19/2020 Added support to validate checksum of image headers and
 *                       partition headers
 * 1.05  td   11/23/2020 Coverity Warning Fixes
-* 1.06  ma   01/08/2021 Changed maximum number of entries possible for ATF
+*       ma   01/08/2021 Changed maximum number of entries possible for ATF
 *       har  02/01/2021 Added API to get PLM encryption key source
 *       bm   02/12/2021 Updated logic to use BootHdr directly from PMC RAM
 *       har  03/17/2021 Removed XilPdi_IsBhdrAuthEnable

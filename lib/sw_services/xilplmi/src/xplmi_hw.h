@@ -41,7 +41,7 @@
 *       td   10/30/2020 Fixed MISRA C Rule 2.5 and added PMC_GLOBAL macros
 * 1.04  bm   11/10/2020 Added ROM_VALIDATION_DIGEST macro
 *       bsv  01/29/2021 Added APIs for checking and clearing NPI errors
-*       pj   03/24/2021 Added Macros for PSM_CR MASK and trigger
+* 1.05  pj   03/24/2021 Added Macros for PSM_CR MASK and trigger
 *       skd  03/25/2021 Macros re-definitions compilation warning fixes
 *
 * </pre>

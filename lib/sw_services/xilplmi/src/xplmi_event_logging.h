@@ -23,7 +23,7 @@
 *       bsv  04/04/2020 Code clean up
 * 1.02  kc   06/18/2020 Made static functions inline
 *       bm   10/14/2020 Code clean up
-*       ma   03/24/2021 Store DebugLog structure to RTCA
+* 1.03  ma   03/24/2021 Store DebugLog structure to RTCA
 *
 * </pre>
 *

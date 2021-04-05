@@ -44,10 +44,10 @@
 *       bsv  10/19/20 Parallel DMA changes
 *       kpt  10/19/2020 Code clean up
 *       har  10/19/20 Replaced ECDSA in header files
-*       har  11/27/20 Added macros related to PDI DpaCm configuration
-* 1.04  bm   12/16/20 Added PLM_SECURE_EXCLUDE macro. Also moved authentication and
+* 1.04  har  11/27/20 Added macros related to PDI DpaCm configuration
+*       bm   12/16/20 Added PLM_SECURE_EXCLUDE macro. Also moved authentication and
 *                     encryption related code to xloader_auth_enc.h file
-*       har  03/17/21 Added API to set the secure state of device
+* 1.05  har  03/17/21 Added API to set the secure state of device
 *
 * </pre>
 *
