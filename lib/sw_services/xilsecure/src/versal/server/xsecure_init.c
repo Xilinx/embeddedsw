@@ -33,6 +33,7 @@
 #include "xplmi_err.h"
 #include "xsecure_init.h"
 #include "xsecure_tamper.h"
+#include "xsecure_cmd.h"
 
 /************************** Constant Definitions *****************************/
 /**************************** Type Definitions *******************************/
@@ -70,6 +71,8 @@ int XSecure_Init(void)
 	int Status = XST_FAILURE;
 
 	Status = XSecure_RegisterTampIntHandler();
+
+	XSecure_CmdsInit();
 
 	return Status;
 }
