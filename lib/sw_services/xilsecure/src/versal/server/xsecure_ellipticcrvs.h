@@ -36,7 +36,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
-#include "Ecdsa.h"
+#include <Ecdsa.h>
 
 /************************** Constant Definitions ****************************/
 #define XSECURE_ECC_SUPPORT_NIST_P384

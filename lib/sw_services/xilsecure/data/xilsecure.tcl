@@ -30,6 +30,9 @@ proc secure_drc {libhandle} {
 	set common "src/common/"
 	set zynqmp "src/zynqmp/"
 	set versal "src/versal/"
+	set versal_client_dir "$versal/client"
+	set versal_server_dir "$versal/server"
+	set versal_common_dir "$versal/common"
 
 	foreach entry [glob -nocomplain -types f [file join $common *]] {
 			file copy -force $entry "./src"
@@ -43,20 +46,20 @@ proc secure_drc {libhandle} {
 	} elseif {$proc_type == "psu_pmc" || $proc_type == "psu_cortexa72" ||
 				$proc_type == "psv_pmc" || $proc_type == "psv_cortexa72" ||
 				$proc_type == "psv_cortexr5" } {
-			foreach entry [glob -nocomplain -types f [file join $versal *]] {
+
+		if {$proc_type == "psu_pmc" || $proc_type == "psv_pmc"} {
+			foreach entry [glob -nocomplain -types f [file join "$versal/server" *]] {
+				file copy -force $entry "./src"
+			}
+			foreach entry [glob -nocomplain -types f [file join "$versal/common" *]] {
 				file copy -force $entry "./src"
 			}
 
-			if {$proc_type != "psv_pmc" &&  $proc_type != "psu_pmc"} {
-				file delete -force ./src/xsecure_init.c
-				file delete -force ./src/xsecure_init.h
-			}
-
-			if {[string compare -nocase $compiler "mb-gcc"] == 0} {
-				file delete -force ./src/libxilsecure_a72_64.a
-				file delete -force ./src/libxilsecure_r5.a
+			 if {[string compare -nocase $compiler "mb-gcc"] == 0} {
+		                file delete -force ./src/libxilsecure_a72_64.a
+			        file delete -force ./src/libxilsecure_r5.a
 				file rename -force ./src/libxilsecure_pmc.a ./src/libxilsecure.a
-			} elseif {[string compare -nocase $compiler "aarch64-none-elf-gcc"] == 0} {
+	                } elseif {[string compare -nocase $compiler "aarch64-none-elf-gcc"] == 0} {
 				file delete -force ./src/libxilsecure_pmc.a
 				file delete -force ./src/libxilsecure_r5.a
 				file rename -force ./src/libxilsecure_a72_64.a ./src/libxilsecure.a
@@ -65,6 +68,26 @@ proc secure_drc {libhandle} {
 				file delete -force ./src/libxilsecure_a72_64.a
 				file rename -force ./src/libxilsecure_r5.a ./src/libxilsecure.a
 			}
+
+		} elseif {$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
+			$proc_type == "psv_cortexr5"} {
+			foreach entry [glob -nocomplain -types f [file join "$versal/client" *]] {
+				file copy -force $entry "./src"
+			}
+			foreach entry [glob -nocomplain -types f [file join "$versal/common" *]] {
+				file copy -force $entry "./src"
+			}
+			file delete -force ./src/xsecure_utils.c
+			file delete -force ./src/xsecure_utils.h
+			file delete -force ./src/xsecure_rsa.c
+			file delete -force ./src/xsecure_rsa.h
+
+		}
+
+		if {$proc_type != "psv_pmc" &&  $proc_type != "psu_pmc"} {
+			file delete -force ./src/xsecure_init.c
+			file delete -force ./src/xsecure_init.h
+		}
 
 	} else {
 		error "ERROR: XilSecure library is supported only for PMU, CortexA53, CortexR5, CortexA72 and psv_pmc processors.";
