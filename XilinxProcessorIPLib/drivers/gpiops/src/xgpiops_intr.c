@@ -77,7 +77,7 @@ void XGpioPs_IntrEnable(const XGpioPs *InstancePtr, u8 Bank, u32 Mask)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
         Xil_AssertVoid(Bank < InstancePtr->MaxBanks);
 #ifdef versal
-        if(InstancePtr->PmcGpio == TRUE) {
+        if(InstancePtr->PmcGpio == (u32)TRUE) {
                 Xil_AssertVoid(Bank != XGPIOPS_TWO);
         } else {
                 Xil_AssertVoid((Bank !=XGPIOPS_ONE) && (Bank !=XGPIOPS_TWO));
@@ -150,7 +150,7 @@ void XGpioPs_IntrDisable(const XGpioPs *InstancePtr, u8 Bank, u32 Mask)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(Bank < InstancePtr->MaxBanks);
 #ifdef versal
-        if(InstancePtr->PmcGpio == TRUE) {
+        if(InstancePtr->PmcGpio == (u32)TRUE) {
                 Xil_AssertVoid(Bank != XGPIOPS_TWO);
         } else {
                 Xil_AssertVoid((Bank !=XGPIOPS_ONE) && (Bank !=XGPIOPS_TWO));
@@ -224,7 +224,7 @@ u32 XGpioPs_IntrGetEnabled(const XGpioPs *InstancePtr, u8 Bank)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
         Xil_AssertNonvoid(Bank < InstancePtr->MaxBanks);
 #ifdef versal
-        if(InstancePtr->PmcGpio == TRUE) {
+        if(InstancePtr->PmcGpio == (u32)TRUE) {
                 Xil_AssertNonvoid(Bank != XGPIOPS_TWO);
         } else {
                 Xil_AssertNonvoid((Bank !=XGPIOPS_ONE) && (Bank !=XGPIOPS_TWO));
@@ -298,7 +298,7 @@ u32 XGpioPs_IntrGetStatus(const XGpioPs *InstancePtr, u8 Bank)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
         Xil_AssertNonvoid(Bank < InstancePtr->MaxBanks);
 #ifdef versal
-        if(InstancePtr->PmcGpio == TRUE) {
+        if(InstancePtr->PmcGpio == (u32)TRUE) {
                 Xil_AssertNonvoid(Bank != XGPIOPS_TWO);
         } else {
                 Xil_AssertNonvoid((Bank !=XGPIOPS_ONE) && (Bank !=XGPIOPS_TWO));
@@ -374,7 +374,7 @@ void XGpioPs_IntrClear(const XGpioPs *InstancePtr, u8 Bank, u32 Mask)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(Bank < InstancePtr->MaxBanks);
 #ifdef versal
-        if(InstancePtr->PmcGpio == TRUE) {
+        if(InstancePtr->PmcGpio == (u32)TRUE) {
                 Xil_AssertVoid(Bank != XGPIOPS_TWO);
         } else {
                 Xil_AssertVoid((Bank !=XGPIOPS_ONE) && (Bank !=XGPIOPS_TWO));
@@ -463,7 +463,7 @@ void XGpioPs_SetIntrType(const XGpioPs *InstancePtr, u8 Bank, u32 IntrType,
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(Bank < InstancePtr->MaxBanks);
 #ifdef versal
-        if(InstancePtr->PmcGpio == TRUE) {
+        if(InstancePtr->PmcGpio == (u32)TRUE) {
                 Xil_AssertVoid(Bank != XGPIOPS_TWO);
         } else {
                 Xil_AssertVoid((Bank !=XGPIOPS_ONE) && (Bank !=XGPIOPS_TWO));
@@ -515,7 +515,7 @@ void XGpioPs_GetIntrType(const XGpioPs *InstancePtr, u8 Bank, u32 *IntrType,
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(Bank < InstancePtr->MaxBanks);
 #ifdef versal
-        if(InstancePtr->PmcGpio == TRUE) {
+        if(InstancePtr->PmcGpio == (u32)TRUE) {
                 Xil_AssertVoid(Bank != XGPIOPS_TWO);
         } else {
                 Xil_AssertVoid((Bank !=XGPIOPS_ONE) && (Bank !=XGPIOPS_TWO));
@@ -755,7 +755,7 @@ void XGpioPs_IntrHandler(const XGpioPs *InstancePtr)
 
 	for (Bank = 0U; Bank < InstancePtr->MaxBanks; Bank++) {
 #ifdef versal
-		if(InstancePtr->PmcGpio == TRUE) {
+		if(InstancePtr->PmcGpio == (u32)TRUE) {
 			if(Bank == XGPIOPS_TWO) {
 				continue;
 			}
