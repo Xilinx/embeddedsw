@@ -1,0 +1,304 @@
+/******************************************************************************
+* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+*******************************************************************************/
+
+/*****************************************************************************/
+/**
+*
+* @file xsecure_ipi.c
+*
+* This file contains the implementation of the client interface functions for
+* IPI driver. Refer to the header file xsecure_ipi.h for more
+* detailed information.
+*
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver   Who  Date     Changes
+* ----- ---- -------- -------------------------------------------------------
+* 1.0   kal  03/23/21 Initial release
+*
+* </pre>
+*
+* @note
+*
+******************************************************************************/
+
+/***************************** Include Files *********************************/
+#include "xil_types.h"
+#include "xsecure_ipi.h"
+#include "xsecure_defs.h"
+
+/***************** Macros (Inline Functions) Definitions *********************/
+
+/************************** Constant Definitions *****************************/
+static XIpiPsu *IpiPtr;
+
+/**************************** Type Definitions *******************************/
+
+/************************** Variable Definitions *****************************/
+
+/************************** Function Definitions *****************************/
+
+/****************************************************************************/
+/**
+ * @brief  This function sends IPI request to the target module and gets the
+ * response from it
+ *
+ * @param	Payload 	API id and call arguments to be written
+ * 				in IPI buffer
+ * 		Arg0 		Payload argument 0
+ * 		Arg1 		Payload argument 1
+ *		Arg2 		Payload argument 2
+ *		Arg3 		Payload argument 3
+ *		Arg4 		Payload argument 4
+ *		Arg5 		Payload argument 5
+ *
+ * @return	- XST_SUCCESS - If the IPI send and receive is successful
+ * 		- XST_FAILURE - If there is a failure
+ *
+ ****************************************************************************/
+int XSecure_ProcessIpi(u32 Arg0, u32 Arg1, u32 Arg2, u32 Arg3,
+	u32 Arg4, u32 Arg5)
+{
+	int Status = XST_FAILURE;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	Payload[0] = (u32)Arg0;
+	Payload[1] = (u32)Arg1;
+	Payload[2] = (u32)Arg2;
+	Payload[3] = (u32)Arg3;
+	Payload[4] = (u32)Arg4;
+	Payload[5] = (u32)Arg5;
+
+	Status = XSecure_IpiSend(Payload);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XSecure_IpiReadBuff32();
+
+END:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function processes the IPI with 1 payload argument
+ *
+ * @param	ApiId 		API id of the IPI command
+ *
+ * @return	- XST_SUCCESS - If the IPI send and receive is successful
+ * 		- XST_FAILURE - If there is a failure
+ *
+ ****************************************************************************/
+int XSecure_ProcessIpiWithPayload0(u32 ApiId)
+{
+	return XSecure_ProcessIpi(HEADER(0UL, ApiId), 0U, 0U, 0U,
+		0U, 0U);
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function processes the IPI with 2 payload arguments
+ *
+ * @param	ApiId 		API id of the IPI command
+ * 		Arg1 		Payload argument 1
+ *
+ * @return	- XST_SUCCESS - If the IPI send and receive is successful
+ * 		- XST_FAILURE - If there is a failure
+ *
+ ****************************************************************************/
+int XSecure_ProcessIpiWithPayload1(u32 ApiId, u32 Arg1)
+{
+	return XSecure_ProcessIpi(HEADER(0UL, ApiId), Arg1, 0U, 0U,
+		0U, 0U);
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function processes IPI request with 3 payload arguments
+ *
+ * @param	ApiId 		API id of the IPI command
+ * 		Arg1 		Payload argument 1
+ *		Arg2 		Payload argument 2
+ *
+ * @return	- XST_SUCCESS - If the IPI send and receive is successful
+ * 		- XST_FAILURE - If there is a failure
+ *
+ ****************************************************************************/
+int XSecure_ProcessIpiWithPayload2(u32 ApiId, u32 Arg1, u32 Arg2)
+{
+	return XSecure_ProcessIpi(HEADER(0UL, ApiId), Arg1, Arg2, 0U,
+		0U, 0U);
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function processes IPI request with 4 payload arguments
+ *
+ * @param	ApiId 		API id of the IPI command
+ * 		Arg1 		Payload argument 1
+ *		Arg2 		Payload argument 2
+ *		Arg3 		Payload argument 3
+ *
+ * @return	- XST_SUCCESS - If the IPI send and receive is successful
+ * 		- XST_FAILURE - If there is a failure
+ *
+ ****************************************************************************/
+int XSecure_ProcessIpiWithPayload3(u32 ApiId, u32 Arg1, u32 Arg2, u32 Arg3)
+{
+	return XSecure_ProcessIpi(HEADER(0UL, ApiId), Arg1, Arg2, Arg3,
+		0U, 0U);
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function processes IPI request with 5 payload arguments
+ *
+ * @param	ApiId 		API id of the IPI command
+ * 		Arg1 		Payload argument 1
+ *		Arg2 		Payload argument 2
+ *		Arg3 		Payload argument 3
+ *		Arg4 		Payload argument 4
+ *
+ * @return	- XST_SUCCESS - If the IPI send and receive is successful
+ * 		- XST_FAILURE - If there is a failure
+ *
+ ****************************************************************************/
+int XSecure_ProcessIpiWithPayload4(u32 ApiId, u32 Arg1, u32 Arg2, u32 Arg3,
+	u32 Arg4)
+{
+	return XSecure_ProcessIpi(HEADER(0UL, ApiId), Arg1, Arg2, Arg3,
+		Arg4, 0U);
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function processes IPI request with 6 payload arguments
+ *
+ * @param	ApiId 		API id of the IPI command
+ * 		Arg1 		Payload argument 1
+ *		Arg2 		Payload argument 2
+ *		Arg3 		Payload argument 3
+ *		Arg4 		Payload argument 4
+ *		Arg5 		Payload argument 5
+ *
+ * @return	- XST_SUCCESS - If the IPI send and receive is successful
+ * 		- XST_FAILURE - If there is a failure
+ *
+ ****************************************************************************/
+int XSecure_ProcessIpiWithPayload5(u32 ApiId, u32 Arg1, u32 Arg2, u32 Arg3,
+	u32 Arg4, u32 Arg5)
+{
+	return XSecure_ProcessIpi(HEADER(0UL, ApiId), Arg1, Arg2, Arg3,
+		Arg4, Arg5);
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function sends IPI request to the target module
+ *
+ * @param	Payload 	API id and call arguments to be written
+ * 				in IPI buffer
+ *
+ * @return	- XST_SUCCESS - If the IPI send is successful
+ * 		- XST_FAILURE - If there is a failure
+ *
+ ****************************************************************************/
+int XSecure_IpiSend(u32 *Payload)
+{
+	int Status = XST_FAILURE;
+
+	if (NULL == IpiPtr) {
+		XSecure_Printf(XSECURE_DEBUG_GENERAL,
+			"Passing NULL pointer to %s\r\n", __func__);
+		goto END;
+	}
+	Status = XIpiPsu_PollForAck(IpiPtr, TARGET_IPI_INT_MASK,
+				    XSECURE_IPI_TIMEOUT);
+	if (Status != XST_SUCCESS) {
+		XSecure_Printf(XSECURE_DEBUG_GENERAL,
+			"IPI Timeout expired in %s\n", __func__);
+		goto END;
+	}
+
+	Status = XIpiPsu_WriteMessage(IpiPtr, TARGET_IPI_INT_MASK, Payload,
+				      PAYLOAD_ARG_CNT, XIPIPSU_BUF_TYPE_MSG);
+	if (Status != XST_SUCCESS) {
+		XSecure_Printf(XSECURE_DEBUG_GENERAL,
+				"Writing to IPI request buffer failed\n");
+		goto END;
+	}
+
+	Status = XIpiPsu_TriggerIpi(IpiPtr, TARGET_IPI_INT_MASK);
+
+END:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief	This function reads IPI Response after target module
+ * 		has handled interrupt
+ *
+ * @return	- XST_SUCCESS - If the IPI send is successful
+ * 		- XST_FAILURE - If there is a failure
+ *
+ ****************************************************************************/
+int XSecure_IpiReadBuff32()
+{
+	u32 Response[RESPONSE_ARG_CNT];
+	int Status = XST_FAILURE;
+
+	/* Wait until current IPI interrupt is handled by target module */
+	Status = XIpiPsu_PollForAck(IpiPtr, TARGET_IPI_INT_MASK,
+				    XSECURE_IPI_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		XSecure_Printf(XSECURE_DEBUG_GENERAL,
+				"IPI Timeout expired in %s\n", __func__);
+		goto END;
+	}
+
+	Status = XIpiPsu_ReadMessage(IpiPtr, TARGET_IPI_INT_MASK, Response,
+				     RESPONSE_ARG_CNT, XIPIPSU_BUF_TYPE_RESP);
+	if (XST_SUCCESS != Status) {
+		XSecure_Printf(XSECURE_DEBUG_GENERAL,
+				"Reading from IPI response buffer failed\n");
+		goto END;
+	}
+
+	Status = Response[0];
+
+END:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  	Initialize Ipi instance for xilsecure library
+ *
+ * @param  	IpiInst 	Pointer to IPI driver instance
+ *
+ * @return	- XST_SUCCESS - If the initialization is successful
+ * 		- XST_FAILURE - If there is a failure
+ *
+ ****************************************************************************/
+int XSecure_ConfigIpi(XIpiPsu *IpiInst)
+{
+	int Status = XST_FAILURE;
+
+	if (NULL == IpiInst) {
+		XSecure_Printf(XSECURE_DEBUG_GENERAL,
+				"Passing NULL pointer to %s\r\n", __func__);
+		goto END;
+	}
+
+	IpiPtr = IpiInst;
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
