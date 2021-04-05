@@ -43,7 +43,7 @@
 *       bsv  01/04/2021 Added support for LogString and LogAddress commands
 *       bm   02/17/2021 Added const to XPlmi_GenericCmds variable
 *	    bsv  02/28/2021 Added code to avoid unaligned NPI writes
-*       ma   03/04/2021 Added XPlmi_CheckIpiAccess handler to check access for
+* 1.05  ma   03/04/2021 Added XPlmi_CheckIpiAccess handler to check access for
 *                       secure IPI commands
 *       ma   03/10/2021 Removed Get Device Id and Get Board commands from
 *                       secure commands list

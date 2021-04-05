@@ -38,7 +38,7 @@
 * 1.04  td   01/07/2021 Fix warning in PLM memory log regarding NULL handler for
 *                       PMC_PSM_NCR error
 *       bsv  01/29/2021 Added APIs for checking and clearing NPI errors
-*       pj   03/24/2021 Added API to update Subystem Id of the error node
+* 1.05  pj   03/24/2021 Added API to update Subystem Id of the error node
 *       pj   03/24/2021 Added API to trigger error handling from software.
 *                       Added SW Error event and Ids for Healthy Boot errors
 *       bm   03/24/2021 Added logic to store error status in RTCA

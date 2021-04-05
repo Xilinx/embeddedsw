@@ -49,7 +49,7 @@
 *       td   10/19/2020 MISRA C Fixes
 * 1.04  bsv  01/28/2021 Initialize variables to invalid values
 *       bsv  01/29/2021 Added check for NPI errors after loading every partition
-*       bm   03/04/2021 Added address range check before loading elfs
+* 1.05  bm   03/04/2021 Added address range check before loading elfs
 *       ma   03/24/2021 Redirect XilPdi prints to XilLoader
 *       ma   03/24/2021 Minor updates to prints in XilLoader
 *       bl   04/01/2021 Add secure IPI arg to XPm_DevIoctl and

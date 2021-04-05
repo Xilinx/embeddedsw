@@ -30,7 +30,7 @@
 *						static
 * 1.04  td   11/23/2020 MISRA C Rule 17.8 Fixes
 *       bsv  01/29/2021 Added APIs for checking and clearing NPI errors
-*       pj   03/24/2021 Added API for updating the SubsystemId of the error node
+* 1.05  pj   03/24/2021 Added API for updating the SubsystemId of the error node
 *                       Added API for handling and trigger sofware errors
 *       bl   04/01/2021 Update XPlmi_ShutdownHandler_t typedef to remove
 *                       warning

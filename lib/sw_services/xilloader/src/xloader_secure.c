@@ -70,14 +70,14 @@
 *       td   10/19/20 MISRA C Fixes
 *       bsv  10/19/20 Parallel DMA related changes
 *       har  10/19/20 Replaced ECDSA in function calls
-*       har  11/12/20 Initialized GVF in PufData structure with MSB of shutter
+* 1.04  har  11/12/20 Initialized GVF in PufData structure with MSB of shutter
 *                     value
 *                     Improved checks for sync in PDI DPACM Cfg and Efuse DPACM Cfg
-* 1.04  bm   12/16/20 Added PLM_SECURE_EXCLUDE macro. Also moved authentication and
+*       bm   12/16/20 Added PLM_SECURE_EXCLUDE macro. Also moved authentication and
 *                     encryption related code to xloader_auth_enc.c file
 *       bm   01/04/21 Updated checksum verification to be done at destination memory
 *       kpt  02/18/21 Fixed logical error in partition next chunk copy in encryption cases
-*       har  03/17/21 Added API to set the secure state of device
+* 1.05  har  03/17/21 Added API to set the secure state of device
 *       ma   03/24/21 Minor updates to prints in XilLoader
 *
 * </pre>

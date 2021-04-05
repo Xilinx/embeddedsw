@@ -34,7 +34,7 @@
 *       td   10/19/2020 MISRA C Fixes
 * 1.04  bsv  01/04/2021 Added support for LogString and LogAddress commands
 *	    bsv  02/28/2021 Added code to avoid unaligned NPI writes
-*	    ma   03/10/2021 Added define for Loader set image info command
+* 1.05  ma   03/10/2021 Added define for Loader set image info command
 *
 * </pre>
 *

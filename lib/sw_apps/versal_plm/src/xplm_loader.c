@@ -26,7 +26,7 @@
 * 1.04  bm   12/16/2020 Added PLM_SECURE_EXCLUDE macro
 *       ma   01/12/2021 Initialize BootMode and PdiInstance with invalid value
 *       ma   02/03/2021 Remove redundant call to enable GIC SBI interrupt
-*       ma   03/24/2021 Asterisk alignment
+* 1.05  ma   03/24/2021 Asterisk alignment
 *
 * </pre>
 *

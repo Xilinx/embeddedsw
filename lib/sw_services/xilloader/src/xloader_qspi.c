@@ -30,7 +30,7 @@
 *       bm   09/01/2020 Updated Major error codes for Unsupported Qspi Flash
 *			IDs and Unsupported Flash Sizes
 *       bsv  10/13/2020 Code clean up
-*       ma   03/24/2021 Minor updates to prints in XilLoader
+* 1.04  ma   03/24/2021 Minor updates to prints in XilLoader
 *
 * </pre>
 *
