@@ -27,9 +27,6 @@
 #include "xaiegbl.h"
 
 /***************************** Macro Definitions *****************************/
-#define XAIE_NUM_BROADCAST_CHANNELS	16U
-#define XAIE_BROADCAST_CHANNEL_MASK	0xFFFF
-
 /**************************** Type Definitions *******************************/
 /*
  * This structure is used to return resource as per availibility from the
