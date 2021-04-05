@@ -204,7 +204,7 @@ u32 XGpioPs_Read(const XGpioPs *InstancePtr, u8 Bank)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
         Xil_AssertNonvoid(Bank < InstancePtr->MaxBanks);
 #ifdef versal
-        if(InstancePtr->PmcGpio == TRUE) {
+        if(InstancePtr->PmcGpio == (u32)TRUE) {
                 Xil_AssertNonvoid(Bank != XGPIOPS_TWO);
         } else {
                 Xil_AssertNonvoid((Bank !=XGPIOPS_ONE) && (Bank !=XGPIOPS_TWO));
@@ -275,7 +275,7 @@ void XGpioPs_Write(const XGpioPs *InstancePtr, u8 Bank, u32 Data)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
         Xil_AssertVoid(Bank < InstancePtr->MaxBanks);
 #ifdef versal
-        if(InstancePtr->PmcGpio == TRUE) {
+        if(InstancePtr->PmcGpio == (u32)TRUE) {
                 Xil_AssertVoid(Bank != XGPIOPS_TWO);
         } else {
                 Xil_AssertVoid((Bank !=XGPIOPS_ONE) && (Bank !=XGPIOPS_TWO));
@@ -370,7 +370,7 @@ void XGpioPs_SetDirection(const XGpioPs *InstancePtr, u8 Bank, u32 Direction)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
         Xil_AssertVoid(Bank < InstancePtr->MaxBanks);
 #ifdef versal
-        if(InstancePtr->PmcGpio == TRUE) {
+        if(InstancePtr->PmcGpio == (u32)TRUE) {
                 Xil_AssertVoid(Bank != XGPIOPS_TWO);
         } else {
                 Xil_AssertVoid((Bank !=XGPIOPS_ONE) && (Bank !=XGPIOPS_TWO));
@@ -449,7 +449,7 @@ u32 XGpioPs_GetDirection(const XGpioPs *InstancePtr, u8 Bank)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
         Xil_AssertNonvoid(Bank < InstancePtr->MaxBanks);
 #ifdef versal
-        if(InstancePtr->PmcGpio == TRUE) {
+        if(InstancePtr->PmcGpio == (u32)TRUE) {
                 Xil_AssertNonvoid(Bank != XGPIOPS_TWO);
         } else {
                 Xil_AssertNonvoid((Bank !=XGPIOPS_ONE) && (Bank !=XGPIOPS_TWO));
@@ -524,7 +524,7 @@ void XGpioPs_SetOutputEnable(const XGpioPs *InstancePtr, u8 Bank, u32 OpEnable)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
         Xil_AssertVoid(Bank < InstancePtr->MaxBanks);
 #ifdef versal
-        if(InstancePtr->PmcGpio == TRUE) {
+        if(InstancePtr->PmcGpio == (u32)TRUE) {
                 Xil_AssertVoid(Bank != XGPIOPS_TWO);
         } else {
                 Xil_AssertVoid((Bank !=XGPIOPS_ONE) && (Bank !=XGPIOPS_TWO));
@@ -608,7 +608,7 @@ u32 XGpioPs_GetOutputEnable(const XGpioPs *InstancePtr, u8 Bank)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
         Xil_AssertNonvoid(Bank < InstancePtr->MaxBanks);
 #ifdef versal
-        if(InstancePtr->PmcGpio == TRUE) {
+        if(InstancePtr->PmcGpio == (u32)TRUE) {
                 Xil_AssertNonvoid(Bank != XGPIOPS_TWO);
         } else {
                 Xil_AssertNonvoid((Bank !=XGPIOPS_ONE) && (Bank !=XGPIOPS_TWO));
