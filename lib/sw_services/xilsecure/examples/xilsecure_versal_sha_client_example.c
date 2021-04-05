@@ -1,12 +1,12 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file	xilsecure_sha_example.c
+* @file	xilsecure_sha_client_example.c
 * @addtogroup xsecure_sha3_example_apis XilSecure SHA3 API Example Usage
 * @{
 * This example illustrates the SHA3 hash calculation.
@@ -15,32 +15,19 @@
 * <pre>
 * Ver   Who    Date     Changes
 * ----- ------ -------- -------------------------------------------------
-* 1.00a bameta 11/05/14 First Release
-* 2.2   vns    07/06/16 Added doxygen tags
-* 4.3   kpt    06/15/20 Added hash comparison and modified input data
-*                        string "hell" to "XILINX"
-*       kpt    08/27/20 Removed compilation warning and changed argument type
-*                       from u8* to UINTPTR for versal SHA3 function call
-*       har    10/12/20 Addressed security review comments
-*       kal    03/23/21 Removed versal support in this example and created
-*       		a seperate example for the same
+* 1.0	kal  03/23/21 First Release
 *
 * </pre>
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
-#include "xparameters.h"
-#include "xsecure_sha.h"
+#include "xil_cache.h"
 #include "xil_util.h"
+#include "xsecure_shaclient.h"
 
 /************************** Constant Definitions *****************************/
 
-/*
- * The following constants map to the XPAR parameters created in the
- * xparameters.h file. They are defined here such that a user can easily
- * change all the needed parameters in one place.
- */
+static XIpiPsu IpiInst;
 
 /**************************** Type Definitions *******************************/
 
@@ -51,15 +38,16 @@
 
 /************************** Function Prototypes ******************************/
 
+static u32 SecureIpiConfigure(XIpiPsu *const IpiInstPtr);
 static u32 SecureSha3Example(void);
-static u32 SecureSha3CompareHash(u8 *Hash, u8 *ExpectedHash);
-static void SecureSha3PrintHash(u8 *Hash);
+static u32 SecureSha3CompareHash(const u8 *Hash, const u8 *ExpectedHash);
+static void SecureSha3PrintHash(const u8 *Hash);
 
 /************************** Variable Definitions *****************************/
 
 static const char Data[SHA3_INPUT_DATA_LEN + 1U] = "XILINX";
 
-static u8 ExpHash[SHA3_HASH_LEN_IN_BYTES] =
+static const u8 ExpHash[SHA3_HASH_LEN_IN_BYTES] =
 				     {0x70,0x69,0x77,0x35,0x0b,0x93,
 				      0x92,0xa0,0x48,0x2c,0xd8,0x23,
 				      0x38,0x47,0xd2,0xd9,0x2d,0x1a,
@@ -86,6 +74,16 @@ int main(void)
 {
 	int Status;
 
+	Status = SecureIpiConfigure(&IpiInst);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XSecure_ConfigIpi(&IpiInst);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	Status = SecureSha3Example();
 	if(Status == XST_SUCCESS) {
 		xil_printf("Successfully ran SHA example");
@@ -93,6 +91,44 @@ int main(void)
 	else {
 		xil_printf("SHA Example failed");
 	}
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function configures the IPI
+*
+* @param	IpiInstPtr	Pointer to IPI instance
+*
+* @return
+* 		- XST_SUCCESS if Ipi configuration is successful
+*		- XST_FAILURE if Ipi configuration is failed.
+*
+******************************************************************************/
+static u32 SecureIpiConfigure(XIpiPsu *const IpiInstPtr)
+{
+	u32 Status = XST_FAILURE;
+	XIpiPsu_Config *IpiCfgPtr;
+
+	/* Look Up the config data */
+	IpiCfgPtr = XIpiPsu_LookupConfig(XPAR_XIPIPSU_0_DEVICE_ID);
+	if (NULL == IpiCfgPtr) {
+		Status = XST_FAILURE;
+		xil_printf("%s ERROR in getting CfgPtr\n");
+		goto END;
+	}
+
+	/* Init with the Cfg Data */
+	Status = XIpiPsu_CfgInitialize(IpiInstPtr, IpiCfgPtr,
+					IpiCfgPtr->BaseAddress);
+	if (XST_SUCCESS != Status) {
+		xil_printf("%s ERROR #%d in configuring IPI\n", Status);
+		goto END;;
+	}
+
+END:
 	return Status;
 }
 
@@ -115,10 +151,8 @@ int main(void)
 /** //! [SHA3 example] */
 static u32 SecureSha3Example()
 {
-	XSecure_Sha3 Secure_Sha3;
-	XCsuDma CsuDma;
-	XCsuDma_Config *Config;
-	u8 Out[SHA3_HASH_LEN_IN_BYTES];
+	u8 OutAddr[SHA3_HASH_LEN_IN_BYTES]__attribute__ ((aligned (64))) = {0U};
+	u64 DstAddr = (u64)&OutAddr;
 	u32 Status = XST_FAILURE;
 	u32 Size = 0U;
 
@@ -129,30 +163,16 @@ static u32 SecureSha3Example()
 		goto END;
 	}
 
-	Config = XCsuDma_LookupConfig(0);
-	if (NULL == Config) {
-		xil_printf("config failed\n\r");
-		Status = XST_FAILURE;
-		goto END;
-	}
-
-	Status = XCsuDma_CfgInitialize(&CsuDma, Config, Config->BaseAddress);
-	if (Status != XST_SUCCESS) {
-		Status = XST_FAILURE;
-		goto END;
-	}
-
-	/*
-	 * Initialize the SHA-3 driver so that it's ready to use
-	 */
-	XSecure_Sha3Initialize(&Secure_Sha3, &CsuDma);
-
-	XSecure_Sha3Digest(&Secure_Sha3, (u8*)Data, Size, Out);
+	XSecure_Sha3Initialize();
+	XSecure_Sha3Update((u64)&Data, Size);
+	Xil_DCacheInvalidateRange((UINTPTR)DstAddr, SHA3_HASH_LEN_IN_BYTES);
+	XSecure_Sha3Finish(DstAddr);
+	Xil_DCacheInvalidateRange((UINTPTR)DstAddr, SHA3_HASH_LEN_IN_BYTES);
 
 	xil_printf(" Calculated Hash \r\n ");
-	SecureSha3PrintHash(Out);
+	SecureSha3PrintHash((u8 *)(UINTPTR)OutAddr);
 
-	Status = SecureSha3CompareHash(Out, ExpHash);
+	Status = SecureSha3CompareHash(OutAddr, ExpHash);
 END:
 	return Status;
 }
@@ -168,7 +188,7 @@ END:
 *		- XST_FAILURE - if the comparison fails.
 *
 ****************************************************************************/
-static u32 SecureSha3CompareHash(u8 *Hash, u8 *ExpectedHash)
+static u32 SecureSha3CompareHash(const u8 *Hash, const u8 *ExpectedHash)
 {
 	u32 Index;
 	u32 Status = XST_FAILURE;
@@ -194,7 +214,7 @@ static u32 SecureSha3CompareHash(u8 *Hash, u8 *ExpectedHash)
 * This function prints the given hash on the console
 *
 ****************************************************************************/
-static void SecureSha3PrintHash(u8 *Hash)
+static void SecureSha3PrintHash(const u8 *Hash)
 {
 	u32 Index;
 
