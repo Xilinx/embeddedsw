@@ -1,5 +1,5 @@
 #/******************************************************************************
-#* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+#* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 #* SPDX-License-Identifier: MIT
 #******************************************************************************/
 
@@ -22,6 +22,7 @@ END
 
 BEGIN LIBRARY
  PARAMETER LIBRARY_NAME = xilsecure
+ PARAMETER TPM_SUPPORT = true
 END
 
 BEGIN LIBRARY

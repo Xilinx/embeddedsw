@@ -25,6 +25,7 @@
 *                     prototype of XFsbl_CompareHashs()
 * 4.0   ka   04/10/18 Added support for user-efuse revocation
 * 5.0   bsv  03/11/21 Fixed build issues
+*       bsv  04/01/21 Added TPM support
 *
 * </pre>
 *
@@ -48,7 +49,9 @@ extern "C" {
 #include "xcsudma.h"
 #include "xparameters.h"
 /***************************** Type defines *********************************/
+#ifndef XFSBL_HASH_TYPE_SHA3
 #define XFSBL_HASH_TYPE_SHA3					(48U)
+#endif
 
 #define XFSBL_SPK_SIZE						(512U+512U+64U)
 #define XFSBL_PPK_SIZE						(u32)(XFSBL_SPK_SIZE)

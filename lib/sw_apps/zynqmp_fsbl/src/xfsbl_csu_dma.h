@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -19,6 +19,7 @@
 * 1.00  kc   07/22/14 Initial release
 * 2.0   bv   01/29/17 XFSBL_CSU_SSS_SRC_DEST_DMA and
 *                     XFSBL_CSU_SSS_DMA_MASK masks
+* 3.0   bsv  04/01/21 Added TPM support
 *
 * </pre>
 *
@@ -35,6 +36,8 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xfsbl_hw.h"
+#include "xcsudma.h"
+
 /**************************** Macros Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -42,10 +45,13 @@ extern "C" {
 /**************************** Macros Definitions *****************************/
 #define XFSBL_CSU_SSS_SRC_SRC_DMA    0x5U
 #define XFSBL_CSU_SSS_SRC_DEST_DMA	 0x50U
+#define XFSBL_CSU_SSS_SRC_DMA_DEST_PCAP		(0x5U)
+#define XFSBL_CSU_SSR_SRC_DMA_DEST_SHA		(0x5000U)
+#define XFSBL_CSU_SSR_SRC_DMA_DEST_AES		(0x5A0U)
 #define XFSBL_CSU_SSS_DMA_MASK		 0XF000U
 
 /************************** Function Prototypes ******************************/
-u32 XFsbl_CsuDmaInit(void);
+u32 XFsbl_CsuDmaInit(XCsuDma* CsuDma);
 
 #ifdef __cplusplus
 }

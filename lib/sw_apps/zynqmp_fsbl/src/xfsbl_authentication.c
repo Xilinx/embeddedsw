@@ -35,6 +35,7 @@
 *                     XSecure_RsaPublicEncrypt, as XSecure_RsaDecrypt is
 *                     deprecated.
 * 7.0   bsv  03/11/21 Fixed build issues
+*       bsv  04/01/21 Added TPM support
 *
 * </pre>
 *
@@ -96,7 +97,7 @@ u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen)
 	u32 UserFuseVal;
 
 	/* Re-initialize CSU DMA. This is a workaround and need to be removed */
-	Status = XFsbl_CsuDmaInit();
+	Status = XFsbl_CsuDmaInit(NULL);
 	if (XFSBL_SUCCESS != Status) {
 		goto END;
 	}
@@ -601,7 +602,7 @@ u32 XFsbl_BhAuthentication(const XFsblPs * FsblInstancePtr, u8 *Data,
 	}
 
 	/* Initialize CSU DMA driver */
-	Status = XFsbl_CsuDmaInit();
+	Status = XFsbl_CsuDmaInit(NULL);
 	if (XFSBL_SUCCESS != Status) {
 		goto END;
 	}

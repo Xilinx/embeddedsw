@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -45,6 +45,8 @@
 *                     register
 * 8.0   bsv  12/16/20 Update print format in XFsbl_EccInit to correctly print
 *                     64 bit addresses and lengths
+*       bsv  04/01/21 Added TPM support
+*
 * </pre>
 *
 * @note
@@ -65,6 +67,7 @@
 #include "xfsbl_usb.h"
 #include "xfsbl_authentication.h"
 #include "xfsbl_ddr_init.h"
+#include "xfsbl_tpm.h"
 
 /************************** Constant Definitions *****************************/
 #define PART_NAME_LEN_MAX		20U
@@ -87,6 +90,9 @@ static u32 XFsbl_EccInit(u64 DestAddr, u64 LengthBytes);
 static u32 XFsbl_TcmInit(XFsblPs * FsblInstancePtr);
 static void XFsbl_EnableProgToPL(void);
 static void XFsbl_ClearPendingInterrupts(void);
+#ifdef XFSBL_TPM
+static u32 XFsbl_MeasureFsbl(u8* PartitionHash);
+#endif
 
 /* Functions from xfsbl_misc.c */
 
@@ -108,10 +114,16 @@ extern XFsblPs FsblInstance;
 extern u8 Image$$DATA_SECTION$$Base;
 extern u8 Image$$DATA_SECTION$$Limit;
 extern u8 Image$$DUP_DATA_SECTION$$Base;
+#ifdef XFSBL_TPM
+extern u8 Image$$BSS_SECTION$$Base;
+#endif
 #else
 extern  u8 __data_start;
 extern  u8 __data_end;
 extern  u8 __dup_data_start;
+#ifdef XFSBL_TPM
+extern u8 __sbss_start;
+#endif
 #endif
 
 #ifndef XFSBL_BS
@@ -253,12 +265,22 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 #ifdef XFSBL_ENABLE_DDR_SR
 	u32 RegValue;
 #endif
+#ifdef XFSBL_TPM
+	u8 PartitionHash[XFSBL_HASH_TYPE_SHA3] __attribute__ ((aligned (4U))) =
+		{0U};
+#endif
 
 	/**
 	 * Place AES and SHA engines in reset
 	 */
 	XFsbl_Out32(CSU_AES_RESET, CSU_AES_RESET_RESET_MASK);
 	XFsbl_Out32(CSU_SHA_RESET, CSU_SHA_RESET_RESET_MASK);
+#ifdef XFSBL_TPM
+	Status = XFsbl_MeasureFsbl(PartitionHash);
+	if (Status != XFSBL_SUCCESS) {
+		goto END;
+	}
+#endif
 
 	FsblInstancePtr->ResetReason = XFsbl_GetResetReason();
 
@@ -368,6 +390,24 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 	}
 
 	XFsbl_Printf(DEBUG_INFO,"Processor Initialization Done \n\r");
+#ifdef XFSBL_TPM
+	Status = XFsbl_TpmInit();
+	if (XFSBL_SUCCESS != Status) {
+		goto END;
+	}
+
+	Status = XFsbl_TpmMeasureRom();
+	if (XFSBL_SUCCESS != Status) {
+		goto END;
+	}
+
+	Status = XFsbl_TpmMeasurePartition(XFSBL_TPM_FSBL_PCR_INDEX,
+		PartitionHash);
+	if (XFSBL_SUCCESS != Status) {
+		goto END;
+	}
+#endif
+
 END:
 	return Status;
 }
@@ -863,7 +903,7 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 #endif
 
 		/* Initialize CSUDMA driver */
-		Status = XFsbl_CsuDmaInit();
+		Status = XFsbl_CsuDmaInit(NULL);
 		if (XFSBL_SUCCESS != Status) {
 			goto END;
 		}
@@ -2001,3 +2041,79 @@ void XFsbl_MarkDdrAsReserved(u8 Cond)
 #endif
 #endif
 }
+#ifdef XFSBL_TPM
+
+/*****************************************************************************/
+/**
+ * This function calculates the hash on FSBL. Data section should be untouched
+ * at the time of calling this function.
+ *
+ * @param	PartitionHash is pointer to the instance to store hash of FSBL
+ *
+ * @return	XFSBL_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static u32 XFsbl_MeasureFsbl(u8* PartitionHash)
+{
+	u32 Status = XFSBL_FAILURE;
+	u32 Size;
+	u32 RegVal;
+	u8 ReadBuffer[XFSBL_SHA3_BLOCK_LEN] = {0U};
+	u8 PadLen;
+	u8 Index;
+	XCsuDma CsuDma = {0U};
+	u32* HashPtr = (u32 *)PartitionHash;
+
+#ifdef __clang__
+        Size = (u32)((PTRSIZE)&Image$$BSS_SECTION$$Base - XFSBL_OCM_START_ADDR);
+#else
+        Size = (u32)((PTRSIZE)&__sbss_start - XFSBL_OCM_START_ADDR);
+#endif
+
+	XFsbl_Out32(CSU_DMA_RESET, CSU_DMA_RESET_RESET_MASK);
+	Status = XFsbl_CsuDmaInit(&CsuDma);
+	if (Status != XFSBL_SUCCESS) {
+		goto END;
+	}
+
+	XFsbl_Out32(CSU_CSU_SSS_CFG, CSU_CSU_SSS_CFG_SHA_SSS_DMA_VAL);
+	XFsbl_Out32(CSU_SHA_RESET, 0U);
+	XFsbl_Out32(CSU_SHA_START, CSU_SHA_START_START_MSG_MASK);
+
+	PadLen = (Size % XFSBL_SHA3_BLOCK_LEN);
+	Size = Size - PadLen;
+	XCsuDma_Transfer(&CsuDma, XCSUDMA_SRC_CHANNEL, XFSBL_OCM_START_ADDR,
+		Size / 4U, 0U);
+
+	/* Checking the CSU DMA done bit should be enough. */
+	XCsuDma_WaitForDone(&CsuDma, XCSUDMA_SRC_CHANNEL);
+
+	/* Acknowledge the transfer has completed */
+	XCsuDma_IntrClear(&CsuDma, XCSUDMA_SRC_CHANNEL, XCSUDMA_IXR_DONE_MASK);
+
+	memcpy((u8 *)ReadBuffer, (u8 *)(UINTPTR)(XFSBL_OCM_START_ADDR + Size),
+		PadLen);
+	ReadBuffer[PadLen] = XFSBL_START_KECCAK_PADDING_MASK;
+	ReadBuffer[XFSBL_SHA3_BLOCK_LEN - 1U] |= XFSBL_END_KECCAK_PADDING_MASK;
+
+	XCsuDma_Transfer(&CsuDma, XCSUDMA_SRC_CHANNEL, (PTRSIZE)&ReadBuffer[0U],
+		XFSBL_SHA3_BLOCK_LEN / 4U, 1U);
+
+	/* Checking the CSU DMA done bit should be enough. */
+	XCsuDma_WaitForDone(&CsuDma, XCSUDMA_SRC_CHANNEL);
+
+	/* Acknowledge the transfer has completed */
+	XCsuDma_IntrClear(&CsuDma, XCSUDMA_SRC_CHANNEL, XCSUDMA_IXR_DONE_MASK);
+
+	while((Xil_In32(CSU_SHA_DONE) & CSU_SHA_DONE_SHA_DONE_MASK) == 0U);
+
+	/* Copy has from CSU_SHA_DIGEST registers to PartitionHash variable */
+	for (Index = 0U; Index < XFSBL_HASH_LENGTH_IN_WORDS; Index++) {
+		RegVal = XFsbl_In32(CSU_SHA_DIGEST_0 + (Index * 4U));
+		HashPtr[XFSBL_HASH_LENGTH_IN_WORDS - Index - 1U] = RegVal;
+	}
+
+END:
+	return Status;
+}
+#endif

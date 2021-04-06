@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2017 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -25,6 +25,7 @@
 * 4.0   har     06/17/20 Removed references to unused algorithms
 * 5.0   har     01/16/20 Added checks for Status of SSS configuration when AES
 *                        engine is the Resource
+* 6.0   bsv     04/01/21 Added TPM support
 *
 * </pre>
 *
@@ -91,6 +92,7 @@ typedef struct {
 	u8 SecureHdr[XSECURE_SECURE_HDR_SIZE + XSECURE_SECURE_GCM_TAG_SIZE];
 	u8 Hdr;
 	XSecure_Sss SssInstance;
+	u8 *Hash; /**< Pointer to store calculated hash */
 } XFsblPs_PlPartition;
 /*@}*/
 
