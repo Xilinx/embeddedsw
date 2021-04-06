@@ -23,6 +23,8 @@
 *       dc     02/08/21 align driver to curent specification
 *       dc     02/22/21 include HW in versioning
 *       dc     03/25/21 Device tree item name change
+*       dc     04/06/21 Register with full node name
+*
 * </pre>
 *
 ******************************************************************************/
@@ -83,7 +85,47 @@ extern XDfeCcf_Config XDfeCcf_ConfigTable[XPAR_XDFECCF_NUM_INSTANCES];
 #endif
 XDfeCcf XDfeCcf_ChFilter[XDFECCF_MAX_NUM_INSTANCES];
 
-#ifndef __BAREMETAL__
+#ifdef __BAREMETAL__
+/*****************************************************************************/
+/**
+*
+* Search for the address match between address in ConfigTable and the address
+* extracted from the NodeName. Return pointer to the ConfigTable with a matched
+* base address.
+*
+* @param    InstancePtr is a pointer to the Ccf instance.
+* @param    ConfigTable is a configuration table container.
+*
+* @return
+ *           - XST_SUCCESS if successful.
+ *           - XST_FAILURE if device entry not found for given device id.
+*
+*@note     None.
+*
+******************************************************************************/
+u32 XDfeCcf_GetConfigTable(XDfeCcf *InstancePtr, XDfeCcf_Config *ConfigTable)
+{
+	(void)ConfigTable;
+	u32 Index;
+	char Str[XDFECCF_NODE_NAME_MAX_LENGTH];
+	char *AddrStr;
+	u32 Addr;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	strncpy(Str, InstancePtr->NodeName, sizeof(Str));
+	AddrStr = strtok(Str, ".");
+	Addr = atoi(AddrStr);
+
+	for (Index = 0; Index < XDFECCF_MAX_NUM_INSTANCES; Index++) {
+		if (XDfeCcf_ConfigTable[Index].BaseAddr == Addr) {
+			ConfigTable = &XDfeCcf_ConfigTable[Index];
+			return XST_SUCCESS;
+		}
+	}
+	return XST_FAILURE;
+}
+#else
 /*****************************************************************************/
 /**
 *
@@ -124,19 +166,12 @@ static s32 XDfeCcf_Strrncmp(const char *Str1Ptr, const char *Str2Ptr,
 /*****************************************************************************/
 /**
 *
-* Traverse "/sys/bus/platform/device" directory, to find CCF device entry,
-* corresponding to provided device id. The device id is defined by the address
-* of the entry in the order from lowest to highest, eg.:
-* Id=0 for the CCF entry located to the lowest address,
-* Id=1 for the CCF entry located to the second lowest address,
-* Id=2 for the CCF entry located to the third lowest address, and so on.
-* If device entry corresponding to said device id is found, store it in output
-* buffer DeviceNamePtr.
+* Traverse "/sys/bus/platform/device" directory (in Linux), to find registered
+* device with the name DeviceNodeName.
+* If the match is found than check is the device compatible with the driver.
 *
 * @param    DeviceNamePtr is base address of char array, where device name
 *           will be stored
-* @param    DeviceId contains the ID of the device to look up the
-*           CCF device name entry in "/sys/bus/platform/device"
 * @param    DeviceNodeName is device node name,
 *
 * @return
@@ -146,15 +181,14 @@ static s32 XDfeCcf_Strrncmp(const char *Str1Ptr, const char *Str2Ptr,
  *@note     None.
 *
 ******************************************************************************/
-static s32 XDfeCcf_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId,
-					   const char *DeviceNodeName)
+static s32 XDfeCcf_IsDeviceCompatible(char *DeviceNamePtr,
+				      const char *DeviceNodeName)
 {
 	char CompatibleString[100];
 	struct metal_device *DevicePtr;
 	struct dirent **DirentPtr;
 	char Len = strlen(XDFECCF_COMPATIBLE_STRING);
 	int NumFiles;
-	u16 DeviceIdCounter = 0;
 	u32 Status = XST_FAILURE;
 	int i = 0;
 
@@ -169,6 +203,11 @@ static s32 XDfeCcf_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId,
 
 	/* Loop through the each device file in directory */
 	for (i = 0; i < NumFiles; i++) {
+		/* Check the string size */
+		if (strlen(DirentPtr[i]->d_name) != strlen(DeviceNodeName)) {
+			continue;
+		}
+
 		/* Check the device signature */
 		if (0 != XDfeCcf_Strrncmp(DirentPtr[i]->d_name, DeviceNodeName,
 					  strlen(DeviceNodeName))) {
@@ -201,13 +240,6 @@ static s32 XDfeCcf_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId,
 			continue;
 		}
 
-		/* Is a device Id as requested? */
-		if (DeviceIdCounter != DeviceId) {
-			DeviceIdCounter++;
-			metal_device_close(DevicePtr);
-			continue;
-		}
-
 		/* This is a requested device, save the name */
 		strcpy(DeviceNamePtr, DirentPtr[i]->d_name);
 
@@ -230,7 +262,7 @@ static s32 XDfeCcf_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId,
 *
 * Looks up the device configuration based on the unique device ID.
 *
-* @param    DeviceId contains the ID of the device to register/map
+* @param    InstancePtr is a pointer to the Channel Filter instance.
 *
 * @return
  *           - XST_SUCCESS if successful.
@@ -243,10 +275,10 @@ static s32 XDfeCcf_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId,
 *           pointing to the config returned.
 *
 ******************************************************************************/
-s32 XDfeCcf_LookupConfig(u16 DeviceId)
+s32 XDfeCcf_LookupConfig(XDfeCcf *InstancePtr)
 {
+	struct metal_device *Dev = InstancePtr->Device;
 #ifndef __BAREMETAL__
-	struct metal_device *Dev = XDfeCcf_ChFilter[DeviceId].Device;
 	u64 BaseAddr;
 	char *Name;
 	u32 d;
@@ -257,7 +289,7 @@ s32 XDfeCcf_LookupConfig(u16 DeviceId)
 				   &BaseAddr, XDFECCF_BASEADDR_SIZE)) {
 		goto end_failure;
 	}
-	XDfeCcf_ChFilter[DeviceId].Config.BaseAddr = ntohl(BaseAddr);
+	InstancePtr->Config.BaseAddr = ntohl(BaseAddr);
 
 	/* Get a config data from devicetree */
 	if (XST_SUCCESS !=
@@ -265,23 +297,21 @@ s32 XDfeCcf_LookupConfig(u16 DeviceId)
 					    &d, XDFECCF_WORD_SIZE)) {
 		goto end_failure;
 	}
-	XDfeCcf_ChFilter[DeviceId].Config.NumAntenna = ntohl(d);
+	InstancePtr->Config.NumAntenna = ntohl(d);
 
 	if (XST_SUCCESS != metal_linux_get_device_property(
 				   Dev, Name = XDFECCF_NUM_CC_PER_ANTENNA_CFG,
 				   &d, XDFECCF_WORD_SIZE)) {
 		goto end_failure;
 	}
-	XDfeCcf_ChFilter[DeviceId].Config.NumCCPerAntenna = ntohl(d);
+	InstancePtr->Config.NumCCPerAntenna = ntohl(d);
 
-	if (XST_SUCCESS !=
-	    metal_linux_get_device_property(Dev, Name = XDFECCF_ANTENNA_INTERLEAVE_CFG,
-					    &d, XDFECCF_WORD_SIZE)) {
+	if (XST_SUCCESS != metal_linux_get_device_property(
+				   Dev, Name = XDFECCF_ANTENNA_INTERLEAVE_CFG,
+				   &d, XDFECCF_WORD_SIZE)) {
 		goto end_failure;
 	}
-	XDfeCcf_ChFilter[DeviceId].Config.AntenaInterleave = ntohl(d);
-
-	XDfeCcf_ChFilter[DeviceId].Config.DeviceId = DeviceId;
+	InstancePtr->Config.AntenaInterleave = ntohl(d);
 
 	return XST_SUCCESS;
 
@@ -291,15 +321,19 @@ end_failure:
 	metal_device_close(Dev);
 	return XST_FAILURE;
 #else
-	XDfeCcf_ChFilter[DeviceId].Config.NumAntenna =
-		XDfeCcf_ConfigTable[DeviceId].NumAntenna;
-	XDfeCcf_ChFilter[DeviceId].Config.NumCCPerAntenna =
-		XDfeCcf_ConfigTable[DeviceId].NumCCPerAntenna;
-	XDfeCcf_ChFilter[DeviceId].Config.AntenaInterleave =
-		XDfeCcf_ConfigTable[DeviceId].AntenaInterleave;
+	XDfeCcf_Config *ConfigTable = NULL;
 
-	XDfeCcf_ChFilter[DeviceId].Config.BaseAddr =
-		XDfeCcf_ConfigTable[DeviceId].BaseAddr;
+	/* Find the Config table which base address is a match */
+	if (XST_FAILURE == XDfeCcf_GetConfigTable(InstancePtr, ConfigTable)) {
+		metal_log(METAL_LOG_ERROR, "\nFailed to read device tree");
+		metal_device_close(Dev);
+		return XST_FAILURE;
+	}
+
+	InstancePtr->Config.NumAntenna = ConfigTable->NumAntenna;
+	InstancePtr->Config.NumCCPerAntenna = ConfigTable->NumCCPerAntenna;
+	InstancePtr->Config.AntenaInterleave = ConfigTable->AntenaInterleave;
+	InstancePtr->Config.BaseAddr = ConfigTable->BaseAddr;
 
 	return XST_SUCCESS;
 #endif
@@ -310,7 +344,7 @@ end_failure:
 *
 * Register/open the deviceand map CCF to the IO region.
 *
-* @param    DeviceId contains the ID of the device to register/map
+* @param    InstancePtr is a pointer to the Channel Filter instance.
 * @param    DevicePtr is a pointer to the metal device.
 * @param    DeviceNodeName is device node name,
 *
@@ -321,7 +355,7 @@ end_failure:
 * @note     None.
 *
 ******************************************************************************/
-s32 XDfeCcf_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr,
+s32 XDfeCcf_RegisterMetal(XDfeCcf *InstancePtr, struct metal_device **DevicePtr,
 			  const char *DeviceNodeName)
 {
 	s32 Status;
@@ -344,12 +378,10 @@ s32 XDfeCcf_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr,
 	}
 #else
 	/* Get device name */
-	Status = XDfeCcf_GetDeviceNameByDeviceId(DeviceName, DeviceId,
-						 DeviceNodeName);
+	Status = XDfeCcf_IsDeviceCompatible(DeviceName, DeviceNodeName);
 	if (Status != XST_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Failed to find ccf device with device id %d",
-			  DeviceId);
+		metal_log(METAL_LOG_ERROR, "\n Failed to find ccf device %s",
+			  DeviceNodeName);
 		return Status;
 	}
 
@@ -363,15 +395,15 @@ s32 XDfeCcf_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr,
 #endif
 
 	/* Map CCF device IO region */
-	XDfeCcf_ChFilter[DeviceId].Io = metal_device_io_region(*DevicePtr, 0U);
-	if (XDfeCcf_ChFilter[DeviceId].Io == NULL) {
+	InstancePtr->Io = metal_device_io_region(*DevicePtr, 0U);
+	if (InstancePtr->Io == NULL) {
 		metal_log(METAL_LOG_ERROR,
 			  "\n Failed to map CCF region for %s.\n",
 			  (*DevicePtr)->name);
 		metal_device_close(*DevicePtr);
 		return XST_FAILURE;
 	}
-	XDfeCcf_ChFilter[DeviceId].Device = *DevicePtr;
+	InstancePtr->Device = *DevicePtr;
 
 	return XST_SUCCESS;
 }
@@ -400,7 +432,7 @@ void XDfeCcf_CfgInitialize(XDfeCcf *InstancePtr)
 	if (InstancePtr->Io == NULL) {
 		InstancePtr->Io =
 			(struct metal_io_region *)metal_allocate_memory(
-				sizeof(struct metal_io_region));
+				(unsigned)sizeof(struct metal_io_region));
 		metal_io_init(
 			InstancePtr->Io,
 			(void *)(metal_phys_addr_t)InstancePtr->Config.BaseAddr,
