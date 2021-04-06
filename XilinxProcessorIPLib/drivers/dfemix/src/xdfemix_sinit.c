@@ -23,6 +23,7 @@
 *       dc     02/15/21 align driver to curent specification
 *       dc     02/22/21 include HW in versioning
 *       dc     03/18/21 New model parameter list
+*       dc     04/06/21 Register with full node name
 *
 * </pre>
 *
@@ -87,7 +88,47 @@ extern XDfeMix_Config XDfeMix_ConfigTable[XPAR_XDFEMIX_NUM_INSTANCES];
 #endif
 XDfeMix XDfeMix_Mixer[XDFEMIX_MAX_NUM_INSTANCES];
 
-#ifndef __BAREMETAL__
+#ifdef __BAREMETAL__
+/*****************************************************************************/
+/**
+*
+* Search for the address match between address in ConfigTable and the address
+* extracted from the NodeName. Return pointer to the ConfigTable with a matched
+* base address.
+*
+* @param    InstancePtr is a pointer to the Ccf instance.
+* @param    ConfigTable is a configuration table container.
+*
+* @return
+ *           - XST_SUCCESS if successful.
+ *           - XST_FAILURE if device entry not found for given device id.
+*
+*@note     None.
+*
+******************************************************************************/
+u32 XDfeMix_GetConfigTable(XDfeMix *InstancePtr, XDfeMix_Config *ConfigTable)
+{
+	(void)ConfigTable;
+	u32 Index;
+	char Str[XDFEMIX_NODE_NAME_MAX_LENGTH];
+	char *AddrStr;
+	u32 Addr;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	strncpy(Str, InstancePtr->NodeName, sizeof(Str));
+	AddrStr = strtok(Str, ".");
+	Addr = atoi(AddrStr);
+
+	for (Index = 0; Index < XDFEMIX_MAX_NUM_INSTANCES; Index++) {
+		if (XDfeMix_ConfigTable[Index].BaseAddr == Addr) {
+			ConfigTable = &XDfeMix_ConfigTable[Index];
+			return XST_SUCCESS;
+		}
+	}
+	return XST_FAILURE;
+}
+#else
 /*****************************************************************************/
 /**
 *
@@ -128,19 +169,12 @@ static s32 XDfeMix_Strrncmp(const char *Str1Ptr, const char *Str2Ptr,
 /*****************************************************************************/
 /**
 *
-* Traverse "/sys/bus/platform/device" directory, to find Mixer device entry,
-* corresponding to provided device id. The device id is defined by the address
-* of the entry in the order from lowest to highest, eg.:
-* Id=0 for the Mixer entry located to the lowest address,
-* Id=1 for the Mixer entry located to the second lowest address,
-* Id=2 for the Mixer entry located to the third lowest address, and so on.
-* If device entry corresponding to said device id is found, store it in output
-* buffer DeviceNamePtr.
+* Traverse "/sys/bus/platform/device" directory (in Linux), to find registered
+* device with the name DeviceNodeName.
+* If the match is found than check is the device compatible with the driver.
 *
 * @param    DeviceNamePtr is base address of char array, where device name
 *           will be stored
-* @param    DeviceId contains the ID of the device to look up the
-*           Mixer device name entry in "/sys/bus/platform/device"
 * @param    DeviceNodeName is device node name,
 *
 * @return
@@ -150,15 +184,14 @@ static s32 XDfeMix_Strrncmp(const char *Str1Ptr, const char *Str2Ptr,
  *@note     None.
 *
 ******************************************************************************/
-static s32 XDfeMix_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId,
-					   const char *DeviceNodeName)
+static s32 XDfeMix_IsDeviceCompatible(char *DeviceNamePtr,
+				      const char *DeviceNodeName)
 {
 	char CompatibleString[100];
 	struct metal_device *DevicePtr;
 	struct dirent **DirentPtr;
 	char Len = strlen(XDFEMIX_COMPATIBLE_STRING);
 	int NumFiles;
-	u16 DeviceIdCounter = 0;
 	u32 Status = XST_FAILURE;
 	int i = 0;
 
@@ -173,6 +206,11 @@ static s32 XDfeMix_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId,
 
 	/* Loop through the each device file in directory */
 	for (i = 0; i < NumFiles; i++) {
+		/* Check the string size */
+		if (strlen(DirentPtr[i]->d_name) != strlen(DeviceNodeName)) {
+			continue;
+		}
+
 		/* Check the device signature */
 		if (0 != XDfeMix_Strrncmp(DirentPtr[i]->d_name, DeviceNodeName,
 					  strlen(DeviceNodeName))) {
@@ -205,13 +243,6 @@ static s32 XDfeMix_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId,
 			continue;
 		}
 
-		/* Is a device Id as requested? */
-		if (DeviceIdCounter != DeviceId) {
-			DeviceIdCounter++;
-			metal_device_close(DevicePtr);
-			continue;
-		}
-
 		/* This is a requested device, save the name */
 		strcpy(DeviceNamePtr, DirentPtr[i]->d_name);
 
@@ -234,7 +265,7 @@ static s32 XDfeMix_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId,
 *
 * Looks up the device configuration based on the unique device ID.
 *
-* @param    DeviceId contains the ID of the device to register/map
+* @param    InstancePtr is a pointer to the mixer instance.
 *
 * @return
  *           - XST_SUCCESS if successful.
@@ -247,10 +278,10 @@ static s32 XDfeMix_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId,
 *           pointing to the config returned.
 *
 ******************************************************************************/
-s32 XDfeMix_LookupConfig(u16 DeviceId)
+s32 XDfeMix_LookupConfig(XDfeMix *InstancePtr)
 {
+	struct metal_device *Dev = InstancePtr->Device;
 #ifndef __BAREMETAL__
-	struct metal_device *Dev = XDfeMix_Mixer[DeviceId].Device;
 	u64 BaseAddr;
 	char *Name;
 	u32 d;
@@ -261,65 +292,64 @@ s32 XDfeMix_LookupConfig(u16 DeviceId)
 				   &BaseAddr, XDFEMIX_BASEADDR_SIZE)) {
 		goto end_failure;
 	}
-	XDfeMix_Mixer[DeviceId].Config.BaseAddr = ntohl(BaseAddr);
+	InstancePtr->Config.BaseAddr = ntohl(BaseAddr);
 
 	/* Get a config data from devicetree */
-
 	if (XST_SUCCESS !=
 	    metal_linux_get_device_property(Dev, Name = XDFEMIX_TUSER_WIDTH_CFG,
 					    &d, XDFEMIX_WORD_SIZE)) {
 		goto end_failure;
 	}
-	XDfeMix_Mixer[DeviceId].Config.TUserWidth = ntohl(d);
+	InstancePtr->Config.TUserWidth = ntohl(d);
 
 	if (XST_SUCCESS !=
 	    metal_linux_get_device_property(Dev, Name = XDFEMIX_DATA_OWIDTH_CFG,
 					    &d, XDFEMIX_WORD_SIZE)) {
 		goto end_failure;
 	}
-	XDfeMix_Mixer[DeviceId].Config.DataOWidth = ntohl(d);
+	InstancePtr->Config.DataOWidth = ntohl(d);
 
 	if (XST_SUCCESS !=
 	    metal_linux_get_device_property(Dev, Name = XDFEMIX_DATA_IWIDTH_CFG,
 					    &d, XDFEMIX_WORD_SIZE)) {
 		goto end_failure;
 	}
-	XDfeMix_Mixer[DeviceId].Config.DataIWidth = ntohl(d);
+	InstancePtr->Config.DataIWidth = ntohl(d);
 
 	if (XST_SUCCESS !=
 	    metal_linux_get_device_property(Dev, Name = XDFEMIX_MIXER_CPS_CFG,
 					    &d, XDFEMIX_WORD_SIZE)) {
 		goto end_failure;
 	}
-	XDfeMix_Mixer[DeviceId].Config.MixerCps = ntohl(d);
-
-	if (XST_SUCCESS !=
-	    metal_linux_get_device_property(Dev, Name = XDFEMIX_ANTENNA_INTERLEAVE_CFG,
-					    &d, XDFEMIX_WORD_SIZE)) {
-		goto end_failure;
-	}
-	XDfeMix_Mixer[DeviceId].Config.AntennaInterleave = ntohl(d);
+	InstancePtr->Config.MixerCps = ntohl(d);
 
 	if (XST_SUCCESS != metal_linux_get_device_property(
-				   Dev, Name = XDFEMIX_LANES_CFG, &d,
-				   XDFEMIX_WORD_SIZE)) {
+				   Dev, Name = XDFEMIX_ANTENNA_INTERLEAVE_CFG,
+				   &d, XDFEMIX_WORD_SIZE)) {
 		goto end_failure;
 	}
-	XDfeMix_Mixer[DeviceId].Config.Lanes = ntohl(d);
+	InstancePtr->Config.AntennaInterleave = ntohl(d);
+
+	if (XST_SUCCESS !=
+	    metal_linux_get_device_property(Dev, Name = XDFEMIX_LANES_CFG, &d,
+					    XDFEMIX_WORD_SIZE)) {
+		goto end_failure;
+	}
+	InstancePtr->Config.Lanes = ntohl(d);
 
 	if (XST_SUCCESS != metal_linux_get_device_property(
 				   Dev, Name = XDFEMIX_MAX_USABLE_CCIDS_CFG, &d,
 				   XDFEMIX_WORD_SIZE)) {
 		goto end_failure;
 	}
-	XDfeMix_Mixer[DeviceId].Config.MaxUseableCcids = ntohl(d);
+	InstancePtr->Config.MaxUseableCcids = ntohl(d);
 
 	if (XST_SUCCESS !=
 	    metal_linux_get_device_property(Dev, Name = XDFEMIX_NUM_ANTENNA_CFG,
 					    &d, XDFEMIX_WORD_SIZE)) {
 		goto end_failure;
 	}
-	XDfeMix_Mixer[DeviceId].Config.NumAntenna = ntohl(d);
+	InstancePtr->Config.NumAntenna = ntohl(d);
 
 	char str[20];
 	if (XST_SUCCESS !=
@@ -329,14 +359,12 @@ s32 XDfeMix_LookupConfig(u16 DeviceId)
 	}
 
 	if (0 == strncmp(str, "downlink", 8)) {
-		XDfeMix_Mixer[DeviceId].Config.Mode = 0;
+		InstancePtr->Config.Mode = 0;
 	} else if (0 == strncmp(str, "uplink", 6)) {
-		XDfeMix_Mixer[DeviceId].Config.Mode = 1;
+		InstancePtr->Config.Mode = 1;
 	} else {
 		goto end_failure;
 	}
-
-	XDfeMix_Mixer[DeviceId].Config.DeviceId = DeviceId;
 
 	return XST_SUCCESS;
 
@@ -346,27 +374,25 @@ end_failure:
 	metal_device_close(Dev);
 	return XST_FAILURE;
 #else
-	XDfeMix_Mixer[DeviceId].Config.Mode =
-		XDfeMix_ConfigTable[DeviceId].Mode;
-	XDfeMix_Mixer[DeviceId].Config.NumAntenna =
-		XDfeMix_ConfigTable[DeviceId].NumAntenna;
-	XDfeMix_Mixer[DeviceId].Config.MaxUseableCcids =
-		XDfeMix_ConfigTable[DeviceId].MaxUseableCcids;
-	XDfeMix_Mixer[DeviceId].Config.Lanes =
-		XDfeMix_ConfigTable[DeviceId].Lanes;
-	XDfeMix_Mixer[DeviceId].Config.AntennaInterleave =
-		XDfeMix_ConfigTable[DeviceId].AntennaInterleave;
-	XDfeMix_Mixer[DeviceId].Config.MixerCps =
-		XDfeMix_ConfigTable[DeviceId].MixerCps;
-	XDfeMix_Mixer[DeviceId].Config.DataIWidth =
-		XDfeMix_ConfigTable[DeviceId].DataIWidth;
-	XDfeMix_Mixer[DeviceId].Config.DataOWidth =
-		XDfeMix_ConfigTable[DeviceId].DataOWidth;
-	XDfeMix_Mixer[DeviceId].Config.TUserWidth =
-		XDfeMix_ConfigTable[DeviceId].TUserWidth;
+	XDfeMix_Config *ConfigTable = NULL;
 
-	XDfeMix_Mixer[DeviceId].Config.BaseAddr =
-		XDfeMix_ConfigTable[DeviceId].BaseAddr;
+	/* Find the Config table which base address is a match */
+	if (XST_FAILURE == XDfeMix_GetConfigTable(InstancePtr, ConfigTable)) {
+		metal_log(METAL_LOG_ERROR, "\nFailed to read device tree");
+		metal_device_close(Dev);
+		return XST_FAILURE;
+	}
+
+	InstancePtr->Config.Mode = ConfigTable->Mode;
+	InstancePtr->Config.NumAntenna = ConfigTable->NumAntenna;
+	InstancePtr->Config.MaxUseableCcids = ConfigTable->MaxUseableCcids;
+	InstancePtr->Config.Lanes = ConfigTable->Lanes;
+	InstancePtr->Config.AntennaInterleave = ConfigTable->AntennaInterleave;
+	InstancePtr->Config.MixerCps = ConfigTable->MixerCps;
+	InstancePtr->Config.DataIWidth = ConfigTable->DataIWidth;
+	InstancePtr->Config.DataOWidth = ConfigTable->DataOWidth;
+	InstancePtr->Config.TUserWidth = ConfigTable->TUserWidth;
+	InstancePtr->Config.BaseAddr = ConfigTable->BaseAddr;
 
 	return XST_SUCCESS;
 #endif
@@ -388,7 +414,7 @@ end_failure:
 * @note     None.
 *
 ******************************************************************************/
-s32 XDfeMix_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr,
+s32 XDfeMix_RegisterMetal(XDfeMix *InstancePtr, struct metal_device **DevicePtr,
 			  const char *DeviceNodeName)
 {
 	s32 Status;
@@ -411,12 +437,10 @@ s32 XDfeMix_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr,
 	}
 #else
 	/* Get device name */
-	Status = XDfeMix_GetDeviceNameByDeviceId(DeviceName, DeviceId,
-						 DeviceNodeName);
+	Status = XDfeMix_IsDeviceCompatible(DeviceName, DeviceNodeName);
 	if (Status != XST_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Failed to find mixer device with device id %d",
-			  DeviceId);
+		metal_log(METAL_LOG_ERROR, "\n Failed to find Mixer device %s",
+			  DeviceNodeName);
 		return Status;
 	}
 
@@ -430,15 +454,15 @@ s32 XDfeMix_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr,
 #endif
 
 	/* Map Mixer device IO region */
-	XDfeMix_Mixer[DeviceId].Io = metal_device_io_region(*DevicePtr, 0U);
-	if (XDfeMix_Mixer[DeviceId].Io == NULL) {
+	InstancePtr->Io = metal_device_io_region(*DevicePtr, 0U);
+	if (InstancePtr->Io == NULL) {
 		metal_log(METAL_LOG_ERROR,
 			  "\n Failed to map Mixer region for %s.\n",
 			  (*DevicePtr)->name);
 		metal_device_close(*DevicePtr);
 		return XST_FAILURE;
 	}
-	XDfeMix_Mixer[DeviceId].Device = *DevicePtr;
+	InstancePtr->Device = *DevicePtr;
 
 	return XST_SUCCESS;
 }
@@ -467,7 +491,7 @@ void XDfeMix_CfgInitialize(XDfeMix *InstancePtr)
 	if (InstancePtr->Io == NULL) {
 		InstancePtr->Io =
 			(struct metal_io_region *)metal_allocate_memory(
-				sizeof(struct metal_io_region));
+				(unsigned)sizeof(struct metal_io_region));
 		metal_io_init(
 			InstancePtr->Io,
 			(void *)(metal_phys_addr_t)InstancePtr->Config.BaseAddr,

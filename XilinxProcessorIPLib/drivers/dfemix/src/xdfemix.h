@@ -58,6 +58,8 @@
 *       dc     02/15/21 align driver to curent specification
 *       dc     02/22/21 include HW in versioning
 *       dc     03/18/21 New model parameter list
+*       dc     04/06/21 Register with full node name
+*
 * </pre>
 *
 ******************************************************************************/
@@ -92,6 +94,8 @@ extern "C" {
 #else
 #define XDFEMIX_MAX_NUM_INSTANCES XPAR_XDFEMIX_NUM_INSTANCES
 #endif
+
+#define XDFEMIX_NODE_NAME_MAX_LENGTH 50U /**< Node name maximum length */
 
 #define XDFEMIX_CC_NUM 16U /**< Maximum CC number */
 #define XDFEMIX_ANT_NUM_MAX 8U /**< Maximum anntena number */
@@ -337,13 +341,14 @@ typedef struct {
 typedef struct {
 	XDfeMix_Config Config; /**< Config Structure */
 	XDfeMix_StateId StateId; /**< StateId */
+	char NodeName[XDFEMIX_NODE_NAME_MAX_LENGTH]; /**< Node name */
 	struct metal_io_region *Io; /**< Libmetal IO structure */
 	struct metal_device *Device; /**< Libmetal device structure */
 } XDfeMix;
 
 /**************************** API declarations *******************************/
 /* System initialization API */
-XDfeMix *XDfeMix_InstanceInit(u16 DeviceId, const char *DeviceNodeName);
+XDfeMix *XDfeMix_InstanceInit(const char *DeviceNodeName);
 void XDfeMix_InstanceClose(XDfeMix *InstancePtr);
 
 /* Register access API */
