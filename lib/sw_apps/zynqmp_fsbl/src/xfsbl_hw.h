@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,7 @@
 *                     deprecation in future releases.
 *       vns  03/07/18 Added ENC_ONLY mask
 * 4.0   vns  03/14/19 Added AES reset offset and Mask values.
+* 5.0   bsv  04/01/21 Added TPM support
 *
 * </pre>
 *
@@ -66,6 +67,13 @@ extern "C" {
 #define CSU_CSU_SSS_CFG_PCAP_SSS_MASK    0X0000000FU
 #define CSU_CSU_SSS_CFG_PCAP_SSS_SHIFT   0U
 #define CSU_CSU_SSS_CFG_DMA_SSS_SHIFT	 1U
+#define CSU_CSU_SSS_CFG_SHA_SSS_DMA_VAL		(0x5000U)
+
+/**
+ * Register: CSU DMA RESET
+ */
+#define CSU_DMA_RESET   ( ( CSU_BASEADDR ) + 0X0000000CU )
+#define CSU_DMA_RESET_RESET_MASK        0X00000001U
 
 /**
  * Register: CSU AES RESET
@@ -105,6 +113,15 @@ extern "C" {
  * Register: CSU_CSU_MULTI_BOOT
  */
 #define CSU_CSU_MULTI_BOOT    ( ( CSU_BASEADDR ) + 0X00000010U )
+
+/**
+ * Register: CSU_ROM_DIGEST_0
+ */
+#define CSU_ROM_DIGEST_ADDR_0	( ( CSU_BASEADDR ) + 0X00000050U )
+/**
+ * Register: CSU_ROM_DIGEST_11
+ */
+#define CSU_ROM_DIGEST_ADDR_11	( ( CSU_BASEADDR ) + 0X0000007CU )
 
 /**
  * Register: CSU_SHA_RESET
@@ -895,6 +912,12 @@ extern "C" {
 
 #if (!defined(FSBL_USB_EXCLUDE) && defined(XPAR_XUSBPSU_0_DEVICE_ID) && (XPAR_XUSBPSU_0_BASEADDR == 0xFE200000) && defined(XFSBL_PS_DDR))
 #define XFSBL_USB
+#endif
+
+#if (!defined(FSBL_TPM_EXCLUDE) && defined(XPAR_XSPIPS_0_DEVICE_ID)\
+	&& defined(XFSBL_PS_DDR) && (!defined(XFSBL_TPM)))
+#define XFSBL_SPI_DEVICE_ID	XPAR_XSPIPS_0_DEVICE_ID
+#define XFSBL_TPM
 #endif
 
 #if !defined(FSBL_PROT_BYPASS_EXCLUDE)

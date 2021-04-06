@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -239,8 +239,8 @@ SECTIONS
 } > psu_ocm_ram_0_S_AXI_BASEADDR
 
 .sbss (NOLOAD) : {
- . = ALIGN(64);
    __sbss_start = .;
+ . = ALIGN(64);
    *(.sbss)
    *(.sbss.*)
    *(.gnu.linkonce.sb.*)

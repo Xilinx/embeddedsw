@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2017 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -48,6 +48,7 @@
 *       har     01/03/20 Added checks to verify the value of XSecure_SssAes
 * 5.0   har     01/16/20 Added checks for Status of SSS configuration when AES
 *                        engine is the Resource
+* 6.0   bsv     04/01/21 Added TPM support
 *
 * </pre>
 *
@@ -326,11 +327,9 @@ static u32 XFsbl_ReAuthenticationBlock(XFsblPs_PlPartition *PartitionParams,
 	u32 Index;
 	u32 Len = PartitionParams->ChunkSize;;
 	UINTPTR Offset;
-	u8 ChunksHash[48];
 	XSecure_Sha3 SecureSha3;
 	u32 HashDataLen = BlockLen;
 	u8 *HashStored = PartitionParams->PlAuth.HashsOfChunks;
-	(void)memset(ChunksHash,0U,sizeof(ChunksHash));
 
 	Status = XSecure_Sha3Initialize(&SecureSha3,
 			PartitionParams->CsuDmaPtr);
@@ -358,10 +357,10 @@ static u32 XFsbl_ReAuthenticationBlock(XFsblPs_PlPartition *PartitionParams,
 			/* Calculating hash for each chunk */
 			XSecure_Sha3Update(&SecureSha3,
 				PartitionParams->ChunkBuffer, Len);
-			XSecure_Sha3_ReadHash(&SecureSha3, (u8 *)ChunksHash);
+			XSecure_Sha3_ReadHash(&SecureSha3, PartitionParams->Hash);
 
 			/* Comparing with stored Hashes */
-			Status = XFsbl_CompareHashs(HashStored, ChunksHash,
+			Status = XFsbl_CompareHashs(HashStored, PartitionParams->Hash,
 					PartitionParams->PlAuth.AuthType);
 			if (Status != XFSBL_SUCCESS) {
 				XFsbl_Printf(DEBUG_GENERAL,
@@ -370,7 +369,7 @@ static u32 XFsbl_ReAuthenticationBlock(XFsblPs_PlPartition *PartitionParams,
 				XFsbl_PrintArray(DEBUG_INFO, HashStored,
 					PartitionParams->PlAuth.AuthType,
 					"Stored Chunk Hash");
-				XFsbl_PrintArray(DEBUG_INFO, ChunksHash,
+				XFsbl_PrintArray(DEBUG_INFO, PartitionParams->Hash,
 					PartitionParams->PlAuth.AuthType,
 					"Calculated chunk Hash");
 				Status = XFSBL_ERROR_CHUNK_HASH_COMPARISON;
@@ -409,6 +408,10 @@ static u32 XFsbl_ReAuthenticationBlock(XFsblPs_PlPartition *PartitionParams,
 				}
 			}
 		}
+	Status = XSecure_Sha3Finish(&SecureSha3, PartitionParams->Hash);
+	if (Status != XFSBL_SUCCESS) {
+		goto END;
+	}
 
 END:
 	return Status;

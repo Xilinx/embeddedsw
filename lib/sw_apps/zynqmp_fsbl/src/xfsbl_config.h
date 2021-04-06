@@ -24,6 +24,7 @@
 * 3.0   vns  03/07/18 Added FSBL_FORCE_ENC_EXCLUDE_VAL configuration
 * 4.0   ma   02/18/21 Added provision to define macros both using compiler
 *                     build flags and this file without redefinition warning
+*       bsv  04/01/21 Added TPM support
 *
 *</pre>
 *
@@ -183,6 +184,10 @@ extern "C" {
 #define FSBL_DDR_SR_EXCLUDE_VAL			(1U)
 #endif
 
+#ifndef FSBL_TPM_EXCLUDE_VAL
+#define FSBL_TPM_EXCLUDE_VAL			(1U)
+#endif
+
 #if (FSBL_NAND_EXCLUDE_VAL) && (!defined(FSBL_NAND_EXCLUDE))
 #define FSBL_NAND_EXCLUDE
 #endif
@@ -243,6 +248,11 @@ extern "C" {
 #if (FSBL_DDR_SR_EXCLUDE_VAL == 0U) && (!defined(XFSBL_ENABLE_DDR_SR))
 #define XFSBL_ENABLE_DDR_SR
 #endif
+
+#if (FSBL_TPM_EXCLUDE_VAL == 1U) && (!defined(FSBL_TPM_EXCLUDE))
+#define FSBL_TPM_EXCLUDE
+#endif
+
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
