@@ -143,7 +143,7 @@ back into the caller stack. */
 .macro portSAVE_CONTEXT
 
 	/* Make room for the context on the stack. */
-	ADDLIK r1, r1, portMINUS_CONTEXT_SIZE
+	ADDIK r1, r1, portMINUS_CONTEXT_SIZE
 
 	/* Stack general registers. */
 	SI r31, r1, portR31_OFFSET
@@ -259,7 +259,7 @@ back into the caller stack. */
 	LI r18, r1, portR18_OFFSET
 
 	/* Remove the stack frame. */
-	ADDLIK r1, r1, portCONTEXT_SIZE
+	ADDIK r1, r1, portCONTEXT_SIZE
 
 	/* Return using rtid so interrupts are re-enabled as this function is
 	exited. */
@@ -285,7 +285,7 @@ exit_from_yield:
 	LI r18, r1, portR18_OFFSET
 
 	/* Remove the stack frame. */
-	ADDLIK r1, r1, portCONTEXT_SIZE
+	ADDIK r1, r1, portCONTEXT_SIZE
 
 	/* Return to the task. */
 	rtsd r14, 0
