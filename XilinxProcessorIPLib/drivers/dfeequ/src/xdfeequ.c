@@ -21,6 +21,8 @@
 *       dc     02/02/21 Remove hard coded device node name
 *       dc     02/22/21 align driver to current specification
 *       dc     03/15/21 Add data latency api
+*       dc     04/06/21 Register with full node name
+*
 * </pre>
 *
 ******************************************************************************/
@@ -30,6 +32,7 @@
 #include <math.h>
 #include <metal/io.h>
 #include <metal/device.h>
+#include <string.h>
 
 #ifdef __BAREMETAL__
 #include "sleep.h"
@@ -57,14 +60,14 @@
 #ifdef __BAREMETAL__
 extern struct metal_device CustomDevice[XDFEEQU_MAX_NUM_INSTANCES];
 #endif
-static struct metal_device *DevicePtrStorage[XDFEEQU_MAX_NUM_INSTANCES];
 extern XDfeEqu XDfeEqu_Equalizer[XDFEEQU_MAX_NUM_INSTANCES];
 static u32 XDfeEqu_DriverHasBeenRegisteredOnce = 0U;
 
 /************************** Function Definitions ****************************/
-extern s32 XDfeEqu_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr,
+extern s32 XDfeEqu_RegisterMetal(XDfeEqu *InstancePtr,
+				 struct metal_device **DevicePtr,
 				 const char *DeviceNodeName);
-extern s32 XDfeEqu_LookupConfig(u16 DeviceId);
+extern s32 XDfeEqu_LookupConfig(XDfeEqu *InstancePtr);
 extern void XDfeEqu_CfgInitialize(XDfeEqu *InstancePtr);
 
 /************************** Register Access Functions ***********************/
@@ -428,7 +431,7 @@ static void XDfeEqu_LoadMatrixCoefficients(const XDfeEqu *InstancePtr,
 * Read Triggers, set enable bit of LowPower trigger. If register source, then
 * trigger will be applied immediately.
 *
-* @param    InstancePtr is a pointer to the Mixer instance.
+* @param    InstancePtr is a pointer to the Equalizer instance.
 *
 * @return   None
 *
@@ -455,7 +458,7 @@ static void XDfeEqu_EnableLowPowerTrigger(const XDfeEqu *InstancePtr)
 * Read Triggers, set enable bit of Activate trigger. If register source, then
 * trigger will be applied immediately.
 *
-* @param    InstancePtr is a pointer to the Mixer instance.
+* @param    InstancePtr is a pointer to the Equalizer instance.
 *
 * @return   None
 *
@@ -481,7 +484,7 @@ static void XDfeEqu_EnableActivateTrigger(const XDfeEqu *InstancePtr)
 *
 * Read Triggers, reset enable bit of LowPower trigger.
 *
-* @param    InstancePtr is a pointer to the Mixer instance.
+* @param    InstancePtr is a pointer to the Equalizer instance.
 *
 * @return   None
 *
@@ -508,15 +511,12 @@ static void XDfeEqu_DisableLowPowerTrigger(const XDfeEqu *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* API Initialise one instancies of a Equalizer driver.
-* Traverse "/sys/bus/platform/device" directory, to find Equalizer device id,
-* corresponding to provided DeviceNodeName. The device id is defined by
-* the address of the entry in the order from lowest to highest, eg.:
-* Id=0 for the Equalizer entry located to the lowest address,
-* Id=1 for the Equalizer entry located to the second lowest address,
-* Id=2 for the Equalizer entry located to the third lowest address, and so on.
+* API Initialise one instancie of a Equalizer driver.
+* Traverse "/sys/bus/platform/device" directory (in Linux), to find registered
+* EQU device with the name DeviceNodeName. The first available slot in
+* the instances array XDfeEqu_ChFilter[] will be taken as a DeviceNodeName
+* object.
 *
-* @param    DeviceId contains the index number of the device instance,
 * @param    DeviceNodeName is device node name,
 *
 * @return
@@ -526,54 +526,81 @@ static void XDfeEqu_DisableLowPowerTrigger(const XDfeEqu *InstancePtr)
 * @note     None.
 *
 ******************************************************************************/
-XDfeEqu *XDfeEqu_InstanceInit(u16 DeviceId, const char *DeviceNodeName)
+XDfeEqu *XDfeEqu_InstanceInit(const char *DeviceNodeName)
 {
 	u32 Index;
+	XDfeEqu *InstancePtr;
 
-	Xil_AssertNonvoid(DeviceId < XDFEEQU_MAX_NUM_INSTANCES);
+	Xil_AssertNonvoid(DeviceNodeName != NULL);
+	Xil_AssertNonvoid(strlen(DeviceNodeName) <
+			  XDFEEQU_NODE_NAME_MAX_LENGTH);
 
-	/* Is for the First initialisation caled ever */
+	/* Is this first EQU initialisation ever? */
 	if (0U == XDfeEqu_DriverHasBeenRegisteredOnce) {
-		/* Set up environment environment */
+		/* Set up environment to non-initialized */
 		for (Index = 0; Index < XDFEEQU_MAX_NUM_INSTANCES; Index++) {
 			XDfeEqu_Equalizer[Index].StateId =
 				XDFEEQU_STATE_NOT_READY;
-#ifdef __BAREMETAL__
-			DevicePtrStorage[Index] = &CustomDevice[Index];
-#endif
+			XDfeEqu_Equalizer[Index].NodeName[0] = '\0';
 		}
 		XDfeEqu_DriverHasBeenRegisteredOnce = 1U;
 	}
 
 	/*
-	 * Check is the instance DeviceID already created:
+	 * Check has DeviceNodeName been already created:
 	 * a) if no, do full initialization
 	 * b) if yes, skip initialization and return the object pointer
 	 */
-	if (XDfeEqu_Equalizer[DeviceId].StateId != XDFEEQU_STATE_NOT_READY) {
-		return &XDfeEqu_Equalizer[DeviceId];
+	for (Index = 0; Index < XDFEEQU_MAX_NUM_INSTANCES; Index++) {
+		if (0U == strncmp(XDfeEqu_Equalizer[Index].NodeName,
+				  DeviceNodeName, strlen(DeviceNodeName))) {
+			return &XDfeEqu_Equalizer[Index];
+		}
 	}
 
+	/*
+	 * Find the available slot for this instance.
+	 */
+	for (Index = 0; Index < XDFEEQU_MAX_NUM_INSTANCES; Index++) {
+		if (XDfeEqu_Equalizer[Index].NodeName[0] == '\0') {
+			strncpy(XDfeEqu_Equalizer[Index].NodeName,
+				DeviceNodeName, strlen(DeviceNodeName));
+			InstancePtr = &XDfeEqu_Equalizer[Index];
+			goto register_metal;
+		}
+	}
+
+	/* Failing as there is no available slot. */
+	return NULL;
+
+register_metal:
 	/* Register libmetal for this OS process */
-	if (XST_SUCCESS != XDfeEqu_RegisterMetal(DeviceId,
-						 &DevicePtrStorage[DeviceId],
+	if (XST_SUCCESS != XDfeEqu_RegisterMetal(InstancePtr,
+						 &InstancePtr->Device,
 						 DeviceNodeName)) {
-		XDfeEqu_Equalizer[DeviceId].StateId = XDFEEQU_STATE_NOT_READY;
-		return NULL;
+		metal_log(METAL_LOG_ERROR, "\n Failed to register device %s",
+			  DeviceNodeName);
+		goto return_error;
 	}
 
 	/* Setup config data */
-	if (XST_FAILURE == XDfeEqu_LookupConfig(DeviceId)) {
-		XDfeEqu_Equalizer[DeviceId].StateId = XDFEEQU_STATE_NOT_READY;
-		return NULL;
+	if (XST_FAILURE == XDfeEqu_LookupConfig(InstancePtr)) {
+		metal_log(METAL_LOG_ERROR, "\n Failed to configure device %s",
+			  DeviceNodeName);
+		goto return_error;
 	}
 
 	/* Configure HW and the driver instance */
-	XDfeEqu_CfgInitialize(&XDfeEqu_Equalizer[DeviceId]);
+	XDfeEqu_CfgInitialize(InstancePtr);
 
-	XDfeEqu_Equalizer[DeviceId].StateId = XDFEEQU_STATE_READY;
+	InstancePtr->StateId = XDFEEQU_STATE_READY;
 
-	return &XDfeEqu_Equalizer[DeviceId];
+	return InstancePtr;
+
+return_error:
+	InstancePtr->StateId = XDFEEQU_STATE_NOT_READY;
+	InstancePtr->NodeName[0] = '\0';
+	return NULL;
 }
 
 /*****************************************************************************/
@@ -590,14 +617,22 @@ XDfeEqu *XDfeEqu_InstanceInit(u16 DeviceId, const char *DeviceNodeName)
 ******************************************************************************/
 void XDfeEqu_InstanceClose(XDfeEqu *InstancePtr)
 {
+	u32 Index;
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	/* Close the instance */
-	InstancePtr->StateId = XDFEEQU_STATE_NOT_READY;
+	for (Index = 0; Index < XDFEEQU_MAX_NUM_INSTANCES; Index++) {
+		/* Find the instance in XDfeEqu_Equalizer array */
+		if (&XDfeEqu_Equalizer[Index] == InstancePtr) {
+			/* Release libmetal */
+			metal_device_close(InstancePtr->Device);
+			InstancePtr->StateId = XDFEEQU_STATE_NOT_READY;
+			InstancePtr->NodeName[0] = '\0';
+			return;
+		}
+	}
 
-	/* Release libmetal */
-	metal_device_close(InstancePtr->Device);
-
+	/* Assert as you should never get to this point. */
+	Xil_AssertVoidAlways();
 	return;
 }
 

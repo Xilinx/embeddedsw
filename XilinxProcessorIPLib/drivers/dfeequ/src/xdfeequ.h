@@ -46,6 +46,8 @@
 *       dc     02/02/21 Remove hard coded device node name
 *       dc     02/22/21 align driver to current specification
 *       dc     03/15/21 Add data latency api
+*       dc     04/06/21 Register with full node name
+*
 * </pre>
 *
 ******************************************************************************/
@@ -80,6 +82,8 @@ extern "C" {
 #else
 #define XDFEEQU_MAX_NUM_INSTANCES XPAR_XDFEEQU_NUM_INSTANCES
 #endif
+
+#define XDFEEQU_NODE_NAME_MAX_LENGTH 50U /**< Node name maximum length */
 
 #define XDFEEQU_CC_NUM 16U /**< Maximum CC number */
 #define XDFEEQU_ANT_NUM_MAX 8U /**< Maximum anntena number */
@@ -252,13 +256,14 @@ typedef struct {
 typedef struct {
 	XDfeEqu_Config Config; /**< Config Structure */
 	XDfeEqu_StateId StateId; /**< StateId */
+	char NodeName[XDFEEQU_NODE_NAME_MAX_LENGTH]; /**< Node name */
 	struct metal_io_region *Io; /**< Libmetal IO structure */
 	struct metal_device *Device; /**< Libmetal device structure */
 } XDfeEqu;
 
 /**************************** API declarations *******************************/
 /* System initialization API */
-XDfeEqu *XDfeEqu_InstanceInit(u16 DeviceId, const char *DeviceNodeName);
+XDfeEqu *XDfeEqu_InstanceInit(const char *DeviceNodeName);
 void XDfeEqu_InstanceClose(XDfeEqu *InstancePtr);
 
 /* Register access API */
