@@ -28,6 +28,7 @@
 *       dc     04/01/21 Set mgt si570 oscillator to 122.88MHz
 *       dc     02/02/21 Remove hard coded device node name
 *       dc     02/22/21 align driver to current specification
+*       dc     04/06/21 Register with full node name
 *
 * </pre>
 *
@@ -43,23 +44,14 @@
 
 /************************** Constant Definitions ****************************/
 
-/*
- * The following constants map to the XPAR parameters created in the
- * xparameters.h file. They are defined here such that a user can easily
- * change all the needed parameters in one place.
- */
-#ifdef __BAREMETAL__
-#define XDFEEQU_DEVICE_ID XPAR_XDFEEQU_0_DEVICE_ID
-#define XDFEEQU_BASE_ADDR XPAR_XDFEEQU_0_BASEADDR
-#else
-#define XDFEEQU_DEVICE_ID 0
-#endif
-
 /**************************** Type Definitions ******************************/
 
 /***************** Macros (Inline Functions) Definitions ********************/
 #ifdef __BAREMETAL__
 #define printf xil_printf
+#define XDFEEQU_NODE_NAME XPAR_XDFEEQU_0_DEV_NAME
+#else
+#define XDFEEQU_NODE_NAME "a6080000.xdfe_equalizer"
 #endif
 
 #define XDFESI570_CURRENT_FREQUENCY 156.25
@@ -68,36 +60,9 @@
 /************************** Function Prototypes *****************************/
 extern int XDfeSi570_SetMgtOscillator(double CurrentFrequency,
 				      double NewFrequency);
-static int XDfeEqu_SelfTestExample(u16 DeviceId);
+static int XDfeEqu_SelfTestExample();
 
 /************************** Variable Definitions ****************************/
-#ifdef __BAREMETAL__
-metal_phys_addr_t metal_phys[1] = {
-	XDFEEQU_BASE_ADDR,
-};
-struct metal_device CustomDevice[1] = {
-	{
-		.name = XPAR_XDFEEQU_0_DEV_NAME,
-		.bus = NULL,
-		.num_regions = 1,
-		.regions = { {
-			.virt = (void *)XDFEEQU_BASE_ADDR,
-			.physmap = &metal_phys[0],
-			.size = 0x10000,
-			.page_shift = (u32)(-1),
-			.page_mask = (u32)(-1),
-			.mem_flags = 0x0,
-			.ops = { NULL },
-		} },
-		.node = { NULL },
-		.irq_num = 0,
-		.irq_info = NULL,
-	},
-};
-#define XDFEEQU_NODE_NAME XPAR_XDFEEQU_0_DEV_NAME
-#else
-#define XDFEEQU_NODE_NAME "xdfe_equalizer"
-#endif
 
 /****************************************************************************/
 /**
@@ -115,7 +80,7 @@ struct metal_device CustomDevice[1] = {
 *****************************************************************************/
 int main(void)
 {
-	printf("Equalizer Selftest Example Test\r\n");
+	printf("DFE Equalizer (EQU) Example Test\r\n");
 
 #ifdef __BAREMETAL__
 	if (XST_SUCCESS !=
@@ -130,7 +95,7 @@ int main(void)
 	 * Run the Equalizer fabric rate example, specify the Device ID that is
 	 * generated in xparameters.h.
 	 */
-	if (XST_SUCCESS != XDfeEqu_SelfTestExample(XDFEEQU_DEVICE_ID)) {
+	if (XST_SUCCESS != XDfeEqu_SelfTestExample()) {
 		printf("Selftest Example Test failed\r\n");
 		return XST_FAILURE;
 	}
@@ -152,8 +117,6 @@ int main(void)
 *	- Write and read coefficient.
 *	- DeActivate the device.
 *
-* @param	DeviceId is the instances device Id.
-*
 * @return
 *		- XDFEEQU_SUCCESS if the example has completed successfully.
 *		- XDFEEQU_FAILURE if the example has failed.
@@ -161,7 +124,7 @@ int main(void)
 * @note   	None
 *
 ****************************************************************************/
-static int XDfeEqu_SelfTestExample(u16 DeviceId)
+static int XDfeEqu_SelfTestExample()
 {
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
 	XDfeEqu_Cfg Cfg;
@@ -175,7 +138,7 @@ static int XDfeEqu_SelfTestExample(u16 DeviceId)
 	}
 
 	/* Initialize the instance of channel filter driver */
-	InstancePtr = XDfeEqu_InstanceInit(DeviceId, XDFEEQU_NODE_NAME);
+	InstancePtr = XDfeEqu_InstanceInit(XDFEEQU_NODE_NAME);
 	Config.DatapathMode = 0;
 
 	/* Go through initialization states of the state machine */

@@ -21,6 +21,7 @@
 * 1.0   dc     09/03/20 Initial release
 *       dc     02/02/21 Remove hard coded device node name
 *       dc     02/22/21 align driver to current specification
+*       dc     04/06/21 Register with full node name
 *
 * </pre>
 *
@@ -84,7 +85,47 @@ extern XDfeEqu_Config XDfeEqu_ConfigTable[XPAR_XDFEEQU_NUM_INSTANCES];
 #endif
 XDfeEqu XDfeEqu_Equalizer[XDFEEQU_MAX_NUM_INSTANCES];
 
-#ifndef __BAREMETAL__
+#ifdef __BAREMETAL__
+/*****************************************************************************/
+/**
+*
+* Search for the address match between address in ConfigTable and the address
+* extracted from the NodeName. Return pointer to the ConfigTable with a matched
+* base address.
+*
+* @param    InstancePtr is a pointer to the Equ instance.
+* @param    ConfigTable is a configuration table container.
+*
+* @return
+ *           - XST_SUCCESS if successful.
+ *           - XST_FAILURE if device entry not found for given device id.
+*
+*@note     None.
+*
+******************************************************************************/
+u32 XDfeEqu_GetConfigTable(XDfeEqu *InstancePtr, XDfeEqu_Config *ConfigTable)
+{
+	(void)ConfigTable;
+	u32 Index;
+	char Str[XDFEEQU_NODE_NAME_MAX_LENGTH];
+	char *AddrStr;
+	u32 Addr;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	strncpy(Str, InstancePtr->NodeName, sizeof(Str));
+	AddrStr = strtok(Str, ".");
+	Addr = atoi(AddrStr);
+
+	for (Index = 0; Index < XDFEEQU_MAX_NUM_INSTANCES; Index++) {
+		if (XDfeEqu_ConfigTable[Index].BaseAddr == Addr) {
+			ConfigTable = &XDfeEqu_ConfigTable[Index];
+			return XST_SUCCESS;
+		}
+	}
+	return XST_FAILURE;
+}
+#else
 /*****************************************************************************/
 /**
 *
@@ -125,19 +166,12 @@ static s32 XDfeEqu_Strrncmp(const char *Str1Ptr, const char *Str2Ptr,
 /*****************************************************************************/
 /**
 *
-* Traverse "/sys/bus/platform/device" directory, to find Equalizer device entry,
-* corresponding to provided device id. The device id is defined by the address
-* of the entry in the order from lowest to highest, eg.:
-* Id=0 for the Equalizer entry located to the lowest address,
-* Id=1 for the Equalizer entry located to the second lowest address,
-* Id=2 for the Equalizer entry located to the third lowest address, and so on.
-* If device entry corresponding to said device id is found, store it in output
-* buffer DeviceNamePtr.
+* Traverse "/sys/bus/platform/device" directory (in Linux), to find registered
+* device with the name DeviceNodeName.
+* If the match is found than check is the device compatible with the driver.
 *
 * @param    DeviceNamePtr is base address of char array, where device name
 *           will be stored
-* @param    DeviceId contains the ID of the device to look up the
-*           Equalizer device name entry in "/sys/bus/platform/device"
 * @param    DeviceNodeName is device node name,
 *
 * @return
@@ -147,15 +181,14 @@ static s32 XDfeEqu_Strrncmp(const char *Str1Ptr, const char *Str2Ptr,
  *@note     None.
 *
 ******************************************************************************/
-static s32 XDfeEqu_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId,
-					   const char *DeviceNodeName)
+static s32 XDfeEqu_IsDeviceCompatible(char *DeviceNamePtr,
+				      const char *DeviceNodeName)
 {
 	char CompatibleString[100];
 	struct metal_device *DevicePtr;
 	struct dirent **DirentPtr;
 	char Len = strlen(XDFEEQU_COMPATIBLE_STRING);
 	int NumFiles;
-	u16 DeviceIdCounter = 0;
 	u32 Status = XST_FAILURE;
 	int i = 0;
 
@@ -170,6 +203,11 @@ static s32 XDfeEqu_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId,
 
 	/* Loop through the each device file in directory */
 	for (i = 0; i < NumFiles; i++) {
+		/* Check the string size */
+		if (strlen(DirentPtr[i]->d_name) != strlen(DeviceNodeName)) {
+			continue;
+		}
+
 		/* Check the device signature */
 		if (0 != XDfeEqu_Strrncmp(DirentPtr[i]->d_name, DeviceNodeName,
 					  strlen(DeviceNodeName))) {
@@ -202,13 +240,6 @@ static s32 XDfeEqu_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId,
 			continue;
 		}
 
-		/* Is a device Id as requested? */
-		if (DeviceIdCounter != DeviceId) {
-			DeviceIdCounter++;
-			metal_device_close(DevicePtr);
-			continue;
-		}
-
 		/* This is a requested device, save the name */
 		strcpy(DeviceNamePtr, DirentPtr[i]->d_name);
 
@@ -231,7 +262,7 @@ static s32 XDfeEqu_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId,
 *
 * Looks up the device configuration based on the unique device ID.
 *
-* @param    DeviceId contains the ID of the device to register/map
+* @param    InstancePtr is a pointer to the Channel Filter instance.
 *
 * @return
  *           - XST_SUCCESS if successful.
@@ -244,10 +275,10 @@ static s32 XDfeEqu_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId,
 *           pointing to the config returned.
 *
 ******************************************************************************/
-s32 XDfeEqu_LookupConfig(u16 DeviceId)
+s32 XDfeEqu_LookupConfig(XDfeEqu *InstancePtr)
 {
+	struct metal_device *Dev = InstancePtr->Device;
 #ifndef __BAREMETAL__
-	struct metal_device *Dev = XDfeEqu_Equalizer[DeviceId].Device;
 	u64 BaseAddr;
 	char *Name;
 	u32 d;
@@ -258,7 +289,7 @@ s32 XDfeEqu_LookupConfig(u16 DeviceId)
 				   &BaseAddr, XDFEEQU_BASEADDR_SIZE)) {
 		goto end_failure;
 	}
-	XDfeEqu_Equalizer[DeviceId].Config.BaseAddr = ntohl(BaseAddr);
+	InstancePtr->Config.BaseAddr = ntohl(BaseAddr);
 
 	/* Get a config data from devicetree */
 	if (XST_SUCCESS !=
@@ -266,30 +297,28 @@ s32 XDfeEqu_LookupConfig(u16 DeviceId)
 					    &d, XDFEEQU_WORD_SIZE)) {
 		goto end_failure;
 	}
-	XDfeEqu_Equalizer[DeviceId].Config.SampleWidth = ntohl(d);
+	InstancePtr->Config.SampleWidth = ntohl(d);
 
 	if (XST_SUCCESS !=
 	    metal_linux_get_device_property(Dev, Name = XDFEEQU_DATA_OWIDTH_CFG,
 					    &d, XDFEEQU_WORD_SIZE)) {
 		goto end_failure;
 	}
-	XDfeEqu_Equalizer[DeviceId].Config.ComplexModel = ntohl(d);
+	InstancePtr->Config.ComplexModel = ntohl(d);
 
 	if (XST_SUCCESS != metal_linux_get_device_property(
 				   Dev, Name = XDFEEQU_NUM_CHANNELS_CFG, &d,
 				   XDFEEQU_WORD_SIZE)) {
 		goto end_failure;
 	}
-	XDfeEqu_Equalizer[DeviceId].Config.NumChannels = ntohl(d);
+	InstancePtr->Config.NumChannels = ntohl(d);
 
 	if (XST_SUCCESS !=
 	    metal_linux_get_device_property(Dev, Name = XDFEEQU_TUSER_WIDTH_CFG,
 					    &d, XDFEEQU_WORD_SIZE)) {
 		goto end_failure;
 	}
-	XDfeEqu_Equalizer[DeviceId].Config.TuserWidth = ntohl(d);
-
-	XDfeEqu_Equalizer[DeviceId].Config.DeviceId = DeviceId;
+	InstancePtr->Config.TuserWidth = ntohl(d);
 
 	return XST_SUCCESS;
 
@@ -299,17 +328,21 @@ end_failure:
 	metal_device_close(Dev);
 	return XST_FAILURE;
 #else
-	XDfeEqu_Equalizer[DeviceId].Config.NumChannels =
-		XDfeEqu_ConfigTable[DeviceId].NumChannels;
-	XDfeEqu_Equalizer[DeviceId].Config.SampleWidth =
-		XDfeEqu_ConfigTable[DeviceId].SampleWidth;
-	XDfeEqu_Equalizer[DeviceId].Config.ComplexModel =
-		XDfeEqu_ConfigTable[DeviceId].ComplexModel;
-	XDfeEqu_Equalizer[DeviceId].Config.TuserWidth =
-		XDfeEqu_ConfigTable[DeviceId].TuserWidth;
+	XDfeEqu_Config *ConfigTable = NULL;
 
-	XDfeEqu_Equalizer[DeviceId].Config.BaseAddr =
-		XDfeEqu_ConfigTable[DeviceId].BaseAddr;
+	/* Find the Config table which base address is a match */
+	if (XST_FAILURE == XDfeEqu_GetConfigTable(InstancePtr, ConfigTable)) {
+		metal_log(METAL_LOG_ERROR, "\nFailed to read device tree");
+		metal_device_close(Dev);
+		return XST_FAILURE;
+	}
+
+	InstancePtr->Config.NumChannels = ConfigTable->NumChannels;
+	InstancePtr->Config.SampleWidth = ConfigTable->SampleWidth;
+	InstancePtr->Config.ComplexModel = ConfigTable->ComplexModel;
+	InstancePtr->Config.TuserWidth = ConfigTable->TuserWidth;
+	InstancePtr->Config.BaseAddr = ConfigTable->BaseAddr;
+
 	return XST_SUCCESS;
 #endif
 }
@@ -319,7 +352,7 @@ end_failure:
 *
 * Register/open the deviceand map Equalizer to the IO region.
 *
-* @param    DeviceId contains the ID of the device to register/map
+* @param    InstancePtr is a pointer to the Equalizer instance.
 * @param    DevicePtr is a pointer to the metal device.
 * @param    DeviceNodeName is device node name,
 *
@@ -330,7 +363,7 @@ end_failure:
 * @note     None.
 *
 ******************************************************************************/
-s32 XDfeEqu_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr,
+s32 XDfeEqu_RegisterMetal(XDfeEqu *InstancePtr, struct metal_device **DevicePtr,
 			  const char *DeviceNodeName)
 {
 	s32 Status;
@@ -349,18 +382,15 @@ s32 XDfeEqu_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr,
 	Status = metal_device_open(XDFEEQU_BUS_NAME, DeviceNodeName, DevicePtr);
 	if (Status != XST_SUCCESS) {
 		metal_log(METAL_LOG_ERROR,
-			  "\n Failed to open device Equalizer");
+			  "\n Failed to open device EQU");
 		return Status;
 	}
 #else
 	/* Get device name */
-	Status = XDfeEqu_GetDeviceNameByDeviceId(DeviceName, DeviceId,
-						 DeviceNodeName);
+	Status = XDfeEqu_IsDeviceCompatible(DeviceName, DeviceNodeName);
 	if (Status != XST_SUCCESS) {
-		metal_log(
-			METAL_LOG_ERROR,
-			"\n Failed to find equalizer device with device id %d",
-			DeviceId);
+		metal_log(METAL_LOG_ERROR, "\n Failed to find EQU device %s",
+			  DeviceNodeName);
 		return Status;
 	}
 
@@ -374,16 +404,15 @@ s32 XDfeEqu_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr,
 #endif
 
 	/* Map Equalizer device IO region */
-	/* TODO - this has to be revisited when device IP got delivered! */
-	XDfeEqu_Equalizer[DeviceId].Io = metal_device_io_region(*DevicePtr, 0U);
-	if (XDfeEqu_Equalizer[DeviceId].Io == NULL) {
+	InstancePtr->Io = metal_device_io_region(*DevicePtr, 0U);
+	if (InstancePtr->Io == NULL) {
 		metal_log(METAL_LOG_ERROR,
 			  "\n Failed to map Equalizer region for %s.\n",
 			  (*DevicePtr)->name);
 		metal_device_close(*DevicePtr);
 		return XST_FAILURE;
 	}
-	XDfeEqu_Equalizer[DeviceId].Device = *DevicePtr;
+	InstancePtr->Device = *DevicePtr;
 
 	return XST_SUCCESS;
 }
