@@ -471,7 +471,9 @@ static int XDfeSi570_I2CWrData(int Iic, u8 Addr, u8 *Val, u8 Len,
 * @param CurrentFrequency is MGT oscillator current frequency.
 * @param NewFrequency is MGT new frequency.
 *
-* @return	None
+* @return
+*	- XST_SUCCESS if successful.
+*	- XST_FAILURE if failed.
 *
 * @note		None
 *

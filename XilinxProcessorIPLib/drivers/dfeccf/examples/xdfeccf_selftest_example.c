@@ -29,6 +29,7 @@
 *       dc     02/02/21 Remove hard coded device node name
 *       dc     02/08/21 align driver to curent specification
 *       dc     02/22/21 include HW in versioning
+*       dc     04/06/21 Register with full node name
 *
 * </pre>
 *
@@ -44,23 +45,16 @@
 
 /************************** Constant Definitions ****************************/
 
-/*
- * The following constants map to the XPAR parameters created in the
- * xparameters.h file. They are defined here such that a user can easily
- * change all the needed parameters in one place.
- */
-#ifdef __BAREMETAL__
-#define XDFECCF_DEVICE_ID XPAR_XDFECCF_0_DEVICE_ID
-#define XDFECCF_BASE_ADDR XPAR_XDFECCF_0_BASEADDR
-#else
-#define XDFECCF_DEVICE_ID 0
-#endif
-
 /**************************** Type Definitions ******************************/
 
 /***************** Macros (Inline Functions) Definitions ********************/
 #ifdef __BAREMETAL__
 #define printf xil_printf
+#define XDFECCF_NODE1_NAME XPAR_XDFECCF_0_DEV_NAME
+#define XDFECCF_NODE2_NAME XPAR_XDFECCF_1_DEV_NAME
+#else
+#define XDFECCF_NODE1_NAME "a7c00000.xdfe_cc_filter"
+#define XDFECCF_NODE2_NAME "a7d00000.xdfe_cc_filter"
 #endif
 
 #define XDFESI570_CURRENT_FREQUENCY 156.25
@@ -69,37 +63,10 @@
 /************************** Function Prototypes *****************************/
 extern int XDfeSi570_SetMgtOscillator(double CurrentFrequency,
 				      double NewFrequency);
-static int XDfeCcf_SelfTestExample(u16 DeviceId);
-static int XDfeCcf_PassThroughTestExample(u16 DeviceId);
+static int XDfeCcf_MultiInstancesExample();
+static int XDfeCcf_PassThroughTestExample();
 
 /************************** Variable Definitions ****************************/
-#ifdef __BAREMETAL__
-metal_phys_addr_t metal_phys[1] = {
-	XDFECCF_BASE_ADDR,
-};
-struct metal_device CustomDevice[1] = {
-	{
-		.name = XPAR_XDFECCF_0_DEV_NAME,
-		.bus = NULL,
-		.num_regions = 1,
-		.regions = { {
-			.virt = (void *)XDFECCF_BASE_ADDR,
-			.physmap = &metal_phys[0],
-			.size = 0x10000,
-			.page_shift = (u32)(-1),
-			.page_mask = (u32)(-1),
-			.mem_flags = 0x0,
-			.ops = { NULL },
-		} },
-		.node = { NULL },
-		.irq_num = 0,
-		.irq_info = NULL,
-	},
-};
-#define XDFECCF_NODE_NAME XPAR_XDFECCF_0_DEV_NAME
-#else
-#define XDFECCF_NODE_NAME "xdfe_cc_filter"
-#endif
 
 /****************************************************************************/
 /**
@@ -117,7 +84,7 @@ struct metal_device CustomDevice[1] = {
 *****************************************************************************/
 int main(void)
 {
-	printf("DFE Channel Filter (CCF) Selftest Example Test\r\n");
+	printf("DFE Channel Filter (CCF) Example Test\r\n");
 
 #ifdef __BAREMETAL__
 	if (XST_SUCCESS !=
@@ -132,8 +99,8 @@ int main(void)
 	 * Run the DFE Channel Filter init/close example, specify the Device
 	 * ID that is generated in xparameters.h.
 	 */
-	if (XST_SUCCESS != XDfeCcf_SelfTestExample(XDFECCF_DEVICE_ID)) {
-		printf("Selftest Example Test failed\r\n");
+	if (XST_SUCCESS != XDfeCcf_MultiInstancesExample()) {
+		printf("Multi Instances Example Test failed\r\n");
 		return XST_FAILURE;
 	}
 
@@ -141,12 +108,12 @@ int main(void)
 	 * Run the DFE Channel Filter pass through example, specify the Device
 	 * ID that is generated in xparameters.h.
 	 */
-	if (XST_SUCCESS != XDfeCcf_PassThroughTestExample(XDFECCF_DEVICE_ID)) {
+	if (XST_SUCCESS != XDfeCcf_PassThroughTestExample()) {
 		printf("Pass through Example Test failed\r\n");
 		return XST_FAILURE;
 	}
 
-	printf("Successfully ran Selftest and Pass Through Example Test\r\n");
+	printf("Successfully ran Multi Instances and Pass Through Example Test\r\n");
 	return XST_SUCCESS;
 }
 
@@ -164,8 +131,6 @@ int main(void)
 *	- Write and read coefficient.
 *	- DeActivate the device.
 *
-* @param	DeviceId is the instances device Id.
-*
 * @return
 *		- XST_SUCCESS if the example has completed successfully.
 *		- XST_FAILURE if the example has failed.
@@ -173,11 +138,12 @@ int main(void)
 * @note   	None
 *
 ****************************************************************************/
-static int XDfeCcf_SelfTestExample(u16 DeviceId)
+static int XDfeCcf_MultiInstancesExample()
 {
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
 	XDfeCcf_Cfg Cfg;
-	XDfeCcf *InstancePtr = NULL;
+	XDfeCcf *InstancePtr1 = NULL;
+	XDfeCcf *InstancePtr2 = NULL;
 	XDfeCcf_Init Init;
 
 	/* Initialize libmetal */
@@ -187,21 +153,35 @@ static int XDfeCcf_SelfTestExample(u16 DeviceId)
 	}
 
 	/* Initialize the instance of channel filter driver */
-	InstancePtr = XDfeCcf_InstanceInit(DeviceId, XDFECCF_NODE_NAME);
+	InstancePtr1 = XDfeCcf_InstanceInit(XDFECCF_NODE1_NAME);
+	InstancePtr2 = XDfeCcf_InstanceInit(XDFECCF_NODE2_NAME);
 	/* Go through initialization states of the state machine */
-	XDfeCcf_Reset(InstancePtr);
-	XDfeCcf_Configure(InstancePtr, &Cfg);
-	XDfeCcf_Initialize(InstancePtr, &Init);
-	XDfeCcf_Activate(InstancePtr, true);
+	XDfeCcf_Reset(InstancePtr1);
+	XDfeCcf_Configure(InstancePtr1, &Cfg);
+	XDfeCcf_Initialize(InstancePtr1, &Init);
+	XDfeCcf_Activate(InstancePtr1, true);
+
+	XDfeCcf_Reset(InstancePtr2);
+	XDfeCcf_Configure(InstancePtr2, &Cfg);
+	XDfeCcf_Initialize(InstancePtr2, &Init);
+	XDfeCcf_Activate(InstancePtr2, true);
 
 	/* Write and read a dummy Coefficient[0] value */
-	XDfeCcf_WriteReg(InstancePtr, XDFECCF_COEFF_VALUE, 0x1234);
-	if (0x1234 != XDfeCcf_ReadReg(InstancePtr, XDFECCF_COEFF_VALUE)) {
+	XDfeCcf_WriteReg(InstancePtr1, XDFECCF_COEFF_VALUE, 0x1234);
+	if (0x1234 != XDfeCcf_ReadReg(InstancePtr1, XDFECCF_COEFF_VALUE)) {
 		return XST_FAILURE;
 	}
 
-	XDfeCcf_Deactivate(InstancePtr);
-	XDfeCcf_InstanceClose(InstancePtr);
+	/* Write and read a dummy Coefficient[0] value */
+	XDfeCcf_WriteReg(InstancePtr2, XDFECCF_COEFF_VALUE, 0x4321);
+	if (0x4321 != XDfeCcf_ReadReg(InstancePtr2, XDFECCF_COEFF_VALUE)) {
+		return XST_FAILURE;
+	}
+
+	XDfeCcf_Deactivate(InstancePtr1);
+	XDfeCcf_Deactivate(InstancePtr2);
+	XDfeCcf_InstanceClose(InstancePtr1);
+	XDfeCcf_InstanceClose(InstancePtr2);
 	return XST_SUCCESS;
 }
 
@@ -221,8 +201,6 @@ static int XDfeCcf_SelfTestExample(u16 DeviceId)
 	- Add Component Channel.
 *	- DeActivate the device.
 *
-* @param	DeviceId is the instances device Id.
-*
 * @return
 *		- XST_SUCCESS if the example has completed successfully.
 *		- XST_FAILURE if the example has failed.
@@ -230,7 +208,7 @@ static int XDfeCcf_SelfTestExample(u16 DeviceId)
 * @note   	None
 *
 ****************************************************************************/
-static int XDfeCcf_PassThroughTestExample(u16 DeviceId)
+static int XDfeCcf_PassThroughTestExample()
 {
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
 	XDfeCcf_Cfg Cfg;
@@ -249,7 +227,7 @@ static int XDfeCcf_PassThroughTestExample(u16 DeviceId)
 	}
 
 	/* Initialize the instance of channel filter driver */
-	InstancePtr = XDfeCcf_InstanceInit(DeviceId, XDFECCF_NODE_NAME);
+	InstancePtr = XDfeCcf_InstanceInit(XDFECCF_NODE1_NAME);
 
 	/* Go through initialization states of the state machine */
 	XDfeCcf_Reset(InstancePtr);

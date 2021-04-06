@@ -23,6 +23,8 @@
 *       dc     02/22/21 include HW in versioning
 *       dc     03/16/21 update activate & deactivate api
 *       dc     03/25/21 Device tree item name change
+*       dc     04/06/21 Register with full node name
+*
 * </pre>
 *
 ******************************************************************************/
@@ -32,6 +34,7 @@
 #include <math.h>
 #include <metal/io.h>
 #include <metal/device.h>
+#include <string.h>
 
 #ifdef __BAREMETAL__
 #include "sleep.h"
@@ -55,14 +58,14 @@
 #ifdef __BAREMETAL__
 extern struct metal_device CustomDevice[XDFECCF_MAX_NUM_INSTANCES];
 #endif
-static struct metal_device *DevicePtrStorage[XDFECCF_MAX_NUM_INSTANCES];
 extern XDfeCcf XDfeCcf_ChFilter[XDFECCF_MAX_NUM_INSTANCES];
 static u32 XDfeCcf_DriverHasBeenRegisteredOnce = 0U;
 
 /************************** Function Definitions ****************************/
-extern s32 XDfeCcf_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr,
+extern s32 XDfeCcf_RegisterMetal(XDfeCcf *InstancePtr,
+				 struct metal_device **DevicePtr,
 				 const char *DeviceNodeName);
-extern s32 XDfeCcf_LookupConfig(u16 DeviceId);
+extern s32 XDfeCcf_LookupConfig(XDfeCcf *InstancePtr);
 extern void XDfeCcf_CfgInitialize(XDfeCcf *InstancePtr);
 
 /************************** Register Access Functions ***********************/
@@ -502,10 +505,9 @@ static u32 XDfeCcf_NextMappedId(const XDfeCcf *InstancePtr,
 	ModelParams.NumCCPerAntenna = XDfeCcf_RdBitField(
 		XDFECCF_MODEL_PARAM_NUM_CC_PER_ANTENNA_WIDTH,
 		XDFECCF_MODEL_PARAM_NUM_CC_PER_ANTENNA_OFFSET, Val);
-	ModelParams.AntenaInterleave =
-		XDfeCcf_RdBitField(XDFECCF_MODEL_PARAM_ANTENNA_INTERLEAVE_WIDTH,
-				   XDFECCF_MODEL_PARAM_ANTENNA_INTERLEAVE_OFFSET,
-				   Val);
+	ModelParams.AntenaInterleave = XDfeCcf_RdBitField(
+		XDFECCF_MODEL_PARAM_ANTENNA_INTERLEAVE_WIDTH,
+		XDFECCF_MODEL_PARAM_ANTENNA_INTERLEAVE_OFFSET, Val);
 
 	for (Index = 0U; Index < ModelParams.NumCCPerAntenna; Index++) {
 		Used[Index] = 0U;
@@ -645,15 +647,12 @@ static void XDfeCcf_DisableLowPowerTrigger(const XDfeCcf *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* API Initialise one instancies of a Ccf driver.
-* Traverse "/sys/bus/platform/device" directory, to find CCF device id,
-* corresponding to provided DeviceNodeName. The device id is defined by
-* the address of the entry in the order from lowest to highest, eg.:
-* Id=0 for the Equalizer entry located to the lowest address,
-* Id=1 for the Equalizer entry located to the second lowest address,
-* Id=2 for the Equalizer entry located to the third lowest address, and so on.
+* API Initialise one instancie of a channel filter driver.
+* Traverse "/sys/bus/platform/device" directory (in Linux), to find registered
+* CCF device with the name DeviceNodeName. The first available slot in
+* the instances array XDfeCcf_ChFilter[] will be taken as a DeviceNodeName
+* object.
 *
-* @param    DeviceId contains the index number of the device instance,
 * @param    DeviceNodeName is device node name,
 *
 * @return
@@ -663,54 +662,81 @@ static void XDfeCcf_DisableLowPowerTrigger(const XDfeCcf *InstancePtr)
 * @note     None.
 *
 ******************************************************************************/
-XDfeCcf *XDfeCcf_InstanceInit(u16 DeviceId, const char *DeviceNodeName)
+XDfeCcf *XDfeCcf_InstanceInit(const char *DeviceNodeName)
 {
 	u32 Index;
+	XDfeCcf *InstancePtr;
 
-	Xil_AssertNonvoid(DeviceId < XDFECCF_MAX_NUM_INSTANCES);
+	Xil_AssertNonvoid(DeviceNodeName != NULL);
+	Xil_AssertNonvoid(strlen(DeviceNodeName) <
+			  XDFECCF_NODE_NAME_MAX_LENGTH);
 
-	/* Is for the First initialisation caled ever */
+	/* Is this first CCF initialisation ever? */
 	if (0U == XDfeCcf_DriverHasBeenRegisteredOnce) {
-		/* Set up environment environment */
+		/* Set up environment to non-initialized */
 		for (Index = 0; Index < XDFECCF_MAX_NUM_INSTANCES; Index++) {
 			XDfeCcf_ChFilter[Index].StateId =
 				XDFECCF_STATE_NOT_READY;
-#ifdef __BAREMETAL__
-			DevicePtrStorage[Index] = &CustomDevice[Index];
-#endif
+			XDfeCcf_ChFilter[Index].NodeName[0] = '\0';
 		}
 		XDfeCcf_DriverHasBeenRegisteredOnce = 1U;
 	}
 
 	/*
-	 * Check is the instance DeviceID already created:
+	 * Check has DeviceNodeName been already created:
 	 * a) if no, do full initialization
 	 * b) if yes, skip initialization and return the object pointer
 	 */
-	if (XDfeCcf_ChFilter[DeviceId].StateId != XDFECCF_STATE_NOT_READY) {
-		return &XDfeCcf_ChFilter[DeviceId];
+	for (Index = 0; Index < XDFECCF_MAX_NUM_INSTANCES; Index++) {
+		if (0U == strncmp(XDfeCcf_ChFilter[Index].NodeName,
+				  DeviceNodeName, strlen(DeviceNodeName))) {
+			return &XDfeCcf_ChFilter[Index];
+		}
 	}
 
+	/*
+	 * Find the available slot for this instance.
+	 */
+	for (Index = 0; Index < XDFECCF_MAX_NUM_INSTANCES; Index++) {
+		if (XDfeCcf_ChFilter[Index].NodeName[0] == '\0') {
+			strncpy(XDfeCcf_ChFilter[Index].NodeName,
+				DeviceNodeName, strlen(DeviceNodeName));
+			InstancePtr = &XDfeCcf_ChFilter[Index];
+			goto register_metal;
+		}
+	}
+
+	/* Failing as there is no available slot. */
+	return NULL;
+
+register_metal:
 	/* Register libmetal for this OS process */
-	if (XST_SUCCESS != XDfeCcf_RegisterMetal(DeviceId,
-						 &DevicePtrStorage[DeviceId],
+	if (XST_SUCCESS != XDfeCcf_RegisterMetal(InstancePtr,
+						 &InstancePtr->Device,
 						 DeviceNodeName)) {
-		XDfeCcf_ChFilter[DeviceId].StateId = XDFECCF_STATE_NOT_READY;
-		return NULL;
+		metal_log(METAL_LOG_ERROR, "\n Failed to register device %s",
+			  DeviceNodeName);
+		goto return_error;
 	}
 
 	/* Setup config data */
-	if (XST_FAILURE == XDfeCcf_LookupConfig(DeviceId)) {
-		XDfeCcf_ChFilter[DeviceId].StateId = XDFECCF_STATE_NOT_READY;
-		return NULL;
+	if (XST_FAILURE == XDfeCcf_LookupConfig(InstancePtr)) {
+		metal_log(METAL_LOG_ERROR, "\n Failed to configure device %s",
+			  DeviceNodeName);
+		goto return_error;
 	}
 
 	/* Configure HW and the driver instance */
-	XDfeCcf_CfgInitialize(&XDfeCcf_ChFilter[DeviceId]);
+	XDfeCcf_CfgInitialize(InstancePtr);
 
-	XDfeCcf_ChFilter[DeviceId].StateId = XDFECCF_STATE_READY;
+	InstancePtr->StateId = XDFECCF_STATE_READY;
 
-	return &XDfeCcf_ChFilter[DeviceId];
+	return InstancePtr;
+
+return_error:
+	InstancePtr->StateId = XDFECCF_STATE_NOT_READY;
+	InstancePtr->NodeName[0] = '\0';
+	return NULL;
 }
 
 /*****************************************************************************/
@@ -727,14 +753,22 @@ XDfeCcf *XDfeCcf_InstanceInit(u16 DeviceId, const char *DeviceNodeName)
 ******************************************************************************/
 void XDfeCcf_InstanceClose(XDfeCcf *InstancePtr)
 {
+	u32 Index;
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	/* Close the instance */
-	InstancePtr->StateId = XDFECCF_STATE_NOT_READY;
+	for (Index = 0; Index < XDFECCF_MAX_NUM_INSTANCES; Index++) {
+		/* Find the instance in XDfeCcf_ChFilter array */
+		if (&XDfeCcf_ChFilter[Index] == InstancePtr) {
+			/* Release libmetal */
+			metal_device_close(InstancePtr->Device);
+			InstancePtr->StateId = XDFECCF_STATE_NOT_READY;
+			InstancePtr->NodeName[0] = '\0';
+			return;
+		}
+	}
 
-	/* Release libmetal */
-	metal_device_close(InstancePtr->Device);
-
+	/* Assert as you should never get to this point. */
+	Xil_AssertVoidAlways();
 	return;
 }
 
@@ -781,6 +815,7 @@ void XDfeCcf_Configure(XDfeCcf *InstancePtr, XDfeCcf_Cfg *Cfg)
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFECCF_STATE_RESET);
+	Xil_AssertVoid(Cfg != NULL);
 
 	/* Read vearsion */
 	Version = XDfeCcf_ReadReg(InstancePtr, XDFECCF_VERSION_OFFSET);
@@ -800,20 +835,20 @@ void XDfeCcf_Configure(XDfeCcf *InstancePtr, XDfeCcf_Cfg *Cfg)
 	ModelParam = XDfeCcf_ReadReg(InstancePtr, XDFECCF_MODEL_PARAM_OFFSET);
 	InstancePtr->Config.NumAntenna =
 		XDfeCcf_RdBitField(XDFECCF_MODEL_PARAM_NUM_ANTENNA_WIDTH,
-				   XDFECCF_MODEL_PARAM_NUM_ANTENNA_OFFSET, ModelParam);
-	InstancePtr->Config.NumCCPerAntenna =
-		XDfeCcf_RdBitField(XDFECCF_MODEL_PARAM_NUM_CC_PER_ANTENNA_WIDTH,
-				   XDFECCF_MODEL_PARAM_NUM_CC_PER_ANTENNA_OFFSET,
+				   XDFECCF_MODEL_PARAM_NUM_ANTENNA_OFFSET,
 				   ModelParam);
-	InstancePtr->Config.AntenaInterleave =
-		XDfeCcf_RdBitField(XDFECCF_MODEL_PARAM_ANTENNA_INTERLEAVE_WIDTH,
-				   XDFECCF_MODEL_PARAM_ANTENNA_INTERLEAVE_OFFSET,
-				   ModelParam);
+	InstancePtr->Config.NumCCPerAntenna = XDfeCcf_RdBitField(
+		XDFECCF_MODEL_PARAM_NUM_CC_PER_ANTENNA_WIDTH,
+		XDFECCF_MODEL_PARAM_NUM_CC_PER_ANTENNA_OFFSET, ModelParam);
+	InstancePtr->Config.AntenaInterleave = XDfeCcf_RdBitField(
+		XDFECCF_MODEL_PARAM_ANTENNA_INTERLEAVE_WIDTH,
+		XDFECCF_MODEL_PARAM_ANTENNA_INTERLEAVE_OFFSET, ModelParam);
 
 	/* Copy configs model parameters from InstancePtr */
 	Cfg->ModelParams.NumAntenna = InstancePtr->Config.NumAntenna;
 	Cfg->ModelParams.NumCCPerAntenna = InstancePtr->Config.NumCCPerAntenna;
-	Cfg->ModelParams.AntenaInterleave = InstancePtr->Config.AntenaInterleave;
+	Cfg->ModelParams.AntenaInterleave =
+		InstancePtr->Config.AntenaInterleave;
 
 	/* Release RESET */
 	XDfeCcf_WriteReg(InstancePtr, XDFECCF_RESET_OFFSET, XDFECCF_RESET_OFF);
@@ -997,7 +1032,7 @@ u32 XDfeCcf_AddCC(const XDfeCcf *InstancePtr, u32 CCID,
 	XDfeCcf_CCCfg CCCfg;
 	u32 AddSuccess;
 	u32 IDAvailable;
-	u32 NextMappedID;
+	u32 NextMappedID = 0;
 	u32 Index;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);

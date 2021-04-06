@@ -61,6 +61,8 @@
 *       dc     02/08/21 align driver to curent specification
 *       dc     02/22/21 include HW in versioning
 *       dc     03/25/21 Device tree item name change
+*       dc     04/06/21 Register with full node name
+*
 * </pre>
 *
 ******************************************************************************/
@@ -95,6 +97,8 @@ extern "C" {
 #else
 #define XDFECCF_MAX_NUM_INSTANCES XPAR_XDFECCF_NUM_INSTANCES
 #endif
+
+#define XDFECCF_NODE_NAME_MAX_LENGTH 50U /**< Node name maximum length */
 
 #define XDFECCF_CC_NUM 16U /**< Maximum CC number */
 #define XDFECCF_ANT_NUM_MAX 8U /**< Maximum anntena number */
@@ -297,13 +301,14 @@ typedef struct {
 typedef struct {
 	XDfeCcf_Config Config; /**< Config Structure */
 	XDfeCcf_StateId StateId; /**< StateId */
+	char NodeName[XDFECCF_NODE_NAME_MAX_LENGTH]; /**< Node name */
 	struct metal_io_region *Io; /**< Libmetal IO structure */
 	struct metal_device *Device; /**< Libmetal device structure */
 } XDfeCcf;
 
 /**************************** API declarations *******************************/
 /* System initialization API */
-XDfeCcf *XDfeCcf_InstanceInit(u16 DeviceId, const char *DeviceNodeName);
+XDfeCcf *XDfeCcf_InstanceInit(const char *DeviceNodeName);
 void XDfeCcf_InstanceClose(XDfeCcf *InstancePtr);
 
 /* Register access API */
