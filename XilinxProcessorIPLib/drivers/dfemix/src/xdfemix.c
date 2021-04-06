@@ -22,6 +22,8 @@
 *       dc     02/15/21 align driver to curent specification
 *       dc     02/22/21 include HW in versioning
 *       dc     03/18/21 New model parameter list
+*       dc     04/06/21 Register with full node name
+*
 * </pre>
 *
 ******************************************************************************/
@@ -31,6 +33,7 @@
 #include <math.h>
 #include <metal/io.h>
 #include <metal/device.h>
+#include <string.h>
 
 #ifdef __BAREMETAL__
 #include "sleep.h"
@@ -60,14 +63,14 @@
 #ifdef __BAREMETAL__
 extern struct metal_device CustomDevice[XDFEMIX_MAX_NUM_INSTANCES];
 #endif
-static struct metal_device *DevicePtrStorage[XDFEMIX_MAX_NUM_INSTANCES];
 extern XDfeMix XDfeMix_Mixer[XDFEMIX_MAX_NUM_INSTANCES];
 static u32 XDfeMix_DriverHasBeenRegisteredOnce = 0U;
 
 /************************** Function Definitions ****************************/
-extern s32 XDfeMix_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr,
+extern s32 XDfeMix_RegisterMetal(XDfeMix *InstancePtr,
+				 struct metal_device **DevicePtr,
 				 const char *DeviceNodeName);
-extern s32 XDfeMix_LookupConfig(u16 DeviceId);
+extern s32 XDfeMix_LookupConfig(XDfeMix *InstancePtr);
 extern void XDfeMix_CfgInitialize(XDfeMix *InstancePtr);
 
 /************************** Register Access Functions ***********************/
@@ -216,33 +219,6 @@ u32 XDfeMix_WrBitField(u32 FieldWidth, u32 FieldOffset, u32 Data, u32 Val)
 }
 
 /************************ DFE Common functions ******************************/
-
-/****************************************************************************/
-/**
-*
-* Generates a "null"(8) CCID sequence of specified length.
-*
-* @param    SeqLen is a CC ID
-* @param    CCIDSequence is a CC sequence array
-*
-* @return   None
-*
-* @note     None
-*
-****************************************************************************/
-static void XDfeMix_CreateCCSequence(u32 SeqLen,
-				     XDfeMix_CCSequence *CCIDSequence)
-{
-	u32 Index;
-	Xil_AssertVoid(SeqLen < XDFEMIX_SEQ_LENGTH_MAX);
-	Xil_AssertVoid(CCIDSequence != NULL);
-
-	/* Set sequence length and mark all sequence entries as null (8) */
-	CCIDSequence->Length = SeqLen;
-	for (Index = 0; Index < XDFEMIX_SEQ_LENGTH_MAX; Index++) {
-		CCIDSequence->CCID[Index] = XDFEMIX_SEQUENCE_ENTRY_NULL;
-	}
-}
 
 /****************************************************************************/
 /**
@@ -417,7 +393,7 @@ static void XDfeMix_SetAntennaGainL(const XDfeMix *InstancePtr, u32 AntennaId,
 /****************************************************************************/
 /**
 *
-* Set Rate and NCO.in DUC-DDC configuration for CCID.
+* Set Rate and NCO in DUC-DDC configuration for CCID.
 *
 * @param    InstancePtr is a pointer to the Mixer instance.
 * @param    CCCfg is a configuration data container.
@@ -486,9 +462,10 @@ static void XDfeMix_GetCCCfg(const XDfeMix *InstancePtr, bool Next,
 			Offset = XDFEMIX_CC_CONFIG_NEXT +
 				 ((Index * sizeof(u32)));
 			Data = XDfeMix_ReadReg(InstancePtr, Offset);
-			CCCfg->DUCDDCCfg[Index].NCO = XDfeMix_RdBitField(
-				XDFEMIX_CC_CONFIG_NCO_WIDTH,
-				XDFEMIX_CC_CONFIG_NCO_OFFSET, Data);
+			CCCfg->DUCDDCCfg[Index].NCO =
+				XDfeMix_RdBitField(XDFEMIX_CC_CONFIG_NCO_WIDTH,
+						   XDFEMIX_CC_CONFIG_NCO_OFFSET,
+						   Data);
 			CCCfg->DUCDDCCfg[Index].Rate = XDfeMix_RdBitField(
 				XDFEMIX_CC_CONFIG_RATE_WIDTH,
 				XDFEMIX_CC_CONFIG_RATE_OFFSET, Data);
@@ -518,9 +495,10 @@ static void XDfeMix_GetCCCfg(const XDfeMix *InstancePtr, bool Next,
 			Offset = XDFEMIX_CC_CONFIG_CURRENT +
 				 (Index * sizeof(u32));
 			Data = XDfeMix_ReadReg(InstancePtr, Offset);
-			CCCfg->DUCDDCCfg[Index].NCO = XDfeMix_RdBitField(
-				XDFEMIX_CC_CONFIG_NCO_WIDTH,
-				XDFEMIX_CC_CONFIG_NCO_OFFSET, Data);
+			CCCfg->DUCDDCCfg[Index].NCO =
+				XDfeMix_RdBitField(XDFEMIX_CC_CONFIG_NCO_WIDTH,
+						   XDFEMIX_CC_CONFIG_NCO_OFFSET,
+						   Data);
 			CCCfg->DUCDDCCfg[Index].Rate = XDfeMix_RdBitField(
 				XDFEMIX_CC_CONFIG_RATE_WIDTH,
 				XDFEMIX_CC_CONFIG_RATE_OFFSET, Data);
@@ -576,16 +554,14 @@ static void XDfeMix_SetNextCCCfg(const XDfeMix *InstancePtr,
 		DucDdcConfig = XDfeMix_ReadReg(InstancePtr,
 					       XDFEMIX_CC_CONFIG_NEXT +
 						       ((Index * sizeof(u32))));
-		DucDdcConfig =
-			XDfeMix_WrBitField(XDFEMIX_CC_CONFIG_NCO_WIDTH,
-					   XDFEMIX_CC_CONFIG_NCO_OFFSET,
-					   DucDdcConfig,
-					   CCCfg->DUCDDCCfg[Index].NCO);
-		DucDdcConfig =
-			XDfeMix_WrBitField(XDFEMIX_CC_CONFIG_RATE_WIDTH,
-					   XDFEMIX_CC_CONFIG_RATE_OFFSET,
-					   DucDdcConfig,
-					   CCCfg->DUCDDCCfg[Index].Rate);
+		DucDdcConfig = XDfeMix_WrBitField(XDFEMIX_CC_CONFIG_NCO_WIDTH,
+						  XDFEMIX_CC_CONFIG_NCO_OFFSET,
+						  DucDdcConfig,
+						  CCCfg->DUCDDCCfg[Index].NCO);
+		DucDdcConfig = XDfeMix_WrBitField(XDFEMIX_CC_CONFIG_RATE_WIDTH,
+						  XDFEMIX_CC_CONFIG_RATE_OFFSET,
+						  DucDdcConfig,
+						  CCCfg->DUCDDCCfg[Index].Rate);
 		XDfeMix_WriteReg(InstancePtr,
 				 XDFEMIX_CC_CONFIG_NEXT +
 					 ((Index * sizeof(u32))),
@@ -796,38 +772,6 @@ static void XDfeMix_SetCCPhaseAccumEnable(const XDfeMix *InstancePtr, bool Next,
 	}
 	Index = XDfeMix_GetPhaccIndex(InstancePtr, Next, CCID);
 	XDfeMix_WriteReg(InstancePtr, XDFEMIX_PHASE_ACC_ENABLE + Index, Data);
-}
-
-/****************************************************************************/
-/**
-*
-* Determines if phase accumulator is enabled for particular CCID.
-*
-* @param    InstancePtr is a pointer to the Mixer instance.
-* @param    Next TRUE read next config, FALSE read current config.
-* @param    CCID is a Channel ID.
-* @param    Enable is a flag which enables a phase accumulator.
-*
-* @return   None
-*
-* @note     None
-*
-****************************************************************************/
-static void XDfeMix_GetCCPhaseAccumEnable(const XDfeMix *InstancePtr, bool Next,
-					  u32 CCID, bool *Enable)
-{
-	u32 Index;
-	u32 Data;
-
-	Xil_AssertVoid(InstancePtr != NULL);
-
-	Index = XDfeMix_GetPhaccIndex(InstancePtr, Next, CCID);
-	Data = XDfeMix_ReadReg(InstancePtr, XDFEMIX_PHASE_ACC_ENABLE + Index);
-	if (Data == 1U) {
-		*Enable = XDFEMIXER_PHACC_ENABLE;
-	} else {
-		*Enable = XDFEMIXER_PHACC_DISABLE;
-	}
 }
 
 /****************************************************************************/
@@ -1097,15 +1041,12 @@ static void XDfeMix_DisableLowPowerTrigger(const XDfeMix *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* API Initialise one instancies of a Mixer driver.
-* Traverse "/sys/bus/platform/device" directory, to find Mixer device id,
-* corresponding to provided DeviceNodeName. The device id is defined by
-* the address of the entry in the order from lowest to highest, eg.:
-* Id=0 for the Equalizer entry located to the lowest address,
-* Id=1 for the Equalizer entry located to the second lowest address,
-* Id=2 for the Equalizer entry located to the third lowest address, and so on.
+* API Initialise one instancie of a channel filter driver.
+* Traverse "/sys/bus/platform/device" directory (in Linux), to find registered
+* MIX device with the name DeviceNodeName. The first available slot in
+* the instances array XDfeMix_Mixer[] will be taken as a DeviceNodeName
+* object.
 *
-* @param    DeviceId contains the index number of the device instance,
 * @param    DeviceNodeName is device node name,
 *
 * @return
@@ -1115,53 +1056,80 @@ static void XDfeMix_DisableLowPowerTrigger(const XDfeMix *InstancePtr)
 * @note     None.
 *
 ******************************************************************************/
-XDfeMix *XDfeMix_InstanceInit(u16 DeviceId, const char *DeviceNodeName)
+XDfeMix *XDfeMix_InstanceInit(const char *DeviceNodeName)
 {
 	u32 Index;
+	XDfeMix *InstancePtr;
 
-	Xil_AssertNonvoid(DeviceId < XDFEMIX_MAX_NUM_INSTANCES);
+	Xil_AssertNonvoid(DeviceNodeName != NULL);
+	Xil_AssertNonvoid(strlen(DeviceNodeName) <
+			  XDFEMIX_NODE_NAME_MAX_LENGTH);
 
-	/* Is for the First initialisation caled ever */
+	/* Is this first mixer initialisation ever? */
 	if (0U == XDfeMix_DriverHasBeenRegisteredOnce) {
 		/* Set up environment environment */
 		for (Index = 0; Index < XDFEMIX_MAX_NUM_INSTANCES; Index++) {
 			XDfeMix_Mixer[Index].StateId = XDFEMIX_STATE_NOT_READY;
-#ifdef __BAREMETAL__
-			DevicePtrStorage[Index] = &CustomDevice[Index];
-#endif
+			XDfeMix_Mixer[Index].NodeName[0] = '\0';
 		}
 		XDfeMix_DriverHasBeenRegisteredOnce = 1U;
 	}
 
 	/*
-	 * Check is the instance DeviceID already created:
+	 * Check has DeviceNodeName been already created:
 	 * a) if no, do full initialization
 	 * b) if yes, skip initialization and return the object pointer
 	 */
-	if (XDfeMix_Mixer[DeviceId].StateId != XDFEMIX_STATE_NOT_READY) {
-		return &XDfeMix_Mixer[DeviceId];
+	for (Index = 0; Index < XDFEMIX_MAX_NUM_INSTANCES; Index++) {
+		if (0U == strncmp(XDfeMix_Mixer[Index].NodeName, DeviceNodeName,
+				  strlen(DeviceNodeName))) {
+			return &XDfeMix_Mixer[Index];
+		}
 	}
 
+	/*
+	 * Find the available slot for this instance.
+	 */
+	for (Index = 0; Index < XDFEMIX_MAX_NUM_INSTANCES; Index++) {
+		if (XDfeMix_Mixer[Index].NodeName[0] == '\0') {
+			strncpy(XDfeMix_Mixer[Index].NodeName, DeviceNodeName,
+				strlen(DeviceNodeName));
+			InstancePtr = &XDfeMix_Mixer[Index];
+			goto register_metal;
+		}
+	}
+
+	/* Failing as there is no available slot. */
+	return NULL;
+
+register_metal:
 	/* Register libmetal for this OS process */
-	if (XST_SUCCESS != XDfeMix_RegisterMetal(DeviceId,
-						 &DevicePtrStorage[DeviceId],
+	if (XST_SUCCESS != XDfeMix_RegisterMetal(InstancePtr,
+						 &InstancePtr->Device,
 						 DeviceNodeName)) {
-		XDfeMix_Mixer[DeviceId].StateId = XDFEMIX_STATE_NOT_READY;
-		return NULL;
+		metal_log(METAL_LOG_ERROR, "\n Failed to register device %s",
+			  DeviceNodeName);
+		goto return_error;
 	}
 
 	/* Setup config data */
-	if (XST_FAILURE == XDfeMix_LookupConfig(DeviceId)) {
-		XDfeMix_Mixer[DeviceId].StateId = XDFEMIX_STATE_NOT_READY;
-		return NULL;
+	if (XST_FAILURE == XDfeMix_LookupConfig(InstancePtr)) {
+		metal_log(METAL_LOG_ERROR, "\n Failed to configure device %s",
+			  DeviceNodeName);
+		goto return_error;
 	}
 
 	/* Configure HW and the driver instance */
-	XDfeMix_CfgInitialize(&XDfeMix_Mixer[DeviceId]);
+	XDfeMix_CfgInitialize(InstancePtr);
 
-	XDfeMix_Mixer[DeviceId].StateId = XDFEMIX_STATE_READY;
+	InstancePtr->StateId = XDFEMIX_STATE_READY;
 
-	return &XDfeMix_Mixer[DeviceId];
+	return InstancePtr;
+
+return_error:
+	InstancePtr->StateId = XDFEMIX_STATE_NOT_READY;
+	InstancePtr->NodeName[0] = '\0';
+	return NULL;
 }
 
 /*****************************************************************************/
@@ -1178,14 +1146,22 @@ XDfeMix *XDfeMix_InstanceInit(u16 DeviceId, const char *DeviceNodeName)
 ******************************************************************************/
 void XDfeMix_InstanceClose(XDfeMix *InstancePtr)
 {
+	u32 Index;
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	/* Close the instance */
-	InstancePtr->StateId = XDFEMIX_STATE_NOT_READY;
+	for (Index = 0; Index < XDFEMIX_MAX_NUM_INSTANCES; Index++) {
+		/* Find the instance in XDfeMix_Mixer array */
+		if (&XDfeMix_Mixer[Index] == InstancePtr) {
+			/* Release libmetal */
+			metal_device_close(InstancePtr->Device);
+			InstancePtr->StateId = XDFEMIX_STATE_NOT_READY;
+			InstancePtr->NodeName[0] = '\0';
+			return;
+		}
+	}
 
-	/* Release libmetal */
-	metal_device_close(InstancePtr->Device);
-
+	/* Assert as you should never get to this point. */
+	Xil_AssertVoidAlways();
 	return;
 }
 
@@ -1253,23 +1229,22 @@ void XDfeMix_Configure(XDfeMix *InstancePtr, XDfeMix_Cfg *Cfg)
 	ModelParam = XDfeMix_ReadReg(InstancePtr, XDFEMIX_MODEL_PARAM_1_OFFSET);
 	InstancePtr->Config.Mode =
 		XDfeMix_RdBitField(XDFEMIX_MODEL_PARAM_1_MODE_WIDTH,
-				   XDFEMIX_MODEL_PARAM_1_MODE_OFFSET, ModelParam);
+				   XDFEMIX_MODEL_PARAM_1_MODE_OFFSET,
+				   ModelParam);
 	InstancePtr->Config.NumAntenna =
 		XDfeMix_RdBitField(XDFEMIX_MODEL_PARAM_1_NUM_ANTENNA_WIDTH,
 				   XDFEMIX_MODEL_PARAM_1_NUM_ANTENNA_OFFSET,
 				   ModelParam);
-	InstancePtr->Config.MaxUseableCcids =
-		XDfeMix_RdBitField(XDFEMIX_MODEL_PARAM_1_MAX_USEABLE_CCIDS_WIDTH,
-				   XDFEMIX_MODEL_PARAM_1_MAX_USEABLE_CCIDS_OFFSET,
-				   ModelParam);
+	InstancePtr->Config.MaxUseableCcids = XDfeMix_RdBitField(
+		XDFEMIX_MODEL_PARAM_1_MAX_USEABLE_CCIDS_WIDTH,
+		XDFEMIX_MODEL_PARAM_1_MAX_USEABLE_CCIDS_OFFSET, ModelParam);
 	InstancePtr->Config.Lanes =
 		XDfeMix_RdBitField(XDFEMIX_MODEL_PARAM_1_LANES_WIDTH,
 				   XDFEMIX_MODEL_PARAM_1_LANES_OFFSET,
 				   ModelParam);
-	InstancePtr->Config.AntennaInterleave =
-		XDfeMix_RdBitField(XDFEMIX_MODEL_PARAM_1_ANTENNA_INTERLEAVE_WIDTH,
-				   XDFEMIX_MODEL_PARAM_1_ANTENNA_INTERLEAVE_OFFSET,
-				   ModelParam);
+	InstancePtr->Config.AntennaInterleave = XDfeMix_RdBitField(
+		XDFEMIX_MODEL_PARAM_1_ANTENNA_INTERLEAVE_WIDTH,
+		XDFEMIX_MODEL_PARAM_1_ANTENNA_INTERLEAVE_OFFSET, ModelParam);
 	InstancePtr->Config.MixerCps =
 		XDfeMix_RdBitField(XDFEMIX_MODEL_PARAM_1_MIXER_CPS_WIDTH,
 				   XDFEMIX_MODEL_PARAM_1_MIXER_CPS_OFFSET,
@@ -1293,7 +1268,8 @@ void XDfeMix_Configure(XDfeMix *InstancePtr, XDfeMix_Cfg *Cfg)
 	Cfg->ModelParams.NumAntenna = InstancePtr->Config.NumAntenna;
 	Cfg->ModelParams.MaxUseableCcids = InstancePtr->Config.MaxUseableCcids;
 	Cfg->ModelParams.Lanes = InstancePtr->Config.Lanes;
-	Cfg->ModelParams.AntennaInterleave = InstancePtr->Config.AntennaInterleave;
+	Cfg->ModelParams.AntennaInterleave =
+		InstancePtr->Config.AntennaInterleave;
 	Cfg->ModelParams.MixerCps = InstancePtr->Config.MixerCps;
 	Cfg->ModelParams.DataIWidth = InstancePtr->Config.DataIWidth;
 	Cfg->ModelParams.DataOWidth = InstancePtr->Config.DataOWidth;

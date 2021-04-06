@@ -29,6 +29,7 @@
 *       dc     02/02/21 Remove hard coded device node name
 *       dc     02/15/21 align driver to curent specification
 *       dc     02/22/21 include HW in versioning
+*       dc     04/06/21 Register with full node name
 *
 * </pre>
 *
@@ -44,23 +45,14 @@
 
 /************************** Constant Definitions ****************************/
 
-/*
- * The following constants map to the XPAR parameters created in the
- * xparameters.h file. They are defined here such that a user can easily
- * change all the needed parameters in one place.
- */
-#ifdef __BAREMETAL__
-#define XDFEMIX_DEVICE_ID XPAR_XDFEMIX_0_DEVICE_ID
-#define XDFEMIX_BASE_ADDR XPAR_XDFEMIX_0_S_AXI_BASEADDR
-#else
-#define XDFEMIX_DEVICE_ID 0
-#endif
-
 /**************************** Type Definitions ******************************/
 
 /***************** Macros (Inline Functions) Definitions ********************/
 #ifdef __BAREMETAL__
 #define printf xil_printf
+#define XDFEMIX_NODE_NAME XPAR_XDFEMIX_0_DEV_NAME
+#else
+#define XDFEMIX_NODE_NAME "a7c40000.xdfe_cc_mixer"
 #endif
 
 #define XDFESI570_CURRENT_FREQUENCY 156.25
@@ -69,37 +61,10 @@
 /************************** Function Prototypes *****************************/
 extern int XDfeSi570_SetMgtOscillator(double CurrentFrequency,
 				      double NewFrequency);
-static int XDfeMix_SelfTestExample(u16 DeviceId);
-static int XDfeMix_AddCCTestExample(u16 DeviceId);
+static int XDfeMix_SelfTestExample();
+static int XDfeMix_AddCCTestExample();
 
 /************************** Variable Definitions ****************************/
-#ifdef __BAREMETAL__
-metal_phys_addr_t metal_phys[1] = {
-	XDFEMIX_BASE_ADDR,
-};
-struct metal_device CustomDevice[1] = {
-	{
-		.name = XPAR_XDFEMIX_0_DEV_NAME,
-		.bus = NULL,
-		.num_regions = 1,
-		.regions = { {
-			.virt = (void *)XDFEMIX_BASE_ADDR,
-			.physmap = &metal_phys[0],
-			.size = 0x10000,
-			.page_shift = (u32)(-1),
-			.page_mask = (u32)(-1),
-			.mem_flags = 0x0,
-			.ops = { NULL },
-		} },
-		.node = { NULL },
-		.irq_num = 0,
-		.irq_info = NULL,
-	},
-};
-#define XDFEMIX_NODE_NAME XPAR_XDFEMIX_0_DEV_NAME
-#else
-#define XDFEMIX_NODE_NAME "xdfe_cc_mixer"
-#endif
 
 /****************************************************************************/
 /**
@@ -132,7 +97,7 @@ int main(void)
 	 * Run the DFE Mixer init/close example, specify the Device
 	 * ID that is generated in xparameters.h.
 	 */
-	if (XST_SUCCESS != XDfeMix_SelfTestExample(XDFEMIX_DEVICE_ID)) {
+	if (XST_SUCCESS != XDfeMix_SelfTestExample()) {
 		printf("Selftest Example Test failed\r\n");
 		return XST_FAILURE;
 	}
@@ -141,7 +106,7 @@ int main(void)
 	 * Run the DFE Mixer pass through example, specify the Device
 	 * ID that is generated in xparameters.h.
 	 */
-	if (XST_SUCCESS != XDfeMix_AddCCTestExample(XDFEMIX_DEVICE_ID)) {
+	if (XST_SUCCESS != XDfeMix_AddCCTestExample()) {
 		printf("Pass through Example Test failed\r\n");
 		return XST_FAILURE;
 	}
@@ -163,8 +128,6 @@ int main(void)
 *	- Write and read coefficient.
 *	- DeActivate the device.
 *
-* @param	DeviceId is the instances device Id.
-*
 * @return
 *		- XST_SUCCESS if the example has completed successfully.
 *		- XST_FAILURE if the example has failed.
@@ -172,7 +135,7 @@ int main(void)
 * @note   	None
 *
 ****************************************************************************/
-static int XDfeMix_SelfTestExample(u16 DeviceId)
+static int XDfeMix_SelfTestExample()
 {
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
 	XDfeMix_Cfg Cfg;
@@ -185,11 +148,13 @@ static int XDfeMix_SelfTestExample(u16 DeviceId)
 	}
 
 	/* Initialize the instance of channel filter driver */
-	InstancePtr = XDfeMix_InstanceInit(DeviceId, XDFEMIX_NODE_NAME);
+	InstancePtr = XDfeMix_InstanceInit(XDFEMIX_NODE_NAME);
 	/* Go through initialization states of the state machine */
 	XDfeMix_Reset(InstancePtr);
 	XDfeMix_Configure(InstancePtr, &Cfg);
+	XDfeMix_WriteReg(InstancePtr, 0x20, 0x1001);
 	XDfeMix_Initialize(InstancePtr);
+	XDfeMix_WriteReg(InstancePtr, 0x20, 0x1001);
 	XDfeMix_Activate(InstancePtr, true);
 
 	/* Write and read a dummy frequency configuration */
@@ -219,8 +184,6 @@ static int XDfeMix_SelfTestExample(u16 DeviceId)
 	- Add Component Channel.
 *	- DeActivate the device.
 *
-* @param	DeviceId is the instances device Id.
-*
 * @return
 *		- XST_SUCCESS if the example has completed successfully.
 *		- XST_FAILURE if the example has failed.
@@ -228,7 +191,7 @@ static int XDfeMix_SelfTestExample(u16 DeviceId)
 * @note   	None
 *
 ****************************************************************************/
-static int XDfeMix_AddCCTestExample(u16 DeviceId)
+static int XDfeMix_AddCCTestExample()
 {
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
 	XDfeMix_Cfg Cfg;
@@ -261,13 +224,15 @@ static int XDfeMix_AddCCTestExample(u16 DeviceId)
 	}
 
 	/* Initialize the instance of channel filter driver */
-	InstancePtr = XDfeMix_InstanceInit(DeviceId, XDFEMIX_NODE_NAME);
+	InstancePtr = XDfeMix_InstanceInit(XDFEMIX_NODE_NAME);
 
 	/* Go through initialization states of the state machine */
 	XDfeMix_Reset(InstancePtr);
 	XDfeMix_Configure(InstancePtr, &Cfg);
+	XDfeMix_WriteReg(InstancePtr, 0x20, 0x1001);
 	XDfeMix_Initialize(InstancePtr);
 	XDfeMix_SetTriggersCfg(InstancePtr, &TriggerCfg);
+	XDfeMix_WriteReg(InstancePtr, 0x20, 0x1001);
 	XDfeMix_Activate(InstancePtr, false);
 
 	/* Add channel */
