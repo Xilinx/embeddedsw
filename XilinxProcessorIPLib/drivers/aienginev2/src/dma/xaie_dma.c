@@ -412,7 +412,11 @@ AieRC XAie_DmaSetAddrOffsetLen(XAie_DmaDesc *DmaDesc, XAie_MemInst *MemInst,
 *
 * @return	XAIE_OK on success, Error code on failure.
 *
-* @note		None.
+* @note		None. The stepsize and wrap parameters operate at 32 bit
+*		granularity. The address is the absolute address of the buffer
+*		which is 32 bit aligned. The driver will configure the BD
+*		register with necessary bits(<32 bits) as required by the
+*		hardware.
 *
 ******************************************************************************/
 AieRC XAie_DmaSetMultiDimAddr(XAie_DmaDesc *DmaDesc, XAie_DmaTensor *Tensor,
