@@ -19,6 +19,7 @@
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     03/08/21 Initial release
+*       dc     04/06/21 Register with full node name
 *
 * </pre>
 *
@@ -78,7 +79,48 @@ extern XDfePrach_Config XDfePrach_ConfigTable[XPAR_XDFEPRACH_NUM_INSTANCES];
 #endif
 XDfePrach XDfePrach_Prach[XDFEPRACH_MAX_NUM_INSTANCES];
 
-#ifndef __BAREMETAL__
+#ifdef __BAREMETAL__
+/*****************************************************************************/
+/**
+*
+* Search for the address match between address in ConfigTable and the address
+* extracted from the NodeName. Return pointer to the ConfigTable with a matched
+* base address.
+*
+* @param    InstancePtr is a pointer to the Ccf instance.
+* @param    ConfigTable is a configuration table container.
+*
+* @return
+ *           - XST_SUCCESS if successful.
+ *           - XST_FAILURE if device entry not found for given device id.
+*
+*@note     None.
+*
+******************************************************************************/
+u32 XDfePrach_GetConfigTable(XDfePrach *InstancePtr,
+			     XDfePrach_Config *ConfigTable)
+{
+	(void)ConfigTable;
+	u32 Index;
+	char Str[XDFEPRACH_NODE_NAME_MAX_LENGTH];
+	char *AddrStr;
+	u32 Addr;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	strncpy(Str, InstancePtr->NodeName, sizeof(Str));
+	AddrStr = strtok(Str, ".");
+	Addr = atoi(AddrStr);
+
+	for (Index = 0; Index < XDFEPRACH_MAX_NUM_INSTANCES; Index++) {
+		if (XDfePrach_ConfigTable[Index].BaseAddr == Addr) {
+			ConfigTable = &XDfePrach_ConfigTable[Index];
+			return XST_SUCCESS;
+		}
+	}
+	return XST_FAILURE;
+}
+#else
 /*****************************************************************************/
 /**
 *
@@ -119,19 +161,12 @@ static s32 XDfePrach_Strrncmp(const char *Str1Ptr, const char *Str2Ptr,
 /*****************************************************************************/
 /**
 *
-* Traverse "/sys/bus/platform/device" directory, to find Prach device entry,
-* corresponding to provided device id. The device id is defined by the address
-* of the entry in the order from lowest to highest, eg.:
-* Id=0 for the Prach entry located to the lowest address,
-* Id=1 for the Prach entry located to the second lowest address,
-* Id=2 for the Prach entry located to the third lowest address, and so on.
-* If device entry corresponding to said device id is found, store it in output
-* buffer DeviceNamePtr.
+* Traverse "/sys/bus/platform/device" directory (in Linux), to find registered
+* device with the name DeviceNodeName.
+* If the match is found than check is the device compatible with the driver.
 *
 * @param    DeviceNamePtr is base address of char array, where device name
 *           will be stored
-* @param    DeviceId contains the ID of the device to look up the
-*           Prach device name entry in "/sys/bus/platform/device"
 * @param    DeviceNodeName is device node name,
 *
 * @return
@@ -141,15 +176,14 @@ static s32 XDfePrach_Strrncmp(const char *Str1Ptr, const char *Str2Ptr,
  *@note     None.
 *
 ******************************************************************************/
-static s32 XDfePrach_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId,
-					     const char *DeviceNodeName)
+static s32 XDfePrach_IsDeviceCompatible(char *DeviceNamePtr,
+					const char *DeviceNodeName)
 {
 	char CompatibleString[100];
 	struct metal_device *DevicePtr;
 	struct dirent **DirentPtr;
 	char Len = strlen(XDFEPRACH_COMPATIBLE_STRING);
 	int NumFiles;
-	u16 DeviceIdCounter = 0;
 	u32 Status = XST_FAILURE;
 	int i = 0;
 
@@ -164,6 +198,11 @@ static s32 XDfePrach_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId,
 
 	/* Loop through the each device file in directory */
 	for (i = 0; i < NumFiles; i++) {
+		/* Check the string size */
+		if (strlen(DirentPtr[i]->d_name) != strlen(DeviceNodeName)) {
+			continue;
+		}
+
 		/* Check the device signature */
 		if (0 != XDfePrach_Strrncmp(DirentPtr[i]->d_name,
 					    DeviceNodeName,
@@ -197,13 +236,6 @@ static s32 XDfePrach_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId,
 			continue;
 		}
 
-		/* Is a device Id as requested? */
-		if (DeviceIdCounter != DeviceId) {
-			DeviceIdCounter++;
-			metal_device_close(DevicePtr);
-			continue;
-		}
-
 		/* This is a requested device, save the name */
 		strcpy(DeviceNamePtr, DirentPtr[i]->d_name);
 
@@ -226,7 +258,7 @@ static s32 XDfePrach_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId,
 *
 * Looks up the device configuration based on the unique device ID.
 *
-* @param    DeviceId contains the ID of the device to register/map
+* @param    InstancePtr is a pointer to the mixer instance.
 *
 * @return
  *           - XST_SUCCESS if successful.
@@ -239,10 +271,10 @@ static s32 XDfePrach_GetDeviceNameByDeviceId(char *DeviceNamePtr, u16 DeviceId,
 *           pointing to the config returned.
 *
 ******************************************************************************/
-s32 XDfePrach_LookupConfig(u16 DeviceId)
+s32 XDfePrach_LookupConfig(XDfePrach *InstancePtr)
 {
+	struct metal_device *Dev = InstancePtr->Device;
 #ifndef __BAREMETAL__
-	struct metal_device *Dev = XDfePrach_Prach[DeviceId].Device;
 	u64 BaseAddr;
 	char *Name;
 	u32 d;
@@ -253,7 +285,7 @@ s32 XDfePrach_LookupConfig(u16 DeviceId)
 				   &BaseAddr, XDFEPRACH_BASEADDR_SIZE)) {
 		goto end_failure;
 	}
-	XDfePrach_Prach[DeviceId].Config.BaseAddr = ntohl(BaseAddr);
+	InstancePtr->Config.BaseAddr = ntohl(BaseAddr);
 
 	/* Get a config data from devicetree */
 	if (XST_SUCCESS != metal_linux_get_device_property(
@@ -261,51 +293,49 @@ s32 XDfePrach_LookupConfig(u16 DeviceId)
 				   XDFEPRACH_WORD_SIZE)) {
 		goto end_failure;
 	}
-	XDfePrach_Prach[DeviceId].Config.NumAntenna = ntohl(d);
+	InstancePtr->Config.NumAntenna = ntohl(d);
 
 	if (XST_SUCCESS != metal_linux_get_device_property(
 				   Dev, Name = XDFEPRACH_NUM_CC_PER_ANTENNA_CFG,
 				   &d, XDFEPRACH_WORD_SIZE)) {
 		goto end_failure;
 	}
-	XDfePrach_Prach[DeviceId].Config.NumCCPerAntenna = ntohl(d);
+	InstancePtr->Config.NumCCPerAntenna = ntohl(d);
 
 	if (XST_SUCCESS != metal_linux_get_device_property(
 				   Dev, Name = XDFEPRACH_NUM_SLOT_CHANNELS_CFG,
 				   &d, XDFEPRACH_WORD_SIZE)) {
 		goto end_failure;
 	}
-	XDfePrach_Prach[DeviceId].Config.NumAntennaChannels = ntohl(d);
+	InstancePtr->Config.NumAntennaChannels = ntohl(d);
 
 	if (XST_SUCCESS !=
 	    metal_linux_get_device_property(Dev, Name = XDFEPRACH_NUM_SLOTS_CFG,
 					    &d, XDFEPRACH_WORD_SIZE)) {
 		goto end_failure;
 	}
-	XDfePrach_Prach[DeviceId].Config.NumAntennaSlot = ntohl(d);
+	InstancePtr->Config.NumAntennaSlot = ntohl(d);
 
 	if (XST_SUCCESS != metal_linux_get_device_property(
 				   Dev, Name = XDFEPRACH_NUM_RACH_LINES_CFG, &d,
 				   XDFEPRACH_WORD_SIZE)) {
 		goto end_failure;
 	}
-	XDfePrach_Prach[DeviceId].Config.NumRachLanes = ntohl(d);
+	InstancePtr->Config.NumRachLanes = ntohl(d);
 
 	if (XST_SUCCESS != metal_linux_get_device_property(
 				   Dev, Name = XDFEPRACH_HAS_AXIS_CTRL_CFG, &d,
 				   XDFEPRACH_WORD_SIZE)) {
 		goto end_failure;
 	}
-	XDfePrach_Prach[DeviceId].Config.HasAxisCtrl = ntohl(d);
+	InstancePtr->Config.HasAxisCtrl = ntohl(d);
 
 	if (XST_SUCCESS !=
 	    metal_linux_get_device_property(Dev, Name = XDFEPRACH_HAS_IRQ_CFG,
 					    &d, XDFEPRACH_WORD_SIZE)) {
 		goto end_failure;
 	}
-	XDfePrach_Prach[DeviceId].Config.HasIrq = ntohl(d);
-
-	XDfePrach_Prach[DeviceId].Config.DeviceId = DeviceId;
+	InstancePtr->Config.HasIrq = ntohl(d);
 
 	return XST_SUCCESS;
 
@@ -315,23 +345,25 @@ end_failure:
 	metal_device_close(Dev);
 	return XST_FAILURE;
 #else
-	XDfePrach_Prach[DeviceId].Config.NumAntenna =
-		XDfePrach_ConfigTable[DeviceId].NumAntenna;
-	XDfePrach_Prach[DeviceId].Config.NumCCPerAntenna =
-		XDfePrach_ConfigTable[DeviceId].NumCCPerAntenna;
-	XDfePrach_Prach[DeviceId].Config.NumAntennaChannels =
-		XDfePrach_ConfigTable[DeviceId].NumAntennaChannels;
-	XDfePrach_Prach[DeviceId].Config.NumAntennaSlot =
-		XDfePrach_ConfigTable[DeviceId].NumAntennaSlot;
-	XDfePrach_Prach[DeviceId].Config.NumRachLanes =
-		XDfePrach_ConfigTable[DeviceId].NumRachLanes;
-	XDfePrach_Prach[DeviceId].Config.HasAxisCtrl =
-		XDfePrach_ConfigTable[DeviceId].HasAxisCtrl;
-	XDfePrach_Prach[DeviceId].Config.HasIrq =
-		XDfePrach_ConfigTable[DeviceId].HasIrq;
+	XDfePrach_Config *ConfigTable = NULL;
 
-	XDfePrach_Prach[DeviceId].Config.BaseAddr =
-		XDfePrach_ConfigTable[DeviceId].BaseAddr;
+	/* Find the Config table which base address is a match */
+	if (XST_FAILURE == XDfePrach_GetConfigTable(InstancePtr, ConfigTable)) {
+		metal_log(METAL_LOG_ERROR, "\nFailed to read device tree");
+		metal_device_close(Dev);
+		return XST_FAILURE;
+	}
+
+	InstancePtr->Config.NumAntenna = ConfigTable->NumAntenna;
+	InstancePtr->Config.NumCCPerAntenna = ConfigTable->NumCCPerAntenna;
+	InstancePtr->Config.NumAntennaChannels =
+		ConfigTable->NumAntennaChannels;
+	InstancePtr->Config.NumAntennaSlot = ConfigTable->NumAntennaSlot;
+	InstancePtr->Config.NumRachLanes = ConfigTable->NumRachLanes;
+	InstancePtr->Config.HasAxisCtrl = ConfigTable->HasAxisCtrl;
+	InstancePtr->Config.HasIrq = ConfigTable->HasIrq;
+
+	InstancePtr->Config.BaseAddr = ConfigTable->BaseAddr;
 
 	return XST_SUCCESS;
 #endif
@@ -353,7 +385,8 @@ end_failure:
 * @note     None.
 *
 ******************************************************************************/
-s32 XDfePrach_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr,
+s32 XDfePrach_RegisterMetal(XDfePrach *InstancePtr,
+			    struct metal_device **DevicePtr,
 			    const char *DeviceNodeName)
 {
 	s32 Status;
@@ -377,12 +410,10 @@ s32 XDfePrach_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr,
 	}
 #else
 	/* Get device name */
-	Status = XDfePrach_GetDeviceNameByDeviceId(DeviceName, DeviceId,
-						   DeviceNodeName);
+	Status = XDfePrach_IsDeviceCompatible(DeviceName, DeviceNodeName);
 	if (Status != XST_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Failed to find prach device with device id %d",
-			  DeviceId);
+		metal_log(METAL_LOG_ERROR, "\n Failed to find Mixer device %s",
+			  DeviceNodeName);
 		return Status;
 	}
 
@@ -396,15 +427,15 @@ s32 XDfePrach_RegisterMetal(u16 DeviceId, struct metal_device **DevicePtr,
 #endif
 
 	/* Map Prach device IO region */
-	XDfePrach_Prach[DeviceId].Io = metal_device_io_region(*DevicePtr, 0U);
-	if (XDfePrach_Prach[DeviceId].Io == NULL) {
+	InstancePtr->Io = metal_device_io_region(*DevicePtr, 0U);
+	if (InstancePtr->Io == NULL) {
 		metal_log(METAL_LOG_ERROR,
 			  "\n Failed to map Prach region for %s.\n",
 			  (*DevicePtr)->name);
 		metal_device_close(*DevicePtr);
 		return XST_FAILURE;
 	}
-	XDfePrach_Prach[DeviceId].Device = *DevicePtr;
+	InstancePtr->Device = *DevicePtr;
 
 	return XST_SUCCESS;
 }

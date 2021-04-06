@@ -25,6 +25,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.0   dc     03/08/21 Initial version
+*       dc     04/06/21 Register with full node name
 *
 * </pre>
 *
@@ -40,23 +41,14 @@
 
 /************************** Constant Definitions ****************************/
 
-/*
- * The following constants map to the XPAR parameters created in the
- * xparameters.h file. They are defined here such that a user can easily
- * change all the needed parameters in one place.
- */
-#ifdef __BAREMETAL__
-#define XDFEPRACH_DEVICE_ID XPAR_XDFEPRACH_0_DEVICE_ID
-#define XDFEPRACH_BASE_ADDR XPAR_XDFEPRACH_0_BASEADDR
-#else
-#define XDFEPRACH_DEVICE_ID 0
-#endif
-
 /**************************** Type Definitions ******************************/
 
 /***************** Macros (Inline Functions) Definitions ********************/
 #ifdef __BAREMETAL__
 #define printf xil_printf
+#define XDFEPRACH_NODE_NAME XPAR_XDFEPRACH_0_DEV_NAME
+#else
+#define XDFEPRACH_NODE_NAME "a7d40000.xdfe_nr_prach"
 #endif
 
 #define XDFESI570_CURRENT_FREQUENCY 156.25
@@ -65,36 +57,9 @@
 /************************** Function Prototypes *****************************/
 extern int XDfeSi570_SetMgtOscillator(double CurrentFrequency,
 				      double NewFrequency);
-static int XDfePrach_SelfTestExample(u16 DeviceId);
+static int XDfePrach_SelfTestExample();
 
 /************************** Variable Definitions ****************************/
-#ifdef __BAREMETAL__
-metal_phys_addr_t metal_phys[1] = {
-	XDFEPRACH_BASE_ADDR,
-};
-struct metal_device CustomDevice[1] = {
-	{
-		.name = XPAR_XDFEPRACH_0_DEV_NAME,
-		.bus = NULL,
-		.num_regions = 1,
-		.regions = { {
-			.virt = (void *)XDFEPRACH_BASE_ADDR,
-			.physmap = &metal_phys[0],
-			.size = 0x10000,
-			.page_shift = (u32)(-1),
-			.page_mask = (u32)(-1),
-			.mem_flags = 0x0,
-			.ops = { NULL },
-		} },
-		.node = { NULL },
-		.irq_num = 0,
-		.irq_info = NULL,
-	},
-};
-#define XDFEPRACH_NODE_NAME XPAR_XDFEPRACH_0_DEV_NAME
-#else
-#define XDFEPRACH_NODE_NAME "xdfe_nr_prach"
-#endif
 
 /****************************************************************************/
 /**
@@ -112,7 +77,7 @@ struct metal_device CustomDevice[1] = {
 *****************************************************************************/
 int main(void)
 {
-	printf("DFE Prach Selftest Example Test\r\n");
+	printf("DFE Prach (PRACH) Selftest Example Test\r\n");
 
 #ifdef __BAREMETAL__
 	if (XST_SUCCESS !=
@@ -127,7 +92,7 @@ int main(void)
 	 * Run the DFE Prach init/close example, specify the Device
 	 * ID that is generated in xparameters.h.
 	 */
-	if (XST_SUCCESS != XDfePrach_SelfTestExample(XDFEPRACH_DEVICE_ID)) {
+	if (XST_SUCCESS != XDfePrach_SelfTestExample()) {
 		printf("Selftest Example Test failed\r\n");
 		return XST_FAILURE;
 	}
@@ -149,8 +114,6 @@ int main(void)
 *	- Write and read coefficient.
 *	- DeActivate the device.
 *
-* @param	DeviceId is the instances device Id.
-*
 * @return
 *		- XST_SUCCESS if the example has completed successfully.
 *		- XST_FAILURE if the example has failed.
@@ -158,7 +121,7 @@ int main(void)
 * @note   	None
 *
 ****************************************************************************/
-static int XDfePrach_SelfTestExample(u16 DeviceId)
+static int XDfePrach_SelfTestExample()
 {
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
 	XDfePrach_Cfg Cfg;
@@ -171,7 +134,7 @@ static int XDfePrach_SelfTestExample(u16 DeviceId)
 	}
 
 	/* Initialize the instance of channel filter driver */
-	InstancePtr = XDfePrach_InstanceInit(DeviceId, XDFEPRACH_NODE_NAME);
+	InstancePtr = XDfePrach_InstanceInit(XDFEPRACH_NODE_NAME);
 	/* Go through initialization states of the state machine */
 	XDfePrach_Reset(InstancePtr);
 	XDfePrach_Configure(InstancePtr, &Cfg);
