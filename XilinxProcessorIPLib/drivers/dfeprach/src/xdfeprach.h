@@ -51,6 +51,8 @@
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     03/08/21 Initial version
+*       dc     04/06/21 Register with full node name
+*
 * </pre>
 *
 ******************************************************************************/
@@ -85,6 +87,8 @@ extern "C" {
 #else
 #define XDFEPRACH_MAX_NUM_INSTANCES XPAR_XDFEPRACH_NUM_INSTANCES
 #endif
+
+#define XDFEPRACH_NODE_NAME_MAX_LENGTH 50U /**< Node name maximum length */
 
 #define XDFEPRACH_CC_NUM_MAX 16U /**< Maximum CC number */
 #define XDFEPRACH_RC_NUM_MAX 16U /**< Maximum RC number */
@@ -441,13 +445,14 @@ typedef struct {
 typedef struct {
 	XDfePrach_Config Config; /**< Config Structure */
 	XDfePrach_StateId StateId; /**< StateId */
+	char NodeName[XDFEPRACH_NODE_NAME_MAX_LENGTH]; /**< Node name */
 	struct metal_io_region *Io; /**< Libmetal IO structure */
 	struct metal_device *Device; /**< Libmetal device structure */
 } XDfePrach;
 
 /**************************** API declarations *******************************/
 /* System initialization API */
-XDfePrach *XDfePrach_InstanceInit(u16 DeviceId, const char *DeviceNodeName);
+XDfePrach *XDfePrach_InstanceInit(const char *DeviceNodeName);
 void XDfePrach_InstanceClose(XDfePrach *InstancePtr);
 
 /* Register access API */

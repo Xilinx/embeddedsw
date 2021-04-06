@@ -18,6 +18,8 @@
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     03/08/21 Initial version
+*       dc     04/06/21 Register with full node name
+*
 * </pre>
 *
 ******************************************************************************/
@@ -27,6 +29,7 @@
 #include <math.h>
 #include <metal/io.h>
 #include <metal/device.h>
+#include <string.h>
 
 #ifdef __BAREMETAL__
 #include "sleep.h"
@@ -126,15 +129,14 @@ static void XDfePrach_DisableLowPowerTrigger(const XDfePrach *InstancePtr);
 #ifdef __BAREMETAL__
 extern struct metal_device CustomDevice[XDFEPRACH_MAX_NUM_INSTANCES];
 #endif
-static struct metal_device *DevicePtrStorage[XDFEPRACH_MAX_NUM_INSTANCES];
 extern XDfePrach XDfePrach_Prach[XDFEPRACH_MAX_NUM_INSTANCES];
 static u32 XDfePrach_DriverHasBeenRegisteredOnce = 0U;
 
 /************************** Function Definitions ****************************/
-extern s32 XDfePrach_RegisterMetal(u16 DeviceId,
+extern s32 XDfePrach_RegisterMetal(XDfePrach *InstancePtr,
 				   struct metal_device **DevicePtr,
 				   const char *DeviceNodeName);
-extern s32 XDfePrach_LookupConfig(u16 DeviceId);
+extern s32 XDfePrach_LookupConfig(XDfePrach *InstancePtr);
 extern void XDfePrach_CfgInitialize(XDfePrach *InstancePtr);
 
 /************************** Register Access Functions ***********************/
@@ -999,7 +1001,8 @@ static void XDfePrach_GetRC_CCId(const XDfePrach *InstancePtr, bool Next,
 	} else {
 		Offset = XDFEPRACH_RCID_MAPPING_CURRENT;
 	}
-	*CCId = XDfePrach_RdRegBitField(InstancePtr, Offset + (RCId * sizeof(u32)),
+	*CCId = XDfePrach_RdRegBitField(InstancePtr,
+					Offset + (RCId * sizeof(u32)),
 					XDFEPRACH_RCID_MAPPING_CCID_WIDTH,
 					XDFEPRACH_RCID_MAPPING_CCID_OFFSET);
 }
@@ -1679,15 +1682,12 @@ static void XDfePrach_DisableLowPowerTrigger(const XDfePrach *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* API Initialise one instancies of a Prach driver.
-* Traverse "/sys/bus/platform/device" directory, to find Prach device id,
-* corresponding to provided DeviceNodeName. The device id is defined by
-* the address of the entry in the order from lowest to highest, eg.:
-* Id=0 for the Prach entry located to the lowest address,
-* Id=1 for the Prach entry located to the second lowest address,
-* Id=2 for the Prach entry located to the third lowest address, and so on.
+* API Initialise one instancie of a channel filter driver.
+* Traverse "/sys/bus/platform/device" directory (in Linux), to find registered
+* PRACH device with the name DeviceNodeName. The first available slot in
+* the instances array XDfePrach_Prach[] will be taken as a DeviceNodeName
+* object.
 *
-* @param    DeviceId contains the index number of the device instance,
 * @param    DeviceNodeName is device node name,
 *
 * @return
@@ -1697,54 +1697,81 @@ static void XDfePrach_DisableLowPowerTrigger(const XDfePrach *InstancePtr)
 * @note     None.
 *
 ******************************************************************************/
-XDfePrach *XDfePrach_InstanceInit(u16 DeviceId, const char *DeviceNodeName)
+XDfePrach *XDfePrach_InstanceInit(const char *DeviceNodeName)
 {
 	u32 Index;
+	XDfePrach *InstancePtr;
 
-	Xil_AssertNonvoid(DeviceId < XDFEPRACH_MAX_NUM_INSTANCES);
+	Xil_AssertNonvoid(DeviceNodeName != NULL);
+	Xil_AssertNonvoid(strlen(DeviceNodeName) <
+			  XDFEPRACH_NODE_NAME_MAX_LENGTH);
 
-	/* Is for the First initialisation caled ever */
+	/* Is this first PRACH initialisation ever? */
 	if (0U == XDfePrach_DriverHasBeenRegisteredOnce) {
 		/* Set up environment environment */
 		for (Index = 0; Index < XDFEPRACH_MAX_NUM_INSTANCES; Index++) {
 			XDfePrach_Prach[Index].StateId =
 				XDFEPRACH_STATE_NOT_READY;
-#ifdef __BAREMETAL__
-			DevicePtrStorage[Index] = &CustomDevice[Index];
-#endif
+			XDfePrach_Prach[Index].NodeName[0] = '\0';
 		}
 		XDfePrach_DriverHasBeenRegisteredOnce = 1U;
 	}
 
 	/*
-	 * Check is the instance DeviceID already created:
+	 * Check has DeviceNodeName been already created:
 	 * a) if no, do full initialization
 	 * b) if yes, skip initialization and return the object pointer
 	 */
-	if (XDfePrach_Prach[DeviceId].StateId != XDFEPRACH_STATE_NOT_READY) {
-		return &XDfePrach_Prach[DeviceId];
+	for (Index = 0; Index < XDFEPRACH_MAX_NUM_INSTANCES; Index++) {
+		if (0U == strncmp(XDfePrach_Prach[Index].NodeName,
+				  DeviceNodeName, strlen(DeviceNodeName))) {
+			return &XDfePrach_Prach[Index];
+		}
 	}
 
+	/*
+	 * Find the available slot for this instance.
+	 */
+	for (Index = 0; Index < XDFEPRACH_MAX_NUM_INSTANCES; Index++) {
+		if (XDfePrach_Prach[Index].NodeName[0] == '\0') {
+			strncpy(XDfePrach_Prach[Index].NodeName, DeviceNodeName,
+				strlen(DeviceNodeName));
+			InstancePtr = &XDfePrach_Prach[Index];
+			goto register_metal;
+		}
+	}
+
+	/* Failing as there is no available slot. */
+	return NULL;
+
+register_metal:
 	/* Register libmetal for this OS process */
-	if (XST_SUCCESS != XDfePrach_RegisterMetal(DeviceId,
-						   &DevicePtrStorage[DeviceId],
+	if (XST_SUCCESS != XDfePrach_RegisterMetal(InstancePtr,
+						   &InstancePtr->Device,
 						   DeviceNodeName)) {
-		XDfePrach_Prach[DeviceId].StateId = XDFEPRACH_STATE_NOT_READY;
-		return NULL;
+		metal_log(METAL_LOG_ERROR, "\n Failed to register device %s",
+			  DeviceNodeName);
+		goto return_error;
 	}
 
 	/* Setup config data */
-	if (XST_FAILURE == XDfePrach_LookupConfig(DeviceId)) {
-		XDfePrach_Prach[DeviceId].StateId = XDFEPRACH_STATE_NOT_READY;
-		return NULL;
+	if (XST_FAILURE == XDfePrach_LookupConfig(InstancePtr)) {
+		metal_log(METAL_LOG_ERROR, "\n Failed to configure device %s",
+			  DeviceNodeName);
+		goto return_error;
 	}
 
 	/* Configure HW and the driver instance */
-	XDfePrach_CfgInitialize(&XDfePrach_Prach[DeviceId]);
+	XDfePrach_CfgInitialize(InstancePtr);
 
-	XDfePrach_Prach[DeviceId].StateId = XDFEPRACH_STATE_READY;
+	InstancePtr->StateId = XDFEPRACH_STATE_READY;
 
-	return &XDfePrach_Prach[DeviceId];
+	return InstancePtr;
+
+return_error:
+	InstancePtr->StateId = XDFEPRACH_STATE_NOT_READY;
+	InstancePtr->NodeName[0] = '\0';
+	return NULL;
 }
 
 /*****************************************************************************/
@@ -1761,14 +1788,22 @@ XDfePrach *XDfePrach_InstanceInit(u16 DeviceId, const char *DeviceNodeName)
 ******************************************************************************/
 void XDfePrach_InstanceClose(XDfePrach *InstancePtr)
 {
+	u32 Index;
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	/* Close the instance */
-	InstancePtr->StateId = XDFEPRACH_STATE_NOT_READY;
+	for (Index = 0; Index < XDFEPRACH_MAX_NUM_INSTANCES; Index++) {
+		/* Find the instance in XDfePrach_Prach array */
+		if (&XDfePrach_Prach[Index] == InstancePtr) {
+			/* Release libmetal */
+			metal_device_close(InstancePtr->Device);
+			InstancePtr->StateId = XDFEPRACH_STATE_NOT_READY;
+			InstancePtr->NodeName[0] = '\0';
+			return;
+		}
+	}
 
-	/* Release libmetal */
-	metal_device_close(InstancePtr->Device);
-
+	/* Assert as you should never get to this point. */
+	Xil_AssertVoidAlways();
 	return;
 }
 
