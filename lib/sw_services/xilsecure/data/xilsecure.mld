@@ -23,6 +23,7 @@
 # 4.3   ana 06/05/20  Updated library version to 4.3
 # 4.4   har 01/07/21  Updated library version to 4.4
 # 4.5   td  03/08/21  Updated library version to 4.5
+#       bsv 04/01/21  Added tpm_support parameter
 #
 ##############################################################################
 
@@ -38,4 +39,5 @@ BEGIN LIBRARY xilsecure
   OPTION VERSION = 4.5;
   OPTION NAME = xilsecure;
   PARAM name = secure_environment, desc = "Enables trusted execution environment \nto allow device key usage(post boot) in ZynqMP \nfor IPI response/Linux/U-boot calls valid only \nfor PMUFW BSP", type = bool, default = false;
+  PARAM name = tpm_support, desc = "Enables decryption of bitstream to memory and \n then writes it to PCAP, allows calculation of \nsha on decrypted bitstream in chunks\n valid only for ZynqMP FSBL BSP", type = bool, default = false;
 END LIBRARY

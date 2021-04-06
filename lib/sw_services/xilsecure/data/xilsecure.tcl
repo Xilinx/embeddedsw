@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (c) 2013 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2013 - 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -15,6 +15,8 @@
 # 4.1   vns  08/02/19 Added support for a72 and r5 processors of Versal
 # 4.3   rpo  07/08/20 Added support to access xsecure init files only for
 #                     psv_pmc and psu_pmc processor
+# 4.5   bsv  04/01/21 Added support for XSECURE_TPM_ENABLE macro
+#
 ##############################################################################
 
 #---------------------------------------------
@@ -143,6 +145,17 @@ proc xgen_opts_file {libhandle} {
 
 		puts $file_handle "\n/* Xilinx Secure library User Settings */"
 		puts $file_handle "#define XSECURE_TRUSTED_ENVIRONMENT \n"
+
+		close $file_handle
+	}
+	# Get tpm_support environment value set by user, by default it is FALSE
+	set value [common::get_property CONFIG.tpm_support $libhandle]
+	if {$value == true} {
+		# Open xparameters.h file
+		set file_handle [hsi::utils::open_include_file "xparameters.h"]
+
+		puts $file_handle "\n/* TPM Settings */"
+		puts $file_handle "#define XSECURE_TPM_ENABLE\n"
 
 		close $file_handle
 	}

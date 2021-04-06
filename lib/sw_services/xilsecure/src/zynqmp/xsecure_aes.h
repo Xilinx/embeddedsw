@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -67,6 +67,9 @@
 * 4.1   mmd  07/05/19 Optimized the code
 * 4.2   har  04/16/20 Removed extra header file
 *       ana  10/15/20 Updated doxygen tags
+* 4.5   bsv  04/01/21 Added support to encrypt bitstream to memory in chunks
+*                     and then write to PCAP
+*
 * </pre>
 * @endcond
 *
@@ -110,6 +113,11 @@ extern "C" {
 
 #define XSECURE_CSU_AES_CHUNKING_DISABLED (0x0U)
 #define XSECURE_CSU_AES_CHUNKING_ENABLED (0x1U)
+
+#ifdef XSECURE_TPM_ENABLE
+#define XSECURE_PL_DEC_TO_MEM_DISABLED		(0x0U)
+#define XSECURE_PL_DEC_TO_MEM_ENABLED		(0x1U)
+#endif
 
 #define XSECURE_CSU_AES_KEY_LOAD	(1U << 0)
 					/**< Load AES key from Source */
@@ -188,6 +196,11 @@ typedef struct {
 	u32* Key; /**< AES Key */
 	u32* GcmTagAddr; /**< GCM tag address for decryption */
 	u32  KeySel; /**< Key Source selection */
+#ifdef XSECURE_TPM_ENABLE
+	/**< Call back function calculating hash */
+	void (*ShaUpdate) (void * Ctx, u8 * Data, u32 Size, u32 HashLen);
+	u8 IsPlDecryptToMemEnabled; /**< Pl decryption to memory enabled */
+#endif
 	u8 IsChunkingEnabled; /**< Data Chunking enabled/disabled */
 	u8* ReadBuffer; /**< Data Buffer to be used in case of chunking */
 	u32 ChunkSize; /**< Size of one chunk in bytes */
