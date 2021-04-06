@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +18,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 4.2   har     03/26/20 Initial Release
+* 4.5   bsv     04/01/21 Added API to set SSS CFG register to PCAP
 *
 * </pre>
 * @endcond
@@ -72,6 +73,9 @@ u32 XSecure_SssAes(XSecure_Sss *InstancePtr, XSecure_SssSrc InputSrc,
 		XSecure_SssSrc OutputSrc);
 u32 XSecure_SssSha(XSecure_Sss *InstancePtr, u16 DmaId);
 u32 XSecure_SssDmaLoopBack(XSecure_Sss *InstancePtr, u16 DmaId);
+#ifdef XSECURE_TPM_ENABLE
+u32 XSecure_SssPcap(XSecure_Sss *InstancePtr, u16 DmaId);
+#endif
 
 #ifdef __cplusplus
 }

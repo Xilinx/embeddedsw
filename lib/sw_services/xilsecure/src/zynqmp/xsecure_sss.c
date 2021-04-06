@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,6 +16,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 4.2   har     03/26/20 Initial release
+* 4.5   bsv     04/01/21 Added API to set SSS CFG register to PCAP
 *
 * </pre>
 *
@@ -127,6 +128,42 @@ END:
 
 }
 
+#ifdef XSECURE_TPM_ENABLE
+/*****************************************************************************/
+/**
+ * @brief
+ * This function configures the secure stream switch for PCAP.
+ *
+ * @param	InstancePtr	Instance pointer to the XSecure_Sss
+ * @param	DmaId		Device ID of DMA which is to be used as an
+ *				input to the SHA engine.
+ *
+ * @return	- XST_SUCCESS - on successful configuration of the switch.
+ *			- XST_FAILURE - on failure to configure switch
+ *
+ *****************************************************************************/
+u32 XSecure_SssPcap(XSecure_Sss *InstancePtr, u16 DmaId)
+{
+	u32 Status = (u32)XST_FAILURE;
+	XSecure_SssSrc InputSrc = XSECURE_SSS_INVALID;
+
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(DmaId == 0U);
+
+	Status = XSecure_SssDmaSrc(DmaId, &InputSrc);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XSecure_SssCfg(InstancePtr, XSECURE_SSS_PCAP, InputSrc,
+		XSECURE_SSS_INVALID);
+
+END:
+	return Status;
+}
+
+#endif
 /*****************************************************************************/
 /**
  * @brief
