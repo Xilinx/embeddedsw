@@ -178,6 +178,11 @@ volatile char *pcOverflowingTaskName = pcTaskName;
 
 			if( xStatus == pdPASS )
 			{
+				#if XPAR_XINTC_HAS_ILR == 1
+					xil_printf("WARNING: Nested interrupts are enabled for AXI INTC in HW design. FreeRTOS Microblaze port \
+								does not support nested interrupts, enabling nested interrupts in HW design might end \
+								up in incorrect behavior, update HW design to disable nested interrupts\n");
+				#endif
 				/* Enable the timer interrupt in the interrupt controller.
 				*NOTE* The vPortEnableInterrupt() API function must be used for this
 				purpose. */
