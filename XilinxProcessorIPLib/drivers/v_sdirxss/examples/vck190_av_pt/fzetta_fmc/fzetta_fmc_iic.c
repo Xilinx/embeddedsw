@@ -24,6 +24,8 @@
 #include "xiic.h"
 #include "fzetta_fmc_iic.h"
 
+XIic_Config *fzetta_fmc_Iic_ConfigPtr;	/* Pointer to configuration data */
+XIic fzetta_fmc_Iic; /* The driver instance for IIC Device */
 
 /*****************************************************************************/
 /**

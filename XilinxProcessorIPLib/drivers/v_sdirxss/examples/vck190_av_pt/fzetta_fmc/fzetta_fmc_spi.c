@@ -24,6 +24,9 @@
 #include "xspi.h"
 #include "fzetta_fmc_spi.h"
 
+XSpi_Config *fzetta_fmc_Spi_ConfigPtr;	/* Pointer to Configuration data */
+XSpi fzetta_fmc_Spi; /* The instance of the SPI device */
+
 /*****************************************************************************/
 /**
  *

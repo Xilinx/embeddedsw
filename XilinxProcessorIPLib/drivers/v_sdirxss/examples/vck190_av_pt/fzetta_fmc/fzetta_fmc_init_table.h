@@ -48,12 +48,12 @@ typedef struct {
 	fzetta_fmc_reglist reglist[REGLIST_SIZE];
 }fzetta_fmc_reg;
 
-fzetta_fmc_reglist rclkr_errata_id_80[2];
-fzetta_fmc_reglist rclkr_errata_id_81[5];
-fzetta_fmc_reglist rclkr_errata_id_82[3];
-fzetta_fmc_reglist rcvr_errata_id_01[5];
+extern fzetta_fmc_reglist rclkr_errata_id_80[2];
+extern fzetta_fmc_reglist rclkr_errata_id_81[5];
+extern fzetta_fmc_reglist rclkr_errata_id_82[3];
+extern fzetta_fmc_reglist rcvr_errata_id_01[5];
 
-fzetta_fmc_reg fzetta_fmc_table;
+extern fzetta_fmc_reg fzetta_fmc_table;
 /*****************************************************************************/
 /**
  *
