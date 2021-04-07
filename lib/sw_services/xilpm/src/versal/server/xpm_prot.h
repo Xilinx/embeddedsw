@@ -78,9 +78,16 @@ struct XPm_ProtMpu {
 };
 
 /************************** Function Prototypes ******************************/
-XStatus XPmProtPpu_Init(XPm_ProtPpu *PpuNode, u32 Id, u32 BaseAddr, XPm_Power *Power);
-XStatus XPmProtMpu_Init(XPm_ProtMpu *MpuNode, u32 Id, u32 BaseAddr, XPm_Power *Power);
+XStatus XPmProt_PpuInit(XPm_ProtPpu *PpuNode,
+			u32 Id, u32 BaseAddr, XPm_Power *Power);
+XStatus XPmProt_MpuInit(XPm_ProtMpu *MpuNode,
+			u32 Id, u32 BaseAddr, XPm_Power *Power);
+
 XStatus XPmProt_Configure(XPm_Requirement *Reqm, u32 Enable);
+
+XStatus XPmProt_PpuControl(const XPm_Requirement *Reqm, u32 Enable);
+XStatus XPmProt_MpuControl(const XPm_Requirement *Reqm, u32 Enable);
+
 XPm_Prot *XPmProt_GetById(const u32 Id);
 
 #ifdef __cplusplus
