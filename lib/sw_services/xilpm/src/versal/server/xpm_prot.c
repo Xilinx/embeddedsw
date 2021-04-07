@@ -254,36 +254,34 @@ done:
 
 /****************************************************************************/
 /**
- * @brief  Enable XPPU with given NodeId
+ * @brief  Enable XPPU
  *
- * @param  NodeId: Node Id assigned to a XPPU node
+ * @param  Ppu: An instance of XPPU
+ * @param  ApertureInitVal: Default permission mask for all apertures
  *
- * @return XST_SUCCESS if successful else appropriate failure code
+ * @return N/A
  *
  ****************************************************************************/
-static XStatus XPmProt_XppuEnable(u32 NodeId, u32 ApertureInitVal)
+static void XPmProt_XppuEnable(XPm_ProtPpu *Ppu, u32 ApertureInitVal)
 {
-	XStatus Status = XST_FAILURE;
-	u32 i = 0;
-	XPm_ProtPpu *Ppu = (XPm_ProtPpu *)XPmProt_GetById(NodeId);
-	u32 Address, BaseAddr, RegVal, Platform, PlatformVersion;
-	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 i = 0U;
+	u32 Address = 0U;
+	u32 RegVal = 0U;
+	u32 Platform = XPm_GetPlatform();
+	u32 PlatformVersion = XPm_GetPlatformVersion();
+	u32 IdCode = XPm_GetIdCode();
+	u32 BaseAddr = Ppu->Node.BaseAddress;
 
-	if (NULL == Ppu) {
-		DbgErr = XPM_INT_ERR_INVALID_NODE;
-		goto done;
+	if ((u8)XPM_PROT_ENABLED == Ppu->Node.State) {
+		return;
 	}
-
-	/* XPPU Base Address */
-	BaseAddr = Ppu->Node.BaseAddress;
 
 	/* Set default aperture permission mask */
 	Ppu->AperPermInitMask = ApertureInitVal & PERM_MASK;
 
-	Platform = XPm_GetPlatform();
-	PlatformVersion = XPm_GetPlatformVersion();
 	if ((PLATFORM_VERSION_SILICON == Platform) &&
-	    (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
+	    (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion) &&
+	    (PMC_TAP_IDCODE_DEV_SBFMLY_VC1902 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK))) {
 		/* Disable permission checks for all apertures */
 		Address = BaseAddr + XPPU_ENABLE_PERM_CHECK_REG00_OFFSET;
 		for (i = 0; i < MAX_PERM_REGS; i++)
@@ -316,7 +314,7 @@ static XStatus XPmProt_XppuEnable(u32 NodeId, u32 ApertureInitVal)
 		 *
 		 * Refer "XPPU protection for IPI" from XPPU DID.
 		 */
-		if (((u32)XPM_NODEIDX_PROT_XPPU_LPD == NODEINDEX(NodeId))
+		if (((u32)XPM_NODEIDX_PROT_XPPU_LPD == NODEINDEX(Ppu->Node.Id))
 			&& ((i >= APER_IPI_MIN) && (i <= APER_IPI_MAX))) {
 			XPmProt_XppuSetAperture(Ppu, Address,
 					(ApertureInitVal | XPPU_APERTURE_PERMISSION_MASK));
@@ -337,7 +335,8 @@ static XStatus XPmProt_XppuEnable(u32 NodeId, u32 ApertureInitVal)
 	}
 
 	if ((PLATFORM_VERSION_SILICON == Platform) &&
-	    (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
+	    (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion) &&
+	    (PMC_TAP_IDCODE_DEV_SBFMLY_VC1902 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK))) {
 		/* Enable permission checks for all apertures */
 		Address = BaseAddr + XPPU_ENABLE_PERM_CHECK_REG00_OFFSET;
 		for (i = 0; i < MAX_PERM_REGS; i++)
@@ -350,58 +349,44 @@ static XStatus XPmProt_XppuEnable(u32 NodeId, u32 ApertureInitVal)
 	/* Get Aperture start and end addresses */
 	PmIn32(BaseAddr + XPPU_BASE_64KB_OFFSET, RegVal);
 	Ppu->A64k.Start = RegVal;
-	Ppu->A64k.End =
-		(Ppu->A64k.Start + (Ppu->A64k.Total * SIZE_64K) - 1U);
+	Ppu->A64k.End = Ppu->A64k.Start + (Ppu->A64k.Total * SIZE_64K) - 1U;
 
 	PmIn32(BaseAddr + XPPU_BASE_1MB_OFFSET, RegVal);
 	Ppu->A1m.Start = RegVal;
-	Ppu->A1m.End =
-		(Ppu->A1m.Start + (Ppu->A1m.Total * SIZE_1M) - 1U);
+	Ppu->A1m.End = Ppu->A1m.Start + (Ppu->A1m.Total * SIZE_1M) - 1U;
 
 	PmIn32(BaseAddr + XPPU_BASE_512MB_OFFSET, RegVal);
 	Ppu->A512m.Start = RegVal;
-	Ppu->A512m.End =
-		(Ppu->A512m.Start + (Ppu->A512m.Total * SIZE_512M) - 1U);
+	Ppu->A512m.End = Ppu->A512m.Start + (Ppu->A512m.Total * SIZE_512M) - 1U;
 
 	/* Enable Xppu */
-	PmRmw32(BaseAddr + XPPU_CTRL_OFFSET, XPPU_CTRL_ENABLE_MASK, XPPU_CTRL_ENABLE_MASK);
+	PmRmw32(BaseAddr + XPPU_CTRL_OFFSET,
+			XPPU_CTRL_ENABLE_MASK, XPPU_CTRL_ENABLE_MASK);
 
+	/* Enable SW state */
 	Ppu->Node.State = (u8)XPM_PROT_ENABLED;
-
-	Status = XST_SUCCESS;
-
-done:
-	XPm_PrintDbgErr(Status, DbgErr);
-	return Status;
 }
 
 /****************************************************************************/
 /**
- * @brief  Disable XPPU with given NodeId
+ * @brief  Disable XPPU
  *
- * @param  NodeId: Node Id assigned to a XPPU node
+ * @param  Ppu: An instance of XPPU
  *
- * @return XST_SUCCESS if successful else appropriate failure code
+ * @return N/A
  *
  ****************************************************************************/
-static XStatus XPmProt_XppuDisable(u32 NodeId)
+static void XPmProt_XppuDisable(XPm_ProtPpu *Ppu)
 {
-	XStatus Status = XST_FAILURE;
 	u32 Address, idx;
-	XPm_ProtPpu *Ppu = (XPm_ProtPpu *)XPmProt_GetById(NodeId);
+	u32 Platform =  XPm_GetPlatform();
+	u32 PlatformVersion = XPm_GetPlatformVersion();
+	u32 IdCode = XPm_GetIdCode();
 	u32 PpuBase = Ppu->Node.BaseAddress;
-	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	u32 PlatformVersion;
 
-	if (NULL == Ppu) {
-		DbgErr = XPM_INT_ERR_INVALID_NODE;
-		Status = XST_FAILURE;
-		goto done;
-	}
-
-	PlatformVersion = XPm_GetPlatformVersion();
-	if ((PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
-	    ((u32)PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
+	if ((PLATFORM_VERSION_SILICON == Platform) &&
+	    (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion) &&
+	    (PMC_TAP_IDCODE_DEV_SBFMLY_VC1902 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK))) {
 		/* Disable permission checks for all apertures */
 		Address = PpuBase + XPPU_ENABLE_PERM_CHECK_REG00_OFFSET;
 		for (idx = 0; idx < MAX_PERM_REGS; idx++)
@@ -412,15 +397,11 @@ static XStatus XPmProt_XppuDisable(u32 NodeId)
 	}
 
 	/* Disable Xppu */
-	PmRmw32(PpuBase + XPPU_CTRL_OFFSET, XPPU_CTRL_ENABLE_MASK, ~XPPU_CTRL_ENABLE_MASK);
+	PmRmw32(PpuBase + XPPU_CTRL_OFFSET,
+			XPPU_CTRL_ENABLE_MASK, ~XPPU_CTRL_ENABLE_MASK);
 
+	/* Disable SW state */
 	Ppu->Node.State = (u8)XPM_PROT_DISABLED;
-
-	Status = XST_SUCCESS;
-
-done:
-	XPm_PrintDbgErr(Status, DbgErr);
-	return Status;
 }
 
 /****************************************************************************/
@@ -428,8 +409,8 @@ done:
  * @brief  Run Dynamic Re-Configuration of XPPU
  *
  * @param  Ppu: An instance of XPPU
- * @param  PermCheckAddr: Aperture permission check address
- * @param  PermCheckMask: Aperture permission check mask
+ * @param  PermCheckAddr: Aperture permission check address (Only used for ES1)
+ * @param  PermCheckMask: Aperture permission check mask (Only used for ES1)
  * @param  AperIdx: Aperture index
  * @param  AperAddr: Aperture address
  * @param  AperVal: Aperture Value to be written
@@ -449,10 +430,12 @@ static void XPmProt_XppuDynReconfig(const XPm_ProtPpu *Ppu,
 {
 	u32 Platform = XPm_GetPlatform();
 	u32 PlatformVersion = XPm_GetPlatformVersion();
+	u32 IdCode = XPm_GetIdCode();
 	u32 PpuBaseAddr = Ppu->Node.BaseAddress;
 
 	if ((PLATFORM_VERSION_SILICON == Platform) &&
-	    ((u32)PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
+	    (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion) &&
+	    (PMC_TAP_IDCODE_DEV_SBFMLY_VC1902 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK))) {
 		/* Disable XPPU */
 		PmRmw32(PpuBaseAddr + XPPU_CTRL_OFFSET,
 				XPPU_CTRL_ENABLE_MASK,
@@ -567,7 +550,7 @@ static XStatus XPmProt_PpuPermReconfig(const XPm_Requirement *Reqm,
 				       u32 Enable)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Requirement *DevReqm = NULL;
+	const XPm_Requirement *DevReqm = NULL;
 	u32 AperPerm = 0U;
 	u32 CurrPerms = 0U;
 	u32 PermCheckAddr, PermCheckMask;
@@ -673,11 +656,11 @@ XStatus XPmProt_PpuControl(const XPm_Requirement *Reqm,
 			   const u32 Enable)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_ProtPpu *Ppu = NULL;
+	const XPm_ProtPpu *Ppu = NULL;
+	u32 SubsystemId = Reqm->Subsystem->Id;
 	u32 AperAddr = 0U;
 	u32 AperIdx = 0U;
 	u32 PpuBase = 0U, i;
-	u32 SubsystemId = Reqm->Subsystem->Id;
 
 	/*
 	 * For PMC/Default Subsystem with default requirements,
@@ -743,30 +726,20 @@ done:
 
 /****************************************************************************/
 /**
- * @brief  Enable XMPU with given NodeId
+ * @brief  Enable XMPU
  *
- * @param  NodeId: Node Id assigned to a XMPU node
+ * @param  Mpu: An instance of XMPU
  *
- * @return XST_SUCCESS if successful else appropriate failure code
+ * @return N/A
  *
  ****************************************************************************/
-static XStatus XPmProt_XmpuEnable(u32 NodeId)
+static void XPmProt_XmpuEnable(XPm_ProtMpu *Mpu)
 {
-	XStatus Status = XST_FAILURE;
 	u32 BaseAddr;
 	u32 RegVal;
-	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	XPm_ProtMpu *Mpu = NULL;
-
-	Mpu = (XPm_ProtMpu *)XPmProt_GetById(NodeId);
-	if (NULL == Mpu) {
-		DbgErr = XPM_INT_ERR_INVALID_NODE;
-		goto done;
-	}
 
 	if ((u8)XPM_PROT_ENABLED == Mpu->Node.State) {
-		Status = XST_SUCCESS;
-		goto done;
+		return;
 	}
 
 	/* XMPU base address */
@@ -783,40 +756,23 @@ static XStatus XPmProt_XmpuEnable(u32 NodeId)
 
 	PmIn32(BaseAddr + XMPU_CTRL_OFFSET, RegVal);
 
-	PmDbg("XMPU NodeID: 0x%08x | CTRL: 0x%08x\r\n", NodeId, RegVal);
-
 	/* Enable SW state */
 	Mpu->Node.State = (u8)XPM_PROT_ENABLED;
-
-	Status = XST_SUCCESS;
-
-done:
-	XPm_PrintDbgErr(Status, DbgErr);
-	return Status;
 }
 
 /****************************************************************************/
 /**
- * @brief  Disable XMPU with given NodeId
+ * @brief  Disable XMPU
  *
- * @param  NodeId: Node Id assigned to a XMPU node
+ * @param  Mpu: An instance of XMPU
  *
- * @return XST_SUCCESS if successful else appropriate failure code
+ * @return N/A
  *
  ****************************************************************************/
-static XStatus XPmProt_XmpuDisable(u32 NodeId)
+static void XPmProt_XmpuDisable(XPm_ProtMpu *Mpu)
 {
-	XStatus Status = XST_FAILURE;
 	u32 BaseAddr, Region;
 	u32 RegnCfgAddr = 0;
-	XPm_ProtMpu *Mpu = NULL;
-	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-
-	Mpu = (XPm_ProtMpu *)XPmProt_GetById(NodeId);
-	if (NULL == Mpu) {
-		DbgErr = XPM_INT_ERR_INVALID_NODE;
-		goto done;
-	}
 
 	/* XMPU base address */
 	BaseAddr = Mpu->Node.BaseAddress;
@@ -835,12 +791,6 @@ static XStatus XPmProt_XmpuDisable(u32 NodeId)
 
 	/* Disable SW state */
 	Mpu->Node.State = (u8)XPM_PROT_DISABLED;
-
-	Status = XST_SUCCESS;
-
-done:
-	XPm_PrintDbgErr(Status, DbgErr);
-	return Status;
 }
 
 /****************************************************************************/
@@ -944,8 +894,8 @@ XStatus XPmProt_MpuControl(const XPm_Requirement *Reqm, u32 Enable)
 	u32 BaseAddr, DeviceId, Region;
 	u32 RegnStartLo, RegnStartHi, RegnStartLoVal, RegnStartHiVal;
 	u32 RegnEndLo, RegnEndHi, RegnEndLoVal, RegnEndHiVal;
-	XPm_ProtMpu *Mpu = NULL;
-	XPm_MemDevice *MemDevice = NULL;
+	const XPm_ProtMpu *Mpu = NULL;
+	const XPm_MemDevice *MemDevice = NULL;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u8 XmpuIdx;
 
@@ -977,7 +927,7 @@ XStatus XPmProt_MpuControl(const XPm_Requirement *Reqm, u32 Enable)
 	}
 
 	/* Return if XMPU is not enabled */
-	if ((u8)XPM_PROT_DISABLED == Mpu->Node.State) {
+	if ((u8)XPM_PROT_ENABLED != Mpu->Node.State) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -1046,14 +996,12 @@ done:
  * @return XST_SUCCESS if successful else appropriate failure code
  *
  ****************************************************************************/
-static XStatus XPmProt_XppuCtrl(const XPm_ProtPpu *Ppu,
-				u32 Func,
-				const u32 *Args,
-				u32 NumArgs)
+static XStatus XPmProt_XppuInitCtrl(XPm_ProtPpu *Ppu, u32 Func,
+				    const u32 *Args,
+				    u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	u32 NodeId = Ppu->Node.Id;
 
 	switch (Func) {
 	case (u32)FUNC_XPPU_ENABLE:
@@ -1061,18 +1009,12 @@ static XStatus XPmProt_XppuCtrl(const XPm_ProtPpu *Ppu,
 			DbgErr = XPM_INT_ERR_INVALID_ARGS;
 			goto done;
 		}
-		Status = XPmProt_XppuEnable(NodeId, Args[0]);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_XPPU_EN;
-			goto done;
-		}
+		XPmProt_XppuEnable(Ppu, Args[0]);
+		Status = XST_SUCCESS;
 		break;
 	case (u32)FUNC_XPPU_DISABLE:
-		Status = XPmProt_XppuDisable(NodeId);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_XPPU_DISABLE;
-			goto done;
-		}
+		XPmProt_XppuDisable(Ppu);
+		Status = XST_SUCCESS;
 		break;
 	case (u32)FUNC_XPPU_RECONFIG:
 		if ((NULL == Args) || (NumArgs != 2U)) {
@@ -1108,41 +1050,29 @@ done:
  * @return XST_SUCCESS if successful else appropriate failure code
  *
  ****************************************************************************/
-static XStatus XPmProt_XmpuCtrl(const XPm_ProtMpu *Mpu,
-				u32 Func,
-				const u32 *Args,
-				u32 NumArgs)
+static XStatus XPmProt_XmpuInitCtrl(XPm_ProtMpu *Mpu, u32 Func,
+				    const u32 *Args,
+				    u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
-	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	u32 NodeId = Mpu->Node.Id;
 
 	(void)Args;
 	(void)NumArgs;
 
 	switch (Func) {
 	case (u32)FUNC_XMPU_ENABLE:
-		Status = XPmProt_XmpuEnable(NodeId);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_XMPU_EN;
-			goto done;
-		}
+		XPmProt_XmpuEnable(Mpu);
+		Status = XST_SUCCESS;
 		break;
 	case (u32)FUNC_XMPU_DISABLE:
-		Status = XPmProt_XmpuDisable(NodeId);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_XMPU_DISABLE;
-			goto done;
-		}
+		XPmProt_XmpuDisable(Mpu);
+		Status = XST_SUCCESS;
 		break;
 	default:
 		Status = XST_NO_FEATURE;
-		DbgErr = XPM_INT_ERR_NO_FEATURE;
 		break;
 	}
 
-done:
-	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -1213,7 +1143,7 @@ XStatus XPmProt_PpuInit(XPm_ProtPpu *Ppu,
 	Ppu->Power = Power;
 
 	/* Node Ops */
-	Ppu->Ops = &XPmProt_XppuCtrl;
+	Ppu->Ops = &XPmProt_XppuInitCtrl;
 
 	/* Init apertures */
 	(void)memset(&Ppu->A64k, 0, sizeof(Ppu->A64k));
@@ -1253,7 +1183,7 @@ XStatus XPmProt_MpuInit(XPm_ProtMpu *Mpu,
 	Mpu->Power = Power;
 
 	/* Node Ops */
-	Mpu->Ops = &XPmProt_XmpuCtrl;
+	Mpu->Ops = &XPmProt_XmpuInitCtrl;
 
 done:
 	return Status;

@@ -293,7 +293,7 @@ static const XPm_StateTran XPmMemDevTransitions[] = {
 
 static XStatus TcmProtControl(const XPm_Requirement *Reqm, u32 Enable)
 {
-	XPm_MemDevice *Tcm = (XPm_MemDevice *)Reqm->Device;
+	const XPm_MemDevice *Tcm = (XPm_MemDevice *)Reqm->Device;
 
 	return XPmProt_PpuControl(Reqm, Tcm->StartAddress, Enable);
 }
