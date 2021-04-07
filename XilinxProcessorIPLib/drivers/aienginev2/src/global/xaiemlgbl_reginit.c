@@ -3414,6 +3414,40 @@ static const XAie_EventGroup Aie2MemTileGroupEvent[] = {
 	},
 };
 
+/* mapping of user events for core module */
+static const XAie_EventMap AieMlTileCoreModUserEventMap =
+{
+	.RscId = 0U,
+	.Event = XAIE_EVENT_USER_EVENT_0_CORE,
+};
+
+/* mapping of user events for memory module */
+static const XAie_EventMap AieMlTileMemModUserEventStart =
+{
+	.RscId = 0U,
+	.Event = XAIE_EVENT_USER_EVENT_0_MEM,
+};
+
+/* mapping of user events for mem tile memory module */
+static const XAie_EventMap AieMlMemTileMemModUserEventStart =
+{
+	.RscId = 0U,
+	.Event = XAIE_EVENT_USER_EVENT_0_MEM_TILE,
+};
+
+/* mapping of user events for memory module */
+static const XAie_EventMap AieMlShimTilePlModUserEventStart =
+{
+	.RscId = 0U,
+	.Event = XAIE_EVENT_USER_EVENT_0_PL,
+};
+
+static const XAie_EventMap AieMlTileCoreModPCEventMap =
+{
+	.RscId = 0U,
+	.Event = XAIE_EVENT_PC_0_CORE,
+};
+
 /*
  * Data structure to capture core and memory module events properties.
  * For memory module default error group mask enables,
@@ -3484,6 +3518,9 @@ static const XAie_EvntMod Aie2TileEvntMod[] =
 		.PCAddr = {XAIE_FEATURE_UNAVAILABLE, XAIE_FEATURE_UNAVAILABLE},
 		.PCValid = {XAIE_FEATURE_UNAVAILABLE, XAIE_FEATURE_UNAVAILABLE},
 		.BaseStatusRegOff = XAIEMLGBL_MEMORY_MODULE_EVENT_STATUS0,
+		.NumUserEvents = 4U,
+		.UserEventMap = &AieMlTileMemModUserEventStart,
+		.PCEventMap = NULL,
 	},
 	{
 		.XAie_EventNumber = Aie2CoreModEventMapping,
@@ -3521,6 +3558,9 @@ static const XAie_EvntMod Aie2TileEvntMod[] =
 		.PCAddr = {XAIEMLGBL_CORE_MODULE_PC_EVENT0_PC_ADDRESS_LSB, XAIEMLGBL_CORE_MODULE_PC_EVENT0_PC_ADDRESS_MASK},
 		.PCValid = {XAIEMLGBL_CORE_MODULE_PC_EVENT0_VALID_LSB, XAIEMLGBL_CORE_MODULE_PC_EVENT0_VALID_MASK},
 		.BaseStatusRegOff = XAIEMLGBL_CORE_MODULE_EVENT_STATUS0,
+		.NumUserEvents = 4U,
+		.UserEventMap = &AieMlTileCoreModUserEventMap,
+		.PCEventMap = &AieMlTileCoreModPCEventMap,
 	}
 };
 
@@ -3576,6 +3616,9 @@ static const XAie_EvntMod Aie2NocEvntMod =
 	.PCAddr = {XAIE_FEATURE_UNAVAILABLE, XAIE_FEATURE_UNAVAILABLE},
 	.PCValid = {XAIE_FEATURE_UNAVAILABLE, XAIE_FEATURE_UNAVAILABLE},
 	.BaseStatusRegOff = XAIEMLGBL_PL_MODULE_EVENT_STATUS0,
+	.NumUserEvents = 4U,
+	.UserEventMap = &AieMlShimTilePlModUserEventStart,
+	.PCEventMap = NULL,
 };
 
 /*
@@ -3630,6 +3673,9 @@ static const XAie_EvntMod Aie2PlEvntMod =
 	.PCAddr = {XAIE_FEATURE_UNAVAILABLE, XAIE_FEATURE_UNAVAILABLE},
 	.PCValid = {XAIE_FEATURE_UNAVAILABLE, XAIE_FEATURE_UNAVAILABLE},
 	.BaseStatusRegOff = XAIEMLGBL_PL_MODULE_EVENT_STATUS0,
+	.NumUserEvents = 4U,
+	.UserEventMap = &AieMlShimTilePlModUserEventStart,
+	.PCEventMap = NULL,
 };
 
 /*
@@ -3682,6 +3728,9 @@ static const XAie_EvntMod Aie2MemTileEvntMod =
 	.PCAddr = {XAIE_FEATURE_UNAVAILABLE, XAIE_FEATURE_UNAVAILABLE},
 	.PCValid = {XAIE_FEATURE_UNAVAILABLE, XAIE_FEATURE_UNAVAILABLE},
 	.BaseStatusRegOff = XAIEMLGBL_MEM_TILE_MODULE_EVENT_STATUS0,
+	.NumUserEvents = 2U,
+	.UserEventMap = &AieMlMemTileMemModUserEventStart,
+	.PCEventMap = NULL,
 };
 
 static const XAie_TimerMod Aie2TileTimerMod[] =
