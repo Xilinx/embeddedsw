@@ -121,6 +121,8 @@ struct XPm_DeviceNode {
 	const XPm_DeviceFsm* DeviceFsm; /**< Device finite state machine */
 	XStatus (* HandleEvent)(XPm_Node *Node, u32 Event);
 		/**< HandleEvent: Pointer to event handler */
+	XStatus (* HandleProtection)(const struct XPm_Reqm *Reqm, u32 Enable);
+		/**< Dynamic runtime protection config handler */
 };
 
 struct XPm_RegAttr {
