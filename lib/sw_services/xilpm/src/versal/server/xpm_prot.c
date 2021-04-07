@@ -3,16 +3,12 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-#include "xpm_apucore.h"
 #include "xpm_common.h"
 #include "xpm_debug.h"
-#include "xpm_device.h"
 #include "xpm_mem.h"
 #include "xpm_node.h"
-#include "xpm_prot.h"
 #include "xpm_regs.h"
-#include "xpm_rpucore.h"
-#include "xpm_subsystem.h"
+#include "xpm_prot.h"
 
 /**
  * Protection nodes (XPPUs + XMPUs)
