@@ -828,6 +828,25 @@ static XStatus SetSecurityAttr(XPm_Requirement *Reqm, u32 ReqCaps, u32 PrevState
 		Is_CapSecure = 1U;
 	}
 
+	/**
+	 * Do not touch the LPD/FPD registers if domain is not ON.
+	 * This is the generalized solution but applicable during the last
+	 * device release of the domain.
+	 */
+	if (BaseAddr == Lpd->LpdSlcrSecureBaseAddr) {
+		if (XPM_POWER_STATE_ON != Lpd->Domain.Power.Node.State) {
+			Status = XST_SUCCESS;
+			goto done;
+		}
+	} else if (BaseAddr == Fpd->FpdSlcrSecureBaseAddr) {
+		if (XPM_POWER_STATE_ON != Fpd->Domain.Power.Node.State) {
+			Status = XST_SUCCESS;
+			goto done;
+		}
+	} else {
+		/* Required due to MISRA */
+	}
+
 	/* Here 1 value in bit corresponds to non-secure config */
 	CurrSecState = XPm_In32(BaseAddr + Offset1) & Mask1;
 
