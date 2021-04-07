@@ -18,7 +18,7 @@
 #include "xpm_requirement.h"
 #include "xplmi.h"
 
-static XPm_Subsystem *PmSubsystems;
+XPm_Subsystem *PmSubsystems;
 static u32 MaxSubsysIdx;
 
 /*
@@ -906,6 +906,9 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 
 	Subsystem->NextSubsystem = PmSubsystems;
 	Subsystem->Id = SubsystemId;
+	Subsystem->PendCb.Reason = 0U;
+	Subsystem->PendCb.Latency = 0U;
+	Subsystem->PendCb.State = 0U;
 	if (PM_SUBSYS_PMC == SubsystemId) {
 		Subsystem->Flags = SUBSYSTEM_INIT_FINALIZED;
 		Subsystem->IpiMask = PMC_IPI_MASK;
@@ -1009,6 +1012,9 @@ XStatus XPmSubsystem_Destroy(u32 SubsystemId)
 		}
 		Reqm = Reqm->NextDevice;
 	}
+
+	/* Clear the pending suspend cb reason */
+	Subsystem->PendCb.Reason = 0U;
 
 	Status = XPmSubsystem_SetState(SubsystemId, (u32)OFFLINE);
 done:

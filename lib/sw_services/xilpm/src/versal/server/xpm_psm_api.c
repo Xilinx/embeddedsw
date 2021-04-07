@@ -298,6 +298,9 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 				goto done;
 			}
 		}
+		/* Clear the pending suspend cb reason */
+		Subsystem->PendCb.Reason = 0U;
+
 		Status = XPmSubsystem_SetState(SubsystemId, (u32)SUSPENDED);
 	} else {
 		Status = XST_SUCCESS;

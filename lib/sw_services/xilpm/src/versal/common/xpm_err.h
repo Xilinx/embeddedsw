@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -89,6 +89,7 @@ extern "C" {
 #define XPM_INVALID_SUBSYSID                     (2036L) /* Invalid subsystem id passed to func */
 #define XPM_ERR_SUBSYS_IDLE                      (2037L) /* Unable to idle subsystem */
 #define XPM_ERR_SUBSYS_NOTFOUND			 (2038L) /* Unable to Find subsystem */
+#define XPM_PEND_SUSP_CB_FOUND			 (2039L) /* Pending suspend cb present in subsystem */
 
 /******************************* Device Errors ***************************/
 /****************************** (2046L) - (2055L) ************************/
