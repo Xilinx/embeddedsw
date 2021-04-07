@@ -10,6 +10,7 @@
 #include "xpm_requirement.h"
 #include "xplmi_err.h"
 #include "xplmi_scheduler.h"
+#include "xpm_prot.h"
 
 static struct XPm_PeriphOps GenericOps = {
 	.SetWakeupSource = XPmGicProxy_WakeEventSet,
@@ -43,6 +44,27 @@ static void HbMon_StopTimer(u32 HbMonIdx);
 
 /************************************************************/
 
+static u32 XPmPeriph_IsProtSupported(u32 NodeId)
+{
+	u32 Supported = 1U;
+	u32 Index = NODEINDEX(NodeId);
+
+	/* Dynamic runtime protection is not supported for IPI */
+	if (((XPM_NODEIDX_DEV_IPI_0 <= Index) &&
+	    (XPM_NODEIDX_DEV_IPI_6 >= Index)) ||
+	    (XPM_NODEIDX_DEV_IPI_PMC == Index)) {
+		Supported = 0U;
+	}
+
+	return Supported;
+}
+
+static XStatus XPmPeriph_ProtControl(const XPm_Requirement *Reqm,
+				     u32 Enable)
+{
+	return XPmProt_PpuControl(Reqm, Reqm->Device->Node.BaseAddress,
+				  Enable);
+}
 
 XStatus XPmPeriph_Init(XPm_Periph *Periph, u32 Id, u32 BaseAddress,
 		       XPm_Power *Power, XPm_ClockNode *Clock,
@@ -55,6 +77,11 @@ XStatus XPmPeriph_Init(XPm_Periph *Periph, u32 Id, u32 BaseAddress,
 				Reset);
 	if (XST_SUCCESS != Status) {
 		goto done;
+	}
+
+	/* Protection handler for peripherals */
+	if (0U != XPmPeriph_IsProtSupported(Periph->Device.Node.Id)) {
+		Periph->Device.HandleProtection = &XPmPeriph_ProtControl;
 	}
 
 	Periph->PeriphOps = &GenericOps;
