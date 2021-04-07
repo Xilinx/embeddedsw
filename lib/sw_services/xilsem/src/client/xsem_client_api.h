@@ -7,8 +7,8 @@
 *
 * @file xsem_client_api.h
 *
-* This file has Definitions of commonly used macros and data types needed for
-* XilSEM IPI commands interface.
+* This file has definitions of commonly used macros and data types needed for
+* XilSEM client interface.
 * @cond xsem_internal
 *
 * <pre>
@@ -26,6 +26,7 @@
 * 0.7   hv   03/11/2021   Doxygen changes
 * 0.8   hb   03/15/2021   MISRA fixes, added Event Notifiers macros and
 *                         formatted code
+* 0.9   rb   04/07/2021   Doxygen changes
 *
 * </pre>
 *
@@ -42,15 +43,22 @@
 extern "C" {
 #endif
 
-/* Cfr Commands Acknowledgment ID */
+/* CRAM Commands Acknowledgment IDs */
+/** CRAM Initialization Acknowledgment ID */
 #define CMD_ACK_CFR_INIT		(0x00010301U)
+/** CRAM Start Scan Acknowledgment ID */
 #define CMD_ACK_CFR_START_SCAN		(0x00010302U)
+/** CRAM Stop Scan Acknowledgment ID */
 #define CMD_ACK_CFR_STOP_SCAN		(0x00010303U)
+/** CRAM Error Injection Acknowledgment ID */
 #define CMD_ACK_CFR_NJCT_ERR		(0x00010304U)
 
 /* NPI Commands Acknowledgment ID */
+/** NPI Start Scan Acknowledgment ID */
 #define CMD_ACK_NPI_STARTSCAN		(0x00010305U)
+/** NPI Stop Scan Acknowledgment ID */
 #define CMD_ACK_NPI_STOPSCAN		(0x00010306U)
+/** NPI Error Injection Acknowledgment ID */
 #define CMD_ACK_NPI_ERRINJECT		(0x00010307U)
 
 #define MAX_CRAMERR_REGISTER_CNT	(7U)
@@ -92,7 +100,7 @@ extern "C" {
 
 #define XSem_In32			Xil_In32
 
-/* Cfr Commands ID */
+/* CRAM Commands ID */
 #define CMD_ID_CFR_INIT			(0x01U)
 #define CMD_ID_CFR_START_SCAN		(0x02U)
 #define CMD_ID_CFR_STOP_SCAN		(0x03U)
@@ -110,36 +118,60 @@ extern "C" {
  * XSemIpiResp - IPI Response Data structure
  */
 typedef struct {
-	u32 RespMsg1; /**< Response-1 (Ack Header)*/
-	u32 RespMsg2; /**< Response-2 */
-	u32 RespMsg3; /**< Response-3 */
-	u32 RespMsg4; /**< Response-4 */
-	u32 RespMsg5; /**< Response-5 */
-	u32 RespMsg6; /**< Response-6 */
-	u32 RespMsg7; /**< Response-7 (Reserved for CRC)*/
+	u32 RespMsg1; /**< Response word 1 (Ack Header)*/
+	u32 RespMsg2; /**< Response word 2 */
+	u32 RespMsg3; /**< Response word 3 */
+	u32 RespMsg4; /**< Response word 4 */
+	u32 RespMsg5; /**< Response word 5 */
+	u32 RespMsg6; /**< Response word 6 */
+	u32 RespMsg7; /**< Response word 7 (Reserved for CRC)*/
 } XSemIpiResp;
 
 
 /**
- * XSemCfrErrInjData - Cfr Error Injection Data structure
+ * XSemCfrErrInjData - CRAM Error Injection structure to hold the
+ * Error Injection Location details in CRAM
+ * - Frame address
+ * - Quad Word in a Frame, Range from 0 to 24
+ * - Bit position in a Quad Word, Range from 0 to 127
+ * - Row number, Valid range can be found from CFU_APB_CFU_ROW_RANGE
+ *   register
  */
 typedef struct {
-	u32 Efar;  /**< Frame Addr */
-	u32 Qword; /**< QWord 0...24 */
-	u32 Bit;   /**< Bit 0...127 */
-	u32 Row;   /**< Row no. */
+	u32 Efar;  /**< Frame Address */
+	u32 Qword; /**< Quad Word 0...24 */
+	u32 Bit;   /**< Bit Position 0...127 */
+	u32 Row;   /**< Row Number */
 } XSemCfrErrInjData;
 
 /**
- * XSemCfrStatus - Cfr Status Data structure
+ * XSemCfrStatus - CRAM Status structure to store the data read from
+ * PMC RAM registers.
+ * This structure provides,
+ * - CRAM scan state information
+ * - The low address of last 7 corrected error details if correction
+ *   is enabled in design
+ * - The high address of last 7 corrected error details if correction
+ *   is enabled in design
+ * - CRAM corrected error bits count value
  */
 typedef struct {
-	u32 Status; /**< Cfr Status */
-	u32 ErrAddrL[MAX_CRAMERR_REGISTER_CNT]; /**< Error register L0...L6 */
-	u32 ErrAddrH[MAX_CRAMERR_REGISTER_CNT]; /**< Error register H0...H6 */
-	u32 ErrCorCnt; /**< COR ECC count. */
+	u32 Status; /**< CRAM Status */
+	u32 ErrAddrL[MAX_CRAMERR_REGISTER_CNT]; /**< Error Low register L0...L6 */
+	u32 ErrAddrH[MAX_CRAMERR_REGISTER_CNT]; /**< Error High register H0...H6 */
+	u32 ErrCorCnt; /**< Count of correctable errors */
 } XSemCfrStatus;
 
+/**
+ * XSemNpiStatus - NPI Status structure to store the data read from
+ * PMC RAM registers.
+ * This structure provides,
+ * - NPI scan status information.
+ * - NPI descriptor slave skip counter value if arbitration failure.
+ * - NPI scan counter value.
+ * - NPI heartbeat counter value.
+ * - NPI scan error information if SHA mismatch is detected.
+ */
 typedef struct {
 	u32 Status; /**< Npi Status */
 	u32 SlvSkipCnt[MAX_NPI_SLV_SKIP_CNT]; /**< Npi Slave Skip Count */
@@ -149,39 +181,70 @@ typedef struct {
 						mismatch occur */
 } XSemNpiStatus;
 
-/* SEM Module Notification ID */
-#define XSEM_NOTIFY_CRAM	(0U)
-#define XSEM_NOTIFY_NPI		(1U)
+/** SEM CRAM Module Notification ID */
+#define XSEM_NOTIFY_CRAM	(0x0U)
+/** SEM NPI Module Notification ID */
+#define XSEM_NOTIFY_NPI		(0x1U)
 
-/* SEM Generic Event ID */
-#define XSEM_EVENT_ERROR	(1U)
+/** SEM Generic Event ID */
+#define XSEM_EVENT_ERROR	(0x1U)
 
 /* CRAM Errors Event Type */
+/** SEM CRAM Uncorrectable ECC Error Event  */
 #define XSEM_EVENT_CRAM_UNCOR_ECC_ERR	(0x1U)
+/** SEM CRAM Uncorrectable CRC Error Event  */
 #define XSEM_EVENT_CRAM_CRC_ERR		(0x2U)
-/* Internal or Fatal errors */
+/** SEM CRAM Internal or Fatal Errors */
 #define XSEM_EVENT_CRAM_INT_ERR		(0x3U)
-/* Cor Ecc detected when correction is disabled */
+/** SEM Correctable ECC Error Event, detected when correction is disabled */
 #define XSEM_EVENT_CRAM_COR_ECC_ERR	(0x4U)
 
 /* NPI Errors Event Type */
+/** SEM NPI Uncorrectable CRC Error Event  */
 #define XSEM_EVENT_NPI_CRC_ERR		(0x1U)
-/* Internal or Fatal errors */
+/** SEM NPI Internal or Fatal Errors */
 #define XSEM_EVENT_NPI_INT_ERR		(0x2U)
 
 /* SEM Event Flags */
-#define SEM_EVENT_ENABLE	(1U)
-#define SEM_EVENT_DISABLE	(0U)
+/** SEM Event Notification Enable */
+#define XSEM_EVENT_ENABLE	(0x1U)
+/** SEM Event Notification Disable */
+#define XSEM_EVENT_DISABLE	(0x0U)
 
 /**
- * XSem_Notifier - Notifier structure register
+ * XSem_Notifier - Notifier structure contains details of event notificaiton
+ * to be register with XilSEM Server
  */
 typedef struct {
-	u32 Module; /**< The module to receive notifications*/
-	u32 Event; /**< Event type */
-	u32 Flag; /**< Event Flag */
+	/**
+	 * The module information to receive notifications.
+	 * Module can be either CRAM or NPI.
+	 * - For CRAM: use XSEM_NOTIFY_CRAM
+	 * - For NPI: use XSEM_NOTIFY_NPI
+	 */
+	u32 Module;
+	/**
+	 * The Event type specify the specific event registration.
+	 * For CRAM module, events are:
+	 * - Uncorrectable ECC error: use XSEM_EVENT_CRAM_UNCOR_ECC_ERR
+	 * - Uncorrectable CRC error: use XSEM_EVENT_CRAM_CRC_ERR
+	 * - Internal error: use XSEM_EVENT_CRAM_INT_ERR
+	 * - Correctable ECC error: use XSEM_EVENT_CRAM_COR_ECC_ERR
+	 *
+	 * For NPI module, events are:
+	 * - Uncorrectable CRC error: use XSEM_EVENT_NPI_CRC_ERR
+	 * - Internal error: use XSEM_EVENT_NPI_INT_ERR.
+	 */
+	u32 Event;
+	/**
+	 * Event flags to enable or disable notification.
+	 * - To enable event notification: use XSEM_EVENT_ENABLE
+	 * - To disable event notification: use XSEM_EVENT_DISABLE
+	 */
+	u32 Flag;
 } XSem_Notifier;
 
+/* CRAM functions */
 XStatus XSem_CmdCfrInit(XIpiPsu *IpiInst, XSemIpiResp *Resp);
 XStatus XSem_CmdCfrStartScan(XIpiPsu *IpiInst, XSemIpiResp *Resp);
 XStatus XSem_CmdCfrStopScan(XIpiPsu *IpiInst, XSemIpiResp *Resp);
