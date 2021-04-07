@@ -19,6 +19,9 @@ Fixed MISRAC issues
 usbpsu_v1_9:
 Fix Doxygen warnings.
 
+xilffs_v4_5:
+Maintain discrete global variables for each controller instance.
+
 Changes for 2020.3
 ===============================
 sdps_v3_11:
