@@ -441,20 +441,8 @@ extern "C" {
 #define XPM_INT_ERR_INVALID_REGION		0x4400U
 /* Error during setup region */
 #define XPM_INT_ERR_SETUP_REGION		0x4401U
-/* Error during XPPU configuration */
-#define XPM_INT_ERR_XPPU_CONFIG			0x4402U
-/* Error during XMPU configuration */
-#define XPM_INT_ERR_XMPU_CONFIG			0x4403U
-/* Error during XPPU Enable*/
-#define XPM_INT_ERR_XPPU_EN			0x4404U
-/* Error during XPPU disable */
-#define XPM_INT_ERR_XPPU_DISABLE		0x4405U
 /* Error during XPPU dynamic reconfig */
-#define XPM_INT_ERR_XPPU_RECONFIG		0x4406U
-/* Error during XMPU enable */
-#define XPM_INT_ERR_XMPU_EN			0x4407U
-/* Error during XMPU disable */
-#define XPM_INT_ERR_XMPU_DISABLE		0x4408U
+#define XPM_INT_ERR_XPPU_RECONFIG		0x4402U
 
 /************************* Proc specific Errors ******************************/
 /************************** (0x4500) - (0x45FF) ******************************/

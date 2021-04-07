@@ -13,7 +13,7 @@
 static XStatus XPmApuCore_ProtControl(const XPm_Requirement *Reqm,
 				      u32 Enable)
 {
-	XPm_ApuCore *Apu = (XPm_ApuCore *)Reqm->Device;
+	const XPm_ApuCore *Apu = (XPm_ApuCore *)Reqm->Device;
 
 	return XPmProt_PpuControl(Reqm, Apu->FpdApuBaseAddr, Enable);
 }

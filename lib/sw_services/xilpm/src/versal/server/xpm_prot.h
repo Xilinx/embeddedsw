@@ -45,9 +45,9 @@ typedef struct XPm_PpuAperture XPm_PpuAperture;
 
 /* Protection Init Node Ops */
 typedef XStatus (*XPm_ProtPpuOps)
-	(const XPm_ProtPpu *Ppu, u32 Func, const u32 *Args, u32 NumArgs);
+	(XPm_ProtPpu *Ppu, u32 Func, const u32 *Args, u32 NumArgs);
 typedef XStatus (*XPm_ProtMpuOps)
-	(const XPm_ProtMpu *Mpu, u32 Func, const u32 *Args, u32 NumArgs);
+	(XPm_ProtMpu *Mpu, u32 Func, const u32 *Args, u32 NumArgs);
 
 /* Aperture information of an XPPU instance */
 struct XPm_PpuAperture {

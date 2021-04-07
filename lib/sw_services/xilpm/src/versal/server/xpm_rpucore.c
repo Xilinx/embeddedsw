@@ -15,7 +15,7 @@
 static XStatus XPmRpuCore_ProtControl(const XPm_Requirement *Reqm,
 				      u32 Enable)
 {
-	XPm_RpuCore *Rpu = (XPm_RpuCore *)Reqm->Device;
+	const XPm_RpuCore *Rpu = (XPm_RpuCore *)Reqm->Device;
 
 	return XPmProt_PpuControl(Reqm, Rpu->RpuBaseAddr, Enable);
 }

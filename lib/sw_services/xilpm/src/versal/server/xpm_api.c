@@ -1157,8 +1157,8 @@ static XStatus ProtInitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumAr
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	const XPm_ProtPpu *Ppu = NULL;
-	const XPm_ProtMpu *Mpu = NULL;
+	XPm_ProtPpu *Ppu = NULL;
+	XPm_ProtMpu *Mpu = NULL;
 	const XPm_Power *Power = NULL;
 	u32 SubClass = NODESUBCLASS(NodeId);
 
