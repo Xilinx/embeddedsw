@@ -1440,6 +1440,7 @@ static const XAie_DmaMod AieTileDmaMod =
 	.WriteBd = &_XAie_TileDmaWriteBd,
 	.PendingBd = &_XAie_DmaGetPendingBdCount,
 	.WaitforDone = &_XAie_DmaWaitForDone,
+	.BdChValidity = &_XAie_DmaCheckBdChValidity,
 	.UpdateBdLen = &_XAie_DmaUpdateBdLen,
 	.UpdateBdAddr = &_XAie_DmaUpdateBdAddr,
 };
@@ -1640,6 +1641,7 @@ static const XAie_DmaMod AieShimDmaMod =
 	.WriteBd = &_XAie_ShimDmaWriteBd,
 	.PendingBd = &_XAie_DmaGetPendingBdCount,
 	.WaitforDone = &_XAie_DmaWaitForDone,
+	.BdChValidity = &_XAie_DmaCheckBdChValidity,
 	.UpdateBdLen = &_XAie_ShimDmaUpdateBdLen,
 	.UpdateBdAddr = &_XAie_ShimDmaUpdateBdAddr,
 };
