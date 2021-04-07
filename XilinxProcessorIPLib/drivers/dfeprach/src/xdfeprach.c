@@ -19,6 +19,7 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     03/08/21 Initial version
 *       dc     04/06/21 Register with full node name
+*       dc     04/07/21 Fix bare metal initialisation
 *
 * </pre>
 *
@@ -128,6 +129,7 @@ static void XDfePrach_DisableLowPowerTrigger(const XDfePrach *InstancePtr);
 /************************** Variable Definitions ****************************/
 #ifdef __BAREMETAL__
 extern struct metal_device CustomDevice[XDFEPRACH_MAX_NUM_INSTANCES];
+extern metal_phys_addr_t metal_phys[XDFEPRACH_MAX_NUM_INSTANCES];
 #endif
 extern XDfePrach XDfePrach_Prach[XDFEPRACH_MAX_NUM_INSTANCES];
 static u32 XDfePrach_DriverHasBeenRegisteredOnce = 0U;
@@ -1701,6 +1703,11 @@ XDfePrach *XDfePrach_InstanceInit(const char *DeviceNodeName)
 {
 	u32 Index;
 	XDfePrach *InstancePtr;
+#ifdef __BAREMETAL__
+	char Str[XDFEPRACH_NODE_NAME_MAX_LENGTH];
+	char *AddrStr;
+	u32 Addr;
+#endif
 
 	Xil_AssertNonvoid(DeviceNodeName != NULL);
 	Xil_AssertNonvoid(strlen(DeviceNodeName) <
@@ -1745,6 +1752,20 @@ XDfePrach *XDfePrach_InstanceInit(const char *DeviceNodeName)
 	return NULL;
 
 register_metal:
+#ifdef __BAREMETAL__
+	memcpy(Str, InstancePtr->NodeName, XDFEPRACH_NODE_NAME_MAX_LENGTH);
+	AddrStr = strtok(Str, ".");
+	Addr = strtol(AddrStr, NULL, 16);
+	for(Index=0; Index < XDFEPRACH_MAX_NUM_INSTANCES; Index++) {
+		if(Addr == metal_phys[Index]) {
+			InstancePtr->Device = &CustomDevice[Index];
+			goto bm_register_metal;
+		}
+	}
+	return NULL;
+bm_register_metal:
+#endif
+
 	/* Register libmetal for this OS process */
 	if (XST_SUCCESS != XDfePrach_RegisterMetal(InstancePtr,
 						   &InstancePtr->Device,

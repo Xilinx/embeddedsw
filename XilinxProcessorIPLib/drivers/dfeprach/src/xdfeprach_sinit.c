@@ -20,6 +20,7 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     03/08/21 Initial release
 *       dc     04/06/21 Register with full node name
+*       dc     04/07/21 Fix bare metal initialisation
 *
 * </pre>
 *
@@ -98,9 +99,8 @@ XDfePrach XDfePrach_Prach[XDFEPRACH_MAX_NUM_INSTANCES];
 *
 ******************************************************************************/
 u32 XDfePrach_GetConfigTable(XDfePrach *InstancePtr,
-			     XDfePrach_Config *ConfigTable)
+			     XDfePrach_Config **ConfigTable)
 {
-	(void)ConfigTable;
 	u32 Index;
 	char Str[XDFEPRACH_NODE_NAME_MAX_LENGTH];
 	char *AddrStr;
@@ -110,11 +110,11 @@ u32 XDfePrach_GetConfigTable(XDfePrach *InstancePtr,
 
 	strncpy(Str, InstancePtr->NodeName, sizeof(Str));
 	AddrStr = strtok(Str, ".");
-	Addr = atoi(AddrStr);
+	Addr = strtol(AddrStr, NULL, 16);
 
 	for (Index = 0; Index < XDFEPRACH_MAX_NUM_INSTANCES; Index++) {
 		if (XDfePrach_ConfigTable[Index].BaseAddr == Addr) {
-			ConfigTable = &XDfePrach_ConfigTable[Index];
+			*ConfigTable = &XDfePrach_ConfigTable[Index];
 			return XST_SUCCESS;
 		}
 	}
@@ -348,7 +348,7 @@ end_failure:
 	XDfePrach_Config *ConfigTable = NULL;
 
 	/* Find the Config table which base address is a match */
-	if (XST_FAILURE == XDfePrach_GetConfigTable(InstancePtr, ConfigTable)) {
+	if (XST_FAILURE == XDfePrach_GetConfigTable(InstancePtr, &ConfigTable)) {
 		metal_log(METAL_LOG_ERROR, "\nFailed to read device tree");
 		metal_device_close(Dev);
 		return XST_FAILURE;
