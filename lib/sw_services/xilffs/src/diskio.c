@@ -60,6 +60,7 @@
 *       mn   09/25/19 Check if the SD is powered on or not in disk_status()
 * 4.3   mn   02/24/20 Remove unused macro defines
 *       mn   04/08/20 Set IsReady to '0' before calling XSdPs_CfgInitialize
+* 4.5   sk   03/31/21 Maintain discrete global variables for each controller.
 *
 * </pre>
 *
@@ -77,6 +78,7 @@
 #include "xil_printf.h"
 
 #define SD_CD_DELAY		10000U
+#define XSDPS_NUM_INSTANCES	2
 
 #ifdef FILE_SYSTEM_INTERFACE_RAM
 #include "xparameters.h"
@@ -97,15 +99,15 @@ static char *dataramfs = NULL;
 /*
  * Global variables
  */
-static DSTATUS Stat[2] = {STA_NOINIT, STA_NOINIT};	/* Disk status */
+static DSTATUS Stat[XSDPS_NUM_INSTANCES] = {STA_NOINIT, STA_NOINIT};	/* Disk status */
 
 #ifdef FILE_SYSTEM_INTERFACE_SD
-static XSdPs SdInstance[2];
-static u32 BaseAddress;
-static u32 CardDetect;
-static u32 WriteProtect;
-static u32 SlotType[2];
-static u8 HostCntrlrVer[2];
+static XSdPs SdInstance[XSDPS_NUM_INSTANCES];
+static u32 BaseAddress[XSDPS_NUM_INSTANCES];
+static u32 CardDetect[XSDPS_NUM_INSTANCES];
+static u32 WriteProtect[XSDPS_NUM_INSTANCES];
+static u32 SlotType[XSDPS_NUM_INSTANCES];
+static u8 HostCntrlrVer[XSDPS_NUM_INSTANCES];
 #endif
 
 /*-----------------------------------------------------------------------*/
@@ -148,14 +150,14 @@ DSTATUS disk_status (
 					return s;
 				}
 
-				BaseAddress = SdConfig->BaseAddress;
-				CardDetect = SdConfig->CardDetect;
-				WriteProtect = SdConfig->WriteProtect;
+				BaseAddress[pdrv] = SdConfig->BaseAddress;
+				CardDetect[pdrv] = SdConfig->CardDetect;
+				WriteProtect[pdrv] = SdConfig->WriteProtect;
 
-				HostCntrlrVer[pdrv] = (u8)(XSdPs_ReadReg16(BaseAddress,
+				HostCntrlrVer[pdrv] = (u8)(XSdPs_ReadReg16(BaseAddress[pdrv],
 						XSDPS_HOST_CTRL_VER_OFFSET) & XSDPS_HC_SPEC_VER_MASK);
 				if (HostCntrlrVer[pdrv] == XSDPS_HC_SPEC_V3) {
-					SlotType[pdrv] = XSdPs_ReadReg(BaseAddress,
+					SlotType[pdrv] = XSdPs_ReadReg(BaseAddress[pdrv],
 							XSDPS_CAPS_OFFSET) & XSDPS_CAPS_SLOT_TYPE_MASK;
 				} else {
 					SlotType[pdrv] = 0;
@@ -163,14 +165,14 @@ DSTATUS disk_status (
 		}
 
 		/* If SD is not powered up then mark it as not initialized */
-		if ((XSdPs_ReadReg8((u32)BaseAddress, XSDPS_POWER_CTRL_OFFSET) &
+		if ((XSdPs_ReadReg8((u32)BaseAddress[pdrv], XSDPS_POWER_CTRL_OFFSET) &
 			XSDPS_PC_BUS_PWR_MASK) == 0U) {
 			s |= STA_NOINIT;
 		}
 
-		StatusReg = XSdPs_GetPresentStatusReg((u32)BaseAddress);
+		StatusReg = XSdPs_GetPresentStatusReg((u32)BaseAddress[pdrv]);
 		if (SlotType[pdrv] != XSDPS_CAPS_EMB_SLOT) {
-			if (CardDetect) {
+			if (CardDetect[pdrv]) {
 				while ((StatusReg & XSDPS_PSR_CARD_INSRT_MASK) == 0U) {
 					if (DelayCount == 500U) {
 						s = STA_NODISK | STA_NOINIT;
@@ -179,12 +181,12 @@ DSTATUS disk_status (
 						/* Wait for 10 msec */
 						usleep(SD_CD_DELAY);
 						DelayCount++;
-						StatusReg = XSdPs_GetPresentStatusReg((u32)BaseAddress);
+						StatusReg = XSdPs_GetPresentStatusReg((u32)BaseAddress[pdrv]);
 					}
 				}
 			}
 			s &= ~STA_NODISK;
-			if (WriteProtect) {
+			if (WriteProtect[pdrv]) {
 					if ((StatusReg & XSDPS_PSR_WPS_PL_MASK) == 0U){
 						s |= STA_PROTECT;
 						goto Label;
@@ -246,7 +248,7 @@ DSTATUS disk_initialize (
 	}
 
 #ifdef FILE_SYSTEM_INTERFACE_SD
-	if (CardDetect) {
+	if (CardDetect[pdrv]) {
 			/*
 			 * Card detection check
 			 * If the HC detects the No Card State, power will be cleared
@@ -254,7 +256,7 @@ DSTATUS disk_initialize (
 			while(!((XSDPS_PSR_CARD_DPL_MASK |
 					XSDPS_PSR_CARD_STABLE_MASK |
 					XSDPS_PSR_CARD_INSRT_MASK) ==
-					( XSdPs_GetPresentStatusReg((u32)BaseAddress) &
+					(XSdPs_GetPresentStatusReg((u32)BaseAddress[pdrv]) &
 					(XSDPS_PSR_CARD_DPL_MASK |
 					XSDPS_PSR_CARD_STABLE_MASK |
 					XSDPS_PSR_CARD_INSRT_MASK))));
