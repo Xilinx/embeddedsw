@@ -80,6 +80,23 @@ XStatus XPm_IpiReadStatus(u32 IpiMask)
 done:
 	return Status;
 }
+
+/****************************************************************************/
+/**
+ * @brief	Check IPI Response
+ *
+ * @param	IpiMask		IPI interrupt mask of target
+ * @param	TimeOutCount	Number of cycle to wait for response.
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or an error code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPm_IpiPollForAck(u32 IpiMask, u32 TimeOutCount)
+{
+	return XPlmi_IpiPollForAck(IpiMask, TimeOutCount);
+}
 #else
 XStatus XPm_IpiSend(u32 IpiMask, u32 *Payload)
 {
@@ -92,6 +109,14 @@ XStatus XPm_IpiSend(u32 IpiMask, u32 *Payload)
 XStatus XPm_IpiReadStatus(u32 IpiMask)
 {
 	(void)IpiMask;
+
+	return XST_FAILURE;
+}
+
+XStatus XPm_IpiPollForAck(u32 IpiMask, u32 TimeOutCount)
+{
+	(void)IpiMask;
+	(void)TimeOutCount;
 
 	return XST_FAILURE;
 }
