@@ -34,6 +34,9 @@
 *                       Added API for handling and trigger sofware errors
 *       bl   04/01/2021 Update XPlmi_ShutdownHandler_t typedef to remove
 *                       warning
+*       ma   04/05/2021 Added support for error configuration using Error Mask
+*                       instead of Error ID. Also, added support to configure
+*                       multiple errors at once.
 *
 * </pre>
 *
@@ -79,11 +82,11 @@ extern "C" {
 #define XPLMI_INVALID_NODE_ID		(7)
 
 /* Error Register mask */
-#define XPLMI_ERR_REG_MASK		(0x1FU)
+#define XPLMI_MAX_ERR_BITS			(32U)
 
 /**************************** Type Definitions *******************************/
 /* Pointer to Error Handler Function */
-typedef void (*XPlmi_ErrorHandler_t) (u32 ErrorId, u32 ErrorMask);
+typedef void (*XPlmi_ErrorHandler_t) (u32 ErrorNodeId, u32 RegMask);
 /* Pointer to Shutdown Handler Function */
 typedef s32 (*XPlmi_ShutdownHandler_t)(u32 SubsystemId, const u32 Type,
 		const u32 SubType, const u32 CmdType);
@@ -102,14 +105,14 @@ struct XPlmi_Error_t {
  * @brief	This function returns register mask value for the error id mask
  * given.
  *
- * @param	ErrorMask  is the input.
+ * @param	ErrorId  is the input.
  *
  * @return	Register mask value
  *
  *****************************************************************************/
-static inline u32 XPlmi_ErrRegMask(u32 ErrorMask)
+static inline u32 XPlmi_ErrRegMask(u32 ErrorId)
 {
-	return ((u32)0x1U << (ErrorMask & (u32)XPLMI_ERR_REG_MASK));
+	return ((u32)0x1U << (ErrorId % (u32)XPLMI_MAX_ERR_BITS));
 }
 
 /*****************************************************************************/
@@ -121,13 +124,13 @@ static inline u32 XPlmi_ErrRegMask(u32 ErrorMask)
  * @return	Error event ID
  *
  *****************************************************************************/
-static inline XPlmi_EventType XPlmi_EventNodeType(u32 Id)
+static inline u32 XPlmi_EventNodeType(u32 Id)
 {
 	u32 EventTypeId;
 
 	EventTypeId = (Id & XPLMI_NODE_TYPE_MASK) >> XPLMI_NODE_TYPE_SHIFT;
 
-	return (XPlmi_EventType)EventTypeId;
+	return EventTypeId;
 }
 
 /*****************************************************************************/
@@ -155,13 +158,13 @@ static inline u8 XPlmi_NpiOutOfReset(void)
 /************************** Function Prototypes ******************************/
 void XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown);
 int XPlmi_PsEmInit(void);
-int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMask, u8 ActionId,
+int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMasks, u8 ActionId,
 		XPlmi_ErrorHandler_t ErrorHandler);
-void XPlmi_UpdateErrorSubsystemId(u32 ErrorNodeId, u32 ErrorIndex,
-				u32 SubsystemId);
-int XPlmi_EmDisable(u32 ErrorNodeId, u32 ErrorMask);
+void XPlmi_UpdateErrorSubsystemId(u32 ErrorNodeId, u32 ErrorMasks,
+		u32 SubsystemId);
+int XPlmi_EmDisable(u32 ErrorNodeId, u32 RegMask);
 void XPlmi_ErrIntrHandler(void *CallbackRef);
-void XPlmi_HandleSwError(u32 ErrorNodeId, u32 ErrorIndex);
+void XPlmi_HandleSwError(u32 ErrorNodeId, u32 RegMask);
 void XPlmi_SetEmSubsystemId(const u32 *Id);
 int XPlmi_CheckNpiErrors(void);
 void XPlmi_ClearNpiErrors(void);

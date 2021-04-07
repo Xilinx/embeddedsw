@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
 *	rpo 08/19/2020 Clear the tamper interrupt source
 *	am  09/24/2020 Resolved MISRA C violations
 *       har 10/12/2020 Addressed security review comments
+* 4.5   ma  04/05/2021 Use error mask instead of ID to set an error action
 *
 * </pre>
 *
@@ -39,7 +40,7 @@
 /**************************** Type Definitions *******************************/
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XPLMI_EVENT_ERROR_PMC_ERR2	(0x28104000U)
-#define	XSECURE_NODEIDX_ERROR_PMCAPB	(32U)
+#define	XSECURE_NODEIDX_ERROR_PMCAPB_MASK	(0x1U)
 #define XSECURE_TAMPER_INT_MASK		(8U)
 #define XSECURE_GD0_GLITCH_STATUS_MASK	(0x200U)
 #define XSECURE_GD1_GLITCH_STATUS_MASK	(0x2000000U)
@@ -96,7 +97,7 @@ static int XSecure_RegisterTampIntHandler(void)
 	 * Register handler
 	 */
 	Status = XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PMC_ERR2,
-				   XSECURE_NODEIDX_ERROR_PMCAPB,
+				   XSECURE_NODEIDX_ERROR_PMCAPB_MASK,
 				   XPLMI_EM_ACTION_CUSTOM,
 				   XSecure_TamperInterruptHandler);
 	if(Status != XST_SUCCESS) {
@@ -141,7 +142,7 @@ void XSecure_TamperInterruptHandler(const u32 ErrorNodeId, const u32 ErrorMask)
 	 * calls the handler. So it is necessary to re-enable the interrupt
 	 */
 	(void)XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PMC_ERR2,
-				XSECURE_NODEIDX_ERROR_PMCAPB,
+				XSECURE_NODEIDX_ERROR_PMCAPB_MASK,
 				XPLMI_EM_ACTION_CUSTOM,
 				XSecure_TamperInterruptHandler);
 }

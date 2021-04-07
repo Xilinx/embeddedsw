@@ -26,6 +26,9 @@
 * 1.04  bm   02/18/2021 Added const to XPlmi_ErrCmds
 *       ma   03/04/2021 Assign CheckIpiAccessHandler to NULL for EM module
 *       pj   03/24/2021 Added support for software error nodes
+*       ma   04/05/2021 Added support for error configuration using Error Mask
+*                       instead of Error ID. Also, added support to configure
+*                       multiple errors at once.
 *
 * </pre>
 *
@@ -115,11 +118,11 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 	int Status = XST_FAILURE;
 	u32 NodeId = Cmd->Payload[0U];
 	u32 ErrorAction = Cmd->Payload[1U];
-	u32 ErrorMask = Cmd->Payload[2U];
+	u32 ErrorMasks = Cmd->Payload[2U];
 
 	XPlmi_Printf(DEBUG_DETAILED,
-		"%s: NodeId: 0x%0x,  ErrorAction: 0x%0x, ErrorMask: 0x%0x\n\r",
-		 __func__, NodeId, ErrorAction, ErrorMask);
+		"%s: NodeId: 0x%0x,  ErrorAction: 0x%0x, ErrorMasks: 0x%0x\n\r",
+		 __func__, NodeId, ErrorAction, ErrorMasks);
 
 	/* Do not allow CUSTOM error action as it is not supported */
 	if ((XPLMI_EM_ACTION_CUSTOM == ErrorAction) ||
@@ -127,7 +130,7 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 		(XPLMI_EM_ACTION_INVALID == ErrorAction)) {
 		XPlmi_Printf(DEBUG_GENERAL,
 			"Error: XPlmi_CmdEmSetAction: Invalid/unsupported error "
-			"action %d received for error 0x%x", ErrorAction, ErrorMask);
+			"action %d received for error mask 0x%x", ErrorAction, ErrorMasks);
 		Status = XPLMI_INVALID_ERROR_ACTION;
 		goto END;
 	}
@@ -143,11 +146,14 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 	}
 
 	/* PMC's PSM CR and NCR error actions must not be changed */
-	if ((ErrorMask == (u32)XPLMI_NODEIDX_ERROR_PMC_PSM_CR) ||
-		(ErrorMask == (u32)XPLMI_NODEIDX_ERROR_PMC_PSM_NCR)) {
+	if ((NodeId == XPLMI_EVENT_ERROR_PMC_ERR1) &&
+			(((ErrorMasks &
+				((u32)1U << (u32)XPLMI_NODEIDX_ERROR_PMC_PSM_CR)) != (u32)FALSE) ||
+			((ErrorMasks &
+				((u32)1U << (u32)XPLMI_NODEIDX_ERROR_PMC_PSM_NCR)) != (u32)FALSE))) {
 		XPlmi_Printf(DEBUG_GENERAL,
 			"Error: XPlmi_CmdEmSetAction: Error Action "
-			"cannot be changed for error 0x%x\r\n", ErrorMask);
+			"cannot be changed for PMC PSM_CR and PMC PSM_NCR\r\n");
 		Status = XPLMI_CANNOT_CHANGE_ACTION;
 		goto END;
 	}
@@ -155,8 +161,8 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 	/*
 	 * Allow error action setting for PSM errors only if LPD is initialized
 	 */
-	if ((ErrorMask >= (u32)XPLMI_NODEIDX_ERROR_PS_SW_CR) &&
-		(ErrorMask < (u32)XPLMI_NODEIDX_ERROR_PSMERR2_MAX) &&
+	if (((NodeId == XPLMI_EVENT_ERROR_PSM_ERR1) ||
+		(NodeId == XPLMI_EVENT_ERROR_PSM_ERR2)) &&
 		((LpdInitialized & LPD_INITIALIZED) != LPD_INITIALIZED)) {
 		XPlmi_Printf(DEBUG_GENERAL, "LPD is not initialized to configure "
 				"PSM errors and actions\n\r");
@@ -164,7 +170,7 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 		goto END;
 	}
 
-	Status = XPlmi_EmSetAction(NodeId, ErrorMask, (u8)ErrorAction, NULL);
+	Status = XPlmi_EmSetAction(NodeId, ErrorMasks, (u8)ErrorAction, NULL);
 	if(Status != XST_SUCCESS) {
 		goto END;
 	}
