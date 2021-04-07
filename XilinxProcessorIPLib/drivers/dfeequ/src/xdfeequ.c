@@ -22,6 +22,7 @@
 *       dc     02/22/21 align driver to current specification
 *       dc     03/15/21 Add data latency api
 *       dc     04/06/21 Register with full node name
+*       dc     04/07/21 Fix bare metal initialisation
 *
 * </pre>
 *
@@ -59,6 +60,7 @@
 /************************** Variable Definitions ****************************/
 #ifdef __BAREMETAL__
 extern struct metal_device CustomDevice[XDFEEQU_MAX_NUM_INSTANCES];
+extern metal_phys_addr_t metal_phys[XDFEEQU_MAX_NUM_INSTANCES];
 #endif
 extern XDfeEqu XDfeEqu_Equalizer[XDFEEQU_MAX_NUM_INSTANCES];
 static u32 XDfeEqu_DriverHasBeenRegisteredOnce = 0U;
@@ -530,6 +532,11 @@ XDfeEqu *XDfeEqu_InstanceInit(const char *DeviceNodeName)
 {
 	u32 Index;
 	XDfeEqu *InstancePtr;
+#ifdef __BAREMETAL__
+	char Str[XDFEEQU_NODE_NAME_MAX_LENGTH];
+	char *AddrStr;
+	u32 Addr;
+#endif
 
 	Xil_AssertNonvoid(DeviceNodeName != NULL);
 	Xil_AssertNonvoid(strlen(DeviceNodeName) <
@@ -574,6 +581,20 @@ XDfeEqu *XDfeEqu_InstanceInit(const char *DeviceNodeName)
 	return NULL;
 
 register_metal:
+#ifdef __BAREMETAL__
+	memcpy(Str, InstancePtr->NodeName, XDFEEQU_NODE_NAME_MAX_LENGTH);
+	AddrStr = strtok(Str, ".");
+	Addr = strtol(AddrStr, NULL, 16);
+	for(Index=0; Index < XDFEEQU_MAX_NUM_INSTANCES; Index++) {
+		if(Addr == metal_phys[Index]) {
+			InstancePtr->Device = &CustomDevice[Index];
+			goto bm_register_metal;
+		}
+	}
+	return NULL;
+bm_register_metal:
+#endif
+
 	/* Register libmetal for this OS process */
 	if (XST_SUCCESS != XDfeEqu_RegisterMetal(InstancePtr,
 						 &InstancePtr->Device,

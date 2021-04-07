@@ -29,6 +29,7 @@
 *       dc     02/02/21 Remove hard coded device node name
 *       dc     02/22/21 align driver to current specification
 *       dc     04/06/21 Register with full node name
+*       dc     04/07/21 Fix bare metal initialisation
 *
 * </pre>
 *
@@ -63,6 +64,30 @@ extern int XDfeSi570_SetMgtOscillator(double CurrentFrequency,
 static int XDfeEqu_SelfTestExample();
 
 /************************** Variable Definitions ****************************/
+#ifdef __BAREMETAL__
+metal_phys_addr_t metal_phys[XDFEEQU_MAX_NUM_INSTANCES] = {
+	XPAR_XDFEEQU_0_BASEADDR,
+};
+struct metal_device CustomDevice[XDFEEQU_MAX_NUM_INSTANCES] = {
+	{
+		.name = XPAR_XDFEEQU_0_DEV_NAME,
+		.bus = NULL,
+		.num_regions = 1,
+		.regions = { {
+			.virt = (void *)XPAR_XDFEEQU_0_BASEADDR,
+			.physmap = &metal_phys[0],
+			.size = 0x10000,
+			.page_shift = (u32)(-1),
+			.page_mask = (u32)(-1),
+			.mem_flags = 0x0,
+			.ops = { NULL },
+		} },
+		.node = { NULL },
+		.irq_num = 0,
+		.irq_info = NULL,
+	},
+};
+#endif
 
 /****************************************************************************/
 /**

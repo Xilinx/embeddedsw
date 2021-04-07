@@ -22,6 +22,7 @@
 *       dc     02/02/21 Remove hard coded device node name
 *       dc     02/22/21 align driver to current specification
 *       dc     04/06/21 Register with full node name
+*       dc     04/07/21 Fix bare metal initialisation
 *
 * </pre>
 *
@@ -103,9 +104,8 @@ XDfeEqu XDfeEqu_Equalizer[XDFEEQU_MAX_NUM_INSTANCES];
 *@note     None.
 *
 ******************************************************************************/
-u32 XDfeEqu_GetConfigTable(XDfeEqu *InstancePtr, XDfeEqu_Config *ConfigTable)
+u32 XDfeEqu_GetConfigTable(XDfeEqu *InstancePtr, XDfeEqu_Config **ConfigTable)
 {
-	(void)ConfigTable;
 	u32 Index;
 	char Str[XDFEEQU_NODE_NAME_MAX_LENGTH];
 	char *AddrStr;
@@ -115,11 +115,11 @@ u32 XDfeEqu_GetConfigTable(XDfeEqu *InstancePtr, XDfeEqu_Config *ConfigTable)
 
 	strncpy(Str, InstancePtr->NodeName, sizeof(Str));
 	AddrStr = strtok(Str, ".");
-	Addr = atoi(AddrStr);
+	Addr = strtol(AddrStr, NULL, 16);
 
 	for (Index = 0; Index < XDFEEQU_MAX_NUM_INSTANCES; Index++) {
 		if (XDfeEqu_ConfigTable[Index].BaseAddr == Addr) {
-			ConfigTable = &XDfeEqu_ConfigTable[Index];
+			*ConfigTable = &XDfeEqu_ConfigTable[Index];
 			return XST_SUCCESS;
 		}
 	}
@@ -331,7 +331,7 @@ end_failure:
 	XDfeEqu_Config *ConfigTable = NULL;
 
 	/* Find the Config table which base address is a match */
-	if (XST_FAILURE == XDfeEqu_GetConfigTable(InstancePtr, ConfigTable)) {
+	if (XST_FAILURE == XDfeEqu_GetConfigTable(InstancePtr, &ConfigTable)) {
 		metal_log(METAL_LOG_ERROR, "\nFailed to read device tree");
 		metal_device_close(Dev);
 		return XST_FAILURE;
