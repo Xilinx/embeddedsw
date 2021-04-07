@@ -54,9 +54,15 @@ static XPm_Prot *PmProtections[XPM_NODEIDX_PROT_MAX];
 #define TZ(ApertureAddr)	((ApertureAddr) & XPPU_APERTURE_TRUSTZONE_MASK)
 #define APER_PERM(Tz, Perms)	(TZ(((Tz) << XPPU_APERTURE_TRUSTZONE_OFFSET)) | PERM((Perms)))
 
-#define APERIDX_64K_TO_OFFSET(AperIdx)		((AperIdx) - APER_64K_START)
-#define APERIDX_1M_TO_OFFSET(AperIdx)		((AperIdx) - APER_1M_START)
-#define APERIDX_512M_TO_OFFSET(AperIdx)		((AperIdx) - APER_512M_START)
+#define APERIDX_TO_OFFSET(AperIdx, IdxStart)	((AperIdx) - (IdxStart))
+#define APERIDX_64K_TO_OFFSET(AperIdx)		(APERIDX_TO_OFFSET(AperIdx, APER_64K_START))
+#define APERIDX_1M_TO_OFFSET(AperIdx)		(APERIDX_TO_OFFSET(AperIdx, APER_1M_START))
+
+#define OFFSET_TO_APERIDX(Offset, IdxStart)	((Offset) + (IdxStart))
+#define OFFSET_TO_APERIDX_64K(Offset)		(OFFSET_TO_APERIDX(Offset, APER_64K_START))
+#define OFFSET_TO_APERIDX_1M(Offset)		(OFFSET_TO_APERIDX(Offset, APER_1M_START))
+
+#define ADDR_TO_OFFSET(DevAddr, Start, Size)	(((DevAddr) - (Start))/(Size))
 
 #define APER_ADDR(Base, Start, Offset)		((Base) + (Start) + ((Offset) * 4U))
 #define APERADDR_64K(Base, Offset)		(APER_ADDR(Base, XPPU_APERTURE_0_OFFSET, Offset))
@@ -69,6 +75,9 @@ static XPm_Prot *PmProtections[XPM_NODEIDX_PROT_MAX];
 		 XPPU_ENABLE_PERM_CHECK_REG00_OFFSET)
 #define PERM_CHECK_REG_MASK(AperIdx)		\
 		((u32)1U << ((AperIdx) % 32U))
+
+#define XPM_NODEIDX_XPPU_MIN			((u32)XPM_NODEIDX_PROT_XPPU_LPD)
+#define XPM_NODEIDX_XPPU_MAX			((u32)XPM_NODEIDX_PROT_XPPU_PMC_NPI)
 
 /**
  * Max XMPU regions count
@@ -541,11 +550,114 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  Dynamically reconfigure permissions for the given aperture
+ *
+ * @param  Reqm: Requirement for the given device from a subsystem
+ * @param  Ppu: Handle to a XPPU instance
+ * @param  AperIdx: Aperture index
+ * @param  AperAddr: Aperture address
+ * @param  Enable: Enable(1)/Disable(0) masters in permission ram
+ *
+ * @return XST_SUCCESS on success; else XST_FAILURE
+ *
+ * @note   This is a helper function for XPmProt_PpuControl()
+ *         It derives the permission value for the given aperture by looking
+ *         at the sharing policy for the given device node. This derived
+ *         permission value is then used to dynamically reconfigure the aperture
+ *
+ ****************************************************************************/
+static XStatus XPmProt_PpuPermReconfig(const XPm_Requirement *Reqm,
+				       const XPm_ProtPpu *Ppu,
+				       u32 AperIdx, u32 AperAddr,
+				       u32 Enable)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Requirement *DevReqm = NULL;
+	u32 AperPerm = 0U;
+	u32 PermCheckAddr, PermCheckMask;
+	u32 PpuBase = Ppu->Node.BaseAddress;
+	u32 Security = SECURITY_POLICY((u32)Reqm->Flags);
+	u16 Usage = USAGE_POLICY(Reqm->Flags);
+
+	/* Perm check enable bit for derived aperture */
+	PermCheckAddr = PERM_CHECK_REG_ADDR(PpuBase, AperIdx);
+	PermCheckMask = PERM_CHECK_REG_MASK(AperIdx);
+
+	/* Get permission mask configured for this aperture as of now */
+	PmIn32(AperAddr, AperPerm);
+
+	if (0U != Enable) {
+		switch (Usage) {
+		case (u16)REQ_NONSHARED:
+		case (u16)REQ_TIME_SHARED:
+			/* Replace existing perms if device requires exclusive access */
+			AperPerm = APER_PERM(Security, Reqm->AperPerm);
+			Status = XST_SUCCESS;
+			break;
+		case (u16)REQ_SHARED:
+		case (u16)REQ_NO_RESTRICTION:
+			/* Add to existing perms if device is shared or using def policy */
+			AperPerm |= APER_PERM(Security, Reqm->AperPerm);
+			Status = XST_SUCCESS;
+			break;
+		default:
+			Status = XST_INVALID_PARAM;
+			break;
+		}
+	} else {
+		switch (Usage) {
+		case (u16)REQ_NONSHARED:
+		case (u16)REQ_TIME_SHARED:
+			/* Disable masters belonging to this subsystem */
+			AperPerm &= ~PERM(Reqm->AperPerm);
+			Status = XST_SUCCESS;
+			break;
+		case (u16)REQ_SHARED:
+		case (u16)REQ_NO_RESTRICTION:
+			/* Get current perms for this shared device from other subsystems */
+			DevReqm = Reqm->Device->Requirements;
+			u32 CurrPerms = 0U;
+			while (NULL != DevReqm) {
+				if  (1U == DevReqm->Allocated) {
+					CurrPerms |= DevReqm->AperPerm;
+				}
+				DevReqm = DevReqm->NextSubsystem;
+			}
+			/* Only disable masters belonging to this subsystem */
+			AperPerm = (AperPerm & ~PERM(Reqm->AperPerm)) | CurrPerms;
+			Status = XST_SUCCESS;
+			break;
+		default:
+			Status = XST_INVALID_PARAM;
+			break;
+		}
+	}
+
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Add default permissions mask to desired aperture permission */
+	AperPerm |= (Ppu->AperPermInitMask & PERM_MASK);
+
+	/* Run the dynamic reconfiguration sequence */
+	XPmProt_XppuDynReconfig(Ppu, PermCheckAddr, PermCheckMask, AperIdx,
+				AperAddr, AperPerm);
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief  Configure XPPU according to access control policies from
  *         given subsystem requirement for the peripheral device
  *
  * @param  Reqm: peripheral device requirement
  *               imposed by caller subsystem
+ * @param  AddrToProt: Address to protect, typically base address of the device
  * @param  Enable: enable(1)/disable(0) masters in permission ram
  *
  * @return XST_SUCCESS if successful else appropriate failure code
@@ -553,148 +665,82 @@ done:
  * @note  This function is called from device request-release infrastructure;
  *        with the requirement specified from the subsystem requesting
  *        the device.
+ *        Dynamic reconfiguration of 512m region is only supported for pmc_xppu;
+ *        because it is mapped to QSPI/OSPI linear memory address range.
+ *        There are no devices modeled from lpd_xppu's 512m region. In addition,
+ *        this region overlaps with other regions from all other xppu instances.
+ *        Due to the nature of its complexities and no requirement to support it,
+ *        its support will be added in future on a need basis.
  *
  ****************************************************************************/
 XStatus XPmProt_PpuControl(const XPm_Requirement *Reqm,
-			   u32 Address,
-			   u32 Enable)
+			   const u32 AddrToProt,
+			   const u32 Enable)
 {
 	XStatus Status = XST_FAILURE;
-	u32 DeviceBaseAddr = Address;
-	XPm_ProtPpu *PpuNode = NULL;
-	u32 PpuBase = 0;
-	u32 ApertureAddress = 0;
-	u32 Permissions = 0, i;
-	u32 DynamicReconfigAddrOffset = 0;
-	u32 PermissionRegAddress = 0;
-	u32 PermissionRegMask = 0;
-	u32 Security = SECURITY_POLICY((u32)Reqm->Flags);
-	u16 UsagePolicy = USAGE_POLICY(Reqm->Flags);
-
-	PmDbg("Xppu configure: 0x%x\r\n", Enable);
-	PmDbg("Device Node Id: 0x%x\r\n", Reqm->Device->Node.Id);
+	XPm_ProtPpu *Ppu = NULL;
+	u32 AperAddr = 0U;
+	u32 AperIdx = 0U;
+	u32 PpuBase = 0U, i;
+	u32 SubsystemId = Reqm->Subsystem->Id;
 
 	/*
 	 * For PMC/Default Subsystem with default requirements,
 	 * do not re-configure any apertures since:
-	 *   - PMC master is a part of default permission mask.
-	 *   - Default subsystems do not support protection.
+	 *   - PMC is a part of default permission mask
+	 *   - Default subsystem does not support dynamic protection
 	 */
-	if ((((u32)PM_SUBSYS_PMC == Reqm->Subsystem->Id) ||
-	    ((u32)PM_SUBSYS_DEFAULT == Reqm->Subsystem->Id)) &&
-	    ((u16)REQ_NO_RESTRICTION == UsagePolicy)) {
+	if (((u32)PM_SUBSYS_PMC == SubsystemId) ||
+	    ((u32)PM_SUBSYS_DEFAULT == SubsystemId)) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
 
-	/* Find XPPU */
-	for (i = 0; i < (u32)XPM_NODEIDX_PROT_MAX; i++)
-	{
-		if ((PmProtections[i] != NULL)
-		&& ((u32)XPM_NODESUBCL_PROT_XPPU == NODESUBCLASS(PmProtections[i]->Id))) {
-			/* XPPU Node specifics */
-			PpuNode = (XPm_ProtPpu *)PmProtections[i];
-			PpuBase = PpuNode->Node.BaseAddress;
-			u32 ApertureOffset = 0;
+	/* Find PPU and desired aperture */
+	for (i = XPM_NODEIDX_XPPU_MIN; i <= XPM_NODEIDX_XPPU_MAX; i++) {
+		u32 Offset = 0U;
 
-			/* XPPU Address boundaries */
-			u32 Aper64kStart = PpuNode->A64k.Start;
-			u32 Aper64kEnd = PpuNode->A64k.End;
-			u32 Aper1mStart = PpuNode->A1m.Start;
-			u32 Aper1mEnd = PpuNode->A1m.End;
-			// u32 Aper512mStart = PpuNode->A512m.Start;
-			// u32 Aper512mEnd = PpuNode->A512m.End;
-
-			/* 64k */
-			if ((DeviceBaseAddr >= Aper64kStart) && (DeviceBaseAddr <= Aper64kEnd)) {
-				ApertureOffset =  (DeviceBaseAddr - Aper64kStart) / SIZE_64K;
-				ApertureAddress = (PpuBase + XPPU_APERTURE_0_OFFSET) + (ApertureOffset * 4U);
-				DynamicReconfigAddrOffset = APER_64K_START + ApertureOffset;
-				PermissionRegAddress = PpuBase
-					+ XPPU_ENABLE_PERM_CHECK_REG00_OFFSET
-					+ ((DynamicReconfigAddrOffset / 32U) * 4U);
-				PermissionRegMask = (u32)1U << (DynamicReconfigAddrOffset % 32U);
-			/* 1m */
-			} else if ((DeviceBaseAddr >= Aper1mStart) && (DeviceBaseAddr <= Aper1mEnd)) {
-				ApertureOffset =  (DeviceBaseAddr - Aper1mStart) / SIZE_1M;
-				ApertureAddress = (PpuBase + XPPU_APERTURE_384_OFFSET) + (ApertureOffset * 4U);
-				DynamicReconfigAddrOffset = APER_1M_START + ApertureOffset;
-				PermissionRegAddress = PpuBase
-					+ XPPU_ENABLE_PERM_CHECK_REG00_OFFSET
-					+ ((DynamicReconfigAddrOffset / 32U) * 4U);
-				PermissionRegMask = (u32)1U << (DynamicReconfigAddrOffset % 32U);
-			/* 512m */
-			/*
-			 * FIXME: Need to handle this separately as there is no 512M aperture for PMC_NPI_XPPU
-			 *
-			} else if ((DeviceBaseAddr >= Aper512mStart) && (DeviceBaseAddr <= Aper512mEnd)) {
-				ApertureAddress = (PpuBase + XPPU_APERTURE_400_OFFSET);
-				DynamicReconfigAddrOffset = APER_512M_START;
-				PermissionRegAddress = PpuBase
-					+ XPPU_ENABLE_PERM_CHECK_REG00_OFFSET
-					+ ((DynamicReconfigAddrOffset / 32) * 4);
-				PermissionRegMask = 1 << (DynamicReconfigAddrOffset % 32);
-			*/
-			} else {
-				continue;
-			}
-			break;
+		Ppu = (XPm_ProtPpu *)XPmProt_GetByIndex(i);
+		if ((NULL == Ppu) ||
+		    ((u8)XPM_PROT_ENABLED != Ppu->Node.State)) {
+			continue;
 		}
-	}
+		PpuBase = Ppu->Node.BaseAddress;
 
-	if ((i == (u32)XPM_NODEIDX_PROT_MAX) ||
-	    (NULL == PpuNode) ||
-	    (0U == ApertureAddress)) {
-		PmDbg("Device base address 0x%08x is out of address ranges for all XPPUs.\r\n",
-				DeviceBaseAddr);
-		Status = XST_SUCCESS;
-		goto done;
-	}
-
-	/* See if XPPU is enabled or not, if not, return */
-	if ((u8)XPM_PROT_DISABLED == PpuNode->Node.State) {
-		Status = XST_SUCCESS;
-		goto done;
-	}
-
-	PmDbg("AperAddress 0x%08x DynamicReconfigAddrOffset %d\r\n",
-			ApertureAddress, DynamicReconfigAddrOffset);
-
-	/* Get permission mask configured for this aperture as of now */
-	PmIn32(ApertureAddress, Permissions);
-
-	if (0U != Enable) {
-		u32 DefPerms = PpuNode->AperPermInitMask & PERM_MASK;
-
-		/* Configure XPPU Aperture */
-		if ((UsagePolicy == (u16)REQ_NONSHARED) || (UsagePolicy == (u16)REQ_TIME_SHARED)) {
-			Permissions = (DefPerms | APER_PERM(Security, Reqm->AperPerm));
-		} else if (UsagePolicy == (u16)REQ_SHARED) {
-			/* if device is shared, permissions need to be ORed with existing */
-			Permissions |= (DefPerms | APER_PERM(Security, Reqm->AperPerm));
-		} else if (UsagePolicy == (u16)REQ_NO_RESTRICTION) {
-			Permissions = PERM_MASK;
+		/* 64k */
+		if ((AddrToProt >= Ppu->A64k.Start) &&
+		    (AddrToProt <= Ppu->A64k.End)) {
+			Offset = ADDR_TO_OFFSET(AddrToProt, Ppu->A64k.Start, SIZE_64K);
+			AperAddr = APERADDR_64K(PpuBase, Offset);
+			AperIdx = OFFSET_TO_APERIDX_64K(Offset);
+		/* 1m */
+		} else if ((AddrToProt >= Ppu->A1m.Start) &&
+			   (AddrToProt <= Ppu->A1m.End)) {
+			Offset = ADDR_TO_OFFSET(AddrToProt, Ppu->A1m.Start, SIZE_1M);
+			AperAddr = APERADDR_1M(PpuBase, Offset);
+			AperIdx = OFFSET_TO_APERIDX_1M(Offset);
+		/* 512m (512m region is only supported for pmc_xppu) */
+		} else if ((i == (u32)XPM_NODEIDX_PROT_XPPU_PMC) &&
+			   (AddrToProt >= Ppu->A512m.Start) &&
+			   (AddrToProt <= Ppu->A512m.End)) {
+			AperAddr = APERADDR_512M(PpuBase);
+			AperIdx = APER_512M_START;
 		} else {
-			Status = XST_INVALID_PARAM;
-			goto done;
+			/* not found anywhere, continue */
+			continue;
 		}
-	} else {
-		if (UsagePolicy != (u16)REQ_NO_RESTRICTION) {
-			/* Configure XPPU to disable masters belonging to this subsystem */
-			Permissions = (Permissions | XPPU_APERTURE_TRUSTZONE_MASK);
-			Permissions = (Permissions & (~PERM(Reqm->AperPerm)));
-		}
+		/* found */
+		break;
 	}
 
-	/* Run the dynamic reconfiguration sequence */
-	XPmProt_XppuDynReconfig(PpuNode,
-				PermissionRegAddress,
-				PermissionRegMask,
-				DynamicReconfigAddrOffset,
-				ApertureAddress,
-				Permissions);
+	/* Nothing to protect */
+	if ((NULL == Ppu) || (0U == AperAddr)) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
 
-	Status = XST_SUCCESS;
+	/* Derive the permissions for this aperture and reconfigure it */
+	Status = XPmProt_PpuPermReconfig(Reqm, Ppu, AperIdx, AperAddr, Enable);
 
 done:
 	return Status;
