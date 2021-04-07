@@ -5,10 +5,8 @@
 /**
 * @file xsem_ipi_interface.c
 *
-* @addtogroup xsem_client_apis XilSEM Versal Client APIs
-* @{
-* This file has XilSEM IPI Interface implementation
 * @cond xsem_internal
+* This file has XilSEM IPI Interface implementation
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -20,6 +18,7 @@
 *                         complete response message.
 * 0.3   hv   03/11/2021   Doxygen changes
 * 0.4   hb   03/15/2021   MISRA fixes and formatted code
+* 0.5   rb   04/07/2021   Doxygen changes
 *
 * </pre>
 *
@@ -28,7 +27,14 @@
 *
 ******************************************************************************/
 
+/***************************** Include Files *********************************/
+/**
+ * @{
+ * @cond xsem_internal
+ */
 #include "xsem_ipi_interface.h"
+
+/************************** Function Definitions *****************************/
 
 /*****************************************************************************/
 /**
@@ -119,4 +125,7 @@ XStatus XSem_IpiPlmRespMsg(XIpiPsu *IpiInst,
 END:
 	return Status;
 }
-/** @} */
+/**
+ * @}
+ * @endcond
+ */

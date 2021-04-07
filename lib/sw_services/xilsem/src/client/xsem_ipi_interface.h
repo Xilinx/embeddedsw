@@ -6,9 +6,9 @@
 /**
 * @file xsem_ipi_interface.h
 *
+* @cond xsem_internal
 * This file has definitions of commonly used macros and data types needed for
 * XilSEM IPI interface.
-* @cond xsem_internal
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -21,6 +21,7 @@
 * 0.3   rb   01/25/2021   Added macro for IPI payload 4.
 * 0.4   hv   03/11/2021   Doxygen changes
 * 0.5   hb   03/15/2021   MISRA fixes, updated IPI macro and formatted code
+* 0.6   rb   04/07/2021   Doxygen changes
 *
 * </pre>
 * @note
@@ -31,6 +32,10 @@
 #ifndef XSEM_IPI_INTERFACE_H
 #define XSEM_IPI_INTERFACE_H
 /***************************** Include Files *********************************/
+/**
+ * @{
+ * @cond xsem_internal
+ */
 #include "xparameters.h"
 #include "xil_types.h"
 #include "xstatus.h"
@@ -94,4 +99,8 @@ XStatus XSem_IpiSendReqPlm(XIpiPsu *IpiInst, u32 Payload[PAYLOAD_ARG_CNT]);
 }
 #endif
 
+/**
+ * @}
+ * @endcond
+ */
 #endif /* XSEM_IPI_INTERFACE_H */
