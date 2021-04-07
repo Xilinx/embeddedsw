@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,8 +9,19 @@
 #include "xpm_notifier.h"
 #include "xpm_power.h"
 #include "xplmi_err.h"
+#include "xpm_common.h"
+#include "xplmi_task.h"
+#include "xplmi_scheduler.h"
 
 #define XPM_NOTIFIERS_COUNT	10U
+#define XILPM_NOTIFIER_INTERVAL	(10U)
+#define PRESENT		(1)
+#define NOT_PRESENT	(0)
+
+/* Use Time out count 0 to just check for IPI ack without holding the PLM */
+#define XPM_NOTIFY_TIMEOUTCOUNT	(0U)
+
+extern XPm_Subsystem *PmSubsystems;
 
 typedef struct {
 	const XPm_Subsystem* Subsystem;
@@ -18,9 +29,14 @@ typedef struct {
 	u32 EventMask;
 	u32 WakeMask;
 	u32 IpiMask;  /* TODO: Remove this when IPI mask support in CDO is available*/
+	u32 PendEvent;
 } XPmNotifier;
 
 static XPmNotifier PmNotifiers[XPM_NOTIFIERS_COUNT];
+
+static volatile u32 SchedulerTask = (u32)NOT_PRESENT;
+
+static int XPmNotifier_SchedulerTask(void *Arg);
 
 /****************************************************************************/
 /**
@@ -40,7 +56,8 @@ int XPmNotifier_Register(const XPm_Subsystem* const Subsystem,
 			 const u32 Event, const u32 Wake, const u32 IpiMask)
 {
 	int Status = XST_FAILURE;
-	u32 Idx, EmptyIdx = ARRAY_SIZE(PmNotifiers);
+	u32 Idx;
+	u32 EmptyIdx = ARRAY_SIZE(PmNotifiers);
 
 	for (Idx = 0U; Idx < ARRAY_SIZE(PmNotifiers); Idx++) {
 		if (NULL == PmNotifiers[Idx].Subsystem) {
@@ -60,19 +77,31 @@ int XPmNotifier_Register(const XPm_Subsystem* const Subsystem,
 		}
 	}
 
+	if ((EmptyIdx == ARRAY_SIZE(PmNotifiers)) &&
+	    (Idx >= ARRAY_SIZE(PmNotifiers))) {
+		/* There is no free entry in PmNotifiers array, report error */
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	/*
+	 * Check if Node Class is EVENT and enable error action.
+	 */
+	if ((u32)XPM_NODECLASS_EVENT == NODECLASS(NodeId)) {
+		Status = XPlmi_EmSetAction(NodeId, Event, XPLMI_EM_ACTION_CUSTOM,
+					   XPmNotifier_Event);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
 	if (EmptyIdx != ARRAY_SIZE(PmNotifiers)) {
 		/* Add new entry in empty place if no notifier found for given pair */
 		PmNotifiers[EmptyIdx].Subsystem = Subsystem;
 		PmNotifiers[EmptyIdx].NodeId = NodeId;
 		PmNotifiers[EmptyIdx].IpiMask = IpiMask;
+		PmNotifiers[EmptyIdx].PendEvent = 0U;
 		Idx = EmptyIdx;
-	} else if (Idx >= ARRAY_SIZE(PmNotifiers)) {
-		/* There is no free entry in PmNotifiers array, report error */
-		Status = XST_FAILURE;
-		goto done;
-	} else {
-		/* Required due to MISRA */
-		PmDbg("[%d] Unknown else case\r\n", __LINE__);
 	}
 
 	/* Update event and wake mask for given entry */
@@ -81,18 +110,259 @@ int XPmNotifier_Register(const XPm_Subsystem* const Subsystem,
 		/* Wake subsystem for this event */
 		PmNotifiers[Idx].WakeMask |= Event;
 	}
-	/*
-	 * Check if Node Class is EVENT and enable error action.
-	 */
-	if ((u32)XPM_NODECLASS_EVENT == NODECLASS(NodeId)) {
-		Status = XPlmi_EmSetAction(NodeId, Event, XPLMI_EM_ACTION_CUSTOM,
-				XPmNotifier_Event);
-	}
 
 	Status = XST_SUCCESS;
-
 done:
 	return Status;
+}
+
+static int XPmNotifier_GetNotifyCbData(const u32 Idx, u32 *Payload)
+{
+	int Status = XST_FAILURE;
+	const XPmNotifier *Notifier = NULL;
+	const XPm_Device *Device = NULL;
+	const XPm_Power *Power = NULL;
+
+	Notifier = &PmNotifiers[Idx];
+	Payload[0] = (u32)PM_NOTIFY_CB;
+	Payload[1] = Notifier->NodeId;
+
+	switch (NODECLASS(Notifier->NodeId)) {
+	case (u32)XPM_NODECLASS_EVENT:
+		Status = XST_SUCCESS;
+		Payload[2] = Notifier->PendEvent;
+		Payload[3] = 0U;
+		break;
+	case (u32)XPM_NODECLASS_DEVICE:
+		Device = XPmDevice_GetById(Notifier->NodeId);
+		if (NULL == Device) {
+			goto done;
+		}
+		if ((u32)EVENT_STATE_CHANGE ==
+		    ((u32)EVENT_STATE_CHANGE & Notifier->PendEvent)) {
+			Payload[2] = (u32)EVENT_STATE_CHANGE;
+		} else {
+			Payload[2] = (u32)EVENT_ZERO_USERS;
+		}
+		Payload[3] = Device->Node.State;
+		Status = XST_SUCCESS;
+		break;
+	case (u32)XPM_NODECLASS_POWER:
+		Power = XPmPower_GetById(Notifier->NodeId);
+		if (NULL == Power) {
+			goto done;
+		}
+		if ((u32)EVENT_STATE_CHANGE ==
+		    ((u32)EVENT_STATE_CHANGE & Notifier->PendEvent)) {
+			Payload[2] = (u32)EVENT_STATE_CHANGE;
+		} else {
+			Payload[2] = (u32)EVENT_ZERO_USERS;
+		}
+		Payload[3] = Power->Node.State;
+		Status = XST_SUCCESS;
+		break;
+	default:
+		PmErr("Unsupported Node Class: %d\r\n", NODECLASS(Notifier->NodeId));
+		break;
+	}
+done:
+	return Status;
+}
+
+static int XPmNotifier_SchedulerTask(void *Arg)
+{
+	(void)Arg;
+	int Status = XST_FAILURE;
+	u32 Payload[PAYLOAD_ARG_CNT] = {0};
+	int IpiAck;
+	u32 Index = 0U;
+	u32 Event;
+	u32 PendEvent = (u32)NOT_PRESENT;
+	XPmNotifier* Notifier = NULL;
+	XPm_Subsystem *SubSystem = PmSubsystems; /* Head of SubSystem list */
+
+	/* Search for the pending suspend callback */
+	while (NULL != SubSystem) {
+		if (0U != SubSystem->PendCb.Reason) {
+			PendEvent = (u32)PRESENT;
+			IpiAck = XPm_IpiPollForAck(SubSystem->IpiMask,
+						   XPM_NOTIFY_TIMEOUTCOUNT);
+			if ((XST_SUCCESS == IpiAck) &&
+			    ((u8)ONLINE == SubSystem->State)) {
+				Payload[0] = (u32)PM_INIT_SUSPEND_CB;
+				Payload[1] = SubSystem->PendCb.Reason;
+				Payload[2] = SubSystem->PendCb.Latency;
+				Payload[3] = SubSystem->PendCb.State;
+
+				(*PmRequestCb)(SubSystem->IpiMask,
+					       (u32)PM_INIT_SUSPEND_CB,
+					       Payload);
+
+				SubSystem->PendCb.Reason = 0U;
+			}
+			if ((u8)ONLINE != SubSystem->State) {
+				SubSystem->PendCb.Reason = 0U;
+			}
+		}
+		SubSystem = SubSystem->NextSubsystem;
+	}
+
+	/* scan for pending events */
+	for (Index = 0; Index < ARRAY_SIZE(PmNotifiers); Index++) {
+		/* Search for the pending Event */
+		if (0U != PmNotifiers[Index].PendEvent) {
+			PendEvent = (u32)PRESENT;
+			Notifier = &PmNotifiers[Index];
+			Status = XPmNotifier_GetNotifyCbData(Index, Payload);
+			if (XST_SUCCESS != Status) {
+				Notifier->PendEvent = 0U;
+				continue;
+			}
+			IpiAck = XPm_IpiPollForAck(Notifier->IpiMask,
+						   XPM_NOTIFY_TIMEOUTCOUNT);
+			if (XST_SUCCESS == IpiAck) {
+				Event = Payload[2];
+				if (((u8)ONLINE == Notifier->Subsystem->State) ||
+				    (0U != (Event & Notifier->WakeMask))) {
+					(*PmRequestCb)(Notifier->IpiMask,
+						       (u32)PM_NOTIFY_CB,
+						       Payload);
+					Notifier->PendEvent &= ~Event;
+				} else {
+					Notifier->PendEvent &= ~Event;
+				}
+			}
+		}
+	}
+
+	/*
+	 * Remove the scheduler task when the loops is in the beginning of the
+	 * function start at 0 and don't find any event.
+	 */
+	if ((u32)NOT_PRESENT == PendEvent) {
+		Status = XPlmi_SchedulerRemoveTask(XPLMI_MODULE_XILPM_ID,
+						   XPmNotifier_SchedulerTask,
+						   XILPM_NOTIFIER_INTERVAL);
+		if (Status != XST_SUCCESS) {
+			PmErr("[%s] Failed to remove task\r\n", __func__);
+			goto done;
+		}
+		SchedulerTask = (u32)NOT_PRESENT;
+	}
+	Status = XST_SUCCESS;
+done:
+	return Status;
+}
+
+static int XPmNotifier_AddSuspEvent(const u32 IpiMask, const u32 *Payload)
+{
+	int Status = XST_FAILURE;
+	XPm_Subsystem *Subsystem = NULL;
+	u32 SubsystemId;
+
+	SubsystemId = XPmSubsystem_GetSubSysIdByIpiMask(IpiMask);
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	}
+
+	/* Store pending suspend callback entry in empty subsystem */
+	Subsystem->PendCb.Reason = Payload[1];
+	Subsystem->PendCb.Latency = Payload[2];
+	Subsystem->PendCb.State = Payload[3];
+
+	Status = XST_SUCCESS;
+done:
+	return Status;
+}
+
+static int XPmNotifier_AddPendingEvent(const u32 IpiMask, const u32 *Payload)
+{
+	int Status = XST_FAILURE;
+	XPmNotifier* Notifier = NULL;
+	u32 CbType;
+	u32 NodeId;
+	u32 Event;
+	u32 Idx;
+
+	if (NULL == Payload) {
+		goto done;
+	}
+
+	CbType = Payload[0];
+
+	switch (CbType) {
+	case (u32)PM_INIT_SUSPEND_CB:
+		Status = XPmNotifier_AddSuspEvent(IpiMask, Payload);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		break;
+	case (u32)PM_NOTIFY_CB:
+		NodeId = Payload[1];
+		Event = Payload[2];
+		for (Idx = 0U; Idx < ARRAY_SIZE(PmNotifiers); Idx++) {
+			/* Search for the given NodeId */
+			if (NodeId == PmNotifiers[Idx].NodeId) {
+				break;
+			}
+		}
+		if (Idx >= ARRAY_SIZE(PmNotifiers)) {
+			goto done;
+		}
+		Notifier = &PmNotifiers[Idx];
+		Notifier->PendEvent |= Event;
+		Status = XST_SUCCESS;
+		break;
+	default:
+		PmErr("Invalid callback type %d\r\n", CbType);
+		break;
+	}
+
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+	if ((u32)NOT_PRESENT == SchedulerTask) {
+		Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_XILPM_ID,
+						XPmNotifier_SchedulerTask,
+						XILPM_NOTIFIER_INTERVAL,
+						XPLM_TASK_PRIORITY_0);
+		if (Status != XST_SUCCESS) {
+			PmErr("[%s] Failed to create task\r\n",__func__);
+			goto done;
+		}
+		SchedulerTask = (u32)PRESENT;
+	}
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Notify target only if IPI acked for previous request else add as
+ * 	   pending event.
+ *
+ * @param  IpiMask    IpiMask of the target
+ * @param  Payload    Payload with callback data
+ *
+ ****************************************************************************/
+void XPmNotifier_NotifyTarget(u32 IpiMask, u32 *Payload)
+{
+	int IpiAck;
+	u32 CbType = Payload[0];
+	u32 TaskPresent = SchedulerTask;
+
+	IpiAck = XPm_IpiPollForAck(IpiMask, XPM_NOTIFY_TIMEOUTCOUNT);
+	if ((XST_SUCCESS == IpiAck) &&
+	    (NULL != PmRequestCb) &&
+	    ((u32)NOT_PRESENT == TaskPresent)) {
+		(*PmRequestCb)(IpiMask, CbType, Payload);
+	} else if (NULL != PmRequestCb){
+		(void)XPmNotifier_AddPendingEvent(IpiMask, Payload);
+	} else {
+		PmInfo("Invalid Call back Handler \r\n");
+	}
 }
 
 /****************************************************************************/
@@ -118,6 +388,9 @@ void XPmNotifier_Unregister(const XPm_Subsystem* const Subsystem,
 			/* Entry for subsystem/NodeId pair found */
 			PmNotifiers[Idx].EventMask &= ~Event;
 			PmNotifiers[Idx].WakeMask &= ~Event;
+			if (0U != (PmNotifiers[Idx].PendEvent & Event)) {
+				PmNotifiers[Idx].PendEvent &= ~Event;
+			}
 			if (0U == PmNotifiers[Idx].EventMask) {
 				(void)memset(&PmNotifiers[Idx], 0,
 					     sizeof(XPmNotifier));
@@ -175,16 +448,9 @@ void XPmNotifier_Event(const u32 NodeId, const u32 Event)
 
 	for (Idx = 0U; Idx < ARRAY_SIZE(PmNotifiers); Idx++) {
 		/* Search for the given NodeId */
-		if (NodeId != PmNotifiers[Idx].NodeId) {
-			continue;
-		}
-		/*
-		 * NodeId is matching, check for event
-		 * Event 0 is valid for Node Class EVENT.
-		 */
-		if (((u32)XPM_NODECLASS_EVENT != NODECLASS(NodeId)) &&
-			(0U == (Event & PmNotifiers[Idx].EventMask))) {
-			continue;
+		if ((NodeId != PmNotifiers[Idx].NodeId) ||
+		    (0U == (Event & PmNotifiers[Idx].EventMask))) {
+			continue; /* Match not found */
 		}
 
 		Notifier = &PmNotifiers[Idx];
@@ -208,19 +474,17 @@ void XPmNotifier_Event(const u32 NodeId, const u32 Event)
 			break;
 		case (u32)XPM_NODECLASS_DEVICE:
 			Device = XPmDevice_GetById(NodeId);
-			if (NULL == Device) {
-				goto done;
+			if (NULL != Device) {
+				Payload[3] = Device->Node.State;
+				Status = XST_SUCCESS;
 			}
-			Payload[3] = Device->Node.State;
-			Status = XST_SUCCESS;
 			break;
 		case (u32)XPM_NODECLASS_POWER:
 			Power = XPmPower_GetById(NodeId);
-			if (NULL == Power) {
-				goto done;
+			if (NULL != Power) {
+				Payload[3] = Power->Node.State;
+				Status = XST_SUCCESS;
 			}
-			Payload[3] = Power->Node.State;
-			Status = XST_SUCCESS;
 			break;
 		default:
 			PmErr("Unsupported Node Class: %d\r\n", NODECLASS(NodeId));
@@ -236,7 +500,7 @@ void XPmNotifier_Event(const u32 NodeId, const u32 Event)
 		 */
 		if (((u8)OFFLINE != Notifier->Subsystem->State) ||
 		    (0U != (Event & Notifier->WakeMask))) {
-			(*PmRequestCb)(Notifier->IpiMask, PM_NOTIFY_CB, Payload);
+			XPmNotifier_NotifyTarget(Notifier->IpiMask, Payload);
 		}
 	}
 

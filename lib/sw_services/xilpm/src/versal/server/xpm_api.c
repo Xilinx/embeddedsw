@@ -1389,6 +1389,7 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 	u64 Address = (u64)AddrLow + ((u64)AddrHigh << 32ULL);
 	XPm_Requirement *Reqm;
 	u32 CpuIdleFlag;
+	XPm_Subsystem *Subsystem = NULL;
 
 	/* TODO: Remove this warning fix hack when functionality is implemented */
 	(void)Latency;
@@ -1413,6 +1414,14 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 	}
 
 	if (PM_SUSPEND_STATE_SUSPEND_TO_RAM == State) {
+		Subsystem = XPmSubsystem_GetById(SubsystemId);
+		if (NULL == Subsystem) {
+			Status = XPM_INVALID_SUBSYSID;
+			goto done;
+		}
+		/* Clear the pending suspend cb reason */
+		Subsystem->PendCb.Reason = 0U;
+
 		Status = XPmSubsystem_SetState(SubsystemId, (u32)SUSPENDING);
 		if (XST_SUCCESS != Status) {
 			goto done;
@@ -1478,6 +1487,7 @@ XStatus XPm_RequestSuspend(const u32 SubsystemId, const u32 TargetSubsystemId,
 	u32 Payload[5] = {0};
 	/* Warning Fix */
 	(void) (Ack);
+	XPm_Subsystem *TargetSubsystem = NULL;
 
 	IpiMask = XPmSubsystem_GetIPIMask(TargetSubsystemId);
 	if (0U == IpiMask) {
@@ -1501,6 +1511,17 @@ XStatus XPm_RequestSuspend(const u32 SubsystemId, const u32 TargetSubsystemId,
 		goto done;
 	}
 
+	TargetSubsystem = XPmSubsystem_GetById(TargetSubsystemId);
+	if (NULL == TargetSubsystem) {
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	}
+
+	if (0U != TargetSubsystem->PendCb.Reason) {
+		Status = XPM_PEND_SUSP_CB_FOUND;
+		goto done;
+	}
+
 	/* TODO: Target subsystem must be active to get the suspend request */
 
 	/* TODO: Check if other subsystem has sent suspend request to target subsystem */
@@ -1514,10 +1535,7 @@ XStatus XPm_RequestSuspend(const u32 SubsystemId, const u32 TargetSubsystemId,
 	Payload[4] = 0U;
 
 	/* Send the suspend request via callback */
-	if (NULL != PmRequestCb) {
-		(*PmRequestCb)(IpiMask, PM_INIT_SUSPEND_CB, Payload);
-	}
-
+	XPmNotifier_NotifyTarget(IpiMask, Payload);
 done:
 	if (Status != XST_SUCCESS) {
 		PmErr("Returned: 0x%x\n\r", Status);
@@ -1864,6 +1882,9 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 			goto done;
 		}
 
+		/* Clear the pending suspend cb reason */
+		TargetSubsystem->PendCb.Reason = 0U;
+
 		Status = XPmSubsystem_SetState(TargetSubsystem->Id, (u32)POWERED_OFF);
 		if (XST_SUCCESS != Status) {
 			goto done;
@@ -1930,6 +1951,9 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType,
 			Status = XPM_ERR_CLEANUP;
 			goto done;
 		}
+
+		/* Clear the pending suspend cb reason */
+		Subsystem->PendCb.Reason = 0U;
 
 		Status = XPmSubsystem_SetState(SubsystemId, (u32)POWERED_OFF);
 		goto done;
@@ -4447,14 +4471,18 @@ int XPm_RegisterNotifier(const u32 SubsystemId, const u32 NodeId,
 	}
 
 	/* Validate other parameters */
-	if ((((u32)XPM_NODECLASS_EVENT == NODECLASS(NodeId)) &&
-			(Event >= (u32)XPLMI_NODEIDX_ERROR_PSMERR2_MAX)) ||
-		((((u32)XPM_NODECLASS_DEVICE == NODECLASS(NodeId) ||
-		 (u32)XPM_NODECLASS_POWER == NODECLASS(NodeId))) &&
-			(((0U != Wake) && (1U != Wake)) ||
-			((0U != Enable) && (1U != Enable)) ||
-			(((u32)EVENT_STATE_CHANGE != Event) &&
-			((u32)EVENT_ZERO_USERS != Event))))) {
+	if ((((u32)XPM_NODECLASS_DEVICE == NODECLASS(NodeId)) ||
+	     ((u32)XPM_NODECLASS_POWER == NODECLASS(NodeId))) &&
+	     (((0U != Wake) && (1U != Wake)) ||
+	      ((0U != Enable) && (1U != Enable)) ||
+	      (((u32)EVENT_STATE_CHANGE != Event) &&
+	       ((u32)EVENT_ZERO_USERS != Event)))) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+	if (((u32)XPM_NODECLASS_EVENT == NODECLASS(NodeId)) &&
+	    (((0U != Wake) && (1U != Wake)) ||
+	     ((0U != Enable) && (1U != Enable)))) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}

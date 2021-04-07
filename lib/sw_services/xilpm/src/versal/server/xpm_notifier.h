@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,8 @@ void XPmNotifier_Unregister(const XPm_Subsystem* const Subsystem,
 void XPmNotifier_UnregisterAll(const XPm_Subsystem* const Subsystem);
 
 void XPmNotifier_Event(const u32 NodeId, const u32 Event);
+
+void XPmNotifier_NotifyTarget(u32 IpiMask, u32 *Payload);
 
 #ifdef __cplusplus
 }

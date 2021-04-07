@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -70,6 +70,17 @@ struct XPm_Permissions {
 	u32 PowerdownPerms;
 };
 
+typedef struct XPm_PendSuspCb XPm_PendSuspCb;
+
+/**
+ * The Pending suspend callback
+ */
+struct XPm_PendSuspCb {
+	u32 Reason;
+	u32 Latency;
+	u32 State;
+};
+
 typedef struct XPm_Subsystem XPm_Subsystem;
 
 /**
@@ -81,6 +92,7 @@ struct XPm_Subsystem {
 	u8 Flags; /**< Subsystem specific flags */
 	u32 IpiMask;
 	struct XPm_Permissions Perms;
+	struct XPm_PendSuspCb PendCb;
 	struct XPm_Reqm *Requirements;
 		/**< Head of the requirement list for all devices. */
 	void (*NotifyCb)(u32 SubsystemId, const u32 EventId);
