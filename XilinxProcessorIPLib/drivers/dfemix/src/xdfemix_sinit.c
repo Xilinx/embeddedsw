@@ -24,6 +24,7 @@
 *       dc     02/22/21 include HW in versioning
 *       dc     03/18/21 New model parameter list
 *       dc     04/06/21 Register with full node name
+*       dc     04/07/21 Fix bare metal initialisation
 *
 * </pre>
 *
@@ -106,9 +107,8 @@ XDfeMix XDfeMix_Mixer[XDFEMIX_MAX_NUM_INSTANCES];
 *@note     None.
 *
 ******************************************************************************/
-u32 XDfeMix_GetConfigTable(XDfeMix *InstancePtr, XDfeMix_Config *ConfigTable)
+u32 XDfeMix_GetConfigTable(XDfeMix *InstancePtr, XDfeMix_Config **ConfigTable)
 {
-	(void)ConfigTable;
 	u32 Index;
 	char Str[XDFEMIX_NODE_NAME_MAX_LENGTH];
 	char *AddrStr;
@@ -118,11 +118,11 @@ u32 XDfeMix_GetConfigTable(XDfeMix *InstancePtr, XDfeMix_Config *ConfigTable)
 
 	strncpy(Str, InstancePtr->NodeName, sizeof(Str));
 	AddrStr = strtok(Str, ".");
-	Addr = atoi(AddrStr);
+	Addr = strtol(AddrStr, NULL, 16);
 
 	for (Index = 0; Index < XDFEMIX_MAX_NUM_INSTANCES; Index++) {
 		if (XDfeMix_ConfigTable[Index].BaseAddr == Addr) {
-			ConfigTable = &XDfeMix_ConfigTable[Index];
+			*ConfigTable = &XDfeMix_ConfigTable[Index];
 			return XST_SUCCESS;
 		}
 	}
@@ -377,7 +377,7 @@ end_failure:
 	XDfeMix_Config *ConfigTable = NULL;
 
 	/* Find the Config table which base address is a match */
-	if (XST_FAILURE == XDfeMix_GetConfigTable(InstancePtr, ConfigTable)) {
+	if (XST_FAILURE == XDfeMix_GetConfigTable(InstancePtr, &ConfigTable)) {
 		metal_log(METAL_LOG_ERROR, "\nFailed to read device tree");
 		metal_device_close(Dev);
 		return XST_FAILURE;

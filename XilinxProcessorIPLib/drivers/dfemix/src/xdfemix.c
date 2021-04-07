@@ -23,6 +23,7 @@
 *       dc     02/22/21 include HW in versioning
 *       dc     03/18/21 New model parameter list
 *       dc     04/06/21 Register with full node name
+*       dc     04/07/21 Fix bare metal initialisation
 *
 * </pre>
 *
@@ -62,6 +63,7 @@
 /************************** Variable Definitions ****************************/
 #ifdef __BAREMETAL__
 extern struct metal_device CustomDevice[XDFEMIX_MAX_NUM_INSTANCES];
+extern metal_phys_addr_t metal_phys[XDFEMIX_MAX_NUM_INSTANCES];
 #endif
 extern XDfeMix XDfeMix_Mixer[XDFEMIX_MAX_NUM_INSTANCES];
 static u32 XDfeMix_DriverHasBeenRegisteredOnce = 0U;
@@ -1060,6 +1062,11 @@ XDfeMix *XDfeMix_InstanceInit(const char *DeviceNodeName)
 {
 	u32 Index;
 	XDfeMix *InstancePtr;
+#ifdef __BAREMETAL__
+	char Str[XDFEMIX_NODE_NAME_MAX_LENGTH];
+	char *AddrStr;
+	u32 Addr;
+#endif
 
 	Xil_AssertNonvoid(DeviceNodeName != NULL);
 	Xil_AssertNonvoid(strlen(DeviceNodeName) <
@@ -1067,7 +1074,7 @@ XDfeMix *XDfeMix_InstanceInit(const char *DeviceNodeName)
 
 	/* Is this first mixer initialisation ever? */
 	if (0U == XDfeMix_DriverHasBeenRegisteredOnce) {
-		/* Set up environment environment */
+		/* Set up environment to non-initialized */
 		for (Index = 0; Index < XDFEMIX_MAX_NUM_INSTANCES; Index++) {
 			XDfeMix_Mixer[Index].StateId = XDFEMIX_STATE_NOT_READY;
 			XDfeMix_Mixer[Index].NodeName[0] = '\0';
@@ -1103,6 +1110,20 @@ XDfeMix *XDfeMix_InstanceInit(const char *DeviceNodeName)
 	return NULL;
 
 register_metal:
+#ifdef __BAREMETAL__
+	memcpy(Str, InstancePtr->NodeName, XDFEMIX_NODE_NAME_MAX_LENGTH);
+	AddrStr = strtok(Str, ".");
+	Addr = strtol(AddrStr, NULL, 16);
+	for(Index=0; Index < XDFEMIX_MAX_NUM_INSTANCES; Index++) {
+		if(Addr == metal_phys[Index]) {
+			InstancePtr->Device = &CustomDevice[Index];
+			goto bm_register_metal;
+		}
+	}
+	return NULL;
+bm_register_metal:
+#endif
+
 	/* Register libmetal for this OS process */
 	if (XST_SUCCESS != XDfeMix_RegisterMetal(InstancePtr,
 						 &InstancePtr->Device,

@@ -65,6 +65,30 @@ static int XDfeMix_SelfTestExample();
 static int XDfeMix_AddCCTestExample();
 
 /************************** Variable Definitions ****************************/
+#ifdef __BAREMETAL__
+metal_phys_addr_t metal_phys[XDFEMIX_MAX_NUM_INSTANCES] = {
+	XPAR_XDFEMIX_0_S_AXI_BASEADDR,
+};
+struct metal_device CustomDevice[XDFEMIX_MAX_NUM_INSTANCES] = {
+	{
+		.name = XPAR_XDFEMIX_0_DEV_NAME,
+		.bus = NULL,
+		.num_regions = 1,
+		.regions = { {
+			.virt = (void *)XPAR_XDFEMIX_0_S_AXI_BASEADDR,
+			.physmap = &metal_phys[0],
+			.size = 0x10000,
+			.page_shift = (u32)(-1),
+			.page_mask = (u32)(-1),
+			.mem_flags = 0x0,
+			.ops = { NULL },
+		} },
+		.node = { NULL },
+		.irq_num = 0,
+		.irq_info = NULL,
+	},
+};
+#endif
 
 /****************************************************************************/
 /**
@@ -152,9 +176,9 @@ static int XDfeMix_SelfTestExample()
 	/* Go through initialization states of the state machine */
 	XDfeMix_Reset(InstancePtr);
 	XDfeMix_Configure(InstancePtr, &Cfg);
-	XDfeMix_WriteReg(InstancePtr, 0x20, 0x1001);
+	XDfeMix_WriteReg(InstancePtr, 0x20, 0x1001); /* Bug in IP workaround */
 	XDfeMix_Initialize(InstancePtr);
-	XDfeMix_WriteReg(InstancePtr, 0x20, 0x1001);
+	XDfeMix_WriteReg(InstancePtr, 0x20, 0x1001); /* Bug in IP workaround */
 	XDfeMix_Activate(InstancePtr, true);
 
 	/* Write and read a dummy frequency configuration */
@@ -229,10 +253,10 @@ static int XDfeMix_AddCCTestExample()
 	/* Go through initialization states of the state machine */
 	XDfeMix_Reset(InstancePtr);
 	XDfeMix_Configure(InstancePtr, &Cfg);
-	XDfeMix_WriteReg(InstancePtr, 0x20, 0x1001);
+	XDfeMix_WriteReg(InstancePtr, 0x20, 0x1001); /* Bug in IP workaround */
 	XDfeMix_Initialize(InstancePtr);
 	XDfeMix_SetTriggersCfg(InstancePtr, &TriggerCfg);
-	XDfeMix_WriteReg(InstancePtr, 0x20, 0x1001);
+	XDfeMix_WriteReg(InstancePtr, 0x20, 0x1001); /* Bug in IP workaround */
 	XDfeMix_Activate(InstancePtr, false);
 
 	/* Add channel */
