@@ -646,10 +646,12 @@ done:
  *        the device.
  *
  ****************************************************************************/
-XStatus XPmProt_PpuControl(const XPm_Requirement *Reqm, u32 Enable)
+XStatus XPmProt_PpuControl(const XPm_Requirement *Reqm,
+			   u32 Address,
+			   u32 Enable)
 {
 	XStatus Status = XST_FAILURE;
-	u32 DeviceBaseAddr = 0;
+	u32 DeviceBaseAddr = Address;
 	XPm_ProtPpu *PpuNode = NULL;
 	u32 PpuBase = 0;
 	u32 ApertureAddress = 0;
