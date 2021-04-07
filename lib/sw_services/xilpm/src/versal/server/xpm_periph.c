@@ -236,7 +236,7 @@ static XStatus HandleHbMonDeviceState(XPm_Device* const Device, const u32 NextSt
 			 * configuration in the error node.
 			 */
 			XPlmi_UpdateErrorSubsystemId(XPLMI_EVENT_ERROR_SW_ERR,
-							(u32)XPLMI_NODEIDX_ERROR_HB_MON_0 + HbMon_Id,
+							(u32)1U << HbMon_Id,
 							Device->Requirements->Subsystem->Id);
 			Status = XST_SUCCESS;
 		}
@@ -348,7 +348,7 @@ static int HbMon_Scheduler(void *data)
 									Idx);
 			HbMon_TimeoutList[Idx] = 0U;
 			XPlmi_HandleSwError(XPLMI_EVENT_ERROR_SW_ERR,
-						(u32)XPLMI_NODEIDX_ERROR_HB_MON_0 + Idx);
+						(u32)1U << Idx);
 		} else {
 			HbMon_TimeoutList[Idx] = HbMon_TimeoutList[Idx] - HbMon_SchedFreq;
 		}
