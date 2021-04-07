@@ -12,6 +12,7 @@
 #include "xpm_rpucore.h"
 #include "xpm_npdomain.h"
 #include "xpm_debug.h"
+#include "xpm_prot.h"
 
 #define XPM_TCM_BASEADDRESS_MODE_OFFSET	0x80000U
 
@@ -290,6 +291,13 @@ static const XPm_StateTran XPmMemDevTransitions[] = {
 	},
 };
 
+static XStatus TcmProtControl(const XPm_Requirement *Reqm, u32 Enable)
+{
+	XPm_MemDevice *Tcm = (XPm_MemDevice *)Reqm->Device;
+
+	return XPmProt_PpuControl(Reqm, Tcm->StartAddress, Enable);
+}
+
 static void TcmEccInit(XPm_MemDevice *Tcm, u32 Mode)
 {
 	u32 Size = Tcm->EndAddress - Tcm->StartAddress;
@@ -506,6 +514,8 @@ XStatus XPmMemDevice_Init(XPm_MemDevice *MemDevice,
 		break;
 	case (u32)XPM_NODETYPE_DEV_TCM:
 		MemDevice->Device.DeviceFsm = &XPmTcmDeviceFsm;
+		/* TCM is protected by XPPU */
+		MemDevice->Device.HandleProtection = &TcmProtControl;
 		break;
 	case (u32)XPM_NODETYPE_DEV_OCM_REGN:
 	case (u32)XPM_NODETYPE_DEV_DDR_REGN:
@@ -518,6 +528,8 @@ XStatus XPmMemDevice_Init(XPm_MemDevice *MemDevice,
 		 * and will never be turned off.
 		 */
 		MemDevice->Device.DeviceFsm = &XPmMemRegnDeviceFsm;
+		/* XMPU handler for memory regions */
+		MemDevice->Device.HandleProtection = &XPmProt_MpuControl;
 		break;
 	default:
 		MemDevice->Device.DeviceFsm = &XPmMemDeviceFsm;
