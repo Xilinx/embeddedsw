@@ -1004,6 +1004,7 @@ AieRC XAie_DmaChannelPauseMem(XAie_DevInst *DevInst, XAie_LocType Loc, u8 ChNum,
 AieRC XAie_DmaChannelPushBdToQueue(XAie_DevInst *DevInst, XAie_LocType Loc,
 		u8 ChNum, XAie_DmaDirection Dir, u8 BdNum)
 {
+	AieRC RC;
 	u8 TileType;
 	u64 Addr;
 	const XAie_DmaMod *DmaMod;
@@ -1035,6 +1036,10 @@ AieRC XAie_DmaChannelPushBdToQueue(XAie_DevInst *DevInst, XAie_LocType Loc,
 		XAIE_ERROR("Invalid BD number\n");
 		return XAIE_INVALID_BD_NUM;
 	}
+
+	RC = DmaMod->BdChValidity(BdNum, ChNum);
+	if(RC != XAIE_OK)
+		return RC;
 
 	Addr = _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) +
 		DmaMod->ChCtrlBase + ChNum * DmaMod->ChIdxOffset +
@@ -1303,6 +1308,7 @@ AieRC XAie_DmaChannelSetStartQueue(XAie_DevInst *DevInst, XAie_LocType Loc,
 		u8 ChNum, XAie_DmaDirection Dir, u8 BdNum, u32 RepeatCount,
 		u8 EnTokenIssue)
 {
+	AieRC RC;
 	u8 TileType;
 	u32 Val = 0;
 	u64 Addr;
@@ -1350,6 +1356,10 @@ AieRC XAie_DmaChannelSetStartQueue(XAie_DevInst *DevInst, XAie_LocType Loc,
 		XAIE_ERROR("Invalid Repeat Count: %d\n", RepeatCount);
 		return XAIE_INVALID_ARGS;
 	}
+
+	RC = DmaMod->BdChValidity(BdNum, ChNum);
+	if(RC != XAIE_OK)
+		return RC;
 
 	Addr = _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) +
 		DmaMod->StartQueueBase + ChNum * DmaMod->ChIdxOffset +

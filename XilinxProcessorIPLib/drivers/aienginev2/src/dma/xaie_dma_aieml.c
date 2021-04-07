@@ -687,4 +687,54 @@ AieRC _XAieMl_DmaWaitForDone(XAie_DevInst *DevInst, XAie_LocType Loc,
 	return XAIE_OK;
 }
 
+/*****************************************************************************/
+/**
+*
+* This API is used to check the validity of Bd number and Channel number
+* combination.
+*
+* @param	BdNum: Buffer descriptor number.
+* @param	ChNum: Channel number of the DMA.
+* @param        TimeOutUs - Minimum timeout value in micro seconds.
+*
+* @return	XAIE_OK on success, Error code on failure.
+*
+* @note		Internal only. For AIEML Tiles only. This is a dummy function as
+*		there is no restriction in AIE tile dma and shim dma.
+*
+******************************************************************************/
+AieRC _XAieMl_DmaCheckBdChValidity(u8 BdNum, u8 ChNum)
+{
+	(void)BdNum;
+	(void)ChNum;
+
+	return XAIE_OK;
+}
+
+/*****************************************************************************/
+/**
+*
+* This API is used to check the validity of Bd number and Channel number
+* combination.
+*
+* @param	BdNum: Buffer descriptor number.
+* @param	ChNum: Channel number of the DMA.
+* @param        TimeOutUs - Minimum timeout value in micro seconds.
+*
+* @return	XAIE_OK on success, Error code on failure.
+*
+* @note		Internal only. For AIEML Mem Tiles only.
+*
+******************************************************************************/
+AieRC _XAieMl_MemTileDmaCheckBdChValidity(u8 BdNum, u8 ChNum)
+{
+	if((BdNum < 24U) && ((ChNum % 2U) == 0U))
+		return XAIE_OK;
+	else if((BdNum >= 24U) && ((ChNum % 2U) == 1U))
+		return XAIE_OK;
+
+	XAIE_ERROR("Invalid BdNum, ChNum combination\n");
+	return XAIE_INVALID_ARGS;
+}
+
 /** @} */

@@ -379,6 +379,7 @@ static const  XAie_DmaMod Aie2MemTileDmaMod =
 	.WriteBd = &_XAieMl_MemTileDmaWriteBd,
 	.PendingBd = &_XAieMl_DmaGetPendingBdCount,
 	.WaitforDone = &_XAieMl_DmaWaitForDone,
+	.BdChValidity = &_XAieMl_MemTileDmaCheckBdChValidity,
 };
 
 static const  XAie_DmaBdEnProp Aie2TileDmaBdEnProp =
@@ -599,6 +600,7 @@ static const  XAie_DmaMod Aie2TileDmaMod =
 	.WriteBd = &_XAieMl_TileDmaWriteBd,
 	.PendingBd = &_XAieMl_DmaGetPendingBdCount,
 	.WaitforDone = &_XAieMl_DmaWaitForDone,
+	.BdChValidity = &_XAieMl_DmaCheckBdChValidity,
 };
 
 static const  XAie_DmaBdEnProp Aie2ShimDmaBdEnProp =
@@ -834,6 +836,7 @@ static const  XAie_DmaMod Aie2ShimDmaMod =
 	.WriteBd = &_XAieMl_ShimDmaWriteBd,
 	.PendingBd = &_XAieMl_DmaGetPendingBdCount,
 	.WaitforDone = &_XAieMl_DmaWaitForDone,
+	.BdChValidity = &_XAieMl_DmaCheckBdChValidity,
 };
 
 /*
