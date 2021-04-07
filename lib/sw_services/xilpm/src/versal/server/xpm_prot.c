@@ -641,7 +641,7 @@ done:
  *        the device.
  *
  ****************************************************************************/
-static XStatus XPmProt_XppuConfigure(const XPm_Requirement *Reqm, u32 Enable)
+XStatus XPmProt_PpuControl(const XPm_Requirement *Reqm, u32 Enable)
 {
 	XStatus Status = XST_FAILURE;
 	u32 DeviceBaseAddr = 0;
@@ -1005,7 +1005,7 @@ done:
  * @return XST_SUCCESS if successful else appropriate failure code
  *
  ****************************************************************************/
-static XStatus XPmProt_XmpuConfigure(XPm_Requirement *Reqm, u32 Enable)
+XStatus XPmProt_MpuControl(const XPm_Requirement *Reqm, u32 Enable)
 {
 	XStatus Status = XST_FAILURE;
 	u64 RegnStart, RegnEnd, DevStart, DevEnd;
@@ -1015,7 +1015,6 @@ static XStatus XPmProt_XmpuConfigure(XPm_Requirement *Reqm, u32 Enable)
 	XPm_ProtMpu *MpuNode = NULL;
 	XPm_MemDevice *MemDevice = NULL;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-
 	u8 XmpuIdx;
 
 	if ((NULL == Reqm) || (NULL == Reqm->Device)) {
@@ -1147,7 +1146,7 @@ XStatus XPmProt_Configure(XPm_Requirement *Reqm, u32 Enable)
 		 * Add support for protecting FPD Slave peripherals protected by XMPU.
 		 * Current support is only for OCM and DDR memory regions.
 		 */
-		Status = XPmProt_XmpuConfigure(Reqm, Enable);
+		Status = XPmProt_MpuControl(Reqm, Enable);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_XMPU_CONFIG;
 		}
@@ -1155,7 +1154,7 @@ XStatus XPmProt_Configure(XPm_Requirement *Reqm, u32 Enable)
 	} else if (((u32)XPM_NODESUBCL_DEV_CORE == DevSubcl)
 		|| ((u32)XPM_NODESUBCL_DEV_MEM == DevSubcl)
 		|| ((u32)XPM_NODESUBCL_DEV_PERIPH == DevSubcl)) {
-		Status = XPmProt_XppuConfigure(Reqm, Enable);
+		Status = XPmProt_PpuControl(Reqm, Enable);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_XPPU_CONFIG;
 		}
@@ -1325,7 +1324,7 @@ done:
  * @return XST_SUCCESS if successful; appropriate failure code otherwise
  *
  ****************************************************************************/
-XStatus XPmProtPpu_Init(XPm_ProtPpu *PpuNode,
+XStatus XPmProt_PpuInit(XPm_ProtPpu *PpuNode,
 			u32 Id,
 			u32 BaseAddr,
 			XPm_Power *Power)
@@ -1371,7 +1370,7 @@ done:
  * @return XST_SUCCESS if successful; appropriate failure code otherwise
  *
  ****************************************************************************/
-XStatus XPmProtMpu_Init(XPm_ProtMpu *MpuNode,
+XStatus XPmProt_MpuInit(XPm_ProtMpu *MpuNode,
 			u32 Id,
 			u32 BaseAddr,
 			XPm_Power *Power)
