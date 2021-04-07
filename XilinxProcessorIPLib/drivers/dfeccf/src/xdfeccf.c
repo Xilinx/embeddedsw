@@ -24,6 +24,7 @@
 *       dc     03/16/21 update activate & deactivate api
 *       dc     03/25/21 Device tree item name change
 *       dc     04/06/21 Register with full node name
+*       dc     04/07/21 Fix bare metal initialisation
 *
 * </pre>
 *
@@ -57,6 +58,7 @@
 /************************** Variable Definitions ****************************/
 #ifdef __BAREMETAL__
 extern struct metal_device CustomDevice[XDFECCF_MAX_NUM_INSTANCES];
+extern metal_phys_addr_t metal_phys[XDFECCF_MAX_NUM_INSTANCES];
 #endif
 extern XDfeCcf XDfeCcf_ChFilter[XDFECCF_MAX_NUM_INSTANCES];
 static u32 XDfeCcf_DriverHasBeenRegisteredOnce = 0U;
@@ -666,6 +668,11 @@ XDfeCcf *XDfeCcf_InstanceInit(const char *DeviceNodeName)
 {
 	u32 Index;
 	XDfeCcf *InstancePtr;
+#ifdef __BAREMETAL__
+	char Str[XDFECCF_NODE_NAME_MAX_LENGTH];
+	char *AddrStr;
+	u32 Addr;
+#endif
 
 	Xil_AssertNonvoid(DeviceNodeName != NULL);
 	Xil_AssertNonvoid(strlen(DeviceNodeName) <
@@ -710,6 +717,20 @@ XDfeCcf *XDfeCcf_InstanceInit(const char *DeviceNodeName)
 	return NULL;
 
 register_metal:
+#ifdef __BAREMETAL__
+	memcpy(Str, InstancePtr->NodeName, XDFECCF_NODE_NAME_MAX_LENGTH);
+	AddrStr = strtok(Str, ".");
+	Addr = strtol(AddrStr, NULL, 16);
+	for(Index=0; Index < XDFECCF_MAX_NUM_INSTANCES; Index++) {
+		if(Addr == metal_phys[Index]) {
+			InstancePtr->Device = &CustomDevice[Index];
+			goto bm_register_metal;
+		}
+	}
+	return NULL;
+bm_register_metal:
+#endif
+
 	/* Register libmetal for this OS process */
 	if (XST_SUCCESS != XDfeCcf_RegisterMetal(InstancePtr,
 						 &InstancePtr->Device,

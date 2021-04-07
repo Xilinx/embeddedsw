@@ -30,6 +30,7 @@
 *       dc     02/08/21 align driver to curent specification
 *       dc     02/22/21 include HW in versioning
 *       dc     04/06/21 Register with full node name
+*       dc     04/07/21 Fix bare metal initialisation
 *
 * </pre>
 *
@@ -67,6 +68,48 @@ static int XDfeCcf_MultiInstancesExample();
 static int XDfeCcf_PassThroughTestExample();
 
 /************************** Variable Definitions ****************************/
+#ifdef __BAREMETAL__
+metal_phys_addr_t metal_phys[XDFECCF_MAX_NUM_INSTANCES] = {
+	XPAR_XDFECCF_0_BASEADDR,
+	XPAR_XDFECCF_1_BASEADDR,
+};
+struct metal_device CustomDevice[XDFECCF_MAX_NUM_INSTANCES] = {
+	{
+		.name = XPAR_XDFECCF_0_DEV_NAME,
+		.bus = NULL,
+		.num_regions = 1,
+		.regions = { {
+			.virt = (void *)XPAR_XDFECCF_0_BASEADDR,
+			.physmap = &metal_phys[0],
+			.size = 0x10000,
+			.page_shift = (u32)(-1),
+			.page_mask = (u32)(-1),
+			.mem_flags = 0x0,
+			.ops = { NULL },
+		} },
+		.node = { NULL },
+		.irq_num = 0,
+		.irq_info = NULL,
+	},
+	{
+		.name = XPAR_XDFECCF_1_DEV_NAME,
+		.bus = NULL,
+		.num_regions = 1,
+		.regions = { {
+			.virt = (void *)XPAR_XDFECCF_1_BASEADDR,
+			.physmap = &metal_phys[0],
+			.size = 0x10000,
+			.page_shift = (u32)(-1),
+			.page_mask = (u32)(-1),
+			.mem_flags = 0x0,
+			.ops = { NULL },
+		} },
+		.node = { NULL },
+		.irq_num = 0,
+		.irq_info = NULL,
+	},
+};
+#endif
 
 /****************************************************************************/
 /**

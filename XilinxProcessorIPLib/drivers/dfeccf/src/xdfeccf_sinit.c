@@ -24,6 +24,7 @@
 *       dc     02/22/21 include HW in versioning
 *       dc     03/25/21 Device tree item name change
 *       dc     04/06/21 Register with full node name
+*       dc     04/07/21 Fix bare metal initialisation
 *
 * </pre>
 *
@@ -103,9 +104,8 @@ XDfeCcf XDfeCcf_ChFilter[XDFECCF_MAX_NUM_INSTANCES];
 *@note     None.
 *
 ******************************************************************************/
-u32 XDfeCcf_GetConfigTable(XDfeCcf *InstancePtr, XDfeCcf_Config *ConfigTable)
+u32 XDfeCcf_GetConfigTable(XDfeCcf *InstancePtr, XDfeCcf_Config **ConfigTable)
 {
-	(void)ConfigTable;
 	u32 Index;
 	char Str[XDFECCF_NODE_NAME_MAX_LENGTH];
 	char *AddrStr;
@@ -115,11 +115,11 @@ u32 XDfeCcf_GetConfigTable(XDfeCcf *InstancePtr, XDfeCcf_Config *ConfigTable)
 
 	strncpy(Str, InstancePtr->NodeName, sizeof(Str));
 	AddrStr = strtok(Str, ".");
-	Addr = atoi(AddrStr);
+	Addr = strtol(AddrStr, NULL, 16);
 
 	for (Index = 0; Index < XDFECCF_MAX_NUM_INSTANCES; Index++) {
 		if (XDfeCcf_ConfigTable[Index].BaseAddr == Addr) {
-			ConfigTable = &XDfeCcf_ConfigTable[Index];
+			*ConfigTable = &XDfeCcf_ConfigTable[Index];
 			return XST_SUCCESS;
 		}
 	}
@@ -321,10 +321,10 @@ end_failure:
 	metal_device_close(Dev);
 	return XST_FAILURE;
 #else
-	XDfeCcf_Config *ConfigTable = NULL;
+	XDfeCcf_Config *ConfigTable=NULL;
 
 	/* Find the Config table which base address is a match */
-	if (XST_FAILURE == XDfeCcf_GetConfigTable(InstancePtr, ConfigTable)) {
+	if (XST_FAILURE == XDfeCcf_GetConfigTable(InstancePtr, &ConfigTable)) {
 		metal_log(METAL_LOG_ERROR, "\nFailed to read device tree");
 		metal_device_close(Dev);
 		return XST_FAILURE;
