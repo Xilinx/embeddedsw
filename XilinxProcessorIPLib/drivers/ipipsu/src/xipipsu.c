@@ -30,6 +30,7 @@
 *       ma  03/04/21    Initialize BufferIndex during IPI config init
 *	sdd 03/10/21	Fixed misrac warnings.
 *		     	Fixed doxygen warnings.
+*	ag	03/31/21	Fixed IPI poll for ack condition check.
 * </pre>
 *
 *****************************************************************************/
@@ -168,7 +169,7 @@ XStatus XIpiPsu_PollForAck(const XIpiPsu *InstancePtr, u32 DestCpuMask,
 		/* Check if the IPI was Acknowledged by the Target or we Timed Out*/
 	} while ((0x00000000U != Flag) && (PollCount < TimeOutCount));
 
-	if (PollCount >= TimeOutCount) {
+	if (0x00000000U != Flag) {
 		Status = (XStatus)XST_FAILURE;
 	} else {
 		Status = (XStatus)XST_SUCCESS;
