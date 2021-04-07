@@ -127,39 +127,6 @@ static const u8 RegnAddrOffsets[MAX_MEM_REGIONS] = {
  */
 #define REGN_ADDR_OFFSET(region)	((u32)RegnAddrOffsets[(region)])
 
-/**
- * Returns true if given NodeId is part of the device exclusion list
- */
-static u32 XPmProt_IsExcluded(u32 NodeId)
-{
-	u32 i = 0;
-	u32 Excluded = 0U;
-
-	/**
-	 * Device exclusion list
-	 *  - Contains devices for which no dynamic reconfiguration
-	 *  of protection unit will be supported.
-	 */
-	static const u32 ExcludedDevs[] = {
-		PM_DEV_IPI_0,
-		PM_DEV_IPI_1,
-		PM_DEV_IPI_2,
-		PM_DEV_IPI_3,
-		PM_DEV_IPI_4,
-		PM_DEV_IPI_5,
-		PM_DEV_IPI_6,
-		PM_DEV_IPI_PMC,
-	};
-
-	for (i = 0U; i < ARRAY_SIZE(ExcludedDevs); i++) {
-		if (ExcludedDevs[i] == NodeId) {
-			Excluded = 1U;
-			break;
-		}
-	}
-	return Excluded;
-}
-
 /****************************************************************************/
 /**
  * @brief  Returns a handle to protection node from given Node Id
@@ -454,64 +421,6 @@ done:
 
 /****************************************************************************/
 /**
- * @brief  Get device base address from device object for "supported" devices
- *
- * @param  Device: handle to device object
- *
- * @return base address if stored in base class, else 0
- *
- * @note  This function will return the base address of the selected devices.
- *	  For a few devices, where the base addresses are not stored in dev
- *	  base class, the address returned will be 0. Such devices can be but
- *	  are not limited to PMC Proc, PSM Proc and DDR.
- *
- ****************************************************************************/
-static u32 XPmProt_GetDevBaseAddr(XPm_Device *Device)
-{
-	u32 BaseAddr = 0;
-	u32 DeviceId, DevSubcl, DevType;
-
-	if (NULL == Device) {
-		goto done;
-	}
-	DeviceId = Device->Node.Id;
-	DevSubcl = NODESUBCLASS(DeviceId);
-	DevType = NODETYPE(DeviceId);
-
-	/* By default, the base address is stored in base class */
-	BaseAddr = Device->Node.BaseAddress;
-
-	switch (DevSubcl) {
-	case (u32)XPM_NODESUBCL_DEV_CORE:
-		if ((u32)XPM_NODETYPE_DEV_CORE_APU == DevType) {
-			BaseAddr = ((XPm_ApuCore *)Device)->FpdApuBaseAddr;
-		} else if ((u32)XPM_NODETYPE_DEV_CORE_RPU == DevType) {
-			BaseAddr = ((XPm_RpuCore *)Device)->RpuBaseAddr;
-		} else {
-			/* Any other proc types than APU/RPU, return 0 */
-			BaseAddr = 0;
-		}
-		break;
-	case (u32)XPM_NODESUBCL_DEV_MEM:
-		if ((u32)XPM_NODETYPE_DEV_TCM == DevType) {
-			XPm_MemDevice *Tcm = (XPm_MemDevice *)Device;
-			BaseAddr = Tcm->StartAddress;
-		} else {
-			/* Any other memory types than TCM, return 0 */
-			BaseAddr = 0;
-		}
-		break;
-	default:
-		BaseAddr = Device->Node.BaseAddress;
-		break;
-	}
-
-done:
-	return BaseAddr;
-}
-
-/****************************************************************************/
-/**
  * @brief  Run Dynamic Re-Configuration of XPPU
  *
  * @param  PpuNode: Handle to a XPPU instance
@@ -677,31 +586,6 @@ XStatus XPmProt_PpuControl(const XPm_Requirement *Reqm,
 		Status = XST_SUCCESS;
 		goto done;
 	}
-
-	/*
-	 * Skip dynamic reconfiguration for the excluded device.
-	 */
-	if (1U == XPmProt_IsExcluded(Reqm->Device->Node.Id)) {
-		Status = XST_SUCCESS;
-		goto done;
-	}
-
-	/*
-	 * NOTE:
-	 *  For PMC, PSM, DDR, any other memory devices than TCM and nodes that
-	 *  do not have a base address mapped in topology (i.e. abstract nodes),
-	 *  we'll only support default init permission mask that was set up
-	 *  while enabling XPPU. No dynamic reconfiguration would be supported
-	 *  for these devices.
-	 */
-	DeviceBaseAddr = XPmProt_GetDevBaseAddr(Reqm->Device);
-	if (0U == DeviceBaseAddr) {
-		PmDbg("Aperture permission config not supported for device: 0x%08x\r\n",
-				Reqm->Device->Node.Id);
-		Status = XST_SUCCESS;
-		goto done;
-	}
-	PmDbg("Device Base Address: 0x%08x\r\n", DeviceBaseAddr);
 
 	/* Find XPPU */
 	for (i = 0; i < (u32)XPM_NODEIDX_PROT_MAX; i++)
