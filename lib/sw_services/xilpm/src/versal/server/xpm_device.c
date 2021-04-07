@@ -1124,9 +1124,10 @@ static XStatus Request(XPm_Device *Device, XPm_Subsystem *Subsystem,
 		goto done;
 	}
 
-	Status = XPmProt_Configure(Reqm, 1U);
-	if (XST_SUCCESS != Status) {
-		goto done;
+	/* (Re)Configure device protection if handler is present */
+	if ((PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
+	    (NULL != Device->HandleProtection)) {
+		Status = Device->HandleProtection(Reqm, 1U);
 	}
 
 	Status = HandleDeviceAttr(Reqm, Capabilities, PrevState, 1U);
@@ -1245,9 +1246,10 @@ static XStatus Release(XPm_Device *Device, XPm_Subsystem *Subsystem)
 	XPmRequirement_Clear(Reqm);
 	Device->WfDealloc = 0;
 
-	Status = XPmProt_Configure(Reqm, 0U);
-	if (XST_SUCCESS != Status) {
-		goto done;
+	/* (Re)Configure device protection if handler is present */
+	if ((PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
+	    (NULL != Device->HandleProtection)) {
+		Status = Device->HandleProtection(Reqm, 0U);
 	}
 
 	Status = HandleDeviceAttr(Reqm, 0U, PrevState, 0U);
@@ -1301,6 +1303,9 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 	Device->PendingReqm = NULL;
 	Device->WfDealloc = 0;
 	Device->WfPwrUseCnt = 0;
+
+	/* No protection handler is registered by default */
+	Device->HandleProtection = NULL;
 
 	Status = XPmDevice_AddClock(Device, Clock);
 	if (XST_SUCCESS != Status) {
