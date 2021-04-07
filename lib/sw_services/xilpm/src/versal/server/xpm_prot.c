@@ -601,6 +601,11 @@ static XStatus XPmProt_XppuReconfig(const XPm_ProtPpu *PpuNode,
 	u32 AperAddr = 0;
 	u32 PpuBaseAddr = PpuNode->Node.BaseAddress;
 
+	if ((u8)XPM_PROT_ENABLED != PpuNode->Node.State) {
+		Status = XPM_INVALID_STATE;
+		goto done;
+	}
+
 	if (APER_64K_END >= AperIdx) {
 		Offset = APERIDX_64K_TO_OFFSET(AperIdx);
 		AperAddr = APERADDR_64K(PpuBaseAddr, Offset);
