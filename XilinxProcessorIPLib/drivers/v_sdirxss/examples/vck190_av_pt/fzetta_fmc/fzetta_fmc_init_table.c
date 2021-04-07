@@ -28,6 +28,12 @@
 #include "fzetta_fmc_spi.h"
 #include "fzetta_fmc_init_table.h"
 
+fzetta_fmc_reglist rclkr_errata_id_80[2];
+fzetta_fmc_reglist rclkr_errata_id_81[5];
+fzetta_fmc_reglist rclkr_errata_id_82[3];
+fzetta_fmc_reglist rcvr_errata_id_01[5];
+
+fzetta_fmc_reg fzetta_fmc_table;
 /*****************************************************************************/
 /**
  *
