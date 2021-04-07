@@ -8,6 +8,15 @@
 #include "xpm_apucore.h"
 #include "xpm_regs.h"
 #include "xpm_debug.h"
+#include "xpm_prot.h"
+
+static XStatus XPmApuCore_ProtControl(const XPm_Requirement *Reqm,
+				      u32 Enable)
+{
+	XPm_ApuCore *Apu = (XPm_ApuCore *)Reqm->Device;
+
+	return XPmProt_PpuControl(Reqm, Apu->FpdApuBaseAddr, Enable);
+}
 
 static XStatus XPmApuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 {
@@ -54,6 +63,9 @@ XStatus XPmApuCore_Init(XPm_ApuCore *ApuCore,
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_CORE_INIT;
 	}
+
+	/* Protection handler for APU cores */
+	ApuCore->Core.Device.HandleProtection = &XPmApuCore_ProtControl;
 
 	ApuCore->FpdApuBaseAddr = BaseAddress[0];
 
