@@ -1,10 +1,11 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020-2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #include "xpm_pldevice.h"
 #include "xpm_debug.h"
 #include "xpm_defs.h"
+#include "xpm_aiedevice.h"
 
 #define PWR_DOMAIN_UNUSED_BITMASK		0U
 #define PWR_DOMAIN_NOC_BITMASK			BIT(0)
@@ -566,6 +567,7 @@ XStatus XPmPlDevice_Init(XPm_PlDevice *PlDevice,
 	PlDevice->Parent = NULL;
 	PlDevice->NextPeer = NULL;
 	PlDevice->Child = NULL;
+	PlDevice->AieDevice = NULL;
 	PlDevice->PowerBitMask = (u8)0x0U;
 	PlDevice->WfPowerBitMask = (u8)0x0U;
 	PlDevice->Ops = &PldOps;
