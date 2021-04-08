@@ -44,13 +44,15 @@ static XCsuDma_Config *Config;
 static int XSecure_ShaInitialize(void);
 static int XSecure_ShaUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
 	u32 DstAddrLow, u32 DstAddrHigh);
-static int XSecure_ShaKat();
+static int XSecure_ShaKat(void);
 
 /*************************** Function Definitions *****************************/
 
 /*****************************************************************************/
 /**
  * @brief       This function calls respective IPI handler based on the API_ID
+ *
+ * @param 	Cmd is pointer to the command structure
  *
  * @return	- XST_SUCCESS - If the handler execution is successful
  * 		- ErrorCode - If there is a failure
@@ -61,11 +63,13 @@ int XSecure_Sha3IpiHandler(XPlmi_Cmd *Cmd)
 	volatile int Status = XST_FAILURE;
 	u32 *Pload = Cmd->Payload;
 
-	if ((Cmd->CmdId & 0xFFU) == XSECURE_API(XSECURE_API_SHA3_UPDATE)) {
+	if ((Cmd->CmdId & XSECURE_API_ID_MASK) ==
+		XSECURE_API(XSECURE_API_SHA3_UPDATE)) {
 		Status = XSecure_ShaUpdate(Pload[0], Pload[1],
 				Pload[2], Pload[3], Pload[4]);
 	}
-	else if ((Cmd->CmdId & 0xFFU) == XSECURE_API(XSECURE_API_SHA3_KAT)) {
+	else if ((Cmd->CmdId & XSECURE_API_ID_MASK) ==
+		XSECURE_API(XSECURE_API_SHA3_KAT)) {
 		Status = XSecure_ShaKat();
 	}
 	else {
@@ -116,6 +120,8 @@ END:
  * 				on which hash has to be calculated
  * 		SrcAddrHigh	- Higher 32 bit address of the input data
  * 				on which hash has to be calculated
+ * 		Size		- Size of the input data in bytes to be
+ * 				updated
  * 		DstAddrLow	- Lower 32 bit address of the output data
  * 				where hash to be stored
  * 		DstAddrHigh	- Higher 32 bit address of the output data
@@ -134,6 +140,9 @@ static int XSecure_ShaUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
 
 	if ((Size & XSECURE_IPI_FIRST_PACKET_MASK) != 0x0U) {
 		Status = XSecure_ShaInitialize();
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	}
 
 	if ((Size & XSECURE_IPI_CONTINUE_MASK) != 0x0U) {
@@ -153,6 +162,7 @@ static int XSecure_ShaUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
 		}
 	}
 
+END:
 	return Status;
 }
 
@@ -164,7 +174,7 @@ static int XSecure_ShaUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
  * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XSecure_ShaKat()
+static int XSecure_ShaKat(void)
 {
 	volatile int Status = XST_FAILURE;
 

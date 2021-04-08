@@ -8,7 +8,7 @@
 *
 * @file xsecure_elliptic_ipihandler.c
 *
-*  This file contains the xilsecure elliptic handlers implementation.
+* This file contains the xilsecure elliptic IPI handlers implementation.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -50,6 +50,8 @@ static int XSecure_EllipticExecuteKat(u32 CurveType);
 /**
  * @brief       This function calls respective IPI handler based on the API_ID
  *
+ * @param 	Cmd is pointer to the command structure
+ *
  * @return	- XST_SUCCESS - If the handler execution is successful
  * 		- ErrorCode - If there is a failure
  *
@@ -59,18 +61,18 @@ int XSecure_EllipticIpiHandler(XPlmi_Cmd *Cmd)
 	volatile int Status = XST_FAILURE;
 	u32 *Pload = Cmd->Payload;
 
-	switch (Cmd->CmdId & 0xFFU) {
+	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 	case XSECURE_API(XSECURE_API_ELLIPTIC_GENERATE_KEY):
-		Status = XSecure_EllipticGenKey(Pload[0], Pload[1],
-				Pload[2], Pload[3], Pload[4]);
+		Status = XSecure_EllipticGenKey(Pload[0], Pload[1], Pload[2],
+				Pload[3], Pload[4]);
 		break;
 	case XSECURE_API(XSECURE_API_ELLIPTIC_GENERATE_SIGN):
-		Status = XSecure_EllipticGenSign(Pload[0], Pload[1],
-					Pload[2], Pload[3]);
+		Status = XSecure_EllipticGenSign(Pload[0], Pload[1], Pload[2],
+				Pload[3]);
 		break;
 	case XSECURE_API(XSECURE_API_ELLIPTIC_VALIDATE_KEY):
 		Status = XSecure_EllipticValidatePubKey(Pload[0], Pload[1],
-					 Pload[2]);
+				Pload[2]);
 		break;
 	case XSECURE_API(XSECURE_API_ELLIPTIC_VERIFY_SIGN):
 		Status = XSecure_EllipticVerifySignature(Pload[0], Pload[1]);
@@ -95,10 +97,8 @@ int XSecure_EllipticIpiHandler(XPlmi_Cmd *Cmd)
  * @param	CurveType	- Is a type of elliptic curve
  * 		SrcAddrLow	- Lower 32 bit address of the
  * 				static private key
- *
  * 		SrcAddrHigh	- Higher 32 bit address of the
  * 				static private key
- *
  * 		DstAddrLow	- Lower 32 bit address of the public key
  * 				to be stored
  * 		DstAddrHigh	- Higher 32 bit address of the public key
@@ -109,7 +109,7 @@ int XSecure_EllipticIpiHandler(XPlmi_Cmd *Cmd)
  *
  ******************************************************************************/
 static int XSecure_EllipticGenKey(u32 CurveType, u32 SrcAddrLow,
-			u32 SrcAddrHigh, u32 DstAddrLow, u32 DstAddrHigh)
+	u32 SrcAddrHigh, u32 DstAddrLow, u32 DstAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 SrcAddr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
@@ -166,10 +166,8 @@ END:
  * @param
  * 		SrcAddrLow	- Lower 32 bit address of the
  * 				XSecure_EllipticSignGenParams structure
- *
  * 		SrcAddrHigh	- Higher 32 bit address of the
  * 				XSecure_EllipticSignGenParams structure
- *
  * 		DstAddrLow	- Lower 32 bit address of the signature
  * 				to be stored
  * 		DstAddrHigh	- Higher 32 bit address of the signature
@@ -180,7 +178,7 @@ END:
  *
  ******************************************************************************/
 static int XSecure_EllipticGenSign(u32 SrcAddrLow, u32 SrcAddrHigh,
-					u32 DstAddrLow, u32 DstAddrHigh)
+	u32 DstAddrLow, u32 DstAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 SrcAddr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
@@ -244,7 +242,6 @@ END:
  *
  * @param	CurveType	- Is a type of elliptic curve
  * 		SrcAddrLow	- Lower 32 bit address of the public key
- *
  * 		SrcAddrHigh	- Higher 32 bit address of the public key
  *
  * @return	- XST_SUCCESS - If the elliptic key validation is successful
@@ -252,7 +249,7 @@ END:
  *
  ******************************************************************************/
 static int XSecure_EllipticValidatePubKey(u32 CurveType, u32 SrcAddrLow,
-								u32 SrcAddrHigh)
+	u32 SrcAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 SrcAddr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
@@ -302,7 +299,6 @@ END:
  * @param
  * 		SrcAddrLow	- Lower 32 bit address of the
  * 				XSecure_EllipticSignVerifyParams structure
- *
  * 		SrcAddrHigh	- Higher 32 bit address of the
  * 				XSecure_EllipticSignVerifyParams structure
  *

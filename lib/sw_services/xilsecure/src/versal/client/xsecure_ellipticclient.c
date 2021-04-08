@@ -26,6 +26,7 @@
 /***************************** Include Files *********************************/
 #include "xil_cache.h"
 #include "xsecure_defs.h"
+#include "xsecure_ipi.h"
 #include "xsecure_ellipticclient.h"
 
 /*****************************************************************************/

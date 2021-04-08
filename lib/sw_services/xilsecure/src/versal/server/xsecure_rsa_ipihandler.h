@@ -10,7 +10,7 @@
 * @addtogroup xsecure_apis XilSecure Versal APIs
 * @{
 * @cond xsecure_internal
-* This file contains the xilsecure RSA Handler declaration.
+* This file contains the xilsecure RSA IPI Handler declaration.
 *
 * <pre>
 * MODIFICATION HISTORY:

@@ -33,7 +33,6 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
-#include "xsecure_ipi.h"
 
 /**************************** Type Definitions *******************************/
 
@@ -48,7 +47,7 @@ int XSecure_RsaPublicEncrypt(const u64 KeyAddr, const u64 InDataAddr,
 				const u32 Size, const u64 OutDataAddr);
 int XSecure_RsaSignVerification(const u64 SignAddr, const u64 HashAddr,
 				const u32 Size);
-int XSecure_RsaKat();
+int XSecure_RsaKat(void);
 
 #ifdef __cplusplus
 }

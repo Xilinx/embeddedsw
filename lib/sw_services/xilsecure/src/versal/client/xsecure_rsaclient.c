@@ -25,6 +25,7 @@
 /***************************** Include Files *********************************/
 #include "xil_cache.h"
 #include "xsecure_defs.h"
+#include "xsecure_ipi.h"
 #include "xsecure_rsaclient.h"
 
 /*****************************************************************************/
@@ -156,7 +157,7 @@ int XSecure_RsaSignVerification(const u64 SignAddr, const u64 HashAddr,
  *					RSA data not matched with expected data
  *
  ******************************************************************************/
-int XSecure_RsaKat()
+int XSecure_RsaKat(void)
 {
 	volatile int Status = XST_FAILURE;
 

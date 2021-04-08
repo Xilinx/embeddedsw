@@ -35,7 +35,6 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
-#include "xsecure_ipi.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -44,10 +43,10 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-int XSecure_Sha3Initialize();
+int XSecure_Sha3Initialize(void);
 int XSecure_Sha3Update(const UINTPTR InDataAddr, u32 Size);
 int XSecure_Sha3Finish(const u64 OutDataAddr);
-int XSecure_Sha3Kat();
+int XSecure_Sha3Kat(void);
 
 /************************** Variable Definitions *****************************/
 

@@ -23,6 +23,7 @@
 /***************************** Include Files *********************************/
 #include "xil_cache.h"
 #include "xil_util.h"
+#include "xsecure_ipi.h"
 #include "xsecure_shaclient.h"
 
 /************************** Constant Definitions *****************************/

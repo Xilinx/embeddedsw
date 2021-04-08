@@ -33,7 +33,6 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
-#include "xsecure_ipi.h"
 
 /**************************** Type Definitions *******************************/
 
@@ -67,7 +66,7 @@ typedef enum {
 /************************** Variable Definitions *****************************/
 
 /************************** Function Definitions *****************************/
-int XSecure_AesInitialize();
+int XSecure_AesInitialize(void);
 int XSecure_AesEncryptInit(XSecure_AesKeySource KeySrc, u32 Size, u64 IvAddr);
 int XSecure_AesDecryptInit(XSecure_AesKeySource KeySrc, u32 Size, u64 IvAddr);
 int XSecure_AesUpdateAad(u64 AadAddr, u32 AadSize);
@@ -82,8 +81,8 @@ int XSecure_AesWriteKey(XSecure_AesKeySource KeySrc, u32 Size, u64 KeyAddr);
 int XSecure_AesKekDecrypt(u64 IvAddr, XSecure_AesKeySource DstKeySrc,
 	XSecure_AesKeySource DecKeySrc, u32 Size);
 int XSecure_AesSetDpaCm(u8 DpaCmCfg);
-int XSecure_AesDecryptKat();
-int XSecure_AesDecryptCmKat();
+int XSecure_AesDecryptKat(void);
+int XSecure_AesDecryptCmKat(void);
 
 #ifdef __cplusplus
 }

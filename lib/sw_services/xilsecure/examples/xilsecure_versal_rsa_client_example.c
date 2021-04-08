@@ -28,6 +28,7 @@
 /***************************** Include Files *********************************/
 #include "xil_cache.h"
 #include "xparameters.h"
+#include "xsecure_ipi.h"
 #include "xsecure_rsaclient.h"
 
 /************************** Constant Definitions *****************************/
