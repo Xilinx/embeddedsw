@@ -31,6 +31,8 @@
 *                       with the same handler exists, to ensure no
 *                       interrupt task handlers get missed
 *       bm   04/03/2021 Move task creation out of interrupt context
+*       bsv  04/08/2021 Moved Task Time prints to DEBUG_DETAILED to reduce
+*                       logs on console
 *
 * </pre>
 *
@@ -222,7 +224,7 @@ void XPlmi_TaskDispatchLoop(void)
 	struct metal_list *Node[XPLMI_TASK_PRIORITIES];
 	XPlmi_TaskNode *Task;
 	u32 Index;
-#ifdef PLM_DEBUG_INFO
+#ifdef PLM_DEBUG_DETAILED
 	u64 TaskStartTime;
 	XPlmi_PerfTime PerfTime = {0U};
 #endif
@@ -262,13 +264,13 @@ void XPlmi_TaskDispatchLoop(void)
 		microblaze_enable_interrupts();
 
 		if (Task != NULL) {
-#ifdef PLM_DEBUG_INFO
+#ifdef PLM_DEBUG_DETAILED
 			/* Call the task handler */
 			TaskStartTime = XPlmi_GetTimerValue();
 #endif
 			Xil_AssertVoid(Task->Handler != NULL);
 			Status = Task->Handler(Task->PrivData);
-#ifdef PLM_DEBUG_INFO
+#ifdef PLM_DEBUG_DETAILED
 			XPlmi_MeasurePerfTime(TaskStartTime, &PerfTime);
 			XPlmi_Printf(DEBUG_PRINT_PERF, "%u.%03u ms: Task Time\n\r",
 				(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
