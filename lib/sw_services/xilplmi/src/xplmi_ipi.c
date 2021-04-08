@@ -37,6 +37,7 @@
  *       ma   03/04/2021 Added access check for IPI commands
  *       ma   03/10/2021 Added code to disallow set image info Loader command
  *       bsv  03/24/2021 All IPIs to be acknowledged in XPlmi_IpiDispatchHandler
+ *       bm   04/03/2021 Register IPI handler in IpiInit
  *
  * </pre>
  *
@@ -102,6 +103,11 @@ int XPlmi_IpiInit(void)
 			IpiCfgPtr->TargetList[Index].Mask);
 	}
 
+	Status = XPlmi_RegisterHandler(XPLMI_IPI_IRQ, XPlmi_IpiDispatchHandler,
+			(void *)0U);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	/*
 	 * Enable the IPI IRQ
 	 */

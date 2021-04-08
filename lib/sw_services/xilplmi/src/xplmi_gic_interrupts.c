@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
 * 1.01  kc   04/09/2019 Added code to register/enable/disable interrupts
 * 1.02  bsv  04/04/2020 Code clean up
 * 1.03  bm   10/14/2020 Code clean up
+* 1.04  bm   04/03/2021 Move task creation out of interrupt context
 *
 * </pre>
 *
@@ -46,12 +47,7 @@ static int XPlmi_GicTaskHandler(void *Arg);
 
 /************************** Variable Definitions *****************************/
 static struct GicIntrHandlerTable
-	g_GicPInterruptTable[XPLMI_GICP_SOURCE_COUNT][XPLMI_NO_OF_BITS_IN_REG] = {
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
-	[XPLMI_PMC_GIC_IRQ_GICP0][XPLMI_GICP0_SRC27] =
-		{(void *)0U, XPlmi_IpiDispatchHandler},
-#endif
-};
+	g_GicPInterruptTable[XPLMI_GICP_SOURCE_COUNT][XPLMI_NO_OF_BITS_IN_REG];
 
 /*****************************************************************************/
 /**
@@ -64,10 +60,23 @@ static struct GicIntrHandlerTable
  * @return	None
  *
  *****************************************************************************/
-void XPlmi_GicRegisterHandler(u32 PlmIntrId, GicIntHandler_t Handler, void *Data)
+int XPlmi_GicRegisterHandler(u32 PlmIntrId, GicIntHandler_t Handler, void *Data)
 {
+	int Status = XST_FAILURE;
 	u32 GicPVal;
 	u32 GicPxVal;
+	XPlmi_TaskNode *Task = NULL;
+
+	Task = XPlmi_TaskCreate(XPLM_TASK_PRIORITY_0,
+			XPlmi_GicTaskHandler, (void *)PlmIntrId);
+	if (Task == NULL) {
+		Status = XPlmi_UpdateStatus(XPLM_ERR_TASK_CREATE, 0);
+		XPlmi_Printf(DEBUG_GENERAL, "GIC Interrupt task creation "
+			"error\n\r");
+		goto END;
+	}
+	Task->IntrId = PlmIntrId | XPLMI_IOMODULE_PMC_GIC_IRQ;
+	Task->IsPersistent = (u8)TRUE;
 
 	/* Get the GicP mask */
 	GicPVal = (PlmIntrId & XPLMI_GICP_MASK) >> 8U;
@@ -75,6 +84,10 @@ void XPlmi_GicRegisterHandler(u32 PlmIntrId, GicIntHandler_t Handler, void *Data
 	/** Register Handler */
 	g_GicPInterruptTable[GicPVal][GicPxVal].GicHandler = Handler;
 	g_GicPInterruptTable[GicPVal][GicPxVal].Data = Data;
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -226,12 +239,12 @@ void XPlmi_GicIntrHandler(void *CallbackRef)
  *****************************************************************************/
 static void XPlmi_GicIntrAddTask(u32 Index)
 {
-	XPlmi_TaskNode *Task;
+	XPlmi_TaskNode *Task = NULL;
+	u32 IntrId = Index | XPLMI_IOMODULE_PMC_GIC_IRQ;
 
-	Task = XPlmi_TaskCreate(XPLM_TASK_PRIORITY_0,
-			XPlmi_GicTaskHandler, (void *)Index);
+	Task = XPlmi_GetTaskInstance(NULL, NULL, IntrId);
 	if (Task == NULL) {
-		XPlmi_Printf(DEBUG_GENERAL, "GIC Intr Task Creation Err\n\r");
+		XPlmi_Printf(DEBUG_GENERAL, "GIC Interrrupt add task error\n\r");
 		goto END;
 	}
 	XPlmi_TaskTriggerNow(Task);

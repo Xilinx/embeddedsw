@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,7 +20,8 @@
 * 1.01  kc   04/09/2019 Added code to register/enable/disable interrupts
 * 1.02  bsv  04/04/2020 Code clean up
 * 1.03  bm   10/14/2020 Code clean up
-* 		td   10/19/2020 MISRA C Fixes
+*       td   10/19/2020 MISRA C Fixes
+* 1.04  bm   04/03/2021 Move task creation out of interrupt context
 *
 * </pre>
 *
@@ -146,7 +147,7 @@ struct GicIntrHandlerTable {
 /************************** Function Prototypes ******************************/
 /* Functions defined in xplm_main.c */
 void XPlmi_GicIntrHandler(void *CallbackRef);
-void XPlmi_GicRegisterHandler(u32 PlmIntrId, GicIntHandler_t Handler, void *Data);
+int XPlmi_GicRegisterHandler(u32 PlmIntrId, GicIntHandler_t Handler, void *Data);
 void XPlmi_GicIntrEnable(u32 PlmIntrId);
 void XPlmi_GicIntrDisable(u32 PlmIntrId);
 void XPlmi_GicIntrClearStatus(u32 PlmIntrId);

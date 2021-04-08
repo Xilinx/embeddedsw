@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 *       bsv  04/04/2020 Code clean up
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *       td   10/19/2020 MISRA C Fixes
+* 1.02  bm   04/03/2021 Move task creation out of interrupt context
 *
 * </pre>
 *
@@ -50,6 +51,7 @@ struct XPlmi_Task_t{
 	u32 Interval;
 	u32 OwnerId;
 	XPlmi_Callback_t CustomerFunc;
+	XPlmi_TaskNode *Task;
 	TaskPriority_t Priority;
 };
 

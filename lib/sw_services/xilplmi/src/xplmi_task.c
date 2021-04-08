@@ -30,6 +30,7 @@
 *       skd  03/31/2021 Adding non periodic tasks even if a task
 *                       with the same handler exists, to ensure no
 *                       interrupt task handlers get missed
+*       bm   04/03/2021 Move task creation out of interrupt context
 *
 * </pre>
 *
@@ -50,7 +51,6 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static void XPlmi_TaskDelete(XPlmi_TaskNode *Task);
 
 /************************** Variable Definitions *****************************/
 static struct metal_list TaskQueue[XPLMI_TASK_PRIORITIES];
@@ -69,7 +69,7 @@ static struct metal_list TaskQueue[XPLMI_TASK_PRIORITIES];
  * @return	Pointer to the task node structure
  *
  *****************************************************************************/
-XPlmi_TaskNode * XPlmi_TaskCreate(TaskPriority_t Priority,
+XPlmi_TaskNode* XPlmi_TaskCreate(TaskPriority_t Priority,
 	int (*Handler)(void *Arg), void *PrivData)
 {
 	XPlmi_TaskNode *Task = NULL;
@@ -79,7 +79,7 @@ XPlmi_TaskNode * XPlmi_TaskCreate(TaskPriority_t Priority,
 	}
 
 	/* Get a free task node */
-	Task = XPlmi_GetTaskInstance(NULL, NULL);
+	Task = XPlmi_GetTaskInstance(NULL, NULL, XPLMI_INVALID_INTR_ID);
 	if (Task == NULL) {
 		XPlmi_Printf(DEBUG_GENERAL, "Task creation failed \n\r");
 		goto END;
@@ -103,39 +103,58 @@ END:
  * @return	None
  *
  *****************************************************************************/
-static void XPlmi_TaskDelete(XPlmi_TaskNode *Task)
+void XPlmi_TaskDelete(XPlmi_TaskNode *Task)
 {
-	if (metal_list_is_empty(&Task->TaskNode) == (int)FALSE) {
-		metal_list_del(&Task->TaskNode);
+	if (Task->InQueue != (u8)TRUE) {
+		if (metal_list_is_empty(&Task->TaskNode) == (int)FALSE) {
+			metal_list_del(&Task->TaskNode);
+		}
+		if (Task->IsPersistent != (u8)TRUE) {
+			Task->Delay = 0U;
+			Task->PrivData = NULL;
+			Task->Handler = NULL;
+			Task->IntrId = XPLMI_INVALID_INTR_ID;
+		}
 	}
-	Task->Delay = 0U;
-	Task->PrivData = NULL;
-	Task->Handler = NULL;
+	else {
+		Task->InQueue = (u8)FALSE;
+	}
 }
 
 /*****************************************************************************/
 /**
  * @brief	This function returns the instance of the task with matching
- * handler and private data.
+ * handler and private data or with matching interrupt id
  *
  * @param	Handler is pointer to the task handler
  * @param	PrivData is argument to be passed to the task handler
+ * @param	IntrId is the interrupt id associated with the task
  *
  * @return	Instance of the task in case of a match, NULL otherwise
  *
  *****************************************************************************/
-XPlmi_TaskNode * XPlmi_GetTaskInstance(int (*Handler)(void *Arg), const void *PrivData)
+XPlmi_TaskNode* XPlmi_GetTaskInstance(int (*Handler)(void *Arg),
+		const void *PrivData, const u32 IntrId)
 {
 	XPlmi_TaskNode *Task = NULL;
 	static XPlmi_TaskNode Tasks[XPLMI_TASK_MAX];
 	u8 Index;
 
-	/* Assign free task node */
 	for (Index = 0U; Index < XPLMI_TASK_MAX; Index++) {
 		Task = &Tasks[Index];
-		if ((Task->Handler == Handler) &&
-		    (Task->PrivData == PrivData)) {
-			break;
+		if (IntrId != XPLMI_INVALID_INTR_ID) {
+			/* Return task whose interrupt id is matching */
+			if ((Task->Handler != NULL) &&
+			    (Task->IntrId == IntrId)) {
+				break;
+			}
+		}
+		else {
+			/* Assign free task node */
+			if ((Task->Handler == Handler) &&
+			    (Task->PrivData == PrivData)) {
+				break;
+			}
 		}
 		Task = NULL;
 	}
@@ -157,8 +176,13 @@ void XPlmi_TaskTriggerNow(XPlmi_TaskNode *Task)
 {
 	Xil_AssertVoid(Task->Handler != NULL);
 	if (metal_list_is_empty(&Task->TaskNode) != (int)FALSE) {
-		metal_list_add_tail(&TaskQueue[Task->Priority], &Task->TaskNode);
+		Task->InQueue = (u8)FALSE;
 	}
+	else {
+		Task->InQueue = (u8)TRUE;
+		metal_list_del(&Task->TaskNode);
+	}
+	metal_list_add_tail(&TaskQueue[Task->Priority], &Task->TaskNode);
 }
 
 /*****************************************************************************/

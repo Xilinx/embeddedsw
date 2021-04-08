@@ -27,6 +27,8 @@
 *       rb   03/09/2021 Updated Sem Scan Init API call
 *       skd  03/16/2021 Added XPlm_CreateKeepAliveTask to task list
 *                       for psm is alive feature
+*       bm   04/03/2021 Updated StartupTaskList to be in line with the new
+*                       TaskNode structure
 *
 * </pre>
 *
@@ -82,17 +84,25 @@ int XPlm_AddStartUpTasks(void)
 	 */
 	const struct XPlmi_TaskNode StartUpTaskList[] =
 	{
-		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_ModuleInit, 0U},
-		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_HookBeforePmcCdo, 0U},
-		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_ProcessPmcCdo, 0U},
-		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_HookAfterPmcCdo, 0U},
-		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_LoadBootPdi, 0U},
-		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_HookAfterBootPdi, 0U},
+		{XPLM_TASK_PRIORITY_0, XPLMI_INVALID_INTR_ID, 0U, {NULL, NULL},
+			XPlm_ModuleInit, 0U, (u8)FALSE, (u8)FALSE},
+		{XPLM_TASK_PRIORITY_0, XPLMI_INVALID_INTR_ID, 0U, {NULL, NULL},
+			XPlm_HookBeforePmcCdo, 0U, (u8)FALSE, (u8)FALSE},
+		{XPLM_TASK_PRIORITY_0, XPLMI_INVALID_INTR_ID, 0U, {NULL, NULL},
+			XPlm_ProcessPmcCdo, 0U, (u8)FALSE, (u8)FALSE},
+		{XPLM_TASK_PRIORITY_0, XPLMI_INVALID_INTR_ID, 0U, {NULL, NULL},
+			XPlm_HookAfterPmcCdo, 0U, (u8)FALSE, (u8)FALSE},
+		{XPLM_TASK_PRIORITY_0, XPLMI_INVALID_INTR_ID, 0U, {NULL, NULL},
+			XPlm_LoadBootPdi, 0U, (u8)FALSE, (u8)FALSE},
+		{XPLM_TASK_PRIORITY_0, XPLMI_INVALID_INTR_ID, 0U, {NULL, NULL},
+			XPlm_HookAfterBootPdi, 0U, (u8)FALSE, (u8)FALSE},
 #ifdef XPAR_XIPIPSU_0_DEVICE_ID
-		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_CreateKeepAliveTask, PtrMilliSeconds},
+		{XPLM_TASK_PRIORITY_0, XPLMI_INVALID_INTR_ID, 0U, {NULL, NULL},
+			XPlm_CreateKeepAliveTask, PtrMilliSeconds, (u8)FALSE, (u8)FALSE},
 #endif /* XPAR_XIPIPSU_0_DEVICE_ID */
 #ifdef XPLM_SEM
-		{XPLM_TASK_PRIORITY_0, 0U, {NULL, NULL}, XPlm_SemScanInit, 0U}
+		{XPLM_TASK_PRIORITY_0, XPLMI_INVALID_INTR_ID, 0U, {NULL, NULL},
+			XPlm_SemScanInit, 0U, (u8)FALSE, (u8)FALSE}
 #endif
 	};
 
@@ -104,7 +114,9 @@ int XPlm_AddStartUpTasks(void)
 			Status = XPlmi_UpdateStatus(XPLM_ERR_TASK_CREATE, 0);
 			goto END;
 		}
+		microblaze_disable_interrupts();
 		XPlmi_TaskTriggerNow(Task);
+		microblaze_enable_interrupts();
 	}
 	Status = XST_SUCCESS;
 
