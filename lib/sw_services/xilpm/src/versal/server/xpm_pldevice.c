@@ -63,6 +63,43 @@ static XStatus Pld_UnsetBitPwrBitMask(u8 *BitMask, const u32 NodeId)
 
 /****************************************************************************/
 /**
+ * @brief	Check if a certain PLD Device is a valid device. Qualification
+ * 		for a device to be called valid is:
+ * 		- Should have a structure allocated
+ * 		- Should have a valid existing parent (to prevent broken trees,
+ * 		  as only 1 tree can exist). Exception is for PLD_0 because
+ * 		  it's the root of the tree
+ *
+ * @param PlDevice	PlDevice whose validity needs to be checked
+ *
+ * @return XStatus	Returns XST_SUCCESS or print appropriate error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
+XStatus XPmPlDevice_IsValidPld(XPm_PlDevice *PlDevice)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_PlDevice *Parent;
+
+	if (NULL == PlDevice) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
+	Parent = PlDevice->Parent;
+	if ((NULL == Parent) &&
+	    ((u32)XPM_NODEIDX_DEV_PLD_0 != NODEINDEX(PlDevice->Device.Node.Id))) {
+		goto done;
+	}
+
+	Status = XST_SUCCESS;
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief	Release a PlDevice's children from PMC Subsystem and unlink
  *
  * @param PlDevice	PlDevice whose children need to released and unlinked
