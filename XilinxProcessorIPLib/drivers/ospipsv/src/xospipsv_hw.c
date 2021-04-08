@@ -32,9 +32,9 @@
 #include "sleep.h"
 
 /************************** Constant Definitions *****************************/
-#define MAX_STIG_DELAY_CNT		50000U
-#define MAX_DMA_DELAY_CNT		10000000U
-#define LOCK_MAX_DELAY_CNT	10000000U
+#define MAX_STIG_DELAY_CNT	50000U	/**< Max STIG delay count */
+#define MAX_DMA_DELAY_CNT	10000000U	/**< Max DMA delay count */
+#define LOCK_MAX_DELAY_CNT	10000000U	/**< Max LOCK delay count */
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/

@@ -49,9 +49,14 @@
 #include "xplatform_info.h"
 
 /************************** Constant Definitions *****************************/
-#define SILICON_VERSION_1	0x10U
+
+#define SILICON_VERSION_1	0x10U	/**< Silicon version */
+
+/**
+ * Minimum frequency for Tap grain selection.
+ */
 #define XOSPIPSV_TAP_GRAN_SEL_MIN_FREQ	120000000U
-#define READ_ID		0x9FU
+#define READ_ID		0x9FU	/**< Read Id opcode */
 
 /**************************** Type Definitions *******************************/
 

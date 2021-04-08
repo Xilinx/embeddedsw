@@ -40,7 +40,7 @@
 
 
 /************************** Variable Prototypes ******************************/
-/*
+/**
 * The configuration table for devices
 */
 
