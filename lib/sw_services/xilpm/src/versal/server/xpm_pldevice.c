@@ -629,21 +629,41 @@ done:
 	return Status;
 }
 
-XStatus XPmPlDevice_GetParent(u32 PldId, u32 *Resp)
+/****************************************************************************/
+/**
+ * @brief  Get PLD parent for an AIE/PLD Device
+ *
+ * @param  NodeId: Node Id assigned to a device node
+ * @param  Resp: Pointer to the output data
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note None
+ *
+ ****************************************************************************/
+XStatus XPmPlDevice_GetParent(u32 NodeId, u32 *Resp)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	XPm_PlDevice *PlDevice = NULL;
+	XPm_Device *Device;
 	XPm_PlDevice *Parent = NULL;
 
-	PlDevice = (XPm_PlDevice *)XPmDevice_GetById(PldId);
-	if (NULL == PlDevice) {
+	Device = XPmDevice_GetById(NodeId);
+	if (NULL == Device) {
 		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
 		goto done;
 	}
 
-	/* For PLD0 returned value will be 0U */
-	Parent = PlDevice->Parent;
+	if ((u32)XPM_NODESUBCL_DEV_AIE == NODESUBCLASS(NodeId)) {
+		Parent = ((XPm_AieDevice *)Device)->Parent;
+	} else if ((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(NodeId)) {
+		/* For PLD0 Node parent returned value will be 0U */
+		Parent = ((XPm_PlDevice *)Device)->Parent;
+	} else {
+		DbgErr = XPM_INT_ERR_INVALID_SUBCLASS;
+		goto done;
+	}
+
 	if (NULL != Parent) {
 		*Resp = Parent->Device.Node.Id;
 	} else {
@@ -651,7 +671,6 @@ XStatus XPmPlDevice_GetParent(u32 PldId, u32 *Resp)
 	}
 
 	Status = XST_SUCCESS;
-
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
