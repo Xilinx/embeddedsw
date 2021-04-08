@@ -30,8 +30,6 @@
 /* Device security bit in register */
 #define DEV_NONSECURE			(1U)
 #define DEV_SECURE			(0U)
-#define IS_DEV_AIE(id)			(((u32)XPM_NODECLASS_DEVICE == NODECLASS(id)) && \
-					 ((u32)XPM_NODESUBCL_DEV_AIE == NODESUBCLASS(id)))
 
 static const char *PmDevStates[] = {
 	"UNUSED",
