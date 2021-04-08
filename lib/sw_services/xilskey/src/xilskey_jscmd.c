@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2013 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2013 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -64,6 +64,8 @@
 * 6.9   vns     03/18/20 Fixed Armcc compilation errors
 * 7.0	am      10/04/20 Resolved MISRA C violations
 * 7.1   am      11/29/20 Resolved MISRA C violations
+* 7.1   kpt     04/08/21 Ignored product version of user defined IDCODE when comparing
+*                        with the tap code read from Jtag
 *
 * </pre>
 *
@@ -1412,7 +1414,8 @@ int JtagServerInit(XilSKey_EPl *InstancePtr)
 
   for (i = 0; i < num_taps; i++) {
 	for(index = 0; index < sizeof(IDcodeArray)/sizeof(IDcodeArray[0]); index++) {
-		if( (tap_codes[i] & 0x0FFFFFFF) == IDcodeArray[index].id) {
+		if( (tap_codes[i] & 0x0FFFFFFFU) == (IDcodeArray[index].id &
+							0x0FFFFFFFU)) {
 			InstancePtr->FpgaFlag = IDcodeArray[index].flag;
 			InstancePtr->NumSlr    = IDcodeArray[index].numSlr;
 			InstancePtr->MasterSlr = IDcodeArray[index].masterSlr;
@@ -1550,7 +1553,8 @@ int JtagServerInitBbram(XilSKey_Bbram *InstancePtr)
 
   for (i = 0; i < num_taps; i++) {
 	for(index = 0; index < sizeof(IDcodeArray)/sizeof(IDcodeArray[0]); index++) {
-		if( (tap_codes[i] & 0x0FFFFFFF) == IDcodeArray[index].id) {
+		if( (tap_codes[i] & 0x0FFFFFFFU) == (IDcodeArray[index].id &
+						0x0FFFFFFFU)) {
 			InstancePtr->FpgaFlag = IDcodeArray[index].flag;
 			InstancePtr->NumSlr	  = IDcodeArray[index].numSlr;
 			InstancePtr->MasterSlr = IDcodeArray[index].masterSlr;
