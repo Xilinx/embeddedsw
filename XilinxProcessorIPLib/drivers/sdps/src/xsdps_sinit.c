@@ -39,6 +39,9 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
+/**
+ * XSdPs Configuration Table
+ */
 extern XSdPs_Config XSdPs_ConfigTable[XPAR_XSDPS_NUM_INSTANCES];
 
 /*****************************************************************************/
