@@ -114,6 +114,7 @@ static XStatus Pld_ReleaseChildren(XPm_PlDevice *PlDevice)
 	XStatus Status = XST_FAILURE;
 	XPm_PlDevice *PldChild;
 	XPm_PlDevice *PldToUnlink;
+	XPm_AieDevice *AieToUnlink;
 
 	if (NULL == PlDevice) {
 		Status = XPM_ERR_DEVICE;
@@ -143,6 +144,12 @@ static XStatus Pld_ReleaseChildren(XPm_PlDevice *PlDevice)
 	}
 
 	PlDevice->Child = NULL;
+	AieToUnlink = PlDevice->AieDevice;
+	if (NULL != AieToUnlink) {
+		AieToUnlink->Parent = NULL;
+		PlDevice->AieDevice = NULL;
+	}
+
 	Status = XST_SUCCESS;
 
 done:
