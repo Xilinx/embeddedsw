@@ -62,6 +62,7 @@
 *       dc     02/22/21 include HW in versioning
 *       dc     03/25/21 Device tree item name change
 *       dc     04/06/21 Register with full node name
+*       dc     04/08/21 Set sequence length only once
 *
 * </pre>
 *
@@ -100,7 +101,7 @@ extern "C" {
 
 #define XDFECCF_NODE_NAME_MAX_LENGTH 50U /**< Node name maximum length */
 
-#define XDFECCF_CC_NUM 16U /**< Maximum CC number */
+#define XDFECCF_CC_NUM 16 /**< Maximum CC number */
 #define XDFECCF_ANT_NUM_MAX 8U /**< Maximum anntena number */
 #define XDFECCF_SEQ_LENGTH_MAX 16U /**< Maximum sequence length */
 
@@ -177,7 +178,7 @@ typedef struct {
  */
 typedef struct {
 	u32 Length; /**< [1-16] Sequence length */
-	u32 CCID[XDFECCF_SEQ_LENGTH_MAX]; /**< [0-15].Array of CCID's
+	s32 CCID[XDFECCF_SEQ_LENGTH_MAX]; /**< [0-15].Array of CCID's
 		arranged in the order the CCIDs are required to be processed
 		in the channel filter */
 } XDfeCcf_CCSequence;
@@ -206,6 +207,7 @@ typedef struct {
  * Initialization, "one-time" configuration parameters.
  */
 typedef struct {
+	XDfeCcf_CCSequence Sequence;
 	u32 GainStage; /**< [0,1] Enable gain stage */
 } XDfeCcf_Init;
 
@@ -301,6 +303,8 @@ typedef struct {
 typedef struct {
 	XDfeCcf_Config Config; /**< Config Structure */
 	XDfeCcf_StateId StateId; /**< StateId */
+	s32 NotUsedCCID; /**< Not used CCID */
+	u32 SequenceLength; /**< Exact sequence length */
 	char NodeName[XDFECCF_NODE_NAME_MAX_LENGTH]; /**< Node name */
 	struct metal_io_region *Io; /**< Libmetal IO structure */
 	struct metal_device *Device; /**< Libmetal device structure */
@@ -318,22 +322,22 @@ u32 XDfeCcf_ReadReg(const XDfeCcf *InstancePtr, u32 AddrOffset);
 /* DFE CCF component initialization API */
 void XDfeCcf_Reset(XDfeCcf *InstancePtr);
 void XDfeCcf_Configure(XDfeCcf *InstancePtr, XDfeCcf_Cfg *Cfg);
-void XDfeCcf_Initialize(XDfeCcf *InstancePtr, const XDfeCcf_Init *Init);
+void XDfeCcf_Initialize(XDfeCcf *InstancePtr, XDfeCcf_Init *Init);
 void XDfeCcf_Activate(XDfeCcf *InstancePtr, bool EnableLowPower);
 void XDfeCcf_Deactivate(XDfeCcf *InstancePtr);
 
 /* User APIs */
-u32 XDfeCcf_AddCC(const XDfeCcf *InstancePtr, u32 CCID,
+u32 XDfeCcf_AddCC(XDfeCcf *InstancePtr, s32 CCID, u32 BitSequence,
 		  const XDfeCcf_CarrierCfg *CarrierCfg);
-void XDfeCcf_RemoveCC(const XDfeCcf *InstancePtr, u32 CCID);
-void XDfeCcf_UpdateCC(const XDfeCcf *InstancePtr, u32 CCID,
+void XDfeCcf_RemoveCC(XDfeCcf *InstancePtr, s32 CCID);
+void XDfeCcf_UpdateCC(const XDfeCcf *InstancePtr, s32 CCID,
 		      XDfeCcf_CarrierCfg *CarrierCfg);
 void XDfeCcf_UpdateAntenna(const XDfeCcf *InstancePtr, u32 Ant, bool Enabled);
 void XDfeCcf_GetTriggersCfg(const XDfeCcf *InstancePtr,
 			    XDfeCcf_TriggerCfg *TriggerCfg);
 void XDfeCcf_SetTriggersCfg(const XDfeCcf *InstancePtr,
 			    XDfeCcf_TriggerCfg *TriggerCfg);
-void XDfeCcf_GetCC(const XDfeCcf *InstancePtr, u32 CCID,
+void XDfeCcf_GetCC(const XDfeCcf *InstancePtr, s32 CCID,
 		   XDfeCcf_CarrierCfg *CarrierCfg);
 void XDfeCcf_GetActiveSets(const XDfeCcf *InstancePtr, u32 *IsActive);
 void XDfeCcf_LoadCoefficients(const XDfeCcf *InstancePtr, u32 Set,

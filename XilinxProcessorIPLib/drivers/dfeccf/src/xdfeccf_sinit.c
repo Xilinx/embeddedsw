@@ -321,7 +321,7 @@ end_failure:
 	metal_device_close(Dev);
 	return XST_FAILURE;
 #else
-	XDfeCcf_Config *ConfigTable=NULL;
+	XDfeCcf_Config *ConfigTable = NULL;
 
 	/* Find the Config table which base address is a match */
 	if (XST_FAILURE == XDfeCcf_GetConfigTable(InstancePtr, &ConfigTable)) {
