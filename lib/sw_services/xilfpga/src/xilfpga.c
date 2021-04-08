@@ -67,9 +67,11 @@
 #include "xilfpga.h"
 
 /************************** Function Prototypes ******************************/
+/* @cond nocomments */
 static u32 XFpga_ValidateBitstreamParam(XFpga *InstancePtr,
 					UINTPTR BitstreamImageAddr,
 					UINTPTR KeyAddr, u32 Flags);
+/* @endcond */
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
@@ -766,3 +768,5 @@ static u32 XFpga_ValidateBitstreamParam(XFpga *InstancePtr,
 END:
 	return Status;
 }
+
+/*  @endcond */
