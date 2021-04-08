@@ -32,8 +32,9 @@
 #include "sleep.h"
 
 /************************** Constant Definitions *****************************/
+/**< Maximum delay count */
 #define MAX_DELAY_CNT	10000U
-#define TERA_MACRO	1000000000000U
+#define TERA_MACRO	1000000000000U	/**<Macro for 10^12 */
 
 /**************************** Type Definitions *******************************/
 
