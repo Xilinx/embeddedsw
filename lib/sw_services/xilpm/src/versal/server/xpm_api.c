@@ -35,6 +35,7 @@
 #include "xplmi_error_node.h"
 #include "xpm_rail.h"
 #include "xpm_pldevice.h"
+#include "xpm_aiedevice.h"
 #include "xpm_debug.h"
 #include "xpm_device.h"
 #include "xpm_regulator.h"
