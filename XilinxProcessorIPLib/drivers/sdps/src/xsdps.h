@@ -139,6 +139,7 @@
 *                       Baseaddress instead.
 * 3.12  sk     01/28/21 Added support for non-blocking write.
 *       sk     02/12/21 Fix the issue in reading CID and CSD.
+*       sk     04/08/21 Fixed doxygen warnings in all source files.
 *
 * </pre>
 *
@@ -168,43 +169,46 @@ extern "C" {
 #define XSDPS_CT_ERROR	0x2L	/**< Command timeout flag */
 #define MAX_TUNING_COUNT	40U		/**< Maximum Tuning count */
 #define MAX_TIMEOUT		0x1FFFFFFFU		/**< Maximum Timeout */
-#define XSDPS_CMD8_VOL_PATTERN	0x1AAU
-#define XSDPS_RESPOCR_READY	0x80000000U
-#define XSDPS_ACMD41_HCS	0x40000000U
-#define XSDPS_ACMD41_3V3	0x00300000U
-#define XSDPS_CMD1_HIGH_VOL	0x00FF8000U
-#define XSDPS_CMD1_DUAL_VOL	0x00FF8010U
-#define HIGH_SPEED_SUPPORT	0x2U
-#define UHS_SDR12_SUPPORT	0x1U
-#define UHS_SDR25_SUPPORT	0x2U
-#define UHS_SDR50_SUPPORT	0x4U
-#define UHS_SDR104_SUPPORT	0x8U
-#define UHS_DDR50_SUPPORT	0x10U
-#define WIDTH_4_BIT_SUPPORT	0x4U
-#define SD_CLK_25_MHZ		25000000U
-#define SD_CLK_19_MHZ		19000000U
-#define SD_CLK_26_MHZ		26000000U
-#define EXT_CSD_DEVICE_TYPE_BYTE	196U
-#define EXT_CSD_SEC_COUNT_BYTE1		212U
-#define EXT_CSD_SEC_COUNT_BYTE2		213U
-#define EXT_CSD_SEC_COUNT_BYTE3		214U
-#define EXT_CSD_SEC_COUNT_BYTE4		215U
-#define EXT_CSD_DEVICE_TYPE_HIGH_SPEED			0x2U
-#define EXT_CSD_DEVICE_TYPE_DDR_1V8_HIGH_SPEED	0x4U
-#define EXT_CSD_DEVICE_TYPE_DDR_1V2_HIGH_SPEED	0x8U
-#define EXT_CSD_DEVICE_TYPE_SDR_1V8_HS200		0x10U
-#define EXT_CSD_DEVICE_TYPE_SDR_1V2_HS200		0x20U
-#define CSD_SPEC_VER_3		0x3U
-#define SCR_SPEC_VER_3		0x80U
-#define ADDRESS_BEYOND_32BIT	0x100000000U
+#define XSDPS_CMD8_VOL_PATTERN	0x1AAU		/**< CMD8 voltage pattern */
+#define XSDPS_RESPOCR_READY	0x80000000U	/**< Ready response */
+#define XSDPS_ACMD41_HCS	0x40000000U	/**< High Capacity Support */
+#define XSDPS_ACMD41_3V3	0x00300000U	/**< 3.3 voltage support */
+#define XSDPS_CMD1_HIGH_VOL	0x00FF8000U	/**< CMD1 for High voltage */
+#define XSDPS_CMD1_DUAL_VOL	0x00FF8010U	/**< CMD1 for Dual voltage */
+#define HIGH_SPEED_SUPPORT	0x2U		/**< High Speed support */
+#define UHS_SDR12_SUPPORT	0x1U		/**< SDR12 support */
+#define UHS_SDR25_SUPPORT	0x2U		/**< SDR25 support */
+#define UHS_SDR50_SUPPORT	0x4U		/**< SDR50 support */
+#define UHS_SDR104_SUPPORT	0x8U		/**< SDR104 support */
+#define UHS_DDR50_SUPPORT	0x10U		/**< DDR50 support */
+#define WIDTH_4_BIT_SUPPORT	0x4U		/**< 4-bit width support */
+#define SD_CLK_25_MHZ		25000000U	/**< 25MHz clock */
+#define SD_CLK_19_MHZ		19000000U	/**< 19MHz clock */
+#define SD_CLK_26_MHZ		26000000U	/**< 26MHz clock */
+#define EXT_CSD_DEVICE_TYPE_BYTE	196U	/**< CSD Device Type byte number */
+#define EXT_CSD_SEC_COUNT_BYTE1		212U	/**< CSD Sector count byte 1 */
+#define EXT_CSD_SEC_COUNT_BYTE2		213U	/**< CSD Sector count byte 2 */
+#define EXT_CSD_SEC_COUNT_BYTE3		214U	/**< CSD Sector count byte 3 */
+#define EXT_CSD_SEC_COUNT_BYTE4		215U	/**< CSD Sector count byte 4 */
+#define EXT_CSD_DEVICE_TYPE_HIGH_SPEED			0x2U	/**< CSD Device type HS */
+#define EXT_CSD_DEVICE_TYPE_DDR_1V8_HIGH_SPEED	0x4U	/**< CSD Dev type DDR 1.8v speed */
+#define EXT_CSD_DEVICE_TYPE_DDR_1V2_HIGH_SPEED	0x8U	/**< CSD Dev type DDR 1.2v speed */
+#define EXT_CSD_DEVICE_TYPE_SDR_1V8_HS200		0x10U	/**< CSD SDR 1.8v HS200 */
+#define EXT_CSD_DEVICE_TYPE_SDR_1V2_HS200		0x20U	/**< CSD SDR 1.2v HS200 */
+#define CSD_SPEC_VER_3		0x3U		/**< CSD card spec ver 3 */
+#define SCR_SPEC_VER_3		0x80U		/**< SCR spec ver 3 */
+#define ADDRESS_BEYOND_32BIT	0x100000000U	/**< Macro used for beyond 32-bit addr */
 
-#define XSDPS_ZYNQMP_SD0_BASE		0xFF160000U
-#define XSDPS_ZYNQMP_SD1_BASE		0xFF170000U
-#define XSDPS_VERSAL_SD0_BASE		0xF1040000U
-#define XSDPS_VERSAL_SD1_BASE		0xF1050000U
+#define XSDPS_ZYNQMP_SD0_BASE		0xFF160000U	/**< ZynqMP SD0 Baseaddress */
+#define XSDPS_ZYNQMP_SD1_BASE		0xFF170000U	/**< ZynqMP SD1 Baseaddress */
+#define XSDPS_VERSAL_SD0_BASE		0xF1040000U	/**< Versal SD0 Baseaddress */
+#define XSDPS_VERSAL_SD1_BASE		0xF1050000U	/**< Versal SD1 Baseaddress */
 
 /**************************** Type Definitions *******************************/
 
+/**
+ * Function pointer for configuring the Tap delays.
+ */
 typedef void (*XSdPs_ConfigTap) (u32 Bank, u32 DeviceId, u32 CardType);
 
 /**
