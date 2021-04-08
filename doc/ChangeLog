@@ -4,10 +4,12 @@ ospipsv_v1_4:
 Added support for DualByte opcodes.
 Added support for Macronix part-MX25UM51345G (maximum frequency supported is 150MHz).
 Updated the RX tuning algorithm for Master DLL mode to consider physical taps.
+Fixed doxygen warnings in all source files.
 
 sdps_v3_12:
 Added support for non-blocking write.
 Fix the issues in reading the CID and CSD.
+Fixed doxygen warnings in all source files.
 
 spips_v3_6:
 Added polled mode TPM example
