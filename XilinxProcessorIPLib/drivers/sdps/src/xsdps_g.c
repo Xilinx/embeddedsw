@@ -31,9 +31,9 @@
 #include "xparameters.h"
 #include "xsdps.h"
 
-/*
-* The configuration table for devices
-*/
+/**
+ * The configuration table for devices
+ */
 
 XSdPs_Config XSdPs_ConfigTable[] =
 {
