@@ -441,7 +441,8 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 			 * thus map it to appropriate subsystems if applicable.
 			 */
 			if (((u32)XPM_NODECLASS_DEVICE == Class) &&
-			    ((u32)XPM_NODESUBCL_DEV_PL == SubClass)) {
+			    (((u32)XPM_NODESUBCL_DEV_PL == SubClass) ||
+			    ((u32)XPM_NODESUBCL_DEV_AIE == SubClass))) {
 				/* Use PMC Subsystem Id for PLD images */
 				SubsystemId = PM_SUBSYS_PMC;
 			} else if ((u32)XPM_NODECLASS_POWER == Class) {
@@ -3993,12 +3994,12 @@ static int AddPlDevice(u32 *Args, u32 PowerId)
 	}
 
 	/*
-	 * Note: This function is executed as part of pm_add_node cmd trigerred
+	 * Note: This function is executed as part of pm_add_node cmd triggered
 	 * through CDO. Since there's a possibility of the same RM (hence CDO)
 	 * being executed multiple times, we should not error out on addition
-	 * of same node multiple times. Memory is only allocated only if node
-	 * is not present in database. Since PLD0 represents static image and
-	 * not RM, we shouldn't allow it to be re-added
+	 * of same node multiple times. Memory is allocated only if node is not
+	 * present in database. Since PLD0 represents static image and
+	 * not RM, we shouldn't allow it to be re-added.
 	 */
 	PlDevice = (XPm_PlDevice *)XPmDevice_GetById(DeviceId);
 	if (NULL == PlDevice) {
@@ -4016,6 +4017,43 @@ static int AddPlDevice(u32 *Args, u32 PowerId)
 	}
 
 	Status = XPmPlDevice_Init(PlDevice, DeviceId, BaseAddr, Power, NULL, NULL);
+
+done:
+	return Status;
+}
+
+static XStatus AddAieDevice(u32 *Args)
+{
+	XStatus Status = XST_FAILURE;
+	u32 DeviceId = Args[0];
+	u32 Index = NODEINDEX(DeviceId);
+	u32 BaseAddr = Args[2];
+	XPm_AieDevice *AieDevice;
+
+	if ((u32)XPM_NODEIDX_DEV_AIE_MAX <= Index) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/*
+	 * Note: This function is executed as part of pm_add_node cmd triggered
+	 * through CDO. Since there's a possibility of the same RM (hence CDO)
+	 * being executed multiple times, we should not error out on addition
+	 * of same node multiple times. Memory is allocated only if node is not
+	 * present in database.
+	 */
+	AieDevice = (XPm_AieDevice *)XPmDevice_GetById(DeviceId);
+	if (NULL == AieDevice) {
+		AieDevice = (XPm_AieDevice *)XPm_AllocBytes(sizeof(XPm_AieDevice));
+		if (NULL == AieDevice) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+	} else {
+		PmInfo("0x%x Device is already added\r\n", DeviceId);
+	}
+
+	Status = XPmAieDevice_Init(AieDevice, DeviceId, BaseAddr, NULL, NULL, NULL);
 
 done:
 	return Status;
@@ -4083,6 +4121,10 @@ static XStatus XPm_AddDevice(u32 *Args, u32 NumArgs)
 		break;
 	case (u32)XPM_NODESUBCL_DEV_PL:
 		Status = AddPlDevice(Args, PowerId);
+		break;
+	case (u32)XPM_NODESUBCL_DEV_AIE:
+	/* PowerId is not passed by topology */
+		Status = AddAieDevice(Args);
 		break;
 	default:
 		Status = XST_INVALID_PARAM;
