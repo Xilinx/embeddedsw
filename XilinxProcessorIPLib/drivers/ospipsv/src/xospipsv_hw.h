@@ -24,8 +24,8 @@
 * </pre>
 *
 ******************************************************************************/
-#ifndef XOSPIPSV_HW_H_		/* prevent circular inclusions */
-#define XOSPIPSV_HW_H_		/* by using protection macros */
+#ifndef XOSPIPSV_HW_H_		/**< prevent circular inclusions */
+#define XOSPIPSV_HW_H_		/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -40,16 +40,29 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
+/**
+ * @name Macros for Bus width
+ * @{
+ */
+/**
+ * Bus width macros for Single/Dual/Quad/Octal.
+ */
 #define DQ0	0U
 #define DQ0_1	1U
 #define DQ0_3	2U
 #define DQ0_7	3U
-#define XOSPIPSV_MAX_DUMMY 31
-
-#define IOU_MUX_SEL	0xF0780508U
+/** @} */
 
 /**
- * Register: OSPI_CONFIG_REG
+ * @name Octal-SPI Configuration Register
+ * This register contains bits for configuring
+ * Octal SPI, PHY, DTR/DDR, DMA, Chip Select, Baud rate,
+ * Direct access controller, Dual byte opcode, CPOL, CPHASE,
+ * AHB address remap etc.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_CONFIG_REG
  */
 #define XOSPIPSV_CONFIG_REG   0X00000000U
 
@@ -144,9 +157,17 @@ extern "C" {
 #define XOSPIPSV_CONFIG_REG_ENB_SPI_FLD_SHIFT   0
 #define XOSPIPSV_CONFIG_REG_ENB_SPI_FLD_WIDTH   1
 #define XOSPIPSV_CONFIG_REG_ENB_SPI_FLD_MASK    0X00000001U
+/** @} */
 
 /**
- * Register: OSPI_DEV_INSTR_RD_CONFIG_REG
+ * @name Device Read Instruction Configuration Register
+ * This register contains bits for configuring
+ * Dummy cycles, Instruction width, Address width, Data width,
+ * Read opcode, Mode bits etc. for read operation.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_DEV_INSTR_RD_CONFIG_REG
  */
 #define XOSPIPSV_DEV_INSTR_RD_CONFIG_REG    0X00000004U
 
@@ -197,9 +218,17 @@ extern "C" {
 #define XOSPIPSV_DEV_INSTR_RD_CONFIG_REG_RD_OPCODE_NON_XIP_FLD_SHIFT   0
 #define XOSPIPSV_DEV_INSTR_RD_CONFIG_REG_RD_OPCODE_NON_XIP_FLD_WIDTH   8
 #define XOSPIPSV_DEV_INSTR_RD_CONFIG_REG_RD_OPCODE_NON_XIP_FLD_MASK    0X000000FFU
+/** @} */
 
 /**
- * Register: OSPI_DEV_INSTR_WR_CONFIG_REG
+ * @name Device Write Instruction Configuration Register
+ * This register contains bits for configuring
+ * Address width, Data width, Write opcode,
+ * Dummy cycles etc. for write operation.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_DEV_INSTR_WR_CONFIG_REG
  */
 #define XOSPIPSV_DEV_INSTR_WR_CONFIG_REG   0X00000008U
 
@@ -238,9 +267,18 @@ extern "C" {
 #define XOSPIPSV_DEV_INSTR_WR_CONFIG_REG_WR_OPCODE_FLD_SHIFT   0
 #define XOSPIPSV_DEV_INSTR_WR_CONFIG_REG_WR_OPCODE_FLD_WIDTH   8
 #define XOSPIPSV_DEV_INSTR_WR_CONFIG_REG_WR_OPCODE_FLD_MASK    0X000000FFU
+/** @} */
 
 /**
- * Register: OSPI_DEV_DELAY_REG
+ * @name Octal-SPI Device Delay Register
+ * This register is used to introduce relative delays
+ * into the generation of the master output signals.
+ * All timings are defined in cycles of the SPI REFERENCE
+ * CLOCK/ext_clk, defined in this table as SPI master ref clock.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_DEV_DELAY_REG
  */
 #define XOSPIPSV_DEV_DELAY_REG    0X0000000CU
 
@@ -259,9 +297,17 @@ extern "C" {
 #define XOSPIPSV_DEV_DELAY_REG_D_INIT_FLD_SHIFT   0
 #define XOSPIPSV_DEV_DELAY_REG_D_INIT_FLD_WIDTH   8
 #define XOSPIPSV_DEV_DELAY_REG_D_INIT_FLD_MASK    0X000000FFU
+/** @} */
 
 /**
- * Register: OSPI_RD_DATA_CAPTURE_REG
+ * @name Read Data Capture Register
+ * This register contains bits for configuring
+ * Read Delay, 	Sample edge, DQS enable bit and
+ * DDR read delay.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_RD_DATA_CAPTURE_REG
  */
 #define XOSPIPSV_RD_DATA_CAPTURE_REG    0X00000010U
 
@@ -296,9 +342,17 @@ extern "C" {
 #define XOSPIPSV_RD_DATA_CAPTURE_REG_BYPASS_FLD_SHIFT   0
 #define XOSPIPSV_RD_DATA_CAPTURE_REG_BYPASS_FLD_WIDTH   1
 #define XOSPIPSV_RD_DATA_CAPTURE_REG_BYPASS_FLD_MASK    0X00000001U
+/** @} */
 
 /**
- * Register: OSPI_DEV_SIZE_CONFIG_REG
+ * @name Device Size Configuration Register
+ * This register contains bits for configuring
+ * Number of address bytes, Number of bytes per device page,
+ * Number of bytes per Block and memory connected to each CS.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_DEV_SIZE_CONFIG_REG
  */
 #define XOSPIPSV_DEV_SIZE_CONFIG_REG    0X00000014U
 
@@ -333,9 +387,16 @@ extern "C" {
 #define XOSPIPSV_DEV_SIZE_CONFIG_REG_NUM_ADDR_BYTES_FLD_SHIFT   0
 #define XOSPIPSV_DEV_SIZE_CONFIG_REG_NUM_ADDR_BYTES_FLD_WIDTH   4
 #define XOSPIPSV_DEV_SIZE_CONFIG_REG_NUM_ADDR_BYTES_FLD_MASK    0X0000000FU
+/** @} */
 
 /**
- * Register: OSPI_SRAM_PARTITION_CFG_REG
+ * @name SRAM Partition Configuration Register
+ * This register contains bits for configuring
+ * Indirect Read Partition Size.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_SRAM_PARTITION_CFG_REG
  */
 #define XOSPIPSV_SRAM_PARTITION_CFG_REG    0X00000018U
 
@@ -346,18 +407,32 @@ extern "C" {
 #define XOSPIPSV_SRAM_PARTITION_CFG_REG_ADDR_FLD_SHIFT   0
 #define XOSPIPSV_SRAM_PARTITION_CFG_REG_ADDR_FLD_WIDTH   8
 #define XOSPIPSV_SRAM_PARTITION_CFG_REG_ADDR_FLD_MASK    0X000000FFU
+/** @} */
 
 /**
- * Register: OSPI_IND_AHB_ADDR_TRIGGER_REG
+ * @name Indirect AHB Address Trigger Register
+ * This register contains bits for configuring
+ * base address that will be used by the AHB controller.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_IND_AHB_ADDR_TRIGGER_REG
  */
 #define XOSPIPSV_IND_AHB_ADDR_TRIGGER_REG    0X0000001CU
 
 #define XOSPIPSV_IND_AHB_ADDR_TRIGGER_REG_ADDR_FLD_SHIFT   0
 #define XOSPIPSV_IND_AHB_ADDR_TRIGGER_REG_ADDR_FLD_WIDTH   32
 #define XOSPIPSV_IND_AHB_ADDR_TRIGGER_REG_ADDR_FLD_MASK    0XFFFFFFFFU
+/** @} */
 
 /**
- * Register: OSPI_DMA_PERIPH_CONFIG_REG
+ * @name DMA Peripheral Configuration Register
+ * This register contains bits for configuring
+ * Number of Single Bytes and Number of Burst Bytes.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_DMA_PERIPH_CONFIG_REG
  */
 #define XOSPIPSV_DMA_PERIPH_CONFIG_REG    0X00000020U
 
@@ -376,18 +451,33 @@ extern "C" {
 #define XOSPIPSV_DMA_PERIPH_CONFIG_REG_NUM_SINGLE_REQ_BYTES_FLD_SHIFT   0
 #define XOSPIPSV_DMA_PERIPH_CONFIG_REG_NUM_SINGLE_REQ_BYTES_FLD_WIDTH   4
 #define XOSPIPSV_DMA_PERIPH_CONFIG_REG_NUM_SINGLE_REQ_BYTES_FLD_MASK    0X0000000FU
+/** @} */
 
 /**
- * Register: OSPI_REMAP_ADDR_REG
+ * @name Remap Address Register
+ * This register contains bits for configuring
+ * value used to remap an incoming AHB address to a
+ * different address used by the FLASH device.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_REMAP_ADDR_REG
  */
 #define XOSPIPSV_REMAP_ADDR_REG    0X00000024U
 
 #define XOSPIPSV_REMAP_ADDR_REG_VALUE_FLD_SHIFT   0
 #define XOSPIPSV_REMAP_ADDR_REG_VALUE_FLD_WIDTH   32
 #define XOSPIPSV_REMAP_ADDR_REG_VALUE_FLD_MASK    0XFFFFFFFFU
+/** @} */
 
 /**
- * Register: OSPI_MODE_BIT_CONFIG_REG
+ * @name Mode Bit Configuration Register
+ * This register contains bits for configuring
+ * Mode bits, CRC and Chunk size.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_MODE_BIT_CONFIG_REG
  */
 #define XOSPIPSV_MODE_BIT_CONFIG_REG    0X00000028U
 
@@ -414,9 +504,16 @@ extern "C" {
 #define XOSPIPSV_MODE_BIT_CONFIG_REG_MODE_FLD_SHIFT   0
 #define XOSPIPSV_MODE_BIT_CONFIG_REG_MODE_FLD_WIDTH   8
 #define XOSPIPSV_MODE_BIT_CONFIG_REG_MODE_FLD_MASK    0X000000FFU
+/** @} */
 
 /**
- * Register: OSPI_SRAM_FILL_REG
+ * @name SRAM Fill Register
+ * This register contains bits for configuring
+ * SRAM Fill Level for Indirect read and write operations.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_SRAM_FILL_REG
  */
 #define XOSPIPSV_SRAM_FILL_REG    0X0000002CU
 
@@ -427,9 +524,17 @@ extern "C" {
 #define XOSPIPSV_SRAM_FILL_REG_SRAM_FILL_INDAC_READ_FLD_SHIFT   0
 #define XOSPIPSV_SRAM_FILL_REG_SRAM_FILL_INDAC_READ_FLD_WIDTH   16
 #define XOSPIPSV_SRAM_FILL_REG_SRAM_FILL_INDAC_READ_FLD_MASK    0X0000FFFFU
+/** @} */
 
 /**
- * Register: OSPI_TX_THRESH_REG
+ * @name TX Threshold Register
+ * This register contains bits for configuring
+ * the level at which the small TX FIFO not full
+ * interrupt is generated.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_TX_THRESH_REG
  */
 #define XOSPIPSV_TX_THRESH_REG    0X00000030U
 
@@ -440,9 +545,17 @@ extern "C" {
 #define XOSPIPSV_TX_THRESH_REG_LEVEL_FLD_SHIFT   0
 #define XOSPIPSV_TX_THRESH_REG_LEVEL_FLD_WIDTH   5
 #define XOSPIPSV_TX_THRESH_REG_LEVEL_FLD_MASK    0X0000001FU
+/** @} */
 
 /**
- * Register: OSPI_RX_THRESH_REG
+ * @name RX Threshold Register
+ * This register contains bits for configuring
+ * the level at which the small RX FIFO not empty
+ * interrupt is generated.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_RX_THRESH_REG
  */
 #define XOSPIPSV_RX_THRESH_REG    0X00000034U
 
@@ -453,9 +566,17 @@ extern "C" {
 #define XOSPIPSV_RX_THRESH_REG_LEVEL_FLD_SHIFT   0
 #define XOSPIPSV_RX_THRESH_REG_LEVEL_FLD_WIDTH   5
 #define XOSPIPSV_RX_THRESH_REG_LEVEL_FLD_MASK    0X0000001FU
+/** @} */
 
 /**
- * Register: OSPI_WRITE_COMPLETION_CTRL_REG
+ * @name Write Completion Control Register
+ * This register contains bits for configuring
+ * how the controller will poll the device following
+ * a write transfer like Opcode, Polling count etc.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_WRITE_COMPLETION_CTRL_REG
  */
 #define XOSPIPSV_WRITE_COMPLETION_CTRL_REG    0X00000038U
 
@@ -494,18 +615,35 @@ extern "C" {
 #define XOSPIPSV_WRITE_COMPLETION_CTRL_REG_OPCODE_FLD_SHIFT   0
 #define XOSPIPSV_WRITE_COMPLETION_CTRL_REG_OPCODE_FLD_WIDTH   8
 #define XOSPIPSV_WRITE_COMPLETION_CTRL_REG_OPCODE_FLD_MASK    0X000000FFU
+/** @} */
 
 /**
- * Register: OSPI_NO_OF_POLLS_BEF_EXP_REG
+ * @name Polling Expiration Register
+ * This register contains bits for configuring
+ * Number of polls cycles before expiration.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_NO_OF_POLLS_BEF_EXP_REG
  */
 #define XOSPIPSV_NO_OF_POLLS_BEF_EXP_REG    0X0000003CU
 
 #define XOSPIPSV_NO_OF_POLLS_BEF_EXP_REG_NO_OF_POLLS_BEF_EXP_FLD_SHIFT   0
 #define XOSPIPSV_NO_OF_POLLS_BEF_EXP_REG_NO_OF_POLLS_BEF_EXP_FLD_WIDTH   32
 #define XOSPIPSV_NO_OF_POLLS_BEF_EXP_REG_NO_OF_POLLS_BEF_EXP_FLD_MASK    0XFFFFFFFFU
+/** @} */
 
 /**
- * Register: OSPI_IRQ_STATUS_REG
+ * @name Interrupt Status Register
+ * This register contains status bits and these fields
+ * are set when the described event occurs and the interrupt
+ * is enabled in the mask register. When any of these bit fields
+ * are set, the interrupt output is asserted high. The fields
+ * are each cleared by writing a 1 to the field.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_IRQ_STATUS_REG
  */
 #define XOSPIPSV_IRQ_STATUS_REG    0X00000040U
 
@@ -592,9 +730,19 @@ extern "C" {
 #define XOSPIPSV_IRQ_STATUS_REG_MODE_M_FAIL_FLD_SHIFT   0
 #define XOSPIPSV_IRQ_STATUS_REG_MODE_M_FAIL_FLD_WIDTH   1
 #define XOSPIPSV_IRQ_STATUS_REG_MODE_M_FAIL_FLD_MASK    0X00000001U
+/** @} */
 
 /**
- * Register: OSPI_IRQ_MASK_REG
+ * @name Interrupt Mask Register
+ * This register contains mask bits for all the interrupts.
+ * 0 : Interrupt for the corresponding interrupt status
+ * register bit is disabled.
+ * 1 : Interrupt for the corresponding interrupt status
+ * register bit is enabled.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_IRQ_MASK_REG
  */
 #define XOSPIPSV_IRQ_MASK_REG    0X00000044U
 
@@ -657,36 +805,70 @@ extern "C" {
 #define XOSPIPSV_IRQ_MASK_REG_MODE_M_FAIL_MASK_FLD_SHIFT   0
 #define XOSPIPSV_IRQ_MASK_REG_MODE_M_FAIL_MASK_FLD_WIDTH   1
 #define XOSPIPSV_IRQ_MASK_REG_MODE_M_FAIL_MASK_FLD_MASK    0X00000001U
+/** @} */
 
 /**
- * Register: OSPI_ECO
+ * @name Tap Granularity select
+ * This register contains bits for configuring tap
+ * delay granularity.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_ECO_REG
  */
 #define XOSPIPSV_ECO_REG		0X00000048U
 
 #define XOSPIPSV_ECO_REG_FIELD_SHIFT   0
 #define XOSPIPSV_ECO_REG_FIELD_WIDTH   1
 #define XOSPIPSV_ECO_REG_FIELD_MASK    0X00000001U
+/** @} */
 
 /**
- * Register: OSPI_LOWER_WR_PROT_REG
+ * @name Lower Write Protection Register
+ * This register contains bits for configuring block
+ * number that defines the lower block in the range of
+ * blocks that is to be locked from writing. The definition
+ * of a block in terms of number of bytes is programmable
+ * via the Device Size Configuration register.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_LOWER_WR_PROT_REG
  */
 #define XOSPIPSV_LOWER_WR_PROT_REG    0X00000050U
 
 #define XOSPIPSV_LOWER_WR_PROT_REG_SUBSECTOR_FLD_SHIFT   0
 #define XOSPIPSV_LOWER_WR_PROT_REG_SUBSECTOR_FLD_WIDTH   32
 #define XOSPIPSV_LOWER_WR_PROT_REG_SUBSECTOR_FLD_MASK    0XFFFFFFFFU
+/** @} */
 
 /**
- * Register: OSPI_UPPER_WR_PROT_REG
+ * @name Upper Write Protection Register
+ * This register contains bits for configuring block
+ * number that defines the upper block in the range of
+ * blocks that is to be locked from writing. The definition
+ * of a block in terms of number of bytes is programmable
+ * via the Device Size Configuration register.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_UPPER_WR_PROT_REG
  */
 #define XOSPIPSV_UPPER_WR_PROT_REG    0X00000054U
 
 #define XOSPIPSV_UPPER_WR_PROT_REG_SUBSECTOR_FLD_SHIFT   0
 #define XOSPIPSV_UPPER_WR_PROT_REG_SUBSECTOR_FLD_WIDTH   32
 #define XOSPIPSV_UPPER_WR_PROT_REG_SUBSECTOR_FLD_MASK    0XFFFFFFFFU
+/** @} */
 
 /**
- * Register: OSPI_WR_PROT_CTRL_REG
+ * @name Write Protection Control Register
+ * This register contains bits for configuring
+ * Write Protection Inversion and Write Protection Enable.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_WR_PROT_CTRL_REG
  */
 #define XOSPIPSV_WR_PROT_CTRL_REG   0X00000058U
 
@@ -701,9 +883,17 @@ extern "C" {
 #define XOSPIPSV_WR_PROT_CTRL_REG_INV_FLD_SHIFT   0
 #define XOSPIPSV_WR_PROT_CTRL_REG_INV_FLD_WIDTH   1
 #define XOSPIPSV_WR_PROT_CTRL_REG_INV_FLD_MASK    0X00000001U
+/** @} */
 
 /**
- * Register: OSPI_INDIRECT_READ_XFER_CTRL_REG
+ * @name Indirect Read Transfer Control Register
+ * This register contains bits for configuring
+ * Start Indirect Read, Cancel Indirect Read, Indirect Read
+ * Status, Completion status, number of Indirect operations done etc.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_INDIRECT_READ_XFER_CTRL_REG
  */
 #define XOSPIPSV_INDIRECT_READ_XFER_CTRL_REG    0X00000060U
 
@@ -738,36 +928,68 @@ extern "C" {
 #define XOSPIPSV_INDIRECT_READ_XFER_CTRL_REG_START_FLD_SHIFT   0
 #define XOSPIPSV_INDIRECT_READ_XFER_CTRL_REG_START_FLD_WIDTH   1
 #define XOSPIPSV_INDIRECT_READ_XFER_CTRL_REG_START_FLD_MASK    0X00000001U
+/** @} */
 
 /**
- * Register: OSPI_INDIRECT_READ_XFER_WATERMARK_REG
+ * @name Indirect Read Transfer Watermark Register
+ * This register contains bits for configuring
+ * Watermark level (minimum fill level of the SRAM) for indirect
+ * read operation.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_INDIRECT_READ_XFER_WATERMARK_REG
  */
 #define XOSPIPSV_INDIRECT_READ_XFER_WATERMARK_REG    0X00000064U
 
 #define XOSPIPSV_INDIRECT_READ_XFER_WATERMARK_REG_LEVEL_FLD_SHIFT   0
 #define XOSPIPSV_INDIRECT_READ_XFER_WATERMARK_REG_LEVEL_FLD_WIDTH   32
 #define XOSPIPSV_INDIRECT_READ_XFER_WATERMARK_REG_LEVEL_FLD_MASK    0XFFFFFFFFU
+/** @} */
 
 /**
- * Register: OSPI_INDIRECT_READ_XFER_START_REG
+ * @name Indirect Read Transfer Start Address Register
+ * This register contains bits for configuring
+ * start address from which the indirect access will
+ * commence its READ operation.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_INDIRECT_READ_XFER_START_REG
  */
 #define XOSPIPSV_INDIRECT_READ_XFER_START_REG    0X00000068U
 
 #define XOSPIPSV_INDIRECT_READ_XFER_START_REG_ADDR_FLD_SHIFT   0
 #define XOSPIPSV_INDIRECT_READ_XFER_START_REG_ADDR_FLD_WIDTH   32
 #define XOSPIPSV_INDIRECT_READ_XFER_START_REG_ADDR_FLD_MASK    0XFFFFFFFFU
+/** @} */
 
 /**
- * Register: OSPI_INDIRECT_READ_XFER_NUM_BYTES_REG
+ * @name Indirect Read Transfer Number Bytes Register
+ * This register contains bits for configuring
+ * number of bytes that the indirect access will consume.
+ * This can be bigger than the configured size of SRAM.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_INDIRECT_READ_XFER_NUM_BYTES_REG
  */
 #define XOSPIPSV_INDIRECT_READ_XFER_NUM_BYTES_REG   0X0000006CU
 
 #define XOSPIPSV_INDIRECT_READ_XFER_NUM_BYTES_REG_VALUE_FLD_SHIFT   0
 #define XOSPIPSV_INDIRECT_READ_XFER_NUM_BYTES_REG_VALUE_FLD_WIDTH   32
 #define XOSPIPSV_INDIRECT_READ_XFER_NUM_BYTES_REG_VALUE_FLD_MASK    0XFFFFFFFFU
+/** @} */
 
 /**
- * Register: OSPI_INDIRECT_WRITE_XFER_CTRL_REG
+ * @name Indirect Write Transfer Control Register
+ * This register contains bits for configuring
+ * Start Indirect Write, Cancel Indirect Write, Indirect Write
+ * Status, Completion status, number of Indirect operations done etc.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_INDIRECT_WRITE_XFER_CTRL_REG
  */
 #define XOSPIPSV_INDIRECT_WRITE_XFER_CTRL_REG    0X00000070U
 
@@ -802,36 +1024,67 @@ extern "C" {
 #define XOSPIPSV_INDIRECT_WRITE_XFER_CTRL_REG_START_FLD_SHIFT   0
 #define XOSPIPSV_INDIRECT_WRITE_XFER_CTRL_REG_START_FLD_WIDTH   1
 #define XOSPIPSV_INDIRECT_WRITE_XFER_CTRL_REG_START_FLD_MASK    0X00000001U
+/** @} */
 
 /**
- * Register: OSPI_INDIRECT_WRITE_XFER_WATERMARK_REG
+ * @name Indirect Write Transfer Watermark Register
+ * This register contains bits for configuring
+ * Watermark level (maximum fill level of the SRAM) for indirect
+ * write operation.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_INDIRECT_WRITE_XFER_WATERMARK_REG
  */
 #define XOSPIPSV_INDIRECT_WRITE_XFER_WATERMARK_REG    0X00000074U
 
 #define XOSPIPSV_INDIRECT_WRITE_XFER_WATERMARK_REG_LEVEL_FLD_SHIFT   0
 #define XOSPIPSV_INDIRECT_WRITE_XFER_WATERMARK_REG_LEVEL_FLD_WIDTH   32
 #define XOSPIPSV_INDIRECT_WRITE_XFER_WATERMARK_REG_LEVEL_FLD_MASK    0XFFFFFFFFU
+/** @} */
 
 /**
- * Register: OSPI_INDIRECT_WRITE_XFER_START_REG
+ * @name Indirect Write Transfer Start Address Register
+ * This register contains bits for configuring
+ * start address from which the indirect access will
+ * commence its WRITE operation.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_INDIRECT_WRITE_XFER_START_REG
  */
 #define XOSPIPSV_INDIRECT_WRITE_XFER_START_REG    0X00000078U
 
 #define XOSPIPSV_INDIRECT_WRITE_XFER_START_REG_ADDR_FLD_SHIFT   0
 #define XOSPIPSV_INDIRECT_WRITE_XFER_START_REG_ADDR_FLD_WIDTH   32
 #define XOSPIPSV_INDIRECT_WRITE_XFER_START_REG_ADDR_FLD_MASK    0XFFFFFFFFU
+/** @} */
 
 /**
- * Register: OSPI_INDIRECT_WRITE_XFER_NUM_BYTES_REG
+ * @name Indirect Write Transfer Number Bytes Register
+ * This register contains bits for configuring
+ * number of bytes that the indirect access will consume.
+ * This can be bigger than the configured size of SRAM.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_INDIRECT_WRITE_XFER_NUM_BYTES_REG
  */
 #define XOSPIPSV_INDIRECT_WRITE_XFER_NUM_BYTES_REG    0X0000007CU
 
 #define XOSPIPSV_INDIRECT_WRITE_XFER_NUM_BYTES_REG_VALUE_FLD_SHIFT   0
 #define XOSPIPSV_INDIRECT_WRITE_XFER_NUM_BYTES_REG_VALUE_FLD_WIDTH   32
 #define XOSPIPSV_INDIRECT_WRITE_XFER_NUM_BYTES_REG_VALUE_FLD_MASK    0XFFFFFFFFU
+/** @} */
 
 /**
- * Register: OSPI_INDIRECT_TRIGGER_ADDR_RANGE_REG
+ * @name Indirect Trigger Address Range Register
+ * This register contains bits for configuring
+ * address offset of Indirect Trigger Address Register.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_INDIRECT_TRIGGER_ADDR_RANGE_REG
  */
 #define XOSPIPSV_INDIRECT_TRIGGER_ADDR_RANGE_REG    0X00000080U
 
@@ -842,9 +1095,16 @@ extern "C" {
 #define XOSPIPSV_INDIRECT_TRIGGER_ADDR_RANGE_REG_IND_RANGE_WIDTH_FLD_SHIFT   0
 #define XOSPIPSV_INDIRECT_TRIGGER_ADDR_RANGE_REG_IND_RANGE_WIDTH_FLD_WIDTH   4
 #define XOSPIPSV_INDIRECT_TRIGGER_ADDR_RANGE_REG_IND_RANGE_WIDTH_FLD_MASK    0X0000000FU
+/** @} */
 
 /**
- * Register: OSPI_FLASH_COMMAND_CTRL_MEM_REG
+ * @name Flash Command Control Memory Register
+ * This register contains bits for configuring
+ * Start the Memory Bank data request, Memory Bank address field etc.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_FLASH_COMMAND_CTRL_MEM_REG
  */
 #define XOSPIPSV_FLASH_COMMAND_CTRL_MEM_REG    0X0000008CU
 
@@ -879,9 +1139,17 @@ extern "C" {
 #define XOSPIPSV_FLASH_COMMAND_CTRL_MEM_REG_TRIGGER_MEM_BANK_REQ_FLD_SHIFT   0
 #define XOSPIPSV_FLASH_COMMAND_CTRL_MEM_REG_TRIGGER_MEM_BANK_REQ_FLD_WIDTH   1
 #define XOSPIPSV_FLASH_COMMAND_CTRL_MEM_REG_TRIGGER_MEM_BANK_REQ_FLD_MASK    0X00000001U
+/** @} */
 
 /**
- * Register: OSPI_FLASH_CMD_CTRL_REG
+ * @name Flash Command Control Register
+ * This register contains bits for configuring
+ * STIG Memory Bank, Dummy cycles, Write data bytes, Write data enable,
+ * Address bytes, Read data bytes, Read data enable, Opcode etc.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_FLASH_CMD_CTRL_REG
  */
 #define XOSPIPSV_FLASH_CMD_CTRL_REG    0X00000090U
 
@@ -936,54 +1204,101 @@ extern "C" {
 #define XOSPIPSV_FLASH_CMD_CTRL_REG_CMD_EXEC_FLD_SHIFT   0
 #define XOSPIPSV_FLASH_CMD_CTRL_REG_CMD_EXEC_FLD_WIDTH   1
 #define XOSPIPSV_FLASH_CMD_CTRL_REG_CMD_EXEC_FLD_MASK    0X00000001U
+/** @} */
 
 /**
- * Register: OSPI_FLASH_CMD_ADDR_REG
+ * @name Flash Command Address Register
+ * This register contains bits for configuring
+ * Command Address.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_FLASH_CMD_ADDR_REG
  */
 #define XOSPIPSV_FLASH_CMD_ADDR_REG    0X00000094U
 
 #define XOSPIPSV_FLASH_CMD_ADDR_REG_ADDR_FLD_SHIFT   0
 #define XOSPIPSV_FLASH_CMD_ADDR_REG_ADDR_FLD_WIDTH   32
 #define XOSPIPSV_FLASH_CMD_ADDR_REG_ADDR_FLD_MASK    0XFFFFFFFFU
+/** @} */
 
 /**
- * Register: OSPI_FLASH_RD_DATA_LOWER_REG
+ * @name Flash Command Read Data Register (Lower)
+ * This register contains data that is returned by
+ * the flash device for any status or configuration read operation
+ * carried out by triggering the event in the control register.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_FLASH_RD_DATA_LOWER_REG
  */
 #define XOSPIPSV_FLASH_RD_DATA_LOWER_REG    0X000000A0U
 
 #define XOSPIPSV_FLASH_RD_DATA_LOWER_REG_DATA_FLD_SHIFT   0
 #define XOSPIPSV_FLASH_RD_DATA_LOWER_REG_DATA_FLD_WIDTH   32
 #define XOSPIPSV_FLASH_RD_DATA_LOWER_REG_DATA_FLD_MASK    0XFFFFFFFFU
+/** @} */
 
 /**
- * Register: OSPI_FLASH_RD_DATA_UPPER_REG
+ * @name Flash Command Read Data Register (Upper)
+ * This register contains data that is returned by
+ * the flash device for any status or configuration read operation
+ * carried out by triggering the event in the control register.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_FLASH_RD_DATA_UPPER_REG
  */
 #define XOSPIPSV_FLASH_RD_DATA_UPPER_REG    0X000000A4U
 
 #define XOSPIPSV_FLASH_RD_DATA_UPPER_REG_DATA_FLD_SHIFT   0
 #define XOSPIPSV_FLASH_RD_DATA_UPPER_REG_DATA_FLD_WIDTH   32
 #define XOSPIPSV_FLASH_RD_DATA_UPPER_REG_DATA_FLD_MASK    0XFFFFFFFFU
+/** @} */
 
 /**
- * Register: OSPI_FLASH_WR_DATA_LOWER_REG
+ * @name Flash Command Write Data Register (Lower)
+ * This register contains Command Write Data Lower Byte.
+ * This should be setup before triggering the command with execute
+ * field (bit 0) of the Flash Command Control register.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_FLASH_WR_DATA_LOWER_REG
  */
 #define XOSPIPSV_FLASH_WR_DATA_LOWER_REG    0X000000A8U
 
 #define XOSPIPSV_FLASH_WR_DATA_LOWER_REG_DATA_FLD_SHIFT   0
 #define XOSPIPSV_FLASH_WR_DATA_LOWER_REG_DATA_FLD_WIDTH   32
 #define XOSPIPSV_FLASH_WR_DATA_LOWER_REG_DATA_FLD_MASK    0XFFFFFFFFU
+/** @} */
 
 /**
- * Register: OSPI_FLASH_WR_DATA_UPPER_REG
+ * @name Flash Command Write Data Register (Upper)
+ * This register contains Command Write Data Upper Byte.
+ * This should be setup before triggering the command with execute
+ * field (bit 0) of the Flash Command Control register.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_FLASH_WR_DATA_UPPER_REG
  */
 #define XOSPIPSV_FLASH_WR_DATA_UPPER_REG    0X000000ACU
 
 #define XOSPIPSV_FLASH_WR_DATA_UPPER_REG_DATA_FLD_SHIFT   0
 #define XOSPIPSV_FLASH_WR_DATA_UPPER_REG_DATA_FLD_WIDTH   32
 #define XOSPIPSV_FLASH_WR_DATA_UPPER_REG_DATA_FLD_MASK    0XFFFFFFFFU
+/** @} */
 
 /**
- * Register: OSPI_POLLING_FLASH_STATUS_REG
+ * @name Polling Flash Status Register
+ * This register contains bits for configuring
+ * Number of dummy cycles for auto-polling and contains
+ * Device Status information.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_POLLING_FLASH_STATUS_REG
  */
 #define XOSPIPSV_POLLING_FLASH_STATUS_REG    0X000000B0U
 
@@ -1006,9 +1321,16 @@ extern "C" {
 #define XOSPIPSV_POLLING_FLASH_STATUS_REG_DEVICE_STATUS_FLD_SHIFT   0
 #define XOSPIPSV_POLLING_FLASH_STATUS_REG_DEVICE_STATUS_FLD_WIDTH   8
 #define XOSPIPSV_POLLING_FLASH_STATUS_REG_DEVICE_STATUS_FLD_MASK    0X000000FFU
+/** @} */
 
 /**
- * Register: OSPI_PHY_CONFIGURATION_REG
+ * @name PHY Configuration Register
+ * This register contains bits for configuring
+ * RX DLL Delay, TX DLL Delay and DLL Bypass field.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_PHY_CONFIGURATION_REG
  */
 #define XOSPIPSV_PHY_CONFIGURATION_REG    0X000000B4U
 
@@ -1039,9 +1361,18 @@ extern "C" {
 #define XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RX_DLL_DELAY_FLD_SHIFT   0
 #define XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RX_DLL_DELAY_FLD_WIDTH   7
 #define XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RX_DLL_DELAY_FLD_MASK    0X0000007FU
+/** @} */
 
 /**
- * Register: OSPI_PHY_MASTER_CONTROL_REG
+ * @name PHY DLL Master Control Register
+ * This register contains bits for configuring
+ * Master initial delay, Number of consecutive increment or
+ * decrement indications, Master phase detect selector,
+ * Master lock mode, Master bypass mode.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_PHY_MASTER_CONTROL_REG
  */
 #define XOSPIPSV_PHY_MASTER_CONTROL_REG    0X000000B8U
 
@@ -1076,9 +1407,16 @@ extern "C" {
 #define XOSPIPSV_PHY_MASTER_CONTROL_REG_PHY_MASTER_INITIAL_DELAY_FLD_SHIFT   0
 #define XOSPIPSV_PHY_MASTER_CONTROL_REG_PHY_MASTER_INITIAL_DELAY_FLD_WIDTH   7
 #define XOSPIPSV_PHY_MASTER_CONTROL_REG_PHY_MASTER_INITIAL_DELAY_FLD_MASK    0X0000007FU
+/** @} */
 
 /**
- * Register: OSPI_DLL_OBSERVABLE_LOWER_REG
+ * @name DLL Observable Register Lower
+ * This register contains information about Lower DLL lock,
+ * Lock mode, Unlock counter, Lock value etc.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_DLL_OBSERVABLE_LOWER_REG
  */
 #define XOSPIPSV_DLL_OBSERVABLE_LOWER_REG    0X000000BCU
 
@@ -1109,9 +1447,16 @@ extern "C" {
 #define XOSPIPSV_DLL_OBSERVABLE_LOWER_DLL_LOCK_FLD_SHIFT   0
 #define XOSPIPSV_DLL_OBSERVABLE_LOWER_DLL_LOCK_FLD_WIDTH   1
 #define XOSPIPSV_DLL_OBSERVABLE_LOWER_DLL_LOCK_FLD_MASK    0X00000001U
+/** @} */
 
 /**
- * Register: OSPI_DLL_OBSERVABLE_UPPER_REG
+ * @name DLL Observable Register Upper
+ * This register contains information about RX decoder
+ * output, TX decoder output.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_DLL_OBSERVABLE_UPPER_REG
  */
 #define XOSPIPSV_DLL_OBSERVABLE_UPPER_REG    0X000000C0U
 
@@ -1130,9 +1475,16 @@ extern "C" {
 #define XOSPIPSV_DLL_OBSERVABLE_UPPER_RX_DECODER_OUTPUT_FLD_SHIFT   0
 #define XOSPIPSV_DLL_OBSERVABLE_UPPER_RX_DECODER_OUTPUT_FLD_WIDTH   7
 #define XOSPIPSV_DLL_OBSERVABLE_UPPER_RX_DECODER_OUTPUT_FLD_MASK    0X0000007FU
+/** @} */
 
 /**
- * Register: OSPI_OPCODE_EXT_LOWER_REG
+ * @name Opcode Extension Register (Lower)
+ * This register contains bits for configuring
+ * Dual byte opcode for stig, poll, read and write operations.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_OPCODE_EXT_LOWER_REG
  */
 #define XOSPIPSV_OPCODE_EXT_LOWER_REG    0X000000E0U
 
@@ -1151,9 +1503,16 @@ extern "C" {
 #define XOSPIPSV_OPCODE_EXT_LOWER_REG_EXT_STIG_OPCODE_FLD_SHIFT   0
 #define XOSPIPSV_OPCODE_EXT_LOWER_REG_EXT_STIG_OPCODE_FLD_WIDTH   8
 #define XOSPIPSV_OPCODE_EXT_LOWER_REG_EXT_STIG_OPCODE_FLD_MASK    0X000000FFU
+/** @} */
 
 /**
- * Register: OSPI_OPCODE_EXT_UPPER_REG
+ * @name Opcode Extension Register (Upper)
+ * This register contains bits for configuring
+ * first byte of WEL opcode and Supplement byte of WEL opcode.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_OPCODE_EXT_UPPER_REG
  */
 #define XOSPIPSV_OPCODE_EXT_UPPER_REG    0X000000E4U
 
@@ -1168,9 +1527,16 @@ extern "C" {
 #define XOSPIPSV_OPCODE_EXT_UPPER_REG_OPCODE_EXT_UPPER_RESV1_FLD_SHIFT   0
 #define XOSPIPSV_OPCODE_EXT_UPPER_REG_OPCODE_EXT_UPPER_RESV1_FLD_WIDTH   16
 #define XOSPIPSV_OPCODE_EXT_UPPER_REG_OPCODE_EXT_UPPER_RESV1_FLD_MASK    0X0000FFFFU
+/** @} */
 
 /**
- * Register: OSPI_MODULE_ID_REG
+ * @name Module ID Register
+ * This register contains information about Configuration
+ * ID number, Module/Revision ID number and Fix/patch number.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_MODULE_ID_REG
  */
 #define XOSPIPSV_MODULE_ID_REG    0X000000FCU
 
@@ -1189,27 +1555,49 @@ extern "C" {
 #define XOSPIPSV_MODULE_ID_REG_CONF_FLD_SHIFT   0
 #define XOSPIPSV_MODULE_ID_REG_CONF_FLD_WIDTH   2
 #define XOSPIPSV_MODULE_ID_REG_CONF_FLD_MASK    0X00000003U
+/** @} */
 
 /**
- * Register: OSPI_OSPIDMA_SRC_RD_ADDR
+ * @name Source mem address (lsbs) for DMA memory->stream data transfer
+ * This register contains bits for configuring
+ * Read address for the AXI read from Cadence OSPI SRAM.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_OSPIDMA_SRC_RD_ADDR
  */
 #define XOSPIPSV_OSPIDMA_SRC_RD_ADDR    0X00001000U
 
 #define XOSPIPSV_OSPIDMA_SRC_RD_ADDR_ADDR_SHIFT   0
 #define XOSPIPSV_OSPIDMA_SRC_RD_ADDR_ADDR_WIDTH   32
 #define XOSPIPSV_OSPIDMA_SRC_RD_ADDR_ADDR_MASK    0XFFFFFFFFU
+/** @} */
 
 /**
- * Register: OSPI_OSPIDMA_SRC_SIZE
+ * @name Source mem size for DMA memory->stream data transfer
+ * This register contains bits for configuring
+ * Read size for the AXI read from Cadence OSPI SRAM.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_OSPIDMA_SRC_SIZE
  */
 #define XOSPIPSV_OSPIDMA_SRC_SIZE    0X00001004U
 
 #define XOSPIPSV_OSPIDMA_SRC_SIZE_SIZE_SHIFT   2
 #define XOSPIPSV_OSPIDMA_SRC_SIZE_SIZE_WIDTH   27
 #define XOSPIPSV_OSPIDMA_SRC_SIZE_SIZE_MASK    0X1FFFFFFCU
+/** @} */
 
 /**
- * Register: OSPI_OSPIDMA_SRC_STS
+ * @name General SRC DMA Status
+ * This register contains Status information like
+ * Busy, Number of outstanding transactions, Number of
+ * completed transactions etc.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_OSPIDMA_SRC_STS
  */
 #define XOSPIPSV_OSPIDMA_SRC_STS   0X00001008U
 
@@ -1228,9 +1616,17 @@ extern "C" {
 #define XOSPIPSV_OSPIDMA_SRC_STS_BUSY_SHIFT   0
 #define XOSPIPSV_OSPIDMA_SRC_STS_BUSY_WIDTH   1
 #define XOSPIPSV_OSPIDMA_SRC_STS_BUSY_MASK    0X00000001U
+/** @} */
 
 /**
- * Register: OSPI_OSPIDMA_SRC_CTRL
+ * @name General SRC DMA Control Register 1
+ * This register contains bits for configuring
+ * Pause MEM, Pause STRM, FIFO Threshold, Timeout value,
+ * Endianness, APB error response.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_OSPIDMA_SRC_CTRL
  */
 #define XOSPIPSV_OSPIDMA_SRC_CTRL    0X0000100CU
 
@@ -1261,18 +1657,32 @@ extern "C" {
 #define XOSPIPSV_OSPIDMA_SRC_CTRL_PAUSE_MEM_SHIFT   0
 #define XOSPIPSV_OSPIDMA_SRC_CTRL_PAUSE_MEM_WIDTH   1
 #define XOSPIPSV_OSPIDMA_SRC_CTRL_PAUSE_MEM_MASK    0X00000001U
+/** @} */
 
 /**
- * Register: OSPI_OSPIDMA_SRC_CRC
+ * @name SRC DMA Pseudo CRC
+ * This register contains bits for configuring
+ * Pseudo CRC (Chksum) value on all data read from AXI memory.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_OSPIDMA_SRC_CRC
  */
 #define XOSPIPSV_OSPIDMA_SRC_CRC   0X00001010U
 
 #define XOSPIPSV_OSPIDMA_SRC_CRC_CRC_SHIFT   0
 #define XOSPIPSV_OSPIDMA_SRC_CRC_CRC_WIDTH   32
 #define XOSPIPSV_OSPIDMA_SRC_CRC_CRC_MASK    0XFFFFFFFFU
+/** @} */
 
 /**
- * Register: OSPI_OSPIDMA_SRC_I_STS
+ * @name SRC DMA Interrupt Status Register
+ * This register contains status bits for DMA interrupts
+ * like DONE, MEM_DONE etc.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_OSPIDMA_SRC_I_STS
  */
 #define XOSPIPSV_OSPIDMA_SRC_I_STS    0X00001014U
 
@@ -1303,9 +1713,16 @@ extern "C" {
 #define XOSPIPSV_OSPIDMA_SRC_I_STS_MEM_DONE_SHIFT   0
 #define XOSPIPSV_OSPIDMA_SRC_I_STS_MEM_DONE_WIDTH   1
 #define XOSPIPSV_OSPIDMA_SRC_I_STS_MEM_DONE_MASK    0X00000001U
+/** @} */
 
 /**
- * Register: OSPI_OSPIDMA_SRC_I_EN
+ * @name SRC DMA Interrupt Enable Register
+ * This register contains bits to enable DMA interrupts
+ * like DONE, MEM_DONE etc.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_OSPIDMA_SRC_I_EN
  */
 #define XOSPIPSV_OSPIDMA_SRC_I_EN    0X00001018U
 
@@ -1336,9 +1753,16 @@ extern "C" {
 #define XOSPIPSV_OSPIDMA_SRC_I_EN_MEM_DONE_SHIFT   0
 #define XOSPIPSV_OSPIDMA_SRC_I_EN_MEM_DONE_WIDTH   1
 #define XOSPIPSV_OSPIDMA_SRC_I_EN_MEM_DONE_MASK    0X00000001U
+/** @} */
 
 /**
- * Register: OSPI_OSPIDMA_SRC_I_DIS
+ * @name SRC DMA Interrupt Disable Register
+ * This register contains bits to disable DMA interrupts
+ * like DONE, MEM_DONE etc.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_OSPIDMA_SRC_I_DIS
  */
 #define XOSPIPSV_OSPIDMA_SRC_I_DIS    0X0000101CU
 
@@ -1369,9 +1793,18 @@ extern "C" {
 #define XOSPIPSV_OSPIDMA_SRC_I_DIS_MEM_DONE_SHIFT   0
 #define XOSPIPSV_OSPIDMA_SRC_I_DIS_MEM_DONE_WIDTH   1
 #define XOSPIPSV_OSPIDMA_SRC_I_DIS_MEM_DONE_MASK    0X00000001U
+/** @} */
 
 /**
- * Register: OSPI_OSPIDMA_SRC_I_MASK
+ * @name SRC DMA Interrupt Mask Register
+ * This register contains information about DMA interrupts
+ * like DONE, MEM_DONE etc.
+ * 1 indicates mask the interrupt, do not pass it along
+ * 0 indicates do not mask the interrupt, pass it along as is.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_OSPIDMA_SRC_I_MASK
  */
 #define XOSPIPSV_OSPIDMA_SRC_I_MASK    0X00001020U
 
@@ -1402,9 +1835,18 @@ extern "C" {
 #define XOSPIPSV_OSPIDMA_SRC_I_MASK_MEM_DONE_SHIFT   0
 #define XOSPIPSV_OSPIDMA_SRC_I_MASK_MEM_DONE_WIDTH   1
 #define XOSPIPSV_OSPIDMA_SRC_I_MASK_MEM_DONE_MASK    0X00000001U
+/** @} */
 
 /**
- * Register: OSPI_OSPIDMA_SRC_CTRL2
+ * @name General SRC DMA Control Register 2
+ * This register contains bits for configuring
+ * Maximum number of outstanding AXI read commands issued,
+ * prescaler value for the timeout in clk (~2.5ns) cycles,
+ * ARCACHE bits on the AXI Read channel and Timeout enable.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_OSPIDMA_SRC_CTRL2
  */
 #define XOSPIPSV_OSPIDMA_SRC_CTRL2    0X00001024U
 
@@ -1435,27 +1877,50 @@ extern "C" {
 #define XOSPIPSV_OSPIDMA_SRC_CTRL2_MAX_OUTS_CMDS_SHIFT   0
 #define XOSPIPSV_OSPIDMA_SRC_CTRL2_MAX_OUTS_CMDS_WIDTH   4
 #define XOSPIPSV_OSPIDMA_SRC_CTRL2_MAX_OUTS_CMDS_MASK    0X0000000FU
+/** @} */
 
 /**
- * Register: OSPI_OSPIDMA_DST_ADDR
+ * @name Destination mem address (lsbs) for DMA stream->memory data transfer
+ * This register contains bits for configuring
+ * Destination memory address (lsbs) for DMA stream to memory
+ * data transfer
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_OSPIDMA_DST_ADDR
  */
 #define XOSPIPSV_OSPIDMA_DST_ADDR    0X00001800U
 
 #define XOSPIPSV_OSPIDMA_DST_ADDR_ADDR_SHIFT   2
 #define XOSPIPSV_OSPIDMA_DST_ADDR_ADDR_WIDTH   30
 #define XOSPIPSV_OSPIDMA_DST_ADDR_ADDR_MASK    0XFFFFFFFCU
+/** @} */
 
 /**
- * Register: OSPI_OSPIDMA_DST_SIZE
+ * @name DMA transfer payload for DMA stream-> memory data transfer
+ * This register contains bits for configuring the
+ * number of 4-byte words the DMA will transfer from stream to memory.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_OSPIDMA_DST_SIZE
  */
 #define XOSPIPSV_OSPIDMA_DST_SIZE    0X00001804U
 
 #define XOSPIPSV_OSPIDMA_DST_SIZE_SIZE_SHIFT   2
 #define XOSPIPSV_OSPIDMA_DST_SIZE_SIZE_WIDTH   27
 #define XOSPIPSV_OSPIDMA_DST_SIZE_SIZE_MASK    0X1FFFFFFCU
+/** @} */
 
 /**
- * Register: OSPI_OSPIDMA_DST_STS
+ * @name General DST DMA Status
+ * This register contains Status information like
+ * Busy, Number of outstanding transactions, Number of
+ * completed transactions and Destination FIFO level.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_OSPIDMA_DST_STS
  */
 #define XOSPIPSV_OSPIDMA_DST_STS    0X00001808U
 
@@ -1474,9 +1939,17 @@ extern "C" {
 #define XOSPIPSV_OSPIDMA_DST_STS_BUSY_SHIFT   0
 #define XOSPIPSV_OSPIDMA_DST_STS_BUSY_WIDTH   1
 #define XOSPIPSV_OSPIDMA_DST_STS_BUSY_MASK    0X00000001U
+/** @} */
 
 /**
- * Register: OSPI_OSPIDMA_DST_CTRL
+ * @name General DST DMA Control
+ * This register contains bits for configuring
+ * Pause MEM, Pause STRM, FIFO Threshold, Timeout value,
+ * Endianness, APB error response etc.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_OSPIDMA_DST_CTRL
  */
 #define XOSPIPSV_OSPIDMA_DST_CTRL    0X0000180CU
 
@@ -1511,9 +1984,16 @@ extern "C" {
 #define XOSPIPSV_OSPIDMA_DST_CTRL_PAUSE_MEM_SHIFT   0
 #define XOSPIPSV_OSPIDMA_DST_CTRL_PAUSE_MEM_WIDTH   1
 #define XOSPIPSV_OSPIDMA_DST_CTRL_PAUSE_MEM_MASK    0X00000001U
+/** @} */
 
 /**
- * Register: OSPI_OSPIDMA_DST_I_STS
+ * @name DST DMA Interrupt Status Register
+ * This register contains status bits for DMA interrupts
+ * like DONE, TIMEOUT_MEM, FIFO Overflow etc.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_OSPIDMA_DST_I_STS
  */
 #define XOSPIPSV_OSPIDMA_DST_I_STS    0X00001814U
 
@@ -1544,9 +2024,16 @@ extern "C" {
 #define XOSPIPSV_OSPIDMA_DST_I_STS_DONE_SHIFT   1
 #define XOSPIPSV_OSPIDMA_DST_I_STS_DONE_WIDTH   1
 #define XOSPIPSV_OSPIDMA_DST_I_STS_DONE_MASK    0X00000002U
+/** @} */
 
 /**
- * Register: OSPI_OSPIDMA_DST_I_EN
+ * @name DST DMA Interrupt Enable Register
+ * This register contains bits for enable DMA interrupts
+ * like DONE, TIMEOUT_MEM, FIFO Overflow etc.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_OSPIDMA_DST_I_EN
  */
 #define XOSPIPSV_OSPIDMA_DST_I_EN    0X00001818U
 
@@ -1577,9 +2064,16 @@ extern "C" {
 #define XOSPIPSV_OSPIDMA_DST_I_EN_DONE_SHIFT   1
 #define XOSPIPSV_OSPIDMA_DST_I_EN_DONE_WIDTH   1
 #define XOSPIPSV_OSPIDMA_DST_I_EN_DONE_MASK    0X00000002U
+/** @} */
 
 /**
- * Register: OSPI_OSPIDMA_DST_I_DIS
+ * @name DST DMA Interrupt Disable Register
+ * This register contains bits for disable DMA interrupts
+ * like DONE, TIMEOUT_MEM, FIFO Overflow etc.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_OSPIDMA_DST_I_DIS
  */
 #define XOSPIPSV_OSPIDMA_DST_I_DIS    0X0000181CU
 
@@ -1610,9 +2104,18 @@ extern "C" {
 #define XOSPIPSV_OSPIDMA_DST_I_DIS_DONE_SHIFT   1
 #define XOSPIPSV_OSPIDMA_DST_I_DIS_DONE_WIDTH   1
 #define XOSPIPSV_OSPIDMA_DST_I_DIS_DONE_MASK    0X00000002U
+/** @} */
 
 /**
- * Register: OSPI_OSPIDMA_DST_I_MASK
+ * @name SRC DMA Interrupt Mask Register
+ * This register contains information about DMA interrupts
+ * like DONE, TIMEOUT_MEM, FIFO Overflow etc.
+ * 1 indicates mask the interrupt, do not pass it along
+ * 0 indicates do not mask the interrupt, pass it along as is.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_OSPIDMA_DST_I_MASK
  */
 #define XOSPIPSV_OSPIDMA_DST_I_MASK    0X00001820U
 
@@ -1643,9 +2146,18 @@ extern "C" {
 #define XOSPIPSV_OSPIDMA_DST_I_MASK_DONE_SHIFT   1
 #define XOSPIPSV_OSPIDMA_DST_I_MASK_DONE_WIDTH   1
 #define XOSPIPSV_OSPIDMA_DST_I_MASK_DONE_MASK    0X00000002U
+/** @} */
 
 /**
- * Register: OSPI_OSPIDMA_DST_CTRL2
+ * @name General DST DMA Control Register 2
+ * This register contains bits for configuring
+ * Maximum number of outstanding AXI write commands issued,
+ * prescaler value for the timeout in clk (~2.5ns) cycles,
+ * AWCACHE bits on the AXI Write channel and Timeout enable.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_OSPIDMA_DST_CTRL2
  */
 #define XOSPIPSV_OSPIDMA_DST_CTRL2    0X00001824U
 
@@ -1676,34 +2188,62 @@ extern "C" {
 #define XOSPIPSV_OSPIDMA_DST_CTRL2_MAX_OUTS_CMDS_SHIFT   0
 #define XOSPIPSV_OSPIDMA_DST_CTRL2_MAX_OUTS_CMDS_WIDTH   4
 #define XOSPIPSV_OSPIDMA_DST_CTRL2_MAX_OUTS_CMDS_MASK    0X0000000F
+/** @} */
 
 /**
- * Register: OSPI_OSPIDMA_DST_ADDR_MSB
+ * @name Destination mem address (msbs) for DMA stream->memory data transfer
+ * This register contains bits for configuring
+ * Destination memory address (msbs) for DMA stream to memory data transfer.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_OSPIDMA_DST_ADDR_MSB
  */
 #define XOSPIPSV_OSPIDMA_DST_ADDR_MSB    0X00001828U
 
 #define XOSPIPSV_OSPIDMA_DST_ADDR_MSB_ADDR_MSB_SHIFT   0
 #define XOSPIPSV_OSPIDMA_DST_ADDR_MSB_ADDR_MSB_WIDTH   17
 #define XOSPIPSV_OSPIDMA_DST_ADDR_MSB_ADDR_MSB_MASK    0X0001FFFFU
+/** @} */
 
 /**
- * Register: OSPI_OSPIDMA_SAFETY_CHK
+ * @name Safety endpoint connectivity check Register
+ * This register contains bits for configuring
+ * Safety check field.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_OSPIDMA_SAFETY_CHK
  */
 #define XOSPIPSV_OSPIDMA_SAFETY_CHK   0X00001FF8U
 
 #define XOSPIPSV_OSPIDMA_SAFETY_CHK_CHK_VAL_SHIFT   0
 #define XOSPIPSV_OSPIDMA_SAFETY_CHK_CHK_VAL_WIDTH   32
 #define XOSPIPSV_OSPIDMA_SAFETY_CHK_CHK_VAL_MASK    0XFFFFFFFFU
+/** @} */
 
 /**
- * Register: OSPI_OSPIDMA_FUTURE_ECO
+ * @name Future potential ECO Register
+ * This register is defined for Future potential ECO.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_OSPIDMA_FUTURE_ECO
  */
 #define XOSPIPSV_OSPIDMA_FUTURE_ECO    0X00001FFCU
 
 #define XOSPIPSV_OSPIDMA_FUTURE_ECO_VAL_SHIFT   0
 #define XOSPIPSV_OSPIDMA_FUTURE_ECO_VAL_WIDTH   32
 #define XOSPIPSV_OSPIDMA_FUTURE_ECO_VAL_MASK    0XFFFFFFFFU
+/** @} */
 
+/**
+ * @name Macros for Default configurations
+ * @{
+ */
+/**
+ * Default configurations provided by design team.
+ */
 #define XOSPIPSV_IND_TRIGGAHB_BASE 0xC0000000U
 #define XOSPIPSV_IND_TRIGGER_RANGE 0x6
 #define XOSPIPSV_DMA_PERIPH_CONFIG_VAL 0x602
@@ -1713,8 +2253,16 @@ extern "C" {
 #define XOSPIPSV_DMA_DST_CTRL_DEF	0xF43FFA00U
 #define XOSPIPSV_LINEAR_ADDR_BASE	0xC0000000U
 #define XOSPIPSV_DELY_DEF_VALUE		0x00000101U
-#define XOSPIPSV_DMA_DST_ADDR_MASK	0xFFFFFFFFU
+/** @} */
 
+/**
+ * @name BaseAddress macros outside controller space
+ * @{
+ */
+/**
+ * Macros defined for addresses which are outside the
+ * controller space.
+ */
 #define XPMC_IOU_SLCR_BASEADDR		0xF1060000U
 #define XPMC_IOU_SLCR_OSPI_MUX_SEL		0x00000504U
 #define XPMC_IOU_SLCR_OSPI_MUX_SEL_DAC_MASK		0x00000002U
@@ -1727,6 +2275,7 @@ extern "C" {
 #define XPMC_IOU_MIO_TRI0				0xF1060200U
 #define XPMC_MIO12_DATA_MASK_LSW_SHIFT		16
 #define XPMC_MIO12_DATA_MASK_LSW	0xEFFFU
+/** @} */
 
 #ifdef __cplusplus
 }
