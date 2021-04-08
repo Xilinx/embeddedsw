@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +31,7 @@ struct XPm_PlDeviceNode {
 	XPm_PlDevice *Parent;           /**< Parent of PLD */
 	XPm_PlDevice *NextPeer;         /**< Sibling/Peer of PLD */
 	XPm_PlDevice *Child;            /**< Child head PLD’s children */
+	struct XPm_AieDeviceNode *AieDevice;       /**< Link to AIE Device */
 };
 
 /************************** Function Prototypes ******************************/
