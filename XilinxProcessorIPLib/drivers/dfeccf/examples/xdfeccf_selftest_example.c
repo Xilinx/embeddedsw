@@ -31,6 +31,7 @@
 *       dc     02/22/21 include HW in versioning
 *       dc     04/06/21 Register with full node name
 *       dc     04/07/21 Fix bare metal initialisation
+*       dc     04/08/21 Set sequence length only once
 *
 * </pre>
 *
@@ -256,7 +257,7 @@ static int XDfeCcf_PassThroughTestExample()
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
 	XDfeCcf_Cfg Cfg;
 	XDfeCcf *InstancePtr = NULL;
-	XDfeCcf_Init Init;
+	XDfeCcf_Init Init = { { 4, { 0 } }, 1 };
 	XDfeCcf_TriggerCfg TriggerCfg;
 	XDfeCcf_Coefficients Coeffs = {
 		7, 1, { 0, 0, 0, (2 << 15) - 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
@@ -281,7 +282,7 @@ static int XDfeCcf_PassThroughTestExample()
 
 	/* Set coefficents and add channel */
 	XDfeCcf_LoadCoefficients(InstancePtr, 0, &Coeffs);
-	XDfeCcf_AddCC(InstancePtr, 0, &CarrierCfg);
+	XDfeCcf_AddCC(InstancePtr, 0, 0x7, &CarrierCfg);
 
 	XDfeCcf_Deactivate(InstancePtr);
 	XDfeCcf_InstanceClose(InstancePtr);
