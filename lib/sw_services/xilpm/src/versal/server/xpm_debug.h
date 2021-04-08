@@ -263,6 +263,8 @@ extern "C" {
 #define XPM_INT_ERR_ECC_INIT_PSM_RAM		0x3610U
 /* Invalid state transition */
 #define XPM_INT_ERR_INVALID_STATE_TRANS	0x3611U
+/* Error during execution of InitNode */
+#define XPM_INT_ERR_INITNODE			0x3612U
 
 /************************** PLD specific Errors ******************************/
 /************************** (0x3700) - (0x37FF) ******************************/
