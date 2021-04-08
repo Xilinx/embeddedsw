@@ -1992,12 +1992,11 @@ XStatus XPmDevice_AddParent(u32 Id, u32 *Parents, u32 NumParents)
 			 * a parent with exception being PLD_0. This is to prevent
 			 * broken trees
 			 */
-			if ((NULL == Parent) ||
-			   (((u32)XPM_NODEIDX_DEV_PLD_0 != NODEINDEX(Parent->Device.Node.Id)) &&
-			   (NULL == Parent->Parent))) {
-				Status = XST_DEVICE_NOT_FOUND;
+			Status = XPmPlDevice_IsValidPld(Parent);
+			if (XST_SUCCESS != Status) {
 				goto done;
 			}
+
 			PlDevice->Parent = Parent;
 			PlDevice->NextPeer = Parent->Child;
 			Parent->Child = PlDevice;
