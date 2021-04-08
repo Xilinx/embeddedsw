@@ -12,6 +12,9 @@
 extern "C" {
 #endif
 
+#define IS_DEV_AIE(id)			(((u32)XPM_NODECLASS_DEVICE == NODECLASS(id)) && \
+					 ((u32)XPM_NODESUBCL_DEV_AIE == NODESUBCLASS(id)))
+
 /**
  * AIE node class.
  */

@@ -1167,6 +1167,48 @@ done:
 	return Status;
 }
 
+static XStatus AieInitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	XPm_AieDevice *AieDevice;
+
+	AieDevice = (XPm_AieDevice *)XPmDevice_GetById(NodeId);
+	if (NULL == AieDevice) {
+		DbgErr = XPM_INT_ERR_INVALID_NODE;
+		goto done;
+	}
+
+	if (NULL == AieDevice->Ops) {
+		DbgErr = XPM_INT_ERR_AIE_UNDEF_INIT_NODE;
+		goto done;
+	}
+
+	switch (Function) {
+		case (u32)FUNC_INIT_START:
+			if (NULL == AieDevice->Ops->InitStart) {
+				DbgErr = XPM_INT_ERR_AIE_UNDEF_INIT_NODE_START;
+				goto done;
+			}
+			Status = AieDevice->Ops->InitStart(AieDevice, Args, NumArgs);
+			break;
+		case (u32)FUNC_INIT_FINISH:
+			if (NULL == AieDevice->Ops->InitFinish) {
+				DbgErr = XPM_INT_ERR_AIE_UNDEF_INIT_NODE_FINISH;
+				goto done;
+			}
+			Status = AieDevice->Ops->InitFinish(AieDevice, Args, NumArgs);
+			break;
+		default:
+			DbgErr = XPM_INT_ERR_INVALID_FUNC;
+			break;
+	}
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
 static XStatus ProtInitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -1233,7 +1275,8 @@ done:
 /**
  * @brief  This function allows to initialize the node.
  *
- * @param  NodeId	Supported power domain nodes only
+ * @param  NodeId	Supported power domain nodes, PLD, AIE & Protection
+ * nodes
  * @param  Function	Function id
  * @param  Args		Arguments speicifc to function
  * @param  NumArgs  Number of arguments
@@ -1262,6 +1305,10 @@ XStatus XPm_InitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs)
 		   ((u32)XPM_NODESUBCL_PROT_XMPU == NODESUBCLASS(NodeId))) &&
 		   ((u32)XPM_NODEIDX_PROT_MAX > NODEINDEX(NodeId))) {
 		Status = ProtInitNode(NodeId, Function, Args, NumArgs);
+	} else if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(NodeId)) &&
+		  ((u32)XPM_NODESUBCL_DEV_AIE == NODESUBCLASS(NodeId)) &&
+		  ((u32)XPM_NODEIDX_DEV_AIE_MAX > NODEINDEX(NodeId))) {
+		Status = AieInitNode(NodeId, Function, Args, NumArgs);
 	} else {
 		Status = XPM_PM_INVALID_NODE;
 		DbgErr = XPM_INT_ERR_INITNODE;

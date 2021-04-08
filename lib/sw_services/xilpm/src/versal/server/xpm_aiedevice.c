@@ -7,6 +7,53 @@
 
 /****************************************************************************/
 /**
+ * @brief  Start Node initialization for AIE
+ *
+ * @param  AieDevice: Pointer to AIE Device Node
+ * @param  Args: Arguments for AIE
+ * @param  NumArgs: Number of arguments for AIE
+ *
+ * @return XST_SUCCESS
+ *
+ * @note Arguments consist of Power Domain Node Id that AIE depends on
+ *
+ ****************************************************************************/
+static XStatus AieInitStart(XPm_AieDevice *AieDevice, u32 *Args, u32 NumArgs)
+{
+	(void)AieDevice;
+	(void)Args;
+	(void)NumArgs;
+	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Finish Node initialization for AIE
+ *
+ * @param  AieDevice: Pointer to AIE Device Node
+ * @param  Args: Arguments for AIE
+ * @param  NumArgs: Number of arguments for AIE
+ *
+ * @return XST_SUCCESS
+ *
+ * @note Arguments consist of Power Domain Node Id that AIE depends on
+ *
+ ****************************************************************************/
+static XStatus AieInitFinish(XPm_AieDevice *AieDevice, u32 *Args, u32 NumArgs)
+{
+	(void)AieDevice;
+	(void)Args;
+	(void)NumArgs;
+	return XST_SUCCESS;
+}
+
+static struct XPm_AieInitNodeOps AieOps = {
+	.InitStart = AieInitStart,
+	.InitFinish = AieInitFinish,
+};
+
+/****************************************************************************/
+/**
  * @brief  Initialize AIE Device node base class
  *
  * @param  AieDevice: Pointer to an uninitialized AieDevice struct
@@ -33,7 +80,7 @@ XStatus XPmAieDevice_Init(XPm_AieDevice *AieDevice, u32 NodeId,
 	}
 
 	AieDevice->Parent = NULL;
-	AieDevice->Ops = NULL;
+	AieDevice->Ops = &AieOps;
 
 done:
 	return Status;

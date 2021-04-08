@@ -527,6 +527,15 @@ extern "C" {
 /* Error when RM is run for child when parent is in unused state */
 #define XPM_INT_ERR_RUN_PARENT_IMAGE_FIRST			0x490DU
 
+/*********************** AIE Device specific Errors **************************/
+/************************** (0x4980) - (0x49FF) ******************************/
+/* Uninitialized Init Node Ops field for AIE Device */
+#define XPM_INT_ERR_AIE_UNDEF_INIT_NODE				0x4980U
+/* Uninitialized Init Node Start function pointer for AIE Device */
+#define XPM_INT_ERR_AIE_UNDEF_INIT_NODE_START			0x4981U
+/* Unitialized Init Node finish function pointer for AIE Device */
+#define XPM_INT_ERR_AIE_UNDEF_INIT_NODE_FINISH			0x4982U
+
 /*********************** Register blind write check errors********************/
 /************************** (0x5000) - (0x50FF) ******************************/
 /* AIE NPI_PCSR_MASK write check error */
