@@ -29,6 +29,8 @@
 /* Device security bit in register */
 #define DEV_NONSECURE			(1U)
 #define DEV_SECURE			(0U)
+#define IS_DEV_AIE(id)			(((u32)XPM_NODECLASS_DEVICE == NODECLASS(id)) && \
+					 ((u32)XPM_NODESUBCL_DEV_AIE == NODESUBCLASS(id)))
 
 static const char *PmDevStates[] = {
 	"UNUSED",
@@ -64,6 +66,7 @@ static const u32 IpiMasks[][2] = {
 static XPm_DeviceOps PmDeviceOps;
 static XPm_Device *PmDevices[(u32)XPM_NODEIDX_DEV_MAX];
 static XPm_Device *PmPlDevices[(u32)XPM_NODEIDX_DEV_PLD_MAX];
+static XPm_Device *PmAieDevices[(u32)XPM_NODEIDX_DEV_AIE_MAX];
 static XPm_Device *PmOcmMemRegnDevices[(u32)MEM_REGN_DEV_NODE_MAX];
 static XPm_Device *PmDdrMemRegnDevices[(u32)MEM_REGN_DEV_NODE_MAX];
 static XPm_Device *PmVirtualDevices[(u32)XPM_NODEIDX_DEV_VIRT_MAX];
@@ -74,6 +77,7 @@ static u32 PmNumOcmMemRegnDevices;
 static u32 PmNumDdrMemRegnDevices;
 static u32 PmNumVirtualDevices;
 static u32 PmNumHbMonDevices;
+static u32 PmNumAieDevices;
 static u32 PmSysmonAddresses[(u32)XPM_NODEIDX_MONITOR_MAX];
 
 static const XPm_StateCap XPmGenericDeviceStates[] = {
@@ -249,6 +253,20 @@ static XStatus SetMemRegnDeviceNode(u32 Id, XPm_Device *Device)
 	}
 
 done:
+	return Status;
+}
+
+static XStatus SetAieDeviceNode(u32 Id, XPm_Device *Device)
+{
+	XStatus Status = XST_FAILURE;
+	u32 NodeIdx = NODEINDEX(Id);
+
+	if ((NULL != Device) && ((u32)XPM_NODEIDX_DEV_AIE_MAX > NodeIdx)) {
+		PmAieDevices[NodeIdx] = Device;
+		PmNumAieDevices++;
+		Status = XST_SUCCESS;
+	}
+
 	return Status;
 }
 
@@ -1354,6 +1372,11 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 		Status = SetHbMonDeviceNode(Id, Device);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_SET_HB_MON_DEV;
+		}
+	} else if (IS_DEV_AIE(Id)) {
+		Status = SetAieDeviceNode(Id, Device);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_SET_AIE_DEV;
 			goto done;
 		}
 	} else {
@@ -1606,6 +1629,11 @@ XPm_Device *XPmDevice_GetById(const u32 DeviceId)
 			goto done;
 		}
 		DevicesHandle = PmHbMonDevices;
+	} else if ((u32)XPM_NODESUBCL_DEV_AIE == NODESUBCLASS(DeviceId)) {
+		if ((u32)XPM_NODEIDX_DEV_AIE_MAX <= NODEINDEX(DeviceId)) {
+			goto done;
+		}
+		DevicesHandle = PmAieDevices;
 	} else {
 		if ((u32)XPM_NODEIDX_DEV_MAX <= NODEINDEX(DeviceId)) {
 			goto done;

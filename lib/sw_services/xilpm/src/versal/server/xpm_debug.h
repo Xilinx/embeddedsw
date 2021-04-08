@@ -188,6 +188,8 @@ extern "C" {
 #define XPM_INT_ERR_SET_VIRT_DEV		0x3314U
 /* Error during set healthy boot monitor device node */
 #define XPM_INT_ERR_SET_HB_MON_DEV		0x3315U
+/* Error during set AIE device node */
+#define XPM_INT_ERR_SET_AIE_DEV		0x3316U
 
 /************************* Reset specific Errors *****************************/
 /************************** (0x3400) - (0x34FF) ******************************/
