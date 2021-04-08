@@ -427,9 +427,15 @@ done:
 static XStatus SetClocks(XPm_Device *Device, u32 Enable)
 {
 	XStatus Status = XST_FAILURE;
+	u32 NodeId;
 
-	/* TODO: Skip handling for PL clocks until PL topology is available */
-	if ((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(Device->Node.Id)) {
+	/*
+	 * Clocks for PLD and AIE is handled by CDO, hence do not handle in
+	 * firmware. Skip for PLD & AIE Devices
+	*/
+	NodeId = Device->Node.Id;
+	if (((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(NodeId)) ||
+	    ((u32)XPM_NODESUBCL_DEV_AIE == NODESUBCLASS(NodeId))) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
