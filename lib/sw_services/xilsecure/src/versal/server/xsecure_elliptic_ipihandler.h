@@ -10,7 +10,7 @@
 * @addtogroup xsecure_apis XilSecure Versal APIs
 * @{
 * @cond xsecure_internal
-* This file contains the xilsecure elliptic handler declaration.
+* This file contains the xilsecure elliptic IPI handler declaration.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -43,4 +43,4 @@ int XSecure_EllipticIpiHandler(XPlmi_Cmd *Cmd);
 }
 #endif
 
-#endif /* XSECURE_ELLIPTICIPIHANDLER_H_ */
+#endif /* XSECURE_ELLIPTIC_IPIHANDLER_H_ */

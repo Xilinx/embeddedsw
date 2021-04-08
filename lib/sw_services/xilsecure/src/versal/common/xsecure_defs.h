@@ -47,8 +47,10 @@ extern "C" {
 #define XSecure_Printf(DebugType, ...)	\
 	if ((DebugType) == 1U) {xil_printf (__VA_ARGS__);}
 
-/* Macro to typecast PM API ID */
+/* Macro to typecast XILSECURE API ID */
 #define XSECURE_API(ApiId)	((u32)ApiId)
+
+#define XSECURE_API_ID_MASK	0xFFU
 
 /************************** Variable Definitions *****************************/
 
@@ -99,7 +101,7 @@ typedef enum {
 	XSECURE_DECRYPT,
 } XSecure_AesOp;
 
-/* PM API ids */
+/* XilSecure API ids */
 typedef enum {
 	XSECURE_API_FEATURES = 0U,
 	XSECURE_API_RSA_SIGN_VERIFY,

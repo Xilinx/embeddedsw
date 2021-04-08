@@ -29,6 +29,7 @@
 #include "xil_printf.h"
 #include "xipipsu.h"
 #include "xsecure_ellipticclient.h"
+#include "xsecure_ipi.h"
 #include "xstatus.h"
 
 /************************** Constant Definitions *****************************/

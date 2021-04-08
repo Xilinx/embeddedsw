@@ -33,7 +33,6 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
-#include "xsecure_ipi.h"
 
 /**************************** Type Definitions *******************************/
 

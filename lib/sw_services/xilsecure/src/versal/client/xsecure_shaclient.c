@@ -26,6 +26,7 @@
 
 /***************************** Include Files *********************************/
 #include "xsecure_defs.h"
+#include "xsecure_ipi.h"
 #include "xsecure_shaclient.h"
 
 /************************** Constant Definitions *****************************/
@@ -48,7 +49,7 @@ static u8 Initialize = FALSE;
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XSecure_Sha3Initialize()
+int XSecure_Sha3Initialize(void)
 {
 	Initialize = TRUE;
 
@@ -131,7 +132,7 @@ int XSecure_Sha3Finish(const u64 OutDataAddr)
  * 	- XSECURE_SHA3_FINISH_ERROR 	 - Error when SHA3 finish fails
  *
  ******************************************************************************/
-int XSecure_Sha3Kat()
+int XSecure_Sha3Kat(void)
 {
 	volatile int Status = XST_FAILURE;
 

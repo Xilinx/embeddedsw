@@ -8,7 +8,7 @@
 *
 * @file xsecure_rsa_ipihandler.c
 *
-* This file contains the xilsecure rsa handlers implementation.
+* This file contains the xilsecure RSA IPI handlers implementation.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -39,7 +39,7 @@ static int XSecure_RsaDecrypt(u32 SrcAddrLow, u32 SrcAddrHigh,
 static int XSecure_RsaEncrypt(u32 SrcAddrLow, u32 SrcAddrHigh,
 	u32 DstAddrLow, u32 DstAddrHigh);
 static int XSecure_RsaSignVerify(u32 SrcAddrLow, u32 SrcAddrHigh);
-static int XSecure_RsaKat();
+static int XSecure_RsaKat(void);
 
 /*************************** Function Definitions *****************************/
 
@@ -47,16 +47,18 @@ static int XSecure_RsaKat();
 /**
  * @brief       This function calls respective IPI handler based on the API_ID
  *
+ * @param 	Cmd is pointer to the command structure
+ *
  * @return	- XST_SUCCESS - If the handler execution is successful
  * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
-int XSecure_RsaIpiHandler(XPlmi_Cmd * Cmd)
+int XSecure_RsaIpiHandler(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
 	u32 *Pload = Cmd->Payload;
 
-	switch (Cmd->CmdId & 0xFFU) {
+	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 	case XSECURE_API(XSECURE_API_RSA_PRIVATE_DECRYPT):
 		Status = XSecure_RsaDecrypt(Pload[0], Pload[1],
 						Pload[2], Pload[3]);
@@ -235,6 +237,7 @@ static int XSecure_RsaSignVerify(u32 SrcAddrLow, u32 SrcAddrHigh)
 		goto END;
 	}
 
+	Status = XST_FAILURE;
 	Status = XSecure_RsaSignVerification((u8 *)(UINTPTR)SignParams.SignAddr,
 			(u8 *)(UINTPTR)SignParams.HashAddr,
 			SignParams.Size);
@@ -252,7 +255,7 @@ END:
  * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XSecure_RsaKat()
+static int XSecure_RsaKat(void)
 {
 	volatile int Status = XST_FAILURE;
 

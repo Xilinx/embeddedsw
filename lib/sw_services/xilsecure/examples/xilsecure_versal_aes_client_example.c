@@ -33,6 +33,7 @@
 #include "xil_util.h"
 #include "xsecure_aesclient.h"
 #include "xsecure_defs.h"
+#include "xsecure_ipi.h"
 
 /************************** Constant Definitions *****************************/
 

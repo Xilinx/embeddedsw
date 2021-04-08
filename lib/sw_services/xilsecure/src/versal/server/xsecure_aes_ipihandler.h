@@ -34,7 +34,6 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xil_types.h"
 #include "xplmi_cmd.h"
 
 /************************** Constant Definitions *****************************/
@@ -42,7 +41,7 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
-int XSecure_AesIpiHandler(XPlmi_Cmd * Cmd);
+int XSecure_AesIpiHandler(XPlmi_Cmd *Cmd);
 
 #ifdef __cplusplus
 }

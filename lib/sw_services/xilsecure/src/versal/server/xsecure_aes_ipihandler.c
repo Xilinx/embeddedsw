@@ -45,7 +45,7 @@ static XPmcDma PmcDmaInstance;
 #define XSECURE_PMCDMA_DEVICEID		PMCDMA_0_DEVICE_ID
 
 /************************** Function Prototypes *****************************/
-static int XSecure_AesInit();
+static int XSecure_AesInit(void);
 static int XSecure_AesOpInit(u32 SrcAddrLow, u32 SrcAddrHigh);
 static int XSecure_AesAadUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size);
 static int XSecure_AesEncUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
@@ -59,12 +59,14 @@ static int XSecure_AesKeyWrite(u8  KeySize, u8 KeySrc,
 	u32 KeyAddrLow, u32 KeyAddrHigh);
 static int XSecure_AesDecryptKek(u32 KeyInfo, u32 IvAddrLow, u32 IvAddrHigh);
 static int XSecure_AesSetDpaCmConfig(u8 DpaCmCfg);
-static int XSecure_AesExecuteDecKat();
-static int XSecure_AesExecuteDecCmKat();
+static int XSecure_AesExecuteDecKat(void);
+static int XSecure_AesExecuteDecCmKat(void);
 
 /*****************************************************************************/
 /**
  * @brief       This function calls respective IPI handler based on the API_ID
+ *
+ * @param 	Cmd is pointer to the command structure
  *
  * @return	- XST_SUCCESS - If the handler execution is successful
  * 		- ErrorCode - If there is a failure
@@ -86,15 +88,15 @@ int XSecure_AesIpiHandler(XPlmi_Cmd *Cmd)
 		Status = XSecure_AesAadUpdate(Pload[0], Pload[1], Pload[2]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_ENCRYPT_UPDATE):
-		Status = XSecure_AesEncUpdate(Pload[0], Pload[1],
-					Pload[2], Pload[3]);
+		Status = XSecure_AesEncUpdate(Pload[0], Pload[1], Pload[2],
+				Pload[3]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_ENCRYPT_FINAL):
 		Status = XSecure_AesEncFinal(Pload[0], Pload[1]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_DECRYPT_UPDATE):
-		Status = XSecure_AesDecUpdate(Pload[0], Pload[1],
-					Pload[2], Pload[3]);
+		Status = XSecure_AesDecUpdate(Pload[0], Pload[1], Pload[2],
+				Pload[3]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_DECRYPT_FINAL):
 		Status = XSecure_AesDecFinal(Pload[0], Pload[1]);
@@ -103,22 +105,21 @@ int XSecure_AesIpiHandler(XPlmi_Cmd *Cmd)
 		Status = XSecure_AesKeyZeroize(Pload[0]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_WRITE_KEY):
-		Status = XSecure_AesKeyWrite(Pload[0], Pload[1],
-					Pload[2], Pload[3]);
+		Status = XSecure_AesKeyWrite(Pload[0], Pload[1], Pload[2],
+				Pload[3]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_KEK_DECRYPT):
-		Status = XSecure_AesDecryptKek(Pload[0], Pload[1],
-					Pload[2]);
+		Status = XSecure_AesDecryptKek(Pload[0], Pload[1], Pload[2]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_SET_DPA_CM):
-                Status = XSecure_AesSetDpaCmConfig(Pload[0]);
-                break;
+		Status = XSecure_AesSetDpaCmConfig(Pload[0]);
+		break;
 	case XSECURE_API(XSECURE_API_AES_DECRYPT_KAT):
-                Status = XSecure_AesExecuteDecKat();
-                break;
+		Status = XSecure_AesExecuteDecKat();
+		break;
 	case XSECURE_API(XSECURE_API_AES_DECRYPT_CM_KAT):
-                Status = XSecure_AesExecuteDecCmKat();
-                break;
+		Status = XSecure_AesExecuteDecCmKat();
+		break;
 	default:
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
 		Status = XST_INVALID_PARAM;
@@ -136,7 +137,7 @@ int XSecure_AesIpiHandler(XPlmi_Cmd *Cmd)
  * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XSecure_AesInit()
+static int XSecure_AesInit(void)
 {
 	volatile int Status = XST_FAILURE;
 
@@ -434,7 +435,7 @@ static int XSecure_AesSetDpaCmConfig(u8 DpaCmCfg)
  * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XSecure_AesExecuteDecKat()
+static int XSecure_AesExecuteDecKat(void)
 {
 	volatile int Status = XST_FAILURE;
 
@@ -452,7 +453,7 @@ static int XSecure_AesExecuteDecKat()
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-static int XSecure_AesExecuteDecCmKat()
+static int XSecure_AesExecuteDecCmKat(void)
 {
 	volatile int Status = XST_FAILURE;
 

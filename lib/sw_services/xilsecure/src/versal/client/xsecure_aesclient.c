@@ -27,6 +27,7 @@
 #include "xil_cache.h"
 #include "xsecure_aesclient.h"
 #include "xsecure_defs.h"
+#include "xsecure_ipi.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -46,7 +47,7 @@
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XSecure_AesInitialize()
+int XSecure_AesInitialize(void)
 {
 	volatile int Status = XST_FAILURE;
 
@@ -398,7 +399,7 @@ int XSecure_AesSetDpaCm(u8 DpaCmCfg)
  * 					not matched with expected data
  *
  ******************************************************************************/
-int XSecure_AesDecryptKat()
+int XSecure_AesDecryptKat(void)
 {
 	volatile int Status = XST_FAILURE;
 
@@ -426,7 +427,7 @@ int XSecure_AesDecryptKat()
  * 		- XST_FAILURE - On failure
  *
  ******************************************************************************/
-int XSecure_AesDecryptCmKat()
+int XSecure_AesDecryptCmKat(void)
 {
 	volatile int Status = XST_FAILURE;
 

@@ -98,7 +98,7 @@ static int XSecure_FeaturesCmd(u32 ApiId)
  * @brief	This function processes XilSecure IPI commands
  *
  *****************************************************************************/
-static int XSecure_ProcessCmd(XPlmi_Cmd * Cmd)
+static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	u32 *Pload = Cmd->Payload;
