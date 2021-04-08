@@ -32,6 +32,7 @@
 * 1.04  td   11/23/2020 MISRA C Rule 10.4 Fixes
 *       ma   03/24/2021 Reduced minimum digits of time stamp decimals to 3
 *       skd  03/25/2021 Compilation warning fix
+*       bm   04/03/2021 Move task creation out of interrupt context
 *
 * </pre>
 *
@@ -615,8 +616,7 @@ int XPlmi_RegisterHandler(u32 IntrId, GicIntHandler_t Handler, void *Data)
 	switch (IoModIntrNum)
 	{
 		case XPLMI_IOMODULE_PMC_GIC_IRQ:
-			XPlmi_GicRegisterHandler(PlmIntrId, Handler, Data);
-			Status = XST_SUCCESS;
+			Status = XPlmi_GicRegisterHandler(PlmIntrId, Handler, Data);
 			break;
 
 		case XPLMI_IOMODULE_CFRAME_SEU:

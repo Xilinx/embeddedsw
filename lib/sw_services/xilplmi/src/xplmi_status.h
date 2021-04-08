@@ -72,7 +72,7 @@
 *       skd  03/12/2021 Added error codes for PSM keep alive failure
 *       bm   03/16/2021 Added error codes for Image Upgrade logic
 *       har  03/17/2021 Updated description for XLOADER_ERR_SECURE_NOT_ALLOWED
-*
+*       bm   04/03/2021 Added error codes for task creation in scheduler
 * </pre>
 *
 * @note
@@ -228,6 +228,9 @@ typedef enum {
 			of unaligned SrcAddr, DestAddr or number of words */
 	XPLMI_IPI_ACCESS_ERR, /**< 0x130 - Access permissions failed for PLMI IPI
 						command received */
+	XPLMI_ERR_TASK_EXISTS,	/**< 0x131 - Error when the task that is being
+						added to scheduler already exists */
+
 
 	/** Status codes used in PLM */
 	XPLM_ERR_TASK_CREATE = 0x200,	/**< 0x200 - Error when task create

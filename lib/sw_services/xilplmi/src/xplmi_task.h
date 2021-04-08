@@ -23,6 +23,7 @@
 * 1.03  skd  03/31/2021 Adding non periodic tasks even if a task
 *                       with the same handler exists, to ensure no
 *                       interrupt task handlers get missed
+*       bm   04/03/2021 Move task creation out of interrupt context
 *
 * </pre>
 *
@@ -45,8 +46,9 @@ extern "C" {
 #include "xplmi_proc.h"
 
 /************************** Constant Definitions *****************************/
-#define XPLMI_TASK_MAX			(32U)
+#define XPLMI_TASK_MAX			(64U)
 #define XPLMI_TASK_PRIORITIES		(2U)
+#define XPLMI_INVALID_INTR_ID		(0xFFFFFFFFU)
 
 typedef enum {
         XPLM_TASK_PRIORITY_0 = 0,
@@ -58,10 +60,13 @@ typedef struct XPlmi_TaskNode XPlmi_TaskNode;
 
 struct XPlmi_TaskNode {
     TaskPriority_t Priority;
+    u32 IntrId;
     u32 Delay;
     struct metal_list TaskNode;
     int (*Handler)(void * PrivData);
     void * PrivData;
+    u8 InQueue;
+    u8 IsPersistent;
 };
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -79,7 +84,9 @@ XPlmi_TaskNode * XPlmi_TaskCreate(TaskPriority_t Priority,
 void XPlmi_TaskTriggerNow(XPlmi_TaskNode * Task);
 void XPlmi_TaskInit(void);
 void XPlmi_TaskDispatchLoop(void);
-XPlmi_TaskNode * XPlmi_GetTaskInstance(int (*Handler)(void *Arg), const void *PrivData);
+void XPlmi_TaskDelete(XPlmi_TaskNode *Task);
+XPlmi_TaskNode* XPlmi_GetTaskInstance(int (*Handler)(void *Arg),
+	const void *PrivData, const u32 IntrId);
 
 /************************** Variable Definitions *****************************/
 

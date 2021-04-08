@@ -26,6 +26,7 @@
 * 1.03  skd  03/31/2021 Adding non periodic tasks even if a task
 *                       with the same handler exists, to ensure no
 *                       interrupt task handlers get missed
+*       bm   04/03/2021 Move task creation out of interrupt context
 *
 * </pre>
 *
@@ -144,30 +145,18 @@ void XPlmi_SchedulerInit(void)
 ****************************************************************************/
 void XPlmi_SchedulerHandler(void *Data)
 {
-	int Status = XST_FAILURE;
 	u32 Idx;
-	XPlmi_TaskNode *Task;
 	(void)Data;
+	XPlmi_TaskNode *Task = NULL;
 
 	Sched.Tick++;
 	XPlmi_UtilRMW(PMC_PMC_MB_IO_IRQ_ACK, PMC_PMC_MB_IO_IRQ_ACK, 0x20U);
 	for (Idx = 0U; Idx < XPLMI_SCHED_MAX_TASK; Idx++) {
-		/* Check if the task is triggered and has a valid Callback */
+		/* Check if the task is active and has a valid Callback */
 		if (XPlmi_IsTaskActive(&Sched, Idx) == (u8)TRUE) {
+			Task = Sched.TaskList[Idx].Task;
 			/* Skip the task, if its already present in the queue */
-			if (XPlmi_GetTaskInstance(
-				Sched.TaskList[Idx].CustomerFunc, NULL)
-					== NULL) {
-				Task = XPlmi_TaskCreate(
-					Sched.TaskList[Idx].Priority,
-					Sched.TaskList[Idx].CustomerFunc, NULL);
-				if (Task == NULL) {
-					Status = XPlmi_UpdateStatus(
-						XPLM_ERR_TASK_CREATE, 0x0);
-					XPlmi_Printf(DEBUG_GENERAL,
-					     "Task Creation Err:0x%x\n\r", Status);
-					goto END;
-				}
+			if (metal_list_is_empty(&Task->TaskNode) == (int)TRUE) {
 				XPlmi_TaskTriggerNow(Task);
 			}
 			/* Remove the task from scheduler if it is non-periodic*/
@@ -177,10 +166,8 @@ void XPlmi_SchedulerHandler(void *Data)
 			}
 		}
 	}
-
 	XPlmi_WdtHandler();
 
-END:
 	return;
 }
 
@@ -203,6 +190,12 @@ int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 {
 	int Status = XST_FAILURE;
 	u32 Idx;
+	XPlmi_TaskNode *Task = NULL;
+
+	if (XPlmi_GetTaskInstance(CallbackFn, NULL, XPLMI_INVALID_INTR_ID) != NULL) {
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_TASK_EXISTS, 0);
+		goto END;
+	}
 
 	/* Get the Next Free Task Index */
 	for (Idx = 0U; Idx < XPLMI_SCHED_MAX_TASK; Idx++) {
@@ -212,11 +205,27 @@ int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 			Sched.TaskList[Idx].OwnerId = OwnerId;
 			Sched.TaskList[Idx].CustomerFunc = CallbackFn;
 			Sched.TaskList[Idx].Priority = Priority;
+			Task = XPlmi_TaskCreate(Priority, CallbackFn, NULL);
+			if (Task == NULL) {
+				Status = XPlmi_UpdateStatus(XPLM_ERR_TASK_CREATE, 0);
+				XPlmi_Printf(DEBUG_GENERAL, "Task Creation "
+						"Err:0x%x\n\r", Status);
+				goto END;
+			}
+			if (MilliSeconds != 0U) {
+				Task->IsPersistent = (u8)TRUE;
+			}
+			else {
+				Task->IsPersistent = (u8)FALSE;
+			}
+			Task->IntrId = XPLMI_INVALID_INTR_ID;
+			Sched.TaskList[Idx].Task = Task;
 			Status = XST_SUCCESS;
 			break;
 		}
 	}
 
+END:
 	return Status;
 }
 
@@ -250,6 +259,10 @@ int XPlmi_SchedulerRemoveTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 			Sched.TaskList[Idx].Interval = 0U;
 			Sched.TaskList[Idx].OwnerId = 0U;
 			Sched.TaskList[Idx].CustomerFunc = NULL;
+			Sched.TaskList[Idx].Task->IsPersistent = (u8)FALSE;
+			microblaze_disable_interrupts();
+			XPlmi_TaskDelete(Sched.TaskList[Idx].Task);
+			microblaze_enable_interrupts();
 			TaskCount++;
 		}
 	}

@@ -41,8 +41,14 @@
 #include "xplmi_sysmon.h"
 
 #define XPm_RegisterWakeUpHandler(GicId, SrcId, NodeId)	\
-	XPlmi_GicRegisterHandler(((GicId) << (8U)) | ((SrcId) << (16U)), \
-		XPm_DispatchWakeHandler, (void *)(NodeId))
+	{ \
+		Status = XPlmi_GicRegisterHandler(((GicId) << (8U)) | ((SrcId) << (16U)), \
+				XPm_DispatchWakeHandler, (void *)(NodeId)); \
+		if (Status != XST_SUCCESS) {\
+			goto END;\
+		}\
+	}
+
 
 u32 ResetReason;
 
@@ -703,11 +709,11 @@ static int XPm_DispatchWakeHandler(void *DeviceIdx)
 /****************************************************************************/
 /**
  * @brief Register wakeup handlers with XilPlmi
- * @param none
- * @return none
+ * @return XST_SUCCESS on success and error code on failure
  ****************************************************************************/
-static void XPm_RegisterWakeUpHandlers(void)
+static int XPm_RegisterWakeUpHandlers(void)
 {
+	int Status = XST_FAILURE;
 	/**
 	 * Register the events for PM
 	 */
@@ -755,6 +761,9 @@ static void XPm_RegisterWakeUpHandlers(void)
 	XPm_RegisterWakeUpHandler((u32)XPLMI_PMC_GIC_IRQ_GICP4, (u32)XPLMI_GICP4_SRC0, XPM_NODEIDX_DEV_SDIO_1);
 	XPm_RegisterWakeUpHandler((u32)XPLMI_PMC_GIC_IRQ_GICP4, (u32)XPLMI_GICP4_SRC1, XPM_NODEIDX_DEV_SDIO_1);
 	XPm_RegisterWakeUpHandler((u32)XPLMI_PMC_GIC_IRQ_GICP4, (u32)XPLMI_GICP4_SRC14, XPM_NODEIDX_DEV_RTC);
+
+END:
+	return Status;
 }
 
 static void XPm_CheckLastResetReason(void)
@@ -885,7 +894,10 @@ XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId
 		XPm_Out32(XPM_DOMAIN_INIT_STATUS_REG, 0);
 	}
 
-	XPm_RegisterWakeUpHandlers();
+	Status = XPm_RegisterWakeUpHandlers();
+	if (Status != XST_SUCCESS) {
+		goto done;
+	}
 
 	Status = XPmSubsystem_Add(PM_SUBSYS_PMC);
 
