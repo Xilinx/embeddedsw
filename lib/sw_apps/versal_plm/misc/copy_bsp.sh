@@ -76,14 +76,14 @@ cp -r $SERVICES_DIR/xilpm/src/versal/common/*.h $BSP_DIR/include/
 cp -r $SERVICES_DIR/xilpm/src/versal/server/*.h $BSP_DIR/include/
 BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilpm/src/versal/common/Makefile"
 
-mkdir -p $BSP_DIR/libsrc/xilsecure/src/
-cp -r $SERVICES_DIR/xilsecure/src/Makefile $BSP_DIR/libsrc/xilsecure/src/
+mkdir -p $BSP_DIR/libsrc/xilsecure/src
+cp -r $SERVICES_DIR/xilsecure/src/Makefile $BSP_DIR/libsrc/xilsecure/src
 cp -r $SERVICES_DIR/xilsecure/src/common/* $BSP_DIR/libsrc/xilsecure/src/
-cp -r $SERVICES_DIR/xilsecure/src/versal/* $BSP_DIR/libsrc/xilsecure/src/
-cp -r $SERVICES_DIR/xilsecure/src/common/*.h $BSP_DIR/include/
-cp -r $SERVICES_DIR/xilsecure/src/versal/*.h $BSP_DIR/include/
+cp -r $SERVICES_DIR/xilsecure/src/versal/server/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/versal/common/* $BSP_DIR/libsrc/xilsecure/src/
+cp $BSP_DIR/libsrc/xilsecure/src/*.h $BSP_DIR/include/
 mv $BSP_DIR/libsrc/xilsecure/src/libxilsecure_pmc.a $BSP_DIR/libsrc/xilsecure/src/libxilsecure.a
-rm $BSP_DIR/libsrc/xilsecure/src/libxilsecure_*.a
+rm -f $BSP_DIR/libsrc/xilsecure/src/libxilsecure_*.a
 BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilsecure/src/Makefile"
 
 mkdir -p $BSP_DIR/libsrc/xilsem
