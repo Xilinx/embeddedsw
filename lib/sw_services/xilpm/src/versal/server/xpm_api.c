@@ -1143,23 +1143,23 @@ static XStatus PldInitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs)
 	}
 
 	switch (Function) {
-		case (u32)FUNC_INIT_START:
-			if (NULL == PlDevice->Ops->InitStart) {
-				DbgErr = XPM_INT_ERR_NO_FEATURE;
-				goto done;
-			}
-			Status = PlDevice->Ops->InitStart(PlDevice, Args, NumArgs);
-			break;
-		case (u32)FUNC_INIT_FINISH:
-			if (NULL == PlDevice->Ops->InitFinish) {
-				DbgErr = XPM_INT_ERR_NO_FEATURE;
-				goto done;
-			}
-			Status = PlDevice->Ops->InitFinish(PlDevice, Args, NumArgs);
-			break;
-		default:
-			DbgErr = XPM_INT_ERR_INVALID_FUNC;
-			break;
+	case (u32)FUNC_INIT_START:
+		if (NULL == PlDevice->Ops->InitStart) {
+			DbgErr = XPM_INT_ERR_NO_FEATURE;
+			goto done;
+		}
+		Status = PlDevice->Ops->InitStart(PlDevice, Args, NumArgs);
+		break;
+	case (u32)FUNC_INIT_FINISH:
+		if (NULL == PlDevice->Ops->InitFinish) {
+			DbgErr = XPM_INT_ERR_NO_FEATURE;
+			goto done;
+		}
+		Status = PlDevice->Ops->InitFinish(PlDevice, Args, NumArgs);
+		break;
+	default:
+		DbgErr = XPM_INT_ERR_INVALID_FUNC;
+		break;
 	}
 
 done:
@@ -1185,23 +1185,23 @@ static XStatus AieInitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs)
 	}
 
 	switch (Function) {
-		case (u32)FUNC_INIT_START:
-			if (NULL == AieDevice->Ops->InitStart) {
-				DbgErr = XPM_INT_ERR_AIE_UNDEF_INIT_NODE_START;
-				goto done;
-			}
-			Status = AieDevice->Ops->InitStart(AieDevice, Args, NumArgs);
-			break;
-		case (u32)FUNC_INIT_FINISH:
-			if (NULL == AieDevice->Ops->InitFinish) {
-				DbgErr = XPM_INT_ERR_AIE_UNDEF_INIT_NODE_FINISH;
-				goto done;
-			}
-			Status = AieDevice->Ops->InitFinish(AieDevice, Args, NumArgs);
-			break;
-		default:
-			DbgErr = XPM_INT_ERR_INVALID_FUNC;
-			break;
+	case (u32)FUNC_INIT_START:
+		if (NULL == AieDevice->Ops->InitStart) {
+			DbgErr = XPM_INT_ERR_AIE_UNDEF_INIT_NODE_START;
+			goto done;
+		}
+		Status = AieDevice->Ops->InitStart(AieDevice, Args, NumArgs);
+		break;
+	case (u32)FUNC_INIT_FINISH:
+		if (NULL == AieDevice->Ops->InitFinish) {
+			DbgErr = XPM_INT_ERR_AIE_UNDEF_INIT_NODE_FINISH;
+			goto done;
+		}
+		Status = AieDevice->Ops->InitFinish(AieDevice, Args, NumArgs);
+		break;
+	default:
+		DbgErr = XPM_INT_ERR_INVALID_FUNC;
+		break;
 	}
 
 done:
