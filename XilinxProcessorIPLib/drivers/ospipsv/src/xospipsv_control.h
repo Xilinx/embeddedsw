@@ -23,8 +23,8 @@
 * </pre>
 *
 ******************************************************************************/
-#ifndef XOSPIPSV_LOWLEVEL_H_		/* prevent circular inclusions */
-#define XOSPIPSV_LOWLEVEL_H_		/* by using protection macros */
+#ifndef XOSPIPSV_LOWLEVEL_H_		/**< prevent circular inclusions */
+#define XOSPIPSV_LOWLEVEL_H_		/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
