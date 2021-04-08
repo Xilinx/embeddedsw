@@ -45,10 +45,8 @@
 #include "xilfpga.h"
 #include "xilmailbox.h"
 
+/* @cond nocomments */
 /************************** Constant Definitions *****************************/
-/**
- *@cond nocomments
- */
 #define PDI_LOAD		0x30701U
 #define DELAYED_PDI_LOAD	0x30702U
 #define LOAD_PDI_MSG_LEN	0x4U
@@ -56,9 +54,7 @@
 #define XMAILBOX_DEVICE_ID	0x0U
 #define FPGA_PDI_SRC_DDR	0xFU
 #define FPGA_IPI_TYPE_BLOCKING	0x1U
-/**
- *@endcond
- */
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -73,6 +69,8 @@ static u32 ReqBuffer[LOAD_PDI_MSG_LEN] = {0U};
 
 /* Create a constant pointer to XFpga_WriteToPl. */
 u32 (*const Write_To_Pl)(struct XFpgatag *InstancePtr) = XFpga_WriteToPl;
+
+/* @endcond */
 
 /*****************************************************************************/
 /**This API, when called, initializes the XFPGA interface with default settings.
@@ -101,10 +99,9 @@ u32 XFpga_Initialize(XFpga *InstancePtr)
 	return Status;
 }
 
+/* @cond nocomments */
 /*****************************************************************************/
 /**
- * @cond nocomments
- *
  * This function writes bitstream data into the PL.
  *
  * @param InstancePtr Pointer to the XFpga structure.
@@ -162,3 +159,5 @@ static u32 XFpga_WriteToPl(XFpga *InstancePtr)
 END:
 	return Status;
 }
+
+/* @endcond */

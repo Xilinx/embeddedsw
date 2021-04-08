@@ -215,9 +215,6 @@ extern "C" {
 
 #define XFPGA_STATE_MASK	0x00FF0000U
 #define XFPGA_STATE_SHIFT	16U
-/**
- *@endcond
- */
 
 /**************************** Type Definitions *******************************/
 /**
@@ -279,6 +276,7 @@ typedef struct {
 
 /************************** Function Prototypes ******************************/
 /*****************************************************************************/
+/* @endcond */
 
 #ifdef __cplusplus
 }
