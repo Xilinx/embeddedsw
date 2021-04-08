@@ -44,10 +44,8 @@
 #include "xilfpga.h"
 #include "xilmailbox.h"
 
+/* @cond nocomments */
 /************************** Constant Definitions *****************************/
-/**
- *@cond nocomments
- */
 #define PM_FPGA_LOAD		0x16U
 #define PM_FPGA_GET_STATUS	0x17U
 #define PM_FPGA_READ		0x2EU
@@ -58,9 +56,6 @@
 #define FPGA_IPI_TYPE_BLOCKING	0x1U
 #define FPGA_IPI_RESP1		0x1U
 #define FPGA_IPI_RESP2		0x2U
-/**
- *@endcond
- */
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -74,6 +69,8 @@ static u32 XFpga_IPI_PcapStatus(void);
 /************************** Variable Definitions *****************************/
 
 static XMailbox XMboxInstance;
+
+/* @endcond */
 
 /*****************************************************************************/
 /**This API, when called, initializes the XFPGA interface with default settings.
@@ -105,10 +102,10 @@ END:
 	return Status;
 }
 
+/* @cond nocomments */
+
 /*****************************************************************************/
 /**
- * @cond nocomments
- *
  * This function writes bitstream data into the PL.
  *
  * @param InstancePtr Pointer to the XFpga structure.
@@ -160,8 +157,6 @@ END:
 
 /*****************************************************************************/
 /**
- * @cond nocomments
- *
  * This function performs the readback of fpga configuration data/registers.
  *
  * @param InstancePtr Pointer to the XFpga structure.
@@ -207,8 +202,6 @@ END:
 
 /*****************************************************************************/
 /**
- * @cond nocomments
- *
  * This function performs the readback of fpga configuration data/registers.
  *
  * @param InstancePtr Pointer to the XFpga structure.
@@ -256,8 +249,6 @@ END:
 
 /*****************************************************************************/
 /**
- * @cond nocomments
- *
  * Provides the STATUS of PCAP interface
  *
  * @param	None
@@ -292,3 +283,5 @@ static u32 XFpga_IPI_PcapStatus(void)
 END:
 	return RegVal;
 }
+
+/* @endcond */
