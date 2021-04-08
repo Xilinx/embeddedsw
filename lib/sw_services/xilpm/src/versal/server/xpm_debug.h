@@ -535,6 +535,10 @@ extern "C" {
 #define XPM_INT_ERR_AIE_UNDEF_INIT_NODE_START			0x4981U
 /* Unitialized Init Node finish function pointer for AIE Device */
 #define XPM_INT_ERR_AIE_UNDEF_INIT_NODE_FINISH			0x4982U
+/* Error: PM_DEV_AIE is not present in topology */
+#define XPM_INT_ERR_DEV_AIE					0x4983U
+/* Error due to parentless AIE Device */
+#define XPM_INT_ERR_INVALID_AIE_PARENT				0x4984U
 
 /*********************** Register blind write check errors********************/
 /************************** (0x5000) - (0x50FF) ******************************/
