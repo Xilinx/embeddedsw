@@ -1264,7 +1264,7 @@ XStatus XPm_InitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs)
 		Status = ProtInitNode(NodeId, Function, Args, NumArgs);
 	} else {
 		Status = XPM_PM_INVALID_NODE;
-		DbgErr = XPM_INT_ERR_PLDEVICE_INITNODE;
+		DbgErr = XPM_INT_ERR_INITNODE;
 	}
 
 	XPm_PrintDbgErr(Status, DbgErr);
