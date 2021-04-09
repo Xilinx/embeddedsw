@@ -111,8 +111,6 @@
 *
 * @return	None.
 *
-* @note		None.
-*
 ****************************************************************************/
 #ifdef __GNUC__
 static inline void Xil_L2WriteDebugCtrl(u32 Value)
@@ -131,11 +129,7 @@ static void Xil_L2WriteDebugCtrl(u32 Value)
 *
 * Perform L2 Cache Sync Operation.
 *
-* @param	None.
-*
 * @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 #ifdef __GNUC__
@@ -151,11 +145,7 @@ static void Xil_L2CacheSync(void)
 /**
 * @brief	Enable the Data cache.
 *
-* @param	None.
-*
 * @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void Xil_DCacheEnable(void)
@@ -170,11 +160,7 @@ void Xil_DCacheEnable(void)
 /**
 * @brief	Disable the Data cache.
 *
-* @param	None.
-*
 * @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void Xil_DCacheDisable(void)
@@ -189,11 +175,7 @@ void Xil_DCacheDisable(void)
 /**
 * @brief	Invalidate the entire Data cache.
 *
-* @param	None.
-*
 * @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void Xil_DCacheInvalidate(void)
@@ -303,8 +285,6 @@ void Xil_DCacheInvalidateLine(u32 adr)
 *
 * @return	None.
 *
-* @note		None.
-*
 ****************************************************************************/
 void Xil_DCacheInvalidateRange(INTPTR adr, u32 len)
 {
@@ -380,11 +360,7 @@ void Xil_DCacheInvalidateRange(INTPTR adr, u32 len)
 /**
 * @brief	Flush the entire Data cache.
 *
-* @param	None.
-*
 * @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void Xil_DCacheFlush(void)
@@ -448,8 +424,6 @@ void Xil_DCacheFlushLine(u32 adr)
 * @param	len: Length of the range to be flushed in bytes.
 *
 * @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void Xil_DCacheFlushRange(INTPTR adr, u32 len)
@@ -532,11 +506,7 @@ void Xil_DCacheStoreLine(u32 adr)
 /**
 * @brief	Enable the instruction cache.
 *
-* @param	None.
-*
 * @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void Xil_ICacheEnable(void)
@@ -551,11 +521,7 @@ void Xil_ICacheEnable(void)
 /**
 * @brief	Disable the instruction cache.
 *
-* @param	None.
-*
 * @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void Xil_ICacheDisable(void)
@@ -571,11 +537,7 @@ void Xil_ICacheDisable(void)
 /**
 * @brief	Invalidate the entire instruction cache.
 *
-* @param	None.
-*
 * @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void Xil_ICacheInvalidate(void)
@@ -630,8 +592,6 @@ void Xil_ICacheInvalidateLine(u32 adr)
 *
 * @return	None.
 *
-* @note		None.
-*
 ****************************************************************************/
 void Xil_ICacheInvalidateRange(INTPTR adr, u32 len)
 {
@@ -684,11 +644,7 @@ void Xil_ICacheInvalidateRange(INTPTR adr, u32 len)
 /**
 * @brief	Enable the level 1 Data cache.
 *
-* @param	None.
-*
 * @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void Xil_L1DCacheEnable(void)
@@ -721,11 +677,7 @@ void Xil_L1DCacheEnable(void)
 /**
 * @brief	Disable the level 1 Data cache.
 *
-* @param	None.
-*
 * @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void Xil_L1DCacheDisable(void)
@@ -753,8 +705,6 @@ void Xil_L1DCacheDisable(void)
 /****************************************************************************/
 /**
 * @brief	Invalidate the level 1 Data cache.
-*
-* @param	None.
 *
 * @return	None.
 *
@@ -885,8 +835,6 @@ void Xil_L1DCacheInvalidateLine(u32 adr)
 *
 * @return	None.
 *
-* @note		None.
-*
 ****************************************************************************/
 void Xil_L1DCacheInvalidateRange(u32 adr, u32 len)
 {
@@ -929,8 +877,6 @@ void Xil_L1DCacheInvalidateRange(u32 adr, u32 len)
 /****************************************************************************/
 /**
 * @brief	Flush the level 1 Data cache.
-*
-* @param	None.
 *
 * @return	None.
 *
@@ -1041,8 +987,6 @@ void Xil_L1DCacheFlushLine(u32 adr)
 *
 * @return	None.
 *
-* @note		None.
-*
 ****************************************************************************/
 void Xil_L1DCacheFlushRange(u32 adr, u32 len)
 {
@@ -1090,7 +1034,7 @@ void Xil_L1DCacheFlushRange(u32 adr, u32 len)
 * 			to system memory. After the store completes, the cacheline is
 *			marked as unmodified (not dirty).
 *
-* @param	Address to be stored.
+* @param	adr: Address to be stored.
 *
 * @return	None.
 *
@@ -1111,11 +1055,7 @@ void Xil_L1DCacheStoreLine(u32 adr)
 /**
 * @brief	Enable the level 1 instruction cache.
 *
-* @param	None.
-*
 * @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void Xil_L1ICacheEnable(void)
@@ -1148,11 +1088,7 @@ void Xil_L1ICacheEnable(void)
 /**
 * @brief	Disable level 1 the instruction cache.
 *
-* @param	None.
-*
 * @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void Xil_L1ICacheDisable(void)
@@ -1182,11 +1118,7 @@ void Xil_L1ICacheDisable(void)
 /**
 * @brief	Invalidate the entire level 1 instruction cache.
 *
-* @param	None.
-*
 * @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void Xil_L1ICacheInvalidate(void)
@@ -1233,8 +1165,6 @@ void Xil_L1ICacheInvalidateLine(u32 adr)
 *
 * @return	None.
 *
-* @note		None.
-*
 ****************************************************************************/
 void Xil_L1ICacheInvalidateRange(u32 adr, u32 len)
 {
@@ -1279,11 +1209,7 @@ void Xil_L1ICacheInvalidateRange(u32 adr, u32 len)
 /**
 * @brief	Enable the L2 cache.
 *
-* @param	None.
-*
 * @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void Xil_L2CacheEnable(void)
@@ -1329,11 +1255,7 @@ void Xil_L2CacheEnable(void)
 /**
 * @brief	Disable the L2 cache.
 *
-* @param	None.
-*
 * @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void Xil_L2CacheDisable(void)
@@ -1361,11 +1283,7 @@ void Xil_L2CacheDisable(void)
 /**
 * @brief	Invalidate the entire level 2 cache.
 *
-* @param	None.
-*
 * @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void Xil_L2CacheInvalidate(void)
@@ -1442,8 +1360,6 @@ void Xil_L2CacheInvalidateLine(u32 adr)
 *
 * @return	None.
 *
-* @note		None.
-*
 ****************************************************************************/
 void Xil_L2CacheInvalidateRange(u32 adr, u32 len)
 {
@@ -1487,11 +1403,7 @@ void Xil_L2CacheInvalidateRange(u32 adr, u32 len)
 /**
 * @brief	Flush the entire level 2 cache.
 *
-* @param	None.
-*
 * @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void Xil_L2CacheFlush(void)
@@ -1560,8 +1472,6 @@ void Xil_L2CacheFlushLine(u32 adr)
 * @param	len: Length of the range to be flushed in bytes.
 *
 * @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void Xil_L2CacheFlushRange(u32 adr, u32 len)

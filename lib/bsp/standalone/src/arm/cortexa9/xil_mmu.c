@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2012 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2012 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -104,7 +104,6 @@ void Xil_SetTlbAttributes(INTPTR Addr, u32 attrib)
 * @brief	Enable MMU for cortex A9 processor. This function invalidates the
 *			instruction and data caches, and then enables MMU.
 *
-* @param	None.
 * @return	None.
 *
 ******************************************************************************/
@@ -134,8 +133,6 @@ void Xil_EnableMMU(void)
 * @brief	Disable MMU for Cortex A9 processors. This function invalidates
 *			the TLBs, Branch Predictor Array and flushed the D Caches before
 *			disabling the MMU.
-*
-* @param	None.
 *
 * @return	None.
 *

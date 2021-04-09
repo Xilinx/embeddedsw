@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,8 +20,6 @@
 *					 	counter if it is disabled. Also XTime_GetTime calls
 *						this API to ensure the global timer counter is enabled
 * </pre>
-*
-* @note		None.
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
@@ -45,8 +43,6 @@
 /****************************************************************************/
 /**
 * @brief	Start the 64-bit physical timer counter.
-*
-* @param	None.
 *
 * @return	None.
 *
@@ -81,8 +77,6 @@ void XTime_StartTimer(void)
 *
 * @return	None.
 *
-* @note		None.
-*
 ****************************************************************************/
 void XTime_SetTime(XTime Xtime_Global)
 {
@@ -99,8 +93,6 @@ so the API is left unimplemented*/
 *			the current value in physical timer counter.
 *
 * @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void XTime_GetTime(XTime *Xtime_Global)

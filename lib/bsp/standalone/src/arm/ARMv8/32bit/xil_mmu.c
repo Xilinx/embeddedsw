@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,10 +17,6 @@
 * ----- ---- -------- ---------------------------------------------------
 * 5.2	pkp  28/05/15 First release
 * </pre>
-*
-* @note
-*
-* None.
 *
 ******************************************************************************/
 
@@ -87,7 +83,6 @@ void Xil_SetTlbAttributes(UINTPTR Addr, u32 attrib)
 * @brief	Enable MMU for Cortex-A53 processor in 32bit mode. This function
 *			invalidates the instruction and data caches before enabling MMU.
 *
-* @param	None.
 * @return	None.
 *
 ******************************************************************************/
@@ -110,8 +105,6 @@ void Xil_EnableMMU(void)
 * @brief	Disable MMU for Cortex A53 processors in 32bit mode. This function
 *			invalidates the TLBs, Branch Predictor Array and flushed the data
 *			cache before disabling the MMU.
-*
-* @param	None.
 *
 * @return	None.
 *

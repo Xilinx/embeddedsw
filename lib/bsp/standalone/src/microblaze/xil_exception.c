@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2009 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2009 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,10 +21,6 @@
 * 6.2   ms   02/20/17 Fixed compilation warning. This is a fix for CR-969126.
 *
 * </pre>
-*
-* @note
-*
-* None.
 *
 ******************************************************************************/
 
@@ -82,10 +78,6 @@ static void Xil_ExceptionNullHandler(void *Data)
 * @brief   Initialize exception handling for the processor. The exception
 *          vector table is setup with the stub handler for all exceptions.
 *
-* @param    None.
-*
-* @return   None.
-*
 *****************************************************************************/
 void Xil_ExceptionInit(void)
 {
@@ -99,8 +91,6 @@ void Xil_ExceptionInit(void)
 /**
 * @brief    Enable Exceptions.
 *
-* @return   None.
-*
 ******************************************************************************/
 void Xil_ExceptionEnable(void)
 {
@@ -113,10 +103,6 @@ void Xil_ExceptionEnable(void)
 /****************************************************************************/
 /**
 * @brief    Disable Exceptions.
-*
-* @param    None.
-*
-* @return   None.
 *
 ******************************************************************************/
 void Xil_ExceptionDisable(void)

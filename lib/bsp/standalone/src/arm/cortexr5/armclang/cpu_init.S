@@ -1,10 +1,10 @@
 ;/******************************************************************************
-;* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+;* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 ;* SPDX-License-Identifier: MIT
 ;******************************************************************************/
 ;/*****************************************************************************/
 ;/**
-;* @file cpu_init.s
+;* @file cpu_init.S
 ;*
 ;* This file contains CPU specific initialization. Invoked from main CRT
 ;*

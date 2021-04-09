@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2013 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2013 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,6 +10,7 @@
 * This file contains the various register definitions and function prototypes for
 * implementing the reset functionality of zynq ps devices
 *
+* <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who    Date   Changes

@@ -1,6 +1,6 @@
 /******************************************************************************/
 /**
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -188,9 +188,9 @@ u32 Xil_WaitForEvent(u32 RegAddr, u32 EventMask, u32 Event, u32 Timeout)
 /**
  * Waits for the events. Returns on occurrence of first event / timeout.
  *
- * @param   RegAddr    - Address of register to be checked for event(s)
- *                       occurrence
- * @param   EventMask  - Mask indicating event(s) to be checked
+ * @param   EventsRegAddr - Address of register to be checked for event(s)
+ *                          occurrence
+ * @param   EventsMask - Mask indicating event(s) to be checked
  * @param   WaitEvents - Specific event(s) to be checked
  * @param   Timeout    - Max number of microseconds to wait for an event(s).
  * @param   Events     - Mask of Events occurred returned in memory pointed by
@@ -199,8 +199,6 @@ u32 Xil_WaitForEvent(u32 RegAddr, u32 EventMask, u32 Event, u32 Timeout)
  * @return
  *          XST_SUCCESS - On occurrence of the event(s).
  *          XST_FAILURE - Event did not occur before counter reaches 0
- *
- * @note    None.
  *
  ******************************************************************************/
 u32 Xil_WaitForEvents(u32 EventsRegAddr, u32 EventsMask, u32 WaitEvents,

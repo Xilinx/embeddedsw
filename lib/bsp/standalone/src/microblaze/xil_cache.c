@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2009 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2009 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,8 +36,6 @@
 *
 * @brief    Disable the data cache.
 *
-* @param    None
-*
 * @return   None.
 *
 ****************************************************************************/
@@ -52,8 +50,6 @@ void Xil_DCacheDisable(void)
 /**
 *
 * @brief    Disable the instruction cache.
-*
-* @param    None
 *
 * @return   None.
 *

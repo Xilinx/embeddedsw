@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -11,6 +11,10 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/**
+ *@cond nocomments
+ */
 
 /**
  * XlpdSlcrSecure Base Address
@@ -313,6 +317,9 @@ extern "C" {
 #define XLPD_SLCR_SECURE_ADMA7_TZ_MASK    0x00000001UL
 #define XLPD_SLCR_SECURE_ADMA7_TZ_DEFVAL  0x0UL
 
+/**
+ *@endcond
+ */
 
 #ifdef __cplusplus
 }

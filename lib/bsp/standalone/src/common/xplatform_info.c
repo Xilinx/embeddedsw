@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -58,8 +58,6 @@
 *
 * @brief    This API is used to provide information about platform
 *
-* @param    None.
-*
 * @return   The information about platform defined in xplatform_info.h
 *
 ******************************************************************************/
@@ -80,8 +78,6 @@ u32 XGetPlatform_Info()
 /**
 *
 * @brief    This API is used to provide information about zynq ultrascale MP platform
-*
-* @param    None.
 *
 * @return   The information about zynq ultrascale MP platform defined in
 *			xplatform_info.h
@@ -112,8 +108,6 @@ u32 XGet_Zynq_UltraMp_Platform_info()
 /**
 *
 * @brief    This API is used to provide information about PS Silicon version
-*
-* @param    None.
 *
 * @return   The information about PS Silicon version.
 *

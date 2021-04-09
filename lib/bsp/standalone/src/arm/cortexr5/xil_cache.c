@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -51,11 +51,7 @@ extern s32  __undef_stack;
 /**
 * @brief    Enable the Data cache.
 *
-* @param	None.
-*
 * @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void Xil_DCacheEnable(void)
@@ -83,11 +79,7 @@ void Xil_DCacheEnable(void)
 /**
 * @brief    Disable the Data cache.
 *
-* @param	None.
-*
 * @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void Xil_DCacheDisable(void)
@@ -112,8 +104,6 @@ void Xil_DCacheDisable(void)
 /****************************************************************************/
 /**
 * @brief    Invalidate the entire Data cache.
-*
-* @param	None.
 *
 * @return	None.
 *
@@ -240,8 +230,6 @@ void Xil_DCacheInvalidateRange(INTPTR adr, u32 len)
 /****************************************************************************/
 /**
 * @brief    Flush the entire Data cache.
-*
-* @param	None.
 *
 * @return	None.
 *
@@ -411,8 +399,6 @@ void Xil_DCacheStoreLine(INTPTR adr)
 /**
 * @brief    Enable the instruction cache.
 *
-* @param	None.
-*
 * @return	None.
 *
 ****************************************************************************/
@@ -441,8 +427,6 @@ void Xil_ICacheEnable(void)
 /**
 * @brief    Disable the instruction cache.
 *
-* @param	None.
-*
 * @return	None.
 *
 ****************************************************************************/
@@ -470,8 +454,6 @@ void Xil_ICacheDisable(void)
 /****************************************************************************/
 /**
 * @brief    Invalidate the entire instruction cache.
-*
-* @param	None.
 *
 * @return	None.
 *
