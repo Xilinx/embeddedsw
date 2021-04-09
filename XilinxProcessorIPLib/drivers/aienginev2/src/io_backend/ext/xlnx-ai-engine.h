@@ -19,6 +19,66 @@ enum aie_reg_op {
 	AIE_REG_BLOCKSET,
 };
 
+/**
+ * enum aie_module_type - identifies different hardware modules within a
+ *			  tile type. AIE tile may have memory and core
+ *			  module. While a PL or shim tile may have PL module.
+ * @AIE_MEM_MOD: comprises of the following sub-modules,
+ *			* data memory.
+ *			* tile DMA.
+ *			* lock module.
+ *			* events, event broadcast and event actions.
+ *			* tracing and profiling.
+ * @AIE_CORE_MOD: comprises of the following sub-modules,
+ *			* AIE core.
+ *			* program Memory.
+ *			* events, event broadcast and event actions.
+ *			* tracing and profiling.
+ *			* AXI-MM and AXI-S tile interconnects.
+ * @AIE_PL_MOD: comprises of the following sub-modules,
+ *			* PL interface.
+ *			* AXI-MM and AXI-S tile interconnects.
+ *			* Level 1 interrupt controllers.
+ *			* events, event broadcast and event actions.
+ *			* tracing and profiling.
+ * @AIE_NOC_MOD: comprises of the following sub-modules,
+ *			* interface from NoC Slave Unit (NSU)
+ *			  (bridge to AXI-MM switch)
+ *			* interfaces to NoC NoC Master Unit (NMU)
+ *				* shim DMA & locks
+ *				* NoC stream interface
+ */
+enum aie_module_type {
+	AIE_MEM_MOD,
+	AIE_CORE_MOD,
+	AIE_PL_MOD,
+	AIE_NOC_MOD,
+};
+
+/**
+ * enum aie_rsc_type - defines AI engine hardware resource types
+ * @AIE_RSCTYPE_PERF: perfcounter resource
+ * @AIE_RSCTYPE_USEREVENT: user events resource
+ * @AIE_RSCTYPE_TRACECONTROL: trace controller resource
+ * @AIE_RSCTYPE_PCEVENT: PC events resource
+ * @AIE_RSCTYPE_SSSELECT: stream switch port select resource
+ * @AIE_RSCTYPE_BROADCAST: broadcast events resource
+ * @AIE_RSCTYPE_COMBOEVENT: combo events resource
+ * @AIE_RSCTYPE_GROUPEVENTS: group events resource
+ * @AIE_RSCTYPE_MAX: total number of resources
+ */
+enum aie_rsc_type {
+	AIE_RSCTYPE_PERF,
+	AIE_RSCTYPE_USEREVENT,
+	AIE_RSCTYPE_TRACECONTROL,
+	AIE_RSCTYPE_PCEVENT,
+	AIE_RSCTYPE_SSSELECT,
+	AIE_RSCTYPE_BROADCAST,
+	AIE_RSCTYPE_COMBOEVENT,
+	AIE_RSCTYPE_GROUPEVENTS,
+	AIE_RSCTYPE_MAX
+};
+
 /* AI engine partition is in use */
 #define XAIE_PART_STATUS_INUSE		(1U << 0)
 /* AI engine partition bridge is enabled */
@@ -30,6 +90,22 @@ enum aie_reg_op {
 /* Not reset when release AI engine partition */
 #define XAIE_PART_NOT_RST_ON_RELEASE	0x00000001U
 
+/*
+ * AI engine resource property flags
+ */
+/*
+ * For resources which needs to be allocated contiguous
+ * such as combo events, it needs to be 0, 1; 2, 3;
+ * or 0, 1, 2, 3
+ */
+#define XAIE_RSC_PATTERN_BLOCK		(1U << 0)
+
+/* Any broadcast channel id */
+#define XAIE_BROADCAST_ID_ANY		0xFFFFFFFFU
+
+/* request a channel to broadcast to the whole partition */
+#define XAIE_BROADCAST_ALL		(1U << 0)
+
 /**
  * struct aie_location - AIE location information
  * @col: column id
@@ -38,6 +114,19 @@ enum aie_reg_op {
 struct aie_location {
 	__u32 col;
 	__u32 row;
+};
+
+/**
+ * struct aie_location_byte - AIE location information with single byte for
+ *			      column and row
+ * @row: row id
+ * @col: column id
+ *
+ * This structure follows the SSW AIE row and col sequence.
+ */
+struct aie_location_byte {
+	__u8 row;
+	__u8 col;
 };
 
 /**
@@ -138,7 +227,7 @@ struct aie_partition_req {
 };
 
 /**
- * struct aie_dma_bd - AIE DMA buffer descriptor information
+ * struct aie_dma_bd_args - AIE DMA buffer descriptor information
  * @bd: DMA buffer descriptor
  * @data_va: virtual address of the data
  * @loc: Tile location relative to the start of a partition
@@ -184,6 +273,65 @@ struct aie_tiles_array {
 struct aie_txn_inst {
 	__u32 num_cmds;
 	__u64 cmdsptr;
+};
+
+/**
+ * struct aie_rsc_req - AIE resource request
+ * @loc: tile location
+ * @mod: module type
+ * @type: resource type
+ * @num_rscs: number of resource per request
+ * @flag: resource property, such as it needs to be in pattern block such as
+ *	  if @num_rscs is 2, it needs to be 0,1; 2,3, or 4,5
+ */
+struct aie_rsc_req {
+	struct aie_location loc;
+	__u32 mod;
+	__u32 type;
+	__u32 num_rscs;
+	__u8 flag;
+};
+
+/**
+ * struct aie_rsc - AIE resource properties
+ * @loc: tile location, single byte for column and row each
+ * @mod: module type
+ * @type: resource type
+ * @id: resource id
+ */
+struct aie_rsc {
+	struct aie_location_byte loc;
+	__u32 mod;
+	__u32 type;
+	__u32 id;
+};
+
+/**
+ * struct aie_rsc_req_rsp - AIE resource request and response structure
+ * @req: resource request per tile module
+ * @rscs: allocated resources array of `struct aie_rsc`
+ */
+struct aie_rsc_req_rsp {
+	struct aie_rsc_req req;
+	__u64 rscs;
+};
+
+/**
+ * struct aie_rsc_bc_req - AIE broadcast channel request
+ * @rscs: broadcast channel resource array for every module and every tile
+ *	  of the channel
+ * @num_rscs: number of expected broadcast channel resources on the path,
+ *	      it also indicates the number of expected modules on the path.
+ * @flag: user flag to indicate if it is to get a broadcast channel for the
+ *	  whole partition.
+ * @id: broadcast channel ID. XAIE_BROADCAST_ID_ANY, it means not particular
+ *	id is specified, driver will allocate a free one.
+ */
+struct aie_rsc_bc_req {
+	__u64 rscs;
+	__u32 num_rscs;
+	__u32 flag;
+	__u32 id;
 };
 
 #define AIE_IOCTL_BASE 'A'
@@ -285,5 +433,101 @@ struct aie_txn_inst {
  */
 #define AIE_TRANSACTION_IOCTL		_IOWR(AIE_IOCTL_BASE, 0x11, \
 					     struct aie_txn_inst)
+
+/**
+ * DOC: AIE_SET_FREQUENCY_IOCTL - set AI engine partition clock frequency
+ *
+ * This ioctl is used to set AI engine partition clock frequency.
+ * AI engine partition driver converts the required clock frequency to QoS
+ * based on the full frequency. And then it sends the set QoS request to
+ * firmware. As AI engine device can have multiple users but there is only
+ * one clock for the whole device, the firmware will check all the QoS
+ * requirements from all users, and set the AI engine device to run on the
+ * max required frequency.
+ */
+#define AIE_SET_FREQUENCY_IOCTL	_IOW(AIE_IOCTL_BASE, 0x12, __u64)
+
+/**
+ * DOC: AIE_GET_FREQUENCY_IOCTL - get AI engine partition running clock
+ *				  frequency
+ *
+ * This ioctl is used to get AI engine partition running clock frequency.
+ * AI engine partition driver sends get divider requests to the firmware.
+ * And then the driver calculates the running frequency with the full frequency
+ * and the divider, and returns the running clock frequency.
+ */
+#define AIE_GET_FREQUENCY_IOCTL	_IOR(AIE_IOCTL_BASE, 0x13, __u64)
+
+/**
+ * DOC: AIE_RSC_REQ_IOCTL - request a type of resources of a tile
+ *
+ * This ioctl is used to request a type of resources of a tile of an AI engine
+ * partition.
+ * AI engine partitition driver will check if there are the requested number
+ * of resources available. If yes, fill in the allcoated resource IDs in the
+ * resources array provided by user.
+ */
+#define AIE_RSC_REQ_IOCTL		_IOW(AIE_IOCTL_BASE, 0x14, \
+					     struct aie_rsc_req_rsp)
+
+/**
+ * DOC: AIE_RSC_REQ_SPECIFIC_IOCTL - request statically allocated resource
+ *
+ * This ioctl is used to request to use a specified allcoated resource
+ * AI engine partitition driver will check if the resource has been allocated
+ * at compilation time. If yes, and no one else has requested it, it returns
+ * success.
+ */
+#define AIE_RSC_REQ_SPECIFIC_IOCTL	_IOW(AIE_IOCTL_BASE, 0x15, \
+					     struct aie_rsc)
+
+/**
+ * DOC: AIE_RSC_RELEASE_IOCTL - release allocated resource
+ *
+ * This ioctl is used to release a resource and returns it to the resource
+ * pool, so that next time if user want to request for a resource, it is
+ * available
+ */
+#define AIE_RSC_RELEASE_IOCTL		_IOW(AIE_IOCTL_BASE, 0x16, \
+					     struct aie_rsc)
+
+/**
+ * DOC: AIE_RSC_FREE_IOCTL - free allocated resource
+ *
+ * This ioctl is used to free an allocated resource. It will unmark the
+ * resource from runtime used. If the resource is allocated at compilation
+ * time, it will not be returned back to the resource pool.
+ */
+#define AIE_RSC_FREE_IOCTL		_IOW(AIE_IOCTL_BASE, 0x17, \
+					     struct aie_rsc)
+
+/**
+ * DOC: AIE_RSC_CHECK_AVAIL_IOCTL - check if resource is available
+ *
+ * This ioctl is used to check how many resources are available for a specified
+ * type of resource.
+ */
+#define AIE_RSC_CHECK_AVAIL_IOCTL	_IOW(AIE_IOCTL_BASE, 0x18, \
+					     struct aie_rsc_req)
+
+/**
+ * DOC: AIE_RSC_GET_COMMON_BROADCAST_IOCTL - get a common broadcast channel for
+ *					     the specified set of AI engine
+ *					     modules.
+ *
+ * This ioctl is used to get a common broadcast channel for the specified set
+ * of AI engine modules in the resources array. If the any of the input set of
+ * tiles is gated, it will return failure. This ioctl will not check the
+ * connection of the input modules set.
+ * The driver will fill in the resource ID with the assigned broadcast channel
+ * ID of the resources array.
+ * If the XAIE_BROADCAST_ALL is set in the request flag, it will get the
+ * broadcast channel for all the ungated tiles of the partition.
+ * If a particular broadcast channel id is specified in the request, if will
+ * check if the channel is available for the specified modules, or the whole
+ * partition depends on if XAIE_BROADCAST_ALL is set.
+ */
+#define AIE_RSC_GET_COMMON_BROADCAST_IOCTL	_IOW(AIE_IOCTL_BASE, 0x19, \
+						struct aie_rsc_bc_req)
 
 #endif
