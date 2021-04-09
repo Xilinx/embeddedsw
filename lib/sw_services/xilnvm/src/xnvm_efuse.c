@@ -1468,6 +1468,11 @@ int XNvm_EfuseWriteRevocationId(u32 RevokeId)
 	RevokeIdRow = (RevokeId / XNVM_EFUSE_MAX_BITS_IN_ROW);
 	RevokeIdBit = (RevokeId % XNVM_EFUSE_MAX_BITS_IN_ROW);
 
+	if (RevokeIdRow > (u32)XNVM_EFUSE_REVOCATION_ID_7) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
 	WriteRevokeId.RevokeId[RevokeIdRow] = ((u32)1U << RevokeIdBit);
 	WriteRevokeId.PrgmRevokeId = TRUE;
 
