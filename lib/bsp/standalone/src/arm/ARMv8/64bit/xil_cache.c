@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -84,11 +84,7 @@
 /**
 * @brief	Enable the Data cache.
 *
-* @param	None.
-*
 * @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void Xil_DCacheEnable(void)
@@ -125,11 +121,7 @@ void Xil_DCacheEnable(void)
 /**
 * @brief	Disable the Data cache.
 *
-* @param	None.
-*
 * @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void Xil_DCacheDisable(void)
@@ -250,8 +242,6 @@ void Xil_DCacheDisable(void)
 /**
 * @brief	Invalidate the Data cache. The contents present in the cache are
 * 			cleaned and invalidated.
-*
-* @param	None.
 *
 * @return	None.
 *
@@ -433,11 +423,7 @@ void Xil_DCacheInvalidateRange(INTPTR  adr, INTPTR len)
 /**
 * @brief	Flush the Data cache.
 *
-* @param	None.
-*
 * @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void Xil_DCacheFlush(void)
@@ -566,11 +552,7 @@ void Xil_DCacheFlushLine(INTPTR  adr)
 /**
 * @brief	Enable the instruction cache.
 *
-* @param	None.
-*
 * @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void Xil_ICacheEnable(void)
@@ -606,11 +588,7 @@ void Xil_ICacheEnable(void)
 /**
 * @brief	Disable the instruction cache.
 *
-* @param	None.
-*
 * @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void Xil_ICacheDisable(void)
@@ -643,11 +621,7 @@ void Xil_ICacheDisable(void)
 /**
 * @brief	Invalidate the entire instruction cache.
 *
-* @param	None.
-*
 * @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void Xil_ICacheInvalidate(void)
@@ -702,8 +676,6 @@ void Xil_ICacheInvalidateLine(INTPTR  adr)
 * @param	len: Length of the range to be invalidated in bytes.
 *
 * @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void Xil_ICacheInvalidateRange(INTPTR  adr, INTPTR len)

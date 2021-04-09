@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2004 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2004 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -53,15 +53,7 @@ extern MB_InterruptVectorTableEntry MB_InterruptVectorTable[MB_INTERRUPT_VECTOR_
 * It saves all volatile registers, calls the users top level interrupt handler.
 * When this returns, it restores all registers, and returns using a rtid instruction.
 *
-* @param
-*
-* None
-*
 * @return
-*
-* None.
-*
-* @note
 *
 * None.
 *

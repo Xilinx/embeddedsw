@@ -1,10 +1,10 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
 /**
-* @file asm_vectors.s
+* @file asm_vectors.S
 *
 * This file contains the initial vector table for the Cortex R5 processor
 *
@@ -17,10 +17,6 @@
 * 6.0   mus     27/07/16 Added UndefinedException handler
 * 6.3	pkp	02/13/17 Added support for hard float
 * </pre>
-*
-* @note
-*
-* None.
 *
 ******************************************************************************/
 .org 0

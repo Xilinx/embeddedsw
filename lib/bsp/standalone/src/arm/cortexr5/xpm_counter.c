@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -69,8 +69,6 @@ typedef const u32 PmcrEventCfg32[XPM_CTRCOUNT];
 *
 * @brief    This function disables the Cortex R5 event counters.
 *
-* @param	None.
-*
 * @return	None.
 *
 *****************************************************************************/
@@ -95,8 +93,6 @@ void Xpm_DisableEventCounters(void)
 *
 * @brief    This function enables the Cortex R5 event counters.
 *
-* @param	None.
-*
 * @return	None.
 *
 *****************************************************************************/
@@ -120,8 +116,6 @@ void Xpm_EnableEventCounters(void)
 /**
 *
 * @brief    This function resets the Cortex R5 event counters.
-*
-* @param	None.
 *
 * @return	None.
 *
@@ -148,8 +142,8 @@ void Xpm_ResetEventCounters(void)
  * Disables the requested event counter.
  *
  *
- * @param	Event Counter ID. The counter ID is the same that was earlier
- *          returned through a call to Xpm_SetUpAnEvent.
+ * @param	EventCntrId: Event Counter ID. The counter ID is the same that
+ *          was earlier returned through a call to Xpm_SetUpAnEvent.
  *          Cortex-R5 supports only 3 counters. The valid values are 0, 1,
  *          or 2.
  *
@@ -157,8 +151,6 @@ void Xpm_ResetEventCounters(void)
  *		- XST_SUCCESS if successful.
  *		- XST_FAILURE if the passed Counter ID is invalid
  *        (i.e. greater than 2).
- *
- * @note	None.
  *
  ******************************************************************************/
 u32 Xpm_DisableEvent(u32 EventCntrId)
@@ -194,14 +186,12 @@ u32 Xpm_DisableEvent(u32 EventCntrId)
  * one, it sets up the counter to count events for the requested event.
  *
  *
- * @param	Event ID. For valid values, please refer xpm_counter.h.
+ * @param	EventID: For valid values, please refer xpm_counter.h.
  *
  * @return
  *		- Counter Number if successful. For Cortex-R5, valid return values are
  *        0, 1, or 2.
  *		- XPM_NO_COUNTERS_AVAILABLE (0xFF) if all counters are being used
- *
- * @note	None.
  *
  ******************************************************************************/
 u32 Xpm_SetUpAnEvent(u32 EventID)
@@ -251,19 +241,17 @@ u32 Xpm_SetUpAnEvent(u32 EventID)
  * This can only be called after a call to Xpm_SetUpAnEvent.
  *
  *
- * @param	Event Counter ID. The counter ID is the same that was earlier
+ * @param	EventCntrId: The counter ID is the same that was earlier
  *          returned through a call to Xpm_SetUpAnEvent.
  *          Cortex-R5 supports only 3 counters. The valid values are 0, 1,
  *          or 2.
- * @param	Pointer to a 32 bit unsigned int type. This is used to return
+ * @param	CntVal: Pointer to a 32 bit unsigned int type. This is used to return
  *          the event counter value.
  *
  * @return
  *		- XST_SUCCESS if successful.
  *		- XST_FAILURE if the passed Counter ID is invalid
  *        (i.e. greater than 2).
- *
- * @note	None.
  *
  ******************************************************************************/
 u32 Xpm_GetEventCounter(u32 EventCntrId, u32 *CntVal)

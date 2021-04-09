@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,7 @@
  * 6.8  asa  11/10/18 Fix issues in cache Xil_DCacheInvalidate and
  * 			Xil_DCacheFlush that got introduced in the optimization
  * 			changes done in the previous patch for this file.
+ * </pre>
  *
  ******************************************************************************/
  /***************************** Include Files *********************************/
@@ -51,11 +52,7 @@ extern s32  __undef_stack;
 /**
  * @brief	Enable the Data cache.
  *
- * @param	None.
- *
  * @return	None.
- *
- * @note	None.
  *
  ****************************************************************************/
 void Xil_DCacheEnable(void)
@@ -80,11 +77,7 @@ void Xil_DCacheEnable(void)
 /**
  * @brief	Disable the Data cache.
  *
- * @param	None.
- *
  * @return	None.
- *
- * @note	None.
  *
  ****************************************************************************/
 void Xil_DCacheDisable(void)
@@ -103,8 +96,6 @@ void Xil_DCacheDisable(void)
 /**
  * @brief	Invalidate the Data cache. The contents present in
  *		the data cache are cleaned and invalidated.
- *
- * @param	None.
  *
  * @return	None.
  *
@@ -242,7 +233,7 @@ void Xil_DCacheInvalidateLine(u32 adr)
  *
  * @return	None.
  *
- * @notice	In Cortex-A53, functionality to simply invalid the cachelines
+ * @note	In Cortex-A53, functionality to simply invalid the cachelines
  *		is not present. Such operations are a problem for an
  *		environment that supports virtualisation. It would allow
  *		one OS to invalidate a line belonging to another OS.
@@ -300,11 +291,7 @@ void Xil_DCacheInvalidateRange(INTPTR adr, u32 len)
 /**
  * @brief	Flush the Data cache.
  *
- * @param	None.
- *
  * @return	None.
- *
- * @notice	None.
  *
  ****************************************************************************/
 void Xil_DCacheFlush(void)
@@ -381,7 +368,7 @@ void Xil_DCacheFlush(void)
  *
  * @return	None.
  *
- * @notice	The bottom 4 bits are set to 0, forced by architecture.
+ * @note	The bottom 4 bits are set to 0, forced by architecture.
  *
  ****************************************************************************/
 void Xil_DCacheFlushLine(u32 adr)
@@ -419,8 +406,6 @@ void Xil_DCacheFlushLine(u32 adr)
  * @param	len: Length of range to be flushed in bytes.
  *
  * @return	None.
- *
- * @notice	None.
  *
  ****************************************************************************/
 void Xil_DCacheFlushRange(INTPTR adr, u32 len)
@@ -472,11 +457,7 @@ void Xil_DCacheFlushRange(INTPTR adr, u32 len)
 /**
  * @brief	Enable the instruction cache.
  *
- * @param	None.
- *
  * @return	None.
- *
- * @notice	None.
  *
  ****************************************************************************/
 void Xil_ICacheEnable(void)
@@ -498,11 +479,7 @@ void Xil_ICacheEnable(void)
 /**
  * @brief	Disable the instruction cache.
  *
- * @param	None.
- *
  * @return	None.
- *
- * @note		None.
  *
  ****************************************************************************/
 void Xil_ICacheDisable(void)
@@ -522,11 +499,7 @@ void Xil_ICacheDisable(void)
 /**
  * @brief	Invalidate the entire instruction cache.
  *
- * @param	None.
- *
  * @return	None.
- *
- * @note	None.
  *
  ****************************************************************************/
 void Xil_ICacheInvalidate(void)
@@ -553,7 +526,7 @@ void Xil_ICacheInvalidate(void)
  *
  * @return	None.
  *
- * @notice	The bottom 4 bits are set to 0, forced by architecture.
+ * @note	The bottom 4 bits are set to 0, forced by architecture.
  *
  ****************************************************************************/
 void Xil_ICacheInvalidateLine(u32 adr)
@@ -582,8 +555,6 @@ void Xil_ICacheInvalidateLine(u32 adr)
  * @param	len: Length of the range to be invalidated in bytes.
  *
  * @return	None.
- *
- * @notice	None.
  *
  ****************************************************************************/
 void Xil_ICacheInvalidateRange(INTPTR adr, u32 len)

@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -11,6 +11,10 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/**
+ *@cond nocomments
+ */
 
 /**
  * XlpdXppu Base Address
@@ -854,6 +858,9 @@ extern "C" {
 #define XLPD_XPPU_MSTR_ID19_MID_MASK    0x000003ffUL
 #define XLPD_XPPU_MSTR_ID19_MID_DEFVAL  0x0UL
 
+/**
+ *@endcond
+ */
 
 #ifdef __cplusplus
 }

@@ -102,7 +102,7 @@ void Xil_InitializeExistingMPURegConfig(void);
 * @brief    This function sets the memory attributes for a section covering
 *           1MB, of memory in the translation table.
 *
-* @param	Addr: 32-bit address for which memory attributes need to be set.
+* @param	addr: 32-bit address for which memory attributes need to be set.
 * @param	attrib: Attribute for the given memory region.
 * @return	None.
 *
@@ -121,7 +121,7 @@ void Xil_SetTlbAttributes(INTPTR addr, u32 attrib)
 * @brief    Set the memory attributes for a section of memory in the
 *           translation table.
 *
-* @param	Addr: 32-bit address for which memory attributes need to be set..
+* @param	addr: 32-bit address for which memory attributes need to be set..
 * @param	size: size is the size of the region.
 * @param	attrib: Attribute for the given memory region.
 * @return	None.
@@ -173,8 +173,6 @@ u32 Xil_SetMPURegion(INTPTR addr, u64 size, u32 attrib)
 * @brief    Enable MPU for Cortex R5 processor. This function invalidates I
 *           cache and flush the D Caches, and then enables the MPU.
 *
-*
-* @param	None.
 * @return	None.
 *
 ******************************************************************************/
@@ -223,8 +221,6 @@ void Xil_EnableMPU(void)
 /**
 * @brief    Disable MPU for Cortex R5 processors. This function invalidates I
 *           cache and flush the D Caches, and then disabes the MPU.
-*
-* @param	None.
 *
 * @return	None.
 *
@@ -350,7 +346,6 @@ void Xil_GetMPUConfig (XMpu_Config mpuconfig) {
 /**
 * @brief    Returns the total number of free MPU regions available.
 *
-* @param	none
 * @return	Number of free regions available to users
 *
 *
@@ -376,7 +371,6 @@ u32 Xil_GetNumOfFreeRegions (void) {
 *           For example, if this function returns 0xC0000, this would mean, the
 *           regions 14 and 15 are available to users.
 *
-* @param	none
 * @return	The free region mask as a 16 bit value
 *
 *
@@ -438,7 +432,7 @@ exit1:
 * @brief    Enables the corresponding region number as passed by the user.
 *
 * @param	reg_num: The region number to be enabled
-* @param	address: 32 bit address for start of the region.
+* @param	addr: 32 bit address for start of the region.
 * @param	size: Requested size of the region.
 * @param	attrib: Attribute for the corresponding region.
 * @return	XST_SUCCESS: If the region could be created successfully
@@ -499,7 +493,6 @@ exit2:
 * @brief    Initializes the MPU configuration table that are setup in the
 * 			R5 boot code in the Init_Mpu function called before C main.
 *
-* @param	none
 * @return	none
 *
 *
@@ -546,7 +539,6 @@ void Xil_InitializeExistingMPURegConfig(void)
 /**
 * @brief    Returns the next available free MPU region
 *
-* @param	none
 * @return	The free MPU region available
 *
 *
@@ -564,6 +556,12 @@ u32 Xil_GetNextMPURegion(void)
 	}
 	return NextAvailableReg;
 }
+
+#ifdef __GNUC__
+#define u32overflow(a, b) ({typeof(a) s; __builtin_uadd_overflow(a, b, &s); })
+#else
+#define u32overflow(a, b) ((a) > ((a) + (b)))
+#endif /* __GNUC__ */
 
 /*****************************************************************************/
 /**
@@ -584,11 +582,6 @@ u32 Xil_GetNextMPURegion(void)
 *           Use an alternative (less optimal?) for compilers w/o the builtin.
 *
 ******************************************************************************/
-#ifdef __GNUC__
-#define u32overflow(a, b) ({typeof(a) s; __builtin_uadd_overflow(a, b, &s); })
-#else
-#define u32overflow(a, b) ((a) > ((a) + (b)))
-#endif /* __GNUC__ */
 void *Xil_MemMap(UINTPTR Physaddr, size_t size, u32 flags)
 {
 	size_t Regionsize = MPU_REGION_SIZE_MIN;

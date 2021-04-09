@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2011 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2011 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -51,11 +51,7 @@ void Xpm_ResetEventCounters (void);
 *
 * @brief	This function disables the Cortex A9 event counters.
 *
-* @param	None.
-*
 * @return	None.
-*
-* @note		None.
 *
 *****************************************************************************/
 void Xpm_DisableEventCounters(void)
@@ -69,11 +65,7 @@ void Xpm_DisableEventCounters(void)
 *
 * @brief	This function enables the Cortex A9 event counters.
 *
-* @param	None.
-*
 * @return	None.
-*
-* @note		None.
 *
 *****************************************************************************/
 void Xpm_EnableEventCounters(void)
@@ -87,11 +79,7 @@ void Xpm_EnableEventCounters(void)
 *
 * @brief	This function resets the Cortex A9 event counters.
 *
-* @param	None.
-*
 * @return	None.
-*
-* @note		None.
 *
 *****************************************************************************/
 void Xpm_ResetEventCounters(void)
@@ -121,8 +109,6 @@ void Xpm_ResetEventCounters(void)
 *			be utilized for setting configuration.
 *
 * @return	None.
-*
-* @note		None.
 *
 *****************************************************************************/
 void Xpm_SetEvents(s32 PmcrCfg)
@@ -246,8 +232,6 @@ void Xpm_SetEvents(s32 PmcrCfg)
 *			counter values.
 *
 * @return	None.
-*
-* @note		None.
 *
 *****************************************************************************/
 void Xpm_GetEventCounters(u32 *PmCtrValue)

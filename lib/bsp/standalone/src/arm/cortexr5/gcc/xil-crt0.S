@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -24,10 +24,6 @@
 * 7.2   mus  10/22/19 Defined RPU_TZ_MASK as #define instead of variable.
 * 7.2   sd   03/20/20 Add clocking support.
 * </pre>
-*
-* @note
-*
-* None.
 *
 ******************************************************************************/
 #include "xparameters.h"

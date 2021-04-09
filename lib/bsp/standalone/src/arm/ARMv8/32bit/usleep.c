@@ -31,6 +31,7 @@
 * 7.5   dp      01/05/21 Updated COUNTS_PER_USECOND macros to round it off to
 *                        nearest possible value so that delta error in time
 *                        calculations can be minimized.
+* </pre>
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/

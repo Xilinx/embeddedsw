@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2011 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2011 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -79,11 +79,7 @@ void XL2cc_EventCtrInit(s32 Event0, s32 Event1)
 *
 * @brief	This function starts the event counters in L2 Cache controller.
 *
-* @param	None.
-*
 * @return	None.
-*
-* @note		None.
 *
 *****************************************************************************/
 void XL2cc_EventCtrStart(void)
@@ -105,12 +101,10 @@ void XL2cc_EventCtrStart(void)
 *
 * @param	EveCtr0: Output parameter which is used to return the value
 *			in event counter 0.
-*			EveCtr1: Output parameter which is used to return the value
+* @param	EveCtr1: Output parameter which is used to return the value
 *			in event counter 1.
 *
 * @return	None.
-*
-* @note		None.
 *
 *****************************************************************************/
 void XL2cc_EventCtrStop(u32 *EveCtr0, u32 *EveCtr1)
@@ -130,11 +124,7 @@ void XL2cc_EventCtrStop(u32 *EveCtr0, u32 *EveCtr1)
 *
 * @brief	This function resets the event counters in L2 Cache controller.
 *
-* @param	None.
-*
 * @return	None.
-*
-* @note		None.
 *
 *****************************************************************************/
 void XL2cc_EventCtrReset(void)

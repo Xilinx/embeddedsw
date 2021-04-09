@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2013 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2013 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,7 +9,7 @@
 *
 * This file contains the various register definitions and function prototypes for
 * implementing the reset functionality of zynq ps devices
-*
+* <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who    Date   Changes
@@ -32,6 +32,11 @@ extern "C" {
 #include "xil_io.h"
 
 /************************** Constant Definitions *****************************/
+
+/**
+ *@cond nocomments
+ */
+
 #define XDDRC_CTRL_BASEADDR				0xF8006000U
 #define XSLCR_BASEADDR					0xF8000000U
 /**< OCM configuration register */
@@ -163,6 +168,11 @@ extern "C" {
 #define XSLCR_OCM_RST_CTRL_VAL			0x00000001U
 #define XSLCR_SDIO_RST_CTRL_VAL			0x00000033U
 #define XSLCR_CAN_RST_CTRL_VAL			0x00000003U
+
+/**
+ *@endcond
+ */
+
 /**************************** Type Definitions *******************************/
 
 /* the following data type is used to hold a null terminated version string
