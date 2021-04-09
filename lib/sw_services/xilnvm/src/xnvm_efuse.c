@@ -47,6 +47,7 @@
 *	kal  02/26/2021 Fix all SW-BP-ZEROIZE related review comments
 *	kal  03/02/2021 Add Environmental monitoring support before eFuse
 *			programming
+*	kal  04/08/2021 Fix SW-BP-INPUT-VALID related review comments.
 *
 * </pre>
 *
@@ -3938,6 +3939,13 @@ static int XNvm_EfuseValidateUserFusesWriteReq(
 			WriteUserFuses->StartUserFuseNum - 1U;
 
 	EndRow = StartRow + WriteUserFuses->NumOfUserFuses;
+
+	if ((StartRow < XNVM_EFUSE_USER_FUSE_START_ROW) ||
+		(EndRow >
+		(XNVM_EFUSE_USER_FUSE_START_ROW + XNVM_NUM_OF_USER_FUSES))) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
 
 	for (Row = StartRow; Row < EndRow; Row++) {
 		Status = XNvm_EfuseReadCache(Row, &UserFuseValueRd);
