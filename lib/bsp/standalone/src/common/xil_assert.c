@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2009 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2009 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -61,8 +61,8 @@ static Xil_AssertCallback Xil_AssertCallbackRoutine = NULL;
 *           infinite loop depending on the value of the Xil_AssertWait
 *           variable.
 *
-* @param    file: filename of the source
-* @param    line: linenumber within File
+* @param    File: filename of the source
+* @param    Line: linenumber within File
 *
 * @return   None.
 *
@@ -89,7 +89,7 @@ void Xil_Assert(const char8 *File, s32 Line)
 * @brief    Set up a callback function to be invoked when an assert occurs.
 *           If a callback is already installed, then it will be replaced.
 *
-* @param    routine: callback to be invoked when an assert is taken
+* @param    Routine: callback to be invoked when an assert is taken
 *
 * @return   None.
 *

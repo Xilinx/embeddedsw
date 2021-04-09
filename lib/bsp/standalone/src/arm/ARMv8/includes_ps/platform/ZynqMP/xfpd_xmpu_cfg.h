@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -7,6 +7,9 @@
 #ifndef __XFPD_XMPU_CFG_H__
 #define __XFPD_XMPU_CFG_H__
 
+/**
+ *@cond nocomments
+ */
 
 #ifdef __cplusplus
 extern "C" {
@@ -1300,6 +1303,9 @@ extern "C" {
 #define XFPD_XMPU_CFG_R15_EN_MASK    0x00000001UL
 #define XFPD_XMPU_CFG_R15_EN_DEFVAL  0x0UL
 
+/**
+ *@endcond
+ */
 
 #ifdef __cplusplus
 }

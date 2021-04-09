@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2004 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2004 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -153,7 +153,6 @@ extern void microblaze_init_dcache_range (s32 , s32 )  __attribute__((deprecated
 
  /**
  Return the current value of the MSR.
- @param  None
 */
 #define mfmsr()         ({  UINTPTR _rval = 0U;         \
                             __asm__ __volatile__ (      \
@@ -164,7 +163,6 @@ extern void microblaze_init_dcache_range (s32 , s32 )  __attribute__((deprecated
 
  /**
  Return the current value of the Exception Address Register (EAR).
- @param  None
 */
 #define mfear()         ({  UINTPTR _rval = 0U;         \
                             __asm__ __volatile__ (      \
@@ -181,7 +179,6 @@ extern void microblaze_init_dcache_range (s32 , s32 )  __attribute__((deprecated
                           })
  /**
  Return the current value of the Exception Status Register (ESR).
- @param  None
 */
 #define mfesr()         ({  UINTPTR _rval = 0U;         \
                             __asm__ __volatile__ (      \
@@ -192,7 +189,6 @@ extern void microblaze_init_dcache_range (s32 , s32 )  __attribute__((deprecated
 
  /**
  Return the current value of the Floating Point Status (FPS).
- @param  None
 */
 #define mffsr()         ({  UINTPTR _rval = 0U;         \
                             __asm__ __volatile__ (      \

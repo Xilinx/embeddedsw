@@ -1,12 +1,12 @@
 /******************************************************************************
-* Copyright (c) 2013 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2013 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xil_misc_reset.c
+* @file xil_misc_psreset_api.c
 *
 * This file contains the implementation of the reset sequence for various
 * zynq ps devices like DDR,OCM,Slcr,Ethernet,Usb.. controllers. The reset
@@ -44,11 +44,8 @@
 /**
 * This function contains the implementation for ddr reset.
 *
-* @param   N/A.
 *
 * @return   N/A.
-*
-* @note     None.
 *
 ******************************************************************************/
 void XDdr_ResetHw(void)
@@ -71,11 +68,7 @@ void XDdr_ResetHw(void)
 * This function contains the implementation for remapping the ocm memory region
 * to postbootrom state.
 *
-* @param   N/A.
-*
 * @return   N/A.
-*
-* @note     None.
 *
 ******************************************************************************/
 void XOcm_Remap(void)
@@ -97,8 +90,6 @@ void XOcm_Remap(void)
 * @param   BaseAddress of the interface
 *
 * @return   N/A.
-*
-* @note     None.
 *
 ******************************************************************************/
 void XSmc_ResetHw(u32 BaseAddress)
@@ -126,11 +117,8 @@ void XSmc_ResetHw(u32 BaseAddress)
 /**
 * This function contains the implementation for updating the slcr mio registers
 * with reset values
-* @param   N/A.
 *
 * @return   N/A.
-*
-* @note     None.
 *
 ******************************************************************************/
 void XSlcr_MioWriteResetValues(void)
@@ -163,11 +151,8 @@ void XSlcr_MioWriteResetValues(void)
 /**
 * This function contains the implementation for updating the slcr pll registers
 * with reset values
-* @param   N/A.
 *
 * @return   N/A.
-*
-* @note     None.
 *
 ******************************************************************************/
 void XSlcr_PllWriteResetValues(void)
@@ -193,11 +178,7 @@ void XSlcr_PllWriteResetValues(void)
 /**
 * This function contains the implementation for disabling the level shifters
 *
-* @param   N/A.
-*
 * @return   N/A.
-*
-* @note     None.
 *
 ******************************************************************************/
 void XSlcr_DisableLevelShifters(void)
@@ -216,11 +197,7 @@ void XSlcr_DisableLevelShifters(void)
 * This function contains the implementation for OCM software reset from the
 * slcr
 *
-* @param   N/A.
-*
 * @return   N/A.
-*
-* @note     None.
 *
 ******************************************************************************/
 void XSlcr_OcmReset(void)
@@ -242,11 +219,8 @@ void XSlcr_OcmReset(void)
 /**
 * This function contains the implementation for Ethernet software reset from
 * the slcr
-* @param   N/A.
 *
 * @return   N/A.
-*
-* @note     None.
 *
 ******************************************************************************/
 void XSlcr_EmacPsReset(void)
@@ -269,11 +243,7 @@ void XSlcr_EmacPsReset(void)
 * This function contains the implementation for USB software reset from the
 * slcr
 *
-* @param   N/A.
-*
 * @return   N/A.
-*
-* @note     None.
 *
 ******************************************************************************/
 void XSlcr_UsbPsReset(void)
@@ -295,11 +265,7 @@ void XSlcr_UsbPsReset(void)
 * This function contains the implementation for QSPI software reset from the
 * slcr
 *
-* @param   N/A.
-*
 * @return   N/A.
-*
-* @note     None.
 *
 ******************************************************************************/
 void XSlcr_QspiPsReset(void)
@@ -321,11 +287,7 @@ void XSlcr_QspiPsReset(void)
 * This function contains the implementation for SPI software reset from the
 * slcr
 *
-* @param   N/A.
-*
 * @return   N/A.
-*
-* @note     None.
 *
 ******************************************************************************/
 void XSlcr_SpiPsReset(void)
@@ -346,11 +308,7 @@ void XSlcr_SpiPsReset(void)
 /**
 * This function contains the implementation for i2c software reset from the slcr
 *
-* @param   N/A.
-*
 * @return   N/A.
-*
-* @note     None.
 *
 ******************************************************************************/
 void XSlcr_I2cPsReset(void)
@@ -372,11 +330,7 @@ void XSlcr_I2cPsReset(void)
 * This function contains the implementation for UART software reset from the
 * slcr
 *
-* @param   N/A.
-*
 * @return   N/A.
-*
-* @note     None.
 *
 ******************************************************************************/
 void XSlcr_UartPsReset(void)
@@ -398,11 +352,7 @@ void XSlcr_UartPsReset(void)
 * This function contains the implementation for CAN software reset from slcr
 * registers
 *
-* @param   N/A.
-*
 * @return   N/A.
-*
-* @note     None.
 *
 ******************************************************************************/
 void XSlcr_CanPsReset(void)
@@ -423,11 +373,7 @@ void XSlcr_CanPsReset(void)
 /**
 * This function contains the implementation for SMC software reset from the slcr
 *
-* @param   N/A.
-*
 * @return   N/A.
-*
-* @note     None.
 *
 ******************************************************************************/
 void XSlcr_SmcPsReset(void)
@@ -449,11 +395,7 @@ void XSlcr_SmcPsReset(void)
 * This function contains the implementation for DMA controller software reset
 * from the slcr
 *
-* @param   N/A.
-*
 * @return   N/A.
-*
-* @note     None.
 *
 ******************************************************************************/
 void XSlcr_DmaPsReset(void)
@@ -475,11 +417,7 @@ void XSlcr_DmaPsReset(void)
 * This function contains the implementation for Gpio AMBA software reset from
 * the slcr
 *
-* @param   N/A.
-*
 * @return   N/A.
-*
-* @note     None.
 *
 ******************************************************************************/
 void XSlcr_GpioPsReset(void)

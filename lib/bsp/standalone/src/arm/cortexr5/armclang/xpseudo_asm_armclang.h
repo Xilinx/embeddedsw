@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 *
 * SPDX-License-Identifier: MIT
 *
@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xpseudo_asm_gcc.h
+* @file xpseudo_asm_armclang.h
 *
 * This header file contains macros for using inline assembler code. It is
 * written specifically for the GNU compiler.
