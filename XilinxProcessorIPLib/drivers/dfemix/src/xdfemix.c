@@ -24,6 +24,7 @@
 *       dc     03/18/21 New model parameter list
 *       dc     04/06/21 Register with full node name
 *       dc     04/07/21 Fix bare metal initialisation
+*       dc     04/08/21 Set sequence length only once
 *
 * </pre>
 *
@@ -43,7 +44,8 @@
 #endif
 
 /**************************** Macros Definitions ****************************/
-#define XDFEMIX_SEQUENCE_ENTRY_NULL 8U /**< Null sequence entry flag */
+#define XDFEMIX_SEQUENCE_ENTRY_DEFAULT 0U /**< Default sequence entry flag */
+#define XDFEMIX_SEQUENCE_ENTRY_NULL (-1) /**< Null sequence entry flag */
 #define XDFEMIX_CEILING(x, y) (((x) + (y)-1U) / (y)) /**< U32 ceiling */
 #define XDFEMIX_NO_EMPTY_CCID_FLAG 0xFFFFU /**< Not Empty CCID flag */
 #define XDFEMIX_PHASE_OFFSET_ROUNDING_BITS 14U
@@ -225,12 +227,61 @@ u32 XDfeMix_WrBitField(u32 FieldWidth, u32 FieldOffset, u32 Data, u32 Val)
 /****************************************************************************/
 /**
 *
-* Add the specified CCID, with the given rate, to the CC sequence. If there
-* is insufficient capacity for the new CCID return an error. Implements
-* a "greedy" allocation of sequence locations.
+* Find not used CCID.
 *
+* @param    Sequence is a CC sequence array
+*
+* @return not used CCID
+*
+* @note     None
+*
+****************************************************************************/
+static s32 XDfeMix_GetNotUsedCCID(XDfeMix_CCSequence *Sequence)
+{
+	u32 Index;
+	s32 NotUsedCCID;
+
+	Xil_AssertNonvoid(Sequence != NULL);
+
+	/* Not used Sequence.CCID[] has value -1, but the values in the range
+	   [0,15] can be written in the registers, only. Now, we have to detect
+	   not used CCID, and save it for the later usage. */
+	for (NotUsedCCID = 0U; NotUsedCCID < XDFEMIX_CC_NUM; NotUsedCCID++) {
+		for (Index = 0U; Index < XDFEMIX_CC_NUM; Index++) {
+			if (Sequence->CCID[Index] == NotUsedCCID) {
+				break;
+			}
+		}
+		if (Index == XDFEMIX_CC_NUM) {
+			break;
+		}
+	}
+	return (NotUsedCCID);
+}
+
+/****************************************************************************/
+/**
+*
+* Add the specified CCID, to the CC sequence. The sequenc is define with
+* BitSequence which bit0 coresponds to CC[0], bit1 to CC[1], bit2 to CC[2],...
+* ..., bit15 to CC[15].
+*
+* Sequence data in returned CCIDSequence is not the same as what is written
+* in registers, the translation is:
+*              registers       passed back CCIDSequence
+* -----------------------------------------------------
+* Length:      0               0 - if (SEQUENCE[0] == SEQUENCE[1])
+*              0               1 - if (SEQUENCE[0] != SEQUENCE[1])
+*              1               2
+*              2               3
+*              .....
+*              15              16
+* SEQUENCE[x]: x               -1 - if unused CC
+* SEQUENCE[x]: x               x - if used CC
+*
+* @param    InstancePtr is a pointer to the XDfeMix instance.
 * @param    CCID is a CC ID
-* @param    Rate is a Rate for a given CC ID (can be 1,2,4,8,16)
+* @param    BitSequence maps the sequence.
 * @param    CCIDSequence is a CC sequence array
 *
 * @return
@@ -240,95 +291,50 @@ u32 XDfeMix_WrBitField(u32 FieldWidth, u32 FieldOffset, u32 Data, u32 Val)
 * @note     None
 *
 ****************************************************************************/
-static u32 XDfeMix_AddCCID(u32 CCID, u32 Rate, XDfeMix_CCSequence *CCIDSequence)
+static u32 XDfeMix_AddCCID(XDfeMix *InstancePtr, s32 CCID, u32 BitSequence,
+			   XDfeMix_CCSequence *CCIDSequence)
 {
 	u32 Index;
-	u32 SeqLen;
-	u32 SeqMult;
-	u32 CCIDCount;
-	u32 EmptyCCID = XDFEMIX_NO_EMPTY_CCID_FLAG;
-	Xil_AssertNonvoid((Rate == 1U) || (Rate == 2U) || (Rate == 4U) ||
-			  (Rate == 8U) || (Rate == 16U));
+	u32 Mask;
+
 	Xil_AssertNonvoid(CCIDSequence != NULL);
+	Xil_AssertNonvoid(CCIDSequence->Length != 0);
+	Xil_AssertNonvoid(CCID < XDFEMIX_CC_NUM);
 
-	/* Assumptions:
-	   Rate can be 1, 2, 4 or 8. (include 16 (question))
-	   If the function exits with an error the CCIDSequence argument should
-	   remain unchanged. Implements a "greedy" allocation of sequence
-	   locations */
-	/* Determine if there is space in the sequence for the new CCID,
-	   test for an empty slot. */
-	for (Index = 0; Index < CCIDSequence->Length; Index++) {
-		/* search for the first "null" */
-		if (CCIDSequence->CCID[Index] == XDFEMIX_SEQUENCE_ENTRY_NULL) {
-			EmptyCCID = Index;
-			break;
-		}
-	}
-
-	if (EmptyCCID == XDFEMIX_NO_EMPTY_CCID_FLAG) {
-		metal_log(METAL_LOG_ERROR, "No space for new sequence in %s\n",
+	/* Check does sequence fit in the defined length */
+	Mask = (1U << CCIDSequence->Length) - 1U;
+	if (0U != (BitSequence & (~Mask))) {
+		metal_log(METAL_LOG_ERROR, "Sequence map does not fit in %s\n",
 			  __func__);
 		return XST_FAILURE;
 	}
 
-	/* Determine if we need to extend, and repeat, the existing sequence to
-	   represent the new CCID rate. */
-	SeqLen = CCIDSequence->Length;
-	/* Calculate Rate/SeqLen */
-	SeqMult = Rate / SeqLen;
-	/* Note when SeqMult > 1 the rate constraints mean it should also be
-	   an integer value. */
-	if (SeqMult > 1U) {
-		/* Rate is greater than the current sequence so extend and
-		   repeat the existing sequence */
-		if ((SeqMult * SeqLen) > XDFEMIX_SEQ_LENGTH_MAX) {
-			metal_log(METAL_LOG_ERROR,
-				  "Not enough space for new sequence in %s\n",
-				  __func__);
-			return XST_FAILURE;
-		}
-		CCIDSequence->Length = SeqMult * SeqLen;
-		for (Index = SeqLen; Index < CCIDSequence->Length; Index++) {
-			CCIDSequence->CCID[Index] =
-				CCIDSequence->CCID[Index % SeqLen];
-		}
-	}
-
-	/* Determine if we find a suitable space in the sequence to add this
-	   CCID. Starting at the first empty location can we place the
-	   appropriate number of CCID entries. */
-	SeqLen = CCIDSequence->Length;
-	CCIDCount = SeqLen / Rate; /* Number of entries required in this
-				      sequence for the CCID */
-	for (Index = EmptyCCID; Index < CCIDSequence->Length; Index++) {
-		if (CCIDSequence->CCID[Index] == XDFEMIX_SEQUENCE_ENTRY_NULL) {
-			CCIDCount--;
-			if (0U == CCIDCount) {
-				break;
+	/* Check are bits set to 1 avaliable */
+	Mask = 1U;
+	for (Index = 0U; Index < CCIDSequence->Length; Index++) {
+		if (0U != (BitSequence & Mask)) {
+			if (CCIDSequence->CCID[Index] !=
+			    XDFEMIX_SEQUENCE_ENTRY_NULL) {
+				metal_log(METAL_LOG_ERROR,
+					  "Sequence does not fit %s\n",
+					  __func__);
+				return XST_FAILURE;
 			}
 		}
-	}
-	if (CCIDCount != 0U) {
-		/* Not placed all required CCID entries */
-		metal_log(METAL_LOG_ERROR,
-			  "Not placed all required CCID entries in %s\n",
-			  __func__);
-		return XST_FAILURE;
+		Mask <<= 1U;
 	}
 
-	/* Everything is OK. Loop again to mark CCID */
-	CCIDCount = SeqLen / Rate;
-	for (Index = EmptyCCID; Index < CCIDSequence->Length; Index++) {
-		if (CCIDSequence->CCID[Index] == XDFEMIX_SEQUENCE_ENTRY_NULL) {
-			/* Mark location for this CCID */
+	/* Now, write the sequence */
+	Mask = 1U;
+	for (Index = 0U; Index < CCIDSequence->Length; Index++) {
+		if (0U != (BitSequence & Mask)) {
 			CCIDSequence->CCID[Index] = CCID;
-			CCIDCount--;
-			if (0U == CCIDCount) {
-				break;
-			}
 		}
+		Mask <<= 1U;
 	}
+
+	/* Set not used CCID */
+	InstancePtr->NotUsedCCID = XDfeMix_GetNotUsedCCID(CCIDSequence);
 
 	return XST_SUCCESS;
 }
@@ -339,6 +345,7 @@ static u32 XDfeMix_AddCCID(u32 CCID, u32 Rate, XDfeMix_CCSequence *CCIDSequence)
 * Remove the specified CCID from the CC sequence. Will replace the CCID
 * entries with null (8).
 *
+* @param    InstancePtr is a pointer to the XDfeMix instance.
 * @param    CCID is a CC ID
 * @param    CCIDSequence is a CC sequence array
 *
@@ -347,7 +354,8 @@ static u32 XDfeMix_AddCCID(u32 CCID, u32 Rate, XDfeMix_CCSequence *CCIDSequence)
 * @note     None
 *
 ****************************************************************************/
-void XDfeMix_RemoveCCID(u32 CCID, XDfeMix_CCSequence *CCIDSequence)
+static void XDfeMix_RemoveCCID(XDfeMix *InstancePtr, s32 CCID,
+			       XDfeMix_CCSequence *CCIDSequence)
 {
 	u32 Index;
 	Xil_AssertVoid(CCIDSequence != NULL);
@@ -359,6 +367,9 @@ void XDfeMix_RemoveCCID(u32 CCID, XDfeMix_CCSequence *CCIDSequence)
 			CCIDSequence->CCID[Index] = XDFEMIX_SEQUENCE_ENTRY_NULL;
 		}
 	}
+
+	/* Set not used CCID */
+	InstancePtr->NotUsedCCID = XDfeMix_GetNotUsedCCID(CCIDSequence);
 }
 
 /************************ Low Level Functions *******************************/
@@ -408,7 +419,7 @@ static void XDfeMix_SetAntennaGainL(const XDfeMix *InstancePtr, u32 AntennaId,
 *
 ****************************************************************************/
 static void XDfeMix_SetCCDDC(const XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg,
-			     u32 CCID, const XDfeMix_DUCDDCCfg *DUCDDCCfg)
+			     s32 CCID, const XDfeMix_DUCDDCCfg *DUCDDCCfg)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(CCCfg != NULL);
@@ -424,95 +435,69 @@ static void XDfeMix_SetCCDDC(const XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg,
 /****************************************************************************/
 /**
 *
-* Populate CCCfg by reading either NEXT or CURRENT CC configuration registers.
+* Returns the current CC configuration.
+* Note: for a sequence conversion see XDfeMix_AddCCID() comment.
 *
 * @param    InstancePtr is a pointer to the Mixer instance.
-* @param    Next TRUE read next config, FALSE read current config.
-* @param    CCCfg is a configuration data container.
+* @param    CurrCCCfg is CC configuration container.
 *
 * @return   None
 *
 * @note     None
 *
 ****************************************************************************/
-static void XDfeMix_GetCCCfg(const XDfeMix *InstancePtr, bool Next,
-			     XDfeMix_CCCfg *CCCfg)
+static void XDfeMix_GetCurrentCCCfg(XDfeMix *InstancePtr,
+				    XDfeMix_CCCfg *CurrCCCfg)
 {
 	u32 SeqLen;
 	u32 AntennaCfg = 0U;
 	u32 Data;
 	u32 Offset;
 	u32 Index;
-
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(CCCfg != NULL);
+	Xil_AssertVoid(CurrCCCfg != NULL);
 
-	if (Next == XDFEMIXER_NEXT) {
-		/* Read sequence length */
-		SeqLen = XDfeMix_ReadReg(InstancePtr,
-					 XDFEMIX_SEQUENCE_LENGTH_NEXT);
-		CCCfg->Sequence.Length = SeqLen + 1U;
+	/* Read CCID sequence and carrier configurations */
+	for (Index = 0; Index < XDFEMIX_CC_NUM; Index++) {
+		CurrCCCfg->Sequence.CCID[Index] = XDfeMix_ReadReg(
+			InstancePtr,
+			XDFEMIX_SEQUENCE_CURRENT + (sizeof(u32) * Index));
+	}
 
-		/* Read CCID sequence and carrier configurations */
-		for (Index = 0; Index < XDFEMIX_SEQUENCE_SIZE; Index++) {
-			CCCfg->Sequence.CCID[Index] = XDfeMix_ReadReg(
-				InstancePtr,
-				XDFEMIX_SEQUENCE_NEXT + (Index * sizeof(u32)));
-		}
-
-		for (Index = 0; Index < XDFEMIX_CC_CONFIG_SIZE; Index++) {
-			Offset = XDFEMIX_CC_CONFIG_NEXT +
-				 ((Index * sizeof(u32)));
-			Data = XDfeMix_ReadReg(InstancePtr, Offset);
-			CCCfg->DUCDDCCfg[Index].NCO =
-				XDfeMix_RdBitField(XDFEMIX_CC_CONFIG_NCO_WIDTH,
-						   XDFEMIX_CC_CONFIG_NCO_OFFSET,
-						   Data);
-			CCCfg->DUCDDCCfg[Index].Rate = XDfeMix_RdBitField(
-				XDFEMIX_CC_CONFIG_RATE_WIDTH,
-				XDFEMIX_CC_CONFIG_RATE_OFFSET, Data);
-		}
-
-		/* Read Antenna configuration */
-		AntennaCfg =
-			XDfeMix_ReadReg(InstancePtr, XDFEMIX_ANTENNA_GAIN_NEXT);
-		for (Index = 0; Index < XDFEMIX_ANT_NUM_MAX; Index++) {
-			CCCfg->AntennaCfg[Index] =
-				(AntennaCfg >> Index) & 0x01U;
-		}
+	/* Read sequence length */
+	SeqLen = XDfeMix_ReadReg(InstancePtr, XDFEMIX_SEQUENCE_LENGTH_CURRENT);
+	if (SeqLen == 0U) {
+		CurrCCCfg->Sequence.Length = InstancePtr->SequenceLength;
 	} else {
-		/* Read sequence length */
-		SeqLen = XDfeMix_ReadReg(InstancePtr,
-					 XDFEMIX_SEQUENCE_LENGTH_CURRENT);
-		CCCfg->Sequence.Length = SeqLen + 1U;
+		CurrCCCfg->Sequence.Length = SeqLen + 1U;
+	}
 
-		for (Index = 0; Index < XDFEMIX_SEQUENCE_SIZE; Index++) {
-			CCCfg->Sequence.CCID[Index] = XDfeMix_ReadReg(
-				InstancePtr, XDFEMIX_SEQUENCE_CURRENT +
-						     (Index * sizeof(u32)));
+	/* Convert not used CC to -1 */
+	for (Index = 0; Index < XDFEMIX_CC_NUM; Index++) {
+		if ((CurrCCCfg->Sequence.CCID[Index] ==
+		     InstancePtr->NotUsedCCID) ||
+		    (Index >= InstancePtr->SequenceLength)) {
+			CurrCCCfg->Sequence.CCID[Index] =
+				XDFEMIX_SEQUENCE_ENTRY_NULL;
 		}
+	}
 
-		/* Read CCID sequence and carrier configurations */
-		for (Index = 0; Index < XDFEMIX_CC_CONFIG_SIZE; Index++) {
-			Offset = XDFEMIX_CC_CONFIG_CURRENT +
-				 (Index * sizeof(u32));
-			Data = XDfeMix_ReadReg(InstancePtr, Offset);
-			CCCfg->DUCDDCCfg[Index].NCO =
-				XDfeMix_RdBitField(XDFEMIX_CC_CONFIG_NCO_WIDTH,
-						   XDFEMIX_CC_CONFIG_NCO_OFFSET,
-						   Data);
-			CCCfg->DUCDDCCfg[Index].Rate = XDfeMix_RdBitField(
-				XDFEMIX_CC_CONFIG_RATE_WIDTH,
-				XDFEMIX_CC_CONFIG_RATE_OFFSET, Data);
-		}
+	/* Read CCID sequence and carrier configurations */
+	for (Index = 0; Index < XDFEMIX_CC_NUM; Index++) {
+		Offset = XDFEMIX_CC_CONFIG_CURRENT + (Index * sizeof(u32));
+		Data = XDfeMix_ReadReg(InstancePtr, Offset);
+		CurrCCCfg->DUCDDCCfg[Index].NCO =
+			XDfeMix_RdBitField(XDFEMIX_CC_CONFIG_NCO_WIDTH,
+					   XDFEMIX_CC_CONFIG_NCO_OFFSET, Data);
+		CurrCCCfg->DUCDDCCfg[Index].Rate =
+			XDfeMix_RdBitField(XDFEMIX_CC_CONFIG_RATE_WIDTH,
+					   XDFEMIX_CC_CONFIG_RATE_OFFSET, Data);
+	}
 
-		/* Read Antenna configuration */
-		AntennaCfg = XDfeMix_ReadReg(InstancePtr,
-					     XDFEMIX_ANTENNA_GAIN_CURRENT);
-		for (Index = 0; Index < XDFEMIX_ANT_NUM_MAX; Index++) {
-			CCCfg->AntennaCfg[Index] =
-				(AntennaCfg >> Index) & 0x01U;
-		}
+	/* Read Antenna configuration */
+	AntennaCfg = XDfeMix_ReadReg(InstancePtr, XDFEMIX_ANTENNA_GAIN_CURRENT);
+	for (Index = 0; Index < XDFEMIX_ANT_NUM_MAX; Index++) {
+		CurrCCCfg->AntennaCfg[Index] = (AntennaCfg >> Index) & 0x01U;
 	}
 }
 
@@ -530,40 +515,45 @@ static void XDfeMix_GetCCCfg(const XDfeMix *InstancePtr, bool Next,
 *
 ****************************************************************************/
 static void XDfeMix_SetNextCCCfg(const XDfeMix *InstancePtr,
-				 const XDfeMix_CCCfg *CCCfg)
+				 const XDfeMix_CCCfg *NextCCCfg)
 {
-	u32 SeqLen = 0U;
 	u32 AntennaCfg = 0U;
 	u32 DucDdcConfig;
 	u32 Index;
+	s32 NextCCID[XDFEMIX_SEQ_LENGTH_MAX];
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(CCCfg != NULL);
+	Xil_AssertVoid(NextCCCfg != NULL);
 
-	/* Write sequence length */
-	if (0U < CCCfg->Sequence.Length) {
-		SeqLen = CCCfg->Sequence.Length - 1U;
+	/* Prepare NextCCID[] to be written to registers */
+	for (Index = 0U; Index < XDFEMIX_CC_NUM; Index++) {
+		if ((NextCCCfg->Sequence.CCID[Index] ==
+		     XDFEMIX_SEQUENCE_ENTRY_NULL) ||
+		    (Index >= InstancePtr->SequenceLength)) {
+			NextCCID[Index] = InstancePtr->NotUsedCCID;
+		} else {
+			NextCCID[Index] = NextCCCfg->Sequence.CCID[Index];
+		}
 	}
-	XDfeMix_WriteReg(InstancePtr, XDFEMIX_SEQUENCE_LENGTH_NEXT, SeqLen);
 
 	/* Write CCID sequence and carrier configurations */
-	for (Index = 0; Index < XDFEMIX_SEQUENCE_SIZE; Index++) {
+	for (Index = 0; Index < XDFEMIX_CC_NUM; Index++) {
 		XDfeMix_WriteReg(InstancePtr,
 				 XDFEMIX_SEQUENCE_NEXT + (sizeof(u32) * Index),
-				 CCCfg->Sequence.CCID[Index]);
-	}
+				 NextCCID[Index]);
 
-	for (Index = 0; Index < XDFEMIX_CC_CONFIG_SIZE; Index++) {
 		DucDdcConfig = XDfeMix_ReadReg(InstancePtr,
 					       XDFEMIX_CC_CONFIG_NEXT +
 						       ((Index * sizeof(u32))));
-		DucDdcConfig = XDfeMix_WrBitField(XDFEMIX_CC_CONFIG_NCO_WIDTH,
-						  XDFEMIX_CC_CONFIG_NCO_OFFSET,
-						  DucDdcConfig,
-						  CCCfg->DUCDDCCfg[Index].NCO);
-		DucDdcConfig = XDfeMix_WrBitField(XDFEMIX_CC_CONFIG_RATE_WIDTH,
-						  XDFEMIX_CC_CONFIG_RATE_OFFSET,
-						  DucDdcConfig,
-						  CCCfg->DUCDDCCfg[Index].Rate);
+		DucDdcConfig =
+			XDfeMix_WrBitField(XDFEMIX_CC_CONFIG_NCO_WIDTH,
+					   XDFEMIX_CC_CONFIG_NCO_OFFSET,
+					   DucDdcConfig,
+					   NextCCCfg->DUCDDCCfg[Index].NCO);
+		DucDdcConfig =
+			XDfeMix_WrBitField(XDFEMIX_CC_CONFIG_RATE_WIDTH,
+					   XDFEMIX_CC_CONFIG_RATE_OFFSET,
+					   DucDdcConfig,
+					   NextCCCfg->DUCDDCCfg[Index].Rate);
 		XDfeMix_WriteReg(InstancePtr,
 				 XDFEMIX_CC_CONFIG_NEXT +
 					 ((Index * sizeof(u32))),
@@ -572,7 +562,7 @@ static void XDfeMix_SetNextCCCfg(const XDfeMix *InstancePtr,
 
 	/* Write Antenna configuration */
 	for (Index = 0; Index < XDFEMIX_ANT_NUM_MAX; Index++) {
-		AntennaCfg += ((CCCfg->AntennaCfg[Index] & 0x01U) << Index);
+		AntennaCfg += ((NextCCCfg->AntennaCfg[Index] & 0x01U) << Index);
 	}
 	XDfeMix_WriteReg(InstancePtr, XDFEMIX_ANTENNA_GAIN_NEXT, AntennaCfg);
 }
@@ -592,7 +582,7 @@ static void XDfeMix_SetNextCCCfg(const XDfeMix *InstancePtr,
 *
 ****************************************************************************/
 static u32 XDfeMix_GetPhaccIndex(const XDfeMix *InstancePtr, bool Next,
-				 u32 CCID)
+				 s32 CCID)
 {
 	u32 Offset;
 	u32 Nco;
@@ -626,7 +616,7 @@ static u32 XDfeMix_GetPhaccIndex(const XDfeMix *InstancePtr, bool Next,
 *
 ****************************************************************************/
 static void XDfeMix_SetCCFrequency(const XDfeMix *InstancePtr, bool Next,
-				   u32 CCID, const XDfeMix_Frequency *Freq)
+				   s32 CCID, const XDfeMix_Frequency *Freq)
 {
 	u32 Index;
 
@@ -661,7 +651,7 @@ static void XDfeMix_SetCCFrequency(const XDfeMix *InstancePtr, bool Next,
 *
 ****************************************************************************/
 static void XDfeMix_GetCCFrequency(const XDfeMix *InstancePtr, bool Next,
-				   u32 CCID, XDfeMix_Frequency *Freq)
+				   s32 CCID, XDfeMix_Frequency *Freq)
 {
 	u32 Index;
 
@@ -695,7 +685,7 @@ static void XDfeMix_GetCCFrequency(const XDfeMix *InstancePtr, bool Next,
 * @note     None
 *
 ****************************************************************************/
-static void XDfeMix_SetCCPhase(const XDfeMix *InstancePtr, bool Next, u32 CCID,
+static void XDfeMix_SetCCPhase(const XDfeMix *InstancePtr, bool Next, s32 CCID,
 			       const XDfeMix_Phase *Phase)
 {
 	u32 Index;
@@ -729,7 +719,7 @@ static void XDfeMix_SetCCPhase(const XDfeMix *InstancePtr, bool Next, u32 CCID,
 * @note     None
 *
 ****************************************************************************/
-static void XDfeMix_GetCCPhase(const XDfeMix *InstancePtr, bool Next, u32 CCID,
+static void XDfeMix_GetCCPhase(const XDfeMix *InstancePtr, bool Next, s32 CCID,
 			       XDfeMix_Phase *Phase)
 {
 	u32 Index;
@@ -762,7 +752,7 @@ static void XDfeMix_GetCCPhase(const XDfeMix *InstancePtr, bool Next, u32 CCID,
 *
 ****************************************************************************/
 static void XDfeMix_SetCCPhaseAccumEnable(const XDfeMix *InstancePtr, bool Next,
-					  u32 CCID, bool Enable)
+					  s32 CCID, bool Enable)
 {
 	u32 Index;
 	u32 Data = 0U;
@@ -884,7 +874,7 @@ static void XDfeMix_SetPhaseOffset(const XDfeMix *InstancePtr,
 *
 ****************************************************************************/
 static void XDfeMix_SetCCNCOGain(const XDfeMix *InstancePtr, bool Next,
-				 u32 CCID, u32 NCOGain)
+				 s32 CCID, u32 NCOGain)
 {
 	u32 Index;
 
@@ -908,7 +898,7 @@ static void XDfeMix_SetCCNCOGain(const XDfeMix *InstancePtr, bool Next,
 * @note     None
 *
 ****************************************************************************/
-static u32 XDfeMix_GetCCNCOGain(const XDfeMix *InstancePtr, bool Next, u32 CCID)
+static u32 XDfeMix_GetCCNCOGain(const XDfeMix *InstancePtr, bool Next, s32 CCID)
 {
 	u32 Index;
 
@@ -1114,8 +1104,8 @@ register_metal:
 	memcpy(Str, InstancePtr->NodeName, XDFEMIX_NODE_NAME_MAX_LENGTH);
 	AddrStr = strtok(Str, ".");
 	Addr = strtol(AddrStr, NULL, 16);
-	for(Index=0; Index < XDFEMIX_MAX_NUM_INSTANCES; Index++) {
-		if(Addr == metal_phys[Index]) {
+	for (Index = 0; Index < XDFEMIX_MAX_NUM_INSTANCES; Index++) {
+		if (Addr == metal_phys[Index]) {
 			InstancePtr->Device = &CustomDevice[Index];
 			goto bm_register_metal;
 		}
@@ -1307,33 +1297,47 @@ void XDfeMix_Configure(XDfeMix *InstancePtr, XDfeMix_Cfg *Cfg)
 * DFE Mixer driver one time initialisation.
 *
 * @param    InstancePtr is a pointer to the Mixer instance.
+* @param    Init is a initialisation data container.
 *
 * @return   None
 *
 * @note     None
 *
 ****************************************************************************/
-void XDfeMix_Initialize(XDfeMix *InstancePtr)
+void XDfeMix_Initialize(XDfeMix *InstancePtr, XDfeMix_Init *Init)
 {
 	XDfeMix_Trigger CCUpdate;
 	u32 Data;
 	u32 Index;
 	u32 Offset;
+	u32 SequenceLength;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFEMIX_STATE_CONFIGURED);
+	Xil_AssertVoid(Init != NULL);
 
 	XDfeMix_SetPLMixerDelay(InstancePtr);
 
-	/* Set NULL sequence and ensure all CCs are disabled. Not all registers
-	   will be cleared by reset as they are implemented using DRAM. This
-	   step sets all CC_CONFIGURATION.CARRIER_CONFIGURATION.CURRENT[*].
-	   DUC_DDC to 0 ensuring the Hardblock will remain disabled following
-	   the first call to XDFEMIXilterActivate. */
+	/* Write "one-time" Sequence length */
+	InstancePtr->SequenceLength = Init->Sequence.Length;
+	if (Init->Sequence.Length == 0) {
+		SequenceLength = 0U;
+	} else {
+		SequenceLength = Init->Sequence.Length - 1U;
+	}
+	XDfeMix_WriteReg(InstancePtr, XDFEMIX_SEQUENCE_LENGTH_NEXT,
+			 SequenceLength);
+
+	/* Set default sequence and ensure all CCs are disabled. Not all
+	   registers will be cleared by reset as they are implemented using
+	   DRAM. This step sets all CC_CONFIGURATION.CARRIER_CONFIGURATION.
+	   CURRENT[*]. ENABLE to 0 ensuring the Hardblock will remain disabled
+	   following the first call to XDFEMIXilterActivate. */
 	for (Index = 0; Index < XDFEMIX_SEQ_LENGTH_MAX; Index++) {
 		Offset = XDFEMIX_SEQUENCE_NEXT + (sizeof(u32) * Index);
 		XDfeMix_WriteReg(InstancePtr, Offset,
-				 XDFEMIX_SEQUENCE_ENTRY_NULL);
+				 XDFEMIX_SEQUENCE_ENTRY_DEFAULT);
+		Init->Sequence.CCID[Index] = XDFEMIX_SEQUENCE_ENTRY_NULL;
 	}
 	for (Index = 0; Index < XDFEMIX_CC_NUM; Index++) {
 		Offset = XDFEMIX_CC_CONFIG_NEXT + (sizeof(u32) * Index);
@@ -1447,6 +1451,7 @@ void XDfeMix_Deactivate(XDfeMix *InstancePtr)
 *
 * @param    InstancePtr is a pointer to the Mixer instance.
 * @param    CCID is a Channel ID.
+* @param    BitSequence maps the sequence.
 * @param    CarrierCfg is a CC configuration container.
 *
 * @return
@@ -1456,7 +1461,7 @@ void XDfeMix_Deactivate(XDfeMix *InstancePtr)
 * @note     None
 *
 ****************************************************************************/
-u32 XDfeMix_AddCC(const XDfeMix *InstancePtr, u32 CCID,
+u32 XDfeMix_AddCC(XDfeMix *InstancePtr, s32 CCID, u32 BitSequence,
 		  const XDfeMix_CarrierCfg *CarrierCfg)
 {
 	XDfeMix_CCCfg CCCfg;
@@ -1466,15 +1471,14 @@ u32 XDfeMix_AddCC(const XDfeMix *InstancePtr, u32 CCID,
 	Xil_AssertNonvoid(InstancePtr->StateId == XDFEMIX_STATE_OPERATIONAL);
 	Xil_AssertNonvoid(CCID <= XDFEMIX_CC_NUM);
 	Xil_AssertNonvoid(CarrierCfg != NULL);
-	Xil_AssertNonvoid(CarrierCfg->DUCDDCCfg.Rate <= XDFEMIX_RATE_MAX);
 	Xil_AssertNonvoid(CarrierCfg->DUCDDCCfg.NCO <= XDFEMIX_NCO_MAX);
 
 	/* Read current CC configuration. Note that XDfeMix_Initialise writes
 	   a NULL CC sequence to H/W */
-	XDfeMix_GetCCCfg(InstancePtr, XDFEMIXER_CURRENT, &CCCfg);
+	XDfeMix_GetCurrentCCCfg(InstancePtr, &CCCfg);
 
 	/* Try to add CC to sequence and update carrier configuration */
-	AddSuccess = XDfeMix_AddCCID(CCID, CarrierCfg->DUCDDCCfg.Rate,
+	AddSuccess = XDfeMix_AddCCID(InstancePtr, CCID, BitSequence,
 				     &CCCfg.Sequence);
 	if (AddSuccess == (u32)XST_FAILURE) {
 		metal_log(METAL_LOG_ERROR, "CC not added to a sequence in %s\n",
@@ -1515,7 +1519,7 @@ u32 XDfeMix_AddCC(const XDfeMix *InstancePtr, u32 CCID,
 * @note     None
 *
 ****************************************************************************/
-void XDfeMix_RemoveCC(const XDfeMix *InstancePtr, u32 CCID)
+void XDfeMix_RemoveCC(XDfeMix *InstancePtr, s32 CCID)
 {
 	XDfeMix_CCCfg CCCfg;
 
@@ -1524,11 +1528,11 @@ void XDfeMix_RemoveCC(const XDfeMix *InstancePtr, u32 CCID)
 	Xil_AssertVoid(CCID <= XDFEMIX_CC_NUM);
 
 	/* Read current CC configuration */
-	XDfeMix_GetCCCfg(InstancePtr, XDFEMIXER_CURRENT, &CCCfg);
+	XDfeMix_GetCurrentCCCfg(InstancePtr, &CCCfg);
 
 	/* Remove CCID from sequence and mark carrier configuration as
 	   disabled */
-	XDfeMix_RemoveCCID(CCID, &CCCfg.Sequence);
+	XDfeMix_RemoveCCID(InstancePtr, CCID, &CCCfg.Sequence);
 
 	CCCfg.DUCDDCCfg[CCID].Rate = 0U;
 
@@ -1555,7 +1559,7 @@ void XDfeMix_RemoveCC(const XDfeMix *InstancePtr, u32 CCID)
 * @note     None
 *
 ****************************************************************************/
-void XDfeMix_MoveCC(const XDfeMix *InstancePtr, u32 CCID, u32 Rate, u32 FromNCO,
+void XDfeMix_MoveCC(XDfeMix *InstancePtr, s32 CCID, u32 Rate, u32 FromNCO,
 		    u32 ToNCO)
 {
 	XDfeMix_CCCfg NextCCCfg;
@@ -1573,7 +1577,7 @@ void XDfeMix_MoveCC(const XDfeMix *InstancePtr, u32 CCID, u32 Rate, u32 FromNCO,
 	Xil_AssertVoid(FromNCO <= XDFEMIX_NCO_MAX);
 	Xil_AssertVoid(ToNCO <= XDFEMIX_NCO_MAX);
 
-	XDfeMix_GetCCCfg(InstancePtr, XDFEMIXER_CURRENT, &NextCCCfg);
+	XDfeMix_GetCurrentCCCfg(InstancePtr, &NextCCCfg);
 	XDfeMix_SetNextCCCfg(InstancePtr, &NextCCCfg);
 	/* Copy NCO */
 	NCOGain = XDfeMix_GetCCNCOGain(InstancePtr, XDFEMIXER_CURRENT, CCID);
@@ -1625,7 +1629,7 @@ void XDfeMix_UpdateCC(const XDfeMix *InstancePtr)
 * @note     None
 *
 ****************************************************************************/
-void XDfeMix_SetAntennaGain(const XDfeMix *InstancePtr, u32 AntennaId,
+void XDfeMix_SetAntennaGain(XDfeMix *InstancePtr, u32 AntennaId,
 			    u32 AntennaGain)
 {
 	XDfeMix_CCCfg CCCfg;
@@ -1634,7 +1638,7 @@ void XDfeMix_SetAntennaGain(const XDfeMix *InstancePtr, u32 AntennaId,
 	Xil_AssertVoid(AntennaGain <= 1U);
 	Xil_AssertVoid(AntennaId <= XDFEMIX_ANT_NUM_MAX);
 
-	XDfeMix_GetCCCfg(InstancePtr, XDFEMIXER_CURRENT, &CCCfg);
+	XDfeMix_GetCurrentCCCfg(InstancePtr, &CCCfg);
 	XDfeMix_SetNextCCCfg(InstancePtr, &CCCfg);
 	XDfeMix_SetAntennaGainL(InstancePtr, AntennaId, AntennaGain);
 	XDfeMix_EnableCCUpdateTrigger(InstancePtr);
@@ -1795,7 +1799,7 @@ void XDfeMix_SetTriggersCfg(const XDfeMix *InstancePtr,
 * @note     None
 *
 ****************************************************************************/
-void XDfeMix_GetDUCDDCStatus(const XDfeMix *InstancePtr, u32 CCID,
+void XDfeMix_GetDUCDDCStatus(const XDfeMix *InstancePtr, s32 CCID,
 			     XDfeMix_DUCDDCStatus *DUCDDCStatus)
 {
 	(void)CCID;
@@ -1832,7 +1836,7 @@ void XDfeMix_GetDUCDDCStatus(const XDfeMix *InstancePtr, u32 CCID,
 * @note     None
 *
 ****************************************************************************/
-void XDfeMix_GetMixerStatus(const XDfeMix *InstancePtr, u32 CCID,
+void XDfeMix_GetMixerStatus(const XDfeMix *InstancePtr, s32 CCID,
 			    XDfeMix_MixerStatus *MixerStatus)
 {
 	(void)CCID;

@@ -30,6 +30,7 @@
 *       dc     02/15/21 align driver to curent specification
 *       dc     02/22/21 include HW in versioning
 *       dc     04/06/21 Register with full node name
+*       dc     04/08/21 Set sequence length only once
 *
 * </pre>
 *
@@ -164,6 +165,7 @@ static int XDfeMix_SelfTestExample()
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
 	XDfeMix_Cfg Cfg;
 	XDfeMix *InstancePtr = NULL;
+	XDfeMix_Init Init;
 
 	/* Initialize libmetal */
 	if (0 != metal_init(&init_param)) {
@@ -177,7 +179,7 @@ static int XDfeMix_SelfTestExample()
 	XDfeMix_Reset(InstancePtr);
 	XDfeMix_Configure(InstancePtr, &Cfg);
 	XDfeMix_WriteReg(InstancePtr, 0x20, 0x1001); /* Bug in IP workaround */
-	XDfeMix_Initialize(InstancePtr);
+	XDfeMix_Initialize(InstancePtr, &Init);
 	XDfeMix_WriteReg(InstancePtr, 0x20, 0x1001); /* Bug in IP workaround */
 	XDfeMix_Activate(InstancePtr, true);
 
@@ -220,7 +222,8 @@ static int XDfeMix_AddCCTestExample()
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
 	XDfeMix_Cfg Cfg;
 	XDfeMix *InstancePtr = NULL;
-	u32 CCID = 2;
+	XDfeMix_Init Init = { { 4, { 0 } } };
+	u32 CCID = 0;
 	u32 NCO = 1;
 	u32 Rate = 8;
 	u32 FrequencyControlWord = 0x11;
@@ -254,13 +257,13 @@ static int XDfeMix_AddCCTestExample()
 	XDfeMix_Reset(InstancePtr);
 	XDfeMix_Configure(InstancePtr, &Cfg);
 	XDfeMix_WriteReg(InstancePtr, 0x20, 0x1001); /* Bug in IP workaround */
-	XDfeMix_Initialize(InstancePtr);
+	XDfeMix_Initialize(InstancePtr, &Init);
 	XDfeMix_SetTriggersCfg(InstancePtr, &TriggerCfg);
 	XDfeMix_WriteReg(InstancePtr, 0x20, 0x1001); /* Bug in IP workaround */
 	XDfeMix_Activate(InstancePtr, false);
 
 	/* Add channel */
-	XDfeMix_AddCC(InstancePtr, CCID, &CarrierCfg);
+	XDfeMix_AddCC(InstancePtr, CCID, 0x7, &CarrierCfg);
 
 	XDfeMix_Deactivate(InstancePtr);
 	XDfeMix_InstanceClose(InstancePtr);
