@@ -102,7 +102,7 @@ AieRC XAie_EventGenerate(XAie_DevInst *DevInst, XAie_LocType Loc,
 	FldVal = XAie_SetField(MappedEvent, EvntMod->GenEvent.Lsb, FldMask);
 	RegAddr = _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) + RegOffset;
 
-	return XAie_MaskWrite32(DevInst, RegAddr, FldMask, FldVal);
+	return XAie_Write32(DevInst, RegAddr, FldVal);
 }
 
 /*****************************************************************************/
