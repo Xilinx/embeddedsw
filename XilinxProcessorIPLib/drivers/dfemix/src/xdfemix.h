@@ -59,6 +59,7 @@
 *       dc     02/22/21 include HW in versioning
 *       dc     03/18/21 New model parameter list
 *       dc     04/06/21 Register with full node name
+*       dc     04/08/21 Set sequence length only once
 *
 * </pre>
 *
@@ -97,7 +98,7 @@ extern "C" {
 
 #define XDFEMIX_NODE_NAME_MAX_LENGTH 50U /**< Node name maximum length */
 
-#define XDFEMIX_CC_NUM 16U /**< Maximum CC number */
+#define XDFEMIX_CC_NUM 16 /**< Maximum CC number */
 #define XDFEMIX_ANT_NUM_MAX 8U /**< Maximum anntena number */
 #define XDFEMIX_SEQ_LENGTH_MAX 16U /**< Maximum sequence length */
 
@@ -174,7 +175,7 @@ typedef struct {
  */
 typedef struct {
 	u32 Length; /**< [1-16] Sequence length */
-	u32 CCID[XDFEMIX_SEQ_LENGTH_MAX]; /**< [0-15].Array of CCID's
+	s32 CCID[XDFEMIX_SEQ_LENGTH_MAX]; /**< [0-15].Array of CCID's
 		arranged in the order the CCIDs are required to be processed
 		in the channel filter */
 } XDfeMix_CCSequence;
@@ -203,6 +204,13 @@ typedef struct {
 	XDfeMix_ModelParameters ModelParams; /**< Logicore
 		parameterization */
 } XDfeMix_Cfg;
+
+/**
+ * Initialization, "one-time" configuration parameters.
+ */
+typedef struct {
+	XDfeMix_CCSequence Sequence;
+} XDfeMix_Init;
 
 /**
  * Phase Offset.
@@ -341,6 +349,8 @@ typedef struct {
 typedef struct {
 	XDfeMix_Config Config; /**< Config Structure */
 	XDfeMix_StateId StateId; /**< StateId */
+	s32 NotUsedCCID; /**< Not used CCID */
+	u32 SequenceLength; /**< Exact sequence length */
 	char NodeName[XDFEMIX_NODE_NAME_MAX_LENGTH]; /**< Node name */
 	struct metal_io_region *Io; /**< Libmetal IO structure */
 	struct metal_device *Device; /**< Libmetal device structure */
@@ -358,26 +368,26 @@ u32 XDfeMix_ReadReg(const XDfeMix *InstancePtr, u32 AddrOffset);
 /* DFE Mixer component initialization API */
 void XDfeMix_Reset(XDfeMix *InstancePtr);
 void XDfeMix_Configure(XDfeMix *InstancePtr, XDfeMix_Cfg *Cfg);
-void XDfeMix_Initialize(XDfeMix *InstancePtr);
+void XDfeMix_Initialize(XDfeMix *InstancePtr, XDfeMix_Init *Init);
 void XDfeMix_Activate(XDfeMix *InstancePtr, bool EnableLowPower);
 void XDfeMix_Deactivate(XDfeMix *InstancePtr);
 
 /* User APIs */
-u32 XDfeMix_AddCC(const XDfeMix *InstancePtr, u32 CCID,
+u32 XDfeMix_AddCC(XDfeMix *InstancePtr, s32 CCID, u32 BitSequence,
 		  const XDfeMix_CarrierCfg *CarrierCfg);
-void XDfeMix_RemoveCC(const XDfeMix *InstancePtr, u32 CCID);
-void XDfeMix_MoveCC(const XDfeMix *InstancePtr, u32 CCID, u32 Rate, u32 FromNCO,
+void XDfeMix_RemoveCC(XDfeMix *InstancePtr, s32 CCID);
+void XDfeMix_MoveCC(XDfeMix *InstancePtr, s32 CCID, u32 Rate, u32 FromNCO,
 		    u32 ToNCO);
 void XDfeMix_UpdateCC(const XDfeMix *InstancePtr);
-void XDfeMix_SetAntennaGain(const XDfeMix *InstancePtr, u32 AntennaId,
+void XDfeMix_SetAntennaGain(XDfeMix *InstancePtr, u32 AntennaId,
 			    u32 AntennaGain);
 void XDfeMix_GetTriggersCfg(const XDfeMix *InstancePtr,
 			    XDfeMix_TriggerCfg *TriggerCfg);
 void XDfeMix_SetTriggersCfg(const XDfeMix *InstancePtr,
 			    XDfeMix_TriggerCfg *TriggerCfg);
-void XDfeMix_GetDUCDDCStatus(const XDfeMix *InstancePtr, u32 CCID,
+void XDfeMix_GetDUCDDCStatus(const XDfeMix *InstancePtr, s32 CCID,
 			     XDfeMix_DUCDDCStatus *DUCDDCStatus);
-void XDfeMix_GetMixerStatus(const XDfeMix *InstancePtr, u32 CCID,
+void XDfeMix_GetMixerStatus(const XDfeMix *InstancePtr, s32 CCID,
 			    XDfeMix_MixerStatus *MixerStatus);
 void XDfeMix_GetInterruptMask(const XDfeMix *InstancePtr,
 			      XDfeMix_InterruptMask *Flags);
