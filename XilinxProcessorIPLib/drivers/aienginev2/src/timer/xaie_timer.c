@@ -26,6 +26,8 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
+#include <stdlib.h>
+
 #include "xaie_events.h"
 #include "xaie_helper.h"
 #include "xaie_timer.h"
@@ -434,6 +436,198 @@ AieRC XAie_WaitCycles(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 		CurVal = ((u64)CurHigh << XAIE_TIMER_32BIT_SHIFT) | CurLow;
 	}
+
+	return XAIE_OK;
+}
+
+/*****************************************************************************/
+/**
+* This API returns the broadcast event enum given a resource id from the
+* event map.
+*
+* @param        DevInst: Device Instance
+* @param        Loc: Location of Tile
+* @param        Mod: Module type
+* @param        RscId: Specific resource to be requested
+*
+* @return       Event enum on success.
+*
+* @note         Internal only.
+*
+*******************************************************************************/
+static XAie_Events _XAie_GetBroadcastEventfromRscId(XAie_DevInst *DevInst,
+		XAie_LocType Loc, XAie_ModuleType Mod, u8 RscId)
+{
+	u8 TileType;
+	const XAie_EvntMod *EvntMod;
+
+	TileType =  _XAie_GetTileTypefromLoc(DevInst, Loc);
+
+	if(Mod == XAIE_PL_MOD)
+		EvntMod = &DevInst->DevProp.DevMod[TileType].EvntMod[0U];
+	else
+		EvntMod = &DevInst->DevProp.DevMod[TileType].EvntMod[Mod];
+
+	return EvntMod->BroadcastEventMap->Event + RscId;
+}
+
+/*****************************************************************************/
+/**
+* This API clears broadcast configuration for shim tiles till the mentioned
+* column.
+*
+*
+* @param        DevInst: Device Instance
+* @param        StartCol: Start column from where broadcast conf needs to be
+* 			  cleared
+* @param        EndCol: End column till where broadcast conf needs to be cleared
+* @param        BcastChannelId: ID of broadcast channel
+*
+* @return       None
+*
+* @note         Internal only.
+*
+*******************************************************************************/
+static void _XAie_ClearShimBroadcast(XAie_DevInst *DevInst, u8 StartCol,
+		u8 EndCol, u32 BcastChannelId)
+{
+	for(u32 i = StartCol; i < EndCol; i++) {
+		XAie_LocType Loc = XAie_TileLoc(i, 0);
+		XAie_EventBroadcast(DevInst, Loc, XAIE_PL_MOD,
+			BcastChannelId, XAIE_EVENT_NONE_PL);
+	}
+}
+
+/*****************************************************************************/
+/**
+* This API clears timer configuration for all the locations in Rscs list from
+* start till the index mentioned.
+*
+* @param        DevInst: Device Instance
+* @param        Index: End index till where timer conf needs to be cleared
+* @param        RscBC: list of resource
+*
+* @return       None
+*
+* @note         Internal only.
+*
+*******************************************************************************/
+static void _XAie_ClearTimerConfig(XAie_DevInst *DevInst, u32 Index,
+		XAie_UserRsc *RscsBC)
+{
+	const XAie_EvntMod *EvntMod;
+	u8 TileType;
+
+	for(u32 k = 0; k < Index; k++) {
+
+		TileType = _XAie_GetTileTypefromLoc(DevInst, RscsBC[k].Loc);
+		if(RscsBC[k].Mod == XAIE_PL_MOD)
+			EvntMod = &DevInst->DevProp.DevMod[TileType].
+				EvntMod[0U];
+		else
+			EvntMod = &DevInst->DevProp.DevMod[TileType].
+				EvntMod[RscsBC[k].Mod];
+
+		XAie_SetTimerResetEvent(DevInst, RscsBC[k].Loc,
+			RscsBC[k].Mod, EvntMod->EventMin, XAIE_RESETDISABLE);
+	}
+}
+
+/*****************************************************************************/
+/**
+* This API synchronizes timer for all tiles for all modules in the partition.
+*
+* @param	DevInst - Device Instance.
+*
+* @return       XAIE_OK on success
+*               XAIE_INVALID_ARGS if any argument is invalid
+*               XAIE_INVALID_TILE if tile type from Loc is invalid
+*
+* @note		None
+*
+******************************************************************************/
+AieRC XAie_SyncTimer(XAie_DevInst *DevInst)
+{
+	AieRC RC;
+	u32 UserRscNum = 0, BcastChannelId;
+	XAie_Events BcastEvent, ShimBcastEvent;
+	XAie_UserRsc *RscsBC;
+
+	for(u8 i = 0; i < XAIEGBL_TILE_TYPE_MAX; i++) {
+		if(i == XAIEGBL_TILE_TYPE_SHIMNOC)
+			continue;
+		UserRscNum += (DevInst->DevProp.DevMod[i].NumModules) *
+			_XAie_GetNumRows(DevInst, i) * DevInst->NumCols;
+	}
+
+	RscsBC = (XAie_UserRsc *)malloc(UserRscNum * sizeof(XAie_UserRsc));
+	if(RscsBC == NULL) {
+		XAIE_ERROR("Unable to allocate memory for resource\n");
+		return XAIE_ERR;
+	}
+
+	/* Reserve a free BC across partition */
+	RC = XAie_RequestBroadcastChannel(DevInst, &UserRscNum, RscsBC, 1U);
+	if(RC != XAIE_OK)
+		return RC;
+
+	BcastChannelId = RscsBC[0].RscId;
+	/* Setup broadcast for all shim tiles */
+	XAie_LocType Loc = XAie_TileLoc(0, 0);
+	ShimBcastEvent = _XAie_GetBroadcastEventfromRscId(DevInst,
+		Loc, XAIE_PL_MOD, BcastChannelId);
+
+	for(u32 i = 0; i < DevInst->NumCols; i++) {
+		XAie_LocType Loc = XAie_TileLoc(i, 0);
+
+		RC = XAie_EventBroadcast(DevInst, Loc, XAIE_PL_MOD,
+			BcastChannelId, ShimBcastEvent);
+		if(RC != XAIE_OK) {
+			_XAie_ClearShimBroadcast(DevInst, 0, i, BcastChannelId);
+			XAIE_ERROR("Unable to configure broadcast event for timer sync\n");
+			return RC;
+		}
+	}
+
+	/* Configure the timer control with the trigger event */
+	for(u32 j = 0; j < UserRscNum; j++) {
+		BcastEvent = _XAie_GetBroadcastEventfromRscId(DevInst,
+			RscsBC[j].Loc, RscsBC[j].Mod, BcastChannelId);
+
+		RC = XAie_SetTimerResetEvent(DevInst, RscsBC[j].Loc,
+			RscsBC[j].Mod, BcastEvent, XAIE_RESETDISABLE);
+		if(RC != XAIE_OK) {
+			_XAie_ClearTimerConfig(DevInst, j, RscsBC);
+			_XAie_ClearShimBroadcast(DevInst, 0, DevInst->NumCols,
+				BcastChannelId);
+			XAIE_ERROR("Unable to set timer control\n");
+			return RC;
+		}
+	}
+
+	/* Trigger Event */
+	Loc = XAie_TileLoc(0, 0);
+	RC = XAie_EventGenerate(DevInst, Loc, XAIE_PL_MOD, ShimBcastEvent);
+	if(RC != XAIE_OK) {
+		XAIE_ERROR("Unable to trigger event\n");
+		return RC;
+	}
+
+	/* Clear timer reset event register */
+	_XAie_ClearTimerConfig(DevInst, UserRscNum, RscsBC);
+
+	/* Clear shim broadcast configuration */
+	_XAie_ClearShimBroadcast(DevInst, DevInst->NumCols, BcastChannelId,
+		XAIE_EVENT_NONE_PL);
+
+	/* Release broadcast channel across partition */
+	RC = XAie_ReleaseBroadcastChannel(DevInst, UserRscNum, RscsBC);
+	if(RC != XAIE_OK) {
+		XAIE_ERROR("Unable to release resource\n");
+		return RC;
+	}
+
+	free(RscsBC);
 
 	return XAIE_OK;
 }
