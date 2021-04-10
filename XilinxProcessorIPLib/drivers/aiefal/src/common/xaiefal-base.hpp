@@ -117,6 +117,7 @@ namespace xaiefal {
 	class XAieComboEvent;
 	class XAieGroupEvent;
 	class XAieGroupEventHandle;
+	class XAieUserEvent;
 	class XAiePerfCounter;
 	class XAieTraceCntr;
 	class XAieTraceEvent;
@@ -513,6 +514,22 @@ namespace xaiefal {
 			GroupEvents.emplace(E, gEPtr);
 			return std::make_shared<XAieGroupEventHandle>(AieHandle,
 					gEPtr);
+		}
+
+		/**
+		 * This function returns user event handle object shared pointer
+		 *
+		 * @E user event
+		 * @return user event handle software object pointer
+		 *
+		 * Please note that this function will not request hardware
+		 * resource. After this function is called, in order to reserve
+		 * the hardware resource, it will need to call reserve()
+		 * function of the resource class.
+		 */
+		std::shared_ptr<XAieUserEvent> userEvent() {
+			return std::make_shared<XAieUserEvent>(AieHandle,
+								Loc, Mod);
 		}
 	private:
 		std::shared_ptr<XAieDevHandle> AieHandle; /**< AI engine device

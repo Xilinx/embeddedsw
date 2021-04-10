@@ -326,4 +326,128 @@ namespace xaiefal {
 			XAieRsc::clear_rsc_bit(bits, pos);
 		}
 	};
+
+	/**
+	 * @class XAieUserEvent
+	 * @brief AI engine user event resource class
+	 */
+	class XAieUserEvent: public XAieSingleTileRsc {
+	public:
+		XAieUserEvent() = delete;
+		XAieUserEvent(std::shared_ptr<XAieDevHandle> DevHd,
+			XAie_LocType L, XAie_ModuleType M):
+			XAieSingleTileRsc(DevHd, L, M) {
+			State.Initialized = 1;
+			State.Configured = 1;
+		}
+		XAieUserEvent(XAieDev &Dev,
+			XAie_LocType L, XAie_ModuleType M):
+			XAieUserEvent(Dev.getDevHandle(), L, M) {}
+
+		/**
+		 * This function returns user event.
+		 * It needs to be called after reserve() succeeds.
+		 *
+		 * @param E returns user event
+		 * @return XAIE_OK for success, error code for failure
+		 */
+		AieRC getEvent(XAie_Events &E) const {
+			AieRC RC = XAIE_OK;
+
+			if (State.Reserved == 0) {
+				Logger::log(LogLevel::ERROR) << "User Event " << __func__ << " (" <<
+					static_cast<uint32_t>(Loc.Col) << "," << static_cast<uint32_t>(Loc.Row) << ")" <<
+					" resource not resesrved." << std::endl;
+				RC = XAIE_INVALID_ARGS;
+			} else {
+				E = _getEventFromId(Rsc.RscId);
+			}
+			return RC;
+		}
+	private:
+		AieRC _reserve() {
+			AieRC RC;
+
+			if (preferredId == XAIE_RSC_ID_ANY) {
+				XAie_UserRscReq Req = {Loc, Mod, 1};
+
+				RC = XAie_RequestUserEvents(AieHd->dev(), 1, &Req, 1, &Rsc);
+				if (RC == XAIE_OK) {
+					Rsc.RscId = _getIdFromEvent(static_cast<XAie_Events>(Rsc.RscId));
+				}
+			} else {
+				Rsc.RscType = XAIE_USER_EVENTS_RSC;
+				Rsc.Loc.Col = Loc.Col;
+				Rsc.Loc.Row = Loc.Row;
+				Rsc.Mod = Mod;
+				Rsc.RscId = _getEventFromId(preferredId);
+				RC = XAie_RequestAllocatedUserEvents(AieHd->dev(), 1, &Rsc);
+				if (RC == XAIE_OK) {
+					Rsc.RscId = preferredId;
+				}
+			}
+
+			return RC;
+		}
+		AieRC _release() {
+			uint32_t RscId = Rsc.RscId;
+			AieRC RC;
+
+			Rsc.RscId = _getEventFromId(Rsc.RscId);
+			RC = XAie_ReleaseUserEvents(AieHd->dev(), 1, &Rsc);
+			Rsc.RscId = RscId;
+
+			return RC;
+		}
+		AieRC _start() {
+			// As no hardware config is required for user event
+			// always succeeds.
+			return XAIE_OK;
+		}
+		AieRC _stop() {
+			// As no hardware config is required for user event
+			// always succeeds.
+			return XAIE_OK;
+		}
+
+		/**
+		 * This function returns user event resource id from user event.
+		 *
+		 * @param E user event
+		 * @return user event resource id
+		 */
+		uint32_t _getIdFromEvent(XAie_Events E) const {
+			XAie_Events UserEventStart;
+
+			if (Mod == XAIE_PL_MOD) {
+				UserEventStart = XAIE_EVENT_USER_EVENT_0_PL;
+			} else if (Mod == XAIE_CORE_MOD) {
+				UserEventStart = XAIE_EVENT_USER_EVENT_0_CORE;
+			} else {
+				UserEventStart = XAIE_EVENT_USER_EVENT_0_MEM;
+			}
+
+			return static_cast<uint32_t>(E - UserEventStart);
+		}
+
+		/**
+		 * This function returns user event from resource id.
+		 *
+		 * @param I resource ID
+		 * @return user event
+		 */
+		XAie_Events _getEventFromId(uint32_t I) const {
+			XAie_Events UserEventStart;
+
+			if (Mod == XAIE_PL_MOD) {
+				UserEventStart = XAIE_EVENT_USER_EVENT_0_PL;
+			} else if (Mod == XAIE_CORE_MOD) {
+				UserEventStart = XAIE_EVENT_USER_EVENT_0_CORE;
+			} else {
+				UserEventStart = XAIE_EVENT_USER_EVENT_0_MEM;
+			}
+
+			return static_cast<XAie_Events>(static_cast<uint32_t>(UserEventStart) + I);
+		}
+	};
 }
