@@ -27,6 +27,7 @@
 * 1.0   dc     03/08/21 Initial version
 *       dc     04/06/21 Register with full node name
 *       dc     04/07/21 Fix bare metal initialisation
+*       dc     04/10/21 Set sequence length only once
 *
 * </pre>
 *
@@ -151,6 +152,7 @@ static int XDfePrach_SelfTestExample()
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
 	XDfePrach_Cfg Cfg;
 	XDfePrach *InstancePtr = NULL;
+	XDfePrach_Init Init;
 
 	/* Initialize libmetal */
 	if (0 != metal_init(&init_param)) {
@@ -163,7 +165,7 @@ static int XDfePrach_SelfTestExample()
 	/* Go through initialization states of the state machine */
 	XDfePrach_Reset(InstancePtr);
 	XDfePrach_Configure(InstancePtr, &Cfg);
-	XDfePrach_Initialize(InstancePtr);
+	XDfePrach_Initialize(InstancePtr, &Init);
 	XDfePrach_Activate(InstancePtr, true);
 
 	/* Write and read a dummy frequency configuration */
