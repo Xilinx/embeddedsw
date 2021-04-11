@@ -348,7 +348,8 @@ end_failure:
 	XDfePrach_Config *ConfigTable = NULL;
 
 	/* Find the Config table which base address is a match */
-	if (XST_FAILURE == XDfePrach_GetConfigTable(InstancePtr, &ConfigTable)) {
+	if (XST_FAILURE ==
+	    XDfePrach_GetConfigTable(InstancePtr, &ConfigTable)) {
 		metal_log(METAL_LOG_ERROR, "\nFailed to read device tree");
 		metal_device_close(Dev);
 		return XST_FAILURE;

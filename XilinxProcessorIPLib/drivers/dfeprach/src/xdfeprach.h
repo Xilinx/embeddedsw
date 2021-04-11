@@ -52,6 +52,7 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     03/08/21 Initial version
 *       dc     04/06/21 Register with full node name
+*       dc     04/10/21 Set sequence length only once
 *
 * </pre>
 *
@@ -90,7 +91,7 @@ extern "C" {
 
 #define XDFEPRACH_NODE_NAME_MAX_LENGTH 50U /**< Node name maximum length */
 
-#define XDFEPRACH_CC_NUM_MAX 16U /**< Maximum CC number */
+#define XDFEPRACH_CC_NUM_MAX 16 /**< Maximum CC number */
 #define XDFEPRACH_RC_NUM_MAX 16U /**< Maximum RC number */
 #define XDFEPRACH_ANT_NUM_MAX 8U /**< Maximum anntena number */
 #define XDFEPRACH_SEQ_LENGTH_MAX 16U /**< Maximum sequence length */
@@ -166,7 +167,7 @@ typedef struct {
  */
 typedef struct {
 	u32 Length; /**< [1-16] Sequence length */
-	u32 CCID[XDFEPRACH_SEQ_LENGTH_MAX]; /**< [0-15].Array of CCID's
+	s32 CCID[XDFEPRACH_SEQ_LENGTH_MAX]; /**< [0-15].Array of CCID's
 		arranged in the order the CCIDs are required to be processed
 		in the channel filter. May contain duplicate entries depending
 		on the rate channel rates. */
@@ -195,6 +196,13 @@ typedef struct {
 	XDfePrach_ModelParameters ModelParams; /**< Logicore
 		parameterization */
 } XDfePrach_Cfg;
+
+/**
+ * Initialization, "one-time" configuration parameters.
+ */
+typedef struct {
+	XDfePrach_CCSequence Sequence;
+} XDfePrach_Init;
 
 /**
  * Configuration for a single CC.
@@ -358,7 +366,7 @@ typedef struct {
 		interface. */
 	u32 RachChannel; /**< [0-15] The physical RACH channel used by this
 		RCID. */
-	u32 CCId; /**< [0-15] The CCID channel, selected from the sequence
+	s32 CCID; /**< [0-15] The CCID channel, selected from the sequence
 		defined in XDfePrach_CCCfgT, from which this RACH channel
 		takes its input data. */
 	u32 Restart; /**< [0,1] Indicate if this channel must be restarted. */
@@ -445,6 +453,8 @@ typedef struct {
 typedef struct {
 	XDfePrach_Config Config; /**< Config Structure */
 	XDfePrach_StateId StateId; /**< StateId */
+	s32 NotUsedCCID; /**< Not used CCID */
+	u32 SequenceLength; /**< Exact sequence length */
 	char NodeName[XDFEPRACH_NODE_NAME_MAX_LENGTH]; /**< Node name */
 	struct metal_io_region *Io; /**< Libmetal IO structure */
 	struct metal_device *Device; /**< Libmetal device structure */
@@ -462,18 +472,18 @@ u32 XDfePrach_ReadReg(const XDfePrach *InstancePtr, u32 AddrOffset);
 /* DFE PRACH component initialization API */
 void XDfePrach_Reset(XDfePrach *InstancePtr);
 void XDfePrach_Configure(XDfePrach *InstancePtr, XDfePrach_Cfg *Cfg);
-void XDfePrach_Initialize(XDfePrach *InstancePtr);
+void XDfePrach_Initialize(XDfePrach *InstancePtr, XDfePrach_Init *Init);
 void XDfePrach_Activate(XDfePrach *InstancePtr, bool EnableLowPower);
 void XDfePrach_Deactivate(XDfePrach *InstancePtr);
 
 /* User APIs */
-u32 XDfePrach_AddCC(const XDfePrach *InstancePtr, u32 CCId,
+u32 XDfePrach_AddCC(XDfePrach *InstancePtr, s32 CCID, u32 BitSequence,
 		    const XDfePrach_CarrierCfg *CarrierCfg);
-void XDfePrach_RemoveCC(const XDfePrach *InstancePtr, u32 CCId);
-void XDfePrach_UpdateCC(const XDfePrach *InstancePtr, u32 CCId,
+void XDfePrach_RemoveCC(XDfePrach *InstancePtr, s32 CCID);
+void XDfePrach_UpdateCC(const XDfePrach *InstancePtr, s32 CCID,
 			const XDfePrach_CarrierCfg *CarrierCfg);
 void XDfePrach_CloneCC(const XDfePrach *InstancePtr);
-u32 XDfePrach_AddRCCfg(const XDfePrach *InstancePtr, u32 CCId, u32 RCId,
+u32 XDfePrach_AddRCCfg(const XDfePrach *InstancePtr, s32 CCID, u32 RCId,
 		       u32 RachChan, XDfePrach_DDCCfg *DdcCfg,
 		       XDfePrach_NCO *NcoCfg,
 		       XDfePrach_Schedule *StaticSchedule);
@@ -483,7 +493,7 @@ void XDfePrach_GetTriggersCfg(const XDfePrach *InstancePtr,
 			      XDfePrach_TriggerCfg *TriggerCfg);
 void XDfePrach_SetTriggersCfg(const XDfePrach *InstancePtr,
 			      XDfePrach_TriggerCfg *TriggerCfg);
-void XDfePrach_GetCC(const XDfePrach *InstancePtr, bool Next, u32 CCId,
+void XDfePrach_GetCC(const XDfePrach *InstancePtr, bool Next, s32 CCID,
 		     XDfePrach_CarrierCfg *CarrierCfg);
 void XDfePrach_GetStatus(const XDfePrach *InstancePtr,
 			 XDfePrach_Status *Status);
