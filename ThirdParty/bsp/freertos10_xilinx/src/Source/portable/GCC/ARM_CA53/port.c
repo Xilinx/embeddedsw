@@ -149,6 +149,11 @@ point is zero. */
 #define portMAX_8_BIT_VALUE							( ( uint8_t ) 0xff )
 #define portBIT_0_SET								( ( uint8_t ) 0x01 )
 
+/* Let the user override the pre-loading of the initial LR with the address of
+prvTaskExitError() in case is messes up unwinding of the stack in the
+debugger. */
+#define portTASK_RETURN_ADDRESS	configTASK_RETURN_ADDRESS
+
 /*-----------------------------------------------------------*/
 
 /*
@@ -157,6 +162,10 @@ point is zero. */
  */
 extern void vPortRestoreTaskContext( void );
 
+/*
+ * Used to catch tasks that attempt to return from their implementing function.
+ */
+static void prvTaskExitError( void );
 /*-----------------------------------------------------------*/
 
 /* A variable is used to keep track of the critical section nesting.  This
@@ -287,7 +296,7 @@ StackType_t *pxPortInitialiseStack( StackType_t *pxTopOfStack, TaskFunction_t px
 	pxTopOfStack--;
 	*pxTopOfStack = ( StackType_t ) 0x00;	/* XZR - has no effect, used so there are an even number of registers. */
 	pxTopOfStack--;
-	*pxTopOfStack = ( StackType_t ) 0x00;	/* R30 - procedure call link register. */
+	*pxTopOfStack = ( StackType_t ) portTASK_RETURN_ADDRESS;	/* R30 - procedure call link register. */
 	pxTopOfStack--;
 
 	*pxTopOfStack = portINITIAL_PSTATE;
@@ -708,6 +717,19 @@ uint32_t mask;
 }
 /*-----------------------------------------------------------*/
 
+static void prvTaskExitError( void )
+{
+	/* A function that implements a task must not exit or attempt to return to
+	its caller as there is nothing to return to.  If a task wants to exit it
+	should instead call vTaskDelete( NULL ) */
+	xil_printf("Warning: return statement has been called from task %s, deleting it\n",pcTaskGetName(NULL));
+	if (uxTaskGetNumberOfTasks() == 2)
+	{
+		xil_printf("Warning: Kernel does not have any task to manage other than idle task\n");
+	}
+	vTaskDelete( NULL );
+}
+/*-----------------------------------------------------------*/
 #if( configASSERT_DEFINED == 1 )
 
 	void vPortValidateInterruptPriority( void )
