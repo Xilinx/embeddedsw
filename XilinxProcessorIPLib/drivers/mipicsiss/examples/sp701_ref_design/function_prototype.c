@@ -591,6 +591,7 @@ int demosaic()
 		                           demosaic_Config->BaseAddress);
   XV_demosaic_Set_HwReg_width(&InstancePtr, 1920);
   XV_demosaic_Set_HwReg_height(&InstancePtr, 1080);
+  XV_demosaic_Set_HwReg_bayer_phase(&InstancePtr, 0x3);
   XV_demosaic_EnableAutoRestart(&InstancePtr);
   XV_demosaic_Start(&InstancePtr);
   return XST_SUCCESS;
