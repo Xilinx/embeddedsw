@@ -145,11 +145,7 @@ the CPU itself before modifying certain hardware registers. */
 /* Let the user override the pre-loading of the initial LR with the address of
 prvTaskExitError() in case is messes up unwinding of the stack in the
 debugger. */
-#ifdef configTASK_RETURN_ADDRESS
-	#define portTASK_RETURN_ADDRESS	configTASK_RETURN_ADDRESS
-#else
-	#define portTASK_RETURN_ADDRESS	prvTaskExitError
-#endif
+#define portTASK_RETURN_ADDRESS	configTASK_RETURN_ADDRESS
 
 /* The space on the stack required to hold the FPU registers.
  * vfpv3-d16 has 16 64 bit registers or 32 32 bit registers. plus
@@ -323,9 +319,12 @@ static void prvTaskExitError( void )
 
 	Artificially force an assert() to be triggered if configASSERT() is
 	defined, then stop here so application writers can catch the error. */
-	configASSERT( ulPortInterruptNesting == ~0UL );
-	portDISABLE_INTERRUPTS();
-	for( ;; );
+	xil_printf("Warning: return statement has been called from task %s, deleting it\n",pcTaskGetName(NULL));
+	if (uxTaskGetNumberOfTasks() == 2)
+	{
+		xil_printf("Warning: Kernel does not have any task to manage other than idle task\n");
+	}
+	vTaskDelete( NULL );
 }
 /*-----------------------------------------------------------*/
 

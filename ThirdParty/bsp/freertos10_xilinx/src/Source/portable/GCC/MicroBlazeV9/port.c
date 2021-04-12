@@ -62,11 +62,7 @@ created. */
 /* Let the user override the pre-loading of the initial R15 (sub routine
 return address) with the address of prvTaskExitError() in case is messes
 up unwinding of the stack in the debugger. */
-#ifdef configTASK_RETURN_ADDRESS
-	#define portTASK_RETURN_ADDRESS	configTASK_RETURN_ADDRESS
-#else
-	#define portTASK_RETURN_ADDRESS	prvTaskExitError
-#endif
+#define portTASK_RETURN_ADDRESS	configTASK_RETURN_ADDRESS
 
 /*
  * Global counter used for calculation of run time statistics of tasks.
@@ -330,9 +326,13 @@ static void prvTaskExitError( void )
 
 	Artificially force an assert() to be triggered if configASSERT() is
 	defined, then stop here so application writers can catch the error. */
-	configASSERT( uxCriticalNesting == ~0UL );
-	portDISABLE_INTERRUPTS();
-	for( ;; );
+	xil_printf("Warning: return statement has been called from task %s, deleting it\n",pcTaskGetName(NULL));
+	if (uxTaskGetNumberOfTasks() == 2)
+	{
+		xil_printf("Warning: Kernel does not have any task to manage other than idle task\n");
+	}
+	vTaskDelete( NULL );
+
 }
 /*-----------------------------------------------------------*/
 
