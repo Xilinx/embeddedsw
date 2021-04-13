@@ -729,8 +729,7 @@ done:
 }
 
 XStatus XPmReset_IsOperationAllowed(const u32 SubsystemId,
-				    const XPm_ResetNode *Rst,
-				    const u32 CmdType)
+				    const XPm_ResetNode *Rst)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -741,7 +740,7 @@ XStatus XPmReset_IsOperationAllowed(const u32 SubsystemId,
 	}
 
 	/* Have Target check if Host can enact the operation */
-	if ((XPLMI_CMD_SECURE == CmdType) &&
+	if ((XST_SUCCESS == XPm_IsSecureAllowed(SubsystemId)) &&
 	    (0U != (Rst->AllowedSubsystems & (1U << SUBSYS_TO_S_BITPOS(SubsystemId))))) {
 		Status = XST_SUCCESS;
 	} else if (0U != (Rst->AllowedSubsystems & (1U << SUBSYS_TO_NS_BITPOS(SubsystemId)))) {

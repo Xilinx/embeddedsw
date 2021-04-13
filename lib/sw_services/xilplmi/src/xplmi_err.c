@@ -42,7 +42,6 @@
 *       pj   03/24/2021 Added API to trigger error handling from software.
 *                       Added SW Error event and Ids for Healthy Boot errors
 *       bm   03/24/2021 Added logic to store error status in RTCA
-*       bl   04/01/2021 Update function signature for PmSystemShutdown
 *
 * </pre>
 *
@@ -63,8 +62,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static s32 (* PmSystemShutdown)(u32 SubsystemId, const u32 Type, const u32 SubType,
-				const u32 CmdType);
+static s32 (* PmSystemShutdown)(u32 SubsystemId, const u32 Type, const u32 SubType);
 static void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 ErrorIndex);
 static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 ErrorMask);
 static void XPlmi_ErrIntrSubTypeHandler(u32 ErrorNodeId, u32 ErrorMask);
@@ -567,15 +565,13 @@ static void XPlmi_ErrIntrSubTypeHandler(u32 ErrorNodeId, u32 ErrorMask)
 	case XPLMI_EM_ACTION_SUBSYS_SHUTDN:
 		XPlmi_Printf(DEBUG_GENERAL, "System shutdown 0x%x\r\n", ErrorTable[ErrorMask].SubsystemId);
 		Status = (*PmSystemShutdown)(ErrorTable[ErrorMask].SubsystemId,
-				XPLMI_SUBSYS_SHUTDN_TYPE_SHUTDN, 0U,
-				XPLMI_CMD_SECURE);
+				XPLMI_SUBSYS_SHUTDN_TYPE_SHUTDN, 0U);
 		break;
 	case XPLMI_EM_ACTION_SUBSYS_RESTART:
 		XPlmi_Printf(DEBUG_GENERAL, "System restart 0x%x\r\n", ErrorTable[ErrorMask].SubsystemId);
 		Status = (*PmSystemShutdown)(ErrorTable[ErrorMask].SubsystemId,
 				XPLMI_SUBSYS_SHUTDN_TYPE_RESTART,
-				XPLMI_RESTART_SUBTYPE_SUBSYS,
-				XPLMI_CMD_SECURE);
+				XPLMI_RESTART_SUBTYPE_SUBSYS);
 		break;
 	default:
 		Status = XPLMI_INVALID_ERROR_ACTION;
