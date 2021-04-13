@@ -764,12 +764,6 @@ XStatus XPmReset_AddPermission(XPm_ResetNode *Rst,
 		goto done;
 	}
 
-	Status = XPmReset_IsPermissionReset(Rst->Node.Id);
-	if (XST_SUCCESS != Status) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
 	Rst->AllowedSubsystems |=  PERM_BITMASK(Operations, RESET_PERM_SHIFT_NS,
 						SUBSYS_TO_NS_BITPOS(Subsystem->Id));
 	Rst->AllowedSubsystems |=  PERM_BITMASK(Operations, RESET_PERM_SHIFT_S,
@@ -780,6 +774,7 @@ XStatus XPmReset_AddPermission(XPm_ResetNode *Rst,
 done:
 	return Status;
 }
+
 
 int XPmReset_CheckPermissions(XPm_Subsystem *Subsystem, u32 ResetId)
 {

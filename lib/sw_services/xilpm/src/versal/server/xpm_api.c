@@ -242,77 +242,8 @@ done:
 
 /****************************************************************************/
 /**
- * @brief  This function links a device to a subsystem with the given policies.
- *         It is a helper function serving the handling of subsystem <-> device
- *         requirements for PM_ADD_REQ command.
- *         There are a few special cases to be handled here, such as:
- *           - Requirements for PGGS/GGS nodes
- *           	* PM_ADD_NODE is called internally if the node is not present
- *           - Requirements for Healthy Boot Monitoring nodes
- *              * PM_ADD_NODE is called internally if the node is not present
- *           - Generic requirements for all the device nodes
- *              * Node must be present in the database through topology CDO
- *              or otherwise
- *
- * @note   Refer to top level handler XPm_AddRequirement() for overall handling.
- *
- ****************************************************************************/
-static XStatus XPm_AddDevRequirement(XPm_Subsystem *Subsystem, u32 DeviceId,
-				     u32 Flags, u32 AperPerm, u32 PreallocCaps,
-				     u32 QoS)
-{
-	XStatus Status = XST_FAILURE;
-	XPm_Device *Device = NULL;
-
-	switch (NODETYPE(DeviceId)) {
-	case (u32)XPM_NODETYPE_DEV_GGS:
-	case (u32)XPM_NODETYPE_DEV_PGGS:
-		/* Add ggs/pggs node with the given permissions */
-		Status = XPmIoctl_AddRegPermission(Subsystem, DeviceId,
-						   Flags);
-		/* Prealloc requirement */
-		Flags = REQUIREMENT_FLAGS(1U, 0U, 0U, 0U,
-				(u32)REQ_ACCESS_SECURE_NONSECURE,
-				(u32)REQ_NO_RESTRICTION);
-		AperPerm = 0U;
-		PreallocCaps = (u32)PM_CAP_ACCESS;
-		QoS = XPM_DEF_QOS;
-		break;
-	case (u32)XPM_NODETYPE_DEV_HB_MON:
-		/* Add healthy boot monitor node */
-		Status = XPm_AddHbMonDevice(DeviceId);
-		break;
-	default:
-		/* Allow adding a device requirement by default */
-		Status = XST_SUCCESS;
-		break;
-	}
-
-	/* Error out if special handling failed before */
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Device must be present in the topology at this point */
-	Device = (XPm_Device *)XPmDevice_GetById(DeviceId);
-	if (NULL == Device) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-	Status = XPmRequirement_Add(Subsystem, Device, Flags,
-				    AperPerm, PreallocCaps, QoS);
-
-done:
-	if (XST_SUCCESS != Status) {
-		PmErr("Returned: 0x%x\n\r", Status);
-	}
-	return Status;
-}
-
-/****************************************************************************/
-/**
- * @brief  This function links a node (dev/rst/subsys) to a subsystem so
- *         requirement assignment could be made by XPm_RequestDevice() or
+ * @brief  This function links a device to a subsystem so requirement
+ *         assignment could be made by XPm_RequestDevice() or
  *         XPm_SetRequirement() call.
  *
  * @param  SubsystemId	Subsystem Id
@@ -337,9 +268,11 @@ static XStatus XPm_AddRequirement(const u32 SubsystemId, const u32 DeviceId,
 				  u32 Flags, u32 AperPerm, u32 PreallocCaps,
 				  u32 QoS)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = XST_INVALID_PARAM;
+	XPm_Device *Device = NULL;
 	XPm_ResetNode *Rst = NULL;
 	XPm_Subsystem *Subsystem, *TargetSubsystem;
+	u32 Type = NODETYPE(DeviceId);
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
 	if ((NULL == Subsystem) || ((u8)ONLINE != Subsystem->State)) {
@@ -349,10 +282,23 @@ static XStatus XPm_AddRequirement(const u32 SubsystemId, const u32 DeviceId,
 
 	switch NODECLASS(DeviceId) {
 	case (u32)XPM_NODECLASS_DEVICE:
-		Status = XPm_AddDevRequirement(Subsystem, DeviceId, Flags,
-					       AperPerm, PreallocCaps, QoS);
-		if (XST_SUCCESS != Status) {
-			goto done;
+		if (((u32)XPM_NODETYPE_DEV_PGGS == Type) ||
+		    ((u32)XPM_NODETYPE_DEV_GGS == Type)) {
+			Status = XPmIoctl_AddRegPermission(Subsystem, DeviceId, Flags);
+		} else if ((u32)XPM_NODETYPE_DEV_HB_MON == Type) {
+			/* Add the Healthy boot monitor node */
+			Status = XPm_AddHbMonDevice(DeviceId);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		} else {
+			Device = (XPm_Device *)XPmDevice_GetById(DeviceId);
+			if (NULL == Device) {
+				Status = XST_INVALID_PARAM;
+				goto done;
+			}
+			Status = XPmRequirement_Add(Subsystem, Device, Flags,
+						    AperPerm, PreallocCaps, QoS);
 		}
 		break;
 	case (u32)XPM_NODECLASS_SUBSYSTEM:
@@ -367,6 +313,12 @@ static XStatus XPm_AddRequirement(const u32 SubsystemId, const u32 DeviceId,
 	case (u32)XPM_NODECLASS_RESET:
 		Rst = XPmReset_GetById(DeviceId);
 		if (NULL == Rst) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+
+		Status = XPmReset_IsPermissionReset(DeviceId);
+		if (XST_SUCCESS != Status) {
 			Status = XST_INVALID_PARAM;
 			goto done;
 		}
