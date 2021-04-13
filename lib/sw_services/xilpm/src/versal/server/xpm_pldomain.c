@@ -32,6 +32,8 @@ static volatile u32 PlpdHouseCleanBypass = 0;
 static volatile u32 PlpdHouseCleanBypassTmp = 0;
 u32 HcleanDone = 0;
 
+static XStatus XPmPlDomain_InitandHouseclean(void);
+
 static XStatus PldInitFinish(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
@@ -762,8 +764,7 @@ done:
 * @return      XST_FAILURE if error / XST_SUCCESS if success
 *
 *****************************************************************************/
-
-XStatus XPmPlDomain_InitandHouseclean(void)
+static XStatus XPmPlDomain_InitandHouseclean(void)
 {
 	volatile XStatus Status = XST_FAILURE;
 	volatile XStatus StatusTmp = XST_FAILURE;
