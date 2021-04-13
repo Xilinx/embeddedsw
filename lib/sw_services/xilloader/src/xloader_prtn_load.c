@@ -52,8 +52,6 @@
 * 1.05  bm   03/04/2021 Added address range check before loading elfs
 *       ma   03/24/2021 Redirect XilPdi prints to XilLoader
 *       ma   03/24/2021 Minor updates to prints in XilLoader
-*       bl   04/01/2021 Add secure IPI arg to XPm_DevIoctl and
-*                       XPm_RequestWakeUp
 *
 * </pre>
 *
@@ -366,8 +364,7 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 		if (PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_1) {
 			Status = XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_1,
 					IOCTL_SET_RPU_OPER_MODE,
-					XPM_RPU_MODE_SPLIT, 0U, &Mode,
-					XPLMI_CMD_SECURE);
+					XPM_RPU_MODE_SPLIT, 0U, &Mode);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_IOCTL_RPU1_SPLIT, 0);
 				goto END;
@@ -390,8 +387,7 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 		else if (PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_0) {
 			Status = XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_0,
 				IOCTL_SET_RPU_OPER_MODE,
-				XPM_RPU_MODE_SPLIT, 0U, &Mode,
-				XPLMI_CMD_SECURE);
+				XPM_RPU_MODE_SPLIT, 0U, &Mode);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_IOCTL_RPU0_SPLIT, 0);
 				goto END;
@@ -414,16 +410,14 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 		else {
 			Status = XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_0,
 				IOCTL_SET_RPU_OPER_MODE,
-				XPM_RPU_MODE_LOCKSTEP, 0U, &Mode,
-				XPLMI_CMD_SECURE);
+				XPM_RPU_MODE_LOCKSTEP, 0U, &Mode);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_IOCTL_RPU0_LOCKSTEP, 0);
 				goto END;
 			}
 			Status = XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_1,
 				IOCTL_SET_RPU_OPER_MODE,
-				XPM_RPU_MODE_LOCKSTEP, 0U, &Mode,
-				XPLMI_CMD_SECURE);
+				XPM_RPU_MODE_LOCKSTEP, 0U, &Mode);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_IOCTL_RPU1_LOCKSTEP, 0);
 				goto END;
