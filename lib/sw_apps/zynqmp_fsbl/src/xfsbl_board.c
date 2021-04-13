@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,8 @@
 * 3.0	bkm  04/18/18 Added Board specific code w.r.t VADJ
 * 4.0   bsv  11/12/19 Added support for ZCU216 board
 *       bsv  02/05/20 Added support for ZCU208 board
+* 5.0   bsv  04/12/21 Removed unwanted I2C writes to TCA6416A
+*                     for ZCU208 and ZCU216 boards
 *
 * </pre>
 *
@@ -578,12 +580,11 @@ static u32 XFsbl_BoardConfig(void)
 	XIicPs_Config *I2c0CfgPtr;
 	s32 Status;
 	u32 UStatus;
-#if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106) \
-	|| defined(XPS_BOARD_ZCU216)|| defined(XPS_BOARD_ZCU208)
+#if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106)
 	u8 WriteBuffer[BUF_LEN] = {0U};
+#endif
 #if defined(XPS_BOARD_ZCU216) || defined(XPS_BOARD_ZCU208)
 	XIicPs_Config *I2c1CfgPtr;
-#endif
 #endif
 
 #if defined(XPS_BOARD_ZCU102)
@@ -623,8 +624,7 @@ static u32 XFsbl_BoardConfig(void)
 	}
 #endif
 
-#if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106) || \
-	defined(XPS_BOARD_ZCU216) || defined(XPS_BOARD_ZCU208)
+#if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106)
 	/* Set the IIC serial clock rate */
 	Status = XIicPs_SetSClk(&I2c0Instance, IIC_SCLK_RATE_IOEXP);
 	if (Status != XST_SUCCESS) {
