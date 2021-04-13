@@ -1360,9 +1360,6 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 	PmDbg("%s for PwrDomain 0x%x Start\r\n", PmInitFunctions[Function],
 						  PwrDomain->Power.Node.Id);
 
-	/* Check PL power up at every init node command to see if we can run Pl houseclean*/
-	(void)XPmPlDomain_InitandHouseclean();
-
 	/*
 	 * Skip running a domain operation in either case:
 	 *   - If the domain is already powered on

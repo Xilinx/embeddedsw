@@ -1,8 +1,7 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
-
 
 #ifndef XPM_PLDOMAIN_H_
 #define XPM_PLDOMAIN_H_
@@ -54,7 +53,6 @@ static inline void XPmPlDomain_LockGtyPcsr(u32 BaseAddr)
 }
 
 /************************** Function Prototypes ******************************/
-XStatus XPmPlDomain_InitandHouseclean(void);
 XStatus XPmPlDomain_Init(XPm_PlDomain *PlDomain, u32 Id, u32 BaseAddress,
 			 XPm_Power *Parent, u32 *OtherBaseAddresses,
 			 u32 OtherBaseAddressCnt);
