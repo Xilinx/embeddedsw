@@ -650,6 +650,17 @@ XStatus XPm_PowerDwnPLD(XPm_Node *Node)
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	XPm_PlDomain *PldDomain = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
 
+	const XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
+	if (NULL == Pmc) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	/* Unset CFG_POR_CNT_SKIP to enable PL_POR counting */
+	PmOut32(Pmc->PmcAnalogBaseAddr + PMC_ANLG_CFG_POR_CNT_SKIP_OFFSET,
+		0U);
+
 	/* Isolate PL-NoC */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_SOC, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {

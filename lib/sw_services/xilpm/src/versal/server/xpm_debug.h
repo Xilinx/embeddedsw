@@ -315,13 +315,23 @@ extern "C" {
 /* Error during check for PL POR status */
 #define XPM_INT_ERR_PL_POR_STATUS		0x3716U
 /* Error during initialization of GTY Address Array */
-#define XPM_INT_ERR_GTY_INIT		0x3717U
+#define XPM_INT_ERR_GTY_INIT			0x3717U
 /* Error during PLD rail control */
 #define XPM_INT_ERR_PLD_RAIL_CONTROL		0X3718U
 /* Error during redundancy check for GTY Memory clear loop */
 #define XPM_INT_ERR_GTY_MEM_CLEAR_LOOP		0x3719U
 /* Error during Laguna repair */
-#define XPM_INT_ERR_LAGUNA_REPAIR      0x371AU
+#define XPM_INT_ERR_LAGUNA_REPAIR		0x371AU
+/* Error during disabling NPI Ref Clk */
+#define XPM_INT_ERR_DIS_NPI_REF_CLK		0x371BU
+/* Error during enabling NPI Ref Clk */
+#define XPM_INT_ERR_EN_NPI_REF_CLK		0x371CU
+/* Error while asserting PL_POR, NPI Reset or disabling NPI Clk */
+#define XPM_INT_ASSERT_RST_DIS_CLK		0x371DU
+/* Error while removing PL_POR, NPI Reset or enabling NPI Clk */
+#define XPM_INT_REMOVE_RST_EN_CLK		0x371EU
+/* Error while applying GTY workaround */
+#define XPM_INT_ERR_GT_WORKAROUND		0x371FU
 
 /************************** NPD specific Errors ******************************/
 /************************** (0x3800) - (0x38FF) ******************************/
