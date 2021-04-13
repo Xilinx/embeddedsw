@@ -43,8 +43,7 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 
 XStatus XPm_ForcePowerdown(u32 SubsystemId,
                              const u32 NodeId,
-                             const u32 Ack,
-			     const u32 CmdType);
+                             const u32 Ack);
 XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type,
                              const u32 SubType);
 

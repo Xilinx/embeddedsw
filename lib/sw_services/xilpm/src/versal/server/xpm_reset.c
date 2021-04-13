@@ -15,7 +15,6 @@
 #include "xpm_api.h"
 #include "xpm_pmc.h"
 #include "xpm_common.h"
-#include "xplmi.h"
 
 static XStatus Reset_AssertCommon(XPm_ResetNode *Rst, const u32 Action);
 static XStatus Reset_AssertCustom(XPm_ResetNode *Rst, const u32 Action);
@@ -174,8 +173,7 @@ static XStatus PsOnlyResetAssert(XPm_ResetNode *Rst)
 			/* Set UserAssertPsSrst flag to skip PS-POR and LPD rail handling for PS-SRST */
 			UserAssertPsSrst = 1U;
 		}
-		Status = XPm_ForcePowerdown(PM_SUBSYS_PMC, PM_POWER_LPD, 0U,
-					    XPLMI_CMD_SECURE);
+		Status = XPm_ForcePowerdown(PM_SUBSYS_PMC, PM_POWER_LPD, 0U);
 		UserAssertPsSrst = 0U;
 		if (Status != XST_SUCCESS) {
 			PmErr("Error %d in Powerdown of LPD %d\r\n", Status);
