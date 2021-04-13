@@ -16,7 +16,6 @@
 #include "xpm_rpucore.h"
 #include "xpm_notifier.h"
 #include "xpm_requirement.h"
-#include "xplmi.h"
 
 static XPm_Subsystem *PmSubsystems;
 static u32 MaxSubsysIdx;
@@ -76,7 +75,7 @@ XStatus XPm_IsSecureAllowed(const u32 SubsystemId)
 }
 
 XStatus XPmSubsystem_IsOperationAllowed(const u32 HostId, const u32 TargetId,
-					const u32 Operation, const u32 CmdType)
+					const u32 Operation)
 {
 	const XPm_Subsystem *TargetSubsystem = XPmSubsystem_GetById(TargetId);
 	u32 PermissionMask = 0;
@@ -120,7 +119,7 @@ XStatus XPmSubsystem_IsOperationAllowed(const u32 HostId, const u32 TargetId,
 	}
 
 	/* Have Target check if Host can enact the operation */
-	if ((XPLMI_CMD_SECURE == CmdType) &&
+	if ((XST_SUCCESS == XPm_IsSecureAllowed(HostId)) &&
 	    (PermissionMask & (1U << SUBSYS_TO_S_BITPOS(HostId)))) {
 			Status = XST_SUCCESS;
 	} else if (PermissionMask & (1U << SUBSYS_TO_NS_BITPOS(HostId))) {
@@ -392,7 +391,7 @@ done:
         return Status;
 }
 
-XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType)
+XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Device *Device = XPmDevice_GetById(NodeId);
@@ -414,8 +413,7 @@ XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType)
 			goto done;
 		}
 		Status = XPmSubsystem_IsOperationAllowed(SubsystemId, NodeId,
-							 SUB_PERM_PWRDWN_MASK,
-							 CmdType);
+							 SUB_PERM_PWRDWN_MASK);
 		if (XST_SUCCESS != Status) {
 			Status = XPM_PM_NO_ACCESS;
 			goto done;
@@ -439,8 +437,7 @@ XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType)
 		}
 
 		Status = XPmSubsystem_IsOperationAllowed(SubsystemId, CoreSubsystemId,
-							 SUB_PERM_PWRDWN_MASK,
-							 CmdType);
+							 SUB_PERM_PWRDWN_MASK);
 		if (XST_SUCCESS != Status) {
 			Status = XPM_PM_NO_ACCESS;
 			goto done;
@@ -538,7 +535,7 @@ XPm_Subsystem *XPmSubsystem_GetByIndex(u32 SubSysIdx)
 	return Subsystem;
 }
 
-XStatus XPm_IsWakeAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType)
+XStatus XPm_IsWakeAllowed(u32 SubsystemId, u32 NodeId)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Device *Device = XPmDevice_GetById(NodeId);
@@ -561,10 +558,7 @@ XStatus XPm_IsWakeAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType)
 				Status = XPM_INVALID_SUBSYSID;
 				break;
 			}
-			Status = XPmSubsystem_IsOperationAllowed(SubsystemId,
-								 NodeId,
-								 SUB_PERM_WAKE_MASK,
-								 CmdType);
+			Status = XPmSubsystem_IsOperationAllowed(SubsystemId, NodeId, SUB_PERM_WAKE_MASK);
 			if (XST_SUCCESS != Status) {
 				Status = XPM_PM_NO_ACCESS;
 			}
@@ -596,8 +590,7 @@ XStatus XPm_IsWakeAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType)
 
 			Status = XPmSubsystem_IsOperationAllowed(SubsystemId,
 								 CoreSubsystemId,
-								 SUB_PERM_WAKE_MASK,
-								 CmdType);
+								 SUB_PERM_WAKE_MASK);
 			if (XST_SUCCESS != Status) {
 				Status = XPM_PM_NO_ACCESS;
 				break;

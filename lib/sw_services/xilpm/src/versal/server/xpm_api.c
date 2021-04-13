@@ -1455,6 +1455,7 @@ XStatus XPm_RequestSuspend(const u32 SubsystemId, const u32 TargetSubsystemId,
 	u32 Payload[5] = {0};
 	/* Warning Fix */
 	(void) (Ack);
+	(void) (CmdType);
 
 	IpiMask = XPmSubsystem_GetIPIMask(TargetSubsystemId);
 	if (0U == IpiMask) {
@@ -1470,8 +1471,7 @@ XStatus XPm_RequestSuspend(const u32 SubsystemId, const u32 TargetSubsystemId,
 	}
 
 	Status = XPmSubsystem_IsOperationAllowed(SubsystemId, TargetSubsystemId,
-						 SUB_PERM_SUSPEND_MASK,
-						 CmdType);
+						 SUB_PERM_SUSPEND_MASK);
 	if (XST_SUCCESS != Status) {
 		Status = XPM_PM_NO_ACCESS;
 		PmErr("Subsystem %x not allowed to suspend Target %x\n", SubsystemId, TargetSubsystemId);
@@ -1583,9 +1583,10 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 
 	/* Warning Fix */
 	(void) (Ack);
+	(void) CmdType;
 
 	/*Validate access first */
-	Status = XPm_IsWakeAllowed(SubsystemId, DeviceId, CmdType);
+	Status = XPm_IsWakeAllowed(SubsystemId, DeviceId);
 	if (XST_SUCCESS != Status) {
 		Status = XPM_PM_NO_ACCESS;
 		goto done;
@@ -1688,7 +1689,7 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 	(void) (Ack);
 
 	/*Validate access first */
-	Status = XPm_IsForcePowerDownAllowed(SubsystemId, NodeId, CmdType);
+	Status = XPm_IsForcePowerDownAllowed(SubsystemId, NodeId);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
