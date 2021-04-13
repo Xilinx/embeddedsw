@@ -702,7 +702,11 @@ static u8 _XAie_GetRscIdfromGroupEvents(XAie_DevInst *DevInst,
 	const XAie_EvntMod *EvntMod;
 
 	TileType =  _XAie_GetTileTypefromLoc(DevInst, Loc);
-	EvntMod = &DevInst->DevProp.DevMod[TileType].EvntMod[Mod];
+
+	if(Mod == XAIE_PL_MOD)
+		EvntMod = &DevInst->DevProp.DevMod[TileType].EvntMod[0U];
+	else
+		EvntMod = &DevInst->DevProp.DevMod[TileType].EvntMod[Mod];
 
 	for(u8 i = 0U; i < EvntMod->NumGroupEvents; i++) {
 		if(EvntMod->Group[i].GroupEvent == Event)
