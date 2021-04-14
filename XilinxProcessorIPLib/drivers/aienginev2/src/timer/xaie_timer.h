@@ -41,4 +41,5 @@ AieRC XAie_ReadTimer(XAie_DevInst *DevInst, XAie_LocType Loc,
 		XAie_ModuleType Module, u64 *TimerVal);
 AieRC XAie_WaitCycles(XAie_DevInst *DevInst, XAie_LocType Loc,
 		XAie_ModuleType Module, u64 CycleCnt);
+AieRC XAie_SyncTimer(XAie_DevInst *DevInst);
 #endif		/* end of protection macro */
