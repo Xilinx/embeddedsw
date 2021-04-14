@@ -330,13 +330,13 @@ static AieRC XAie_CdoIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 			return XAIE_FEATURE_NOT_SUPPORTED;
 		}
 		case XAIE_BACKEND_OP_REQUEST_RESOURCE:
-			return _XAie_RequestRscCommon(Arg);
+			return _XAie_RequestRscCommon(DevInst, Arg);
 		case XAIE_BACKEND_OP_RELEASE_RESOURCE:
 			return _XAie_ReleaseRscCommon(Arg);
 		case XAIE_BACKEND_OP_FREE_RESOURCE:
 			return _XAie_FreeRscCommon(Arg);
 		case XAIE_BACKEND_OP_REQUEST_ALLOCATED_RESOURCE:
-			return _XAie_RequestAllocatedRscCommon(Arg);
+			return _XAie_RequestAllocatedRscCommon(DevInst, Arg);
 		default:
 			XAIE_ERROR("Backend doesn't support Op %u.\n", Op);
 			RC = XAIE_FEATURE_NOT_SUPPORTED;

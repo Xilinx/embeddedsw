@@ -26,6 +26,7 @@
 
 #include "xaie_io.h"
 #include "xaie_helper.h"
+#include "xaie_rsc_internal.h"
 /*****************************************************************************/
 /***************************** Macro Definitions *****************************/
 /************************** Function Definitions *****************************/
@@ -193,10 +194,182 @@ AieRC _XAie_RequestRscContig(u32 *Bitmaps, u32 StartBit,
 
 /*****************************************************************************/
 /**
+* This API gets broadcast channel allocation status for the given start bit
+* based on location and module from relevant bitmap.
+*
+*
+* @param        Bitmap: BC channel bitmap
+* @param        StaticBitmapOffset: Bitmap offset for static bitmap
+* @param        StartBit: bit of the rsc in bitmap based on loc and module
+* @param        StaticAllocCheckFlag: 1 - To check static and runtime bitmap
+*                                     0 - To check runtime bitmap only
+*
+* @return       Channel allocation status.
+*
+* @note         Internal only.
+*
+*******************************************************************************/
+static u32 _XAie_GetChannelStatusPerMod(u32 *Bitmap, u32 StaticBitmapOffset,
+		u32 StartBit, u8 StaticAllocCheckFlag)
+{
+	u32 Size = sizeof(Bitmap[0]) * 8U;
+	u32 ChannelStatus = (XAIE_BROADCAST_CHANNEL_MASK &
+			(Bitmap[StartBit / Size] >> (StartBit % Size)));
+
+	if(StaticAllocCheckFlag)
+		return ChannelStatus | (XAIE_BROADCAST_CHANNEL_MASK &
+			(Bitmap[(StartBit  + StaticBitmapOffset) / Size] >>
+			((StartBit + StaticBitmapOffset) % Size)));
+
+	return ChannelStatus;
+}
+
+/*****************************************************************************/
+/**
+* This API gets common broadcast channel allocation status for all modules.
+*
+*
+* @param        DevInst: Device Instance
+* @param        UserRscNum: Size of UserRsc array
+* @param        Rscs: pointer to UserRsc array
+* @param        StaticAllocCheckFlag: 1 - To check static and runtime bitmap
+*                                     0 - To check runtime bitmap only
+*
+* @return       XAIE_OK on success and XAIE_ERR on failure.
+*
+* @note         Internal only.
+*
+*******************************************************************************/
+static u32 _XAie_GetCommonChannelStatus(XAie_DevInst *DevInst, u32 *UserRscNum,
+		XAie_UserRsc *Rscs, u8 StaticAllocCheckFlag)
+{
+	u8 TileType;
+	u32 ChannelStatus = 0, TotalRscs = *UserRscNum;
+	u32 *Bitmap;
+	XAie_BitmapOffsets Offsets;
+
+	for(u32 i = 0; i < TotalRscs; i++) {
+
+		TileType = _XAie_GetTileTypefromLoc(DevInst, Rscs[i].Loc);
+		Bitmap = DevInst->RscMapping[TileType].
+				Bitmaps[XAIE_BCAST_CHANNEL_RSC];
+		_XAie_RscMgr_GetBitmapOffsets(DevInst, XAIE_BCAST_CHANNEL_RSC,
+				Rscs[i].Loc, Rscs[i].Mod, &Offsets);
+		ChannelStatus |= _XAie_GetChannelStatusPerMod(Bitmap,
+				Offsets.StaticBitmapOffset, Offsets.StartBit,
+				StaticAllocCheckFlag);
+	}
+
+	return ChannelStatus;
+}
+
+/*****************************************************************************/
+/**
+* This API finds common broadcast channel from ChannelStatus.
+*
+*
+* @param        MaxRscVal: Max number of channels
+* @param        ChannelStatus: Common broadcast channel status
+* @param        ChannelIndex: Pointer to store common broadcast channel
+*
+* @return       XAIE_OK on success and XAIE_ERR on failure.
+*
+* @note         Internal only.
+*
+*******************************************************************************/
+static AieRC _XAie_FindCommonChannel(u32 MaxRscVal, u32 ChannelStatus,
+		                u32 *ChannelIndex)
+{
+	u32 i;
+
+	for(i = 0; i < MaxRscVal; i++) {
+		if(ChannelStatus & 1U) {
+			ChannelStatus >>= 1U;
+		} else {
+			*ChannelIndex = i;
+			return XAIE_OK;
+		}
+	}
+
+	return XAIE_ERR;
+}
+
+/*****************************************************************************/
+/**
+* This API checks if the specific broadcast channel is free for given tiles,
+* If free, it allocates that channel and marks the resource status in
+* channel bitmap and populates return rsc id.
+*
+* @param        DevInst: Device Instance
+* @param        Args: Contains arguments for backend operation
+*
+* @return       XAIE_OK on success and XAIE_ERR on failure.
+*
+* @note         Internal only.
+*
+*******************************************************************************/
+AieRC _XAie_RequestSpecificBroadcastChannel(XAie_DevInst *DevInst,
+		                XAie_BackendTilesRsc *Args)
+{
+	u32 ChannelStatus;
+
+	ChannelStatus = _XAie_GetCommonChannelStatus(DevInst, Args->UserRscNum,
+			                        Args->Rscs, XAIE_DISABLE);
+	if(ChannelStatus & (1U << Args->RscId)) {
+		 XAIE_ERROR("Broadcast Channel:%d busy\n", Args->RscId);
+		 return XAIE_ERR;
+	}
+
+	/* Mark ChannelIndex in Bitmap for all tiles in the Rscs */
+	_XAie_MarkChannelBitmapAndRscId(DevInst, *(Args->UserRscNum),
+			Args->Rscs, Args->RscId);
+
+	return XAIE_OK;
+
+}
+
+/*****************************************************************************/
+/**
+* This API finds common channel for given tiles, marks the resource status in
+* channel bitmap and populates return rsc id.
+*
+* @param        DevInst: Device Instance
+* @param        Args: Contains arguments for backend operation
+*
+* @return       XAIE_OK on success and XAIE_ERR on failure.
+*
+* @note         Internal only.
+*
+*******************************************************************************/
+static AieRC _XAie_RequestBroadcastChannelRscCommon(XAie_DevInst *DevInst,
+		                XAie_BackendTilesRsc *Args)
+{
+	AieRC RC;
+	u32 ChannelStatus, ChannelIndex;
+
+	ChannelStatus = _XAie_GetCommonChannelStatus(DevInst, Args->UserRscNum,
+			                Args->Rscs, XAIE_ENABLE);
+	RC = _XAie_FindCommonChannel(XAIE_NUM_BROADCAST_CHANNELS,
+			                ChannelStatus, &ChannelIndex);
+	if(RC != XAIE_OK) {
+		XAIE_ERROR("Unable to find common channel for broadcast\n");
+		return RC;
+	}
+
+	/* Mark ChannelIndex in Bitmap for all tiles in the Rscs */
+	_XAie_MarkChannelBitmapAndRscId(DevInst, *(Args->UserRscNum),
+			                        Args->Rscs, ChannelIndex);
+
+	return XAIE_OK;
+}
+
+/*****************************************************************************/
+/**
 * The API grants resource based on availibility and marks that
 * resource status in relevant bitmap.
 *
 *
+* @param	DevInst: Device Instance
 * @param	Args: Contains arguments for backend operation
 *
 * @return	XAIE_OK on success
@@ -204,10 +377,13 @@ AieRC _XAie_RequestRscContig(u32 *Bitmaps, u32 StartBit,
 * @note		Internal only.
 *
 *******************************************************************************/
-AieRC _XAie_RequestRscCommon(XAie_BackendTilesRsc *Args)
+AieRC _XAie_RequestRscCommon(XAie_DevInst *DevInst, XAie_BackendTilesRsc *Args)
 {
 	AieRC RC;
 	u32 RscArrPerTile[Args->NumRscPerTile];
+
+	if(Args->RscType == XAIE_BCAST_CHANNEL_RSC)
+		return _XAie_RequestBroadcastChannelRscCommon(DevInst, Args);
 
 	if(Args->Flags == XAIE_RSC_MGR_CONTIG_FLAG) {
 		RC = _XAie_RequestRscContig(Args->Bitmap, Args->StartBit,
@@ -288,6 +464,7 @@ AieRC _XAie_FreeRscCommon(XAie_BackendTilesRsc *Args)
 * The API requests statically allocated resource.
 *
 *
+* @param	DevInst: Device Instance
 * @param	Args: Contains arguments for backend operation
 *
 * @return	XAIE_OK on success
@@ -295,8 +472,12 @@ AieRC _XAie_FreeRscCommon(XAie_BackendTilesRsc *Args)
 * @note		Internal only.
 *
 *******************************************************************************/
-AieRC _XAie_RequestAllocatedRscCommon(XAie_BackendTilesRsc *Args)
+AieRC _XAie_RequestAllocatedRscCommon(XAie_DevInst *DevInst,
+		XAie_BackendTilesRsc *Args)
 {
+	if(Args->RscType == XAIE_BCAST_CHANNEL_RSC)
+		return _XAie_RequestSpecificBroadcastChannel(DevInst, Args);
+
 	/* Check if rsc is not allocated in runtime */
 	if(!(CheckBit(Args->Bitmap, Args->StartBit))) {
 		/* Mark the resource granted in the runtime bitmap */
