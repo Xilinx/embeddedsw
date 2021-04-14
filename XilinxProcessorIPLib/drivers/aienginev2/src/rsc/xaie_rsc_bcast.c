@@ -152,6 +152,7 @@ AieRC XAie_RequestBroadcastChannel(XAie_DevInst *DevInst, u32 *UserRscNum,
 	TilesRsc.MaxRscVal = XAIE_NUM_BROADCAST_CHANNELS;
 	TilesRsc.UserRscNum = UserRscNum;
 	TilesRsc.Rscs = Rscs;
+	TilesRsc.Flags = BroadcastAllFlag;
 
 	RC = XAie_RunOp(DevInst, XAIE_BACKEND_OP_REQUEST_RESOURCE,
 		(void *)&TilesRsc);
@@ -218,6 +219,7 @@ AieRC XAie_RequestSpecificBroadcastChannel(XAie_DevInst *DevInst, u32 BcId,
 	TilesRsc.UserRscNum = UserRscNum;
 	TilesRsc.Rscs = Rscs;
 	TilesRsc.RscId = BcId;
+	TilesRsc.Flags = BroadcastAllFlag;
 
 	RC = XAie_RunOp(DevInst, XAIE_BACKEND_OP_REQUEST_ALLOCATED_RESOURCE,
 		(void *)&TilesRsc);
