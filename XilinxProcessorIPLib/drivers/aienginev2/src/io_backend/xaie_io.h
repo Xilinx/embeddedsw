@@ -78,6 +78,7 @@ typedef struct XAie_BackendTilesRsc {
 	u32 StartBit;
 	u32 StaticBitmapOffset;
 	u32 *UserRscNum;
+	u32 UserRscNumInput;
 	u32 Flags;
 	u8 NumContigRscs;
 	XAie_RscType RscType;
