@@ -33,6 +33,15 @@
 #define XAIE_TRACE_CTRL_RSCS_PER_MOD	1U
 #define XAIE_COMBO_EVENTS_PER_MOD	4U
 
+#define XAIE_RSC_HEADER_TILE_TYPE_SHIFT	0U
+#define XAIE_RSC_HEADER_TILE_TYPE_MASK	0xF
+#define XAIE_RSC_HEADER_MOD_TYPE_SHIFT	4U
+#define XAIE_RSC_HEADER_MOD_TYPE_MASK	0xF
+#define XAIE_RSC_HEADER_RSC_TYPE_SHIFT	8U
+#define XAIE_RSC_HEADER_RSC_TYPE_MASK	0xFF
+#define XAIE_RSC_HEADER_SIZE_SHIFT	16U
+#define XAIE_RSC_HEADER_SIZE_MASK	0xFFFFFFFF
+
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
 /**
@@ -922,6 +931,159 @@ AieRC _XAie_RscMgr_RequestAllocatedRsc(XAie_DevInst *DevInst, u32 NumReq,
 
 /*****************************************************************************/
 /**
+* This API returns the 64 bit header for a given TileType, module type, resource
+* type and Size of the bitmap in number of 64 bit words.
+*
+*
+* @param	TileType: Tile type
+* @param	ModType: Module type
+* @param	RscType: Resource Type
+* @param	Size: Number of 32 bit words.
+*
+* @return	64 bit resource header.
+*
+* @note		Internal only. The size of the bitmap is adjusted if the 32bit
+*		size value is odd and divided by two convert it to number of
+*		64 bit words.
+*
+*******************************************************************************/
+static inline u64 _XAie_CreateRscHeader(u8 TileType, XAie_ModuleType ModType,
+		u8 RscType, u32 Size)
+{
+	Size = (Size % 2U) ? Size + 1 : Size;
+	Size /= 2U;
+
+	return ((TileType & XAIE_RSC_HEADER_TILE_TYPE_MASK) <<
+			XAIE_RSC_HEADER_TILE_TYPE_SHIFT) |
+		((ModType & XAIE_RSC_HEADER_MOD_TYPE_MASK) <<
+		 XAIE_RSC_HEADER_MOD_TYPE_SHIFT) |
+		((RscType & XAIE_RSC_HEADER_RSC_TYPE_MASK) <<
+		 XAIE_RSC_HEADER_RSC_TYPE_SHIFT) |
+		((Size & XAIE_RSC_HEADER_SIZE_MASK) <<
+		 XAIE_RSC_HEADER_SIZE_SHIFT);
+}
+
+/*****************************************************************************/
+/**
+* This API returns the number of resources for a give tile type, module type and
+* resource type.
+*
+* @param	DevInst: Device Instance
+* @param	TileType: Type of tile
+* @param	Mod: Module - MEM, CORE or PL.
+* @param	RscType: Resource type
+*
+* @return	Max number of resources.
+*
+* @note		Internal only.
+*
+*******************************************************************************/
+static u32 _XAie_GetNumRscs(XAie_DevInst *DevInst, u8 TileType,
+		XAie_ModuleType Mod, XAie_RscType RscType)
+{
+	switch(RscType) {
+	case XAIE_PERFCNT_RSC:
+	{
+		const XAie_PerfMod *PerfMod;
+
+		PerfMod = &DevInst->DevProp.DevMod[TileType].PerfMod[Mod];
+		return PerfMod->MaxCounterVal;
+	}
+	case XAIE_USER_EVENTS_RSC:
+	{
+		const XAie_EvntMod *EventMod;
+
+		EventMod = &DevInst->DevProp.DevMod[TileType].EvntMod[Mod];
+		return EventMod->NumUserEvents;
+	}
+	case XAIE_PC_EVENTS_RSC:
+	{
+		const XAie_EvntMod *EventMod;
+
+		EventMod = &DevInst->DevProp.DevMod[TileType].EvntMod[Mod];
+		return EventMod->NumPCEvents;
+	}
+	case XAIE_TRACE_CTRL_RSC:
+	{
+		return XAIE_TRACE_CTRL_RSCS_PER_MOD;
+	}
+	case XAIE_SS_EVENT_PORTS_RSC:
+	{
+		const XAie_EvntMod *EventMod;
+
+		EventMod = &DevInst->DevProp.DevMod[TileType].EvntMod[Mod];
+		return EventMod->NumStrmPortSelectIds;
+	}
+	case XAIE_GROUP_EVENTS_RSC:
+	{
+		const XAie_EvntMod *EventMod;
+
+		EventMod = &DevInst->DevProp.DevMod[TileType].EvntMod[Mod];
+		return EventMod->NumGroupEvents;
+	}
+	case XAIE_COMBO_EVENTS_RSC:
+	{
+		return XAIE_COMBO_EVENTS_PER_MOD;
+	}
+	case XAIE_BCAST_CHANNEL_RSC:
+	{
+		return XAIE_NUM_BROADCAST_CHANNELS;
+	}
+	default:
+		return 0U;
+	}
+}
+
+/*****************************************************************************/
+/**
+* This API returns module type for a given tile type and module index from the
+* tile property.
+*
+* @param	TileType: Type of tile
+* @param	ModIndex: Index of the module in TileMod
+*
+* @return	Module type.
+*
+* @note		Internal only.
+*
+*******************************************************************************/
+static XAie_ModuleType _XAie_GetModTypefromModIndex(u8 TileType, u8 ModIndex)
+{
+	switch(TileType) {
+		case XAIEGBL_TILE_TYPE_AIETILE:
+			{
+				if(ModIndex == 0U)
+					return XAIE_MEM_MOD;
+				else if(ModIndex == 1U)
+					return XAIE_CORE_MOD;
+
+				break;
+			}
+		case XAIEGBL_TILE_TYPE_SHIMNOC:
+		case XAIEGBL_TILE_TYPE_SHIMPL:
+			{
+				if(ModIndex == 0U)
+					return XAIE_PL_MOD;
+
+				break;
+			}
+		case XAIEGBL_TILE_TYPE_RESERVED:
+			{
+				if(ModIndex == 0U)
+					return XAIE_MEM_MOD;
+
+				break;
+			}
+		default:
+			XAIE_ERROR("Invalid tile type\n");
+			break;
+		}
+
+	return XAIE_PL_MOD + 1U;
+}
+
+/*****************************************************************************/
+/**
 * This API is used to dump the total allocated resources to a file.
 *
 * @param	DevInst: Device Instance
@@ -934,6 +1096,9 @@ AieRC _XAie_RscMgr_RequestAllocatedRsc(XAie_DevInst *DevInst, u32 NumReq,
 AieRC XAie_SaveAllocatedRscsToFile(XAie_DevInst *DevInst, const char *File)
 {
 	FILE *F;
+	size_t Ret;
+	u64 NumRscsInFile = 0U;
+	const u64 FirstRscsOffset = 0x10;
 
 	if((DevInst == XAIE_NULL) || (File == NULL) ||
 		(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
@@ -947,9 +1112,107 @@ AieRC XAie_SaveAllocatedRscsToFile(XAie_DevInst *DevInst, const char *File)
 		return XAIE_INVALID_ARGS;
 	}
 
-	/* TODO: scan resources bitmap and output them into the file */
+	/* Write NumRscs and first offset value to file */
+	Ret = fwrite(&NumRscsInFile, sizeof(NumRscsInFile), 1U, F);
+	if(Ret != 1U)
+		goto error;
+	Ret = fwrite(&FirstRscsOffset, sizeof(FirstRscsOffset), 1U, F);
+	if(Ret != 1U)
+		goto error;
+
+	for(u8 i = 0U; i < XAIEGBL_TILE_TYPE_MAX; i++) {
+		u32 NumRows;
+		XAie_ResourceManager *RscMap;
+
+		if (i == XAIEGBL_TILE_TYPE_SHIMNOC)
+			continue;
+
+		NumRows = _XAie_GetNumRows(DevInst, i);
+		RscMap = &DevInst->RscMapping[i];
+		for(u8 j = 0U; j < XAIE_MAX_RSC; j++) {
+			u32 *Bitmap;
+			u8 NumMods;
+
+			Bitmap = RscMap->Bitmaps[j];
+			NumMods = DevInst->DevProp.DevMod[i].NumModules;
+			for(u8 k = 0U; k < NumMods; k++) {
+				u32 NumRscs;
+				u32 BitmapSize;
+				u64 RscHeader;
+				XAie_ModuleType Mod;
+				u32 BitmapOffset = 0U;
+
+				NumRscs = _XAie_GetNumRscs(DevInst, i, k, j);
+				BitmapSize = _XAie_NearestRoundUp(NumRows *
+						NumRscs * DevInst->NumCols * 2U,
+						8 * sizeof(u32));
+				BitmapSize /= 8U * sizeof(u32);
+				/* Save only runtime bitmap */
+				BitmapSize /= 2U;
+				if(BitmapSize == 0U)
+					continue;
+
+				Mod = _XAie_GetModTypefromModIndex(i, k);
+				RscHeader = _XAie_CreateRscHeader(i, Mod, j,
+						BitmapSize);
+				XAIE_DBG("RSC HEADER: 0x%lx\n", RscHeader);
+				Ret = fwrite(&RscHeader, sizeof(RscHeader), 1U,
+					       F);
+				if(Ret != 1U)
+					goto error;
+
+				if(Mod == XAIE_CORE_MOD) {
+					u32 MemModRscs;
+
+					MemModRscs = _XAie_GetNumRscs(DevInst,
+							i, XAIE_MEM_MOD, j);
+					BitmapOffset =
+						_XAie_GetCoreBitmapOffset(
+								DevInst,
+								MemModRscs);
+					BitmapOffset = (BitmapOffset/8) /
+						sizeof(u32);
+				}
+
+				Bitmap += BitmapOffset;
+				for(u32 Word = 0U; Word < BitmapSize; Word += 2) {
+					u64 Payload;
+
+					/*
+					 * if bitmap size is odd number of 32
+					 * bit values, zero pad additional 32
+					 * bits to for a 64 bit payload.
+					 */
+					if(Word != BitmapSize - 1U)
+						Payload = Bitmap[Word] |
+							((u64)Bitmap[Word + 1] << 32);
+					else
+						Payload = Bitmap[Word];
+
+					Ret = fwrite(&Payload, sizeof(Payload),
+								1U, F);
+					if(Ret != 1U)
+						goto error;
+				}
+
+				NumRscsInFile++;
+			}
+		}
+	}
+
+	/* Update Number of Rscs entries */
+	rewind(F);
+	Ret = fwrite(&NumRscsInFile, sizeof(NumRscsInFile), 1U, F);
+	if(Ret != 1U)
+		goto error;
 
 	fclose(F);
 	return XAIE_OK;
+
+error:
+	fclose(F);
+	XAIE_ERROR("Failed to write resource bitmaps to file\n");
+	return XAIE_ERR;
 }
+
 /** @} */
