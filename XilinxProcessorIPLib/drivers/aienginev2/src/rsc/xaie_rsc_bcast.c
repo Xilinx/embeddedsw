@@ -24,6 +24,7 @@
 /***************************** Include Files *********************************/
 #include <stdlib.h>
 
+#include "xaie_clock.h"
 #include "xaie_helper.h"
 #include "xaie_io.h"
 #include "xaie_rsc.h"
