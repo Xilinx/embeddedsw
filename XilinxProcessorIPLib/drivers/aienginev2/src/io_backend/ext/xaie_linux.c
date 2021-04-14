@@ -1305,7 +1305,215 @@ static AieRC _XAie_LinuxIO_ReleaseTiles(void *IOInst,
 
 /*****************************************************************************/
 /**
+* The API grants broadcast resource based on availibility and marks that
+* resource status in relevant bitmap.
 *
+*
+* @param	IOInst: IO instance pointer
+* @param	Args: Contains arguments for backend operation
+* @param	IsAnyBc: 1 to indicate it requests for any broadcast channel,
+*			 0 to indicate it requests for a specific broadcast
+*			 channel.
+*
+* @return	XAIE_OK on success
+*
+* @note		Internal only.
+*
+*******************************************************************************/
+static AieRC _XAie_LinuxIO_RequestBcRsc(void *IOInst,
+		XAie_BackendTilesRsc *Args, u8 IsAnyBc)
+{
+	XAie_LinuxIO *LinuxIOInst = (XAie_LinuxIO *)IOInst;
+	int Ret;
+	struct aie_rsc_bc_req RscReq = {
+		.rscs = (__u64)(uintptr_t)Args->Rscs,
+		.num_rscs = Args->UserRscNumInput,
+		.flag = 0,
+		.id = Args->RscId,
+	};
+
+	if(Args->Flags != 0) {
+		/* Broadcast to whole partition */
+		RscReq.flag = XAIE_BROADCAST_ALL;
+	}
+	if(IsAnyBc != 0) {
+		RscReq.id = XAIE_BROADCAST_ID_ANY;
+	}
+
+	Ret = ioctl(LinuxIOInst->PartitionFd,
+			AIE_RSC_GET_COMMON_BROADCAST_IOCTL, &RscReq);
+	if(Ret != 0) {
+		XAIE_ERROR("Failed to request broadcast channel.\n");
+		return XAIE_ERR;
+	}
+
+	XAie_UserRsc *Rscs = Args->Rscs;
+	*(Args->UserRscNum) = RscReq.num_rscs;
+	for(u32 i = 0; i < RscReq.num_rscs; i++) {
+		Rscs[i].RscType = XAIE_BCAST_CHANNEL_RSC;
+	}
+
+	return XAIE_OK;
+}
+
+/*****************************************************************************/
+/**
+* The API grants resource based on availibility and marks that
+* resource status in relevant bitmap.
+*
+*
+* @param	IOInst: IO instance pointer
+* @param	Args: Contains arguments for backend operation
+*
+* @return	XAIE_OK on success
+*
+* @note		Internal only.
+*
+*******************************************************************************/
+static AieRC _XAie_LinuxIO_RequestRsc(void *IOInst, XAie_BackendTilesRsc *Args)
+{
+	XAie_LinuxIO *LinuxIOInst = (XAie_LinuxIO *)IOInst;
+	struct aie_rsc_req_rsp RscReq;
+	int Ret;
+
+	if(Args->RscType == XAIE_BCAST_CHANNEL_RSC) {
+		return _XAie_LinuxIO_RequestBcRsc(IOInst, Args, 1);
+	}
+
+	RscReq.req.loc.col = Args->Loc.Col;
+	RscReq.req.loc.row = Args->Loc.Row;
+	RscReq.req.mod = (uint32_t)Args->Mod;
+	RscReq.req.type = (uint32_t)Args->RscType;
+	RscReq.req.num_rscs = Args->NumRscPerTile;
+	RscReq.req.flag = Args->Flags;
+	RscReq.rscs = (__u64)(uintptr_t)Args->Rscs;
+
+	Ret = ioctl(LinuxIOInst->PartitionFd, AIE_RSC_REQ_IOCTL, &RscReq);
+	if(Ret != 0) {
+		XAIE_ERROR("Failed to request resource %u\n",
+				Args->RscType);
+		return XAIE_ERR;
+	}
+
+	return XAIE_OK;
+}
+
+/*****************************************************************************/
+/**
+* The API releases resouce statically and dynamically.
+*
+*
+* @param	IOInst: IO instance pointer
+* @param	Args: Contains arguments for backend operation
+*
+* @return	XAIE_OK on success
+*
+* @note		Internal only.
+*
+*******************************************************************************/
+static AieRC _XAie_LinuxIO_ReleaseRsc(void *IOInst, XAie_BackendTilesRsc *Args)
+{
+	XAie_LinuxIO *LinuxIOInst = (XAie_LinuxIO *)IOInst;
+	int Ret;
+	struct aie_rsc Rsc = {
+		.loc = {
+			.col = Args->Loc.Col,
+			.row = Args->Loc.Row,
+		},
+		.mod = Args->Mod,
+		.type = Args->RscType,
+		.id = Args->RscId,
+	};
+
+	Ret = ioctl(LinuxIOInst->PartitionFd, AIE_RSC_RELEASE_IOCTL, &Rsc);
+	if(Ret != 0) {
+		XAIE_ERROR("Failed to release resource %u.\n", Args->RscType);
+		return XAIE_ERR;
+	}
+
+	return XAIE_OK;
+}
+
+/*****************************************************************************/
+/**
+* The API releases resouce dynamically.
+*
+*
+* @param	IOInst: IO instance pointer
+* @param	Args: Contains arguments for backend operation
+*
+* @return	XAIE_OK on success
+*
+* @note		Internal only.
+*
+*******************************************************************************/
+static AieRC _XAie_LinuxIO_FreeRsc(void *IOInst, XAie_BackendTilesRsc *Args)
+{
+
+	XAie_LinuxIO *LinuxIOInst = (XAie_LinuxIO *)IOInst;
+	int Ret;
+	struct aie_rsc Rsc = {
+		.loc = {
+			.col = Args->Loc.Col,
+			.row = Args->Loc.Row,
+		},
+		.mod = Args->Mod,
+		.type = Args->RscType,
+		.id = Args->RscId,
+	};
+
+	Ret = ioctl(LinuxIOInst->PartitionFd, AIE_RSC_FREE_IOCTL, &Rsc);
+	if(Ret != 0) {
+		XAIE_ERROR("Failed to free resource %u.\n", Args->RscType);
+		return XAIE_ERR;
+	}
+
+	return XAIE_OK;
+}
+
+/*****************************************************************************/
+/**
+* The API requests statically allocated resource.
+*
+*
+* @param	IOInst: IO instance pointer
+* @param	Args: Contains arguments for backend operation
+*
+* @return	XAIE_OK on success
+*
+* @note		Internal only.
+*
+*******************************************************************************/
+AieRC _XAie_LinuxIO_RequestAllocatedRsc(void *IOInst,
+		XAie_BackendTilesRsc *Args)
+{
+	XAie_LinuxIO *LinuxIOInst = (XAie_LinuxIO *)IOInst;
+	struct aie_rsc Rsc;
+	int Ret;
+
+	if(Args->RscType == XAIE_BCAST_CHANNEL_RSC) {
+		return _XAie_LinuxIO_RequestBcRsc(IOInst, Args, 0);
+	}
+
+	Rsc.loc.col = Args->Loc.Col;
+	Rsc.loc.row = Args->Loc.Row;
+	Rsc.mod = Args->Mod;
+	Rsc.type = Args->RscType;
+	Rsc.id = Args->RscId;
+
+	Ret = ioctl(LinuxIOInst->PartitionFd, AIE_RSC_REQ_SPECIFIC_IOCTL, &Rsc);
+	if(Ret != 0) {
+		XAIE_ERROR("Failed to request specific resource %u\n",
+				Args->RscType);
+		return XAIE_ERR;
+	}
+
+	return XAIE_OK;
+}
+
+/*****************************************************************************/
+/**
+
 * This is the function to run backend operations
 *
 * @param	IOInst: IO instance pointer
@@ -1330,13 +1538,13 @@ static AieRC XAie_LinuxIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 	case XAIE_BACKEND_OP_RELEASE_TILES:
 		return _XAie_LinuxIO_ReleaseTiles(IOInst, Arg);
 	case XAIE_BACKEND_OP_REQUEST_RESOURCE:
-		return _XAie_RequestRscCommon(DevInst, Arg);
+		return _XAie_LinuxIO_RequestRsc(IOInst, Arg);
 	case XAIE_BACKEND_OP_RELEASE_RESOURCE:
-		return _XAie_ReleaseRscCommon(Arg);
+		return _XAie_LinuxIO_ReleaseRsc(IOInst, Arg);
 	case XAIE_BACKEND_OP_FREE_RESOURCE:
-		return _XAie_FreeRscCommon(Arg);
+		return _XAie_LinuxIO_FreeRsc(IOInst, Arg);
 	case XAIE_BACKEND_OP_REQUEST_ALLOCATED_RESOURCE:
-		return _XAie_RequestAllocatedRscCommon(DevInst, Arg);
+		return _XAie_LinuxIO_RequestAllocatedRsc(IOInst, Arg);
 	default:
 		XAIE_ERROR("Linux backend does not support operation %d\n", Op);
 		return XAIE_FEATURE_NOT_SUPPORTED;
