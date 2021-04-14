@@ -1151,6 +1151,9 @@ static XStatus Request(XPm_Device *Device, XPm_Subsystem *Subsystem,
 	if ((PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
 	    (NULL != Device->HandleProtection)) {
 		Status = Device->HandleProtection(Reqm, 1U);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 	}
 
 	Status = HandleDeviceAttr(Reqm, Capabilities, PrevState, 1U);
@@ -1273,6 +1276,9 @@ static XStatus Release(XPm_Device *Device, XPm_Subsystem *Subsystem)
 	if ((PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
 	    (NULL != Device->HandleProtection)) {
 		Status = Device->HandleProtection(Reqm, 0U);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 	}
 
 	Status = HandleDeviceAttr(Reqm, 0U, PrevState, 0U);
