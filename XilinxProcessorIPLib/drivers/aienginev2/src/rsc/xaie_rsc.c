@@ -1143,12 +1143,11 @@ AieRC XAie_SaveAllocatedRscsToFile(XAie_DevInst *DevInst, const char *File)
 				u32 BitmapOffset = 0U;
 
 				NumRscs = _XAie_GetNumRscs(DevInst, i, k, j);
+				/* Save only runtime bitmap */
 				BitmapSize = _XAie_NearestRoundUp(NumRows *
-						NumRscs * DevInst->NumCols * 2U,
+						NumRscs * DevInst->NumCols,
 						8 * sizeof(u32));
 				BitmapSize /= 8U * sizeof(u32);
-				/* Save only runtime bitmap */
-				BitmapSize /= 2U;
 				if(BitmapSize == 0U)
 					continue;
 
