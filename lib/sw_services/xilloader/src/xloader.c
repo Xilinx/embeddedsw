@@ -91,6 +91,7 @@
 *       ma   03/24/2021 Minor updates to prints in XilLoader
 *       har  03/31/2021 Added code to update PDI ID in RTC area of PMC RAM
 *       bl   04/01/2021 Add extra arg for calls to XPm_RequestWakeUp
+*       bm   04/14/2021 Update UID logic for AIE Image IDs
 *
 * </pre>
 *
@@ -1191,8 +1192,15 @@ static int XLoader_InvalidateChildImgInfo(u32 ParentImgID, u32 *ChangeCount)
 		if (TempCount >= ImageInfoTbl.Count) {
 			break;
 		}
-		if (NODESUBCLASS(ImageInfoTbl.TblPtr[Index].ImgID) !=
-			(u32)XPM_NODESUBCL_DEV_PL) {
+
+		/*
+		 * Only PL and AIE images are supporting hierarchical DFX,
+		 * so only those image entries need to be invalidated
+		 */
+		if ((NODESUBCLASS(ImageInfoTbl.TblPtr[Index].ImgID) !=
+			(u32)XPM_NODESUBCL_DEV_PL) &&
+			(NODESUBCLASS(ImageInfoTbl.TblPtr[Index].ImgID) !=
+			(u32)XPM_NODESUBCL_DEV_AIE)) {
 			continue;
 		}
 		Status = XLoader_GetChildRelation(
@@ -1294,7 +1302,9 @@ static int XLoader_StoreImageInfo(const XLoader_ImageInfo *ImageInfo)
 			XPLMI_RTCFG_IMGINFOTBL_CHANGE_CTR_MASK)
 			>> XPLMI_RTCFG_IMGINFOTBL_CHANGE_CTR_SHIFT);
 
-	if (NODESUBCLASS(ImageInfo->ImgID) == (u32)XPM_NODESUBCL_DEV_PL) {
+	if ((ImageInfo->UID != XLOADER_INVALID_UID) &&
+		((NODESUBCLASS(ImageInfo->ImgID) == (u32)XPM_NODESUBCL_DEV_PL) ||
+		(NODESUBCLASS(ImageInfo->ImgID) == (u32)XPM_NODESUBCL_DEV_AIE))) {
 		Status = XLoader_InvalidateChildImgInfo(ImageInfo->ImgID,
 				&ChangeCount);
 		if (Status != XST_SUCCESS) {
@@ -1408,7 +1418,8 @@ static int XLoader_VerifyImgInfo(const XLoader_ImageInfo *ImageInfo)
 
 	if ((ImageInfo->ImgID != XLOADER_INVALID_IMG_ID) &&
 		(ImageInfo->UID != XLOADER_INVALID_UID) &&
-		(NODESUBCLASS(ImageInfo->ImgID) == (u32)XPM_NODESUBCL_DEV_PL)) {
+		((NODESUBCLASS(ImageInfo->ImgID) == (u32)XPM_NODESUBCL_DEV_PL) ||
+		 (NODESUBCLASS(ImageInfo->ImgID) == (u32)XPM_NODESUBCL_DEV_AIE))) {
 		Status = XPmDevice_GetStatus(PM_SUBSYS_PMC, ImageInfo->ImgID,
 				&DeviceStatus);
 		if (Status != XST_SUCCESS) {
