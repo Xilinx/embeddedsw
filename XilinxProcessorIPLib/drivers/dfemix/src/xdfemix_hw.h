@@ -21,6 +21,7 @@
 * 1.0   dc     07/22/20 Initial version
 *       dc     02/15/21 align driver to curent specification
 *       dc     03/18/21 New model parameter list
+*       dc     04/14/21 Add FIR_ENABLE/MIXER_ENABLE register support
 * </pre>
 *
 ******************************************************************************/
@@ -78,6 +79,12 @@ extern "C" {
 #define XDFEMIX_STATE_LOW_POWER_OFFSET 0x14U /* Register offset */
 #define XDFEMIX_STATE_ACTIVE 0x0U
 #define XDFEMIX_STATE_LOW_POWER 0x1U
+#define XDFEMIX_STATE_FIR_ENABLE_OFFSET 0x18U /* Register offset */
+#define XDFEMIX_STATE_FIR_DISABLED 0x0U
+#define XDFEMIX_STATE_FIR_ENABLED 0x1U
+#define XDFEMIX_STATE_MIXER_ENABLE_OFFSET 0x1CU /* Register offset */
+#define XDFEMIX_STATE_MIXER_DISABLED 0x0U
+#define XDFEMIX_STATE_MIXER_ENABLED 0x1U
 
 /* Triggers */
 #define XDFEMIX_TRIGGERS_ACTIVATE_OFFSET 0x20U /* Register offset */

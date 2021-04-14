@@ -31,6 +31,7 @@
 *       dc     02/22/21 include HW in versioning
 *       dc     04/06/21 Register with full node name
 *       dc     04/08/21 Set sequence length only once
+*       dc     04/14/21 Add FIR_ENABLE/MIXER_ENABLE register support
 *
 * </pre>
 *
@@ -178,9 +179,7 @@ static int XDfeMix_SelfTestExample()
 	/* Go through initialization states of the state machine */
 	XDfeMix_Reset(InstancePtr);
 	XDfeMix_Configure(InstancePtr, &Cfg);
-	XDfeMix_WriteReg(InstancePtr, 0x20, 0x1001); /* Bug in IP workaround */
 	XDfeMix_Initialize(InstancePtr, &Init);
-	XDfeMix_WriteReg(InstancePtr, 0x20, 0x1001); /* Bug in IP workaround */
 	XDfeMix_Activate(InstancePtr, true);
 
 	/* Write and read a dummy frequency configuration */
@@ -256,10 +255,8 @@ static int XDfeMix_AddCCTestExample()
 	/* Go through initialization states of the state machine */
 	XDfeMix_Reset(InstancePtr);
 	XDfeMix_Configure(InstancePtr, &Cfg);
-	XDfeMix_WriteReg(InstancePtr, 0x20, 0x1001); /* Bug in IP workaround */
 	XDfeMix_Initialize(InstancePtr, &Init);
 	XDfeMix_SetTriggersCfg(InstancePtr, &TriggerCfg);
-	XDfeMix_WriteReg(InstancePtr, 0x20, 0x1001); /* Bug in IP workaround */
 	XDfeMix_Activate(InstancePtr, false);
 
 	/* Add channel */
