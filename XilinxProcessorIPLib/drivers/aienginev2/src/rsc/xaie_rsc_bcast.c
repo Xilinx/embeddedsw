@@ -135,6 +135,13 @@ AieRC XAie_RequestBroadcastChannel(XAie_DevInst *DevInst, u32 *UserRscNum,
 		return XAIE_INVALID_ARGS;
 	}
 
+	/*
+	 * _XAie_GetUngatedTilesInPartition() function will change the
+	 * UserRscNum. For kernel backend, it requires the user input number
+	 * of resources, otherwise, the Linux kernel will not know how many
+	 * resources user have allocated memory space for.
+	 */
+	TilesRsc.UserRscNumInput = *UserRscNum;
 	if(BroadcastAllFlag) {
 		RC = _XAie_GetUngatedTilesInPartition(DevInst, UserRscNum,Rscs);
 		if(RC != XAIE_OK)
@@ -193,6 +200,13 @@ AieRC XAie_RequestSpecificBroadcastChannel(XAie_DevInst *DevInst, u32 BcId,
 		return XAIE_INVALID_ARGS;
 	}
 
+	/*
+	 * _XAie_GetUngatedTilesInPartition() function will change the
+	 * UserRscNum. For kernel backend, it requires the user input number
+	 * of resources, otherwise, the Linux kernel will not know how many
+	 * resources user have allocated memory space for.
+	 */
+	TilesRsc.UserRscNumInput = *UserRscNum;
 	if(BroadcastAllFlag) {
 		RC = _XAie_GetUngatedTilesInPartition(DevInst, UserRscNum,Rscs);
 		if(RC != XAIE_OK)
