@@ -346,10 +346,15 @@ namespace xaiefal {
 	protected:
 		AieRC _reserve() {
 			AieRC RC;
-			//TODO: check C driver to see if the trace control is
-			// in use
-			RC = XAIE_OK;
-			if (StartMod != Mod) {
+			XAie_UserRscReq Req = {Loc, Mod, 1};
+
+			RC = XAie_RequestTraceCtrl(AieHd->dev(), 1, &Req, 1, &Rsc);
+			if (RC != XAIE_OK) {
+				Logger::log(LogLevel::ERROR) << "trace control " << __func__ << " (" <<
+							static_cast<uint32_t>(Loc.Col) << "," << static_cast<uint32_t>(Loc.Row) <<
+							") Mod=" << Mod <<" failed to reserve." << std::endl;
+			}
+			if (RC == XAIE_OK && StartMod != Mod) {
 				std::vector<XAie_LocType> vL;
 
 				vL.push_back(Loc);
@@ -379,6 +384,8 @@ namespace xaiefal {
 		}
 
 		AieRC _release() {
+			AieRC RC;
+
 			if (StartMod != Mod) {
 				StartBC->release();
 				delete StartBC;
@@ -387,8 +394,14 @@ namespace xaiefal {
 				StopBC->release();
 				delete StopBC;
 			}
-			// TODO: release the trace module to the C driver
-			return XAIE_OK;
+
+			RC = XAie_ReleaseTraceCtrl(AieHd->dev(), 1, &Rsc);
+			if(RC != XAIE_OK) {
+				Logger::log(LogLevel::ERROR) << "trace control " << __func__ << " (" <<
+							static_cast<uint32_t>(Loc.Col) << "," << static_cast<uint32_t>(Loc.Row) <<
+							") Mod=" << Mod <<" failed to release." << std::endl;
+			}
+			return RC;
 		}
 
 		AieRC _start() {
