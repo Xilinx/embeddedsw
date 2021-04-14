@@ -3448,6 +3448,34 @@ static const XAie_EventMap AieMlTileCoreModPCEventMap =
 	.Event = XAIE_EVENT_PC_0_CORE,
 };
 
+/* mapping of broadcast events for core module */
+static const XAie_EventMap AieMlTileCoreModBroadcastEventMap =
+{
+	.RscId = 0U,
+	.Event = XAIE_EVENT_BROADCAST_0_CORE,
+};
+
+/* mapping of broadcast events for memory module */
+static const XAie_EventMap AieMlTileMemModBroadcastEventStart =
+{
+	.RscId = 0U,
+	.Event = XAIE_EVENT_BROADCAST_0_MEM,
+};
+
+/* mapping of broadcast events for Pl module */
+static const XAie_EventMap AieMlShimTilePlModBroadcastEventStart =
+{
+	.RscId = 0U,
+	.Event = XAIE_EVENT_BROADCAST_A_0_PL,
+};
+
+/* mapping of broadcast events for Mem tile mem module */
+static const XAie_EventMap AieMlMemTileMemModBroadcastEventStart =
+{
+	.RscId = 0U,
+	.Event = XAIE_EVENT_BROADCAST_0_MEM_TILE,
+};
+
 /*
  * Data structure to capture core and memory module events properties.
  * For memory module default error group mask enables,
@@ -3521,6 +3549,7 @@ static const XAie_EvntMod Aie2TileEvntMod[] =
 		.NumUserEvents = 4U,
 		.UserEventMap = &AieMlTileMemModUserEventStart,
 		.PCEventMap = NULL,
+		.BroadcastEventMap = &AieMlTileMemModBroadcastEventStart,
 	},
 	{
 		.XAie_EventNumber = Aie2CoreModEventMapping,
@@ -3561,6 +3590,7 @@ static const XAie_EvntMod Aie2TileEvntMod[] =
 		.NumUserEvents = 4U,
 		.UserEventMap = &AieMlTileCoreModUserEventMap,
 		.PCEventMap = &AieMlTileCoreModPCEventMap,
+		.BroadcastEventMap = &AieMlTileCoreModBroadcastEventMap,
 	}
 };
 
@@ -3619,6 +3649,7 @@ static const XAie_EvntMod Aie2NocEvntMod =
 	.NumUserEvents = 4U,
 	.UserEventMap = &AieMlShimTilePlModUserEventStart,
 	.PCEventMap = NULL,
+	.BroadcastEventMap = &AieMlShimTilePlModBroadcastEventStart,
 };
 
 /*
@@ -3675,6 +3706,7 @@ static const XAie_EvntMod Aie2PlEvntMod =
 	.BaseStatusRegOff = XAIEMLGBL_PL_MODULE_EVENT_STATUS0,
 	.NumUserEvents = 4U,
 	.UserEventMap = &AieMlShimTilePlModUserEventStart,
+	.BroadcastEventMap = &AieMlShimTilePlModBroadcastEventStart,
 	.PCEventMap = NULL,
 };
 
@@ -3731,6 +3763,7 @@ static const XAie_EvntMod Aie2MemTileEvntMod =
 	.NumUserEvents = 2U,
 	.UserEventMap = &AieMlMemTileMemModUserEventStart,
 	.PCEventMap = NULL,
+	.BroadcastEventMap = &AieMlMemTileMemModBroadcastEventStart,
 };
 
 static const XAie_TimerMod Aie2TileTimerMod[] =
