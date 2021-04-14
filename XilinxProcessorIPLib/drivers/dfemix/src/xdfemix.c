@@ -25,6 +25,7 @@
 *       dc     04/06/21 Register with full node name
 *       dc     04/07/21 Fix bare metal initialisation
 *       dc     04/08/21 Set sequence length only once
+*       dc     04/14/21 Add FIR_ENABLE/MIXER_ENABLE register support
 *
 * </pre>
 *
@@ -1315,6 +1316,12 @@ void XDfeMix_Initialize(XDfeMix *InstancePtr, XDfeMix_Init *Init)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFEMIX_STATE_CONFIGURED);
 	Xil_AssertVoid(Init != NULL);
+
+	/* Enable FIR and MIXER registers */
+	XDfeMix_WriteReg(InstancePtr, XDFEMIX_STATE_FIR_ENABLE_OFFSET,
+			 XDFEMIX_STATE_FIR_ENABLED);
+	XDfeMix_WriteReg(InstancePtr, XDFEMIX_STATE_MIXER_ENABLE_OFFSET,
+			 XDFEMIX_STATE_MIXER_ENABLED);
 
 	XDfeMix_SetPLMixerDelay(InstancePtr);
 
