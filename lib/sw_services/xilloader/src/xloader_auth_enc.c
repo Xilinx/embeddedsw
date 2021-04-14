@@ -32,6 +32,7 @@
 *       har  03/17/21 Cleaned up code to use the secure state of boot
 *       ma   03/24/21 Redirect XilPdi prints to XilLoader
 *       ma   03/24/21 Minor updates to prints in XilLoader
+*       bm   04/10/21 Updated scheduler function calls
 *
 * </pre>
 *
@@ -2870,7 +2871,8 @@ int XLoader_AddAuthJtagToScheduler(void)
 		else {
 			Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_LOADER_ID,
 				XLoader_CheckAuthJtagIntStatus,
-				XLOADER_AUTH_JTAG_INT_STATUS_POLL_INTERVAL, XPLM_TASK_PRIORITY_1);
+				XLOADER_AUTH_JTAG_INT_STATUS_POLL_INTERVAL,
+				XPLM_TASK_PRIORITY_1, NULL, XPLMI_PERIODIC_TASK);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus( XLOADER_ERR_ADD_TASK_SCHEDULER, 0);
 			}

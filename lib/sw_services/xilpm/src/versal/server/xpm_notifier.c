@@ -242,7 +242,8 @@ static int XPmNotifier_SchedulerTask(void *Arg)
 	if ((u32)NOT_PRESENT == PendEvent) {
 		Status = XPlmi_SchedulerRemoveTask(XPLMI_MODULE_XILPM_ID,
 						   XPmNotifier_SchedulerTask,
-						   XILPM_NOTIFIER_INTERVAL);
+						   XILPM_NOTIFIER_INTERVAL,
+						   NULL);
 		if (Status != XST_SUCCESS) {
 			PmErr("[%s] Failed to remove task\r\n", __func__);
 			goto done;
@@ -327,7 +328,8 @@ static int XPmNotifier_AddPendingEvent(const u32 IpiMask, const u32 *Payload)
 		Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_XILPM_ID,
 						XPmNotifier_SchedulerTask,
 						XILPM_NOTIFIER_INTERVAL,
-						XPLM_TASK_PRIORITY_0);
+						XPLM_TASK_PRIORITY_0,
+						NULL, XPLMI_PERIODIC_TASK);
 		if (Status != XST_SUCCESS) {
 			PmErr("[%s] Failed to create task\r\n",__func__);
 			goto done;

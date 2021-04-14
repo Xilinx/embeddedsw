@@ -27,6 +27,7 @@
 *       skd  03/16/2021 Added code to monitor if psm is alive or not
 *       rama 03/22/2021 Added hook for STL periodic execution and
 *                       FTTI configuration support for keep alive task
+*       bm   04/10/2021 Updated scheduler function calls
 *
 * </pre>
 *
@@ -441,7 +442,8 @@ int XPlm_CreateKeepAliveTask(void *PtrMilliSeconds)
 	 * XPLM_DEFAULT_FTTI_TIME period.
 	 */
 	Status = XPlmi_SchedulerAddTask(XPLM_PSM_HEALTH_CHK, XPlm_KeepAliveTask,
-			MilliSeconds, XPLM_TASK_PRIORITY_1);
+			MilliSeconds, XPLM_TASK_PRIORITY_1, NULL,
+			XPLMI_PERIODIC_TASK);
 	if (XST_SUCCESS != Status) {
 		Status = XPlmi_UpdateStatus(XPLM_ERR_KEEP_ALIVE_TASK_CREATE,
 						Status);
@@ -464,7 +466,7 @@ int XPlm_RemoveKeepAliveTask(void)
 
 	/* Remove keep alive task from scheduler */
 	Status = XPlmi_SchedulerRemoveTask(XPLM_PSM_HEALTH_CHK,
-						XPlm_KeepAliveTask, 0U);
+			XPlm_KeepAliveTask, 0U, NULL);
 	if (XST_SUCCESS != Status) {
 		/* Update minor error value to status */
 		Status = (int)XPLM_PSM_ALIVE_REMOVE_TASK_ERR;

@@ -73,6 +73,7 @@
 *       bm   03/16/2021 Added error codes for Image Upgrade logic
 *       har  03/17/2021 Updated description for XLOADER_ERR_SECURE_NOT_ALLOWED
 *       bm   04/03/2021 Added error codes for task creation in scheduler
+*       bm   04/10/2021 Added error codes for scheduler updates
 * </pre>
 *
 * @note
@@ -230,7 +231,10 @@ typedef enum {
 						command received */
 	XPLMI_ERR_TASK_EXISTS,	/**< 0x131 - Error when the task that is being
 						added to scheduler already exists */
-
+	XPLMI_ERR_INVALID_TASK_TYPE, /**< 0x132 - Error when invalid task type is
+						used to add tasks in scheduler */
+	XPLMI_ERR_INVALID_TASK_PERIOD, /**< 0x133 - Error when invalid task period is
+						used to add tasks in scheduler */
 
 	/** Status codes used in PLM */
 	XPLM_ERR_TASK_CREATE = 0x200,	/**< 0x200 - Error when task create
