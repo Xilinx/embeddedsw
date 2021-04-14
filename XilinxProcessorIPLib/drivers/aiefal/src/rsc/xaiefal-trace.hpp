@@ -29,7 +29,6 @@ namespace xaiefal {
 				&StartEvent);
 			StopEvent = StartEvent;
 			Mode = XAIE_TRACE_EVENT_TIME;
-			TraceSlotBits = 0;
 			for(uint32_t i = 0;
 				i < sizeof(Events)/sizeof(Events[0]);
 				i++) {
@@ -77,12 +76,9 @@ namespace xaiefal {
 				Logger::log(LogLevel::ERROR) << __func__ <<
 					"failed, tracing already started." << std::endl;
 			} else {
-				for (int i = 0; i < static_cast<uint32_t>(sizeof(TraceSlotBits) * 8); i++) {
-					std::bitset<8> bits(TraceSlotBits);
-
-					if (bits.test(i) == 0) {
-						bits.set(i);
-						TraceSlotBits = bits.to_ulong();
+				for (int i = 0; i < TraceSlotBits.size(); i++) {
+					if (TraceSlotBits.test(i) == 0) {
+						TraceSlotBits.set(i);
 						Slot = i;
 						RC = XAIE_OK;
 						break;
@@ -103,14 +99,14 @@ namespace xaiefal {
 			if (State.Running == 1) {
 				Logger::log(LogLevel::ERROR) << __func__ <<
 					"failed, tracing already started." << std::endl;
-			} else if (Slot >= static_cast<uint32_t>((sizeof(TraceSlotBits) * 8))) {
+			} else if (Slot >= static_cast<uint32_t>(TraceSlotBits.size())) {
 				Logger::log(LogLevel::ERROR) << __func__ <<
 					"failed, invalid slot id " << Slot << "." << std::endl;
 				RC = XAIE_INVALID_ARGS;
 			} else {
 				XAie_Events E;
 
-				TraceSlotBits &= ~(1 << Slot);
+				TraceSlotBits.reset(Slot);
 				XAie_EventPhysicalToLogicalConv(dev(), Loc, Mod, 0, &E);
 				Events[Slot] = E;
 				RC = XAIE_OK;
@@ -143,11 +139,11 @@ namespace xaiefal {
 				Logger::log(LogLevel::ERROR) << __func__ <<
 					"failed, trace started." << std::endl;
 				RC = XAIE_ERR;
-			} else if (Slot >= static_cast<uint32_t>(sizeof(TraceSlotBits) * 8)) {
+			} else if (Slot >= static_cast<uint32_t>(TraceSlotBits.size())) {
 				Logger::log(LogLevel::ERROR) << __func__ <<
 					"failed, invalid slot." << std::endl;
 				RC = XAIE_INVALID_ARGS;
-			} else if ((TraceSlotBits & (1 << Slot)) == 0) {
+			} else if ((TraceSlotBits.test(Slot) == 0)) {
 				Logger::log(LogLevel::ERROR) << __func__ <<
 					"failed, trace slot is not reserved." << std::endl;
 				RC = XAIE_INVALID_ARGS;
@@ -288,9 +284,7 @@ namespace xaiefal {
 		 * @return number of reserved events.
 		 */
 		uint32_t getReservedTraceEvents() const {
-			std::bitset<8> bits(TraceSlotBits);
-
-			return bits.count();
+			return TraceSlotBits.count();
 		}
 		/**
 		 * This function returns the trace control start event broadcast
@@ -414,8 +408,8 @@ namespace xaiefal {
 
 			Logger::log(LogLevel::DEBUG) << "trace control " << __func__ << " (" <<
 				static_cast<uint32_t>(Loc.Col) << "," << static_cast<uint32_t>(Loc.Row) << ") Mod=" << Mod << std::endl;
-			for (int i = 0; i < static_cast<uint32_t>(sizeof(TraceSlotBits) * 8); i++) {
-				if ((TraceSlotBits & (1 << i)) != 0) {
+			for (int i = 0; i < TraceSlotBits.size(); i++) {
+				if (TraceSlotBits.test(i) != 0) {
 					vE.push_back(Events[i]);
 					vSlot.push_back((uint8_t)i);
 				}
@@ -465,9 +459,9 @@ namespace xaiefal {
 			RC = XAie_TraceControlConfigReset(dev(), Loc, Mod);
 			if (RC == XAIE_OK) {
 				for (uint8_t s = 0;
-					s < (uint8_t)sizeof(TraceSlotBits) * 8;
+					s < (TraceSlotBits.size());
 					s++) {
-					if ((TraceSlotBits & (1 << s)) != 0) {
+					if (TraceSlotBits.test(s) != 0) {
 						XAie_TraceEventReset(dev(), Loc,
 							Mod, s);
 					}
@@ -492,7 +486,7 @@ namespace xaiefal {
 			return RC;
 		}
 
-		uint8_t TraceSlotBits; /**< trace slots bitmap */
+		std::bitset<8> TraceSlotBits; /**< trace slots bitmap */
 		XAie_Events Events[8]; /**< events to trace */
 		XAie_Events StartEvent; /**< trace control start event */
 		XAie_Events StopEvent; /**< trace control stop event */
@@ -508,7 +502,7 @@ namespace xaiefal {
 				StartEvent != XAIE_EVENT_NONE_CORE &&
 				TraceSlotBits != 0) {
 				std::bitset<8> bits(TraceSlotBits);
-				for (int i = 0; i < static_cast<uint32_t>(sizeof(TraceSlotBits) * 8); i++) {
+				for (int i = 0; i < static_cast<uint32_t>(TraceSlotBits.size()); i++) {
 					XAie_Events E;
 
 					if (bits.test(i) == 0) {
