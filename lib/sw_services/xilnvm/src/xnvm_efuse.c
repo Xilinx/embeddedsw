@@ -48,6 +48,8 @@
 *	kal  03/02/2021 Add Environmental monitoring support before eFuse
 *			programming
 *	kal  04/08/2021 Fix SW-BP-INPUT-VALID related review comments.
+*	kal  04/14/2021 Add a validation check for RowCount in
+*			XNvm_EfusePgmAndVerifyRows API
 *
 * </pre>
 *
@@ -4296,14 +4298,14 @@ END:
 /******************************************************************************/
 /**
  * @brief	This function sets and then verifies the specified bits
- *			in the eFUSE.
+ *		in the eFUSE.
  *
  * @param	StartRow  - Starting Row number (0-based addressing).
- * @param	RowCount  - Number of Rows to be read.
+ * @param	RowCount  - Number of Rows to be written.
+ * @param	EfuseType - It is an enum object of type XNvm_EfuseType.
  * @param	RowData   - Pointer to memory location where bitmap to be
  * 			written is stored. Only bit set are used for programming
  * 			eFUSE.
- * @param	EfuseType - It is an enum object of type XNvm_EfuseType.
  *
  * @return	- XST_SUCCESS - Specified bit set in eFUSE.
  *  		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
@@ -4326,7 +4328,7 @@ static int XNvm_EfusePgmAndVerifyRows(u32 StartRow, u8 RowCount,
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
-	if (DataPtr == NULL) {
+	if ((DataPtr == NULL) || (RowCount == 0U)) {
 
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
