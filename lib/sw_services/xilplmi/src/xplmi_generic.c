@@ -48,6 +48,8 @@
 *       ma   03/10/2021 Removed Get Device Id and Get Board commands from
 *                       secure commands list
 *       ma   03/18/2021 Added support for Marker command
+*       bsv  04/13/2021 Added support for variable Keyhole sizes in
+*                       DmaWriteKeyHole command
 *
 * </pre>
 *
@@ -94,6 +96,7 @@ static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
 static XPlmi_ReadBackProps* XPlmi_GetReadBackPropsInstance(void);
 static int XPlmi_DmaUnalignedXfer(u64* SrcAddr, u64* DestAddr, u32* Len,
 	u8 Flag);
+static int XPlmi_KeyHoleXfr(XPlmi_KeyHoleXfrParams* KeyHoleXfrParams);
 
 /************************** Variable Definitions *****************************/
 
@@ -982,18 +985,15 @@ static int XPlmi_DmaWriteKeyHole(XPlmi_Cmd *Cmd)
 	u64 DestAddr;
 	u64 SrcAddr;
 	u32 Len = Cmd->PayloadLen;
-	u32 Flags;
 	u32 Keyholesize;
-	u32 ChunkLen;
-	u32 Count;
-	const u32* CfiDataPtr;
 	u64 BaseAddr;
 	u32 DestOffset;
-	u32 ChunkLenTemp = 0U;
+	XPlmi_KeyHoleXfrParams KeyHoleXfrParams;
 #ifdef PLM_PRINT_PERF_KEYHOLE
 	u64 KeyHoleTime = XPlmi_GetTimerValue();
 	XPlmi_PerfTime PerfTime = {0U};
 #endif
+
 	XPlmi_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
 
 	if (Cmd->ProcessedLen == 0U) {
@@ -1001,14 +1001,14 @@ static int XPlmi_DmaWriteKeyHole(XPlmi_Cmd *Cmd)
 		Cmd->ResumeData[0U] = Cmd->Payload[0U];
 		Cmd->ResumeData[1U] = Cmd->Payload[1U];
 		Cmd->ResumeData[2U] = Cmd->Payload[2U];
-		Keyholesize = Cmd->Payload[2U];
+		Keyholesize = Cmd->Payload[2U] * XPLMI_WORD_LEN;
 		SrcAddr = (u64)(UINTPTR) &Cmd->Payload[3U];
 		Len -= 3U;
 		Cmd->ResumeData[3U] = 0U;
 		DestOffset = 0U;
 	} else {
 		SrcAddr = (u64)(UINTPTR) &Cmd->Payload[0U];
-		Keyholesize = Cmd->ResumeData[2U];
+		Keyholesize = Cmd->ResumeData[2U] * XPLMI_WORD_LEN;
 		DestOffset = 3U;
 	}
 
@@ -1024,67 +1024,17 @@ static int XPlmi_DmaWriteKeyHole(XPlmi_Cmd *Cmd)
 
 	DestAddr = ((((u64)Cmd->ProcessedLen - Cmd->ResumeData[3U] - DestOffset) *
 			XPLMI_WORD_LEN) & (Keyholesize - 1U)) + BaseAddr;
-	/* Set DMA flags to DMA0 */
-	Flags = XPLMI_PMCDMA_0;
-	if (Cmd->ProcessedLen != 0U) {
-		Count = Cmd->ResumeData[3U];
-		if (Count > 0U) {
-			while (Count < XPLMI_KEYHOLE_RESUME_SIZE) {
-				CfiDataPtr = (u32*)(UINTPTR)SrcAddr;
-				Cmd->ResumeData[Count + XPLMI_WORD_LEN] = *CfiDataPtr;
-				SrcAddr += XPLMI_WORD_LEN;
-				--Len;
-				++Count;
-			}
-			Status = XPlmi_DmaXfr((u32)&Cmd->ResumeData[4U], DestAddr,
-					XPLMI_KEYHOLE_RESUME_SIZE, Flags);
-			if(Status != XST_SUCCESS) {
-				XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
-				goto END;
-			}
-			DestAddr += XPLMI_KEYHOLE_RESUME_SIZE * XPLMI_WORD_LEN;
-		}
-		Cmd->ResumeData[3U] = 0U;
-	}
-
-	ChunkLen = Len - (Len & (XPLMI_WORD_LEN - 1U));
-	if ((DestAddr + ((u64)ChunkLen * XPLMI_WORD_LEN)) > (BaseAddr + Keyholesize)) {
-		ChunkLenTemp = (u32)(((BaseAddr + Keyholesize) - DestAddr) / XPLMI_WORD_LEN);
-		Status = XPlmi_DmaXfr(SrcAddr, DestAddr, ChunkLenTemp, Flags);
-		if (Status != XST_SUCCESS) {
-			XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
-			goto END;
-		}
-		DestAddr = BaseAddr;
-	}
-
-	Status = XPlmi_DmaXfr(SrcAddr + ((u64)ChunkLenTemp * XPLMI_WORD_LEN),
-		DestAddr, (ChunkLen - ChunkLenTemp), Flags);
+	KeyHoleXfrParams.SrcAddr = SrcAddr;
+	KeyHoleXfrParams.DestAddr = DestAddr;
+	KeyHoleXfrParams.BaseAddr = BaseAddr;
+	KeyHoleXfrParams.Len = Len * XPLMI_WORD_LEN;
+	KeyHoleXfrParams.Keyholesize = Keyholesize;
+	KeyHoleXfrParams.Flags = XPLMI_PMCDMA_0;
+	KeyHoleXfrParams.Func = NULL;
+	Status = XPlmi_KeyHoleXfr(&KeyHoleXfrParams);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
 		goto END;
-	}
-
-	Cmd->ResumeData[3U]= Len & (XPLMI_WORD_LEN - 1U);
-	CfiDataPtr = (u32*)(UINTPTR)(SrcAddr + ((u64)ChunkLen * XPLMI_WORD_LEN));
-	Count = 0U;
-	while (ChunkLen < Len) {
-		Cmd->ResumeData[Count + 4U] =  *CfiDataPtr;
-		CfiDataPtr++;
-		ChunkLen++;
-		++Count;
-	}
-
-	/*
-	 * Send unaligned bytes left at the end if any
-	 */
-	if ((Cmd->ProcessedLen + (ChunkLen - (Len % XPLMI_WORD_LEN)) +
-		(Cmd->PayloadLen - Len)) == (Cmd->Len - (Len % XPLMI_WORD_LEN))) {
-		if (Count > 0U) {
-			XPlmi_Printf(DEBUG_DETAILED, "Last remaining bytes\r\n");
-			Status = XPlmi_DmaXfr((u32)&Cmd->ResumeData[4U], DestAddr,
-				Count, Flags);
-		}
 	}
 
 END:
@@ -1503,21 +1453,25 @@ static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
 	XPlmi_Cmd* Cmd)
 {
 	int Status = XST_FAILURE;
-	u64 BaseAddr;
+	u64 BaseAddr = DestAddr;
 	u32 RemData;
-	u32 ChunkLen;
-	u64 Dest = DestAddr;
 	u64 Src = SrcAddr;
 	u32 LenTmp = Len;
+	XPlmi_KeyHoleXfrParams KeyHoleXfrParams;
 
-	Status = XPlmi_DmaXfr(Src, Dest, LenTmp, XPLMI_PMCDMA_0);
+	KeyHoleXfrParams.SrcAddr = Src;
+	KeyHoleXfrParams.DestAddr = DestAddr;
+	KeyHoleXfrParams.BaseAddr = BaseAddr;
+	KeyHoleXfrParams.Len = LenTmp * XPLMI_WORD_LEN;
+	KeyHoleXfrParams.Keyholesize = Keyholesize;
+	KeyHoleXfrParams.Flags = XPLMI_PMCDMA_0;
+	KeyHoleXfrParams.Func = NULL;
+	Status = XPlmi_KeyHoleXfr(&KeyHoleXfrParams);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
 		goto END;
 	}
 
-	BaseAddr = Dest;
-	Dest = (((u64)LenTmp * XPLMI_WORD_LEN) % Keyholesize) + BaseAddr;
 	RemData = (Cmd->Len - Cmd->PayloadLen) * XPLMI_WORD_LEN;
 	if (RemData == 0U) {
 		goto END;
@@ -1530,7 +1484,7 @@ static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
 		Src = XPLMI_PMCRAM_CHUNK_MEMORY;
 	}
 
-	Status = Cmd->KeyHoleParams.Func(Src, Dest, RemData,
+	Status = Cmd->KeyHoleParams.Func(Src, DestAddr, RemData,
 			XPLMI_DEVICE_COPY_STATE_WAIT_DONE);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
@@ -1542,8 +1496,9 @@ static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
 	else {
 		LenTmp = RemData;
 	}
-	Status = XPlmi_DmaXfr(Src, Dest, (LenTmp / XPLMI_WORD_LEN),
-			XPLMI_PMCDMA_0);
+	KeyHoleXfrParams.SrcAddr = Src;
+	KeyHoleXfrParams.Len = LenTmp;
+	Status = XPlmi_KeyHoleXfr(&KeyHoleXfrParams);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
 		goto END;
@@ -1553,70 +1508,91 @@ static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
 	if (RemData == 0U) {
 		goto END1;
 	}
-	Src = Cmd->KeyHoleParams.SrcAddr + LenTmp;
-	Dest = ((Dest + LenTmp) % Keyholesize) + BaseAddr;
 
-	/* The block is for qspi, ospi, ddr, sbi, jtag, smap and pcie boot modes */
-	if (Cmd->KeyHoleParams.InChunkCopy == (u8)FALSE) {
-		/*
-		 * The block is for sbi and smap boot modes which
-		 * support fixed modes
-		 */
-		Status = Cmd->KeyHoleParams.Func(Src, Dest, RemData,
-				XPLMI_DST_CH_AXI_FIXED);
-		if (Status != XST_SUCCESS) {
-			XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
-			goto END;
-		}
-	} else {
-		/*
-		 * Qspi and Ospi donot support fixed modes.
-		 * Hence the bitstream is copied in chunks of keyhole size.
-		 * This block of code will also get executed for SSIT.
-		 */
-		LenTmp = Keyholesize - (u32)(Dest - BaseAddr);
-		if (LenTmp > RemData) {
-			LenTmp = RemData;
-		}
-		Status = Cmd->KeyHoleParams.Func(Src, Dest, LenTmp, 0U);
-		if (Status != XST_SUCCESS) {
-			XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
-			goto END;
-		}
-		RemData = RemData - LenTmp;
-		if (RemData == 0U) {
-			goto END1;
-		}
-		Dest = BaseAddr;
-		Src += LenTmp;
-		while (RemData > 0U) {
-			if (RemData > Keyholesize) {
-				ChunkLen = Keyholesize;
-			} else {
-				ChunkLen = RemData;
-			}
-
-			Status = Cmd->KeyHoleParams.Func(Src,
-				Dest, ChunkLen, 0U);
-			if (Status != XST_SUCCESS) {
-				XPlmi_Printf(DEBUG_GENERAL,
-					"DMA WRITE Key Hole Failed\n\r");
-				goto END;
-			}
-
-			if (RemData > Keyholesize) {
-				Src += ChunkLen;
-				RemData -= ChunkLen;
-			} else {
-				break;
-			}
-		}
+	KeyHoleXfrParams.SrcAddr = Cmd->KeyHoleParams.SrcAddr + LenTmp;
+	KeyHoleXfrParams.Len = RemData;
+	KeyHoleXfrParams.Flags = 0U;
+	KeyHoleXfrParams.Func = Cmd->KeyHoleParams.Func;
+	Status = XPlmi_KeyHoleXfr(&KeyHoleXfrParams);
+	if (Status != XST_SUCCESS) {
+		XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
+		goto END;
 	}
 
 END1:
 	Cmd->KeyHoleParams.ExtraWords = Cmd->Len - Cmd->PayloadLen;
 	Cmd->PayloadLen = Cmd->Len + 1U;
 	Cmd->ProcessedLen = Cmd->Len;
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function provides DMA transfer to CFI in chunks of
+ * Keyholesize.
+ *
+ * @param	KeyHoleXfrParams is a pointer to instance of CfiParams structure
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XPlmi_KeyHoleXfr(XPlmi_KeyHoleXfrParams* KeyHoleXfrParams)
+{
+	int Status = XST_FAILURE;
+	u32 LenTemp = (u32)(((u64)KeyHoleXfrParams->Keyholesize + KeyHoleXfrParams->BaseAddr)
+		- KeyHoleXfrParams->DestAddr);
+
+	if (LenTemp > KeyHoleXfrParams->Len) {
+		LenTemp = KeyHoleXfrParams->Len;
+	}
+
+	if (KeyHoleXfrParams->Func == NULL) {
+		Status = XPlmi_DmaXfr(KeyHoleXfrParams->SrcAddr,
+			KeyHoleXfrParams->DestAddr, LenTemp / XPLMI_WORD_LEN,
+			KeyHoleXfrParams->Flags);
+	}
+	else {
+		Status = KeyHoleXfrParams->Func(KeyHoleXfrParams->SrcAddr,
+			KeyHoleXfrParams->DestAddr, LenTemp, KeyHoleXfrParams->Flags);
+	}
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	KeyHoleXfrParams->SrcAddr += LenTemp;
+	KeyHoleXfrParams->Len -= LenTemp;
+	if (KeyHoleXfrParams->Len == 0U) {
+		KeyHoleXfrParams->DestAddr += LenTemp;
+		goto END;
+	}
+
+	KeyHoleXfrParams->DestAddr = KeyHoleXfrParams->BaseAddr;
+
+	while (KeyHoleXfrParams->Len > 0U) {
+		LenTemp = KeyHoleXfrParams->Keyholesize;
+		if (LenTemp > KeyHoleXfrParams->Len) {
+			LenTemp = KeyHoleXfrParams->Len;
+		}
+
+		if (KeyHoleXfrParams->Func == NULL) {
+			Status = XPlmi_DmaXfr(KeyHoleXfrParams->SrcAddr,
+				KeyHoleXfrParams->BaseAddr,
+				LenTemp / XPLMI_WORD_LEN, KeyHoleXfrParams->Flags);
+		}
+		else {
+			Status = KeyHoleXfrParams->Func(KeyHoleXfrParams->SrcAddr,
+				KeyHoleXfrParams->BaseAddr, LenTemp, KeyHoleXfrParams->Flags);
+		}
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		KeyHoleXfrParams->Len -= LenTemp;
+		KeyHoleXfrParams->SrcAddr +=LenTemp;
+	}
+	if (LenTemp < KeyHoleXfrParams->Keyholesize) {
+		KeyHoleXfrParams->DestAddr += LenTemp;
+	}
+
 END:
 	return Status;
 }
