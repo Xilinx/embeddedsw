@@ -255,6 +255,9 @@ In order to user OpenAMP(RPMsg) in Linux userspace, you will need to have put th
   can be found here:
   https://github.com/OpenAMP/open-amp/blob/master/apps/machine/zynqmp/openamp-linux-userspace.dtsi
 
+## Version
+The OpenAMP version follows the set of rule proposed in [Semantic Versioning specification](https://semver.org/).
+
 ## Supported System and Machines
 For now, it supports:
 * Zynq generic slave
