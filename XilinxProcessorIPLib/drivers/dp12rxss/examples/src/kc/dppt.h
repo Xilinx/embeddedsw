@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2020 - 2021  Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -74,10 +74,6 @@ typedef struct
 	unsigned int mst_check_flag;
 }user_config_struct;
 extern user_config_struct user_config;
-
-u8 support_640_480_60;
-u8 support_800_600_60;
-
 
 typedef unsigned int    UINT32;
 
