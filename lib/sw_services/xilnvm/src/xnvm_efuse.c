@@ -50,6 +50,7 @@
 *	kal  04/08/2021 Fix SW-BP-INPUT-VALID related review comments.
 *	kal  04/14/2021 Add a validation check for RowCount in
 *			XNvm_EfusePgmAndVerifyRows API
+*	kal  04/15/2021 Fix XNvm_EfuseSetReadMode - Blind writes
 *
 * </pre>
 *
@@ -79,6 +80,7 @@
 #define XNVM_EFUSE_TOTAL_PPK_HASH_ROWS  (XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS * 3U)
 #define XNVM_EFUSE_WORD_LEN			(4U)
 #define XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET	(0xFFFFFFFFU)
+#define XNVM_EFUSE_SEC_DEF_VAL_BYTE_SET		(0xFFU)
 #define XNVM_EFUSE_SYSMON_VCCPMC_AMUX_CTRL	(0x0bU)
 #define XNVM_EFUSE_SYSMON_VCCPMC_ABUS_SW1	(0x00U)
 #define XNVM_EFUSE_SYSMON_VCCPMC_ABUS_SW0	(0x02U)
@@ -141,7 +143,7 @@ static INLINE void XNvm_EfuseWriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
 static inline int XNvm_EfuseLockController(void);
 static inline int XNvm_EfuseUnlockController(void);
 static inline void XNvm_EfuseDisablePowerDown(void);
-static inline void XNvm_EfuseSetReadMode(XNvm_EfuseRdMode RdMode);
+static inline int  XNvm_EfuseSetReadMode(XNvm_EfuseRdMode RdMode);
 static inline void XNvm_EfuseSetRefClk(void);
 static inline void XNvm_EfuseEnableProgramming(void);
 static inline void XNvm_EfuseDisableProgramming(void);
@@ -4455,22 +4457,50 @@ static inline void XNvm_EfuseDisablePowerDown(void)
  *
  * @param	RdMode - Mode to be used for eFUSE read.
  *
+ * @return	XST_SUCCESS - if Setting read mode is successful.
+ *		XST_FAILURE - if there is a failure
+ *
  ******************************************************************************/
-static inline void XNvm_EfuseSetReadMode(XNvm_EfuseRdMode RdMode)
+static inline int XNvm_EfuseSetReadMode(XNvm_EfuseRdMode RdMode)
 {
+	int Status = XST_FAILURE;
+	u32 RegVal = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
+	u32 NewRegVal = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
+	u8 RdModeVal = XNVM_EFUSE_SEC_DEF_VAL_BYTE_SET;
+	u8 Mask = XNVM_EFUSE_SEC_DEF_VAL_BYTE_SET;
+
+	RegVal = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
+			XNVM_EFUSE_CFG_REG_OFFSET);
 	if(XNVM_EFUSE_NORMAL_RD == RdMode) {
-		Xil_UtilRMW32((XNVM_EFUSE_CTRL_BASEADDR +
-				XNVM_EFUSE_CFG_REG_OFFSET),
-				XNVM_EFUSE_CTRL_CFG_MARGIN_RD_MASK,
-				XNVM_EFUSE_CFG_NORMAL_RD);
+		Mask = XNVM_EFUSE_CFG_NORMAL_RD;
 	}
 	else {
-		Xil_UtilRMW32((XNVM_EFUSE_CTRL_BASEADDR +
+		Mask = XNVM_EFUSE_CFG_MARGIN_RD;
+	}
+
+	Xil_UtilRMW32((XNVM_EFUSE_CTRL_BASEADDR +
 				XNVM_EFUSE_CFG_REG_OFFSET),
 				XNVM_EFUSE_CTRL_CFG_MARGIN_RD_MASK,
-				(XNVM_EFUSE_CFG_ENABLE_PGM |
-				XNVM_EFUSE_CFG_MARGIN_RD));
+				Mask);
+
+	NewRegVal = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
+			XNVM_EFUSE_CFG_REG_OFFSET) &
+			(~XNVM_EFUSE_CTRL_CFG_MARGIN_RD_MASK);
+	if (RegVal != NewRegVal) {
+		goto END;
 	}
+
+	RdModeVal = (u8)(XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
+			XNVM_EFUSE_CFG_REG_OFFSET) &
+			XNVM_EFUSE_CTRL_CFG_MARGIN_RD_MASK);
+	if (RdModeVal != Mask) {
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
 }
 
 /******************************************************************************/
@@ -4601,7 +4631,11 @@ static int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op,
 		XNvm_EfuseEnableProgramming();
 	}
 
-	XNvm_EfuseSetReadMode(RdMode);
+	Status = XNvm_EfuseSetReadMode(RdMode);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	XNvm_EfuseInitTimers();
 
 	/* Enable programming of Xilinx reserved EFUSE */
