@@ -1,3 +1,7 @@
+/*******************************************************************************
+* Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+*******************************************************************************/
 #include "xil_types.h"
 #include "xparameters.h"
 #include "xdptxss.h"

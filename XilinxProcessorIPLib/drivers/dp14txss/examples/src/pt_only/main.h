@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -347,8 +347,6 @@ typedef struct
         unsigned char link_rate;
 } lane_link_rate_struct;
 
-XDp_TxVscExtPacket ExtFrame_tx_vsc;
-
 /************************** Function Prototypes ******************************/
 
 u32 DpSs_Main();
@@ -400,55 +398,7 @@ void frameBuffer_start_rd(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
 
 u32 xil_gethex(u8 num_chars);
 
-//void sendAudioInfoFrame(XDp_TxAudioInfoFrame *xilInfoFrame);
-/************************** Variable Definitions *****************************/
-
-//XDpRxSs DpRxSsInst; 	/* The DPRX Subsystem instance.*/
-XINTC IntcInst; 	/* The interrupt controller instance. */
-XTmrCtr TmrCtr; 	/* Timer instance.*/
-#ifndef versal
-XIic_Config *ConfigPtr_IIC;     /* Pointer to configuration data */
-XIic IicInstance; 	/* I2C bus for MC6000 and IDT */
-XVphy VPhyInst; 	/* The DPRX Subsystem instance.*/
-#else
-void* VPhyInst;
-#endif
-
 /************************** Function Definitions *****************************/
-
-XV_FrmbufRd_l2     frmbufrd;
-XV_FrmbufWr_l2     frmbufwr;
-u64 XVFRMBUFRD_BUFFER_BASEADDR;
-u64 XVFRMBUFWR_BUFFER_BASEADDR;
-
-u64 XVFRMBUFRD_BUFFER_BASEADDR_Y;
-u64 XVFRMBUFWR_BUFFER_BASEADDR_Y;
-
-
-#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
-XV_axi4s_remap_Config   *rx_remap_Config;
-XV_axi4s_remap          rx_remap;
-XV_axi4s_remap_Config   *tx_remap_Config;
-XV_axi4s_remap          tx_remap;
-#endif
-
-XDp_TxAudioInfoFrame *xilInfoFrame;
-//XIicPs_Config *XIic0Ps_ConfigPtr;
-XIicPs_Config *XIic1Ps_ConfigPtr;
-
-#if ENABLE_AUDIO
-XI2s_Tx I2s_tx;
-XI2s_Rx I2s_rx;
-XGpio   aud_gpio;
-
-XI2stx_Config *Config;
-XI2srx_Config *Config_rx;
-XGpio_Config  *aud_gpio_ConfigPtr;
-XAxis_Switch axis_switch_rx;
-XAxis_Switch axis_switch_tx;
-
-#endif
-
 /* Defining constants for colors in printing */
 #define ANSI_COLOR_RED          "\x1b[31m"
 #define ANSI_COLOR_GREEN    "\x1b[32m"
@@ -458,6 +408,3 @@ XAxis_Switch axis_switch_tx;
 #define ANSI_COLOR_CYAN     "\x1b[36m"
 #define ANSI_COLOR_WHITE    "\x1b[37m"
 #define ANSI_COLOR_RESET    "\x1b[0m"
-
-u8 use_vsc;
-u8 type_vsc;

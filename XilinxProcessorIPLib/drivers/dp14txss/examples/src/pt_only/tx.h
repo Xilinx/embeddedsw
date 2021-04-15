@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -182,25 +182,4 @@ int TI_LMK03318_PowerDown(u32 I2CBaseAddress, u8 I2CSlaveAddress);
 void DpTxSs_Setup(u8 *LineRate_init, u8 *LaneCount_init,
 			u8 Edid_org[128], u8 Edid1_org[128]);
 u32 DpTxSs_SetupIntrSystem(void);
-/************************** Variable Definitions *****************************/
-
-XDpTxSs DpTxSsInst; 		/* The DPTX Subsystem instance.*/
-XIic IicInstance; 		/* I2C bus for Si570 */
-#ifndef versal
-XIic_Config *ConfigPtr_IIC; 	/* Pointer to configuration data */
-XVphy VPhyInst;			/* The DPRX Subsystem instance.*/
-#endif
-XScuGic IntcInst;
-
-XTmrCtr TmrCtr; 		/* Timer instance.*/
-Video_CRC_Config VidFrameCRC_tx;
-
-int tx_started;
-volatile int tx_is_reconnected; 		/* This variable to keep track
-				 * of the status of Tx link*/
-volatile u8 prev_line_rate; 		/* This previous line rate to keep
-				 * previous info to compare
-				 * with new line rate request*/
-volatile u8 hpd_pulse_con_event; 	/* This variable triggers hpd_pulse_con */
-
 #endif /* SRC_TX_H_ */
