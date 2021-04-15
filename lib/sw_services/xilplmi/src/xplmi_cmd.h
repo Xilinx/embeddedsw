@@ -31,6 +31,8 @@
 *       bm   10/14/2020 Code clean up
 * 1.03  ma   03/04/2021 Removed duplicate defines
 *       ma   03/03/2021 Added IpiReqType member in XPlmi_Cmd structure
+*       bsv  04/13/2021 Added support for variable Keyhole sizes in
+*                       DmaWriteKeyHole command
 *
 * </pre>
 *
@@ -60,9 +62,6 @@ typedef struct XPlmi_Cmd XPlmi_Cmd;
 typedef struct XPlmi_KeyHoleParams XPlmi_KeyHoleParams;
 
 struct XPlmi_KeyHoleParams {
-	/** < True implies copied in chunks of 64K */
-	/** < False implies complete bitstream is copied in one chunk */
-	u8 InChunkCopy;
 	u64 SrcAddr; /**< Boot Source address */
 	u32 ExtraWords; /**< Words that are directly DMAed to CFI */
 	int (*Func) (u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);

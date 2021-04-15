@@ -35,6 +35,8 @@
 * 1.04  bsv  01/04/2021 Added support for LogString and LogAddress commands
 *	    bsv  02/28/2021 Added code to avoid unaligned NPI writes
 * 1.05  ma   03/10/2021 Added define for Loader set image info command
+*       bsv  04/13/2021 Added support for variable Keyhole sizes in
+*                       DmaWriteKeyHole command
 *
 * </pre>
 *
@@ -67,6 +69,16 @@ typedef struct {
 	u32 ProcessedLen;
 } XPlmi_ReadBackProps;
 
+typedef struct {
+	u64 SrcAddr;
+	u64 DestAddr;
+	u64 BaseAddr;
+	u32 Len;
+	u32 Keyholesize;
+	u32 Flags;
+	int (*Func) (u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags);
+} XPlmi_KeyHoleXfrParams;
+
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XPLMI_SBI_DEST_ADDR			(0xFFFFFFFFFFFFFFFFUL)
 #define XPLMI_READBK_INTF_TYPE_SMAP		(0x0U)
@@ -78,7 +90,6 @@ typedef struct {
 #define XPLMI_MAXOUT_CMD_MIN_VAL		(1U)
 #define XPLMI_MAXOUT_CMD_DEF_VAL		(8U)
 #define XPLMI_CFI_DATA_OFFSET			(4U)
-#define XPLMI_KEYHOLE_RESUME_SIZE		(4U)
 #define XPLMI_SIXTEEN_BYTE_MASK			(0xFU)
 #define XPLMI_NUM_BITS_IN_WORD			(32U)
 
