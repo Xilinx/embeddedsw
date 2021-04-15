@@ -584,9 +584,9 @@ static XStatus AieMbistClear(u32 *Args, u32 NumOfArgs)
 	BaseAddress = AieDev->Node.BaseAddress;
 
 	if (XPm_GetPlatform() == PLATFORM_VERSION_SILICON) {
-		/* Assert MEM_CLEAR_EN_ALL */
+		/* Clear MEM_CLEAR_EN_ALL to minimize power during mem clear */
 		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_MEM_CLEAR_EN_ALL_MASK,
-					ME_NPI_REG_PCSR_MASK_MEM_CLEAR_EN_ALL_MASK);
+					0U);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_MEM_CLEAR_EN;
 			goto fail;
