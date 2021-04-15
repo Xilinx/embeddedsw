@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2020 - 2021 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,6 +35,12 @@ lane_link_rate_struct lane_link_table[]=
 };
 
 extern XVidC_VideoMode resolution_table[];
+extern XDpTxSs DpTxSsInst;	/* The DPTX Subsystem instance.*/
+extern XVphy VPhyInst;	/* The DPRX Subsystem instance.*/
+extern XTmrCtr TmrCtr; /* Timer instance.*/
+extern Video_CRC_Config VidFrameCRC;
+extern int tx_is_reconnected;
+extern u8 hpd_pulse_con_event;
 
 static char inbyte_local(void);
 static u32 xil_gethex(u8 num_chars);
