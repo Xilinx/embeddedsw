@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -186,19 +186,5 @@ void sink_power_up(void);
 u8 get_LineRate(void);
 u8 get_Lanecounts(void);
 void sink_power_cycle(void);
-/************************** Variable Definitions *****************************/
-XDpTxSs DpTxSsInst;	/* The DPTX Subsystem instance.*/
-XIic IicInstance;	/* I2C bus for Si570 */
-XIic_Config *ConfigPtr_IIC;     /* Pointer to configuration data */
-XScuGic IntcInst;
-XVphy VPhyInst;	/* The DPRX Subsystem instance.*/
-XTmrCtr TmrCtr; /* Timer instance.*/
-Video_CRC_Config VidFrameCRC;
-
-int tx_is_reconnected; /*This variable to keep track of the status of Tx link*/
-u8 prev_line_rate; /*This previous line rate to keep previous info to compare
-						with new line rate request*/
-u8 hpd_pulse_con_event; /*This variable triggers hpd_pulse_con*/
-
 
 #endif /* SRC_XDPTXSS_ZCU102_TX_H_ */
