@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2020 - 2021 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,8 @@
 * 					the selected stream to be displayed front the menu.
 * 					Added the enabling of vblank interrupts for all streams in
 * 					Dprx_InterruptHandlerActRx() handler.
+* 1.05 ND  04/03/21 Moved all global variables declaration from .h to .c
+* 				    files due to gcc compiler compilation error.
 *
 * </pre>
 *
@@ -34,6 +36,17 @@
 #define Si570_device_address 0x5D
 #define audio_clk_Hz 24.576
 
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
+#define REMAP_RX_BASEADDR  XPAR_DP_RX_HIER_0_REMAP_RX_S_AXI_CTRL_BASEADDR
+#define REMAP_TX_BASEADDR  XPAR_DP_TX_HIER_0_REMAP_TX_S_AXI_CTRL_BASEADDR
+#define REMAP_RX_DEVICE_ID  XPAR_DP_RX_HIER_0_REMAP_RX_DEVICE_ID
+#define REMAP_TX_DEVICE_ID  XPAR_DP_TX_HIER_0_REMAP_TX_DEVICE_ID
+
+XV_axi4s_remap_Config   *rx_remap_Config;
+XV_axi4s_remap          rx_remap;
+XV_axi4s_remap_Config   *tx_remap_Config;
+XV_axi4s_remap          tx_remap;
+#endif
 
 /************************** Function Prototypes ******************************/
 
@@ -120,7 +133,32 @@ u32 rxMsamisc0;
 XDpTxSs_MainStreamAttributes Msa[4];
 u8 Bpc[] = {6, 8, 10, 12, 16};
 
+u32 XVFRMBUFRD_BUFFER_BASEADDR;
+u32 XVFRMBUFWR_BUFFER_BASEADDR;
 
+XilAudioInfoFrame_rx AudioinfoFrame;
+XilAudioExtFrame  SdpExtFrame;
+XilAudioExtFrame  SdpExtFrame_q;
+
+XV_FrmbufRd_l2     frmbufrd;
+XV_FrmbufWr_l2     frmbufwr;
+XAxis_Switch axis_switch;
+XAxis_Switch axis_switch_tx;
+XDpRxSs DpRxSsInst;	/* The DPTX Subsystem instance.*/
+XDpTxSs DpTxSsInst;	/* The DPTX Subsystem instance.*/
+XIic IicInstance;	/* I2C bus for Si570 */
+XIic_Config *ConfigPtr_IIC;     /* Pointer to configuration data */
+XVphy VPhyInst;	/* The DPRX Subsystem instance.*/
+XTmrCtr TmrCtr; /* Timer instance.*/
+int tx_is_reconnected; /*This variable to keep track of the status of Tx link*/
+u8 prev_line_rate; /*This previous line rate to keep previous info to compare
+						with new line rate request*/
+u8 hpd_pulse_con_event; /*This variable triggers hpd_pulse_con*/
+u8 num_sinks;
+XScuGic IntcInst;
+XDpTxSs_Config *ConfigPtr;
+XDpRxSs_Config *ConfigPtr_rx;
+DP_Rx_Training_Algo_Config RxTrainConfig;
 
 /************************** Function Definitions *****************************/
 

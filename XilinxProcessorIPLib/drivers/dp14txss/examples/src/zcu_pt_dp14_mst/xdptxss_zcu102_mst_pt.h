@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -135,9 +135,6 @@
 #define XVPHY_DRP_TXCLK25			0x7A
 #define XVPHY_DRP_TXOUT_DIV			0x7C
 
-u32 XVFRMBUFRD_BUFFER_BASEADDR;
-u32 XVFRMBUFWR_BUFFER_BASEADDR;
-
 /***************** Macros (Inline Functions) Definitions *********************/
 
 
@@ -209,11 +206,6 @@ typedef struct
         u8 Payload[32];
 } XilAudioExtFrame;
 
-XilAudioInfoFrame_rx AudioinfoFrame;
-XilAudioExtFrame  SdpExtFrame;
-XilAudioExtFrame  SdpExtFrame_q;
-
-
 /************************** Function Prototypes ******************************/
 void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128], u8 Edid1_org[128], u16 res_update);
 //void hpd_pulse_con(XDpTxSs *InstancePtr);
@@ -258,25 +250,6 @@ void resetIp_wr();
 
 
 /************************** Variable Definitions *****************************/
-XV_FrmbufRd_l2     frmbufrd;
-XV_FrmbufWr_l2     frmbufwr;
-XAxis_Switch axis_switch;
-XAxis_Switch axis_switch_tx;
-XDpRxSs DpRxSsInst;	/* The DPTX Subsystem instance.*/
-XDpTxSs DpTxSsInst;	/* The DPTX Subsystem instance.*/
-XIic IicInstance;	/* I2C bus for Si570 */
-XIic_Config *ConfigPtr_IIC;     /* Pointer to configuration data */
-XScuGic IntcInst;
-XVphy VPhyInst;	/* The DPRX Subsystem instance.*/
-XTmrCtr TmrCtr; /* Timer instance.*/
-
-int tx_is_reconnected; /*This variable to keep track of the status of Tx link*/
-u8 prev_line_rate; /*This previous line rate to keep previous info to compare
-						with new line rate request*/
-u8 hpd_pulse_con_event; /*This variable triggers hpd_pulse_con*/
-
-u8 num_sinks;
-
 #define XDP_RX_CRC_CONFIG       0x074
 #define XDP_RX_CRC_COMP0        0x078
 #define XDP_RX_CRC_COMP1        0x07C
@@ -331,24 +304,6 @@ typedef struct {
         u8  Itr4Premp;
         u8  Itr5Premp;
 } DP_Rx_Training_Algo_Config;
-
-
-DP_Rx_Training_Algo_Config RxTrainConfig;
-#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
-#define REMAP_RX_BASEADDR  XPAR_DP_RX_HIER_0_REMAP_RX_S_AXI_CTRL_BASEADDR
-#define REMAP_TX_BASEADDR  XPAR_DP_TX_HIER_0_REMAP_TX_S_AXI_CTRL_BASEADDR
-#define REMAP_RX_DEVICE_ID  XPAR_DP_RX_HIER_0_REMAP_RX_DEVICE_ID
-#define REMAP_TX_DEVICE_ID  XPAR_DP_TX_HIER_0_REMAP_TX_DEVICE_ID
-
-XV_axi4s_remap_Config   *rx_remap_Config;
-XV_axi4s_remap          rx_remap;
-XV_axi4s_remap_Config   *tx_remap_Config;
-XV_axi4s_remap          tx_remap;
-#endif
-
-XDpTxSs_Config *ConfigPtr;
-XDpRxSs_Config *ConfigPtr_rx;
-
 
 #define VBLANK_WAIT_COUNT       100
 
