@@ -45,8 +45,8 @@ else (WITH_ZEPHYR)
     install (TARGETS ${_lib} LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
     set_target_properties (${_lib} PROPERTIES
       OUTPUT_NAME       "${OPENAMP_LIB}"
-      VERSION           "${PROJECT_VER}"
-      SOVERSION         "${PROJECT_VER_MAJOR}"
+      VERSION           "${PROJECT_VERSION}"
+      SOVERSION         "${PROJECT_VERSION_MAJOR}"
     )
   endif (WITH_SHARED_LIB)
 

@@ -7,9 +7,8 @@ if (POLICY CMP0077)
   cmake_policy(SET CMP0077 NEW)
 endif()
 
-# The version number
-set (OPENAMP_VERSION_MAJOR 1)
-set (OPENAMP_VERSION_MINOR 0)
+set (OPENAMP_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+set (OPENAMP_BIN_ROOT "${CMAKE_CURRENT_BINARY_DIR}")
 
 list (APPEND CMAKE_MODULE_PATH
   "${CMAKE_CURRENT_SOURCE_DIR}/cmake"
@@ -26,8 +25,6 @@ include (options)
 include (depends)
 enable_testing ()
 
-set (OPENAMP_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
-set (OPENAMP_BIN_ROOT "${CMAKE_CURRENT_BINARY_DIR}")
 
 if (WITH_OBSOLETE)
   add_subdirectory (obsolete)
