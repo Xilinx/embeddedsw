@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -19,6 +19,8 @@
  *					   format 422 for pixel width engine and PPC changes.
  * 1.3	 ND	  12/26/20 Updated code for YUV422 related pt colorshift issue.
  * 					   Added support for retraining on color format change.
+ * 1.4   ND   04/03/21 Moved all global variables declaration from .h to .c
+ * 				       files due to gcc compiler compilation error.
 *******************************************************************************/
 
 #include "dppt.h"
@@ -71,6 +73,9 @@ XDpRxSs DpRxSsInst;		/* The DPRX Subsystem instance.*/
 XDpRxSs_Config *DPRxSSConfig;
 
 volatile u32 mst_hpd_event;
+volatile u8 prev_line_rate; 		/* This previous line rate to keep
+				 * previous info to compare
+				 * with new line rate request*/
 user_config_struct user_config;
 
 u8 StartTxAfterRx;
