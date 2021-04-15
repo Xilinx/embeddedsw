@@ -25,12 +25,6 @@
  #define UART_BAUD 9600
 #endif
 
-#define IPI_IRQ_VECT_ID         65
-
-#define SHM_BASE_ADDR   0x3ED80000
-#define TTC0_BASE_ADDR  0xFF110000
-#define IPI_BASE_ADDR   0xFF310000
-
 /* Default generic I/O region page shift */
 /* Each I/O region can contain multiple pages.
  * In FreeRTOS system, the memory mapping is flat, there is no
