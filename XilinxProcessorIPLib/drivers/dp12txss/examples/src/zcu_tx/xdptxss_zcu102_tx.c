@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2020 - 2021 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -13,6 +13,8 @@
 * Ver  Who Date     Changes
 * ---- --- -------- --------------------------------------------------
 * 1.00 KI  07/13/17 Initial release.
+* 1.01 ND  04/01/21 Moved all global variables declaration from .h to .c
+* 					files due to gcc compiler compilation error.
 *
 * </pre>
 *
@@ -117,7 +119,17 @@ static XVphy_User_Config PHY_User_Config_Table[] =
 		  ONBOARD_REF_CLK,        ONBOARD_REF_CLK,         270000000,270000000},
 
 };
-
+XDpTxSs DpTxSsInst;	/* The DPTX Subsystem instance.*/
+XIic IicInstance;	/* I2C bus for Si570 */
+XIic_Config *ConfigPtr_IIC;     /* Pointer to configuration data */
+XScuGic IntcInst;
+XVphy VPhyInst;	/* The DPRX Subsystem instance.*/
+XTmrCtr TmrCtr; /* Timer instance.*/
+Video_CRC_Config VidFrameCRC;
+int tx_is_reconnected; /*This variable to keep track of the status of Tx link*/
+u8 prev_line_rate; /*This previous line rate to keep previous info to compare
+						with new line rate request*/
+u8 hpd_pulse_con_event; /*This variable triggers hpd_pulse_con*/
 
 #define I2C_MUX_device_address 0x74
 #define Si570_device_address 0x5D
