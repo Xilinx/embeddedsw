@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2020 - 2021 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -108,9 +108,25 @@ char inbyte_local(void);
 
 extern u8 tx_done;
 extern u8 i2s_started;
+extern XDp_TxVscExtPacket ExtFrame_tx_vsc;
+extern volatile u8 hpd_pulse_con_event; 	/* This variable triggers hpd_pulse_con */
 u8 linkrate_tx_run;
 u8 lanecount_tx_run;
+XDp_TxAudioInfoFrame *xilInfoFrame;
+XDpTxSs DpTxSsInst; 		/* The DPTX Subsystem instance.*/
+extern Video_CRC_Config VidFrameCRC_tx;
+extern u8 use_vsc;
+extern XTmrCtr TmrCtr; 		/* Timer instance.*/
+int tx_started;
+volatile u8 prev_line_rate; 		/* This previous line rate to keep
+				 * previous info to compare
+				 * with new line rate request*/
 
+#ifndef versal
+extern XVphy VPhyInst; 	/* The DPRX Subsystem instance.*/
+#else
+extern void* VPhyInst;
+#endif
 /************************** Variable Definitions *****************************/
 #define DPCD_TEST_CRC_R_Cr   0x240
 #define DPCD_TEST_SINK_MISC  0x246
@@ -174,6 +190,8 @@ u8 tx_pass = 0;
 u8 onetime = 0;
 u8 prog_misc1 = 0;
 u8 prog_fb_rd;
+volatile int tx_is_reconnected; 		/* This variable to keep track
+				 * of the status of Tx link*/
 
 void DpTxSs_VsyncHandler(void *InstancePtr)
 {

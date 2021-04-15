@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -50,7 +50,6 @@
  * INTC. INTC selection is based on INTC parameters defined xparameters.h file.
  */
 #define XINTC_DEVICE_ID 	XPAR_SCUGIC_SINGLE_DEVICE_ID
-#define 			XINTC XScuGic
 #define XINTC_HANDLER 		XScuGic_InterruptHandler
 
 /* The unique device ID of the instances used in example
@@ -186,9 +185,6 @@ typedef struct
 	u8 Payload[32];
 } XilAudioExtFrame;
 
-XilAudioInfoFrame_rx AudioinfoFrame;
-XilAudioExtFrame  SdpExtFrame;
-XilAudioExtFrame  SdpExtFrame_q;
 /************************** Function Prototypes ******************************/
 
 void DpRxSs_Main(void);
@@ -226,12 +222,6 @@ void Print_InfoPkt();
 void Print_ExtPkt();
 
 /************************** Variable Definitions *****************************/
-
-XDpRxSs DpRxSsInst;    /* The DPRX Subsystem instance.*/
-Video_CRC_Config VidFrameCRC_rx; /* Video Frame CRC instance */
-DP_Rx_Training_Algo_Config RxTrainConfig;
-XIic IicInstance;	/* I2C bus for MC6000 and IDT */
-
 #define XACR_WriteReg(BaseAddress, RegOffset, Data)   \
     Xil_Out32((BaseAddress) + ((u32)RegOffset), (u32)(Data))
 

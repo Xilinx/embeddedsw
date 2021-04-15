@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -42,6 +42,8 @@
 * 1.09 ND 02/22/21 2021.1 - Updated changes to reset Test_crc counter in DP dpcd
 * 							space to avoid Race condition. Updated changes
 * 							related to CRC being written to DPCD for 422 format.
+* 1.10 ND 04/01/21 2021.1 - Moved all global variables declaration from .h to .c
+* 							files due to gcc compiler compilation error.
 * </pre>
 *
 ******************************************************************************/
@@ -58,6 +60,19 @@
 //
 XIicPs Ps_Iic1;
 //
+#define ENABLE_AUDIO XPAR_DP_RX_HIER_0_V_DP_RXSS1_0_AUDIO_ENABLE
+#define 			XINTC XScuGic
+
+#if ENABLE_AUDIO
+XGpio_Config  *aud_gpio_ConfigPtr;
+XGpio   aud_gpio;
+XAxis_Switch axis_switch_rx;
+XAxis_Switch axis_switch_tx;
+XI2srx_Config *Config_rx;
+XI2stx_Config *Config;
+XI2s_Rx I2s_rx;
+XI2s_Tx I2s_tx;
+#endif
 
 #ifdef versal
 XClk_Wiz_Config *CfgPtr_Dynamic;
@@ -100,6 +115,23 @@ u32 vblank_init = 0;
 u8 vblank_captured = 0;
 u16 fb_wr_count = 0;
 u16 fb_rd_count = 0;
+u64 XVFRMBUFRD_BUFFER_BASEADDR_Y;
+u64 XVFRMBUFRD_BUFFER_BASEADDR;
+u64 XVFRMBUFWR_BUFFER_BASEADDR;
+u64 XVFRMBUFWR_BUFFER_BASEADDR_Y;
+XINTC IntcInst; 	/* The interrupt controller instance. */
+XIicPs_Config *XIic1Ps_ConfigPtr;
+Video_CRC_Config VidFrameCRC_rx; /* Video Frame CRC instance */
+Video_CRC_Config VidFrameCRC_tx;
+u8 use_vsc;
+XTmrCtr TmrCtr; 		/* Timer instance.*/
+XIic IicInstance; 	/* I2C bus for MC6000 and IDT */
+
+#ifndef versal
+XVphy VPhyInst; 	/* The DPRX Subsystem instance.*/
+#else
+void* VPhyInst;
+#endif
 
 typedef struct {
 	XVidC_ColorFormat MemFormat;
@@ -127,11 +159,23 @@ VideoFormats ColorFormats[NUM_TEST_FORMATS] =
 	{XVIDC_CSF_MEM_BGRX8,      XVIDC_CSF_RGB,       8},
 	{XVIDC_CSF_MEM_UYVY8,      XVIDC_CSF_YCRCB_422, 8}
 };
+#ifndef versal
+XIic_Config *ConfigPtr_IIC;     /* Pointer to configuration data */
+#endif
 
-
+XDpRxSs DpRxSsInst;    /* The DPRX Subsystem instance.*/
+XV_FrmbufRd_l2     frmbufrd;
+XV_FrmbufWr_l2     frmbufwr;
 extern u32 StreamOffset[4];
 extern u8 supports_adaptive;
+extern XDpTxSs DpTxSsInst; 		/* The DPTX Subsystem instance.*/
 
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
+XV_axi4s_remap_Config   *rx_remap_Config;
+XV_axi4s_remap          rx_remap;
+XV_axi4s_remap_Config   *tx_remap_Config;
+XV_axi4s_remap          tx_remap;
+#endif
 /*****************************************************************************/
 /**
 *
@@ -1217,7 +1261,6 @@ u32 DpSs_PlatformInit(void)
 	}
 
 	XIic_Reset(&IicInstance);
-
 
 	/*Initializing vck190 onboard IDT8T49N24X for audio*/
 #ifdef versal
@@ -2336,6 +2379,7 @@ u8 lock = 0;
 volatile u32 appx_fs_dup = 0;
 u32 maud_dup = 0;
 u32 naud_dup = 0;
+extern XilAudioInfoFrame_rx AudioinfoFrame;
 
 void Dppt_DetectAudio (void) {
 

@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -20,13 +20,16 @@
 #include "main.h"
 #include "rx.h"
 
+XilAudioInfoFrame_rx AudioinfoFrame;
+extern XDpRxSs DpRxSsInst;    /* The DPRX Subsystem instance.*/
+extern XDpTxSs DpTxSsInst; 		/* The DPTX Subsystem instance.*/
+extern XDp_TxVscExtPacket ExtFrame_tx_vsc;
 volatile u8 rx_unplugged = 0;
 volatile u16 DrpVal=0;
 volatile u16 DrpVal_lower_lane0=0;
 volatile u16 DrpVal_lower_lane1=0;
 volatile u16 DrpVal_lower_lane2=0;
 volatile u16 DrpVal_lower_lane3=0;
-extern XDpTxSs DpTxSsInst;
 extern u32 vblank_init;
 extern u8 vblank_captured;
 extern u32 appx_fs_dup;
@@ -37,6 +40,18 @@ extern u8 rx_aud;
 extern u8 tx_after_rx;
 extern u8 tx_done;
 extern void mask_intr (void);
+extern Video_CRC_Config VidFrameCRC_rx; /* Video Frame CRC instance */
+extern XTmrCtr TmrCtr; 		/* Timer instance.*/
+u8 type_vsc;
+DP_Rx_Training_Algo_Config RxTrainConfig;
+XilAudioExtFrame  SdpExtFrame;
+XilAudioExtFrame  SdpExtFrame_q;
+
+#ifndef versal
+extern XVphy VPhyInst; 	/* The DPRX Subsystem instance.*/
+#else
+extern void* VPhyInst;
+#endif
 
 #ifdef versal
 #if (VERSAL_FABRIC_8B10B == 1)
