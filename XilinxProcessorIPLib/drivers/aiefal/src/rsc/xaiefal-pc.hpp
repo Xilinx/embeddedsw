@@ -110,7 +110,7 @@ namespace xaiefal {
 			RC = XAie_ReleasePCEvents(AieHd->dev(), 1, &Rsc);
 			Rsc.RscId -= static_cast<uint32_t>(XAIE_EVENT_PC_0_CORE);
 
-			return XAIE_OK;
+			return RC;
 		}
 		AieRC _start() {
 			return XAie_EventPCEnable(dev(), Loc, Rsc.RscId, PcAddr);
