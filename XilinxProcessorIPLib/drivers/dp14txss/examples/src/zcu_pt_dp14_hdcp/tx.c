@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2020-2021 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,32 @@
 #define audio_clk_Hz 24.576
 
 extern u8 rx_trained;
+extern XVphy VPhyInst; 			/* The DPRX Subsystem instance.*/
+extern XDp_TxVscExtPacket VscPkt;	/* VSC Packet to populate the vsc data received by
+								rx */
+extern u8 enable_tx_vsc_mode;		/* Flag to enable vsc for tx */
+extern XTmrCtr TmrCtr;
+
+extern u32 infofifo[32];
+extern u8 endindex;
+extern u8 fifocount;
+u8 startindex = 0;
+u16 vsync_counter = 0;
+u16 ektpkt_counter = 0;
+u8 tx_pass = 0;
+u8 onetime = 0;
+XDpTxSs DpTxSsInst; 		/* The DPTX Subsystem instance.*/
+Video_CRC_Config VidFrameCRC_tx;
+extern u8 tx_after_rx;
+extern XDpRxSs DpRxSsInst;    /* The DPRX Subsystem instance.*/
+int tx_started;
+volatile int tx_is_reconnected; 		/* This variable to keep track
+				 * of the status of Tx link*/
+volatile u8 prev_line_rate; 		/* This previous line rate to keep
+				 * previous info to compare
+				 * with new line rate request*/
+volatile u8 hpd_pulse_con_event; 	/* This variable triggers hpd_pulse_con */
+
 #if ENABLE_HDCP_IN_DESIGN
 extern u8 hdcp_capable_org ;
 extern int mon_is_hdcp22_cap;
@@ -114,7 +140,6 @@ void test_pattern_gen_help();
 void format_help_menu(void);
 void operationMenu(void);
 char inbyte_local(void);
-extern u8 tx_after_rx;
 
 /************************** Variable Definitions *****************************/
 #define DPCD_TEST_CRC_R_Cr   0x240
@@ -167,15 +192,6 @@ u32 DpTxSs_SetupIntrSystem(void)
 
 	return (XST_SUCCESS);
 }
-
-extern u32 infofifo[32];
-extern u8 endindex;
-extern u8 fifocount;
-u8 startindex = 0;
-u16 vsync_counter = 0;
-u16 ektpkt_counter = 0;
-u8 tx_pass = 0;
-u8 onetime = 0;
 
 void DpTxSs_VsyncHandler(void *InstancePtr)
 {

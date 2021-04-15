@@ -1,3 +1,8 @@
+/*******************************************************************************
+* Copyright (C) 2020-2021 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+*******************************************************************************/
+
 #include "xil_types.h"
 #include "xparameters.h"
 #include "xdptxss.h"
@@ -30,6 +35,7 @@ XClk_Wiz_Config *CfgPtr_Dynamic;
 XClk_Wiz ClkWiz_Dynamic;
 #endif
 
+extern XDpTxSs DpTxSsInst; 		/* The DPTX Subsystem instance.*/
 /************************** Function Prototypes ******************************/
 extern void ComputeMandD(u32 VidFreq);
 extern void Gen_vid_clk(XDp *InstancePtr, u8 Stream);
