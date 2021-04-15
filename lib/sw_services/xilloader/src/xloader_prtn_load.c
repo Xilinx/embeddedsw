@@ -54,6 +54,8 @@
 *       ma   03/24/2021 Minor updates to prints in XilLoader
 *       bl   04/01/2021 Add secure IPI arg to XPm_DevIoctl and
 *                       XPm_RequestWakeUp
+*       bsv  04/13/2021 Added support for variable Keyhole sizes in
+*                       DmaWriteKeyHole command
 *
 * </pre>
 *
@@ -679,12 +681,6 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 			if (DeviceCopy->IsDoubleBuffering == (u8)TRUE) {
 				Cdo.Cmd.KeyHoleParams.Func = PdiPtr->DeviceCopy;
 				Cdo.Cmd.KeyHoleParams.SrcAddr = DeviceCopy->SrcAddr;
-			}
-			if((PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI24) ||
-				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI32) ||
-				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_OSPI) ||
-				(PdiPtr->SlrType == XLOADER_SSIT_MASTER_SLR)) {
-				Cdo.Cmd.KeyHoleParams.InChunkCopy = (u8)TRUE;
 			}
 			/*
 			 * For DDR case, start the copy of the
