@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2019 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2020 - 2021 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,16 +22,30 @@
 * 			  				of DP1.4
 * 1.02 ND		01/12/21	Added support for VSC in application menu.
 * 							Changed options for Format menu.
+* 1.03 ND		04/01/21	Moved all global variables declaration from .h to .c
+* 							files due to gcc compiler compilation error.
+* 							Setting tx_is_reconnected=0 and setting
+* 							max_cap_new=XDP_TX_LINK_BW_SET_810GBPS in hpd_con
+* 							for TX CTS test case.
 *
 * </pre>
 *
 ******************************************************************************/
-
 #include "xdptxss_dp14_tx.h"
 #include "xvidframe_crc.h"
 
+XTmrCtr TmrCtr; /* Timer instance.*/
+
+#ifndef versal
+XIic_Config *ConfigPtr_IIC;     /* Pointer to configuration data */
+XVphy VPhyInst;	/* The DPRX Subsystem instance.*/
+XIic IicInstance;	/* I2C bus for Si570 */
+#else
+void* VPhyInst;
+#endif
 extern volatile u8 hpd_pulse_con_event;
-volatile u8 prev_line_rate;
+volatile u8 prev_line_rate; /*This previous line rate to keep previous info to compare
+						with new line rate request*/
 #ifndef PLATFORM_MB
 XScuGic IntcInst;
 #else
@@ -187,7 +201,7 @@ int main()
 
 	xil_printf("------------------------------------------\r\n");
 	xil_printf("DisplayPort TX Subsystem Example Design\r\n");
-	xil_printf("(c) 2019 by Xilinx\r\n");
+	xil_printf("(c) 2021 by Xilinx\r\n");
 	xil_printf("-------------------------------------------\r\n\r\n");
 
 	Status = DpTxSs_Main(XDPTXSS_DEVICE_ID);
@@ -1708,7 +1722,7 @@ void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
 
 	memcpy(Edid_org, InstancePtr->UsrHpdEventData.EdidOrg, 128);
 
-	tx_is_reconnected--;
+	tx_is_reconnected=0;
 
 	if (XVidC_EdidIsHeaderValid(Edid_org)) {
 		good_edid_hpd = 1;
@@ -1750,6 +1764,13 @@ void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
 														&max_cap_new);
 	}
 
+	if (max_cap_new != XDP_TX_LINK_BW_SET_810GBPS
+			&& max_cap_new != XDP_TX_LINK_BW_SET_540GBPS
+				&& max_cap_new != XDP_TX_LINK_BW_SET_270GBPS
+				&& max_cap_new != XDP_TX_LINK_BW_SET_162GBPS) {
+
+		max_cap_new = XDP_TX_LINK_BW_SET_810GBPS;
+	}
 	/**********************************************************/
 	/* Since the CTS suite is for 5.4G, we cannot go for 8.1
 	 * hence setting max_cap_new to 5.4G, when DPCD read is 8.1

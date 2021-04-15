@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2019 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2020 - 2021 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,13 @@
 ******************************************************************************/
 #include "xdptxss_dp14_tx.h"
 
+XDpTxSs DpTxSsInst;	/* The DPTX Subsystem instance.*/
+volatile u8 hpd_pulse_con_event; /*This variable triggers hpd_pulse_con*/
+extern volatile u8 prev_line_rate;
+extern XTmrCtr TmrCtr; /* Timer instance.*/
+#ifndef versal
+extern XVphy VPhyInst;	/* The DPRX Subsystem instance.*/
+#endif
 extern XDp_TxVscExtPacket VscPkt;
 u32 Ext_frame[3];
 
