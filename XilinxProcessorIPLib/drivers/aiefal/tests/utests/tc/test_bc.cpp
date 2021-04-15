@@ -34,7 +34,7 @@ TEST_GROUP(Broadcast)
 {
 };
 
-TEST(Broadcast, Basic)
+TEST(Broadcast, BasicSelectTiles)
 {
 	AieRC RC;
 	std::vector<XAie_LocType> vL, vL1;
@@ -127,4 +127,342 @@ TEST(Broadcast, Basic)
 	CHECK_TRUE(is_equal_vLocs(vL0, vL1));
 	int BcId3_ = BC3_->getBc();
 	CHECK_EQUAL(BcId2 + 1, BcId3_);
+
+	BC0->release();
+	BC1->release();
+	BC2->release();
+	BC3_->release();
+}
+
+
+TEST(Broadcast, BCTest1)
+{
+	AieRC RC;
+	std::vector<XAie_LocType> vL, vL1;
+	XAie_ModuleType StartM, EndM, StartM1, EndM1;
+
+	XAie_SetupConfig(ConfigPtr, HW_GEN, XAIE_BASE_ADDR,
+			XAIE_COL_SHIFT, XAIE_ROW_SHIFT,
+			XAIE_NUM_COLS, XAIE_NUM_ROWS, XAIE_SHIM_ROW,
+			XAIE_MEM_TILE_ROW_START, XAIE_MEM_TILE_NUM_ROWS,
+			XAIE_AIE_TILE_ROW_START, XAIE_AIE_TILE_NUM_ROWS);
+
+	XAie_InstDeclare(DevInst, &ConfigPtr);
+
+	RC = XAie_CfgInitialize(&(DevInst), &ConfigPtr);
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = XAie_PmRequestTiles(&DevInst, NULL, 0);
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	XAieDev Aie(&DevInst, true);
+
+	vL.push_back(XAie_TileLoc(1,1));
+	StartM = XAIE_CORE_MOD;
+	EndM = XAIE_CORE_MOD;
+	auto BC = Aie.broadcast(vL, StartM, EndM);
+	RC = BC->reserve();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = BC->start();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	u8 status;
+  RC = XAie_EventReadStatus(&DevInst, XAie_TileLoc(0,1), XAIE_CORE_MOD, XAIE_EVENT_BROADCAST_0_CORE, &status);
+	CHECK_EQUAL(RC, XAIE_OK);
+	CHECK_EQUAL(status, 0);
+
+	RC = XAie_EventReadStatus(&DevInst, XAie_TileLoc(2,1), XAIE_CORE_MOD, XAIE_EVENT_BROADCAST_0_CORE, &status);
+	CHECK_EQUAL(RC, XAIE_OK);
+	CHECK_EQUAL(status, 0);
+
+	RC = XAie_EventReadStatus(&DevInst, XAie_TileLoc(1,2), XAIE_CORE_MOD, XAIE_EVENT_BROADCAST_0_CORE, &status);
+	CHECK_EQUAL(RC, XAIE_OK);
+	CHECK_EQUAL(status, 0);
+
+	RC = XAie_EventReadStatus(&DevInst, XAie_TileLoc(1,0), XAIE_PL_MOD, XAIE_EVENT_BROADCAST_A_0_PL, &status);
+	CHECK_EQUAL(RC, XAIE_OK);
+	CHECK_EQUAL(status, 0);
+
+}
+
+TEST(Broadcast, BCTest2)
+{
+	AieRC RC;
+	std::vector<XAie_LocType> vL, vL1;
+	XAie_ModuleType StartM, EndM, StartM1, EndM1;
+
+	XAie_SetupConfig(ConfigPtr, HW_GEN, XAIE_BASE_ADDR,
+			XAIE_COL_SHIFT, XAIE_ROW_SHIFT,
+			XAIE_NUM_COLS, XAIE_NUM_ROWS, XAIE_SHIM_ROW,
+			XAIE_MEM_TILE_ROW_START, XAIE_MEM_TILE_NUM_ROWS,
+			XAIE_AIE_TILE_ROW_START, XAIE_AIE_TILE_NUM_ROWS);
+
+	XAie_InstDeclare(DevInst, &ConfigPtr);
+
+	RC = XAie_CfgInitialize(&(DevInst), &ConfigPtr);
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = XAie_PmRequestTiles(&DevInst, NULL, 0);
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	XAieDev Aie(&DevInst, true);
+
+	vL.push_back(XAie_TileLoc(3,2));
+	StartM = XAIE_CORE_MOD;
+	EndM = XAIE_CORE_MOD;
+	auto BC = Aie.broadcast(vL, StartM, EndM);
+	RC = BC->reserve();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = BC->start();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	u8 status;
+  RC = XAie_EventReadStatus(&DevInst, XAie_TileLoc(2,2), XAIE_CORE_MOD, XAIE_EVENT_BROADCAST_0_CORE, &status);
+	CHECK_EQUAL(RC, XAIE_OK);
+	CHECK_EQUAL(status, 0);
+
+	RC = XAie_EventReadStatus(&DevInst, XAie_TileLoc(3,3), XAIE_CORE_MOD, XAIE_EVENT_BROADCAST_0_CORE, &status);
+	CHECK_EQUAL(RC, XAIE_OK);
+	CHECK_EQUAL(status, 0);
+
+	RC = XAie_EventReadStatus(&DevInst, XAie_TileLoc(4,2), XAIE_CORE_MOD, XAIE_EVENT_BROADCAST_0_CORE, &status);
+	CHECK_EQUAL(RC, XAIE_OK);
+	CHECK_EQUAL(status, 0);
+
+	RC = XAie_EventReadStatus(&DevInst, XAie_TileLoc(3,1), XAIE_CORE_MOD, XAIE_EVENT_BROADCAST_0_CORE, &status);
+	CHECK_EQUAL(RC, XAIE_OK);
+	CHECK_EQUAL(status, 0);
+
+}
+
+TEST(Broadcast, BCTest3)
+{
+	AieRC RC;
+	std::vector<XAie_LocType> vL, vL1;
+	XAie_ModuleType StartM, EndM, StartM1, EndM1;
+
+	XAie_SetupConfig(ConfigPtr, HW_GEN, XAIE_BASE_ADDR,
+			XAIE_COL_SHIFT, XAIE_ROW_SHIFT,
+			XAIE_NUM_COLS, XAIE_NUM_ROWS, XAIE_SHIM_ROW,
+			XAIE_MEM_TILE_ROW_START, XAIE_MEM_TILE_NUM_ROWS,
+			XAIE_AIE_TILE_ROW_START, XAIE_AIE_TILE_NUM_ROWS);
+
+	XAie_InstDeclare(DevInst, &ConfigPtr);
+
+	RC = XAie_CfgInitialize(&(DevInst), &ConfigPtr);
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = XAie_PmRequestTiles(&DevInst, NULL, 0);
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	XAieDev Aie(&DevInst, true);
+
+	vL.push_back(XAie_TileLoc(2,0));
+	vL.push_back(XAie_TileLoc(3,0));
+	vL.push_back(XAie_TileLoc(4,0));
+	StartM = XAIE_PL_MOD;
+	EndM = XAIE_PL_MOD;
+	auto BC = Aie.broadcast(vL, StartM, EndM);
+	RC = BC->reserve();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = BC->start();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	u8 status;
+  RC = XAie_EventReadStatus(&DevInst, XAie_TileLoc(1,0), XAIE_PL_MOD, XAIE_EVENT_BROADCAST_A_0_PL, &status);
+	CHECK_EQUAL(RC, XAIE_OK);
+	CHECK_EQUAL(status, 0);
+
+	RC = XAie_EventReadStatus(&DevInst, XAie_TileLoc(2,1), XAIE_CORE_MOD, XAIE_EVENT_BROADCAST_0_CORE, &status);
+	CHECK_EQUAL(RC, XAIE_OK);
+	CHECK_EQUAL(status, 0);
+
+	RC = XAie_EventReadStatus(&DevInst, XAie_TileLoc(3,1), XAIE_CORE_MOD, XAIE_EVENT_BROADCAST_0_CORE, &status);
+	CHECK_EQUAL(RC, XAIE_OK);
+	CHECK_EQUAL(status, 0);
+
+	RC = XAie_EventReadStatus(&DevInst, XAie_TileLoc(4,1), XAIE_CORE_MOD, XAIE_EVENT_BROADCAST_0_CORE, &status);
+	CHECK_EQUAL(RC, XAIE_OK);
+	CHECK_EQUAL(status, 0);
+
+	RC = XAie_EventReadStatus(&DevInst, XAie_TileLoc(5,0), XAIE_PL_MOD, XAIE_EVENT_BROADCAST_A_0_PL, &status);
+	CHECK_EQUAL(RC, XAIE_OK);
+	CHECK_EQUAL(status, 0);
+
+}
+
+TEST(Broadcast, BCTest4)
+{
+	AieRC RC;
+	std::vector<XAie_LocType> vL, vL1;
+	XAie_ModuleType StartM, EndM, StartM1, EndM1;
+
+	XAie_SetupConfig(ConfigPtr, HW_GEN, XAIE_BASE_ADDR,
+			XAIE_COL_SHIFT, XAIE_ROW_SHIFT,
+			XAIE_NUM_COLS, XAIE_NUM_ROWS, XAIE_SHIM_ROW,
+			XAIE_MEM_TILE_ROW_START, XAIE_MEM_TILE_NUM_ROWS,
+			XAIE_AIE_TILE_ROW_START, XAIE_AIE_TILE_NUM_ROWS);
+
+	XAie_InstDeclare(DevInst, &ConfigPtr);
+
+	RC = XAie_CfgInitialize(&(DevInst), &ConfigPtr);
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = XAie_PmRequestTiles(&DevInst, NULL, 0);
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	XAieDev Aie(&DevInst, true);
+
+	vL.push_back(XAie_TileLoc(2,1));
+	vL.push_back(XAie_TileLoc(3,1));
+	vL.push_back(XAie_TileLoc(4,1));
+	StartM = XAIE_CORE_MOD;
+	EndM = XAIE_CORE_MOD;
+	auto BC = Aie.broadcast(vL, StartM, EndM);
+	RC = BC->reserve();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = BC->start();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	u8 status;
+  RC = XAie_EventReadStatus(&DevInst, XAie_TileLoc(1,1), XAIE_CORE_MOD, XAIE_EVENT_BROADCAST_0_CORE, &status);
+	CHECK_EQUAL(RC, XAIE_OK);
+	CHECK_EQUAL(status, 0);
+
+	RC = XAie_EventReadStatus(&DevInst, XAie_TileLoc(2,0), XAIE_PL_MOD, XAIE_EVENT_BROADCAST_A_0_PL, &status);
+	CHECK_EQUAL(RC, XAIE_OK);
+	CHECK_EQUAL(status, 0);
+
+	RC = XAie_EventReadStatus(&DevInst, XAie_TileLoc(3,0), XAIE_PL_MOD, XAIE_EVENT_BROADCAST_A_0_PL, &status);
+	CHECK_EQUAL(RC, XAIE_OK);
+	CHECK_EQUAL(status, 0);
+
+	RC = XAie_EventReadStatus(&DevInst, XAie_TileLoc(4,0), XAIE_PL_MOD, XAIE_EVENT_BROADCAST_A_0_PL, &status);
+	CHECK_EQUAL(RC, XAIE_OK);
+	CHECK_EQUAL(status, 0);
+
+	RC = XAie_EventReadStatus(&DevInst, XAie_TileLoc(5,0), XAIE_PL_MOD, XAIE_EVENT_BROADCAST_A_0_PL, &status);
+	CHECK_EQUAL(RC, XAIE_OK);
+	CHECK_EQUAL(status, 0);
+
+	RC = XAie_EventReadStatus(&DevInst, XAie_TileLoc(5,1), XAIE_CORE_MOD, XAIE_EVENT_BROADCAST_0_CORE, &status);
+	CHECK_EQUAL(RC, XAIE_OK);
+	CHECK_EQUAL(status, 0);
+
+	RC = XAie_EventReadStatus(&DevInst, XAie_TileLoc(2,2), XAIE_CORE_MOD, XAIE_EVENT_BROADCAST_0_CORE, &status);
+	CHECK_EQUAL(RC, XAIE_OK);
+	CHECK_EQUAL(status, 0);
+
+	RC = XAie_EventReadStatus(&DevInst, XAie_TileLoc(3,2), XAIE_CORE_MOD, XAIE_EVENT_BROADCAST_0_CORE, &status);
+	CHECK_EQUAL(RC, XAIE_OK);
+	CHECK_EQUAL(status, 0);
+
+	RC = XAie_EventReadStatus(&DevInst, XAie_TileLoc(4,2), XAIE_CORE_MOD, XAIE_EVENT_BROADCAST_0_CORE, &status);
+	CHECK_EQUAL(RC, XAIE_OK);
+	CHECK_EQUAL(status, 0);
+}
+
+TEST(Broadcast, BCTest5)
+{
+	AieRC RC;
+	std::vector<XAie_LocType> vL, vL1;
+	XAie_ModuleType StartM, EndM, StartM1, EndM1;
+
+	XAie_SetupConfig(ConfigPtr, HW_GEN, XAIE_BASE_ADDR,
+			XAIE_COL_SHIFT, XAIE_ROW_SHIFT,
+			XAIE_NUM_COLS, XAIE_NUM_ROWS, XAIE_SHIM_ROW,
+			XAIE_MEM_TILE_ROW_START, XAIE_MEM_TILE_NUM_ROWS,
+			XAIE_AIE_TILE_ROW_START, XAIE_AIE_TILE_NUM_ROWS);
+
+	XAie_InstDeclare(DevInst, &ConfigPtr);
+
+	RC = XAie_CfgInitialize(&(DevInst), &ConfigPtr);
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = XAie_PmRequestTiles(&DevInst, NULL, 0);
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	XAieDev Aie(&DevInst, true);
+
+	vL.push_back(XAie_TileLoc(1,1));
+	vL.push_back(XAie_TileLoc(1,2));
+	StartM = XAIE_CORE_MOD;
+	EndM = XAIE_CORE_MOD;
+	auto BC = Aie.broadcast(vL, StartM, EndM);
+	RC = BC->reserve();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = BC->start();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	u8 status;
+
+	RC = XAie_EventReadStatus(&DevInst, XAie_TileLoc(1,0), XAIE_PL_MOD, XAIE_EVENT_BROADCAST_A_0_PL, &status);
+	CHECK_EQUAL(RC, XAIE_OK);
+	CHECK_EQUAL(status, 0);
+
+	RC = XAie_EventReadStatus(&DevInst, XAie_TileLoc(0,1), XAIE_CORE_MOD, XAIE_EVENT_BROADCAST_0_CORE, &status);
+	CHECK_EQUAL(RC, XAIE_OK);
+	CHECK_EQUAL(status, 0);
+
+	RC = XAie_EventReadStatus(&DevInst, XAie_TileLoc(0,2), XAIE_CORE_MOD, XAIE_EVENT_BROADCAST_0_CORE, &status);
+	CHECK_EQUAL(RC, XAIE_OK);
+	CHECK_EQUAL(status, 0);
+
+	RC = XAie_EventReadStatus(&DevInst, XAie_TileLoc(1,3), XAIE_CORE_MOD, XAIE_EVENT_BROADCAST_0_CORE, &status);
+	CHECK_EQUAL(RC, XAIE_OK);
+	CHECK_EQUAL(status, 0);
+
+	RC = XAie_EventReadStatus(&DevInst, XAie_TileLoc(2,2), XAIE_CORE_MOD, XAIE_EVENT_BROADCAST_0_CORE, &status);
+	CHECK_EQUAL(RC, XAIE_OK);
+	CHECK_EQUAL(status, 0);
+
+	RC = XAie_EventReadStatus(&DevInst, XAie_TileLoc(2,1), XAIE_CORE_MOD, XAIE_EVENT_BROADCAST_0_CORE, &status);
+	CHECK_EQUAL(RC, XAIE_OK);
+	CHECK_EQUAL(status, 0);
+
+}
+
+TEST(Broadcast, BasicAllTiles)
+{
+	AieRC RC;
+	std::vector<XAie_LocType> vL, vL1;
+	XAie_ModuleType StartM, EndM;
+
+	XAie_SetupConfig(ConfigPtr, HW_GEN, XAIE_BASE_ADDR,
+			XAIE_COL_SHIFT, XAIE_ROW_SHIFT,
+			XAIE_NUM_COLS, XAIE_NUM_ROWS, XAIE_SHIM_ROW,
+			XAIE_MEM_TILE_ROW_START, XAIE_MEM_TILE_NUM_ROWS,
+			XAIE_AIE_TILE_ROW_START, XAIE_AIE_TILE_NUM_ROWS);
+
+	XAie_InstDeclare(DevInst, &ConfigPtr);
+
+	RC = XAie_CfgInitialize(&(DevInst), &ConfigPtr);
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = XAie_PmRequestTiles(&DevInst, NULL, 0);
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	XAieDev Aie(&DevInst, true);
+
+	StartM = XAIE_PL_MOD;
+	EndM = XAIE_PL_MOD;
+	auto BC = Aie.broadcast(vL, StartM, EndM);
+
+	RC = BC->reserve();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = BC->start();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = BC->stop();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = BC->release();
+	CHECK_EQUAL(RC, XAIE_OK);
+
 }
