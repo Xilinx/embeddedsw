@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2020 - 2021 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +18,8 @@
 * Ver  Who Date     Changes
 * ---- --- -------- --------------------------------------------------
 * 1.00 vk 10/04/17 Initial release.
+* 1.01 ND 04/03/21 Moved all global variables declaration from .h to .c
+* 				   files due to gcc compiler compilation error.
 * </pre>
 *
 ******************************************************************************/
