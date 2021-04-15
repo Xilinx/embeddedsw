@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2020-2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -23,6 +23,8 @@
 * 1.02 ND 09/27/20 Added support for Colorimetery over VSC packets and YUV420
 * 1.03 ND 01/17/21 Added support for reading keys from EEPROM using defining
 * 				   USE_EEPROM_HDCP_KEYS macro
+* 1.04 ND 04/03/21 Moved all global variables declaration from .h to .c
+* 				   files due to gcc compiler compilation error.
 * </pre>
 *
 ******************************************************************************/
@@ -88,6 +90,38 @@ u8 not_to_write = 3;
 u8 fb_rd_start = 0;
 u32 vblank_init = 0;
 u8 vblank_captured = 0;
+XVphy VPhyInst; 			/* The DPRX Subsystem instance.*/
+XTmrCtr TmrCtr; 			/* Timer instance.*/
+XIic IicInstance; 			/* I2C bus for MC6000 and IDT */
+XDp_TxVscExtPacket VscPkt;	/* VSC Packet to populate the vsc data received by
+								rx */
+u8 enable_tx_vsc_mode;		/* Flag to enable vsc for tx */
+XV_FrmbufRd_l2     frmbufrd;
+XV_FrmbufWr_l2     frmbufwr;
+u64 XVFRMBUFRD_BUFFER_BASEADDR;
+u64 XVFRMBUFRD_BUFFER_BASEADDR_Y;
+u64 XVFRMBUFWR_BUFFER_BASEADDR_Y;
+u64 XVFRMBUFWR_BUFFER_BASEADDR;
+XDp_TxAudioInfoFrame *xilInfoFrame;
+XIicPs_Config *XIic0Ps_ConfigPtr;
+XIicPs_Config *XIic1Ps_ConfigPtr;
+extern XDpRxSs DpRxSsInst;    /* The DPRX Subsystem instance.*/
+extern Video_CRC_Config VidFrameCRC_rx; /* Video Frame CRC instance */
+extern XDpTxSs DpTxSsInst; 		/* The DPTX Subsystem instance.*/
+extern Video_CRC_Config VidFrameCRC_tx;
+XIic IicInstance;	/* I2C bus for MC6000 and IDT */
+
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
+XV_axi4s_remap_Config   *rx_remap_Config;
+XV_axi4s_remap          rx_remap;
+XV_axi4s_remap_Config   *tx_remap_Config;
+XV_axi4s_remap          tx_remap;
+#endif
+
+#if ENABLE_AUDIO
+XGpio   aud_gpio;
+XGpio_Config  *aud_gpio_ConfigPtr;
+#endif
 //extern XVidC_VideoMode resolution_table[];
 // adding new resolution definition example
 // XVIDC_VM_3840x2160_30_P_SB, XVIDC_B_TIMING3_60_P_RB
@@ -1295,6 +1329,7 @@ u32 DpSs_PlatformInit(void)
 u32 DpSs_SetupIntrSystem(void)
 {
 	u32 Status;
+	extern XScuGic IntcInst;
 	XINTC *IntcInstPtr = &IntcInst;
 
 	// Tx side

@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2020-2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -344,51 +344,6 @@ void frameBuffer_start_rd(XVidC_VideoMode VmId,
 
 
 u32 xil_gethex(u8 num_chars);
-/************************** Variable Definitions *****************************/
 
-//XDpRxSs DpRxSsInst; 		/* The DPRX Subsystem instance.*/
-//XINTC IntcInst; 			/* The interrupt controller instance. */
-XVphy VPhyInst; 			/* The DPRX Subsystem instance.*/
-XTmrCtr TmrCtr; 			/* Timer instance.*/
-XIic IicInstance; 			/* I2C bus for MC6000 and IDT */
-XDp_TxVscExtPacket VscPkt;	/* VSC Packet to populate the vsc data received by
-								rx */
-u8 enable_tx_vsc_mode;		/* Flag to enable vsc for tx */
+/*********************************************************************/
 
-/************************** Function Definitions *****************************/
-
-XV_FrmbufRd_l2     frmbufrd;
-XV_FrmbufWr_l2     frmbufwr;
-u64 XVFRMBUFRD_BUFFER_BASEADDR;
-u64 XVFRMBUFRD_BUFFER_BASEADDR_Y;
-u64 XVFRMBUFWR_BUFFER_BASEADDR_Y;
-u64 XVFRMBUFWR_BUFFER_BASEADDR;
-//u64 BUF1 =  0x10000000;
-//u64 BUF2 =  0x18000000;
-//u64 BUF3 =  0x20000000;
-//u64 BUF4 =  0x28000000;
-
-#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
-XV_axi4s_remap_Config   *rx_remap_Config;
-XV_axi4s_remap          rx_remap;
-XV_axi4s_remap_Config   *tx_remap_Config;
-XV_axi4s_remap          tx_remap;
-#endif
-
-XDp_TxAudioInfoFrame *xilInfoFrame;
-XIicPs_Config *XIic0Ps_ConfigPtr;
-XIicPs_Config *XIic1Ps_ConfigPtr;
-
-#if ENABLE_AUDIO
-//XI2s_Tx I2s_tx;
-//XI2s_Rx I2s_rx;
-XGpio   aud_gpio;
-
-//XI2stx_Config *Config;
-//XI2srx_Config *Config_rx;
-XGpio_Config  *aud_gpio_ConfigPtr;
-//XAxis_Switch axis_switch_rx;
-//XAxis_Switch axis_switch_tx;
-
-
-#endif
