@@ -1,5 +1,5 @@
 #/******************************************************************************
-#* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+#* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 #* SPDX-License-Identifier: MIT
 #******************************************************************************/
 
@@ -167,44 +167,6 @@ proc swapp_generate {} {
        foreach entry [glob -nocomplain -type f [file join machine *] [file join machine $procdir *] [file join system *] [file join system $osdir *] [file join system $osdir $procdir zynqmp_amp_demo *] [file join system $osdir machine *] [file join system $osdir machine $procdir *]] {
 	file copy -force $entry "."
     }
-
-	 # if psv_cortexr5 then update IPI values for versal
-	if { $proc_type == "psv_cortexr5" } {
-		set IPI_MASK_zynqmp "0x1000000"
-		set IPI_MASK_versal "0x0000020"
-		set IPI_IRQ_VECT_ID_zynqmp "65"
-		set IPI_IRQ_VECT_ID_versal "63"
-		set IPI_BASE_ADDR_zynqmp "0xFF310000"
-		set IPI_BASE_ADDR_versal "0xFF340000"
-		set TTC0_BASE_ADDR_zynqmp "0xFF110000"
-		set TTC0_BASE_ADDR_versal "0xFF0E0000"
-		set fileList [list "common.h"]
-		# Make a command fragment that performs the replacement on a supplied string
-		set replacementCmd [list string map [list $IPI_MASK_zynqmp $IPI_MASK_versal]]
-		# Apply the replacement to the contents of each file
-		foreach filename $fileList {
-		    fileutil::updateInPlace $filename $replacementCmd
-		}
-
-		set fileList [list "sys_init.c"]
-		# Make a command fragment that performs the replacement on a supplied string
-		set replacementCmd [list string map [list $IPI_IRQ_VECT_ID_zynqmp $IPI_IRQ_VECT_ID_versal]]
-		# Apply the replacement to the contents of each file
-		foreach filename $fileList {
-		    fileutil::updateInPlace $filename $replacementCmd
-		}
-		set replacementCmd [list string map [list $IPI_BASE_ADDR_zynqmp $IPI_BASE_ADDR_versal]]
-		# Apply the replacement to the contents of each file
-		foreach filename $fileList {
-		    fileutil::updateInPlace $filename $replacementCmd
-		}
-		set replacementCmd [list string map [list $TTC0_BASE_ADDR_zynqmp $TTC0_BASE_ADDR_versal]]
-		# Apply the replacement to the contents of each file
-		foreach filename $fileList {
-		    fileutil::updateInPlace $filename $replacementCmd
-		}
-	}
-
 
     # cleanup this file for writing
     set fid [open "platform_config.h" "w+"];

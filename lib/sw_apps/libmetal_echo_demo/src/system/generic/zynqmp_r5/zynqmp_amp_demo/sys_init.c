@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -52,12 +52,6 @@
 #endif
 
 #define INTC_DEVICE_ID		XPAR_SCUGIC_0_DEVICE_ID
-
-#define IPI_IRQ_VECT_ID         65
-
-#define SHM_BASE_ADDR   0x3ED80000
-#define TTC0_BASE_ADDR  0xFF110000
-#define IPI_BASE_ADDR   0xFF310000
 
 /* Default generic I/O region page shift */
 /* Each I/O region can contain multiple pages.
