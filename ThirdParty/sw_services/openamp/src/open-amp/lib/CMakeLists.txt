@@ -4,6 +4,7 @@ set_property (GLOBAL PROPERTY "PROJECT_LIB_EXTRA_CFLAGS")
 collector_create (PROJECT_LIB_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}")
 collect (PROJECT_LIB_DIRS "${CMAKE_CURRENT_BINARY_DIR}")
 collect (PROJECT_INC_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/include")
+collect (PROJECT_LIB_SOURCES version.c)
 
 
 add_subdirectory (virtio)
