@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2020-2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -34,12 +34,28 @@
 
 #endif
 
-u8 UpdateBuffer[sizeof(u8) + 16];
-u8 WriteBuffer[sizeof(u8) + 16];
-u8 ReadBuffer[16];
+//u8 UpdateBuffer[sizeof(u8) + 16];
+//u8 WriteBuffer[sizeof(u8) + 16];
+//u8 ReadBuffer[16];
 u16 tx_count_delay = 0;
 int tx_aud_started = 0;
 int i2s_started = 0;
+XScuGic IntcInst;
+extern XilAudioInfoFrame_rx AudioinfoFrame;
+extern XVphy VPhyInst; 			/* The DPRX Subsystem instance.*/
+extern XTmrCtr TmrCtr; 			/* Timer instance.*/
+extern XV_FrmbufRd_l2     frmbufrd;
+extern XV_FrmbufWr_l2     frmbufwr;
+extern XDpRxSs DpRxSsInst;    /* The DPRX Subsystem instance.*/
+extern Video_CRC_Config VidFrameCRC_rx; /* Video Frame CRC instance */
+extern int tx_started;
+extern volatile int tx_is_reconnected;
+extern volatile u8 hpd_pulse_con_event;
+
+#if ENABLE_AUDIO
+extern XGpio   aud_gpio;
+extern XGpio_Config  *aud_gpio_ConfigPtr;
+#endif
 
 #if ENABLE_HDCP_IN_DESIGN
 u8 hdcp_capable_org = 0;
@@ -109,6 +125,8 @@ XVidC_VideoMode VmId;
 extern u8 rx_unplugged;
 volatile u8 rx_trained = 0;
 u8 rx_aud_start = 0;
+extern XDpTxSs DpTxSsInst; 		/* The DPTX Subsystem instance.*/
+extern Video_CRC_Config VidFrameCRC_tx;
 
 extern lane_link_rate_struct lane_link_table[];
 extern u32 StreamOffset[4];

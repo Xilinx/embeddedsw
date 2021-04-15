@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2020-2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -24,6 +24,17 @@
 volatile u8 rx_unplugged = 0;
 extern u32 vblank_init;
 extern u8 vblank_captured;
+extern XVphy VPhyInst; 			/* The DPRX Subsystem instance.*/
+extern XTmrCtr TmrCtr; 			/* Timer instance.*/
+extern XDp_TxVscExtPacket VscPkt;	/* VSC Packet to populate the vsc data received by
+								rx */
+XilAudioInfoFrame_rx AudioinfoFrame;
+XilAudioExtFrame  SdpExtFrame;
+XilAudioExtFrame  SdpExtFrame_q;
+XDpRxSs DpRxSsInst;    /* The DPRX Subsystem instance.*/
+Video_CRC_Config VidFrameCRC_rx; /* Video Frame CRC instance */
+DP_Rx_Training_Algo_Config RxTrainConfig;
+extern XDpTxSs DpTxSsInst; 		/* The DPTX Subsystem instance.*/
 
 #if ENABLE_HDCP_IN_DESIGN
 extern u8 hdcp_capable_org ;
