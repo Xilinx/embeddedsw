@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -16,7 +16,8 @@
  * 1.1   KI   02/15/17 Vivado 2016.4 compartible code
  *            02/23/17 Added compliance related for Rx
  *            03/03/17 Added tx_preset for stability
- *
+ * 1.2   ND   04/03/21 Moved all global variables declaration from .h to .c
+* 				       files due to gcc compiler compilation error.
 *******************************************************************************/
 
 #include "dppt.h"
@@ -52,8 +53,8 @@ u8 si570_reg_value[NUM_MODES][NUM_CLOCK_REGS] = {
 };
 
 u8 UpdateBuffer[sizeof(AddressType) + PAGE_SIZE];
-u8 WriteBuffer[sizeof(AddressType) + PAGE_SIZE];
-u8 ReadBuffer[PAGE_SIZE];
+extern u8 WriteBuffer[sizeof(AddressType) + PAGE_SIZE];
+extern u8 ReadBuffer[PAGE_SIZE];
 
 struct dma_chan_parms dma_struct[1];
 
@@ -4110,8 +4111,8 @@ void start_tx(u8 line_rate, u8 lane_count,
 }
 
 #if ENABLE_AUDIO
-volatile u8 TransmitComplete;   /* Flag to check completion of Transmission */
-volatile u8 ReceiveComplete;    /* Flag to check completion of Reception */
+extern volatile u8 TransmitComplete;   /* Flag to check completion of Transmission */
+extern volatile u8 ReceiveComplete;    /* Flag to check completion of Reception */
 
 
 static void ReceiveHandler(XIic * InstancePtr)
