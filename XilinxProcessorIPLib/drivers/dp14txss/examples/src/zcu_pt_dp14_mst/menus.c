@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2020 - 2021 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -63,6 +63,15 @@ XDp_TxAudioInfoFrame *xilInfoFrame;
 
 u8 tx_is_up = 0;
 u8 aud_started = 0;
+extern XilAudioInfoFrame_rx AudioinfoFrame;
+extern XAxis_Switch axis_switch;
+extern XDpRxSs DpRxSsInst;	/* The DPTX Subsystem instance.*/
+extern XDpTxSs DpTxSsInst;	/* The DPTX Subsystem instance.*/
+extern XVphy VPhyInst;
+extern XTmrCtr TmrCtr;
+extern int tx_is_reconnected;
+extern u8 hpd_pulse_con_event;
+extern XScuGic IntcInst;
 
 void DpPt_LaneLinkRateHelpMenu(void)
 {
