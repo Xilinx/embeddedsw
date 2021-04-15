@@ -1,5 +1,5 @@
  /*
- * Copyright (c) 2017, Xilinx Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2017 2021, Xilinx Inc. and Contributors. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -48,9 +48,25 @@
 
 /* Devices names */
 #define BUS_NAME        "generic"
-#define IPI_DEV_NAME    "ff310000.ipi"
 #define SHM_DEV_NAME    "3ed80000.shm"
+#define SHM_BASE_ADDR   0x3ED80000
+
+#ifdef versal
+#define IPI_DEV_NAME	"ff340000.ipi"
+#define IPI_BASE_ADDR   0xFF340000
+#define IPI_IRQ_VECT_ID	63
+#define IPI_MASK	0x20
+#define TTC0_BASE_ADDR  0xFF0E0000
+#define TTC_DEV_NAME	"ff0E0000.ttc"
+#else
+#define IPI_DEV_NAME    "ff310000.ipi"
+#define IPI_BASE_ADDR	0xFF340000
+#define IPI_IRQ_VECT_ID	65
+/* IPI mask for kick from APU. We use PL0 IPI in this demo. */
+#define IPI_MASK	0x1000000
+#define TTC0_BASE_ADDR	0xFF110000
 #define TTC_DEV_NAME    "ff110000.ttc"
+#endif /* !versal */
 
 /* IPI registers offset */
 #define IPI_TRIG_OFFSET 0x0  /* IPI trigger reg offset */
