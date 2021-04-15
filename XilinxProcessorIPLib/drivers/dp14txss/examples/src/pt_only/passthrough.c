@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -22,6 +22,7 @@
 #include "tx.h"
 #include "rx.h"
 
+#define ENABLE_AUDIO XPAR_DP_RX_HIER_0_V_DP_RXSS1_0_AUDIO_ENABLE
 
 u8 UpdateBuffer[sizeof(u8) + 16];
 u8 WriteBuffer[sizeof(u8) + 16];
@@ -29,9 +30,33 @@ u8 ReadBuffer[16];
 u16 tx_count_delay = 0;
 int tx_aud_started = 0;
 volatile int i2s_started = 0;
+XDp_TxVscExtPacket ExtFrame_tx_vsc;
+volatile u8 hpd_pulse_con_event; 	/* This variable triggers hpd_pulse_con */
+extern XilAudioInfoFrame_rx AudioinfoFrame;
+extern XDpRxSs DpRxSsInst;    /* The DPRX Subsystem instance.*/
+extern XDpTxSs DpTxSsInst; 		/* The DPTX Subsystem instance.*/
+extern Video_CRC_Config VidFrameCRC_rx; /* Video Frame CRC instance */
+extern Video_CRC_Config VidFrameCRC_tx;
+extern volatile int tx_is_reconnected; 		/* This variable to keep track
+ * of the status of Tx link*/
 
+#ifndef versal
+extern XVphy VPhyInst; 	/* The DPRX Subsystem instance.*/
+#else
+extern void* VPhyInst;
+#endif
+
+#if ENABLE_AUDIO
+extern XAxis_Switch axis_switch_rx;
+extern XAxis_Switch axis_switch_tx;
+extern XGpio_Config  *aud_gpio_ConfigPtr;
+extern XGpio   aud_gpio;
+extern XI2s_Rx I2s_rx;
+extern XI2s_Tx I2s_tx;
+#endif
 extern u8 start_i2s_clk;
 extern u32 appx_fs_dup;
+extern XScuGic IntcInst;
 XV_frmbufrd_Config frmbufrd_cfg;
 XV_frmbufwr_Config frmbufwr_cfg;
 
@@ -1239,7 +1264,7 @@ void start_tx_after_rx (void) {
 	rx_and_tx_started = 1;
 
 }
-
+extern int tx_started;
 void unplug_proc (void) {
 	u32 vswing;
 	u32 postcursor, value;
