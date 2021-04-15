@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,8 @@
 * 1.00 nd 2/14/19  Common rx only application for zcu102 and vcu118
 * 1.1  ku 8/14/20  CRC Calculator configured for 4 PPC
 * 1.2  nd 1/12/21  Added Support for VSC
+* 1.3  ND 04/02/21 Moved all global variables declaration from .h to .c
+* 				   files due to gcc compiler compilation error.
 * </pre>
 *
 ******************************************************************************/
