@@ -84,7 +84,7 @@ cp -r $BSP_DIR/libsrc/xilskey/src/include/*.h $BSP_DIR/include/
 BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilskey/src/Makefile"
 
 # copy bsp standalone code
-cp  $STANDALONE_DIR/common/*  $BSP_DIR/libsrc/standalone/src/
+cp -r $STANDALONE_DIR/common/*  $BSP_DIR/libsrc/standalone/src/
 cp  $STANDALONE_DIR/microblaze/*  $BSP_DIR/libsrc/standalone/src/
 cp -r $STANDALONE_DIR/profile  $BSP_DIR/libsrc/standalone/src/
 cp  $WORKING_DIR/bspconfig.h  $BSP_DIR/include
