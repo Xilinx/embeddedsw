@@ -20,6 +20,8 @@
 *       kpt  01/21/21 Added macro for revoke id mask
 *       har  03/17/21 Moved macros required for Secure state out of
 *                     PLM_SECURE_EXCLUDE macro
+*       kpt  04/14/21 Added macros required to check encrypted data
+*                     alignment
 *
 * </pre>
 *
@@ -104,6 +106,8 @@ extern "C" {
 #define XLOADER_SECURE_METAHDR_RD_IMG_PRTN_HDRS (0x0U)
 #define XLOADER_SECURE_METAHDR_RD_IMG_HDRS      (0x1U)
 #define XLOADER_SECURE_METAHDR_RD_PRTN_HDRS     (0x2U)
+
+#define XLOADER_128_BIT_ALIGNED_MASK            (0x0FU)
 
 /* AES key source */
 #define XLOADER_EFUSE_KEY		(0xA5C3C5A3U) /* eFuse Key */
@@ -379,6 +383,8 @@ typedef enum {
 		/**< 0x27 Error during XPlmi_MemSetBytes */
 	XLOADER_SEC_GLITCH_DETECTED_ERROR,
 		/**<0x28 Error glitch detected */
+	XLOADER_SEC_ENC_DATA_NOT_ALIGNED_ERROR,
+		/**<0x29 Error encrypted data is not 128 bit aligned */
 } XLoader_SecErrCodes;
 
 /*****************************************************************************/
