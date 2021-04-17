@@ -33,6 +33,8 @@
 *       ma   03/24/21 Redirect XilPdi prints to XilLoader
 *       ma   03/24/21 Minor updates to prints in XilLoader
 *       bm   04/10/21 Updated scheduler function calls
+*       kpt  04/14/21 Added check to verify whether the encrypted data is 128 bit
+*                     aligned
 *
 * </pre>
 *
@@ -1774,6 +1776,7 @@ static int XLoader_DecryptSecureBlk(XLoader_SecureParams *SecurePtr,
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
+	volatile int SStatus = XST_FAILURE;
 
 	/* Configure AES engine to push Key and IV */
 	XPlmi_Printf(DEBUG_INFO, "Decrypting Secure header\n\r");
@@ -1804,16 +1807,25 @@ static int XLoader_DecryptSecureBlk(XLoader_SecureParams *SecurePtr,
 		goto END;
 	}
 
+	/* Check if the encrypted data is 128 bit aligned */
+	if ((SecurePtr->AesInstance.NextBlkLen &
+		XLOADER_128_BIT_ALIGNED_MASK) != 0x00U) {
+		XPlmi_Printf(DEBUG_INFO, "Encrypted data is not 128 bit aligned\n\r");
+		Status = XLoader_UpdateMinorErr(
+			XLOADER_SEC_ENC_DATA_NOT_ALIGNED_ERROR, 0);
+		goto END;
+	}
+
 	SecurePtr->RemainingEncLen = SecurePtr->RemainingEncLen -
 				XLOADER_SECURE_HDR_TOTAL_SIZE;
 	XPlmi_Printf(DEBUG_DETAILED, "Decryption NextBlkLen is %0x\n\r",
 		SecurePtr->AesInstance.NextBlkLen);
 
 END:
-	Status = XSecure_AesCfgKupKeyNIv(&SecurePtr->AesInstance, (u8)FALSE);
-	if (Status != XST_SUCCESS) {
+	SStatus = XSecure_AesCfgKupKeyNIv(&SecurePtr->AesInstance, (u8)FALSE);
+	if ((Status == XST_SUCCESS) && (SStatus != XST_SUCCESS)) {
 		Status  = XLoader_UpdateMinorErr(XLOADER_SEC_AES_OPERATION_FAILED,
-			Status);
+			SStatus);
 	}
 	return Status;
 }
