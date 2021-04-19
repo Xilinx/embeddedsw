@@ -17,6 +17,9 @@ endif (WITH_PROXY)
 
 set (OPENAMP_LIB open_amp)
 
+configure_file(version.h.in ${PROJECT_BINARY_DIR}/include/generated/openamp/version_def.h)
+collect (PROJECT_INC_DIRS " ${PROJECT_BINARY_DIR}/include/generated/openamp")
+
 if (NOT CMAKE_INSTALL_LIBDIR)
 	set (CMAKE_INSTALL_LIBDIR "lib")
 endif (NOT CMAKE_INSTALL_LIBDIR)
@@ -62,5 +65,6 @@ else (WITH_ZEPHYR)
 endif (WITH_ZEPHYR)
 
 install (DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include/openamp" DESTINATION include)
+install (DIRECTORY "${PROJECT_BINARY_DIR}/include/generated/openamp" DESTINATION include)
 
 # vim: expandtab:ts=2:sw=2:smartindent
