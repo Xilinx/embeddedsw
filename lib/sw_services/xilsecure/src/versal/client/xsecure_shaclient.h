@@ -44,7 +44,7 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 int XSecure_Sha3Initialize(void);
-int XSecure_Sha3Update(const UINTPTR InDataAddr, u32 Size);
+int XSecure_Sha3Update(const u64 InDataAddr, u32 Size);
 int XSecure_Sha3Finish(const u64 OutDataAddr);
 int XSecure_Sha3Kat(void);
 
