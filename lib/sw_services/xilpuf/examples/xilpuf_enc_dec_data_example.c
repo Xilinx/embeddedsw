@@ -27,6 +27,7 @@
  *       har  09/30/20 Replaced XPuf_printf with xil_printf
  * 1.3   har  01/04/21 Added check and updated comments for
  *                     XPUF_DATA_LEN_IN_BYTES
+ *       har  04/14/21 Modified code to use client side APIs of Xilsecure
  *
  * @note
  *
@@ -81,9 +82,11 @@
  *****************************************************************************/
 /***************************** Include Files *********************************/
 #include "xpuf.h"
-#include "xsecure_aes.h"
+#include "xsecure_aesclient.h"
+#include "xsecure_ipi.h"
 #include "xil_util.h"
 #include "xil_mem.h"
+#include "xil_cache.h"
 
 /************************** Constant Definitions ****************************/
 /* User configurable parameters start*/
@@ -108,17 +111,23 @@
 #define XPUF_GLBL_VAR_FLTR_OPTION	(TRUE)
 /*User configurable parameters end */
 
-#define XPUF_PMCDMA_DEVICEID			PMCDMA_0_DEVICE_ID
 #define XPUF_IV_LEN_IN_BYTES			(12U)
 						/* IV Length in bytes */
 #define XPUF_DATA_LEN_IN_BITS			(XPUF_DATA_LEN_IN_BYTES * 8U)
 						/* Data length in Bits */
 #define XPUF_IV_LEN_IN_BITS			(XPUF_IV_LEN_IN_BYTES * 8U)
 						/* IV length in Bits */
-#define XPUF_GCM_TAG_SIZE			(XSECURE_SECURE_GCM_TAG_SIZE)
+#define XPUF_GCM_TAG_SIZE		(16U)
 						/* GCM tag Length in bytes */
 #define XPUF_HD_LEN_IN_WORDS			(386U)
 #define XPUF_ID_LEN_IN_BYTES			(XPUF_ID_LEN_IN_WORDS * XPUF_WORD_LENGTH)
+/*
+ * Below macro values should match with enum XSecure_AesKeySize.
+ * As preprocessor can't handle enums at preprocessing stage of compilation,
+ * these macros are defined.
+ */
+#define XPUF_RED_KEY_SIZE_128		(0U)
+#define XPUF_RED_KEY_SIZE_256		(2U)
 
 /************************** Type Definitions *********************************/
 static XPuf_Data PufData;
@@ -293,12 +302,18 @@ END:
 static int XPuf_VerifyDataEncDec(void)
 {
 	int Status = XST_FAILURE;
-	XPmcDma_Config *Config;
 	u32 Index;
-	XPmcDma PmcDmaInstance;
-	XSecure_Aes SecureAes;
+	XIpiPsu IpiInst;
 
-	Xil_DCacheDisable();
+	Status = XSecure_InitializeIpi(&IpiInst);
+	if (Status != XST_SUCCESS) {
+			goto END;
+	}
+
+	Status = XSecure_SetIpi(&IpiInst);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	if (Xil_Strnlen(XPUF_IV, (XPUF_IV_LEN_IN_BYTES * 2U)) ==
 				(XPUF_IV_LEN_IN_BYTES * 2U)) {
@@ -336,40 +351,36 @@ static int XPuf_VerifyDataEncDec(void)
 		goto END;
 	}
 
-	/* Initialize PMC DMA driver */
-	Config = XPmcDma_LookupConfig(XPUF_PMCDMA_DEVICEID);
-	if (Config == NULL) {
-		goto END;
-	}
-	Status = XPmcDma_CfgInitialize(&PmcDmaInstance, Config,
-			Config->BaseAddress);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
 	xil_printf("Data to be encrypted: \n\r");
 	XPuf_ShowData((u8*)Data, XPUF_DATA_LEN_IN_BYTES);
 
 	xil_printf("IV: \n\r");
 	XPuf_ShowData((u8*)Iv, XPUF_IV_LEN_IN_BYTES);
 
-	/* Initialize the Aes driver so that it's ready to use */
-	XSecure_AesInitialize(&SecureAes, &PmcDmaInstance);
+	Xil_DCacheFlushRange((UINTPTR)Iv, XPUF_IV_LEN_IN_BYTES);
+	Xil_DCacheFlushRange((UINTPTR)Data, XPUF_DATA_LEN_IN_BYTES);
 
-	/* Encryption of Data */
-	Status = XSecure_AesEncryptInit(&SecureAes, XSECURE_AES_PUF_KEY,
-				XSECURE_AES_KEY_SIZE_256, (UINTPTR)Iv);
+	/* Initialize the Aes driver so that it's ready to use */
+	Status = XSecure_AesInitialize();
 	if (Status != XST_SUCCESS) {
-		xil_printf("Aes encrypt init failed %x\n\r", Status);
+		xil_printf("Aes init failed %x\n\r", Status);
 		goto END;
 	}
 
-	Status = XSecure_AesEncryptData(&SecureAes, (UINTPTR)Data, (UINTPTR)EncData,
-			XPUF_DATA_LEN_IN_BYTES, (UINTPTR)GcmTag);
+	Xil_DCacheInvalidateRange((UINTPTR)EncData, XPUF_DATA_LEN_IN_BYTES);
+	Xil_DCacheInvalidateRange((UINTPTR)GcmTag, XPUF_GCM_TAG_SIZE);
+
+	/* Encryption of Data */
+	Status = XSecure_AesEncryptData(XSECURE_AES_PUF_KEY,
+		XPUF_RED_KEY_SIZE_256, (UINTPTR)Iv, (UINTPTR)Data,
+		(UINTPTR)EncData, XPUF_DATA_LEN_IN_BYTES, (UINTPTR)GcmTag);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Data encryption failed %x\n\r", Status);
 		goto END;
 	}
+
+	Xil_DCacheInvalidateRange((UINTPTR)EncData, XPUF_DATA_LEN_IN_BYTES);
+	Xil_DCacheInvalidateRange((UINTPTR)GcmTag, XPUF_GCM_TAG_SIZE);
 
 	xil_printf("Encrypted data: \n\r");
 	XPuf_ShowData((u8*)EncData, XPUF_DATA_LEN_IN_BYTES);
@@ -378,22 +389,24 @@ static int XPuf_VerifyDataEncDec(void)
 	XPuf_ShowData((u8*)GcmTag, XPUF_GCM_TAG_SIZE);
 
 	/* Initialize the Aes driver so that it's ready to use */
-	XSecure_AesInitialize(&SecureAes, &PmcDmaInstance);
-
-	/* Decryption of Data */
-	Status = XSecure_AesDecryptInit(&SecureAes, XSECURE_AES_PUF_KEY,
-			XSECURE_AES_KEY_SIZE_256, (UINTPTR)Iv);
+	Status = XSecure_AesInitialize();
 	if (Status != XST_SUCCESS) {
-		xil_printf("Error in decrypt init %x\n\r", Status);
+		xil_printf("Aes init failed %x\n\r", Status);
 		goto END;
 	}
 
-	Status = XSecure_AesDecryptData(&SecureAes, (UINTPTR)EncData, (UINTPTR)DecData,
-			XPUF_DATA_LEN_IN_BYTES, (UINTPTR)GcmTag);
+	Xil_DCacheInvalidateRange((UINTPTR)DecData, XPUF_DATA_LEN_IN_BYTES);
+
+	/* Decryption of Data */
+	Status = XSecure_AesDecryptData(XSECURE_AES_PUF_KEY,
+		XPUF_RED_KEY_SIZE_256, (UINTPTR)Iv, (UINTPTR)EncData,
+		(UINTPTR)DecData, XPUF_DATA_LEN_IN_BYTES, (UINTPTR)GcmTag);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Data encryption failed %x\n\r", Status);
 		goto END;
 	}
+
+	Xil_DCacheInvalidateRange((UINTPTR)DecData, XPUF_DATA_LEN_IN_BYTES);
 
 	xil_printf("Decrypted data \n\r ");
 	XPuf_ShowData((u8*)DecData, XPUF_DATA_LEN_IN_BYTES);
