@@ -12,7 +12,7 @@ TEST_GROUP(Combo)
 {
 };
 
-TEST(Combo, Basic)
+TEST(Combo, ComboBasic)
 {
 	AieRC RC;
 
@@ -28,23 +28,46 @@ TEST(Combo, Basic)
 	CHECK_EQUAL(RC, XAIE_OK);
 
 	XAieDev Aie(&DevInst, true);
-	auto Combo = Aie.tile(1,1).core().comboEvent();
+	auto ComboTwoEvents = Aie.tile(1,1).core().comboEvent();
+	auto ComboFourEvents = Aie.tile(1,1).core().comboEvent(4);
 
-	RC = Combo->reserve();
-	CHECK_EQUAL(RC, XAIE_OK);
-
-	std::vector<XAie_Events> vE;
-	vE.push_back(XAIE_EVENT_ACTIVE_CORE);
-	vE.push_back(XAIE_EVENT_GROUP_CORE_PROGRAM_FLOW_CORE);
-	std::vector<XAie_EventComboOps> vOps;
-	vOps.push_back(XAIE_EVENT_COMBO_E1_OR_E2);
-	RC = Combo->setEvents(vE, vOps);
+	RC = ComboTwoEvents->reserve();
 	CHECK_EQUAL(RC, XAIE_OK);
 
-	RC = Combo->start();
+	RC = ComboFourEvents->reserve();
 	CHECK_EQUAL(RC, XAIE_OK);
-	RC = Combo->stop();
+
+	std::vector<XAie_Events> vETwo;
+	vETwo.push_back(XAIE_EVENT_ACTIVE_CORE);
+	vETwo.push_back(XAIE_EVENT_GROUP_CORE_PROGRAM_FLOW_CORE);
+	std::vector<XAie_EventComboOps> vOpsTwo;
+	vOpsTwo.push_back(XAIE_EVENT_COMBO_E1_OR_E2);
+	RC = ComboTwoEvents->setEvents(vETwo, vOpsTwo);
 	CHECK_EQUAL(RC, XAIE_OK);
-	RC = Combo->release();
+
+	std::vector<XAie_Events> vEFour;
+	vEFour.push_back(XAIE_EVENT_ACTIVE_CORE);
+	vEFour.push_back(XAIE_EVENT_GROUP_CORE_PROGRAM_FLOW_CORE);
+	vEFour.push_back(XAIE_EVENT_TRUE_CORE);
+	vEFour.push_back(XAIE_EVENT_COMBO_EVENT_0_CORE);
+	std::vector<XAie_EventComboOps> vOpsFour;
+	vOpsFour.push_back(XAIE_EVENT_COMBO_E1_OR_E2);
+	vOpsFour.push_back(XAIE_EVENT_COMBO_E1_AND_NOTE2);
+	RC = ComboFourEvents->setEvents(vEFour, vOpsFour);
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = ComboTwoEvents->start();
+	CHECK_EQUAL(RC, XAIE_OK);
+	RC = ComboFourEvents->start();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = ComboTwoEvents->stop();
+	CHECK_EQUAL(RC, XAIE_OK);
+	RC = ComboFourEvents->stop();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = ComboTwoEvents->release();
+	CHECK_EQUAL(RC, XAIE_OK);
+	RC = ComboFourEvents->release();
 	CHECK_EQUAL(RC, XAIE_OK);
 }
