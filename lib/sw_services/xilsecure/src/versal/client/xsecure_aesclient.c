@@ -79,7 +79,7 @@ int XSecure_AesEncryptInit(XSecure_AesKeySource KeySrc, u32 Size, u64 IvAddr)
 	AesParams.OperationId = XSECURE_ENCRYPT;
 	AesParams.KeySrc = KeySrc;
 	AesParams.KeySize = Size;
-	Buffer = (u64)&AesParams;
+	Buffer = (u64)(UINTPTR)&AesParams;
 
 	Xil_DCacheFlushRange(Buffer, sizeof(AesParams));
 
@@ -111,7 +111,7 @@ int XSecure_AesDecryptInit(XSecure_AesKeySource KeySrc, u32 Size, u64 IvAddr)
 	AesParams.OperationId = XSECURE_DECRYPT;
 	AesParams.KeySrc = KeySrc;
 	AesParams.KeySize = Size;
-	Buffer = (u64)&AesParams;
+	Buffer = (u64)(UINTPTR)&AesParams;
 
 	Xil_DCacheFlushRange(Buffer, sizeof(AesParams));
 
@@ -172,7 +172,7 @@ int XSecure_AesEncryptUpdate(u64 InDataAddr, u64 OutDataAddr,
 	EncInAddr.InDataAddr = InDataAddr;
 	EncInAddr.Size = Size;
 	EncInAddr.IsLast = IsLast;
-	SrcAddr = (u64)&EncInAddr;
+	SrcAddr = (u64)(UINTPTR)&EncInAddr;
 
 	Xil_DCacheFlushRange(SrcAddr, sizeof(EncInAddr));
 
@@ -237,7 +237,7 @@ int XSecure_AesDecryptUpdate(u64 InDataAddr, u64 OutDataAddr,
 	DecInParams.InDataAddr = InDataAddr;
 	DecInParams.Size = Size;
 	DecInParams.IsLast = IsLast;
-	SrcAddr = (u64)&DecInParams;
+	SrcAddr = (u64)(UINTPTR)&DecInParams;
 
 	Xil_DCacheFlushRange(SrcAddr, sizeof(DecInParams));
 
