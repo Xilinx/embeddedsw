@@ -156,8 +156,7 @@ proc generate_sgmii_params {drv_handle file_name} {
 		# xparameters but will be scanned and obtained in upper layers.
 		set phya [is_gige_pcs_pma_ip_present $ip]
 		if {$pcs_pma == false} {
-			close $file_handle
-			return 0
+			continue
 		}
 		if { $PhyStandard == "1000BASEX" } {
 			puts $file_handle "/* Definitions related to PCS PMA PL IP*/"
@@ -172,6 +171,7 @@ proc generate_sgmii_params {drv_handle file_name} {
 				puts $file_handle "\n/******************************************************************/\n"
 			}
 		}
+		break
 	}
 	close $file_handle
 }
