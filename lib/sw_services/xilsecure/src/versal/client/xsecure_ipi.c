@@ -18,6 +18,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kal  03/23/21 Initial release
+*       har  04/14/21 Renamed XSecure_ConfigIpi as XSecure_SetIpi
+*                     Added XSecure_InitializeIpi
 *
 * </pre>
 *
@@ -277,15 +279,15 @@ END:
 
 /****************************************************************************/
 /**
- * @brief  	Initialize Ipi instance for xilsecure library
+ * @brief  	Sets Ipi instance for xilsecure library
  *
  * @param  	IpiInst 	Pointer to IPI driver instance
  *
- * @return	- XST_SUCCESS - If the initialization is successful
+ * @return	- XST_SUCCESS - If the IPI poniter is successfully set
  * 		- XST_FAILURE - If there is a failure
  *
  ****************************************************************************/
-int XSecure_ConfigIpi(XIpiPsu *IpiInst)
+int XSecure_SetIpi(XIpiPsu* const IpiInst)
 {
 	int Status = XST_FAILURE;
 
@@ -298,6 +300,45 @@ int XSecure_ConfigIpi(XIpiPsu *IpiInst)
 	IpiPtr = IpiInst;
 
 	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function configures and initializes the IPI
+*
+* @param	IpiInstPtr	Pointer to IPI instance
+*
+* @return
+* 		- XST_SUCCESS if Ipi configuration is successful
+*		- XST_FAILURE if Ipi configuration is failed.
+*
+******************************************************************************/
+int XSecure_InitializeIpi(XIpiPsu* const IpiInstPtr)
+{
+	int Status = XST_FAILURE;
+	XIpiPsu_Config *IpiCfgPtr;
+
+	/* Look Up the config data */
+	IpiCfgPtr = XIpiPsu_LookupConfig(XPAR_XIPIPSU_0_DEVICE_ID);
+	if (NULL == IpiCfgPtr) {
+		Status = XST_FAILURE;
+		XSecure_Printf(XSECURE_DEBUG_GENERAL,
+			"%s ERROR in getting CfgPtr\n");
+		goto END;
+	}
+
+	/* Init with the Cfg Data */
+	Status = XIpiPsu_CfgInitialize(IpiInstPtr, IpiCfgPtr,
+		IpiCfgPtr->BaseAddress);
+	if (XST_SUCCESS != Status) {
+		XSecure_Printf(XSECURE_DEBUG_GENERAL,
+			"%s ERROR #%d in configuring IPI\n",Status);
+		goto END;;
+	}
 
 END:
 	return Status;

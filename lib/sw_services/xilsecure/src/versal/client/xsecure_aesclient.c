@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kal  03/23/21 Initial release
+*       har  04/14/21 Added XSecure_AesEncryptData and XSecure_AesDecryptData
 *
 * </pre>
 * @note
@@ -433,5 +434,96 @@ int XSecure_AesDecryptCmKat(void)
 
 	Status = XSecure_ProcessIpiWithPayload0(XSECURE_API_AES_DECRYPT_CM_KAT);
 
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * @brief	This function calls IPI request to encrypt a single block of data.
+ *
+ * @param	KeySrc - Type of the key
+ * @param	KeySize - Size of the key
+ * @param	IvAddr - Address of the IV
+ * @param	InDataAddr - Address of the data which needs to be encrypted
+ * @param	OutDataAddr - Address of output buffer where the encrypted data
+ *		to be updated
+ * @param	Size - Size of data to be encrypted in bytes where number of
+ * 		bytes provided should be multiples of 4
+ * @param	GcmTagAddr - Address to the buffer of GCM tag
+ *
+ * @return 	- XST_SUCCESS - On success
+ *		- XSECURE_AES_INVALID_PARAM - On invalid parameter
+ *		- XSECURE_AES_STATE_MISMATCH_ERROR - If State mismatch is occurred
+ *		- XST_FAILURE - On failure
+ *
+ ******************************************************************************/
+int XSecure_AesEncryptData(XSecure_AesKeySource KeySrc, u32 KeySize, u64 IvAddr,
+	u64 InDataAddr, u64 OutDataAddr, u32 Size, u64 GcmTagAddr)
+{
+	volatile int Status = XST_FAILURE;
+
+	Status = XSecure_AesEncryptInit(KeySrc, KeySize, IvAddr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XSecure_AesEncryptUpdate(InDataAddr, OutDataAddr, Size, TRUE);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XSecure_AesEncryptFinal(GcmTagAddr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * @brief	This function calls IPI request to decrypt a single block of data.
+ *
+ * @param	KeySrc - Type of the key
+ * @param	KeySize - Size of the key
+ * @param	IvAddr - Address of the IV
+ * @param	InDataAddr - Address of the encrypted data which needs to be
+ *		decrypted
+ * @param	OutDataAddr - Address of buffer where the decrypted data to be
+ *		updated
+ * @param	Size - Size of input data to be decrypted
+ * @param	GcmTagAddr - Address to the buffer of GCM tag
+ *
+ *
+ * @return 	- XST_SUCCESS - On success
+ *		- XSECURE_AES_INVALID_PARAM - On invalid parameter
+ *		- XSECURE_AES_STATE_MISMATCH_ERROR - If State mismatch is occurred
+ *		- XST_FAILURE - On failure
+ *
+ ******************************************************************************/
+int XSecure_AesDecryptData(XSecure_AesKeySource KeySrc, u32 KeySize, u64 IvAddr,
+	u64 InDataAddr, u64 OutDataAddr, u32 Size, u64 GcmTagAddr)
+{
+	volatile int Status = XST_FAILURE;
+
+	Status = XSecure_AesDecryptInit(KeySrc, KeySize, IvAddr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XSecure_AesDecryptUpdate(InDataAddr, OutDataAddr, Size, TRUE);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XSecure_AesDecryptFinal(GcmTagAddr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+END:
 	return Status;
 }
