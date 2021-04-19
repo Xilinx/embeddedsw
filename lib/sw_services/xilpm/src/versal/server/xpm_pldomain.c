@@ -319,6 +319,15 @@ static XStatus GtyHouseClean(void)
 		if (0U == GtyAddresses[i]) {
 			continue;
 		}
+
+		Status = XPm_PollForMask(GtyAddresses[i] + GTY_PCSR_STATUS_OFFSET,
+			   GTY_PCSR_STATUS_HOUSECLEAN_DONE_MASK, XPM_POLL_TIMEOUT);
+		if (XST_SUCCESS != Status) {
+			PmErr("HOUSECLEAN_DONE poll failed for GT:0x%08X\n\r", GtyAddresses[i]);
+			DbgErr = XPM_INT_ERR_GTY_HC;
+			goto done;
+		}
+
 		XPmPlDomain_UnlockGtyPcsr(GtyAddresses[i]);
 		/* Deassert INITCTRL */
 		PmOut32(GtyAddresses[i] + GTY_PCSR_MASK_OFFSET,
