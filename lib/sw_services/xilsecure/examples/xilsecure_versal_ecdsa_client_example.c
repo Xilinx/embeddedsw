@@ -46,7 +46,6 @@
 
 static XIpiPsu IpiInst;
 /************************** Function Prototypes ******************************/
-static u32 XSecure_IpiConfigure(XIpiPsu *const IpiInstPtr);
 static void XSecure_ShowData(const u8* Data, u32 Len);
 #ifdef TEST_NIST_P384
 static int XSecure_TestP384();
@@ -70,12 +69,12 @@ int main()
 {
 	int Status = XST_FAILURE;
 
-	Status = XSecure_IpiConfigure(&IpiInst);
+	Status = XSecure_InitializeIpi(&IpiInst);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XSecure_ConfigIpi(&IpiInst);
+	Status = XSecure_SetIpi(&IpiInst);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -99,43 +98,6 @@ int main()
 #endif
 
 	xil_printf("Successfully ran Ecdsa example \r\n");
-
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
-*
-* This function configures the IPI
-*
-* @param	IpiInstPtr	Pointer to IPI instance
-*
-* @return
-* 		- XST_SUCCESS if Ipi configuration is successful
-*		- XST_FAILURE if Ipi configuration is failed.
-*
-******************************************************************************/
-static u32 XSecure_IpiConfigure(XIpiPsu *const IpiInstPtr)
-{
-	u32 Status = XST_FAILURE;
-	XIpiPsu_Config *IpiCfgPtr;
-
-	/* Look Up the config data */
-	IpiCfgPtr = XIpiPsu_LookupConfig(XPAR_XIPIPSU_0_DEVICE_ID);
-	if (NULL == IpiCfgPtr) {
-		Status = XST_FAILURE;
-		xil_printf("%s ERROR in getting CfgPtr\n");
-		goto END;
-	}
-
-	/* Init with the Cfg Data */
-	Status = XIpiPsu_CfgInitialize(IpiInstPtr, IpiCfgPtr,
-						IpiCfgPtr->BaseAddress);
-	if (XST_SUCCESS != Status) {
-		xil_printf("%s ERROR #%d in configuring IPI\n",Status);
-		goto END;
-	}
 
 END:
 	return Status;
