@@ -57,7 +57,7 @@ int XSecure_RsaPrivateDecrypt(const u64 KeyAddr, const u64 InDataAddr,
 	RsaParams.KeyAddr = KeyAddr;
 	RsaParams.DataAddr = InDataAddr;
 	RsaParams.Size = Size;
-	BufferAddr = (u64)&RsaParams;
+	BufferAddr = (u64)(UINTPTR)&RsaParams;
 
 	Xil_DCacheFlushRange(BufferAddr, sizeof(RsaParams));
 
@@ -99,7 +99,7 @@ int XSecure_RsaPublicEncrypt(const u64 KeyAddr, const u64 InDataAddr,
 	RsaParams.KeyAddr = KeyAddr;
 	RsaParams.DataAddr = InDataAddr;
 	RsaParams.Size = Size;
-	BufferAddr = (u64)&RsaParams;
+	BufferAddr = (u64)(UINTPTR)&RsaParams;
 
 	Xil_DCacheFlushRange(BufferAddr, sizeof(RsaParams));
 
@@ -134,7 +134,7 @@ int XSecure_RsaSignVerification(const u64 SignAddr, const u64 HashAddr,
 	SignParams.SignAddr = SignAddr;
 	SignParams.HashAddr = HashAddr;
 	SignParams.Size = Size;
-	BufAddr = (u64)&SignParams;
+	BufAddr = (u64)(UINTPTR)&SignParams;
 
 	Xil_DCacheFlushRange(BufAddr, sizeof(SignParams));
 
