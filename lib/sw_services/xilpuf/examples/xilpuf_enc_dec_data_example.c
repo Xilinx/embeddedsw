@@ -90,37 +90,38 @@
 
 /************************** Constant Definitions ****************************/
 /* User configurable parameters start*/
-#define XPUF_DATA 				"000000000000000000000000000000"
-#define XPUF_DATA_LEN_IN_BYTES			(0U)
-						/* Data length in Bytes */
-#define XPUF_IV					"000000000000000000000000"
+#define XPUF_DATA 			"000000000000000000000000000000"
+#define XPUF_DATA_LEN_IN_BYTES		(0U)
+					/* Data length in Bytes */
+#define XPUF_IV				"000000000000000000000000"
 
-#define XPUF_KEY_GENERATE_OPTION		(XPUF_REGISTRATION)
+#define XPUF_KEY_GENERATE_OPTION	(XPUF_REGISTRATION)
 
 #if (XPUF_KEY_GENERATE_OPTION == XPUF_REGISTRATION)
-#define XPUF_WRITE_HD_OPTION 			(XPUF_WRITE_ON_UART)
+#define XPUF_WRITE_HD_OPTION 		(XPUF_WRITE_ON_UART)
 #endif
 
 #if (XPUF_KEY_GENERATE_OPTION == XPUF_REGEN_ON_DEMAND)
-#define XPUF_READ_HD_OPTION			(XPUF_READ_FROM_RAM)
-#define XPUF_CHASH				(0x00000000U)
-#define XPUF_AUX				(0x00000000U)
-#define XPUF_SYN_DATA_ADDRESS			(0x00000000U)
+#define XPUF_READ_HD_OPTION		(XPUF_READ_FROM_RAM)
+#define XPUF_CHASH			(0x00000000U)
+#define XPUF_AUX			(0x00000000U)
+#define XPUF_SYN_DATA_ADDRESS		(0x00000000U)
 #endif
 
 #define XPUF_GLBL_VAR_FLTR_OPTION	(TRUE)
 /*User configurable parameters end */
 
-#define XPUF_IV_LEN_IN_BYTES			(12U)
-						/* IV Length in bytes */
-#define XPUF_DATA_LEN_IN_BITS			(XPUF_DATA_LEN_IN_BYTES * 8U)
-						/* Data length in Bits */
-#define XPUF_IV_LEN_IN_BITS			(XPUF_IV_LEN_IN_BYTES * 8U)
-						/* IV length in Bits */
+#define XPUF_IV_LEN_IN_BYTES		(12U)
+					/* IV Length in bytes */
+#define XPUF_DATA_LEN_IN_BITS		(XPUF_DATA_LEN_IN_BYTES * 8U)
+					/* Data length in Bits */
+#define XPUF_IV_LEN_IN_BITS		(XPUF_IV_LEN_IN_BYTES * 8U)
+					/* IV length in Bits */
 #define XPUF_GCM_TAG_SIZE		(16U)
-						/* GCM tag Length in bytes */
-#define XPUF_HD_LEN_IN_WORDS			(386U)
-#define XPUF_ID_LEN_IN_BYTES			(XPUF_ID_LEN_IN_WORDS * XPUF_WORD_LENGTH)
+					/* GCM tag Length in bytes */
+#define XPUF_HD_LEN_IN_WORDS		(386U)
+#define XPUF_ID_LEN_IN_BYTES		(XPUF_ID_LEN_IN_WORDS * XPUF_WORD_LENGTH)
+
 /*
  * Below macro values should match with enum XSecure_AesKeySize.
  * As preprocessor can't handle enums at preprocessing stage of compilation,
@@ -195,30 +196,27 @@ END:
 /******************************************************************************/
 /**
  *
- * @brief	This function generates PUF KEY by PUF registration or PUF on demand
- * 			regeneration as per the user provided inputs.
+ * @brief	This function generates PUF KEY by PUF registration or
+ * 		PUF on demand regeneration as per the user provided inputs.
  *
  * @param	None.
  *
  * @return
- *		- XST_SUCCESS - If PUF_KEY generation was successful.
- * 		- XPUF_ERROR_INVALID_PARAM              - PufData is NULL.
- *		- XPUF_ERROR_INVALID_SYNDROME_MODE      - Incorrect Registration mode.
- *		- XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT - Timeout occurred while waiting
- *												  for PUF Syndrome data.
- *		- XPUF_ERROR_SYNDROME_DATA_OVERFLOW    - Syndrome data overflow reported
- *												 by PUF controller or more than
- *												 required data is provided by
- *												 PUF controller.
- *	    - XPUF_ERROR_SYNDROME_DATA_UNDERFLOW   - Number of syndrome data words
- *												 are less than expected number
- * 												 of words.
- *		- XPUF_ERROR_INVALID_REGENERATION_TYPE - Selection of invalid
- *			 									 regeneration type.
- *		- XPUF_ERROR_CHASH_NOT_PROGRAMMED      - Helper data not provided.
- *		- XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT   - Timeout before Status was done.
- *
- *		- XST_FAILURE 						   - if PUF KEY generation failed.
+ *		XST_SUCCESS - If PUF_KEY generation was successful.
+ * 		XPUF_ERROR_INVALID_PARAM - PufData is NULL.
+ *		XPUF_ERROR_INVALID_SYNDROME_MODE  - Incorrect Registration mode.
+ *		XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT - Timeout occurred while
+ *			 waiting for PUF Syndrome data.
+ *		XPUF_ERROR_SYNDROME_DATA_OVERFLOW - Syndrome data overflow
+ *			reported by PUF controller or more than required data
+ *			 is provided by PUF controller.
+ *		XPUF_ERROR_SYNDROME_DATA_UNDERFLOW - Number of syndrome data words
+ *			words are less than expected number of words.
+ *		XPUF_ERROR_INVALID_REGENERATION_TYPE - Selection of invalid
+ *			regeneration type.
+ *		XPUF_ERROR_CHASH_NOT_PROGRAMMED - Helper data not provided.
+ *		XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT - Timeout before Status was done.
+ *		XST_FAILURE - PUF KEY generation failed.
  *
  ******************************************************************************/
 static int XPuf_GenerateKey(void)
@@ -284,19 +282,18 @@ END:
 /******************************************************************************/
 /**
  *
- * @brief	This function verifies the encryption and decryption of the data blob
- *			using PUF key.
+ * @brief	This function verifies the encryption and decryption of the data
+ *		blob using PUF key.
  *
  * @param	None.
  *
  * @return
- *		- XST_SUCCESS - When the encryption and decryption of data is
- *						 successfully verified
- *  	- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
- *		- XST_FAILURE 				   - On failure of AES Encrypt
- *										 Initialization, AES Encrypt data,
- *										 format AES key and AES decrypt
- *										 Initialization and data.
+ *		XST_SUCCESS - When the encryption and decryption of data is
+ *			successfully verified
+ *  		XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
+ *		XST_FAILURE - On failure of AES Encrypt Initialization,
+ *			AES Encrypt data, format AES key and AES decrypt
+ *			Initialization and AES decrypt data.
  *
  ******************************************************************************/
 static int XPuf_VerifyDataEncDec(void)
@@ -320,7 +317,8 @@ static int XPuf_VerifyDataEncDec(void)
 		Status = Xil_ConvertStringToHexBE((const char *)(XPUF_IV), Iv,
 						XPUF_IV_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
-			xil_printf("String Conversion error (IV):%08x !!!\r\n", Status);
+			xil_printf("String Conversion error (IV):%08x !!!\r\n",
+				Status);
 			goto END;
 		}
 	}
@@ -335,7 +333,8 @@ static int XPuf_VerifyDataEncDec(void)
 			(const char *) (XPUF_DATA),
 			Data, XPUF_DATA_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
-			xil_printf("String Conversion error (Data):%08x !!!\r\n", Status);
+			xil_printf("String Conversion error (Data):%08x !!!\r\n",
+				Status);
 			goto END;
 		}
 	}

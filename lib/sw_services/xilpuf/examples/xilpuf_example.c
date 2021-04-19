@@ -50,7 +50,8 @@
 #define XPUF_GCM_TAG_SIZE			(16U)
 						/* GCM tag Length in bytes */
 #define XPUF_HD_LEN_IN_WORDS			(386U)
-#define XPUF_ID_LEN_IN_BYTES			(XPUF_ID_LEN_IN_WORDS * XPUF_WORD_LENGTH)
+#define XPUF_ID_LEN_IN_BYTES			(XPUF_ID_LEN_IN_WORDS * \
+							XPUF_WORD_LENGTH)
 
 #define XPUF_AES_KEY_SIZE_128BIT_WORDS		(4U)
 #define XPUF_AES_KEY_SIZE_256BIT_WORDS		(8U)
@@ -83,7 +84,7 @@ static u8 BlackKey[XPUF_RED_KEY_LEN_IN_BYTES];
 static u8 GcmTag[XPUF_GCM_TAG_SIZE];
 #endif
 
-static XSysMonPsv SysMonInst;      /* System Monitor driver instance */
+static XSysMonPsv SysMonInst;	/* System Monitor driver instance */
 static XSysMonPsv_Config *ConfigPtr;
 
 /************************** Function Prototypes ******************************/
@@ -149,10 +150,12 @@ int main(void)
 	/* Program PUF security control bits */
 	Status = XPuf_WritePufSecCtrlBits();
 	if (Status == XST_SUCCESS) {
-		xil_printf("Successfully programmed security control bit %x\r\n", Status);
+		xil_printf("Successfully programmed security control bit %x\r\n",
+			Status);
 	}
 	else {
-		xil_printf("Security control bit programming failed %x\r\n", Status);
+		xil_printf("Security control bit programming failed %x\r\n",
+		Status);
 	}
 #endif
 
@@ -272,23 +275,20 @@ END:
  *
  * @return
  *		- XST_SUCCESS - if PUF_KEY generation was successful.
- *		- XPUF_ERROR_INVALID_PARAM              - PufData is NULL.
- *		- XPUF_ERROR_INVALID_SYNDROME_MODE      - Incorrect Registration mode.
+ *		- XPUF_ERROR_INVALID_PARAM - PufData is NULL.
+ *		- XPUF_ERROR_INVALID_SYNDROME_MODE - Incorrect Registration mode.
  *		- XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT - Timeout occurred while waiting
- *												  for PUF Syndrome data.
- *		- XPUF_ERROR_SYNDROME_DATA_OVERFLOW    - Syndrome data overflow reported
- *												 by PUF controller or more than
- *												 required data is provided by
- *												 PUF controller.
- *	    - XPUF_ERROR_SYNDROME_DATA_UNDERFLOW   - Number of syndrome data words
- *												 are less than expected number
- * 												 of words.
+ *			for PUF Syndrome data.
+ *		- XPUF_ERROR_SYNDROME_DATA_OVERFLOW - Syndrome data overflow reported
+ *			by PUF controller or more than required data is
+ *			 provided by PUF controller.
+ *		- XPUF_ERROR_SYNDROME_DATA_UNDERFLOW - Number of syndrome data words
+ *			are less than expected number of words.
  *		- XPUF_ERROR_INVALID_REGENERATION_TYPE - Selection of invalid
- *			 									 regeneration type.
- *		- XPUF_ERROR_CHASH_NOT_PROGRAMMED      - Helper data not provided.
- *		- XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT   - Timeout before Status was done.
- *
- *		- XST_FAILURE 						   - if PUF KEY generation failed.
+ *			regeneration type.
+ *		- XPUF_ERROR_CHASH_NOT_PROGRAMMED - Helper data not provided.
+ *		- XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT - Timeout before Status was done.
+ *		- XST_FAILURE - if PUF KEY generation failed.
  *
  ******************************************************************************/
 static int XPuf_GenerateKey(void)
@@ -386,8 +386,8 @@ static int XPuf_GenerateKey(void)
 	xil_printf("PUF ID : ");
 	XPuf_ShowData((u8*)PufData.PufID, XPUF_ID_LEN_IN_BYTES);
 #else
-	#error "Invalid option selected for generating PUF KEY. Only Puf registration\
- and on demand regeneration are allowed"
+	#error "Invalid option selected for generating PUF KEY. Only Puf\
+ registration and on demand regeneration are allowed"
 #endif
 
 END:
@@ -402,10 +402,9 @@ END:
  *
  * @return
  *		- XST_SUCCESS - if black key generation was successful
- *  	- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
- *		- XST_FAILURE 				   - On failure of AES Encrypt
- *										 Initialization, AES Encrypt data and
- *										 format AES key.
+ *  		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
+ *		- XST_FAILURE - On failure of AES Encrypt Initialization,
+ *			AES Encrypt data and format AES key.
  *
  ******************************************************************************/
 static int XPuf_GenerateBlackKey(void)
@@ -428,7 +427,8 @@ static int XPuf_GenerateBlackKey(void)
 		Status = Xil_ConvertStringToHexBE((const char *)(XPUF_IV), Iv,
 			XPUF_IV_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
-			xil_printf("String Conversion error (IV):%08x !!!\r\n", Status);
+			xil_printf("String Conversion error (IV):%08x !!!\r\n",
+				Status);
 			goto END;
 		}
 	}
@@ -439,10 +439,11 @@ static int XPuf_GenerateBlackKey(void)
 
 	if (Xil_Strnlen(XPUF_RED_KEY, (XPUF_RED_KEY_LEN_IN_BYTES * 2U)) ==
 		(XPUF_RED_KEY_LEN_IN_BYTES * 2U)) {
-		Status = Xil_ConvertStringToHexBE((const char *) (XPUF_RED_KEY), RedKey,
-			XPUF_RED_KEY_LEN_IN_BITS);
+		Status = Xil_ConvertStringToHexBE((const char *) (XPUF_RED_KEY),
+			RedKey, XPUF_RED_KEY_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
-			xil_printf("String Conversion error (Red Key):%08x !!!\r\n", Status);
+			xil_printf("String Conversion error (Red Key):%08x \r\n",
+				Status);
 			goto END;
 		}
 	}
@@ -501,16 +502,16 @@ END:
  *
  * @return
  *		- XST_SUCCESS if programming was successful.
- *		- XNVM_EFUSE_ERR_INVALID_PARAM 		   - On Invalid Parameter.
+ *		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
  *		- XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED - If nothing is programmed.
- *		- XNVM_EFUSE_ERR_LOCK 				   - Lock eFUSE Control Register.
- *      - XNVM_BBRAM_ERROR_PGM_MODE_ENABLE_TIMEOUT - Timeout during enabling
- *                  								 programming mode.
- *      - XNVM_BBRAM_ERROR_PGM_MODE_DISABLE_TIMEOUT- Timeout during disabling
- *                  							     programming mode.
- *      - XNVM_BBRAM_ERROR_AES_CRC_DONE_TIMEOUT    - CRC validation check
- *                 									 timed out.
- *      - XNVM_BBRAM_ERROR_AES_CRC_MISMATCH        - CRC mismatch.
+ *		- XNVM_EFUSE_ERR_LOCK - Lock eFUSE Control Register.
+ *		- XNVM_BBRAM_ERROR_PGM_MODE_ENABLE_TIMEOUT - Timeout during
+ *			enabling programming mode.
+ *		- XNVM_BBRAM_ERROR_PGM_MODE_DISABLE_TIMEOUT- Timeout during
+ *			disabling programming mode.
+ *		- XNVM_BBRAM_ERROR_AES_CRC_DONE_TIMEOUT - CRC validation check
+ *			timed out.
+ *		- XNVM_BBRAM_ERROR_AES_CRC_MISMATCH - CRC mismatch.
  *
 *******************************************************************************/
 static int XPuf_ProgramBlackKey(void)
@@ -602,17 +603,18 @@ END:
  * @param	None.
  *
  * @return
- *		- XST_SUCCESS - If PUF secure control bits are successfully programmed.
- *		- XNVM_EFUSE_ERR_RD_PUF_SEC_CTRL       - Error while reading
- *												 PufSecCtrl.
+ *		- XST_SUCCESS - If PUF secure control bits are successfully
+ *			programmed.
+ *		- XNVM_EFUSE_ERR_RD_PUF_SEC_CTRL - Error while reading
+ *			PufSecCtrl eFUSE bits
  * 		- XNVM_EFUSE_ERR_WRITE_PUF_HELPER_DATA - Error while writing
- *			  									 Puf helper data.
+ *			Puf helper data.
  *		- XNVM_EFUSE_ERR_WRITE_PUF_SYN_DATA    - Error while writing
- *			 									 Puf Syndata.
+ *			Puf Syndata.
  *		- XNVM_EFUSE_ERR_WRITE_PUF_CHASH       - Error while writing
- *												 Puf Chash.
+ *			Puf Chash.
  * 		- XNVM_EFUSE_ERR_WRITE_PUF_AUX         - Error while writing
- *												 Puf Aux.
+ *			Puf Aux.
  *
  ******************************************************************************/
 static int XPuf_WritePufSecCtrlBits(void)
@@ -638,7 +640,8 @@ static int XPuf_WritePufSecCtrlBits(void)
 	}
 	Status = XNvm_EfuseWritePuf(&PrgmPufHelperData);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Error in programming PUF Security Control bits %x\r\n", Status);
+		xil_printf("Error in programming PUF Security Control bits %x\r\n",
+			Status);
 	}
 
 	return Status;
