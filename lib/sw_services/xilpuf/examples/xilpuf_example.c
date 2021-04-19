@@ -24,32 +24,36 @@
   *       am   08/14/20 Replacing function prototype and local status variable
   *                     from u32 and s32 to int.
   *       har  09/30/20 Replaced XPuf_printf with xil_printf
+  *       har  04/14/21 Modified code to use client side APIs of Xilsecure
   *
   *@note
   *
  *****************************************************************************/
 /***************************** Include Files *********************************/
 #include "xpuf.h"
-#include "xsecure_aes.h"
+#include "xsecure_aesclient.h"
+#include "xsecure_ipi.h"
 #include "xnvm_bbram.h"
 #include "xnvm_efuse.h"
 #include "xil_util.h"
 #include "xil_mem.h"
+#include "xil_cache.h"
 #include "xilpuf_example.h"
 
 /************************** Constant Definitions ****************************/
-#define XPUF_PMCDMA_DEVICEID			PMCDMA_0_DEVICE_ID
 #define XPUF_IV_LEN_IN_BYTES			(12U)
 						/* IV Length in bytes */
 #define XPUF_RED_KEY_LEN_IN_BITS		(XPUF_RED_KEY_LEN_IN_BYTES * 8U)
 						/* Data length in Bits */
 #define XPUF_IV_LEN_IN_BITS			(XPUF_IV_LEN_IN_BYTES * 8U)
 						/* IV length in Bits */
-#define XPUF_GCM_TAG_SIZE			(XSECURE_SECURE_GCM_TAG_SIZE)
+#define XPUF_GCM_TAG_SIZE			(16U)
 						/* GCM tag Length in bytes */
 #define XPUF_HD_LEN_IN_WORDS			(386U)
 #define XPUF_ID_LEN_IN_BYTES			(XPUF_ID_LEN_IN_WORDS * XPUF_WORD_LENGTH)
 
+#define XPUF_AES_KEY_SIZE_128BIT_WORDS		(4U)
+#define XPUF_AES_KEY_SIZE_256BIT_WORDS		(8U)
 /***************************** Type Definitions *******************************/
 
 /************************** Variable Definitions ******************************/
@@ -188,14 +192,15 @@ static int XPuf_ValidateUserInput(void)
 #endif
 
 	/* Checks for programming black key */
-	if ((XPUF_RED_KEY_LEN != XSECURE_AES_KEY_SIZE_256) &&
-		(XPUF_RED_KEY_LEN != XSECURE_AES_KEY_SIZE_128)) {
+	if ((XPUF_RED_KEY_LEN != XPUF_RED_KEY_SIZE_128) &&
+		(XPUF_RED_KEY_LEN != XPUF_RED_KEY_SIZE_256)) {
 		Status = XST_FAILURE;
 		xil_printf("Only 128 or 256 bit keys are supported\r\n");
 		goto END;
 	}
 
-	if ((XPUF_RED_KEY_LEN_IN_BYTES == (XSECURE_AES_KEY_SIZE_128BIT_WORDS * XPUF_WORD_LENGTH)) &&
+	if ((XPUF_RED_KEY_LEN_IN_BYTES ==
+		(XPUF_AES_KEY_SIZE_128BIT_WORDS * XPUF_WORD_LENGTH)) &&
 		((XPUF_WRITE_BLACK_KEY_OPTION != XPUF_EFUSE_USER_0_KEY) &&
 		(XPUF_WRITE_BLACK_KEY_OPTION != XPUF_EFUSE_USER_1_KEY))) {
 		Status = XST_FAILURE;
@@ -406,11 +411,17 @@ END:
 static int XPuf_GenerateBlackKey(void)
 {
 	int Status = XST_FAILURE;
-	XPmcDma_Config *Config;
-	XPmcDma PmcDmaInstance;
-	XSecure_Aes SecureAes;
+	XIpiPsu IpiInst;
 
-	Xil_DCacheDisable();
+	Status = XSecure_InitializeIpi(&IpiInst);
+	if (Status != XST_SUCCESS) {
+			goto END;
+	}
+
+	Status = XSecure_SetIpi(&IpiInst);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	if (Xil_Strnlen(XPUF_IV, (XPUF_IV_LEN_IN_BYTES * 2U)) ==
 		(XPUF_IV_LEN_IN_BYTES * 2U)) {
@@ -440,41 +451,36 @@ static int XPuf_GenerateBlackKey(void)
 		goto END;
 	}
 
-	/*Initialize PMC DMA driver */
-	Config = XPmcDma_LookupConfig(XPUF_PMCDMA_DEVICEID);
-	if (Config == NULL) {
-		goto END;
-	}
-
-	Status = XPmcDma_CfgInitialize(&PmcDmaInstance, Config,
-		Config->BaseAddress);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
 	xil_printf("Red Key to be encrypted: \n\r");
 	XPuf_ShowData((u8*)RedKey, XPUF_RED_KEY_LEN_IN_BYTES);
 
 	xil_printf("IV: \n\r");
 	XPuf_ShowData((u8*)Iv, XPUF_IV_LEN_IN_BYTES);
 
-	/* Initialize the Aes driver so that it's ready to use */
-	XSecure_AesInitialize(&SecureAes, &PmcDmaInstance);
+	Xil_DCacheFlushRange((UINTPTR)Iv, XPUF_IV_LEN_IN_BYTES);
+	Xil_DCacheFlushRange((UINTPTR)RedKey, XPUF_RED_KEY_LEN_IN_BYTES);
 
-	/* Encryption of Red Key */
-	Status = XSecure_AesEncryptInit(&SecureAes, XSECURE_AES_PUF_KEY,
-		XSECURE_AES_KEY_SIZE_256, (UINTPTR)Iv);
+	/* Initialize the Aes driver so that it's ready to use */
+	Status = XSecure_AesInitialize();
 	if (Status != XST_SUCCESS) {
-		xil_printf("Aes encrypt init is failed %x\n\r", Status);
+		xil_printf("Aes init failed %x\n\r", Status);
 		goto END;
 	}
 
-	Status = XSecure_AesEncryptData(&SecureAes, (UINTPTR)RedKey,
-			(UINTPTR)BlackKey, XPUF_RED_KEY_LEN_IN_BYTES, (UINTPTR)GcmTag);
+	Xil_DCacheInvalidateRange((UINTPTR)BlackKey, XPUF_RED_KEY_LEN_IN_BYTES);
+	Xil_DCacheInvalidateRange((UINTPTR)GcmTag, XPUF_GCM_TAG_SIZE);
+
+	/* Encryption of Red Key */
+	Status = XSecure_AesEncryptData(XSECURE_AES_PUF_KEY,
+		XPUF_RED_KEY_SIZE_256, (UINTPTR)Iv, (UINTPTR)RedKey,
+		(UINTPTR)BlackKey, XPUF_RED_KEY_LEN_IN_BYTES, (UINTPTR)GcmTag);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Black key generation failed %x\n\r", Status);
 		goto END;
 	}
+
+	Xil_DCacheInvalidateRange((UINTPTR)BlackKey, XPUF_RED_KEY_LEN_IN_BYTES);
+	Xil_DCacheInvalidateRange((UINTPTR)GcmTag, XPUF_GCM_TAG_SIZE);
 
 	Status = XPuf_FormatAesKey(BlackKey, FormattedBlackKey,
 		XPUF_RED_KEY_LEN_IN_BYTES);
@@ -715,8 +721,8 @@ static int XPuf_FormatAesKey(const u8* Key, u8* FormattedKey, u32 KeyLen)
 	u32* InputKey = (u32*)Key;
 	u32* OutputKey  = (u32*)FormattedKey;
 
-	if ((KeyLen != (XSECURE_AES_KEY_SIZE_128BIT_WORDS * XPUF_WORD_LENGTH)) &&
-		(KeyLen != (XSECURE_AES_KEY_SIZE_256BIT_WORDS * XPUF_WORD_LENGTH))) {
+	if ((KeyLen != (XPUF_AES_KEY_SIZE_128BIT_WORDS * XPUF_WORD_LENGTH)) &&
+		(KeyLen != (XPUF_AES_KEY_SIZE_256BIT_WORDS * XPUF_WORD_LENGTH))) {
 		xil_printf("Only 128-bit keys and 256-bit keys are supported \r\n");
 		Status = XST_FAILURE;
 		goto END;
