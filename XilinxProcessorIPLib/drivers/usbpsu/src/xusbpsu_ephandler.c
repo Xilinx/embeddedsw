@@ -211,12 +211,13 @@ void XUsbPsu_ClearStalls(struct XUsbPsu *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
 * @param	UsbEp is USB endpoint number.
-* @param	BufferPtr is pointer to data.
+* @param	BufferPtr is pointer to data. This data buffer is cache-aligned.
 * @param	BufferLen is length of data buffer.
 *
 * @return	XST_SUCCESS else XST_FAILURE
 *
-* @note		None.
+* @note		This function is expected to initiates DMA to send data on
+*		endpoint towards Host. This data buffer should be aligned.
 *
 *****************************************************************************/
 s32 XUsbPsu_EpBufferSend(struct XUsbPsu *InstancePtr, u8 UsbEp,
@@ -359,12 +360,13 @@ s32 XUsbPsu_EpBufferSend(struct XUsbPsu *InstancePtr, u8 UsbEp,
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
 * @param	UsbEp is USB endpoint number.
-* @param	BufferPtr is pointer to data.
+* @param	BufferPtr is pointer to data. This data buffer is cache-aligned.
 * @param	Length is length of data to be received.
 *
 * @return	XST_SUCCESS else XST_FAILURE
 *
-* @note		None.
+* @note		This function is expected to initiates DMA to receive data on
+*		the endpoint from the Host. This data buffer should be aligned.
 *
 *****************************************************************************/
 s32 XUsbPsu_EpBufferRecv(struct XUsbPsu *InstancePtr, u8 UsbEp,
