@@ -18,6 +18,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kal  03/23/21 Initial release
+*       har  04/14/21 Added XSecure_AesEncryptData and XSecure_AesDecryptData
 *
 * </pre>
 * @note
@@ -35,7 +36,6 @@ extern "C" {
 #include "xil_types.h"
 
 /**************************** Type Definitions *******************************/
-
 typedef enum {
 	XSECURE_AES_BBRAM_KEY = 0,
 	XSECURE_AES_BBRAM_RED_KEY,
@@ -83,6 +83,10 @@ int XSecure_AesKekDecrypt(u64 IvAddr, XSecure_AesKeySource DstKeySrc,
 int XSecure_AesSetDpaCm(u8 DpaCmCfg);
 int XSecure_AesDecryptKat(void);
 int XSecure_AesDecryptCmKat(void);
+int XSecure_AesEncryptData(XSecure_AesKeySource KeySrc, u32 KeySize, u64 IvAddr,
+	u64 InDataAddr, u64 OutDataAddr, u32 Size, u64 GcmTagAddr);
+int XSecure_AesDecryptData(XSecure_AesKeySource KeySrc, u32 KeySize, u64 IvAddr,
+	u64 InDataAddr, u64 OutDataAddr, u32 Size, u64 GcmTagAddr);
 
 #ifdef __cplusplus
 }
