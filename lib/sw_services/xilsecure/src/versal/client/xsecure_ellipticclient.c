@@ -64,7 +64,7 @@ int XSecure_EllipticGenerateSign(u32 CurveType, u64 HashAddr, u32 Size,
 	EcdsaParams.Size = Size;
 	EcdsaParams.PrivKeyAddr = PrivKeyAddr;
 	EcdsaParams.EPrivKeyAddr = EPrivKeyAddr;
-	Buffer = (u64)&EcdsaParams;
+	Buffer = (u64)(UINTPTR)&EcdsaParams;
 
 	Xil_DCacheFlushRange(Buffer, sizeof(EcdsaParams));
 
@@ -171,7 +171,7 @@ int XSecure_EllipticVerifySign(u32 CurveType, u64 HashAddr, u32 Size,
 	EcdsaParams.Size = Size;
 	EcdsaParams.PubKeyAddr = PubKeyAddr;
 	EcdsaParams.SignAddr = SignAddr;
-	Buffer = (u64)&EcdsaParams;
+	Buffer = (u64)(UINTPTR)&EcdsaParams;
 
 	Xil_DCacheFlushRange(Buffer, sizeof(EcdsaParams));
 
