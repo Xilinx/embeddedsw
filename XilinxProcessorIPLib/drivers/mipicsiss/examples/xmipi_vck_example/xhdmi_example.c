@@ -100,6 +100,7 @@
 *                              toggle HPD
 *       mmo    03/08/19 Added "IsStreamUpHDCP" to enable the HDCP
 *                              Authentication on the first VSYNC of TX
+* 3.05  ssh    03/17/21 Added EdidHdmi20_t, PsIic0 and PsIic1 declarations
 * </pre>
 *
 ******************************************************************************/
@@ -193,6 +194,7 @@ u8                 Hdmiphy1PllLayoutErrorFlag;
 XV_HdmiTxSs        HdmiTxSs;
 XV_HdmiTxSs_Config *XV_HdmiTxSs_ConfigPtr;
 
+EdidHdmi20 EdidHdmi20_t;
 
 #ifdef USE_HDMI_AUDGEN
 /* Audio Generator structure */
@@ -249,6 +251,12 @@ extern XScuGic     Intc;
 #else
 XIntc       Intc;
 #endif
+
+#if defined (ARMR5) || ((__aarch64__) && (!defined XPS_BOARD_ZCU104))
+XIicPs Ps_Iic0, Ps_Iic1;
+#define PS_IIC_CLK 100000
+#endif
+
 
 /* HDMI Application Menu: Data Structure */
 XHdmi_Menu         HdmiMenu;
@@ -2529,7 +2537,7 @@ int config_hdmi() {
 		return XST_FAILURE;
 	}
 
-	Status = XIic_CfgInitialize(&Iic0, ConfigPtr,
+	Status = XIic_CfgInitialize(&Ps_Iic0, ConfigPtr,
 			ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;

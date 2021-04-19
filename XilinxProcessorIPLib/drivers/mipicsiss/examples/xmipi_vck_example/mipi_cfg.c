@@ -97,7 +97,7 @@ u8 ReadBuffer[PAGE_SIZE]; /* Read buffer for reading a page. */
 
 extern XScuGic     Intc;
 
-XPipeline_Cfg Pipeline_Cfg;
+extern XPipeline_Cfg Pipeline_Cfg;
 XCsiSs CsiRxSs;
 
 
