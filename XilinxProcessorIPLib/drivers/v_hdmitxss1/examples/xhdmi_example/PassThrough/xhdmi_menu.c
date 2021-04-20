@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 – 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -54,7 +54,19 @@ const XVidC_VideoTimingMode XVidC_MyVideoTimingMode
 #endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
-
+#if defined (XPAR_XUARTPSV_NUM_INSTANCES )
+#define XV_UART_SEND_BYTE XUartPsv_SendByte
+#define XV_UART_RECV_BYTE XUartPsv_RecvByte
+#define XV_UART_ISRECEIVEDATA XUartPsv_IsReceiveData
+#elif defined (XPAR_XUARTLITE_NUM_INSTANCES)
+#define XV_UART_SEND_BYTE XUartLite_SendByte
+#define XV_UART_RECV_BYTE XUartLite_RecvByte
+#define XV_UART_ISRECEIVEDATA !XUartLite_IsReceiveEmpty
+#else
+#define XV_UART_SEND_BYTE XUartPs_SendByte
+#define XV_UART_RECV_BYTE XUartPs_RecvByte
+#define XV_UART_ISRECEIVEDATA XUartPs_IsReceiveData
+#endif
 
 /**************************** Type Definitions *******************************/
 
@@ -3197,7 +3209,8 @@ static unsigned ONSEMI_NB7NQ621M_I2cSend(void *IicPtr,
 {
 #if defined (XPS_BOARD_ZCU102) || \
     defined (XPS_BOARD_ZCU104) || \
-    defined (XPS_BOARD_ZCU106)
+    defined (XPS_BOARD_ZCU106) || \
+    defined (XPS_BOARD_VCK190)
     XIicPs *Iic_Ptr = IicPtr;
     u32 Status;
 
@@ -3263,7 +3276,8 @@ static unsigned ONSEMI_NB7NQ621M_I2cRecv(void *IicPtr,
 {
 #if defined (XPS_BOARD_ZCU102) || \
     defined (XPS_BOARD_ZCU104) || \
-    defined (XPS_BOARD_ZCU106)
+    defined (XPS_BOARD_ZCU106) || \
+    defined (XPS_BOARD_VCK190)
     XIicPs *Iic_Ptr = IicPtr;
     u32 Status;
 
@@ -3590,24 +3604,14 @@ u8 XHdmi_OneSemiMenuProcess(u8 Hex) {
 	IsValid = 0;
 
     /* Check if the uart has any data */
-#if defined (XPAR_XUARTLITE_NUM_INSTANCES)
 #if defined (XPAR_XV_HDMITXSS1_NUM_INSTANCES)
-    if (!XUartLite_IsReceiveEmpty(HdmiMenu.UartBaseAddress)) {
+    if (XV_UART_ISRECEIVEDATA(HdmiMenu.UartBaseAddress)) {
 #else
-    if (!XUartLite_IsReceiveEmpty(HdmiMenu.UartBaseAddress)) {
+    if (XV_UART_ISRECEIVEDATA(HdmiMenu.UartBaseAddress)) {
 #endif
+	/* Read data from uart */
+	Data = XV_UART_RECV_BYTE(HdmiMenu.UartBaseAddress);
 
-	/* Read data from uart */
-	Data = XUartLite_RecvByte(HdmiMenu.UartBaseAddress);
-#else
-#if defined (XPAR_XV_HDMITXSS1_NUM_INSTANCES)
-    if (XUartPs_IsReceiveData(HdmiMenu.UartBaseAddress)) {
-#else
-    if (XUartPs_IsReceiveData(HdmiMenu.UartBaseAddress)) {
-#endif
-	/* Read data from uart */
-	Data = XUartPs_RecvByte(HdmiMenu.UartBaseAddress);
-#endif
 
 
 	/* Numeric data */
@@ -3640,13 +3644,9 @@ u8 XHdmi_OneSemiMenuProcess(u8 Hex) {
 
 	if (IsValid == 1) {
 	/* Send response to user */
-#if defined (XPAR_XUARTLITE_NUM_INSTANCES)
-	XUartLite_SendByte(HdmiMenu.UartBaseAddress, Data);
+	XV_UART_SEND_BYTE(HdmiMenu.UartBaseAddress, Data);
 	n_char++;
-#else
-	XUartPs_SendByte(HdmiMenu.UartBaseAddress, Data);
-	n_char++;
-#endif
+
 	}
     }
 
@@ -3680,24 +3680,14 @@ void XHdmi_MenuProcess(XHdmi_Menu *InstancePtr, u8 TxBusy) {
 #endif
 
     /* Check if the uart has any data */
-#if defined (XPAR_XUARTLITE_NUM_INSTANCES)
 #if defined (XPAR_XV_HDMITXSS1_NUM_INSTANCES)
-    else if (!XUartLite_IsReceiveEmpty(InstancePtr->UartBaseAddress)) {
+    else if (XV_UART_ISRECEIVEDATA(InstancePtr->UartBaseAddress)) {
 #else
-    if (!XUartLite_IsReceiveEmpty(InstancePtr->UartBaseAddress)) {
+    if (XV_UART_ISRECEIVEDATA(InstancePtr->UartBaseAddress)) {
 #endif
+	/* Read data from uart */
+	Data = XV_UART_RECV_BYTE(InstancePtr->UartBaseAddress);
 
-	/* Read data from uart */
-	Data = XUartLite_RecvByte(InstancePtr->UartBaseAddress);
-#else
-#if defined (XPAR_XV_HDMITXSS1_NUM_INSTANCES)
-    else if (XUartPs_IsReceiveData(InstancePtr->UartBaseAddress)) {
-#else
-    if (XUartPs_IsReceiveData(InstancePtr->UartBaseAddress)) {
-#endif
-	/* Read data from uart */
-	Data = XUartPs_RecvByte(InstancePtr->UartBaseAddress);
-#endif
 	/* Main menu */
 	if (InstancePtr->CurrentMenu == XHDMI_MAIN_MENU) {
 	    InstancePtr->CurrentMenu =
@@ -3709,11 +3699,8 @@ void XHdmi_MenuProcess(XHdmi_Menu *InstancePtr, u8 TxBusy) {
 	else {
 
 	    /* Send response to user */
-#if defined (XPAR_XUARTLITE_NUM_INSTANCES)
-	    XUartLite_SendByte(InstancePtr->UartBaseAddress, Data);
-#else
-	    XUartPs_SendByte(InstancePtr->UartBaseAddress, Data);
-#endif
+	    XV_UART_SEND_BYTE(InstancePtr->UartBaseAddress, Data);
+
 	    /* Alpha numeric data */
 	    if (isalpha(Data)) {
 		xil_printf("Invalid input. Valid entry is only digits 0-9. "

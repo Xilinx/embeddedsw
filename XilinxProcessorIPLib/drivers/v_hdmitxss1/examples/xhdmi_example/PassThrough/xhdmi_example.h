@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 – 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,7 +35,8 @@ extern "C" {
 #include "platform.h"
 
 #if defined (XPS_BOARD_ZCU102) || \
-	defined (XPS_BOARD_ZCU106)
+	defined (XPS_BOARD_ZCU106) || \
+    defined (XPS_BOARD_VCK190)
 #include "xiicps.h"
 #else
 #include "xiic.h"
@@ -124,7 +125,9 @@ extern "C" {
 /* AUXFIFOSIZE: Must be set to 3 or higher*/
 #define AUXFIFOSIZE 10
 
-#if defined (XPAR_XUARTLITE_NUM_INSTANCES)
+#if defined (XPAR_XUARTPSV_NUM_INSTANCES )
+#define UART_BASEADDR XPAR_XUARTPSV_0_BASEADDR
+#elif defined (XPAR_XUARTLITE_NUM_INSTANCES)
 #define UART_BASEADDR XPAR_MB_SS_0_AXI_UARTLITE_BASEADDR
 #else
 #define UART_BASEADDR XPAR_XUARTPS_0_BASEADDR
@@ -149,7 +152,8 @@ typedef enum {
 	ZCU102_MGT_SI570,
 	ZCU102_SI5328,
 	ZCU106_MGT_SI570,
-	VCU118_FMCP
+	VCU118_FMCP,
+	VCK190_MGT_SI570
 } XOnBoard_IicDev;
 
 #if defined (XPS_BOARD_ZCU102)
@@ -180,6 +184,15 @@ typedef enum {
 #define VCU118_U80_MUX_I2C_ADDR		0x75
 #define VCU118_U80_MUX_SEL_FMCP		0x02
 #define VCU118_U80_MUX_SEL_NONE		0x40
+#elif defined (XPS_BOARD_VCK190)
+/* TCA9528 (U34) Definitions */
+#define VCK190_U34_MUX_I2C_ADDR		0x74
+#define VCK190_U34_MUX_SEL_NONE		0x80
+#define VCK190_U34_MUX_MGTSI570_ADDR	0x5D
+#define VCK190_U34_MUX_SEL_SI570	0x40
+/* TCA9528 (U34) Definitions */
+#define VCK190_U135_MUX_I2C_ADDR	0x75
+#define VCK190_U135_MUX_SEL_HPC0	0x02
 #else
 /* TCA9528 (U28) Definitions */
 #define KCU105_U28_MUX_I2C_ADDR		0x74
@@ -275,7 +288,7 @@ typedef struct {
 } XHdmi_Exdes;
 
 /**
- * This enueration defines the 'type' of sources that can provide
+ * This enumeration defines the 'type' of sources that can provide
  * a video stream for the transmitter to output in the example design.
  */
 typedef enum {
@@ -285,6 +298,26 @@ typedef enum {
 	EXDES_TX_INPUT_TPG,
 	EXDES_TX_INPUT_RX,
 } TxInputSourceType;
+
+/**
+ * This enmueration defines the Dynamic HDR TYPE.
+ */
+typedef enum {
+	DYNAMIC_HDR_NOT_PRESENT,
+	DYNAMIC_HDR_ST_2094_10,
+	DYNAMIC_HDR_ETSI_TS_103_433_1,
+	DYNAMIC_HDR_H265_CRI,
+	DYNAMIC_HDR_ST_2094_40,
+	DYNAMIC_HDR_HDR10P_VSIF,iiiii
+} DynamicHDRType;
+const u8 Dynamic_hdr_type[6][100]={
+		{"No Dynamic HDR"},
+		{"ST 2094-10"},
+		{"ETSI TS 103-433-1"},
+		{"ITU-T H.265 CRI"},
+		{"ST 2094-40"},
+		{"HDR10+ VSIF"},
+};
 
 /************************** Variable Definitions *****************************/
 /* VPhy structure */
@@ -315,7 +348,8 @@ extern XV_HdmiRxSs1 HdmiRxSs;
 extern u8 AuxFifoStartFlag;
 
 #if defined (XPS_BOARD_ZCU102) || \
-	defined (XPS_BOARD_ZCU106)
+	defined (XPS_BOARD_ZCU106) || \
+    defined (XPS_BOARD_VCK190)
 XIicPs Ps_Iic0, Iic;
 #define PS_IIC_CLK 100000
 #else

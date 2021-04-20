@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 – 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,10 +29,12 @@
 #include "xhdmi_hdcp_keys.h"
 
 /************************** Constant Definitions *****************************/
-#if defined (XPAR_XUARTLITE_NUM_INSTANCES)
-#define XHDCP_UART_BASEADDR       XPAR_UARTLITE_0_BASEADDR
+#if defined (XPAR_XUARTPSV_NUM_INSTANCES )
+#define XHDCP_UART_BASEADDR XPAR_XUARTPSV_0_BASEADDR
+#elif defined (XPAR_XUARTLITE_NUM_INSTANCES)
+#define XHDCP_UART_BASEADDR XPAR_MB_SS_0_AXI_UARTLITE_BASEADDR
 #else
-#define XHDCP_UART_BASEADDR       XPAR_XUARTPS_0_BASEADDR
+#define XHDCP_UART_BASEADDR XPAR_XUARTPS_0_BASEADDR
 #endif
 
 #define XHDCP_EEPROM_ADDRESS      0x53 /* 0xA0 as an 8 bit number */
@@ -45,7 +47,8 @@
 
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
-	defined (XPS_BOARD_ZCU106)
+	defined (XPS_BOARD_ZCU106) || \
+    defined (XPS_BOARD_VCK190)
 #define I2C_REPEATED_START 0x01
 #define I2C_STOP 0x00
 #else
@@ -199,7 +202,8 @@ int XHdcp_LoadKeys(void *IicPtr,
 
 #if defined (XPS_BOARD_ZCU102) || \
     defined (XPS_BOARD_ZCU104) || \
-    defined (XPS_BOARD_ZCU106)
+    defined (XPS_BOARD_ZCU106) || \
+    defined (XPS_BOARD_VCK190)
     XIicPs *Iic_Ptr = IicPtr;
 #else
     XIic *Iic_Ptr = IicPtr;
@@ -446,7 +450,14 @@ static u8 EnterPassword(u8 *Password)
 	i = 0;
 	while (1) {
 		/* Check if the UART has any data */
-#if defined (XPAR_XUARTLITE_NUM_INSTANCES)
+#if defined (XPAR_XUARTPSV_NUM_INSTANCES)
+		if (XUartPsv_IsReceiveData(XHDCP_UART_BASEADDR)) {
+			/* Read data from uart */
+			Data = XUartPsv_RecvByte(XHDCP_UART_BASEADDR);
+
+			/* Send response to user */
+			XUartPsv_SendByte(XHDCP_UART_BASEADDR, '.');
+#elif defined (XPAR_XUARTLITE_NUM_INSTANCES)
 		if (!XUartLite_IsReceiveEmpty(XHDCP_UART_BASEADDR)) {
 			/* Read data from uart */
 			Data = XUartLite_RecvByte(XHDCP_UART_BASEADDR);
@@ -562,7 +573,8 @@ static u16 EepromGet(void *IicPtr, u16 Address, u8 *BufferPtr, u16 Length)
 
 #if defined (XPS_BOARD_ZCU102) || \
     defined (XPS_BOARD_ZCU104) || \
-    defined (XPS_BOARD_ZCU106)
+    defined (XPS_BOARD_ZCU106) || \
+    defined (XPS_BOARD_VCK190)
     XIicPs *Iic_Ptr = IicPtr;
 #else
     XIic *Iic_Ptr = IicPtr;
@@ -612,7 +624,8 @@ u8 EepromReadByte(void *IicPtr, u16 Address, u8 *BufferPtr, u16 ByteCount)
 {
 #if defined (XPS_BOARD_ZCU102) || \
     defined (XPS_BOARD_ZCU104) || \
-    defined (XPS_BOARD_ZCU106)
+    defined (XPS_BOARD_ZCU106) || \
+    defined (XPS_BOARD_VCK190)
     XIicPs *Iic_Ptr = IicPtr;
 #else
     XIic *Iic_Ptr = IicPtr;
