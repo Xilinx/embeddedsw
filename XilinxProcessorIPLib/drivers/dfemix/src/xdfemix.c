@@ -26,6 +26,7 @@
 *       dc     04/07/21 Fix bare metal initialisation
 *       dc     04/08/21 Set sequence length only once
 *       dc     04/14/21 Add FIR_ENABLE/MIXER_ENABLE register support
+*       dc     04/18/21 Update trigger and event handlers
 *
 * </pre>
 *
@@ -310,7 +311,7 @@ static u32 XDfeMix_AddCCID(XDfeMix *InstancePtr, s32 CCID, u32 BitSequence,
 		return XST_FAILURE;
 	}
 
-	/* Check are bits set to 1 avaliable */
+	/* Check are bits set in BitSequence to 1 avaliable (-1)*/
 	Mask = 1U;
 	for (Index = 0U; Index < CCIDSequence->Length; Index++) {
 		if (0U != (BitSequence & Mask)) {
@@ -521,6 +522,7 @@ static void XDfeMix_SetNextCCCfg(const XDfeMix *InstancePtr,
 	u32 AntennaCfg = 0U;
 	u32 DucDdcConfig;
 	u32 Index;
+	u32 SeqLength;
 	s32 NextCCID[XDFEMIX_SEQ_LENGTH_MAX];
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(NextCCCfg != NULL);
@@ -535,6 +537,12 @@ static void XDfeMix_SetNextCCCfg(const XDfeMix *InstancePtr,
 			NextCCID[Index] = NextCCCfg->Sequence.CCID[Index];
 		}
 	}
+
+	/* Sequence Length should remain the same, so copy the sequence length
+	   from CURRENT to NEXT */
+	SeqLength =
+		XDfeMix_ReadReg(InstancePtr, XDFEMIX_SEQUENCE_LENGTH_CURRENT);
+	XDfeMix_WriteReg(InstancePtr, XDFEMIX_SEQUENCE_LENGTH_NEXT, SeqLength);
 
 	/* Write CCID sequence and carrier configurations */
 	for (Index = 0; Index < XDFEMIX_CC_NUM; Index++) {
@@ -1326,6 +1334,7 @@ void XDfeMix_Initialize(XDfeMix *InstancePtr, XDfeMix_Init *Init)
 	XDfeMix_SetPLMixerDelay(InstancePtr);
 
 	/* Write "one-time" Sequence length */
+	InstancePtr->NotUsedCCID = 0;
 	InstancePtr->SequenceLength = Init->Sequence.Length;
 	if (Init->Sequence.Length == 0) {
 		SequenceLength = 0U;
@@ -1761,6 +1770,15 @@ void XDfeMix_SetTriggersCfg(const XDfeMix *InstancePtr,
 	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ENABLE_WIDTH,
 				 XDFEMIX_TRIGGERS_ENABLE_OFFSET, Val,
 				 TriggerCfg->Activate.Enable);
+	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_SOURCE_WIDTH,
+				 XDFEMIX_TRIGGERS_SOURCE_OFFSET, Val,
+				 TriggerCfg->Activate.Source);
+	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_SIGNAL_EDGE_WIDTH,
+				 XDFEMIX_TRIGGERS_SIGNAL_EDGE_OFFSET, Val,
+				 TriggerCfg->Activate.Edge);
+	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_TUSER_BIT_WIDTH,
+				 XDFEMIX_TRIGGERS_TUSER_BIT_OFFSET, Val,
+				 TriggerCfg->Activate.TUSERBit);
 	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ONE_SHOT_WIDTH,
 				 XDFEMIX_TRIGGERS_ONE_SHOT_OFFSET, Val,
 				 TriggerCfg->Activate.OneShot);
@@ -1774,6 +1792,15 @@ void XDfeMix_SetTriggersCfg(const XDfeMix *InstancePtr,
 	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ENABLE_WIDTH,
 				 XDFEMIX_TRIGGERS_ENABLE_OFFSET, Val,
 				 TriggerCfg->LowPower.Enable);
+	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_SOURCE_WIDTH,
+				 XDFEMIX_TRIGGERS_SOURCE_OFFSET, Val,
+				 TriggerCfg->LowPower.Source);
+	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_SIGNAL_EDGE_WIDTH,
+				 XDFEMIX_TRIGGERS_SIGNAL_EDGE_OFFSET, Val,
+				 TriggerCfg->LowPower.Edge);
+	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_TUSER_BIT_WIDTH,
+				 XDFEMIX_TRIGGERS_TUSER_BIT_OFFSET, Val,
+				 TriggerCfg->LowPower.TUSERBit);
 	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ONE_SHOT_WIDTH,
 				 XDFEMIX_TRIGGERS_ONE_SHOT_OFFSET, Val,
 				 TriggerCfg->LowPower.OneShot);
@@ -1786,6 +1813,15 @@ void XDfeMix_SetTriggersCfg(const XDfeMix *InstancePtr,
 	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ENABLE_WIDTH,
 				 XDFEMIX_TRIGGERS_ENABLE_OFFSET, Val,
 				 TriggerCfg->CCUpdate.Enable);
+	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_SOURCE_WIDTH,
+				 XDFEMIX_TRIGGERS_SOURCE_OFFSET, Val,
+				 TriggerCfg->CCUpdate.Source);
+	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_SIGNAL_EDGE_WIDTH,
+				 XDFEMIX_TRIGGERS_SIGNAL_EDGE_OFFSET, Val,
+				 TriggerCfg->CCUpdate.Edge);
+	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_TUSER_BIT_WIDTH,
+				 XDFEMIX_TRIGGERS_TUSER_BIT_OFFSET, Val,
+				 TriggerCfg->CCUpdate.TUSERBit);
 	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ONE_SHOT_WIDTH,
 				 XDFEMIX_TRIGGERS_ONE_SHOT_OFFSET, Val,
 				 TriggerCfg->CCUpdate.OneShot);
