@@ -30,6 +30,7 @@
 * 			VIC > 127
 * 			Onsemi redriver tweaked for TMDS mode in TX
 * 1.03  ssh    03/17/21 Added EdidHdmi20_t, PsIic0 and PsIic1 declarations
+* 1.04  ssh    04/20/21 Added support for Dynamic HDR and Versal
 *
 * </pre>
 *
@@ -119,6 +120,7 @@ void XV_Rx_HdmiTrigCb_VfmcDataClkSel(void *InstancePtr);
 void XV_Rx_HdmiTrigCb_VfmcRxClkSel(void *InstancePtr);
 void XV_Rx_HdmiTrigCb_VrrVfpEvent(void *InstancePtr);
 void XV_Rx_HdmiTrigCb_VtemEvent(void *InstancePtr);
+void XV_Rx_HdmiTrigCb_DynHdrEvent(void *InstancePtr);
 
 void XV_Rx_Hdcp_SetContentStreamType(void *InstancePtr);
 void XV_Rx_Hdcp_EnforceBlanking(void *InstancePtr);
@@ -247,6 +249,9 @@ XV_frmbufrd_Config   *FrameBufRd_ConfigPtr;
 XGpioPs              Gpio_VFRB_resetn;
 XGpioPs_Config       *Gpio_VFRB_resetn_ConfigPtr;
 #endif
+/* Dynamic HDR Info */
+XV_HdmiRxSs1_DynHDR_Info RX_DynHDR_Info;
+XV_HdmiTxSs1_DynHdr_Config TX_DynHDR_Info;
 #endif
 
 /* HDMI Application Menu: Data Structure */
@@ -278,6 +283,8 @@ u8 wr = 1; // start write buffer id
 u8 rd = 3; // start read buffer id
 u32 offset = 0;
 u32 Wr_stride = 0;
+u8 DynHdr_wr_buff_offset = 0; // start Dynamic write buffer id
+u8 DynHdr_rd_buff_offset = 3; // start Dynamic HDR read buffer id
 
 u32 read_finsihed = 1;
 u32 write_finsihed = 1;
@@ -317,6 +324,7 @@ typedef struct {
 	u32               BaseAddr;
 	u32               ChromaBaseAddr;
 	u32               ChromaOffset;
+	u64               DynHDRBaseAddr;
 } FrameBuffer;
 
 /* Additional macro to define maximum frames.
@@ -643,11 +651,11 @@ u32 XV_Rx_InitController(XV_Rx *InstancePtr, u32 HdmiRxSsDevId,
 		         sizeof(InstancePtr->Edid));
 	 xil_printf("HDMI 2.1 Default EDID is Initialized !!\r\n");
 #elif (EDID_INIT == 1) // 2.1 VRR
-	memcpy(&(InstancePtr->Edid), &SampleEdidVrr,
+	memcpy(&(InstancePtr->Edid), &SampleEdid_1,
 		         sizeof(InstancePtr->Edid));
 	 xil_printf("HDMI 2.1 VRR EDID is Initialized !!\r\n");
 #else
-	 memcpy(&(InstancePtr->Edid), &SampleEdid_Fsync,
+	 memcpy(&(InstancePtr->Edid), &SampleEdid_2,
 		         sizeof(InstancePtr->Edid));
 	 xil_printf("FreeSync EDID is Initialized !!\r\n");
 #endif
@@ -655,6 +663,25 @@ u32 XV_Rx_InitController(XV_Rx *InstancePtr, u32 HdmiRxSsDevId,
 #else
 	 memcpy(&(InstancePtr->Edid), &SampleEdid,
 		       sizeof(InstancePtr->Edid));
+#endif
+
+	/* Get User Edid Info */
+	XV_HdmiRxSs1_SetEdidParam(&HdmiRxSs, (u8*)&(InstancePtr->Edid),
+			sizeof(InstancePtr->Edid) / sizeof(InstancePtr->Edid[0]));
+
+	/* Initialize the Video Receiver for HDMI. */
+	Status = XV_Rx_Hdmi_Initialize(InstancePtr, HdmiRxSsDevId,
+			VPhyDevId, IntrVecIds);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Initialization of Video "
+		           "Receiver for HDMI failed !!\r\n");
+		return XST_FAILURE;
+	}
+/* update EDID based on MAX FRL Rate */
+#if (!defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES)) && \
+			(!defined (XPAR_XV_FRMBUFRD_NUM_INSTANCES))
+
+
 	 switch (HdmiRxSs.Config.MaxFrlRate) {
 	 case 6: // 12 Gbps @ 4 Lanes
 			 InstancePtr->Edid[187] = 0x63;
@@ -691,19 +718,6 @@ u32 XV_Rx_InitController(XV_Rx *InstancePtr, u32 HdmiRxSsDevId,
 	 }
 
 #endif
-
-	/* Get User Edid Info */
-	XV_HdmiRxSs1_SetEdidParam(&HdmiRxSs, (u8*)&(InstancePtr->Edid),
-			sizeof(InstancePtr->Edid) / sizeof(InstancePtr->Edid[0]));
-
-	/* Initialize the Video Receiver for HDMI. */
-	Status = XV_Rx_Hdmi_Initialize(InstancePtr, HdmiRxSsDevId,
-			VPhyDevId, IntrVecIds);
-	if (Status != XST_SUCCESS) {
-		xil_printf("Initialization of Video "
-		           "Receiver for HDMI failed !!\r\n");
-		return XST_FAILURE;
-	}
 
 	/* Set the Application version in RXSS driver structure */
 	XV_HdmiRxSS1_SetAppVersion(&HdmiRxSs, APP_MAJ_VERSION, APP_MIN_VERSION);
@@ -752,6 +766,13 @@ u32 XV_Rx_InitController(XV_Rx *InstancePtr, u32 HdmiRxSsDevId,
 			    XV_RX_TRIG_HANDLER_VTEMEVENT,
 				(void *)XV_Rx_HdmiTrigCb_VtemEvent,
 				(void *)InstancePtr);
+#if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
+                      (XPAR_XV_FRMBUFRD_NUM_INSTANCES)
+	Status |= XV_Rx_SetTriggerCallbacks(InstancePtr,
+			    XV_RX_TRIG_HANDLER_DYNHDREVENT,
+				(void *)XV_Rx_HdmiTrigCb_DynHdrEvent,
+				(void *)InstancePtr);
+#endif
 
 #if defined(USE_HDCP_HDMI_RX)
 	Status |= XV_Rx_SetTriggerCallbacks(InstancePtr,
@@ -1050,6 +1071,13 @@ u32 Exdes_FBInitialize(XV_FrmbufWr_l2 *WrInstancePtr,
 	XGpioPs_Config     *Gpio_VFRB_resetn_ConfigPtr;
 #endif
 #endif
+
+	/* Initialize Buffer */
+	for (u8 i = 0; i < 5; i++) {
+		VidBuff[i].BaseAddr = DDR_BASE_ADDRESS + ((0x10000000) * (i + 1));
+		VidBuff[i].ChromaBaseAddr = VidBuff[i].BaseAddr + (0x05000000U);
+		VidBuff[i].DynHDRBaseAddr = VidBuff[i].BaseAddr + (0x0D000000U);
+	}
 
 	/* Initialize Video Frame Buffer Read */
 	FrameBufRd_ConfigPtr =
@@ -1544,11 +1572,7 @@ void XV_ConfigVidFrameBuf_wr(XV_FrmbufWr_l2 *FrmBufWrPtr)
 	StartStream = (FALSE);
 	FrameWrCompCnt = 0;
 
-	/* Initialize Buffer */
-	for (u8 i = 0; i < 5; i++) {
-		VidBuff[i].BaseAddr = DDR_BASE_ADDRESS + ((0x10000000) * (i + 1));
-		VidBuff[i].ChromaBaseAddr = VidBuff[i].BaseAddr + (0x05000000U);
-	}
+
 
 	/* Update the width and height */
 	HdmiRxSsVidStreamPtr->Timing.HActive = width;
@@ -2510,8 +2534,8 @@ void Exdes_UpdateAuxFifo()
 		EXDES_AUXFIFO_DBG_PRINT("AuxPtr %d Type - 0x%x\r\n",
 					AuxFifoEndIndex,
 					AuxPtr->Header.Byte[0]);
-		memcpy(&(AuxFifo[AuxFifoEndIndex]), AuxPtr, sizeof(XHdmiC_Aux));
 
+		memcpy(&(AuxFifo[AuxFifoEndIndex]), AuxPtr, sizeof(XHdmiC_Aux));
 		if (AuxFifoEndIndex < (AUXFIFOSIZE - 1)) {
 			AuxFifoEndIndex++;
 		} else {
@@ -2520,9 +2544,8 @@ void Exdes_UpdateAuxFifo()
 
 		if (AuxFifoCount >= AUXFIFOSIZE) {
 			AuxFifoOvrFlowCnt++;
-		}
-
-		AuxFifoCount++;
+		 }
+		 AuxFifoCount++;
 	}
 #endif
 }
@@ -3015,7 +3038,10 @@ u32 Exdes_UpdateTxParams(XHdmi_Exdes *ExdesInstance,
                  defined (XPAR_XV_HDMIRXSS1_NUM_INSTANCES)
 	u64 LineRate;
 #endif
+#if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
+                      (XPAR_XV_FRMBUFRD_NUM_INSTANCES)
    u8 FVaFactor = FVA_FACTOR;
+#endif
 	XVidC_VideoStream *HdmiTxSsVidStreamPtr;
 
 	HdmiTxSsVidStreamPtr = XV_HdmiTxSs1_GetVideoStream(&HdmiTxSs);
@@ -3595,7 +3621,8 @@ int I2cMuxSel(void *IicPtr, XOnBoard_IicDev Dev)
 	int Status;
 
 #if defined (XPS_BOARD_ZCU102) || \
-	defined (XPS_BOARD_ZCU106)
+	defined (XPS_BOARD_ZCU106) || \
+    defined (XPS_BOARD_VCK190)
 	XIicPs *Iic_Ptr = IicPtr;
 
 	/* Set operation to 7-bit mode */
@@ -3613,6 +3640,11 @@ int I2cMuxSel(void *IicPtr, XOnBoard_IicDev Dev)
 	if (Dev == ZCU106_MGT_SI570) {
 		Iic_Mux_Addr = ZCU106_U34_MUX_I2C_ADDR;
 		Buffer = ZCU106_U34_MUX_SEL_SI570;
+	}
+#elif defined (XPS_BOARD_VCK190)
+	if (Dev == VCK190_MGT_SI570) {
+		Iic_Mux_Addr = VCK190_U34_MUX_I2C_ADDR;
+		Buffer = VCK190_U34_MUX_SEL_SI570;
 	}
 #endif
 
@@ -3687,7 +3719,33 @@ int I2cClk(u32 InFreq, u32 OutFreq)
 	 */
 	return Status;
 }
+#if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
+                      (XPAR_XV_FRMBUFRD_NUM_INSTANCES)
+/*****************************************************************************/
+/**
+*
+* This function outputs the Dynamic HDR info of HDMI RX
+*
+* @param  None.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void XV_ReportDynamicHDR(void)
+{
+    xil_printf("\r\n");
+    xil_printf("Dynamic HDR \r\n");
+    xil_printf("------------\r\n");
 
+	xil_printf("Packet type: 0x%x (%s) \r\n",RX_DynHDR_Info.pkt_type,
+			Dynamic_hdr_type[RX_DynHDR_Info.pkt_type]);
+	xil_printf("Packet Length: 0x%x \r\n",RX_DynHDR_Info.pkt_length);
+	xil_printf("Graphics Overlay Flag: 0x%x \r\n",RX_DynHDR_Info.gof);
+	xil_printf("Packet Error: 0x%x \r\n",RX_DynHDR_Info.err);
+}
+#endif
 /*****************************************************************************/
 /**
 *
@@ -3746,6 +3804,11 @@ void Info(void)
     HdmiRxSs.EnableHDCPLogging = (FALSE);
     XV_HdmiRxSs1_HdcpInfo(&HdmiRxSs);
 #endif
+#endif
+
+#if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
+                      (XPAR_XV_FRMBUFRD_NUM_INSTANCES)
+    XV_ReportDynamicHDR();
 #endif
 
 	/* GT */
@@ -3839,6 +3902,15 @@ void DetailedInfo(void)
 #endif
 
 #if defined(XPAR_XV_HDMITXSS1_NUM_INSTANCES)
+	{
+	u8 status[2];
+	XV_HdmiTx1_DdcReadReg(HdmiTxSs.HdmiTx1Ptr,
+			      XV_HDMITX1_DDC_ADDRESS,
+			      1,
+			      0x40,
+			      (u8*)&(status));
+	xil_printf("SCDC status : %x\r\n",status[0]);
+	}
 	/* Note: Reading the SCDC Character Error Detection and Reed-Solomon
 	 * Corrections Counter will clear their values at the sink */
 	xil_printf("------------\r\n");
@@ -5219,6 +5291,70 @@ void XV_Rx_HdmiTrigCb_VtemEvent(void *InstancePtr)
 	}
 }
 
+
+#if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
+                      (XPAR_XV_FRMBUFRD_NUM_INSTANCES)
+/*****************************************************************************/
+/**
+*
+* This function is called from the RX State machine layer.
+*
+* @param  InstancePtr is the callback reference.
+*
+* @return None.
+*
+* @note   None.
+******************************************************************************/
+void XV_Rx_HdmiTrigCb_DynHdrEvent(void *InstancePtr)
+{
+
+	XV_HdmiRxSs1_DynHDR_GetInfo(&HdmiRxSs,&RX_DynHDR_Info);
+
+	DynHdr_rd_buff_offset = DynHdr_wr_buff_offset;
+	if(DynHdr_wr_buff_offset == 3)
+		DynHdr_wr_buff_offset = 0;
+	else
+		DynHdr_wr_buff_offset++;
+
+/*	if(DynHdr_rd_buff_offset == 3)
+		DynHdr_rd_buff_offset = 0;
+	else
+		DynHdr_rd_buff_offset++;
+*/
+	XV_HdmiRxSs1_DynHDR_SetAddr(&HdmiRxSs,VidBuff[DynHdr_wr_buff_offset].DynHDRBaseAddr);
+
+	if (xhdmi_exdes_ctrlr.IsTxPresent &&
+		(xhdmi_exdes_ctrlr.ForceIndependent == FALSE) &&
+		(xhdmi_exdes_ctrlr.TxStartTransmit == FALSE) &&
+		(HdmiTxSs.IsStreamUp == TRUE)) {
+		TX_DynHDR_Info.Address = VidBuff[DynHdr_rd_buff_offset].DynHDRBaseAddr;
+		TX_DynHDR_Info.FAPA = 0;
+		TX_DynHDR_Info.PktLength = RX_DynHDR_Info.pkt_length;
+		TX_DynHDR_Info.PktType = RX_DynHDR_Info.pkt_type;
+
+
+	     /* if Dynamic HDR is not present
+	         * set Dynamic HDR EMP generation or  as FALSE
+	         */
+		if(TX_DynHDR_Info.PktType == DYNAMIC_HDR_NOT_PRESENT) // NO HDR PKT
+			XV_HdmiTxSs1_DynHdr_Control(&HdmiTxSs,FALSE);
+		else {
+			XV_HdmiTxSs1_DynHdr_Cfg(&HdmiTxSs,&TX_DynHDR_Info);
+			XV_HdmiTxSs1_DynHdr_Control(&HdmiTxSs,TRUE);
+		}
+
+        /* if Dynamic HDR packet is HDR10+ VSIF or Dynamic HDR is not present
+         * set Graphic overlay EMP generation as FALSE
+         */
+		if((TX_DynHDR_Info.PktType == DYNAMIC_HDR_HDR10P_VSIF) || (TX_DynHDR_Info.PktType == DYNAMIC_HDR_NOT_PRESENT))
+			XV_HdmiTxSs1_DynHdr_GOF_Control(&HdmiTxSs,FALSE);
+		else
+			XV_HdmiTxSs1_DynHdr_GOF_Control(&HdmiTxSs,TRUE);
+
+	}
+}
+#endif
+
 /*****************************************************************************/
 /**
 *
@@ -5311,6 +5447,12 @@ void XV_Rx_HdmiTrigCb_StreamOff(void *InstancePtr)
 
 	EXDES_DBG_PRINT("sysEventDebug:%s:%d:::%d\r\n", __func__,
 			__LINE__, xhdmi_exdes_ctrlr.SystemEvent);
+#if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
+                      (XPAR_XV_FRMBUFRD_NUM_INSTANCES)
+	DynHdr_wr_buff_offset = 0;
+	DynHdr_rd_buff_offset = 3;
+	XV_HdmiRxSs1_DynHDR_SetAddr(&HdmiRxSs,VidBuff[0].DynHDRBaseAddr);
+#endif
 }
 
 /*****************************************************************************/
@@ -5655,7 +5797,9 @@ void Xil_AssertCallbackRoutine(u8 *File, s32 Line)
 u32 Exdes_SetupClkSrc(u32 ps_iic0_deviceid, u32 ps_iic1_deviceid)
 {
 	u32 Status = XST_SUCCESS;
-#if (defined XPS_BOARD_ZCU102) || (defined XPS_BOARD_ZCU106)
+#if (defined XPS_BOARD_ZCU102) || (defined XPS_BOARD_ZCU106) || \
+	    defined (XPS_BOARD_VCK190)
+
 	XIicPs_Config *XIic0Ps_ConfigPtr;
 	XIicPs_Config *XIic1Ps_ConfigPtr;
 
@@ -5700,6 +5844,8 @@ u32 Exdes_SetupClkSrc(u32 ps_iic0_deviceid, u32 ps_iic1_deviceid)
 	I2cMuxSel(&Iic, ZCU102_MGT_SI570);
 #elif (defined XPS_BOARD_ZCU106)
 	I2cMuxSel(&Iic, ZCU106_MGT_SI570);
+#elif (defined XPS_BOARD_VCK190)
+	I2cMuxSel(&Ps_Iic0, VCK190_MGT_SI570);
 #endif
 
 #else /* VCU118 */
@@ -5709,7 +5855,16 @@ u32 Exdes_SetupClkSrc(u32 ps_iic0_deviceid, u32 ps_iic1_deviceid)
 	I2cMuxSel(&Iic, VCU118_FMCP);
 #endif
 
-#if (!defined XPS_BOARD_VCU118)
+
+
+#if (defined XPS_BOARD_VCK190)
+#ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
+	/* Set DRU MGT REFCLK Frequency */
+	Si570_SetFreq(&Ps_Iic0, 0x5F, 400.00);
+	/* Delay 50ms to allow SI chip to lock */
+	usleep (50000);
+#endif
+#elif (!defined XPS_BOARD_VCU118)
 #ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
 	/* Set DRU MGT REFCLK Frequency */
 	Si570_SetFreq(&Iic, 0x5D, 400.00);
@@ -5743,7 +5898,8 @@ u32 Exdes_LoadHdcpKeys(void *IicPtr)
 {
 #if defined (XPS_BOARD_ZCU102) || \
     defined (XPS_BOARD_ZCU104) || \
-    defined (XPS_BOARD_ZCU106)
+    defined (XPS_BOARD_ZCU106) || \
+    defined (XPS_BOARD_VCK190)
     XIicPs *Iic_Ptr = IicPtr;
 #else
     XIic *Iic_Ptr = IicPtr;
@@ -6415,7 +6571,11 @@ int main()
 	 */
 	/* Setting the periodic interval to 100ms. */
 	Exdes_StartSysTmr(&xhdmi_exdes_ctrlr, 100);
-
+#if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
+                      (XPAR_XV_FRMBUFRD_NUM_INSTANCES)
+	/* Set Default Address for Dynamic HDR */
+	XV_HdmiRxSs1_DynHDR_SetAddr(&HdmiRxSs,VidBuff[DynHdr_wr_buff_offset].DynHDRBaseAddr);
+#endif
 	/* Main loop */
 	do {
 
@@ -6510,12 +6670,19 @@ int main()
 				XV_HdmiTxSs1_VrrControl(&HdmiTxSs,FALSE);
 				XV_HdmiTxSs1_FSyncControl(&HdmiTxSs,FALSE);
 			}
+            // Copy only for PT
+			if ( (xhdmi_exdes_ctrlr.ForceIndependent == FALSE) &&
+				 (xhdmi_exdes_ctrlr.IsTxPresent == TRUE) &&
+				 (HdmiTxSs.IsStreamUp == TRUE)  &&
+				 (xhdmi_exdes_ctrlr.IsRxPresent == TRUE)
+			 ) {
+
 #if (VRR_MODE ==2) // AUTO STRETCH
 		 XV_HdmiTxSS1_SetVrrVfpStretch(&HdmiTxSs,0xFFF);
 #elif (VRR_MODE == 1) // MANUAL STRETCH
 		 Exdes_ProcessVRRTimingChange();
 #endif
-
+			}
 #endif
 
 			/* Disable the TxStartTransmit flag */
