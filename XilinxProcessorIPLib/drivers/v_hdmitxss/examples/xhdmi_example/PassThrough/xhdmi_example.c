@@ -101,6 +101,8 @@
 *       mmo    03/08/19 Added "IsStreamUpHDCP" to enable the HDCP
 *                              Authentication on the first VSYNC of TX
 * 3.05  ssh    03/17/21 Added EdidHdmi20_t, PsIic0 and PsIic1 declarations
+* 3.06  ssh    04/19/21 Conditional checks added for instances of
+*                              XVphy_Clkout10BufTdsEnable function
 * </pre>
 *
 ******************************************************************************/
@@ -2223,7 +2225,9 @@ void StartTxAfterRx(void) {
 	ResetTpg();
 
 	/* Disable TX TDMS clock */
+#if (!XPAR_VPHY_0_USE_GT_CH4_HDMI)
 	XVphy_Clkout1OBufTdsEnable(&Vphy, XVPHY_DIR_TX, (FALSE));
+#endif
 
 	XV_HdmiTxSs_StreamStart(&HdmiTxSs);
 
@@ -2579,9 +2583,11 @@ void EnableColorBar(XVphy                *VphyPtr,
 			xil_printf("Starting colorbar\r\n");
 
 			/* Disable TX TDMS clock */
+#if (!XPAR_VPHY_0_USE_GT_CH4_HDMI)
 			XVphy_Clkout1OBufTdsEnable(VphyPtr,
 						XVPHY_DIR_TX,
 						(FALSE));
+#endif
 
 		} else {
 			TxBusy = (FALSE);
