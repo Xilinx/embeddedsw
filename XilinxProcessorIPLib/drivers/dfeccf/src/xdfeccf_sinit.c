@@ -25,6 +25,7 @@
 *       dc     03/25/21 Device tree item name change
 *       dc     04/06/21 Register with full node name
 *       dc     04/07/21 Fix bare metal initialisation
+*       dc     04/20/21 Doxygen documentation update
 *
 * </pre>
 *
@@ -101,7 +102,6 @@ XDfeCcf XDfeCcf_ChFilter[XDFECCF_MAX_NUM_INSTANCES];
  *           - XST_SUCCESS if successful.
  *           - XST_FAILURE if device entry not found for given device id.
 *
-*@note     None.
 *
 ******************************************************************************/
 u32 XDfeCcf_GetConfigTable(XDfeCcf *InstancePtr, XDfeCcf_Config **ConfigTable)
@@ -129,19 +129,18 @@ u32 XDfeCcf_GetConfigTable(XDfeCcf *InstancePtr, XDfeCcf_Config **ConfigTable)
 /*****************************************************************************/
 /**
 *
-* Compare two strings in the reversed order.This function compares only
+* Compares two strings in the reversed order. This function compares only
 * the last "Count" number of characters of Str1Ptr and Str2Ptr.
 *
-* @param    Str1Ptr is base address of first string
-* @param    Str2Ptr is base address of second string
-* @param    Count is number of last characters  to be compared between
-*           Str1Ptr and Str2Ptr
+* @param    Str1Ptr is the base address of first string.
+* @param    Str2Ptr is the base address of second string.
+* @param    Count is the number of last characters  to be compared between
+*           Str1Ptr and Str2Ptr.
 *
 * @return
 *           0 if last "Count" number of bytes matches between Str1Ptr and
 *           Str2Ptr, else difference in unmatched character.
 *
-*@note     None.
 *
 ******************************************************************************/
 static s32 XDfeCcf_Strrncmp(const char *Str1Ptr, const char *Str2Ptr,
@@ -178,7 +177,6 @@ static s32 XDfeCcf_Strrncmp(const char *Str1Ptr, const char *Str2Ptr,
  *           - XST_SUCCESS if successful.
  *           - XST_FAILURE if device entry not found for given device id.
  *
- *@note     None.
 *
 ******************************************************************************/
 static s32 XDfeCcf_IsDeviceCompatible(char *DeviceNamePtr,
@@ -352,7 +350,6 @@ end_failure:
 *           - XST_SUCCESS if successful.
 *           - XST_FAILURE if error occurs.
 *
-* @note     None.
 *
 ******************************************************************************/
 s32 XDfeCcf_RegisterMetal(XDfeCcf *InstancePtr, struct metal_device **DevicePtr,
@@ -416,10 +413,9 @@ s32 XDfeCcf_RegisterMetal(XDfeCcf *InstancePtr, struct metal_device **DevicePtr,
 *
 * @param    InstancePtr is a pointer to the XDfeCcf instance.
 *
-* @return   None
 *
 * @note     The user needs to first call the XDfeCcf_LookupConfig() API
-*           which returns the Configuration structure pointer which is
+*           which returns the Configuration structure pointer
 *           passed as a parameter to the XDfeCcf_CfgInitialize() API.
 *
 ******************************************************************************/

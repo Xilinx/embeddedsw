@@ -20,6 +20,8 @@
 * 1.0   dc     12/10/20 Initial version
 *       dc     03/25/21 Device tree item name change
 *       dc     04/18/21 Update trigger and event handlers
+*       dc     04/20/21 Doxygen documentation update
+*
 * </pre>
 *
 ******************************************************************************/
@@ -37,14 +39,11 @@ extern u32 XDfeCcf_WrBitField(u32 FieldWidth, u32 FieldOffset, u32 Data,
 /****************************************************************************/
 /**
 *
-* Get event status.
+* Gets event status.
 *
 * @param    InstancePtr is a pointer to the channel filter instance.
 * @param    Status is a pointer to a returned event status.
 *
-* @return   None
-*
-* @note     None
 *
 ****************************************************************************/
 void XDfeCcf_GetEventStatus(const XDfeCcf *InstancePtr, XDfeCcf_Status *Status)
@@ -88,13 +87,10 @@ void XDfeCcf_GetEventStatus(const XDfeCcf *InstancePtr, XDfeCcf_Status *Status)
 /****************************************************************************/
 /**
 *
-* Clear all event statuses.
+* Clears all event statuses.
 *
 * @param    InstancePtr is a pointer to the channel filter instance.
 *
-* @return   None
-*
-* @note     None
 *
 ****************************************************************************/
 void XDfeCcf_ClearEventStatus(const XDfeCcf *InstancePtr)
@@ -107,14 +103,11 @@ void XDfeCcf_ClearEventStatus(const XDfeCcf *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Set interrupt masks.
+* Sets interrupt masks.
 *
 * @param    InstancePtr is a pointer to the channel filter instance.
-* @param    Mask is a interrupt mask value.
+* @param    Mask is an interrupt mask value.
 *
-* @return   None
-*
-* @note     None
 *
 ****************************************************************************/
 void XDfeCcf_SetInterruptMask(const XDfeCcf *InstancePtr,
