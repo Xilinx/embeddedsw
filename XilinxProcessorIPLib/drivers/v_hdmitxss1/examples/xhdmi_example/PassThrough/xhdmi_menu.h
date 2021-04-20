@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 – 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -64,13 +64,16 @@ extern "C" {
 #include "xstatus.h"
 #include "xvidc.h"
 #include "xparameters.h"
-#if defined (XPAR_XUARTLITE_NUM_INSTANCES)
+#if defined (XPAR_XUARTPSV_NUM_INSTANCES )
+#include "xuartpsv.h"
+#elif defined (XPAR_XUARTLITE_NUM_INSTANCES)
 #include "xuartlite_l.h"
 #else
 #include "xuartps.h"
 #endif
 #if defined (XPS_BOARD_ZCU102) || \
-	defined (XPS_BOARD_ZCU106)
+	defined (XPS_BOARD_ZCU106) || \
+    defined (XPS_BOARD_VCK190)
 #include "xiicps.h"
 #else
 #include "xiic.h"
@@ -100,7 +103,8 @@ extern "C" {
 /************************** Variable Definitions *****************************/
 extern u8 Edid[];
 #if defined (XPS_BOARD_ZCU102) || \
-	defined (XPS_BOARD_ZCU106)
+	defined (XPS_BOARD_ZCU106) || \
+    defined (XPS_BOARD_VCK190)
 extern XIicPs Ps_Iic0, Iic;
 #else
 extern XIic Iic;

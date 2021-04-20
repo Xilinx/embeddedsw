@@ -6,7 +6,7 @@
 * @{
 * 
 * <pre>
-* Copyright (c) 2016 Xilinx, Inc.
+* Copyright (c) 2016-2021 Xilinx, Inc.
 * Copyright (c) 2016 Adeas B.V. All rights reserved.
 *
 * MODIFICATION HISTORY:
@@ -43,7 +43,8 @@ extern "C" {
 #include <stdlib.h>
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
-	defined (XPS_BOARD_ZCU106)
+	defined (XPS_BOARD_ZCU106) || \
+	defined (XPS_BOARD_VCK190)
 #include "xiicps.h"
 #else
 #include "xiic.h"
