@@ -11,7 +11,7 @@
 * @{
 *
 * Contains the register definitions for dfeequ. This is
-* created to be used initialy while waiting for IP.
+* created to be used initially while waiting for IP.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -21,6 +21,8 @@
 * 1.0   dc     09/03/20 Initial version
 *       dc     02/22/21 align driver to current specification
 *       dc     03/15/21 Add data latency api
+*       dc     04/20/21 Doxygen documentation update
+*
 * </pre>
 *
 ******************************************************************************/
