@@ -1134,7 +1134,7 @@ static XStatus Request(XPm_Device *Device, XPm_Subsystem *Subsystem,
 		       u32 Capabilities, const u32 QoS)
 {
 	XStatus Status = XPM_ERR_DEVICE_REQ;
-	XPm_Requirement *Reqm;
+	XPm_Requirement *Reqm = NULL;
 	u16 UsagePolicy = 0;
 	u32 PrevState;
 
@@ -1201,6 +1201,7 @@ static XStatus Request(XPm_Device *Device, XPm_Subsystem *Subsystem,
 
 done:
 	if (XST_SUCCESS != Status) {
+		XPmRequirement_Clear(Reqm);
 		PmErr("Returned: 0x%x\n\r", Status);
 	}
 	return Status;
