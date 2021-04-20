@@ -11,16 +11,16 @@
 * @{
 *
 * The Channel Filter IP provides a wrapper around the Channel Filter
-* block (dfe_channel_filter). Each instance of the block can support up to 64
-* CC, arranged across a maximum of 8 Antennas. The wrapper provides access to
-* the underlying blocks via TDMA Axi-stream data interfaces. An AXI memory
-* mapped interface is provided, enabling configuration and control of the block
-* from a microprocessor.
+* block (dfe_channel_filter). Each instance of the block can support
+* up to 64 CC, arranged across a maximum of 8 Antennas. The wrapper
+* provides access to the underlying blocks via TDMA AXI-stream data
+* interfaces. An AXI memory-mapped interface is provided, enabling
+* configuration and control of the block from a microprocessor.
 * The features that the channel filter IP and the driver support are:
 * - Supports a maximum sampling rate of 491.52Ms/s.
 * - Supports reallocation of TDM slots.
-* - Using 18 bit data interface.
-* - Using 16 bit coefficients.
+* - Using 18-bit data interface.
+* - Using 16-bit coefficients.
 * - Can independently configure complex and real coefficients.
 * - Enables the user to program the co-efficient sets via a processor
 *   interface.
@@ -36,7 +36,7 @@
 * the channels:
 * 1. Setting of the co-efficient sets via the s_axi_ctrl processor interface.
 * 2. Selection of the co-efficient sets to use for the real and imaginary data
-* 3. inputs via the s_axi_ctrl processor interface.
+* 3. Inputs via the s_axi_ctrl processor interface.
 * 4. Register bits to control the following inputs of the dfe_channel_filter
 *   blocks:
 *     - Flush buffers
@@ -45,9 +45,9 @@
 * 5. Status register indicating over and underflow of the channel filter for
 *    both before and after gain stage.
 * 6. Software reset.
-* 7. tuser and tlast support on the data interfaces:
+* 7. TUSER and TLAST support on the data interfaces:
 *
-* An API which will read/write registers has been provided for debug purpose.
+* An API which will read/write registers has been provided for debugging.
 *
 * There are plans to add more features.
 *
@@ -63,6 +63,7 @@
 *       dc     03/25/21 Device tree item name change
 *       dc     04/06/21 Register with full node name
 *       dc     04/08/21 Set sequence length only once
+*       dc     04/20/21 Doxygen documentation update
 *
 * </pre>
 *
