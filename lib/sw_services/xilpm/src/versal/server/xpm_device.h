@@ -196,6 +196,7 @@ int XPmDevice_GetWakeupLatency(const u32 DeviceId, u32 *Latency);
 XStatus XPm_SetSysmonNode(u32 Id, u32 BaseAddress);
 u32 XPm_GetSysmonByIndex(const u32 SysmonIndex);
 XStatus AddDevAttributes(const u32 *Args, const u32 NumArgs);
+XStatus XPmVirtDev_DeviceInit(XPm_Device *Device, u32 Id, XPm_Power *Power);
 
 #ifdef __cplusplus
 }
