@@ -20,6 +20,7 @@
 * 1.0   dc     10/21/20 Initial version
 *       dc     02/15/21 align driver to curent specification
 *       dc     03/18/21 New model parameter list
+*       dc     04/18/21 Update trigger and event handlers
 * </pre>
 *
 ******************************************************************************/
@@ -54,7 +55,6 @@ void XDfeMix_GetInterruptMask(const XDfeMix *InstancePtr,
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Flags != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEMIX_STATE_OPERATIONAL);
 
 	Val = XDfeMix_ReadReg(InstancePtr, XDFEMIX_IMR);
 	Flags->DUCDDCOverflow =
@@ -90,7 +90,6 @@ void XDfeMix_SetInterruptMask(const XDfeMix *InstancePtr,
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Flags != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEMIX_STATE_OPERATIONAL);
 
 	Data = XDfeMix_WrBitField(XDFEMIX_DUC_DDC_OVERFLOW_WIDTH,
 				  XDFEMIX_DUC_DDC_OVERFLOW_OFFSET, Data,
@@ -127,7 +126,6 @@ void XDfeMix_InterruptEnable(const XDfeMix *InstancePtr,
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Flags != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEMIX_STATE_OPERATIONAL);
 
 	Data = XDfeMix_WrBitField(XDFEMIX_DUC_DDC_OVERFLOW_WIDTH,
 				  XDFEMIX_DUC_DDC_OVERFLOW_OFFSET, Data,
@@ -164,7 +162,6 @@ void XDfeMix_InterruptDisable(const XDfeMix *InstancePtr,
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Flags != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEMIX_STATE_OPERATIONAL);
 
 	Data = XDfeMix_WrBitField(XDFEMIX_DUC_DDC_OVERFLOW_WIDTH,
 				  XDFEMIX_DUC_DDC_OVERFLOW_OFFSET, Data,
@@ -202,7 +199,6 @@ void XDfeMix_GetInterruptStatus(const XDfeMix *InstancePtr,
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Flags != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEMIX_STATE_OPERATIONAL);
 
 	Val = XDfeMix_ReadReg(InstancePtr, XDFEMIX_ISR);
 	Flags->DUCDDCOverflow =
@@ -239,7 +235,6 @@ void XDfeMix_ClearInterruptStatus(const XDfeMix *InstancePtr,
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Flags != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEMIX_STATE_OPERATIONAL);
 
 	Data = XDfeMix_WrBitField(XDFEMIX_DUC_DDC_OVERFLOW_WIDTH,
 				  XDFEMIX_DUC_DDC_OVERFLOW_OFFSET, Data,
