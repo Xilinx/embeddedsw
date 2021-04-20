@@ -25,6 +25,7 @@
 *       dc     03/18/21 New model parameter list
 *       dc     04/06/21 Register with full node name
 *       dc     04/07/21 Fix bare metal initialisation
+*       dc     04/20/21 Doxygen documentation update
 *
 * </pre>
 *
@@ -93,18 +94,17 @@ XDfeMix XDfeMix_Mixer[XDFEMIX_MAX_NUM_INSTANCES];
 /*****************************************************************************/
 /**
 *
-* Search for the address match between address in ConfigTable and the address
-* extracted from the NodeName. Return pointer to the ConfigTable with a matched
-* base address.
+* Searches for the address match between address in ConfigTable and the address
+* extracted from the device node name. Returns pointer to the ConfigTable with
+* a matched base address.
 *
 * @param    InstancePtr is a pointer to the Ccf instance.
 * @param    ConfigTable is a configuration table container.
 *
 * @return
  *           - XST_SUCCESS if successful.
- *           - XST_FAILURE if device entry not found for given device id.
+ *           - XST_FAILURE if device entry not found for given device ID.
 *
-*@note     None.
 *
 ******************************************************************************/
 u32 XDfeMix_GetConfigTable(XDfeMix *InstancePtr, XDfeMix_Config **ConfigTable)
@@ -132,19 +132,18 @@ u32 XDfeMix_GetConfigTable(XDfeMix *InstancePtr, XDfeMix_Config **ConfigTable)
 /*****************************************************************************/
 /**
 *
-* Compare two strings in the reversed order.This function compares only
-* the last "Count" number of characters of Str1Ptr and Str2Ptr.
+* Compares two strings in the reversed order. This function compares
+* only the last "Count" number of characters of Str1Ptr and Str2Ptr.
 *
-* @param    Str1Ptr is base address of first string
-* @param    Str2Ptr is base address of second string
-* @param    Count is number of last characters  to be compared between
+* @param    Str1Ptr is base address of first string.
+* @param    Str2Ptr is base address of second string.
+* @param    Count is the number of last characters  to be compared between
 *           Str1Ptr and Str2Ptr
 *
 * @return
 *           0 if last "Count" number of bytes matches between Str1Ptr and
 *           Str2Ptr, else difference in unmatched character.
 *
-*@note     None.
 *
 ******************************************************************************/
 static s32 XDfeMix_Strrncmp(const char *Str1Ptr, const char *Str2Ptr,
@@ -169,19 +168,18 @@ static s32 XDfeMix_Strrncmp(const char *Str1Ptr, const char *Str2Ptr,
 /*****************************************************************************/
 /**
 *
-* Traverse "/sys/bus/platform/device" directory (in Linux), to find registered
+* Traverses "/sys/bus/platform/device" directory (in Linux), to find registered
 * device with the name DeviceNodeName.
-* If the match is found than check is the device compatible with the driver.
+* If the match is found then check if the device is compatible with the driver.
 *
 * @param    DeviceNamePtr is base address of char array, where device name
-*           will be stored
-* @param    DeviceNodeName is device node name,
+*           will be stored.
+* @param    DeviceNodeName is device node name.
 *
 * @return
  *           - XST_SUCCESS if successful.
- *           - XST_FAILURE if device entry not found for given device id.
+ *           - XST_FAILURE if device entry not found for given device ID.
  *
- *@note     None.
 *
 ******************************************************************************/
 static s32 XDfeMix_IsDeviceCompatible(char *DeviceNamePtr,
@@ -269,12 +267,12 @@ static s32 XDfeMix_IsDeviceCompatible(char *DeviceNamePtr,
 *
 * @return
  *           - XST_SUCCESS if successful.
- *           - XST_FAILURE if device entry not found for given device id.
+ *           - XST_FAILURE if device entry not found for given device ID.
 *
 * @note
-*         - For BM a table contains the configuration info for each device
+*         - For BM, a table contains the configuration info for each device
 *           in the system.
-*         - For Linux there will be just one config allocated and pointer to
+*         - For Linux, there will be just one config allocated and a pointer
 *           pointing to the config returned.
 *
 ******************************************************************************/
@@ -401,17 +399,16 @@ end_failure:
 /*****************************************************************************/
 /**
 *
-* Register/open the deviceand map Mixer to the IO region.
+* Registers/opens the device and maps Mixer to the IO region.
 *
-* @param    DeviceId contains the ID of the device to register/map
+* @param    DeviceId contains the ID of the device to register/map.
 * @param    DevicePtr is a pointer to the metal device.
-* @param    DeviceNodeName is device node name,
+* @param    DeviceNodeName is device node name.
 *
 * @return
 *           - XST_SUCCESS if successful.
-*           - XST_FAILURE if error occurs.
+*           - XST_FAILURE if an error occurs.
 *
-* @note     None.
 *
 ******************************************************************************/
 s32 XDfeMix_RegisterMetal(XDfeMix *InstancePtr, struct metal_device **DevicePtr,
@@ -475,10 +472,9 @@ s32 XDfeMix_RegisterMetal(XDfeMix *InstancePtr, struct metal_device **DevicePtr,
 *
 * @param    InstancePtr is a pointer to the XDfeMix instance.
 *
-* @return   None
 *
-* @note     The user needs to first call the XDfeMix_LookupConfig() API
-*           which returns the Configuration structure pointer which is
+* @note     The user needs to first call the XDfeMix_LookupConfig() API,
+*           which returns the Configuration structure pointer, which is
 *           passed as a parameter to the XDfeMix_CfgInitialize() API.
 *
 ******************************************************************************/
