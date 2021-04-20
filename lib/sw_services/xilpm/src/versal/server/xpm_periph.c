@@ -171,13 +171,18 @@ static XStatus HandleHbMonDeviceState(XPm_Device* const Device, const u32 NextSt
 			XPlmi_UpdateErrorSubsystemId(XPLMI_EVENT_ERROR_SW_ERR,
 							(u32)1U << HbMon_Id,
 							Device->Requirements->Subsystem->Id);
-			Status = XST_SUCCESS;
+			/* Update use count. */
+			Status = XPmDevice_BringUp(Device);
+
 		}
 		break;
 	case (u8)XPM_DEVSTATE_RUNNING:
 		if ((u32)XPM_DEVSTATE_UNUSED == NextState) {
 			HbMon_StopTimer(HbMon_Id);
-			Status = XST_SUCCESS;
+			/* Update use count. */
+			Status = Device->HandleEvent(&Device->Node,
+						     XPM_DEVEVENT_SHUTDOWN);
+
 		}
 		break;
 	default:
