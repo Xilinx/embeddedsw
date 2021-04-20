@@ -87,9 +87,9 @@ int XMailbox_Example(XMailbox *InstancePtr, u8 DeviceId)
 
 	/* Register callbacks for Error and Read */
 	XMailbox_SetCallBack(InstancePtr, XMAILBOX_RECV_HANDLER,
-			     DoneHandler, InstancePtr);
+			     (void *)DoneHandler, (void *)InstancePtr);
 	XMailbox_SetCallBack(InstancePtr, XMAILBOX_ERROR_HANDLER,
-			     ErrorHandler, InstancePtr);
+			     (void *)ErrorHandler, (void *)InstancePtr);
 
 	xdbg_printf(XDBG_DEBUG_GENERAL, "Req Message Content:\r\n");
 	for (Index = 0; Index < TEST_MSG_LEN; Index++) {
