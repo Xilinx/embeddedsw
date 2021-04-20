@@ -21,6 +21,7 @@
 *       dc     04/06/21 Register with full node name
 *       dc     04/07/21 Fix bare metal initialisation
 *       dc     04/10/21 Set sequence length only once
+*       dc     04/18/21 Update trigger and event handlers
 *
 * </pre>
 *
@@ -376,7 +377,7 @@ static u32 XDfePrach_AddCCID(XDfePrach *InstancePtr, s32 CCID, u32 BitSequence,
 		return XST_FAILURE;
 	}
 
-	/* Check are bits set to 1 avaliable */
+	/* Check are bits set in BitSequence to 1 avaliable (-1)*/
 	Mask = 1U;
 	for (Index = 0U; Index < CCIDSequence->Length; Index++) {
 		if (0U != (BitSequence & Mask)) {
@@ -509,6 +510,7 @@ static void XDfePrach_SetNextCCCfg(const XDfePrach *InstancePtr,
 {
 	u32 Data;
 	u32 Index;
+	u32 SeqLength;
 	s32 NextCCID[XDFEPRACH_SEQ_LENGTH_MAX];
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(NextCCCfg != NULL);
@@ -523,6 +525,13 @@ static void XDfePrach_SetNextCCCfg(const XDfePrach *InstancePtr,
 			NextCCID[Index] = NextCCCfg->Sequence.CCID[Index];
 		}
 	}
+
+	/* Sequence Length should remain the same, so copy the sequence length
+	   from CURRENT to NEXT */
+	SeqLength = XDfePrach_ReadReg(InstancePtr,
+				      XDFEPRACH_CC_SEQUENCE_LENGTH_CURRENT);
+	XDfePrach_WriteReg(InstancePtr, XDFEPRACH_CC_SEQUENCE_LENGTH_NEXT,
+			   SeqLength);
 
 	/* Write CCID sequence and carrier configurations */
 	for (Index = 0; Index < XDFEPRACH_SEQ_LENGTH_MAX; Index++) {
@@ -1950,6 +1959,7 @@ void XDfePrach_Initialize(XDfePrach *InstancePtr, XDfePrach_Init *Init)
 	Xil_AssertVoid(Init != NULL);
 
 	/* Write "one-time" Sequence length */
+	InstancePtr->NotUsedCCID = 0;
 	InstancePtr->SequenceLength = Init->Sequence.Length;
 	if (Init->Sequence.Length == 0U) {
 		SequenceLength = 0U;
@@ -2565,6 +2575,15 @@ void XDfePrach_SetTriggersCfg(const XDfePrach *InstancePtr,
 	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_ENABLE_WIDTH,
 				   XDFEPRACH_TRIGGERS_ENABLE_OFFSET, Val,
 				   TriggerCfg->Activate.Enable);
+	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_SOURCE_WIDTH,
+				   XDFEPRACH_TRIGGERS_SOURCE_OFFSET, Val,
+				   TriggerCfg->Activate.Source);
+	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_SIGNAL_EDGE_WIDTH,
+				   XDFEPRACH_TRIGGERS_SIGNAL_EDGE_OFFSET, Val,
+				   TriggerCfg->Activate.Edge);
+	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_TUSER_BIT_WIDTH,
+				   XDFEPRACH_TRIGGERS_TUSER_BIT_OFFSET, Val,
+				   TriggerCfg->Activate.TUSERBit);
 	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_ONE_SHOT_WIDTH,
 				   XDFEPRACH_TRIGGERS_ONE_SHOT_OFFSET, Val,
 				   TriggerCfg->Activate.OneShot);
@@ -2580,6 +2599,15 @@ void XDfePrach_SetTriggersCfg(const XDfePrach *InstancePtr,
 	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_ENABLE_WIDTH,
 				   XDFEPRACH_TRIGGERS_ENABLE_OFFSET, Val,
 				   TriggerCfg->LowPower.Enable);
+	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_SOURCE_WIDTH,
+				   XDFEPRACH_TRIGGERS_SOURCE_OFFSET, Val,
+				   TriggerCfg->LowPower.Source);
+	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_SIGNAL_EDGE_WIDTH,
+				   XDFEPRACH_TRIGGERS_SIGNAL_EDGE_OFFSET, Val,
+				   TriggerCfg->LowPower.Edge);
+	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_TUSER_BIT_WIDTH,
+				   XDFEPRACH_TRIGGERS_TUSER_BIT_OFFSET, Val,
+				   TriggerCfg->LowPower.TUSERBit);
 	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_ONE_SHOT_WIDTH,
 				   XDFEPRACH_TRIGGERS_ONE_SHOT_OFFSET, Val,
 				   TriggerCfg->LowPower.OneShot);
@@ -2594,6 +2622,15 @@ void XDfePrach_SetTriggersCfg(const XDfePrach *InstancePtr,
 	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_ENABLE_WIDTH,
 				   XDFEPRACH_TRIGGERS_ENABLE_OFFSET, Val,
 				   TriggerCfg->RachUpdate.Enable);
+	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_SOURCE_WIDTH,
+				   XDFEPRACH_TRIGGERS_SOURCE_OFFSET, Val,
+				   TriggerCfg->RachUpdate.Source);
+	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_SIGNAL_EDGE_WIDTH,
+				   XDFEPRACH_TRIGGERS_SIGNAL_EDGE_OFFSET, Val,
+				   TriggerCfg->RachUpdate.Edge);
+	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_TUSER_BIT_WIDTH,
+				   XDFEPRACH_TRIGGERS_TUSER_BIT_OFFSET, Val,
+				   TriggerCfg->RachUpdate.TUSERBit);
 	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_ONE_SHOT_WIDTH,
 				   XDFEPRACH_TRIGGERS_ONE_SHOT_OFFSET, Val,
 				   TriggerCfg->RachUpdate.OneShot);
@@ -2608,6 +2645,15 @@ void XDfePrach_SetTriggersCfg(const XDfePrach *InstancePtr,
 	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_ENABLE_WIDTH,
 				   XDFEPRACH_TRIGGERS_ENABLE_OFFSET, Val,
 				   TriggerCfg->FrameInit.Enable);
+	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_SOURCE_WIDTH,
+				   XDFEPRACH_TRIGGERS_SOURCE_OFFSET, Val,
+				   TriggerCfg->FrameInit.Source);
+	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_SIGNAL_EDGE_WIDTH,
+				   XDFEPRACH_TRIGGERS_SIGNAL_EDGE_OFFSET, Val,
+				   TriggerCfg->FrameInit.Edge);
+	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_TUSER_BIT_WIDTH,
+				   XDFEPRACH_TRIGGERS_TUSER_BIT_OFFSET, Val,
+				   TriggerCfg->FrameInit.TUSERBit);
 	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_ONE_SHOT_WIDTH,
 				   XDFEPRACH_TRIGGERS_ONE_SHOT_OFFSET, Val,
 				   TriggerCfg->FrameInit.OneShot);
@@ -2757,7 +2803,7 @@ void XDfePrach_GetStatus(const XDfePrach *InstancePtr, XDfePrach_Status *Status)
 void XDfePrach_ClearStatus(const XDfePrach *InstancePtr)
 {
 	u32 Offset;
-	XDfePrach_InterruptMask Flags = { 0U, 0U, 0U, 0U, 0U, 0U, 0U };
+	XDfePrach_InterruptMask Flags = { 1U, 1U, 1U, 1U, 1U, 1U, 1U };
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
 

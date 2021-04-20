@@ -18,6 +18,7 @@
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     03/08/21 Initial version
+*       dc     04/18/21 Update trigger and event handlers
 * </pre>
 *
 ******************************************************************************/
@@ -52,7 +53,6 @@ void XDfePrach_GetInterruptMask(const XDfePrach *InstancePtr,
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Flags != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
 
 	Val = XDfePrach_ReadReg(InstancePtr, XDFEPRACH_IMR);
 	Flags->DecimatorOverflow =
@@ -99,7 +99,6 @@ void XDfePrach_SetInterruptMask(const XDfePrach *InstancePtr,
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Flags != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
 
 	Data = XDfePrach_WrBitField(XDFEPRACH_DECIMATOR_OVERFLOW_WIDTH,
 				    XDFEPRACH_DECIMATOR_OVERFLOW_OFFSET, Data,
@@ -145,7 +144,6 @@ void XDfePrach_InterruptEnable(const XDfePrach *InstancePtr,
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Flags != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
 
 	Data = XDfePrach_WrBitField(XDFEPRACH_DECIMATOR_OVERFLOW_WIDTH,
 				    XDFEPRACH_DECIMATOR_OVERFLOW_OFFSET, Data,
@@ -191,7 +189,6 @@ void XDfePrach_InterruptDisable(const XDfePrach *InstancePtr,
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Flags != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
 
 	Data = XDfePrach_WrBitField(XDFEPRACH_DECIMATOR_OVERFLOW_WIDTH,
 				    XDFEPRACH_DECIMATOR_OVERFLOW_OFFSET, Data,
@@ -238,7 +235,6 @@ void XDfePrach_GetInterruptStatus(const XDfePrach *InstancePtr,
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Flags != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
 
 	Val = XDfePrach_ReadReg(InstancePtr, XDFEPRACH_ISR);
 	Flags->DecimatorOverflow =
@@ -286,7 +282,6 @@ void XDfePrach_ClearInterruptStatus(const XDfePrach *InstancePtr,
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Flags != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
 
 	Data = XDfePrach_WrBitField(XDFEPRACH_DECIMATOR_OVERFLOW_WIDTH,
 				    XDFEPRACH_DECIMATOR_OVERFLOW_OFFSET, Data,
