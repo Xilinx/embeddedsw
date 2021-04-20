@@ -381,8 +381,7 @@ s32 XDfeEqu_RegisterMetal(XDfeEqu *InstancePtr, struct metal_device **DevicePtr,
 	}
 	Status = metal_device_open(XDFEEQU_BUS_NAME, DeviceNodeName, DevicePtr);
 	if (Status != XST_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Failed to open device EQU");
+		metal_log(METAL_LOG_ERROR, "\n Failed to open device EQU");
 		return Status;
 	}
 #else
