@@ -814,6 +814,13 @@ proc generate {os_handle} {
 		puts $config_file "#define portGET_RUN_TIME_COUNTER_VALUE()\n"
 	}
 
+	set val [common::get_property CONFIG.use_port_optimized_task_selection $os_handle]
+	if {$val == "false"} {
+		xput_define $config_file "configUSE_PORT_OPTIMISED_TASK_SELECTION"  "0"
+	} else {
+		xput_define $config_file "configUSE_PORT_OPTIMISED_TASK_SELECTION"  "1"
+	}
+
 	puts $config_file "#define configUSE_TICKLESS_IDLE	0"
 	puts $config_file "#define configTASK_RETURN_ADDRESS    prvTaskExitError"
 	puts $config_file "#define INCLUDE_vTaskPrioritySet             1"
@@ -1017,12 +1024,6 @@ proc generate {os_handle} {
 		set max_api_call_interrupt_priority [common::get_property CONFIG.max_api_call_interrupt_priority $os_handle]
 		xput_define $config_file "configMAX_API_CALL_INTERRUPT_PRIORITY"   "($max_api_call_interrupt_priority)"
 
-		set val [common::get_property CONFIG.use_port_optimized_task_selection $os_handle]
-		if {$val == "false"} {
-			xput_define $config_file "configUSE_PORT_OPTIMISED_TASK_SELECTION"  "0"
-		} else {
-			xput_define $config_file "configUSE_PORT_OPTIMISED_TASK_SELECTION"  "1"
-		}
 	}
 	# end of if $proctype == "psu_cortexr5"
 
@@ -1196,12 +1197,6 @@ proc generate {os_handle} {
 		puts $config_file "#define portSET_INTERRUPT_MASK_FROM_ISR()	uxPortSetInterruptMask()"
 		puts $config_file "#define portCLEAR_INTERRUPT_MASK_FROM_ISR(x)	vPortClearInterruptMask(x)"
 
-		set val [common::get_property CONFIG.use_port_optimized_task_selection $os_handle]
-		if {$val == "false"} {
-			xput_define $config_file "configUSE_PORT_OPTIMISED_TASK_SELECTION"  "0"
-		} else {
-			xput_define $config_file "configUSE_PORT_OPTIMISED_TASK_SELECTION"  "1"
-		}
 	}
 	# end of if $proctype == "psu_cortexa53"
 
@@ -1325,13 +1320,6 @@ proc generate {os_handle} {
 	if { $proctype == "ps7_cortexa9" } {
 		set max_api_call_interrupt_priority [common::get_property CONFIG.max_api_call_interrupt_priority $os_handle]
 		xput_define $config_file "configMAX_API_CALL_INTERRUPT_PRIORITY"   "($max_api_call_interrupt_priority)"
-
-		set val [common::get_property CONFIG.use_port_optimized_task_selection $os_handle]
-		if {$val == "false"} {
-			xput_define $config_file "configUSE_PORT_OPTIMISED_TASK_SELECTION"  "0"
-		} else {
-			xput_define $config_file "configUSE_PORT_OPTIMISED_TASK_SELECTION"  "1"
-		}
 
 		puts $config_file "#define configINTERRUPT_CONTROLLER_BASE_ADDRESS         ( XPAR_PS7_SCUGIC_0_DIST_BASEADDR )"
 		puts $config_file "#define configINTERRUPT_CONTROLLER_CPU_INTERFACE_OFFSET ( -0xf00 )"
