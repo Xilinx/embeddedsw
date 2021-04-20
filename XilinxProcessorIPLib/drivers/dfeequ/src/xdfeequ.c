@@ -585,8 +585,8 @@ register_metal:
 	memcpy(Str, InstancePtr->NodeName, XDFEEQU_NODE_NAME_MAX_LENGTH);
 	AddrStr = strtok(Str, ".");
 	Addr = strtol(AddrStr, NULL, 16);
-	for(Index=0; Index < XDFEEQU_MAX_NUM_INSTANCES; Index++) {
-		if(Addr == metal_phys[Index]) {
+	for (Index = 0; Index < XDFEEQU_MAX_NUM_INSTANCES; Index++) {
+		if (Addr == metal_phys[Index]) {
 			InstancePtr->Device = &CustomDevice[Index];
 			goto bm_register_metal;
 		}

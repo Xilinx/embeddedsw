@@ -19,6 +19,7 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     12/10/20 Initial version
 *       dc     02/22/21 align driver to current specification
+*       dc     04/18/21 Update trigger and event handlers
 * </pre>
 *
 ******************************************************************************/
@@ -54,7 +55,6 @@ void XDfeEqu_GetEventStatus(const XDfeEqu *InstancePtr, u32 ChannelId,
 	u32 Offset;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEEQU_STATE_OPERATIONAL);
 	Xil_AssertVoid(ChannelId < XDFEEQU_CHANNEL_NUM);
 	Xil_AssertVoid(Status != NULL);
 
@@ -87,7 +87,6 @@ void XDfeEqu_ClearEventStatus(const XDfeEqu *InstancePtr, u32 ChannelId)
 	u32 Offset;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEEQU_STATE_OPERATIONAL);
 	Xil_AssertVoid(ChannelId < ((u32)1U << XDFEEQU_CHANNEL_NUM));
 
 	/* Clears the relevant bits of the Channel_Id Status register. */
@@ -120,7 +119,6 @@ void XDfeEqu_SetInterruptMask(const XDfeEqu *InstancePtr, u32 ChannelField,
 	u32 Index;
 	u32 Offset;
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEEQU_STATE_OPERATIONAL);
 	Xil_AssertVoid(ChannelField < ((u32)1U << XDFEEQU_CHANNEL_NUM));
 	Xil_AssertVoid(StatusMask->Status <
 		       (1U << XDFEEQU_CHANNEL_STATUS_MASK_ENABLE_WIDTH));
