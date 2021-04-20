@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -192,7 +192,7 @@ extern u8 TxBusy;
 extern u8 IsPassThrough;
 
 #if defined (ARMR5) || ((__aarch64__) && (!defined XPS_BOARD_ZCU104))
-XIicPs Ps_Iic0, Ps_Iic1;
+extern XIicPs Ps_Iic0, Ps_Iic1;
 #define PS_IIC_CLK 100000
 #endif
 
