@@ -11,7 +11,7 @@
 * @{
 *
 * Contains the register definitions for xdfeccf. This is
-* created to be used initialy while waiting for IP.
+* created to be used initially while waiting for IP.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -22,6 +22,8 @@
 *       dc     02/08/21 align driver to curent specification
 *       dc     03/16/21 update activate & deactivate api
 *       dc     03/25/21 Device tree item name change
+*       dc     04/20/21 Doxygen documentation update
+*
 * </pre>
 *
 ******************************************************************************/
