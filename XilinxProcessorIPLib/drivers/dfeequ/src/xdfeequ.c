@@ -10,7 +10,7 @@
 * @addtogroup xdfeequ_v1_0
 * @{
 *
-* Contains the APIs for DFE Equlizer Filter component.
+* Contains the APIs for the DFE Equalizer Filter component.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -23,6 +23,7 @@
 *       dc     03/15/21 Add data latency api
 *       dc     04/06/21 Register with full node name
 *       dc     04/07/21 Fix bare metal initialisation
+*       dc     04/20/21 Doxygen documentation update
 *
 * </pre>
 *
@@ -77,15 +78,12 @@ extern void XDfeEqu_CfgInitialize(XDfeEqu *InstancePtr);
 /****************************************************************************/
 /**
 *
-* Write value to register in a Equalizer instance.
+* Writes value to register in an Equalizer instance.
 *
 * @param    InstancePtr is a pointer to the XDfeEqu instance.
 * @param    AddrOffset is address offset relative to instance base address.
 * @param    Data is value to be written.
 *
-* @return   None
-*
-* @note     None
 *
 ****************************************************************************/
 void XDfeEqu_WriteReg(const XDfeEqu *InstancePtr, u32 AddrOffset, u32 Data)
@@ -97,14 +95,13 @@ void XDfeEqu_WriteReg(const XDfeEqu *InstancePtr, u32 AddrOffset, u32 Data)
 /****************************************************************************/
 /**
 *
-* Read a value from register from a Equalizer instance.
+* Reads a value from the register using an Equalizer instance.
 *
 * @param    InstancePtr is a pointer to the XDfeEqu instance.
-* @param    AddrOffset is address offset relativ to instance base address.
+* @param    AddrOffset is address offset relative to instance base address.
 *
 * @return   Register value.
 *
-* @note     None
 *
 ****************************************************************************/
 u32 XDfeEqu_ReadReg(const XDfeEqu *InstancePtr, u32 AddrOffset)
@@ -116,17 +113,13 @@ u32 XDfeEqu_ReadReg(const XDfeEqu *InstancePtr, u32 AddrOffset)
 /****************************************************************************/
 /**
 *
-* Write a bit field value to register.
+* Writes a bit field value to register.
 *
 * @param    InstancePtr is a pointer to the XDfeEqu instance.
 * @param    Offset is address offset relative to instance base address.
 * @param    FieldWidth is a bit field width.
 * @param    FieldOffset is a bit field offset.
 * @param    FieldData is a bit field data.
-*
-* @return   None
-*
-* @note     None
 *
 ****************************************************************************/
 void XDfeEqu_WrRegBitField(const XDfeEqu *InstancePtr, u32 Offset,
@@ -148,7 +141,7 @@ void XDfeEqu_WrRegBitField(const XDfeEqu *InstancePtr, u32 Offset,
 /****************************************************************************/
 /**
 *
-* Read a bit field value from register.
+* Reads a bit field value from the register.
 *
 * @param    InstancePtr is a pointer to the XDfeEqu instance.
 * @param    Offset is address offset relative to instance base address.
@@ -156,8 +149,6 @@ void XDfeEqu_WrRegBitField(const XDfeEqu *InstancePtr, u32 Offset,
 * @param    FieldOffset is a bit field offset.
 *
 * @return   Bit field data.
-*
-* @note     None
 *
 ****************************************************************************/
 u32 XDfeEqu_RdRegBitField(const XDfeEqu *InstancePtr, u32 Offset,
@@ -174,15 +165,13 @@ u32 XDfeEqu_RdRegBitField(const XDfeEqu *InstancePtr, u32 Offset,
 /****************************************************************************/
 /**
 *
-* Reads a bit field value from u32 variable
+* Reads a bit field value from the u32 variable.
 *
-* @param    FieldWidth is a bit field width
-* @param    FieldOffset is a bit field offset in bits number
-* @param    Data is a u32 data which bit field this function reads
+* @param    FieldWidth is a bit field width.
+* @param    FieldOffset is a bit field offset in bits number.
+* @param    Data is a u32 data which bit field this function reads.
 *
-* @return   Bit field value
-*
-* @note     None
+* @return   Bit field value.
 *
 ****************************************************************************/
 u32 XDfeEqu_RdBitField(u32 FieldWidth, u32 FieldOffset, u32 Data)
@@ -193,16 +182,14 @@ u32 XDfeEqu_RdBitField(u32 FieldWidth, u32 FieldOffset, u32 Data)
 /****************************************************************************/
 /**
 *
-* Writes a bit field value to u32 variable
+* Writes a bit field value to the u32 variable.
 *
-* @param    FieldWidth is a bit field width
-* @param    FieldOffset is a bit field offset in bits number
-* @param    Data is a u32 data which bit field this function reads
-* @param    Val is a u32 value to be written in the bit field
+* @param    FieldWidth is a bit field width.
+* @param    FieldOffset is a bit field offset in bits number.
+* @param    Data is a u32 data which bit field this function reads.
+* @param    Val is a u32 value to be written in the bit field.
 *
-* @return   Data with a bitfield written
-*
-* @note     None
+* @return   Data with a bit field written.
 *
 ****************************************************************************/
 u32 XDfeEqu_WrBitField(u32 FieldWidth, u32 FieldOffset, u32 Data, u32 Val)
@@ -224,17 +211,13 @@ u32 XDfeEqu_WrBitField(u32 FieldWidth, u32 FieldOffset, u32 Data, u32 Val)
 /****************************************************************************/
 /**
 *
-* Set equalizer filter coefficients in Real mode.
+* Sets Equalizer filter coefficients in Real mode.
 *
 * @param    InstancePtr is a pointer to the Equalizer instance.
 * @param    ChannelField is a flag which bits indicate channel is enabled.
-* @param    EqCoeffs is equalizer coefficients container.
-* @param    NumValues is number of taps.
+* @param    EqCoeffs is an Equalizer coefficients container.
+* @param    NumValues is the number of taps.
 * @param    Shift is shift value.
-*
-* @return   None
-*
-* @note     None
 *
 ****************************************************************************/
 static void XDfeEqu_LoadRealCoefficients(const XDfeEqu *InstancePtr,
@@ -276,17 +259,14 @@ static void XDfeEqu_LoadRealCoefficients(const XDfeEqu *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Set equalizer filter coefficients in Complex mode.
+* Sets Equalizer filter coefficients in Complex mode.
 *
 * @param    InstancePtr is a pointer to the Equalizer instance.
-* @param    ChannelField is a flag whic bits indicate channel is enabled.
-* @param    EqCoeffs is equalizer coefficients container.
-* @param    NumValues is number of taps.
+* @param    ChannelField is a flag in which bits indicate the channel is
+*           enabled.
+* @param    EqCoeffs is an Equalizer coefficients container.
+* @param    NumValues is the number of taps.
 * @param    Shift is shift value.
-*
-* @return   None
-*
-* @note     None
 *
 ****************************************************************************/
 static void
@@ -373,17 +353,13 @@ XDfeEqu_LoadComplexCoefficients(const XDfeEqu *InstancePtr, u32 ChannelField,
 /****************************************************************************/
 /**
 *
-* Set equalizer filter coefficients in Matrix mode.
+* Sets Equalizer filter coefficients in Matrix mode.
 *
 * @param    InstancePtr is a pointer to the Equalizer instance.
-* @param    ChannelField is a flag whic bits indicate channel is enabled.
-* @param    EqCoeffs is equalizer coefficients container.
-* @param    NumValues is number of taps.
+* @param    ChannelField is a flag in which bits indicate channel is enabled.
+* @param    EqCoeffs is an Equalizer coefficients container.
+* @param    NumValues is the number of taps.
 * @param    Shift is shift value.
-*
-* @return   None
-*
-* @note     None
 *
 ****************************************************************************/
 static void XDfeEqu_LoadMatrixCoefficients(const XDfeEqu *InstancePtr,
@@ -513,19 +489,18 @@ static void XDfeEqu_DisableLowPowerTrigger(const XDfeEqu *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* API Initialise one instancie of a Equalizer driver.
+* API initialises one instance of an Equalizer driver.
 * Traverse "/sys/bus/platform/device" directory (in Linux), to find registered
 * EQU device with the name DeviceNodeName. The first available slot in
 * the instances array XDfeEqu_ChFilter[] will be taken as a DeviceNodeName
 * object.
 *
-* @param    DeviceNodeName is device node name,
+* @param    DeviceNodeName is device node name.
 *
 * @return
 *           - pointer to instance if successful.
 *           - NULL on error.
 *
-* @note     None.
 *
 ******************************************************************************/
 XDfeEqu *XDfeEqu_InstanceInit(const char *DeviceNodeName)
@@ -627,13 +602,10 @@ return_error:
 /*****************************************************************************/
 /**
 *
-* API Close the instancies of a Equalizer driver.
+* API closes the instance of an Equalizer driver.
 *
 * @param    InstancePtr is a pointer to the XDfeEqu instance.
 *
-* @return
-*
-* @note     None.
 *
 ******************************************************************************/
 void XDfeEqu_InstanceClose(XDfeEqu *InstancePtr)
@@ -660,14 +632,11 @@ void XDfeEqu_InstanceClose(XDfeEqu *InstancePtr)
 /****************************************************************************/
 /**
 *
-* This function puts block into a reset state.
+* This function puts the block into a reset state.
 * Sets bit 0 of the Master Reset register (0x4) high.
 *
 * @param    InstancePtr is a pointer to the Equalizer instance.
 *
-* @return   None
-*
-* @note     None
 *
 ****************************************************************************/
 void XDfeEqu_Reset(XDfeEqu *InstancePtr)
@@ -683,15 +652,11 @@ void XDfeEqu_Reset(XDfeEqu *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Read configuration from device tree/xparameters.h and IP registers. S/W
+* Reads configuration from device tree/xparameters.h and IP registers. S/W
 * reset removed by setting bit 0 of the Master Reset register (0x4) low.
 *
 * @param    InstancePtr is a pointer to the Equalizer instance.
 * @param    Cfg is a pointer to the device config structure.
-*
-* @return   None
-*
-* @note     None
 *
 ****************************************************************************/
 void XDfeEqu_Configure(XDfeEqu *InstancePtr, XDfeEqu_Cfg *Cfg)
@@ -759,10 +724,6 @@ void XDfeEqu_Configure(XDfeEqu *InstancePtr, XDfeEqu_Cfg *Cfg)
 * @param    InstancePtr is a pointer to the Equalizer instance.
 * @param    Config is a configuration data container.
 *
-* @return   None
-*
-* @note     None
-*
 ****************************************************************************/
 void XDfeEqu_Initialize(XDfeEqu *InstancePtr, const XDfeEqu_EqConfig *Config)
 {
@@ -818,19 +779,15 @@ void XDfeEqu_Initialize(XDfeEqu *InstancePtr, const XDfeEqu_EqConfig *Config)
 /*****************************************************************************/
 /**
 *
-* Activate chfilter.
+* Activates chfilter.
 * First set bit 0 of the Next Control register (0x24) high.
 * The software then sets the _Enable bit in the Next Control Trigger Source
-* register (0x28) high. If EnableLowPower is true the software also sets
+* register (0x28) high. If EnableLowPower is true, the software also sets
 * the Enable bit of the Dynamic Powerdown Mode Trigger Source register (0x34)
 * high.
 *
 * @param    InstancePtr is a pointer to the Equalizer instance.
 * @param    EnableLowPower is a flag indicating low power.
-*
-* @return   None
-*
-* @note     None
 *
 ******************************************************************************/
 void XDfeEqu_Activate(XDfeEqu *InstancePtr, bool EnableLowPower)
@@ -883,17 +840,13 @@ void XDfeEqu_Activate(XDfeEqu *InstancePtr, bool EnableLowPower)
 /*****************************************************************************/
 /**
 *
-* DeActivate chfilter.
+* DeActivates chfilter.
 * First set bit 0 of the Next Control register (0x24) low.
 * The software then sets the _Enable bit in the Next Control Trigger Source
 * register (0x28) high. The software also sets the _Enable bit of the Dynamic
 * Powerdown Mode Trigger Source register (0x34) low.
 *
 * @param    InstancePtr is a pointer to the Equalizer instance.
-*
-* @return   None
-*
-* @note     None
 *
 ******************************************************************************/
 void XDfeEqu_Deactivate(XDfeEqu *InstancePtr)
@@ -936,24 +889,21 @@ void XDfeEqu_Deactivate(XDfeEqu *InstancePtr)
 *
 * The software first sets bits 7:4 of the Next Control register (0x24) with
 * the values in Config.Real_Datapath_Set, Config.Im_Datapath_Set.
-* In real mode bits 5:4 are set to the value held in Config.Real_Datapath_Set.
+* In real mode bits, 5:4 are set to the value held in
+* Config.Real_Datapath_Set.
 * Bits 7:6 are set to the value held in Config.Real_Datapath_Set.
-* In complex mode bits 5:4 are set to the value held in
+* In complex mode bits, 5:4 are set to the value held in value
 * Config.Real_Datapath_Set. Bits 7:6 are set to the value held in
 * Config.Real_Datapath_Set plus 1.
 * In matrix mode bits 5:4 are set to the value held in
 * Config.Real_Datapath_Set. Bits 7:6 are set to the value held in
 * Config.Im_Datapath_Set.
 * The software sets bit 1 depending on Config.Flush.
-* The software then sets the _Enable bit in the Next Control Trigger Source
-* register (0x28) high.
+* The software then sets the _Enable bit in the Next Control Trigger
+* Source register (0x28) high.
 *
 * @param    InstancePtr is a pointer to the Equalizer instance.
 * @param    Config configuration container.
-*
-* @return   None
-*
-* @note     None
 *
 ****************************************************************************/
 void XDfeEqu_Update(const XDfeEqu *InstancePtr, const XDfeEqu_EqConfig *Config)
@@ -997,14 +947,11 @@ void XDfeEqu_Update(const XDfeEqu *InstancePtr, const XDfeEqu_EqConfig *Config)
 /****************************************************************************/
 /**
 *
-* Return current trigger configuration.
+* Returns current trigger configuration.
 *
 * @param    InstancePtr is a pointer to the Ccf instance.
-* @param    TriggerCfg is a triger configuration container.
+* @param    TriggerCfg is a trigger configuration container.
 *
-* @return   None
-*
-* @note     None
 *
 ****************************************************************************/
 void XDfeEqu_GetTriggersCfg(const XDfeEqu *InstancePtr,
@@ -1056,14 +1003,10 @@ void XDfeEqu_GetTriggersCfg(const XDfeEqu *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Set trigger configuration.
+* Sets trigger configuration.
 *
 * @param    InstancePtr is a pointer to the Ccf instance.
-* @param    TriggerCfg is a triger configuration container.
-*
-* @return   None
-*
-* @note     None
+* @param    TriggerCfg is a trigger configuration container.
 *
 ****************************************************************************/
 void XDfeEqu_SetTriggersCfg(const XDfeEqu *InstancePtr,
@@ -1129,16 +1072,13 @@ void XDfeEqu_SetTriggersCfg(const XDfeEqu *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Set equalizer filter coefficients in Real, Complex or Matrix mode.
+* Sets Equalizer filter coefficients in Real, Complex or Matrix mode.
 *
 * @param    InstancePtr is a pointer to the Equalizer instance.
-* @param    ChannelField is a flag whic bits indicate channel is enabled.
-* @param    Mode is an equalizer mode.
-* @param    EqCoeffs is equalizer coefficients container.
-*
-* @return   None
-*
-* @note     None
+* @param    ChannelField is a flag in which bits indicate the channel is
+*           enabled.
+* @param    Mode is an Equalizer mode.
+* @param    EqCoeffs is the Equalizer coefficients container.
 *
 ****************************************************************************/
 void XDfeEqu_LoadCoefficients(const XDfeEqu *InstancePtr, u32 ChannelField,
@@ -1221,15 +1161,11 @@ void XDfeEqu_LoadCoefficients(const XDfeEqu *InstancePtr, u32 ChannelField,
 /****************************************************************************/
 /**
 *
-* Get used coefficients settings.
+* Gets used coefficients settings.
 *
 * @param    InstancePtr is a pointer to the Equalizer instance.
 * @param    RealSet is a pointer to a real value.
-* @param    ImagSet is a pointer to a imaginary value.
-*
-* @return   None
-*
-* @note     None
+* @param    ImagSet is a pointer to an imaginary value.
 *
 ****************************************************************************/
 void XDfeEqu_GetActiveSets(const XDfeEqu *InstancePtr, u32 *RealSet,
@@ -1261,15 +1197,11 @@ void XDfeEqu_GetActiveSets(const XDfeEqu *InstancePtr, u32 *RealSet,
 /****************************************************************************/
 /**
 *
-* Set the delay which will be added to TUSER and TLAST (delay matched through
-* the IP).
+* Sets the delay, which will be added to TUSER and TLAST (delay matched
+* through the IP).
 *
 * @param    InstancePtr is a pointer to the Equalizer instance.
 * @param    Delay is a requested delay variable.
-*
-* @return   None
-*
-* @note     None
 *
 ****************************************************************************/
 void XDfeEqu_SetTUserDelay(const XDfeEqu *InstancePtr, u32 Delay)
@@ -1284,14 +1216,12 @@ void XDfeEqu_SetTUserDelay(const XDfeEqu *InstancePtr, u32 Delay)
 /****************************************************************************/
 /**
 *
-* Read the delay which is be added to TUSER and TLAST (delay matched through
-* the IP).
+* Reads the delay, which will be added to TUSER and TLAST (delay matched
+* through the IP).
 *
 * @param    InstancePtr is a pointer to the Equalizer instance.
 *
 * @return   Delay value
-*
-* @note     None
 *
 ****************************************************************************/
 u32 XDfeEqu_GetTUserDelay(const XDfeEqu *InstancePtr)
@@ -1305,15 +1235,13 @@ u32 XDfeEqu_GetTUserDelay(const XDfeEqu *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Returns CONFIG.DATA_LATENCY.VALUE + tap where tap is between 0 and 23 in
-* real mode and between 0 and 11 in complex/matrix mode.
+* Returns CONFIG.DATA_LATENCY.VALUE + tap, where the tap is between 0
+* and 23 in real mode and between 0 and 11 in complex/matrix mode.
 *
 * @param    InstancePtr is a pointer to the Equalizer instance.
 * @param    Tap is a tap variable.
 *
 * @return   Data latency value.
-*
-* @note     None
 *
 ****************************************************************************/
 u32 XDfeEqu_GetTDataDelay(const XDfeEqu *InstancePtr, u32 Tap)
@@ -1336,9 +1264,6 @@ u32 XDfeEqu_GetTDataDelay(const XDfeEqu *InstancePtr, u32 Tap)
 * @param    SwVersion is driver version numbers.
 * @param    HwVersion is HW version numbers.
 *
-* @return   None
-*
-* @note     None.
 *
 ******************************************************************************/
 void XDfeEqu_GetVersions(const XDfeEqu *InstancePtr, XDfeEqu_Version *SwVersion,

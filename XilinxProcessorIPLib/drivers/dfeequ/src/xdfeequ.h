@@ -11,31 +11,31 @@
 * @{
 *
 * The DFE Equalizer LogiCore builds upon the Complex Equalizer block
-* (dfe_complex_eq). Each instance of the LogiCore supports up to 8 antennas,
-* each with its own instance of the dfe_complex_eq block. The LogiCore provides
-* access to the AXI stream data interfaces on each of the blocks. An AXI memory
-* mapped interface is provided, enabling the Mixer driver configuring the block
-* from a microprocessor. TUSER and TLAST inputs are present on the AXI stream
-* interfaces and delay matched with the data through the LogiCore.
-* The features that the Mixer IP and the driver support are:
+* (dfe_complex_eq). Each instance of the LogiCore supports up to 8
+* antennas, each with its instance of the dfe_complex_eq block. The LogiCore
+* provides access to the AXI stream data interfaces on each of the blocks.
+* An AXI memory-mapped interface is provided, enabling the Mixer driver to
+* configure the block from a microprocessor. TUSER and TLAST inputs are present
+* on the AXI stream interfaces and delay matched with the data through the
+* LogiCore. The features that the Mixer IP and the driver support are:
 * - Can operate in complex (matrix) and real modes.
-* - Enables the user to program the co-efficient sets via a processor interface.
-* - Enables the user to change the co-efficient sets that act on the input data
+* - Enables the user to program the coefficient sets via a processor interface.
+* - Enables the user to change the coefficient sets that act on the input data
 *   via a processor interface.
 * - Supports TDD power down via a processor interface.
 * - Supports the flushing of the internal buffers via a processor interface.
 * - Indication of overflow provided via a status register.
 * - TUSER and TLAST information accompanying the data is delay matched through
 *   the IP.
-* - TUSER and TLAST can optionally be used to synchronize co-efficient
-*   selection, power up/down and the flushing of the buffers.
+* - TUSER and TLAST can optionally be used to synchronize coefficient selection,
+*   power up/down, and the buffers' flushing.
 * Features which are not provided are:
 * - Does not support the dynamic changing of the co-efficient sets that act on
 *   the input data via the AXI stream interface.
 * - Does not provide direct programming of the co-efficient sets via an AXI
 *   stream interface.
-* - Does not currently support configuration of the filter co-efficients
-*   at start up.
+* - Does not currently support configuration of the filter coefficients at
+*   startup.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -47,6 +47,7 @@
 *       dc     02/22/21 align driver to current specification
 *       dc     03/15/21 Add data latency api
 *       dc     04/06/21 Register with full node name
+*       dc     04/20/21 Doxygen documentation update
 *
 * </pre>
 *
@@ -139,17 +140,17 @@ typedef struct {
 	u32 Enable; /**< [0,1], 0 = Disabled: Trigger disabled;
 		1 = Enabled: Trigger enabled */
 	u32 Source; /**< [0,1,2],
-		0 = IMMEDIATE: write to the trigger configuration register
-			immediately
-		1 = TUSER: write on Edge detected on specified TUSER bit
-		2 = TLAST: write on Edge detected on TLAST */
+		0 = IMMEDIATE: Write to the trigger configuration register
+			immediately.
+		1 = TUSER: Write on Edge detected on specified TUSER bit.
+		2 = TLAST: Write on Edge detected on TLAST. */
 	u32 TUSERBit; /**< [0-7], Species which TUSER bit is used by
-		the trigger */
+		the trigger. */
 	u32 Edge; /**< [0,1,2], 0 = Rising; 1 = Falling; 2 = Both */
 	u32 OneShot; /**< [0,1],
-		0 = Continuous: Once enabled trigger repeats continuously
-		1 = OneShot: Once enabled trigger occurs once and then
-			disables */
+		0 = Continuous: Once enabled, the trigger repeats continuously.
+		1 = OneShot: Once enabled, the trigger occurs once and then
+			disables. */
 } XDfeEqu_Trigger;
 
 /**
@@ -158,9 +159,9 @@ typedef struct {
 typedef struct {
 	XDfeEqu_Trigger Activate; /**< Toggle between "Initialized",
 		ultra-low power state, and "Operational". One-shot trigger,
-		disabled following a single event */
+		disabled following a single event. */
 	XDfeEqu_Trigger LowPower; /**< Toggle between "Low-power"
-		and "Operational" state */
+		and "Operational" state. */
 } XDfeEqu_TriggerCfg;
 
 /*********** end - common code to all Logiccores ************/
@@ -190,33 +191,34 @@ typedef struct {
 typedef struct {
 	u32 NUnits; /**< [1-6] Number of active units. 1 - 6 in real mode.
 		1 - 3 in complex and matrix mode. */
-	u32 Set; /**< [0-3] Co-efficient set that the co-efficients apply to */
+	u32 Set; /**< [0-3] Coefficient set that the coefficients apply to */
 	s16 Coefficients[24]; /**< Signed real numbers. Array of
-		Co-efficients */
+		Coefficients. */
 	u32 Shift; /**< [0-7] Shift value. Set by the formula given in
-		specification item 10 in complex equalizer */
+		specification item 10 in complex equalizer. */
 } XDfeEqu_Coefficients;
 
 /**
  * Equalizer Configuration Structure.
  */
 typedef struct {
-	u32 Flush; /**< [0,1] Set high to flush the buffers */
+	u32 Flush; /**< [0,1] Set high to flush the buffers. */
 	u32 DatapathMode; /**< [real, complex, matrix]
 		Set depending on whether the equalizer is running in real,
 		complex or matrix mode.
-		Each of the 8 channels consists of 2 sub-channels (shown in
-		figure below in xDFEEqualizerCoefficientsT description).
-		In complex and matrix modes the 2 sub-channels form a single
-		filter channel acting on the real and imaginary parts of the
-		data.
-		In real mode the 2 sub-channels act as independent filter
-		channels acting on the 2 real samples at the input. */
-	u32 RealDatapathSet; /**< [0-3] Co-efficient set to use for real
-		datapath (Ha and Hb in complex and matrix mode. Ha, Hb, Hc
+		EEach of the eight channels consists of 2 sub-channels
+		(shown in the figure below in xDFEEqualizerCoefficientsT
+		description).
+		In complex and matrix modes, the 2 sub-channels form a
+		single filter channel acting on the data's real and
+		imaginary parts.
+		In real mode, the two sub-channels act as independent
+		filter channels acting on the two real samples at the input.*/
+	u32 RealDatapathSet; /**< [0-3] Coefficient set to use for real
+		data path (Ha and Hb in complex and matrix mode. Ha, Hb, Hc
 		and Hd in real mode). In complex mode the datapath set is
 		limited to 0 or 2. */
-	u32 ImDatapathSet; /**< [0-3] Matrix mode only. Co-efficient set to use
+	u32 ImDatapathSet; /**< [0-3] Matrix mode only. Coefficient set to use
 		for imaginary datapath (Hc and Hd). */
 } XDfeEqu_EqConfig;
 
@@ -224,18 +226,18 @@ typedef struct {
  * Equalizer Status.
  */
 typedef struct {
-	u32 IStatus; /**< Status of the real part of the output. In real mode
-		both bits can be populated. In complex mode only bit 0
-		is relevant */
+	u32 IStatus; /**< Status of the real part of the output. In real mode,
+		both bits can be populated. In complex mode, only bit 0
+		is relevant. */
 	u32 QStatus; /**< Status of the imaginary part of the output. Only
-		valid in complex mode */
+		valid in complex mode. */
 } XDfeEqu_Status;
 
 /**
  * Status Mask.
  */
 typedef struct {
-	u32 Status; /**< [0,1] Mask status events */
+	u32 Status; /**< [0,1] Mask status events. */
 } XDfeEqu_InterruptMask;
 
 /**

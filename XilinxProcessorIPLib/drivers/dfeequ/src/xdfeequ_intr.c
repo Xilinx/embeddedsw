@@ -20,6 +20,8 @@
 * 1.0   dc     12/10/20 Initial version
 *       dc     02/22/21 align driver to current specification
 *       dc     04/18/21 Update trigger and event handlers
+*       dc     04/20/21 Doxygen documentation update
+*
 * </pre>
 *
 ******************************************************************************/
@@ -37,15 +39,12 @@ extern u32 XDfeEqu_WrBitField(u32 FieldWidth, u32 FieldOffset, u32 Data,
 /****************************************************************************/
 /**
 *
-* Get Equalizer event status for channel ID.
+* Gets Equalizer event status for channel ID.
 *
 * @param    InstancePtr is a pointer to the Equalizer instance.
 * @param    ChannelId is a channel ID.
-* @param    Status is a Equalizer status container.
+* @param    Status is an Equalizer status container.
 *
-* @return   None
-*
-* @note     None
 *
 ****************************************************************************/
 void XDfeEqu_GetEventStatus(const XDfeEqu *InstancePtr, u32 ChannelId,
@@ -71,14 +70,10 @@ void XDfeEqu_GetEventStatus(const XDfeEqu *InstancePtr, u32 ChannelId,
 /****************************************************************************/
 /**
 *
-* Clear Equalizer status for channel ID.
+* Clears Equalizer status for channel ID.
 *
 * @param    InstancePtr is a pointer to the Equalizer instance.
-* @param    ChannelId bits indicates which channel is enabled.
-*
-* @return   None
-*
-* @note     None
+* @param    ChannelId bits indicate which channel is enabled.
 *
 ****************************************************************************/
 void XDfeEqu_ClearEventStatus(const XDfeEqu *InstancePtr, u32 ChannelId)
@@ -102,15 +97,11 @@ void XDfeEqu_ClearEventStatus(const XDfeEqu *InstancePtr, u32 ChannelId)
 /****************************************************************************/
 /**
 *
-* Enable a Equalizer status for channel ID.
+* Enables an Equalizer status for channel ID.
 *
 * @param    InstancePtr is a pointer to the Equalizer instance.
-* @param    ChannelField bits indicates which channel is enabled.
-* @param    StatusMask is a Equalizer status mask container.
-*
-* @return   None
-*
-* @note     None
+* @param    ChannelField bits indicate which channel is enabled.
+* @param    StatusMask is an Equalizer status mask container.
 *
 ****************************************************************************/
 void XDfeEqu_SetInterruptMask(const XDfeEqu *InstancePtr, u32 ChannelField,

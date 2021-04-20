@@ -23,6 +23,7 @@
 *       dc     02/22/21 align driver to current specification
 *       dc     04/06/21 Register with full node name
 *       dc     04/07/21 Fix bare metal initialisation
+*       dc     04/20/21 Doxygen documentation update
 *
 * </pre>
 *
@@ -101,7 +102,6 @@ XDfeEqu XDfeEqu_Equalizer[XDFEEQU_MAX_NUM_INSTANCES];
  *           - XST_SUCCESS if successful.
  *           - XST_FAILURE if device entry not found for given device id.
 *
-*@note     None.
 *
 ******************************************************************************/
 u32 XDfeEqu_GetConfigTable(XDfeEqu *InstancePtr, XDfeEqu_Config **ConfigTable)
@@ -129,19 +129,17 @@ u32 XDfeEqu_GetConfigTable(XDfeEqu *InstancePtr, XDfeEqu_Config **ConfigTable)
 /*****************************************************************************/
 /**
 *
-* Compare two strings in the reversed order.This function compares only
+* Compares two strings in the reversed order. This function compares only
 * the last "Count" number of characters of Str1Ptr and Str2Ptr.
 *
-* @param    Str1Ptr is base address of first string
-* @param    Str2Ptr is base address of second string
-* @param    Count is number of last characters  to be compared between
-*           Str1Ptr and Str2Ptr
+* @param    Str1Ptr is the base address of the first string.
+* @param    Str2Ptr is the base address of the second string.
+* @param    Count is the number of last characters to be compared between
+*           Str1Ptr and Str2Ptr.
 *
 * @return
-*           0 if last "Count" number of bytes matches between Str1Ptr and
-*           Str2Ptr, else difference in unmatched character.
-*
-*@note     None.
+*           0 if the last "Count" number of bytes matches between Str1Ptr
+*           and Str2Ptr, else difference in unmatched character.
 *
 ******************************************************************************/
 static s32 XDfeEqu_Strrncmp(const char *Str1Ptr, const char *Str2Ptr,
@@ -178,7 +176,6 @@ static s32 XDfeEqu_Strrncmp(const char *Str1Ptr, const char *Str2Ptr,
  *           - XST_SUCCESS if successful.
  *           - XST_FAILURE if device entry not found for given device id.
  *
- *@note     None.
 *
 ******************************************************************************/
 static s32 XDfeEqu_IsDeviceCompatible(char *DeviceNamePtr,
@@ -360,7 +357,6 @@ end_failure:
 *           - XST_SUCCESS if successful.
 *           - XST_FAILURE if error occurs.
 *
-* @note     None.
 *
 ******************************************************************************/
 s32 XDfeEqu_RegisterMetal(XDfeEqu *InstancePtr, struct metal_device **DevicePtr,
@@ -424,11 +420,10 @@ s32 XDfeEqu_RegisterMetal(XDfeEqu *InstancePtr, struct metal_device **DevicePtr,
 *
 * @param    InstancePtr is a pointer to the XDfeEqu instance.
 *
-* @return   None
 *
-* @note     The user needs to first call the XDfeEqu_LookupConfig() API
-*           which returns the Configuration structure pointer which is
-*           passed as a parameter to the XDfeEqu_CfgInitialize() API.
+* @note     The user needs to first call the XDfeEqu_LookupConfig() API,
+*           which returns the Configuration structure pointer passed as
+*           a parameter to the XDfeEqu_CfgInitialize() API.
 *
 ******************************************************************************/
 void XDfeEqu_CfgInitialize(XDfeEqu *InstancePtr)
