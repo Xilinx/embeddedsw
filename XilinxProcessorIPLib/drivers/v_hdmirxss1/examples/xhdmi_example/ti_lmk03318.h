@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 – 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,7 +35,8 @@ extern "C" {
 #include "sleep.h"
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
-	defined (XPS_BOARD_ZCU106)
+	defined (XPS_BOARD_ZCU106) || \
+    defined (XPS_BOARD_VCK190)
 #include "xiicps.h"
 #else
 #include "xiic.h"
