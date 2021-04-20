@@ -1062,11 +1062,19 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 		case XV_SDIRX_MODE_6G:
 			switch (byte1) {
 			case XST352_BYTE1_ST2081_10_2_1080L_6G:
-				if ((color_format == XST352_BYTE3_COLOR_FORMAT_422) &&
-						(bitdepth != XST352_BYTE4_BIT_DEPTH_12)) {
-					xil_printf("Unsupported ColorFormat and BitDepth config detected\n\r");
-					return;
+				if ((FrameRate < XVIDC_FR_96HZ) &&
+					(color_format == XST352_BYTE3_COLOR_FORMAT_422) &&
+					(bitdepth != XST352_BYTE4_BIT_DEPTH_12)) {
+						xil_printf("Non HFR: Unsupported ColorFormat and BitDepth config detected\n\r");
+						return;
 				}
+				if ((FrameRate >= XVIDC_FR_96HZ) &&
+					(color_format == XST352_BYTE3_COLOR_FORMAT_422) &&
+					(bitdepth != XST352_BYTE4_BIT_DEPTH_10)) {
+						xil_printf("HFR: Unsupported ColorFormat and BitDepth config detected\n\r");
+						return;
+				}
+
 				switch (FrameRate) {
 				case XVIDC_FR_60HZ:
 					SdiStream->VmId = ((active_luma== 1) ?
