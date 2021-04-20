@@ -621,8 +621,7 @@ static void HdmiRx1_VtdIntrHandler(XV_HdmiRx1 *InstancePtr)
 				if (((InstancePtr->Stream.Video.ColorFormatId ==
 					XVIDC_CSF_YCRCB_420) &&
 					((InstancePtr->Stream.Video.Timing.HTotal % 8) ||
-					 (InstancePtr->Stream.Video.Timing.HActive % 8) ||
-					 (InstancePtr->Stream.Video.Timing.HSyncWidth % 8))) ||
+					 (InstancePtr->Stream.Video.Timing.HActive % 8))) ||
 					(InstancePtr->Stream.Video.Timing.HTotal % 4) ||
 					(InstancePtr->Stream.Video.Timing.HActive % 4) ||
 					(InstancePtr->Stream.Video.Timing.HSyncWidth % 4)) {
