@@ -11,18 +11,19 @@
 * @{
 *
 * The Channel Mixer IP provides a wrapper around the Channel Mixer and
-* DUC_DDC block (Combined DUC/DDC and Mixer). Each IP instance can support up
-* to 64 CC, arranged across a maximum of 8 Antennas using 4 blocks.
-* The wrapper provides access to the underlying blocks via TDMA Axi-stream data
-* interfaces. Output from the block is arranged as an AXI-Stream, running at
-* fs, per antenna. An AXI memory mapped interface is provided, enabling
-* configuration and control of the block from a microprocessor.
+* DUC_DDC block (Combined DUC/DDC and Mixer). Each IP instance can
+* support up to 64 CC, arranged across a maximum of 8 Antennas using
+* four blocks. The wrapper provides access to the underlying blocks via
+* TDMA AXI-Stream data interfaces. Output from the block is arranged as
+* an AXI-Stream, running at fs, per antenna. An AXI memory-mapped interface
+* is provided, enabling configuration and control of the block from a
+* microprocessor.
 * The features that the Mixer IP and driver support are:
 * - Supports ibw of 200MHz and 400MHz.
 * - Supports a maximum sample rate of 491.52MHz.
 * - Supports reallocation of DL TDM slots.
-* - Supports Up conversion rate set on a per channel basis, programmed via
-*   processor interface.
+* - Supports Up conversion rate set on a per-channel basis, programmed
+*   via processor interface.
 * - UL TDM output pattern programmed via register interface.
 * - Supports down conversion rate set on a per channel basis, programmed via
 *   processor interface.
@@ -31,12 +32,12 @@
 * - TUSER/TLAST information accompanying the data is delay matched through
 *   the IP.
 *
-* The number of antennas supported by the IP Core is given by the NUM_ANTENNAS
-* parameter. The Number of CC's per antenna is given by the NUM_CC parameter.
-* The combination of these two parameters will give the total number of
-* channels the IP core will need to process and hence dictate the internal
+* The NUM_ANTENNAS parameter gives the number of antennas supported by
+* the IP Core. The NUM_CC parameter gives the Number of CC per antenna
+* Combining these two parameters will give the total number of channels
+* the IP core will need to process and hence dictate the internal
 * architecture. The IP core and driver provides the following features:
-* - The Axi Memory map provides settings to enable/disable individual CCs.
+* - The AXI Memory map provides settings to enable/disable individual CCs.
 * - CC settings apply to all antenna - the only setting that is specific to
 *   an antenna is ANTENNA_GAIN.
 * - Flushing of channels across all antenna for a particular CC is handled
@@ -44,7 +45,7 @@
 * - Support for software reset. The IP software reset register allows
 *   the assertion of the internal reset.
 *
-* An API which will read/write registers has been provided for debug purpose.
+* An API which will read/write registers is provided for debugging purpose.
 *
 * There are plans to add more features.
 *
@@ -60,6 +61,7 @@
 *       dc     03/18/21 New model parameter list
 *       dc     04/06/21 Register with full node name
 *       dc     04/08/21 Set sequence length only once
+*       dc     04/20/21 Doxygen documentation update
 *
 * </pre>
 *
@@ -119,29 +121,29 @@ typedef __s8 s8;
 #endif
 
 typedef enum {
-	XDFEMIX_STATE_NOT_READY = 0, /**< Not ready state*/
-	XDFEMIX_STATE_READY, /**< Ready state*/
-	XDFEMIX_STATE_RESET, /**< Reset state*/
-	XDFEMIX_STATE_CONFIGURED, /**< Configured state*/
-	XDFEMIX_STATE_INITIALISED, /**< Initialised state*/
-	XDFEMIX_STATE_OPERATIONAL /**< Operational state*/
+	XDFEMIX_STATE_NOT_READY = 0, /**< Not ready state.*/
+	XDFEMIX_STATE_READY, /**< Ready state.*/
+	XDFEMIX_STATE_RESET, /**< Reset state.*/
+	XDFEMIX_STATE_CONFIGURED, /**< Configured state.*/
+	XDFEMIX_STATE_INITIALISED, /**< Initialised state.*/
+	XDFEMIX_STATE_OPERATIONAL /**< Operational state.*/
 } XDfeMix_StateId;
 
 /**
  * Logicore version.
  */
 typedef struct {
-	u32 Major; /**< Major version number */
-	u32 Minor; /**< Minor version number */
-	u32 Revision; /**< Revision number */
-	u32 Patch; /**< Patch number */
+	u32 Major; /**< Major version number. */
+	u32 Minor; /**< Minor version number. */
+	u32 Revision; /**< Revision number. */
+	u32 Patch; /**< Patch number. */
 } XDfeMix_Version;
 
 /**
  * Trigger configuration.
  */
 typedef struct {
-	u32 Enable; /**< [0,1], 0 = Disabled: Trigger disabled;
+	u32 Enable; /**< [0,1], 0 = Disabled: Trigger disabled
 		1 = Enabled: Trigger enabled */
 	u32 Source; /**< [0,1,2],
 		0 = IMMEDIATE: write to the trigger configuration register
@@ -264,9 +266,9 @@ typedef struct {
 
 /**
  * Configuration for a single CC (implementation note: notice that there are
- * 2 parts, one part (DUCDDCCfg) mapping to the CCCfg state, and another that
+ * two parts, one part (DUCDDCCfg) mapping to the CCCfg state, and another that
  * is written directly to NCO registers (xDFECCMixerNCOT). Note that CC Filter
- * does not have the second part. However from an API perspective this is
+ * does not have the second part. However, from an API perspective, this is
  * hidden.
  */
 typedef struct {

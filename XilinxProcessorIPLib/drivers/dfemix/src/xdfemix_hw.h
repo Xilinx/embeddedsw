@@ -11,7 +11,7 @@
 * @{
 *
 * Contains the register definitions for dfemixer. This is
-* created to be used initialy while waiting for IP.
+* created to be used initially while waiting for IP.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -22,6 +22,8 @@
 *       dc     02/15/21 align driver to curent specification
 *       dc     03/18/21 New model parameter list
 *       dc     04/14/21 Add FIR_ENABLE/MIXER_ENABLE register support
+*       dc     04/20/21 Doxygen documentation update
+*
 * </pre>
 *
 ******************************************************************************/
