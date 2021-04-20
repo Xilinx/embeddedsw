@@ -19,6 +19,7 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     12/10/20 Initial version
 *       dc     03/25/21 Device tree item name change
+*       dc     04/18/21 Update trigger and event handlers
 * </pre>
 *
 ******************************************************************************/
@@ -51,7 +52,6 @@ void XDfeCcf_GetEventStatus(const XDfeCcf *InstancePtr, XDfeCcf_Status *Status)
 	u32 Val;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFECCF_STATE_OPERATIONAL);
 	Xil_AssertVoid(Status != NULL);
 
 	Val = XDfeCcf_ReadReg(InstancePtr, XDFECCF_ISR);
@@ -100,7 +100,6 @@ void XDfeCcf_GetEventStatus(const XDfeCcf *InstancePtr, XDfeCcf_Status *Status)
 void XDfeCcf_ClearEventStatus(const XDfeCcf *InstancePtr)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFECCF_STATE_OPERATIONAL);
 
 	XDfeCcf_WriteReg(InstancePtr, XDFECCF_ISR, XDFECCF_IRQ_FLAGS_MASK);
 }
@@ -124,7 +123,6 @@ void XDfeCcf_SetInterruptMask(const XDfeCcf *InstancePtr,
 	u32 Val;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFECCF_STATE_OPERATIONAL);
 	Xil_AssertVoid(Mask != NULL);
 
 	Val = XDfeCcf_WrBitField(XDFECCF_OVERFLOW_WIDTH,

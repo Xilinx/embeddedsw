@@ -26,6 +26,7 @@
 *       dc     04/06/21 Register with full node name
 *       dc     04/07/21 Fix bare metal initialisation
 *       dc     04/08/21 Set sequence length only once
+*       dc     04/18/21 Update trigger and event handlers
 *
 * </pre>
 *
@@ -304,7 +305,7 @@ static u32 XDfeCcf_AddCCID(XDfeCcf *InstancePtr, s32 CCID, u32 BitSequence,
 		return XST_FAILURE;
 	}
 
-	/* Check are bits set to 1 avaliable */
+	/* Check are bits set in BitSequence to 1 avaliable (-1)*/
 	Mask = 1U;
 	for (Index = 0U; Index < CCIDSequence->Length; Index++) {
 		if (0U != (BitSequence & Mask)) {
@@ -446,6 +447,7 @@ static void XDfeCcf_SetNextCCCfg(const XDfeCcf *InstancePtr,
 	u32 AntennaCfg = 0U;
 	u32 CarrierCfg;
 	u32 Index;
+	u32 SeqLength;
 	s32 NextCCID[XDFECCF_SEQ_LENGTH_MAX];
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(NextCCCfg != NULL);
@@ -460,6 +462,12 @@ static void XDfeCcf_SetNextCCCfg(const XDfeCcf *InstancePtr,
 			NextCCID[Index] = NextCCCfg->Sequence.CCID[Index];
 		}
 	}
+
+	/* Sequence Length should remain the same, so copy the sequence length
+	   from CURRENT to NEXT */
+	SeqLength =
+		XDfeCcf_ReadReg(InstancePtr, XDFECCF_SEQUENCE_LENGTH_CURRENT);
+	XDfeCcf_WriteReg(InstancePtr, XDFECCF_SEQUENCE_LENGTH_NEXT, SeqLength);
 
 	/* Write CCID sequence and carrier configurations */
 	for (Index = 0; Index < XDFECCF_CC_NUM; Index++) {
@@ -943,6 +951,7 @@ void XDfeCcf_Initialize(XDfeCcf *InstancePtr, XDfeCcf_Init *Init)
 			 Init->GainStage);
 
 	/* Write "one-time" Sequence length */
+	InstancePtr->NotUsedCCID = 0;
 	InstancePtr->SequenceLength = Init->Sequence.Length;
 	if (Init->Sequence.Length == 0) {
 		SequenceLength = 0U;
@@ -1390,6 +1399,15 @@ void XDfeCcf_SetTriggersCfg(const XDfeCcf *InstancePtr,
 	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_ENABLE_WIDTH,
 				 XDFECCF_TRIGGERS_ENABLE_OFFSET, Val,
 				 TriggerCfg->Activate.Enable);
+	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_SOURCE_WIDTH,
+				 XDFECCF_TRIGGERS_SOURCE_OFFSET, Val,
+				 TriggerCfg->Activate.Source);
+	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_SIGNAL_EDGE_WIDTH,
+				 XDFECCF_TRIGGERS_SIGNAL_EDGE_OFFSET, Val,
+				 TriggerCfg->Activate.Edge);
+	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_TUSER_BIT_WIDTH,
+				 XDFECCF_TRIGGERS_TUSER_BIT_OFFSET, Val,
+				 TriggerCfg->Activate.TUSERBit);
 	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_ONE_SHOT_WIDTH,
 				 XDFECCF_TRIGGERS_ONE_SHOT_OFFSET, Val,
 				 TriggerCfg->Activate.OneShot);
@@ -1403,6 +1421,15 @@ void XDfeCcf_SetTriggersCfg(const XDfeCcf *InstancePtr,
 	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_ENABLE_WIDTH,
 				 XDFECCF_TRIGGERS_ENABLE_OFFSET, Val,
 				 TriggerCfg->LowPower.Enable);
+	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_SOURCE_WIDTH,
+				 XDFECCF_TRIGGERS_SOURCE_OFFSET, Val,
+				 TriggerCfg->LowPower.Source);
+	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_SIGNAL_EDGE_WIDTH,
+				 XDFECCF_TRIGGERS_SIGNAL_EDGE_OFFSET, Val,
+				 TriggerCfg->LowPower.Edge);
+	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_TUSER_BIT_WIDTH,
+				 XDFECCF_TRIGGERS_TUSER_BIT_OFFSET, Val,
+				 TriggerCfg->LowPower.TUSERBit);
 	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_ONE_SHOT_WIDTH,
 				 XDFECCF_TRIGGERS_ONE_SHOT_OFFSET, Val,
 				 TriggerCfg->LowPower.OneShot);
@@ -1415,6 +1442,15 @@ void XDfeCcf_SetTriggersCfg(const XDfeCcf *InstancePtr,
 	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_ENABLE_WIDTH,
 				 XDFECCF_TRIGGERS_ENABLE_OFFSET, Val,
 				 TriggerCfg->CCUpdate.Enable);
+	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_SOURCE_WIDTH,
+				 XDFECCF_TRIGGERS_SOURCE_OFFSET, Val,
+				 TriggerCfg->CCUpdate.Source);
+	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_SIGNAL_EDGE_WIDTH,
+				 XDFECCF_TRIGGERS_SIGNAL_EDGE_OFFSET, Val,
+				 TriggerCfg->CCUpdate.Edge);
+	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_TUSER_BIT_WIDTH,
+				 XDFECCF_TRIGGERS_TUSER_BIT_OFFSET, Val,
+				 TriggerCfg->CCUpdate.TUSERBit);
 	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_ONE_SHOT_WIDTH,
 				 XDFECCF_TRIGGERS_ONE_SHOT_OFFSET, Val,
 				 TriggerCfg->CCUpdate.OneShot);
