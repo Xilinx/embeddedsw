@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 – 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -79,6 +79,7 @@ static void XV_Rx_HdmiRx_FrlStart_Cb(void *CallbackRef);
 static void XV_Rx_HdmiRx_TmdsConfig_Cb(void *CallbackRef);
 static void XV_Rx_HdmiRX_VrrVfp_Cb(void *CallbackRef);
 static void XV_Rx_HdmiRX_VtemPkt_Cb(void *CallbackRef);
+static void XV_Rx_HdmiRX_DynHdrPkt_Cb(void *CallbackRef);
 
 static void XV_Rx_HdmiRx_StateDisconnected(XV_Rx *InstancePtr,
 					XV_Rx_Hdmi_Events Event,
@@ -594,6 +595,11 @@ u32 XV_Rx_SetTriggerCallbacks(XV_Rx *InstancePtr,
 		InstancePtr->RxVtemCbRef = CallbackRef;
 		break;
 
+	case XV_RX_TRIG_HANDLER_DYNHDREVENT:
+		InstancePtr->RxDynHdrCb = Callback;
+		InstancePtr->RxDynHdrCbRef = CallbackRef;
+		break;
+
 #ifdef USE_HDCP_HDMI_RX
 	case XV_RX_TRIG_HANDLER_HDCP_SET_CONTENTSTREAMTYPE:
 		InstancePtr->HdcpSetContentStreamTypeCb = Callback;
@@ -708,6 +714,12 @@ u32 XV_Rx_HdmiRxSs_Setup_Callbacks(XV_Rx *InstancePtr)
 			        XV_HDMIRXSS1_HANDLER_VRR_RDY,
 					(void *)XV_Rx_HdmiRX_VtemPkt_Cb,
 					(void *)InstancePtr);
+
+	Status |= XV_HdmiRxSs1_SetCallback(InstancePtr->HdmiRxSs,
+			        XV_HDMIRXSS1_HANDLER_DYN_HDR,
+					(void *)XV_Rx_HdmiRX_DynHdrPkt_Cb,
+					(void *)InstancePtr);
+
 	return Status;
 }
 
@@ -1494,6 +1506,22 @@ static void XV_Rx_HdmiRX_VtemPkt_Cb (void *CallbackRef)
 
 }
 
+
+
+static void XV_Rx_HdmiRX_DynHdrPkt_Cb (void *CallbackRef)
+{
+	Xil_AssertVoid(CallbackRef);
+
+	XV_Rx *recvInst = (XV_Rx *)CallbackRef;
+
+	if (recvInst->RxDynHdrCb != NULL) {
+		recvInst->RxDynHdrCb(recvInst->RxDynHdrCbRef);
+	}
+
+
+}
+
+
 /******************* XV RX STATE MACHINE IMPLEMENTATION **********************/
 
 /*****************************************************************************/
@@ -1988,7 +2016,7 @@ static void XV_Rx_HdmiRx_StateStreamOn(XV_Rx *InstancePtr,
 		break;
 
 	case XV_RX_HDMI_EVENT_STREAMUP:
-		*NextStatePtr = XV_RX_HDMI_STATE_STREAMON;
+        *NextStatePtr = XV_RX_HDMI_STATE_STREAMON;
 		break;
 
 	case XV_RX_HDMI_EVENT_STREAMDOWN:

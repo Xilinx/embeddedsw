@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 – 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,7 +27,8 @@
 
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
-	defined (XPS_BOARD_ZCU106)
+	defined (XPS_BOARD_ZCU106) || \
+    defined (XPS_BOARD_VCK190)
 #define I2C_REPEATED_START 0x01
 #define I2C_STOP 0x00
 #else
@@ -58,7 +59,8 @@ static void TI_LMK03318_I2cReset(void *IicPtr)
 {
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
-	defined (XPS_BOARD_ZCU106)
+	defined (XPS_BOARD_ZCU106) || \
+    defined (XPS_BOARD_VCK190)
 	/* Do nothing
 	XIicPs *Iic_Ptr = IicPtr;
 	XIicPs_Reset(Iic_Ptr);*/
@@ -94,7 +96,8 @@ static unsigned TI_LMK03318_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
 {
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
-	defined (XPS_BOARD_ZCU106)
+	defined (XPS_BOARD_ZCU106) || \
+    defined (XPS_BOARD_VCK190)
 	XIicPs *Iic_Ptr = IicPtr;
 	u32 Status;
 
@@ -157,7 +160,8 @@ static unsigned TI_LMK03318_I2cRecv(void *IicPtr, u16 SlaveAddr, u8 *BufPtr,
 {
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
-	defined (XPS_BOARD_ZCU106)
+	defined (XPS_BOARD_ZCU106) || \
+    defined (XPS_BOARD_VCK190)
 	XIicPs *Iic_Ptr = IicPtr;
 	u32 Status;
 
