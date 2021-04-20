@@ -1092,6 +1092,44 @@ static const XPm_DeviceFsm XPmGenericDeviceFsm = {
 	.EnterState = HandleDeviceState,
 };
 
+static const XPm_StateTran XPmVirtDev_VirtDevTransitions[] = {
+	{
+		.FromState = (u32)XPM_DEVSTATE_RUNNING,
+		.ToState = (u32)XPM_DEVSTATE_UNUSED,
+		.Latency = XPM_DEF_LATENCY,
+	}, {
+		.FromState = (u32)XPM_DEVSTATE_UNUSED,
+		.ToState = (u32)XPM_DEVSTATE_RUNNING,
+		.Latency = XPM_DEF_LATENCY,
+	},
+};
+
+static const XPm_DeviceFsm XPmVirtDevFsm = {
+	DEFINE_DEV_STATES(XPmGenericDeviceStates),
+	DEFINE_DEV_TRANS(XPmVirtDev_VirtDevTransitions),
+	.EnterState = HandleDeviceState,
+};
+
+XStatus XPmVirtDev_DeviceInit(XPm_Device *Device, u32 Id, XPm_Power *Power)
+{
+	XStatus Status = XST_FAILURE;
+
+	Status = XPmDevice_Init(Device, Id, 0U, Power, NULL, NULL);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/*
+	 * Here have to creata a new FSM. Ideally just setting the transition
+	 * states and transition count would be better but these fields are
+	 * const in the XPm_DeviceFsm struct.
+	 */
+	Device->DeviceFsm = &XPmVirtDevFsm;
+
+done:
+	return Status;
+}
+
 static XStatus Request(XPm_Device *Device, XPm_Subsystem *Subsystem,
 		       u32 Capabilities, const u32 QoS)
 {
