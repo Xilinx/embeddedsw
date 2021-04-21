@@ -328,6 +328,27 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 			Status = XST_SUCCESS;
 			break;
 
+		case XDPRXSS_HANDLER_DP_VM_CHG_STREAM_2_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_VMCHANGE_STREAM_2,
+					CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPRXSS_HANDLER_DP_VM_CHG_STREAM_3_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_VMCHANGE_STREAM_3,
+					CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPRXSS_HANDLER_DP_VM_CHG_STREAM_4_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_VMCHANGE_STREAM_4,
+					CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
 		case XDPRXSS_HANDLER_DP_PWR_CHG_EVENT:
 			XDp_RxSetCallback(InstancePtr->DpPtr,
 					XDP_RX_HANDLER_PWRSTATECHANGE,
@@ -345,6 +366,27 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 		case XDPRXSS_HANDLER_DP_NO_VID_EVENT:
 			XDp_RxSetCallback(InstancePtr->DpPtr,
 					XDP_RX_HANDLER_NOVIDEO,
+					CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPRXSS_HANDLER_DP_NO_VID_STREAM_2_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_NOVIDEO_STREAM_2,
+					CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPRXSS_HANDLER_DP_NO_VID_STREAM_3_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_NOVIDEO_STREAM_3,
+					CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPRXSS_HANDLER_DP_NO_VID_STREAM_4_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_NOVIDEO_STREAM_4,
 					CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
@@ -398,6 +440,27 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 			Status = XST_SUCCESS;
 			break;
 
+		case XDPRXSS_HANDLER_DP_VID_STREAM_2_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_VIDEO_STREAM_2,
+					CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPRXSS_HANDLER_DP_VID_STREAM_3_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_VIDEO_STREAM_3,
+					CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPRXSS_HANDLER_DP_VID_STREAM_4_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_VIDEO_STREAM_4,
+					CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
 		case XDPRXSS_DRV_HANDLER_DP_VID_EVENT:
 			XDp_RxSetCallback(InstancePtr->DpPtr,
 					XDP_RX_HANDLER_DRV_VIDEO,
@@ -412,12 +475,55 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 			Status = XST_SUCCESS;
 			break;
 
+		case XDPRXSS_HANDLER_DP_INFO_PKT_STREAM_2_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_AUD_INFOPKTRECV_STREAM_2,
+					CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPRXSS_HANDLER_DP_INFO_PKT_STREAM_3_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_AUD_INFOPKTRECV_STREAM_3,
+					CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPRXSS_HANDLER_DP_INFO_PKT_STREAM_4_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_AUD_INFOPKTRECV_STREAM_4,
+					CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
 		case XDPRXSS_HANDLER_DP_EXT_PKT_EVENT:
 			XDp_RxSetCallback(InstancePtr->DpPtr,
 					XDP_RX_HANDLER_AUD_EXTPKTRECV,
 					CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
+
+		case XDPRXSS_HANDLER_DP_EXT_PKT_STREAM_2_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_AUD_EXTPKTRECV_STREAM_2,
+					CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPRXSS_HANDLER_DP_EXT_PKT_STREAM_3_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_AUD_EXTPKTRECV_STREAM_3,
+					CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPRXSS_HANDLER_DP_EXT_PKT_STREAM_4_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_AUD_EXTPKTRECV_STREAM_4,
+					CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
 
 		case XDPRXSS_HANDLER_DP_TDONE_EVENT:
 			XDp_RxSetCallback(InstancePtr->DpPtr,
