@@ -57,8 +57,12 @@ extern XI2s_Tx I2s_tx;
 extern u8 start_i2s_clk;
 extern u32 appx_fs_dup;
 extern XScuGic IntcInst;
+#if XPAR_XV_FRMBUFRD_NUM_INSTANCES
 XV_frmbufrd_Config frmbufrd_cfg;
+#endif
+#if XPAR_XV_FRMBUFWR_NUM_INSTANCES
 XV_frmbufwr_Config frmbufwr_cfg;
+#endif
 
 void unplug_proc (void);
 void i2s_stop_proc (void);
@@ -1261,6 +1265,8 @@ void start_tx_after_rx (void) {
 #else
 	XDpTxSs_VtcDisableAdaptiveSync(DpTxSsInst.VtcPtr[0]);
 #endif
+
+	//start the data
 	rx_and_tx_started = 1;
 
 }
