@@ -33,6 +33,7 @@
 * 1.03  td   11/23/2020 MISRA C Rule 17.8 Fixes
 *       bm   02/17/2021 Add overflow check for payloadlen
 *       ma   03/24/2021 Reduced minimum digits of time stamp decimals to 3
+*       bsv  04/16/2021 Add provision to store Subsystem Id in XilPlmi
 *
 * </pre>
 *
@@ -190,8 +191,6 @@ int XPlmi_InitCdo(XPlmiCdo *CdoPtr)
 	CdoPtr->BufLen = 0U;
 	CdoPtr->CdoLen = 0U;
 	CdoPtr->ProcessedCdoLen = 0U;
-	CdoPtr->ImgId = 0U;
-	CdoPtr->PrtnId = 0U;
 	CdoPtr->DeferredError = (u8)FALSE;
 	Status = XPlmi_MemSetBytes(&CdoPtr->Cmd.KeyHoleParams,
 			sizeof(XPlmi_KeyHoleParams), 0U, sizeof(XPlmi_KeyHoleParams));
@@ -290,8 +289,8 @@ static int XPlmi_CdoCmdResume(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Si
 	}
 
 	/* Copy the image id to cmd subsystem ID */
-	CmdPtr->SubsystemId = CdoPtr->ImgId;
-	CmdPtr->IpiMask = CdoPtr->IpiMask;
+	CmdPtr->SubsystemId = CdoPtr->SubsystemId;
+	CmdPtr->IpiMask = 0U;
 	CmdPtr->Payload = BufPtr;
 	*Size = CmdPtr->PayloadLen;
 	Status = XPlmi_CmdResume(CmdPtr);
@@ -371,8 +370,8 @@ static int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *S
 		CdoPtr->CmdState = XPLMI_CMD_STATE_RESUME;
 	}
 	/* Copy the image id to cmd subsystem ID */
-	CmdPtr->SubsystemId = CdoPtr->ImgId;
-	CmdPtr->IpiMask = CdoPtr->IpiMask;
+	CmdPtr->SubsystemId = CdoPtr->SubsystemId;
+	CmdPtr->IpiMask = 0U;
 
 	/* Execute the command */
 	XPlmi_SetupCmd(CmdPtr, BufPtr, *Size);

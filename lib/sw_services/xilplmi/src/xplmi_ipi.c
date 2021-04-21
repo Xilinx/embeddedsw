@@ -38,6 +38,7 @@
  *       ma   03/10/2021 Added code to disallow set image info Loader command
  *       bsv  03/24/2021 All IPIs to be acknowledged in XPlmi_IpiDispatchHandler
  *       bm   04/03/2021 Register IPI handler in IpiInit
+ *       bsv  04/16/2021 Add provision to store Subsystem Id in XilPlmi
  *
  * </pre>
  *
@@ -57,10 +58,14 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XPLMI_IPI_XSDB_MASTER_MASK	IPI_PMC_ISR_IPI5_BIT_MASK
+#define XPLMI_PMC_IMAGE_ID		(0x1C000001U)
 
 /************************** Function Prototypes ******************************/
 static int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex);
 static u32 XPlmi_GetIpiReqType(u32 CmdId, u32 SrcIndex);
+static XPlmi_SubsystemHandler XPlmi_GetPmSubsystemHandler(
+	XPlmi_SubsystemHandler SubsystemHandler);
 
 /************************** Variable Definitions *****************************/
 
@@ -70,14 +75,38 @@ static XIpiPsu IpiInst;
 
 /*****************************************************************************/
 /**
+ * @brief	This function stores address of XilPm API to retrieve
+ * Subsystem Id based upon mask.
+ *
+ * @param	SubsystemHandler is handler to XilPm
+ *		API called to retrieve Subsystem Id using Ipi mask
+ *
+ * @return	Address of XilPm API
+ *
+ *****************************************************************************/
+static XPlmi_SubsystemHandler XPlmi_GetPmSubsystemHandler(
+	XPlmi_SubsystemHandler SubsystemHandler)
+{
+	static XPlmi_SubsystemHandler Handler = NULL;
+
+	if (SubsystemHandler != NULL) {
+		Handler = SubsystemHandler;
+	}
+
+	return Handler;
+}
+
+/*****************************************************************************/
+/**
  * @brief	This function initializes the IPI.
  *
- * @param	None
+ * @param	SubsystemHandler is handler to XilPm API called to retrieve
+ *		Subsystem Id using Ipi mask
  *
  * @return	Status	IPI initialization status
  *
  *****************************************************************************/
-int XPlmi_IpiInit(void)
+int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler)
 {
 	int Status = XST_FAILURE;
 	XIpiPsu_Config *IpiCfgPtr;
@@ -108,6 +137,8 @@ int XPlmi_IpiInit(void)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+	(void) XPlmi_GetPmSubsystemHandler(SubsystemHandler);
 	/*
 	 * Enable the IPI IRQ
 	 */
@@ -417,6 +448,15 @@ static int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex)
 		/* Return error code if IPI validation failed */
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_IPI_CMD, 0);
 		goto END;
+	}
+
+	/* Get Subsystem Id */
+	if (Cmd->IpiMask == XPLMI_IPI_XSDB_MASTER_MASK) {
+		Cmd->SubsystemId = XPLMI_PMC_IMAGE_ID;
+	}
+	else {
+		Cmd->SubsystemId =
+			(*XPlmi_GetPmSubsystemHandler(NULL))(Cmd->IpiMask);
 	}
 
 	/* Get IPI request type */

@@ -32,6 +32,7 @@
 *       ma   03/24/2021 Print early logs
 *       bm   03/24/2021 Added RTCA initialization for Error Status registers
 *       har  03/31/2021 Added RTCA initialization for PDI ID
+*       bsv  04/16/2021 Add provision to store Subsystem Id in XilPlmi
 *
 * </pre>
 *
@@ -123,8 +124,8 @@ static void XPlmi_RunTimeConfigInit(void)
 
 /*****************************************************************************/
 /**
- * @brief	This function calls all the PS LPD init functions of all the different
- * modules. As a part of init functions, modules can register the
+ * @brief	This function calls all the PS LPD init functions of all the
+ * different modules. As a part of init functions, modules can register the
  * command handlers, interrupt handlers with the interface layer.
  *
  * @param	None
@@ -143,9 +144,6 @@ void XPlmi_LpdInit(void)
 	const XPlmi_InitHandler LpdInitList[] = {
 #ifdef DEBUG_UART_PS
 		XPlmi_InitUart,
-#endif
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
-		XPlmi_IpiInit,
 #endif
 		XPlmi_PsEmInit,
 	};
