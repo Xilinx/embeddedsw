@@ -12,6 +12,12 @@
 #                         definitions of bram in xparameters.h
 # 4.3	  aru    03/23/19 Added default CTRL_BASEADDRESS and CTRL_HIGHADDRESS
 #			  if it is not present for any instance
+# 4.6     mus    04/21/21 Updated xdefine_canonical_xpars to export few
+#                         additional #defines related to address parameters of
+#                         lmb_bram_if_cntlr instances. This is being done to
+#                         identify specific lmb_bram_if_cntlr instance in
+#                         microblaze_scrub.S file of standalone BSP. It fixes
+#                         CR#1094218
 ##############################################################################
 
 ## @BEGIN_CHANGELOG EDK_P
@@ -349,6 +355,27 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
 		puts $file_handle "#define [::hsi::utils::get_driver_param_name $canonical_name "CTRL_BASEADDR" ] 0xFFFFFFFF$uSuffix  "
 	        puts $file_handle "#define [::hsi::utils::get_driver_param_name $canonical_name "CTRL_HIGHADDR" ] 0xFFFFFFFE$uSuffix  "
                 }
+        # generate additional #defines for lmb_bram_if_cntlr address parameters, they would
+        # be consumed in microblaze_scrub.S file of standalone BSP. From generic canonicals,
+        # instances of lmb_bram_if_cntlr can not be identified, hence exporting these
+        # additional #define
+        if { $periph_type == "lmb_bram_if_cntlr" && [string match -nocase "*dlmb*" $periph] } {
+                 set rvalue [::hsi::utils::get_param_value $periph C_BASEADDR]
+                 set rvalue [::hsi::utils::format_addr_string $rvalue $arg]
+                 puts $file_handle "#define XPAR_DLMB_CNTLR_BASEADDR $rvalue"
+
+                 set rvalue [::hsi::utils::get_param_value $periph C_HIGHADDR]
+                 set rvalue [::hsi::utils::format_addr_string $rvalue $arg]
+                 puts $file_handle "#define XPAR_DLMB_CNTLR_HIGHADDR $rvalue"
+        } elseif { $periph_type == "lmb_bram_if_cntlr" && [string match -nocase "*ilmb*" $periph] } {
+                 set rvalue [::hsi::utils::get_param_value $periph C_BASEADDR]
+                 set rvalue [::hsi::utils::format_addr_string $rvalue $arg]
+                 puts $file_handle "#define XPAR_ILMB_CNTLR_BASEADDR $rvalue"
+
+                 set rvalue [::hsi::utils::get_param_value $periph C_HIGHADDR]
+                 set rvalue [::hsi::utils::format_addr_string $rvalue $arg]
+                 puts $file_handle "#define XPAR_ILMB_CNTLR_HIGHADDR $rvalue"
+        }
             puts $file_handle ""
             incr i
         }
