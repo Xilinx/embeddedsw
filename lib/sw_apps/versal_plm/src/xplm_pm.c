@@ -28,6 +28,7 @@
 *       rama 03/22/2021 Added hook for STL periodic execution and
 *                       FTTI configuration support for keep alive task
 *       bm   04/10/2021 Updated scheduler function calls
+*       bsv  04/16/2021 Add provision to store Subsystem Id in XilPlmi
 *
 * </pre>
 *
@@ -228,11 +229,9 @@ int XPlm_ProcessPmcCdo(void *Arg)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	Cdo.ImgId = PM_SUBSYS_PMC;
-	Cdo.IpiMask = 0U;
-	Cdo.PrtnId = 0U;
 	Cdo.BufPtr = (u32 *)XPLMI_PMCRAM_BASEADDR;
 	Cdo.BufLen = XPLMI_PMCRAM_LEN;
+	Cdo.SubsystemId = PM_SUBSYS_PMC;
 	Status = XPlmi_ProcessCdo(&Cdo);
 
 	if (XST_SUCCESS != Status) {
