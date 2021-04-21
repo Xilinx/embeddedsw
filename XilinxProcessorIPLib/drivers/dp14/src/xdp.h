@@ -457,6 +457,21 @@ typedef enum {
 	XDP_RX_HANDLER_ADAPTIVE_SYNC_VBLANK_STREAM_2,
 	XDP_RX_HANDLER_ADAPTIVE_SYNC_VBLANK_STREAM_3,
 	XDP_RX_HANDLER_ADAPTIVE_SYNC_VBLANK_STREAM_4,
+	XDP_RX_HANDLER_VMCHANGE_STREAM_2,
+	XDP_RX_HANDLER_VMCHANGE_STREAM_3,
+	XDP_RX_HANDLER_VMCHANGE_STREAM_4,
+	XDP_RX_HANDLER_NOVIDEO_STREAM_2,
+	XDP_RX_HANDLER_NOVIDEO_STREAM_3,
+	XDP_RX_HANDLER_NOVIDEO_STREAM_4,
+	XDP_RX_HANDLER_VIDEO_STREAM_2,
+	XDP_RX_HANDLER_VIDEO_STREAM_3,
+	XDP_RX_HANDLER_VIDEO_STREAM_4,
+	XDP_RX_HANDLER_AUD_INFOPKTRECV_STREAM_2,
+	XDP_RX_HANDLER_AUD_INFOPKTRECV_STREAM_3,
+	XDP_RX_HANDLER_AUD_INFOPKTRECV_STREAM_4,
+	XDP_RX_HANDLER_AUD_EXTPKTRECV_STREAM_2,
+	XDP_RX_HANDLER_AUD_EXTPKTRECV_STREAM_3,
+	XDP_RX_HANDLER_AUD_EXTPKTRECV_STREAM_4,
 	XDP_RX_NUM_HANDLERS
 } Dp_Rx_HandlerType;
 
@@ -1039,13 +1054,16 @@ typedef struct {
 							to the RX. */
 	XDp_RxLinkConfig LinkConfig;		/**< Configuration structure for
 							the main link. */
-	XDp_IntrHandler IntrVmChangeHandler;	/**< Callback function for video
+	XDp_IntrHandler IntrVmChangeHandler[XDP_RX_STREAM_ID4];
+							/**< Array of Callback function for video
 							mode change
-							interrupts. */
-	void *IntrVmChangeCallbackRef;		/**< A pointer to the user data
+							interrupts for all streams. */
+	void *IntrVmChangeCallbackRef[XDP_RX_STREAM_ID4];
+							/**< An array of pointers to
+							the user data
 							passed to the video mode
 							change callback
-							function. */
+							functions. */
 	XDp_IntrHandler IntrPowerStateHandler;	/**< Callback function for
 							power state change
 							interrupts. */
@@ -1053,11 +1071,13 @@ typedef struct {
 							passed to the power
 							state change callback
 							function. */
-	XDp_IntrHandler IntrNoVideoHandler;	/**< Callback function for
-							no video interrupts. */
-	void *IntrNoVideoCallbackRef;		/**< A pointer to the user data
+	XDp_IntrHandler IntrNoVideoHandler[XDP_RX_STREAM_ID4];
+							/**< Array of Callback function for
+							no video interrupts for all streams. */
+	void *IntrNoVideoCallbackRef[XDP_RX_STREAM_ID4];
+							/**< An array of pointers to the user data
 							passed to the no video
-							callback function. */
+							callback functions. */
 	XDp_IntrHandler IntrVBlankHandler[XDP_RX_STREAM_ID4];	/**< Array of
 							callback functions
 							for vertical blanking
@@ -1075,26 +1095,33 @@ typedef struct {
 							passed to the training
 							lost callback
 							function. */
-	XDp_IntrHandler IntrVideoHandler;	/**< Callback function for valid
-							video interrupts. */
-	void *IntrVideoCallbackRef;		/**< A pointer to the user data
+	XDp_IntrHandler IntrVideoHandler[XDP_RX_STREAM_ID4];
+							/**< Array of Callback function
+							for valid video interrupts.
+							for all streams. */
+	void *IntrVideoCallbackRef[XDP_RX_STREAM_ID4];
+							/**< An array of pointer to the user data
 							passed to the valid
 							video callback
-							function. */
-	XDp_IntrHandler IntrInfoPktHandler;	/**< Callback function for audio
+							functions. */
+	XDp_IntrHandler IntrInfoPktHandler[XDP_RX_STREAM_ID4];
+							/**< Array of Callback function for audio
 							info packet received
-							interrupts. */
-	void *IntrInfoPktCallbackRef;		/**< A pointer to the user data
+							interrupts for all streams. */
+	void *IntrInfoPktCallbackRef[XDP_RX_STREAM_ID4];
+							/**< An array of pointers to the user data
 							passed to the audio info
 							packet callback
-							function. */
-	XDp_IntrHandler IntrExtPktHandler;	/**< Callback function for audio
+							functions. */
+	XDp_IntrHandler IntrExtPktHandler[XDP_RX_STREAM_ID4];
+							/**< Array of Callback function for audio
 							extension packet
-							received interrupts. */
-	void *IntrExtPktCallbackRef;		/**< A pointer to the user data
+							received interrupts for all streams. */
+	void *IntrExtPktCallbackRef[XDP_RX_STREAM_ID4];
+							/**< An array of pointers to the user data
 							passed to the audio
 							extension packet
-							callback function. */
+							callback functions. */
 	XDp_IntrHandler IntrTrainingDoneHandler; /**< Callback function for
 							training done
 							interrupts. */

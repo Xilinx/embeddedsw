@@ -382,8 +382,20 @@ int XDp_RxSetCallback(XDp *InstancePtr,	Dp_Rx_HandlerType HandlerType,
 	switch (HandlerType)
 	{
 	case XDP_RX_HANDLER_VMCHANGE:
-		InstancePtr->RxInstance.IntrVmChangeHandler = CallbackFunc;
-		InstancePtr->RxInstance.IntrVmChangeCallbackRef = CallbackRef;
+		InstancePtr->RxInstance.IntrVmChangeHandler[0] = CallbackFunc;
+		InstancePtr->RxInstance.IntrVmChangeCallbackRef[0] = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_VMCHANGE_STREAM_2:
+	case XDP_RX_HANDLER_VMCHANGE_STREAM_3:
+	case XDP_RX_HANDLER_VMCHANGE_STREAM_4:
+		Index = ((HandlerType + 1) -
+			XDP_RX_HANDLER_VMCHANGE_STREAM_2);
+		InstancePtr->RxInstance.IntrVmChangeHandler[Index] =
+								CallbackFunc;
+		InstancePtr->RxInstance.IntrVmChangeCallbackRef[Index] =
+								CallbackRef;
 		Status = XST_SUCCESS;
 		break;
 
@@ -394,8 +406,20 @@ int XDp_RxSetCallback(XDp *InstancePtr,	Dp_Rx_HandlerType HandlerType,
 		break;
 
 	case XDP_RX_HANDLER_NOVIDEO:
-		InstancePtr->RxInstance.IntrNoVideoHandler = CallbackFunc;
-		InstancePtr->RxInstance.IntrNoVideoCallbackRef = CallbackRef;
+		InstancePtr->RxInstance.IntrNoVideoHandler[0] = CallbackFunc;
+		InstancePtr->RxInstance.IntrNoVideoCallbackRef[0] = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_NOVIDEO_STREAM_2:
+	case XDP_RX_HANDLER_NOVIDEO_STREAM_3:
+	case XDP_RX_HANDLER_NOVIDEO_STREAM_4:
+		Index = ((HandlerType + 1) -
+			XDP_RX_HANDLER_NOVIDEO_STREAM_2);
+		InstancePtr->RxInstance.IntrNoVideoHandler[Index] =
+								CallbackFunc;
+		InstancePtr->RxInstance.IntrNoVideoCallbackRef[Index] =
+								CallbackRef;
 		Status = XST_SUCCESS;
 		break;
 
@@ -430,20 +454,54 @@ int XDp_RxSetCallback(XDp *InstancePtr,	Dp_Rx_HandlerType HandlerType,
 		break;
 
 	case XDP_RX_HANDLER_VIDEO:
-		InstancePtr->RxInstance.IntrVideoHandler = CallbackFunc;
-		InstancePtr->RxInstance.IntrVideoCallbackRef = CallbackRef;
+		InstancePtr->RxInstance.IntrVideoHandler[0] = CallbackFunc;
+		InstancePtr->RxInstance.IntrVideoCallbackRef[0] = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_VIDEO_STREAM_2:
+	case XDP_RX_HANDLER_VIDEO_STREAM_3:
+	case XDP_RX_HANDLER_VIDEO_STREAM_4:
+		Index = ((HandlerType + 1) -
+			XDP_RX_HANDLER_VIDEO_STREAM_2);
+		InstancePtr->RxInstance.IntrVideoHandler[Index] = CallbackFunc;
+		InstancePtr->RxInstance.IntrVideoCallbackRef[Index] = CallbackRef;
 		Status = XST_SUCCESS;
 		break;
 
 	case XDP_RX_HANDLER_AUD_INFOPKTRECV:
-		InstancePtr->RxInstance.IntrInfoPktHandler = CallbackFunc;
-		InstancePtr->RxInstance.IntrInfoPktCallbackRef = CallbackRef;
+		InstancePtr->RxInstance.IntrInfoPktHandler[0] = CallbackFunc;
+		InstancePtr->RxInstance.IntrInfoPktCallbackRef[0] = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_AUD_INFOPKTRECV_STREAM_2:
+	case XDP_RX_HANDLER_AUD_INFOPKTRECV_STREAM_3:
+	case XDP_RX_HANDLER_AUD_INFOPKTRECV_STREAM_4:
+		Index = ((HandlerType + 1) -
+			XDP_RX_HANDLER_AUD_INFOPKTRECV_STREAM_2);
+		InstancePtr->RxInstance.IntrInfoPktHandler[Index] =
+								CallbackFunc;
+		InstancePtr->RxInstance.IntrInfoPktCallbackRef[Index] =
+								CallbackRef;
 		Status = XST_SUCCESS;
 		break;
 
 	case XDP_RX_HANDLER_AUD_EXTPKTRECV:
-		InstancePtr->RxInstance.IntrExtPktHandler = CallbackFunc;
-		InstancePtr->RxInstance.IntrExtPktCallbackRef = CallbackRef;
+		InstancePtr->RxInstance.IntrExtPktHandler[0] = CallbackFunc;
+		InstancePtr->RxInstance.IntrExtPktCallbackRef[0] = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_AUD_EXTPKTRECV_STREAM_2:
+	case XDP_RX_HANDLER_AUD_EXTPKTRECV_STREAM_3:
+	case XDP_RX_HANDLER_AUD_EXTPKTRECV_STREAM_4:
+		Index = ((HandlerType + 1) -
+			XDP_RX_HANDLER_AUD_EXTPKTRECV_STREAM_2);
+		InstancePtr->RxInstance.IntrExtPktHandler[Index] =
+								CallbackFunc;
+		InstancePtr->RxInstance.IntrExtPktCallbackRef[Index] =
+								CallbackRef;
 		Status = XST_SUCCESS;
 		break;
 
@@ -831,6 +889,7 @@ static void XDp_TxInterruptHandler(XDp *InstancePtr)
 static void XDp_RxInterruptHandler(XDp *InstancePtr)
 {
 	u32 IntrStatus;
+	u32 IntrStatus1;
 #if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
 	u32 IntrStatusHdcp22;
 #endif
@@ -842,6 +901,12 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 	/* Mask out required interrupts. */
 	IntrStatus &= ~XDp_ReadReg(InstancePtr->Config.BaseAddr,
 							XDP_RX_INTERRUPT_MASK);
+
+	IntrStatus1 = XDp_ReadReg(InstancePtr->Config.BaseAddr,
+				  XDP_RX_INTERRUPT_CAUSE_1);
+	/* Mask out required interrupts. */
+	IntrStatus1 &= ~XDp_ReadReg(InstancePtr->Config.BaseAddr,
+				    XDP_RX_INTERRUPT_MASK_1);
 
 #if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
 	/* Determine what kind of interrupts have occurred.
@@ -886,10 +951,50 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 	 * horizontal and vertical resolution parameters are monitored for
 	 * changes. */
 	if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_VM_CHANGE_MASK) &&
-			InstancePtr->RxInstance.IntrVmChangeHandler) {
-		InstancePtr->RxInstance.IntrVmChangeHandler(
-			InstancePtr->RxInstance.IntrVmChangeCallbackRef);
+		InstancePtr->RxInstance.IntrVmChangeHandler[0]) {
+			InstancePtr->RxInstance.IntrVmChangeHandler[0](
+			InstancePtr->RxInstance.IntrVmChangeCallbackRef[0]);
 	}
+
+	/* A change has been detected in the stream 2 transmitted on the
+	 * link as indicated by the main stream attributes (MSA) fields. The
+	 * horizontal and vertical resolution parameters are monitored for
+	 * changes. */
+	if ((IntrStatus1 &
+		XDP_RX_INTERRUPT_MASK_1_VM_CHANGE_STREAM234_MASK(
+		XDP_RX_STREAM_ID2)) &&
+		InstancePtr->RxInstance.IntrVmChangeHandler[1]) {
+			InstancePtr->RxInstance.IntrVmChangeHandler[1](
+			InstancePtr->RxInstance.
+			IntrVmChangeCallbackRef[1]);
+	}
+
+	/* A change has been detected in the stream 3 transmitted on the
+	 * link as indicated by the main stream attributes (MSA) fields. The
+	 * horizontal and vertical resolution parameters are monitored for
+	 * changes. */
+	if ((IntrStatus1 &
+		XDP_RX_INTERRUPT_MASK_1_VM_CHANGE_STREAM234_MASK(
+		XDP_RX_STREAM_ID3)) &&
+		InstancePtr->RxInstance.IntrVmChangeHandler[2]) {
+			InstancePtr->RxInstance.IntrVmChangeHandler[2](
+			InstancePtr->RxInstance.
+			IntrVmChangeCallbackRef[2]);
+	}
+
+	/* A change has been detected in the stream 4 transmitted on the
+	 * link as indicated by the main stream attributes (MSA) fields. The
+	 * horizontal and vertical resolution parameters are monitored for
+	 * changes. */
+	if ((IntrStatus1 &
+		XDP_RX_INTERRUPT_MASK_1_VM_CHANGE_STREAM234_MASK(
+		XDP_RX_STREAM_ID4)) &&
+		InstancePtr->RxInstance.IntrVmChangeHandler[3]) {
+			InstancePtr->RxInstance.IntrVmChangeHandler[3](
+			InstancePtr->RxInstance.
+			IntrVmChangeCallbackRef[3]);
+	}
+
 	/* The VerticalBlanking_Flag in the VB-ID field of the received stream
 	 * indicates the start of the vertical blanking interval. */
 	if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_VBLANK_MASK) &&
@@ -904,10 +1009,42 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 			InstancePtr->RxInstance.IntrDrvNoVideoHandler(
 			InstancePtr->RxInstance.IntrDrvNoVideoCallbackRef);
 		}
-		if (InstancePtr->RxInstance.IntrNoVideoHandler) {
-			InstancePtr->RxInstance.IntrNoVideoHandler(
-			InstancePtr->RxInstance.IntrNoVideoCallbackRef);
+		if (InstancePtr->RxInstance.IntrNoVideoHandler[0]) {
+			InstancePtr->RxInstance.IntrNoVideoHandler[0](
+			InstancePtr->RxInstance.IntrNoVideoCallbackRef[0]);
 		}
+	}
+	/* The receiver has detected the no-video flags in the VB-ID field after
+	 * active video has been received stream 2. */
+	if ((IntrStatus1 &
+		XDP_RX_INTERRUPT_MASK_1_NO_VIDEO_STREAM234_MASK(
+		XDP_RX_STREAM_ID2)) &&
+		InstancePtr->RxInstance.IntrNoVideoHandler[1]) {
+			InstancePtr->RxInstance.IntrNoVideoHandler[1](
+			InstancePtr->RxInstance.
+			IntrNoVideoCallbackRef[1]);
+	}
+
+	/* The receiver has detected the no-video flags in the VB-ID field after
+	 * active video has been received stream 3. */
+	if ((IntrStatus1 &
+		XDP_RX_INTERRUPT_MASK_1_NO_VIDEO_STREAM234_MASK(
+		XDP_RX_STREAM_ID3)) &&
+		InstancePtr->RxInstance.IntrNoVideoHandler[2]) {
+			InstancePtr->RxInstance.IntrNoVideoHandler[2](
+			InstancePtr->RxInstance.
+			IntrNoVideoCallbackRef[2]);
+	}
+
+	/* The receiver has detected the no-video flags in the VB-ID field after
+	 * active video has been received stream 4. */
+	if ((IntrStatus1 &
+		XDP_RX_INTERRUPT_MASK_1_NO_VIDEO_STREAM234_MASK(
+		XDP_RX_STREAM_ID4)) &&
+		InstancePtr->RxInstance.IntrNoVideoHandler[3]) {
+			InstancePtr->RxInstance.IntrNoVideoHandler[3](
+			InstancePtr->RxInstance.
+			IntrNoVideoCallbackRef[3]);
 	}
 	/* A valid video frame is detected on the main link. */
 	else if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_VIDEO_MASK) {
@@ -915,10 +1052,39 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 			InstancePtr->RxInstance.IntrDrvVideoHandler(
 			InstancePtr->RxInstance.IntrDrvVideoCallbackRef);
 		}
-		if (InstancePtr->RxInstance.IntrVideoHandler) {
-			InstancePtr->RxInstance.IntrVideoHandler(
-			InstancePtr->RxInstance.IntrVideoCallbackRef);
+		if (InstancePtr->RxInstance.IntrVideoHandler[0]) {
+			InstancePtr->RxInstance.IntrVideoHandler[0](
+			InstancePtr->RxInstance.IntrVideoCallbackRef[0]);
 		}
+	}
+	/* A valid video frame is detected on the main link. */
+	if ((IntrStatus1 &
+		XDP_RX_INTERRUPT_MASK_1_VIDEO_STREAM234_MASK(
+		XDP_RX_STREAM_ID2)) &&
+		InstancePtr->RxInstance.IntrVideoHandler[1]) {
+			InstancePtr->RxInstance.IntrVideoHandler[1](
+			InstancePtr->RxInstance.
+			IntrVideoCallbackRef[1]);
+	}
+
+	/* A valid video frame is detected on the main link. */
+	if ((IntrStatus1 &
+		XDP_RX_INTERRUPT_MASK_1_VIDEO_STREAM234_MASK(
+		XDP_RX_STREAM_ID3)) &&
+		InstancePtr->RxInstance.IntrVideoHandler[2]) {
+			InstancePtr->RxInstance.IntrVideoHandler[2](
+			InstancePtr->RxInstance.
+			IntrVideoCallbackRef[2]);
+	}
+
+	/* A valid video frame is detected on the main link. */
+	if ((IntrStatus1 &
+		XDP_RX_INTERRUPT_MASK_1_VIDEO_STREAM234_MASK(
+		XDP_RX_STREAM_ID4)) &&
+		InstancePtr->RxInstance.IntrVideoHandler[3]) {
+			InstancePtr->RxInstance.IntrVideoHandler[3](
+			InstancePtr->RxInstance.
+			IntrVideoCallbackRef[3]);
 	}
 	/* The transmitter has requested a change in the current power state of
 	 * the receiver core. */
@@ -941,15 +1107,75 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 
 	/* An audio info packet has been received. */
 	if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_INFO_PKT_MASK) &&
-			InstancePtr->RxInstance.IntrInfoPktHandler) {
-		InstancePtr->RxInstance.IntrInfoPktHandler(
-			InstancePtr->RxInstance.IntrInfoPktCallbackRef);
+		InstancePtr->RxInstance.IntrInfoPktHandler[0]) {
+		InstancePtr->RxInstance.IntrInfoPktHandler[0](
+			InstancePtr->RxInstance.IntrInfoPktCallbackRef[0]);
 	}
+	/* An audio info packet has been received at stream 2. */
+	if ((IntrStatus1 &
+		XDP_RX_INTERRUPT_MASK_1_INFO_PKT_STREAM234_MASK(
+		XDP_RX_STREAM_ID2)) &&
+		InstancePtr->RxInstance.IntrInfoPktHandler[1]) {
+			InstancePtr->RxInstance.IntrInfoPktHandler[1](
+			InstancePtr->RxInstance.
+			IntrInfoPktCallbackRef[1]);
+	}
+
+	/* An audio info packet has been received at stream 3. */
+	if ((IntrStatus1 &
+		XDP_RX_INTERRUPT_MASK_1_INFO_PKT_STREAM234_MASK(
+		XDP_RX_STREAM_ID3)) &&
+		InstancePtr->RxInstance.IntrInfoPktHandler[2]) {
+			InstancePtr->RxInstance.IntrInfoPktHandler[2](
+			InstancePtr->RxInstance.
+			IntrInfoPktCallbackRef[2]);
+	}
+
+	/* An audio info packet has been received at stream 4. */
+	if ((IntrStatus1 &
+		XDP_RX_INTERRUPT_MASK_1_INFO_PKT_STREAM234_MASK(
+		XDP_RX_STREAM_ID4)) &&
+		InstancePtr->RxInstance.IntrInfoPktHandler[3]) {
+			InstancePtr->RxInstance.IntrInfoPktHandler[3](
+			InstancePtr->RxInstance.
+			IntrInfoPktCallbackRef[3]);
+	}
+
 	/* An audio extension packet has been received. */
 	if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_EXT_PKT_MASK) &&
-			InstancePtr->RxInstance.IntrExtPktHandler) {
-		InstancePtr->RxInstance.IntrExtPktHandler(
-			InstancePtr->RxInstance.IntrExtPktCallbackRef);
+		InstancePtr->RxInstance.IntrExtPktHandler[0]) {
+		InstancePtr->RxInstance.IntrExtPktHandler[0](
+			InstancePtr->RxInstance.IntrExtPktCallbackRef[0]);
+	}
+
+	/* An audio extension packet has been received at stream 2 */
+	if ((IntrStatus1 &
+		XDP_RX_INTERRUPT_MASK_1_EXT_PKT_STREAM234_MASK(
+		XDP_RX_STREAM_ID2)) &&
+		InstancePtr->RxInstance.IntrExtPktHandler[1]) {
+			InstancePtr->RxInstance.IntrExtPktHandler[1](
+			InstancePtr->RxInstance.
+			IntrExtPktCallbackRef[1]);
+	}
+
+	/* An audio extension packet has been received at stream 3 */
+	if ((IntrStatus1 &
+		XDP_RX_INTERRUPT_MASK_1_EXT_PKT_STREAM234_MASK(
+		XDP_RX_STREAM_ID3)) &&
+		InstancePtr->RxInstance.IntrExtPktHandler[2]) {
+			InstancePtr->RxInstance.IntrExtPktHandler[2](
+			InstancePtr->RxInstance.
+			IntrExtPktCallbackRef[2]);
+	}
+
+	/* An audio extension packet has been received at stream 4 */
+	if ((IntrStatus1 &
+		XDP_RX_INTERRUPT_MASK_1_EXT_PKT_STREAM234_MASK(
+		XDP_RX_STREAM_ID4)) &&
+		InstancePtr->RxInstance.IntrExtPktHandler[3]) {
+			InstancePtr->RxInstance.IntrExtPktHandler[3](
+			InstancePtr->RxInstance.
+			IntrExtPktCallbackRef[3]);
 	}
 
 	/* The TX has issued a down request; a sideband message is ready. */
@@ -1122,16 +1348,7 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 
 	/* DP 1.4 related interrupt handling */
 	if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
-		u32 IntrStatus1;
 		u32 IntrStatus2;
-
-		/* Determine what kind of interrupts have occurred.
-		 * Note: XDP_RX_INTERRUPT_CAUSE is a RC (read-clear) register. */
-		IntrStatus1 = XDp_ReadReg(InstancePtr->Config.BaseAddr,
-					  XDP_RX_INTERRUPT_CAUSE_1);
-		/* Mask out required interrupts. */
-		IntrStatus1 &= ~XDp_ReadReg(InstancePtr->Config.BaseAddr,
-					    XDP_RX_INTERRUPT_MASK_1);
 
 		/* Adaptive-Sync interrupts */
 		IntrStatus2 = XDp_ReadReg(InstancePtr->Config.BaseAddr,
