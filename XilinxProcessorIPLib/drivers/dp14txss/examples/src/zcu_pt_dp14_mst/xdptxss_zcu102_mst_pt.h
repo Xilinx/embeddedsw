@@ -135,6 +135,11 @@
 #define XVPHY_DRP_TXCLK25			0x7A
 #define XVPHY_DRP_TXOUT_DIV			0x7C
 
+/* The following FLAG enables the Adaptive Sync feature of the
+ * DP RX and TX. Set ADAPTIVE to 0 if ADAPTIVE sync is not
+ * needed.
+ */
+#define ADAPTIVE 0
 /***************** Macros (Inline Functions) Definitions *********************/
 
 
