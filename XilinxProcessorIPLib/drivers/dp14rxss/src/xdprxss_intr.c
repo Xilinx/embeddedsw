@@ -27,6 +27,7 @@
 * 4.1  tu  09/06/17 Added three driver side interrupt handler for Video,
 *                   NoVideo and PowerChange event
 * 4.1  jb  02/19/19 Added support for HDCP22.
+* 6.2  rg  03/25/21 Added support for adaptive-sync in MST
 * </pre>
 *
 ******************************************************************************/
@@ -597,7 +598,7 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 			}
 			break;
 
-		case XDPRXSS_HANDLER_DP_ADAPTIVESYNC_SDP_EVENT:
+		case XDPRXSS_HANDLER_DP_ADAPTIVESYNC_SDP_STREAM_1_EVENT:
 			if (InstancePtr->DpPtr->Config.DpProtocol ==
 				XDP_PROTOCOL_DP_1_4) {
 				XDp_RxSetCallback(InstancePtr->DpPtr,
@@ -608,16 +609,47 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 				Status = XST_FAILURE;
 			}
 			break;
-		case XDPRXSS_HANDLER_DP_ADAPTIVESYNC_VBLANK_EVENT:
-			if (InstancePtr->DpPtr->Config.DpProtocol ==
-				XDP_PROTOCOL_DP_1_4) {
-				XDp_RxSetCallback(InstancePtr->DpPtr,
-					XDP_RX_HANDLER_ADAPTIVE_SYNC_VBLANK,
-					CallbackFunc, CallbackRef);
+		case XDPRXSS_HANDLER_DP_ADAPTIVESYNC_SDP_STREAM_2_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+				XDP_RX_HANDLER_ADAPTIVE_SYNC_SDP_STREAM_2,
+				CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+		case XDPRXSS_HANDLER_DP_ADAPTIVESYNC_SDP_STREAM_3_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+				XDP_RX_HANDLER_ADAPTIVE_SYNC_SDP_STREAM_3,
+				CallbackFunc, CallbackRef);
 				Status = XST_SUCCESS;
-			} else {
-				Status = XST_FAILURE;
-			}
+			break;
+		case XDPRXSS_HANDLER_DP_ADAPTIVESYNC_SDP_STREAM_4_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+				XDP_RX_HANDLER_ADAPTIVE_SYNC_SDP_STREAM_4,
+				CallbackFunc, CallbackRef);
+				Status = XST_SUCCESS;
+			break;
+		case XDPRXSS_HANDLER_DP_ADAPTIVESYNC_VBLANK_STREAM_1_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+				XDP_RX_HANDLER_ADAPTIVE_SYNC_VBLANK,
+				CallbackFunc, CallbackRef);
+				Status = XST_SUCCESS;
+			break;
+		case XDPRXSS_HANDLER_DP_ADAPTIVESYNC_VBLANK_STREAM_2_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+				XDP_RX_HANDLER_ADAPTIVE_SYNC_VBLANK_STREAM_2,
+				CallbackFunc, CallbackRef);
+				Status = XST_SUCCESS;
+			break;
+		case XDPRXSS_HANDLER_DP_ADAPTIVESYNC_VBLANK_STREAM_3_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+				XDP_RX_HANDLER_ADAPTIVE_SYNC_VBLANK_STREAM_3,
+				CallbackFunc, CallbackRef);
+				Status = XST_SUCCESS;
+			break;
+		case XDPRXSS_HANDLER_DP_ADAPTIVESYNC_VBLANK_STREAM_4_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+				XDP_RX_HANDLER_ADAPTIVE_SYNC_VBLANK_STREAM_4,
+				CallbackFunc, CallbackRef);
+				Status = XST_SUCCESS;
 			break;
 
 		/* End of setting DP 1.4 callback(s) */

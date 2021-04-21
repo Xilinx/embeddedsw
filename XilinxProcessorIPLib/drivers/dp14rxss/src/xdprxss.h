@@ -246,12 +246,30 @@ typedef enum {
 						      *	event for stream 4
 						      *	interrupt type for
 						      *	DisplayPort core */
-	XDPRXSS_HANDLER_DP_ADAPTIVESYNC_SDP_EVENT,	/**< Adaptive sync SDP
-							 * packet event for
-							 * DisplayPort core */
-	XDPRXSS_HANDLER_DP_ADAPTIVESYNC_VBLANK_EVENT	/**< Adaptive sync
-							 * vblank event for
-							 * DisplayPort core */
+	XDPRXSS_HANDLER_DP_ADAPTIVESYNC_SDP_STREAM_1_EVENT,	/**< Adaptive sync SDP
+							     * packet event for stream 1
+							     * DisplayPort core */
+	XDPRXSS_HANDLER_DP_ADAPTIVESYNC_SDP_STREAM_2_EVENT,	/**< Adaptive sync SDP
+								 * packet event for stream 2
+								 * DisplayPort core */
+	XDPRXSS_HANDLER_DP_ADAPTIVESYNC_SDP_STREAM_3_EVENT,	/**< Adaptive sync SDP
+								 * packet event for stream 3
+								 * DisplayPort core */
+	XDPRXSS_HANDLER_DP_ADAPTIVESYNC_SDP_STREAM_4_EVENT,	/**< Adaptive sync SDP
+								 * packet event for stream 4
+								 * DisplayPort core */
+	XDPRXSS_HANDLER_DP_ADAPTIVESYNC_VBLANK_STREAM_1_EVENT,	/**< Adaptive sync
+							     * vblank event for stream 1
+							     * DisplayPort core */
+	XDPRXSS_HANDLER_DP_ADAPTIVESYNC_VBLANK_STREAM_2_EVENT,	/**< Adaptive sync
+								 * vblank event for stream 2
+								 * DisplayPort core */
+	XDPRXSS_HANDLER_DP_ADAPTIVESYNC_VBLANK_STREAM_3_EVENT,	/**< Adaptive sync
+								 * vblank event for stream 3
+								 * DisplayPort core */
+	XDPRXSS_HANDLER_DP_ADAPTIVESYNC_VBLANK_STREAM_4_EVENT,	/**< Adaptive sync
+								 * vblank event for stream 4
+								 * DisplayPort core */
 } XDpRxSs_HandlerType;
 
 /**
@@ -670,8 +688,8 @@ void XDpRxSs_DrvPowerChangeHandler(void *InstancePtr);
 void XDpRxSs_SetAdaptiveSyncCaps(XDpRxSs *InstancePtr, u32 Enable);
 void XDpRxSs_MaskAdaptiveIntr(XDpRxSs *InstancePtr, u32 Mask);
 void XDpRxSs_UnMaskAdaptiveIntr(XDpRxSs *InstancePtr, u32 Mask);
-int XDpRxSs_GetVblank(XDpRxSs *InstancePtr);
-int XDpRxSs_GetVtotal(XDpRxSs *InstancePtr);
+int XDpRxSs_GetVblank(XDpRxSs *InstancePtr, u8 Stream);
+int XDpRxSs_GetVtotal(XDpRxSs *InstancePtr, u8 Stream);
 
 void XDpRxSs_McDp6000_init(void *InstancePtr);
 
