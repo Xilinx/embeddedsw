@@ -1137,9 +1137,19 @@
 							read data. */
 #define XDP_RX_GT_DRP_CH_STATUS		0x2A8	/**< Provides access to GT DRP
 							channel status. */
-#define XDP_RX_ADAPTIVE_VBLANK_VTOTAL	0x2F4	/**<  VTotal and VBlank
-						      of current video stream
+#define XDP_RX_STREAM1_ADAPTIVE_VBLANK_VTOTAL	0x2F4	/**<  VTotal and VBlank
+						      of video stream1
 						      in Adaptive-Sync mode */
+#define XDP_RX_STREAM2_ADAPTIVE_VBLANK_VTOTAL	0x2EC	/**<  VTotal and VBlank
+						      of video stream2
+						      in Adaptive-Sync mode */
+#define XDP_RX_STREAM3_ADAPTIVE_VBLANK_VTOTAL	0x2E4	/**<  VTotal and VBlank
+						      of video stream3
+						      in Adaptive-Sync mode */
+#define XDP_RX_STREAM4_ADAPTIVE_VBLANK_VTOTAL	0x2DC	/**<  VTotal and VBlank
+						      of video stream4
+						      in Adaptive-Sync mode */
+
 /* @} */
 
 /** @name DPRX core registers: Audio.
@@ -1504,6 +1514,19 @@
 #define XDP_RX_INTERRUPT_MASK_ADAPTIVE_SYNC_VB_MASK	 0x40000000 /**< Mask the interrupt
 							assertion for the Adaptive-Sync
 							vblank */
+#define XDP_RX_INTERRUPT_ADAPTIVE_SYNC_SDP_STREAMX_MASK(Stream) \
+		(0x80000000 >> ((Stream - 1) * 2))
+							/**< Mask the interrupt
+							assertion for the adaptive-sync
+							packet is received for stream
+							2, 3, or 4.
+							*/
+#define XDP_RX_INTERRUPT_ADAPTIVE_SYNC_VB_STREAMX_MASK(Stream) \
+		(0x40000000 >> ((Stream - 1) * 2))
+							/**< Mask the interrupt
+							assertion for the adaptive-sync
+							vblank for stream 2, 3, or
+							4. */
 /* DP 1.4 definitions end. */
 #define XDP_RX_INTERRUPT_MASK_HDCP_DEBUG_WRITE_MASK \
 					0x00080000 /**< Mask the interrupt
@@ -1851,10 +1874,11 @@
 #define XDP_RX_HSYNC_WIDTH_FRONT_PORCH_SHIFT 8	/**< Shift bits for the front
 							porch. */
 /* 0x005C: XDP_RX_INTERRUPT_MASK_2 */
-#define XDP_RX_ADAPTIVESYNC_SDP_VBLANK_INTERRUPT_MASK \
-					0xC0000000	/**< Adaptive-Sync SDP
-								and VBlank
-								interrupt mask.
+#define XDP_RX_ADAPTIVESYNC_SDP_VBLANK_INTERRUPT_STREAMX_MASK \
+					0xFF0000000	/**< Adaptive-Sync SDP
+							and VBlank
+							interrupt mask for
+							all streams.
 							*/
 /* 0x06C: MST_ALLOC */
 #define XDP_RX_MST_ALLOC_VCP_ID_MASK   0x00003F	/**< The virtual channel payload

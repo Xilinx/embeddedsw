@@ -451,6 +451,12 @@ typedef enum {
 	XDP_RX_HANDLER_VBLANK_STREAM_4,
 	XDP_RX_HANDLER_ADAPTIVE_SYNC_SDP,
 	XDP_RX_HANDLER_ADAPTIVE_SYNC_VBLANK,
+	XDP_RX_HANDLER_ADAPTIVE_SYNC_SDP_STREAM_2,
+	XDP_RX_HANDLER_ADAPTIVE_SYNC_SDP_STREAM_3,
+	XDP_RX_HANDLER_ADAPTIVE_SYNC_SDP_STREAM_4,
+	XDP_RX_HANDLER_ADAPTIVE_SYNC_VBLANK_STREAM_2,
+	XDP_RX_HANDLER_ADAPTIVE_SYNC_VBLANK_STREAM_3,
+	XDP_RX_HANDLER_ADAPTIVE_SYNC_VBLANK_STREAM_4,
 	XDP_RX_NUM_HANDLERS
 } Dp_Rx_HandlerType;
 
@@ -1337,21 +1343,24 @@ typedef struct {
 						    data passed to the access
 						    lane set callback
 						    function. */
-	XDp_IntrHandler IntrAdapatveSyncSdpHandler;	/**< Callback function for
-							driver Adaptive-Sync
+	XDp_IntrHandler IntrAdapatveSyncSdpHandler[XDP_RX_STREAM_ID4];
+							/**< Array of Callback functions
+							for Adaptive-Sync
 							SDP packet received
-							interrupts */
-	void *IntrAdapatveSyncSdpCallbackRef;	/**< A pointer to the user
-							data passed to
-							Adaptive-sync SDP
-							packet received function */
-	XDp_IntrHandler IntrAdaptiveSyncVbHandler;	/**< Callback function for
-							driver Adaptive-Sync
-							vblank interrupts */
-	void *IntrAdaptiveSyncVbCallbackRef;	/**< A pointer to the user
-							data passed to
-							Adaptive-Sync vblank
-							function */
+							interrupts for all streams */
+	void *IntrAdapatveSyncSdpCallbackRef[XDP_RX_STREAM_ID4];
+							/**< An array of pointer to the user data
+							passed to adaptive-sync SDP packet
+							received functions */
+	XDp_IntrHandler IntrAdaptiveSyncVbHandler[XDP_RX_STREAM_ID4];
+							/**< Array of callback functions
+							for adaptive-sync vertical blanking
+							interrupts for all
+							streams */
+	void *IntrAdaptiveSyncVbCallbackRef[XDP_RX_STREAM_ID4];
+							/**< An array of pointer to the user data
+							passed to the vertical adaptive-sync blanking
+							callback functions. */
 	/* End of definitions for DP 1.4 interrupt callback(s) */
 } XDp_Rx;
 

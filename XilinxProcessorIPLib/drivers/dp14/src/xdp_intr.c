@@ -36,6 +36,7 @@
  * 7.5   rg   08/19/20 Added a interrupt handler that addresses driver's
  *                     internal callback function of application
  *                     ExtPktCallbackHandler
+ * 7.5   rg   03/25/21 Add support for adaptive-sync in MST mode
  *
  * </pre>
  *
@@ -376,6 +377,7 @@ int XDp_RxSetCallback(XDp *InstancePtr,	Dp_Rx_HandlerType HandlerType,
 	Xil_AssertNonvoid(CallbackRef != NULL);
 
 	u32 Status;
+	u32 Index;
 
 	switch (HandlerType)
 	{
@@ -488,24 +490,48 @@ int XDp_RxSetCallback(XDp *InstancePtr,	Dp_Rx_HandlerType HandlerType,
 
 	case XDP_RX_HANDLER_ADAPTIVE_SYNC_SDP:
 		if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
-			InstancePtr->RxInstance.IntrAdapatveSyncSdpHandler = CallbackFunc;
-			InstancePtr->RxInstance.IntrAdapatveSyncSdpCallbackRef = CallbackRef;
+			InstancePtr->RxInstance.IntrAdapatveSyncSdpHandler[0] = CallbackFunc;
+			InstancePtr->RxInstance.IntrAdapatveSyncSdpCallbackRef[0] = CallbackRef;
 			Status = XST_SUCCESS;
 		} else {
 			Status = XST_FAILURE;
 		}
 		break;
 
+	case XDP_RX_HANDLER_ADAPTIVE_SYNC_SDP_STREAM_2:
+	case XDP_RX_HANDLER_ADAPTIVE_SYNC_SDP_STREAM_3:
+	case XDP_RX_HANDLER_ADAPTIVE_SYNC_SDP_STREAM_4:
+		Index = ((HandlerType + 1) -
+			XDP_RX_HANDLER_ADAPTIVE_SYNC_SDP_STREAM_2);
+			InstancePtr->RxInstance.
+			IntrAdapatveSyncSdpHandler[Index] = CallbackFunc;
+			InstancePtr->RxInstance.
+			IntrAdapatveSyncSdpCallbackRef[Index] = CallbackRef;
+			Status = XST_SUCCESS;
+		break;
+
 	case XDP_RX_HANDLER_ADAPTIVE_SYNC_VBLANK:
 		if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
-			InstancePtr->RxInstance.IntrAdaptiveSyncVbHandler = CallbackFunc;
-			InstancePtr->RxInstance.IntrAdaptiveSyncVbCallbackRef = CallbackRef;
+			InstancePtr->RxInstance.IntrAdaptiveSyncVbHandler[0] = CallbackFunc;
+			InstancePtr->RxInstance.IntrAdaptiveSyncVbCallbackRef[0] = CallbackRef;
 			Status = XST_SUCCESS;
 		} else {
 			Status = XST_FAILURE;
 		}
 		break;
-		/* Interrupts for DP 1.4 : set callback end. */
+
+	case XDP_RX_HANDLER_ADAPTIVE_SYNC_VBLANK_STREAM_2:
+	case XDP_RX_HANDLER_ADAPTIVE_SYNC_VBLANK_STREAM_3:
+	case XDP_RX_HANDLER_ADAPTIVE_SYNC_VBLANK_STREAM_4:
+		Index = ((HandlerType + 1) -
+			XDP_RX_HANDLER_ADAPTIVE_SYNC_VBLANK_STREAM_2);
+			InstancePtr->RxInstance.
+			IntrAdaptiveSyncVbHandler[Index] = CallbackFunc;
+			InstancePtr->RxInstance.
+			IntrAdaptiveSyncVbCallbackRef[Index] = CallbackRef;
+			Status = XST_SUCCESS;
+		break;
+	/* Interrupts for DP 1.4 : set callback end. */
 
 	case XDP_RX_HANDLER_DOWNREQ:
 		InstancePtr->RxInstance.IntrDownReqHandler = CallbackFunc;
@@ -1171,18 +1197,79 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 			InstancePtr->RxInstance.IntrAccessErrorCounterHandler(
 				InstancePtr->RxInstance.IntrAccessErrorCounterCallbackRef);
 		}
-		/* Adaptive-Sync SDP packet received event*/
-		if ((IntrStatus2 & XDP_RX_INTERRUPT_MASK_ADAPTIVE_SYNC_SDP_MASK) &&
-				InstancePtr->RxInstance.IntrAdapatveSyncSdpHandler) {
-			InstancePtr->RxInstance.IntrAdapatveSyncSdpHandler(
-				InstancePtr->RxInstance.IntrAccessErrorCounterCallbackRef);
+		/* Adaptive-Sync SDP packet event received for stream 1 */
+		if ((IntrStatus2 &
+			XDP_RX_INTERRUPT_ADAPTIVE_SYNC_SDP_STREAMX_MASK(
+			XDP_RX_STREAM_ID1)) &&
+			InstancePtr->RxInstance.IntrAdapatveSyncSdpHandler[0]) {
+			InstancePtr->RxInstance.IntrAdapatveSyncSdpHandler[0](
+				InstancePtr->RxInstance.
+				IntrAdapatveSyncSdpCallbackRef[0]);
 		}
-		/* vblank difference detected event */
-		if ((IntrStatus2 & XDP_RX_INTERRUPT_MASK_ADAPTIVE_SYNC_VB_MASK) &&
-				InstancePtr->RxInstance.IntrAdaptiveSyncVbHandler) {
-			InstancePtr->RxInstance.IntrAdaptiveSyncVbHandler(
-				InstancePtr->RxInstance.IntrAdaptiveSyncVbCallbackRef);
+		/* Adaptive-Sync SDP packet event received for stream 2 */
+		if ((IntrStatus2 &
+			XDP_RX_INTERRUPT_ADAPTIVE_SYNC_SDP_STREAMX_MASK(
+			XDP_RX_STREAM_ID2)) &&
+			InstancePtr->RxInstance.IntrAdapatveSyncSdpHandler[1]) {
+			InstancePtr->RxInstance.IntrAdapatveSyncSdpHandler[1](
+				InstancePtr->RxInstance.
+				IntrAdapatveSyncSdpCallbackRef[1]);
 		}
+		/* Adaptive-Sync SDP packet event received for stream 3 */
+		if ((IntrStatus2 &
+			XDP_RX_INTERRUPT_ADAPTIVE_SYNC_SDP_STREAMX_MASK(
+			XDP_RX_STREAM_ID3)) &&
+			InstancePtr->RxInstance.IntrAdapatveSyncSdpHandler[2]) {
+			InstancePtr->RxInstance.IntrAdapatveSyncSdpHandler[2](
+				InstancePtr->RxInstance.
+				IntrAdapatveSyncSdpCallbackRef[2]);
+		}
+		/* Adaptive-Sync SDP packet event received for stream 4 */
+		if ((IntrStatus2 &
+			XDP_RX_INTERRUPT_ADAPTIVE_SYNC_SDP_STREAMX_MASK(
+			XDP_RX_STREAM_ID4)) &&
+			InstancePtr->RxInstance.IntrAdapatveSyncSdpHandler[3]) {
+			InstancePtr->RxInstance.IntrAdapatveSyncSdpHandler[3](
+				InstancePtr->RxInstance.
+				IntrAdapatveSyncSdpCallbackRef[3]);
+		}
+		/* vblank difference event detected for stream 1 */
+		if ((IntrStatus2 &
+			XDP_RX_INTERRUPT_ADAPTIVE_SYNC_VB_STREAMX_MASK(
+			XDP_RX_STREAM_ID1)) &&
+			InstancePtr->RxInstance.IntrAdaptiveSyncVbHandler[0]) {
+			InstancePtr->RxInstance.IntrAdaptiveSyncVbHandler[0](
+				InstancePtr->RxInstance.
+				IntrAdaptiveSyncVbCallbackRef[0]);
+		}
+		/* vblank difference event detected for stream 2 */
+		if ((IntrStatus2 &
+			XDP_RX_INTERRUPT_ADAPTIVE_SYNC_VB_STREAMX_MASK(
+			XDP_RX_STREAM_ID2)) &&
+			InstancePtr->RxInstance.IntrAdaptiveSyncVbHandler[1]) {
+			InstancePtr->RxInstance.IntrAdaptiveSyncVbHandler[1](
+				InstancePtr->RxInstance.
+				IntrAdaptiveSyncVbCallbackRef[1]);
+		}
+		/* vblank difference event detected for stream 3 */
+		if ((IntrStatus2 &
+			XDP_RX_INTERRUPT_ADAPTIVE_SYNC_VB_STREAMX_MASK(
+			XDP_RX_STREAM_ID3)) &&
+			InstancePtr->RxInstance.IntrAdaptiveSyncVbHandler[2]) {
+			InstancePtr->RxInstance.IntrAdaptiveSyncVbHandler[2](
+				InstancePtr->RxInstance.
+				IntrAdaptiveSyncVbCallbackRef[2]);
+		}
+		/* vblank difference event detected for stream 4 */
+		if ((IntrStatus2 &
+			XDP_RX_INTERRUPT_ADAPTIVE_SYNC_VB_STREAMX_MASK(
+			XDP_RX_STREAM_ID4)) &&
+			InstancePtr->RxInstance.IntrAdaptiveSyncVbHandler[3]) {
+			InstancePtr->RxInstance.IntrAdaptiveSyncVbHandler[3](
+				InstancePtr->RxInstance.
+				IntrAdaptiveSyncVbCallbackRef[3]);
+		}
+
 
 	}
 
