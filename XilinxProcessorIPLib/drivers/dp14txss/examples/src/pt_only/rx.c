@@ -278,9 +278,9 @@ u32 DpRxSs_SetupIntrSystem(void)
 	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_EXT_PKT_EVENT,
 			&DpRxSs_ExtPacketHandler, &DpRxSsInst);
 #if ADAPTIVE
-	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_ADAPTIVESYNC_VBLANK_EVENT,
+	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_ADAPTIVESYNC_VBLANK_STREAM_1_EVENT,
 			&DpRxSs_AdaptiveVblankHandler, &DpRxSsInst);
-	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_ADAPTIVESYNC_SDP_EVENT,
+	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_ADAPTIVESYNC_SDP_STREAM_1_EVENT,
 			&DpRxSs_AdaptiveSDPHandler, &DpRxSsInst);
 
 #endif
@@ -327,7 +327,7 @@ void DpRxSs_AdaptiveVblankHandler(void *InstancePtr)
 {
 	u32 vblank;
 	u32 delta;
-	vblank = XDpRxSs_GetVblank(&DpRxSsInst);
+	vblank = XDpRxSs_GetVblank(&DpRxSsInst,XDP_TX_STREAM_ID1);
 
 	/* Calculate delta of Vtotal */
 	if (vblank_captured) {

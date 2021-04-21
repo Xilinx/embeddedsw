@@ -628,115 +628,6 @@ u32 DpTxSubsystem_Start(XDpTxSs *InstancePtr,
 	return Status;
 }
 
-///*****************************************************************************/
-///**
-//*
-//* This function sets up DPTxSubsystem
-//*
-//* @param	LineRate
-//* @param	LaneCount
-//* @param	edid 1st block
-//* @param	edid 2nd block
-//*
-//* @return	None.
-//*
-//* @note		None.
-//*
-//******************************************************************************/
-//void DpTxSs_Setup(u8 *LineRate_init, u8 *LaneCount_init,
-//			u8 Edid_org[128], u8 Edid1_org[128]){
-//	u8 Status;
-//
-//	XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_INTERRUPT_STATUS);
-//
-//	DpTxSsInst.DpPtr->TxInstance.TxSetMsaCallback = NULL;
-//	DpTxSsInst.DpPtr->TxInstance.TxMsaCallbackRef = NULL;
-//
-//	u8 connected;
-//	// this is intentional infinite while loop
-//	while (!XDpTxSs_IsConnected(&DpTxSsInst)) {
-//		if (connected == 0) {
-//	xil_printf(
-//			"Please connect a DP Monitor to start the application !!!\r\n");
-//			connected = 1;
-//		}
-//	}
-//
-//	//Waking up the monitor
-//	sink_power_cycle();
-//
-//
-//	//reading the first block of EDID
-//	if (XDpTxSs_IsConnected(&DpTxSsInst)) {
-//		XDp_TxGetEdidBlock(DpTxSsInst.DpPtr, Edid_org, 0);
-//		//reading the second block of EDID
-//		XDp_TxGetEdidBlock(DpTxSsInst.DpPtr, Edid1_org, 1);
-//		xil_printf("Reading EDID contents of the DP Monitor..\r\n");
-//
-//		Status  = XDp_TxAuxRead(DpTxSsInst.DpPtr,
-//								XDP_DPCD_MAX_LINK_RATE,  1, LineRate_init);
-//		Status |= XDp_TxAuxRead(DpTxSsInst.DpPtr,
-//								XDP_DPCD_MAX_LANE_COUNT, 1, LaneCount_init);
-//
-//		u8 rData = 0;
-//		// check the EXTENDED_RECEIVER_CAPABILITY_FIELD_PRESENT bit
-//		XDp_TxAuxRead(DpTxSsInst.DpPtr,
-//			      XDP_DPCD_TRAIN_AUX_RD_INTERVAL,
-//			      1, &rData);
-//		/* if EXTENDED_RECEIVER_CAPABILITY_FIELD is enabled */
-//		if (rData & 0x80) {
-//			/* read maxLineRate */
-//			XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x2201, 1, &rData);
-//			if (rData == XDP_DPCD_LINK_BW_SET_810GBPS) {
-//				*LineRate_init = 0x1E;
-//			}
-//		}
-//
-//
-//		if (Status != XST_SUCCESS) { // give another chance to monitor.
-//			//Waking up the monitor
-//			sink_power_cycle();
-//
-//			XDp_TxGetEdidBlock(DpTxSsInst.DpPtr, Edid_org, 0);
-//			//reading the second block of EDID
-//			XDp_TxGetEdidBlock(DpTxSsInst.DpPtr, Edid1_org, 1);
-//			xil_printf("Reading EDID contents of the DP Monitor..\r\n");
-//
-//			Status = XDp_TxAuxRead(DpTxSsInst.DpPtr,
-//								XDP_DPCD_MAX_LINK_RATE, 1, LineRate_init);
-//			Status |= XDp_TxAuxRead(DpTxSsInst.DpPtr,
-//								XDP_DPCD_MAX_LANE_COUNT, 1, LaneCount_init);
-//			if (Status != XST_SUCCESS)
-//				xil_printf ("Failed to read sink capabilities\r\n");
-//
-//			// check the EXTENDED_RECEIVER_CAPABILITY_FIELD_PRESENT bit
-//			XDp_TxAuxRead(DpTxSsInst.DpPtr,
-//				      XDP_DPCD_TRAIN_AUX_RD_INTERVAL,
-//				      1, &rData);
-//			/* if EXTENDED_RECEIVER_CAPABILITY_FIELD is enabled */
-//			if (rData & 0x80) {
-//				/* read maxLineRate */
-//				XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x2201, 1, &rData);
-//				if (rData == XDP_DPCD_LINK_BW_SET_810GBPS) {
-//					*LineRate_init = 0x1E;
-//				}
-//			}
-//
-//		}
-//	} else {
-//		xil_printf("Please connect a DP Monitor and try again !!!\r\n");
-//		return;
-//	}
-//
-//	*LineRate_init &= 0xFF;
-//	*LaneCount_init &= 0xF;
-////	xil_printf("System capabilities set to: LineRate %x, LaneCount %x\r\n",
-////			*LineRate_init,*LaneCount_init);
-//
-//#if ENABLE_AUDIO
-//	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_AUDIO_CONTROL, 0x0);
-//#endif
-//}
 
 #ifndef versal
 /*****************************************************************************/
@@ -1524,6 +1415,35 @@ u32 config_phy(int LineRate_init_tx){
     {
 		Status = XST_FAILURE;
     }
+    u32 regval = 0;
+    if (linerate == 3) {
+	regval = XDp_ReadReg(GT_QUAD_BASE, CH1CLKDIV_REG);
+	regval &= ~DIV_MASK;
+	regval |= DIV3;
+	XDp_WriteReg(GT_QUAD_BASE, CH1CLKDIV_REG, regval);
+    } else {
+	regval = XDp_ReadReg(GT_QUAD_BASE, CH1CLKDIV_REG);
+	regval &= ~DIV_MASK;
+	regval |= DIV;
+	XDp_WriteReg(GT_QUAD_BASE, CH1CLKDIV_REG, regval);
+    }
+    GtCtrl(0x40000000,0x40000000, 1);
+    GtCtrl(0x40000000,0x0, 1);
+    retry = 0;
+    dptx_sts =0 ;
+    while ((dptx_sts != ALL_LANE) && retry < 255) {
+         dptx_sts = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
+         dptx_sts &= ALL_LANE;
+         DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 100);
+         retry++;
+//            xil_printf ("sts is %x\r\n", dptx_sts);
+      }
+    if(retry==255)
+    {
+	Status = XST_FAILURE;
+    }
+
+
 #endif
 
 	if (Status != XST_SUCCESS) {
