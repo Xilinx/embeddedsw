@@ -94,7 +94,6 @@ XV_SdiRxSs_Config *XV_SdiRxSs_ConfigPtr;
 
 #define UART_BASEADDR XPAR_XUARTPS_0_BASEADDR
 
-u8 StartTxAfterRxFlag;
 XSdi_Menu SdiMenu;			/**< Menu structure */
 
 /************************** Function Definitions *****************************/
@@ -353,7 +352,6 @@ int main(void)
 	Xil_Out32((UINTPTR)(GPIO_RX_RST), (u32)(0x00000002));
 	Xil_Out32((UINTPTR)(GPIO_RX_RST), (u32)(0x00000001));
 
-	StartTxAfterRxFlag = (FALSE);
 
 	Xil_ExceptionDisable();
 	init_platform();
@@ -444,9 +442,8 @@ int main(void)
 	/* Enable exceptions. */
 	Xil_AssertSetCallback((Xil_AssertCallback) Xil_AssertCallbackRoutine);
 	Xil_ExceptionEnable();
-
-	if(StartTxAfterRxFlag) {
-		XSdi_MenuProcess(&SdiMenu);
-	}
+    while(1) {
+	XSdi_MenuProcess(&SdiMenu);
+    }
 	return XST_SUCCESS;
 }
