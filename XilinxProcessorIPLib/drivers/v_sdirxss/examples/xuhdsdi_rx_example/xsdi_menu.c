@@ -127,9 +127,7 @@ void XSdi_DisplayMainMenu(void)
 	xil_printf("---   MAIN MENU   ---\r\n");
 	xil_printf("---------------------\r\n");
 	xil_printf("i - Info\n\r");
-	xil_printf("       => Shows information about the SDI RX stream, SDI TX stream.\n\r");
-	xil_printf("z - SDI TX & RX log\n\r");
-	xil_printf("       => Shows log information for SDI TX & RX.\n\r");
+	xil_printf("       => Shows information about the SDI RX stream.\n\r");
 	xil_printf("d - Debug Info\n\r");
 	xil_printf("       => Registers Dump.\n\r");
 	xil_printf("\n\r\n\r");
@@ -159,15 +157,6 @@ static XSdi_MenuType XSdi_MainMenu(XSdi_Menu *InstancePtr, u8 Input)
 			Info();
 			Menu = XSDI_MAIN_MENU;
 			break;
-
-			/* GT & SDI TX/RX log */
-		case ('z') :
-		case ('Z') :
-
-			XV_SdiRxSs_LogDisplay(&SdiRxSs);
-			Menu = XSDI_MAIN_MENU;
-			break;
-
 			/* Debug */
 		case ('d') :
 		case ('D') :
