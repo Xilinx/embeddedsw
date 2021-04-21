@@ -27,6 +27,7 @@
 * 							Setting tx_is_reconnected=0 and setting
 * 							max_cap_new=XDP_TX_LINK_BW_SET_810GBPS in hpd_con
 * 							for TX CTS test case.
+* 1.04 KU       04/12/21    Updated Versal GT programming to get /20 clk
 *
 * </pre>
 *
@@ -438,14 +439,8 @@ u32 DpTxSs_Main(u16 DeviceId)
 
 #ifdef versal
 #if (VERSAL_FABRIC_8B10B == 1)
-	// unlocking NPI space
-	//Prgramming ch1outclk div to generate /20 clock
+	//Unlocking NPI space to modify GT parameters
 	XDp_WriteReg(GT_QUAD_BASE, 0xC, 0xF9E8D7C6);
-	retval= XDp_ReadReg(GT_QUAD_BASE, TXCLKDIV_REG);
-	retval &= ~DIV_MASK;
-	retval |= DIV;
-	XDp_WriteReg(GT_QUAD_BASE, TXCLKDIV_REG, retval);
-//	retval=XDp_ReadReg(GT_QUAD_BASE, TXCLKDIV_REG);
 #endif
 #endif
 
@@ -2210,7 +2205,6 @@ u32 config_phy(int LineRate_init_tx){
 
 
 #ifdef versal
-//	ReadModifyWrite(0x70,(LaneCount_init_tx << 4));
 	ReadModifyWrite(0xE,(linerate << 1));
     u8 retry=0;
     while ((dptx_sts != ALL_LANE) && retry < 255) {
@@ -2218,12 +2212,39 @@ u32 config_phy(int LineRate_init_tx){
          dptx_sts &= ALL_LANE;
          DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 100);
          retry++;
-    //        xil_printf ("tmp is %d\r\n", tmp);
       }
     if(retry==255)
     {
 	Status = XST_FAILURE;
     }
+    u32 regval = 0;
+    if (linerate == 3) {
+	regval = XDp_ReadReg(GT_QUAD_BASE, TXCLKDIV_REG);
+	regval &= ~DIV_MASK;
+	regval |= DIV3;
+	XDp_WriteReg(GT_QUAD_BASE, TXCLKDIV_REG, regval);
+    } else {
+	regval = XDp_ReadReg(GT_QUAD_BASE, TXCLKDIV_REG);
+	regval &= ~DIV_MASK;
+	regval |= DIV;
+	XDp_WriteReg(GT_QUAD_BASE, TXCLKDIV_REG, regval);
+    }
+    //Issues datapath reset after the DIV values are changed
+    ReadModifyWrite(0x40000000,0x40000000);
+    ReadModifyWrite(0x40000000,0x0);
+    retry = 0;
+    dptx_sts =0 ;
+    while ((dptx_sts != ALL_LANE) && retry < 255) {
+         dptx_sts = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
+         dptx_sts &= ALL_LANE;
+         DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 100);
+         retry++;
+      }
+    if(retry==255)
+    {
+	Status = XST_FAILURE;
+    }
+
 #endif
 
 	if (Status != XST_SUCCESS) {
