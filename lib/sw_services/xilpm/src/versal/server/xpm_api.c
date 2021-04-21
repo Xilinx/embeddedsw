@@ -1116,6 +1116,12 @@ static XStatus PwrDomainInitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArg
 			PmErr("Error %d in request IPI PMC\r\n", Status);
 		}
 		XPlmi_LpdInit();
+#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+		Status = XPlmi_IpiInit(XPmSubsystem_GetSubSysIdByIpiMask);
+		if (XST_SUCCESS != Status) {
+			PmErr("Error %u in IPI initialization\r\n", Status);
+		}
+#endif
 	}
 
 done:
@@ -4712,4 +4718,40 @@ int XPm_RestartCbWrapper(const u32 SubsystemId)
 	}
 
 	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function determines the Subsystem Id based upon power domains.
+ *
+ * @param  ImageId	ImageId of the CDO
+ *
+ * @return Subsystem Id to be used by PLM
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+u32 XPm_GetSubsystemId(u32 ImageId)
+{
+	u32 Class = NODECLASS(ImageId);
+	u32 SubClass = NODESUBCLASS(ImageId);
+	u32 SubsystemId = XPmSubsystem_GetCurrent();
+
+	if(SubsystemId != INVALID_SUBSYSID) {
+		PmDbg("Using current SubsystemId: 0x%x\r\n",
+				SubsystemId);
+	} else if (((u32)XPM_NODECLASS_DEVICE == Class) &&
+	    (((u32)XPM_NODESUBCL_DEV_PL == SubClass) ||
+	    ((u32)XPM_NODESUBCL_DEV_AIE == SubClass))) {
+		/* Use PMC Subsystem Id for PLD images */
+		SubsystemId = PM_SUBSYS_PMC;
+	} else if ((u32)XPM_NODECLASS_POWER == Class) {
+		/* Use PMC Subsystem Id for power domain CDOs */
+		SubsystemId = PM_SUBSYS_PMC;
+	} else {
+		/* Use given Image Id as Subsystem Id */
+		SubsystemId = ImageId;
+	}
+
+	return SubsystemId;
 }

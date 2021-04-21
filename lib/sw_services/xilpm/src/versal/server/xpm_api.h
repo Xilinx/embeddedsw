@@ -143,6 +143,7 @@ int XPm_RegisterNotifier(const u32 SubsystemId, const u32 NodeId,
 int XPm_GicProxyWakeUp(const u32 PeriphIdx);
 XStatus XPm_HookAfterPlmCdo(void);
 int XPm_RestartCbWrapper(const u32 SubsystemId);
+u32 XPm_GetSubsystemId(u32 ImageId);
 
 #ifdef __cplusplus
 }

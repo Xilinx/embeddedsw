@@ -56,6 +56,7 @@
 *                       XPm_RequestWakeUp
 *       bsv  04/13/2021 Added support for variable Keyhole sizes in
 *                       DmaWriteKeyHole command
+*       bsv  04/16/2021 Add provision to store Subsystem Id in XilPlmi
 *
 * </pre>
 *
@@ -609,9 +610,8 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_INIT_CDO, Status);
 		goto END;
 	}
-	Cdo.ImgId = PdiPtr->CurImgId;
-	Cdo.PrtnId = PdiPtr->CurPrtnId;
-	Cdo.IpiMask = PdiPtr->IpiMask;
+	Cdo.SubsystemId = XPm_GetSubsystemId(
+		PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
 	SecureParams->IsCdo = (u8)TRUE;
 	PdiVer = PdiPtr->MetaHdr.ImgHdrTbl.Version;
 
