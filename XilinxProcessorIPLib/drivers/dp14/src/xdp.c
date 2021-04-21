@@ -3455,8 +3455,8 @@ static u32 XDp_TxAuxRequest(XDp *InstancePtr, XDp_AuxTransaction *Request)
 			 * XST_SUCCESS indicates that the request was ACK'ed. */
 			return Status;
 		}
-
-		XDp_WaitUs(InstancePtr, 100);
+		/* Aux request waiting period as per the latest CTS */
+		XDp_WaitUs(InstancePtr, 3200);
 	}
 
 	/* The request was not successfully received by the RX device. */
