@@ -57,6 +57,8 @@
 *       bsv  04/13/2021 Added support for variable Keyhole sizes in
 *                       DmaWriteKeyHole command
 *       bsv  04/16/2021 Add provision to store Subsystem Id in XilPlmi
+*       rp   04/20/2021 Add extra arg for calls to XPm_RequestDevice and
+*			XPm_ReleaseDevice
 *
 * </pre>
 *
@@ -326,7 +328,7 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 {
 	int Status = XST_FAILURE;
 	u32 Mode = 0U;
-	u32 CapAccess = (u32)PM_CAP_ACCESS;
+	u32 CapSecureAccess = (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE;
 	u32 CapContext = (u32)PM_CAP_CONTEXT;
 	u64 Addr = PrtnParams->DeviceCopy.DestAddr;
 	u32 Len = PrtnHdr->UnEncDataWordLen * XIH_PRTN_WORD_LEN;
@@ -355,7 +357,7 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	 */
 	if (PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_PSM) {
 		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_PSM_PROC,
-			CapAccess | CapContext, XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
+			(CapSecureAccess | CapContext), XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_PSM_PROC, 0);
 			goto END;
@@ -376,14 +378,14 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 				goto END;
 			}
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_TCM_1_A,
-					CapAccess | CapContext,
+					(CapSecureAccess | CapContext),
 					XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_TCM_1_A, 0);
 				goto END;
 			}
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_TCM_1_B,
-					CapAccess | CapContext,
+					(CapSecureAccess | CapContext),
 					XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_TCM_1_B, 0);
@@ -400,14 +402,14 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 				goto END;
 			}
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_A,
-					CapAccess | CapContext,
+					(CapSecureAccess | CapContext),
 					XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_TCM_0_A, 0);
 				goto END;
 			}
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_B,
-					CapAccess | CapContext,
+					(CapSecureAccess | CapContext),
 					XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_TCM_0_B, 0);
@@ -432,28 +434,28 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 				goto END;
 			}
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_A,
-					CapAccess | CapContext,
+					(CapSecureAccess | CapContext),
 					XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_TCM_0_A, 0);
 				goto END;
 			}
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_B,
-					CapAccess | CapContext,
+					(CapSecureAccess | CapContext),
 					XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_TCM_0_B, 0);
 				goto END;
 			}
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_1_A,
-					CapAccess | CapContext,
+					(CapSecureAccess | CapContext),
 					XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_TCM_1_A, 0);
 				goto END;
 			}
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_1_B,
-					CapAccess | CapContext,
+					(CapSecureAccess | CapContext),
 					XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_TCM_1_B, 0);
