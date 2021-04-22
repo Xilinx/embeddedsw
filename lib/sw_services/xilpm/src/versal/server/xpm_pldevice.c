@@ -133,7 +133,8 @@ static XStatus Pld_ReleaseChildren(XPm_PlDevice *PlDevice)
 		}
 		PldChild->WfPowerBitMask = PWR_DOMAIN_UNUSED_BITMASK;
 		PldChild->Device.Node.State = (u8)XPM_DEVSTATE_INITIALIZING;
-		Status = XPmDevice_Release(PM_SUBSYS_PMC, PldChild->Device.Node.Id);
+		Status = XPmDevice_Release(PM_SUBSYS_PMC, PldChild->Device.Node.Id,
+					   XPLMI_CMD_SECURE);
 		if(XST_SUCCESS != Status) {
 			goto done;
 		}
@@ -562,7 +563,8 @@ static XStatus PlInitFinish(XPm_PlDevice *PlDevice, u32 *Args, u32 NumArgs)
 	}
 
 	if (PWR_DOMAIN_UNUSED_BITMASK == PlDevice->WfPowerBitMask) {
-		Status = XPmDevice_Release(PM_SUBSYS_PMC, PlDevice->Device.Node.Id);
+		Status = XPmDevice_Release(PM_SUBSYS_PMC, PlDevice->Device.Node.Id,
+					   XPLMI_CMD_SECURE);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_DEVICE_RELEASE;
 		}

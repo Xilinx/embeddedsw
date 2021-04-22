@@ -222,7 +222,8 @@ static XStatus XPmSubsystem_NotifyHealthyBoot(const u32 SubsystemId)
 		Device = XPmDevice_GetHbMonDeviceByIndex(Idx);
 		if ((NULL != Device) &&
 			(NULL != XPmDevice_FindRequirement(Device->Node.Id, SubsystemId))) {
-			Status = XPmDevice_Release(SubsystemId, Device->Node.Id);
+			Status = XPmDevice_Release(SubsystemId, Device->Node.Id,
+						   XPLMI_CMD_SECURE);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
@@ -342,7 +343,8 @@ int XPmSubsystem_InitFinalize(const u32 SubsystemId)
 				goto done;
 			}
 
-			Status = XPmDevice_Release(PM_SUBSYS_PMC, Device->Node.Id);
+			Status = XPmDevice_Release(PM_SUBSYS_PMC, Device->Node.Id,
+						   XPLMI_CMD_SECURE);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
@@ -1006,7 +1008,8 @@ XStatus XPmSubsystem_Destroy(u32 SubsystemId)
 	while (NULL != Reqm) {
 		if (1U == Reqm->Allocated) {
 			Device = Reqm->Device;
-			Status = Device->DeviceOps->Release(Device, Subsystem);
+			Status = Device->DeviceOps->Release(Device, Subsystem,
+							    XPLMI_CMD_SECURE);
 			if (XST_FAILURE == Status) {
 				goto done;
 			}
