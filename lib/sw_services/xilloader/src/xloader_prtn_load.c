@@ -355,7 +355,7 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	 */
 	if (PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_PSM) {
 		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_PSM_PROC,
-			CapAccess | CapContext, XPM_DEF_QOS, 0U);
+			CapAccess | CapContext, XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_PSM_PROC, 0);
 			goto END;
@@ -377,14 +377,14 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 			}
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_TCM_1_A,
 					CapAccess | CapContext,
-					XPM_DEF_QOS, 0U);
+					XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_TCM_1_A, 0);
 				goto END;
 			}
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_TCM_1_B,
 					CapAccess | CapContext,
-					XPM_DEF_QOS, 0U);
+					XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_TCM_1_B, 0);
 				goto END;
@@ -401,14 +401,14 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 			}
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_A,
 					CapAccess | CapContext,
-					XPM_DEF_QOS, 0U);
+					XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_TCM_0_A, 0);
 				goto END;
 			}
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_B,
 					CapAccess | CapContext,
-					XPM_DEF_QOS, 0U);
+					XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_TCM_0_B, 0);
 				goto END;
@@ -433,28 +433,28 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 			}
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_A,
 					CapAccess | CapContext,
-					XPM_DEF_QOS, 0U);
+					XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_TCM_0_A, 0);
 				goto END;
 			}
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_B,
 					CapAccess | CapContext,
-					XPM_DEF_QOS, 0U);
+					XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_TCM_0_B, 0);
 				goto END;
 			}
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_1_A,
 					CapAccess | CapContext,
-					XPM_DEF_QOS, 0U);
+					XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_TCM_1_A, 0);
 				goto END;
 			}
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_1_B,
 					CapAccess | CapContext,
-					XPM_DEF_QOS, 0U);
+					XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_TCM_1_B, 0);
 				goto END;

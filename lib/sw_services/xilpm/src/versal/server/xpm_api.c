@@ -556,9 +556,8 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		Status = XPm_GetPllMode(Pload[0], ApiResponse);
 		break;
 	case PM_API(PM_REQUEST_NODE):
-		Status = XPm_RequestDevice(SubsystemId, Pload[0],
-					   Pload[1], Pload[2],
-					   Pload[3]);
+		Status = XPm_RequestDevice(SubsystemId, Pload[0], Pload[1],
+					   Pload[2], Pload[3], Cmd->IpiReqType);
 		break;
 	case PM_API(PM_RELEASE_NODE):
 		Status = XPm_ReleaseDevice(SubsystemId, Pload[0]);
@@ -972,7 +971,8 @@ XStatus XPm_HookAfterPlmCdo(void)
 	    (((u32)PLATFORM_VERSION_SILICON_ES1 == PlatformVersion) ||
 	     ((u32)PLATFORM_VERSION_SILICON_ES2 == PlatformVersion)))) {
 		Status = XPmDevice_Request(PM_SUBSYS_PMC, PM_DEV_GPIO_PMC,
-					   XPM_MAX_CAPABILITY, XPM_MAX_QOS);
+					   XPM_MAX_CAPABILITY, XPM_MAX_QOS,
+					   XPLMI_CMD_SECURE);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
@@ -1100,7 +1100,8 @@ static XStatus PwrDomainInitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArg
 		 * system may not work properly.
 		 */
 		Status = XPm_RequestDevice(PM_SUBSYS_PMC, NODE_UART,
-					   (u32)PM_CAP_ACCESS, XPM_MAX_QOS, 0);
+					   (u32)PM_CAP_ACCESS, XPM_MAX_QOS, 0,
+					   XPLMI_CMD_SECURE);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
@@ -1111,7 +1112,8 @@ static XStatus PwrDomainInitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArg
 		 * hangs when it tires to communicate through IPI.
 		 */
 		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_IPI_PMC,
-				(u32)PM_CAP_ACCESS, XPM_MAX_QOS, 0);
+					   (u32)PM_CAP_ACCESS, XPM_MAX_QOS, 0,
+					   XPLMI_CMD_SECURE);
 		if (XST_SUCCESS != Status) {
 			PmErr("Error %d in request IPI PMC\r\n", Status);
 		}
@@ -2160,6 +2162,7 @@ done:
  * @param Capabilities		Capability requirements (1-hot)
  * @param QoS			Quality of Service (0-100) required
  * @param Ack			Ack request
+ * @param CmdType		IPI command request type
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -2168,7 +2171,8 @@ done:
  *
  ****************************************************************************/
 XStatus XPm_RequestDevice(const u32 SubsystemId, const u32 DeviceId,
-			  const u32 Capabilities, const u32 QoS, const u32 Ack)
+			  const u32 Capabilities, const u32 QoS, const u32 Ack,
+			  const u32 CmdType)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -2176,7 +2180,7 @@ XStatus XPm_RequestDevice(const u32 SubsystemId, const u32 DeviceId,
 	(void) (Ack);
 
 	Status = XPmDevice_Request(SubsystemId, DeviceId, Capabilities,
-				   QoS);
+				   QoS, CmdType);
 
 	if(Status != XST_SUCCESS) {
 		PmErr("Returned: 0x%x\n\r", Status);
