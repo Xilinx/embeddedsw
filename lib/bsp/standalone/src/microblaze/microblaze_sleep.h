@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,17 @@
 * 4.1   asa  04/18/14 Add sleep function - first release.
 * 6.6   srm  10/18/17 Added the Register offset definitions and Control/Status
 *                     Register bit masks of the Axi timer.
+* 7.5   mus   04/21/21 Microblaze frequency can be changed run time. Sleep routines
+*                      needs to use updated frequency for delay calculation, else
+*                      sleep calls would result into incorrect behavior. Added
+*                      Xil_SetMBFrequency API to write updated frequency value to
+*                      MBFreq variable, and updated ITERS_PER_SEC macro to read
+*                      frequency value from MBFreq variable, instead of using XPARS.
+*                      Xil_SetMBFrequency must be called immediately after change
+*                      in Microblaze frequency run time, it would keep sleep
+*                      routines in sync with Microblaze frequency.
+*                      Added Xil_GetMBFrequency to read current Microbalze frequency.
+*                      It fixes CR#1094568.
 *
 * </pre>
 *
@@ -93,6 +104,9 @@ extern "C" {
 
 static void Xil_SleepAxiTimer(u32 delay, u64 frequency);
 static void XTime_StartAxiTimer();
+#else
+u32 Xil_SetMBFrequency(u32 Val);
+u32 Xil_GetMBFrequency();
 #endif
 void MB_Sleep(u32 MilliSeconds) __attribute__((__deprecated__));
 
