@@ -133,6 +133,8 @@
 						sizeof(XLoader_ImageInfo))
 
 /************************** Function Prototypes ******************************/
+static int XLoader_PdiRequestBootDevice(PdiSrc_t DeviceFlags);
+static int XLoader_PdiReleaseBootDevice(PdiSrc_t DeviceFlags);
 static int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr);
 static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal);
 static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr);
@@ -326,6 +328,141 @@ END:
 
 /*****************************************************************************/
 /**
+ * @brief	This function requests the boot device in secure mode so that
+ * it can access the PDI data
+ *
+ * @param	DeviceFlags is boot device
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XLoader_PdiRequestBootDevice(PdiSrc_t DeviceFlags)
+{
+	int Status = XST_FAILURE;
+	u32 CapSecureAccess = (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE;
+
+	switch (DeviceFlags) {
+	case XLOADER_PDI_SRC_QSPI24:
+	case XLOADER_PDI_SRC_QSPI32:
+		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_QSPI,
+					   CapSecureAccess, XPM_DEF_QOS,
+					   0U, XPLMI_CMD_SECURE);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_QSPI, Status);
+			goto END;
+		}
+		break;
+	case XLOADER_PDI_SRC_SD0:
+	case XLOADER_PDI_SRC_SD0_RAW:
+	case XLOADER_PDI_SRC_EMMC0:
+	case XLOADER_PDI_SRC_EMMC0_RAW:
+		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_0,
+					   CapSecureAccess, XPM_DEF_QOS,
+					   0U, XPLMI_CMD_SECURE);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_SDIO_0, Status);
+			goto END;
+		}
+		break;
+	case XLOADER_PDI_SRC_SD1:
+	case XLOADER_PDI_SRC_EMMC:
+	case XLOADER_PDI_SRC_SD1_LS:
+	case XLOADER_PDI_SRC_SD1_RAW:
+	case XLOADER_PDI_SRC_EMMC_RAW:
+	case XLOADER_PDI_SRC_EMMC_RAW_BP1:
+	case XLOADER_PDI_SRC_EMMC_RAW_BP2:
+	case XLOADER_PDI_SRC_SD1_LS_RAW:
+		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_1,
+					   CapSecureAccess, XPM_DEF_QOS,
+					   0U, XPLMI_CMD_SECURE);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_SDIO_1, Status);
+			goto END;
+		}
+		break;
+	case XLOADER_PDI_SRC_USB:
+		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_USB_0,
+					   CapSecureAccess, XPM_DEF_QOS,
+					   0U, XPLMI_CMD_SECURE);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_USB_0, Status);
+			goto END;
+		}
+		break;
+	case XLOADER_PDI_SRC_OSPI:
+		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_OSPI,
+					   CapSecureAccess, XPM_DEF_QOS,
+					   0U, XPLMI_CMD_SECURE);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_OSPI, Status);
+			goto END;
+		}
+		break;
+	default:
+		Status = XST_SUCCESS;
+		break;
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function releases the boot device so that others can use
+ * it post boot
+ *
+ * @param	DeviceFlags is boot device
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XLoader_PdiReleaseBootDevice(PdiSrc_t DeviceFlags)
+{
+	int Status = XST_FAILURE;
+
+	switch (DeviceFlags) {
+	case XLOADER_PDI_SRC_QSPI24:
+	case XLOADER_PDI_SRC_QSPI32:
+		Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_QSPI,
+					   XPLMI_CMD_SECURE);
+		break;
+	case XLOADER_PDI_SRC_SD0:
+	case XLOADER_PDI_SRC_SD0_RAW:
+	case XLOADER_PDI_SRC_EMMC0:
+	case XLOADER_PDI_SRC_EMMC0_RAW:
+		Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_0,
+					   XPLMI_CMD_SECURE);
+		break;
+	case XLOADER_PDI_SRC_SD1:
+	case XLOADER_PDI_SRC_EMMC:
+	case XLOADER_PDI_SRC_SD1_LS:
+	case XLOADER_PDI_SRC_SD1_RAW:
+	case XLOADER_PDI_SRC_EMMC_RAW:
+	case XLOADER_PDI_SRC_EMMC_RAW_BP1:
+	case XLOADER_PDI_SRC_EMMC_RAW_BP2:
+	case XLOADER_PDI_SRC_SD1_LS_RAW:
+		Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_1,
+					   XPLMI_CMD_SECURE);
+		break;
+	case XLOADER_PDI_SRC_USB:
+		Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_USB_0,
+					   XPLMI_CMD_SECURE);
+		break;
+	case XLOADER_PDI_SRC_OSPI:
+		Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_OSPI,
+					   XPLMI_CMD_SECURE);
+		break;
+	default:
+		Status = XST_SUCCESS;
+		break;
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
  * @brief	This function initializes the PDI instance with required details
  * and read the meta header.
  *
@@ -415,6 +552,18 @@ static int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 	if ((PdiPtr->SlrType == XLOADER_SSIT_MASTER_SLR) ||
 		(PdiPtr->SlrType == XLOADER_SSIT_MONOLITIC)) {
 		XPlmi_Printf(DEBUG_GENERAL, "Monolithic/Master Device\n\r");
+
+		/*
+		 * This is to ensure that boot device the requested in secure mode
+		 * after cold boot scenarios where boot device may be left in
+		 * non-secure mode.
+		 */
+		Status = XLoader_PdiRequestBootDevice((PdiSrc_t)DeviceFlags);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_REQUEST_BOOT_DEVICE, Status);
+			goto END;
+		}
+
 		Status = DeviceOps[DeviceFlags].Init(PdiPtr->PdiSrc);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -913,6 +1062,8 @@ END:
 int XLoader_LoadPdi(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 {
 	int Status = XST_FAILURE;
+	int SStatus = XST_FAILURE;
+	PdiSrc_t DeviceFlags = PdiSrc & XLOADER_PDISRC_FLAGS_MASK;
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
 
@@ -926,6 +1077,11 @@ int XLoader_LoadPdi(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 	}
 
 END:
+	SStatus = XLoader_PdiReleaseBootDevice(DeviceFlags);
+	if ((Status == XST_SUCCESS) && (SStatus != XST_SUCCESS)) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_RELEASE_BOOT_DEVICE, SStatus);
+	}
+
 	/* Reset the SBI/DMA to clear the buffers */
 	if ((PdiSrc == XLOADER_PDI_SRC_JTAG) ||
 			(PdiSrc == XLOADER_PDI_SRC_SBI)) {
@@ -1682,7 +1838,6 @@ static int XLoader_ReloadImage(XilPdi *PdiPtr, u32 ImageId, const u32 *FuncID)
 	u32 DeviceFlags = UPdiSrc & XLOADER_PDISRC_FLAGS_MASK;
 	u32 PrtnNum = 0U;
 	u32 Index = 0U;
-	u32 CapSecureAccess = (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE;
 
 	XPlmi_SetPlmMode(XPLMI_MODE_CONFIGURATION);
 
@@ -1728,60 +1883,9 @@ static int XLoader_ReloadImage(XilPdi *PdiPtr, u32 ImageId, const u32 *FuncID)
 	 * This is for libpm to do the clock settings reqired for boot device
 	 * to resume post suspension.
 	 */
-	switch((PdiSrc_t)DeviceFlags)
-	{
-		case XLOADER_PDI_SRC_QSPI24:
-		case XLOADER_PDI_SRC_QSPI32:
-			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_QSPI,
-				CapSecureAccess, XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
-			if (Status != XST_SUCCESS) {
-				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_QSPI, 0);
-				goto END;
-			}
-			break;
-		case XLOADER_PDI_SRC_SD0:
-		case XLOADER_PDI_SRC_SD0_RAW:
-			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_0,
-				CapSecureAccess, XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
-			if (Status != XST_SUCCESS) {
-				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_SDIO_0, 0);
-				goto END;
-			}
-			break;
-		case XLOADER_PDI_SRC_SD1:
-		case XLOADER_PDI_SRC_EMMC:
-		case XLOADER_PDI_SRC_SD1_LS:
-		case XLOADER_PDI_SRC_SD1_RAW:
-		case XLOADER_PDI_SRC_EMMC_RAW:
-		case XLOADER_PDI_SRC_EMMC_RAW_BP1:
-		case XLOADER_PDI_SRC_EMMC_RAW_BP2:
-		case XLOADER_PDI_SRC_SD1_LS_RAW:
-			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_1,
-				CapSecureAccess, XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
-			if (Status != XST_SUCCESS) {
-				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_SDIO_1, 0);
-				goto END;
-			}
-			break;
-		case XLOADER_PDI_SRC_USB:
-			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_USB_0,
-				CapSecureAccess, XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
-			if (Status != XST_SUCCESS) {
-				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_USB_0, 0);
-				goto END;
-			}
-			break;
-		case XLOADER_PDI_SRC_OSPI:
-			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_OSPI,
-				CapSecureAccess, XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
-			if (Status != XST_SUCCESS) {
-				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_OSPI, 0);
-				goto END;
-			}
-			break;
-		default:
-			Status = XST_SUCCESS;
-			break;
+	Status = XLoader_PdiRequestBootDevice((PdiSrc_t)DeviceFlags);
+	if (Status != XST_SUCCESS) {
+		goto END;
 	}
 
 	if (DeviceOps[DeviceFlags].Init != NULL) {
@@ -1806,41 +1910,7 @@ static int XLoader_ReloadImage(XilPdi *PdiPtr, u32 ImageId, const u32 *FuncID)
 	}
 
 END:
-	switch((PdiSrc_t)DeviceFlags)
-	{
-		case XLOADER_PDI_SRC_QSPI24:
-		case XLOADER_PDI_SRC_QSPI32:
-			SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_QSPI,
-						    XPLMI_CMD_SECURE);
-			break;
-		case XLOADER_PDI_SRC_SD0:
-		case XLOADER_PDI_SRC_SD0_RAW:
-			SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_0,
-						    XPLMI_CMD_SECURE);
-			break;
-		case XLOADER_PDI_SRC_SD1:
-		case XLOADER_PDI_SRC_EMMC:
-		case XLOADER_PDI_SRC_SD1_LS:
-		case XLOADER_PDI_SRC_SD1_RAW:
-		case XLOADER_PDI_SRC_EMMC_RAW:
-		case XLOADER_PDI_SRC_EMMC_RAW_BP1:
-		case XLOADER_PDI_SRC_EMMC_RAW_BP2:
-		case XLOADER_PDI_SRC_SD1_LS_RAW:
-			SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_1,
-						    XPLMI_CMD_SECURE);
-			break;
-		case XLOADER_PDI_SRC_USB:
-			SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_USB_0,
-						    XPLMI_CMD_SECURE);
-			break;
-		case XLOADER_PDI_SRC_OSPI:
-			SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_OSPI,
-						    XPLMI_CMD_SECURE);
-			break;
-		default:
-			SStatus = XST_SUCCESS;
-			break;
-	}
+	SStatus = XLoader_PdiReleaseBootDevice((PdiSrc_t)DeviceFlags);
 	if ((Status == XST_SUCCESS) && (SStatus != XST_SUCCESS)) {
 		Status = SStatus;
 	}
