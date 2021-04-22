@@ -3,6 +3,7 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#include "xplmi.h"
 #include "xpm_defs.h"
 #include "xpm_common.h"
 #include "xpm_node.h"
@@ -1465,7 +1466,8 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			/* Request AIE device once AIE initialization is done. */
 			Status = XPmDevice_Request(PM_SUBSYS_PMC, PM_DEV_AIE,
 						   XPM_MAX_CAPABILITY,
-						   XPM_MAX_QOS);
+						   XPM_MAX_QOS,
+						   XPLMI_CMD_SECURE);
 			if (XST_SUCCESS != Status) {
 				DbgErr = XPM_INT_ERR_REQ_ME_DEVICE;
 				break;

@@ -1,7 +1,8 @@
 /******************************************************************************
-* Copyright (c) 2020-2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+#include "xplmi.h"
 #include "xpm_pldevice.h"
 #include "xpm_debug.h"
 #include "xpm_defs.h"
@@ -471,8 +472,8 @@ static XStatus PlInitStart(XPm_PlDevice *PlDevice, u32 *Args, u32 NumArgs)
 	 */
 	if ((u8)XPM_DEVSTATE_UNUSED == PlDevice->Device.Node.State) {
 		Status = XPmDevice_Request(PM_SUBSYS_PMC, PlDevice->Device.Node.Id,
-						   (u32)PM_CAP_ACCESS,
-						   XPM_MAX_QOS);
+					   (u32)PM_CAP_ACCESS, XPM_MAX_QOS,
+					   XPLMI_CMD_SECURE);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_DEVICE_REQUEST;
 			goto done;

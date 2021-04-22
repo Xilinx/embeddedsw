@@ -799,7 +799,8 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 	return Status;
 }
 
-static XStatus CheckSecurityAccess(const XPm_Requirement *Reqm, u32 ReqCaps)
+static XStatus CheckSecurityAccess(const XPm_Requirement *Reqm, u32 ReqCaps,
+				   u32 CmdType)
 {
 	XStatus Status = XST_SUCCESS;
 
@@ -807,7 +808,7 @@ static XStatus CheckSecurityAccess(const XPm_Requirement *Reqm, u32 ReqCaps)
 	 * Check if requirement policy allows non-secure master and
 	 * non-secure master can only make device to non-secure
 	 */
-	if ((XST_SUCCESS != XPm_IsSecureAllowed(Reqm->Subsystem->Id)) &&
+	if ((XPLMI_CMD_SECURE != CmdType) &&
 	    (((u16)REQ_ACCESS_SECURE == SECURITY_POLICY(Reqm->Flags)) ||
 	     (0U != (ReqCaps & (u32)(PM_CAP_SECURE))))) {
 		Status = XPM_PM_NO_ACCESS;
@@ -1131,7 +1132,7 @@ done:
 }
 
 static XStatus Request(XPm_Device *Device, XPm_Subsystem *Subsystem,
-		       u32 Capabilities, const u32 QoS)
+		       u32 Capabilities, u32 QoS, u32 CmdType)
 {
 	XStatus Status = XPM_ERR_DEVICE_REQ;
 	XPm_Requirement *Reqm = NULL;
@@ -1152,7 +1153,7 @@ static XStatus Request(XPm_Device *Device, XPm_Subsystem *Subsystem,
 		goto done;
 	}
 
-	Status = CheckSecurityAccess(Reqm, Capabilities);
+	Status = CheckSecurityAccess(Reqm, Capabilities, CmdType);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -1289,7 +1290,7 @@ static XStatus Release(XPm_Device *Device, XPm_Subsystem *Subsystem)
 	}
 	Reqm = Device->PendingReqm;
 
-	Status = CheckSecurityAccess(Reqm, 0U);
+	Status = CheckSecurityAccess(Reqm, 0U, 0U);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -1818,10 +1819,8 @@ done:
 	return Device;
 }
 
-XStatus XPmDevice_Request(const u32 SubsystemId,
-			const u32 DeviceId,
-			const u32 Capabilities,
-			const u32 QoS)
+XStatus XPmDevice_Request(const u32 SubsystemId, const u32 DeviceId,
+			  const u32 Capabilities, const u32 QoS, const u32 CmdType)
 {
 	XStatus Status = XPM_ERR_DEVICE_REQ;
 	XPm_Device *Device;
@@ -1850,7 +1849,7 @@ XStatus XPmDevice_Request(const u32 SubsystemId,
 	}
 
 	Status = Device->DeviceOps->Request(Device, Subsystem, Capabilities,
-					    QoS);
+					    QoS, CmdType);
 	if (XST_SUCCESS == Status) {
 		/**
 		 * More than one IPI channels can be associated with a subsystem;

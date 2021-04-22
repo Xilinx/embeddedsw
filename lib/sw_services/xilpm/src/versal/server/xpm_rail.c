@@ -1,9 +1,10 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 #include "sleep.h"
+#include "xplmi.h"
 #include "xpm_common.h"
 #include "xpm_rail.h"
 #include "xpm_powerdomain.h"
@@ -59,7 +60,8 @@ static XStatus I2CInitialize(XIicPs *Iic)
 
 	/* Request the PMC_I2C device */
 	Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_I2C_PMC,
-					 (u32)PM_CAP_ACCESS, XPM_MAX_QOS, 0);
+				   (u32)PM_CAP_ACCESS, XPM_MAX_QOS, 0,
+				   XPLMI_CMD_SECURE);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
