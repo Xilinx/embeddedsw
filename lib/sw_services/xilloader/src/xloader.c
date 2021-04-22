@@ -92,6 +92,8 @@
 *       har  03/31/2021 Added code to update PDI ID in RTC area of PMC RAM
 *       bl   04/01/2021 Add extra arg for calls to XPm_RequestWakeUp
 *       bm   04/14/2021 Update UID logic for AIE Image IDs
+*       rp   04/20/2021 Add extra arg for calls to XPm_RequestDevice and
+*			XPm_ReleaseDevice
 *
 * </pre>
 *
@@ -684,14 +686,14 @@ END:
 int XLoader_DdrOps(u8 Type) {
 	int Status = XST_FAILURE;
 	static u8 DdrRequested = XLOADER_DDR_NOT_REQUESTED;
-	u32 CapAccess = (u32)PM_CAP_ACCESS;
+	u32 CapSecureAccess = (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE;
 	u32 CapContext = (u32)PM_CAP_CONTEXT;
 
 	if ((DdrRequested == XLOADER_DDR_NOT_REQUESTED) &&
 		((Type == XLOADER_REQUEST_DDR) ||
 		(Type == XLOADER_HOLD_DDR))) {
 		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_DDR_0,
-				CapAccess | CapContext, XPM_DEF_QOS, 0U,
+				(CapSecureAccess | CapContext), XPM_DEF_QOS, 0U,
 				XPLMI_CMD_SECURE);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_DDR_0, 0);
@@ -1680,7 +1682,7 @@ static int XLoader_ReloadImage(XilPdi *PdiPtr, u32 ImageId, const u32 *FuncID)
 	u32 DeviceFlags = UPdiSrc & XLOADER_PDISRC_FLAGS_MASK;
 	u32 PrtnNum = 0U;
 	u32 Index = 0U;
-	u32 CapAccess = (u32)PM_CAP_ACCESS;
+	u32 CapSecureAccess = (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE;
 
 	XPlmi_SetPlmMode(XPLMI_MODE_CONFIGURATION);
 
@@ -1731,7 +1733,7 @@ static int XLoader_ReloadImage(XilPdi *PdiPtr, u32 ImageId, const u32 *FuncID)
 		case XLOADER_PDI_SRC_QSPI24:
 		case XLOADER_PDI_SRC_QSPI32:
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_QSPI,
-				CapAccess, XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
+				CapSecureAccess, XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_QSPI, 0);
 				goto END;
@@ -1740,7 +1742,7 @@ static int XLoader_ReloadImage(XilPdi *PdiPtr, u32 ImageId, const u32 *FuncID)
 		case XLOADER_PDI_SRC_SD0:
 		case XLOADER_PDI_SRC_SD0_RAW:
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_0,
-				CapAccess, XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
+				CapSecureAccess, XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_SDIO_0, 0);
 				goto END;
@@ -1755,7 +1757,7 @@ static int XLoader_ReloadImage(XilPdi *PdiPtr, u32 ImageId, const u32 *FuncID)
 		case XLOADER_PDI_SRC_EMMC_RAW_BP2:
 		case XLOADER_PDI_SRC_SD1_LS_RAW:
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_1,
-				CapAccess, XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
+				CapSecureAccess, XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_SDIO_1, 0);
 				goto END;
@@ -1763,7 +1765,7 @@ static int XLoader_ReloadImage(XilPdi *PdiPtr, u32 ImageId, const u32 *FuncID)
 			break;
 		case XLOADER_PDI_SRC_USB:
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_USB_0,
-				CapAccess, XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
+				CapSecureAccess, XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_USB_0, 0);
 				goto END;
@@ -1771,7 +1773,7 @@ static int XLoader_ReloadImage(XilPdi *PdiPtr, u32 ImageId, const u32 *FuncID)
 			break;
 		case XLOADER_PDI_SRC_OSPI:
 			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_OSPI,
-				CapAccess, XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
+				CapSecureAccess, XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_OSPI, 0);
 				goto END;
