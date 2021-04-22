@@ -53,6 +53,7 @@
 * 1.0   dc     03/08/21 Initial version
 *       dc     04/06/21 Register with full node name
 *       dc     04/10/21 Set sequence length only once
+*       dc     04/21/21 Update due to restructured registers
 *
 * </pre>
 *
@@ -202,6 +203,7 @@ typedef struct {
  */
 typedef struct {
 	XDfePrach_CCSequence Sequence;
+	bool EnableStaticSchedule;
 } XDfePrach_Init;
 
 /**
@@ -326,12 +328,6 @@ typedef struct {
  * Static Schedule for a RACH Channel.
  */
 typedef struct {
-	u32 ScheduleMode; /**< [0,1] Indicate that this channel should use
-		static scheduling:
-			1: Use Static scheduling - enables all other registers
-				in this structure
-			0: Disable Static Scheduling - All Registers in this
-				structure are ignored */
 	u32 PatternPeriod; /**< [1-256] Duration, in Frames, of the repeating
 		pattern of enables */
 	u32 FrameID; /**< [0-255] First frame within the pattern period which
@@ -438,13 +434,14 @@ typedef struct {
 typedef struct {
 	u32 DeviceId; /**< The component instance Id */
 	metal_phys_addr_t BaseAddr; /**< Instance base address */
-	u32 NumAntenna; /**< [1-8] */
-	u32 NumCCPerAntenna; /**< [1-8] */
-	u32 NumAntennaChannels; /**< [1-4] */
-	u32 NumAntennaSlot; /**< [1-8] */
-	u32 NumRachLanes; /**< [1-2] */
-	u32 HasAxisCtrl; /**< [0,1] */
-	u32 HasIrq; /**< [0,1] */
+	u32 NumAntenna; /**< [1-8] CORE.MODEL_PARAM.NUM_ANTENNA */
+	u32 NumCCPerAntenna; /**< [1-8] CORE.MODEL_PARAM.NUM_CC_PER_ANTENNA */
+	u32 NumAntennaChannels; /**< [1-4] CORE.MODEL_PARAM.NUM_SLOT_CHANNELS */
+	u32 NumAntennaSlot; /**< [1-8] CORE.MODEL_PARAM.NUM_SLOTS */
+	u32 NumRachLanes; /**< [1-2] CORE.MODEL_PARAM.NUM_RACH_LANES */
+	u32 NumRachChannels; /**< [1-16] CORE.MODEL_PARAM.NUM_RACH_CHANNELS */
+	u32 HasAxisCtrl; /**< [0,1] CORE.MODEL_PARAM.HAS_AXIS_CTRL */
+	u32 HasIrq; /**< [0,1] CORE.MODEL_PARAM.HAS_IRQ */
 } XDfePrach_Config;
 
 /**

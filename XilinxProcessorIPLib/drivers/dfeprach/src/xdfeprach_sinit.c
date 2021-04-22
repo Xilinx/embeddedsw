@@ -21,6 +21,7 @@
 * 1.0   dc     03/08/21 Initial release
 *       dc     04/06/21 Register with full node name
 *       dc     04/07/21 Fix bare metal initialisation
+*       dc     04/21/21 Update due to restructured registers
 *
 * </pre>
 *
@@ -59,6 +60,7 @@
 #define XDFEPRACH_NUM_SLOT_CHANNELS_CFG "xlnx,num-slot-channels"
 #define XDFEPRACH_NUM_SLOTS_CFG "xlnx,num-slots"
 #define XDFEPRACH_NUM_RACH_LINES_CFG "xlnx,num-rach-lanes"
+#define XDFEPRACH_NUM_RACH_CHANNELS_CFG "xlnx,num-rach-channels"
 #define XDFEPRACH_HAS_AXIS_CTRL_CFG "xlnx,has-axis-ctrl"
 #define XDFEPRACH_HAS_IRQ_CFG "xlnx,has-irq"
 #define XDFEPRACH_WORD_SIZE 4U
@@ -324,6 +326,13 @@ s32 XDfePrach_LookupConfig(XDfePrach *InstancePtr)
 	InstancePtr->Config.NumRachLanes = ntohl(d);
 
 	if (XST_SUCCESS != metal_linux_get_device_property(
+				   Dev, Name = XDFEPRACH_NUM_RACH_CHANNELS_CFG,
+				   &d, XDFEPRACH_WORD_SIZE)) {
+		goto end_failure;
+	}
+	InstancePtr->Config.NumRachChannels = ntohl(d);
+
+	if (XST_SUCCESS != metal_linux_get_device_property(
 				   Dev, Name = XDFEPRACH_HAS_AXIS_CTRL_CFG, &d,
 				   XDFEPRACH_WORD_SIZE)) {
 		goto end_failure;
@@ -361,6 +370,7 @@ end_failure:
 		ConfigTable->NumAntennaChannels;
 	InstancePtr->Config.NumAntennaSlot = ConfigTable->NumAntennaSlot;
 	InstancePtr->Config.NumRachLanes = ConfigTable->NumRachLanes;
+	InstancePtr->Config.NumRachChannels = ConfigTable->NumRachChannels;
 	InstancePtr->Config.HasAxisCtrl = ConfigTable->HasAxisCtrl;
 	InstancePtr->Config.HasIrq = ConfigTable->HasIrq;
 
