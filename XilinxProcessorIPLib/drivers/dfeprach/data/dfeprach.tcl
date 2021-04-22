@@ -7,12 +7,14 @@
 # Ver      Who    Date     Changes
 # -------- ------ -------- ----------------------------------------------------
 # 1.0      dc     03/08/21 Initial Version.
+#          dc     04/21/21 Update due to restructured registers
+#
 ###############################################################################
 
 proc generate {drv_handle} {
-    prach_define_include_file $drv_handle "xparameters.h" "XDfePrach" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_NUM_ANTENNA" "C_NUM_CC_PER_ANTENNA" "C_NUM_SLOT_CHANNELS" "C_NUM_SLOTS" "C_NUM_RACH_LANES" "C_HAS_AXIS_CTRL" "C_HAS_IRQ"
-    ::hsi::utils::define_config_file $drv_handle "xdfeprach_g.c" "XDfePrach" "DEVICE_ID" "C_BASEADDR" "C_NUM_ANTENNA" "C_NUM_CC_PER_ANTENNA" "C_NUM_SLOT_CHANNELS" "C_NUM_SLOTS" "C_NUM_RACH_LANES" "C_HAS_AXIS_CTRL" "C_HAS_IRQ"
-    prach_define_canonical_xpars $drv_handle "xparameters.h" "XDfePrach" "DEVICE_ID" "C_BASEADDR" "C_NUM_ANTENNA" "C_NUM_CC_PER_ANTENNA" "C_NUM_SLOT_CHANNELS" "C_NUM_SLOTS" "C_NUM_RACH_LANES" "C_HAS_AXIS_CTRL" "C_HAS_IRQ"
+    prach_define_include_file $drv_handle "xparameters.h" "XDfePrach" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_NUM_ANTENNA" "C_NUM_CC_PER_ANTENNA" "C_NUM_SLOT_CHANNELS" "C_NUM_SLOTS" "C_NUM_RACH_LANES" "C_NUM_RACH_CHANNELS" "C_HAS_AXIS_CTRL" "C_HAS_IRQ"
+    ::hsi::utils::define_config_file $drv_handle "xdfeprach_g.c" "XDfePrach" "DEVICE_ID" "C_BASEADDR" "C_NUM_ANTENNA" "C_NUM_CC_PER_ANTENNA" "C_NUM_SLOT_CHANNELS" "C_NUM_SLOTS" "C_NUM_RACH_LANES" "C_NUM_RACH_CHANNELS" "C_HAS_AXIS_CTRL" "C_HAS_IRQ"
+    prach_define_canonical_xpars $drv_handle "xparameters.h" "XDfePrach" "DEVICE_ID" "C_BASEADDR" "C_NUM_ANTENNA" "C_NUM_CC_PER_ANTENNA" "C_NUM_SLOT_CHANNELS" "C_NUM_SLOTS" "C_NUM_RACH_LANES" "C_NUM_RACH_CHANNELS" "C_HAS_AXIS_CTRL" "C_HAS_IRQ"
 }
 
 proc prach_define_include_file {drv_handle file_name drv_string args} {
