@@ -30,6 +30,17 @@
 * 7.5   dp   01/05/21 Updated COUNTS_PER_U/MSECOND, ITERS_PER_M/USEC macros to
 *                     round it off to nearest possible value so that delta error
 *                     in time calculations can be minimized.
+* 7.5   mus   04/21/21 Microblaze frequency can be changed run time. Sleep routines
+*                      needs to use updated frequency for delay calculation, else
+*                      sleep calls would result into incorrect behavior. Added
+*                      Xil_SetMBFrequency API to write updated frequency value to
+*                      MBFreq variable, and updated ITERS_PER_SEC macro to read
+*                      frequency value from MBFreq variable, instead of using XPARS.
+*                      Xil_SetMBFrequency must be called immediately after change
+*                      in Microblaze frequency run time, it would keep sleep
+*                      routines in sync with Microblaze frequency.
+*                      Added Xil_GetMBFrequency to read current Microbalze frequency.
+*                      It fixes CR#1094568.
 *
 * </pre>
 *
@@ -52,13 +63,55 @@
 #define COUNTS_PER_USECOND ((COUNTS_PER_SECOND + 500000)/ 1000000)
 #warning "May wait for more than the specified delay"
 #elif defined (XSLEEP_TIMER_IS_DEFAULT_TIMER) || defined (FREERTOS_BSP)
-#define ITERS_PER_SEC	(XPAR_CPU_CORE_CLOCK_FREQ_HZ / 4)
+#define ITERS_PER_SEC	(Xil_GetMBFrequency() / 4)
 #define ITERS_PER_MSEC	((ITERS_PER_SEC + 500) / 1000)
 #define ITERS_PER_USEC	((ITERS_PER_MSEC + 500) / 1000)
 #pragma message ("For the sleep routines, assembly instructions are used")
 #endif
+/***************** Variable Definitions *********************/
+#if defined (XSLEEP_TIMER_IS_DEFAULT_TIMER) || defined (FREERTOS_BSP)
+/**
+ * This variable stores current value of Microblaze frequency.
+ * It would be used by sleep routines to generate delay.
+ */
+static u32 MBFreq = XPAR_CPU_CORE_CLOCK_FREQ_HZ;
+#endif
+
+/*****************************************************************************/
 
 #if defined (XSLEEP_TIMER_IS_DEFAULT_TIMER) || defined (FREERTOS_BSP)
+/*****************************************************************************/
+/**
+* @brief	Sets variable which stores Microblaze frequency value
+* @param	Val - Frequency value to be set
+* @return	XST_SUCCESS - If frequency updated successfully
+* 			XST_INVALID_PARAM - If specified frequency value is not valid
+*
+* @note		It must be called after runtime change in Microblaze frequency,
+* 			failing to do so would result in to incorrect behavior of sleep
+* 			routines
+*
+******************************************************************************/
+u32 Xil_SetMBFrequency(u32 Val)
+{
+	if ( Val != 0) {
+		MBFreq = Val;
+		return XST_SUCCESS;
+	}
+	return XST_INVALID_PARAM;
+}
+
+/*****************************************************************************/
+/**
+* @brief	Returns current Microblaze frequency value
+* @return	MBFreq - Current Microblaze frequency value
+*
+******************************************************************************/
+u32 Xil_GetMBFrequency()
+{
+	return MBFreq;
+}
+
 static void sleep_common(u32 n, u32 iters)
 {
 	asm volatile (
