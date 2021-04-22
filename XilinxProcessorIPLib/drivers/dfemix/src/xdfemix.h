@@ -62,6 +62,7 @@
 *       dc     04/06/21 Register with full node name
 *       dc     04/08/21 Set sequence length only once
 *       dc     04/20/21 Doxygen documentation update
+*       dc     04/22/21 Add CC_GAIN field
 *
 * </pre>
 *
@@ -254,7 +255,7 @@ typedef struct {
  * Defines settings for single CC's DUC/DDC.
  */
 typedef struct {
-	u32 NCO; /**< [0-4] DUC/DDC NCO assignment */
+	u32 NCO; /**< [0-7] DUC/DDC NCO assignment */
 	u32 Rate; /**< [0-5].Interpolation/decimation rate:
 			0: Disabled
 			1: 1x interpolation/decimation
@@ -262,6 +263,12 @@ typedef struct {
 			3: 4x interpolation/decimation
 			4: 8x interpolation/decimation
 			5: 16x interpolation/decimation */
+	u32 CCGain; /**< [0-3] Adjust gain of CCID after mixing (applies to all
+			 antennas for that CCID). Only applicable to downlink.
+				0 = MINUS18DB: Apply -18dB gain.
+				1 = MINUS12DB: Apply -12dB gain.
+				2 = MINUS6DB: Apply -6dB gain.
+				3 = ZERODB: Apply -0dB gain. */
 } XDfeMix_DUCDDCCfg;
 
 /**

@@ -28,6 +28,7 @@
 *       dc     04/14/21 Add FIR_ENABLE/MIXER_ENABLE register support
 *       dc     04/18/21 Update trigger and event handlers
 *       dc     04/20/21 Doxygen documentation update
+*       dc     04/22/21 Add CC_GAIN field
 *
 * </pre>
 *
@@ -467,6 +468,10 @@ static void XDfeMix_GetCurrentCCCfg(XDfeMix *InstancePtr,
 		CurrCCCfg->DUCDDCCfg[Index].Rate =
 			XDfeMix_RdBitField(XDFEMIX_CC_CONFIG_RATE_WIDTH,
 					   XDFEMIX_CC_CONFIG_RATE_OFFSET, Data);
+		CurrCCCfg->DUCDDCCfg[Index].CCGain =
+			XDfeMix_RdBitField(XDFEMIX_CC_CONFIG_CC_GAIN_WIDTH,
+					   XDFEMIX_CC_CONFIG_CC_GAIN_OFFSET,
+					   Data);
 	}
 
 	/* Read Antenna configuration */
@@ -533,6 +538,11 @@ static void XDfeMix_SetNextCCCfg(const XDfeMix *InstancePtr,
 					   XDFEMIX_CC_CONFIG_RATE_OFFSET,
 					   DucDdcConfig,
 					   NextCCCfg->DUCDDCCfg[Index].Rate);
+		DucDdcConfig =
+			XDfeMix_WrBitField(XDFEMIX_CC_CONFIG_CC_GAIN_WIDTH,
+					   XDFEMIX_CC_CONFIG_CC_GAIN_OFFSET,
+					   DucDdcConfig,
+					   NextCCCfg->DUCDDCCfg[Index].CCGain);
 		XDfeMix_WriteReg(InstancePtr,
 				 XDFEMIX_CC_CONFIG_NEXT +
 					 ((Index * sizeof(u32))),
