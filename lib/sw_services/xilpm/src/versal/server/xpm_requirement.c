@@ -3,7 +3,7 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-
+#include "xplmi.h"
 #include "xplmi_util.h"
 #include "xpm_requirement.h"
 #include "xpm_power.h"
@@ -90,7 +90,8 @@ XStatus XPmRequirement_Release(XPm_Requirement *Reqm, XPm_ReleaseScope Scope)
 	XPm_Requirement *NextReqm = NULL;
 
 	if (RELEASE_ONE == Scope) {
-		Status = XPmDevice_Release(Reqm->Subsystem->Id, Reqm->Device->Node.Id);
+		Status = XPmDevice_Release(Reqm->Subsystem->Id, Reqm->Device->Node.Id,
+					   XPLMI_CMD_SECURE);
 		goto done;
 	}
 
@@ -114,7 +115,8 @@ XStatus XPmRequirement_Release(XPm_Requirement *Reqm, XPm_ReleaseScope Scope)
 		if ((((RELEASE_ALL == Scope) && (1U == Reqm->Allocated)) ||
 		     ((RELEASE_UNREQUESTED == Scope) && (0U == Reqm->Allocated))) &&
 		     ((u32)XPM_NODETYPE_DEV_DDR != NODETYPE(Reqm->Device->Node.Id))) {
-			Status = XPmDevice_Release(Reqm->Subsystem->Id, Reqm->Device->Node.Id);
+			Status = XPmDevice_Release(Reqm->Subsystem->Id, Reqm->Device->Node.Id,
+						   XPLMI_CMD_SECURE);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}

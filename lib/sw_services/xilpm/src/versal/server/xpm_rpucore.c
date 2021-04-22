@@ -175,7 +175,8 @@ void XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode)
 						PM_SUBSYS_DEFAULT);
 				if (XST_SUCCESS == Status) {
 					Status = XPmDevice_Release(PM_SUBSYS_DEFAULT,
-								PM_DEV_RPU0_1);
+								   PM_DEV_RPU0_1,
+								   XPLMI_CMD_SECURE);
 					if (XST_SUCCESS != Status) {
 						PmErr("Unable to release RPU 1 Core\n\r");
 					}
