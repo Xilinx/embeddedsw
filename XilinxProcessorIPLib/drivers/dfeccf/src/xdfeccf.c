@@ -28,6 +28,7 @@
 *       dc     04/08/21 Set sequence length only once
 *       dc     04/18/21 Update trigger and event handlers
 *       dc     04/20/21 Doxygen documentation update
+*       dc     04/22/21 Add write MappedId field
 *
 * </pre>
 *
@@ -466,6 +467,10 @@ static void XDfeCcf_SetNextCCCfg(const XDfeCcf *InstancePtr,
 					   XDFECCF_FLUSH_OFFSET, CarrierCfg,
 					   NextCCCfg->CarrierCfg[Index].Flush);
 		CarrierCfg =
+			XDfeCcf_WrBitField(XDFECCF_MAPPED_ID_WIDTH,
+					   XDFECCF_MAPPED_ID_OFFSET, CarrierCfg,
+					   NextCCCfg->CarrierCfg[Index].MappedId);
+		CarrierCfg =
 			XDfeCcf_WrBitField(XDFECCF_GAIN_WIDTH,
 					   XDFECCF_GAIN_OFFSET, CarrierCfg,
 					   NextCCCfg->CarrierCfg[Index].Gain);
@@ -505,7 +510,6 @@ static void XDfeCcf_SetNextCCCfg(const XDfeCcf *InstancePtr,
 static u32 XDfeCcf_NextMappedId(const XDfeCcf *InstancePtr,
 				const XDfeCcf_CCCfg *CCCfg, u32 *ID)
 {
-	XDfeCcf_ModelParameters ModelParams;
 	u32 Used[XDFECCF_CC_NUM];
 	u32 Val;
 	u32 Index;
@@ -519,20 +523,7 @@ static u32 XDfeCcf_NextMappedId(const XDfeCcf *InstancePtr,
 	   level and map to them to the available hardware IDs. The available
 	   hardware IDs are contrained based IP parameters and are required to
 	   be enumerated from 0. */
-	/* Read IP parameters to determine the maximum number of actual IDs
-	   that can be supported by the hardware. */
-	Val = XDfeCcf_ReadReg(InstancePtr, XDFECCF_MODEL_PARAM_OFFSET);
-	ModelParams.NumAntenna =
-		XDfeCcf_RdBitField(XDFECCF_MODEL_PARAM_NUM_ANTENNA_WIDTH,
-				   XDFECCF_MODEL_PARAM_NUM_ANTENNA_OFFSET, Val);
-	ModelParams.NumCCPerAntenna = XDfeCcf_RdBitField(
-		XDFECCF_MODEL_PARAM_NUM_CC_PER_ANTENNA_WIDTH,
-		XDFECCF_MODEL_PARAM_NUM_CC_PER_ANTENNA_OFFSET, Val);
-	ModelParams.AntenaInterleave = XDfeCcf_RdBitField(
-		XDFECCF_MODEL_PARAM_ANTENNA_INTERLEAVE_WIDTH,
-		XDFECCF_MODEL_PARAM_ANTENNA_INTERLEAVE_OFFSET, Val);
-
-	for (Index = 0U; Index < ModelParams.NumCCPerAntenna; Index++) {
+	for (Index = 0U; Index < InstancePtr->Config.NumCCPerAntenna; Index++) {
 		Used[Index] = 0U;
 	}
 	for (Index = 0U; Index < CCCfg->Sequence.Length; Index++) {
@@ -543,7 +534,7 @@ static u32 XDfeCcf_NextMappedId(const XDfeCcf *InstancePtr,
 		Val = CCCfg->Sequence.CCID[Index];
 		if (0U != CCCfg->CarrierCfg[Val].Enable) {
 			if (CCCfg->CarrierCfg[Val].MappedId <
-			    ModelParams.NumCCPerAntenna) {
+			    InstancePtr->Config.NumCCPerAntenna) {
 				Used[CCCfg->CarrierCfg[Val].MappedId] = 1U;
 			} else {
 				metal_log(METAL_LOG_ERROR,
@@ -556,7 +547,7 @@ static u32 XDfeCcf_NextMappedId(const XDfeCcf *InstancePtr,
 		}
 	}
 	/* Return first available ID */
-	for (Index = 0U; Index < ModelParams.NumCCPerAntenna; Index++) {
+	for (Index = 0U; Index < InstancePtr->Config.NumCCPerAntenna; Index++) {
 		if (0U == Used[Index]) {
 			*ID = Index;
 			return XST_SUCCESS;
