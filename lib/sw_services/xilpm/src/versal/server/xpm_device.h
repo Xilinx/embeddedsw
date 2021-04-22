@@ -72,8 +72,8 @@ struct XPm_DeviceOps {
 		u32 Capabilities, const u32 QoS);
 		/**< SetRequirement: Set the device requirement */
 
-	XStatus (*Release)(XPm_Device *Device,
-		XPm_Subsystem *Subsystem);
+	XStatus (*Release)(XPm_Device *Device, XPm_Subsystem *Subsystem,
+			   u32 CmdType);
 		/**< Release: Release the device */
 };
 
@@ -167,7 +167,8 @@ XStatus XPmDevice_Request(const u32 SubsystemId, const u32 DeviceId,
 			  const u32 Capabilities, const u32 QoS,
 			  const u32 CmdType);
 
-XStatus XPmDevice_Release(const u32 SubsystemId, const u32 DeviceId);
+XStatus XPmDevice_Release(const u32 SubsystemId, const u32 DeviceId,
+			  const u32 CmdType);
 
 XStatus XPmDevice_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
 				 const u32 Capabilities, const u32 QoS);

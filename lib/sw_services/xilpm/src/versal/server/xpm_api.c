@@ -560,7 +560,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 					   Pload[2], Pload[3], Cmd->IpiReqType);
 		break;
 	case PM_API(PM_RELEASE_NODE):
-		Status = XPm_ReleaseDevice(SubsystemId, Pload[0]);
+		Status = XPm_ReleaseDevice(SubsystemId, Pload[0], Cmd->IpiReqType);
 		break;
 	case PM_API(PM_SET_REQUIREMENT):
 		Status = XPm_SetRequirement(SubsystemId, Pload[0], Pload[1], Pload[2], Pload[3]);
@@ -2197,6 +2197,7 @@ XStatus XPm_RequestDevice(const u32 SubsystemId, const u32 DeviceId,
  *
  * @param SubsystemId	Subsystem ID
  * @param  DeviceId	ID of the device.
+ * @param CmdType	IPI command request type
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -2204,7 +2205,8 @@ XStatus XPm_RequestDevice(const u32 SubsystemId, const u32 DeviceId,
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_ReleaseDevice(const u32 SubsystemId, const u32 DeviceId)
+XStatus XPm_ReleaseDevice(const u32 SubsystemId, const u32 DeviceId,
+			  const u32 CmdType)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem* Subsystem = NULL;
@@ -2228,7 +2230,7 @@ XStatus XPm_ReleaseDevice(const u32 SubsystemId, const u32 DeviceId)
 		goto done;
 	}
 
-	Status = XPmDevice_Release(SubsystemId, DeviceId);
+	Status = XPmDevice_Release(SubsystemId, DeviceId, CmdType);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}

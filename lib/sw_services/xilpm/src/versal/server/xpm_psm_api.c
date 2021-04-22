@@ -3,11 +3,12 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-
+#include "sleep.h"
+#include "xplmi.h"
+#include "xplmi_modules.h"
 #include "xpm_defs.h"
 #include "xpm_psm_api.h"
 #include "xpm_psm.h"
-#include "xplmi_modules.h"
 #include "xpm_common.h"
 #include "xpm_core.h"
 #include "xpm_device.h"
@@ -15,8 +16,6 @@
 #include "xpm_regs.h"
 #include "xpm_subsystem.h"
 #include "xpm_requirement.h"
-#include "sleep.h"
-#include "xplmi.h"
 
 static XPlmi_ModuleCmd XPlmi_PsmCmds[PSM_API_MAX+1];
 static XPlmi_Module XPlmi_Psm =
@@ -270,13 +269,15 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 		    (0U == PsmPggs0Val) && (0U == PsmPggs1Val) &&
 		    (((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(DeviceId)) ||
 		     ((u32)XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(DeviceId)))) {
-			Status = XPmDevice_Release(PM_SUBSYS_PMC, PM_DEV_IPI_PMC);
+			Status = XPmDevice_Release(PM_SUBSYS_PMC, PM_DEV_IPI_PMC,
+						   XPLMI_CMD_SECURE);
 			if (XST_SUCCESS != Status) {
 				PmErr("Error %d in  XPmDevice_Release(PM_SUBSYS_PMC, PM_DEV_IPI_PMC)\r\n");
 				goto done;
 			}
 #ifdef DEBUG_UART_PS
-			Status = XPmDevice_Release(PM_SUBSYS_PMC, NODE_UART);
+			Status = XPmDevice_Release(PM_SUBSYS_PMC, NODE_UART,
+						   XPLMI_CMD_SECURE);
 			if (XST_SUCCESS != Status) {
 				PmErr("PMC Error %d in  XPmDevice_Release(PM_SUBSYS_DEFAULT, PM_DEV_UART_0)\r\n");
 				goto done;
@@ -292,7 +293,8 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 				}
 			}
 
-			Status = XPmDevice_Release(PM_SUBSYS_PMC, PM_DEV_PSM_PROC);
+			Status = XPmDevice_Release(PM_SUBSYS_PMC, PM_DEV_PSM_PROC,
+						   XPLMI_CMD_SECURE);
 			if (XST_SUCCESS != Status) {
 				PmErr("Error %d in  XPmDevice_Release(PM_SUBSYS_DEFAULT, PM_DEV_PSM_PROC)\r\n");
 				goto done;
