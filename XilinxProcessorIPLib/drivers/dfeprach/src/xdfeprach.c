@@ -22,6 +22,7 @@
 *       dc     04/07/21 Fix bare metal initialisation
 *       dc     04/10/21 Set sequence length only once
 *       dc     04/18/21 Update trigger and event handlers
+*       dc     04/21/21 Update due to restructured registers
 *
 * </pre>
 *
@@ -726,8 +727,8 @@ static void XDfePrach_AddRC(const XDfePrach *InstancePtr, u32 RCId,
 	/* Adding a new channel - always restart it */
 	XDfePrach_AddRCRestart(InstancePtr, 1U, RCCfg);
 	/* Enable the RC */
-	XDfePrach_AddRCEnable(InstancePtr, XDFEPRACH_RCID_CHANNEL_ENABLED,
-			      RCCfg);
+	XDfePrach_AddRCEnable(InstancePtr,
+			      XDFEPRACH_RCID_MAPPING_CHANNEL_ENABLED, RCCfg);
 }
 
 /****************************************************************************/
@@ -750,8 +751,8 @@ static void XDfePrach_RemoveOneRC(const XDfePrach *InstancePtr,
 	Xil_AssertVoid(RCCfg != NULL);
 
 	/* Simplest method is to mark the RCID enable as 0. Disable the RC. */
-	XDfePrach_AddRCEnable(InstancePtr, XDFEPRACH_RCID_CHANNEL_NOT_ENABLED,
-			      RCCfg);
+	XDfePrach_AddRCEnable(
+		InstancePtr, XDFEPRACH_RCID_MAPPING_CHANNEL_NOT_ENABLED, RCCfg);
 }
 
 /****************************************************************************/
@@ -785,24 +786,24 @@ static void XDfePrach_SetRC(const XDfePrach *InstancePtr,
 	}
 
 	/* Write the mapping register */
-	Data = XDfePrach_WrBitField(XDFEPRACH_RCID_MAPPING_ENABLE_WIDTH,
-				    XDFEPRACH_RCID_MAPPING_ENABLE_OFFSET, 0U,
-				    RCCfg->Enable);
-	Data = XDfePrach_WrBitField(XDFEPRACH_RCID_MAPPING_CCID_WIDTH,
-				    XDFEPRACH_RCID_MAPPING_CCID_OFFSET, Data,
-				    RCCfg->CCID);
-	Data = XDfePrach_WrBitField(XDFEPRACH_RCID_MAPPING_RACH_CHANNEL_WIDTH,
-				    XDFEPRACH_RCID_MAPPING_RACH_CHANNEL_OFFSET,
-				    Data, RCCfg->RachChannel);
-	Data = XDfePrach_WrBitField(XDFEPRACH_RCID_MAPPING_RCID_RESTART_WIDTH,
-				    XDFEPRACH_RCID_MAPPING_RCID_RESTART_OFFSET,
-				    Data, RCCfg->Restart);
 	Data = XDfePrach_WrBitField(
-		XDFEPRACH_RCID_MAPPING_STATIC_SCHEDULE_WIDTH,
-		XDFEPRACH_RCID_MAPPING_STATIC_SCHEDULE_OFFSET, Data,
-		RCCfg->StaticSchedule.ScheduleMode);
-	Offset = XDFEPRACH_RCID_MAPPING_NEXT + (RCCfg->RCId * sizeof(u32));
+		XDFEPRACH_RCID_MAPPING_CHANNEL_ENABLE_WIDTH,
+		XDFEPRACH_RCID_MAPPING_CHANNEL_ENABLE_OFFSET, 0U,
+		RCCfg->Enable);
+	Data = XDfePrach_WrBitField(
+		XDFEPRACH_RCID_MAPPING_CHANNEL_RACH_CHANNEL_WIDTH,
+		XDFEPRACH_RCID_MAPPING_CHANNEL_RACH_CHANNEL_OFFSET, Data,
+		RCCfg->RachChannel);
+	Data = XDfePrach_WrBitField(
+		XDFEPRACH_RCID_MAPPING_CHANNEL_RCID_RESTART_WIDTH,
+		XDFEPRACH_RCID_MAPPING_CHANNEL_RCID_RESTART_OFFSET, Data,
+		RCCfg->Restart);
+	Offset = XDFEPRACH_RCID_MAPPING_CHANNEL_NEXT +
+		 (RCCfg->RCId * sizeof(u32));
 	XDfePrach_WriteReg(InstancePtr, Offset, Data);
+
+	XDfePrach_WriteReg(InstancePtr, XDFEPRACH_RCID_MAPPING_SOURCE_NEXT,
+			   RCCfg->CCID);
 }
 
 /****************************************************************************/
@@ -829,13 +830,14 @@ static void XDfePrach_GetRCEnable(const XDfePrach *InstancePtr, bool Next,
 	Xil_AssertVoid(Enable != NULL);
 
 	if (Next == true) {
-		Offset = XDFEPRACH_RCID_MAPPING_NEXT;
+		Offset = XDFEPRACH_RCID_MAPPING_CHANNEL_NEXT;
 	} else {
-		Offset = XDFEPRACH_RCID_MAPPING_CURRENT;
+		Offset = XDFEPRACH_RCID_MAPPING_CHANNEL_CURRENT;
 	}
-	*Enable = XDfePrach_RdRegBitField(InstancePtr, Offset * sizeof(u32),
-					  XDFEPRACH_RCID_MAPPING_ENABLE_WIDTH,
-					  XDFEPRACH_RCID_MAPPING_ENABLE_OFFSET);
+	*Enable = XDfePrach_RdRegBitField(
+		InstancePtr, Offset * sizeof(u32),
+		XDFEPRACH_RCID_MAPPING_CHANNEL_ENABLE_WIDTH,
+		XDFEPRACH_RCID_MAPPING_CHANNEL_ENABLE_OFFSET);
 }
 
 /****************************************************************************/
@@ -885,14 +887,14 @@ static void XDfePrach_GetRCRestart(const XDfePrach *InstancePtr, bool Next,
 	Xil_AssertVoid(Restart != NULL);
 
 	if (Next == true) {
-		Offset = XDFEPRACH_RCID_MAPPING_NEXT;
+		Offset = XDFEPRACH_RCID_MAPPING_CHANNEL_NEXT;
 	} else {
-		Offset = XDFEPRACH_RCID_MAPPING_CURRENT;
+		Offset = XDFEPRACH_RCID_MAPPING_CHANNEL_CURRENT;
 	}
 	*Restart = XDfePrach_RdRegBitField(
 		InstancePtr, Offset + (RCId * sizeof(u32)),
-		XDFEPRACH_RCID_MAPPING_RCID_RESTART_WIDTH,
-		XDFEPRACH_RCID_MAPPING_RCID_RESTART_OFFSET);
+		XDFEPRACH_RCID_MAPPING_CHANNEL_RCID_RESTART_WIDTH,
+		XDFEPRACH_RCID_MAPPING_CHANNEL_RCID_RESTART_OFFSET);
 }
 
 /****************************************************************************/
@@ -942,14 +944,14 @@ static void XDfePrach_GetRachChannel(const XDfePrach *InstancePtr, bool Next,
 	Xil_AssertVoid(RachChan != NULL);
 
 	if (Next == true) {
-		Offset = XDFEPRACH_RCID_MAPPING_NEXT;
+		Offset = XDFEPRACH_RCID_MAPPING_CHANNEL_NEXT;
 	} else {
-		Offset = XDFEPRACH_RCID_MAPPING_CURRENT;
+		Offset = XDFEPRACH_RCID_MAPPING_CHANNEL_CURRENT;
 	}
 	*RachChan = XDfePrach_RdRegBitField(
 		InstancePtr, Offset + (RCId * sizeof(u32)),
-		XDFEPRACH_RCID_MAPPING_RACH_CHANNEL_WIDTH,
-		XDFEPRACH_RCID_MAPPING_RACH_CHANNEL_OFFSET);
+		XDFEPRACH_RCID_MAPPING_CHANNEL_RACH_CHANNEL_WIDTH,
+		XDFEPRACH_RCID_MAPPING_CHANNEL_RACH_CHANNEL_OFFSET);
 }
 
 /****************************************************************************/
@@ -999,14 +1001,14 @@ static void XDfePrach_GetRC_CCID(const XDfePrach *InstancePtr, bool Next,
 	Xil_AssertVoid(CCID != NULL);
 
 	if (Next == true) {
-		Offset = XDFEPRACH_RCID_MAPPING_NEXT;
+		Offset = XDFEPRACH_RCID_MAPPING_SOURCE_NEXT;
 	} else {
-		Offset = XDFEPRACH_RCID_MAPPING_CURRENT;
+		Offset = XDFEPRACH_RCID_MAPPING_SOURCE_CURRENT;
 	}
-	*CCID = XDfePrach_RdRegBitField(InstancePtr,
-					Offset + (RCId * sizeof(u32)),
-					XDFEPRACH_RCID_MAPPING_CCID_WIDTH,
-					XDFEPRACH_RCID_MAPPING_CCID_OFFSET);
+	*CCID = XDfePrach_RdRegBitField(
+		InstancePtr, Offset + (RCId * sizeof(u32)),
+		XDFEPRACH_RCID_MAPPING_SOURCE_CCID_WIDTH,
+		XDFEPRACH_RCID_MAPPING_SOURCE_CCID_OFFSET);
 }
 
 /****************************************************************************/
@@ -1176,33 +1178,34 @@ static void XDfePrach_GetDDC(const XDfePrach *InstancePtr, u32 RachChan,
 	Xil_AssertVoid(RachChan < XDFEPRACH_RC_NUM_MAX);
 	Xil_AssertVoid(DdcCfg != NULL);
 
-	Offset = XDFEPRACH_CHANNEL_CONFIG + (RachChan * sizeof(u32));
+	Offset = XDFEPRACH_CHANNEL_CONFIG_RATE + (RachChan * sizeof(u32));
 	Data = XDfePrach_ReadReg(InstancePtr, Offset);
 
 	DdcCfg->DecimationRate = XDfePrach_RdBitField(
-		XDFEPRACH_CHANNEL_CONFIG_DECIMATION_RATE_WIDTH,
-		XDFEPRACH_CHANNEL_CONFIG_DECIMATION_RATE_OFFSET, Data);
+		XDFEPRACH_CHANNEL_CONFIG_RATE_DECIMATION_RATE_WIDTH,
+		XDFEPRACH_CHANNEL_CONFIG_RATE_DECIMATION_RATE_OFFSET, Data);
 	DdcCfg->SCS =
-		XDfePrach_RdBitField(XDFEPRACH_CHANNEL_CONFIG_SCS_WIDTH,
-				     XDFEPRACH_CHANNEL_CONFIG_SCS_OFFSET, Data);
+		XDfePrach_RdBitField(XDFEPRACH_CHANNEL_CONFIG_RATE_SCS_WIDTH,
+				     XDFEPRACH_CHANNEL_CONFIG_RATE_SCS_OFFSET,
+				     Data);
 	DdcCfg->RachGain[0] = XDfePrach_RdBitField(
-		XDFEPRACH_CHANNEL_CONFIG_DECIMATION_GAIN0_WIDTH,
-		XDFEPRACH_CHANNEL_CONFIG_DECIMATION_GAIN0_OFFSET, Data);
+		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN0_WIDTH,
+		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN0_OFFSET, Data);
 	DdcCfg->RachGain[1] = XDfePrach_RdBitField(
-		XDFEPRACH_CHANNEL_CONFIG_DECIMATION_GAIN1_WIDTH,
-		XDFEPRACH_CHANNEL_CONFIG_DECIMATION_GAIN1_OFFSET, Data);
+		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN1_WIDTH,
+		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN1_OFFSET, Data);
 	DdcCfg->RachGain[2] = XDfePrach_RdBitField(
-		XDFEPRACH_CHANNEL_CONFIG_DECIMATION_GAIN2_WIDTH,
-		XDFEPRACH_CHANNEL_CONFIG_DECIMATION_GAIN2_OFFSET, Data);
+		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN2_WIDTH,
+		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN2_OFFSET, Data);
 	DdcCfg->RachGain[3] = XDfePrach_RdBitField(
-		XDFEPRACH_CHANNEL_CONFIG_DECIMATION_GAIN3_WIDTH,
-		XDFEPRACH_CHANNEL_CONFIG_DECIMATION_GAIN3_OFFSET, Data);
+		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN3_WIDTH,
+		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN3_OFFSET, Data);
 	DdcCfg->RachGain[4] = XDfePrach_RdBitField(
-		XDFEPRACH_CHANNEL_CONFIG_DECIMATION_GAIN4_WIDTH,
-		XDFEPRACH_CHANNEL_CONFIG_DECIMATION_GAIN4_OFFSET, Data);
+		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN4_WIDTH,
+		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN4_OFFSET, Data);
 	DdcCfg->RachGain[5] = XDfePrach_RdBitField(
-		XDFEPRACH_CHANNEL_CONFIG_DECIMATION_GAIN5_WIDTH,
-		XDFEPRACH_CHANNEL_CONFIG_DECIMATION_GAIN5_OFFSET, Data);
+		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN5_WIDTH,
+		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN5_OFFSET, Data);
 }
 
 /****************************************************************************/
@@ -1259,38 +1262,39 @@ static void XDfePrach_SetDDC(const XDfePrach *InstancePtr,
 	Xil_AssertVoid(RCCfg != NULL);
 
 	/* Set RACH_MIXER.CHANNEL[RCCfg->RachChan].CONFIG */
-	Data = XDfePrach_WrBitField(XDFEPRACH_CHANNEL_CONFIG_SCS_WIDTH,
-				    XDFEPRACH_CHANNEL_CONFIG_SCS_OFFSET, 0U,
-				    RCCfg->DdcCfg.SCS);
+	Data = XDfePrach_WrBitField(XDFEPRACH_CHANNEL_CONFIG_RATE_SCS_WIDTH,
+				    XDFEPRACH_CHANNEL_CONFIG_RATE_SCS_OFFSET,
+				    0U, RCCfg->DdcCfg.SCS);
 	Data = XDfePrach_WrBitField(
-		XDFEPRACH_CHANNEL_CONFIG_DECIMATION_RATE_WIDTH,
-		XDFEPRACH_CHANNEL_CONFIG_DECIMATION_RATE_OFFSET, Data,
+		XDFEPRACH_CHANNEL_CONFIG_RATE_DECIMATION_RATE_WIDTH,
+		XDFEPRACH_CHANNEL_CONFIG_RATE_DECIMATION_RATE_OFFSET, Data,
 		RCCfg->DdcCfg.DecimationRate);
 	Data = XDfePrach_WrBitField(
-		XDFEPRACH_CHANNEL_CONFIG_DECIMATION_GAIN0_WIDTH,
-		XDFEPRACH_CHANNEL_CONFIG_DECIMATION_GAIN0_OFFSET, Data,
+		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN0_WIDTH,
+		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN0_OFFSET, Data,
 		RCCfg->DdcCfg.RachGain[0]);
 	Data = XDfePrach_WrBitField(
-		XDFEPRACH_CHANNEL_CONFIG_DECIMATION_GAIN1_WIDTH,
-		XDFEPRACH_CHANNEL_CONFIG_DECIMATION_GAIN1_OFFSET, Data,
+		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN1_WIDTH,
+		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN1_OFFSET, Data,
 		RCCfg->DdcCfg.RachGain[1]);
 	Data = XDfePrach_WrBitField(
-		XDFEPRACH_CHANNEL_CONFIG_DECIMATION_GAIN2_WIDTH,
-		XDFEPRACH_CHANNEL_CONFIG_DECIMATION_GAIN2_OFFSET, Data,
+		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN2_WIDTH,
+		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN2_OFFSET, Data,
 		RCCfg->DdcCfg.RachGain[2]);
 	Data = XDfePrach_WrBitField(
-		XDFEPRACH_CHANNEL_CONFIG_DECIMATION_GAIN3_WIDTH,
-		XDFEPRACH_CHANNEL_CONFIG_DECIMATION_GAIN3_OFFSET, Data,
+		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN3_WIDTH,
+		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN3_OFFSET, Data,
 		RCCfg->DdcCfg.RachGain[3]);
 	Data = XDfePrach_WrBitField(
-		XDFEPRACH_CHANNEL_CONFIG_DECIMATION_GAIN4_WIDTH,
-		XDFEPRACH_CHANNEL_CONFIG_DECIMATION_GAIN4_OFFSET, Data,
+		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN4_WIDTH,
+		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN4_OFFSET, Data,
 		RCCfg->DdcCfg.RachGain[4]);
 	Data = XDfePrach_WrBitField(
-		XDFEPRACH_CHANNEL_CONFIG_DECIMATION_GAIN5_WIDTH,
-		XDFEPRACH_CHANNEL_CONFIG_DECIMATION_GAIN5_OFFSET, Data,
+		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN5_WIDTH,
+		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN5_OFFSET, Data,
 		RCCfg->DdcCfg.RachGain[5]);
-	Offset = XDFEPRACH_CHANNEL_CONFIG + (RCCfg->RachChannel * sizeof(u32));
+	Offset = XDFEPRACH_CHANNEL_CONFIG_RATE +
+		 (RCCfg->RachChannel * sizeof(u32));
 	XDfePrach_WriteReg(InstancePtr, Offset, Data);
 }
 
@@ -1313,7 +1317,6 @@ static void XDfePrach_GetSchedule(const XDfePrach *InstancePtr, bool Next,
 				  u32 RCId, XDfePrach_Schedule *Schedule)
 {
 	u32 Offset;
-	u32 Data1;
 	u32 Data2;
 	u32 Data3;
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -1321,8 +1324,6 @@ static void XDfePrach_GetSchedule(const XDfePrach *InstancePtr, bool Next,
 	Xil_AssertVoid(Schedule != NULL);
 
 	if (Next == true) {
-		Offset = XDFEPRACH_RCID_MAPPING_NEXT + (RCId * sizeof(u32));
-		Data1 = XDfePrach_ReadReg(InstancePtr, Offset);
 		Offset = XDFEPRACH_RCID_SCHEDULE_LOCATION_NEXT +
 			 (RCId * sizeof(u32));
 		Data2 = XDfePrach_ReadReg(InstancePtr, Offset);
@@ -1330,8 +1331,6 @@ static void XDfePrach_GetSchedule(const XDfePrach *InstancePtr, bool Next,
 			 (RCId * sizeof(u32));
 		Data3 = XDfePrach_ReadReg(InstancePtr, Offset);
 	} else {
-		Offset = XDFEPRACH_RCID_MAPPING_CURRENT + (RCId * sizeof(u32));
-		Data1 = XDfePrach_ReadReg(InstancePtr, Offset);
 		Offset = XDFEPRACH_RCID_SCHEDULE_LOCATION_CURRENT +
 			 (RCId * sizeof(u32));
 		Data2 = XDfePrach_ReadReg(InstancePtr, Offset);
@@ -1339,11 +1338,6 @@ static void XDfePrach_GetSchedule(const XDfePrach *InstancePtr, bool Next,
 			 (RCId * sizeof(u32));
 		Data3 = XDfePrach_ReadReg(InstancePtr, Offset);
 	}
-
-	/* Read RCID_MAPPING.LOCATION.STATIC_SCHEDULE */
-	Schedule->ScheduleMode = XDfePrach_RdBitField(
-		XDFEPRACH_RCID_MAPPING_STATIC_SCHEDULE_WIDTH,
-		XDFEPRACH_RCID_MAPPING_STATIC_SCHEDULE_OFFSET, Data1);
 
 	/* Read RCID_SCHEDULE.LOCATION */
 	Schedule->PatternPeriod = XDfePrach_RdBitField(
@@ -1360,14 +1354,12 @@ static void XDfePrach_GetSchedule(const XDfePrach *InstancePtr, bool Next,
 		XDFEPRACH_RCID_SCHEDULE_LOCATION_SLOT_ID_OFFSET, Data2);
 
 	/* Read RCID_SCHEDULE.LENGTH */
-	Schedule->Duration =
-		XDfePrach_RdBitField(XDFEPRACH_RCID_SCHEDULE_DURATION_WIDTH,
-				     XDFEPRACH_RCID_SCHEDULE_DURATION_OFFSET,
-				     Data3);
-	Schedule->Repeats =
-		XDfePrach_RdBitField(XDFEPRACH_RCID_SCHEDULE_NUM_REPEATS_WIDTH,
-				     XDFEPRACH_RCID_SCHEDULE_NUM_REPEATS_OFFSET,
-				     Data3);
+	Schedule->Duration = XDfePrach_RdBitField(
+		XDFEPRACH_RCID_SCHEDULE_LENGTH_DURATION_WIDTH,
+		XDFEPRACH_RCID_SCHEDULE_LENGTH_DURATION_OFFSET, Data3);
+	Schedule->Repeats = XDfePrach_RdBitField(
+		XDFEPRACH_RCID_SCHEDULE_LENGTH_NUM_REPEATS_WIDTH,
+		XDFEPRACH_RCID_SCHEDULE_LENGTH_NUM_REPEATS_OFFSET, Data3);
 }
 
 /****************************************************************************/
@@ -1392,7 +1384,6 @@ static void XDfePrach_AddSchedule(const XDfePrach *InstancePtr,
 	Xil_AssertVoid(RCCfg != NULL);
 	Xil_AssertVoid(Schedule != NULL);
 
-	RCCfg->StaticSchedule.ScheduleMode = Schedule->ScheduleMode;
 	RCCfg->StaticSchedule.PatternPeriod = Schedule->PatternPeriod;
 	RCCfg->StaticSchedule.FrameID = Schedule->FrameID;
 	RCCfg->StaticSchedule.SubframeID = Schedule->SubframeID;
@@ -1444,12 +1435,14 @@ static void XDfePrach_SetSchedule(const XDfePrach *InstancePtr,
 	XDfePrach_WriteReg(InstancePtr, Offset, Data);
 
 	/* Set RCID_SCHEDULE.LENGTH */
-	Data = XDfePrach_WrBitField(XDFEPRACH_RCID_SCHEDULE_DURATION_WIDTH,
-				    XDFEPRACH_RCID_SCHEDULE_DURATION_OFFSET, 0U,
-				    RCCfg->StaticSchedule.Duration);
-	Data = XDfePrach_WrBitField(XDFEPRACH_RCID_SCHEDULE_NUM_REPEATS_WIDTH,
-				    XDFEPRACH_RCID_SCHEDULE_NUM_REPEATS_OFFSET,
-				    Data, RCCfg->StaticSchedule.Repeats);
+	Data = XDfePrach_WrBitField(
+		XDFEPRACH_RCID_SCHEDULE_LENGTH_DURATION_WIDTH,
+		XDFEPRACH_RCID_SCHEDULE_LENGTH_DURATION_OFFSET, 0U,
+		RCCfg->StaticSchedule.Duration);
+	Data = XDfePrach_WrBitField(
+		XDFEPRACH_RCID_SCHEDULE_LENGTH_NUM_REPEATS_WIDTH,
+		XDFEPRACH_RCID_SCHEDULE_LENGTH_NUM_REPEATS_OFFSET, Data,
+		RCCfg->StaticSchedule.Repeats);
 	Offset = XDFEPRACH_RCID_SCHEDULE_LENGTH_NEXT +
 		 (RCCfg->RCId * sizeof(u32));
 	XDfePrach_WriteReg(InstancePtr, Offset, Data);
@@ -1912,6 +1905,9 @@ void XDfePrach_Configure(XDfePrach *InstancePtr, XDfePrach_Cfg *Cfg)
 	InstancePtr->Config.NumRachLanes = XDfePrach_RdBitField(
 		XDFEPRACH_MODEL_PARAM_NUM_RACH_LANES_WIDTH,
 		XDFEPRACH_MODEL_PARAM_NUM_RACH_LANES_OFFSET, ModelParam);
+	InstancePtr->Config.NumRachChannels = XDfePrach_RdBitField(
+		XDFEPRACH_MODEL_PARAM_NUM_RACH_CHANNELS_WIDTH,
+		XDFEPRACH_MODEL_PARAM_NUM_RACH_CHANNELS_OFFSET, ModelParam);
 	InstancePtr->Config.HasAxisCtrl =
 		XDfePrach_RdBitField(XDFEPRACH_MODEL_PARAM_HAS_AXIS_CTRL_WIDTH,
 				     XDFEPRACH_MODEL_PARAM_HAS_AXIS_CTRL_OFFSET,
@@ -1927,6 +1923,7 @@ void XDfePrach_Configure(XDfePrach *InstancePtr, XDfePrach_Cfg *Cfg)
 		InstancePtr->Config.NumAntennaChannels;
 	Cfg->ModelParams.NumAntennaSlot = InstancePtr->Config.NumAntennaSlot;
 	Cfg->ModelParams.NumRachLanes = InstancePtr->Config.NumRachLanes;
+	Cfg->ModelParams.NumRachChannels = InstancePtr->Config.NumRachChannels;
 	Cfg->ModelParams.HasAxisCtrl = InstancePtr->Config.HasAxisCtrl;
 	Cfg->ModelParams.HasIrq = InstancePtr->Config.HasIrq;
 
@@ -1986,6 +1983,17 @@ void XDfePrach_Initialize(XDfePrach *InstancePtr, XDfePrach_Init *Init)
 					XDFEPRACH_CC_MAPPING_ENABLE_WIDTH,
 					XDFEPRACH_CC_MAPPING_ENABLE_OFFSET,
 					XDFEPRACH_CC_MAPPING_DISABLED);
+	}
+
+	/* Write EnableStaticSchedule to RCID_SCHEDULE.STATIC_SCHEDULE */
+	if (Init->EnableStaticSchedule == true) {
+		XDfePrach_WriteReg(InstancePtr,
+				   XDFEPRACH_RCID_SCHEDULE_STATIC_SCHEDULE,
+				   XDFEPRACH_RCID_SCHEDULE_STATIC_SCHEDULE_ON);
+	} else {
+		XDfePrach_WriteReg(InstancePtr,
+				   XDFEPRACH_RCID_SCHEDULE_STATIC_SCHEDULE,
+				   XDFEPRACH_RCID_SCHEDULE_STATIC_SCHEDULE_OFF);
 	}
 
 	/* Trigger RACH_UPDATE immediately using Register source to update
@@ -2297,7 +2305,8 @@ u32 XDfePrach_AddRCCfg(const XDfePrach *InstancePtr, s32 CCID, u32 RCId,
 
 	/* Check  RachChan" is not in use. */
 	for (Index = 0; Index < XDFEPRACH_RC_NUM_MAX; Index++) {
-		if ((RCCfg[Index].Enable == XDFEPRACH_RCID_CHANNEL_ENABLED) &&
+		if ((RCCfg[Index].Enable ==
+		     XDFEPRACH_RCID_MAPPING_CHANNEL_ENABLED) &&
 		    (RCCfg[Index].RachChannel == RachChan) && (Index != RCId)) {
 			/* Error: a different RCID is using this RachChan. */
 			return XST_FAILURE;
@@ -2397,7 +2406,8 @@ u32 XDfePrach_MoveRC(const XDfePrach *InstancePtr, u32 RCId, u32 ToChannel)
 
 	/* Check  "ToChannel" is not in use. */
 	for (Index = 0; Index < XDFEPRACH_RC_NUM_MAX; Index++) {
-		if ((RCCfg[Index].Enable == XDFEPRACH_RCID_CHANNEL_ENABLED) &&
+		if ((RCCfg[Index].Enable ==
+		     XDFEPRACH_RCID_MAPPING_CHANNEL_ENABLED) &&
 		    (RCCfg[Index].RachChannel == ToChannel)) {
 			/* Error we are trying to load a running channel,
 			   remove it first. */
@@ -2736,8 +2746,8 @@ void XDfePrach_GetStatus(const XDfePrach *InstancePtr, XDfePrach_Status *Status)
 					XDFEPRACH_STATUS_ANTENNA_OFFSET);
 	Status->MixerOverflow.FirstRCIdOverflowing =
 		XDfePrach_RdRegBitField(InstancePtr, Offset,
-					XDFEPRACH_STATUS_RCID_WIDTH,
-					XDFEPRACH_STATUS_RCID_OFFSET);
+					XDFEPRACH_STATUS_CHANNEL_WIDTH,
+					XDFEPRACH_STATUS_CHANNEL_OFFSET);
 
 	/* Decimation Overflow */
 	Offset = XDFEPRACH_ISR;
@@ -2752,8 +2762,8 @@ void XDfePrach_GetStatus(const XDfePrach *InstancePtr, XDfePrach_Status *Status)
 					XDFEPRACH_STATUS_ANTENNA_OFFSET);
 	Status->DecimatorOverflow.FirstRCIdOverflowing =
 		XDfePrach_RdRegBitField(InstancePtr, Offset,
-					XDFEPRACH_STATUS_RCID_WIDTH,
-					XDFEPRACH_STATUS_RCID_OFFSET);
+					XDFEPRACH_STATUS_CHANNEL_WIDTH,
+					XDFEPRACH_STATUS_CHANNEL_OFFSET);
 
 	/* Mixer Overrun */
 	Offset = XDFEPRACH_ISR;
@@ -2768,8 +2778,8 @@ void XDfePrach_GetStatus(const XDfePrach *InstancePtr, XDfePrach_Status *Status)
 					XDFEPRACH_STATUS_ANTENNA_OFFSET);
 	Status->MixerOverrun.FirstRCIdOverruning =
 		XDfePrach_RdRegBitField(InstancePtr, Offset,
-					XDFEPRACH_STATUS_RCID_WIDTH,
-					XDFEPRACH_STATUS_RCID_OFFSET);
+					XDFEPRACH_STATUS_CHANNEL_WIDTH,
+					XDFEPRACH_STATUS_CHANNEL_OFFSET);
 
 	/* Decimation Overrun */
 	Offset = XDFEPRACH_ISR;
@@ -2784,8 +2794,8 @@ void XDfePrach_GetStatus(const XDfePrach *InstancePtr, XDfePrach_Status *Status)
 					XDFEPRACH_STATUS_ANTENNA_OFFSET);
 	Status->DecimatorOverrun.FirstRCIdOverruning =
 		XDfePrach_RdRegBitField(InstancePtr, Offset,
-					XDFEPRACH_STATUS_RCID_WIDTH,
-					XDFEPRACH_STATUS_RCID_OFFSET);
+					XDFEPRACH_STATUS_CHANNEL_WIDTH,
+					XDFEPRACH_STATUS_CHANNEL_OFFSET);
 }
 
 /****************************************************************************/
