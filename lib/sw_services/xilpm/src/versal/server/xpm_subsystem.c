@@ -3,7 +3,7 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-
+#include "xplmi.h"
 #include "xpm_subsystem.h"
 #include "xpm_clock.h"
 #include "xpm_pll.h"
@@ -16,7 +16,6 @@
 #include "xpm_rpucore.h"
 #include "xpm_notifier.h"
 #include "xpm_requirement.h"
-#include "xplmi.h"
 
 XPm_Subsystem *PmSubsystems;
 static u32 MaxSubsysIdx;
@@ -337,7 +336,8 @@ int XPmSubsystem_InitFinalize(const u32 SubsystemId)
 			 * clock and power to be powered down.
 			 */
 			Status = XPmDevice_Request(PM_SUBSYS_PMC, Device->Node.Id,
-						   (u32)PM_CAP_ACCESS, XPM_MAX_QOS);
+						   (u32)PM_CAP_ACCESS, XPM_MAX_QOS,
+						   XPLMI_CMD_SECURE);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
@@ -789,7 +789,8 @@ XStatus XPmSubsystem_Configure(u32 SubsystemId)
 			DeviceId = Reqm->Device->Node.Id;
 			Status = XPm_RequestDevice(SubsystemId, DeviceId,
 						   Reqm->PreallocCaps,
-						   Reqm->PreallocQoS, 0U);
+						   Reqm->PreallocQoS, 0U,
+						   XPLMI_CMD_SECURE);
 			if (XST_SUCCESS != Status) {
 				PmErr("Requesting prealloc device 0x%x failed.\n\r", DeviceId);
 				Status = XPM_ERR_DEVICE_REQ;
