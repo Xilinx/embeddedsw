@@ -1,9 +1,9 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-
+#include "xplmi.h"
 #include "xil_io.h"
 #include "xpm_rpucore.h"
 #include "xpm_regs.h"
@@ -165,7 +165,8 @@ void XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode)
 				Status = XPmDevice_Request(PM_SUBSYS_DEFAULT,
 							   PM_DEV_RPU0_1,
 							   (u32)PM_CAP_ACCESS,
-							   XPM_MAX_QOS);
+							   XPM_MAX_QOS,
+							   XPLMI_CMD_SECURE);
 				if (XST_SUCCESS != Status) {
 					PmErr("Unable to request RPU 1 Core\n\r");
 				}

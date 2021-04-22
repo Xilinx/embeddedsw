@@ -64,7 +64,7 @@ typedef struct XPm_DeviceAttr XPm_DeviceAttr;
 /* Device Operations */
 struct XPm_DeviceOps {
 	XStatus (*Request)(XPm_Device *Device, XPm_Subsystem *Subsystem,
-			   u32 Capabilities, const u32 QoS);
+			   u32 Capabilities, u32 QoS, u32 CmdType);
 		/**< Request: Request the device */
 
 	XStatus (*SetRequirement)(XPm_Device *Device,
@@ -164,7 +164,8 @@ XPm_Device *XPmDevice_GetHbMonDeviceByIndex(const u32 DeviceIndex);
 XStatus XPm_CheckCapabilities(XPm_Device *Device, u32 Caps);
 
 XStatus XPmDevice_Request(const u32 SubsystemId, const u32 DeviceId,
-			  const u32 Capabilities, const u32 QoS);
+			  const u32 Capabilities, const u32 QoS,
+			  const u32 CmdType);
 
 XStatus XPmDevice_Release(const u32 SubsystemId, const u32 DeviceId);
 
