@@ -67,13 +67,6 @@ done:
 	return Status;
 }
 
-XStatus XPm_IsSecureAllowed(const u32 SubsystemId)
-{
-	/* TODO stub. Return XST_SUCCESS if subsystem is allowed to make secure requests */
-	(void)SubsystemId;
-	return XST_FAILURE;
-}
-
 XStatus XPmSubsystem_IsOperationAllowed(const u32 HostId, const u32 TargetId,
 					const u32 Operation, const u32 CmdType)
 {
