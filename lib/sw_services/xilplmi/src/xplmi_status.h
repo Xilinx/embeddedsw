@@ -74,6 +74,7 @@
 *       har  03/17/2021 Updated description for XLOADER_ERR_SECURE_NOT_ALLOWED
 *       bm   04/03/2021 Added error codes for task creation in scheduler
 *       bm   04/10/2021 Added error codes for scheduler updates
+*       rp   04/22/2021 Added error codes for request/release boot device
 * </pre>
 *
 * @note
@@ -485,7 +486,8 @@ typedef enum {
 							to remove does not exist in the PdiList */
 	XLOADER_ERR_RELEASE_PM_DEV_DDR_0,	/**< 0x367 - Failed to XPM Release Device for
 							PM_DEV_DDR_0 */
-
+	XLOADER_ERR_REQUEST_BOOT_DEVICE,	/**< 0x368 - Failed to Request Boot Device */
+	XLOADER_ERR_RELEASE_BOOT_DEVICE,	/**< 0x369 - Failed to Release Boot Device */
 
 	/**< Security Major error codes */
 	XLOADER_ERR_INIT_GET_DMA = 0x600,
