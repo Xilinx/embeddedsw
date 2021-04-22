@@ -70,6 +70,8 @@ u32 _XAie_RscMgr_GetMaxRscVal(XAie_DevInst *DevInst, XAie_RscType RscType,
 void _XAie_RscMgr_GetBitmapOffsets(XAie_DevInst *DevInst, XAie_RscType RscType,
 		XAie_LocType Loc, XAie_ModuleType Mod,
 		XAie_BitmapOffsets *Offsets);
+void _XAie_MarkChannelBitmapAndRscId(XAie_DevInst *DevInst, u32 UserRscNum,
+		XAie_UserRsc *Rscs, u32 ChannelIndex);
 
 /*****************************************************************************/
 /**
