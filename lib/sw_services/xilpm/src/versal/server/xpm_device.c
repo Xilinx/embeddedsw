@@ -1269,7 +1269,7 @@ done:
 	return Status;
 }
 
-static XStatus Release(XPm_Device *Device, XPm_Subsystem *Subsystem)
+static XStatus Release(XPm_Device *Device, XPm_Subsystem *Subsystem, u32 CmdType)
 {
 	XStatus Status = XPM_ERR_DEVICE_RELEASE;
 	XPm_Requirement *Reqm;
@@ -1290,7 +1290,7 @@ static XStatus Release(XPm_Device *Device, XPm_Subsystem *Subsystem)
 	}
 	Reqm = Device->PendingReqm;
 
-	Status = CheckSecurityAccess(Reqm, 0U, 0U);
+	Status = CheckSecurityAccess(Reqm, 0U, CmdType);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -1870,7 +1870,8 @@ done:
 	return Status;
 }
 
-XStatus XPmDevice_Release(const u32 SubsystemId, const u32 DeviceId)
+XStatus XPmDevice_Release(const u32 SubsystemId, const u32 DeviceId,
+			  const u32 CmdType)
 {
 	XStatus Status = XPM_ERR_DEVICE_RELEASE;
 	XPm_Device *Device;
@@ -1889,14 +1890,13 @@ XStatus XPmDevice_Release(const u32 SubsystemId, const u32 DeviceId)
 		goto done;
 	}
 
-
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
 	if (Subsystem == NULL || Subsystem->State == (u8)OFFLINE) {
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
 
-	Status = Device->DeviceOps->Release(Device, Subsystem);
+	Status = Device->DeviceOps->Release(Device, Subsystem, CmdType);
 
 done:
 	if(Status != XST_SUCCESS) {

@@ -701,7 +701,8 @@ int XLoader_DdrOps(u8 Type) {
 	}
 	else if ((DdrRequested == XLOADER_REQUEST_DDR) &&
 		(Type == XLOADER_RELEASE_DDR)) {
-		Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_DDR_0);
+		Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_DDR_0,
+					   XPLMI_CMD_SECURE);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(
 				XLOADER_ERR_RELEASE_PM_DEV_DDR_0, 0);
@@ -1807,11 +1808,13 @@ END:
 	{
 		case XLOADER_PDI_SRC_QSPI24:
 		case XLOADER_PDI_SRC_QSPI32:
-			SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_QSPI);
+			SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_QSPI,
+						    XPLMI_CMD_SECURE);
 			break;
 		case XLOADER_PDI_SRC_SD0:
 		case XLOADER_PDI_SRC_SD0_RAW:
-			SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_0);
+			SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_0,
+						    XPLMI_CMD_SECURE);
 			break;
 		case XLOADER_PDI_SRC_SD1:
 		case XLOADER_PDI_SRC_EMMC:
@@ -1821,13 +1824,16 @@ END:
 		case XLOADER_PDI_SRC_EMMC_RAW_BP1:
 		case XLOADER_PDI_SRC_EMMC_RAW_BP2:
 		case XLOADER_PDI_SRC_SD1_LS_RAW:
-			SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_1);
+			SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_1,
+						    XPLMI_CMD_SECURE);
 			break;
 		case XLOADER_PDI_SRC_USB:
-			SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_USB_0);
+			SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_USB_0,
+						    XPLMI_CMD_SECURE);
 			break;
 		case XLOADER_PDI_SRC_OSPI:
-			SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_OSPI);
+			SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_OSPI,
+						    XPLMI_CMD_SECURE);
 			break;
 		default:
 			SStatus = XST_SUCCESS;
