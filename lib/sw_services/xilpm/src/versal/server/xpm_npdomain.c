@@ -120,7 +120,7 @@ static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 		/* Remove vccaux-soc domain isolation */
 		Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCAUX_SOC, FALSE_VALUE);
 		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_VCCAUX_VCCRAM_ISO;
+			DbgErr = XPM_INT_ERR_VCCAUX_SOC_ISO;
 			goto done;
 		}
 	}

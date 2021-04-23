@@ -731,7 +731,7 @@ XStatus XPm_PowerDwnPLD(XPm_Node *Node)
 	power down */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCAUX_SOC, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_VCCAUX_ISO;
+		DbgErr = XPM_INT_ERR_VCCAUX_SOC_ISO;
 		goto done;
 	}
 
@@ -997,7 +997,7 @@ XStatus XPm_PowerDwnNoC(void)
 	/* Isolate VCCAUX-NoC domain */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCAUX_SOC, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_VCCAUX_ISO;
+		DbgErr = XPM_INT_ERR_VCCAUX_SOC_ISO;
 		goto done;
 	}
 
