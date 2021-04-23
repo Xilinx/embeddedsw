@@ -127,7 +127,7 @@ AieRC XAie_RequestBroadcastChannel(XAie_DevInst *DevInst, u32 *UserRscNum,
 		XAie_UserRsc *Rscs, u8 BroadcastAllFlag)
 {
 	AieRC RC;
-	XAie_BackendTilesRsc TilesRsc;
+	XAie_BackendTilesRsc TilesRsc = {};
 
 	if((DevInst == XAIE_NULL) || (Rscs == NULL) ||
 		(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
@@ -193,7 +193,7 @@ AieRC XAie_RequestSpecificBroadcastChannel(XAie_DevInst *DevInst, u32 BcId,
 		u32 *UserRscNum, XAie_UserRsc *Rscs, u8 BroadcastAllFlag)
 {
 	AieRC RC;
-	XAie_BackendTilesRsc TilesRsc;
+	XAie_BackendTilesRsc TilesRsc = {};
 
 	if((DevInst == XAIE_NULL) || (Rscs == NULL) ||
 		(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
