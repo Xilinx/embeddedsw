@@ -53,6 +53,7 @@ const char *Xbir_HttpNotFoundFooter =
 typedef enum {
 	XBIR_HTTP_GET,
 	XBIR_HTTP_POST,
+	XBIR_HTTP_HEAD,
 	XBIR_HTTP_UNKNOWN
 } Xbir_HttpReqType;
 
@@ -105,6 +106,7 @@ int Xbir_HttpProcessReq (struct tcp_pcb *Tpcb, u8 *HttpReq, u16 HttpReqLen)
 	ReqType = Xbir_HttpDecodeReq((char *)HttpReq, HttpReqLen);
 	switch (ReqType) {
 	case XBIR_HTTP_GET:
+	case XBIR_HTTP_HEAD:
 		Status = Xbir_HttpProcessGetReq(Tpcb, HttpReq, HttpReqLen);
 		break;
 
@@ -264,9 +266,13 @@ static Xbir_HttpReqType Xbir_HttpDecodeReq (char *HttpReq, u16 HttpReqLen)
 	Xbir_HttpReqType ReqType = XBIR_HTTP_UNKNOWN;
 	char *GetReqStr = "GET";
 	char *PostReqStr = "POST";
+	char *HeadReqStr = "HEAD";
 
 	if (strncmp(HttpReq, GetReqStr, strlen(GetReqStr)) == 0) {
 		ReqType = XBIR_HTTP_GET;
+	}
+	else if (strncmp(HttpReq, HeadReqStr, strlen(HeadReqStr)) == 0) {
+		ReqType = XBIR_HTTP_HEAD;
 	}
 	else if (strncmp(HttpReq, PostReqStr, strlen(PostReqStr)) == 0) {
 		ReqType = XBIR_HTTP_POST;
@@ -340,10 +346,11 @@ static int Xbir_HttpProcessPostReq (struct tcp_pcb *Tpcb, u8 *HttpReq,
 		JsonStr = strstr((char *)HttpReq, "\r\n\r\n");
 		if (JsonStr != NULL) {
 			JsonStr += strlen("\r\n\r\n");
-			if (*JsonStr != 0) {
-				Status = Xbir_SsiJsonCfgBootImgStatus(JsonStr,
+			Status = Xbir_SsiJsonCfgBootImgStatus(JsonStr,
 					strlen(JsonStr));
-			}
+		}
+		else {
+			Status = XST_SUCCESS;
 		}
 		Xbir_HttpSendStatus(Tpcb, HttpReq, HttpReqLen, Status);
 	}
