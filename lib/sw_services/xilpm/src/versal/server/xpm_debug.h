@@ -427,8 +427,8 @@ extern "C" {
 #define XPM_INT_ERR_PMC_PL_ISO			0x4200U
 /* Error during PMC-PL test Isolation enable/disable */
 #define XPM_INT_ERR_PMC_PL_TEST_ISO		0x4201U
-/* Error during VCCAUX Isolation enable/disable */
-#define XPM_INT_ERR_VCCAUX_ISO			0x4202U
+/* Error during VCCAUX SOC Isolation enable/disable */
+#define XPM_INT_ERR_VCCAUX_SOC_ISO		0x4202U
 /* Error during PMC rail control */
 #define XPM_INT_ERR_PMC_RAIL_CONTROL		0X4203U
 
