@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -40,6 +40,7 @@ typedef struct {
 	u32 Fsize;		/* File size */
 	u32 PktCount;		/* Packet count */
 	u32 Offset;		/* File offset during file upload */
+	u32 ImgId;		/* Image A /Image B */
 	u32 ContentLen;		/* Content Length of HTTP Req */
 	u32 BoundaryLen;	/* Boundary Len of Boundary in HTTP Req */
 	u8 Boundary[XBIR_HTTP_MAX_BOUNDARY_LEN + 1U]; /* Boundary marker in

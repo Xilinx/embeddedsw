@@ -357,10 +357,8 @@ static int Xbir_HttpProcessPostReq (struct tcp_pcb *Tpcb, u8 *HttpReq,
 		JsonStr = strstr((char *)HttpReq, "\r\n\r\n");
 		if (JsonStr != NULL) {
 			JsonStr += strlen("\r\n\r\n");
-			if (*JsonStr != 0) {
-				Status = Xbir_SsiValidateLastUpdate(JsonStr,
-					strlen(JsonStr));
-			}
+			Status = Xbir_SsiValidateLastUpdate(JsonStr,
+				strlen(JsonStr));
 		}
 		Status = Xbir_HttpSendStatus(Tpcb, HttpReq, HttpReqLen, Status);
 	}
@@ -708,7 +706,7 @@ static int Xbir_HttpProcessGetBootImgStatusReq (struct tcp_pcb *Tpcb,
 	u8 *HttpReq, u16 HttpReqLen)
 {
 	int Status = XST_FAILURE;
-	char Buffer[100U];
+	char Buffer[100U] = {0U};
 
 	Status = Xbir_SsiJsonBuildBootImgStatus(Buffer, 100U);
 	if (Status == XST_SUCCESS) {
