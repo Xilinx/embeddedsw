@@ -1,0 +1,38 @@
+var xvprocss__log_8h =
+[
+    [ "XVPROCSS_EDAT_SUCCESS", "xvprocss__log_8h.html#gabeba7bd429b2f9f668ddf656a0c7ba3f", null ],
+    [ "XVPROCSS_EVT_BUFFSIZE", "xvprocss__log_8h.html#ga463361d1b27cc99ddbad5d50e1385afa", null ],
+    [ "XVPROCSS_LOG_H", "xvprocss__log_8h.html#ga09b5aca39b98e5dd8f5aa4beeaf83fc8", null ],
+    [ "XVprocSs_LogEvent", "xvprocss__log_8h.html#gadda80cee8527fb0dac1e98e657f12cd9", [
+      [ "XVPROCSS_EVT_NONE", "xvprocss__log_8h.html#ggadda80cee8527fb0dac1e98e657f12cd9a3ba0825358703c04ed25a3745c47a192", null ],
+      [ "XVPROCSS_EVT_INIT", "xvprocss__log_8h.html#ggadda80cee8527fb0dac1e98e657f12cd9acc9fe81f5f5652e44b0769a046a02490", null ],
+      [ "XVPROCSS_EVT_INIT_RESAXIS", "xvprocss__log_8h.html#ggadda80cee8527fb0dac1e98e657f12cd9a304e31ecbdc687845d0b702c919188c5", null ],
+      [ "XVPROCSS_EVT_INIT_RESAXIM", "xvprocss__log_8h.html#ggadda80cee8527fb0dac1e98e657f12cd9a85020f2589cda4a8ad9bf8fce8b043bc", null ],
+      [ "XVPROCSS_EVT_INIT_ROUTER", "xvprocss__log_8h.html#ggadda80cee8527fb0dac1e98e657f12cd9a8fb36e2d02ae8e0438c8e67791fe388c", null ],
+      [ "XVPROCSS_EVT_INIT_LBOX", "xvprocss__log_8h.html#ggadda80cee8527fb0dac1e98e657f12cd9a2816ccbb3f218ce27a57bf6539570d40", null ],
+      [ "XVPROCSS_EVT_INIT_VDMA", "xvprocss__log_8h.html#ggadda80cee8527fb0dac1e98e657f12cd9ab119fb162d69df3ab5da8f8e0b96763e", null ],
+      [ "XVPROCSS_EVT_CFGERR_VDMA", "xvprocss__log_8h.html#ggadda80cee8527fb0dac1e98e657f12cd9aa8ac981b143e5cbdd3109631b1788b30", null ],
+      [ "XVPROCSS_EVT_OPERR_VDMA", "xvprocss__log_8h.html#ggadda80cee8527fb0dac1e98e657f12cd9ae5ccb3686b40801af76a470a6b74b208", null ],
+      [ "XVPROCSS_EVT_CFG_HSCALER", "xvprocss__log_8h.html#ggadda80cee8527fb0dac1e98e657f12cd9afdaaf23d284f472e2236b3c39a544262", null ],
+      [ "XVPROCSS_EVT_CFG_VSCALER", "xvprocss__log_8h.html#ggadda80cee8527fb0dac1e98e657f12cd9abc5ae18af47d9b7409f1ba41612f5b15", null ],
+      [ "XVPROCSS_EVT_CFG_CSC", "xvprocss__log_8h.html#ggadda80cee8527fb0dac1e98e657f12cd9a69ed478af62bfb13c0e68251ca18b3da", null ],
+      [ "XVPROCSS_EVT_CFG_DEINT", "xvprocss__log_8h.html#ggadda80cee8527fb0dac1e98e657f12cd9a6a8c4711e68ded9fb3d4c64b74a94b22", null ],
+      [ "XVPROCSS_EVT_CFG_VCRI", "xvprocss__log_8h.html#ggadda80cee8527fb0dac1e98e657f12cd9a730776a8501e9615a0710c25ee779450", null ],
+      [ "XVPROCSS_EVT_CFG_VCRO", "xvprocss__log_8h.html#ggadda80cee8527fb0dac1e98e657f12cd9ad7b48ab5518ddc0f71d4e620450d76a9", null ],
+      [ "XVPROCSS_EVT_CFG_HCR", "xvprocss__log_8h.html#ggadda80cee8527fb0dac1e98e657f12cd9a2bc1af33195315cf16b38d7b11e872bd", null ],
+      [ "XVPROCSS_EVT_CFG_MAX", "xvprocss__log_8h.html#ggadda80cee8527fb0dac1e98e657f12cd9aa5ff04f787a710ae81939f109520f7d5", null ],
+      [ "XVPROCSS_EVT_CFG_VPSS", "xvprocss__log_8h.html#ggadda80cee8527fb0dac1e98e657f12cd9abda5efa3b8a91c89e006631e59bea90a", null ],
+      [ "XVPROCSS_EVT_CHK_TOPO", "xvprocss__log_8h.html#ggadda80cee8527fb0dac1e98e657f12cd9a54ab50f0d2e7e4a55cc54245d6facabb", null ],
+      [ "XVPROCSS_EVT_CHK_BASEADDR", "xvprocss__log_8h.html#ggadda80cee8527fb0dac1e98e657f12cd9a203a442aec1615b0fe26d4586e23fc5a", null ],
+      [ "XVPROCSS_EVT_SET_PIPMODE", "xvprocss__log_8h.html#ggadda80cee8527fb0dac1e98e657f12cd9a59c1a12d3255327b3fd10fe3c6e1cbd7", null ],
+      [ "XVPROCSS_EVT_SET_ZOOMMODE", "xvprocss__log_8h.html#ggadda80cee8527fb0dac1e98e657f12cd9a558e3ec01039cf251147be690d2bd9ec", null ],
+      [ "XVPROCSS_EVT_SET_PIPWIN", "xvprocss__log_8h.html#ggadda80cee8527fb0dac1e98e657f12cd9a54b4e1dc8b52c05a12e3e3cd9f4f8c18", null ],
+      [ "XVPROCSS_EVT_SET_ZOOMWIN", "xvprocss__log_8h.html#ggadda80cee8527fb0dac1e98e657f12cd9a0a17a2771f447b75dd3c1236bc1bb298", null ],
+      [ "XVPROCSS_EVT_GET_ZPWIN", "xvprocss__log_8h.html#ggadda80cee8527fb0dac1e98e657f12cd9a6da55aee92eef69c31de0744ed118d0a", null ],
+      [ "XVPROCSS_EVT_UPDATE_ZPWIN", "xvprocss__log_8h.html#ggadda80cee8527fb0dac1e98e657f12cd9af2ff6134491d7c3675540e4cec7d2cbb", null ],
+      [ "XVPROCSS_EVT_RESET_VPSS", "xvprocss__log_8h.html#ggadda80cee8527fb0dac1e98e657f12cd9a6b5ae254ff201393e86716ec62425f29", null ],
+      [ "XVPROCSS_EVT_START_VPSS", "xvprocss__log_8h.html#ggadda80cee8527fb0dac1e98e657f12cd9a3bcee1ee986b5f86f45468e2e9fac5f6", null ],
+      [ "XVPROCSS_EVT_STOP_VPSS", "xvprocss__log_8h.html#ggadda80cee8527fb0dac1e98e657f12cd9a7f440bf73b91e8287f25032ff2b63020", null ],
+      [ "XVPROCSS_EVT_LAST_ENUM", "xvprocss__log_8h.html#ggadda80cee8527fb0dac1e98e657f12cd9ad0f8885a219b90be8a513ad6665c130d", null ]
+    ] ]
+];
