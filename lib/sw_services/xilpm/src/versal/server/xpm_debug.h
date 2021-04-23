@@ -116,6 +116,8 @@ extern "C" {
 #define XPM_INT_ERR_FUNC_HOUSECLEAN_PL		0x3124U
 /* Error during init house clean complete function */
 #define XPM_INT_ERR_FUNC_HOUSECLEAN_COMPLETE	0x3125U
+/* Required clocks are not found in LPD MBIST */
+#define XPM_INT_ERR_LPD_MBIST_CLK_NOT_FOUND	0x3126U
 
 /************************** LPD specific Errors ******************************/
 /************************** (0x3200) - (0x32FF) ******************************/
@@ -209,6 +211,8 @@ extern "C" {
 #define XPM_INT_ERR_CUSTOM_RESET_ASSERT		0x3406U
 /* Error during custom reset pulse */
 #define XPM_INT_ERR_CUSTOM_RESET_PULSE		0x3407U
+/* Error during USB reset release */
+#define XPM_INT_ERR_USB_RST_RELEASE		0x3408U
 
 /************************** FPD specific Errors ******************************/
 /************************** (0x3500) - (0x35FF) ******************************/
@@ -372,6 +376,12 @@ extern "C" {
 #define XPM_INT_ERR_CLK_DISABLE			0x3908U
 /* Error enabling CPM_TOPSW_REF clk */
 #define XPM_INT_ERR_CPM_TOPSW_REF_CLK_ENABLE	0x3909U
+/* Error enabling USB clk */
+#define XPM_INT_ERR_USB_CLK_ENABLE		0x390AU
+/* Error enabling CAN_0 clk */
+#define XPM_INT_ERR_CAN0_CLK_ENABLE		0x390BU
+/* Error enabling CAN_1 clk */
+#define XPM_INT_ERR_CAN1_CLK_ENABLE		0x390CU
 
 /************************** CPM specific Errors ******************************/
 /************************** (0x4000) - (0x40FF) ******************************/
