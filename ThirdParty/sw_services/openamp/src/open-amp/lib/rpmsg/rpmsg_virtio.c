@@ -284,7 +284,7 @@ static void rpmsg_virtio_release_rx_buffer(struct rpmsg_device *rdev,
 	rvdev = metal_container_of(rdev, struct rpmsg_virtio_device, rdev);
 	rp_hdr = RPMSG_LOCATE_HDR(rxbuf);
 	/* The reserved field contains buffer index */
-	idx = rp_hdr->reserved & ~RPMSG_BUF_HELD;
+	idx = (uint16_t)(rp_hdr->reserved & ~RPMSG_BUF_HELD);
 
 	metal_mutex_acquire(&rdev->lock);
 	/* Return buffer on virtqueue. */
