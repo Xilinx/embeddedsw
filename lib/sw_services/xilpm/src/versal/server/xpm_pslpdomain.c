@@ -487,6 +487,7 @@ static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
 	volatile XStatus StatusTmp = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 RegBitMask;
+	XPm_ClockNode *UsbClk, *Can0Clk, *Can1Clk;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -505,10 +506,40 @@ static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
 		goto done;
 	}
 
+	UsbClk = XPmClock_GetById(PM_CLK_USB0_BUS_REF);
+	Can0Clk = XPmClock_GetById(PM_CLK_CAN0_REF);
+	Can1Clk = XPmClock_GetById(PM_CLK_CAN1_REF);
+	if ((NULL == UsbClk) || (NULL == Can0Clk) || (NULL == Can1Clk)) {
+		Status = XST_DEVICE_NOT_FOUND;
+		DbgErr = XPM_INT_ERR_LPD_MBIST_CLK_NOT_FOUND;
+		goto done;
+	}
+
+	/* Request USB clock as a dependency of LPD MBIST */
+	Status = XPmClock_SetGate((XPm_OutClockNode *)UsbClk, 1U);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_USB_CLK_ENABLE;
+		goto done;
+	}
+
 	/* Release USB reset for LPD IOU Mbist to work*/
 	Status = XPmReset_AssertbyId(PM_RST_USB_0, (u32)PM_RESET_ACTION_RELEASE);
 	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_RST_RELEASE;
+		DbgErr = XPM_INT_ERR_USB_RST_RELEASE;
+		goto done;
+	}
+
+	/* Request CAN0 clock as a dependency of LPD MBIST */
+	Status = XPmClock_SetGate((XPm_OutClockNode *)Can0Clk, 1U);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_CAN1_CLK_ENABLE;
+		goto done;
+	}
+
+	/* Request CAN1 clock as a dependency of LPD MBIST */
+	Status = XPmClock_SetGate((XPm_OutClockNode *)Can1Clk, 1U);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_CAN0_CLK_ENABLE;
 		goto done;
 	}
 
