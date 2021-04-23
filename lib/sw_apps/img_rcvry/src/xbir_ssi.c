@@ -91,6 +91,8 @@ static int Xbir_SsiInitiateImgUpdate (struct tcp_pcb *Tpcb, u8 *HttpReq,
 /************************** Variable Definitions *****************************/
 static u32 Xbir_SsiLastUploadSize;
 static Xbir_SysBootImgId Xbir_SsiLastImgUpload;
+static u8 PendingCfgCmd = FALSE;
+static u8 PendingCrcCmd = FALSE;
 
 /*****************************************************************************/
 /**
@@ -336,11 +338,18 @@ int Xbir_SsiJsonCfgBootImgStatus (char *JsonStr, u16 JsonStrLen)
 	u8 ImgBBootable = 0xFFU;
 	u8 ReqBootImg = 0xFFU;
 
-	Str = Xbir_SsiStrRTrim(Str);
+	if ((*JsonStr == 0) && (PendingCfgCmd == FALSE)) {
+		PendingCfgCmd = TRUE;
+		Status = XST_SUCCESS;
+		goto END;
+	}
+
+	Str = Xbir_SsiStrRTrim(JsonStr);
+	Str = strstr(Str, "{");
 	if (Str[0U] != XBIR_SSI_JSON_OBJ_START)
 	{
-		Xbir_Printf("ERROR: Invalid JSON OBJ START: BootImgStatus\r\n");
-		Status = XBIR_ERROR_JSON_OBJ_START;
+		PendingCfgCmd = TRUE;
+		Status = XST_SUCCESS;
 		goto END;
 	}
 	Str++;
@@ -540,6 +549,22 @@ int Xbir_SsiProcessAdditionalPayload (struct tcp_pcb *Tpcb, u8 *HttpReq,
 	u8 *ImgData;
 	Xbir_HttpArg *HttpArg = (Xbir_HttpArg *)Tpcb->callback_arg;
 
+	if (PendingCfgCmd == TRUE) {
+		Status = Xbir_SsiJsonCfgBootImgStatus((char *)HttpReq,
+			strlen((char *)HttpReq));
+		PendingCfgCmd = FALSE;
+		goto END;
+	}
+
+	if (PendingCrcCmd == TRUE) {
+		Status = Xbir_SsiValidateLastUpdate((char *)HttpReq,
+			HttpReqLen);
+		PendingCrcCmd = FALSE;
+		goto END;
+	}
+	PendingCfgCmd = FALSE;
+	PendingCrcCmd = FALSE;
+
 	if (HttpArg->Fsize == 0U) {
 		Status = Xbir_SsiFindImgInHttpReq (HttpArg, HttpReq,
 				HttpReqLen, &ImgData);
@@ -594,7 +619,14 @@ u32 Xbir_SsiValidateLastUpdate (char *JsonStr, u16 JsonStrLen)
 	char Seperator;
 	const Xbir_SysPersistentState *BootImgStatus;
 
-	Str = Xbir_SsiStrRTrim(Str);
+	if (*JsonStr == 0) {
+		PendingCrcCmd = TRUE;
+		Status = XST_SUCCESS;
+		goto END;
+	}
+
+	Str = Xbir_SsiStrRTrim(JsonStr);
+	Str = strstr(Str, "{");
 	if (Str[0U] != XBIR_SSI_JSON_OBJ_START)
 	{
 		goto END;
