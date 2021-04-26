@@ -37,6 +37,7 @@
 *	kal  01/28/2021 Added new error code for glitch detection
 *	kal  02/20/2021 Added new error codes for detecting voltage and
 *			temparature out of range cases
+*	har  04/21/2021 Fixed warnings for R5 processor
 *
 * </pre>
 *
@@ -574,7 +575,12 @@ typedef enum {
 	XNVM_EFUSE_REVOCATION_ID_7
 }XNvm_RevocationId;
 
+/*
+ * XNVM_EFUSE_INVLD is added to make enum type int
+ * irrespective of compiler used.
+ */
 typedef enum {
+	XNVM_EFUSE_INVLD = -1,
 	XNVM_EFUSE_OFFCHIP_REVOKE_ID_0 = 0,
 	XNVM_EFUSE_OFFCHIP_REVOKE_ID_1,
 	XNVM_EFUSE_OFFCHIP_REVOKE_ID_2,
