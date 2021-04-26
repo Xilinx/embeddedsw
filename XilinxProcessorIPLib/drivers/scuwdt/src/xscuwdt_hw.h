@@ -30,8 +30,8 @@
 * </pre>
 *
 ******************************************************************************/
-#ifndef XSCUWDT_HW_H		/* prevent circular inclusions */
-#define XSCUWDT_HW_H		/* by using protection macros */
+#ifndef XSCUWDT_HW_H		/**< prevent circular inclusions */
+#define XSCUWDT_HW_H		/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
