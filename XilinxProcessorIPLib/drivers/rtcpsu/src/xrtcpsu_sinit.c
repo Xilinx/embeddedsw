@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xrtcpsu_sinit.c
-* @addtogroup rtcpsu_v1_10
+* @addtogroup rtcpsu_v1_11
 * @{
 *
 * This file contains the implementation of the XRtcPsu driver's static
