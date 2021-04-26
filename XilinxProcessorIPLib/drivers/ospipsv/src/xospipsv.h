@@ -142,7 +142,7 @@ typedef struct {
 #pragma pack(pop)
 #else
 	/**< Buffer used to read the unaligned bytes in DMA */
-	u8 UnalignReadBuffer[4] __attribute__ ((aligned(64)));
+	u8 UnalignReadBuffer[4] __attribute__ ((aligned(64))); /**< Read Buffer */
 #endif
 } XOspiPsv;
 
