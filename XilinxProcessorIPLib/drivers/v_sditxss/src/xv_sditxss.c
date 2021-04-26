@@ -1193,8 +1193,10 @@ void XV_SdiTxSs_SetEotf(XV_SdiTxSs *InstancePtr, XVidC_Eotf Eotf,
 	Xil_AssertVoid(InstancePtr->SdiTxPtr != NULL);
 
 	SdiTxPtr = InstancePtr->SdiTxPtr;
-	SdiTxPtr->Stream[0].Video.Eotf = Eotf;
-	SdiTxPtr->Stream[0].Video.ColorStd = Colorimetry;
+	for (u8 Index = 0; Index < XV_SDITX_MAX_DATASTREAM; Index++) {
+		SdiTxPtr->Stream[Index].Video.Eotf = Eotf;
+		SdiTxPtr->Stream[Index].Video.ColorStd = Colorimetry;
+	}
 
 	/* Update the Eotf into st352 payload registers, only if stream is Up */
 	if (InstancePtr->IsStreamUp) {
