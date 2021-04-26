@@ -104,10 +104,6 @@ void XV_warp_init_EnableAutoRestart(XV_warp_init *InstancePtr);
 void XV_warp_init_DisableAutoRestart(XV_warp_init *InstancePtr);
 u32 XV_warp_init_Get_FlushDone(XV_warp_init *InstancePtr);
 void XV_warp_init_SetFlushbit(XV_warp_init *InstancePtr);
-
-u32 XV_warp_init_Get_valid_segs(XV_warp_init *InstancePtr);
-u32 XV_warp_init_Get_lblk_count(XV_warp_init *InstancePtr);
-u32 XV_warp_init_Get_line_num_seg(XV_warp_init *InstancePtr);
 u32 XV_warp_init_Get_ip_status(XV_warp_init *InstancePtr);
 void XV_warp_init_Set_maxi_read_write(XV_warp_init *InstancePtr, u64 Data);
 u64 XV_warp_init_Get_maxi_read_write(XV_warp_init *InstancePtr);
