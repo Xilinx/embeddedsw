@@ -33,8 +33,8 @@
 * </pre>
 *
 ******************************************************************************/
-#ifndef XQSPIPSU_HW_H		/* prevent circular inclusions */
-#define XQSPIPSU_HW_H		/* by using protection macros */
+#ifndef XQSPIPSU_HW_H		/**< prevent circular inclusions */
+#define XQSPIPSU_HW_H		/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -48,7 +48,11 @@ extern "C" {
 #include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
-
+/**
+ * @name Device Base Address
+ * Below macros gives QSPI, QSPIPSU base address.
+ * @{
+ */
 /**
  * QSPI Base Address
  */
@@ -67,7 +71,11 @@ extern "C" {
 #define XQSPIPSU_BASEADDR     0xFF0F0100U
 #endif
 #define XQSPIPSU_OFFSET     0x100U
-
+/** @} */
+/**
+ * @name XQSPIPS Enable Register information
+ * @{
+ */
 /**
  * Register: XQSPIPS_EN_REG
  */
@@ -76,7 +84,12 @@ extern "C" {
 #define XQSPIPS_EN_SHIFT   0U
 #define XQSPIPS_EN_WIDTH   1U
 #define XQSPIPS_EN_MASK    0X00000001U
+/** @} */
 
+/**
+ * @name XQSPIPSU configuration Register information
+ * @{
+ */
 /**
  * Register: XQSPIPSU_CFG
  */
@@ -138,6 +151,11 @@ extern "C" {
 #define XQSPIPS_LQSPI_CR_4_BYTE_STATE       0x88000013U /**< Default 4 Byte LQSPI CR value */
 #define XQSPIPS_LQSPI_CFG_RST_STATE       0x800238C1U /**< Default LQSPI CFG value */
 #endif
+/** @} */
+/**
+ * @name XQSPIPSU Interrupt Registers information
+ * @{
+ */
 /**
  * Register: XQSPIPSU_ISR
  */
@@ -321,7 +339,12 @@ extern "C" {
 #define XQSPIPSU_IMR_POLL_TIME_EXPIRE_SHIFT   1U
 #define XQSPIPSU_IMR_POLL_TIME_EXPIRE_WIDTH   1U
 #define XQSPIPSU_IMR_POLL_TIME_EXPIRE_MASK    0X00000002U
+/** @} */
 
+/**
+ * @name XQSPIPSU Enable Register information
+ * @{
+ */
 /**
  * Register: XQSPIPSU_EN_REG
  */
@@ -330,7 +353,12 @@ extern "C" {
 #define XQSPIPSU_EN_SHIFT   0U
 #define XQSPIPSU_EN_WIDTH   1U
 #define XQSPIPSU_EN_MASK    0X00000001U
+/** @} */
 
+/**
+ * @name XQSPIPSU TX Data Register information
+ * @{
+ */
 /**
  * Register: XQSPIPSU_TXD
  */
@@ -341,7 +369,12 @@ extern "C" {
 #define XQSPIPSU_TXD_MASK    0XFFFFFFFFU
 
 #define XQSPIPSU_TXD_DEPTH    64
+/** @} */
 
+/**
+ * @name XQSPIPSU RX Data Register information
+ * @{
+ */
 /**
  * Register: XQSPIPSU_RXD
  */
@@ -350,7 +383,12 @@ extern "C" {
 #define XQSPIPSU_RXD_SHIFT   0U
 #define XQSPIPSU_RXD_WIDTH   32U
 #define XQSPIPSU_RXD_MASK    0XFFFFFFFFU
+/** @} */
 
+/**
+ * @name XQSPIPSU TX/RX Threshold Register information
+ * @{
+ */
 /**
  * Register: XQSPIPSU_TX_THRESHOLD
  */
@@ -372,7 +410,12 @@ extern "C" {
 #define XQSPIPSU_RX_FIFO_THRESHOLD_RESET_VAL    0X01U
 
 #define XQSPIPSU_RXFIFO_THRESHOLD_OPT 32U
+/** @} */
 
+/**
+ * @name XQSPIPSU GPIO Register information
+ * @{
+ */
 /**
  * Register: XQSPIPSU_GPIO
  */
@@ -381,7 +424,12 @@ extern "C" {
 #define XQSPIPSU_GPIO_WP_N_SHIFT   0U
 #define XQSPIPSU_GPIO_WP_N_WIDTH   1U
 #define XQSPIPSU_GPIO_WP_N_MASK    0X00000001U
+/** @} */
 
+/**
+ * @name XQSPIPSU Loopback Master Clock Delay Adjustment Register information
+ * @{
+ */
 /**
  * Register: XQSPIPSU_LPBK_DLY_ADJ
  */
@@ -398,7 +446,12 @@ extern "C" {
 #define XQSPIPSU_LPBK_DLY_ADJ_DLY0_SHIFT   0U
 #define XQSPIPSU_LPBK_DLY_ADJ_DLY0_WIDTH   3U
 #define XQSPIPSU_LPBK_DLY_ADJ_DLY0_MASK    0X00000007U
+/** @} */
 
+/**
+ * @name XQSPIPSU GEN_FIFO Register information
+ * @{
+ */
 /**
  * Register: XQSPIPSU_GEN_FIFO
  */
@@ -407,7 +460,12 @@ extern "C" {
 #define XQSPIPSU_GEN_FIFO_DATA_SHIFT   0U
 #define XQSPIPSU_GEN_FIFO_DATA_WIDTH   20U
 #define XQSPIPSU_GEN_FIFO_DATA_MASK    0X000FFFFFU
+/** @} */
 
+/**
+ * @name XQSPIPSU Select Register information
+ * @{
+ */
 /**
  * Register: XQSPIPSU_SEL
  */
@@ -419,7 +477,12 @@ extern "C" {
 #define XQSPIPSU_SEL_LQSPI_MASK    0X0U
 #endif
 #define XQSPIPSU_SEL_GQSPI_MASK    0X00000001U
+/** @} */
 
+/**
+ * @name XQSPIPSU FIFO Control Register information
+ * @{
+ */
 /**
  * Register: XQSPIPSU_FIFO_CTRL
  */
@@ -436,7 +499,12 @@ extern "C" {
 #define XQSPIPSU_FIFO_CTRL_RST_GEN_FIFO_SHIFT   0U
 #define XQSPIPSU_FIFO_CTRL_RST_GEN_FIFO_WIDTH   1U
 #define XQSPIPSU_FIFO_CTRL_RST_GEN_FIFO_MASK    0X00000001U
+/** @} */
 
+/**
+ * @name XQSPIPSU GEN_FIFO Threshold Register information
+ * @{
+ */
 /**
  * Register: XQSPIPSU_GF_THRESHOLD
  */
@@ -446,7 +514,12 @@ extern "C" {
 #define XQSPIPSU_GEN_FIFO_THRESHOLD_WIDTH   5U
 #define XQSPIPSU_GEN_FIFO_THRESHOLD_MASK    0X0000001FU
 #define XQSPIPSU_GEN_FIFO_THRESHOLD_RESET_VAL    0X10U
+/** @} */
 
+/**
+ * @name XQSPIPSU Poll configuration Register information
+ * @{
+ */
 /**
  * Register: XQSPIPSU_POLL_CFG
  */
@@ -467,7 +540,12 @@ extern "C" {
 #define XQSPIPSU_POLL_CFG_DATA_VALUE_SHIFT   0U
 #define XQSPIPSU_POLL_CFG_DATA_VALUE_WIDTH   8U
 #define XQSPIPSU_POLL_CFG_DATA_VALUE_MASK    0X000000FFU
+/** @} */
 
+/**
+ * @name XQSPIPSU Poll Time out Register information
+ * @{
+ */
 /**
  * Register: XQSPIPSU_P_TIMEOUT
  */
@@ -476,7 +554,12 @@ extern "C" {
 #define XQSPIPSU_P_TO_VALUE_SHIFT   0U
 #define XQSPIPSU_P_TO_VALUE_WIDTH   32U
 #define XQSPIPSU_P_TO_VALUE_MASK    0XFFFFFFFFU
+/** @} */
 
+/**
+ * @name XQSPIPSU Transfer Status Register information
+ * @{
+ */
 /**
  * Register: XQSPIPSU_XFER_STS
  */
@@ -485,7 +568,12 @@ extern "C" {
 #define XQSPIPSU_XFER_STS_PEND_BYTES_SHIFT   0U
 #define XQSPIPSU_XFER_STS_PEND_BYTES_WIDTH   32U
 #define XQSPIPSU_XFER_STS_PEND_BYTES_MASK    0XFFFFFFFFU
+/** @} */
 
+/**
+ * @name XQSPIPSU GEN_FIFO Snapshot Register information
+ * @{
+ */
 /**
  * Register: XQSPIPSU_GF_SNAPSHOT
  */
@@ -494,7 +582,12 @@ extern "C" {
 #define XQSPIPSU_GF_SNAPSHOT_SHIFT   0U
 #define XQSPIPSU_GF_SNAPSHOT_WIDTH   20U
 #define XQSPIPSU_GF_SNAPSHOT_MASK    0X000FFFFFU
+/** @} */
 
+/**
+ * @name XQSPIPSU Receive Data Copy Register information
+ * @{
+ */
 /**
  * Register: XQSPIPSU_RX_COPY
  */
@@ -507,7 +600,12 @@ extern "C" {
 #define XQSPIPSU_RX_COPY_LOWER_SHIFT   0U
 #define XQSPIPSU_RX_COPY_LOWER_WIDTH   8U
 #define XQSPIPSU_RX_COPY_LOWER_MASK    0X000000FFU
+/** @} */
 
+/**
+ * @name XQSPIPSU Module Identification Register information
+ * @{
+ */
 /**
  * Register: XQSPIPSU_MOD_ID
  */
@@ -516,7 +614,12 @@ extern "C" {
 #define XQSPIPSU_MOD_ID_SHIFT   0U
 #define XQSPIPSU_MOD_ID_WIDTH   32U
 #define XQSPIPSU_MOD_ID_MASK    0XFFFFFFFFU
+/** @} */
 
+/**
+ * @name XQSPIPSU DMA Transfer information
+ * @{
+ */
 /**
  * Register: XQSPIPSU_QSPIDMA_DST_ADDR
  */
@@ -782,8 +885,13 @@ extern "C" {
 #define XQSPIPSU_QSPIDMA_FUTURE_ECO_VAL_SHIFT   0U
 #define XQSPIPSU_QSPIDMA_FUTURE_ECO_VAL_WIDTH   32U
 #define XQSPIPSU_QSPIDMA_FUTURE_ECO_VAL_MASK    0XFFFFFFFFU
+/** @} */
 
-/*
+/**
+ * @name XQSPIPSU Generic FIFO masks information
+ * @{
+ */
+/**
  * Generic FIFO masks
  */
 #define XQSPIPSU_GENFIFO_IMM_DATA_MASK	0xFFU
@@ -803,8 +911,15 @@ extern "C" {
 #define XQSPIPSU_GENFIFO_RX		0x20000U	/* inverse is RX discard */
 #define XQSPIPSU_GENFIFO_STRIPE		0x40000U
 #define XQSPIPSU_GENFIFO_POLL		0x80000U
+/** @} */
 
-/*QSPI Data delay register*/
+/**
+ * @name XQSPIPSU RX Data Delay Register information
+ * @{
+ */
+/**
+ * QSPI Data delay register
+ */
 #define XQSPIPSU_DATA_DLY_ADJ_OFFSET    0X000000F8U
 
 #define XQSPIPSU_DATA_DLY_ADJ_USE_DATA_DLY_SHIFT   31U
@@ -814,8 +929,15 @@ extern "C" {
 #define XQSPIPSU_DATA_DLY_ADJ_DLY_SHIFT   28U
 #define XQSPIPSU_DATA_DLY_ADJ_DLY_WIDTH   3U
 #define XQSPIPSU_DATA_DLY_ADJ_DLY_MASK    0X70000000U
+/** @} */
 
-/* Tapdelay Bypass register*/
+/**
+ * @name TAPDLY Bypass register  information
+ * @{
+ */
+/**
+ * Tapdelay Bypass register
+ */
 
 #if defined versal
 #define IOU_TAPDLY_BYPASS_OFFSET 0X0000003CU
@@ -834,11 +956,12 @@ extern "C" {
 #else
 #define IOU_TAPDLY_RESET_STATE 0x7U
 #endif
+/** @} */
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-#define XQspiPsu_In32 Xil_In32
-#define XQspiPsu_Out32 Xil_Out32
+#define XQspiPsu_In32 Xil_In32   /**< Read the  32 bit register value */
+#define XQspiPsu_Out32 Xil_Out32 /**< Write the 32 bit register value */
 
 /****************************************************************************/
 /**

@@ -159,13 +159,14 @@
  *		     instance is already configured(CR#1058525).
  * 1.12	akm 09/02/20 Updated the Makefile to support parallel make execution.
  * 1.13 akm 01/04/21 Fix MISRA-C violations.
+ * 1.13 sne 04/23/21 Fixed doxygen warnings.
  *
  * </pre>
  *
  ******************************************************************************/
 
-#ifndef XQSPIPSU_H_		/* prevent circular inclusions */
-#define XQSPIPSU_H_		/* by using protection macros */
+#ifndef XQSPIPSU_H_		/**< prevent circular inclusions */
+#define XQSPIPSU_H_		/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -207,17 +208,17 @@ typedef void (*XQspiPsu_StatusHandler) (const void *CallBackRef, u32 StatusEvent
  * This typedef contains configuration information for a flash message.
  */
 typedef struct {
-	u8 *TxBfrPtr;
-	u8 *RxBfrPtr;
-	u32 ByteCount;
-	u32 BusWidth;
-	u32 Flags;
-	u8 PollData;
-	u32 PollTimeout;
-	u8 PollStatusCmd;
-	u8 PollBusMask;
-	u64 RxAddr64bit;
-	u8 Xfer64bit;
+	u8 *TxBfrPtr;	/**< Tx Buffer pointer */
+	u8 *RxBfrPtr;	/**< Rx Buffer pointer */
+	u32 ByteCount;	/**< Byte Count */
+	u32 BusWidth;	/**< Bus Width */
+	u32 Flags;	/**< Flags */
+	u8 PollData;	/**< Poll Data */
+	u32 PollTimeout;/**< Poll Timeout */
+	u8 PollStatusCmd; /**< Poll Status command */
+	u8 PollBusMask;	  /**< Poll Bus mask */
+	u64 RxAddr64bit;  /**< 64 bit Rx address */
+	u8 Xfer64bit;	  /**< 64 bit Tx address */
 } XQspiPsu_Msg;
 
 /**
@@ -253,14 +254,14 @@ typedef struct {
 	s32 GenFifoEntries;	 /**< Number of Gen FIFO entries remaining */
 	u32 IsBusy;		 /**< A transfer is in progress (state) */
 	u32 ReadMode;		 /**< DMA or IO mode */
-	u32 GenFifoCS;
-	u32 GenFifoBus;
-	s32 NumMsg;
-	s32 MsgCnt;
-	s32 IsUnaligned;
-	u8 IsManualstart;
-	XQspiPsu_Msg *Msg;
-	XQspiPsu_StatusHandler StatusHandler;
+	u32 GenFifoCS;		/**< Gen FIFO chip selection */
+	u32 GenFifoBus;		/**< Gen FIFO bus */
+	s32 NumMsg;		/**< Number of messages */
+	s32 MsgCnt;		/**< Message Count */
+	s32 IsUnaligned;	/**< Unaligned information */
+	u8 IsManualstart;	/**< Manual start information */
+	XQspiPsu_Msg *Msg;	/**< Message */
+	XQspiPsu_StatusHandler StatusHandler;	/**< Status Handler */
 	void *StatusRef;	/**< Callback reference for status handler */
 } XQspiPsu;
 
@@ -297,80 +298,90 @@ typedef struct {
 #define SECTOR_SIZE_512K	0X80000U	/**< 512K Sector */
 
 
-#define XQSPIPSU_READMODE_DMA	0x0U
-#define XQSPIPSU_READMODE_IO	0x1U
+#define XQSPIPSU_READMODE_DMA	0x0U	/**< DMA read mode */
+#define XQSPIPSU_READMODE_IO	0x1U	/**< IO read mode */
 
-#define XQSPIPSU_SELECT_FLASH_CS_LOWER	0x1U
-#define XQSPIPSU_SELECT_FLASH_CS_UPPER	0x2U
-#define XQSPIPSU_SELECT_FLASH_CS_BOTH	0x3U
+#define XQSPIPSU_SELECT_FLASH_CS_LOWER	0x1U	/**< Select lower flash */
+#define XQSPIPSU_SELECT_FLASH_CS_UPPER	0x2U	/**< Select upper flash */
+#define XQSPIPSU_SELECT_FLASH_CS_BOTH	0x3U	/**< Select both flash */
 
-#define XQSPIPSU_SELECT_FLASH_BUS_LOWER	0x1U
-#define XQSPIPSU_SELECT_FLASH_BUS_UPPER	0x2U
-#define XQSPIPSU_SELECT_FLASH_BUS_BOTH	0x3U
+#define XQSPIPSU_SELECT_FLASH_BUS_LOWER	0x1U	/**< Select lower bus flash */
+#define XQSPIPSU_SELECT_FLASH_BUS_UPPER	0x2U	/**< Select upper bus flash */
+#define XQSPIPSU_SELECT_FLASH_BUS_BOTH	0x3U	/**< Select both bus flash */
 
-#define XQSPIPSU_SELECT_MODE_SPI	0x1U
-#define XQSPIPSU_SELECT_MODE_DUALSPI	0x2U
-#define XQSPIPSU_SELECT_MODE_QUADSPI	0x4U
+#define XQSPIPSU_SELECT_MODE_SPI	0x1U	/**< Select SPI mode */
+#define XQSPIPSU_SELECT_MODE_DUALSPI	0x2U	/**< Select dual SPI mode */
+#define XQSPIPSU_SELECT_MODE_QUADSPI	0x4U	/**< Select quad SPI mode */
 
-#define XQSPIPSU_GENFIFO_CS_SETUP	0x05U
-#define XQSPIPSU_GENFIFO_CS_HOLD	0x04U
+#define XQSPIPSU_GENFIFO_CS_SETUP	0x05U	/**< Chip select setup in GENFIO */
+#define XQSPIPSU_GENFIFO_CS_HOLD	0x04U	/**< Chip select hold in GENFIFO */
 
-#define XQSPIPSU_CLK_ACTIVE_LOW_OPTION	0x2U
-#define XQSPIPSU_CLK_PHASE_1_OPTION	0x4U
-#define XQSPIPSU_MANUAL_START_OPTION	0x8U
+#define XQSPIPSU_CLK_ACTIVE_LOW_OPTION	0x2U	/**< Clk Active low option */
+#define XQSPIPSU_CLK_PHASE_1_OPTION	0x4U	/**< Clk phase 1 option */
+#define XQSPIPSU_MANUAL_START_OPTION	0x8U	/**< Manual start option */
 #if !defined (versal)
-#define XQSPIPSU_LQSPI_MODE_OPTION	0x20U
+#define XQSPIPSU_LQSPI_MODE_OPTION	0x20U	/**< LQSPI mode option */
 
-#define XQSPIPSU_LQSPI_LESS_THEN_SIXTEENMB	1U
+#define XQSPIPSU_LQSPI_LESS_THEN_SIXTEENMB	1U /**< LQSPI less Than 16 MB */
 #endif
 
-#define XQSPIPSU_GENFIFO_EXP_START	0x100U
+#define XQSPIPSU_GENFIFO_EXP_START	0x100U /**< Genfifo start */
 
-#define XQSPIPSU_DMA_BYTES_MAX		0x10000000U
+#define XQSPIPSU_DMA_BYTES_MAX		0x10000000U /**< DMA bytes max */
 
-#define XQSPIPSU_CLK_PRESCALE_2		0x00U
-#define XQSPIPSU_CLK_PRESCALE_4		0x01U
-#define XQSPIPSU_CLK_PRESCALE_8		0x02U
-#define XQSPIPSU_CLK_PRESCALE_16		0x03U
-#define XQSPIPSU_CLK_PRESCALE_32		0x04U
-#define XQSPIPSU_CLK_PRESCALE_64		0x05U
-#define XQSPIPSU_CLK_PRESCALE_128	0x06U
-#define XQSPIPSU_CLK_PRESCALE_256	0x07U
-#define XQSPIPSU_CR_PRESC_MAXIMUM	7U
+#define XQSPIPSU_CLK_PRESCALE_2		0x00U	/**< Clock prescale 2 */
+#define XQSPIPSU_CLK_PRESCALE_4		0x01U	/**< Clock prescale 4 */
+#define XQSPIPSU_CLK_PRESCALE_8		0x02U	/**< Clock prescale 8 */
+#define XQSPIPSU_CLK_PRESCALE_16	0x03U	/**< Clock prescale 16 */
+#define XQSPIPSU_CLK_PRESCALE_32	0x04U	/**< Clock prescale 32 */
+#define XQSPIPSU_CLK_PRESCALE_64	0x05U	/**< Clock prescale 64 */
+#define XQSPIPSU_CLK_PRESCALE_128	0x06U	/**< Clock prescale 128 */
+#define XQSPIPSU_CLK_PRESCALE_256	0x07U	/**< Clock prescale 256 */
+#define XQSPIPSU_CR_PRESC_MAXIMUM	7U	/**< Prescale max */
 
-#define XQSPIPSU_CONNECTION_MODE_SINGLE		0U
-#define XQSPIPSU_CONNECTION_MODE_STACKED	1U
-#define XQSPIPSU_CONNECTION_MODE_PARALLEL	2U
+#define XQSPIPSU_CONNECTION_MODE_SINGLE		0U /**< Single mode connection */
+#define XQSPIPSU_CONNECTION_MODE_STACKED	1U /**< Stacked mode connection */
+#define XQSPIPSU_CONNECTION_MODE_PARALLEL	2U /**< Parallel mode connection */
 
 /*QSPI Frequencies*/
-#define XQSPIPSU_FREQ_37_5MHZ 37500000U
-#define XQSPIPSU_FREQ_40MHZ 40000000U
-#define XQSPIPSU_FREQ_100MHZ 100000000U
-#define XQSPIPSU_FREQ_150MHZ 150000000U
+#define XQSPIPSU_FREQ_37_5MHZ 37500000U	/**< Frequency 375 Mhz */
+#define XQSPIPSU_FREQ_40MHZ 40000000U	/**< Frequency 40 Mhz */
+#define XQSPIPSU_FREQ_100MHZ 100000000U	/**< Frequency 100 Mhz */
+#define XQSPIPSU_FREQ_150MHZ 150000000U	/**< Frequency 150 Mhz */
 
 /* Add more flags as required */
-#define XQSPIPSU_MSG_FLAG_STRIPE	0x1U
-#define XQSPIPSU_MSG_FLAG_RX		0x2U
-#define XQSPIPSU_MSG_FLAG_TX		0x4U
-#define XQSPIPSU_MSG_FLAG_POLL		0x8U
+#define XQSPIPSU_MSG_FLAG_STRIPE	0x1U /**< Stripe Msg flag */
+#define XQSPIPSU_MSG_FLAG_RX		0x2U /**< Rx Msg flag */
+#define XQSPIPSU_MSG_FLAG_TX		0x4U /**< Tx Msg flag */
+#define XQSPIPSU_MSG_FLAG_POLL		0x8U /**< POLL Msg flag */
 
-#define XQSPIPSU_RXADDR_OVER_32BIT	0x100000000U
+#define XQSPIPSU_RXADDR_OVER_32BIT	0x100000000U /**< Rx address over 32 bit */
 
-/* GQSPI configuration to toggle WP of flash*/
-#define XQSPIPSU_SET_WP					1
+#define XQSPIPSU_SET_WP		1 /**< GQSPI configuration to toggle WP of flash */
 
+/**
+ * select QSPI controller
+ */
 #define XQspiPsu_Select(InstancePtr, Mask)	\
 	XQspiPsu_Out32(((InstancePtr)->Config.BaseAddress) + \
 			XQSPIPSU_SEL_OFFSET, (Mask))
 
+/**
+ * Enable QSPI Controller
+ */
 #define XQspiPsu_Enable(InstancePtr)	\
 	XQspiPsu_Out32(((InstancePtr)->Config.BaseAddress) + \
 			XQSPIPSU_EN_OFFSET, XQSPIPSU_EN_MASK)
 
+/**
+ * Disable QSPI controller  */
 #define XQspiPsu_Disable(InstancePtr)	\
 	XQspiPsu_Out32(((InstancePtr)->Config.BaseAddress) + \
 			XQSPIPSU_EN_OFFSET, 0x0U)
 
+/**
+ * Read Configuration register of LQSPI Controller
+ */
 #if !defined (versal)
 #define XQspiPsu_GetLqspiConfigReg(InstancePtr)	\
 	XQspiPsu_In32((XQSPIPS_BASEADDR) + \

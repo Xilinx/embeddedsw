@@ -64,14 +64,14 @@
 
 /************************** Variable Definitions *****************************/
 
-/*
+/**
  * Create the table of options which are processed to get/set the device
  * options. These options are table driven to allow easy maintenance and
  * expansion of the options.
  */
 typedef struct {
-	u32 Option;
-	u32 Mask;
+	u32 Option;	/**< Get/Set the device option */
+	u32 Mask;	/**< Mask */
 } OptionsMap;
 
 static OptionsMap OptionsTable[] = {
@@ -83,6 +83,9 @@ static OptionsMap OptionsTable[] = {
 #endif
 };
 
+/**
+ * Number of options in option table
+ */
 #define XQSPIPSU_NUM_OPTIONS	(sizeof(OptionsTable) / sizeof(OptionsMap))
 
 /*****************************************************************************/
