@@ -31,8 +31,8 @@
  *
  ******************************************************************************/
 
-#ifndef XQSPIPSU_CONTROL_H_		/* prevent circular inclusions */
-#define XQSPIPSU_CONTROL_H_		/* by using protection macros */
+#ifndef XQSPIPSU_CONTROL_H_		/**< prevent circular inclusions */
+#define XQSPIPSU_CONTROL_H_		/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
