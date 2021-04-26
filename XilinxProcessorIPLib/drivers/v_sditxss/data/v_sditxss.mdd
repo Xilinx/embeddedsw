@@ -13,6 +13,7 @@
 # 2.1   jsr  10/01/18 Fix for 486i SD mode
 # 3.0   vve  10/03/18 Add support for ST352 in C Stream
 # 4.0	gv   30/03/20 Add 12-bit video width
+# 4.1   gv   04/26/21 Corrected HFR logic for 6G mode
 #
 ###############################################################################
 
@@ -23,6 +24,6 @@ BEGIN driver v_sditxss
   OPTION driver_state = ACTIVE;
   OPTION DEPENDS = (v_sditx vtc);
   OPTION copyfiles = all;
-  OPTION VERSION = 4.1;
+  OPTION VERSION = 4.2;
   OPTION NAME = v_sditxss;
 END driver
