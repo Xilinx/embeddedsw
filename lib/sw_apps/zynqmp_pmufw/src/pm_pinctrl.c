@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -46,6 +46,7 @@
 
 #define PM_PIN_PARAM_RO		(1U << 0U)
 #define PM_PIN_PARAM_2_BITS	(1U << 1U)
+#define PM_PIN_PARAM_PER_BANK	(1U << 2U)
 
 #define PM_PIN_PARAM_PER_REG	26U
 
@@ -800,7 +801,7 @@ static PmPinParam pmPinParams[PINCTRL_MAX_CONFIG] = {
 	},
 	[PINCTRL_CONFIG_VOLTAGE_STATUS] = {
 		.offset = 0x18U,
-		.flags = PM_PIN_PARAM_RO,
+		.flags = PM_PIN_PARAM_RO | PM_PIN_PARAM_PER_BANK,
 	},
 };
 
@@ -1001,7 +1002,11 @@ s32 PmPinCtrlGetParam(const u32 pinId, const u32 paramId, u32* const value)
 		goto done;
 	}
 
-	shift = pinId % PM_PIN_PARAM_PER_REG;
+	if (0U == (PM_PIN_PARAM_PER_BANK & pmPinParams[paramId].flags)) {
+		shift = pinId % PM_PIN_PARAM_PER_REG;
+	} else {
+		shift = 0;
+	}
 	addr = PM_PIN_PARAM_GET_ADDR(pinId, pmPinParams[paramId].offset);
 	val = XPfw_Read32(addr);
 
@@ -1055,7 +1060,11 @@ s32 PmPinCtrlSetParam(const u32 pinId, const u32 paramId, const u32 value)
 	}
 
 	status = XST_SUCCESS;
-	shift = pinId % PM_PIN_PARAM_PER_REG;
+	if (0U == (PM_PIN_PARAM_PER_BANK & pmPinParams[paramId].flags)) {
+		shift = pinId % PM_PIN_PARAM_PER_REG;
+	} else {
+		shift = 0;
+	}
 	addr = PM_PIN_PARAM_GET_ADDR(pinId, pmPinParams[paramId].offset);
 
 	if (IOU_SLCR_BANK1_CTRL5 == addr) {
