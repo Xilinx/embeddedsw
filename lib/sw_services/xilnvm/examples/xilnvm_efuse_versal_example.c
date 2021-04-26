@@ -36,6 +36,7 @@
  *			  and remaining eFuses in SecCtrl eFuse rows programming
  *			  and reading
  *	 kal   02/20/2021 Added Environmental Monitor Disable interface support
+ *	 har   04/21/2021 Fixed CPP warnings
  *
  * </pre>
  *
@@ -96,8 +97,8 @@ static int XilNvm_EfuseInitBootEnvCtrl(XNvm_EfuseData *WriteEfuse,
 static int XilNvm_EfuseInitSecMisc1Ctrl(XNvm_EfuseData *WriteEfuse,
 				XNvm_EfuseSecMisc1Bits *SecMisc1Bits);
 static int XilNvm_ValidateUserFuseStr(const char *UserFuseStr);
-static int XilNvm_PrepareAesKeyForWrite(char *KeyStr, u8 *Dst, u32 Len);
-static int XilNvm_PrepareIvForWrite(char *IvStr, u8 *Dst, u32 Len);
+static int XilNvm_PrepareAesKeyForWrite(const char *KeyStr, u8 *Dst, u32 Len);
+static int XilNvm_PrepareIvForWrite(const char *IvStr, u8 *Dst, u32 Len);
 static int XilNvm_ValidateIvString(const char *IvStr);
 static int XilNvm_ValidateHash(const char *Hash, u32 Len);
 static void XilNvm_FormatData(const u8 *OrgDataPtr, u8* SwapPtr, u32 Len);
@@ -304,7 +305,7 @@ static int XilNvm_EfuseReadFuses(void)
 						EfuseDna.Dna[0]);
 
 	for (Index = XNVM_EFUSE_PPK0; Index <= XNVM_EFUSE_PPK2; Index++) {
-		Status = XNvm_EfuseReadPpkHash(&EfusePpk, Index);
+		Status = XNvm_EfuseReadPpkHash(&EfusePpk, (XNvm_PpkType)Index);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -370,8 +371,8 @@ static int XilNvm_EfuseReadFuses(void)
 	xil_printf("\n\r");
 
 	xil_printf("Revocation ids read from cache \n\r");
-	for (Row = 0; Row < XNVM_NUM_OF_REVOKE_ID_FUSES; Row++) {
-		Status = XNvm_EfuseReadRevocationId(&RevocationId, Row);
+	for (Row = 0; Row < (s8)XNVM_NUM_OF_REVOKE_ID_FUSES; Row++) {
+		Status = XNvm_EfuseReadRevocationId(&RevocationId, (XNvm_RevocationId)Row);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -382,8 +383,8 @@ static int XilNvm_EfuseReadFuses(void)
 	xil_printf("\n\r");
 
 	xil_printf("Offchip ids read from cache \n\r");
-	for (Row = 0; Row < XNVM_NUM_OF_OFFCHIP_ID_FUSES; Row++) {
-		Status = XNvm_EfuseReadOffchipRevokeId(&OffChipId, Row);
+	for (Row = 0; Row < (s8)XNVM_NUM_OF_OFFCHIP_ID_FUSES; Row++) {
+		Status = XNvm_EfuseReadOffchipRevokeId(&OffChipId, (XNvm_OffchipId)Row);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -409,7 +410,7 @@ static int XilNvm_EfuseReadFuses(void)
 	}
 
 	for (Row = XNVM_EFUSE_READ_USER_FUSE_NUM;
-		Row < (XNVM_EFUSE_READ_USER_FUSE_NUM +
+		Row < (s8)(XNVM_EFUSE_READ_USER_FUSE_NUM +
 			XNVM_EFUSE_READ_NUM_OF_USER_FUSES); Row++) {
 
 		xil_printf("UserFuse%d:%08x\n\r",
@@ -1772,7 +1773,7 @@ END:
  *		- Error Code - On Failure.
  *
  ******************************************************************************/
-static int XilNvm_PrepareAesKeyForWrite(char *KeyStr, u8 *Dst, u32 Len)
+static int XilNvm_PrepareAesKeyForWrite(const char *KeyStr, u8 *Dst, u32 Len)
 {
 	int Status = XST_FAILURE;
 
@@ -1806,7 +1807,7 @@ END:
  *		- Error Code - On Failure.
  *
  ******************************************************************************/
-static int XilNvm_PrepareIvForWrite(char *IvStr, u8 *Dst, u32 Len)
+static int XilNvm_PrepareIvForWrite(const char *IvStr, u8 *Dst, u32 Len)
 {
 	int Status = XST_FAILURE;
 
