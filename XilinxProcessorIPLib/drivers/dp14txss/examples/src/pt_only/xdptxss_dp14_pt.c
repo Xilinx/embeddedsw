@@ -48,6 +48,7 @@
 * 1.12 ND 04/15/21 2021.1 - Change in Interrupt Event name of Adaptive sync
 * 							interrupt event. Added stream parameter XDP_TX_STREAM_ID1
 * 							in XDpRxSs_GetVblank().
+* 							CTS related updates
 * </pre>
 *
 ******************************************************************************/
@@ -1025,10 +1026,11 @@ void CalculateCRC(void)
                  (VidFrameCRC_rx.TEST_CRC_SUPPORTED << 5 |
                   VidFrameCRC_rx.TEST_CRC_CNT));
     }
-
+#if !PHY_COMP
     xil_printf("[Video CRC] R/Cr: 0x%x, G/Y: 0x%x, B/Cb: 0x%x\r\n\n",
                VidFrameCRC_rx.Pixel_r, VidFrameCRC_rx.Pixel_g,
                VidFrameCRC_rx.Pixel_b);
+#endif
 
 #endif
 
@@ -2641,12 +2643,14 @@ int Dppt_DetectResolution(void *InstancePtr,
 	XDp_RxSetUserPixelWidth(DpRxSsInst.DpPtr, (int)DpRxSsInst.UsrOpt.LaneCount);
 
 	if (DpRxSsInst.link_up_trigger == 1) {
+#if !PHY_COMP
 		xil_printf(
 			"*** Resolution: "
 				"%lu x %lu @ %luHz, BPC = %lu, PPC = %d, Color = %s (%d) ***\r\n",
 			DpHres, DpVres,recv_frame_clk_int,bpc,(int)DpRxSsInst.UsrOpt.LaneCount,
 				color, use_vsc
 		);
+#endif
 	}
 
 	if (DpRxSsInst.link_up_trigger == 1) {

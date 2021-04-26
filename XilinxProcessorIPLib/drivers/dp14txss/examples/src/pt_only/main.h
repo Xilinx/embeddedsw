@@ -254,7 +254,7 @@
 // Set PHY_COMP to 1 when doing the PHY and LL compliance
 // For normal operation, this needs to be set to 0
 #define PHY_COMP 0
-#define EDID_1_ENABLED PHY_COMP
+#define EDID_1_ENABLED !PHY_COMP
 
 /*Max timeout tuned as per tester - AXI Clock=100 MHz
  *Some GPUs may need larger value, So user may tune if needed
