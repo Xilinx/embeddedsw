@@ -1870,6 +1870,10 @@ static void StubTp1Callback(void *InstancePtr)
 		DpRxSsPtr->ltState = 1;
 		DpRxSsPtr->ceItrCounter = 0;
 	}
+
+	if (MCDP6000_IC_Rev == 0x3200) {
+		XDpRxSs_MCDP6000_ResetCrPath (DpRxSsPtr, XDPRXSS_MCDP6000_IIC_SLAVE);
+	}
  
 	/* Read link rate */
 	DpRxSsPtr->UsrOpt.LinkRate =

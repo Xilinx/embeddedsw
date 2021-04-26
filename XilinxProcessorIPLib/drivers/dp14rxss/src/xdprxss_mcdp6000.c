@@ -507,6 +507,12 @@ int XDpRxSs_MCDP6000_DpInit(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress)
 		}
 	} else if (MCDP6000_IC_Rev==0x3200) {
 		Result = XDpRxSs_MCDP6000_SetRegister(DpRxSsPtr, I2CSlaveAddress,
+				0x024C, 0x22221A50);
+		if (Result != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
+		Result = XDpRxSs_MCDP6000_SetRegister(DpRxSsPtr, I2CSlaveAddress,
 					      0x0350, 0x0000001F);
 		if (Result != XST_SUCCESS) {
 			return XST_FAILURE;
@@ -692,6 +698,46 @@ int XDpRxSs_MCDP6000_IbertInit(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress)
 		Result = XDpRxSs_MCDP6000_SetRegister(DpRxSsPtr, I2CSlaveAddress,
 					      0x0150, 0x00180000);
 	}
+	return Result;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function requests a reset of the CR path of the MCDP6000 device
+*
+* @param DpRxSsPtr is a pointer to the XDpRxSs core instance.
+* @param I2CSlaveAddress is the 7-bit I2C slave address.
+*
+* @return
+*    - XST_SUCCESS Reset request was successful.
+*    - XST_FAILURE I2C error.
+*
+* @note None.
+*
+******************************************************************************/
+int XDpRxSs_MCDP6000_ResetCrPath(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress)
+{
+	int Result;
+
+	/* Verify argument.*/
+	Xil_AssertNonvoid(DpRxSsPtr != NULL);
+
+	/* Set Reset bits : This is actually getting out from DP mode.
+	 * Eventually reset the chip. */
+	Result = XDpRxSs_MCDP6000_ModifyRegister(DpRxSsPtr, I2CSlaveAddress,
+				      0x150, 0x00008000, 0x00008000);
+	if (Result != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/* Clear Reset bits  */
+	Result = XDpRxSs_MCDP6000_ModifyRegister(DpRxSsPtr, I2CSlaveAddress,
+				      0x150, 0x00000000, 0x00008000);
+	if (Result != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
 	return Result;
 }
 
