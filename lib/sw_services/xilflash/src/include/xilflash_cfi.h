@@ -24,8 +24,8 @@
 *
 ***************************************************************************/
 
-#ifndef XFLASH_CFI_H		/* prevent circular inclusions */
-#define XFLASH_CFI_H		/* by using protection macros */
+#ifndef XFLASH_CFI_H		/**< prevent circular inclusions */
+#define XFLASH_CFI_H		/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -45,6 +45,10 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 
 /**
+ * @name Layout constants
+ * @{
+ */
+/**
  * LAYOUT constants are used to parse the XFL_LAYOUT_X* constants.
  */
 #define XFL_LAYOUT_NUM_PARTS_MASK	0x000000FF
@@ -63,6 +67,7 @@ extern "C" {
 #define XFL_LAYOUT_CFI_INTERL_2		0x02000000
 #define XFL_LAYOUT_CFI_INTERL_4		0x04000000
 #define XFL_LAYOUT_CFI_INTERL_8		0x08000000
+/** @} */
 
 /**************************** Type Definitions *******************************/
 

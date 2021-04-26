@@ -41,8 +41,8 @@
 *
 ******************************************************************************/
 
-#ifndef XFLASH_INTEL_H		/* prevent circular inclusions */
-#define XFLASH_INTEL_H		/* by using protection macros */
+#ifndef XFLASH_INTEL_H		/**< prevent circular inclusions */
+#define XFLASH_INTEL_H		/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
