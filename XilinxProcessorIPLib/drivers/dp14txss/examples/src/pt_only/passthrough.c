@@ -431,6 +431,10 @@ void DpPt_Main(void){
 				xil_printf("0x0B2C: %08x\n\r",
 						XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
 								I2C_MCDP6000_ADDR, 0x0B2C));
+				xil_printf("0x024C: %08x\n\r",
+						XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
+								I2C_MCDP6000_ADDR, 0x024C));
+
 
 				xil_printf (
 					"==========RX Debug Data===========\r\n");
@@ -1072,12 +1076,13 @@ void DpPt_Main(void){
 			xil_printf ("Cannot Start TX...\r\n");
 		    }
 		}
-
+#if !PHY_COMP
 		// This continuously tracks the Maud, Naud values by reading the
 		// registers
 		if (rx_trained && rx_aud && tx_done) {
 			Dppt_DetectAudio();
 		}
+#endif
 	}//end while(1)
 }
 
@@ -1494,6 +1499,7 @@ void dprx_tracking (void) {
 	    audio_info_avail = 0;
 	    AudioinfoFrame.frame_count = 0;
 	    AudioinfoFrame.all_count = 0;
+#if !PHY_COMP
 		xil_printf(
 		"> Rx Training done !!! (BW: 0x%x, Lanes: 0x%x, Status: "
 		"0x%x;0x%x).\n\r",
@@ -1505,6 +1511,7 @@ void dprx_tracking (void) {
 				XDP_RX_DPCD_LANE01_STATUS),
 		XDpRxSs_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 				XDP_RX_DPCD_LANE23_STATUS));
+#endif
 #if !ADAPTIVE_TYPE
 		/* Enable the RX interrupt for Adaptive Sync
 		 *
@@ -1555,8 +1562,8 @@ void dprx_tracking (void) {
 
 #if !PHY_COMP
 		tx_after_rx = 1;
+                rx_aud = 1;
 #endif
-		rx_aud = 1;
 		track_msa = Dppt_DetectResolution(DpRxSsInst.DpPtr, Msa,
 				DpRxSsInst.link_up_trigger);
 	}
