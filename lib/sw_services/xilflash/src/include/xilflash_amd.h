@@ -28,8 +28,8 @@
 *
 ******************************************************************************/
 
-#ifndef XFLASH_AMD_H		/* prevent circular inclusions */
-#define XFLASH_AMD_H		/* by using protection macros */
+#ifndef XFLASH_AMD_H		/**< prevent circular inclusions */
+#define XFLASH_AMD_H		/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {

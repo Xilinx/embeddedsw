@@ -35,8 +35,8 @@
 *
 ***************************************************************************/
 
-#ifndef XFLASH_PROPERTIES_H	/* prevent circular inclusions */
-#define XFLASH_PROPERTIES_H	/* by using protection macros */
+#ifndef XFLASH_PROPERTIES_H	/**< prevent circular inclusions */
+#define XFLASH_PROPERTIES_H	/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -102,8 +102,8 @@ typedef struct {
  * Flash Specific Command Set
  */
 typedef struct {
-	u32 WriteBufferCommand;
-	u32 ProgramCommand;
+	u32 WriteBufferCommand;		/**< Write Buffer Command */
+	u32 ProgramCommand;		/**< Program Command */
 } XFlashCommandSet;
 
 /************************** Function Prototypes ******************************/
