@@ -27,8 +27,8 @@
 *
 ******************************************************************************/
 
-#ifndef XRTC_HW_H_		/* prevent circular inclusions */
-#define XRTC_HW_H_		/* by using protection macros */
+#ifndef XRTC_HW_H_		/**< prevent circular inclusions */
+#define XRTC_HW_H_		/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -46,7 +46,12 @@ extern "C" {
  * Xrtc Base Address
  */
 #define XRTC_BASEADDR      0xFFA60000U
-
+/**
+ * @name Set Timer Register
+ * This register contains bits for configuring
+ * Current time.
+ * @{
+ */
 /**
  * Register: XrtcSetTimeWr
  */
@@ -68,7 +73,14 @@ extern "C" {
 #define XRTC_SET_TIME_RD_VAL_WIDTH   32U
 #define XRTC_SET_TIME_RD_VAL_MASK    0xffffffffU
 #define XRTC_SET_TIME_RD_VAL_DEFVAL  0x0U
+/** @} */
 
+/**
+ * @name Calibration  Register
+ * This register contains bits for configuring
+ * Calibration values.
+ * @{
+ */
 /**
  * Register: XrtcCalibWr
  */
@@ -110,7 +122,14 @@ extern "C" {
 #define XRTC_CALIB_RD_MAX_TCK_WIDTH   16U
 #define XRTC_CALIB_RD_MAX_TCK_MASK    0x0000ffffU
 #define XRTC_CALIB_RD_MAX_TCK_DEFVAL  0x0U
+/** @} */
 
+/**
+ * @name Current time  Register
+ * This register contains bits for configuring
+ * Current time.
+ * @{
+ */
 /**
  * Register: XrtcCurTime
  */
@@ -132,7 +151,14 @@ extern "C" {
 #define XRTC_CUR_TCK_VAL_WIDTH   16U
 #define XRTC_CUR_TCK_VAL_MASK    0x0000ffffU
 #define XRTC_CUR_TCK_VAL_DEFVAL  0x0U
+/** @} */
 
+/**
+ * @name Alarm Register
+ * This register contains bits for configuring
+ * Alarm.
+ * @{
+ */
 /**
  * Register: XrtcAlrm
  */
@@ -143,7 +169,14 @@ extern "C" {
 #define XRTC_ALRM_VAL_WIDTH   32U
 #define XRTC_ALRM_VAL_MASK    0xffffffffU
 #define XRTC_ALRM_VAL_DEFVAL  0x0U
+/** @} */
 
+/**
+ * @name Interrupt Status  Register
+ * This register contains bits for configuring
+ * Interrupt.
+ * @{
+ */
 /**
  * Register: XrtcIntSts
  */
@@ -251,7 +284,13 @@ extern "C" {
 #define XRTC_ADD_ERR_INT_DIS_MSK_WIDTH   1U
 #define XRTC_ADD_ERR_INT_DIS_MSK_MASK    0x00000001U
 #define XRTC_ADD_ERR_INT_DIS_MSK_DEFVAL  0x0U
+/** @} */
 
+/**
+ * @name Control Register
+ * This register contains bits for control register.
+ * @{
+ */
 /**
  * Register: XrtcCtl
  */
@@ -272,7 +311,14 @@ extern "C" {
 #define XRTC_CTL_SLVERR_EN_WIDTH   1U
 #define XRTC_CTL_SLVERR_EN_MASK    0x00000001U
 #define XRTC_CTL_SLVERR_EN_DEFVAL  0x0U
+/** @} */
 
+/**
+ * @name Safety Check Register
+ * This register contains bits for configuring
+ * safety check.
+ * @{
+ */
 /**
  * Register: XrtcSftyChk
  */
@@ -294,6 +340,7 @@ extern "C" {
 #define XRTC_ECO_REG_WIDTH   32U
 #define XRTC_ECO_REG_MASK    0xffffffffU
 #define XRTC_ECO_REG_DEFVAL  0x0U
+/** @} */
 
 /***************** Macros (Inline Functions) Definitions *********************/
 

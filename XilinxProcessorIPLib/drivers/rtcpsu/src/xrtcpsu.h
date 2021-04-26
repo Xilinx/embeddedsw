@@ -99,14 +99,15 @@
  *                       Literal value requires a U suffix,Casting operation to a pointer
  *                       Array has no bounds specified,Logical conjunctions need brackets.
  * 1.10	 sne    08/28/20 Modify Makefile to support parallel make execution.
+ * 1.11	 sne	04/23/21 Fixed doxygen warnings.
  *
  * </pre>
  *
  ******************************************************************************/
 
 
-#ifndef XRTC_H_			/* prevent circular inclusions */
-#define XRTC_H_			/* by using protection macros */
+#ifndef XRTC_H_			/**< prevent circular inclusions */
+#define XRTC_H_			/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -132,7 +133,7 @@ extern "C" {
  */
 #define XRTCPSU_EVENT_ALARM_GEN		1U /**< Alarm generated event */
 #define XRTCPSU_EVENT_SECS_GEN		2U /**< A new second generated event */
-/*@}*/
+/** @} */
 
 #define XRTCPSU_CRYSTAL_OSC_EN		((u32)1 << XRTC_CTL_OSC_SHIFT)
 /**< Separate Mask for Crystal oscillator bit Enable */
@@ -150,9 +151,6 @@ extern "C" {
  *		instance.
  * @param	Event contains one of the event constants indicating events that
  *		have occurred.
- * @param	EventData contains the number of bytes sent or received at the
- *		time of the call for send and receive events and contains the
- *		modem status for modem events.
  *
  ******************************************************************************/
 typedef void (*XRtcPsu_Handler) (void *CallBackRef, u32 Event);
@@ -173,29 +171,29 @@ typedef struct {
 typedef struct {
 	XRtcPsu_Config RtcConfig;	/**< Device configuration */
 	u32 IsReady;			/**< Device is initialized and ready */
-	u32 PeriodicAlarmTime;
-	u8 IsPeriodicAlarm;
-	u32 OscillatorFreq;
-	u32 CalibrationValue;
-	XRtcPsu_Handler Handler;
+	u32 PeriodicAlarmTime;		/**< Alarm timer */
+	u8 IsPeriodicAlarm;		/**< Alarm Interrupt Information */
+	u32 OscillatorFreq;		/**< Device Oscillator Freq */
+	u32 CalibrationValue;		/**< Device Calibration Value */
+	XRtcPsu_Handler Handler;	/**< Handler Information */
 	void *CallBackRef;		/**< Callback reference for
 					  * event handler
 					  */
-	u32 TimeUpdated;
-	u32 CurrTimeUpdated;
+	u32 TimeUpdated;		/**< Time */
+	u32 CurrTimeUpdated;		/**< Current Time */
 } XRtcPsu;
 
 /**
  * This typedef contains DateTime format structure.
  */
 typedef struct {
-	u32 Year;
-	u32 Month;
-	u32 Day;
-	u32 Hour;
-	u32 Min;
-	u32 Sec;
-	u32 WeekDay;
+	u32 Year;	/**< Year */
+	u32 Month;	/**< Month */
+	u32 Day;	/**< Day */
+	u32 Hour;	/**< Hour */
+	u32 Min;	/**< Minute */
+	u32 Sec;	/**< Second */
+	u32 WeekDay;	/**< Week Day */
 } XRtcPsu_DT;
 
 
@@ -205,8 +203,8 @@ extern XRtcPsu_Config XRtcPsu_ConfigTable[];
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-#define XRTC_CALIBRATION_VALUE 0x7FFFU
-#define XRTC_TYPICAL_OSC_FREQ 32768U
+#define XRTC_CALIBRATION_VALUE 0x7FFFU	/**< Calibration value */
+#define XRTC_TYPICAL_OSC_FREQ 32768U	/**< Oscillator frequency */
 
 /****************************************************************************/
 /**
