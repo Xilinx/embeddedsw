@@ -773,7 +773,9 @@ void XSdiEnableSDIAudioPassThrough(XSdiAud_SampRate SampleRate, u32 Asx)
 	XSdiAud_SetCh(&SdiEmbed, 0xFFFFFFFF);
 	XSdiAud_Enable(&SdiEmbed, 1);
 
-	/* Enable 32-Channel SDI Audio Extract */
+	/* For non SD mode, Enable 32-Channel SDI Audio Extract.*/
+	/* In-case of SD-mode enable only Valid Audio channels in 0x20 register*/
+	/* Enabling all 32-channels and driving only few may not work.*/
 	XSdiAud_SetCh(&SdiExtract, 0xFFFFFFFF);
 	XSdiAud_Enable(&SdiExtract, 1);
 }
