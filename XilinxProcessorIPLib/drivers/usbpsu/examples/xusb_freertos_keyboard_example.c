@@ -63,7 +63,6 @@ void Usb_EpInHandler(void *CallBackRef, u32 RequestedBytes, u32 BytesTxed);
 struct Usb_DevData UsbInstance;	/* The instance of the USB Controller */
 
 u8 Phase;
-u8 class_data[10];
 
 /* Initialize a data structure */
 static USBCH9_DATA keyboard_data = {
