@@ -721,7 +721,7 @@ AieRC _XAie_RscMgr_RequestRsc(XAie_DevInst *DevInst, u32 NumReq,
 			/* Clear resource marking for all previous requests */
 			_XAie_RscMgr_FreeRscs(DevInst, UserRscIndex, Rscs,
 					RscType);
-			XAIE_ERROR("Unable to request resources. RscType: %d\n",
+			XAIE_WARN("Unable to request resources. RscType: %d\n",
 					RscType);
 			return XAIE_INVALID_ARGS;
 		}
@@ -771,7 +771,7 @@ AieRC _XAie_RscMgr_RequestRscContiguous(XAie_DevInst *DevInst, u32 NumReq,
 			/* Clear resource marking for all previous requests */
 			_XAie_RscMgr_FreeRscs(DevInst, UserRscIndex, Rscs,
 					RscType);
-			XAIE_ERROR("Unable to request resources. RscType: %d\n",
+			XAIE_WARN("Unable to request resources. RscType: %d\n",
 					RscType);
 			return XAIE_INVALID_ARGS;
 		}
@@ -937,7 +937,7 @@ AieRC _XAie_RscMgr_RequestAllocatedRsc(XAie_DevInst *DevInst, u32 NumReq,
 			/* Clear resource marking for all previous requests */
 			_XAie_RscMgr_FreeRscs(DevInst, UserRscIndex, Rscs,
 					RscType);
-			XAIE_ERROR("Unable to request resources. RscType: %d\n",
+			XAIE_WARN("Unable to request resources. RscType: %d\n",
 					RscType);
 			return XAIE_INVALID_ARGS;
 		}
