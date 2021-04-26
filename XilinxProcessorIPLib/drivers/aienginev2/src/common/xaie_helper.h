@@ -42,6 +42,9 @@
 #define XAIE_ERROR(...) \
 	do { XAie_Log(stderr, "[AIE ERROR]: \t", __VA_ARGS__); } while(0)
 
+#define XAIE_WARN(...) \
+	do { XAie_Log(stderr, "[AIE WARNING]: \t", __VA_ARGS__); } while(0)
+
 #ifdef XAIE_DEBUG
 
 #define XAIE_DBG(...) \
