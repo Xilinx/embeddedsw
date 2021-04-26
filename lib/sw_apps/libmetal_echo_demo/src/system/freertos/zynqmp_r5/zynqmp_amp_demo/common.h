@@ -60,7 +60,7 @@
 #define TTC_DEV_NAME	"ff0E0000.ttc"
 #else
 #define IPI_DEV_NAME    "ff310000.ipi"
-#define IPI_BASE_ADDR	0xFF340000
+#define IPI_BASE_ADDR	0xFF310000
 #define IPI_IRQ_VECT_ID	65
 /* IPI mask for kick from APU. We use PL0 IPI in this demo. */
 #define IPI_MASK	0x1000000
