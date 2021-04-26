@@ -1405,8 +1405,11 @@ XStatus XPm_AbortSuspend(const u32 SubsystemId, const u32 Reason,
 	XPm_Core *Core;
 
 	PmInfo("(%lu, %lu)\r\n", Reason, DeviceId);
-
-	if((NODECLASS(DeviceId) == (u32)XPM_NODECLASS_DEVICE) &&
+	if (NULL == XPmSubsystem_GetById(SubsystemId)) {
+		PmErr("Invalid Subsystem Id\n\r");
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	} else if((NODECLASS(DeviceId) == (u32)XPM_NODECLASS_DEVICE) &&
 	   (NODESUBCLASS(DeviceId) == (u32)XPM_NODESUBCL_DEV_CORE)) {
 		Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
 		if (NULL == Core) {
