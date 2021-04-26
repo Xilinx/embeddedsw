@@ -724,7 +724,7 @@ u32 XV_SdiTx_GetPayloadEotf(XV_SdiTx *InstancePtr,
 {
 	XVidC_Eotf eotf;
 	XVidC_ColorStd colorimetry;
-	u32 payload;
+	u32 payload = 0;
 
 	switch(Eotf) {
 	case XVIDC_EOTF_TG_SDR:
@@ -755,8 +755,6 @@ u32 XV_SdiTx_GetPayloadEotf(XV_SdiTx *InstancePtr,
 		colorimetry = XV_SDIVID_COLORIMETRY_BT709;
 		break;
 	}
-
-	payload = InstancePtr->Stream[0].PayloadId;
 
 	/*
 	 * For HD mode, bit 23 and bit 20 of payload represents colorimetry as per
@@ -1095,14 +1093,19 @@ void XV_SdiTx_StartSdi(XV_SdiTx *InstancePtr, XSdiVid_TransMode SdiMode,
 		| XV_SDITX_MDL_CTRL_M_MASK
 		| XV_SDITX_MDL_CTRL_MUX_PATTERN_MASK);
 
-	Data |= (((SdiMode & 0x7) << XV_SDITX_MDL_CTRL_MODE_SHIFT) |
-		((IsFractional & 0x1) << XV_SDITX_MDL_CTRL_M_SHIFT) |
-		((MuxPattern & 0x7) << XV_SDITX_MDL_CTRL_MUX_PATTERN_SHIFT));
+
 
 	/* Enable HFR, if frame rate is above 96 */
 	if (InstancePtr->Stream[0].Video.FrameRate >= XVIDC_FR_96HZ &&
-			InstancePtr->Stream[0].Video.FrameRate <= XVIDC_FR_240HZ)
+			InstancePtr->Stream[0].Video.FrameRate <= XVIDC_FR_240HZ) {
 		Data |= XV_SDITX_MDL_CTRL_ENABLE_HFR;
+		if (SdiMode == XSDIVID_MODE_6G)
+			MuxPattern = 0x3;
+	}
+
+	Data |= (((SdiMode & 0x7) << XV_SDITX_MDL_CTRL_MODE_SHIFT) |
+		((IsFractional & 0x1) << XV_SDITX_MDL_CTRL_M_SHIFT) |
+		((MuxPattern & 0x7) << XV_SDITX_MDL_CTRL_MUX_PATTERN_SHIFT));
 
 	XV_SdiTx_WriteReg((InstancePtr)->Config.BaseAddress,
 				(XV_SDITX_MDL_CTRL_OFFSET), (Data));
