@@ -109,8 +109,8 @@
 * </pre>
 *
 ******************************************************************************/
-#ifndef XSCUWDT_H		/* prevent circular inclusions */
-#define XSCUWDT_H		/* by using protection macros */
+#ifndef XSCUWDT_H		/**< prevent circular inclusions */
+#define XSCUWDT_H		/**< by using protection macros */
 
 /***************************** Include Files *********************************/
 
