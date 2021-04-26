@@ -69,7 +69,7 @@ static const u32 DaysInMonth[] = {31, 28, 31, 30, 31,
 static void XRtcPsu_StubHandler(void *CallBackRef, u32 Event);
 
 /*****************************************************************************/
-/*
+/**
  *
  * This function initializes a XRtcPsu instance/driver.
  *
