@@ -25,6 +25,7 @@
   *                     from u32 and s32 to int.
   *       har  09/30/20 Replaced XPuf_printf with xil_printf
   *       har  04/14/21 Modified code to use client side APIs of Xilsecure
+  *       har  04/21/21 Fixed CPP warnings
   *
   *@note
   *
@@ -520,7 +521,7 @@ static int XPuf_ProgramBlackKey(void)
 	XNvm_EfuseAesKeys WriteAesKeys = {0U};
 	XNvm_EfuseData WriteData = {0U};
 	XPuf_WriteBlackKeyOption BlackKeyWriteOption =
-					XPUF_WRITE_BLACK_KEY_OPTION;
+			(XPuf_WriteBlackKeyOption)XPUF_WRITE_BLACK_KEY_OPTION;
 	u8 FlashBlackKey[XPUF_RED_KEY_LEN_IN_BYTES] = {0};
 
 	XPuf_ReverseData(FormattedBlackKey, FlashBlackKey, XPUF_RED_KEY_LEN_IN_BYTES);
