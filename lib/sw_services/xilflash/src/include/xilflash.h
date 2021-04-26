@@ -197,6 +197,7 @@
 * 4.7	akm  07/10/19 Updated XFlashAmd_Write() to use adjusted base address
 *                     in write operation(CR-1029074).
 * 4.7	akm  07/23/19 Initialized Status variable to XST_FAILURE.
+* 4.8	sne  04/23/21 Fixed doxygen warnings.
 * </pre>
 *
 ***************************************************************************/
