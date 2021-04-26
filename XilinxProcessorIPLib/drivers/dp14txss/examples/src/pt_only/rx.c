@@ -178,6 +178,13 @@ u32 DpRxSs_Setup(u8 freesync, u8 vsc)
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_CONFIG,
 			VidFrameCRC_rx.TEST_CRC_SUPPORTED<<5);
 #if PHY_COMP
+	//Setting all Audio related DPCD registers to 0
+	//Ensure that only Video tests are run
+	ReadVal = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+			0x464);
+	ReadVal &= 0xFFFFFEFF;
+	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+					0x464, ReadVal);
 	/*Set to 0 when Audio is NOT supported*/
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 					XDP_RX_LOCAL_EDID_VIDEO, 0x0);
@@ -480,7 +487,9 @@ void DpRxSs_TrainingLostHandler(void *InstancePtr)
     AudioinfoFrame.frame_count = 0;
     AudioinfoFrame.all_count = 0;
 	if (rx_trained == 1) {
+#if !PHY_COMP
 		xil_printf ("Training Lost !!\r\n");
+#endif
 	}
 	rx_trained = 0;
 	vblank_captured = 0;
@@ -827,7 +836,10 @@ void DpRxSs_PllResetHandler(void *InstancePtr)
 ******************************************************************************/
 void DpRxSs_BWChangeHandler(void *InstancePtr)
 {
-//    MCDP6000_ResetDpPath(XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR);
+
+	//reset MCDP
+	XDpRxSs_MCDP6000_ResetCrPath (&DpRxSsInst, I2C_MCDP6000_ADDR);
+
 }
 
 /*****************************************************************************/
@@ -1139,7 +1151,8 @@ void LoadEDID(void)
 
 #if(EDID_1_ENABLED)
 	unsigned char edid[256] = {
-			// This is good for compliance test
+			// This is good for compliance test but
+			// UCD detects Audio support
             0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00,
 			0x61, 0x2c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
             0x00, 0x17, 0x01, 0x04, 0xb5, 0x3c, 0x22, 0x78,
@@ -1175,6 +1188,7 @@ void LoadEDID(void)
 	};
 #else
 	// 8K30, 8K24, 5K, 4K120, 4K100 + Audio
+	// UCD does not detect Audio
 	unsigned char edid[256] = {
 			0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x00,
 			0x61, 0x98, 0x23, 0x01, 0x00, 0x00, 0x00, 0x00,
