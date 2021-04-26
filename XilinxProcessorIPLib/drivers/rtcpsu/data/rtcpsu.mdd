@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -10,7 +10,7 @@ BEGIN driver rtcpsu
   OPTION supported_peripherals = (psu_rtc pmc_rtc psv_pmc_rtc);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.10;
+  OPTION VERSION = 1.11;
   OPTION NAME = rtcpsu;
 
 END driver
