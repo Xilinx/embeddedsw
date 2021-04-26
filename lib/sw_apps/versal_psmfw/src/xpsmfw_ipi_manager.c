@@ -67,7 +67,7 @@ Done:
 XStatus XPsmFw_DispatchIpiHandler(u32 SrcMask)
 {
 	XStatus Status = XST_FAILURE;
-	u32 Payload[XPSMFW_IPI_MAX_MSG_LEN];
+	u32 Payload[XPSMFW_IPI_MAX_MSG_LEN] = {0};
 	u32 Response[XPSMFW_IPI_MAX_MSG_LEN];
 
 	XPsmFw_Printf(DEBUG_DETAILED, "In IPI handler\r\n");
