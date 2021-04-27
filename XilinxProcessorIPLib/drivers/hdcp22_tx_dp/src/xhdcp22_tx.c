@@ -2638,7 +2638,7 @@ static XHdcp22_Tx_StateType XHdcp22Tx_StateA9(XHdcp22_Tx *InstancePtr)
 	}
 
 	/* Start the timer for receiving XHDCP22_TX_REPEATAUTH_STREAM_READY */
-	XHdcp22Tx_StartTimer(InstancePtr, 100, XHDCP22_TX_REPEATAUTH_STREAM_READY);
+	XHdcp22Tx_StartTimer(InstancePtr, 20, XHDCP22_TX_REPEATAUTH_STREAM_READY);
 
 	InstancePtr->Info.SentFirstSeqNum_M = TRUE;
 	InstancePtr->Info.ContentStreamManageCheckCounter++;
@@ -3281,6 +3281,14 @@ static int XHdcp22Tx_WaitForReceiver(XHdcp22_Tx *InstancePtr, int ExpectedSize, 
 						xdbg_printf(XDBG_DEBUG_GENERAL,
 								"HDCP22TX: Pairing is Available through CP_IRQ\n\r");
 					}
+				} else if (InstancePtr->Timer.ReasonId ==
+						XHDCP22_TX_REPEATAUTH_SEND_RECVID_LIST) {
+					if (InstancePtr->Info.Dp_RxStatus &
+							XHDCP22_RX_STATUS_RPTR_RDY) {
+						InstancePtr->Info.Dp_RxStatus =
+								~XHDCP22_RX_STATUS_RPTR_RDY;
+						InstancePtr->Info.MsgAvailable = (TRUE);
+					}
 				}
 
 				if (InstancePtr->Info.MsgAvailable == (TRUE)) {
@@ -3728,10 +3736,14 @@ static int XHdcp22Tx_WriteRepeaterAuth_Send_Ack(XHdcp22_Tx *InstancePtr, const u
 	memcpy(MsgPtr->Message.RepeatAuthSendAck.V, VPtr,
 		sizeof(MsgPtr->Message.RepeatAuthSendAck.V));
 
-	/* Execute write */
-	return InstancePtr->DdcWrite(XHDCP22_TX_DDC_BASE_ADDRESS,
-	                      sizeof(XHdcp22_Tx_RepeatAuthSendAck) + 1, (u8 *)MsgPtr,
-	                      (TRUE), InstancePtr->DdcHandlerRef);
+	if (InstancePtr->Config.Protocol == XHDCP22_TX_DP) {
+		return XHdcp22Tx_Dp_Write_Dpcd_Msg(InstancePtr);
+	} else {
+		/* Execute write */
+		return InstancePtr->DdcWrite(XHDCP22_TX_DDC_BASE_ADDRESS,
+				sizeof(XHdcp22_Tx_RepeatAuthSendAck) + 1, (u8 *)MsgPtr,
+				(TRUE), InstancePtr->DdcHandlerRef);
+	}
 }
 
 /******************************************************************************/
@@ -3793,10 +3805,14 @@ static int XHdcp22Tx_WriteRepeaterAuth_Stream_Manage(XHdcp22_Tx *InstancePtr)
 	 */
 	InstancePtr->Info.SeqNum_M &= 0xFFF;
 
-	/* Execute write */
-	return InstancePtr->DdcWrite(XHDCP22_TX_DDC_BASE_ADDRESS,
-		XHDCP22_TX_REPEATAUTH_STREAM_MANAGE_SIZE + 1, (u8 *)MsgPtr,
-		(TRUE), InstancePtr->DdcHandlerRef);
+	if (InstancePtr->Config.Protocol == XHDCP22_TX_DP) {
+		return XHdcp22Tx_Dp_Write_Dpcd_Msg(InstancePtr);
+	} else {
+		/* Execute write */
+		return InstancePtr->DdcWrite(XHDCP22_TX_DDC_BASE_ADDRESS,
+				XHDCP22_TX_REPEATAUTH_STREAM_MANAGE_SIZE + 1, (u8 *)MsgPtr,
+				(TRUE), InstancePtr->DdcHandlerRef);
+	}
 }
 
 /*****************************************************************************/
@@ -4787,6 +4803,36 @@ static int XHdcp22Tx_Dp_Write_Dpcd_Msg(XHdcp22_Tx *InstancePtr)
 			if (NumWritten == XHDCP22_TX_DP_HDCPPORT_TYPE_VALUE_SIZE)
 				Status = XST_SUCCESS;
 			break;
+		case XHDCP22_TX_REPEATAUTH_SEND_ACK:
+			NumWritten = InstancePtr->TxDpAuxWriteCallback(
+					InstancePtr->TxDpAuxWriteCallbackRef,
+					XHDCP22_TX_DP_HDCPPORT_V_OFFSET,
+					buffer.Message.RepeatAuthSendAck.V,
+					XHDCP22_TX_DP_HDCPPORT_V_SIZE);
+			if (NumWritten == XHDCP22_TX_DP_HDCPPORT_V_SIZE)
+				Status = XST_SUCCESS;
+			break;
+		case XHDCP22_TX_REPEATAUTH_STREAM_MANAGE:
+			NumWritten = InstancePtr->TxDpAuxWriteCallback(
+					InstancePtr->TxDpAuxWriteCallbackRef,
+					XHDCP22_TX_DP_HDCPPORT_SEQ_NUM_M_OFFSET,
+					buffer.Message.RepeatAuthStreamManage.SeqNum_M,
+					XHDCP22_TX_DP_HDCPPORT_SEQ_NUM_M_SIZE);
+			NumWritten += InstancePtr->TxDpAuxWriteCallback(
+					InstancePtr->TxDpAuxWriteCallbackRef,
+					XHDCP22_TX_DP_HDCPPORT_K_OFFSET,
+					buffer.Message.RepeatAuthStreamManage.K,
+					XHDCP22_TX_DP_HDCPPORT_K_SIZE);
+			NumWritten += InstancePtr->TxDpAuxWriteCallback(
+					InstancePtr->TxDpAuxWriteCallbackRef,
+					XHDCP22_TX_DP_HDCPPORT_STREAM_ID_TYPE_OFFSET,
+					buffer.Message.RepeatAuthStreamManage.StreamID_Type,
+					XHDCP22_TX_DP_HDCPPORT_STREAM_ID_TYPE_SIZE);
+			if (NumWritten == (XHDCP22_TX_DP_HDCPPORT_SEQ_NUM_M_SIZE +
+					XHDCP22_TX_DP_HDCPPORT_K_SIZE +
+					XHDCP22_TX_DP_HDCPPORT_STREAM_ID_TYPE_SIZE))
+				Status = XST_SUCCESS;
+			break;
 		default:
 			xdbg_printf(XDBG_DEBUG_GENERAL,
 					"Wrong Msg sending requested (id = %d)"
@@ -4876,6 +4922,47 @@ static int XHdcp22Tx_Dp_ReadDpRxMsg(XHdcp22_Tx *InstancePtr, u8 MessageId)
 					MsgPtr->Message.LCSendLPrime.LPrime,
 					XHDCP22_TX_DP_HDCPPORT_L_PRIME_SIZE);
 			if (NumRead == XHDCP22_TX_DP_HDCPPORT_L_PRIME_SIZE)
+				Status = XST_SUCCESS;
+			break;
+		case XHDCP22_TX_REPEATAUTH_SEND_RECVID_LIST:
+			/* Read RX_Info */
+			NumRead = InstancePtr->TxDpAuxReadCallback(
+					InstancePtr->TxDpAuxReadCallbackRef,
+					XHDCP22_TX_DP_HDCPPORT_RX_INFO_OFFSET,
+					MsgPtr->Message.RepeatAuthSendRecvIDList.RxInfo,
+					XHDCP22_TX_DP_HDCPPORT_RX_INFO_SIZE);
+			/* Read SeqNum_V */
+			NumRead += InstancePtr->TxDpAuxReadCallback(
+					InstancePtr->TxDpAuxReadCallbackRef,
+					XHDCP22_TX_DP_HDCPPORT_SEQ_NUM_V_OFFSET,
+					MsgPtr->Message.RepeatAuthSendRecvIDList.SeqNum_V,
+					XHDCP22_TX_DP_HDCPPORT_SEQ_NUM_V_SIZE);
+			/* Read VPrime */
+			NumRead += InstancePtr->TxDpAuxReadCallback(
+					InstancePtr->TxDpAuxReadCallbackRef,
+					XHDCP22_TX_DP_HDCPPORT_V_PRIME_OFFSET,
+					MsgPtr->Message.RepeatAuthSendRecvIDList.VPrime,
+					XHDCP22_TX_DP_HDCPPORT_V_PRIME_SIZE);
+			/* Read ReceverID_List */
+			NumRead += InstancePtr->TxDpAuxReadCallback(
+					InstancePtr->TxDpAuxReadCallbackRef,
+					XHDCP22_TX_DP_HDCPPORT_RCVR_ID_LST_OFFSET,
+					MsgPtr->Message.RepeatAuthSendRecvIDList.ReceiverIDs,
+					XHDCP22_TX_DP_HDCPPORT_RCVR_ID_LST_MAX_SIZE);
+			if (NumRead == XHDCP22_TX_DP_HDCPPORT_RX_INFO_SIZE +
+					XHDCP22_TX_DP_HDCPPORT_SEQ_NUM_V_SIZE +
+					XHDCP22_TX_DP_HDCPPORT_V_PRIME_SIZE +
+					XHDCP22_TX_DP_HDCPPORT_RCVR_ID_LST_MAX_SIZE)
+				Status = XST_SUCCESS;
+			break;
+		case XHDCP22_TX_REPEATAUTH_STREAM_READY:
+			/* Read M' */
+			NumRead = InstancePtr->TxDpAuxReadCallback(
+					InstancePtr->TxDpAuxReadCallbackRef,
+					XHDCP22_TX_DP_HDCPPORT_M_PRIME_OFFSET,
+					MsgPtr->Message.RepeatAuthStreamReady.MPrime,
+					XHDCP22_TX_DP_HDCPPORT_M_PRIME_SIZE);
+			if (NumRead == XHDCP22_TX_DP_HDCPPORT_M_PRIME_SIZE)
 				Status = XST_SUCCESS;
 			break;
 		default:
