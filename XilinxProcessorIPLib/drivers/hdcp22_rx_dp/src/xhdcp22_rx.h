@@ -125,6 +125,24 @@ extern "C" {
 #define E_DKEY_KS_SIZE			16
 #define R_IV_OFFSET			0x328
 #define R_IV_SIZE			8
+#define RX_INFO_OFFSET			0x330
+#define RX_INFO_SIZE			2
+#define SEQ_NUM_V_OFFSET		0x332
+#define SEQ_NUM_V_SIZE			3
+#define V_PRIME_OFFSET			0x335
+#define V_PRIME_SIZE			16
+#define RCVID_LIST_OFFSET		0x345
+#define RCVID_LIST_SIZE			155
+#define V_OFFSET			0x3E0
+#define V_SIZE				16
+#define SEQ_NUM_M_OFFSET		0x3F0
+#define SEQ_NUM_M_SIZE			3
+#define K_OFFSET			0x3F3
+#define K_SIZE				2
+#define STREAMID_TYPE_OFFSET		0x3F5
+#define STREAMID_TYPE_SIZE		2
+#define M_PRIME_OFFSET			0x473
+#define M_PRIME_SIZE			32
 #define RX_STATUS_OFFSET		0x493
 #define RX_STREAM_TYPE_OFFSET		0x494
 #define Rx_STREAM_TYPE_SIZE		1
@@ -725,6 +743,7 @@ void XHdcp22Rx_SetTopologyUpdate(XHdcp22_Rx *InstancePtr);
 void XHdcp22Rx_SetRepeater(XHdcp22_Rx *InstancePtr, u8 Set);
 u8   XHdcp22Rx_IsRepeater(XHdcp22_Rx *InstancePtr);
 u8   XHdcp22Rx_GetContentStreamType(XHdcp22_Rx *InstancePtr);
+void XHdcp22_RxSetReauthReq(XHdcp22_Rx *InstancePtr);
 
 #ifdef __cplusplus
 }
