@@ -29,6 +29,7 @@
 *                       FTTI configuration support for keep alive task
 *       bm   04/10/2021 Updated scheduler function calls
 *       bsv  04/16/2021 Add provision to store Subsystem Id in XilPlmi
+*       bm   04/27/2021 Updated priority of XPlm_KeepAliveTask
 *
 * </pre>
 *
@@ -441,7 +442,7 @@ int XPlm_CreateKeepAliveTask(void *PtrMilliSeconds)
 	 * XPLM_DEFAULT_FTTI_TIME period.
 	 */
 	Status = XPlmi_SchedulerAddTask(XPLM_PSM_HEALTH_CHK, XPlm_KeepAliveTask,
-			MilliSeconds, XPLM_TASK_PRIORITY_1, NULL,
+			MilliSeconds, XPLM_TASK_PRIORITY_0, NULL,
 			XPLMI_PERIODIC_TASK);
 	if (XST_SUCCESS != Status) {
 		Status = XPlmi_UpdateStatus(XPLM_ERR_KEEP_ALIVE_TASK_CREATE,
