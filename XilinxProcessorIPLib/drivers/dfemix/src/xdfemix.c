@@ -29,6 +29,7 @@
 *       dc     04/18/21 Update trigger and event handlers
 *       dc     04/20/21 Doxygen documentation update
 *       dc     04/22/21 Add CC_GAIN field
+*       dc     04/27/21 Update CARRIER_CONFIGURATION handling
 *
 * </pre>
 *
@@ -405,9 +406,11 @@ static void XDfeMix_SetCCDDC(const XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg,
 	Xil_AssertVoid(DUCDDCCfg != NULL);
 	Xil_AssertVoid(DUCDDCCfg->Rate <= XDFEMIX_RATE_MAX);
 	Xil_AssertVoid(DUCDDCCfg->NCO <= XDFEMIX_NCO_MAX);
+	Xil_AssertVoid(DUCDDCCfg->CCGain <= XDFEMIX_CC_GAIN_MAX);
 
 	CCCfg->DUCDDCCfg[CCID].NCO = DUCDDCCfg->NCO;
 	CCCfg->DUCDDCCfg[CCID].Rate = DUCDDCCfg->Rate;
+	CCCfg->DUCDDCCfg[CCID].CCGain = DUCDDCCfg->CCGain;
 }
 
 /****************************************************************************/
