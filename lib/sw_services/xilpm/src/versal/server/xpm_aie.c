@@ -149,7 +149,7 @@ static XStatus AiePcsrWrite(u32 Mask, u32 Value)
 
 	PmOut32((BaseAddress + NPI_PCSR_CONTROL_OFFSET), Value);
 	/* Check control value again for blind write check */
-	PmChkRegRmw32((BaseAddress + NPI_PCSR_CONTROL_OFFSET), Mask, Value, Status);
+	PmChkRegMask32((BaseAddress + NPI_PCSR_CONTROL_OFFSET), Mask, Value, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
 		DbgErr = XPM_INT_ERR_REG_WRT_NPI_PCSR_CONTROL;
 		goto done;

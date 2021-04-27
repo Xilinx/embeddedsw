@@ -238,7 +238,7 @@ static XStatus Cpm5ScanClear(u32 *Args, u32 NumOfArgs)
 	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_MASK_OFFSET,
 		CPM_PCSR_MASK_SCAN_CLEAR_HOLDSTATE_WEN_MASK);
 	/* Check that the register value written properly or not! */
-	PmChkRegRmw32((Cpm->CpmPcsrBaseAddr + CPM_PCSR_MASK_OFFSET),
+	PmChkRegMask32((Cpm->CpmPcsrBaseAddr + CPM_PCSR_MASK_OFFSET),
 		      CPM_PCSR_MASK_SCAN_CLEAR_HOLDSTATE_WEN_MASK,
 		      CPM_PCSR_MASK_SCAN_CLEAR_HOLDSTATE_WEN_MASK, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
@@ -252,7 +252,7 @@ static XStatus Cpm5ScanClear(u32 *Args, u32 NumOfArgs)
 	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_MASK_OFFSET,
 		CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK);
 	/* Check that the register value written properly or not! */
-	PmChkRegRmw32((Cpm->CpmPcsrBaseAddr + CPM_PCSR_MASK_OFFSET),
+	PmChkRegMask32((Cpm->CpmPcsrBaseAddr + CPM_PCSR_MASK_OFFSET),
 		      CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK,
 		      CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
@@ -263,7 +263,7 @@ static XStatus Cpm5ScanClear(u32 *Args, u32 NumOfArgs)
 	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_PCR_OFFSET,
 		CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK);
 	/* Check that the register value written properly or not! */
-	PmChkRegRmw32((Cpm->CpmPcsrBaseAddr + CPM_PCSR_PCR_OFFSET),
+	PmChkRegMask32((Cpm->CpmPcsrBaseAddr + CPM_PCSR_PCR_OFFSET),
 		      CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK,
 		      CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
@@ -292,7 +292,7 @@ static XStatus Cpm5ScanClear(u32 *Args, u32 NumOfArgs)
 	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_MASK_OFFSET,
 		CPM_PCSR_MASK_SCAN_CLEAR_HOLDSTATE_WEN_MASK);
 	/* Check that the register value written properly or not! */
-	PmChkRegRmw32((Cpm->CpmPcsrBaseAddr + CPM_PCSR_MASK_OFFSET),
+	PmChkRegMask32((Cpm->CpmPcsrBaseAddr + CPM_PCSR_MASK_OFFSET),
 		      CPM_PCSR_MASK_SCAN_CLEAR_HOLDSTATE_WEN_MASK,
 		      CPM_PCSR_MASK_SCAN_CLEAR_HOLDSTATE_WEN_MASK, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
@@ -431,7 +431,7 @@ static XStatus CpmMbistClear(u32 *Args, u32 NumOfArgs)
 	PmOut32(Cpm->CpmSlcrSecureBaseAddr +
 		CPM_SLCR_SECURE_OD_MBIST_RESET_N_OFFSET, 0xFF);
 	/* Check that the register value written properly or not! */
-	PmChkRegRmw32((Cpm->CpmSlcrSecureBaseAddr + CPM_SLCR_SECURE_OD_MBIST_RESET_N_OFFSET),
+	PmChkRegMask32((Cpm->CpmSlcrSecureBaseAddr + CPM_SLCR_SECURE_OD_MBIST_RESET_N_OFFSET),
 			  0xFF, 0xFF, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
 		DbgErr = XPM_INT_ERR_REG_WRT_CPMMBISTCLR_SLCRSECU_MBIST_RST;
@@ -441,7 +441,7 @@ static XStatus CpmMbistClear(u32 *Args, u32 NumOfArgs)
 	PmOut32(Cpm->CpmSlcrSecureBaseAddr +
 		CPM_SLCR_SECURE_OD_MBIST_SETUP_OFFSET, 0xFF);
 	/* Check that the register value written properly or not! */
-	PmChkRegRmw32((Cpm->CpmSlcrSecureBaseAddr + CPM_SLCR_SECURE_OD_MBIST_SETUP_OFFSET),
+	PmChkRegMask32((Cpm->CpmSlcrSecureBaseAddr + CPM_SLCR_SECURE_OD_MBIST_SETUP_OFFSET),
 			  0xFF, 0xFF, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
 		DbgErr = XPM_INT_ERR_REG_WRT_CPMMBISTCLR_SLCRSECU_MBIST_SETUP;
@@ -451,7 +451,7 @@ static XStatus CpmMbistClear(u32 *Args, u32 NumOfArgs)
 	PmOut32(Cpm->CpmSlcrSecureBaseAddr +
 		CPM_SLCR_SECURE_OD_MBIST_PG_EN_OFFSET, 0xFF);
 	/* Check that the register value written properly or not! */
-	PmChkRegRmw32((Cpm->CpmSlcrSecureBaseAddr + CPM_SLCR_SECURE_OD_MBIST_PG_EN_OFFSET),
+	PmChkRegMask32((Cpm->CpmSlcrSecureBaseAddr + CPM_SLCR_SECURE_OD_MBIST_PG_EN_OFFSET),
 			  0xFF, 0xFF, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
 		DbgErr = XPM_INT_ERR_REG_WRT_CPMMBISTCLR_SLCRSECU_MBIST_PGEN;
@@ -500,7 +500,7 @@ static XStatus Cpm5GtypMbist(u32 BaseAddress)
 
 	PmOut32(BaseAddress + GTY_PCSR_MASK_OFFSET, GTY_PCSR_MEM_CLEAR_TRIGGER_MASK);
 	/* Check that the register value written properly or not! */
-	PmChkRegRmw32((BaseAddress + GTY_PCSR_MASK_OFFSET),
+	PmChkRegMask32((BaseAddress + GTY_PCSR_MASK_OFFSET),
 		      GTY_PCSR_MEM_CLEAR_TRIGGER_MASK,
 		      GTY_PCSR_MEM_CLEAR_TRIGGER_MASK, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
@@ -511,7 +511,7 @@ static XStatus Cpm5GtypMbist(u32 BaseAddress)
 	PmOut32(BaseAddress + GTY_PCSR_CONTROL_OFFSET,
 		GTY_PCSR_MEM_CLEAR_TRIGGER_MASK);
 	/* Check that the register value written properly or not! */
-	PmChkRegRmw32((BaseAddress + GTY_PCSR_CONTROL_OFFSET),
+	PmChkRegMask32((BaseAddress + GTY_PCSR_CONTROL_OFFSET),
 		      GTY_PCSR_MEM_CLEAR_TRIGGER_MASK,
 		      GTY_PCSR_MEM_CLEAR_TRIGGER_MASK, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
@@ -576,7 +576,7 @@ static XStatus Cpm5MbistClear(u32 *Args, u32 NumOfArgs)
 	PmOut32(Cpm->CpmSlcrSecureBaseAddr + CPM5_SLCR_SECURE_OD_MBIST_TRIGGER_OFFSET,
 		CPM5_SLCR_SECURE_OD_MBIST_TRIGGER_MASK);
 	/* Check that the register value written properly or not! */
-	PmChkRegRmw32((Cpm->CpmSlcrSecureBaseAddr + CPM5_SLCR_SECURE_OD_MBIST_TRIGGER_OFFSET),
+	PmChkRegMask32((Cpm->CpmSlcrSecureBaseAddr + CPM5_SLCR_SECURE_OD_MBIST_TRIGGER_OFFSET),
 		      CPM5_SLCR_SECURE_OD_MBIST_TRIGGER_MASK,
 		      CPM5_SLCR_SECURE_OD_MBIST_TRIGGER_MASK, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {

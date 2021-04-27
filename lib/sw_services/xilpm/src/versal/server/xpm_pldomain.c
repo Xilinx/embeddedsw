@@ -54,7 +54,7 @@ static XStatus PldGtyMbist(u32 BaseAddress)
 
 	PmOut32(BaseAddress + GTY_PCSR_MASK_OFFSET, GTY_PCSR_MEM_CLEAR_TRIGGER_MASK);
 	/* Check that the register value written properly or not! */
-	PmChkRegRmw32((BaseAddress + GTY_PCSR_MASK_OFFSET),
+	PmChkRegMask32((BaseAddress + GTY_PCSR_MASK_OFFSET),
 		      GTY_PCSR_MEM_CLEAR_TRIGGER_MASK,
 		      GTY_PCSR_MEM_CLEAR_TRIGGER_MASK, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
@@ -64,7 +64,7 @@ static XStatus PldGtyMbist(u32 BaseAddress)
 
 	PmOut32(BaseAddress + GTY_PCSR_CONTROL_OFFSET, GTY_PCSR_MEM_CLEAR_TRIGGER_MASK);
 	/* Check that the register value written properly or not! */
-	PmChkRegRmw32((BaseAddress + GTY_PCSR_CONTROL_OFFSET),
+	PmChkRegMask32((BaseAddress + GTY_PCSR_CONTROL_OFFSET),
 		      GTY_PCSR_MEM_CLEAR_TRIGGER_MASK,
 		      GTY_PCSR_MEM_CLEAR_TRIGGER_MASK, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
@@ -509,7 +509,7 @@ static XStatus PlHouseClean(u32 TriggerTime)
 		PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_MASK_OFFSET,
 			CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK);
 		/* Check that the register value written properly or not! */
-		PmChkRegRmw32((Pld->CfuApbBaseAddr + CFU_APB_CFU_MASK_OFFSET),
+		PmChkRegMask32((Pld->CfuApbBaseAddr + CFU_APB_CFU_MASK_OFFSET),
 				CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK,
 				CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK, Status);
 		if (XPM_REG_WRITE_FAILED == Status) {
@@ -520,7 +520,7 @@ static XStatus PlHouseClean(u32 TriggerTime)
 		PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_FGCR_OFFSET,
 			CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK);
 		/* Check that the register value written properly or not! */
-		PmChkRegRmw32((Pld->CfuApbBaseAddr + CFU_APB_CFU_FGCR_OFFSET),
+		PmChkRegMask32((Pld->CfuApbBaseAddr + CFU_APB_CFU_FGCR_OFFSET),
 				CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK,
 				CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK, Status);
 		if (XPM_REG_WRITE_FAILED == Status) {
