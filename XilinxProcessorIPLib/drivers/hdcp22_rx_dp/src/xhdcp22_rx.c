@@ -847,7 +847,7 @@ void XHdcp22Rx_SetRepeater(XHdcp22_Rx *InstancePtr, u8 Set)
 	/* Set RxCaps */
 	InstancePtr->RxCaps[0] = 0x02;
 	InstancePtr->RxCaps[1] = 0x00;
-	InstancePtr->RxCaps[2] = (InstancePtr->Config.Mode == XHDCP22_RX_RECEIVER) ? 0x00 : 0x01;
+	InstancePtr->RxCaps[2] = (InstancePtr->Config.Mode == XHDCP22_RX_RECEIVER) ? 0x00 : 0x03;
 }
 
 /*****************************************************************************/
@@ -1520,13 +1520,18 @@ static u8 XHdcp22Rx_IsReadMessageComplete(XHdcp22_Rx *InstancePtr)
 		/* For DP there are separate DPCD registers for
 		 * all HDCP response msgs so this function will
 		 * always returns true for DP*/
-		if (InstancePtr->Info.CurrentState ==
-				XHDCP22_RX_STATE_B1_SEND_AKESENDPAIRINGINFO) {
-			if (InstancePtr->Info.DpcdFlag ==
-					XHDCP22_RX_DPCD_FLAG_HPRIME_READ_DONE)
+		if ((InstancePtr->Info.CurrentState ==
+				XHDCP22_RX_STATE_B1_SEND_AKESENDPAIRINGINFO) ||
+				(InstancePtr->Info.CurrentState ==
+						XHDCP22_RX_STATE_B1_WAIT_LCINIT)) {
+			if (InstancePtr->Info.DpcdFlag &
+					XHDCP22_RX_DPCD_FLAG_HPRIME_READ_DONE) {
+				InstancePtr->Info.DpcdFlag &=
+						~XHDCP22_RX_DPCD_FLAG_HPRIME_READ_DONE;
 				return TRUE;
-			else
+			} else {
 				return FALSE;
+			}
 		} else {
 			return TRUE;
 		}
@@ -1619,9 +1624,8 @@ static void XHdcp22Rx_SetDdcReauthReq(XHdcp22_Rx *InstancePtr)
 				RX_STATUS_OFFSET, &rxstatus, 1);
 
 		/*raise CP_IRQ*/
-		/*TODO: JB, Check this*/
-		/*InstancePtr->Handles.RxDpCpIrqSetCallback(
-		  InstancePtr->Handles.RxDpCpIrqSetCallbackRef);*/
+		InstancePtr->Handles.RxDpCpIrqSetCallback(
+				InstancePtr->Handles.RxDpCpIrqSetCallbackRef);
 	} else {
 		/* Set the RxStatus register */
 		XHdcp22Rx_SetRxStatus(InstancePtr, 0,
@@ -2056,6 +2060,9 @@ static void *XHdcp22Rx_StateB2(XHdcp22_Rx *InstancePtr)
 		return (void *)XHdcp22Rx_StateB0;
 	}
 
+	/*This clears H/Pairing_Info read done interrupt*/
+	XHdcp22Rx_IsReadMessageComplete(InstancePtr);
+
 	/* Check if message is available */
 	InstancePtr->MessageSize = XHdcp22Rx_PollMessage(InstancePtr);
 
@@ -2479,7 +2486,8 @@ static void *XHdcp22Rx_StateC5(XHdcp22_Rx *InstancePtr)
 	case XHDCP22_RX_STATE_C5_SEND_RECEIVERIDLIST_DONE:
 		if(XHdcp22Rx_IsReadMessageComplete(InstancePtr) == TRUE)
 		{
-			XHdcp22Rx_ResetDdc(InstancePtr, FALSE, FALSE, TRUE, FALSE);
+			if (InstancePtr->Config.Protocol == XHDCP22_RX_HDMI)
+				XHdcp22Rx_ResetDdc(InstancePtr, FALSE, FALSE, TRUE, FALSE);
 
 			if(InstancePtr->Topology.MaxDevsExceeded == TRUE ||
 				InstancePtr->Topology.MaxCascadeExceeded == TRUE)
@@ -3568,21 +3576,44 @@ static int XHdcp22Rx_SendMessageRepeaterAuthSendRxIdList(XHdcp22_Rx *InstancePtr
 		MessageSize = 3;
 	}
 
-	/* Write message to buffer */
-	InstancePtr->Handles.DdcSetAddressCallback(InstancePtr->Handles.DdcSetAddressCallbackRef,
-		XHDCP22_RX_DDC_READ_REG);
-	for(Offset = 0; Offset < MessageSize; Offset++)
-	{
-		InstancePtr->Handles.DdcSetDataCallback(InstancePtr->Handles.DdcSetDataCallbackRef,
-			InstancePtr->MessageBuffer[Offset]);
+	if (InstancePtr->Config.Protocol == XHDCP22_RX_DP) {
+		/*Write message to DPCD registers*/
+		XHdcp22Rx_Dp_Write_Dpcd_Msg(InstancePtr);
+	} else {
+		/* Write message to buffer */
+		InstancePtr->Handles.DdcSetAddressCallback(InstancePtr->Handles.DdcSetAddressCallbackRef,
+			XHDCP22_RX_DDC_READ_REG);
+		for(Offset = 0; Offset < MessageSize; Offset++)
+		{
+			InstancePtr->Handles.DdcSetDataCallback(InstancePtr->Handles.DdcSetDataCallbackRef,
+				InstancePtr->MessageBuffer[Offset]);
+		}
 	}
 
 	/* Set the TopologyReady flag */
 	InstancePtr->Info.TopologyReady = TRUE;
 
-	/* Write message size and assert the RxStatus READY bit signaling completion */
-	XHdcp22Rx_SetRxStatus(InstancePtr, MessageSize,
-		InstancePtr->Info.ReauthReq, InstancePtr->Info.TopologyReady);
+	if (InstancePtr->Config.Protocol == XHDCP22_RX_DP) {
+		u8 rxstatus = RX_STATUS_REPEATER_READY_AVAILABLE;
+		/*Write READY in RxStatus*/
+		InstancePtr->Handles.RxDpAuxWriteCallback(
+				InstancePtr->Handles.RxDpAuxWriteCallbackRef,
+				RX_STATUS_OFFSET, &rxstatus, 1);
+
+		/*Clear AUX_DEFERS for READY message*/
+		InstancePtr->Handles.RxDpSetClearAuxDeferCallback(
+				InstancePtr->Handles.RxDpSetClearAuxDeferCallbackRef,
+				(FALSE));
+
+		/*raise CP_IRQ*/
+		InstancePtr->Handles.RxDpCpIrqSetCallback(
+				InstancePtr->Handles.RxDpCpIrqSetCallbackRef);
+
+	} else {
+		/* Write message size and assert the RxStatus READY bit signaling completion */
+		XHdcp22Rx_SetRxStatus(InstancePtr, MessageSize,
+			InstancePtr->Info.ReauthReq, InstancePtr->Info.TopologyReady);
+	}
 
 	/* Start 2 second timer */
 	XHdcp22Rx_StartTimer(InstancePtr, XHDCP22_RX_REPEATERAUTH_ACK_INTERVAL, 0);
@@ -3721,19 +3752,25 @@ static int XHdcp22Rx_SendMessageRepeaterAuthStreamReady(XHdcp22_Rx *InstancePtr)
 	/* Generate RepeaterAuth_Stream_Ready message */
 	MsgPtr->RepeaterAuthStreamReady.MsgId = XHDCP22_RX_MSG_ID_REPEATERAUTHSTREAMREADY;
 
-	/* Write message to buffer */
-	InstancePtr->Handles.DdcSetAddressCallback(InstancePtr->Handles.DdcSetAddressCallbackRef,
-		XHDCP22_RX_DDC_READ_REG);
-	for(Offset = 0; Offset < sizeof(XHdcp22_Rx_RepeaterAuthStreamReady); Offset++)
-	{
-		InstancePtr->Handles.DdcSetDataCallback(InstancePtr->Handles.DdcSetDataCallbackRef,
-			InstancePtr->MessageBuffer[Offset]);
+	if (InstancePtr->Config.Protocol == XHDCP22_RX_DP) {
+		/*Write message to DPCD registers*/
+		XHdcp22Rx_Dp_Write_Dpcd_Msg(InstancePtr);
+	} else {
+		/* Write message to buffer */
+		InstancePtr->Handles.DdcSetAddressCallback(InstancePtr->Handles.DdcSetAddressCallbackRef,
+			XHDCP22_RX_DDC_READ_REG);
+		for(Offset = 0; Offset < sizeof(XHdcp22_Rx_RepeaterAuthStreamReady); Offset++)
+		{
+			InstancePtr->Handles.DdcSetDataCallback(InstancePtr->Handles.DdcSetDataCallbackRef,
+				InstancePtr->MessageBuffer[Offset]);
+		}
 	}
 
-	/* Write message size signaling completion */
-	XHdcp22Rx_SetRxStatus(InstancePtr, sizeof(XHdcp22_Rx_RepeaterAuthStreamReady),
-		InstancePtr->Info.ReauthReq, InstancePtr->Info.TopologyReady);
-
+	if (InstancePtr->Config.Protocol != XHDCP22_RX_DP) {
+		/* Write message size signaling completion */
+		XHdcp22Rx_SetRxStatus(InstancePtr, sizeof(XHdcp22_Rx_RepeaterAuthStreamReady),
+			InstancePtr->Info.ReauthReq, InstancePtr->Info.TopologyReady);
+	}
 	/* Record MPrime parameter */
 	memcpy(InstancePtr->Params.MPrime, MsgPtr->RepeaterAuthStreamReady.MPrime, XHDCP22_RX_MPRIME_SIZE);
 
@@ -4458,8 +4495,14 @@ static int XHdcp22Rx_Dp_Read_Dpcd_Msg(XHdcp22_Rx *InstancePtr)
 {
 	int size = 0;
 	u8 buf[XHDCP22_RX_MAX_MESSAGE_SIZE] = {0};
+	u32 dpcdflag = InstancePtr->Info.DpcdFlag;
+	if (dpcdflag == (XHDCP22_RX_DPCD_FLAG_RPTR_STREAM_MANAGE_READ_DONE |
+			XHDCP22_RX_DPCD_FLAG_RPTR_RCVID_LST_ACK_READ_DONE))
+	{
+		dpcdflag = XHDCP22_RX_DPCD_FLAG_RPTR_STREAM_MANAGE_READ_DONE;
+	}
 
-	switch(InstancePtr->Info.DpcdFlag) {
+	switch(dpcdflag) {
 		case XHDCP22_RX_DPCD_FLAG_AKE_INIT_RCVD:
 			/*Read Rtx*/
 			size = InstancePtr->Handles.RxDpAuxReadCallback(
@@ -4475,7 +4518,7 @@ static int XHdcp22Rx_Dp_Read_Dpcd_Msg(XHdcp22_Rx *InstancePtr)
 			/*This is for Message Id InstancePtr->MessageBuffer[0]*/
 			size += 1;
 			/*Clear Dpcd flag*/
-			InstancePtr->Info.DpcdFlag = 0;
+			InstancePtr->Info.DpcdFlag &= ~XHDCP22_RX_DPCD_FLAG_AKE_INIT_RCVD;
 			break;
 		case XHDCP22_RX_DPCD_FLAG_AKE_NO_STORED_KM_RCVD:
 			/*Read Ekpub_Km*/
@@ -4493,7 +4536,7 @@ static int XHdcp22Rx_Dp_Read_Dpcd_Msg(XHdcp22_Rx *InstancePtr)
 			/*This is for Message Id InstancePtr->MessageBuffer[0]*/
 			size += 1;
 			/*Clear Dpcd flag*/
-			InstancePtr->Info.DpcdFlag = 0;
+			InstancePtr->Info.DpcdFlag &= ~XHDCP22_RX_DPCD_FLAG_AKE_NO_STORED_KM_RCVD;
 			break;
 		case XHDCP22_RX_DPCD_FLAG_AKE_STORED_KM_RCVD:
 			/*Read Ekh_Km*/
@@ -4510,7 +4553,7 @@ static int XHdcp22Rx_Dp_Read_Dpcd_Msg(XHdcp22_Rx *InstancePtr)
 			/*This is for Message Id InstancePtr->MessageBuffer[0]*/
 			size += 1;
 			/*Clear Dpcd flag*/
-			InstancePtr->Info.DpcdFlag = 0;
+			InstancePtr->Info.DpcdFlag &= ~XHDCP22_RX_DPCD_FLAG_AKE_STORED_KM_RCVD;
 			break;
 		case XHDCP22_RX_DPCD_FLAG_LC_INIT_RCVD:
 			/*Read LC_Init*/
@@ -4527,7 +4570,7 @@ static int XHdcp22Rx_Dp_Read_Dpcd_Msg(XHdcp22_Rx *InstancePtr)
 			/*This is for Message Id InstancePtr->MessageBuffer[0]*/
 			size += 1;
 			/*Clear Dpcd flag*/
-			InstancePtr->Info.DpcdFlag = 0;
+			InstancePtr->Info.DpcdFlag &= ~XHDCP22_RX_DPCD_FLAG_LC_INIT_RCVD;
 			break;
 		case XHDCP22_RX_DPCD_FLAG_SKE_SEND_EKS_RCVD:
 			/*Read Edkey_ks*/
@@ -4544,7 +4587,41 @@ static int XHdcp22Rx_Dp_Read_Dpcd_Msg(XHdcp22_Rx *InstancePtr)
 			/*This is for Message Id InstancePtr->MessageBuffer[0]*/
 			size += 1;
 			/*Clear Dpcd flag*/
-			InstancePtr->Info.DpcdFlag = 0;
+			InstancePtr->Info.DpcdFlag &= ~XHDCP22_RX_DPCD_FLAG_SKE_SEND_EKS_RCVD;
+			break;
+		case XHDCP22_RX_DPCD_FLAG_RPTR_STREAM_MANAGE_READ_DONE:
+			/*Read Stream_Manage*/
+			size = InstancePtr->Handles.RxDpAuxReadCallback(
+					InstancePtr->Handles.
+						RxDpAuxReadCallbackRef,
+					SEQ_NUM_M_OFFSET, buf,
+					(SEQ_NUM_M_SIZE + K_SIZE +
+					STREAMID_TYPE_SIZE));
+			/*Put this msg into MsgBuffer*/
+			InstancePtr->MessageBuffer[0] =
+					XHDCP22_RX_MSG_ID_REPEATERAUTHSTREAMMANAGE; /*Refer Note*/
+			memcpy(&InstancePtr->MessageBuffer[1], buf,
+					(SEQ_NUM_M_SIZE + K_SIZE + STREAMID_TYPE_SIZE));
+			/*This is for Message Id InstancePtr->MessageBuffer[0]*/
+			size += 1;
+			/*Clear Dpcd flag*/
+			InstancePtr->Info.DpcdFlag &= ~XHDCP22_RX_DPCD_FLAG_RPTR_STREAM_MANAGE_READ_DONE;
+			break;
+		case XHDCP22_RX_DPCD_FLAG_RPTR_RCVID_LST_ACK_READ_DONE:
+			/*Read RPTR RCVID_LIST_ACK*/
+			size = InstancePtr->Handles.RxDpAuxReadCallback(
+					InstancePtr->Handles.
+						RxDpAuxReadCallbackRef,
+						V_OFFSET, buf, V_SIZE);
+			/*Put this msg into MsgBuffer*/
+			InstancePtr->MessageBuffer[0] =
+					XHDCP22_RX_MSG_ID_REPEATERAUTHSENDACK; /*Refer Note*/
+			memcpy(&InstancePtr->MessageBuffer[1], buf,
+					V_SIZE);
+			/*This is for Message Id InstancePtr->MessageBuffer[0]*/
+			size += 1;
+			/*Clear Dpcd flag*/
+			InstancePtr->Info.DpcdFlag &= ~XHDCP22_RX_DPCD_FLAG_RPTR_RCVID_LST_ACK_READ_DONE;
 			break;
 		default:
 			break;
@@ -4610,6 +4687,25 @@ static int XHdcp22Rx_Dp_Write_Dpcd_Msg(XHdcp22_Rx *InstancePtr)
 					buffer.LCSendLPrime.LPrime,
 					L_PRIME_SIZE);
 			break;
+		case XHDCP22_RX_MSG_ID_REPEATERAUTHSENDRXIDLIST:
+			/*Write Repeater Auth rcvid List*/
+			numwritten = InstancePtr->Handles.RxDpAuxWriteCallback(
+					InstancePtr->Handles.
+						RxDpAuxWriteCallbackRef,
+					RX_INFO_OFFSET,
+					buffer.RepeaterAuthSendRxIdList.RxInfo,
+					(RX_INFO_SIZE + SEQ_NUM_V_SIZE +
+					V_PRIME_SIZE + RCVID_LIST_SIZE));
+			break;
+		case XHDCP22_RX_MSG_ID_REPEATERAUTHSTREAMREADY:
+			/*Write Stream ready*/
+			numwritten = InstancePtr->Handles.RxDpAuxWriteCallback(
+					InstancePtr->Handles.
+						RxDpAuxWriteCallbackRef,
+					M_PRIME_OFFSET,
+					buffer.RepeaterAuthStreamReady.MPrime,
+					M_PRIME_SIZE);
+			break;
 		default:
 			break;
 	}
@@ -4636,7 +4732,10 @@ void XHdcp22Rx_SetDpcdMsgRdWrtAvailable(XHdcp22_Rx *InstancePtr, u32 type)
 			XHDCP22_RX_LOG_DEBUG_WRITE_MESSAGE_AVAILABLE);
 
 	/*Update DPCD flag*/
-	InstancePtr->Info.DpcdFlag = type;
+	if (type == XHDCP22_RX_DPCD_FLAG_AKE_INIT_RCVD)
+		InstancePtr->Info.DpcdFlag = type;
+	else
+		InstancePtr->Info.DpcdFlag |= type;
 }
 
 /*****************************************************************************/
@@ -4768,6 +4867,25 @@ void XHdcp22_RxSetStreamType(XHdcp22_Rx *InstancePtr)
 		buf[R_IV_SIZE - 1] ^= 0x01;
 		XHdcp22Cipher_SetRiv(&InstancePtr->CipherInst, buf, R_IV_SIZE);
 	}
+}
+
+/*****************************************************************************/
+/**
+ * This function sets Reauth Request for upstream device
+ *
+ * @param	InstancePtr is the receiver instance.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+void XHdcp22_RxSetReauthReq(XHdcp22_Rx *InstancePtr)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	XHdcp22Rx_SetDdcReauthReq(InstancePtr);
 }
 
 /** @} */
