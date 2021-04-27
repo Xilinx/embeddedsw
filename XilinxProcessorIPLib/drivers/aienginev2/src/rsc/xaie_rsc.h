@@ -160,4 +160,5 @@ static inline XAie_UserRscReq XAie_SetupRscRequest(XAie_LocType Loc,
 	return RscReq;
 }
 
+AieRC XAie_LoadStaticRscfromMem(XAie_DevInst *DevInst, const char *MetaData);
 #endif		/* end of protection macro */
