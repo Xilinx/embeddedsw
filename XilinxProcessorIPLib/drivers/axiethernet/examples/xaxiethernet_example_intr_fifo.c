@@ -52,6 +52,8 @@
 *       ms   04/05/17 Added return tags in functions for proper documentation
 *                     while generating doxygen.
 * 5.6	adk  03/07/17 Fixed CR#979023 Example failed to compile.
+* 5.12	sk   27/04/21 Fix multiple definition errors reported when peripheral
+*		      tests are generated.
 * </pre>
 *
 ******************************************************************************/
@@ -114,10 +116,12 @@ static volatile int DeviceErrors;	/* Num of errors detected in
 static volatile int FrameDataErrors;	/* Num of times frame data check
 					 * failed
 					 */
+#ifndef TESTAPP_GEN
 volatile int Padding;	/* For 1588 Packets we need to pad 8 bytes time stamp value */
 volatile int ExternalLoopback; /* Variable for External loopback */
-XAxiEthernet AxiEthernetInstance;
-XLlFifo FifoInstance;
+static XAxiEthernet AxiEthernetInstance;
+static XLlFifo FifoInstance;
+#endif
 
 
 #ifdef XPAR_INTC_0_DEVICE_ID
