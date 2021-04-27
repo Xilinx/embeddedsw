@@ -2338,13 +2338,15 @@ u64 XV_HdmiTxSs1_SetStream(XV_HdmiTxSs1 *InstancePtr,
 	/* Calculate Link and Video Clocks */
     if (InstancePtr->HdmiTx1Ptr->Stream.IsFrl == TRUE)  {
 
-		PixelRate = (TmdsClock * 8 )/ Bpc;
-		PixelRate = PixelRate / 1000 ;
-		VidClock = PixelRate/InstancePtr->HdmiTx1Ptr->Stream.CorePixPerClk;
-
 		if (ColorFormat == XVIDC_CSF_YCRCB_422) {
+			PixelRate = TmdsClock;
+			PixelRate = PixelRate / 1000 ;
+			VidClock = PixelRate/InstancePtr->HdmiTx1Ptr->Stream.CorePixPerClk;
 			LnkClock = VidClock;
 		} else {
+			PixelRate = (TmdsClock * 8 )/ Bpc;
+			PixelRate = PixelRate / 1000 ;
+			VidClock = PixelRate/InstancePtr->HdmiTx1Ptr->Stream.CorePixPerClk;
 			LnkClock = (VidClock * (Bpc)) / 8;
 		}
 		/* Configure HDMI TX FRL Link and Video Clock registers */
