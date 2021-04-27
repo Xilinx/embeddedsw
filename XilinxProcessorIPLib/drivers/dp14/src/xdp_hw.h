@@ -1580,6 +1580,12 @@
 #define XDP_RX_INTERRUPT_MASK_HDCP22_STREAM_TYPE_MASK \
 	0x00000100 /**< Mask the interrupt for a write of the HDCP22
 		     Stream/content type message*/
+#define XDP_RX_INTERRUPT_MASK_HDCP22_RPTR_RCVID_LST_ACK_MASK \
+	0x00000200 /**< Mask the interrupt for a write of the HDCP22
+		     Repeater receiver ID list Ack message*/
+#define XDP_RX_INTERRUPT_MASK_HDCP22_RPTR_STREAM_MANAGE_MASK \
+	0x00000400 /**< Mask the interrupt for a write of the HDCP22
+		     Stream Management message*/
 #endif
 #define XDP_RX_INTERRUPT_MASK_AUDIO_OVER_MASK \
 					0x08000000 /**< Mask the interrupt

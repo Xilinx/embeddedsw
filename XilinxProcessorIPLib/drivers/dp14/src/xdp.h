@@ -445,6 +445,8 @@ typedef enum {
 	XDP_RX_HANDLER_HDCP22_HPRIME_READ_DONE,
 	XDP_RX_HANDLER_HDCP22_PAIRING_READ_DONE,
 	XDP_RX_HANDLER_HDCP22_STREAM_TYPE,
+	XDP_RX_HANDLER_HDCP22_REPEAT_AUTH_RCVID_LST_DONE,
+	XDP_RX_HANDLER_HDCP22_REPEAT_AUTH_STREAM_MANAGE_DONE,
 #endif
 	XDP_RX_HANDLER_VBLANK_STREAM_2,
 	XDP_RX_HANDLER_VBLANK_STREAM_3,
@@ -1323,6 +1325,28 @@ typedef struct {
 							  user data passed to
 							  the HDCP22
 							  stream Type write
+							  callback function. */
+	XDp_IntrHandler IntrHdcp22RepeatAuthRcvIdLstAckWrHandler;	/**< Callback function
+							  for HDCP22
+							  Repeater Receiver Id List Ack
+							  register write
+							  interrupts. */
+	void *IntrHdcp22RepeatAuthRcvIdLstAckWrCallbackRef;	/**< A pointer to the
+							  user data passed to
+							  the HDCP22
+							  Repeater Receiver Id List Ack
+							  register write
+							  callback function. */
+	XDp_IntrHandler IntrHdcp22RepeatAuthStreamMangWrHandler;	/**< Callback function
+							  for HDCP22
+							  Stream Manage
+							  register write
+							  interrupts. */
+	void *IntrHdcp22RepeatAuthStreamMangWrCallbackRef;	/**< A pointer to the
+							  user data passed to
+							  the HDCP22
+							  Stream Manage
+							  register write
 							  callback function. */
 #endif
 

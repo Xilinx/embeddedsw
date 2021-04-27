@@ -720,6 +720,20 @@ int XDp_RxSetCallback(XDp *InstancePtr,	Dp_Rx_HandlerType HandlerType,
 			CallbackRef;
 		Status = XST_SUCCESS;
 		break;
+	case XDP_RX_HANDLER_HDCP22_REPEAT_AUTH_RCVID_LST_DONE:
+		InstancePtr->RxInstance.IntrHdcp22RepeatAuthRcvIdLstAckWrHandler =
+			CallbackFunc;
+		InstancePtr->RxInstance.IntrHdcp22RepeatAuthRcvIdLstAckWrCallbackRef =
+			CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+	case XDP_RX_HANDLER_HDCP22_REPEAT_AUTH_STREAM_MANAGE_DONE:
+		InstancePtr->RxInstance.IntrHdcp22RepeatAuthStreamMangWrHandler =
+			CallbackFunc;
+		InstancePtr->RxInstance.IntrHdcp22RepeatAuthStreamMangWrCallbackRef =
+			CallbackRef;
+		Status = XST_SUCCESS;
+		break;
 #endif
 
 	case XDP_RX_HANDLER_UNPLUG:
@@ -890,9 +904,7 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 {
 	u32 IntrStatus;
 	u32 IntrStatus1;
-#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
-	u32 IntrStatusHdcp22;
-#endif
+	u32 IntrStatus2;
 
 	/* Determine what kind of interrupts have occurred.
 	 * Note: XDP_RX_INTERRUPT_CAUSE is a RC (read-clear) register. */
@@ -908,12 +920,10 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 	IntrStatus1 &= ~XDp_ReadReg(InstancePtr->Config.BaseAddr,
 				    XDP_RX_INTERRUPT_MASK_1);
 
-#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
 	/* Determine what kind of interrupts have occurred.
 	 * Note: XDP_RX_INTERRUPT_CAUSE_2 is a RC (read-clear) register. */
-	IntrStatusHdcp22 = XDp_ReadReg(InstancePtr->Config.BaseAddr,
+	IntrStatus2 = XDp_ReadReg(InstancePtr->Config.BaseAddr,
 			XDP_RX_INTERRUPT_CAUSE_2);
-#endif
 
 	/* Training pattern 1 has started. */
 	if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_TP1_MASK) &&
@@ -1260,7 +1270,7 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 
 #if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
 	/* A write to the HDCP22 Ake_Init MSB register has been performed. */
-	if ((IntrStatusHdcp22 & XDP_RX_INTERRUPT_MASK_HDCP22_AKE_INIT_MASK) &&
+	if ((IntrStatus2 & XDP_RX_INTERRUPT_MASK_HDCP22_AKE_INIT_MASK) &&
 			InstancePtr->RxInstance.IntrHdcp22AkeInitWrHandler) {
 		InstancePtr->RxInstance.IntrHdcp22AkeInitWrHandler(
 				InstancePtr->RxInstance.
@@ -1269,7 +1279,7 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 
 	/* A write to the HDCP22 Ake_No_Stored_Km
 	 * MSB register has been performed.*/
-	if ((IntrStatusHdcp22 &
+	if ((IntrStatus2 &
 			XDP_RX_INTERRUPT_MASK_HDCP22_AKE_NO_STORED_KM_MASK)
 			&& InstancePtr->RxInstance.
 			IntrHdcp22AkeNoStoredKmWrHandler) {
@@ -1280,7 +1290,7 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 
 	/* A write to the HDCP22 Ake_Stored_Km
 	 * MSB register has been performed. */
-	if ((IntrStatusHdcp22 &
+	if ((IntrStatus2 &
 			XDP_RX_INTERRUPT_MASK_HDCP22_AKE_STORED_KM_MASK) &&
 			InstancePtr->RxInstance.IntrHdcp22AkeStoredWrHandler) {
 		InstancePtr->RxInstance.IntrHdcp22AkeStoredWrHandler(
@@ -1290,7 +1300,7 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 
 	/* A write to the HDCP22 LC_Init
 	 * MSB register has been performed. */
-	if ((IntrStatusHdcp22 &
+	if ((IntrStatus2 &
 			XDP_RX_INTERRUPT_MASK_HDCP22_LC_INIT_MASK) &&
 			InstancePtr->RxInstance.IntrHdcp22LcInitWrHandler) {
 		InstancePtr->RxInstance.IntrHdcp22LcInitWrHandler(
@@ -1300,7 +1310,7 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 
 	/* A write to the HDCP22 Ske_Send_Eks
 	 * MSB register has been performed. */
-	if ((IntrStatusHdcp22 &
+	if ((IntrStatus2 &
 			XDP_RX_INTERRUPT_MASK_HDCP22_SKE_SEND_EKS_MASK) &&
 			InstancePtr->RxInstance.IntrHdcp22SkeSendEksWrHandler) {
 		InstancePtr->RxInstance.IntrHdcp22SkeSendEksWrHandler(
@@ -1309,7 +1319,7 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 	}
 
 	/* HDCP22 H' read done*/
-	if ((IntrStatusHdcp22 &
+	if ((IntrStatus2 &
 			XDP_RX_INTERRUPT_MASK_HDCP22_HPRIME_READ_MASK) &&
 			InstancePtr->RxInstance.
 			IntrHdcp22HprimeReadDoneHandler) {
@@ -1319,7 +1329,7 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 	}
 
 	/* HDCP22 Pairing Info read Done*/
-	if ((IntrStatusHdcp22 &
+	if ((IntrStatus2 &
 			XDP_RX_INTERRUPT_MASK_HDCP22_PAIRING_INFO_READ_MASK)
 			&& InstancePtr->RxInstance.
 			IntrHdcp22PairingReadDoneHandler) {
@@ -1329,13 +1339,33 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 	}
 
 	/* A write to the HDCP22 TYPE register has been performed. */
-	if ((IntrStatusHdcp22 &
+	if ((IntrStatus2 &
 			XDP_RX_INTERRUPT_MASK_HDCP22_STREAM_TYPE_MASK)
 			&& InstancePtr->RxInstance.
 			IntrHdcp22StreamTypeWrHandler) {
 		InstancePtr->RxInstance.IntrHdcp22StreamTypeWrHandler(
 				InstancePtr->RxInstance.
 				IntrHdcp22StreamTypeWrCallbackRef);
+	}
+
+	/* A write to the HDCP22 rcvID Lst Ack register has been performed. */
+	if ((IntrStatus2 &
+			XDP_RX_INTERRUPT_MASK_HDCP22_RPTR_RCVID_LST_ACK_MASK)
+			&& InstancePtr->RxInstance.
+			IntrHdcp22RepeatAuthRcvIdLstAckWrHandler) {
+		InstancePtr->RxInstance.IntrHdcp22RepeatAuthRcvIdLstAckWrHandler(
+				InstancePtr->RxInstance.
+				IntrHdcp22RepeatAuthRcvIdLstAckWrCallbackRef);
+	}
+
+	/* A write to the HDCP22 Stream manage register has been performed. */
+	if ((IntrStatus2 &
+			XDP_RX_INTERRUPT_MASK_HDCP22_RPTR_STREAM_MANAGE_MASK)
+			&& InstancePtr->RxInstance.
+			IntrHdcp22RepeatAuthStreamMangWrHandler) {
+		InstancePtr->RxInstance.IntrHdcp22RepeatAuthStreamMangWrHandler(
+				InstancePtr->RxInstance.
+				IntrHdcp22RepeatAuthStreamMangWrCallbackRef);
 	}
 #endif /*XPAR_XHDCP22_RX_NUM_INSTANCES*/
 
@@ -1348,12 +1378,6 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 
 	/* DP 1.4 related interrupt handling */
 	if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
-		u32 IntrStatus2;
-
-		/* Adaptive-Sync interrupts */
-		IntrStatus2 = XDp_ReadReg(InstancePtr->Config.BaseAddr,
-						XDP_RX_INTERRUPT_CAUSE_2);
-
 		/* The VerticalBlanking_Flag in the VB-ID field of the received
 		 * stream 2 indicates the start of the vertical blanking
 		 * interval. */
