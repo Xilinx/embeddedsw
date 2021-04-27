@@ -29,12 +29,12 @@
 
 /*************************** Variable Declarations ****************************/
 /*************************** Constant Declarations ****************************/
-#define XDPPSU_NUM_INSTANCES	1
+
 /**
  * A table of configuration structures containing the configuration information
  * for each DisplayPort TX core in the system.
  */
-extern XDpPsu_Config XDpPsu_ConfigTable[XDPPSU_NUM_INSTANCES];
+extern XDpPsu_Config XDpPsu_ConfigTable[XPAR_XDPPSU_NUM_INSTANCES];
 
 /**************************** Function Definitions ****************************/
 
@@ -57,7 +57,7 @@ XDpPsu_Config *XDpPsu_LookupConfig(u16 DeviceId)
 	XDpPsu_Config *CfgPtr;
 	u32 Index;
 
-	for (Index = 0; Index < XDPPSU_NUM_INSTANCES; Index++) {
+	for (Index = 0; Index < XPAR_XDPPSU_NUM_INSTANCES; Index++) {
 		if (XDpPsu_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XDpPsu_ConfigTable[Index];
 			break;
