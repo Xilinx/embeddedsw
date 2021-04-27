@@ -270,7 +270,7 @@ static XStatus FpdMbistClear(u32 *Args, u32 NumOfArgs)
         PmRmw32(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_MBIST_RST_OFFSET,
 		PSM_GLOBAL_MBIST_RST_FPD_MASK, PSM_GLOBAL_MBIST_RST_FPD_MASK);
 	/* Check that the register value written properly or not! */
-	PmChkRegRmw32((Psm->PsmGlobalBaseAddr + PSM_GLOBAL_MBIST_RST_OFFSET),
+	PmChkRegMask32((Psm->PsmGlobalBaseAddr + PSM_GLOBAL_MBIST_RST_OFFSET),
 		      PSM_GLOBAL_MBIST_RST_FPD_MASK, PSM_GLOBAL_MBIST_RST_FPD_MASK, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
 		DbgErr = XPM_INT_ERR_REG_WRT_FPDMBISTCLR_RST;
@@ -280,7 +280,7 @@ static XStatus FpdMbistClear(u32 *Args, u32 NumOfArgs)
         PmRmw32(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_MBIST_SETUP_OFFSET,
 		PSM_GLOBAL_MBIST_SETUP_FPD_MASK, PSM_GLOBAL_MBIST_SETUP_FPD_MASK);
 	/* Check that the register value written properly or not! */
-	PmChkRegRmw32((Psm->PsmGlobalBaseAddr + PSM_GLOBAL_MBIST_SETUP_OFFSET),
+	PmChkRegMask32((Psm->PsmGlobalBaseAddr + PSM_GLOBAL_MBIST_SETUP_OFFSET),
 		      PSM_GLOBAL_MBIST_SETUP_FPD_MASK, PSM_GLOBAL_MBIST_SETUP_FPD_MASK, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
 		DbgErr = XPM_INT_ERR_REG_WRT_FPDMBISTCLR_SETUP;
@@ -290,7 +290,7 @@ static XStatus FpdMbistClear(u32 *Args, u32 NumOfArgs)
         PmRmw32(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_MBIST_PG_EN_OFFSET,
 		PSM_GLOBAL_MBIST_PG_EN_FPD_MASK, PSM_GLOBAL_MBIST_PG_EN_FPD_MASK);
 	/* Check that the register value written properly or not! */
-	PmChkRegRmw32((Psm->PsmGlobalBaseAddr + PSM_GLOBAL_MBIST_PG_EN_OFFSET),
+	PmChkRegMask32((Psm->PsmGlobalBaseAddr + PSM_GLOBAL_MBIST_PG_EN_OFFSET),
 		      PSM_GLOBAL_MBIST_PG_EN_FPD_MASK, PSM_GLOBAL_MBIST_PG_EN_FPD_MASK, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
 		DbgErr = XPM_INT_ERR_REG_WRT_FPDMBISTCLR_PGEN;

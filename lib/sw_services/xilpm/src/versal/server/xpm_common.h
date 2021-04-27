@@ -133,7 +133,7 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...);
 
 #endif
 
-#define PmChkRegRmw32(ADDR, MASK, VAL, STATUS)				\
+#define PmChkRegMask32(ADDR, MASK, VAL, STATUS)				\
 	do {									\
 		if (((u32)(VAL) & (u32)(MASK)) != ((u32)(XPm_In32((ADDR))) & (u32)(MASK))) {	\
 			(STATUS) = XPM_REG_WRITE_FAILED;			\
