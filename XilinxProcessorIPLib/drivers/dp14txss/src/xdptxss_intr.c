@@ -516,6 +516,14 @@ u32 XDpTxSs_SetCallBack(XDpTxSs *InstancePtr, u32 HandlerType,
 				(void *)CallbackRef);
 			Status = XST_SUCCESS;
 			break;
+		case XDPTXSS_HANDLER_HDCP22_UPDATE_DOWNSTREAM_TOPOLOGY:
+			/** Register HDCP 2.2 callbacks */
+			XHdcp22Tx_SetCallback(InstancePtr->Hdcp22Ptr,
+					XHDCP22_TX_HANDLER_DOWNSTREAM_TOPOLOGY_AVAILABLE,
+					(void *)(XHdcp22_Tx_Callback)CallbackFunc,
+					(void *)CallbackRef);
+			Status = XST_SUCCESS;
+			break;
 #endif
 
 		case XDPTXSS_HANDLER_DP_SET_MSA:
