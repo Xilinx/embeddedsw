@@ -1,9 +1,15 @@
 // (c) Copyright(C) 2020 - 2021 by Xilinx, Inc. All rights reserved.
 // SPDX-License-Identifier: MIT
 
+#ifdef __linux__
+#define __COMPILER_SUPPORTS_LOCKS__
+#endif
+
 #include <fstream>
 #include <functional>
+#ifdef __COMPILER_SUPPORTS_LOCKS__
 #include <mutex>
+#endif
 #include <string.h>
 #include <vector>
 #include <xaiengine.h>
@@ -11,6 +17,16 @@
 #include <xaiefal/rsc/xaiefal-rsc-base.hpp>
 
 #pragma once
+
+// This can be moved to common file, but as now only group events uses it,
+// leave it to groupevent header only
+#ifdef __COMPILER_SUPPORTS_LOCKS__
+#define _XAIEFAL_MUTEX_ACQUIRE(L) const std::lock_guard<std::mutex> lock(L)
+#define _XAIEFAL_MUTEX_DECLARE(L) std::mutex L
+#else
+#define _XAIEFAL_MUTEX_ACQUIRE(...)
+#define _XAIEFAL_MUTEX_DECLARE(...)
+#endif
 
 namespace xaiefal {
 	/**
@@ -58,8 +74,9 @@ namespace xaiefal {
 		 * reserved.
 		 */
 		AieRC attachHandle(const XAieGroupEventHandle * Hid, uint32_t C) {
-			const std::lock_guard<std::mutex> lock(mLock);
 			AieRC RC;
+
+			_XAIEFAL_MUTEX_ACQUIRE(mLock);
 
 			if (Hid == nullptr) {
 				Logger::log(LogLevel::ERROR) << "Group event " << __func__ << " (" <<
@@ -113,7 +130,8 @@ namespace xaiefal {
 					"), invalid handle." << std::endl;
 				RC = XAIE_INVALID_ARGS;
 			} else {
-				const std::lock_guard<std::mutex> lock(mLock);
+				_XAIEFAL_MUTEX_ACQUIRE(mLock);
+
 				Handles[Hid] = true;
 				if (State.Running == 0) {
 					RC = start();
@@ -147,7 +165,8 @@ namespace xaiefal {
 					"), invalid handle." << std::endl;
 				RC = XAIE_INVALID_ARGS;
 			} else {
-				const std::lock_guard<std::mutex> lock(mLock);
+				_XAIEFAL_MUTEX_ACQUIRE(mLock);
+
 				Handles[Hid] = false;
 				// Have considered to use a StartCount to
 				// count how many handles are in use.
@@ -198,7 +217,8 @@ namespace xaiefal {
 					"), invalid handle." << std::endl;
 				RC = XAIE_INVALID_ARGS;
 			} else {
-				const std::lock_guard<std::mutex> lock(mLock);
+				_XAIEFAL_MUTEX_ACQUIRE(mLock);
+
 				Handles.erase(Hid);
 				if (State.Reserved == 1 && Handles.empty()) {
 					RC = release();
@@ -209,7 +229,7 @@ namespace xaiefal {
 	private:
 		XAie_Events GroupEvent; /**< group event */
 		uint32_t GroupComposition; /**< group event configuration */
-		std::mutex mLock; /**< group config mutext lock */
+		_XAIEFAL_MUTEX_DECLARE(mLock); /**< group config mutex lock */
 		std::map<const XAieGroupEventHandle *, bool> Handles; /**< Group events handles */
 
 	protected:
