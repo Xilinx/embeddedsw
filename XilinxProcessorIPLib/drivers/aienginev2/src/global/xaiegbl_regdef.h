@@ -601,12 +601,18 @@ typedef struct XAie_LockMod {
 	u32 LockIdOff;		/* Offset between conseccutive locks */
 	u32 RelAcqOff;  	/* Offset between Release and Acquire locks */
 	u32 LockValOff; 	/* Offset thats added to the lock address for a value. */
+	u32 LockSetValBase;	/* Base address of the register to set lock value */
+	u32 LockSetValOff;	/* Offset between lock set value registers */
+	const XAie_RegFldAttr *LockInit; /* Lock intialization reg attributes */
 	AieRC (*Acquire)(XAie_DevInst *DevInst,
 			const struct XAie_LockMod *LockMod, XAie_LocType Loc,
 			XAie_Lock Lock, u32 TimeOut);
 	AieRC (*Release)(XAie_DevInst *DevInst,
 			const struct XAie_LockMod *LockMod, XAie_LocType Loc,
 			XAie_Lock Lock, u32 TimeOut);
+	AieRC (*SetValue)(XAie_DevInst *DevInst,
+			const struct XAie_LockMod *LockMod, XAie_LocType Loc,
+			XAie_Lock Lock);
 } XAie_LockMod;
 
 /* This typedef contains attributes of Performace Counter module */
