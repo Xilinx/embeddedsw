@@ -176,12 +176,12 @@ static int XHdcp1x_PortDpRxDisable(XHdcp1x *InstancePtr)
 
 	/* Clear hdcp registers */
 	Value = 0;
-	Offset = 0;
+	Offset = 5;
 	/* First clear all the HDCP 1.4 registers from the BKSV (0x0 - 0x4,
 	 * 5 bytes)to 0x13. Not clearing the KSV FIFO, V' registers
 	 * reserved and debug registers.
 	 */
-	NumLeft = 0x13;
+	NumLeft = 0x0E;
 	while (NumLeft-- >= 0) {
 		XHdcp1x_PortDpRxWrite(InstancePtr, Offset++, &Value,
 			sizeof(Value));
