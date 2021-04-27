@@ -387,6 +387,9 @@ int XV_HdmiRxSs1_SubcoreInitHdcp22(XV_HdmiRxSs1 *HdmiRxSs1Ptr)
 
       /* Clear the event queue */
       XV_HdmiRxSs1_HdcpClearEvents(HdmiRxSs1Ptr);
+
+      /* Default enable broadcasting */
+      XHdcp22Rx_SetBroadcast(HdmiRxSs1Ptr->Hdcp22Ptr, TRUE);
     }
   }
 
