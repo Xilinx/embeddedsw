@@ -129,4 +129,35 @@ AieRC _XAieMl_LockAcquire(XAie_DevInst *DevInst, const XAie_LockMod *LockMod,
 	return XAIE_OK;
 }
 
+/*****************************************************************************/
+/**
+*
+* This API is used to initalize a lock with given value.
+*
+* @param	DevInst: Device Instance
+* @param	LockMod: Internal lock module data structure.
+* @param	Loc: Location of AIE Tile
+* @param	Lock: Lock data structure with LockId and LockValue.
+*
+* @return	XAIE_OK if Lock Release, else error code.
+*
+* @note 	Internal only.
+*
+******************************************************************************/
+AieRC _XAieMl_LockSetValue(XAie_DevInst *DevInst, const XAie_LockMod *LockMod,
+		XAie_LocType Loc, XAie_Lock Lock)
+{
+	u64 RegAddr;
+	u32 RegVal;
+
+	RegAddr = LockMod->LockSetValBase +
+		LockMod->LockSetValOff * Lock.LockId +
+		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
+
+	RegVal = XAie_SetField(Lock.LockVal, LockMod->LockInit->Lsb,
+			LockMod->LockInit->Mask);
+
+	return XAie_Write32(DevInst, RegAddr, RegVal);
+}
+
 /** @} */

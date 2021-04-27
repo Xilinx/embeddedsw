@@ -2268,6 +2268,12 @@ static const  XAie_PlIfMod Aie2ShimTilePlIfMod =
 	.ShimNocAxiMM = &Aie2ShimNocAxiMMConfig,
 };
 
+static const XAie_RegFldAttr AieMlTileLockInit =
+{
+	.Lsb = XAIEMLGBL_MEMORY_MODULE_LOCK0_VALUE_LOCK_VALUE_LSB,
+	.Mask = XAIEMLGBL_MEMORY_MODULE_LOCK0_VALUE_LOCK_VALUE_MASK,
+};
+
 /* Lock Module for AIE Tiles  */
 static const  XAie_LockMod Aie2TileLockMod =
 {
@@ -2278,8 +2284,18 @@ static const  XAie_LockMod Aie2TileLockMod =
 	.LockValOff = 0x4,
 	.LockValUpperBound = 63,
 	.LockValLowerBound = -64,
+	.LockSetValBase = XAIEMLGBL_MEMORY_MODULE_LOCK0_VALUE,
+	.LockSetValOff = 0x10,
+	.LockInit = &AieMlTileLockInit,
 	.Acquire = &_XAieMl_LockAcquire,
-	.Release = &_XAieMl_LockRelease
+	.Release = &_XAieMl_LockRelease,
+	.SetValue = &_XAieMl_LockSetValue,
+};
+
+static const XAie_RegFldAttr AieMlShimNocLockInit =
+{
+	.Lsb = XAIEMLGBL_NOC_MODULE_LOCK0_VALUE_LOCK_VALUE_LSB,
+	.Mask = XAIEMLGBL_NOC_MODULE_LOCK0_VALUE_LOCK_VALUE_MASK,
 };
 
 /* Lock Module for SHIM NOC Tiles  */
@@ -2292,8 +2308,18 @@ static const  XAie_LockMod Aie2ShimNocLockMod =
 	.LockValOff = 0x4,
 	.LockValUpperBound = 63,
 	.LockValLowerBound = -64,
+	.LockSetValBase = XAIEMLGBL_NOC_MODULE_LOCK0_VALUE,
+	.LockSetValOff = 0x10,
+	.LockInit = &AieMlShimNocLockInit,
 	.Acquire = &_XAieMl_LockAcquire,
-	.Release = &_XAieMl_LockRelease
+	.Release = &_XAieMl_LockRelease,
+	.SetValue = &_XAieMl_LockSetValue,
+};
+
+static const XAie_RegFldAttr AieMlMemTileLockInit =
+{
+	.Lsb = XAIEMLGBL_MEM_TILE_MODULE_LOCK0_VALUE_LOCK_VALUE_LSB,
+	.Mask = XAIEMLGBL_MEM_TILE_MODULE_LOCK0_VALUE_LOCK_VALUE_MASK,
 };
 
 /* Lock Module for Mem Tiles  */
@@ -2306,8 +2332,12 @@ static const  XAie_LockMod Aie2MemTileLockMod =
 	.LockValOff = 0x4,
 	.LockValUpperBound = 63,
 	.LockValLowerBound = -64,
+	.LockSetValBase = XAIEMLGBL_MEM_TILE_MODULE_LOCK0_VALUE,
+	.LockSetValOff = 0x10,
+	.LockInit = &AieMlMemTileLockInit,
 	.Acquire = &_XAieMl_LockAcquire,
-	.Release = &_XAieMl_LockRelease
+	.Release = &_XAieMl_LockRelease,
+	.SetValue = &_XAieMl_LockSetValue,
 };
 
 /* Enum to event number mapping of all events of AIE2 Core Mod of aie tile */

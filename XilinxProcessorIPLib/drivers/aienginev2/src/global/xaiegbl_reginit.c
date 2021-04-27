@@ -1191,7 +1191,8 @@ static const XAie_LockMod AieTileLockMod =
 	.LockValUpperBound = 1,
 	.LockValLowerBound = -1,
 	.Acquire = &(_XAie_LockAcquire),
-	.Release = &(_XAie_LockRelease)
+	.Release = &(_XAie_LockRelease),
+	.SetValue = &_XAie_LockSetValue,
 };
 
 /* Lock Module for SHIM NOC Tiles  */
@@ -1205,7 +1206,8 @@ static const XAie_LockMod AieShimNocLockMod =
 	.LockValUpperBound = 1,
 	.LockValLowerBound = -1,
 	.Acquire = &(_XAie_LockAcquire),
-	.Release = &(_XAie_LockRelease)
+	.Release = &(_XAie_LockRelease),
+	.SetValue = &_XAie_LockSetValue,
 };
 
 static const XAie_DmaBdEnProp AieTileDmaBdEnProp =

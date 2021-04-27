@@ -33,5 +33,7 @@ AieRC XAie_LockAcquire(XAie_DevInst *DevInst, XAie_LocType Loc, XAie_Lock Lock,
 		u32 TimeOut);
 AieRC XAie_LockRelease(XAie_DevInst *DevInst, XAie_LocType Loc, XAie_Lock Lock,
 		u32 TimeOut);
+AieRC XAie_LockSetValue(XAie_DevInst *DevInst, XAie_LocType Loc,
+		XAie_Lock Lock);
 
 #endif		/* end of protection macro */
