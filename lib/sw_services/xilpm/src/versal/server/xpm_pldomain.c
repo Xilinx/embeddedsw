@@ -462,7 +462,7 @@ static XStatus PlHouseClean(u32 TriggerTime)
 		}
 
 		/* Poll for house clean completion */
-		XPlmi_Printf(DEBUG_INFO, "INFO: %s : Waiitng for PL HC complete....", __func__);
+		XPlmi_Printf(DEBUG_INFO, "INFO: %s : Waiting for PL HC complete....", __func__);
 		while ((XPm_In32(Pld->CfuApbBaseAddr + CFU_APB_CFU_STATUS_OFFSET) &
 			(u32)CFU_APB_CFU_STATUS_HC_COMPLETE_MASK) !=
 					(u32)CFU_APB_CFU_STATUS_HC_COMPLETE_MASK) {};
