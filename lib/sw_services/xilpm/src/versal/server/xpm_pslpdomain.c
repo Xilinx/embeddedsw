@@ -185,7 +185,7 @@ static XStatus LpdScanClear(u32 *Args, u32 NumOfArgs)
 		      (u32)PMC_ANALOG_SCAN_CLEAR_TRIGGER_LPD_RPU_MASK);
 	PmRmw32(PMC_ANALOG_SCAN_CLEAR_TRIGGER, RegBitMask, RegBitMask);
 	/* Check that the register value written properly or not! */
-	PmChkRegRmw32(PMC_ANALOG_SCAN_CLEAR_TRIGGER, RegBitMask, RegBitMask, Status);
+	PmChkRegMask32(PMC_ANALOG_SCAN_CLEAR_TRIGGER, RegBitMask, RegBitMask, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
 		DbgErr = XPM_INT_ERR_REG_WRT_LPDLSCNCLR_TRIGGER;
 		goto done;
@@ -277,7 +277,7 @@ static XStatus LpdLbist(u32 *Args, u32 NumOfArgs)
 		      (u32)PMC_ANALOG_LBIST_ISOLATION_EN_LPD_RPU_MASK);
 	PmRmw32(PMC_ANALOG_LBIST_ISOLATION_EN, RegBitMask, RegBitMask);
 	/* Check that Lbist isolation Enabled */
-	PmChkRegRmw32(PMC_ANALOG_LBIST_ISOLATION_EN, RegBitMask, RegBitMask, Status);
+	PmChkRegMask32(PMC_ANALOG_LBIST_ISOLATION_EN, RegBitMask, RegBitMask, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
 		DbgErr = XPM_INT_ERR_REG_WRT_LPDLBIST_ISO_EN;
 		goto done;
@@ -288,7 +288,7 @@ static XStatus LpdLbist(u32 *Args, u32 NumOfArgs)
 		      (u32)PMC_ANALOG_LBIST_ENABLE_LPD_RPU_MASK);
 	PmRmw32(PMC_ANALOG_LBIST_ENABLE, RegBitMask, RegBitMask);
 	/* Check that Lbist triggered on LPD */
-	PmChkRegRmw32(PMC_ANALOG_LBIST_ENABLE, RegBitMask, RegBitMask, Status);
+	PmChkRegMask32(PMC_ANALOG_LBIST_ENABLE, RegBitMask, RegBitMask, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
 		DbgErr = XPM_INT_ERR_REG_WRT_LPDLBIST_ENABLE;
 		goto done;
@@ -299,7 +299,7 @@ static XStatus LpdLbist(u32 *Args, u32 NumOfArgs)
 		      (u32)PMC_ANALOG_LBIST_RST_N_LPD_RPU_MASK);
 	PmRmw32(PMC_ANALOG_LBIST_RST_N, RegBitMask, RegBitMask);
 	/* Check that Lbist reset released */
-	PmChkRegRmw32(PMC_ANALOG_LBIST_RST_N, RegBitMask, RegBitMask, Status);
+	PmChkRegMask32(PMC_ANALOG_LBIST_RST_N, RegBitMask, RegBitMask, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
 		DbgErr = XPM_INT_ERR_REG_WRT_LPDLBIST_RST_N;
 		goto done;
@@ -420,7 +420,7 @@ static XStatus XramMbist(void)
 	/* Write to Memclear Trigger */
 	PmOut32(BaseAddr + XRAM_SLCR_PCSR_MASK_OFFSET, XRAM_MEM_CLEAR_TRIGGER_0_MASK);
 	/* Check that the register value written properly or not! */
-	PmChkRegRmw32((BaseAddr + XRAM_SLCR_PCSR_MASK_OFFSET),
+	PmChkRegMask32((BaseAddr + XRAM_SLCR_PCSR_MASK_OFFSET),
 		      XRAM_MEM_CLEAR_TRIGGER_0_MASK,
 		      XRAM_MEM_CLEAR_TRIGGER_0_MASK, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
@@ -430,7 +430,7 @@ static XStatus XramMbist(void)
 
 	PmOut32(BaseAddr + XRAM_SLCR_PCSR_PCR_OFFSET, XRAM_MEM_CLEAR_TRIGGER_0_MASK);
 	/* Check that the register value written properly or not! */
-	PmChkRegRmw32((BaseAddr + XRAM_SLCR_PCSR_PCR_OFFSET),
+	PmChkRegMask32((BaseAddr + XRAM_SLCR_PCSR_PCR_OFFSET),
 		      XRAM_MEM_CLEAR_TRIGGER_0_MASK,
 		      XRAM_MEM_CLEAR_TRIGGER_0_MASK, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
@@ -548,7 +548,7 @@ static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
 		      (u32)PMC_ANALOG_OD_MBIST_RST_LPD_MASK);
 	PmRmw32(PMC_ANALOG_OD_MBIST_RST, RegBitMask, RegBitMask);
 	/* Check that the register value written properly or not! */
-	PmChkRegRmw32(PMC_ANALOG_OD_MBIST_RST, RegBitMask, RegBitMask, Status);
+	PmChkRegMask32(PMC_ANALOG_OD_MBIST_RST, RegBitMask, RegBitMask, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
 		DbgErr = XPM_INT_ERR_REG_WRT_LPDMBIST_RST;
 		goto done;
@@ -559,7 +559,7 @@ static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
 		      (u32)PMC_ANALOG_OD_MBIST_SETUP_LPD_MASK);
 	PmRmw32(PMC_ANALOG_OD_MBIST_SETUP, RegBitMask, RegBitMask);
 	/* Check that the register value written properly or not! */
-	PmChkRegRmw32(PMC_ANALOG_OD_MBIST_SETUP, RegBitMask, RegBitMask, Status);
+	PmChkRegMask32(PMC_ANALOG_OD_MBIST_SETUP, RegBitMask, RegBitMask, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
 		DbgErr = XPM_INT_ERR_REG_WRT_LPDMBIST_SETUP;
 		goto done;
@@ -570,7 +570,7 @@ static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
 		      (u32)PMC_ANALOG_OD_MBIST_PG_EN_LPD_MASK);
 	PmRmw32(PMC_ANALOG_OD_MBIST_PG_EN, RegBitMask, RegBitMask);
 	/* Check that the register value written properly or not! */
-	PmChkRegRmw32(PMC_ANALOG_OD_MBIST_PG_EN, RegBitMask, RegBitMask, Status);
+	PmChkRegMask32(PMC_ANALOG_OD_MBIST_PG_EN, RegBitMask, RegBitMask, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
 		DbgErr = XPM_INT_ERR_REG_WRT_LPDMBIST_PGEN;
 		goto done;
