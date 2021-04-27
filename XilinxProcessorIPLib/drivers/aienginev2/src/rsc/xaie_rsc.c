@@ -42,6 +42,26 @@
 #define XAIE_RSC_HEADER_SIZE_SHIFT	16U
 #define XAIE_RSC_HEADER_SIZE_MASK	0xFFFFFFFF
 
+/*
+ * This typedef defines a resource bitmaps meta data header
+ */
+typedef struct XAieRscMetaHeader {
+	u64 Stat; /* statistics information of the bitmaps, such as number of
+		   * bitmaps */
+	u64 BitmapOff; /* offset to the start of the binary of the first bitmap
+			* element */
+} XAieRscMetaHeader;
+
+/*
+ * This typedef defines a resource bitmap element
+ */
+typedef struct XAieRscBitmap {
+	u64 Header; /* bitmap header, it contains the following information:
+		     * tile type, module type, resource type, and the bitmap
+		     * length. */
+	u64 Bitmap[0]; /* the pointer of bitmap of the resource */
+} XAieRscBitmap;
+
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
 /**
@@ -1212,6 +1232,139 @@ error:
 	fclose(F);
 	XAIE_ERROR("Failed to write resource bitmaps to file\n");
 	return XAIE_ERR;
+}
+
+/*****************************************************************************/
+/**
+* This API is used to apply resource meta data to resource static bitmaps
+*
+* @param	DevInst: Device Instance
+* @param	MetaData: pointer to the AI engine resource meta data memory
+*
+* @return	XAIE_OK on success and error code on failure.
+*
+* @note		This function should be called before calling any resource
+*		requesting functions.
+*
+*******************************************************************************/
+AieRC XAie_LoadStaticRscfromMem(XAie_DevInst *DevInst, const char *MetaData)
+{
+	const XAieRscMetaHeader *Header = (XAieRscMetaHeader *)MetaData;
+	const XAieRscBitmap *Bitmap;
+	u64 NumBitmaps, BitmapsOffset;
+
+	if((DevInst == XAIE_NULL) || (Header == NULL) ||
+		(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid arguments for loading static resources\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	/*
+	 * For now, the stat field of the header only contains the number of
+	 * bitmaps.
+	 */
+	NumBitmaps = Header->Stat;
+	BitmapsOffset = Header->BitmapOff;
+	if(!NumBitmaps || BitmapsOffset < sizeof(*Header)) {
+		XAIE_ERROR("failed to get static resources, invalid header.\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	Bitmap = (const XAieRscBitmap *)(MetaData + BitmapsOffset);
+	for(u32 i = 0; i < NumBitmaps; i++) {
+		u64 RscHeader = Bitmap->Header;
+		u32 RscLen, ModType, RscType, ModId;
+		u32 NumRows, NumRscs;
+		u32 BitmapSize, Bitmap64Size;
+		u32 BitmapOffset = 0U;
+		u8 TileType;
+		const u64 *Bits64;
+		u32 *Bits32;
+		XAie_ResourceManager *RscMap;
+
+
+		TileType = (RscHeader >> XAIE_RSC_HEADER_TILE_TYPE_SHIFT) &
+			XAIE_RSC_HEADER_TILE_TYPE_MASK;
+		ModType = (RscHeader >> XAIE_RSC_HEADER_MOD_TYPE_SHIFT) &
+			XAIE_RSC_HEADER_MOD_TYPE_MASK;
+		RscType = (RscHeader >> XAIE_RSC_HEADER_RSC_TYPE_SHIFT) &
+			XAIE_RSC_HEADER_RSC_TYPE_MASK;
+		RscLen =  (RscHeader >> XAIE_RSC_HEADER_SIZE_SHIFT) &
+			XAIE_RSC_HEADER_SIZE_MASK;
+
+		if(!RscLen) {
+			XAIE_ERROR("invalid static bitmap[%u], length is 0.\n",
+				i);
+			return XAIE_INVALID_ARGS;
+		}
+		if(TileType == XAIEGBL_TILE_TYPE_SHIMNOC) {
+			XAIE_ERROR("invalid tile type SHIMNOC in rsc"
+				"metadata.\n");
+			return XAIE_INVALID_ARGS;
+		}
+
+		NumRows = _XAie_GetNumRows(DevInst, TileType);
+		RscMap = &DevInst->RscMapping[TileType];
+		Bits32 = RscMap->Bitmaps[RscType];
+		/*
+		 * If Module type is PL, it the module field of _XAie_GetNumRscs
+		 * needs to be 0 as SHIM only have single module for resources.
+		 */
+		ModId = ModType;
+		if(ModType == XAIE_PL_MOD) {
+			ModId = 0;
+		}
+		NumRscs = _XAie_GetNumRscs(DevInst, TileType, ModId, RscType);
+		NumRows = _XAie_GetNumRows(DevInst, TileType);
+		BitmapSize = NumRows * NumRscs * DevInst->NumCols;
+		Bitmap64Size = _XAie_NearestRoundUp(BitmapSize, 8 * sizeof(u64))
+			/ (8U * sizeof(u64));
+		if((u64)(Bitmap64Size) != RscLen) {
+			XAIE_ERROR("Rsc %u of Tile type %u, Mod %u, "
+				"Invalid bitmap size, expect %u, actual %lu.\n",
+				RscType, TileType, ModType,
+				Bitmap64Size, RscLen);
+			return XAIE_INVALID_ARGS;
+		}
+
+		if(ModType == (u32)XAIE_CORE_MOD) {
+			u32 MemModRscs;
+
+			MemModRscs = _XAie_GetNumRscs(DevInst, TileType,
+				XAIE_MEM_MOD, RscType);
+			BitmapOffset = _XAie_GetCoreBitmapOffset(DevInst,
+								MemModRscs);
+		}
+
+		/* Locate static bitmap */
+		BitmapOffset += BitmapSize;
+		Bits64 = Bitmap->Bitmap;
+		/*
+		 * Cannot just copy, as the static bitmap may not start as
+		 * 32bit aligned.
+		 */
+		for(u32 j = 0; j < RscLen; j++) {
+			u64 lBits64Val = Bits64[j];
+
+			for(u32 k = 0; k < 8 * sizeof(u64); k++) {
+				u32 Pos = k + j * 8 * sizeof(u64);
+
+				if (Pos >= BitmapSize) {
+					break;
+				}
+				if (lBits64Val & 1LU) {
+					_XAie_SetBitInBitmap(Bits32,
+						Pos + BitmapOffset, 1);
+				}
+				lBits64Val >>= 1;
+			}
+		}
+
+		Bitmap = (const XAieRscBitmap *)((const char *)Bitmap +
+				sizeof(RscHeader) + RscLen * sizeof(u64));
+	}
+
+	return XAIE_OK;
 }
 
 /** @} */
