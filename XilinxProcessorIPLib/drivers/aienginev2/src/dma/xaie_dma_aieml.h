@@ -45,5 +45,9 @@ AieRC _XAieMl_DmaWaitForDone(XAie_DevInst *DevInst, XAie_LocType Loc,
 		u32 TimeOutUs);
 AieRC _XAieMl_DmaCheckBdChValidity(u8 BdNum, u8 ChNum);
 AieRC _XAieMl_MemTileDmaCheckBdChValidity(u8 BdNum, u8 ChNum);
+AieRC _XAieMl_DmaUpdateBdLen(XAie_DevInst *DevInst, const XAie_DmaMod *DmaMod,
+		XAie_LocType Loc, u32 Len, u8 BdNum);
+AieRC _XAieMl_ShimDmaUpdateBdLen(XAie_DevInst *DevInst,
+		const XAie_DmaMod *DmaMod, XAie_LocType Loc, u32 Len, u8 BdNum);
 
 /** @} */
