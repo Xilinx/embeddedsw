@@ -63,6 +63,7 @@
 *       dc     04/08/21 Set sequence length only once
 *       dc     04/20/21 Doxygen documentation update
 *       dc     04/22/21 Add CC_GAIN field
+*       dc     04/27/21 Update CARRIER_CONFIGURATION handling
 *
 * </pre>
 *
@@ -105,8 +106,9 @@ extern "C" {
 #define XDFEMIX_ANT_NUM_MAX 8U /**< Maximum anntena number */
 #define XDFEMIX_SEQ_LENGTH_MAX 16U /**< Maximum sequence length */
 
-#define XDFEMIX_RATE_MAX 16U /**< Maximum rate Id */
-#define XDFEMIX_NCO_MAX 4U /**< Maximum NCO number */
+#define XDFEMIX_RATE_MAX 7U /**< Maximum rate Id */
+#define XDFEMIX_NCO_MAX 7U /**< Maximum NCO number */
+#define XDFEMIX_CC_GAIN_MAX 3U /**< Maximum CC gain */
 
 /**************************** Type Definitions *******************************/
 /*********** start - common code to all Logiccores ************/
