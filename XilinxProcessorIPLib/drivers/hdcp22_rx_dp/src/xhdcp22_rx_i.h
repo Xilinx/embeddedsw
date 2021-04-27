@@ -142,20 +142,24 @@ typedef enum
 typedef enum
 {
 	XHDCP22_RX_DPCD_FLAG_NONE,			/**< Clear DPCD flag*/
-	XHDCP22_RX_DPCD_FLAG_AKE_INIT_RCVD,		/**< Ake_Init Msg Rcvd
+	XHDCP22_RX_DPCD_FLAG_AKE_INIT_RCVD = 0x001,		/**< Ake_Init Msg Rcvd
 							  Flag */
-	XHDCP22_RX_DPCD_FLAG_AKE_NO_STORED_KM_RCVD,	/**< Ake_No_Stored_Km
+	XHDCP22_RX_DPCD_FLAG_AKE_NO_STORED_KM_RCVD = 0x002,	/**< Ake_No_Stored_Km
 							  Msg Rcvd Flag */
-	XHDCP22_RX_DPCD_FLAG_AKE_STORED_KM_RCVD,	/**< Ake_Stored_Km Msg
+	XHDCP22_RX_DPCD_FLAG_AKE_STORED_KM_RCVD = 0x004,	/**< Ake_Stored_Km Msg
 							  Rcvd Flag */
-	XHDCP22_RX_DPCD_FLAG_LC_INIT_RCVD,		/**< Lc_Init Msg Rcvd
+	XHDCP22_RX_DPCD_FLAG_LC_INIT_RCVD = 0x008,		/**< Lc_Init Msg Rcvd
 							  Flag */
-	XHDCP22_RX_DPCD_FLAG_SKE_SEND_EKS_RCVD,		/**< Ske_Send_Eks Msg
+	XHDCP22_RX_DPCD_FLAG_SKE_SEND_EKS_RCVD = 0x010,		/**< Ske_Send_Eks Msg
 							  Rcvd Flag */
-	XHDCP22_RX_DPCD_FLAG_HPRIME_READ_DONE,		/**< H' Msg Read done
+	XHDCP22_RX_DPCD_FLAG_HPRIME_READ_DONE = 0x020,		/**< H' Msg Read done
 							  Flag */
-	XHDCP22_RX_DPCD_FLAG_PAIRING_INFO_READ_DONE,	/**< Pairing info Read
+	XHDCP22_RX_DPCD_FLAG_PAIRING_INFO_READ_DONE = 0x040,	/**< Pairing info Read
 							  done Flag */
+	XHDCP22_RX_DPCD_FLAG_RPTR_RCVID_LST_ACK_READ_DONE = 0x080,/**< Repeater
+									Receiver ID List Ack Read done Flag*/
+	XHDCP22_RX_DPCD_FLAG_RPTR_STREAM_MANAGE_READ_DONE = 0x100,/**< Repeater
+									Stream manage Read done Flag*/
 } Xhdcp22_Rx_DpcdFlag;
 
 /**
