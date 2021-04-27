@@ -224,12 +224,9 @@ static void XHdcp22_PortDpRxProcessPairingReadDone(void *RefPtr)
 	XDpRxSs *DpRxSsPtr = (XDpRxSs *)RefPtr;
 
 	Xil_AssertVoid(RefPtr);
-
-	/* Set Pairing Info Read complete event in HDCP22 rx instance */
-	if (DpRxSsPtr->Hdcp22Ptr) {
-		XHdcp22Rx_SetDpcdMsgRdWrtAvailable(DpRxSsPtr->Hdcp22Ptr,
-			XDPRX_HDCP22_RX_DPCD_FLAG_PAIRING_INFO_READ_DONE);
-	}
+	/* There is no processing is dependent on Pairing read done interrupt
+	 * event, so no need to set the interrupt event
+	 * */
 }
 
 /*****************************************************************************/
@@ -254,6 +251,55 @@ static void XHdcp22_PortDpRxProcessStreamType(void *RefPtr)
 		XHdcp22_RxSetStreamType(DpRxSsPtr->Hdcp22Ptr);
 }
 
+/*****************************************************************************/
+/**
+ * This function is called when the DP-RX HDCP22 Repeater ReceiverId List write
+ * interrupt has occurred.
+ *
+ * @param RefPtr is a callback reference to the HDCP22 RX instance.
+ *
+ * @return None.
+ *
+ * @note   None.
+ ******************************************************************************/
+static void XHdcp22_PortDpRxProcessRepeaterAuthRcvIdLstDone(void *RefPtr)
+{
+	XDpRxSs *DpRxSsPtr = (XDpRxSs *)RefPtr;
+
+	Xil_AssertVoid(RefPtr);
+
+	/* Set Repeater Rceiver ID List Ack Read complete event in HDCP22 rx
+	 * instance */
+	if (DpRxSsPtr->Hdcp22Ptr) {
+		XHdcp22Rx_SetDpcdMsgRdWrtAvailable(DpRxSsPtr->Hdcp22Ptr,
+			XDPRX_HDCP22_RX_DPCD_FLAG_RPTR_RCVID_LST_ACK_READ_DONE);
+	}
+}
+
+/*****************************************************************************/
+/**
+ * This function is called when the DP-RX HDCP22 Repeater Stream Manage write
+ * interrupt has occurred.
+ *
+ * @param RefPtr is a callback reference to the HDCP22 RX instance.
+ *
+ * @return None.
+ *
+ * @note   None.
+ ******************************************************************************/
+static void XHdcp22_PortDpRxProcessRepeaterAuthStreamManageDone(void *RefPtr)
+{
+	XDpRxSs *DpRxSsPtr = (XDpRxSs *)RefPtr;
+
+	Xil_AssertVoid(RefPtr);
+
+	/* Set Repeater Rceiver ID List Ack Read complete event in HDCP22 rx
+	 * instance */
+	if (DpRxSsPtr->Hdcp22Ptr) {
+		XHdcp22Rx_SetDpcdMsgRdWrtAvailable(DpRxSsPtr->Hdcp22Ptr,
+			XDPRX_HDCP22_RX_DPCD_FLAG_RPTR_STREAM_MANAGE_READ_DONE);
+	}
+}
 /*****************************************************************************/
 /**
 *
@@ -670,6 +716,14 @@ int XDpRxSs_SubcoreInitHdcp22(void *InstancePtr)
 			XDp_RxSetCallback(DpRxSsPtr->DpPtr,
 					XDP_RX_HANDLER_HDCP22_STREAM_TYPE,
 					&XHdcp22_PortDpRxProcessStreamType,
+					DpRxSsPtr);
+			XDp_RxSetCallback(DpRxSsPtr->DpPtr,
+					XDP_RX_HANDLER_HDCP22_REPEAT_AUTH_RCVID_LST_DONE,
+					&XHdcp22_PortDpRxProcessRepeaterAuthRcvIdLstDone,
+					DpRxSsPtr);
+			XDp_RxSetCallback(DpRxSsPtr->DpPtr,
+					XDP_RX_HANDLER_HDCP22_REPEAT_AUTH_STREAM_MANAGE_DONE,
+					&XHdcp22_PortDpRxProcessRepeaterAuthStreamManageDone,
 					DpRxSsPtr);
 
 			/* Load Production Keys */
