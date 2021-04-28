@@ -14,6 +14,7 @@
 #include "xpm_debug.h"
 #include "xpm_pldomain.h"
 #include "xpm_psm_api.h"
+#include "xpm_rail.h"
 #include "xpm_api.h"
 
 #define XPM_HC_CPM_OPS			0U
@@ -30,6 +31,9 @@ static u32 GtyAddresses[XPM_NODEIDX_DEV_GTYP_CPM5_MAX -
 static XStatus CpmInitStart(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
+	XStatus PslpRailPwrSts = XST_FAILURE;
+	XStatus IntRailPwrSts = XST_FAILURE;
+	XStatus AuxRailPwrSts = XST_FAILURE;
 	XPm_CpmDomain *Cpm;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 PlatformVersion;
@@ -41,6 +45,25 @@ static XStatus CpmInitStart(u32 *Args, u32 NumOfArgs)
 	Cpm = (XPm_CpmDomain *)XPmPower_GetById(PM_POWER_CPM);
 	if (NULL == Cpm) {
 		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
+		goto done;
+	}
+
+	XPm_Rail *VccintPslpRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PSLP);
+	XPm_Rail *VccintRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PL);
+	XPm_Rail *VccauxRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCAUX);
+
+	/* Check LPD and PL power rails first to make sure power is on */
+	PslpRailPwrSts = XPmPower_CheckPower(VccintPslpRail,
+			PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_LPD_MASK);
+	IntRailPwrSts = XPmPower_CheckPower(VccintRail,
+			PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_PL_MASK);
+	AuxRailPwrSts =  XPmPower_CheckPower(VccauxRail,
+			PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCAUX_MASK);
+	if ((XST_SUCCESS != PslpRailPwrSts) || (XST_SUCCESS != IntRailPwrSts) ||
+	    (XST_SUCCESS != AuxRailPwrSts)) {
+		DbgErr = XPM_INT_ERR_INVALID_PWR_STATE;
+		PmErr("PslpRailPwrSts: %d IntRailPwrSts: %d AuxRailPwrSts: %d\r\n",
+		       PslpRailPwrSts, IntRailPwrSts, AuxRailPwrSts);
 		goto done;
 	}
 
@@ -75,6 +98,11 @@ done:
 static XStatus Cpm5InitStart(u32 *Args, u32 NumofArgs)
 {
 	XStatus Status = XPM_ERR_INIT_START;
+	XStatus PslpRailPwrSts = XST_FAILURE;
+	XStatus IntRailPwrSts = XST_FAILURE;
+	XStatus AuxRailPwrSts = XST_FAILURE;
+	XStatus RamRailPwrSts = XST_FAILURE;
+
 	XPm_CpmDomain *Cpm;
 	u32 i;
 	XPm_Device* Device = NULL;
@@ -88,6 +116,29 @@ static XStatus Cpm5InitStart(u32 *Args, u32 NumofArgs)
 	if (NULL == Cpm) {
 		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		Status = XPM_INVALID_PWRDOMAIN;
+		goto done;
+	}
+
+	XPm_Rail *VccintPslpRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PSLP);
+	XPm_Rail *VccintRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PL);
+	XPm_Rail *VccauxRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCAUX);
+	XPm_Rail *VccRamRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_RAM);
+
+	/* Check LPD and PL power rails first to make sure power is on */
+	PslpRailPwrSts = XPmPower_CheckPower(VccintPslpRail,
+			PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_LPD_MASK);
+	IntRailPwrSts = XPmPower_CheckPower(VccintRail,
+			PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_PL_MASK);
+	AuxRailPwrSts =  XPmPower_CheckPower(VccauxRail,
+			PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCAUX_MASK);
+	RamRailPwrSts =  XPmPower_CheckPower(VccRamRail,
+			PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_RAM_MASK);
+
+	if ((XST_SUCCESS != PslpRailPwrSts) || (XST_SUCCESS != IntRailPwrSts) ||
+	    (XST_SUCCESS != AuxRailPwrSts) || (XST_SUCCESS != RamRailPwrSts)) {
+		DbgErr = XPM_INT_ERR_INVALID_PWR_STATE;
+		PmErr("PslpRailPwrSts: %d IntRailPwrSts: %d AuxRailPwrSts: %d RamRailPwrSts: %d\r\n",
+		       PslpRailPwrSts, IntRailPwrSts, AuxRailPwrSts, RamRailPwrSts);
 		goto done;
 	}
 
