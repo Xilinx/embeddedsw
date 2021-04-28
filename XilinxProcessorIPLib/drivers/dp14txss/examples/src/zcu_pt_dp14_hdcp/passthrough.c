@@ -318,25 +318,7 @@ void DpPt_Main(void){
 
 
 #if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
-#ifdef USE_EEPROM_HDCP_KEYS
-	extern uint32_t Hdcp14KeyA_test_Sz ;
-	extern uint8_t Hdcp14KeyA_test[336];
-	extern uint8_t Hdcp14KeyA[];
-	extern uint32_t Hdcp14KeyA_Sz ;
-	uint64_t* ptr_64=Hdcp14KeyA_test;
-	extern uint32_t Hdcp14KeyB_test_Sz ;
-	extern uint8_t Hdcp14KeyB_test[336];
-	extern uint8_t Hdcp14KeyB[];
-	extern uint32_t Hdcp14KeyB_Sz ;
-	memcpy(Hdcp14KeyA_test,Hdcp14KeyA,Hdcp14KeyA_Sz);
 
-	memcpy(Hdcp14KeyB_test,Hdcp14KeyB,Hdcp14KeyB_Sz);
-	extern uint8_t Hdcp14Key_test[672];
-	extern uint32_t Hdcp14Key_test_Sz;
-	memcpy(Hdcp14Key_test,Hdcp14KeyA_test,Hdcp14KeyA_test_Sz);
-	memcpy((Hdcp14Key_test + Hdcp14KeyA_test_Sz),Hdcp14KeyB_test,Hdcp14KeyB_test_Sz);
-#endif
-	KEYMGMT_Init();
 	XHdcp1xExample_Init();
 
 #if ENABLE_HDCP1x_IN_TX
