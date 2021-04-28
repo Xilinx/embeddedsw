@@ -80,7 +80,8 @@ static AieRC _XAie_FindAvailableRsc(u32 *Bitmap, u32 StaticBitmapOffset,
 *
 *******************************************************************************/
 static AieRC _XAie_FindAvailableRscContig(u32 *Bitmap, u32 SBmOff,
-		u32 StartBit, u32 MaxRscVal, u32 *Index, u8 NumContigRscs)
+		u32 StartBit, u32 MaxRscVal, u32 *Index, u8 NumContigRscs,
+		XAie_RscType RscType)
 {
 	for(u32 i = StartBit; i < StartBit + MaxRscVal; i += NumContigRscs) {
 		u32 j;
@@ -94,8 +95,13 @@ static AieRC _XAie_FindAvailableRscContig(u32 *Bitmap, u32 SBmOff,
 					break;
 			}
 
-			if(j == (i + NumContigRscs))
-				return XAIE_OK;
+			if(j == (i + NumContigRscs)) {
+				if ((RscType == XAIE_PC_EVENTS_RSC ||
+					  RscType == XAIE_COMBO_EVENTS_RSC) &&
+					  *Index % 2 == 0) {
+					return XAIE_OK;
+				}
+			}
 		}
 	}
 
@@ -169,7 +175,7 @@ static AieRC _XAie_RequestRsc(u32 *Bitmap, u32 StartBit,
 *******************************************************************************/
 AieRC _XAie_RequestRscContig(u32 *Bitmaps, u32 StartBit,
 		u32 StaticBitmapOffset, u32 NumRscPerTile, u32 MaxRscVal,
-		u32 *RscArrPerTile, u8 NumContigRscs)
+		u32 *RscArrPerTile, u8 NumContigRscs, XAie_RscType RscType)
 {
 	AieRC RC;
 
@@ -178,7 +184,8 @@ AieRC _XAie_RequestRscContig(u32 *Bitmaps, u32 StartBit,
 		u32 Index;
 
 		RC = _XAie_FindAvailableRscContig(Bitmaps, StaticBitmapOffset,
-				StartBit, MaxRscVal, &Index, NumContigRscs);
+				StartBit, MaxRscVal, &Index, NumContigRscs,
+				RscType);
 		if(RC != XAIE_OK)
 			return XAIE_ERR;
 
@@ -188,7 +195,7 @@ AieRC _XAie_RequestRscContig(u32 *Bitmaps, u32 StartBit,
 
 	/* Set the bit as allocated if the request was successful*/
 	for(u32 i = 0U; i < NumRscPerTile; i++) {
-		_XAie_SetBitInBitmap(Bitmaps, RscArrPerTile[i], 1U);
+		_XAie_SetBitInBitmap(Bitmaps, RscArrPerTile[i] + StartBit, 1U);
 	}
 
 	return XAIE_OK;
@@ -391,7 +398,7 @@ AieRC _XAie_RequestRscCommon(XAie_DevInst *DevInst, XAie_BackendTilesRsc *Args)
 		RC = _XAie_RequestRscContig(Args->Bitmap, Args->StartBit,
 				Args->StaticBitmapOffset, Args->NumRscPerTile,
 				Args->MaxRscVal, RscArrPerTile,
-				Args->NumContigRscs);
+				Args->NumContigRscs, Args->RscType);
 		if(RC == XAIE_OK) {
 			/*
 			 * Return resource granted to caller by populating

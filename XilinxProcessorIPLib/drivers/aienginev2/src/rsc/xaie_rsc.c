@@ -739,7 +739,7 @@ AieRC _XAie_RscMgr_RequestRsc(XAie_DevInst *DevInst, u32 NumReq,
 
 AieRC _XAie_RscMgr_RequestRscContiguous(XAie_DevInst *DevInst, u32 NumReq,
 		XAie_UserRscReq *RscReq, XAie_UserRsc *Rscs,
-		XAie_RscType RscType, u8 NumContigRsc)
+		XAie_RscType RscType)
 {
 	AieRC RC;
 	u32 UserRscIndex = 0U;
@@ -763,7 +763,7 @@ AieRC _XAie_RscMgr_RequestRscContiguous(XAie_DevInst *DevInst, u32 NumReq,
 		TilesRsc.Mod = RscReq[i].Mod;
 		TilesRsc.NumRscPerTile = RscReq[i].NumRscPerTile;
 		TilesRsc.Flags = XAIE_RSC_MGR_CONTIG_FLAG;
-		TilesRsc.NumContigRscs = NumContigRsc;
+		TilesRsc.NumContigRscs = RscReq[i].NumRscPerTile;
 		TilesRsc.Rscs = &Rscs[UserRscIndex];
 
 		RC = XAie_RunOp(DevInst, XAIE_BACKEND_OP_REQUEST_RESOURCE,
