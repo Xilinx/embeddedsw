@@ -59,6 +59,7 @@
 
 #define XDFESI570_CURRENT_FREQUENCY 156.25
 #define XDFESI570_NEW_FREQUENCY 122.88
+#define XDFEMIX_TRIGGER_ENABLED_ONESHOT 0x1001U
 
 /************************** Function Prototypes *****************************/
 extern int XDfeSi570_SetMgtOscillator(double CurrentFrequency,
@@ -179,7 +180,11 @@ static int XDfeMix_SelfTestExample()
 	/* Go through initialization states of the state machine */
 	XDfeMix_Reset(InstancePtr);
 	XDfeMix_Configure(InstancePtr, &Cfg);
+	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_ACTIVATE_OFFSET,
+			 XDFEMIX_TRIGGER_ENABLED_ONESHOT);
 	XDfeMix_Initialize(InstancePtr, &Init);
+	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_ACTIVATE_OFFSET,
+			 XDFEMIX_TRIGGER_ENABLED_ONESHOT);
 	XDfeMix_Activate(InstancePtr, true);
 
 	/* Write and read a dummy frequency configuration */
@@ -224,7 +229,7 @@ static int XDfeMix_AddCCTestExample()
 	XDfeMix_Init Init = { { 4, { 0 } } };
 	u32 CCID = 0;
 	u32 NCO = 1;
-	u32 Rate = 8;
+	u32 Rate = 7;
 	u32 FrequencyControlWord = 0x11;
 	u32 FrequencySingleModCount = 0x12;
 	u32 FrequencyDualModCount = 0x13;
@@ -255,7 +260,11 @@ static int XDfeMix_AddCCTestExample()
 	/* Go through initialization states of the state machine */
 	XDfeMix_Reset(InstancePtr);
 	XDfeMix_Configure(InstancePtr, &Cfg);
+	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_ACTIVATE_OFFSET,
+			 XDFEMIX_TRIGGER_ENABLED_ONESHOT);
 	XDfeMix_Initialize(InstancePtr, &Init);
+	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_ACTIVATE_OFFSET,
+			 XDFEMIX_TRIGGER_ENABLED_ONESHOT);
 	XDfeMix_SetTriggersCfg(InstancePtr, &TriggerCfg);
 	XDfeMix_Activate(InstancePtr, false);
 
