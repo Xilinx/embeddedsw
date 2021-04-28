@@ -843,14 +843,14 @@ AieRC XAie_RequestPCRangeEvents(XAie_DevInst *DevInst, u32 NumReq,
 	 * UserRscNum > 2U * NumReq as two PC Events are allocated for every
 	 * PCRange request.
 	 */
-	if((NumReq * 2U) < UserRscNum) {
+	if((NumReq * 2U) > UserRscNum) {
 		XAIE_ERROR("Insufficient memory to return allocated rscs\n");
 		return XAIE_INVALID_ARGS;
 	}
 
 	/* PC Range events are always in a pairs of two */
 	RC = _XAie_RscMgr_RequestRscContiguous(DevInst, NumReq, RscReq, Rscs,
-			XAIE_PC_EVENTS_RSC, 2U);
+			XAIE_PC_EVENTS_RSC);
 	if(RC != XAIE_OK)
 		return RC;
 
@@ -901,7 +901,7 @@ AieRC XAie_RequestComboEvents(XAie_DevInst *DevInst, u32 NumReq,
 		return RC;
 
 	return _XAie_RscMgr_RequestRscContiguous(DevInst, NumReq, RscReq, Rscs,
-			XAIE_COMBO_EVENTS_RSC, 4U);
+			XAIE_COMBO_EVENTS_RSC);
 }
 
 /*****************************************************************************/

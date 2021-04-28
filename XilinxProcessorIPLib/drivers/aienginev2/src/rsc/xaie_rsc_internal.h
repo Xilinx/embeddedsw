@@ -53,7 +53,7 @@ AieRC _XAie_RscMgr_RequestAllocatedRsc(XAie_DevInst *DevInst, u32 NumReq,
 		XAie_UserRsc *Rscs, XAie_RscType RscType);
 AieRC _XAie_RscMgr_RequestRscContiguous(XAie_DevInst *DevInst, u32 NumReq,
 		XAie_UserRscReq *RscReq, XAie_UserRsc *Rscs,
-		XAie_RscType RscType, u8 NumContigRsc);
+		XAie_RscType RscType);
 
 /* Common resource management helper APIs */
 AieRC _XAie_CheckLocsValidity(XAie_DevInst *DevInst, u32 NumReq,
