@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
  *
  * @file xhdmiphy1.h
- * @addtogroup xhdmiphy1_v2_1
+ * @addtogroup xhdmiphy1_v2_2
  * @{
  * @details
  * This is main header file of the Xilinx HDMI PHY Controller driver
