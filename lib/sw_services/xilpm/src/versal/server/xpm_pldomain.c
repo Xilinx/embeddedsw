@@ -24,8 +24,10 @@
 #define PLHCLEAN_EARLY_BOOT 0U
 #define PLHCLEAN_INIT_NODE  1U
 
-//If TRIM_CRAM[31:0]=0 (FUSE not programmed). Then set rw_read_voltages to 0.61V + 0.625V
-#define CRAM_TRIM_RW_READ_VOLTAGE	0x0600019FU
+/* If TRIM_CRAM[31:0]=0 (FUSE not programmed),
+ * Use Dynamic read voltage and 4 Legs setting for keeper Bias */
+#define CRAM_TRIM_RW_READ_VOLTAGE	0x08000B80U
+
 static XCframe CframeIns={0}; /* CFRAME Driver Instance */
 static XCfupmc CfupmcIns={0}; /* CFU Driver Instance */
 static volatile u32 PlpdHouseCleanBypass = 0;
