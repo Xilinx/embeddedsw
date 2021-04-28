@@ -30,6 +30,9 @@ Fix Doxygen warnings.
 xilffs_v4_5:
 Maintain discrete global variables for each controller instance.
 
+v_hdmiphy1_v2_2:
+Updated the DRU refclk min and max limits
+
 Changes for 2020.3
 ===============================
 sdps_v3_11:
