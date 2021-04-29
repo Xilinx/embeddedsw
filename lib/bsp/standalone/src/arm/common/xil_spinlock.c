@@ -160,7 +160,9 @@
 *
 * Ver   Who      Date     Changes
 * ----- -------- -------- -----------------------------------------------
-* 7.5 	asa		 02/23/21 First release
+* 7.5 	asa      02/23/21 First release
+* 7.5   asa      04/28/21 Fixed bug Xil_IsSpinLockEnabled to avoid
+*                         dereferencing to address zero.
 * </pre>
 *
 ******************************************************************************/
@@ -352,10 +354,13 @@ void Xil_ReleaseSpinLock(void)
 *****************************************************************************/
 u32 Xil_IsSpinLockEnabled(void)
 {
-    if (*(u32 *)(Xil_Spinlock_Flag_Addr) == XIL_SPINLOCK_ENABLED) {
-        return TRUE;
-    } else {
-		return FALSE;
-	}
+    u32 retVal = FALSE;
+
+    if (Xil_Spinlock_Flag_Addr != 0) {
+        if (*(u32 *)(Xil_Spinlock_Flag_Addr) == XIL_SPINLOCK_ENABLED) {
+            retVal = TRUE;
+        }
+    }
+    return retVal;
 }
 #endif /* !(__aarch64__) &&  (__GNUC__) && !(__clang__)*/
