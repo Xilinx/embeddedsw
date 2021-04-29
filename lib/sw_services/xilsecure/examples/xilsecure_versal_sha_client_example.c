@@ -126,10 +126,8 @@ static u32 SecureSha3Example()
 		goto END;
 	}
 
-	XSecure_Sha3Initialize();
-	XSecure_Sha3Update((u64)&Data, Size);
 	Xil_DCacheInvalidateRange((UINTPTR)DstAddr, SHA3_HASH_LEN_IN_BYTES);
-	XSecure_Sha3Finish(DstAddr);
+	XSecure_Sha3Digest((u64)&Data, DstAddr, Size);
 	Xil_DCacheInvalidateRange((UINTPTR)DstAddr, SHA3_HASH_LEN_IN_BYTES);
 
 	xil_printf(" Calculated Hash \r\n ");
