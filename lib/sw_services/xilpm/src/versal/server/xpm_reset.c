@@ -342,6 +342,9 @@ static XStatus AieResetAssert(XPm_ResetNode *Rst)
 	/* Write to control register to assert reset */
 	XPm_RMW32(Rst->Node.BaseAddress, Mask, Mask);
 
+	/* Wait for reset to propagate (1us) */
+	usleep(1U);
+
 	/* Re-lock the AIE PCSR registers for protection */
 	XPmAieDomain_LockPcsr(AieDev->Node.BaseAddress);
 
@@ -370,6 +373,9 @@ static XStatus AieResetRelease(XPm_ResetNode *Rst)
 
 	/* Write to control register to release reset */
 	XPm_RMW32(Rst->Node.BaseAddress, Mask, 0U);
+
+	/* Wait for reset to propagate (1us) */
+	usleep(1U);
 
 	/* Re-lock the AIE PCSR registers for protection */
 	XPmAieDomain_LockPcsr(AieDev->Node.BaseAddress);

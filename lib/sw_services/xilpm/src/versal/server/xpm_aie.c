@@ -245,10 +245,16 @@ static XStatus ArrayReset(void)
 		goto done;
 	}
 
+	/* Wait for reset to propagate (1us) */
+	AieWait(1U);
+
 	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_ME_ARRAY_RESET_MASK, 0U);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_ARRAY_RESET_RELEASE;
 	}
+
+	/* Wait for reset to propagate (1us) */
+	AieWait(1U);
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
