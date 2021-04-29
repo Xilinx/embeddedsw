@@ -419,14 +419,10 @@ static XStatus AieInitFinish(u32 *Args, u32 NumOfArgs)
 		goto fail;
 	}
 
-	/* Lock PCSR registers */
-	XPmAieDomain_LockPcsr(BaseAddress);
-
 	/* Clock gate ME Array column-wise (except SHIM array) */
 	AieClkGateByCol();
 
 	Status = XST_SUCCESS;
-	goto done;
 
 fail:
 	/* Lock ME PCSR */
