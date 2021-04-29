@@ -42,6 +42,8 @@
 *       bsv  28/01/21 Fix build issues in case SECURE and BITSTREAM code are
 *                     excluded
 *       bsv  04/01/21 Added TPM support
+*       bsv  04/28/21 Added support to ensure authenticated images boot as
+*                     non-secure when RSA_EN is not programmed
 *
 * </pre>
 *
@@ -1200,15 +1202,15 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	/**
 	 * check the authentication status
 	 */
-	if (XFsbl_IsRsaSignaturePresent(PartitionHeader) ==
-			XIH_PH_ATTRB_RSA_SIGNATURE )
-	{
+	if ((FsblInstancePtr->AuthEnabled == TRUE) &&
+		(XFsbl_IsRsaSignaturePresent(PartitionHeader) ==
+			XIH_PH_ATTRB_RSA_SIGNATURE)) {
 		IsAuthenticationEnabled = TRUE;
 	}
-	else
-	{
+	else {
 		IsAuthenticationEnabled = FALSE;
 	}
+
 	/* check the checksum status */
 	if (XFsbl_GetChecksumType(PartitionHeader) !=
 			XIH_PH_ATTRB_NOCHECKSUM )

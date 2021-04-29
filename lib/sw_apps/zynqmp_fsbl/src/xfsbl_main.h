@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,8 @@
 * 1.00  kc   10/21/13 Initial release
 * 2.0   vb   03/24/17 Added macros for LOVEC/HIVEC and USB boot mode,
 *                     Made compliance to MISRAC 2012 guidelines
+* 3.00  bsv  04/28/21 Added support to ensure authenticated images boot as
+*                     non-secure when RSA_EN is not programmed
 *
 * </pre>
 *
@@ -70,6 +72,8 @@ typedef struct {
 	u32 ProcessorID; /**< One of R5-0, R5-LS, A53-0 */
 	u32 A53ExecState; /**< One of A53 64-bit, A53 32-bit */
 	u32 BootHdrAttributes; /**< Boot Header attributes */
+	u32 AuthEnabled;  /**< Check if RSA_EN is programmed or
+				Boot Header authentication is enabled */
 	u32 ImageOffsetAddress; /**< Flash offset address */
 	XFsblPs_ImageHeader ImageHeader; /** Image header */
 	u32 ErrorCode; /**< Error code during FSBL failure */
