@@ -1,3 +1,7 @@
+/******************************************************************************
+* Copyright (c) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
 #ifndef XDEBUG  /* prevent circular inclusions */
 #define XDEBUG  /* by using protection macros */
 
@@ -39,15 +43,25 @@ int printf(const char *format, ...);
 
 #define xdbg_stmnt(x)  x
 
+/* In VxWorks, if _WRS_GNU_VAR_MACROS is defined, special syntax is needed for
+ * macros that accept variable number of arguments
+ */
+#if defined(XENV_VXWORKS) && defined(_WRS_GNU_VAR_MACROS)
+#define xdbg_printf(type, args...) (((type) & xdbg_current_types) ? printf (## args) : 0)
+#else /* ANSI Syntax */
 #define xdbg_printf(type, ...) (((type) & xdbg_current_types) ? printf (__VA_ARGS__) : 0)
-
+#endif
 
 #else /* defined(DEBUG) && !defined(NDEBUG) */
 
 #define xdbg_stmnt(x)
 
+/* See VxWorks comments above */
+#if defined(XENV_VXWORKS) && defined(_WRS_GNU_VAR_MACROS)
+#define xdbg_printf(type, args...)
+#else /* ANSI Syntax */
 #define xdbg_printf(...)
-
+#endif
 #endif /* defined(DEBUG) && !defined(NDEBUG) */
 
 #ifdef __cplusplus
