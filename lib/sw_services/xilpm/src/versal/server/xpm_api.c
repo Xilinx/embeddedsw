@@ -1854,6 +1854,54 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 			goto done;
 		}
 
+		/**
+		 * Check if any power domain is ON and its parent is requested
+		 * power domain, then explicitly power down those such power
+		 * domains.
+		 */
+		for (i = (u32)XPM_NODEIDX_POWER_PMC; i < (u32)XPM_NODEIDX_POWER_MAX; i++) {
+			Power = XPmPower_GetByIndex(i);
+			if ((NULL == Power) || (NULL == Power->Parent) ||
+			    (Power->Parent->Node.Id != NodeId) ||
+			    ((u8)XPM_POWER_STATE_ON != Power->Node.State) ||
+			    ((u32)XPM_NODESUBCL_POWER_DOMAIN !=
+			     NODESUBCLASS(Power->Node.Id))) {
+				continue;
+			}
+
+			Status = XPm_ForcePowerdown(SubsystemId, Power->Node.Id, 0U, CmdType);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		}
+
+		/**
+		 * This is a special use case where child power domain is ON but
+		 * no device of that power domain is requested. So use count of
+		 * child power domain is 0. Also parent power domain usecount
+		 * does not consider this child power domain as no device is
+		 * requested.
+		 * So to force power domain in this case, increment child and
+		 * parent both power domain and call power down of child power
+		 * domain which powers off child power domain without affecting
+		 * usecount.
+		 */
+		Power = XPmPower_GetById(NodeId);
+		if ((NULL != Power) && (0U == Power->UseCount) &&
+		    ((u8)XPM_POWER_STATE_ON == Power->Node.State)) {
+			Status = Power->HandleEvent(&Power->Node,
+						(u32)XPM_POWER_EVENT_PWR_UP);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+
+			Status = Power->HandleEvent(&Power->Node,
+						(u32)XPM_POWER_EVENT_PWR_DOWN);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		}
+
 		/*
 		 * Release devices belonging to the power domain.
 		 */
@@ -1893,36 +1941,6 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 				}
 				Power = Power->Parent;
 			}
-		}
-		/**
-		 * Check if any power domain is ON and its parent is requested
-		 * power domain, then explicitly power down those such power
-		 * domains.
-		 */
-		for (i = 1U; i < (u32)XPM_NODEIDX_POWER_MAX; i++) {
-			Power = XPmPower_GetByIndex(i);
-			if ((NULL == Power) || (NULL == Power->Parent) ||
-			    (Power->Parent->Node.Id != NodeId) ||
-			    ((u8)XPM_POWER_STATE_OFF == Power->Node.State)) {
-				continue;
-			}
-			Status = XPm_ForcePowerdown(SubsystemId, Power->Node.Id,
-						    0U, CmdType);
-			if (XST_SUCCESS != Status) {
-				goto done;
-			}
-		}
-		/**
-		 * When domain CDO is loaded but no device is requested then
-		 * domain is in ON state and its use count is 0. So increment
-		 * the use count before calling power down handler in such case.
-		 */
-		Power = XPmPower_GetById(NodeId);
-		if (((u8)XPM_POWER_STATE_ON == Power->Node.State) &&
-		    (0U == Power->UseCount)) {
-			Power->UseCount++;
-			Status = Power->HandleEvent(&Power->Node,
-						(u32)XPM_POWER_EVENT_PWR_DOWN);
 		}
 	} else if ((u32)XPM_NODECLASS_SUBSYSTEM == NODECLASS(NodeId)) {
 		TargetSubsystem = XPmSubsystem_GetById(NodeId);

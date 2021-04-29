@@ -497,6 +497,20 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 		case (u8)XPM_POWER_STATE_ON:
 			if ((u32)XPM_POWER_EVENT_PWR_UP == Event) {
 				Status = XST_SUCCESS;
+				/**
+				 * Here UseCount 0 with state ON indicates that power
+				 * is ON (CDO is loaded) but no child node is requested.
+				 * So power parent needs to be requested since power node
+				 * UseCount is changing from 0 to 1
+				 */
+				if ((0U == Power->UseCount) && (NULL != Power->Parent)) {
+					Status = Power->Parent->HandleEvent(
+						 &Power->Parent->Node, XPM_POWER_EVENT_PWR_UP);
+					if (XST_SUCCESS != Status) {
+						DbgErr = XPM_INT_ERR_PWR_PARENT_UP;
+						break;
+					}
+				}
 				Power->UseCount++;
 			} else if ((u32)XPM_POWER_EVENT_PWR_DOWN == Event) {
 				Status = XST_SUCCESS;
