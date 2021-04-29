@@ -46,6 +46,8 @@
 * 8.0   bsv  12/16/20 Update print format in XFsbl_EccInit to correctly print
 *                     64 bit addresses and lengths
 *       bsv  04/01/21 Added TPM support
+*       bsv  04/28/21 Added support to ensure authenticated images boot as
+*                     non-secure when RSA_EN is not programmed
 *
 * </pre>
 *
@@ -1260,7 +1262,7 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 	if (((EfuseCtrl & EFUSE_SEC_CTRL_RSA_EN_MASK) != 0U) ||
 	    ((BootHdrAttrb & XIH_BH_IMAGE_ATTRB_RSA_MASK)
 		== XIH_BH_IMAGE_ATTRB_RSA_MASK)) {
-
+		FsblInstancePtr->AuthEnabled = TRUE;
 		XFsbl_Printf(DEBUG_INFO,"Authentication Enabled\r\n");
 #ifdef XFSBL_SECURE
 		 /* Read AC offset from Image header table */
