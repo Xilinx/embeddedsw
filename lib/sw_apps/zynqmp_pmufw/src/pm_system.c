@@ -68,8 +68,8 @@ typedef struct {
  */
 typedef struct PmSystemRequirement {
 	PmSlave* const slave;
-	u32 caps;
-	u32 posCaps;
+	u8 caps;
+	u8 posCaps;
 } PmSystemRequirement;
 
 #ifdef ENABLE_POS
