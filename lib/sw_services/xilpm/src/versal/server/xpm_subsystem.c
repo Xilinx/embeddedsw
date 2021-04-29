@@ -278,6 +278,14 @@ int XPmSubsystem_InitFinalize(const u32 SubsystemId)
 			continue;
 		}
 
+		/**
+		 * NOTE: Skip for child of NOC power domain, as powering down
+		 * the NOC domain may cause PLM to hang.
+		 */
+		if (PM_POWER_NOC == Power->Node.Id) {
+			continue;
+		}
+
 		/*
 		 * Exclude devices which are expected not to be requested by
 		 * any subsystem but should be kept on for basic functionalities
