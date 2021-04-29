@@ -566,9 +566,7 @@ XStatus XPmNpDomain_Init(XPm_NpDomain *Npd, u32 Id, u32 BaseAddress,
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	Status = XPmPowerDomain_Init(&Npd->Domain, Id, BaseAddress, Parent, &NpdOps);
-	if (XST_SUCCESS == Status) {
-		Npd->BisrDataCopied = 0;
-	} else {
+	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_POWER_DOMAIN_INIT;
 	}
 

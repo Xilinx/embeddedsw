@@ -640,22 +640,13 @@ static XStatus XPmBisr_RepairDdrMc(u32 EfuseTagAddr, u32 TagSize, u32 TagOptiona
 	u32 RegValue;
 	u32 BaseAddr, BisrDataDestAddr;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	XPm_NpDomain *NpDomain = (XPm_NpDomain *)XPmPower_GetById(PM_POWER_NOC);
-
-	if (NULL == NpDomain) {
-		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
-		goto done;
-	}
 
 	BaseAddr = NPI_FIXED_BASEADDR + (TagOptional<<NPI_EFUSE_ENDPOINT_SHIFT);
 	BisrDataDestAddr = BaseAddr + DDRMC_NPI_CACHE_DATA_REGISTER_OFFSET;
 
-	if (0U == NpDomain->BisrDataCopied) {
-		/* Copy repair data */
-		*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize,
-						    BisrDataDestAddr);
-		NpDomain->BisrDataCopied = 1;
-	}
+	/* Copy repair data */
+	*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize,
+					    BisrDataDestAddr);
 
 	/* Unlock PCSR */
 	XPmNpDomain_UnlockNpiPcsr(BaseAddr);
@@ -694,7 +685,6 @@ fail:
 	/* Lock PCSR */
 	XPmNpDomain_LockNpiPcsr(BaseAddr);
 
-done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
