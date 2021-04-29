@@ -20,7 +20,6 @@ extern "C" {
  */
 typedef struct XPm_NpDomain {
 	XPm_PowerDomain Domain; /**< Power domain node base class */
-	u8 BisrDataCopied;
 } XPm_NpDomain;
 
 /*****************************************************************************/

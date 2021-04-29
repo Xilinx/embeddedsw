@@ -1030,8 +1030,6 @@ XStatus XPm_PowerDwnNoC(void)
 
 	/* TODO: Send PMC_I2C command to turn off NoC power rail */
 
-	NpDomain->BisrDataCopied = 0;
-
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
