@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kal  03/23/21 Initial release
+*       kal  03/28/21 Added XSecure_Sha3Digest Client API
 *
 * </pre>
 *
@@ -112,6 +113,46 @@ int XSecure_Sha3Finish(const u64 OutDataAddr)
 			XSECURE_IPI_UNUSED_PARAM, (u32)OutDataAddr,
 			(u32)(OutDataAddr >> 32));
 
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function sends IPI request to calculate hash on single
+ *		block of data
+ *
+ * @param	InDataAddr	Address of the input buffer where the input
+ * 				data is stored
+ * @param	OutDataAddr	Address of the output buffer to store the
+ * 				output hash
+ * @param	Size		Size of the data to be updated to SHA3 engine
+ *
+ * @return	- XST_SUCCESS - If the sha3 hash calculation is successful
+ *		- XSECURE_SHA3_INVALID_PARAM - On invalid parameter
+ *		- XSECURE_SHA3_STATE_MISMATCH_ERROR - If there is State mismatch
+ * 		- XST_FAILURE - If there is a failure
+ *
+ ******************************************************************************/
+int XSecure_Sha3Digest(const u64 InDataAddr, const u64 OutDataAddr, u32 Size)
+{
+	volatile int Status = XST_FAILURE;
+
+	Status = XSecure_Sha3Initialize();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XSecure_Sha3Update(InDataAddr, Size);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XSecure_Sha3Finish(OutDataAddr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+END:
 	return Status;
 }
 
