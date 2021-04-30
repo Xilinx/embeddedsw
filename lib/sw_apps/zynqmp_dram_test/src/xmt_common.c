@@ -26,6 +26,7 @@
  *       mn   07/29/20 Modify code to use DRAM VRef for 2D Write Eye Test
  * 1.2   mn   02/11/21 Added support for 16-Bit Bus Width
  *       mn   03/10/21 Fixed doxygen warnings
+ *       mn   04/30/21 Fixed rank selection logic for multi rank DDR
  *
  * </pre>
  *
@@ -914,7 +915,7 @@ void XMt_PrintHelp(void)
 	xil_printf("   | 'a' | Print test start address                                     |\r\n");
 	xil_printf("   | 'l' | Select Number of Iterations for Memory/Read/Write-Eye/2D test|\r\n");
 	xil_printf("   | 't' | Specify test start address (default=0x0)                     |\r\n");
-	xil_printf("   | 's' | Select the DRAM Rank (default=1)                             |\r\n");
+	xil_printf("   | 's' | Select the DRAM Rank (default=0)                             |\r\n");
 	xil_printf("   +-----+--------------------------------------------------------------+\r\n");
 	xil_printf("   |  Miscellaneous options                                             |\r\n");
 	xil_printf("   +-----+--------------------------------------------------------------+\r\n");
