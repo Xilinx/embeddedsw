@@ -53,6 +53,8 @@
 *	kal  04/15/2021 Fix XNvm_EfuseSetReadMode - Blind writes
 *	kal  04/27/2021 Reset status to failure when status is used more than
 *			once in security critical places
+*	kal  04/30/2021 Added a warning for user to re-boot the system when
+*			CACHE_ERROR
 *
 * </pre>
 *
@@ -232,9 +234,10 @@ static int XNvm_EfuseTempAndVoltChecks(const XSysMonPsv *SysMonInstPtr);
  *							programming.
  *		- XNVM_EFUSE_ERR_LOCK	- Lock eFUSE Control Register.
  *
- * @note	After eFUSE programming is complete, the cache is automatically
+ * @warning	After eFUSE programming is complete, the cache is automatically
  *		reloaded so all programmed eFUSE bits can be directly read from
- *		cache.
+ *		cache. If there is any CACHE_ERROR, user can reboot the system
+ *		to reload the cache.
  *
  ******************************************************************************/
 int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
@@ -4773,9 +4776,6 @@ static int XNvm_EfuseReadCache(u32 Row, u32* RowData)
 	Status = XST_SUCCESS;
 
 END:
-	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
-				XNVM_EFUSE_ISR_REG_OFFSET,
-                                XNVM_EFUSE_ISR_CACHE_ERROR);
 	return Status;
 }
 
