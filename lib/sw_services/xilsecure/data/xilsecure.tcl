@@ -16,6 +16,8 @@
 # 4.3   rpo  07/08/20 Added support to access xsecure init files only for
 #                     psv_pmc and psu_pmc processor
 # 4.5   bsv  04/01/21 Added support for XSECURE_TPM_ENABLE macro
+#       kal  04/21/21 Added server side support for A72/R5 processors for
+#                     Versal
 #
 ##############################################################################
 
@@ -27,6 +29,7 @@ proc secure_drc {libhandle} {
 	set proc_instance [hsi::get_sw_processor];
 	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 	set compiler [common::get_property CONFIG.compiler $proc_instance]
+	set mode [common::get_property CONFIG.mode $libhandle]
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 	set os_type [hsi::get_os];
 	set common "src/common/"
@@ -49,12 +52,29 @@ proc secure_drc {libhandle} {
 				$proc_type == "psv_pmc" || $proc_type == "psv_cortexa72" ||
 				$proc_type == "psv_cortexr5" } {
 
-		if {$proc_type == "psu_pmc" || $proc_type == "psv_pmc"} {
+		if {$proc_type == "psu_pmc" || $proc_type == "psv_pmc" || $mode == "server"} {
 			foreach entry [glob -nocomplain -types f [file join "$versal/server" *]] {
 				file copy -force $entry "./src"
 			}
 			foreach entry [glob -nocomplain -types f [file join "$versal/common" *]] {
 				file copy -force $entry "./src"
+			}
+
+			if {$mode == "server"} {
+				if {$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
+						$proc_type == "psv_cortexr5"} {
+					file delete -force ./src/xsecure_rsa_ipihandler.c
+					file delete -force ./src/xsecure_rsa_ipihandler.h
+					file delete -force ./src/xsecure_elliptic_ipihandler.c
+					file delete -force ./src/xsecure_elliptic_ipihandler.h
+					file delete -force ./src/xsecure_sha_ipihandler.c
+					file delete -force ./src/xsecure_sha_ipihandler.h
+					file delete -force ./src/xsecure_aes_ipihandler.c
+					file delete -force ./src/xsecure_aes_ipihandler.h
+					file delete -force ./src/xsecure_cmd.c
+					file delete -force ./src/xsecure_cmd.h
+					file delete -force ./src/xsecure_defs.h
+				}
 			}
 
 			 if {[string compare -nocase $compiler "mb-gcc"] == 0} {
