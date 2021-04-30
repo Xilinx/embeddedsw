@@ -146,6 +146,7 @@ int XPm_GicProxyWakeUp(const u32 PeriphIdx);
 XStatus XPm_HookAfterPlmCdo(void);
 int XPm_RestartCbWrapper(const u32 SubsystemId);
 u32 XPm_GetSubsystemId(u32 ImageId);
+XStatus XPm_GetDeviceBaseAddr(u32 DeviceId, u32 *BaseAddr);
 
 #ifdef __cplusplus
 }
