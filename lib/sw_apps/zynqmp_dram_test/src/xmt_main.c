@@ -26,6 +26,7 @@
  *       mn   09/08/20 Modified code to support designs with only DDR1 region
  * 1.2   mn   02/11/21 Added support for 16-Bit Bus Width
  *       mn   03/10/21 Fixed doxygen warnings
+ *       mn   04/30/21 Fixed rank selection logic for multi rank DDR
  *
  * </pre>
  *
@@ -957,7 +958,7 @@ int main(void)
 				}
 			} while ((SizeChar != '\n') && (SizeChar != '\r'));
 
-			if (RankArg > XMt.DdrConfigRanks || RankArg < 1) {
+			if (RankArg >= XMt.DdrConfigRanks || RankArg < 0) {
 				xil_printf("\r\nInvalid Selection. "
 					"Available no. of ranks: %d."
 					"Rank selected: %d\r\n",
