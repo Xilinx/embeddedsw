@@ -4782,3 +4782,84 @@ u32 XPm_GetSubsystemId(u32 ImageId)
 
 	return SubsystemId;
 }
+
+/****************************************************************************/
+/**
+ * @brief  This function determines the base address of the devices.
+ *
+ * @param  DeviceId	Device Id from the topology cdo
+ * @param  BaseAddr	Pointer to store base address
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPm_GetDeviceBaseAddr(u32 DeviceId, u32 *BaseAddr)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_Device *Device;
+	const XPm_ApuCore *ApuCore;
+	const XPm_RpuCore *RpuCore;
+	const XPm_MemDevice *MemDev;
+	const XPm_Pmc *PmcCore;
+	const XPm_Psm *PsmCore;
+	u32 SubClass = NODESUBCLASS(DeviceId);
+	u32 Type = NODETYPE(DeviceId);
+
+	Device = XPmDevice_GetById(DeviceId);
+	if (NULL == Device) {
+		Status = XPM_PM_INVALID_NODE;
+		goto done;
+	}
+
+	if (NULL == BaseAddr) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	if ((u32)XPM_NODESUBCL_DEV_CORE == SubClass) {
+		/* Get base address using CORE device subclass */
+		if ((u32)XPM_NODETYPE_DEV_CORE_APU == Type) {
+			/* Using APU core */
+			ApuCore = (XPm_ApuCore *)Device;
+			*BaseAddr = ApuCore->FpdApuBaseAddr;
+		} else if ((u32)XPM_NODETYPE_DEV_CORE_RPU == Type) {
+			/* Using RPU core */
+			RpuCore = (XPm_RpuCore *)Device;
+			*BaseAddr = RpuCore->RpuBaseAddr;
+		} else if ((u32)XPM_NODETYPE_DEV_CORE_PMC == Type) {
+			/* using PMC core */
+			PmcCore = (XPm_Pmc *)Device;
+			*BaseAddr = PmcCore->PmcGlobalBaseAddr;
+		} else if ((u32)XPM_NODETYPE_DEV_CORE_PSM == Type) {
+			/* using PSM core */
+			PsmCore = (XPm_Psm *)Device;
+			*BaseAddr = PsmCore->PsmGlobalBaseAddr;
+		} else {
+			/* Required by MISRA */
+		}
+	} else if (((u32)XPM_NODESUBCL_DEV_MEM == SubClass) &&
+		   (((u32)XPM_NODETYPE_DEV_DDR == Type) ||
+		    ((u32)XPM_NODETYPE_DEV_L2CACHE == Type) ||
+		    ((u32)XPM_NODETYPE_DEV_TCM == Type) ||
+		    ((u32)XPM_NODETYPE_DEV_OCM == Type) ||
+		    ((u32)XPM_NODETYPE_DEV_XRAM == Type) ||
+		    ((u32)XPM_NODETYPE_DEV_OCM_REGN == Type) ||
+		    ((u32)XPM_NODETYPE_DEV_DDR_REGN == Type) ||
+		    ((u32)XPM_NODETYPE_DEV_HBM == Type) ||
+		    ((u32)XPM_NODETYPE_DEV_EFUSE == Type))) {
+		/* Get base address using MEM device subclass */
+		MemDev = (XPm_MemDevice *)Device;
+		*BaseAddr = MemDev->StartAddress;
+	} else {
+		/* Get base address using node class*/
+		*BaseAddr = Device->Node.BaseAddress;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
