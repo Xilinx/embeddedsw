@@ -217,19 +217,19 @@ namespace xaiefal {
 					un_block_n = un_block;
 					if ((*r).Mod == static_cast<uint32_t>(XAIE_MEM_MOD)) {
 						if ((*r).Loc.Row % 2) {
-							un_block |= XAIE_EVENT_BROADCAST_EAST;
-							un_block_n |= XAIE_EVENT_BROADCAST_WEST;
-						} else {
 							un_block |= XAIE_EVENT_BROADCAST_WEST;
 							un_block_n |= XAIE_EVENT_BROADCAST_EAST;
+						} else {
+							un_block |= XAIE_EVENT_BROADCAST_EAST;
+							un_block_n |= XAIE_EVENT_BROADCAST_WEST;
 						}
 					} else {
 						if ((*r).Loc.Row % 2) {
-							un_block |= XAIE_EVENT_BROADCAST_WEST;
-							un_block_n |= XAIE_EVENT_BROADCAST_EAST;
-						} else {
 							un_block |= XAIE_EVENT_BROADCAST_EAST;
 							un_block_n |= XAIE_EVENT_BROADCAST_WEST;
+						} else {
+							un_block |= XAIE_EVENT_BROADCAST_WEST;
+							un_block_n |= XAIE_EVENT_BROADCAST_EAST;
 						}
 					}
 					RC = XAie_EventBroadcastUnblockDir(dev(),
