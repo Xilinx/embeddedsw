@@ -18,6 +18,8 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kal   03/04/2021 Initial release
+*       kpt   05/02/2021 Modified Sha3Kat function and added check to verify
+*                        whether DMA is already initialized
 *
 * </pre>
 *
@@ -91,15 +93,18 @@ static int XSecure_ShaInitialize(void)
 {
 	int Status = XST_FAILURE;
 
-	Config = XCsuDma_LookupConfig(0);
-	if (NULL == Config) {
-		XSecure_Printf(XSECURE_DEBUG_GENERAL, "config failed\n\r");
-		goto END;
-	}
+	/* Check whether DMA is already initialized */
+	if (CsuDma.IsReady != (u32)XIL_COMPONENT_IS_READY) {
+		Config = XCsuDma_LookupConfig(0);
+		if (NULL == Config) {
+			XSecure_Printf(XSECURE_DEBUG_GENERAL, "config failed\n\r");
+			goto END;
+		}
 
-	Status = XCsuDma_CfgInitialize(&CsuDma, Config, Config->BaseAddress);
-	if (Status != XST_SUCCESS) {
-		goto END;
+		Status = XCsuDma_CfgInitialize(&CsuDma, Config, Config->BaseAddress);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	}
 	Status = XSecure_Sha3Initialize(&Secure_Sha3, &CsuDma);
 	if (Status != XST_SUCCESS) {
@@ -178,7 +183,20 @@ static int XSecure_ShaKat(void)
 {
 	volatile int Status = XST_FAILURE;
 
-	Status = XSecure_ShaInitialize();
+	/* Check whether DMA is already initialized */
+	if (CsuDma.IsReady != (u32)XIL_COMPONENT_IS_READY) {
+		Config = XCsuDma_LookupConfig(0);
+		if (NULL == Config) {
+			XSecure_Printf(XSECURE_DEBUG_GENERAL, "config failed\n\r");
+			goto END;
+		}
+
+		Status = XCsuDma_CfgInitialize(&CsuDma, Config, Config->BaseAddress);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+	Status = XSecure_Sha3Initialize(&Secure_Sha3, &CsuDma);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

@@ -36,6 +36,8 @@
 *       am   10/19/20 Resolved MISRA C violations
 * 4.4   am   11/24/20 Resolved MISRA C violations
 *       bm   01/13/20 Added 64-bit support
+*       kpt  05/02/21 Added check to verify the DMA state in
+*                     XSecure_Sha3Initialize
 *
 * </pre>
 * @note
@@ -126,7 +128,8 @@ int XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XPmcDma* DmaPtr)
 	int Status = XST_FAILURE;
 
 	/* Validate the input arguments */
-	if ((InstancePtr == NULL) || (DmaPtr == NULL)) {
+	if ((InstancePtr == NULL) || (DmaPtr == NULL) ||
+		(DmaPtr->IsReady != (u32)XIL_COMPONENT_IS_READY)) {
 		Status = (int)XSECURE_SHA3_INVALID_PARAM;
 		goto END;
 	}
