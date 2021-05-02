@@ -18,6 +18,9 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kal  03/23/21 Initial release
 *       kal  03/28/21 Added XSecure_Sha3Digest Client API
+*       kpt  05/02/21 Updated XSecure_Sha3Update function to accept multiple
+*                     data update requests from user and maintained sha driver
+*                     state using XSecure_ShaState
 *
 * </pre>
 *
@@ -31,7 +34,7 @@
 #include "xsecure_shaclient.h"
 
 /************************** Constant Definitions *****************************/
-static u8 Initialize = FALSE;
+static XSecure_ShaState Sha3State = XSECURE_SHA_UNINITIALIZED;
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -52,9 +55,14 @@ static u8 Initialize = FALSE;
  ******************************************************************************/
 int XSecure_Sha3Initialize(void)
 {
-	Initialize = TRUE;
+	volatile int Status = XST_FAILURE;
 
-	return XST_SUCCESS;
+	if (Sha3State == XSECURE_SHA_UNINITIALIZED) {
+		Sha3State = XSECURE_SHA_INITIALIZED;
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
 }
 
 /*****************************************************************************/
@@ -73,19 +81,29 @@ int XSecure_Sha3Initialize(void)
 int XSecure_Sha3Update(const u64 InDataAddr, u32 Size)
 {
 	volatile int Status = XST_FAILURE;
+	u32 Sha3InitializeMask = 0U;
 
-	if (Initialize == FALSE) {
-		XSecure_Printf(XSECURE_DEBUG_GENERAL, "Sha3 Init not done\r\n");
+	if ((Sha3State != XSECURE_SHA_INITIALIZED) &&
+		(Sha3State != XSECURE_SHA_UPDATE)) {
+		XSecure_Printf(XSECURE_DEBUG_GENERAL, "Invalid SHA3 State \r\n");
 		goto END;
+	}
+
+	if (Sha3State == XSECURE_SHA_INITIALIZED) {
+		Sha3InitializeMask = 1U << XSECURE_SHA_FIRST_PACKET_SHIFT;
 	}
 
 	Status = XSecure_ProcessIpiWithPayload5(XSECURE_API_SHA3_UPDATE,
 			(u32)InDataAddr, (u32)(InDataAddr >> 32U),
 			((1U << XSECURE_SHA_UPDATE_CONTINUE_SHIFT)|
-			(1U << XSECURE_SHA_FIRST_PACKET_SHIFT) | Size),
+			(Sha3InitializeMask) | Size),
 			XSECURE_IPI_UNUSED_PARAM, XSECURE_IPI_UNUSED_PARAM);
-	Initialize = FALSE;
+	if (Status != XST_SUCCESS) {
+		XSecure_Printf(XSECURE_DEBUG_GENERAL, "Sha3 Update Failed \r\n");
+		goto END;
+	}
 
+	Sha3State = XSECURE_SHA_UPDATE;
 END:
 	return Status;
 }
@@ -108,11 +126,19 @@ int XSecure_Sha3Finish(const u64 OutDataAddr)
 {
 	volatile int Status = XST_FAILURE;
 
+	if ((Sha3State != XSECURE_SHA_INITIALIZED) &&
+		(Sha3State != XSECURE_SHA_UPDATE)) {
+		XSecure_Printf(XSECURE_DEBUG_GENERAL, "Invalid SHA3 State \r\n");
+		goto END;
+	}
+
 	Status = XSecure_ProcessIpiWithPayload5(XSECURE_API_SHA3_UPDATE,
 			XSECURE_IPI_UNUSED_PARAM, XSECURE_IPI_UNUSED_PARAM,
 			XSECURE_IPI_UNUSED_PARAM, (u32)OutDataAddr,
 			(u32)(OutDataAddr >> 32));
 
+	Sha3State = XSECURE_SHA_UNINITIALIZED;
+END:
 	return Status;
 }
 
