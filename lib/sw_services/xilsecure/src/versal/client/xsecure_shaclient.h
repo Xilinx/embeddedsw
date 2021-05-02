@@ -19,6 +19,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kal  03/17/21 Initial release
+*       kpt  04/28/21 Added enum XSecure_ShaState to update sha driver states
 *
 * </pre>
 *
@@ -39,7 +40,11 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
-
+typedef enum {
+	XSECURE_SHA_UNINITIALIZED = 0,
+	XSECURE_SHA_INITIALIZED,
+	XSECURE_SHA_UPDATE
+}XSecure_ShaState;
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
