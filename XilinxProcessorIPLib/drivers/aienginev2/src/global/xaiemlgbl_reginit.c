@@ -57,6 +57,7 @@
 
 /***************************** Include Files *********************************/
 #include "xaie_core_aieml.h"
+#include "xaie_device_aieml.h"
 #include "xaie_dma_aieml.h"
 #include "xaie_events.h"
 #include "xaie_events_aieml.h"
@@ -4104,6 +4105,12 @@ XAie_TileMod Aie2Mod[] =
 		.L1IntrMod = NULL,
 		.L2IntrMod = NULL,
 	}
+};
+
+/* Device level operations for aieml */
+XAie_DeviceOps AieMlDevOps =
+{
+	.GetTTypefromLoc = &_XAieMl_GetTTypefromLoc,
 };
 
 /** @} */
