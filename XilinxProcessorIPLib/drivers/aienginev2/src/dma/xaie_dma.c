@@ -1403,7 +1403,7 @@ AieRC XAie_DmaUpdateBdLen(XAie_DevInst *DevInst, XAie_LocType Loc, u32 Len,
 		return XAIE_INVALID_ARGS;
 	}
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	if(TileType == XAIEGBL_TILE_TYPE_SHIMPL) {
 		XAIE_ERROR("Invalid Tile Type\n");
 		return XAIE_INVALID_TILE;
@@ -1499,7 +1499,7 @@ AieRC XAie_DmaChannelDescInit(XAie_DevInst *DevInst,
 		return XAIE_INVALID_ARGS;
 	}
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	if(TileType == XAIEGBL_TILE_TYPE_SHIMPL) {
 		XAIE_ERROR("Invalid Tile Type\n");
 		return XAIE_INVALID_TILE;
@@ -1725,7 +1725,7 @@ AieRC XAie_DmaWriteChannel(XAie_DevInst *DevInst,
 		return XAIE_INVALID_DMA_DESC;
 	}
 
-	if(DmaChannelDesc->TileType != _XAie_GetTileTypefromLoc(DevInst, Loc)) {
+	if(DmaChannelDesc->TileType != DevInst->DevOps->GetTTypefromLoc(DevInst, Loc)) {
 		XAIE_ERROR("Tile type mismatch\n");
 		return XAIE_INVALID_TILE;
 	}
