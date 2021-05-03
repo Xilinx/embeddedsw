@@ -389,7 +389,7 @@ AieRC _XAie_EccOnMemTile(XAie_DevInst *DevInst, XAie_LocType Loc)
 	const XAie_MemMod *MemMod;
 	const XAie_EvntMod *EvntMod;
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	/* Check if tile type is Mem tile */
 	if(TileType != XAIEGBL_TILE_TYPE_MEMTILE) {
 		XAIE_ERROR("ECC cannot be enabled for this tile.\n");
