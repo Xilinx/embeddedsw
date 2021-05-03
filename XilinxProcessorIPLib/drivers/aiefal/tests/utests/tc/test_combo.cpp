@@ -29,10 +29,14 @@ TEST(Combo, ComboBasic)
 
 	XAieDev Aie(&DevInst, true);
 	auto ComboTwoEvents = Aie.tile(1,1).core().comboEvent();
-	auto ComboFourEvents = Aie.tile(1,1).core().comboEvent(4);
+	auto ComboFourEvents = Aie.tile(1,2).core().comboEvent(4);
+	auto ComboFourEventsFail = Aie.tile(1,1).core().comboEvent(4);
 
 	RC = ComboTwoEvents->reserve();
 	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = ComboFourEventsFail->reserve();
+	CHECK_EQUAL(RC, XAIE_INVALID_ARGS);
 
 	RC = ComboFourEvents->reserve();
 	CHECK_EQUAL(RC, XAIE_OK);
