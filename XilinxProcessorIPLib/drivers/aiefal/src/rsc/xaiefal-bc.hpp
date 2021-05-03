@@ -17,6 +17,14 @@ namespace xaiefal {
 	 * @brief class for broadcast channel resource.
 	 * A broadcast channel resource represents a broadcast channel between
 	 * specified tiles.
+	 *
+	 * There are three different ways tiles can be broadcasted:
+	 *
+	 * - Broadcast within a tile if a single tile is specified.
+	 *
+	 * - Broadcast to the whole partition if no tiles are specified.
+	 *
+	 * - Broadcast to the tiles on the contiguous path of tiles specified by user.
 	 */
 	class XAieBroadcast: public XAieRsc {
 	public:
@@ -439,31 +447,6 @@ namespace xaiefal {
 				(*r).RscId = (uint32_t)bci;
 			}
 			return XAIE_OK;
-		}
-		/**
-		 * TODO: Following function will not be required.
-		 * Bitmap will be moved to device driver
-		 */
-		static void XAieReleaseRsc(std::shared_ptr<XAieDevHandle> Dev,
-				const XAie_UserRsc &R) {
-
-			if ((R.Loc.Row == 0 && R.Mod != XAIE_PL_MOD) ||
-			    (R.Loc.Row != 0 && R.Mod == XAIE_PL_MOD)) {
-				Logger::log(LogLevel::ERROR) << __func__ <<
-					"BC: invalid tile and module." << std::endl;
-			} else if (R.Mod == XAIE_PL_MOD) {
-				int i = R.Loc.Col;
-
-				Dev->XAieBroadcastShimBits[i] &= ~(1 << R.RscId);
-			} else if (R.Mod == XAIE_CORE_MOD) {
-				int i = R.Loc.Col * 8 + (R.Loc.Row - 1);
-
-				Dev->XAieBroadcastCoreBits[i] &= ~(1 << R.RscId);
-			} else {
-				int i = R.Loc.Col * 8 + (R.Loc.Row - 1);
-
-				Dev->XAieBroadcastMemBits[i] &= ~(1 << R.RscId);
-			}
 		}
 	};
 }
