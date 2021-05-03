@@ -89,6 +89,7 @@ AieRC XAie_CfgInitialize(XAie_DevInst *InstPtr, XAie_Config *ConfigPtr)
 	if(ConfigPtr->AieGen == XAIE_DEV_GEN_AIE2) {
 		InstPtr->DevProp.DevMod = Aie2Mod;
 		InstPtr->DevProp.DevGen = XAIE_DEV_GEN_AIE2;
+		InstPtr->DevOps = &AieMlDevOps;
 	} else if(ConfigPtr->AieGen == XAIE_DEV_GEN_AIE) {
 		InstPtr->DevProp.DevMod = AieMod;
 		InstPtr->DevProp.DevGen = XAIE_DEV_GEN_AIE;
