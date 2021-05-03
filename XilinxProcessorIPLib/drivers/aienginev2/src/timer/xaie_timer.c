@@ -608,7 +608,8 @@ AieRC XAie_SyncTimer(XAie_DevInst *DevInst)
 		XAie_TileLoc(0, 0), XAIE_PL_MOD, BcastChannelIdShim);
 
 	for(u32 j = 0; j < UserRscNum; j++) {
-		u8 TileType = _XAie_GetTileTypefromLoc(DevInst, RscsBC[j].Loc);
+		u8 TileType =  DevInst->DevOps->GetTTypefromLoc(DevInst,
+				RscsBC[j].Loc);
 		AieRC lRC = XAIE_OK;
 
 		/* Blocking unncessary broadcasting */
