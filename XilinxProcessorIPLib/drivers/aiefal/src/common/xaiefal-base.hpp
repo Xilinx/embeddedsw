@@ -123,6 +123,7 @@ namespace xaiefal {
 	class XAieTraceEvent;
 	class XAieActiveCycles;
 	class XAieStallCycles;
+	class XAieStallOccurrences;
 	class XAiePCEvent;
 	class XAiePCRange;
 	class XAieStreamPortSelect;
@@ -429,7 +430,6 @@ namespace xaiefal {
 					Loc);
 		}
 
-
 		/**
 		 * This function returns perfcounter resource software object
 		 * for stall cycles.
@@ -448,6 +448,22 @@ namespace xaiefal {
 					Loc, StallG, FlowG);
 		}
 
+		/**
+		 * This function returns perfcounter resource software object
+		 * for stall occurences.
+		 *
+		 * @return perfconter software object pointer
+		 *
+		 * Please note that this function will not request hardware
+		 * resource. After this function is called, in order to reserve
+		 * the hardware resource, it will need to call reserve()
+		 * function of the resource class.
+		 */
+		std::shared_ptr<XAieStallOccurrences> stallOccurrences() {
+			auto StallG = groupEvent(XAIE_EVENT_GROUP_CORE_STALL_CORE);
+			return std::make_shared<XAieStallOccurrences>(AieHandle,
+					Loc, StallG);
+		}
 		/**
 		 * This function returns PC event resource software object.
 		 *
