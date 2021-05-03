@@ -732,7 +732,7 @@ static const  XAie_DmaSysProp Aie2ShimDmaSysProp =
 /* Data structure to capture register offsets and masks for Tile Dma */
 static const  XAie_DmaBdProp Aie2ShimDmaProp =
 {
-	.AddrAlignMask = 0xF,
+	.AddrAlignMask = 0x3,
 	.AddrAlignShift = 2U,
 	.AddrMax = 0x1000000000000,
 	.LenActualOffset = 0U,
