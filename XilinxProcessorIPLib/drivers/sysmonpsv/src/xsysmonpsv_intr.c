@@ -23,6 +23,7 @@
 * 1.0   aad    11/20/18 First release.
 * 1.3   aad    06/23/20 Fixed the register to read enabled interrupts.
 * 2.0   aad    02/10/20	Added new Interrupt handler structure.
+* 2.3   aad    04/30/21	Size optimization for PLM.
 *
 * </pre>
 *
@@ -253,6 +254,7 @@ void XSysMonPsv_SetNewDataIntSrc(XSysMonPsv *InstancePtr,
 	}
 }
 
+#if !defined (VERSAL_PLM)
 /******************************************************************************/
 /**
  * This function installs a callback function for when a Device Temperature
@@ -432,5 +434,5 @@ void XSysMonPsv_AlarmEventHandler(XSysMonPsv *InstancePtr)
 	}
 
 }
-
+#endif
 /** @} */
