@@ -351,6 +351,8 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 
 		/* Set key selection value for RX */
 		XHdcp1x_SetKeySelect(InstancePtr->Hdcp1xPtr, 0x1);
+
+		XHdcp1x_LateInit(InstancePtr->Hdcp1xPtr);
 	}
 #endif
 
