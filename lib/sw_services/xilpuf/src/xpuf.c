@@ -35,6 +35,8 @@
 *       har  02/12/2021 Added a redundancy check for MaxSyndromeSizeInWords to
 *                       avoid potential buffer overflow
 *       har  03/08/2021 Added checks for IRO frequency
+*       har  05/03/2021 Restructured code in XPuf_StartRegeneration to remove
+*                       repeated code
 *
 * </pre>
 *
@@ -601,27 +603,18 @@ static int XPuf_StartRegeneration(XPuf_Data *PufData)
 
 	Status = XST_FAILURE;
 
-	if(XPUF_REGEN_ON_DEMAND == PufData->PufOperation) {
-		if (((PufStatus & XPUF_STATUS_KEY_RDY) == XPUF_STATUS_KEY_RDY) &&
-			((PufStatus & XPUF_STATUS_ID_RDY) == XPUF_STATUS_ID_RDY)) {
-			XPuf_CapturePufID(PufData);
-			Status = XST_SUCCESS;
+	if ((PufStatus & XPUF_STATUS_ID_RDY) == XPUF_STATUS_ID_RDY) {
+		if ((XPUF_REGEN_ON_DEMAND == PufData->PufOperation) &&
+			((PufStatus & XPUF_STATUS_KEY_RDY) !=
+				XPUF_STATUS_KEY_RDY)) {
+				Status = XPUF_ERROR_PUF_DONE_KEY_NT_RDY;
+				goto END;
 		}
-		else {
-			Status = XPUF_ERROR_PUF_DONE_KEY_ID_NT_RDY;
-			goto END;
-		}
+		XPuf_CapturePufID(PufData);
+		Status = XST_SUCCESS;
 	}
 	else {
-		/* PufData->PufOperation = XPUF_REGEN_ID_ONLY */
-		if ((PufStatus & XPUF_STATUS_ID_RDY) == XPUF_STATUS_ID_RDY) {
-			XPuf_CapturePufID(PufData);
-			Status = XST_SUCCESS;
-		}
-		else {
-			Status = XPUF_ERROR_PUF_DONE_ID_NT_RDY;
-			goto END;
-		}
+		Status = XPUF_ERROR_PUF_DONE_ID_NT_RDY;
 	}
 
 END:
