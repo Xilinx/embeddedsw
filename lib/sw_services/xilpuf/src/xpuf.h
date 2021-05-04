@@ -32,6 +32,8 @@
 * 1.3   har  01/06/2021 Added prototype for the XPuf_ClearPufId and related macros
 *            02/19/2021 Added error code for syndrome data underflow and overflow
 *       har  03/08/2021 Added error code for IRO frequency mismatch
+*       har  05/03/2021 Renamed error code XPUF_ERROR_PUF_DONE_KEY_ID_NT_RDY
+*                       as XPUF_ERROR_PUF_DONE_KEY_NT_RDY
 *
 * </pre>
 *
@@ -95,7 +97,7 @@ extern "C" {
 #define XPUF_ERROR_REGENERATION_INVALID			(0x14)
 #define XPUF_ERROR_REGEN_PUF_HD_INVALID			(0x15)
 #define XPUF_ERROR_INVALID_READ_HD_INPUT		(0x16)
-#define XPUF_ERROR_PUF_DONE_KEY_ID_NT_RDY		(0x17)
+#define XPUF_ERROR_PUF_DONE_KEY_NT_RDY			(0x17)
 #define XPUF_ERROR_PUF_DONE_ID_NT_RDY			(0x18)
 #define XPUF_ERROR_PUF_ID_ZERO_TIMEOUT			(0x19)
 
