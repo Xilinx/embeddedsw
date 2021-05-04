@@ -17,7 +17,8 @@
  *            02/23/17 Added compliance related for Rx
  *            03/03/17 Added tx_preset for stability
  * 1.2   ND   04/03/21 Moved all global variables declaration from .h to .c
-* 				       files due to gcc compiler compilation error.
+ * 				       files due to gcc compiler compilation error.
+ * 1.3   ND   05/04/21 Moved Rx initialization after loading hdcp keys.
 *******************************************************************************/
 
 #include "dppt.h"
@@ -418,9 +419,6 @@ int main(void)
     vdma_stop();
 	xil_printf("\nVDMA has been reset\n\r");
     xil_printf("\033[H\033[J"); //clears the screen
-#if XPAR_XDPRXSS_NUM_INSTANCES
-	DPRxInitialize();
-#endif
 
     clk_reg0 = Xil_In32 (CLK_WIZ_BASE+0x200);
     clk_reg1 = Xil_In32 (CLK_WIZ_BASE+0x204);
@@ -603,6 +601,9 @@ int main(void)
         xil_printf ("System is capable of displaying HDCP content...\r\n");
     }
     KEYMGMT_Init();
+#if XPAR_XDPRXSS_NUM_INSTANCES
+	DPRxInitialize();
+#endif
     XHdcp1xExample_Init();
     DpTxSsInst.Hdcp1xPtr->IsRepeater = 0;
     DpRxSsInst.Hdcp1xPtr->IsRepeater = 0;
