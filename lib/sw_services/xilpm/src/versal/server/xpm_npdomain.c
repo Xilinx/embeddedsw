@@ -617,23 +617,29 @@ XStatus XPmNpDomain_IsNpdIdle(XPm_Node *Node)
 {
 	XStatus Status = XST_SUCCESS;
 	XPm_PowerDomain *PowerD;
-	XPm_Power *Walk;
+	XPm_Power *Power;
 	u32 i;
 
-	/* Return failure if Node does not depend on NOC power domain */
-	PowerD = (XPm_PowerDomain *)Node;
-	if (PowerD->Power.Parent->Node.Id != (u32)PM_POWER_NOC) {
+	/*
+	 * This routine is called directly for cases that 'Node' is a device,
+	 * so in those cases validate that its parent node is NOC power domain.
+	 * For cases that 'Node' is a power domain, that validation is done by
+	 * the calling routine 'XPmNpDomain_ClockGate'.
+	 */
+	Power = (XPm_Power *)Node;
+	if ((NODECLASS(Node->Id) == (u32)XPM_NODECLASS_DEVICE) &&
+	    (Power->Parent->Node.Id != (u32)PM_POWER_NOC)) {
 		Status = XST_FAILURE;
 		goto done;
 	}
 
 	/* Check idleness of NOC's dependent power domains */
-	PowerD = (XPm_PowerDomain *)PowerD->Power.Parent;
+	PowerD = (XPm_PowerDomain *)Power->Parent;
 	for (i = 0U; ((i < (u32)MAX_POWERDOMAINS) && (PowerD->Children[i] != 0U));
 	     i++) {
-		Walk = (XPm_Power *)XPmPower_GetById(PowerD->Children[i]);
+		Power = (XPm_Power *)XPmPower_GetById(PowerD->Children[i]);
 		/* Skip the power domain that is related to the caller */
-		if (Walk->Node.Id == Node->Id) {
+		if (Power->Node.Id == Node->Id) {
 			continue;
 		}
 
@@ -642,7 +648,7 @@ XStatus XPmNpDomain_IsNpdIdle(XPm_Node *Node)
 		 * it does not use the NOC transport layer, therefore it is
 		 * excluded from this consideration.
 		 */
-		if (Walk->Node.Id == (u32)PM_POWER_PL_SYSMON) {
+		if (Power->Node.Id == (u32)PM_POWER_PL_SYSMON) {
 			continue;
 		}
 
@@ -650,7 +656,7 @@ XStatus XPmNpDomain_IsNpdIdle(XPm_Node *Node)
 		 * If 'UseCount' of a power domain that depends on NOC is not 0,
 		 * then the power domain is in use and therefore not idle.
 		 */
-		if (Walk->UseCount != 0U) {
+		if (Power->UseCount != 0U) {
 			Status = XST_FAILURE;
 			goto done;
 		}
