@@ -107,6 +107,7 @@
 *                       silicon.
 * 2.2	aad    03/29/21 Added an array that contains the supply names in
 *                       strings.
+* 2.3   aad    04/30/21	Size optimization for PLM code.
 *
 * </pre>
 *
@@ -255,6 +256,7 @@ typedef struct {
  */
 typedef struct {
 	XSysMonPsv_Config Config;	/**< Device configuration */
+#if !defined (VERSAL_PLM)
 	XSysMonPsv_EventHandler
 		SupplyEvent[XSYSMONPSV_MAX_SUPPLIES];	/**< EventList will
 							  have callbacks for
@@ -263,6 +265,7 @@ typedef struct {
 	XSysMonPsv_EventHandler TempEvent; /**< Device Temperature event
 					    handler information */
 	XSysMonPsv_EventHandler OTEvent; /**< OT event handler information */
+#endif
 	u32 IsReady;
 } XSysMonPsv;
 
@@ -483,7 +486,10 @@ void XSysMonPsv_SetSupplyEventHandler(XSysMonPsv *InstancePtr,
 				      XSysMonPsv_Supply Supply,
 				      XSysMonPsv_Handler CallbackFunc,
 				      void *CallbackRef);
+
+#if defined (ARMR5) || (__arch64__)
 void XSysMonPsv_AlarmEventHandler(XSysMonPsv *InstancePtr);
+#endif
 
 /* Functions in xsysmonpsv_sinit.c */
 XSysMonPsv_Config *XSysMonPsv_LookupConfig(void);
