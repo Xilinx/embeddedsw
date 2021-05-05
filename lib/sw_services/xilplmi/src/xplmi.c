@@ -33,6 +33,7 @@
 *       bm   03/24/2021 Added RTCA initialization for Error Status registers
 *       har  03/31/2021 Added RTCA initialization for PDI ID
 *       bsv  04/16/2021 Add provision to store Subsystem Id in XilPlmi
+*       bm   05/05/2021 Added USR_ACCESS support for PLD0 image
 *
 * </pre>
 *
@@ -120,6 +121,7 @@ static void XPlmi_RunTimeConfigInit(void)
 	XPlmi_Out32(XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR, 0U);
 	XPlmi_Out32(XPLMI_RTCFG_PSM_ERR2_STATUS_ADDR, 0U);
 	XPlmi_Out32(XPLMI_RTCFG_PDI_ID_ADDR, XPLMI_RTCFG_PDI_ID);
+	XPlmi_Out32(XPLMI_RTCFG_USR_ACCESS_ADDR, 0U);
 }
 
 /*****************************************************************************/

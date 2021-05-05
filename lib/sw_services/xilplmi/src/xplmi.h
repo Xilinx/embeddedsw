@@ -36,6 +36,7 @@
 *       ma   03/24/2021 Added RTCA Debug Log Address define
 *       bm   03/24/2021 Added RTCA defines for Error Status registers
 *       har  03/31/2021 Added RTCA defines for PDI ID
+*       bm   05/05/2021 Added USR_ACCESS defines for PLD0 image
 *
 * </pre>
 *
@@ -101,6 +102,7 @@ extern "C" {
 #define XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR	(XPLMI_RTCFG_BASEADDR + 0x15CU)
 #define XPLMI_RTCFG_PSM_ERR2_STATUS_ADDR	(XPLMI_RTCFG_BASEADDR + 0x160U)
 #define XPLMI_RTCFG_PDI_ID_ADDR			(XPLMI_RTCFG_BASEADDR + 0x164U)
+#define XPLMI_RTCFG_USR_ACCESS_ADDR		(XPLMI_RTCFG_BASEADDR + 0x168U)
 
 /* Masks of PLM RunTime Configuration Registers */
 #define XPLMI_RTCFG_IMGINFOTBL_NUM_ENTRIES_MASK	(0x0000FFFFU)

@@ -94,6 +94,7 @@
 *       bm   04/14/2021 Update UID logic for AIE Image IDs
 *       rp   04/20/2021 Add extra arg for calls to XPm_RequestDevice and
 *			XPm_ReleaseDevice
+*       bm   05/05/2021 Added USR_ACCESS support for PLD0 image
 *
 * </pre>
 *
@@ -1457,6 +1458,9 @@ static int XLoader_StoreImageInfo(const XLoader_ImageInfo *ImageInfo)
 	u32 ChangeCount;
 	u32 RtCfgLen;
 
+	if (ImageInfo->ImgID == PM_DEV_PLD_0) {
+		XPlmi_Out32(XPLMI_RTCFG_USR_ACCESS_ADDR, ImageInfo->FuncID);
+	}
 	/* Read ChangeCount */
 	ChangeCount = ((XPlmi_In32(XPLMI_RTCFG_IMGINFOTBL_LEN_ADDR) &
 			XPLMI_RTCFG_IMGINFOTBL_CHANGE_CTR_MASK)
