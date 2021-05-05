@@ -46,6 +46,9 @@
 *       ma   04/05/2021 Added support for error configuration using Error Mask
 *                       instead of Error ID. Also, added support to configure
 *                       multiple errors at once.
+*       ma   05/03/2021 Minor updates related to PSM and FW errors, trigger
+*                       FW_CR for PSM and FW errors which have error action
+*                       set as ERROR_OUT
 *
 * </pre>
 *
@@ -60,6 +63,8 @@
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_SYSMON_CLK_SRC_IRO_VAL	(0U)
+#define XPLMI_UPDATE_TYPE_INCREMENT		(1U)
+#define XPLMI_UPDATE_TYPE_DECREMENT		(2U)
 
 /**************************** Type Definitions *******************************/
 
@@ -76,6 +81,7 @@ static void XPlmi_SoftResetHandler(void);
 static void XPlmi_SysmonClkSetIro(void);
 static void XPlmi_PORHandler(void);
 static void XPlmi_DumpRegisters(void);
+static u32 XPlmi_UpdateNumErrOutsCount(u8 UpdateType);
 
 /************************** Variable Definitions *****************************/
 static u32 EmSubsystemId = 0U;
@@ -122,7 +128,7 @@ void XPlmi_ErrMgr(int ErrStatus)
 		RegVal = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT);
 		XPlmi_Out32(PMC_GLOBAL_PMC_MULTI_BOOT, RegVal + 1U);
 
-		XPlmi_SoftResetHandler();
+		XPlmi_TriggerFwNcrError();
 #endif
 	}
 }
@@ -137,9 +143,9 @@ static struct XPlmi_Error_t ErrorTable[XPLMI_NODEIDX_ERROR_SW_ERR_MAX] = {
 	[XPLMI_NODEIDX_ERROR_BOOT_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_FW_CR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_ERROUT, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_FW_NCR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_SRST, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_GSW_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_GSW_NCR] =
@@ -149,7 +155,7 @@ static struct XPlmi_Error_t ErrorTable[XPLMI_NODEIDX_ERROR_SW_ERR_MAX] = {
 	[XPLMI_NODEIDX_ERROR_CFRAME] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_PMC_PSM_CR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_ERROUT, .SubsystemId = 0U, },
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_SRST, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_PMC_PSM_NCR] =
 	{ .Handler = NULL,
 			.Action = XPLMI_EM_ACTION_CUSTOM, .SubsystemId = 0U, },
@@ -476,6 +482,17 @@ static void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 RegMask)
 	case XPLMI_EM_ACTION_SRST:
 		XPlmi_SoftResetHandler();
 		break;
+	case XPLMI_EM_ACTION_ERROUT:
+		/*
+		 * Clear PSM error and trigger error out using PMC FW_CR error
+		 */
+		(void)XPlmi_UpdateNumErrOutsCount(XPLMI_UPDATE_TYPE_INCREMENT);
+		XPlmi_EmClearError(ErrorNodeType, ErrorId);
+		XPlmi_Out32(PMC_GLOBAL_PMC_ERR1_TRIG,
+				PMC_GLOBAL_PMC_ERR1_TRIG_FW_CR_MASK);
+		XPlmi_Printf(DEBUG_GENERAL, "FW_CR error out is triggered due to "
+				"Error ID: 0x%x\r\n", ErrorId);
+		break;
 	case XPLMI_EM_ACTION_CUSTOM:
 	case XPLMI_EM_ACTION_SUBSYS_SHUTDN:
 	case XPLMI_EM_ACTION_SUBSYS_RESTART:
@@ -519,10 +536,13 @@ void XPlmi_HandleSwError(u32 ErrorNodeId, u32 RegMask)
 			break;
 		case XPLMI_EM_ACTION_ERROUT:
 			/*
-			 * Trigger error out using PMC_CR error
+			 * Trigger error out using PMC FW_CR error
 			 */
+			(void)XPlmi_UpdateNumErrOutsCount(XPLMI_UPDATE_TYPE_INCREMENT);
 			XPlmi_Out32(PMC_GLOBAL_PMC_ERR1_TRIG,
-					PMC_GLOBAL_PMC_ERR1_STATUS_PSM_CR_MASK);
+					PMC_GLOBAL_PMC_ERR1_TRIG_FW_CR_MASK);
+			XPlmi_Printf(DEBUG_GENERAL, "FW_CR error out is triggered due to "
+					"Error ID: 0x%x\r\n", ErrorId);
 			break;
 		case XPLMI_EM_ACTION_CUSTOM:
 		case XPLMI_EM_ACTION_SUBSYS_SHUTDN:
@@ -571,8 +591,7 @@ static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 RegMask)
 				Index < XPLMI_NODEIDX_ERROR_PSMERR1_MAX; Index++) {
 			ErrRegMask = XPlmi_ErrRegMask(Index);
 			if (((Err1Status & ErrRegMask) != (u32)FALSE)
-				&& (ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)
-				&& (ErrorTable[Index].Action != XPLMI_EM_ACTION_ERROUT)) {
+				&& (ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)) {
 				XPlmi_HandlePsmError(
 					XPLMI_EVENT_ERROR_PSM_ERR1, ErrRegMask);
 			}
@@ -583,8 +602,7 @@ static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 RegMask)
 				Index < XPLMI_NODEIDX_ERROR_PSMERR2_MAX; Index++) {
 			ErrRegMask = XPlmi_ErrRegMask(Index);
 			if (((Err2Status & ErrRegMask) != (u32)FALSE)
-				&& (ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)
-				&& (ErrorTable[Index].Action != XPLMI_EM_ACTION_ERROUT)) {
+				&& (ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)) {
 				XPlmi_HandlePsmError(
 					XPLMI_EVENT_ERROR_PSM_ERR2, ErrRegMask);
 			}
@@ -723,6 +741,7 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 static void XPlmi_EmClearError(u32 ErrorNodeType, u32 ErrorId)
 {
 	u32 RegMask = XPlmi_ErrRegMask(ErrorId);
+	u32 NumErrOuts = 0U;
 
 	switch ((XPlmi_EventType)ErrorNodeType) {
 	case XPLMI_NODETYPE_EVENT_PMC_ERR1:
@@ -736,16 +755,42 @@ static void XPlmi_EmClearError(u32 ErrorNodeType, u32 ErrorId)
 	case XPLMI_NODETYPE_EVENT_PSM_ERR1:
 		/* Clear previous errors */
 		XPlmi_Out32(PSM_GLOBAL_REG_PSM_ERR1_STATUS, RegMask);
+		/* If action is error out, clear PMC FW_CR error */
+		if ((ErrorTable[ErrorId].Action == XPLMI_EM_ACTION_ERROUT) &&
+			(ErrorTable[XPLMI_NODEIDX_ERROR_PMC_PSM_CR].Action !=
+					XPLMI_EM_ACTION_ERROUT)) {
+			NumErrOuts =
+					XPlmi_UpdateNumErrOutsCount(XPLMI_UPDATE_TYPE_DECREMENT);
+			if (NumErrOuts == 0U) {
+				XPlmi_Out32(PMC_GLOBAL_PMC_ERR1_STATUS,
+						PMC_GLOBAL_PMC_ERR1_TRIG_FW_CR_MASK);
+			}
+		}
 		break;
 	case XPLMI_NODETYPE_EVENT_PSM_ERR2:
 		/* Clear previous errors */
 		XPlmi_Out32(PSM_GLOBAL_REG_PSM_ERR2_STATUS, RegMask);
+		/* If action is error out, clear PMC FW_CR error */
+		if ((ErrorTable[ErrorId].Action == XPLMI_EM_ACTION_ERROUT) &&
+			(ErrorTable[XPLMI_NODEIDX_ERROR_PMC_PSM_CR].Action !=
+					XPLMI_EM_ACTION_ERROUT)) {
+			NumErrOuts =
+					XPlmi_UpdateNumErrOutsCount(XPLMI_UPDATE_TYPE_DECREMENT);
+			if (NumErrOuts == 0U) {
+				XPlmi_Out32(PMC_GLOBAL_PMC_ERR1_STATUS,
+						PMC_GLOBAL_PMC_ERR1_TRIG_FW_CR_MASK);
+			}
+		}
 		break;
 	case XPLMI_NODETYPE_EVENT_SW_ERR:
 		/* Clear previous erros */
 		if (ErrorTable[ErrorId].Action == XPLMI_EM_ACTION_ERROUT) {
-			RegMask = PMC_GLOBAL_PMC_ERR1_STATUS_PSM_CR_MASK;
-			XPlmi_Out32(PMC_GLOBAL_PMC_ERR1_STATUS, RegMask);
+			NumErrOuts =
+					XPlmi_UpdateNumErrOutsCount(XPLMI_UPDATE_TYPE_DECREMENT);
+			if (NumErrOuts == 0U) {
+				XPlmi_Out32(PMC_GLOBAL_PMC_ERR1_STATUS,
+						PMC_GLOBAL_PMC_ERR1_TRIG_FW_CR_MASK);
+			}
 		}
 		break;
 	default:
@@ -842,11 +887,21 @@ static int XPlmi_EmEnablePOR(u32 ErrorNodeType, u32 RegMask)
 		Status = XST_SUCCESS;
 		break;
 	case XPLMI_NODETYPE_EVENT_PSM_ERR1:
-		XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR1_EN, RegMask);
+		if (ErrorTable[XPLMI_NODEIDX_ERROR_PMC_PSM_CR].Action ==
+				XPLMI_EM_ACTION_POR) {
+			XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR1_EN, RegMask);
+		} else {
+			XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR1_EN, RegMask);
+		}
 		Status = XST_SUCCESS;
 		break;
 	case XPLMI_NODETYPE_EVENT_PSM_ERR2:
-		XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR2_EN, RegMask);
+		if (ErrorTable[XPLMI_NODEIDX_ERROR_PMC_PSM_CR].Action ==
+				XPLMI_EM_ACTION_POR) {
+			XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR2_EN, RegMask);
+		} else {
+			XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR2_EN, RegMask);
+		}
 		Status = XST_SUCCESS;
 		break;
 	case XPLMI_NODETYPE_EVENT_SW_ERR:
@@ -888,11 +943,21 @@ static int XPlmi_EmEnableSRST(u32 ErrorNodeType, u32 RegMask)
 		Status = XST_SUCCESS;
 		break;
 	case XPLMI_NODETYPE_EVENT_PSM_ERR1:
-		XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR1_EN, RegMask);
+		if (ErrorTable[XPLMI_NODEIDX_ERROR_PMC_PSM_CR].Action ==
+				XPLMI_EM_ACTION_SRST) {
+			XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR1_EN, RegMask);
+		} else {
+			XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR1_EN, RegMask);
+		}
 		Status = XST_SUCCESS;
 		break;
 	case XPLMI_NODETYPE_EVENT_PSM_ERR2:
-		XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR2_EN, RegMask);
+		if (ErrorTable[XPLMI_NODEIDX_ERROR_PMC_PSM_CR].Action ==
+				XPLMI_EM_ACTION_SRST) {
+			XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR2_EN, RegMask);
+		} else {
+			XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR2_EN, RegMask);
+		}
 		Status = XST_SUCCESS;
 		break;
 	case XPLMI_NODETYPE_EVENT_SW_ERR:
@@ -935,11 +1000,21 @@ static int XPlmi_EmEnablePSError(u32 ErrorNodeType, u32 RegMask)
 		Status = XST_SUCCESS;
 		break;
 	case XPLMI_NODETYPE_EVENT_PSM_ERR1:
-		XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR1_EN, RegMask);
+		if (ErrorTable[XPLMI_NODEIDX_ERROR_PMC_PSM_CR].Action ==
+				XPLMI_EM_ACTION_ERROUT) {
+			XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR1_EN, RegMask);
+		} else {
+			XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR1_EN, RegMask);
+		}
 		Status = XST_SUCCESS;
 		break;
 	case XPLMI_NODETYPE_EVENT_PSM_ERR2:
-		XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR2_EN, RegMask);
+		if (ErrorTable[XPLMI_NODEIDX_ERROR_PMC_PSM_CR].Action ==
+				XPLMI_EM_ACTION_ERROUT) {
+			XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR2_EN, RegMask);
+		} else {
+			XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR2_EN, RegMask);
+		}
 		Status = XST_SUCCESS;
 		break;
 	case XPLMI_NODETYPE_EVENT_SW_ERR:
@@ -1376,6 +1451,26 @@ static void XPlmi_SoftResetHandler(void)
 
 /*****************************************************************************/
 /**
+ * @brief	This function sets clock source to IRO for ES1 silicon and triggers
+ * FW NCR error.
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+void XPlmi_TriggerFwNcrError(void)
+{
+	if ((ErrorTable[XPLMI_NODEIDX_ERROR_FW_NCR].Action == XPLMI_EM_ACTION_SRST) ||
+		(ErrorTable[XPLMI_NODEIDX_ERROR_FW_NCR].Action == XPLMI_EM_ACTION_POR)) {
+		XPlmi_SysmonClkSetIro();
+	}
+
+	/* Trigger FW NCR error by setting NCR_Flag in FW_ERR register */
+	XPlmi_UtilRMW(PMC_GLOBAL_PMC_FW_ERR, PMC_GLOBAL_PMC_FW_ERR_NCR_FLAG_MASK,
+			PMC_GLOBAL_PMC_FW_ERR_NCR_FLAG_MASK);
+}
+
+/*****************************************************************************/
+/**
  * @brief	This function sets the sysmon clock to IRO for ES1 silicon
  *
  * @param	None
@@ -1405,6 +1500,31 @@ static void XPlmi_SysmonClkSetIro(void) {
 void XPlmi_SetEmSubsystemId(const u32 *Id)
 {
 	EmSubsystemId = *Id;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function updates NumErrOuts and returns number of error outs
+ * count to the caller.
+ *
+ * @param	UpdateType is increment/decrement
+ *
+ * @return	Number of ErrOuts count
+ *
+ *****************************************************************************/
+static u32 XPlmi_UpdateNumErrOutsCount(u8 UpdateType)
+{
+	static u32 NumErrOuts = 0U;
+
+	if (UpdateType == XPLMI_UPDATE_TYPE_INCREMENT) {
+		++NumErrOuts;
+	} else {
+		if (NumErrOuts > 0U) {
+			--NumErrOuts;
+		}
+	}
+
+	return NumErrOuts;
 }
 
 /*****************************************************************************/
