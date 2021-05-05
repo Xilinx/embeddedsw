@@ -174,8 +174,6 @@ s32 XIicPs_BusIsBusy(XIicPs *InstancePtr)
 *
 * @param	CallBackRef is a pointer to the upper layer callback reference.
 * @param	StatusEvent is the event that just occurred.
-* @param	ByteCount is the number of bytes transferred up until the event
-*		occurred.
 *
 * @return	None.
 *
