@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
 * 1.02  bsv  09/04/2020 Removed call to Xil_ExceptionInit
 *       bsv  09/13/2020 Clear security critical data in case of exceptions,
 *                       also place AES, ECDSA_RSA and SHA3 in reset
+* 1.03  ma   05/03/2021 Trigger FW_NCR error for post boot exceptions
 *
 * </pre>
 *
@@ -31,6 +32,7 @@
 #include "xplm_proc.h"
 #include "xplm_default.h"
 #include "xloader_secure.h"
+#include "xplmi_err.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -100,7 +102,16 @@ static void XPlm_ExceptionHandler(void *Data)
 	XLoader_SecureClear();
 	XPlmi_ErrMgr(Status);
 
-	/* Just in case if it returns */
+	/*
+	 * Trigger FW_NCR error for post boot exceptions if
+	 * boot mode is other than JTAG
+	 */
+	if((XPlmi_In32(CRP_BOOT_MODE_USER) &
+		CRP_BOOT_MODE_USER_BOOT_MODE_MASK) != 0U) {
+		XPlmi_TriggerFwNcrError();
+	}
+
+	/* Just in case if control reaches here */
 	while (TRUE) {
 		;
 	}
