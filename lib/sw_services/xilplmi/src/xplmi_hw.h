@@ -43,6 +43,8 @@
 *       bsv  01/29/2021 Added APIs for checking and clearing NPI errors
 * 1.05  pj   03/24/2021 Added Macros for PSM_CR MASK and trigger
 *       skd  03/25/2021 Macros re-definitions compilation warning fixes
+*       ma   05/03/2021 Added macros for FW_CR and FW_ERR NCR_FLAG masks and
+*                       removed PSM_CR mask macro which is unused
 *
 * </pre>
 *
@@ -154,6 +156,7 @@ extern "C" {
  * Register: PMC_GLOBAL_PMC_FW_ERR
  */
 #define PMC_GLOBAL_PMC_FW_ERR    (PMC_GLOBAL_BASEADDR + 0X00010100U)
+#define PMC_GLOBAL_PMC_FW_ERR_NCR_FLAG_MASK		(0x80000000U)
 
 /*
  * Register: PMC_GLOBAL_PMC_ERR1_STATUS
@@ -161,7 +164,6 @@ extern "C" {
 #define PMC_GLOBAL_PMC_ERR1_STATUS    (PMC_GLOBAL_BASEADDR + 0X00020000U)
 #define PMC_GLOBAL_PMC_ERR1_STATUS_CFRAME_MASK   (0X00000080U)
 #define PMC_GLOBAL_PMC_ERR1_STATUS_CFU_MASK   (0X00000040U)
-#define PMC_GLOBAL_PMC_ERR1_STATUS_PSM_CR_MASK	(0X00000100U)
 
 /*
  * Register: PMC_GLOBAL_PMC_ERR2_STATUS
@@ -177,6 +179,7 @@ extern "C" {
  * Register: PMC_GLOBAL_PMC_ERR1_TRIG
  */
 #define PMC_GLOBAL_PMC_ERR1_TRIG	(PMC_GLOBAL_BASEADDR + 0X00020010U)
+#define PMC_GLOBAL_PMC_ERR1_TRIG_FW_CR_MASK			(0x00000004U)
 
 /*
  * Register: PMC_GLOBAL_PMC_ERR_OUT1_EN

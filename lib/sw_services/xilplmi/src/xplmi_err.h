@@ -37,6 +37,7 @@
 *       ma   04/05/2021 Added support for error configuration using Error Mask
 *                       instead of Error ID. Also, added support to configure
 *                       multiple errors at once.
+*       ma   05/03/2021 Minor updates related to PSM and FW errors
 *
 * </pre>
 *
@@ -168,6 +169,7 @@ void XPlmi_HandleSwError(u32 ErrorNodeId, u32 RegMask);
 void XPlmi_SetEmSubsystemId(const u32 *Id);
 int XPlmi_CheckNpiErrors(void);
 void XPlmi_ClearNpiErrors(void);
+void XPlmi_TriggerFwNcrError(void);
 
 /* Functions defined in xplmi_err_cmd.c */
 void XPlmi_ErrModuleInit(void);
