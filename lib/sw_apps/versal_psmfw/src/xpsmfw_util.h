@@ -48,7 +48,7 @@ void XPsmFw_UtilRMW(u32 RegAddress, u32 Mask, u32 Value);
  * @param Mask is the bit mask to poll for in the register value
  * @param TimeOutCount is the value to count down before return failure
  */
-int XPsmFw_UtilPollForMask(u32 RegAddress, u32 Mask, u32 TimeOutCount);
+XStatus XPsmFw_UtilPollForMask(u32 RegAddress, u32 Mask, u32 TimeOutCount);
 
 /**
  * Poll for a set of bits to be cleared (represented by Mask)
@@ -58,7 +58,7 @@ int XPsmFw_UtilPollForMask(u32 RegAddress, u32 Mask, u32 TimeOutCount);
  * @param Mask is the bit mask to poll for in the register value
  * @param TimeOutCount is the value to count down before return failure
  */
-int XPsmFw_UtilPollForZero(u32 RegAddress, u32 Mask, u32 TimeOutCount);
+XStatus XPsmFw_UtilPollForZero(u32 RegAddress, u32 Mask, u32 TimeOutCount);
 
 
 /**

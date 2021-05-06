@@ -58,7 +58,7 @@ extern "C" {
 
 u32 XPsmFw_GetPlatform(void);
 u32 XPsmFw_GetIdCode(void);
-int XPsmFw_Init(void);
+XStatus XPsmFw_Init(void);
 
 #ifdef __cplusplus
 }
