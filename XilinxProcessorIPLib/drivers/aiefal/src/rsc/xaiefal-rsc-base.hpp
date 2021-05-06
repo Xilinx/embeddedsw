@@ -1,4 +1,4 @@
-// (c) Copyright(C) 2020 - 2021 by Xilinx, Inc. All rights reserved.
+// Copyright(C) 2020 - 2021 by Xilinx, Inc. All rights reserved.
 // SPDX-License-Identifier: MIT
 /**
  * @param file xaiefal-rsc-base.hpp
