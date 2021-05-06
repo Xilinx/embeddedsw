@@ -192,8 +192,6 @@ XStatus XPsmFw_IoModuleInit(u16 DeviceId)
 
 	XPsmFw_Printf(DEBUG_DETAILED, "IO Module init completed\r\n");
 
-	//Status = XST_SUCCESS;
-
 END:
 	return Status;
 }
