@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -345,9 +345,9 @@ void XPsmFw_FpdMbistClear(void)
 			~PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK);
 }
 
-int XPsmFw_FpdPreHouseClean(void)
+XStatus XPsmFw_FpdPreHouseClean(void)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 
 	/* TODO: Disable PSM interrupts */
 
@@ -1605,7 +1605,7 @@ XStatus XPsmFw_DispatchPwrDwnHandler(u32 PwrDwnStatus, u32 pwrDwnIntMask,
  */
 static XStatus ACPU0Wakeup(void)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
 	assert(PsmToPlmEvent.Event[ACPU_0] == 0U);
@@ -1632,7 +1632,7 @@ done:
  */
 static XStatus ACPU0Sleep(void)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
 	assert(PsmToPlmEvent.Event[ACPU_0] == 0U);
@@ -1659,7 +1659,7 @@ done:
  */
 static XStatus ACPU1Wakeup(void)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
 	assert(PsmToPlmEvent.Event[ACPU_1] == 0U);
@@ -1686,7 +1686,7 @@ done:
  */
 static XStatus ACPU1Sleep(void)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
 	assert(PsmToPlmEvent.Event[ACPU_1] == 0U);
@@ -1713,7 +1713,7 @@ done:
  */
 static XStatus R50Wakeup(void)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
 	assert(PsmToPlmEvent.Event[RPU0_0] == 0U);
@@ -1740,7 +1740,7 @@ done:
  */
 static XStatus R50Sleep(void)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
 	assert(PsmToPlmEvent.Event[RPU0_0] == 0U);
@@ -1767,7 +1767,7 @@ done:
  */
 static XStatus R51Wakeup(void)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
 	assert(PsmToPlmEvent.Event[RPU0_1] == 0U);
@@ -1794,7 +1794,7 @@ done:
  */
 static XStatus R51Sleep(void)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
 	assert(PsmToPlmEvent.Event[RPU0_1] == 0U);

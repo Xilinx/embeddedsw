@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -284,7 +284,7 @@ XStatus XPsmFw_DispatchWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask);
 XStatus XPsmFw_DispatchPwrCtlHandler(u32 PwrCtlStatus, u32 PwrCtlIntMask);
 XStatus XPsmFw_DirectPwrDwn(const u32 DeviceId);
 XStatus XPsmFw_DirectPwrUp(const u32 DeviceId);
-int XPsmFw_FpdPreHouseClean(void);
+XStatus XPsmFw_FpdPreHouseClean(void);
 void XPsmFw_FpdPostHouseClean(void);
 void XPsmFw_FpdMbisr(void);
 void XPsmFw_FpdMbistClear(void);

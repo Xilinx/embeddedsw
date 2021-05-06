@@ -60,9 +60,9 @@ done:
 	return IdCode;
 }
 
-int XPsmFw_Init(void)
+XStatus XPsmFw_Init(void)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	
 #ifdef XPAR_XIPIPSU_0_DEVICE_ID
 	if (XST_SUCCESS != XPsmfw_IpiManagerInit()) {
