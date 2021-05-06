@@ -72,6 +72,7 @@ namespace xaiefal {
 			} else {
 				for (int i = 0; i < (int)vLocs.size(); i++) {
 					if (L.Col == vLocs[i].Col && L.Row == vLocs[i].Row) {
+						RC = XAIE_OK;
 						if (L.Row == 0) {
 							E = XAIE_EVENT_BROADCAST_A_0_PL;
 						} else if (M == XAIE_MEM_MOD) {
