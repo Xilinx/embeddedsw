@@ -216,7 +216,8 @@ int main(void)
 	 * Hook up chapter9 handler
 	 */
 	Status = XUsbPs_EpSetHandler(UsbInstance.PrivateData, 0,
-			XUSBPS_EP_DIRECTION_OUT, XUsbPs_Ep0EventHandler,
+			XUSBPS_EP_DIRECTION_OUT,
+			(XUsbPs_EpHandlerFunc)XUsbPs_Ep0EventHandler,
 			UsbInstance.PrivateData);
 
 	/*
