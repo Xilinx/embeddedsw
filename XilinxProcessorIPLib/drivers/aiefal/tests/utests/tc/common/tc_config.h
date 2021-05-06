@@ -1,3 +1,6 @@
+// Copyright(C) 2020 - 2021 by Xilinx, Inc. All rights reserved.
+// SPDX-License-Identifier: MIT
+
 #ifndef HW_CONFIG_H
 #define HW_CONFIG_H
 
