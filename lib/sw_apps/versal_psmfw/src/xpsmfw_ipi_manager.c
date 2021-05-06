@@ -70,6 +70,9 @@ XStatus XPsmFw_DispatchIpiHandler(u32 SrcMask)
 	u32 Payload[XPSMFW_IPI_MAX_MSG_LEN] = {0};
 	u32 Response[XPSMFW_IPI_MAX_MSG_LEN];
 
+	/* Warning fix */
+	(void) (SrcMask);
+
 	XPsmFw_Printf(DEBUG_DETAILED, "In IPI handler\r\n");
 
 	Status = XIpiPsu_ReadMessage(IpiInstPtr, IPI_PSM_ISR_PMC_MASK, &Payload[0],
