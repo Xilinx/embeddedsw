@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xstatus.h
-* @addtogroup common_v1_1
+* @addtogroup common_v1_2
 * @{
 *
 * This file contains Xilinx software status codes.  Status codes have their
@@ -83,6 +83,8 @@ extern "C" {
 #define XST_NOT_ENABLED                 29L	/* a requested service is not
 						   available because it has not
 						   been enabled */
+#define XST_NO_ACCESS			30L	/* Generic access error */
+#define XST_TIMEOUT                     31L	/*!< Event timeout occurred */
 
 /***************** Utility Component statuses 401 - 500  *********************/
 
@@ -224,8 +226,13 @@ extern "C" {
 					     /* didn't return value written */
 #define XST_IIC_TBA_READBACK_ERROR      1087	/* Read of the 10 bit addr reg */
 					     /* didn't return written value */
-#define XST_IIC_NOT_SLAVE               1088	/* The device isn't a slave    */
-
+#define XST_IIC_NOT_SLAVE               1088	/*!< The device isn't a slave    */
+#define XST_IIC_ARB_LOST 				1089 	/*!< Arbitration lost for master	*/
+/** @} */
+/**
+@name ATMC Status Codes 1101 - 1125
+@{
+*/
 /*********************** ATMC statuses 1101 - 1125 ***************************/
 
 #define XST_ATMC_ERROR_COUNT_MAX    1101L	/* the error counters in the ATM
@@ -277,8 +284,14 @@ extern "C" {
 #define XST_SPI_SLAVE_MODE          1160	/* device has been addressed as slave */
 #define XST_SPI_RECEIVE_NOT_EMPTY   1161	/* device received data in slave mode */
 
-#define XST_SPI_COMMAND_ERROR       1162	/* unrecognised command - qspi only */
-
+#define XST_SPI_COMMAND_ERROR       1162	/*!< unrecognised command - qspi only */
+#define XST_SPI_POLL_DONE           1163        /*!< controller completed polling the
+						   device for status */
+/** @} */
+/**
+@name OPB Arbiter Status Codes 1176 - 1200
+@{
+*/
 /********************** OPB Arbiter statuses 1176 - 1200 *********************/
 
 #define XST_OPBARB_INVALID_PRIORITY  1176	/* the priority registers have either
