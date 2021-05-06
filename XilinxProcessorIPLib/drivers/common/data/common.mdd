@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2004 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2004 - 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -8,7 +8,7 @@ OPTION psf_version = 2.1;
 
 BEGIN driver common 
 
-  OPTION VERSION = 1.1
+  OPTION VERSION = 1.2
   OPTION NAME = common;
   OPTION supported_peripherals = ();
 
