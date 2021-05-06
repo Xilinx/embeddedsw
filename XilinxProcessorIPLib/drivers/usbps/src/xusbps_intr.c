@@ -1,12 +1,12 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /******************************************************************************/
 /**
  * @file xusbps_intr.c
-* @addtogroup usbps_v2_6
+* @addtogroup usbps_v2_7
 * @{
  *
  * This file contains the functions that are related to interrupt processing
