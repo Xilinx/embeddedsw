@@ -36,7 +36,7 @@
 
 int main(void)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 
 	XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "PSM Firmware version: %s "
 			"[Build: %s %s ] \r\n",	versal_PSMFW_VERSION, __DATE__, __TIME__);

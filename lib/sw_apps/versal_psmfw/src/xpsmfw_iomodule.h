@@ -235,8 +235,8 @@ extern "C" {
 #define PSM_IOMODULE_IRQ_ACK_PIT1_MASK					((u32)0x00000008U)
 
 /************************ Function Prototype ************************/
-int XPsmFw_IoModuleInit(u16 DeviceId);
-int SetUpInterruptSystem(void);
+XStatus XPsmFw_IoModuleInit(u16 DeviceId);
+XStatus SetUpInterruptSystem(void);
 void XPsmFw_IntrHandler(void *IntrNumber);
 #ifdef PSM_ENABLE_STL
 int XPsmFw_RegisterStlInterruptHandler(u8 InteruptNumber,
