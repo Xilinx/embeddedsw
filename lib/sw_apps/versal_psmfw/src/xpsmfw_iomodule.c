@@ -163,9 +163,9 @@ static struct HandlerTable g_TopLevelInterruptTable[] = {
 * @return      None
 *
 ********************************************************************************/
-int XPsmFw_IoModuleInit(u16 DeviceId)
+XStatus XPsmFw_IoModuleInit(u16 DeviceId)
 {
-    int Status = XST_FAILURE;
+    XStatus Status = XST_FAILURE;
 
     /*
      * Initialize the IO Module so that it's ready to use, specify the device
@@ -211,7 +211,7 @@ END:
 * @note     None.
 *
 ****************************************************************************/
-int SetUpInterruptSystem(void)
+XStatus SetUpInterruptSystem(void)
 {
 	u32 IntrNumber;
 

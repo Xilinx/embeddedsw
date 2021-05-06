@@ -36,7 +36,7 @@ void XPsmFw_UtilRMW(u32 RegAddress, u32 Mask, u32 Value)
 	Xil_Out32(RegAddress, l_Val);
 }
 
-int XPsmFw_UtilPollForMask(u32 RegAddress, u32 Mask, u32 TimeOutCount)
+XStatus XPsmFw_UtilPollForMask(u32 RegAddress, u32 Mask, u32 TimeOutCount)
 {
 	u32 l_RegValue;
 	u32 TimeOut = TimeOutCount;
@@ -62,7 +62,7 @@ int XPsmFw_UtilPollForMask(u32 RegAddress, u32 Mask, u32 TimeOutCount)
 
 }
 
-int XPsmFw_UtilPollForZero(u32 RegAddress, u32 Mask, u32 TimeOutCount)
+XStatus XPsmFw_UtilPollForZero(u32 RegAddress, u32 Mask, u32 TimeOutCount)
 {
 	u32 l_RegValue;
 	u32 TimeOut = TimeOutCount;
