@@ -55,6 +55,7 @@
 *			once in security critical places
 *	kal  04/30/2021 Added a warning for user to re-boot the system when
 *			CACHE_ERROR
+*       kpt  05/06/2021 Corrected check to program SafetyMissionEn bit
 *
 * </pre>
 *
@@ -3321,7 +3322,7 @@ static int XNvm_EfusePrgmSafetyMissionEn(
 		goto END;
 	}
 
-	if (MiscCtrlData->LbistEn == TRUE) {
+	if (MiscCtrlData->SafetyMissionEn == TRUE) {
 		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
 			XNVM_EFUSE_MISC_CTRL_ROW,
 			(u32)XNVM_EFUSE_MISC_SAFETY_MISSION_EN);
