@@ -56,6 +56,7 @@
 *	kal  04/30/2021 Added a warning for user to re-boot the system when
 *			CACHE_ERROR
 *       kpt  05/06/2021 Corrected check to program SafetyMissionEn bit
+*	kal  05/07/2021 Reset the read mode after eFuse operations are done
 *
 * </pre>
 *
@@ -152,9 +153,9 @@ static inline int  XNvm_EfuseSetReadMode(XNvm_EfuseRdMode RdMode);
 static inline void XNvm_EfuseSetRefClk(void);
 static inline void XNvm_EfuseEnableProgramming(void);
 static inline void XNvm_EfuseDisableProgramming(void);
+static inline void XNvm_EfuseResetReadMode(void);
 static inline void XNvm_EfuseInitTimers(void);
-static int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op,
-					XNvm_EfuseRdMode RdMode);
+static int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op, XNvm_EfuseRdMode RdMode);
 static int XNvm_EfuseReadCache(u32 Row, u32* RowData);
 static int XNvm_EfuseReadCacheRange(u32 StartRow, u8 RowCount, u32* RowData);
 static int XNvm_EfusePgmBit(XNvm_EfuseType Page, u32 Row, u32 Col);
@@ -461,6 +462,7 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 	Status = XST_FAILURE;
 	Status = XNvm_EfusePrgmProtectionEfuse();
 END:
+	XNvm_EfuseResetReadMode();
 	XNvm_EfuseDisableProgramming();
 	LockStatus = XNvm_EfuseLockController();
 	if (XST_SUCCESS == Status) {
@@ -995,6 +997,7 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHd *PufHelperData)
 	Status = XST_FAILURE;
 	Status = XNvm_EfusePrgmProtectionEfuse();
 END :
+	XNvm_EfuseResetReadMode();
 	XNvm_EfuseDisableProgramming();
 	LockStatus = XNvm_EfuseLockController();
 	if (XST_SUCCESS == Status) {
@@ -4574,15 +4577,12 @@ static inline int XNvm_EfuseSetReadMode(XNvm_EfuseRdMode RdMode)
 				Mask);
 
 	NewRegVal = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
-			XNVM_EFUSE_CFG_REG_OFFSET) &
-			(~XNVM_EFUSE_CTRL_CFG_MARGIN_RD_MASK);
-	if (RegVal != NewRegVal) {
+			XNVM_EFUSE_CFG_REG_OFFSET);
+	if (RegVal != (NewRegVal & (~XNVM_EFUSE_CTRL_CFG_MARGIN_RD_MASK))) {
 		goto END;
 	}
 
-	RdModeVal = (u8)(XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
-			XNVM_EFUSE_CFG_REG_OFFSET) &
-			XNVM_EFUSE_CTRL_CFG_MARGIN_RD_MASK);
+	RdModeVal = (u8)(NewRegVal & XNVM_EFUSE_CTRL_CFG_MARGIN_RD_MASK);
 	if (RdModeVal != Mask) {
 		goto END;
 	}
@@ -4632,6 +4632,21 @@ static inline void XNvm_EfuseDisableProgramming(void)
 					XNVM_EFUSE_CFG_REG_OFFSET);
 
 	Cfg = Cfg & ~XNVM_EFUSE_CFG_ENABLE_PGM;
+	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
+				XNVM_EFUSE_CFG_REG_OFFSET, Cfg);
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function disables Margin Read mode of eFUSE controller.
+ *
+ ******************************************************************************/
+static inline void XNvm_EfuseResetReadMode(void)
+{
+	u32 Cfg = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
+					XNVM_EFUSE_CFG_REG_OFFSET);
+
+	Cfg = Cfg & ~XNVM_EFUSE_CFG_MARGIN_RD;
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_CFG_REG_OFFSET, Cfg);
 }
