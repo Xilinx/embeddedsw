@@ -198,6 +198,8 @@
 *       cog    02/10/21 Added custom startup API.
 *       cog    05/05/21 Fixed issue where driver was attempting to start ADC 3
 *                       for DFE variants.
+*       cog    05/05/21 Some dividers and delays need to be set to run caliration at
+*                       high sampling rates.
 *
 * </pre>
 *
@@ -731,6 +733,8 @@ u32 XRFdc_Reset(XRFdc *InstancePtr, u32 Type, int Tile_Id)
 u32 XRFdc_CustomStartUp(XRFdc *InstancePtr, u32 Type, int Tile_Id, u32 StartState, u32 EndState)
 {
 	u32 Status;
+	u32 BaseAddr;
+	u32 FGDelay;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
@@ -756,7 +760,24 @@ u32 XRFdc_CustomStartUp(XRFdc *InstancePtr, u32 Type, int Tile_Id, u32 StartStat
 		goto RETURN_PATH;
 	}
 
-	if ((Type == XRFDC_DAC_TILE) && ((StartState == XRFDC_STATE_CAL) || (EndState == XRFDC_STATE_CAL))) {
+	/*This is required if re-running calibration from a state later than shutdown in the IPSM*/
+	if (Type == XRFDC_ADC_TILE) {
+		if ((InstancePtr->RFdc_Config.IPType >= XRFDC_GEN3) && (StartState > XRFDC_STATE_SHUTDOWN)) {
+			BaseAddr = XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id);
+			if (InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.SampleRate >
+			    XRFDC_CAL_DIV_CUTOFF_FREQ(XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id))) {
+				FGDelay = (u32)(XRFdc_ReadReg(InstancePtr, BaseAddr, XRFDC_CAL_TMR_MULT_OFFSET) *
+						XRFDC_CAL_AXICLK_MULT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_DIV_BYP_OFFSET, XRFDC_CAL_DIV_BYP_MASK,
+						XRFDC_DISABLED);
+				XRFdc_WriteReg(InstancePtr, BaseAddr, XRFDC_CAL_DLY_OFFSET, FGDelay);
+			} else {
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_DIV_BYP_OFFSET, XRFDC_CAL_DIV_BYP_MASK,
+						XRFDC_CAL_DIV_BYP_MASK);
+				XRFdc_WriteReg(InstancePtr, BaseAddr, XRFDC_CAL_DLY_OFFSET, 0U);
+			}
+		}
+	} else if ((StartState == XRFDC_STATE_CAL) || (EndState == XRFDC_STATE_CAL)) {
 		metal_log(METAL_LOG_ERROR, "\n Invalid state for DAC tiles in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;

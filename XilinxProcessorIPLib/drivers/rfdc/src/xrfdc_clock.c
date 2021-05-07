@@ -65,6 +65,8 @@
 *       cog    05/05/21 Fixed issue where ADC 0 failed to complete startup if
 *                       distributing full rate clock from ADC to all tiles.
 *       cog    05/05/21 Rename the MAX/MIN macros to avoid potential conflicts.
+*       cog    05/05/21 Some dividers and delays need to be set to run caliration at
+*                       high sampling rates.
 * </pre>
 *
 ******************************************************************************/
@@ -2111,11 +2113,11 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 			FGDelay = (u32)(XRFdc_ReadReg(InstancePtr, BaseAddr, XRFDC_CAL_TMR_MULT_OFFSET) *
 					XRFDC_CAL_AXICLK_MULT);
 			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_DIV_BYP_OFFSET, XRFDC_CAL_DIV_BYP_MASK,
-					XRFDC_CAL_DIV_BYP_MASK);
+					XRFDC_DISABLED);
 			XRFdc_WriteReg(InstancePtr, BaseAddr, XRFDC_CAL_DLY_OFFSET, FGDelay);
 		} else {
 			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_DIV_BYP_OFFSET, XRFDC_CAL_DIV_BYP_MASK,
-					XRFDC_DISABLED);
+					XRFDC_CAL_DIV_BYP_MASK);
 			XRFdc_WriteReg(InstancePtr, BaseAddr, XRFDC_CAL_DLY_OFFSET, 0U);
 		}
 	}
