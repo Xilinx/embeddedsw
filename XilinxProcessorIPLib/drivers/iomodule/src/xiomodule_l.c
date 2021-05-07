@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2011 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,8 @@
 * 2.5   ms   08/07/17 Fixed compilation warnings
 * 2.7   sa   11/09/18 Updated low level APIs to deal with the 64 bit
 *                     addresses
+* 2.11  mus  05/07/21  Fixed warnings reported by doxygen tool. It fixes
+*                      CR#1088640.
 * </pre>
 *
 ******************************************************************************/
@@ -49,6 +51,8 @@ static XIOModule_Config *LookupConfigByBaseAddress(UINTPTR BaseAddress);
 
 /************************** Variable Definitions *****************************/
 
+
+#ifdef XPAR_IOMODULE_SINGLE_DEVICE_ID
 /*****************************************************************************/
 /**
 *
@@ -72,7 +76,6 @@ static XIOModule_Config *LookupConfigByBaseAddress(UINTPTR BaseAddress);
 * to be included in the driver compilation.
 *
 ******************************************************************************/
-#ifdef XPAR_IOMODULE_SINGLE_DEVICE_ID
 void XIOModule_LowLevelInterruptHandler(void)
 {
     /*

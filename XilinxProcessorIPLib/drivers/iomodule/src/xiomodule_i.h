@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2011 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,13 +20,19 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00a sa   07/15/11 First release
 * 1.02a sa   07/25/12 Added UART prototypes
+* 2.11  mus  05/07/21  Fixed warnings reported by doxygen tool. It fixes
+*                      CR#1088640.
 * </pre>
 *
 ******************************************************************************/
-
+/**
+ *@cond nocomments
+ */
 #ifndef XIOMODULE_I_H		/* prevent circular inclusions */
 #define XIOMODULE_I_H		/* by using protection macros */
-
+/**
+ *@endcond
+ */
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -44,6 +50,7 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /****************************************************************************
+/**
 *
 * Update the statistics of the instance.
 *

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2011 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,8 @@
 * 1.03a sa   10/16/12 Moved interrupt mode functions to separate file
 * 2.4   mi   09/20/16 Fixed compilation warnings
 * 2.5   ms   08/07/17 Fixed compilation warnings.
+* 2.11  mus  05/07/21  Fixed warnings reported by doxygen tool. It fixes
+*                      CR#1088640.
 * </pre>
 *
 *****************************************************************************/
@@ -126,7 +128,8 @@ int XIOModule_CfgInitialize(XIOModule *InstancePtr, XIOModule_Config *Config,
 	return XST_SUCCESS;
 }
 
-/****************************************************************************
+/****************************************************************************/
+/**
 *
 * Sets the baud rate for the specified UART. Checks the input value for
 * validity and also verifies that the requested rate can be configured to
@@ -212,7 +215,8 @@ int XIOModule_SetBaudRate(XIOModule *InstancePtr, u32 BaudRate)
 	return XST_SUCCESS;
 }
 
-/****************************************************************************
+/****************************************************************************/
+/**
 *
 * This function provides a stub handler such that if the application does not
 * define a handler but enables interrupts, this function will be called.
