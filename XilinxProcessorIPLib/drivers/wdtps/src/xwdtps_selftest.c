@@ -107,7 +107,7 @@ s32 XWdtPs_SelfTest(XWdtPs *InstancePtr)
 		XWdtPs_WriteReg(InstancePtr->Config.BaseAddress,
 				  XWDTPS_ZMR_OFFSET,
 				  (ZmrOrig | (u32)XWDTPS_ZMR_ZKEY_VAL));
-		Status = XST_FAILURE;
+		Status = (s32)XST_FAILURE;
 	} else {
 
 
@@ -128,7 +128,7 @@ s32 XWdtPs_SelfTest(XWdtPs *InstancePtr)
 			XWdtPs_WriteReg(InstancePtr->Config.BaseAddress,
 					  XWDTPS_ZMR_OFFSET,
 					  ZmrOrig | XWDTPS_ZMR_ZKEY_VAL);
-			Status = XST_FAILURE;
+			Status = (s32)XST_FAILURE;
 
 		} else {
 
@@ -139,7 +139,7 @@ s32 XWdtPs_SelfTest(XWdtPs *InstancePtr)
 			XWdtPs_WriteReg(InstancePtr->Config.BaseAddress, XWDTPS_ZMR_OFFSET,
 					  ZmrOrig | XWDTPS_ZMR_ZKEY_VAL);
 
-			Status = XST_SUCCESS;
+			Status = (s32)XST_SUCCESS;
 		}
 	}
 	return Status;
