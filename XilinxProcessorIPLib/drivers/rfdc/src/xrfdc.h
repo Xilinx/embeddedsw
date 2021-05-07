@@ -273,6 +273,8 @@
 *       cog    03/08/21 MTS now scans reference tile first. This has required a
 *                       change to the prototype of XRFdc_MultiConverter_Init.
 *       cog    03/12/21 Tweaks for improved calibration performance.
+*       cog    05/05/21 Fixed issue where driver was attempting to start ADC 3
+*                       for DFE variants.
 *
 * </pre>
 *
@@ -1466,6 +1468,7 @@ u32 XRFdc_MTS_Sysref_Config(XRFdc *InstancePtr, XRFdc_MultiConverter_Sync_Config
 u32 XRFdc_GetMTSEnable(XRFdc *InstancePtr, u32 Type, u32 Tile, u32 *EnablePtr);
 u32 XRFdc_SetDACDataScaler(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Enable);
 u32 XRFdc_GetDACDataScaler(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *EnablePtr);
+u8 XRFdc_GetTileLayout(XRFdc *InstancePtr);
 #ifndef __BAREMETAL__
 s32 XRFdc_GetDeviceNameByDeviceId(char *DevNamePtr, u16 DevId);
 #endif

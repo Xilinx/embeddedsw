@@ -196,6 +196,8 @@
 *       cog    11/25/20 Added autocalibration mode for Gen 3 devices.
 * 10.0  cog    11/26/20 Refactor and split files.
 *       cog    02/10/21 Added custom startup API.
+*       cog    05/05/21 Fixed issue where driver was attempting to start ADC 3
+*                       for DFE variants.
 *
 * </pre>
 *
@@ -880,17 +882,28 @@ RETURN_PATH:
 ******************************************************************************/
 u32 XRFdc_WaitForState(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 State)
 {
+	u32 Status;
 	u32 DelayCount;
 	u32 TileState;
 
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	Status = XRFdc_CheckTileEnabled(InstancePtr, Type, Tile_Id);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n Requested tile (%s %u) not available in %s\r\n",
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
+		goto RETURN_PATH;
+	}
 	TileState = XRFdc_RDReg(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile_Id), XRFDC_CURRENT_STATE_OFFSET,
 				XRFDC_CURRENT_STATE_MASK);
 	DelayCount = 0U;
 	while (TileState < State) {
 		if (DelayCount == XRFDC_WAIT_ATTEMPTS_CNT) {
+			Status = XRFDC_FAILURE;
 			metal_log(METAL_LOG_ERROR, "\n timeout error in %s[%u] going to state %u in %s\r\n",
 				  (Type ? "DAC" : "ADC"), Tile_Id, State, __func__);
-			return XRFDC_FAILURE;
+			goto RETURN_PATH;
 		} else {
 			/* Wait for 0.1 msec */
 #ifdef __BAREMETAL__
@@ -903,7 +916,10 @@ u32 XRFdc_WaitForState(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 State)
 						XRFDC_CURRENT_STATE_OFFSET, XRFDC_CURRENT_STATE_MASK);
 		}
 	}
-	return XRFDC_SUCCESS;
+
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
 }
 /*****************************************************************************/
 /**
@@ -931,10 +947,16 @@ static u32 XRFdc_RestartIPSM(XRFdc *InstancePtr, u32 Type, int Tile_Id, u32 Star
 	u32 BaseAddr;
 	u16 NoOfTiles;
 	u16 Index;
+	u32 TileLayout;
 
 	/* An input tile if of -1 selects all tiles */
 	if (Tile_Id == XRFDC_SELECT_ALL_TILES) {
-		NoOfTiles = XRFDC_NUM_OF_TILES4;
+		TileLayout = XRFdc_GetTileLayout(InstancePtr);
+		if (TileLayout == XRFDC_3ADC_2DAC_TILES) {
+			NoOfTiles = (Type == XRFDC_ADC_TILE) ? XRFDC_TILE_ID3 : XRFDC_TILE_ID2;
+		} else {
+			NoOfTiles = XRFDC_NUM_OF_TILES4;
+		}
 		Index = XRFDC_TILE_ID0;
 	} else {
 		NoOfTiles = Tile_Id + 1;
@@ -2279,6 +2301,29 @@ u32 XRFdc_GetMinSampleRate(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, double *Mi
 	Status = XRFDC_SUCCESS;
 RETURN_PATH:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* Gets whether the device is a DFE variant or not.
+*
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @return
+*           - XRFDC_3ADC_2DAC_TILES if DFE variant.
+*           - XRFDC_4ADC_4DAC_TILES if regular Gen 1/2/3.
+*
+******************************************************************************/
+u8 XRFdc_GetTileLayout(XRFdc *InstancePtr)
+{
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	if (InstancePtr->RFdc_Config.ADCTile_Config[XRFDC_TILE_ID3].NumSlices == 0) {
+		return XRFDC_3ADC_2DAC_TILES;
+	} else {
+		return XRFDC_4ADC_4DAC_TILES;
+	}
 }
 
 /*****************************************************************************/
