@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2011 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -43,13 +43,19 @@
 * 1.01a sa   04/10/12 Updated with fast interrupt
 * 1.02a sa   07/25/12 Updated with GPI interrupt support
 * 2.7   sa   11/09/18 Updated macros to support 64 bit addresses
+* 2.11  mus  05/07/21 Fixed warnings reported by doxygen tool. It fixes
+*                      CR#1088640.
 * </pre>
 *
 ******************************************************************************/
-
+/**
+ *@cond nocomments
+ */
 #ifndef XIOMODULE_L_H		/* prevent circular inclusions */
 #define XIOMODULE_L_H		/* by using protection macros */
-
+/**
+ *@endcond
+ */
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -67,6 +73,9 @@ extern "C" {
  * Defines the number of timer counters within a single hardware device. This
  * number is not currently parameterized in the hardware but may be in the
  * future.
+ */
+/**
+ *@cond nocomments
  */
 #define XTC_DEVICE_TIMER_COUNT		4
 
@@ -184,7 +193,9 @@ extern "C" {
 							counter to hold when it
 							rolls under. */
 /* @} */
-
+/**
+ *@endcond
+ */
 
 /**************************** Type Definitions *******************************/
 
