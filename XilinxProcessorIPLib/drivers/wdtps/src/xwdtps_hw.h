@@ -129,7 +129,7 @@ extern "C" {
 * @return	The 32-bit value of the register
 *
 * @note		C-style signature:
-*		u32 XWdtPs_ReadReg(u32 BaseAddress, u32 RegOffset)
+*		u32 XWdtPs_ReadReg(UINTPTR BaseAddress, u32 RegOffset)
 *
 *****************************************************************************/
 #define XWdtPs_ReadReg(BaseAddress, RegOffset) \
@@ -147,7 +147,7 @@ extern "C" {
 * @return	None.
 *
 * @note		C-style signature:
-*		void XWdtPs_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
+*		void XWdtPs_WriteReg(UINTPTR BaseAddress, u32 RegOffset, u32 Data)
 *
 *****************************************************************************/
 #define XWdtPs_WriteReg(BaseAddress, RegOffset, Data) \

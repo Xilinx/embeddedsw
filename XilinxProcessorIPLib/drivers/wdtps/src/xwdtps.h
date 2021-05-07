@@ -108,7 +108,7 @@ extern "C" {
  */
 typedef struct {
 	u16 DeviceId;		/**< Unique ID of device */
-	u32 BaseAddress;	/**< Base address of the device */
+	UINTPTR BaseAddress;	/**< Base address of the device */
 } XWdtPs_Config;
 
 
@@ -179,7 +179,7 @@ XWdtPs_Config *XWdtPs_LookupConfig(u16 DeviceId);
  * Interface functions in xwdtps.c
  */
 s32 XWdtPs_CfgInitialize(XWdtPs *InstancePtr,
-			XWdtPs_Config *ConfigPtr, u32 EffectiveAddress);
+			XWdtPs_Config *ConfigPtr, UINTPTR EffectiveAddress);
 
 void XWdtPs_Start(XWdtPs *InstancePtr);
 

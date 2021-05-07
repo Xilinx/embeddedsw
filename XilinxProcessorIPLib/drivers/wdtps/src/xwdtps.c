@@ -69,7 +69,7 @@
 *
 ******************************************************************************/
 s32 XWdtPs_CfgInitialize(XWdtPs *InstancePtr,
-			XWdtPs_Config *ConfigPtr, u32 EffectiveAddress)
+			XWdtPs_Config *ConfigPtr, UINTPTR EffectiveAddress)
 {
 	s32 Status;
 	Xil_AssertNonvoid(InstancePtr != NULL);
