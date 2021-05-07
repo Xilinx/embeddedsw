@@ -275,6 +275,7 @@
 *       cog    03/12/21 Tweaks for improved calibration performance.
 *       cog    05/05/21 Fixed issue where driver was attempting to start ADC 3
 *                       for DFE variants.
+*       cog    05/05/21 Rename the MAX/MIN macros to avoid potential conflicts.
 *
 * </pre>
 *
@@ -785,8 +786,8 @@ typedef struct {
 	}
 #endif
 
-#define MAX(x, y) (x > y) ? x : y
-#define MIN(x, y) (x < y) ? x : y
+#define XRFDC_MAX(x, y) (x > y) ? x : y
+#define XRFDC_MIN(x, y) (x < y) ? x : y
 #define XRFDC_SUCCESS 0U
 #define XRFDC_FAILURE 1U
 #define XRFDC_GEN3 2
