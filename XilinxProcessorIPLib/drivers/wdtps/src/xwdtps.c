@@ -185,7 +185,7 @@ void XWdtPs_Stop(XWdtPs *InstancePtr)
 	 * Disable the Timer field in the register and
 	 * Set the access key for the write to be done the register.
 	 */
-	Register &= (u32)(~XWDTPS_ZMR_WDEN_MASK);
+	Register &= ~((u32)XWDTPS_ZMR_WDEN_MASK);
 	Register |= XWDTPS_ZMR_ZKEY_VAL;
 
 	/*
@@ -292,13 +292,13 @@ void XWdtPs_DisableOutput(XWdtPs *InstancePtr, u8 Signal)
 		/*
 		 * Disable the field in the register.
 		 */
-		Register &= (u32)(~XWDTPS_ZMR_RSTEN_MASK);
+		Register &= ~((u32)XWDTPS_ZMR_RSTEN_MASK);
 
 	} else {
 		/*
 		 * Disable the field in the register.
 		 */
-		Register &= (u32)(~XWDTPS_ZMR_IRQEN_MASK);
+		Register &= ~((u32)XWDTPS_ZMR_IRQEN_MASK);
 
 	}
 
@@ -420,13 +420,13 @@ void XWdtPs_SetControlValue(XWdtPs *InstancePtr, u8 Control, u32 Value)
 		/*
 		 * Zero the field in the register.
 		 */
-		Register &= (u32)(~XWDTPS_CCR_CLKSEL_MASK);
+		Register &= ~((u32)XWDTPS_CCR_CLKSEL_MASK);
 
 	} else {
 		/*
 		 * Zero the field in the register.
 		 */
-		Register &= (u32)(~XWDTPS_CCR_CRV_MASK);
+		Register &= ~((u32)XWDTPS_CCR_CRV_MASK);
 
 		/*
 		 * Shift Value over to the proper positions.
