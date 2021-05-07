@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2011 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /**
 *
 * @file xiomodule_uart_intr.c
-* @addtogroup iomodule_v2_10
+* @addtogroup iomodule_v2_11
 * @{
 *
 * Contains required functions for the XIOModule UART driver interrupt mode.
