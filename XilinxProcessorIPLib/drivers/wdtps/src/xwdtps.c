@@ -82,7 +82,7 @@ s32 XWdtPs_CfgInitialize(XWdtPs *InstancePtr,
 	 * initializing.
 	 */
 	if (InstancePtr->IsStarted == XIL_COMPONENT_IS_STARTED) {
-		Status = XST_DEVICE_IS_STARTED;
+		Status = (s32)XST_DEVICE_IS_STARTED;
 	} else {
 
 		/*
@@ -102,7 +102,7 @@ s32 XWdtPs_CfgInitialize(XWdtPs *InstancePtr,
 		 */
 		InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
-		Status = XST_SUCCESS;
+		Status = (s32)XST_SUCCESS;
 	}
 	return Status;
 }
