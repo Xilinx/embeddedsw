@@ -36,8 +36,6 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-/*************************** Variable Definitions ****************************/
-extern XWdtPs_Config XWdtPs_ConfigTable[XPAR_XWDTPS_NUM_INSTANCES];
 
 /************************** Function Prototypes ******************************/
 
