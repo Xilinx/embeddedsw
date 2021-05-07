@@ -47,6 +47,8 @@
 *       cog    12/04/20 Reduce scope of non user interface macros.
 *       cog    03/08/21 MTS now scans reference tile first. This has required a
 *                       change to the prototype of XRFdc_MultiConverter_Init.
+*       cog    05/06/21 Minimum gap between edges in DTC scan for T1 should be
+*                       reduced for Gen 3 devices.
 *
 * </pre>
 *
@@ -64,6 +66,7 @@
 #define XRFDC_MTS_REF_TARGET 64U
 #define XRFDC_MTS_MAX_CODE 16U
 #define XRFDC_MTS_MIN_GAP_T1 10U
+#define XRFDC_MTS_MIN_GAP_GEN3 5U
 #define XRFDC_MTS_MIN_GAP_PLL 5U
 #define XRFDC_MTS_SR_TIMEOUT 4096U
 #define XRFDC_MTS_DTC_COUNT 10U
@@ -100,7 +103,8 @@ static u32 XRFdc_MTS_Sysref_Count(XRFdc *InstancePtr, u32 Type, u32 Count_Val);
 static u32 XRFdc_MTS_Dtc_Scan(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_MTS_DTC_Settings *SettingsPtr);
 static u32 XRFdc_MTS_Dtc_Code(XRFdc *InstancePtr, u32 Type, u32 BaseAddr, u32 SRCtrlAddr, u32 DTCAddr, u16 SRctl,
 			      u16 SRclr_m, u32 Code);
-static u32 XRFdc_MTS_Dtc_Calc(u32 Type, u32 Tile_Id, XRFdc_MTS_DTC_Settings *SettingsPtr, u8 *FlagsPtr);
+static u32 XRFdc_MTS_Dtc_Calc(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_MTS_DTC_Settings *SettingsPtr,
+			      u8 *FlagsPtr);
 static void XRFdc_MTS_Dtc_Flag_Debug(u8 *FlagsPtr, u32 Type, u32 Tile_Id, u32 Target, u32 Picked);
 static void XRFdc_MTS_FIFOCtrl(XRFdc *InstancePtr, u32 Type, u32 FIFO_Mode, u32 Tiles_To_Clear);
 static u32 XRFdc_MTS_GetMarker(XRFdc *InstancePtr, u32 Type, u32 Tiles, XRFdc_MTS_Marker *MarkersPtr, int Marker_Delay);
@@ -337,6 +341,7 @@ static void XRFdc_MTS_Dtc_Flag_Debug(u8 *FlagsPtr, u32 Type, u32 Tile_Id, u32 Ta
 * This API Calculate the best DTC code to use
 *
 *
+* @param    InstancePtr is a pointer to the XRfdc instance.
 * @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
 * @param    Tile_Id Valid values are 0-3.
 * @param    SettingsPtr dtc settings structure.
@@ -349,7 +354,8 @@ static void XRFdc_MTS_Dtc_Flag_Debug(u8 *FlagsPtr, u32 Type, u32 Tile_Id, u32 Ta
 * @note     None.
 *
 ******************************************************************************/
-static u32 XRFdc_MTS_Dtc_Calc(u32 Type, u32 Tile_Id, XRFdc_MTS_DTC_Settings *SettingsPtr, u8 *FlagsPtr)
+static u32 XRFdc_MTS_Dtc_Calc(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_MTS_DTC_Settings *SettingsPtr,
+			      u8 *FlagsPtr)
 {
 	u32 Index, Status, Num_Found;
 	int Last, Current_Gap, Max_Overlap, Overlap_Cnt;
@@ -357,7 +363,11 @@ static u32 XRFdc_MTS_Dtc_Calc(u32 Type, u32 Tile_Id, XRFdc_MTS_DTC_Settings *Set
 	u8 Min_Gap_Allowed;
 	int Codes[XRFDC_MTS_MAX_CODE] = { 0 };
 
-	Min_Gap_Allowed = (SettingsPtr->IsPLL != 0U) ? XRFDC_MTS_MIN_GAP_PLL : XRFDC_MTS_MIN_GAP_T1;
+	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
+		Min_Gap_Allowed = (SettingsPtr->IsPLL != 0U) ? XRFDC_MTS_MIN_GAP_PLL : XRFDC_MTS_MIN_GAP_T1;
+	} else {
+		Min_Gap_Allowed = XRFDC_MTS_MIN_GAP_GEN3;
+	}
 	Status = XRFDC_MTS_OK;
 
 	/* Scan the flags and find candidate DTC codes */
@@ -589,7 +599,7 @@ static u32 XRFdc_MTS_Dtc_Scan(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_M
 	}
 
 	/* Calculate the best DTC code */
-	(void)XRFdc_MTS_Dtc_Calc(Type, Tile_Id, SettingsPtr, Flags);
+	(void)XRFdc_MTS_Dtc_Calc(InstancePtr, Type, Tile_Id, SettingsPtr, Flags);
 
 	/* Program the calculated code */
 	if (SettingsPtr->DTC_Code[Tile_Id] == -1) {
