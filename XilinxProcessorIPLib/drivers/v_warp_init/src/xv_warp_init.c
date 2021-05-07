@@ -78,43 +78,13 @@ void XV_warp_init_DisableAutoRestart(XV_warp_init *InstancePtr) {
     XV_warp_init_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_WARP_INIT_CTRL_ADDR_AP_CTRL, 0);
 }
 
-u32 XV_warp_init_Get_valid_segs(XV_warp_init *InstancePtr) {
-    u32 Data;
-
-    Xil_AssertNonvoid(InstancePtr != NULL);
-    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-
-    Data = XV_warp_init_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_WARP_INIT_CTRL_ADDR_VALID_SEGS_DATA);
-    return Data;
-}
-
-u32 XV_warp_init_Get_lblk_count(XV_warp_init *InstancePtr) {
-    u32 Data;
-
-    Xil_AssertNonvoid(InstancePtr != NULL);
-    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-
-    Data = XV_warp_init_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_WARP_INIT_CTRL_ADDR_LBLK_COUNT_DATA);
-    return Data;
-}
-
-u32 XV_warp_init_Get_line_num_seg(XV_warp_init *InstancePtr) {
-    u32 Data;
-
-    Xil_AssertNonvoid(InstancePtr != NULL);
-    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-
-    Data = XV_warp_init_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_WARP_INIT_CTRL_ADDR_LINE_NUM_SEG_DATA);
-    return Data;
-}
-
 u32 XV_warp_init_Get_ip_status(XV_warp_init *InstancePtr) {
     u32 Data;
 
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_warp_init_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_WARP_INIT_CTRL_ADDR_IP_STATUS_DATA);
+    Data = XV_warp_init_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_WARP_INIT_CTRL_ADDR_IP_STATUS_REG_DATA);
     return Data;
 }
 
