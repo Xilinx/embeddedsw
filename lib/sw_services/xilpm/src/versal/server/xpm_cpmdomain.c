@@ -218,9 +218,12 @@ static XStatus Cpm5ScanClear(u32 *Args, u32 NumOfArgs)
 	(void)NumOfArgs;
 
 	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
+		PmInfo("Skipping ScanClear for CPM5\r\n");
 		Status = XST_SUCCESS;
 		goto done;
 	}
+
+	PmInfo("Triggering ScanClear for CPM5\r\n");
 
 	Cpm = (XPm_CpmDomain *)XPmPower_GetById(PM_POWER_CPM5);
 	if (NULL == Cpm) {
@@ -339,9 +342,12 @@ static XStatus CpmBisr(u32 *Args, u32 NumOfArgs)
 	(void)NumOfArgs;
 
 	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
+		PmInfo("Skipping BISR for CPM\r\n");
 		Status = XST_SUCCESS;
 		goto done;
 	}
+
+	PmInfo("Triggering BISR for CPM\r\n");
 
 	/* Bisr */
 	Status = XPmBisr_Repair(CPM_TAG_ID);
@@ -365,9 +371,12 @@ static XStatus Cpm5Bisr(u32 *Args, u32 NumOfArgs)
 	(void)NumOfArgs;
 
 	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
+		PmInfo("Skipping BISR for CPM5\r\n");
 		Status = XST_SUCCESS;
 		goto done;
 	}
+
+	PmInfo("Triggering BISR for CPM5\r\n");
 
 	/* Bisr on CPM5 PD*/
 	Status = XPmBisr_Repair(CPM5_TAG_ID);
@@ -413,9 +422,12 @@ static XStatus CpmMbistClear(u32 *Args, u32 NumOfArgs)
 	(void)NumOfArgs;
 
 	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
+		PmInfo("Skipping MBIST for CPM\r\n");
 		Status = XST_SUCCESS;
 		goto done;
 	}
+
+	PmInfo("Triggering MBIST for CPM\r\n");
 
 	Cpm = (XPm_CpmDomain *)XPmPower_GetById(PM_POWER_CPM);
 	if (NULL == Cpm) {
@@ -555,9 +567,12 @@ static XStatus Cpm5MbistClear(u32 *Args, u32 NumOfArgs)
 	(void)NumOfArgs;
 
 	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
+		PmInfo("Skipping MBIST for CPM5\r\n");
 		Status = XST_SUCCESS;
 		goto done;
 	}
+
+	PmInfo("Triggering MBIST for CPM5\r\n");
 
 	Cpm = (XPm_CpmDomain *)XPmPower_GetById(PM_POWER_CPM5);
 	if (NULL == Cpm) {
