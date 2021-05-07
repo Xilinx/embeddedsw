@@ -62,7 +62,7 @@ typedef struct {
 /*
  * This structure is used for Descriptions of warp init IP
  */
-typedef struct {
+typedef volatile struct {
 	u32	width;
 	u32	height;
 	s32	k_pre;
@@ -96,6 +96,10 @@ typedef struct {
 	u32 num_ctrl_pts;
 	s32 bytes_per_pixel;
 	u32 warp_type;
+    u32 valid_seg;
+    u32 lblock_count;
+    u32 line_num;
+    u32 ip_status;
 	u32 driver_checksum;
 	u32 ip_checksum;
 	u64 remap_nextaddr;
