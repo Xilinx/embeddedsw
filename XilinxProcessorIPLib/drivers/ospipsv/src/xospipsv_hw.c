@@ -533,7 +533,7 @@ void XOspiPsv_Config_Dma(const XOspiPsv *InstancePtr, const XOspiPsv_Msg *Msg)
 				XOSPIPSV_OSPIDMA_DST_ADDR_ADDR_MASK);
 
 		if (InstancePtr->Config.IsCacheCoherent == 0U) {
-			Xil_DCacheInvalidateRange((UINTPTR)Msg->RxBfrPtr, Msg->ByteCount);
+			Xil_DCacheInvalidateRange((INTPTR)Msg->RxBfrPtr, (INTPTR)Msg->ByteCount);
 		}
 		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 			XOSPIPSV_OSPIDMA_DST_ADDR, (u32)AddrTemp);
