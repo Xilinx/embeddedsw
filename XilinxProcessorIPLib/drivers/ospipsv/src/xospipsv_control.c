@@ -193,7 +193,7 @@ u32 XOspiPsv_Dma_Read(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 		}
 		if (Msg->Xfer64bit != (u8)1U) {
 			if (InstancePtr->Config.IsCacheCoherent == 0U) {
-				Xil_DCacheInvalidateRange((UINTPTR)Msg->RxBfrPtr, Msg->ByteCount);
+				Xil_DCacheInvalidateRange((INTPTR)Msg->RxBfrPtr, (INTPTR)Msg->ByteCount);
 			}
 		}
 		if (InstancePtr->IsUnaligned != 0U) {
@@ -213,7 +213,7 @@ u32 XOspiPsv_Dma_Read(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 			goto ERROR_PATH;
 		}
 		if (InstancePtr->Config.IsCacheCoherent == 0U) {
-			Xil_DCacheInvalidateRange((UINTPTR)Msg->RxBfrPtr, Msg->ByteCount);
+			Xil_DCacheInvalidateRange((INTPTR)Msg->RxBfrPtr, (INTPTR)Msg->ByteCount);
 		}
 		Xil_MemCpy(InstancePtr->RecvBufferPtr, InstancePtr->UnalignReadBuffer,
 				InstancePtr->RxBytes);
@@ -358,7 +358,7 @@ u32 XOspiPsv_ExecuteRxTuning(XOspiPsv *InstancePtr, XOspiPsv_Msg *FlashMsg,
 			if (InstancePtr->DeviceIdData == *DeviceIdInfo) {
 				if (RXTapFound == 0U) {
 					if (InstancePtr->DllMode == XOSPIPSV_DLL_MASTER_MODE) {
-						RXMin_Tap = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+						RXMin_Tap = (u8)XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
 							XOSPIPSV_DLL_OBSERVABLE_UPPER_REG) &
 							XOSPIPSV_DLL_OBSERVABLE_UPPER_RX_DECODER_OUTPUT_FLD_MASK;
 						RXMax_Tap = RXMin_Tap;
@@ -371,7 +371,7 @@ u32 XOspiPsv_ExecuteRxTuning(XOspiPsv *InstancePtr, XOspiPsv_Msg *FlashMsg,
 					RXTapFound = 1;
 				} else {
 					if (InstancePtr->DllMode == XOSPIPSV_DLL_MASTER_MODE) {
-						RXMax_Tap = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+						RXMax_Tap = (u8)XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
 							XOSPIPSV_DLL_OBSERVABLE_UPPER_REG) &
 							XOSPIPSV_DLL_OBSERVABLE_UPPER_RX_DECODER_OUTPUT_FLD_MASK;
 						MaxIndex = Index;

@@ -36,6 +36,7 @@
 *       sk   02/20/20 Added support for DLL Master mode.
 * 1.3   sk   10/06/20 Clear the ISR for polled mode transfers.
 * 1.4   sk   02/18/21 Added support for Dual byte opcode.
+*       sk   05/07/21 Fixed MISRAC violations.
 *
 * </pre>
 *
@@ -688,7 +689,7 @@ u32 XOspiPsv_IntrHandler(XOspiPsv *InstancePtr)
 				(XOSPIPSV_INDIRECT_READ_XFER_CTRL_REG_IND_OPS_DONE_STATUS_FLD_MASK));
 			if (Msg->Xfer64bit != (u8)1U) {
 				if (InstancePtr->Config.IsCacheCoherent == 0U) {
-					Xil_DCacheInvalidateRange((UINTPTR)Msg->RxBfrPtr, Msg->ByteCount);
+					Xil_DCacheInvalidateRange((INTPTR)Msg->RxBfrPtr, (INTPTR)Msg->ByteCount);
 				}
 			}
 			/* Clear the ISR */

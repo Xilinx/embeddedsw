@@ -42,6 +42,7 @@
 * 1.4   sk   02/18/21 Added support for Dual byte opcode.
 *       sk   02/18/21 Updated RX Tuning algorithm for Master DLL mode.
 *       sk   04/08/21 Fixed doxygen warnings in all source files.
+*       sk   05/07/21 Fixed MISRAC violations.
 *
 * </pre>
 *
