@@ -124,6 +124,9 @@ typedef struct {
 	u32 IsStarted;		/**< Device watchdog timer is running */
 } XWdtPs;
 
+/************************** Variable Definitions *****************************/
+extern XWdtPs_Config XWdtPs_ConfigTable[];      /**< Configuration table */
+
 /***************** Macros (Inline Functions) Definitions *********************/
 /****************************************************************************/
 /**
