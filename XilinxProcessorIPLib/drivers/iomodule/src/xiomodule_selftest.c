@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2011 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.00a sa   07/15/11 First release
+* 2.11  mus  05/07/21  Fixed warnings reported by doxygen tool. It fixes
+*                      CR#1088640.
 * </pre>
 *
 ******************************************************************************/
@@ -188,6 +190,24 @@ int XIOModule_Timer_SelfTest(XIOModule * InstancePtr, u8 TimerNumber)
 	}
 }
 
+/*****************************************************************************/
+/**
+*
+* Runs a self-test on the timer and interrupt controller driver/device.
+*
+* @param	InstancePtr is a pointer to the XIOMOdule instance.
+*
+* @return
+* 		- XST_SUCCESS if self-test was successful
+*		- XST_FAILURE if the timer is not incrementing.
+*
+* @note
+*
+* This is a destructive test using the provided timer. The current settings
+* of the timer are returned to the initialized values and all settings at the
+* time this function is called are overwritten.
+*
+******************************************************************************/
 int XIOModule_SelfTest(XIOModule * InstancePtr)
 {
 	XStatus Status;

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2011 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -227,13 +227,19 @@
 *                      incremental builds. It would help to reduce
 *                      compilation time.
 * 2.10  nsk  12/14/20  Updated the tcl to not to use the instance names.
+* 2.11  mus  05/07/21  Fixed warnings reported by doxygen tool. It fixes
+*                      CR#1088640.
 * </pre>
 *
 ******************************************************************************/
-
+/**
+ *@cond nocomments
+ */
 #ifndef IOMODULE_H			/* prevent circular inclusions */
 #define IOMODULE_H			/* by using protection macros */
-
+/**
+ *@endcond
+ */
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -247,7 +253,9 @@ extern "C" {
 #include "xil_types.h"
 
 /************************** Constant Definitions *****************************/
-
+/**
+ *@cond nocomments
+ */
 /**
  * @name Configuration options
  * These options are used in XIOModule_SetOptions() to configure the
@@ -307,7 +315,9 @@ extern "C" {
 /*@}*/
 
 #define XIOMODULE_STANDARD_VECTOR_ADDRESS_WIDTH	32U
-
+/**
+ *@endcond
+ */
 /**************************** Type Definitions *******************************/
 
 /**
@@ -547,7 +557,7 @@ void XIOModule_Reset(XIOModule * InstancePtr, u8 TimerNumber);
  */
 void XIOModule_Timer_SetOptions(XIOModule * InstancePtr, u8 TimerNumber,
                                 u32 Options);
-u32 XIOModule_Timer_GetOptions(XIOModule * InstancePtr, u8 TimerNumber);
+u32 XIOModel_Timer_GetOptions(XIOModule * InstancePtr, u8 TimerNumber);
 
 /*
  * Functions for statistics, in file xiomodule_stats.c
