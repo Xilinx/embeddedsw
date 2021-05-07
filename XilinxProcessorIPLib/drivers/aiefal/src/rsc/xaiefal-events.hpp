@@ -160,12 +160,12 @@ namespace xaiefal {
 		AieRC _reserve() {
 			AieRC RC;
 
-			for (int i = 0; i < vEvents.size(); i++) {
+			for (uint32_t i = 0; i < vEvents.size(); i++) {
 				XAie_UserRsc Rsc;
 				vRscs.push_back(Rsc);
 			}
 
-			XAie_UserRscReq Req = {Loc, Mod, vEvents.size()};
+			XAie_UserRscReq Req = {Loc, Mod, static_cast<uint32_t>(vEvents.size())};
 			RC = XAie_RequestComboEvents(AieHd->dev(), 1, &Req, vEvents.size(), &vRscs[0]);
 			if (RC != XAIE_OK) {
 				vRscs.clear();
@@ -195,7 +195,7 @@ namespace xaiefal {
 			AieRC RC;
 			XAie_EventComboId StartCId;
 
-			for (int i = 0 ; i < vEvents.size(); i += 2) {
+			for (uint32_t i = 0 ; i < vEvents.size(); i += 2) {
 				XAie_EventComboId ComboId;
 
 				if (vRscs[i].RscId == 0) {
