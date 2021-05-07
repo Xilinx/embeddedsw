@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2011 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -49,6 +49,8 @@
 * 1.00a sa   07/15/11 First release
 * 1.02a sa   07/25/12 Added UART interrupt related functions
 * 1.03a sa   10/16/12 Moved UART interrupt related functions to separate file
+* 2.11  mus  05/07/21  Fixed warnings reported by doxygen tool. It fixes
+*                      CR#1088640.
 * </pre>
 *
 * @internal
@@ -96,6 +98,7 @@ u32 XIOModule_TimerBitPosMask[XTC_DEVICE_TIMER_COUNT] = {
 /************************** Variable Definitions *****************************/
 
 
+#ifdef XPAR_IOMODULE_SINGLE_DEVICE_ID
 /*****************************************************************************/
 /**
 *
@@ -115,7 +118,7 @@ u32 XIOModule_TimerBitPosMask[XTC_DEVICE_TIMER_COUNT] = {
 * to be included in the driver compilation.
 *
 ******************************************************************************/
-#ifdef XPAR_IOMODULE_SINGLE_DEVICE_ID
+
 void XIOModule_VoidInterruptHandler()
 {
 	/* Use the single instance to call the main interrupt handler */
