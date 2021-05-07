@@ -377,7 +377,10 @@ int XPmSubsystem_Idle(u32 SubsystemId)
 		    (0U == (Device->Node.Flags & NODE_IDLE_DONE)) &&
 		    (XST_SUCCESS == IsClkActive) &&
 		    ((u32)PM_USAGE_CURRENT_SUBSYSTEM == Usage)) {
-			XPmDevice_SoftResetIdle(Device, DEVICE_IDLE_REQ);
+			Status = XPmDevice_SoftResetIdle(Device, DEVICE_IDLE_REQ);
+			if (XST_SUCCESS != Status) {
+				PmErr("Node idling failed for 0x%x\r\n", Device->Node.Id);
+			}
 			Device->Node.Flags |= NODE_IDLE_DONE;
 		}
 

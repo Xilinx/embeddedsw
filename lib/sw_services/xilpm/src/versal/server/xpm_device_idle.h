@@ -17,7 +17,7 @@ extern "C" {
 
 typedef struct XPmDevice_SoftResetInfo {
 	u32 DeviceId;
-	void (*IdleHook)(u16 DeviceId, u32 BaseAddress);	/**< Hook function for idling */
+	int (*IdleHook)(u16 DeviceId, u32 BaseAddress);	/**< Hook function for idling */
 	u16 IdleHookArgs;
 } XPmDevice_SoftResetInfo;
 
@@ -228,27 +228,27 @@ typedef struct XPmDevice_SoftResetInfo {
 
 #if defined(XILPM_QSPI_0)
 #include "xqspipsu.h"
-void NodeQspiIdle(u16 DeviceId, u32 BaseAddress);
+int NodeQspiIdle(u16 DeviceId, u32 BaseAddress);
 #endif
 
 #if defined(XILPM_OSPI_0)
 #include "xospipsv.h"
-void NodeOspiIdle(u16 DeviceId, u32 BaseAddress);
+int NodeOspiIdle(u16 DeviceId, u32 BaseAddress);
 #endif
 
 #if defined(XILPM_SD_0) || defined(XILPM_SD_1)
 #include "xsdps.h"
-void NodeSdioIdle(u16 DeviceId, u32 BaseAddress);
+int NodeSdioIdle(u16 DeviceId, u32 BaseAddress);
 #endif
 
 #if defined(XILPM_USB_0)
 #include "xusbpsu.h"
-void NodeUsbIdle(u16 DeviceId, u32 BaseAddress);
+int NodeUsbIdle(u16 DeviceId, u32 BaseAddress);
 #endif
 
 #if defined(XILPM_ETH_0) || defined(XILPM_ETH_1)
 #include "xemacps_hw.h"
-void NodeGemIdle(u16 DeviceId, u32 BaseAddress);
+int NodeGemIdle(u16 DeviceId, u32 BaseAddress);
 #endif
 
 #if (defined(XILPM_ZDMA_0) || \
@@ -260,10 +260,10 @@ void NodeGemIdle(u16 DeviceId, u32 BaseAddress);
 	defined(XILPM_ZDMA_6) || \
 	defined(XILPM_ZDMA_7))
 #include "xzdma_hw.h"
-void NodeZdmaIdle(u16 DeviceId, u32 BaseAddress);
+int NodeZdmaIdle(u16 DeviceId, u32 BaseAddress);
 #endif
 
-void XPmDevice_SoftResetIdle(XPm_Device *Device, const u32 IdleReq);
+int XPmDevice_SoftResetIdle(XPm_Device *Device, const u32 IdleReq);
 
 #ifdef __cplusplus
 }
