@@ -62,6 +62,8 @@
 *       cog    03/12/21 Tweaks for improved calibration performance.
 *       cog    05/05/21 Fixed issue where driver was attempting to start ADC 3
 *                       for DFE variants.
+*       cog    05/05/21 Fixed issue where ADC 0 failed to complete startup if
+*                       distributing full rate clock from ADC to all tiles.
 * </pre>
 *
 ******************************************************************************/
@@ -262,6 +264,12 @@ static u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, X
 			}
 		}
 	} else {
+		if (Type == XRFDC_ADC_TILE) {
+			/* This is needed if distributing a full rate clock from ADC 0/1 to ADC 2/3 */
+			if ((Tile_Id > XRFDC_TILE_ID1) && (SettingsPtr->SourceTile > XRFDC_CLK_DST_TILE_226)) {
+				DistCtrlReg |= XRFDC_CLK_DISTR_MUX5A_SRC_RX;
+			}
+		}
 		if (SettingsPtr->PLLEnable == XRFDC_DISABLED) {
 			PLLRefDivReg |= XRFDC_PLLREFDIV_INPUT_OFF;
 			if (SettingsPtr->DivisionFactor > 1) {
