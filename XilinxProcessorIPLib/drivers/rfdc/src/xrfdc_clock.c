@@ -60,6 +60,8 @@
 *       cog    02/10/21 Added custom startup API.
 *       cog    03/12/21 Allow ADC to divide and redistribute full rate clock.
 *       cog    03/12/21 Tweaks for improved calibration performance.
+*       cog    05/05/21 Fixed issue where driver was attempting to start ADC 3
+*                       for DFE variants.
 * </pre>
 *
 ******************************************************************************/
@@ -85,7 +87,6 @@ static u32 PllTuningMatrix[8][4][2] = {
 static u32 XRFdc_CheckClkDistValid(XRFdc *InstancePtr, XRFdc_Distribution_Settings *DistributionSettingsPtr);
 static u32 XRFdc_SetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, double RefClkFreq, double SamplingRate);
 static void XRFdc_DistTile2TypeTile(XRFdc *InstancePtr, u32 DistTile, u32 *Type, u32 *Tile_Id);
-static u8 XRFdc_GetTileLayout(XRFdc *InstancePtr);
 
 /************************** Function Prototypes ******************************/
 
@@ -524,24 +525,26 @@ static u32 XRFdc_StartUpDist(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 	u32 i;
 	u32 enables[8];
 	u32 BaseAddr;
+	u32 TileLayout;
+	u32 DACEdgeTile;
 
+	TileLayout = XRFdc_GetTileLayout(InstancePtr);
+	DACEdgeTile = (TileLayout == XRFDC_3ADC_2DAC_TILES) ? XRFDC_CLK_DST_TILE_227 : XRFDC_CLK_DST_TILE_228;
 	Status = XRFDC_SUCCESS;
 	for (Distribution = DistributionSettingsPtr->DistributionStatus, DistributionCount = 0;
 	     DistributionCount < XRFDC_DIST_MAX; Distribution++, DistributionCount++) {
 		if (Distribution->Enabled == XRFDC_DISABLED) {
 			continue;
 		}
-		/*Fully Start Source Tile*/
-		if ((Distribution->DistributionSource) < XRFDC_CLK_DST_TILE_227) { /*DAC*/
-			Type = XRFDC_DAC_TILE;
-			Tile = XRFDC_CLK_DST_TILE_228 - Distribution->DistributionSource;
-			BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile);
-		} else { /*ADC*/
+		if ((Distribution->DistributionSource) > DACEdgeTile) { /*ADC*/
 			Type = XRFDC_ADC_TILE;
 			Tile = XRFDC_CLK_DST_TILE_224 - Distribution->DistributionSource;
-			BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile);
+			BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile) + XRFDC_HSCOM_ADDR;
+		} else { /*DAC*/
+			Type = XRFDC_DAC_TILE;
+			Tile = DACEdgeTile - Distribution->DistributionSource;
+			BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile) + XRFDC_HSCOM_ADDR;
 		}
-		BaseAddr += XRFDC_HSCOM_ADDR;
 		enables[DistributionCount] = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CLK_NETWORK_CTRL1, 0x3);
 	}
 
@@ -558,14 +561,14 @@ static u32 XRFdc_StartUpDist(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 			continue;
 		}
 		/*Fully Start Source Tile*/
-		if ((Distribution->DistributionSource) < XRFDC_CLK_DST_TILE_227) { /*DAC*/
-			Type = XRFDC_DAC_TILE;
-			Tile = XRFDC_CLK_DST_TILE_228 - Distribution->DistributionSource;
-			BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile);
-		} else { /*ADC*/
+		if ((Distribution->DistributionSource) > DACEdgeTile) { /*ADC*/
 			Type = XRFDC_ADC_TILE;
 			Tile = XRFDC_CLK_DST_TILE_224 - Distribution->DistributionSource;
-			BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile);
+			BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile) + XRFDC_HSCOM_ADDR;
+		} else { /*DAC*/
+			Type = XRFDC_DAC_TILE;
+			Tile = DACEdgeTile - Distribution->DistributionSource;
+			BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile) + XRFDC_HSCOM_ADDR;
 		}
 		BaseAddr += XRFDC_HSCOM_ADDR;
 		Status |= XRFdc_WaitForState(InstancePtr, Type, Tile, 7);
@@ -578,6 +581,9 @@ static u32 XRFdc_StartUpDist(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 			} else { /*ADC*/
 				Type = XRFDC_ADC_TILE;
 				Tile = XRFDC_CLK_DST_TILE_224 - GlobalTile;
+			}
+			if (XRFdc_CheckTileEnabled(InstancePtr, Type, Tile) != XRFDC_SUCCESS) {
+				continue;
 			}
 			Status |= XRFdc_WaitForState(InstancePtr, Type, Tile, 0xF);
 		}
@@ -2127,14 +2133,6 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 	Status = XRFDC_SUCCESS;
 RETURN_PATH:
 	return Status;
-}
-static u8 XRFdc_GetTileLayout(XRFdc *InstancePtr)
-{
-	if (InstancePtr->RFdc_Config.ADCTile_Config[XRFDC_TILE_ID3].NumSlices == 0) {
-		return XRFDC_3ADC_2DAC_TILES;
-	} else {
-		return XRFDC_4ADC_4DAC_TILES;
-	}
 }
 static void XRFdc_DistTile2TypeTile(XRFdc *InstancePtr, u32 DistTile, u32 *Type, u32 *Tile_Id)
 {
