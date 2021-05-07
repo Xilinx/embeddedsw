@@ -64,6 +64,7 @@
 *                       for DFE variants.
 *       cog    05/05/21 Fixed issue where ADC 0 failed to complete startup if
 *                       distributing full rate clock from ADC to all tiles.
+*       cog    05/05/21 Rename the MAX/MIN macros to avoid potential conflicts.
 * </pre>
 *
 ******************************************************************************/
@@ -753,8 +754,8 @@ u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 
 		*Delays[Distribution->DistributionSource] =
 			(SrcReg == XRFDC_CLK_DISTR_OFF) ? 0 : DelayOutSourceLeft + DelayOutSourceRight + 2;
-		Distribution->MaxDelay = MAX(Distribution->MaxDelay, (*Delays[Distribution->DistributionSource]));
-		Distribution->MinDelay = MIN(Distribution->MinDelay, (*Delays[Distribution->DistributionSource]));
+		Distribution->MaxDelay = XRFDC_MAX(Distribution->MaxDelay, (*Delays[Distribution->DistributionSource]));
+		Distribution->MinDelay = XRFDC_MIN(Distribution->MinDelay, (*Delays[Distribution->DistributionSource]));
 
 		/* setup clk detect register */
 		ClkDetectReg =
@@ -788,8 +789,8 @@ u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 		/*Leftmost tile*/
 		if (DelayLeft) {
 			*Delays[Distribution->LowerBound] = DelayOutSourceLeft + (DelayLeft << 1);
-			Distribution->MaxDelay = MAX(Distribution->MaxDelay, (*Delays[Distribution->LowerBound]));
-			Distribution->MinDelay = MIN(Distribution->MinDelay, (*Delays[Distribution->LowerBound]));
+			Distribution->MaxDelay = XRFDC_MAX(Distribution->MaxDelay, (*Delays[Distribution->LowerBound]));
+			Distribution->MinDelay = XRFDC_MIN(Distribution->MinDelay, (*Delays[Distribution->LowerBound]));
 			Reg = XRFDC_CLK_DISTR_MUX6_SRC_OFF | XRFDC_CLK_DISTR_MUX8_SRC_INT |
 			      XRFDC_CLK_DISTR_MUX9_SRC_INT;
 
@@ -845,9 +846,9 @@ u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 			*Delays[Distribution->DistributionSource - Delay] =
 				DelayOutSourceLeft + ((Delay + FeedBackForInputLeft) << 1);
 			Distribution->MaxDelay =
-				MAX(Distribution->MaxDelay, (*Delays[Distribution->DistributionSource - Delay]));
+				XRFDC_MAX(Distribution->MaxDelay, (*Delays[Distribution->DistributionSource - Delay]));
 			Distribution->MinDelay =
-				MIN(Distribution->MinDelay, (*Delays[Distribution->DistributionSource - Delay]));
+				XRFDC_MIN(Distribution->MinDelay, (*Delays[Distribution->DistributionSource - Delay]));
 			FeedBackForInputLeft = !FeedBackForInputLeft;
 
 			/* setup clk detect register */
@@ -921,9 +922,9 @@ u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 					DelayOutSourceRight + ((Delay + 1) << 1);
 			}
 			Distribution->MaxDelay =
-				MAX(Distribution->MaxDelay, (*Delays[Distribution->DistributionSource + Delay]));
+				XRFDC_MAX(Distribution->MaxDelay, (*Delays[Distribution->DistributionSource + Delay]));
 			Distribution->MinDelay =
-				MIN(Distribution->MinDelay, (*Delays[Distribution->DistributionSource + Delay]));
+				XRFDC_MIN(Distribution->MinDelay, (*Delays[Distribution->DistributionSource + Delay]));
 			Reg |= XRFDC_CLK_DISTR_MUX7_SRC_OFF | XRFDC_CLK_DISTR_MUX8_SRC_NTH |
 			       XRFDC_CLK_DISTR_MUX9_SRC_NTH;
 
@@ -973,8 +974,8 @@ u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 			Reg |= XRFDC_CLK_DISTR_MUX4A_SRC_INT | XRFDC_CLK_DISTR_MUX6_SRC_OFF |
 			       XRFDC_CLK_DISTR_MUX7_SRC_OFF | XRFDC_CLK_DISTR_MUX9_SRC_NTH;
 			*Delays[Distribution->UpperBound] = DelayOutSourceRight + (DelayRight << 1);
-			Distribution->MaxDelay = MAX(Distribution->MaxDelay, (*Delays[Distribution->UpperBound]));
-			Distribution->MinDelay = MIN(Distribution->MinDelay, (*Delays[Distribution->UpperBound]));
+			Distribution->MaxDelay = XRFDC_MAX(Distribution->MaxDelay, (*Delays[Distribution->UpperBound]));
+			Distribution->MinDelay = XRFDC_MIN(Distribution->MinDelay, (*Delays[Distribution->UpperBound]));
 
 			/* setup clk detect register */
 			ClkDetectReg = (XRFDC_CLOCK_DETECT_BOTH
@@ -1142,12 +1143,12 @@ u32 XRFdc_GetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 						i;
 					DistributionSettingsPtr->DistributionStatus[Distribution].UpperBound =
 						CurrentTile;
-					DistributionSettingsPtr->DistributionStatus[Distribution].MaxDelay =
-						MAX(DistributionSettingsPtr->DistributionStatus[Distribution].MaxDelay,
-						    (ClockSettingsPtr->Delay));
-					DistributionSettingsPtr->DistributionStatus[Distribution].MinDelay =
-						MIN(DistributionSettingsPtr->DistributionStatus[Distribution].MinDelay,
-						    (ClockSettingsPtr->Delay));
+					DistributionSettingsPtr->DistributionStatus[Distribution].MaxDelay = XRFDC_MAX(
+						DistributionSettingsPtr->DistributionStatus[Distribution].MaxDelay,
+						(ClockSettingsPtr->Delay));
+					DistributionSettingsPtr->DistributionStatus[Distribution].MinDelay = XRFDC_MIN(
+						DistributionSettingsPtr->DistributionStatus[Distribution].MinDelay,
+						(ClockSettingsPtr->Delay));
 					DistributionSettingsPtr->DistributionStatus[Distribution].IsDelayBalanced =
 						(DistributionSettingsPtr->DistributionStatus[Distribution].MaxDelay ==
 						 DistributionSettingsPtr->DistributionStatus[Distribution].MinDelay) ?
