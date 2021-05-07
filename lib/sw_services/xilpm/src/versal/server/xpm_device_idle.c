@@ -68,7 +68,7 @@ static XPmDevice_SoftResetInfo DeviceRstData[] = {
  * @DeviceId:	 Device ID of QSPI node
  * @BaseAddress: QSPI base address
  */
-void NodeQspiIdle(u16 DeviceId, u32 BaseAddress)
+int NodeQspiIdle(u16 DeviceId, u32 BaseAddress)
 {
 	int Status = XST_FAILURE;
 	XQspiPsu_Config *ConfigPtr;
@@ -87,7 +87,7 @@ void NodeQspiIdle(u16 DeviceId, u32 BaseAddress)
 	XQspiPsu_Idle(&QspiInst);
 
 done:
-	return;
+	return Status;
 }
 #endif
 
@@ -98,7 +98,7 @@ done:
  * @DeviceId:	 Device ID of OSPI node
  * @BaseAddress: OSPI base address
  */
-void NodeOspiIdle(u16 DeviceId, u32 BaseAddress)
+int NodeOspiIdle(u16 DeviceId, u32 BaseAddress)
 {
 	int Status = XST_FAILURE;
 	XOspiPsv_Config *ConfigPtr;
@@ -120,7 +120,7 @@ void NodeOspiIdle(u16 DeviceId, u32 BaseAddress)
 	XOspiPsv_Idle(&OspiInst);
 
 done:
-	return;
+	return Status;
 }
 #endif
 
@@ -131,7 +131,7 @@ done:
  * @DeviceId:	 Device ID of SDIO node
  * @BaseAddress: SDIO base address
  */
-void NodeSdioIdle(u16 DeviceId, u32 BaseAddress)
+int NodeSdioIdle(u16 DeviceId, u32 BaseAddress)
 {
 	int Status = XST_FAILURE;
 	XSdPs_Config *ConfigPtr;
@@ -147,10 +147,10 @@ void NodeSdioIdle(u16 DeviceId, u32 BaseAddress)
 		goto done;
 	}
 
-	XSdPs_Idle(&SdioInst);
+	Status = XSdPs_Idle(&SdioInst);
 
 done:
-	return;
+	return Status;
 }
 #endif
 
@@ -161,7 +161,7 @@ done:
  * @DeviceId:	 Device ID of USB node
  * @BaseAddress: USB base address
  */
-void NodeUsbIdle(u16 DeviceId, u32 BaseAddress)
+int NodeUsbIdle(u16 DeviceId, u32 BaseAddress)
 {
 	int Status = XST_FAILURE;
 	XUsbPsu_Config *ConfigPtr;
@@ -179,7 +179,7 @@ void NodeUsbIdle(u16 DeviceId, u32 BaseAddress)
 
 	XUsbPsu_Idle(&UsbInst);
 done:
-	return;
+	return Status;
 }
 #endif
 
@@ -190,8 +190,9 @@ done:
  * @DeviceId:	 Device ID of GEM node
  * @BaseAddress: GEM base address
  */
-void NodeGemIdle(u16 DeviceId, u32 BaseAddress)
+int NodeGemIdle(u16 DeviceId, u32 BaseAddress)
 {
+	int Status = XST_FAILURE;
 	u32 Reg;
 	u32 Timeout = XPM_MAX_TIMEOUT;
 
@@ -204,8 +205,9 @@ void NodeGemIdle(u16 DeviceId, u32 BaseAddress)
 		Timeout--;
 	} while ((0U == (Reg & XEMACPS_NWSR_MDIOIDLE_MASK)) && (Timeout > 0U));
 
-	if (0U == Timeout) {
+	if (0U == (Reg & XEMACPS_NWSR_MDIOIDLE_MASK)) {
 		PmWarn("gem not idle\r\n");
+		goto done;
 	}
 
 	/* Stop all transactions of the Ethernet and disable all interrupts */
@@ -216,6 +218,11 @@ void NodeGemIdle(u16 DeviceId, u32 BaseAddress)
 	Reg &= ~((u32)XEMACPS_NWCTRL_RXEN_MASK);
 	Reg &= ~((u32)XEMACPS_NWCTRL_TXEN_MASK);
 	XEmacPs_WriteReg(BaseAddress, XEMACPS_NWCTRL_OFFSET, Reg);
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
 }
 #endif
 
@@ -231,8 +238,9 @@ void NodeGemIdle(u16 DeviceId, u32 BaseAddress)
  * @DeviceId:	 Device ID of ZDMA node
  * @BaseAddress: ZDMA base address of the first channel
  */
-void NodeZdmaIdle(u16 DeviceId, u32 BaseAddress)
+int NodeZdmaIdle(u16 DeviceId, u32 BaseAddress)
 {
+	int Status = XST_FAILURE;
 	u8 Channel = 0U;
 	u32 RegVal = 0U, LocalTimeout;
 
@@ -252,6 +260,10 @@ void NodeZdmaIdle(u16 DeviceId, u32 BaseAddress)
 			RegVal = XZDma_ReadReg(BaseAddress, XZDMA_CH_STS_OFFSET) & XZDMA_STS_BUSY_MASK;
 			LocalTimeout--;
 		} while ((0U != RegVal) && (LocalTimeout > 0U));
+
+		if (0U != RegVal) {
+			goto done;
+		}
 
 		/* Disable and clear all interrupts */
 		XZDma_WriteReg(BaseAddress, XZDMA_CH_IDS_OFFSET, XZDMA_IXR_ALL_INTR_MASK);
@@ -281,11 +293,17 @@ void NodeZdmaIdle(u16 DeviceId, u32 BaseAddress)
 
 		BaseAddress += XZDMA_CH_OFFSET;
 	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
 }
 #endif
 
-void XPmDevice_SoftResetIdle(XPm_Device *Device, const u32 IdleReq)
+int XPmDevice_SoftResetIdle(XPm_Device *Device, const u32 IdleReq)
 {
+	int Status = XST_FAILURE;
 	u32 Idx;
 	u32 DevRstDataSize = ARRAY_SIZE(DeviceRstData);
 	XPmDevice_SoftResetInfo *RstInfo = NULL;
@@ -300,16 +318,24 @@ void XPmDevice_SoftResetIdle(XPm_Device *Device, const u32 IdleReq)
 	}
 
 	if (NULL == RstInfo) {
-		return;
+		Status = XST_SUCCESS;
+		goto done;
 	}
 
 	if (DEVICE_IDLE_REQ == IdleReq) {
 		if (NULL != RstInfo->IdleHook) {
-			RstInfo->IdleHook(RstInfo->IdleHookArgs,
-					  Device->Node.BaseAddress);
+			Status = RstInfo->IdleHook(RstInfo->IdleHookArgs,
+						   Device->Node.BaseAddress);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
 		}
-
 	}
 
-	/* Perform the device reset using its reset lines and its reset actions */
+	/* TODO: Perform the device reset using its reset lines and its reset actions */
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
 }
