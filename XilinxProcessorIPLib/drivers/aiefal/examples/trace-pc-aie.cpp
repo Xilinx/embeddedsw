@@ -230,6 +230,14 @@ int main(void)
 		return -1;
 	}
 
+    //Request tiles
+    u8 NumTiles = 2;
+    XAie_LocType Loc[NumTiles];
+    Loc[0] = XAie_TileLoc(1, 1);
+    Loc[1] = XAie_TileLoc(1, 2);
+
+    RC = XAie_PmRequestTiles(&(DevInst), Loc, NumTiles);
+
 	vL.push_back(XAie_TileLoc(1,1));
 	vL.push_back(XAie_TileLoc(1,2));
 
