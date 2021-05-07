@@ -482,9 +482,12 @@ static XStatus PlHouseClean(u32 TriggerTime)
 		PldApplyTrim(XPM_PL_TRIM_CRAM);
 
 		if (PLATFORM_VERSION_SILICON != Platform) {
+			PmInfo("Skipping PL houseclean\r\n");
 			Status = XST_SUCCESS;
 			goto done;
 		}
+
+		PmInfo("Running PL houseclean\r\n");
 
 		/* LAGUNA REPAIR */
 		/* Read PMC_TAP to check if device is SSIT device */
@@ -1040,7 +1043,10 @@ static XStatus XPmPlDomain_InitandHouseclean(void)
 	    (PLATFORM_VERSION_FCV == LocalPlatformType)) {
 		PlpdHouseCleanBypass = 1;
 		PlpdHouseCleanBypassTmp = 1;
+		PmInfo("Bypass PL Houseclean\r\n");
 	}
+
+	PmInfo("Running PL Houseclean\r\n");
 
 	/* Check for PL POR Status */
 	Status = XPm_PollForMask(Pmc->PmcGlobalBaseAddr +

@@ -459,6 +459,7 @@ static XStatus AieScanClear(u32 *Args, u32 NumOfArgs)
 	}
 
 	if (PLATFORM_VERSION_SILICON == XPm_GetPlatform()) {
+		PmInfo("Triggering ScanClear for AIE\r\n");
 		/* Trigger Scan Clear */
 		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK,
 						ME_NPI_REG_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK);
@@ -498,6 +499,8 @@ static XStatus AieScanClear(u32 *Args, u32 NumOfArgs)
 			DbgErr = XPM_INT_ERR_SCAN_CLEAR_TRIGGER_UNSET;
 			goto fail;
 		}
+	} else {
+		PmInfo("Skipping ScanClear for AIE\r\n");
 	}
 
 	/* De-assert ODISABLE[0] */
@@ -542,6 +545,8 @@ static XStatus AieBisr(u32 *Args, u32 NumOfArgs)
 	}
 
 	BaseAddress = AieDev->Node.BaseAddress;
+
+	PmInfo("Triggering BISR for AIE\r\n");
 
 	/* Remove PMC-NoC domain isolation */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_SOC, FALSE_VALUE);
@@ -596,9 +601,10 @@ static XStatus AieMbistClear(u32 *Args, u32 NumOfArgs)
 	BaseAddress = AieDev->Node.BaseAddress;
 
 	if (XPm_GetPlatform() == PLATFORM_VERSION_SILICON) {
+		PmInfo("Triggering MBIST for AIE\r\n");
+
 		/* Clear MEM_CLEAR_EN_ALL to minimize power during mem clear */
-		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_MEM_CLEAR_EN_ALL_MASK,
-					0U);
+		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_MEM_CLEAR_EN_ALL_MASK, 0U);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_MEM_CLEAR_EN;
 			goto fail;
@@ -673,6 +679,8 @@ static XStatus AieMbistClear(u32 *Args, u32 NumOfArgs)
 			DbgErr = XPM_INT_ERR_MEM_CLEAR_TRIGGER_UNSET;
 			goto fail;
 		}
+	} else {
+		PmInfo("Skipping MBIST for AIE\r\n");
 	}
 
 	Status = XST_SUCCESS;

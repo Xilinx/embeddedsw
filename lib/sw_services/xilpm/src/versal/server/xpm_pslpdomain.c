@@ -175,9 +175,12 @@ static XStatus LpdScanClear(u32 *Args, u32 NumOfArgs)
 	(void)NumOfArgs;
 
 	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
+		PmInfo("Skipping ScanClear for LPD\r\n");
 		Status = XST_SUCCESS;
 		goto done;
 	}
+
+	PmInfo("Triggering ScanClear for LPD\r\n");
 
 	/* Trigger Scan clear on LPD/LPD_IOU */
 	RegBitMask = ((u32)PMC_ANALOG_SCAN_CLEAR_TRIGGER_LPD_MASK |
@@ -250,9 +253,12 @@ static XStatus LpdLbist(u32 *Args, u32 NumOfArgs)
 	(void)NumOfArgs;
 
 	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
+		PmInfo("Skipping LBIST for LPD\r\n");
 		Status = XST_SUCCESS;
 		goto done;
 	}
+
+	PmInfo("Triggering LBIST for LPD\r\n");
 
 	if (NULL == EfuseCache) {
 		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
@@ -359,6 +365,8 @@ static XStatus LpdBisr(u32 *Args, u32 NumOfArgs)
 		DbgErr = XPM_INT_ERR_PRE_BISR_REQ;
 		goto done;
 	}
+
+	PmInfo("Triggering BISR for LPD\r\n");
 
 	Status = XPmBisr_Repair(LPD_TAG_ID);
 	if (XST_SUCCESS != Status) {
@@ -493,9 +501,12 @@ static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
 	(void)NumOfArgs;
 
 	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
+		PmInfo("Skipping MBIST for LPD\r\n");
 		Status = XST_SUCCESS;
 		goto done;
 	}
+
+	PmInfo("Triggering MBIST for LPD\r\n");
 
 	u32 RegValue;
 

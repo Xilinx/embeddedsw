@@ -232,6 +232,8 @@ static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
 		goto done;
 	}
 
+	PmInfo("Triggering ScanClear for NPD\r\n");
+
 	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 	if (NULL == Pmc) {
 		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
@@ -314,9 +316,12 @@ static XStatus NpdMbist(u32 *Args, u32 NumOfArgs)
 	NpdPreBisrReqs();
 
 	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
+		PmInfo("Skipping MBIST for NPD\r\n");
 		Status = XST_SUCCESS;
 		goto done;
 	}
+
+	PmInfo("Triggering MBIST for NPD\r\n");
 
 	/* Deassert PCSR Lock*/
 	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {
@@ -491,9 +496,12 @@ static XStatus NpdBisr(u32 *Args, u32 NumOfArgs)
 
 
 	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
+		PmInfo("Skipping BISR for NPD\r\n");
 		Status = XST_SUCCESS;
 		goto done;
 	}
+
+	PmInfo("Triggering BISR for NPD\r\n");
 
 	/* Enable Bisr clock */
 	for (i = 0U; i < ARRAY_SIZE(DdrMcAddresses); i++) {
