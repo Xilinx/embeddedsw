@@ -141,7 +141,7 @@ static AieRC _XAie_RequestRsc(u32 *Bitmap, u32 StartBit,
 			for(u32 j = 0; j < i; j++)
 				_XAie_ClrBitInBitmap(Bitmap, RscArrPerTile[j]
 				+ StartBit, 1U);
-			XAIE_ERROR("Unable to find free resource\n");
+			XAIE_WARN("Unable to find free resource\n");
 
 			return XAIE_ERR;
 		}
