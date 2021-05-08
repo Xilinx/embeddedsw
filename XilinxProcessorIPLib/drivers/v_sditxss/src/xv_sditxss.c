@@ -51,6 +51,9 @@
 #define XSDITXSS_XVTC_GASIZE_F1_OFFSET	0x094
 #define XSDITXSS_SD_NTSC_F1_V_ACTIVE	244
 
+#define XST352_PAYLOAD_BYTE_MASK	0xFF
+#define XST352_BYTE1_ST372_DL_3GB	0x8A
+
 /**************************** Type Definitions *******************************/
 /**
 * This typedef declares the driver instances of all the cores in the subsystem
@@ -75,6 +78,7 @@ static void XV_SdiTxSs_UnderFlowCallback(void *CallbackRef);
 static void XV_SdiTxSs_CeAlignErrCallback(void *CallbackRef);
 static void XV_SdiTxSs_Axi4sVidLockCallback(void *CallbackRef);
 static int XV_SdiTxSs_RegisterSubsysCallbacks(XV_SdiTxSs *InstancePtr);
+static u8 XV_SdiTxSs_Is3GBDL(XV_SdiTxSs *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 
@@ -183,6 +187,32 @@ static void XV_SdiTxSs_GetIncludedSubcores(XV_SdiTxSs *SdiTxSsPtr, u16 DevId)
 		(&XV_SdiTxSs_SubCoreRepo[DevId].SdiTx) : NULL);
 	SdiTxSsPtr->VtcPtr = ((SdiTxSsPtr->Config.Vtc.IsPresent) ?
 		(&XV_SdiTxSs_SubCoreRepo[DevId].Vtc) : NULL);
+}
+
+/*****************************************************************************/
+/**
+* This function queries the subsystem instance if the current mode is 3GB
+* DL or not.
+*
+* @param  SdiTxSsPtr is a pointer to the Subsystem instance to be worked on.
+*
+* @return TRUE - If current mode is 3GB DL
+* 		  FALSE - If current mode is not 3GB DL
+*
+******************************************************************************/
+static u8 XV_SdiTxSs_Is3GBDL(XV_SdiTxSs *InstancePtr)
+{
+	u8 byte1;
+	u32 *payloadId;
+
+	if (InstancePtr->SdiTxPtr->Transport.IsLevelB3G) {
+		payloadId = XV_SdiTxSs_GetPayloadId(InstancePtr, 0);
+		byte1 = (*payloadId & XST352_PAYLOAD_BYTE_MASK);
+		if (byte1 == XST352_BYTE1_ST372_DL_3GB)
+			return TRUE;
+	}
+
+	return FALSE;
 }
 
 /*****************************************************************************/
@@ -836,9 +866,15 @@ void XV_SdiTxSs_StreamConfig(XV_SdiTxSs *InstancePtr)
 			PayloadLineNum2 = XV_SDITX_PAYLOADLN2_SDPAL;
 		}
 		break;
-	case XSDIVID_MODE_HD:
+
 	case XSDIVID_MODE_3GA:
 	case XSDIVID_MODE_3GB:
+		/* Only for 3GB DL case we need to change the IsInterlaced
+		 * to true as it should be true for 3GB DL. For remaining
+		 * cases it should be as it is configured from the upper layer*/
+		if (XV_SdiTxSs_Is3GBDL(InstancePtr))
+			InstancePtr->SdiTxPtr->Stream[0].Video.IsInterlaced = 1;
+	case XSDIVID_MODE_HD:
 	case XSDIVID_MODE_12G:
 		PayloadLineNum1 = XV_SDITX_PAYLOADLN1_HD_3G_6G_12G;
 		PayloadLineNum2 = XV_SDITX_PAYLOADLN2_HD_3G_6G_12G;
@@ -981,6 +1017,7 @@ void XV_SdiTxSs_ReportDetectedError(XV_SdiTxSs *InstancePtr)
 void XV_SdiTxSs_ReportInfo(XV_SdiTxSs *InstancePtr)
 {
 	/* u32 Data; */
+	u8 flag = (FALSE);
 
 	xil_printf("------------\n\r");
 	xil_printf("SDI TX SubSystem\n\r");
@@ -989,8 +1026,19 @@ void XV_SdiTxSs_ReportInfo(XV_SdiTxSs *InstancePtr)
 	xil_printf("\n\r");
 	xil_printf("SDI stream info\n\r");
 	xil_printf("------------\n\r");
+	/* Just for the info printing purpose we make interlaced is false
+	 * before printing as for 3GB DL stream info is progressive and
+	 * transmission is interlaced.*/
+	if (XV_SdiTxSs_Is3GBDL(InstancePtr) &&
+			(InstancePtr->SdiTxPtr->Stream[0].Video.IsInterlaced == 1)) {
+		InstancePtr->SdiTxPtr->Stream[0].Video.IsInterlaced = 0;
+	    flag = (TRUE);
+	}
 	XV_SdiTx_DebugInfo(InstancePtr->SdiTxPtr, XV_SDITX_DBGSELID_STRMINFO);
 	XV_SdiTx_DebugInfo(InstancePtr->SdiTxPtr, XV_SDITX_DBGSELID_SDIINFO);
+	if (flag == (TRUE))
+		InstancePtr->SdiTxPtr->Stream[0].Video.IsInterlaced = 1;
+
 	XV_SdiTx_ReportDetectedError(InstancePtr->SdiTxPtr);
 	xil_printf("\n\r");
 	xil_printf("SDI TX timing\n\r");
@@ -1059,13 +1107,26 @@ void XV_SdiTxSs_ReportDebugInfo(XV_SdiTxSs *InstancePtr, u32 VtcFlag)
 ******************************************************************************/
 void XV_SdiTxSs_ReportStreamInfo(XV_SdiTxSs *InstancePtr)
 {
+	u8 flag = (FALSE);
+
 	xil_printf("------------\n\r");
 	xil_printf("SDI TX SubSystem\n\r");
 	xil_printf("------------\n\r");
 	xil_printf("SDI stream info\n\r");
 	xil_printf("------------\n\r");
+	/* Just for the info printing purpose we make interlaced is false
+	 * before printing, as the 3GB DL stream info is progressive and
+	 * transmission is interlaced.*/
+	if (XV_SdiTxSs_Is3GBDL(InstancePtr) &&
+			(InstancePtr->SdiTxPtr->Stream[0].Video.IsInterlaced == 1)) {
+		InstancePtr->SdiTxPtr->Stream[0].Video.IsInterlaced = 0;
+	    flag = (TRUE);
+	}
 	XV_SdiTx_DebugInfo(InstancePtr->SdiTxPtr, XV_SDITX_DBGSELID_STRMINFO);
 	XV_SdiTx_DebugInfo(InstancePtr->SdiTxPtr, XV_SDITX_DBGSELID_SDIINFO);
+	if (flag == (TRUE))
+		InstancePtr->SdiTxPtr->Stream[0].Video.IsInterlaced = 1;
+
 	xil_printf("\n\r");
 }
 
