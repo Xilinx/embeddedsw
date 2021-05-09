@@ -36,6 +36,8 @@
 *                     deprecated.
 * 7.0   bsv  03/11/21 Fixed build issues
 *       bsv  04/01/21 Added TPM support
+*       bsv  05/03/21 Add provision to load bitstream from OCM with DDR
+*                     present in design
 *
 * </pre>
 *
@@ -275,7 +277,7 @@ static u32 XFsbl_PartitionSignVer(const XFsblPs *FsblInstancePtr, u64 PartitionO
 	(void)XFsbl_ShaStart(ShaCtx, HashLen);
 
 	/* Calculate Partition Hash */
-#ifndef XFSBL_PS_DDR
+#ifdef XFSBL_PL_LOAD_FROM_OCM
 	const XFsblPs_PartitionHeader * PartitionHeader;
 	u32 DestinationDevice = 0U;
 	PartitionHeader =
@@ -706,7 +708,7 @@ END:
 }
 
 #endif /* end of XFSBL_SECURE */
-#ifndef XFSBL_PS_DDR
+#ifdef XFSBL_PL_LOAD_FROM_OCM
 #ifdef XFSBL_BS
 /*****************************************************************************/
 /**

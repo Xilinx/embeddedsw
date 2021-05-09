@@ -26,6 +26,8 @@
 * 4.0   ka   04/10/18 Added support for user-efuse revocation
 * 5.0   bsv  03/11/21 Fixed build issues
 *       bsv  04/01/21 Added TPM support
+*       bsv  05/03/21 Add provision to load bitstream from OCM with DDR
+*                     present in design
 *
 * </pre>
 *
@@ -104,7 +106,7 @@ void XFsbl_ShaDigest(const u8 *In, const u32 Size, u8 *Out, u32 HashLen);
 void XFsbl_ShaFinish(void * Ctx, u8 * Hash, u32 HashLen);
 void XFsbl_ShaStart(void * Ctx, u32 HashLen);
 void XFsbl_ShaUpdate(void * Ctx, u8 * Data, u32 Size, u32 HashLen);
-#ifndef XFSBL_PS_DDR
+#ifdef XFSBL_PL_LOAD_FROM_OCM
 #ifdef XFSBL_BS
 u32 XFsbl_ShaUpdate_DdrLess(const XFsblPs *FsblInstancePtr, void *Ctx,
 		u64 PartitionOffset, u32 PartitionLen,

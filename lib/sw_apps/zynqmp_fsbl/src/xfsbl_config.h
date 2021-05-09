@@ -25,6 +25,8 @@
 * 4.0   ma   02/18/21 Added provision to define macros both using compiler
 *                     build flags and this file without redefinition warning
 *       bsv  04/01/21 Added TPM support
+*       bsv  05/03/21 Add provision to load bitstream from OCM with DDR
+*                     present in design
 *
 *</pre>
 *
@@ -121,8 +123,15 @@ extern "C" {
  *     - FSBL_A53_TCM_ECC_EXCLUDE_VAL TCM ECC Init will be excluded for A53
  *     - FSBL_PL_CLEAR_EXCLUDE_VAL PL clear will be excluded unless boot.bin
  *     	 contains bitstream
+ *     - FSBL_USB_EXCLUDE_VAL USB boot mode related code is excluded
+ *     - FSBL_PROT_BYPASS_EXCLUDE_VAL Isolation configurations are excluded
+ *     - FSBL_PARTITION_LOAD_EXCLUDE_VAL Partition loading is excluded
  *     - FSBL_FORCE_ENC_EXCLUDE_VAL Forcing encryption for every partition
- *       when ENC only bit is blown will be excluded.
+ *       when ENC only bit is blown will be excluded
+ *     - FSBL_DDR_SR_EXCLUDE_VAL DDR self refresh code is excluded
+ *     - FSBL_TPM_EXCLUDE_VAL TPM related code is excluded
+ *     - FSBL_PL_LOAD_FROM_OCM_EXCLUDE_VAL Code to loading bitstream in chunks
+ *       from OCM is excluded
  */
 #ifndef FSBL_NAND_EXCLUDE_VAL
 #define FSBL_NAND_EXCLUDE_VAL			(0U)
@@ -188,6 +197,10 @@ extern "C" {
 #define FSBL_TPM_EXCLUDE_VAL			(1U)
 #endif
 
+#ifndef FSBL_PL_LOAD_FROM_OCM_EXCLUDE_VAL
+#define FSBL_PL_LOAD_FROM_OCM_EXCLUDE_VAL	(1U)
+#endif
+
 #if (FSBL_NAND_EXCLUDE_VAL) && (!defined(FSBL_NAND_EXCLUDE))
 #define FSBL_NAND_EXCLUDE
 #endif
@@ -251,6 +264,11 @@ extern "C" {
 
 #if (FSBL_TPM_EXCLUDE_VAL == 1U) && (!defined(FSBL_TPM_EXCLUDE))
 #define FSBL_TPM_EXCLUDE
+#endif
+
+#if (FSBL_PL_LOAD_FROM_OCM_EXCLUDE_VAL == 1U) && \
+	(!defined(FSBL_PL_LOAD_FROM_OCM_EXCLUDE))
+#define FSBL_PL_LOAD_FROM_OCM_EXCLUDE
 #endif
 
 /************************** Function Prototypes ******************************/

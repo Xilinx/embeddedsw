@@ -25,6 +25,8 @@
 *       vns  03/07/18 Added ENC_ONLY mask
 * 4.0   vns  03/14/19 Added AES reset offset and Mask values.
 * 5.0   bsv  04/01/21 Added TPM support
+*       bsv  05/03/21 Add provision to load bitstream from OCM with DDR
+*                     present in design
 *
 * </pre>
 *
@@ -909,6 +911,10 @@ extern "C" {
 
 #define XFSBL_PS_DDR_START_ADDRESS		(0x0U)
 #define XFSBL_PS_DDR_START_ADDRESS_R5	(0x100000U)
+
+#if ((!defined(FSBL_PL_LOAD_FROM_OCM_EXCLUDE)) || (!defined(XFSBL_PS_DDR)))
+#define XFSBL_PL_LOAD_FROM_OCM
+#endif
 
 #if (!defined(FSBL_USB_EXCLUDE) && defined(XPAR_XUSBPSU_0_DEVICE_ID) && (XPAR_XUSBPSU_0_BASEADDR == 0xFE200000) && defined(XFSBL_PS_DDR))
 #define XFSBL_USB
