@@ -44,6 +44,8 @@
 *       bsv  04/01/21 Added TPM support
 *       bsv  04/28/21 Added support to ensure authenticated images boot as
 *                     non-secure when RSA_EN is not programmed
+*       bsv  05/03/21 Add provision to load bitstream from OCM with DDR
+*                     present in design
 *
 * </pre>
 *
@@ -969,8 +971,8 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 		{
 			LoadAddress = XFSBL_DDR_TEMP_ADDRESS;
 
-#ifndef XFSBL_PS_DDR
-			/* In case of DDR less system, skip copying */
+#ifdef XFSBL_PL_LOAD_FROM_OCM
+			/* In case of PL load from OCM, skip copying */
 			Status = XFSBL_SUCCESS;
 			goto END;
 #endif
@@ -1155,12 +1157,12 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	static XSecure_Aes SecureAes;
 #ifdef XFSBL_BS
 	XFsblPs_PlPartition PlParams = {0};
-#ifndef XFSBL_PS_DDR
+#ifdef XFSBL_PL_LOAD_FROM_OCM
 	u32 SrcAddress = 0U;
 #endif
 #endif
 #endif
-#if defined(XFSBL_BS) && defined(XFSBL_PS_DDR)
+#if defined(XFSBL_BS) && (!defined(XFSBL_PL_LOAD_FROM_OCM))
 	u32 BitstreamWordSize;
 #endif
 #ifdef XFSBL_PERF
@@ -1400,7 +1402,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 				(PartitionHeader->UnEncryptedDataWordLength
 					* 4U);
 
-#ifdef XFSBL_PS_DDR
+#ifndef XFSBL_PL_LOAD_FROM_OCM
 			PlParams.DeviceCopy = NULL;
 			PlParams.StartAddress = LoadAddress;
 			PlParams.PlAuth.AcOfset = LoadAddress +
@@ -1506,7 +1508,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 			/* Start time for bitstream decryption */
 			XTime_GetTime(&tCur);
 #endif
-#ifdef XFSBL_PS_DDR
+#ifndef XFSBL_PL_LOAD_FROM_OCM
 			/*
 			 * The secure bitstream would be sent through CSU DMA to AES
 			 * and the decrypted bitstream loaded to ReadBuffer from where
@@ -1540,9 +1542,12 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 			XSecure_AesSetChunkConfig(&SecureAes, ReadBuffer,
 					READ_BUFFER_SIZE,
 					FsblInstancePtr->DeviceOps.DeviceCopy);
+			SrcAddress = FsblInstancePtr->ImageOffsetAddress +
+				((PartitionHeader->DataWordOffset) *
+				XIH_PARTITION_WORD_LENGTH);
 
 			/**
-			 * In case of DDR less system, pass the partition source
+			 * In case of PL load from OCM, pass the partition source
 			 * address from Flash device.
 			 */
 			Status = (u32)XSecure_AesDecrypt(&SecureAes,
@@ -1578,7 +1583,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 			XTime_GetTime(&tCur);
 #endif
 
-#ifdef XFSBL_PS_DDR
+#ifndef XFSBL_PL_LOAD_FROM_OCM
 			/* Use CSU DMA to load Bit stream to PL */
 			BitstreamWordSize =
 				PartitionHeader->UnEncryptedDataWordLength;
@@ -1588,7 +1593,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 				goto END;
 			}
 #else
-			/* In case of DDR less system, do the chunked transfer */
+			/* In case of PL load from OCM, do the chunked transfer */
 			Status = XFsbl_ChunkedBSTxfer(FsblInstancePtr,
 							PartitionNum);
 			if (Status != XFSBL_SUCCESS) {
@@ -1805,7 +1810,7 @@ static u32 XFsbl_CalculateCheckSum(XFsblPs * FsblInstancePtr,
 	XFsblPs_PartitionHeader * PartitionHeader =
 		&FsblInstancePtr->ImageHeader.PartitionHeader[PartitionNum];
 	u32 ChecksumType;
-#ifndef XFSBL_PS_DDR
+#ifdef XFSBL_PL_LOAD_FROM_OCM
 	u32 DestinationDevice = XFsbl_GetDestinationDevice(PartitionHeader);
 #ifdef XFSBL_BS
 	void * ShaCtx = (void * )NULL;
@@ -1831,7 +1836,7 @@ static u32 XFsbl_CalculateCheckSum(XFsblPs * FsblInstancePtr,
 	}
 
 	XFsbl_Printf(DEBUG_INFO,"CheckSum Type - SHA3\r\n");
-#ifndef XFSBL_PS_DDR
+#ifdef XFSBL_PL_LOAD_FROM_OCM
 	if (DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PL)
 	{
 #ifdef XFSBL_BS

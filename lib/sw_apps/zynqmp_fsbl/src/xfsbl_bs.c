@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  *******************************************************************************/
 
@@ -19,6 +19,8 @@
  * 2.0   bv   12/05/16 Made compliance to MISRAC 2012 guidelines
  *                     Chunk for bitstream is been storing at bitstream_buffer
  *                     section
+ * 3.0   bsv  05/03/21 Add provision to load bitstream from OCM with DDR
+ *                     present in design
  *
  * </pre>
  *
@@ -251,7 +253,7 @@ u32 XFsbl_PLWaitForDone(void) {
  * @return	error status based on implemented functionality(SUCCESS by default)
  *
  *****************************************************************************/
-#ifndef XFSBL_PS_DDR
+#ifdef XFSBL_PL_LOAD_FROM_OCM
 u32 XFsbl_ChunkedBSTxfer(XFsblPs *FsblInstancePtr, u32 PartitionNum)
 {
 	u32 Status = XFSBL_SUCCESS;
