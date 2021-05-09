@@ -49,6 +49,8 @@
 * 5.0   har     01/16/20 Added checks for Status of SSS configuration when AES
 *                        engine is the Resource
 * 6.0   bsv     04/01/21 Added TPM support
+*       bsv     05/03/21 Add provision to load bitstream from OCM with DDR
+*                        present in design
 *
 * </pre>
 *
@@ -204,7 +206,7 @@ u32 XFsbl_SecPlPartition(XFsblPs * FsblInstancePtr,
 		}
 	}
 	Xil_DCacheEnable();
-#ifdef XFSBL_PS_DDR
+#ifndef XFSBL_PL_LOAD_FROM_OCM
 	/* Restore reset values for the DMA registers used */
 	XFsbl_Out32(ADMA_CH0_ZDMA_CH_CTRL0, 0x00000080U);
 	XFsbl_Out32(ADMA_CH0_ZDMA_CH_DST_DSCR_WORD0, 0x00000000U);
