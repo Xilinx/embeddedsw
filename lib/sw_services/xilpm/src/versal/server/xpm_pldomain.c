@@ -418,6 +418,13 @@ static XStatus PlHouseClean(u32 TriggerTime)
 			DbgErr = XPM_INT_ERR_DCMAC_BISR_REPAIR;
 			goto done;
 		}
+
+		Status = XPmBisr_Repair(HSC_TAG_ID);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_HSC_BISR_REPAIR;
+			goto done;
+		}
+
 		Status = XPmBisr_Repair(ILKN_TAG_ID);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_ILKN_BISR_REPAIR;
