@@ -876,8 +876,8 @@ namespace xaiefal {
 		 * of the specified tile.
 		 *
 		 * @return reference to AI resource class object of the
-		 *	   specified tile if tile is in the group, reference to
-		 *	   nullptr object.
+		 *	   specified tile if tile is in the group. Throws error if
+		 *	   tile not in group.
 		 */
 		T& tile(const XAie_LocType &L) {
 			T *R = nullptr;
@@ -887,7 +887,17 @@ namespace xaiefal {
 					R = lR.get();
 				}
 			}
-			return *R;
+
+			if (R == nullptr) {
+				Logger::log(LogLevel::ERROR) << typeid(*this).name() << " " <<
+					__func__ << "(" <<
+					(uint32_t)L.Col << "," << (uint32_t)L.Row << ")" <<
+					"Tile not added." << std::endl;
+					throw std::invalid_argument("Tile not added");
+			} else {
+				return *R;
+			}
+
 		}
 		T& operator[] (int i) {
 			return *(vRscs[i].get());
