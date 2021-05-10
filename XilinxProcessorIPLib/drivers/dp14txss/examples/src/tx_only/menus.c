@@ -925,7 +925,7 @@ void main_loop(){
 								done = 1;
 							}
 							if(Command==1){
-								xil_printf("Enabling VSC\r\n");
+								xil_printf("Enabling Colorimetry through VSC\r\n");
 								Ext_frame[0]=0x13050700;
 								Ext_frame[1]=0;
 								Ext_frame[2]=0x0;

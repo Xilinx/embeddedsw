@@ -28,12 +28,15 @@
 * 							max_cap_new=XDP_TX_LINK_BW_SET_810GBPS in hpd_con
 * 							for TX CTS test case.
 * 1.04 KU       04/12/21    Updated Versal GT programming to get /20 clk
+* 1.05 ND       05/07/21    Setting bit[12] of Reg 0x1A4 to 1 for VSC
+* 							Colorimetry support
 *
 * </pre>
 *
 ******************************************************************************/
 #include "xdptxss_dp14_tx.h"
 #include "xvidframe_crc.h"
+#include "xil_cache.h"
 
 XTmrCtr TmrCtr; /* Timer instance.*/
 
@@ -95,6 +98,8 @@ void DpPt_HpdEventHandler(void *InstancePtr);
 void DpPt_HpdPulseHandler(void *InstancePtr);
 void DpPt_LinkrateChgHandler (void *InstancePtr);
 void DpPt_pe_vs_adjustHandler(void *InstancePtr);
+void DpPt_ExtPkt_Handler(void *InstancePtr);
+void DpPt_Vblank_Handler(void *InstancePtr);
 
 u32 DpTxSs_SetupIntrSystem(void);
 u32 DpTxSs_PhyInit(u16 DeviceId);
@@ -176,6 +181,33 @@ static XVphy_User_Config PHY_User_Config_Table[] =
 
 };
 #endif
+
+void enable_caches()
+{
+#ifdef __PPC__
+    Xil_ICacheEnableRegion(CACHEABLE_REGION_MASK);
+    Xil_DCacheEnableRegion(CACHEABLE_REGION_MASK);
+#elif __MICROBLAZE__
+#ifdef XPAR_MICROBLAZE_USE_ICACHE
+    Xil_ICacheEnable();
+#endif
+#ifdef XPAR_MICROBLAZE_USE_DCACHE
+    Xil_DCacheEnable();
+#endif
+#endif
+}
+
+void disable_caches()
+{
+#ifdef __MICROBLAZE__
+#ifdef XPAR_MICROBLAZE_USE_DCACHE
+    Xil_DCacheDisable();
+#endif
+#ifdef XPAR_MICROBLAZE_USE_ICACHE
+    Xil_ICacheDisable();
+#endif
+#endif
+}
 /************************** Function Definitions *****************************/
 
 /*****************************************************************************/
@@ -200,6 +232,8 @@ int main()
 {
 	u32 Status;
 
+        enable_caches();
+
 	xil_printf("------------------------------------------\r\n");
 	xil_printf("DisplayPort TX Subsystem Example Design\r\n");
 	xil_printf("(c) 2021 by Xilinx\r\n");
@@ -213,6 +247,8 @@ int main()
 
 	xil_printf(
 			"Successfully ran DisplayPort TX Subsystem interrupt example\r\n");
+
+	disable_caches();
 
 	return XST_SUCCESS;
 }
@@ -621,6 +657,11 @@ u32 DpTxSs_SetupIntrSystem(void)
 			(void *)DpPt_LinkrateChgHandler, &DpTxSsInst);
 	XDpTxSs_SetCallBack(&DpTxSsInst, (XDPTXSS_HANDLER_DP_PE_VS_ADJUST),
 			(void *)DpPt_pe_vs_adjustHandler, &DpTxSsInst);
+	XDpTxSs_SetCallBack(&DpTxSsInst, (XDPTXSS_HANDLER_DP_EXT_PKT_EVENT),
+			(void *)DpPt_ExtPkt_Handler, &DpTxSsInst);
+	XDpTxSs_SetCallBack(&DpTxSsInst, (XDPTXSS_HANDLER_DP_VSYNC),
+			(void *)DpPt_Vblank_Handler, &DpTxSsInst);
+
 
 	/* Set custom timer wait */
 //	XDpRxSs_SetUserTimerHandler(&DpRxSsInst, &CustomWaitUs, &TmrCtr);
@@ -1086,6 +1127,17 @@ void DpPt_pe_vs_adjustHandler(void *InstancePtr){
 	}
 }
 
+void DpPt_ExtPkt_Handler(void *InstancePtr) {
+/* Empty
+ *
+ */
+}
+
+void DpPt_Vblank_Handler(void *InstancePtr) {
+/*Empty
+ *
+ */
+}
 
 void DpPt_CustomWaitUs(void *InstancePtr, u32 MicroSeconds)
 {
@@ -1186,7 +1238,7 @@ void DpPt_HpdPulseHandler(void *InstancePtr)
 
 void hpd_pulse_con(XDpTxSs *InstancePtr)
 {
-
+	u32 Readval;
 
 	u8 lane0_sts = InstancePtr->UsrHpdPulseData.Lane0Sts;
 	u8 lane2_sts = InstancePtr->UsrHpdPulseData.Lane2Sts;
@@ -1268,6 +1320,14 @@ void hpd_pulse_con(XDpTxSs *InstancePtr)
 		XDpTxSs_SetLinkRate(&DpTxSsInst, bw_set);
 		XDpTxSs_SetLaneCount(&DpTxSsInst, lane_set);
 		XDpTxSs_Start(&DpTxSsInst);
+
+		if(DpTxSsInst.DpPtr->TxInstance.ColorimetryThroughVsc){
+			Readval=XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+					XDP_TX_MAIN_STREAM_MISC0);
+			Readval=(Readval|(1<<12));
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+					XDP_TX_MAIN_STREAM_MISC0,Readval);
+		}
 	}
 
      XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_INTERRUPT_MASK, 0x0);
@@ -1509,6 +1569,7 @@ u32 start_tx(u8 line_rate, u8 lane_count,user_config_struct user_config){
 
 
 	u32 Status;
+	u32 Readval;
 	// Stop the Patgen
 	XDp_WriteReg(XPAR_TX_SUBSYSTEM_AV_PAT_GEN_0_BASEADDR,
 			0x0, 0x0);
@@ -1532,7 +1593,6 @@ u32 start_tx(u8 line_rate, u8 lane_count,user_config_struct user_config){
     xil_printf (".");
     XDpTxSs_SetLaneCount(&DpTxSsInst, lane_count);
     xil_printf (".");
-
     //Populate Color format and BPC to vsc packet
     if(DpTxSsInst.DpPtr->TxInstance.ColorimetryThroughVsc){
 			u32 data=0;
@@ -1574,10 +1634,22 @@ u32 start_tx(u8 line_rate, u8 lane_count,user_config_struct user_config){
 	XDp_TxCfgSetColorEncode(DpTxSsInst.DpPtr, XDP_TX_STREAM_ID1, \
 			format, XVIDC_BT_601, XDP_DR_CEA);
 
-	// VTC requires linkup(video clk) before setting values.
-	// This is why we need to linkup once to get proper CLK on VTC.
 	if (set_phy == 0) {
-	Status = DpTxSubsystem_Start(&DpTxSsInst, 0);
+		Status = DpTxSubsystem_Start(&DpTxSsInst, 0);
+
+		/* When sending colorimetry info through VSC
+		 * Setting bit[12] of Reg 0x1A4 to 1
+		 * This ensures that VSC pkt is sent every frame
+		 */
+
+		if(DpTxSsInst.DpPtr->TxInstance.ColorimetryThroughVsc){
+			Readval = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+				XDP_TX_MAIN_STREAM_MISC0);
+			Readval = (Readval|(1<<12));
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+				XDP_TX_MAIN_STREAM_MISC0,Readval);
+		}
+
 	if (Status != XST_SUCCESS) {
 #if !PHY_COMP
 		//Compliance tests do some crazy things.
