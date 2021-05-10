@@ -405,10 +405,9 @@ namespace xaiefal {
 			}
 
 			if (RC != XAIE_OK) {
-				Logger::log(LogLevel::ERROR) << "perfcount " << __func__ << " (" <<
+				Logger::log(LogLevel::WARN) << "perfcount " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
-					" Expect Mod= " << Mod <<
-					" resource not available." << std::endl;
+					" Expect Mod= " << Mod << " resource not available.\n";
 			} else {
 				RC = _reserveAppend();
 			}
