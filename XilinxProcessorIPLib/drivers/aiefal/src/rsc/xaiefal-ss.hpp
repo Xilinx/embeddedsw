@@ -146,9 +146,9 @@ namespace xaiefal {
 				RC = XAie_RequestAllocatedSSEventPortSelect(AieHd->dev(), 1, &Rsc);
 			}
 			if (RC != XAIE_OK) {
-				Logger::log(LogLevel::ERROR) << "Stream port select " << __func__ << " (" <<
+				Logger::log(LogLevel::WARN) << "Stream port select " << __func__ << " (" <<
 					static_cast<uint32_t>(Loc.Col) << "," << static_cast<uint32_t>(Loc.Row) << ")" <<
-					" resource not available." << std::endl;
+					" resource not available.\n";
 			}
 			return RC;
 		}

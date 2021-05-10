@@ -243,9 +243,9 @@ namespace xaiefal {
 			Rsc.RscId = static_cast<uint32_t>(GroupEvent);
 			RC = XAie_RequestAllocatedGroupEvents(dev(), 1, &Rsc);
 			if (RC != XAIE_OK) {
-				Logger::log(LogLevel::ERROR) << "Group event " << __func__ << " (" <<
+				Logger::log(LogLevel::WARN) << "Group event " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row << ")" <<
-					" Mod=" << Mod << " resource not available." << std::endl;
+					" Mod=" << Mod << " resource not available.\n";
 			}
 			return RC;
 		}

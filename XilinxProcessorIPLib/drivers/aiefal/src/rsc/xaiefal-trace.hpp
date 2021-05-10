@@ -648,7 +648,7 @@ namespace xaiefal {
 				" Event Mod=" << Mod << std::endl;
 			RC = TraceCntr->reserveTraceSlot(Slot);
 			if (RC != XAIE_OK) {
-				Logger::log(LogLevel::ERROR) << "trace event " << __func__ << " (" <<
+				Logger::log(LogLevel::WARN) << "trace event " << __func__ << " (" <<
 					static_cast<uint32_t>(Loc.Col) << "," << static_cast<uint32_t>(Loc.Row) <<
 					") trace control Mod=" << TraceCntr->getModule() <<
 					" Event Mod=" << Mod << " no trace slot" << std::endl;
