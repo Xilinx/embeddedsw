@@ -28,6 +28,7 @@
 /***************************** Include Files *********************************/
 
 #include <stddef.h>
+#include <xil_cache.h>
 #include <xdp.h>
 #include <xdp_hw.h>
 #include <xdprxss.h>
@@ -328,6 +329,34 @@ DP_Rx_Training_Algo_Config RxTrainConfig;
 XIic IicInstance;	/* I2C bus for MC6000 and IDT */
 /************************** Function Definitions *****************************/
 
+void enable_caches()
+{
+#ifdef __PPC__
+    Xil_ICacheEnableRegion(CACHEABLE_REGION_MASK);
+    Xil_DCacheEnableRegion(CACHEABLE_REGION_MASK);
+#elif __MICROBLAZE__
+#ifdef XPAR_MICROBLAZE_USE_ICACHE
+    Xil_ICacheEnable();
+#endif
+#ifdef XPAR_MICROBLAZE_USE_DCACHE
+    Xil_DCacheEnable();
+#endif
+#endif
+}
+
+void disable_caches()
+{
+#ifdef __MICROBLAZE__
+#ifdef XPAR_MICROBLAZE_USE_DCACHE
+    Xil_DCacheDisable();
+#endif
+#ifdef XPAR_MICROBLAZE_USE_ICACHE
+    Xil_ICacheDisable();
+#endif
+#endif
+}
+
+
 
 /*****************************************************************************/
 /**
@@ -444,6 +473,7 @@ int VideoFMC_Init(void){
 int main()
 {
 	u32 Status;
+	enable_caches();
 
 	xil_printf("------------------------------------------\n\r");
 	xil_printf("DisplayPort RX Only Example\n\r");
@@ -455,6 +485,8 @@ int main()
 		xil_printf("DisplayPort RX Subsystem design example failed.");
 		return XST_FAILURE;
 	}
+
+	disable_caches();
 
 	return XST_SUCCESS;
 }
