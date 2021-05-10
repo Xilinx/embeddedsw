@@ -336,6 +336,8 @@ extern "C" {
 #define XPM_INT_REMOVE_RST_EN_CLK		0x371EU
 /* Error while applying GTY workaround */
 #define XPM_INT_ERR_GT_WORKAROUND		0x371FU
+/* Error during HSC BISR repair */
+#define XPM_INT_ERR_HSC_BISR_REPAIR		0x3720U
 
 /************************** NPD specific Errors ******************************/
 /************************** (0x3800) - (0x38FF) ******************************/
