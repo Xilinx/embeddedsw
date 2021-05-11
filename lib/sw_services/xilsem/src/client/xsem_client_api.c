@@ -10,9 +10,9 @@
 * @addtogroup xsem_client_apis XilSEM Versal Client APIs
 * @{
 * This file provides XilSEM client interface to send IPI requests from the
-* user application to XilSEM server on PLM. This provide APIs to Start,
-* Stop, Error Injection, Event notification registration, Status details
-* for both CRAM and NPI.
+* user application to XilSEM server on PLM. This provides APIs to Init,
+* Start, Stop, Error Injection, Event notification registration, get Status
+* details for both CRAM and NPI.
 *
 * @cond xsem_internal
 *
@@ -30,7 +30,7 @@
 * 0.6   hv   03/11/2021   Doxygen changes
 * 0.7   hb   03/15/2021   MISRA fixes and formatted code
 * 0.8   rb   04/07/2021   Doxygen changes
-*
+* 0.9	hv   05/04/2021   Updated Doxygen comments
 * </pre>
 *
 * @note
@@ -284,13 +284,13 @@ END:
  * @brief	This function is used to read all CRAM Status registers from
  *		PMC RAM and send to user application
  *
- * @param[out]	CfrStatusInfo : Structure Pointer with CRAM Status details
- *		- CfrStatusInfo->Status: Provides details about CRAM scan.
+ * @param[out]	CfrStatusInfo Structure Pointer with CRAM Status details
+ *		- CfrStatusInfo->Status: Provides details about CRAM scan
  *			- Bit [31-25]: Reserved
  *			- Bit [24:20]: CRAM Error codes
  *				- 00001: Unexpected CRC error when CRAM is
  *				not in observation state
- *				- 00010: unexpected ECC error when CRAM is
+ *				- 00010: Unexpected ECC error when CRAM is
  *				not in Observation or Initialization state
  *				- 00011: Safety write error in SEU handler
  *				- 00100: ECC/CRC ISR not found in any Row
@@ -319,7 +319,7 @@ END:
  *				corrected
  *				- 10: Correctable error detected but not
  *				corrected (Correction is disabled)
- *				- 11: NA
+ *				- 11: Reserved
  *			- Bit [13]: CRAM Scan internal error
  *			- Bit [12]: CRAM Invalid Error Location detected
  *			- Bit [11]: CRAM Correctable ECC error detected
@@ -552,9 +552,9 @@ END:
  * @brief	This function is used to read all NPI Status registers from
  *		PMC RAM and send to user application
  *
- * @param[out]	NpiStatusInfo : Structure Pointer with NPI Status details
- *		- NpiStatusInfo->Status: Provides details about NPI scan.
- *			- Bit [31]: Crypto Accelerator is disabled for
+ * @param[out]	NpiStatusInfo Structure Pointer with NPI Status details
+ *		- NpiStatusInfo->Status: Provides details about NPI scan
+ *			- Bit [31]: Cryptographic acceleration blocks are disabled for
  *			export compliance
  *			- Bit [30-26]: Reserved
  *			- Bit [25]: NPI GPIO write failure
@@ -572,7 +572,7 @@ END:
  *			- Bit [15-12]: Reserved
  *			- Bit [11]: NPI periodic scan is enabled
  *			- Bit [10]: NPI scan is suspended
- *			- Bit [09]: NPI completes the first scan
+ *			- Bit [09]: NPI completed the first scan
  *			- Bit [08]: NPI Scan is included in design
  *			- Bit [07-06]: Reserved
  *			- Bit [05]: NPI Internal Error State
