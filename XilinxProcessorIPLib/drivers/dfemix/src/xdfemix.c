@@ -30,6 +30,7 @@
 *       dc     04/20/21 Doxygen documentation update
 *       dc     04/22/21 Add CC_GAIN field
 *       dc     04/27/21 Update CARRIER_CONFIGURATION handling
+*       dc     05/08/21 Update to common trigger
 *
 * </pre>
 *
@@ -49,10 +50,9 @@
 #endif
 
 /**************************** Macros Definitions ****************************/
-#define XDFEMIX_SEQUENCE_ENTRY_DEFAULT 0U /**< Default sequence entry flag */
-#define XDFEMIX_SEQUENCE_ENTRY_NULL (-1) /**< Null sequence entry flag */
-#define XDFEMIX_CEILING(x, y) (((x) + (y)-1U) / (y)) /**< U32 ceiling */
-#define XDFEMIX_NO_EMPTY_CCID_FLAG 0xFFFFU /**< Not Empty CCID flag */
+#define XDFEMIX_SEQUENCE_ENTRY_DEFAULT 0U /* Default sequence entry flag */
+#define XDFEMIX_SEQUENCE_ENTRY_NULL (-1) /* Null sequence entry flag */
+#define XDFEMIX_NO_EMPTY_CCID_FLAG 0xFFFFU /* Not Empty CCID flag */
 #define XDFEMIX_PHASE_OFFSET_ROUNDING_BITS 14U
 #define XDFEMIX_U32_NUM_BITS 32U
 
@@ -899,23 +899,21 @@ static void XDfeMix_SetPLMixerDelay(const XDfeMix *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Reads the Triggers and sets enable bit of update trigger. If register
-* source, then trigger will be applied immediately.
+* Reads the Triggers and sets enable bit of update trigger. If
+* Mode = IMMEDIATE, then trigger will be applied immediately.
 *
 * @param    InstancePtr is a pointer to the Mixer instance.
-*
 *
 ****************************************************************************/
 static void XDfeMix_EnableCCUpdateTrigger(const XDfeMix *InstancePtr)
 {
 	u32 Data;
-
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	Data = XDfeMix_ReadReg(InstancePtr, XDFEMIX_TRIGGERS_CC_UPDATE_OFFSET);
-	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ENABLE_WIDTH,
-				  XDFEMIX_TRIGGERS_ENABLE_OFFSET, Data,
-				  XDFEMIX_TRIGGERS_ENABLE_ENABLED);
+	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				  XDFEMIX_TRIGGERS_TRIGGER_ENABLE_OFFSET, Data,
+				  XDFEMIX_TRIGGERS_TRIGGER_ENABLE_ENABLED);
 	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_CC_UPDATE_OFFSET, Data);
 }
 
@@ -923,32 +921,30 @@ static void XDfeMix_EnableCCUpdateTrigger(const XDfeMix *InstancePtr)
 /**
 *
 * Reads the Triggers and sets enable bit of LowPower trigger.
-* If register source, then trigger will be applied immediately.
+* If Mode = IMMEDIATE, then trigger will be applied immediately.
 *
 * @param    InstancePtr is a pointer to the Mixer instance.
-*
 *
 ****************************************************************************/
 static void XDfeMix_EnableLowPowerTrigger(const XDfeMix *InstancePtr)
 {
 	u32 Data;
-
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	Data = XDfeMix_ReadReg(InstancePtr, XDFEMIX_TRIGGERS_LOW_POWER_OFFSET);
-	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ENABLE_WIDTH,
-				  XDFEMIX_TRIGGERS_ENABLE_OFFSET, Data,
-				  XDFEMIX_TRIGGERS_ENABLE_ENABLED);
+	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				  XDFEMIX_TRIGGERS_TRIGGER_ENABLE_OFFSET, Data,
+				  XDFEMIX_TRIGGERS_TRIGGER_ENABLE_ENABLED);
 	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_LOW_POWER_OFFSET, Data);
 }
+
 /****************************************************************************/
 /**
 *
-* Reads the Triggers, set enable bit of Activate trigger. If register
-* source, then trigger will be applied immediately.
+* Reads the Triggers, set enable bit of Activate trigger. If
+* Mode = IMMEDIATE, then trigger will be applied immediately.
 *
 * @param    InstancePtr is a pointer to the Mixer instance.
-*
 *
 ****************************************************************************/
 static void XDfeMix_EnableActivateTrigger(const XDfeMix *InstancePtr)
@@ -957,9 +953,36 @@ static void XDfeMix_EnableActivateTrigger(const XDfeMix *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	Data = XDfeMix_ReadReg(InstancePtr, XDFEMIX_TRIGGERS_ACTIVATE_OFFSET);
-	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ENABLE_WIDTH,
-				  XDFEMIX_TRIGGERS_ENABLE_OFFSET, Data,
-				  XDFEMIX_TRIGGERS_ENABLE_ENABLED);
+	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				  XDFEMIX_TRIGGERS_TRIGGER_ENABLE_OFFSET, Data,
+				  XDFEMIX_TRIGGERS_TRIGGER_ENABLE_ENABLED);
+	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_STATE_OUTPUT_WIDTH,
+				  XDFEMIX_TRIGGERS_STATE_OUTPUT_OFFSET, Data,
+				  XDFEMIX_TRIGGERS_STATE_OUTPUT_ENABLED);
+	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_ACTIVATE_OFFSET, Data);
+}
+
+/****************************************************************************/
+/**
+*
+* Reads the Triggers, set disable bit of Activate trigger. If
+* Mode = IMMEDIATE, then trigger will be applied immediately.
+*
+* @param    InstancePtr is a pointer to the Mixer instance.
+*
+****************************************************************************/
+static void XDfeMix_EnableDeactivateTrigger(const XDfeMix *InstancePtr)
+{
+	u32 Data;
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	Data = XDfeMix_ReadReg(InstancePtr, XDFEMIX_TRIGGERS_ACTIVATE_OFFSET);
+	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				  XDFEMIX_TRIGGERS_TRIGGER_ENABLE_OFFSET, Data,
+				  XDFEMIX_TRIGGERS_TRIGGER_ENABLE_ENABLED);
+	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_STATE_OUTPUT_WIDTH,
+				  XDFEMIX_TRIGGERS_STATE_OUTPUT_OFFSET, Data,
+				  XDFEMIX_TRIGGERS_STATE_OUTPUT_DISABLED);
 	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_ACTIVATE_OFFSET, Data);
 }
 
@@ -970,18 +993,16 @@ static void XDfeMix_EnableActivateTrigger(const XDfeMix *InstancePtr)
 *
 * @param    InstancePtr is a pointer to the Mixer instance.
 *
-*
 ****************************************************************************/
 static void XDfeMix_DisableLowPowerTrigger(const XDfeMix *InstancePtr)
 {
 	u32 Data;
-
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	Data = XDfeMix_ReadReg(InstancePtr, XDFEMIX_TRIGGERS_LOW_POWER_OFFSET);
-	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ENABLE_WIDTH,
-				  XDFEMIX_TRIGGERS_ENABLE_OFFSET, Data,
-				  XDFEMIX_TRIGGERS_ENABLE_DISABLED);
+	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				  XDFEMIX_TRIGGERS_TRIGGER_ENABLE_OFFSET, Data,
+				  XDFEMIX_TRIGGERS_TRIGGER_ENABLE_DISABLED);
 	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_LOW_POWER_OFFSET, Data);
 }
 
@@ -999,9 +1020,8 @@ static void XDfeMix_DisableLowPowerTrigger(const XDfeMix *InstancePtr)
 * @param    DeviceNodeName is device node name.
 *
 * @return
-*           - Pointer to instance if successful.
+*           - Pointer to the instance if successful.
 *           - NULL on error.
-*
 *
 ******************************************************************************/
 XDfeMix *XDfeMix_InstanceInit(const char *DeviceNodeName)
@@ -1105,8 +1125,6 @@ return_error:
 * API closes the instances of a Mixer driver.
 *
 * @param    InstancePtr is a pointer to the XDfeMix instance.
-*
-*
 *
 ******************************************************************************/
 void XDfeMix_InstanceClose(XDfeMix *InstancePtr)
@@ -1247,7 +1265,6 @@ void XDfeMix_Configure(XDfeMix *InstancePtr, XDfeMix_Cfg *Cfg)
 * @param    InstancePtr is a pointer to the Mixer instance.
 * @param    Init is a initialisation data container.
 *
-*
 ****************************************************************************/
 void XDfeMix_Initialize(XDfeMix *InstancePtr, XDfeMix_Init *Init)
 {
@@ -1298,19 +1315,19 @@ void XDfeMix_Initialize(XDfeMix *InstancePtr, XDfeMix_Init *Init)
 
 	/* Trigger CC_UPDATE immediately using Register source to update
 	   CURRENT from NEXT */
-	CCUpdate.Enable = 1U;
-	CCUpdate.OneShot = 1U;
-	CCUpdate.Source = 0U;
+	CCUpdate.TriggerEnable = XDFEMIX_TRIGGERS_TRIGGER_ENABLE_ENABLED;
+	CCUpdate.Mode = XDFEMIX_TRIGGERS_MODE_IMMEDIATE;
+	CCUpdate.StateOutput = XDFEMIX_TRIGGERS_STATE_OUTPUT_ENABLED;
 	Data = XDfeMix_ReadReg(InstancePtr, XDFEMIX_TRIGGERS_CC_UPDATE_OFFSET);
-	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ONE_SHOT_WIDTH,
-				  XDFEMIX_TRIGGERS_ONE_SHOT_OFFSET, Data,
-				  CCUpdate.OneShot);
-	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ENABLE_WIDTH,
-				  XDFEMIX_TRIGGERS_ENABLE_OFFSET, Data,
-				  CCUpdate.Enable);
-	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_SOURCE_WIDTH,
-				  XDFEMIX_TRIGGERS_SOURCE_OFFSET, Data,
-				  CCUpdate.Source);
+	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_STATE_OUTPUT_WIDTH,
+				  XDFEMIX_TRIGGERS_STATE_OUTPUT_OFFSET, Data,
+				  CCUpdate.StateOutput);
+	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				  XDFEMIX_TRIGGERS_TRIGGER_ENABLE_OFFSET, Data,
+				  CCUpdate.TriggerEnable);
+	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_MODE_WIDTH,
+				  XDFEMIX_TRIGGERS_MODE_OFFSET, Data,
+				  CCUpdate.Mode);
 	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_CC_UPDATE_OFFSET, Data);
 
 	InstancePtr->StateId = XDFEMIX_STATE_INITIALISED;
@@ -1324,20 +1341,22 @@ void XDfeMix_Initialize(XDfeMix *InstancePtr, XDfeMix_Init *Init)
 * @param    InstancePtr is a pointer to the Mixer instance.
 * @param    EnableLowPower is a flag indicating low power.
 *
-*
-* @note     Writting to ACTIVATE reg.toggles between "initialized" and
-*           "operational".
-*
 ******************************************************************************/
 void XDfeMix_Activate(XDfeMix *InstancePtr, bool EnableLowPower)
 {
-	u32 Data;
+	u32 IsOperational;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEMIX_STATE_INITIALISED);
+	Xil_AssertVoid((InstancePtr->StateId == XDFEMIX_STATE_INITIALISED) ||
+		       (InstancePtr->StateId == XDFEMIX_STATE_OPERATIONAL));
 
-	Data = XDfeMix_ReadReg(InstancePtr, XDFEMIX_STATE_OPERATIONAL_OFFSET);
-	if (1U == Data) {
+	/* Do nothing if the block already operational */
+	IsOperational =
+		XDfeMix_RdRegBitField(InstancePtr,
+				      XDFEMIX_STATE_OPERATIONAL_OFFSET,
+				      XDFEMIX_STATE_OPERATIONAL_FIELD_WIDTH,
+				      XDFEMIX_STATE_OPERATIONAL_FIELD_OFFSET);
+	if (IsOperational == XDFEMIX_STATE_OPERATIONAL_YES) {
 		return;
 	}
 
@@ -1356,32 +1375,34 @@ void XDfeMix_Activate(XDfeMix *InstancePtr, bool EnableLowPower)
 /*****************************************************************************/
 /**
 *
-* DeActivates mixer.
+* Deactivates mixer.
 *
 * @param    InstancePtr is a pointer to the Mixer instance.
-*
-* @note     Writting to ACTIVATE reg.toggles between "initialized" and
-*          "operational".
 *
 ******************************************************************************/
 void XDfeMix_Deactivate(XDfeMix *InstancePtr)
 {
-	u32 Data;
+	u32 IsOperational;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEMIX_STATE_OPERATIONAL);
+	Xil_AssertVoid((InstancePtr->StateId == XDFEMIX_STATE_INITIALISED) ||
+		       (InstancePtr->StateId == XDFEMIX_STATE_OPERATIONAL));
 
-	Data = XDfeMix_ReadReg(InstancePtr, XDFEMIX_STATE_OPERATIONAL_OFFSET);
-	if (0U == Data) {
+	/* Do nothing if the block already deactivated */
+	IsOperational =
+		XDfeMix_RdRegBitField(InstancePtr,
+				      XDFEMIX_STATE_OPERATIONAL_OFFSET,
+				      XDFEMIX_STATE_OPERATIONAL_FIELD_WIDTH,
+				      XDFEMIX_STATE_OPERATIONAL_FIELD_OFFSET);
+	if (IsOperational == XDFEMIX_STATE_OPERATIONAL_NO) {
 		return;
 	}
 
 	/* Disable LowPower trigger (may not be enabled) */
 	XDfeMix_DisableLowPowerTrigger(InstancePtr);
 
-	/* Enable Activate trigger (toggles state between operational
-	   and intialized) */
-	XDfeMix_EnableActivateTrigger(InstancePtr);
+	/* Enable Deactivate trigger */
+	XDfeMix_EnableDeactivateTrigger(InstancePtr);
 
 	InstancePtr->StateId = XDFEMIX_STATE_INITIALISED;
 }
@@ -1394,7 +1415,7 @@ void XDfeMix_Deactivate(XDfeMix *InstancePtr)
 * Adds specified CCID, with specified configuration.
 * If there is insufficient capacity for the new CC the function will return
 * an error.
-* Initiates CC update (enable CCUpdate trigger one-shot).
+* Initiates CC update (enable CCUpdate trigger TUSER Single Shot).
 *
 * @param    InstancePtr is a pointer to the Mixer instance.
 * @param    CCID is a Channel ID.
@@ -1404,8 +1425,6 @@ void XDfeMix_Deactivate(XDfeMix *InstancePtr)
 * @return
 *           - XST_SUCCESS if successful.
 *           - XST_FAILURE if error occurs.
-*
-* @note     None
 *
 ****************************************************************************/
 u32 XDfeMix_AddCC(XDfeMix *InstancePtr, s32 CCID, u32 BitSequence,
@@ -1456,11 +1475,10 @@ u32 XDfeMix_AddCC(XDfeMix *InstancePtr, s32 CCID, u32 BitSequence,
 /**
 *
 * Removes specified CCID.
-* Initiates CC update (enable CCUpdate trigger one-shot).
+* Initiates CC update (enable CCUpdate trigger TUSER Single Shot).
 *
 * @param    InstancePtr is a pointer to the Mixer instance.
 * @param    CCID is a Channel ID.
-*
 *
 ****************************************************************************/
 void XDfeMix_RemoveCC(XDfeMix *InstancePtr, s32 CCID)
@@ -1490,7 +1508,7 @@ void XDfeMix_RemoveCC(XDfeMix *InstancePtr, s32 CCID)
 *
 * Moves specified CCID from one NCO to another aligning phase to make it
 * transparent.
-* Initiates CC update (enable CCUpdate trigger one-shot).
+* Initiates CC update (enable CCUpdate trigger TUSER Single Shot).
 *
 * @param    InstancePtr is a pointer to the Mixer instance.
 * @param    CCID is a Channel ID.
@@ -1556,7 +1574,8 @@ void XDfeMix_UpdateCC(const XDfeMix *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Sets antenna gain.
+* Sets antenna gain. Initiate CC update (enable CCUpdate trigger TUSER
+* Single Shot).
 *
 * @param    InstancePtr is a pointer to the Mixer instance.
 * @param    AntennaId is an antenna ID.
@@ -1587,7 +1606,6 @@ void XDfeMix_SetAntennaGain(XDfeMix *InstancePtr, u32 AntennaId,
 * @param    InstancePtr is a pointer to the Mixer instance.
 * @param    TriggerCfg is a trigger configuration container.
 *
-*
 ****************************************************************************/
 void XDfeMix_GetTriggersCfg(const XDfeMix *InstancePtr,
 			    XDfeMix_TriggerCfg *TriggerCfg)
@@ -1600,57 +1618,57 @@ void XDfeMix_GetTriggersCfg(const XDfeMix *InstancePtr,
 
 	/* Read ACTIVATE triggers */
 	Val = XDfeMix_ReadReg(InstancePtr, XDFEMIX_TRIGGERS_ACTIVATE_OFFSET);
-	TriggerCfg->Activate.Enable =
-		XDfeMix_RdBitField(XDFEMIX_TRIGGERS_ENABLE_WIDTH,
-				   XDFEMIX_TRIGGERS_ENABLE_OFFSET, Val);
-	TriggerCfg->Activate.Source =
-		XDfeMix_RdBitField(XDFEMIX_TRIGGERS_SOURCE_WIDTH,
-				   XDFEMIX_TRIGGERS_SOURCE_OFFSET, Val);
+	TriggerCfg->Activate.TriggerEnable =
+		XDfeMix_RdBitField(XDFEMIX_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				   XDFEMIX_TRIGGERS_TRIGGER_ENABLE_OFFSET, Val);
+	TriggerCfg->Activate.Mode = XDfeMix_RdBitField(
+		XDFEMIX_TRIGGERS_MODE_WIDTH, XDFEMIX_TRIGGERS_MODE_OFFSET, Val);
 	TriggerCfg->Activate.TUSERBit =
 		XDfeMix_RdBitField(XDFEMIX_TRIGGERS_TUSER_BIT_WIDTH,
 				   XDFEMIX_TRIGGERS_TUSER_BIT_OFFSET, Val);
-	TriggerCfg->Activate.Edge =
-		XDfeMix_RdBitField(XDFEMIX_TRIGGERS_SIGNAL_EDGE_WIDTH,
-				   XDFEMIX_TRIGGERS_SIGNAL_EDGE_OFFSET, Val);
-	TriggerCfg->Activate.OneShot =
-		XDfeMix_RdBitField(XDFEMIX_TRIGGERS_ONE_SHOT_WIDTH,
-				   XDFEMIX_TRIGGERS_ONE_SHOT_OFFSET, Val);
+	TriggerCfg->Activate.TuserEdgeLevel =
+		XDfeMix_RdBitField(XDFEMIX_TRIGGERS_TUSER_EDGE_LEVEL_WIDTH,
+				   XDFEMIX_TRIGGERS_TUSER_EDGE_LEVEL_OFFSET,
+				   Val);
+	TriggerCfg->Activate.StateOutput =
+		XDfeMix_RdBitField(XDFEMIX_TRIGGERS_STATE_OUTPUT_WIDTH,
+				   XDFEMIX_TRIGGERS_STATE_OUTPUT_OFFSET, Val);
 
 	/* Read LOW_POWER triggers */
 	Val = XDfeMix_ReadReg(InstancePtr, XDFEMIX_TRIGGERS_LOW_POWER_OFFSET);
-	TriggerCfg->LowPower.Enable =
-		XDfeMix_RdBitField(XDFEMIX_TRIGGERS_ENABLE_WIDTH,
-				   XDFEMIX_TRIGGERS_ENABLE_OFFSET, Val);
-	TriggerCfg->LowPower.Source =
-		XDfeMix_RdBitField(XDFEMIX_TRIGGERS_SOURCE_WIDTH,
-				   XDFEMIX_TRIGGERS_SOURCE_OFFSET, Val);
+	TriggerCfg->LowPower.TriggerEnable =
+		XDfeMix_RdBitField(XDFEMIX_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				   XDFEMIX_TRIGGERS_TRIGGER_ENABLE_OFFSET, Val);
+	TriggerCfg->LowPower.Mode = XDfeMix_RdBitField(
+		XDFEMIX_TRIGGERS_MODE_WIDTH, XDFEMIX_TRIGGERS_MODE_OFFSET, Val);
 	TriggerCfg->LowPower.TUSERBit =
 		XDfeMix_RdBitField(XDFEMIX_TRIGGERS_TUSER_BIT_WIDTH,
 				   XDFEMIX_TRIGGERS_TUSER_BIT_OFFSET, Val);
-	TriggerCfg->LowPower.Edge =
-		XDfeMix_RdBitField(XDFEMIX_TRIGGERS_SIGNAL_EDGE_WIDTH,
-				   XDFEMIX_TRIGGERS_SIGNAL_EDGE_OFFSET, Val);
-	TriggerCfg->LowPower.OneShot =
-		XDfeMix_RdBitField(XDFEMIX_TRIGGERS_ONE_SHOT_WIDTH,
-				   XDFEMIX_TRIGGERS_ONE_SHOT_OFFSET, Val);
+	TriggerCfg->LowPower.TuserEdgeLevel =
+		XDfeMix_RdBitField(XDFEMIX_TRIGGERS_TUSER_EDGE_LEVEL_WIDTH,
+				   XDFEMIX_TRIGGERS_TUSER_EDGE_LEVEL_OFFSET,
+				   Val);
+	TriggerCfg->LowPower.StateOutput =
+		XDfeMix_RdBitField(XDFEMIX_TRIGGERS_STATE_OUTPUT_WIDTH,
+				   XDFEMIX_TRIGGERS_STATE_OUTPUT_OFFSET, Val);
 
 	/* Read CC_UPDATE triggers */
 	Val = XDfeMix_ReadReg(InstancePtr, XDFEMIX_TRIGGERS_CC_UPDATE_OFFSET);
-	TriggerCfg->CCUpdate.Enable =
-		XDfeMix_RdBitField(XDFEMIX_TRIGGERS_ENABLE_WIDTH,
-				   XDFEMIX_TRIGGERS_ENABLE_OFFSET, Val);
-	TriggerCfg->CCUpdate.Source =
-		XDfeMix_RdBitField(XDFEMIX_TRIGGERS_SOURCE_WIDTH,
-				   XDFEMIX_TRIGGERS_SOURCE_OFFSET, Val);
+	TriggerCfg->CCUpdate.TriggerEnable =
+		XDfeMix_RdBitField(XDFEMIX_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				   XDFEMIX_TRIGGERS_TRIGGER_ENABLE_OFFSET, Val);
+	TriggerCfg->CCUpdate.Mode = XDfeMix_RdBitField(
+		XDFEMIX_TRIGGERS_MODE_WIDTH, XDFEMIX_TRIGGERS_MODE_OFFSET, Val);
 	TriggerCfg->CCUpdate.TUSERBit =
 		XDfeMix_RdBitField(XDFEMIX_TRIGGERS_TUSER_BIT_WIDTH,
 				   XDFEMIX_TRIGGERS_TUSER_BIT_OFFSET, Val);
-	TriggerCfg->CCUpdate.Edge =
-		XDfeMix_RdBitField(XDFEMIX_TRIGGERS_SIGNAL_EDGE_WIDTH,
-				   XDFEMIX_TRIGGERS_SIGNAL_EDGE_OFFSET, Val);
-	TriggerCfg->CCUpdate.OneShot =
-		XDfeMix_RdBitField(XDFEMIX_TRIGGERS_ONE_SHOT_WIDTH,
-				   XDFEMIX_TRIGGERS_ONE_SHOT_OFFSET, Val);
+	TriggerCfg->CCUpdate.TuserEdgeLevel =
+		XDfeMix_RdBitField(XDFEMIX_TRIGGERS_TUSER_EDGE_LEVEL_WIDTH,
+				   XDFEMIX_TRIGGERS_TUSER_EDGE_LEVEL_OFFSET,
+				   Val);
+	TriggerCfg->CCUpdate.StateOutput =
+		XDfeMix_RdBitField(XDFEMIX_TRIGGERS_STATE_OUTPUT_WIDTH,
+				   XDFEMIX_TRIGGERS_STATE_OUTPUT_OFFSET, Val);
 }
 
 /****************************************************************************/
@@ -1660,7 +1678,6 @@ void XDfeMix_GetTriggersCfg(const XDfeMix *InstancePtr,
 *
 * @param    InstancePtr is a pointer to the Mixer instance.
 * @param    TriggerCfg is a trigger configuration container.
-*
 *
 ****************************************************************************/
 void XDfeMix_SetTriggersCfg(const XDfeMix *InstancePtr,
@@ -1672,72 +1689,77 @@ void XDfeMix_SetTriggersCfg(const XDfeMix *InstancePtr,
 	Xil_AssertVoid(InstancePtr->StateId == XDFEMIX_STATE_INITIALISED);
 	Xil_AssertVoid(TriggerCfg != NULL);
 
-	/* Write public trigger configuration members and ensure private
-	   members (_Enable & _OneShot) are set appropriately */
+	/* Write public trigger configuration members and ensure private members
+	  (TriggerEnable & Immediate) are set appropriately */
 
-	/* Activate defined as OneShot (as per the programming model) */
-	TriggerCfg->Activate.Enable = 0U;
-	TriggerCfg->Activate.OneShot = 1U;
+	/* Activate defined as Single Shot/Immediate (as per the programming model) */
+	TriggerCfg->Activate.TriggerEnable =
+		XDFEMIX_TRIGGERS_TRIGGER_ENABLE_DISABLED;
+	TriggerCfg->Activate.StateOutput =
+		XDFEMIX_TRIGGERS_STATE_OUTPUT_ENABLED;
 	/* Read/set/write ACTIVATE triggers */
 	Val = XDfeMix_ReadReg(InstancePtr, XDFEMIX_TRIGGERS_ACTIVATE_OFFSET);
-	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ENABLE_WIDTH,
-				 XDFEMIX_TRIGGERS_ENABLE_OFFSET, Val,
-				 TriggerCfg->Activate.Enable);
-	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_SOURCE_WIDTH,
-				 XDFEMIX_TRIGGERS_SOURCE_OFFSET, Val,
-				 TriggerCfg->Activate.Source);
-	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_SIGNAL_EDGE_WIDTH,
-				 XDFEMIX_TRIGGERS_SIGNAL_EDGE_OFFSET, Val,
-				 TriggerCfg->Activate.Edge);
+	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				 XDFEMIX_TRIGGERS_TRIGGER_ENABLE_OFFSET, Val,
+				 TriggerCfg->Activate.TriggerEnable);
+	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_MODE_WIDTH,
+				 XDFEMIX_TRIGGERS_MODE_OFFSET, Val,
+				 TriggerCfg->Activate.Mode);
+	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_TUSER_EDGE_LEVEL_WIDTH,
+				 XDFEMIX_TRIGGERS_TUSER_EDGE_LEVEL_OFFSET, Val,
+				 TriggerCfg->Activate.TuserEdgeLevel);
 	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_TUSER_BIT_WIDTH,
 				 XDFEMIX_TRIGGERS_TUSER_BIT_OFFSET, Val,
 				 TriggerCfg->Activate.TUSERBit);
-	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ONE_SHOT_WIDTH,
-				 XDFEMIX_TRIGGERS_ONE_SHOT_OFFSET, Val,
-				 TriggerCfg->Activate.OneShot);
+	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_STATE_OUTPUT_WIDTH,
+				 XDFEMIX_TRIGGERS_STATE_OUTPUT_OFFSET, Val,
+				 TriggerCfg->Activate.StateOutput);
 	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_ACTIVATE_OFFSET, Val);
 
 	/* LowPower defined as Continuous */
-	TriggerCfg->LowPower.Enable = 0U;
-	TriggerCfg->LowPower.OneShot = 0U;
-	/* Read LOW_POWER triggers */
+	TriggerCfg->LowPower.TriggerEnable =
+		XDFEMIX_TRIGGERS_TRIGGER_ENABLE_DISABLED;
+	TriggerCfg->LowPower.Mode = XDFEMIX_TRIGGERS_MODE_TUSER_CONTINUOUS;
+	/* Read/set/write LOW_POWER triggers */
 	Val = XDfeMix_ReadReg(InstancePtr, XDFEMIX_TRIGGERS_LOW_POWER_OFFSET);
-	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ENABLE_WIDTH,
-				 XDFEMIX_TRIGGERS_ENABLE_OFFSET, Val,
-				 TriggerCfg->LowPower.Enable);
-	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_SOURCE_WIDTH,
-				 XDFEMIX_TRIGGERS_SOURCE_OFFSET, Val,
-				 TriggerCfg->LowPower.Source);
-	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_SIGNAL_EDGE_WIDTH,
-				 XDFEMIX_TRIGGERS_SIGNAL_EDGE_OFFSET, Val,
-				 TriggerCfg->LowPower.Edge);
+	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				 XDFEMIX_TRIGGERS_TRIGGER_ENABLE_OFFSET, Val,
+				 TriggerCfg->LowPower.TriggerEnable);
+	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_MODE_WIDTH,
+				 XDFEMIX_TRIGGERS_MODE_OFFSET, Val,
+				 TriggerCfg->LowPower.Mode);
+	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_TUSER_EDGE_LEVEL_WIDTH,
+				 XDFEMIX_TRIGGERS_TUSER_EDGE_LEVEL_OFFSET, Val,
+				 TriggerCfg->LowPower.TuserEdgeLevel);
 	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_TUSER_BIT_WIDTH,
 				 XDFEMIX_TRIGGERS_TUSER_BIT_OFFSET, Val,
 				 TriggerCfg->LowPower.TUSERBit);
-	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ONE_SHOT_WIDTH,
-				 XDFEMIX_TRIGGERS_ONE_SHOT_OFFSET, Val,
-				 TriggerCfg->LowPower.OneShot);
+	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_STATE_OUTPUT_WIDTH,
+				 XDFEMIX_TRIGGERS_STATE_OUTPUT_OFFSET, Val,
+				 TriggerCfg->LowPower.StateOutput);
 	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_LOW_POWER_OFFSET, Val);
 
-	/* CCUpdate defined as OneShot */
-	TriggerCfg->CCUpdate.Enable = 0U;
-	TriggerCfg->CCUpdate.OneShot = 1U;
+	/* CCUpdate defined as Single Shot/Immediate */
+	TriggerCfg->CCUpdate.TriggerEnable =
+		XDFEMIX_TRIGGERS_TRIGGER_ENABLE_DISABLED;
+	TriggerCfg->CCUpdate.StateOutput =
+		XDFEMIX_TRIGGERS_STATE_OUTPUT_ENABLED;
 	Val = XDfeMix_ReadReg(InstancePtr, XDFEMIX_TRIGGERS_CC_UPDATE_OFFSET);
-	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ENABLE_WIDTH,
-				 XDFEMIX_TRIGGERS_ENABLE_OFFSET, Val,
-				 TriggerCfg->CCUpdate.Enable);
-	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_SOURCE_WIDTH,
-				 XDFEMIX_TRIGGERS_SOURCE_OFFSET, Val,
-				 TriggerCfg->CCUpdate.Source);
-	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_SIGNAL_EDGE_WIDTH,
-				 XDFEMIX_TRIGGERS_SIGNAL_EDGE_OFFSET, Val,
-				 TriggerCfg->CCUpdate.Edge);
+	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				 XDFEMIX_TRIGGERS_TRIGGER_ENABLE_OFFSET, Val,
+				 TriggerCfg->CCUpdate.TriggerEnable);
+	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_MODE_WIDTH,
+				 XDFEMIX_TRIGGERS_MODE_OFFSET, Val,
+				 TriggerCfg->CCUpdate.Mode);
+	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_TUSER_EDGE_LEVEL_WIDTH,
+				 XDFEMIX_TRIGGERS_TUSER_EDGE_LEVEL_OFFSET, Val,
+				 TriggerCfg->CCUpdate.TuserEdgeLevel);
 	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_TUSER_BIT_WIDTH,
 				 XDFEMIX_TRIGGERS_TUSER_BIT_OFFSET, Val,
 				 TriggerCfg->CCUpdate.TUSERBit);
-	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_ONE_SHOT_WIDTH,
-				 XDFEMIX_TRIGGERS_ONE_SHOT_OFFSET, Val,
-				 TriggerCfg->CCUpdate.OneShot);
+	Val = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_STATE_OUTPUT_WIDTH,
+				 XDFEMIX_TRIGGERS_STATE_OUTPUT_OFFSET, Val,
+				 TriggerCfg->CCUpdate.StateOutput);
 	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_CC_UPDATE_OFFSET, Val);
 }
 
