@@ -20,11 +20,6 @@
 XPm_Subsystem *PmSubsystems;
 static u32 MaxSubsysIdx;
 
-/*
- * Global SubsystemId which is set and is valid during XPm_CreateSubsystem()
- */
-static u32 CurrentSubsystemId = INVALID_SUBSYSID;
-
 XStatus XPmSubsystem_AddPermission(const XPm_Subsystem *Host,
 				   XPm_Subsystem *Target,
 				   const u32 Operations)
@@ -727,30 +722,6 @@ XStatus XPmSubsystem_SetState(const u32 SubsystemId, const u32 State)
 	}
 
 	Subsystem->State = (u8)State;
-
-	Status = XST_SUCCESS;
-
-done:
-	return Status;
-}
-
-u32 XPmSubsystem_GetCurrent(void)
-{
-	return CurrentSubsystemId;
-}
-
-
-XStatus XPmSubsystem_SetCurrent(u32 SubsystemId)
-{
-	XStatus Status = XST_FAILURE;
-
-	if ((INVALID_SUBSYSID != SubsystemId) &&
-	    (NULL == XPmSubsystem_GetById(SubsystemId))) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	CurrentSubsystemId = SubsystemId;
 
 	Status = XST_SUCCESS;
 

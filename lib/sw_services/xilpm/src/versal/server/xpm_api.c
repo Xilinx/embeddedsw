@@ -180,37 +180,6 @@ done:
 
 /****************************************************************************/
 /**
- * @brief  This function allows to set current subsystem id.
- *
- * @param  SubsystemId	Subsystem ID to be set as active
- * @param  IpiMask	IPI mask of requesting master
- *
- * @return XST_SUCCESS if successful else XST_FAILURE or an error code
- * or a reason code
- *
- * @note   none
- *
- ****************************************************************************/
-static XStatus XPm_SetCurrentSubsystem(u32 SubsystemId, u32 IpiMask)
-{
-	XStatus Status = XST_FAILURE;
-
-	/* Return error if request is not from XSDB master */
-	if (XSDB_IPI_INT_MASK != IpiMask) {
-		Status = XPM_PM_NO_ACCESS;
-		goto done;
-	}
-	Status = XPmSubsystem_SetCurrent(SubsystemId);
-
-done:
-	if (XST_SUCCESS != Status) {
-		PmErr("Unable to set current subsystem, ret: 0x%x\n\r", Status);
-	}
-	return Status;
-}
-
-/****************************************************************************/
-/**
  * @brief  This function adds the Healthy boot monitor node through software.
  *
  * @param  DeviceId 	Device Id
@@ -420,65 +389,29 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	u32 ApiResponse[XPLMI_CMD_RESP_SIZE-1] = {0};
 	int Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem = NULL;
-	u32 SubsystemId = INVALID_SUBSYSID;
+	u32 SubsystemId = Cmd->SubsystemId;
 	u32 *Pload = Cmd->Payload;
 	u32 Len = Cmd->Len;
+	u32 CmdId = Cmd->CmdId & 0xFFU;
 	u32 SetAddress;
 	u64 Address;
 
-	PmDbg("Processing Cmd %x\r\n", Cmd->CmdId);
+	PmDbg("Processing Cmd: 0x%x, SubsysId: 0x%x, IpiMask: 0x%x\r\n",
+					Cmd->CmdId, SubsystemId, Cmd->IpiMask);
 
-	if((Cmd->CmdId & 0xFFU) != PM_API(PM_SET_CURRENT_SUBSYSTEM)) {
-		SubsystemId = XPmSubsystem_GetCurrent();
-		if(SubsystemId != INVALID_SUBSYSID) {
-			PmDbg("Using current SubsystemId: 0x%x\r\n",
-					SubsystemId);
-		} else if ((0U == Cmd->IpiMask) && (0U != Cmd->SubsystemId)) {
-			u32 Class = NODECLASS(Cmd->SubsystemId);
-			u32 SubClass = NODESUBCLASS(Cmd->SubsystemId);
-			/**
-			 * Subsystem Id passed from PLM here is the Image Id;
-			 * thus map it to appropriate subsystems if applicable.
-			 */
-			if (((u32)XPM_NODECLASS_DEVICE == Class) &&
-			    (((u32)XPM_NODESUBCL_DEV_PL == SubClass) ||
-			    ((u32)XPM_NODESUBCL_DEV_AIE == SubClass))) {
-				/* Use PMC Subsystem Id for PLD images */
-				SubsystemId = PM_SUBSYS_PMC;
-			} else if ((u32)XPM_NODECLASS_POWER == Class) {
-				/* Use PMC Subsystem Id for power domain CDOs */
-				SubsystemId = PM_SUBSYS_PMC;
-			} else {
-				/* Use given Image Id as Subsystem Id */
-				SubsystemId = Cmd->SubsystemId;
-			}
-			PmDbg("Using SubsystemId 0x%x, SubsystemId passed by PLM: 0x%x\r\n",
-					SubsystemId, Cmd->SubsystemId);
-		} else if (0U != Cmd->IpiMask) {
-			SubsystemId = XPmSubsystem_GetSubSysIdByIpiMask(Cmd->IpiMask);
-			PmDbg("Using SubsystemId 0x%0x assigned to IPI mask 0x%x\r\n",
-					SubsystemId, Cmd->IpiMask);
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if ((NULL == Subsystem) || (Subsystem->State == (u8)OFFLINE)) {
+		if (XSDB_IPI_INT_MASK == Cmd->IpiMask) {
+			PmDbg("Command from XSDB master\r\n");
 		} else {
-			PmErr("Invalid IPI mask 0x%x or SubsystemId 0x%x\r\n",
-					Cmd->IpiMask, Cmd->SubsystemId);
-			Status = XST_INVALID_PARAM;
+			/* Subsystem must not be offline here */
+			PmErr("Invalid SubsystemId 0x%x\n\r", SubsystemId);
+			Status = XPM_INVALID_SUBSYSID;
 			goto done;
-		}
-
-		Subsystem = XPmSubsystem_GetById(SubsystemId);
-		if ((NULL == Subsystem) || (Subsystem->State == (u8)OFFLINE)) {
-			if (XSDB_IPI_INT_MASK == Cmd->IpiMask) {
-				PmDbg("Command from XSDB master\r\n");
-			} else {
-				/* Subsystem must not be offline here */
-				PmErr("Invalid SubsystemId 0x%x\n\r", SubsystemId);
-				Status = XPM_INVALID_SUBSYSID;
-				goto done;
-			}
 		}
 	}
 
-	switch (Cmd->CmdId & 0xFFU) {
+	switch (CmdId) {
 	case PM_API(PM_GET_CHIPID):
 		Status = XPm_GetChipID(&ApiResponse[0], &ApiResponse[1]);
 		break;
@@ -628,9 +561,6 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		break;
 	case PM_API(PM_ADD_REQUIREMENT):
 		Status = XPm_AddRequirement(&Pload[0], Len);
-		break;
-	case PM_API(PM_SET_CURRENT_SUBSYSTEM):
-		Status = XPm_SetCurrentSubsystem(Pload[0], Cmd->IpiMask);
 		break;
 	case PM_API(PM_INIT_NODE):
 		Status = XPm_InitNode(Pload[0], Pload[1], &Pload[2], Len-2U);
@@ -4702,7 +4632,6 @@ int XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
 	case PM_API(PM_ADD_NODE_PARENT):
 	case PM_API(PM_ADD_NODE_NAME):
 	case PM_API(PM_ADD_REQUIREMENT):
-	case PM_API(PM_SET_CURRENT_SUBSYSTEM):
 	case PM_API(PM_INIT_NODE):
 	case PM_API(PM_FEATURE_CHECK):
 		*Version = XST_API_BASE_VERSION;
@@ -4762,12 +4691,9 @@ u32 XPm_GetSubsystemId(u32 ImageId)
 {
 	u32 Class = NODECLASS(ImageId);
 	u32 SubClass = NODESUBCLASS(ImageId);
-	u32 SubsystemId = XPmSubsystem_GetCurrent();
+	u32 SubsystemId;
 
-	if(SubsystemId != INVALID_SUBSYSID) {
-		PmDbg("Using current SubsystemId: 0x%x\r\n",
-				SubsystemId);
-	} else if (((u32)XPM_NODECLASS_DEVICE == Class) &&
+	if (((u32)XPM_NODECLASS_DEVICE == Class) &&
 	    (((u32)XPM_NODESUBCL_DEV_PL == SubClass) ||
 	    ((u32)XPM_NODESUBCL_DEV_AIE == SubClass))) {
 		/* Use PMC Subsystem Id for PLD images */
