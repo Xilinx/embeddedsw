@@ -28,6 +28,8 @@
 * 7.5   dp      01/05/21 Updated COUNTS_PER_SECOND/USECOND and ITERS_PER_SEC/USEC
 *                        macros to round it off to nearest possible value so that
 *                        delta error in time calculations can be minimized.
+* 7.5   mus    04/30/21  Moved pragma message from xtime_l.h to xtime_l.c, to avoid
+*                        displaying same warnings multiple times. It fixes CR#1090562.
 * </pre>
 *
 ******************************************************************************/
@@ -70,14 +72,6 @@ extern "C" {
 #define COUNTS_PER_USECOND	((COUNTS_PER_SECOND + 500000) / 1000000)
 
 #define IRQ_FIQ_MASK 	0xC0	/* Mask IRQ and FIQ interrupts in cpsr */
-
-#if defined (SLEEP_TIMER_BASEADDR)
-#pragma message ("For the sleep routines, TTC3/TTC2 is used")
-#elif !defined (DONT_USE_PMU_FOR_SLEEP_ROUTINES)
-#pragma message ("For the sleep routines, CortexR5 PMU cycle counter is used")
-#else
-#pragma message ("For the sleep routines, machine cycles are used")
-#endif
 
 /*
  * 1st bit of PROCESSOR_ACCESS_VALUE macro signifies trustzone

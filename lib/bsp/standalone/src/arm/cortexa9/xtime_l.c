@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2009 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2009 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +17,8 @@
 * ----- ------ -------- ---------------------------------------------------
 * 1.00a rp/sdm 11/03/09 Initial release.
 * 3.07a sgd    07/05/12 Updated get/set time functions to make use Global Timer
+* 7.5   mus    04/30/21  Moved pragma message from xtime_l.h to xtime_l.c, to avoid
+*                        displaying same warnings multiple times. It fixes CR#1090562.
 * </pre>
 *
 * @note		None.
@@ -39,7 +41,9 @@
 /************************** Variable Definitions *****************************/
 
 /************************** Function Prototypes ******************************/
-
+#if defined (XSLEEP_TIMER_IS_DEFAULT_TIMER)
+#pragma message ("For the sleep routines, Global timer is being used")
+#endif
 /****************************************************************************/
 /**
 * @brief	Set the time in the Global Timer Counter Register.
