@@ -25,6 +25,8 @@
 * 6.6   srm    10/23/17 Updated the macros to support user configurable sleep
 *						implementation
 * 6.8   aru  09/06/18 Removed compilation warnings for ARMCC toolchain.
+* 7.5   mus    04/30/21  Moved pragma message from xtime_l.h to xtime_l.c, to avoid
+*                        displaying same warnings multiple times. It fixes CR#1090562.
 * </pre>
 *
 ******************************************************************************/
@@ -62,12 +64,6 @@ typedef u64 XTime;
 #else
 /* Global Timer is always clocked at half of the CPU frequency */
 #define COUNTS_PER_SECOND          (XPAR_CPU_CORTEXA9_CORE_CLOCK_FREQ_HZ /2)
-#endif
-
-#if defined (XSLEEP_TIMER_IS_DEFAULT_TIMER)
-#ifdef __GNUC__
-#pragma message ("For the sleep routines, Global timer is being used")
-#endif
 #endif
 /************************** Variable Definitions *****************************/
 

@@ -33,6 +33,8 @@
 * 7.2   mus    01/29/20 Updated XTime_GetTime to use CortexR5 PMU cycle
 *                       counter, in case sleep timer (ttc3/ttc2) is not
 *                       present in the HW design. It fixes CR#1051591.
+* 7.5   mus    04/30/21  Moved pragma message from xtime_l.h to xtime_l.c, to avoid
+*                        displaying same warnings multiple times. It fixes CR#1090562.
 *
 * </pre>
 *
@@ -56,7 +58,13 @@
 /************************** Variable Definitions *****************************/
 
 /************************** Function Prototypes ******************************/
-
+#if defined (SLEEP_TIMER_BASEADDR)
+#pragma message ("For the sleep routines, TTC3/TTC2 is used")
+#elif !defined (DONT_USE_PMU_FOR_SLEEP_ROUTINES)
+#pragma message ("For the sleep routines, CortexR5 PMU cycle counter is used")
+#else
+#pragma message ("For the sleep routines, machine cycles are used")
+#endif
 
 /****************************************************************************/
 /**

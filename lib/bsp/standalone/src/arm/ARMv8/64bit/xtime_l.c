@@ -20,6 +20,8 @@
 *						counter if it is disabled. Also XTime_GetTime calls
 *						this API to ensure the global timer counter is enabled
 * 6.02  pkp	   01/22/17 Added support for EL1 non-secure
+* 7.5   mus    04/30/21  Moved pragma message from xtime_l.h to xtime_l.c, to avoid
+*                        displaying same warnings multiple times. It fixes CR#1090562.
 * </pre>
 *
 * @note		None.
@@ -43,7 +45,9 @@
 /************************** Variable Definitions *****************************/
 
 /************************** Function Prototypes ******************************/
-
+#if defined (XSLEEP_TIMER_IS_DEFAULT_TIMER)
+#pragma message ("For the sleep routines, Global timer is being used")
+#endif
 /****************************************************************************/
 /**
 * @brief	Start the 64-bit physical timer counter.

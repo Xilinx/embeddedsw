@@ -20,6 +20,8 @@
 * 5.00 	pkp	   05/29/14 First release
 * 6.6   srm    10/23/17 Updated the macros to support user configurable sleep
 *		        implementation
+* 7.5   mus    04/30/21  Moved pragma message from xtime_l.h to xtime_l.c, to avoid
+*                        displaying same warnings multiple times. It fixes CR#1090562.
 * </pre>
 *
 *
@@ -64,9 +66,6 @@ typedef u64 XTime;
 #endif
 #define XIOU_SCNTRS_BASEADDR      			0xFF260000U
 #define XIOU_SCNTRS_FREQ                    XPAR_CPU_CORTEXA53_0_TIMESTAMP_CLK_FREQ
-#endif
-#if defined (XSLEEP_TIMER_IS_DEFAULT_TIMER)
-#pragma message ("For the sleep routines, Global timer is being used")
 #endif
 #define XIOU_SCNTRS_CNT_CNTRL_REG_OFFSET    0x00000000U
 #define XIOU_SCNTRS_FREQ_REG_OFFSET             0x00000020U
