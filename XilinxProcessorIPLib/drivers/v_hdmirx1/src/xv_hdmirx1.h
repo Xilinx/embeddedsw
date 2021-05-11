@@ -1532,6 +1532,8 @@ typedef struct {
 			    (XV_HDMIRX1_DDC_CTRL_SCDC_CLR_MASK)); \
 	XV_HdmiRx1_FrlDdcWriteField(InstancePtr, XV_HDMIRX1_SCDCFIELD_FLT_READY,\
 				    1);\
+	XV_HdmiRx1_FrlDdcWriteField(InstancePtr,XV_HDMIRX1_SCDCFIELD_SINK_VER, \
+				    1);\
 }
 
 /*****************************************************************************/
