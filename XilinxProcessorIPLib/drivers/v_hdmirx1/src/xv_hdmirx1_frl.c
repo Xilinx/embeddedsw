@@ -1380,6 +1380,7 @@ u32 XV_HdmiRx1_FrlDdcReadField(XV_HdmiRx1 *InstancePtr,
 * @return
 *       - XST_SUCCESS
 *       - XST_FAILURE
+*       - XST_DEVICE_BUSY
 *
 * @note     None.
 *
@@ -1388,7 +1389,7 @@ int XV_HdmiRx1_FrlDdcWriteField(XV_HdmiRx1 *InstancePtr,
 				XV_HdmiRx1_FrlScdcFieldType Field,
 				u8 Value)
 {
-	u32 Data = 0;
+	u32 Data = 0, Retrycount;
 	u32 Status = XST_FAILURE;
 
 	/* Verify argument. */
@@ -1403,14 +1404,18 @@ int XV_HdmiRx1_FrlDdcWriteField(XV_HdmiRx1 *InstancePtr,
 		return Status;
 	}
 
-	/* Check if SCDC access is busy or not */
-	Data = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
-				  XV_HDMIRX1_FRL_SCDC_OFFSET);
-
-	if ((Data & XV_HDMIRX1_FRL_SCDC_RDY_MASK) == 0) {
-		/* SCDC access is busy*/
-		return Status;
+	/* 256 byte FIFO but doubling to 512 tries for safety */
+	Retrycount = 512;
+	do {
+		Data = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+					  XV_HDMIRX1_FRL_SCDC_OFFSET);
 	}
+	while (!(Data & XV_HDMIRX1_FRL_SCDC_RDY_MASK) && Retrycount--);
+
+	/* Check if SCDC access is busy or not */
+	if (!Retrycount)
+		/* SCDC access is busy*/
+		return XST_DEVICE_BUSY;
 
 	if (FrlScdcField[Field].Mask != 0xFF) {
 		Data &= ~((FrlScdcField[Field].Mask <<
