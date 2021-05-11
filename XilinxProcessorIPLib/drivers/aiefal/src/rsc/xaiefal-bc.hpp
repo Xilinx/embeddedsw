@@ -281,7 +281,7 @@ namespace xaiefal {
 			AieRC RC;
 			int iRC = XAIE_OK;
 
-			if(vRscs.size() == 850) {
+			if(vLocs.size() == 0) {
 				return XAIE_OK;
 			}
 
