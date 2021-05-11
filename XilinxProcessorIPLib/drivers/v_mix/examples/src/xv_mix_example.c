@@ -60,6 +60,14 @@
 #define DDR_BASEADDR XPAR_DDR_MEM_BASEADDR
 #endif
 
+#if defined XPAR_PSU_ACPU_GIC_DEVICE_ID
+#define PS_ACPU_GIC_DEVICE_ID XPAR_PSU_ACPU_GIC_DEVICE_ID
+#elif defined XPAR_SCUGIC_0_DEVICE_ID
+#define PS_ACPU_GIC_DEVICE_ID XPAR_SCUGIC_0_DEVICE_ID
+#else
+#warning No GIC Device ID found
+#endif
+
 #ifdef XPAR_XV_FRMBUFRD_NUM_INSTANCES
 #include "xv_frmbufrd_l2.h"
 extern XV_frmbufrd_Config XV_frmbufrd_ConfigTable[];
@@ -200,7 +208,7 @@ static int SetupInterrupts(void)
 
   /* Initialize the Interrupt controller */
   XScuGic_Config *IntcCfgPtr;
-  IntcCfgPtr = XScuGic_LookupConfig(XPAR_PSU_ACPU_GIC_DEVICE_ID);
+  IntcCfgPtr = XScuGic_LookupConfig(PS_ACPU_GIC_DEVICE_ID);
   if(IntcCfgPtr == NULL)
   {
     print("ERR:: Interrupt Controller not found");

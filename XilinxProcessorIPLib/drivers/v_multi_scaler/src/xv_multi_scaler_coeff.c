@@ -7,7 +7,7 @@
 /**
 *
 * @file xv_multi_scaler_coeff.c
-* @addtogroup v_multi_scaler_v1_2
+* @addtogroup v_multi_scaler_v1_3
 * @{
 * @details
 *
