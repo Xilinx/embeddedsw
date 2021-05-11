@@ -35,7 +35,7 @@
 #define XAIE_ERROR_BROADCAST_MASK		0x1U
 #define XAIE_ERROR_SHIM_INTR_ID			0x10U
 #define XAIE_ERROR_NPI_INTR_ID			0x1U
-#define XAIE_ERROR_L2_ENABLE			0x7FU
+#define XAIE_ERROR_L2_ENABLE			0x3FU
 
 /************************** Function Prototypes  *****************************/
 AieRC XAie_IntrCtrlL1Enable(XAie_DevInst *DevInst, XAie_LocType Loc,
