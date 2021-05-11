@@ -24,6 +24,7 @@
 *       dc     04/06/21 Register with full node name
 *       dc     04/07/21 Fix bare metal initialisation
 *       dc     04/20/21 Doxygen documentation update
+*       dc     05/08/21 Update to common trigger
 *
 * </pre>
 *
@@ -406,41 +407,56 @@ static void XDfeEqu_LoadMatrixCoefficients(const XDfeEqu *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Read Triggers, set enable bit of LowPower trigger. If register source, then
-* trigger will be applied immediately.
+* Reads the Triggers and sets enable bit of update trigger. If
+* Mode = IMMEDIATE, then trigger will be applied immediately.
 *
 * @param    InstancePtr is a pointer to the Equalizer instance.
 *
-* @return   None
+****************************************************************************/
+static void XDfeEqu_EnableUpdateTrigger(const XDfeEqu *InstancePtr)
+{
+	u32 Data;
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	Data = XDfeEqu_ReadReg(InstancePtr,
+			       XDFEEQU_NEXT_CONTROL_TRIGGER_OFFSET);
+	Data = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				  XDFEEQU_TRIGGERS_TRIGGER_ENABLE_OFFSET, Data,
+				  XDFEEQU_TRIGGERS_TRIGGER_ENABLE_ENABLED);
+	XDfeEqu_WriteReg(InstancePtr, XDFEEQU_NEXT_CONTROL_TRIGGER_OFFSET,
+			 Data);
+}
+
+/****************************************************************************/
+/**
 *
-* @note     None
+* Reads the Triggers and sets enable bit of LowPower trigger.
+* If Mode = IMMEDIATE, then trigger will be applied immediately.
+*
+* @param    InstancePtr is a pointer to the Equalizer instance.
 *
 ****************************************************************************/
 static void XDfeEqu_EnableLowPowerTrigger(const XDfeEqu *InstancePtr)
 {
 	u32 Data;
-
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	Data = XDfeEqu_ReadReg(InstancePtr,
 			       XDFEEQU_DYNAMIC_POWER_DOWN_MODE_TRIGGER_OFFSET);
-	Data = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_ENABLE_WIDTH,
-				  XDFEEQU_TRIGGERS_ENABLE_OFFSET, Data,
-				  XDFEEQU_TRIGGERS_ENABLE_ENABLED);
+	Data = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				  XDFEEQU_TRIGGERS_TRIGGER_ENABLE_OFFSET, Data,
+				  XDFEEQU_TRIGGERS_TRIGGER_ENABLE_ENABLED);
 	XDfeEqu_WriteReg(InstancePtr,
 			 XDFEEQU_DYNAMIC_POWER_DOWN_MODE_TRIGGER_OFFSET, Data);
 }
+
 /****************************************************************************/
 /**
 *
-* Read Triggers, set enable bit of Activate trigger. If register source, then
-* trigger will be applied immediately.
+* Reads the Triggers, set enable bit of Activate trigger. If
+* Mode = IMMEDIATE, then trigger will be applied immediately.
 *
 * @param    InstancePtr is a pointer to the Equalizer instance.
-*
-* @return   None
-*
-* @note     None
 *
 ****************************************************************************/
 static void XDfeEqu_EnableActivateTrigger(const XDfeEqu *InstancePtr)
@@ -449,37 +465,61 @@ static void XDfeEqu_EnableActivateTrigger(const XDfeEqu *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	Data = XDfeEqu_ReadReg(InstancePtr,
-			       XDFEEQU_NEXT_CONTROL_TRIGGER_OFFSET);
-	Data = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_ENABLE_WIDTH,
-				  XDFEEQU_TRIGGERS_ENABLE_OFFSET, Data,
-				  XDFEEQU_TRIGGERS_ENABLE_ENABLED);
-	XDfeEqu_WriteReg(InstancePtr, XDFEEQU_NEXT_CONTROL_TRIGGER_OFFSET,
+			       XDFEEQU_OPERATIONAL_MODE_TRIGGER_OFFSET);
+	Data = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				  XDFEEQU_TRIGGERS_TRIGGER_ENABLE_OFFSET, Data,
+				  XDFEEQU_TRIGGERS_TRIGGER_ENABLE_ENABLED);
+	Data = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_STATE_OUTPUT_WIDTH,
+				  XDFEEQU_TRIGGERS_STATE_OUTPUT_OFFSET, Data,
+				  XDFEEQU_TRIGGERS_STATE_OUTPUT_ENABLED);
+	XDfeEqu_WriteReg(InstancePtr, XDFEEQU_OPERATIONAL_MODE_TRIGGER_OFFSET,
 			 Data);
 }
 
 /****************************************************************************/
 /**
 *
-* Read Triggers, reset enable bit of LowPower trigger.
+* Reads the Triggers, set disable bit of Activate trigger. If
+* Mode = IMMEDIATE, then trigger will be applied immediately.
 *
 * @param    InstancePtr is a pointer to the Equalizer instance.
 *
-* @return   None
+****************************************************************************/
+static void XDfeEqu_EnableDeactivateTrigger(const XDfeEqu *InstancePtr)
+{
+	u32 Data;
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	Data = XDfeEqu_ReadReg(InstancePtr,
+			       XDFEEQU_OPERATIONAL_MODE_TRIGGER_OFFSET);
+	Data = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				  XDFEEQU_TRIGGERS_TRIGGER_ENABLE_OFFSET, Data,
+				  XDFEEQU_TRIGGERS_TRIGGER_ENABLE_ENABLED);
+	Data = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_STATE_OUTPUT_WIDTH,
+				  XDFEEQU_TRIGGERS_STATE_OUTPUT_OFFSET, Data,
+				  XDFEEQU_TRIGGERS_STATE_OUTPUT_DISABLED);
+	XDfeEqu_WriteReg(InstancePtr, XDFEEQU_OPERATIONAL_MODE_TRIGGER_OFFSET,
+			 Data);
+}
+
+/****************************************************************************/
+/**
 *
-* @note     None
+* Reads the Triggers and resets enable a bit of LowPower trigger.
+*
+* @param    InstancePtr is a pointer to the Equalizer instance.
 *
 ****************************************************************************/
 static void XDfeEqu_DisableLowPowerTrigger(const XDfeEqu *InstancePtr)
 {
 	u32 Data;
-
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	Data = XDfeEqu_ReadReg(InstancePtr,
 			       XDFEEQU_DYNAMIC_POWER_DOWN_MODE_TRIGGER_OFFSET);
-	Data = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_ENABLE_WIDTH,
-				  XDFEEQU_TRIGGERS_ENABLE_OFFSET, Data,
-				  XDFEEQU_TRIGGERS_ENABLE_DISABLED);
+	Data = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				  XDFEEQU_TRIGGERS_TRIGGER_ENABLE_OFFSET, Data,
+				  XDFEEQU_TRIGGERS_TRIGGER_ENABLE_DISABLED);
 	XDfeEqu_WriteReg(InstancePtr,
 			 XDFEEQU_DYNAMIC_POWER_DOWN_MODE_TRIGGER_OFFSET, Data);
 }
@@ -500,7 +540,6 @@ static void XDfeEqu_DisableLowPowerTrigger(const XDfeEqu *InstancePtr)
 * @return
 *           - pointer to instance if successful.
 *           - NULL on error.
-*
 *
 ******************************************************************************/
 XDfeEqu *XDfeEqu_InstanceInit(const char *DeviceNodeName)
@@ -605,7 +644,6 @@ return_error:
 * API closes the instance of an Equalizer driver.
 *
 * @param    InstancePtr is a pointer to the XDfeEqu instance.
-*
 *
 ******************************************************************************/
 void XDfeEqu_InstanceClose(XDfeEqu *InstancePtr)
@@ -714,12 +752,7 @@ void XDfeEqu_Configure(XDfeEqu *InstancePtr, XDfeEqu_Cfg *Cfg)
 /****************************************************************************/
 /**
 *
-* The software sets bit 0 of the Next Control register (0x24) low.
-* The software sets bit 2 of the Next Control register (0x24). This is set
-* high if Config.DatapathMode is set to complex or matrix and low if it is
-* set to real.
-* The software then sets the Next Control Trigger Source register (0x28).
-* Enable high, Source 0, _OneShot high.
+* DFE Equalizer driver one time initialisation.
 *
 * @param    InstancePtr is a pointer to the Equalizer instance.
 * @param    Config is a configuration data container.
@@ -747,29 +780,19 @@ void XDfeEqu_Initialize(XDfeEqu *InstancePtr, const XDfeEqu_EqConfig *Config)
 					  XDFEEQU_COMPLEX_MODE_OFFSET, Data,
 					  XDFEEQU_COMPLEX_MODE);
 	}
-	/* Set bit 0 of the Next Control register (0x24) low */
-	Data = XDfeEqu_WrBitField(XDFEEQU_POWERDOWN_MODE_WIDTH,
-				  XDFEEQU_POWERDOWN_MODE_OFFSET, Data,
-				  XDFEEQU_POWERDOWN_MODE_POWERDOWN);
 
-	XDfeEqu_WriteReg(InstancePtr, XDFEEQU_NEXT_CONTROL_OFFSET, Data);
-
-	/* The software then sets the Next Control Trigger Source register
-	   (0x28). _Enable high, Source 0, _OneShot high. */
-	Update.Enable = 1U;
-	Update.OneShot = 1U;
-	Update.Source = 0U;
+	/* Trigger NEXT_CONTROL (UPDATE) immediately using Register source to
+	   update CURRENT from NEXT */
+	Update.TriggerEnable = XDFEEQU_TRIGGERS_TRIGGER_ENABLE_ENABLED;
+	Update.Mode = XDFEEQU_TRIGGERS_MODE_IMMEDIATE;
 	Data = XDfeEqu_ReadReg(InstancePtr,
 			       XDFEEQU_NEXT_CONTROL_TRIGGER_OFFSET);
-	Data = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_ONE_SHOT_WIDTH,
-				  XDFEEQU_TRIGGERS_ONE_SHOT_OFFSET, Data,
-				  Update.OneShot);
-	Data = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_ENABLE_WIDTH,
-				  XDFEEQU_TRIGGERS_ENABLE_OFFSET, Data,
-				  Update.Enable);
-	Data = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_SOURCE_WIDTH,
-				  XDFEEQU_TRIGGERS_SOURCE_OFFSET, Data,
-				  Update.Source);
+	Data = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				  XDFEEQU_TRIGGERS_TRIGGER_ENABLE_OFFSET, Data,
+				  Update.TriggerEnable);
+	Data = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_MODE_WIDTH,
+				  XDFEEQU_TRIGGERS_MODE_OFFSET, Data,
+				  Update.Mode);
 	XDfeEqu_WriteReg(InstancePtr, XDFEEQU_NEXT_CONTROL_TRIGGER_OFFSET,
 			 Data);
 
@@ -779,12 +802,7 @@ void XDfeEqu_Initialize(XDfeEqu *InstancePtr, const XDfeEqu_EqConfig *Config)
 /*****************************************************************************/
 /**
 *
-* Activates chfilter.
-* First set bit 0 of the Next Control register (0x24) high.
-* The software then sets the _Enable bit in the Next Control Trigger Source
-* register (0x28) high. If EnableLowPower is true, the software also sets
-* the Enable bit of the Dynamic Powerdown Mode Trigger Source register (0x34)
-* high.
+* Activates mixer.
 *
 * @param    InstancePtr is a pointer to the Equalizer instance.
 * @param    EnableLowPower is a flag indicating low power.
@@ -800,36 +818,19 @@ void XDfeEqu_Activate(XDfeEqu *InstancePtr, bool EnableLowPower)
 
 	/* Do nothing if the block already operational */
 	IsOperational =
-		XDfeEqu_RdRegBitField(InstancePtr, XDFEEQU_NEXT_CONTROL_OFFSET,
-				      XDFEEQU_POWERDOWN_MODE_WIDTH,
-				      XDFEEQU_POWERDOWN_MODE_OFFSET);
-	if (IsOperational == XDFEEQU_POWERDOWN_MODE_POWERUP) {
+		XDfeEqu_RdRegBitField(InstancePtr,
+				      XDFEEQU_CURRENT_OPERATIONAL_MODE_OFFSET,
+				      XDFEEQU_CURRENT_MODE_OPERATIONAL_WIDTH,
+				      XDFEEQU_CURRENT_MODE_OPERATIONAL_OFFSET);
+	if (IsOperational == XDFEEQU_CURRENT_MODE_OPERATIONAL_ENABLED) {
 		return;
 	}
 
-	/* Set bit 0 of the Next Control register (0x24) high. */
-	XDfeEqu_WrRegBitField(InstancePtr, XDFEEQU_NEXT_CONTROL_OFFSET,
-			      XDFEEQU_POWERDOWN_MODE_WIDTH,
-			      XDFEEQU_POWERDOWN_MODE_OFFSET,
-			      XDFEEQU_POWERDOWN_MODE_POWERUP);
-
-	/* Enable the Activate trigger */
+	/* Enable the Activate trigger and set to one-shot */
 	XDfeEqu_EnableActivateTrigger(InstancePtr);
 
-	/* Enable the LowPower trigger */
+	/* Enable the LowPower trigger, set to continuous triggering */
 	if (EnableLowPower == true) {
-		XDfeEqu_WrRegBitField(InstancePtr,
-				      XDFEEQU_NEXT_DYNAMIC_POWERDOWN_OFFSET,
-				      XDFEEQU_DYNAMIC_POWERDOWN_MODE_WIDTH,
-				      XDFEEQU_DYNAMIC_POWERDOWN_MODE_OFFSET,
-				      XDFEEQU_DYNAMIC_POWERDOWN_MODE_ENABLED);
-		XDfeEqu_EnableLowPowerTrigger(InstancePtr);
-	} else {
-		XDfeEqu_WrRegBitField(InstancePtr,
-				      XDFEEQU_NEXT_DYNAMIC_POWERDOWN_OFFSET,
-				      XDFEEQU_DYNAMIC_POWERDOWN_MODE_WIDTH,
-				      XDFEEQU_DYNAMIC_POWERDOWN_MODE_OFFSET,
-				      XDFEEQU_DYNAMIC_POWERDOWN_MODE_DISABLED);
 		XDfeEqu_EnableLowPowerTrigger(InstancePtr);
 	}
 
@@ -840,11 +841,7 @@ void XDfeEqu_Activate(XDfeEqu *InstancePtr, bool EnableLowPower)
 /*****************************************************************************/
 /**
 *
-* DeActivates chfilter.
-* First set bit 0 of the Next Control register (0x24) low.
-* The software then sets the _Enable bit in the Next Control Trigger Source
-* register (0x28) high. The software also sets the _Enable bit of the Dynamic
-* Powerdown Mode Trigger Source register (0x34) low.
+* Deactivates chfilter.
 *
 * @param    InstancePtr is a pointer to the Equalizer instance.
 *
@@ -859,25 +856,19 @@ void XDfeEqu_Deactivate(XDfeEqu *InstancePtr)
 
 	/* Do nothing if the block already deactivated */
 	IsOperational =
-		XDfeEqu_RdRegBitField(InstancePtr, XDFEEQU_NEXT_CONTROL_OFFSET,
-				      XDFEEQU_POWERDOWN_MODE_WIDTH,
-				      XDFEEQU_POWERDOWN_MODE_OFFSET);
-	if (IsOperational == XDFEEQU_POWERDOWN_MODE_POWERDOWN) {
+		XDfeEqu_RdRegBitField(InstancePtr,
+				      XDFEEQU_CURRENT_OPERATIONAL_MODE_OFFSET,
+				      XDFEEQU_CURRENT_MODE_OPERATIONAL_WIDTH,
+				      XDFEEQU_CURRENT_MODE_OPERATIONAL_OFFSET);
+	if (IsOperational == XDFEEQU_CURRENT_MODE_OPERATIONAL_DISABLED) {
 		return;
 	}
 
 	/* Disable LowPower trigger (may not be enabled) */
 	XDfeEqu_DisableLowPowerTrigger(InstancePtr);
 
-	/* Set bit 0 of the Next Control register (0x24) low. */
-	XDfeEqu_WrRegBitField(InstancePtr, XDFEEQU_CURRENT_CONTROL_OFFSET,
-			      XDFEEQU_POWERDOWN_MODE_WIDTH,
-			      XDFEEQU_POWERDOWN_MODE_OFFSET,
-			      XDFEEQU_POWERDOWN_MODE_POWERDOWN);
-
-	/* Enable Activate trigger (toggles state between operational
-	   and intialized) */
-	XDfeEqu_EnableActivateTrigger(InstancePtr);
+	/* Disable Activate trigger */
+	XDfeEqu_EnableDeactivateTrigger(InstancePtr);
 
 	InstancePtr->StateId = XDFEEQU_STATE_INITIALISED;
 }
@@ -941,7 +932,7 @@ void XDfeEqu_Update(const XDfeEqu *InstancePtr, const XDfeEqu_EqConfig *Config)
 				  XDFEEQU_FLUSH_BUFFERS_OFFSET, Data, FlushTmp);
 
 	XDfeEqu_WriteReg(InstancePtr, XDFEEQU_NEXT_CONTROL_OFFSET, Data);
-	XDfeEqu_EnableActivateTrigger(InstancePtr);
+	XDfeEqu_EnableUpdateTrigger(InstancePtr);
 }
 
 /****************************************************************************/
@@ -952,7 +943,6 @@ void XDfeEqu_Update(const XDfeEqu *InstancePtr, const XDfeEqu_EqConfig *Config)
 * @param    InstancePtr is a pointer to the Ccf instance.
 * @param    TriggerCfg is a trigger configuration container.
 *
-*
 ****************************************************************************/
 void XDfeEqu_GetTriggersCfg(const XDfeEqu *InstancePtr,
 			    XDfeEqu_TriggerCfg *TriggerCfg)
@@ -960,44 +950,64 @@ void XDfeEqu_GetTriggersCfg(const XDfeEqu *InstancePtr,
 	u32 Val;
 
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->StateId != XDFEEQU_STATE_NOT_READY);
 	Xil_AssertVoid(TriggerCfg != NULL);
 
-	/* Read ACTIVATE triggers */
-	Val = XDfeEqu_ReadReg(InstancePtr, XDFEEQU_NEXT_CONTROL_TRIGGER_OFFSET);
-	TriggerCfg->Activate.Enable =
-		XDfeEqu_RdBitField(XDFEEQU_TRIGGERS_ENABLE_WIDTH,
-				   XDFEEQU_TRIGGERS_ENABLE_OFFSET, Val);
-	TriggerCfg->Activate.Source =
-		XDfeEqu_RdBitField(XDFEEQU_TRIGGERS_SOURCE_WIDTH,
-				   XDFEEQU_TRIGGERS_SOURCE_OFFSET, Val);
+	/* Read OPERATIONAL (ACTIVATE) triggers */
+	Val = XDfeEqu_ReadReg(InstancePtr,
+			      XDFEEQU_OPERATIONAL_MODE_TRIGGER_OFFSET);
+	TriggerCfg->Activate.TriggerEnable =
+		XDfeEqu_RdBitField(XDFEEQU_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				   XDFEEQU_TRIGGERS_TRIGGER_ENABLE_OFFSET, Val);
+	TriggerCfg->Activate.Mode = XDfeEqu_RdBitField(
+		XDFEEQU_TRIGGERS_MODE_WIDTH, XDFEEQU_TRIGGERS_MODE_OFFSET, Val);
 	TriggerCfg->Activate.TUSERBit =
 		XDfeEqu_RdBitField(XDFEEQU_TRIGGERS_TUSER_BIT_WIDTH,
 				   XDFEEQU_TRIGGERS_TUSER_BIT_OFFSET, Val);
-	TriggerCfg->Activate.Edge =
-		XDfeEqu_RdBitField(XDFEEQU_TRIGGERS_SIGNAL_EDGE_WIDTH,
-				   XDFEEQU_TRIGGERS_SIGNAL_EDGE_OFFSET, Val);
-	TriggerCfg->Activate.OneShot =
-		XDfeEqu_RdBitField(XDFEEQU_TRIGGERS_ONE_SHOT_WIDTH,
-				   XDFEEQU_TRIGGERS_ONE_SHOT_OFFSET, Val);
+	TriggerCfg->Activate.TuserEdgeLevel =
+		XDfeEqu_RdBitField(XDFEEQU_TRIGGERS_TUSER_EDGE_LEVEL_WIDTH,
+				   XDFEEQU_TRIGGERS_TUSER_EDGE_LEVEL_OFFSET,
+				   Val);
+	TriggerCfg->Activate.StateOutput =
+		XDfeEqu_RdBitField(XDFEEQU_TRIGGERS_STATE_OUTPUT_WIDTH,
+				   XDFEEQU_TRIGGERS_STATE_OUTPUT_OFFSET, Val);
 
 	/* Read LOW_POWER triggers */
 	Val = XDfeEqu_ReadReg(InstancePtr,
 			      XDFEEQU_DYNAMIC_POWER_DOWN_MODE_TRIGGER_OFFSET);
-	TriggerCfg->LowPower.Enable =
-		XDfeEqu_RdBitField(XDFEEQU_TRIGGERS_ENABLE_WIDTH,
-				   XDFEEQU_TRIGGERS_ENABLE_OFFSET, Val);
-	TriggerCfg->LowPower.Source =
-		XDfeEqu_RdBitField(XDFEEQU_TRIGGERS_SOURCE_WIDTH,
-				   XDFEEQU_TRIGGERS_SOURCE_OFFSET, Val);
+	TriggerCfg->LowPower.TriggerEnable =
+		XDfeEqu_RdBitField(XDFEEQU_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				   XDFEEQU_TRIGGERS_TRIGGER_ENABLE_OFFSET, Val);
+	TriggerCfg->LowPower.Mode = XDfeEqu_RdBitField(
+		XDFEEQU_TRIGGERS_MODE_WIDTH, XDFEEQU_TRIGGERS_MODE_OFFSET, Val);
 	TriggerCfg->LowPower.TUSERBit =
 		XDfeEqu_RdBitField(XDFEEQU_TRIGGERS_TUSER_BIT_WIDTH,
 				   XDFEEQU_TRIGGERS_TUSER_BIT_OFFSET, Val);
-	TriggerCfg->LowPower.Edge =
-		XDfeEqu_RdBitField(XDFEEQU_TRIGGERS_SIGNAL_EDGE_WIDTH,
-				   XDFEEQU_TRIGGERS_SIGNAL_EDGE_OFFSET, Val);
-	TriggerCfg->LowPower.OneShot =
-		XDfeEqu_RdBitField(XDFEEQU_TRIGGERS_ONE_SHOT_WIDTH,
-				   XDFEEQU_TRIGGERS_ONE_SHOT_OFFSET, Val);
+	TriggerCfg->LowPower.TuserEdgeLevel =
+		XDfeEqu_RdBitField(XDFEEQU_TRIGGERS_TUSER_EDGE_LEVEL_WIDTH,
+				   XDFEEQU_TRIGGERS_TUSER_EDGE_LEVEL_OFFSET,
+				   Val);
+	TriggerCfg->LowPower.StateOutput =
+		XDfeEqu_RdBitField(XDFEEQU_TRIGGERS_STATE_OUTPUT_WIDTH,
+				   XDFEEQU_TRIGGERS_STATE_OUTPUT_OFFSET, Val);
+
+	/* Read NEXT_CONTROL (UPDATE) triggers */
+	Val = XDfeEqu_ReadReg(InstancePtr, XDFEEQU_NEXT_CONTROL_TRIGGER_OFFSET);
+	TriggerCfg->Update.TriggerEnable =
+		XDfeEqu_RdBitField(XDFEEQU_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				   XDFEEQU_TRIGGERS_TRIGGER_ENABLE_OFFSET, Val);
+	TriggerCfg->Update.Mode = XDfeEqu_RdBitField(
+		XDFEEQU_TRIGGERS_MODE_WIDTH, XDFEEQU_TRIGGERS_MODE_OFFSET, Val);
+	TriggerCfg->Update.TUSERBit =
+		XDfeEqu_RdBitField(XDFEEQU_TRIGGERS_TUSER_BIT_WIDTH,
+				   XDFEEQU_TRIGGERS_TUSER_BIT_OFFSET, Val);
+	TriggerCfg->Update.TuserEdgeLevel =
+		XDfeEqu_RdBitField(XDFEEQU_TRIGGERS_TUSER_EDGE_LEVEL_WIDTH,
+				   XDFEEQU_TRIGGERS_TUSER_EDGE_LEVEL_OFFSET,
+				   Val);
+	TriggerCfg->Update.StateOutput =
+		XDfeEqu_RdBitField(XDFEEQU_TRIGGERS_STATE_OUTPUT_WIDTH,
+				   XDFEEQU_TRIGGERS_STATE_OUTPUT_OFFSET, Val);
 }
 
 /****************************************************************************/
@@ -1005,7 +1015,7 @@ void XDfeEqu_GetTriggersCfg(const XDfeEqu *InstancePtr,
 *
 * Sets trigger configuration.
 *
-* @param    InstancePtr is a pointer to the Ccf instance.
+* @param    InstancePtr is a pointer to the Equalizer instance.
 * @param    TriggerCfg is a trigger configuration container.
 *
 ****************************************************************************/
@@ -1013,60 +1023,103 @@ void XDfeEqu_SetTriggersCfg(const XDfeEqu *InstancePtr,
 			    XDfeEqu_TriggerCfg *TriggerCfg)
 {
 	u32 Val;
+	u32 TUSERWidth;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFEEQU_STATE_INITIALISED);
 	Xil_AssertVoid(TriggerCfg != NULL);
 
-	/* Write public trigger configuration members and ensure private
-	   members (_Enable & _OneShot) are set appropriately */
+	/* Write trigger configuration members */
 
-	/* Activate defined as OneShot (as per the programming model) */
-	TriggerCfg->Activate.Enable = 0U;
-	TriggerCfg->Activate.OneShot = 1U;
+	TUSERWidth =
+		XDfeEqu_RdRegBitField(InstancePtr,
+				      XDFEEQU_NEXT_CONTROL_TRIGGER_OFFSET,
+				      XDFEEQU_MODEL_PARAM_TUSER_WIDTH_WIDTH,
+				      XDFEEQU_MODEL_PARAM_TUSER_WIDTH_OFFSET);
 
-	/* Read/set/write ACTIVATE triggers */
-	Val = XDfeEqu_ReadReg(InstancePtr, XDFEEQU_NEXT_CONTROL_TRIGGER_OFFSET);
-	Val = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_ENABLE_WIDTH,
-				 XDFEEQU_TRIGGERS_ENABLE_OFFSET, Val,
-				 TriggerCfg->Activate.Enable);
-	Val = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_SOURCE_WIDTH,
-				 XDFEEQU_TRIGGERS_SOURCE_OFFSET, Val,
-				 TriggerCfg->Activate.Source);
+	if (TUSERWidth == 0U) {
+		TriggerCfg->Activate.Mode = XDFEEQU_TRIGGERS_MODE_IMMEDIATE;
+		TriggerCfg->LowPower.Mode = XDFEEQU_TRIGGERS_MODE_IMMEDIATE;
+		TriggerCfg->Update.Mode = XDFEEQU_TRIGGERS_MODE_IMMEDIATE;
+	} else {
+		TriggerCfg->Activate.Mode =
+			XDFEEQU_TRIGGERS_MODE_TUSER_SINGLE_SHOT;
+		TriggerCfg->LowPower.Mode =
+			XDFEEQU_TRIGGERS_MODE_TUSER_CONTINUOUS;
+		TriggerCfg->Update.Mode =
+			XDFEEQU_TRIGGERS_MODE_TUSER_SINGLE_SHOT;
+	}
+
+	/* Activate defined as SingleShot (as per the programming model) or
+	   immediate if there is no TUSER on the IP. */
+	/* Read/set/write OPERATIONAL (ACTIVATE) triggers */
+	TriggerCfg->Activate.TriggerEnable =
+		XDFEEQU_TRIGGERS_TRIGGER_ENABLE_DISABLED;
+	Val = XDfeEqu_ReadReg(InstancePtr,
+			      XDFEEQU_OPERATIONAL_MODE_TRIGGER_OFFSET);
+	Val = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				 XDFEEQU_TRIGGERS_TRIGGER_ENABLE_OFFSET, Val,
+				 TriggerCfg->Activate.TriggerEnable);
+	Val = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_MODE_WIDTH,
+				 XDFEEQU_TRIGGERS_MODE_OFFSET, Val,
+				 TriggerCfg->Activate.Mode);
+	Val = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_TUSER_EDGE_LEVEL_WIDTH,
+				 XDFEEQU_TRIGGERS_TUSER_EDGE_LEVEL_OFFSET, Val,
+				 TriggerCfg->Activate.TuserEdgeLevel);
 	Val = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_TUSER_BIT_WIDTH,
 				 XDFEEQU_TRIGGERS_TUSER_BIT_OFFSET, Val,
 				 TriggerCfg->Activate.TUSERBit);
-	Val = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_SIGNAL_EDGE_WIDTH,
-				 XDFEEQU_TRIGGERS_SIGNAL_EDGE_OFFSET, Val,
-				 TriggerCfg->Activate.Edge);
-	Val = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_ONE_SHOT_WIDTH,
-				 XDFEEQU_TRIGGERS_ONE_SHOT_OFFSET, Val,
-				 TriggerCfg->Activate.OneShot);
-	XDfeEqu_WriteReg(InstancePtr, XDFEEQU_NEXT_CONTROL_TRIGGER_OFFSET, Val);
+	Val = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_STATE_OUTPUT_WIDTH,
+				 XDFEEQU_TRIGGERS_STATE_OUTPUT_OFFSET, Val,
+				 TriggerCfg->Activate.StateOutput);
+	XDfeEqu_WriteReg(InstancePtr, XDFEEQU_OPERATIONAL_MODE_TRIGGER_OFFSET,
+			 Val);
 
 	/* LowPower defined as Continuous */
-	TriggerCfg->LowPower.Enable = 0U;
-	TriggerCfg->LowPower.OneShot = 0U;
-	/* Read/Set/Write LOW_POWER triggers */
+	TriggerCfg->LowPower.TriggerEnable =
+		XDFEEQU_TRIGGERS_TRIGGER_ENABLE_DISABLED;
+	/* Read/set/write LOW_POWER triggers */
 	Val = XDfeEqu_ReadReg(InstancePtr,
 			      XDFEEQU_DYNAMIC_POWER_DOWN_MODE_TRIGGER_OFFSET);
-	Val = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_ENABLE_WIDTH,
-				 XDFEEQU_TRIGGERS_ENABLE_OFFSET, Val,
-				 TriggerCfg->LowPower.Enable);
-	Val = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_SOURCE_WIDTH,
-				 XDFEEQU_TRIGGERS_SOURCE_OFFSET, Val,
-				 TriggerCfg->LowPower.Source);
+	Val = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				 XDFEEQU_TRIGGERS_TRIGGER_ENABLE_OFFSET, Val,
+				 TriggerCfg->LowPower.TriggerEnable);
+	Val = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_MODE_WIDTH,
+				 XDFEEQU_TRIGGERS_MODE_OFFSET, Val,
+				 TriggerCfg->LowPower.Mode);
+	Val = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_TUSER_EDGE_LEVEL_WIDTH,
+				 XDFEEQU_TRIGGERS_TUSER_EDGE_LEVEL_OFFSET, Val,
+				 TriggerCfg->LowPower.TuserEdgeLevel);
 	Val = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_TUSER_BIT_WIDTH,
 				 XDFEEQU_TRIGGERS_TUSER_BIT_OFFSET, Val,
 				 TriggerCfg->LowPower.TUSERBit);
-	Val = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_SIGNAL_EDGE_WIDTH,
-				 XDFEEQU_TRIGGERS_SIGNAL_EDGE_OFFSET, Val,
-				 TriggerCfg->LowPower.Edge);
-	Val = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_ONE_SHOT_WIDTH,
-				 XDFEEQU_TRIGGERS_ONE_SHOT_OFFSET, Val,
-				 TriggerCfg->LowPower.OneShot);
+	Val = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_STATE_OUTPUT_WIDTH,
+				 XDFEEQU_TRIGGERS_STATE_OUTPUT_OFFSET, Val,
+				 TriggerCfg->LowPower.StateOutput);
 	XDfeEqu_WriteReg(InstancePtr,
 			 XDFEEQU_DYNAMIC_POWER_DOWN_MODE_TRIGGER_OFFSET, Val);
+
+	/* Update defined as SingleShot (as per the programming model) */
+	/* Read/set/write NEXT_CONTROL (UPDATE) triggers */
+	TriggerCfg->Update.TriggerEnable =
+		XDFEEQU_TRIGGERS_TRIGGER_ENABLE_DISABLED;
+	Val = XDfeEqu_ReadReg(InstancePtr, XDFEEQU_NEXT_CONTROL_TRIGGER_OFFSET);
+	Val = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				 XDFEEQU_TRIGGERS_TRIGGER_ENABLE_OFFSET, Val,
+				 TriggerCfg->Update.TriggerEnable);
+	Val = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_MODE_WIDTH,
+				 XDFEEQU_TRIGGERS_MODE_OFFSET, Val,
+				 TriggerCfg->Update.Mode);
+	Val = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_TUSER_EDGE_LEVEL_WIDTH,
+				 XDFEEQU_TRIGGERS_TUSER_EDGE_LEVEL_OFFSET, Val,
+				 TriggerCfg->Update.TuserEdgeLevel);
+	Val = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_TUSER_BIT_WIDTH,
+				 XDFEEQU_TRIGGERS_TUSER_BIT_OFFSET, Val,
+				 TriggerCfg->Update.TUSERBit);
+	Val = XDfeEqu_WrBitField(XDFEEQU_TRIGGERS_STATE_OUTPUT_WIDTH,
+				 XDFEEQU_TRIGGERS_STATE_OUTPUT_OFFSET, Val,
+				 TriggerCfg->Update.StateOutput);
+	XDfeEqu_WriteReg(InstancePtr, XDFEEQU_NEXT_CONTROL_TRIGGER_OFFSET, Val);
 }
 
 /****************************************************************************/
