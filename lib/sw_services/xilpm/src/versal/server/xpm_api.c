@@ -150,23 +150,21 @@ done:
  * 	   devices which are essential for susbystem to be operational.
  *
  * @param  SubsystemId	ID of subsystem which is requesting to activate other
- * 			subsystem (NULL in case of request from XSDB master)
- * @param  IpiMask	IPI mask of requesting master
+ * 			subsystem
  * @param  TargetSubsystemId	ID of subsystem which needs activation
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   This command is only allowed from XSDB master or from PMC subsystem
+ * @note   This command is only allowed from PMC subsystem
  *
  ****************************************************************************/
-static XStatus XPm_ActivateSubsystem(u32 SubsystemId, u32 IpiMask,
-				     u32 TargetSubsystemId)
+static XStatus XPm_ActivateSubsystem(u32 SubsystemId, u32 TargetSubsystemId)
 {
 	XStatus Status = XST_FAILURE;
 
-	/* Return error if request is not from XSDB master or PMC subsystem */
-	if ((XSDB_IPI_INT_MASK != IpiMask) && (PM_SUBSYS_PMC != SubsystemId)) {
+	/* Return error if request is not from PMC subsystem */
+	if (PM_SUBSYS_PMC != SubsystemId) {
 		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
@@ -401,14 +399,10 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
 	if ((NULL == Subsystem) || (Subsystem->State == (u8)OFFLINE)) {
-		if (XSDB_IPI_INT_MASK == Cmd->IpiMask) {
-			PmDbg("Command from XSDB master\r\n");
-		} else {
-			/* Subsystem must not be offline here */
-			PmErr("Invalid SubsystemId 0x%x\n\r", SubsystemId);
-			Status = XPM_INVALID_SUBSYSID;
-			goto done;
-		}
+		/* Subsystem must not be offline here */
+		PmErr("Subsystem 0x%x is not present or offline\r\n", SubsystemId);
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
 	}
 
 	switch (CmdId) {
@@ -510,8 +504,8 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 				   Pload[3], ApiResponse);
 		break;
 	case PM_API(PM_RESET_ASSERT):
-		Status = XPm_SetResetState(SubsystemId, Cmd->IpiMask,
-					   Pload[0], Pload[1], Cmd->IpiReqType);
+		Status = XPm_SetResetState(SubsystemId, Pload[0], Pload[1],
+					   Cmd->IpiReqType);
 		break;
 	case PM_API(PM_RESET_GET_STATUS):
 		Status = XPm_GetResetState(Pload[0], ApiResponse);
@@ -581,8 +575,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 					      Pload[3], Cmd->IpiMask);
 		break;
 	case PM_API(PM_ACTIVATE_SUBSYSTEM):
-		Status = XPm_ActivateSubsystem(SubsystemId, Cmd->IpiMask,
-					       Pload[0]);
+		Status = XPm_ActivateSubsystem(SubsystemId, Pload[0]);
 		break;
 	default:
 		PmErr("CMD: INVALID PARAM\r\n");
@@ -2873,7 +2866,6 @@ done:
  *
  * @param SubsystemId	Subsystem ID
  * @param ResetId	Reset ID
- * @param IpiMask	IPI Mask currently being used
  * @param Action	Reset action to be taken
  *			- PM_RESET_ACTION_RELEASE for Release Reset
  *			- PM_RESET_ACTION_ASSERT for Assert Reset
@@ -2890,9 +2882,8 @@ done:
  * this request will be denied.
  *
  ****************************************************************************/
-XStatus XPm_SetResetState(const u32 SubsystemId, const u32 IpiMask,
-			  const u32 ResetId, const u32 Action,
-			  const u32 CmdType)
+XStatus XPm_SetResetState(const u32 SubsystemId, const u32 ResetId,
+			  const u32 Action, const u32 CmdType)
 {
 	int Status = XST_FAILURE;
 	u32 SubClass = NODESUBCLASS(ResetId);
@@ -2906,40 +2897,37 @@ XStatus XPm_SetResetState(const u32 SubsystemId, const u32 IpiMask,
 	}
 
 	/*
-	 * XSDB is a privileged master, allow unrestricted access.
+	 * Only peripheral, debug and particular specified resets
+	 * are allowed to control externally, on other masters.
 	 */
-	if (XSDB_IPI_INT_MASK != IpiMask) {
+	if ((((u32)XPM_NODESUBCL_RESET_PERIPHERAL == SubClass) &&
+	     ((u32)XPM_NODETYPE_RESET_PERIPHERAL == SubType)) ||
+	    (((u32)XPM_NODESUBCL_RESET_DBG == SubClass) &&
+	     ((u32)XPM_NODETYPE_RESET_DBG == SubType))) {
+		/* Check if subsystem is allowed to access requested reset */
+		Status = XPm_IsAccessAllowed(SubsystemId, ResetId);
+		if (XST_SUCCESS != Status) {
+			Status = XPM_PM_NO_ACCESS;
+			goto done;
+		}
+	} else {
 		/*
-		 * Only peripheral, debug and particular specified resets
-		 * are allowed to control externally, on other masters.
+		 * Only a certain list of resets is allowed to
+		 * use permissions policy.
+		 *
+		 * If with in this list, then check reset to
+		 * permission policy for access.
 		 */
-		if ((((u32)XPM_NODESUBCL_RESET_PERIPHERAL == SubClass) && ((u32)XPM_NODETYPE_RESET_PERIPHERAL == SubType)) ||
-		    (((u32)XPM_NODESUBCL_RESET_DBG == SubClass) && ((u32)XPM_NODETYPE_RESET_DBG == SubType))) {
-			/* Check if subsystem is allowed to access requested reset */
-			 Status = XPm_IsAccessAllowed(SubsystemId, ResetId);
-			 if (XST_SUCCESS != Status) {
-				Status = XPM_PM_NO_ACCESS;
-				goto done;
-			}
-		} else {
-			/*
-			 * Only a certain list of resets is allowed to
-			 * use permissions policy.
-			 *
-			 * If with in this list, then check reset to
-			 * permission policy for access.
-			 */
-			Status = XPmReset_IsPermissionReset(ResetId);
-			if (XST_SUCCESS != Status) {
-				Status = XPM_PM_NO_ACCESS;
-				goto done;
-			}
+		Status = XPmReset_IsPermissionReset(ResetId);
+		if ((XST_SUCCESS != Status) && (PM_SUBSYS_PMC != SubsystemId)) {
+			Status = XPM_PM_NO_ACCESS;
+			goto done;
+		}
 
-			Status = XPmReset_IsOperationAllowed(SubsystemId, Reset, CmdType);
-			if (XST_SUCCESS != Status) {
-				Status = XPM_PM_NO_ACCESS;
-				goto done;
-			}
+		Status = XPmReset_IsOperationAllowed(SubsystemId, Reset, CmdType);
+		if (XST_SUCCESS != Status) {
+			Status = XPM_PM_NO_ACCESS;
+			goto done;
 		}
 	}
 
