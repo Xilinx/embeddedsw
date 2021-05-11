@@ -54,6 +54,7 @@
 *       dc     04/06/21 Register with full node name
 *       dc     04/10/21 Set sequence length only once
 *       dc     04/21/21 Update due to restructured registers
+*       dc     05/08/21 Update to common trigger
 *
 * </pre>
 *
@@ -110,7 +111,7 @@ typedef __s64 s64;
 typedef __s8 s8;
 #endif
 
-typedef enum {
+typedef enum XDfePrach_StateId {
 	XDFEPRACH_STATE_NOT_READY = 0, /**< Not ready state*/
 	XDFEPRACH_STATE_READY, /**< Ready state*/
 	XDFEPRACH_STATE_RESET, /**< Reset state*/
@@ -133,20 +134,43 @@ typedef struct {
  * Trigger configuration.
  */
 typedef struct {
-	u32 Enable; /**< [0,1], 0 = Disabled: Trigger disabled;
-		1 = Enabled: Trigger enabled */
-	u32 Source; /**< [0,1,2],
-		0 = IMMEDIATE: write to the trigger configuration register
-			immediately
-		1 = TUSER: write on Edge detected on specified TUSER bit
-		2 = TLAST: write on Edge detected on TLAST */
-	u32 TUSERBit; /**< [0-7], Species which TUSER bit is used by
-		the trigger */
-	u32 Edge; /**< [0,1,2], 0 = Rising; 1 = Falling; 2 = Both */
-	u32 OneShot; /**< [0,1],
-		0 = Continuous: Once enabled trigger repeats continuously
-		1 = OneShot: Once enabled trigger occurs once and then
-			disables */
+	u32 TriggerEnable; /**< [0,1], Enable Trigger:
+		0 = DISABLED: Trigger Pulse and State outputs are disabled.
+		1 = ENABLED: Trigger Pulse and State outputs are enabled and follow
+			the settings described below. */
+	u32 Mode; /**< [0-3], Specify Trigger Mode. In TUSER_Single_Shot mode as
+		soon as the TUSER_Edge_level condition is met the State output will be
+		driven to the value specified in STATE_OUTPUT. The Pulse output will
+		pulse high at the same time. No further change will occur until the
+		trigger register is re-written. In TUSER Continuous mode each time
+		a TUSER_Edge_level condition is met the State output will be driven to
+		the value specified in STATE_OUTPUT This will happen continuously until
+		the trigger register is re-written. The pulse output is disabled in
+		Continuous mode:
+		0 = IMMEDIATE: Applies the value of STATE_OUTPUT immediatetly
+			the register is written.
+		1 = TUSER_SINGLE_SHOT: Applies the value of STATE_OUTPUT once when
+			the TUSER_EDGE_LEVEL condition is satisfied.
+		2 = TUSER_CONTINUOUS: Applies the value of STATE_OUTPUT continually
+			when TUSER_EDGE_LEVEL condition is satisfied.
+		3 = RESERVED: Reserved - will default to 0 behaviour. */
+	u32 TuserEdgeLevel; /**< [0-3], Specify either Edge or Level of the TUSER
+		input as the source condition of the trigger. Difference between Level
+		and Edge is Level will generate a trigger immediately the TUSER level
+		is detected. Edge will ensure a TUSER transition has come first:
+		0 = LOW: Trigger occurs immediately after a low-level is seen on TUSER
+			provided tvalid is high.
+		1 = HIGH: Trigger occurs immediately after a high-level is seen on
+			TUSER provided tvalid is high.
+		2 = FALLING: Trigger occurs immediately after a high to low transition
+			on TUSER provided tvalid is high.
+		3 = RISING: Trigger occurs immediately after a low to high transition
+			on TUSER provided tvalid is high. */
+	u32 StateOutput; /**< [0,1], Specify the State output value:
+		0 = DISABLED: Place the State output into the Disabled state.
+		1 = ENABLED: Place the State output into the Enabled state. */
+	u32 TUSERBit; /**< [0-255], Specify which DIN TUSER bit to use as the source
+		for the trigger when MODE = 1 or 2. */
 } XDfePrach_Trigger;
 
 /**
