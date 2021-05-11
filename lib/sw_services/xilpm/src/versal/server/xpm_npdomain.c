@@ -62,6 +62,8 @@ static XStatus NpdInitStart(u32 *Args, u32 NumOfArgs)
 		DbgErr = XPM_INT_ERR_PMC_SOC_NPI_ISO;
 		goto done;
 	}
+	/* Delay after isolation removal */
+	usleep(10);
 
 	/* Release POR for NoC */
 	Status = XPmReset_AssertbyId(PM_RST_NOC_POR, (u32)PM_RESET_ACTION_RELEASE);
