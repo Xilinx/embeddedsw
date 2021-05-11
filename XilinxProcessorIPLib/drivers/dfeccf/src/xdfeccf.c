@@ -29,6 +29,7 @@
 *       dc     04/18/21 Update trigger and event handlers
 *       dc     04/20/21 Doxygen documentation update
 *       dc     04/22/21 Add write MappedId field
+*       dc     05/08/21 Update to common trigger
 *
 * </pre>
 *
@@ -466,10 +467,9 @@ static void XDfeCcf_SetNextCCCfg(const XDfeCcf *InstancePtr,
 			XDfeCcf_WrBitField(XDFECCF_FLUSH_WIDTH,
 					   XDFECCF_FLUSH_OFFSET, CarrierCfg,
 					   NextCCCfg->CarrierCfg[Index].Flush);
-		CarrierCfg =
-			XDfeCcf_WrBitField(XDFECCF_MAPPED_ID_WIDTH,
-					   XDFECCF_MAPPED_ID_OFFSET, CarrierCfg,
-					   NextCCCfg->CarrierCfg[Index].MappedId);
+		CarrierCfg = XDfeCcf_WrBitField(
+			XDFECCF_MAPPED_ID_WIDTH, XDFECCF_MAPPED_ID_OFFSET,
+			CarrierCfg, NextCCCfg->CarrierCfg[Index].MappedId);
 		CarrierCfg =
 			XDfeCcf_WrBitField(XDFECCF_GAIN_WIDTH,
 					   XDFECCF_GAIN_OFFSET, CarrierCfg,
@@ -562,31 +562,29 @@ static u32 XDfeCcf_NextMappedId(const XDfeCcf *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Reads the Triggers, sets the enable bit of update trigger. If register
-* source, then trigger will be applied immediately.
+* Reads the Triggers and sets enable bit of update trigger. If
+* Mode = IMMEDIATE, then trigger will be applied immediately.
 *
 * @param    InstancePtr is a pointer to the Channel Filter instance.
-*
 *
 ****************************************************************************/
 static void XDfeCcf_EnableCCUpdateTrigger(const XDfeCcf *InstancePtr)
 {
 	u32 Data;
-
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	Data = XDfeCcf_ReadReg(InstancePtr, XDFECCF_TRIGGERS_CC_UPDATE_OFFSET);
-	Data = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_ENABLE_WIDTH,
-				  XDFECCF_TRIGGERS_ENABLE_OFFSET, Data,
-				  XDFECCF_TRIGGERS_ENABLE_ENABLED);
+	Data = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				  XDFECCF_TRIGGERS_TRIGGER_ENABLE_OFFSET, Data,
+				  XDFECCF_TRIGGERS_TRIGGER_ENABLE_ENABLED);
 	XDfeCcf_WriteReg(InstancePtr, XDFECCF_TRIGGERS_CC_UPDATE_OFFSET, Data);
 }
 
 /****************************************************************************/
 /**
 *
-* Reads the Triggers, sets the enable bit of LowPower trigger. If
-* register source, then trigger will be applied immediately.
+* Reads the Triggers and sets enable bit of LowPower trigger.
+* If Mode = IMMEDIATE, then trigger will be applied immediately.
 *
 * @param    InstancePtr is a pointer to the Channel Filter instance.
 *
@@ -594,20 +592,20 @@ static void XDfeCcf_EnableCCUpdateTrigger(const XDfeCcf *InstancePtr)
 static void XDfeCcf_EnableLowPowerTrigger(const XDfeCcf *InstancePtr)
 {
 	u32 Data;
-
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	Data = XDfeCcf_ReadReg(InstancePtr, XDFECCF_TRIGGERS_LOW_POWER_OFFSET);
-	Data = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_ENABLE_WIDTH,
-				  XDFECCF_TRIGGERS_ENABLE_OFFSET, Data,
-				  XDFECCF_TRIGGERS_ENABLE_ENABLED);
+	Data = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				  XDFECCF_TRIGGERS_TRIGGER_ENABLE_OFFSET, Data,
+				  XDFECCF_TRIGGERS_TRIGGER_ENABLE_ENABLED);
 	XDfeCcf_WriteReg(InstancePtr, XDFECCF_TRIGGERS_LOW_POWER_OFFSET, Data);
 }
+
 /****************************************************************************/
 /**
 *
-* Reads the Triggers, set enable bit of activate trigger. If register
-* source, then trigger will be applied immediately.
+* Reads the Triggers, set enable bit of Activate trigger. If
+* Mode = IMMEDIATE, then trigger will be applied immediately.
 *
 * @param    InstancePtr is a pointer to the Channel Filter instance.
 *
@@ -618,16 +616,43 @@ static void XDfeCcf_EnableActivateTrigger(const XDfeCcf *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	Data = XDfeCcf_ReadReg(InstancePtr, XDFECCF_TRIGGERS_ACTIVATE_OFFSET);
-	Data = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_ENABLE_WIDTH,
-				  XDFECCF_TRIGGERS_ENABLE_OFFSET, Data,
-				  XDFECCF_TRIGGERS_ENABLE_ENABLED);
+	Data = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				  XDFECCF_TRIGGERS_TRIGGER_ENABLE_OFFSET, Data,
+				  XDFECCF_TRIGGERS_TRIGGER_ENABLE_ENABLED);
+	Data = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_STATE_OUTPUT_WIDTH,
+				  XDFECCF_TRIGGERS_STATE_OUTPUT_OFFSET, Data,
+				  XDFECCF_TRIGGERS_STATE_OUTPUT_ENABLED);
 	XDfeCcf_WriteReg(InstancePtr, XDFECCF_TRIGGERS_ACTIVATE_OFFSET, Data);
 }
 
 /****************************************************************************/
 /**
 *
-* Reads the Triggers, resets enable bit of LowPower trigger.
+* Reads the Triggers, set disable bit of Activate trigger. If
+* Mode = IMMEDIATE, then trigger will be applied immediately.
+*
+* @param    InstancePtr is a pointer to the Mixer instance.
+*
+****************************************************************************/
+static void XDfeCcf_EnableDeactivateTrigger(const XDfeCcf *InstancePtr)
+{
+	u32 Data;
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	Data = XDfeCcf_ReadReg(InstancePtr, XDFECCF_TRIGGERS_ACTIVATE_OFFSET);
+	Data = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				  XDFECCF_TRIGGERS_TRIGGER_ENABLE_OFFSET, Data,
+				  XDFECCF_TRIGGERS_TRIGGER_ENABLE_ENABLED);
+	Data = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_STATE_OUTPUT_WIDTH,
+				  XDFECCF_TRIGGERS_STATE_OUTPUT_OFFSET, Data,
+				  XDFECCF_TRIGGERS_STATE_OUTPUT_DISABLED);
+	XDfeCcf_WriteReg(InstancePtr, XDFECCF_TRIGGERS_ACTIVATE_OFFSET, Data);
+}
+
+/****************************************************************************/
+/**
+*
+* Reads the Triggers and resets enable a bit of LowPower trigger.
 *
 * @param    InstancePtr is a pointer to the Channel Filter instance.
 *
@@ -635,13 +660,12 @@ static void XDfeCcf_EnableActivateTrigger(const XDfeCcf *InstancePtr)
 static void XDfeCcf_DisableLowPowerTrigger(const XDfeCcf *InstancePtr)
 {
 	u32 Data;
-
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	Data = XDfeCcf_ReadReg(InstancePtr, XDFECCF_TRIGGERS_LOW_POWER_OFFSET);
-	Data = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_ENABLE_WIDTH,
-				  XDFECCF_TRIGGERS_ENABLE_OFFSET, Data,
-				  XDFECCF_TRIGGERS_ENABLE_DISABLED);
+	Data = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				  XDFECCF_TRIGGERS_TRIGGER_ENABLE_OFFSET, Data,
+				  XDFECCF_TRIGGERS_TRIGGER_ENABLE_DISABLED);
 	XDfeCcf_WriteReg(InstancePtr, XDFECCF_TRIGGERS_LOW_POWER_OFFSET, Data);
 }
 
@@ -661,7 +685,6 @@ static void XDfeCcf_DisableLowPowerTrigger(const XDfeCcf *InstancePtr)
 * @return
 *           - Pointer to the instance if successful.
 *           - NULL on error.
-*
 *
 ******************************************************************************/
 XDfeCcf *XDfeCcf_InstanceInit(const char *DeviceNodeName)
@@ -925,19 +948,19 @@ void XDfeCcf_Initialize(XDfeCcf *InstancePtr, XDfeCcf_Init *Init)
 
 	/* Trigger CC_UPDATE immediately using Register source to update
 	   CURRENT from NEXT */
-	CCUpdate.Enable = 1U;
-	CCUpdate.OneShot = 1U;
-	CCUpdate.Source = 0U;
+	CCUpdate.TriggerEnable = XDFECCF_TRIGGERS_TRIGGER_ENABLE_ENABLED;
+	CCUpdate.Mode = XDFECCF_TRIGGERS_MODE_IMMEDIATE;
+	CCUpdate.StateOutput = XDFECCF_TRIGGERS_STATE_OUTPUT_ENABLED;
 	Data = XDfeCcf_ReadReg(InstancePtr, XDFECCF_TRIGGERS_CC_UPDATE_OFFSET);
-	Data = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_ONE_SHOT_WIDTH,
-				  XDFECCF_TRIGGERS_ONE_SHOT_OFFSET, Data,
-				  CCUpdate.OneShot);
-	Data = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_ENABLE_WIDTH,
-				  XDFECCF_TRIGGERS_ENABLE_OFFSET, Data,
-				  CCUpdate.Enable);
-	Data = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_SOURCE_WIDTH,
-				  XDFECCF_TRIGGERS_SOURCE_OFFSET, Data,
-				  CCUpdate.Source);
+	Data = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_STATE_OUTPUT_WIDTH,
+				  XDFECCF_TRIGGERS_STATE_OUTPUT_OFFSET, Data,
+				  CCUpdate.StateOutput);
+	Data = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				  XDFECCF_TRIGGERS_TRIGGER_ENABLE_OFFSET, Data,
+				  CCUpdate.TriggerEnable);
+	Data = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_MODE_WIDTH,
+				  XDFECCF_TRIGGERS_MODE_OFFSET, Data,
+				  CCUpdate.Mode);
 	XDfeCcf_WriteReg(InstancePtr, XDFECCF_TRIGGERS_CC_UPDATE_OFFSET, Data);
 
 	InstancePtr->StateId = XDFECCF_STATE_INITIALISED;
@@ -950,10 +973,6 @@ void XDfeCcf_Initialize(XDfeCcf *InstancePtr, XDfeCcf_Init *Init)
 *
 * @param    InstancePtr is a pointer to the Ccf instance.
 * @param    EnableLowPower is an flag indicating low power.
-*
-*
-* @note     Writing to ACTIVATE reg.toggles between "initialized" and
-*           "operational".
 *
 ******************************************************************************/
 void XDfeCcf_Activate(XDfeCcf *InstancePtr, bool EnableLowPower)
@@ -981,7 +1000,7 @@ void XDfeCcf_Activate(XDfeCcf *InstancePtr, bool EnableLowPower)
 		XDfeCcf_EnableLowPowerTrigger(InstancePtr);
 	}
 
-	/* CCF is operational now, change a state */
+	/* Channel filter is operational now, change a state */
 	InstancePtr->StateId = XDFECCF_STATE_OPERATIONAL;
 }
 
@@ -991,10 +1010,6 @@ void XDfeCcf_Activate(XDfeCcf *InstancePtr, bool EnableLowPower)
 * Deactivates channel filter.
 *
 * @param    InstancePtr is a pointer to the Ccf instance.
-*
-*
-* @note     Writing to ACTIVATE reg.toggles between "initialized" and
-*           "operational".
 *
 ******************************************************************************/
 void XDfeCcf_Deactivate(XDfeCcf *InstancePtr)
@@ -1017,9 +1032,8 @@ void XDfeCcf_Deactivate(XDfeCcf *InstancePtr)
 	/* Disable LowPower trigger (may not be enabled) */
 	XDfeCcf_DisableLowPowerTrigger(InstancePtr);
 
-	/* Enable Activate trigger (toggles state between operational
-	   and intialized) */
-	XDfeCcf_EnableActivateTrigger(InstancePtr);
+	/* Disable Activate trigger */
+	XDfeCcf_EnableDeactivateTrigger(InstancePtr);
 
 	InstancePtr->StateId = XDFECCF_STATE_INITIALISED;
 }
@@ -1029,10 +1043,10 @@ void XDfeCcf_Deactivate(XDfeCcf *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Adds specified CCID with a specified configuration.
-* If there is insufficient capacity for the new CC, the function will
-* return an error.
-* Initiates CC update (enable CCUpdate trigger one-shot).
+* Adds specified CCID, with specified configuration.
+* If there is insufficient capacity for the new CC the function will return
+* an error.
+* Initiates CC update (enable CCUpdate trigger TUSER Single Shot).
 *
 * @param    InstancePtr is a pointer to the Ccf instance.
 * @param    CCID is a Channel ID.
@@ -1042,7 +1056,6 @@ void XDfeCcf_Deactivate(XDfeCcf *InstancePtr)
 * @return
 *           - XST_SUCCESS if successful.
 *           - XST_FAILURE if error occurs.
-*
 *
 ****************************************************************************/
 u32 XDfeCcf_AddCC(XDfeCcf *InstancePtr, s32 CCID, u32 BitSequence,
@@ -1107,11 +1120,10 @@ u32 XDfeCcf_AddCC(XDfeCcf *InstancePtr, s32 CCID, u32 BitSequence,
 /**
 *
 * Removes specified CCID.
-* Initiates CC update (enable CCUpdate trigger one-shot).
+* Initiates CC update (enable CCUpdate trigger TUSER Single Shot).
 *
 * @param    InstancePtr is a pointer to the Ccf instance.
 * @param    CCID is a Channel ID.
-*
 *
 ****************************************************************************/
 void XDfeCcf_RemoveCC(XDfeCcf *InstancePtr, s32 CCID)
@@ -1140,7 +1152,7 @@ void XDfeCcf_RemoveCC(XDfeCcf *InstancePtr, s32 CCID)
 *
 * Updates specified CCID carrier configuration; change gain or filter
 * coefficients set.
-* Initiates CC update (enable CCUpdate trigger one-shot).
+* Initiates CC update (enable CCUpdate trigger TUSER Single Shot).
 *
 * @param    InstancePtr is a pointer to the Ccf instance.
 * @param    CCID is a Channel ID.
@@ -1235,61 +1247,62 @@ void XDfeCcf_GetTriggersCfg(const XDfeCcf *InstancePtr,
 	u32 Val;
 
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->StateId != XDFECCF_STATE_NOT_READY);
 	Xil_AssertVoid(TriggerCfg != NULL);
 
 	/* Read ACTIVATE triggers */
 	Val = XDfeCcf_ReadReg(InstancePtr, XDFECCF_TRIGGERS_ACTIVATE_OFFSET);
-	TriggerCfg->Activate.Enable =
-		XDfeCcf_RdBitField(XDFECCF_TRIGGERS_ENABLE_WIDTH,
-				   XDFECCF_TRIGGERS_ENABLE_OFFSET, Val);
-	TriggerCfg->Activate.Source =
-		XDfeCcf_RdBitField(XDFECCF_TRIGGERS_SOURCE_WIDTH,
-				   XDFECCF_TRIGGERS_SOURCE_OFFSET, Val);
+	TriggerCfg->Activate.TriggerEnable =
+		XDfeCcf_RdBitField(XDFECCF_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				   XDFECCF_TRIGGERS_TRIGGER_ENABLE_OFFSET, Val);
+	TriggerCfg->Activate.Mode = XDfeCcf_RdBitField(
+		XDFECCF_TRIGGERS_MODE_WIDTH, XDFECCF_TRIGGERS_MODE_OFFSET, Val);
 	TriggerCfg->Activate.TUSERBit =
 		XDfeCcf_RdBitField(XDFECCF_TRIGGERS_TUSER_BIT_WIDTH,
 				   XDFECCF_TRIGGERS_TUSER_BIT_OFFSET, Val);
-	TriggerCfg->Activate.Edge =
-		XDfeCcf_RdBitField(XDFECCF_TRIGGERS_SIGNAL_EDGE_WIDTH,
-				   XDFECCF_TRIGGERS_SIGNAL_EDGE_OFFSET, Val);
-	TriggerCfg->Activate.OneShot =
-		XDfeCcf_RdBitField(XDFECCF_TRIGGERS_ONE_SHOT_WIDTH,
-				   XDFECCF_TRIGGERS_ONE_SHOT_OFFSET, Val);
+	TriggerCfg->Activate.TuserEdgeLevel =
+		XDfeCcf_RdBitField(XDFECCF_TRIGGERS_TUSER_EDGE_LEVEL_WIDTH,
+				   XDFECCF_TRIGGERS_TUSER_EDGE_LEVEL_OFFSET,
+				   Val);
+	TriggerCfg->Activate.StateOutput =
+		XDfeCcf_RdBitField(XDFECCF_TRIGGERS_STATE_OUTPUT_WIDTH,
+				   XDFECCF_TRIGGERS_STATE_OUTPUT_OFFSET, Val);
 
 	/* Read LOW_POWER triggers */
 	Val = XDfeCcf_ReadReg(InstancePtr, XDFECCF_TRIGGERS_LOW_POWER_OFFSET);
-	TriggerCfg->LowPower.Enable =
-		XDfeCcf_RdBitField(XDFECCF_TRIGGERS_ENABLE_WIDTH,
-				   XDFECCF_TRIGGERS_ENABLE_OFFSET, Val);
-	TriggerCfg->LowPower.Source =
-		XDfeCcf_RdBitField(XDFECCF_TRIGGERS_SOURCE_WIDTH,
-				   XDFECCF_TRIGGERS_SOURCE_OFFSET, Val);
+	TriggerCfg->LowPower.TriggerEnable =
+		XDfeCcf_RdBitField(XDFECCF_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				   XDFECCF_TRIGGERS_TRIGGER_ENABLE_OFFSET, Val);
+	TriggerCfg->LowPower.Mode = XDfeCcf_RdBitField(
+		XDFECCF_TRIGGERS_MODE_WIDTH, XDFECCF_TRIGGERS_MODE_OFFSET, Val);
 	TriggerCfg->LowPower.TUSERBit =
 		XDfeCcf_RdBitField(XDFECCF_TRIGGERS_TUSER_BIT_WIDTH,
 				   XDFECCF_TRIGGERS_TUSER_BIT_OFFSET, Val);
-	TriggerCfg->LowPower.Edge =
-		XDfeCcf_RdBitField(XDFECCF_TRIGGERS_SIGNAL_EDGE_WIDTH,
-				   XDFECCF_TRIGGERS_SIGNAL_EDGE_OFFSET, Val);
-	TriggerCfg->LowPower.OneShot =
-		XDfeCcf_RdBitField(XDFECCF_TRIGGERS_ONE_SHOT_WIDTH,
-				   XDFECCF_TRIGGERS_ONE_SHOT_OFFSET, Val);
+	TriggerCfg->LowPower.TuserEdgeLevel =
+		XDfeCcf_RdBitField(XDFECCF_TRIGGERS_TUSER_EDGE_LEVEL_WIDTH,
+				   XDFECCF_TRIGGERS_TUSER_EDGE_LEVEL_OFFSET,
+				   Val);
+	TriggerCfg->LowPower.StateOutput =
+		XDfeCcf_RdBitField(XDFECCF_TRIGGERS_STATE_OUTPUT_WIDTH,
+				   XDFECCF_TRIGGERS_STATE_OUTPUT_OFFSET, Val);
 
 	/* Read CC_UPDATE triggers */
 	Val = XDfeCcf_ReadReg(InstancePtr, XDFECCF_TRIGGERS_CC_UPDATE_OFFSET);
-	TriggerCfg->CCUpdate.Enable =
-		XDfeCcf_RdBitField(XDFECCF_TRIGGERS_ENABLE_WIDTH,
-				   XDFECCF_TRIGGERS_ENABLE_OFFSET, Val);
-	TriggerCfg->CCUpdate.Source =
-		XDfeCcf_RdBitField(XDFECCF_TRIGGERS_SOURCE_WIDTH,
-				   XDFECCF_TRIGGERS_SOURCE_OFFSET, Val);
+	TriggerCfg->CCUpdate.TriggerEnable =
+		XDfeCcf_RdBitField(XDFECCF_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				   XDFECCF_TRIGGERS_TRIGGER_ENABLE_OFFSET, Val);
+	TriggerCfg->CCUpdate.Mode = XDfeCcf_RdBitField(
+		XDFECCF_TRIGGERS_MODE_WIDTH, XDFECCF_TRIGGERS_MODE_OFFSET, Val);
 	TriggerCfg->CCUpdate.TUSERBit =
 		XDfeCcf_RdBitField(XDFECCF_TRIGGERS_TUSER_BIT_WIDTH,
 				   XDFECCF_TRIGGERS_TUSER_BIT_OFFSET, Val);
-	TriggerCfg->CCUpdate.Edge =
-		XDfeCcf_RdBitField(XDFECCF_TRIGGERS_SIGNAL_EDGE_WIDTH,
-				   XDFECCF_TRIGGERS_SIGNAL_EDGE_OFFSET, Val);
-	TriggerCfg->CCUpdate.OneShot =
-		XDfeCcf_RdBitField(XDFECCF_TRIGGERS_ONE_SHOT_WIDTH,
-				   XDFECCF_TRIGGERS_ONE_SHOT_OFFSET, Val);
+	TriggerCfg->CCUpdate.TuserEdgeLevel =
+		XDfeCcf_RdBitField(XDFECCF_TRIGGERS_TUSER_EDGE_LEVEL_WIDTH,
+				   XDFECCF_TRIGGERS_TUSER_EDGE_LEVEL_OFFSET,
+				   Val);
+	TriggerCfg->CCUpdate.StateOutput =
+		XDfeCcf_RdBitField(XDFECCF_TRIGGERS_STATE_OUTPUT_WIDTH,
+				   XDFECCF_TRIGGERS_STATE_OUTPUT_OFFSET, Val);
 }
 
 /****************************************************************************/
@@ -1311,72 +1324,77 @@ void XDfeCcf_SetTriggersCfg(const XDfeCcf *InstancePtr,
 	Xil_AssertVoid(InstancePtr->StateId == XDFECCF_STATE_INITIALISED);
 	Xil_AssertVoid(TriggerCfg != NULL);
 
-	/* Write public trigger configuration members and ensure private
-	   members (_Enable & _OneShot) are set appropriately */
+	/* Write public trigger configuration members and ensure private members
+	  (TriggerEnable & Immediate) are set appropriately */
 
-	/* Activate defined as OneShot (as per the programming model) */
-	TriggerCfg->Activate.Enable = 0U;
-	TriggerCfg->Activate.OneShot = 1U;
+	/* Activate defined as Single Shot/Immediate (as per the programming model) */
+	TriggerCfg->Activate.TriggerEnable =
+		XDFECCF_TRIGGERS_TRIGGER_ENABLE_DISABLED;
+	TriggerCfg->Activate.StateOutput =
+		XDFECCF_TRIGGERS_STATE_OUTPUT_ENABLED;
 	/* Read/set/write ACTIVATE triggers */
 	Val = XDfeCcf_ReadReg(InstancePtr, XDFECCF_TRIGGERS_ACTIVATE_OFFSET);
-	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_ENABLE_WIDTH,
-				 XDFECCF_TRIGGERS_ENABLE_OFFSET, Val,
-				 TriggerCfg->Activate.Enable);
-	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_SOURCE_WIDTH,
-				 XDFECCF_TRIGGERS_SOURCE_OFFSET, Val,
-				 TriggerCfg->Activate.Source);
-	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_SIGNAL_EDGE_WIDTH,
-				 XDFECCF_TRIGGERS_SIGNAL_EDGE_OFFSET, Val,
-				 TriggerCfg->Activate.Edge);
+	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				 XDFECCF_TRIGGERS_TRIGGER_ENABLE_OFFSET, Val,
+				 TriggerCfg->Activate.TriggerEnable);
+	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_MODE_WIDTH,
+				 XDFECCF_TRIGGERS_MODE_OFFSET, Val,
+				 TriggerCfg->Activate.Mode);
+	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_TUSER_EDGE_LEVEL_WIDTH,
+				 XDFECCF_TRIGGERS_TUSER_EDGE_LEVEL_OFFSET, Val,
+				 TriggerCfg->Activate.TuserEdgeLevel);
 	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_TUSER_BIT_WIDTH,
 				 XDFECCF_TRIGGERS_TUSER_BIT_OFFSET, Val,
 				 TriggerCfg->Activate.TUSERBit);
-	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_ONE_SHOT_WIDTH,
-				 XDFECCF_TRIGGERS_ONE_SHOT_OFFSET, Val,
-				 TriggerCfg->Activate.OneShot);
+	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_STATE_OUTPUT_WIDTH,
+				 XDFECCF_TRIGGERS_STATE_OUTPUT_OFFSET, Val,
+				 TriggerCfg->Activate.StateOutput);
 	XDfeCcf_WriteReg(InstancePtr, XDFECCF_TRIGGERS_ACTIVATE_OFFSET, Val);
 
 	/* LowPower defined as Continuous */
-	TriggerCfg->LowPower.Enable = 0U;
-	TriggerCfg->LowPower.OneShot = 0U;
+	TriggerCfg->LowPower.TriggerEnable =
+		XDFECCF_TRIGGERS_TRIGGER_ENABLE_DISABLED;
+	TriggerCfg->LowPower.Mode = XDFECCF_TRIGGERS_MODE_TUSER_CONTINUOUS;
 	/* Read LOW_POWER triggers */
 	Val = XDfeCcf_ReadReg(InstancePtr, XDFECCF_TRIGGERS_LOW_POWER_OFFSET);
-	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_ENABLE_WIDTH,
-				 XDFECCF_TRIGGERS_ENABLE_OFFSET, Val,
-				 TriggerCfg->LowPower.Enable);
-	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_SOURCE_WIDTH,
-				 XDFECCF_TRIGGERS_SOURCE_OFFSET, Val,
-				 TriggerCfg->LowPower.Source);
-	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_SIGNAL_EDGE_WIDTH,
-				 XDFECCF_TRIGGERS_SIGNAL_EDGE_OFFSET, Val,
-				 TriggerCfg->LowPower.Edge);
+	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				 XDFECCF_TRIGGERS_TRIGGER_ENABLE_OFFSET, Val,
+				 TriggerCfg->LowPower.TriggerEnable);
+	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_MODE_WIDTH,
+				 XDFECCF_TRIGGERS_MODE_OFFSET, Val,
+				 TriggerCfg->LowPower.Mode);
+	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_TUSER_EDGE_LEVEL_WIDTH,
+				 XDFECCF_TRIGGERS_TUSER_EDGE_LEVEL_OFFSET, Val,
+				 TriggerCfg->LowPower.TuserEdgeLevel);
 	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_TUSER_BIT_WIDTH,
 				 XDFECCF_TRIGGERS_TUSER_BIT_OFFSET, Val,
 				 TriggerCfg->LowPower.TUSERBit);
-	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_ONE_SHOT_WIDTH,
-				 XDFECCF_TRIGGERS_ONE_SHOT_OFFSET, Val,
-				 TriggerCfg->LowPower.OneShot);
+	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_STATE_OUTPUT_WIDTH,
+				 XDFECCF_TRIGGERS_STATE_OUTPUT_OFFSET, Val,
+				 TriggerCfg->LowPower.StateOutput);
 	XDfeCcf_WriteReg(InstancePtr, XDFECCF_TRIGGERS_LOW_POWER_OFFSET, Val);
 
-	/* CCUpdate defined as OneShot */
-	TriggerCfg->CCUpdate.Enable = 0U;
-	TriggerCfg->CCUpdate.OneShot = 1U;
+	/* CCUpdate defined as Single Shot/Immediate */
+	TriggerCfg->CCUpdate.TriggerEnable =
+		XDFECCF_TRIGGERS_TRIGGER_ENABLE_DISABLED;
+	TriggerCfg->CCUpdate.StateOutput =
+		XDFECCF_TRIGGERS_STATE_OUTPUT_ENABLED;
 	Val = XDfeCcf_ReadReg(InstancePtr, XDFECCF_TRIGGERS_CC_UPDATE_OFFSET);
-	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_ENABLE_WIDTH,
-				 XDFECCF_TRIGGERS_ENABLE_OFFSET, Val,
-				 TriggerCfg->CCUpdate.Enable);
-	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_SOURCE_WIDTH,
-				 XDFECCF_TRIGGERS_SOURCE_OFFSET, Val,
-				 TriggerCfg->CCUpdate.Source);
-	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_SIGNAL_EDGE_WIDTH,
-				 XDFECCF_TRIGGERS_SIGNAL_EDGE_OFFSET, Val,
-				 TriggerCfg->CCUpdate.Edge);
+	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				 XDFECCF_TRIGGERS_TRIGGER_ENABLE_OFFSET, Val,
+				 TriggerCfg->CCUpdate.TriggerEnable);
+	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_MODE_WIDTH,
+				 XDFECCF_TRIGGERS_MODE_OFFSET, Val,
+				 TriggerCfg->CCUpdate.Mode);
+	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_TUSER_EDGE_LEVEL_WIDTH,
+				 XDFECCF_TRIGGERS_TUSER_EDGE_LEVEL_OFFSET, Val,
+				 TriggerCfg->CCUpdate.TuserEdgeLevel);
 	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_TUSER_BIT_WIDTH,
 				 XDFECCF_TRIGGERS_TUSER_BIT_OFFSET, Val,
 				 TriggerCfg->CCUpdate.TUSERBit);
-	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_ONE_SHOT_WIDTH,
-				 XDFECCF_TRIGGERS_ONE_SHOT_OFFSET, Val,
-				 TriggerCfg->CCUpdate.OneShot);
+	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_STATE_OUTPUT_WIDTH,
+				 XDFECCF_TRIGGERS_STATE_OUTPUT_OFFSET, Val,
+				 TriggerCfg->CCUpdate.StateOutput);
 	XDfeCcf_WriteReg(InstancePtr, XDFECCF_TRIGGERS_CC_UPDATE_OFFSET, Val);
 }
 
