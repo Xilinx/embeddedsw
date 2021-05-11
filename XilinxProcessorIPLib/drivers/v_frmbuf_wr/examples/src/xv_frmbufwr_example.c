@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -50,6 +50,14 @@
 #define DDR_BASEADDR XPAR_MIG7SERIES_0_BASEADDR
 #else
 #define DDR_BASEADDR XPAR_DDR_MEM_BASEADDR
+#endif
+
+#if defined XPAR_PSU_ACPU_GIC_DEVICE_ID
+#define PS_ACPU_GIC_DEVICE_ID XPAR_PSU_ACPU_GIC_DEVICE_ID
+#elif defined XPAR_SCUGIC_0_DEVICE_ID
+#define PS_ACPU_GIC_DEVICE_ID XPAR_SCUGIC_0_DEVICE_ID
+#else
+#warning No GIC Device ID found
 #endif
 
 #define XVFRMBUFRD_BUFFER_BASEADDR (DDR_BASEADDR + (0x20000000))
@@ -208,7 +216,7 @@ static int SetupInterrupts(void)
 
   /* Initialize the Interrupt controller */
   XScuGic_Config *IntcCfgPtr;
-  IntcCfgPtr = XScuGic_LookupConfig(XPAR_PSU_ACPU_GIC_DEVICE_ID);
+  IntcCfgPtr = XScuGic_LookupConfig(PS_ACPU_GIC_DEVICE_ID);
   if(IntcCfgPtr == NULL)
   {
     print("ERR:: Interrupt Controller not found");

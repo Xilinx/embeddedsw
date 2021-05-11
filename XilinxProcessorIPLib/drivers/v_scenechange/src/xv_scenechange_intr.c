@@ -7,7 +7,7 @@
 /**
  *
  * @file xv_scenechange_intr.c
- * @addtogroup v_scenechange_v1_2
+ * @addtogroup v_scenechange_v1_3
  * @{
  *
  * The functions in this file provides interrupt handler and associated

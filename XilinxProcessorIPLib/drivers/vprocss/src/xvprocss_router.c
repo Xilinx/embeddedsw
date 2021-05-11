@@ -7,7 +7,7 @@
 /**
 *
 * @file xvprocss_router.c
-* @addtogroup vprocss_v2_8
+* @addtogroup vprocss_v2_9
 * @{
 * @details
 
@@ -207,6 +207,8 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
   /* Check if input is I/P */
   if(StrmInPtr->IsInterlaced) {
     pTable[index++] = XVPROCSS_SUBCORE_DEINT;
+  } else {
+	  XVprocSsPtr->VdmaPtr = NULL;
   }
 
   /* Check if input is 420 */

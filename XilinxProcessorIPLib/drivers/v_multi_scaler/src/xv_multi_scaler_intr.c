@@ -7,7 +7,7 @@
 /**
  *
  * @file xv_multi_scaler_intr.c
- * @addtogroup v_multi_scaler_v1_2
+ * @addtogroup v_multi_scaler_v1_3
  * @{
  *
  * The functions in this file provides interrupt handler and associated
