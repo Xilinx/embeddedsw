@@ -23,6 +23,7 @@
 *       dc     04/10/21 Set sequence length only once
 *       dc     04/18/21 Update trigger and event handlers
 *       dc     04/21/21 Update due to restructured registers
+*       dc     05/08/21 Update to common trigger
 *
 * </pre>
 *
@@ -126,6 +127,7 @@ static void XDfePrach_SetRCPhaseUpdate(const XDfePrach *InstancePtr,
 static void XDfePrach_SetRCPhaseReset(const XDfePrach *InstancePtr,
 				      u32 RachChan);
 static void XDfePrach_EnableActivateTrigger(const XDfePrach *InstancePtr);
+static void XDfePrach_EnableDeactivateTrigger(const XDfePrach *InstancePtr);
 static void XDfePrach_EnableUpdateTrigger(const XDfePrach *InstancePtr);
 static void XDfePrach_EnableFrameMarkerTrigger(const XDfePrach *InstancePtr);
 static void XDfePrach_EnableLowPowerTrigger(const XDfePrach *InstancePtr);
@@ -1559,71 +1561,25 @@ static void XDfePrach_SetRCPhaseReset(const XDfePrach *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Enables the Activate trigger.
-*
-* @param    InstancePtr is pointer to the Prach instance.
-*
-* @return   None
-*
-* @note     None
-*
-****************************************************************************/
-static void XDfePrach_EnableActivateTrigger(const XDfePrach *InstancePtr)
-{
-	Xil_AssertVoid(InstancePtr != NULL);
-
-	XDfePrach_WrRegBitField(InstancePtr, XDFEPRACH_TRIGGERS_ACTIVATE_OFFSET,
-				XDFEPRACH_TRIGGERS_ENABLE_WIDTH,
-				XDFEPRACH_TRIGGERS_ENABLE_OFFSET,
-				XDFEPRACH_TRIGGERS_ENABLED);
-}
-
-/****************************************************************************/
-/**
-*
 * Read Triggers, set enable bit of update trigger. If register source, then
 * trigger will be applied immediately.
 *
 * @param    InstancePtr is pointer to the Prach instance.
 *
-* @return   None
-*
-* @note     None
-*
 ****************************************************************************/
 static void XDfePrach_EnableUpdateTrigger(const XDfePrach *InstancePtr)
 {
+	u32 Data;
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	XDfePrach_WrRegBitField(InstancePtr,
-				XDFEPRACH_TRIGGERS_RACH_UPDATE_OFFSET,
-				XDFEPRACH_TRIGGERS_ENABLE_WIDTH,
-				XDFEPRACH_TRIGGERS_ENABLE_OFFSET,
-				XDFEPRACH_TRIGGERS_ENABLED);
-}
-
-/****************************************************************************/
-/**
-*
-* Read Triggers, set enable bit of frame marker trigger. If register source,
-* then trigger will be applied immediately.
-*
-* @param    InstancePtr is pointer to the Prach instance.
-*
-* @return   None
-*
-* @note     None
-*
-****************************************************************************/
-static void XDfePrach_EnableFrameMarkerTrigger(const XDfePrach *InstancePtr)
-{
-	Xil_AssertVoid(InstancePtr != NULL);
-
-	XDfePrach_WrRegBitField(InstancePtr,
-				XDFEPRACH_TRIGGERS_FRAME_INIT_OFFSET,
-				XDFEPRACH_TRIGGERS_ENABLE_WIDTH,
-				XDFEPRACH_TRIGGERS_ENABLE_OFFSET,
-				XDFEPRACH_TRIGGERS_ENABLED);
+	Data = XDfePrach_ReadReg(InstancePtr,
+				 XDFEPRACH_TRIGGERS_RACH_UPDATE_OFFSET);
+	Data = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				    XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_OFFSET,
+				    Data,
+				    XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_ENABLED);
+	XDfePrach_WriteReg(InstancePtr, XDFEPRACH_TRIGGERS_RACH_UPDATE_OFFSET,
+			   Data);
 }
 
 /****************************************************************************/
@@ -1634,21 +1590,77 @@ static void XDfePrach_EnableFrameMarkerTrigger(const XDfePrach *InstancePtr)
 *
 * @param    InstancePtr is pointer to the Prach instance.
 *
-* @return   None
-*
-* @note     None
-*
 ****************************************************************************/
 static void XDfePrach_EnableLowPowerTrigger(const XDfePrach *InstancePtr)
 {
+	u32 Data;
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	XDfePrach_WrRegBitField(InstancePtr,
-				XDFEPRACH_TRIGGERS_LOW_POWER_OFFSET,
-				XDFEPRACH_TRIGGERS_ENABLE_WIDTH,
-				XDFEPRACH_TRIGGERS_ENABLE_OFFSET,
-				XDFEPRACH_TRIGGERS_ENABLED);
+	Data = XDfePrach_ReadReg(InstancePtr,
+				 XDFEPRACH_TRIGGERS_LOW_POWER_OFFSET);
+	Data = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				    XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_OFFSET,
+				    Data,
+				    XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_ENABLED);
+	XDfePrach_WriteReg(InstancePtr, XDFEPRACH_TRIGGERS_LOW_POWER_OFFSET,
+			   Data);
 }
+
+/****************************************************************************/
+/**
+*
+* Enables the Activate trigger.
+*
+* @param    InstancePtr is pointer to the Prach instance.
+*
+****************************************************************************/
+static void XDfePrach_EnableActivateTrigger(const XDfePrach *InstancePtr)
+{
+	u32 Data;
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	Data = XDfePrach_ReadReg(InstancePtr,
+				 XDFEPRACH_TRIGGERS_ACTIVATE_OFFSET);
+	Data = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				    XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_OFFSET,
+				    Data,
+				    XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_ENABLED);
+	Data = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_STATE_OUTPUT_WIDTH,
+				    XDFEPRACH_TRIGGERS_STATE_OUTPUT_OFFSET,
+				    Data,
+				    XDFEPRACH_TRIGGERS_STATE_OUTPUT_ENABLED);
+	XDfePrach_WriteReg(InstancePtr, XDFEPRACH_TRIGGERS_ACTIVATE_OFFSET,
+			   Data);
+}
+
+/****************************************************************************/
+/**
+*
+* Reads the Triggers, set disable bit of Activate trigger. If
+* Mode = IMMEDIATE, then trigger will be applied immediately.
+*
+* @param    InstancePtr is a pointer to the Prach instance.
+*
+****************************************************************************/
+static void XDfePrach_EnableDeactivateTrigger(const XDfePrach *InstancePtr)
+{
+	u32 Data;
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	Data = XDfePrach_ReadReg(InstancePtr,
+				 XDFEPRACH_TRIGGERS_ACTIVATE_OFFSET);
+	Data = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				    XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_OFFSET,
+				    Data,
+				    XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_ENABLED);
+	Data = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_STATE_OUTPUT_WIDTH,
+				    XDFEPRACH_TRIGGERS_STATE_OUTPUT_OFFSET,
+				    Data,
+				    XDFEPRACH_TRIGGERS_STATE_OUTPUT_DISABLED);
+	XDfePrach_WriteReg(InstancePtr, XDFEPRACH_TRIGGERS_ACTIVATE_OFFSET,
+			   Data);
+}
+
 /****************************************************************************/
 /**
 *
@@ -1656,20 +1668,44 @@ static void XDfePrach_EnableLowPowerTrigger(const XDfePrach *InstancePtr)
 *
 * @param    InstancePtr is pointer to the Prach instance.
 *
-* @return   None
-*
-* @note     None
-*
 ****************************************************************************/
 static void XDfePrach_DisableLowPowerTrigger(const XDfePrach *InstancePtr)
 {
+	u32 Data;
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	XDfePrach_WrRegBitField(InstancePtr,
-				XDFEPRACH_TRIGGERS_LOW_POWER_OFFSET,
-				XDFEPRACH_TRIGGERS_ENABLE_WIDTH,
-				XDFEPRACH_TRIGGERS_ENABLE_OFFSET,
-				XDFEPRACH_TRIGGERS_DISABLED);
+	Data = XDfePrach_ReadReg(InstancePtr,
+				 XDFEPRACH_TRIGGERS_LOW_POWER_OFFSET);
+	Data = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				    XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_OFFSET,
+				    Data,
+				    XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_DISABLED);
+	XDfePrach_WriteReg(InstancePtr, XDFEPRACH_TRIGGERS_LOW_POWER_OFFSET,
+			   Data);
+}
+
+/****************************************************************************/
+/**
+*
+* Read Triggers, set enable bit of frame marker trigger. If register source,
+* then trigger will be applied immediately.
+*
+* @param    InstancePtr is a pointer to the Prach instance.
+*
+****************************************************************************/
+static void XDfePrach_EnableFrameMarkerTrigger(const XDfePrach *InstancePtr)
+{
+	u32 Data;
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	Data = XDfePrach_ReadReg(InstancePtr,
+				 XDFEPRACH_TRIGGERS_FRAME_INIT_OFFSET);
+	Data = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				    XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_OFFSET,
+				    Data,
+				    XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_ENABLED);
+	XDfePrach_WriteReg(InstancePtr, XDFEPRACH_TRIGGERS_FRAME_INIT_OFFSET,
+			   Data);
 }
 
 /*************************** Init API ***************************************/
@@ -1688,8 +1724,6 @@ static void XDfePrach_DisableLowPowerTrigger(const XDfePrach *InstancePtr)
 * @return
 *           - pointer to instance if successful.
 *           - NULL on error.
-*
-* @note     None.
 *
 ******************************************************************************/
 XDfePrach *XDfePrach_InstanceInit(const char *DeviceNodeName)
@@ -1795,10 +1829,6 @@ return_error:
 *
 * @param    InstancePtr is pointer to the XDfePrach instance.
 *
-* @return
-*
-* @note     None.
-*
 ******************************************************************************/
 void XDfePrach_InstanceClose(XDfePrach *InstancePtr)
 {
@@ -1828,9 +1858,6 @@ void XDfePrach_InstanceClose(XDfePrach *InstancePtr)
 *
 * @param    InstancePtr is pointer to the Prach instance.
 *
-* @return   None
-*
-* @note     None
 *
 ****************************************************************************/
 void XDfePrach_Reset(XDfePrach *InstancePtr)
@@ -1855,9 +1882,6 @@ void XDfePrach_Reset(XDfePrach *InstancePtr)
 * @param    InstancePtr is pointer to the Prach instance.
 * @param    Cfg is configuration data container.
 *
-* @return   None
-*
-* @note     None
 *
 ****************************************************************************/
 void XDfePrach_Configure(XDfePrach *InstancePtr, XDfePrach_Cfg *Cfg)
@@ -1938,10 +1962,6 @@ void XDfePrach_Configure(XDfePrach *InstancePtr, XDfePrach_Cfg *Cfg)
 * @param    InstancePtr is pointer to the Prach instance.
 * @param    Init is a initialisation data container.
 *
-* @return   None
-*
-* @note     None
-*
 ****************************************************************************/
 void XDfePrach_Initialize(XDfePrach *InstancePtr, XDfePrach_Init *Init)
 {
@@ -1998,20 +2018,20 @@ void XDfePrach_Initialize(XDfePrach *InstancePtr, XDfePrach_Init *Init)
 
 	/* Trigger RACH_UPDATE immediately using Register source to update
 	   CURRENT from NEXT */
-	RachUpdate.Enable = XDFEPRACH_TRIGGERS_ENABLED;
-	RachUpdate.OneShot = XDFEPRACH_TRIGGERS_ONE_SHOT_ONESHOT;
-	RachUpdate.Source = XDFEPRACH_TRIGGERS_SOURCE_REGISTER;
+	RachUpdate.TriggerEnable = XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_ENABLED;
+	RachUpdate.Mode = XDFEPRACH_TRIGGERS_MODE_IMMEDIATE;
+	RachUpdate.StateOutput = XDFEPRACH_TRIGGERS_STATE_OUTPUT_ENABLED;
 	Data = XDfePrach_ReadReg(InstancePtr,
 				 XDFEPRACH_TRIGGERS_RACH_UPDATE_OFFSET);
-	Data = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_ENABLE_WIDTH,
-				    XDFEPRACH_TRIGGERS_ENABLE_OFFSET, Data,
-				    RachUpdate.Enable);
-	Data = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_ONE_SHOT_WIDTH,
-				    XDFEPRACH_TRIGGERS_ONE_SHOT_OFFSET, Data,
-				    RachUpdate.OneShot);
-	Data = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_SOURCE_WIDTH,
-				    XDFEPRACH_TRIGGERS_SOURCE_OFFSET, Data,
-				    RachUpdate.Source);
+	Data = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_STATE_OUTPUT_WIDTH,
+				    XDFEPRACH_TRIGGERS_STATE_OUTPUT_OFFSET,
+				    Data, RachUpdate.StateOutput);
+	Data = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				    XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_OFFSET,
+				    Data, RachUpdate.TriggerEnable);
+	Data = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_MODE_WIDTH,
+				    XDFEPRACH_TRIGGERS_MODE_OFFSET, Data,
+				    RachUpdate.Mode);
 	XDfePrach_WriteReg(InstancePtr, XDFEPRACH_TRIGGERS_RACH_UPDATE_OFFSET,
 			   Data);
 
@@ -2021,35 +2041,31 @@ void XDfePrach_Initialize(XDfePrach *InstancePtr, XDfePrach_Init *Init)
 /*****************************************************************************/
 /**
 *
-* Initiate the transition to operational state, optionally enable lower power
-* switching (enable Activate trigger).
+* Activates PRACH.
 *
-* @param    InstancePtr is pointer to the Prach instance.
-* @param    EnableLowPower is falg indicating low power.
-*
-* @return   None
-*
-* @note     None
+* @param    InstancePtr is a pointer to the Prach instance.
+* @param    EnableLowPower is a flag indicating low power.
 *
 ******************************************************************************/
 void XDfePrach_Activate(XDfePrach *InstancePtr, bool EnableLowPower)
 {
-	u32 Data;
+	u32 IsOperational;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEPRACH_STATE_INITIALISED);
+	Xil_AssertVoid((InstancePtr->StateId == XDFEPRACH_STATE_INITIALISED) ||
+		       (InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL));
 
 	/* Do nothing if the block already operational */
-	Data = XDfePrach_ReadReg(InstancePtr,
-				 XDFEPRACH_STATE_OPERATIONAL_OFFSET);
-	if (XDFEPRACH_STATE_IS_OPERATIONAL == Data) {
+	IsOperational = XDfePrach_ReadReg(InstancePtr,
+					  XDFEPRACH_STATE_OPERATIONAL_OFFSET);
+	if (IsOperational == XDFEPRACH_STATE_IS_OPERATIONAL) {
 		return;
 	}
 
-	/* Enable the Activate trigger */
+	/* Enable the Activate trigger and set to one-shot */
 	XDfePrach_EnableActivateTrigger(InstancePtr);
 
-	/* Enable the LowPower trigger if requested */
+	/* Enable the LowPower trigger, set to continuous triggering */
 	if (EnableLowPower == true) {
 		XDfePrach_EnableLowPowerTrigger(InstancePtr);
 	}
@@ -2061,28 +2077,24 @@ void XDfePrach_Activate(XDfePrach *InstancePtr, bool EnableLowPower)
 /*****************************************************************************/
 /**
 *
-* Initiate the transition to initialized, ultra low power state (enable
-* Deactivate trigger).
+* Deactivates PRACH.
 *
 * @param    InstancePtr is pointer to the Prach instance.
-*
-* @return   None
-*
-* @note     None
 *
 ******************************************************************************/
 void XDfePrach_Deactivate(XDfePrach *InstancePtr)
 {
-	u32 Data;
+	u32 IsOperational;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
+	Xil_AssertVoid((InstancePtr->StateId == XDFEPRACH_STATE_INITIALISED) ||
+		       (InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL));
 
 	/* Do nothing if the block already deactivated (in Initialized
 	   state) */
-	Data = XDfePrach_ReadReg(InstancePtr,
-				 XDFEPRACH_STATE_OPERATIONAL_OFFSET);
-	if (XDFEPRACH_STATE_NOT_OPERATIONAL == Data) {
+	IsOperational = XDfePrach_ReadReg(InstancePtr,
+					  XDFEPRACH_STATE_OPERATIONAL_OFFSET);
+	if (IsOperational == XDFEPRACH_STATE_NOT_OPERATIONAL) {
 		return;
 	}
 
@@ -2091,7 +2103,7 @@ void XDfePrach_Deactivate(XDfePrach *InstancePtr)
 
 	/* Enable Activate trigger (toggles state between operational
 	   and intialized) */
-	XDfePrach_EnableActivateTrigger(InstancePtr);
+	XDfePrach_EnableDeactivateTrigger(InstancePtr);
 
 	InstancePtr->StateId = XDFEPRACH_STATE_INITIALISED;
 }
@@ -2451,14 +2463,10 @@ u32 XDfePrach_MoveRC(const XDfePrach *InstancePtr, u32 RCId, u32 ToChannel)
 /****************************************************************************/
 /**
 *
-* Return current trigger configuration.
+* Returns current trigger configuration.
 *
-* @param    InstancePtr is pointer to the Prach instance.
-* @param    TriggerCfg is Trigger config container.
-*
-* @return   None
-*
-* @note     None
+* @param    InstancePtr is a pointer to the Prach instance.
+* @param    TriggerCfg is a trigger configuration container.
 *
 ****************************************************************************/
 void XDfePrach_GetTriggersCfg(const XDfePrach *InstancePtr,
@@ -2473,95 +2481,99 @@ void XDfePrach_GetTriggersCfg(const XDfePrach *InstancePtr,
 	/* Read ACTIVATE triggers */
 	Val = XDfePrach_ReadReg(InstancePtr,
 				XDFEPRACH_TRIGGERS_ACTIVATE_OFFSET);
-	TriggerCfg->Activate.Enable =
-		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_ENABLE_WIDTH,
-				     XDFEPRACH_TRIGGERS_ENABLE_OFFSET, Val);
-	TriggerCfg->Activate.Source =
-		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_SOURCE_WIDTH,
-				     XDFEPRACH_TRIGGERS_SOURCE_OFFSET, Val);
+	TriggerCfg->Activate.TriggerEnable =
+		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				     XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_OFFSET,
+				     Val);
+	TriggerCfg->Activate.Mode =
+		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_MODE_WIDTH,
+				     XDFEPRACH_TRIGGERS_MODE_OFFSET, Val);
 	TriggerCfg->Activate.TUSERBit =
 		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_TUSER_BIT_WIDTH,
 				     XDFEPRACH_TRIGGERS_TUSER_BIT_OFFSET, Val);
-	TriggerCfg->Activate.Edge =
-		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_SIGNAL_EDGE_WIDTH,
-				     XDFEPRACH_TRIGGERS_SIGNAL_EDGE_OFFSET,
+	TriggerCfg->Activate.TuserEdgeLevel =
+		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_TUSER_EDGE_LEVEL_WIDTH,
+				     XDFEPRACH_TRIGGERS_TUSER_EDGE_LEVEL_OFFSET,
 				     Val);
-	TriggerCfg->Activate.OneShot =
-		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_ONE_SHOT_WIDTH,
-				     XDFEPRACH_TRIGGERS_ONE_SHOT_OFFSET, Val);
+	TriggerCfg->Activate.StateOutput =
+		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_STATE_OUTPUT_WIDTH,
+				     XDFEPRACH_TRIGGERS_STATE_OUTPUT_OFFSET,
+				     Val);
 
 	/* Read LOW_POWER triggers */
 	Val = XDfePrach_ReadReg(InstancePtr,
 				XDFEPRACH_TRIGGERS_LOW_POWER_OFFSET);
-	TriggerCfg->LowPower.Enable =
-		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_ENABLE_WIDTH,
-				     XDFEPRACH_TRIGGERS_ENABLE_OFFSET, Val);
-	TriggerCfg->LowPower.Source =
-		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_SOURCE_WIDTH,
-				     XDFEPRACH_TRIGGERS_SOURCE_OFFSET, Val);
+	TriggerCfg->LowPower.TriggerEnable =
+		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				     XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_OFFSET,
+				     Val);
+	TriggerCfg->LowPower.Mode =
+		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_MODE_WIDTH,
+				     XDFEPRACH_TRIGGERS_MODE_OFFSET, Val);
 	TriggerCfg->LowPower.TUSERBit =
 		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_TUSER_BIT_WIDTH,
 				     XDFEPRACH_TRIGGERS_TUSER_BIT_OFFSET, Val);
-	TriggerCfg->LowPower.Edge =
-		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_SIGNAL_EDGE_WIDTH,
-				     XDFEPRACH_TRIGGERS_SIGNAL_EDGE_OFFSET,
+	TriggerCfg->LowPower.TuserEdgeLevel =
+		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_TUSER_EDGE_LEVEL_WIDTH,
+				     XDFEPRACH_TRIGGERS_TUSER_EDGE_LEVEL_OFFSET,
 				     Val);
-	TriggerCfg->LowPower.OneShot =
-		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_ONE_SHOT_WIDTH,
-				     XDFEPRACH_TRIGGERS_ONE_SHOT_OFFSET, Val);
+	TriggerCfg->LowPower.StateOutput =
+		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_STATE_OUTPUT_WIDTH,
+				     XDFEPRACH_TRIGGERS_STATE_OUTPUT_OFFSET,
+				     Val);
 
 	/* Read RACH_UPDATE triggers */
 	Val = XDfePrach_ReadReg(InstancePtr,
 				XDFEPRACH_TRIGGERS_RACH_UPDATE_OFFSET);
-	TriggerCfg->RachUpdate.Enable =
-		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_ENABLE_WIDTH,
-				     XDFEPRACH_TRIGGERS_ENABLE_OFFSET, Val);
-	TriggerCfg->RachUpdate.Source =
-		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_SOURCE_WIDTH,
-				     XDFEPRACH_TRIGGERS_SOURCE_OFFSET, Val);
+	TriggerCfg->RachUpdate.TriggerEnable =
+		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				     XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_OFFSET,
+				     Val);
+	TriggerCfg->RachUpdate.Mode =
+		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_MODE_WIDTH,
+				     XDFEPRACH_TRIGGERS_MODE_OFFSET, Val);
 	TriggerCfg->RachUpdate.TUSERBit =
 		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_TUSER_BIT_WIDTH,
 				     XDFEPRACH_TRIGGERS_TUSER_BIT_OFFSET, Val);
-	TriggerCfg->RachUpdate.Edge =
-		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_SIGNAL_EDGE_WIDTH,
-				     XDFEPRACH_TRIGGERS_SIGNAL_EDGE_OFFSET,
+	TriggerCfg->RachUpdate.TuserEdgeLevel =
+		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_TUSER_EDGE_LEVEL_WIDTH,
+				     XDFEPRACH_TRIGGERS_TUSER_EDGE_LEVEL_OFFSET,
 				     Val);
-	TriggerCfg->RachUpdate.OneShot =
-		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_ONE_SHOT_WIDTH,
-				     XDFEPRACH_TRIGGERS_ONE_SHOT_OFFSET, Val);
+	TriggerCfg->RachUpdate.StateOutput =
+		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_STATE_OUTPUT_WIDTH,
+				     XDFEPRACH_TRIGGERS_STATE_OUTPUT_OFFSET,
+				     Val);
 
 	/* Read FRAME_INIT triggers */
 	Val = XDfePrach_ReadReg(InstancePtr,
 				XDFEPRACH_TRIGGERS_FRAME_INIT_OFFSET);
-	TriggerCfg->FrameInit.Enable =
-		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_ENABLE_WIDTH,
-				     XDFEPRACH_TRIGGERS_ENABLE_OFFSET, Val);
-	TriggerCfg->FrameInit.Source =
-		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_SOURCE_WIDTH,
-				     XDFEPRACH_TRIGGERS_SOURCE_OFFSET, Val);
+	TriggerCfg->FrameInit.TriggerEnable =
+		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				     XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_OFFSET,
+				     Val);
+	TriggerCfg->FrameInit.Mode =
+		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_MODE_WIDTH,
+				     XDFEPRACH_TRIGGERS_MODE_OFFSET, Val);
 	TriggerCfg->FrameInit.TUSERBit =
 		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_TUSER_BIT_WIDTH,
 				     XDFEPRACH_TRIGGERS_TUSER_BIT_OFFSET, Val);
-	TriggerCfg->FrameInit.Edge =
-		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_SIGNAL_EDGE_WIDTH,
-				     XDFEPRACH_TRIGGERS_SIGNAL_EDGE_OFFSET,
+	TriggerCfg->FrameInit.TuserEdgeLevel =
+		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_TUSER_EDGE_LEVEL_WIDTH,
+				     XDFEPRACH_TRIGGERS_TUSER_EDGE_LEVEL_OFFSET,
 				     Val);
-	TriggerCfg->FrameInit.OneShot =
-		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_ONE_SHOT_WIDTH,
-				     XDFEPRACH_TRIGGERS_ONE_SHOT_OFFSET, Val);
+	TriggerCfg->FrameInit.StateOutput =
+		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_STATE_OUTPUT_WIDTH,
+				     XDFEPRACH_TRIGGERS_STATE_OUTPUT_OFFSET,
+				     Val);
 }
 
 /****************************************************************************/
 /**
 *
-* Set trigger configuration.
+* Sets trigger configuration.
 *
-* @param    InstancePtr is pointer to the Prach instance.
-* @param    TriggerCfg is Trigger config container.
-*
-* @return   None
-*
-* @note     None
+* @param    InstancePtr is a pointer to the Prach instance.
+* @param    TriggerCfg is a trigger configuration container.
 *
 ****************************************************************************/
 void XDfePrach_SetTriggersCfg(const XDfePrach *InstancePtr,
@@ -2573,100 +2585,106 @@ void XDfePrach_SetTriggersCfg(const XDfePrach *InstancePtr,
 	Xil_AssertVoid(InstancePtr->StateId == XDFEPRACH_STATE_INITIALISED);
 	Xil_AssertVoid(TriggerCfg != NULL);
 
-	/* Write public trigger configuration members and ensure private
-	   members (_Enable & _OneShot) are set appropriately */
+	/* Write public trigger configuration members and ensure private members
+	  (TriggerEnable & Immediate) are set appropriately */
 
-	/* Activate defined as OneShot (as per the programming model) */
-	TriggerCfg->Activate.Enable = 0U;
-	TriggerCfg->Activate.OneShot = 1U;
+	/* Activate defined as Single Shot/Immediate (as per the programming model) */
+	TriggerCfg->Activate.TriggerEnable =
+		XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_DISABLED;
+	TriggerCfg->Activate.Mode = XDFEPRACH_TRIGGERS_MODE_IMMEDIATE;
+	TriggerCfg->Activate.StateOutput =
+		XDFEPRACH_TRIGGERS_STATE_OUTPUT_ENABLED;
 	/* Read/set/write ACTIVATE triggers */
 	Val = XDfePrach_ReadReg(InstancePtr,
 				XDFEPRACH_TRIGGERS_ACTIVATE_OFFSET);
-	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_ENABLE_WIDTH,
-				   XDFEPRACH_TRIGGERS_ENABLE_OFFSET, Val,
-				   TriggerCfg->Activate.Enable);
-	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_SOURCE_WIDTH,
-				   XDFEPRACH_TRIGGERS_SOURCE_OFFSET, Val,
-				   TriggerCfg->Activate.Source);
-	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_SIGNAL_EDGE_WIDTH,
-				   XDFEPRACH_TRIGGERS_SIGNAL_EDGE_OFFSET, Val,
-				   TriggerCfg->Activate.Edge);
+	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				   XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_OFFSET,
+				   Val, TriggerCfg->Activate.TriggerEnable);
+	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_MODE_WIDTH,
+				   XDFEPRACH_TRIGGERS_MODE_OFFSET, Val,
+				   TriggerCfg->Activate.Mode);
+	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_TUSER_EDGE_LEVEL_WIDTH,
+				   XDFEPRACH_TRIGGERS_TUSER_EDGE_LEVEL_OFFSET,
+				   Val, TriggerCfg->Activate.TuserEdgeLevel);
 	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_TUSER_BIT_WIDTH,
 				   XDFEPRACH_TRIGGERS_TUSER_BIT_OFFSET, Val,
 				   TriggerCfg->Activate.TUSERBit);
-	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_ONE_SHOT_WIDTH,
-				   XDFEPRACH_TRIGGERS_ONE_SHOT_OFFSET, Val,
-				   TriggerCfg->Activate.OneShot);
+	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_STATE_OUTPUT_WIDTH,
+				   XDFEPRACH_TRIGGERS_STATE_OUTPUT_OFFSET, Val,
+				   TriggerCfg->Activate.StateOutput);
 	XDfePrach_WriteReg(InstancePtr, XDFEPRACH_TRIGGERS_ACTIVATE_OFFSET,
 			   Val);
 
 	/* LowPower defined as Continuous */
-	TriggerCfg->LowPower.Enable = 0U;
-	TriggerCfg->LowPower.OneShot = 0U;
-	/* Read LOW_POWER triggers */
+	TriggerCfg->LowPower.TriggerEnable =
+		XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_DISABLED;
+	TriggerCfg->LowPower.Mode = XDFEPRACH_TRIGGERS_MODE_TUSER_CONTINUOUS;
+	/* Read/set/write LOW_POWER triggers */
 	Val = XDfePrach_ReadReg(InstancePtr,
 				XDFEPRACH_TRIGGERS_LOW_POWER_OFFSET);
-	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_ENABLE_WIDTH,
-				   XDFEPRACH_TRIGGERS_ENABLE_OFFSET, Val,
-				   TriggerCfg->LowPower.Enable);
-	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_SOURCE_WIDTH,
-				   XDFEPRACH_TRIGGERS_SOURCE_OFFSET, Val,
-				   TriggerCfg->LowPower.Source);
-	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_SIGNAL_EDGE_WIDTH,
-				   XDFEPRACH_TRIGGERS_SIGNAL_EDGE_OFFSET, Val,
-				   TriggerCfg->LowPower.Edge);
+	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				   XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_OFFSET,
+				   Val, TriggerCfg->LowPower.TriggerEnable);
+	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_MODE_WIDTH,
+				   XDFEPRACH_TRIGGERS_MODE_OFFSET, Val,
+				   TriggerCfg->LowPower.Mode);
+	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_TUSER_EDGE_LEVEL_WIDTH,
+				   XDFEPRACH_TRIGGERS_TUSER_EDGE_LEVEL_OFFSET,
+				   Val, TriggerCfg->LowPower.TuserEdgeLevel);
 	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_TUSER_BIT_WIDTH,
 				   XDFEPRACH_TRIGGERS_TUSER_BIT_OFFSET, Val,
 				   TriggerCfg->LowPower.TUSERBit);
-	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_ONE_SHOT_WIDTH,
-				   XDFEPRACH_TRIGGERS_ONE_SHOT_OFFSET, Val,
-				   TriggerCfg->LowPower.OneShot);
+	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_STATE_OUTPUT_WIDTH,
+				   XDFEPRACH_TRIGGERS_STATE_OUTPUT_OFFSET, Val,
+				   TriggerCfg->LowPower.StateOutput);
 	XDfePrach_WriteReg(InstancePtr, XDFEPRACH_TRIGGERS_LOW_POWER_OFFSET,
 			   Val);
 
 	/* RachUpdate defined as OneShot */
-	TriggerCfg->RachUpdate.Enable = 0U;
-	TriggerCfg->RachUpdate.OneShot = 1U;
+	TriggerCfg->RachUpdate.TriggerEnable =
+		XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_DISABLED;
+	TriggerCfg->RachUpdate.Mode = XDFEPRACH_TRIGGERS_MODE_IMMEDIATE;
 	Val = XDfePrach_ReadReg(InstancePtr,
 				XDFEPRACH_TRIGGERS_RACH_UPDATE_OFFSET);
-	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_ENABLE_WIDTH,
-				   XDFEPRACH_TRIGGERS_ENABLE_OFFSET, Val,
-				   TriggerCfg->RachUpdate.Enable);
-	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_SOURCE_WIDTH,
-				   XDFEPRACH_TRIGGERS_SOURCE_OFFSET, Val,
-				   TriggerCfg->RachUpdate.Source);
-	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_SIGNAL_EDGE_WIDTH,
-				   XDFEPRACH_TRIGGERS_SIGNAL_EDGE_OFFSET, Val,
-				   TriggerCfg->RachUpdate.Edge);
+	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				   XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_OFFSET,
+				   Val, TriggerCfg->RachUpdate.TriggerEnable);
+	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_MODE_WIDTH,
+				   XDFEPRACH_TRIGGERS_MODE_OFFSET, Val,
+				   TriggerCfg->RachUpdate.Mode);
+	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_TUSER_EDGE_LEVEL_WIDTH,
+				   XDFEPRACH_TRIGGERS_TUSER_EDGE_LEVEL_OFFSET,
+				   Val, TriggerCfg->RachUpdate.TuserEdgeLevel);
 	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_TUSER_BIT_WIDTH,
 				   XDFEPRACH_TRIGGERS_TUSER_BIT_OFFSET, Val,
 				   TriggerCfg->RachUpdate.TUSERBit);
-	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_ONE_SHOT_WIDTH,
-				   XDFEPRACH_TRIGGERS_ONE_SHOT_OFFSET, Val,
-				   TriggerCfg->RachUpdate.OneShot);
+	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_STATE_OUTPUT_WIDTH,
+				   XDFEPRACH_TRIGGERS_STATE_OUTPUT_OFFSET, Val,
+				   TriggerCfg->RachUpdate.StateOutput);
 	XDfePrach_WriteReg(InstancePtr, XDFEPRACH_TRIGGERS_RACH_UPDATE_OFFSET,
 			   Val);
 
 	/* Frame_Init defined as Continuous */
-	TriggerCfg->FrameInit.Enable = 0U;
-	TriggerCfg->FrameInit.OneShot = 0U;
+	TriggerCfg->FrameInit.TriggerEnable =
+		XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_DISABLED;
+	TriggerCfg->FrameInit.Mode = XDFEPRACH_TRIGGERS_MODE_TUSER_CONTINUOUS;
 	Val = XDfePrach_ReadReg(InstancePtr,
 				XDFEPRACH_TRIGGERS_FRAME_INIT_OFFSET);
-	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_ENABLE_WIDTH,
-				   XDFEPRACH_TRIGGERS_ENABLE_OFFSET, Val,
-				   TriggerCfg->FrameInit.Enable);
-	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_SOURCE_WIDTH,
-				   XDFEPRACH_TRIGGERS_SOURCE_OFFSET, Val,
-				   TriggerCfg->FrameInit.Source);
-	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_SIGNAL_EDGE_WIDTH,
-				   XDFEPRACH_TRIGGERS_SIGNAL_EDGE_OFFSET, Val,
-				   TriggerCfg->FrameInit.Edge);
+	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				   XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_OFFSET,
+				   Val, TriggerCfg->FrameInit.TriggerEnable);
+	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_MODE_WIDTH,
+				   XDFEPRACH_TRIGGERS_MODE_OFFSET, Val,
+				   TriggerCfg->FrameInit.Mode);
+	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_TUSER_EDGE_LEVEL_WIDTH,
+				   XDFEPRACH_TRIGGERS_TUSER_EDGE_LEVEL_OFFSET,
+				   Val, TriggerCfg->FrameInit.TuserEdgeLevel);
 	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_TUSER_BIT_WIDTH,
 				   XDFEPRACH_TRIGGERS_TUSER_BIT_OFFSET, Val,
 				   TriggerCfg->FrameInit.TUSERBit);
-	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_ONE_SHOT_WIDTH,
-				   XDFEPRACH_TRIGGERS_ONE_SHOT_OFFSET, Val,
-				   TriggerCfg->FrameInit.OneShot);
+	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_STATE_OUTPUT_WIDTH,
+				   XDFEPRACH_TRIGGERS_STATE_OUTPUT_OFFSET, Val,
+				   TriggerCfg->FrameInit.StateOutput);
 	XDfePrach_WriteReg(InstancePtr, XDFEPRACH_TRIGGERS_FRAME_INIT_OFFSET,
 			   Val);
 }
