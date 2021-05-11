@@ -794,6 +794,17 @@ XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId
 	XPm_CheckLastResetReason();
 
 	if (0U != (ResetReason & SysResetMask)) {
+
+		/* Don't skip house cleaning sequence */
+		XPm_Out32(XPM_DOMAIN_INIT_STATUS_REG, 0U);
+
+		/* Assert PL and PS POR */
+		PmRmw32(CRP_RST_PS, CRP_RST_PS_PL_POR_MASK | CRP_RST_PS_PS_POR_MASK,
+					CRP_RST_PS_PL_POR_MASK | CRP_RST_PS_PS_POR_MASK);
+
+		/* Assert NOC POR */
+		PmRmw32(CRP_RST_NONPS, CRP_RST_NONPS_NOC_POR_MASK, CRP_RST_NONPS_NOC_POR_MASK);
+
 		/* Enable domain isolations after system reset */
 		for (i = 0; i < ARRAY_SIZE(IsolationIdx); i++) {
 			Status = XPmDomainIso_Control(IsolationIdx[i], TRUE_VALUE);
