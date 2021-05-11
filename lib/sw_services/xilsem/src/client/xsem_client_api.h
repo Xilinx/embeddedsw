@@ -27,7 +27,7 @@
 * 0.8   hb   03/15/2021   MISRA fixes, added Event Notifiers macros and
 *                         formatted code
 * 0.9   rb   04/07/2021   Doxygen changes
-*
+* 1.0	hv   05/04/2021   Updated Doxygen comments
 * </pre>
 *
 * @note
@@ -130,11 +130,11 @@ typedef struct {
 
 /**
  * XSemCfrErrInjData - CRAM Error Injection structure to hold the
- * Error Injection Location details in CRAM
+ * Error Injection Location details for CRAM:
  * - Frame address
  * - Quad Word in a Frame, Range from 0 to 24
- * - Bit position in a Quad Word, Range from 0 to 127
- * - Row number, Valid range can be found from CFU_APB_CFU_ROW_RANGE
+ * - Bit Position in a Quad Word, Range from 0 to 127
+ * - Row Number, Range can be found from CFU_APB_CFU_ROW_RANGE
  *   register
  */
 typedef struct {
@@ -146,8 +146,8 @@ typedef struct {
 
 /**
  * XSemCfrStatus - CRAM Status structure to store the data read from
- * PMC RAM registers.
- * This structure provides,
+ * PMC RAM registers
+ * This structure provides:
  * - CRAM scan state information
  * - The low address of last 7 corrected error details if correction
  *   is enabled in design
@@ -165,20 +165,20 @@ typedef struct {
 /**
  * XSemNpiStatus - NPI Status structure to store the data read from
  * PMC RAM registers.
- * This structure provides,
- * - NPI scan status information.
- * - NPI descriptor slave skip counter value if arbitration failure.
- * - NPI scan counter value.
- * - NPI heartbeat counter value.
- * - NPI scan error information if SHA mismatch is detected.
+ * This structure provides:
+ * - NPI scan status information
+ * - NPI descriptor slave skip counter value if arbitration fails
+ * - NPI scan counter value
+ * - NPI heartbeat counter value
+ * - NPI scan error information if SHA mismatch is detected
  */
 typedef struct {
-	u32 Status; /**< Npi Status */
-	u32 SlvSkipCnt[MAX_NPI_SLV_SKIP_CNT]; /**< Npi Slave Skip Count */
-	u32 ScanCnt; /**< Npi Scan Count */
-	u32 HbCnt; /**< Npi Heart Beat Count */
-	u32 ErrInfo[MAX_NPI_ERR_INFO_CNT]; /**< NPI Error Information when SHA
-						mismatch occur */
+	u32 Status; /**< NPI Status */
+	u32 SlvSkipCnt[MAX_NPI_SLV_SKIP_CNT]; /**< Slave Skip Count */
+	u32 ScanCnt; /**< Scan Count */
+	u32 HbCnt; /**< Heart Beat Count */
+	u32 ErrInfo[MAX_NPI_ERR_INFO_CNT]; /**< Error Information when SHA
+						mismatch occurs */
 } XSemNpiStatus;
 
 /** SEM CRAM Module Notification ID */
@@ -212,8 +212,8 @@ typedef struct {
 #define XSEM_EVENT_DISABLE	(0x0U)
 
 /**
- * XSem_Notifier - Notifier structure contains details of event notificaiton
- * to be register with XilSEM Server
+ * XSem_Notifier - This structure contains details of event notifications
+ * to be registered with the XilSEM server
  */
 typedef struct {
 	/**
@@ -224,7 +224,7 @@ typedef struct {
 	 */
 	u32 Module;
 	/**
-	 * The Event type specify the specific event registration.
+	 * The event types specify the specific event registration.</br>
 	 * For CRAM module, events are:
 	 * - Uncorrectable ECC error: use XSEM_EVENT_CRAM_UNCOR_ECC_ERR
 	 * - Uncorrectable CRC error: use XSEM_EVENT_CRAM_CRC_ERR
@@ -233,7 +233,7 @@ typedef struct {
 	 *
 	 * For NPI module, events are:
 	 * - Uncorrectable CRC error: use XSEM_EVENT_NPI_CRC_ERR
-	 * - Internal error: use XSEM_EVENT_NPI_INT_ERR.
+	 * - Internal error: use XSEM_EVENT_NPI_INT_ERR
 	 */
 	u32 Event;
 	/**
