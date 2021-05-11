@@ -77,7 +77,7 @@ typedef uint32_t u32;
 				XV_multi_scaler_Set_HwReg_dstImgBuf1_##x##_V
 typedef struct {
     u16 DeviceId;
-    UINTPTR Ctrl_BaseAddress;
+    u32 Ctrl_BaseAddress;
     u32 SamplesPerClock;
     u32 MaxDataWidth;
     u32 MaxCols;
@@ -92,7 +92,7 @@ extern XV_multi_scaler_Config XV_multi_scaler_ConfigTable[];
 
 typedef void (*XVMultiScaler_Callback)(void *CallbackRef);
 typedef struct {
-    UINTPTR Ctrl_BaseAddress;
+    u32 Ctrl_BaseAddress;
     u32 IsReady;
     u32 SamplesPerClock;
     u32 MaxDataWidth;
@@ -113,10 +113,6 @@ typedef struct {
     Xil_Out32((BaseAddress) + (RegOffset), (u32)(Data))
 #define XV_multi_scaler_ReadReg(BaseAddress, RegOffset) \
     Xil_In32((BaseAddress) + (RegOffset))
-#define XV_multi_scaler_WriteReg16(BaseAddress, RegOffset, Data) \
-    Xil_Out16((BaseAddress) + (RegOffset), (u16)(Data))
-#define XV_multi_scaler_ReadReg16(BaseAddress, RegOffset) \
-    Xil_In16((BaseAddress) + (RegOffset))
 #else
 #define XV_multi_scaler_WriteReg(BaseAddress, RegOffset, Data) \
     *(volatile u32*)((BaseAddress) + (RegOffset)) = (u32)(Data)

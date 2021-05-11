@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2020 Xilinx, Inc.      All rights reserved.
+* Copyright (C) 2018 - 2021 Xilinx, Inc.      All rights reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -32,7 +32,6 @@
 #include "xil_io.h"
 #include "xil_cache.h"
 #include "sleep.h"
-#include "xvidc.h"
 #include "xv_scenechange.h"
 
 /*Reset all IPs in pipeline */
@@ -42,6 +41,18 @@
 /* users is changing the data in Layer 0 */
 #define SCD_LAYER_0		0
 #define MAX_PATTERNS		8
+
+#if defined XPAR_PSU_ACPU_GIC_DEVICE_ID
+#define PS_ACPU_GIC_DEVICE_ID XPAR_PSU_ACPU_GIC_DEVICE_ID
+#elif defined XPAR_SCUGIC_0_DEVICE_ID
+#define PS_ACPU_GIC_DEVICE_ID XPAR_SCUGIC_0_DEVICE_ID
+#else
+#warning No GIC Device ID found
+#endif
+
+#if defined XPAR_GPIO_0_BASEADDR
+#define GPIO_BASE XPAR_GPIO_0_BASEADDR
+#endif
 
 /* Different patterns to write in the memory location for the streams */
 volatile u32 local_mem[8] = {0xFF00FF, 0xFFFF00, 0xFF0000, 0x00FFFF,
@@ -86,7 +97,7 @@ static int SetupInterruptSystem(void)
 	XScuGic *IntcInstPtr = &Intc;
 
 	XScuGic_Config *IntcCfgPtr;
-	IntcCfgPtr = XScuGic_LookupConfig(XPAR_PSU_ACPU_GIC_DEVICE_ID);
+	IntcCfgPtr = XScuGic_LookupConfig(PS_ACPU_GIC_DEVICE_ID);
 	if (!IntcCfgPtr) {
 		xil_printf("ERR:: Interrupt Controller not found");
 		return XST_DEVICE_NOT_FOUND;
@@ -182,12 +193,23 @@ int XV_SceneChange_init(u16 DeviceId)
 
 void reset_pipe(void)
 {
+
+#if defined XPAR_GPIO_0_BASEADDR
+	u32 count;
+	*(u32 *)(GPIO_BASE) = 0xFF;
+	for (count = 0; count <1000; count++);
+	*(u32 *)(GPIO_BASE) = 0x0;
+	for (count = 0; count <1000; count++);
+	*(u32 *)(GPIO_BASE) = 0xFF;
+	for (count = 0; count <1000; count++);
+#else
 	Xil_Out32(0xFF0A0018, 0xFFFF0000);
 	Xil_Out32(0xFF0A02C4, 0xFFFFFFFF);
 	Xil_Out32(0xFF0A02C8, 0xFFFFFFFF);
 	Xil_Out32(0xFF0A004C, IP_RESET_MASK);
 	Xil_Out32(0xFF0A004C, 0x00000000);
 	Xil_Out32(0xFF0A004C, IP_RESET_MASK);
+#endif
 
 	xil_printf("Reset SCD - Done.\r\n");
 }

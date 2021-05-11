@@ -41,6 +41,18 @@
 #define SRC_BUF_START_ADDR 0x10000000
 #define DST_BUF_START_ADDR 0x30000000
 
+#if defined XPAR_PSU_ACPU_GIC_DEVICE_ID
+#define PS_ACPU_GIC_DEVICE_ID XPAR_PSU_ACPU_GIC_DEVICE_ID
+#elif defined XPAR_SCUGIC_0_DEVICE_ID
+#define PS_ACPU_GIC_DEVICE_ID XPAR_SCUGIC_0_DEVICE_ID
+#else
+#warning No GIC Device ID found
+#endif
+
+#if defined XPAR_GPIO_0_BASEADDR
+#define GPIO_BASE XPAR_GPIO_0_BASEADDR
+#endif
+
 XScuGic Intc;
 XV_multi_scaler MultiScalerInst;
 XV_multi_scaler_Video_Config *thisCase;
@@ -93,7 +105,7 @@ static int SetupInterruptSystem(void)
 	* use, specify the device ID that was generated in xparameters.h
 	*/
 	XScuGic_Config *IntcCfgPtr;
-	IntcCfgPtr = XScuGic_LookupConfig(XPAR_PSU_ACPU_GIC_DEVICE_ID);
+	IntcCfgPtr = XScuGic_LookupConfig(PS_ACPU_GIC_DEVICE_ID);
 	if (!IntcCfgPtr) {
 		xil_printf("ERR:: Interrupt Controller not found");
 		return XST_DEVICE_NOT_FOUND;
@@ -131,6 +143,15 @@ static int SetupInterruptSystem(void)
  ******************************************************************************/
 void XV_Reset_MultiScaler(void)
 {
+#if defined XPAR_GPIO_0_BASEADDR
+	u32 count;
+	*(u32 *)(GPIO_BASE) = 0xFF;
+	for (count = 0; count <1000; count++);
+	*(u32 *)(GPIO_BASE) = 0x0;
+	for (count = 0; count <1000; count++);
+	*(u32 *)(GPIO_BASE) = 0xFF;
+	for (count = 0; count <1000; count++);
+#else
 	XV_multi_scaler_WriteReg(XPAR_PSU_GPIO_0_BASEADDR,
 	XGPIOPS_MASK_DATA_3_LSW_OFFSET, 0xFFFF0000);
 	XV_multi_scaler_WriteReg(XPAR_PSU_GPIO_0_BASEADDR,
@@ -143,6 +164,7 @@ void XV_Reset_MultiScaler(void)
 	XGPIOPS_DATA_3_OFFSET, 0x00000000);
 	XV_multi_scaler_WriteReg(XPAR_PSU_GPIO_0_BASEADDR,
 	XGPIOPS_DATA_3_OFFSET, 0x00000001);
+#endif
 }
 
 /*****************************************************************************/

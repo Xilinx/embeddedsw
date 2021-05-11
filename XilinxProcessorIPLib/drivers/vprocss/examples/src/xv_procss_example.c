@@ -624,6 +624,7 @@ int main(void)
 	goto INFINITE_LOOP;
     }
 
+#ifndef XPS_BOARD_VCK190
 #if XPAR_XCLK_WIZ_NUM_INSTANCES
     u32 ClockFreq = 0;
     ClockFreq = (XVidC_GetPixelClockHzByVmId(VpssPtr->VidOut.VmId) / 1000000);
@@ -634,6 +635,7 @@ int main(void)
     ClockFreq = ClockFreq*10000;
 
 	ClkWiz_IntrExample(XCLK_WIZ_DEVICE_ID, ClockFreq);
+#endif
 #endif
 
     //Configure and start VTC with output timing
