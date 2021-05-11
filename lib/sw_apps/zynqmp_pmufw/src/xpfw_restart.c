@@ -80,18 +80,18 @@ static XTtcPs FpdTtcInstance;
 
 /* Data strcuture to track restart phases for a Master */
 typedef struct XPfwRestartTracker {
-	PmMaster *Master; /* Master whose restart cycle is being tracked */
+	u32 WdtBaseAddress; /* Base address for WDT assigend to this master */
 	u8 RestartState; /* Track different phases in restart cycle */
 	u8 RestartScope; /* Restart scope upon WDT */
-	u32 WdtBaseAddress; /* Base address for WDT assigend to this master */
 	u8 WdtTimeout; /* Timeout value for WDT */
 	u8 ErrorId; /* Error Id corresponding to the WDT */
-	XWdtPs* WdtPtr; /* Pointer to WDT for this master */
 	u32 WdtResetId; /* WDT reset ID */
 	u16 TtcDeviceId; /* TTC timer device ID */
-	XTtcPs *TtcPtr; /* Pointer to TTC for this master */
 	u8 TtcTimeout; /* Timeout to notify master for event */
 	u32 TtcResetId; /* Reset line ID for TTC */
+	PmMaster *Master; /* Master whose restart cycle is being tracked */
+	XWdtPs* WdtPtr; /* Pointer to WDT for this master */
+	XTtcPs *TtcPtr; /* Pointer to TTC for this master */
 } XPfwRestartTracker;
 
 static XPfwRestartTracker RstTrackerList[] ={
