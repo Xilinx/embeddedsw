@@ -1390,7 +1390,6 @@ int XV_HdmiRx1_FrlDdcWriteField(XV_HdmiRx1 *InstancePtr,
 				u8 Value)
 {
 	u32 Data = 0, Retrycount;
-	u32 Status = XST_FAILURE;
 
 	/* Verify argument. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1401,7 +1400,7 @@ int XV_HdmiRx1_FrlDdcWriteField(XV_HdmiRx1 *InstancePtr,
 	}
 
 	if (Data == 0xFFFFFFFF) {
-		return Status;
+		return XST_FAILURE;
 	}
 
 	/* 256 byte FIFO but doubling to 512 tries for safety */
@@ -1437,7 +1436,7 @@ int XV_HdmiRx1_FrlDdcWriteField(XV_HdmiRx1 *InstancePtr,
 	XV_HdmiRx1_WriteReg(InstancePtr->Config.BaseAddress,
 			    XV_HDMIRX1_FRL_SCDC_OFFSET, Data);
 
-	return Status;
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
