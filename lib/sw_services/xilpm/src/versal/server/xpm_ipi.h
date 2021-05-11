@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,11 +27,6 @@ extern "C" {
 XStatus XPm_IpiSend(u32 IpiMask, u32 *Payload);
 XStatus XPm_IpiReadStatus(u32 IpiMask);
 XStatus XPm_IpiPollForAck(u32 IpiMask, u32 TimeOutCount);
-
-/*
- * XSDB master IPI-5 mask
- */
-#define XSDB_IPI_INT_MASK		(0x00000080U)
 
 #ifdef __cplusplus
 }
