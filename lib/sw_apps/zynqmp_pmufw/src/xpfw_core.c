@@ -234,9 +234,11 @@ XStatus XPfw_CoreDispatchIpi(u32 IpiNum, u32 SrcMask)
 	/* For each of the IPI sources */
 	for (MaskIndex = 0U; MaskIndex < XPFW_IPI_MASK_COUNT; MaskIndex++) {
 		/* Check if the Mask is set */
-		if ((SrcMask & IpiMaskList[MaskIndex]) != 0U) {
+		if ((SrcMask &
+				Ipi0InstPtr->Config.TargetList[MaskIndex].Mask) != 0U) {
 			/* If set, read the message into buffer */
-			Status = XPfw_IpiReadMessage(IpiMaskList[MaskIndex],
+			Status = XPfw_IpiReadMessage(
+						Ipi0InstPtr->Config.TargetList[MaskIndex].Mask,
 						&Payload[0], XPFW_IPI_MAX_MSG_LEN);
 			if (XST_SUCCESS != Status) {
 				XPfw_Printf(DEBUG_ERROR, "IPI payload read error\r\n");
@@ -249,7 +251,8 @@ XStatus XPfw_CoreDispatchIpi(u32 IpiNum, u32 SrcMask)
 					(CorePtr->ModList[Idx].IpiHandler != NULL)) {
 					/* Call the module's IPI handler */
 					CorePtr->ModList[Idx].IpiHandler(&CorePtr->ModList[Idx],
-							IpiNum, IpiMaskList[MaskIndex],
+							IpiNum,
+							Ipi0InstPtr->Config.TargetList[MaskIndex].Mask,
 							&Payload[0], XPFW_IPI_MAX_MSG_LEN);
 					CallCount++;
 				}

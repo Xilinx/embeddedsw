@@ -18,7 +18,7 @@ extern "C" {
 #include "xparameters.h"
 
 #define XPFW_IPI_MASK_COUNT XIPIPSU_MAX_TARGETS
-extern u32 IpiMaskList[XPFW_IPI_MASK_COUNT];
+extern XIpiPsu *Ipi0InstPtr;
 
 #define XPFW_IPI_MAX_MSG_LEN XIPIPSU_MAX_MSG_LEN
 
