@@ -7,7 +7,7 @@
 /**
  *
  * @file xdpdma_sinit.c
- * @addtogroup dpdma_v1_2
+ * @addtogroup dpdma_v1_4
  * @{
  *
  * This file contains static initialization methods for the XDpDma driver.
