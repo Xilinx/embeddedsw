@@ -109,6 +109,9 @@
  * 6.0 Nava  01/21/21  Make Status variable volatile to avoid compiler
  *                     optimizations.
  * 6.0 Nava  02/22/21  Fixed doxygen issues.
+ * 6.0 Nava  05/07/21  Added support to load the authenticated bitstream image
+ *                     as non-secure image if RSA_EN is not programmed.
+ *
  * </pre>
  *
  * @note
@@ -380,9 +383,15 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 				(u8 *)InstancePtr->WriteInfo.BitstreamAddr,
 				ImageHdrDataPtr);
 	if (Status != XFPGA_SUCCESS) {
-		if (Status != XSECURE_AUTH_NOT_ENABLED) {
+		if (Status == XSECURE_ONLY_BHDR_AUTH_ALLOWED) {
+			InstancePtr->WriteInfo.Flags &=
+				~(XFPGA_AUTHENTICATION_DDR_EN |
+				  XFPGA_AUTHENTICATION_OCM_EN);
+		} else if (Status != XSECURE_AUTH_NOT_ENABLED) {
 			Status = XFPGA_PCAP_UPDATE_ERR(XFPGA_ERROR_HDR_AUTH, Status);
 			goto END;
+		} else {
+			Xfpga_Printf(XFPGA_DEBUG, "Image Authentication not enabled\r\n");
 		}
 	}
 
