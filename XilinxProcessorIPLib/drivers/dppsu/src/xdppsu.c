@@ -1769,7 +1769,7 @@ u32 XDpPsu_IicRead(XDpPsu *InstancePtr, u8 IicAddress, u16 Offset,
 		 * current segment; prepare for next read. */
 			BytesLeft -= CurrBytesToRead;
 			Offset += CurrBytesToRead;
-			ReadData += CurrBytesToRead;
+			ReadData = (u8 *)ReadData + CurrBytesToRead;
 
 			if (BytesLeft > 0) {
 			/* Increment the segment pointer to access more I2C
