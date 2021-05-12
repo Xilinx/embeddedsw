@@ -425,7 +425,7 @@ namespace xaiefal {
 			}
 			if (RC == XAIE_OK && StopMod != Mod) {
 				StopBC->getEvent(Loc, Mod, lStopE);
-				XAie_EventBroadcast(dev(), Loc, StopMod,
+				RC = XAie_EventBroadcast(dev(), Loc, StopMod,
 						StopBC->getBc(), StopEvent);
 				if (RC == XAIE_OK) {
 					RC = StopBC->start();
