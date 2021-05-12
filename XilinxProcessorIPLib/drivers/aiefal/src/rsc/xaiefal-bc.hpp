@@ -114,7 +114,7 @@ namespace xaiefal {
 		}
 	private:
 		AieRC _reserve() {
-			AieRC RC;
+			AieRC RC = XAIE_INVALID_ARGS;
 			uint8_t broadcastAll = 1;
 			uint32_t numRscs;
 
@@ -128,19 +128,21 @@ namespace xaiefal {
 					rsc.RscType = XAIE_BCAST_CHANNEL_RSC;
 					vRscs.push_back(rsc);
 				}
+				RC = XAIE_OK;
 			} else {
-				setRscs(AieHd, vLocs, StartMod, EndMod, vRscs);
+				RC = setRscs(AieHd, vLocs, StartMod, EndMod, vRscs);
 				numRscs = vRscs.size();
 				broadcastAll = 0;
 			}
 
-			if (preferredId == XAIE_RSC_ID_ANY) {
-				RC = XAie_RequestBroadcastChannel(AieHd->dev(), &numRscs, &vRscs[0], broadcastAll);
-			} else {
-				RC = XAie_RequestSpecificBroadcastChannel(AieHd->dev(), preferredId, &numRscs, &vRscs[0], broadcastAll);
+			if (RC == XAIE_OK) {
+				if (preferredId == XAIE_RSC_ID_ANY) {
+					RC = XAie_RequestBroadcastChannel(AieHd->dev(), &numRscs, &vRscs[0], broadcastAll);
+				} else {
+					RC = XAie_RequestSpecificBroadcastChannel(AieHd->dev(), preferredId, &numRscs, &vRscs[0], broadcastAll);
+				}
+				vRscs.resize(numRscs);
 			}
-			vRscs.resize(numRscs);
-
 			return RC;
 
 		}
@@ -356,6 +358,7 @@ namespace xaiefal {
 				return XAIE_INVALID_ARGS;
 			}
 			bits = 0;
+
 			for (size_t i = 0; i < vL.size(); i++) {
 				XAie_UserRsc R;
 				uint32_t TType;
