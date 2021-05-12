@@ -45,6 +45,7 @@
 *       skd  03/25/2021 Macros re-definitions compilation warning fixes
 *       ma   05/03/2021 Added macros for FW_CR and FW_ERR NCR_FLAG masks and
 *                       removed PSM_CR mask macro which is unused
+*       gm   05/11/2021 Added macros for DDRMC UB related registers
 *
 * </pre>
 *
@@ -698,6 +699,13 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define PMC_GPIO_DATA_0_OFFSET		(0xF1020040U)
 #define PMC_GPIO_DATA_1_OFFSET		(0xF1020044U)
 #define PS_GPIO_DATA_0_OFFSET		(0xFF0B0040U)
+
+/*
+ * Definitions required for DDRMC dump
+ */
+#define DDRMC_PCSR_CONTROL_OFFSET	(0x00000004U)
+#define DDRMC_PCSR_CONTROL_PCOMPLETE_MASK	(0x00000001U)
+#define DDRMC_PCSR_STATUS_OFFSET	(0x00000008U)
 
 /************************** Function Prototypes ******************************/
 

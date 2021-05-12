@@ -59,6 +59,8 @@
 *       bsv  04/16/2021 Add provision to store Subsystem Id in XilPlmi
 *       rp   04/20/2021 Add extra arg for calls to XPm_RequestDevice and
 *			XPm_ReleaseDevice
+*       gm   05/10/2021 Added support to dump DDRMC registers in case of
+*			deferred error
 *
 * </pre>
 *
@@ -80,6 +82,7 @@
 #include "xplmi.h"
 #include "xil_util.h"
 #include "xplmi_err.h"
+#include "xpm_nodeid.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -87,6 +90,11 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XLOADER_SUCCESS_NOT_PRTN_OWNER	(0x100U)
+#define DDRMC_OFFSET_CALIB_ERR		(0x840CU)
+#define DDRMC_OFFSET_CALIB_ERR_NIBBLE_1	(0x8420U)
+#define DDRMC_OFFSET_CALIB_ERR_NIBBLE_2	(0x841CU)
+#define DDRMC_OFFSET_CALIB_ERR_NIBBLE_3	(0x8418U)
+#define DDRMC_OFFSET_CALIB_STAGE_PTR	(0x8400U)
 
 /************************** Function Prototypes ******************************/
 static int XLoader_PrtnHdrValidation(const XilPdi_PrtnHdr* PrtnHdr, u32 PrtnNum);
@@ -99,6 +107,7 @@ static int XLoader_ProcessCdo (const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceC
 	XLoader_SecureParams* SecureParams);
 static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr* PrtnHdr,
 	XLoader_PrtnParams* PrtnParams, XLoader_SecureParams* SecureParams);
+static int XLoader_DumpDdrmcRegisters(void);
 
 /************************** Variable Definitions *****************************/
 
@@ -780,10 +789,12 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 			Cdo.Cmd.KeyHoleParams.ExtraWords = 0x0U;
 		}
 	}
+
 	/* If deferred error, flagging it after CDO process complete */
 	if (Cdo.DeferredError == (u8)TRUE) {
+		Status = XLoader_DumpDdrmcRegisters();
 		Status = XPlmi_UpdateStatus(
-			XLOADER_ERR_DEFERRED_CDO_PROCESS, 0);
+			XLOADER_ERR_DEFERRED_CDO_PROCESS, Status);
 		goto END;
 	}
 	Status = XST_SUCCESS;
@@ -1031,6 +1042,103 @@ static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len)
 	 */
 	*LoadAddrPtr = Address;
 	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function prints DDRMC register details.
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XLoader_DumpDdrmcRegisters(void)
+{
+	int Status = XST_FAILURE;
+	u32 PcsrStatus = 0U;
+	u32 CalibErr = 0U;
+	u32 CalibErrNibble1 = 0U;
+	u32 CalibErrNibble2 = 0U;
+	u32 CalibErrNibble3 = 0U;
+	u32 CalibStage = 0U;
+	u32 PcsrCtrl = 0U;
+	u32 DevId = 0U;
+	u32 Ub = 0U;
+	u32 BaseAddr = 0U;
+
+	XPlmi_Printf(DEBUG_GENERAL,"====DDRMC Register Dump Start======\n\r");
+
+	Status = XLoader_DdrOps(XLOADER_REQUEST_DDR);
+	if (XST_SUCCESS != Status) {
+		XPlmi_Printf(DEBUG_GENERAL,
+				"Error  0x%0x in requesting DDR.\n\r", Status);
+		goto END;
+	}
+
+	for (DevId = PM_DEV_DDRMC_0; DevId <= PM_DEV_DDRMC_3; DevId++) {
+		/* Get DDRMC UB Base address */
+		Status = XPm_GetDeviceBaseAddr(DevId, &BaseAddr);
+		if (XST_SUCCESS != Status) {
+			XPlmi_Printf(DEBUG_GENERAL,
+				"Error 0x%0x in getting DDRMC_%u addr\n",
+				Status, Ub);
+			goto END;
+		}
+
+		XPlmi_Printf(DEBUG_GENERAL,
+				"DDRMC_%u (UB 0x%08x)\n\r", Ub, BaseAddr);
+
+		/* Read PCSR Control */
+		PcsrCtrl = XPlmi_In32(BaseAddr + DDRMC_PCSR_CONTROL_OFFSET);
+
+		/* Skip DDRMC dump if PComplete is zero */
+		if (0U == (PcsrCtrl & DDRMC_PCSR_CONTROL_PCOMPLETE_MASK)) {
+			XPlmi_Printf(DEBUG_GENERAL, "PComplete not set\n\r");
+			++Ub;
+			continue;
+		}
+
+		/* Read PCSR Status */
+		PcsrStatus = XPlmi_In32(BaseAddr + DDRMC_PCSR_STATUS_OFFSET);
+		/* Read Calibration Error */
+		CalibErr = XPlmi_In32(BaseAddr + DDRMC_OFFSET_CALIB_ERR);
+		/* Read Error Nibble 1 */
+		CalibErrNibble1 = XPlmi_In32(BaseAddr +
+				DDRMC_OFFSET_CALIB_ERR_NIBBLE_1);
+		/* Read Error Nibble 2 */
+		CalibErrNibble2 = XPlmi_In32(BaseAddr +
+				DDRMC_OFFSET_CALIB_ERR_NIBBLE_2);
+		/* Read Error Nibble 3 */
+		CalibErrNibble3 = XPlmi_In32(BaseAddr +
+				DDRMC_OFFSET_CALIB_ERR_NIBBLE_3);
+		/* Read calibration stage */
+		CalibStage = XPlmi_In32(BaseAddr +
+				DDRMC_OFFSET_CALIB_STAGE_PTR);
+
+		XPlmi_Printf(DEBUG_GENERAL,
+				"PCSR Control: 0x%0x\n\r", PcsrCtrl);
+		XPlmi_Printf(DEBUG_GENERAL,
+				"PCSR Status: 0x%0x\n\r", PcsrStatus);
+		XPlmi_Printf(DEBUG_GENERAL,
+				"Calibration Error: 0x%0x\n\r", CalibErr);
+		XPlmi_Printf(DEBUG_GENERAL,
+				"Nibble Location 1: 0x%0x\n\r",
+				CalibErrNibble1);
+		XPlmi_Printf(DEBUG_GENERAL,
+				"Nibble Location 2: 0x%0x\n\r",
+				CalibErrNibble2);
+		XPlmi_Printf(DEBUG_GENERAL,
+				"Nibble Location 3: 0x%0x\n\r",
+				CalibErrNibble3);
+		XPlmi_Printf(DEBUG_GENERAL,
+				"Calibration Stage: 0x%0x\n\r", CalibStage);
+		++Ub;
+	}
+	XPlmi_Printf(DEBUG_GENERAL, "PMC Interrupt Status : 0x%0x\n\r",
+			XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS));
+	XPlmi_Printf(DEBUG_GENERAL, "====DDRMC Register Dump End======\n\r");
 
 END:
 	return Status;
