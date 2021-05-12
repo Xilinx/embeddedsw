@@ -17,6 +17,7 @@
 #include "pm_clock.h"
 
 /** @name Payload Packets
+ * @cond xilpm_internal
  *
  * Assigning of argument values into array elements.
  * pause and pm_dbg are used for debugging and should be removed in
@@ -150,6 +151,10 @@ void XPm_SuspendFinalize(void)
 	XPm_ClientSuspendFinalize();
 }
 
+/**
+ * @{
+ * @cond xilpm_internal
+ */
 /****************************************************************************/
 /**
  * @brief  Sends IPI request to the PMU
@@ -248,6 +253,10 @@ static XStatus pm_ipi_buff_read32(struct XPm_Master *const master,
 done:
 	return status;
 }
+/**
+ * @}
+ * @endcond
+ */
 
 /****************************************************************************/
 /**
@@ -609,9 +618,10 @@ done:
  * @brief  This function can be used by a privileged PU to shut down
  * or restart the complete device.
  *
- * @param  restart Should the system be restarted automatically?
+ * @param type	Should the system be restarted automatically?
  * - PM_SHUTDOWN : no restart requested, system will be powered off permanently
  * - PM_RESTART : restart is requested, system will go through a full reset
+ * @param subtype	Restart subtype (SYSTEM or PS_ONLY or SUBSYSTEM)
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -1064,7 +1074,7 @@ done:
  * reset line. Alternatively a reset pulse can be requested as well.
  *
  * @param  reset  ID of the reset line
- * @param  assert Identifies action:
+ * @param  resetaction Identifies action:
  * - PM_RESET_ACTION_RELEASE : release reset,
  * - PM_RESET_ACTION_ASSERT : assert reset,
  * - PM_RESET_ACTION_PULSE : pulse reset,
@@ -1518,6 +1528,7 @@ done:
  *
  * @param  clk   Identifier of the target clock
  * @param  divider Location to store the divider value
+ * @param  divId ID of the divider
  *
  * @return Status of performing the operation as returned by the PMU-FW
  *
@@ -1848,7 +1859,7 @@ done:
  * @brief  Locally used function to request or release a pin control
  *
  * @param  pin  PIN identifier (index from range 0-77)
- * @api    API identifier (request or release pin control)
+ * @param  api  API identifier (request or release pin control)
  *
  * @return Status of performing the operation as returned by the PMU-FW
  *
