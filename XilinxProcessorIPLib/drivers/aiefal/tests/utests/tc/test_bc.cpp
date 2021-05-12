@@ -37,11 +37,13 @@ TEST_GROUP(Broadcast)
 {
 };
 
-TEST(Broadcast, BasicSelectTiles)
+TEST(Broadcast, BroadcastError)
 {
 	AieRC RC;
 	std::vector<XAie_LocType> vL, vL1;
 	XAie_ModuleType StartM, EndM, StartM1, EndM1;
+
+	XAie_Events event;
 
 	XAie_SetupConfig(ConfigPtr, HW_GEN, XAIE_BASE_ADDR,
 			XAIE_COL_SHIFT, XAIE_ROW_SHIFT,
@@ -56,6 +58,58 @@ TEST(Broadcast, BasicSelectTiles)
 
 	XAieDev Aie(&DevInst, true);
 
+	vL.push_back(XAie_TileLoc(1,1));
+	vL.push_back(XAie_TileLoc(1,2));
+	vL.push_back(XAie_TileLoc(1,3));
+
+	StartM = XAIE_PL_MOD;
+	EndM = XAIE_PL_MOD;
+	auto BC = Aie.broadcast(vL, StartM, EndM);
+
+	RC = BC->reserve();
+	CHECK_EQUAL(RC, XAIE_INVALID_ARGS);
+
+	StartM = XAIE_CORE_MOD;
+	EndM = XAIE_CORE_MOD;
+	BC = Aie.broadcast(vL, StartM, EndM);
+
+	RC = BC->reserve();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	DevInst.IsReady = 0;
+
+	RC = BC->start();
+	CHECK_EQUAL(RC, XAIE_INVALID_ARGS);
+
+	RC = BC->stop();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = BC->release();
+	CHECK_EQUAL(RC, XAIE_INVALID_ARGS);
+
+}
+TEST(Broadcast, BasicSelectTiles)
+{
+	AieRC RC;
+	std::vector<XAie_LocType> vL, vL1;
+	XAie_ModuleType StartM, EndM, StartM1, EndM1;
+
+	XAie_Events event;
+
+	XAie_SetupConfig(ConfigPtr, HW_GEN, XAIE_BASE_ADDR,
+			XAIE_COL_SHIFT, XAIE_ROW_SHIFT,
+			XAIE_NUM_COLS, XAIE_NUM_ROWS, XAIE_SHIM_ROW,
+			XAIE_MEM_TILE_ROW_START, XAIE_MEM_TILE_NUM_ROWS,
+			XAIE_AIE_TILE_ROW_START, XAIE_AIE_TILE_NUM_ROWS);
+
+	XAie_InstDeclare(DevInst, &ConfigPtr);
+
+	RC = XAie_CfgInitialize(&(DevInst), &ConfigPtr);
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	XAieDev Aie(&DevInst, true);
+
+	/*First test SHIM tiles left to right*/
 	vL.push_back(XAie_TileLoc(0,0));
 	vL.push_back(XAie_TileLoc(1,0));
 	vL.push_back(XAie_TileLoc(2,0));
@@ -69,6 +123,36 @@ TEST(Broadcast, BasicSelectTiles)
 	CHECK_EQUAL(EndM, EndM);
 	CHECK_TRUE(is_equal_vLocs(vL, vL1));
 
+	RC = BC->getEvent(XAie_TileLoc(1,0), XAIE_PL_MOD, event);
+	CHECK_EQUAL(RC, XAIE_ERR);
+
+	RC = BC->reserve();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = BC->start();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = BC->stop();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = BC->getEvent(XAie_TileLoc(1,0), XAIE_PL_MOD, event);
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = BC->getEvent(XAie_TileLoc(1,1), XAIE_PL_MOD, event);
+	CHECK_EQUAL(RC, XAIE_INVALID_ARGS);
+
+	RC = BC->release();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	vL.clear();
+
+	/*Test SHIM right to left shim*/
+	vL.push_back(XAie_TileLoc(2,0));
+	vL.push_back(XAie_TileLoc(1,0));
+	vL.push_back(XAie_TileLoc(0,0));
+
+	BC = Aie.broadcast(vL, StartM, EndM);
+
 	RC = BC->reserve();
 	CHECK_EQUAL(RC, XAIE_OK);
 
@@ -81,7 +165,136 @@ TEST(Broadcast, BasicSelectTiles)
 	RC = BC->release();
 	CHECK_EQUAL(RC, XAIE_OK);
 
-	/* test broadcast within a tile */
+	vL.clear();
+
+	/*Test non shim left to right*/
+	vL.push_back(XAie_TileLoc(0,1));
+	vL.push_back(XAie_TileLoc(1,1));
+	vL.push_back(XAie_TileLoc(2,1));
+	vL.push_back(XAie_TileLoc(3,1));
+	vL.push_back(XAie_TileLoc(4,1));
+	vL.push_back(XAie_TileLoc(5,1));
+
+	StartM = XAIE_CORE_MOD;
+	EndM = XAIE_CORE_MOD;
+
+	BC = Aie.broadcast(vL, StartM, EndM);
+
+	RC = BC->reserve();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = BC->start();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = BC->stop();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = BC->release();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	vL.clear();
+
+	/*Test non shim right to left*/
+	vL.push_back(XAie_TileLoc(5,1));
+	vL.push_back(XAie_TileLoc(4,1));
+	vL.push_back(XAie_TileLoc(3,1));
+	vL.push_back(XAie_TileLoc(2,1));
+	vL.push_back(XAie_TileLoc(1,1));
+	vL.push_back(XAie_TileLoc(0,1));
+
+	StartM = XAIE_CORE_MOD;
+	EndM = XAIE_CORE_MOD;
+
+	BC = Aie.broadcast(vL, StartM, EndM);
+
+	RC = BC->reserve();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = BC->start();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = BC->stop();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = BC->release();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	vL.clear();
+
+	/*Test non shim up to down*/
+	vL.push_back(XAie_TileLoc(1,5));
+	vL.push_back(XAie_TileLoc(1,4));
+	vL.push_back(XAie_TileLoc(1,3));
+	vL.push_back(XAie_TileLoc(1,2));
+
+	StartM = XAIE_CORE_MOD;
+	EndM = XAIE_CORE_MOD;
+
+	BC = Aie.broadcast(vL, StartM, EndM);
+
+	RC = BC->reserve();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = BC->start();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = BC->stop();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = BC->release();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	vL.clear();
+
+	/*Test non shim up to down*/
+	vL.push_back(XAie_TileLoc(1,3));
+	vL.push_back(XAie_TileLoc(1,2));
+	vL.push_back(XAie_TileLoc(1,1));
+	vL.push_back(XAie_TileLoc(1,0));
+
+	StartM = XAIE_MEM_MOD;
+	EndM = XAIE_PL_MOD;
+
+	BC = Aie.broadcast(vL, StartM, EndM);
+
+	RC = BC->reserve();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = BC->start();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = BC->stop();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = BC->release();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+}
+
+TEST(Broadcast, BroadcastSingleTile)
+{
+	AieRC RC;
+	std::vector<XAie_LocType> vL, vL1;
+	XAie_ModuleType StartM, EndM, StartM1, EndM1;
+
+	XAie_Events event;
+
+	XAie_SetupConfig(ConfigPtr, HW_GEN, XAIE_BASE_ADDR,
+			XAIE_COL_SHIFT, XAIE_ROW_SHIFT,
+			XAIE_NUM_COLS, XAIE_NUM_ROWS, XAIE_SHIM_ROW,
+			XAIE_MEM_TILE_ROW_START, XAIE_MEM_TILE_NUM_ROWS,
+			XAIE_AIE_TILE_ROW_START, XAIE_AIE_TILE_NUM_ROWS);
+
+	XAie_InstDeclare(DevInst, &ConfigPtr);
+
+	RC = XAie_CfgInitialize(&(DevInst), &ConfigPtr);
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	XAieDev Aie(&DevInst, true);
+
+	StartM = XAIE_PL_MOD;
+	EndM = XAIE_PL_MOD;
+
 	auto BC0 = Aie.tile(1,1).broadcast();
 	RC = BC0->reserve();
 	CHECK_EQUAL(RC, XAIE_OK);
@@ -95,6 +308,10 @@ TEST(Broadcast, BasicSelectTiles)
 	auto BC1 = Aie.tile(1,1).broadcast();
 	RC = BC1->reserve();
 	CHECK_EQUAL(RC, XAIE_OK);
+
+	RC = BC1->getEvent(XAie_TileLoc(1,1), XAIE_PL_MOD, event);
+	CHECK_EQUAL(RC, XAIE_OK);
+
 	RC = BC1->getChannel(vL1, StartM, EndM);
 	CHECK_EQUAL(RC, XAIE_OK);
 	CHECK_TRUE(is_equal_vLocs(vL0, vL1));
@@ -135,8 +352,8 @@ TEST(Broadcast, BasicSelectTiles)
 	BC1->release();
 	BC2->release();
 	BC3_->release();
-}
 
+}
 
 TEST(Broadcast, BCTest1)
 {
@@ -445,9 +662,6 @@ TEST(Broadcast, BasicAllTiles)
 	XAie_InstDeclare(DevInst, &ConfigPtr);
 
 	RC = XAie_CfgInitialize(&(DevInst), &ConfigPtr);
-	CHECK_EQUAL(RC, XAIE_OK);
-
-	RC = XAie_PmRequestTiles(&DevInst, NULL, 0);
 	CHECK_EQUAL(RC, XAIE_OK);
 
 	XAieDev Aie(&DevInst, true);
