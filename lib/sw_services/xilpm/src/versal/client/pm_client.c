@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -13,6 +13,7 @@
 #include <xreg_cortexr5.h>
 #endif
 
+/** @cond INTERNAL */
 #define XPM_ARRAY_SIZE(x)		(sizeof(x) / sizeof(x[0]))
 
 #define PM_AFL0_MASK			(0xFFU)
@@ -180,3 +181,5 @@ void XPm_ClientAbortSuspend(void)
 	/* Enable interrupts at processor level */
 	XpmEnableInterrupts();
 }
+
+/** @endcond */
