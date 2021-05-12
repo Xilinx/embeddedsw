@@ -18,6 +18,8 @@
 extern "C" {
 #endif
 
+/** @cond INTERNAL */
+
 /* User needs to enable this macro to enable prints of client library */
 /* #define DEBUG_MODE */
 
@@ -77,6 +79,8 @@ void XPm_ClientSuspend(const struct XPm_Proc *const Proc);
 void XPm_ClientWakeUp(const struct XPm_Proc *const Proc);
 void XPm_ClientSuspendFinalize(void);
 void XPm_ClientAbortSuspend(void);
+
+/** @endcond */
 
 #ifdef __cplusplus
 }

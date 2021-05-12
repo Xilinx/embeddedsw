@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -152,12 +152,15 @@ void XPm_NotifyCb(const u32 Node, const enum XPmNotifyEvent Event,
 void XPm_InitSuspendCb(const enum XPmSuspendReason Reason,
 		       const u32 Latency, const u32 State, const u32 Timeout);
 void XPm_AcknowledgeCb(const u32 Node, const XStatus Status, const u32 Oppoint);
-int XPm_SetConfiguration(const u32 Address);
 int XPm_ClockSetRate(const u32 ClockId, const u32 Rate);
 int XPm_ClockGetRate(const u32 ClockId, u32 *const Rate);
+XStatus XPm_FeatureCheck(const u32 FeatureId, u32 *Version);
+
+/** @cond INTERNAL */
+int XPm_SetConfiguration(const u32 Address);
 int XPm_MmioWrite(const u32 Address, const u32 Mask, const u32 Value);
 int XPm_MmioRead(const u32 Address, u32 *const Value);
-XStatus XPm_FeatureCheck(const u32 FeatureId, u32 *Version);
+/** @endcond */
 
 #ifdef __cplusplus
 }
