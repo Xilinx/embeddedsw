@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -728,7 +728,9 @@ static u32 PmSlaveGetPerms(const PmNode* const node)
 	while (NULL != req) {
 		/* Check if system requirement (used by PMU) */
 		if (NULL == req->master) {
-			perms |= IPI_PMU_0_IER_PMU_0_MASK;
+			if (SYSTEM_USING_SLAVE(req)) {
+				perms |= IPI_PMU_0_IER_PMU_0_MASK;
+			}
 		} else {
 			if (MASTER_REQUESTED_SLAVE(req)) {
 				perms |= req->master->ipiMask;

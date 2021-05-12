@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -45,6 +45,9 @@ typedef enum {
 
 #define MASTER_REQUESTED_SLAVE(reqPtr)	\
 	(0U != (PM_MASTER_REQUESTED_SLAVE_MASK & (reqPtr)->info))
+
+#define SYSTEM_USING_SLAVE(reqPtr)	\
+	(0U != (PM_SYSTEM_USING_SLAVE_MASK & (reqPtr)->info))
 
 /*********************************************************************
  * Structure definitions

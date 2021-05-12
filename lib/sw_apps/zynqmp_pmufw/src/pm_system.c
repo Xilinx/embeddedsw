@@ -513,7 +513,15 @@ s32 PmSystemRequirementAdd(void)
 			status = XST_FAILURE;
 			goto done;
 		}
-		req->info |= PM_SYSTEM_USING_SLAVE_MASK;
+		/**
+		 * Do not assign system using slave flag for PL as it required
+		 * only during subsystem restart to skip power down during
+		 * subsystem restart
+		 */
+		if ((&pmSlavePl_g != pmSystemReqs[i].slave) ||
+		    (0U != pmSystemReqs[i].caps)) {
+			req->info |= PM_SYSTEM_USING_SLAVE_MASK;
+		}
 		req->preReq = (u8)pmSystemReqs[i].caps;
 		req->currReq = (u8)pmSystemReqs[i].caps;
 		req->nextReq = (u8)pmSystemReqs[i].caps;
@@ -568,6 +576,7 @@ void PmSystemPrepareForRestart(const PmMaster* const master)
 	/* Change system requirement for PL to hold it ON while restarting */
 	req = PmRequirementGetNoMaster(&pmSlavePl_g);
 	if ((NULL != req) && (0U == (PM_CAP_ACCESS & req->currReq))) {
+		req->info |= PM_SYSTEM_USING_SLAVE_MASK;
 		req->currReq |= PM_CAP_ACCESS;
 	}
 
@@ -594,6 +603,7 @@ void PmSystemRestartDone(const PmMaster* const master)
 	req = PmRequirementGetNoMaster(&pmSlavePl_g);
 	caps = PmSystemGetRequirement(&pmSlavePl_g);
 	if ((NULL != req) && (0U == (PM_CAP_ACCESS & caps))) {
+		req->info &= ~(u8)PM_SYSTEM_USING_SLAVE_MASK;
 		req->currReq &= ~(u8)PM_CAP_ACCESS;
 	}
 
