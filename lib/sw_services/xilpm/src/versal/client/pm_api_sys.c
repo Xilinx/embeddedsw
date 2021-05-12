@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -13,6 +13,8 @@
 #include "pm_api_sys.h"
 #include "pm_callbacks.h"
 #include "pm_client.h"
+
+/** @cond INTERNAL */
 
 /* Payload Packets */
 #define PACK_PAYLOAD(Payload, Arg0, Arg1, Arg2, Arg3, Arg4, Arg5)	\
@@ -51,8 +53,6 @@
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- *
- *
  ****************************************************************************/
 static XStatus XPm_IpiSend(struct XPm_Proc *const Proc, u32 *Payload)
 {
@@ -89,8 +89,6 @@ done:
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
- *
- *
  *
  ****************************************************************************/
 static XStatus Xpm_IpiReadBuff32(struct XPm_Proc *const Proc, u32 *Val1,
@@ -136,6 +134,7 @@ static XStatus Xpm_IpiReadBuff32(struct XPm_Proc *const Proc, u32 *Val1,
 done:
 	return Status;
 }
+/** @endcond */
 
 /****************************************************************************/
 /**
@@ -246,7 +245,7 @@ done:
  * @brief  This function is used to request the version number of the API
  * running on the platform management controller.
  *
- * @param  version Returns the API 32-bit version number.
+ * @param  Version Returns the API 32-bit version number.
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -1459,7 +1458,7 @@ done:
  * notify the platform management controller that CPU has aborted suspend
  * or in response to an init suspend request when the PU refuses to suspend.
  *
- * @param  reason Reason code why the suspend can not be performed or completed
+ * @param  Reason Reason code why the suspend can not be performed or completed
  * - ABORT_REASON_WKUP_EVENT : local wakeup-event received
  * - ABORT_REASON_PU_BUSY : PU is busy
  * - ABORT_REASON_NO_PWRDN : no external powerdown supported
@@ -1612,7 +1611,7 @@ done:
 /**
  * @brief  This function queries information about the platform resources.
  *
- * @param Qid		The type of data to query
+ * @param QueryId	The type of data to query
  * @param Arg1		Query argument 1
  * @param Arg2		Query argument 2
  * @param Arg3		Query argument 3
@@ -1964,8 +1963,6 @@ void XPm_InitSuspendCb(const enum XPmSuspendReason Reason,
  *
  * @return None
  *
- *
- *
  ****************************************************************************/
 void XPm_AcknowledgeCb(const u32 Node, const XStatus Status, const u32 Oppoint)
 {
@@ -1994,8 +1991,6 @@ void XPm_AcknowledgeCb(const u32 Node, const XStatus Status, const u32 Oppoint)
  *
  * @return None
  *
- *
- *
  ****************************************************************************/
 void XPm_NotifyCb(const u32 Node, const enum XPmNotifyEvent Event,
 		  const u32 Oppoint)
@@ -2004,6 +1999,7 @@ void XPm_NotifyCb(const u32 Node, const enum XPmNotifyEvent Event,
 	XPm_NotifierProcessEvent(Node, Event, Oppoint);
 }
 
+/** @cond INTERNAL */
 int XPm_SetConfiguration(const u32 Address)
 {
 	/* Suppress compilation warning */
@@ -2030,7 +2026,8 @@ int XPm_MmioRead(const u32 Address, u32 *const Value)
 	XPm_Err("%s() API is not supported\r\n", __func__);
 	return (s32)XST_FAILURE;
 }
- /** @} */
+/** @endcond */
+
 /****************************************************************************/
 /**
  * @brief  This function queries information about the feature version.
