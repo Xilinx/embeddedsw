@@ -79,6 +79,7 @@
 *                       Added macro for invalid SLR Type
 *                       Added function for PMC State clear
 *       bm   03/16/2021 Added Image Upgrade support
+*       bm   05/10/2021 Added additional macro for PDI version
 *
 * </pre>
 *
@@ -188,6 +189,7 @@ extern "C" {
  */
 #define XLOADER_PDI_VERSION_1			(0x01030000U)
 #define XLOADER_PDI_VERSION_2			(0x00020000U)
+#define XLOADER_PDI_VERSION_4			(0x00040000U)
 
 /* Invalid Img ID */
 #define XLOADER_INVALID_IMG_ID			(0x0U)

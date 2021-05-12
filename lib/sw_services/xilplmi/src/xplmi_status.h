@@ -75,6 +75,7 @@
 *       bm   04/03/2021 Added error codes for task creation in scheduler
 *       bm   04/10/2021 Added error codes for scheduler updates
 *       rp   04/22/2021 Added error codes for request/release boot device
+*       bm   05/10/2021 Added error codes for unsupported pdi version
 * </pre>
 *
 * @note
@@ -600,6 +601,8 @@ typedef enum {
 	XLOADER_ERR_HDR_AAD_UPDATE_FAIL,
 		/**< 0x62F Updating IHT as AAD failed during secure header
 		  * decryption */
+	XLOADER_ERR_UNSUPPORTED_PDI_VER,
+		/**< 0x630 PDI version used in secure operations is unsupported */
 
 	XPLMI_ERR_CDO_CMD = 0x2000,
 		/**< 0x2XXX, CDO command handler has failed.
