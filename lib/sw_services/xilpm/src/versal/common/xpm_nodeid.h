@@ -11,9 +11,13 @@
 #define XPM_NODEID_H_
 
 /**
+ * @name Versal Power Nodes
  * @defgroup xilpmpwrnodes Power Nodes
  * @ingroup xilpmnodeids
  * @{
+ */
+/**
+ * Versal Power Nodes
  */
 #define PM_POWER_PMC				(0x4208001U)
 #define PM_POWER_LPD				(0x4210002U)
@@ -68,9 +72,13 @@
 /** @} */
 
 /**
+ * @name Versal Reset Nodes
  * @defgroup xilpmrstnodes Reset Nodes
  * @ingroup xilpmnodeids
  * @{
+ */
+/**
+ * Versal Reset Nodes
  */
 #define PM_RST_PMC_POR				(0xc30c001U)
 #define PM_RST_PMC				(0xc410002U)
@@ -172,9 +180,13 @@
 /** @} */
 
 /**
+ * @name Versal Clock Nodes
  * @defgroup xilpmclknodes Clock Nodes
  * @ingroup xilpmnodeids
  * @{
+ */
+/**
+ * Versal Clock Nodes
  */
 #define PM_CLK_PMC_PLL				(0x8104001U)
 #define PM_CLK_APU_PLL				(0x8104002U)
@@ -298,9 +310,13 @@
 /** @} */
 
 /**
+ * @name Versal MIO Nodes
  * @defgroup xilpmmionodes MIO Nodes
  * @ingroup xilpmnodeids
  * @{
+ */
+/**
+ * Versal MIO Nodes
  */
 #define PM_STMIC_LMIO_0				(0x14104001U)
 #define PM_STMIC_LMIO_1				(0x14104002U)
@@ -383,9 +399,13 @@
 /** @} */
 
 /**
+ * @name Versal Device Nodes
  * @defgroup xilpmdvcnodes Device Nodes
  * @ingroup xilpmnodeids
  * @{
+ */
+/**
+ * Versal Device Nodes
  */
 #define PM_DEV_PLD_0				(0x18700000U)
 #define PM_DEV_PMC_PROC				(0x18104001U)
@@ -555,8 +575,12 @@
 /** @} */
 
 /**
+ * @name Versal Virtual Device Nodes
  * @addtogroup xilpmdvcnodes
  * @{
+ */
+/**
+ * Versal Virtual Device Nodes
  */
 #define PM_DEV_GGS_0				(0x18248000U)
 #define PM_DEV_GGS_1				(0x18248001U)
@@ -569,8 +593,12 @@
 /** @} */
 
 /**
+ * @name Versal Virtual Device Nodes
  * @addtogroup xilpmdvcnodes
  * @{
+ */
+/**
+ * Versal Virtual Device Nodes
  */
 #define PM_DEV_HB_MON_0				(0x18250000U)
 #define PM_DEV_HB_MON_1				(0x18250001U)
@@ -579,9 +607,13 @@
 /** @} */
 
 /**
+ * @name Versal Subsystem Nodes
  * @defgroup xilpmsubsysnodes Subsystem Nodes
  * @ingroup xilpmnodeids
  * @{
+ */
+/**
+ * Versal Subsystem Nodes
  */
 #define PM_SUBSYS_DEFAULT			(0x1c000000U)
 #define PM_SUBSYS_PMC				(0x1c000001U)

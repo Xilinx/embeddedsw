@@ -50,6 +50,8 @@
 		}\
 	}
 
+/* Macro to typecast PM API ID */
+#define PM_API(ApiId)			((u32)ApiId)
 
 u32 ResetReason;
 
