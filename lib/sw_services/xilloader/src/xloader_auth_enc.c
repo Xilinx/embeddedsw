@@ -35,6 +35,7 @@
 *       bm   04/10/21 Updated scheduler function calls
 *       kpt  04/14/21 Added check to verify whether the encrypted data is 128 bit
 *                     aligned
+*       bm   05/10/21 Updated chunking logic for hashes
 *
 * </pre>
 *
@@ -3259,22 +3260,6 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 		}
 	}
 
-	/*
-	 * If authentication or checksum is enabled validate the data hash
-	 * with expected hash
-	 */
-	if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
-		(SecurePtr->IsAuthenticatedTmp == (u8)TRUE)) {
-		 /*
-		 * Except for the last block of data,
-		 * SHA3 hash(48 bytes) of next block should
-		 * be added for block size
-		 */
-		if (Last != (u8)TRUE) {
-			TotalSize = TotalSize + XLOADER_SHA3_LEN;
-		}
-	}
-
 	Status = XLoader_SecureChunkCopy(SecurePtr, SrcAddr, Last,
 				BlockSize, TotalSize);
 	if (Status != XST_SUCCESS) {
@@ -3446,19 +3431,22 @@ static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	/* Update the next expected hash  and data location */
 	if (Last != (u8)TRUE) {
 		Status = Xil_SecureMemCpy(ExpHash, XLOADER_SHA3_LEN,
-					Data, XLOADER_SHA3_LEN);
+				&Data[Size - XLOADER_SHA3_LEN],
+				XLOADER_SHA3_LEN);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		/* Here Authentication overhead is removed in the chunk */
-		SecurePtr->SecureData = (UINTPTR)Data + XLOADER_SHA3_LEN;
+		/*
+		 * Here the hash length is removed which is present
+		 * at end of the chunk
+		 */
 		SecurePtr->SecureDataLen = Size - XLOADER_SHA3_LEN;
 	}
 	else {
 		/* This is the last block */
-		SecurePtr->SecureData = (UINTPTR)Data;
 		SecurePtr->SecureDataLen = Size;
 	}
+	SecurePtr->SecureData = (UINTPTR)Data;
 
 END:
 	return Status;
