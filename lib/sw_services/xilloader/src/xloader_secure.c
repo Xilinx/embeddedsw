@@ -79,6 +79,7 @@
 *       kpt  02/18/21 Fixed logical error in partition next chunk copy in encryption cases
 * 1.05  har  03/17/21 Added API to set the secure state of device
 *       ma   03/24/21 Minor updates to prints in XilLoader
+*       bm   05/10/21 Updated chunking logic for hashes
 *
 * </pre>
 *
@@ -196,33 +197,10 @@ int XLoader_SecureCopy(XLoader_SecureParams *SecurePtr, u64 DestAddr, u32 Size)
 {
 	int Status = XST_FAILURE;
 	int ClrStatus = XST_FAILURE;
-	u32 ChunkLen;
-	u32 PdiVer;
+	u32 ChunkLen = XLOADER_SECURE_CHUNK_SIZE;
 	u32 Len = Size;
 	u64 LoadAddr = DestAddr;
 	u8 LastChunk = (u8)FALSE;
-
-	PdiVer = SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl.Version;
-	if ((PdiVer != XLOADER_PDI_VERSION_1) &&
-                (PdiVer != XLOADER_PDI_VERSION_2)) {
-		ChunkLen = XLOADER_SECURE_CHUNK_SIZE;
-	}
-	else {
-		ChunkLen = XLOADER_CHUNK_SIZE;
-	}
-
-	/*
-	 * Double buffering is possible only
-	 * when available PRAM Size >= ChunkLen * 2
-	 */
-	if ((SecurePtr->IsDoubleBuffering == (u8)TRUE) &&
-		((ChunkLen * 2U) > XLOADER_CHUNK_SIZE)) {
-		/*
-		 * Blocking DMA will be used in case
-		 * DoubleBuffering is FALSE.
-		 */
-		SecurePtr->IsDoubleBuffering = (u8)FALSE;
-	}
 
 	while (Len > 0U) {
 		/* Update the length for last chunk */
@@ -328,18 +306,6 @@ static int XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr,
 	if (TotalLen <= ChunkLen) {
 		CopyLen = TotalLen;
 	}
-	else {
-		#ifndef PLM_SECURE_EXCLUDE
-		if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
-			(SecurePtr->IsCheckSumEnabled == (u8)TRUE)) {
-			CopyLen = CopyLen + XLOADER_SHA3_LEN;
-		}
-		#else
-		if (SecurePtr->IsCheckSumEnabled == (u8)TRUE) {
-			CopyLen = CopyLen + XLOADER_SHA3_LEN;
-		}
-		#endif
-	}
 
 	SecurePtr->IsNextChunkCopyStarted = (u8)TRUE;
 
@@ -382,7 +348,6 @@ void XLoader_SecureClear(void)
 * @param	SecurePtr is pointer to the XLoader_SecureParams instance.
 * @param	DataAddr is the address of the data present in the block
 * @param	Size is size of the data block to be processed
-*		which includes padding lengths and hash.
 * @param	Last notifies if the block to be processed is last or not.
 *
 * @return	XST_SUCCESS on success and error code on failure
@@ -394,10 +359,16 @@ static int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	volatile int Status = XST_FAILURE;
 	XSecure_Sha3 Sha3Instance;
 	XSecure_Sha3Hash BlkHash = {0U};
+	u32 HashAddr = SecurePtr->ChunkAddr + Size;
+	u32 DataLen = Size;
 	u8 *ExpHash = (u8 *)SecurePtr->Sha3Hash;
 
 	if (SecurePtr->PmcDmaInstPtr == NULL) {
 		goto END;
+	}
+
+	if ((SecurePtr->IsCdo == (u8)TRUE) && (Last != (u8)TRUE)) {
+		DataLen += XLOADER_SHA3_LEN;
 	}
 
 	Status = XSecure_Sha3Initialize(&Sha3Instance, SecurePtr->PmcDmaInstPtr);
@@ -414,20 +385,20 @@ static int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 		goto END;
 	}
 
+	Status = XSecure_Sha3Update64Bit(&Sha3Instance, DataAddr, DataLen);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_CALC_FAIL, Status);
+		goto END;
+	}
+
 	/* Update next chunk's hash from pmc ram */
 	if ((Last != (u8)TRUE) && (SecurePtr->IsCdo != (u8)TRUE)) {
 		Status = XSecure_Sha3Update64Bit(&Sha3Instance,
-				(u64)SecurePtr->ChunkAddr, XLOADER_SHA3_LEN);
+				(u64)HashAddr, XLOADER_SHA3_LEN);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_CALC_FAIL, Status);
 			goto END;
 		}
-	}
-
-	Status = XSecure_Sha3Update64Bit(&Sha3Instance, DataAddr, Size);
-	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_CALC_FAIL, Status);
-		goto END;
 	}
 
 	Status = XSecure_Sha3Finish(&Sha3Instance, &BlkHash);
@@ -451,7 +422,7 @@ static int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	/* Update the next expected hash  and data location */
 	if (Last != (u8)TRUE) {
 		Status = Xil_SecureMemCpy(ExpHash, XLOADER_SHA3_LEN,
-					(u8 *)SecurePtr->ChunkAddr, XLOADER_SHA3_LEN);
+					(u8 *)HashAddr, XLOADER_SHA3_LEN);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -554,6 +525,7 @@ static int XLoader_ProcessChecksumPrtn(XLoader_SecureParams *SecurePtr,
 	volatile int Status = XST_FAILURE;
 	u32 TotalSize = BlockSize;
 	u64 SrcAddr;
+	u64 DataAddr;
 
 	XPlmi_Printf(DEBUG_INFO,
 			"Processing Block %u\n\r", SecurePtr->BlockNum);
@@ -567,41 +539,27 @@ static int XLoader_ProcessChecksumPrtn(XLoader_SecureParams *SecurePtr,
 		SrcAddr = SecurePtr->NextBlkAddr;
 	}
 
-	/*
-	* Except for the last block of data,
-	* SHA3 hash(48 bytes) of next block should
-	* be added for block size
-	*/
-	if (Last != (u8)TRUE) {
-		TotalSize = TotalSize + XLOADER_SHA3_LEN;
-	}
-
 	Status = XLoader_SecureChunkCopy(SecurePtr, SrcAddr, Last,
 				BlockSize, TotalSize);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-
-	if (SecurePtr->IsCdo == (u8)TRUE) {
-		/* Verify hash */
-		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_VerifyHashNUpdateNext,
-			SecurePtr, SecurePtr->ChunkAddr, TotalSize, Last);
-	}
-
+	SecurePtr->SecureData = SecurePtr->ChunkAddr;
 	if (Last != (u8)TRUE) {
-		/* Here Authentication overhead is removed in the chunk */
-		SecurePtr->SecureData = SecurePtr->ChunkAddr + XLOADER_SHA3_LEN;
+		/* Here Checksum overhead is removed in the chunk */
 		SecurePtr->SecureDataLen = TotalSize - XLOADER_SHA3_LEN;
 	}
 	else {
 		/* This is the last block */
-		SecurePtr->SecureData = SecurePtr->ChunkAddr;
 		SecurePtr->SecureDataLen = TotalSize;
 	}
 
-	if (SecurePtr->IsCdo != (u8)TRUE) {
-			/* Copy to destination address */
-		Status = XPlmi_DmaXfr((u64)SecurePtr->SecureData, (u64)DestAddr,
+	if (SecurePtr->IsCdo == (u8)TRUE) {
+		DataAddr = (u64)SecurePtr->ChunkAddr;
+	}
+	else {
+		/* Copy to destination address */
+		Status = XPlmi_DmaXfr((u64)SecurePtr->SecureData, DestAddr,
 				SecurePtr->SecureDataLen / XIH_PRTN_WORD_LEN,
 				XPLMI_PMCDMA_0);
 		if (Status != XST_SUCCESS) {
@@ -609,10 +567,11 @@ static int XLoader_ProcessChecksumPrtn(XLoader_SecureParams *SecurePtr,
 					XLOADER_ERR_DMA_TRANSFER, Status);
 			goto END;
 		}
-
-		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_VerifyHashNUpdateNext,
-			SecurePtr, DestAddr, SecurePtr->SecureDataLen, Last);
+		DataAddr = DestAddr;
 	}
+	/* Verify hash on the data */
+	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_VerifyHashNUpdateNext,
+		SecurePtr, DataAddr, SecurePtr->SecureDataLen, Last);
 
 	SecurePtr->NextBlkAddr = SrcAddr + TotalSize;
 	SecurePtr->ProcessedLen = TotalSize;

@@ -95,6 +95,7 @@
 *       rp   04/20/2021 Add extra arg for calls to XPm_RequestDevice and
 *			XPm_ReleaseDevice
 *       bm   05/05/2021 Added USR_ACCESS support for PLD0 image
+*       bm   05/10/2021 Updated chunking logic for hashes
 *
 * </pre>
 *
@@ -747,6 +748,14 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 		(SecureParams.IsAuthenticatedTmp == (u8)TRUE)) {
 		SecureParams.SecureEn = (u8)TRUE;
 		SecureParams.SecureEnTmp = (u8)TRUE;
+	}
+
+	/* Secure flow is not supported for PDI versions older than v4 */
+	if ((SecureParams.SecureEn == (u8)TRUE) &&
+	   ((PdiPtr->MetaHdr.ImgHdrTbl.Version == XLOADER_PDI_VERSION_1) ||
+	   (PdiPtr->MetaHdr.ImgHdrTbl.Version < XLOADER_PDI_VERSION_4))) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_UNSUPPORTED_PDI_VER, 0);
+		goto END;
 	}
 
 	/* Validates if authentication/encryption is compulsory */
