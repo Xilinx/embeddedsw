@@ -49,5 +49,10 @@ AieRC _XAieMl_DmaUpdateBdLen(XAie_DevInst *DevInst, const XAie_DmaMod *DmaMod,
 		XAie_LocType Loc, u32 Len, u8 BdNum);
 AieRC _XAieMl_ShimDmaUpdateBdLen(XAie_DevInst *DevInst,
 		const XAie_DmaMod *DmaMod, XAie_LocType Loc, u32 Len, u8 BdNum);
+AieRC _XAieMl_DmaUpdateBdAddr(XAie_DevInst *DevInst, const XAie_DmaMod *DmaMod,
+		XAie_LocType Loc, u64 Addr, u8 BdNum);
+AieRC _XAieMl_ShimDmaUpdateBdAddr(XAie_DevInst *DevInst,
+		const XAie_DmaMod *DmaMod, XAie_LocType Loc, u64 Addr,
+		u8 BdNum);
 
 /** @} */
