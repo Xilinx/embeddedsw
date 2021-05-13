@@ -1,3 +1,4 @@
+DRIVER_LIB_VERSION = 1.0
 COMPILER=
 ARCHIVER=
 CP=cp
@@ -5,23 +6,34 @@ COMPILER_FLAGS=
 EXTRA_COMPILER_FLAGS=
 LIB=libxil.a
 
-RELEASEDIR=../../../lib
-INCLUDEDIR=../../../include
-INCLUDES=-I./. -I${INCLUDEDIR}
+CC_FLAGS = $(COMPILER_FLAGS)
+ECC_FLAGS = $(EXTRA_COMPILER_FLAGS)
 
-INCLUDEFILES=*.h
-LIBSOURCES=*.c
-OUTS = *.o
+RELEASEDIR=../../../lib/
+INCLUDEDIR=../../../include/
+INCLUDES=-I./. -I$(INCLUDEDIR)
 
+SRCFILES:=$(wildcard *.c)
 
-libs:
-	echo "Compiling v_warp_remap_gen"
-	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $(LIBSOURCES)
-	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} $(OUTS)
-	make clean
+OBJECTS = $(addprefix $(RELEASEDIR), $(addsuffix .o, $(basename $(wildcard *.c))))
 
-include:
-	${CP} $(INCLUDEFILES) $(INCLUDEDIR)
+libs: $(OBJECTS)
+
+DEPFILES := $(SRCFILES:%.c=$(RELEASEDIR)%.d)
+
+include $(wildcard $(DEPFILES))
+
+include $(wildcard ../../../../dep.mk)
+
+$(RELEASEDIR)%.o: %.c
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) $(DEPENDENCY_FLAGS) $< -o $@
+
+.PHONY: include
+include: $(addprefix $(INCLUDEDIR),$(wildcard *.h))
+
+$(INCLUDEDIR)%.h: %.h
+	$(CP) $< $@
 
 clean:
-	rm -rf ${OUTS}
+	rm -rf ${OBJECTS}
+	rm -rf $(DEPFILES)
