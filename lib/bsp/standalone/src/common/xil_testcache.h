@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2009 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2009 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,10 @@
 *
 ******************************************************************************/
 
+/**
+*@cond nocomments
+*/
+
 #ifndef XIL_TESTCACHE_H	/* prevent circular inclusions */
 #define XIL_TESTCACHE_H	/* by using protection macros */
 
@@ -40,6 +44,11 @@ extern s32 Xil_TestICacheAll(void);
 #endif
 
 #endif /* end of protection macro */
+
+/**
+ *@endcond
+ */
+
 /**
 * @} End of "addtogroup common_test_utils".
 */

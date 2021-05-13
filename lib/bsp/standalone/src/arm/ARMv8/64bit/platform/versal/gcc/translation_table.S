@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -9,9 +9,9 @@
 * @addtogroup a53_64_boot_code
 * @{
 * <h2> translation_table.S </h2>
-* translation_table.S contains a static page table required by MMU for
-* cortex-A53. This translation table is flat mapped (input address = output
-* address) with default memory attributes defined for zynq ultrascale+
+* The translation_table.S contains a static page table required by MMU for
+* cortex-A72. This translation table is flat mapped (input address = output
+* address) with default memory attributes defined for Versal
 * architecture. It utilizes translation granual size of 4KB with 2MB section
 * size for initial 5GB memory and 1GB section size for memory after 5GB.
 * The overview of translation table memory attributes is described below.
@@ -56,9 +56,7 @@
 * 2GB, region after DDR and before PL is marked as undefined/reserved in
 * translation table. Region 0xF9100000 - 0xF91FFFFF is reserved memory in
 * 0x00F9000000 - 0x00F91FFFFF range, but it is marked as strongly ordered
-* because minimum section size in translation table section is 2MB. Region
-* 0x00FFC00000 - 0x00FFDFFFFF contains CSU and PMU memory which are marked as
-* Device since it is less than 1MB and falls in a region with device memory.
+* because minimum section size in translation table section is 2MB.
 *
 * <pre>
 * MODIFICATION HISTORY:

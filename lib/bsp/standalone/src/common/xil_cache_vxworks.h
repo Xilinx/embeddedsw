@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2009 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2009 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,10 @@
 * @note
 *
 ******************************************************************************/
+
+/**
+ *@cond nocomments
+ */
 
 #ifndef XIL_CACHE_VXWORKS_H
 #define XIL_CACHE_VXWORKS_H
@@ -65,3 +69,6 @@ extern "C" {
 #endif
 
 #endif
+/**
+ *@endcond
+ */

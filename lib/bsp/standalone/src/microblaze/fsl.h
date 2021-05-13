@@ -7,7 +7,7 @@
 *
 * @addtogroup microblaze_fsl_macro MicroBlaze Processor FSL Macros
 *
-*  Microblaze BSP includes macros to provide convenient access to accelerators
+* Microblaze BSP includes macros to provide convenient access to accelerators
 * connected to the MicroBlaze Fast Simplex Link (FSL) Interfaces.To use these functions,
 * include the header file fsl.h in your source code
 *
@@ -20,6 +20,9 @@
 extern "C" {
 #endif
 
+/**
+ *@cond nocomments
+ */
 /* Extended FSL macros. These now replace all of the previous FSL macros */
 #define FSL_DEFAULT
 #define FSL_NONBLOCKING                          n
@@ -40,6 +43,10 @@ extern "C" {
 #define FSL_EXCEPTION_CONTROL_ATOMIC             eca
 
 #define FSL_NONBLOCKING_EXCEPTION_CONTROL_ATOMIC neca
+
+ /**
+  *@endcond
+  */
 
 /**
 Performs a get function on an input FSL of the MicroBlaze processor

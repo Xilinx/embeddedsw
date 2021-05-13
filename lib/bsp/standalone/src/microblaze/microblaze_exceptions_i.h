@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2012 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2012 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +34,10 @@
 extern "C" {
 #endif
 
+/**
+ *@cond nocomments
+ */
+
 typedef struct
 {
    Xil_ExceptionHandler Handler;
@@ -52,6 +56,10 @@ typedef struct
 #define XEXC_ID_FPU                     6U
 #define XEXC_ID_STACK_VIOLATION         7U
 #define XEXC_ID_MMU                     7U
+
+/**
+ *@endcond
+ */
 
 void microblaze_register_exception_handler(u32 ExceptionId, Xil_ExceptionHandler Handler, void *DataPtr);
 

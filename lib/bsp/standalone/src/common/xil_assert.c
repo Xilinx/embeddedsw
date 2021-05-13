@@ -7,6 +7,8 @@
 /**
 *
 * @file xil_assert.c
+* @addtogroup common_assert_apis Assert APIs and Macros
+* @{
 *
 * This file contains basic assert related functions for Xilinx software IP.
 *
@@ -35,14 +37,14 @@
 /************************** Variable Definitions *****************************/
 
 /**
- * This variable allows testing to be done easier with asserts. An assert
+ * @brief This variable allows testing to be done easier with asserts. An assert
  * sets this variable such that a driver can evaluate this variable
  * to determine if an assert occurred.
  */
 u32 Xil_AssertStatus;
 
 /**
- * This variable allows the assert functionality to be changed for testing
+ * @brief This variable allows the assert functionality to be changed for testing
  * such that it does not wait infinitely. Use the debugger to disable the
  * waiting during testing of asserts.
  */
@@ -119,3 +121,6 @@ void XNullHandler(void *NullParameter)
 {
 	(void) NullParameter;
 }
+/**
+* @} End of "addtogroup common_assert_apis".
+*/

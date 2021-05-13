@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2017 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,9 @@
 * </pre>
 *****************************************************************************/
 
+/**
+ *@cond nocomments
+ */
 #ifndef XIL_SLEEPTIMER_H		/* prevent circular inclusions */
 #define XIL_SLEEPTIMER_H		/* by using protection macros */
 
@@ -91,7 +94,9 @@ extern "C" {
 /* @} */
 
 /**************************** Type Definitions *******************************/
-
+/**
+ *@endcond
+ */
 /************************** Function Prototypes ******************************/
 
 void Xil_SleepTTCCommon(u32 delay, u64 frequency);

@@ -7,15 +7,21 @@
 /**
 *
 * @file xil_testmem.h
-* @addtogroup common_test_utils
+* @addtogroup common_test_utils Test Utilities for Memory and Caches
 *
-* <h2>Memory test</h2>
+* - Cache test: xil_testcache.h contains utility functions to test cache.
 *
-* The xil_testmem.h file contains utility functions to test memory.
-* A subset of the memory tests can be selected or all of the tests can be run
-* in order. If there is an error detected by a subtest, the test stops and the
-* failure code is returned. Further tests are not run even if all of the tests
-* are selected.
+* - I/O test: The Xil_testio.h file contains endian related memory IO functions. A
+*	subset of the memory tests can be selected or all of the tests can be run in order.
+*	If there is an error detected by a subtest, the test stops and the failure code is
+*	returned. Further tests are not run even if all of the tests are selected.
+*
+* - Memory test: The xil_testmem.h file contains utility functions to test memory.
+*	A subset of the memory tests can be selected or all of the tests can be run
+*	in order. If there is an error detected by a subtest, the test stops and the
+*	failure code is returned. Further tests are not run even if all of the tests are selected.
+*
+*
 * Following list describes the supported memory tests:
 *
 *  - XIL_TESTMEM_ALLMEMTESTS: This test runs all of the subtests.
@@ -84,6 +90,10 @@
 *
 ******************************************************************************/
 
+/**
+ *@cond nocomments
+ */
+
 #ifndef XIL_TESTMEM_H	/* prevent circular inclusions */
 #define XIL_TESTMEM_H	/* by using protection macros */
 
@@ -128,6 +138,9 @@ extern "C" {
 #endif
 /***************** Macros (Inline Functions) Definitions *********************/
 
+/**
+ *@endcond
+ */
 
 /************************** Function Prototypes ******************************/
 

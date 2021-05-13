@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2009 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2009 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,10 @@
 * </pre>
 *
 ******************************************************************************/
+
+/**
+ *@cond nocomments
+ */
 
 #ifndef XPSEUDO_ASM_ICCARM_H  /* prevent circular inclusions */
 #define XPSEUDO_ASM_ICCARM_H  /* by using protection macros */
@@ -147,5 +151,9 @@ int mfcpsr (void);
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
+
+/**
+ *@endcond
+ */
 
 #endif /* XPSEUDO_ASM_ICCARM_H */

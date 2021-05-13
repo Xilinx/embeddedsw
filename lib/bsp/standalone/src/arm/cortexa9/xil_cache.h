@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2010 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,11 @@
 * </pre>
 *
 ******************************************************************************/
+
+/**
+*@cond nocomments
+*/
+
 #ifndef XIL_CACHE_H
 #define XIL_CACHE_H
 
@@ -73,6 +78,10 @@ extern "C" {
 			XREG_CP15_CLEAN_INVAL_DC_LINE_SW :: "r" (param));
 
 #endif
+
+/**
+*@endcond
+*/
 
 void Xil_DCacheEnable(void);
 void Xil_DCacheDisable(void);

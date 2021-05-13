@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2008 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2008 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,10 @@
 * </pre>
 *
 ******************************************************************************/
+
+/**
+ *@cond nocomments
+ */
 
 #ifndef MICROBLAZE_INTERRUPTS_I_H /* prevent circular inclusions */
 #define MICROBLAZE_INTERRUPTS_I_H /* by using protection macros */
@@ -49,3 +53,7 @@ typedef struct
 #endif
 
 #endif /* end of protection macro */
+
+/**
+ *@endcond
+ */

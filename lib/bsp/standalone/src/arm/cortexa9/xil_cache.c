@@ -224,20 +224,20 @@ void Xil_DCacheInvalidateLine(u32 adr)
 
 /*****************************************************************************/
 /**
-* @brief	Invalidate the Data cache for the given address range.
+* Invalidate the Data cache for the given address range.
 * 			If the bytes specified by the address range are cached by the Data
 *			cache, the cachelines containing those bytes are invalidated. If
 *			the cachelines are modified (dirty), the modified contents are lost
 *			and NOT written to the system memory before the lines are
 *			invalidated.
 *
-* 			In this function, if start address or end address is not aligned to
+* In this function, if start address or end address is not aligned to
 * 			cache-line, particular cache-line containing unaligned start or end
 * 			address is flush first and then invalidated the others as
 * 			invalidating the same unaligned cache line may result into loss of
 *			data. This issue raises few possibilities.
 *
-* 			If the address to be invalidated is not cache-line aligned, the
+* If the address to be invalidated is not cache-line aligned, the
 * 			following choices are available:
 * 			1. Invalidate the cache line when required and do not bother much
 * 			for the side effects. Though it sounds good, it can result in
@@ -252,7 +252,7 @@ void Xil_DCacheInvalidateLine(u32 adr)
 * 			updated the memory), then flushing the cache line means, losing
 * 			data that were updated recently before the ISR got invoked.
 *
-* 			Linux prefers the second one. To have uniform implementation
+* Linux prefers the second one. To have uniform implementation
 * 			(across standalone and Linux), the second option is implemented.
 * 			This being the case, following needs to be taken care of:
 * 			1. Whenever possible, the addresses must be cache line aligned.
@@ -269,7 +269,7 @@ void Xil_DCacheInvalidateLine(u32 adr)
 * 			With this approach, invalidation need not to be done after the DMA
 *			transfer is over.
 *
-* 			This is going to always work if done carefully.
+* This is going to always work if done carefully.
 * 			However, the concern is, there is no guarantee that invalidate has
 * 			not needed to be done after DMA is complete. For example, because
 * 			of some reasons if the first cache line or last cache line

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,10 @@
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
+
+/**
+ *@cond nocomments
+ */
 
 /* GPRs */
 #define XREG_GPR0				r0
@@ -378,6 +382,10 @@ extern "C" {
 
 #define XREG_CONTROL_DCACHE_BIT	(0X00000001U<<2U)
 #define XREG_CONTROL_ICACHE_BIT	(0X00000001U<<12U)
+
+/**
+ *@endcond
+ */
 
 #ifdef __cplusplus
 }

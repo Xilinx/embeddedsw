@@ -9,11 +9,11 @@
 * @addtogroup a9_boot_code
 * @{
 * <h2> translation_table.S </h2>
-* translation_table.S contains a static page table required by MMU for
+* The translation_table.S contains a static page table required by MMU for
 * cortex-A9. This translation table is flat mapped (input address = output
 * address) with default memory attributes defined for zynq architecture. It
 * utilizes short descriptor translation table format with each section defining
-* 1MB of memory.
+* 1 MB of memory.
 *
 * The overview of translation table memory attributes is described below.
 *
@@ -33,15 +33,14 @@
 *| Reserved              | 0xFE000000 - 0xFFEFFFFF | Unassigned                        |
 *| OCM                   | 0xFFF00000 - 0xFFFFFFFF | Normal inner write-back cacheable |
 *
-* @note
-*
-* For region 0x00000000 - 0x3FFFFFFF, a system where DDR is less than 1GB,
+* For region 0x00000000 - 0x3FFFFFFF, a system where DDR is less than 1 GB,
 * region after DDR and before PL is marked as undefined/reserved in translation
 * table. In 0xF8000000 - 0xF8FFFFFF, 0xF8000C00 - 0xF8000FFF, 0xF8010000 -
 * 0xF88FFFFF and 0xF8F03000 to 0xF8FFFFFF are reserved  but due to granual size
-* of 1MB, it is not possible to define separate regions for them. For region
+* of 1 MB, it is not possible to define separate regions for them. For region
 * 0xFFF00000 - 0xFFFFFFFF, 0xFFF00000 to 0xFFFB0000 is reserved but due to 1MB
-* granual size, it is not possible to define separate region for it
+* granual size, it is not possible to define separate region for it.
+*
 *
 * <pre>
 * MODIFICATION HISTORY:

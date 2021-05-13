@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2010 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,10 @@
 * </pre>
 *
 ******************************************************************************/
+
+/**
+ *@cond nocomments
+ */
 
 #ifndef XBASIC_TYPES_H	/* prevent circular inclusions */
 #define XBASIC_TYPES_H	/* by using protection macros */
@@ -103,3 +107,7 @@ typedef Xuint8          u8;
 #endif
 
 #endif	/* end of protection macro */
+
+/**
+ *@endcond
+ */

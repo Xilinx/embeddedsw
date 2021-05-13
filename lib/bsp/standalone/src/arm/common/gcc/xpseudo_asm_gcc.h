@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,10 @@
 * </pre>
 *
 ******************************************************************************/
+
+/**
+ *@cond nocomments
+ */
 
 #ifndef XPSEUDO_ASM_GCC_H  /* prevent circular inclusions */
 #define XPSEUDO_ASM_GCC_H  /* by using protection macros */
@@ -228,5 +232,9 @@ extern "C" {
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
+
+/**
+ *@endcond
+ */
 
 #endif /* XPSEUDO_ASM_GCC_H */
