@@ -394,7 +394,7 @@ void Xil_DCacheFlushLine(u32 adr)
 }
 
 /****************************************************************************/
-/*
+/**
  * @brief	Flush the Data cache for the given address range.
  *		If the bytes specified by the address range are cached
  *		by the Data cache, the cachelines containing those bytes

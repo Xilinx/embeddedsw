@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2011 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2011 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,10 @@
 * </pre>
 *
 ******************************************************************************/
+
+/**
+*@cond nocomments
+*/
 
 #ifndef L2CCCOUNTER_H /* prevent circular inclusions */
 #define L2CCCOUNTER_H /* by using protection macros */
@@ -71,6 +75,10 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions ********************/
 
 /************************** Variable Definitions ****************************/
+
+/**
+*@endcond
+*/
 
 /************************** Function Prototypes *****************************/
 

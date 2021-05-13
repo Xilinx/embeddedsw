@@ -41,6 +41,9 @@
 *
 ******************************************************************************/
 
+/**
+ *@cond nocomments
+ */
 #ifndef MICROBLAZE_SLEEP_H		/* prevent circular inclusions */
 #define MICROBLAZE_SLEEP_H		/* by using protection macros */
 
@@ -99,7 +102,6 @@ extern "C" {
 /* @} */
 
 /**************************** Type Definitions *******************************/
-
 /************************** Function Prototypes ******************************/
 
 static void Xil_SleepAxiTimer(u32 delay, u64 frequency);
@@ -108,6 +110,9 @@ static void XTime_StartAxiTimer();
 u32 Xil_SetMBFrequency(u32 Val);
 u32 Xil_GetMBFrequency();
 #endif
+/**
+ *@endcond
+ */
 void MB_Sleep(u32 MilliSeconds) __attribute__((__deprecated__));
 
 

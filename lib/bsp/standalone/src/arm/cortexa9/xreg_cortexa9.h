@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2009 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2009 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,10 @@
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
+
+/**
+ *@cond nocomments
+ */
 
 /* GPRs */
 #define XREG_GPR0				r0
@@ -557,6 +561,10 @@ extern "C" {
 #define XREG_FPEXC_EN			(1 << 30)
 #define XREG_FPEXC_DEX			(1 << 29)
 
+
+/**
+ *@endcond
+ */
 
 #ifdef __cplusplus
 }

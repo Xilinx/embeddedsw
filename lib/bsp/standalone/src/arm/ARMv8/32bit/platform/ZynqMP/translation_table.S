@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -9,11 +9,18 @@
 * @addtogroup a53_32_boot_code
 * @{
 * <h2> translation_table.S </h2>
-* translation_table.S contains a static page table required by MMU for
+* The translation_table.S contains a static page table required by MMU for
 * cortex-A53. This translation table is flat mapped (input address = output
 * address) with default memory attributes defined for zynq ultrascale+
 * architecture. It utilizes short descriptor translation table format with each
 * section defining 1MB of memory.
+*
+* For DDR in region 0x00000000 - 0x7FFFFFFF, a system where DDR is less than
+* 2GB, region after DDR and before PL is marked as undefined/reserved in
+* translation table. In region 0xFFC00000 - 0xFFDFFFFF, it contains CSU
+* and PMU memory which are marked as Device since it is less than 1MB and
+* falls in a region with device memory.
+*
 * The overview of translation table memory attributes is described below.
 *
 *|                 | Memory Range            | Definition in Translation Table |
@@ -29,13 +36,6 @@
 *| CSU, PMU        | 0xFFC00000 - 0xFFDFFFFF | Device Memory                   |
 *| TCM, OCM        | 0xFFE00000 - 0xFFFFFFFF | Normal write-back cacheable     |
 *
-* @note
-*
-* For DDR in region 0x00000000 - 0x7FFFFFFF, a system where DDR is less than
-* 2GB, region after DDR and before PL is marked as undefined/reserved in
-* translation table. In region 0xFFC00000 - 0xFFDFFFFF, it contains CSU
-* and PMU memory which are marked as Device since it is less than 1MB and
-* falls in a region with device memory.
 *
 * <pre>
 * MODIFICATION HISTORY:

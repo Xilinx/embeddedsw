@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2009 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2009 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,8 +7,8 @@
 /**
 *
 * @file xil_testcache.c
+* @addtogroup common_test_utils
 *
-* Contains utility functions to test cache.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -19,9 +19,6 @@
 * 4.1   asa  05/09/14 Ensured that the address uses for cache test is aligned
 *				      cache line.
 * </pre>
-*
-* @note
-* This file contain functions that all operate on HAL.
 *
 ******************************************************************************/
 #ifdef __ARM__
@@ -55,7 +52,6 @@ static INTPTR Data[DATA_LENGTH] __attribute__ ((aligned(32)));
 *           and Xil_DCacheInvalidateRange. This test function writes a constant
 *           value to the Data array, flushes the range, writes a new value, then
 *           invalidates the corresponding range.
-* @param	None
 *
 * @return
 *      - -1 is returned for a failure
@@ -183,7 +179,7 @@ s32 Xil_TestDCacheRange(void)
 
 /*****************************************************************************/
 /**
-* @brief    Perform DCache all related API test such as Xil_DCacheFlush and
+* @brief   Perform DCache all related API test such as Xil_DCacheFlush and
 *           Xil_DCacheInvalidate. This test function writes a constant value
 *           to the Data array, flushes the DCache, writes a new value,
 *           then invalidates the DCache.
@@ -312,8 +308,8 @@ s32 Xil_TestDCacheAll(void)
 *
 * @return
 *     - 0 is returned for a pass
-* @note
-*     The function will hang if it fails.
+*
+* @note		 The function will hang if it fails.
 *****************************************************************************/
 s32 Xil_TestICacheRange(void)
 {
@@ -333,8 +329,8 @@ s32 Xil_TestICacheRange(void)
 *
 * @return
 *           - 0 is returned for a pass
-* @note
-* The function will hang if it fails.
+*
+* @note		The function will hang if it fails.
 *****************************************************************************/
 s32 Xil_TestICacheAll(void)
 {

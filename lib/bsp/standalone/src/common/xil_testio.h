@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2009 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2009 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 *
 * @file xil_testio.h
 *
-* @addtogroup common_test_utils Test Utilities
+* @addtogroup common_test_utils Test Utilities for Memory and Caches
 * <h2>I/O test </h2>
 * The xil_testio.h file contains utility functions to test endian related memory
 * IO functions.
@@ -29,6 +29,10 @@
 *
 ******************************************************************************/
 
+/**
+ *@cond nocomments
+ */
+
 #ifndef XIL_TESTIO_H	/* prevent circular inclusions */
 #define XIL_TESTIO_H	/* by using protection macros */
 
@@ -45,6 +49,10 @@ extern "C" {
 #define XIL_TESTIO_DEFAULT 	0
 #define XIL_TESTIO_LE		1
 #define XIL_TESTIO_BE		2
+
+/**
+ *@endcond
+ */
 
 /**************************** Type Definitions *******************************/
 

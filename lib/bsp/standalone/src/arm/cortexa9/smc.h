@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2010 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,10 @@
 * @note		None.
 *
 ******************************************************************************/
+
+/**
+ *@cond nocomments
+ */
 
 #ifndef SMC_H /* prevent circular inclusions */
 #define SMC_H /* by using protection macros */
@@ -86,3 +90,7 @@ extern "C" {
 #endif /* __cplusplus */
 
 #endif /* SMC_H */
+
+/**
+ *@endcond
+  */

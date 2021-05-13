@@ -32,6 +32,10 @@
 *
 ******************************************************************************/
 
+/**
+ *@cond nocomments
+ */
+
 #ifndef XTIME_H /* prevent circular inclusions */
 #define XTIME_H /* by using protection macros */
 
@@ -83,6 +87,10 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 typedef u32 XTime;
+
+/**
+ *@endcond
+ */
 
 void XTime_SetTime(XTime Xtime_Global);
 void XTime_GetTime(XTime *Xtime_Global);

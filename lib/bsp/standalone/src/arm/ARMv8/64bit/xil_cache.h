@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,9 +35,17 @@
 extern "C" {
 #endif
 
+/**
+ *@cond nocomments
+ */
+
 /************************** Constant Definitions *****************************/
 #define L1_DATA_PREFETCH_CONTROL_MASK  0xE000
 #define L1_DATA_PREFETCH_CONTROL_SHIFT  13
+
+/**
+ *@endcond
+ */
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define Xil_DCacheFlushRange Xil_DCacheInvalidateRange

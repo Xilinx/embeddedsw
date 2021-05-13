@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2013 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2013 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -14,8 +14,7 @@
 * errata handling follows ARM guidelines and is based on the open source Linux
 * support for these errata.
 *
-* @note
-* The errata handling is enabled by default. To disable handling of all the
+* @note The errata handling is enabled by default. To disable handling of all the
 * errata globally, un-define the macro ENABLE_ARM_ERRATA in xil_errata.h. To
 * disable errata on a per-erratum basis, un-define relevant macros in
 * xil_errata.h.
@@ -38,6 +37,9 @@ extern "C" {
 #endif
 
 /**
+ *@cond nocomments
+ */
+/**
  * @name errata_definitions
  *
  * The errata conditions handled in the standalone BSP are listed below
@@ -45,6 +47,10 @@ extern "C" {
  */
 
 #define ENABLE_ARM_ERRATA 1
+
+/**
+ *@endcond
+ */
 
 #ifdef ENABLE_ARM_ERRATA
 

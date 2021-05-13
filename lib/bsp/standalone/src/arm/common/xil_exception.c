@@ -256,7 +256,7 @@ void Xil_SErrorAbortHandler(void *CallBackRef){
 }
 #else
 /*****************************************************************************/
-/*
+/**
 *
 * Default Data abort handler which prints data fault status register through
 * which information about data fault can be acquired
@@ -288,7 +288,7 @@ void Xil_DataAbortHandler(void *CallBackRef){
 }
 
 /*****************************************************************************/
-/*
+/**
 *
 * Default Prefetch abort handler which prints prefetch fault status register through
 * which information about instruction prefetch fault can be acquired
@@ -318,7 +318,7 @@ void Xil_PrefetchAbortHandler(void *CallBackRef){
 	}
 }
 /*****************************************************************************/
-/*
+/**
 *
 * Default undefined exception handler which prints address of the undefined
 * instruction if debug prints are enabled
