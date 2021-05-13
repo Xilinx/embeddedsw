@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,6 +38,10 @@
 * </pre>
 *
 ******************************************************************************/
+
+/**
+ *@cond nocomments
+ */
 
 #ifndef XIL_EXCEPTION_H /* prevent circular inclusions */
 #define XIL_EXCEPTION_H /* by using protection macros */
@@ -92,6 +96,10 @@ extern "C" {
  */
 typedef void (*Xil_ExceptionHandler)(void *data);
 typedef void (*Xil_InterruptHandler)(void *data);
+
+/**
+*@endcond
+*/
 
 /***************** Macros (Inline Functions) Definitions ********************/
 

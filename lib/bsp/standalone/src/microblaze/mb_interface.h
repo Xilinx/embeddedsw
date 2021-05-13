@@ -20,6 +20,10 @@
 * @{
 *
 ******************************************************************************/
+/**
+ *@cond nocomments
+ */
+
 #ifndef _MICROBLAZE_INTERFACE_H_
 #define _MICROBLAZE_INTERFACE_H_
 
@@ -38,9 +42,16 @@ extern void microblaze_enable_dcache(void);                     /* Enable Instru
 extern void microblaze_disable_dcache(void);                    /* Disable Instruction Cache */
 extern void microblaze_enable_exceptions(void);                 /* Enable hardware exceptions */
 extern void microblaze_disable_exceptions(void);                /* Disable hardware exceptions */
+
+/**
+ *@endcond
+ */
 extern void microblaze_register_handler(XInterruptHandler Handler, void *DataPtr); /* Register top level interrupt handler */
 extern void microblaze_register_exception_handler(u32 ExceptionId, Xil_ExceptionHandler Handler, void *DataPtr); /* Register exception handler */
 
+/**
+ *@cond nocomments
+ */
 extern void microblaze_invalidate_icache(void);         /* Invalidate the entire icache */
 extern void microblaze_invalidate_dcache(void);         /* Invalidate the entire dcache */
 extern void microblaze_flush_dcache(void);              /* Flush the whole dcache */
@@ -439,6 +450,10 @@ extern void microblaze_init_dcache_range (s32 , s32 )  __attribute__((deprecated
 }
 #endif
 #endif // _MICROBLAZE_INTERFACE_H_
+/**
+ *@endcond
+ */
+
 /**
 * @} End of "addtogroup microblaze_pseudo_asm_macro".
 */

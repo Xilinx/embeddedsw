@@ -55,6 +55,9 @@
 *
 *
 ******************************************************************************/
+/**
+ *@cond nocomments
+ */
 
 #ifndef XIL_MPU_H
 #define XIL_MPU_H
@@ -85,6 +88,9 @@ extern XMpu_Config Mpu_Config;
 /************************** Variable Definitions *****************************/
 
 /************************** Function Prototypes ******************************/
+/**
+ *@endcond
+ */
 
 void Xil_SetTlbAttributes(INTPTR Addr, u32 attrib);
 void Xil_EnableMPU(void);

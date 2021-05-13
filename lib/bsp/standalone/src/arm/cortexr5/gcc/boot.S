@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -9,8 +9,10 @@
 * @addtogroup r5_boot_code Cortex R5 Processor Boot Code
 * @{
 * <h2> boot.S </h2>
+* The boot.S file contains a minimal set of code for transferring control from the processor
+* reset location of the processor to the start of the application.
 * The boot code performs minimum configuration which is required for an
-* application to run starting from processor's reset state. Below is a
+* application to run starting from reset state of the processor. Below is a
 * sequence illustrating what all configuration is performed before control
 * reaches to main function.
 *

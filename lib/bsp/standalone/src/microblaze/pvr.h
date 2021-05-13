@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2006 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2006 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,9 @@
 * @{
 *
 ******************************************************************************/
+/**
+ *@cond nocomments
+ */
 
 #ifndef _PVR_H
 #define _PVR_H
@@ -182,6 +185,9 @@ typedef struct pvr_s {
 #define MICROBLAZE_PVR11_MMU_ZONES_MASK             0x003E0000
 #define MICROBLAZE_PVR11_MMU_PRIVILEGED_INSTR_MASK  0x00010000
 
+/**
+ *@endcond
+ */
 /* PVR access macros */
 
 /**
@@ -219,6 +225,10 @@ Return non-zero integer if D-cache present.
 @param _pvr     pvr data structure
 */
 #define MICROBLAZE_PVR_USE_DCACHE(_pvr)              (_pvr.pvr[0] & MICROBLAZE_PVR0_USE_DCACHE_MASK)
+
+/**
+ *@cond nocomments
+ */
 #define MICROBLAZE_PVR_USE_MMU(_pvr)                 (_pvr.pvr[0] & MICROBLAZE_PVR0_USE_MMU_MASK)
 #define MICROBLAZE_PVR_USE_BTC(_pvr)                 (_pvr.pvr[0] & MICROBLAZE_PVR0_USE_BTC_MASK)
 #define MICROBLAZE_PVR_ENDIANNESS(_pvr)              (_pvr.pvr[0] & MICROBLAZE_PVR0_ENDIANNESS_MASK)
@@ -499,12 +509,16 @@ Returns the value of C_USE_MMU. Refer to the MicroBlaze Processor Reference Guid
 #define MICROBLAZE_PVR_MMU_PRIVILEGED_INSTR(_pvr)    ((_pvr.pvr[11] & MICROBLAZE_PVR11_MMU_PRIVILEGED_INSTR_MASK) >> 16)
 
 /* Protos */
+/**
+ *@endcond
+ */
 int microblaze_get_pvr (pvr_t *pvr);
 
 #ifdef __cplusplus
 }
 #endif
 #endif /* _PVR_H */
+
 /**
 * @} End of "addtogroup microblaze_pvr_macros".
 */

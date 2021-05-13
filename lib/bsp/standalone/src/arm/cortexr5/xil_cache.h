@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,6 +35,10 @@
 extern "C" {
 #endif
 
+/**
+ *@cond nocomments
+ */
+
 #if defined (__GNUC__)
 #define asm_inval_dc_line_mva_poc(param) __asm__ __volatile__("mcr " \
 		XREG_CP15_INVAL_DC_LINE_MVA_POC :: "r" (param))
@@ -60,6 +64,10 @@ extern "C" {
 #define asm_inval_ic_line_mva_pou(param) __asm volatile("mcr " \
 		XREG_CP15_INVAL_IC_LINE_MVA_POU :: "r" (param))
 #endif
+
+/**
+ *@endcond
+ */
 
 void Xil_DCacheEnable(void);
 void Xil_DCacheDisable(void);

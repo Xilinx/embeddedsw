@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,9 @@
 *
 * @file xplatform_info.h
 *
+*
 * @addtogroup common_platform_info APIs to Get Platform Information
+*
 *
 * The xplatform_info.h file contains definitions for various available Xilinx&reg;
 * platforms. Also, it contains prototype of APIs, which can be used to get the
@@ -26,6 +28,10 @@
 * </pre>
 *
 ******************************************************************************/
+
+/**
+ *@cond nocomments
+ */
 
 #ifndef XPLATFORM_INFO_H		/* prevent circular inclusions */
 #define XPLATFORM_INFO_H		/* by using protection macros */
@@ -73,7 +79,9 @@ extern "C" {
 #endif
 
 /**************************** Type Definitions *******************************/
-
+/**
+ *@endcond
+ */
 /***************** Macros (Inline Functions) Definitions *********************/
 
 

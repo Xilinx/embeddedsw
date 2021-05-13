@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2010 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -10,7 +10,7 @@
 * @{
 * <h2> boot.S </h2>
 * The boot code performs minimum configuration which is required for an
-* application to run starting from processor's reset state. Below is a
+* application to run starting from processor reset state of the processor. Below is a
 * sequence illustrating what all configuration is performed before control
 * reaches to main function.
 *

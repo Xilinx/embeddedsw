@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2009 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2009 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,9 @@
 * </pre>
 *
 ******************************************************************************/
+/**
+ *@cond nocomments
+ */
 
 #ifndef XPSEUDO_ASM_RVCT_H  /* prevent circular inclusions */
 #define XPSEUDO_ASM_RVCT_H  /* by using protection macros */
@@ -103,3 +106,7 @@ __asm u32 mfcpsr(void);
 #endif /* __cplusplus */
 
 #endif /* XPSEUDO_ASM_RVCT_H */
+
+/**
+ *@endcond
+ */

@@ -20,6 +20,10 @@
 *
 ******************************************************************************/
 
+/**
+ *@cond nocomments
+ */
+
 #ifndef XIL_MISC_RESET_H		/* prevent circular inclusions */
 #define XIL_MISC_RESET_H		/* by using protection macros */
 
@@ -164,6 +168,11 @@ extern "C" {
 #define XSLCR_OCM_RST_CTRL_VAL			0x00000001U
 #define XSLCR_SDIO_RST_CTRL_VAL			0x00000033U
 #define XSLCR_CAN_RST_CTRL_VAL			0x00000003U
+
+/**
+ *@endcond
+ */
+
 /**************************** Type Definitions *******************************/
 
 /* the following data type is used to hold a null terminated version string

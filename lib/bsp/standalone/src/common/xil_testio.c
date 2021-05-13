@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2009 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2009 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,8 +7,8 @@
 /**
 *
 * @file xil_testio.c
+* @addtogroup common_test_utils
 *
-* Contains the memory test utility functions.
 *
 * <pre>
 * MODIFICATION HISTORY:

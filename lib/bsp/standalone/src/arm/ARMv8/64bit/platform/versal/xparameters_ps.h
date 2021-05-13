@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,10 @@
 
 #ifndef _XPARAMETERS_PS_H_
 #define _XPARAMETERS_PS_H_
+
+/**
+ *@cond nocomments
+ */
 
 #ifdef __cplusplus
 extern "C" {
@@ -304,5 +308,9 @@ extern "C" {
 #ifdef __cplusplus
 }
 #endif
+
+/**
+ *@endcond
+ */
 
 #endif /* protection macro */

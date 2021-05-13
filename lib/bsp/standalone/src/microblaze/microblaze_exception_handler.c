@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2004 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2004 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -56,10 +56,6 @@ extern MB_ExceptionVectorTableEntry MB_ExceptionVectorTable[];
 * @param    DataPtr is a reference to data that will be passed to the handler
 *           when it gets called.
 * @return   None.
-*
-* @note
-*
-* None.
 *
 ****************************************************************************/
 void microblaze_register_exception_handler(u32 ExceptionId, Xil_ExceptionHandler Handler, void *DataPtr)

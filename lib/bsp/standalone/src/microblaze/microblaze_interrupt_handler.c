@@ -49,13 +49,11 @@ extern MB_InterruptVectorTableEntry MB_InterruptVectorTable[MB_INTERRUPT_VECTOR_
 /*****************************************************************************/
 /**
 *
-* This function is the standard interrupt handler used by the MicroBlaze processor.
-* It saves all volatile registers, calls the users top level interrupt handler.
-* When this returns, it restores all registers, and returns using a rtid instruction.
+* @brief 	This function is the standard interrupt handler used by the MicroBlaze processor.
+* 			It saves all volatile registers, calls the users top level interrupt handler.
+* 			When this returns, it restores all registers, and returns using a rtid instruction.
 *
-* @return
-*
-* None.
+* @return 	None.
 *
 ******************************************************************************/
 #ifdef __clang__
@@ -73,9 +71,9 @@ void __interrupt_handler(void)
 /*****************************************************************************/
 /**
 *
-* Registers a top-level interrupt handler for the MicroBlaze. The
-* argument provided in this call as the DataPtr is used as the argument
-* for the handler when it is called.
+* @brief 	Registers a top-level interrupt handler for the MicroBlaze. The
+* 			argument provided in this call as the DataPtr is used as the argument
+* 			for the handler when it is called.
 *
 * @param    Handler: Top level handler.
 * @param    DataPtr: a reference to data that will be passed to the handler

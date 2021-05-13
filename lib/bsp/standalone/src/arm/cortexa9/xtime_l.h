@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2009 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2009 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,10 @@
 * </pre>
 *
 ******************************************************************************/
+
+/**
+*@cond nocomments
+*/
 
 #ifndef XTIME_H /* prevent circular inclusions */
 #define XTIME_H /* by using protection macros */
@@ -66,6 +70,10 @@ typedef u64 XTime;
 #endif
 #endif
 /************************** Variable Definitions *****************************/
+
+/**
+*@endcond
+*/
 
 /************************** Function Prototypes ******************************/
 

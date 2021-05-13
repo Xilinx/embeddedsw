@@ -7,8 +7,8 @@
 /**
 *
 * @file xil_testmem.c
+* @addtogroup common_test_utils
 *
-* Contains the memory test utility functions.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -1042,15 +1042,14 @@ End_Label:
 *           - -1 is returned for a failure
 *           - 0 is returned for a pass
 *
-* @note
-* Used for spaces where the address range of the region is smaller than
-* the data width. If the memory range is greater than 2 ** Width,
-* the patterns used in XIL_TESTMEM_WALKONES and XIL_TESTMEM_WALKZEROS will
-* repeat on a boundary of a power of two making it more difficult to detect
-* addressing errors. The XIL_TESTMEM_INCREMENT and XIL_TESTMEM_INVERSEADDR
-* tests suffer the same problem. Ideally, if large blocks of memory are to be
-* tested, break them up into smaller regions of memory to allow the test
-* patterns used not to repeat over the region tested.
+* @note		Used for spaces where the address range of the region is smaller than
+* 			the data width. If the memory range is greater than 2 ** Width,
+*			the patterns used in XIL_TESTMEM_WALKONES and XIL_TESTMEM_WALKZEROS will
+* 			repeat on a boundary of a power of two making it more difficult to detect
+* 			addressing errors. The XIL_TESTMEM_INCREMENT and XIL_TESTMEM_INVERSEADDR
+* 			tests suffer the same problem. Ideally, if large blocks of memory are to be
+* 			tested, break them up into smaller regions of memory to allow the test
+* 			patterns used not to repeat over the region tested.
 *
 *****************************************************************************/
 s32 Xil_TestMem16(u16 *Addr, u32 Words, u16 Pattern, u8 Subtest)
@@ -1490,8 +1489,7 @@ End_Label:
 * @param    Input is value to be rotated to the left
 * @param    Width is the number of bits in the input data
 *
-* @return
-*           The resulting unsigned long value of the rotate left
+* @return   The resulting unsigned long value of the rotate left
 *
 *
 *****************************************************************************/

@@ -8,6 +8,9 @@
 *
 * @file xil_cache.c
 *
+* @addtogroup microblaze_cache_apis Microblaze Cache APIs
+* @{
+*
 * This contains implementation of cache related driver functions.
 *
 * <pre>
@@ -22,9 +25,6 @@
 *					  These changes are done for implementing PR #697214.
 * </pre>
 *
-* @note
-*
-* None.
 *
 ******************************************************************************/
 

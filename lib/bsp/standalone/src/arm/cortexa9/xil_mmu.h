@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2012 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2012 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,10 @@
 *
 *
 ******************************************************************************/
+
+/**
+*@cond nocomments
+*/
 
 #ifndef XIL_MMU_H
 #define XIL_MMU_H
@@ -64,6 +68,10 @@ extern "C" {
 
 /* Execution type */
 #define EXECUTE_NEVER ((0x1 << 4) | (0x1 << 0))
+
+/**
+*@endcond
+*/
 
 /************************** Variable Definitions *****************************/
 

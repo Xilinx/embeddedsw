@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,10 @@
 * </pre>
 *
 ******************************************************************************/
+/**
+ *@cond nocomments
+ */
+
 #ifndef XREG_CORTEXR5_H	/* prevent circular inclusions */
 #define XREG_CORTEXR5_H	/* by using protection macros */
 
@@ -417,3 +421,7 @@ extern "C" {
 #endif /* __cplusplus */
 
 #endif /* XREG_CORTEXR5_H */
+
+/**
+ *@endcond
+ */
