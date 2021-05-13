@@ -21,6 +21,7 @@
  * 1.0   mn   08/17/18 Initial release
  *       mn   09/27/18 Modify code to add 2D Read/Write Eye Tests support
  * 1.1   mn   03/10/21 Fixed doxygen warnings
+ * 1.2   mn   05/13/21 Fixed issue with mismatching read eye width
  *
  * </pre>
  *
@@ -261,6 +262,16 @@ static u32 XMt_MeasureRdEyeEdge(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len, u8 M
 
 		/* Do the Write/Read test on Address Range */
 		XMt_RunEyeMemtest(XMtPtr, TestAddr, Len);
+
+		/* Update the result to 1 when the position exceeds the left eye edge */
+		for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
+			if ((((s32)XMtPtr->RdCenter[Index].Qsd + Position) < 0) &&
+					((((s32)XMtPtr->RdCenter[Index].Qsnd + Position) < 0))) {
+				if (Xil_In32(XMT_RESULTS_BASE + (Index * 4U)) == 0U) {
+					Xil_Out32(XMT_RESULTS_BASE + (Index * 4U), 1U);
+				}
+			}
+		}
 
 		if (!(Mode & XMT_2D_EYE_TEST)) {
 			/* Print the lane wise results for this Position */
