@@ -57,6 +57,9 @@
 *			CACHE_ERROR
 *       kpt  05/06/2021 Corrected check to program SafetyMissionEn bit
 *	kal  05/07/2021 Reset the read mode after eFuse operations are done
+*   kpt  05/12/2021 Added check to set environmental disable flag and
+*                   sysmon instance for individual write API's
+*
 *
 * </pre>
 *
@@ -1138,6 +1141,8 @@ END:
  *
  * @param	EfuseIv - Pointer to the XNvm_EfuseIvs, which contains IVs data
  * 				to be written to the Efuse..
+ * @param   SysMonInstPtr - Pointer to the XSysMonPsv structure which contains
+ *              XSysmonPsv driver instance data
  *
  * @return	- XST_SUCCESS - On Successful Write.
  *		- XNVM_EFUSE_ERR_INVALID_PARAM        	 - On Invalid Parameter.
@@ -1151,7 +1156,7 @@ END:
  *			 					Data Partition IV.
  *
  ******************************************************************************/
-int XNvm_EfuseWriteIVs(XNvm_EfuseIvs *EfuseIv)
+int XNvm_EfuseWriteIVs(XNvm_EfuseIvs *EfuseIv, XSysMonPsv *SysMonInstPtr)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfuseData WriteIvs = {0U};
@@ -1159,6 +1164,14 @@ int XNvm_EfuseWriteIVs(XNvm_EfuseIvs *EfuseIv)
 	if (EfuseIv == NULL) {
 		Status = (int)XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED;
 		goto END;
+	}
+
+	if (SysMonInstPtr == NULL) {
+		WriteIvs.EnvMonitorDis = TRUE;
+	}
+	else {
+		WriteIvs.SysMonInstPtr = SysMonInstPtr;
+		WriteIvs.EnvMonitorDis = FALSE;
 	}
 
 	WriteIvs.Ivs = EfuseIv;
@@ -1447,12 +1460,14 @@ END:
  * @brief	This function revokes the Ppk.
  *
  * @param	PpkRevoke - Xnvm_RevokePpkFlags that tells which Ppk to revoke.
+ * @param   SysMonInstPtr - Pointer to the XSysMonPsv structure which contains
+ *              XSysmonPsv driver instance data
  *
  * @return	- XST_SUCCESS - On Successful Revocation.
  *		- XNVM_EFUSE_ERR_LOCK - Error while Locking the controller.
  *
  ******************************************************************************/
-int XNvm_EfuseRevokePpk(XNvm_PpkType PpkRevoke)
+int XNvm_EfuseRevokePpk(XNvm_PpkType PpkRevoke, XSysMonPsv *SysMonInstPtr)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfuseData EfuseData = {0U};
@@ -1474,6 +1489,14 @@ int XNvm_EfuseRevokePpk(XNvm_PpkType PpkRevoke)
 		MiscCtrlBits.Ppk2Invalid = TRUE;
 	}
 
+	if (SysMonInstPtr == NULL) {
+		EfuseData.EnvMonitorDis = TRUE;
+	}
+	else {
+		EfuseData.SysMonInstPtr = SysMonInstPtr;
+		EfuseData.EnvMonitorDis = FALSE;
+	}
+
 	EfuseData.MiscCtrlBits = &MiscCtrlBits;
 
 	Status = XNvm_EfuseWrite(&EfuseData);
@@ -1486,6 +1509,8 @@ END:
  * @brief	This function writes Revocation eFuses.
  *
  * @param	RevokeId - RevokeId number to program Revocation Id eFuses.
+ * @param   SysMonInstPtr - Pointer to the XSysMonPsv structure which contains
+ *              XSysmonPsv driver instance data
  *
  * @return	- XST_SUCCESS - On successful write to eFuse.
  *		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
@@ -1496,7 +1521,7 @@ END:
  * 		of the REVOCATION_ID_2 eFuse row.
  *
  ******************************************************************************/
-int XNvm_EfuseWriteRevocationId(u32 RevokeId)
+int XNvm_EfuseWriteRevocationId(u32 RevokeId, XSysMonPsv *SysMonInstPtr)
 {
 	int Status = XST_FAILURE;
 	u32 RevokeIdRow;
@@ -1515,6 +1540,14 @@ int XNvm_EfuseWriteRevocationId(u32 RevokeId)
 	if (RevokeIdRow > (u32)XNVM_EFUSE_REVOCATION_ID_7) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
+	}
+
+	if (SysMonInstPtr == NULL) {
+		EfuseData.EnvMonitorDis = TRUE;
+	}
+	else {
+		EfuseData.SysMonInstPtr = SysMonInstPtr;
+		EfuseData.EnvMonitorDis = FALSE;
 	}
 
 	WriteRevokeId.RevokeId[RevokeIdRow] = ((u32)1U << RevokeIdBit);
@@ -1649,12 +1682,15 @@ END:
  * @brief	This function Programs User eFuses.
  *
  * @param	WriteUserFuses - Pointer to the XNvm_EfuseUserData structure.
+ * @param   SysMonInstPtr - Pointer to the XSysMonPsv structure which contains
+ *              XSysmonPsv driver instance data
  *
  * @return	- XST_SUCCESS - if programming is successful.
  *		- XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED - if NULL request is sent.
  *
  ******************************************************************************/
-int XNvm_EfuseWriteUserFuses(XNvm_EfuseUserData *WriteUserFuses)
+int XNvm_EfuseWriteUserFuses(XNvm_EfuseUserData *WriteUserFuses,
+	XSysMonPsv *SysMonInstPtr)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfuseData UserFusesData = {0};
@@ -1662,6 +1698,14 @@ int XNvm_EfuseWriteUserFuses(XNvm_EfuseUserData *WriteUserFuses)
 	if (WriteUserFuses == NULL) {
 		Status = (int)XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED;
 		goto END;
+	}
+
+	if (SysMonInstPtr == NULL) {
+		UserFusesData.EnvMonitorDis = TRUE;
+	}
+	else {
+		UserFusesData.SysMonInstPtr = SysMonInstPtr;
+		UserFusesData.EnvMonitorDis = FALSE;
 	}
 
 	UserFusesData.UserFuses = WriteUserFuses;
