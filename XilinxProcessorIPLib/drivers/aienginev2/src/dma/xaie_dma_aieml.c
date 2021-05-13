@@ -792,18 +792,18 @@ AieRC _XAieMl_ShimDmaUpdateBdLen(XAie_DevInst *DevInst,
 		const XAie_DmaMod *DmaMod, XAie_LocType Loc, u32 Len, u8 BdNum)
 {
 	u64 RegAddr;
-	u32 RegVal, Mask;
+	u32 RegVal;
 
 	RegAddr = DmaMod->BaseAddr + BdNum * DmaMod->IdxOffset +
 		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) +
 		DmaMod->BdProp->Buffer->ShimDmaBuff.BufferLen.Idx * 4U;
 
-	Mask = DmaMod->BdProp->Buffer->ShimDmaBuff.BufferLen.Mask;
 	RegVal = XAie_SetField(Len,
 			DmaMod->BdProp->Buffer->ShimDmaBuff.BufferLen.Lsb,
-			Mask);
+			DmaMod->BdProp->Buffer->ShimDmaBuff.BufferLen.Mask);
 
-	return XAie_MaskWrite32(DevInst, RegAddr, Mask, RegVal);
+	/* BD length register does not have other parameters */
+	return XAie_Write32(DevInst, RegAddr, RegVal);
 }
 
 /*****************************************************************************/
