@@ -775,7 +775,7 @@ AieRC _XAieMl_DmaUpdateBdLen(XAie_DevInst *DevInst, const XAie_DmaMod *DmaMod,
 /*****************************************************************************/
 /**
 *
-* This API updates the length of the buffer descriptor in the shim dma module.
+* This API updates the address of the buffer descriptor in the shim dma module.
 *
 * @param	DevInst: Device Instance.
 * @param	DmaMod: Dma module pointer
@@ -802,6 +802,88 @@ AieRC _XAieMl_ShimDmaUpdateBdLen(XAie_DevInst *DevInst,
 	RegVal = XAie_SetField(Len,
 			DmaMod->BdProp->Buffer->ShimDmaBuff.BufferLen.Lsb,
 			Mask);
+
+	return XAie_MaskWrite32(DevInst, RegAddr, Mask, RegVal);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API updates the address of the buffer descriptor in the dma module.
+*
+* @param	DevInst: Device Instance.
+* @param	DmaMod: Dma module pointer
+* @param	Loc: Location of AIE Tile
+* @param	Addr: Buffer address
+* @param	BdNum: Hardware BD number to be written to.
+*
+* @return	XAIE_OK on success, Error code on failure.
+*
+* @note		Internal only. This API accesses the hardware directly and does
+*		not operate on software descriptor.
+******************************************************************************/
+AieRC _XAieMl_DmaUpdateBdAddr(XAie_DevInst *DevInst, const XAie_DmaMod *DmaMod,
+		XAie_LocType Loc, u64 Addr, u8 BdNum)
+{
+	u64 RegAddr;
+	u32 RegVal, Mask;
+
+	RegAddr = DmaMod->BaseAddr + BdNum * DmaMod->IdxOffset +
+		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) +
+		DmaMod->BdProp->Buffer->TileDmaBuff.BaseAddr.Idx * 4U;
+
+	Mask = DmaMod->BdProp->Buffer->TileDmaBuff.BaseAddr.Mask;
+	RegVal = XAie_SetField(Addr,
+			DmaMod->BdProp->Buffer->TileDmaBuff.BaseAddr.Lsb, Mask);
+
+	return XAie_MaskWrite32(DevInst, RegAddr, Mask, RegVal);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API updates the length of the buffer descriptor in the dma module.
+*
+* @param	DevInst: Device Instance.
+* @param	DmaMod: Dma module pointer
+* @param	Loc: Location of AIE Tile
+* @param	Addr: Buffer address
+* @param	BdNum: Hardware BD number to be written to.
+*
+* @return	XAIE_OK on success, Error code on failure.
+*
+* @note		Internal only. This API accesses the hardware directly and does
+*		not operate on software descriptor.
+******************************************************************************/
+AieRC _XAieMl_ShimDmaUpdateBdAddr(XAie_DevInst *DevInst,
+		const XAie_DmaMod *DmaMod, XAie_LocType Loc, u64 Addr, u8 BdNum)
+{
+	AieRC RC;
+	u64 RegAddr;
+	u32 RegVal, Mask;
+
+	RegAddr = DmaMod->BaseAddr + BdNum * DmaMod->IdxOffset +
+		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) +
+		DmaMod->BdProp->Buffer->ShimDmaBuff.AddrLow.Idx * 4U;
+
+	Mask = DmaMod->BdProp->Buffer->ShimDmaBuff.AddrLow.Mask;
+	RegVal = XAie_SetField(Addr,
+			DmaMod->BdProp->Buffer->ShimDmaBuff.AddrLow.Lsb, Mask);
+
+	/* Addrlow maps to a single register without other fields. */
+	RC =  XAie_Write32(DevInst, RegAddr, RegVal);
+	if(RC != XAIE_OK) {
+		XAIE_ERROR("Failed to update lower 32 bits of address\n");
+		return RC;
+	}
+
+	RegAddr = DmaMod->BaseAddr + BdNum * DmaMod->IdxOffset +
+		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) +
+		DmaMod->BdProp->Buffer->ShimDmaBuff.AddrHigh.Idx * 4U;
+
+	Mask = DmaMod->BdProp->Buffer->ShimDmaBuff.AddrHigh.Mask;
+	RegVal = XAie_SetField(Addr,
+			DmaMod->BdProp->Buffer->ShimDmaBuff.AddrHigh.Lsb, Mask);
 
 	return XAie_MaskWrite32(DevInst, RegAddr, Mask, RegVal);
 }
