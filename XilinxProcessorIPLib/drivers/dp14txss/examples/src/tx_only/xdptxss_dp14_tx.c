@@ -477,6 +477,10 @@ u32 DpTxSs_Main(u16 DeviceId)
 #if (VERSAL_FABRIC_8B10B == 1)
 	//Unlocking NPI space to modify GT parameters
 	XDp_WriteReg(GT_QUAD_BASE, 0xC, 0xF9E8D7C6);
+	ReadVal = XDp_ReadReg(GT_QUAD_BASE, TXCLKDIV_REG);
+	ReadVal &= ~DIV_MASK;
+	ReadVal |= DIV;
+	XDp_WriteReg(GT_QUAD_BASE, TXCLKDIV_REG, ReadVal);
 #endif
 #endif
 
@@ -2279,33 +2283,6 @@ u32 config_phy(int LineRate_init_tx){
 #ifdef versal
 	ReadModifyWrite(0xE,(linerate << 1));
     u8 retry=0;
-    while ((dptx_sts != ALL_LANE) && retry < 255) {
-         dptx_sts = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
-         dptx_sts &= ALL_LANE;
-         DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 100);
-         retry++;
-      }
-    if(retry==255)
-    {
-	Status = XST_FAILURE;
-    }
-    u32 regval = 0;
-    if (linerate == 3) {
-	regval = XDp_ReadReg(GT_QUAD_BASE, TXCLKDIV_REG);
-	regval &= ~DIV_MASK;
-	regval |= DIV3;
-	XDp_WriteReg(GT_QUAD_BASE, TXCLKDIV_REG, regval);
-    } else {
-	regval = XDp_ReadReg(GT_QUAD_BASE, TXCLKDIV_REG);
-	regval &= ~DIV_MASK;
-	regval |= DIV;
-	XDp_WriteReg(GT_QUAD_BASE, TXCLKDIV_REG, regval);
-    }
-    //Issues datapath reset after the DIV values are changed
-    ReadModifyWrite(0x40000000,0x40000000);
-    ReadModifyWrite(0x40000000,0x0);
-    retry = 0;
-    dptx_sts =0 ;
     while ((dptx_sts != ALL_LANE) && retry < 255) {
          dptx_sts = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
          dptx_sts &= ALL_LANE;
