@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -41,7 +41,7 @@
 #endif
 
 /*****************************************************************************/
-/*
+/**
 *
 * This API is used to provide delays in seconds
 *

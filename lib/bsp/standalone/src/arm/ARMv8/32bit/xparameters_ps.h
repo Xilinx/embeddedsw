@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +31,10 @@
 #ifndef ARMA53_32
 #define ARMA53_32 ARMA53_32
 #endif
+
+/**
+ *@cond nocomments
+ */
 
 #ifdef __cplusplus
 extern "C" {
@@ -312,5 +316,9 @@ extern "C" {
 #ifdef __cplusplus
 }
 #endif
+
+/**
+ *@endcond
+ */
 
 #endif /* protection macro */

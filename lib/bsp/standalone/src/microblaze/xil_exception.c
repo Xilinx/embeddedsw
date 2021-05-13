@@ -34,6 +34,9 @@
 extern "C" {
 #endif
 
+/**
+ *@cond nocomments
+ */
 extern void microblaze_enable_exceptions(void);
 extern void microblaze_disable_exceptions(void);
 extern void microblaze_enable_interrupts(void);
@@ -53,6 +56,9 @@ typedef struct {
 }
 #endif
 
+/**
+ * @endcond
+ */
 
 /************************** Variable Definitions *****************************/
 extern MB_ExceptionVectorTableEntry MB_ExceptionVectorTable[XIL_EXCEPTION_ID_INT];

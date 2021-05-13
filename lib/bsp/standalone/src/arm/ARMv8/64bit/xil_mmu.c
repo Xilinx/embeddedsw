@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -52,7 +52,7 @@ extern INTPTR MMUTableL2;
 /************************** Function Prototypes ******************************/
 /*****************************************************************************/
 /**
-* brief		It sets the memory attributes for a section, in the translation
+* @brief	It sets the memory attributes for a section, in the translation
 * 			table. If the address (defined by Addr) is less than 4GB, the
 *			memory attribute(attrib) is set for a section of 2MB memory. If the
 *			address (defined by Addr) is greater than 4GB, the memory attribute

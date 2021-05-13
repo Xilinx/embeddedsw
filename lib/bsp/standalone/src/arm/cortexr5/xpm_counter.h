@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +33,10 @@
 * </pre>
 *
 ******************************************************************************/
+
+/**
+ *@cond nocomments
+ */
 
 #ifndef XPMCOUNTER_H /* prevent circular inclusions */
 #define XPMCOUNTER_H /* by using protection macros */
@@ -495,7 +499,9 @@ extern "C" {
 #define XPM_EVENT_CNTRS_MASK		0x3U
 
 /**************************** Type Definitions ******************************/
-
+/**
+ *@endcond
+ */
 /***************** Macros (Inline Functions) Definitions ********************/
 #if defined(__GNUC__)
 #define Xpm_ReadCycleCounterVal()	mfcp(XREG_CP15_PERF_CYCLE_COUNTER)

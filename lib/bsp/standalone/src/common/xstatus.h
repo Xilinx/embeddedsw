@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2002 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2002 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,13 +8,17 @@
 *
 * @file xstatus.h
 *
-* @addtogroup common_status_codes Xilinx&reg; software status codes
+* @addtogroup common_status_codes Xilinx software status codes
 *
-* The xstatus.h file contains the Xilinx&reg; software status codes.These codes are
+* The xstatus.h file contains the Xilinx software status codes.These codes are
 * used throughout the Xilinx device drivers.
 *
 * @{
 ******************************************************************************/
+
+/**
+ *@cond nocomments
+ */
 
 #ifndef XSTATUS_H		/* prevent circular inclusions */
 #define XSTATUS_H		/* by using protection macros */
@@ -508,6 +512,11 @@ typedef s32 XStatus;
 #endif
 
 #endif /* end of protection macro */
+
+/**
+ *@endcond
+ */
+
 /**
 * @} End of "addtogroup common_status_codes".
 */

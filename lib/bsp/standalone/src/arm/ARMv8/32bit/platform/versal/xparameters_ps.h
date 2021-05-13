@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,6 +35,9 @@ extern "C" {
 
 #include "bspconfig.h"
 /************************** Constant Definitions *****************************/
+/**
+ *@cond nocomments
+ */
 
 /*
  * This block contains constant declarations for the peripherals
@@ -271,6 +274,9 @@ extern "C" {
 
 #define XPAR_SCUWDT_DEVICE_ID		0U
 
+/**
+ *@endcond
+ */
 
 #ifdef __cplusplus
 }

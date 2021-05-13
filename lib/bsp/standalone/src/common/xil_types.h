@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2010 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,9 @@
 *
 ******************************************************************************/
 
+/**
+ *@cond nocomments
+ */
 #ifndef XIL_TYPES_H	/* prevent circular inclusions */
 #define XIL_TYPES_H	/* by using protection macros */
 
@@ -192,6 +195,9 @@ typedef void (*XExceptionHandler) (void *InstancePtr);
 #endif
 
 #endif	/* end of protection macro */
+/**
+ *@endcond
+ */
 /**
 * @} End of "addtogroup common_types".
 */

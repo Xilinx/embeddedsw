@@ -9,7 +9,7 @@
 *
 * This file contains the various register definitions and function prototypes for
 * implementing the reset functionality of zynq ps devices
-* <pre>
+*
 * MODIFICATION HISTORY:
 *
 * Ver   Who    Date   Changes

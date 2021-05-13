@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -45,6 +45,10 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
+/**
+ *@cond nocomments
+ */
+
 /* Memory type */
 #define NORM_NONCACHE 0x401UL 	/* Normal Non-cacheable*/
 #define STRONG_ORDERED 0x409UL	/* Strongly ordered (Device-nGnRnE)*/
@@ -74,6 +78,9 @@ extern "C" {
 /************************** Variable Definitions *****************************/
 
 /************************** Function Prototypes ******************************/
+/**
+ *@endcond
+ */
 
 void Xil_SetTlbAttributes(UINTPTR Addr, u64 attrib);
 

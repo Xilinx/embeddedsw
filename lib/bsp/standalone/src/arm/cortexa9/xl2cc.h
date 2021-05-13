@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2011 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2011 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,10 @@
 * None.
 *
 ******************************************************************************/
+
+/**
+ *@cond nocomments
+ */
 
 #ifndef _XL2CC_H_
 #define _XL2CC_H_
@@ -144,3 +148,7 @@ extern "C" {
 #endif
 
 #endif /* protection macro */
+
+/**
+ *@endcond
+ */

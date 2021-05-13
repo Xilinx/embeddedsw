@@ -7,7 +7,8 @@
 /**
 *
 * @file xplatform_info.c
-*
+* @addtogroup common_platform_info Hardware Platform Information
+* @{
 * This file contains information about hardware for which the code is built
 *
 * <pre>
@@ -133,3 +134,4 @@ u32 XGetPSVersion_Info()
 #endif
 }
 #endif
+/** @} */
