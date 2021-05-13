@@ -26,7 +26,6 @@ extern struct regval_list {
 
 extern struct regval_list sensor_pre[];
 extern const int length_sensor_pre;
-const int size_sensor_pre;
 
 extern struct regval_list pcam5c_mode1[];
 extern const int length_pcam5c_mode1;

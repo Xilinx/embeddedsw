@@ -85,11 +85,7 @@ u8 EepromReadByte(AddressType Address, u8 *BufferPtr, u8 ByteCount);
 u8 EepromWriteByte(AddressType Address, u8 *BufferPtr, u8 ByteCount);
 
 
-u8 WriteBuffer[PAGE_SIZE];	/* Write buffer for writing a page. */
 
-u8 ReadBuffer[PAGE_SIZE];	/* Read buffer for reading a page.  */
-
-u8 DataBuf[PAGE_SIZE];
 /****************i************ Type Definitions *******************************/
 
 typedef u8 AddressType;
@@ -122,11 +118,7 @@ int IicLowLevelDynEeprom()
 
   }
 
-  for (Index = 0; Index < PAGE_SIZE; Index++) {
-	WriteBuffer[Index] = Index;
-	ReadBuffer[Index] = 0;
-	DataBuf[Index] = 0;
-  }
+
   EepromIicAddr = IIC_ADV7511_ADDRESS;
   for ( Index = 0; Index < NUMBER_OF_HDMI_REGS; Index++)
   {
