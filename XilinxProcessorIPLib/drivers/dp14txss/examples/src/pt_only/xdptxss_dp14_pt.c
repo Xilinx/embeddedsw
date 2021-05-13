@@ -583,6 +583,10 @@ u32 DpSs_Main(void)
          * can be programmed. This will generate a /20 clk
          */
 	XDp_WriteReg(GT_QUAD_BASE,0xC,0xF9E8D7C6);
+	retval = XDp_ReadReg(GT_QUAD_BASE, CH1CLKDIV_REG);
+	retval &= ~DIV_MASK;
+	retval |= DIV;
+	XDp_WriteReg(GT_QUAD_BASE, CH1CLKDIV_REG, retval);
 #endif
 #endif
 
