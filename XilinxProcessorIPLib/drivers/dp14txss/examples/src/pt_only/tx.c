@@ -1415,33 +1415,6 @@ u32 config_phy(int LineRate_init_tx){
     {
 		Status = XST_FAILURE;
     }
-    u32 regval = 0;
-    if (linerate == 3) {
-	regval = XDp_ReadReg(GT_QUAD_BASE, CH1CLKDIV_REG);
-	regval &= ~DIV_MASK;
-	regval |= DIV3;
-	XDp_WriteReg(GT_QUAD_BASE, CH1CLKDIV_REG, regval);
-    } else {
-	regval = XDp_ReadReg(GT_QUAD_BASE, CH1CLKDIV_REG);
-	regval &= ~DIV_MASK;
-	regval |= DIV;
-	XDp_WriteReg(GT_QUAD_BASE, CH1CLKDIV_REG, regval);
-    }
-    GtCtrl(0x40000000,0x40000000, 1);
-    GtCtrl(0x40000000,0x0, 1);
-    retry = 0;
-    dptx_sts =0 ;
-    while ((dptx_sts != ALL_LANE) && retry < 255) {
-         dptx_sts = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
-         dptx_sts &= ALL_LANE;
-         DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 100);
-         retry++;
-//            xil_printf ("sts is %x\r\n", dptx_sts);
-      }
-    if(retry==255)
-    {
-	Status = XST_FAILURE;
-    }
 
 
 #endif
