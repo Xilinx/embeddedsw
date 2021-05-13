@@ -38,6 +38,8 @@
 *	kal  02/20/2021 Added new error codes for detecting voltage and
 *			temparature out of range cases
 *	har  04/21/2021 Fixed warnings for R5 processor
+*   kpt  05/12/2021 Added sysmon instance to the function prototype of
+*                   individual write API's
 *
 * </pre>
 *
@@ -810,10 +812,11 @@ typedef struct {
 
 /*************************** Function Prototypes ******************************/
 int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm);
-int XNvm_EfuseWriteIVs(XNvm_EfuseIvs *EfuseIv);
-int XNvm_EfuseRevokePpk(XNvm_PpkType PpkRevoke);
-int XNvm_EfuseWriteRevocationId(u32 RevokeId);
-int XNvm_EfuseWriteUserFuses(XNvm_EfuseUserData *WriteUserFuses);
+int XNvm_EfuseWriteIVs(XNvm_EfuseIvs *EfuseIv, XSysMonPsv *SysMonInstPtr);
+int XNvm_EfuseRevokePpk(XNvm_PpkType PpkRevoke, XSysMonPsv *SysMonInstPtr);
+int XNvm_EfuseWriteRevocationId(u32 RevokeId, XSysMonPsv *SysMonInstPtr);
+int XNvm_EfuseWriteUserFuses(XNvm_EfuseUserData *WriteUserFuses,
+	XSysMonPsv *SysMonInstPtr);
 int XNvm_EfuseReadIv(XNvm_Iv *EfuseIv, XNvm_IvType IvType);
 int XNvm_EfuseReadRevocationId(u32 *RevokeFusePtr,
 	XNvm_RevocationId RevokeFuseNum);
@@ -832,7 +835,7 @@ int XNvm_EfuseReadPufSecCtrlBits(XNvm_EfusePufSecCtrlBits *PufSecCtrlBits);
 int XNvm_EfuseReadSecMisc1Bits(XNvm_EfuseSecMisc1Bits *SecMisc1Bits);
 int XNvm_EfuseReadBootEnvCtrlBits(XNvm_EfuseBootEnvCtrlBits *BootEnvCtrlBits);
 int XNvm_EfuseReadOffchipRevokeId(u32 *OffchipIdPtr,
-                                        XNvm_OffchipId OffchipIdNum);
+	XNvm_OffchipId OffchipIdNum);
 #ifdef __cplusplus
 }
 #endif
