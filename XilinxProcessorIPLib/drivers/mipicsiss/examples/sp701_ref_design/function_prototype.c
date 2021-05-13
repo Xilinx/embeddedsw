@@ -107,7 +107,7 @@ XGpio Gpio;
 #define XCSIRXSS_DEVICE_ID      XPAR_CSISS_0_DEVICE_ID
 #define XDSITXSS_DEVICE_ID      XPAR_DSITXSS_0_DEVICE_ID
 
-#define DEMOSAIC_DEVICE_ID XPAR_V_DEMOSAIC_0_DEVICE_ID
+#define DEMOSAIC_DEVICE_ID XPAR_XV_DEMOSAIC_0_DEVICE_ID
 
 
 #define GPIO_CHANNEL 1
@@ -544,13 +544,13 @@ XV_demosaic_Config XV_demosaic_ConfigTable[] =
 {
 	{
 #ifdef XPAR_XV_DEMOSAIC_NUM_INSTANCES
-		XPAR_V_DEMOSAIC_0_DEVICE_ID,
-		XPAR_V_DEMOSAIC_0_S_AXI_CTRL_BASEADDR,
-		XPAR_V_DEMOSAIC_0_SAMPLES_PER_CLOCK,
-		XPAR_V_DEMOSAIC_0_MAX_COLS,
-		XPAR_V_DEMOSAIC_0_MAX_ROWS,
-		XPAR_V_DEMOSAIC_0_MAX_DATA_WIDTH,
-		XPAR_V_DEMOSAIC_0_ALGORITHM
+		XPAR_XV_DEMOSAIC_0_DEVICE_ID,
+		XPAR_XV_DEMOSAIC_0_S_AXI_CTRL_BASEADDR,
+		XPAR_XV_DEMOSAIC_0_SAMPLES_PER_CLOCK,
+		XPAR_XV_DEMOSAIC_0_MAX_COLS,
+		XPAR_XV_DEMOSAIC_0_MAX_ROWS,
+		XPAR_XV_DEMOSAIC_0_MAX_DATA_WIDTH,
+		XPAR_XV_DEMOSAIC_0_ALGORITHM
 #endif
 	}
 };
@@ -1255,7 +1255,7 @@ void InitVprocSs_Scaler(int count) {
   StreamIn.FrameRate = 60; //rao
 
   if (count) {
-    p_vpss_cfg = XVprocSs_LookupConfig(XPAR_V_PROC_SS_0_DEVICE_ID);
+    p_vpss_cfg = XVprocSs_LookupConfig(XPAR_XVPROCSS_0_DEVICE_ID);
 	if (p_vpss_cfg == NULL) {
 	  xil_printf("ERROR! Failed to find VPSS-based scaler.\n\r");
       return;
@@ -1810,7 +1810,7 @@ void InitVprocSs_CSC(int count) {
   StreamIn.FrameRate = 60; //rao
 
   if (count) {
-    p_vpss_cfg1 = XVprocSs_LookupConfig(XPAR_V_PROC_SS_1_DEVICE_ID);
+    p_vpss_cfg1 = XVprocSs_LookupConfig(XPAR_XVPROCSS_1_DEVICE_ID);
 	if (p_vpss_cfg1 == NULL) {
 	  xil_printf("ERROR! Failed to find VPSS-based scaler.\n\r");
       return;
