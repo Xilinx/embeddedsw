@@ -1,5 +1,5 @@
 ##******************************************************************************
-# Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 ##
 
@@ -11,6 +11,6 @@ BEGIN driver board_common
 	OPTION supported_peripherals = ();
 	OPTION driver_state = ACTIVE;
 	OPTION copyfiles = all;
-	OPTION VERSION = 1.1;
+	OPTION VERSION = 1.2;
 	OPTION NAME = board_common;
 END driver
