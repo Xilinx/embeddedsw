@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
 *       dc     12/05/19 adjust LMX and LMK configs to a rftool needs
 * 1.2   dc     22/01/20 add version and list of LMK frequencies
 * 1.3   dc     03/10/20 update LMK/LMX config for MTS
+* 1.5   dc     13/05/21 Make clear LMK/LMX configuration comments
 *
 * </pre>
 *
@@ -44,8 +45,14 @@ const u8 LMK_FREQ_LIST[LMK_FREQ_NUM][FREQ_LIST_STR_SIZE] = { "122.88", "122.88",
 
 const u32 LMK_CKin[LMK_FREQ_NUM][LMK_COUNT] = {
 
-	/* LMK04208_12M8_3072M_122M88_REVAB input 12M8 VCO 3072M Output 122.88M Rev
-	A and B auto detect SYSREF 7.68, PL REFCLK 122.88 */
+	/* File name reference: LMK04208_ZCU111_revAB_CKin1=12M8_VCO=3072M_Out=122M88_MTS
+	   LMX input: 122.88MHz
+	   Input 12.8MHz
+	   VCO 3072MHz
+	   SYSREF (Analog and digital, MTS): 7.68MHz
+	   PL REFCLK (MTS) 122.88
+	   Input auto detect
+	   -- MTS*/
 	{ 0x00160040, 0x00143200, 0x00143201, 0x00140322, 0x80140323,
 	  0x00140324, 0x80141E05, 0x01100006, 0x01100007, 0x06010008,
 	  0x55555549, 0x9102410A, 0x0401900B, 0x1B8C006C, 0x2302886D,
@@ -53,8 +60,14 @@ const u32 LMK_CKin[LMK_FREQ_NUM][LMK_COUNT] = {
 	  0x8FA8001A, 0x10001E1B, 0x0021201C, 0x0180033D, 0x0200033E,
 	  0x003F001F },
 
-	/* LMK04208_12M8_3072M_122M88_REVAB input 12M8 VCO 3072M Output 122.88M Rev
-	A and B auto detect */
+	/* File name reference: LMK04208_ZCU111_revAB_CKin1=12M8_VCO=3072M_Out=122M88.tcs
+	   LMX input: 122.88MHz
+	   input 12.8MHz
+	   VCO 3072M Output
+	   Sysref 0 MHz
+	   PL REFCLK 0 MHz
+	   Input auto detect
+	*/
 	{ 0x00160040, 0x80140320, 0x80140321, 0x80140322, 0xC0140023,
 	  0x40140024, 0x80141E05, 0x03300006, 0x01300007, 0x06010008,
 	  0x55555549, 0x9102410A, 0x0401100B, 0x1B0C006C, 0x2302886D,
@@ -62,9 +75,14 @@ const u32 LMK_CKin[LMK_FREQ_NUM][LMK_COUNT] = {
 	  0x8FA8001A, 0x10001E1B, 0x0021201C, 0x0180033D, 0x0200033E,
 	  0x003F001F },
 
-	/* LMK04208_12M8_3072M_122M88_REVAB_0Delay input 12M8 VCO 3072M Output
-	122.88M Rev A and B auto detect
-	Sysref 7.68, PL REFCLK 122.88 ---  Multi Board MTS */
+	/* File name reference: LMK04208_ZCU111_revAB_0delay_sync_CKin1=7p68M_VCO=3072M_Out=122M88
+	   LMX input: 122.88MHz
+	   input 7.68MHz
+	   VCO 3072M Output
+	   Sysref 7.68 MHz
+	   PL REFCLK 122.88 MHz
+	   Input auto detect, Zero delay mode
+	   --  Multi Board MTS */
 	{ 0x00160040, 0x00503200, 0x00503201, 0x00500322, 0xC0140023,
 	  0x00500324, 0x00503205, 0x03300006, 0x01300007, 0x0C010008,
 	  0x55555549, 0x9102490A, 0x1403900B, 0x1B0C006C, 0x2302886D,
@@ -81,7 +99,10 @@ const u8 LMK_FREQ_LIST[LMK_FREQ_NUM][FREQ_LIST_STR_SIZE] = {
 
 const u32 LMK_CKin[LMK_FREQ_NUM][LMK_COUNT] = {
 
-	/* 245M76_PL_122M88_SYSREF_7M68.txt */
+	/* File name reference: 245M76_PL_122M88_SYSREF_7M68.txt
+	   DAC refclk/ADC refclk/LMX input:  245.76 MHz
+	   PL refclk (MTS): 122.88MHz,
+	   Sysref (Analog and digital, MTS): 7.68MHz */
 	{
 		0x000090, 0x000010, 0x000200, 0x000306, 0x0004D0, 0x00055B,
 		0x000600, 0x000C51, 0x000D04, 0x01006A, 0x010155, 0x010255,
@@ -107,7 +128,10 @@ const u32 LMK_CKin[LMK_FREQ_NUM][LMK_COUNT] = {
 		0x1FFE00, 0x1FFF53,
 	},
 
-	/* 250M_PL_125M_SYSREF_10M.txt */
+	/* File name reference: 250M_PL_125M_SYSREF_10M.txt */
+	/* DAC refclk, ADC refclk, and LMX input: 250MHz
+	   PL refclk (MTS): 125MHz
+	   Sysref (Analog and digital, MTS): 10MHz */
 	{
 		0x000090, 0x000010, 0x000200, 0x000306, 0x0004D0, 0x00055B,
 		0x000600, 0x000C51, 0x000D04, 0x01006C, 0x010155, 0x010255,
