@@ -49,6 +49,7 @@
 *       ma   05/03/2021 Minor updates related to PSM and FW errors, trigger
 *                       FW_CR for PSM and FW errors which have error action
 *                       set as ERROR_OUT
+*       bsv  05/15/2021 Remove warning for AXI_WRSTRB NPI error
 *
 * </pre>
 *
@@ -1551,11 +1552,6 @@ int XPlmi_CheckNpiErrors(void)
 			"NPI_NIR_ERR_LOG_P0_INFO_0: 0x%08x\n\r"
 			"NPI_NIR_ERR_LOG_P0_INFO_1: 0x%08x\n\r",
 			IsrVal, ErrTypeVal, ErrLogP0Info0Val, ErrLogP0Info1Val);
-		if (ErrVal == NPI_NIR_AXI_WRSTRB_ERR_MASK) {
-			XPlmi_Printf(DEBUG_GENERAL, "Warning: AXI_WRSTRB_ERR "
-				"is set.\n\r");
-			Status = XST_SUCCESS;
-		}
 	}
 	else {
 		Status = XST_SUCCESS;
