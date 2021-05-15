@@ -1302,21 +1302,56 @@ AieRC XAie_DmaGetMaxQueueSize(XAie_DevInst *DevInst, XAie_LocType Loc,
 *
 * @note		This feature is not supported for AIE. For AIE-ML the enable
 *		token issue can be XAIE_ENABLE or XAIE_DISABLE.
+*		This API doesn't support out of order.
 *
 ******************************************************************************/
 AieRC XAie_DmaChannelSetStartQueue(XAie_DevInst *DevInst, XAie_LocType Loc,
 		u8 ChNum, XAie_DmaDirection Dir, u8 BdNum, u32 RepeatCount,
 		u8 EnTokenIssue)
 {
+	XAie_DmaDeclareQueueConfig(DmaQueueDesc, BdNum, RepeatCount,
+			EnTokenIssue, XAIE_DISABLE);
+
+	return XAie_DmaChannelSetStartQueueGeneric(DevInst, Loc, ChNum, Dir,
+			&DmaQueueDesc);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API pushes a Buffer Descriptor number, configures repeat count and token
+* status to start channel queue.
+*
+* @param	DevInst: Device Instance.
+* @param	Loc: Location of AIE Tile
+* @param	ChNum: Channel number of the DMA.
+* @param	Dir: Direction of the DMA Channel. (MM2S or S2MM)
+* @param	DmaQueueDesc: Pointer of DMA queue descriptor
+*
+* @return	XAIE_OK on success, Error code on failure.
+*
+* @note		This feature is not supported for AIE.
+*
+******************************************************************************/
+AieRC XAie_DmaChannelSetStartQueueGeneric(XAie_DevInst *DevInst,
+		XAie_LocType Loc, u8 ChNum, XAie_DmaDirection Dir,
+		XAie_DmaQueueDesc *DmaQueueDesc)
+{
 	AieRC RC;
 	u8 TileType;
+	u8 StartBd;
 	u32 Val = 0;
 	u64 Addr;
 	const XAie_DmaMod *DmaMod;
 
 	if((DevInst == XAIE_NULL) ||
 		(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
-		XAIE_ERROR("Invalid Device Instance\n");
+		XAIE_ERROR("Invalid Device Instance to start queue\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	if(DmaQueueDesc == XAIE_NULL) {
+		XAIE_ERROR("Invalid Dma queue description pointer to start queue.\n");
 		return XAIE_INVALID_ARGS;
 	}
 
@@ -1326,8 +1361,9 @@ AieRC XAie_DmaChannelSetStartQueue(XAie_DevInst *DevInst, XAie_LocType Loc,
 	}
 
 	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
-	if(TileType == XAIEGBL_TILE_TYPE_SHIMPL) {
-		XAIE_ERROR("Invalid Tile Type\n");
+	if(TileType == XAIEGBL_TILE_TYPE_SHIMPL ||
+		TileType == XAIEGBL_TILE_TYPE_MAX) {
+		XAIE_ERROR("Invalid Tile Type to start queue\n");
 		return XAIE_INVALID_TILE;
 	}
 
@@ -1341,35 +1377,44 @@ AieRC XAie_DmaChannelSetStartQueue(XAie_DevInst *DevInst, XAie_LocType Loc,
 		XAIE_ERROR("Enable token issue feature in start queue is not supported for this device generation\n");
 		return XAIE_FEATURE_NOT_SUPPORTED;
 	}
+
 	if(ChNum > DmaMod->NumChannels) {
 		XAIE_ERROR("Invalid Channel number\n");
 		return XAIE_INVALID_CHANNEL_NUM;
 	}
 
-	if(BdNum > DmaMod->NumBds) {
-		XAIE_ERROR("Invalid BD number\n");
-		return XAIE_INVALID_BD_NUM;
-	}
-
-	if((RepeatCount < 1U) ||
-		(RepeatCount > DmaMod->ChProp->MaxRepeatCount)) {
-		XAIE_ERROR("Invalid Repeat Count: %d\n", RepeatCount);
+	if((DmaQueueDesc->RepeatCount < 1U) ||
+		(DmaQueueDesc->RepeatCount > DmaMod->ChProp->MaxRepeatCount)) {
+		XAIE_ERROR("Invalid Repeat Count: %d\n",
+			DmaQueueDesc->RepeatCount);
 		return XAIE_INVALID_ARGS;
 	}
 
-	RC = DmaMod->BdChValidity(BdNum, ChNum);
-	if(RC != XAIE_OK)
-		return RC;
+	if(DmaQueueDesc->OutOfOrder != XAIE_ENABLE) {
+		StartBd = DmaQueueDesc->StartBd;
+		if(StartBd > DmaMod->NumBds) {
+			XAIE_ERROR("Invalid BD number\n");
+			return XAIE_INVALID_BD_NUM;
+		}
+		RC = DmaMod->BdChValidity(StartBd, ChNum);
+		if(RC != XAIE_OK) {
+			return RC;
+		}
+	} else {
+		StartBd = 0;
+	}
 
 	Addr = _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) +
 		DmaMod->StartQueueBase + ChNum * DmaMod->ChIdxOffset +
 		Dir * DmaMod->ChIdxOffset * DmaMod->NumChannels;
 
-	Val = XAie_SetField(BdNum, DmaMod->ChProp->StartBd.Lsb,
+	Val = XAie_SetField(StartBd, DmaMod->ChProp->StartBd.Lsb,
 			DmaMod->ChProp->StartBd.Mask) |
-		XAie_SetField((RepeatCount - 1), DmaMod->ChProp->RptCount.Lsb,
+		XAie_SetField((DmaQueueDesc->RepeatCount - 1),
+			DmaMod->ChProp->RptCount.Lsb,
 			DmaMod->ChProp->RptCount.Mask) |
-		XAie_SetField(EnTokenIssue, DmaMod->ChProp->EnToken.Lsb,
+		XAie_SetField(DmaQueueDesc->EnTokenIssue,
+			DmaMod->ChProp->EnToken.Lsb,
 			DmaMod->ChProp->EnToken.Mask);
 
 	return XAie_Write32(DevInst, Addr, Val);
