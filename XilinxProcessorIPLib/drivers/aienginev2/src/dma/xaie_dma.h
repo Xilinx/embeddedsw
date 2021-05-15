@@ -41,6 +41,36 @@ typedef enum {
 } XAie_DmaFifoCounter;
 
 /************************** Function Prototypes  *****************************/
+
+/*****************************************************************************/
+/**
+*
+* Macro to declare DMA queue configuration variable.
+*
+* @param	_Config: XAie DMA Queue configuration variable name
+* @param	_StartBD: Start BD of the Queue
+* @param	_RepeatCount: Repeat count
+* @param	_EnTokenIssue: XAIE_ENABLE to issue token when completes,
+*			otherwise disable.
+* @param	_OutOfOrder: XAIE_ENABLE to indicate it is out of order mode,
+*			otherwise it is not out of order. If out of order mode
+*			is enabled, it will ignore the _StartBd setting.
+* @return	None.
+*
+* @note		The macro declares @_Config as an XAie_DmaQueueDesc stack
+*		variable.
+*
+*******************************************************************************/
+#define XAie_DmaDeclareQueueConfig(_Config, _StartBD, _RepeatCount, \
+		_EnTokenIssue, _OutOfOrder) \
+	XAie_DmaQueueDesc _Config; \
+	{ \
+		_Config.StartBd = (_StartBD); \
+		_Config.RepeatCount = (_RepeatCount); \
+		_Config.EnTokenIssue = (_EnTokenIssue); \
+		_Config.OutOfOrder = (_OutOfOrder); \
+	}
+
 AieRC XAie_DmaDescInit(XAie_DevInst *DevInst, XAie_DmaDesc *DmaDesc,
 		XAie_LocType Loc);
 AieRC XAie_DmaSetLock(XAie_DmaDesc *DmaDesc, XAie_Lock Acq, XAie_Lock Rel);
@@ -89,6 +119,9 @@ AieRC XAie_DmaGetMaxQueueSize(XAie_DevInst *DevInst, XAie_LocType Loc,
 AieRC XAie_DmaChannelSetStartQueue(XAie_DevInst *DevInst, XAie_LocType Loc,
 		u8 ChNum, XAie_DmaDirection Dir, u8 BdNum, u32 RepeatCount,
 		u8 EnTokenIssue);
+AieRC XAie_DmaChannelSetStartQueueGeneric(XAie_DevInst *DevInst,
+		XAie_LocType Loc, u8 ChNum, XAie_DmaDirection Dir,
+		XAie_DmaQueueDesc *DmaQueueDesc);
 AieRC XAie_DmaWriteChannel(XAie_DevInst *DevInst,
 		XAie_DmaChannelDesc *DmaChannelDesc, XAie_LocType Loc,
 		u8 ChNum, XAie_DmaDirection Dir);

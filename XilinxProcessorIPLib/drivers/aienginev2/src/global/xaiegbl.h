@@ -350,6 +350,13 @@ typedef struct {
 	u8 IsReady;
 } XAie_DmaDesc;
 
+typedef struct {
+	u32 RepeatCount;
+	u8 StartBd;
+	u8 EnTokenIssue;
+	u8 OutOfOrder;
+} XAie_DmaQueueDesc;
+
 /*
  * This enum contains the dma channel reset for aie dmas.
  */
