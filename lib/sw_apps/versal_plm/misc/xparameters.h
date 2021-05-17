@@ -424,234 +424,352 @@
 /******************************************************************/
 
 
-/* Definitions for peripheral PSV_CORESIGHT_FPD_STM */
+/* Peripheral Definitions for peripheral PSV_CORESIGHT_FPD_STM */
 #define XPAR_PSV_CORESIGHT_FPD_STM_S_AXI_BASEADDR 0xF0B70000
 #define XPAR_PSV_CORESIGHT_FPD_STM_S_AXI_HIGHADDR 0xF0B7FFFF
 
 
-/* Definitions for peripheral PSV_CRF_0 */
+/* Peripheral Definitions for peripheral PSV_CRF_0 */
 #define XPAR_PSV_CRF_0_S_AXI_BASEADDR 0xFD1A0000
 #define XPAR_PSV_CRF_0_S_AXI_HIGHADDR 0xFD2DFFFF
 
 
-/* Definitions for peripheral PSV_CRL_0 */
+/* Peripheral Definitions for peripheral PSV_CRL_0 */
 #define XPAR_PSV_CRL_0_S_AXI_BASEADDR 0xFF5E0000
 #define XPAR_PSV_CRL_0_S_AXI_HIGHADDR 0xFF8DFFFF
 
 
-/* Definitions for peripheral PSV_CRP_0 */
+/* Peripheral Definitions for peripheral PSV_CRP_0 */
 #define XPAR_PSV_CRP_0_S_AXI_BASEADDR 0xF1260000
 #define XPAR_PSV_CRP_0_S_AXI_HIGHADDR 0xF126FFFF
 
 
-/* Definitions for peripheral PSV_FPD_AFI_0 */
+/* Peripheral Definitions for peripheral PSV_FPD_AFI_0 */
 #define XPAR_PSV_FPD_AFI_0_S_AXI_BASEADDR 0xFD360000
 #define XPAR_PSV_FPD_AFI_0_S_AXI_HIGHADDR 0xFD36FFFF
 
 
-/* Definitions for peripheral PSV_FPD_AFI_2 */
+/* Peripheral Definitions for peripheral PSV_FPD_AFI_2 */
 #define XPAR_PSV_FPD_AFI_2_S_AXI_BASEADDR 0xFD380000
 #define XPAR_PSV_FPD_AFI_2_S_AXI_HIGHADDR 0xFD38FFFF
 
 
-/* Definitions for peripheral PSV_FPD_CCI_0 */
+/* Peripheral Definitions for peripheral PSV_FPD_CCI_0 */
 #define XPAR_PSV_FPD_CCI_0_S_AXI_BASEADDR 0xFD5E0000
 #define XPAR_PSV_FPD_CCI_0_S_AXI_HIGHADDR 0xFD5EFFFF
 
 
-/* Definitions for peripheral PSV_FPD_GPV_0 */
+/* Peripheral Definitions for peripheral PSV_FPD_GPV_0 */
 #define XPAR_PSV_FPD_GPV_0_S_AXI_BASEADDR 0xFD700000
 #define XPAR_PSV_FPD_GPV_0_S_AXI_HIGHADDR 0xFD7FFFFF
 
 
-/* Definitions for peripheral PSV_FPD_MAINCCI_0 */
+/* Peripheral Definitions for peripheral PSV_FPD_MAINCCI_0 */
 #define XPAR_PSV_FPD_MAINCCI_0_S_AXI_BASEADDR 0xFD000000
 #define XPAR_PSV_FPD_MAINCCI_0_S_AXI_HIGHADDR 0xFD0FFFFF
 
 
-/* Definitions for peripheral PSV_FPD_SLAVE_XMPU_0 */
+/* Peripheral Definitions for peripheral PSV_FPD_SLAVE_XMPU_0 */
 #define XPAR_PSV_FPD_SLAVE_XMPU_0_S_AXI_BASEADDR 0xFD390000
 #define XPAR_PSV_FPD_SLAVE_XMPU_0_S_AXI_HIGHADDR 0xFD39FFFF
 
 
-/* Definitions for peripheral PSV_FPD_SLCR_0 */
+/* Peripheral Definitions for peripheral PSV_FPD_SLCR_0 */
 #define XPAR_PSV_FPD_SLCR_0_S_AXI_BASEADDR 0xFD610000
 #define XPAR_PSV_FPD_SLCR_0_S_AXI_HIGHADDR 0xFD61FFFF
 
 
-/* Definitions for peripheral PSV_FPD_SLCR_SECURE_0 */
+/* Peripheral Definitions for peripheral PSV_FPD_SLCR_SECURE_0 */
 #define XPAR_PSV_FPD_SLCR_SECURE_0_S_AXI_BASEADDR 0xFD690000
 #define XPAR_PSV_FPD_SLCR_SECURE_0_S_AXI_HIGHADDR 0xFD69FFFF
 
 
-/* Definitions for peripheral PSV_FPD_SMMU_0 */
+/* Peripheral Definitions for peripheral PSV_FPD_SMMU_0 */
 #define XPAR_PSV_FPD_SMMU_0_S_AXI_BASEADDR 0xFD5F0000
 #define XPAR_PSV_FPD_SMMU_0_S_AXI_HIGHADDR 0xFD5FFFFF
 
 
-/* Definitions for peripheral PSV_FPD_SMMUTCU_0 */
+/* Peripheral Definitions for peripheral PSV_FPD_SMMUTCU_0 */
 #define XPAR_PSV_FPD_SMMUTCU_0_S_AXI_BASEADDR 0xFD800000
 #define XPAR_PSV_FPD_SMMUTCU_0_S_AXI_HIGHADDR 0xFDFFFFFF
 
 
-/* Definitions for peripheral PSV_LPD_AFI_0 */
+/* Peripheral Definitions for peripheral PSV_LPD_AFI_0 */
 #define XPAR_PSV_LPD_AFI_0_S_AXI_BASEADDR 0xFF9B0000
 #define XPAR_PSV_LPD_AFI_0_S_AXI_HIGHADDR 0xFF9BFFFF
 
 
-/* Definitions for peripheral PSV_LPD_IOU_SECURE_SLCR_0 */
+/* Peripheral Definitions for peripheral PSV_LPD_IOU_SECURE_SLCR_0 */
 #define XPAR_PSV_LPD_IOU_SECURE_SLCR_0_S_AXI_BASEADDR 0xFF0A0000
 #define XPAR_PSV_LPD_IOU_SECURE_SLCR_0_S_AXI_HIGHADDR 0xFF0AFFFF
 
 
-/* Definitions for peripheral PSV_LPD_IOU_SLCR_0 */
+/* Peripheral Definitions for peripheral PSV_LPD_IOU_SLCR_0 */
 #define XPAR_PSV_LPD_IOU_SLCR_0_S_AXI_BASEADDR 0xFF080000
 #define XPAR_PSV_LPD_IOU_SLCR_0_S_AXI_HIGHADDR 0xFF09FFFF
 
 
-/* Definitions for peripheral PSV_LPD_SLCR_0 */
+/* Peripheral Definitions for peripheral PSV_LPD_SLCR_0 */
 #define XPAR_PSV_LPD_SLCR_0_S_AXI_BASEADDR 0xFF410000
 #define XPAR_PSV_LPD_SLCR_0_S_AXI_HIGHADDR 0xFF50FFFF
 
 
-/* Definitions for peripheral PSV_LPD_SLCR_SECURE_0 */
+/* Peripheral Definitions for peripheral PSV_LPD_SLCR_SECURE_0 */
 #define XPAR_PSV_LPD_SLCR_SECURE_0_S_AXI_BASEADDR 0xFF510000
 #define XPAR_PSV_LPD_SLCR_SECURE_0_S_AXI_HIGHADDR 0xFF54FFFF
 
 
-/* Definitions for peripheral PSV_LPD_XPPU_0 */
+/* Peripheral Definitions for peripheral PSV_LPD_XPPU_0 */
 #define XPAR_PSV_LPD_XPPU_0_S_AXI_BASEADDR 0xFF990000
 #define XPAR_PSV_LPD_XPPU_0_S_AXI_HIGHADDR 0xFF99FFFF
 
 
-/* Definitions for peripheral PSV_OCM_CTRL */
+/* Peripheral Definitions for peripheral PSV_OCM_CTRL */
 #define XPAR_PSV_OCM_CTRL_S_AXI_BASEADDR 0xFF960000
 #define XPAR_PSV_OCM_CTRL_S_AXI_HIGHADDR 0xFF96FFFF
 
 
-/* Definitions for peripheral PSV_OCM_RAM_0 */
+/* Peripheral Definitions for peripheral PSV_OCM_RAM_0 */
 #define XPAR_PSV_OCM_RAM_0_S_AXI_BASEADDR 0xFFFC0000
 #define XPAR_PSV_OCM_RAM_0_S_AXI_HIGHADDR 0xFFFFFFFF
 
 
-/* Definitions for peripheral PSV_OCM_XMPU_0 */
+/* Peripheral Definitions for peripheral PSV_OCM_XMPU_0 */
 #define XPAR_PSV_OCM_XMPU_0_S_AXI_BASEADDR 0xFF980000
 #define XPAR_PSV_OCM_XMPU_0_S_AXI_HIGHADDR 0xFF98FFFF
 
 
-/* Definitions for peripheral PSV_PMC_AES */
+/* Peripheral Definitions for peripheral PSV_PMC_AES */
 #define XPAR_PSV_PMC_AES_S_AXI_BASEADDR 0xF11E0000
 #define XPAR_PSV_PMC_AES_S_AXI_HIGHADDR 0xF11EFFFF
 
 
-/* Definitions for peripheral PSV_PMC_BBRAM_CTRL */
+/* Peripheral Definitions for peripheral PSV_PMC_BBRAM_CTRL */
 #define XPAR_PSV_PMC_BBRAM_CTRL_S_AXI_BASEADDR 0xF11F0000
 #define XPAR_PSV_PMC_BBRAM_CTRL_S_AXI_HIGHADDR 0xF11FFFFF
 
 
-/* Definitions for peripheral PSV_PMC_EFUSE_CTRL */
+/* Peripheral Definitions for peripheral PSV_PMC_EFUSE_CTRL */
 #define XPAR_PSV_PMC_EFUSE_CTRL_S_AXI_BASEADDR 0xF1240000
 #define XPAR_PSV_PMC_EFUSE_CTRL_S_AXI_HIGHADDR 0xF124FFFF
 
 
-/* Definitions for peripheral PSV_PMC_GLOBAL_0 */
+/* Peripheral Definitions for peripheral PSV_PMC_GLOBAL_0 */
 #define XPAR_PSV_PMC_GLOBAL_0_S_AXI_BASEADDR 0xF1110000
 #define XPAR_PSV_PMC_GLOBAL_0_S_AXI_HIGHADDR 0xF115FFFF
 
 
-/* Definitions for peripheral PSV_PMC_QSPI_OSPI_FLASH_0 */
+/* Peripheral Definitions for peripheral PSV_PMC_QSPI_OSPI_FLASH_0 */
 #define XPAR_PSV_PMC_QSPI_OSPI_FLASH_0_S_AXI_BASEADDR 0xC0000000
 #define XPAR_PSV_PMC_QSPI_OSPI_FLASH_0_S_AXI_HIGHADDR 0xDFFFFFFF
 
 
-/* Definitions for peripheral PSV_PMC_RAM_DATA_CNTLR */
+/* Peripheral Definitions for peripheral PSV_PMC_RAM_DATA_CNTLR */
 #define XPAR_PSV_PMC_RAM_DATA_CNTLR_S_AXI_BASEADDR 0xF0240000
-#define XPAR_RAM_DATA_CNTLR_0_S_AXI_HIGHADDR 0xF025FFFF
+#define XPAR_PSV_PMC_RAM_DATA_CNTLR_S_AXI_HIGHADDR 0xF025FFFF
 
 
-/* Definitions for peripheral PSV_PMC_RAM_INSTR_CNTLR */
-#define XPAR_RAM_INSTR_CNTLR_0_S_AXI_BASEADDR 0xF0200000
+/* Peripheral Definitions for peripheral PSV_PMC_RAM_INSTR_CNTLR */
+#define XPAR_PSV_PMC_RAM_INSTR_CNTLR_S_AXI_BASEADDR 0xF0200000
 #define XPAR_PSV_PMC_RAM_INSTR_CNTLR_S_AXI_HIGHADDR 0xF023FFFF
 
 
-/* Definitions for peripheral PSV_PMC_RSA */
+/* Peripheral Definitions for peripheral PSV_PMC_RSA */
 #define XPAR_PSV_PMC_RSA_S_AXI_BASEADDR 0xF1200000
 #define XPAR_PSV_PMC_RSA_S_AXI_HIGHADDR 0xF120FFFF
 
 
-/* Definitions for peripheral PSV_PMC_SHA */
+/* Peripheral Definitions for peripheral PSV_PMC_SHA */
 #define XPAR_PSV_PMC_SHA_S_AXI_BASEADDR 0xF1210000
 #define XPAR_PSV_PMC_SHA_S_AXI_HIGHADDR 0xF121FFFF
 
 
-/* Definitions for peripheral PSV_PMC_XMPU_0 */
+/* Peripheral Definitions for peripheral PSV_PMC_XMPU_0 */
 #define XPAR_PSV_PMC_XMPU_0_S_AXI_BASEADDR 0xF12F0000
 #define XPAR_PSV_PMC_XMPU_0_S_AXI_HIGHADDR 0xF12FFFFF
 
 
-/* Definitions for peripheral PSV_PMC_XPPU_0 */
+/* Peripheral Definitions for peripheral PSV_PMC_XPPU_0 */
 #define XPAR_PSV_PMC_XPPU_0_S_AXI_BASEADDR 0xF1310000
 #define XPAR_PSV_PMC_XPPU_0_S_AXI_HIGHADDR 0xF131FFFF
 
 
-/* Definitions for peripheral PSV_PMC_XPPU_NPI_0 */
+/* Peripheral Definitions for peripheral PSV_PMC_XPPU_NPI_0 */
 #define XPAR_PSV_PMC_XPPU_NPI_0_S_AXI_BASEADDR 0xF1300000
 #define XPAR_PSV_PMC_XPPU_NPI_0_S_AXI_HIGHADDR 0xF130FFFF
 
 
-/* Definitions for peripheral PSV_PSM_GLOBAL_REG */
+/* Peripheral Definitions for peripheral PSV_PSM_GLOBAL_REG */
 #define XPAR_PSV_PSM_GLOBAL_REG_S_AXI_BASEADDR 0xFFC90000
 #define XPAR_PSV_PSM_GLOBAL_REG_S_AXI_HIGHADDR 0xFFC9EFFF
 
 
-/* Definitions for peripheral PSV_R5_0_ATCM_GLOBAL */
-#define XPAR_PSV_R5_0_ATCM_GLOBAL_S_AXI_BASEADDR 0xFFE00000
-#define XPAR_PSV_R5_0_ATCM_GLOBAL_S_AXI_HIGHADDR 0xFFE0FFFF
-
-
-/* Definitions for peripheral PSV_R5_0_ATCM_LOCKSTEP */
-#define XPAR_PSV_R5_0_ATCM_LOCKSTEP_S_AXI_BASEADDR 0xFFE10000
-#define XPAR_PSV_R5_0_ATCM_LOCKSTEP_S_AXI_HIGHADDR 0xFFE1FFFF
-
-
-/* Definitions for peripheral PSV_R5_0_BTCM_GLOBAL */
-#define XPAR_PSV_R5_0_BTCM_GLOBAL_S_AXI_BASEADDR 0xFFE20000
-#define XPAR_PSV_R5_0_BTCM_GLOBAL_S_AXI_HIGHADDR 0xFFE2FFFF
-
-
-/* Definitions for peripheral PSV_R5_0_BTCM_LOCKSTEP */
-#define XPAR_PSV_R5_0_BTCM_LOCKSTEP_S_AXI_BASEADDR 0xFFE30000
-#define XPAR_PSV_R5_0_BTCM_LOCKSTEP_S_AXI_HIGHADDR 0xFFE3FFFF
-
-
-/* Definitions for peripheral PSV_R5_1_ATCM_GLOBAL */
+/* Peripheral Definitions for peripheral PSV_R5_1_ATCM_GLOBAL */
 #define XPAR_PSV_R5_1_ATCM_GLOBAL_S_AXI_BASEADDR 0xFFE90000
 #define XPAR_PSV_R5_1_ATCM_GLOBAL_S_AXI_HIGHADDR 0xFFE9FFFF
 
 
-/* Definitions for peripheral PSV_R5_1_BTCM_GLOBAL */
+/* Peripheral Definitions for peripheral PSV_R5_1_BTCM_GLOBAL */
 #define XPAR_PSV_R5_1_BTCM_GLOBAL_S_AXI_BASEADDR 0xFFEB0000
 #define XPAR_PSV_R5_1_BTCM_GLOBAL_S_AXI_HIGHADDR 0xFFEBFFFF
 
 
-/* Definitions for peripheral PSV_R5_TCM_RAM_GLOBAL */
+/* Peripheral Definitions for peripheral PSV_R5_TCM_RAM_GLOBAL */
 #define XPAR_PSV_R5_TCM_RAM_GLOBAL_S_AXI_BASEADDR 0xFFE00000
 #define XPAR_PSV_R5_TCM_RAM_GLOBAL_S_AXI_HIGHADDR 0xFFE3FFFF
 
 
-/* Definitions for peripheral PSV_SCNTR_0 */
+/* Peripheral Definitions for peripheral PSV_SCNTR_0 */
 #define XPAR_PSV_SCNTR_0_S_AXI_BASEADDR 0xFF130000
 #define XPAR_PSV_SCNTR_0_S_AXI_HIGHADDR 0xFF13FFFF
 
 
-/* Definitions for peripheral PSV_SCNTRS_0 */
+/* Peripheral Definitions for peripheral PSV_SCNTRS_0 */
 #define XPAR_PSV_SCNTRS_0_S_AXI_BASEADDR 0xFF140000
 #define XPAR_PSV_SCNTRS_0_S_AXI_HIGHADDR 0xFF14FFFF
 
 
-/* Definitions for peripheral PSV_USB_0 */
+/* Peripheral Definitions for peripheral PSV_USB_0 */
 #define XPAR_PSV_USB_0_S_AXI_BASEADDR 0xFF9D0000
 #define XPAR_PSV_USB_0_S_AXI_HIGHADDR 0xFF9DFFFF
+
+
+/******************************************************************/
+
+
+/* Canonical Definitions for peripheral PSV_CORESIGHT_FPD_STM */
+#define XPAR_PSV_CORESIGHT_FPD_STM_0_S_AXI_BASEADDR 0xF0B70000
+#define XPAR_PSV_CORESIGHT_FPD_STM_0_S_AXI_HIGHADDR 0xF0B7FFFF
+
+
+
+
+
+
+
+
+
+
+/* Canonical Definitions for peripheral PSV_FPD_AFI_2 */
+#define XPAR_PSV_FPD_AFI_1_S_AXI_BASEADDR 0xFD380000
+#define XPAR_PSV_FPD_AFI_1_S_AXI_HIGHADDR 0xFD38FFFF
+
+
+
+
+
+
+/* Canonical Definitions for peripheral PSV_FPD_MAINCCI_0 */
+#define XPAR_PSV_FPD_MAINCCI_0_0_S_AXI_BASEADDR 0xFD000000
+#define XPAR_PSV_FPD_MAINCCI_0_0_S_AXI_HIGHADDR 0xFD0FFFFF
+
+
+
+
+
+
+
+
+
+
+/* Canonical Definitions for peripheral PSV_FPD_SMMUTCU_0 */
+#define XPAR_PSV_FPD_SMMUTCU_1_S_AXI_BASEADDR 0xFD800000
+#define XPAR_PSV_FPD_SMMUTCU_1_S_AXI_HIGHADDR 0xFDFFFFFF
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Canonical Definitions for peripheral PSV_OCM_CTRL */
+#define XPAR_PSV_OCM_0_S_AXI_BASEADDR 0xFF960000
+#define XPAR_PSV_OCM_0_S_AXI_HIGHADDR 0xFF96FFFF
+
+
+
+
+
+
+/* Canonical Definitions for peripheral PSV_PMC_AES */
+#define XPAR_PSV_PMC_AES_0_S_AXI_BASEADDR 0xF11E0000
+#define XPAR_PSV_PMC_AES_0_S_AXI_HIGHADDR 0xF11EFFFF
+
+
+/* Canonical Definitions for peripheral PSV_PMC_BBRAM_CTRL */
+#define XPAR_PSV_PMC_BBRAM_CTRL_0_S_AXI_BASEADDR 0xF11F0000
+#define XPAR_PSV_PMC_BBRAM_CTRL_0_S_AXI_HIGHADDR 0xF11FFFFF
+
+
+/* Canonical Definitions for peripheral PSV_PMC_EFUSE_CTRL */
+#define XPAR_PSV_PMC_EFUSE_CTRL_0_S_AXI_BASEADDR 0xF1240000
+#define XPAR_PSV_PMC_EFUSE_CTRL_0_S_AXI_HIGHADDR 0xF124FFFF
+
+
+
+
+/* Canonical Definitions for peripheral PSV_PMC_QSPI_OSPI_FLASH_0 */
+#define XPAR_PSV_PMC_QSPI_OSPI_0_S_AXI_BASEADDR 0xC0000000
+#define XPAR_PSV_PMC_QSPI_OSPI_0_S_AXI_HIGHADDR 0xDFFFFFFF
+
+
+/* Canonical Definitions for peripheral PSV_PMC_RAM_DATA_CNTLR */
+#define XPAR_RAM_DATA_CNTLR_0_S_AXI_BASEADDR 0xF0240000
+#define XPAR_RAM_DATA_CNTLR_0_S_AXI_HIGHADDR 0xF025FFFF
+
+
+/* Canonical Definitions for peripheral PSV_PMC_RAM_INSTR_CNTLR */
+#define XPAR_RAM_INSTR_CNTLR_0_S_AXI_BASEADDR 0xF0200000
+#define XPAR_RAM_INSTR_CNTLR_0_S_AXI_HIGHADDR 0xF023FFFF
+
+
+/* Canonical Definitions for peripheral PSV_PMC_RSA */
+#define XPAR_PSV_PMC_RSA_0_S_AXI_BASEADDR 0xF1200000
+#define XPAR_PSV_PMC_RSA_0_S_AXI_HIGHADDR 0xF120FFFF
+
+
+/* Canonical Definitions for peripheral PSV_PMC_SHA */
+#define XPAR_PSV_PMC_SHA_0_S_AXI_BASEADDR 0xF1210000
+#define XPAR_PSV_PMC_SHA_0_S_AXI_HIGHADDR 0xF121FFFF
+
+
+
+
+
+
+
+
+/* Canonical Definitions for peripheral PSV_PSM_GLOBAL_REG */
+#define XPAR_PSV_PSM_GLOBAL_REG_0_S_AXI_BASEADDR 0xFFC90000
+#define XPAR_PSV_PSM_GLOBAL_REG_0_S_AXI_HIGHADDR 0xFFC9EFFF
+
+
+/* Canonical Definitions for peripheral PSV_R5_1_ATCM_GLOBAL */
+#define XPAR_PSV_TCM_GLOBAL_0_S_AXI_BASEADDR 0xFFE90000
+#define XPAR_PSV_TCM_GLOBAL_0_S_AXI_HIGHADDR 0xFFE9FFFF
+
+
+/* Canonical Definitions for peripheral PSV_R5_1_BTCM_GLOBAL */
+#define XPAR_PSV_TCM_GLOBAL_1_S_AXI_BASEADDR 0xFFEB0000
+#define XPAR_PSV_TCM_GLOBAL_1_S_AXI_HIGHADDR 0xFFEBFFFF
+
+
+/* Canonical Definitions for peripheral PSV_R5_TCM_RAM_GLOBAL */
+#define XPAR_PSV_R5_TCM_0_S_AXI_BASEADDR 0xFFE00000
+#define XPAR_PSV_R5_TCM_0_S_AXI_HIGHADDR 0xFFE3FFFF
+
+
+
+
+
+
 
 
 /******************************************************************/
