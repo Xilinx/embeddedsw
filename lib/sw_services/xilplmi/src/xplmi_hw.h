@@ -47,6 +47,7 @@
 *                       removed PSM_CR mask macro which is unused
 *       gm   05/11/2021 Added macros for DDRMC UB related registers
 *       bsv  05/15/2021 Remove warning for AXI_WRSTRB NPI error
+*       ma   05/17/2021 Added macro related to FW_ERR register
 *
 * </pre>
 *
@@ -159,6 +160,7 @@ extern "C" {
  */
 #define PMC_GLOBAL_PMC_FW_ERR    (PMC_GLOBAL_BASEADDR + 0X00010100U)
 #define PMC_GLOBAL_PMC_FW_ERR_NCR_FLAG_MASK		(0x80000000U)
+#define PMC_GLOBAL_PMC_FW_ERR_DATA_MASK			(0x3FFFFFFFU)
 
 /*
  * Register: PMC_GLOBAL_PMC_ERR1_STATUS
