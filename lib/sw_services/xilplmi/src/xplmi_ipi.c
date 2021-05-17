@@ -39,6 +39,7 @@
  *       bsv  03/24/2021 All IPIs to be acknowledged in XPlmi_IpiDispatchHandler
  *       bm   04/03/2021 Register IPI handler in IpiInit
  *       bsv  04/16/2021 Add provision to store Subsystem Id in XilPlmi
+ *       bm   05/17/2021 Code cleanup
  *
  * </pre>
  *
@@ -162,7 +163,7 @@ END:
  *****************************************************************************/
 int XPlmi_IpiDispatchHandler(void *Data)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 SrcCpuMask;
 	u32 Payload[XPLMI_IPI_MAX_MSG_LEN] = {0U};
 	u32 MaskIndex;
@@ -177,6 +178,12 @@ int XPlmi_IpiDispatchHandler(void *Data)
 
 	for (MaskIndex = 0; MaskIndex < XPLMI_IPI_MASK_COUNT; MaskIndex++) {
 		if ((SrcCpuMask & IpiInst.Config.TargetList[MaskIndex].Mask) != 0U) {
+			Status = XPlmi_MemSetBytes(&Cmd, sizeof(XPlmi_Cmd), 0U,
+					sizeof(XPlmi_Cmd));
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+			Cmd.IpiReqType = XPLMI_CMD_NON_SECURE;
 			Cmd.IpiMask = IpiInst.Config.TargetList[MaskIndex].Mask;
 			if (IPI_PMC_ISR_PSM_BIT_MASK == Cmd.IpiMask) {
 				PendingPsmIpi = (u8)TRUE;
@@ -189,6 +196,7 @@ int XPlmi_IpiDispatchHandler(void *Data)
 			}
 
 			Cmd.CmdId = Payload[0U];
+			Status = XST_FAILURE;
 			Status = XPlmi_ValidateIpiCmd(&Cmd,
 					IpiInst.Config.TargetList[MaskIndex].BufferIndex);
 			if (Status != XST_SUCCESS) {
@@ -429,7 +437,7 @@ static int XPlmi_ValidateCmd(u32 ModuleId, u32 ApiId)
  *****************************************************************************/
 static int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 CmdHndlr = (Cmd->CmdId & XPLMI_CMD_MODULE_ID_MASK) >>
 			XPLMI_CMD_MODULE_ID_SHIFT;
 	u32 ApiId = Cmd->CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK;
@@ -461,6 +469,7 @@ static int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex)
 
 	/* Get IPI request type */
 	Cmd->IpiReqType = XPlmi_GetIpiReqType(Cmd->CmdId, SrcIndex);
+	Status = XST_FAILURE;
 	/*
 	 * Check command IPI access if module has registered the handler
 	 * If handler is not registered, do nothing
@@ -492,7 +501,8 @@ END:
 static u32 XPlmi_GetIpiReqType(u32 CmdId, u32 SrcIndex)
 {
 	u32 CmdPerm = CmdId & IPI_CMD_HDR_SECURE_BIT_MASK;
-	u32 ChannelPerm = XPLMI_CMD_NON_SECURE;
+	volatile u32 ChannelPerm = XPLMI_CMD_NON_SECURE;
+	volatile u32 ChannelPermTmp = XPLMI_CMD_NON_SECURE;
 	u32 IpiReqType = XPLMI_CMD_NON_SECURE;
 
 	/* Treat command as non-secure if Command type is non-secure */
@@ -506,13 +516,17 @@ static u32 XPlmi_GetIpiReqType(u32 CmdId, u32 SrcIndex)
 	 */
 	ChannelPerm = XPlmi_In32((IPI_APER_TZ_000_ADDR +
 			(SrcIndex * XPLMI_WORD_LEN)));
+	ChannelPermTmp = XPlmi_In32((IPI_APER_TZ_000_ADDR +
+			(SrcIndex * XPLMI_WORD_LEN)));
 	ChannelPerm &= IPI_APER_TZ_PMC_REQ_BUF_MASK;
+	ChannelPermTmp &= IPI_APER_TZ_PMC_REQ_BUF_MASK;
 
 	/*
 	 * Request type is secure if both Channel type and Command type
 	 * are secure
 	 */
-	if (ChannelPerm == XPLMI_CMD_SECURE) {
+	if ((ChannelPerm == XPLMI_CMD_SECURE) &&
+		(ChannelPermTmp == XPLMI_CMD_SECURE)) {
 		IpiReqType = XPLMI_CMD_SECURE;
 	}
 
