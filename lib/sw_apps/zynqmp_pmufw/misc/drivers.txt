@@ -1,3 +1,4 @@
+avbuf
 canps
 csudma
 uartps
@@ -12,3 +13,6 @@ usbpsu
 wdtps
 sysmonpsu
 zdma
+dpdma
+dppsu
+video_common
