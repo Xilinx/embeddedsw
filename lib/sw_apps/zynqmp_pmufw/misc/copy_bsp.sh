@@ -107,7 +107,9 @@ do
     #copy the driver include files
     cp -r $DRIVERS_DIR/$line/src/*.h $BSP_DIR/include/
 # copy all the HSM generated driver files DRIVER_g.c
-	cp $WORKING_DIR/x"$line"_g.c $BSP_DIR/libsrc/$line/src/
+	if [ $line != "avbuf" ] && [ $line != "video_common" ]; then
+		cp $WORKING_DIR/x"$line"_g.c $BSP_DIR/libsrc/$line/src/
+	fi
 	BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/$line/src/Makefile"
 
 done < $DRIVERS_LIST
