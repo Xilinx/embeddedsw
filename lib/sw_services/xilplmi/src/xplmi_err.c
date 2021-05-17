@@ -50,6 +50,8 @@
 *                       FW_CR for PSM and FW errors which have error action
 *                       set as ERROR_OUT
 *       bsv  05/15/2021 Remove warning for AXI_WRSTRB NPI error
+*       ma   05/17/2021 Update only data field when writing error code to FW_ERR
+*                       register
 *
 * </pre>
 *
@@ -102,7 +104,8 @@ void XPlmi_ErrMgr(int ErrStatus)
 
 	/* Print the PLM error */
 	XPlmi_Printf(DEBUG_GENERAL, "PLM Error Status: 0x%08lx\n\r", ErrStatus);
-	XPlmi_Out32(PMC_GLOBAL_PMC_FW_ERR, (u32)ErrStatus);
+	XPlmi_UtilRMW(PMC_GLOBAL_PMC_FW_ERR, PMC_GLOBAL_PMC_FW_ERR_DATA_MASK,
+			(u32)ErrStatus);
 
 	/*
 	 * Fallback if boot PDI is not done
