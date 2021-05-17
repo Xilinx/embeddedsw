@@ -207,8 +207,6 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
   /* Check if input is I/P */
   if(StrmInPtr->IsInterlaced) {
     pTable[index++] = XVPROCSS_SUBCORE_DEINT;
-  } else {
-	  XVprocSsPtr->VdmaPtr = NULL;
   }
 
   /* Check if input is 420 */

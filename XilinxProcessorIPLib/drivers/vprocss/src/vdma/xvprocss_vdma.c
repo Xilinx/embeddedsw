@@ -7,7 +7,7 @@
 /**
 *
 * @file xvprocss_vdma.c
-* @addtogroup vprocss_v2_8
+* @addtogroup vprocss_v2_9
 * @{
 * @details
 
