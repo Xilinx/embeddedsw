@@ -185,6 +185,7 @@ cp -rf $STANDALONE_DIR/common/*.h $BSP_DIR/include/
 cp $BOARD_DIR/inbyte.c $BSP_DIR/libsrc/standalone/src/
 cp $BOARD_DIR/outbyte.c $BSP_DIR/libsrc/standalone/src/
 cp $BOARD_DIR/xcsudma_g.c $BSP_DIR/libsrc/csudma/src/
+cp $BOARD_DIR/xusbpsu_g.c $BSP_DIR/libsrc/usbpsu/src/
 
 if [ $PROC == "a53" ]; then
 	cp ../misc/zcu102/a53/xipipsu_g.c $BSP_DIR/libsrc/ipipsu/src/
