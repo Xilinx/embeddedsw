@@ -31,6 +31,7 @@
 *                         from u32 to int
 * 7.50  dp       02/12/21 Fix compilation error in Xil_EndianSwap32() that occur
 *                         when -Werror=conversion compiler flag is enabled
+* 7.5   mus      05/17/21 Update the functions with comments. It fixes CR#1067739.
 *
 * </pre>
 ******************************************************************************/
@@ -167,6 +168,7 @@ static INLINE u64 Xil_In64(UINTPTR Addr)
 ******************************************************************************/
 static INLINE void Xil_Out8(UINTPTR Addr, u8 Value)
 {
+	/* write 8 bit value to specified address */
 	volatile u8 *LocalAddr = (volatile u8 *)Addr;
 	*LocalAddr = Value;
 }
@@ -185,6 +187,7 @@ static INLINE void Xil_Out8(UINTPTR Addr, u8 Value)
 ******************************************************************************/
 static INLINE void Xil_Out16(UINTPTR Addr, u16 Value)
 {
+	/* write 16 bit value to specified address */
 	volatile u16 *LocalAddr = (volatile u16 *)Addr;
 	*LocalAddr = Value;
 }
@@ -204,6 +207,7 @@ static INLINE void Xil_Out16(UINTPTR Addr, u16 Value)
 ******************************************************************************/
 static INLINE void Xil_Out32(UINTPTR Addr, u32 Value)
 {
+	/* write 32 bit value to specified address */
 #ifndef ENABLE_SAFETY
 	volatile u32 *LocalAddr = (volatile u32 *)Addr;
 	*LocalAddr = Value;
@@ -226,6 +230,7 @@ static INLINE void Xil_Out32(UINTPTR Addr, u32 Value)
 ******************************************************************************/
 static INLINE void Xil_Out64(UINTPTR Addr, u64 Value)
 {
+	/* write 64 bit value to specified address */
 	volatile u64 *LocalAddr = (volatile u64 *)Addr;
 	*LocalAddr = Value;
 }
@@ -251,8 +256,10 @@ static INLINE int Xil_SecureOut32(UINTPTR Addr, u32 Value)
 	u32 ReadReg;
 	u32 ReadRegTemp;
 
+	/* writing 32 bit value to specified address */
 	Xil_Out32(Addr, Value);
 
+	/* verify value written to specified address with multiple reads */
 	ReadReg = Xil_In32(Addr);
 	ReadRegTemp = Xil_In32(Addr);
 
