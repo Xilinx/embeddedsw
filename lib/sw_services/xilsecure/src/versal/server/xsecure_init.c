@@ -22,6 +22,7 @@
 *	am  09/24/2020 Resolved MISRA C violations
 *       har 10/12/2020 Addressed security review comments
 * 4.5   ma  04/05/2021 Use error mask instead of ID to set an error action
+*       bm  05/13/2021 Add common crypto instances
 *
 * </pre>
 *
@@ -145,4 +146,49 @@ void XSecure_TamperInterruptHandler(const u32 ErrorNodeId, const u32 ErrorMask)
 				XSECURE_NODEIDX_ERROR_PMCAPB_MASK,
 				XPLMI_EM_ACTION_CUSTOM,
 				XSecure_TamperInterruptHandler);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function provides the pointer to the common Sha3 instance
+ * which has to be used between PLM and xilsecure server
+ *
+ * @return	Pointer to the XSecure_Sha3 instance
+ *
+ *****************************************************************************/
+XSecure_Sha3 *XSecure_GetSha3Instance(void)
+{
+	static XSecure_Sha3 Sha3Instance = {0U};
+
+	return &Sha3Instance;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function provides the pointer to the common Aes instance
+ * which has to be used between PLM and xilsecure server
+ *
+ * @return	Pointer to the XSecure_Aes instance
+ *
+ *****************************************************************************/
+XSecure_Aes *XSecure_GetAesInstance(void)
+{
+	static XSecure_Aes AesInstance = {0U};
+
+	return &AesInstance;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function provides the pointer to the common Rsa instance
+ * which has to be used between PLM and xilsecure server
+ *
+ * @return	Pointer to the XSecure_Rsa instance
+ *
+ *****************************************************************************/
+XSecure_Rsa *XSecure_GetRsaInstance(void)
+{
+	static XSecure_Rsa RsaInstance = {0U};
+
+	return &RsaInstance;
 }
