@@ -5,7 +5,7 @@
 * Version:
 * DO NOT EDIT.
 *
-* Copyright (C) 2010-2020 Xilinx, Inc. All Rights Reserved.
+* Copyright (C) 2010-2021 Xilinx, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *
 * Description: Configurations for Standalone BSP
