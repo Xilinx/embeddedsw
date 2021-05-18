@@ -22,6 +22,7 @@
 *                     PLM_SECURE_EXCLUDE macro
 *       kpt  04/14/21 Added macros required to check encrypted data
 *                     alignment
+*       bm   05/13/21 Updated code to use common crypto instances from xilsecure
 *
 * </pre>
 *
@@ -293,7 +294,7 @@ typedef struct {
 #ifndef PLM_SECURE_EXCLUDE
 	XLoader_AuthType SigType;
 	XLoader_AuthCertificate *AcPtr;
-	XSecure_Aes AesInstance;
+	XSecure_Aes *AesInstPtr;
 	XLoader_AuthJtagMessage* AuthJtagMessagePtr;
 	u8 IsEncrypted;
 	u8 IsEncryptedTmp;

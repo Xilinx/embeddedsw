@@ -80,6 +80,7 @@
 * 1.05  har  03/17/21 Added API to set the secure state of device
 *       ma   03/24/21 Minor updates to prints in XilLoader
 *       bm   05/10/21 Updated chunking logic for hashes
+*       bm   05/13/21 Updated code to use common crypto instances from xilsecure
 *
 * </pre>
 *
@@ -97,6 +98,7 @@
 #include "xplmi.h"
 #include "xplmi_modules.h"
 #include "xplmi_scheduler.h"
+#include "xsecure_init.h"
 
 /************************** Constant Definitions ****************************/
 
@@ -357,7 +359,7 @@ static int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	u64 DataAddr, u32 Size, u8 Last)
 {
 	volatile int Status = XST_FAILURE;
-	XSecure_Sha3 Sha3Instance;
+	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
 	XSecure_Sha3Hash BlkHash = {0U};
 	u32 HashAddr = SecurePtr->ChunkAddr + Size;
 	u32 DataLen = Size;
@@ -371,21 +373,21 @@ static int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 		DataLen += XLOADER_SHA3_LEN;
 	}
 
-	Status = XSecure_Sha3Initialize(&Sha3Instance, SecurePtr->PmcDmaInstPtr);
+	Status = XSecure_Sha3Initialize(Sha3InstPtr, SecurePtr->PmcDmaInstPtr);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_CALC_FAIL,
 				Status);
 		goto END;
 	}
 
-	Status = XSecure_Sha3Start(&Sha3Instance);
+	Status = XSecure_Sha3Start(Sha3InstPtr);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_CALC_FAIL,
 			Status);
 		goto END;
 	}
 
-	Status = XSecure_Sha3Update64Bit(&Sha3Instance, DataAddr, DataLen);
+	Status = XSecure_Sha3Update64Bit(Sha3InstPtr, DataAddr, DataLen);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_CALC_FAIL, Status);
 		goto END;
@@ -393,7 +395,7 @@ static int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 
 	/* Update next chunk's hash from pmc ram */
 	if ((Last != (u8)TRUE) && (SecurePtr->IsCdo != (u8)TRUE)) {
-		Status = XSecure_Sha3Update64Bit(&Sha3Instance,
+		Status = XSecure_Sha3Update64Bit(Sha3InstPtr,
 				(u64)HashAddr, XLOADER_SHA3_LEN);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_CALC_FAIL, Status);
@@ -401,7 +403,7 @@ static int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 		}
 	}
 
-	Status = XSecure_Sha3Finish(&Sha3Instance, &BlkHash);
+	Status = XSecure_Sha3Finish(Sha3InstPtr, &BlkHash);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_CALC_FAIL, Status);
 		goto END;
