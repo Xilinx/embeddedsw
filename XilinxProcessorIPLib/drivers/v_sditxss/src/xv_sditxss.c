@@ -53,6 +53,7 @@
 
 #define XST352_PAYLOAD_BYTE_MASK	0xFF
 #define XST352_BYTE1_ST372_DL_3GB	0x8A
+#define XST352_BYTE1_ST425_2008_1125L_3GA	0x89
 
 /**************************** Type Definitions *******************************/
 /**
@@ -78,7 +79,7 @@ static void XV_SdiTxSs_UnderFlowCallback(void *CallbackRef);
 static void XV_SdiTxSs_CeAlignErrCallback(void *CallbackRef);
 static void XV_SdiTxSs_Axi4sVidLockCallback(void *CallbackRef);
 static int XV_SdiTxSs_RegisterSubsysCallbacks(XV_SdiTxSs *InstancePtr);
-static u8 XV_SdiTxSs_Is3GBDL(XV_SdiTxSs *InstancePtr);
+static u8 XV_SdiTxSs_Is3GBDLor3GA1125L(XV_SdiTxSs *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 
@@ -200,15 +201,17 @@ static void XV_SdiTxSs_GetIncludedSubcores(XV_SdiTxSs *SdiTxSsPtr, u16 DevId)
 * 		  FALSE - If current mode is not 3GB DL
 *
 ******************************************************************************/
-static u8 XV_SdiTxSs_Is3GBDL(XV_SdiTxSs *InstancePtr)
+static u8 XV_SdiTxSs_Is3GBDLor3GA1125L(XV_SdiTxSs *InstancePtr)
 {
 	u8 byte1;
 	u32 *payloadId;
 
-	if (InstancePtr->SdiTxPtr->Transport.IsLevelB3G) {
+	if ((InstancePtr->SdiTxPtr->Transport.TMode == XSDIVID_MODE_3GA) ||
+			(InstancePtr->SdiTxPtr->Transport.TMode == XSDIVID_MODE_3GB)) {
 		payloadId = XV_SdiTxSs_GetPayloadId(InstancePtr, 0);
 		byte1 = (*payloadId & XST352_PAYLOAD_BYTE_MASK);
-		if (byte1 == XST352_BYTE1_ST372_DL_3GB)
+		if ((byte1 == XST352_BYTE1_ST372_DL_3GB) ||
+				(byte1 == XST352_BYTE1_ST425_2008_1125L_3GA))
 			return TRUE;
 	}
 
@@ -872,7 +875,7 @@ void XV_SdiTxSs_StreamConfig(XV_SdiTxSs *InstancePtr)
 		/* Only for 3GB DL case we need to change the IsInterlaced
 		 * to true as it should be true for 3GB DL. For remaining
 		 * cases it should be as it is configured from the upper layer*/
-		if (XV_SdiTxSs_Is3GBDL(InstancePtr))
+		if (XV_SdiTxSs_Is3GBDLor3GA1125L(InstancePtr))
 			InstancePtr->SdiTxPtr->Stream[0].Video.IsInterlaced = 1;
 	case XSDIVID_MODE_HD:
 	case XSDIVID_MODE_12G:
@@ -1029,7 +1032,7 @@ void XV_SdiTxSs_ReportInfo(XV_SdiTxSs *InstancePtr)
 	/* Just for the info printing purpose we make interlaced is false
 	 * before printing as for 3GB DL stream info is progressive and
 	 * transmission is interlaced.*/
-	if (XV_SdiTxSs_Is3GBDL(InstancePtr) &&
+	if (XV_SdiTxSs_Is3GBDLor3GA1125L(InstancePtr) &&
 			(InstancePtr->SdiTxPtr->Stream[0].Video.IsInterlaced == 1)) {
 		InstancePtr->SdiTxPtr->Stream[0].Video.IsInterlaced = 0;
 	    flag = (TRUE);
@@ -1117,7 +1120,7 @@ void XV_SdiTxSs_ReportStreamInfo(XV_SdiTxSs *InstancePtr)
 	/* Just for the info printing purpose we make interlaced is false
 	 * before printing, as the 3GB DL stream info is progressive and
 	 * transmission is interlaced.*/
-	if (XV_SdiTxSs_Is3GBDL(InstancePtr) &&
+	if (XV_SdiTxSs_Is3GBDLor3GA1125L(InstancePtr) &&
 			(InstancePtr->SdiTxPtr->Stream[0].Video.IsInterlaced == 1)) {
 		InstancePtr->SdiTxPtr->Stream[0].Video.IsInterlaced = 0;
 	    flag = (TRUE);
