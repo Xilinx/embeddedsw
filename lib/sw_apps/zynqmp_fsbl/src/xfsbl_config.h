@@ -27,6 +27,9 @@
 *       bsv  04/01/21 Added TPM support
 *       bsv  05/03/21 Add provision to load bitstream from OCM with DDR
 *                     present in design
+*       bsv  05/15/21 Support to ensure authenticated images boot as
+*                     non-secure when RSA_EN is not programmed is disabled by
+*                     default
 *
 *</pre>
 *
@@ -132,6 +135,9 @@ extern "C" {
  *     - FSBL_TPM_EXCLUDE_VAL TPM related code is excluded
  *     - FSBL_PL_LOAD_FROM_OCM_EXCLUDE_VAL Code to loading bitstream in chunks
  *       from OCM is excluded
+ *     - FSBL_UNPROVISIONED_AUTH_SIGN_EXCLUDE_VAL Code to "load authenticated
+ *       partitions as non secure when EFUSEs are not programmed and when boot
+ *       header is not authenticated" is excluded
  */
 #ifndef FSBL_NAND_EXCLUDE_VAL
 #define FSBL_NAND_EXCLUDE_VAL			(0U)
@@ -199,6 +205,10 @@ extern "C" {
 
 #ifndef FSBL_PL_LOAD_FROM_OCM_EXCLUDE_VAL
 #define FSBL_PL_LOAD_FROM_OCM_EXCLUDE_VAL	(1U)
+#endif
+
+#ifndef FSBL_UNPROVISIONED_AUTH_SIGN_EXCLUDE_VAL
+#define FSBL_UNPROVISIONED_AUTH_SIGN_EXCLUDE_VAL	(1U)
 #endif
 
 #if (FSBL_NAND_EXCLUDE_VAL) && (!defined(FSBL_NAND_EXCLUDE))
@@ -269,6 +279,11 @@ extern "C" {
 #if (FSBL_PL_LOAD_FROM_OCM_EXCLUDE_VAL == 1U) && \
 	(!defined(FSBL_PL_LOAD_FROM_OCM_EXCLUDE))
 #define FSBL_PL_LOAD_FROM_OCM_EXCLUDE
+#endif
+
+#if (FSBL_UNPROVISIONED_AUTH_SIGN_EXCLUDE_VAL == 1U) && \
+	(!defined(FSBL_UNPROVISIONED_AUTH_SIGN_EXCLUDE))
+#define FSBL_UNPROVISIONED_AUTH_SIGN_EXCLUDE
 #endif
 
 /************************** Function Prototypes ******************************/

@@ -43,9 +43,13 @@
 *                     excluded
 *       bsv  04/01/21 Added TPM support
 *       bsv  04/28/21 Added support to ensure authenticated images boot as
-*                     non-secure when RSA_EN is not programmed
+*                     non-secure when RSA_EN is not programmed and boot header
+*                     is not authenticated
 *       bsv  05/03/21 Add provision to load bitstream from OCM with DDR
 *                     present in design
+*       bsv  05/15/21 Support to ensure authenticated images boot as
+*                     non-secure when RSA_EN is not programmed and boot header
+*                     is not authenticated is disabled by default
 *
 * </pre>
 *
@@ -1204,9 +1208,14 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	/**
 	 * check the authentication status
 	 */
+#ifdef FSBL_UNPROVISIONED_AUTH_SIGN_EXCLUDE
+	if (XFsbl_IsRsaSignaturePresent(PartitionHeader) ==
+			XIH_PH_ATTRB_RSA_SIGNATURE) {
+#else
 	if ((FsblInstancePtr->AuthEnabled == TRUE) &&
 		(XFsbl_IsRsaSignaturePresent(PartitionHeader) ==
 			XIH_PH_ATTRB_RSA_SIGNATURE)) {
+#endif
 		IsAuthenticationEnabled = TRUE;
 	}
 	else {
