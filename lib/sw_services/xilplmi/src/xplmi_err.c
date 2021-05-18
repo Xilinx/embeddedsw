@@ -51,6 +51,7 @@
 *                       set as ERROR_OUT
 *       ma   05/17/2021 Update only data field when writing error code to FW_ERR
 *                       register
+*       bm   05/18/2021 Ignore printing and storing of ssit errors for ES1 silicon
 *
 * </pre>
 *
@@ -65,8 +66,10 @@
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_SYSMON_CLK_SRC_IRO_VAL	(0U)
-#define XPLMI_UPDATE_TYPE_INCREMENT		(1U)
-#define XPLMI_UPDATE_TYPE_DECREMENT		(2U)
+#define XPLMI_UPDATE_TYPE_INCREMENT	(1U)
+#define XPLMI_UPDATE_TYPE_DECREMENT	(2U)
+#define XPLMI_PMC_ERR1_SSIT_MASK	(0xE0000000U)
+#define XPLMI_PMC_ERR2_SSIT_MASK	(0xE0000000U)
 
 /**************************** Type Definitions *******************************/
 
@@ -1241,6 +1244,8 @@ void XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown)
 	u32 PmcErr1Status = 0U;
 	u32 PmcErr2Status = 0U;
 	u32 RegMask;
+	u32 SiliconVal = XPlmi_In32(PMC_TAP_VERSION) &
+			PMC_TAP_VERSION_PMC_VERSION_MASK;
 
 	/* Register Error module commands */
 	XPlmi_ErrModuleInit();
@@ -1253,6 +1258,13 @@ void XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown)
 
 	PmcErr1Status = XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS);
 	PmcErr2Status = XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
+
+	/* Ignore SSIT Errors on ES1 */
+	if (SiliconVal == XPLMI_SILICON_ES1_VAL) {
+		PmcErr1Status &= ~(XPLMI_PMC_ERR1_SSIT_MASK);
+		PmcErr2Status &= ~(XPLMI_PMC_ERR2_SSIT_MASK);
+	}
+
 	XPlmi_Out32(XPLMI_RTCFG_PMC_ERR1_STATUS_ADDR, PmcErr1Status);
 	XPlmi_Out32(XPLMI_RTCFG_PMC_ERR2_STATUS_ADDR, PmcErr2Status);
 	if (PmcErr1Status != 0U) {
