@@ -20,6 +20,7 @@
 * 1.00  kal   03/04/2021 Initial release
 *       kpt   05/02/2021 Modified Sha3Kat function and added check to verify
 *                        whether DMA is already initialized
+*       bm    05/13/2021 Updated code to use common crypto instance
 *
 * </pre>
 *
@@ -29,14 +30,13 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include "xplmi_dma.h"
 #include "xsecure_defs.h"
 #include "xsecure_sha.h"
 #include "xsecure_sha_ipihandler.h"
+#include "xsecure_init.h"
 
 /************************** Constant Definitions *****************************/
-static XSecure_Sha3 Secure_Sha3;
-static XCsuDma CsuDma;
-static XCsuDma_Config *Config;
 
 #define XSECURE_IPI_CONTINUE_MASK		(0x80000000U)
 #define XSECURE_IPI_FIRST_PACKET_MASK		(0x40000000U)
@@ -92,25 +92,18 @@ int XSecure_Sha3IpiHandler(XPlmi_Cmd *Cmd)
 static int XSecure_ShaInitialize(void)
 {
 	int Status = XST_FAILURE;
+	XSecure_Sha3 *XSecureSha3InstPtr = XSecure_GetSha3Instance();
+	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(0U);
 
-	/* Check whether DMA is already initialized */
-	if (CsuDma.IsReady != (u32)XIL_COMPONENT_IS_READY) {
-		Config = XCsuDma_LookupConfig(0);
-		if (NULL == Config) {
-			XSecure_Printf(XSECURE_DEBUG_GENERAL, "config failed\n\r");
-			goto END;
-		}
-
-		Status = XCsuDma_CfgInitialize(&CsuDma, Config, Config->BaseAddress);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
+	if (NULL == PmcDmaInstPtr) {
+		goto END;
 	}
-	Status = XSecure_Sha3Initialize(&Secure_Sha3, &CsuDma);
+
+	Status = XSecure_Sha3Initialize(XSecureSha3InstPtr, PmcDmaInstPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	Status = XSecure_Sha3Start(&Secure_Sha3);
+	Status = XSecure_Sha3Start(XSecureSha3InstPtr);
 
 END:
 	return Status;
@@ -140,6 +133,7 @@ static int XSecure_ShaUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
 				u32 DstAddrLow, u32 DstAddrHigh)
 {
 	int Status = XST_FAILURE;
+	XSecure_Sha3 *XSecureSha3InstPtr = XSecure_GetSha3Instance();
 	u64 DataAddr = ((u64)SrcAddrHigh << 32) | (u64)SrcAddrLow;
 	u64 DstAddr = ((u64)DstAddrHigh << 32) | (u64)DstAddrLow;
 
@@ -153,7 +147,7 @@ static int XSecure_ShaUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
 	if ((Size & XSECURE_IPI_CONTINUE_MASK) != 0x0U) {
 		Size = Size & (~XSECURE_IPI_CONTINUE_MASK) &
 			(~XSECURE_IPI_FIRST_PACKET_MASK);
-		Status = XSecure_Sha3Update64Bit(&Secure_Sha3, DataAddr, Size);
+		Status = XSecure_Sha3Update64Bit(XSecureSha3InstPtr, DataAddr, Size);
 	}
 	else {
 		if (DstAddrHigh != 0x0U) {
@@ -162,7 +156,7 @@ static int XSecure_ShaUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
 			Status = XST_INVALID_PARAM;
 		}
 		else {
-			Status = XSecure_Sha3Finish(&Secure_Sha3,
+			Status = XSecure_Sha3Finish(XSecureSha3InstPtr,
 					(XSecure_Sha3Hash *)(UINTPTR)DstAddr);
 		}
 	}
@@ -182,25 +176,18 @@ END:
 static int XSecure_ShaKat(void)
 {
 	volatile int Status = XST_FAILURE;
+	XSecure_Sha3 *XSecureSha3InstPtr = XSecure_GetSha3Instance();
+	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(0U);
 
-	/* Check whether DMA is already initialized */
-	if (CsuDma.IsReady != (u32)XIL_COMPONENT_IS_READY) {
-		Config = XCsuDma_LookupConfig(0);
-		if (NULL == Config) {
-			XSecure_Printf(XSECURE_DEBUG_GENERAL, "config failed\n\r");
-			goto END;
-		}
-
-		Status = XCsuDma_CfgInitialize(&CsuDma, Config, Config->BaseAddress);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
+	if (NULL == PmcDmaInstPtr) {
+		goto END;
 	}
-	Status = XSecure_Sha3Initialize(&Secure_Sha3, &CsuDma);
+
+	Status = XSecure_Sha3Initialize(XSecureSha3InstPtr, PmcDmaInstPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	Status = XSecure_Sha3Kat(&Secure_Sha3);
+	Status = XSecure_Sha3Kat(XSecureSha3InstPtr);
 
 END:
 	return Status;
