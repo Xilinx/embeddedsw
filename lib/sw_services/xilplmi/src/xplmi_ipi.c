@@ -40,7 +40,7 @@
  *       bm   04/03/2021 Register IPI handler in IpiInit
  *       bsv  04/16/2021 Add provision to store Subsystem Id in XilPlmi
  *       bm   05/17/2021 Code cleanup
- *
+ *       bm   05/18/2021 Fix issue in IpiDispatchHandler
  * </pre>
  *
  * @note
@@ -178,11 +178,6 @@ int XPlmi_IpiDispatchHandler(void *Data)
 
 	for (MaskIndex = 0; MaskIndex < XPLMI_IPI_MASK_COUNT; MaskIndex++) {
 		if ((SrcCpuMask & IpiInst.Config.TargetList[MaskIndex].Mask) != 0U) {
-			Status = XPlmi_MemSetBytes(&Cmd, sizeof(XPlmi_Cmd), 0U,
-					sizeof(XPlmi_Cmd));
-			if (Status != XST_SUCCESS) {
-				goto END;
-			}
 			Cmd.IpiReqType = XPLMI_CMD_NON_SECURE;
 			Cmd.IpiMask = IpiInst.Config.TargetList[MaskIndex].Mask;
 			if (IPI_PMC_ISR_PSM_BIT_MASK == Cmd.IpiMask) {
@@ -469,12 +464,12 @@ static int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex)
 
 	/* Get IPI request type */
 	Cmd->IpiReqType = XPlmi_GetIpiReqType(Cmd->CmdId, SrcIndex);
-	Status = XST_FAILURE;
 	/*
 	 * Check command IPI access if module has registered the handler
 	 * If handler is not registered, do nothing
 	 */
 	if (Modules[CmdHndlr]->CheckIpiAccess != NULL) {
+		Status = XST_FAILURE;
 		Status = Modules[CmdHndlr]->CheckIpiAccess(Cmd->CmdId,
 				Cmd->IpiReqType);
 		/* Return error code if IPI access failed */
