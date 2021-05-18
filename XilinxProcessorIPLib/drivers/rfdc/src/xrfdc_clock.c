@@ -67,6 +67,8 @@
 *       cog    05/05/21 Rename the MAX/MIN macros to avoid potential conflicts.
 *       cog    05/05/21 Some dividers and delays need to be set to run caliration at
 *                       high sampling rates.
+*       cog    05/18/21 Fixed issue where valid DFE configurations were not being
+*                       allowed.
 * </pre>
 *
 ******************************************************************************/
@@ -478,27 +480,38 @@ static u32 XRFdc_CheckClkDistValid(XRFdc *InstancePtr, XRFdc_Distribution_Settin
 							XRFDC_HSCOM_ADDR,
 						XRFDC_HSCOM_EFUSE_2_OFFSET);
 		}
-		if ((DistributionSettingsPtr->DAC[0].SourceTile != DistributionSettingsPtr->DAC[1].SourceTile) ||
-		    (DistributionSettingsPtr->DAC[0].SourceTile != DistributionSettingsPtr->DAC[2].SourceTile) ||
-		    (DistributionSettingsPtr->DAC[0].SourceTile != DistributionSettingsPtr->DAC[3].SourceTile) ||
-		    (DistributionSettingsPtr->DAC[0].SourceTile != DistributionSettingsPtr->ADC[3].SourceTile) ||
-		    (DistributionSettingsPtr->DAC[0].SourceTile != DistributionSettingsPtr->ADC[2].SourceTile) ||
-		    (DistributionSettingsPtr->DAC[0].SourceTile != DistributionSettingsPtr->ADC[1].SourceTile) ||
-		    (DistributionSettingsPtr->DAC[0].SourceTile != DistributionSettingsPtr->ADC[0].SourceTile) ||
-		    (DistributionSettingsPtr->DAC[0].PLLEnable != XRFDC_ENABLED) ||
-		    (DistributionSettingsPtr->DAC[1].PLLEnable != XRFDC_ENABLED) ||
-		    (DistributionSettingsPtr->DAC[2].PLLEnable != XRFDC_ENABLED) ||
-		    (DistributionSettingsPtr->DAC[3].PLLEnable != XRFDC_ENABLED) ||
-		    (DistributionSettingsPtr->ADC[0].PLLEnable != XRFDC_ENABLED) ||
-		    (DistributionSettingsPtr->ADC[1].PLLEnable != XRFDC_ENABLED) ||
-		    (DistributionSettingsPtr->ADC[2].PLLEnable != XRFDC_ENABLED) ||
-		    (DistributionSettingsPtr->ADC[3].PLLEnable != XRFDC_ENABLED)) { /*special case that is allowed.*/
-			if (EFuse & XRFDC_PREMIUMCTRL_CLKDIST) {
-				if ((CurrentTile > XRFDC_CLK_DST_TILE_226) &&
-				    (*Source < ADCEdgeTile)) { /*E: no dist past adc2*/
-					Status = XRFDC_FAILURE;
-					metal_log(METAL_LOG_ERROR, "\n Invalid Configuration in %s\r\n", __func__);
-					goto RETURN_PATH;
+		if (TileLayout == XRFDC_4ADC_4DAC_TILES) {
+			if ((DistributionSettingsPtr->DAC[0].SourceTile !=
+			     DistributionSettingsPtr->DAC[1].SourceTile) ||
+			    (DistributionSettingsPtr->DAC[0].SourceTile !=
+			     DistributionSettingsPtr->DAC[2].SourceTile) ||
+			    (DistributionSettingsPtr->DAC[0].SourceTile !=
+			     DistributionSettingsPtr->DAC[3].SourceTile) ||
+			    (DistributionSettingsPtr->DAC[0].SourceTile !=
+			     DistributionSettingsPtr->ADC[3].SourceTile) ||
+			    (DistributionSettingsPtr->DAC[0].SourceTile !=
+			     DistributionSettingsPtr->ADC[2].SourceTile) ||
+			    (DistributionSettingsPtr->DAC[0].SourceTile !=
+			     DistributionSettingsPtr->ADC[1].SourceTile) ||
+			    (DistributionSettingsPtr->DAC[0].SourceTile !=
+			     DistributionSettingsPtr->ADC[0].SourceTile) ||
+			    (DistributionSettingsPtr->DAC[0].PLLEnable != XRFDC_ENABLED) ||
+			    (DistributionSettingsPtr->DAC[1].PLLEnable != XRFDC_ENABLED) ||
+			    (DistributionSettingsPtr->DAC[2].PLLEnable != XRFDC_ENABLED) ||
+			    (DistributionSettingsPtr->DAC[3].PLLEnable != XRFDC_ENABLED) ||
+			    (DistributionSettingsPtr->ADC[0].PLLEnable != XRFDC_ENABLED) ||
+			    (DistributionSettingsPtr->ADC[1].PLLEnable != XRFDC_ENABLED) ||
+			    (DistributionSettingsPtr->ADC[2].PLLEnable != XRFDC_ENABLED) ||
+			    (DistributionSettingsPtr->ADC[3].PLLEnable !=
+			     XRFDC_ENABLED)) { /*special case that is allowed.*/
+				if (EFuse & XRFDC_PREMIUMCTRL_CLKDIST) {
+					if ((CurrentTile > XRFDC_CLK_DST_TILE_226) &&
+					    (*Source < ADCEdgeTile)) { /*E: no dist past adc2*/
+						Status = XRFDC_FAILURE;
+						metal_log(METAL_LOG_ERROR, "\n Invalid Configuration in %s\r\n",
+							  __func__);
+						goto RETURN_PATH;
+					}
 				}
 			}
 		}
