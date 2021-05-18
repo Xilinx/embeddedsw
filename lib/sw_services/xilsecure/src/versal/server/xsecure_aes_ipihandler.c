@@ -18,6 +18,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kal   03/04/2021 Initial release
+*       bm    05/13/2021 Updated code to use common crypto instance
 *
 * </pre>
 *
@@ -32,12 +33,10 @@
 #include "xsecure_aes_ipihandler.h"
 #include "xsecure_defs.h"
 #include "xil_util.h"
+#include "xsecure_init.h"
 
 /************************** Constant Definitions *****************************/
 
-static XSecure_Aes Secure_Aes;
-static XPmcDma_Config *Config;
-static XPmcDma PmcDmaInstance;
 
 #define XSECURE_AES_DEC_KEY_SRC_MASK	0x000000FFU
 #define XSECURE_AES_DST_KEY_SRC_MASK	0x0000FF00U
@@ -140,21 +139,15 @@ int XSecure_AesIpiHandler(XPlmi_Cmd *Cmd)
 static int XSecure_AesInit(void)
 {
 	volatile int Status = XST_FAILURE;
+	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
+	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(XSECURE_PMCDMA_DEVICEID);
 
-	/* Initialize PMC DMA driver */
-	Config = XPmcDma_LookupConfig(XSECURE_PMCDMA_DEVICEID);
-	if (NULL == Config) {
-		goto END;
-	}
-
-	Status = XPmcDma_CfgInitialize(&PmcDmaInstance, Config,
-					Config->BaseAddress);
-	if (Status != XST_SUCCESS) {
+	if (NULL == PmcDmaInstPtr) {
 		goto END;
 	}
 
 	/* Initialize the Aes driver so that it's ready to use */
-	Status = XSecure_AesInitialize(&Secure_Aes, &PmcDmaInstance);
+	Status = XSecure_AesInitialize(XSecureAesInstPtr, PmcDmaInstPtr);
 
 END:
 	return Status;
@@ -179,6 +172,7 @@ static int XSecure_AesOpInit(u32 SrcAddrLow, u32 SrcAddrHigh)
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
 	XSecure_AesInitOps AesParams;
+	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
 	Status = XPlmi_DmaXfr(Addr, (UINTPTR)&AesParams, sizeof(AesParams),
 			XPLMI_PMCDMA_0);
@@ -187,11 +181,11 @@ static int XSecure_AesOpInit(u32 SrcAddrLow, u32 SrcAddrHigh)
 	}
 
 	if (AesParams.OperationId == XSECURE_ENCRYPT) {
-		Status = XSecure_AesEncryptInit(&Secure_Aes, AesParams.KeySrc,
+		Status = XSecure_AesEncryptInit(XSecureAesInstPtr, AesParams.KeySrc,
 				AesParams.KeySize, AesParams.IvAddr);
 	}
 	else {
-		Status = XSecure_AesDecryptInit(&Secure_Aes, AesParams.KeySrc,
+		Status = XSecure_AesDecryptInit(XSecureAesInstPtr, AesParams.KeySrc,
 				AesParams.KeySize, AesParams.IvAddr);
 	}
 
@@ -215,8 +209,9 @@ static int XSecure_AesAadUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size)
 {
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
+	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
-	Status = XSecure_AesUpdateAad(&Secure_Aes, Addr, Size);
+	Status = XSecure_AesUpdateAad(XSecureAesInstPtr, Addr, Size);
 
 	return Status;
 }
@@ -245,6 +240,7 @@ static int XSecure_AesEncUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
 	u64 Addr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
 	u64 DstAddr = ((u64)DstAddrHigh << 32U) | (u64)DstAddrLow;
 	XSecure_AesInParams InParams;
+	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
 	Status = XPlmi_DmaXfr(Addr, (UINTPTR)&InParams, sizeof(InParams),
 			XPLMI_PMCDMA_0);
@@ -252,7 +248,7 @@ static int XSecure_AesEncUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
 		goto END;
 	}
 
-	Status = XSecure_AesEncryptUpdate(&Secure_Aes, InParams.InDataAddr,
+	Status = XSecure_AesEncryptUpdate(XSecureAesInstPtr, InParams.InDataAddr,
 				DstAddr, InParams.Size, InParams.IsLast);
 END:
 	return Status;
@@ -275,8 +271,9 @@ static int XSecure_AesEncFinal(u32 DstAddrLow, u32 DstAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)DstAddrHigh << 32U) | (u64)DstAddrLow;
+	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
-	Status = XSecure_AesEncryptFinal(&Secure_Aes, Addr);
+	Status = XSecure_AesEncryptFinal(XSecureAesInstPtr, Addr);
 
 	return Status;
 }
@@ -305,6 +302,7 @@ static int XSecure_AesDecUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
 	u64 Addr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
 	u64 DstAddr = ((u64)DstAddrHigh << 32U) | (u64)DstAddrLow;
 	XSecure_AesInParams InParams;
+	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
 	Status = XPlmi_DmaXfr(Addr, (UINTPTR)&InParams, sizeof(InParams),
 			XPLMI_PMCDMA_0);
@@ -312,7 +310,7 @@ static int XSecure_AesDecUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
 		goto END;
 	}
 
-	Status = XSecure_AesDecryptUpdate(&Secure_Aes, InParams.InDataAddr,
+	Status = XSecure_AesDecryptUpdate(XSecureAesInstPtr, InParams.InDataAddr,
 				DstAddr, InParams.Size, InParams.IsLast);
 
 END:
@@ -334,8 +332,9 @@ static int XSecure_AesDecFinal(u32 SrcAddrLow, u32 SrcAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
+	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
-	Status = XSecure_AesDecryptFinal(&Secure_Aes, Addr);
+	Status = XSecure_AesDecryptFinal(XSecureAesInstPtr, Addr);
 
 	return Status;
 }
@@ -353,8 +352,9 @@ static int XSecure_AesDecFinal(u32 SrcAddrLow, u32 SrcAddrHigh)
 static int XSecure_AesKeyZeroize(u32 KeySrc)
 {
 	volatile int Status = XST_FAILURE;
+	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
-	Status = XSecure_AesKeyZero(&Secure_Aes, (XSecure_AesKeySrc)KeySrc);
+	Status = XSecure_AesKeyZero(XSecureAesInstPtr, (XSecure_AesKeySrc)KeySrc);
 
 	return Status;
 }
@@ -377,8 +377,9 @@ static int XSecure_AesKeyWrite(u8  KeySize, u8 KeySrc,
 {
 	volatile int Status = XST_FAILURE;
 	u64 KeyAddr = ((u64)KeyAddrHigh << 32U) | (u64)KeyAddrLow;
+	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
-	Status = XSecure_AesWriteKey(&Secure_Aes, KeySrc,
+	Status = XSecure_AesWriteKey(XSecureAesInstPtr, KeySrc,
 				(XSecure_AesKeySize)KeySize, KeyAddr);
 	return Status;
 }
@@ -402,8 +403,9 @@ static int XSecure_AesDecryptKek(u32 KeyInfo, u32 IvAddrLow, u32 IvAddrHigh)
 	XSecure_AesKeySrc DecKeySrc = KeyInfo & XSECURE_AES_DEC_KEY_SRC_MASK;
 	XSecure_AesKeySrc DstKeySrc = KeyInfo & XSECURE_AES_DST_KEY_SRC_MASK;
 	XSecure_AesKeySize KeySize = KeyInfo & XSECURE_AES_KEY_SIZE_MASK;
+	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
-	Status = XSecure_AesKekDecrypt(&Secure_Aes, DecKeySrc, DstKeySrc,
+	Status = XSecure_AesKekDecrypt(XSecureAesInstPtr, DecKeySrc, DstKeySrc,
 				IvAddr, KeySize);
 	return Status;
 }
@@ -421,8 +423,9 @@ static int XSecure_AesDecryptKek(u32 KeyInfo, u32 IvAddrLow, u32 IvAddrHigh)
 static int XSecure_AesSetDpaCmConfig(u8 DpaCmCfg)
 {
 	volatile int Status = XST_FAILURE;
+	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
-	Status = XSecure_AesSetDpaCm(&Secure_Aes, DpaCmCfg);
+	Status = XSecure_AesSetDpaCm(XSecureAesInstPtr, DpaCmCfg);
 
 	return Status;
 }
@@ -438,8 +441,9 @@ static int XSecure_AesSetDpaCmConfig(u8 DpaCmCfg)
 static int XSecure_AesExecuteDecKat(void)
 {
 	volatile int Status = XST_FAILURE;
+	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
-	Status = XSecure_AesDecryptKat(&Secure_Aes);
+	Status = XSecure_AesDecryptKat(XSecureAesInstPtr);
 
 	return Status;
 }
@@ -456,8 +460,9 @@ static int XSecure_AesExecuteDecKat(void)
 static int XSecure_AesExecuteDecCmKat(void)
 {
 	volatile int Status = XST_FAILURE;
+	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
-	Status = XSecure_AesDecryptCmKat(&Secure_Aes);
+	Status = XSecure_AesDecryptCmKat(XSecureAesInstPtr);
 
 	return Status;
 }

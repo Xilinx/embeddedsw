@@ -16,6 +16,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0  kal   03/23/21 Initial release
+*      bm    05/13/21 Updated code to use common crypto instance
 *
 * </pre>
 *
@@ -29,9 +30,9 @@
 #include "xsecure_defs.h"
 #include "xsecure_rsa.h"
 #include "xsecure_rsa_ipihandler.h"
+#include "xsecure_init.h"
 
 /************************** Constant Definitions *****************************/
-static XSecure_Rsa Secure_Rsa;
 
 /************************** Function Prototypes *****************************/
 static int XSecure_RsaDecrypt(u32 SrcAddrLow, u32 SrcAddrHigh,
@@ -107,6 +108,7 @@ static int XSecure_RsaDecrypt(u32 SrcAddrLow, u32 SrcAddrHigh,
 	u64 Addr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
 	u64 DstAddr = ((u64)DstAddrHigh << 32U) | (u64)DstAddrLow;
 	XSecure_RsaInParam RsaParams;
+	XSecure_Rsa *XSecureRsaInstPtr = XSecure_GetRsaInstance();
 
 	Status = XPlmi_DmaXfr(Addr, (UINTPTR)&RsaParams, sizeof(RsaParams),
 			XPLMI_PMCDMA_0);
@@ -127,13 +129,13 @@ static int XSecure_RsaDecrypt(u32 SrcAddrLow, u32 SrcAddrHigh,
 	u8 *Modulus = (u8 *)(UINTPTR)(RsaParams.KeyAddr);
 	u8 *PrivExp = (u8 *)(UINTPTR)(RsaParams.KeyAddr + 512);
 
-	Status = XSecure_RsaInitialize(&Secure_Rsa, Modulus, NULL, PrivExp);
+	Status = XSecure_RsaInitialize(XSecureRsaInstPtr, Modulus, NULL, PrivExp);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
 	Status = XST_FAILURE;
-	Status = XSecure_RsaPrivateDecrypt(&Secure_Rsa,
+	Status = XSecure_RsaPrivateDecrypt(XSecureRsaInstPtr,
 			(u8 *)(UINTPTR)(RsaParams.DataAddr),
 			RsaParams.Size,
 			(u8 *)(UINTPTR)DstAddr);
@@ -167,6 +169,7 @@ static int XSecure_RsaEncrypt(u32 SrcAddrLow, u32 SrcAddrHigh,
 	u64 Addr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
 	u64 DstAddr = ((u64)DstAddrHigh << 32U) | (u64)DstAddrLow;
 	XSecure_RsaInParam RsaParams;
+	XSecure_Rsa *XSecureRsaInstPtr = XSecure_GetRsaInstance();
 
 	Status = XPlmi_DmaXfr(Addr, (UINTPTR)&RsaParams, sizeof(RsaParams),
 			XPLMI_PMCDMA_0);
@@ -187,13 +190,13 @@ static int XSecure_RsaEncrypt(u32 SrcAddrLow, u32 SrcAddrHigh,
 	u8 *Modulus = (u8 *)(UINTPTR)(RsaParams.KeyAddr);
 	u8 *PublicExp = (u8 *)(UINTPTR)(RsaParams.KeyAddr + 512);
 
-	Status = XSecure_RsaInitialize(&Secure_Rsa, Modulus, NULL, PublicExp);
+	Status = XSecure_RsaInitialize(XSecureRsaInstPtr, Modulus, NULL, PublicExp);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
 	Status = XST_FAILURE;
-	Status = XSecure_RsaPublicEncrypt(&Secure_Rsa,
+	Status = XSecure_RsaPublicEncrypt(XSecureRsaInstPtr,
 			(u8 *)(UINTPTR)RsaParams.DataAddr,
 			RsaParams.Size,
 			(u8 *)(UINTPTR)DstAddr);
