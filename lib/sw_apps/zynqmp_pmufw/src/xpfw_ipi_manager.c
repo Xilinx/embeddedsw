@@ -20,8 +20,9 @@
 
 /* Instance of IPI Driver */
 static XIpiPsu Ipi0Inst, Ipi1Inst;
-XIpiPsu *Ipi0InstPtr = &Ipi0Inst;
+static XIpiPsu *Ipi0InstPtr = &Ipi0Inst;
 static XIpiPsu *Ipi1InstPtr = &Ipi1Inst;
+u32 IpiMaskList[XPFW_IPI_MASK_COUNT] = {0U};
 
 s32 XPfw_IpiManagerInit(void)
  {
@@ -41,6 +42,11 @@ s32 XPfw_IpiManagerInit(void)
 	if (Ipi1CfgPtr == NULL) {
 		Status = XST_FAILURE;
 		goto Done;
+	}
+
+	/* Init Mask Lists */
+	for (i = 0U; i < XPFW_IPI_MASK_COUNT; i++) {
+		IpiMaskList[i] = Ipi0CfgPtr->TargetList[i].Mask;
 	}
 
 	/* Initialize the Instance pointer of IPI-0 channel */
