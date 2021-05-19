@@ -340,6 +340,8 @@
 *       vns     08/30/19 Corrected string for PPK1 hash to 384 bit
 * 6.9   har     06/17/20 Removed macros XSK_EFUSEPS_PPK0_IS_SHA3 and
 *                        XSK_EFUSEPS_PPK1_IS_SHA3
+* 7.1   kpt     05/11/21 Added BareMetal support for programming PUF Fuses as
+*                        general purpose Fuses
 * </pre>
 *
 ******************************************************************************/
@@ -416,6 +418,25 @@ extern "C" {
 #define XSK_EFUSEPS_WRITE_USER5_FUSE		FALSE
 #define XSK_EFUSEPS_WRITE_USER6_FUSE		FALSE
 #define XSK_EFUSEPS_WRITE_USER7_FUSE		FALSE
+
+#if defined (XSK_ACCESS_PUF_USER_EFUSE)
+#define XSK_EFUSEPS_WRITE_PUF_FUSE FALSE
+#define XSK_EFUSEPS_READ_PUF_FUSE  FALSE
+
+#define XSK_EFUSEPS_PUF_START_ROW  1U
+#define XSK_EFUSEPS_PUF_NUM_OF_ROWS 1U
+/**
+ * For row 1 and row 65 upper 16 bits are ignored
+ * i.e 0th row in efuse page 2 and page 3
+ * For row 128 only upper 28bits are valid
+ * i.e 63rd row in efuse page 3
+ */
+#define XSK_EFUSEPS_PUF_FUSE_DATA   "00000000"
+
+#define XSK_EFUSEPS_PUF_READ_START_ROW XSK_EFUSEPS_PUF_START_ROW
+#define XSK_EFUSEPS_PUF_READ_NUM_OF_ROWS  XSK_EFUSEPS_PUF_NUM_OF_ROWS
+
+#endif
 
 /**
  * Following defines should be given in the form of hex string.

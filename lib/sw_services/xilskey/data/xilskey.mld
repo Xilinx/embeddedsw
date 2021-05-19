@@ -52,5 +52,6 @@ BEGIN LIBRARY xilskey
   PARAM name = access_secure_crit_efuse, desc = "Enables writing and reading of security critical efuses for ZynqMp", type = bool, default = false;
   PARAM name = access_key_manage_efuse, desc = "Enables writing and reading of key management efuses for ZynqMp", type = bool, default = false;
   PARAM name = access_user_efuse, desc = "Enables writing and reading of user efuses for ZynqMp", type = bool, default = false;
+  PARAM name = use_puf_hd_as_user_efuse, desc = "Enables API's to use PUF Helper Data efuses as user efuses", type = bool, default = false;
 
 END LIBRARY

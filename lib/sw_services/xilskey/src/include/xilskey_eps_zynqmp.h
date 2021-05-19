@@ -44,8 +44,11 @@
 * 6.9   kal     03/16/20 Added macro for AES key offset for IPI calls.
 *       ana     04/07/20 Removed IsPpk0Sha3Hash and IsPpk1Sha3Hash variabes,
 *                        as these are not required with only sha3 support.
-* 7.0	am	10/04/20 Resolved MISRA C violations
-* 7.1	kal	02/28/21 Added new macro for number of eFuse rows per page
+* 7.0	am	    10/04/20 Resolved MISRA C violations
+* 7.1	kal	    02/28/21 Added new macro for number of eFuse rows per page
+*       kpt     05/11/21 Added support for programming PUF Fuses as
+*                        general purpose data
+
 *
 * </pre>
 *
@@ -312,6 +315,16 @@ typedef struct {
 } XilSKey_SecCtrlBits;
 /*@}*/
 
+#if defined (XSK_ACCESS_PUF_USER_EFUSE)
+typedef struct {
+	u8 PrgrmPufFuse;
+	u8 ReadPufFuse;
+	u8 PufFuseStartRow;
+	u8 PufNumOfFuses;
+	u32 *PufFuseData;
+} XilSKey_PufEfuse;
+#endif
+
 /**
  * XilSKey_ZynqMpEPs is the PS eFUSE driver instance. Using this
  * structure, user can define the eFUSE bits of Zynq MP ultrascale to be
@@ -485,6 +498,13 @@ u32 XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(u8 Row, u8 Column,
 u32 XilSKey_ZynqMp_EfusePs_Init(void);
 u32 XilSKey_ZynqMp_EfusePs_CheckForZeros(u8 RowStart, u8 RowEnd,
 						XskEfusePs_Type EfuseType);
+
+#if defined (XSK_ACCESS_PUF_USER_EFUSE)
+u32 XilSKey_ZynqMp_EfusePs_ProgramPufAsUserFuses(
+						const XilSKey_PufEfuse *PufFuse);
+u32 XilSKey_ZynqMp_EfusePs_ReadPufAsUserFuses(
+					    const XilSKey_PufEfuse *PufFuse);
+#endif
 
 #ifdef __cplusplus
 }

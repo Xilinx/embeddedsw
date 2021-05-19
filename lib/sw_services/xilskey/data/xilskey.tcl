@@ -13,6 +13,8 @@
 # 6.7	psl  03/12/19 Disabled compilation of code not required for zynqmp
 # 6.8   psl  06/26/19 Added support for user to add IDCODE, IR_length, SLR Nos,
 #                     device series for different devices.
+# 7.1   kpt  05/11/21 Added support for PUF Fuse programming as general purpose
+#                     data
 ##############################################################################
 
 #---------------------------------------------
@@ -63,6 +65,7 @@ proc xgen_opts_file {libhandle} {
 	set access_secure_crit_efuse [common::get_property CONFIG.access_secure_crit_efuse $libhandle]
 	set access_user_efuse [common::get_property CONFIG.access_user_efuse $libhandle]
 	set access_key_manage_efuse [common::get_property CONFIG.access_key_manage_efuse $libhandle]
+	set access_puf_user_efuse [common::get_property CONFIG.use_puf_hd_as_user_efuse $libhandle]
 
 	set file_handle [::hsi::utils::open_include_file "xparameters.h"]
 
@@ -109,6 +112,11 @@ proc xgen_opts_file {libhandle} {
 
 		if {$access_key_manage_efuse == true} {
 			puts $file_handle "\n#define XSK_ACCESS_KEY_MANAGE_EFUSE \n"
+		}
+		if {$access_puf_user_efuse == true} {
+			puts $file_handle "\n#define XSK_ACCESS_PUF_USER_EFUSE \n"
+			file delete -force ./src/xilskey_eps_zynqmp_puf.c
+			file delete -force ./src/include/xilskey_eps_zynqmp_puf.h
 		}
         }
 
