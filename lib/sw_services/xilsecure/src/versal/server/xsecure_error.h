@@ -27,6 +27,7 @@
  * 4.4   har  01/18/2021 Added error code for invalid ECC curve
  *       kpt  02/04/2021 Added error code for tamper response
  *       har  05/18/2021 Added error code XSECURE_IPI_ACCESS_NOT_ALLOWED
+ *                       Added error code XSECURE_AES_DEVICE_KEY_NOT_ALLOWED
  *
  * </pre>
  *
@@ -110,6 +111,9 @@ typedef enum {
 	XSECURE_AES_INVALID_PARAM,		     /**< 0x51 - Invalid Argument */
 	XSECURE_AESKAT_INVALID_PARAM,		     /**< 0x52 - Invalid Argument */
 	XSECURE_AES_STATE_MISMATCH_ERROR,	     /**< 0x53 - State mismatch */
+	XSECURE_AES_DEVICE_KEY_NOT_ALLOWED,	     /**< 0x54 - Access to device keys
+							is not allowed for IPI for
+							any operations */
 
 	XSECURE_RSA_KAT_ENCRYPT_FAILED_ERROR = 0x80, /**< 0x80 - RSA KAT fails  */
 

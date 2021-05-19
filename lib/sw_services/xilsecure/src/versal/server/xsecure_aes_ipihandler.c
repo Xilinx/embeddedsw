@@ -19,6 +19,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kal   03/04/2021 Initial release
 *       bm    05/13/2021 Updated code to use common crypto instance
+*       har   05/18/2021 Added check for key source for IPI calls
 *
 * </pre>
 *
@@ -34,6 +35,7 @@
 #include "xsecure_defs.h"
 #include "xil_util.h"
 #include "xsecure_init.h"
+#include "xsecure_error.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -177,6 +179,16 @@ static int XSecure_AesOpInit(u32 SrcAddrLow, u32 SrcAddrHigh)
 	Status = XPlmi_DmaXfr(Addr, (UINTPTR)&AesParams, sizeof(AesParams),
 			XPLMI_PMCDMA_0);
 	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if ((AesParams.KeySrc == XSECURE_AES_BBRAM_KEY) ||
+		(AesParams.KeySrc == XSECURE_AES_BBRAM_RED_KEY) ||
+		(AesParams.KeySrc == XSECURE_AES_EFUSE_KEY) ||
+		(AesParams.KeySrc == XSECURE_AES_EFUSE_RED_KEY) ||
+		(AesParams.KeySrc == XSECURE_AES_BH_KEY) ||
+		(AesParams.KeySrc == XSECURE_AES_BH_RED_KEY)) {
+		Status = XSECURE_AES_DEVICE_KEY_NOT_ALLOWED;
 		goto END;
 	}
 
@@ -354,8 +366,19 @@ static int XSecure_AesKeyZeroize(u32 KeySrc)
 	volatile int Status = XST_FAILURE;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
+	if ((KeySrc == XSECURE_AES_BBRAM_KEY) ||
+		(KeySrc == XSECURE_AES_BBRAM_RED_KEY) ||
+		(KeySrc == XSECURE_AES_EFUSE_KEY) ||
+		(KeySrc == XSECURE_AES_EFUSE_RED_KEY) ||
+		(KeySrc == XSECURE_AES_BH_KEY) ||
+		(KeySrc == XSECURE_AES_BH_RED_KEY)) {
+		Status = XSECURE_AES_DEVICE_KEY_NOT_ALLOWED;
+		goto END;
+	}
+
 	Status = XSecure_AesKeyZero(XSecureAesInstPtr, (XSecure_AesKeySrc)KeySrc);
 
+END:
 	return Status;
 }
 
@@ -379,8 +402,20 @@ static int XSecure_AesKeyWrite(u8  KeySize, u8 KeySrc,
 	u64 KeyAddr = ((u64)KeyAddrHigh << 32U) | (u64)KeyAddrLow;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
+	if ((KeySrc == XSECURE_AES_BBRAM_KEY) ||
+		(KeySrc == XSECURE_AES_BBRAM_RED_KEY) ||
+		(KeySrc == XSECURE_AES_EFUSE_KEY) ||
+		(KeySrc == XSECURE_AES_EFUSE_RED_KEY) ||
+                (KeySrc == XSECURE_AES_BH_KEY) ||
+                (KeySrc == XSECURE_AES_BH_RED_KEY)) {
+		Status = XSECURE_AES_DEVICE_KEY_NOT_ALLOWED;
+		goto END;
+	}
+
 	Status = XSecure_AesWriteKey(XSecureAesInstPtr, KeySrc,
 				(XSecure_AesKeySize)KeySize, KeyAddr);
+
+END:
 	return Status;
 }
 
