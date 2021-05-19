@@ -31,6 +31,7 @@
 * 4.4   am      11/24/20 Resolved MISRA C violations
 *       bm      01/13/21 Added 64 bit In and Out apis
 *       har     02/01/21 Removed Status variable from XSecure_ReadReg
+*       bm      05/19/21 Added macro for word aligned mask
 *
 * </pre>
 *
@@ -56,6 +57,7 @@ extern "C" {
 #define XSECURE_RESET_UNSET		(0U) /**< To take the core out of reset */
 #define XSECURE_WORD_SIZE		(4U) /**< WORD size in BYTES */
 #define XSECURE_WORD_IN_BITS		(32U)/**< WORD size in BITS */
+#define XSECURE_WORD_ALIGN_MASK		(XSECURE_WORD_SIZE - 1U)/**< WORD alignment */
 
 /***************************** Type Definitions******************************/
 

@@ -27,6 +27,7 @@
 * 4.3	am      09/24/20 Resolved MISRA C violations
 *       har     10/12/20 Addressed security review comments
 * 4.4   bm      01/13/21 Added XSecure_MemCpy64 api
+*       bm      05/19/21 Fix unaligned transfers in XSecure_MemCpy64
 *
 * </pre>
 *
@@ -84,13 +85,16 @@ void XSecure_SetReset(u32 BaseAddress, u32 Offset)
  ******************************************************************************/
 void XSecure_MemCpy64(u64 DstAddr, u64 SrcAddr, u32 Cnt)
 {
-	while (Cnt >= sizeof (int)) {
-		XSecure_Out64(DstAddr, XSecure_In64(SrcAddr));
-		DstAddr += sizeof(int);
-		SrcAddr += sizeof(int);
-		Cnt -= (u32)sizeof(int);
+	if (((DstAddr & XSECURE_WORD_ALIGN_MASK) == 0U) &&
+		((SrcAddr & XSECURE_WORD_ALIGN_MASK) == 0U)) {
+		while (Cnt >= sizeof (int)) {
+			XSecure_Out64(DstAddr, XSecure_In64(SrcAddr));
+			DstAddr += sizeof(int);
+			SrcAddr += sizeof(int);
+			Cnt -= (u32)sizeof(int);
+		}
 	}
-	while (Cnt > 0U){
+	while (Cnt > 0U) {
 		XSecure_OutByte64(DstAddr, XSecure_InByte64(SrcAddr));
 		DstAddr += 1U;
 		SrcAddr += 1U;
