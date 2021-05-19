@@ -34,7 +34,9 @@
 #include "rpu.h"
 #ifdef ENABLE_SECURE
 #include "xsecure.h"
+#ifndef XSK_ACCESS_PUF_USER_EFUSE
 #include "xilskey_eps_zynqmp_puf.h"
+#endif
 #endif
 #ifdef EFUSE_ACCESS
 #include "xilskey_eps_zynqmp.h"
@@ -1056,7 +1058,9 @@ static void PmSecureAes(const PmMaster *const master,
 			const u32 SrcAddrHigh, const u32 SrcAddrLow)
 {
 	u32 Status = XST_SUCCESS;
+#ifndef XSK_ACCESS_PUF_USER_EFUSE
 	XilSKey_Puf InstancePtr;
+#endif
 	u64 WrAddr = ((u64)SrcAddrHigh << 32U) | SrcAddrLow;
 	XSecure_AesParams *Aes = (XSecure_AesParams *)(UINTPTR)WrAddr;
 
@@ -1067,10 +1071,15 @@ static void PmSecureAes(const PmMaster *const master,
 #endif
 
 	if (Aes->KeySrc == AES_PUF_KEY_SEL_MASK) {
-		Status = XilSKey_Puf_Regeneration(&InstancePtr);
-		if (Status != 0U) {
+		#ifndef XSK_ACCESS_PUF_USER_EFUSE
+			Status = XilSKey_Puf_Regeneration(&InstancePtr);
+			if (Status != 0U) {
+				goto END;
+			}
+		#else
+			Status = XST_NOT_ENABLED;
 			goto END;
-		}
+		#endif
 	}
 
 	Status = XSecure_AesOperation(SrcAddrHigh, SrcAddrLow);

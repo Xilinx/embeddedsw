@@ -48,6 +48,8 @@
 *                         verification.
 * 7.0   kpt      09/02/20 Added successfully ran print to the example in
 *                         case of success
+* 7.1   kpt      05/11/21 Added BareMetal support for programming PUF Fuses as
+*                         general purpose fuses
 *
 * </pre>
 *
@@ -79,6 +81,10 @@
 static inline u32 XilSKey_EfusePs_ZynqMp_InitData(
 				XilSKey_ZynqMpEPs *PsInstancePtr);
 static inline u32 XilSKey_EfusePs_Example_ReadSecCtrlBits();
+#if defined(XSK_ACCESS_PUF_USER_EFUSE)
+static inline u32 XilSKey_EfusePs_ZynqMp_ProgramPufFuses(void);
+static inline u32 XilSKey_EfusePs_ZynqMp_ReadPufFuses(void);
+#endif
 
 /*****************************************************************************/
 
@@ -183,7 +189,16 @@ int main()
 		goto EFUSE_ERROR;
 	}
 
-
+#if defined(XSK_ACCESS_PUF_USER_EFUSE)
+	PsStatus = XilSKey_EfusePs_ZynqMp_ProgramPufFuses();
+	if (PsStatus != XST_SUCCESS) {
+		goto EFUSE_ERROR;
+	}
+	PsStatus = XilSKey_EfusePs_ZynqMp_ReadPufFuses();
+	if (PsStatus != XST_SUCCESS) {
+		goto EFUSE_ERROR;
+	}
+#endif
 
 EFUSE_ERROR:
 	if (PsStatus != XST_SUCCESS) {
@@ -252,7 +267,7 @@ static inline u32 XilSKey_EfusePs_ZynqMp_InitData(
 
 	/* User control bits */
 	PsInstancePtr->PrgrmgSecCtrlBits.UserWrLk0 = XSK_EFUSEPS_USER_WRLK_0;
-	PsInstancePtr->PrgrmgSecCtrlBits. UserWrLk1 = XSK_EFUSEPS_USER_WRLK_1;
+	PsInstancePtr->PrgrmgSecCtrlBits.UserWrLk1 = XSK_EFUSEPS_USER_WRLK_1;
 	PsInstancePtr->PrgrmgSecCtrlBits.UserWrLk2 = XSK_EFUSEPS_USER_WRLK_2;
 	PsInstancePtr->PrgrmgSecCtrlBits.UserWrLk3 = XSK_EFUSEPS_USER_WRLK_3;
 	PsInstancePtr->PrgrmgSecCtrlBits.UserWrLk4 = XSK_EFUSEPS_USER_WRLK_4;
@@ -682,3 +697,87 @@ static inline u32 XilSKey_EfusePs_Example_ReadSecCtrlBits()
 	return XST_SUCCESS;
 
 }
+#if defined (XSK_ACCESS_PUF_USER_EFUSE)
+
+/****************************************************************************/
+/**
+*
+* This function programs the puf fuses as general purpose data
+*
+* @return
+*		- XST_SUCCESS - In case of Program or Read Success
+*		- XST_FAILURE - If program fails
+*
+*****************************************************************************/
+static inline u32 XilSKey_EfusePs_ZynqMp_ProgramPufFuses() {
+	XilSKey_PufEfuse PufFuse = {0};
+	u32 Status = XST_FAILURE;
+	u32 XSK_EFUSEPS_PufData[XSK_EFUSEPS_PUF_NUM_OF_ROWS];
+
+	/* Program PUF Fuses */
+	PufFuse.PrgrmPufFuse = XSK_EFUSEPS_WRITE_PUF_FUSE;
+	if (PufFuse.PrgrmPufFuse == TRUE) {
+		Status = Xil_ConvertStringToHex((char*)XSK_EFUSEPS_PUF_FUSE_DATA,
+						XSK_EFUSEPS_PufData,
+						XSK_EFUSEPS_PUF_NUM_OF_ROWS * 8U);
+		if (Status != XST_SUCCESS) {
+			xil_printf("String conversion failed with err:%02x",Status);
+			goto END;
+		}
+		PufFuse.PufFuseData= XSK_EFUSEPS_PufData;
+		PufFuse.PufFuseStartRow= XSK_EFUSEPS_PUF_START_ROW;
+		PufFuse.PufNumOfFuses= XSK_EFUSEPS_PUF_NUM_OF_ROWS;
+
+		Status = XilSKey_ZynqMp_EfusePs_ProgramPufAsUserFuses(&PufFuse);
+		if (Status != XST_SUCCESS) {
+			xil_printf("Programming user efuses to PUF Helper Data failed\n\r");
+			goto END;
+		}
+	}
+
+	Status = XST_SUCCESS;
+END:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+*
+* This function reads the puf fuses as general purpose data
+*
+* @return
+*		- XST_SUCCESS - In case of Read Success
+*		- XST_FAILURE - If read fails
+*
+*****************************************************************************/
+static inline u32 XilSKey_EfusePs_ZynqMp_ReadPufFuses() {
+	XilSKey_PufEfuse PufFuse = {0};
+	u32 Status = XST_FAILURE;
+	u32 Row = 0U;
+	u32 XSK_EFUSEPS_PufReadData[XSK_EFUSEPS_PUF_READ_NUM_OF_ROWS];
+
+	/* Read PUF Fuses */
+	PufFuse.ReadPufFuse = XSK_EFUSEPS_READ_PUF_FUSE;
+	if (PufFuse.ReadPufFuse == TRUE) {
+		PufFuse.PufFuseData = XSK_EFUSEPS_PufReadData;
+		PufFuse.PufFuseStartRow = XSK_EFUSEPS_PUF_READ_START_ROW;
+		PufFuse.PufNumOfFuses = XSK_EFUSEPS_PUF_READ_NUM_OF_ROWS;
+		Status = XilSKey_ZynqMp_EfusePs_ReadPufAsUserFuses(&PufFuse);
+		if (Status != XST_SUCCESS) {
+			xil_printf("Read user fuses from PUF Helper Data failed\n\r");
+			goto END;
+		}
+
+		for (Row = XSK_EFUSEPS_PUF_READ_START_ROW;
+			Row < (XSK_EFUSEPS_PUF_READ_START_ROW +
+					XSK_EFUSEPS_PUF_READ_NUM_OF_ROWS); Row++) {
+			xil_printf("User_eFuse(PufHd) %d:%08x \n\r",
+					Row, XSK_EFUSEPS_PufReadData[Row - XSK_EFUSEPS_PUF_READ_START_ROW]);
+		}
+	}
+
+	Status = XST_SUCCESS;
+END:
+	return Status;
+}
+#endif

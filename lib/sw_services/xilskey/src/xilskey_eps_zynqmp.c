@@ -81,8 +81,10 @@
 *                      return Status in case of success.
 *       am    10/04/20 Resolved MISRA C violations
 * 7.1   am    11/29/20 Resolved MISRA C violations
-* 	kal   03/14/21 Added eFuse classification for eFuse read/write IPI
+* 		kal   03/14/21 Added eFuse classification for eFuse read/write IPI
 *                      requests
+*       kpt   05/11/21 Added Baremetal support for programming PUF Fuses as
+*                      general purpose data
 *
 * </pre>
 *
@@ -118,6 +120,8 @@ static INLINE u32 XilSKey_ZynqMp_EfusePsWrite_Checks(
 				XilSKey_ZynqMpEPs *InstancePtr);
 static INLINE u32 XilSKey_ZynqMp_EfusePs_WriteAndVerify_RowRange(const u8 *Data,
 		u8 RowStart, u8 RowEnd, XskEfusePs_Type EfuseType);
+static INLINE u32 XilSKey_ZynqMp_EfusePs_WriteAndVerify_RowData(const u32 *Data,
+			u8 RowStart, u8 RowEnd, XskEfusePs_Type EfuseType);
 static INLINE u32 XilSKey_ZynqMp_EfusePs_WriteBit(u8 Row, u8 Column,
 						XskEfusePs_Type EfuseType);
 static INLINE u32 XilSKey_ZynqMp_EfusePs_Write_SecCtrl(
@@ -140,6 +144,8 @@ static u32 XilSKey_ZynqMpEfuseRead(const u32 AddrHigh, const u32 AddrLow);
 static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow);
 #if defined (XSK_ACCESS_USER_EFUSE)
 static u32 XilSkey_ZynqMpUsrFuseRd(u32 Offset, u32 *Buffer, u32 Size, u8 UsrFuseNum);
+#endif
+#if defined (XSK_ACCESS_PUF_USER_EFUSE) && defined (XSK_ACCESS_USER_EFUSE)
 static u32 XilSKey_ZynqMp_EfusePs_ProgramPufUserFuse(const XilSKey_Efuse *EfuseAccess);
 static u32 XilSKey_ZynqMp_EfusePs_ReadPufUserFuse(const XilSKey_Efuse *EfuseAccess);
 #endif
@@ -737,7 +743,8 @@ END:
 }
 
 /*****************************************************************************/
-/* This function programs and verifys the Row range provided with provided data.
+/* This function programs and verifys the Row range provided with provided data
+*  array in bits.
 *
 * @param	Data is a pointer to an array which contains data to be
 *		programmed.
@@ -781,6 +788,57 @@ static INLINE u32 XilSKey_ZynqMp_EfusePs_WriteAndVerify_RowRange(const u8 *Data,
 			}
 		}
 	}
+	Status = (u32)XST_SUCCESS;
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/* This function programs and verifys the Row range provided with provided data
+*  array in bytes.
+*
+* @param	Data is a pointer to an array which contains data to be
+*		programmed.
+* @param	RowStart holds the row number from which data programming has to
+*		be started.
+* @param	RowEnd holds the row number till which data programming has to
+*		be performed.
+* @param	EfuseType holds the type of the efuse in which programming rows
+*		resides in.
+*
+* @return
+*		XST_SUCCESS - On success
+*		XST_FAILURE - on Failure
+*
+******************************************************************************/
+static INLINE u32 XilSKey_ZynqMp_EfusePs_WriteAndVerify_RowData(const u32 *Data,
+			u8 RowStart, u8 RowEnd, XskEfusePs_Type EfuseType)
+{
+	u8 Row = RowStart;
+	u8 EndRow = RowEnd;
+	u8 Column = 0U;
+	u32 Status = (u32)XST_FAILURE;
+	u32 RowData;
+
+	if (RowStart > RowEnd) {
+		goto END;
+	}
+
+	while (Row <= EndRow) {
+		RowData = Data[Row - RowStart];
+		for (Column = 0U; Column < 32U; Column++) {
+			if (((RowData >> Column) & 0x1U) != 0U) {
+				Status =
+				XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(Row,
+						Column, EfuseType);
+				if (Status != (u32)XST_SUCCESS) {
+					goto END;
+				}
+			}
+		}
+		Row++;
+	}
+
 	Status = (u32)XST_SUCCESS;
 END:
 	return Status;
@@ -2307,7 +2365,278 @@ END:
 	return Status;
 }
 
-#if defined (XSK_ACCESS_USER_EFUSE)
+#if defined (XSK_ACCESS_PUF_USER_EFUSE)
+
+/*****************************************************************************/
+/*
+* This function programs PUF HD eFuses as general purpose eFuses
+*
+* @param	PufFuse is pointer to the XilSKey_PufEfuse structure
+*
+* @return
+*		XST_SUCCESS - On success
+*		ErrorCode - on Failure
+*
+* @note For ZynqMp by default PUF eFuses are used for PUF helper data
+*       To program PUF eFuses as general purpose eFuses user needs to
+*       enable the macro
+*       XSK_ACCESS_PUF_USER_EFUSE - For BareMetal support
+*       XSK_ACCESS_USER_EFUSE and XSK_ACCESS_PUF_USER_EFUSE -  For Linux support
+*
+******************************************************************************/
+u32 XilSKey_ZynqMp_EfusePs_ProgramPufAsUserFuses(
+						const XilSKey_PufEfuse *PufFuse)
+{
+	u32 Status = (u32)XST_FAILURE;
+	XskEfusePs_Type EfuseType;
+	u8 PufUserFuseRow;
+	u8 NumOfFuses;
+	u8 NumOfRows = XSK_ZYNQMP_EFUSEPS_NUM_OF_ROWS_PER_PAGE - 1U;
+	u8 StartRow = 1U;
+	u8 EndRow = XSK_ZYNQMP_EFUSEPS_NUM_OF_ROWS_PER_PAGE * 2U;
+	u32 ReadReg = 0U;
+	u32 *Data;
+
+	Xil_AssertNonvoid(PufFuse != NULL);
+	Xil_AssertNonvoid((PufFuse->PufFuseStartRow >= StartRow) &&
+		(PufFuse->PufFuseStartRow <= EndRow));
+	Xil_AssertNonvoid((PufFuse->PufNumOfFuses >= StartRow) &&
+		(PufFuse->PufNumOfFuses <= EndRow));
+	Xil_AssertNonvoid((PufFuse->PufFuseStartRow +
+		(PufFuse->PufNumOfFuses - 1U)) <= EndRow);
+	Xil_AssertNonvoid(PufFuse->PufFuseData != NULL);
+
+	if (PufFuse->PrgrmPufFuse == TRUE) {
+
+		PufUserFuseRow = PufFuse->PufFuseStartRow - 1U;
+		NumOfFuses = PufFuse->PufNumOfFuses - 1U;
+		StartRow = StartRow - 1U;
+		EndRow = EndRow - 1U;
+		Data = PufFuse->PufFuseData;
+
+		/* Initialize the ADC */
+		Status = XilSKey_ZynqMp_EfusePs_Init();
+		if (Status != (u32)XST_SUCCESS) {
+			goto END;
+		}
+
+		/* Vol and temperature checks */
+		Status = XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks();
+		if (Status != (u32)XST_SUCCESS) {
+			goto END;
+		}
+
+		/* Unlock the controller */
+		XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
+
+		/* Check the unlock status */
+		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
+			Status = (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+			goto END;
+		}
+
+		/* Check Write Conditions */
+		Status = XilSKey_ZynqMp_EfusePs_SetWriteConditions();
+		if (Status != (u32)XST_SUCCESS) {
+			goto END;
+		}
+
+		/* Verify Puf Chash */
+		ReadReg = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
+				XSK_ZYNQMP_EFUSEPS_PUF_CHASH_OFFSET);
+		if (ReadReg != 0x00U) {
+			Status = (u32)XSK_EFUSEPS_PUF_CANT_BE_USED_FOR_USER_DATA;
+			goto END;
+		}
+
+		for (StartRow = PufUserFuseRow;
+			StartRow <= (PufUserFuseRow + NumOfFuses); StartRow++) {
+			EfuseType = (StartRow / XSK_ZYNQMP_EFUSEPS_NUM_OF_ROWS_PER_PAGE)?
+						XSK_ZYNQMP_EFUSEPS_EFUSE_3: XSK_ZYNQMP_EFUSEPS_EFUSE_2;
+			Status = XilSKey_ZynqMp_EfusePs_ReadRow(
+					StartRow % XSK_ZYNQMP_EFUSEPS_NUM_OF_ROWS_PER_PAGE,
+					EfuseType, &ReadReg);
+			if (Status != (u32)XST_SUCCESS) {
+				goto END;
+			}
+
+			if ((StartRow % XSK_ZYNQMP_EFUSEPS_NUM_OF_ROWS_PER_PAGE) == 0U) {
+				ReadReg = ReadReg & XSK_ZYNQMP_EFUSEPS_PUF_ROW_LOWER_MASK;
+				/* Check for the upper bits of row 0 or row 64 */
+				if ((Data[StartRow - PufUserFuseRow] &
+					XSK_ZYNQMP_EFUSEPS_PUF_ROW_UPPER_MASK) != 0U) {
+					Status = (u32)XSK_EFUSEPS_ERROR_BEFORE_PROGRAMMING |
+					(u32)XSK_EFUSEPS_ERROR_PUF_USER_DATA;
+					goto END;
+				}
+			}
+
+			if (StartRow == EndRow) {
+				/* Only MSB 28bits are allowed to program for 127th Row
+				* i.e row 63 in efuse page 3 */
+				if ((Data[StartRow - PufUserFuseRow] &
+					XSK_ZYNQMP_EFUSEPS_PUF_ROW_LOWER_NIBBLE_MASK) != 0U) {
+					Status = (u32)XSK_EFUSEPS_ERROR_BEFORE_PROGRAMMING |
+							(u32)XSK_EFUSEPS_ERROR_PUF_USER_DATA;
+					goto END;
+				}
+				ReadReg = ReadReg &
+						~XSK_ZYNQMP_EFUSEPS_PUF_ROW_LOWER_NIBBLE_MASK;
+			}
+
+			if ((ReadReg & Data[StartRow - PufUserFuseRow]) != ReadReg) {
+				Status = (u32)XSK_EFUSEPS_ERROR_BEFORE_PROGRAMMING |
+				(u32)XSK_EFUSEPS_ERROR_USER_BIT_CANT_REVERT;
+				goto END;
+			}
+		}
+
+		/* Program PUF User Fuses */
+		if ((PufUserFuseRow <= NumOfRows)) {
+			if ((NumOfRows - PufUserFuseRow) > NumOfFuses) {
+				EndRow = NumOfFuses;
+			}
+			else {
+				EndRow = NumOfRows - PufUserFuseRow;
+			}
+			Status = XilSKey_ZynqMp_EfusePs_WriteAndVerify_RowData(Data,
+					PufUserFuseRow, (PufUserFuseRow + EndRow),
+					XSK_ZYNQMP_EFUSEPS_EFUSE_2);
+			if (Status != (u32)XST_SUCCESS) {
+				goto END;
+			}
+		}
+
+		if ((PufUserFuseRow + NumOfFuses) > NumOfRows) {
+			if (PufUserFuseRow <= NumOfRows) {
+				EndRow = (PufUserFuseRow + NumOfFuses) -
+					XSK_ZYNQMP_EFUSEPS_NUM_OF_ROWS_PER_PAGE;
+			}
+			else {
+				EndRow = NumOfFuses;
+			}
+			if (PufUserFuseRow <= NumOfRows) {
+				PufUserFuseRow = 0U;
+			}
+			else {
+				PufUserFuseRow = PufUserFuseRow %
+								XSK_ZYNQMP_EFUSEPS_NUM_OF_ROWS_PER_PAGE;
+			}
+			Data = Data + (NumOfFuses - EndRow);
+			Status = XilSKey_ZynqMp_EfusePs_WriteAndVerify_RowData(Data,
+					PufUserFuseRow, PufUserFuseRow + EndRow,
+					XSK_ZYNQMP_EFUSEPS_EFUSE_3);
+			if (Status != (u32)XST_SUCCESS) {
+				goto END;
+			}
+		}
+	}
+	Status = (u32)XST_SUCCESS;
+END:
+	/* Lock the controller back */
+	XilSKey_ZynqMp_EfusePs_CtrlrLock();
+	XilSKey_ZynqMp_EfusePS_PrgrmDisable();
+
+	return Status;
+}
+
+/*****************************************************************************/
+/*
+* This function reads PUF HD eFuses as general purpose eFuses
+*
+* @param	EfuseAccess is a pointer to the XilSKey_Efuse structure
+*
+* @return
+*		XST_SUCCESS - On success
+*		ErrorCode - on Failure
+*
+* @note For ZynqMp by default PUF eFuses are used for PUF helper data
+*       To program PUF eFuses as general purpose eFuses user needs to
+*       enable the macro
+*       XSK_ACCESS_PUF_USER_EFUSE - For BareMetal support
+*       XSK_ACCESS_USER_EFUSE and XSK_ACCESS_PUF_USER_EFUSE -  For Linux support
+*
+******************************************************************************/
+u32 XilSKey_ZynqMp_EfusePs_ReadPufAsUserFuses(
+					const XilSKey_PufEfuse *PufFuse)
+{
+	u32 Status = (u32)XST_FAILURE;
+	XskEfusePs_Type EfuseType;
+	u8 PufUserFuseRow;
+	u8 NumOfFuses;
+	u8 StartRow = 1U;
+	u8 EndRow = XSK_ZYNQMP_EFUSEPS_NUM_OF_ROWS_PER_PAGE * 2U;
+	u32 ReadReg = 0U;
+	u32 *Data;
+
+	Xil_AssertNonvoid(PufFuse != NULL);
+	Xil_AssertNonvoid((PufFuse->PufFuseStartRow >= StartRow) &&
+		(PufFuse->PufFuseStartRow <= EndRow));
+	Xil_AssertNonvoid((PufFuse->PufNumOfFuses >= StartRow) &&
+		(PufFuse->PufNumOfFuses <= EndRow));
+	Xil_AssertNonvoid((PufFuse->PufFuseStartRow +
+		(PufFuse->PufNumOfFuses - 1U)) <= EndRow);
+	Xil_AssertNonvoid(PufFuse->PufFuseData != NULL);
+
+
+	if (PufFuse->ReadPufFuse == TRUE) {
+
+		PufUserFuseRow = PufFuse->PufFuseStartRow - 1U;
+		NumOfFuses = PufFuse->PufNumOfFuses - 1U;
+		StartRow = StartRow - 1U;
+		EndRow = EndRow - 1U;
+		Data = PufFuse->PufFuseData;
+
+		XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
+
+		/* Check the unlock status */
+		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
+			Status = (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+			goto END;
+		}
+
+		/* Setting the timing Constraints */
+		XilSKey_ZynqMp_EfusePs_SetTimerValues();
+
+		/* Verify Puf Chash */
+		ReadReg = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
+				XSK_ZYNQMP_EFUSEPS_PUF_CHASH_OFFSET);
+		if (ReadReg != 0x00U) {
+			Status = (u32)XSK_EFUSEPS_PUF_CANT_BE_USED_FOR_USER_DATA;
+			goto END;
+		}
+
+		for (StartRow = PufUserFuseRow;
+			StartRow <= (PufUserFuseRow + NumOfFuses); StartRow++) {
+			EfuseType = (StartRow / XSK_ZYNQMP_EFUSEPS_NUM_OF_ROWS_PER_PAGE)?
+						XSK_ZYNQMP_EFUSEPS_EFUSE_3: XSK_ZYNQMP_EFUSEPS_EFUSE_2;
+			Status = XilSKey_ZynqMp_EfusePs_ReadRow(
+					StartRow % XSK_ZYNQMP_EFUSEPS_NUM_OF_ROWS_PER_PAGE,
+					EfuseType, &ReadReg);
+			if (Status != (u32)XST_SUCCESS) {
+				goto END;
+			}
+			if ((StartRow % XSK_ZYNQMP_EFUSEPS_NUM_OF_ROWS_PER_PAGE) == 0U) {
+				ReadReg = ReadReg & XSK_ZYNQMP_EFUSEPS_PUF_ROW_LOWER_MASK;
+			}
+			if (StartRow == EndRow) {
+				ReadReg = ReadReg &
+						~XSK_ZYNQMP_EFUSEPS_PUF_ROW_LOWER_NIBBLE_MASK;
+			}
+
+			Data[StartRow - PufUserFuseRow] = ReadReg;
+		}
+	}
+	Status = (u32)XST_SUCCESS;
+END:
+	/* Lock the controller back */
+	XilSKey_ZynqMp_EfusePs_CtrlrLock();
+
+	return Status;
+}
+
+#if defined(XSK_ACCESS_USER_EFUSE)
+
 /*****************************************************************************/
 /*
 * This function programs PUF HD eFuses for general purpose data
@@ -2323,82 +2652,17 @@ static u32 XilSKey_ZynqMp_EfusePs_ProgramPufUserFuse(
 						const XilSKey_Efuse *EfuseAccess)
 {
 	u32 Status = (u32)XST_FAILURE;
-	u8 *Val = (u8 *)(UINTPTR)EfuseAccess->Src;
-	XskEfusePs_Type EfuseType;
-	u32 PufUserFuseRow;
-	u32 ReadReg = 0U;
+	u32 *Val = (u32 *)(UINTPTR)EfuseAccess->Src;
+	u8 PufUserFuseRow;
+	XilSKey_PufEfuse PufFuse = {0};
 
 	PufUserFuseRow = (EfuseAccess->Offset) & XSK_EFUSEPS_PUF_ROW_OFFSET_MASK;
-	if (PufUserFuseRow <= (XSK_ZYNQMP_EFUSEPS_NUM_OF_ROWS_PER_PAGE - 1)) {
-		EfuseType = XSK_ZYNQMP_EFUSEPS_EFUSE_2;
-	}
-	else {
-		EfuseType = XSK_ZYNQMP_EFUSEPS_EFUSE_3;
-		PufUserFuseRow = PufUserFuseRow %
-				XSK_ZYNQMP_EFUSEPS_NUM_OF_ROWS_PER_PAGE;
-	}
+	PufFuse.PufFuseStartRow = PufUserFuseRow + 1U;
+	PufFuse.PufNumOfFuses = 1U;
+	PufFuse.PufFuseData= (u32*)Val;
+	PufFuse.PrgrmPufFuse = TRUE;
 
-	/* Initialize the ADC */
-	Status = XilSKey_ZynqMp_EfusePs_Init();
-	if (Status != (u32)XST_SUCCESS) {
-		goto END;
-	}
-
-	/* Vol and temperature checks */
-	Status = XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks();
-	if (Status != (u32)XST_SUCCESS) {
-		goto END;
-	}
-
-	/* Unlock the controller */
-	XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
-
-	/* Check the unlock status */
-	if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
-		Status = (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
-		goto END;
-	}
-
-	Status = XilSKey_ZynqMp_EfusePs_SetWriteConditions();
-	if (Status != (u32)XST_SUCCESS) {
-		goto END;
-	}
-
-	ReadReg = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
-			XSK_ZYNQMP_EFUSEPS_PUF_CHASH_OFFSET);
-	if (ReadReg != 0x00U) {
-		Status = (u32)XSK_EFUSEPS_PUF_CANT_BE_USED_FOR_USER_DATA;
-		goto END;
-	}
-	Status = XilSKey_ZynqMp_EfusePs_ReadRow(PufUserFuseRow, EfuseType,
-			&ReadReg);
-	if (Status != (u32)XST_SUCCESS) {
-		goto END;
-	}
-
-	if ((PufUserFuseRow == 0) &&
-			((EfuseType == XSK_ZYNQMP_EFUSEPS_EFUSE_2) ||
-			 (EfuseType == XSK_ZYNQMP_EFUSEPS_EFUSE_3))) {
-
-		ReadReg = ReadReg & XSK_ZYNQMP_EFUSEPS_PUF_ROW_LOWER_MASK;
-	}
-	if ((ReadReg & (*Val)) != ReadReg) {
-		Status = (u32)XSK_EFUSEPS_ERROR_BEFORE_PROGRAMMING |
-			(u32)XSK_EFUSEPS_ERROR_USER_BIT_CANT_REVERT;
-		goto END;
-	}
-	else {
-		Status = XilSKey_ZynqMp_EfusePs_WriteAndVerify_RowRange(Val,
-				PufUserFuseRow, PufUserFuseRow, EfuseType);
-		if (Status != (u32)XST_SUCCESS) {
-			goto END;
-		}
-	}
-
-END:
-	/* Lock the controller back */
-	XilSKey_ZynqMp_EfusePs_CtrlrLock();
-	XilSKey_ZynqMp_EfusePS_PrgrmDisable();
+	Status = XilSKey_ZynqMp_EfusePs_ProgramPufAsUserFuses(&PufFuse);
 
 	return Status;
 }
@@ -2418,46 +2682,23 @@ static u32 XilSKey_ZynqMp_EfusePs_ReadPufUserFuse(
 					const XilSKey_Efuse *EfuseAccess)
 {
 	u32 Status = (u32)XST_FAILURE;
-	u32 PufUserFuseRow;
-	XskEfusePs_Type EfuseType;
+	u8 PufUserFuseRow;
 	u32 *Val = (u32 *)(UINTPTR)EfuseAccess->Src;
+	XilSKey_PufEfuse PufFuse = {0};
 
-	PufUserFuseRow = EfuseAccess->Offset &
-		XSK_EFUSEPS_PUF_ROW_OFFSET_MASK;
-	if(PufUserFuseRow <= (XSK_ZYNQMP_EFUSEPS_NUM_OF_ROWS_PER_PAGE - 1)) {
-		EfuseType = XSK_ZYNQMP_EFUSEPS_EFUSE_2;
-	}
-	else {
-		EfuseType = XSK_ZYNQMP_EFUSEPS_EFUSE_3;
-		PufUserFuseRow = PufUserFuseRow %
-				XSK_ZYNQMP_EFUSEPS_NUM_OF_ROWS_PER_PAGE;
-	}
+	PufUserFuseRow = EfuseAccess->Offset & XSK_EFUSEPS_PUF_ROW_OFFSET_MASK;
+	PufFuse.PufFuseStartRow = PufUserFuseRow + 1U;
+	PufFuse.PufNumOfFuses = 1U;
+	PufFuse.PufFuseData = Val;
+	PufFuse.ReadPufFuse = TRUE;
 
-	XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
-
-	/* Check the unlock status */
-	if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
-		Status = (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
-		goto END;
-	}
-
-	/* Setting the timing Constraints */
-	XilSKey_ZynqMp_EfusePs_SetTimerValues();
-
-	Status = XilSKey_ZynqMp_EfusePs_ReadRow(
-			PufUserFuseRow, EfuseType, Val);
-	if (Status != (u32)XST_SUCCESS) {
-		goto END;
-	}
-
-END:
-	/* Lock the controller back */
-	XilSKey_ZynqMp_EfusePs_CtrlrLock();
+	Status = XilSKey_ZynqMp_EfusePs_ReadPufAsUserFuses(&PufFuse);
 
 	return Status;
 }
 #endif
 
+#endif
 /*****************************************************************************/
 /**
 * This function initializes sysmonpsu driver.
@@ -2514,7 +2755,7 @@ u32 XilSkey_ZynqMpEfuseAccess(const u32 AddrHigh, const u32 AddrLow)
 	/* Read bits */
 	if (EfuseAccess->Flag == 0x0U) {
 		if (EfuseAccess->PufUserFuse == TRUE) {
-#if defined (XSK_ACCESS_USER_EFUSE)
+#if defined (XSK_ACCESS_USER_EFUSE) && defined(XSK_ACCESS_PUF_USER_EFUSE)
 			Status = XilSKey_ZynqMp_EfusePs_ReadPufUserFuse(
 							EfuseAccess);
 #else
@@ -2528,7 +2769,7 @@ u32 XilSkey_ZynqMpEfuseAccess(const u32 AddrHigh, const u32 AddrLow)
 	/* Write bits */
 	else {
 		if (EfuseAccess->PufUserFuse == TRUE) {
-#if defined (XSK_ACCESS_USER_EFUSE)
+#if defined (XSK_ACCESS_USER_EFUSE) && defined(XSK_ACCESS_PUF_USER_EFUSE)
 			Status = XilSKey_ZynqMp_EfusePs_ProgramPufUserFuse(
 								EfuseAccess);
 #else
