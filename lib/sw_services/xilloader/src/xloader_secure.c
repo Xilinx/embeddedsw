@@ -81,6 +81,7 @@
 *       ma   03/24/21 Minor updates to prints in XilLoader
 *       bm   05/10/21 Updated chunking logic for hashes
 *       bm   05/13/21 Updated code to use common crypto instances from xilsecure
+*       ma   05/18/21 Minor code cleanup
 *
 * </pre>
 *
@@ -137,7 +138,8 @@ static int XLoader_CheckNonZeroPpk(void);
 int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	u32 PrtnNum)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
 	XilPdi_PrtnHdr *PrtnHdr;
 
 	Status = XPlmi_MemSetBytes(SecurePtr, sizeof(XLoader_SecureParams), 0U,
@@ -169,13 +171,17 @@ int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	}
 
 #ifndef PLM_SECURE_EXCLUDE
-	Status = XLoader_SecureAuthInit(SecurePtr, PrtnHdr);
-	if (Status != XST_SUCCESS) {
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_SecureAuthInit,
+			SecurePtr, PrtnHdr);
+	if ((Status != XST_SUCCESS) && (StatusTmp != XST_SUCCESS)) {
 		goto END;
 	}
 
-	Status = XLoader_SecureEncInit(SecurePtr, PrtnHdr);
-	if (Status != XST_SUCCESS) {
+	Status = XST_FAILURE;
+	StatusTmp = XST_FAILURE;
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_SecureEncInit,
+			SecurePtr, PrtnHdr);
+	if ((Status != XST_SUCCESS) && (StatusTmp != XST_SUCCESS)) {
 		goto END;
 	}
 #endif
@@ -409,6 +415,7 @@ static int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 		goto END;
 	}
 
+	Status = XST_FAILURE;
 	Status = Xil_MemCmp(ExpHash, BlkHash.Hash, XLOADER_SHA3_LEN);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_INFO, "Hash mismatch error\n\r");
@@ -742,8 +749,8 @@ int XLoader_SetSecureState(void)
 	volatile u8 IsBhdrAuthTmp;
 	volatile u32 PlmEncStatus;
 	volatile u32 PlmEncStatusTmp;
-	u32 AHWRoT;
-	u32 SHWRoT;
+	volatile u32 AHWRoT = XPLMI_RTCFG_SECURESTATE_AHWROT;
+	volatile u32 SHWRoT = XPLMI_RTCFG_SECURESTATE_SHWROT;
 
 	/*
 	 * Checks for secure state for authentication
@@ -789,6 +796,7 @@ int XLoader_SetSecureState(void)
 	 * Set the secure state for authentication in register and global variable
 	 */
 	(void)XLoader_GetAHWRoT(&AHWRoT);
+	Status = XST_FAILURE;
 	Status = Xil_SecureOut32(XPLMI_RTCFG_SECURESTATE_AHWROT_ADDR, AHWRoT);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -836,6 +844,7 @@ int XLoader_SetSecureState(void)
 	 * Set the secure state for encryption in register and global variable
 	 */
 	(void)XLoader_GetSHWRoT(&SHWRoT);
+	Status = XST_FAILURE;
 	Status = Xil_SecureOut32(XPLMI_RTCFG_SECURESTATE_SHWROT_ADDR, SHWRoT);
 	if (Status != XST_SUCCESS) {
 		goto END;
