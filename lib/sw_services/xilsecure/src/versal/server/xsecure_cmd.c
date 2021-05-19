@@ -16,7 +16,8 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kal  03/23/2021 Initial release
-*
+*       har  05/18/2021 Added support for secure access control for Xilsecure
+*                       IPI calls
 * </pre>
 *
 * @note
@@ -25,6 +26,8 @@
 
 /***************************** Include Files *********************************/
 #include "xplmi_hw.h"
+#include "xplmi.h"
+#include "xsecure_error.h"
 #include "xplmi_cmd.h"
 #include "xplmi_generic.h"
 #include "xplmi_modules.h"
@@ -33,6 +36,10 @@
 #include "xsecure_elliptic_ipihandler.h"
 #include "xsecure_rsa_ipihandler.h"
 #include "xsecure_sha_ipihandler.h"
+
+
+/************************** Function Prototypes ******************************/
+static int XSecure_CheckIpiAccess(u32 CmdId, u32 IpiReqType);
 
 /************************** Constant Definitions *****************************/
 static XPlmi_Module XPlmi_Secure;
@@ -43,14 +50,14 @@ static XPlmi_Module XPlmi_Secure =
 	XPLMI_MODULE_XILSECURE_ID,
 	XSecure_Cmds,
 	XSECURE_API(XSECURE_API_MAX),
-	NULL,
+	XSecure_CheckIpiAccess,
 };
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-/************************** Function Prototypes ******************************/
+/************************** Function Definitions ******************************/
 static int XSecure_FeaturesCmd(u32 ApiId)
 {
 	int Status = XST_INVALID_PARAM;
@@ -165,4 +172,42 @@ void XSecure_CmdsInit(void)
 	}
 	XPlmi_ModuleRegister(&XPlmi_Secure);
 
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function checks if the IPI command is accessible or not
+ *
+ * @param	CmdId - Not used in the function
+ * @param	IpiReqType is the IPI command request type
+ *
+ * @return	XST_SUCCESS on success
+ *              XSECURE_IPI_ACCESS_NOT_ALLOWED on failure
+ *
+ * @note	By default, only secure IPI requests are supported for Xilsecure
+ *              client APIs. Non-secure IPI requests are supported only if
+ *              it is enabled in BSP by user.
+ *
+ *****************************************************************************/
+static int XSecure_CheckIpiAccess(u32 CmdId, u32 IpiReqType)
+{
+	int Status = XST_FAILURE;
+	u8 NonSecureIpiAccess;
+	(void)CmdId;
+
+#ifndef XSECURE_NONSECURE_IPI_ACCESS
+	NonSecureIpiAccess = FALSE;
+#else
+	NonSecureIpiAccess = TRUE;
+#endif
+
+	if ((NonSecureIpiAccess == FALSE) && (IpiReqType == XPLMI_CMD_NON_SECURE)) {
+		Status = XSECURE_IPI_ACCESS_NOT_ALLOWED;
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
 }

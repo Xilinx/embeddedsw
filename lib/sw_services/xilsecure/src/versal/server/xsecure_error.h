@@ -25,7 +25,8 @@
  *       har  10/12/2020 Addressed security review comments
  *       ana  10/15/2020 Updated doxygen comments
  * 4.4   har  01/18/2021 Added error code for invalid ECC curve
- *            02/04/2021 Added error code for tamper response
+ *       kpt  02/04/2021 Added error code for tamper response
+ *       har  05/18/2021 Added error code XSECURE_IPI_ACCESS_NOT_ALLOWED
  *
  * </pre>
  *
@@ -142,9 +143,10 @@ typedef enum {
 	XSECURE_ELLIPTIC_VER_SIGN_S_ORDER_ERROR,        /**< 0xCF - S is not within ECC order */
 	XSECURE_ELLIPTIC_KAT_INVLD_CRV_ERROR,   /**< 0xD0 - Curve not supported for KAT */
 
-	XSECURE_NO_TAMPER_RESPONSE = 0xF0               /**< 0xF0 - No tamper response when
+	XSECURE_NO_TAMPER_RESPONSE = 0xF0,               /**< 0xF0 - No tamper response when
                                                         tamper interrupt is detected */
-
+	XSECURE_IPI_ACCESS_NOT_ALLOWED,         /**< 0xF1 - Access to Xilsecure IPIs
+						is disabled if IPI request is non secure */
 } XSecure_ErrorCodes;
 /**
  * @}

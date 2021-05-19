@@ -41,6 +41,9 @@
  *       bsv  04/16/2021 Add provision to store Subsystem Id in XilPlmi
  *       bm   05/17/2021 Code cleanup
  *       bm   05/18/2021 Fix issue in IpiDispatchHandler
+ *       har  05/18/2021 Updated Status to include library error code in case
+ *                       of IPI access error
+ *
  * </pre>
  *
  * @note
@@ -474,7 +477,8 @@ static int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex)
 				Cmd->IpiReqType);
 		/* Return error code if IPI access failed */
 		if (XST_SUCCESS != Status) {
-			Status = XPlmi_UpdateStatus(XPLMI_IPI_ACCESS_ERR, 0);
+			Status = XPlmi_UpdateStatus(XPLMI_IPI_ACCESS_ERR,
+				Status);
 		}
 	}
 
