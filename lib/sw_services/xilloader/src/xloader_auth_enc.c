@@ -38,6 +38,8 @@
 *       bm   05/10/21 Updated chunking logic for hashes
 *       bm   05/13/21 Updated code to use common crypto instances from xilsecure
 *       ma   05/18/21 Minor code cleanup
+*       har  05/19/21 Support decryption of partition even if Secure state of
+*                     boot is A-HWRoT or Emulated A-HWRoT
 *
 * </pre>
 *
@@ -231,6 +233,7 @@ int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 	volatile int Status = XST_FAILURE;
 	u32 ReadReg = 0U;
 	u32 SecureStateSHWRoT = XLoader_GetSHWRoT(NULL);
+	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
 
 	/* Check if encryption is enabled */
 	if (PrtnHdr->EncStatus != 0x00U) {
@@ -262,6 +265,39 @@ int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 			XPlmi_Printf(DEBUG_INFO, "AES KAT test failed\n\r");
 			goto END;
 		}
+
+		Status = XST_FAILURE;
+		/* Partition is allowed to be encrypted only if Secure state of boot
+		 * is S-HWRoT, Emul S-HWRoT, A-HWRoT or Emul A-HWRoT.
+		 */
+		ReadReg = XPlmi_In32(XPLMI_RTCFG_SECURESTATE_SHWROT_ADDR);
+		Status = XLoader_CheckSecureState(ReadReg, SecureStateSHWRoT,
+			XPLMI_RTCFG_SECURESTATE_NONSECURE);
+		if (Status == XST_SUCCESS) {
+			Status = XST_FAILURE;
+			ReadReg = XPlmi_In32(XPLMI_RTCFG_SECURESTATE_AHWROT_ADDR);
+			Status = XLoader_CheckSecureState(ReadReg,
+				SecureStateAHWRoT, XPLMI_RTCFG_SECURESTATE_NONSECURE);
+			if (Status == XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(
+					XLOADER_ERR_PRTN_DECRYPT_NOT_ALLOWED, 0);
+				goto END;
+			}
+			if (ReadReg != SecureStateAHWRoT) {
+				Status = XPlmi_UpdateStatus(
+					XLOADER_ERR_GLITCH_DETECTED, 0);
+				goto END;
+			}
+
+		}
+		else {
+			if (ReadReg != SecureStateSHWRoT) {
+				Status = XPlmi_UpdateStatus(
+					XLOADER_ERR_GLITCH_DETECTED, 0);
+				goto END;
+			}
+		}
+
 		/* Check Secure State of the device.
 		 * If S-HWRoT is enabled, then validate keysrc
 		 */
@@ -270,14 +306,9 @@ int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 		Status = XLoader_CheckSecureState(ReadReg, SecureStateSHWRoT,
 			XPLMI_RTCFG_SECURESTATE_SHWROT);
 		if (Status != XST_SUCCESS) {
-			Status = XST_FAILURE;
-			Status = XLoader_CheckSecureState(ReadReg, SecureStateSHWRoT,
-				XPLMI_RTCFG_SECURESTATE_EMUL_SHWROT);
-			if (Status != XST_SUCCESS) {
-				if (ReadReg != SecureStateSHWRoT) {
-					Status = XPlmi_UpdateStatus(
-						XLOADER_ERR_GLITCH_DETECTED, 0);
-				}
+			if (ReadReg != SecureStateSHWRoT) {
+				Status = XPlmi_UpdateStatus(
+					XLOADER_ERR_GLITCH_DETECTED, 0);
 				goto END;
 			}
 		}

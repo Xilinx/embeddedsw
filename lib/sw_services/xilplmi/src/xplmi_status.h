@@ -76,6 +76,9 @@
 *       bm   04/10/2021 Added error codes for scheduler updates
 *       rp   04/22/2021 Added error codes for request/release boot device
 *       bm   05/10/2021 Added error codes for unsupported pdi version
+*       har  05/19/2021 Added error code for encrypted partition in case of
+*                       non secure state of boot
+*
 * </pre>
 *
 * @note
@@ -603,6 +606,9 @@ typedef enum {
 		  * decryption */
 	XLOADER_ERR_UNSUPPORTED_PDI_VER,
 		/**< 0x630 PDI version used in secure operations is unsupported */
+	XLOADER_ERR_PRTN_DECRYPT_NOT_ALLOWED,
+		/**< 0x631 Partition is not allowed to be encrypted if State
+		 of boot is non secure */
 
 	XPLMI_ERR_CDO_CMD = 0x2000,
 		/**< 0x2XXX, CDO command handler has failed.
