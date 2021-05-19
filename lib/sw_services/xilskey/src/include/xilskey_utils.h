@@ -69,8 +69,9 @@
 *                        XSK_EFUSEPS_ERROR_PUF_CHASH_ALREADY_PROGRAMMED
 * 7.0   am      10/04/20 Resolved MISRA C violations
 * 7.1   am      11/26/20 Resolved Coverity warnings
-* 	kal	02/28/21 Added Error code
-* 			 XSK_EFUSEPS_PUF_CANT_BE_USED_FOR_USER_DATA
+* 		kal	    02/28/21 Added Error code
+* 			             XSK_EFUSEPS_PUF_CANT_BE_USED_FOR_USER_DATA
+*       kpt     05/11/21 Added Error code XSK_EFUSEPS_ERROR_PUF_USER_DATA
 *
 * </pre>
 *
@@ -774,6 +775,12 @@ typedef enum {
 						* programmed which means that
 						* PUF HD is already programmed
 						* with syndrome data */
+	XSK_EFUSEPS_ERROR_PUF_USER_DATA = 0x00C2U, /**<0x00C2<br>Error
+						* when requested for PUF HD
+						* eFuses programming for user
+						* data, data provided for Row 0 of
+						* efuse page 2 or page 3 or data provided
+						* for Row 63 of efuse page 3 is not valid */
 	XSK_EFUSEPS_ERROR_RESRVD_BITS_PRGRMG = 0x00D0U, /**< 0x00D0<br>Error in
 						* programming reserved bits. */
 	XSK_EFUSEPS_ERROR_ADDR_ACCESS = 0x00E0U, /**< 0x00E0<br>Error in
