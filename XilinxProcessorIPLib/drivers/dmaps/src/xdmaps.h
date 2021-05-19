@@ -58,6 +58,8 @@
 *       ms     03/17/17 Added readme.txt file in examples folder for doxygen
 *                       generation.
 * 2.4   adk    13/08/18 Fixed armcc compiler warnings in the driver CR-1008310.
+* 2.8	sk     05/18/21 Modify all inline functions declarations from extern inline
+*			to static inline to avoid the linkage conflict for IAR compiler.
 * </pre>
 *
 *****************************************************************************/
@@ -267,24 +269,24 @@ int XDmaPs_Instr_DMARMB(char *DmaProg);
 int XDmaPs_Instr_DMAWMB(char *DmaProg);
 
 /**
- * To avoid linking error,Declare all inline functions as extern for
- * IAR compiler
+ * To avoid linkage error,modify all inline functions from extern
+ * inline to static inline for IAR compiler
  */
 #ifdef __ICCARM__
-extern INLINE int XDmaPs_Instr_DMAEND(char *DmaProg);
-extern INLINE void XDmaPs_Memcpy4(char *Dst, char *Src);
-extern INLINE int XDmaPs_Instr_DMAGO(char *DmaProg, unsigned int Cn,
+static INLINE int XDmaPs_Instr_DMAEND(char *DmaProg);
+static INLINE void XDmaPs_Memcpy4(char *Dst, char *Src);
+static INLINE int XDmaPs_Instr_DMAGO(char *DmaProg, unsigned int Cn,
 			       u32 Imm, unsigned int Ns);
-extern INLINE int XDmaPs_Instr_DMALD(char *DmaProg);
-extern INLINE int XDmaPs_Instr_DMALP(char *DmaProg, unsigned Lc,
+static INLINE int XDmaPs_Instr_DMALD(char *DmaProg);
+static INLINE int XDmaPs_Instr_DMALP(char *DmaProg, unsigned Lc,
 	       unsigned LoopIterations);
-extern INLINE int XDmaPs_Instr_DMALPEND(char *DmaProg, char *BodyStart, unsigned Lc);
-extern INLINE int XDmaPs_Instr_DMAMOV(char *DmaProg, unsigned Rd, u32 Imm);
-extern INLINE int XDmaPs_Instr_DMANOP(char *DmaProg);
-extern INLINE int XDmaPs_Instr_DMASEV(char *DmaProg, unsigned int EventNumber);
-extern INLINE int XDmaPs_Instr_DMAST(char *DmaProg);
-extern INLINE unsigned XDmaPs_ToEndianSwapSizeBits(unsigned int EndianSwapSize);
-extern INLINE unsigned XDmaPs_ToBurstSizeBits(unsigned BurstSize);
+static INLINE int XDmaPs_Instr_DMALPEND(char *DmaProg, char *BodyStart, unsigned Lc);
+static INLINE int XDmaPs_Instr_DMAMOV(char *DmaProg, unsigned Rd, u32 Imm);
+static INLINE int XDmaPs_Instr_DMANOP(char *DmaProg);
+static INLINE int XDmaPs_Instr_DMASEV(char *DmaProg, unsigned int EventNumber);
+static INLINE int XDmaPs_Instr_DMAST(char *DmaProg);
+static INLINE unsigned XDmaPs_ToEndianSwapSizeBits(unsigned int EndianSwapSize);
+static INLINE unsigned XDmaPs_ToBurstSizeBits(unsigned BurstSize);
 #endif
 
 /**
