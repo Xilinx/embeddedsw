@@ -18,6 +18,7 @@
 # 4.5   bsv  04/01/21 Added support for XSECURE_TPM_ENABLE macro
 #       kal  04/21/21 Added server side support for A72/R5 processors for
 #                     Versal
+#       har  05/17/21 Added support for non-secure access of Xilsecure IPIs
 #
 ##############################################################################
 
@@ -179,4 +180,15 @@ proc xgen_opts_file {libhandle} {
 
 		close $file_handle
 	}
+	# Get nonsecure_ipi_access value set by user, by default it is FALSE
+	set value [common::get_property CONFIG.nonsecure_ipi_access $libhandle]
+	if {$value == true} {
+		#Open xparameters.h file
+		set file_handle [hsi::utils::open_include_file "xparameters.h"]
+
+		puts $file_handle "\n/* Xilinx Secure library User Settings */"
+		puts $file_handle "#define XSECURE_NONSECURE_IPI_ACCESS\n"
+
+		close $file_handle
+         }
 }
