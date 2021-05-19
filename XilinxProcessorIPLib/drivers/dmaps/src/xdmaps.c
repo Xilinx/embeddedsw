@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2009 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2009 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xdmaps.c
-* @addtogroup dmaps_v2_7
+* @addtogroup dmaps_v2_8
 * @{
 *
 * This file contains the implementation of the interface functions for XDmaPs
