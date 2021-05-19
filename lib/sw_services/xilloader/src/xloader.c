@@ -96,6 +96,7 @@
 *			XPm_ReleaseDevice
 *       bm   05/05/2021 Added USR_ACCESS support for PLD0 image
 *       bm   05/10/2021 Updated chunking logic for hashes
+*       ma   05/18/2021 Minor code cleanup
 *
 * </pre>
 *
@@ -288,7 +289,7 @@ static XLoader_ImageInfoTbl ImageInfoTbl = {
  *****************************************************************************/
 int XLoader_Init(void)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 
 	/* Initializes the DMA pointers */
 	Status = XPlmi_DmaInit();
@@ -311,6 +312,7 @@ int XLoader_Init(void)
 	}
 
 	/* Setting the secure state of boot in registers and global variables */
+	Status = XST_FAILURE;
 	Status = XLoader_SetSecureState();
 	if (Status != XST_SUCCESS) {
 		goto END;

@@ -37,6 +37,7 @@
 *                     aligned
 *       bm   05/10/21 Updated chunking logic for hashes
 *       bm   05/13/21 Updated code to use common crypto instances from xilsecure
+*       ma   05/18/21 Minor code cleanup
 *
 * </pre>
 *
@@ -227,7 +228,7 @@ END:
 int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 			const XilPdi_PrtnHdr *PrtnHdr)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 ReadReg = 0U;
 	u32 SecureStateSHWRoT = XLoader_GetSHWRoT(NULL);
 
@@ -265,9 +266,11 @@ int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 		 * If S-HWRoT is enabled, then validate keysrc
 		 */
 		ReadReg = XPlmi_In32(XPLMI_RTCFG_SECURESTATE_SHWROT_ADDR);
+		Status = XST_FAILURE;
 		Status = XLoader_CheckSecureState(ReadReg, SecureStateSHWRoT,
 			XPLMI_RTCFG_SECURESTATE_SHWROT);
 		if (Status != XST_SUCCESS) {
+			Status = XST_FAILURE;
 			Status = XLoader_CheckSecureState(ReadReg, SecureStateSHWRoT,
 				XPLMI_RTCFG_SECURESTATE_EMUL_SHWROT);
 			if (Status != XST_SUCCESS) {
@@ -306,7 +309,7 @@ END:
 ******************************************************************************/
 int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 ReadAuthReg = 0x0U;
 	u32 ReadEncReg = 0x0U;
 	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
@@ -323,9 +326,11 @@ int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 	Status = XLoader_CheckSecureState(ReadAuthReg, SecureStateAHWRoT,
 		XPLMI_RTCFG_SECURESTATE_AHWROT);
 	if (Status != XST_SUCCESS) {
+		Status = XST_FAILURE;
 		Status = XLoader_CheckSecureState(ReadAuthReg, SecureStateAHWRoT,
 			XPLMI_RTCFG_SECURESTATE_EMUL_AHWROT);
 		if (Status != XST_SUCCESS) {
+			Status = XST_FAILURE;
 			Status = XLoader_CheckSecureState(ReadAuthReg, SecureStateAHWRoT,
 				XPLMI_RTCFG_SECURESTATE_NONSECURE);
 			if (Status != XST_SUCCESS) {
@@ -385,12 +390,15 @@ int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 	 * If S-HWRoT is enabled, then metaheader must be encrypted
 	 */
 	ReadEncReg = XPlmi_In32(XPLMI_RTCFG_SECURESTATE_SHWROT_ADDR);
+	Status = XST_FAILURE;
 	Status = XLoader_CheckSecureState(ReadEncReg, SecureStateSHWRoT,
 		XPLMI_RTCFG_SECURESTATE_SHWROT);
 	if (Status != XST_SUCCESS) {
+		Status = XST_FAILURE;
 		Status = XLoader_CheckSecureState(ReadEncReg, SecureStateSHWRoT,
 			XPLMI_RTCFG_SECURESTATE_EMUL_SHWROT);
 		if (Status != XST_SUCCESS) {
+			Status = XST_FAILURE;
 			Status = XLoader_CheckSecureState(ReadEncReg, SecureStateSHWRoT,
 				XPLMI_RTCFG_SECURESTATE_NONSECURE);
 				if (Status != XST_SUCCESS) {
@@ -2866,8 +2874,8 @@ static void XLoader_ReadIV(u32 *IV, const u32 *EfuseIV)
 ******************************************************************************/
 int XLoader_AddAuthJtagToScheduler(void)
 {
-	int Status = XST_FAILURE;
-	u32 AuthJtagDis;
+	volatile int Status = XST_FAILURE;
+	volatile u32 AuthJtagDis = XLOADER_AUTH_JTAG_DIS_MASK;
 	u32 ReadAuthReg = 0x0U;
 	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
 
@@ -2887,6 +2895,7 @@ int XLoader_AddAuthJtagToScheduler(void)
 			}
 		}
 		else {
+			Status = XST_FAILURE;
 			Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_LOADER_ID,
 				XLoader_CheckAuthJtagIntStatus,
 				XLOADER_AUTH_JTAG_INT_STATUS_POLL_INTERVAL,
@@ -2924,7 +2933,7 @@ int XLoader_AddAuthJtagToScheduler(void)
 *****************************************************************************/
 static int XLoader_CheckAuthJtagIntStatus(void *Arg)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 InterruptStatus;
 
 	(void)Arg;
