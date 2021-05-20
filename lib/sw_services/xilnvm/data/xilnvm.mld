@@ -21,4 +21,6 @@ BEGIN LIBRARY xilnvm
   OPTION desc = "Xilinx NVM Library provides interface to accessing eFUSE and BBRAM of Versal";
   OPTION VERSION = 2.3;
   OPTION NAME = xilnvm;
+  PARAM name = use_puf_hd_as_user_efuse, desc = "Enables API's to use PUF Helper data efuses as user efuses ", type = bool, default = false;
+
 END LIBRARY
