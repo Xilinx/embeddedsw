@@ -7,7 +7,7 @@
 /**
 *
 * @file xcsi2txss.c
-* @addtogroup csi2txss_v1_4
+* @addtogroup csi2txss_v1_5
 * @{
 *
 * This is main code of Xilinx MIPI CSI Tx Subsystem device driver.
