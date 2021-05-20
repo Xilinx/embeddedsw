@@ -31,6 +31,7 @@
 *       dc     04/22/21 Add CC_GAIN field
 *       dc     04/27/21 Update CARRIER_CONFIGURATION handling
 *       dc     05/08/21 Update to common trigger
+*       dc     05/18/21 Handling CCUpdate trigger
 *
 * </pre>
 *
@@ -904,17 +905,32 @@ static void XDfeMix_SetPLMixerDelay(const XDfeMix *InstancePtr)
 *
 * @param    InstancePtr is a pointer to the Mixer instance.
 *
+* @return
+*           - XST_SUCCESS if successful.
+*           - XST_FAILURE if error occurs.
+*
 ****************************************************************************/
-static void XDfeMix_EnableCCUpdateTrigger(const XDfeMix *InstancePtr)
+static u32 XDfeMix_EnableCCUpdateTrigger(const XDfeMix *InstancePtr)
 {
 	u32 Data;
 	Xil_AssertVoid(InstancePtr != NULL);
 
+	/* Exit with error if CC_UPDATE status is high */
+	if (XDFEMIX_CC_UPDATE_TRIGGERED_HIGH == XDfeMix_RdRegBitField(
+			InstancePtr, XDFEMIX_ISR,
+			XDFEMIX_CC_UPDATE_TRIGGERED_WIDTH,
+			XDFEMIX_CC_UPDATE_TRIGGERED_OFFSET)) {
+		metal_log(METAL_LOG_ERROR, "CCUpdate status high in %s\n", __func__);
+		return XST_FAILURE;
+	}
+
+	/* Enable CCUpdate trigger */
 	Data = XDfeMix_ReadReg(InstancePtr, XDFEMIX_TRIGGERS_CC_UPDATE_OFFSET);
 	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_TRIGGER_ENABLE_WIDTH,
 				  XDFEMIX_TRIGGERS_TRIGGER_ENABLE_OFFSET, Data,
 				  XDFEMIX_TRIGGERS_TRIGGER_ENABLE_ENABLED);
 	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_CC_UPDATE_OFFSET, Data);
+	return XST_SUCCESS;
 }
 
 /****************************************************************************/
@@ -1466,9 +1482,7 @@ u32 XDfeMix_AddCC(XDfeMix *InstancePtr, s32 CCID, u32 BitSequence,
 	 *  NCOs not running.
 	 *  Antenna contribution disabled.
 	 */
-	XDfeMix_EnableCCUpdateTrigger(InstancePtr);
-
-	return XST_SUCCESS;
+	return XDfeMix_EnableCCUpdateTrigger(InstancePtr);
 }
 
 /****************************************************************************/
@@ -1480,8 +1494,12 @@ u32 XDfeMix_AddCC(XDfeMix *InstancePtr, s32 CCID, u32 BitSequence,
 * @param    InstancePtr is a pointer to the Mixer instance.
 * @param    CCID is a Channel ID.
 *
+* @return
+*           - XST_SUCCESS if successful.
+*           - XST_FAILURE if error occurs.
+*
 ****************************************************************************/
-void XDfeMix_RemoveCC(XDfeMix *InstancePtr, s32 CCID)
+u32 XDfeMix_RemoveCC(XDfeMix *InstancePtr, s32 CCID)
 {
 	XDfeMix_CCCfg CCCfg;
 
@@ -1500,7 +1518,7 @@ void XDfeMix_RemoveCC(XDfeMix *InstancePtr, s32 CCID)
 
 	/* Update next configuration and trigger update */
 	XDfeMix_SetNextCCCfg(InstancePtr, &CCCfg);
-	XDfeMix_EnableCCUpdateTrigger(InstancePtr);
+	return XDfeMix_EnableCCUpdateTrigger(InstancePtr);
 }
 
 /****************************************************************************/
@@ -1516,9 +1534,12 @@ void XDfeMix_RemoveCC(XDfeMix *InstancePtr, s32 CCID)
 * @param    FromNCO is a NCO value moving from.
 * @param    ToNCO is a NCO value moving to.
 *
+* @return
+*           - XST_SUCCESS if successful.
+*           - XST_FAILURE if error occurs.
 *
 ****************************************************************************/
-void XDfeMix_MoveCC(XDfeMix *InstancePtr, s32 CCID, u32 Rate, u32 FromNCO,
+u32 XDfeMix_MoveCC(XDfeMix *InstancePtr, s32 CCID, u32 Rate, u32 FromNCO,
 		    u32 ToNCO)
 {
 	XDfeMix_CCCfg NextCCCfg;
@@ -1554,7 +1575,7 @@ void XDfeMix_MoveCC(XDfeMix *InstancePtr, s32 CCID, u32 Rate, u32 FromNCO,
 	XDfeMix_SetPhaseOffset(InstancePtr, &Freq, &PhaseDiff);
 	XDfeMix_SetCCFrequency(InstancePtr, XDFEMIXER_NEXT, CCID, &Freq);
 
-	XDfeMix_EnableCCUpdateTrigger(InstancePtr);
+	return XDfeMix_EnableCCUpdateTrigger(InstancePtr);
 }
 
 /****************************************************************************/
@@ -1581,9 +1602,12 @@ void XDfeMix_UpdateCC(const XDfeMix *InstancePtr)
 * @param    AntennaId is an antenna ID.
 * @param    AntennaGain is an antenna gain.
 *
+* @return
+*           - XST_SUCCESS if successful.
+*           - XST_FAILURE if error occurs.
 *
 ****************************************************************************/
-void XDfeMix_SetAntennaGain(XDfeMix *InstancePtr, u32 AntennaId,
+u32 XDfeMix_SetAntennaGain(XDfeMix *InstancePtr, u32 AntennaId,
 			    u32 AntennaGain)
 {
 	XDfeMix_CCCfg CCCfg;
@@ -1595,7 +1619,7 @@ void XDfeMix_SetAntennaGain(XDfeMix *InstancePtr, u32 AntennaId,
 	XDfeMix_GetCurrentCCCfg(InstancePtr, &CCCfg);
 	XDfeMix_SetNextCCCfg(InstancePtr, &CCCfg);
 	XDfeMix_SetAntennaGainL(InstancePtr, AntennaId, AntennaGain);
-	XDfeMix_EnableCCUpdateTrigger(InstancePtr);
+	return XDfeMix_EnableCCUpdateTrigger(InstancePtr);
 }
 
 /****************************************************************************/
