@@ -7,7 +7,7 @@
 /**
  *
  * @file xvidc.c
- * @addtogroup video_common_v4_10
+ * @addtogroup video_common_v4_11
  * @{
  *
  * Contains common utility functions that are typically used by video-related
