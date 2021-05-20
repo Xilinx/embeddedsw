@@ -7,7 +7,7 @@
 /**
 *
 * @file xv_sditx_selftest.c
-* @addtogroup xv_sditx_v3_1
+* @addtogroup xv_sditx_v3_2
 * @{
 *
 * Contains diagnostic/self-test functions for the SDI Tx Controller core.
