@@ -10,6 +10,6 @@ BEGIN driver csi2txss
 	OPTION supported_peripherals = (mipi_csi2_tx_subsystem);
 	OPTION driver_state = ACTIVE;
 	OPTION copyfiles = all;
-	OPTION VERSION = 1.4;
+	OPTION VERSION = 1.5;
 	OPTION NAME = csi2txss;
 END driver
