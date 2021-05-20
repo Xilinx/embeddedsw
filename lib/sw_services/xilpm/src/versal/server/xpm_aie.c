@@ -17,7 +17,7 @@
 
 #define COL_SHIFT 23U
 #define ROW_SHIFT 18U
-#define TILE_BASEADDRESS(col, row) ((u64)0x20000000000U +\
+#define TILE_BASEADDRESS(col, row) ((u64)VIVADO_ME_BASEADDR +\
 			((u64)(col) << COL_SHIFT)+\
 			((u64)(row) << ROW_SHIFT))
 
