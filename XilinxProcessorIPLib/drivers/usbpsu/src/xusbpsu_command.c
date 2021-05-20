@@ -94,7 +94,7 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 					  (Dir == XUSBPSU_EP_DIR_OUT));
 	Xil_AssertNonvoid((Maxsize >= 64U) && (Maxsize <= 1024U));
 
-	PhyEpNum = XUSBPSU_PhysicalEp(UsbEpNum, Dir);
+	PhyEpNum = (u32)XUSBPSU_PhysicalEp(UsbEpNum, Dir);
 	Ept = &InstancePtr->eps[PhyEpNum];
 
 	Ept->UsbEpNum	= UsbEpNum;
@@ -186,7 +186,7 @@ s32 XUsbPsu_EpDisable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir)
 	Xil_AssertNonvoid((Dir == XUSBPSU_EP_DIR_IN) ||
 						(Dir == XUSBPSU_EP_DIR_OUT));
 
-	PhyEpNum = XUSBPSU_PhysicalEp(UsbEpNum, Dir);
+	PhyEpNum = (u32)XUSBPSU_PhysicalEp(UsbEpNum, Dir);
 	Ept = &InstancePtr->eps[PhyEpNum];
 
 	/* make sure HW endpoint isn't stalled */
@@ -234,7 +234,7 @@ s32 XUsbPsu_SendEpCmd(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 	Xil_AssertNonvoid((Dir == XUSBPSU_EP_DIR_IN) ||
 					  (Dir == XUSBPSU_EP_DIR_OUT));
 
-	PhyEpNum = XUSBPSU_PhysicalEp(UsbEpNum, Dir);
+	PhyEpNum = (u32)XUSBPSU_PhysicalEp(UsbEpNum, Dir);
 
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DEPCMDPAR0(PhyEpNum),
 					 Params->Param0);
