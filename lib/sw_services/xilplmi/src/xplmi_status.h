@@ -78,6 +78,7 @@
 *       bm   05/10/2021 Added error codes for unsupported pdi version
 *       har  05/19/2021 Added error code for encrypted partition in case of
 *                       non secure state of boot
+*       td   05/20/2021 Added error code for NPI locking error
 *
 * </pre>
 *
@@ -240,6 +241,7 @@ typedef enum {
 						used to add tasks in scheduler */
 	XPLMI_ERR_INVALID_TASK_PERIOD, /**< 0x133 - Error when invalid task period is
 						used to add tasks in scheduler */
+	XPLMI_ERR_NPI_LOCK, /**< 0x134 - Error locking NPI address space */
 
 	/** Status codes used in PLM */
 	XPLM_ERR_TASK_CREATE = 0x200,	/**< 0x200 - Error when task create
