@@ -44,6 +44,7 @@
 /**************************** Type Definitions *******************************/
 
 /**************************** Macro Definitions ******************************/
+#define XAIE_ECC_BROADCAST_ID		6U
 
 /************************** Variable Definitions *****************************/
 extern XAie_TileMod AieMod[XAIEGBL_TILE_TYPE_MAX];
@@ -503,10 +504,40 @@ AieRC XAie_TurnEccOff(XAie_DevInst *DevInst)
 *******************************************************************************/
 AieRC XAie_TurnEccOn(XAie_DevInst *DevInst)
 {
+	XAie_UserRsc *RscsBc;
+	u32 UserRscNum = 0;
+	AieRC RC;
+
 	if((DevInst == XAIE_NULL) ||
 		(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
 		XAIE_ERROR("Invalid Device Instance\n");
 		return XAIE_INVALID_ARGS;
+	}
+
+	/* Reserve broadcast channel for ECC */
+	/* Reserved for error broadcast channel */
+	for(u32 i = 0; i < XAIEGBL_TILE_TYPE_MAX; i++) {
+		if(i == XAIEGBL_TILE_TYPE_SHIMNOC ||
+			i == XAIEGBL_TILE_TYPE_SHIMPL) {
+			UserRscNum += DevInst->NumCols;
+		} else {
+			UserRscNum += (DevInst->DevProp.DevMod[i].NumModules) *
+				_XAie_GetNumRows(DevInst, i) * DevInst->NumCols;
+		}
+	}
+
+	RscsBc = (XAie_UserRsc *)malloc(UserRscNum * sizeof(*RscsBc));
+	if(RscsBc == NULL) {
+		XAIE_ERROR("Memory allocation failed for ECC BC resource\n");
+		return XAIE_ERR;
+	}
+
+	RC = XAie_RequestSpecificBroadcastChannel(DevInst,
+		XAIE_ECC_BROADCAST_ID, &UserRscNum, RscsBc, 1U);
+	free(RscsBc);
+	if(RC != XAIE_OK) {
+		XAIE_ERROR("Failed to request ECC BC for partition.\n");
+		return RC;
 	}
 
 	DevInst->EccStatus = XAIE_ENABLE;
