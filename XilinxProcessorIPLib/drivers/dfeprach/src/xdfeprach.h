@@ -55,6 +55,7 @@
 *       dc     04/10/21 Set sequence length only once
 *       dc     04/21/21 Update due to restructured registers
 *       dc     05/08/21 Update to common trigger
+*       dc     05/18/21 Handling RachUpdate trigger
 *
 * </pre>
 *
@@ -500,15 +501,15 @@ void XDfePrach_Deactivate(XDfePrach *InstancePtr);
 /* User APIs */
 u32 XDfePrach_AddCC(XDfePrach *InstancePtr, s32 CCID, u32 BitSequence,
 		    const XDfePrach_CarrierCfg *CarrierCfg);
-void XDfePrach_RemoveCC(XDfePrach *InstancePtr, s32 CCID);
-void XDfePrach_UpdateCC(const XDfePrach *InstancePtr, s32 CCID,
+u32 XDfePrach_RemoveCC(XDfePrach *InstancePtr, s32 CCID);
+u32 XDfePrach_UpdateCC(const XDfePrach *InstancePtr, s32 CCID,
 			const XDfePrach_CarrierCfg *CarrierCfg);
 void XDfePrach_CloneCC(const XDfePrach *InstancePtr);
 u32 XDfePrach_AddRCCfg(const XDfePrach *InstancePtr, s32 CCID, u32 RCId,
 		       u32 RachChan, XDfePrach_DDCCfg *DdcCfg,
 		       XDfePrach_NCO *NcoCfg,
 		       XDfePrach_Schedule *StaticSchedule);
-void XDfePrach_RemoveRC(const XDfePrach *InstancePtr, u32 RCId);
+u32 XDfePrach_RemoveRC(const XDfePrach *InstancePtr, u32 RCId);
 u32 XDfePrach_MoveRC(const XDfePrach *InstancePtr, u32 RCId, u32 ToChannel);
 void XDfePrach_GetTriggersCfg(const XDfePrach *InstancePtr,
 			      XDfePrach_TriggerCfg *TriggerCfg);
