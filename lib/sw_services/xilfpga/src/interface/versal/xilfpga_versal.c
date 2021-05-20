@@ -123,14 +123,12 @@ static u32 XFpga_WriteToPl(XFpga *InstancePtr)
 		goto END;
 	}
 
-	if ((InstancePtr->WriteInfo.Flags & XFPGA_DELAYED_PDI_LOAD) ==
-	    XFPGA_DELAYED_PDI_LOAD) {
+	if (InstancePtr->WriteInfo.Flags == XFPGA_DELAYED_PDI_LOAD) {
 		ReqBuffer[0U] = DELAYED_PDI_LOAD;
 		ReqBuffer[1U] = (u32)BitstreamAddr; /* Image ID */
 		ReqBuffer[2U] = 0U;
 		ReqBuffer[3U] = 0U;
-	} else if ((InstancePtr->WriteInfo.Flags & XFPGA_PDI_LOAD) ==
-		   XFPGA_PDI_LOAD) {
+	} else if (InstancePtr->WriteInfo.Flags == XFPGA_PDI_LOAD) {
 		ReqBuffer[0U] = PDI_LOAD;
 		ReqBuffer[1U] = FPGA_PDI_SRC_DDR;
 		ReqBuffer[2U] = UPPER_32_BITS(BitstreamAddr);
