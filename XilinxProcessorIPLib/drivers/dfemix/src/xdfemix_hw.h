@@ -24,6 +24,7 @@
 *       dc     04/14/21 Add FIR_ENABLE/MIXER_ENABLE register support
 *       dc     04/20/21 Doxygen documentation update
 *       dc     05/08/21 Update to common trigger
+*       dc     05/18/21 Handling CCUpdate trigger
 *
 * </pre>
 *
@@ -139,6 +140,8 @@ extern "C" {
 #define XDFEMIX_MIXER_OVERFLOW_OFFSET 1U
 #define XDFEMIX_CC_UPDATE_TRIGGERED_WIDTH 1U
 #define XDFEMIX_CC_UPDATE_TRIGGERED_OFFSET 2U
+#define XDFEMIX_CC_UPDATE_TRIGGERED_LOW 0U
+#define XDFEMIX_CC_UPDATE_TRIGGERED_HIGH 1U
 #define XDFEMIX_CC_SEQUENCE_ERROR_WIDTH 1U
 #define XDFEMIX_CC_SEQUENCE_ERROR_OFFSET 3U
 #define XDFEMIX_IRQ_FLAGS_MASK 0xFU
