@@ -56,9 +56,6 @@
 #define PMC_EFUSE_BISR_UNSUPPORTED_ID			(0x4U)
 #define PMC_EFUSE_BISR_CFRM_HB_BAD_SIZE			(0x5U)
 
-#ifndef VIVADO_ME_BASEADDR
-	#define VIVADO_ME_BASEADDR			(0x0200000000U)
-#endif
 #define ME_BISR_FIXED_OFFSET				(0x36010U)
 #define ME_BISR_FIXED_OFFSET_MASK			(0x00000FFFFFU)
 #define ME_BISR_FIXED_OFFSET_SHIFT			(0U)
@@ -696,15 +693,27 @@ static XStatus XPmBisr_RepairME(u32 EfuseTagAddr, u32 TagId,u32 TagSize,u32 TagO
 	u32 RegValue;
 	u64 BaseAddr, BisrDataDestAddr;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	const XPm_Device *AieDev;
 
 	/* Compilation warning fix */
 	(void)TagId;
+
+	AieDev = XPmDevice_GetById(PM_DEV_AIE);
+	if (NULL == AieDev) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		goto done;
+	}
 
 	BaseAddr = (u64)VIVADO_ME_BASEADDR + ((u64)TagOptional << ME_BISR_EFUSE_OFFSET_SHIFT);
 	BisrDataDestAddr = BaseAddr + ME_BISR_FIXED_OFFSET;
 
 	/* Copy repair data */
 	*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
+
+	/* Set NPI_PRIVILEGED_CTRL bit */
+	PmRmw32(AieDev->Node.BaseAddress + ME_NPI_ME_SPARE_CTRL_OFFSET,
+		ME_NPI_ME_SPARE_CTRL_PROTECTED_REG_EN_MASK,
+		ME_NPI_ME_SPARE_CTRL_PROTECTED_REG_EN_MASK);
 
 	/* Trigger Bisr */
 	PmRmw64(BaseAddr + ME_BISR_CACHE_CTRL_OFFSET, ME_BISR_CACHE_CTRL_BISR_TRIGGER_MASK, ME_BISR_CACHE_CTRL_BISR_TRIGGER_MASK);
@@ -732,6 +741,10 @@ static XStatus XPmBisr_RepairME(u32 EfuseTagAddr, u32 TagId,u32 TagSize,u32 TagO
 		ME_BISR_CACHE_CTRL_BISR_TRIGGER_MASK, 0);
 
 done:
+	/* Clear NPI_PRIVILEGED_CTRL bit */
+	PmRmw32(AieDev->Node.BaseAddress + ME_NPI_ME_SPARE_CTRL_OFFSET,
+		ME_NPI_ME_SPARE_CTRL_PROTECTED_REG_EN_MASK, 0);
+
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
@@ -1280,6 +1293,7 @@ XStatus XPmBisr_Repair(u32 TagId)
 	u32 EfuseBisrOptional;
 	u32 TagType;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+
 	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 	if (NULL == EfuseCache) {
 		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
