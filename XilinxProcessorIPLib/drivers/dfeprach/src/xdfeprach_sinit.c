@@ -260,7 +260,7 @@ static s32 XDfePrach_IsDeviceCompatible(char *DeviceNamePtr,
 *
 * Looks up the device configuration based on the unique device ID.
 *
-* @param    InstancePtr is a pointer to the mixer instance.
+* @param    InstancePtr is a pointer to the prach instance.
 *
 * @return
  *           - XST_SUCCESS if successful.
@@ -423,7 +423,7 @@ s32 XDfePrach_RegisterMetal(XDfePrach *InstancePtr,
 	/* Get device name */
 	Status = XDfePrach_IsDeviceCompatible(DeviceName, DeviceNodeName);
 	if (Status != XST_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Failed to find Mixer device %s",
+		metal_log(METAL_LOG_ERROR, "\n Failed to find Prach device %s",
 			  DeviceNodeName);
 		return Status;
 	}

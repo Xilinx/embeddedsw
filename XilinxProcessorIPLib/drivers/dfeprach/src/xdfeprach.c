@@ -24,6 +24,7 @@
 *       dc     04/18/21 Update trigger and event handlers
 *       dc     04/21/21 Update due to restructured registers
 *       dc     05/08/21 Update to common trigger
+*       dc     05/18/21 Handling RachUpdate trigger
 *
 * </pre>
 *
@@ -128,7 +129,7 @@ static void XDfePrach_SetRCPhaseReset(const XDfePrach *InstancePtr,
 				      u32 RachChan);
 static void XDfePrach_EnableActivateTrigger(const XDfePrach *InstancePtr);
 static void XDfePrach_EnableDeactivateTrigger(const XDfePrach *InstancePtr);
-static void XDfePrach_EnableUpdateTrigger(const XDfePrach *InstancePtr);
+static u32 XDfePrach_EnableUpdateTrigger(const XDfePrach *InstancePtr);
 static void XDfePrach_EnableFrameMarkerTrigger(const XDfePrach *InstancePtr);
 static void XDfePrach_EnableLowPowerTrigger(const XDfePrach *InstancePtr);
 static void XDfePrach_DisableLowPowerTrigger(const XDfePrach *InstancePtr);
@@ -1566,12 +1567,26 @@ static void XDfePrach_SetRCPhaseReset(const XDfePrach *InstancePtr,
 *
 * @param    InstancePtr is pointer to the Prach instance.
 *
+* @return
+*           - XST_SUCCESS if successful.
+*           - XST_FAILURE if error occurs.
+*
 ****************************************************************************/
-static void XDfePrach_EnableUpdateTrigger(const XDfePrach *InstancePtr)
+static u32 XDfePrach_EnableUpdateTrigger(const XDfePrach *InstancePtr)
 {
 	u32 Data;
 	Xil_AssertVoid(InstancePtr != NULL);
 
+	/* Exit with error if RACH_UPDATE status is high */
+	if (XDFEPRACH_RACH_UPDATE_TRIGGERED_HIGH == XDfePrach_RdRegBitField(
+			InstancePtr, XDFEPRACH_ISR,
+			XDFEPRACH_RACH_UPDATE_TRIGGERED_WIDTH,
+			XDFEPRACH_RACH_UPDATE_TRIGGERED_OFFSET)) {
+		metal_log(METAL_LOG_ERROR, "RachUpdate status high in %s\n", __func__);
+		return XST_FAILURE;
+	}
+
+	/* Enable CCUpdate trigger */
 	Data = XDfePrach_ReadReg(InstancePtr,
 				 XDFEPRACH_TRIGGERS_RACH_UPDATE_OFFSET);
 	Data = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_WIDTH,
@@ -1580,6 +1595,7 @@ static void XDfePrach_EnableUpdateTrigger(const XDfePrach *InstancePtr)
 				    XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_ENABLED);
 	XDfePrach_WriteReg(InstancePtr, XDFEPRACH_TRIGGERS_RACH_UPDATE_OFFSET,
 			   Data);
+	return XST_SUCCESS;
 }
 
 /****************************************************************************/
@@ -2124,8 +2140,6 @@ void XDfePrach_Deactivate(XDfePrach *InstancePtr)
 *           - XST_SUCCESS if successful.
 *           - XST_FAILURE if error occurs.
 *
-* @note     None
-*
 ****************************************************************************/
 u32 XDfePrach_AddCC(XDfePrach *InstancePtr, s32 CCID, u32 BitSequence,
 		    const XDfePrach_CarrierCfg *CarrierCfg)
@@ -2163,7 +2177,9 @@ u32 XDfePrach_AddCC(XDfePrach *InstancePtr, s32 CCID, u32 BitSequence,
 	XDfePrach_SetNextCCCfg(InstancePtr, &CCCfg);
 	/* Now do trigger, needs to be set after xDFENRPrach_SetNextCCCfg()
 	   been written. */
-	XDfePrach_EnableUpdateTrigger(InstancePtr);
+	if(XST_FAILURE == XDfePrach_EnableUpdateTrigger(InstancePtr)) {
+		return XST_FAILURE;
+	}
 	/* Enable the frame marker trigger too. */
 	XDfePrach_EnableFrameMarkerTrigger(InstancePtr);
 
@@ -2178,12 +2194,12 @@ u32 XDfePrach_AddCC(XDfePrach *InstancePtr, s32 CCID, u32 BitSequence,
 * @param    InstancePtr is pointer to the Prach instance.
 * @param    CCID is CC Id.
 *
-* @return   None
-*
-* @note     None
+* @return
+*           - XST_SUCCESS if successful.
+*           - XST_FAILURE if error occurs.
 *
 ****************************************************************************/
-void XDfePrach_RemoveCC(XDfePrach *InstancePtr, s32 CCID)
+u32 XDfePrach_RemoveCC(XDfePrach *InstancePtr, s32 CCID)
 {
 	XDfePrach_CCCfg CCCfg;
 
@@ -2205,8 +2221,12 @@ void XDfePrach_RemoveCC(XDfePrach *InstancePtr, s32 CCID)
 	/* Update next configuration and trigger update. */
 	XDfePrach_SetNextCCCfg(InstancePtr, &CCCfg);
 	/* Needs to be set when full update has been written. */
-	XDfePrach_EnableUpdateTrigger(InstancePtr);
+	if(XST_FAILURE == XDfePrach_EnableUpdateTrigger(InstancePtr)) {
+		return XST_FAILURE;
+	}
 	XDfePrach_EnableFrameMarkerTrigger(InstancePtr);
+
+	return XST_SUCCESS;
 }
 
 /****************************************************************************/
@@ -2218,12 +2238,12 @@ void XDfePrach_RemoveCC(XDfePrach *InstancePtr, s32 CCID)
 * @param    CCID is CC Id.
 * @param    CarrierCfg is carrier data container.
 *
-* @return   None
-*
-* @note     None
+* @return
+*           - XST_SUCCESS if successful.
+*           - XST_FAILURE if error occurs.
 *
 ****************************************************************************/
-void XDfePrach_UpdateCC(const XDfePrach *InstancePtr, s32 CCID,
+u32 XDfePrach_UpdateCC(const XDfePrach *InstancePtr, s32 CCID,
 			const XDfePrach_CarrierCfg *CarrierCfg)
 {
 	XDfePrach_CCCfg CCCfg;
@@ -2245,8 +2265,13 @@ void XDfePrach_UpdateCC(const XDfePrach *InstancePtr, s32 CCID,
 	/* Update next configuration and trigger update. */
 	XDfePrach_SetNextCCCfg(InstancePtr, &CCCfg);
 	/* Needs to be set when full update has been written. */
-	XDfePrach_EnableUpdateTrigger(InstancePtr);
+	if(XST_FAILURE == XDfePrach_EnableUpdateTrigger(InstancePtr)) {
+		return XST_FAILURE;
+	}
+
 	XDfePrach_EnableFrameMarkerTrigger(InstancePtr);
+
+	return XST_SUCCESS;
 }
 
 /****************************************************************************/
@@ -2293,8 +2318,6 @@ void XDfePrach_CloneCC(const XDfePrach *InstancePtr)
 *	- XST_SUCCESS on succes
 *	- XST_FAILURE on failure
 *
-* @note     None
-*
 ****************************************************************************/
 u32 XDfePrach_AddRCCfg(const XDfePrach *InstancePtr, s32 CCID, u32 RCId,
 		       u32 RachChan, XDfePrach_DDCCfg *DdcCfg,
@@ -2338,7 +2361,10 @@ u32 XDfePrach_AddRCCfg(const XDfePrach *InstancePtr, s32 CCID, u32 RCId,
 
 	/* Update next configuration and trigger update. */
 	XDfePrach_SetNextRCCfg(InstancePtr, RCCfg);
-	XDfePrach_EnableUpdateTrigger(InstancePtr);
+	if(XST_FAILURE == XDfePrach_EnableUpdateTrigger(InstancePtr)) {
+		return XST_FAILURE;
+	}
+
 	XDfePrach_EnableFrameMarkerTrigger(InstancePtr);
 
 	return XST_SUCCESS;
@@ -2352,12 +2378,12 @@ u32 XDfePrach_AddRCCfg(const XDfePrach *InstancePtr, s32 CCID, u32 RCId,
 * @param    InstancePtr is pointer to the Prach instance.
 * @param    RCId is RC Id.
 *
-* @return   None
-*
-* @note     None
+* @return
+*	- XST_SUCCESS on succes
+*	- XST_FAILURE on failure
 *
 ****************************************************************************/
-void XDfePrach_RemoveRC(const XDfePrach *InstancePtr, u32 RCId)
+u32 XDfePrach_RemoveRC(const XDfePrach *InstancePtr, u32 RCId)
 {
 	u32 Index;
 	XDfePrach_RCCfg RCCfg[XDFEPRACH_RC_NUM_MAX];
@@ -2380,8 +2406,13 @@ void XDfePrach_RemoveRC(const XDfePrach *InstancePtr, u32 RCId)
 
 	/* Update next configuration and trigger update. */
 	XDfePrach_SetNextRCCfg(InstancePtr, RCCfg);
-	XDfePrach_EnableUpdateTrigger(InstancePtr);
+	if(XST_FAILURE == XDfePrach_EnableUpdateTrigger(InstancePtr)) {
+		return XST_FAILURE;
+	}
+
 	XDfePrach_EnableFrameMarkerTrigger(InstancePtr);
+
+	return XST_SUCCESS;
 }
 
 /****************************************************************************/
@@ -2397,8 +2428,6 @@ void XDfePrach_RemoveRC(const XDfePrach *InstancePtr, u32 RCId)
 * @return
 *	- XST_SUCCESS on succes
 *	- XST_FAILURE on failure
-*
-* @note     None
 *
 ****************************************************************************/
 u32 XDfePrach_MoveRC(const XDfePrach *InstancePtr, u32 RCId, u32 ToChannel)
@@ -2454,7 +2483,10 @@ u32 XDfePrach_MoveRC(const XDfePrach *InstancePtr, u32 RCId, u32 ToChannel)
 
 	/* Update next configuration and trigger update. */
 	XDfePrach_SetNextRCCfg(InstancePtr, RCCfg);
-	XDfePrach_EnableUpdateTrigger(InstancePtr);
+	if(XST_FAILURE == XDfePrach_EnableUpdateTrigger(InstancePtr)) {
+		return XST_FAILURE;
+	}
+
 	XDfePrach_EnableFrameMarkerTrigger(InstancePtr);
 
 	return XST_SUCCESS;
