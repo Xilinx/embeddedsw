@@ -7,7 +7,7 @@
 /**
 *
 * @file xcsi2txss_selftest.c
-* @addtogroup csi2txss_v1_4
+* @addtogroup csi2txss_v1_5
 * @{
 * This file contains self test function for the MIPI CSI Rx Subsystem
 *
