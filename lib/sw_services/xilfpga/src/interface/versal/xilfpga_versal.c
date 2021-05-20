@@ -65,8 +65,6 @@
 static u32 XFpga_WriteToPl(XFpga *InstancePtr);
 /************************** Variable Definitions *****************************/
 
-static XMailbox XMboxInstance;
-static u32 ReqBuffer[LOAD_PDI_MSG_LEN] = {0U};
 
 /* Create a constant pointer to XFpga_WriteToPl. */
 u32 (*const Write_To_Pl)(struct XFpgatag *InstancePtr) = XFpga_WriteToPl;
@@ -116,6 +114,9 @@ static u32 XFpga_WriteToPl(XFpga *InstancePtr)
 {
 	volatile u32 Status = XFPGA_FAILURE;
 	u32 RecBuffer = XFPGA_FAILURE;
+	XMailbox XMboxInstance;
+	u32 ReqBuffer[LOAD_PDI_MSG_LEN] = {0U};
+
 	UINTPTR BitstreamAddr = InstancePtr->WriteInfo.BitstreamAddr;
 
 	Status = XMailbox_Initialize(&XMboxInstance, XMAILBOX_DEVICE_ID);
