@@ -37,6 +37,8 @@
  *			  and reading
  *	 kal   02/20/2021 Added Environmental Monitor Disable interface support
  *	 har   04/21/2021 Fixed CPP warnings
+ *   kpt   05/20/2021 Added support for programming PUF efuses as
+ *                    general purpose data
  *
  * </pre>
  *
@@ -103,6 +105,11 @@ static int XilNvm_ValidateIvString(const char *IvStr);
 static int XilNvm_ValidateHash(const char *Hash, u32 Len);
 static void XilNvm_FormatData(const u8 *OrgDataPtr, u8* SwapPtr, u32 Len);
 static int XilNvm_ValidateRevokeIds(const char *RevokeIdStr);
+#ifdef XNVM_ACCESS_PUF_USER_DATA
+static int XilNvm_EfuseWritePufFuses(void);
+static int XilNvm_EfuseReadPufFuses(void);
+static int XilNvm_EfuseInitPufFuses(XNvm_EfusePufFuse *PufFuse);
+#endif
 
 /*****************************************************************************/
 int main(void)
@@ -119,11 +126,25 @@ int main(void)
 			goto END;
 		}
 	}
+
 	Status = XilNvm_EfusePerformCrcChecks();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 	Status = XilNvm_EfuseReadFuses();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+#ifdef XNVM_ACCESS_PUF_USER_DATA
+	Status = XilNvm_EfuseWritePufFuses();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Status = XilNvm_EfuseReadPufFuses();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+#endif
 
 END:
 	if (Status != XST_SUCCESS) {
@@ -1969,5 +1990,146 @@ static void XilNvm_FormatData(const u8 *OrgDataPtr, u8* SwapPtr, u32 Len)
 	}
 }
 
+#ifdef XNVM_ACCESS_PUF_USER_DATA
+
+/****************************************************************************/
+/**
+ * This function is used to initialize XNvm_EfusePufFuse structure with user
+ * provided data and assign the same to global structure XNvm_EfusePufFuse to
+ * program PUF Fuses.
+ *
+ *
+ * @param	PufFuse Pointer to XNvm_EfusePufFuse structure
+ *
+ * @return
+ *		- XST_SUCCESS - On successful initialization
+ *		- Error Code - On failure.
+ *
+ ******************************************************************************/
+static int XilNvm_EfuseInitPufFuses(XNvm_EfusePufFuse *PufFuse)
+{
+	int Status = XST_FAILURE;
+
+	PufFuse->PrgmPufFuse = XNVM_EFUSE_WRITE_PUF_FUSES;
+	if (PufFuse->PrgmPufFuse == TRUE) {
+		Status = XilNvm_ValidateUserFuseStr(
+				(char *)XNVM_EFUSE_PUF_FUSES);
+		if (Status != XST_SUCCESS) {
+			xil_printf("PufFuse string validation failed\r\n");
+			goto END;
+		}
+
+		if (strlen(XNVM_EFUSE_PUF_FUSES) != (XNVM_EFUSE_NUM_OF_PUF_FUSES *
+				XNVM_EFUSE_ROW_STRING_LEN)) {
+			Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+			goto END;
+		}
+
+		Status = Xil_ConvertStringToHex(
+				XNVM_EFUSE_PUF_FUSES,
+				PufFuse->PufFuseData,
+				(XNVM_EFUSE_NUM_OF_PUF_FUSES *
+				XNVM_EFUSE_ROW_STRING_LEN));
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		PufFuse->StartPufFuseNum = XNVM_EFUSE_PRGM_PUF_FUSE_NUM;
+		PufFuse->NumOfPufFuses = XNVM_EFUSE_NUM_OF_PUF_FUSES;
+	}
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * This function writes user data in to PUF Fuses
+ *
+ * @return
+ *	XST_SUCCESS	- On success
+ *	Errorcode - On failure
+ *
+ ******************************************************************************/
+static int XilNvm_EfuseWritePufFuses(void)
+{
+	int Status = XST_FAILURE;
+	u32 PufFusesArr[XNVM_EFUSE_NUM_OF_PUF_FUSES] = {0};
+	XNvm_EfusePufFuse PufFuses = {0};
+
+	PufFuses.PufFuseData = PufFusesArr;
+	Status = XilNvm_EfuseInitPufFuses(&PufFuses);
+	if(Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if (PufFuses.PrgmPufFuse == TRUE) {
+		PufFuses.EnvMonitorDis= XNVM_EFUSE_ENV_MONITOR_DISABLE;
+		if (PufFuses.EnvMonitorDis == TRUE) {
+			PufFuses.SysMonInstPtr= NULL;
+		}
+		else {
+			PufFuses.SysMonInstPtr = &SysMonInst;
+			ConfigPtr = XSysMonPsv_LookupConfig();
+			if (ConfigPtr == NULL) {
+				goto END;
+			}
+
+			Status = XSysMonPsv_CfgInitialize(PufFuses.SysMonInstPtr,
+							ConfigPtr);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+		}
+
+		/* Write PUF Fuses */
+		Status = XNvm_EfuseWritePufAsUserFuses(&PufFuses);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+	Status = XST_SUCCESS;
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * This function reads data from PUF Fuses
+ *
+ * @return
+ *	XST_SUCCESS	- On success
+ *	Errorcode - On failure
+ *
+ ******************************************************************************/
+static int XilNvm_EfuseReadPufFuses(void)
+{
+	int Status = XST_FAILURE;
+	u32 PufFusesRdArr[XNVM_EFUSE_NUM_OF_PUF_FUSES] = {0};
+	u32 Row = 0U;
+	XNvm_EfusePufFuse PufFuses = {0};
+
+	/* Init data */
+	PufFuses.PufFuseData = PufFusesRdArr;
+	PufFuses.StartPufFuseNum = XNVM_EFUSE_READ_PUF_FUSE_NUM;
+	PufFuses.NumOfPufFuses = XNVM_EFUSE_READ_NUM_OF_PUF_FUSES;
+
+	/* Read PUF Fuses */
+	Status = XNvm_EfuseReadPufAsUserFuses(&PufFuses);
+	if (Status != XST_SUCCESS) {
+			goto END;
+	}
+	for (Row = XNVM_EFUSE_READ_PUF_FUSE_NUM;
+		Row < (XNVM_EFUSE_READ_PUF_FUSE_NUM +
+			XNVM_EFUSE_READ_NUM_OF_PUF_FUSES); Row++) {
+		xil_printf("user_eFuse(PufHd)%d:%08x\n\r",
+			Row, PufFuses.PufFuseData[
+			Row - XNVM_EFUSE_READ_PUF_FUSE_NUM]);
+	}
+
+	Status = XST_SUCCESS;
+END:
+	return Status;
+}
+
+#endif
 /** //! [XNvm eFuse example] */
 /**@}*/

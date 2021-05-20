@@ -40,6 +40,8 @@
 *	har  04/21/2021 Fixed warnings for R5 processor
 *   kpt  05/12/2021 Added sysmon instance to the function prototype of
 *                   individual write API's
+*	kpt  05/20/2021 Added support for programming PUF efuses as
+*					 general purpose data
 *
 * </pre>
 *
@@ -89,6 +91,7 @@ extern "C" {
 
 /* PUF syndrome length definitions for Versal eFuse */
 #define XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS	(127U)
+#define XNVM_PUF_ROW_UPPER_NIBBLE_MASK              (0xF0000000U)
 
 #define XNVM_NUM_OF_REVOKE_ID_FUSES			(8U)
 #define XNVM_NUM_OF_OFFCHIP_ID_FUSES			(8U)
@@ -436,6 +439,13 @@ typedef enum {
 	XNVM_EFUSE_ERR_WRITE_OFFCHIP_REVOKE_IDS = 0xC100,/**<0xC100 - Error in
 							* OFFCHIP_REVOKE
 							* programming */
+	XNVM_EFUSE_ERR_WRITE_PUF_FUSES = 0xC200, /**<0xC200 -  Error in
+							* Write PUF
+							* efuses */
+	XNVM_ERR_WRITE_PUF_USER_DATA = 0x10000, /**< 0x10000
+							* When user chooses PUF efuses as user efuses
+							* data provided for last row
+							* i.e row 255 is not valid */
 	XNVM_EFUSE_ERR_RD_SEC_CTRL_BITS = 0xD000,/**<0xD000 - Error in
 						* reading Sec Ctrl efuses */
 	XNVM_EFUSE_ERR_RD_MISC_CTRL_BITS = 0xD100,/**<0xD100 - Error in
@@ -466,6 +476,8 @@ typedef enum {
 						* reading in Dec_only efuses */
 	XNVM_EFUSE_ERR_RD_USER_FUSES = 0xDD00,/**<0xDD00 - Error in
 						* reading User efuses */
+	XNVM_EFUSE_ERR_RD_PUF_FUSES = 0xDE00,/**<0xDE00 - Error in
+						* reading PUF efuses */
 
 	XNVM_EFUSE_ERR_WRITE_ROW_37_PROT = 0xE000,/**<0xE000 - Error in
 						* ROW_37_PROT programming */
@@ -534,7 +546,7 @@ typedef enum {
 	XNVM_EFUSE_ERR_FUSE_PROTECTED = 0x40000,/**< 0x40000
 						* Requested eFUSE is write
 						* protected. */
-	XNVM_EFUSE_ERR_BEFORE_PROGRAMMING = 0x80000/**< 0x80000
+	XNVM_EFUSE_ERR_BEFORE_PROGRAMMING = 0x80000,/**< 0x80000
 						* Error occurred before
 						* programming. */
 
@@ -777,6 +789,17 @@ typedef struct {
 	u32 *UserFuseData;
 }XNvm_EfuseUserData;
 
+#ifdef XNVM_ACCESS_PUF_USER_DATA
+typedef struct {
+	u8 EnvMonitorDis;
+	u8 PrgmPufFuse;
+	XSysMonPsv *SysMonInstPtr;
+	u32 StartPufFuseNum;
+	u32 NumOfPufFuses;
+	u32 *PufFuseData;
+}XNvm_EfusePufFuse;
+#endif
+
 typedef struct {
 	XNvm_EfusePufSecCtrlBits PufSecCtrlBits;
 	u8 PrgmPufHelperData;
@@ -829,13 +852,20 @@ int XNvm_EfuseReadDna(XNvm_Dna *EfuseDna);
 int XNvm_EfuseCheckAesKeyCrc(u32 Crc);
 int XNvm_EfuseCheckAesUserKey0Crc(u32 Crc);
 int XNvm_EfuseCheckAesUserKey1Crc(u32 Crc);
+#ifndef XNVM_ACCESS_PUF_USER_DATA
 int XNvm_EfuseWritePuf(const XNvm_EfusePufHd *PufHelperData);
+#endif
 int XNvm_EfuseReadPuf(XNvm_EfusePufHd *PufHelperData);
 int XNvm_EfuseReadPufSecCtrlBits(XNvm_EfusePufSecCtrlBits *PufSecCtrlBits);
 int XNvm_EfuseReadSecMisc1Bits(XNvm_EfuseSecMisc1Bits *SecMisc1Bits);
 int XNvm_EfuseReadBootEnvCtrlBits(XNvm_EfuseBootEnvCtrlBits *BootEnvCtrlBits);
 int XNvm_EfuseReadOffchipRevokeId(u32 *OffchipIdPtr,
 	XNvm_OffchipId OffchipIdNum);
+#ifdef XNVM_ACCESS_PUF_USER_DATA
+int XNvm_EfuseWritePufAsUserFuses(XNvm_EfusePufFuse *PufFuse);
+int XNvm_EfuseReadPufAsUserFuses(XNvm_EfusePufFuse *PufFuse);
+#endif
+
 #ifdef __cplusplus
 }
 #endif
