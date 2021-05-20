@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -49,6 +49,7 @@
  *                     violation. fixes this  issue by adding a separate
  *                     function arguments to read KeyAddr and
  *                     Size(Bitstream size).
+ * 6.0  Nava 05/17/21  Removed unused structure definition.
  * </pre>
  *
  * @note
@@ -85,18 +86,6 @@ typedef struct {
 		u32 Size;
 		u32 Flags;
 }XFpga_Write;
-
-/**
- * Structure to store the PL Image details.
- *
- * @param ReadbackAddr	Address which is used to store the PL readback data.
- * @param ConfigReg		Configuration register value to be returned (or)
- * 			The number of Fpga configuration frames to read
- */
-typedef struct {
-		UINTPTR ReadbackAddr;
-		u32 ConfigReg_NumFrames;
-}XFpga_Read;
 
 /************************** Variable Definitions *****************************/
 
