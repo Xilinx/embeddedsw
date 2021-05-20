@@ -69,7 +69,7 @@
 
 /************************** Function Prototypes ******************************/
 /* @cond nocomments */
-static u32 XFpga_ValidateBitstreamParam(XFpga *InstancePtr,
+static u32 XFpga_ValidateBitstreamParam(const XFpga *InstancePtr,
 					UINTPTR BitstreamImageAddr,
 					UINTPTR KeyAddr, u32 Flags);
 /* @endcond */
@@ -732,7 +732,7 @@ END:
  *      - Error code on failure.
  *
  *****************************************************************************/
-static u32 XFpga_ValidateBitstreamParam(XFpga *InstancePtr,
+static u32 XFpga_ValidateBitstreamParam(const XFpga *InstancePtr,
 					UINTPTR BitstreamImageAddr,
 					UINTPTR KeyAddr, u32 Flags)
 {
