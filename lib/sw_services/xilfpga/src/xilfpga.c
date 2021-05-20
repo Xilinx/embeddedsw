@@ -59,6 +59,7 @@
  * 6.0 Nava   01/21/21  Make Status variable volatile to avoid compiler
  *                      optimizations.
  * 6.0 Nava   02/22/21  Fixed doxygen issues.
+ * 6.0 Nava   05/17/21  Fixed misra-c violations.
  *</pre>
  *
  *@note
@@ -211,7 +212,9 @@ u32 XFpga_BitStream_Load(XFpga *InstancePtr,
 	if ((Status != XFPGA_OPS_NOT_IMPLEMENTED) &&
 	    (Status != XFPGA_SUCCESS)) {
 		goto END;
-	} else if (Status == XFPGA_OPS_NOT_IMPLEMENTED) {
+	}
+
+	if (Status == XFPGA_OPS_NOT_IMPLEMENTED) {
 		InstancePtr->WriteInfo.BitstreamAddr = BitstreamImageAddr;
 		InstancePtr->WriteInfo.Flags = Flags;
 		InstancePtr->WriteInfo.KeyAddr = KeyAddr;
