@@ -65,6 +65,7 @@
 *       dc     04/22/21 Add CC_GAIN field
 *       dc     04/27/21 Update CARRIER_CONFIGURATION handling
 *       dc     05/08/21 Update to common trigger
+*       dc     05/18/21 Handling CCUpdate trigger
 *
 * </pre>
 *
@@ -410,11 +411,11 @@ void XDfeMix_Deactivate(XDfeMix *InstancePtr);
 /* User APIs */
 u32 XDfeMix_AddCC(XDfeMix *InstancePtr, s32 CCID, u32 BitSequence,
 		  const XDfeMix_CarrierCfg *CarrierCfg);
-void XDfeMix_RemoveCC(XDfeMix *InstancePtr, s32 CCID);
-void XDfeMix_MoveCC(XDfeMix *InstancePtr, s32 CCID, u32 Rate, u32 FromNCO,
+u32 XDfeMix_RemoveCC(XDfeMix *InstancePtr, s32 CCID);
+u32 XDfeMix_MoveCC(XDfeMix *InstancePtr, s32 CCID, u32 Rate, u32 FromNCO,
 		    u32 ToNCO);
 void XDfeMix_UpdateCC(const XDfeMix *InstancePtr);
-void XDfeMix_SetAntennaGain(XDfeMix *InstancePtr, u32 AntennaId,
+u32 XDfeMix_SetAntennaGain(XDfeMix *InstancePtr, u32 AntennaId,
 			    u32 AntennaGain);
 void XDfeMix_GetTriggersCfg(const XDfeMix *InstancePtr,
 			    XDfeMix_TriggerCfg *TriggerCfg);
