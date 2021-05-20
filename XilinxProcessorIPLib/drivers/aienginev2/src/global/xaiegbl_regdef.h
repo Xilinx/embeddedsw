@@ -111,6 +111,7 @@ typedef struct {
 typedef struct {
 	u32 EnableEventOff;
 	XAie_RegFldAttr DisableEventOccurred;
+	XAie_RegFldAttr EnableEventOccurred;
 	XAie_RegFldAttr DisableEvent;
 	XAie_RegFldAttr EnableEvent;
 } XAie_RegCoreEvents;
