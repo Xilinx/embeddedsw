@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -75,6 +75,7 @@
  *                      violation. fixes this  issue by adding a separate
  *                      function arguments to read KeyAddr and
  *                      Size(Bitstream size).
+ * 6.0  Nava  05/17/21  Added platform specific ifdef checks to optimize the code.
  *
  * </pre>
  *
@@ -141,21 +142,22 @@ typedef struct XFpgatag{
 #define XFPGA_WRITE_BITSTREAM_ERROR	(0x4U)
 #define XFPGA_POST_CONFIG_ERROR		(0x5U)
 #define XFPGA_OPS_NOT_IMPLEMENTED	(0x6U)
-#define XFPGA_INPROGRESS		(0x7U)
 #define XFPGA_INVALID_PARAM		(0x8U)
 
+#ifndef versal
 #define XFPGA_FULLBIT_EN			(0x00000000U)
 #define XFPGA_PARTIAL_EN			(0x00000001U)
 #define XFPGA_AUTHENTICATION_DDR_EN		(0x00000002U)
 #define XFPGA_AUTHENTICATION_OCM_EN		(0x00000004U)
+#endif
 #define XFPGA_ENCRYPTION_USERKEY_EN		(0x00000008U)
+#ifndef versal
 #define XFPGA_ENCRYPTION_DEVKEY_EN		(0x00000010U)
 #define XFPGA_ONLY_BIN_EN			(0x00000020U)
 
 /* FPGA invalid interface status */
 #define XFPGA_INVALID_INTERFACE_STATUS		(0xFFFFFFFFU)
 
-#ifndef versal
 #define XFPGA_SECURE_FLAGS	(				\
 				XFPGA_AUTHENTICATION_DDR_EN	\
 				| XFPGA_AUTHENTICATION_OCM_EN	\
