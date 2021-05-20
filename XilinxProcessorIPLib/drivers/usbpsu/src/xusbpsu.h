@@ -454,7 +454,7 @@ struct XUsbPsu_Ep {
  */
 typedef struct {
         u16 DeviceId;		/**< Unique ID of controller */
-        u32 BaseAddress;	/**< Core register base address */
+	UINTPTR BaseAddress;	/**< Core register base address */
 	u8 IsCacheCoherent;	/**< Describes whether Cache Coherent or not */
 	u8 EnableSuperSpeed;	/**< Set to enable super speed support */
 #if defined (XCLOCKING)
