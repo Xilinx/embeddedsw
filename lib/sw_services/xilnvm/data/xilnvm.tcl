@@ -55,6 +55,8 @@ proc xgen_opts_file {libhandle} {
 	# Copy the include files to the include directory
 	set srcdir src
 	set dstdir [file join .. .. include]
+	set access_puf_efuse [common::get_property CONFIG.use_puf_hd_as_user_efuse $libhandle]
+	set file_handle [::hsi::utils::open_include_file "xparameters.h"]
 
 	# Create dstdir if it does not exist
 	if { ! [file exists $dstdir] } {
@@ -68,5 +70,11 @@ proc xgen_opts_file {libhandle} {
 	foreach source $sources {
 		file copy -force $source $dstdir
 	}
+
+	if {$access_puf_efuse == true} {
+		puts $file_handle "\n#define XNVM_ACCESS_PUF_USER_DATA \n"
+	}
+
+	close $file_handle
 
 }

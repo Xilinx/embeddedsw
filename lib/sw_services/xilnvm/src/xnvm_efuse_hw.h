@@ -27,6 +27,8 @@
 *	kal  01/07/2021	Added new macros for BootEnvCtrl and SecurityMisc1
 *			eFuse rows
 *	kal  02/20/2021 Added new macros for sysmon measure registers
+*   kpt  05/20/2021 Added macro XNVM_EFUSE_PUF_SYN_CACHE_READ_ROW for
+*                   PUF cache read
 *
 * </pre>
 *
@@ -281,6 +283,7 @@ extern "C" {
 #define XNVM_EFUSE_DATA_PARTITION_IV_START_ROW		(122U)
 #define XNVM_EFUSE_PUF_SYN_START_ROW			(129U)
 #define XNVM_EFUSE_USER_FUSE_START_ROW			(129U)
+#define XNVM_EFUSE_PUF_SYN_CACHE_READ_ROW       (641U)
 
 /* EFUSE ROW COUNT*/
 #define XNVM_EFUSE_AES_KEY_NUM_OF_ROWS			(8U)
