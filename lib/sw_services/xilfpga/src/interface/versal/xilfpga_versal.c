@@ -36,6 +36,7 @@
  *                      contents added proper validation logic to fill the
  *                      IPI request buffer.
  * 6.0  Nava  03/09/21  Added function pointer validation check.
+ * 6.0  Nava  05/17/21  Fixed misra-c violations.
  * </pre>
  *
  * @note
@@ -87,7 +88,7 @@ u32 XFpga_Initialize(XFpga *InstancePtr)
 
 	/* Validate the input arguments */
 	if (InstancePtr != NULL) {
-		(void)memset(InstancePtr, 0U, sizeof(*InstancePtr));
+		(void)memset(InstancePtr, 0, sizeof(*InstancePtr));
 		InstancePtr->XFpga_WriteToPl = XFpga_WriteToPl;
 
 		/* Check the pointer was assigned correctly. */
