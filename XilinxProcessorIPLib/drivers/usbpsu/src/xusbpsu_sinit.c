@@ -42,8 +42,6 @@
 
 /************************** Variable Definitions *****************************/
 
-extern XUsbPsu_Config XUsbPsu_ConfigTable[]; /**< Configuration table */
-
 
 /*****************************************************************************/
 /**

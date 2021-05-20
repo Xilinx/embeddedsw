@@ -692,6 +692,9 @@ union XUsbPsu_Event {
 	struct XUsbPsu_Event_Gevt	Gevt;	/**< Global Event */
 }; /**< Representation of Event Buffers */
 
+/************************** Variable Definitions *****************************/
+extern XUsbPsu_Config XUsbPsu_ConfigTable[]; /**< Configuration table */
+
 /***************** Macros (Inline Functions) Definitions *********************/
 #if defined (__ICCARM__)
 #define IS_ALIGNED(x, a)	(((x) & ((u32)(a) - 1U)) == 0U) /**< parameter
