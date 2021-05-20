@@ -38,6 +38,8 @@
 *                       instead of Error ID. Also, added support to configure
 *                       multiple errors at once.
 *       ma   05/03/2021 Minor updates related to PSM and FW errors
+*       td   05/20/2021 Fixed blind write on locking NPI address space in
+*                       XPlmi_ClearNpiErrors
 *
 * </pre>
 *
@@ -168,7 +170,7 @@ void XPlmi_ErrIntrHandler(void *CallbackRef);
 void XPlmi_HandleSwError(u32 ErrorNodeId, u32 RegMask);
 void XPlmi_SetEmSubsystemId(const u32 *Id);
 int XPlmi_CheckNpiErrors(void);
-void XPlmi_ClearNpiErrors(void);
+int XPlmi_ClearNpiErrors(void);
 void XPlmi_TriggerFwNcrError(void);
 
 /* Functions defined in xplmi_err_cmd.c */
