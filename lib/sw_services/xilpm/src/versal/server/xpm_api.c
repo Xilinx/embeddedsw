@@ -4592,7 +4592,6 @@ int XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
 	case PM_API(PM_GET_API_VERSION):
 	case PM_API(PM_GET_NODE_STATUS):
 	case PM_API(PM_GET_OP_CHARACTERISTIC):
-	case PM_API(PM_REGISTER_NOTIFIER):
 	case PM_API(PM_REQUEST_SUSPEND):
 	case PM_API(PM_SELF_SUSPEND):
 	case PM_API(PM_FORCE_POWERDOWN):
@@ -4641,6 +4640,10 @@ int XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
 		break;
 	case PM_API(PM_QUERY_DATA):
 		*Version = XST_API_QUERY_DATA_VERSION;
+		Status = XST_SUCCESS;
+		break;
+	case PM_API(PM_REGISTER_NOTIFIER):
+		*Version = XST_API_REG_NOTIFIER_VERSION;
 		Status = XST_SUCCESS;
 		break;
 	default:
