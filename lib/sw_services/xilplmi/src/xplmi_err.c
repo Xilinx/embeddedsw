@@ -52,6 +52,8 @@
 *       ma   05/17/2021 Update only data field when writing error code to FW_ERR
 *                       register
 *       bm   05/18/2021 Ignore printing and storing of ssit errors for ES1 silicon
+*       td   05/20/2021 Fixed blind write on locking NPI address space in
+*                       XPlmi_ClearNpiErrors
 *
 * </pre>
 *
@@ -1583,11 +1585,13 @@ int XPlmi_CheckNpiErrors(void)
 /**
  * @brief	This function clears NPI errors.
  *
- * @return	None
+ * @return	XST_SUCCESS on success and error code on failure
  *
 ******************************************************************************/
-void XPlmi_ClearNpiErrors(void)
+int XPlmi_ClearNpiErrors(void)
 {
+	int Status = XST_FAILURE;
+
 	/* Unlock NPI address space */
 	XPlmi_Out32(NPI_NIR_REG_PCSR_LOCK, NPI_NIR_REG_PCSR_UNLOCK_VAL);
 	/* Clear ISR */
@@ -1599,5 +1603,12 @@ void XPlmi_ClearNpiErrors(void)
 	XPlmi_Out32(NPI_NIR_ERR_LOG_P0_INFO_0, 0U);
 	XPlmi_Out32(NPI_NIR_ERR_LOG_P0_INFO_1, 0U);
 	/* Lock NPI address space */
-	XPlmi_Out32(NPI_NIR_REG_PCSR_LOCK, 0U);
+	Status = Xil_SecureOut32(NPI_NIR_REG_PCSR_LOCK, 1U);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_NPI_LOCK, Status);
+		goto END;
+	}
+
+END:
+	return Status;
 }

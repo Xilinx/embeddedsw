@@ -61,6 +61,8 @@
 *			XPm_ReleaseDevice
 *       gm   05/10/2021 Added support to dump DDRMC registers in case of
 *			deferred error
+*       td   05/20/2021 Fixed blind write on locking NPI address space in
+*                       XPlmi_ClearNpiErrors
 *
 * </pre>
 *
@@ -158,7 +160,10 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 		++PrtnIndex) {
 		/* Clear NPI errors before loading each partition */
 		if (XPlmi_NpiOutOfReset() == (u8)TRUE) {
-			XPlmi_ClearNpiErrors();
+			Status = XPlmi_ClearNpiErrors();
+			if (XST_SUCCESS != Status) {
+				goto END;
+			}
 		}
 
 		if ((PdiPtr->CopyToMem == (u8)FALSE) && (PdiPtr->DelayLoad == (u8)FALSE)) {
