@@ -65,6 +65,7 @@
 *       dc     04/08/21 Set sequence length only once
 *       dc     04/20/21 Doxygen documentation update
 *       dc     05/08/21 Update to common trigger
+*       dc     05/18/21 Handling CCUpdate trigger
 *
 * </pre>
 *
@@ -354,10 +355,10 @@ void XDfeCcf_Deactivate(XDfeCcf *InstancePtr);
 /* User APIs */
 u32 XDfeCcf_AddCC(XDfeCcf *InstancePtr, s32 CCID, u32 BitSequence,
 		  const XDfeCcf_CarrierCfg *CarrierCfg);
-void XDfeCcf_RemoveCC(XDfeCcf *InstancePtr, s32 CCID);
-void XDfeCcf_UpdateCC(const XDfeCcf *InstancePtr, s32 CCID,
+u32 XDfeCcf_RemoveCC(XDfeCcf *InstancePtr, s32 CCID);
+u32 XDfeCcf_UpdateCC(const XDfeCcf *InstancePtr, s32 CCID,
 		      XDfeCcf_CarrierCfg *CarrierCfg);
-void XDfeCcf_UpdateAntenna(const XDfeCcf *InstancePtr, u32 Ant, bool Enabled);
+u32 XDfeCcf_UpdateAntenna(const XDfeCcf *InstancePtr, u32 Ant, bool Enabled);
 void XDfeCcf_GetTriggersCfg(const XDfeCcf *InstancePtr,
 			    XDfeCcf_TriggerCfg *TriggerCfg);
 void XDfeCcf_SetTriggersCfg(const XDfeCcf *InstancePtr,
