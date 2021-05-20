@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xhdcp22_rx_sinit.c
-* @addtogroup hdcp22_rx_v3_0
+* @addtogroup hdcp22_rx_v3_1
 * @{
 * @details
 *

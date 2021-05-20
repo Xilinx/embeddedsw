@@ -7,7 +7,7 @@
 /**
 *
 * @file xhdcp1x_port_dp_rx.c
-* @addtogroup hdcp1x_v4_5
+* @addtogroup hdcp1x_v4_6
 * @{
 *
 * This contains the implementation of the HDCP port driver for Xilinx DP
