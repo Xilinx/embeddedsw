@@ -30,6 +30,7 @@
 *       dc     04/20/21 Doxygen documentation update
 *       dc     04/22/21 Add write MappedId field
 *       dc     05/08/21 Update to common trigger
+*       dc     05/18/21 Handling CCUpdate trigger
 *
 * </pre>
 *
@@ -567,17 +568,32 @@ static u32 XDfeCcf_NextMappedId(const XDfeCcf *InstancePtr,
 *
 * @param    InstancePtr is a pointer to the Channel Filter instance.
 *
+* @return
+*           - XST_SUCCESS if successful.
+*           - XST_FAILURE if error occurs.
+*
 ****************************************************************************/
-static void XDfeCcf_EnableCCUpdateTrigger(const XDfeCcf *InstancePtr)
+static u32 XDfeCcf_EnableCCUpdateTrigger(const XDfeCcf *InstancePtr)
 {
 	u32 Data;
 	Xil_AssertVoid(InstancePtr != NULL);
 
+	/* Exit with error if CC_UPDATE status is high */
+	if (XDFECCF_CC_UPDATE_TRIGGERED_HIGH == XDfeCcf_RdRegBitField(
+			InstancePtr, XDFECCF_ISR,
+			XDFECCF_CC_UPDATE_TRIGGERED_WIDTH,
+			XDFECCF_CC_UPDATE_TRIGGERED_OFFSET)) {
+		metal_log(METAL_LOG_ERROR, "CCUpdate status high in %s\n", __func__);
+		return XST_FAILURE;
+	}
+
+	/* Enable CCUpdate trigger */
 	Data = XDfeCcf_ReadReg(InstancePtr, XDFECCF_TRIGGERS_CC_UPDATE_OFFSET);
 	Data = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_TRIGGER_ENABLE_WIDTH,
 				  XDFECCF_TRIGGERS_TRIGGER_ENABLE_OFFSET, Data,
 				  XDFECCF_TRIGGERS_TRIGGER_ENABLE_ENABLED);
 	XDfeCcf_WriteReg(InstancePtr, XDFECCF_TRIGGERS_CC_UPDATE_OFFSET, Data);
+	return XST_SUCCESS;
 }
 
 /****************************************************************************/
@@ -1112,8 +1128,7 @@ u32 XDfeCcf_AddCC(XDfeCcf *InstancePtr, s32 CCID, u32 BitSequence,
 
 	/* If add is successful update next configuration and trigger update */
 	XDfeCcf_SetNextCCCfg(InstancePtr, &CCCfg);
-	XDfeCcf_EnableCCUpdateTrigger(InstancePtr);
-	return XST_SUCCESS;
+	return XDfeCcf_EnableCCUpdateTrigger(InstancePtr);
 }
 
 /****************************************************************************/
@@ -1125,8 +1140,12 @@ u32 XDfeCcf_AddCC(XDfeCcf *InstancePtr, s32 CCID, u32 BitSequence,
 * @param    InstancePtr is a pointer to the Ccf instance.
 * @param    CCID is a Channel ID.
 *
+* @return
+*           - XST_SUCCESS if successful.
+*           - XST_FAILURE if error occurs.
+*
 ****************************************************************************/
-void XDfeCcf_RemoveCC(XDfeCcf *InstancePtr, s32 CCID)
+u32 XDfeCcf_RemoveCC(XDfeCcf *InstancePtr, s32 CCID)
 {
 	XDfeCcf_CCCfg CCCfg;
 
@@ -1144,7 +1163,7 @@ void XDfeCcf_RemoveCC(XDfeCcf *InstancePtr, s32 CCID)
 
 	/* Update next configuration and trigger update */
 	XDfeCcf_SetNextCCCfg(InstancePtr, &CCCfg);
-	XDfeCcf_EnableCCUpdateTrigger(InstancePtr);
+	return XDfeCcf_EnableCCUpdateTrigger(InstancePtr);
 }
 
 /****************************************************************************/
@@ -1158,9 +1177,12 @@ void XDfeCcf_RemoveCC(XDfeCcf *InstancePtr, s32 CCID)
 * @param    CCID is a Channel ID.
 * @param    CarrierCfg is a CC configuration container.
 *
+* @return
+*           - XST_SUCCESS if successful.
+*           - XST_FAILURE if error occurs.
 *
 ****************************************************************************/
-void XDfeCcf_UpdateCC(const XDfeCcf *InstancePtr, s32 CCID,
+u32 XDfeCcf_UpdateCC(const XDfeCcf *InstancePtr, s32 CCID,
 		      XDfeCcf_CarrierCfg *CarrierCfg)
 {
 	XDfeCcf_CCCfg CCCfg;
@@ -1192,7 +1214,7 @@ void XDfeCcf_UpdateCC(const XDfeCcf *InstancePtr, s32 CCID,
 
 	/* Update next configuration and trigger update */
 	XDfeCcf_SetNextCCCfg(InstancePtr, &CCCfg);
-	XDfeCcf_EnableCCUpdateTrigger(InstancePtr);
+	return XDfeCcf_EnableCCUpdateTrigger(InstancePtr);
 }
 
 /****************************************************************************/
@@ -1206,9 +1228,12 @@ void XDfeCcf_UpdateCC(const XDfeCcf *InstancePtr, s32 CCID,
 * @param    Ant is antenna ID.
 * @param    Enabled is a flag indicating enable status of the antenna.
 *
+* @return
+*           - XST_SUCCESS if successful.
+*           - XST_FAILURE if error occurs.
 *
 ****************************************************************************/
-void XDfeCcf_UpdateAntenna(const XDfeCcf *InstancePtr, u32 Ant, bool Enabled)
+u32 XDfeCcf_UpdateAntenna(const XDfeCcf *InstancePtr, u32 Ant, bool Enabled)
 {
 	XDfeCcf_CCCfg CCCfg;
 
@@ -1228,7 +1253,7 @@ void XDfeCcf_UpdateAntenna(const XDfeCcf *InstancePtr, u32 Ant, bool Enabled)
 
 	/* Update next configuration and trigger update */
 	XDfeCcf_SetNextCCCfg(InstancePtr, &CCCfg);
-	XDfeCcf_EnableCCUpdateTrigger(InstancePtr);
+	return XDfeCcf_EnableCCUpdateTrigger(InstancePtr);
 }
 
 /****************************************************************************/

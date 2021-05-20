@@ -24,6 +24,7 @@
 *       dc     03/25/21 Device tree item name change
 *       dc     04/20/21 Doxygen documentation update
 *       dc     05/08/21 Update to common trigger
+*       dc     05/18/21 Handling CCUpdate trigger
 *
 * </pre>
 *
@@ -117,6 +118,8 @@ extern "C" {
 #define XDFECCF_OVERFLOW_OFFSET 0U
 #define XDFECCF_CC_UPDATE_TRIGGERED_WIDTH 1U
 #define XDFECCF_CC_UPDATE_TRIGGERED_OFFSET 1U
+#define XDFECCF_CC_UPDATE_TRIGGERED_LOW 0U
+#define XDFECCF_CC_UPDATE_TRIGGERED_HIGH 1U
 #define XDFECCF_CC_SEQUENCE_ERROR_WIDTH 1U
 #define XDFECCF_CC_SEQUENCE_ERROR_OFFSET 2U
 #define XDFECCF_IRQ_FLAGS_MASK 0x7U
