@@ -82,6 +82,7 @@
 *       bm   05/10/21 Updated chunking logic for hashes
 *       bm   05/13/21 Updated code to use common crypto instances from xilsecure
 *       ma   05/18/21 Minor code cleanup
+*       ma   05/20/21 Fix warnings introduced due to volatile qualifier
 *
 * </pre>
 *
@@ -795,7 +796,7 @@ int XLoader_SetSecureState(void)
 	/*
 	 * Set the secure state for authentication in register and global variable
 	 */
-	(void)XLoader_GetAHWRoT(&AHWRoT);
+	(void)XLoader_GetAHWRoT((u32 *)&AHWRoT);
 	Status = XST_FAILURE;
 	Status = Xil_SecureOut32(XPLMI_RTCFG_SECURESTATE_AHWROT_ADDR, AHWRoT);
 	if (Status != XST_SUCCESS) {
@@ -843,7 +844,7 @@ int XLoader_SetSecureState(void)
 	/*
 	 * Set the secure state for encryption in register and global variable
 	 */
-	(void)XLoader_GetSHWRoT(&SHWRoT);
+	(void)XLoader_GetSHWRoT((u32 *)&SHWRoT);
 	Status = XST_FAILURE;
 	Status = Xil_SecureOut32(XPLMI_RTCFG_SECURESTATE_SHWROT_ADDR, SHWRoT);
 	if (Status != XST_SUCCESS) {
