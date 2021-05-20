@@ -7,7 +7,7 @@
 /**
 *
 * @file xv_sditxss_coreinit.c
-* @addtogroup v_sditxss_v4_1
+* @addtogroup v_sditxss_v4_2
 * @{
 * @details
 
