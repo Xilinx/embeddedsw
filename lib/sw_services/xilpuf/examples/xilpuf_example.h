@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -19,6 +19,7 @@
  * 1.0   har     01/31/20 First release
  * 1.1   har     01/31/20 Updated file version to 1.1 to sync with library version
  * 1.2   am      08/14/20 Changed unsigned to signed enum object.
+ * 1.3   har     05/20/21 Added option to program Black IV
  *
  * </pre>
  *
@@ -79,14 +80,19 @@
  *
  * #define XPUF_WRITE_BLACK_KEY_OPTION		(FALSE)
  *							(or)
- *						(XPUF_EFUSE_AES_KEY)
+ *						(XPUF_EFUSE_AES_KEY_N_IV)
  *							(or)
  *						(XPUF_BBRAM_AES_KEY)
  *							(or)
  *						(XPUF_EFUSE_USER_0_KEY)
  *							(or)
  *						(XPUF_EFUSE_USER_1_KEY)
- * This selects the location where the black key must be programmed.
+ * This selects the location where the Black key must be programmed. Please note that
+ * If this option is configured as XPUF_EFUSE_AES_KEY_N_IV then Black key will
+ * be programmed in eFUSE AES key and Black IV is programmed in efuses.
+ * If it is configured as XPUF_BBRAM_AES_KEY, XPUF_EFUSE_USER_0_KEY or
+ * XPUF_EFUSE_USER_1_KEY then the Black key is programmed in the corresponding location
+ * but Black IV is not programmed.
 
  * #define XPUF_READ_SEC_CTRL_BITS		(FALSE)
  * This option should be configured as TRUE to read secure control eFUSE bits
@@ -178,7 +184,7 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 typedef enum {
-	XPUF_EFUSE_AES_KEY = 1,
+	XPUF_EFUSE_AES_KEY_N_IV = 1,
 	XPUF_BBRAM_AES_KEY,
 	XPUF_EFUSE_USER_0_KEY,
 	XPUF_EFUSE_USER_1_KEY
