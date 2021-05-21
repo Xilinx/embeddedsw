@@ -83,6 +83,7 @@
 *       bm   05/13/21 Updated code to use common crypto instances from xilsecure
 *       ma   05/18/21 Minor code cleanup
 *       ma   05/20/21 Fix warnings introduced due to volatile qualifier
+*       har  05/20/21 Added checks in case both efuse auth and bh auth are enabled
 *
 * </pre>
 *
@@ -757,19 +758,32 @@ int XLoader_SetSecureState(void)
 	 * Checks for secure state for authentication
 	 */
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_CheckNonZeroPpk);
+	IsBhdrAuth = (u8)((XPlmi_In32(XIH_BH_PRAM_ADDR + XIH_BH_IMG_ATTRB_OFFSET) &
+			XIH_BH_IMG_ATTRB_BH_AUTH_MASK) >>
+			XIH_BH_IMG_ATTRB_BH_AUTH_SHIFT);
+	IsBhdrAuthTmp = (u8)((XPlmi_In32(XIH_BH_PRAM_ADDR + XIH_BH_IMG_ATTRB_OFFSET) &
+		XIH_BH_IMG_ATTRB_BH_AUTH_MASK) >>
+		XIH_BH_IMG_ATTRB_BH_AUTH_SHIFT);
 	if ((Status == XST_SUCCESS) && (StatusTmp == XST_SUCCESS)) {
+		if ((IsBhdrAuth == XIH_BH_IMG_ATTRB_BH_AUTH_VALUE) &&
+		(IsBhdrAuthTmp == XIH_BH_IMG_ATTRB_BH_AUTH_VALUE)) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_HWROT_BH_AUTH_NOT_ALLOWED, 0);
+			goto END;
+		}
+		if (IsBhdrAuth != IsBhdrAuthTmp) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_GLITCH_DETECTED, 0);
+			goto END;
+		}
 		/*
 		 * PPK fuses are programmed
 		 */
 		AHWRoT = XPLMI_RTCFG_SECURESTATE_AHWROT;
 	}
-	else if ((Status != XST_SUCCESS) && (StatusTmp != XST_SUCCESS)) {
-		IsBhdrAuth = (u8)((XPlmi_In32(XIH_BH_PRAM_ADDR + XIH_BH_IMG_ATTRB_OFFSET) &
-			XIH_BH_IMG_ATTRB_BH_AUTH_MASK) >>
-			XIH_BH_IMG_ATTRB_BH_AUTH_SHIFT);
-		IsBhdrAuthTmp = (u8)((XPlmi_In32(XIH_BH_PRAM_ADDR + XIH_BH_IMG_ATTRB_OFFSET) &
-			XIH_BH_IMG_ATTRB_BH_AUTH_MASK) >>
-			XIH_BH_IMG_ATTRB_BH_AUTH_SHIFT);
+	else if (Status != StatusTmp) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_GLITCH_DETECTED, 0);
+		goto END;
+	}
+	else {
 		if ((IsBhdrAuth == XIH_BH_IMG_ATTRB_BH_AUTH_VALUE) &&
 			(IsBhdrAuthTmp == XIH_BH_IMG_ATTRB_BH_AUTH_VALUE)) {
 			/*
@@ -777,22 +791,18 @@ int XLoader_SetSecureState(void)
 			 */
 			AHWRoT = XPLMI_RTCFG_SECURESTATE_EMUL_AHWROT;
 		}
-		else if ((IsBhdrAuth != XIH_BH_IMG_ATTRB_BH_AUTH_VALUE) &&
-			(IsBhdrAuthTmp != XIH_BH_IMG_ATTRB_BH_AUTH_VALUE)) {
+		else if (IsBhdrAuth != IsBhdrAuthTmp) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_GLITCH_DETECTED, 0);
+			goto END;
+		}
+		else {
 			/*
 			 * Authentication is not enabled in efuse or BHDR.
 			 */
 			AHWRoT = XPLMI_RTCFG_SECURESTATE_NONSECURE;
 		}
-		else {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_GLITCH_DETECTED, 0);
-			goto END;
-		}
 	}
-	else {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_GLITCH_DETECTED, 0);
-		goto END;
-	}
+
 	/*
 	 * Set the secure state for authentication in register and global variable
 	 */
