@@ -1294,7 +1294,7 @@ END:
 int XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 {
 	volatile int Status = XST_FAILURE;
-	int SStatus = XST_FAILURE;
+	volatile int SStatus = XST_FAILURE;
 	XSecure_AesDmaCfg AesDmaCfg = {0U};
 
 	/* Validate the input arguments */
@@ -1348,6 +1348,7 @@ END_RST:
 		Status = SStatus;
 	}
 
+	SStatus = XST_FAILURE;
 	SStatus = XSecure_AesKeyZero(InstancePtr, XSECURE_AES_EXPANDED_KEYS);
 	if (Status == XST_SUCCESS) {
 		Status = SStatus;
@@ -1608,6 +1609,17 @@ int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 		goto END;
 	}
 
+	if ((AesInstance->AesState == XSECURE_AES_ENCRYPT_INITIALIZED) ||
+		(AesInstance->AesState == XSECURE_AES_DECRYPT_INITIALIZED)) {
+		Status = (int)XSECURE_AES_KAT_BUSY;
+		goto END;
+	}
+
+	if (AesInstance->AesState != XSECURE_AES_INITIALIZED) {
+		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
+		goto END;
+	}
+
 	/* Write AES key */
 	Status = XSecure_AesWriteKey(AesInstance, XSECURE_AES_USER_KEY_7,
 			XSECURE_AES_KEY_SIZE_256, (UINTPTR)KatKey);
@@ -1698,6 +1710,17 @@ int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance)
 
 	if (AesInstance == NULL) {
 		Status = (int)XSECURE_AESKAT_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((AesInstance->AesState == XSECURE_AES_ENCRYPT_INITIALIZED) ||
+		(AesInstance->AesState == XSECURE_AES_DECRYPT_INITIALIZED)) {
+		Status = (int)XSECURE_AES_KAT_BUSY;
+		goto END;
+	}
+
+	if (AesInstance->AesState != XSECURE_AES_INITIALIZED) {
+		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
 		goto END;
 	}
 
