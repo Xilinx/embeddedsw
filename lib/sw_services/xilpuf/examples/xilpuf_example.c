@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,7 @@
   *       har  09/30/20 Replaced XPuf_printf with xil_printf
   *       har  04/14/21 Modified code to use client side APIs of Xilsecure
   *       har  04/21/21 Fixed CPP warnings
+  *       har  05/20/21 Added support to program Black IV
   *
   *@note
   *
@@ -92,7 +93,7 @@ static XSysMonPsv_Config *ConfigPtr;
 static int XPuf_ValidateUserInput(void);
 static int XPuf_GenerateKey(void);
 static int XPuf_GenerateBlackKey(void);
-static int XPuf_ProgramBlackKey(void);
+static int XPuf_ProgramBlackKeynIV(void);
 static void XPuf_ShowPufSecCtrlBits(void);
 static void XPuf_ShowData(const u8* Data, u32 Len);
 static int XPuf_FormatAesKey(const u8* Key, u8* FormattedKey, u32 KeyLen);
@@ -137,12 +138,9 @@ int main(void)
 		goto END;
 	}
 
-	/* Program black key into NVM */
-	Status = XPuf_ProgramBlackKey();
-	if (Status == XST_SUCCESS) {
-		xil_printf("Successfully programmed Black key %x\r\n", Status);
-	}
-	else {
+	/* Program black key and IV into NVM */
+	Status = XPuf_ProgramBlackKeynIV();
+	if (Status != XST_SUCCESS) {
 		xil_printf("Programming into NVM failed %x\r\n", Status);
 		goto END;
 	}
@@ -515,10 +513,11 @@ END:
  *		- XNVM_BBRAM_ERROR_AES_CRC_MISMATCH - CRC mismatch.
  *
 *******************************************************************************/
-static int XPuf_ProgramBlackKey(void)
+static int XPuf_ProgramBlackKeynIV(void)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfuseAesKeys WriteAesKeys = {0U};
+	XNvm_EfuseIvs WriteIvs = {0U};
 	XNvm_EfuseData WriteData = {0U};
 	XPuf_WriteBlackKeyOption BlackKeyWriteOption =
 			(XPuf_WriteBlackKeyOption)XPUF_WRITE_BLACK_KEY_OPTION;
@@ -540,15 +539,37 @@ static int XPuf_ProgramBlackKey(void)
 
 	switch (BlackKeyWriteOption) {
 
-		case XPUF_EFUSE_AES_KEY:
+		case XPUF_EFUSE_AES_KEY_N_IV:
 			WriteAesKeys.PrgmAesKey = TRUE;
 			Xil_MemCpy(WriteAesKeys.AesKey, FlashBlackKey,
 				XNVM_EFUSE_AES_KEY_LEN_IN_BYTES);
 			WriteData.AesKeys = &WriteAesKeys;
 			Status = XNvm_EfuseWrite(&WriteData);
 			if (Status != XST_SUCCESS) {
-				xil_printf("Error in programming Black key to eFuse %x\r\n",
+				xil_printf("Error in programming Black key to"
+					"eFuse %x\r\n",
 				Status);
+				goto END;
+			}
+
+			Status = Xil_ConvertStringToHexBE((const char *)(XPUF_IV),
+				Iv, XPUF_IV_LEN_IN_BITS);
+			if (Status != XST_SUCCESS) {
+				xil_printf("String Conversion error (IV):%08x"
+				"	\r\n", Status);
+				goto END;
+			}
+			else {
+				WriteIvs.PrgmBlkObfusIv = TRUE;
+				Xil_MemCpy(WriteIvs.BlkObfusIv, Iv,
+					XPUF_IV_LEN_IN_BYTES);
+				Status = XNvm_EfuseWriteIVs(&WriteIvs,
+					WriteData.SysMonInstPtr);
+				if (Status != XST_SUCCESS) {
+					xil_printf("Error in programming"
+						"Black IV in eFUSEs %x\r\n", Status);
+					goto END;
+				}
 			}
 			break;
 
