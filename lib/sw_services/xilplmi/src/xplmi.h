@@ -37,6 +37,7 @@
 *       bm   03/24/2021 Added RTCA defines for Error Status registers
 *       har  03/31/2021 Added RTCA defines for PDI ID
 *       bm   05/05/2021 Added USR_ACCESS defines for PLD0 image
+*       ma   05/21/2021 Added RTCA define for Secure Boot State
 *
 * </pre>
 *
@@ -103,6 +104,7 @@ extern "C" {
 #define XPLMI_RTCFG_PSM_ERR2_STATUS_ADDR	(XPLMI_RTCFG_BASEADDR + 0x160U)
 #define XPLMI_RTCFG_PDI_ID_ADDR			(XPLMI_RTCFG_BASEADDR + 0x164U)
 #define XPLMI_RTCFG_USR_ACCESS_ADDR		(XPLMI_RTCFG_BASEADDR + 0x168U)
+#define XPLMI_RTCFG_SECURE_STATE_ADDR	(XPLMI_RTCFG_BASEADDR + 0x16CU)
 
 /* Masks of PLM RunTime Configuration Registers */
 #define XPLMI_RTCFG_IMGINFOTBL_NUM_ENTRIES_MASK	(0x0000FFFFU)
