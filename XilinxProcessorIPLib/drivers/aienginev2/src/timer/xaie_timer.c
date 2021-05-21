@@ -549,9 +549,10 @@ static void _XAie_ClearTimerConfig(XAie_DevInst *DevInst, u32 Index,
 AieRC XAie_SyncTimer(XAie_DevInst *DevInst)
 {
 	AieRC RC;
-	u32 UserRscNum = 0, BcastChannelId;
+	u32 UserRscNum = 0, UserRscNumShim;
+	u32 BcastChannelId, BcastChannelIdShim;
 	XAie_Events BcastEvent, ShimBcastEvent;
-	XAie_UserRsc *RscsBC;
+	XAie_UserRsc *RscsBC, *RscsBCShim;
 
 	for(u8 i = 0; i < XAIEGBL_TILE_TYPE_MAX; i++) {
 		if(i == XAIEGBL_TILE_TYPE_SHIMNOC)
@@ -566,25 +567,129 @@ AieRC XAie_SyncTimer(XAie_DevInst *DevInst)
 		return XAIE_ERR;
 	}
 
+	UserRscNumShim = DevInst->NumCols;
+	RscsBCShim = (XAie_UserRsc *)malloc(DevInst->NumCols *
+			sizeof(XAie_UserRsc));
+	if(RscsBCShim == NULL) {
+		XAIE_ERROR("Unable to allocate memory for resource\n");
+		free(RscsBC);
+		return XAIE_ERR;
+	}
 	/* Reserve a free BC across partition */
 	RC = XAie_RequestBroadcastChannel(DevInst, &UserRscNum, RscsBC, 1U);
-	if(RC != XAIE_OK)
+	if(RC != XAIE_OK) {
+		free(RscsBC);
+		free(RscsBCShim);
 		return RC;
-
+	}
 	BcastChannelId = RscsBC[0].RscId;
-	/* Setup broadcast for all shim tiles */
-	XAie_LocType Loc = XAie_TileLoc(0, 0);
+
+	/* Reserve a free BC across partition */
+	for(u32 i = 0; i < UserRscNumShim; i++) {
+		RscsBCShim[i].Loc = XAie_TileLoc(i, 0);
+		RscsBCShim[i].Mod = XAIE_PL_MOD;
+		RscsBCShim[i].RscType = XAIE_BCAST_CHANNEL_RSC;
+	}
+	RC = XAie_RequestBroadcastChannel(DevInst, &UserRscNumShim,
+			RscsBCShim, 0U);
+	if(RC != XAIE_OK) {
+		free(RscsBC);
+		free(RscsBCShim);
+		return RC;
+	}
+	BcastChannelIdShim = RscsBCShim[0].RscId;
+
 	ShimBcastEvent = _XAie_GetBroadcastEventfromRscId(DevInst,
-		Loc, XAIE_PL_MOD, BcastChannelId);
+		XAie_TileLoc(0, 0), XAIE_PL_MOD, BcastChannelIdShim);
+
+	for(u32 j = 0; j < UserRscNum; j++) {
+		u8 TileType = _XAie_GetTileTypefromLoc(DevInst, RscsBC[j].Loc);
+		AieRC lRC = XAIE_OK;
+
+		/* Blocking unncessary broadcasting */
+		if(TileType == XAIEGBL_TILE_TYPE_AIETILE) {
+			if(DevInst->DevProp.DevGen == XAIE_DEV_GEN_AIE) {
+				/* Checker board structure */
+				if((RscsBC[j].Loc.Row % 2) == 0) {
+					if(RscsBC[j].Mod == XAIE_MEM_MOD) {
+						lRC |= XAie_EventBroadcastBlockDir(
+							DevInst, RscsBC[j].Loc,
+							RscsBC[j].Mod,
+							XAIE_EVENT_SWITCH_A,
+							BcastChannelId,
+							XAIE_EVENT_BROADCAST_WEST);
+					} else {
+						lRC |= XAie_EventBroadcastBlockDir(
+							DevInst, RscsBC[j].Loc,
+							RscsBC[j].Mod,
+							XAIE_EVENT_SWITCH_A,
+							BcastChannelId,
+							XAIE_EVENT_BROADCAST_EAST);
+					}
+				} else {
+					if(RscsBC[j].Mod == XAIE_MEM_MOD) {
+						lRC |= XAie_EventBroadcastBlockDir(
+							DevInst, RscsBC[j].Loc,
+							RscsBC[j].Mod,
+							XAIE_EVENT_SWITCH_A,
+							BcastChannelId,
+							XAIE_EVENT_BROADCAST_EAST);
+					} else {
+						lRC |= XAie_EventBroadcastBlockDir(
+							DevInst, RscsBC[j].Loc,
+							RscsBC[j].Mod,
+							XAIE_EVENT_SWITCH_A,
+							BcastChannelId,
+							XAIE_EVENT_BROADCAST_WEST);
+					}
+				}
+			} else {
+				if(RscsBC[j].Mod == XAIE_MEM_MOD) {
+					lRC |= XAie_EventBroadcastBlockDir(
+						DevInst, RscsBC[j].Loc,
+						RscsBC[j].Mod,
+						XAIE_EVENT_SWITCH_A,
+						BcastChannelId,
+						XAIE_EVENT_BROADCAST_EAST);
+				} else {
+					lRC |= XAie_EventBroadcastBlockDir(
+						DevInst, RscsBC[j].Loc,
+						RscsBC[j].Mod,
+						XAIE_EVENT_SWITCH_A,
+						BcastChannelId,
+						XAIE_EVENT_BROADCAST_WEST);
+				}
+			}
+		} else if(RscsBC[j].Loc.Row != 0) {
+			lRC |= XAie_EventBroadcastBlockDir(
+				DevInst, RscsBC[j].Loc,
+				RscsBC[j].Mod,
+				XAIE_EVENT_SWITCH_A,
+				BcastChannelId,
+				XAIE_EVENT_BROADCAST_WEST |
+				XAIE_EVENT_BROADCAST_EAST);
+		}
+		if (lRC != XAIE_OK) {
+			XAIE_ERROR("Unable to setup broadcast for timer sync.\n");
+			free(RscsBC);
+			free(RscsBCShim);
+			return RC;
+		}
+	}
 
 	for(u32 i = 0; i < DevInst->NumCols; i++) {
 		XAie_LocType Loc = XAie_TileLoc(i, 0);
 
 		RC = XAie_EventBroadcast(DevInst, Loc, XAIE_PL_MOD,
-			BcastChannelId, ShimBcastEvent);
+				BcastChannelId, ShimBcastEvent);
+		if(i == 0) {
+			RC = XAie_EventBroadcast(DevInst, Loc, XAIE_PL_MOD,
+				BcastChannelIdShim, ShimBcastEvent);
+		}
 		if(RC != XAIE_OK) {
-			_XAie_ClearShimBroadcast(DevInst, 0, i, BcastChannelId);
 			XAIE_ERROR("Unable to configure broadcast event for timer sync\n");
+			free(RscsBC);
+			free(RscsBCShim);
 			return RC;
 		}
 	}
@@ -592,42 +697,56 @@ AieRC XAie_SyncTimer(XAie_DevInst *DevInst)
 	/* Configure the timer control with the trigger event */
 	for(u32 j = 0; j < UserRscNum; j++) {
 		BcastEvent = _XAie_GetBroadcastEventfromRscId(DevInst,
-			RscsBC[j].Loc, RscsBC[j].Mod, BcastChannelId);
-
+				RscsBC[j].Loc, RscsBC[j].Mod, BcastChannelId);
 		RC = XAie_SetTimerResetEvent(DevInst, RscsBC[j].Loc,
 			RscsBC[j].Mod, BcastEvent, XAIE_RESETDISABLE);
 		if(RC != XAIE_OK) {
-			_XAie_ClearTimerConfig(DevInst, j, RscsBC);
-			_XAie_ClearShimBroadcast(DevInst, 0, DevInst->NumCols,
-				BcastChannelId);
 			XAIE_ERROR("Unable to set timer control\n");
+			free(RscsBC);
+			free(RscsBCShim);
 			return RC;
 		}
 	}
 
 	/* Trigger Event */
-	Loc = XAie_TileLoc(0, 0);
-	RC = XAie_EventGenerate(DevInst, Loc, XAIE_PL_MOD, ShimBcastEvent);
+	RC = XAie_EventGenerate(DevInst, XAie_TileLoc(0, 0), XAIE_PL_MOD,
+			ShimBcastEvent);
 	if(RC != XAIE_OK) {
 		XAIE_ERROR("Unable to trigger event\n");
+		free(RscsBC);
+		free(RscsBCShim);
 		return RC;
 	}
 
 	/* Clear timer reset event register */
 	_XAie_ClearTimerConfig(DevInst, UserRscNum, RscsBC);
 
-	/* Clear shim broadcast configuration */
-	_XAie_ClearShimBroadcast(DevInst, DevInst->NumCols, BcastChannelId,
-		XAIE_EVENT_NONE_PL);
-
-	/* Release broadcast channel across partition */
-	RC = XAie_ReleaseBroadcastChannel(DevInst, UserRscNum, RscsBC);
-	if(RC != XAIE_OK) {
-		XAIE_ERROR("Unable to release resource\n");
-		return RC;
+	/* Clear broadcast setting */
+	for(u32 j = 0; j < UserRscNum; j++) {
+		if(RscsBC[j].Loc.Row == 0) {
+			/* If it is SHIM tile, skip */
+			continue;
+		}
+		RC = XAie_EventBroadcastUnblockDir(DevInst,
+			RscsBC[j].Loc, RscsBC[j].Mod,
+			XAIE_EVENT_SWITCH_A, BcastChannelId,
+			XAIE_EVENT_BROADCAST_WEST | XAIE_EVENT_BROADCAST_EAST);
+		if(RC != XAIE_OK) {
+			XAIE_ERROR("Failed to clear broadcast setting for timer sync.\n");
+			/* Will continue clearning even if it failes */
+		}
 	}
 
+	/* Clear shim broadcast configuration */
+	_XAie_ClearShimBroadcast(DevInst, 0, DevInst->NumCols, BcastChannelId);
+	XAie_EventBroadcast(DevInst, XAie_TileLoc(0, 0), XAIE_PL_MOD,
+		BcastChannelIdShim, XAIE_EVENT_NONE_PL);
+
+	/* Release broadcast channel across partition */
+	XAie_ReleaseBroadcastChannel(DevInst, UserRscNum, RscsBC);
+	XAie_ReleaseBroadcastChannel(DevInst, UserRscNumShim, RscsBCShim);
 	free(RscsBC);
+	free(RscsBCShim);
 
 	return XAIE_OK;
 }
