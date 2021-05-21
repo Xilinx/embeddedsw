@@ -34,6 +34,8 @@
 *       har  03/31/2021 Added RTCA initialization for PDI ID
 *       bsv  04/16/2021 Add provision to store Subsystem Id in XilPlmi
 *       bm   05/05/2021 Added USR_ACCESS support for PLD0 image
+*       ma   05/21/2021 Copy secure boot state from PMC GLOBAL GEN STORAGE2
+                        register to RTCA Secure State offset
 *
 * </pre>
 *
@@ -103,6 +105,8 @@ END:
  *****************************************************************************/
 static void XPlmi_RunTimeConfigInit(void)
 {
+	u32 DevSecureState = XPlmi_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE2);
+
 	XPlmi_Out32(XPLMI_RTCFG_RTCA_ADDR, XPLMI_RTCFG_IDENTIFICATION);
 	XPlmi_Out32(XPLMI_RTCFG_VERSION_ADDR, XPLMI_RTCFG_VER);
 	XPlmi_Out32(XPLMI_RTCFG_SIZE_ADDR, XPLMI_RTCFG_SIZE);
@@ -122,6 +126,7 @@ static void XPlmi_RunTimeConfigInit(void)
 	XPlmi_Out32(XPLMI_RTCFG_PSM_ERR2_STATUS_ADDR, 0U);
 	XPlmi_Out32(XPLMI_RTCFG_PDI_ID_ADDR, XPLMI_RTCFG_PDI_ID);
 	XPlmi_Out32(XPLMI_RTCFG_USR_ACCESS_ADDR, 0U);
+	XPlmi_Out32(XPLMI_RTCFG_SECURE_STATE_ADDR, DevSecureState);
 }
 
 /*****************************************************************************/
