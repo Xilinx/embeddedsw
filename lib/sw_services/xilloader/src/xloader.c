@@ -1895,7 +1895,7 @@ static int XLoader_ReloadImage(XilPdi *PdiPtr, u32 ImageId, const u32 *FuncID)
 	PdiPtr->DelayLoad = (u8)FALSE;
 
 	/*
-	 * This is for libpm to do the clock settings reqired for boot device
+	 * This is for XilPM to do the clock settings reqired for boot device
 	 * to resume post suspension.
 	 */
 	Status = XLoader_PdiRequestBootDevice((PdiSrc_t)DeviceFlags);

@@ -162,7 +162,7 @@ typedef enum {
 					  checksum is wrong. Can happen when
 					  CDO header is corrupted */
 
-	XPLMI_ERR_UART_DEV_PM_REQ,	/**< 0x10D - Error when libPM request
+	XPLMI_ERR_UART_DEV_PM_REQ,	/**< 0x10D - Error when XilPM request
 					  device for UART fails. PM error code
 					  is present in PLM minor code */
 	XPLMI_ERR_UART_LOOKUP,		/**< 0x10E - Error when UART driver
