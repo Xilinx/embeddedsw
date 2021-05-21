@@ -40,6 +40,7 @@
 *       ma   05/18/21 Minor code cleanup
 *       har  05/19/21 Support decryption of partition even if Secure state of
 *                     boot is A-HWRoT or Emulated A-HWRoT
+*       ma   05/21/21 Read KAT Status from RTCA Secure Boot State location
 *
 * </pre>
 *
@@ -3232,7 +3233,7 @@ int XLoader_UpdateKatStatus(XilPdi *PdiPtr)
 	CryptoKat = XPlmi_In32(EFUSE_CACHE_MISC_CTRL) &
 			EFUSE_CACHE_MISC_CTRL_CRYPTO_KAT_EN_MASK;
 	if(CryptoKat == EFUSE_CACHE_MISC_CTRL_CRYPTO_KAT_EN_MASK) {
-		PdiPtr->PlmKatStatus = XPlmi_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE2);
+		PdiPtr->PlmKatStatus = XPlmi_In32(XPLMI_RTCFG_SECURE_STATE_ADDR);
 	} else {
 		PdiPtr->PlmKatStatus = XLOADER_KAT_DONE;
 	}
