@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -48,6 +48,7 @@
 *       bm   12/16/20 Added PLM_SECURE_EXCLUDE macro. Also moved authentication and
 *                     encryption related code to xloader_auth_enc.h file
 * 1.05  har  03/17/21 Added API to set the secure state of device
+*       har  05/20/21 Updated copyright year
 *
 * </pre>
 *
