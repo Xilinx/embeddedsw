@@ -35,6 +35,7 @@
 #include "xsecure_sha.h"
 #include "xsecure_sha_ipihandler.h"
 #include "xsecure_init.h"
+#include "xsecure_error.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -183,10 +184,17 @@ static int XSecure_ShaKat(void)
 		goto END;
 	}
 
+	if (XSecureSha3InstPtr->Sha3State == XSECURE_SHA3_ENGINE_STARTED) {
+		Status = (int)XSECURE_SHA3_KAT_BUSY;
+		goto END;
+	}
+
 	Status = XSecure_Sha3Initialize(XSecureSha3InstPtr, PmcDmaInstPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+	Status = XST_FAILURE;
 	Status = XSecure_Sha3Kat(XSecureSha3InstPtr);
 
 END:

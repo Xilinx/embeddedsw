@@ -706,6 +706,11 @@ int XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3)
 		goto END;
 	}
 
+	if (SecureSha3->Sha3State == XSECURE_SHA3_ENGINE_STARTED) {
+		Status = (int)XSECURE_SHA3_KAT_BUSY;
+		goto END;
+	}
+
 	Status = XSecure_Sha3Start(SecureSha3);
 	if (Status != XST_SUCCESS) {
 		goto END_RST;

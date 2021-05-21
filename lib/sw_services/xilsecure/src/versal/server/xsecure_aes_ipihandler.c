@@ -477,9 +477,28 @@ static int XSecure_AesExecuteDecKat(void)
 {
 	volatile int Status = XST_FAILURE;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
+	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(XSECURE_PMCDMA_DEVICEID);
 
+	if (NULL == PmcDmaInstPtr) {
+		goto END;
+	}
+
+	if ((XSecureAesInstPtr->AesState == XSECURE_AES_ENCRYPT_INITIALIZED) ||
+		(XSecureAesInstPtr->AesState == XSECURE_AES_DECRYPT_INITIALIZED)) {
+		Status = (int)XSECURE_AES_KAT_BUSY;
+		goto END;
+	}
+
+	/* Initialize the Aes driver so that it's ready to use */
+	Status = XSecure_AesInitialize(XSecureAesInstPtr, PmcDmaInstPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XST_FAILURE;
 	Status = XSecure_AesDecryptKat(XSecureAesInstPtr);
 
+END:
 	return Status;
 }
 
@@ -496,8 +515,27 @@ static int XSecure_AesExecuteDecCmKat(void)
 {
 	volatile int Status = XST_FAILURE;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
+	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(XSECURE_PMCDMA_DEVICEID);
 
+	if (NULL == PmcDmaInstPtr) {
+		goto END;
+	}
+
+	if ((XSecureAesInstPtr->AesState == XSECURE_AES_ENCRYPT_INITIALIZED) ||
+		(XSecureAesInstPtr->AesState == XSECURE_AES_DECRYPT_INITIALIZED)) {
+		Status = (int)XSECURE_AES_KAT_BUSY;
+		goto END;
+	}
+
+	/* Initialize the Aes driver so that it's ready to use */
+	Status = XSecure_AesInitialize(XSecureAesInstPtr, PmcDmaInstPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XST_FAILURE;
 	Status = XSecure_AesDecryptCmKat(XSecureAesInstPtr);
 
+END:
 	return Status;
 }

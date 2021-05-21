@@ -108,8 +108,11 @@ int XSecure_ProcessTamperResponse(void)
 			 * Trigger software tamper event to ROM to execute lockdown
 			 * for PMC
 			 */
-			Xil_Out32(PMC_GLOBAL_TAMPER_TRIG, PMC_GLOBAL_TAMPER_TRIG_VAL);
-
+			Status = Xil_SecureOut32(PMC_GLOBAL_TAMPER_TRIG,
+					PMC_GLOBAL_TAMPER_TRIG_VAL);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
 			/**
 			 * Wait forever; ROM to complete secure lock down
 			 */

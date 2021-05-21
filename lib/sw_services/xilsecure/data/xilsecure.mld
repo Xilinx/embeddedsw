@@ -42,7 +42,7 @@ BEGIN LIBRARY xilsecure
   OPTION VERSION = 4.5;
   OPTION NAME = xilsecure;
   PARAM name = secure_environment, desc = "Enables trusted execution environment \nto allow device key usage(post boot) in ZynqMP \nfor IPI response/Linux/U-boot calls valid only \nfor PMUFW BSP", type = bool, default = false;
-  PARAM name = tpm_support, desc = "Enables decryption of bitstream to memory and \n then writes it to PCAP, allows calculation of \nsha on decrypted bitstream in chunks\n valid only for ZynqMP FSBL BSP", type = bool, default = false;
+  PARAM name = tpm_support, desc = "Enables decryption of bitstream to memory and \nthen writes it to PCAP, allows calculation of \nsha on decrypted bitstream in chunks \nvalid only for ZynqMP FSBL BSP", type = bool, default = false;
   PARAM name = mode, desc = "Enables A72/R5 server and client mode support for XilSecure library for \n Versal", type = enum, values = (mode = "client", mode = "server"), default = "client";
   PARAM name = nonsecure_ipi_access, desc = "Enables non secure access for Xilsecure IPI commands for Versal", type = bool, default = false;
 END LIBRARY
