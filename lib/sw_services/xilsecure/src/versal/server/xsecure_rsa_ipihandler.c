@@ -116,8 +116,8 @@ static int XSecure_RsaDecrypt(u32 SrcAddrLow, u32 SrcAddrHigh,
 		goto END;
 	}
 
-	if (((RsaParams.KeyAddr >> 32) != 0x0U) ||
-		((RsaParams.DataAddr >> 32) != 0x0U) ||
+	if (((RsaParams.KeyAddr >> 32U) != 0x0U) ||
+		((RsaParams.DataAddr >> 32U) != 0x0U) ||
 		(DstAddrHigh != 0x0U)) {
 		XSecure_Printf(XSECURE_DEBUG_GENERAL,
 				"64 bit address not supported for "
@@ -127,7 +127,8 @@ static int XSecure_RsaDecrypt(u32 SrcAddrLow, u32 SrcAddrHigh,
 	}
 
 	u8 *Modulus = (u8 *)(UINTPTR)(RsaParams.KeyAddr);
-	u8 *PrivExp = (u8 *)(UINTPTR)(RsaParams.KeyAddr + 512);
+	u8 *PrivExp = (u8 *)(UINTPTR)(RsaParams.KeyAddr +
+				XSECURE_RSA_4096_KEY_SIZE);
 
 	Status = XSecure_RsaInitialize(XSecureRsaInstPtr, Modulus, NULL, PrivExp);
 	if (Status != XST_SUCCESS) {
@@ -177,18 +178,19 @@ static int XSecure_RsaEncrypt(u32 SrcAddrLow, u32 SrcAddrHigh,
 		goto END;
 	}
 
-	if (((RsaParams.KeyAddr >> 32) != 0x0U) ||
-		((RsaParams.DataAddr >> 32) != 0x0U) ||
+	if (((RsaParams.KeyAddr >> 32U) != 0x0U) ||
+		((RsaParams.DataAddr >> 32U) != 0x0U) ||
 		(DstAddrHigh != 0x0U)) {
 		XSecure_Printf(XSECURE_DEBUG_GENERAL,
 				"64 bit address not supported for "
-				"XSecure_RsaPrivateDecrypt\r\n");
+				"XSecure_RsaPublicEncrypt\r\n");
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
 	u8 *Modulus = (u8 *)(UINTPTR)(RsaParams.KeyAddr);
-	u8 *PublicExp = (u8 *)(UINTPTR)(RsaParams.KeyAddr + 512);
+	u8 *PublicExp = (u8 *)(UINTPTR)(RsaParams.KeyAddr +
+				XSECURE_RSA_4096_KEY_SIZE);
 
 	Status = XSecure_RsaInitialize(XSecureRsaInstPtr, Modulus, NULL, PublicExp);
 	if (Status != XST_SUCCESS) {
@@ -231,8 +233,8 @@ static int XSecure_RsaSignVerify(u32 SrcAddrLow, u32 SrcAddrHigh)
 		goto END;
 	}
 
-	if (((SignParams.HashAddr >> 32) != 0x0U) ||
-		((SignParams.SignAddr >> 32) != 0x0U)) {
+	if (((SignParams.HashAddr >> 32U) != 0x0U) ||
+		((SignParams.SignAddr >> 32U) != 0x0U)) {
 		XSecure_Printf(XSECURE_DEBUG_GENERAL,
 				"64 bit address not supported for "
 				"XSecure_RsaSignVerification\r\n");
