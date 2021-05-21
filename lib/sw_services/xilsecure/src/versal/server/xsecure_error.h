@@ -147,10 +147,14 @@ typedef enum {
 	XSECURE_ELLIPTIC_VER_SIGN_S_ORDER_ERROR,        /**< 0xCF - S is not within ECC order */
 	XSECURE_ELLIPTIC_KAT_INVLD_CRV_ERROR,   /**< 0xD0 - Curve not supported for KAT */
 
-	XSECURE_NO_TAMPER_RESPONSE = 0xF0,               /**< 0xF0 - No tamper response when
-                                                        tamper interrupt is detected */
+	XSECURE_NO_TAMPER_RESPONSE = 0xF0,	/**< 0xF0 - No tamper response when
+						tamper interrupt is detected */
 	XSECURE_IPI_ACCESS_NOT_ALLOWED,         /**< 0xF1 - Access to Xilsecure IPIs
 						is disabled if IPI request is non secure */
+	XSECURE_SHA3_KAT_BUSY,			/**< 0xF2 - SHA3 busy with earlier operation,
+						Kat can't be executed */
+	XSECURE_AES_KAT_BUSY			/**< 0xF3 - AES busy with earlier operation,
+						Kat can't be executed */
 } XSecure_ErrorCodes;
 /**
  * @}
