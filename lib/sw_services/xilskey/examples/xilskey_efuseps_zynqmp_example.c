@@ -50,6 +50,8 @@
 *                         case of success
 * 7.1   kpt      05/11/21 Added BareMetal support for programming PUF Fuses as
 *                         general purpose fuses
+*       kpt      05/21/21 Added print before programming PPK hash into non-zero
+*                         PPK efuses
 *
 * </pre>
 *
@@ -235,6 +237,8 @@ static inline u32 XilSKey_EfusePs_ZynqMp_InitData(
 {
 
 	u32 PsStatus;
+	u32 PpkRd[XSK_ZYNQMP_EFUSEPS_PPK_HASH_REG_NUM];
+	u8 Row;
 
 	PsStatus = XST_SUCCESS;
 
@@ -439,6 +443,21 @@ static inline u32 XilSKey_EfusePs_ZynqMp_InitData(
 			(char *)XSK_EFUSEPS_PPK0_HASH,
 			&PsInstancePtr->Ppk0Hash[0],
 			XSK_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS_384);
+
+		/* Warn user before programming if PPK Hash is non-zero */
+		PsStatus = XilSKey_ZynqMp_EfusePs_ReadPpk0Hash(PpkRd,
+									XSK_EFUSEPS_RD_FROM_CACHE);
+		if (PsStatus != XST_SUCCESS) {
+			goto ERROR;
+		}
+
+		for (Row = 0U; Row < XSK_ZYNQMP_EFUSEPS_PPK_HASH_REG_NUM; Row++) {
+			if (PpkRd[Row] != 0U) {
+				xil_printf(
+					"PPK0 Hash in efuse is non-zero before programming \r\n");
+				break;
+			}
+		}
 	}
 
 	/* Is PPK1 hash programming is enabled */
@@ -455,6 +474,21 @@ static inline u32 XilSKey_EfusePs_ZynqMp_InitData(
 			(char *)XSK_EFUSEPS_PPK1_HASH,
 			&PsInstancePtr->Ppk1Hash[0],
 			XSK_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS_384);
+
+		/* Warn user before programming if PPK Hash is non-zero */
+		PsStatus = XilSKey_ZynqMp_EfusePs_ReadPpk1Hash(PpkRd,
+									XSK_EFUSEPS_RD_FROM_CACHE);
+		if (PsStatus != XST_SUCCESS) {
+			goto ERROR;
+		}
+
+		for (Row = 0U; Row < XSK_ZYNQMP_EFUSEPS_PPK_HASH_REG_NUM; Row++) {
+			if (PpkRd[Row] != 0U) {
+				xil_printf(
+					"PPK1 Hash in efuse is non-zero before programming \r\n");
+				break;
+			}
+		}
 	}
 
 	if (PsInstancePtr->PrgrmSpkID == TRUE) {

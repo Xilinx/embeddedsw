@@ -72,6 +72,9 @@
 * 		kal	    02/28/21 Added Error code
 * 			             XSK_EFUSEPS_PUF_CANT_BE_USED_FOR_USER_DATA
 *       kpt     05/11/21 Added Error code XSK_EFUSEPS_ERROR_PUF_USER_DATA
+*       kpt     05/21/21 Added Error Codes
+*                        XSK_EFUSEPS_ERROR_PPK0_BIT_CANT_REVERT
+*                        XSK_EFUSEPS_ERROR_PPK1_BIT_CANT_REVERT
 *
 * </pre>
 *
@@ -985,6 +988,13 @@ typedef enum {
 	XSK_EFUSEPS_ERROR_PUF_AUX_ALREADY_PROGRAMMED = 0XEB00,/**< 0xEB00<br>Error
 					*  When PUF AUX already programmed
 					* in eFuse. */
+	XSK_EFUSEPS_ERROR_PPK0_BIT_CANT_REVERT = 0xEC00U,/**< 0xEC00<br>
+					*  Already programmed PPK0 Hash bit
+					*  cannot be reverted */
+	XSK_EFUSEPS_ERROR_PPK1_BIT_CANT_REVERT = 0xED00U,/**< 0xEC00<br>
+					*  Already programmed PPK1 Hash bit
+					*  cannot be reverted */
+
 	XSK_EFUSEPS_ERROR_CMPLTD_EFUSE_PRGRM_WITH_ERR = 0x10000U,/**< 0x10000<br>
 					*  eFUSE programming is completed with
 					*  temp and vol read errors. */
