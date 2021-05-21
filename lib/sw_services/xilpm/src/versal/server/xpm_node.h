@@ -23,7 +23,7 @@ typedef struct XPm_Node XPm_Node;
  * reset node classes.
  */
 struct XPm_Node {
-	u32 Id;	/**< Node ID: For LibPM clock and pin APIs */
+	u32 Id;	/**< Node ID: For XilPM clock and pin APIs */
 	u32 BaseAddress; /**< Base address: Specify to node type */
 	u16 LatencyMarg; /**< lowest latency requirement - powerup latency */
 	u8  State; /**< Node state: Specific to node type */

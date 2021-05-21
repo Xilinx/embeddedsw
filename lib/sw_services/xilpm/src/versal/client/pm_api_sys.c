@@ -26,9 +26,9 @@
 	Payload[5] = (u32)Arg5;						\
 	XPm_Dbg("%s(%x, %x, %x, %x, %x)\r\n", __func__, Arg1, Arg2, Arg3, Arg4, Arg5);
 
-#define LIBPM_MODULE_ID			(0x02UL)
+#define XILPM_MODULE_ID			(0x02UL)
 
-#define HEADER(len, ApiId)		((len << 16U) | (LIBPM_MODULE_ID << 8U) | ((u32)ApiId))
+#define HEADER(len, ApiId)		((len << 16U) | (XILPM_MODULE_ID << 8U) | ((u32)ApiId))
 
 #define PACK_PAYLOAD0(Payload, ApiId) \
 	PACK_PAYLOAD(Payload, HEADER(0UL, ApiId), 0, 0, 0, 0, 0)

@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 ###############################################################################
 
@@ -16,16 +16,16 @@ RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
 INCLUDES=-I./. -I${INCLUDEDIR}
 
-LIBPM_DIR = .
+XILPM_DIR = .
 OUTS = *.o
 OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
-LIBPM_SRCS := $(wildcard *.c)
-LIBPM_OBJS = $(addprefix $(LIBPM_DIR)/, $(LIBPM_SRCS:%.c=%.o))
+XILPM_SRCS := $(wildcard *.c)
+XILPM_OBJS = $(addprefix $(XILPM_DIR)/, $(XILPM_SRCS:%.c=%.o))
 
 libs: libxilpm.a
 
-libxilpm.a: print_msg_xilpm $(LIBPM_OBJS)
-	$(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${LIBPM_OBJS}
+libxilpm.a: print_msg_xilpm $(XILPM_OBJS)
+	$(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${XILPM_OBJS}
 
 print_msg_xilpm:
 	@echo "Compiling XilPM Library"
@@ -35,8 +35,8 @@ include:
 	echo "Include files for this library have already been copied."
 
 clean:
-	rm -rf $(LIBPM_DIR)/${OBJECTS}
+	rm -rf $(XILPM_DIR)/${OBJECTS}
 	rm -rf ${RELEASEDIR}/${LIB}
 
-$(LIBPM_DIR)/%.o: $(LIBPM_DIR)/%.c $(INCLUDEFILES)
+$(XILPM_DIR)/%.o: $(XILPM_DIR)/%.c $(INCLUDEFILES)
 	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(CUSTOM_COMPILER_FLAGS) $(INCLUDES) -c $< -o $@
