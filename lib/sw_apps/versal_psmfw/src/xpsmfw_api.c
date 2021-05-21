@@ -15,9 +15,9 @@
 	Payload[1] = (u32)Arg1;         \
 	XPsmFw_Printf(DEBUG_DETAILED, "%s(%x)\r\n", __func__, Arg1);
 
-#define LIBPM_MODULE_ID			(0x06U)
+#define XILPM_MODULE_ID			(0x06U)
 #define HEADER(len, ApiId)		(u32)(((u32)len << 16) |		\
-					      ((u32)LIBPM_MODULE_ID << 8) |	\
+					      ((u32)XILPM_MODULE_ID << 8) |	\
 					      (ApiId))
 
 #define PACK_PAYLOAD0(Payload, ApiId)	\

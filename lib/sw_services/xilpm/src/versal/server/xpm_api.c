@@ -777,7 +777,7 @@ XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId
 		(u32)XPM_NODEIDX_ISO_FPD_PL,
 	};
 
-	PmInfo("Initializing LibPM\n\r");
+	PmInfo("Initializing XilPM Library\n\r");
 
 	PmRequestCb = RequestCb;
 
@@ -1030,7 +1030,7 @@ static XStatus PwrDomainInitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArg
 		(XST_SUCCESS == Status)) {
 #ifdef DEBUG_UART_PS
 		/**
-		 * PLM needs to request UART if debug is enabled, else LibPM
+		 * PLM needs to request UART if debug is enabled, else XilPM
 		 * will turn it off when it is not used by other processor.
 		 * During such scenario when PLM tries to print debug message,
 		 * system may not work properly.
@@ -1043,7 +1043,7 @@ static XStatus PwrDomainInitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArg
 		}
 #endif
 		/**
-		 * PLM needs to request PMC IPI, else LibPM will reset IPI
+		 * PLM needs to request PMC IPI, else XilPM will reset IPI
 		 * when it is not used by other processor. Because of that PLM
 		 * hangs when it tires to communicate through IPI.
 		 */
