@@ -73,7 +73,8 @@ int XPlm_HookAfterPmcCdo(void *Arg)
 	int Status = XST_FAILURE;
 
 	(void)Arg;
-	/* Call LibPM hook */
+
+	/* Call XilPM hook */
 	Status = XPm_HookAfterPlmCdo();
 
 	return Status;

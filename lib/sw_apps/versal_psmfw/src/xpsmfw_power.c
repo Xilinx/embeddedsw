@@ -330,7 +330,7 @@ void XPsmFw_FpdMbisr(void)
 			PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK,
 			~PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK);
 
-	/* Bisr will now be triggered by libpm when this call returns */
+	/* Bisr will now be triggered by XilPM when this call returns */
 }
 
 void XPsmFw_FpdMbistClear(void)
@@ -1282,7 +1282,7 @@ static XStatus PowerUp_FP(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Instead of trigeering this interrupt
-	FPD CDO should be reexecuted by libPM */
+	FPD CDO should be reexecuted by XilPM */
 
 	Status = XST_SUCCESS;
 
