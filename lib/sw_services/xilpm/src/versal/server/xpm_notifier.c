@@ -13,7 +13,12 @@
 #include "xplmi_task.h"
 #include "xplmi_scheduler.h"
 
-#define XPM_NOTIFIERS_COUNT	10U
+#ifdef XILPM_NOTIFIER_LIST_SIZE
+#define XPM_NOTIFIERS_COUNT XILPM_NOTIFIER_LIST_SIZE /* Provide by user */
+#else
+#define XPM_NOTIFIERS_COUNT    10U /* Default size */
+#endif
+
 #define XILPM_NOTIFIER_INTERVAL	(10U)
 #define PRESENT		(1)
 #define NOT_PRESENT	(0)
