@@ -85,6 +85,8 @@
 *                      requests
 *       kpt   05/11/21 Added Baremetal support for programming PUF Fuses as
 *                      general purpose data
+*       kpt   05/21/21 Added support to allow PPK Hash programming multiple
+*                      times
 *
 * </pre>
 *
@@ -171,13 +173,17 @@ u32 XilSKey_ZynqMp_EfusePs_Write(XilSKey_ZynqMpEPs *InstancePtr)
 	u32 Status = (u32)XST_FAILURE;
 	u8 AesKeyInBits[XSK_ZYNQMP_EFUSEPS_AES_KEY_LEN_IN_BITS] = {0};
 	u8 Ppk0InBits[XSK_ZYNQMP_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS] = {0};
+	u8 PpkRdInBits[XSK_ZYNQMP_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS] = {0};
 	u8 Ppk1InBits[XSK_ZYNQMP_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS] = {0};
 	u8 SpkIdInBits[XSK_ZYNQMP_EFUSEPS_SPKID_LEN_IN_BITS] = {0};
 	u8 SpkIdInBitsRd[XSK_ZYNQMP_EFUSEPS_SPKID_LEN_IN_BITS] = {0};
 	XilSKey_UsrFuses UsrFuses_ToPrgm[8] = {0};
+	u32 PpkHashValRd[XSK_ZYNQMP_EFUSEPS_PPK_HASH_REG_NUM] = {0U};
+	u32 PpkHashVal[XSK_ZYNQMP_EFUSEPS_PPK_HASH_REG_NUM] = {0U};
+	u8 PpkHashLen = XSK_ZYNQMP_EFUSEPS_PPK_HASH_REG_NUM - 1U;
 	u32 AesCrc;
 	u32 SpkId;
-	u8 Column;
+	u32 Column;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -233,6 +239,63 @@ u32 XilSKey_ZynqMp_EfusePs_Write(XilSKey_ZynqMpEPs *InstancePtr)
 			}
 		}
 	}
+
+	/* Verify PPK0 Hash */
+	if (InstancePtr->PrgrmPpk0Hash == TRUE) {
+		Status = XilSKey_ZynqMp_EfusePs_ReadPpk0Hash(PpkHashVal,
+					XSK_EFUSEPS_READ_FROM_CACHE);
+
+		for (Column = 0U; Column < XSK_ZYNQMP_EFUSEPS_PPK_HASH_REG_NUM;
+			Column++) {
+			XilSKey_EfusePs_ConvertBytesBeToLe((u8*)&PpkHashVal[Column],
+				(u8*)&PpkHashValRd[PpkHashLen - Column], 1U);
+		}
+		XilSKey_Efuse_ConvertBitsToBytes((u8*)PpkHashValRd, PpkRdInBits,
+			XSK_ZYNQMP_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS);
+		XilSKey_Efuse_ConvertBitsToBytes(InstancePtr->Ppk0Hash, Ppk0InBits,
+			XSK_ZYNQMP_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS);
+
+		for (Column = 0; Column < XSK_ZYNQMP_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS;
+			Column++) {
+			if ((PpkRdInBits[Column] == 1U) && (Ppk0InBits[Column] == 0U)) {
+				Status = (u32)XSK_EFUSEPS_ERROR_BEFORE_PROGRAMMING |
+						(u32)XSK_EFUSEPS_ERROR_PPK0_BIT_CANT_REVERT;
+				goto UNLOCK;
+			}
+			if ((PpkRdInBits[Column] == 1U) && (Ppk0InBits[Column] == 1U)) {
+				Ppk0InBits[Column] = 0U;
+			}
+		}
+	}
+
+	/* Verify PPK1 Hash */
+	if (InstancePtr->PrgrmPpk1Hash == TRUE) {
+		Status = XilSKey_ZynqMp_EfusePs_ReadPpk1Hash(PpkHashVal,
+					XSK_EFUSEPS_READ_FROM_CACHE);
+
+		for (Column = 0U; Column < XSK_ZYNQMP_EFUSEPS_PPK_HASH_REG_NUM;
+			Column++) {
+			XilSKey_EfusePs_ConvertBytesBeToLe((u8*)&PpkHashVal[Column],
+				(u8*)&PpkHashValRd[PpkHashLen - Column], 1U);
+		}
+		XilSKey_Efuse_ConvertBitsToBytes((u8*)PpkHashValRd, PpkRdInBits,
+			XSK_ZYNQMP_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS);
+		XilSKey_Efuse_ConvertBitsToBytes(InstancePtr->Ppk1Hash, Ppk1InBits,
+			XSK_ZYNQMP_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS);
+
+		for (Column = 0; Column < XSK_ZYNQMP_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS;
+			Column++) {
+			if ((PpkRdInBits[Column] == 1U) && (Ppk1InBits[Column] == 0U)) {
+				Status = (u32)XSK_EFUSEPS_ERROR_BEFORE_PROGRAMMING |
+						(u32)XSK_EFUSEPS_ERROR_PPK1_BIT_CANT_REVERT;
+				goto UNLOCK;
+			}
+			if ((PpkRdInBits[Column] == 1U) && (Ppk1InBits[Column] == 1U)) {
+				Ppk1InBits[Column] = 0U;
+			}
+		}
+	}
+
 
 	/* Validation of requested User FUSES bits */
 	Status = XilSKey_ZynqMp_EfusePs_UserFuses_WriteChecks(
@@ -383,11 +446,8 @@ u32 XilSKey_ZynqMp_EfusePs_Write(XilSKey_ZynqMpEPs *InstancePtr)
 			goto END;
 		}
 	}
+	/* Programming SHA3 hash(384 bit) into Efuse PPK0 */
 	if (InstancePtr->PrgrmPpk0Hash == TRUE) {
-		/* Programming SHA3 hash(384 bit) into Efuse PPK0 */
-		XilSKey_Efuse_ConvertBitsToBytes(
-			InstancePtr->Ppk0Hash, Ppk0InBits,
-			XSK_ZYNQMP_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS);
 		Status =
 			XilSKey_ZynqMp_EfusePs_WriteAndVerify_RowRange(
 			Ppk0InBits, XSK_ZYNQMP_EFUSEPS_PPK0_START_ROW,
@@ -399,11 +459,8 @@ u32 XilSKey_ZynqMp_EfusePs_Write(XilSKey_ZynqMpEPs *InstancePtr)
 			goto END;
 		}
 	}
+	/* Programming SHA3 hash(384 bit) into Efuse PPK1 */
 	if (InstancePtr->PrgrmPpk1Hash == TRUE) {
-		/* Programming SHA3 hash(384 bit) into Efuse PPK1 */
-		XilSKey_Efuse_ConvertBitsToBytes(
-			InstancePtr->Ppk1Hash, Ppk1InBits,
-			XSK_ZYNQMP_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS);
 		Status = XilSKey_ZynqMp_EfusePs_WriteAndVerify_RowRange(
 			Ppk1InBits, XSK_ZYNQMP_EFUSEPS_PPK1_START_ROW,
 			XSK_ZYNQMP_EFUSEPS_PPK1_SHA3_HASH_END_ROW,
@@ -2007,8 +2064,6 @@ static INLINE u32 XilSKey_ZynqMp_EfusePs_CheckZeros_BfrPrgrmg(
 					const XilSKey_ZynqMpEPs *InstancePtr)
 {
 	u32 Status = (u32)XST_FAILURE;
-	u32 PpkHashVal[XSK_ZYNQMP_EFUSEPS_PPK_HASH_REG_NUM] = {0U};
-	u32 Offset;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -2020,38 +2075,6 @@ static INLINE u32 XilSKey_ZynqMp_EfusePs_CheckZeros_BfrPrgrmg(
 		if (Status != (u32)XST_SUCCESS) {
 			Status = (u32)XSK_EFUSEPS_ERROR_AES_ALREADY_PROGRAMMED;
 			goto END;
-		}
-	}
-
-	/* Check Zeros for PPK0 hash */
-	if (InstancePtr->PrgrmPpk0Hash == TRUE) {
-		Status = XilSKey_ZynqMp_EfusePs_ReadPpk0Hash(PpkHashVal,
-					XSK_EFUSEPS_READ_FROM_CACHE);
-		if (Status != (u32)XST_SUCCESS) {
-			goto END;
-		}
-		for (Offset = 0U; Offset < XSK_ZYNQMP_EFUSEPS_PPK_HASH_REG_NUM;
-			Offset++) {
-			if (PpkHashVal[Offset] != 0X00U) {
-				Status = (u32)XSK_EFUSEPS_ERROR_PPK0_HASH_ALREADY_PROGRAMMED;
-				goto END;
-			}
-		}
-	}
-
-	/* Check Zeros for PPK1 hash */
-	if (InstancePtr->PrgrmPpk1Hash == TRUE) {
-		Status = XilSKey_ZynqMp_EfusePs_ReadPpk1Hash(PpkHashVal,
-					XSK_EFUSEPS_READ_FROM_CACHE);
-		if (Status != (u32)XST_SUCCESS) {
-			goto END;
-		}
-		for (Offset = 0U; Offset < XSK_ZYNQMP_EFUSEPS_PPK_HASH_REG_NUM;
-			Offset++) {
-			if (PpkHashVal[Offset] != 0X00U) {
-				Status = (u32)XSK_EFUSEPS_ERROR_PPK1_HASH_ALREADY_PROGRAMMED;
-				goto END;
-			}
 		}
 	}
 
@@ -2489,6 +2512,9 @@ u32 XilSKey_ZynqMp_EfusePs_ProgramPufAsUserFuses(
 				(u32)XSK_EFUSEPS_ERROR_USER_BIT_CANT_REVERT;
 				goto END;
 			}
+
+			Data[StartRow - PufUserFuseRow] = (~ReadReg) &
+											Data[StartRow - PufUserFuseRow];
 		}
 
 		/* Program PUF User Fuses */
