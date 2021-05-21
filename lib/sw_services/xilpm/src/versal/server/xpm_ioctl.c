@@ -66,7 +66,7 @@ static int XPm_SetTapdelayBypass(const u32 DeviceId, const u32 Type,
 
 done:
 	if (XST_SUCCESS != Status) {
-		PmErr("Returned: 0x%x\n\r", Status);
+		PmErr("0x%x\n\r", Status);
 	}
 
 	return Status;
@@ -131,7 +131,7 @@ static int XPm_SdDllReset(const u32 DeviceId, const u32 Type)
 
 done:
 	if (XST_SUCCESS != Status) {
-		PmErr("Returned: 0x%x\n\r", Status);
+		PmErr("0x%x\n\r", Status);
 	}
 
 	return Status;
@@ -200,7 +200,7 @@ static int XPm_SetSdTapDelay(const u32 DeviceId, const u32 Type,
 
 done:
 	if (XST_SUCCESS != Status) {
-		PmErr("Returned: 0x%x\n\r", Status);
+		PmErr("0x%x\n\r", Status);
 	}
 
 	return Status;
@@ -366,7 +366,7 @@ static int XPm_ProbeCounterAccess(u32 DeviceId, u32 Arg1, u32 Value,
 
 done:
 	if (XST_SUCCESS != Status) {
-		PmErr("Returned: 0x%x\n\r", Status);
+		PmErr("0x%x\n\r", Status);
 	}
 
 	return Status;
@@ -984,7 +984,7 @@ int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id Ioctl
 
 done:
 	if (XST_SUCCESS != Status) {
-		PmErr("Returned: 0x%x\n\r", Status);
+		PmErr("0x%x\n\r", Status);
 	}
 
 	return Status;

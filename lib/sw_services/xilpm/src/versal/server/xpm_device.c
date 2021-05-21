@@ -1081,8 +1081,8 @@ static XStatus HandleDeviceState(XPm_Device* const Device, const u32 NextState)
 		break;
 	}
 
-	if(Status != XST_SUCCESS) {
-		PmErr("Returned: 0x%x\n\r", Status);
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
 	}
 	return Status;
 }
@@ -1203,7 +1203,7 @@ static XStatus Request(XPm_Device *Device, XPm_Subsystem *Subsystem,
 done:
 	if (XST_SUCCESS != Status) {
 		XPmRequirement_Clear(Reqm);
-		PmErr("Returned: 0x%x\n\r", Status);
+		PmErr("0x%x\n\r", Status);
 	}
 	return Status;
 }
@@ -1264,7 +1264,7 @@ static XStatus SetRequirement(XPm_Device *Device, XPm_Subsystem *Subsystem,
 
 done:
 	if (XST_SUCCESS != Status) {
-		PmErr("Returned: 0x%x\n\r", Status);
+		PmErr("0x%x\n\r", Status);
 	}
 	return Status;
 }
@@ -1328,7 +1328,7 @@ static XStatus Release(XPm_Device *Device, XPm_Subsystem *Subsystem, u32 CmdType
 
 done:
 	if (XST_SUCCESS != Status) {
-		PmErr("Returned: 0x%x\n\r", Status);
+		PmErr("0x%x\n\r", Status);
 	}
 	return Status;
 }
@@ -1480,8 +1480,8 @@ XStatus XPmDevice_AddClock(XPm_Device *Device, XPm_ClockNode *Clock)
 	Status = XST_SUCCESS;
 
 done:
-	if(Status != XST_SUCCESS) {
-		PmErr("Returned: 0x%x\n\r", Status);
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
 	}
 	return Status;
 }
@@ -1521,8 +1521,8 @@ XStatus XPmDevice_AddReset(XPm_Device *Device, XPm_ResetNode *Reset)
 	Status = XST_SUCCESS;
 
 done:
-	if(Status != XST_SUCCESS) {
-		PmErr("Returned: 0x%x\n\r", Status);
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
 	}
 	return Status;
 }
@@ -1590,8 +1590,8 @@ XStatus XPmDevice_Reset(XPm_Device *Device, const XPm_ResetActions Action)
 	Status = XST_SUCCESS;
 
 done:
-	if(Status != XST_SUCCESS) {
-		PmErr("Returned: 0x%x\n\r", Status);
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
 	}
 	return Status;
 }
@@ -1618,8 +1618,8 @@ int XPmDevice_CheckPermissions(XPm_Subsystem *Subsystem, u32 DeviceId)
 	}
 
 done:
-	if(Status != XST_SUCCESS) {
-		PmErr("Returned: 0x%x\n\r", Status);
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
 	}
 	return Status;
 }
@@ -1864,8 +1864,8 @@ XStatus XPmDevice_Request(const u32 SubsystemId, const u32 DeviceId,
 	}
 
 done:
-	if(Status != XST_SUCCESS) {
-		PmErr("Returned: 0x%x\n\r", Status);
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
 	}
 	return Status;
 }
@@ -1899,8 +1899,8 @@ XStatus XPmDevice_Release(const u32 SubsystemId, const u32 DeviceId,
 	Status = Device->DeviceOps->Release(Device, Subsystem, CmdType);
 
 done:
-	if(Status != XST_SUCCESS) {
-		PmErr("Returned: 0x%x\n\r", Status);
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
 	}
 	return Status;
 }
@@ -1936,8 +1936,8 @@ XStatus XPmDevice_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
 						   Capabilities, QoS);
 
 done:
-	if(Status != XST_SUCCESS) {
-		PmErr("Returned: 0x%x\n\r", Status);
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
 	}
 	return Status;
 }
@@ -1973,9 +1973,10 @@ XStatus XPmDevice_GetStatus(const u32 SubsystemId,
 	DeviceStatus->Usage = XPmDevice_GetUsageStatus(Subsystem, Device);
 
 	Status = XST_SUCCESS;
+
 done:
-	if(Status != XST_SUCCESS) {
-		PmErr("Returned: 0x%x\n\r", Status);
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
 	}
 	return Status;
 }

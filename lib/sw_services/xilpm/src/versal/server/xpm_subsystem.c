@@ -1059,8 +1059,8 @@ XStatus XPmSubsystem_GetStatus(const u32 SubsystemId, const u32 DeviceId,
 	Status = XST_SUCCESS;
 
 done:
-	if (Status != XST_SUCCESS) {
-		PmErr("Returned: 0x%x\n\r", Status);
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
 	}
 
 	return Status;
