@@ -48,7 +48,7 @@ int XSecure_EllipticGenerateKey(u32 CurveType, u64 PrivKeyAddr, u64 PubKeyAddr);
 int XSecure_EllipticValidateKey(u32 CurveType, u64 KeyAddr);
 int XSecure_EllipticVerifySign(u32 CurveType, u64 HashAddr, u32 Size,
                         u64 PubKeyAddr, u64 SignAddr);
-int XSecure_EllipticKat();
+int XSecure_EllipticKat(u32 CurveType);
 
 #ifdef __cplusplus
 }

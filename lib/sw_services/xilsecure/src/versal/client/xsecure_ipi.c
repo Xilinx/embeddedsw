@@ -251,7 +251,7 @@ END:
  * 		- XST_FAILURE - If there is a failure
  *
  ****************************************************************************/
-int XSecure_IpiReadBuff32()
+int XSecure_IpiReadBuff32(void)
 {
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
 	int Status = XST_FAILURE;
