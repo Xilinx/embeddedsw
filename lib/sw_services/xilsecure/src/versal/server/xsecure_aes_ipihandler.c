@@ -112,14 +112,14 @@ int XSecure_AesIpiHandler(XPlmi_Cmd *Cmd)
 		Status = XSecure_AesKeyZeroize(Pload[0]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_WRITE_KEY):
-		Status = XSecure_AesKeyWrite(Pload[0], Pload[1], Pload[2],
+		Status = XSecure_AesKeyWrite((u8)Pload[0], (u8)Pload[1], Pload[2],
 				Pload[3]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_KEK_DECRYPT):
 		Status = XSecure_AesDecryptKek(Pload[0], Pload[1], Pload[2]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_SET_DPA_CM):
-		Status = XSecure_AesSetDpaCmConfig(Pload[0]);
+		Status = XSecure_AesSetDpaCmConfig((u8)Pload[0]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_DECRYPT_KAT):
 		Status = XSecure_AesExecuteDecKat();
@@ -271,7 +271,7 @@ static int XSecure_AesEncUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
 	}
 
 	Status = XSecure_AesEncryptUpdate(XSecureAesInstPtr, InParams.InDataAddr,
-				DstAddr, InParams.Size, InParams.IsLast);
+				DstAddr, InParams.Size, (u8)InParams.IsLast);
 END:
 	return Status;
 }
@@ -333,7 +333,7 @@ static int XSecure_AesDecUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
 	}
 
 	Status = XSecure_AesDecryptUpdate(XSecureAesInstPtr, InParams.InDataAddr,
-				DstAddr, InParams.Size, InParams.IsLast);
+				DstAddr, InParams.Size, (u8)InParams.IsLast);
 
 END:
 	return Status;
