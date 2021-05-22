@@ -21,6 +21,7 @@
 * 4.5   kal  03/23/20 Updated file version to sync with library version
 *       har  04/14/21 Renamed XSecure_ConfigIpi as XSecure_SetIpi
 *                     Added XSecure_InitializeIpi
+*       am   05/22/21 Resolved MISRA C violations
 *
 * </pre>
 *
@@ -252,7 +253,7 @@ END:
  ****************************************************************************/
 int XSecure_IpiReadBuff32()
 {
-	u32 Response[RESPONSE_ARG_CNT];
+	u32 Response[RESPONSE_ARG_CNT] = {0U};
 	int Status = XST_FAILURE;
 
 	/* Wait until current IPI interrupt is handled by target module */
