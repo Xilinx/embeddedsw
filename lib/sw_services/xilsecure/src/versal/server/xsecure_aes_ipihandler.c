@@ -47,7 +47,7 @@
 
 /************************** Function Prototypes *****************************/
 static int XSecure_AesInit(void);
-static int XSecure_AesOpInit(u32 SrcAddrLow, u32 SrcAddrHigh);
+static int XSecure_AesOperationInit(u32 SrcAddrLow, u32 SrcAddrHigh);
 static int XSecure_AesAadUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size);
 static int XSecure_AesEncUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
 	u32 DstAddrLow, u32 DstAddrHigh);
@@ -83,7 +83,7 @@ int XSecure_AesIpiHandler(XPlmi_Cmd *Cmd)
 		Status = XSecure_AesInit();
 		break;
 	case XSECURE_API(XSECURE_API_AES_OP_INIT):
-		Status = XSecure_AesOpInit(Pload[0], Pload[1]);
+		Status = XSecure_AesOperationInit(Pload[0], Pload[1]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_UPDATE_AAD):
 		Status = XSecure_AesAadUpdate(Pload[0], Pload[1], Pload[2]);
@@ -169,7 +169,7 @@ END:
  * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XSecure_AesOpInit(u32 SrcAddrLow, u32 SrcAddrHigh)
+static int XSecure_AesOperationInit(u32 SrcAddrLow, u32 SrcAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
