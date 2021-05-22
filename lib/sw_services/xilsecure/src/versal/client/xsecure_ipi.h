@@ -19,6 +19,7 @@
 * 4.5   kal  03/23/20 Updated file version to sync with library version
 *       har  04/14/21 Renamed XSecure_ConfigIpi as XSecure_SetIpi
 *                     Added XSecure_InitializeIpi
+*       am   05/22/21 Resolved MISRA C violation
 *
 * </pre>
 * @note
@@ -67,7 +68,7 @@ int XSecure_ProcessIpiWithPayload4(u32 ApiId, u32 Arg1, u32 Arg2, u32 Arg3,
 int XSecure_ProcessIpiWithPayload5(u32 ApiId, u32 Arg1, u32 Arg2, u32 Arg3,
 	u32 Arg4, u32 Arg5);
 int XSecure_IpiSend(u32 *Payload);
-int XSecure_IpiReadBuff32();
+int XSecure_IpiReadBuff32(void);
 int XSecure_SetIpi(XIpiPsu* const IpiInst);
 int XSecure_InitializeIpi(XIpiPsu* const IpiInstPtr);
 
