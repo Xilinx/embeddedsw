@@ -15,7 +15,8 @@
 * <pre>
 * Ver   Who    Date     Changes
 * ----- ------ -------- -------------------------------------------------
-* 1.0  kal 21/04/2021 First Release
+* 1.0   kal    04/21/21 First Release
+* 4.5   kal    04/21/21 Updated file version to sync with library version
 *
 * </pre>
 ******************************************************************************/

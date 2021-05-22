@@ -22,7 +22,7 @@
 * ----- ------ -------- -------------------------------------------------
 * 4.1   vns    08/06/19 First Release
 * 4.3   har    10/12/20 Addressed security review comments
-* 4.4   har    03/02/21 Added support for AAD
+* 4.5   har    03/02/21 Added support for AAD
 * 	kal    03/23/21 Updated example for client support
 *
 * </pre>

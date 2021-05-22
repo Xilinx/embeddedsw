@@ -33,7 +33,7 @@
 *       har  09/30/2020 Deprecated Family Key support
 *       har  10/12/2020 Addressed security review comments
 *       ana  10/15/2020 Updated doxygen tags
-* 4.4   har  03/02/2021 Added prototype for XSecure_AesUpdateAad
+* 4.5   har  03/02/2021 Added prototype for XSecure_AesUpdateAad
 *
 * </pre>
 *

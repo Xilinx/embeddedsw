@@ -24,7 +24,7 @@
  *       am   09/24/2020 Resolved MISRA C violations
  *       har  10/12/2020 Addressed security review comments
  *       ana  10/15/2020 Updated doxygen comments
- * 4.4   har  01/18/2021 Added error code for invalid ECC curve
+ * 4.5   har  01/18/2021 Added error code for invalid ECC curve
  *       kpt  02/04/2021 Added error code for tamper response
  *       har  05/18/2021 Added error code XSECURE_IPI_ACCESS_NOT_ALLOWED
  *                       Added error code XSECURE_AES_DEVICE_KEY_NOT_ALLOWED
