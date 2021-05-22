@@ -16,6 +16,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kal  03/23/21 Initial release
+* 4.5   kal  03/23/20 Updated file version to sync with library version
 *       har  04/14/21 Renamed XSecure_ConfigIpi as XSecure_SetIpi
 *                     Added XSecure_InitializeIpi
 *

@@ -20,7 +20,7 @@
 *       kpt  08/06/20 Added XSECURE_AES_KEY_DEC_RESET_MASK macro
 *       am   09/24/20 Resolved MISRA C violations
 *       har  10/12/20 Addressed security review comments
-* 4.4   har  03/02/21 Added register offset for AAD
+* 4.5   har  03/02/21 Added register offset for AAD
 *
 * </pre>
 *

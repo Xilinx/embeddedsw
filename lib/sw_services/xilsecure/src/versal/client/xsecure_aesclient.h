@@ -18,6 +18,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kal  03/23/21 Initial release
+* 4.5   kal  03/23/20 Updated file version to sync with library version
 *       har  04/14/21 Added XSecure_AesEncryptData and XSecure_AesDecryptData
 *
 * </pre>

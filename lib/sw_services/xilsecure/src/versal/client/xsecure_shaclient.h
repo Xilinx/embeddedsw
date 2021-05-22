@@ -19,6 +19,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kal  03/17/21 Initial release
+* 4.5   kal  03/23/20 Updated file version to sync with library version
 *       kpt  04/28/21 Added enum XSecure_ShaState to update sha driver states
 *
 * </pre>

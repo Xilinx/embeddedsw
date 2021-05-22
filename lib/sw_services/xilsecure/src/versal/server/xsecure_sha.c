@@ -34,8 +34,8 @@
 *       am   09/24/20 Resolved MISRA C violations
 *       har  10/12/20 Addressed security review comments
 *       am   10/19/20 Resolved MISRA C violations
-* 4.4   am   11/24/20 Resolved MISRA C violations
-*       bm   01/13/20 Added 64-bit support
+* 4.5   am   11/24/20 Resolved MISRA C violations
+*       bm   01/13/21 Added 64-bit support
 *       kpt  05/02/21 Added check to verify the DMA state in
 *                     XSecure_Sha3Initialize
 *
