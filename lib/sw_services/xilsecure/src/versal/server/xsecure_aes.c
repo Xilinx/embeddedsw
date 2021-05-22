@@ -60,6 +60,7 @@
 *       har  03/02/2021 Added support for AES AAD
 *       kpt  03/21/2021 Added volatile keyword for SStatus variable in
 *                       XSecure_AesDecryptKat to avoid compiler optimization.
+*       am   05/21/2021 Resolved MISRA C violations
 *
 * </pre>
 *
@@ -1696,8 +1697,8 @@ int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance)
 {
 	volatile int Status = XST_FAILURE;
 
-	u32 Output0[XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS];
-	u32 Output1[XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS];
+	u32 Output0[XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS] = {0U};
+	u32 Output1[XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS] = {0U};
 
 	const u32 *RM0 = &Output0[0U];
 	const u32 *R0 = &Output0[4U];
