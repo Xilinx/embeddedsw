@@ -20,6 +20,7 @@
 * 1.00  kal   03/04/2021 Initial release
 *       bm    05/13/2021 Updated code to use common crypto instance
 *       har   05/18/2021 Added check for key source for IPI calls
+*       am    05/21/2021 Resolved Coverity violations
 *
 * </pre>
 *
@@ -193,12 +194,16 @@ static int XSecure_AesOpInit(u32 SrcAddrLow, u32 SrcAddrHigh)
 	}
 
 	if (AesParams.OperationId == XSECURE_ENCRYPT) {
-		Status = XSecure_AesEncryptInit(XSecureAesInstPtr, AesParams.KeySrc,
-				AesParams.KeySize, AesParams.IvAddr);
+		Status = XSecure_AesEncryptInit(XSecureAesInstPtr,
+				(XSecure_AesKeySrc)AesParams.KeySrc,
+				(XSecure_AesKeySize)AesParams.KeySize,
+				AesParams.IvAddr);
 	}
 	else {
-		Status = XSecure_AesDecryptInit(XSecureAesInstPtr, AesParams.KeySrc,
-				AesParams.KeySize, AesParams.IvAddr);
+		Status = XSecure_AesDecryptInit(XSecureAesInstPtr,
+				(XSecure_AesKeySrc)AesParams.KeySrc,
+				(XSecure_AesKeySize)AesParams.KeySize,
+				AesParams.IvAddr);
 	}
 
 END:
@@ -412,7 +417,8 @@ static int XSecure_AesKeyWrite(u8  KeySize, u8 KeySrc,
 		goto END;
 	}
 
-	Status = XSecure_AesWriteKey(XSecureAesInstPtr, KeySrc,
+	Status = XSecure_AesWriteKey(XSecureAesInstPtr,
+				(XSecure_AesKeySrc)KeySrc,
 				(XSecure_AesKeySize)KeySize, KeyAddr);
 
 END:
@@ -435,9 +441,12 @@ static int XSecure_AesDecryptKek(u32 KeyInfo, u32 IvAddrLow, u32 IvAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 IvAddr = ((u64)IvAddrHigh << 32U) | (u64)IvAddrLow;
-	XSecure_AesKeySrc DecKeySrc = KeyInfo & XSECURE_AES_DEC_KEY_SRC_MASK;
-	XSecure_AesKeySrc DstKeySrc = KeyInfo & XSECURE_AES_DST_KEY_SRC_MASK;
-	XSecure_AesKeySize KeySize = KeyInfo & XSECURE_AES_KEY_SIZE_MASK;
+	XSecure_AesKeySrc DecKeySrc = (XSecure_AesKeySrc)(KeyInfo &
+		XSECURE_AES_DEC_KEY_SRC_MASK);
+	XSecure_AesKeySrc DstKeySrc = (XSecure_AesKeySrc)(KeyInfo &
+		XSECURE_AES_DST_KEY_SRC_MASK);
+	XSecure_AesKeySize KeySize = (XSecure_AesKeySize)(KeyInfo &
+		XSECURE_AES_KEY_SIZE_MASK);
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
 	Status = XSecure_AesKekDecrypt(XSecureAesInstPtr, DecKeySrc, DstKeySrc,
