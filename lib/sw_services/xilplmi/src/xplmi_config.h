@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,7 @@
 * 1.05  rama 08/12/2020 Added macro to exclude STL by default
 *       bm   10/14/2020 Code clean up
 * 1.06  bm   12/16/2020 Added PLM_SECURE_EXCLUDE macro
+*       bm   05/22/2021 Made PLM_USB_EXCLUDE as default to reduce default PLM Size
 *
 * </pre>
 *
@@ -103,18 +104,20 @@ extern "C" {
 /**
  * @name PLM code include options
  *
- *  PLM by default all the code is included.
+ *  PLM by default includes all the code except USB code.
  *  Unwanted code can be excluded from the elf by defining here
  *  Below blocks can be excluded from the code.
  *		- PLM_QSPI_EXCLUDE QSPI code will be excluded
  *		- PLM_SD_EXCLUDE SD code will be excluded
+ *		- PLM_OSPI_EXCLUDE OSPI code will be excluded
+ *		- PLM_USB_EXCLUDE USB code will be excluded
  *		- PLM_SEM_EXCLUDE SEM code will be excluded
  *		- PLM_SECURE_EXCLUDE secure code will be excluded
  */
 //#define PLM_QSPI_EXCLUDE
 //#define PLM_SD_EXCLUDE
 //#define PLM_OSPI_EXCLUDE
-//#define PLM_USB_EXCLUDE
+#define PLM_USB_EXCLUDE
 //#define PLM_SEM_EXCLUDE
 //#define PLM_SECURE_EXCLUDE
 /**
