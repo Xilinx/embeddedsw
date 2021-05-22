@@ -21,6 +21,7 @@
 *       kpt   05/02/2021 Modified Sha3Kat function and added check to verify
 *                        whether DMA is already initialized
 *       bm    05/13/2021 Updated code to use common crypto instance
+*       am    05/22/2021 Resolved MISRA C violation rule 17.8
 *
 * </pre>
 *
@@ -134,21 +135,22 @@ static int XSecure_ShaUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
 				u32 DstAddrLow, u32 DstAddrHigh)
 {
 	int Status = XST_FAILURE;
+	u32 InputSize = Size;
 	XSecure_Sha3 *XSecureSha3InstPtr = XSecure_GetSha3Instance();
 	u64 DataAddr = ((u64)SrcAddrHigh << 32) | (u64)SrcAddrLow;
 	u64 DstAddr = ((u64)DstAddrHigh << 32) | (u64)DstAddrLow;
 
-	if ((Size & XSECURE_IPI_FIRST_PACKET_MASK) != 0x0U) {
+	if ((InputSize & XSECURE_IPI_FIRST_PACKET_MASK) != 0x0U) {
 		Status = XSecure_ShaInitialize();
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 	}
 
-	if ((Size & XSECURE_IPI_CONTINUE_MASK) != 0x0U) {
-		Size = Size & (~XSECURE_IPI_CONTINUE_MASK) &
+	if ((InputSize & XSECURE_IPI_CONTINUE_MASK) != 0x0U) {
+		InputSize = InputSize & (~XSECURE_IPI_CONTINUE_MASK) &
 			(~XSECURE_IPI_FIRST_PACKET_MASK);
-		Status = XSecure_Sha3Update64Bit(XSecureSha3InstPtr, DataAddr, Size);
+		Status = XSecure_Sha3Update64Bit(XSecureSha3InstPtr, DataAddr, InputSize);
 	}
 	else {
 		if (DstAddrHigh != 0x0U) {
