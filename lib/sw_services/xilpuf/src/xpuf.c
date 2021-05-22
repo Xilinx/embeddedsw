@@ -37,6 +37,7 @@
 *       har  03/08/2021 Added checks for IRO frequency
 *       har  05/03/2021 Restructured code in XPuf_StartRegeneration to remove
 *                       repeated code
+*       am   05/18/2021 Resolved MISRA C violations
 *
 * </pre>
 *
@@ -159,7 +160,7 @@ static inline void XPuf_CfgGlobalVariationFilter(const u8 GlobalVarFilter)
  *		XPUF_IRO_FREQ_MISMATCH - IRO frequency is not 320 MHz
  *
  *****************************************************************************/
-static inline int XPuf_CheckIroFreq()
+static inline int XPuf_CheckIroFreq(void)
 {
 	int Status = XPUF_IRO_FREQ_MISMATCH;
 
