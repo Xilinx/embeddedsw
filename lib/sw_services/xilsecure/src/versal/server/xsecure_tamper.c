@@ -19,8 +19,8 @@
 * 4.3   rpo 06/25/2020 Updated file version to sync with library version
 *       am  09/24/2020 Resolved MISRA C violations
 *       har 10/12/2020 Addressed security review comments
-*       kpt 01/27/2021 Fixed bug in clearing tamper interrupt
-*       kpt 02/04/2021 Added redundancy for tamper interrupt and response
+* 4.4   kpt 01/27/2021 Fixed bug in clearing tamper interrupt
+* 4.5   kpt 02/04/2021 Added redundancy for tamper interrupt and response
 *                      checks
 *
 * </pre>

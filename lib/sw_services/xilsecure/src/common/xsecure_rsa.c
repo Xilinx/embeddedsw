@@ -46,7 +46,7 @@
 *       rpo  09/21/20 New error code added for crypto state mismatch
 *       am   09/24/20 Resolved MISRA C violations
 *       har  10/12/20 Addressed security review comments
-* 4.4   am   11/24/20 Resolved MISRA C violations
+* 4.5   am   11/24/20 Resolved MISRA C violations
 *
 * </pre>
 *

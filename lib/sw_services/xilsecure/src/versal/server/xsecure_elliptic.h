@@ -26,7 +26,7 @@
 *       har  10/12/20 Addressed security review comments
 *       har  10/14/20 Replaced ecdsa with elliptic in names of function and
 *                     macros
-* 4.4   har  01/18/21 Updated prototype for XSecure_EllipticKat
+* 4.5   har  01/18/21 Updated prototype for XSecure_EllipticKat
 *
 * </pre>
 *

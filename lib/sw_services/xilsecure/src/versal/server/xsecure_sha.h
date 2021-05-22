@@ -44,7 +44,7 @@
 *       am   09/24/20 Resolved MISRA C violations
 *       har  10/12/20 Addressed security review comments
 *       ana  10/15/20 Updated doxygen tags
-* 4.4   bm   01/13/20 Added support for 64-bit input data address
+* 4.5   bm   01/13/21 Added support for 64-bit input data address
 *
 * </pre>
 *

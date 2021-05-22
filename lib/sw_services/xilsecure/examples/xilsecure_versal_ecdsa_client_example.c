@@ -17,7 +17,7 @@
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   har  08/24/2020 Initial release
 * 4.3   har  08/24/2020 Updated file version to sync with library version
-* 4.4   kal  03/23/2021 Updated file for client support.
+* 4.5   kal  03/23/2021 Updated file for client support.
 *
 * </pre>
 *
