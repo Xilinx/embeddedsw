@@ -28,7 +28,7 @@
 *       am      09/24/20 Resolved MISRA C violations
 *       har     10/12/20 Addressed security review comments
 *       am      10/10/20 Resolved Coverity warning
-* 4.4   am      11/24/20 Resolved MISRA C violations
+* 4.5   am      11/24/20 Resolved MISRA C violations
 *       bm      01/13/21 Added 64 bit In and Out apis
 *       har     02/01/21 Removed Status variable from XSecure_ReadReg
 *       bm      05/19/21 Added macro for word aligned mask

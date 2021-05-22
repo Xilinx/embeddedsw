@@ -25,7 +25,7 @@
 *       bsv     10/19/20 Changed register writes to PMC SSS Cfg switch to mask
 *                        writes
 *       kpt     11/12/20 Fixed SSS Cfg issue
-* 4.4   am      11/24/20 Resolved Coverity warnings
+* 4.5   am      11/24/20 Resolved Coverity warnings
 *
 * </pre>
 *

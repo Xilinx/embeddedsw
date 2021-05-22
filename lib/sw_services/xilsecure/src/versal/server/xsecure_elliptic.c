@@ -25,7 +25,7 @@
 *       har 10/12/20  Addressed security review comments
 *       har 10/14/20  Replaced ecdsa with elliptic in names of function and
 *                     macros
-* 4.4   har 01/18/20  Added support for ECDSA P521 KAT
+* 4.5   har 01/18/20  Added support for ECDSA P521 KAT
 *       kpt 02/14/21  Added redundancy for ECDSA hash length check
 *       har 03/22/21  Added volatile keyword to status variables used in
 *                     XSECURE_TEMPORAL_CHECK

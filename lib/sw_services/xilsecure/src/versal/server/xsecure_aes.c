@@ -55,7 +55,7 @@
 *                       XSecure_AesPmcDmaCfgByteSwap function
 *       har  10/12/2020 Addressed security review comments
 *       am   10/10/2020 Resolved Coverity warnings
-* 4.4   am   11/24/2020 Resolved MISRA C and Coverity warnings
+* 4.5   am   11/24/2020 Resolved MISRA C and Coverity warnings
 *       har  02/12/2021 Separated input validation checks for Instance pointer
 *       har  03/02/2021 Added support for AES AAD
 *       kpt  03/21/2021 Added volatile keyword for SStatus variable in

@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kal  03/23/21 Initial release
+* 4.5   kal  03/23/20 Updated file version to sync with library version
 *       kal  03/28/21 Added XSecure_Sha3Digest Client API
 *       kpt  05/02/21 Updated XSecure_Sha3Update function to accept multiple
 *                     data update requests from user and maintained sha driver
