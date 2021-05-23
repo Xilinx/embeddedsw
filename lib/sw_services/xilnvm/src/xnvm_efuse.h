@@ -31,7 +31,7 @@
 * 	kal  09/03/2020 Fixed Security CoE review comments
 *	am   10/13/2020 Resolved MISRA C violations
 *	ana  10/15/2020 Updated doxygen comments.
-* 2.2	kal  01/07/2021	Added support to SecurityMisc1, BootEnvCtrl,MiscCtrl
+* 2.3	kal  01/07/2021	Added support to SecurityMisc1, BootEnvCtrl,MiscCtrl
 *			and remaining eFuses in SecCtrl eFuse rows programming
 *			and reading
 *	kal  01/28/2021 Added new error code for glitch detection
