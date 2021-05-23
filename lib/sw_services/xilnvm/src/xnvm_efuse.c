@@ -2064,7 +2064,7 @@ static int XNvm_EfuseWriteSecCtrl(const XNvm_EfuseSecCtrlBits *SecCtrl)
 		goto END;
 	}
 
-	if ((SecCtrl->AesDis != 0x00) &&
+	if ((SecCtrl->AesDis != 0x00U) &&
 		((RowDataVal &
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_AES_DIS_MASK) !=
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_AES_DIS_MASK)) {
@@ -2077,7 +2077,7 @@ static int XNvm_EfuseWriteSecCtrl(const XNvm_EfuseSecCtrlBits *SecCtrl)
 		}
 	}
 
-	if ((SecCtrl->JtagErrOutDis != 0x00) &&
+	if ((SecCtrl->JtagErrOutDis != 0x00U) &&
 		((RowDataVal &
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_JTAG_ERROUT_DIS_MASK) !=
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_JTAG_ERROUT_DIS_MASK)) {
@@ -2091,7 +2091,7 @@ static int XNvm_EfuseWriteSecCtrl(const XNvm_EfuseSecCtrlBits *SecCtrl)
 		}
 	}
 
-	if ((SecCtrl->JtagDis != 0x00) &&
+	if ((SecCtrl->JtagDis != 0x00U) &&
 		((RowDataVal &
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_JTAG_DIS_MASK) !=
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_JTAG_DIS_MASK)) {
