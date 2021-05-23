@@ -23,7 +23,7 @@
 *	am   08/19/2020 Resolved MISRA C violations.
 *	kal  09/03/2020 Fixed Security CoE review comments
 *	am   10/13/2020 Resolved MISRA C violations
-* 2.2   am   11/23/2020 Resolved MISRA C violations
+* 2.3   am   11/23/2020 Resolved MISRA C violations
 *	kal  01/07/2021	Added new macros for BootEnvCtrl and SecurityMisc1
 *			eFuse rows
 *	kal  02/20/2021 Added new macros for sysmon measure registers
