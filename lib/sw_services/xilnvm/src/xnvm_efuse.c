@@ -57,11 +57,11 @@
 *			CACHE_ERROR
 *       kpt  05/06/2021 Corrected check to program SafetyMissionEn bit
 *	kal  05/07/2021 Reset the read mode after eFuse operations are done
-*   kpt  05/12/2021 Added check to set environmental disable flag and
-*                   sysmon instance for individual write API's
+*       kpt  05/12/2021 Added check to set environmental disable flag and
+*                       sysmon instance for individual write API's
 *	kpt  05/20/2021 Added support for programming PUF efuses as
-*					 general purpose data
-*
+*                       general purpose data
+*       am   05/22/2021 Resolved MISRA C violations
 *
 * </pre>
 *
@@ -3612,7 +3612,7 @@ END:
 static int XNvm_EfuseValidateIV(const u32 *Iv, u32 Row)
 {
 	int Status = XST_FAILURE;
-	u32 IvRowsRd[XNVM_EFUSE_IV_LEN_IN_WORDS];
+	u32 IvRowsRd[XNVM_EFUSE_IV_LEN_IN_WORDS] = {0U};
 	u32 IvRow;
 
 	if (Iv == NULL) {
@@ -4900,7 +4900,7 @@ static int XNvm_EfusePgmBit(XNvm_EfuseType Page, u32 Row, u32 Col)
 {
 	int Status = XST_FAILURE;
 	u32 PgmAddr;
-	u32 EventMask;
+	u32 EventMask = 0U;
 
 	PgmAddr = ((u32)Page << XNVM_EFUSE_ADDR_PAGE_SHIFT) |
 		(Row << XNVM_EFUSE_ADDR_ROW_SHIFT) |
