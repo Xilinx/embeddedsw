@@ -2070,7 +2070,7 @@ static int XNvm_EfuseWriteSecCtrl(const XNvm_EfuseSecCtrlBits *SecCtrl)
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_AES_DIS_MASK)) {
 		Status = XST_FAILURE;
 		Status = XNvm_EfusePgmAndVerifyBit(EfuseType, Row,
-					XNVM_EFUSE_SEC_AES_DIS);
+					(u32)XNVM_EFUSE_SEC_AES_DIS);
 		if (Status != XST_SUCCESS) {
 			Status = (Status | XNVM_EFUSE_ERR_WRITE_AES_DIS);
 			goto END;
@@ -2083,7 +2083,7 @@ static int XNvm_EfuseWriteSecCtrl(const XNvm_EfuseSecCtrlBits *SecCtrl)
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_JTAG_ERROUT_DIS_MASK)) {
 		Status = XST_FAILURE;
 		Status = XNvm_EfusePgmAndVerifyBit(EfuseType, Row,
-					XNVM_EFUSE_SEC_JTAG_ERROUT_DIS);
+					(u32)XNVM_EFUSE_SEC_JTAG_ERROUT_DIS);
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
 					XNVM_EFUSE_ERR_WRITE_JTAG_ERROUT_DIS);
@@ -2097,7 +2097,7 @@ static int XNvm_EfuseWriteSecCtrl(const XNvm_EfuseSecCtrlBits *SecCtrl)
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_JTAG_DIS_MASK)) {
 		Status = XST_FAILURE;
 		Status = XNvm_EfusePgmAndVerifyBit(EfuseType, Row,
-					XNVM_EFUSE_SEC_JTAG_DIS);
+					(u32)XNVM_EFUSE_SEC_JTAG_DIS);
 		if (Status != XST_SUCCESS) {
 			Status = (Status | XNVM_EFUSE_ERR_WRITE_JTAG_DIS);
 			goto END;
