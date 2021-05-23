@@ -699,7 +699,7 @@
 *       rpo    06/08/20 Support added to program eFUSE halt boot bits to stop
 *                       at ROM stage.
 *       kal    10/12/20 Address Seurity review comments.
-* 2.2	kal    01/07/21 Added support to SecurityMisc1, BootEnvCtrl,MiscCtrl
+* 2.3	kal    01/07/21 Added support to SecurityMisc1, BootEnvCtrl,MiscCtrl
 *			and remaining eFuses in SecCtrl eFuse rows programming
 *			and reading
 *	kal    02/20/21 Added new macro for Environmental Monitor Disable

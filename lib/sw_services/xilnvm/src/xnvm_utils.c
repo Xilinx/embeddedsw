@@ -28,7 +28,7 @@
 * 2.1	am   08/19/2020 Resolved MISRA C violations.
 * 	kal  09/03/2020 Fixed Security CoE review comments
 *	am   10/13/2020 Resolved MISRA C violations
-* 2.2	kal  01/27/2021 Added XNvm_ZeroizeAndVerify API
+* 2.3	kal  01/27/2021 Added XNvm_ZeroizeAndVerify API
 *
 * </pre>
 *

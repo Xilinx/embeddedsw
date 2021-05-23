@@ -21,7 +21,7 @@
 * 2.1	am   08/19/2020 Resolved MISRA C violations.
 *	kal  09/03/2020 Fixed Security CoE review comments
 *	am   10/13/2020 Resolved MISRA C violations
-* 2.2   am   11/23/2020 Resolved MISRA C violation Rule 10.6
+* 2.3   am   11/23/2020 Resolved MISRA C violation Rule 10.6
 * 	kal  12/23/2020 Disable BBRAM programming in error case also
 *	kal  01/27/2021	Zeroize BBRAM in case of CRC mismatch
 *			Zeroize BBRAM User Data in case of write failure

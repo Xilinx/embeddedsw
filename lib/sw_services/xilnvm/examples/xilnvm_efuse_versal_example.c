@@ -32,7 +32,7 @@
  *	 am    10/10/2020 Changed function return type and type of
  *			  status variable from u32 to int
  *       kal   10/12/2020 Addressed Security review comments.
- * 2.2	 kal   01/07/2021 Added support to SecurityMisc1, BootEnvCtrl,MiscCtrl
+ * 2.3	 kal   01/07/2021 Added support to SecurityMisc1, BootEnvCtrl,MiscCtrl
  *			  and remaining eFuses in SecCtrl eFuse rows programming
  *			  and reading
  *	 kal   02/20/2021 Added Environmental Monitor Disable interface support

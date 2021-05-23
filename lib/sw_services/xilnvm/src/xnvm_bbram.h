@@ -23,7 +23,7 @@
 * 2.1	am   08/19/2020 Resolved MISRA C violations
 *       am   10/13/2020 Resolved MISRA C violations
 *       ana  10/15/2020 Updated doxygen comments
-* 2.2   am   11/23/2020 Resolved MISRA C violation
+* 2.3   am   11/23/2020 Resolved MISRA C violation
 *
 * </pre>
 *
