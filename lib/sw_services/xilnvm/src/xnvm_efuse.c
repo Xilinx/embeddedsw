@@ -43,7 +43,7 @@
 *			and reading
 *	kal  01/25/2021	Initialized variables to more secure state
 *	kal  01/25/2021 Fix cache logic error in XNvm_EfuseReadCacheRange API
-*	kal  02/22/2021	Add redundancy to loop in XNvm_EfusePgmAndVerifyRows
+* 2.3   kal  02/22/2021 Add redundancy to loop in XNvm_EfusePgmAndVerifyRows
 *	kal  02/26/2021 Fix all SW-BP-ZEROIZE related review comments
 *	kal  03/02/2021 Add Environmental monitoring support before eFuse
 *			programming
