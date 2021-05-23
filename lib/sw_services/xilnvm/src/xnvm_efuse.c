@@ -1538,8 +1538,6 @@ END_RST:
 		}
 	}
 
-	return Status;
-
 END:
 	return Status;
 }
@@ -1607,7 +1605,6 @@ END_RST:
 			Status = (Status | XNVM_EFUSE_ERR_IN_ZEROIZATION);
 		}
 	}
-	return Status;
 
 END:
 	return Status;
