@@ -479,7 +479,7 @@ static XAie_Events _XAie_GetBroadcastEventfromRscId(XAie_DevInst *DevInst,
 *
 * @param        DevInst: Device Instance
 * @param        StartCol: Start column from where broadcast conf needs to be
-*                         cleared
+* 			  cleared
 * @param        EndCol: End column till where broadcast conf needs to be cleared
 * @param        BcastChannelId: ID of broadcast channel
 *
@@ -537,13 +537,13 @@ static void _XAie_ClearTimerConfig(XAie_DevInst *DevInst, u32 Index,
 /**
 * This API synchronizes timer for all tiles for all modules in the partition.
 *
-* @param        DevInst - Device Instance.
+* @param	DevInst - Device Instance.
 *
 * @return       XAIE_OK on success
 *               XAIE_INVALID_ARGS if any argument is invalid
 *               XAIE_INVALID_TILE if tile type from Loc is invalid
 *
-* @note         None
+* @note		None
 *
 ******************************************************************************/
 AieRC XAie_SyncTimer(XAie_DevInst *DevInst)
@@ -568,8 +568,8 @@ AieRC XAie_SyncTimer(XAie_DevInst *DevInst)
 
 	/* Reserve a free BC across partition */
 	RC = XAie_RequestBroadcastChannel(DevInst, &UserRscNum, RscsBC, 1U);
-		if(RC != XAIE_OK)
-			return RC;
+	if(RC != XAIE_OK)
+		return RC;
 
 	BcastChannelId = RscsBC[0].RscId;
 	/* Setup broadcast for all shim tiles */
