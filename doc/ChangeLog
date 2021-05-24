@@ -27,6 +27,34 @@ Maintain discrete global variables for each controller instance.
 v_hdmiphy1_v2_2:
 Updated the DRU refclk min and max limits
 
+xilsecure_v4_5:
+Added support for ECC NIST P-521 signature verification KAT
+Added support for AAD(Additional Authenticated Data)
+Added client-server support
+Added support to decrypt bitstream to memory before writing to PCAP for ZynqMP
+Added provision to load bitstream from OCM even if DDR is present in design.
+Fixed  MISRA C issues
+
+xilnvm_v2_3:
+Disabled BBRAM programming mode in case of error
+eFUSE read and write support for SecurityMisc1, BootEnvCtrl and remaining eFuses
+in SecCtrl and MiscCtrl rows
+Added environmental monitoring support
+Added Baremetal support for programming PUF Fuses as general purpose Fuses
+Fixed MISRA C issues
+
+xilpuf_v1_3:
+Added support for clearing PUF ID
+Added checks for IRO frequency
+Added few redundancy checks
+Fixed MISRA C issues
+
+xilskey_v7_1:
+Added eFuse classification support for IPI eFuse read/write requests.
+Added baremetal and linux support to PUF HD programming for general
+purpose.
+Added support to allow users to program PPK hash eFuses more than once
+
 New Files Added for 2021.1:
 MIT SPDX License:
 lib/bsp/standalone/src/arm/common/armclang/_sys_time.c
