@@ -28,6 +28,7 @@
 * 1.04  bm   02/01/2021 Add XPlmi_Print functions using xil_vprintf
 *       ma   03/24/2021 Store DebugLog structure to RTCA
 *       ma   03/24/2021 Print logs to memory when PrintToBuf is TRUE
+*       td   05/20/2021 Support user configurable uart baudrate
 *
 * </pre>
 *
@@ -58,7 +59,6 @@ void outbyte(char8 c);
 /***************** Macros (Inline Functions) Definitions *********************/
 /* SPP Input Clk Freq should be 25 MHz */
 #define XPLMI_SPP_INPUT_CLK_FREQ	(25000000U)
-#define XPLMI_UART_BAUD_RATE		(115200U)
 
 /************************** Function Prototypes ******************************/
 
@@ -76,7 +76,6 @@ void outbyte(char8 c);
 int XPlmi_InitUart(void)
 {
 	int Status = XST_FAILURE;
-	u8 Index = 0U;
 
 	/* Initialize UART */
 	/* If UART is already initialized, just return success */
@@ -86,6 +85,7 @@ int XPlmi_InitUart(void)
 	}
 
 #if (XPAR_XUARTPSV_NUM_INSTANCES > 0U)
+	u8 Index = 0U;
 	XUartPsv UartPsvIns;
 	XUartPsv_Config *Config;
 
@@ -114,7 +114,7 @@ int XPlmi_InitUart(void)
 			Status = XPlmi_UpdateStatus(XPLMI_ERR_UART_CFG, Status);
 			goto END;
 		}
-		Status = XUartPsv_SetBaudRate(&UartPsvIns, XPLMI_UART_BAUD_RATE);
+		Status = XUartPsv_SetBaudRate(&UartPsvIns, Config->BaudRate);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XPLMI_ERR_UART_PSV_SET_BAUD_RATE,
 					Status);
