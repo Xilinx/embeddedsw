@@ -170,7 +170,7 @@ void XPsmFw_DvsecPLHandler(void)
 			CPM_CORR_IRQ_UNMASK);
 
 	/* Disable PSM GIC interrupts */
-	XPsmFw_GicP2IrqDisable(XPSMFW_POWER_CPM);
+	XPsmFw_GicP2IrqDisable();
 }
 
 /****************************************************************************/
@@ -333,5 +333,5 @@ void XPsmFw_Cpm5DvsecPLHandler(void)
 			CPM5_CORR_IRQ_UNMASK);
 
 	/* Disable PSM GIC interrupts */
-	XPsmFw_GicP2IrqDisable(XPSMFW_POWER_CPM5);
+	XPsmFw_GicP2IrqDisable();
 }
