@@ -159,7 +159,7 @@ static void udp_packet_send(u8_t finished)
 			xil_printf("error allocating pbuf to send\r\n");
 			return;
 		} else {
-			memcpy(packet->payload, send_buf, UDP_SEND_BUFSIZE);
+			pbuf_take(packet, send_buf, UDP_SEND_BUFSIZE);
 		}
 
 		/* always increment the id */
