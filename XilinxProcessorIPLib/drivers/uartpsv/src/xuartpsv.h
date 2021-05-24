@@ -236,6 +236,7 @@ typedef struct {
 	u32 InputClockHz;			/**< Input clock frequency */
 	s32 ModemPinsConnected; 	/**< Specifies whether modem pins are
 								  *  connected to MIO or FMIO */
+	u32 BaudRate;				/**< Current baud rate */
 } XUartPsv_Config;
 
 /**
