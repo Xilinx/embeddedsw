@@ -27,6 +27,7 @@
  * 1.2   mn   02/11/21 Added support for 16-Bit Bus Width
  *       mn   03/10/21 Fixed doxygen warnings
  *       mn   04/30/21 Fixed rank selection logic for multi rank DDR
+ *       mn   05/24/21 Fixed Eye Test issue with higher rank
  *
  * </pre>
  *
@@ -965,6 +966,8 @@ int main(void)
 					XMt.DdrConfigRanks, RankArg);
 			} else {
 				XMt_SelectRank(RankArg);
+				XMt.RankSel = RankArg;
+				StartAddr = StartAddr | ((u64)RankArg << 32);
 			}
 
 		} else if ((Ch == 'i') || (Ch == 'I')) {
