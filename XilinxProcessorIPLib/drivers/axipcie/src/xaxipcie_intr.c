@@ -6,7 +6,7 @@
 /*****************************************************************************
 **
 * @file xaxipcie_intr.c
-* @addtogroup axipcie_v3_2
+* @addtogroup axipcie_v3_3
 * @{
 *
 * This file implements interrupt functions for the XAxiPcie IP
