@@ -27,6 +27,7 @@
  * 1.2   mn   02/11/21 Added support for 16-Bit Bus Width
  *       mn   03/10/21 Fixed doxygen warnings
  *       mn   04/30/21 Fixed rank selection logic for multi rank DDR
+ *       mn   05/24/21 Fixed Eye Test issue with higher rank
  *
  * </pre>
  *
@@ -450,16 +451,22 @@ void XMt_ClearEye(XMt_CfgData *XMtPtr, u32 *Addr)
 /**
  * This function is used to get the VRef value
  *
+ * @param XMtPtr is the pointer to the Memtest Data Structure
  * @param Addr is the address of GCR5 register
  *
  * @return VRef Value value
  *
  * @note none
  *****************************************************************************/
-static INLINE u32 XMt_GetVref(u32 Addr)
+static INLINE u32 XMt_GetVref(XMt_CfgData *XMtPtr, u32 Addr)
 {
-	return XMt_GetRegValue(Addr, XMT_DDR_PHY_DX0GCR5_DXREFISELR0_MASK,
-			XMT_DDR_PHY_DX0GCR5_DXREFISELR0_SHIFT);
+	if (XMtPtr->RankSel == 1U) {
+		return XMt_GetRegValue(Addr, XMT_DDR_PHY_DX0GCR5_DXREFISELR1_MASK,
+				XMT_DDR_PHY_DX0GCR5_DXREFISELR1_SHIFT);
+	} else {
+		return XMt_GetRegValue(Addr, XMT_DDR_PHY_DX0GCR5_DXREFISELR0_MASK,
+				XMT_DDR_PHY_DX0GCR5_DXREFISELR0_SHIFT);
+	}
 }
 
 /*****************************************************************************/
@@ -477,7 +484,7 @@ u32 XMt_GetVRefAuto(XMt_CfgData *XMtPtr)
 	s32 Index;
 
 	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
-		XMtPtr->VRefAuto[Index] = XMt_GetVref(XMT_LANE0GCR5_OFFSET +
+		XMtPtr->VRefAuto[Index] = XMt_GetVref(XMtPtr, XMT_LANE0GCR5_OFFSET +
 				(XMT_LANE_OFFSET * Index));
 	}
 
@@ -551,8 +558,13 @@ void XMt_SetVrefVal(XMt_CfgData *XMtPtr, u32 VRef)
 	s32 Index;
 
 	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
-		XMT_MASK_WRITE(XMT_LANE0GCR5_OFFSET + (XMT_LANE_OFFSET * Index),
-				XMT_DDR_PHY_DX0GCR5_DXREFISELR0_MASK, VRef);
+		if (XMtPtr->RankSel == 1U) {
+			XMT_MASK_WRITE(XMT_LANE0GCR5_OFFSET + (XMT_LANE_OFFSET * Index),
+					XMT_DDR_PHY_DX0GCR5_DXREFISELR1_MASK, VRef << 8U);
+		} else {
+			XMT_MASK_WRITE(XMT_LANE0GCR5_OFFSET + (XMT_LANE_OFFSET * Index),
+					XMT_DDR_PHY_DX0GCR5_DXREFISELR0_MASK, VRef);
+		}
 	}
 }
 
@@ -571,9 +583,15 @@ void XMt_ResetVrefAuto(XMt_CfgData *XMtPtr)
 	s32 Index;
 
 	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
-		XMT_MASK_WRITE(XMT_LANE0GCR5_OFFSET + (XMT_LANE_OFFSET * Index),
-				XMT_DDR_PHY_DX0GCR5_DXREFISELR0_MASK,
-				XMtPtr->VRefAuto[Index]);
+		if (XMtPtr->RankSel == 1U) {
+			XMT_MASK_WRITE(XMT_LANE0GCR5_OFFSET + (XMT_LANE_OFFSET * Index),
+					XMT_DDR_PHY_DX0GCR5_DXREFISELR1_MASK,
+					XMtPtr->VRefAuto[Index] << 8U);
+		} else {
+			XMT_MASK_WRITE(XMT_LANE0GCR5_OFFSET + (XMT_LANE_OFFSET * Index),
+					XMT_DDR_PHY_DX0GCR5_DXREFISELR0_MASK,
+					XMtPtr->VRefAuto[Index]);
+		}
 	}
 }
 
