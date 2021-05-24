@@ -1264,6 +1264,7 @@ static XStatus SetRequirement(XPm_Device *Device, XPm_Subsystem *Subsystem,
 
 done:
 	if (XST_SUCCESS != Status) {
+		Device->PendingReqm = NULL;
 		PmErr("0x%x\n\r", Status);
 	}
 	return Status;
@@ -1328,6 +1329,7 @@ static XStatus Release(XPm_Device *Device, XPm_Subsystem *Subsystem, u32 CmdType
 
 done:
 	if (XST_SUCCESS != Status) {
+		Device->PendingReqm = NULL;
 		PmErr("0x%x\n\r", Status);
 	}
 	return Status;
