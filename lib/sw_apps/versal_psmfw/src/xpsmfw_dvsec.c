@@ -247,8 +247,6 @@ static void XPsmFw_Cpm5DvsecRead(void)
 	}
 
 	/* Acknowledging Status registers */
-	Xil_Out32(CPM5_SLCR_BASE + CPM5_CORR_IR_STA_OFF,
-		  Xil_In32(CPM5_SLCR_BASE + CPM5_CORR_IR_STA_OFF));
 	Xil_Out32(CPM5_SLCR_BASE + CPM5_MISC_IR_STA_OFF,
 		  Xil_In32(CPM5_SLCR_BASE + CPM5_MISC_IR_STA_OFF));
 	Xil_Out32(CPM5_SLCR_BASE + CPM5_PCIE0_IR_STA_OFF,
@@ -274,8 +272,6 @@ static void XPsmFw_Cpm5DvsecWrite(void)
 	/* Acknowledging Status registers */
 	Xil_Out32(CPM5_SLCR_BASE + CPM5_CORR_IR_STA_OFF,
 		  Xil_In32(CPM5_SLCR_BASE + CPM5_CORR_IR_STA_OFF));
-	Xil_Out32(CPM5_SLCR_BASE + CPM5_MISC_IR_STA_OFF,
-		  Xil_In32(CPM5_SLCR_BASE + CPM5_MISC_IR_STA_OFF));
 	Xil_Out32(CPM5_SLCR_BASE + CPM5_PCIE0_IR_STA_OFF,
 			  Xil_In32(CPM5_SLCR_BASE + CPM5_PCIE0_IR_STA_OFF));
 
@@ -302,7 +298,7 @@ void XPsmFw_Cpm5DvsecHandler(void)
 		XPsmFw_Cpm5DvsecRead();
 	}
 
-	if (((Xil_In32(CPM_SLCR_BASE + CPM5_PCIE0_IR_STA_OFF) &
+	if (((Xil_In32(CPM5_SLCR_BASE + CPM5_PCIE0_IR_STA_OFF) &
 		CPM5_SLCR_DVSEC_CFG_WR_MASK) != 0U) &&
 	    (PlIntrRcvd == FALSE_VALUE)) {
 		XPsmFw_Cpm5DvsecWrite();
