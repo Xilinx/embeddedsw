@@ -8,7 +8,7 @@
 /**
 *
 * @file xaudioformatter_intr.c
-* @addtogroup audioformatter_v1_1
+* @addtogroup audioformatter_v1_2
 * @{
 *
 * This file contains interrupt related functions of Xilinx Audio Formatter core.
