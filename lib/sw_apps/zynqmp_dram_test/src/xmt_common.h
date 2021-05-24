@@ -21,6 +21,7 @@
  *       mn   09/27/18 Modify code to add 2D Read/Write Eye Tests support
  *       mn   07/29/20 Modify code to use DRAM VRef for 2D Write Eye Test
  * 1.2   mn   02/11/21 Added support for 16-Bit Bus Width
+ *       mn   05/24/21 Fixed Eye Test issue with higher rank
  *
  * </pre>
  *
@@ -169,6 +170,9 @@ extern "C" {
 #define XMT_DDR_PHY_DX0GCR5			0xFD080714
 #define XMT_DDR_PHY_DX0GCR5_DXREFISELR0_SHIFT	0
 #define XMT_DDR_PHY_DX0GCR5_DXREFISELR0_MASK	0x7F
+
+#define XMT_DDR_PHY_DX0GCR5_DXREFISELR1_SHIFT	8
+#define XMT_DDR_PHY_DX0GCR5_DXREFISELR1_MASK	0x7F00
 
 #define XMT_DDR_PHY_DX0LCDLR0			0xFD080780
 #define XMT_DDR_PHY_DX0LCDLR0_WLD_SHIFT		0
@@ -361,6 +365,7 @@ typedef struct {
 	double TapPs;
 	double DdrFreq;
 	u32 DdrType;
+	u32 RankSel;
 } XMt_CfgData;
 
 /************************** Function Prototypes ******************************/
