@@ -6,7 +6,7 @@
 /*****************************************************************************
 **
 * @file xaxipcie.c
-* @addtogroup axipcie_v3_2
+* @addtogroup axipcie_v3_3
 * @{
 *
 * Implements all of functions for XAxiPcie IP driver except interrupts and
