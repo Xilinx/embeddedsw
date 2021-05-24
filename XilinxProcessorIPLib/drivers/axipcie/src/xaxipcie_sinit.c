@@ -6,7 +6,7 @@
 /*****************************************************************************
 **
 * @file xaxipcie_sinit.c
-* @addtogroup axipcie_v3_2
+* @addtogroup axipcie_v3_3
 * @{
 *
 * This file contains the implementation of AXI PCIe driver's static
