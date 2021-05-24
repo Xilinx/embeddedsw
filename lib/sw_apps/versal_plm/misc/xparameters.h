@@ -1408,6 +1408,7 @@
 #define XPAR_PSV_SBSAUART_0_HIGHADDR 0xFF00FFFF
 #define XPAR_PSV_SBSAUART_0_UART_CLK_FREQ_HZ 99999992
 #define XPAR_PSV_SBSAUART_0_HAS_MODEM 0
+#define XPAR_PSV_SBSAUART_0_BAUDRATE 115200
 
 
 /******************************************************************/
