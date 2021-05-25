@@ -22,6 +22,10 @@
 * 6.6   mus     01/19/18 Added isb after writing to the cpacr_el1/cptr_el3,
 *                        to ensure enabling/disabling of floating-point unit
 *                        is completed, before any subsequent instruction.
+* 7.5   mus  05/20/21 Fixed speculative execution past ERET and BR instructions.
+*                     As per CVE-2020-13844, Cortex-A72 is affected with
+*                     vulnearability, hence changes are targeted only for Cortex-A72.
+*                     It fixes CR#1083649.
 *
 * </pre>
 *
@@ -145,6 +149,13 @@
 	str	x0, [x1]
 .endm
 
+.macro exception_return
+	eret
+#if defined (versal)
+	dsb nsh
+	isb
+#endif
+.endm
 
 .org 0
 
@@ -163,7 +174,10 @@ _vector_table:
 	/* HW reset vector.  */
 	ldr	x16, =_boot
 	br	x16
-
+#if defined (versal)
+	dsb nsh
+	isb
+#endif
 	/* text offset.  */
 	.dword	0
 	/* image size.  */
@@ -250,7 +264,7 @@ synchronoushandler:
 	bl	SynchronousInterrupt
 restorecontext:
 	restoreregister
-	eret
+	exception_return
 
 IRQInterruptHandler:
 
@@ -312,7 +326,7 @@ RestorePrevState:
 	msr	SPSR_EL1, x2
 .endif
 	restoreregister
-	eret
+	exception_return
 
 FIQInterruptHandler:
 
@@ -322,7 +336,7 @@ FIQInterruptHandler:
 
 	restoreregister
 
-	eret
+	exception_return
 
 SErrorInterruptHandler:
 
@@ -332,7 +346,7 @@ SErrorInterruptHandler:
 
 	restoreregister
 
-	eret
+	exception_return
 
 
 .align 8
