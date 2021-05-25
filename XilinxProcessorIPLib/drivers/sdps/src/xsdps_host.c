@@ -1108,46 +1108,16 @@ u32 XSdPs_CalcClock(XSdPs *InstancePtr, u32 SelFreq)
 *
 * @return	None
 *
-* @note		None.
+* @note		This API is specific to ZynqMP platform.
 *
 ******************************************************************************/
 void XSdPs_DllRstCtrl(XSdPs *InstancePtr, u8 EnRst)
 {
+#ifndef versal
 	u32 BaseAddress;
 	u32 DllCtrl;
 
 	BaseAddress = InstancePtr->Config.BaseAddress;
-#ifdef versal
-	if (BaseAddress == XSDPS_VERSAL_SD0_BASE) {
-#if EL1_NONSECURE && defined (__aarch64__)
-		(void)DllCtrl;
-
-		XSdps_Smc(InstancePtr, SD0_DLL_CTRL, SD_DLL_RST, (EnRst == 1U) ? SD0_DLL_RST : 0U);
-#else /* EL1_NONSECURE && defined (__aarch64__) */
-		DllCtrl = XSdPs_ReadReg(InstancePtr->SlcrBaseAddr, SD0_DLL_CTRL);
-		if (EnRst == 1U) {
-			DllCtrl |= SD_DLL_RST;
-		} else {
-			DllCtrl &= ~SD_DLL_RST;
-		}
-		XSdPs_WriteReg(InstancePtr->SlcrBaseAddr, SD0_DLL_CTRL, DllCtrl);
-#endif /* EL1_NONSECURE && defined (__aarch64__) */
-	} else {
-#if EL1_NONSECURE && defined (__aarch64__)
-		(void)DllCtrl;
-
-		XSdps_Smc(InstancePtr, SD1_DLL_CTRL, SD_DLL_RST, (EnRst == 1U) ? SD_DLL_RST : 0U);
-#else
-		DllCtrl = XSdPs_ReadReg(InstancePtr->SlcrBaseAddr, SD1_DLL_CTRL);
-		if (EnRst == 1U) {
-			DllCtrl |= SD_DLL_RST;
-		} else {
-			DllCtrl &= ~SD_DLL_RST;
-		}
-		XSdPs_WriteReg(InstancePtr->SlcrBaseAddr, SD1_DLL_CTRL, DllCtrl);
-#endif
-	}
-#else /* versal */
 	if (BaseAddress == XSDPS_ZYNQMP_SD0_BASE) {
 #if EL1_NONSECURE && defined (__aarch64__)
 		(void)DllCtrl;
@@ -1177,6 +1147,9 @@ void XSdPs_DllRstCtrl(XSdPs *InstancePtr, u8 EnRst)
 		XSdPs_WriteReg(InstancePtr->SlcrBaseAddr, SD_DLL_CTRL, DllCtrl);
 #endif
 	}
+#else
+	(void)InstancePtr;
+	(void)EnRst;
 #endif
 }
 
