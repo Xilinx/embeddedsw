@@ -1,12 +1,12 @@
 /******************************************************************************
-* Copyright (C) 2012 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
  *  @file xaxivdma_hw.h
-* @addtogroup axivdma_v6_8
+* @addtogroup axivdma_v6_9
 * @{
  *
  * Hardware definition file. It defines the register interface and Buffer
