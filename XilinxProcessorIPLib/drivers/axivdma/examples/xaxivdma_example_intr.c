@@ -47,6 +47,8 @@
  * 6.6   rsp  07/02/18 Set Vertical Flip state to IP default. CR-989453
  * 6.7   sk   05/06/20 Fix optimization level 2 failure in release mode.
  * 6.8   sk   07/07/20 Add frame data check support
+ * 6.9	 sk   05/25/21 Modify the ReadSetup buffer initialization call and
+ *		       CheckFrame to correct the example logic.
  * </pre>
  *
  * ***************************************************************************
@@ -535,10 +537,8 @@ static int ReadSetup(XAxiVdma *InstancePtr)
 	for(Index = 0; Index < ReadCount; Index++) {
 		ReadCfg.FrameStoreStartAddr[Index] = Addr;
 
-		for(Index1=0;Index1<SUBFRAME_HORIZONTAL_SIZE;Index1++) {
-			BufferInit(Addr,FRAME_HORIZONTAL_LEN * FRAME_VERTICAL_LEN,TEST_START_VALUE);
-			Xil_DCacheFlushRange(Addr, FRAME_HORIZONTAL_LEN * FRAME_VERTICAL_LEN);
-		}
+		BufferInit(Addr,FRAME_HORIZONTAL_LEN * FRAME_VERTICAL_LEN,TEST_START_VALUE);
+		Xil_DCacheFlushRange(Addr, FRAME_HORIZONTAL_LEN * FRAME_VERTICAL_LEN);
 		Addr += FRAME_HORIZONTAL_LEN * FRAME_VERTICAL_LEN;
 	}
 
@@ -947,9 +947,9 @@ static int CheckFrame(int FrameIndex)
 	xdbg_printf(XDBG_DEBUG_GENERAL,"Check frame %d/%d with hsize %d vsize %d\n\r",
 		RdFrame, WrFrame, Hsize_Max, Vsize_Max);
 #endif
-	for (Hsize = 0; Hsize < Hsize_Max; Hsize++) {
-		for (Vsize = 0; Vsize < Vsize_Max; Vsize++) {
-			Index = Vsize + Hsize * FRAME_HORIZONTAL_LEN;
+	for (Vsize = 0; Vsize < Vsize_Max; Vsize++) {
+		for (Hsize = 0; Hsize < Hsize_Max; Hsize++) {
+			Index = Hsize + Vsize * FRAME_HORIZONTAL_LEN;
 			if (RdAddr[Index] != WrAddr[Index]) {
 
 				xil_printf("Check frame data error (maybe "
