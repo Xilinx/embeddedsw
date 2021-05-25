@@ -7,7 +7,7 @@
 /**
 *
 * @file xadcps_g.c
-* @addtogroup xadcps_v2_5
+* @addtogroup xadcps_v2_6
 * @{
 *
 * This file contains a configuration table that specifies the configuration
