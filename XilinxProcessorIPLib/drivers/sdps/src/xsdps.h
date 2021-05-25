@@ -140,6 +140,8 @@
 * 3.12  sk     01/28/21 Added support for non-blocking write.
 *       sk     02/12/21 Fix the issue in reading CID and CSD.
 *       sk     04/08/21 Fixed doxygen warnings in all source files.
+*       sk     05/25/21 Fix the compilation issue in Cortex-A72 + EL1_NS by
+*                       removing the DLL reset logic (Dead code for Versal).
 *
 * </pre>
 *
