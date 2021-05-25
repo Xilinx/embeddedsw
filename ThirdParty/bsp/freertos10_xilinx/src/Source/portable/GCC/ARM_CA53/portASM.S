@@ -54,6 +54,14 @@
 	.global vPortRestoreTaskContext
 
 
+.macro exception_return
+	ERET
+#if defined (versal)
+	DSB NSH
+	ISB
+#endif
+.endm
+
 .macro portSAVE_CONTEXT
 
 	/* Switch to use the EL0 stack pointer. */
@@ -231,7 +239,7 @@
 	/* Switch to use the ELx stack pointer.  _RB_ Might not be required. */
 	MSR 	SPSEL, #1
 
-	ERET
+	exception_return
 
 	.endm
 
@@ -436,7 +444,7 @@ Exit_IRQ_No_Context_Switch:
 	LDP		X2, X3, [SP], #0x10
 	LDP		X0, X1, [SP], #0x10
 
-	ERET
+	exception_return
 
 
 

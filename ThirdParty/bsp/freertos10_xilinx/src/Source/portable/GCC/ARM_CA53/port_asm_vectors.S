@@ -69,6 +69,13 @@
 .globl SErrorInterrupt
 .globl SynchronousInterrupt
 
+.macro exception_return
+	eret
+#if defined (versal)
+	dsb nsh
+	isb
+#endif
+.endm
 
 .org 0
 
@@ -86,7 +93,10 @@ _vector_table:
         /* HW reset vector.  */
         ldr     x16, =_boot
         br      x16
-
+#if defined (versal)
+	dsb nsh
+	isb
+#endif
         /* text offset.  */
         .dword  0
         /* image size.  */
@@ -246,7 +256,7 @@ SynchronousInterruptHandler:
 	ldp	X2,X3, [sp], #0x10
 	ldp	X0,X1, [sp], #0x10
 
-	eret
+	exception_return
 
 IRQInterruptHandler:
 	stp	X0,X1, [sp,#-0x10]!
@@ -275,7 +285,7 @@ IRQInterruptHandler:
 	ldp	X2,X3, [sp], #0x10
 	ldp	X0,X1, [sp], #0x10
 
-	eret
+	exception_return
 
 FIQInterruptHandler:
 
@@ -305,7 +315,7 @@ FIQInterruptHandler:
 	ldp	X2,X3, [sp], #0x10
 	ldp	X0,X1, [sp], #0x10
 
-	eret
+	exception_return
 
 SErrorInterruptHandler:
 
@@ -335,6 +345,6 @@ SErrorInterruptHandler:
 	ldp	X2,X3, [sp], #0x10
 	ldp	X0,X1, [sp], #0x10
 
-	eret
+	exception_return
 
 .end
