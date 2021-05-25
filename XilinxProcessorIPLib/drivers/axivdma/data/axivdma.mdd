@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ##############################################################################
@@ -11,7 +11,7 @@ BEGIN driver axivdma
   OPTION supported_peripherals = axi_vdma_v[4-9]_[0-9];
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 6.8;
+  OPTION VERSION = 6.9;
   OPTION NAME = axivdma;
 
 END driver
