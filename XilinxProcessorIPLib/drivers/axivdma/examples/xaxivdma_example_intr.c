@@ -49,6 +49,7 @@
  * 6.8   sk   07/07/20 Add frame data check support
  * 6.9	 sk   05/25/21 Modify the ReadSetup buffer initialization call and
  *		       CheckFrame to correct the example logic.
+ * 6.9	 sk   05/25/21 Fix data comparison failure wtih optimization level 2.
  * </pre>
  *
  * ***************************************************************************
@@ -625,7 +626,7 @@ static int WriteSetup(XAxiVdma * InstancePtr)
 	 */
 	memset((void *)WriteFrameAddr, 0,
 	    FRAME_HORIZONTAL_LEN * FRAME_VERTICAL_LEN * WriteCount);
-	Xil_DCacheFlushRange(Addr, FRAME_HORIZONTAL_LEN * FRAME_VERTICAL_LEN * WriteCount);
+	Xil_DCacheFlushRange(WriteFrameAddr, FRAME_HORIZONTAL_LEN * FRAME_VERTICAL_LEN * WriteCount);
 
 	return XST_SUCCESS;
 }
