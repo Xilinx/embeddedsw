@@ -52,6 +52,8 @@
 #define XSDITXSS_SD_NTSC_F1_V_ACTIVE	244
 
 #define XST352_PAYLOAD_BYTE_MASK	0xFF
+#define XST352_BYTE2_TS_TYPE_MASK	(1 << 15)
+#define XST352_BYTE2_PIC_TYPE_MASK	(1 << 14)
 #define XST352_BYTE1_ST372_DL_3GB	0x8A
 #define XST352_BYTE1_ST425_2008_1125L_3GA	0x89
 
@@ -204,14 +206,17 @@ static void XV_SdiTxSs_GetIncludedSubcores(XV_SdiTxSs *SdiTxSsPtr, u16 DevId)
 static u8 XV_SdiTxSs_Is3GBDLor3GA1125L(XV_SdiTxSs *InstancePtr)
 {
 	u8 byte1;
-	u32 *payloadId;
+	u32 tscan, pscan, *payloadId;
 
 	if ((InstancePtr->SdiTxPtr->Transport.TMode == XSDIVID_MODE_3GA) ||
 			(InstancePtr->SdiTxPtr->Transport.TMode == XSDIVID_MODE_3GB)) {
 		payloadId = XV_SdiTxSs_GetPayloadId(InstancePtr, 0);
 		byte1 = (*payloadId & XST352_PAYLOAD_BYTE_MASK);
+		tscan = (*payloadId & XST352_BYTE2_TS_TYPE_MASK);
+		pscan = (*payloadId & XST352_BYTE2_PIC_TYPE_MASK);
 		if ((byte1 == XST352_BYTE1_ST372_DL_3GB) ||
-				(byte1 == XST352_BYTE1_ST425_2008_1125L_3GA))
+				((byte1 == XST352_BYTE1_ST425_2008_1125L_3GA) &&
+				 (!tscan) && pscan))
 			return TRUE;
 	}
 
