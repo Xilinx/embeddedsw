@@ -34,6 +34,7 @@ Added client-server support
 Added support to decrypt bitstream to memory before writing to PCAP for ZynqMP
 Added provision to load bitstream from OCM even if DDR is present in design.
 Fixed  MISRA C issues
+Added support to decrypt bitstream in chunks to OCM and then load to PL from OCM
 
 xilnvm_v2_3:
 Disabled BBRAM programming mode in case of error
@@ -61,12 +62,13 @@ Added CRC support for IPI
 Added support for PLM access controls
 Added support for configuration of EM error actions using error mask
 Added support to register actions for multiple errors with a single command
-Error out in case of NPI AXI_WRSTRB error
 Enabled PLM_USB_EXCLUDE macro by default
 Moved Task creation out of interrupt context
 Updated scheduler logic for non-periodic tasks
 Fixed bug in XPlmi_DmaWriteKeyhole to support various keyhole sizes
 Added support for user configurable baudrate
+Added support to populate SubsystemId in XilPlmi instead of XilPm
+Added support for Marker, DebugLog and LogAddress CDO commands
 
 xilpdi_v1_3:
 Updated logic to use Boot Header directly from PMC RAM
@@ -92,6 +94,7 @@ Added TPM support to ZynqMP FSBL
 Removed unnecessary I2C writes to TCA6416A for ZCU208 and ZCU216 boards
 Added provision to load bitstream from OCM even if DDR is present in design
 Added flag to support Secure provisioning of authenticated images, disabled by default
+Resolved build issues in DDR less and SECURE_EXCLUDE cases
 
 New Files Added for 2021.1:
 MIT SPDX License:
