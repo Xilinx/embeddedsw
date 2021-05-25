@@ -94,10 +94,24 @@ extern uint64_t ullPortYieldRequired;			\
 }
 
 #define portYIELD_FROM_ISR( x ) portEND_SWITCHING_ISR( x )
+#if defined(versal)
+#if EL1_NONSECURE
+#define portYIELD() 						\
+	__asm volatile ( "SVC 0" ::: "memory" );	\
+	__asm volatile ( "DSB NSH" );			\
+	__asm volatile ( "ISB" );
+#else
+#define portYIELD() 							\
+	__asm volatile ( "SMC 0" ::: "memory" );		\
+	__asm volatile ( "DSB NSH" );				\
+	__asm volatile ( "ISB" );
+#endif
+#else
 #if EL1_NONSECURE
 	#define portYIELD() __asm volatile ( "SVC 0" ::: "memory" )
 #else
 	#define portYIELD() __asm volatile ( "SMC 0" ::: "memory" )
+#endif
 #endif
 /*-----------------------------------------------------------
  * Critical section control
