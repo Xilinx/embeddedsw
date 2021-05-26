@@ -1,12 +1,12 @@
 /******************************************************************************
-* Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2007 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 * @file fsl.h
-* @addtogroup cpu_v2_12
+* @addtogroup cpu_v2_13
 * @{
 *
 * This file contains macros for interfacing to the Fast Simplex Link (FSL)
