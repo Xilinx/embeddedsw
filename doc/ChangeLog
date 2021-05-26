@@ -1,10 +1,75 @@
 Changes for 2021.1
 ===============================
+
+axicdma_v4_9:
+Add a condition to get the IP_NAMES of cells to fix the axicdma
+peripheral tests creation failure.
+
+axidma_v9_13:
+Fix compilation failure in XAxiDma_IntrGetEnabled() macro.
+
+axiethernet_v5_12:
+Remove emacps example file from dependency list
+Fix gcc compilation error on peripheral tests
+
+bram_v4_6:
+bram: Update bram baseaddress variable type for 64bit support
+bram: Export additional defines to identify lmb_bram_if_cntlr instances
+
+can_v3_6:
+Fix the doxygen warnigns.
+
+canfd_v2_5:
+Fix MISRA-C ,Coverity and Doxygen violations
+
+canps_v3_6:
+Fixed the doxygen warnigns.
+
+csudma_v1_9:
+Fix the doxygen warnings and correct the driver name from canps to csudma in csudma mdd file.
+Modify XPmcDma_Transfer prototype to support 64bit address for microblaze processor.
+Update csudma id and interrupt name to support cips 3.0 designs.
+Remove double quotes in peripheral tests application, remove prototype of undefined functions and add description for csudma functions to fix the doxygen warnings.
+
+emacps_v3_14:
+Documentation updates
+Fix lwip failure on GEM PCS PMA design by updating the tcl for the same
+
+gpio_v4_8:
+Fixed the doxygen warnings.
+
+gpiops_v3_9:
+Updated examples to support pmcgpio.
+Fixed doxygen and MISRA-C warnings.
+
+ipipsu_v2_9:
+Added support for CRC on IPI messages.
+Fixed MISRAC issues
+
+iic_v3_8:
+Fix doxygen warnings
+Correct the order of Assert on function arguments
+
+iicps_v3_13:
+Fix doxygen warnings
+Modified XIicps variable name in xiicps_selftest_example
+Clear HOLD bit at correct time
+Add timeout to XIicPs_MasterSendPolled function
+
+nandps_v2_7:
+Fix doxygen warnings
+Add validation check for parameter page
+
+nandpsu_v1_8:
+Fix doxygen warnings
+Add validation check for parameter page
+
 ospipsv_v1_4:
 Added support for DualByte opcodes.
 Added support for Macronix part-MX25UM51345G (maximum frequency supported is 150MHz).
 Updated the RX tuning algorithm for Master DLL mode to consider physical taps.
 Fixed doxygen warnings in all source files.
+Fixed MISRAC rule 10.3 violation.
 
 sdps_v3_12:
 Added support for non-blocking write.
