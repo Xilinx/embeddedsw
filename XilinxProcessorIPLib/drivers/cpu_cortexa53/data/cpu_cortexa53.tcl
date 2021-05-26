@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -24,6 +24,8 @@
 # 1.8   mus  08/18/20 Updated mdd file with new parameter dependency_flags,
 #                     it would be used to generate appropriate flags
 #                     required for dependency files configuration
+# 1.9   mus  05/23/21 Added -fno-tree-loop-distribute-patterns to prevent for loops
+#                     to memset conversions. It fixes CR#1090083.
 ##############################################################################
 #uses "xillib.tcl"
 
@@ -47,7 +49,7 @@ proc xdefine_cortexa53_params {drvhandle} {
     if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
 	set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
 	set temp_flag $extra_flags
-	if {[string compare -nocase $temp_flag "-DARMA53_32  -mfpu=vfpv3 -mfloat-abi=hard -g -Wall -Wextra -march=armv7-a "] != 0} {
+	if {[string compare -nocase $temp_flag "-DARMA53_32  -mfpu=vfpv3 -mfloat-abi=hard -g -Wall -Wextra -march=armv7-a -fno-tree-loop-distribute-patterns"] != 0} {
 	      set flagindex [string first {-DARMA53_32} $temp_flag 0]
 	      if { $flagindex == -1 } {
 		   set temp_flag "$temp_flag -DARMA53_32"
@@ -82,6 +84,11 @@ proc xdefine_cortexa53_params {drvhandle} {
 	      if { $flagindex == -1 } {
 		   set temp_flag "$temp_flag -march=armv7-a"
 	      }
+
+          set flagindex [string first {-fno-tree-loop-distribute-patterns} $temp_flag 0]
+          if { $flagindex == -1 } {
+              set temp_flag "$temp_flag -fno-tree-loop-distribute-patterns"
+          }
 
 	      set extra_flags $temp_flag
               common::set_property -name {EXTRA_COMPILER_FLAGS} -value $extra_flags -objects [hsi::get_sw_processor]
