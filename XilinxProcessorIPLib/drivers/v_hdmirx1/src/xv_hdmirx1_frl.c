@@ -553,6 +553,10 @@ xil_printf(ANSI_COLOR_MAGENTA "RX: LTS:3 (%d)\r\n" ANSI_COLOR_RESET,
 #endif
 	int Status = XST_FAILURE;
 
+	XV_HdmiRx1_FrlDdcWriteField(InstancePtr,
+				    XV_HDMIRX1_SCDCFIELD_FRL_START,
+				    0);
+
 	Status = XV_HdmiRx1_ConfigFrlLtpDetection(InstancePtr);
 
 	if (Status == XST_SUCCESS) {
