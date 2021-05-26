@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -22,6 +22,8 @@
 # 1.8   mus  08/18/20 Updated mdd file with new parameter dependency_flags,
 #                     it would be used to generate appropriate flags
 #                     required for dependency files configuration
+# 1.9   mus  05/23/21 Added -fno-tree-loop-distribute-patterns to prevent for loops
+#                     to memset conversions. It fixes CR#1090083.
 ##############################################################################
 #uses "xillib.tcl"
 
@@ -100,6 +102,7 @@ proc xdefine_cortexr5_params {drvhandle} {
                 regsub -- {-mfpu=vfpv3-d16} $temp_flag "" temp_flag
 		regsub -- {--fpu=VFPv3_D16} $temp_flag "" temp_flag
 		regsub -- {-DARMR5} $temp_flag "" temp_flag
+		regsub -- {-fno-tree-loop-distribute-patterns} $temp_flag "" temp_flag
 		set extra_flags "--debug -DARMR5 --fpu=VFPv3_D16 -e $temp_flag"
 		common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
 	}
@@ -123,6 +126,7 @@ proc xdefine_cortexr5_params {drvhandle} {
 		regsub -- {-g -DARMR5 -Wall -Wextra} $temp_flag "" temp_flag
 		regsub -- {-mfloat-abi=hard} $temp_flag "" temp_flag
 		regsub -- {-mfpu=vfpv3-d16} $temp_flag "" temp_flag
+		regsub -- {-fno-tree-loop-distribute-patterns} $temp_flag "" temp_flag
 		set extra_flags "-g -DARMR5 -Wall -Wextra -mfloat-abi=hard -mfpu=vfpv3-d16 --target=arm-arm-none-eabi $temp_flag"
 		common::set_property -name value -value $extra_flags -objects  [hsi::get_comp_params -filter { name == extra_compiler_flags } ]
 	}
