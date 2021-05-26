@@ -65,7 +65,7 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define TX_MAX_LOOPCNT 1000000
+#define TX_MAX_LOOPCNT 1000000	/**< Used to wait in polled function */
 
 /************************** Function Prototypes ******************************/
 
@@ -753,7 +753,6 @@ void XIicPs_DisableSlaveMonitor(XIicPs *InstancePtr)
 *
 * Completion events and errors are signaled to upper layer for proper handling.
 *
-* <pre>
 * The interrupts that are handled are:
 * - DATA
 *	This case is handled only for master receive data.
@@ -778,8 +777,6 @@ void XIicPs_DisableSlaveMonitor(XIicPs *InstancePtr)
 * - All Other interrupts
 *	These interrupts are marked as error. This is signalled to the upper
 *	layer by calling the callback handler.
-*
-* </pre>
 *
 * @param	InstancePtr is a pointer to the XIicPs instance.
 *

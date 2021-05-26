@@ -41,7 +41,7 @@
 /*****************************************************************************/
 
 /*****************************************************************************/
-/*
+/**
 * This function prepares a device to transfers as a master.
 *
 * @param        InstancePtr is a pointer to the XIicPs instance.
@@ -94,7 +94,7 @@ s32 XIicPs_SetupMaster(XIicPs *InstancePtr, s32 Role)
 }
 
 /*****************************************************************************/
-/*
+/**
 * This function handles continuation of sending data. It is invoked
 * from interrupt handler.
 *
@@ -131,7 +131,7 @@ void MasterSendData(XIicPs *InstancePtr)
 }
 
 /*****************************************************************************/
-/*
+/**
 *
 * This function handles continuation of receiving data. It is invoked
 * from interrupt handler.
