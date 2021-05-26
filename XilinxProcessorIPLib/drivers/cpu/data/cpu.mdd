@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2004 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2004 - 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -22,6 +22,8 @@
 #       aru  04/18/19 Updated to add Assembler support
 # 2.11  mus  02/26/20 Updated tcl,as per 2020.1 Vitis toolchain directory
 #                     structure
+# 2.13  mus  05/23/21 Added -fno-tree-loop-distribute-patterns to prevent for loops
+#                     to memset conversions. It fixes CR#1090083.
 #
 ###############################################################################
 OPTION psf_version = 2.1;
@@ -32,7 +34,7 @@ OPTION copyfiles = all;
 OPTION driver_state = ACTIVE;
 OPTION supported_peripherals = (microblaze psu_pmu psu_pmc psu_psm psv_pmc psv_psm);
 OPTION default_os = "standalone_v5_0";
-OPTION VERSION = 2.12;
+OPTION VERSION = 2.13;
 OPTION NAME = cpu;
 
 PARAM name = compiler, desc = "Compiler used to compile both BSP/Libraries and Applications.", type = string, default = mb-gcc;
@@ -40,7 +42,7 @@ PARAM name = assembler, desc = "Assembler used to assemble both BSP/Libraries an
 PARAM name = archiver, desc = "Archiver used to archive libraries for both BSP generation as well as for applications", type = string, default = mb-ar;
 PARAM name = dependency_flags, desc = "Flags used by compiler to generate dependency files", type = string, default = " -MMD -MP";
 PARAM name = compiler_flags, desc = "Compiler flags used in BSP and library generation. '-c' flag stands for 'compile and assemble, but do not link'. Without this flag, gcc tries to link the code, which will fail because there is no application involved during libgen. '-O2' can be overwritten by extra compiler flags", type = string, default = "-O2 -c", permit = none;
-PARAM name = extra_compiler_flags, desc = "Extra compiler flags used in BSP and library generation.", type = string, default = "-g -ffunction-sections -fdata-sections -Wall -Wextra";
+PARAM name = extra_compiler_flags, desc = "Extra compiler flags used in BSP and library generation.", type = string, default = "-g -ffunction-sections -fdata-sections -Wall -Wextra -fno-tree-loop-distribute-patterns";
 PARAM name = multiplier, desc = "Is there a hard multiplier present ?", type = bool, default = false, state = "deprecated", state_desc = "Presence of hardware multiplier is now automatically detected based on the target FPGA architecture.";
 PARAM name = xmdstub_peripheral, desc = "Debug peripheral to be used with xmdstub", type = peripheral_instance, range = (none, opb_uartlite, opb_uart16550, opb_jtag_uart, opb_mdm, debugnotraceblaze, debugnotraceblazenode, debugtraceblazenode, debugtraceblaze, mdm, xps_uartlite), default = none;
 
