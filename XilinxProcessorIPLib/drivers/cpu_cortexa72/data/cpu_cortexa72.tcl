@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2017 - 2020  Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2017 - 2021  Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -13,6 +13,8 @@
 # 1.2   mus  08/18/20 Updated mdd file with new parameter dependency_flags,
 #                     it would be used to generate appropriate flags
 #                     required for dependency files configuration
+# 1.3   mus  05/23/21 Added -fno-tree-loop-distribute-patterns to prevent for loops
+#                     to memset conversions. It fixes CR#1090083.
 ##############################################################################
 #uses "xillib.tcl"
 
