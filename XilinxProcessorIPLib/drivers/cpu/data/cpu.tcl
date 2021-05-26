@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2004 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2004 - 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ##############################################################################
@@ -57,6 +57,8 @@
 ##                     instead of using define_processor_params.
 ##                     define_processor_params was exporting lot of other
 ##                     parameters which are not required. It fixes CR#1081668.
+## 2.13  mus  05/23/21 Added -fno-tree-loop-distribute-patterns to prevent for loops
+##                     to memset conversions. It fixes CR#1090083.
 # uses xillib.tcl
 
 ########################################

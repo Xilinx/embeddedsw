@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2007 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xio.h
-* @addtogroup cpu_v2_12
+* @addtogroup cpu_v2_13
 * @{
 * @details
 *
@@ -43,6 +43,8 @@
 *                     not to generate cpu macros, when microblaze is connected
 *                     as one of the streaming slaves to itself. CR#876604
 * 2.11  mus  02/26/20 Updated as per 2020.1 Vitis toolchain directory structure
+* 2.13  mus  05/23/21 Added -fno-tree-loop-distribute-patterns to prevent for loops
+*                     to memset conversions. It fixes CR#1090083.
 *
 * </pre>
 *
