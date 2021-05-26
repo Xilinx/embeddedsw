@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xcpu_cortexa53.h
-* @addtogroup cpu_cortexa53_v1_8
+* @addtogroup cpu_cortexa53_v1_9
 * @{
 * @details
 *
