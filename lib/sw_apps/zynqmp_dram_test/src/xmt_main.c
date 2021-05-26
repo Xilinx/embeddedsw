@@ -28,6 +28,7 @@
  *       mn   03/10/21 Fixed doxygen warnings
  *       mn   04/30/21 Fixed rank selection logic for multi rank DDR
  *       mn   05/24/21 Fixed Eye Test issue with higher rank
+ *       mn   05/26/21 Modify code to run 2D eye tests only for DDR4/LPDDR4
  *
  * </pre>
  *
@@ -879,23 +880,33 @@ int main(void)
 			}
 
 		} else if ((Ch == 'c') || (Ch == 'C')) {
-			for (Index = 0; Index < Iter; Index++) {
-				Status = XMt_MeasureRdEye2D(&XMt, StartAddr,
-							  XMT_DEFAULT_TEST_LEN);
-				if (Status != XST_SUCCESS) {
-					Status = XST_FAILURE;
-					goto RETURN_PATH;
+			if ((XMt.DdrType == XMT_DDR_TYPE_DDR4) ||
+					(XMt.DdrType == XMT_DDR_TYPE_LPDDR4)) {
+				for (Index = 0; Index < Iter; Index++) {
+					Status = XMt_MeasureRdEye2D(&XMt, StartAddr,
+								  XMT_DEFAULT_TEST_LEN);
+					if (Status != XST_SUCCESS) {
+						Status = XST_FAILURE;
+						goto RETURN_PATH;
+					}
 				}
+			} else {
+				xil_printf("\r\nThe 2D Eye Tests are applicable only for DDR4 and LPDDR4\r\n");
 			}
 
 		} else if ((Ch == 'e') || (Ch == 'E')) {
-			for (Index = 0; Index < Iter; Index++) {
-				Status = XMt_MeasureWrEye2D(&XMt, StartAddr,
-							  XMT_DEFAULT_TEST_LEN);
-				if (Status != XST_SUCCESS) {
-					Status = XST_FAILURE;
-					goto RETURN_PATH;
+			if ((XMt.DdrType == XMT_DDR_TYPE_DDR4) ||
+					(XMt.DdrType == XMT_DDR_TYPE_LPDDR4)) {
+				for (Index = 0; Index < Iter; Index++) {
+					Status = XMt_MeasureWrEye2D(&XMt, StartAddr,
+								  XMT_DEFAULT_TEST_LEN);
+					if (Status != XST_SUCCESS) {
+						Status = XST_FAILURE;
+						goto RETURN_PATH;
+					}
 				}
+			} else {
+				xil_printf("\r\nThe 2D Eye Tests are applicable only for DDR4 and LPDDR4\r\n");
 			}
 
 		} else if ((Ch == 'a') || (Ch == 'A')) {
