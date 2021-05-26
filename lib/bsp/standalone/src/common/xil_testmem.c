@@ -16,19 +16,6 @@
 * Ver    Who    Date    Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.00a hbm  08/25/09 First release
-* 7.5   mus  02/23/21 Updated Xil_TestMem8 to avoid compiler
-*                     optimization which replaces for loop with memset.
-*                     We are adding this workaround to avoid incorrect
-*                     behavior, in certain scenarios.By default,standalone
-*                     BSP marks whole PL region as device memory. So, memory
-*                     regions in PL also would be marked as device memory
-*                     by default. Device memory does not allow unaligned
-*                     accesses. If processor try to do unaligned access
-*                     on device memory, it results into exception. memset
-*                     is standard C library function, and it does not take
-*                     care of alignment. So, replacing for loop with memset
-*                     could potentially result into exceptions for PL memory
-*                     regions. This workaround fixes CR#1088441.
 * 7.5   mus  03/10/21 Added new set of Xil_TestMem32, Xil_TestMem16 and
 *                     Xil_TestMem8 APIs to support memory test for memory
 *                     regions mapped at extended addresses
@@ -90,7 +77,7 @@ s32 Xil_TestMem8(u32 Addrlow, u32 Addrhigh, u32 Words, u8 Pattern, u8 Subtest)
 {
 	u32 I;
 	u32 j;
-	volatile u8 Val;
+	u8 Val;
 	u8 WordMem8;
 	s32 Status = 0;
 	u64  Addr = (Addrlow + ((u64)Addrhigh << 32));
@@ -1287,7 +1274,7 @@ s32 Xil_TestMem8(u8 *Addr, u32 Words, u8 Pattern, u8 Subtest)
 {
 	u32 I;
 	u32 j;
-	volatile u8 Val;
+	u8 Val;
 	u8 FirtVal;
 	u8 WordMem8;
 	s32 Status = 0;
