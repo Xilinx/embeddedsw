@@ -268,6 +268,17 @@ void RxStreamUpCallback(void *CallbackRef)
 	RxTransMode =  XV_SdiRxSs_GetTransportMode(&SdiRxSs);
 	xil_printf("INFO>> SDI Rx: Input Locked\r\n");
 
+	if (RxTransMode == XSDIVID_MODE_12G) {
+		/* Read the register
+		 * clear/set some bits in it
+		 * set to the previous value*/
+		u32 data = Xil_In32((UINTPTR)XPAR_TX_HEIR_V_SMPTE_UHDSDI_TX_SS_0_BASEADDR);
+
+		data = data & (0xFFFFFEFF);
+		Xil_Out32((UINTPTR)(XPAR_TX_HEIR_V_SMPTE_UHDSDI_TX_SS_0_BASEADDR), data);
+		data = data | 0x1;
+		Xil_Out32((UINTPTR)(XPAR_TX_HEIR_V_SMPTE_UHDSDI_TX_SS_0_BASEADDR), data);
+	}
 	StartTxAfterRxFlag = (TRUE);
         XV_SdiRxSs_StreamFlowEnable(&SdiRxSs);
         StartTxAfterRx();
