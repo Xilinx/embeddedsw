@@ -175,7 +175,7 @@
 ******************************************************************************/
 
 #ifndef XIICPS_H       /* prevent circular inclusions */
-#define XIICPS_H       /* by using protection macros */
+#define XIICPS_H       /**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -208,7 +208,7 @@ extern "C" {
 #define XIICPS_REP_START_OPTION		0x08U  /**< Repeated Start */
 
 
-/*@}*/
+/** @} */
 
 /** @name Callback events
  *
@@ -228,7 +228,7 @@ extern "C" {
 #define XIICPS_EVENT_RX_OVR			0x0080U  /**< RX overflow */
 #define XIICPS_EVENT_TX_OVR			0x0100U  /**< TX overflow */
 #define XIICPS_EVENT_RX_UNF			0x0200U  /**< RX underflow */
-/*@}*/
+/** @} */
 
 /** name Role constants
  *
@@ -274,26 +274,26 @@ typedef struct {
  * to a variable of this type is then passed to the driver API functions.
  */
 typedef struct {
-	XIicPs_Config Config;	/* Configuration structure */
-	u32 IsReady;		/* Device is initialized and ready */
-	u32 Options;		/* Options set in the device */
+	XIicPs_Config Config;	/**< Configuration structure */
+	u32 IsReady;		/**< Device is initialized and ready */
+	u32 Options;		/**< Options set in the device */
 
-	u8 *SendBufferPtr;	/* Pointer to send buffer */
-	u8 *RecvBufferPtr;	/* Pointer to recv buffer */
-	s32 SendByteCount;	/* Number of bytes still expected to send */
-	s32 RecvByteCount;	/* Number of bytes still expected to receive */
-	s32 CurrByteCount;	/* No. of bytes expected in current transfer */
+	u8 *SendBufferPtr;	/**< Pointer to send buffer */
+	u8 *RecvBufferPtr;	/**< Pointer to recv buffer */
+	s32 SendByteCount;	/**< Number of bytes still expected to send */
+	s32 RecvByteCount;	/**< Number of bytes still expected to receive */
+	s32 CurrByteCount;	/**< No. of bytes expected in current transfer */
 
-	s32 UpdateTxSize;	/* If tx size register has to be updated */
-	s32 IsSend;		/* Whether master is sending or receiving */
-	s32 IsRepeatedStart;	/* Indicates if user set repeated start */
-	s32 Is10BitAddr;	/* Indicates if user set 10 bit address */
+	s32 UpdateTxSize;	/**< If tx size register has to be updated */
+	s32 IsSend;		/**< Whether master is sending or receiving */
+	s32 IsRepeatedStart;	/**< Indicates if user set repeated start */
+	s32 Is10BitAddr;	/**< Indicates if user set 10 bit address */
 
-	XIicPs_IntrHandler StatusHandler;  /* Event handler function */
+	XIicPs_IntrHandler StatusHandler;  /**< Event handler function */
 #if defined  (XCLOCKING)
 	u32 IsClkEnabled;	/**< Input clock enabled */
 #endif
-	void *CallBackRef;	/* Callback reference for event handler */
+	void *CallBackRef;	/**< Callback reference for event handler */
 } XIicPs;
 
 /***************** Macros (Inline Functions) Definitions *********************/

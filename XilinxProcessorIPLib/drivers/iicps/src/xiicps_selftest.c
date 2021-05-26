@@ -32,7 +32,7 @@
 
 /************************** Constant Definitions *****************************/
 
-#define REG_TEST_VALUE    0x00000005U
+#define REG_TEST_VALUE    0x00000005U	/**< Register value to write */
 
 /**************************** Type Definitions *******************************/
 

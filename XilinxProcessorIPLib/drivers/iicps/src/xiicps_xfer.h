@@ -22,7 +22,7 @@
 *
 ******************************************************************************/
 #ifndef XIICPS_XFER_H             /* prevent circular inclusions */
-#define XIICPS_XFER_H             /* by using protection macros */
+#define XIICPS_XFER_H             /**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
