@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2011 - 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -41,6 +41,8 @@
 # 2.8   aru  04/18/19 Updated tcl to add assembler for ARMCC and IAR
 # 2.10  mus  10/15/20 Updated mdd and tcl file to set dependency flags based
 #                     on the compiler.
+# 2.11  mus  05/23/21 Added -fno-tree-loop-distribute-patterns to prevent for loops
+#                     to memset conversions. It fixes CR#1090083.
 ##############################################################################
 #uses "xillib.tcl"
 
@@ -71,8 +73,8 @@ proc xdefine_cortexa9_params {drvhandle} {
 	# applicable only for gcc compiler. Remove those flags,
 	# if compiler is other than gcc.
 	#
-	if {[string compare -nocase $temp_flag "-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra"] == 0} {
-		regsub -- {-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra} $temp_flag "" temp_flag
+	if {[string compare -nocase $temp_flag "-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra -fno-tree-loop-distribute-patterns"] == 0} {
+		regsub -- {-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles -g -Wall -Wextra -fno-tree-loop-distribute-patterns} $temp_flag "" temp_flag
 		set extra_flags $temp_flag
 		common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
 	}
