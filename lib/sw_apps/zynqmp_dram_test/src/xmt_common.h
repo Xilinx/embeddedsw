@@ -22,6 +22,7 @@
  *       mn   07/29/20 Modify code to use DRAM VRef for 2D Write Eye Test
  * 1.2   mn   02/11/21 Added support for 16-Bit Bus Width
  *       mn   05/24/21 Fixed Eye Test issue with higher rank
+ *       mn   05/27/21 Get the PS Ref Clk from design
  *
  * </pre>
  *
@@ -74,7 +75,11 @@ extern "C" {
 #define XMT_SOURCE_SRCSEL_SHIFT			0
 #define XMT_SOURCE_SRCSEL_MASK			0x00000007
 
+#ifdef XPAR_PSU_PSS_REF_CLK_FREQ_HZ
+#define XMT_REF_FREQ				(XPAR_PSU_PSS_REF_CLK_FREQ_HZ / 1000000.0)
+#else
 #define XMT_REF_FREQ				33.3333
+#endif
 
 /* DDR Controller Register Definitions */
 #define XMT_DDRC_MSTR				0xFD070000
