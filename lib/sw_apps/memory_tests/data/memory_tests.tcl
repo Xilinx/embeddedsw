@@ -265,6 +265,8 @@ proc get_required_mem_size {} {
 }
 
 proc swapp_is_supported_hw {} {
+    set [namespace current]::memcfg "";
+
     # check for uart peripheral
     check_stdout_hw;
     set proc_instance [hsi::get_sw_processor];
