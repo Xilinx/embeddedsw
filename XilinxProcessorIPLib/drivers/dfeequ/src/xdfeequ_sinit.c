@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfeequ_sinit.c
-* @addtogroup xdfeequ_v1_0
+* @addtogroup xdfeequ_v1_1
 * @{
 *
 * The implementation of the XDfeEqu component's static initialization

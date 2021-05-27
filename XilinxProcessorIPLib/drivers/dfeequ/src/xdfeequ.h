@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfeequ.h
-* @addtogroup xdfeequ_v1_0
+* @addtogroup xdfeequ_v1_1
 * @{
 *
 * The DFE Equalizer LogiCore builds upon the Complex Equalizer block

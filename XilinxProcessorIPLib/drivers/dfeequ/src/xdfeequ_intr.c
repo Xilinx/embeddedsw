@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfeequ_intr.c
-* @addtogroup xdfeequ_v1_0
+* @addtogroup xdfeequ_v1_1
 * @{
 *
 * This file contains functions related to Equalizer interrupt handling.

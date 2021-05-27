@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfeequ.c
-* @addtogroup xdfeequ_v1_0
+* @addtogroup xdfeequ_v1_1
 * @{
 *
 * Contains the APIs for the DFE Equalizer Filter component.
@@ -25,6 +25,7 @@
 *       dc     04/07/21 Fix bare metal initialisation
 *       dc     04/20/21 Doxygen documentation update
 *       dc     05/08/21 Update to common trigger
+* 1.1   dc     05/26/21 Update CFG_SHIFT calculation
 *
 * </pre>
 *
@@ -54,7 +55,7 @@
 	(1U << XDFEEQU_DELAY_WIDTH) /**< Maximum delay value */
 #define XDFEEQU_TAP_MAX 24U /**< Maximum tap value */
 
-#define XDFEEQU_DRIVER_VERSION_MINOR 0U
+#define XDFEEQU_DRIVER_VERSION_MINOR 1U
 #define XDFEEQU_DRIVER_VERSION_MAJOR 1U
 
 /************************** Function Prototypes *****************************/
@@ -1174,7 +1175,7 @@ void XDfeEqu_LoadCoefficients(const XDfeEqu *InstancePtr, u32 ChannelField,
 	   co-efficient set have arrived. The first value on co-efficient
 	   stream will be a shift value associated with that co-efficient
 	   set. */
-	ScaleFactor = (double)CoeffSum / (256U * ((u32)1 << 15));
+	ScaleFactor = (double)CoeffSum / (24U * ((u32)1 << 15));
 	Shift = (u32)floor(fabs(log2(ScaleFactor)));
 
 	/* Check is load in progress */
