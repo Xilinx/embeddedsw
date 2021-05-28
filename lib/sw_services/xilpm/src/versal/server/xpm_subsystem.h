@@ -122,7 +122,7 @@ u32 XPmSubsystem_GetMaxSubsysIdx(void);
 XStatus XPmSubsystem_AddPermission(const XPm_Subsystem *Host,
 				   XPm_Subsystem *Target,
 				   const u32 Operations);
-XStatus XPmSubsystem_IsOperationAllowed(const u32 HostId, const u32 Target,
+XStatus XPmSubsystem_IsOperationAllowed(const u32 HostId, const u32 TargetId,
 					const u32 Operation, const u32 CmdType);
 
 #ifdef __cplusplus
