@@ -15,7 +15,7 @@
 #include "xpm_debug.h"
 #include "xpm_rail.h"
 
-static XStatus LpdInitStart(u32 *Args, u32 NumOfArgs)
+static XStatus LpdInitStart(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -23,7 +23,7 @@ static XStatus LpdInitStart(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-	XPm_Rail *VccintPslpRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PSLP);
+	const XPm_Rail *VccintPslpRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PSLP);
 
 	/* Check vccint_pslp first to make sure power is on */
 	Status = XPmPower_CheckPower(VccintPslpRail,
@@ -55,8 +55,8 @@ done:
 static XStatus LpdPreBisrReqs(void)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Device *XramDevice = NULL;
-	XPm_ResetNode *XramRst = NULL;
+	const XPm_Device *XramDevice = NULL;
+	const XPm_ResetNode *XramRst = NULL;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* Remove PMC LPD isolation */
@@ -106,7 +106,7 @@ done:
 	return Status;
 }
 
-static XStatus LpdInitFinish(u32 *Args, u32 NumOfArgs)
+static XStatus LpdInitFinish(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -118,7 +118,7 @@ static XStatus LpdInitFinish(u32 *Args, u32 NumOfArgs)
 	return Status;
 }
 
-static XStatus LpdHcComplete(u32 *Args, u32 NumOfArgs)
+static XStatus LpdHcComplete(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -165,7 +165,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE
  *
  ****************************************************************************/
-static XStatus LpdScanClear(u32 *Args, u32 NumOfArgs)
+static XStatus LpdScanClear(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -239,10 +239,10 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE
  *
  ****************************************************************************/
-static XStatus LpdLbist(u32 *Args, u32 NumOfArgs)
+static XStatus LpdLbist(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
+	const XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 	u32 RegAddr;
 	volatile u32 RegVal = 0U;
 	volatile u32 RegValTmp = 0U;
@@ -344,10 +344,10 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE
  *
  ****************************************************************************/
-static XStatus LpdBisr(u32 *Args, u32 NumOfArgs)
+static XStatus LpdBisr(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Device *XramDevice = XPmDevice_GetById(PM_DEV_XRAM_0);
+	const XPm_Device *XramDevice = XPmDevice_GetById(PM_DEV_XRAM_0);
 	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 	u16 DbgErr;
 
@@ -410,7 +410,7 @@ static XStatus XramMbist(void)
 
 	XStatus Status = XPM_ERR_MBIST_CLR;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	XPm_Device *Device = NULL;
+	const XPm_Device *Device = NULL;
 	u32 BaseAddr, RegValue;
 
 	Device = XPmDevice_GetById(PM_DEV_XRAM_0);
@@ -489,7 +489,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE
  *
  ****************************************************************************/
-static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
+static XStatus LpdMbist(const u32 *Args, u32 NumOfArgs)
 {
 	volatile XStatus Status = XST_FAILURE;
 	volatile XStatus StatusTmp = XST_FAILURE;
@@ -654,7 +654,7 @@ static const struct XPm_PowerDomainOps LpdOps = {
 };
 
 XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd, u32 Id, u32 BaseAddress,
-			   XPm_Power *Parent, u32 *OtherBaseAddresses,
+			   XPm_Power *Parent, const u32 *OtherBaseAddresses,
 			   u32 OtherBaseAddressesCnt)
 {
 	XStatus Status = XST_FAILURE;

@@ -52,7 +52,7 @@ done:
 	return Status;
 }
 
-XStatus XPmCore_StoreResumeAddr(XPm_Core *Core, u64 Address)
+XStatus XPmCore_StoreResumeAddr(const XPm_Core *Core, u64 Address)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -77,7 +77,7 @@ done:
 	return Status;
 }
 
-XStatus XPmCore_HasResumeAddr(XPm_Core *Core)
+XStatus XPmCore_HasResumeAddr(const XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
 	u64 ResumeAddr;
@@ -95,7 +95,7 @@ done:
 	return Status;
 }
 
-XStatus XPmCore_SetCPUIdleFlag(XPm_Core *Core, u32 CpuIdleFlag)
+XStatus XPmCore_SetCPUIdleFlag(const XPm_Core *Core, u32 CpuIdleFlag)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -111,7 +111,7 @@ done:
 	return Status;
 }
 
-XStatus XPmCore_GetCPUIdleFlag(XPm_Core *Core, u32 *CpuIdleFlag)
+XStatus XPmCore_GetCPUIdleFlag(const XPm_Core *Core, u32 *CpuIdleFlag)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -242,10 +242,10 @@ XStatus XPmCore_AfterDirectPwrDwn(XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Power *PwrNode;
-	XPm_Device *DevTcm0A = XPmDevice_GetById(PM_DEV_TCM_0_A);
-	XPm_Device *DevTcm0B = XPmDevice_GetById(PM_DEV_TCM_0_B);
-	XPm_Device *DevTcm1A = XPmDevice_GetById(PM_DEV_TCM_1_A);
-	XPm_Device *DevTcm1B = XPmDevice_GetById(PM_DEV_TCM_1_B);
+	const XPm_Device *DevTcm0A = XPmDevice_GetById(PM_DEV_TCM_0_A);
+	const XPm_Device *DevTcm0B = XPmDevice_GetById(PM_DEV_TCM_0_B);
+	const XPm_Device *DevTcm1A = XPmDevice_GetById(PM_DEV_TCM_1_A);
+	const XPm_Device *DevTcm1B = XPmDevice_GetById(PM_DEV_TCM_1_B);
 
 	if (NULL != Core->Device.ClkHandles) {
 		Status = XPmClock_Release(Core->Device.ClkHandles);
@@ -293,8 +293,8 @@ done:
 XStatus XPmCore_GetWakeupLatency(const u32 DeviceId, u32 *Latency)
 {
 	XStatus Status = XST_SUCCESS;
-	XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
-	XPm_Power *Power;
+	const XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
+	const XPm_Power *Power;
 	u32 Lat = 0;
 
 	*Latency = 0;

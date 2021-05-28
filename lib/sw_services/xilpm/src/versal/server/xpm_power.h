@@ -64,7 +64,7 @@ struct XPm_Power {
 XPm_Power *XPmPower_GetById(u32 Id);
 XStatus XPmPower_Init(XPm_Power *Power,
 	u32 Id, u32 BaseAddress, XPm_Power *Parent);
-XStatus XPmPower_AddParent(u32 Id, u32 *Parents, u32 NumParents);
+XStatus XPmPower_AddParent(u32 Id, const u32 *Parents, u32 NumParents);
 XStatus XPmPower_GetStatus(const u32 SubsystemId, const u32 DeviceId, XPm_DeviceStatus *const DeviceStatus);
 XStatus XPmPower_GetWakeupLatency(const u32 DeviceId, u32 *Latency);
 XPm_Power *XPmPower_GetByIndex(const u32 PwrIndex);

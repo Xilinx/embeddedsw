@@ -63,16 +63,16 @@ typedef struct XPm_DeviceAttr XPm_DeviceAttr;
 
 /* Device Operations */
 struct XPm_DeviceOps {
-	XStatus (*Request)(XPm_Device *Device, XPm_Subsystem *Subsystem,
+	XStatus (*Request)(XPm_Device *Device, const XPm_Subsystem *Subsystem,
 			   u32 Capabilities, u32 QoS, u32 CmdType);
 		/**< Request: Request the device */
 
 	XStatus (*SetRequirement)(XPm_Device *Device,
-		XPm_Subsystem *Subsystem,
+		const XPm_Subsystem *Subsystem,
 		u32 Capabilities, const u32 QoS);
 		/**< SetRequirement: Set the device requirement */
 
-	XStatus (*Release)(XPm_Device *Device, XPm_Subsystem *Subsystem,
+	XStatus (*Release)(XPm_Device *Device, const XPm_Subsystem *Subsystem,
 			   u32 CmdType);
 		/**< Release: Release the device */
 };
@@ -149,9 +149,9 @@ XStatus XPmDevice_AddClock(XPm_Device *Device, XPm_ClockNode *Clock);
 
 XStatus XPmDevice_AddReset(XPm_Device *Device, XPm_ResetNode *Reset);
 
-XStatus XPmDevice_Reset(XPm_Device *Device, const XPm_ResetActions Action);
+XStatus XPmDevice_Reset(const XPm_Device *Device, const XPm_ResetActions Action);
 
-XStatus XPmDevice_CheckPermissions(XPm_Subsystem *Subsystem, u32 DeviceId);
+XStatus XPmDevice_CheckPermissions(const XPm_Subsystem *Subsystem, u32 DeviceId);
 
 XPm_Device *XPmDevice_GetById(const u32 DeviceId);
 
@@ -161,7 +161,7 @@ XPm_Device *XPmDevice_GetPlDeviceByIndex(const u32 DeviceIndex);
 
 XPm_Device *XPmDevice_GetHbMonDeviceByIndex(const u32 DeviceIndex);
 
-XStatus XPm_CheckCapabilities(XPm_Device *Device, u32 Caps);
+XStatus XPm_CheckCapabilities(const XPm_Device *Device, u32 Caps);
 
 XStatus XPmDevice_Request(const u32 SubsystemId, const u32 DeviceId,
 			  const u32 Capabilities, const u32 QoS,
@@ -180,10 +180,10 @@ XStatus XPmDevice_GetStatus(const u32 SubsystemId,
 			const u32 DeviceId,
 			XPm_DeviceStatus *const DeviceStatus);
 
-XStatus XPmDevice_AddParent(u32 Id, u32 *Parents, u32 NumParents);
-XStatus XPmDevice_GetPermissions(XPm_Device *Device, u32 *PermissionMask);
+XStatus XPmDevice_AddParent(u32 Id, const u32 *Parents, u32 NumParents);
+XStatus XPmDevice_GetPermissions(const XPm_Device *Device, u32 *PermissionMask);
 
-u32 XPmDevice_GetSubsystemIdOfCore(XPm_Device *Device);
+u32 XPmDevice_GetSubsystemIdOfCore(const XPm_Device *Device);
 
 XStatus XPmDevice_SetMaxLatency(const u32 SubsystemId, const u32 DeviceId,
 			    const u32 Latency);
@@ -191,8 +191,8 @@ XStatus XPmDevice_SetMaxLatency(const u32 SubsystemId, const u32 DeviceId,
 XStatus XPmDevice_ChangeState(XPm_Device *Device, const u32 NextState);
 XStatus XPmDevice_UpdateStatus(XPm_Device *Device);
 XStatus XPmDevice_BringUp(XPm_Device *Device);
-u32 XPmDevice_GetUsageStatus(XPm_Subsystem *Subsystem, XPm_Device *Device);
-XStatus XPmDevice_IsClockActive(XPm_Device *Device);
+u32 XPmDevice_GetUsageStatus(const XPm_Subsystem *Subsystem, const XPm_Device *Device);
+XStatus XPmDevice_IsClockActive(const XPm_Device *Device);
 XStatus XPmDevice_IsRequested(const u32 DeviceId, const u32 SubsystemId);
 XStatus XPmDevice_GetWakeupLatency(const u32 DeviceId, u32 *Latency);
 XStatus XPm_SetSysmonNode(u32 Id, u32 BaseAddress);

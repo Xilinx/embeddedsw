@@ -142,7 +142,7 @@ done:
 
 u32 XPmSubsystem_GetIPIMask(u32 SubsystemId)
 {
-	XPm_Subsystem *Subsystem;
+	const XPm_Subsystem *Subsystem;
 	u32 IpiMaskVal = 0;
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
@@ -159,7 +159,7 @@ done:
 u32 XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask)
 {
 	u32 SubsystemId = INVALID_SUBSYSID;
-	XPm_Subsystem *Subsystem;
+	const XPm_Subsystem *Subsystem;
 
 	/*
 	 * Subsystem with least one IPI channel
@@ -186,7 +186,7 @@ done:
 XStatus XPmSubsystem_ForceDownCleanup(u32 SubsystemId)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Subsystem *Subsystem;
+	const XPm_Subsystem *Subsystem;
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
 	if (NULL == Subsystem) {
@@ -240,9 +240,9 @@ XStatus XPmSubsystem_InitFinalize(const u32 SubsystemId)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
-	XPm_Device *Device;
+	const XPm_Device *Device;
 	const XPm_Power *Power;
-	XPm_Requirement *Reqm;
+	const XPm_Requirement *Reqm;
 	u32 DeviceInUse = 0;
 	u32 Idx;
 	u32 Platform = XPm_GetPlatform();
@@ -370,8 +370,8 @@ done:
 XStatus XPmSubsystem_Idle(u32 SubsystemId)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Subsystem *Subsystem;
-	XPm_Requirement *Reqm;
+	const XPm_Subsystem *Subsystem;
+	const XPm_Requirement *Reqm;
 	XPm_Device *Device;
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
@@ -410,7 +410,7 @@ done:
 XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Device *Device = XPmDevice_GetById(NodeId);
+	const XPm_Device *Device = XPmDevice_GetById(NodeId);
 	u32 CoreSubsystemId;
 
 	if (NULL == XPmSubsystem_GetById(SubsystemId)) {
@@ -556,7 +556,7 @@ XPm_Subsystem *XPmSubsystem_GetByIndex(u32 SubSysIdx)
 XStatus XPm_IsWakeAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Device *Device = XPmDevice_GetById(NodeId);
+	const XPm_Device *Device = XPmDevice_GetById(NodeId);
 	u32 CoreSubsystemId;
 
 	if (NULL == XPmSubsystem_GetById(SubsystemId)) {
@@ -631,9 +631,9 @@ done:
 XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Subsystem *Subsystem;
-	XPm_PinNode *Pin;
-	XPm_Device *Device = NULL;
+	const XPm_Subsystem *Subsystem;
+	const XPm_PinNode *Pin;
+	const XPm_Device *Device = NULL;
 	u32 DevId;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
@@ -745,7 +745,7 @@ XStatus XPmSubsystem_Configure(u32 SubsystemId)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
-	XPm_Requirement *Reqm;
+	const XPm_Requirement *Reqm;
 	u32 DeviceId;
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
@@ -972,7 +972,7 @@ XStatus XPmSubsystem_Destroy(u32 SubsystemId)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
-	XPm_Requirement *Reqm;
+	const XPm_Requirement *Reqm;
 	XPm_Device *Device;
 
 	if (((u32)XPM_NODECLASS_SUBSYSTEM != NODECLASS(SubsystemId)) ||
@@ -1057,7 +1057,8 @@ XStatus XPmSubsystem_GetStatus(const u32 SubsystemId, const u32 DeviceId,
 			       XPm_DeviceStatus *const DeviceStatus)
 {
 	XStatus Status = XPM_ERR_DEVICE_STATUS;
-	XPm_Subsystem *Subsystem, *Target_Subsystem;
+	const XPm_Subsystem *Subsystem;
+	const XPm_Subsystem *Target_Subsystem;
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
 	Target_Subsystem = XPmSubsystem_GetById(DeviceId);

@@ -78,10 +78,10 @@ static XStatus Pld_UnsetBitPwrBitMask(u8 *BitMask, const u32 NodeId)
  * @note	None
  *
  ****************************************************************************/
-XStatus XPmPlDevice_IsValidPld(XPm_PlDevice *PlDevice)
+XStatus XPmPlDevice_IsValidPld(const XPm_PlDevice *PlDevice)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_PlDevice *Parent;
+	const XPm_PlDevice *Parent;
 
 	if (NULL == PlDevice) {
 		Status = XST_DEVICE_NOT_FOUND;
@@ -429,7 +429,7 @@ static const XPm_DeviceFsm XPmPlDeviceFsm = {
  * @note Arguments consist of Power Domain Node Ids that PlDevice depends on
  *
  ****************************************************************************/
-static XStatus PlInitStart(XPm_PlDevice *PlDevice, u32 *Args, u32 NumArgs)
+static XStatus PlInitStart(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_FUNC_INIT_START;
@@ -517,7 +517,7 @@ done:
  * @note Arguments consist of Power Domain Node Ids that PlDevice depends on
  *
  ****************************************************************************/
-static XStatus PlInitFinish(XPm_PlDevice *PlDevice, u32 *Args, u32 NumArgs)
+static XStatus PlInitFinish(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_FUNC_INIT_FINISH;
@@ -647,8 +647,8 @@ XStatus XPmPlDevice_GetParent(u32 NodeId, u32 *Resp)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	XPm_Device *Device;
-	XPm_PlDevice *Parent = NULL;
+	const XPm_Device *Device;
+	const XPm_PlDevice *Parent = NULL;
 
 	Device = XPmDevice_GetById(NodeId);
 	if (NULL == Device) {

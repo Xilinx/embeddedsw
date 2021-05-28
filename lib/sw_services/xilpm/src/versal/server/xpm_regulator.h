@@ -28,7 +28,7 @@ typedef struct XPm_Regulator {
 /************************** Function Prototypes ******************************/
 
 XPm_Regulator *XPmRegulator_GetById(u32 Id);
-XStatus XPmRegulator_Init(XPm_Regulator *Regulator, u32 Id, u32 *Args,
+XStatus XPmRegulator_Init(XPm_Regulator *Regulator, u32 Id, const u32 *Args,
 			  u32 NumArgs);
 
 #ifdef __cplusplus

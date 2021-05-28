@@ -71,7 +71,7 @@ static XPmDevice_SoftResetInfo DeviceRstData[] = {
 int NodeQspiIdle(u16 DeviceId, u32 BaseAddress)
 {
 	XStatus Status = XST_FAILURE;
-	XQspiPsu_Config *ConfigPtr;
+	const XQspiPsu_Config *ConfigPtr;
 	XQspiPsu QspiInst = {0};
 
 	ConfigPtr = XQspiPsu_LookupConfig(DeviceId);
@@ -302,12 +302,12 @@ done:
 }
 #endif
 
-int XPmDevice_SoftResetIdle(XPm_Device *Device, const u32 IdleReq)
+int XPmDevice_SoftResetIdle(const XPm_Device *Device, const u32 IdleReq)
 {
 	int Status = XST_FAILURE;
 	u32 Idx;
 	u32 DevRstDataSize = ARRAY_SIZE(DeviceRstData);
-	XPmDevice_SoftResetInfo *RstInfo = NULL;
+	const XPmDevice_SoftResetInfo *RstInfo = NULL;
 
 	if (0U != DevRstDataSize) {
 		for (Idx = 0; Idx < DevRstDataSize; Idx++) {
@@ -320,6 +320,7 @@ int XPmDevice_SoftResetIdle(XPm_Device *Device, const u32 IdleReq)
 
 	if (NULL == RstInfo) {
 		Status = XST_SUCCESS;
+		goto done;
 	}
 
 	if (DEVICE_IDLE_REQ == IdleReq) {

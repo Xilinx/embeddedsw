@@ -263,7 +263,7 @@ int NodeGemIdle(u16 DeviceId, u32 BaseAddress);
 int NodeZdmaIdle(u16 DeviceId, u32 BaseAddr);
 #endif
 
-int XPmDevice_SoftResetIdle(XPm_Device *Device, const u32 IdleReq);
+int XPmDevice_SoftResetIdle(const XPm_Device *Device, const u32 IdleReq);
 
 #ifdef __cplusplus
 }

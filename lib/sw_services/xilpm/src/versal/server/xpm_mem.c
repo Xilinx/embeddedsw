@@ -100,7 +100,7 @@ static XStatus XPmDDRDevice_EnterSelfRefresh(void)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	XPm_Device *Device;
+	const XPm_Device *Device;
 	u32 BaseAddress;
 	u32 Reg, IsActive;
 	u32 i;
@@ -165,7 +165,7 @@ static XStatus XPmDDRDevice_ExitSelfRefresh(void)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	XPm_Device *Device;
+	const XPm_Device *Device;
 	u32 BaseAddress;
 	u32 Reg, IsActive;
 	u32 i;
@@ -298,7 +298,7 @@ static XStatus TcmProtControl(const XPm_Requirement *Reqm, u32 Enable)
 	return XPmProt_PpuControl(Reqm, Tcm->StartAddress, Enable);
 }
 
-static void TcmEccInit(XPm_MemDevice *Tcm, u32 Mode)
+static void TcmEccInit(const XPm_MemDevice *Tcm, u32 Mode)
 {
 	u32 Size = Tcm->EndAddress - Tcm->StartAddress;
 	u32 Id = Tcm->Device.Node.Id;
@@ -321,8 +321,8 @@ static void TcmEccInit(XPm_MemDevice *Tcm, u32 Mode)
 static XStatus HandleTcmDeviceState(XPm_Device* Device, u32 NextState)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Device *Rpu0Device = XPmDevice_GetById(PM_DEV_RPU0_0);
-	XPm_Device *Rpu1Device = XPmDevice_GetById(PM_DEV_RPU0_1);
+	const XPm_Device *Rpu0Device = XPmDevice_GetById(PM_DEV_RPU0_0);
+	const XPm_Device *Rpu1Device = XPmDevice_GetById(PM_DEV_RPU0_1);
 	u32 Id = Device->Node.Id;
 	u32 Mode;
 

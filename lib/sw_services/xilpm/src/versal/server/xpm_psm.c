@@ -26,7 +26,7 @@ static u32 Is_PsmPoweredDown = 0U;
 static XStatus XPmPsm_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Psm *Psm = (XPm_Psm *)Core;
+	const XPm_Psm *Psm = (XPm_Psm *)Core;
 	u32 CRLBaseAddress = Psm->CrlBaseAddr;
 
 	if (1U == Core->isCoreUp) {
@@ -127,7 +127,7 @@ static struct XPm_CoreOps PsmOps = {
 
 XStatus XPmPsm_Init(XPm_Psm *Psm,
 	u32 Ipi,
-	u32 *BaseAddress,
+	const u32 *BaseAddress,
 	XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset)
 {
 	XStatus Status = XST_FAILURE;
@@ -149,7 +149,7 @@ XStatus XPmPsm_SendPowerUpReq(u32 BitMask)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Reg;
-	XPm_Psm *Psm;
+	const XPm_Psm *Psm;
 
 	PmDbg("BitMask=0x%08X\n\r", BitMask);
 
@@ -187,11 +187,11 @@ XStatus XPmPsm_SendPowerDownReq(u32 BitMask)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Reg;
-	XPm_Psm *Psm;
-	XPm_Power *Ocm0 = XPmPower_GetById(PM_POWER_OCM_0);
-	XPm_Power *Ocm1 = XPmPower_GetById(PM_POWER_OCM_1);
-	XPm_Power *Ocm2 = XPmPower_GetById(PM_POWER_OCM_2);
-	XPm_Power *Ocm3 = XPmPower_GetById(PM_POWER_OCM_3);
+	const XPm_Psm *Psm;
+	const XPm_Power *Ocm0 = XPmPower_GetById(PM_POWER_OCM_0);
+	const XPm_Power *Ocm1 = XPmPower_GetById(PM_POWER_OCM_1);
+	const XPm_Power *Ocm2 = XPmPower_GetById(PM_POWER_OCM_2);
+	const XPm_Power *Ocm3 = XPmPower_GetById(PM_POWER_OCM_3);
 
 	/*
 	 * As per EDT-995988, Getting the SLV error from power down
@@ -244,7 +244,7 @@ done:
 u32 XPmPsm_FwIsPresent(void)
 {
 	u32 Reg = 0U;
-	XPm_Psm *Psm;
+	const XPm_Psm *Psm;
 	const XPm_Power *Lpd = XPmPower_GetById(PM_POWER_LPD);
 
 	Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
@@ -264,7 +264,7 @@ done:
 
 void XPmPsm_RegWrite(const u32 Offset, const u32 Value)
 {
-	XPm_Psm *Psm;
+	const XPm_Psm *Psm;
 
 	Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
 	if (NULL == Psm) {

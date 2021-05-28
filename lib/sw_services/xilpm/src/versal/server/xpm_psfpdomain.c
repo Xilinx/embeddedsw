@@ -14,7 +14,7 @@
 #include "xpm_debug.h"
 #include "xpm_rail.h"
 
-static XStatus FpdInitStart(u32 *Args, u32 NumOfArgs)
+static XStatus FpdInitStart(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};
@@ -23,7 +23,7 @@ static XStatus FpdInitStart(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-	XPm_Rail *VccintPsfpRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PSFP);
+	const XPm_Rail *VccintPsfpRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PSFP);
 
 	/* Check vccint_fpd first to make sure power is on */
 	Status = XPmPower_CheckPower(VccintPsfpRail,
@@ -63,7 +63,7 @@ done:
 	return Status;
 }
 
-static XStatus FpdInitFinish(u32 *Args, u32 NumOfArgs)
+static XStatus FpdInitFinish(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -75,7 +75,7 @@ static XStatus FpdInitFinish(u32 *Args, u32 NumOfArgs)
 	return Status;
 }
 
-static XStatus FpdHcComplete(u32 *Args, u32 NumOfArgs)
+static XStatus FpdHcComplete(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};
@@ -132,10 +132,10 @@ done:
 	return Status;
 }
 
-static XStatus FpdScanClear(u32 *Args, u32 NumOfArgs)
+static XStatus FpdScanClear(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Psm *Psm;
+	const XPm_Psm *Psm;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	(void)Args;
@@ -183,7 +183,7 @@ done:
 	return Status;
 }
 
-static XStatus FpdBisr(u32 *Args, u32 NumOfArgs)
+static XStatus FpdBisr(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};
@@ -228,11 +228,11 @@ done:
 	return Status;
 }
 
-static XStatus FpdMbistClear(u32 *Args, u32 NumOfArgs)
+static XStatus FpdMbistClear(const u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT] = {0};
-	XPm_Psm *Psm;
+        XStatus Status = XST_FAILURE;
+        u32 Payload[PAYLOAD_ARG_CNT] = {0};
+	const XPm_Psm *Psm;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	(void)Args;
@@ -369,7 +369,7 @@ static struct XPm_PowerDomainOps FpdOps = {
 };
 
 XStatus XPmPsFpDomain_Init(XPm_PsFpDomain *PsFpd, u32 Id, u32 BaseAddress,
-			   XPm_Power *Parent,  u32 *OtherBaseAddresses,
+			   XPm_Power *Parent,  const u32 *OtherBaseAddresses,
 			   u32 OtherBaseAddressCnt)
 {
 	XStatus Status = XST_FAILURE;
