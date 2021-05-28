@@ -585,20 +585,14 @@ static XStatus XPmIoctl_IsRegRequested(u32 SubsystemId, u32 RegNum, u32 Type)
 	}
 
 	Reqm = XPmDevice_FindRequirement(DeviceId, SubsystemId);
-	if (NULL == Reqm) {
+	if ((NULL == Reqm) || (1U != Reqm->Allocated)) {
 		Status = XPM_ERR_DEVICE_STATUS;
 		goto done;
 	}
 
-	if (1U != Reqm->Allocated) {
-		Status = XST_FAILURE;
-	}
-
 	Status = XST_SUCCESS;
-
 done:
 	return Status;
-
 }
 
 static XStatus XPmIoctl_IsOperationAllowed(u32 RegNum, u32 SubsystemId,
