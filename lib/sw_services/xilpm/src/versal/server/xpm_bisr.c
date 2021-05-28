@@ -1108,7 +1108,7 @@ static void XPmBisr_LagunaRmwOneFrame(XPm_PlDomain *Pld, u8 RowIndex,
 	FrameAddr = ((u32)6U << CFRAME_REG_FAR_BLOCKTYPE_SHIFT) + LagunaRepairX;
 
 	/* Get CFRAME Address */
-	CFrameAddr = Pld->Cframe0RegBaseAddr + (XCFRAME_FRAME_OFFSET * RowIndex);
+	CFrameAddr = Pld->Cframe0RegBaseAddr + (XCFRAME_FRAME_OFFSET * (u32)RowIndex);
 
 	/*
 	 * Set CFRAME command to read configuration data. CFRAME uses 128-bit wide
