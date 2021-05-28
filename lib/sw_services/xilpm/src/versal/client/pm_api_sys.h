@@ -139,27 +139,27 @@ XStatus XPm_SetWakeUpSource(const u32 TargetDeviceId,
 			    const u32 DeviceId, const u32 Enable);
 XStatus XPm_Query(const u32 QueryId, const u32 Arg1, const u32 Arg2,
 		  const u32 Arg3, u32 *const Data);
-int XPm_SetMaxLatency(const u32 DeviceId, const u32 Latency);
+XStatus XPm_SetMaxLatency(const u32 DeviceId, const u32 Latency);
 XStatus XPm_GetOpCharacteristic(const u32 DeviceId,
 				const enum XPmOpCharType Type,
 				u32 *const Result);
-int XPm_InitFinalize(void);
-int XPm_RegisterNotifier(XPm_Notifier* const Notifier);
-int XPm_UnregisterNotifier(XPm_Notifier* const Notifier);
+XStatus XPm_InitFinalize(void);
+XStatus XPm_RegisterNotifier(XPm_Notifier* const Notifier);
+XStatus XPm_UnregisterNotifier(XPm_Notifier* const Notifier);
 void XPm_NotifyCb(const u32 Node, const enum XPmNotifyEvent Event,
 		  const u32 Oppoint);
 
 void XPm_InitSuspendCb(const enum XPmSuspendReason Reason,
 		       const u32 Latency, const u32 State, const u32 Timeout);
 void XPm_AcknowledgeCb(const u32 Node, const XStatus Status, const u32 Oppoint);
-int XPm_ClockSetRate(const u32 ClockId, const u32 Rate);
-int XPm_ClockGetRate(const u32 ClockId, u32 *const Rate);
+XStatus XPm_ClockSetRate(const u32 ClockId, const u32 Rate);
+XStatus XPm_ClockGetRate(const u32 ClockId, u32 *const Rate);
 XStatus XPm_FeatureCheck(const u32 FeatureId, u32 *Version);
 
 /** @cond INTERNAL */
-int XPm_SetConfiguration(const u32 Address);
-int XPm_MmioWrite(const u32 Address, const u32 Mask, const u32 Value);
-int XPm_MmioRead(const u32 Address, u32 *const Value);
+XStatus XPm_SetConfiguration(const u32 Address);
+XStatus XPm_MmioWrite(const u32 Address, const u32 Mask, const u32 Value);
+XStatus XPm_MmioRead(const u32 Address, u32 *const Value);
 /** @endcond */
 
 #ifdef __cplusplus

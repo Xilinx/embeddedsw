@@ -1056,9 +1056,9 @@ done:
  * or a reason code
  *
  ****************************************************************************/
-int XPm_ClockGetRate(const u32 ClockId, u32 *const Rate)
+XStatus XPm_ClockGetRate(const u32 ClockId, u32 *const Rate)
 {
-	int Status = (s32)XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	PACK_PAYLOAD1(Payload, PM_CLOCK_GETRATE, ClockId);
@@ -1087,9 +1087,9 @@ done:
  * or a reason code
  *
  ****************************************************************************/
-int XPm_ClockSetRate(const u32 ClockId, const u32 Rate)
+XStatus XPm_ClockSetRate(const u32 ClockId, const u32 Rate)
 {
-	int Status = (s32)XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	PACK_PAYLOAD2(Payload, PM_CLOCK_SETRATE, ClockId, Rate);
@@ -1705,9 +1705,9 @@ done:
  *         possible power states a resource can be put into.
  *
  ****************************************************************************/
-int XPm_SetMaxLatency(const u32 DeviceId, const u32 Latency)
+XStatus XPm_SetMaxLatency(const u32 DeviceId, const u32 Latency)
 {
-	int Status = (s32)XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	PACK_PAYLOAD2(Payload, PM_SET_MAX_LATENCY, DeviceId, Latency);
@@ -1774,7 +1774,7 @@ done:
  * @return XST_SUCCESS if successful, otherwise an error code
  *
  ****************************************************************************/
-int XPm_InitFinalize(void)
+XStatus XPm_InitFinalize(void)
 {
 	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
@@ -1812,9 +1812,9 @@ done:
  * the notifier object shall not be modified by the caller.
  *
  ****************************************************************************/
-int XPm_RegisterNotifier(XPm_Notifier* const Notifier)
+XStatus XPm_RegisterNotifier(XPm_Notifier* const Notifier)
 {
-	int Status = (s32)XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if (NULL == Notifier) {
@@ -1858,9 +1858,9 @@ done:
  *
  *
  ****************************************************************************/
-int XPm_UnregisterNotifier(XPm_Notifier* const Notifier)
+XStatus XPm_UnregisterNotifier(XPm_Notifier* const Notifier)
 {
-	int Status = (s32)XST_FAILURE;
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if (NULL == Notifier) {
@@ -2000,7 +2000,7 @@ void XPm_NotifyCb(const u32 Node, const enum XPmNotifyEvent Event,
 }
 
 /** @cond INTERNAL */
-int XPm_SetConfiguration(const u32 Address)
+XStatus XPm_SetConfiguration(const u32 Address)
 {
 	/* Suppress compilation warning */
 	(void)Address;
@@ -2009,7 +2009,7 @@ int XPm_SetConfiguration(const u32 Address)
 	return (s32)XST_SUCCESS;
 }
 
-int XPm_MmioWrite(const u32 Address, const u32 Mask, const u32 Value)
+XStatus XPm_MmioWrite(const u32 Address, const u32 Mask, const u32 Value)
 {
 	/* Suppress compilation warning */
 	(void)Address;
@@ -2020,7 +2020,7 @@ int XPm_MmioWrite(const u32 Address, const u32 Mask, const u32 Value)
 	return (s32)XST_FAILURE;
 }
 
-int XPm_MmioRead(const u32 Address, u32 *const Value)
+XStatus XPm_MmioRead(const u32 Address, u32 *const Value)
 {
 	/* Suppress compilation warning */
 	(void)Address;
