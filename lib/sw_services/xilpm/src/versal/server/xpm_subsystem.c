@@ -73,6 +73,7 @@ XStatus XPmSubsystem_IsOperationAllowed(const u32 HostId, const u32 TargetId,
 	if ((PM_SUBSYS_PMC == TargetId) && (PM_SUBSYS_PMC != HostId)) {
 		Status = XPM_PM_NO_ACCESS;
 		DbgErr = XPM_INT_ERR_INVALID_SUBSYSTEMID;
+		goto done;
 	} else if ((PM_SUBSYS_PMC == HostId) || (PM_SUBSYS_DEFAULT == HostId)) {
 		Status = XST_SUCCESS;
 		goto done;
@@ -80,6 +81,7 @@ XStatus XPmSubsystem_IsOperationAllowed(const u32 HostId, const u32 TargetId,
 		/* Host is not PMC or default and target is default subsystem. */
 		Status = XPM_PM_NO_ACCESS;
 		DbgErr = XPM_INT_ERR_INVALID_SUBSYSTEMID;
+		goto done;
 	} else {
 		/* Required by MISRA */
 	}
@@ -94,16 +96,24 @@ XStatus XPmSubsystem_IsOperationAllowed(const u32 HostId, const u32 TargetId,
 	{
 		case SUB_PERM_WAKE_MASK:
 			PermissionMask = TargetSubsystem->Perms.WakeupPerms;
+			Status = XST_SUCCESS;
 			break;
 		case SUB_PERM_PWRDWN_MASK:
 			PermissionMask = TargetSubsystem->Perms.PowerdownPerms;
+			Status = XST_SUCCESS;
 			break;
 		case SUB_PERM_SUSPEND_MASK:
 			PermissionMask = TargetSubsystem->Perms.SuspendPerms;
+			Status = XST_SUCCESS;
 			break;
 		default:
-			DbgErr = XST_INVALID_PARAM;
-			goto done;
+			DbgErr = XPM_INT_ERR_INVALID_PARAM;
+			Status = XST_INVALID_PARAM;
+			break;
+	}
+
+	if (XST_SUCCESS != Status) {
+		goto done;
 	}
 
 	/* Have Target check if Host can enact the operation */
@@ -122,7 +132,6 @@ done:
 	if (XST_SUCCESS != Status) {
 		XPm_PrintDbgErr(Status, DbgErr);
 	}
-
 	return Status;
 }
 

@@ -535,6 +535,10 @@ XStatus XPmIoctl_AddRegPermission(XPm_Subsystem *Subsystem, u32 DeviceId,
 		break;
 	default:
 		Status = XPM_INVALID_TYPEID;
+		break;
+	}
+
+	if (XPM_INVALID_TYPEID == Status) {
 		goto done;
 	}
 
@@ -570,6 +574,10 @@ static XStatus XPmIoctl_IsRegRequested(u32 SubsystemId, u32 RegNum, u32 Type)
 		break;
 	default:
 		Status = XPM_INVALID_TYPEID;
+		break;
+	}
+
+	if (XPM_INVALID_TYPEID == Status) {
 		goto done;
 	}
 
