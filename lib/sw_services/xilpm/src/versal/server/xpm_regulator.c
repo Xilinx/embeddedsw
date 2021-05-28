@@ -20,7 +20,7 @@ XPm_Regulator *XPmRegulator_GetById(u32 Id)
 
 	if (((u32)XPM_NODECLASS_POWER == NodeClass) &&
 	    ((u32)XPM_NODESUBCL_POWER_REGULATOR == NodeSubClass) &&
-	    ((u32)XPM_NODEIDX_POWER_MAX > NodeIndex)) {
+	    ((u32)XPM_NODEIDX_POWER_REGULATOR_MAX > NodeIndex)) {
 		Regulator = PmRegulators[NodeIndex];
 		/* Validate power node ID is same as given ID. */
 		if ((NULL != Regulator) && (Id != Regulator->Node.Id)) {
