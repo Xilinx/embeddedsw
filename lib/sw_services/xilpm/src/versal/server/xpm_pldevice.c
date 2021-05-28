@@ -257,7 +257,7 @@ static XStatus Pld_ManagePower(XPm_PlDevice *PlDevice)
 	u8 BitMask;
 	u32 PwrNodeId;
 	u32 i;
-	u32 PwrEvtAction;
+	u32 PwrEvtAction = NOT_INITIALIZED;
 
 	if (NULL == PlDevice) {
 		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
@@ -275,7 +275,6 @@ static XStatus Pld_ManagePower(XPm_PlDevice *PlDevice)
 	for (i = 0; i < ARRAY_SIZE(PmPwrBitMap); ++i) {
 		BitMask = PmPwrBitMap[i].BitMask;
 		PwrNodeId = PmPwrBitMap[i].NodeId;
-		PwrEvtAction = NOT_INITIALIZED;
 
 		if ((0U == (PlPowerBitMask & BitMask)) &&
 		  (BitMask == (PlWfPowerBitMask & BitMask))) {
