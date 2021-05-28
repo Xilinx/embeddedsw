@@ -310,7 +310,6 @@ done:
 static XStatus ResetPulseLpd(XPm_ResetNode *Rst)
 {
 	XStatus Status = XST_FAILURE;
-	//u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
 
 	/* This parameter is required as per the prototype */
 	(void)(Rst);
