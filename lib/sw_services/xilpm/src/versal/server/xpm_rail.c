@@ -218,6 +218,8 @@ XStatus XPmRail_Control(XPm_Rail *Rail, u8 State)
 			Status = WaitForPowerRailUp(PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCAUX_MASK);
 		} else if ((u32)XPM_NODEIDX_POWER_VCCINT_SOC == NodeIdx) {
 			Status = WaitForPowerRailUp(PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_SOC_MASK);
+		} else {
+			/* Required by MISRA */
 		}
 	}
 
