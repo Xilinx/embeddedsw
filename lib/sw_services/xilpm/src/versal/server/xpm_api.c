@@ -3228,31 +3228,12 @@ int XPm_InitFinalize(const u32 SubsystemId)
 XStatus XPm_DescribeNodes(u32 NumArgs)
 {
 	int Status = XST_FAILURE;
-	/*u32 NumPwrNodes, NumClkNodes, NumRstNodes, NumMioNodes, NumDevices;*/
 
 	if(NumArgs < 3U) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
-
-	/* Uncomment when AllocNodes will implement */
-	/*NumPwrNodes = (Args[0] >> 16) & 0xFFFF;
-	NumClkNodes = Args[0] & 0xFFFF;
-	NumRstNodes = (Args[1] >> 16) & 0xFFFF;
-	NumMioNodes = Args[1] & 0xFFFF;
-	NumDevices = Args[2] & 0xFFFF;
-
-	if(NumClkNodes != 0)
-		Status = XPmClock_AllocNodes(NumClkNodes);
-	if(NumPwrNodes != 0)
-		Status = XPmPower_AllocNodes(NumPwrNodes);
-	if(NumRstNodes != 0)
-		Status = XPmReset_AllocNodes(NumRstNodes);
-	if (NumMioNodes != 0)
-		Status = XPmMio_AllocNodes(NumMioNodes);
-	if (NumDevices != 0)
-		Status = XPmDevice_Alloc(NumDevices);*/
-
+	/* TODO: missing implementation */
 	Status = XST_SUCCESS;
 
 done:
