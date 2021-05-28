@@ -748,9 +748,9 @@ XStatus XPmReset_IsOperationAllowed(const u32 SubsystemId,
 
 	/* Have Target check if Host can enact the operation */
 	if ((XPLMI_CMD_SECURE == CmdType) &&
-	    (0U != (Rst->AllowedSubsystems & (1U << SUBSYS_TO_S_BITPOS(SubsystemId))))) {
+	    (0U != (Rst->AllowedSubsystems & ((u32)1U << SUBSYS_TO_S_BITPOS(SubsystemId))))) {
 		Status = XST_SUCCESS;
-	} else if (0U != (Rst->AllowedSubsystems & (1U << SUBSYS_TO_NS_BITPOS(SubsystemId)))) {
+	} else if (0U != (Rst->AllowedSubsystems & ((u32)1U << SUBSYS_TO_NS_BITPOS(SubsystemId)))) {
 		Status = XST_SUCCESS;
 	} else {
 		Status = XPM_PM_NO_ACCESS;
