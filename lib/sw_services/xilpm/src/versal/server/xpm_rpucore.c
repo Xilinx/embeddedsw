@@ -131,7 +131,7 @@ void XPm_RpuGetOperMode(const u32 DeviceId, u32 *Mode)
 void XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode)
 {
 	u32 Val;
-	int Status;
+	XStatus Status;
 	XPm_Subsystem *DefSubsystem = XPmSubsystem_GetById(PM_SUBSYS_DEFAULT);
 
 	XPm_RpuCore *RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);

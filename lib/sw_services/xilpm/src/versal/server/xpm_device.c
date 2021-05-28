@@ -168,9 +168,9 @@ static XStatus SetDeviceNode(u32 Id, XPm_Device *Device)
 	return Status;
 }
 
-static int SetPlDeviceNode(u32 Id, XPm_Device *Device)
+static XStatus SetPlDeviceNode(u32 Id, XPm_Device *Device)
 {
-	int Status = XST_INVALID_PARAM;
+	XStatus Status = XST_INVALID_PARAM;
 	u32 NodeIndex = NODEINDEX(Id);
 
 	/*
@@ -1598,9 +1598,9 @@ done:
 	return Status;
 }
 
-int XPmDevice_CheckPermissions(XPm_Subsystem *Subsystem, u32 DeviceId)
+XStatus XPmDevice_CheckPermissions(XPm_Subsystem *Subsystem, u32 DeviceId)
 {
-	int Status = XPM_PM_NO_ACCESS;
+	XStatus Status = XPM_PM_NO_ACCESS;
 	XPm_Requirement *Reqm;
 	XPm_Device *Device = XPmDevice_GetById(DeviceId);
 
@@ -2123,10 +2123,10 @@ done:
  * or a reason code
  *
  ****************************************************************************/
-int XPmDevice_SetMaxLatency(const u32 SubsystemId, const u32 DeviceId,
+XStatus XPmDevice_SetMaxLatency(const u32 SubsystemId, const u32 DeviceId,
 			    const u32 Latency)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_Requirement *Reqm;
 	XPm_Subsystem *Subsystem = XPmSubsystem_GetById(SubsystemId);
 	XPm_Device *Device = XPmDevice_GetById(DeviceId);
@@ -2313,11 +2313,11 @@ static u32 GetLatencyFromState(const XPm_Device *const Device, const u32 State)
  * then XST_FAILURE is returned. Otherwise, function returns success.
  *
  ****************************************************************************/
-static int ConstrainStateByLatency(const XPm_Device *const Device,
+static XStatus ConstrainStateByLatency(const XPm_Device *const Device,
 				   u32 *const State, const u32 CapsToSet,
 				   const u32 MinLatency)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	u32 WkupLat;
 	u32 Idx = 0;
 
@@ -2360,9 +2360,9 @@ static int ConstrainStateByLatency(const XPm_Device *const Device,
  * otherwise XST_SUCCESS is returned.
  *
  ****************************************************************************/
-static int UpdatePwrLatencyReq(const XPm_Device *const Device)
+static XStatus UpdatePwrLatencyReq(const XPm_Device *const Device)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_Power* Power = Device->Power;
 
 	if ((u8)XPM_POWER_STATE_ON == Power->Node.State) {
@@ -2485,9 +2485,9 @@ u32 XPmDevice_GetUsageStatus(XPm_Subsystem *Subsystem, XPm_Device *Device)
  *         XST_FAILURE if all clocks for given device are inactive
  *
  ****************************************************************************/
-int XPmDevice_IsClockActive(XPm_Device *Device)
+XStatus XPmDevice_IsClockActive(XPm_Device *Device)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_ClockHandle *ClkHandle = Device->ClkHandles;
 	XPm_OutClockNode *Clk;
 	u32 Enable;
@@ -2531,9 +2531,9 @@ done:
  *         XST_FAILURE if device is not requested or error code
  *
  ****************************************************************************/
-int XPmDevice_IsRequested(const u32 DeviceId, const u32 SubsystemId)
+XStatus XPmDevice_IsRequested(const u32 DeviceId, const u32 SubsystemId)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_Device *Device = XPmDevice_GetById(DeviceId);
 	XPm_Subsystem *Subsystem = XPmSubsystem_GetById(SubsystemId);
 	XPm_Requirement *Reqm;
@@ -2552,9 +2552,9 @@ done:
 	return Status;
 }
 
-int XPmDevice_GetWakeupLatency(const u32 DeviceId, u32 *Latency)
+XStatus XPmDevice_GetWakeupLatency(const u32 DeviceId, u32 *Latency)
 {
-	int Status = XST_SUCCESS;
+	XStatus Status = XST_SUCCESS;
 	XPm_Device *Device = XPmDevice_GetById(DeviceId);
 	u32 Lat = 0;
 

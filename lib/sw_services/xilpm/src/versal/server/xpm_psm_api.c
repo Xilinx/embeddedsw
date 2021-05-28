@@ -39,7 +39,7 @@ volatile struct PsmToPlmEvent_t *PsmToPlmEvent =
 
 static int XPm_ProcessPsmCmd(XPlmi_Cmd * Cmd)
 {
-	int Status = XST_FAILURE, EventStatus;
+	XStatus Status = XST_FAILURE, EventStatus;
 	u32 Idx;
 	XPm_Power *Lpd;
 
@@ -325,7 +325,7 @@ done:
  ****************************************************************************/
 XStatus XPm_WakeUpEvent(const u32 DeviceId)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	u32 CpuIdleFlag = 0;
 	XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
 

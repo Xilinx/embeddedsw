@@ -504,7 +504,7 @@ static void XPmClock_InitParent(XPm_OutClockNode *Clk)
 	u32 ParentIdx = 0;
 	struct XPm_ClkTopologyNode *Ptr;
 	XPm_ClockNode *ParentClk = NULL;
-	int Status;
+	XStatus Status;
 
 	Ptr = XPmClock_GetTopologyNode(Clk, (u32)TYPE_MUX);
 	if (NULL != Ptr) {
@@ -525,7 +525,7 @@ static void XPmClock_InitParent(XPm_OutClockNode *Clk)
 
 static void XPmClock_RequestInt(XPm_ClockNode *Clk)
 {
-	int Status;
+	XStatus Status;
 
 	if (Clk != NULL) {
 		if (0U == Clk->UseCount) {
@@ -605,7 +605,7 @@ done:
 
 static void XPmClock_ReleaseInt(XPm_ClockNode *Clk)
 {
-	int Status;
+	XStatus Status;
 
 	if (Clk != NULL) {
 		/* Decrease the use count of clock */
@@ -964,7 +964,7 @@ done:
 XStatus XPmClock_QueryAttributes(u32 ClockIndex, u32 *Resp)
 {
 	XStatus Status = XST_FAILURE;
-	unsigned int Attr = 0;
+	u32 Attr = 0;
 	u32 InitEnable = 0;
 	u32 ClockId = 0;
 	XPm_ClockNode *Clk;
@@ -1129,14 +1129,14 @@ done:
 	return Status;
 }
 
-int XPmClock_SetRate(XPm_ClockNode *Clk, const u32 ClkRate)
+XStatus XPmClock_SetRate(XPm_ClockNode *Clk, const u32 ClkRate)
 {
 	Clk->ClkRate = ClkRate;
 
 	return XST_SUCCESS;
 }
 
-int XPmClock_GetRate(XPm_ClockNode *Clk, u32 *ClkRate)
+XStatus XPmClock_GetRate(XPm_ClockNode *Clk, u32 *ClkRate)
 {
 	*ClkRate = Clk->ClkRate;
 

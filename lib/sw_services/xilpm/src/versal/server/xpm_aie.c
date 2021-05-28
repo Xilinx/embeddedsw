@@ -308,7 +308,7 @@ static XStatus AieCoreMemInit(void)
 {
 	u32 row = AieInst.StartRow;
 	u32 col = AieInst.StartCol;
-	int Status;
+	XStatus Status;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	for (col = AieInst.StartCol; col < (AieInst.StartCol + AieInst.NumCols); col++) {
