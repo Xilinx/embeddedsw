@@ -296,11 +296,13 @@ XStatus XPmRail_Init(XPm_Rail *Rail, u32 RailId, u32 *Args, u32 NumArgs)
 			 *             0x02000002 0x01021a02 0x80
 			 */
 			for (i = 0U; i < Rail->NumModes; i++) {
-				Rail->I2cModes[i].CmdLen = (u8)(Args[k++] >> 8) &
+				Rail->I2cModes[i].CmdLen = (u8)(Args[k] >> 8) &
 							   0xFFU;
+				k++;
 				for (j = 0; j < Rail->I2cModes[i].CmdLen; j++) {
 					Status = Xil_SecureMemCpy(&Rail->I2cModes[i].CmdArr[j * 4U], 4U,
-							   &Args[k++], 4U);
+							   &Args[k], 4U);
+					k++;
 					if (XST_SUCCESS != Status) {
 						goto done;
 					}

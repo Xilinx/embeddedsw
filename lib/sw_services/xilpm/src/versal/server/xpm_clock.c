@@ -345,7 +345,8 @@ XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u8 NumParents)
 		} else {
 			ParentIdx = (u16)(NODEINDEX(Parents[Idx]));
 		}
-		ClkPtr->Topology.MuxSources[LastParentIdx++] = ParentIdx;
+		ClkPtr->Topology.MuxSources[LastParentIdx] = ParentIdx;
+		LastParentIdx++;
 	}
 
 	/* Assign default parent */
