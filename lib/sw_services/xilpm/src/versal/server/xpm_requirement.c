@@ -147,7 +147,7 @@ done:
  *		wakes-up).
  *
  ****************************************************************************/
-XStatus XPmRequirement_UpdateScheduled(XPm_Subsystem *Subsystem, u32 Swap)
+XStatus XPmRequirement_UpdateScheduled(const XPm_Subsystem *Subsystem, u32 Swap)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Requirement *Reqm = Subsystem->Requirements;
@@ -188,10 +188,10 @@ done:
 	return Status;
 }
 
-XStatus XPmRequirement_IsExclusive(XPm_Requirement *Reqm)
+XStatus XPmRequirement_IsExclusive(const XPm_Requirement *Reqm)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Requirement *Next_Reqm;
+	const XPm_Requirement *Next_Reqm;
 
 	if (NULL == Reqm) {
 		goto done;

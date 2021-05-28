@@ -28,13 +28,13 @@
 static u32 GtyAddresses[XPM_NODEIDX_DEV_GTYP_CPM5_MAX -
 			XPM_NODEIDX_DEV_GTYP_CPM5_MIN + 1] = {0};
 
-static XStatus CpmInitStart(u32 *Args, u32 NumOfArgs)
+static XStatus CpmInitStart(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	XStatus PslpRailPwrSts = XST_FAILURE;
 	XStatus IntRailPwrSts = XST_FAILURE;
 	XStatus AuxRailPwrSts = XST_FAILURE;
-	XPm_CpmDomain *Cpm;
+	const XPm_CpmDomain *Cpm;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 PlatformVersion;
 
@@ -48,9 +48,9 @@ static XStatus CpmInitStart(u32 *Args, u32 NumOfArgs)
 		goto done;
 	}
 
-	XPm_Rail *VccintPslpRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PSLP);
-	XPm_Rail *VccintRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PL);
-	XPm_Rail *VccauxRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCAUX);
+	const XPm_Rail *VccintPslpRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PSLP);
+	const XPm_Rail *VccintRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PL);
+	const XPm_Rail *VccauxRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCAUX);
 
 	/* Check LPD and PL power rails first to make sure power is on */
 	PslpRailPwrSts = XPmPower_CheckPower(VccintPslpRail,
@@ -95,7 +95,7 @@ done:
 	return Status;
 }
 
-static XStatus Cpm5InitStart(u32 *Args, u32 NumofArgs)
+static XStatus Cpm5InitStart(const u32 *Args, u32 NumofArgs)
 {
 	XStatus Status = XPM_ERR_INIT_START;
 	XStatus PslpRailPwrSts = XST_FAILURE;
@@ -103,9 +103,9 @@ static XStatus Cpm5InitStart(u32 *Args, u32 NumofArgs)
 	XStatus AuxRailPwrSts = XST_FAILURE;
 	XStatus RamRailPwrSts = XST_FAILURE;
 
-	XPm_CpmDomain *Cpm;
+	const XPm_CpmDomain *Cpm;
 	u32 i;
-	XPm_Device* Device = NULL;
+	const XPm_Device* Device = NULL;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use any args */
@@ -119,10 +119,10 @@ static XStatus Cpm5InitStart(u32 *Args, u32 NumofArgs)
 		goto done;
 	}
 
-	XPm_Rail *VccintPslpRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PSLP);
-	XPm_Rail *VccintRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PL);
-	XPm_Rail *VccauxRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCAUX);
-	XPm_Rail *VccRamRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_RAM);
+	const XPm_Rail *VccintPslpRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PSLP);
+	const XPm_Rail *VccintRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PL);
+	const XPm_Rail *VccauxRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCAUX);
+	const XPm_Rail *VccRamRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_RAM);
 
 	/* Check LPD and PL power rails first to make sure power is on */
 	PslpRailPwrSts = XPmPower_CheckPower(VccintPslpRail,
@@ -170,7 +170,7 @@ done:
 	return Status;
 }
 
-static XStatus CpmInitFinish(u32 *Args, u32 NumOfArgs)
+static XStatus CpmInitFinish(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 PowerId;
@@ -197,7 +197,7 @@ done:
 	return Status;
 }
 
-static XStatus CpmScanClear(u32 *Args, u32 NumOfArgs)
+static XStatus CpmScanClear(const u32 *Args, u32 NumOfArgs)
 {
 	/* This function does not use the args */
 	(void)Args;
@@ -207,10 +207,10 @@ static XStatus CpmScanClear(u32 *Args, u32 NumOfArgs)
 	return XST_SUCCESS;
 }
 
-static XStatus Cpm5ScanClear(u32 *Args, u32 NumOfArgs)
+static XStatus Cpm5ScanClear(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XPM_ERR_SCAN_CLR;
-	XPm_CpmDomain *Cpm;
+	const XPm_CpmDomain *Cpm;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
@@ -332,7 +332,7 @@ done:
 }
 
 
-static XStatus CpmBisr(u32 *Args, u32 NumOfArgs)
+static XStatus CpmBisr(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -360,7 +360,7 @@ done:
 	return Status;
 }
 
-static XStatus Cpm5Bisr(u32 *Args, u32 NumOfArgs)
+static XStatus Cpm5Bisr(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -410,10 +410,10 @@ done:
 	return Status;
 }
 
-static XStatus CpmMbistClear(u32 *Args, u32 NumOfArgs)
+static XStatus CpmMbistClear(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_CpmDomain *Cpm;
+	const XPm_CpmDomain *Cpm;
 	u32 RegValue;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
@@ -554,11 +554,11 @@ done:
 	return Status;
 }
 
-static XStatus Cpm5MbistClear(u32 *Args, u32 NumOfArgs)
+static XStatus Cpm5MbistClear(const u32 *Args, u32 NumOfArgs)
 {
 	volatile XStatus Status = XPM_ERR_MBIST_CLR;
 	volatile XStatus StatusTmp = XPM_ERR_MBIST_CLR;
-	XPm_CpmDomain *Cpm;
+	const XPm_CpmDomain *Cpm;
 	u32 RegValue, i;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
@@ -682,7 +682,7 @@ static const struct XPm_PowerDomainOps CpmOps[XPM_CPM_OPS_MAX] = {
 };
 
 XStatus XPmCpmDomain_Init(XPm_CpmDomain *CpmDomain, u32 Id, u32 BaseAddress,
-			  XPm_Power *Parent, u32 *OtherBaseAddresses,
+			  XPm_Power *Parent, const u32 *OtherBaseAddresses,
 			  u32 OtherBaseAddressesCnt)
 {
 	XStatus Status = XST_FAILURE;

@@ -27,7 +27,7 @@ typedef struct XPm_PsFpDomain {
 
 /************************** Function Prototypes ******************************/
 XStatus XPmPsFpDomain_Init(XPm_PsFpDomain *PsFpd, u32 Id, u32 BaseAddress,
-			   XPm_Power *Parent, u32 *OtherBaseAddresses,
+			   XPm_Power *Parent, const u32 *OtherBaseAddresses,
 			   u32 OtherBaseAddressCnt);
 
 #ifdef __cplusplus

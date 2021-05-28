@@ -41,7 +41,7 @@ static XStatus XPm_SetTapdelayBypass(const u32 DeviceId, const u32 Type,
 				 const u32 Value)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Device *Device = XPmDevice_GetById(DeviceId);
+	const XPm_Device *Device = XPmDevice_GetById(DeviceId);
 	u32 BaseAddress;
 
 	if (NULL == Device) {
@@ -85,7 +85,7 @@ done:
 static XStatus XPm_SdDllReset(const u32 DeviceId, const u32 Type)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
+	const XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 	u32 BaseAddress;
 	u32 Offset;
 
@@ -152,7 +152,7 @@ static XStatus XPm_SetSdTapDelay(const u32 DeviceId, const u32 Type,
 			     const u32 Value)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Device *Device = XPmDevice_GetById(DeviceId);
+	const XPm_Device *Device = XPmDevice_GetById(DeviceId);
 	u32 BaseAddress;
 
 	if (NULL == Device) {
@@ -242,12 +242,12 @@ static XStatus XPm_ProbeCounterAccess(u32 DeviceId, u32 Arg1, u32 Value,
 				  u32 *const Response, u8 Write)
 {
 	XStatus Status = XST_INVALID_PARAM;
-	XPm_Power *Power;
+	const XPm_Power *Power;
 	u32 Reg;
 	u32 CounterIdx;
 	u32 ReqType;
 	u32 ReqTypeOffset;
-	u32 FpdReqTypeOffset[] = {
+	const u32 FpdReqTypeOffset[] = {
 		PROBE_COUNTER_FPD_RD_REQ_OFFSET,
 		PROBE_COUNTER_FPD_RD_RES_OFFSET,
 		PROBE_COUNTER_FPD_WR_REQ_OFFSET,
@@ -387,7 +387,7 @@ static XStatus XPm_USBDxState(const u32 DeviceId, const u32 ReqState,
 			  const u32 TimeOut)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Pmc *Pmc;
+	const XPm_Pmc *Pmc;
 	u32 BaseAddress;
 	u32 Offset;
 	u32 CurState;
@@ -445,7 +445,7 @@ done:
 static XStatus XPm_OspiMuxSelect(const u32 DeviceId, const u32 Type, u32 *Response)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Pmc *Pmc;
+	const XPm_Pmc *Pmc;
 	u32 BaseAddress;
 	u32 Offset;
 
@@ -491,7 +491,7 @@ done:
 	return Status;
 }
 
-XStatus XPmIoctl_AddRegPermission(XPm_Subsystem *Subsystem, u32 DeviceId,
+XStatus XPmIoctl_AddRegPermission(const XPm_Subsystem *Subsystem, u32 DeviceId,
 				  u32 Operations)
 {
 	XStatus Status = XST_FAILURE;
@@ -499,8 +499,8 @@ XStatus XPmIoctl_AddRegPermission(XPm_Subsystem *Subsystem, u32 DeviceId,
 	u32 SubsystemId = Subsystem->Id;
 	u32 Type = NODETYPE(DeviceId);
 	u32 *ReadPerm, *WritePerm;
-	u32 AddNodeArgs[5U] = { DeviceId, PM_POWER_PMC, 0, 0, 0};
-	XPm_Device *Device;
+	const u32 AddNodeArgs[5U] = { DeviceId, PM_POWER_PMC, 0, 0, 0};
+	const XPm_Device *Device;
 
 	/* Ensure device is added before trying to use it. */
 	Device = XPmDevice_GetById(DeviceId);
@@ -561,7 +561,7 @@ done:
 static XStatus XPmIoctl_IsRegRequested(u32 SubsystemId, u32 Register, u32 Type)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Requirement *Reqm = NULL;
+	const XPm_Requirement *Reqm = NULL;
 	u32 DeviceId;
 	u32 NodeClass = (u32)XPM_NODECLASS_DEVICE;
 	u32 NodeSubClass = (u32)XPM_NODESUBCL_DEV_PERIPH;
@@ -606,7 +606,7 @@ done:
 }
 
 static XStatus XPmIoctl_IsOperationAllowed(u32 RegNum, u32 SubsystemId,
-					   u32 *Perms, u32 Type, u32 CmdType)
+					   const u32 *Perms, u32 Type, u32 CmdType)
 {
 	XStatus Status = XST_FAILURE;
 	u32 PermissionMask = 0;
@@ -652,8 +652,8 @@ done:
 static XStatus XPm_ReadPggs(u32 PggsNum, u32 *Value)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
-	XPm_Psm *Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
+	const XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
+	const XPm_Psm *Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
 
 	if ((NULL == Pmc) || (NULL == Psm)) {
 		goto done;
@@ -669,7 +669,7 @@ static XStatus XPm_ReadPggs(u32 PggsNum, u32 *Value)
 		PmIn32((Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_PGGS3_OFFSET +
 		       (PggsNum << 2U)), *Value);
 	} else {
-		XPm_Power *Lpd = XPmPower_GetById(PM_POWER_LPD);
+		const XPm_Power *Lpd = XPmPower_GetById(PM_POWER_LPD);
 		if ((u8)XPM_POWER_STATE_ON != Lpd->Node.State) {
 			goto done;
 		}
@@ -686,8 +686,8 @@ done:
 static XStatus XPm_WritePggs(u32 PggsNum, u32 Value)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
-	XPm_Psm *Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
+	const XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
+	const XPm_Psm *Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
 
 	if ((NULL == Pmc) || (NULL == Psm)) {
 		goto done;
@@ -703,7 +703,7 @@ static XStatus XPm_WritePggs(u32 PggsNum, u32 Value)
 		PmOut32((Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_PGGS3_OFFSET +
 			(PggsNum << 2U)), Value);
 	} else {
-		XPm_Power *Lpd = XPmPower_GetById(PM_POWER_LPD);
+		const XPm_Power *Lpd = XPmPower_GetById(PM_POWER_LPD);
 		if ((u8)XPM_POWER_STATE_ON != Lpd->Node.State) {
 			goto done;
 		}
@@ -754,7 +754,7 @@ done:
 static XStatus XPm_AieISRClear(u32 SubsystemId, u32 AieDeviceId, u32 Value)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Device *Aie = NULL;
+	const XPm_Device *Aie = NULL;
 	u32 IntrClear = 0x0U;
 	u32 IdCode = XPm_GetIdCode();
 	u32 PlatformVersion = XPm_GetPlatformVersion();
@@ -796,7 +796,7 @@ XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id I
 	      const u32 Arg1, const u32 Arg2, u32 *const Response, const u32 CmdType)
 {
 	XStatus Status = XPM_ERR_IOCTL;
-	XPm_Pmc *Pmc;
+	const XPm_Pmc *Pmc;
 
 	switch (IoctlId) {
 	case IOCTL_GET_RPU_OPER_MODE:

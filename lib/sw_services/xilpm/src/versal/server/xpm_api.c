@@ -127,7 +127,7 @@ done:
 static XStatus XPm_GetClockRate(const u32 ClockId, u32 *ClkRate)
 {
 	XStatus Status = XST_SUCCESS;
-	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
+	const XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
 
 	if (NULL == Clk) {
 		Status = XST_INVALID_PARAM;
@@ -193,7 +193,7 @@ done:
 static XStatus XPm_AddHbMonDevice(const u32 DeviceId)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Device *Device = NULL;
+	const XPm_Device *Device = NULL;
 
 	if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(DeviceId)) &&
 			((u32)XPM_NODETYPE_DEV_HB_MON == NODETYPE(DeviceId))) {
@@ -204,7 +204,7 @@ static XStatus XPm_AddHbMonDevice(const u32 DeviceId)
 			 * Assuming all the virtual devices will have
 			 * PM_POWER_PMC as power node.
 			 */
-			u32 AddNodeArgs[5U] = { DeviceId, PM_POWER_PMC, 0, 0, 0};
+			const u32 AddNodeArgs[5U] = { DeviceId, PM_POWER_PMC, 0, 0, 0};
 			Status = XPm_AddNode(AddNodeArgs, ARRAY_SIZE(AddNodeArgs));
 			if (XST_SUCCESS != Status) {
 				goto done;
@@ -250,7 +250,7 @@ done:
  *
  ****************************************************************************/
 static XStatus XPm_AddDevRequirement(XPm_Subsystem *Subsystem, u32 DeviceId,
-				     u32 ReqFlags, u32 *Args, u32 NumArgs)
+				     u32 ReqFlags, const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 DevType = NODETYPE(DeviceId);
@@ -329,7 +329,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-static XStatus XPm_AddRequirement(u32 *Args, const u32 NumArgs)
+static XStatus XPm_AddRequirement(const u32 *Args, const u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 SubsysId, DevId, Flags;
@@ -389,9 +389,9 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 {
 	u32 ApiResponse[XPLMI_CMD_RESP_SIZE-1] = {0};
 	int Status = XST_FAILURE;
-	XPm_Subsystem *Subsystem = NULL;
+	const XPm_Subsystem *Subsystem = NULL;
 	u32 SubsystemId = Cmd->SubsystemId;
-	u32 *Pload = Cmd->Payload;
+	const u32 *Pload = Cmd->Payload;
 	u32 Len = Cmd->Len;
 	u32 CmdId = Cmd->CmdId & 0xFFU;
 	u32 SetAddress;
@@ -763,7 +763,7 @@ XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId
 			    CRP_RESET_REASON_SW_SYS_MASK |
 			    CRP_RESET_REASON_ERR_SYS_MASK |
 			    CRP_RESET_REASON_DAP_SYS_MASK);
-	u32 IsolationIdx[] = {
+	const u32 IsolationIdx[] = {
 		(u32)XPM_NODEIDX_ISO_VCCAUX_VCCRAM,
 		(u32)XPM_NODEIDX_ISO_VCCRAM_SOC,
 		(u32)XPM_NODEIDX_ISO_VCCAUX_SOC,
@@ -994,7 +994,7 @@ XStatus XPm_AddSubsystem(u32 SubsystemId)
 	return Status;
 }
 
-static XStatus PwrDomainInitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs)
+static XStatus PwrDomainInitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_PowerDomain *PwrDomainNode;
@@ -1072,7 +1072,7 @@ done:
 	return Status;
 }
 
-static XStatus PldInitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs)
+static XStatus PldInitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -1114,11 +1114,11 @@ done:
 	return Status;
 }
 
-static XStatus AieInitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs)
+static XStatus AieInitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	XPm_AieDevice *AieDevice;
+	const XPm_AieDevice *AieDevice;
 
 	AieDevice = (XPm_AieDevice *)XPmDevice_GetById(NodeId);
 	if (NULL == AieDevice) {
@@ -1234,7 +1234,7 @@ done:
  * @note   none
  *
  ****************************************************************************/
-XStatus XPm_InitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs)
+XStatus XPm_InitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -1398,7 +1398,7 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 	XStatus Status = XST_FAILURE;
 	XPm_Core *Core;
 	u64 Address = (u64)AddrLow + ((u64)AddrHigh << 32ULL);
-	XPm_Requirement *Reqm;
+	const XPm_Requirement *Reqm;
 	u32 CpuIdleFlag;
 	XPm_Subsystem *Subsystem = NULL;
 
@@ -1442,7 +1442,7 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 		 * If subsystem is using DDR and NOC Power Domain is idle,
 		 * enable self-refresh as post suspend requirement
 		 */
-		XPm_Node *DDR_Node = (XPm_Node *)XPmDevice_GetById((u32)PM_DEV_DDR_0);
+		const XPm_Node *DDR_Node = (XPm_Node *)XPmDevice_GetById((u32)PM_DEV_DDR_0);
 		Reqm = XPmDevice_FindRequirement(PM_DEV_DDR_0, SubsystemId);
 		if ((XST_SUCCESS == XPmRequirement_IsExclusive(Reqm)) &&
 		    (XST_SUCCESS == XPmNpDomain_IsNpdIdle(DDR_Node))) {
@@ -1498,7 +1498,7 @@ XStatus XPm_RequestSuspend(const u32 SubsystemId, const u32 TargetSubsystemId,
 	u32 Payload[5] = {0};
 	/* Warning Fix */
 	(void) (Ack);
-	XPm_Subsystem *TargetSubsystem = NULL;
+	const XPm_Subsystem *TargetSubsystem = NULL;
 
 	IpiMask = XPmSubsystem_GetIPIMask(TargetSubsystemId);
 	if (0U == IpiMask) {
@@ -1559,12 +1559,12 @@ XStatus XPm_GicProxyWakeUp(const u32 PeriphIdx)
 {
 	XStatus Status = XST_FAILURE;
 
-	XPm_Periph *Periph = (XPm_Periph *)XPmDevice_GetByIndex(PeriphIdx);
+	const XPm_Periph *Periph = (XPm_Periph *)XPmDevice_GetByIndex(PeriphIdx);
 	if ((NULL == Periph) || (0U == Periph->WakeProcId)) {
 		goto done;
 	}
 
-	XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(Periph->WakeProcId);
+	const XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(Periph->WakeProcId);
 
 	/* Do not process anything if core is already running */
 	if ((u8)XPM_DEVSTATE_RUNNING == Core->Device.Node.State) {
@@ -1631,8 +1631,8 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 	XStatus Status = XST_FAILURE;
 	XPm_Core *Core;
 	u32 CoreSubsystemId, CoreDeviceId;
-	XPm_Requirement *Reqm;
-	XPm_Power *Power;
+	const XPm_Requirement *Reqm;
+	const XPm_Power *Power;
 
 	/* Warning Fix */
 	(void) (Ack);
@@ -1727,13 +1727,13 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Core *Core;
-	XPm_Device *Device;
+	const XPm_Device *Device;
 	XPm_Power *Power;
-	XPm_Requirement *Reqm;
+	const XPm_Requirement *Reqm;
 	u32 i;
-	XPm_Power *Acpu0PwrNode = XPmPower_GetById(PM_POWER_ACPU_0);
-	XPm_Power *Acpu1PwrNode = XPmPower_GetById(PM_POWER_ACPU_1);
-	XPm_Power *FpdPwrNode = XPmPower_GetById(PM_POWER_FPD);
+	const XPm_Power *Acpu0PwrNode = XPmPower_GetById(PM_POWER_ACPU_0);
+	const XPm_Power *Acpu1PwrNode = XPmPower_GetById(PM_POWER_ACPU_1);
+	const XPm_Power *FpdPwrNode = XPmPower_GetById(PM_POWER_FPD);
 	XPm_Subsystem *TargetSubsystem = NULL;
 	u32 DeviceId = 0U;
 
@@ -1953,7 +1953,7 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType,
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
-	XPm_ResetNode *Rst;
+	const XPm_ResetNode *Rst;
 
 	if ((PM_SHUTDOWN_TYPE_SHUTDOWN != Type) &&
 	    (PM_SHUTDOWN_TYPE_RESET != Type)) {
@@ -2057,7 +2057,7 @@ XStatus XPm_SetWakeUpSource(const u32 SubsystemId, const u32 TargetNodeId,
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Periph *Periph = NULL;
-	XPm_Subsystem *Subsystem;
+	const XPm_Subsystem *Subsystem;
 
 	/* Check if given target node is valid and present in device list */
 	if ((NODECLASS(TargetNodeId) != (u32)XPM_NODECLASS_DEVICE) ||
@@ -2169,8 +2169,8 @@ XStatus XPm_ReleaseDevice(const u32 SubsystemId, const u32 DeviceId,
 			  const u32 CmdType)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Subsystem* Subsystem = NULL;
-	XPm_Device* Device = NULL;
+	const XPm_Subsystem* Subsystem = NULL;
+	const XPm_Device* Device = NULL;
 	u32 Usage = 0U;
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
@@ -2564,7 +2564,7 @@ done:
 XStatus XPm_SetClockDivider(const u32 SubsystemId, const u32 ClockId, const u32 Divider)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
+	const XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
 
 	if (0U == Divider) {
 		Status = XST_INVALID_PARAM;
@@ -2610,7 +2610,7 @@ done:
 XStatus XPm_GetClockDivider(const u32 ClockId, u32 *const Divider)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_ClockNode *Clk = NULL;
+	const XPm_ClockNode *Clk = NULL;
 
 	Clk = XPmClock_GetById(ClockId);
 	if (NULL == Clk) {
@@ -2691,7 +2691,7 @@ done:
 XStatus XPm_GetClockParent(const u32 ClockId, u32 *const ParentIdx)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_ClockNode *Clk = NULL;
+	const XPm_ClockNode *Clk = NULL;
 
 	Clk = XPmClock_GetById(ClockId);
 	if (NULL == Clk) {
@@ -2729,7 +2729,7 @@ done:
 XStatus XPm_SetPllParameter(const u32 SubsystemId, const u32 ClockId, const u32 ParamId, const u32 Value)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_PllClockNode* Clock;
+	const XPm_PllClockNode* Clock;
 
 	if (!ISPLL(ClockId)) {
 		Status = XPM_INVALID_CLKID;
@@ -2775,7 +2775,7 @@ done:
 XStatus XPm_GetPllParameter(const u32 ClockId, const u32 ParamId, u32 *const Value)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_PllClockNode* Clock;
+	const XPm_PllClockNode* Clock;
 
 	if (!ISPLL(ClockId)) {
 		Status = XPM_INVALID_CLKID;
@@ -2969,7 +2969,7 @@ done:
 XStatus XPm_GetResetState(const u32 ResetId, u32 *const State)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_ResetNode* Reset;
+	const XPm_ResetNode* Reset;
 
 	Reset = XPmReset_GetById(ResetId);
 	if (NULL == Reset) {
@@ -3255,11 +3255,11 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_AddNodeParent(u32 *Args, u32 NumArgs)
+XStatus XPm_AddNodeParent(const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Id = Args[0];
-	u32 *Parents;
+	const u32 *Parents;
 	u32 NumParents;
 
 	if (NumArgs < 2U) {
@@ -3315,7 +3315,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-static XStatus XPm_AddClockSubNode(u32 *Args, u32 NumArgs)
+static XStatus XPm_AddClockSubNode(const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 ClockId, ControlReg, Type, Flags;
@@ -3355,7 +3355,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-static XStatus XPm_AddNodeClock(u32 *Args, u32 NumArgs)
+static XStatus XPm_AddNodeClock(const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 ClockId, ControlReg;
@@ -3380,7 +3380,7 @@ static XStatus XPm_AddNodeClock(u32 *Args, u32 NumArgs)
 		ClkFlags = (u8)((Args[2] >> 24U) & 0xFFU);
 		PowerDomainId = Args[3];
 		if (ISPLL(ClockId)) {
-			u16 *Offsets = (u16 *)&Args[4];
+			const u16 *Offsets = (u16 *)&Args[4];
 			Status = XPmClockPll_AddNode(ClockId, ControlReg,
 						     TopologyType, Offsets,
 						     PowerDomainId, ClkFlags);
@@ -3412,7 +3412,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_AddNodeName(u32 *Args, u32 NumArgs)
+XStatus XPm_AddNodeName(const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 NodeId;
@@ -3452,7 +3452,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
+static XStatus XPm_AddNodePower(const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 PowerId;
@@ -3635,12 +3635,12 @@ done:
  * @note   None
  *
  ****************************************************************************/
-static XStatus XPm_AddNodeReset(u32 *Args, u32 NumArgs)
+static XStatus XPm_AddNodeReset(const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 ResetId, ControlReg;
 	u8 Shift, Width, ResetType, NumParents;
-	u32 *Parents;
+	const u32 *Parents;
 
 	if (NumArgs < 4U) {
 		Status = XST_INVALID_PARAM;
@@ -3661,7 +3661,7 @@ done:
 	return Status;
 }
 
-static XStatus AddProcDevice(u32 *Args, u32 PowerId)
+static XStatus AddProcDevice(const u32 *Args, u32 PowerId)
 {
 	XStatus Status = XST_FAILURE;
 	u32 DeviceId;
@@ -3743,7 +3743,7 @@ done:
 	return Status;
 }
 
-static XStatus AddPeriphDevice(u32 *Args, u32 PowerId)
+static XStatus AddPeriphDevice(const u32 *Args, u32 PowerId)
 {
 	XStatus Status = XST_FAILURE;
 	u32 DeviceId;
@@ -3804,7 +3804,7 @@ done:
 	return Status;
 }
 
-static XStatus AddMemDevice(u32 *Args, u32 PowerId)
+static XStatus AddMemDevice(const u32 *Args, u32 PowerId)
 {
 	XStatus Status = XST_FAILURE;
 	u32 DeviceId;
@@ -3878,7 +3878,7 @@ done:
 	return Status;
 }
 
-static XStatus AddMemCtrlrDevice(u32 *Args, u32 PowerId)
+static XStatus AddMemCtrlrDevice(const u32 *Args, u32 PowerId)
 {
 	XStatus Status = XST_FAILURE;
 	u32 DeviceId;
@@ -3923,7 +3923,7 @@ done:
 	return Status;
 }
 
-static XStatus AddPhyDevice(u32 *Args, u32 PowerId)
+static XStatus AddPhyDevice(const u32 *Args, u32 PowerId)
 {
 	XStatus Status = XST_FAILURE;
 	u32 DeviceId;
@@ -3968,7 +3968,7 @@ done:
 	return Status;
 }
 
-static XStatus AddPlDevice(u32 *Args, u32 PowerId)
+static XStatus AddPlDevice(const u32 *Args, u32 PowerId)
 {
 	XStatus Status = XST_FAILURE;
 	u32 DeviceId;
@@ -4018,7 +4018,7 @@ done:
 	return Status;
 }
 
-static XStatus AddAieDevice(u32 *Args)
+static XStatus AddAieDevice(const u32 *Args)
 {
 	XStatus Status = XST_FAILURE;
 	u32 DeviceId = Args[0];
@@ -4068,7 +4068,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-static XStatus XPm_AddDevice(u32 *Args, u32 NumArgs)
+static XStatus XPm_AddDevice(const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 DeviceId;
@@ -4148,7 +4148,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-static XStatus XPm_AddNodeMemIc(u32 *Args, u32 NumArgs)
+static XStatus XPm_AddNodeMemIc(const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 MemIcId;
@@ -4188,7 +4188,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-static XStatus XPm_AddNodeMonitor(u32 *Args, u32 NumArgs)
+static XStatus XPm_AddNodeMonitor(const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 NodeId, BaseAddress, NodeType;
@@ -4236,7 +4236,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-static XStatus XPm_AddNodeProt(u32 *Args, u32 NumArgs)
+static XStatus XPm_AddNodeProt(const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 NodeId;
@@ -4302,7 +4302,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-static XStatus XPm_AddNodeMio(u32 *Args, u32 NumArgs)
+static XStatus XPm_AddNodeMio(const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 MioId;
@@ -4354,7 +4354,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_AddNode(u32 *Args, u32 NumArgs)
+XStatus XPm_AddNode(const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Id = Args[0];
@@ -4505,7 +4505,7 @@ XStatus XPm_RegisterNotifier(const u32 SubsystemId, const u32 NodeId,
 			 const u32 IpiMask)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Subsystem* Subsystem = NULL;
+	const XPm_Subsystem* Subsystem = NULL;
 
 
 	/* Validate SubsystemId */

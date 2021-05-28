@@ -49,7 +49,7 @@ static inline void XPmCpmDomain_LockPcsr(u32 BaseAddress)
 
 /************************** Function Prototypes ******************************/
 XStatus XPmCpmDomain_Init(XPm_CpmDomain *CpmDomain, u32 Id, u32 BaseAddress,
-			  XPm_Power *Parent, u32 *OtherBaseAddresses,
+			  XPm_Power *Parent, const u32 *OtherBaseAddresses,
 			  u32 OtherBaseAddressesCnt);
 #ifdef __cplusplus
 }

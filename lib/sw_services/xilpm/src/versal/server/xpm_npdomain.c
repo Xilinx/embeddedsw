@@ -24,7 +24,7 @@
 
 static u32 NpdMemIcAddresses[XPM_NODEIDX_MEMIC_MAX];
 
-static XStatus NpdInitStart(u32 *Args, u32 NumOfArgs)
+static XStatus NpdInitStart(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 NpdPowerUpTime = 0;
@@ -33,7 +33,7 @@ static XStatus NpdInitStart(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-	XPm_Rail *VccSocRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_SOC);
+	const XPm_Rail *VccSocRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_SOC);
 
 	/* Check vccint_soc first to make sure power is on */
 	while (XST_SUCCESS != Status) {
@@ -93,13 +93,13 @@ static void NpdPreBisrReqs(void)
 	return;
 }
 
-static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
+static XStatus NpdInitFinish(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	XStatus SocRailPwrSts = XST_FAILURE;
 	XStatus AuxRailPwrSts = XST_FAILURE;
 	u32 i=0;
-	XPm_Device *Device;
+	const XPm_Device *Device;
 	u32 BaseAddress;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 SlrType;
@@ -108,8 +108,8 @@ static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-	XPm_Rail *VccSocRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_SOC);
-	XPm_Rail *VccauxRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCAUX);
+	const XPm_Rail *VccSocRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_SOC);
+	const XPm_Rail *VccauxRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCAUX);
 
 	/* NPD pre bisr requirements - in case if bisr and mbist was skipped */
 	NpdPreBisrReqs();
@@ -207,10 +207,10 @@ done:
 	return Status;
 }
 
-static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
+static XStatus NpdScanClear(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Pmc *Pmc;
+	const XPm_Pmc *Pmc;
 	u32 RegValue;
 	u32 SlrType;
 	XPm_OutClockNode *Clk;
@@ -293,12 +293,12 @@ done:
 	return Status;
 }
 
-static XStatus NpdMbist(u32 *Args, u32 NumOfArgs)
+static XStatus NpdMbist(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 RegValue;
 	u32 i;
-	XPm_Device *Device;
+	const XPm_Device *Device;
 	u32 DdrMcAddresses[XPM_NODEIDX_DEV_DDRMC_MAX - XPM_NODEIDX_DEV_DDRMC_MIN + 1] = {0};
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
@@ -473,11 +473,11 @@ done:
 	return Status;
 }
 
-static XStatus NpdBisr(u32 *Args, u32 NumOfArgs)
+static XStatus NpdBisr(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 i = 0;
-	XPm_Device *Device;
+	const XPm_Device *Device;
 	u32 DdrMcAddresses[XPM_NODEIDX_DEV_DDRMC_MAX - XPM_NODEIDX_DEV_DDRMC_MIN + 1] = {0};
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
@@ -623,11 +623,11 @@ done:
  * @note  None
  *
  ****************************************************************************/
-XStatus XPmNpDomain_IsNpdIdle(XPm_Node *Node)
+XStatus XPmNpDomain_IsNpdIdle(const XPm_Node *Node)
 {
 	XStatus Status = XST_SUCCESS;
-	XPm_PowerDomain *PowerD;
-	XPm_Power *Power;
+	const XPm_PowerDomain *PowerD;
+	const XPm_Power *Power;
 	u32 i;
 
 	/*
@@ -691,11 +691,11 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPmNpDomain_ClockGate(XPm_Node *Node, u8 State)
+XStatus XPmNpDomain_ClockGate(const XPm_Node *Node, u8 State)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	XPm_Power *Power;
+	const XPm_Power *Power;
 	u32 BaseAddress, Reg;
 	u32 SlrType;
 	u32 Clock_State;
@@ -709,7 +709,7 @@ XStatus XPmNpDomain_ClockGate(XPm_Node *Node, u8 State)
 		}
 	} else if ((NODECLASS(Power->Node.Id) == (u32)XPM_NODECLASS_POWER) &&
 		   (NODESUBCLASS(Power->Node.Id) == (u32)XPM_NODESUBCL_POWER_DOMAIN)) {
-		XPm_PowerDomain *PowerD = (XPm_PowerDomain *)Node;
+		const XPm_PowerDomain *PowerD = (XPm_PowerDomain *)Node;
 		u32 i = 0U;
 		while (i < MAX_POWERDOMAINS) {
 			Power = (XPm_Power *)XPmPower_GetById(PowerD->Parents[i]);

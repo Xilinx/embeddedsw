@@ -20,10 +20,10 @@ static XStatus XPmRpuCore_ProtControl(const XPm_Requirement *Reqm,
 	return XPmProt_PpuControl(Reqm, Rpu->RpuBaseAddr, Enable);
 }
 
-XStatus XPmRpuCore_Halt(XPm_Device *Device)
+XStatus XPmRpuCore_Halt(const XPm_Device *Device)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_RpuCore *RpuCore = (XPm_RpuCore *)Device;
+	const XPm_RpuCore *RpuCore = (XPm_RpuCore *)Device;
 
 	/* RPU should be in reset state before putting it into halt state */
 	Status = XPmDevice_Reset(&RpuCore->Core.Device, PM_RESET_ACTION_ASSERT);
@@ -45,7 +45,7 @@ done:
 static XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_RpuCore *RpuCore = (XPm_RpuCore *)Core;
+	const XPm_RpuCore *RpuCore = (XPm_RpuCore *)Core;
 
 	Status = XPmCore_WakeUp(Core, SetAddress, Address);
 	if (XST_SUCCESS != Status) {
@@ -82,7 +82,7 @@ static struct XPm_CoreOps RpuOps = {
 };
 
 
-XStatus XPmRpuCore_Init(XPm_RpuCore *RpuCore, u32 Id, u32 Ipi, u32 *BaseAddress,
+XStatus XPmRpuCore_Init(XPm_RpuCore *RpuCore, u32 Id, u32 Ipi, const u32 *BaseAddress,
 			XPm_Power *Power, XPm_ClockNode *Clock,
 			XPm_ResetNode *Reset)
 {
@@ -117,7 +117,7 @@ done:
 void XPm_RpuGetOperMode(const u32 DeviceId, u32 *Mode)
 {
 	u32 Val;
-	XPm_RpuCore *RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
+	const XPm_RpuCore *RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
 
 	PmIn32(RpuCore->RpuBaseAddr + RPU_GLBL_CNTL_OFFSET, Val);
 	Val &= XPM_RPU_SLSPLIT_MASK;
@@ -132,9 +132,9 @@ void XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode)
 {
 	u32 Val;
 	XStatus Status;
-	XPm_Subsystem *DefSubsystem = XPmSubsystem_GetById(PM_SUBSYS_DEFAULT);
+	const XPm_Subsystem *DefSubsystem = XPmSubsystem_GetById(PM_SUBSYS_DEFAULT);
 
-	XPm_RpuCore *RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
+	const XPm_RpuCore *RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
 
 	if (NULL == RpuCore)  {
 		PmErr("Unable to get RPU Core for Id: 0x%x\n\r", DeviceId);
@@ -195,7 +195,7 @@ done:
 XStatus XPm_RpuBootAddrConfig(const u32 DeviceId, const u32 BootAddr)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_RpuCore *RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
+	const XPm_RpuCore *RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
 
 	/* CFG_VINITHI_MASK mask is common for both processors */
 	if (XPM_RPU_BOOTMEM_LOVEC == BootAddr) {
@@ -217,7 +217,7 @@ XStatus XPm_RpuTcmCombConfig(const u32 DeviceId, const u32 Config)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Address;
-	XPm_RpuCore *RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
+	const XPm_RpuCore *RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
 
 	Address = RpuCore->RpuBaseAddr + RPU_GLBL_CNTL_OFFSET;
 	if (Config == XPM_RPU_TCM_SPLIT) {
@@ -238,7 +238,7 @@ XStatus XPm_RpuTcmCombConfig(const u32 DeviceId, const u32 Config)
 XStatus XPm_RpuRstComparators(const u32 DeviceId)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_RpuCore *RpuCore = NULL;
+	const XPm_RpuCore *RpuCore = NULL;
 
 	RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
 

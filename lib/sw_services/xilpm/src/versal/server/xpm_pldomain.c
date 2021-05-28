@@ -36,7 +36,7 @@ u32 HcleanDone = 0;
 
 static XStatus XPmPlDomain_InitandHouseclean(void);
 
-static XStatus PldInitFinish(u32 *Args, u32 NumOfArgs)
+static XStatus PldInitFinish(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
 
@@ -95,7 +95,7 @@ static void PldApplyTrim(u32 TrimType)
         u32 TrimVal;
 	XStatus Status = XST_FAILURE;
         Xuint128 VggTrim={0};
-	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
+	const XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 Platform;
 
@@ -166,7 +166,7 @@ done:
 	return;
 }
 
-static void PldCfuLock(XPm_PlDomain *Pld, u32 Enable)
+static void PldCfuLock(const XPm_PlDomain *Pld, u32 Enable)
 {
 	static u32 PrevLockState=1U;
 
@@ -185,7 +185,7 @@ static void PldCfuLock(XPm_PlDomain *Pld, u32 Enable)
 static XStatus PldCfuInit(void)
 {
 	XStatus Status = XST_FAILURE;
-	XCfupmc_Config *Config;
+	const XCfupmc_Config *Config;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	if (0U != CfupmcIns.IsReady) {
@@ -272,7 +272,7 @@ static XStatus InitGtyAddrArr(u32 *GtArrPtr, const u32 ArrLen)
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 Idx = 0U;
 	u32 i;
-	XPm_Device *Device;
+	const XPm_Device *Device;
 
 	for (i = (u32)XPM_NODEIDX_DEV_GT_MIN; i < (u32)XPM_NODEIDX_DEV_MAX; ++i) {
 		Device = XPmDevice_GetByIndex(i);
@@ -395,7 +395,7 @@ done:
 static XStatus PlHouseClean(u32 TriggerTime)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_PlDomain *Pld;
+	const XPm_PlDomain *Pld;
 	u32 Value;
 	u32 Platform = XPm_GetPlatform();
 	u32 PlatformVersion = XPm_GetPlatformVersion();
@@ -589,14 +589,14 @@ done:
 	return Status;
 }
 
-static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
+static XStatus PldInitStart(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	XStatus IntRailPwrSts = XST_FAILURE;
 	XStatus RamRailPwrSts = XST_FAILURE;
 	XStatus AuxRailPwrSts = XST_FAILURE;
 	XStatus SocRailPwrSts = XST_FAILURE;
-	XPm_PlDomain *Pld;
+	const XPm_PlDomain *Pld;
 	u32 PlPowerUpTime=0;
 	u32 Platform = XPm_GetPlatform();
 	u32 IdCode = XPm_GetIdCode();
@@ -605,11 +605,11 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-	XPm_Rail *VccintRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PL);
-	XPm_Rail *VccRamRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_RAM);
-	XPm_Rail *VccauxRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCAUX);
-	XPm_Rail *VccSocRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_SOC);
-	XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
+	const XPm_Rail *VccintRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PL);
+	const XPm_Rail *VccRamRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_RAM);
+	const XPm_Rail *VccauxRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCAUX);
+	const XPm_Rail *VccSocRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_SOC);
+	const XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 
 	/* If PL power is still not up, return error as PLD can't
 	   be initialized */
@@ -988,12 +988,12 @@ static XStatus XPmPlDomain_InitandHouseclean(void)
 	volatile u32 PlatformType = 0xFFU;
 	volatile u32 PlatformTypeTmp = 0xFFU;
 	u32 PlatformVersion;
-	XPm_Pmc *Pmc;
+	const XPm_Pmc *Pmc;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	XPm_Rail *VccintRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PL);
-	XPm_Rail *VccRamRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_RAM);
-	XPm_Rail *VccauxRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCAUX);
+	const XPm_Rail *VccintRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PL);
+	const XPm_Rail *VccRamRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_RAM);
+	const XPm_Rail *VccauxRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCAUX);
 
 	/* Skip if already done */
 	if (0U != HcleanDone) {
@@ -1185,7 +1185,7 @@ static const struct XPm_PowerDomainOps PlDomainOps = {
 };
 
 XStatus XPmPlDomain_Init(XPm_PlDomain *PlDomain, u32 Id, u32 BaseAddress,
-			 XPm_Power *Parent, u32 *OtherBaseAddresses,
+			 XPm_Power *Parent, const u32 *OtherBaseAddresses,
 			 u32 OtherBaseAddressCnt)
 {
 	XStatus Status = XST_FAILURE;
@@ -1216,7 +1216,7 @@ XStatus XPmPlDomain_RetriggerPlHouseClean(void)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	XPm_PlDomain *Pld;
+	const XPm_PlDomain *Pld;
 
 	Pld = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
 	if (NULL == Pld) {

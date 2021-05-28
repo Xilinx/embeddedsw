@@ -213,7 +213,7 @@ done:
 	return Status;
 }
 
-XStatus XPmClock_AddClkName(u32 Id, char *Name)
+XStatus XPmClock_AddClkName(u32 Id, const char *Name)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_ClockNode *Clk = XPmClock_GetById(Id);
@@ -237,7 +237,7 @@ XStatus XPmClock_AddSubNode(u32 Id, u32 Type, u32 ControlReg, u8 Param1, u8 Para
 {
 	XStatus Status = XST_FAILURE;
 	u32 i = 0U;
-	XPm_OutClockNode *OutClkPtr = (XPm_OutClockNode *)XPmClock_GetById(Id);
+	const XPm_OutClockNode *OutClkPtr = (XPm_OutClockNode *)XPmClock_GetById(Id);
 	struct XPm_ClkTopologyNode *SubNodes;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
@@ -284,13 +284,13 @@ done:
 	return Status;
 }
 
-XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u8 NumParents)
+XStatus XPmClock_AddParent(u32 Id, const u32 *Parents, u8 NumParents)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Idx = 0;
 	u32 LastParentIdx = 0;
 	u16 ParentIdx = 0;
-	XPm_ClockNode *ParentClk = NULL;
+	const XPm_ClockNode *ParentClk = NULL;
 	XPm_OutClockNode *ClkPtr = (XPm_OutClockNode *)XPmClock_GetById(Id);
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
@@ -381,7 +381,7 @@ void XPmClock_SetPlClockAsReadOnly(void)
 	XPm_ClockNode *Clk = NULL;
 	u32 Idx, Enable = 0U;
 	XStatus Status = XST_FAILURE;
-	u32 PlClocksList[] = {
+	const u32 PlClocksList[] = {
 		PM_CLK_PMC_PL0_REF,
 		PM_CLK_PMC_PL1_REF,
 		PM_CLK_PMC_PL2_REF,
@@ -469,7 +469,7 @@ XStatus XPmClock_SetById(u32 ClockId, XPm_ClockNode *Clk)
 	return Status;
 }
 
-static struct XPm_ClkTopologyNode* XPmClock_GetTopologyNode(XPm_OutClockNode *Clk, u32 Type)
+static struct XPm_ClkTopologyNode* XPmClock_GetTopologyNode(const XPm_OutClockNode *Clk, u32 Type)
 {
 	struct XPm_ClkTopologyNode *SubNodes;
 	struct XPm_ClkTopologyNode *ClkSubNodes = NULL;
@@ -502,8 +502,8 @@ done:
 static void XPmClock_InitParent(XPm_OutClockNode *Clk)
 {
 	u32 ParentIdx = 0;
-	struct XPm_ClkTopologyNode *Ptr;
-	XPm_ClockNode *ParentClk = NULL;
+	const struct XPm_ClkTopologyNode *Ptr;
+	const XPm_ClockNode *ParentClk = NULL;
 	XStatus Status;
 
 	Ptr = XPmClock_GetTopologyNode(Clk, (u32)TYPE_MUX);
@@ -569,7 +569,7 @@ done:
 	return;
 }
 
-XStatus XPmClock_Request(XPm_ClockHandle *ClkHandle)
+XStatus XPmClock_Request(const XPm_ClockHandle *ClkHandle)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_ClockNode *Clk;
@@ -635,7 +635,7 @@ static void XPmClock_ReleaseInt(XPm_ClockNode *Clk)
 	return;
 }
 
-XStatus XPmClock_Release(XPm_ClockHandle *ClkHandle)
+XStatus XPmClock_Release(const XPm_ClockHandle *ClkHandle)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_ClockNode *Clk;
@@ -672,7 +672,7 @@ done:
 XStatus XPmClock_SetGate(XPm_OutClockNode *Clk, u32 Enable)
 {
 	XStatus Status = XST_FAILURE;
-	struct XPm_ClkTopologyNode *Ptr;
+	const struct XPm_ClkTopologyNode *Ptr;
 
 	Ptr = XPmClock_GetTopologyNode(Clk, (u32)TYPE_GATE);
 	if (Ptr == NULL) {
@@ -703,7 +703,7 @@ done:
 XStatus XPmClock_SetParent(XPm_OutClockNode *Clk, u32 ParentIdx)
 {
 	XStatus Status = XST_FAILURE;
-	struct XPm_ClkTopologyNode *Ptr;
+	const struct XPm_ClkTopologyNode *Ptr;
 	XPm_ClockNode *ParentClk = NULL;
 	XPm_ClockNode *OldParentClk = NULL;
 
@@ -768,10 +768,10 @@ done:
 	return Status;
 }
 
-XStatus XPmClock_SetDivider(XPm_OutClockNode *Clk, u32 Divider)
+XStatus XPmClock_SetDivider(const XPm_OutClockNode *Clk, u32 Divider)
 {
 	XStatus Status = XST_FAILURE;
-	struct XPm_ClkTopologyNode *Ptr;
+	const struct XPm_ClkTopologyNode *Ptr;
 	u32 Divider1;
 
 	Ptr = XPmClock_GetTopologyNode(Clk, (u32)TYPE_DIV1);
@@ -794,12 +794,12 @@ done:
 	return Status;
 }
 
-XStatus XPmClock_GetClockData(XPm_OutClockNode *Clk, u32 Nodetype, u32 *Value)
+XStatus XPmClock_GetClockData(const XPm_OutClockNode *Clk, u32 Nodetype, u32 *Value)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Mask;
-	struct XPm_ClkTopologyNode *Ptr;
-	XPm_Power *PowerDomain = Clk->ClkNode.PwrDomain;
+	const struct XPm_ClkTopologyNode *Ptr;
+	const XPm_Power *PowerDomain = Clk->ClkNode.PwrDomain;
 
 	Ptr = XPmClock_GetTopologyNode(Clk, Nodetype);
 	if (Ptr == NULL) {
@@ -824,7 +824,7 @@ done:
 XStatus XPmClock_QueryName(u32 ClockId, u32 *Resp)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_ClockNode *Clk;
+	const XPm_ClockNode *Clk;
 	(void)memset(Resp, 0, CLK_QUERY_NAME_LEN);
 
 	Clk = XPmClock_GetById(ClockId);
@@ -843,8 +843,8 @@ XStatus XPmClock_QueryTopology(u32 ClockId, u32 Index, u32 *Resp)
 {
 	XStatus Status = XST_FAILURE;
 	u32 i;
-	struct XPm_ClkTopologyNode *PtrNodes;
-	XPm_OutClockNode *Clk;
+	const struct XPm_ClkTopologyNode *PtrNodes;
+	const XPm_OutClockNode *Clk;
 	u8 Type;
 	u16 Typeflags;
 	u16 Clkflags;
@@ -908,8 +908,8 @@ done:
 XStatus XPmClock_QueryFFParams(u32 ClockId, u32 *Resp)
 {
 	XStatus Status = XST_FAILURE;
-	struct XPm_ClkTopologyNode *Ptr;
-	XPm_OutClockNode *Clk;
+	const struct XPm_ClkTopologyNode *Ptr;
+	const XPm_OutClockNode *Clk;
 
 	Clk = (XPm_OutClockNode *)XPmClock_GetById(ClockId);
 
@@ -935,7 +935,7 @@ done:
 XStatus XPmClock_QueryMuxSources(u32 ClockId, u32 Index, u32 *Resp)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_OutClockNode *Clk;
+	const XPm_OutClockNode *Clk;
 	u32 i;
 
 	Clk = (XPm_OutClockNode *)XPmClock_GetById(ClockId);
@@ -967,7 +967,7 @@ XStatus XPmClock_QueryAttributes(u32 ClockIndex, u32 *Resp)
 	u32 Attr = 0;
 	u32 InitEnable = 0;
 	u32 ClockId = 0;
-	XPm_ClockNode *Clk;
+	const XPm_ClockNode *Clk;
 
 	if (ClockIndex >= MaxClkNodes) {
 		Status = XST_INVALID_PARAM;
@@ -1035,8 +1035,8 @@ XStatus XPmClock_GetNumClocks(u32 *Resp)
 XStatus XPmClock_CheckPermissions(u32 SubsystemIdx, u32 ClockId)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_ClockNode *Clk;
-	XPm_ClockHandle *DevHandle;
+	const XPm_ClockNode *Clk;
+	const XPm_ClockHandle *DevHandle;
 	u32 PermissionMask = 0U;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
@@ -1106,8 +1106,8 @@ done:
 XStatus XPmClock_GetMaxDivisor(u32 ClockId, u32 DivType, u32 *Resp)
 {
 	XStatus Status = XST_FAILURE;
-	struct XPm_ClkTopologyNode *Ptr;
-	XPm_OutClockNode *Clk;
+	const struct XPm_ClkTopologyNode *Ptr;
+	const XPm_OutClockNode *Clk;
 
 	Clk = (XPm_OutClockNode *)XPmClock_GetById(ClockId);
 	if (NULL == Clk) {
@@ -1136,7 +1136,7 @@ XStatus XPmClock_SetRate(XPm_ClockNode *Clk, const u32 ClkRate)
 	return XST_SUCCESS;
 }
 
-XStatus XPmClock_GetRate(XPm_ClockNode *Clk, u32 *ClkRate)
+XStatus XPmClock_GetRate(const XPm_ClockNode *Clk, u32 *ClkRate)
 {
 	*ClkRate = Clk->ClkRate;
 

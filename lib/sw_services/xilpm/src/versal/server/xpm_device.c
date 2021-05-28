@@ -120,7 +120,7 @@ static const XPm_StateTran XPmGenericDevTransitions[] = {
 	},
 };
 
-static XPm_Requirement *FindReqm(XPm_Device *Device, XPm_Subsystem *Subsystem)
+static XPm_Requirement *FindReqm(const XPm_Device *Device, const XPm_Subsystem *Subsystem)
 {
 	XPm_Requirement *Reqm = NULL;
 
@@ -137,8 +137,8 @@ static XPm_Requirement *FindReqm(XPm_Device *Device, XPm_Subsystem *Subsystem)
 
 struct XPm_Reqm *XPmDevice_FindRequirement(const u32 DeviceId, const u32 SubsystemId)
 {
-	XPm_Device *Device = XPmDevice_GetById(DeviceId);
-	XPm_Subsystem *Subsystem = XPmSubsystem_GetById(SubsystemId);
+	const XPm_Device *Device = XPmDevice_GetById(DeviceId);
+	const XPm_Subsystem *Subsystem = XPmSubsystem_GetById(SubsystemId);
 	XPm_Requirement *Reqm = NULL;
 
 	if ((NULL == Device) || (NULL == Subsystem)) {
@@ -284,10 +284,10 @@ static XStatus SetAieDeviceNode(u32 Id, XPm_Device *Device)
  *		invalid.
  *
  ****************************************************************************/
-u32 XPmDevice_GetSubsystemIdOfCore(XPm_Device *Device)
+u32 XPmDevice_GetSubsystemIdOfCore(const XPm_Device *Device)
 {
-	XPm_Requirement *Reqm;
-	XPm_Subsystem *Subsystem = NULL;
+	const XPm_Requirement *Reqm;
+	const XPm_Subsystem *Subsystem = NULL;
 	u32 Idx, SubSystemId;
 	u32 SubsysIdx = XPmSubsystem_GetMaxSubsysIdx();
 
@@ -323,7 +323,7 @@ u32 XPmDevice_GetSubsystemIdOfCore(XPm_Device *Device)
  ****************************************************************************/
 static u32 GetMaxCapabilities(const XPm_Device* const Device)
 {
-	XPm_Requirement* Reqm = Device->Requirements;
+	const XPm_Requirement* Reqm = Device->Requirements;
 	u32 MaxCaps = 0U;
 
 	while (NULL != Reqm) {
@@ -346,7 +346,7 @@ static u32 GetMaxCapabilities(const XPm_Device* const Device)
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_CheckCapabilities(XPm_Device *Device, u32 Caps)
+XStatus XPm_CheckCapabilities(const XPm_Device *Device, u32 Caps)
 {
 	u32 Idx;
 	XStatus Status = XST_FAILURE;
@@ -370,10 +370,10 @@ done:
 	return Status;
 }
 
-static u32 IsRunning(XPm_Device *Device)
+static u32 IsRunning(const XPm_Device *Device)
 {
 	u32 Running = 0;
-	XPm_Requirement *Reqm = Device->Requirements;
+	const XPm_Requirement *Reqm = Device->Requirements;
 
 	while (NULL != Reqm) {
 		if (Reqm->Allocated > 0U) {
@@ -422,7 +422,7 @@ done:
 	return Status;
 }
 
-static XStatus SetClocks(XPm_Device *Device, u32 Enable)
+static XStatus SetClocks(const XPm_Device *Device, u32 Enable)
 {
 	XStatus Status = XST_FAILURE;
 	u32 NodeId;
@@ -438,7 +438,7 @@ static XStatus SetClocks(XPm_Device *Device, u32 Enable)
 		goto done;
 	}
 
-	XPm_ClockHandle *ClkHandle = Device->ClkHandles;
+	const XPm_ClockHandle *ClkHandle = Device->ClkHandles;
 
 	/* Enable all the clock gates, skip over others */
 	if (1U == Enable) {
@@ -451,12 +451,12 @@ done:
 	return Status;
 }
 
-static XStatus ResetSdDllRegs(XPm_Device *Device)
+static XStatus ResetSdDllRegs(const XPm_Device *Device)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Value;
 	u32 BaseAddress;
-	XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
+	const XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 	if (NULL == Pmc) {
 		Status = XPM_INVALID_DEVICEID;
 		goto done;
@@ -548,7 +548,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				if (TRUE /* Hack: Clock enabled */) {
 					Node->State = (u8)XPM_DEVSTATE_RST_OFF;
 
-					XPm_PsLpDomain *PsLpd;
+					const XPm_PsLpDomain *PsLpd;
 					PsLpd = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 					if (NULL == PsLpd) {
 						DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
@@ -1131,7 +1131,7 @@ done:
 	return Status;
 }
 
-static XStatus DevRequest(XPm_Device *Device, XPm_Subsystem *Subsystem,
+static XStatus DevRequest(XPm_Device *Device, const XPm_Subsystem *Subsystem,
 		       u32 Capabilities, u32 QoS, u32 CmdType)
 {
 	XStatus Status = XPM_ERR_DEVICE_REQ;
@@ -1167,7 +1167,7 @@ static XStatus DevRequest(XPm_Device *Device, XPm_Subsystem *Subsystem,
 	UsagePolicy = USAGE_POLICY(Reqm->Flags);
 	if ((UsagePolicy == (u16)REQ_TIME_SHARED) || (UsagePolicy == (u16)REQ_NONSHARED)) {
 			//Check if it already requested by other subsystem. If yes, return
-			XPm_Requirement *NextReqm = Reqm->NextSubsystem;
+			const XPm_Requirement *NextReqm = Reqm->NextSubsystem;
 			while (NULL != NextReqm) {
 				if (1U == NextReqm->Allocated) {
 					Status = XPM_PM_NODE_USED;
@@ -1208,7 +1208,7 @@ done:
 	return Status;
 }
 
-static XStatus SetDevRequirement(XPm_Device *Device, XPm_Subsystem *Subsystem,
+static XStatus SetDevRequirement(XPm_Device *Device, const XPm_Subsystem *Subsystem,
 			      u32 Capabilities, const u32 QoS)
 {
 	XStatus Status = XPM_ERR_SET_REQ;;
@@ -1270,7 +1270,7 @@ done:
 	return Status;
 }
 
-static XStatus DevRelease(XPm_Device *Device, XPm_Subsystem *Subsystem, u32 CmdType)
+static XStatus DevRelease(XPm_Device *Device, const XPm_Subsystem *Subsystem, u32 CmdType)
 {
 	XStatus Status = XPM_ERR_DEVICE_RELEASE;
 	XPm_Requirement *Reqm;
@@ -1529,10 +1529,11 @@ done:
 	return Status;
 }
 
-XStatus XPmDevice_Reset(XPm_Device *Device, const XPm_ResetActions Action)
+XStatus XPmDevice_Reset(const XPm_Device *Device, const XPm_ResetActions Action)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_ResetHandle *RstHandle, *DeviceHandle;
+	const XPm_ResetHandle *RstHandle;
+	const XPm_ResetHandle *DeviceHandle;
 	XPm_ResetNode *Reset;
 
 	if (NULL == Device) {
@@ -1598,11 +1599,11 @@ done:
 	return Status;
 }
 
-XStatus XPmDevice_CheckPermissions(XPm_Subsystem *Subsystem, u32 DeviceId)
+XStatus XPmDevice_CheckPermissions(const XPm_Subsystem *Subsystem, u32 DeviceId)
 {
 	XStatus Status = XPM_PM_NO_ACCESS;
-	XPm_Requirement *Reqm;
-	XPm_Device *Device = XPmDevice_GetById(DeviceId);
+	const XPm_Requirement *Reqm;
+	const XPm_Device *Device = XPmDevice_GetById(DeviceId);
 
 	if (NULL == Device) {
 		Status = XST_INVALID_PARAM;
@@ -1877,7 +1878,7 @@ XStatus XPmDevice_Release(const u32 SubsystemId, const u32 DeviceId,
 {
 	XStatus Status = XPM_ERR_DEVICE_RELEASE;
 	XPm_Device *Device;
-	XPm_Subsystem *Subsystem;
+	const XPm_Subsystem *Subsystem;
 
 	/* Todo: Check if subsystem has permission */
 
@@ -1912,7 +1913,7 @@ XStatus XPmDevice_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
 {
 	XStatus Status = XPM_ERR_SET_REQ;
 	XPm_Device *Device;
-	XPm_Subsystem *Subsystem;
+	const XPm_Subsystem *Subsystem;
 
 	/* Todo: Check if subsystem has permission */
 
@@ -1949,9 +1950,9 @@ XStatus XPmDevice_GetStatus(const u32 SubsystemId,
 			XPm_DeviceStatus *const DeviceStatus)
 {
 	XStatus Status = XPM_ERR_DEVICE_STATUS;
-	XPm_Subsystem *Subsystem;
-	XPm_Device *Device;
-	XPm_Requirement *Reqm;
+	const XPm_Subsystem *Subsystem;
+	const XPm_Device *Device;
+	const XPm_Requirement *Reqm;
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
 	if ((Subsystem == NULL) || (Subsystem->State != (u8)ONLINE)) {
@@ -1983,7 +1984,7 @@ done:
 	return Status;
 }
 
-XStatus XPmDevice_AddParent(u32 Id, u32 *Parents, u32 NumParents)
+XStatus XPmDevice_AddParent(u32 Id, const u32 *Parents, u32 NumParents)
 {
 	XStatus Status = XST_FAILURE;
 	u32 i = 0;
@@ -2080,10 +2081,10 @@ done:
 	return Status;
 }
 
-XStatus XPmDevice_GetPermissions(XPm_Device *Device, u32 *PermissionMask)
+XStatus XPmDevice_GetPermissions(const XPm_Device *Device, u32 *PermissionMask)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Requirement *Reqm;
+	const XPm_Requirement *Reqm;
 	u32 Idx;
 	u32 SubsysIdx = XPmSubsystem_GetMaxSubsysIdx();
 
@@ -2128,7 +2129,7 @@ XStatus XPmDevice_SetMaxLatency(const u32 SubsystemId, const u32 DeviceId,
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Requirement *Reqm;
-	XPm_Subsystem *Subsystem = XPmSubsystem_GetById(SubsystemId);
+	const XPm_Subsystem *Subsystem = XPmSubsystem_GetById(SubsystemId);
 	XPm_Device *Device = XPmDevice_GetById(DeviceId);
 
 	if ((NULL == Subsystem) || (NULL == Device)) {
@@ -2257,7 +2258,7 @@ static XStatus GetStateWithCaps(const XPm_Device* const Device, const u32 Caps,
  ****************************************************************************/
 static u32 GetMinRequestedLatency(const XPm_Device *const Device)
 {
-	XPm_Requirement *Reqm = Device->Requirements;
+	const XPm_Requirement *Reqm = Device->Requirements;
 	u32 MinLatency = XPM_MAX_LATENCY;
 
 	while (NULL != Reqm) {
@@ -2456,10 +2457,10 @@ done:
  *               using the device
  *
  ****************************************************************************/
-u32 XPmDevice_GetUsageStatus(XPm_Subsystem *Subsystem, XPm_Device *Device)
+u32 XPmDevice_GetUsageStatus(const XPm_Subsystem *Subsystem, const XPm_Device *Device)
 {
 	u32 UsageStatus = 0;
-	XPm_Requirement *Reqm = Device->Requirements;
+	const XPm_Requirement *Reqm = Device->Requirements;
 
 	while (NULL != Reqm) {
 		if (1U == Reqm->Allocated) {
@@ -2485,11 +2486,11 @@ u32 XPmDevice_GetUsageStatus(XPm_Subsystem *Subsystem, XPm_Device *Device)
  *         XST_FAILURE if all clocks for given device are inactive
  *
  ****************************************************************************/
-XStatus XPmDevice_IsClockActive(XPm_Device *Device)
+XStatus XPmDevice_IsClockActive(const XPm_Device *Device)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_ClockHandle *ClkHandle = Device->ClkHandles;
-	XPm_OutClockNode *Clk;
+	const XPm_ClockHandle *ClkHandle = Device->ClkHandles;
+	const XPm_OutClockNode *Clk;
 	u32 Enable;
 
 	while (NULL != ClkHandle) {
@@ -2534,9 +2535,9 @@ done:
 XStatus XPmDevice_IsRequested(const u32 DeviceId, const u32 SubsystemId)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Device *Device = XPmDevice_GetById(DeviceId);
-	XPm_Subsystem *Subsystem = XPmSubsystem_GetById(SubsystemId);
-	XPm_Requirement *Reqm;
+	const XPm_Device *Device = XPmDevice_GetById(DeviceId);
+	const XPm_Subsystem *Subsystem = XPmSubsystem_GetById(SubsystemId);
+	const XPm_Requirement *Reqm;
 
 	if ((NULL == Device) || (NULL == Subsystem)) {
 		Status = XST_INVALID_PARAM;
@@ -2555,7 +2556,7 @@ done:
 XStatus XPmDevice_GetWakeupLatency(const u32 DeviceId, u32 *Latency)
 {
 	XStatus Status = XST_SUCCESS;
-	XPm_Device *Device = XPmDevice_GetById(DeviceId);
+	const XPm_Device *Device = XPmDevice_GetById(DeviceId);
 	u32 Lat = 0;
 
 	*Latency = 0;

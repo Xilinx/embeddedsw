@@ -19,7 +19,7 @@ typedef struct XPm_Periph XPm_Periph;
 
 /* Core Operations */
 struct XPm_PeriphOps {
-	void (*SetWakeupSource)(XPm_Periph *Periph, u8 Enable);
+	void (*SetWakeupSource)(const XPm_Periph *Periph, u8 Enable);
 };
 
 /**

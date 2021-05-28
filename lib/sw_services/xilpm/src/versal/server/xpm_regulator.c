@@ -31,7 +31,7 @@ XPm_Regulator *XPmRegulator_GetById(u32 Id)
 	return Regulator;
 }
 
-XStatus XPmRegulator_Init(XPm_Regulator *Regulator, u32 Id, u32 *Args, u32 NumArgs)
+XStatus XPmRegulator_Init(XPm_Regulator *Regulator, u32 Id, const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;

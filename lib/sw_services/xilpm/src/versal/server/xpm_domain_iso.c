@@ -302,8 +302,8 @@ static XStatus XPmDomainIso_CheckDependencies(u32 IsoIdx)
 {
 	XStatus Status = XST_FAILURE;
 	u32 i=0, NodeId;
-	XPm_PowerDomain *PwrDomainNode;
-	XPm_Device *Device;
+	const XPm_PowerDomain *PwrDomainNode;
+	const XPm_Device *Device;
 
 	for (i = 0; i < 2U; i++) {
 		NodeId = XPmDomainIso_List[IsoIdx].DependencyNodeHandles[i];

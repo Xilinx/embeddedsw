@@ -46,7 +46,7 @@ typedef struct XPm_ResetHandle XPm_ResetHandle;
  */
 typedef struct XPmResetOps {
 	XStatus (*const SetState)(XPm_ResetNode *Rst, const u32 Action);
-	u32 (*const GetState)(XPm_ResetNode *Rst);
+	u32 (*const GetState)(const XPm_ResetNode *Rst);
 } XPm_ResetOps;
 
 
@@ -83,10 +83,10 @@ struct XPm_ResetNode {
 
 /************************** Function Prototypes ******************************/
 
-XStatus XPmReset_AddNode(u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetType, u8 NumParents, u32* Parents);
+XStatus XPmReset_AddNode(u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetType, u8 NumParents, const u32* Parents);
 XPm_ResetNode* XPmReset_GetById(u32 ResetId);
 XStatus XPmReset_AssertbyId(u32 ResetId, const u32 Action);
-XStatus XPmReset_CheckPermissions(XPm_Subsystem *Subsystem, u32 ResetId);
+XStatus XPmReset_CheckPermissions(const XPm_Subsystem *Subsystem, u32 ResetId);
 XStatus XPmReset_SystemReset(void);
 XStatus XPmReset_AddPermission(XPm_ResetNode *Rst,
 			       const XPm_Subsystem *Subsystem,

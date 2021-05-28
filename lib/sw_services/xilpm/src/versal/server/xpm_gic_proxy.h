@@ -45,7 +45,7 @@ typedef struct {
 
 extern XPm_GicProxy_t XPm_GicProxy;
 
-void XPmGicProxy_WakeEventSet(XPm_Periph *Periph, u8 Enable);
+void XPmGicProxy_WakeEventSet(const XPm_Periph *Periph, u8 Enable);
 
 #ifdef __cplusplus
 }
