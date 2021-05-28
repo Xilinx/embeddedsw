@@ -20,7 +20,7 @@
  * @note Arguments consist of Power Domain Node Id that AIE depends on
  *
  ****************************************************************************/
-static XStatus AieInitStart(XPm_AieDevice *AieDevice, u32 *Args, u32 NumArgs)
+static XStatus AieDeviceInitStart(XPm_AieDevice *AieDevice, u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -73,7 +73,7 @@ done:
  * @note Arguments consist of Power Domain Node Id that AIE depends on
  *
  ****************************************************************************/
-static XStatus AieInitFinish(XPm_AieDevice *AieDevice, u32 *Args, u32 NumArgs)
+static XStatus AieDeviceInitFinish(XPm_AieDevice *AieDevice, u32 *Args, u32 NumArgs)
 {
 	(void)AieDevice;
 	(void)Args;
@@ -81,9 +81,9 @@ static XStatus AieInitFinish(XPm_AieDevice *AieDevice, u32 *Args, u32 NumArgs)
 	return XST_SUCCESS;
 }
 
-static struct XPm_AieInitNodeOps AieOps = {
-	.InitStart = AieInitStart,
-	.InitFinish = AieInitFinish,
+static struct XPm_AieInitNodeOps AieDeviceOps = {
+	.InitStart = AieDeviceInitStart,
+	.InitFinish = AieDeviceInitFinish,
 };
 
 /****************************************************************************/
@@ -114,7 +114,7 @@ XStatus XPmAieDevice_Init(XPm_AieDevice *AieDevice, u32 NodeId,
 	}
 
 	AieDevice->Parent = NULL;
-	AieDevice->Ops = &AieOps;
+	AieDevice->Ops = &AieDeviceOps;
 
 done:
 	return Status;
