@@ -2012,7 +2012,9 @@ int XPm_SetConfiguration(const u32 Address)
 int XPm_MmioWrite(const u32 Address, const u32 Mask, const u32 Value)
 {
 	/* Suppress compilation warning */
-	(void)Address, (void)Mask, (void)Value;
+	(void)Address;
+	(void)Mask;
+	(void)Value;
 
 	XPm_Err("%s() API is not supported\r\n", __func__);
 	return (s32)XST_FAILURE;
@@ -2021,7 +2023,8 @@ int XPm_MmioWrite(const u32 Address, const u32 Mask, const u32 Value)
 int XPm_MmioRead(const u32 Address, u32 *const Value)
 {
 	/* Suppress compilation warning */
-	(void)Address, (void)Value;
+	(void)Address;
+	(void)Value;
 
 	XPm_Err("%s() API is not supported\r\n", __func__);
 	return (s32)XST_FAILURE;
