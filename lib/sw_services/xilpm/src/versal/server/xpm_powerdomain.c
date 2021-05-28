@@ -321,7 +321,7 @@ XStatus XPm_PowerDwnLPD(void)
 	u32 DbgErr = (u32)XPM_INT_ERR_UNDEFINED;
 	XPm_Core *RpuCore0;
 	XPm_Core *RpuCore1;
-	int HasResumeAddrStatus = XST_FAILURE;
+	XStatus HasResumeAddrStatus = XST_FAILURE;
 	u32 i;
 
 	RpuCore0 = (XPm_Core *)XPmDevice_GetById(PM_DEV_RPU0_0);
@@ -503,7 +503,7 @@ XStatus XPm_PowerDwnFPD(XPm_Node *Node)
 	XPm_Psm *Psm;
 	XPm_PsFpDomain *FpDomain = (XPm_PsFpDomain *)XPmPower_GetById(PM_POWER_FPD);
 	XPm_Core *ApuCore;
-	int HasResumeAddrStatus = XST_FAILURE;
+	XStatus HasResumeAddrStatus = XST_FAILURE;
 	u32 DbgErr = (u32)XPM_INT_ERR_UNDEFINED;
 	u32 i;
 

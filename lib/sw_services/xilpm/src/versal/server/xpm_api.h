@@ -27,7 +27,7 @@ extern u32 ResetReason;
 XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload),
 		 int (*const RestartCb)(u32 ImageId, u32 *FuncId));
 
-int XPm_GetChipID(u32* IDCode, u32 *Version);
+XStatus XPm_GetChipID(u32* IDCode, u32 *Version);
 
 XStatus XPm_GetApiVersion(u32 *Version);
 
@@ -64,7 +64,7 @@ XStatus XPm_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
 			   const u32 Capabilities, const u32 QoS,
 			   const u32 Ack);
 
-int XPm_SetMaxLatency(const u32 SubsystemId, const u32 DeviceId,
+XStatus XPm_SetMaxLatency(const u32 SubsystemId, const u32 DeviceId,
 		      const u32 Latency);
 
 XStatus XPm_GetDeviceStatus(const u32 SubsystemId,
@@ -119,7 +119,7 @@ XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
                         const pm_ioctl_id IoctlId,
                         const u32 Arg1,
                         const u32 Arg2,u32 *const Response, const u32 CmdType);
-int XPm_InitFinalize(const u32 SubsystemId);
+XStatus XPm_InitFinalize(const u32 SubsystemId);
 
 XStatus XPm_DescribeNodes(u32 NumArgs);
 XStatus XPm_AddNodeParent(u32 *Args, u32 NumArgs);
@@ -134,14 +134,14 @@ XStatus XPm_RequestSuspend(const u32 SubsystemId, const u32 TargetSubsystemId,
 			   const u32 Ack, const u32 Latency, const u32 State,
 			   const u32 CmdType);
 XStatus XPm_InitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs);
-int XPm_FeatureCheck(const u32 ApiId, u32 *const Version);
+XStatus XPm_FeatureCheck(const u32 ApiId, u32 *const Version);
 XStatus XPm_IsoControl(u32 NodeId, u32 Enable);
 XStatus XPm_GetOpCharacteristic(const u32 DeviceId, const u32 Type,
 				u32 *Result);
-int XPm_RegisterNotifier(const u32 SubsystemId, const u32 NodeId,
+XStatus XPm_RegisterNotifier(const u32 SubsystemId, const u32 NodeId,
 			 const u32 Event, const u32 Wake, const u32 Enable,
 			 const u32 IpiMask);
-int XPm_GicProxyWakeUp(const u32 PeriphIdx);
+XStatus XPm_GicProxyWakeUp(const u32 PeriphIdx);
 XStatus XPm_HookAfterPlmCdo(void);
 int XPm_RestartCbWrapper(const u32 SubsystemId);
 u32 XPm_GetSubsystemId(u32 ImageId);

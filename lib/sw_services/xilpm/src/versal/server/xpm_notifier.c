@@ -56,11 +56,11 @@ static int XPmNotifier_SchedulerTask(void *Arg);
  * @return None
  *
  ****************************************************************************/
-int XPmNotifier_Register(const XPm_Subsystem* const Subsystem,
+XStatus XPmNotifier_Register(const XPm_Subsystem* const Subsystem,
 			 const u32 NodeId,
 			 const u32 Event, const u32 Wake, const u32 IpiMask)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	u32 Idx;
 	u32 EmptyIdx = ARRAY_SIZE(PmNotifiers);
 
@@ -121,9 +121,9 @@ done:
 	return Status;
 }
 
-static int XPmNotifier_GetNotifyCbData(const u32 Idx, u32 *Payload)
+static XStatus XPmNotifier_GetNotifyCbData(const u32 Idx, u32 *Payload)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	const XPmNotifier *Notifier = NULL;
 	const XPm_Device *Device = NULL;
 	const XPm_Power *Power = NULL;
@@ -179,7 +179,7 @@ static int XPmNotifier_SchedulerTask(void *Arg)
 	(void)Arg;
 	int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};
-	int IpiAck;
+	XStatus IpiAck;
 	u32 Index = 0U;
 	u32 Event;
 	u32 PendEvent = (u32)NOT_PRESENT;
@@ -260,9 +260,9 @@ done:
 	return Status;
 }
 
-static int XPmNotifier_AddSuspEvent(const u32 IpiMask, const u32 *Payload)
+static XStatus XPmNotifier_AddSuspEvent(const u32 IpiMask, const u32 *Payload)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem = NULL;
 	u32 SubsystemId;
 
@@ -283,9 +283,9 @@ done:
 	return Status;
 }
 
-static int XPmNotifier_AddPendingEvent(const u32 IpiMask, const u32 *Payload)
+static XStatus XPmNotifier_AddPendingEvent(const u32 IpiMask, const u32 *Payload)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPmNotifier* Notifier = NULL;
 	u32 CbType;
 	u32 NodeId;
@@ -356,7 +356,7 @@ done:
  ****************************************************************************/
 void XPmNotifier_NotifyTarget(u32 IpiMask, u32 *Payload)
 {
-	int IpiAck;
+	XStatus IpiAck;
 	u32 CbType = Payload[0];
 	u32 TaskPresent = SchedulerTask;
 
@@ -451,7 +451,7 @@ void XPmNotifier_Event(const u32 NodeId, const u32 Event)
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};
 	XPm_Device* Device;
 	XPm_Power *Power;
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 
 	for (Idx = 0U; Idx < ARRAY_SIZE(PmNotifiers); Idx++) {
 		/* Search for the given NodeId */

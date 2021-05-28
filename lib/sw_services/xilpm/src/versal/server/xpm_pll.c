@@ -497,9 +497,9 @@ done:
 	return Status;
 }
 
-int XPmClockPll_QueryMuxSources(u32 Id, u32 Index, u32 *Resp)
+XStatus XPmClockPll_QueryMuxSources(u32 Id, u32 Index, u32 *Resp)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_PllClockNode *PllPtr = (XPm_PllClockNode *)XPmClock_GetById(Id);
 
 	if (PllPtr == NULL) {
@@ -522,9 +522,9 @@ done:
 	return Status;
 }
 
-int XPmClockPll_GetWakeupLatency(const u32 Id, u32 *Latency)
+XStatus XPmClockPll_GetWakeupLatency(const u32 Id, u32 *Latency)
 {
-	int Status = XST_SUCCESS;
+	XStatus Status = XST_SUCCESS;
 	XPm_PllClockNode *Pll = (XPm_PllClockNode *)XPmClock_GetById(Id);
 	u32 Lat = 0;
 

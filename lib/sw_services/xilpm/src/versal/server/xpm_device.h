@@ -151,7 +151,7 @@ XStatus XPmDevice_AddReset(XPm_Device *Device, XPm_ResetNode *Reset);
 
 XStatus XPmDevice_Reset(XPm_Device *Device, const XPm_ResetActions Action);
 
-int XPmDevice_CheckPermissions(XPm_Subsystem *Subsystem, u32 DeviceId);
+XStatus XPmDevice_CheckPermissions(XPm_Subsystem *Subsystem, u32 DeviceId);
 
 XPm_Device *XPmDevice_GetById(const u32 DeviceId);
 
@@ -185,16 +185,16 @@ XStatus XPmDevice_GetPermissions(XPm_Device *Device, u32 *PermissionMask);
 
 u32 XPmDevice_GetSubsystemIdOfCore(XPm_Device *Device);
 
-int XPmDevice_SetMaxLatency(const u32 SubsystemId, const u32 DeviceId,
+XStatus XPmDevice_SetMaxLatency(const u32 SubsystemId, const u32 DeviceId,
 			    const u32 Latency);
 
 XStatus XPmDevice_ChangeState(XPm_Device *Device, const u32 NextState);
 XStatus XPmDevice_UpdateStatus(XPm_Device *Device);
 XStatus XPmDevice_BringUp(XPm_Device *Device);
 u32 XPmDevice_GetUsageStatus(XPm_Subsystem *Subsystem, XPm_Device *Device);
-int XPmDevice_IsClockActive(XPm_Device *Device);
-int XPmDevice_IsRequested(const u32 DeviceId, const u32 SubsystemId);
-int XPmDevice_GetWakeupLatency(const u32 DeviceId, u32 *Latency);
+XStatus XPmDevice_IsClockActive(XPm_Device *Device);
+XStatus XPmDevice_IsRequested(const u32 DeviceId, const u32 SubsystemId);
+XStatus XPmDevice_GetWakeupLatency(const u32 DeviceId, u32 *Latency);
 XStatus XPm_SetSysmonNode(u32 Id, u32 BaseAddress);
 u32 XPm_GetSysmonByIndex(const u32 SysmonIndex);
 XStatus AddDevAttributes(const u32 *Args, const u32 NumArgs);
