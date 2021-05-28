@@ -233,11 +233,13 @@ static void XPmBisr_InitTagIdList(void)
 
 static XStatus XPmBisr_TagSupportCheck(u32 TagId)
 {
+	XStatus Status = XST_FAILURE;
+
 	if (TAG_ID_VALID_MASK == (XPmTagIdWhiteList[TagId] & TAG_ID_VALID_MASK)) {
-		return XST_SUCCESS;
-	} else {
-		return XST_FAILURE;
+		Status = XST_SUCCESS;
 	}
+
+	return Status;
 }
 
 static void XPmBisr_SwError(u32 ErrorCode)
@@ -950,7 +952,7 @@ static u32 XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize)
 		    TagDataAddr > (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET))) {
 			TagDataAddr += 4U;
 		}
-		return TagDataAddr;
+		goto done;
 	}
 
 	Pld = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);

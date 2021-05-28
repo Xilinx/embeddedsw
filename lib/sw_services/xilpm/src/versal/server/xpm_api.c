@@ -710,7 +710,7 @@ static void XPm_CheckLastResetReason(void)
 	/* No need to do anything is same system reset occurs back to back */
 	if (CurrResetReason == PreviousSysResetReason) {
 		ResetReason = CurrResetReason;
-		return;
+		goto done;
 	}
 
 	LatestSysReset = SysRstReason & ~PreviousSysResetReason;
@@ -730,6 +730,7 @@ static void XPm_CheckLastResetReason(void)
 	/* Mast out previous system reset reason. */
 	ResetReason = CurrResetReason & ~PreviousSysResetReason;
 
+done:
 	return;
 }
 
@@ -2449,7 +2450,7 @@ XStatus XPm_SetClockState(const u32 SubsystemId, const u32 ClockId, const u32 En
 	if(Enable == 0U && ISPLL(ClockId))
 	{
 		Status = XST_SUCCESS;
-		return Status;
+		goto done;
 	}
 
 	/* Check if clock's state is already desired state */

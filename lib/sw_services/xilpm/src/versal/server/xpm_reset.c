@@ -139,7 +139,7 @@ XPm_ResetNode* XPmReset_GetById(u32 ResetId)
 
 	if ((NODECLASS(ResetId) != (u32)XPM_NODECLASS_RESET) ||
 	    (ResetIndex >= MaxRstNodes)) {
-		return NULL;
+		goto done;;
 	}
 
 	Rst = RstNodeList[ResetIndex];
@@ -149,6 +149,7 @@ XPm_ResetNode* XPmReset_GetById(u32 ResetId)
 		Rst = NULL;
 	}
 
+done:
 	return Rst;
 }
 
@@ -522,13 +523,15 @@ static const struct ResetCustomOps {
 static const struct ResetCustomOps *GetResetCustomOps(u32 ResetId)
 {
 	u16 i;
+	const struct ResetCustomOps *RstCustomStatus = NULL;
 
 	for (i = 0; i < ARRAY_SIZE(Reset_Custom); i++) {
 		if (Reset_Custom[i].ResetIdx == NODEINDEX(ResetId)) {
-			return &Reset_Custom[i];
+			RstCustomStatus = &Reset_Custom[i];
+			break;
 		}
 	}
-	return NULL;
+	return RstCustomStatus;
 }
 
 static XStatus Reset_AssertCustom(XPm_ResetNode *Rst, const u32 Action)

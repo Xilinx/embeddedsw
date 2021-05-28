@@ -138,7 +138,7 @@ void XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode)
 
 	if (NULL == RpuCore)  {
 		PmErr("Unable to get RPU Core for Id: 0x%x\n\r", DeviceId);
-		return;
+		goto done;
 	}
 	PmIn32(RpuCore->RpuBaseAddr + RPU_GLBL_CNTL_OFFSET, Val);
 	if (Mode == XPM_RPU_MODE_SPLIT) {
@@ -187,6 +187,9 @@ void XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode)
 			}
 		}
 	}
+
+done:
+	return;
 }
 
 XStatus XPm_RpuBootAddrConfig(const u32 DeviceId, const u32 BootAddr)
