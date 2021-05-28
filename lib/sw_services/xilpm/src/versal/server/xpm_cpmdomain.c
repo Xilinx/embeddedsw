@@ -76,8 +76,8 @@ static XStatus CpmInitStart(u32 *Args, u32 NumOfArgs)
 
 	PlatformVersion = XPm_GetPlatformVersion();
 	/* CPM POR control is not valid for ES1 platforms so skip. It is taken care by hw */
-	if(!(PLATFORM_VERSION_SILICON == XPm_GetPlatform() &&
-	     (u32)PLATFORM_VERSION_SILICON_ES1 == PlatformVersion))
+	if(!((PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
+	     ((u32)PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)))
 	{
 		/* Remove POR for CPM */
 		/*Status = XPmReset_AssertbyId(PM_RST_CPM_POR,

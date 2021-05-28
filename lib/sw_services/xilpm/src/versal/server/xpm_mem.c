@@ -304,7 +304,7 @@ static void TcmEccInit(XPm_MemDevice *Tcm, u32 Mode)
 	u32 Id = Tcm->Device.Node.Id;
 	u32 Base = Tcm->StartAddress;
 
-	if (PM_DEV_TCM_1_A == Id || PM_DEV_TCM_1_B == Id) {
+	if ((PM_DEV_TCM_1_A == Id) || (PM_DEV_TCM_1_B == Id)) {
 		if (XPM_RPU_MODE_LOCKSTEP == Mode) {
 			Base -= XPM_TCM_BASEADDRESS_MODE_OFFSET;
 		}
@@ -344,8 +344,8 @@ static XStatus HandleTcmDeviceState(XPm_Device* Device, u32 NextState)
 			 * so bring up RPU too when TCM is requested*/
 			XPm_RpuGetOperMode(PM_DEV_RPU0_0, &Mode);
 			if (XPM_RPU_MODE_SPLIT == Mode) {
-				if ((PM_DEV_TCM_0_A == Id ||
-				     PM_DEV_TCM_0_B == Id) &&
+				if (((PM_DEV_TCM_0_A == Id) ||
+				     (PM_DEV_TCM_0_B == Id)) &&
 				    ((u8)XPM_DEVSTATE_RUNNING !=
 				     Rpu0Device->Node.State)) {
 					Status = XPmRpuCore_Halt(Rpu0Device);
@@ -353,8 +353,8 @@ static XStatus HandleTcmDeviceState(XPm_Device* Device, u32 NextState)
 						goto done;
 					}
 				}
-				if ((PM_DEV_TCM_1_A == Id ||
-				     PM_DEV_TCM_1_B == Id) &&
+				if (((PM_DEV_TCM_1_A == Id) ||
+				     (PM_DEV_TCM_1_B == Id)) &&
 				    ((u8)XPM_DEVSTATE_RUNNING !=
 				     Rpu1Device->Node.State)) {
 					Status = XPmRpuCore_Halt(Rpu1Device);
@@ -365,10 +365,10 @@ static XStatus HandleTcmDeviceState(XPm_Device* Device, u32 NextState)
 			}
 			if (XPM_RPU_MODE_LOCKSTEP == Mode)
 			{
-				if ((PM_DEV_TCM_0_A == Id ||
-				     PM_DEV_TCM_0_B == Id ||
-				     PM_DEV_TCM_1_A == Id ||
-				     PM_DEV_TCM_1_B == Id) &&
+				if (((PM_DEV_TCM_0_A == Id) ||
+				     (PM_DEV_TCM_0_B == Id) ||
+				     (PM_DEV_TCM_1_A == Id) ||
+				     (PM_DEV_TCM_1_B == Id)) &&
 				     ((u8)XPM_DEVSTATE_RUNNING !=
 				      Rpu0Device->Node.State)) {
 					Status = XPmRpuCore_Halt(Rpu0Device);

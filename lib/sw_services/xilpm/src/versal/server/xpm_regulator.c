@@ -56,9 +56,9 @@ XStatus XPmRegulator_Init(XPm_Regulator *Regulator, u32 Id, u32 *Args, u32 NumAr
 
 	switch (Regulator->CtrlMethod) {
 	case XPM_METHODTYPE_I2C:
-		SlaveAddress = Args[1] >> 16 & 0xFFU;
+		SlaveAddress = (Args[1] >> 16) & 0xFFU;
 		Regulator->ParentId = Args[2];
-		Regulator->Config.CmdLen = (u8)(Args[1] >> 8 & 0xFFU);
+		Regulator->Config.CmdLen = (u8)((Args[1] >> 8) & 0xFFU);
 		for (i = 3; i < NumArgs; i++) {
 			(void *)memcpy((void *)&Regulator->Config.CmdArr[(i - 3U) * 4U],
 				       (void *)&Args[i], 4);

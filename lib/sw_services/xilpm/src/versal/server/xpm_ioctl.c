@@ -161,7 +161,7 @@ static int XPm_SetSdTapDelay(const u32 DeviceId, const u32 Type,
 	}
 
 	/*Check for Type */
-	if (XPM_TAPDELAY_INPUT != Type && XPM_TAPDELAY_OUTPUT != Type) {
+	if ((XPM_TAPDELAY_INPUT != Type) && (XPM_TAPDELAY_OUTPUT != Type)) {
 		Status = XPM_INVALID_TYPEID;
 		goto done;
 	}
