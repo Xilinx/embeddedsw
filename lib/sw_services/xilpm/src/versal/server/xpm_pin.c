@@ -2075,17 +2075,18 @@ done:
  *
  * @param PinId		Pin ID.
  * @param Param		Configuration parameter type.
- * @param Value		Configuration parameter value.
+ * @param ParamValue	Configuration parameter value.
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code.
  *
  ****************************************************************************/
-XStatus XPmPin_SetPinConfig(u32 PinId, u32 Param, u32 Value)
+XStatus XPmPin_SetPinConfig(u32 PinId, u32 Param, u32 ParamValue)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_PinNode *Pin;
 	u32 BitMask, BaseAddr;
 	u32 RegPuAddr, RegPdAddr;
+	u32 Value = ParamValue;
 
 	Pin = XPmPin_GetById(PinId);
 
