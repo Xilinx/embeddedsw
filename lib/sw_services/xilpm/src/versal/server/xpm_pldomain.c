@@ -307,35 +307,35 @@ static XStatus GtyHouseClean(void)
 	volatile XStatus Status = XPM_ERR_HC_PL;
 	volatile XStatus StatusTmp = XPM_ERR_HC_PL;
 	unsigned int i;
-	u32 GtyAddresses[MAX_DEV_GT] = {0};
+	u32 GtyAddrs[MAX_DEV_GT] = {0};
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* Initialize array with GT addresses */
-	Status = InitGtyAddrArr(GtyAddresses, ARRAY_SIZE(GtyAddresses));
+	Status = InitGtyAddrArr(GtyAddrs, ARRAY_SIZE(GtyAddrs));
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_GTY_HC;
 		goto done;
 	}
 
-	for (i = 0; i < ARRAY_SIZE(GtyAddresses); i++) {
-		if (0U == GtyAddresses[i]) {
+	for (i = 0; i < ARRAY_SIZE(GtyAddrs); i++) {
+		if (0U == GtyAddrs[i]) {
 			continue;
 		}
 
-		Status = XPm_PollForMask(GtyAddresses[i] + GTY_PCSR_STATUS_OFFSET,
+		Status = XPm_PollForMask(GtyAddrs[i] + GTY_PCSR_STATUS_OFFSET,
 			   GTY_PCSR_STATUS_HOUSECLEAN_DONE_MASK, XPM_POLL_TIMEOUT);
 		if (XST_SUCCESS != Status) {
-			PmErr("HOUSECLEAN_DONE poll failed for GT:0x%08X\n\r", GtyAddresses[i]);
+			PmErr("HOUSECLEAN_DONE poll failed for GT:0x%08X\n\r", GtyAddrs[i]);
 			DbgErr = XPM_INT_ERR_GTY_HC;
 			goto done;
 		}
 
-		XPmPlDomain_UnlockGtyPcsr(GtyAddresses[i]);
+		XPmPlDomain_UnlockGtyPcsr(GtyAddrs[i]);
 		/* Deassert INITCTRL */
-		PmOut32(GtyAddresses[i] + GTY_PCSR_MASK_OFFSET,
+		PmOut32(GtyAddrs[i] + GTY_PCSR_MASK_OFFSET,
 			GTY_PCSR_INITCTRL_MASK);
-		PmOut32(GtyAddresses[i] + GTY_PCSR_CONTROL_OFFSET, 0);
-		XPmPlDomain_LockGtyPcsr(GtyAddresses[i]);
+		PmOut32(GtyAddrs[i] + GTY_PCSR_CONTROL_OFFSET, 0);
+		XPmPlDomain_LockGtyPcsr(GtyAddrs[i]);
 	}
 
 	u32 LocalPlpdHCBypass = PlpdHouseCleanBypassTmp; /* Copy volatile to local to avoid MISRA */
@@ -361,24 +361,24 @@ static XStatus GtyHouseClean(void)
 			goto done;
 		}
 
-		for (i = 0; i < ARRAY_SIZE(GtyAddresses); i++) {
-			if (0U == GtyAddresses[i]) {
+		for (i = 0; i < ARRAY_SIZE(GtyAddrs); i++) {
+			if (0U == GtyAddrs[i]) {
 				continue;
 			}
-			XPmPlDomain_UnlockGtyPcsr(GtyAddresses[i]);
+			XPmPlDomain_UnlockGtyPcsr(GtyAddrs[i]);
 			/* Mbist */
-			XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (PldGtyMbist), (GtyAddresses[i]));
+			XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (PldGtyMbist), (GtyAddrs[i]));
 			XStatus LocalStatus = StatusTmp; /* Copy volatile to local to avoid MISRA */
 			/* Required for redundancy */
 			if ((XST_SUCCESS != Status) || (XST_SUCCESS != LocalStatus)) {
 				/* Gt Mem clear is found to be failing on some parts.
 				 Just print message and return not to break execution */
-				PmErr("ERROR: GT Mem clear Failed for 0x%x\r\n", GtyAddresses[i]);
+				PmErr("ERROR: GT Mem clear Failed for 0x%x\r\n", GtyAddrs[i]);
 			}
-			XPmPlDomain_LockGtyPcsr(GtyAddresses[i]);
+			XPmPlDomain_LockGtyPcsr(GtyAddrs[i]);
 		}
 
-		if (i != ARRAY_SIZE(GtyAddresses)) {
+		if (i != ARRAY_SIZE(GtyAddrs)) {
 			DbgErr = XPM_INT_ERR_GTY_MEM_CLEAR_LOOP;
 			Status = XST_FAILURE;
 			goto done;
@@ -1175,7 +1175,7 @@ done:
 	return Status;
 }
 
-static const struct XPm_PowerDomainOps PldOps = {
+static const struct XPm_PowerDomainOps PlDomainOps = {
 	.InitStart = PldInitStart,
 	.InitFinish = PldInitFinish,
 	.PlHouseclean = NULL,
@@ -1191,7 +1191,7 @@ XStatus XPmPlDomain_Init(XPm_PlDomain *PlDomain, u32 Id, u32 BaseAddress,
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	Status = XPmPowerDomain_Init(&PlDomain->Domain, Id, BaseAddress, Parent, &PldOps);
+	Status = XPmPowerDomain_Init(&PlDomain->Domain, Id, BaseAddress, Parent, &PlDomainOps);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_POWER_DOMAIN_INIT;
 		goto done;
