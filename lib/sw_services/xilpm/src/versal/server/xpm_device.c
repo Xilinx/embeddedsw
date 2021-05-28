@@ -141,7 +141,7 @@ struct XPm_Reqm *XPmDevice_FindRequirement(const u32 DeviceId, const u32 Subsyst
 	XPm_Subsystem *Subsystem = XPmSubsystem_GetById(SubsystemId);
 	XPm_Requirement *Reqm = NULL;
 
-	if (NULL == Device || NULL == Subsystem) {
+	if ((NULL == Device) || (NULL == Subsystem)) {
 		goto done;
 	}
 
@@ -562,13 +562,13 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 					 * TODO: Remove this when security config
 					 * support is added through CDO
 					 */
-					if (Device->Node.Id >= PM_DEV_ADMA_0 &&
-							Device->Node.Id <= PM_DEV_ADMA_7) {
+					if ((Device->Node.Id >= PM_DEV_ADMA_0) &&
+							(Device->Node.Id <= PM_DEV_ADMA_7)) {
 						XPm_Out32(PsLpd->LpdSlcrSecureBaseAddr +
 							  LPD_SLCR_SECURE_WPROT0_OFFSET, 0x0);
 						XPm_Out32(PsLpd->LpdSlcrSecureBaseAddr +
 							  LPD_SLCR_SECURE_ADMA_0_OFFSET +
-							  (Device->Node.Id - PM_DEV_ADMA_0) * 4U, 0x1);
+							  ((Device->Node.Id - PM_DEV_ADMA_0) * 4U), 0x1);
 						XPm_Out32(PsLpd->LpdSlcrSecureBaseAddr +
 							  LPD_SLCR_SECURE_WPROT0_OFFSET, 0x1);
 					}
@@ -596,7 +596,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 								break;
 							}
 						}
-					} else if(Node->Id == PM_DEV_RPU0_0 || Node->Id == PM_DEV_RPU0_1) {
+					} else if((Node->Id == PM_DEV_RPU0_0) || (Node->Id == PM_DEV_RPU0_1)) {
 						/*RPU has a special handling */
 						Status = XPmRpuCore_Halt(Device);
 						if (XST_SUCCESS != Status) {
@@ -654,7 +654,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				/* Hack */
 				Status = Device->HandleEvent(Node, (u32)XPM_DEVEVENT_TIMER);
 			} else if ((u32)XPM_DEVEVENT_SHUTDOWN == Event) {
-				if ((u32)XPM_NODECLASS_DEVICE == (NODECLASS(Device->Node.Id)) &&
+				if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(Device->Node.Id)) &&
 				    ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(Device->Node.Id))) {
 					Core = (XPm_Core *)XPmDevice_GetById(Device->Node.Id);
 					if ((NULL != Core) && (NULL != Core->CoreOps)
@@ -1845,7 +1845,7 @@ XStatus XPmDevice_Request(const u32 SubsystemId, const u32 DeviceId,
 
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
-	if (Subsystem == NULL || Subsystem->State != (u8)ONLINE) {
+	if ((Subsystem == NULL) || (Subsystem->State != (u8)ONLINE)) {
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
@@ -1893,7 +1893,7 @@ XStatus XPmDevice_Release(const u32 SubsystemId, const u32 DeviceId,
 	}
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
-	if (Subsystem == NULL || Subsystem->State == (u8)OFFLINE) {
+	if ((Subsystem == NULL) || (Subsystem->State == (u8)OFFLINE)) {
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
@@ -1929,7 +1929,7 @@ XStatus XPmDevice_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
 
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
-	if (Subsystem == NULL || Subsystem->State == (u8)OFFLINE) {
+	if ((Subsystem == NULL) || (Subsystem->State == (u8)OFFLINE)) {
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
@@ -1954,7 +1954,7 @@ XStatus XPmDevice_GetStatus(const u32 SubsystemId,
 	XPm_Requirement *Reqm;
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
-	if (Subsystem == NULL || Subsystem->State != (u8)ONLINE) {
+	if ((Subsystem == NULL) || (Subsystem->State != (u8)ONLINE)) {
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
@@ -1989,7 +1989,7 @@ XStatus XPmDevice_AddParent(u32 Id, u32 *Parents, u32 NumParents)
 	u32 i = 0;
 	XPm_Device *DevPtr = XPmDevice_GetById(Id);
 
-	if (DevPtr == NULL || NumParents == 0U) {
+	if ((DevPtr == NULL) || (NumParents == 0U)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}

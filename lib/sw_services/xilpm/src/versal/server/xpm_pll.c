@@ -31,7 +31,8 @@ XStatus XPmClockPll_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
 		Status = XPM_PM_INVALID_NODE;
 		goto done;
 	}
-	if (TopologyType!=TOPOLOGY_GENERIC_PLL && TopologyType!=TOPOLOGY_NOC_PLL) {
+	if ((TopologyType != TOPOLOGY_GENERIC_PLL) &&
+	    (TopologyType != TOPOLOGY_NOC_PLL)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -82,7 +83,7 @@ XStatus XPmClockPll_AddParent(u32 Id, u32 *Parents, u8 NumParents)
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
-	if (PllPtr->ClkNode.NumParents == 1U && NumParents != 1U) {
+	if ((PllPtr->ClkNode.NumParents == 1U) && (NumParents != 1U)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	} else {
