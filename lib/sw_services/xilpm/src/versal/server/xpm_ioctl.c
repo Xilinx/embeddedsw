@@ -609,6 +609,8 @@ static XStatus XPmIoctl_IsOperationAllowed(u32 RegNum, u32 SubsystemId,
 {
 	XStatus Status = XST_FAILURE;
 	u32 PermissionMask = 0;
+	u32 SecureMask;
+	u32 NonSecureMask;
 
 	/*
 	 * RegNum is validated later in each operation so do not need to
@@ -628,12 +630,14 @@ static XStatus XPmIoctl_IsOperationAllowed(u32 RegNum, u32 SubsystemId,
 	}
 
 	PermissionMask = Perms[RegNum];
+	SecureMask = ((u32)1U << SUBSYS_TO_S_BITPOS(SubsystemId));
+	NonSecureMask = ((u32)1U << SUBSYS_TO_NS_BITPOS(SubsystemId));
 
 	/* Have Target check if Host can enact the operation */
 	if ((XPLMI_CMD_SECURE == CmdType) &&
-	    (PermissionMask & ((u32)1U << SUBSYS_TO_S_BITPOS(SubsystemId)))) {
+	    (SecureMask == (PermissionMask & SecureMask))) {
 		Status = XST_SUCCESS;
-	} else if (PermissionMask & ((u32)1U << SUBSYS_TO_NS_BITPOS(SubsystemId))) {
+	} else if (NonSecureMask == (PermissionMask & NonSecureMask)) {
 		Status = XST_SUCCESS;
 	} else {
 		Status = XPM_PM_NO_ACCESS;
