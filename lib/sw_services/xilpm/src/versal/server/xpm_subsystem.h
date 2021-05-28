@@ -16,8 +16,8 @@ extern "C" {
 
 #define	INVALID_SUBSYSID			(0xFFFFFFFFU)
 #define MAX_NUM_SUBSYSTEMS			(16U)
-#define SUBSYS_TO_NS_BITPOS(x)			(NODE_INDEX_MASK & (x - 2U))
-#define SUBSYS_TO_S_BITPOS(x)			(NODE_INDEX_MASK & (x - 2U + MAX_NUM_SUBSYSTEMS))
+#define SUBSYS_TO_NS_BITPOS(x)			(NODE_INDEX_MASK & ((x) - 2U))
+#define SUBSYS_TO_S_BITPOS(x)			(NODE_INDEX_MASK & ((x) - 2U + MAX_NUM_SUBSYSTEMS))
 
 /**
  * Subsystem specific flags.
@@ -45,7 +45,7 @@ extern "C" {
 #define SUB_PERM_PWRDWN_SHIFT_S			(1U + MAX_NUM_SUBSYSTEMS)
 #define SUB_PERM_SUSPEND_SHIFT_S		(2U + MAX_NUM_SUBSYSTEMS)
 
-#define PERM_BITMASK(Op, OpShift, SubShift)	((1U & (Op >> OpShift))	<< SubShift)
+#define PERM_BITMASK(Op, OpShift, SubShift)	((1U & ((Op) >> (OpShift))) << (SubShift))
 
 /**
  * Subsystem creation states.
