@@ -650,6 +650,8 @@ XStatus XPm_PowerDwnPLD(XPm_Node *Node)
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	XPm_PlDomain *PldDomain = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
+	u32 Platform = XPm_GetPlatform();
+	u32 PlatformVersion = XPm_GetPlatformVersion();
 
 	const XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 	if (NULL == Pmc) {
@@ -710,8 +712,8 @@ XStatus XPm_PowerDwnPLD(XPm_Node *Node)
 
 	/* PMC PL CFRAME isolation should never be enabled for ES1 due to
 	   silicon issue so enable only for non ES1 platform */
-	if ((PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
-	    ((u32)PLATFORM_VERSION_SILICON_ES1 != XPm_GetPlatformVersion())) {
+	if ((PLATFORM_VERSION_SILICON == Platform) &&
+	    ((u32)PLATFORM_VERSION_SILICON_ES1 != PlatformVersion)) {
 		Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_PL_CFRAME, TRUE_VALUE);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_PMC_PL_CFRAME_ISO;
