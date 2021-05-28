@@ -40,7 +40,7 @@ XStatus XPmPlDevice_Init(XPm_PlDevice *PlDevice,
 		u32 BaseAddress,
 		XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset);
 
-XStatus XPmPlDevice_GetParent(u32 PldId, u32 *Resp);
+XStatus XPmPlDevice_GetParent(u32 NodeId, u32 *Resp);
 XStatus XPmPlDevice_IsValidPld(XPm_PlDevice *PlDevice);
 
 #ifdef __cplusplus
