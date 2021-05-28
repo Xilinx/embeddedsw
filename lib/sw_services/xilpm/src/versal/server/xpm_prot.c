@@ -269,7 +269,7 @@ static void XPmProt_XppuEnable(XPm_ProtPpu *Ppu, u32 ApertureInitVal)
 	u32 BaseAddr = Ppu->Node.BaseAddress;
 
 	if ((u8)XPM_PROT_ENABLED == Ppu->Node.State) {
-		return;
+		goto done;
 	}
 
 	/* Set default aperture permission mask */
@@ -361,6 +361,8 @@ static void XPmProt_XppuEnable(XPm_ProtPpu *Ppu, u32 ApertureInitVal)
 
 	/* Enable SW state */
 	Ppu->Node.State = (u8)XPM_PROT_ENABLED;
+done:
+	return;
 }
 
 /****************************************************************************/
@@ -735,7 +737,7 @@ static void XPmProt_XmpuEnable(XPm_ProtMpu *Mpu)
 	u32 RegVal;
 
 	if ((u8)XPM_PROT_ENABLED == Mpu->Node.State) {
-		return;
+		goto done;
 	}
 
 	/* XMPU base address */
@@ -754,6 +756,8 @@ static void XPmProt_XmpuEnable(XPm_ProtMpu *Mpu)
 
 	/* Enable SW state */
 	Mpu->Node.State = (u8)XPM_PROT_ENABLED;
+done:
+	return;
 }
 
 /****************************************************************************/

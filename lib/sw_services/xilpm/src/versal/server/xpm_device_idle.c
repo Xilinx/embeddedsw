@@ -319,7 +319,6 @@ int XPmDevice_SoftResetIdle(XPm_Device *Device, const u32 IdleReq)
 
 	if (NULL == RstInfo) {
 		Status = XST_SUCCESS;
-		goto done;
 	}
 
 	if (DEVICE_IDLE_REQ == IdleReq) {
