@@ -339,9 +339,7 @@ done:
 	return Status;
 }
 
-
-
-static XStatus AieInitStart(u32 *Args, u32 NumOfArgs)
+static XStatus AieInitStart(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress;
@@ -393,7 +391,7 @@ done:
 	return Status;
 }
 
-static XStatus AieInitFinish(u32 *Args, u32 NumOfArgs)
+static XStatus AieInitFinish(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress;
@@ -433,7 +431,7 @@ done:
 	return Status;
 }
 
-static XStatus AieScanClear(u32 *Args, u32 NumOfArgs)
+static XStatus AieScanClear(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress;
@@ -528,7 +526,7 @@ done:
 	return Status;
 }
 
-static XStatus AieBisr(u32 *Args, u32 NumOfArgs)
+static XStatus AieBisr(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress;
@@ -582,7 +580,7 @@ done:
 	return Status;
 }
 
-static XStatus AieMbistClear(u32 *Args, u32 NumOfArgs)
+static XStatus AieMbistClear(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress;
@@ -695,7 +693,7 @@ done:
 	return Status;
 }
 
-static XStatus AieMemInit(u32 *Args, u32 NumOfArgs)
+static XStatus AieMemInit(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress;

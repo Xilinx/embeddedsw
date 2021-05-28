@@ -153,8 +153,8 @@ XStatus XPmRequirement_Add(XPm_Subsystem *Subsystem, XPm_Device *Device,
 void XPm_RequiremntUpdate(XPm_Requirement *Reqm);
 XStatus XPmRequirement_Release(XPm_Requirement *Reqm, XPm_ReleaseScope Scope);
 void XPmRequirement_Clear(XPm_Requirement* Reqm);
-XStatus XPmRequirement_UpdateScheduled(XPm_Subsystem *Subsystem, u32 Swap);
-XStatus XPmRequirement_IsExclusive(XPm_Requirement *Reqm);
+XStatus XPmRequirement_UpdateScheduled(const XPm_Subsystem *Subsystem, u32 Swap);
+XStatus XPmRequirement_IsExclusive(const XPm_Requirement *Reqm);
 
 #ifdef __cplusplus
 }

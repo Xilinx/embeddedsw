@@ -19,8 +19,8 @@ extern "C" {
 typedef struct XPm_PlDeviceNode XPm_PlDevice;
 
 struct XPm_PldInitNodeOps {
-	XStatus (*InitStart)(XPm_PlDevice *PlDevice, u32 *Args, u32 NumArgs);
-	XStatus (*InitFinish)(XPm_PlDevice *PlDevice, u32 *Args, u32 NumArgs);
+	XStatus (*InitStart)(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs);
+	XStatus (*InitFinish)(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs);
 };
 
 struct XPm_PlDeviceNode {
@@ -41,7 +41,7 @@ XStatus XPmPlDevice_Init(XPm_PlDevice *PlDevice,
 		XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset);
 
 XStatus XPmPlDevice_GetParent(u32 NodeId, u32 *Resp);
-XStatus XPmPlDevice_IsValidPld(XPm_PlDevice *PlDevice);
+XStatus XPmPlDevice_IsValidPld(const XPm_PlDevice *PlDevice);
 
 #ifdef __cplusplus
 }

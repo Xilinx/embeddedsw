@@ -151,7 +151,7 @@ static inline void XPmPsLpDomain_LockPcsr(u32 BaseAddr)
 
 /************************** Function Prototypes ******************************/
 XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd, u32 Id, u32 BaseAddress,
-			   XPm_Power *Parent, u32 *OtherBaseAddresses,
+			   XPm_Power *Parent, const u32 *OtherBaseAddresses,
 			   u32 OtherBaseAddressesCnt);
 
 #ifdef __cplusplus

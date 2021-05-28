@@ -224,7 +224,6 @@ XStatus XPmRail_Control(XPm_Rail *Rail, u8 State)
 	}
 
 	Rail->Power.Node.State = State;
-
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -257,7 +256,7 @@ XStatus XPmRail_Control(XPm_Rail *Rail, u8 State)
  *		 for mode type and power good types.
  *
  ****************************************************************************/
-XStatus XPmRail_Init(XPm_Rail *Rail, u32 RailId, u32 *Args, u32 NumArgs)
+XStatus XPmRail_Init(XPm_Rail *Rail, u32 RailId, const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress = 0;

@@ -41,7 +41,7 @@ static int XPm_ProcessPsmCmd(XPlmi_Cmd * Cmd)
 {
 	XStatus Status = XST_FAILURE, EventStatus;
 	u32 Idx;
-	XPm_Power *Lpd;
+	const XPm_Power *Lpd;
 
 	PmDbg("Processing Psm Event\n\r");
 
@@ -192,11 +192,11 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 	XPm_Core *Core;
 	XPm_Subsystem *Subsystem;
 	u32 SubsystemId;
-	XPm_Power *Lpd;
+	const XPm_Power *Lpd;
 	u32 CpuIdleFlag = 0;
 	u32 PsmPggs0Val;
 	u32 PsmPggs1Val;
-	XPm_Psm *Psm;
+	const XPm_Psm *Psm;
 
 	if (((u32)XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) ||
 	    ((u32)XPM_NODESUBCL_DEV_CORE != NODESUBCLASS(DeviceId))) {

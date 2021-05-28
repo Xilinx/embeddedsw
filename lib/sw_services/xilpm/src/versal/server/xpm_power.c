@@ -105,10 +105,10 @@ static void ResetPowerDomainOpFlags(XPm_Power *PwrNode)
 	}
 }
 
-static XStatus PowerUpXram(XPm_Node *Node)
+static XStatus PowerUpXram(const XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Device *Device;
+	const XPm_Device *Device;
 	u32 XramSlcrAddress, PwrCtlAddress, PwrStatusAddress, RegVal;
 	u32 BitMask;
 
@@ -184,10 +184,10 @@ done:
 	return Status;
 }
 
-static XStatus PowerDwnXram(XPm_Node *Node)
+static XStatus PowerDwnXram(const XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Device *Device;
+	const XPm_Device *Device;
 	u32 XramSlcrAddress, PwrCtlAddress, PwrStatusAddress, RegVal;
 	u32 BitMask;
 
@@ -265,7 +265,7 @@ done:
 static XStatus SendPowerUpReq(XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
+	const XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 	u32 Platform;
 
 	if (NULL == LpDomain) {
@@ -339,7 +339,7 @@ done:
 	return Status;
 }
 
-static XStatus SendPowerDownReq(XPm_Node *Node)
+static XStatus SendPowerDownReq(const XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_ClockNode *Clk;
@@ -585,7 +585,7 @@ static XStatus PowerEvent(XPm_Node *Node, u32 Event)
 XStatus XPmPower_GetStatus(const u32 SubsystemId, const u32 DeviceId, XPm_DeviceStatus *const DeviceStatus)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Power *Power;
+	const XPm_Power *Power;
 
 	/* Warning Fix */
 	(void)SubsystemId;
@@ -638,7 +638,7 @@ done:
 	return Status;
 }
 
-XStatus XPmPower_AddParent(u32 Id, u32 *Parents, u32 NumParents)
+XStatus XPmPower_AddParent(u32 Id, const u32 *Parents, u32 NumParents)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Power *Power;
@@ -677,8 +677,8 @@ done:
 XStatus XPmPower_GetWakeupLatency(const u32 DeviceId, u32 *Latency)
 {
 	XStatus Status = XST_SUCCESS;
-	XPm_Power *Power = XPmPower_GetById(DeviceId);
-	XPm_Power *Parent;
+	const XPm_Power *Power = XPmPower_GetById(DeviceId);
+	const XPm_Power *Parent;
 
 	*Latency = 0;
 	if (NULL == Power) {

@@ -90,7 +90,7 @@ done:
 	return Status;
 }
 
-XStatus XPmPowerDomain_AddParent(u32 Id, u32 *ParentNodes, u32 NumParents)
+XStatus XPmPowerDomain_AddParent(u32 Id, const u32 *ParentNodes, u32 NumParents)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_PowerDomain *PowerD;
@@ -158,7 +158,7 @@ XStatus XPmPowerDomain_ApplyAmsTrim(u32 DestAddress, u32 PowerDomainId, u32 Sate
 		goto done;
 	}
 
-	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
+	const XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 	if (NULL == EfuseCache) {
 		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
 		Status = XST_FAILURE;
@@ -292,7 +292,7 @@ done:
 	return Status;
 }
 
-XStatus XPm_PowerUpLPD(XPm_Node *Node)
+XStatus XPm_PowerUpLPD(const XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -319,8 +319,8 @@ XStatus XPm_PowerDwnLPD(void)
 	XStatus Status = XST_FAILURE;
 	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 	u32 DbgErr = (u32)XPM_INT_ERR_UNDEFINED;
-	XPm_Core *RpuCore0;
-	XPm_Core *RpuCore1;
+	const XPm_Core *RpuCore0;
+	const XPm_Core *RpuCore1;
 	XStatus HasResumeAddrStatus = XST_FAILURE;
 	u32 i;
 
@@ -360,7 +360,7 @@ XStatus XPm_PowerDwnLPD(void)
 		goto done;
 	}
 
-	XPm_Device *AmsRoot = XPmDevice_GetById(PM_DEV_AMS_ROOT);
+	const XPm_Device *AmsRoot = XPmDevice_GetById(PM_DEV_AMS_ROOT);
 	if (NULL == AmsRoot) {
 		DbgErr = (u32)XPM_INT_ERR_INVALID_DEVICE;
 		Status = XST_FAILURE;
@@ -466,11 +466,11 @@ done:
 	return Status;
 }
 
-XStatus XPm_PowerUpFPD(XPm_Node *Node)
+XStatus XPm_PowerUpFPD(const XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	XPm_Psm *Psm;
+	const XPm_Psm *Psm;
 
 	Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
 	if (NULL == Psm) {
@@ -497,12 +497,12 @@ done:
 	return Status;
 }
 
-XStatus XPm_PowerDwnFPD(XPm_Node *Node)
+XStatus XPm_PowerDwnFPD(const XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Psm *Psm;
-	XPm_PsFpDomain *FpDomain = (XPm_PsFpDomain *)XPmPower_GetById(PM_POWER_FPD);
-	XPm_Core *ApuCore;
+	const XPm_Psm *Psm;
+	const XPm_PsFpDomain *FpDomain = (XPm_PsFpDomain *)XPmPower_GetById(PM_POWER_FPD);
+	const XPm_Core *ApuCore;
 	XStatus HasResumeAddrStatus = XST_FAILURE;
 	u32 DbgErr = (u32)XPM_INT_ERR_UNDEFINED;
 	u32 i;
@@ -516,7 +516,7 @@ XStatus XPm_PowerDwnFPD(XPm_Node *Node)
 		(u32)XPM_INT_ERR_FPD_PL_TEST_ISO
 	};
 
-	XPm_Device *AmsRoot = XPmDevice_GetById(PM_DEV_AMS_ROOT);
+	const XPm_Device *AmsRoot = XPmDevice_GetById(PM_DEV_AMS_ROOT);
 	if (NULL == AmsRoot) {
 		DbgErr = (u32)XPM_INT_ERR_INVALID_DEVICE;
 		goto done;
@@ -645,11 +645,11 @@ done:
 	return Status;
 }
 
-XStatus XPm_PowerDwnPLD(XPm_Node *Node)
+XStatus XPm_PowerDwnPLD(const XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	XPm_PlDomain *PldDomain = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
+	const XPm_PlDomain *PldDomain = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
 	u32 Platform = XPm_GetPlatform();
 	u32 PlatformVersion = XPm_GetPlatformVersion();
 
@@ -794,7 +794,7 @@ done:
 	return Status;
 }
 
-XStatus XPm_PowerUpME(XPm_Node *Node)
+XStatus XPm_PowerUpME(const XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -811,7 +811,7 @@ XStatus XPm_PowerUpME(XPm_Node *Node)
 	return Status;
 }
 
-XStatus XPm_PowerDwnME(XPm_Node *Node)
+XStatus XPm_PowerDwnME(const XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -831,7 +831,7 @@ XStatus XPm_PowerDwnME(XPm_Node *Node)
 	return Status;
 }
 
-XStatus XPm_PowerUpCPM(XPm_Node *Node)
+XStatus XPm_PowerUpCPM(const XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -848,7 +848,7 @@ XStatus XPm_PowerUpCPM(XPm_Node *Node)
 	return Status;
 }
 
-XStatus XPm_PowerDwnCPM(XPm_Node *Node)
+XStatus XPm_PowerDwnCPM(const XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -952,8 +952,8 @@ done:
 XStatus XPm_PowerDwnNoC(void)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Device *AmsRoot = XPmDevice_GetById(PM_DEV_AMS_ROOT);
-	XPm_NpDomain *NpDomain = (XPm_NpDomain *)XPmPower_GetById(PM_POWER_NOC);
+	const XPm_Device *AmsRoot = XPmDevice_GetById(PM_DEV_AMS_ROOT);
+	const XPm_NpDomain *NpDomain = (XPm_NpDomain *)XPmPower_GetById(PM_POWER_NOC);
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	if ((NULL == AmsRoot) || (NULL == NpDomain)) {
@@ -1047,7 +1047,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE or error code
  *
  ****************************************************************************/
-static XStatus XPmPower_SysmonCheckPower(XPm_Rail *Rail)
+static XStatus XPmPower_SysmonCheckPower(const XPm_Rail *Rail)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -1132,7 +1132,7 @@ static XStatus XPmPower_DetectorCheckPower(u32 VoltageRailMask)
 {
 	XStatus Status = XST_FAILURE;
 	u32 RegVal;
-	XPm_Pmc *Pmc;
+	const XPm_Pmc *Pmc;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
@@ -1158,7 +1158,7 @@ done:
 
 }
 
-XStatus XPmPower_CheckPower(XPm_Rail *Rail, u32 VoltageRailMask)
+XStatus XPmPower_CheckPower(const XPm_Rail *Rail, u32 VoltageRailMask)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Source;
@@ -1192,11 +1192,11 @@ done:
 	return Status;
 }
 
-XStatus XPmPower_UpdateRailStats(XPm_PowerDomain *PwrDomain, u8 State)
+XStatus XPmPower_UpdateRailStats(const XPm_PowerDomain *PwrDomain, u8 State)
 {
 	XStatus Status = XST_FAILURE;
 	u32 i=0, j=0;
-	XPm_PowerDomain *ParentDomain;
+	const XPm_PowerDomain *ParentDomain;
 	XPm_Rail *ParentRail;
 
 	/* Update rail node usecounts */
@@ -1255,7 +1255,7 @@ done:
 static void XPmPower_UpdateResetFlags(XPm_PowerDomain *PwrDomain,
 				      enum XPmInitFunctions FuncId)
 {
-	XPm_ResetNode *Reset;
+	const XPm_ResetNode *Reset;
 	u32 ResetId;
 	u32 PmcSysResetMask = (CRP_RESET_REASON_SLR_SYS_MASK |
 			       CRP_RESET_REASON_SW_SYS_MASK |
@@ -1361,13 +1361,13 @@ static u32 XPmPowerDomain_SkipOp(const XPm_PowerDomain *PwrDomain,
 }
 
 XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
-				  u32 *Args, u32 NumArgs)
+				  const u32 *Args, u32 NumArgs)
 {
 	volatile XStatus Status = XST_FAILURE;
 	volatile XStatus StatusTmp = XST_FAILURE;
 	const struct XPm_PowerDomainOps *Ops = PwrDomain->DomainOps;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	u32 PldPwrNodeDependency[NUM_PLD0_PWR_DOMAIN_DEPENDENCY] = {PM_POWER_PLD};
+	const u32 PldPwrNodeDependency[NUM_PLD0_PWR_DOMAIN_DEPENDENCY] = {PM_POWER_PLD};
 	const XPm_PlDevice *PlDevice;
 
 	PmDbg("%s for PwrDomain 0x%x Start\r\n", PmInitFunctions[Function],

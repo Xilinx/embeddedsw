@@ -54,7 +54,7 @@ static inline void XPmPlDomain_LockGtyPcsr(u32 BaseAddr)
 
 /************************** Function Prototypes ******************************/
 XStatus XPmPlDomain_Init(XPm_PlDomain *PlDomain, u32 Id, u32 BaseAddress,
-			 XPm_Power *Parent, u32 *OtherBaseAddresses,
+			 XPm_Power *Parent, const u32 *OtherBaseAddresses,
 			 u32 OtherBaseAddressCnt);
 XStatus XPmPlDomain_RetriggerPlHouseClean(void);
 

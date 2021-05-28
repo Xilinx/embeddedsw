@@ -122,9 +122,9 @@ XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
 XStatus XPm_InitFinalize(const u32 SubsystemId);
 
 XStatus XPm_DescribeNodes(u32 NumArgs);
-XStatus XPm_AddNodeParent(u32 *Args, u32 NumArgs);
-XStatus XPm_AddNodeName(u32 *Args, u32 NumArgs);
-XStatus XPm_AddNode(u32 *Args, u32 NumArgs);
+XStatus XPm_AddNodeParent(const u32 *Args, u32 NumArgs);
+XStatus XPm_AddNodeName(const u32 *Args, u32 NumArgs);
+XStatus XPm_AddNode(const u32 *Args, u32 NumArgs);
 XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 			const u32 Latency, const u8 State,
 			u32 AddrLow, u32 AddrHigh);
@@ -133,7 +133,7 @@ XStatus XPm_AbortSuspend(const u32 SubsystemId, const u32 Reason,
 XStatus XPm_RequestSuspend(const u32 SubsystemId, const u32 TargetSubsystemId,
 			   const u32 Ack, const u32 Latency, const u32 State,
 			   const u32 CmdType);
-XStatus XPm_InitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs);
+XStatus XPm_InitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs);
 XStatus XPm_FeatureCheck(const u32 ApiId, u32 *const Version);
 XStatus XPm_IsoControl(u32 NodeId, u32 Enable);
 XStatus XPm_GetOpCharacteristic(const u32 DeviceId, const u32 Type,

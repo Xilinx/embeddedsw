@@ -140,8 +140,8 @@ struct XPm_PllClockNode {
 
 /************************** Function Prototypes ******************************/
 XStatus XPmClockPll_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
-			    u16 *Offsets, u32 PowerDomainId, u8 ClkFlags);
-XStatus XPmClockPll_AddParent(u32 Id, u32 *Parents, u8 NumParents);
+			    const u16 *Offsets, u32 PowerDomainId, u8 ClkFlags);
+XStatus XPmClockPll_AddParent(u32 Id, const u32 *Parents, u8 NumParents);
 XStatus XPmClockPll_Request(u32 PllId);
 XStatus XPmClockPll_Release(u32 PllId);
 XStatus XPmClockPll_SetMode(XPm_PllClockNode *Pll, u32 Mode);
@@ -149,8 +149,8 @@ XStatus XPmClockPll_GetMode(XPm_PllClockNode *Pll, u32 *Mode);
 XStatus XPmClockPll_Suspend(XPm_PllClockNode *Pll);
 XStatus XPmClockPll_Resume(XPm_PllClockNode *Pll);
 XStatus XPmClockPll_Reset(XPm_PllClockNode *Pll, uint8_t Flags);
-XStatus XPmClockPll_SetParam(XPm_PllClockNode *Pll, u32 Param,u32 Value);
-XStatus XPmClockPll_GetParam(XPm_PllClockNode *Pll, u32 Param,u32 *Val);
+XStatus XPmClockPll_SetParam(const XPm_PllClockNode *Pll, u32 Param,u32 Value);
+XStatus XPmClockPll_GetParam(const XPm_PllClockNode *Pll, u32 Param,u32 *Val);
 XStatus XPmClockPll_QueryMuxSources(u32 Id, u32 Index, u32 *Resp);
 XStatus XPmClockPll_GetWakeupLatency(const u32 Id, u32 *Latency);
 

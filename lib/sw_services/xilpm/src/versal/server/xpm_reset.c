@@ -19,8 +19,8 @@
 
 static XStatus Reset_AssertCommon(XPm_ResetNode *Rst, const u32 Action);
 static XStatus Reset_AssertCustom(XPm_ResetNode *Rst, const u32 Action);
-static u32 Reset_GetStatusCommon(XPm_ResetNode *Rst);
-static u32 Reset_GetStatusCustom(XPm_ResetNode *Rst);
+static u32 Reset_GetStatusCommon(const XPm_ResetNode *Rst);
+static u32 Reset_GetStatusCustom(const XPm_ResetNode *Rst);
 static XStatus SetResetNode(u32 Id, XPm_ResetNode *Rst);
 
 static XPm_ResetNode *RstNodeList[(u32)XPM_NODEIDX_RST_MAX];
@@ -58,7 +58,7 @@ static XStatus SetResetNode(u32 Id, XPm_ResetNode *Rst)
 	return Status;
 }
 
-static void XPmReset_Init(XPm_ResetNode *Rst, u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetType, u8 NumParents, u32* Parents)
+static void XPmReset_Init(XPm_ResetNode *Rst, u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetType, u8 NumParents, const u32* Parents)
 {
 	u32 i = 0;
 
@@ -83,7 +83,7 @@ void XPmReset_MakeCpmPorResetCustom(void)
 	}
 }
 
-XStatus XPmReset_AddNode(u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetType, u8 NumParents, u32* Parents)
+XStatus XPmReset_AddNode(u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetType, u8 NumParents, const u32* Parents)
 {
 	XStatus Status = XST_FAILURE;
 	u32 SubClass = NODESUBCLASS(Id);
@@ -154,13 +154,13 @@ done:
 	return Rst;
 }
 
-static XStatus PsOnlyResetAssert(XPm_ResetNode *Rst)
+static XStatus PsOnlyResetAssert(const XPm_ResetNode *Rst)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
 	const XPm_Subsystem *DefaultSubsys = XPmSubsystem_GetById(PM_SUBSYS_DEFAULT);
 
-	XPm_Power *LpdPower = XPmPower_GetById(PM_POWER_LPD);
+	const XPm_Power *LpdPower = XPmPower_GetById(PM_POWER_LPD);
 	if (NULL == LpdPower) {
 		Status = XST_FAILURE;
 		goto done;
@@ -208,7 +208,7 @@ done:
 	return Status;
 }
 
-static XStatus PsOnlyResetRelease(XPm_ResetNode *Rst)
+static XStatus PsOnlyResetRelease(const XPm_ResetNode *Rst)
 {
 	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
 
@@ -218,7 +218,7 @@ static XStatus PsOnlyResetRelease(XPm_ResetNode *Rst)
 	return XST_SUCCESS;
 }
 
-static XStatus PsOnlyResetPulse(XPm_ResetNode *Rst)
+static XStatus PsOnlyResetPulse(const XPm_ResetNode *Rst)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -238,11 +238,11 @@ done:
 	return Status;
 }
 
-static XStatus PlPorResetAssert(XPm_ResetNode *Rst)
+static XStatus PlPorResetAssert(const XPm_ResetNode *Rst)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
-	XPm_Pmc *Pmc;
+	const XPm_Pmc *Pmc;
 
 	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 	if (NULL == Pmc) {
@@ -263,11 +263,11 @@ done:
 	return Status;
 }
 
-static XStatus PlPorResetRelease(XPm_ResetNode *Rst)
+static XStatus PlPorResetRelease(const XPm_ResetNode *Rst)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
-	XPm_Pmc *Pmc;
+	const XPm_Pmc *Pmc;
 
 	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 	if (NULL == Pmc) {
@@ -288,7 +288,7 @@ done:
 	return Status;
 }
 
-static XStatus PlPorResetPulse(XPm_ResetNode *Rst)
+static XStatus PlPorResetPulse(const XPm_ResetNode *Rst)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -309,7 +309,7 @@ done:
 }
 
 
-static XStatus ResetPulseLpd(XPm_ResetNode *Rst)
+static XStatus ResetPulseLpd(const XPm_ResetNode *Rst)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -323,11 +323,11 @@ static XStatus ResetPulseLpd(XPm_ResetNode *Rst)
 	return Status;
 }
 
-static XStatus AieResetAssert(XPm_ResetNode *Rst)
+static XStatus AieResetAssert(const XPm_ResetNode *Rst)
 {
 	XStatus Status = XST_FAILURE;
 
-	XPm_Device *AieDev = XPmDevice_GetById(PM_DEV_AIE);
+	const XPm_Device *AieDev = XPmDevice_GetById(PM_DEV_AIE);
 	if (NULL == AieDev) {
 		goto done;
 	}
@@ -355,11 +355,11 @@ done:
 	return Status;
 }
 
-static XStatus AieResetRelease(XPm_ResetNode *Rst)
+static XStatus AieResetRelease(const XPm_ResetNode *Rst)
 {
 	XStatus Status = XST_FAILURE;
 
-	XPm_Device *AieDev = XPmDevice_GetById(PM_DEV_AIE);
+	const XPm_Device *AieDev = XPmDevice_GetById(PM_DEV_AIE);
 	if (NULL == AieDev) {
 		goto done;
 	}
@@ -387,7 +387,7 @@ done:
 	return Status;
 }
 
-static XStatus AieResetPulse(XPm_ResetNode *Rst)
+static XStatus AieResetPulse(const XPm_ResetNode *Rst)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -407,7 +407,7 @@ done:
 static XStatus CpmResetSetState(const u32 State)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_CpmDomain *Cpm;
+	const XPm_CpmDomain *Cpm;
 	u32 CpmPcsrReg;
 	u32 Platform =  XPm_GetPlatform();
 	u32 PlatformVersion = XPm_GetPlatformVersion();
@@ -443,21 +443,21 @@ done:
 	return Status;
 }
 
-static XStatus CpmResetAssert(XPm_ResetNode *Rst)
+static XStatus CpmResetAssert(const XPm_ResetNode *Rst)
 {
 	(void)Rst;
 
 	return CpmResetSetState(XPM_RST_STATE_ASSERTED);
 }
 
-static XStatus CpmResetRelease(XPm_ResetNode *Rst)
+static XStatus CpmResetRelease(const XPm_ResetNode *Rst)
 {
 	(void)Rst;
 
 	return CpmResetSetState(XPM_RST_STATE_DEASSERTED);
 }
 
-static XStatus CpmResetPulse(XPm_ResetNode *Rst)
+static XStatus CpmResetPulse(const XPm_ResetNode *Rst)
 {
 	(void)Rst;
 	XStatus Status = XST_FAILURE;
@@ -475,9 +475,9 @@ done:
 
 static const struct ResetCustomOps {
 	u32 ResetIdx;
-	XStatus (*const ActionAssert)(XPm_ResetNode *Rst);
-	XStatus (*const ActionRelease)(XPm_ResetNode *Rst);
-	XStatus (*const ActionPulse)(XPm_ResetNode *Rst);
+	XStatus (*const ActionAssert)(const XPm_ResetNode *Rst);
+	XStatus (*const ActionRelease)(const XPm_ResetNode *Rst);
+	XStatus (*const ActionPulse)(const XPm_ResetNode *Rst);
 } Reset_Custom[] = {
 	{
 		.ResetIdx = (u32)XPM_NODEIDX_RST_PS_SRST,
@@ -640,7 +640,7 @@ XStatus XPmReset_AssertbyId(u32 ResetId, const u32 Action)
 static u32 GetCpmPorResetStatus(void)
 {
 	u32 ResetStatus = XPM_RST_STATE_DEASSERTED;
-	XPm_CpmDomain *Cpm;
+	const XPm_CpmDomain *Cpm;
 	u32 PcrValue;
 	u32 Platform =  XPm_GetPlatform();
 	u32 PlatformVersion = XPm_GetPlatformVersion();
@@ -674,7 +674,7 @@ done:
 	return ResetStatus;
 }
 
-static u32 Reset_GetStatusCustom(XPm_ResetNode *Rst)
+static u32 Reset_GetStatusCustom(const XPm_ResetNode *Rst)
 {
 	u32 ResetStatus = 0U;
 
@@ -687,7 +687,7 @@ static u32 Reset_GetStatusCustom(XPm_ResetNode *Rst)
 	return ResetStatus;
 }
 
-static u32 Reset_GetStatusCommon(XPm_ResetNode *Rst)
+static u32 Reset_GetStatusCommon(const XPm_ResetNode *Rst)
 {
 	u32 ResetStatus = 0U;
 	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
@@ -793,12 +793,12 @@ done:
 	return Status;
 }
 
-XStatus XPmReset_CheckPermissions(XPm_Subsystem *Subsystem, u32 ResetId)
+XStatus XPmReset_CheckPermissions(const XPm_Subsystem *Subsystem, u32 ResetId)
 {
 	XStatus Status = XST_FAILURE;
 	u32 DevId;
-	XPm_ResetHandle *DevHandle;
-	XPm_ResetNode *Rst = XPmReset_GetById(ResetId);
+	const XPm_ResetHandle *DevHandle;
+	const XPm_ResetNode *Rst = XPmReset_GetById(ResetId);
 
 	if (NULL == Rst) {
 		Status = XST_INVALID_PARAM;
