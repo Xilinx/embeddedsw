@@ -1224,6 +1224,8 @@ XStatus XPmPower_UpdateRailStats(XPm_PowerDomain *PwrDomain, u8 State)
 					if (XST_SUCCESS != Status) {
 						goto done;
 					}
+				} else {
+					/* Required by MISRA */
 				}
 				ParentRail->Power.UseCount++;
 			} else {
