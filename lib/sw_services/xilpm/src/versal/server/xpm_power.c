@@ -420,7 +420,7 @@ done:
 	return Status;
 }
 
-static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
+static XStatus PowerEvent(XPm_Node *Node, u32 Event)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Power *Power = (XPm_Power *)Node;
@@ -620,7 +620,7 @@ XStatus XPmPower_Init(XPm_Power *Power,
 	XPmNode_Init(&Power->Node, Id, (u8)XPM_POWER_STATE_OFF, BaseAddress);
 
 	Power->Parent = Parent;
-	Power->HandleEvent = HandlePowerEvent;
+	Power->HandleEvent = PowerEvent;
 	Power->UseCount = 0;
 	Power->WfParentUseCnt = 0;
 	Power->PwrDnLatency = 0;
