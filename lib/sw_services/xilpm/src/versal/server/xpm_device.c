@@ -858,12 +858,12 @@ static XStatus SetSecurityAttr(XPm_Requirement *Reqm, u32 ReqCaps, u32 PrevState
 	 * device release of the domain.
 	 */
 	if (BaseAddr == Lpd->LpdSlcrSecureBaseAddr) {
-		if (XPM_POWER_STATE_ON != Lpd->Domain.Power.Node.State) {
+		if ((u8)XPM_POWER_STATE_ON != Lpd->Domain.Power.Node.State) {
 			Status = XST_SUCCESS;
 			goto done;
 		}
 	} else if (BaseAddr == Fpd->FpdSlcrSecureBaseAddr) {
-		if (XPM_POWER_STATE_ON != Fpd->Domain.Power.Node.State) {
+		if ((u8)XPM_POWER_STATE_ON != Fpd->Domain.Power.Node.State) {
 			Status = XST_SUCCESS;
 			goto done;
 		}
