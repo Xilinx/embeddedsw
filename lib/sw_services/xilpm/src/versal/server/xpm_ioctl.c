@@ -37,10 +37,10 @@ static u32 GgsWritePermissions[GGS_REGS];
  * @return XST_SUCCESS if successful else error code or a reason code
  *
  ****************************************************************************/
-static int XPm_SetTapdelayBypass(const u32 DeviceId, const u32 Type,
+static XStatus XPm_SetTapdelayBypass(const u32 DeviceId, const u32 Type,
 				 const u32 Value)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_Device *Device = XPmDevice_GetById(DeviceId);
 	u32 BaseAddress;
 
@@ -82,9 +82,9 @@ done:
  * @return XST_SUCCESS if successful else error code or a reason code
  *
  ****************************************************************************/
-static int XPm_SdDllReset(const u32 DeviceId, const u32 Type)
+static XStatus XPm_SdDllReset(const u32 DeviceId, const u32 Type)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 	u32 BaseAddress;
 	u32 Offset;
@@ -148,10 +148,10 @@ done:
  * @return XST_SUCCESS if successful else error code or a reason code
  *
  ****************************************************************************/
-static int XPm_SetSdTapDelay(const u32 DeviceId, const u32 Type,
+static XStatus XPm_SetSdTapDelay(const u32 DeviceId, const u32 Type,
 			     const u32 Value)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_Device *Device = XPmDevice_GetById(DeviceId);
 	u32 BaseAddress;
 
@@ -238,10 +238,10 @@ done:
  * @return XST_SUCCESS if successful else error code or a reason code
  *
  ****************************************************************************/
-static int XPm_ProbeCounterAccess(u32 DeviceId, u32 Arg1, u32 Value,
+static XStatus XPm_ProbeCounterAccess(u32 DeviceId, u32 Arg1, u32 Value,
 				  u32 *const Response, u8 Write)
 {
-	int Status = XST_INVALID_PARAM;
+	XStatus Status = XST_INVALID_PARAM;
 	XPm_Power *Power;
 	u32 Reg;
 	u32 CounterIdx;
@@ -383,10 +383,10 @@ done:
  * @return XST_SUCCESS if successful else error code
  *
  ****************************************************************************/
-static int XPm_USBDxState(const u32 DeviceId, const u32 ReqState,
+static XStatus XPm_USBDxState(const u32 DeviceId, const u32 ReqState,
 			  const u32 TimeOut)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_Pmc *Pmc;
 	u32 BaseAddress;
 	u32 Offset;
@@ -442,9 +442,9 @@ done:
  * @return XST_SUCCESS if successful else error code or a reason code
  *
  ****************************************************************************/
-static int XPm_OspiMuxSelect(const u32 DeviceId, const u32 Type, u32 *Response)
+static XStatus XPm_OspiMuxSelect(const u32 DeviceId, const u32 Type, u32 *Response)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_Pmc *Pmc;
 	u32 BaseAddress;
 	u32 Offset;
@@ -649,9 +649,9 @@ done:
 }
 
 
-static int XPm_ReadPggs(u32 PggsNum, u32 *Value)
+static XStatus XPm_ReadPggs(u32 PggsNum, u32 *Value)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 	XPm_Psm *Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
 
@@ -683,9 +683,9 @@ done:
 	return Status;
 }
 
-static int XPm_WritePggs(u32 PggsNum, u32 Value)
+static XStatus XPm_WritePggs(u32 PggsNum, u32 Value)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 	XPm_Psm *Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
 
@@ -717,9 +717,9 @@ done:
 	return Status;
 }
 
-static int XPm_ReadGgs(u32 GgsNum, u32 *Value)
+static XStatus XPm_ReadGgs(u32 GgsNum, u32 *Value)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 
 	if (GGS_REGS <= GgsNum) {
 		Status = XST_INVALID_PARAM;
@@ -734,9 +734,9 @@ done:
 	return Status;
 }
 
-static int XPm_WriteGgs(u32 GgsNum, u32 Value)
+static XStatus XPm_WriteGgs(u32 GgsNum, u32 Value)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 
 	if (GGS_REGS <= GgsNum) {
 		Status = XST_INVALID_PARAM;
@@ -751,9 +751,9 @@ done:
 	return Status;
 }
 
-static int XPm_AieISRClear(u32 SubsystemId, u32 AieDeviceId, u32 Value)
+static XStatus XPm_AieISRClear(u32 SubsystemId, u32 AieDeviceId, u32 Value)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_Device *Aie = NULL;
 	u32 IntrClear = 0x0U;
 	u32 IdCode = XPm_GetIdCode();
@@ -792,10 +792,10 @@ done:
 	return Status;
 }
 
-int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id IoctlId,
+XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id IoctlId,
 	      const u32 Arg1, const u32 Arg2, u32 *const Response, const u32 CmdType)
 {
-	int Status = XPM_ERR_IOCTL;
+	XStatus Status = XPM_ERR_IOCTL;
 	XPm_Pmc *Pmc;
 
 	switch (IoctlId) {

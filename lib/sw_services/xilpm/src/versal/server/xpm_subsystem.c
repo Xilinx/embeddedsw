@@ -236,14 +236,14 @@ done:
 	return Status;
 }
 
-int XPmSubsystem_InitFinalize(const u32 SubsystemId)
+XStatus XPmSubsystem_InitFinalize(const u32 SubsystemId)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
 	XPm_Device *Device;
 	const XPm_Power *Power;
 	XPm_Requirement *Reqm;
-	int DeviceInUse = 0;
+	u32 DeviceInUse = 0;
 	u32 Idx;
 	u32 Platform = XPm_GetPlatform();
 	u32 PlatformVersion = XPm_GetPlatformVersion();
@@ -367,9 +367,9 @@ done:
 	return Status;
 }
 
-int XPmSubsystem_Idle(u32 SubsystemId)
+XStatus XPmSubsystem_Idle(u32 SubsystemId)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
 	XPm_Requirement *Reqm;
 	XPm_Device *Device;

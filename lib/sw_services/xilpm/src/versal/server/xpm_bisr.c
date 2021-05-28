@@ -400,9 +400,9 @@ done:
 	return Status;
 }
 
-int XPmBisr_TriggerLpd(void)
+XStatus XPmBisr_TriggerLpd(void)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_PsLpDomain *PsLpd;
 	u32 RegValue;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;

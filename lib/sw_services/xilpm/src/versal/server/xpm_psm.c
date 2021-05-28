@@ -84,7 +84,7 @@ done:
 
 static XStatus XPmPsm_PowerDown(XPm_Core *Core)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_Power *PwrNode;
 	(void)Core;
 

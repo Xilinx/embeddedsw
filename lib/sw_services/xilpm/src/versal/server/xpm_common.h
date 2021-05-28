@@ -221,7 +221,7 @@ void XPm_Wait(u32 TimeOutCount);
  * Poll for mask for a period represented by TimeOut
  */
 XStatus XPm_PollForMask(u32 RegAddress, u32 Mask, u32 TimeOutCount);
-int XPm_PollForMask64(u64 RegAddress, u32 Mask, u32 TimeOutCount);
+XStatus XPm_PollForMask64(u64 RegAddress, u32 Mask, u32 TimeOutCount);
 XStatus XPm_PollForZero(u32 RegAddress, u32 Mask, u32 TimeOutCount);
 
 /**
