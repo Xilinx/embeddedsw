@@ -60,8 +60,8 @@ XStatus XPmRegulator_Init(XPm_Regulator *Regulator, u32 Id, u32 *Args, u32 NumAr
 		Regulator->ParentId = Args[2];
 		Regulator->Config.CmdLen = (u8)(Args[1] >> 8 & 0xFFU);
 		for (i = 3; i < NumArgs; i++) {
-			(void *)memcpy(&Regulator->Config.CmdArr[(i - 3U) * 4U],
-				       &Args[i], 4);
+			(void *)memcpy((void *)&Regulator->Config.CmdArr[(i - 3U) * 4U],
+				       (void *)&Args[i], 4);
 		}
 
 		Status = XST_SUCCESS;
