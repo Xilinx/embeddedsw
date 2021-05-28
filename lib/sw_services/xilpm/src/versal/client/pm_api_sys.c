@@ -94,7 +94,7 @@ done:
 static XStatus Xpm_IpiReadBuff32(struct XPm_Proc *const Proc, u32 *Val1,
 				 u32 *Val2, u32 *Val3)
 {
-	u32 Response[RESPONSE_ARG_CNT];
+	u32 Response[RESPONSE_ARG_CNT] = {0};
 	XStatus Status = (s32)XST_FAILURE;
 
 	/* Wait until current IPI interrupt is handled by target module */
