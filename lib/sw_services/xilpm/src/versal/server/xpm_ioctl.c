@@ -623,9 +623,9 @@ static XStatus XPmIoctl_IsOperationAllowed(u32 RegNum, u32 SubsystemId,
 
 	/* Have Target check if Host can enact the operation */
 	if ((XPLMI_CMD_SECURE == CmdType) &&
-	    (PermissionMask & (1U << SUBSYS_TO_S_BITPOS(SubsystemId)))) {
+	    (PermissionMask & ((u32)1U << SUBSYS_TO_S_BITPOS(SubsystemId)))) {
 		Status = XST_SUCCESS;
-	} else if (PermissionMask & (1U << SUBSYS_TO_NS_BITPOS(SubsystemId))) {
+	} else if (PermissionMask & ((u32)1U << SUBSYS_TO_NS_BITPOS(SubsystemId))) {
 		Status = XST_SUCCESS;
 	} else {
 		Status = XPM_PM_NO_ACCESS;
