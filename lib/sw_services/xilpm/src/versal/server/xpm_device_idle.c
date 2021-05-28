@@ -236,13 +236,14 @@ done:
  * NodeZdmaIdle() - Custom code to idle the ZDMA (GDMA and ADMA)
  *
  * @DeviceId:	 Device ID of ZDMA node
- * @BaseAddress: ZDMA base address of the first channel
+ * @BaseAddr:    ZDMA base address of the first channel
  */
-int NodeZdmaIdle(u16 DeviceId, u32 BaseAddress)
+int NodeZdmaIdle(u16 DeviceId, u32 BaseAddr)
 {
 	int Status = XST_FAILURE;
 	u8 Channel = 0U;
 	u32 RegVal = 0U, LocalTimeout;
+	u32 BaseAddress = BaseAddr;
 
 	/* Warning Fix */
 	(void)(DeviceId);

@@ -21,13 +21,14 @@
 static u8 ByteBuffer[MAX_BYTEBUFFER_SIZE];
 static u8 *FreeBytes = ByteBuffer;
 
-void *XPm_AllocBytes(u32 Size)
+void *XPm_AllocBytes(u32 SizeInBytes)
 {
 	void *Bytes = NULL;
 	u32 BytesLeft = (u32)ByteBuffer + MAX_BYTEBUFFER_SIZE - (u32)FreeBytes;
 	u32 i;
 	u32 NumWords;
 	u32 *Words;
+	u32 Size = SizeInBytes;
 
 	/* Round size to the next multiple of 4 */
 	Size += 3U;
@@ -234,8 +235,10 @@ XStatus XPm_PollForZero(u32 RegAddress, u32 Mask, u32 TimeOutCount)
         return ((TimeOut == 0U) ? XPM_PM_TIMEOUT : XST_SUCCESS);
 }
 
-u32 XPm_ComputeParity(u32 Value)
+u32 XPm_ComputeParity(u32 CalParity)
 {
+	u32 Value = CalParity;
+
 	Value ^= (Value >> 16U);
 	Value ^= (Value >> 8U);
 	Value ^= (Value >> 4U);
