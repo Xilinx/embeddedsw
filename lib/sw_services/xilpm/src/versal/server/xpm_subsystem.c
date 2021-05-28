@@ -69,6 +69,8 @@ XStatus XPmSubsystem_IsOperationAllowed(const u32 HostId, const u32 TargetId,
 	u32 PermissionMask = 0;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	XStatus Status = XST_FAILURE;
+	u32 SecureMask;
+	u32 NonSecureMask;
 
 	if ((PM_SUBSYS_PMC == TargetId) && (PM_SUBSYS_PMC != HostId)) {
 		Status = XPM_PM_NO_ACCESS;
@@ -116,11 +118,14 @@ XStatus XPmSubsystem_IsOperationAllowed(const u32 HostId, const u32 TargetId,
 		goto done;
 	}
 
+	SecureMask = ((u32)1U << SUBSYS_TO_S_BITPOS(HostId));
+	NonSecureMask = ((u32)1U << SUBSYS_TO_NS_BITPOS(HostId));
+
 	/* Have Target check if Host can enact the operation */
 	if ((XPLMI_CMD_SECURE == CmdType) &&
-	    (PermissionMask & ((u32)1U << SUBSYS_TO_S_BITPOS(HostId)))) {
+	    (SecureMask == (PermissionMask & SecureMask))) {
 			Status = XST_SUCCESS;
-	} else if (PermissionMask & ((u32)1U << SUBSYS_TO_NS_BITPOS(HostId))) {
+	} else if (NonSecureMask == (PermissionMask & NonSecureMask)) {
 		Status = XST_SUCCESS;
 	} else {
 		/* Required by MISRA */
