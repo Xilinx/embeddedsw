@@ -525,7 +525,7 @@ XStatus XPmIoctl_AddRegPermission(XPm_Subsystem *Subsystem, u32 DeviceId,
 	switch (Type) {
 	case (u32)XPM_NODETYPE_DEV_PGGS:
 		/* Normalize to permissions indices range for PGGS */
-		RegNum -= XPM_NODEIDX_DEV_PGGS_0;
+		RegNum -= (u32)XPM_NODEIDX_DEV_PGGS_0;
 		ReadPerm =  &PggsReadPermissions[RegNum];
 		WritePerm = &PggsWritePermissions[RegNum];
 		break;
@@ -559,10 +559,12 @@ static XStatus XPmIoctl_IsRegRequested(u32 SubsystemId, u32 RegNum, u32 Type)
 	XStatus Status = XST_FAILURE;
 	XPm_Requirement *Reqm = NULL;
 	u32 DeviceId;
+	u32 NodeClass = (u32)XPM_NODECLASS_DEVICE;
+	u32 NodeSubClass = (u32)XPM_NODESUBCL_DEV_PERIPH;
 
 	switch (Type) {
 	case (u32)XPM_NODETYPE_DEV_PGGS:
-		RegNum += GGS_MAX;
+		RegNum += (u32)GGS_MAX;
 		break;
 	case (u32)XPM_NODETYPE_DEV_GGS:
 		break;
@@ -571,8 +573,7 @@ static XStatus XPmIoctl_IsRegRequested(u32 SubsystemId, u32 RegNum, u32 Type)
 		goto done;
 	}
 
-	DeviceId = NODEID(XPM_NODECLASS_DEVICE, XPM_NODESUBCL_DEV_PERIPH,
-			  Type, RegNum);
+	DeviceId = NODEID(NodeClass, NodeSubClass, Type, RegNum);
 
 	if (NULL == XPmDevice_GetById(DeviceId)) {
 		Status = XPM_INVALID_DEVICEID;
