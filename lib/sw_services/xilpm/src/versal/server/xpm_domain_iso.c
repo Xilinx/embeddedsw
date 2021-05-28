@@ -388,7 +388,7 @@ static void DisablePlXramIso(void)
 static int XPmDomainIso_SendEventToPsm(u32 IsoIdx, u32 Enable)
 {
 	int Status = XST_FAILURE;
-	u16 DbgErr;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 
 	if (1U != XPmPsm_FwIsPresent()) {
