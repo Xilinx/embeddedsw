@@ -646,12 +646,7 @@ XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId)
 
 	switch (NODECLASS(NodeId)) {
 	case (u32)XPM_NODECLASS_POWER:
-		/*
-		Node = (XPm_Node *)XPmPower_GetById(NodeId);
-		if (NULL == Node) {
-			goto done;
-		}
-		*/
+		/* TODO: Check if an implementation is needed for this case */
 		break;
 	case (u32)XPM_NODECLASS_CLOCK:
 		Status = XPmClock_CheckPermissions(NODEINDEX(Subsystem->Id), NodeId);
