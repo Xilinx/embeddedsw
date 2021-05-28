@@ -179,7 +179,8 @@ XStatus XPmClock_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
 			goto done;
 		}
 	} else if (Subclass == (u32)XPM_NODETYPE_CLOCK_OUT) {
-		if (TopologyType >= MAX_TOPOLOGY || TopologyType < TOPOLOGY_GENERIC_MUX_DIV) {
+		if ((TopologyType >= MAX_TOPOLOGY) ||
+		    (TopologyType < TOPOLOGY_GENERIC_MUX_DIV)) {
 			DbgErr = XPM_INT_ERR_INVALID_PARAM;
 			Status = XST_INVALID_PARAM;
 			goto done;
@@ -240,12 +241,14 @@ XStatus XPmClock_AddSubNode(u32 Id, u32 Type, u32 ControlReg, u8 Param1, u8 Para
 	struct XPm_ClkTopologyNode *SubNodes;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	if (OutClkPtr == NULL  || OutClkPtr->Topology.Id != TOPOLOGY_CUSTOM)	{
+	if ((OutClkPtr == NULL) ||
+	    (OutClkPtr->Topology.Id != TOPOLOGY_CUSTOM))	{
 		DbgErr = XPM_INT_ERR_INVALID_PARAM;
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
-	if (Type <= (u32)TYPE_INVALID || Type >= (u32)TYPE_MAX || Type == (u32)TYPE_PLL) {
+	if ((Type <= (u32)TYPE_INVALID) || (Type >= (u32)TYPE_MAX) ||
+	    (Type == (u32)TYPE_PLL)) {
 		DbgErr = XPM_INT_ERR_INVALID_CLK_TYPE;
 		Status = XST_INVALID_PARAM;
 		goto done;
@@ -291,7 +294,9 @@ XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u8 NumParents)
 	XPm_OutClockNode *ClkPtr = (XPm_OutClockNode *)XPmClock_GetById(Id);
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	if (ClkPtr == NULL || NumParents > MAX_MUX_PARENTS || NumParents == 0U) {
+	if ((ClkPtr == NULL) ||
+	    (NumParents > MAX_MUX_PARENTS) ||
+	    (NumParents == 0U)) {
 		DbgErr = XPM_INT_ERR_INVALID_PARAM;
 		Status = XST_INVALID_PARAM;
 		goto done;
@@ -311,8 +316,9 @@ XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u8 NumParents)
 			continue;
 		}
 
-		if (!ISOUTCLK(ParentId) && !ISREFCLK(ParentId) &&
-		    !ISPLL(ParentId) && (u32)CLK_DUMMY_PARENT != ParentId) {
+		if ((!ISOUTCLK(ParentId)) && (!ISREFCLK(ParentId)) &&
+		    (!ISPLL(ParentId)) &&
+		    ((u32)CLK_DUMMY_PARENT != ParentId)) {
 			DbgErr = XPM_INT_ERR_INVALID_CLK_PARENT;
 			Status = XST_INVALID_PARAM;
 			goto done;
@@ -331,7 +337,7 @@ XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u8 NumParents)
 	}
 
 	/* Parents count should not be greater than clock's numbed of parents */
-	if ((LastParentIdx + NumParents > ClkPtr->ClkNode.NumParents) ||
+	if (((LastParentIdx + NumParents) > ClkPtr->ClkNode.NumParents) ||
 	    (MAX_MUX_PARENTS == LastParentIdx)) {
 		DbgErr = XPM_INT_ERR_MAX_CLK_PARENTS;
 		Status = XST_INVALID_PARAM;
@@ -983,16 +989,16 @@ XStatus XPmClock_QueryAttributes(u32 ClockIndex, u32 *Resp)
 	 * TODO: This code under platform version check needs to be
 	 * removed when CPM registers are accessible.
 	 */
-	if (ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_LSBUS_REF ||
-	    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_PLL ||
-	    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_PRESRC ||
-	    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_POSTCLK ||
-	    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_PLL_OUT ||
-	    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_CORE_REF ||
-	    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_DBG_REF ||
-	    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_AUX0_REF ||
-	    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_AUX1_REF ||
-	    ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_TOPSW_REF) {
+	if ((ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_LSBUS_REF) ||
+	    (ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_PLL) ||
+	    (ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_PRESRC) ||
+	    (ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_POSTCLK) ||
+	    (ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_PLL_OUT) ||
+	    (ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_CORE_REF) ||
+	    (ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_DBG_REF) ||
+	    (ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_AUX0_REF) ||
+	    (ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_AUX1_REF) ||
+	    (ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_TOPSW_REF)) {
 		Attr = 0;
 	}
 	//}

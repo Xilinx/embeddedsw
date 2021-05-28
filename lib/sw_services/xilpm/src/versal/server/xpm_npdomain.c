@@ -144,8 +144,8 @@ static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 			}
 
 			SlrType = XPm_GetSlrType();
-			if (i == (u32)XPM_NODEIDX_MEMIC_NSU_1 &&
-				SlrType < (u32)SLR_TYPE_SSIT_DEV_MASTER_SLR) {
+			if ((i == (u32)XPM_NODEIDX_MEMIC_NSU_1) &&
+			    (SlrType < (u32)SLR_TYPE_SSIT_DEV_MASTER_SLR)) {
 				continue;
 			}
 
@@ -225,8 +225,8 @@ static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
 	}
 
 	SlrType = XPm_GetSlrType();
-	if (SlrType != SLR_TYPE_MONOLITHIC_DEV &&
-		SlrType != SLR_TYPE_SSIT_DEV_MASTER_SLR) {
+	if ((SlrType != SLR_TYPE_MONOLITHIC_DEV) &&
+	    (SlrType != SLR_TYPE_SSIT_DEV_MASTER_SLR)) {
 		PmDbg("Skipping Scan-Clear of NPD for Slave SLR\n\r");
 		Status = XST_SUCCESS;
 		goto done;

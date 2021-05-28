@@ -436,7 +436,7 @@ XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType)
 			goto done;
 		}
 	} else if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(NodeId)) &&
-		   (u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(NodeId)) {
+		   ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(NodeId))) {
 		if (NULL == Device) {
 			Status = XST_INVALID_PARAM;
 			goto done;
@@ -983,7 +983,7 @@ XStatus XPmSubsystem_Destroy(u32 SubsystemId)
 	}
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
-	if (Subsystem == NULL || Subsystem->State != (u8)ONLINE) {
+	if ((Subsystem == NULL) || (Subsystem->State != (u8)ONLINE)) {
 		Status = XST_FAILURE;
 		goto done;
 	}
@@ -1061,8 +1061,8 @@ XStatus XPmSubsystem_GetStatus(const u32 SubsystemId, const u32 DeviceId,
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
 	Target_Subsystem = XPmSubsystem_GetById(DeviceId);
-	if (NULL == Subsystem || NULL == Target_Subsystem ||
-	    NULL == DeviceStatus) {
+	if ((NULL == Subsystem) || (NULL == Target_Subsystem) ||
+	    (NULL == DeviceStatus)) {
 		Status = XPM_PM_INVALID_NODE;
 		goto done;
 	}
