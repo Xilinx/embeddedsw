@@ -289,9 +289,9 @@ u32 XPmDevice_GetSubsystemIdOfCore(XPm_Device *Device)
 	XPm_Requirement *Reqm;
 	XPm_Subsystem *Subsystem = NULL;
 	u32 Idx, SubSystemId;
-	u32 MaxSubsysIdx = XPmSubsystem_GetMaxSubsysIdx();
+	u32 SubsysIdx = XPmSubsystem_GetMaxSubsysIdx();
 
-	for (Idx = 0; Idx <= MaxSubsysIdx; Idx++) {
+	for (Idx = 0; Idx <= SubsysIdx; Idx++) {
 		Subsystem = XPmSubsystem_GetByIndex(Idx);
 		if (NULL != Subsystem) {
 			Reqm = FindReqm(Device, Subsystem);
@@ -301,7 +301,7 @@ u32 XPmDevice_GetSubsystemIdOfCore(XPm_Device *Device)
 		}
 	}
 
-	if (MaxSubsysIdx < Idx) {
+	if (SubsysIdx < Idx) {
 		SubSystemId = INVALID_SUBSYSID;
 	} else {
 		SubSystemId = Subsystem->Id;
@@ -1131,7 +1131,7 @@ done:
 	return Status;
 }
 
-static XStatus Request(XPm_Device *Device, XPm_Subsystem *Subsystem,
+static XStatus DevRequest(XPm_Device *Device, XPm_Subsystem *Subsystem,
 		       u32 Capabilities, u32 QoS, u32 CmdType)
 {
 	XStatus Status = XPM_ERR_DEVICE_REQ;
@@ -1208,7 +1208,7 @@ done:
 	return Status;
 }
 
-static XStatus SetRequirement(XPm_Device *Device, XPm_Subsystem *Subsystem,
+static XStatus SetDevRequirement(XPm_Device *Device, XPm_Subsystem *Subsystem,
 			      u32 Capabilities, const u32 QoS)
 {
 	XStatus Status = XPM_ERR_SET_REQ;;
@@ -1270,7 +1270,7 @@ done:
 	return Status;
 }
 
-static XStatus Release(XPm_Device *Device, XPm_Subsystem *Subsystem, u32 CmdType)
+static XStatus DevRelease(XPm_Device *Device, XPm_Subsystem *Subsystem, u32 CmdType)
 {
 	XStatus Status = XPM_ERR_DEVICE_RELEASE;
 	XPm_Requirement *Reqm;
@@ -1393,9 +1393,9 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 
 	Device->HandleEvent = HandleDeviceEvent;
 
-	PmDeviceOps.Request = Request;
-	PmDeviceOps.SetRequirement = SetRequirement;
-	PmDeviceOps.Release = Release;
+	PmDeviceOps.Request = DevRequest;
+	PmDeviceOps.SetRequirement = SetDevRequirement;
+	PmDeviceOps.Release = DevRelease;
 	Device->DeviceOps = &PmDeviceOps;
 	if (NULL == Device->DeviceFsm) {
 		Device->DeviceFsm = &XPmGenericDeviceFsm;
@@ -2085,7 +2085,7 @@ XStatus XPmDevice_GetPermissions(XPm_Device *Device, u32 *PermissionMask)
 	XStatus Status = XST_FAILURE;
 	XPm_Requirement *Reqm;
 	u32 Idx;
-	u32 MaxSubsysIdx = XPmSubsystem_GetMaxSubsysIdx();
+	u32 SubsysIdx = XPmSubsystem_GetMaxSubsysIdx();
 
 	if ((NULL == Device) || (NULL == PermissionMask)) {
 		Status = XST_INVALID_PARAM;
@@ -2095,7 +2095,7 @@ XStatus XPmDevice_GetPermissions(XPm_Device *Device, u32 *PermissionMask)
 	Reqm = Device->Requirements;
 	while (NULL != Reqm) {
 		if (1U == Reqm->Allocated) {
-			for (Idx = 0; Idx <= MaxSubsysIdx; Idx++) {
+			for (Idx = 0; Idx <= SubsysIdx; Idx++) {
 				if (Reqm->Subsystem == XPmSubsystem_GetByIndex(Idx)) {
 					*PermissionMask |= ((u32)1U << Idx);
 				}

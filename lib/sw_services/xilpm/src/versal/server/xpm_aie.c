@@ -304,7 +304,7 @@ static void AieClkGateByCol(void)
 	}
 }
 
-static XStatus MemInit(void)
+static XStatus AieCoreMemInit(void)
 {
 	u32 row = AieInst.StartRow;
 	u32 col = AieInst.StartCol;
@@ -729,7 +729,7 @@ static XStatus AieMemInit(u32 *Args, u32 NumOfArgs)
 		PmErr("ERROR: Array reset failed\r\n");
 	}
 	/* Zeroize Data Memory */
-	Status = MemInit();
+	Status = AieCoreMemInit();
 	if (Status != XST_SUCCESS) {
 		PmInfo("ERROR: MemInit failed\r\n");
 	}
