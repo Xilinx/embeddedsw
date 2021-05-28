@@ -326,7 +326,7 @@ int XPmSubsystem_InitFinalize(const u32 SubsystemId)
 		}
 
 		/* Power down the device if device is unused */
-		if (0 == DeviceInUse) {
+		if (0U == DeviceInUse) {
 			/*
 			 * Here device needs to be requested and released to handle
 			 * the use count of its clock and power. This makes unused
