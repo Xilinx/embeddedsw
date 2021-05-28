@@ -6,7 +6,7 @@
 
 #include "xpm_pmc.h"
 
-XStatus XPmPmc_Init(XPm_Pmc *Pmc, u32 DevcieId, u32 Ipi, u32 *BaseAddress,
+XStatus XPmPmc_Init(XPm_Pmc *Pmc, u32 DevcieId, u32 Ipi, const u32 *BaseAddress,
 		    XPm_Power *Power,  XPm_ClockNode *Clock,
 		    XPm_ResetNode *Reset)
 {

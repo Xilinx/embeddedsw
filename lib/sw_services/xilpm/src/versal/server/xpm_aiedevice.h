@@ -21,8 +21,8 @@ extern "C" {
 typedef struct XPm_AieDeviceNode XPm_AieDevice;
 
 struct XPm_AieInitNodeOps {
-	XStatus (*InitStart)(XPm_AieDevice *AieDevice, u32 *Args, u32 NumArgs);
-	XStatus (*InitFinish)(XPm_AieDevice *AieDevice, u32 *Args, u32 NumArgs);
+	XStatus (*InitStart)(const XPm_AieDevice *AieDevice, const u32 *Args, u32 NumArgs);
+	XStatus (*InitFinish)(const XPm_AieDevice *AieDevice, const u32 *Args, u32 NumArgs);
 };
 
 struct XPm_AieDeviceNode {

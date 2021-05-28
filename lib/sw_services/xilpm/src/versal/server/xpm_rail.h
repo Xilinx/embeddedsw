@@ -34,7 +34,7 @@ typedef struct XPmRail {
 
 /************************** Function Prototypes ******************************/
 XStatus XPmRail_Control(XPm_Rail *Rail, u8 State);
-XStatus XPmRail_Init(XPm_Rail *Rail, u32 RailId, u32 *Args, u32 NumArgs);
+XStatus XPmRail_Init(XPm_Rail *Rail, u32 RailId, const u32 *Args, u32 NumArgs);
 
 #ifdef __cplusplus
 }

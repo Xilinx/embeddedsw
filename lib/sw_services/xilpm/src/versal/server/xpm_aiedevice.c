@@ -20,12 +20,12 @@
  * @note Arguments consist of Power Domain Node Id that AIE depends on
  *
  ****************************************************************************/
-static XStatus AieDeviceInitStart(XPm_AieDevice *AieDevice, u32 *Args, u32 NumArgs)
+static XStatus AieDeviceInitStart(const XPm_AieDevice *AieDevice, const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	const XPm_PlDevice *Parent;
-	XPm_Device *Device;
+	const XPm_Device *Device;
 
 	if ((1U != NumArgs) || (PM_POWER_ME != Args[0])) {
 		DbgErr = XPM_INT_ERR_INVALID_ARGS;
@@ -73,7 +73,7 @@ done:
  * @note Arguments consist of Power Domain Node Id that AIE depends on
  *
  ****************************************************************************/
-static XStatus AieDeviceInitFinish(XPm_AieDevice *AieDevice, u32 *Args, u32 NumArgs)
+static XStatus AieDeviceInitFinish(const XPm_AieDevice *AieDevice, const u32 *Args, u32 NumArgs)
 {
 	(void)AieDevice;
 	(void)Args;

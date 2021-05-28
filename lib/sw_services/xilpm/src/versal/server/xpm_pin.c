@@ -1887,10 +1887,11 @@ static struct PmPinGroup PmPinGroups[XPM_NODEIDX_STMIC_MAX] = {
  * @return 1 if function is available on given pin else 0.
  *
  ****************************************************************************/
-static u8 ValidatePinFunc(XPm_PinNode *Pin, XPm_PinFunc *PinFunc)
+static u8 ValidatePinFunc(const XPm_PinNode *Pin, const XPm_PinFunc *PinFunc)
 {
 	u16 FGrpIdx, PGrpIdx;
-	u16 *FunGrps, *PinGrps;
+	const u16 *FunGrps;
+	const u16 *PinGrps;
 	u8 IsValid = 0;
 
 	FunGrps = PinFunc->Groups;
@@ -2050,7 +2051,7 @@ done:
 XStatus XPmPin_GetPinFunction(u32 PinId, u32 *FuncId)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_PinNode *Pin;
+	const XPm_PinNode *Pin;
 
 	Pin = XPmPin_GetById(PinId);
 
@@ -2232,7 +2233,7 @@ done:
 XStatus XPmPin_GetPinConfig(u32 PinId, u32 Param, u32 *Value)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_PinNode *Pin;
+	const XPm_PinNode *Pin;
 	u32 BitMask;
 	u32 Reg;
 	u32 BaseAddr;
@@ -2341,7 +2342,7 @@ XStatus XPmPin_GetPinGroups(u32 PinId, u32 Index, u16 *Groups)
 	XStatus Status = XST_FAILURE;
 	u32 i;
 	u32 NumRead;
-	XPm_PinNode *Pin;
+	const XPm_PinNode *Pin;
 
 	Pin = XPmPin_GetById(PinId);
 
@@ -2456,7 +2457,7 @@ done:
 XStatus XPmPin_CheckPerms(const u32 SubsystemId, const u32 PinId)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_PinNode *Pin;
+	const XPm_PinNode *Pin;
 
 	Pin = XPmPin_GetById(PinId);
 	if (NULL == Pin) {

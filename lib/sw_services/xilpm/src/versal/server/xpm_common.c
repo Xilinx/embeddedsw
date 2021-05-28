@@ -84,9 +84,9 @@ u32 XPm_In64(u64 RegAddress)
 
 void XPm_Out32(u32 RegAddress, u32 l_Val)
 {
-	XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
-	XPm_PsLpDomain *PsLpd = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
-	XPm_PsFpDomain *PsFpd = (XPm_PsFpDomain *)XPmPower_GetById(PM_POWER_FPD);
+	const XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
+	const XPm_PsLpDomain *PsLpd = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
+	const XPm_PsFpDomain *PsFpd = (XPm_PsFpDomain *)XPmPower_GetById(PM_POWER_FPD);
 
 	if ((NULL != Pmc) && ((RegAddress & 0xFFFF0000U) == Pmc->PmcIouSlcrBaseAddr)) {
 		Xil_Out32(Pmc->PmcIouSlcrBaseAddr + PMC_IOU_SLCR_WPROT0_OFFSET,
@@ -307,7 +307,7 @@ u32 XPm_GetIdCode(void)
 void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...)
 {
 	va_list Args;
-	static const char *PrefixStr[] = {"ALERT", "ERR", "WARN", "INFO", "DBG"};
+	static const char* const PrefixStr[] = {"ALERT", "ERR", "WARN", "INFO", "DBG"};
 	u32 Idx = DBG_STR_IDX(DebugType);
 
 	va_start(Args, Ctrl1);

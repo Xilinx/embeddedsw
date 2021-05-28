@@ -442,10 +442,10 @@ void XPmNotifier_UnregisterAll(const XPm_Subsystem* const Subsystem)
 void XPmNotifier_Event(const u32 NodeId, const u32 Event)
 {
 	u32 Idx;
-	XPmNotifier* Notifier = NULL;
+	const XPmNotifier* Notifier = NULL;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};
-	XPm_Device* Device;
-	XPm_Power *Power;
+	const XPm_Device* Device;
+	const XPm_Power *Power;
 	XStatus Status = XST_FAILURE;
 
 	for (Idx = 0U; Idx < ARRAY_SIZE(PmNotifiers); Idx++) {

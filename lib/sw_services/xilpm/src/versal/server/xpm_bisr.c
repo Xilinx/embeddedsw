@@ -244,7 +244,7 @@ static XStatus XPmBisr_TagSupportCheck(u32 TagId)
 
 static void XPmBisr_SwError(u32 ErrorCode)
 {
-	XPm_Pmc *Pmc;
+	const XPm_Pmc *Pmc;
 
 	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 	if (NULL == Pmc) {
@@ -272,7 +272,7 @@ static u32 XPmBisr_CopyStandard(u32 EfuseTagAddr, u32 TagSize, u64 BisrDataDestA
 	//EFUSE Tag Data start pos
 	TagDataAddr = EfuseTagAddr + 4U;
 
-	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
+	const XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 	if (NULL == EfuseCache) {
 		/* Return max possible address so error can be identified by caller */
 		TagDataAddr = ~0U;
@@ -403,7 +403,7 @@ done:
 XStatus XPmBisr_TriggerLpd(void)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_PsLpDomain *PsLpd;
+	const XPm_PsLpDomain *PsLpd;
 	u32 RegValue;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
@@ -457,7 +457,7 @@ done:
 static XStatus XPmBisr_RepairFpd(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_PsFpDomain *PsFpd;
+	const XPm_PsFpDomain *PsFpd;
 	u32 RegValue;
 	u64 BisrDataDestAddr;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -534,7 +534,7 @@ done:
 static XStatus XPmBisr_RepairCpm(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_CpmDomain *Cpm;
+	const XPm_CpmDomain *Cpm;
 	u32 RegValue;
 	u64 BisrDataDestAddr;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -585,7 +585,7 @@ done:
 static XStatus XPmBisr_RepairCpm5(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr)
 {
 	XStatus Status = XPM_ERR_BISR;
-	XPm_CpmDomain *Cpm;
+	const XPm_CpmDomain *Cpm;
 	u32 RegValue;
 	u64 BisrDataDestAddr;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -759,7 +759,7 @@ done:
 
 static u32 XPmBisr_RepairBram(u32 EfuseTagAddr, u32 TagSize)
 {
-	XPm_PlDomain *Pld;
+	const XPm_PlDomain *Pld;
 	u32 TagRow = 0U;
 	u32 TagData;
 	u32 TagDataAddr;
@@ -770,7 +770,7 @@ static u32 XPmBisr_RepairBram(u32 EfuseTagAddr, u32 TagSize)
 	u32 BramRepairVal;
 	u32 BramExtendedRepair[4];
 	u32 BramRepairWord;
-	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
+	const XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 	u32 EfuseCacheBaseAddr;
 	u32 EfuseTagBitS1Addr;
 	u32 EfuseTagBitS2Addr;
@@ -849,7 +849,7 @@ done:
 
 static u32 XPmBisr_RepairUram(u32 EfuseTagAddr, u32 TagSize)
 {
-	XPm_PlDomain *Pld;
+	const XPm_PlDomain *Pld;
 	u32 TagRow = 0U;
 	u32 TagData;
 	u32 TagDataAddr;
@@ -860,7 +860,7 @@ static u32 XPmBisr_RepairUram(u32 EfuseTagAddr, u32 TagSize)
 	u32 UramRepairVal;
 	u32 UramExtendedRepair[4];
 	u32 UramRepairWord;
-	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
+	const XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 	u32 EfuseCacheBaseAddr;
 	u32 EfuseTagBitS1Addr;
 	u32 EfuseTagBitS2Addr;
@@ -938,7 +938,7 @@ done:
 
 static u32 XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize)
 {
-	XPm_PlDomain *Pld;
+	const XPm_PlDomain *Pld;
 	u32 TagPairCnt;
 	u32 TagPair[2] = {0};
 	u32 NumPairs;
@@ -956,7 +956,7 @@ static u32 XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize)
 
 	TagDataAddr = EfuseTagAddr + 4U;
 
-	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
+	const XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 	if (NULL == EfuseCache) {
 		/* Return negative address so error can be identified by caller */
 		TagDataAddr = ~0U;
@@ -1050,7 +1050,7 @@ done:
 static XStatus XPmBisr_RepairXram(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr)
 {
 	XStatus Status = XPM_ERR_BISR;
-	XPm_Device *Device = NULL;
+	const XPm_Device *Device = NULL;
 	u32 RegValue, BaseAddr;
 	u64 BisrDataDestAddr;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -1117,7 +1117,7 @@ done:
 	return Status;
 }
 
-static void XPmBisr_LagunaRmwOneFrame(XPm_PlDomain *Pld, u8 RowIndex,
+static void XPmBisr_LagunaRmwOneFrame(const XPm_PlDomain *Pld, u8 RowIndex,
 		u8 LowerTile, u8 UpperTile, u32 LagunaRepairX, u32 LagunaRepairVal)
 {
 	u32 FrameAddr;
@@ -1204,7 +1204,7 @@ static void XPmBisr_LagunaRmwOneFrame(XPm_PlDomain *Pld, u8 RowIndex,
 
 static u32 XPmBisr_RepairLaguna(u32 EfuseTagAddr, u32 TagSize)
 {
-	XPm_PlDomain *Pld;
+	const XPm_PlDomain *Pld;
 	u32 TagRow = 0U;
 	u32 TagData;
 	u32 TagDataAddr;
@@ -1225,7 +1225,7 @@ static u32 XPmBisr_RepairLaguna(u32 EfuseTagAddr, u32 TagSize)
 	u32 EfuseTagBitS1Addr;
 	u32 EfuseTagBitS2Addr;
 
-	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
+	const XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 
 	TagDataAddr = EfuseTagAddr + 4U;
 
@@ -1322,11 +1322,10 @@ XStatus XPmBisr_Repair(u32 TagId)
 	u32 EfuseBisrOptional;
 	u32 TagType;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-
-	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 	u32 EfuseCacheBaseAddr;
 	u32 EfuseTagBitS1Addr;
 	u32 EfuseTagBitS2Addr;
+	const XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 
 	if (NULL == EfuseCache) {
 		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
@@ -1475,7 +1474,7 @@ done:
 
 static void NidbEfuseGrpInit(XPm_NidbEfuseGrpInfo *EfuseGroup)
 {
-	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
+	const XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 	u32 BaseAddr = EfuseCache->Node.BaseAddress;
 	u32 NidbRegMask;
 	u32 NidbRegShift;

@@ -36,7 +36,7 @@ struct XPm_RpuCore {
 };
 
 /************************** Function Prototypes ******************************/
-XStatus XPmRpuCore_Init(XPm_RpuCore *RpuCore, u32 Id, u32 Ipi, u32 *BaseAddress,
+XStatus XPmRpuCore_Init(XPm_RpuCore *RpuCore, u32 Id, u32 Ipi, const u32 *BaseAddress,
 			XPm_Power *Power, XPm_ClockNode *Clock,
 			XPm_ResetNode *Reset);
 
@@ -44,7 +44,7 @@ void XPm_RpuGetOperMode(const u32 DeviceId, u32 *Mode);
 void XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode);
 XStatus XPm_RpuBootAddrConfig(const u32 DeviceId, const u32 BootAddr);
 XStatus XPm_RpuTcmCombConfig(const u32 DeviceId, const u32 Config);
-XStatus XPmRpuCore_Halt(XPm_Device *Device);
+XStatus XPmRpuCore_Halt(const XPm_Device *Device);
 XStatus XPm_RpuRstComparators(const u32 DeviceId);
 
 #ifdef __cplusplus
