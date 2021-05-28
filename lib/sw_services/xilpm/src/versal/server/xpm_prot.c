@@ -235,7 +235,7 @@ static void XPmProt_XppuSetAperture(const XPm_ProtPpu *Ppu,
 	{
 		Field = (RegVal >> (i * APER_PARITY_FIELD_WIDTH));
 		FieldParity = XPm_ComputeParity(Field & APER_PARITY_FIELD_MASK);
-		if (i == MAX_APER_PARITY_FIELDS - 1U) {
+		if (i == (MAX_APER_PARITY_FIELDS - 1U)) {
 			FieldParity ^= Tz;
 		}
 		Parity |= (FieldParity << i);

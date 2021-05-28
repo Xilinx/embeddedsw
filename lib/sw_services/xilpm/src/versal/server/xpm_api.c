@@ -904,7 +904,7 @@ XStatus XPm_HookAfterPlmCdo(void)
 	 */
 	PlatformVersion = XPm_GetPlatformVersion();
 
-	if ((PLATFORM_VERSION_SILICON == XPm_GetPlatform() &&
+	if (((PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
 	    (((u32)PLATFORM_VERSION_SILICON_ES1 == PlatformVersion) ||
 	     ((u32)PLATFORM_VERSION_SILICON_ES2 == PlatformVersion)))) {
 		Status = XPmDevice_Request(PM_SUBSYS_PMC, PM_DEV_GPIO_PMC,
@@ -2067,8 +2067,8 @@ XStatus XPm_SetWakeUpSource(const u32 SubsystemId, const u32 TargetNodeId,
 	}
 
 	/* The call applies only to peripheral nodes */
-	if (NODECLASS(SourceNodeId) != (u32)XPM_NODECLASS_DEVICE ||
-	    NODESUBCLASS(SourceNodeId) != (u32)XPM_NODESUBCL_DEV_PERIPH) {
+	if ((NODECLASS(SourceNodeId) != (u32)XPM_NODECLASS_DEVICE) ||
+	    (NODESUBCLASS(SourceNodeId) != (u32)XPM_NODESUBCL_DEV_PERIPH)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -2447,7 +2447,7 @@ XStatus XPm_SetClockState(const u32 SubsystemId, const u32 ClockId, const u32 En
 	u32 CurrState = 0U;
 
 	/* HACK: Don't disable PLL clocks for now */
-	if(Enable == 0U && ISPLL(ClockId))
+	if((Enable == 0U) && (ISPLL(ClockId)))
 	{
 		Status = XST_SUCCESS;
 		goto done;
@@ -3483,7 +3483,7 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 	Shift = (u8)(Args[1] & 0xFFU);
 	ParentId = Args[2];
 
-	if (NODEINDEX(PowerId) >= (u32)XPM_NODEIDX_POWER_MAX &&
+	if ((NODEINDEX(PowerId) >= (u32)XPM_NODEIDX_POWER_MAX) &&
 	    ((u32)XPM_NODETYPE_POWER_REGULATOR != PowerType)) {
 		Status = XST_INVALID_PARAM;
 		goto done;

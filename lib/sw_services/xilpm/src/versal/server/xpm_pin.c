@@ -2005,6 +2005,7 @@ XStatus XPmPin_SetPinFunction(u32 PinId, u32 FuncId)
 	XStatus Status = XST_FAILURE;
 	XPm_PinNode *Pin;
 	XPm_PinFunc *PinFunc;
+	u32 PinBaseAddr;
 
 	Pin = XPmPin_GetById(PinId);
 	if (NULL == Pin) {
@@ -2018,10 +2019,11 @@ XStatus XPmPin_SetPinFunction(u32 PinId, u32 FuncId)
 		goto done;
 	}
 
+	PinBaseAddr = (Pin->Node.BaseAddress + (PINNUM(Pin->Node.Id) * 4U));
 	if ((u32)XPM_NODETYPE_LPD_MIO == NODETYPE(PinId)) {
-		PmOut32(Pin->Node.BaseAddress + PINNUM(Pin->Node.Id) * 4U, PinFunc->LmioRegMask);
+		PmOut32(PinBaseAddr, PinFunc->LmioRegMask);
 	} else if ((u32)XPM_NODETYPE_PMC_MIO == NODETYPE(PinId)) {
-		PmOut32(Pin->Node.BaseAddress + PINNUM(Pin->Node.Id) * 4U, PinFunc->PmioRegMask);
+		PmOut32(PinBaseAddr, PinFunc->PmioRegMask);
 	} else {
 		Status = XPM_PM_NO_ACCESS;
 		goto done;

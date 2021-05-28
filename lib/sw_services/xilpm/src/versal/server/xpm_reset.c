@@ -90,7 +90,8 @@ XStatus XPmReset_AddNode(u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetTyp
 	XPm_ResetNode *Rst = NULL;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	if (NULL != XPmReset_GetById(Id) || NumParents > MAX_RESET_PARENTS) {
+	if ((NULL != XPmReset_GetById(Id)) ||
+	    (NumParents > MAX_RESET_PARENTS)) {
 		DbgErr = XPM_INT_ERR_INVALID_PARAM;
 		Status = XST_INVALID_PARAM;
 		goto done;

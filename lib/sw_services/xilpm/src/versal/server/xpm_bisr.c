@@ -265,6 +265,9 @@ static u32 XPmBisr_CopyStandard(u32 EfuseTagAddr, u32 TagSize, u64 BisrDataDestA
 	u64 TagRow;
 	u32 TagData;
 	u32 TagDataAddr;
+	u32 EfuseCacheBaseAddr;
+	u32 EfuseTagBitS1Addr;
+	u32 EfuseTagBitS2Addr;
 
 	//EFUSE Tag Data start pos
 	TagDataAddr = EfuseTagAddr + 4U;
@@ -276,11 +279,14 @@ static u32 XPmBisr_CopyStandard(u32 EfuseTagAddr, u32 TagSize, u64 BisrDataDestA
 		goto done;
 	}
 
+	EfuseCacheBaseAddr = EfuseCache->Node.BaseAddress;
+	EfuseTagBitS1Addr = (EfuseCacheBaseAddr + EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET);
+	EfuseTagBitS2Addr = (EfuseCacheBaseAddr + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET);
+
 	//Collect Repair data from EFUSE and write to endpoint base + word offset
 	TagRow = 0U;
 	while (TagRow < (u64)TagSize) {
-		if (TagDataAddr == (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET) ||
-		    TagDataAddr == (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET)) {
+		if ((TagDataAddr == EfuseTagBitS1Addr) || (TagDataAddr == EfuseTagBitS2Addr)) {
 			TagDataAddr += 4U;
 		}
 		TagData = XPm_In32(TagDataAddr);
@@ -765,6 +771,9 @@ static u32 XPmBisr_RepairBram(u32 EfuseTagAddr, u32 TagSize)
 	u32 BramExtendedRepair[4];
 	u32 BramRepairWord;
 	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
+	u32 EfuseCacheBaseAddr;
+	u32 EfuseTagBitS1Addr;
+	u32 EfuseTagBitS2Addr;
 
 	TagDataAddr = EfuseTagAddr + 4U;
 
@@ -781,9 +790,12 @@ static u32 XPmBisr_RepairBram(u32 EfuseTagAddr, u32 TagSize)
 		goto done;
 	}
 
+	EfuseCacheBaseAddr = EfuseCache->Node.BaseAddress;
+	EfuseTagBitS1Addr = (EfuseCacheBaseAddr + EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET);
+	EfuseTagBitS2Addr = (EfuseCacheBaseAddr + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET);
+
 	while (TagRow < TagSize) {
-		if (TagDataAddr == (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET) ||
-		    TagDataAddr == (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET)) {
+		if ((TagDataAddr == EfuseTagBitS1Addr) || (TagDataAddr == EfuseTagBitS2Addr)) {
 			TagDataAddr += 4U;
 		}
 		TagData = XPm_In32(TagDataAddr);
@@ -849,6 +861,9 @@ static u32 XPmBisr_RepairUram(u32 EfuseTagAddr, u32 TagSize)
 	u32 UramExtendedRepair[4];
 	u32 UramRepairWord;
 	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
+	u32 EfuseCacheBaseAddr;
+	u32 EfuseTagBitS1Addr;
+	u32 EfuseTagBitS2Addr;
 
 	TagDataAddr = EfuseTagAddr + 4U;
 
@@ -865,9 +880,12 @@ static u32 XPmBisr_RepairUram(u32 EfuseTagAddr, u32 TagSize)
 		goto done;
 	}
 
+	EfuseCacheBaseAddr = EfuseCache->Node.BaseAddress;
+	EfuseTagBitS1Addr = (EfuseCacheBaseAddr + EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET);
+	EfuseTagBitS2Addr = (EfuseCacheBaseAddr + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET);
+
 	while (TagRow < TagSize) {
-		if (TagDataAddr == (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET) ||
-		    TagDataAddr == (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET)) {
+		if ((TagDataAddr == EfuseTagBitS1Addr) || (TagDataAddr == EfuseTagBitS2Addr)) {
 			TagDataAddr += 4U;
 		}
 		TagData = XPm_In32(TagDataAddr);
@@ -932,6 +950,9 @@ static u32 XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize)
 	u32 HbRepairVal[2];
 	u32 HbExtendedRepair[4];
 	u32 HbRepairWord;
+	u32 EfuseCacheBaseAddr;
+	u32 EfuseTagBitS1Addr;
+	u32 EfuseTagBitS2Addr;
 
 	TagDataAddr = EfuseTagAddr + 4U;
 
@@ -942,14 +963,16 @@ static u32 XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize)
 		goto done;
 	}
 
+	EfuseCacheBaseAddr = EfuseCache->Node.BaseAddress;
+	EfuseTagBitS1Addr = (EfuseCacheBaseAddr + EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET);
+	EfuseTagBitS2Addr = (EfuseCacheBaseAddr + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET);
+
 	//tag size must be multiple of 2
 	if ((TagSize % 2U) != 0U) {
 		XPmBisr_SwError(PMC_EFUSE_BISR_CFRM_HB_BAD_SIZE);
 		TagDataAddr += (TagSize << 2U);
-		if ((EfuseTagAddr < (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET) &&
-		    TagDataAddr > (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET)) ||
-		    (EfuseTagAddr < (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET) &&
-		    TagDataAddr > (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET))) {
+		if (((EfuseTagAddr < EfuseTagBitS1Addr) && (TagDataAddr > EfuseTagBitS1Addr)) ||
+		    ((EfuseTagAddr < EfuseTagBitS2Addr) && (TagDataAddr > EfuseTagBitS2Addr))) {
 			TagDataAddr += 4U;
 		}
 		goto done;
@@ -966,15 +989,13 @@ static u32 XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize)
 	NumPairs = TagSize/2U;
 	while (TagPairCnt < NumPairs) {
 		//get first half (row,column,qtile,value)
-		if (TagDataAddr == (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET) ||
-		    TagDataAddr == (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET)) {
+		if ((TagDataAddr == EfuseTagBitS1Addr) || (TagDataAddr == EfuseTagBitS2Addr)) {
 			TagDataAddr += 4U;
 		}
 		TagPair[0U] = XPm_In32(TagDataAddr);
 		TagDataAddr += 4U;
 		//get second half (value)
-		if (TagDataAddr == (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET) ||
-		    TagDataAddr == (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET)) {
+		if ((TagDataAddr == EfuseTagBitS1Addr) || (TagDataAddr == EfuseTagBitS2Addr)) {
 			TagDataAddr += 4U;
 		}
 		TagPair[1U] = XPm_In32(TagDataAddr);
@@ -1011,8 +1032,8 @@ static u32 XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize)
 
 		//write to CFRM Reg
 		//address to start at = CFRM_REG + word count
-		for (HbRepairWord=0U; HbRepairWord < 4U; HbRepairWord++) {
-			XPm_Out32((CframeRowAddr + 0x250U)+(HbRepairWord<<2U),HbExtendedRepair[HbRepairWord]);
+		for (HbRepairWord = 0U; HbRepairWord < 4U; HbRepairWord++) {
+			XPm_Out32((CframeRowAddr + 0x250U) + (HbRepairWord << 2U), HbExtendedRepair[HbRepairWord]);
 		}
 		//Trigger repair command
 		XPm_Out32((CframeRowAddr + 0x60U), 0xDU);
@@ -1200,6 +1221,9 @@ static u32 XPmBisr_RepairLaguna(u32 EfuseTagAddr, u32 TagSize)
 	u8 LowerTile;
 	u8 UpperTile;
 	u8 RowIndex;
+	u32 EfuseCacheBaseAddr;
+	u32 EfuseTagBitS1Addr;
+	u32 EfuseTagBitS2Addr;
 
 	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 
@@ -1218,6 +1242,10 @@ static u32 XPmBisr_RepairLaguna(u32 EfuseTagAddr, u32 TagSize)
 		goto done;
 	}
 
+	EfuseCacheBaseAddr = EfuseCache->Node.BaseAddress;
+	EfuseTagBitS1Addr = (EfuseCacheBaseAddr + EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET);
+	EfuseTagBitS2Addr = (EfuseCacheBaseAddr + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET);
+
 	/* Broadcast row on command */
 	XPm_Out32((CFRAME_BCAST_REG_BASEADDR + CFRAME_REG_CMD_OFFSET) + 0U, 2U);
 	XPm_Out32((CFRAME_BCAST_REG_BASEADDR + CFRAME_REG_CMD_OFFSET) + 4U, 0U);
@@ -1232,9 +1260,8 @@ static u32 XPmBisr_RepairLaguna(u32 EfuseTagAddr, u32 TagSize)
 		& (u32)CFU_APB_CFU_ROW_RANGE_NUM_MASK;
 
 	while (TagRow < TagSize) {
-		if (TagDataAddr == (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET) ||
-			TagDataAddr == (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET)) {
-				TagDataAddr += 4U;
+		if ((TagDataAddr == EfuseTagBitS1Addr) || (TagDataAddr == EfuseTagBitS2Addr)) {
+			TagDataAddr += 4U;
 		}
 
 		TagData = XPm_In32(TagDataAddr);
@@ -1297,6 +1324,10 @@ XStatus XPmBisr_Repair(u32 TagId)
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
+	u32 EfuseCacheBaseAddr;
+	u32 EfuseTagBitS1Addr;
+	u32 EfuseTagBitS2Addr;
+
 	if (NULL == EfuseCache) {
 		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
 		goto done;
@@ -1306,6 +1337,10 @@ XStatus XPmBisr_Repair(u32 TagId)
 		Status = XST_SUCCESS;
 		goto done;
 	}
+
+	EfuseCacheBaseAddr = EfuseCache->Node.BaseAddress;
+	EfuseTagBitS1Addr = (EfuseCacheBaseAddr + EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET);
+	EfuseTagBitS2Addr = (EfuseCacheBaseAddr + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET);
 
 	//set up the white list
 	XPmBisr_InitTagIdList();
@@ -1329,7 +1364,7 @@ XStatus XPmBisr_Repair(u32 TagId)
 	}
 
 	//Scan EFUSE looking for valid tags that match requested tag, exit on 0, skip row on all 1's
-	EfuseNextAddr = EfuseCache->Node.BaseAddress + EFUSE_CACHE_BISR_RSVD_0_OFFSET;
+	EfuseNextAddr = EfuseCacheBaseAddr + EFUSE_CACHE_BISR_RSVD_0_OFFSET;
 	ExitCodeSeen = 0U;
 
 	while (0U == ExitCodeSeen) {
@@ -1414,10 +1449,8 @@ XStatus XPmBisr_Repair(u32 TagId)
 					EfuseNextAddr = (EfuseCurrAddr + 4U);//move to first data address of this tag
 					EfuseNextAddr += (EfuseBisrSize << 2U); //move down number of words from the tag size
 					//did we cross over tbit row in the data size space
-					if ((EfuseCurrAddr < (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET) &&
-					     EfuseNextAddr > (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET)) ||
-					    (EfuseCurrAddr < (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET) &&
-					     EfuseNextAddr > (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET))) {
+					if (((EfuseCurrAddr < EfuseTagBitS1Addr) && (EfuseNextAddr > EfuseTagBitS1Addr)) ||
+					    ((EfuseCurrAddr < EfuseTagBitS2Addr) && (EfuseNextAddr > EfuseTagBitS2Addr))) {
 						EfuseNextAddr += 4U;
 					}
 				}
@@ -1428,8 +1461,7 @@ XStatus XPmBisr_Repair(u32 TagId)
 				goto done;
 			}
 		}
-		if (EfuseNextAddr == (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET) ||
-		    EfuseNextAddr == (EfuseCache->Node.BaseAddress + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET)) {
+		if ((EfuseNextAddr == EfuseTagBitS1Addr) || (EfuseNextAddr == EfuseTagBitS2Addr)) {
 			EfuseNextAddr += 4U;
 		}
 	}
@@ -1445,53 +1477,71 @@ static void NidbEfuseGrpInit(XPm_NidbEfuseGrpInfo *EfuseGroup)
 {
 	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 	u32 BaseAddr = EfuseCache->Node.BaseAddress;
+	u32 NidbRegMask;
+	u32 NidbRegShift;
 	u32 RegVal;
 
 	/* Initialize 1st NIDB Group */
 	RegVal = XPm_In32(BaseAddr + EFUSE_CACHE_NIDB_0_OFFSET);
-	EfuseGroup[0U].NpiOffset = (u8)((RegVal & EFUSE_CACHE_NIDB_0_NPI_OFFSET_0_MASK)
-	>> EFUSE_CACHE_NIDB_0_NPI_OFFSET_0_SHIFT);
-	EfuseGroup[0U].NpiBase = (u16)((RegVal & EFUSE_CACHE_NIDB_0_NPI_BASE_0_MASK) >>
-	EFUSE_CACHE_NIDB_0_NPI_BASE_0_SHIFT);
-	EfuseGroup[0U].RdnCntl = (u8)((RegVal & EFUSE_CACHE_NIDB_0_RDN_CNTRL_0_MASK) >>
-	EFUSE_CACHE_NIDB_0_RDN_CNTRL_0_SHIFT);
+	NidbRegMask = EFUSE_CACHE_NIDB_0_NPI_OFFSET_0_MASK;
+	NidbRegShift = EFUSE_CACHE_NIDB_0_NPI_OFFSET_0_SHIFT;
+	EfuseGroup[0U].NpiOffset = (u8)((RegVal & NidbRegMask) >> NidbRegShift);
+	NidbRegMask = EFUSE_CACHE_NIDB_0_NPI_BASE_0_MASK;
+	NidbRegShift = EFUSE_CACHE_NIDB_0_NPI_BASE_0_SHIFT;
+	EfuseGroup[0U].NpiBase = (u16)((RegVal & NidbRegMask) >> NidbRegShift);
+	NidbRegMask = EFUSE_CACHE_NIDB_0_RDN_CNTRL_0_MASK;
+	NidbRegShift = EFUSE_CACHE_NIDB_0_RDN_CNTRL_0_SHIFT;
+	EfuseGroup[0U].RdnCntl = (u8)((RegVal & NidbRegMask) >> NidbRegShift);
 
 	/* Initialize 2nd NIDB Group */
-	EfuseGroup[1U].NpiOffset = (u8)((RegVal & EFUSE_CACHE_NIDB_0_NPI_OFFSET_1_MASK)
-	>> EFUSE_CACHE_NIDB_0_NPI_OFFSET_1_SHIFT);
-	EfuseGroup[1U].NpiBase = (u16)((RegVal & EFUSE_CACHE_NIDB_0_NPI_BASE_1_MASK) >>
-	EFUSE_CACHE_NIDB_0_NPI_BASE_1_SHIFT);
+	NidbRegMask = EFUSE_CACHE_NIDB_0_NPI_OFFSET_1_MASK;
+	NidbRegShift = EFUSE_CACHE_NIDB_0_NPI_OFFSET_1_SHIFT;
+	EfuseGroup[1U].NpiOffset = (u8)((RegVal & NidbRegMask) >> NidbRegShift);
+	NidbRegMask = EFUSE_CACHE_NIDB_0_NPI_BASE_1_MASK;
+	NidbRegShift = EFUSE_CACHE_NIDB_0_NPI_BASE_1_SHIFT;
+	EfuseGroup[1U].NpiBase = (u16)((RegVal & NidbRegMask) >> NidbRegShift);
 	RegVal = XPm_In32(BaseAddr + EFUSE_CACHE_NIDB_1_OFFSET);
-	EfuseGroup[1U].RdnCntl = (u8)((RegVal & EFUSE_CACHE_NIDB_1_RDN_CNTRL_1_MASK) >>
-	EFUSE_CACHE_NIDB_1_RDN_CNTRL_1_SHIFT);
+	NidbRegMask = EFUSE_CACHE_NIDB_1_RDN_CNTRL_1_MASK;
+	NidbRegShift = EFUSE_CACHE_NIDB_1_RDN_CNTRL_1_SHIFT;
+	EfuseGroup[1U].RdnCntl = (u8)((RegVal & NidbRegMask) >> NidbRegShift);
 
 	/* Initialize 3rd NIDB Group */
-	EfuseGroup[2U].NpiOffset = (u8)((RegVal & EFUSE_CACHE_NIDB_1_NPI_OFFSET_2_MASK)
-	>> EFUSE_CACHE_NIDB_1_NPI_OFFSET_2_SHIFT);
-	EfuseGroup[2U].NpiBase = (u16)((RegVal & EFUSE_CACHE_NIDB_1_NPI_BASE_2_MASK) >>
-	EFUSE_CACHE_NIDB_1_NPI_BASE_2_SHIFT);
-	EfuseGroup[2U].RdnCntl = (u8)((RegVal & EFUSE_CACHE_NIDB_1_RDN_CNTL_2_MASK) >>
-	EFUSE_CACHE_NIDB_1_RDN_CNTL_2_SHIFT);
+	NidbRegMask = EFUSE_CACHE_NIDB_1_NPI_OFFSET_2_MASK;
+	NidbRegShift = EFUSE_CACHE_NIDB_1_NPI_OFFSET_2_SHIFT;
+	EfuseGroup[2U].NpiOffset = (u8)((RegVal & NidbRegMask) >> NidbRegShift);
+	NidbRegMask = EFUSE_CACHE_NIDB_1_NPI_BASE_2_MASK;
+	NidbRegShift = EFUSE_CACHE_NIDB_1_NPI_BASE_2_SHIFT;
+	EfuseGroup[2U].NpiBase = (u16)((RegVal & NidbRegMask) >> NidbRegShift);
+	NidbRegMask = EFUSE_CACHE_NIDB_1_RDN_CNTL_2_MASK;
+	NidbRegShift = EFUSE_CACHE_NIDB_1_RDN_CNTL_2_SHIFT;
+	EfuseGroup[2U].RdnCntl = (u8)((RegVal & NidbRegMask) >> NidbRegShift);
 
 	/* Initialize 4th NIDB Group */
 	/* Portion of NPI_BASE_3 is stored in NIDB_2 [8:3] and NIDB_1 [2:0] */
-	EfuseGroup[3U].NpiOffset = (u8)((RegVal & EFUSE_CACHE_NIDB_1_NPI_OFFSET_3_MASK
-	>> EFUSE_CACHE_NIDB_1_NPI_OFFSET_3_SHIFT));
-	EfuseGroup[3U].NpiBase = (u16)((RegVal & EFUSE_CACHE_NIDB_1_NPI_BASE_3_MASK) >>
-	EFUSE_CACHE_NIDB_1_NPI_BASE_3_SHIFT);
+	NidbRegMask = EFUSE_CACHE_NIDB_1_NPI_OFFSET_3_MASK;
+	NidbRegShift = EFUSE_CACHE_NIDB_1_NPI_OFFSET_3_SHIFT;
+	EfuseGroup[3U].NpiOffset = (u8)((RegVal & NidbRegMask) >> NidbRegShift);
+	NidbRegMask = EFUSE_CACHE_NIDB_1_NPI_BASE_3_MASK;
+	NidbRegShift = EFUSE_CACHE_NIDB_1_NPI_BASE_3_SHIFT;
+	EfuseGroup[3U].NpiBase = (u16)((RegVal & NidbRegMask) >> NidbRegShift);
 	RegVal = XPm_In32(BaseAddr + EFUSE_CACHE_NIDB_2_OFFSET);
-	EfuseGroup[3U].NpiBase |= (u16)((RegVal & EFUSE_CACHE_NIDB_2_NPI_BASE_3_MASK) <<
-	EFUSE_CACHE_NIDB_1_NPI_BASE_3_WIDTH);
-	EfuseGroup[3U].RdnCntl = (u8)((RegVal & EFUSE_CACHE_NIDB_2_RDN_CNTL_3_MASK) >>
-	EFUSE_CACHE_NIDB_2_RDN_CNTL_3_SHIFT);
+	NidbRegMask = EFUSE_CACHE_NIDB_2_NPI_BASE_3_MASK;
+	NidbRegShift = EFUSE_CACHE_NIDB_1_NPI_BASE_3_WIDTH;
+	EfuseGroup[3U].NpiBase |= (u16)((RegVal & NidbRegMask) << NidbRegShift);
+	NidbRegMask = EFUSE_CACHE_NIDB_2_RDN_CNTL_3_MASK;
+	NidbRegShift = EFUSE_CACHE_NIDB_2_RDN_CNTL_3_SHIFT;
+	EfuseGroup[3U].RdnCntl = (u8)((RegVal & NidbRegMask) >> NidbRegShift);
 
 	/* Initialize 5th Group*/
-	EfuseGroup[4U].NpiOffset = (u8)((RegVal & EFUSE_CACHE_NIDB_2_NPI_OFFSET_4_MASK)
-	>> EFUSE_CACHE_NIDB_2_NPI_OFFSET_4_SHIFT);
-	EfuseGroup[4U].NpiBase = (u16)((RegVal & EFUSE_CACHE_NIDB_2_NPI_BASE_4_MASK) >>
-	EFUSE_CACHE_NIDB_2_NPI_BASE_4_SHIFT);
-	EfuseGroup[4U].RdnCntl = (u8)((RegVal & EFUSE_CACHE_NIDB_2_RDN_CNTRL_4_MASK) >>
-	EFUSE_CACHE_NIDB_2_RDN_CNTRL_4_SHIFT);
+	NidbRegMask = EFUSE_CACHE_NIDB_2_NPI_OFFSET_4_MASK;
+	NidbRegShift = EFUSE_CACHE_NIDB_2_NPI_OFFSET_4_SHIFT;
+	EfuseGroup[4U].NpiOffset = (u8)((RegVal & NidbRegMask) >> NidbRegShift);
+	NidbRegMask = EFUSE_CACHE_NIDB_2_NPI_BASE_4_MASK;
+	NidbRegShift = EFUSE_CACHE_NIDB_2_NPI_BASE_4_SHIFT;
+	EfuseGroup[4U].NpiBase = (u16)((RegVal & NidbRegMask) >> NidbRegShift);
+	NidbRegMask = EFUSE_CACHE_NIDB_2_RDN_CNTRL_4_MASK;
+	NidbRegShift = EFUSE_CACHE_NIDB_2_RDN_CNTRL_4_SHIFT;
+	EfuseGroup[4U].RdnCntl = (u8)((RegVal & NidbRegMask) >> NidbRegShift);
 
 }
 
@@ -1508,8 +1558,8 @@ XStatus XPmBisr_NidbLaneRepair(void)
 
 	/* Check SLR TYPE */
 	SlrType = XPm_GetSlrType();
-	if ( SlrType == SLR_TYPE_MONOLITHIC_DEV ||
-		 SlrType == SLR_TYPE_INVALID) {
+	if ((SlrType == SLR_TYPE_MONOLITHIC_DEV) ||
+	    (SlrType == SLR_TYPE_INVALID)) {
 		PmInfo("Not an SSIT Device\n\r");
 		Status = XST_SUCCESS;
 		goto done;
@@ -1525,14 +1575,14 @@ XStatus XPmBisr_NidbLaneRepair(void)
 	NidbEfuseGrpInit(NidbEfuseGrpInfo);
 
 	/* lane repair logic */
-	for(i=0U; i<MAX_NIDB_EFUSE_GROUPS; ++i) {
+	for(i = 0U; i < MAX_NIDB_EFUSE_GROUPS; ++i) {
 		if (0x0U == NidbEfuseGrpInfo[i].RdnCntl) {
 			continue;
 		}
 
 		/* Skip Lane Repair for left most NIDB for Slave SSIT */
-		if (SlrType != SLR_TYPE_SSIT_DEV_MASTER_SLR &&
-			NidbEfuseGrpInfo[i].NpiBase == SlvSkipAddr) {
+		if ((SlrType != SLR_TYPE_SSIT_DEV_MASTER_SLR) &&
+			(NidbEfuseGrpInfo[i].NpiBase == SlvSkipAddr)) {
 			continue;
 		}
 
@@ -1555,7 +1605,7 @@ XStatus XPmBisr_NidbLaneRepair(void)
 		XPm_Out32(RepairAddr, NidbEfuseGrpInfo[i].RdnCntl);
 	}
 
-	for(i=0U; i<MAX_NIDB_EFUSE_GROUPS; ++i) {
+	for(i = 0U; i < MAX_NIDB_EFUSE_GROUPS; ++i) {
 
 		NidbAddr = NidbEfuseGrpInfo[i].NpiBase;
 		NidbAddr = (NidbAddr << 16U) + NPI_ROOT_BASEADDR;

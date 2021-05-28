@@ -383,7 +383,7 @@ XStatus XPm_PowerDwnLPD(void)
 	 * Isolate LPD <-> PL interface and mark the isolations pending for removal
 	 * only if appropriate based on the initial boot time configuration.
 	 */
-	for (i = 0; i < ARRAY_SIZE(LpdPlIso) && i < ARRAY_SIZE(LpdPlIsoErr); i++) {
+	for (i = 0; (i < ARRAY_SIZE(LpdPlIso)) && (i < ARRAY_SIZE(LpdPlIsoErr)); i++) {
 		XPm_IsoStates IsoState;
 
 		Status = XPmDomainIso_GetState(LpdPlIso[i], &IsoState);
@@ -545,7 +545,7 @@ XStatus XPm_PowerDwnFPD(XPm_Node *Node)
 	 * Isolate FPD <-> PL interface and mark the isolations pending for removal
 	 * only if appropriate based on the initial boot time configuration.
 	 */
-	for (i = 0; i < ARRAY_SIZE(FpdPlIso) && i < ARRAY_SIZE(FpdPlIsoErr); i++) {
+	for (i = 0; (i < ARRAY_SIZE(FpdPlIso)) && (i < ARRAY_SIZE(FpdPlIsoErr)); i++) {
 		XPm_IsoStates IsoState;
 
 		Status = XPmDomainIso_GetState(FpdPlIso[i], &IsoState);
