@@ -558,13 +558,14 @@ done:
 
 }
 
-static XStatus XPmIoctl_IsRegRequested(u32 SubsystemId, u32 RegNum, u32 Type)
+static XStatus XPmIoctl_IsRegRequested(u32 SubsystemId, u32 Register, u32 Type)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Requirement *Reqm = NULL;
 	u32 DeviceId;
 	u32 NodeClass = (u32)XPM_NODECLASS_DEVICE;
 	u32 NodeSubClass = (u32)XPM_NODESUBCL_DEV_PERIPH;
+	u32 RegNum = Register;
 
 	switch (Type) {
 	case (u32)XPM_NODETYPE_DEV_PGGS:

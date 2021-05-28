@@ -232,7 +232,7 @@ done:
  *
  * @param  SubsystemId  Subsystem Id
  * @param  DeviceId     Device Id
- * @param  Flags        Bit[0:1] - No-restriction(0)/Shared(1)/Time-Shared(2)/Nonshared(3)
+ * @param  ReqFlags     Bit[0:1] - No-restriction(0)/Shared(1)/Time-Shared(2)/Nonshared(3)
  *                      Bit[2] - Secure(1)/Nonsecure(0) (Device mode)
  *                      Bit[3] - Read access policy (Allowed(0)/Not-allowed(1))
  *                      Bit[4] - Write access policy (Allowed(0)/Not-allowed(1))
@@ -250,12 +250,13 @@ done:
  *
  ****************************************************************************/
 static XStatus XPm_AddDevRequirement(XPm_Subsystem *Subsystem, u32 DeviceId,
-				     u32 Flags, u32 *Args, u32 NumArgs)
+				     u32 ReqFlags, u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 DevType = NODETYPE(DeviceId);
 	u32 AperPerm, PreallocCaps, PreallocQoS;
 	XPm_Device *Device = NULL;
+	u32 Flags = ReqFlags;
 
 	switch (DevType) {
 	case (u32)XPM_NODETYPE_DEV_GGS:

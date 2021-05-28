@@ -191,7 +191,7 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...);
 #endif
 #endif
 
-void *XPm_AllocBytes(u32 Size);
+void *XPm_AllocBytes(u32 SizeInBytes);
 
 void XPm_Out32(u32 RegAddress, u32 l_Val);
 
@@ -227,7 +227,7 @@ XStatus XPm_PollForZero(u32 RegAddress, u32 Mask, u32 TimeOutCount);
 /**
  * Compute parity of a 32-bit word
  */
-u32 XPm_ComputeParity(u32 Value);
+u32 XPm_ComputeParity(u32 CalParity);
 
 /* Dump Memory Related Data like Total Mem, Usaged Mem, Free Mem */
 void XPm_DumpMemUsage(void);

@@ -260,7 +260,7 @@ int NodeGemIdle(u16 DeviceId, u32 BaseAddress);
 	defined(XILPM_ZDMA_6) || \
 	defined(XILPM_ZDMA_7))
 #include "xzdma_hw.h"
-int NodeZdmaIdle(u16 DeviceId, u32 BaseAddress);
+int NodeZdmaIdle(u16 DeviceId, u32 BaseAddr);
 #endif
 
 int XPmDevice_SoftResetIdle(XPm_Device *Device, const u32 IdleReq);

@@ -63,7 +63,7 @@ XPm_PinNode *XPmPin_GetById(u32 PinId);
 
 XStatus XPmPin_SetPinFunction(u32 PinId, u32 FuncId);
 XStatus XPmPin_GetPinFunction(u32 PinId, u32 *FuncId);
-XStatus XPmPin_SetPinConfig(u32 PinId, u32 Param, u32 Value);
+XStatus XPmPin_SetPinConfig(u32 PinId, u32 Param, u32 ParamValue);
 XStatus XPmPin_GetPinConfig(u32 PinId, u32 Param, u32 *Value);
 XStatus XPmPin_GetNumPins(u32 *NumPins);
 XStatus XPmPin_GetPinGroups(u32 PinId, u32 Index, u16 *Groups);
