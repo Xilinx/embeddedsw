@@ -306,7 +306,7 @@ static XStatus GtyHouseClean(void)
 {
 	volatile XStatus Status = XPM_ERR_HC_PL;
 	volatile XStatus StatusTmp = XPM_ERR_HC_PL;
-	unsigned int i;
+	u32 i;
 	u32 GtyAddrs[MAX_DEV_GT] = {0};
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 

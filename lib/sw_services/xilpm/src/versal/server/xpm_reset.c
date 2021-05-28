@@ -707,7 +707,7 @@ static u32 Reset_GetStatusCommon(XPm_ResetNode *Rst)
  */
 XStatus XPmReset_IsPermissionReset(const u32 ResetId)
 {
-	unsigned int Index;
+	u32 Index;
 	XStatus Status = XPM_PM_NO_ACCESS;
 	const u32 PermissionResets[] = {
 		PM_RST_PMC_POR,
@@ -793,9 +793,9 @@ done:
 	return Status;
 }
 
-int XPmReset_CheckPermissions(XPm_Subsystem *Subsystem, u32 ResetId)
+XStatus XPmReset_CheckPermissions(XPm_Subsystem *Subsystem, u32 ResetId)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	u32 DevId;
 	XPm_ResetHandle *DevHandle;
 	XPm_ResetNode *Rst = XPmReset_GetById(ResetId);
@@ -821,9 +821,9 @@ done:
 	return Status;
 }
 
-int XPmReset_SystemReset(void)
+XStatus XPmReset_SystemReset(void)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	u32 PlatformVersion = 0x0U;
 
 	/* TODO: Confirm if idling is required here or not */

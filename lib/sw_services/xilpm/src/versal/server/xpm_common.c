@@ -197,7 +197,7 @@ XStatus XPm_PollForMask(u32 RegAddress, u32 Mask, u32 TimeOutCount)
 	return ((TimeOut == 0U) ? XPM_PM_TIMEOUT : XST_SUCCESS);
 }
 
-int XPm_PollForMask64(u64 RegAddress, u32 Mask, u32 TimeOutCount)
+XStatus XPm_PollForMask64(u64 RegAddress, u32 Mask, u32 TimeOutCount)
 {
 	u32 l_RegValue;
 	u32 TimeOut = TimeOutCount;

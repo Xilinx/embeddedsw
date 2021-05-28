@@ -52,9 +52,9 @@ done:
 	return Status;
 }
 
-int XPmCore_StoreResumeAddr(XPm_Core *Core, u64 Address)
+XStatus XPmCore_StoreResumeAddr(XPm_Core *Core, u64 Address)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* Check for valid resume address */
@@ -77,7 +77,7 @@ done:
 	return Status;
 }
 
-int XPmCore_HasResumeAddr(XPm_Core *Core)
+XStatus XPmCore_HasResumeAddr(XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
 	u64 ResumeAddr;
@@ -95,9 +95,9 @@ done:
 	return Status;
 }
 
-int XPmCore_SetCPUIdleFlag(XPm_Core *Core, u32 CpuIdleFlag)
+XStatus XPmCore_SetCPUIdleFlag(XPm_Core *Core, u32 CpuIdleFlag)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 
 	if ((NULL == Core) || ((u8)PROC_DEV_MAX == Core->PsmToPlmEvent_ProcIdx)) {
 		goto done;
@@ -111,9 +111,9 @@ done:
 	return Status;
 }
 
-int XPmCore_GetCPUIdleFlag(XPm_Core *Core, u32 *CpuIdleFlag)
+XStatus XPmCore_GetCPUIdleFlag(XPm_Core *Core, u32 *CpuIdleFlag)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 
 	if ((NULL == Core) || ((u8)PROC_DEV_MAX == Core->PsmToPlmEvent_ProcIdx)) {
 		goto done;
@@ -176,7 +176,7 @@ done:
 	return Status;
 }
 
-int XPmCore_AfterDirectWakeUp(XPm_Core *Core)
+XStatus XPmCore_AfterDirectWakeUp(XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Power *PwrNode;
@@ -238,9 +238,9 @@ done:
 	return Status;
 }
 
-int XPmCore_AfterDirectPwrDwn(XPm_Core *Core)
+XStatus XPmCore_AfterDirectPwrDwn(XPm_Core *Core)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	XPm_Power *PwrNode;
 	XPm_Device *DevTcm0A = XPmDevice_GetById(PM_DEV_TCM_0_A);
 	XPm_Device *DevTcm0B = XPmDevice_GetById(PM_DEV_TCM_0_B);
@@ -290,9 +290,9 @@ done:
 	return Status;
 }
 
-int XPmCore_GetWakeupLatency(const u32 DeviceId, u32 *Latency)
+XStatus XPmCore_GetWakeupLatency(const u32 DeviceId, u32 *Latency)
 {
-	int Status = XST_SUCCESS;
+	XStatus Status = XST_SUCCESS;
 	XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
 	XPm_Power *Power;
 	u32 Lat = 0;

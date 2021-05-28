@@ -385,9 +385,9 @@ static void DisablePlXramIso(void)
 	return;
 }
 
-static int XPmDomainIso_SendEventToPsm(u32 IsoIdx, u32 Enable)
+static XStatus XPmDomainIso_SendEventToPsm(u32 IsoIdx, u32 Enable)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 

@@ -86,8 +86,8 @@ struct XPm_ResetNode {
 XStatus XPmReset_AddNode(u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetType, u8 NumParents, u32* Parents);
 XPm_ResetNode* XPmReset_GetById(u32 ResetId);
 XStatus XPmReset_AssertbyId(u32 ResetId, const u32 Action);
-int XPmReset_CheckPermissions(XPm_Subsystem *Subsystem, u32 ResetId);
-int XPmReset_SystemReset(void);
+XStatus XPmReset_CheckPermissions(XPm_Subsystem *Subsystem, u32 ResetId);
+XStatus XPmReset_SystemReset(void);
 XStatus XPmReset_AddPermission(XPm_ResetNode *Rst,
 			       const XPm_Subsystem *Subsystem,
 			       const u32 Operations);

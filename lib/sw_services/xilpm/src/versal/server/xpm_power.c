@@ -674,9 +674,9 @@ done:
 	return Status;
 }
 
-int XPmPower_GetWakeupLatency(const u32 DeviceId, u32 *Latency)
+XStatus XPmPower_GetWakeupLatency(const u32 DeviceId, u32 *Latency)
 {
-	int Status = XST_SUCCESS;
+	XStatus Status = XST_SUCCESS;
 	XPm_Power *Power = XPmPower_GetById(DeviceId);
 	XPm_Power *Parent;
 

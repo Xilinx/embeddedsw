@@ -40,7 +40,7 @@ extern "C" {
 
 XStatus XPmBisr_Repair(u32 TagId);
 XStatus XPmBisr_NidbLaneRepair(void);
-int XPmBisr_TriggerLpd(void);
+XStatus XPmBisr_TriggerLpd(void);
 
 #ifdef __cplusplus
 }

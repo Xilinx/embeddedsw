@@ -151,8 +151,8 @@ XStatus XPmClockPll_Resume(XPm_PllClockNode *Pll);
 XStatus XPmClockPll_Reset(XPm_PllClockNode *Pll, uint8_t Flags);
 XStatus XPmClockPll_SetParam(XPm_PllClockNode *Pll, u32 Param,u32 Value);
 XStatus XPmClockPll_GetParam(XPm_PllClockNode *Pll, u32 Param,u32 *Val);
-int XPmClockPll_QueryMuxSources(u32 Id, u32 Index, u32 *Resp);
-int XPmClockPll_GetWakeupLatency(const u32 Id, u32 *Latency);
+XStatus XPmClockPll_QueryMuxSources(u32 Id, u32 Index, u32 *Resp);
+XStatus XPmClockPll_GetWakeupLatency(const u32 Id, u32 *Latency);
 
 #ifdef __cplusplus
 }
