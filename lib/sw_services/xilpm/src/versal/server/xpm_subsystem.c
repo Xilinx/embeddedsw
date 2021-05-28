@@ -108,9 +108,9 @@ XStatus XPmSubsystem_IsOperationAllowed(const u32 HostId, const u32 TargetId,
 
 	/* Have Target check if Host can enact the operation */
 	if ((XPLMI_CMD_SECURE == CmdType) &&
-	    (PermissionMask & (1U << SUBSYS_TO_S_BITPOS(HostId)))) {
+	    (PermissionMask & ((u32)1U << SUBSYS_TO_S_BITPOS(HostId)))) {
 			Status = XST_SUCCESS;
-	} else if (PermissionMask & (1U << SUBSYS_TO_NS_BITPOS(HostId))) {
+	} else if (PermissionMask & ((u32)1U << SUBSYS_TO_NS_BITPOS(HostId))) {
 		Status = XST_SUCCESS;
 	} else {
 		/* Required by MISRA */
