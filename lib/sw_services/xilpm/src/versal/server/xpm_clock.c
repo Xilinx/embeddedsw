@@ -466,11 +466,12 @@ XStatus XPmClock_SetById(u32 ClockId, XPm_ClockNode *Clk)
 static struct XPm_ClkTopologyNode* XPmClock_GetTopologyNode(XPm_OutClockNode *Clk, u32 Type)
 {
 	struct XPm_ClkTopologyNode *SubNodes;
+	struct XPm_ClkTopologyNode *ClkSubNodes = NULL;
 	uint8_t NumNodes;
 	u32 i;
 
 	if (Clk == NULL) {
-		return NULL;
+		goto done;
 	}
 
 	SubNodes = *Clk->Topology.Nodes;
@@ -484,10 +485,12 @@ static struct XPm_ClkTopologyNode* XPmClock_GetTopologyNode(XPm_OutClockNode *Cl
 			if (Clk->Topology.Id != TOPOLOGY_CUSTOM) {
 				SubNodes[i].Reg = Clk->ClkNode.Node.BaseAddress;
 			}
-			return &SubNodes[i];
+			ClkSubNodes = &SubNodes[i];
+			break;
 		}
 	}
-	return NULL;
+done:
+	return ClkSubNodes;
 }
 
 static void XPmClock_InitParent(XPm_OutClockNode *Clk)
