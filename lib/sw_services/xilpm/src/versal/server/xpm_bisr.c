@@ -1250,8 +1250,8 @@ static u32 XPmBisr_RepairLaguna(u32 EfuseTagAddr, u32 TagSize)
 		Row1 = (u8)(LagunaRepairY1 / 96U);
 
 		/* Get tile index within FSR row */
-		Tile0 = LagunaRepairY0 % 96U;
-		Tile1 = LagunaRepairY1 % 96U;
+		Tile0 = (u8)(LagunaRepairY0 % 96U);
+		Tile1 = (u8)(LagunaRepairY1 % 96U);
 
 		/* Walk through each FSR row that requires repair */
 		for (RowIndex = Row0; RowIndex <= Row1; RowIndex++) {

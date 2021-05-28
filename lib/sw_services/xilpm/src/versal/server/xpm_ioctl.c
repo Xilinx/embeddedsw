@@ -850,7 +850,7 @@ int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id Ioctl
 	case IOCTL_WRITE_GGS:
 		Status = XPmIoctl_IsOperationAllowed(Arg1, SubsystemId,
 						     GgsWritePermissions,
-						     XPM_NODETYPE_DEV_GGS,
+						     (u32)XPM_NODETYPE_DEV_GGS,
 						     CmdType);
 		if (XST_SUCCESS != Status) {
 			goto done;
@@ -861,7 +861,7 @@ int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id Ioctl
 	case IOCTL_READ_GGS:
 		Status = XPmIoctl_IsOperationAllowed(Arg1, SubsystemId,
 						     GgsReadPermissions,
-						     XPM_NODETYPE_DEV_GGS,
+						     (u32)XPM_NODETYPE_DEV_GGS,
 						     CmdType);
 		if (XST_SUCCESS != Status) {
 			goto done;
@@ -872,7 +872,7 @@ int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id Ioctl
 	case IOCTL_WRITE_PGGS:
 		Status = XPmIoctl_IsOperationAllowed(Arg1, SubsystemId,
 						     PggsWritePermissions,
-						     XPM_NODETYPE_DEV_PGGS,
+						     (u32)XPM_NODETYPE_DEV_PGGS,
 						     CmdType);
 		if (XST_SUCCESS != Status) {
 			goto done;
@@ -883,7 +883,7 @@ int XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id Ioctl
 	case IOCTL_READ_PGGS:
 		Status = XPmIoctl_IsOperationAllowed(Arg1, SubsystemId,
 						     PggsReadPermissions,
-						     XPM_NODETYPE_DEV_PGGS,
+						     (u32)XPM_NODETYPE_DEV_PGGS,
 						     CmdType);
 		if (XST_SUCCESS != Status) {
 			goto done;

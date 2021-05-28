@@ -400,7 +400,8 @@ static XStatus PlHouseClean(u32 TriggerTime)
 	u32 Platform = XPm_GetPlatform();
 	u32 PlatformVersion = XPm_GetPlatformVersion();
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	u8 DeviceType;
+	u32 DeviceType;
+	u32 RegAddr;
 
 
 	if (PLHCLEAN_EARLY_BOOT == TriggerTime) {
@@ -491,8 +492,8 @@ static XStatus PlHouseClean(u32 TriggerTime)
 
 		/* LAGUNA REPAIR */
 		/* Read PMC_TAP to check if device is SSIT device */
-		DeviceType = PMC_TAP_SLR_TYPE_MASK & XPm_In32(PMC_TAP_BASEADDR +
-				PMC_TAP_SLR_TYPE_OFFSET);
+		RegAddr = PMC_TAP_BASEADDR + PMC_TAP_SLR_TYPE_OFFSET;
+		DeviceType = PMC_TAP_SLR_TYPE_MASK & XPm_In32(RegAddr);
 
 		if ((0U != DeviceType) && (7U != DeviceType)) {
 			Status = XPmBisr_Repair(LAGUNA_TAG_ID);
