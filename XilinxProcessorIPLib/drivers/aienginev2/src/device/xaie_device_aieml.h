@@ -26,6 +26,7 @@
 /***************************** Include Files *********************************/
 /************************** Function Prototypes  *****************************/
 u8 _XAieMl_GetTTypefromLoc(XAie_DevInst *DevInst, XAie_LocType Loc);
+AieRC _XAieMl_SetPartColShimReset(XAie_DevInst *DevInst, u8 Enable);
 
 #endif /* XAIE_DEVICE_AIEML */
 /** @} */

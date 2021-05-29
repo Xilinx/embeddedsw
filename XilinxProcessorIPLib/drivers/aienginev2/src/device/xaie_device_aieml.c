@@ -71,4 +71,27 @@ u8 _XAieMl_GetTTypefromLoc(XAie_DevInst *DevInst, XAie_LocType Loc)
 	return XAIEGBL_TILE_TYPE_MAX;
 }
 
+/*****************************************************************************/
+/**
+*
+* This API sets the reset bit of SHIM for the specified partition.
+*
+* @param	DevInst: Device Instance
+* @param	Enable: Indicate if to enable SHIM reset or disable SHIM reset
+*			XAIE_ENABLE to enable SHIM reset, XAIE_DISABLE to
+*			disable SHIM reset.
+*
+* @return	XAIE_OK
+*
+* @note		Internal API only. Always returns XAIE_OK, as there is nothing
+*		need to be done for aieml device.
+*
+******************************************************************************/
+AieRC _XAieMl_SetPartColShimReset(XAie_DevInst *DevInst, u8 Enable)
+{
+	(void)DevInst;
+	(void)Enable;
+	return XAIE_OK;
+}
+
 /** @} */
