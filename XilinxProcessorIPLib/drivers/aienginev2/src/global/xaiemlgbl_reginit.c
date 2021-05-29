@@ -4029,6 +4029,48 @@ static const XAie_L2IntrMod Aie2NoCL2IntrMod =
 };
 
 /*
+ * Data structure to configures tile control for
+ * XAIEGBL_TILE_TYPE_AIETILE tile type
+ */
+static const XAie_TileCtrlMod Aie2CoreTileCtrlMod =
+{
+	.TileCtrlRegOff = XAIEMLGBL_CORE_MODULE_TILE_CONTROL,
+	.IsolateEast = {XAIEMLGBL_CORE_MODULE_TILE_CONTROL_ISOLATE_FROM_EAST_LSB, XAIEMLGBL_CORE_MODULE_TILE_CONTROL_ISOLATE_FROM_EAST_MASK},
+	.IsolateNorth = {XAIEMLGBL_CORE_MODULE_TILE_CONTROL_ISOLATE_FROM_NORTH_LSB, XAIEMLGBL_CORE_MODULE_TILE_CONTROL_ISOLATE_FROM_NORTH_MASK},
+	.IsolateWest = {XAIEMLGBL_CORE_MODULE_TILE_CONTROL_ISOLATE_FROM_WEST_LSB, XAIEMLGBL_CORE_MODULE_TILE_CONTROL_ISOLATE_FROM_WEST_MASK},
+	.IsolateSouth = {XAIEMLGBL_CORE_MODULE_TILE_CONTROL_ISOLATE_FROM_SOUTH_LSB, XAIEMLGBL_CORE_MODULE_TILE_CONTROL_ISOLATE_FROM_SOUTH_MASK},
+	.IsolateDefaultOn = XAIE_ENABLE,
+};
+
+/*
+ * Data structure to configures tile control for
+ * XAIEGBL_TILE_TYPE_MEMTILE tile type
+ */
+static const XAie_TileCtrlMod Aie2MemTileCtrlMod =
+{
+	.TileCtrlRegOff = XAIEMLGBL_MEM_TILE_MODULE_TILE_CONTROL,
+	.IsolateEast = {XAIEMLGBL_MEM_TILE_MODULE_TILE_CONTROL_ISOLATE_FROM_EAST_LSB, XAIEMLGBL_MEM_TILE_MODULE_TILE_CONTROL_ISOLATE_FROM_EAST_MASK},
+	.IsolateNorth = {XAIEMLGBL_MEM_TILE_MODULE_TILE_CONTROL_ISOLATE_FROM_NORTH_LSB, XAIEMLGBL_MEM_TILE_MODULE_TILE_CONTROL_ISOLATE_FROM_NORTH_MASK},
+	.IsolateWest = {XAIEMLGBL_MEM_TILE_MODULE_TILE_CONTROL_ISOLATE_FROM_WEST_LSB, XAIEMLGBL_MEM_TILE_MODULE_TILE_CONTROL_ISOLATE_FROM_WEST_MASK},
+	.IsolateSouth = {XAIEMLGBL_MEM_TILE_MODULE_TILE_CONTROL_ISOLATE_FROM_SOUTH_LSB, XAIEMLGBL_MEM_TILE_MODULE_TILE_CONTROL_ISOLATE_FROM_SOUTH_MASK},
+	.IsolateDefaultOn = XAIE_ENABLE,
+};
+
+/*
+ * Data structure to configures tile control for
+ * XAIEGBL_TILE_TYPE_SHIMPL/NOC tile type
+ */
+static const XAie_TileCtrlMod Aie2ShimTileCtrlMod =
+{
+	.TileCtrlRegOff = XAIEMLGBL_PL_MODULE_TILE_CONTROL,
+	.IsolateEast = {XAIEMLGBL_PL_MODULE_TILE_CONTROL_ISOLATE_FROM_EAST_LSB, XAIEMLGBL_PL_MODULE_TILE_CONTROL_ISOLATE_FROM_EAST_MASK},
+	.IsolateNorth = {XAIEMLGBL_PL_MODULE_TILE_CONTROL_ISOLATE_FROM_NORTH_LSB, XAIEMLGBL_PL_MODULE_TILE_CONTROL_ISOLATE_FROM_NORTH_MASK},
+	.IsolateWest = {XAIEMLGBL_PL_MODULE_TILE_CONTROL_ISOLATE_FROM_WEST_LSB, XAIEMLGBL_PL_MODULE_TILE_CONTROL_ISOLATE_FROM_WEST_MASK},
+	.IsolateSouth = {XAIEMLGBL_PL_MODULE_TILE_CONTROL_ISOLATE_FROM_SOUTH_LSB, XAIEMLGBL_PL_MODULE_TILE_CONTROL_ISOLATE_FROM_SOUTH_MASK},
+	.IsolateDefaultOn = XAIE_ENABLE,
+};
+
+/*
  * AIE2 Module
  * This data structure captures all the modules for each tile type.
  * Depending on the tile type, this data strcuture can be used to access all
@@ -4053,6 +4095,7 @@ XAie_TileMod Aie2Mod[] =
 		.TraceMod = Aie2TileTraceMod,
 		.L1IntrMod = NULL,
 		.L2IntrMod = NULL,
+		.TileCtrlMod = &Aie2CoreTileCtrlMod,
 	},
 	{
 		/*
@@ -4071,6 +4114,7 @@ XAie_TileMod Aie2Mod[] =
 		.TraceMod = &Aie2PlTraceMod,
 		.L1IntrMod = &Aie2PlL1IntrMod,
 		.L2IntrMod = &Aie2NoCL2IntrMod,
+		.TileCtrlMod = &Aie2ShimTileCtrlMod,
 	},
 	{
 		/*
@@ -4089,6 +4133,7 @@ XAie_TileMod Aie2Mod[] =
 		.TraceMod = &Aie2PlTraceMod,
 		.L1IntrMod = &Aie2PlL1IntrMod,
 		.L2IntrMod = NULL,
+		.TileCtrlMod = &Aie2ShimTileCtrlMod,
 	},
 	{
 		/*
@@ -4107,6 +4152,7 @@ XAie_TileMod Aie2Mod[] =
 		.TraceMod = &Aie2MemTileTraceMod,
 		.L1IntrMod = NULL,
 		.L2IntrMod = NULL,
+		.TileCtrlMod = &Aie2MemTileCtrlMod,
 	}
 };
 
