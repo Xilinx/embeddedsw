@@ -23,6 +23,7 @@
 /***************************** Include Files *********************************/
 #include "xaie_helper.h"
 #include "xaie_clock.h"
+#include "xaie_tilectrl.h"
 
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
@@ -122,6 +123,46 @@ AieRC _XAieMl_SetPartColClockAfterRst(XAie_DevInst *DevInst, u8 Enable)
 	RC = _XAie_PmSetPartitionClock(DevInst, XAIE_ENABLE);
 	if(RC != XAIE_OK) {
 		XAIE_ERROR("Failed to enable clock buffers.\n");
+	}
+
+	return RC;
+}
+
+/*****************************************************************************/
+/**
+*
+* This API sets isolation boundry of an AI engine partition after reset
+*
+* @param	DevInst: Device Instance
+*
+* @return       XAIE_OK on success, error code on failure
+*
+* @note		It is not required to check the DevInst as the caller function
+*		should provide the correct value.
+*		Internal API only.
+*
+******************************************************************************/
+AieRC _XAieMl_SetPartIsolationAfterRst(XAie_DevInst *DevInst)
+{
+	AieRC RC = XAIE_OK;
+
+	for(u8 C = 0; C < DevInst->NumCols; C++) {
+		u8 Dir = 0;
+
+		if(C == 0) {
+			Dir = XAIE_ISOLATE_WEST_MASK;
+		} else if(C == (u8)(DevInst->NumCols - 1)) {
+			Dir = XAIE_ISOLATE_EAST_MASK;
+		}
+
+		for(u8 R = 0; R < DevInst->NumRows; R++) {
+			RC = _XAie_TileCtrlSetIsolation(DevInst,
+					XAie_TileLoc(C, R), Dir);
+			if(RC != XAIE_OK) {
+				XAIE_ERROR("Failed to set partition isolation.\n");
+				return RC;
+			}
+		}
 	}
 
 	return RC;
