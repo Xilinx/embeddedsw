@@ -4071,6 +4071,32 @@ static const XAie_TileCtrlMod Aie2ShimTileCtrlMod =
 };
 
 /*
+ * Data structure to configures memory control for
+ * XAIEGBL_TILE_TYPE_AIETILE tile type
+ */
+static const XAie_MemCtrlMod Aie2TileMemCtrlMod[] =
+{
+	{
+		.MemCtrlRegOff = XAIEMLGBL_MEMORY_MODULE_MEMORY_CONTROL,
+		.MemZeroisation = {XAIEMLGBL_MEMORY_MODULE_MEMORY_CONTROL_MEMORY_ZEROISATION_LSB, XAIEMLGBL_MEMORY_MODULE_MEMORY_CONTROL_MEMORY_ZEROISATION_MASK},
+	},
+	{
+		.MemCtrlRegOff = XAIEMLGBL_CORE_MODULE_MEMORY_CONTROL,
+		.MemZeroisation = {XAIEMLGBL_CORE_MODULE_MEMORY_CONTROL_MEMORY_ZEROISATION_LSB, XAIEMLGBL_CORE_MODULE_MEMORY_CONTROL_MEMORY_ZEROISATION_MASK},
+	},
+};
+
+/*
+ * Data structure to configures memory control for
+ * XAIEGBL_TILE_TYPE_MEMTILE tile type
+ */
+static const XAie_MemCtrlMod Aie2MemTileMemCtrlMod =
+{
+	.MemCtrlRegOff = XAIEMLGBL_MEM_TILE_MODULE_MEMORY_CONTROL,
+	.MemZeroisation = {XAIEMLGBL_MEM_TILE_MODULE_MEMORY_CONTROL_MEMORY_ZEROISATION_LSB, XAIEMLGBL_MEM_TILE_MODULE_MEMORY_CONTROL_MEMORY_ZEROISATION_MASK},
+};
+
+/*
  * AIE2 Module
  * This data structure captures all the modules for each tile type.
  * Depending on the tile type, this data strcuture can be used to access all
@@ -4096,6 +4122,7 @@ XAie_TileMod Aie2Mod[] =
 		.L1IntrMod = NULL,
 		.L2IntrMod = NULL,
 		.TileCtrlMod = &Aie2CoreTileCtrlMod,
+		.MemCtrlMod = Aie2TileMemCtrlMod,
 	},
 	{
 		/*
@@ -4115,6 +4142,7 @@ XAie_TileMod Aie2Mod[] =
 		.L1IntrMod = &Aie2PlL1IntrMod,
 		.L2IntrMod = &Aie2NoCL2IntrMod,
 		.TileCtrlMod = &Aie2ShimTileCtrlMod,
+		.MemCtrlMod = NULL,
 	},
 	{
 		/*
@@ -4134,6 +4162,7 @@ XAie_TileMod Aie2Mod[] =
 		.L1IntrMod = &Aie2PlL1IntrMod,
 		.L2IntrMod = NULL,
 		.TileCtrlMod = &Aie2ShimTileCtrlMod,
+		.MemCtrlMod = NULL,
 	},
 	{
 		/*
@@ -4153,6 +4182,7 @@ XAie_TileMod Aie2Mod[] =
 		.L1IntrMod = NULL,
 		.L2IntrMod = NULL,
 		.TileCtrlMod = &Aie2MemTileCtrlMod,
+		.MemCtrlMod = &Aie2MemTileMemCtrlMod,
 	}
 };
 
@@ -4163,6 +4193,7 @@ XAie_DeviceOps AieMlDevOps =
 	.SetPartColShimReset = &_XAieMl_SetPartColShimReset,
 	.SetPartColClockAfterRst = &_XAieMl_SetPartColClockAfterRst,
 	.SetPartIsolationAfterRst = &_XAieMl_SetPartIsolationAfterRst,
+	.PartMemZeroInit = &_XAieMl_PartMemZeroInit,
 };
 
 /** @} */
