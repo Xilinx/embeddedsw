@@ -168,4 +168,62 @@ AieRC _XAieMl_SetPartIsolationAfterRst(XAie_DevInst *DevInst)
 	return RC;
 }
 
+/*****************************************************************************/
+/**
+*
+* This API initialize the memories of the partition to zero.
+*
+* @param	DevInst: Device Instance
+*
+* @return       XAIE_OK on success, error code on failure
+*
+* @note		It is not required to check the DevInst as the caller function
+*		should provide the correct value.
+*		Internal API only.
+*
+******************************************************************************/
+AieRC _XAieMl_PartMemZeroInit(XAie_DevInst *DevInst)
+{
+	AieRC RC = XAIE_OK;
+	const XAie_MemCtrlMod *MCtrlMod, *MCtrlModLast;
+	u64 RegAddr;
+	XAie_LocType Loc;
+
+	for(u8 C = 0; C < DevInst->NumCols; C++) {
+		for(u8 R = 1; R < DevInst->NumRows; R++) {
+			u32 FldVal;
+			u8 TileType, NumMods;
+
+			Loc = XAie_TileLoc(C, R);
+			TileType = DevInst->DevOps->GetTTypefromLoc(DevInst,
+					Loc);
+			NumMods = DevInst->DevProp.DevMod[TileType].NumModules;
+			MCtrlMod = DevInst->DevProp.DevMod[TileType].MemCtrlMod;
+			for (u8 M = 0; M < NumMods; M++) {
+				RegAddr = MCtrlMod->MemCtrlRegOff +
+					_XAie_GetTileAddr(DevInst, R, C);
+				FldVal = XAie_SetField(XAIE_ENABLE,
+					MCtrlMod->MemZeroisation.Lsb,
+					MCtrlMod->MemZeroisation.Mask);
+				RC = XAie_MaskWrite32(DevInst, RegAddr,
+					MCtrlMod->MemZeroisation.Mask,
+					FldVal);
+				if(RC != XAIE_OK) {
+					XAIE_ERROR("Failed to zeroize partition mems.\n");
+					return RC;
+				}
+				MCtrlModLast = MCtrlMod;
+				MCtrlMod++;
+			}
+		}
+	}
+
+	RegAddr = MCtrlModLast->MemCtrlRegOff +
+		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
+	XAie_MaskPoll(DevInst, RegAddr,
+			MCtrlModLast->MemZeroisation.Mask, 0, 0);
+
+	return XAIE_OK;
+}
+
 /** @} */
