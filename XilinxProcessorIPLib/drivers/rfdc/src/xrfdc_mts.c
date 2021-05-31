@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc_mts.c
-* @addtogroup rfdc_v10_0
+* @addtogroup rfdc_v11_0
 * @{
 *
 * Contains the multi tile sync functions of the XRFdc driver.
@@ -49,6 +49,7 @@
 *                       change to the prototype of XRFdc_MultiConverter_Init.
 *       cog    05/06/21 Minimum gap between edges in DTC scan for T1 should be
 *                       reduced for Gen 3 devices.
+* 11.0  cog    05/31/21 Upversion.
 *
 * </pre>
 *

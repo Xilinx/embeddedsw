@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc_clock.c
-* @addtogroup rfdc_v10_0
+* @addtogroup rfdc_v11_0
 * @{
 *
 * Contains the interface functions of the Clock Settings in XRFdc driver.
@@ -69,6 +69,7 @@
 *                       high sampling rates.
 *       cog    05/18/21 Fixed issue where valid DFE configurations were not being
 *                       allowed.
+* 11.0  cog    05/31/21 Upversion.
 * </pre>
 *
 ******************************************************************************/

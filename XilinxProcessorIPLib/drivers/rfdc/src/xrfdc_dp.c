@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc_dp.c
-* @addtogroup rfdc_v10_0
+* @addtogroup rfdc_v11_0
 * @{
 *
 * Contains the interface functions of the Digital Path Settings in XRFdc driver.
@@ -19,6 +19,7 @@
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
 * 10.0  cog    11/26/20 Refactor and split files.
+* 11.0  cog    05/31/21 Upversion.
 *
 * </pre>
 *

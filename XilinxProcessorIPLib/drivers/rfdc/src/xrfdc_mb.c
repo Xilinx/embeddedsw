@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc_mb.c
-* @addtogroup rfdc_v10_0
+* @addtogroup rfdc_v11_0
 * @{
 *
 * Contains the interface functions of the Mixer Settings in XRFdc driver.
@@ -36,6 +36,7 @@
 * 9.0   cog    11/25/20 Upversion.
 * 10.0  cog    11/26/20 Refactor and split files.
 *       cog    12/23/20 Fixed issue with IQ QMC on 48dr devices.
+* 11.0  cog    05/31/21 Upversion.
 *
 * </pre>
 *

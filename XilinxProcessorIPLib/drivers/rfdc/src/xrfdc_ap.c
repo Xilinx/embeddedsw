@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc_ap.c
-* @addtogroup rfdc_v10_0
+* @addtogroup rfdc_v11_0
 * @{
 *
 * Contains the interface functions of the Analogue Path Settings in XRFdc driver.
@@ -27,6 +27,7 @@
 *       cog    01/05/21 Second signal detector removed.
 *       cog    01/06/21 Added DAC data scaler APIs.
 *       cog    01/11/21 Tuning for autocalibration.
+* 11.0  cog    05/31/21 Upversion.
 *
 * </pre>
 *

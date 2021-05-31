@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc_hw.h
-* @addtogroup rfdc_v10_0
+* @addtogroup rfdc_v11_0
 * @{
 *
 * This header file contains the identifiers and basic HW access driver
@@ -99,6 +99,7 @@
 *       cog    03/12/21 Allow ADC to divide and redistribute full rate clock.
 *       cog    03/12/21 Tweaks for improved calibration performance.
 *       cog    04/01/21 The threshold under/over value masks should be 14 bits.
+* 11.0  cog    05/31/21 Upversion.
 *
 *</pre>
 *
