@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc.h
-* @addtogroup rfdc_v10_0
+* @addtogroup rfdc_v11_0
 * @{
 * @details
 *
@@ -276,6 +276,7 @@
 *       cog    05/05/21 Fixed issue where driver was attempting to start ADC 3
 *                       for DFE variants.
 *       cog    05/05/21 Rename the MAX/MIN macros to avoid potential conflicts.
+* 11.0  cog    05/31/21 Upversion.
 *
 * </pre>
 *

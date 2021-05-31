@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc_mixer.c
-* @addtogroup rfdc_v10_0
+* @addtogroup rfdc_v11_0
 * @{
 *
 * Contains the interface functions of the Mixer Settings in XRFdc driver.
@@ -53,6 +53,7 @@
 * 9.0   cog    11/25/20 Upversion.
 * 10.0  cog    11/26/20 Refactor and split files.
 *       cog    02/16/21 Fixed issue with the fine mix auto scale setting.
+* 11.0  cog    05/31/21 Upversion.
 * </pre>
 *
 ******************************************************************************/

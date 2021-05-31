@@ -200,6 +200,8 @@
 *                       for DFE variants.
 *       cog    05/05/21 Some dividers and delays need to be set to run caliration at
 *                       high sampling rates.
+*       cog    05/26/21 Fixed issue where any end state could be selected in custom
+*                       startup API if a start state of 1 was supplied.
 *
 * </pre>
 *
@@ -746,7 +748,7 @@ u32 XRFdc_CustomStartUp(XRFdc *InstancePtr, u32 Type, int Tile_Id, u32 StartStat
 		goto RETURN_PATH;
 	}
 
-	if ((EndState != XRFDC_STATE_OFF) && (StartState != XRFDC_STATE_SHUTDOWN) && (EndState != XRFDC_STATE_PWRUP) &&
+	if ((EndState != XRFDC_STATE_OFF) && (EndState != XRFDC_STATE_SHUTDOWN) && (EndState != XRFDC_STATE_PWRUP) &&
 	    (EndState != XRFDC_STATE_CLK_DET) && (EndState != XRFDC_STATE_CAL) && (EndState != XRFDC_STATE_FULL)) {
 		metal_log(METAL_LOG_ERROR, "\n Invalid end state (%u) in %s\r\n", EndState, __func__);
 		Status = XRFDC_FAILURE;
