@@ -7,7 +7,7 @@
 /**
 *
 * @file xdprxss_selftest.c
-* @addtogroup dprxss_v4_4
+* @addtogroup dprxss_v4_5
 * @{
 *
 * This file contains self test function for the DisplayPort Receiver

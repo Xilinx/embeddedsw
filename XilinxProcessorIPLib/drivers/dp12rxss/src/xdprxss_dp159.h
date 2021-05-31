@@ -7,7 +7,7 @@
 /**
 *
 * @file xdprxss_dp159.h
-* @addtogroup dprxss_v4_4
+* @addtogroup dprxss_v4_5
 * @{
 *
 * This is the header file contains macros, enum, structure and function
