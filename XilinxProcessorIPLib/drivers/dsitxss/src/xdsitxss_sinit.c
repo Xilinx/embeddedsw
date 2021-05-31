@@ -7,7 +7,7 @@
 /**
 *
 * @file xdsitxss_sinit.c
-* @addtogroup dsitxss_v2_1
+* @addtogroup dsitxss_v2_2
 * @{
 *
 * This file contains the implementation of the MIPI DSI Tx Subsystem
