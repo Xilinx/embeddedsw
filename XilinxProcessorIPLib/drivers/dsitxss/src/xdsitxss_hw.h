@@ -7,7 +7,7 @@
 /**
 *
 * @file xdsitxss_hw.h
-* @addtogroup dsitxss_v2_1
+* @addtogroup dsitxss_v2_2
 * @{
 *
 * This header file contains identifiers and register-level core functions (or
