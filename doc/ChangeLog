@@ -1,6 +1,24 @@
 Changes for 2021.1
 ===============================
 
+uartpsv_v1_5:
+Fix doxygen warnings
+
+usbps_v2_7:
+Fixed example warning.
+
+usbpsu_v1_9:
+Fix Doxygen warnings.
+Fixed MISRA-C 2012 warnings.
+
+wdtps_v3_5:
+Add compilation check for multiple instances
+Fix doxygen warnings.
+Fix MISRA-C violations.
+
+wdttb_v5_2:
+Fix doxygen warnings
+
 qspips_v3_9:
 Fix doxygen warnings
 
