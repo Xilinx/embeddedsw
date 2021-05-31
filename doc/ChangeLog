@@ -1,6 +1,24 @@
 Changes for 2021.1
 ===============================
 
+rfdc_v10_0
+Driver Refactored into multiple files accoring to compenent function
+Added a custom startup API that allows to start/stop at various states in IPSM
+Added functionallity for DFE varient devices
+Fixed Bug where suppled PLL FS was being saved rather than the calculated FS
+Moved non user macros insid relavent C files to reduce scope
+Fixed bug where signal detector on/off counters where flipped
+Removed second signal detector
+Added data scaler API
+Calibration Tuning and tweaks to improve performance
+rename of MAX/MIN macros to avoid conflicts
+Added clocking scenarios
+Fixed issue with QMC when in IQ mode
+Fixed issue with the autoscale settiing when using the fine mixer
+Minimum gap between edges in MTS DTC scan for T1 reduced for Gen 3 devices
+User can now set the reference tile when using MTS
+Reference tile now scanned first when using MTS
+
 dp14rxss_v7_0:
 Added HDCP 2.3 Repeater Support
 Added adaptive-sync feature support in multi stream mode.
