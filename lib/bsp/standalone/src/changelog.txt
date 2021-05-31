@@ -634,5 +634,34 @@
  *                      to xil_util.h
  *     am     10/26/20  Updated src/common/xil_io.h and xil_util.h to fix issues
  *                      reported by MISRA C and coverity tool.
+ * 7.4 mus   12/21/20   Updated standalone tcl to support CIPS 3.0 based HW designs
+ * 7.5 mus   05/31/21   GCC 10.2 is complaining when section attribute is added
+ *                      to declaration. Updated  Cortex-R5 BSP to remove attributes from
+ *                      declaration of Mpu_Config structure.
+ *     dp    01/19/21   Update counts per msec/usec macros across all supported BSPs to
+ *                      minimize delta error
+ *     mus   01/20/21   Update Xil_DCacheFlushRange function in Cortex-A9 BSP with errata#588369
+ *                      workaround
+ *     bm    02/17/21   Added xil_vprintf function and moved most of the logic from xil_printf
+ *                      to xil_printf, and calling xil_vprintf from xil_printf.
+ *     dp    02/17/21   Fixed compilation errors with -Werror=conversion compiler flag.
+ *     asa   03/10/21   Added spinlock mechanism for ARMv7 processors.
+ *     mus   03/23/21   Added new set of Xil_TestMem32, Xil_TestMem16 and Xil_TestMem8
+ *                      APIs to support memory test for memory regions mapped at extended
+*                       addresses (addresses > 4 GB) in case of 32 bit Miroblaze processor.
+ *     mus   03/26/21   Added weak implemantation of clock function for ARM processors.
+ *     mus   04/15/21   Fixed warnings reported by doxygen tool.
+ *     mus   04/22/21   Updated sleep routines from Microblaze BSP to keep them in sync
+ *                      with Microblaze processor frequency. This is done to avoid incorrect
+ *                      behavior of sleep routines, if Microblaze processor frequency
+ *                      is changed during runtime.
+ *     mus   05/05/21   Updated src/common/xdebug.h and xstatus.h to consolidate them with
+ *                      xstatus.h and xdebug.h in common driver.
+ *     mus   05/10/21   Moved pragma messages from .h files to .c files to avoid displaying
+ *                      same message multiple times during compilation.
+ *     mus   05/15/21   Fixed HIS_COMF metric violations in xil_io.h file.
+ *     mus   05/25/21   Added mitigation in ARMv8 BSP for speculative execution past ERET and BR instruction
+ *                      (CVE-2020-13844).
+ *
  *
  *****************************************************************************************/
