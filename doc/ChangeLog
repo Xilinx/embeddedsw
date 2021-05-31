@@ -1,6 +1,93 @@
 Changes for 2021.1
 ===============================
 
+dp14rxss_v7_0:
+Added HDCP 2.3 Repeater Support
+Added adaptive-sync feature support in multi stream mode.
+Added support for Interrupt handlers for all valid interrupts for MST.
+Loading BKSV only once during initialization. This is required to ensure that during HDCP 1.4/HDCP 2.2 switching the BKSVs are already available in the RAM FIFO
+Added an API to reset the MCDP during Clock Recovery phase.
+
+hdcp1x_v4_6:
+Loading BKSV only once during initialization. This is required to ensure that during HDCP 1.4/HDCP 2.2 switching the BKSVs are already available in the RAM FIFO
+Removed clearing BKSV registers at HDCP disable.
+hdcp22_rx_v3_1:
+Removed setting VERSION register in DDC reset handler
+
+hdcp22_rx_dp_v2_1:
+Added HDCP 2.3 Repeater Support
+
+hdcp22_tx_dp_v2_1:
+Added HDCP 2.3 Repeater Support
+
+xilsem_v1_ 3:
+Created a Server-client directory structure
+Restructured the server code for better modularity
+Added support for IPI Server Interface for CRAM & NPI scan
+Added support for IPI Client Interface for CRAM & NPI scan
+Added deferred start-up for CRAM & NPI Scan
+Added detect only support for CRAM
+Added support for SWECC for CRAM Scan
+Added support for new descriptor format (SW SHA & HW SHA)
+Provided examples for IPI client interface
+Added support for PL-GPIO  interface for CRAM & NPI scan status s & error information
+Migration of NPI status and error info from PMC GLOBAL to PMC RAM
+Added support to read CRAM & NPI scan status from PMC RAM
+Added error notification over IPI
+Added customized prints for reporting error detection and correction for beam testing
+Improved performance for CRAM & NPI scan
+Fixed delays in reading the frames,  SHA-3 mismatch issues and partial PDI loading error in NPI scan,
+
+dp12rxss_v4_5:
+Loading BKSV only once during initialization. This is required to ensure that during HDCP 1.4/HDCP 2.2 switching the BKSVs are already available in the RAM Fifo
+
+dp12txss_v5_4:
+No changes in driver. Application is modified to initialize HDCP 1.3 Keys before Rx configuration
+
+dp14_v7_5:
+Added HDCP 2.3 Repeater Support
+Rx Min voltage swing sweep count is modified to pass link layer compliance
+As per the latest DP CTS specification, increase the reference source waiting period before sending the next aux request.
+Added support for Interrupt handlers for all valid interrupts for MST.
+Add adaptive-sync feature support in multi stream mode.
+In case of Tx-only application, when application tries to send the VSC packet, it was observed that the Misc1 bit[6] received at the sink is zero and which disables the sink from recognizing the color format and bpc from VSC packet. This patch fixes by enabling Misc1 bit[6] of Tx subsystem register when there is a VSC packet received at the sink.
+
+
+xadcps_v2_6:
+Fixed MISRAC Mandatory and Advisory Errors
+Added declartions for functions whose declarations were missing.
+Removed function declartions without definitions.
+
+xxvethernet_v1_6:
+Fix address variable type for 64 bit support
+
+zdma_v1_12:
+Add documentation for function parameters to fix the doxygen warnings.
+
+xilflash_v4_9:
+Fixed doxygen warnings
+
+xilfpga_v6_0:
+Fixed AddrPtr_Size argument usage issue.
+Fixed MISRA-C violation.
+Removed unwanted if else conditions.
+Make Status variable volatile.
+Make XMboxInstance static.
+Fixed reuse of request buffer.
+Fixed the security glitch with IPI request buffer.
+Added function pointers validation check for XFpga_WriteToPl() API.
+Added support to load the authenticated bitstream image as non-secure image if RSA_EN is not programmed
+
+xilloader_v1_4:
+Added multiboot support at run-time
+Added support for PLM_SECURE_EXCLUDE macro
+Added support for Image Store updates during run-time
+Updated chunking logic for hashes
+Added support to dump DDRMC registers
+
+xilmailbox_v1_3:
+Doxygen Fixes
+
 uartpsv_v1_5:
 Fix doxygen warnings
 
