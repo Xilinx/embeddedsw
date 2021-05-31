@@ -978,7 +978,8 @@ int main(void)
 			} else {
 				XMt_SelectRank(RankArg);
 				XMt.RankSel = RankArg;
-				StartAddr = StartAddr | ((u64)RankArg << 32);
+				StartAddr = (StartAddr & ~((u64)1U << 32))
+						  | ((u64)RankArg << 32);
 			}
 
 		} else if ((Ch == 'i') || (Ch == 'I')) {
