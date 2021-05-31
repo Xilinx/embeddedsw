@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfclk_LMX_conf.h
-* @addtogroup xrfclk_LMX_conf_v1_1
+* @addtogroup xrfclk_LMX_conf_v1_2
 * @{
 *
 * Contains the configuration data for LMX.
