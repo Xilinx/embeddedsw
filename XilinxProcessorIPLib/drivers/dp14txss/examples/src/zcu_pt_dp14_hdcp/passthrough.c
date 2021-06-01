@@ -1239,11 +1239,17 @@ void DpPt_Main(void){
 			}
 				if(TxAuthAttempts == 100)
 				{
+#ifdef XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR
 					xil_printf(">>>> HDCPTX Authentication "
 							"failed , stopping passthrough video and starting ColorBar on TX \r\n");
-#ifdef XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR
+
 					Vpg_VidgenSetUserPattern(DpTxSsInst.DpPtr,
 									 0x11);
+#else
+					xil_printf("\r\n>>>> HDCPTX Authentication "
+							"failed , stopping passthrough video on TX \r\n");
+					// disabling Tx
+					XDpTxSs_Stop(&DpTxSsInst);
 #endif
 					TxAuthAttempts = 0;
 					break;
