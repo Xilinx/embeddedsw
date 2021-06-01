@@ -1,6 +1,50 @@
 Changes for 2021.1
 ===============================
 
+avbuf_v2_5:
+Remove unnecessary supported_peripherals, This fixes pick-up of wrong driver(avbuf) for DPPSU while creating BSP.
+
+dpdma_v1_4::
+Initialize dpdma subsystem before link training,This fixes black screen issue for monitors having link rate capacity max upto 2.7Gbps
+
+zynqmp_pmufw:
+Add DDR related code under DDR define macro
+Minor updates to FPGA load API
+Fix reset ops for assert() calls
+Check master permission for system shutdown and system restart
+Remove CRC16 logic from PMU Firmware and move it to IPI driver
+Give provision to enable or disable PMU build flags using config.h or compiler build flags
+Fix typos in xpfw_interrupts.c file
+Change API IDs to enumeration from defines
+Add PMU Local SERV_ERR register to MMIO register list
+Move call of PmProbeRpuState from PmGetNodeStatus to PmRequestWakeup
+Change scope for PmKillBoardPower to use in multiple modules
+Provide an option to direct board power down (ultra96)
+Add external WDT module
+Add Over Temperature Shutdown module
+Fix voltage status param reading
+Minor code optimizations in PMUFW
+Assign PL to PMU only during subsystem restart
+Added support for programming PUF Fuses as general purpose data
+
+sd_fec_v1_2:
+Fix to register write depth check. Previously byte depth was checked against word depth, now corrected to compare word depth.
+
+dppsu_v1_4:
+Remove hardcoded value for number of instances
+Fix build issue for iar compiler
+
+intc_v3_13:
+Updated source code comments in few files.
+Updated message printed by intc tcl in case of unconnected pins in HW design
+
+iomodule_v2_11:
+Fixed warnings reported by doxygen tool
+
+sysmonpsv_v2_2:
+add documentation and support for prod silicon
+add an array with supply names in string format
+
 freertos10_xilinx_v1_9:
 Upgrade kernel to upstream 10.4.3 version
 Initialize task return address with portTASK_RETURN_ADDRESS for all supported ports, and initialize configTASK_RETURN_ADDRESS to prvTaskExitError
@@ -772,7 +816,6 @@ versal: Add support for power rail control
 versal: Remove redundant checks
 versal: Update the AieMemInit sequence for ME PMEMinitialization
 versal: Fix in XPmBisr_RepairME() for 64 bit register write
-versal: Skip CPM scan clear for S80 devices
 versal: Add custom reset routines for PL POR reset
 versal: Remove topology hack to change ps por reset type
 versal: Remove subsystem CDO
@@ -790,7 +833,6 @@ versal: Make internal function as static in xpm_api.c file
 versal: Fix in XPm_USBDxState()
 versal: Remove IPI_PMC post topology hook
 versal: Disable PUDC_B pin for ES1 PL workaround
-versal: Add support for SV60 device
 versal: Add support for H6H_2 SLR device
 versal: Remove custom PL domain state machine
 versal: Use IDCODE for Platform Version check in silicon
