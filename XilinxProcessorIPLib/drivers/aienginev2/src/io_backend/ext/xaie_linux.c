@@ -1390,7 +1390,7 @@ static AieRC _XAie_LinuxIO_RequestRsc(void *IOInst, XAie_BackendTilesRsc *Args)
 
 	Ret = ioctl(LinuxIOInst->PartitionFd, AIE_RSC_REQ_IOCTL, &RscReq);
 	if(Ret != 0) {
-		XAIE_ERROR("Failed to request resource %u\n",
+		XAIE_WARN("Failed to request resource %u\n",
 				Args->RscType);
 		return XAIE_ERR;
 	}
