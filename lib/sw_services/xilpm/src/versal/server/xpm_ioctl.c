@@ -569,7 +569,11 @@ static XStatus XPmIoctl_IsRegRequested(u32 SubsystemId, u32 Register, u32 Type)
 
 	switch (Type) {
 	case (u32)XPM_NODETYPE_DEV_PGGS:
-		RegNum += (u32)GGS_MAX;
+		/*
+		 * +1 is needed as the first PGGS Node ID is after the last
+		 * GGS Node ID.
+		 */
+		RegNum += (u32)GGS_MAX + 1U;
 		break;
 	case (u32)XPM_NODETYPE_DEV_GGS:
 		break;
