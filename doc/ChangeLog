@@ -1,6 +1,12 @@
 Changes for 2021.1
 ===============================
 
+freertos10_xilinx_v1_9:
+Upgrade kernel to upstream 10.4.3 version
+Initialize task return address with portTASK_RETURN_ADDRESS for all supported ports, and initialize configTASK_RETURN_ADDRESS to prvTaskExitError
+Defined configUSE_PORT_OPTIMISED_TASK_SELECTION for all supported ports
+Added mitigation for CVE-2020-13844
+
 rfdc_v10_0:
 Driver Refactored into multiple files accoring to compenent function
 Added a custom startup API that allows to start/stop at various states in IPSM
