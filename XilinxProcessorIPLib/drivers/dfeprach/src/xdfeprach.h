@@ -10,7 +10,7 @@
 * @addtogroup xdfeprach_v1_0
 * @{
 *
-* The PRACH IP logicore provides a wrapper around the Maxwell PRACH block
+* The PRACH IP logicore provides a wrapper around the PRACH block
 * (PRACH (R16)).  The wrapper provides access to the underlying blocks via
 * TDM Axi-stream data interfaces. Output from the block is arranged as an
 * AXI-Stream, running at fs, per antenna. An AXI memory mapped interface
