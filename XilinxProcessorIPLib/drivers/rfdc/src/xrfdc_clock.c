@@ -70,6 +70,7 @@
 *       cog    05/18/21 Fixed issue where valid DFE configurations were not being
 *                       allowed.
 * 11.0  cog    05/31/21 Upversion.
+*              06/01/21 MetalLog Updates.
 * </pre>
 *
 ******************************************************************************/
@@ -2037,17 +2038,15 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 					PrimaryDivideValue = XRFDC_DISABLED;
 					SecondaryDivideValue = XRFDC_RX_PR_MC_CFG0_IDIV_MASK;
 				} else {
-					metal_log(
-						METAL_LOG_ERROR,
-						"\n Invalid divider value for %s %u (Div %u is only allowed on non-interleaved ADC tiles) in %s\r\n",
-						(Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, OpDiv, __func__);
+					metal_log(METAL_LOG_ERROR, "\n Invalid divider value for %s %u in %s\r\n",
+						  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 					Status = XRFDC_FAILURE;
 					goto RETURN_PATH;
 				}
 
 				break;
 			default:
-				metal_log(METAL_LOG_ERROR, "\n Invalid divider value (%u) for %s %u in %s\r\n", OpDiv,
+				metal_log(METAL_LOG_ERROR, "\n Invalid divider value for %s %u in %s\r\n",
 					  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 				Status = XRFDC_FAILURE;
 				goto RETURN_PATH;
