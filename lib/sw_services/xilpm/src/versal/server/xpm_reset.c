@@ -414,7 +414,7 @@ static XStatus CpmResetSetState(const u32 State)
 	u32 IdCode = XPm_GetIdCode();
 
 	/* CPM POR register is not available for ES1 platforms so skip */
-	/* NOTE: This is verified on S80 */
+	/* NOTE: This is verified on XCVC1902 */
 	if ((PLATFORM_VERSION_SILICON == Platform) &&
 	    (PLATFORM_VERSION_SILICON_ES1 != PlatformVersion) &&
 	    (PMC_TAP_IDCODE_DEV_SBFMLY_VC1902 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK))) {
@@ -647,7 +647,7 @@ static u32 GetCpmPorResetStatus(void)
 	u32 IdCode = XPm_GetIdCode();
 
 	/* CPM POR register is not available for ES1 platforms so skip */
-	/* NOTE: This is verified on S80 */
+	/* NOTE: This is verified on XCVC1902 */
 	if ((PLATFORM_VERSION_SILICON == Platform) &&
 	    (PLATFORM_VERSION_SILICON_ES1 != PlatformVersion) &&
 	    (PMC_TAP_IDCODE_DEV_SBFMLY_VC1902 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK))) {
