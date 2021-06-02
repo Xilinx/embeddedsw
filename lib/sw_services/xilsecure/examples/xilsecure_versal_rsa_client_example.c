@@ -22,6 +22,7 @@
 * ----- ------ -------- -------------------------------------------------
 * 1.0   kal    03/23/21 First release.
 * 4.5   kal    03/23/21 Updated file version to sync with library version
+*       har    06/02/21 Fixed GCC warnings for R5 compiler
 *
 * </pre>
 ******************************************************************************/
@@ -308,10 +309,10 @@ static u32 SecureRsaExample(void)
 	u32 Status = XST_FAILURE;
 	u8 Signature[XSECURE_RSA_SIZE]
 			__attribute__ ((aligned (64))) = {0U};
-	u64 SignAddr = (u64)&Signature;
+	u64 SignAddr = (UINTPTR)&Signature;
 	u8 EncryptSignatureOut[XSECURE_RSA_SIZE]
 			__attribute__ ((aligned (64))) = {0U};
-	u64 EncOutAddr = (u64)&EncryptSignatureOut;
+	u64 EncOutAddr = (UINTPTR)&EncryptSignatureOut;
 	u32 Index;
 	u8 Key[XSECURE_RSA_SIZE + XSECURE_RSA_SIZE]
 			__attribute__ ((aligned (64))) = {0U};
@@ -325,7 +326,7 @@ static u32 SecureRsaExample(void)
 	Xil_DCacheInvalidateRange((UINTPTR)SignAddr, XSECURE_RSA_SIZE);
 
 	/* RSA signature decrypt with private key */
-	Status = XSecure_RsaPrivateDecrypt((u64)&Key, (u64)&Data,
+	Status = XSecure_RsaPrivateDecrypt((UINTPTR)&Key, (UINTPTR)&Data,
 			Size, SignAddr);
 
 	if(XST_SUCCESS != Status)	{
@@ -358,7 +359,7 @@ static u32 SecureRsaExample(void)
 	Xil_DCacheFlushRange((UINTPTR)Key, XSECURE_RSA_SIZE + XSECURE_RSA_SIZE);
 	Xil_DCacheInvalidateRange((UINTPTR)EncOutAddr, XSECURE_RSA_SIZE);
 
-	Status = XSecure_RsaPublicEncrypt((u64)&Key, (u64)&Signature,
+	Status = XSecure_RsaPublicEncrypt((UINTPTR)&Key, (UINTPTR)&Signature,
 			Size, EncOutAddr);
 	if(XST_SUCCESS != Status)	{
 		xil_printf("\r\nFailed at RSA signature encryption\n\r");

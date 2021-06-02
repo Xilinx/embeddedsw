@@ -17,6 +17,7 @@
 * ----- ------ -------- -------------------------------------------------
 * 1.0	kal  03/23/21 First Release
 * 4.5   kal  03/23/21 Updated file version to sync with library version
+*       har  06/02/21 Fixed GCC warnings for R5 compiler
 *
 * </pre>
 ******************************************************************************/
@@ -116,7 +117,7 @@ END:
 static u32 SecureSha3Example()
 {
 	u8 OutAddr[SHA3_HASH_LEN_IN_BYTES]__attribute__ ((aligned (64))) = {0U};
-	u64 DstAddr = (u64)&OutAddr;
+	u64 DstAddr = (UINTPTR)&OutAddr;
 	u32 Status = XST_FAILURE;
 	u32 Size = 0U;
 
@@ -128,7 +129,7 @@ static u32 SecureSha3Example()
 	}
 
 	Xil_DCacheInvalidateRange((UINTPTR)DstAddr, SHA3_HASH_LEN_IN_BYTES);
-	XSecure_Sha3Digest((u64)&Data, DstAddr, Size);
+	XSecure_Sha3Digest((UINTPTR)&Data, DstAddr, Size);
 	Xil_DCacheInvalidateRange((UINTPTR)DstAddr, SHA3_HASH_LEN_IN_BYTES);
 
 	xil_printf(" Calculated Hash \r\n ");
