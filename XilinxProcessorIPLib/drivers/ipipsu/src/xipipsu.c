@@ -31,6 +31,7 @@
 *	sdd 03/10/21	Fixed misrac warnings.
 *		     	Fixed doxygen warnings.
 *	ag	03/31/21	Fixed IPI poll for ack condition check.
+*	sd  06/02/21	Update the crc code remove the check for max length.
 * </pre>
 *
 *****************************************************************************/
@@ -250,31 +251,22 @@ XStatus XIpiPsu_ReadMessage(XIpiPsu *InstancePtr, u32 SrcCpuMask, u32 *MsgPtr,
 			InstancePtr->Config.BitMask, BufferType);
 	if (BufferPtr != NULL) {
 #ifdef ENABLE_IPI_CRC
-		/* Message length must be XIPIPSU_MAX_MSG_LEN when CRC is enabled */
-		if (XIPIPSU_MAX_MSG_LEN != MsgLength) {
-			return (XStatus)XST_FAILURE;
+		Crc = XIpiPsu_CalculateCRC((u32)BufferPtr, XIPIPSU_W0_TO_W6_SIZE);
+
+		/* Word 8 in IPI is reserved for storing CRC */
+		if (BufferPtr[XIPIPSU_CRC_INDEX] != Crc) {
+			Status = (XStatus)XIPIPSU_CRC_ERROR;
+			goto END;
 		}
 #endif
 		/* Copy the IPI Buffer contents into Users's Buffer*/
 		for (Index = 0U; Index < MsgLength; Index++) {
 			MsgPtr[Index] = BufferPtr[Index];
 		}
-#ifdef ENABLE_IPI_CRC
-		Crc = XIpiPsu_CalculateCRC((u32)MsgPtr, XIPIPSU_W0_TO_W6_SIZE);
-
-		/* Word 8 in IPI is reserved for storing CRC */
-		if (MsgPtr[XIPIPSU_CRC_INDEX] != Crc) {
-			Status = (XStatus)XIPIPSU_CRC_ERROR;
-		} else {
-			Status = (XStatus)XST_SUCCESS;
-		}
-#else
 		Status = (XStatus)XST_SUCCESS;
-#endif
-	} else {
-		Status = (XStatus)XST_FAILURE;
 	}
 
+END:
 	return Status;
 }
 
@@ -311,20 +303,12 @@ XStatus XIpiPsu_WriteMessage(XIpiPsu *InstancePtr, u32 DestCpuMask, u32 *MsgPtr,
 		for (Index = 0U; Index < MsgLength; Index++) {
 			BufferPtr[Index] = MsgPtr[Index];
 		}
-
 #ifdef ENABLE_IPI_CRC
-		/* Message length must be XIPIPSU_MAX_MSG_LEN when CRC is enabled */
-		if (XIPIPSU_MAX_MSG_LEN != MsgLength) {
-			return (XStatus)XST_FAILURE;
-		}
-
 		/* Word 8 in IPI is reserved for storing CRC */
 		BufferPtr[XIPIPSU_CRC_INDEX] =
-				XIpiPsu_CalculateCRC((u32)MsgPtr, XIPIPSU_W0_TO_W6_SIZE);
+				XIpiPsu_CalculateCRC((u32)BufferPtr, XIPIPSU_W0_TO_W6_SIZE);
 #endif
 		Status = (XStatus)XST_SUCCESS;
-	} else {
-		Status = (XStatus)XST_FAILURE;
 	}
 
 	return Status;
