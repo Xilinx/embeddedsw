@@ -24,6 +24,7 @@
 * 4.3   har    10/12/20 Addressed security review comments
 * 4.5   har    03/02/21 Added support for AAD
 * 	kal    03/23/21 Updated example for client support
+*       har    06/02/21 Fixed GCC warnings for R5 compiler
 *
 * </pre>
 ******************************************************************************/
@@ -215,7 +216,7 @@ static s32 SecureAesExample(void)
 
 	/* Write AES key */
 	Status = XSecure_AesWriteKey(XSECURE_AES_USER_KEY_0,
-				XSECURE_AES_KEY_SIZE_256, (u64)&Key);
+				XSECURE_AES_KEY_SIZE_256, (UINTPTR)&Key);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Failure at key write\n\r");
 		goto END;
@@ -231,27 +232,27 @@ static s32 SecureAesExample(void)
 	Xil_DCacheInvalidateRange((UINTPTR)GcmTag, XSECURE_SECURE_GCM_TAG_SIZE);
 
 	Status = XSecure_AesEncryptInit(XSECURE_AES_USER_KEY_0,
-			XSECURE_AES_KEY_SIZE_256, (u64)&Iv);
+			XSECURE_AES_KEY_SIZE_256, (UINTPTR)&Iv);
 
 	if (Status != XST_SUCCESS) {
 		xil_printf(" Aes encrypt init is failed\n\r");
 		goto END;
 	}
 
-	Status = XSecure_AesUpdateAad((u64)Aad, XSECURE_AAD_SIZE);
+	Status = XSecure_AesUpdateAad((UINTPTR)Aad, XSECURE_AAD_SIZE);
 	if (Status != XST_SUCCESS) {
 		xil_printf(" Aes update aad failed %x\n\r", Status);
 		goto END;
 	}
 
-	Status = XSecure_AesEncryptUpdate((u64)&Data,(u64)EncData,
+	Status = XSecure_AesEncryptUpdate((UINTPTR)&Data,(UINTPTR)EncData,
 						XSECURE_DATA_SIZE, TRUE);
 	if (Status != XST_SUCCESS) {
 		xil_printf(" Aes encrypt update is failed\n\r");
 		goto END;
 	}
 
-	Status = XSecure_AesEncryptFinal((u64)&GcmTag);
+	Status = XSecure_AesEncryptFinal((UINTPTR)&GcmTag);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Failed at GCM tag generation\n\r");
 		goto END;
@@ -276,26 +277,26 @@ static s32 SecureAesExample(void)
 
 	/* Decrypt's the encrypted data */
 	Status = XSecure_AesDecryptInit(XSECURE_AES_USER_KEY_0,
-					XSECURE_AES_KEY_SIZE_256, (u64)&Iv);
+					XSECURE_AES_KEY_SIZE_256, (UINTPTR)&Iv);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Error in decrypt init ");
 		goto END;
 	}
 
-	Status = XSecure_AesUpdateAad((u64)Aad, XSECURE_AAD_SIZE);
+	Status = XSecure_AesUpdateAad((UINTPTR)Aad, XSECURE_AAD_SIZE);
 	if (Status != XST_SUCCESS) {
 		xil_printf(" Aes update aad failed %x\n\r", Status);
 		goto END;
 	}
 
-	Status = XSecure_AesDecryptUpdate((u64)&EncData, (u64)&DecData,
+	Status = XSecure_AesDecryptUpdate((UINTPTR)&EncData, (UINTPTR)&DecData,
 						 XSECURE_DATA_SIZE, TRUE);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Aes decrypt update failed %x\n\r", Status);
 		goto END;
 	}
 
-	Status = XSecure_AesDecryptFinal((u64)&GcmTag);
+	Status = XSecure_AesDecryptFinal((UINTPTR)&GcmTag);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Decryption failure- GCM tag was not matched\n\r");
 		goto END;
