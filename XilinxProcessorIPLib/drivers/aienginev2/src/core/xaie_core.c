@@ -422,6 +422,63 @@ AieRC XAie_CoreDebugUnhalt(XAie_DevInst *DevInst, XAie_LocType Loc)
 /*****************************************************************************/
 /*
 *
+* This API reads the status from the debug halt status register of AIE.
+*
+* @param	DevInst: Device Instance
+* @param	Loc: Location of the AIE tile.
+* @param	DebugStatus: Pointer to store status.
+* @return	XAIE_OK on success, Error code on failure.
+*
+* @note		None.
+*
+******************************************************************************/
+AieRC XAie_CoreGetDebugHaltStatus(XAie_DevInst *DevInst, XAie_LocType Loc,
+		u32 *DebugStatus)
+{
+	AieRC RC;
+	u8 TileType;
+	u32 Mask;
+	u64 RegAddr;
+	const XAie_CoreMod *CoreMod;
+	const XAie_RegCoreDebugStatus *DbgStat;
+
+	if((DevInst == XAIE_NULL) ||
+			(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid Device Instance\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	if(TileType != XAIEGBL_TILE_TYPE_AIETILE) {
+		XAIE_ERROR("Invalid Tile Type\n");
+		return XAIE_INVALID_TILE;
+	}
+
+	CoreMod = DevInst->DevProp.DevMod[TileType].CoreMod;
+
+	RegAddr = CoreMod->CoreDebugStatus->RegOff +
+		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
+
+	RC = XAie_Read32(DevInst, RegAddr, DebugStatus);
+	if(RC != XAIE_OK) {
+		return RC;
+	}
+
+	DbgStat = CoreMod->CoreDebugStatus;
+
+	Mask = DbgStat->DbgEvent1Halt.Mask | DbgStat->DbgEvent0Halt.Mask |
+		DbgStat->DbgStrmStallHalt.Mask |
+		DbgStat->DbgLockStallHalt.Mask | DbgStat->DbgMemStallHalt.Mask |
+		DbgStat->DbgPCEventHalt.Mask | DbgStat->DbgHalt.Mask;
+
+	*DebugStatus &= Mask;
+
+	return XAIE_OK;
+}
+
+/*****************************************************************************/
+/*
+*
 * This API reads the Done bit value in the core status register.
 *
 * @param	DevInst: Device Instance

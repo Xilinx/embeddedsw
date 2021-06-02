@@ -106,6 +106,20 @@ typedef struct {
 } XAie_RegCoreDebug;
 
 /*
+ * This typedef contains the attributes for core debug halt status register
+ */
+typedef struct {
+	u32 RegOff;
+	XAie_RegFldAttr DbgEvent1Halt;
+	XAie_RegFldAttr DbgEvent0Halt;
+	XAie_RegFldAttr DbgStrmStallHalt;
+	XAie_RegFldAttr DbgLockStallHalt;
+	XAie_RegFldAttr DbgMemStallHalt;
+	XAie_RegFldAttr DbgPCEventHalt;
+	XAie_RegFldAttr DbgHalt;
+} XAie_RegCoreDebugStatus;
+
+/*
  * This typedef contains the attributes for enable events register
  */
 typedef struct {
@@ -176,6 +190,7 @@ typedef struct XAie_CoreMod {
 	u32 DataMemSize;
 	u32 DataMemShift;
 	u32 EccEvntRegOff;
+	const XAie_RegCoreDebugStatus *CoreDebugStatus;
 	const XAie_RegCoreSts *CoreSts;
 	const XAie_RegCoreCtrl *CoreCtrl;
 	const XAie_RegCoreDebug *CoreDebug;

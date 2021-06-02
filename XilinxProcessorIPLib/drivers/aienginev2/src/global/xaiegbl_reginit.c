@@ -109,6 +109,25 @@ static const XAie_RegCoreDebug AieCoreDebugReg =
 	.DebugHalt.Mask = XAIEGBL_CORE_DBGCTRL0_DBGHLTBIT_MASK
 };
 
+static const XAie_RegCoreDebugStatus AieCoreDebugStatus =
+{
+	.RegOff = XAIEGBL_CORE_DBGSTA,
+	.DbgEvent1Halt.Lsb = XAIEGBL_CORE_DBGSTA_DBGEVT1HAL_LSB,
+	.DbgEvent1Halt.Mask = XAIEGBL_CORE_DBGSTA_DBGEVT1HAL_MASK,
+	.DbgEvent0Halt.Lsb = XAIEGBL_CORE_DBGSTA_DBGEVT0HAL_LSB,
+	.DbgEvent0Halt.Mask = XAIEGBL_CORE_DBGSTA_DBGEVT0HAL_MASK,
+	.DbgStrmStallHalt.Lsb = XAIEGBL_CORE_DBGSTA_STRSTALHAL_LSB,
+	.DbgStrmStallHalt.Mask = XAIEGBL_CORE_DBGSTA_STRSTALHAL_MASK,
+	.DbgLockStallHalt.Lsb = XAIEGBL_CORE_DBGSTA_LOCKSTALHAL_LSB,
+	.DbgLockStallHalt.Mask = XAIEGBL_CORE_DBGSTA_LOCKSTALHAL_MASK,
+	.DbgMemStallHalt.Lsb = XAIEGBL_CORE_DBGSTA_MEMSTALHAL_LSB,
+	.DbgMemStallHalt.Mask = XAIEGBL_CORE_DBGSTA_MEMSTALHAL_MASK,
+	.DbgPCEventHalt.Lsb = XAIEGBL_CORE_DBGSTA_PCEVTHAL_LSB,
+	.DbgPCEventHalt.Mask = XAIEGBL_CORE_DBGSTA_PCEVTHAL_MASK,
+	.DbgHalt.Lsb = XAIEGBL_CORE_DBGSTA_DBGHAL_LSB,
+	.DbgHalt.Mask = XAIEGBL_CORE_DBGSTA_DBGHAL_MASK,
+};
+
 /*
  * Global instance for core event registers in the core module.
  */
@@ -1081,6 +1100,7 @@ static const XAie_CoreMod AieCoreMod =
 	.DataMemShift = 15U,
 	.EccEvntRegOff = 0x00032110,
 	.CoreCtrl = &AieCoreCtrlReg,
+	.CoreDebugStatus = &AieCoreDebugStatus,
 	.CoreSts = &AieCoreStsReg,
 	.CoreDebug = &AieCoreDebugReg,
 	.CoreEvent = &AieCoreEventReg,
