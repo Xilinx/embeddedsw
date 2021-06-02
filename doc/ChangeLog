@@ -7,6 +7,38 @@ Remove unnecessary supported_peripherals, This fixes pick-up of wrong driver(avb
 dpdma_v1_4::
 Initialize dpdma subsystem before link training,This fixes black screen issue for monitors having link rate capacity max upto 2.7Gbps
 
+common_v1_2:
+Sync up xstatus.h and xdebug.h with the lib/bsp/standalone/src/xstatus.h and xdebug.h
+
+aienginev2_v2_1:
+Transaction IO processing
+Resource manager APIs
+API to sync Timer across AIE
+Fixed compiler warnings
+API to configure enable event register
+
+xilpm_v3_4:
+Versal
+  Remove support for PM_SET_CURRENT_SUBSYSTEM API
+  Update subsystem and reset permission checking
+  M50 and M70 device support
+  Restructured XPPU and XMPU protection code
+  Updated PL housecleaning sequence
+  CPM5 changes for CCIX IPI event
+  Updated IPI subsystem mapping
+  Added NOC clock gating
+  Added support for Healty boot monitoring
+  Add support for Device security, coherency and virtualization
+  Added support for Error Management in RegisterNotifier API
+  Added AIE topology support
+  Command handling update in ProcessCmd function
+  Fixed AIE BISR sequence
+ZynqMP
+Added ability to disable power management master
+
+v_sdirxss_v3_2:
+Added reset to clear any previous data in TX Bridge IP after change in input
+
 zynqmp_pmufw:
 Add DDR related code under DDR define macro
 Minor updates to FPGA load API
