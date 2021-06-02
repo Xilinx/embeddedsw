@@ -70,6 +70,8 @@ AieRC XAie_CoreDebugHalt(XAie_DevInst *DevInst, XAie_LocType Loc);
 AieRC XAie_CoreDebugUnhalt(XAie_DevInst *DevInst, XAie_LocType Loc);
 AieRC XAie_CoreGetDebugHaltStatus(XAie_DevInst *DevInst, XAie_LocType Loc,
 		u32 *DebugStatus);
+AieRC XAie_CoreGetPCValue(XAie_DevInst *DevInst, XAie_LocType Loc,
+		u32 *PCValue);
 AieRC XAie_CoreReadDoneBit(XAie_DevInst *DevInst, XAie_LocType Loc,
 		u8 *DoneBit);
 AieRC XAie_CoreReset(XAie_DevInst *DevInst, XAie_LocType Loc);

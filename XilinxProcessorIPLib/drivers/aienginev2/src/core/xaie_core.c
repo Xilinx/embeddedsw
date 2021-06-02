@@ -479,6 +479,44 @@ AieRC XAie_CoreGetDebugHaltStatus(XAie_DevInst *DevInst, XAie_LocType Loc,
 /*****************************************************************************/
 /*
 *
+* This API reads the current value of the AIE PC value.
+*
+* @param	DevInst: Device Instance
+* @param	Loc: Location of the AIE tile.
+* @param	PCValue: Pointer to store current PC value.
+* @return	XAIE_OK on success, Error code on failure.
+*
+* @note		None.
+*
+******************************************************************************/
+AieRC XAie_CoreGetPCValue(XAie_DevInst *DevInst, XAie_LocType Loc, u32 *PCValue)
+{
+	u8 TileType;
+	u64 RegAddr;
+	const XAie_CoreMod *CoreMod;
+
+	if((DevInst == XAIE_NULL) ||
+			(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid Device Instance\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	if(TileType != XAIEGBL_TILE_TYPE_AIETILE) {
+		XAIE_ERROR("Invalid Tile Type\n");
+		return XAIE_INVALID_TILE;
+	}
+
+	CoreMod = DevInst->DevProp.DevMod[TileType].CoreMod;
+	RegAddr = CoreMod->CorePCOff +
+		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
+
+	return  XAie_Read32(DevInst, RegAddr, PCValue);
+}
+
+/*****************************************************************************/
+/*
+*
 * This API reads the Done bit value in the core status register.
 *
 * @param	DevInst: Device Instance

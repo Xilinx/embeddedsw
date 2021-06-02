@@ -190,6 +190,7 @@ typedef struct XAie_CoreMod {
 	u32 DataMemSize;
 	u32 DataMemShift;
 	u32 EccEvntRegOff;
+	u32 CorePCOff;
 	const XAie_RegCoreDebugStatus *CoreDebugStatus;
 	const XAie_RegCoreSts *CoreSts;
 	const XAie_RegCoreCtrl *CoreCtrl;
