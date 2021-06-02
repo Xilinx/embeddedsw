@@ -33,7 +33,33 @@
 #include "xaie_helper.h"
 
 /************************** Constant Definitions *****************************/
+#define XAIE_CORE_DEBUG_STATUS_ANY_HALT			(1U << 0U)
+#define XAIE_CORE_DEBUG_STATUS_PC_EVENT_HALT		(1U << 1U)
+#define XAIE_CORE_DEBUG_STATUS_MEM_STALL_HALT		(1U << 2U)
+#define XAIE_CORE_DEBUG_STATUS_LOCK_STALL_HALT		(1U << 3U)
+#define XAIE_CORE_DEBUG_STATUS_STREAM_STALL_HALT 	(1U << 4U)
+#define XAIE_CORE_DEBUG_STATUS_EVENT0_STALL_HALT 	(1U << 5U)
+#define XAIE_CORE_DEBUG_STATUS_EVENT1_STALL_HALT 	(1U << 6U)
+
 /************************** Function Prototypes  *****************************/
+/*****************************************************************************/
+/*
+*
+* This API checks for the event due to which AIE was debug halted.
+*
+* @param	DebugStatus: Value of debug status register.
+* @param	DebugEventMask: Debug Event Mask.
+*		Any of XAIE_CORE_DEBUG_STATUS_*_HALT macros.
+* @return	1 on success. 0 of failure.
+*
+* @note		None.
+*
+******************************************************************************/
+static inline u32 XAie_CheckDebugHaltStatus(u32 DebugStatus, u32 DebugEventMask)
+{
+	return (DebugStatus & DebugEventMask) ? 1U : 0U;
+}
+
 AieRC XAie_CoreDisable(XAie_DevInst *DevInst, XAie_LocType Loc);
 AieRC XAie_CoreEnable(XAie_DevInst *DevInst, XAie_LocType Loc);
 AieRC XAie_CoreWaitForDone(XAie_DevInst *DevInst, XAie_LocType Loc,
@@ -42,6 +68,8 @@ AieRC XAie_CoreWaitForDisable(XAie_DevInst *DevInst, XAie_LocType Loc,
 		u32 TimeOut);
 AieRC XAie_CoreDebugHalt(XAie_DevInst *DevInst, XAie_LocType Loc);
 AieRC XAie_CoreDebugUnhalt(XAie_DevInst *DevInst, XAie_LocType Loc);
+AieRC XAie_CoreGetDebugHaltStatus(XAie_DevInst *DevInst, XAie_LocType Loc,
+		u32 *DebugStatus);
 AieRC XAie_CoreReadDoneBit(XAie_DevInst *DevInst, XAie_LocType Loc,
 		u8 *DoneBit);
 AieRC XAie_CoreReset(XAie_DevInst *DevInst, XAie_LocType Loc);
