@@ -87,13 +87,13 @@ void XIicPs_SetupSlave(XIicPs *InstancePtr, u16 SlaveAddr)
 	 * Set up master, AckEn and also clear fifo.
 	 */
 	ControlReg |= (u32)XIICPS_CR_ACKEN_MASK | (u32)XIICPS_CR_CLR_FIFO_MASK;
-	ControlReg &= (u32)(~XIICPS_CR_MS_MASK);
+	ControlReg &= ~((u32)XIICPS_CR_MS_MASK);
 
 	/*
 	 * Check if 10 bit address option is set. Clear/Set NEA accordingly.
 	 */
 	if (InstancePtr->Is10BitAddr == 1) {
-		ControlReg &= (u32)(~XIICPS_CR_NEA_MASK);
+		ControlReg &= ~((u32)XIICPS_CR_NEA_MASK);
 	} else {
 		ControlReg |= (u32)(XIICPS_CR_NEA_MASK);
 	}

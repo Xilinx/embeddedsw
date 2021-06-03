@@ -83,7 +83,7 @@ s32 XIicPs_SetupMaster(XIicPs *InstancePtr, s32 Role)
 	if (Role == RECVING_ROLE) {
 		ControlReg |= (u32)XIICPS_CR_RD_WR_MASK;
 	}else {
-		ControlReg &= (u32)(~XIICPS_CR_RD_WR_MASK);
+		ControlReg &= ~((u32)XIICPS_CR_RD_WR_MASK);
 	}
 
 	XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET, ControlReg);
@@ -123,7 +123,7 @@ void MasterSendData(XIicPs *InstancePtr)
 			XIicPs_WriteReg(InstancePtr->Config.BaseAddress,
 					(u32)XIICPS_CR_OFFSET,
 					XIicPs_ReadReg(InstancePtr->Config.BaseAddress,
-						(u32)XIICPS_CR_OFFSET) & (u32)(~ XIICPS_CR_HOLD_MASK));
+						(u32)XIICPS_CR_OFFSET) & ~((u32)XIICPS_CR_HOLD_MASK));
 		}
 	}
 
