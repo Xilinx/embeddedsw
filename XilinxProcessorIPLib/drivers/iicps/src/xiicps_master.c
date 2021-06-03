@@ -393,7 +393,7 @@ s32 XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 
 	/* Set the Status for XST_SUCCESS */
 	if (((IntrStatusReg & Intrs) == 0U) && (timeout != TX_MAX_LOOPCNT)) {
-		Status = XST_SUCCESS;
+		Status = (s32)XST_SUCCESS;
 	}
 
 	return Status;
