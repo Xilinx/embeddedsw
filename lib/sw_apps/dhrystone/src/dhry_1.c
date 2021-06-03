@@ -17,6 +17,39 @@
 
 #include "dhry.h"
 
+#if defined (__MICROBLAZE__)
+static void MB_StartAxiTimer(void)
+{
+	u32 ControlStatusReg;
+
+	/*  Checking if the timer is enabled  */
+	if(Xil_In32(MB_AXITIMER_BASEADDR + MB_AXITIMER_TCSR0_OFFSET) &&
+			    MB_AXITIMER_CSR_ENABLE_TMR_MASK)
+	{
+		return;
+	}
+	/*
+	 * Read the current register contents such that only the necessary bits
+	 * of the register are modified in the following operations
+	 */
+	ControlStatusReg = Xil_In32(MB_AXITIMER_BASEADDR +
+							    MB_AXITIMER_TCSR0_OFFSET);
+	/*
+	 * Remove the reset condition such that the timer counter starts running
+	 * with the value loaded from the compare register
+	 */
+	Xil_Out32((MB_AXITIMER_BASEADDR + MB_AXITIMER_TCSR0_OFFSET),
+			  (ControlStatusReg | MB_AXITIMER_CSR_ENABLE_TMR_MASK |
+			   MB_AXITIMER_CSR_AUTO_RELOAD_MASK));
+}
+
+void XTime_GetTime(XTime *time_val)
+{
+	*time_val = Xil_In32((MB_AXITIMER_BASEADDR) +
+						 (MB_AXITIMER_TCR_OFFSET));
+}
+#endif
+
 /* Porting : Timing functions
  *	How to capture time and convert to seconds must be ported to whatever
  *  is supported by the platform.
@@ -223,6 +256,9 @@ int main ()
 	/***************/
 	/* Start timer */
 	/***************/
+#if defined (__MICROBLAZE__)
+	MB_StartAxiTimer();
+#endif
 	start_time();
 
 	for (Run_Index = 1; Run_Index <= Number_Of_Runs; ++Run_Index){

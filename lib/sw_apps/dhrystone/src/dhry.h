@@ -343,7 +343,7 @@
  *  data.
  *
  *  On Xilinx baremetal environment, the dhrystone app is well tested for
- *  Cortex-A9, Cortex-A53, Cortex-R5 processors.
+ *  Cortex-A9, Cortex-A53, Cortex-R5, and Microblaze processors.
  *
  *  Typical numbers to expect (when the Dhrystone App is compiled with -O2 optimization
  *  with the available 2021.1 toolchains are as following:
@@ -384,6 +384,19 @@
  *  DMIPS/Sec:                                  673.280151
  *  DMIPS/MHz:                                  1.795432
  *
+ *
+ *  For Microblaze (CPU Freq: 100000000 Hz), with D-Cache and
+ *  I_Cache configured for 16KB:
+ *
+ *  Microseconds for one run through Dhrystone: 173.160339
+ *  Dhrystones per Second:                      5774.994141
+ *  DMIPS/Sec:                                  3.286849
+ *  DMIPS/MHz:                                  0.032868
+ *  Please note that Microblaze CPU being configurable, the Dhrystone
+ *  numbers may vary significantly based on various configurations (e.g.
+ *  D-cache and I_cache sizes).
+ *  Also, the Microblaze application expects an Axi Timer in the design.
+ *
  ***************************************************************************
  */
 
@@ -391,7 +404,6 @@
 #define __DRHY_H_
 
 #if defined (__GNUC__) && !defined (__clang__) && !defined (__ICCARM__)
-#if !defined (__MICROBLAZE__)
 
 /* Compiler and system dependent definitions: */
 #include <xil_printf.h>
@@ -400,25 +412,35 @@
 #include <stdio.h>
 #include <string.h>
 #include "xil_io.h"
-#include "xpseudo_asm.h"
 #include "xparameters.h"
 #include "platform_config.h"
+#if !defined (__MICROBLAZE__)
 #include "xtime_l.h"
-
+#include "xpseudo_asm.h"
+#endif
 
 typedef enum  {Ident_1, Ident_2, Ident_3, Ident_4, Ident_5}
 				Enumeration;
 
 /* General definitions: */
+#if !defined (__MICROBLAZE__)
 #define ITERATIONS				16000000
-#define Mic_secs_Per_Second			1000000.0
+#else
+#define ITERATIONS				16000
+#endif
+#define Mic_secs_Per_Second		1000000.0
 #define Null 					0
 		/* Value of a Null pointer */
 #define true					1
 #define false					0
 
+#if defined (__MICROBLAZE__)
+typedef u64 XTime;
+#endif
+
 #define structassign(d, s)			d = s
 
+#if !defined (__MICROBLAZE__)
 #if defined (__aarch64__) && !defined (ARMR5)
 #if !defined (versal)
 #define CLOCKS_PER_SEC XPAR_CPU_CORTEXA53_0_CPU_CLK_FREQ_HZ
@@ -438,9 +460,23 @@ typedef enum  {Ident_1, Ident_2, Ident_3, Ident_4, Ident_5}
 #ifdef ARMA9
 #define CLOCKS_PER_SEC	XPAR_CPU_CORTEXA9_CORE_CLOCK_FREQ_HZ
 #endif
+#else
+#define CLOCKS_PER_SEC XPAR_MICROBLAZE_CORE_CLOCK_FREQ_HZ
+#define COUNTS_PER_SECOND XPAR_TMRCTR_0_CLOCK_FREQ_HZ
+#endif
 
 #define Too_Small_Time		COUNTS_PER_SECOND
 #define GETTIME(_t)		(*_t=barebones_clock())
+
+/* Axi Timer specific macros used for Microblaze CPU */
+#if defined (__MICROBLAZE__)
+#define MB_AXITIMER_BASEADDR 			XPAR_TMRCTR_0_BASEADDR
+#define MB_AXITIMER_TCSR0_OFFSET		0U
+#define MB_AXITIMER_TLR_OFFSET			4U
+#define MB_AXITIMER_TCR_OFFSET			8U
+#define MB_AXITIMER_CSR_ENABLE_TMR_MASK		0x00000080U
+#define MB_AXITIMER_CSR_AUTO_RELOAD_MASK	0x00000010U
+#endif
 
 typedef int	One_Thirty;
 typedef int	One_Fifty;
@@ -471,5 +507,4 @@ typedef struct record {
 	} Rec_Type, *Rec_Pointer;
 
 #endif /* defined (__GNUC__) && !defined (__clang__) && !defined (__ICCARM__) */
-#endif /*!defined (__MICROBLAZE__)*/
 #endif /* __DRHY_H_ */
