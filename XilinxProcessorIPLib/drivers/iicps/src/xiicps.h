@@ -296,6 +296,9 @@ typedef struct {
 	void *CallBackRef;	/**< Callback reference for event handler */
 } XIicPs;
 
+/************************** Variable Definitions *****************************/
+extern XIicPs_Config XIicPs_ConfigTable[];	/**< Configuration table */
+
 /***************** Macros (Inline Functions) Definitions *********************/
 /****************************************************************************/
 /**
