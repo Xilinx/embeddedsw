@@ -1,7 +1,7 @@
-#/******************************************************************************
-#* Copyright (c) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-#* SPDX-License-Identifier: MIT
-#******************************************************************************/
+/******************************************************************************
+* Copyright (c) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
 
 #include "xparameters.h"
 #include "xil_cache.h"
@@ -12,8 +12,14 @@
 
 void enable_caches()
 {
-	/* Empty function for ARM platforms */
-	/* Once support for MB is added, this function will be populated */
+#if defined (__MICROBLAZE__)
+#ifdef XPAR_MICROBLAZE_USE_ICACHE
+    Xil_ICacheEnable();
+#endif
+#ifdef XPAR_MICROBLAZE_USE_DCACHE
+    Xil_DCacheEnable();
+#endif
+#endif
 }
 
 void disable_caches()
