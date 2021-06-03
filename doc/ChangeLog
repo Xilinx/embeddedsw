@@ -10,6 +10,51 @@ Initialize dpdma subsystem before link training,This fixes black screen issue fo
 common_v1_2:
 Sync up xstatus.h and xdebug.h with the lib/bsp/standalone/src/xstatus.h and xdebug.h
 
+axivdma_v6_9:
+Modify axivdma interrupt example data comparison and readsetup to correct the example logic and modify the Xil_DCacheFlushRange() address in writesetup to fix the data comparison failure.
+
+cpu_v2_13:
+Add -fno-tree-loop-distribute-patterns flag to extra compiler flags
+
+cpu_cortexa53_v1_9:
+Add -fno-tree-loop-distribute-patterns flag to extra compiler flags
+
+cpu_cortexa72_v1_3:
+Add -fno-tree-loop-distribute-patterns flag to extra compiler flags
+
+cpu_cortexa9_v2_11:
+Add -fno-tree-loop-distribute-patterns flag to extra compiler flags
+
+cpu_cortexr5_v1_9:
+Add -fno-tree-loop-distribute-patterns flag to extra compiler flags
+
+pciepsu_v1_3:
+MISRA violaton fixes
+
+uartns550_v3_8:
+Fix doxygen warnings
+
+xdmapcie_v1_3:
+Fixed enumeration in designs configured with single BAR
+
+xilsem_v1_3:
+Created a Server-client directory structure
+Restructured the server code for better modularity
+Added support for IPI Server Interface for CRAM & NPI scan
+Added support for IPI Client Interface for CRAM & NPI scan
+Added deferred start-up for CRAM & NPI Scan
+Added detect only support for CRAM
+Added support for SWECC for CRAM Scan
+Added support for new descriptor format (SW SHA & HW SHA)
+Provided examples for IPI client interface
+Added support for PL-GPIO  interface for CRAM & NPI scan status s & error information
+Migration of NPI status and error info from PMC GLOBAL to PMC RAM
+Added support to read CRAM & NPI scan status from PMC RAM
+Added error notification over IPI
+Added customized prints for reporting error detection and correction for beam testing
+Improved performance for CRAM & NPI scan
+Fixed delays in reading the frames,  SHA-3 mismatch issues and partial PDI loading error in NPI scan,
+
 aienginev2_v2_1:
 Transaction IO processing
 Resource manager APIs
