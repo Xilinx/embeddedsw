@@ -4,6 +4,18 @@ Changes for 2021.1
 avbuf_v2_5:
 Remove unnecessary supported_peripherals, This fixes pick-up of wrong driver(avbuf) for DPPSU while creating BSP.
 
+csi2txss_v1_5:
+Add YUV 422 10bpc support
+
+mipicsiss_v1_5:
+Fixed compilation error when DEBUG mode is enabled
+
+v_frmbuf_rd_v4_4:
+Video driver example application is modified to use canonical definitions
+
+v_frmbuf_wr_v4_4:
+Video driver example application is modified to use canonical definitions
+
 dpdma_v1_4::
 Initialize dpdma subsystem before link training,This fixes black screen issue for monitors having link rate capacity max upto 2.7Gbps
 
