@@ -350,7 +350,7 @@ extern "C" {
 /*
  * Perform reset operation to the I2c interface
  */
-void XIicPs_ResetHw(u32 BaseAddress);
+void XIicPs_ResetHw(UINTPTR BaseAddress);
 #ifdef __cplusplus
 }
 #endif

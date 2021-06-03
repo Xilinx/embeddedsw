@@ -50,6 +50,7 @@
 *	    02/18/20 Modified latest code for MISRA-C:2012 Compliance.
 * 3.13  rna 11/24/20 Added timeout to XIicPs_MasterSendPolled function.
 *	rna 12/17/20 Clear hold bit at correct time in Rx path of ISR
+*	rna 05/24/21 Fix Misra c violations
 * </pre>
 *
 ******************************************************************************/
@@ -92,7 +93,7 @@
 void XIicPs_MasterSend(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 		 u16 SlaveAddr)
 {
-	u32 BaseAddr;
+	UINTPTR BaseAddr;
 	u32 Platform = XGetPlatform_Info();
 
 	/*
@@ -180,7 +181,7 @@ void XIicPs_MasterSend(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 void XIicPs_MasterRecv(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 		 u16 SlaveAddr)
 {
-	u32 BaseAddr;
+	UINTPTR BaseAddr;
 
 	/*
 	 * Assert validates the input arguments.
@@ -276,7 +277,7 @@ s32 XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 {
 	u32 IntrStatusReg;
 	u32 StatusReg;
-	u32 BaseAddr;
+	UINTPTR BaseAddr;
 	u32 Intrs;
 	s32 Status = (s32)XST_FAILURE;
 	u32 timeout = 0;
@@ -427,7 +428,7 @@ s32 XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 {
 	u32 IntrStatusReg;
 	u32 Intrs;
-	u32 BaseAddr;
+	UINTPTR BaseAddr;
 	s32 Result;
 	s32 IsHold;
 	s32 UpdateTxSize = 0;
@@ -619,7 +620,7 @@ s32 XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 ****************************************************************************/
 void XIicPs_EnableSlaveMonitor(XIicPs *InstancePtr, u16 SlaveAddr)
 {
-	u32 BaseAddr;
+	UINTPTR BaseAddr;
 	u32 ConfigReg;
 
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -688,7 +689,7 @@ void XIicPs_EnableSlaveMonitor(XIicPs *InstancePtr, u16 SlaveAddr)
 ****************************************************************************/
 void XIicPs_DisableSlaveMonitor(XIicPs *InstancePtr)
 {
-	u32 BaseAddr;
+	UINTPTR BaseAddr;
 	u32 ControlReg;
 
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -789,7 +790,7 @@ void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr)
 {
 	u32 IntrStatusReg;
 	u32 StatusEvent = 0U;
-	u32 BaseAddr;
+	UINTPTR BaseAddr;
 	u16 SlaveAddr;
 	s32 ByteCnt;
 	s32 IsHold;

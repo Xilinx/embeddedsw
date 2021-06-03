@@ -261,7 +261,7 @@ typedef void (*XIicPs_IntrHandler) (void *CallBackRef, u32 StatusEvent);
  */
 typedef struct {
 	u16 DeviceId;     /**< Unique ID  of device */
-	u32 BaseAddress;  /**< Base address of the device */
+	UINTPTR BaseAddress;  /**< Base address of the device */
 	u32 InputClockHz; /**< Input clock frequency */
 #if defined  (XCLOCKING)
 	u32 RefClk;	  /**< Input clocks */
