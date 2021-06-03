@@ -66,7 +66,7 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define TX_MAX_LOOPCNT 1000000	/**< Used to wait in polled function */
+#define TX_MAX_LOOPCNT 1000000U	/**< Used to wait in polled function */
 
 /************************** Function Prototypes ******************************/
 
@@ -441,7 +441,7 @@ s32 XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(MsgPtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(XIICPS_ADDR_MASK >= SlaveAddr);
+	Xil_AssertNonvoid((u16)XIICPS_ADDR_MASK >= SlaveAddr);
 
 	BaseAddr = InstancePtr->Config.BaseAddress;
 	InstancePtr->RecvBufferPtr = MsgPtr;
