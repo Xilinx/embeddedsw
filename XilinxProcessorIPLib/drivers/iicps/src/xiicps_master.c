@@ -155,7 +155,7 @@ void XIicPs_MasterSend(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 	{
 		XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
 				XIicPs_ReadReg(BaseAddr, (u32)XIICPS_CR_OFFSET) &
-				(u32)(~XIICPS_CR_HOLD_MASK));
+				(~(u32)XIICPS_CR_HOLD_MASK));
 	}
 
 }
@@ -240,7 +240,7 @@ void XIicPs_MasterRecv(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 	XIicPs_EnableInterrupts(BaseAddr,
 		(u32)XIICPS_IXR_NACK_MASK | (u32)XIICPS_IXR_DATA_MASK |
 		(u32)XIICPS_IXR_RX_OVR_MASK | (u32)XIICPS_IXR_COMP_MASK |
-		(u32)XIICPS_IXR_ARB_LOST_MASK | XIICPS_IXR_TO_MASK);
+		(u32)XIICPS_IXR_ARB_LOST_MASK | (u32)XIICPS_IXR_TO_MASK);
 	/*
 	 * Do the address transfer to signal the slave.
 	 */
@@ -643,13 +643,13 @@ void XIicPs_EnableSlaveMonitor(XIicPs *InstancePtr, u16 SlaveAddr)
 	ConfigReg = XIicPs_ReadReg(BaseAddr, (u32)XIICPS_CR_OFFSET);
 	ConfigReg |= (u32)XIICPS_CR_MS_MASK | (u32)XIICPS_CR_CLR_FIFO_MASK |
 			(u32)XIICPS_CR_SLVMON_MASK;
-	ConfigReg &= (u32)(~XIICPS_CR_RD_WR_MASK);
+	ConfigReg &= ~((u32)XIICPS_CR_RD_WR_MASK);
 
 	/*
 	 * Check if 10 bit address option is set.
 	 */
 	if (InstancePtr->Is10BitAddr == 1) {
-		ConfigReg &= (u32)(~XIICPS_CR_NEA_MASK);
+		ConfigReg &= ~((u32)XIICPS_CR_NEA_MASK);
 	} else {
 		ConfigReg |= (u32)(XIICPS_CR_NEA_MASK);
 	}

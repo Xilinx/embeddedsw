@@ -170,6 +170,7 @@
 * 3.11  rna  02/20/20 Reorganization of driver for modularity.
 *		      Added new files xiicps_xfer.c and xiicps_xfer.h.
 *		      Moved internal data transfer APIs to xiicps_xfer.
+* 3.13  rna  05/24/21 Fixed Misra-c violations
 * </pre>
 *
 ******************************************************************************/
@@ -239,7 +240,7 @@ extern "C" {
 #define RECVING_ROLE		0  /**< Transfer direction is receiving */
 
 
-#define XIICPS_MAX_TRANSFER_SIZE	(u32)(255U - 3U) /**< Max transfer size */
+#define XIICPS_MAX_TRANSFER_SIZE	((u32)255U - (u32)3U) /**< Max transfer size */
 
 /**************************** Type Definitions *******************************/
 
