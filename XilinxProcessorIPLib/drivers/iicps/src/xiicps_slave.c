@@ -66,7 +66,7 @@
 void XIicPs_SetupSlave(XIicPs *InstancePtr, u16 SlaveAddr)
 {
 	u32 ControlReg;
-	u32 BaseAddr;
+	UINTPTR BaseAddr;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
@@ -127,7 +127,7 @@ void XIicPs_SetupSlave(XIicPs *InstancePtr, u16 SlaveAddr)
 ****************************************************************************/
 void XIicPs_SlaveSend(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 {
-	u32 BaseAddr;
+	UINTPTR BaseAddr;
 
 	/*
 	 * Assert validates the input arguments
@@ -170,7 +170,7 @@ void XIicPs_SlaveSend(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 ****************************************************************************/
 void XIicPs_SlaveRecv(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 {
-	u32 BaseAddr;
+	UINTPTR BaseAddr;
 
 	/*
 	 * Assert validates the input arguments.
@@ -218,7 +218,7 @@ s32 XIicPs_SlaveSendPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 {
 	u32 IntrStatusReg;
 	u32 StatusReg;
-	u32 BaseAddr;
+	UINTPTR BaseAddr;
 	s32 Tmp;
 	s32 BytesToSend;
 	s32 Error = 0;
@@ -365,7 +365,7 @@ s32 XIicPs_SlaveRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 {
 	u32 IntrStatusReg;
 	u32 StatusReg;
-	u32 BaseAddr;
+	UINTPTR BaseAddr;
 	s32 Count;
 
 	/*
@@ -483,7 +483,7 @@ void XIicPs_SlaveInterruptHandler(XIicPs *InstancePtr)
 	u32 IsSend = 0U;
 	u32 StatusEvent = 0U;
 	s32 LeftOver;
-	u32 BaseAddr;
+	UINTPTR BaseAddr;
 
 	/*
 	 * Assert validates the input arguments.

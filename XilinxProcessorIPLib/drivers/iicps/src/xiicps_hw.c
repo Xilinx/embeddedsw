@@ -58,7 +58,7 @@
 * This function will not modify the slcr registers that are relevant for
 * I2c controller
 ******************************************************************************/
-void XIicPs_ResetHw(u32 BaseAddress)
+void XIicPs_ResetHw(UINTPTR BaseAddress)
 {
 	u32 RegVal;
 

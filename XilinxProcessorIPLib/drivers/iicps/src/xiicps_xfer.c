@@ -59,7 +59,7 @@
 s32 XIicPs_SetupMaster(XIicPs *InstancePtr, s32 Role)
 {
 	u32 ControlReg;
-	u32 BaseAddr;
+	UINTPTR BaseAddr;
 
 	BaseAddr = InstancePtr->Config.BaseAddress;
 	ControlReg = XIicPs_ReadReg(BaseAddr, XIICPS_CR_OFFSET);
@@ -146,7 +146,7 @@ void MasterSendData(XIicPs *InstancePtr)
 s32 SlaveRecvData(XIicPs *InstancePtr)
 {
 	u32 StatusReg;
-	u32 BaseAddr;
+	UINTPTR BaseAddr;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
