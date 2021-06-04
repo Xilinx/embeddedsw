@@ -7,6 +7,17 @@ Remove unnecessary supported_peripherals, This fixes pick-up of wrong driver(avb
 csi2txss_v1_5:
 Add YUV 422 10bpc support
 
+video_common_v4_11:
+Added support for VRR
+
+dsitxss_v2_2:
+Fixed compilation errors for DEBUG mode and DPHY mode enablement
+
+dp14txss_v6_5:
+Update to pt hdcp application to stop tx
+app:pt_only: Versal GT registers updated
+tx_only: Update to Versal GT register programming
+
 mipicsiss_v1_5:
 Fixed compilation error when DEBUG mode is enabled
 
@@ -16,7 +27,7 @@ Video driver example application is modified to use canonical definitions
 v_frmbuf_wr_v4_4:
 Video driver example application is modified to use canonical definitions
 
-dpdma_v1_4::
+dpdma_v1_4:
 Initialize dpdma subsystem before link training,This fixes black screen issue for monitors having link rate capacity max upto 2.7Gbps
 
 common_v1_2:
