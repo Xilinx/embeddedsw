@@ -7,6 +7,9 @@ Remove unnecessary supported_peripherals, This fixes pick-up of wrong driver(avb
 csi2txss_v1_5:
 Add YUV 422 10bpc support
 
+board_common_v1_2:
+Update the comments for hard coded LMK/LMX frequency configuration. The update explains all clocks comming out from LMK and LMX.
+
 video_common_v4_11:
 Added support for VRR
 
