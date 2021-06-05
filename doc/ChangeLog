@@ -4,6 +4,10 @@ Changes for 2021.1
 avbuf_v2_5:
 Remove unnecessary supported_peripherals, This fixes pick-up of wrong driver(avbuf) for DPPSU while creating BSP.
 
+v_hdmitxss_v6_1:
+Conditional checks are added for instances of the XVphy_Clkout10BufTdsEnable function.
+Added extern definition for EdidHdmi20_t, Ps_Iic0 and Ps_Iic1 in .h file and declared them in .c file
+
 csi2txss_v1_5:
 Add YUV 422 10bpc support
 
