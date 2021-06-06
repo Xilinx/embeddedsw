@@ -1606,6 +1606,11 @@ XStatus XPmBisr_NidbLaneRepair(void)
 
 	for(i = 0U; i < MAX_NIDB_EFUSE_GROUPS; ++i) {
 
+		/* Not a valid EFUSE if RDN_CNTRL=0.. so skip to next entry */
+		if (0x0U == NidbEfuseGrpInfo[i].RdnCntl) {
+			continue;
+		}
+
 		NidbAddr = NidbEfuseGrpInfo[i].NpiBase;
 		NidbAddr = (NidbAddr << 16U) + NPI_ROOT_BASEADDR;
 
