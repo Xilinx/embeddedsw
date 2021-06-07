@@ -1,18 +1,491 @@
 Changes for 2021.1
 ===============================
+
+avbuf_v2_5:
+Remove unnecessary supported_peripherals, This fixes pick-up of wrong driver(avbuf) for DPPSU while creating BSP.
+
+v_hdmitxss_v6_1:
+Conditional checks are added for instances of the XVphy_Clkout10BufTdsEnable function.
+Added extern definition for EdidHdmi20_t, Ps_Iic0 and Ps_Iic1 in .h file and declared them in .c file
+
+csi2txss_v1_5:
+Add YUV 422 10bpc support
+
+board_common_v1_2:
+Update the comments for hard coded LMK/LMX frequency configuration. The update explains all clocks comming out from LMK and LMX.
+
+video_common_v4_11:
+Added support for VRR
+
+dsitxss_v2_2:
+Fixed compilation errors for DEBUG mode and DPHY mode enablement
+
+dp14txss_v6_5:
+Update to pt hdcp application to stop tx
+app:pt_only: Versal GT registers updated
+tx_only: Update to Versal GT register programming
+
+mipicsiss_v1_5:
+Fixed compilation error when DEBUG mode is enabled
+
+v_frmbuf_rd_v4_4:
+Video driver example application is modified to use canonical definitions
+
+v_frmbuf_wr_v4_4:
+Video driver example application is modified to use canonical definitions
+
+dpdma_v1_4:
+Initialize dpdma subsystem before link training,This fixes black screen issue for monitors having link rate capacity max upto 2.7Gbps
+
+common_v1_2:
+Sync up xstatus.h and xdebug.h with the lib/bsp/standalone/src/xstatus.h and xdebug.h
+
+axivdma_v6_9:
+Modify axivdma interrupt example data comparison and readsetup to correct the example logic and modify the Xil_DCacheFlushRange() address in writesetup to fix the data comparison failure.
+
+cpu_v2_13:
+Add -fno-tree-loop-distribute-patterns flag to extra compiler flags
+
+cpu_cortexa53_v1_9:
+Add -fno-tree-loop-distribute-patterns flag to extra compiler flags
+
+cpu_cortexa72_v1_3:
+Add -fno-tree-loop-distribute-patterns flag to extra compiler flags
+
+cpu_cortexa9_v2_11:
+Add -fno-tree-loop-distribute-patterns flag to extra compiler flags
+
+cpu_cortexr5_v1_9:
+Add -fno-tree-loop-distribute-patterns flag to extra compiler flags
+
+pciepsu_v1_3:
+MISRA violaton fixes
+
+uartns550_v3_8:
+Fix doxygen warnings
+
+xdmapcie_v1_3:
+Fixed enumeration in designs configured with single BAR
+
+xilsem_v1_3:
+Created a Server-client directory structure
+Restructured the server code for better modularity
+Added support for IPI Server Interface for CRAM & NPI scan
+Added support for IPI Client Interface for CRAM & NPI scan
+Added deferred start-up for CRAM & NPI Scan
+Added detect only support for CRAM
+Added support for SWECC for CRAM Scan
+Added support for new descriptor format (SW SHA & HW SHA)
+Provided examples for IPI client interface
+Added support for PL-GPIO  interface for CRAM & NPI scan status s & error information
+Migration of NPI status and error info from PMC GLOBAL to PMC RAM
+Added support to read CRAM & NPI scan status from PMC RAM
+Added error notification over IPI
+Added customized prints for reporting error detection and correction for beam testing
+Improved performance for CRAM & NPI scan
+Fixed delays in reading the frames,  SHA-3 mismatch issues and partial PDI loading error in NPI scan,
+
+aienginev2_v2_1:
+Transaction IO processing
+Resource manager APIs
+API to sync Timer across AIE
+Fixed compiler warnings
+API to configure enable event register
+
+xilpm_v3_4:
+Versal
+  Remove support for PM_SET_CURRENT_SUBSYSTEM API
+  Update subsystem and reset permission checking
+  M50 and M70 device support
+  Restructured XPPU and XMPU protection code
+  Updated PL housecleaning sequence
+  CPM5 changes for CCIX IPI event
+  Updated IPI subsystem mapping
+  Added NOC clock gating
+  Added support for Healty boot monitoring
+  Add support for Device security, coherency and virtualization
+  Added support for Error Management in RegisterNotifier API
+  Added AIE topology support
+  Command handling update in ProcessCmd function
+  Fixed AIE BISR sequence
+ZynqMP
+Added ability to disable power management master
+
+v_sdirxss_v3_2:
+Added reset to clear any previous data in TX Bridge IP after change in input
+
+zynqmp_pmufw:
+Add DDR related code under DDR define macro
+Minor updates to FPGA load API
+Fix reset ops for assert() calls
+Check master permission for system shutdown and system restart
+Remove CRC16 logic from PMU Firmware and move it to IPI driver
+Give provision to enable or disable PMU build flags using config.h or compiler build flags
+Fix typos in xpfw_interrupts.c file
+Change API IDs to enumeration from defines
+Add PMU Local SERV_ERR register to MMIO register list
+Move call of PmProbeRpuState from PmGetNodeStatus to PmRequestWakeup
+Change scope for PmKillBoardPower to use in multiple modules
+Provide an option to direct board power down (ultra96)
+Add external WDT module
+Add Over Temperature Shutdown module
+Fix voltage status param reading
+Minor code optimizations in PMUFW
+Assign PL to PMU only during subsystem restart
+Added support for programming PUF Fuses as general purpose data
+
+sd_fec_v1_2:
+Fix to register write depth check. Previously byte depth was checked against word depth, now corrected to compare word depth.
+
+dppsu_v1_4:
+Remove hardcoded value for number of instances
+Fix build issue for iar compiler
+
+intc_v3_13:
+Updated source code comments in few files.
+Updated message printed by intc tcl in case of unconnected pins in HW design
+
+iomodule_v2_11:
+Fixed warnings reported by doxygen tool
+
+sysmonpsv_v2_2:
+add documentation and support for prod silicon
+add an array with supply names in string format
+
+freertos10_xilinx_v1_9:
+Upgrade kernel to upstream 10.4.3 version
+Initialize task return address with portTASK_RETURN_ADDRESS for all supported ports, and initialize configTASK_RETURN_ADDRESS to prvTaskExitError
+Defined configUSE_PORT_OPTIMISED_TASK_SELECTION for all supported ports
+Added mitigation for CVE-2020-13844
+
+rfdc_v10_0:
+Driver Refactored into multiple files accoring to compenent function
+Added a custom startup API that allows to start/stop at various states in IPSM
+Added functionallity for DFE varient devices
+Fixed Bug where suppled PLL FS was being saved rather than the calculated FS
+Moved non user macros insid relavent C files to reduce scope
+Fixed bug where signal detector on/off counters where flipped
+Removed second signal detector
+Added data scaler API
+Calibration Tuning and tweaks to improve performance
+rename of MAX/MIN macros to avoid conflicts
+Added clocking scenarios
+Fixed issue with QMC when in IQ mode
+Fixed issue with the autoscale settiing when using the fine mixer
+Minimum gap between edges in MTS DTC scan for T1 reduced for Gen 3 devices
+User can now set the reference tile when using MTS
+Reference tile now scanned first when using MTS
+
+v_hdmirx1_v1_2:
+Added support for Variable Refresh Rate (VRR)
+Added Max FRL Rate parameter in the configuration structure
+Added support for Dynamic HDR
+Fixed SCDC clear sequence
+Fixed divisible by 8 condition for YUV420 (As per CTA-861 specification)
+Remove redundant check for horizontal parameters (HTotal, HActive, HsyncWidth)
+Fixed incorrectly failing FRL SCDC Writes
+
+v_hdmirxss_v6_1:
+Loading BKSV only once during initialization. This is required to ensure that during HDCP 1.4/HDCP 2.2 switching the BKSVs are already available in the RAM FIFO
+Setting HDCP22 version register at initialization time only
+
+v_hdmirxss1_v2_1:
+Added support for Variable Refresh Rate (VRR)
+Added Max FRL Rate parameter in the configuration structure
+Added support for Static HDR
+Added support for Dynamic HDR
+Loading BKSV only once during initialization. This is required to ensure that during HDCP 1.4/HDCP 2.2 switching the BKSVs are already available in the RAM FIFO
+Setting HDCP22 version register at initialization time only
+
+v_hdmitx1_v1_2:
+Added support for Variable Refresh Rate (VRR)
+Added Max FRL Rate parameter in the configuration structure
+Added support for Dynamic HDR
+Fix FRL compliance for LTP 3
+
+v_hdmitxss1_v2_1:
+Added support for Variable Refresh Rate (VRR)
+Added support for Static HDR
+Added support for Dynamic HDR
+Added Max FRL Rate parameter in the configuration structure
+Corrected video clock and link clock calculation for YUV422
+
+v_hdmi_common_v1_5:
+Fix warnings and fs calculation for some formats
+Fix CRC calculation for SPD and DRM Infoframe
+Add support for VRR
+Check for IEEE_ID while parsing VSIF packet
+
+v_mix_v6_2:
+Video driver example application is modified to use canonical definitions
+
+v_multi_scaler_v1_3:
+Video driver example application is modified to use canonical definitions
+
+v_scenechange_v1_3:
+Video driver example application is modified to use canonical definitions
+
+v_sdirx_v2_2:
+Corrected 3GB DS stream identification
+Corrected 6G HFR detection
+
+v_sditx_v3_2:
+Corrected HFR enablement
+Corrected 6G HFR logic to set number of data streams
+
+v_sditxss_v4_2:
+Initialized EOTF and calorimetry field for all data stream (HLG support)
+Fixed 3GB DL and 3GA PSF no display issue
+
+vprocss_v2_9:
+Clocking wizard to used for only zynq ultrascale+ systems.
+
+dmaps_v2_8:
+Fix IAR compilation errors
+
+lwip_v1_5:
+Remove Xilkernel references
+Fix DHCP timeout issues
+Update address variable type for 64 bit support
+
+tpg_v3_3:
+Its very old driver, removed from this release.
+
+standalone_v7_5:
+Update Xil_DCacheFlushRange function in Cortex-A9 BSP with errata#588369 workaround
+Added xil_vprintf functions
+Fixed compilations error with -Werror=conversion
+Add support for spinlock mechanism for ARM v7 platforms
+Consolidate xdebug.h with xdebug.h in common driver
+Fixed warnings reported by doxygen tool
+Added mitigation for CVE-2020-13844
+Added new set of Xil_TestMem32, Xil_TestMem16 and Xil_TestMem8
+APIs to support memory test for memory regions mapped at extended
+addresses (addresses > 4 GB) in case of 32 bit Miroblaze processor.
+
+dp14rxss_v7_0:
+Added HDCP 2.3 Repeater Support
+Added adaptive-sync feature support in multi stream mode.
+Added support for Interrupt handlers for all valid interrupts for MST.
+Loading BKSV only once during initialization. This is required to ensure that during HDCP 1.4/HDCP 2.2 switching the BKSVs are already available in the RAM FIFO
+Added an API to reset the MCDP during Clock Recovery phase.
+
+hdcp1x_v4_6:
+Loading BKSV only once during initialization. This is required to ensure that during HDCP 1.4/HDCP 2.2 switching the BKSVs are already available in the RAM FIFO
+Removed clearing BKSV registers at HDCP disable.
+hdcp22_rx_v3_1:
+Removed setting VERSION register in DDC reset handler
+
+hdcp22_rx_dp_v2_1:
+Added HDCP 2.3 Repeater Support
+
+hdcp22_tx_dp_v2_1:
+Added HDCP 2.3 Repeater Support
+
+xilsem_v1_ 3:
+Created a Server-client directory structure
+Restructured the server code for better modularity
+Added support for IPI Server Interface for CRAM & NPI scan
+Added support for IPI Client Interface for CRAM & NPI scan
+Added deferred start-up for CRAM & NPI Scan
+Added detect only support for CRAM
+Added support for SWECC for CRAM Scan
+Added support for new descriptor format (SW SHA & HW SHA)
+Provided examples for IPI client interface
+Added support for PL-GPIO  interface for CRAM & NPI scan status s & error information
+Migration of NPI status and error info from PMC GLOBAL to PMC RAM
+Added support to read CRAM & NPI scan status from PMC RAM
+Added error notification over IPI
+Added customized prints for reporting error detection and correction for beam testing
+Improved performance for CRAM & NPI scan
+Fixed delays in reading the frames,  SHA-3 mismatch issues and partial PDI loading error in NPI scan,
+
+dp12rxss_v4_5:
+Loading BKSV only once during initialization. This is required to ensure that during HDCP 1.4/HDCP 2.2 switching the BKSVs are already available in the RAM Fifo
+
+dp12txss_v5_4:
+No changes in driver. Application is modified to initialize HDCP 1.3 Keys before Rx configuration
+
+dp14_v7_5:
+Added HDCP 2.3 Repeater Support
+Rx Min voltage swing sweep count is modified to pass link layer compliance
+As per the latest DP CTS specification, increase the reference source waiting period before sending the next aux request.
+Added support for Interrupt handlers for all valid interrupts for MST.
+Add adaptive-sync feature support in multi stream mode.
+In case of Tx-only application, when application tries to send the VSC packet, it was observed that the Misc1 bit[6] received at the sink is zero and which disables the sink from recognizing the color format and bpc from VSC packet. This patch fixes by enabling Misc1 bit[6] of Tx subsystem register when there is a VSC packet received at the sink.
+
+
+xadcps_v2_6:
+Fixed MISRAC Mandatory and Advisory Errors
+Added declartions for functions whose declarations were missing.
+Removed function declartions without definitions.
+
+xxvethernet_v1_6:
+Fix address variable type for 64 bit support
+
+zdma_v1_12:
+Add documentation for function parameters to fix the doxygen warnings.
+
+xilflash_v4_9:
+Fixed doxygen warnings
+
+xilfpga_v6_0:
+Fixed AddrPtr_Size argument usage issue.
+Fixed MISRA-C violation.
+Removed unwanted if else conditions.
+Make Status variable volatile.
+Make XMboxInstance static.
+Fixed reuse of request buffer.
+Fixed the security glitch with IPI request buffer.
+Added function pointers validation check for XFpga_WriteToPl() API.
+Added support to load the authenticated bitstream image as non-secure image if RSA_EN is not programmed
+
+xilloader_v1_4:
+Added multiboot support at run-time
+Added support for PLM_SECURE_EXCLUDE macro
+Added support for Image Store updates during run-time
+Updated chunking logic for hashes
+Added support to dump DDRMC registers
+
+xilmailbox_v1_3:
+Doxygen Fixes
+
+uartpsv_v1_5:
+Fix doxygen warnings
+
+usbps_v2_7:
+Fixed example warning.
+
+usbpsu_v1_9:
+Fix Doxygen warnings.
+Fixed MISRA-C 2012 warnings.
+
+wdtps_v3_5:
+Add compilation check for multiple instances
+Fix doxygen warnings.
+Fix MISRA-C violations.
+
+wdttb_v5_2:
+Fix doxygen warnings
+
+qspips_v3_9:
+Fix doxygen warnings
+
+qspipsu_v1_13:
+Added support for DualByte opcodes.
+Added support for Macronix part-MX25UM51345G (maximum frequency supported is 150MHz).
+Updated the RX tuning algorithm for Master DLL mode to consider physical taps.
+Fixed doxygen warnings in all source files.
+Fixed MISRAC rule 10.3 violation.
+
+rtcpsu_v1_11:
+Fixed doxygen warnings.
+Updated rtc calibration value
+
+scugic_v4_5:
+Updated scugic.tcl to add few additional checks in get_psu_interrupt_id  proc
+
+scuwdt_v2_4:
+Fixed doxygen warnings
+
+spi_v4_8:
+Fix multiple byte transfer hang issue with FIFOs disabled
+Fix doxygen warnings
+
+
+axicdma_v4_9:
+Add a condition to get the IP_NAMES of cells to fix the axicdma
+peripheral tests creation failure.
+
+axidma_v9_13:
+Fix compilation failure in XAxiDma_IntrGetEnabled() macro.
+
+axiethernet_v5_12:
+Remove emacps example file from dependency list
+Fix gcc compilation error on peripheral tests
+
+bram_v4_6:
+bram: Update bram baseaddress variable type for 64bit support
+bram: Export additional defines to identify lmb_bram_if_cntlr instances
+
+can_v3_6:
+Fix the doxygen warnigns.
+
+canfd_v2_5:
+Fix MISRA-C ,Coverity and Doxygen violations
+
+canps_v3_6:
+Fixed the doxygen warnigns.
+
+csudma_v1_9:
+Fix the doxygen warnings and correct the driver name from canps to csudma in csudma mdd file.
+Modify XPmcDma_Transfer prototype to support 64bit address for microblaze processor.
+Update csudma id and interrupt name to support cips 3.0 designs.
+Remove double quotes in peripheral tests application, remove prototype of undefined functions and add description for csudma functions to fix the doxygen warnings.
+
+emacps_v3_14:
+Documentation updates
+Fix lwip failure on GEM PCS PMA design by updating the tcl for the same
+
+gpio_v4_8:
+Fixed the doxygen warnings.
+
+gpiops_v3_9:
+Updated examples to support pmcgpio.
+Fixed doxygen and MISRA-C warnings.
+
+ipipsu_v2_9:
+Added support for CRC on IPI messages.
+Fixed MISRAC issues
+
+iic_v3_8:
+Fix doxygen warnings
+Correct the order of Assert on function arguments
+
+iicps_v3_13:
+Fix doxygen warnings
+Modified XIicps variable name in xiicps_selftest_example
+Clear HOLD bit at correct time
+Add timeout to XIicPs_MasterSendPolled function
+
+nandps_v2_7:
+Fix doxygen warnings
+Add validation check for parameter page
+
+nandpsu_v1_8:
+Fix doxygen warnings
+Add validation check for parameter page
+
 ospipsv_v1_4:
 Added support for DualByte opcodes.
 Added support for Macronix part-MX25UM51345G (maximum frequency supported is 150MHz).
 Updated the RX tuning algorithm for Master DLL mode to consider physical taps.
 Fixed doxygen warnings in all source files.
+Fixed MISRAC rule 10.3 violation.
 
 sdps_v3_12:
 Added support for non-blocking write.
 Fix the issues in reading the CID and CSD.
 Fixed doxygen warnings in all source files.
+Fix the compilation issue for Cortex-A72 + EL1_NS by removing the unwanted DLL
+reset logic(Dead code) for Versal platform.
 
 spips_v3_6:
-Added polled mode TPM example
+Added polled mode example for TPM device
+Fixed doxygen warnings
+
+tmrctr_v4_8:
+Fixed compilation errors with -Werror=conversion flag enabled in compiler flags.
+
+ttcps_v3_14:
+Fix warning due to XTtcPs_ClearInterruptStatus
+
+uartlite_v3_6:
+Fix doxygen warnings
+Add 'XUartLite_GetSR' helper function
+
+uartps_v3_11:
+Fix doxygen warnings
 
 ipipsu_v2_9:
 Added support for CRC on IPI messages.
@@ -450,7 +923,6 @@ versal: Add support for power rail control
 versal: Remove redundant checks
 versal: Update the AieMemInit sequence for ME PMEMinitialization
 versal: Fix in XPmBisr_RepairME() for 64 bit register write
-versal: Skip CPM scan clear for S80 devices
 versal: Add custom reset routines for PL POR reset
 versal: Remove topology hack to change ps por reset type
 versal: Remove subsystem CDO
@@ -468,7 +940,6 @@ versal: Make internal function as static in xpm_api.c file
 versal: Fix in XPm_USBDxState()
 versal: Remove IPI_PMC post topology hook
 versal: Disable PUDC_B pin for ES1 PL workaround
-versal: Add support for SV60 device
 versal: Add support for H6H_2 SLR device
 versal: Remove custom PL domain state machine
 versal: Use IDCODE for Platform Version check in silicon
