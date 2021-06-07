@@ -7,7 +7,7 @@
 /**
 *
 * @file xscugic_intr.c
-* @addtogroup scugic_v4_5
+* @addtogroup scugic_v4_6
 * @{
 *
 * This file contains the interrupt processing for the driver for the Xilinx

@@ -7,7 +7,7 @@
 /**
 *
 * @file xscugic.c
-* @addtogroup scugic_v4_5
+* @addtogroup scugic_v4_6
 * @{
 *
 * Contains required functions for the XScuGic driver for the Interrupt
