@@ -200,8 +200,7 @@ static AieRC XAie_BaremetalIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask,
 	while (Count > 0U) {
 		XAie_BaremetalIO_Read32(IOInst, RegOff, &RegVal);
 		if((RegVal & Mask) == Value) {
-			Ret = XAIE_OK;
-			break;
+			return XAIE_OK;
 		}
 		usleep(MinTimeOutUs);
 		Count--;
@@ -209,8 +208,7 @@ static AieRC XAie_BaremetalIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask,
 
 	/* Check for the break from timed-out loop */
 	XAie_BaremetalIO_Read32(IOInst, RegOff, &RegVal);
-	if((Ret == XAIE_ERR) && ((RegVal & Mask) ==
-			 Value)) {
+	if((RegVal & Mask) == Value) {
 		Ret = XAIE_OK;
 	}
 
