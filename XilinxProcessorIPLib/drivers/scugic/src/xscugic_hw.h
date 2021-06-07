@@ -55,6 +55,7 @@
 *                     XScuGic_DisableIntr. These are now C functions. This
 *                     change was to fix CR-1024716.
 * 4.1   mus  06/12/19 Updated XSCUGIC_MAX_NUM_INTR_INPUTS for Versal.
+* 4.6	sk   06/07/21 Delete the commented macro code to fix the MISRA-C warning.
 *
 * </pre>
 *
@@ -479,7 +480,6 @@ extern "C" {
  * Identifies the interrupt priority of the highest priority pending interrupt
  */
 #define XSCUGIC_PEND_INTID_MASK		0x000003FFU /**< Pending Interrupt ID */
-/*#define XSCUGIC_CPUID_MASK		0x00000C00U */	 /**< CPU ID */
 /* @} */
 #if defined (GICv3)
 /** @name ReDistributor Interface Register Map
