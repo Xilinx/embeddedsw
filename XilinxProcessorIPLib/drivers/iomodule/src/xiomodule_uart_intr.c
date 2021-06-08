@@ -25,6 +25,8 @@
 * 2.2	nsk  08/06/15 Updated XIOModule_Uart_InterruptHandler function
 *		      to read Status register instead of reading Interrupt
 *		      Pending register.
+* 2.12	sk   06/08/21 Update XIOModule_Send and XIOModule_Recv API's argument
+		      (NumBytes) datatype to fix the coverity warnings.
 *
 * </pre>
 *
@@ -87,8 +89,8 @@ typedef void (*Handler)(XIOModule *InstancePtr);
 *		already in progress.
 *
 ******************************************************************************/
-unsigned int XIOModule_Send(XIOModule *InstancePtr, u8 *DataBufferPtr,
-				unsigned int NumBytes)
+u32 XIOModule_Send(XIOModule *InstancePtr, u8 *DataBufferPtr,
+				u32 NumBytes)
 {
 	unsigned int BytesSent;
 	u32 StatusRegister;
@@ -167,8 +169,8 @@ unsigned int XIOModule_Send(XIOModule *InstancePtr, u8 *DataBufferPtr,
 *		that is already in progress.
 *
 *****************************************************************************/
-unsigned int XIOModule_Recv(XIOModule *InstancePtr, u8 *DataBufferPtr,
-				unsigned int NumBytes)
+u32 XIOModule_Recv(XIOModule *InstancePtr, u8 *DataBufferPtr,
+				u32 NumBytes)
 {
 	unsigned int ReceivedCount;
 	u32 StatusRegister;

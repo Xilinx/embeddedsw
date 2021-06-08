@@ -28,6 +28,8 @@
 * 2.7   mus  11/09/18 Updated XIOModule_Initialize and
 *                     XIOModule_ConnectFastHandler to deal with the
 *                     vector address > 32bit.
+* 2.12	sk   06/08/21 Update XIOModule_DiscreteRead and XIOModule_DiscreteWrite
+*		      API's argument(Channel) datatype to fix the coverity warning.
 * </pre>
 *
 ******************************************************************************/
@@ -760,7 +762,7 @@ void XIOModule_SetNormalIntrMode(XIOModule *InstancePtr, u8 Id)
 * @return	Current copy of the discretes register.
 *
 *****************************************************************************/
-u32 XIOModule_DiscreteRead(XIOModule * InstancePtr, unsigned Channel)
+u32 XIOModule_DiscreteRead(XIOModule * InstancePtr, u32 Channel)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -784,7 +786,7 @@ u32 XIOModule_DiscreteRead(XIOModule * InstancePtr, unsigned Channel)
 *
 *****************************************************************************/
 void XIOModule_DiscreteWrite(XIOModule * InstancePtr,
-			     unsigned Channel,
+			     u32 Channel,
 			     u32 Data)
 {
 	Xil_AssertVoid(InstancePtr != NULL);

@@ -229,6 +229,7 @@
 * 2.10  nsk  12/14/20  Updated the tcl to not to use the instance names.
 * 2.11  mus  05/07/21  Fixed warnings reported by doxygen tool. It fixes
 *                      CR#1088640.
+* 2.12	sk   06/08/21  Fix coverity warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -375,8 +376,8 @@ typedef struct {
  */
 typedef struct {
 	u8 *NextBytePtr;
-	unsigned int RequestedBytes;
-	unsigned int RemainingBytes;
+	u32 RequestedBytes;
+	u32 RemainingBytes;
 } XIOModule_Buffer;
 
 /**
@@ -472,17 +473,17 @@ void XIOModule_SetNormalIntrMode(XIOModule *InstancePtr, u8 Id);
 /*
  * API Basic functions for GPI and GPO implemented in xiomodule.c
  */
-u32 XIOModule_DiscreteRead(XIOModule *InstancePtr, unsigned Channel);
+u32 XIOModule_DiscreteRead(XIOModule *InstancePtr, u32 Channel);
 void XIOModule_DiscreteWrite(XIOModule *InstancePtr,
-			     unsigned Channel,
+			     u32 Channel,
 			     u32 Mask);
 
 /*
  * API Functions for GPI and GPO implemented in xiomodule_extra.c
  */
-void XIOModule_DiscreteSet(XIOModule *InstancePtr, unsigned Channel, u32 Mask);
+void XIOModule_DiscreteSet(XIOModule *InstancePtr, u32 Channel, u32 Mask);
 void XIOModule_DiscreteClear(XIOModule *InstancePtr,
-			     unsigned Channel,
+			     u32 Channel,
 			     u32 Mask);
 
 
@@ -495,10 +496,10 @@ int XIOModule_CfgInitialize(XIOModule *InstancePtr,
 
 void XIOModule_ResetFifos(XIOModule *InstancePtr); /* Dummy */
 
-unsigned int XIOModule_Send(XIOModule *InstancePtr, u8 *DataBufferPtr,
-                            unsigned int NumBytes);
-unsigned int XIOModule_Recv(XIOModule *InstancePtr, u8 *DataBufferPtr,
-                            unsigned int NumBytes);
+u32 XIOModule_Send(XIOModule *InstancePtr, u8 *DataBufferPtr,
+                            u32 NumBytes);
+u32 XIOModule_Recv(XIOModule *InstancePtr, u8 *DataBufferPtr,
+                            u32 NumBytes);
 
 int XIOModule_IsSending(XIOModule *InstancePtr);
 

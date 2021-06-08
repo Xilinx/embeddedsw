@@ -45,6 +45,7 @@
 * 2.7   sa   11/09/18 Updated macros to support 64 bit addresses
 * 2.11  mus  05/07/21 Fixed warnings reported by doxygen tool. It fixes
 *                      CR#1088640.
+* 2.12	sk   06/08/21 Fix coverity warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -411,10 +412,10 @@ void XIOModule_LowLevelInterruptHandler(void);
 void XIOModule_DeviceInterruptHandler(void *DeviceId);
 
 /* Various configuration functions */
-void XIOModule_SetIntrSvcOption(UINTPTR BaseAddress, int Option);
+void XIOModule_SetIntrSvcOption(UINTPTR BaseAddress, s32 Option);
 
 void XIOModule_RegisterHandler(UINTPTR BaseAddress,
-			       int InterruptId,
+			       s32 InterruptId,
 			       XInterruptHandler Handler,
 			       void *CallBackRef);
 

@@ -22,6 +22,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.00a sa   07/15/11 First release
+* 2.12	sk   06/08/21 Update XIOModule_DiscreteClear and XIOModule_DiscreteClear
+*                     API's argument(Channel) datatype to fix the coverity warning.
 * </pre>
 *
 *****************************************************************************/
@@ -59,7 +61,7 @@
 * @return	None.
 *
 *****************************************************************************/
-void XIOModule_DiscreteSet(XIOModule * InstancePtr, unsigned Channel, u32 Mask)
+void XIOModule_DiscreteSet(XIOModule * InstancePtr, u32 Channel, u32 Mask)
 {
 	u32 Current;
 	unsigned DataOffset;
@@ -100,7 +102,7 @@ void XIOModule_DiscreteSet(XIOModule * InstancePtr, unsigned Channel, u32 Mask)
 *
 *****************************************************************************/
 void XIOModule_DiscreteClear(XIOModule * InstancePtr,
-			     unsigned Channel,
+			     u32 Channel,
 			     u32 Mask)
 {
 	u32 Current;
