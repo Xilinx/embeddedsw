@@ -25,6 +25,7 @@
 *                     addresses
 * 2.11  mus  05/07/21  Fixed warnings reported by doxygen tool. It fixes
 *                      CR#1088640.
+* 2.12	sk   06/08/21  Fix coverity warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -220,7 +221,7 @@ void XIOModule_DeviceInterruptHandler(void *DeviceId)
 * Note that this function has no effect if the input base address is invalid.
 *
 ******************************************************************************/
-void XIOModule_SetIntrSvcOption(UINTPTR BaseAddress, int Option)
+void XIOModule_SetIntrSvcOption(UINTPTR BaseAddress, s32 Option)
 {
 	XIOModule_Config *CfgPtr;
 
@@ -260,7 +261,7 @@ void XIOModule_SetIntrSvcOption(UINTPTR BaseAddress, int Option)
 * Note that this function has no effect if the input base address is invalid.
 *
 ******************************************************************************/
-void XIOModule_RegisterHandler(UINTPTR BaseAddress, int InterruptId,
+void XIOModule_RegisterHandler(UINTPTR BaseAddress, s32 InterruptId,
 			   XInterruptHandler Handler, void *CallBackRef)
 {
 	XIOModule_Config *CfgPtr;
