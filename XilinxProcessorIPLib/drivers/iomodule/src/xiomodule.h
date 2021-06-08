@@ -230,6 +230,7 @@
 * 2.11  mus  05/07/21  Fixed warnings reported by doxygen tool. It fixes
 *                      CR#1088640.
 * 2.12	sk   06/08/21  Fix coverity warnings.
+* 2.12	sk   06/08/21  Fix misra_c_8_2 coverity warning.
 * </pre>
 *
 ******************************************************************************/
@@ -515,7 +516,7 @@ void XIOModule_ClearStats(XIOModule *InstancePtr);
 /*
  * Interrupt functions in xiomodule_intr.c
  */
-void XIOModule_VoidInterruptHandler();
+void XIOModule_VoidInterruptHandler(void);
 void XIOModule_InterruptHandler(XIOModule * InstancePtr);
 
 void XIOModule_Uart_EnableInterrupt(XIOModule *InstancePtr);
