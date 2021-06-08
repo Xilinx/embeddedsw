@@ -7,7 +7,7 @@
 /**
 *
 * @file xiomodule.h
-* @addtogroup iomodule_v2_11
+* @addtogroup iomodule_v2_12
 * @{
 * @details
 *
