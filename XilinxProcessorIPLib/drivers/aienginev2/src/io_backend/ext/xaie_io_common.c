@@ -32,6 +32,7 @@
 #define XAIE_BROADCAST_CHANNEL_MASK     0xFFFF
 
 /************************** Function Definitions *****************************/
+#ifndef XAIE_RSC_DISABLE
 /*****************************************************************************/
 /**
 * This API finds free resource after checking static and runtime allocated
@@ -497,5 +498,6 @@ AieRC _XAie_RequestAllocatedRscCommon(XAie_DevInst *DevInst,
 	XAIE_ERROR("Resource in use\n");
 	return XAIE_INVALID_ARGS;
 }
+#endif /* !XAIE_RSC_DISABLE */
 
 /** @} */

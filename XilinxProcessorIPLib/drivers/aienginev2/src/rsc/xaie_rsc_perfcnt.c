@@ -22,6 +22,7 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
+#ifndef XAIE_RSC_DISABLE
 #include <stdlib.h>
 
 #include "xaie_rsc.h"
@@ -166,5 +167,6 @@ AieRC XAie_RequestAllocatedPerfcnt(XAie_DevInst *DevInst, u32 NumReq,
 	return _XAie_RscMgr_RequestAllocatedRsc(DevInst, NumReq, RscReq,
 			XAIE_PERFCNT_RSC);
 }
+#endif /* !XAIE_RSC_DISABLE */
 
 /** @} */

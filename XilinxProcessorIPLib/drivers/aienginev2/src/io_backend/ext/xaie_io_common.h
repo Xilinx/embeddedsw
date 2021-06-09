@@ -29,11 +29,34 @@ static inline u64 XAie_IODummyGetTid(void)
 	return 0;
 }
 
+#ifdef XAIE_RSC_DISABLE
+static inline AieRC _XAie_RequestRscCommon(XAie_DevInst *DevInst,
+		XAie_BackendTilesRsc *Arg) {
+	(void)DevInst;
+	(void)Arg;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+static inline AieRC _XAie_ReleaseRscCommon(XAie_BackendTilesRsc *Arg) {
+	(void)Arg;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+static inline AieRC _XAie_FreeRscCommon(XAie_BackendTilesRsc *Arg) {
+	(void)Arg;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+static inline AieRC _XAie_RequestAllocatedRscCommon(XAie_DevInst *DevInst,
+		XAie_BackendTilesRsc *Arg) {
+	(void)DevInst;
+	(void)Arg;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+#else /* !XAIE_RSC_DISABLE */
 AieRC _XAie_RequestRscCommon(XAie_DevInst *DevInst, XAie_BackendTilesRsc *Arg);
 AieRC _XAie_ReleaseRscCommon(XAie_BackendTilesRsc *Arg);
 AieRC _XAie_FreeRscCommon(XAie_BackendTilesRsc *Arg);
 AieRC _XAie_RequestAllocatedRscCommon(XAie_DevInst *DevInst,
 		XAie_BackendTilesRsc *Arg);
+#endif /* XAIE_RSC_DISABLE */
 
 #endif /* XAIE_IO_COMMON_H */
 
