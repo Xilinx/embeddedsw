@@ -61,6 +61,259 @@ typedef enum {
 } XAie_RscType;
 
 /************************** Function Prototypes  *****************************/
+#ifdef XAIE_RSC_DISABLE
+/* Performance counter resource management APIs */
+static inline AieRC XAie_RequestPerfcnt(XAie_DevInst *DevInst, u32 NumTiles,
+		XAie_UserRscReq *RscReq, u32 UserRscNum, XAie_UserRsc *Rscs) {
+	(void)DevInst;
+	(void)NumTiles;
+	(void)RscReq;
+	(void)UserRscNum;
+	(void)Rscs;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+static inline AieRC XAie_ReleasePerfcnt(XAie_DevInst *DevInst, u32 UserRscNum,
+		XAie_UserRsc *Rscs) {
+	(void)DevInst;
+	(void)UserRscNum;
+	(void)Rscs;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+static inline AieRC XAie_FreePerfcnt(XAie_DevInst *DevInst, u32 UserRscNum,
+		XAie_UserRsc *Rscs) {
+	(void)DevInst;
+	(void)UserRscNum;
+	(void)Rscs;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+static inline AieRC XAie_RequestAllocatedPerfcnt(XAie_DevInst *DevInst,
+		u32 NumReq, XAie_UserRsc *RscReq) {
+	(void)DevInst;
+	(void)NumReq;
+	(void)RscReq;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+static inline AieRC XAie_SaveAllocatedRscsToFile(XAie_DevInst *DevInst,
+		const char *File) {
+	(void)DevInst;
+	(void)File;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+
+/* User Events resource management APIs */
+static inline AieRC XAie_RequestUserEvents(XAie_DevInst *DevInst, u32 NumReq,
+		XAie_UserRscReq *RscReq, u32 UserRscNum, XAie_UserRsc *Rscs) {
+	(void)DevInst;
+	(void)NumReq;
+	(void)RscReq;
+	(void)UserRscNum;
+	(void)Rscs;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+static inline AieRC XAie_ReleaseUserEvents(XAie_DevInst *DevInst,
+		u32 UserRscNum, XAie_UserRsc *Rscs) {
+	(void)DevInst;
+	(void)UserRscNum;
+	(void)Rscs;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+static inline AieRC XAie_FreeUserEvents(XAie_DevInst *DevInst, u32 UserRscNum,
+		XAie_UserRsc *Rscs) {
+	(void)DevInst;
+	(void)UserRscNum;
+	(void)Rscs;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+static inline AieRC XAie_RequestAllocatedUserEvents(XAie_DevInst *DevInst,
+		u32 NumReq, XAie_UserRsc *RscReq) {
+	(void)DevInst;
+	(void)NumReq;
+	(void)RscReq;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+
+/* PC Events resource management APIs */
+static inline AieRC XAie_RequestPCEvents(XAie_DevInst *DevInst, u32 NumReq,
+		XAie_UserRscReq *RscReq, u32 UserRscNum, XAie_UserRsc *Rscs) {
+	(void)DevInst;
+	(void)NumReq;
+	(void)RscReq;
+	(void)UserRscNum;
+	(void)Rscs;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+static inline AieRC XAie_ReleasePCEvents(XAie_DevInst *DevInst, u32 UserRscNum,
+		XAie_UserRsc *Rscs) {
+	(void)DevInst;
+	(void)UserRscNum;
+	(void)Rscs;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+static inline AieRC XAie_FreePCEvents(XAie_DevInst *DevInst, u32 UserRscNum,
+		XAie_UserRsc *Rscs) {
+	(void)DevInst;
+	(void)UserRscNum;
+	(void)Rscs;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+static inline AieRC XAie_RequestAllocatedPCEvents(XAie_DevInst *DevInst,
+		u32 NumReq, XAie_UserRsc *RscReq) {
+	(void)DevInst;
+	(void)NumReq;
+	(void)RscReq;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+static inline AieRC XAie_RequestPCRangeEvents(XAie_DevInst *DevInst, u32 NumReq,
+		XAie_UserRscReq *RscReq, u32 UserRscNum, XAie_UserRsc *Rscs) {
+	(void)DevInst;
+	(void)NumReq;
+	(void)RscReq;
+	(void)UserRscNum;
+	(void)Rscs;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+
+/* Stream switch event port selection resource management APIs */
+static inline AieRC XAie_RequestSSEventPortSelect(XAie_DevInst *DevInst,
+		u32 NumReq, XAie_UserRscReq *RscReq, u32 UserRscNum,
+		XAie_UserRsc *Rscs) {
+	(void)DevInst;
+	(void)NumReq;
+	(void)RscReq;
+	(void)UserRscNum;
+	(void)Rscs;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+static inline AieRC XAie_ReleaseSSEventPortSelect(XAie_DevInst *DevInst,
+		u32 UserRscNum, XAie_UserRsc *Rscs) {
+	(void)DevInst;
+	(void)UserRscNum;
+	(void)Rscs;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+static inline AieRC XAie_FreeSSEventPortSelect(XAie_DevInst *DevInst, u32 UserRscNum,
+		XAie_UserRsc *Rscs) {
+	(void)DevInst;
+	(void)UserRscNum;
+	(void)Rscs;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+static inline AieRC XAie_RequestAllocatedSSEventPortSelect(XAie_DevInst *DevInst,
+		u32 NumReq, XAie_UserRsc *RscReq) {
+	(void)DevInst;
+	(void)NumReq;
+	(void)RscReq;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+
+/* Trace control resource management API */
+static inline AieRC XAie_RequestTraceCtrl(XAie_DevInst *DevInst, u32 NumReq,
+		XAie_UserRscReq *RscReq, u32 UserRscNum, XAie_UserRsc *Rscs) {
+	(void)DevInst;
+	(void)NumReq;
+	(void)RscReq;
+	(void)UserRscNum;
+	(void)Rscs;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+static inline AieRC XAie_ReleaseTraceCtrl(XAie_DevInst *DevInst, u32 UserRscNum,
+		XAie_UserRsc *Rscs) {
+	(void)DevInst;
+	(void)UserRscNum;
+	(void)Rscs;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+static inline AieRC XAie_FreeTraceCtrl(XAie_DevInst *DevInst, u32 UserRscNum,
+		XAie_UserRsc *Rscs) {
+	(void)DevInst;
+	(void)UserRscNum;
+	(void)Rscs;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+static inline AieRC XAie_RequestAllocatedTraceCtrl(XAie_DevInst *DevInst, u32 NumReq,
+		XAie_UserRsc *RscReq) {
+	(void)DevInst;
+	(void)NumReq;
+	(void)RscReq;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+
+/* Group Events Resource management APIs */
+static inline AieRC XAie_RequestAllocatedGroupEvents(XAie_DevInst *DevInst, u32 NumReq,
+		XAie_UserRsc *RscReq) {
+	(void)DevInst;
+	(void)NumReq;
+	(void)RscReq;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+static inline AieRC XAie_FreeGroupEvents(XAie_DevInst *DevInst, u32 UserRscNum,
+		XAie_UserRsc *Rscs) {
+	(void)DevInst;
+	(void)UserRscNum;
+	(void)Rscs;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+
+/* Combo Events resource management APIs */
+static inline AieRC XAie_RequestComboEvents(XAie_DevInst *DevInst, u32 NumReq,
+		XAie_UserRscReq *RscReq, u32 UserRscNum, XAie_UserRsc *Rscs) {
+	(void)DevInst;
+	(void)NumReq;
+	(void)RscReq;
+	(void)UserRscNum;
+	(void)Rscs;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+static inline AieRC XAie_ReleaseComboEvents(XAie_DevInst *DevInst, u32 UserRscNum,
+		XAie_UserRsc *Rscs) {
+	(void)DevInst;
+	(void)UserRscNum;
+	(void)Rscs;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+static inline AieRC XAie_FreeComboEvents(XAie_DevInst *DevInst, u32 UserRscNum,
+		XAie_UserRsc *Rscs) {
+	(void)DevInst;
+	(void)UserRscNum;
+	(void)Rscs;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+static inline AieRC XAie_RequestAllocatedComboEvents(XAie_DevInst *DevInst, u32 NumReq,
+		XAie_UserRsc *RscReq) {
+	(void)DevInst;
+	(void)NumReq;
+	(void)RscReq;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+
+/* Broadcast channel resource management APIs */
+static inline AieRC XAie_RequestBroadcastChannel(XAie_DevInst *DevInst, u32 *UserRscNum,
+		XAie_UserRsc *Rscs, u8 BroadcastAllFlag) {
+	(void)DevInst;
+	(void)UserRscNum;
+	(void)Rscs;
+	(void)BroadcastAllFlag;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+static inline AieRC XAie_RequestSpecificBroadcastChannel(XAie_DevInst *DevInst, u32 BcId,
+		u32 *UserRscNum, XAie_UserRsc *Rscs, u8 BroadcastAllFlag) {
+	(void)DevInst;
+	(void)BcId;
+	(void)UserRscNum;
+	(void)Rscs;
+	(void)BroadcastAllFlag;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+static inline AieRC XAie_ReleaseBroadcastChannel(XAie_DevInst *DevInst, u32 UserRscNum,
+		XAie_UserRsc *Rscs)
+{
+	(void)DevInst;
+	(void)UserRscNum;
+	(void)Rscs;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+#else /* !XAIE_RSC_DISABLE */
+
 /* Performance counter resource management APIs */
 AieRC XAie_RequestPerfcnt(XAie_DevInst *DevInst, u32 NumTiles,
 		XAie_UserRscReq *RscReq, u32 UserRscNum, XAie_UserRsc *Rscs);
@@ -161,4 +414,5 @@ static inline XAie_UserRscReq XAie_SetupRscRequest(XAie_LocType Loc,
 }
 
 AieRC XAie_LoadStaticRscfromMem(XAie_DevInst *DevInst, const char *MetaData);
+#endif /* XAIE_RSC_DISABLE */
 #endif		/* end of protection macro */

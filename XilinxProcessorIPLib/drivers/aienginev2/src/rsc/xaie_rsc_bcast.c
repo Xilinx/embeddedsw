@@ -22,6 +22,7 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
+#ifndef XAIE_RSC_DISABLE
 #include <stdlib.h>
 
 #include "xaie_clock.h"
@@ -260,5 +261,6 @@ AieRC XAie_ReleaseBroadcastChannel(XAie_DevInst *DevInst, u32 UserRscNum,
 	return _XAie_RscMgr_ReleaseRscs(DevInst, UserRscNum, Rscs,
 			XAIE_BCAST_CHANNEL_RSC);
 }
+#endif /* !XAIE_RSC_DISABLE */
 
 /** @} */

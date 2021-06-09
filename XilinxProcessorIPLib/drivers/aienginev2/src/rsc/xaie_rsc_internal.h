@@ -39,6 +39,128 @@ typedef struct {
 } XAie_BitmapOffsets;
 
 /************************** Function Prototypes  *****************************/
+#ifdef XAIE_RSC_DISABLE
+/* Global resource management APIs */
+static inline AieRC _XAie_RscMgrInit(XAie_DevInst *DevInst) {
+	(void) DevInst;
+	return XAIE_OK;
+}
+static inline AieRC _XAie_RscMgrFinish(XAie_DevInst *DevInst) {
+	(void) DevInst;
+	return XAIE_OK;
+}
+static inline AieRC _XAie_RscMgr_RequestRsc(XAie_DevInst *DevInst, u32 NumReq,
+		XAie_UserRscReq *RscReq, XAie_UserRsc *Rscs,
+		XAie_RscType RscType) {
+	(void)DevInst;
+	(void)NumReq;
+	(void)RscReq;
+	(void)Rscs;
+	(void)RscType;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+static inline AieRC _XAie_RscMgr_FreeRscs(XAie_DevInst *DevInst, u32 RscNum,
+		XAie_UserRsc *Rscs, XAie_RscType RscType) {
+	(void)DevInst;
+	(void)RscNum;
+	(void)Rscs;
+	(void)RscType;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+static inline AieRC _XAie_RscMgr_ReleaseRscs(XAie_DevInst *DevInst, u32 RscNum,
+		XAie_UserRsc *Rscs, XAie_RscType RscType) {
+	(void)DevInst;
+	(void)RscNum;
+	(void)Rscs;
+	(void)RscType;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+static inline AieRC _XAie_RscMgr_RequestAllocatedRsc(XAie_DevInst *DevInst,
+		u32 NumReq, XAie_UserRsc *Rscs, XAie_RscType RscType) {
+	(void)DevInst;
+	(void)NumReq;
+	(void)Rscs;
+	(void)RscType;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+static inline AieRC _XAie_RscMgr_RequestRscContiguous(XAie_DevInst *DevInst,
+		u32 NumReq, XAie_UserRscReq *RscReq, XAie_UserRsc *Rscs,
+		XAie_RscType RscType) {
+	(void)DevInst;
+	(void)NumReq;
+	(void)RscReq;
+	(void)Rscs;
+	(void)RscType;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+
+/* Common resource management helper APIs */
+static inline AieRC _XAie_CheckLocsValidity(XAie_DevInst *DevInst, u32 NumReq,
+		XAie_UserRsc *RscReq) {
+	(void)DevInst;
+	(void)NumReq;
+	(void)RscReq;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+static inline u32 _XAie_GetStartBit(XAie_DevInst *DevInst, XAie_LocType Loc,
+		u32 MaxRscVal) {
+	(void)DevInst;
+	(void)Loc;
+	(void)MaxRscVal;
+	return 0;
+}
+static inline AieRC _XAie_RscMgrRequestApi_CheckArgs(XAie_DevInst *DevInst,
+		u32 NumReq, XAie_UserRscReq *RscReq, u32 UserRscNum,
+		XAie_UserRsc *Rscs) {
+	(void)DevInst;
+	(void)NumReq;
+	(void)RscReq;
+	(void)UserRscNum;
+	(void)Rscs;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+static inline AieRC _XAie_RscMgrRscApi_CheckArgs(XAie_DevInst *DevInst,
+		u32 RscNum, XAie_UserRsc *Rscs, XAie_RscType RscType) {
+	(void)DevInst;
+	(void)RscNum;
+	(void)Rscs;
+	(void)RscType;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+static inline AieRC _XAie_RscMgr_CheckModforReqs(XAie_DevInst *DevInst,
+		u32 NumReq, XAie_UserRscReq *RscReq) {
+	(void)DevInst;
+	(void)NumReq;
+	(void)RscReq;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+static inline u32 _XAie_RscMgr_GetMaxRscVal(XAie_DevInst *DevInst,
+		XAie_RscType RscType, XAie_LocType Loc, XAie_ModuleType Mod) {
+	(void)DevInst;
+	(void)RscType;
+	(void)Loc;
+	(void)Mod;
+	return 0;
+}
+static inline void _XAie_RscMgr_GetBitmapOffsets(XAie_DevInst *DevInst,
+		XAie_RscType RscType, XAie_LocType Loc, XAie_ModuleType Mod,
+		XAie_BitmapOffsets *Offsets) {
+	(void)DevInst;
+	(void)RscType;
+	(void)Loc;
+	(void)Mod;
+	(void)Offsets;
+	return;
+}
+static inline void _XAie_MarkChannelBitmapAndRscId(XAie_DevInst *DevInst,
+		u32 UserRscNum, XAie_UserRsc *Rscs, u32 ChannelIndex) {
+	(void)DevInst;
+	(void)UserRscNum;
+	(void)Rscs;
+	(void)ChannelIndex;
+	return;
+}
+#else /* !XAIE_RSC_DISABLE */
 /* Global resource management APIs */
 AieRC _XAie_RscMgrInit(XAie_DevInst *DevInst);
 AieRC _XAie_RscMgrFinish(XAie_DevInst *DevInst);
@@ -72,6 +194,7 @@ void _XAie_RscMgr_GetBitmapOffsets(XAie_DevInst *DevInst, XAie_RscType RscType,
 		XAie_BitmapOffsets *Offsets);
 void _XAie_MarkChannelBitmapAndRscId(XAie_DevInst *DevInst, u32 UserRscNum,
 		XAie_UserRsc *Rscs, u32 ChannelIndex);
+#endif /* XAIE_RSC_DISABLE */
 
 /*****************************************************************************/
 /**

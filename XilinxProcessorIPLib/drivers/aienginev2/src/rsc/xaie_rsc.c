@@ -22,6 +22,7 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
+#ifndef XAIE_RSC_DISABLE
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -1365,5 +1366,6 @@ AieRC XAie_LoadStaticRscfromMem(XAie_DevInst *DevInst, const char *MetaData)
 
 	return XAIE_OK;
 }
+#endif /* !XAIE_RSC_DISABLE */
 
 /** @} */
