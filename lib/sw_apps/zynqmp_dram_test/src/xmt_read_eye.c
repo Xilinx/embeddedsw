@@ -22,6 +22,7 @@
  *       mn   09/27/18 Modify code to add 2D Read/Write Eye Tests support
  * 1.1   mn   03/10/21 Fixed doxygen warnings
  * 1.2   mn   05/13/21 Fixed issue with mismatching read eye width
+ * 1.3   mn   06/10/21 Modify code to sweep VRef from 0 to 127 values
  *
  * </pre>
  *
@@ -37,6 +38,8 @@
 
 #define XMT_LANE0LCDLR3_OFFSET	XMT_DDR_PHY_DX0LCDLR3
 #define XMT_LANE0LCDLR4_OFFSET	XMT_DDR_PHY_DX0LCDLR4
+
+#define XMT_READ_VREF_MAX		0x7FU
 
 #define XMT_PSEC	1000000000000
 
@@ -534,8 +537,6 @@ u32 XMt_MeasureRdEye2D(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len)
 	void *SerrorData;
 	u32 Status;
 	u32 VRef;
-	u32 VRefMin;
-	u32 VRefMax;
 
 	xil_printf("\r\nRunning 2-D Read Eye Tests\r\n");
 
@@ -574,13 +575,7 @@ u32 XMt_MeasureRdEye2D(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len)
 		goto RETURN_PATH;
 	}
 
-	/* Get the lowest value of VRef to be tested */
-	VRefMin = XMt_GetVRefAutoMin(XMtPtr);
-
-	/* Get the highest value of VRef to be tested */
-	VRefMax = XMt_GetVRefAutoMax(XMtPtr);
-
-	for (VRef = VRefMin; VRef < VRefMax; VRef++) {
+	for (VRef = 0U; VRef < XMT_READ_VREF_MAX; VRef++) {
 
 		XMt_SetVrefVal(XMtPtr, VRef);
 
