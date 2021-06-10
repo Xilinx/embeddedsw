@@ -48,6 +48,8 @@
 *       bsv  04/01/21 Added TPM support
 *       bsv  04/28/21 Added support to ensure authenticated images boot as
 *                     non-secure when RSA_EN is not programmed
+*       bsv  06/10/21 Mark DDR as memory just after ECC initialization to
+*                     avoid speculative accesses
 *
 * </pre>
 *
@@ -356,6 +358,10 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 			if (XFSBL_SUCCESS != Status) {
 				goto END;
 			}
+			XFsbl_MarkDdrAsReserved(FALSE);
+		}
+		else {
+			XFsbl_MarkDdrAsReserved(TRUE);
 		}
 #else
 	/* Do ECC Initialization of DDR if required */
@@ -363,6 +369,7 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 	if (XFSBL_SUCCESS != Status) {
 		goto END;
 	}
+	XFsbl_MarkDdrAsReserved(FALSE);
 #endif
 
 #if defined(XFSBL_PL_CLEAR) && defined(XFSBL_BS)
@@ -736,9 +743,6 @@ END:
 static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 {
 	u32 Status;
-#ifdef XFSBL_ENABLE_DDR_SR
-	u32 RegValue;
-#endif
 
 	if (FsblInstancePtr->ResetReason != XFSBL_PS_ONLY_RESET) {
 		/**
@@ -809,24 +813,6 @@ static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 
 #ifdef XFSBL_PERF
 	XTime_GetTime(&(FsblInstancePtr->PerfTime.tFsblStart));
-#endif
-
-#ifdef XFSBL_ENABLE_DDR_SR
-	/*
-	 * Read PMU register bit value that indicates DDR is in self refresh
-	 * mode.
-	 */
-	RegValue = Xil_In32(XFSBL_DDR_STATUS_REGISTER_OFFSET) &
-		DDR_STATUS_FLAG_MASK;
-	/* If DDR is in self refresh mode, mark DDR as reserved for now */
-	if (!RegValue) {
-		XFsbl_MarkDdrAsReserved(FALSE);
-	} else {
-		XFsbl_MarkDdrAsReserved(TRUE);
-	}
-#else
-	/* Mark DDR region as "Memory" as DDR initialization is done */
-	XFsbl_MarkDdrAsReserved(FALSE);
 #endif
 
 	/**
