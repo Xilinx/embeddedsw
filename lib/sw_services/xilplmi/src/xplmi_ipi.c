@@ -43,6 +43,7 @@
  *       bm   05/18/2021 Fix issue in IpiDispatchHandler
  *       har  05/18/2021 Updated Status to include library error code in case
  *                       of IPI access error
+ * 1.04  bsv  06/09/2021 Add warning in case IPI-0 interrupt is disabled
  *
  * </pre>
  *
@@ -147,6 +148,12 @@ int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler)
 	 * Enable the IPI IRQ
 	 */
 	XPlmi_PlmIntrEnable(XPLMI_IPI_IRQ);
+
+	if ((XPlmi_In32(PS7_IPI_PMC_IMR) & PS7_IPI_PMC_IMR_IPI0_MASK) ==
+		PS7_IPI_PMC_IMR_IPI0_MASK) {
+		XPlmi_Printf(DEBUG_GENERAL,
+			"Warning: IPI-0(APU) interrupt is disabled\n\r");
+	}
 
 END:
 	XPlmi_Printf(DEBUG_DETAILED,

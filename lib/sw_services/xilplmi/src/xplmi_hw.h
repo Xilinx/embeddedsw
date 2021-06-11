@@ -48,6 +48,7 @@
 *       gm   05/11/2021 Added macros for DDRMC UB related registers
 *       bsv  05/15/2021 Remove warning for AXI_WRSTRB NPI error
 *       ma   05/17/2021 Added macro related to FW_ERR register
+* 1.06  bsv  06/09/2021 Add warning in case IPI-0 interrupt is disabled
 *
 * </pre>
 *
@@ -327,6 +328,12 @@ extern "C" {
 #define NPI_NIR_ERR_TYPE_ERR_MASK	(0X7U)
 #define NPI_NIR_ERR_LOG_P0_INFO_0	(NPI_NIR_BASEADDR + 0X208U)
 #define NPI_NIR_ERR_LOG_P0_INFO_1	(NPI_NIR_BASEADDR + 0X20CU)
+
+/*
+ * Register: PS7_IPI_PMC_IMR
+ */
+#define PS7_IPI_PMC_IMR		(0xFF320014U)
+#define PS7_IPI_PMC_IMR_IPI0_MASK	(0x4U)
 
 /*****************************************************************************/
 /**
