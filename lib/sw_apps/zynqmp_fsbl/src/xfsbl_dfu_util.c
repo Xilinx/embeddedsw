@@ -19,6 +19,7 @@
 * 1.0   bvikram  02/01/17 First release
 * 2.0   bvikram  09/30/20 Fix USB boot mode
 * 3.0   bvikram  03/24/21 Fix compilation warnings
+* 4.0   bvikram  06/09/21 Add support for delayed enumeration of DFU device
 *
 * </pre>
 *
@@ -453,7 +454,12 @@ void XFsbl_DfuSetState(struct Usb_DevData* InstancePtr, u32 DfuState) {
 			/* Set to runtime mode by default */
 			DfuObj.IsDfu = (u8)FALSE;
 			DfuObj.RuntimeToDfu = (u8)FALSE;
-			++DownloadDone;
+			if (DownloadDone == 0U) {
+				DownloadDone = 1U;
+			}
+			else if (DownloadDone == 2U) {
+				++DownloadDone;
+			}
 			Status = XST_SUCCESS;
 		}
 			break;
@@ -498,6 +504,7 @@ void XFsbl_DfuSetState(struct Usb_DevData* InstancePtr, u32 DfuState) {
 			DfuObj.CurrState = STATE_DFU_IDLE;
 			DfuObj.NextState = STATE_DFU_DOWNLOAD_SYNC;
 			DfuObj.IsDfu = (u8)TRUE;
+			++DownloadDone;
 			Status = XST_SUCCESS;
 		}
 		break;
