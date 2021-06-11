@@ -21,6 +21,7 @@
 * 3.0   bvikram  03/24/21 Clear CSU_SSS_CFG register in XFsbl_UsbCopy to
 *                         clear SHA and AES nibbles and avoid DMA corrupting
 *                         destination data
+* 4.0   bvikram  06/09/21 Added support for delayed enumeration of DFU devices
 *
 * </pre>
 *
@@ -42,7 +43,7 @@
 
 #define XFSBL_USB_DEVICE_ID		XPAR_XUSBPSU_0_DEVICE_ID
 #define XFSBL_REQ_REPLY_LEN		256U	/**< Max size of reply buffer. */
-#define XFSBL_DOWNLOAD_COMPLETE		2U
+#define XFSBL_DOWNLOAD_COMPLETE		3U
 
 
 /************************** Function Prototypes ******************************/
