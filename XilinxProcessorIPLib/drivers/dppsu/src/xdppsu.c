@@ -1192,7 +1192,7 @@ static u32 XDpPsu_WaitPhyReady(XDpPsu *InstancePtr)
 {
 	u32 Timeout = 100;
 	u32 PhyStatus;
-	u8 PhyReadyMask = InstancePtr->LinkConfig.MaxLaneCount == 1 ?
+	u8 PhyReadyMask = XDPPSU_0_LANE_COUNT == 1 ?
 			XDPPSU_PHY_STATUS_RESET_LANE_0_DONE_MASK |
 			XDPPSU_PHY_STATUS_GT_PLL_LOCK_MASK :
 			XDPPSU_PHY_STATUS_ALL_LANES_READY_MASK;
