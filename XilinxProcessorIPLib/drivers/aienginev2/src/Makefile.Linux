@@ -38,4 +38,4 @@ lib$(NAME).so: lib$(NAME).so.$(VERSION)
 
 clean:
 	rm -rf $(OUTS) *.so *.so.*
-	rm -rf $(INCLUDEDIR)/*.h
+	rm -rf $(INCLUDEDIR)
