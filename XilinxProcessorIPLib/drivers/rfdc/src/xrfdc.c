@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc.c
-* @addtogroup rfdc_v10_0
+* @addtogroup rfdc_v11_0
 * @{
 *
 * Contains the interface functions of the XRFdc driver.
@@ -200,8 +200,11 @@
 *                       for DFE variants.
 *       cog    05/05/21 Some dividers and delays need to be set to run caliration at
 *                       high sampling rates.
-*       cog    05/26/21 Fixed issue where any end state could be selected in custom
+* 11.0  cog    05/26/21 Fixed issue where any end state could be selected in custom
 *                       startup API if a start state of 1 was supplied.
+*       cog    05/31/21 Upversion information.
+*       cog    06/10/21 When setting the powermode, the IP now takes care of the
+*                       configuration registers.
 *
 * </pre>
 *
@@ -1843,12 +1846,10 @@ static void StubHandler(void *CallBackRefPtr, u32 Type, u32 Tile_Id, u32 Block_I
 u32 XRFdc_SetPwrMode(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, XRFdc_Pwr_Mode_Settings *SettingsPtr)
 {
 	u32 Status;
-	u32 BaseAddrCtrl;
-	u32 BaseAddrConfig;
+	u32 BaseAddr;
 	u32 Index;
 	u32 NoOfBlocks;
 	u32 CtrlSettingsMask;
-	u32 CfgSettingsMask;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
@@ -1893,16 +1894,12 @@ u32 XRFdc_SetPwrMode(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, XR
 		NoOfBlocks = Block_Id + 1U;
 	}
 
-	BaseAddrCtrl = XRFDC_CTRL_STS_BASE(Type, Tile_Id);
+	BaseAddr = XRFDC_CTRL_STS_BASE(Type, Tile_Id);
 	CtrlSettingsMask = !SettingsPtr->PwrMode;
 	CtrlSettingsMask |= (SettingsPtr->DisableIPControl << XRFDC_TDD_CTRL_RTP_SHIFT);
-	CfgSettingsMask = ((SettingsPtr->PwrMode == XRFDC_PWR_MODE_ON) ? XRFDC_DISABLED : XRFDC_TDD_CFG_MASK(Type));
 
 	for (; Index < NoOfBlocks; Index++) {
-		BaseAddrConfig = XRFDC_BLOCK_BASE(Type, Tile_Id, Index);
-		XRFdc_ClrSetReg(InstancePtr, BaseAddrConfig, XRFDC_TDD_MODE0_OFFSET(Type), XRFDC_TDD_CFG_MASK(Type),
-				CfgSettingsMask);
-		XRFdc_ClrSetReg(InstancePtr, BaseAddrCtrl, XRFDC_TDD_CTRL_SLICE_OFFSET(Index),
+		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_TDD_CTRL_SLICE_OFFSET(Index),
 				(XRFDC_TDD_CTRL_MODE0_MASK | XRFDC_TDD_CTRL_RTP_MASK), CtrlSettingsMask);
 	}
 
@@ -2364,5 +2361,5 @@ u8 XRFdc_GetTileLayout(XRFdc *InstancePtr)
 ******************************************************************************/
 double XRFdc_GetDriverVersion(void)
 {
-	return 10.0;
+	return 11.0;
 }

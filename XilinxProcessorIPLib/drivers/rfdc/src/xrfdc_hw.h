@@ -100,6 +100,8 @@
 *       cog    03/12/21 Tweaks for improved calibration performance.
 *       cog    04/01/21 The threshold under/over value masks should be 14 bits.
 * 11.0  cog    05/31/21 Upversion.
+*       cog    06/10/21 When setting the powermode, the IP now takes care of the
+*                       configuration registers.
 *
 *</pre>
 *
@@ -1187,18 +1189,6 @@ extern "C" {
 #define XRFDC_TDD_CTRL_OBS_EN_SHIFT 3U /**< The observation port enable*/
 #define XRFDC_TDD_CTRL_RTP_SHIFT 2U /**< The IP RTS disable bit*/
 #define XRFDC_TDD_CTRL_RTP_OBS_SHIFT 4U /**< The IP RTS disable bit for the observation channel*/
-
-/* @} */
-
-/** @name TDD Configuration
- *
- * This register contains bits to manage the TDD Configuration
- * @{
- */
-
-#define XRFDC_TDD_ADC_CFG_MASK 0x00007CFFU /**< All ADC TDD config bits */
-#define XRFDC_TDD_DAC_CFG_MASK 0x00003FFFU /**< All DAC TDD config bits */
-#define XRFDC_TDD_CFG_MASK(X) ((X == 0) ? XRFDC_TDD_ADC_CFG_MASK : XRFDC_TDD_DAC_CFG_MASK) /**< All TDD config bits */
 
 /* @} */
 
