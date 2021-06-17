@@ -1,12 +1,16 @@
 proc swapp_get_name {} {
-    return "Zynq FSBL";
+    return "Zynq FSBL (TE modified)";
 }
 
 proc swapp_get_description {} {
     return "First Stage Bootloader (FSBL) for Zynq. The FSBL configures the FPGA with HW bit stream (if it exists) \
 	and loads the Operating System (OS) Image or Standalone (SA) Image or 2nd Stage Boot Loader image from the \
 	non-volatile memory (NAND/NOR/QSPI) to RAM (DDR) and starts executing it.  It supports multiple partitions, \
-	and each partition can be a code image or a bit stream.";
+	and each partition can be a code image or a bit stream.\n\n\
+  TE Modification: Interface to CPLD. \n\
+  Modified Files:  main.c, fsbl_hooks.c  (search for 'TE Mod' on source code). Add te_fsbl_hooks.c,te_fsbl_config.h and te_fsbl_config.h.\n\
+  Template: SDK 2018.2\n\
+  ";
 }
 
 proc swapp_get_supported_processors {} {
