@@ -895,4 +895,92 @@ AieRC XAie_CoreConfigAccumulatorControl(XAie_DevInst *DevInst,
 	return XAie_Write32(DevInst, RegAddr, RegVal);
 }
 
+/*****************************************************************************/
+/*
+*
+* This API configures the core processor bus control register to enable or
+* disable core's access processor bus.
+*
+* @param	DevInst: Device Instance
+* @param	Loc: Location of the aie tile.
+* @param	Enable: XAIE_ENABLE to enable, and XAIE_DISABLE to disable.
+*
+* @return	XAIE_OK on success, Error code on failure.
+*
+* @note		Internal only.
+*
+******************************************************************************/
+static AieRC _XAie_CoreProcessorBusConfig(XAie_DevInst *DevInst,
+		XAie_LocType Loc, u8 Enable)
+{
+	u8 TileType;
+	u32 RegVal, RegMask;
+	u64 RegAddr;
+	const XAie_CoreMod *CoreMod;
+	const XAie_RegCoreProcBusCtrl *ProcBusCtrl;
+
+	if((DevInst == XAIE_NULL) ||
+			(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid Device Instance\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
+	if(TileType != XAIEGBL_TILE_TYPE_AIETILE) {
+		XAIE_ERROR("Invalid Tile Type\n");
+		return XAIE_INVALID_TILE;
+	}
+
+	CoreMod = DevInst->DevProp.DevMod[TileType].CoreMod;
+
+	ProcBusCtrl = CoreMod->ProcBusCtrl;
+	if (ProcBusCtrl == XAIE_NULL) {
+		XAIE_ERROR("Core processor bus control is not supported.\n");
+		return XAIE_FEATURE_NOT_SUPPORTED;
+	}
+
+	RegMask = ProcBusCtrl->CtrlEn.Mask;
+	RegVal = XAie_SetField(Enable, ProcBusCtrl->CtrlEn.Lsb, RegMask);
+	RegAddr = ProcBusCtrl->RegOff +
+			_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
+
+	return XAie_MaskWrite32(DevInst, RegAddr, RegMask, RegVal);
+}
+
+/*****************************************************************************/
+/*
+*
+* This API enables core's access to the processor bus.
+*
+* @param	DevInst: Device Instance
+* @param	Loc: Location of the aie tile.
+*
+* @return	XAIE_OK on success, Error code on failure.
+*
+* @note
+*
+******************************************************************************/
+AieRC XAie_CoreProcessorBusEnable(XAie_DevInst *DevInst, XAie_LocType Loc)
+{
+	return _XAie_CoreProcessorBusConfig(DevInst, Loc, XAIE_ENABLE);
+}
+
+/*****************************************************************************/
+/*
+*
+* This API disables core's access to the processor bus.
+*
+* @param	DevInst: Device Instance
+* @param	Loc: Location of the aie tile.
+*
+* @return	XAIE_OK on success, Error code on failure.
+*
+* @note
+*
+******************************************************************************/
+AieRC XAie_CoreProcessorBusDisable(XAie_DevInst *DevInst, XAie_LocType Loc)
+{
+	return _XAie_CoreProcessorBusConfig(DevInst, Loc, XAIE_DISABLE);
+}
+
 /** @} */
