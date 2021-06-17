@@ -453,7 +453,9 @@ void XFsbl_DfuSetState(struct Usb_DevData* InstancePtr, u32 DfuState) {
 			/* Set to runtime mode by default */
 			DfuObj.IsDfu = (u8)FALSE;
 			DfuObj.RuntimeToDfu = (u8)FALSE;
-			++DownloadDone;
+			if (DownloadDone == 1) {
+				DownloadDone = 2;
+			}
 			Status = XST_SUCCESS;
 		}
 			break;
@@ -498,6 +500,7 @@ void XFsbl_DfuSetState(struct Usb_DevData* InstancePtr, u32 DfuState) {
 			DfuObj.CurrState = STATE_DFU_IDLE;
 			DfuObj.NextState = STATE_DFU_DOWNLOAD_SYNC;
 			DfuObj.IsDfu = (u8)TRUE;
+			DownloadDone = 1;
 			Status = XST_SUCCESS;
 		}
 		break;
