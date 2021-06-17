@@ -2180,6 +2180,13 @@ static const XAie_ShimNocAxiMMConfig Aie2ShimNocAxiMMConfig =
 	.NsuDecErr = {XAIEMLGBL_NOC_MODULE_ME_AXIMM_CONFIG_DECERR_BLOCK_LSB, XAIEMLGBL_NOC_MODULE_ME_AXIMM_CONFIG_DECERR_BLOCK_MASK}
 };
 
+/* Register field attribute for core process bus control */
+static const XAie_RegCoreProcBusCtrl AieMlCoreProcBusCtrlReg =
+{
+	.RegOff = XAIEMLGBL_CORE_MODULE_CORE_PROCESSOR_BUS,
+	.CtrlEn = {XAIEMLGBL_CORE_MODULE_CORE_PROCESSOR_BUS_ENABLE_LSB, XAIEMLGBL_CORE_MODULE_CORE_PROCESSOR_BUS_ENABLE_MASK}
+};
+
 /* Core Module */
 static const  XAie_CoreMod Aie2CoreMod =
 {
@@ -2196,6 +2203,7 @@ static const  XAie_CoreMod Aie2CoreMod =
 	.CoreDebug = &Aie2CoreDebugReg,
 	.CoreEvent = &Aie2CoreEventReg,
 	.CoreAccumCtrl = &AieMlCoreAccumCtrlReg,
+	.ProcBusCtrl = &AieMlCoreProcBusCtrlReg,
 	.ConfigureDone = &_XAieMl_CoreConfigureDone,
 	.Enable = &_XAieMl_CoreEnable,
 	.WaitForDone = &_XAieMl_CoreWaitForDone,
