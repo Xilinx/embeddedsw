@@ -210,6 +210,14 @@ typedef struct {
 } XAie_StrmMod;
 
 /*
+ * The typedef contains the attributes of core processor bus.
+ */
+typedef struct {
+	u32 RegOff;
+	XAie_RegFldAttr CtrlEn;
+} XAie_RegCoreProcBusCtrl;
+
+/*
  * The typedef contains the attributes of Core Modules
  */
 typedef struct XAie_CoreMod {
@@ -228,6 +236,7 @@ typedef struct XAie_CoreMod {
 	const XAie_RegCoreDebug *CoreDebug;
 	const XAie_RegCoreEvents *CoreEvent;
 	const XAie_RegCoreAccumCtrl *CoreAccumCtrl;
+	const XAie_RegCoreProcBusCtrl *ProcBusCtrl;
 	AieRC (*ConfigureDone)(XAie_DevInst *DevInst, XAie_LocType Loc,
 			const struct XAie_CoreMod *CoreMod);
 	AieRC (*WaitForDone)(XAie_DevInst *DevInst, XAie_LocType Loc,
