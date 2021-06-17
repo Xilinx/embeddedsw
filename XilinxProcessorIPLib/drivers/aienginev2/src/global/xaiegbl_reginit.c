@@ -1112,6 +1112,7 @@ static const XAie_CoreMod AieCoreMod =
 	.CoreDebug = &AieCoreDebugReg,
 	.CoreEvent = &AieCoreEventReg,
 	.CoreAccumCtrl = NULL,
+	.ProcBusCtrl = NULL,
 	.ConfigureDone = &_XAie_CoreConfigureDone,
 	.Enable = &_XAie_CoreEnable,
 	.WaitForDone = &_XAie_CoreWaitForDone,
