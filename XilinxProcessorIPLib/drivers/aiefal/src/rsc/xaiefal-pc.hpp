@@ -205,8 +205,8 @@ namespace xaiefal {
 			} else {
 					RC = XAie_RequestPCRangeEvents(AieHd->dev(), 1, &Req, 2, Rscs);
 					if (RC == XAIE_OK && Rscs[1].RscId != (Rscs[0].RscId + 1)) {
-						XAie_ReleasePerfcnt(AieHd->dev(), 1, &Rscs[1]);
-						XAie_ReleasePerfcnt(AieHd->dev(), 1, &Rscs[0]);
+						XAie_ReleasePCEvents(AieHd->dev(), 1, &Rscs[1]);
+						XAie_ReleasePCEvents(AieHd->dev(), 1, &Rscs[0]);
 
 						RC = XAIE_ERR;
 					}
@@ -227,8 +227,8 @@ namespace xaiefal {
 		AieRC _release() {
 			Rscs[0].RscId += static_cast<uint32_t>(XAIE_EVENT_PC_0_CORE);
 			Rscs[1].RscId += static_cast<uint32_t>(XAIE_EVENT_PC_0_CORE);
-			XAie_ReleasePerfcnt(AieHd->dev(), 1, &Rscs[0]);
-			XAie_ReleasePerfcnt(AieHd->dev(), 1, &Rscs[1]);
+			XAie_ReleasePCEvents(AieHd->dev(), 1, &Rscs[0]);
+			XAie_ReleasePCEvents(AieHd->dev(), 1, &Rscs[1]);
 			Rscs[0].RscId -= static_cast<uint32_t>(XAIE_EVENT_PC_0_CORE);
 			Rscs[1].RscId -= static_cast<uint32_t>(XAIE_EVENT_PC_0_CORE);
 
