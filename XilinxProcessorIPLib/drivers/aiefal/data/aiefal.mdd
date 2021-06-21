@@ -9,6 +9,6 @@ OPTION psf_version = 2.1;
 BEGIN driver aiefal
   OPTION supported_peripherals = ();
   OPTION copyfiles = all;
-  OPTION VERSION = 1.0;
+  OPTION VERSION = 1.1;
   OPTION NAME = aiefal;
 END driver
