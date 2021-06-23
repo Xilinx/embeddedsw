@@ -68,7 +68,7 @@ AieRC XAie_EventGenerate(XAie_DevInst *DevInst, XAie_LocType Loc,
 		return XAIE_INVALID_ARGS;
 	}
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	if(TileType == XAIEGBL_TILE_TYPE_MAX) {
 		XAIE_ERROR("Invalid tile type\n");
 		return XAIE_INVALID_TILE;
@@ -142,7 +142,7 @@ static AieRC _XAie_EventComboControl(XAie_DevInst *DevInst, XAie_LocType Loc,
 	u8 TileType, Event1Lsb, Event2Lsb, MappedEvent1, MappedEvent2;
 	const XAie_EvntMod *EvntMod;
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 
 	RC = _XAie_CheckModule(DevInst, Loc, Module);
 	if(RC != XAIE_OK) {
@@ -239,7 +239,7 @@ AieRC XAie_EventComboConfig(XAie_DevInst *DevInst, XAie_LocType Loc,
 		return XAIE_INVALID_ARGS;
 	}
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	if(TileType == XAIEGBL_TILE_TYPE_MAX) {
 		XAIE_ERROR("Invalid tile type\n");
 		return XAIE_INVALID_TILE;
@@ -279,7 +279,7 @@ AieRC XAie_EventComboReset(XAie_DevInst *DevInst, XAie_LocType Loc,
 		return XAIE_INVALID_ARGS;
 	}
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	if(TileType == XAIEGBL_TILE_TYPE_MAX) {
 		XAIE_ERROR("Invalid tile type\n");
 		return XAIE_INVALID_TILE;
@@ -344,7 +344,7 @@ static AieRC _XAie_EventSelectStrmPortConfig(XAie_DevInst *DevInst,
 		return XAIE_ERR_STREAM_PORT;
 	}
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	if(TileType == XAIEGBL_TILE_TYPE_AIETILE)
 		EvntMod = &DevInst->DevProp.DevMod[TileType].EvntMod[XAIE_CORE_MOD];
 	else
@@ -419,7 +419,7 @@ AieRC XAie_EventSelectStrmPort(XAie_DevInst *DevInst, XAie_LocType Loc,
 		return XAIE_INVALID_ARGS;
 	}
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	if(TileType == XAIEGBL_TILE_TYPE_MAX) {
 		XAIE_ERROR("Invalid tile type\n");
 		return XAIE_INVALID_TILE;
@@ -457,7 +457,7 @@ AieRC XAie_EventSelectStrmPortReset(XAie_DevInst *DevInst, XAie_LocType Loc,
 		return XAIE_INVALID_ARGS;
 	}
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 
 	if(TileType == XAIEGBL_TILE_TYPE_AIETILE)
 		Port = CORE;
@@ -504,7 +504,7 @@ static AieRC _XAie_EventBroadcastConfig(XAie_DevInst *DevInst, XAie_LocType Loc,
 	u8 TileType, MappedEvent;
 	const XAie_EvntMod *EvntMod;
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 
 	RC = _XAie_CheckModule(DevInst, Loc, Module);
 	if(RC != XAIE_OK) {
@@ -569,7 +569,7 @@ AieRC XAie_EventBroadcast(XAie_DevInst *DevInst, XAie_LocType Loc,
 		return XAIE_INVALID_ARGS;
 	}
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	if(TileType == XAIEGBL_TILE_TYPE_MAX) {
 		XAIE_ERROR("Invalid tile type\n");
 		return XAIE_INVALID_TILE;
@@ -608,7 +608,7 @@ AieRC XAie_EventBroadcastReset(XAie_DevInst *DevInst, XAie_LocType Loc,
 		return XAIE_INVALID_ARGS;
 	}
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	if(TileType == XAIEGBL_TILE_TYPE_MAX) {
 		XAIE_ERROR("Invalid tile type\n");
 		return XAIE_INVALID_TILE;
@@ -671,7 +671,7 @@ AieRC XAie_EventBroadcastBlockDir(XAie_DevInst *DevInst, XAie_LocType Loc,
 		return XAIE_INVALID_ARGS;
 	}
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	if(TileType == XAIEGBL_TILE_TYPE_MAX) {
 		XAIE_ERROR("Invalid tile type\n");
 		return XAIE_INVALID_TILE;
@@ -759,7 +759,7 @@ AieRC XAie_EventBroadcastBlockMapDir(XAie_DevInst *DevInst, XAie_LocType Loc,
 		return XAIE_INVALID_ARGS;
 	}
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	if(TileType == XAIEGBL_TILE_TYPE_MAX) {
 		XAIE_ERROR("Invalid tile type\n");
 		return XAIE_INVALID_TILE;
@@ -847,7 +847,7 @@ AieRC XAie_EventBroadcastUnblockDir(XAie_DevInst *DevInst, XAie_LocType Loc,
 		return XAIE_INVALID_ARGS;
 	}
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	if(TileType == XAIEGBL_TILE_TYPE_MAX) {
 		XAIE_ERROR("Invalid tile type\n");
 		return XAIE_INVALID_TILE;
@@ -924,7 +924,7 @@ static AieRC _XAie_EventGroupConfig(XAie_DevInst *DevInst, XAie_LocType Loc,
 	u8 TileType;
 	const XAie_EvntMod *EvntMod;
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 
 	RC = _XAie_CheckModule(DevInst, Loc, Module);
 	if(RC != XAIE_OK) {
@@ -992,7 +992,7 @@ AieRC XAie_EventGroupControl(XAie_DevInst *DevInst, XAie_LocType Loc,
 		return XAIE_INVALID_ARGS;
 	}
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	if(TileType == XAIEGBL_TILE_TYPE_MAX) {
 		XAIE_ERROR("Invalid tile type\n");
 		return XAIE_INVALID_TILE;
@@ -1031,7 +1031,7 @@ AieRC XAie_EventGroupReset(XAie_DevInst *DevInst, XAie_LocType Loc,
 		return XAIE_INVALID_ARGS;
 	}
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	if(TileType == XAIEGBL_TILE_TYPE_MAX) {
 		XAIE_ERROR("Invalid tile type\n");
 		return XAIE_INVALID_TILE;
@@ -1071,7 +1071,7 @@ static AieRC _XAie_EventPCConfig(XAie_DevInst *DevInst, XAie_LocType Loc,
 	u8 TileType;
 	const XAie_EvntMod *EvntMod;
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 
 	EvntMod = &DevInst->DevProp.DevMod[TileType].EvntMod[XAIE_CORE_MOD];
 
@@ -1139,7 +1139,7 @@ AieRC XAie_EventPCEnable(XAie_DevInst *DevInst, XAie_LocType Loc, u8 PCEventId,
 		return XAIE_INVALID_ARGS;
 	}
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	if(TileType == XAIEGBL_TILE_TYPE_MAX) {
 		XAIE_ERROR("Invalid tile type\n");
 		return XAIE_INVALID_TILE;
@@ -1173,7 +1173,7 @@ AieRC XAie_EventPCDisable(XAie_DevInst *DevInst, XAie_LocType Loc, u8 PCEventId)
 		return XAIE_INVALID_ARGS;
 	}
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	if(TileType == XAIEGBL_TILE_TYPE_MAX) {
 		XAIE_ERROR("Invalid tile type\n");
 		return XAIE_INVALID_TILE;
@@ -1207,7 +1207,7 @@ AieRC XAie_EventPCReset(XAie_DevInst *DevInst, XAie_LocType Loc, u8 PCEventId)
 		return XAIE_INVALID_ARGS;
 	}
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	if(TileType == XAIEGBL_TILE_TYPE_MAX) {
 		XAIE_ERROR("Invalid tile type\n");
 		return XAIE_INVALID_TILE;
@@ -1244,7 +1244,7 @@ AieRC XAie_EventLogicalToPhysicalConv(XAie_DevInst *DevInst, XAie_LocType Loc,
 		return XAIE_INVALID_ARGS;
 	}
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	if(TileType == XAIEGBL_TILE_TYPE_MAX) {
 		return XAIE_INVALID_TILE;
 	}
@@ -1303,7 +1303,7 @@ AieRC XAie_EventPhysicalToLogicalConv(XAie_DevInst *DevInst, XAie_LocType Loc,
 		return XAIE_INVALID_ARGS;
 	}
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	if(TileType == XAIEGBL_TILE_TYPE_MAX) {
 		return XAIE_INVALID_TILE;
 	}
@@ -1363,7 +1363,7 @@ AieRC XAie_EventReadStatus(XAie_DevInst *DevInst, XAie_LocType Loc,
 		return XAIE_INVALID_ARGS;
 	}
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	if(TileType == XAIEGBL_TILE_TYPE_MAX) {
 		XAIE_ERROR("Invalid tile type\n");
 		return XAIE_INVALID_TILE;
