@@ -69,8 +69,8 @@ static AieRC _XAie_GetUngatedTilesInPartition(XAie_DevInst *DevInst,
 					return XAIE_INVALID_ARGS;
 				}
 
-				TileType = _XAie_GetTileTypefromLoc(DevInst,
-					Loc);
+				TileType = DevInst->DevOps->GetTTypefromLoc(
+						DevInst, Loc);
 				if((TileType == XAIEGBL_TILE_TYPE_SHIMNOC) ||
 					(TileType == XAIEGBL_TILE_TYPE_SHIMPL)) {
 					Rscs[Index].Mod = XAIE_PL_MOD;

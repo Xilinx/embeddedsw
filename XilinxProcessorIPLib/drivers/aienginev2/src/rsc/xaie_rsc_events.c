@@ -53,7 +53,7 @@ static XAie_Events _XAie_GetUserEventfromRscId(XAie_DevInst *DevInst,
 	u8 TileType;
 	const XAie_EvntMod *EvntMod;
 
-	TileType =  _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType =  DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 
 	if(Mod == XAIE_PL_MOD)
 		EvntMod = &DevInst->DevProp.DevMod[TileType].EvntMod[0U];
@@ -84,7 +84,7 @@ static u8 _XAie_GetRscIdfromUserEvents(XAie_DevInst *DevInst,
 	u8 TileType;
 	const XAie_EvntMod *EvntMod;
 
-	TileType =  _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType =  DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 
 	if(Mod == XAIE_PL_MOD)
 		EvntMod = &DevInst->DevProp.DevMod[TileType].EvntMod[0U];
@@ -114,7 +114,7 @@ static XAie_Events _XAie_GetPCEventfromRscId(XAie_DevInst *DevInst,
 	u8 TileType;
 	const XAie_EvntMod *EvntMod;
 
-	TileType =  _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType =  DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	EvntMod = &DevInst->DevProp.DevMod[TileType].EvntMod[Mod];
 
 	return EvntMod->PCEventMap->Event + RscId -
@@ -141,7 +141,7 @@ static u8 _XAie_GetRscIdfromPCEvents(XAie_DevInst *DevInst,
 	u8 TileType;
 	const XAie_EvntMod *EvntMod;
 
-	TileType =  _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType =  DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	EvntMod = &DevInst->DevProp.DevMod[TileType].EvntMod[Mod];
 
 	return Event - EvntMod->PCEventMap->Event;
@@ -350,7 +350,7 @@ AieRC XAie_RequestAllocatedUserEvents(XAie_DevInst *DevInst, u32 NumReq,
 	/* Check validity of the user events passed by the user */
 	for(u32 i = 0U; i < NumReq; i++) {
 		RC = _XAie_CheckEventValidity(DevInst,
-				_XAie_GetTileTypefromLoc(DevInst, RscReq[i].Loc),
+				DevInst->DevOps->GetTTypefromLoc(DevInst, RscReq[i].Loc),
 				RscReq[i].Mod, RscReq[i].RscId);
 		if(RC != XAIE_OK)
 			return RC;
@@ -528,7 +528,7 @@ AieRC XAie_RequestAllocatedPCEvents(XAie_DevInst *DevInst, u32 NumReq,
 	/* Check validity of the user events passed by the user */
 	for(u32 i = 0U; i < NumReq; i++) {
 		RC = _XAie_CheckEventValidity(DevInst,
-				_XAie_GetTileTypefromLoc(DevInst, RscReq[i].Loc),
+				DevInst->DevOps->GetTTypefromLoc(DevInst, RscReq[i].Loc),
 				RscReq[i].Mod, RscReq[i].RscId);
 		if(RC != XAIE_OK)
 			return RC;
@@ -702,7 +702,7 @@ static u8 _XAie_GetRscIdfromGroupEvents(XAie_DevInst *DevInst,
 	u8 TileType;
 	const XAie_EvntMod *EvntMod;
 
-	TileType =  _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType =  DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 
 	if(Mod == XAIE_PL_MOD)
 		EvntMod = &DevInst->DevProp.DevMod[TileType].EvntMod[0U];
@@ -749,8 +749,9 @@ AieRC XAie_RequestAllocatedGroupEvents(XAie_DevInst *DevInst, u32 NumReq,
 	/* Check validity of the user events passed by the user */
 	for(u32 i = 0U; i < NumReq; i++) {
 		RC = _XAie_CheckEventValidity(DevInst,
-				_XAie_GetTileTypefromLoc(DevInst, RscReq[i].Loc),
-				RscReq[i].Mod, RscReq[i].RscId);
+				DevInst->DevOps->GetTTypefromLoc(DevInst,
+					RscReq[i].Loc), RscReq[i].Mod,
+				RscReq[i].RscId);
 		if(RC != XAIE_OK)
 			return RC;
 	}
