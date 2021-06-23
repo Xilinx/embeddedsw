@@ -59,6 +59,10 @@ static s32 PmConfigGpoSectionHandler(u32* const addr);
 /* Default number of sections in configuration object */
 #define DEFAULT_SECTIONS_NUM	7U
 
+/* Type of Config Obejcts */
+#define PM_CONFIG_OBJECT_TYPE_BASE	(1U)
+#define PM_CONFIG_OBJECT_TYPE_OVERLAY	(2U)
+
 /*********************************************************************
  * Structure definitions
  ********************************************************************/
@@ -110,6 +114,9 @@ typedef struct {
 	u32 configPerms;
 	u8 flags;
 	u32 secNumber;
+	u32 headerLength;
+	u32 confObjType;
+	u32 overlayConfigPerms;
 } PmConfig;
 
 /*
@@ -121,7 +128,10 @@ typedef struct {
 static PmConfig pmConfig = {
 	.configPerms = IPI_PMU_0_IER_APU_MASK | IPI_PMU_0_IER_RPU_0_MASK,
 	.flags = 0U,
+	.headerLength = 0U,
 	.secNumber = DEFAULT_SECTIONS_NUM,
+	.confObjType = PM_CONFIG_OBJECT_TYPE_BASE,
+	.overlayConfigPerms = 0U,
 };
 
 /**
@@ -426,6 +436,11 @@ static s32 PmConfigSetConfigSectionHandler(u32* const addr)
 {
 	pmConfig.configPerms = PmConfigReadNext(addr);
 
+	if ((pmConfig.headerLength > 1U) &&
+	    (PM_CONFIG_OBJECT_TYPE_BASE == pmConfig.confObjType)) {
+		pmConfig.overlayConfigPerms = PmConfigReadNext(addr);
+	}
+
 	return XST_SUCCESS;
 }
 
@@ -439,10 +454,17 @@ static void PmConfigHeaderHandler(u32* const addr)
 
 	/* Read number of remaining words in header */
 	remWords = PmConfigReadNext(addr);
+	pmConfig.headerLength = remWords;
 
 	/* If there is words in header, get number of sections in object */
 	if (remWords > 0U) {
 		pmConfig.secNumber = PmConfigReadNext(addr);
+		remWords--;
+	}
+
+	/* If there is words in header, get type of config object */
+	if (remWords > 0U) {
+		pmConfig.confObjType = PmConfigReadNext(addr);
 		remWords--;
 	}
 
@@ -575,22 +597,42 @@ s32 PmConfigLoadObject(const u32 address, const u32 callerIpi)
 	s32 status = XST_SUCCESS;
 	u32 currAddr = address;
 	u32 i;
+	u32 confObjType;
 
-	/* Check for permissions to load the configuration object */
-	if (0U == (callerIpi & pmConfig.configPerms)) {
-		PmWarn("No permission to set config\r\n");
-		status = XST_PM_NO_ACCESS;
-		goto ret;
-	}
-
-	PmConfigClear();
-	status = PmSystemRequirementAdd();
-	if (XST_SUCCESS != status) {
-		goto done;
-	}
+	/* Set config object type as base before reading header to support
+	 * backward compatibility.
+	 */
+	pmConfig.confObjType = PM_CONFIG_OBJECT_TYPE_BASE;
 
 	/* Read and process header from the object */
 	PmConfigHeaderHandler(&currAddr);
+	confObjType = pmConfig.confObjType;
+
+	/* Check for the config object type */
+	if ((PM_CONFIG_OBJECT_TYPE_BASE != confObjType) &&
+	    (PM_CONFIG_OBJECT_TYPE_OVERLAY != confObjType)) {
+		PmWarn("Invalid config object type\r\n");
+		status = XST_PM_INVALID_NODE;
+		goto ret;
+	}
+
+	/* Check for permissions to load the configuration object */
+	if (((PM_CONFIG_OBJECT_TYPE_BASE == confObjType) &&
+	     (0U == (callerIpi & pmConfig.configPerms))) ||
+	    ((PM_CONFIG_OBJECT_TYPE_OVERLAY == confObjType) &&
+	     (0U == (callerIpi & pmConfig.overlayConfigPerms)))) {
+			PmWarn("No permission to set config\r\n");
+			status = XST_PM_NO_ACCESS;
+			goto ret;
+	}
+
+	if (PM_CONFIG_OBJECT_TYPE_BASE == confObjType) {
+		PmConfigClear();
+		status = PmSystemRequirementAdd();
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+	}
 
 	/* Read and process each section from the object */
 	for (i = 0U; i < pmConfig.secNumber; i++) {
@@ -613,13 +655,15 @@ s32 PmConfigLoadObject(const u32 address, const u32 callerIpi)
 	}
 
 done:
-	if (XST_SUCCESS == status) {
-		pmConfig.flags |= PM_CONFIG_OBJECT_LOADED;
-		PmConfigPllPermsWorkaround();
-		status = PmNodeInit();
-		PmNodeForceDownUnusable();
-	} else {
-		pmConfig.flags &= ~(u8)PM_CONFIG_OBJECT_LOADED;
+	if (PM_CONFIG_OBJECT_TYPE_BASE == confObjType) {
+		if (XST_SUCCESS == status) {
+			pmConfig.flags |= PM_CONFIG_OBJECT_LOADED;
+			PmConfigPllPermsWorkaround();
+			status = PmNodeInit();
+			PmNodeForceDownUnusable();
+		} else {
+			pmConfig.flags &= ~(u8)PM_CONFIG_OBJECT_LOADED;
+		}
 	}
 ret:
 	return status;
