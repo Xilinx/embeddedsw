@@ -53,7 +53,7 @@ static void  _XAie_PmSetColumnClockBuffer(XAie_DevInst *DevInst,
 	const XAie_PlIfMod *PlIfMod;
 	const XAie_ShimClkBufCntr *ClkBufCntr;
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	PlIfMod = DevInst->DevProp.DevMod[TileType].PlIfMod;
 	ClkBufCntr = PlIfMod->ClkBufCntr;
 
@@ -112,7 +112,7 @@ static void _XAie_PmGateTiles(XAie_DevInst *DevInst, XAie_LocType Loc)
 
 		TileLoc.Col = Loc.Col;
 		TileLoc.Row = R - 1;
-		TileType = _XAie_GetTileTypefromLoc(DevInst, TileLoc);
+		TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, TileLoc);
 		ClockMod = DevInst->DevProp.DevMod[TileType].ClockMod;
 		RegAddr = _XAie_GetTileAddr(DevInst, TileLoc.Row, TileLoc.Col) +
 				ClockMod->ClockRegOff;
@@ -146,7 +146,7 @@ static void _XAie_PmUngateTiles(XAie_DevInst *DevInst, XAie_LocType FromLoc,
 
 		TileLoc.Col = FromLoc.Col;
 		TileLoc.Row = R;
-		TileType = _XAie_GetTileTypefromLoc(DevInst, TileLoc);
+		TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, TileLoc);
 		ClockMod = DevInst->DevProp.DevMod[TileType].ClockMod;
 		RegAddr = _XAie_GetTileAddr(DevInst, TileLoc.Row, TileLoc.Col) +
 				ClockMod->ClockRegOff;
@@ -352,7 +352,7 @@ u8 _XAie_PmIsTileRequested(XAie_DevInst *DevInst, XAie_LocType Loc)
 		return XAIE_DISABLE;
 	}
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	if (TileType == XAIEGBL_TILE_TYPE_MAX) {
 		return XAIE_DISABLE;
 	}

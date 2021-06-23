@@ -44,7 +44,7 @@ static void _XAie_RstSetShimReset(XAie_DevInst *DevInst, XAie_LocType Loc,
 	const XAie_PlIfMod *PlIfMod;
 	const XAie_ShimRstMod *ShimTileRst;
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	PlIfMod = DevInst->DevProp.DevMod[TileType].PlIfMod;
 	ShimTileRst = PlIfMod->ShimTileRst;
 
