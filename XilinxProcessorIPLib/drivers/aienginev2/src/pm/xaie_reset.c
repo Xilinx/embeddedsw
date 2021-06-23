@@ -46,7 +46,7 @@ static void  _XAie_RstSetColumnReset(XAie_DevInst *DevInst,
 	u64 RegAddr;
 	const XAie_PlIfMod *PlIfMod;
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	PlIfMod = DevInst->DevProp.DevMod[TileType].PlIfMod;
 	RegAddr = PlIfMod->ColRstOff +
 		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
@@ -107,7 +107,7 @@ static void _XAie_RstSetBlockShimNocAxiMmNsuErr(XAie_DevInst *DevInst,
 	const XAie_PlIfMod *PlIfMod;
 	const XAie_ShimNocAxiMMConfig *ShimNocAxiMM;
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	PlIfMod = DevInst->DevProp.DevMod[TileType].PlIfMod;
 	ShimNocAxiMM = PlIfMod->ShimNocAxiMM;
 	RegAddr = ShimNocAxiMM->RegOff +
@@ -154,7 +154,7 @@ static void  _XAie_RstSetBlockAllShimsNocAxiMmNsuErr(XAie_DevInst *DevInst,
 		XAie_LocType Loc = XAie_TileLoc(C, 0);
 		u8 TileType;
 
-		TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+		TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 		if (TileType != XAIEGBL_TILE_TYPE_SHIMNOC) {
 			continue;
 		}
@@ -185,7 +185,7 @@ static AieRC _XAie_RstAllShims(XAie_DevInst *DevInst)
 	const XAie_ShimRstMod *ShimTileRst;
 	XAie_LocType Loc = XAie_TileLoc(0, 0);
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	ShimTileRst = DevInst->DevProp.DevMod[TileType].PlIfMod->ShimTileRst;
 
 	return ShimTileRst->RstShims(DevInst, 0, DevInst->NumCols);
@@ -258,7 +258,7 @@ static void _XAie_ClearDataMem(XAie_DevInst *DevInst, XAie_LocType Loc)
 	u64 RegAddr;
 	u8 TileType;
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	MemMod = DevInst->DevProp.DevMod[TileType].MemMod;
 	RegAddr = MemMod->MemAddr +
 		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
@@ -313,7 +313,7 @@ AieRC XAie_ClearPartitionMems(XAie_DevInst *DevInst)
 			XAie_LocType Loc = XAie_TileLoc(C, R);
 			u8 TileType;
 
-			TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+			TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 			if(TileType == XAIEGBL_TILE_TYPE_SHIMNOC ||
 			   TileType == XAIEGBL_TILE_TYPE_SHIMPL) {
 				continue;
