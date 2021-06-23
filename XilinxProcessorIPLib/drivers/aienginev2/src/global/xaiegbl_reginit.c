@@ -3056,6 +3056,7 @@ XAie_DeviceOps AieDevOps =
 	.SetPartColShimReset = &_XAie_SetPartColShimReset,
 	.SetPartColClockAfterRst = &_XAie_SetPartColClockAfterRst,
 	.SetPartIsolationAfterRst = &_XAie_SetPartIsolationAfterRst,
+	.PartMemZeroInit = &_XAie_PartMemZeroInit,
 };
 
 /** @} */

@@ -217,4 +217,56 @@ AieRC _XAie_SetPartIsolationAfterRst(XAie_DevInst *DevInst)
 	return RC;
 }
 
+/*****************************************************************************/
+/**
+*
+* This API initialize the memories of the partition to zero.
+*
+* @param	DevInst: Device Instance
+*
+* @return       XAIE_OK on success, error code on failure
+*
+* @note		It is not required to check the DevInst as the caller function
+*		should provide the correct value.
+*		Internal API only.
+*
+******************************************************************************/
+AieRC _XAie_PartMemZeroInit(XAie_DevInst *DevInst)
+{
+	AieRC RC = XAIE_OK;
+	const XAie_CoreMod *CoreMod;
+	const XAie_MemMod *MemMod;
+
+	CoreMod = DevInst->DevProp.DevMod[XAIEGBL_TILE_TYPE_AIETILE].CoreMod;
+	MemMod = DevInst->DevProp.DevMod[XAIEGBL_TILE_TYPE_AIETILE].MemMod;
+
+	for(u8 C = 0; C < DevInst->NumCols; C++) {
+		for(u8 R = 1; R < DevInst->NumRows; R++) {
+			u64 RegAddr;
+
+			/* Zeroize program memory */
+			RegAddr = CoreMod->ProgMemHostOffset +
+				_XAie_GetTileAddr(DevInst, R, C);
+			RC = XAie_BlockSet32(DevInst, RegAddr, 0,
+					CoreMod->ProgMemSize / sizeof(u32));
+			if(RC != XAIE_OK) {
+				XAIE_ERROR("Failed to zeroize partition.\n");
+				return RC;
+			}
+
+			/* Zeroize data memory */
+			RegAddr = MemMod->MemAddr +
+				_XAie_GetTileAddr(DevInst, R, C);
+			RC = XAie_BlockSet32(DevInst, RegAddr, 0,
+					MemMod->Size / sizeof(u32));
+			if(RC != XAIE_OK) {
+				XAIE_ERROR("Failed to zeroize partition.\n");
+				return RC;
+			}
+		}
+	}
+
+	return RC;
+}
+
 /** @} */
