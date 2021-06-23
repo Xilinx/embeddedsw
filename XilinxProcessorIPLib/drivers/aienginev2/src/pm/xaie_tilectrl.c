@@ -34,8 +34,12 @@
 * @param	DevInst: Device Instance
 * @param	Loc: tile location
 * @param	Dir: directions to block, the direction input as:
-*			XAIE_ISOLATE_EAST_MASK | XAIE_ISOLATE_NORTH_MASK
-*			or XAIE_ISOLATE_ALL_MASK
+*			XAIE_ISOLATE_EAST_MASK,
+*			XAIE_ISOLATE_NORTH_MASK,
+*			XAIE_ISOLATE_WEST_MASK,
+*			XAIE_ISOLATE_SOUTH_MASK,
+*			or "OR" operation of more than one of the above masks,
+*			or XAIE_ISOLATE_ALL_MASK to block all directions.
 *
 * @return       XAIE_OK on success, error code on failure
 *
