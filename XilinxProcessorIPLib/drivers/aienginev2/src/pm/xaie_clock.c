@@ -38,13 +38,14 @@
 * @param        Enable: XAIE_ENABLE to enable column global clock buffer,
 *                       XAIE_DISABLE to disable.
 *
-* @return       none
+* @return       XAIE_OK for success, and error code for failure.
 *
 * @note         It is not required to check the DevInst and the Loc tile type
 *               as the caller function should provide the correct value.
+*               It is internal function to this file
 *
 ******************************************************************************/
-static void  _XAie_PmSetColumnClockBuffer(XAie_DevInst *DevInst,
+static AieRC  _XAie_PmSetColumnClockBuffer(XAie_DevInst *DevInst,
 		XAie_LocType Loc, u8 Enable)
 {
 	u8 TileType;
@@ -62,7 +63,7 @@ static void  _XAie_PmSetColumnClockBuffer(XAie_DevInst *DevInst,
 	FldVal = XAie_SetField(Enable, ClkBufCntr->ClkBufEnable.Lsb,
 			ClkBufCntr->ClkBufEnable.Mask);
 
-	XAie_MaskWrite32(DevInst, RegAddr, ClkBufCntr->ClkBufEnable.Mask,
+	return XAie_MaskWrite32(DevInst, RegAddr, ClkBufCntr->ClkBufEnable.Mask,
 			FldVal);
 }
 
@@ -75,17 +76,24 @@ static void  _XAie_PmSetColumnClockBuffer(XAie_DevInst *DevInst,
 * @param        Enable: XAIE_ENABLE to enable column global clock buffer,
 *               XAIE_DISABLE to disable.
 *
-* @note         None
+* @note         This is INTERNAL API.
 *
 *******************************************************************************/
-void _XAie_PmSetPartitionClock(XAie_DevInst *DevInst, u8 Enable)
+AieRC _XAie_PmSetPartitionClock(XAie_DevInst *DevInst, u8 Enable)
 {
 	for(u32 C = 0; C < DevInst->NumCols; C++) {
 		XAie_LocType Loc;
+		AieRC RC;
 
 		Loc = XAie_TileLoc(C, 0);
-		_XAie_PmSetColumnClockBuffer(DevInst, Loc, Enable);
+		RC = _XAie_PmSetColumnClockBuffer(DevInst, Loc, Enable);
+		if (RC != XAIE_OK) {
+			XAIE_ERROR("Failed to set partition clock buffers.\n");
+			return RC;
+		}
 	}
+
+	return XAIE_OK;
 }
 
 /*****************************************************************************/

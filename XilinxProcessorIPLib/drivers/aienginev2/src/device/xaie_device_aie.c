@@ -22,6 +22,7 @@
 ******************************************************************************/
 /***************************** Include Files *********************************/
 #include "xaie_helper.h"
+#include "xaie_clock.h"
 
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
@@ -138,6 +139,38 @@ AieRC _XAie_SetPartColShimReset(XAie_DevInst *DevInst, u8 Enable)
 	}
 
 	return XAIE_OK;
+}
+
+/*****************************************************************************/
+/**
+*
+* This API sets column clock buffers after SHIM is reset.
+*
+* @param	DevInst: Device Instance
+* @param	Enable: Indicate if to enable clock buffers or disable them.
+*			XAIE_ENABLE to enable clock buffers, XAIE_DISABLE to
+*			disable.
+*
+* @return	XAIE_OK for success, and error code for failure
+*
+* @note		Internal API only.
+*
+******************************************************************************/
+AieRC _XAie_SetPartColClockAfterRst(XAie_DevInst *DevInst, u8 Enable)
+{
+	AieRC RC;
+
+	if(Enable == XAIE_ENABLE) {
+		/* Column clocks are enabled by default for aie device */
+		return XAIE_OK;
+	}
+
+	RC = _XAie_PmSetPartitionClock(DevInst, XAIE_DISABLE);
+	if(RC != XAIE_OK) {
+		XAIE_ERROR("Failed to disable clock buffers.\n");
+	}
+
+	return RC;
 }
 
 /** @} */

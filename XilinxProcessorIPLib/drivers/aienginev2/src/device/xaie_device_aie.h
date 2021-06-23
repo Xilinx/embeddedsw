@@ -27,6 +27,7 @@
 /************************** Function Prototypes  *****************************/
 u8 _XAie_GetTTypefromLoc(XAie_DevInst *DevInst, XAie_LocType Loc);
 AieRC _XAie_SetPartColShimReset(XAie_DevInst *DevInst, u8 Enable);
+AieRC _XAie_SetPartColClockAfterRst(XAie_DevInst *DevInst, u8 Enable);
 
 #endif /* XAIE_DEVICE_AIE */
 /** @} */
