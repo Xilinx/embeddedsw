@@ -1,0 +1,28 @@
+var xdfeccf__hw_8h =
+[
+    [ "XDFECCF_ANTENNA_CONFIGURATION_CURRENT", "xdfeccf__hw_8h.html#ga8d065522c7f07810328f1c744d50fb19", null ],
+    [ "XDFECCF_ANTENNA_CONFIGURATION_NEXT", "xdfeccf__hw_8h.html#ga358887c9d7ce3a9af1c7dee8e1403671", null ],
+    [ "XDFECCF_CARRIER_CONFIGURATION_CURRENT", "xdfeccf__hw_8h.html#ga92e2f6ac4956670b95fc2450f6ef5256", null ],
+    [ "XDFECCF_CARRIER_CONFIGURATION_NEXT", "xdfeccf__hw_8h.html#ga8854d8ee18666f0177050ce98b7f142b", null ],
+    [ "XDFECCF_COEFF_CFG", "xdfeccf__hw_8h.html#gae5dfececf906aeebc670da1fe66d810a", null ],
+    [ "XDFECCF_COEFF_LOAD", "xdfeccf__hw_8h.html#ga88eb6b2567676a263a39f044054290da", null ],
+    [ "XDFECCF_COEFF_VALUE", "xdfeccf__hw_8h.html#ga80752d482cac93cfb73be72a27c7e493", null ],
+    [ "XDFECCF_GAIN_STG_EN_OFFSET", "xdfeccf__hw_8h.html#gac1827acd2c5f29ba949a6a4c818611a3", null ],
+    [ "XDFECCF_IDR", "xdfeccf__hw_8h.html#ga435e7ed6de08409dcc12bcb631719ee1", null ],
+    [ "XDFECCF_IER", "xdfeccf__hw_8h.html#ga1ca01ebf96c163b5f4f5a92c1eda0e04", null ],
+    [ "XDFECCF_IMR", "xdfeccf__hw_8h.html#ga26754ea07942f11f481a46d14dc03b08", null ],
+    [ "XDFECCF_ISR", "xdfeccf__hw_8h.html#ga4aadcabe3ba94c257cfb55c08d656f9b", null ],
+    [ "XDFECCF_MODEL_PARAM_OFFSET", "xdfeccf__hw_8h.html#ga8644626bb65d2f027a1e008b660958b7", null ],
+    [ "XDFECCF_OVERFLOW", "xdfeccf__hw_8h.html#gaa51ac68097eddd1852f2861777be7d79", null ],
+    [ "XDFECCF_RESET_OFFSET", "xdfeccf__hw_8h.html#ga18910627e4e9031f7fe0b65b2a15365d", null ],
+    [ "XDFECCF_SEQUENCE_CURRENT", "xdfeccf__hw_8h.html#ga048e53a28384973b330c69bf426bf7d9", null ],
+    [ "XDFECCF_SEQUENCE_LENGTH_CURRENT", "xdfeccf__hw_8h.html#ga49d1510eea6b8a43ff485932f2643f9e", null ],
+    [ "XDFECCF_SEQUENCE_LENGTH_NEXT", "xdfeccf__hw_8h.html#gab341cab858e51f3e4d45d45807bc9101", null ],
+    [ "XDFECCF_SEQUENCE_NEXT", "xdfeccf__hw_8h.html#ga7e8e2ac718d8ba468dc33bab486345d8", null ],
+    [ "XDFECCF_STATE_LOW_POWER_OFFSET", "xdfeccf__hw_8h.html#ga0a0d35a2420842b7bc49929c8c7f42f5", null ],
+    [ "XDFECCF_STATE_OPERATIONAL_OFFSET", "xdfeccf__hw_8h.html#ga75c94814af06e68cd097d4a5c47ff8e1", null ],
+    [ "XDFECCF_TRIGGERS_ACTIVATE_OFFSET", "xdfeccf__hw_8h.html#ga806f2aa400e12c6a5b13ee3e3c414aa8", null ],
+    [ "XDFECCF_TRIGGERS_CC_UPDATE_OFFSET", "xdfeccf__hw_8h.html#ga292c723bb1a48ed3f880cfa40f73c194", null ],
+    [ "XDFECCF_TRIGGERS_LOW_POWER_OFFSET", "xdfeccf__hw_8h.html#gab91dbfbda388f6f40c00a4ee51f8f6c3", null ],
+    [ "XDFECCF_VERSION_OFFSET", "xdfeccf__hw_8h.html#gaae0070944b330df3bbad33569c93a5c1", null ]
+];
