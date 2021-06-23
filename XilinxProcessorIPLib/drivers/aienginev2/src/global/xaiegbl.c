@@ -208,6 +208,33 @@ AieRC XAie_PartitionTeardown(XAie_DevInst *DevInst)
 /*****************************************************************************/
 /**
 *
+* This is the api to setup the AI engine partition intialization. It is
+* supposed to be called after the partition resets.
+*
+* @param	DevInst - Global AIE device instance pointer.
+*
+* @return	XAIE_OK on success and error code on failure.
+*
+* @note		This is a temporary wrapper. Expect all users will migrate
+*		to use partition initialization function instead. And then
+*		this wrapper function can be removed in future.
+*
+******************************************************************************/
+AieRC _XAie_PartitionIsolationInitialize(XAie_DevInst *DevInst)
+{
+	if((DevInst == XAIE_NULL) ||
+			(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid Device Instance\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	return DevInst->DevOps->SetPartIsolationAfterRst(DevInst);
+
+}
+
+/*****************************************************************************/
+/**
+*
 * This is the api to finish the AI enigne partition. It will release
 * the occupied AI engine resource
 *
