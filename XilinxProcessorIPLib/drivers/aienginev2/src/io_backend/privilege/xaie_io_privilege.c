@@ -363,6 +363,7 @@ AieRC _XAie_PrivilegeInitPart(XAie_DevInst *DevInst, XAie_PartInitOpts *Opts)
 *		- Clock gate all columns
 *		- Reset Columns
 *		- Reset shims
+*		- zeroize memories
 *		- Clock gate all columns
 *
 *******************************************************************************/
@@ -400,7 +401,19 @@ AieRC _XAie_PrivilegeTeardownPart(XAie_DevInst *DevInst)
 		return RC;
 	}
 
-	RC = DevInst->DevOps->SetPartColClockAfterRst(DevInst, XAIE_DISABLE);
+	RC = DevInst->DevOps->SetPartColClockAfterRst(DevInst, XAIE_ENABLE);
+	if(RC != XAIE_OK) {
+		_XAie_PrivilegeSetPartProtectedRegs(DevInst, XAIE_DISABLE);
+		return RC;
+	}
+
+	RC = DevInst->DevOps->PartMemZeroInit(DevInst);
+	if (RC != XAIE_OK) {
+		_XAie_PrivilegeSetPartProtectedRegs(DevInst, XAIE_DISABLE);
+		return RC;
+	}
+
+	RC = _XAie_PmSetPartitionClock(DevInst, XAIE_DISABLE);
 	if(RC != XAIE_OK) {
 		_XAie_PrivilegeSetPartProtectedRegs(DevInst, XAIE_DISABLE);
 		return RC;
