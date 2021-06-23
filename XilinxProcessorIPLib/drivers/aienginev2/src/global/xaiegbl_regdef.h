@@ -655,6 +655,11 @@ typedef struct XAie_TileMod {
 	const XAie_L2IntrMod *L2IntrMod;
 } XAie_TileMod;
 
+
+typedef struct XAie_DeviceOps {
+	u8 (*GetTTypefromLoc)(XAie_DevInst *DevInst, XAie_LocType Loc);
+} XAie_DeviceOps;
+
 #endif
 
 /** @} */
