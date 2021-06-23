@@ -645,6 +645,14 @@ typedef struct XAie_TileCtrlMod{
 } XAie_TileCtrlMod;
 
 /*
+ * This typedef contains the attributes for memory control module
+ */
+typedef struct XAie_MemCtrlMod{
+	u32 MemCtrlRegOff;		/**< memory control reg offset */
+	XAie_RegFldAttr MemZeroisation;	/**< memory zeroisation field */
+} XAie_MemCtrlMod;
+
+/*
  * This structure captures all attributes related to resource manager.
  */
 typedef struct XAie_ResourceManager {
@@ -670,6 +678,7 @@ typedef struct XAie_TileMod {
 	const XAie_L1IntrMod *L1IntrMod;
 	const XAie_L2IntrMod *L2IntrMod;
 	const XAie_TileCtrlMod *TileCtrlMod;
+	const XAie_MemCtrlMod *MemCtrlMod;
 } XAie_TileMod;
 
 
