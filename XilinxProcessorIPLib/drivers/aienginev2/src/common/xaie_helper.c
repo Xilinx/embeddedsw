@@ -114,7 +114,7 @@ AieRC _XAie_CheckModule(XAie_DevInst *DevInst,
 {
 	u8 TileType;
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	if(TileType == XAIEGBL_TILE_TYPE_AIETILE && Module > XAIE_CORE_MOD) {
 		XAIE_ERROR("Invalid Module\n");
 		return XAIE_INVALID_ARGS;
@@ -314,7 +314,7 @@ u32 _XAie_GetFatalGroupErrors(XAie_DevInst *DevInst, XAie_LocType Loc,
 	u8 TileType;
 	const XAie_EvntMod *EvntMod;
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	if(Module == XAIE_PL_MOD)
 		EvntMod = &DevInst->DevProp.DevMod[TileType].EvntMod[0U];
 	else
