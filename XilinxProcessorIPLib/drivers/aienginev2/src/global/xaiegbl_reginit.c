@@ -2934,6 +2934,34 @@ static const XAie_L2IntrMod AieNoCL2IntrMod =
 };
 
 /*
+ * Data structure to configures tile control for
+ * XAIEGBL_TILE_TYPE_AIETILE tile type
+ */
+static const XAie_TileCtrlMod AieCoreTileCtrlMod =
+{
+	.TileCtrlRegOff = XAIEGBL_CORE_TILCTRL,
+	.IsolateEast = {XAIEGBL_CORE_TILCTRL_ISOFROEAS_LSB, XAIEGBL_CORE_TILCTRL_ISOFROEAS_MASK},
+	.IsolateNorth = {XAIEGBL_CORE_TILCTRL_ISOFRONOR_LSB, XAIEGBL_CORE_TILCTRL_ISOFRONOR_MASK},
+	.IsolateWest = {XAIEGBL_CORE_TILCTRL_ISOFROWES_LSB, XAIEGBL_CORE_TILCTRL_ISOFROWES_MASK},
+	.IsolateSouth = {XAIEGBL_CORE_TILCTRL_ISOFROSOU_LSB,XAIEGBL_CORE_TILCTRL_ISOFROSOU_MASK},
+	.IsolateDefaultOn = XAIE_DISABLE,
+};
+
+/*
+ * Data structure to configures tile control for
+ * XAIEGBL_TILE_TYPE_SHIMPL/NOC tile type
+ */
+static const XAie_TileCtrlMod AieShimTileCtrlMod =
+{
+	.TileCtrlRegOff = XAIEGBL_PL_TILCTRL,
+	.IsolateEast = {XAIEGBL_PL_TILCTRL_ISOFROEAS_LSB, XAIEGBL_PL_TILCTRL_ISOFROEAS_MASK},
+	.IsolateNorth = {XAIEGBL_PL_TILCTRL_ISOFRONOR_LSB, XAIEGBL_PL_TILCTRL_ISOFRONOR_MASK},
+	.IsolateWest = {XAIEGBL_PL_TILCTRL_ISOFROWES_LSB, XAIEGBL_PL_TILCTRL_ISOFROWES_MASK},
+	.IsolateSouth = {XAIEGBL_PL_TILCTRL_ISOFROSOU_LSB, XAIEGBL_PL_TILCTRL_ISOFROSOU_MASK},
+	.IsolateDefaultOn = XAIE_DISABLE,
+};
+
+/*
  * AIE Module
  * This data structure captures all the modules for each tile type.
  * Depending on the tile type, this data strcuture can be used to access all
@@ -2959,6 +2987,7 @@ XAie_TileMod AieMod[] =
 		.ClockMod = &AieTileClockMod,
 		.L1IntrMod = NULL,
 		.L2IntrMod = NULL,
+		.TileCtrlMod = &AieCoreTileCtrlMod,
 	},
 	{
 		/*
@@ -2978,6 +3007,7 @@ XAie_TileMod AieMod[] =
 		.ClockMod = &AiePlClockMod,
 		.L1IntrMod = &AiePlL1IntrMod,
 		.L2IntrMod = &AieNoCL2IntrMod,
+		.TileCtrlMod = &AieShimTileCtrlMod,
 	},
 	{
 		/*
@@ -2997,6 +3027,7 @@ XAie_TileMod AieMod[] =
 		.ClockMod = &AiePlClockMod,
 		.L1IntrMod = &AiePlL1IntrMod,
 		.L2IntrMod = NULL,
+		.TileCtrlMod = &AieShimTileCtrlMod,
 	},
 	{
 		/*
@@ -3016,6 +3047,7 @@ XAie_TileMod AieMod[] =
 		.ClockMod = NULL,
 		.L1IntrMod = NULL,
 		.L2IntrMod = NULL,
+		.TileCtrlMod = NULL,
 	}
 };
 

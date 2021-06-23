@@ -633,6 +633,18 @@ typedef struct XAie_L2IntrMod {
 } XAie_L2IntrMod;
 
 /*
+ * This typedef contains the attributes for Tile control Module
+ */
+typedef struct XAie_TileCtrlMod{
+	u32 TileCtrlRegOff;
+	XAie_RegFldAttr IsolateEast;	  /**< Isolate from east */
+	XAie_RegFldAttr IsolateNorth;	  /**< Isolate from north */
+	XAie_RegFldAttr IsolateWest;	  /**< Isolate from west */
+	XAie_RegFldAttr IsolateSouth;	  /**< Isolate from south */
+	u8 IsolateDefaultOn;
+} XAie_TileCtrlMod;
+
+/*
  * This structure captures all attributes related to resource manager.
  */
 typedef struct XAie_ResourceManager {
@@ -657,6 +669,7 @@ typedef struct XAie_TileMod {
 	const XAie_ClockMod *ClockMod;
 	const XAie_L1IntrMod *L1IntrMod;
 	const XAie_L2IntrMod *L2IntrMod;
+	const XAie_TileCtrlMod *TileCtrlMod;
 } XAie_TileMod;
 
 
