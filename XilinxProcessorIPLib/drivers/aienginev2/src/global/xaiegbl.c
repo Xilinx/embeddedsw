@@ -128,6 +128,85 @@ AieRC XAie_CfgInitialize(XAie_DevInst *InstPtr, XAie_Config *ConfigPtr)
 /*****************************************************************************/
 /**
 *
+* This is the api to initialize the AI engine partition. It will initialize the
+* AI engine partition hardware.
+*
+* @param	DevInst - Global AIE device instance pointer.
+* @param	Opts - AI engine partition initialization options.
+*			If @Opts is NULL, it will do the default options without
+*			clock gating. The default options will:
+*			* reset columns,
+*			* reset shims,
+*			* set to block NOC AXI MM decode and slave errors
+*			* setup isolation(TODO)
+*			If @Opts is not NULL, it will follow the set bits of the
+*			InitOpts field, the available options are as follows:
+*			* XAIE_PART_INIT_OPT_DEFAULT
+*			* XAIE_PART_INIT_OPT_COLUMN_RST
+*			* XAIE_PART_INIT_OPT_SHIM_RST
+*			* XAIE_PART_INIT_OPT_BLOCK_NOCAXIMMERR
+*
+* @return	XAIE_OK on success and error code on failure.
+*
+* @note		None.
+*
+******************************************************************************/
+AieRC XAie_PartitionInitialize(XAie_DevInst *DevInst, XAie_PartInitOpts *Opts)
+{
+	AieRC RC;
+
+	if((DevInst == XAIE_NULL) ||
+			(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid Device Instance\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	RC = XAie_RunOp(DevInst, XAIE_BACKEND_OP_PARTITION_INITIALIZE,
+			(void *)Opts);
+	if (RC != XAIE_OK) {
+		XAIE_ERROR("Failed to initialize partition.\n");
+		return RC;
+	}
+
+	return XAIE_OK;
+}
+
+/*****************************************************************************/
+/**
+*
+* This is the api to teardown the AI engine partition. It will initialize
+* the AI engine partition hardware.
+*
+* @param	DevInst - Global AIE device instance pointer.
+*
+* @return	XAIE_OK on success and error code on failure.
+*
+* @note		None.
+*
+******************************************************************************/
+AieRC XAie_PartitionTeardown(XAie_DevInst *DevInst)
+{
+	AieRC RC;
+
+	if((DevInst == XAIE_NULL) ||
+			(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid Device Instance\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	RC = XAie_RunOp(DevInst, XAIE_BACKEND_OP_PARTITION_TEARDOWN,
+			NULL);
+	if (RC != XAIE_OK) {
+		XAIE_ERROR("Failed to teardown partition.\n");
+		return RC;
+	}
+
+	return XAIE_OK;
+}
+
+/*****************************************************************************/
+/**
+*
 * This is the api to finish the AI enigne partition. It will release
 * the occupied AI engine resource
 *
