@@ -30,6 +30,8 @@
 
 #define SUSPEND_TIMEOUT	0xFFFFFFFFU
 
+#define PM_CONFIG_OBJECT_TYPE_BASE	0x1U
+
 <<MASTER_IPI_MASK_DEF>>
 
 #if defined (__ICCARM__)
@@ -45,8 +47,9 @@ __root const u32 XPm_ConfigObject[] =
 {
 	/**********************************************************************/
 	/* HEADER */
-	1,	/* Number of remaining words in the header */
+	2,	/* Number of remaining words in the header */
 	8,	/* Number of sections included in config object */
+	PM_CONFIG_OBJECT_TYPE_BASE,	/* Type of config object as base */
 	/**********************************************************************/
 	/* MASTER SECTION */
 <<MASTER_SECTION_DATA>>
