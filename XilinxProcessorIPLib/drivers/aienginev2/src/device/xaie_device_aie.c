@@ -71,4 +71,73 @@ u8 _XAie_GetTTypefromLoc(XAie_DevInst *DevInst, XAie_LocType Loc)
 	return XAIEGBL_TILE_TYPE_MAX;
 }
 
+/*****************************************************************************/
+/**
+*
+* This API set the SHIM tile reset
+*
+* @param	DevInst: Device Instance
+* @param	Loc: Location of AIE SHIM tile
+* @param	RstEnable: XAIE_ENABLE to enable reset, XAIE_DISABLE to
+*			   disable reset.
+*
+* @return	XAIE_OK for success, and error code for failure
+*
+* @note		It is not required to check the DevInst and the Loc tile type
+*		as the caller function should provide the correct value.
+*
+******************************************************************************/
+static AieRC _XAie_SetShimReset(XAie_DevInst *DevInst, XAie_LocType Loc,
+		u8 RstEnable)
+{
+	u8 TileType;
+	u32 FldVal;
+	u64 RegAddr;
+	const XAie_PlIfMod *PlIfMod;
+	const XAie_ShimRstMod *ShimTileRst;
+
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
+	PlIfMod = DevInst->DevProp.DevMod[TileType].PlIfMod;
+	ShimTileRst = PlIfMod->ShimTileRst;
+
+	RegAddr = ShimTileRst->RegOff +
+		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
+	FldVal = XAie_SetField(RstEnable,
+			ShimTileRst->RstCntr.Lsb,
+			ShimTileRst->RstCntr.Mask);
+
+	return XAie_Write32(DevInst, RegAddr, FldVal);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API sets the reset bit of SHIM for the specified partition.
+*
+* @param	DevInst: Device Instance
+* @param	Enable: Indicate if to enable SHIM reset or disable SHIM reset
+*			XAIE_ENABLE to enable SHIM reset, XAIE_DISABLE to
+*			disable SHIM reset.
+*
+* @return	XAIE_OK for success, and error code for failure
+*
+* @note		Internal API only.
+*
+******************************************************************************/
+AieRC _XAie_SetPartColShimReset(XAie_DevInst *DevInst, u8 Enable)
+{
+	for(u32 C = 0; C < DevInst->NumCols; C++) {
+		XAie_LocType Loc = XAie_TileLoc(C, 0);
+		AieRC RC;
+
+		RC = _XAie_SetShimReset(DevInst, Loc, Enable);
+		if(RC != XAIE_OK) {
+			XAIE_ERROR("Failed to set SHIM resets.\n");
+			return RC;
+		}
+	}
+
+	return XAIE_OK;
+}
+
 /** @} */
