@@ -260,7 +260,7 @@ static u32 _XAie_GetCommonChannelStatus(XAie_DevInst *DevInst, u32 *UserRscNum,
 
 	for(u32 i = 0; i < TotalRscs; i++) {
 
-		TileType = _XAie_GetTileTypefromLoc(DevInst, Rscs[i].Loc);
+		TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Rscs[i].Loc);
 		Bitmap = DevInst->RscMapping[TileType].
 				Bitmaps[XAIE_BCAST_CHANNEL_RSC];
 		_XAie_RscMgr_GetBitmapOffsets(DevInst, XAIE_BCAST_CHANNEL_RSC,
