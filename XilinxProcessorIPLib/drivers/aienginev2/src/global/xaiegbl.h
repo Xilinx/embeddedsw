@@ -53,6 +53,7 @@
 #define XAIE_TRANSACTION_DISABLE_AUTO_FLUSH	0b0
 /**************************** Type Definitions *******************************/
 typedef struct XAie_TileMod XAie_TileMod;
+typedef struct XAie_DeviceOps XAie_DeviceOps;
 typedef struct XAie_DmaMod XAie_DmaMod;
 typedef struct XAie_LockMod XAie_LockMod;
 typedef struct XAie_Backend XAie_Backend;
@@ -126,6 +127,7 @@ typedef struct {
 	void *IOInst;	       /* IO Instance for the backend */
 	XAie_DevProp DevProp; /* Pointer to the device property. To be
 				     setup to AIE prop during intialization*/
+	XAie_DeviceOps *DevOps; /* Device level operations */
 	XAie_PartitionProp PartProp; /* Partition property */
 	XAie_List TxnList; /* Head of the list of txn buffers */
 } XAie_DevInst;
