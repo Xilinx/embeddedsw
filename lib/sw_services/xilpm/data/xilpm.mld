@@ -20,4 +20,9 @@ PARAM name = apu_as_power_management_master, type = bool, default = true, desc =
 PARAM name = rpu0_as_reset_management_master, type = bool, default = true, desc = "true: RPU0 as reset management master, false: Disable RPU0 as reset management master", permit = user;
 PARAM name = rpu1_as_reset_management_master, type = bool, default = true, desc = "true: RPU1 as reset management master, false: Disable RPU1 as reset management master, Note: This flag will gets ignored if RPU is in Lock Step mode.", permit = user;
 PARAM name = apu_as_reset_management_master, type = bool, default = true, desc = "true: APU as reset management master, false: Disable APU as reset management master", permit = user;
+
+PARAM name = rpu0_as_overlay_config_master, type = bool, default = false, desc = "true: RPU0 has permission to load overlay config objects, false: RPU0 doesn't have permission to load overlay config objects", permit = user;
+PARAM name = rpu1_as_overlay_config_master, type = bool, default = false, desc = "true: RPU1 has permission to load overlay config objects, false: RPU1 doesn't have permission to load overlay config objects", permit = user;
+PARAM name = apu_as_overlay_config_master, type = bool, default = false, desc = "true: APU has permission to load overlay config objects, false: APU doesn't have permission to load overlay config objects", permit = user;
+
 END LIBRARY

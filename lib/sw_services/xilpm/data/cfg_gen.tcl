@@ -1006,6 +1006,9 @@ proc get_list_of_management_master { master_type } {
 	global rpu0_as_reset_management_master
 	global rpu1_as_reset_management_master
 	global apu_as_reset_management_master
+	global rpu0_as_overlay_config_master
+	global rpu1_as_overlay_config_master
+	global apu_as_overlay_config_master
 
 	if { ("power" == $master_type) } {
 		set rpu0_as_master $rpu0_as_power_management_master
@@ -1015,6 +1018,10 @@ proc get_list_of_management_master { master_type } {
 		set rpu0_as_master $rpu0_as_reset_management_master
 		set rpu1_as_master $rpu1_as_reset_management_master
 		set apu_as_master  $apu_as_reset_management_master
+	} elseif { ("overlay_config" == $master_type) } {
+		set rpu0_as_master $rpu0_as_overlay_config_master
+		set rpu1_as_master $rpu1_as_overlay_config_master
+		set apu_as_master  $apu_as_overlay_config_master
 	} else {
 		return "0U";
 	}
@@ -1168,6 +1175,17 @@ proc get_shutdown_section { } {
 	return $shutdown_text
 }
 
+proc get_config_section {} {
+	set config_text ""
+	set overlay_config_master_list "[get_list_of_management_master "overlay_config"]"
+
+	append config_text "\tPM_CONFIG_SET_CONFIG_SECTION_ID,\t\t/* Set Config Section ID */\n"
+	append config_text "\t0U, /* Permissions to load base config object */" "\n"
+	append config_text "\t$overlay_config_master_list, /* Permissions to load overlay config object */" "\n"
+
+	return $config_text
+}
+
 proc gen_cfg_data { cfg_fname proc_type } {
 # Open file and dump the data
 set cfg_fid [open $cfg_fname w]
@@ -1178,6 +1196,7 @@ set pmufw::cfg_template [string map [list "<<SLAVE_SECTION_DATA>>" "[get_slave_s
 set pmufw::cfg_template [string map [list "<<PREALLOC_SECTION_DATA>>" "[get_prealloc_section $proc_type]"] $pmufw::cfg_template]
 set pmufw::cfg_template [string map [list "<<POWER_SECTION_DATA>>" "[get_power_section]"] $pmufw::cfg_template]
 set pmufw::cfg_template [string map [list "<<RESET_SECTION_DATA>>" "[get_reset_section]"] $pmufw::cfg_template]
+set pmufw::cfg_template [string map [list "<<SET_CONFIG_SECTION_DATA>>" "[get_config_section]"] $pmufw::cfg_template]
 set pmufw::cfg_template [string map [list "<<SHUTDOWN_SECTION_DATA>>" "[get_shutdown_section]"] $pmufw::cfg_template]
 set pmufw::cfg_template [string map [list "<<GPO_SECTION_DATA>>" "[get_gpo_section]"] $pmufw::cfg_template]
 
