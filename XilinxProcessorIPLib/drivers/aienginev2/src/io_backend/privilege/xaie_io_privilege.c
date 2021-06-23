@@ -274,6 +274,7 @@ static AieRC _XAie_PrivilegeSetPartProtectedRegs(XAie_DevInst *DevInst,
 *		  errors, raise events instead.
 *		- ungate all columns
 *		- Setup partition isolation.
+*		- zeroize memory if it is requested
 *
 *******************************************************************************/
 AieRC _XAie_PrivilegeInitPart(XAie_DevInst *DevInst, XAie_PartInitOpts *Opts)
@@ -342,6 +343,14 @@ AieRC _XAie_PrivilegeInitPart(XAie_DevInst *DevInst, XAie_PartInitOpts *Opts)
 		RC = DevInst->DevOps->SetPartIsolationAfterRst(DevInst);
 		if(RC != XAIE_OK) {
 			_XAie_PrivilegeSetPartProtectedRegs(DevInst, XAIE_DISABLE);
+		}
+	}
+
+	if ((OptFlags & XAIE_PART_INIT_OPT_ZEROIZEMEM) != 0) {
+		RC = DevInst->DevOps->PartMemZeroInit(DevInst);
+		if(RC != XAIE_OK) {
+			_XAie_PrivilegeSetPartProtectedRegs(DevInst, XAIE_DISABLE);
+			return RC;
 		}
 	}
 

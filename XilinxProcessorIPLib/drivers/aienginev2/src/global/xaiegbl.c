@@ -146,6 +146,7 @@ AieRC XAie_CfgInitialize(XAie_DevInst *InstPtr, XAie_Config *ConfigPtr)
 *			* XAIE_PART_INIT_OPT_SHIM_RST
 *			* XAIE_PART_INIT_OPT_BLOCK_NOCAXIMMERR
 *			* XAIE_PART_INIT_OPT_ISOLATE
+*			* XAIE_PART_INIT_OPT_ZEROIZEMEM (not on by default)
 *
 * @return	XAIE_OK on success and error code on failure.
 *
