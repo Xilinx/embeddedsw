@@ -29,7 +29,7 @@
 /************************** Enum *********************************************/
 
 /************************** Function Prototypes  *****************************/
-void _XAie_PmSetPartitionClock(XAie_DevInst *DevInst, u8 Enable);
+AieRC _XAie_PmSetPartitionClock(XAie_DevInst *DevInst, u8 Enable);
 AieRC XAie_PmRequestTiles(XAie_DevInst *DevInst, XAie_LocType *Loc,
 		u32 NumTiles);
 AieRC XAie_PmReleaseTiles(XAie_DevInst *DevInst, XAie_LocType *Loc,

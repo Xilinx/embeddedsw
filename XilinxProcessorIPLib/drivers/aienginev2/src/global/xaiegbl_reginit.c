@@ -3024,6 +3024,7 @@ XAie_DeviceOps AieDevOps =
 {
 	.GetTTypefromLoc = &_XAie_GetTTypefromLoc,
 	.SetPartColShimReset = &_XAie_SetPartColShimReset,
+	.SetPartColClockAfterRst = &_XAie_SetPartColClockAfterRst,
 };
 
 /** @} */
