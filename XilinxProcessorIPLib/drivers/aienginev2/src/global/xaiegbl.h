@@ -51,6 +51,14 @@
 
 #define XAIE_TRANSACTION_ENABLE_AUTO_FLUSH	0b1
 #define XAIE_TRANSACTION_DISABLE_AUTO_FLUSH	0b0
+
+#define XAIE_PART_INIT_OPT_COLUMN_RST		(1U << 0)
+#define XAIE_PART_INIT_OPT_SHIM_RST		(1U << 1)
+#define XAIE_PART_INIT_OPT_BLOCK_NOCAXIMMERR	(1U << 2)
+#define XAIE_PART_INIT_OPT_DEFAULT	(XAIE_PART_INIT_OPT_COLUMN_RST | \
+		XAIE_PART_INIT_OPT_SHIM_RST | \
+		XAIE_PART_INIT_OPT_BLOCK_NOCAXIMMERR)
+
 /**************************** Type Definitions *******************************/
 typedef struct XAie_TileMod XAie_TileMod;
 typedef struct XAie_DeviceOps XAie_DeviceOps;
@@ -180,6 +188,17 @@ typedef struct {
 	u8 Row;
 	u8 Col;
 } XAie_LocType;
+
+/*
+ * This typedef contains the attributes for an AIE partition initialization
+ * options. The structure is used by the AI engine partition initialization
+ * API.
+ */
+typedef struct XAie_PartInitOpts {
+	XAie_LocType *Locs; /* Array of tiles locactions which will be used */
+	u32 NumUseTiles; /* Number of tiles to use */
+	u32 InitOpts; /* AI engine partition initialization options */
+} XAie_PartInitOpts;
 
 /*
  * This enum contains all the Stream Switch Port types. These enums are used to
