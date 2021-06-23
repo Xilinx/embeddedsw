@@ -273,6 +273,7 @@ static AieRC _XAie_PrivilegeSetPartProtectedRegs(XAie_DevInst *DevInst,
 *		- Setup AXI MM not to return errors for AXI decode or slave
 *		  errors, raise events instead.
 *		- ungate all columns
+*		- Setup partition isolation.
 *
 *******************************************************************************/
 AieRC _XAie_PrivilegeInitPart(XAie_DevInst *DevInst, XAie_PartInitOpts *Opts)
@@ -335,6 +336,13 @@ AieRC _XAie_PrivilegeInitPart(XAie_DevInst *DevInst, XAie_PartInitOpts *Opts)
 	if(RC != XAIE_OK) {
 		_XAie_PrivilegeSetPartProtectedRegs(DevInst, XAIE_DISABLE);
 		return RC;
+	}
+
+	if ((OptFlags & XAIE_PART_INIT_OPT_ISOLATE) != 0) {
+		RC = DevInst->DevOps->SetPartIsolationAfterRst(DevInst);
+		if(RC != XAIE_OK) {
+			_XAie_PrivilegeSetPartProtectedRegs(DevInst, XAIE_DISABLE);
+		}
 	}
 
 	RC = _XAie_PrivilegeSetPartProtectedRegs(DevInst, XAIE_DISABLE);

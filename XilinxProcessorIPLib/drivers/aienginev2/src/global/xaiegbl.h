@@ -55,9 +55,11 @@
 #define XAIE_PART_INIT_OPT_COLUMN_RST		(1U << 0)
 #define XAIE_PART_INIT_OPT_SHIM_RST		(1U << 1)
 #define XAIE_PART_INIT_OPT_BLOCK_NOCAXIMMERR	(1U << 2)
+#define XAIE_PART_INIT_OPT_ISOLATE		(1U << 3)
 #define XAIE_PART_INIT_OPT_DEFAULT	(XAIE_PART_INIT_OPT_COLUMN_RST | \
 		XAIE_PART_INIT_OPT_SHIM_RST | \
-		XAIE_PART_INIT_OPT_BLOCK_NOCAXIMMERR)
+		XAIE_PART_INIT_OPT_BLOCK_NOCAXIMMERR | \
+		XAIE_PART_INIT_OPT_ISOLATE)
 
 /**************************** Type Definitions *******************************/
 typedef struct XAie_TileMod XAie_TileMod;

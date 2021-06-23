@@ -138,13 +138,14 @@ AieRC XAie_CfgInitialize(XAie_DevInst *InstPtr, XAie_Config *ConfigPtr)
 *			* reset columns,
 *			* reset shims,
 *			* set to block NOC AXI MM decode and slave errors
-*			* setup isolation(TODO)
+*			* setup isolation
 *			If @Opts is not NULL, it will follow the set bits of the
 *			InitOpts field, the available options are as follows:
 *			* XAIE_PART_INIT_OPT_DEFAULT
 *			* XAIE_PART_INIT_OPT_COLUMN_RST
 *			* XAIE_PART_INIT_OPT_SHIM_RST
 *			* XAIE_PART_INIT_OPT_BLOCK_NOCAXIMMERR
+*			* XAIE_PART_INIT_OPT_ISOLATE
 *
 * @return	XAIE_OK on success and error code on failure.
 *
