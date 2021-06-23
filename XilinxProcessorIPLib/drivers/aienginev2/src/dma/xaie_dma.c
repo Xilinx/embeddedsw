@@ -1202,4 +1202,51 @@ AieRC XAie_DmaGetMaxQueueSize(XAie_DevInst *DevInst, XAie_LocType Loc,
 	return XAIE_OK;
 }
 
+/*****************************************************************************/
+/**
+*
+* This API updates the length of the buffer descriptor in the dma module.
+*
+* @param	DevInst: Device Instance.
+* @param	Loc: Location of AIE Tile
+* @param	Len: Length of BD in bytes.
+* @param	BdNum: Hardware BD number to be written to.
+*
+* @return	XAIE_OK on success, Error code on failure.
+*
+* @note		This API accesses the hardware directly and does not operate
+*		on software descriptor.
+******************************************************************************/
+AieRC XAie_DmaUpdateBdLen(XAie_DevInst *DevInst, XAie_LocType Loc, u32 Len,
+		u8 BdNum)
+{
+	const XAie_DmaMod *DmaMod;
+	u32 AdjustedLen;
+	u8 TileType;
+
+	if((DevInst == XAIE_NULL) ||
+			(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid Device Instance\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	if(TileType == XAIEGBL_TILE_TYPE_SHIMPL) {
+		XAIE_ERROR("Invalid Tile Type\n");
+		return XAIE_INVALID_TILE;
+	}
+
+	DmaMod = DevInst->DevProp.DevMod[TileType].DmaMod;
+	if(BdNum > DmaMod->NumBds) {
+		XAIE_ERROR("Invalid BD number\n");
+		return XAIE_INVALID_BD_NUM;
+	}
+
+	AdjustedLen = (Len >> XAIE_DMA_32BIT_TXFER_LEN) -
+		DmaMod->BdProp->LenActualOffset;
+
+
+	return DmaMod->UpdateBdLen(DevInst, DmaMod, Loc, AdjustedLen, BdNum);
+}
+
 /** @} */

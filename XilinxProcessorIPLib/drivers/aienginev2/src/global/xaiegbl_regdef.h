@@ -395,6 +395,8 @@ typedef struct XAie_DmaMod {
 	AieRC (*WaitforDone)(XAie_DevInst *DevINst, XAie_LocType Loc,
 			const XAie_DmaMod *DmaMod, u8 ChNum,
 			XAie_DmaDirection Dir, u32 TimeOutUs);
+	AieRC (*UpdateBdLen)(XAie_DevInst *DevInst, const XAie_DmaMod *DmaMod,
+			XAie_LocType Loc, u32 Len, u8 BdNum);
 } XAie_DmaMod;
 
 /*
