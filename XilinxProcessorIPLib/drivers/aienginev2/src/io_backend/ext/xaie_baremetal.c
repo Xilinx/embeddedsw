@@ -37,6 +37,7 @@
 #include "xaie_helper.h"
 #include "xaie_io.h"
 #include "xaie_io_common.h"
+#include "xaie_io_privilege.h"
 #include "xaie_npi.h"
 
 /****************************** Type Definitions *****************************/
@@ -455,6 +456,11 @@ static AieRC XAie_BaremetalIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 			return _XAie_FreeRscCommon(Arg);
 		case XAIE_BACKEND_OP_REQUEST_ALLOCATED_RESOURCE:
 			return _XAie_RequestAllocatedRscCommon(DevInst, Arg);
+		case XAIE_BACKEND_OP_PARTITION_INITIALIZE:
+			return _XAie_PrivilegeInitPart(DevInst,
+					(XAie_PartInitOpts *)Arg);
+		case XAIE_BACKEND_OP_PARTITION_TEARDOWN:
+			return _XAie_PrivilegeTeardownPart(DevInst);
 		default:
 			XAIE_ERROR("Linux backend does not support operation "
 					"%d\n", Op);
