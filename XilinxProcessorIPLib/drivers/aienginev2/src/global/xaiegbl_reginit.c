@@ -3021,6 +3021,7 @@ XAie_TileMod AieMod[] =
 XAie_DeviceOps AieDevOps =
 {
 	.GetTTypefromLoc = &_XAie_GetTTypefromLoc,
+	.SetPartColShimReset = &_XAie_SetPartColShimReset,
 };
 
 /** @} */
