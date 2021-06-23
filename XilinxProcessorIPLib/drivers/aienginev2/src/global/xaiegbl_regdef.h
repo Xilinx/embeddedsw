@@ -678,6 +678,7 @@ typedef struct XAie_DeviceOps {
 	AieRC (*SetPartColShimReset)(XAie_DevInst *DevInst, u8 Enable);
 	AieRC (*SetPartColClockAfterRst)(XAie_DevInst *DevInst, u8 Enable);
 	AieRC (*SetPartIsolationAfterRst)(XAie_DevInst *DevInst);
+	AieRC (*PartMemZeroInit)(XAie_DevInst *DevInst);
 } XAie_DeviceOps;
 
 #endif
