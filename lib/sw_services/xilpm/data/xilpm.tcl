@@ -17,12 +17,18 @@ proc generate {libhandle} {
 	global rpu0_as_reset_management_master
 	global rpu1_as_reset_management_master
 	global apu_as_reset_management_master
+	global rpu0_as_overlay_config_master
+	global rpu1_as_overlay_config_master
+	global apu_as_overlay_config_master
 	set rpu0_as_power_management_master [common::get_property CONFIG.rpu0_as_power_management_master $libhandle]
 	set rpu1_as_power_management_master [common::get_property CONFIG.rpu1_as_power_management_master $libhandle]
 	set apu_as_power_management_master [common::get_property CONFIG.apu_as_power_management_master $libhandle]
 	set rpu0_as_reset_management_master [common::get_property CONFIG.rpu0_as_reset_management_master $libhandle]
 	set rpu1_as_reset_management_master [common::get_property CONFIG.rpu1_as_reset_management_master $libhandle]
 	set apu_as_reset_management_master [common::get_property CONFIG.apu_as_reset_management_master $libhandle]
+	set rpu0_as_overlay_config_master [common::get_property CONFIG.rpu0_as_overlay_config_master $libhandle]
+	set rpu1_as_overlay_config_master [common::get_property CONFIG.rpu1_as_overlay_config_master $libhandle]
+	set apu_as_overlay_config_master [common::get_property CONFIG.apu_as_overlay_config_master $libhandle]
 
 	set zynqmp_dir "./src/zynqmp"
 	set versal_dir "./src/versal"

@@ -67,8 +67,7 @@ __root const u32 XPm_ConfigObject[] =
 <<RESET_SECTION_DATA>>
 	/**********************************************************************/
 	/* SET CONFIG SECTION */
-	PM_CONFIG_SET_CONFIG_SECTION_ID,	/* Section ID */
-	0,					/* Permissions to set config */
+<<SET_CONFIG_SECTION_DATA>>
 	/**********************************************************************/
 	/* SHUTDOWN SECTION */
 <<SHUTDOWN_SECTION_DATA>>
