@@ -1,3 +1,4 @@
+
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
@@ -49,6 +50,7 @@
 *       bsv  05/15/2021 Remove warning for AXI_WRSTRB NPI error
 *       ma   05/17/2021 Added macro related to FW_ERR register
 * 1.06  bsv  06/09/2021 Add warning in case IPI-0 interrupt is disabled
+*       bsv  06/17/2021 Update warning in case some IPIs are disabled
 *
 * </pre>
 *
@@ -333,7 +335,6 @@ extern "C" {
  * Register: PS7_IPI_PMC_IMR
  */
 #define PS7_IPI_PMC_IMR		(0xFF320014U)
-#define PS7_IPI_PMC_IMR_IPI0_MASK	(0x4U)
 
 /*****************************************************************************/
 /**

@@ -44,6 +44,7 @@
  *       har  05/18/2021 Updated Status to include library error code in case
  *                       of IPI access error
  * 1.04  bsv  06/09/2021 Add warning in case IPI-0 interrupt is disabled
+ *       bsv  06/17/2021 Update warning in case some IPIs are disabled
  *
  * </pre>
  *
@@ -65,6 +66,8 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XPLMI_IPI_XSDB_MASTER_MASK	IPI_PMC_ISR_IPI5_BIT_MASK
 #define XPLMI_PMC_IMAGE_ID		(0x1C000001U)
+#define XPLMI_IPI_PMC_IMR_MASK		(0xFCU)
+#define XPLMI_IPI_PMC_IMR_SHIFT		(0x2U)
 
 /************************** Function Prototypes ******************************/
 static int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex);
@@ -116,6 +119,7 @@ int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler)
 	int Status = XST_FAILURE;
 	XIpiPsu_Config *IpiCfgPtr;
 	u32 Index;
+	u32 RegVal;
 
 	/* Load Config for Processor IPI Channel */
 	IpiCfgPtr = XIpiPsu_LookupConfig(XPAR_XIPIPSU_0_DEVICE_ID);
@@ -148,12 +152,24 @@ int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler)
 	 * Enable the IPI IRQ
 	 */
 	XPlmi_PlmIntrEnable(XPLMI_IPI_IRQ);
-
-	if ((XPlmi_In32(PS7_IPI_PMC_IMR) & PS7_IPI_PMC_IMR_IPI0_MASK) ==
-		PS7_IPI_PMC_IMR_IPI0_MASK) {
-		XPlmi_Printf(DEBUG_GENERAL,
-			"Warning: IPI-0(APU) interrupt is disabled\n\r");
+	RegVal = XPlmi_In32(PS7_IPI_PMC_IMR);
+	RegVal = (RegVal & XPLMI_IPI_PMC_IMR_MASK) >>
+		XPLMI_IPI_PMC_IMR_SHIFT;
+	if (RegVal == 0U) {
+		goto END;
 	}
+
+	Index = 0U;
+	XPlmi_Print_WoTS(DEBUG_GENERAL, "INFO: IPIs disabled:");
+	while(RegVal != 0U) {
+		if ((RegVal & 1U) == 1U) {
+			XPlmi_Print_WoTS(DEBUG_GENERAL,
+			" IPI-%u", Index);
+		}
+		RegVal = RegVal >> 1U;
+		++Index;
+	}
+	XPlmi_Print_WoTS(DEBUG_GENERAL, "\n\r");
 
 END:
 	XPlmi_Printf(DEBUG_DETAILED,
