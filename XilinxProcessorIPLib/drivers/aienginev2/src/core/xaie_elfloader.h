@@ -22,6 +22,8 @@
 * </pre>
 *
 ******************************************************************************/
+#ifndef XAIE_ELF_LOADER_DISABLE
+
 #ifndef XAIELOADER_H
 #define XAIELOADER_H
 
@@ -53,4 +55,6 @@ AieRC XAie_LoadElfSectionBlock(XAie_DevInst *DevInst, XAie_LocType Loc,
 		const unsigned char* SectionPtr, u64 TgtAddr, u32 Size);
 
 #endif		/* end of protection macro */
+
+#endif /* XAIE_ELF_LOADER_DISABLE */
 /** @} */

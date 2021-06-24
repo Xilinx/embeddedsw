@@ -29,6 +29,7 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
+#ifndef XAIE_ELF_LOADER_DISABLE
 #include <stdlib.h>
 
 #include "xaie_elfloader.h"
@@ -709,4 +710,5 @@ AieRC XAie_LoadElfSectionBlock(XAie_DevInst *DevInst, XAie_LocType Loc,
 			(Size + 4U - 1U) / 4U);
 }
 
+#endif /* XAIE_ELF_LOADER_DISABLE */
 /** @} */
