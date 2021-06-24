@@ -728,45 +728,6 @@ XStatus XPm_PowerDwnPLD(const XPm_Node *Node)
 		goto done;
 	}
 
-#if 0
-	/* Below isolations depend on NoC so should be taken care during NoC
-	power down */
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCAUX_SOC, TRUE_VALUE);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_VCCAUX_SOC_ISO;
-		goto done;
-	}
-
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCAUX_VCCRAM, TRUE_VALUE);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_VCCAUX_VCCRAM_ISO;
-		goto done;
-	}
-
-	/* TBD: Below isolation needs to be removed only if CPM is up */
-	/* Isolate PL_CPM */
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR, TRUE_VALUE);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_PL_CPM_PCIEA0_ISO;
-		goto done;
-	}
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA1_ATTR, TRUE_VALUE);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_PL_CPM_PCIEA1_ISO;
-		goto done;
-	}
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_CPM_RST_CPI0, TRUE_VALUE);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_PL_CPM_RST_CPI0_ISO;
-		goto done;
-	}
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_CPM_RST_CPI1, TRUE_VALUE);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_PL_CPM_RST_CPI1_ISO;
-		goto done;
-	}
-#endif
-
 	/* Reset Houseclean flag for PL */
 	HcleanDone = 0U;
 
