@@ -1,5 +1,5 @@
 #/******************************************************************************
-#* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+#* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 #* SPDX-License-Identifier: MIT
 #******************************************************************************/
 
@@ -59,6 +59,13 @@ proc swapp_is_supported_hw {} {
 		error "This application is supported only for PMC Microblaze processor.";
 	}
 
+	# List of all IPIs on SoC
+	set ipi_list [hsi::get_cells -hier -filter { IP_NAME == "psu_ipi" || IP_NAME == "psv_ipi" }]
+	set a72_proc [string map {psv_pmc psv_cortexa72} $proc_instance]
+	set ipi_a72 [ipi_find_cpu $ipi_list CONFIG.C_CPU_NAME $a72_proc]
+	if {($ipi_a72 == "")} {
+		 puts "APU IPIs are not enabled. Linux boot would not work."
+	}
 	return 1;
 }
 
@@ -94,4 +101,17 @@ proc swapp_get_supported_processors {} {
 
 proc swapp_get_supported_os {} {
 	return "standalone";
+}
+
+proc ipi_find_cpu {ipi_list param hw_proc} {
+	set proc_ipi_slave ""
+	foreach ipi $ipi_list {
+		set param_name [string range $param [string length "CONFIG."] [string length $param]]
+		set param_value [common::get_property $param [hsi::get_cells -hier $ipi]]
+		set ip_name [common::get_property IP_NAME [hsi::get_cells -hier $hw_proc]]
+		if { [string match -nocase "*$param_value*" $ip_name] } {
+			lappend proc_ipi_slave $ipi
+		}
+	}
+	return $proc_ipi_slave
 }
