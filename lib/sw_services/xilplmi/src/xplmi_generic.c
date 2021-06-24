@@ -50,6 +50,7 @@
 *       ma   03/18/2021 Added support for Marker command
 *       bsv  04/13/2021 Added support for variable Keyhole sizes in
 *                       DmaWriteKeyHole command
+* 1.06  ma   06/17/2021 Added readback support for SSIT Slave SLRs
 *
 * </pre>
 *
@@ -85,6 +86,29 @@
 #define XPLMI_SRC_ALIGN_REQ	(0U)
 #define XPLMI_DEST_ALIGN_REQ	(1U)
 #define XPLMI_LEN_ALIGN_REQ	(2U)
+
+/* SSIT readback max length in words */
+#define XPLMI_SSIT_MAX_READBACK_SIZE	(0x10000U)
+
+/* SSIT SLR related macros */
+#define XPLMI_CFU_STREAM_2_SLR_OFFSET	\
+	(CFU_STREAM_2_ADDR - XPLMI_PMC_LOCAL_BASEADDR)
+#define XPLMI_CFU_FDRO_2_SLR_OFFSET		\
+	(CFU_FDRO_2_ADDR - XPLMI_PMC_LOCAL_BASEADDR)
+
+#define XPLMI_SLR1_CFU_FDRO_2_ADDR	\
+	(XPLMI_PMC_ALIAS1_BASEADDR + XPLMI_CFU_FDRO_2_SLR_OFFSET)
+#define XPLMI_SLR2_CFU_FDRO_2_ADDR	\
+	(XPLMI_PMC_ALIAS2_BASEADDR + XPLMI_CFU_FDRO_2_SLR_OFFSET)
+#define XPLMI_SLR3_CFU_FDRO_2_ADDR	\
+	(XPLMI_PMC_ALIAS3_BASEADDR + XPLMI_CFU_FDRO_2_SLR_OFFSET)
+
+#define XPLMI_SLR1_CFU_STREAM_2_ADDR	\
+	(XPLMI_PMC_ALIAS1_BASEADDR + XPLMI_CFU_STREAM_2_SLR_OFFSET)
+#define XPLMI_SLR2_CFU_STREAM_2_ADDR	\
+	(XPLMI_PMC_ALIAS2_BASEADDR + XPLMI_CFU_STREAM_2_SLR_OFFSET)
+#define XPLMI_SLR3_CFU_STREAM_2_ADDR	\
+	(XPLMI_PMC_ALIAS3_BASEADDR + XPLMI_CFU_STREAM_2_SLR_OFFSET)
 
 /************************** Function Prototypes ******************************/
 /**
@@ -832,14 +856,37 @@ static int XPlmi_InitSeq(XPlmi_Cmd *Cmd)
 static int XPlmi_CfiRead(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
-	u32 SrcType = Cmd->Payload[0U];
+	u32 SrcType = Cmd->Payload[0U] & XPLMI_READBACK_SRC_MASK;
+	u32 SlrType = (Cmd->Payload[0U] & XPLMI_READBACK_SLR_TYPE_MASK) >>
+					XPLMI_READBACK_SLR_TYPE_SHIFT;
 	u64 DestAddrHigh;
 	u32 DestAddrLow;
-	u32 Len = Cmd->Payload[3U];
-	u32 SrcAddr = CFU_FDRO_ADDR;
-	u64 DestAddr;
+	u64 SrcAddr = (u64)CFU_FDRO_2_ADDR;
+	u64 DestAddrRead = (u64)CFU_STREAM_2_ADDR;
+	u64 DestAddr = 0UL;
 	XPlmi_ReadBackProps *ReadBackPtr = XPlmi_GetReadBackPropsInstance();
+	u32 ReadLen;
+	u32 Len = Cmd->Payload[3U];
+	u32 CfiPayloadSrcAddr = (u32)(&Cmd->Payload[XPLMI_CFI_DATA_OFFSET]);
 
+	if (SlrType == XPLMI_READBACK_SLR_TYPE_1) {
+		SrcAddr = XPLMI_SLR1_CFU_FDRO_2_ADDR;
+		DestAddrRead = XPLMI_SLR1_CFU_STREAM_2_ADDR;
+	} else if (SlrType == XPLMI_READBACK_SLR_TYPE_2) {
+		SrcAddr = XPLMI_SLR2_CFU_FDRO_2_ADDR;
+		DestAddrRead = XPLMI_SLR2_CFU_STREAM_2_ADDR;
+	} else if (SlrType == XPLMI_READBACK_SLR_TYPE_3) {
+		SrcAddr = XPLMI_SLR3_CFU_FDRO_2_ADDR;
+		DestAddrRead = XPLMI_SLR3_CFU_STREAM_2_ADDR;
+	} else {
+		/* For Misra-C */
+	}
+
+	if (Len > XPLMI_SSIT_MAX_READBACK_SIZE) {
+		ReadLen = XPLMI_SSIT_MAX_READBACK_SIZE;
+	} else {
+		ReadLen = Len;
+	}
 	XPlmi_SetMaxOutCmds(XPLMI_MAXOUT_CMD_MIN_VAL);
 
 	if (SrcType == XPLMI_READBK_INTF_TYPE_DDR) {
@@ -859,9 +906,8 @@ static int XPlmi_CfiRead(XPlmi_Cmd *Cmd)
 			DestAddrLow =  Cmd->Payload[2U];
 			DestAddr = (DestAddrHigh << 32U) | DestAddrLow;
 		}
-		Status = XPlmi_DmaXfr(CFU_FDRO_ADDR, DestAddr, Len,
-				XPLMI_PMCDMA_1 | XPLMI_SRC_CH_AXI_FIXED |
-				XPLMI_DMA_SRC_NONBLK);
+		Status = XPlmi_DmaXfr(SrcAddr, DestAddr, ReadLen,
+				XPLMI_PMCDMA_1 | XPLMI_DMA_SRC_NONBLK);
 	} else {
 		if (SrcType == XPLMI_READBK_INTF_TYPE_JTAG) {
 			XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL,
@@ -878,16 +924,15 @@ static int XPlmi_CfiRead(XPlmi_Cmd *Cmd)
 		XPlmi_UtilRMW(SLAVE_BOOT_SBI_MODE,
 			SLAVE_BOOT_SBI_MODE_SELECT_MASK,
 			SLAVE_BOOT_SBI_MODE_SELECT_MASK);
-		Status = XPlmi_DmaSbiXfer(CFU_FDRO_ADDR, Len, XPLMI_PMCDMA_1
-				| XPLMI_SRC_CH_AXI_FIXED | XPLMI_DMA_SRC_NONBLK);
+		Status = XPlmi_DmaSbiXfer(SrcAddr, ReadLen, XPLMI_PMCDMA_1
+				| XPLMI_DMA_SRC_NONBLK);
 	}
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 	XPlmi_SetMaxOutCmds(XPLMI_MAXOUT_CMD_DEF_VAL);
-	SrcAddr = (u32)(&Cmd->Payload[XPLMI_CFI_DATA_OFFSET]);
 
-	Status = XPlmi_DmaXfr(SrcAddr, (u64)CFU_STREAM_ADDR,
+	Status = XPlmi_DmaXfr((u64)CfiPayloadSrcAddr, DestAddrRead,
 		Cmd->PayloadLen - XPLMI_CFI_DATA_OFFSET, XPLMI_PMCDMA_0);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -895,17 +940,38 @@ static int XPlmi_CfiRead(XPlmi_Cmd *Cmd)
 
 	if (SrcType == XPLMI_READBK_INTF_TYPE_DDR) {
 		Status = XPlmi_WaitForNonBlkDma(XPLMI_PMCDMA_1);
+	} else {
+		Status = XPlmi_WaitForNonBlkSrcDma(XPLMI_PMCDMA_1);
+	}
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Len -= ReadLen;
+	while (Len > 0U) {
+		if (Len > XPLMI_SSIT_MAX_READBACK_SIZE) {
+			ReadLen = XPLMI_SSIT_MAX_READBACK_SIZE;
+		} else {
+			ReadLen = Len;
+		}
+
+		if (SrcType == XPLMI_READBK_INTF_TYPE_DDR) {
+			DestAddr += ((u64)ReadLen * XPLMI_WORD_LEN);
+			Status = XPlmi_DmaXfr(SrcAddr, DestAddr, ReadLen, XPLMI_PMCDMA_1);
+		} else {
+			Status = XPlmi_DmaSbiXfer(SrcAddr, ReadLen, XPLMI_PMCDMA_1);
+		}
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		if (XPLMI_READBACK_DEF_DST_ADDR != ReadBackPtr->DestAddr) {
-			ReadBackPtr->ProcessedLen += Len;
-			ReadBackPtr->DestAddr += ((u64)Len * XPLMI_WORD_LEN);
-		}
-		goto END;
+		Len -= ReadLen;
 	}
-	Status = XPlmi_WaitForNonBlkSrcDma(XPLMI_PMCDMA_1);
-	if (Status != XST_SUCCESS) {
+
+	if (SrcType == XPLMI_READBK_INTF_TYPE_DDR) {
+		if (XPLMI_READBACK_DEF_DST_ADDR != ReadBackPtr->DestAddr) {
+			ReadBackPtr->ProcessedLen += Cmd->Payload[3U];
+			ReadBackPtr->DestAddr += ((u64)Cmd->Payload[3U] * XPLMI_WORD_LEN);
+		}
 		goto END;
 	}
 
