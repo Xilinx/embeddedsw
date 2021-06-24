@@ -8,7 +8,7 @@
 /**
  *
  * @file xqspipsu.h
- * @addtogroup qspipsu_v1_13
+ * @addtogroup qspipsu_v1_14
  * @{
  * @details
  *
@@ -160,6 +160,7 @@
  * 1.12	akm 09/02/20 Updated the Makefile to support parallel make execution.
  * 1.13 akm 01/04/21 Fix MISRA-C violations.
  * 1.13 sne 04/23/21 Fixed doxygen warnings.
+ * 1.14 akm 06/24/21 Allow enough time for the controller to reset the FIFOs.
  *
  * </pre>
  *
