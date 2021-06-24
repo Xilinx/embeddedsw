@@ -1001,7 +1001,6 @@ XStatus XPmClock_QueryAttributes(u32 ClockIndex, u32 *Resp)
 	    (ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_TOPSW_REF)) {
 		Attr = 0;
 	}
-	//}
 
 	/* If clock needs to be enabled during init */
 	/* TBD -  Decide InitEnable value */
