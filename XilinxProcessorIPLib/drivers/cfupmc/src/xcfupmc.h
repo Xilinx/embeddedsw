@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,7 +19,9 @@
 * 1.00  kc   12/21/2017 Initial release
 * 2.00  bsv  03/01/2019 Added error handling APIs
 * 2.01  bsv  11/06/2019 XCfupmc_ClearCfuIsr API added
-* 3.00  bsv  27/06/2020 Code clean up
+* 3.00  bsv  06/27/2020 Code clean up
+* 4.00  ma   06/17/2021 Added defines for CFU_STREAM_2 and CFU_FDRO_2
+*                       base addresses
 * </pre>
 *
 * @note
@@ -46,6 +48,8 @@ extern "C" {
 /* Address updates after RTL HW40 */
 #define CFU_STREAM_ADDR	(0xF12C0000U)
 #define CFU_FDRO_ADDR	(0xF12C2000U)
+#define CFU_STREAM_2_ADDR	(0xF1F80000U)
+#define CFU_FDRO_2_ADDR		(0xF1FC0000U)
 #define CFUPMC_GLB_SIG_EN	(0x1U)
 #define CFUPMC_PROT_DISABLE	(0x0U)
 #define CFUPMC_PROT_ENABLE	(0x1U)

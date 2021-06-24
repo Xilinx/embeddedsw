@@ -1,4 +1,3 @@
-
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
@@ -51,6 +50,7 @@
 *       ma   05/17/2021 Added macro related to FW_ERR register
 * 1.06  bsv  06/09/2021 Add warning in case IPI-0 interrupt is disabled
 *       bsv  06/17/2021 Update warning in case some IPIs are disabled
+*       ma   06/23/2021 Added readback support for SSIT Slave SLRs
 *
 * </pre>
 *
@@ -716,6 +716,12 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define DDRMC_PCSR_CONTROL_OFFSET	(0x00000004U)
 #define DDRMC_PCSR_CONTROL_PCOMPLETE_MASK	(0x00000001U)
 #define DDRMC_PCSR_STATUS_OFFSET	(0x00000008U)
+
+/* PMC master and Slave SLR base addresses */
+#define XPLMI_PMC_LOCAL_BASEADDR		(0xF0000000U)
+#define XPLMI_PMC_ALIAS1_BASEADDR		(0x108000000UL)
+#define XPLMI_PMC_ALIAS2_BASEADDR		(0x110000000UL)
+#define XPLMI_PMC_ALIAS3_BASEADDR		(0x118000000UL)
 
 /************************** Function Prototypes ******************************/
 

@@ -37,6 +37,7 @@
 * 1.05  ma   03/10/2021 Added define for Loader set image info command
 *       bsv  04/13/2021 Added support for variable Keyhole sizes in
 *                       DmaWriteKeyHole command
+* 1.06  ma   06/17/2021 Added readback support for SSIT Slave SLRs
 *
 * </pre>
 *
@@ -85,6 +86,12 @@ typedef struct {
 #define XPLMI_READBK_INTF_TYPE_JTAG		(0x1U)
 #define XPLMI_READBK_INTF_TYPE_DDR		(0x2U)
 #define XPLMI_READBACK_DEF_DST_ADDR		(0xFFFFFFFFFFFFFFFFUL)
+#define XPLMI_READBACK_SRC_MASK			(0xFFU)
+#define XPLMI_READBACK_SLR_TYPE_MASK	(0xF00U)
+#define XPLMI_READBACK_SLR_TYPE_SHIFT	(8U)
+#define XPLMI_READBACK_SLR_TYPE_1		(0x1U)
+#define XPLMI_READBACK_SLR_TYPE_2		(0x2U)
+#define XPLMI_READBACK_SLR_TYPE_3		(0x3U)
 
 #define XPLMI_MASK_POLL_MIN_TIMEOUT		(1000000U)
 #define XPLMI_MAXOUT_CMD_MIN_VAL		(1U)
