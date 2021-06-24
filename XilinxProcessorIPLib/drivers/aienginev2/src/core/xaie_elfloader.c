@@ -655,7 +655,7 @@ AieRC XAie_LoadElfSection(XAie_DevInst *DevInst, XAie_LocType Loc,
 		return XAIE_INVALID_ARGS;
 	}
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	if(TileType != XAIEGBL_TILE_TYPE_AIETILE) {
 		XAIE_ERROR("Invalid tile type\n");
 		return XAIE_INVALID_TILE;
@@ -696,7 +696,7 @@ AieRC XAie_LoadElfSectionBlock(XAie_DevInst *DevInst, XAie_LocType Loc,
 		return XAIE_INVALID_ARGS;
 	}
 
-	TileType = _XAie_GetTileTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
 	if(TileType != XAIEGBL_TILE_TYPE_AIETILE) {
 		XAIE_ERROR("Invalid tile type\n");
 		return XAIE_INVALID_TILE;
