@@ -1061,6 +1061,8 @@ static XStatus PwrDomainInitNode(u32 NodeId, u32 Function, const u32 *Args, u32 
 		if (XST_SUCCESS != Status) {
 			PmErr("Error %u in IPI initialization\r\n", Status);
 		}
+#else
+		PmWarn("IPI is not enabled in design\r\n");
 #endif
 	}
 
