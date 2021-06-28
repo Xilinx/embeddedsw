@@ -338,6 +338,8 @@ extern "C" {
 #define XPM_INT_ERR_GT_WORKAROUND		0x371FU
 /* Error during HSC BISR repair */
 #define XPM_INT_ERR_HSC_BISR_REPAIR		0x3720U
+/* Timeout for PL house cleaning completion*/
+#define XPM_INT_ERR_PL_HC_COMPLETE_TIMEOUT	0x3721U
 
 /************************** NPD specific Errors ******************************/
 /************************** (0x3800) - (0x38FF) ******************************/
