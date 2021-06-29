@@ -510,6 +510,8 @@ typedef struct XAie_DmaMod {
 	AieRC (*SetIntrleave) (XAie_DmaDesc *Desc, u8 DoubleBuff,
 			u8 IntrleaveCount, u16 IntrleaveCurr);
 	AieRC (*SetMultiDim) (XAie_DmaDesc *Desc, XAie_DmaTensor *Tensor);
+	AieRC (*SetBdIter) (XAie_DmaDesc *Desc, u16 StepSize, u8 Wrap,
+			u8 IterCurr);
 	AieRC (*WriteBd)(XAie_DevInst *DevInst, XAie_DmaDesc *Desc,
 			XAie_LocType Loc, u8 BdNum);
 	AieRC (*PendingBd)(XAie_DevInst *DevInst, XAie_LocType Loc,

@@ -84,6 +84,8 @@ AieRC XAie_DmaSetAddrOffsetLen(XAie_DmaDesc *DmaDesc, XAie_MemInst *MemInst,
 			       u64 Offset, u32 Len);
 AieRC XAie_DmaSetMultiDimAddr(XAie_DmaDesc *DmaDesc, XAie_DmaTensor *Tensor,
 		u64 Addr, u32 Len);
+AieRC XAie_DmaSetBdIteration(XAie_DmaDesc *DmaDesc, u16 StepSize, u8 Wrap,
+		u8 IterCurr);
 AieRC XAie_DmaEnableCompression(XAie_DmaDesc *DmaDesc);
 AieRC XAie_DmaConfigFifoMode(XAie_DmaDesc *DmaDesc,
 		XAie_DmaFifoCounter Counter);
