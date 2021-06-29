@@ -376,7 +376,7 @@ typedef struct XAie_DmaMod {
 	u32 BaseAddr;
 	u32 IdxOffset;
 	u32 ChCtrlBase;
-	u32 NumChannels;
+	u8 NumChannels;
 	u32 ChStatusBase;
 	u32 ChStatusOffset;
 	const XAie_DmaBdProp *BdProp;
