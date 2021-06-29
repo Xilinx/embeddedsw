@@ -54,6 +54,8 @@ AieRC _XAie_DmaUpdateBdAddr(XAie_DevInst *DevInst, const XAie_DmaMod *DmaMod,
 AieRC _XAie_ShimDmaUpdateBdAddr(XAie_DevInst *DevInst,
 		const XAie_DmaMod *DmaMod, XAie_LocType Loc, u64 Addr,
 		u8 BdNum);
+AieRC _XAie_DmaSetBdIteration(XAie_DmaDesc *DmaDesc, u16 StepSize, u8 Wrap,
+		u8 IterCurr);
 
 #endif /* XAIE_DMA_AIE_H */
 /** @} */

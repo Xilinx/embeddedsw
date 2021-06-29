@@ -738,4 +738,31 @@ AieRC _XAie_ShimDmaUpdateBdAddr(XAie_DevInst *DevInst,
 	return XAie_MaskWrite32(DevInst, RegAddr, Mask, RegVal);
 }
 
+/*****************************************************************************/
+/**
+*
+* This API setups the iteration parameters for a Buffer descriptor.
+*
+* @param	DmaDesc: Initialized Dma Descriptor.
+* @param	StepSize: Offset applied at each execution of the BD.
+* @param	Wrap: Iteration Wrap.
+* @param	IterCurr: Current iteration step. This field is incremented by
+*		the hardware after BD is loaded.
+*
+* @return	XAIE_OK on success, Error code on failure.
+*
+* @note		Internal only.
+*
+******************************************************************************/
+AieRC _XAie_DmaSetBdIteration(XAie_DmaDesc *DmaDesc, u16 StepSize, u8 Wrap,
+		u8 IterCurr)
+{
+	(void)DmaDesc;
+	(void)StepSize;
+	(void)Wrap;
+	(void)IterCurr;
+
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+
 /** @} */
