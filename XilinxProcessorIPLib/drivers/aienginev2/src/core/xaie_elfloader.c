@@ -410,7 +410,7 @@ AieRC XAie_LoadElfMem(XAie_DevInst *DevInst, XAie_LocType Loc,
 		_XAie_EccEvntResetPM(DevInst, Loc);
 	}
 
-	for(u8 phnum = 0U; phnum < Ehdr->e_phnum; phnum++) {
+	for(u32 phnum = 0U; phnum < Ehdr->e_phnum; phnum++) {
 		Phdr = (Elf32_Phdr*) (ElfMem + sizeof(*Ehdr) +
 			phnum * sizeof(*Phdr));
 		_XAie_PrintProgSectHdr(Phdr);
