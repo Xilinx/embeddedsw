@@ -452,6 +452,42 @@ AieRC XAie_DmaSetMultiDimAddr(XAie_DmaDesc *DmaDesc, XAie_DmaTensor *Tensor,
 /*****************************************************************************/
 /**
 *
+* This API setups the iteration parameters for a Buffer descriptor.
+*
+* @param	DmaDesc: Initialized Dma Descriptor.
+* @param	StepSize: Offset applied at each execution of the BD.
+* @param	Wrap: Iteration Wrap.
+* @param	IterCurr: Current iteration step. This field is incremented by
+*		the hardware after BD is loaded.
+*
+* @return	XAIE_OK on success, Error code on failure.
+*
+* @note		None. The stepsize and wrap parameters operate at 32 bit
+*		granularity. The address is the absolute address of the buffer
+*		which is 32 bit aligned. The driver will configure the BD
+*		register with necessary bits(<32 bits) as required by the
+*		hardware.
+*
+******************************************************************************/
+AieRC XAie_DmaSetBdIteration(XAie_DmaDesc *DmaDesc, u16 StepSize, u8 Wrap,
+		u8 IterCurr)
+{
+	const XAie_DmaMod *DmaMod;
+
+	if((DmaDesc == XAIE_NULL) ||
+			(DmaDesc->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid Arguments\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	DmaMod = DmaDesc->DmaMod;
+
+	return DmaMod->SetBdIter(DmaDesc, StepSize, Wrap, IterCurr);
+}
+
+/*****************************************************************************/
+/**
+*
 * This API enables the compression bit in the DMA Descriptor.
 *
 * @param	DmaDesc: Initialized Dma Descriptor.
