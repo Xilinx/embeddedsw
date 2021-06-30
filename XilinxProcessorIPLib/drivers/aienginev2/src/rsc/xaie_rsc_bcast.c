@@ -196,11 +196,15 @@ AieRC XAie_RequestSpecificBroadcastChannel(XAie_DevInst *DevInst, u32 BcId,
 	AieRC RC;
 	XAie_BackendTilesRsc TilesRsc = {};
 
-	if((DevInst == XAIE_NULL) || (Rscs == NULL) ||
-		(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
-		XAIE_ERROR("Invalid pointer\n");
+	if(UserRscNum == XAIE_NULL) {
+		XAIE_ERROR("Invalid UsrRscNum pointer\n");
 		return XAIE_INVALID_ARGS;
 	}
+
+	RC = _XAie_RscMgrRscApi_CheckArgs(DevInst, *UserRscNum, Rscs,
+			XAIE_BCAST_CHANNEL_RSC);
+	if(RC != XAIE_OK)
+		return RC;
 
 	/*
 	 * _XAie_GetUngatedTilesInPartition() function will change the
