@@ -23,6 +23,7 @@
 *       kpt  04/14/21 Added macros required to check encrypted data
 *                     alignment
 *       bm   05/13/21 Updated code to use common crypto instances from xilsecure
+* 1.01  kpt  06/23/21 Added macros required to read and compare DNA
 *
 * </pre>
 *
@@ -160,6 +161,14 @@ extern "C" {
 #define XLOADER_EFUSE_SEC_MISC1_OFFSET			(0xF12500E8U)
 #define XLOADER_EFUSE_SEC_DPA_DIS_MASK			(0xFFFF0000U)
 
+#define XLOADER_EFUSE_DNA_START_OFFSET			(0xF1250020U)
+#define XLOADER_EFUSE_DNA_NUM_ROWS			(4U)
+
+#define XLOADER_EFUSE_DNA_LEN_IN_BYTES			(XLOADER_EFUSE_DNA_NUM_ROWS * \
+							sizeof(u32))
+
+#define XLOADER_AC_AH_DNA_MASK				(0x03U)
+
 #define XLOADER_REVOCATION_IDMAX			(0xFFU)
 
 #define XLOADER_PUF_HD_BHDR				(0x3U)
@@ -187,7 +196,7 @@ extern "C" {
 #define XLOADER_AUTH_JTAG_MAX_ATTEMPTS			(1U)
 #define XLOADER_AUTH_FAIL_COUNTER_RST_VALUE		(0U)
 
-#define XLOADER_AUTH_JTAG_PADDING_SIZE			(23U)
+#define XLOADER_AUTH_JTAG_PADDING_SIZE			(18U)
 #define XLOADER_AUTH_JTAG_SHA_PADDING_SIZE		(3U)
 #define XLOADER_ENABLE_AUTH_JTAG_SIGNATURE_SIZE		(226U)
 
@@ -261,6 +270,8 @@ typedef struct {
 typedef struct {
 	u32 AuthHdr;
 	u32 RevocationIdMsgType;
+	u32 Attrb;
+	u32 Dna[XLOADER_EFUSE_DNA_NUM_ROWS];
 	u32 JtagEnableTimeout;
 	u32 AuthJtagPadding[XLOADER_AUTH_JTAG_PADDING_SIZE];
 	XLoader_RsaKey PpkData;

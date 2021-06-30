@@ -41,6 +41,7 @@
 *       har  05/19/21 Support decryption of partition even if Secure state of
 *                     boot is A-HWRoT or Emulated A-HWRoT
 *       ma   05/21/21 Read KAT Status from RTCA Secure Boot State location
+* 1.01  kpt  06/23/21 Added check to compare DNA before enabling Auth Jtag
 *
 * </pre>
 *
@@ -140,6 +141,8 @@ static int XLoader_CheckAuthJtagIntStatus(void *Arg);
 static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	u32 Size, u8 Last);
 static int XLoader_CheckSecureState(u32 RegVal, u32 Var, u32 ExpectedValue);
+static int XLoader_ReadDna(u32 *EfuseDna);
+static int XLoader_ReadandCompareDna(const u32 *UserDna);
 
 /************************** Variable Definitions *****************************/
 static XLoader_AuthCertificate AuthCert;
@@ -3012,6 +3015,8 @@ static int XLoader_AuthJtag(void)
 	XLoader_AuthJtagMessage AuthJtagMessage
 		__attribute__ ((aligned (16U))) = {0U};
 	u32 ReadAuthReg = 0x0U;
+	volatile u8 UseDna = 0x0U;
+	volatile u8 UseDnaTmp = 0x0U;
 	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
 
 	SecureParams.AuthJtagMessagePtr = &AuthJtagMessage;
@@ -3133,6 +3138,20 @@ static int XLoader_AuthJtag(void)
 	}
 	else {
 		AuthFailCounter = XLOADER_AUTH_FAIL_COUNTER_RST_VALUE;
+		UseDna = (u8)(SecureParams.AuthJtagMessagePtr->Attrb &
+				XLOADER_AC_AH_DNA_MASK);
+		UseDnaTmp = (u8)(SecureParams.AuthJtagMessagePtr->Attrb &
+				XLOADER_AC_AH_DNA_MASK);
+		if ((UseDna != FALSE) || (UseDnaTmp != FALSE)) {
+			XSECURE_TEMPORAL_IMPL(Status, StatusTmp,
+				XLoader_ReadandCompareDna,
+				SecureParams.AuthJtagMessagePtr->Dna);
+			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+				Status = XPlmi_UpdateStatus(
+					XLOADER_ERR_AUTH_JTAG_INVALID_DNA, 0);
+				goto END;
+			}
+		}
 		XLoader_EnableJtag();
 	}
 
@@ -3522,4 +3541,58 @@ static int XLoader_CheckSecureState(u32 RegVal, u32 Var, u32 ExpectedValue)
 END:
 	return Status;
 }
+
+/*****************************************************************************/
+/**
+* @brief	This function reads DNA from efuse cache
+*
+* @param	EfuseDna - Pointer to store the DNA read from efuse
+*
+* @return	XST_SUCCESS on successful read
+*               XST_FAILURE on failure
+*
+******************************************************************************/
+static int XLoader_ReadDna(u32 *EfuseDna)
+{
+	volatile int Status = XST_FAILURE;
+
+	XSECURE_TEMPORAL_CHECK(END, Status, Xil_SecureMemCpy, (void *)EfuseDna,
+		XLOADER_EFUSE_DNA_LEN_IN_BYTES,
+		(void *)XLOADER_EFUSE_DNA_START_OFFSET,
+		XLOADER_EFUSE_DNA_LEN_IN_BYTES);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief	This function reads DNA from efuse cache and compares it with user
+*               provided DNA
+*
+* @param	UserDna - Pointer to the user provided DNA
+*
+* @return	XST_SUCCESS on successful comparison
+*               XST_FAILURE on comparison failure
+*
+******************************************************************************/
+static int XLoader_ReadandCompareDna(const u32 *UserDna)
+{
+	volatile int Status = XST_FAILURE;
+	u32 EfuseDna[XLOADER_EFUSE_DNA_NUM_ROWS];
+
+	/* Read DNA from efuse cache */
+	Status = XLoader_ReadDna(EfuseDna);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/* Compare DNA with user provided DNA */
+	XSECURE_TEMPORAL_CHECK(END, Status, Xil_MemCmp, (void *)EfuseDna,
+		(void *)UserDna, XLOADER_EFUSE_DNA_LEN_IN_BYTES);
+
+END:
+	return Status;
+}
+
 #endif /* END OF PLM_SECURE_EXCLUDE */

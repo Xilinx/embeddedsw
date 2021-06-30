@@ -79,6 +79,7 @@
 *       har  05/19/2021 Added error code for encrypted partition in case of
 *                       non secure state of boot
 *       td   05/20/2021 Added error code for NPI locking error
+*       kpt  06/23/2021 Added error code for DNA comparison failure
 *
 * </pre>
 *
@@ -611,6 +612,8 @@ typedef enum {
 	XLOADER_ERR_PRTN_DECRYPT_NOT_ALLOWED,
 		/**< 0x631 Partition is not allowed to be encrypted if State
 		 of boot is non secure */
+	XLOADER_ERR_AUTH_JTAG_INVALID_DNA,
+		/**< 0x632 User provided Device DNA is not valid **/
 
 	XPLMI_ERR_CDO_CMD = 0x2000,
 		/**< 0x2XXX, CDO command handler has failed.
