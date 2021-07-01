@@ -14,11 +14,10 @@
 #include <unordered_map>
 #include <vector>
 #include <xaiengine.h>
+#include <xaiefal/common/xaiefal-common.hpp>
 #include <xaiefal/common/xaiefal-log.hpp>
 
 #pragma once
-
-#define XAIE_RSC_ID_ANY 0xFFFFFFFFU
 
 namespace xaiefal {
 	/**
