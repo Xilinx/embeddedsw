@@ -322,26 +322,6 @@ namespace xaiefal {
 		 * TODO: Following function will not be required.
 		 * Bitmap will be moved to device driver
 		 */
-		static void getAieBCTileBits(std::shared_ptr<XAieDevHandle> Dev,
-				XAie_LocType L, const XAie_ModuleType M, uint16_t &bits) {
-			uint32_t i;
-
-			if (L.Row == 0) {
-				i = L.Col;
-				bits = Dev->XAieBroadcastShimBits[i];
-			} else if (M == XAIE_MEM_MOD) {
-				i = L.Col * 8 + L.Row - 1;
-				bits = Dev->XAieBroadcastMemBits[i];
-			} else {
-				i = L.Col * 8 + L.Row - 1;
-				bits = Dev->XAieBroadcastCoreBits[i];
-			}
-		}
-
-		/**
-		 * TODO: Following function will not be required.
-		 * Bitmap will be moved to device driver
-		 */
 		static AieRC setRscs(std::shared_ptr<XAieDevHandle> Dev,
 				const std::vector<XAie_LocType> &vL,
 				XAie_ModuleType startM, XAie_ModuleType endM,
@@ -431,23 +411,6 @@ namespace xaiefal {
 				Logger::log(LogLevel::ERROR) << __func__ <<
 					"BC: no free BC." << std::endl;
 				return XAIE_INVALID_ARGS;
-			}
-			for (auto r = vR.begin(); r != vR.end(); r++) {
-				uint16_t *lbits_ptr;
-				uint32_t j;
-
-				if ((*r).Loc.Row == 0) {
-					j = (*r).Loc.Col;
-					lbits_ptr = &Dev->XAieBroadcastShimBits[j];
-				} else if ((*r).Mod == XAIE_MEM_MOD) {
-					j = (*r).Loc.Col * 8 + (*r).Loc.Row - 1;
-					lbits_ptr = &Dev->XAieBroadcastMemBits[j];
-				} else {
-					j = (*r).Loc.Col * 8 + (*r).Loc.Row - 1;
-					lbits_ptr = &Dev->XAieBroadcastCoreBits[j];
-				}
-				*lbits_ptr |= (1 << bci);
-				(*r).RscId = (uint32_t)bci;
 			}
 			return XAIE_OK;
 		}
