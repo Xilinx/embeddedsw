@@ -293,6 +293,34 @@ namespace xaiefal {
 			}
 		}
 		/**
+		 * This function returns resources type.
+		 *
+		 * @return resource type
+		 */
+		virtual uint32_t getRscType() const {
+			std::string rName(typeid(*this).name());
+
+			throw std::invalid_argument("get rsc type not supported of rsc" +
+					rName);
+			return XAIE_RSC_TYPE_ANY;
+		}
+		/**
+		 * This function returns resources static for a specific
+		 * group of this type of resource.
+		 *
+		 * @param GName resource group name
+		 * @return resource group resource statistics of this type of
+		 *	resource of specific tiles/module
+		 */
+		virtual XAieRscStat getRscStat(const std::string &GName) const {
+			XAieRscStat RscStat(GName);
+			std::string rName(typeid(*this).name());
+			(void) GName;
+
+			throw std::invalid_argument("get rsc stat not supported of rsc" +
+					rName);
+		}
+		/**
 		 * This function sets function name this resource is used for.
 		 */
 		void setFuncName(const std::string &Name) {
@@ -444,6 +472,18 @@ namespace xaiefal {
 				RC = XAIE_OK;
 			}
 			return RC;
+		}
+		virtual XAieRscStat getRscStat(const std::string &GName) const {
+			XAieRscStat RscStat(GName);
+			(void) GName;
+
+			if (preferredId == XAIE_RSC_ID_ANY) {
+				return AieHd->getRscGroup(GName).getRscStat(Loc,
+						Mod, getRscType());
+			} else {
+				return AieHd->getRscGroup(GName).getRscStat(Loc,
+						Mod, getRscType(), preferredId);
+			}
 		}
 	protected:
 		XAie_LocType Loc; /**< tile location */

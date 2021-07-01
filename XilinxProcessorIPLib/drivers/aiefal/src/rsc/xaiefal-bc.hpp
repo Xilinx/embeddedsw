@@ -112,6 +112,21 @@ namespace xaiefal {
 
 			return XAIE_OK;
 		}
+		uint32_t getRscType() const {
+			return static_cast<uint32_t>(XAIE_BCAST_CHANNEL_RSC);
+		}
+		XAieRscStat getRscStat(const std::string &GName) const {
+			XAieRscStat RscStat(GName);
+			(void) GName;
+
+			if (preferredId == XAIE_RSC_ID_ANY) {
+				return AieHd->getRscGroup(GName).getRscStat(vLocs,
+						getRscType());
+			} else {
+				return AieHd->getRscGroup(GName).getRscStat(vLocs,
+						getRscType(), preferredId);
+			}
+		}
 	private:
 		AieRC _reserve() {
 			AieRC RC = XAIE_INVALID_ARGS;

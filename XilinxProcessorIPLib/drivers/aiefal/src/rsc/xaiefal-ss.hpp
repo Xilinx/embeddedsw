@@ -126,6 +126,9 @@ namespace xaiefal {
 			}
 			return RC;
 		}
+		uint32_t getRscType() const {
+			return static_cast<uint32_t>(XAIE_SS_EVENT_PORTS_RSC);
+		}
 	private:
 		XAie_StrmPortIntf PortIntf; /**< port interface */
 		StrmSwPortType PortType; /**< port type master, or slave */

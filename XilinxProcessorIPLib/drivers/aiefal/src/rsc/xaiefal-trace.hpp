@@ -338,6 +338,10 @@ namespace xaiefal {
 
 			return BcId;
 		}
+
+		uint32_t getRscType() const {
+			return static_cast<uint32_t>(XAIE_TRACE_CTRL_RSC);
+		}
 	protected:
 		AieRC _reserve() {
 			AieRC RC;
@@ -647,6 +651,9 @@ namespace xaiefal {
 
 			return BcId;
 		}
+		uint32_t getRscType() const {
+			return static_cast<uint32_t>(XAIE_TRACE_EVENTS_RSC);
+		}
 	protected:
 		AieRC _reserve() {
 			AieRC RC;
@@ -755,6 +762,7 @@ namespace xaiefal {
 			Rsc.Loc.Col = Loc.Col;
 			Rsc.Loc.Row = Loc.Row;
 			Rsc.Mod = static_cast<uint32_t>(TraceCntr->getModule());
+			Rsc.RscType = static_cast<uint32_t>(XAIE_TRACE_EVENTS_RSC);
 			Rsc.RscId = Slot;
 			vRscs.push_back(Rsc);
 

@@ -152,6 +152,9 @@ namespace xaiefal {
 			}
 			return RC;
 		}
+		uint32_t getRscType() const {
+			return static_cast<uint32_t>(XAIE_COMBO_EVENTS_RSC);
+		}
 	protected:
 		std::vector<XAie_Events> vEvents; /**< input events */
 		std::vector<XAie_EventComboOps> vOps; /**< combo operations */
@@ -289,6 +292,9 @@ namespace xaiefal {
 				E = _getEventFromId(Rsc.RscId);
 			}
 			return RC;
+		}
+		uint32_t getRscType() const {
+			return static_cast<uint32_t>(XAIE_USER_EVENTS_RSC);
 		}
 	private:
 		AieRC _reserve() {

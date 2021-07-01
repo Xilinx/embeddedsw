@@ -70,6 +70,9 @@ namespace xaiefal {
 			}
 			return RC;
 		}
+		uint32_t getRscType() const {
+			return static_cast<uint32_t>(XAIE_PC_EVENTS_RSC);
+		}
 	protected:
 		uint32_t PcAddr; /**< PC address */
 	private:
@@ -188,6 +191,9 @@ namespace xaiefal {
 				E = XAIE_EVENT_PC_RANGE_2_3_CORE;
 			}
 			return RC;
+		}
+		uint32_t getRscType() const {
+			return static_cast<uint32_t>(XAIE_PC_EVENTS_RSC);
 		}
 	protected:
 		uint32_t PcAddrs[2]; /**< starting and end PC addresses */

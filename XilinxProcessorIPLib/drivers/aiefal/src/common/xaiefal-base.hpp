@@ -63,10 +63,25 @@ namespace xaiefal {
 		XAieRscStat getRscStat(XAie_LocType Loc, uint32_t RscType) const {
 			return RscGroup->getRscStat(Loc, RscType);
 		}
+		XAieRscStat getRscStat(XAie_LocType Loc, XAie_ModuleType Mod) const {
+			return RscGroup->getRscStat(Loc, Mod);
+		}
+		XAieRscStat getRscStat(XAie_LocType Loc, XAie_ModuleType Mod,
+			uint32_t RscType) const {
+			return RscGroup->getRscStat(Loc, Mod, RscType);
+		}
 		XAieRscStat getRscStat(XAie_LocType Loc, XAie_ModuleType Mod,
 			uint32_t RscType, uint32_t RscId) const {
 			return RscGroup->getRscStat(Loc, Mod, RscType,
 					RscId);
+		}
+		XAieRscStat getRscStat(const std::vector<XAie_LocType> &vLocs,
+			uint32_t RscType) const {
+			return RscGroup->getRscStat(vLocs, RscType);
+		}
+		XAieRscStat getRscStat(const std::vector<XAie_LocType> &vLocs,
+			uint32_t RscType, uint32_t RscId) const {
+			return RscGroup->getRscStat(vLocs, RscType, RscId);
 		}
 
 		template<class RT>
