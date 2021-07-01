@@ -26,95 +26,52 @@ using namespace xaiefal;
 class XAieTracePcRange {
 public:
 	XAieTracePcRange() = delete;
-	XAieTracePcRange(std::shared_ptr<XAieDev> Dev, const std::string &Name = ""):
-		Aie(Dev),
-		Container(Name),
-		vTracePC(Dev, "TracePCs"),
-		vTraceTime(Dev, "TraceTime") {}
+	XAieTracePcRange(std::shared_ptr<XAieDev> Dev): Aie(Dev) {}
 	AieRC addPcRange(uint32_t PcAddr0, uint32_t PcAddr1) {
 		string PcRangeGrName = "PcRange" + std::to_string(vPcAddr0.size());
 		vPcAddr0.push_back(PcAddr0);
 		vPcAddr1.push_back(PcAddr1);
-		vPcRange.push_back(XAieRscGroup<XAiePCRange>(Aie, PcRangeGrName));
-		for (int i = 0; i < (int)vTracePC.size(); i++) {
-			vPcRange.back().addRsc(vTracePC[i].loc());
-			(vPcRange.back())[i].updatePcAddr(PcAddr0, PcAddr1);
+		std::vector<std::shared_ptr<XAiePCRange>> PcRange;
+		std::vector<std::shared_ptr<XAieTraceEvent>> PcTraceEvents;
+		std::vector<std::shared_ptr<XAieTraceEvent>> TimeTraceEvents;
+		for (auto R: vTracePC) {
+			auto PcRangeR = Aie->tile(R->loc()).core().pcRange();
+			PcRangeR->updatePcAddr(PcAddr0, PcAddr1);
+			PcRange.push_back(PcRangeR);
+
+			auto PcTraceE = Aie->tile(R->loc()).core().traceEvent();
+			PcTraceEvents.push_back(PcTraceE);
+			auto TimeTraceE = Aie->tile(R->loc()).mem().traceEvent();
+			TimeTraceEvents.push_back(TimeTraceE);
 		}
-		return XAIE_OK;
-	}
-	AieRC removePcRange(uint32_t PcAddr0, uint32_t PcAddr1) {
-		if (vTracePC.isReserved()) {
-			Logger::log(LogLevel::ERROR) << __func__ <<
-				"failed, resource are reserved." << endl;
-			return XAIE_ERR;
-		}
-		for (int i = 0 ; i < (int)vPcAddr0.size(); i++) {
-			if (PcAddr0 != vPcAddr0[i] || PcAddr1 != vPcAddr1[i]) {
-				continue;
-			}
-			vPcAddr0.erase(vPcAddr0.begin() + i);
-			vPcAddr1.erase(vPcAddr1.begin() + i);
-			vPcRange[i].clear();
-			vPcRange.erase(vPcRange.begin() + i);
-		}
+		vPcRange.push_back(PcRange);
+		vTracePCE.push_back(PcTraceEvents);
+		vTraceTimeE.push_back(TimeTraceEvents);
 		return XAIE_OK;
 	}
 	AieRC addTile(const std::vector<XAie_LocType> &vL) {
 		AieRC RC = XAIE_OK;
-		for (int i = 0; i < (int)vL.size(); i++) {
-			RC = vTraceTime.addRsc<XAie_ModuleType>(vL[i], XAIE_MEM_MOD);
-			if (RC != XAIE_OK) {
-				return RC;
-			}
-			RC = vTracePC.addRsc<XAie_ModuleType>(vL[i], XAIE_CORE_MOD);
-			if (RC != XAIE_OK) {
-				vTraceTime.removeRsc(vL[i]);
-				return RC;
-			}
+		for (auto L: vL) {
+			auto rTimeTrace = Aie->tile(L).mem().traceControl();
+			vTraceTime.push_back(rTimeTrace);
+			auto rPcTrace = Aie->tile(L).core().traceControl();
+			vTracePC.push_back(rPcTrace);
 			for (int j = 0; j < (int)vPcAddr0.size(); j++) {
 				cout << "main " << __func__ << " added to go PcRange group[" << j << "]" << endl;
-				RC = vPcRange[j].addRsc(vL[i]);
-				if (RC != XAIE_OK) {
-					for (int k = 0; k < j; k++) {
-						vPcRange[k].removeRsc(vL[i]);
-					}
-					vTraceTime.removeRsc(vL[i]);
-					vTracePC.removeRsc(vL[i]);
-					return RC;
-				}
-				(vPcRange[j])[i].updatePcAddr(vPcAddr0[j], vPcAddr1[j]);
-			}
-		}
-		if (RC == XAIE_OK) {
-			Container.addRsc(vTracePC);
-			Container.addRsc(vTraceTime);
-			for (int i = 0; i < (int)vPcAddr0.size(); i++) {
-				Container.addRsc(vPcRange[i]);
+				auto rPcRange = Aie->tile(L).core().pcRange();
+				rPcRange->updatePcAddr(vPcAddr0[j], vPcAddr1[j]);
+				vPcRange[j].push_back(rPcRange);
+				auto pcTraceEvents = Aie->tile(L).core().traceEvent();
+				vTracePCE[j].push_back(pcTraceEvents);
+				auto timeTraceEvents = Aie->tile(L).mem().traceEvent();
+				vTraceTimeE[j].push_back(timeTraceEvents);
 			}
 		}
 		return RC;
 	}
-	AieRC removeTile(const std::vector<XAie_LocType> &vL) {
-		if (vTracePC.isReserved()) {
-			Logger::log(LogLevel::ERROR) << __func__ <<
-				"failed for PC tracing, resource already reserved." << endl;
-			return XAIE_ERR;
-		}
-		for (int l = 0; l < (int)vL.size(); l++) {
-			vTracePC.removeRsc(vL[l]);
-			vTraceTime.removeRsc(vL[l]);
-			for (int j = 0; j < (int)vPcAddr0.size(); j++) {
-				vPcRange[j].removeRsc(vL[l]);
-			}
-		}
-		return XAIE_OK;
-	}
 	AieRC reserve() {
 		AieRC RC;
 
-		if (vTracePC.isReserved()) {
-			return XAIE_OK;
-		}
 		if (vPcRange.size() != 0) {
 			RC = XAIE_OK;
 		} else {
@@ -122,75 +79,109 @@ public:
 				"failed, no PC range is specified." << endl;
 			return XAIE_ERR;
 		}
+		for (auto R: vTracePC) {
+			R->setCntrEvent(XAIE_EVENT_ACTIVE_CORE, XAIE_EVENT_DISABLED_CORE);
+			RC = R->reserve();
+			if (RC != XAIE_OK) {
+				return RC;
+			}
+		}
+		for (auto R: vTraceTime) {
+			R->setCntrEvent(XAIE_EVENT_USER_EVENT_0_MEM, XAIE_EVENT_USER_EVENT_0_MEM);
+			RC = R->reserve();
+			if (RC != XAIE_OK) {
+				return RC;
+			}
+		}
+
 		for (int i = 0; i < (int)vPcRange.size(); i++) {
 			for (int j = 0; j < (int)vPcRange[i].size(); j++) {
 				XAie_Events E;
-				RC = (vPcRange[i])[j].reserve();
+				RC = (vPcRange[i])[j]->reserve();
 				if (RC != XAIE_OK) {
 					break;
 				}
-				(vPcRange[i])[j].getEvent(E);
-				RC = vTracePC[j].addEvent(XAIE_CORE_MOD, E);
+				(vPcRange[i])[j]->getEvent(E);
+				RC = (vTracePCE[i])[j]->setEvent(XAIE_CORE_MOD, E);
 				if (RC != XAIE_OK) {
 					break;
 				}
-				RC = vTraceTime[j].addEvent(XAIE_CORE_MOD, E);
+				RC = (vTracePCE[i])[j]->reserve();
 				if (RC != XAIE_OK) {
 					break;
 				}
-			}
-			if (RC != XAIE_OK) {
-				break;
-			}
-		}
-		if (RC == XAIE_OK) {
-			RC = vTracePC.reserve();
-			if (RC != XAIE_OK) {
-				Logger::log(LogLevel::ERROR) << __func__ <<
-					"failed to reserve pc trace." << endl;
-			}
-		}
-		if (RC == XAIE_OK) {
-			RC = vTraceTime.reserve();
-			if (RC != XAIE_OK) {
-				Logger::log(LogLevel::ERROR) << __func__ <<
-					"failed to reserve time trace." << endl;
-			}
-		}
-		if (RC != XAIE_OK) {
-			vTraceTime.release();
-			vTracePC.release();
-			for (int i = 0; i < (int)vPcRange.size(); i++) {
-				for (int j = 0; j < (int)vPcRange[i].size(); j++) {
-					(vPcRange[i])[j].release();
+				RC = (vTraceTimeE[i])[j]->setEvent(XAIE_CORE_MOD, E);
+				if (RC != XAIE_OK) {
+					break;
+				}
+				RC = (vTraceTimeE[i])[j]->reserve();
+				if (RC != XAIE_OK) {
+					break;
 				}
 			}
 		}
 		return RC;
 	}
 	AieRC release() {
-		return Container.release();
+		for (auto R: vTracePC) {
+			R->release();
+		}
+		for (auto R: vTraceTime) {
+			R->release();
+		}
+		for (auto vTraceE: vTracePCE) {
+			for (auto R: vTraceE) {
+				R->release();
+			}
+		}
+		for (auto vTraceE: vTraceTimeE) {
+			for (auto R: vTraceE) {
+				R->release();
+			}
+		}
+		for (auto vPC: vPcRange) {
+			for (auto R: vPC) {
+				R->release();
+			}
+		}
+		return XAIE_OK;
 	}
 	AieRC start() {
 		AieRC RC = XAIE_OK;
 		for (int i = 0; i < (int)vPcAddr0.size(); i++) {
-			RC = vPcRange[i].start();
-			if (RC != XAIE_OK) {
-				break;
+			for (auto R: vPcRange[i]) {
+				RC = R->start();
+				if (RC != XAIE_OK) {
+					break;
+				}
 			}
 		}
 		if (RC == XAIE_OK) {
+			for (auto vTraceE: vTracePCE) {
+				for (auto R: vTraceE) {
+					R->start();
+				}
+			}
 			// Configure the PC trace control with start event event
-			for (int i = 0; i < (int)vTracePC.size(); i++) {
-				vTracePC[i].setCntrEvent(XAIE_EVENT_ACTIVE_CORE, XAIE_EVENT_DISABLED_CORE);
+			for (auto R: vTracePC) {
+				RC = R->start();
+				if (RC != XAIE_OK) {
+					break;
+				}
 			}
-			RC = vTracePC.start();
 		}
 		if (RC == XAIE_OK) {
-			for (int i = 0; i < (int)vTraceTime.size(); i++) {
-				vTraceTime[i].setCntrEvent(XAIE_EVENT_USER_EVENT_0_MEM, XAIE_EVENT_USER_EVENT_0_MEM);
+			for (auto vTraceE: vTraceTimeE) {
+				for (auto R: vTraceE) {
+					R->start();
+				}
 			}
-			RC = vTraceTime.start();
+			for (auto R: vTraceTime) {
+				RC = R->start();
+				if (RC != XAIE_OK) {
+					break;
+				}
+			}
 		}
 		if (RC != XAIE_OK) {
 			stop();
@@ -198,14 +189,36 @@ public:
 		return RC;
 	}
 	AieRC stop() {
-		return Container.stop();
+		for (auto R: vTracePC) {
+			R->stop();
+		}
+		for (auto R: vTraceTime) {
+			R->stop();
+		}
+		for (auto vTraceE: vTracePCE) {
+			for (auto R: vTraceE) {
+				R->stop();
+			}
+		}
+		for (auto vTraceE: vTraceTimeE) {
+			for (auto R: vTraceE) {
+				R->stop();
+			}
+		}
+		for (auto vPC: vPcRange) {
+			for (auto R: vPC) {
+				R->stop();
+			}
+		}
+		return XAIE_OK;
 	}
 private:
 	std::shared_ptr<XAieDev> Aie;
-	XAieRscContainer Container;
-	std::vector<XAieRscGroup<XAiePCRange>> vPcRange;
-	XAieRscGroup<XAieTracing> vTracePC;
-	XAieRscGroup<XAieTracing> vTraceTime;
+	std::vector<std::vector<std::shared_ptr<XAiePCRange>>> vPcRange;
+	std::vector<std::shared_ptr<XAieTraceCntr>> vTracePC;
+	std::vector<std::shared_ptr<XAieTraceCntr>> vTraceTime;
+	std::vector<std::vector<std::shared_ptr<XAieTraceEvent>>> vTracePCE;
+	std::vector<std::vector<std::shared_ptr<XAieTraceEvent>>> vTraceTimeE;
 	std::vector<uint32_t> vPcAddr0;
 	std::vector<uint32_t> vPcAddr1;
 };
