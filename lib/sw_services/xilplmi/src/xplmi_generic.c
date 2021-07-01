@@ -51,6 +51,7 @@
 *       bsv  04/13/2021 Added support for variable Keyhole sizes in
 *                       DmaWriteKeyHole command
 * 1.06  ma   06/17/2021 Added readback support for SSIT Slave SLRs
+*       ma   06/28/2021 Added support for proc command
 *
 * </pre>
 *
@@ -72,6 +73,7 @@
 #include "xplmi_modules.h"
 #include "xplmi_cmd.h"
 #include "xil_util.h"
+#include "xplmi_cdo.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -383,6 +385,59 @@ static int XPlmi_Delay(XPlmi_Cmd *Cmd)
 
 /*****************************************************************************/
 /**
+ * @brief	This function provides functionality for DMA write.
+ *
+ * @param	Dest is the destination address
+ *          Src is the source address
+ *          Len is the number of words to be transferred
+ *          Flags is the DMA transfer related flags
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XPlmi_DmaTransfer(u64 Dest, u64 Src, u32 Len, u32 Flags)
+{
+	int Status = XST_FAILURE;
+	u32 UnalignedWordCount;
+	u32 Offset;
+	u64 DestAddr = Dest;
+	u64 SrcAddr = Src;
+	u32 Length = Len;
+
+	Status = XPlmi_DmaUnalignedXfer(&SrcAddr, &DestAddr, &Length,
+		XPLMI_DEST_ALIGN_REQ);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_UNALIGNED_DMA_XFER,
+			Status);
+		goto END;
+	}
+
+	UnalignedWordCount = Length % XPLMI_WORD_LEN;
+	Length = Length - UnalignedWordCount;
+
+	Status = XPlmi_DmaXfr(SrcAddr, DestAddr, Length, Flags);
+	if(Status != XST_SUCCESS) {
+		XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Failed\n\r");
+		goto END;
+	}
+
+	Offset = Length * XPLMI_WORD_LEN;
+	SrcAddr += Offset;
+	DestAddr += Offset;
+	Status = XPlmi_DmaUnalignedXfer(&SrcAddr, &DestAddr,
+		&UnalignedWordCount, XPLMI_LEN_ALIGN_REQ);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_UNALIGNED_DMA_XFER,
+			Status);
+		goto END;
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
  * @brief	This function provides DMA write command execution.
  *  		Command payload parameters are
  *		- High Dest Addr
@@ -399,10 +454,7 @@ static int XPlmi_DmaWrite(XPlmi_Cmd *Cmd)
 	u64 DestAddr;
 	u64 SrcAddr;
 	u32 Len = Cmd->PayloadLen;
-	u32 Flags;
 	u32 DestOffset = 0U;
-	u32 UnalignedWordCount;
-	u32 Offset;
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
 
@@ -422,37 +474,9 @@ static int XPlmi_DmaWrite(XPlmi_Cmd *Cmd)
 	DestAddr = ((u64)Cmd->ResumeData[1U] | (DestAddr << 32U));
 	DestAddr += (((u64)Cmd->ProcessedLen - DestOffset) * XPLMI_WORD_LEN);
 
-	Status = XPlmi_DmaUnalignedXfer(&SrcAddr, &DestAddr, &Len,
-		XPLMI_DEST_ALIGN_REQ);
-	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XPLMI_ERR_UNALIGNED_DMA_XFER,
-			Status);
-		goto END;
-	}
+	/* Call XPlmi_DmaTransfer with flags DMA0 and INCR */
+	Status = XPlmi_DmaTransfer(DestAddr, SrcAddr, Len, XPLMI_PMCDMA_0);
 
-	UnalignedWordCount = Len % XPLMI_WORD_LEN;
-	Len = Len - UnalignedWordCount;
-
-	/* Set DMA flags to DMA0 and INCR */
-	Flags = XPLMI_PMCDMA_0;
-	Status = XPlmi_DmaXfr(SrcAddr, DestAddr, Len, Flags);
-	if(Status != XST_SUCCESS) {
-		XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Failed\n\r");
-		goto END;
-	}
-
-	Offset = Len * XPLMI_WORD_LEN;
-	SrcAddr += Offset;
-	DestAddr += Offset;
-	Status = XPlmi_DmaUnalignedXfer(&SrcAddr, &DestAddr,
-		&UnalignedWordCount, XPLMI_LEN_ALIGN_REQ);
-	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XPLMI_ERR_UNALIGNED_DMA_XFER,
-			Status);
-		goto END;
-	}
-
-END:
 	return Status;
 }
 
@@ -1353,6 +1377,271 @@ static int XPlmi_Marker(XPlmi_Cmd *Cmd)
 
 /*****************************************************************************/
 /**
+ * @brief	This function searches the proc list and for the given ProcId.
+ *
+ * @param	ProcId is proc ID to search
+ *
+ * @return	Index for the ProcId
+ *
+ *****************************************************************************/
+static u8 XPlmi_FindProc(u32 ProcId, XPlmi_ProcList *ProcList)
+{
+	u8 Index = 0U;
+
+	/* Parse through the ProcList to find the ProcId */
+	while (Index < ProcList->ProcCount) {
+		/* Check if ProcId matches */
+		if (ProcList->ProcData[Index].Id == ProcId) {
+			break;
+		}
+		Index++;
+	}
+
+	return Index;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function provides functionality to move procs when proc
+ *          command is received for existing ProcId.
+ *
+ * @param	ProcIndex is the index of ProcId to be moved
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XPlmi_MoveProc(u8 ProcIndex, XPlmi_ProcList *ProcList)
+{
+	int Status = XST_FAILURE;
+	u32 DestAddr;
+	u32 SrcAddr;
+	u32 Len;
+	u8 Index = ProcIndex;
+	u32 DeletedProcLen;
+
+	/*
+	 * If only one proc is available and new proc command is received with
+	 * same ID, it can directly be overwritten.
+	 */
+	if ((ProcList->ProcCount == 1U) ||
+		(Index == (ProcList->ProcCount - 1U))) {
+		Status = XST_SUCCESS;
+		goto END;
+	}
+
+	/*
+	 * If proc command is received for existing ProcId,
+	 * move all procs behind this to front
+	 */
+	DestAddr = ProcList->ProcData[Index].Addr;
+	SrcAddr = ProcList->ProcData[Index + 1U].Addr;
+	Len = (ProcList->ProcData[ProcList->ProcCount].Addr -
+			SrcAddr)/XPLMI_WORD_LEN;
+	/* Length of the proc that is removed */
+	DeletedProcLen = ProcList->ProcData[Index + 1U].Addr -
+			ProcList->ProcData[Index].Addr;
+
+	/* Call XPlmi_DmaTransfer with flags DMA0 and INCR */
+	Status = XPlmi_DmaTransfer(DestAddr, SrcAddr, Len, XPLMI_PMCDMA_0);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/* Update ProcList with moved data */
+	while(Index <= ProcList->ProcCount) {
+		ProcList->ProcData[Index].Id = ProcList->ProcData[Index + 1U].Id;
+		ProcList->ProcData[Index].Addr =
+					ProcList->ProcData[Index + 1U].Addr - DeletedProcLen;
+		Index++;
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function defines ProcList and returns the address of the same
+ *
+ * @return	ProcList is the address of ProcList structure
+ *
+ *****************************************************************************/
+static XPlmi_ProcList* XPlmi_GetProcList(void)
+{
+	static XPlmi_ProcList ProcList = {0U};
+
+	/* Initialize first ProcData address to PSM RAM Proc data start address */
+	ProcList.ProcData[0U].Addr = XPLMI_PROC_LOCATION_ADDRESS;
+
+	return &ProcList;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function provides functionality to execute given ProcId when
+ *          request to execute a particular ProcId.
+ *
+ * @param	ProcId is ProcId to be executed
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XPlmi_ExecuteProc(u32 ProcId)
+{
+	int Status = XST_FAILURE;
+	XPlmiCdo ProcCdo;
+	XPlmi_ProcList *ProcList = XPlmi_GetProcList();
+	u8 ProcIndex = XPlmi_FindProc(ProcId, ProcList);
+	XPlmi_Printf(DEBUG_GENERAL, "Proc ID received: 0x%x\r\n", ProcId);
+
+	/* If LPD is not initialized, do not execute the proc */
+	if ((LpdInitialized & LPD_INITIALIZED) != LPD_INITIALIZED) {
+		XPlmi_Printf(DEBUG_GENERAL, "LPD is not initialized, "
+				"Proc commands cannot be executed\r\n");
+		Status = (int)XPLMI_ERR_PROC_LPD_NOT_INITIALIZED;
+		goto END;
+	}
+
+	/* Execute proc if the received ProcId is valid */
+	if (ProcIndex < ProcList->ProcCount) {
+		/* Pass the Proc CDO to CDO parser */
+		Status = XPlmi_InitCdo(&ProcCdo);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		/* Fill ProcCdo structure with Proc related parameters */
+		ProcCdo.BufPtr = (u32 *)(UINTPTR)ProcList->ProcData[ProcIndex].Addr;
+		ProcCdo.BufLen = (ProcList->ProcData[ProcIndex + 1U].Addr -
+				ProcList->ProcData[ProcIndex].Addr)/XPLMI_WORD_LEN;
+		ProcCdo.CdoLen = ProcCdo.BufLen;
+		ProcCdo.Cdo1stChunk = (u8)FALSE;
+		/* Execute Proc */
+		Status = XPlmi_ProcessCdo(&ProcCdo);
+	} else {
+		/* Return an error if the received ProcId is not valid */
+		Status = (int)XPLMI_PROCID_NOT_VALID;
+		XPlmi_Printf(DEBUG_GENERAL, "Invalid proc ID received\r\n");
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function copies the proc data to reserved PSM RAM when proc
+ *          command is received.
+ *
+ * @param	Cmd is pointer to the command structure
+ *              Command payload parameters are
+ *              - ProcId
+ *              - Data
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XPlmi_Proc(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+	u32 ProcId;
+	u8 Index;
+	u32 SrcAddr;
+	u32 LenDiff = 0U;
+	u32 CmdLenInBytes = (Cmd->Len - 1U) * XPLMI_WORD_LEN;
+	u32 CurrPayloadLen;
+	XPlmi_ProcList *ProcList = NULL;
+
+	if (Cmd->ProcessedLen == 0U) {
+		/*
+		 * Check if LPD is initialized as we are using PSM RAM to store
+		 * Proc data
+		 */
+		if ((LpdInitialized & LPD_INITIALIZED) != LPD_INITIALIZED) {
+			XPlmi_Printf(DEBUG_GENERAL, "LPD is not initialized, "
+					"Proc commands cannot be stored\r\n");
+			Status = (int)XPLMI_ERR_PROC_LPD_NOT_INITIALIZED;
+			goto END;
+		}
+
+		ProcId = Cmd->Payload[0U];
+		/* Get the proc list */
+		ProcList = XPlmi_GetProcList();
+		/* Check if received ProcId is already in memory */
+		Index = XPlmi_FindProc(ProcId, ProcList);
+		if (Index < ProcList->ProcCount) {
+			/*
+			 * Get Length difference if received proc length is greater than
+			 * length of the proc in memory
+			 * This is to check if new proc fits in available memory
+			 */
+			if (CmdLenInBytes > (ProcList->ProcData[Index + 1U].Addr -
+					ProcList->ProcData[Index].Addr)) {
+				LenDiff = CmdLenInBytes - (ProcList->ProcData[Index + 1U].Addr -
+						ProcList->ProcData[Index].Addr);
+			}
+			/* Check if new proc length fits in the proc allocated memory */
+			if ((LenDiff + (ProcList->ProcData[ProcList->ProcCount].Addr -
+					ProcList->ProcData[ProcList->ProcCount - 1U].Addr)) >
+					XPLMI_PROC_LOCATION_LENGTH) {
+				Status = (int)XPLMI_UNSUPPORTED_PROC_LENGTH;
+				goto END;
+			}
+
+			/*
+			 * If proc command is received for existing proc,
+			 * move other procs
+			 */
+			Status = XPlmi_MoveProc(Index, ProcList);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+			--ProcList->ProcCount;
+		} else {
+			/* Check if proc list is full */
+			if (ProcList->ProcCount == XPLMI_MAX_PROCS_SUPPORTED) {
+				Status = (int)XPLMI_MAX_PROC_COMMANDS_RECEIVED;
+				goto END;
+			}
+		}
+
+		/* New proc address where the proc data need to be copied */
+		Cmd->ResumeData[0U] = ProcList->ProcData[ProcList->ProcCount].Addr;
+
+		/* Check if new proc length fits in the proc allocated memory */
+		if ((Cmd->ResumeData[0U] + CmdLenInBytes) > (XPLMI_PROC_LOCATION_ADDRESS +
+				XPLMI_PROC_LOCATION_LENGTH)) {
+			Status = (int)XPLMI_UNSUPPORTED_PROC_LENGTH;
+			goto END;
+		}
+		SrcAddr = (u32)(&Cmd->Payload[1U]);
+		CurrPayloadLen = Cmd->PayloadLen - 1U;
+
+		/* Add an entry in ProcList */
+		ProcList->ProcData[ProcList->ProcCount].Id = ProcId;
+		ProcList->ProcCount++;
+		ProcList->ProcData[ProcList->ProcCount].Addr =
+				ProcList->ProcData[ProcList->ProcCount - 1U].Addr + CmdLenInBytes;
+	} else {
+		/* Handle command resume for proc data */
+		SrcAddr = (u32)(&Cmd->Payload[0U]);
+		CurrPayloadLen = Cmd->PayloadLen;
+	}
+
+	/* Copy the received proc to proc memory */
+	Status = XPlmi_DmaTransfer(Cmd->ResumeData[0U], SrcAddr, CurrPayloadLen,
+			XPLMI_PMCDMA_0);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	/* Update destination address to handle resume case */
+	Cmd->ResumeData[0U] += CurrPayloadLen * XPLMI_WORD_LEN;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
  * @brief	This function checks if the IPI command is accessible or not
  *
  * @param	CmdId is the Command ID
@@ -1432,6 +1721,7 @@ void XPlmi_GenericInit(void)
 		XPLMI_MODULE_COMMAND(XPlmi_LogString),
 		XPLMI_MODULE_COMMAND(XPlmi_LogAddress),
 		XPLMI_MODULE_COMMAND(XPlmi_Marker),
+		XPLMI_MODULE_COMMAND(XPlmi_Proc),
 	};
 
 	XPlmi_Generic.Id = XPLMI_MODULE_GENERIC_ID;

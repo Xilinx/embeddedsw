@@ -79,7 +79,8 @@
 *       har  05/19/2021 Added error code for encrypted partition in case of
 *                       non secure state of boot
 *       td   05/20/2021 Added error code for NPI locking error
-*       kpt  06/23/2021 Added error code for DNA comparison failure
+* 1.06  kpt  06/23/2021 Added error code for DNA comparison failure
+*       ma   06/28/2021 Added error codes related to proc command
 *
 * </pre>
 *
@@ -243,6 +244,13 @@ typedef enum {
 	XPLMI_ERR_INVALID_TASK_PERIOD, /**< 0x133 - Error when invalid task period is
 						used to add tasks in scheduler */
 	XPLMI_ERR_NPI_LOCK, /**< 0x134 - Error locking NPI address space */
+	XPLMI_PROCID_NOT_VALID, /**< 0x135 - Invalid ProcID received */
+	XPLMI_MAX_PROC_COMMANDS_RECEIVED, /**< 0x136 - Maximum supported proc
+						commands received */
+	XPLMI_UNSUPPORTED_PROC_LENGTH, /**< 0x137 - Received proc does not fit in
+						proc memory */
+	XPLMI_ERR_PROC_LPD_NOT_INITIALIZED, /**< 0x138 LPD is not initialized
+						     proc command cannot be stored/executed */
 
 	/** Status codes used in PLM */
 	XPLM_ERR_TASK_CREATE = 0x200,	/**< 0x200 - Error when task create

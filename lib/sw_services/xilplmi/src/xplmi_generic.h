@@ -38,6 +38,7 @@
 *       bsv  04/13/2021 Added support for variable Keyhole sizes in
 *                       DmaWriteKeyHole command
 * 1.06  ma   06/17/2021 Added readback support for SSIT Slave SLRs
+*       ma   06/28/2021 Added support for proc command
 *
 * </pre>
 *
@@ -63,6 +64,9 @@ enum {
 	XPLMI_ERR_READBACK_BUFFER_OVERFLOW, /**< 0x13 */
 };
 
+/* Maximum procs supported */
+#define XPLMI_MAX_PROCS_SUPPORTED	(10U)
+
 /**************************** Type Definitions *******************************/
 typedef struct {
 	u64 DestAddr;
@@ -79,6 +83,16 @@ typedef struct {
 	u32 Flags;
 	int (*Func) (u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags);
 } XPlmi_KeyHoleXfrParams;
+
+typedef struct {
+	u32 Id;
+	u32 Addr;
+} XPlmi_ProcData;
+
+typedef struct {
+	u8 ProcCount;
+	XPlmi_ProcData ProcData[XPLMI_MAX_PROCS_SUPPORTED + 1U];
+} XPlmi_ProcList;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XPLMI_SBI_DEST_ADDR			(0xFFFFFFFFFFFFFFFFUL)
@@ -119,10 +133,14 @@ typedef struct {
 #define XPLMI_PLM_MODULES_GET_BOARD_VAL		(0x15U)
 #define XPLMI_PLM_LOADER_SET_IMG_INFO_VAL	(0x4U)
 
+/* Defines related to procs */
+#define XPLMI_PROC_LOCATION_ADDRESS			(0xFFC3E000U)
+#define XPLMI_PROC_LOCATION_LENGTH			(0x8000U)
 /************************** Function Prototypes ******************************/
 void XPlmi_GenericInit(void);
 int XPlmi_GetReadBackPropsValue(XPlmi_ReadBackProps *ReadBackVal);
 int XPlmi_SetReadBackProps(const XPlmi_ReadBackProps *ReadBack);
+int XPlmi_ExecuteProc(u32 ProcId);
 
 /************************** Variable Definitions *****************************/
 
