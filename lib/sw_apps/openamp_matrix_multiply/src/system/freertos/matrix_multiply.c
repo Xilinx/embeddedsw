@@ -16,8 +16,8 @@ multiplies them and returns the result to the master core. */
 
 #define SHUTDOWN_MSG	0xEF56A55A
 
-#define LPRINTF(format, ...) xil_printf(format, ##__VA_ARGS__)
-#define LPERROR(format, ...) LPRINTF("ERROR: " format, ##__VA_ARGS__)
+#define LPRINTF(fmt, ...) xil_printf("%s():%u " fmt, __func__, __LINE__, ##__VA_ARGS__)
+#define LPERROR(fmt, ...) LPRINTF("ERROR: " fmt, ##__VA_ARGS__)
 
 typedef struct _matrix {
 	unsigned int size;
@@ -66,7 +66,7 @@ static int rpmsg_endpoint_cb(struct rpmsg_endpoint *ept, void *data, size_t len,
 	(void)src;
 
 	if ((*(unsigned int *)data) == SHUTDOWN_MSG) {
-		LPRINTF("shutdown message is received.\n");
+		ML_INFO("shutdown message is received.\n");
 		shutdown_req = 1;
 		return RPMSG_SUCCESS;
 	}
@@ -77,7 +77,7 @@ static int rpmsg_endpoint_cb(struct rpmsg_endpoint *ept, void *data, size_t len,
 
 	/* Send the result of matrix multiplication back to master. */
 	if (rpmsg_send(ept, &matrix_result, sizeof(matrix)) < 0) {
-		LPERROR("rpmsg_send failed\n");
+		ML_ERR("rpmsg_send failed\n");
 	}
 	return RPMSG_SUCCESS;
 }
@@ -85,7 +85,7 @@ static int rpmsg_endpoint_cb(struct rpmsg_endpoint *ept, void *data, size_t len,
 static void rpmsg_service_unbind(struct rpmsg_endpoint *ept)
 {
 	(void)ept;
-	LPERROR("Endpoint is destroyed\n");
+	ML_ERR("Endpoint is destroyed\n");
 	shutdown_req = 1;
 }
 
@@ -100,7 +100,7 @@ int app(struct rpmsg_device *rdev, void *priv)
 				   0, RPMSG_ADDR_ANY, rpmsg_endpoint_cb,
 				   rpmsg_service_unbind);
 	if (ret) {
-		LPERROR("Failed to create endpoint.\n");
+		ML_ERR("Failed to create endpoint.\n");
 		return -1;
 	}
 
@@ -134,14 +134,14 @@ static void processing(void *unused_arg)
 										VIRTIO_DEV_SLAVE,
 										NULL, NULL);
 		if (!rpdev){
-			LPERROR("Failed to create rpmsg virtio device.\n");
+			ML_ERR("Failed to create rpmsg virtio device.\n");
 		} else {
 			app(rpdev, platform);
 			platform_release_rpmsg_vdev(rpdev);
 		}
 	}
 
-	LPRINTF("Stopping application...\n");
+	ML_INFO("Stopping application...\n");
 	platform_cleanup(platform);
 
 	/* Terminate this task */

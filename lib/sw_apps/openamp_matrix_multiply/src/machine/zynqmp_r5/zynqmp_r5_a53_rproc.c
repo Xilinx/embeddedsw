@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2014, Mentor Graphics Corporation
  * All rights reserved.
- * Copyright (c) 2017 Xilinx, Inc.
+ * Copyright (c) 2021 Xilinx, Inc.
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -68,8 +68,10 @@ zynqmp_r5_a53_proc_init(struct remoteproc *rproc,
 		return NULL;
 	ret = metal_device_open(prproc->ipi_bus_name, prproc->ipi_name,
 				&ipi_dev);
+	ML_DBG("metal_device_open(%s, %s, %p)\r\n", prproc->ipi_bus_name,
+		prproc->ipi_name, ipi_dev);
 	if (ret) {
-		xil_printf("failed to open ipi device: %d.\r\n", ret);
+		ML_ERR("failed to open ipi device: %d.\r\n", ret);
 		return NULL;
 	}
 	rproc->priv = prproc;
@@ -88,6 +90,7 @@ zynqmp_r5_a53_proc_init(struct remoteproc *rproc,
 			 prproc->ipi_chn_mask);
 	return rproc;
 err1:
+	ML_ERR("err1\r\n");
 	metal_device_close(ipi_dev);
 	return NULL;
 }
@@ -120,6 +123,7 @@ zynqmp_r5_a53_proc_mmap(struct remoteproc *rproc, metal_phys_addr_t *pa,
 
 	lpa = *pa;
 	lda = *da;
+	ML_DBG("lpa,lda= %p,%p\r\n", lpa, lda);
 
 	if (lpa == METAL_BAD_PHYS && lda == METAL_BAD_PHYS)
 		return NULL;
@@ -131,9 +135,11 @@ zynqmp_r5_a53_proc_mmap(struct remoteproc *rproc, metal_phys_addr_t *pa,
 	if (!attribute)
 		attribute = NORM_SHARED_NCACHE | PRIV_RW_USER_RW;
 	mem = metal_allocate_memory(sizeof(*mem));
+	ML_DBG("mem= %p\r\n", mem);
 	if (!mem)
 		return NULL;
 	tmpio = metal_allocate_memory(sizeof(*tmpio));
+	ML_DBG("tmpio= %p\r\n", tmpio);
 	if (!tmpio) {
 		metal_free_memory(mem);
 		return NULL;
