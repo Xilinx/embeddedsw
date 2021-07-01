@@ -35,15 +35,6 @@ namespace xaiefal {
 				throw std::invalid_argument("AI engine device is NULL");
 			}
 
-			//TODO: the following bitmaps initialization should be removed
-			memset(XAieBroadcastCoreBits, 0, sizeof(XAieBroadcastCoreBits));
-			memset(XAieBroadcastMemBits, 0, sizeof(XAieBroadcastMemBits));
-			memset(XAieBroadcastShimBits, 0, sizeof(XAieBroadcastShimBits));
-
-			memset(XAieComboCoreBits, 0, sizeof(XAieComboCoreBits));
-			memset(XAieComboMemBits, 0, sizeof(XAieComboMemBits));
-			memset(XAieComboShimBits, 0, sizeof(XAieComboShimBits));
-
 			XAieGroupEventMapCore[0] = XAIE_EVENT_GROUP_0_CORE;
 			XAieGroupEventMapCore[1] = XAIE_EVENT_GROUP_PC_EVENT_CORE;
 			XAieGroupEventMapCore[2] = XAIE_EVENT_GROUP_CORE_STALL_CORE;
@@ -92,15 +83,6 @@ namespace xaiefal {
 		std::shared_ptr<XAieDevHandle> getPtr() {
 			return shared_from_this();
 		}
-
-		// TODO: the following bitmaps should be removed
-		uint16_t XAieBroadcastCoreBits[400];
-		uint16_t XAieBroadcastMemBits[400];
-		uint16_t XAieBroadcastShimBits[50];
-
-		uint64_t XAieComboCoreBits[400 * 4 / 64];
-		uint64_t XAieComboMemBits[400 * 4 / 64];
-		uint64_t XAieComboShimBits[50 * 4 / 64];
 
 		// TODO: Configure group event should be moved to c driver
 		uint32_t XAieGroupEventMapCore[9];
