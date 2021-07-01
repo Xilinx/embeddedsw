@@ -30,6 +30,7 @@ namespace xaiefal {
 
 			State.Initialized = 1;
 			State.Configured = 1;
+			preferredId = static_cast<uint32_t>(GroupEvent);
 		}
 
 		/**
@@ -207,6 +208,9 @@ namespace xaiefal {
 				}
 			}
 			return RC;
+		}
+		uint32_t getRscType() const {
+			return static_cast<uint32_t>(XAIE_GROUP_EVENTS_RSC);
 		}
 	private:
 		XAie_Events GroupEvent; /**< group event */

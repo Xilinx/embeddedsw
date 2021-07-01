@@ -313,6 +313,26 @@ namespace xaiefal {
 
 			return RC;
 		}
+		uint32_t getRscType() const {
+			return static_cast<uint32_t>(XAIE_PERFCNT_RSC);
+		}
+		XAieRscStat getRscStat(const std::string &GName) const {
+			XAieRscStat RscStat(GName);
+			(void) GName;
+
+			if (preferredId == XAIE_RSC_ID_ANY) {
+				if (CrossMod) {
+					return AieHd->getRscGroup(GName).getRscStat(Loc,
+						getRscType());
+				} else {
+					return AieHd->getRscGroup(GName).getRscStat(Loc,
+						Mod, getRscType());
+				}
+			} else {
+				return AieHd->getRscGroup(GName).getRscStat(Loc,
+						Mod, getRscType(), preferredId);
+			}
+		}
 	protected:
 		XAie_Events StartEvent; /**< start event */
 		XAie_Events StopEvent; /**< stop event */
