@@ -265,5 +265,9 @@ namespace xaiefal {
 			}
 			return RC;
 		}
+		void _getRscs(std::vector<XAie_UserRsc> &vRscs) const {
+			vRscs.push_back(Rscs[0]);
+			vRscs.push_back(Rscs[1]);
+		}
 	};
 }

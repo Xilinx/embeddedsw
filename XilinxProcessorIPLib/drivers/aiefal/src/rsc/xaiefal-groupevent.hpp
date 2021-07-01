@@ -265,6 +265,10 @@ namespace xaiefal {
 		AieRC _stop() {
 			return XAie_EventGroupReset(dev(), Loc, Mod, GroupEvent);
 		}
+
+		void _getRscs(std::vector<XAie_UserRsc> &vRscs) const {
+			vRscs.push_back(Rsc);
+		}
 	private:
 		/**
 		 * TODO: Following function will not be required.

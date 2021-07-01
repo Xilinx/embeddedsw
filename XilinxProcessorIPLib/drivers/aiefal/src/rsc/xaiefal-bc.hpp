@@ -312,6 +312,10 @@ namespace xaiefal {
 			}
 			return RC;
 		}
+
+		void _getRscs(std::vector<XAie_UserRsc> &vRs) const {
+			vRs.insert(vRs.end(), vRscs.begin(), vRscs.end());
+		}
 	private:
 		XAie_ModuleType StartMod; /**< module type of the starting module on the channel */
 		XAie_ModuleType EndMod; /**< module type of the ending modile on the channel */
