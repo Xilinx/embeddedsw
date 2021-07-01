@@ -51,6 +51,7 @@
 * 1.06  bsv  06/09/2021 Add warning in case IPI-0 interrupt is disabled
 *       bsv  06/17/2021 Update warning in case some IPIs are disabled
 *       ma   06/23/2021 Added readback support for SSIT Slave SLRs
+*       ma   06/28/2021 Added macros related to CPM registers
 *
 * </pre>
 *
@@ -335,6 +336,25 @@ extern "C" {
  * Register: PS7_IPI_PMC_IMR
  */
 #define PS7_IPI_PMC_IMR		(0xFF320014U)
+
+/*
+ * Register: CPM5_SLCR_PS_UNCORR_IR_STATUS
+ */
+#define CPM5_SLCR_PS_UNCORR_IR_STATUS					(0xFCDD0320U)
+#define CPM5_SLCR_PS_UNCORR_IR_STATUS_PCIE0_MASK		(0x2U)
+#define CPM5_SLCR_PS_UNCORR_IR_STATUS_PCIE1_MASK		(0x4U)
+
+#define CPM5_SLCR_PS_UNCORR_IR_MASK						(0xFCDD0324U)
+
+#define CPM5_SLCR_PCIE0_IR_STATUS 						(0xFCDD02A0U)
+#define CPM5_SLCR_PCIE1_IR_STATUS 						(0xFCDD02B4U)
+#define CPM5_SLCR_PCIE_IR_STATUS_PCIE_LOCAL_ERR_MASK	(0x1U)
+/*
+ * Register: CPM5_DMAn_CSR_INT_DEC
+ */
+#define CPM5_DMA0_CSR_INT_DEC							(0xFCE20E10U)
+#define CPM5_DMA1_CSR_INT_DEC							(0xFCEA0E10U)
+#define CPM5_DMA_CSR_LINK_DOWN_MASK						(0x1U)
 
 /*****************************************************************************/
 /**
