@@ -1303,7 +1303,6 @@ AieRC XAie_LoadStaticRscfromMem(XAie_DevInst *DevInst, const char *MetaData)
 			return XAIE_INVALID_ARGS;
 		}
 
-		NumRows = _XAie_GetNumRows(DevInst, TileType);
 		RscMap = &DevInst->RscMapping[TileType];
 		Bits32 = RscMap->Bitmaps[RscType];
 		/*
