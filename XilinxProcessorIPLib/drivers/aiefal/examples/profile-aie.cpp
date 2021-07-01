@@ -26,60 +26,96 @@ using namespace xaiefal;
 class XAieHeatMap {
 public:
 	XAieHeatMap() = delete;
-	XAieHeatMap(std::shared_ptr<XAieDev> Dev, const std::string &Name = ""):
-		vActive(Dev, "ActiveCycles"),
-		vStall(Dev, "StallCycles"),
-		Container(Name) {}
+	XAieHeatMap(std::shared_ptr<XAieDev> Dev):
+		AieDev(Dev) {}
 	AieRC addTiles(const std::vector<XAie_LocType> &vL) {
-		AieRC RC;
-
-		RC = vActive.addRsc(vL);
-		if (RC == XAIE_OK) {
-			RC = vStall.addRsc(vL);
+		for (auto L: vL) {
+			auto PerfCounterActive = AieDev->tile(L).core().activeCycles();
+			vActive.push_back(PerfCounterActive);
+			auto PerfCounterStall = AieDev->tile(L).core().stallCycles();
+			vStall.push_back(PerfCounterStall);
 		}
-		Container.addRsc(vActive);
-		Container.addRsc(vStall);
-		return RC;
+		return XAIE_OK;
 	}
 	AieRC reserve() {
-		return Container.reserve();
+		AieRC RC = XAIE_OK;
+		for (auto R: vActive) {
+			RC = R->reserve();
+			if (RC != XAIE_OK) {
+				return RC;
+			}
+		}
+		for (auto R: vStall) {
+			RC = R->reserve();
+			if (RC != XAIE_OK) {
+				return RC;
+			}
+		}
+
+		return RC;
 	}
 	AieRC release() {
-		return Container.release();
+		for (auto R: vActive) {
+			R->release();
+		}
+		for (auto R: vStall) {
+			R->release();
+		}
+		return XAIE_OK;
 	}
 	AieRC start() {
-		return Container.start();
+		AieRC RC = XAIE_OK;
+		for (auto R: vActive) {
+			RC = R->start();
+			if (RC != XAIE_OK) {
+				return RC;
+			}
+		}
+		for (auto R: vStall) {
+			RC = R->start();
+			if (RC != XAIE_OK) {
+				return RC;
+			}
+		}
+
+		return RC;
 	}
 	AieRC stop() {
-		return Container.stop();
+		for (auto R: vActive) {
+			R->stop();
+		}
+		for (auto R: vStall) {
+			R->stop();
+		}
+		return XAIE_OK;
 	}
 	void printResult() {
 		Logger::log(LogLevel::INFO) << " === Profile results. ==== " << std::endl;
-		if (vActive.isRunning()) {
-			for (int i = 0; i < (int)vActive.size(); i++) {
-				uint32_t R;
+		for (auto R: vActive) {
+			uint32_t Result;
 
-				vActive[i].readResult(R);
-				Logger::log() << "\t(" << (uint32_t)vActive[i].loc().Col <<
-					"," << (uint32_t)vActive[i].loc().Row << "):" <<
-					"Active=" << R << endl;
+			if (R->isRunning()) {
+				R->readResult(Result);
+				Logger::log() << "\t(" << static_cast<uint32_t>(R->loc().Col) <<
+					"," << static_cast<uint32_t>(R->loc().Row) << "):" <<
+					"Active=" << Result << endl;
 			}
 		}
-		if (vStall.isRunning()) {
-			for (int i = 0; i < (int)vStall.size(); i++) {
-				uint32_t R;
+		for (auto R: vStall) {
+			uint32_t Result;
 
-				vStall[i].readResult(R);
-				Logger::log() << "\t(" << (uint32_t)vStall[i].loc().Col <<
-					"," << (uint32_t)vStall[i].loc().Row << "):" <<
-					"Stall=" << R << endl;
+			if (R->isRunning()) {
+				R->readResult(Result);
+				Logger::log() << "\t(" << static_cast<uint32_t>(R->loc().Col) <<
+					"," << static_cast<uint32_t>(R->loc().Row) << "):" <<
+					"Stall=" << Result << endl;
 			}
 		}
 	}
 private:
-	XAieRscGroup<XAieActiveCycles> vActive;
-	XAieRscGroup<XAieStallCycles> vStall;
-	XAieRscContainer Container;
+	std::shared_ptr<XAieDev> AieDev;
+	std::vector<std::shared_ptr<XAieActiveCycles>> vActive;
+	std::vector<std::shared_ptr<XAieStallCycles>> vStall;
 };
 
 int main(void)
