@@ -86,6 +86,7 @@ static u32 XFsbl_ResetValidation(void);
 static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr);
 static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr);
 static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr);
+static u32 XFsbl_SetSecondaryBootDevice(XFsblPs * FsblInstancePtr);
 static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr);
 static u32 XFsbl_DdrEccInit(void);
 static u32 XFsbl_EccInit(u64 DestAddr, u64 LengthBytes);
@@ -448,8 +449,10 @@ u32 XFsbl_BootDeviceInitAndValidate(XFsblPs * FsblInstancePtr)
 	/**
 	 * Update the secondary boot device
 	 */
-	FsblInstancePtr->SecondaryBootDevice =
-	 FsblInstancePtr->ImageHeader.ImageHeaderTable.PartitionPresentDevice;
+	Status = XFsbl_SetSecondaryBootDevice(FsblInstancePtr);
+	if (XFSBL_SUCCESS != Status) {
+		goto END;
+	}
 
 	/**
 	 *  Configure the secondary boot device if required
@@ -1391,6 +1394,69 @@ END:
 
 /*****************************************************************************/
 /**
+ * This function sets the secondary boot device according to the partition
+ * present device of the image header table
+ *
+ * @param	FsblInstancePtr is pointer to the XFsbl Instance
+ *
+ * @return	returns XFSBL_SUCCESS on success or
+ * 			XFSBL_ERROR_UNSUPPORTED_BOOT_MODE if the partition present device
+ * 			is unknown
+ *
+ ******************************************************************************/
+static u32 XFsbl_SetSecondaryBootDevice(XFsblPs * FsblInstancePtr)
+{
+	u32 SecBootMode;
+
+	switch (FsblInstancePtr->ImageHeader.ImageHeaderTable.PartitionPresentDevice) {
+	case XIH_IHT_PPD_SAME: {
+		SecBootMode = FsblInstancePtr->PrimaryBootDevice;
+		break;
+	}
+	case XIH_IHT_PPD_USB: {
+		SecBootMode = XFSBL_USB_BOOT_MODE;
+		break;
+	}
+	case XIH_IHT_PPD_QSPI24: {
+		SecBootMode = XFSBL_QSPI24_BOOT_MODE;
+		break;
+	}
+	case XIH_IHT_PPD_QSPI32: {
+		SecBootMode = XFSBL_QSPI32_BOOT_MODE;
+		break;
+	}
+	case XIH_IHT_PPD_NAND: {
+		SecBootMode = XFSBL_NAND_BOOT_MODE;
+		break;
+	}
+	case XIH_IHT_PPD_SD_0: {
+		SecBootMode = XFSBL_SD0_BOOT_MODE;
+		break;
+	}
+	case XIH_IHT_PPD_MMC: {
+		SecBootMode = XFSBL_EMMC_BOOT_MODE;
+		break;
+	}
+	case XIH_IHT_PPD_SD_1: {
+		SecBootMode = XFSBL_SD1_BOOT_MODE;
+		break;
+	}
+	case XIH_IHT_PPD_SD_LS: {
+		SecBootMode = XFSBL_SD1_LS_BOOT_MODE;
+		break;
+	}
+	default: {
+		return XFSBL_ERROR_UNSUPPORTED_BOOT_MODE;
+	}
+	}
+
+	FsblInstancePtr->SecondaryBootDevice = SecBootMode;
+
+	return XFSBL_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
  * This function initializes secondary boot device
  *
  * @param	FsblInstancePtr is pointer to the XFsbl Instance
@@ -1402,23 +1468,17 @@ END:
 static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 {
 	u32 Status = XFSBL_SUCCESS;
-	u32 SecBootMode;
 
 	/**
 	 * Update the deviceops structure
 	 */
 
 	switch (FsblInstancePtr->SecondaryBootDevice) {
-	case XIH_IHT_PPD_SAME: {
-		goto END;
-	}
-		break;
-	case XIH_IHT_PPD_USB: {
+	case XFSBL_USB_BOOT_MODE: {
 #ifdef XFSBL_USB
 		FsblInstancePtr->DeviceOps.DeviceInit = XFsbl_UsbInit;
 		FsblInstancePtr->DeviceOps.DeviceCopy = XFsbl_UsbCopy;
 		FsblInstancePtr->DeviceOps.DeviceRelease = XFsbl_UsbRelease;
-		SecBootMode = XFSBL_USB_BOOT_MODE;
 		Status = XFSBL_SUCCESS;
 #elif !(defined(XFSBL_PS_DDR))
 		/**USB boot mode is not supported for DDR less systems*/
@@ -1436,7 +1496,7 @@ static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 	}
 		break;
 
-	case XIH_IHT_PPD_QSPI24: {
+	case XFSBL_QSPI24_BOOT_MODE: {
 		XFsbl_Printf(DEBUG_GENERAL, "QSPI 24bit Boot Mode \n\r");
 #ifdef XFSBL_QSPI
 		/**
@@ -1445,7 +1505,6 @@ static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 		FsblInstancePtr->DeviceOps.DeviceInit = XFsbl_Qspi24Init;
 		FsblInstancePtr->DeviceOps.DeviceCopy = XFsbl_Qspi24Copy;
 		FsblInstancePtr->DeviceOps.DeviceRelease = XFsbl_Qspi24Release;
-		SecBootMode = XFSBL_QSPI24_BOOT_MODE;
 		Status = XFSBL_SUCCESS;
 #else
 		/**
@@ -1458,7 +1517,7 @@ static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 	}
 		break;
 
-	case XIH_IHT_PPD_QSPI32: {
+	case XFSBL_QSPI32_BOOT_MODE: {
 		XFsbl_Printf(DEBUG_GENERAL, "QSPI 32bit Boot Mode \n\r");
 #ifdef XFSBL_QSPI
 		/**
@@ -1467,7 +1526,6 @@ static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 		FsblInstancePtr->DeviceOps.DeviceInit = XFsbl_Qspi32Init;
 		FsblInstancePtr->DeviceOps.DeviceCopy = XFsbl_Qspi32Copy;
 		FsblInstancePtr->DeviceOps.DeviceRelease = XFsbl_Qspi32Release;
-		SecBootMode = XFSBL_QSPI32_BOOT_MODE;
 		Status = XFSBL_SUCCESS;
 #else
 		/**
@@ -1480,7 +1538,7 @@ static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 	}
 		break;
 
-	case XIH_IHT_PPD_NAND: {
+	case XFSBL_NAND_BOOT_MODE: {
 		XFsbl_Printf(DEBUG_GENERAL, "NAND Boot Mode \n\r");
 #ifdef XFSBL_NAND
 		/**
@@ -1491,7 +1549,6 @@ static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 		FsblInstancePtr->DeviceOps.DeviceCopy = XFsbl_NandCopy;
 		FsblInstancePtr->DeviceOps.DeviceRelease =
 		XFsbl_NandRelease;
-		SecBootMode = XFSBL_NAND_BOOT_MODE;
 		Status = XFSBL_SUCCESS;
 #else
 		/**
@@ -1503,7 +1560,7 @@ static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 	}
 		break;
 
-	case XIH_IHT_PPD_SD_0: {
+	case XFSBL_SD0_BOOT_MODE: {
 #ifdef XFSBL_SD_0
 		/**
 		 * Update the deviceops structure with necessary values
@@ -1511,7 +1568,6 @@ static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 		FsblInstancePtr->DeviceOps.DeviceInit = XFsbl_SdInit;
 		FsblInstancePtr->DeviceOps.DeviceCopy = XFsbl_SdCopy;
 		FsblInstancePtr->DeviceOps.DeviceRelease = XFsbl_SdRelease;
-		SecBootMode = XFSBL_SD0_BOOT_MODE;
 		Status = XFSBL_SUCCESS;
 #else
 		/**
@@ -1522,7 +1578,7 @@ static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 #endif
 	}
 		break;
-	case XIH_IHT_PPD_MMC: {
+	case XFSBL_EMMC_BOOT_MODE: {
 
 #ifdef XFSBL_SD_0
 		/**
@@ -1531,7 +1587,6 @@ static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 		FsblInstancePtr->DeviceOps.DeviceInit = XFsbl_SdInit;
 		FsblInstancePtr->DeviceOps.DeviceCopy = XFsbl_SdCopy;
 		FsblInstancePtr->DeviceOps.DeviceRelease = XFsbl_SdRelease;
-		SecBootMode = XFSBL_EMMC_BOOT_MODE;
 		Status = XFSBL_SUCCESS;
 #else
 		/**
@@ -1543,7 +1598,7 @@ static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 	}
 		break;
 
-	case XIH_IHT_PPD_SD_1: {
+	case XFSBL_SD1_BOOT_MODE: {
 
 #ifdef XFSBL_SD_1
 		/**
@@ -1552,7 +1607,6 @@ static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 		FsblInstancePtr->DeviceOps.DeviceInit = XFsbl_SdInit;
 		FsblInstancePtr->DeviceOps.DeviceCopy = XFsbl_SdCopy;
 		FsblInstancePtr->DeviceOps.DeviceRelease = XFsbl_SdRelease;
-		SecBootMode = XFSBL_SD1_BOOT_MODE;
 		Status = XFSBL_SUCCESS;
 #else
 		/**
@@ -1566,7 +1620,7 @@ static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 	}
 		break;
 
-	case XIH_IHT_PPD_SD_LS: {
+	case XFSBL_SD1_LS_BOOT_MODE: {
 
 #ifdef XFSBL_SD_1
 		/**
@@ -1575,7 +1629,6 @@ static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 		FsblInstancePtr->DeviceOps.DeviceInit = XFsbl_SdInit;
 		FsblInstancePtr->DeviceOps.DeviceCopy = XFsbl_SdCopy;
 		FsblInstancePtr->DeviceOps.DeviceRelease = XFsbl_SdRelease;
-		SecBootMode = XFSBL_SD1_LS_BOOT_MODE;
 		Status = XFSBL_SUCCESS;
 #else
 		/**
@@ -1600,7 +1653,7 @@ static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 	 * Initialize the Secondary Boot Device Driver
 	 */
 	if (Status == XFSBL_SUCCESS) {
-		Status = FsblInstancePtr->DeviceOps.DeviceInit(SecBootMode);
+		Status = FsblInstancePtr->DeviceOps.DeviceInit(FsblInstancePtr->SecondaryBootDevice);
 		if(Status == XFSBL_SUCCESS) {
 			Status = XFsbl_ValidateHeader(FsblInstancePtr);
 			if(FsblInstancePtr->ImageHeader.ImageHeaderTable.PartitionPresentDevice != 0U)
