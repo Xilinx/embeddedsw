@@ -27,8 +27,7 @@ class XAieProfileIO {
 public:
 	XAieProfileIO() = delete;
 	XAieProfileIO(std::shared_ptr<XAieDev> Dev):
-		Aie(Dev),
-		vSSelects(Dev), vProfilers(Dev) {}
+		Aie(Dev){}
 	AieRC setIOPorts(const XAie_LocType &sL, XAie_StrmPortIntf sPortIntf,
 			StrmSwPortType sPortType, uint32_t sPortNum,
 			const XAie_LocType &eL,
@@ -36,11 +35,7 @@ public:
 			uint32_t ePortNum) {
 		AieRC RC;
 
-		if (vProfilers.isReserved()) {
-			Logger::log(LogLevel::ERROR) << __func__ <<
-				"failed to set IO ports, resource is reserved." << endl;
-			RC = XAIE_ERR;
-		} else if (sL.Row != 0 || eL.Row != 0) {
+		if (sL.Row != 0 || eL.Row != 0) {
 			Logger::log(LogLevel::ERROR) << __func__ <<
 				"failed set IO ports, not SHIM Tiles." << endl;
 			RC = XAIE_INVALID_ARGS;
@@ -61,13 +56,13 @@ public:
 			auto SS1 = Aie->tile(eL).sswitchPort();
 			SS0->setPortToSelect(StartPortIntf, StartPortType, StartPortNum);
 			SS1->setPortToSelect(EndPortIntf, EndPortType, EndPortNum);
-			vSSelects.addRsc(SS0);
-			vSSelects.addRsc(SS1);
+			vSSelects.push_back(SS0);
+			vSSelects.push_back(SS1);
 
 			auto P0 = Aie->tile(sL).perfCounter();
 			auto P1 = Aie->tile(eL).perfCounter();
-			vProfilers.addRsc(P0);
-			vProfilers.addRsc(P1);
+			vProfilers.push_back(P0);
+			vProfilers.push_back(P1);
 
 			for (uint8_t c = sL.Col; c <= eL.Col; c++) {
 				vL.push_back(XAie_TileLoc(c, 0));
@@ -81,9 +76,7 @@ public:
 	AieRC reserve() {
 		AieRC RC;
 
-		if (vProfilers.isReserved()) {
-			RC = XAIE_OK;
-		} else if (vProfilers.size() == 0) {
+		if (vProfilers.size() == 0) {
 			Logger::log(LogLevel::ERROR) << __func__ <<
 				"failed to reserve, no IO path configure." << endl;
 			RC = XAIE_ERR;
@@ -91,53 +84,77 @@ public:
 			RC = BCRsc->reserve();
 			if (RC == XAIE_OK) {
 				XAie_Events lStartE, lEndE;
-				RC = vSSelects.reserve();
-				if (RC != XAIE_OK) {
-					Logger::log(LogLevel::ERROR) << __func__ <<
-						"failed to reserve SS" << endl;
-					BCRsc->release();
-					return RC;
+				for (auto R: vSSelects) {
+					RC = R->reserve();
+					if (RC != XAIE_OK) {
+						Logger::log(LogLevel::ERROR) << __func__ <<
+							"failed to reserve SS" << endl;
+						BCRsc->release();
+						return RC;
+					}
 				}
 
 				lStartE = XAIE_EVENT_USER_EVENT_0_PL;
-				vSSelects[0].getSSRunningEvent(lEndE);
-				vProfilers[0].initialize(XAIE_PL_MOD, lStartE, XAIE_PL_MOD, lEndE);
-				BCRsc->getEvent(vProfilers[1].loc(), XAIE_PL_MOD, lStartE);
-				vSSelects[1].getSSRunningEvent(lEndE);
-				vProfilers[1].initialize(XAIE_PL_MOD, lStartE, XAIE_PL_MOD, lEndE);
-				RC = vProfilers.reserve();
-				if (RC != XAIE_OK) {
-					Logger::log(LogLevel::ERROR) << __func__ <<
-						"failed to reserve Profilers" << endl;
-					vSSelects.release();
-					BCRsc->release();
+				vSSelects[0]->getSSRunningEvent(lEndE);
+				vProfilers[0]->initialize(XAIE_PL_MOD, lStartE, XAIE_PL_MOD, lEndE);
+				BCRsc->getEvent(vProfilers[1]->loc(), XAIE_PL_MOD, lStartE);
+				vSSelects[1]->getSSRunningEvent(lEndE);
+				vProfilers[1]->initialize(XAIE_PL_MOD, lStartE, XAIE_PL_MOD, lEndE);
+				for (auto R: vProfilers) {
+					RC = R->reserve();
+					if (RC != XAIE_OK) {
+						Logger::log(LogLevel::ERROR) << __func__ <<
+							"failed to reserve Profilers" << endl;
+						for (auto sR: vSSelects) {
+							sR->release();
+						}
+						BCRsc->release();
+					}
 				}
 			}
 		}
 		return RC;
 	}
 	AieRC release() {
-		vProfilers.release();
-		vSSelects.release();
+		for (auto R: vProfilers) {
+			R->release();
+		}
+		for (auto R: vSSelects) {
+			R->release();
+		}
 		BCRsc->release();
 		return XAIE_OK;
 	}
 	AieRC start() {
-		AieRC RC;
+		AieRC RC = XAIE_ERR;
 
-		if (vProfilers.isRunning()) {
-			RC = XAIE_OK;
-		} else if (!vProfilers.isReserved()) {
-			Logger::log(LogLevel::ERROR) << __func__ <<
-				"failed to start, resource not reserved." << endl;
-			RC = XAIE_ERR;
-		} else {
+		for (auto R: vProfilers) {
+			if (!R->isReserved()) {
+				Logger::log(LogLevel::ERROR) << __func__ <<
+					"failed to start, resource not reserved." << endl;
+				RC = XAIE_ERR;
+				break;
+			} else {
+				RC = XAIE_OK;
+			}
+		}
+		if (RC == XAIE_OK) {
 			XAie_EventBroadcast(Aie->dev(), StartLoc, XAIE_PL_MOD,
 				BCRsc->getBc(),
 				XAIE_EVENT_USER_EVENT_0_PL);
 			BCRsc->start();
-			vSSelects.start();
-			vProfilers.start();
+			for (auto R: vProfilers) {
+				RC = R->start();
+				if (RC != XAIE_OK) {
+					return RC;
+				}
+			}
+			for (auto R: vSSelects) {
+				RC = R->start();
+				if (RC != XAIE_OK) {
+					return RC;
+				}
+			}
 
 			XAie_EventGenerate(Aie->dev(), StartLoc, XAIE_PL_MOD,
 				XAIE_EVENT_USER_EVENT_0_PL);
@@ -146,24 +163,28 @@ public:
 		return RC;
 	}
 	AieRC stop() {
-		vProfilers.stop();
-		vSSelects.stop();
+		for (auto R: vProfilers) {
+			R->stop();
+		}
+		for (auto R: vSSelects) {
+			R->stop();
+		}
 		BCRsc->stop();
 		return XAIE_OK;
 	}
 	void printResult() {
 		Logger::log(LogLevel::INFO) << " === Profile results. ==== " << std::endl;
-		if (vProfilers.isRunning() == true) {
-			uint32_t R;
+		if (vProfilers[0]->isRunning() && vProfilers[1]->isRunning()) {
+			uint32_t Result;
 
-			vProfilers[0].readResult(R);
-			Logger::log() << "\t(" << (uint32_t)vProfilers[0].loc().Col <<
-				"," << (uint32_t)vProfilers[0].loc().Row << "):" <<
-				"PerfCount=" << R << endl;
-			vProfilers[1].readResult(R);
-			Logger::log() << "\t(" << (uint32_t)vProfilers[1].loc().Col <<
-				"," << (uint32_t)vProfilers[1].loc().Row << "):" <<
-				"PerfCount=" << R << endl;
+			vProfilers[0]->readResult(Result);
+			Logger::log() << "\t(" << (uint32_t)vProfilers[0]->loc().Col <<
+				"," << (uint32_t)vProfilers[0]->loc().Row << "):" <<
+				"PerfCount=" << Result << endl;
+			vProfilers[1]->readResult(Result);
+			Logger::log() << "\t(" << (uint32_t)vProfilers[1]->loc().Col <<
+				"," << (uint32_t)vProfilers[1]->loc().Row << "):" <<
+				"PerfCount=" << Result << endl;
 		}
 	}
 private:
@@ -177,8 +198,8 @@ private:
 	StrmSwPortType EndPortType;
 	uint32_t EndPortNum;
 	std::shared_ptr<XAieBroadcast> BCRsc;
-	XAieRscGroup<XAieStreamPortSelect> vSSelects;
-	XAieRscGroup<XAiePerfCounter> vProfilers;
+	std::vector<std::shared_ptr<XAieStreamPortSelect>> vSSelects;
+	std::vector<std::shared_ptr<XAiePerfCounter>> vProfilers;
 };
 
 int main(void)
