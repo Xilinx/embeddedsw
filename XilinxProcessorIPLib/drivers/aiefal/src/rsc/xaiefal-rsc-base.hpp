@@ -346,61 +346,6 @@ namespace xaiefal {
 		 * @return XAIE_OK for success, error code for failure.
 		 */
 		virtual AieRC _stop() {return XAIE_OK;}
-	public:
-		/**
-		 * this function should goes into c driver
-		 */
-		static int check_rsc_avail_bit(uint64_t *bits, int start, int bits2check) {
-			uint64_t *sbits = &bits[start / 64];
-			int ret = -1;
-
-			do {
-				int lstart, lend;
-				uint64_t mask;
-
-				lstart = start % 64;
-				if (bits2check > (int)(64 - lstart)) {
-					lend = 64 - 1;
-				} else {
-					lend = lstart + bits2check - 1;
-				}
-				mask = 1 << lstart;
-				for (int b = lstart; b <= lend; b++, mask <<= 1) {
-					if ((*sbits & mask) == 0) {
-						ret = b + start - lstart;
-						break;
-					}
-				}
-				start += lend - lstart + 1;
-				bits2check -= lend - lstart + 1;
-				sbits += 1;
-			} while(ret < 0 && bits2check > 0);
-
-			return ret;
-		}
-		/**
-		 * this function should goes into c driver
-		 */
-		static void set_rsc_bit(uint64_t *bits, int bit) {
-			bits[bit/64] |= 1 << (bit % 64);
-		}
-		/**
-		 * this function should goes into c driver
-		 */
-		static void clear_rsc_bit(uint64_t *bits, int bit) {
-			bits[bit/64] &= ~(1 << (bit % 64));
-		}
-		/**
-		 * this function should goes into c driver
-		 */
-		static int alloc_rsc_bit(uint64_t *bits, int start, int bits2check) {
-			int bit = check_rsc_avail_bit(bits, start, bits2check);
-
-			if (bit >= 0) {
-				set_rsc_bit(bits, bit);
-			}
-			return bit;
-		}
 	};
 
 	/**
