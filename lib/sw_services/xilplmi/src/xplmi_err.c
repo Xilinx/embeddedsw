@@ -55,6 +55,7 @@
 *       bm   05/18/2021 Ignore printing and storing of ssit errors for ES1 silicon
 *       td   05/20/2021 Fixed blind write on locking NPI address space in
 *                       XPlmi_ClearNpiErrors
+* 1.06  ma   06/28/2021 Added handler for CPM_NCR error
 *
 * </pre>
 *
@@ -74,6 +75,9 @@
 #define XPLMI_PMC_ERR1_SSIT_MASK	(0xE0000000U)
 #define XPLMI_PMC_ERR2_SSIT_MASK	(0xE0000000U)
 
+/* Proc IDs for CPM Proc CDOs */
+#define CPM_NCR_PCIE0_LINK_DOWN_PROC_ID					(0x1U)
+#define CPM_NCR_PCIE1_LINK_DOWN_PROC_ID					(0x2U)
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -90,6 +94,9 @@ static void XPlmi_SysmonClkSetIro(void);
 static void XPlmi_PORHandler(void);
 static void XPlmi_DumpRegisters(void);
 static u32 XPlmi_UpdateNumErrOutsCount(u8 UpdateType);
+static void XPlmi_HandleLinkDownError(u32 Cpm5PcieIrStatusReg,
+		u32 Cpm5DmaCsrIntDecReg, u32 ProcId);
+static void XPlmi_CpmErrHandler(u32 ErrorNodeId, u32 RegMask);
 
 /************************** Variable Definitions *****************************/
 static u32 EmSubsystemId = 0U;
@@ -311,7 +318,8 @@ static struct XPlmi_Error_t ErrorTable[XPLMI_NODEIDX_ERROR_SW_ERR_MAX] = {
 	[XPLMI_NODEIDX_ERROR_CPM_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_CPM_NCR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_CpmErrHandler,
+			.Action = XPLMI_EM_ACTION_CUSTOM, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_LPD_APB] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_FPD_APB] =
@@ -569,6 +577,123 @@ void XPlmi_HandleSwError(u32 ErrorNodeId, u32 RegMask)
 	} else {
 		XPlmi_Printf(DEBUG_GENERAL, "Invalid SW Error Node: 0x%x and ErrorId: 0x%x\r\n",
 									ErrorNodeId, ErrorId);
+	}
+}
+
+/****************************************************************************/
+/**
+* @brief    This function handles the CPM_NCR PCIE link down error.
+*
+* @param    Cpm5PcieIrStatusReg is the PCIE0/1 IR status register address
+* @param    Cpm5DmaCsrIntDecReg is the DMA0/1 CSR INT DEC register address
+* @param    ProcId is the ProcId for PCIE0/1 link down error
+*
+* @return   None
+*
+****************************************************************************/
+static void XPlmi_HandleLinkDownError(u32 Cpm5PcieIrStatusReg,
+		u32 Cpm5DmaCsrIntDecReg, u32 ProcId)
+{
+	int Status = XST_FAILURE;
+	u32 PcieLocalErr = XPlmi_In32(Cpm5PcieIrStatusReg);
+	u8 PcieLocalErrEnable = (u8)((~XPlmi_In32(Cpm5PcieIrStatusReg + 4U)) &
+			CPM5_SLCR_PCIE_IR_STATUS_PCIE_LOCAL_ERR_MASK);
+	u32 LinkDownErr = XPlmi_In32(Cpm5DmaCsrIntDecReg);
+	u8 LinkDownErrEnable = (u8)((~XPlmi_In32(Cpm5DmaCsrIntDecReg + 4U)) &
+			CPM5_DMA_CSR_LINK_DOWN_MASK);
+
+	/*
+	 * Check if PCIE local error is enabled and
+	 * Check if received error is PCIE local error
+	 */
+	if ((PcieLocalErrEnable != 0U) &&
+			((PcieLocalErr & CPM5_SLCR_PCIE_IR_STATUS_PCIE_LOCAL_ERR_MASK) ==
+					CPM5_SLCR_PCIE_IR_STATUS_PCIE_LOCAL_ERR_MASK)) {
+		/*
+		 * Check if link down error is enabled and
+		 * Check if received error is link down error
+		 */
+		if ((LinkDownErrEnable != 0U) &&
+				((LinkDownErr & CPM5_DMA_CSR_LINK_DOWN_MASK) ==
+						CPM5_DMA_CSR_LINK_DOWN_MASK)) {
+			/* Execute proc for PCIE link down */
+			Status = XPlmi_ExecuteProc(ProcId);
+			if (Status != XST_SUCCESS) {
+				XPlmi_Printf(DEBUG_GENERAL, "Error in handling PCIE "
+						"link down error: 0x%x\r\n", Status);
+				/*
+				 * Update error manager with error received
+				 * while executing proc
+				 */
+				XPlmi_ErrMgr(Status);
+			}
+			/* Clear PCIE link down error */
+			XPlmi_Out32(Cpm5DmaCsrIntDecReg, CPM5_DMA_CSR_LINK_DOWN_MASK);
+
+			/* Clear PCIE local event */
+			XPlmi_Out32(Cpm5PcieIrStatusReg,
+					CPM5_SLCR_PCIE_IR_STATUS_PCIE_LOCAL_ERR_MASK);
+		} else {
+			/* Received error is other than Link down error */
+			XPlmi_Printf(DEBUG_GENERAL, "Received error is other than "
+					"link down error: 0x%x\r\n", LinkDownErr);
+		}
+	} else {
+		/* Received error is other than PCIE local event */
+		XPlmi_Printf(DEBUG_GENERAL, "Received error is other than "
+				"PCIE local event error: 0x%x\r\n", PcieLocalErr);
+	}
+}
+
+/****************************************************************************/
+/**
+* @brief    This function handles the CPM_NCR error.
+*
+* @param    ErrorNodeId is the node ID for the error event
+* @param    RegMask is the register mask of the error received
+*
+* @return   None
+*
+****************************************************************************/
+static void XPlmi_CpmErrHandler(u32 ErrorNodeId, u32 RegMask)
+{
+	u32 CpmErrors = XPlmi_In32(CPM5_SLCR_PS_UNCORR_IR_STATUS);
+	u8 PciexErrEnable = (u8)((~XPlmi_In32(CPM5_SLCR_PS_UNCORR_IR_MASK)) &
+			(CPM5_SLCR_PS_UNCORR_IR_STATUS_PCIE0_MASK |
+				CPM5_SLCR_PS_UNCORR_IR_STATUS_PCIE1_MASK));
+
+	(void)ErrorNodeId;
+	(void)RegMask;
+
+	/* Check if PCIE0/1 errors are enabled */
+	if (PciexErrEnable != 0U) {
+		/* Check if CPM_NCR error is PCIE0 error */
+		if ((CpmErrors & CPM5_SLCR_PS_UNCORR_IR_STATUS_PCIE0_MASK) ==
+				CPM5_SLCR_PS_UNCORR_IR_STATUS_PCIE0_MASK) {
+			/* Handle PCIE0 link down error */
+			XPlmi_Printf(DEBUG_GENERAL, "Received CPM NCR PCIE0 error\r\n");
+			XPlmi_HandleLinkDownError(CPM5_SLCR_PCIE0_IR_STATUS,
+					CPM5_DMA0_CSR_INT_DEC, CPM_NCR_PCIE0_LINK_DOWN_PROC_ID);
+			/* Clear PCIE0 error */
+			XPlmi_Out32(CPM5_SLCR_PS_UNCORR_IR_STATUS,
+					CPM5_SLCR_PS_UNCORR_IR_STATUS_PCIE0_MASK);
+		}
+
+		/* Check if CPM_NCR error is PCIE1 error */
+		if ((CpmErrors & CPM5_SLCR_PS_UNCORR_IR_STATUS_PCIE1_MASK) ==
+				CPM5_SLCR_PS_UNCORR_IR_STATUS_PCIE1_MASK) {
+			/* Handle PCIE1 link down error */
+			XPlmi_Printf(DEBUG_GENERAL, "Received CPM NCR PCIE1 error\r\n");
+			XPlmi_HandleLinkDownError(CPM5_SLCR_PCIE1_IR_STATUS,
+					CPM5_DMA1_CSR_INT_DEC, CPM_NCR_PCIE1_LINK_DOWN_PROC_ID);
+			/* Clear PCIE1 error */
+			XPlmi_Out32(CPM5_SLCR_PS_UNCORR_IR_STATUS,
+					CPM5_SLCR_PS_UNCORR_IR_STATUS_PCIE1_MASK);
+		}
+	} else {
+		/* Only PCIE0/1 errors are handled */
+		XPlmi_Printf(DEBUG_GENERAL, "Unhandled CPM_NCR error: 0x%x\r\n",
+				CpmErrors);
 	}
 }
 
