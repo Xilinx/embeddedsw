@@ -1,32 +1,14 @@
 // Copyright(C) 2020 - 2021 by Xilinx, Inc. All rights reserved.
 // SPDX-License-Identifier: MIT
 
-#ifdef __linux__
-#define __COMPILER_SUPPORTS_LOCKS__
-#endif
-
-#include <fstream>
-#include <functional>
-#ifdef __COMPILER_SUPPORTS_LOCKS__
-#include <mutex>
-#endif
 #include <string.h>
 #include <vector>
 #include <xaiengine.h>
 
+#include <xaiefal/common/xaiefal-common.hpp>
 #include <xaiefal/rsc/xaiefal-rsc-base.hpp>
 
 #pragma once
-
-// This can be moved to common file, but as now only group events uses it,
-// leave it to groupevent header only
-#ifdef __COMPILER_SUPPORTS_LOCKS__
-#define _XAIEFAL_MUTEX_ACQUIRE(L) const std::lock_guard<std::mutex> lock(L)
-#define _XAIEFAL_MUTEX_DECLARE(L) std::mutex L
-#else
-#define _XAIEFAL_MUTEX_ACQUIRE(...)
-#define _XAIEFAL_MUTEX_DECLARE(...)
-#endif
 
 namespace xaiefal {
 	/**
