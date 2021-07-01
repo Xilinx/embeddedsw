@@ -283,11 +283,22 @@ namespace xaiefal {
 			return State.Running;
 		}
 		/**
+		 * This function returns resources reserved.
+		 *
+		 * @param vRscs vector to store the reserved resources
+		 */
+		void getRscs(std::vector<XAie_UserRsc> &vRscs) const {
+			if (State.Reserved != 0) {
+				_getRscs(vRscs);
+			}
+		}
+		/**
 		 * This function sets function name this resource is used for.
 		 */
 		void setFuncName(const std::string &Name) {
 			FuncName = Name;
 		}
+
 		/**
 		 * This function returns function name this resource used for.
 		 *
@@ -346,6 +357,19 @@ namespace xaiefal {
 		 * @return XAIE_OK for success, error code for failure.
 		 */
 		virtual AieRC _stop() {return XAIE_OK;}
+
+		/**
+		 * This function returns resources reserved.
+		 *
+		 * @param vRscs vector to store the reserved resources
+		 */
+		virtual void _getRscs(std::vector<XAie_UserRsc> &vRscs) const {
+			std::string rName(typeid(*this).name());
+
+			(void)vRscs;
+			throw std::invalid_argument("get resource not supported of rsc" +
+					rName);
+		}
 	};
 
 	/**
@@ -425,6 +449,15 @@ namespace xaiefal {
 		XAie_LocType Loc; /**< tile location */
 		XAie_ModuleType Mod; /**< expected resource module */
 		XAie_UserRsc Rsc; /**< resource */
+	private:
+		/**
+		 * This function returns resources reserved.
+		 *
+		 * @param vRscs vector to store the reserved resources
+		 */
+		virtual void _getRscs(std::vector<XAie_UserRsc> &vRscs) const {
+			vRscs.push_back(Rsc);
+		}
 	};
 	/**
 	 * @class XAieRscGroup
@@ -851,6 +884,15 @@ namespace xaiefal {
 		std::vector<std::shared_ptr<T>> vRscs; /**< vector of AI engine resource objects */
 		std::shared_ptr<XAieDev> Aie; /**< pointer to AI enigne device */
 		std::string FuncName; /**< function name of this group */
+	};
+
+	struct XAieRscGetRscsWrapper {
+		XAieRscGetRscsWrapper() = delete;
+		XAieRscGetRscsWrapper(std::shared_ptr<XAieRsc> &R,
+				std::vector<XAie_UserRsc> &Rscs) {
+			R->getRscs(Rscs);
+		}
+		~XAieRscGetRscsWrapper() {};
 	};
 
 	/**
