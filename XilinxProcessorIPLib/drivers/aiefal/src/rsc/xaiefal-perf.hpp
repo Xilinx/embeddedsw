@@ -514,6 +514,20 @@ namespace xaiefal {
 			}
 			return RC;
 		}
+
+		void _getRscs(std::vector<XAie_UserRsc> &vRscs) const {
+			vRscs.push_back(Rsc);
+			if (StartMod != static_cast<XAie_ModuleType>(Rsc.Mod)) {
+				StartBC->getRscs(vRscs);
+			}
+			if (StopMod != static_cast<XAie_ModuleType>(Rsc.Mod)) {
+				StopBC->getRscs(vRscs);
+			}
+			if (RstEvent != XAIE_EVENT_NONE_CORE && StopMod != static_cast<XAie_ModuleType>(Rsc.Mod)) {
+				RstBC->getRscs(vRscs);
+			}
+			_getRscsAppend(vRscs);
+		}
 		virtual AieRC _startPrepend() {
 			return XAIE_OK;
 		}
@@ -525,6 +539,9 @@ namespace xaiefal {
 		}
 		virtual AieRC _releaseAppend() {
 			return XAIE_OK;
+		}
+		virtual void _getRscsAppend(std::vector<XAie_UserRsc> &vRscs) const {
+			(void)vRscs;
 		}
 	};
 }

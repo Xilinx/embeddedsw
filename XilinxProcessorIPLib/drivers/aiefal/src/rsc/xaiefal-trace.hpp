@@ -485,6 +485,15 @@ namespace xaiefal {
 			}
 			return RC;
 		}
+		void _getRscs(std::vector<XAie_UserRsc> &vRscs) const {
+			vRscs.push_back(Rsc);
+			if (StartMod != Mod) {
+				StartBC->getRscs(vRscs);
+			}
+			if (StopMod != Mod) {
+				StopBC->getRscs(vRscs);
+			}
+		}
 
 		std::bitset<8> TraceSlotBits; /**< trace slots bitmap */
 		XAie_Events Events[8]; /**< events to trace */
@@ -739,6 +748,19 @@ namespace xaiefal {
 				}
 			}
 			return RC;
+		}
+		void _getRscs(std::vector<XAie_UserRsc> &vRscs) const {
+			XAie_UserRsc Rsc;
+
+			Rsc.Loc.Col = Loc.Col;
+			Rsc.Loc.Row = Loc.Row;
+			Rsc.Mod = static_cast<uint32_t>(TraceCntr->getModule());
+			Rsc.RscId = Slot;
+			vRscs.push_back(Rsc);
+
+			if (EventMod != TraceCntr->getModule()) {
+				BC->getRscs(vRscs);
+			}
 		}
 	protected:
 		std::shared_ptr<XAieTraceCntr> TraceCntr;
