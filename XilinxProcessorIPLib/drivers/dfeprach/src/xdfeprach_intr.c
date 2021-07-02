@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfeprach_intr.c
-* @addtogroup xdfeprach_v1_0
+* @addtogroup xdfeprach_v1_1
 * @{
 *
 * This file contains functions related to PRACH interrupt handling.
@@ -19,6 +19,7 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     03/08/21 Initial version
 *       dc     04/18/21 Update trigger and event handlers
+* 1.1   dc     06/30/21 Doxygen documentation update
 *
 * </pre>
 *
@@ -37,14 +38,10 @@ extern u32 XDfePrach_WrBitField(u32 FieldWidth, u32 FieldOffset, u32 Data,
 /****************************************************************************/
 /**
 *
-* Get interrupt mask status.
+* Gets interrupt mask status.
 *
-* @param    InstancePtr is a pointer to the Prach instance.
-* @param    Flags is interrupt flags container.
-*
-* @return   None
-*
-* @note     None
+* @param    InstancePtr is a pointer to the PRACH instance.
+* @param    Flags is an interrupt flags container.
 *
 ****************************************************************************/
 void XDfePrach_GetInterruptMask(const XDfePrach *InstancePtr,
@@ -83,14 +80,10 @@ void XDfePrach_GetInterruptMask(const XDfePrach *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Set interrupt mask.
+* Sets interrupt mask.
 *
-* @param    InstancePtr is a pointer to the Prach instance.
-* @param    Flags is interrupt flags container.
-*
-* @return   None
-*
-* @note     None
+* @param    InstancePtr is a pointer to the PRACH instance.
+* @param    Flags is an interrupt flags container.
 *
 ****************************************************************************/
 void XDfePrach_SetInterruptMask(const XDfePrach *InstancePtr,
@@ -128,14 +121,10 @@ void XDfePrach_SetInterruptMask(const XDfePrach *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Enable interrupts.
+* Enables interrupts.
 *
-* @param    InstancePtr is a pointer to the Prach instance.
-* @param    Flags is interrupt flags container.
-*
-* @return   None
-*
-* @note     None
+* @param    InstancePtr is a pointer to the PRACH instance.
+* @param    Flags is an interrupt flags container.
 *
 ****************************************************************************/
 void XDfePrach_InterruptEnable(const XDfePrach *InstancePtr,
@@ -173,14 +162,10 @@ void XDfePrach_InterruptEnable(const XDfePrach *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Disable interrupts.
+* Disables interrupts.
 *
-* @param    InstancePtr is a pointer to the Prach instance.
-* @param    Flags is interrupt flags container.
-*
-* @return   None
-*
-* @note     None
+* @param    InstancePtr is a pointer to the PRACH instance.
+* @param    Flags is an interrupt flags container.
 *
 ****************************************************************************/
 void XDfePrach_InterruptDisable(const XDfePrach *InstancePtr,
@@ -219,14 +204,10 @@ void XDfePrach_InterruptDisable(const XDfePrach *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Get interrupt status.
+* Gets interrupt status.
 *
-* @param    InstancePtr is a pointer to the Prach instance.
-* @param    Flags is interrupt flags container.
-*
-* @return   None
-*
-* @note     None
+* @param    InstancePtr is a pointer to the PRACH instance.
+* @param    Flags is an interrupt flags container.
 *
 ****************************************************************************/
 void XDfePrach_GetInterruptStatus(const XDfePrach *InstancePtr,
@@ -266,14 +247,10 @@ void XDfePrach_GetInterruptStatus(const XDfePrach *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Clear interrupt status.
+* Clears interrupt status.
 *
-* @param    InstancePtr is a pointer to the Prach instance.
-* @param    Flags is interrupt flags container.
-*
-* @return   None
-*
-* @note     None
+* @param    InstancePtr is a pointer to the PRACH instance.
+* @param    Flags is an interrupt flags container.
 *
 ****************************************************************************/
 void XDfePrach_ClearInterruptStatus(const XDfePrach *InstancePtr,

@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfeprach_hw.h
-* @addtogroup xdfeprach_v1_0
+* @addtogroup xdfeprach_v1_1
 * @{
 *
 * Contains the register definitions for xdfeprach. This is
@@ -22,6 +22,7 @@
 *       dc     04/21/21 Update due to restructured registers
 *       dc     05/08/21 Update to common trigger
 *       dc     05/18/21 Handling RachUpdate trigger
+* 1.1   dc     06/30/21 Doxygen documentation update
 *
 * </pre>
 *

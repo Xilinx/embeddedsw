@@ -7,10 +7,10 @@
 /**
 *
 * @file xdfeprach.h
-* @addtogroup xdfeprach_v1_0
+* @addtogroup xdfeprach_v1_1
 * @{
 *
-* The PRACH IP logicore provides a wrapper around the Maxwell PRACH block
+* The PRACH IP logicore provides a wrapper around the PRACH block
 * (PRACH (R16)).  The wrapper provides access to the underlying blocks via
 * TDM Axi-stream data interfaces. Output from the block is arranged as an
 * AXI-Stream, running at fs, per antenna. An AXI memory mapped interface
@@ -56,6 +56,7 @@
 *       dc     04/21/21 Update due to restructured registers
 *       dc     05/08/21 Update to common trigger
 *       dc     05/18/21 Handling RachUpdate trigger
+* 1.1   dc     06/30/21 Doxygen documentation update
 *
 * </pre>
 *
@@ -137,8 +138,8 @@ typedef struct {
 typedef struct {
 	u32 TriggerEnable; /**< [0,1], Enable Trigger:
 		0 = DISABLED: Trigger Pulse and State outputs are disabled.
-		1 = ENABLED: Trigger Pulse and State outputs are enabled and follow
-			the settings described below. */
+		1 = ENABLED: Trigger Pulse and State outputs are enabled and follows
+			the settings described. */
 	u32 Mode; /**< [0-3], Specify Trigger Mode. In TUSER_Single_Shot mode as
 		soon as the TUSER_Edge_level condition is met the State output will be
 		driven to the value specified in STATE_OUTPUT. The Pulse output will
@@ -362,7 +363,7 @@ typedef struct {
 		FrameID==frame count */
 	u32 SlotId; /**< [0-7] Slot number whcih denotes the slot at which
 		a RACH Capture should begin. Only valid when FrameID==frame
-		count and Only valid when SubframeID==sub frame count:
+		count and only valid when SubframeID==sub frame count:
 			CC SCS restricts the range of slots available:
 			CC_SCS == 15KHz => slotID=={0}
 			CC_SCS == 30KHz => slotID=={0,1}
@@ -370,10 +371,10 @@ typedef struct {
 			CC_SCS == 120KHz => slotID=={0,1,2,3,4,5,6,7}
 			CC_SCS == 240KHz => slotID=={0,1,2,3,4,5,6,7,8,9,10,
 				11,12,13,14,15} (unused) */
-	u32 Duration; /**< [1-2^12] Specify the duration of a single RACH
+	u32 Duration; /**< [1-2^12] Specifies the duration of a single RACH
 		capture, in slots */
-	u32 Repeats; /**< [1-256] Specify the number of consecutive captures
-		to execute. New capture will begin on the slot immediately
+	u32 Repeats; /**< [1-256] Specifies the number of consecutive captures
+		to execute. New capture will begin on the sl`ot immediately
 		after "Duration" has ended */
 } XDfePrach_Schedule;
 
@@ -381,7 +382,7 @@ typedef struct {
  * Full RC configuration.
  */
 typedef struct {
-	u32 Enable; /**< [0,1] Indicate if this RCID is enabled. */
+	u32 Enable; /**< [0,1] Indicates if this RCID is enabled. */
 	u32 RCId; /**< [0-15] RCCID number allocated to this RACH channel
 		configuration. This is the TID identifier on the RACH/FFT
 		interface. */
@@ -410,7 +411,7 @@ typedef struct {
 } XDfePrach_MixerStatusOverflow;
 
 typedef struct {
-	u32 DecimatorOverflow; /**< [0-1] Overflow Occurred in the mixer. */
+	u32 DecimatorOverflow; /**< [0-1] Overflow occurred in the mixer. */
 	u32 FirstAntennaOverflowing; /**< [0-7] Lowest antenna in which
 		overflow has occurred. */
 	u32 FirstRCIdOverflowing; /**< [0-15] Lowest RCID in which overflow has
@@ -418,10 +419,10 @@ typedef struct {
 } XDfePrach_DecimatorStatusOverflow;
 
 typedef struct {
-	u32 MixerOverrun; /**< [0-1] Overrun Occurred in the mixer. */
+	u32 MixerOverrun; /**< [0-1] Overrun occurred in the mixer. */
 	u32 FirstAntennaOverruning; /**< [0-7] Lowest antenna in which
 		Overrun has occurred. */
-	u32 FirstRCIdOverruning; /**< [0-15] Lowest RCID in which Overrun has
+	u32 FirstRCIdOverruning; /**< [0-15] Lowest RCID in which overrun has
 		occurred. */
 } XDfePrach_MixerStatusOverrun;
 
@@ -503,7 +504,7 @@ u32 XDfePrach_AddCC(XDfePrach *InstancePtr, s32 CCID, u32 BitSequence,
 		    const XDfePrach_CarrierCfg *CarrierCfg);
 u32 XDfePrach_RemoveCC(XDfePrach *InstancePtr, s32 CCID);
 u32 XDfePrach_UpdateCC(const XDfePrach *InstancePtr, s32 CCID,
-			const XDfePrach_CarrierCfg *CarrierCfg);
+		       const XDfePrach_CarrierCfg *CarrierCfg);
 void XDfePrach_CloneCC(const XDfePrach *InstancePtr);
 u32 XDfePrach_AddRCCfg(const XDfePrach *InstancePtr, s32 CCID, u32 RCId,
 		       u32 RachChan, XDfePrach_DDCCfg *DdcCfg,

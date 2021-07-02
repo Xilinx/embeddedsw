@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfeprach_sinit.c
-* @addtogroup xdfeprach_v1_0
+* @addtogroup xdfeprach_v1_1
 * @{
 *
 * The implementation of the XDfePrach component's static initialization
@@ -22,6 +22,7 @@
 *       dc     04/06/21 Register with full node name
 *       dc     04/07/21 Fix bare metal initialisation
 *       dc     04/21/21 Update due to restructured registers
+* 1.1   dc     06/30/21 Doxygen documentation update
 *
 * </pre>
 *
@@ -86,18 +87,16 @@ XDfePrach XDfePrach_Prach[XDFEPRACH_MAX_NUM_INSTANCES];
 /*****************************************************************************/
 /**
 *
-* Search for the address match between address in ConfigTable and the address
-* extracted from the NodeName. Return pointer to the ConfigTable with a matched
+* Searches for the address match between address in ConfigTable and the address
+* extracted from the NodeName. Returns pointer to the ConfigTable with a matched
 * base address.
 *
 * @param    InstancePtr is a pointer to the Ccf instance.
 * @param    ConfigTable is a configuration table container.
 *
 * @return
- *           - XST_SUCCESS if successful.
- *           - XST_FAILURE if device entry not found for given device id.
-*
-*@note     None.
+*           - XST_SUCCESS if successful.
+*           - XST_FAILURE if device entry not found for given device id.
 *
 ******************************************************************************/
 u32 XDfePrach_GetConfigTable(XDfePrach *InstancePtr,
@@ -126,19 +125,17 @@ u32 XDfePrach_GetConfigTable(XDfePrach *InstancePtr,
 /*****************************************************************************/
 /**
 *
-* Compare two strings in the reversed order.This function compares only
+* Compares two strings in the reversed order. This function compares only
 * the last "Count" number of characters of Str1Ptr and Str2Ptr.
 *
-* @param    Str1Ptr is base address of first string
-* @param    Str2Ptr is base address of second string
-* @param    Count is number of last characters  to be compared between
-*           Str1Ptr and Str2Ptr
+* @param    Str1Ptr is base address of first string.
+* @param    Str2Ptr is base address of second string.
+* @param    Count is the number of last characters to be compared between
+*           Str1Ptr and Str2Ptr.
 *
 * @return
 *           0 if last "Count" number of bytes matches between Str1Ptr and
 *           Str2Ptr, else difference in unmatched character.
-*
-*@note     None.
 *
 ******************************************************************************/
 static s32 XDfePrach_Strrncmp(const char *Str1Ptr, const char *Str2Ptr,
@@ -163,19 +160,17 @@ static s32 XDfePrach_Strrncmp(const char *Str1Ptr, const char *Str2Ptr,
 /*****************************************************************************/
 /**
 *
-* Traverse "/sys/bus/platform/device" directory (in Linux), to find registered
+* Traverses "/sys/bus/platform/device" directory (in Linux), to find registered
 * device with the name DeviceNodeName.
-* If the match is found than check is the device compatible with the driver.
+* If the match is found then check if the device is compatible with the driver.
 *
 * @param    DeviceNamePtr is base address of char array, where device name
-*           will be stored
-* @param    DeviceNodeName is device node name,
+*           will be stored.
+* @param    DeviceNodeName is device node name.
 *
 * @return
- *           - XST_SUCCESS if successful.
- *           - XST_FAILURE if device entry not found for given device id.
- *
- *@note     None.
+*           - XST_SUCCESS if successful.
+*           - XST_FAILURE if device entry not found for given device id.
 *
 ******************************************************************************/
 static s32 XDfePrach_IsDeviceCompatible(char *DeviceNamePtr,
@@ -260,17 +255,17 @@ static s32 XDfePrach_IsDeviceCompatible(char *DeviceNamePtr,
 *
 * Looks up the device configuration based on the unique device ID.
 *
-* @param    InstancePtr is a pointer to the prach instance.
+* @param    InstancePtr is a pointer to the PRACH instance.
 *
 * @return
- *           - XST_SUCCESS if successful.
- *           - XST_FAILURE if device entry not found for given device id.
+*           - XST_SUCCESS if successful.
+*           - XST_FAILURE if device entry not found for given device id.
 *
 * @note
 *         - For BM a table contains the configuration info for each device
 *           in the system.
-*         - For Linux there will be just one config allocated and pointer to
-*           pointing to the config returned.
+*         - For Linux there will be just one configuration allocated and
+*           pointer to pointing to the configuration returned.
 *
 ******************************************************************************/
 s32 XDfePrach_LookupConfig(XDfePrach *InstancePtr)
@@ -383,17 +378,15 @@ end_failure:
 /*****************************************************************************/
 /**
 *
-* Register/open the deviceand map Prach to the IO region.
+* Registers/opens the device and maps PRACH to the IO region.
 *
-* @param    DeviceId contains the ID of the device to register/map
+* @param    DeviceId contains the ID of the device to register/map.
 * @param    DevicePtr is a pointer to the metal device.
-* @param    DeviceNodeName is device node name,
+* @param    DeviceNodeName is device node name.
 *
 * @return
 *           - XST_SUCCESS if successful.
 *           - XST_FAILURE if error occurs.
-*
-* @note     None.
 *
 ******************************************************************************/
 s32 XDfePrach_RegisterMetal(XDfePrach *InstancePtr,
@@ -454,12 +447,9 @@ s32 XDfePrach_RegisterMetal(XDfePrach *InstancePtr,
 /*****************************************************************************/
 /**
 *
-* Initializes a specific XDfePrach instance such that the driver is ready to use.
-*
+* Initializes a specific PRACH instance such that the driver is ready to use.
 *
 * @param    InstancePtr is a pointer to the XDfePrach instance.
-*
-* @return   None
 *
 * @note     The user needs to first call the XDfePrach_LookupConfig() API
 *           which returns the Configuration structure pointer which is
