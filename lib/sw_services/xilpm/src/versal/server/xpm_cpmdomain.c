@@ -212,6 +212,7 @@ static XStatus Cpm5ScanClear(const u32 *Args, u32 NumOfArgs)
 	XStatus Status = XPM_ERR_SCAN_CLR;
 	const XPm_CpmDomain *Cpm;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 RegVal;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -282,12 +283,12 @@ static XStatus Cpm5ScanClear(const u32 *Args, u32 NumOfArgs)
 		DbgErr = XPM_INT_ERR_SCAN_CLEAR_TIMEOUT;
 		goto fail;
 	}
+
 	/* Check if Scan Clear Passed */
-	Status = XPm_PollForMask(Cpm->CpmPcsrBaseAddr + CPM_PCSR_PSR_OFFSET,
-				 CPM_PCSR_PSR_SCAN_CLEAR_PASS_MASK,
-				 XPM_POLL_TIMEOUT);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_SCAN_PASS_TIMEOUT;
+	RegVal = XPm_In32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_PSR_OFFSET);
+	if ((RegVal & (u32)CPM_PCSR_PSR_SCAN_CLEAR_PASS_MASK) !=
+	    (u32)CPM_PCSR_PSR_SCAN_CLEAR_PASS_MASK) {
+		DbgErr = XPM_INT_ERR_SCAN_PASS;
 		goto fail;
 	}
 

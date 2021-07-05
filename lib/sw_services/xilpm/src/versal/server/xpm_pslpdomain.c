@@ -170,6 +170,7 @@ static XStatus LpdScanClear(const u32 *Args, u32 NumOfArgs)
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 RegBitMask;
+	u32 RegVal;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -204,15 +205,17 @@ static XStatus LpdScanClear(const u32 *Args, u32 NumOfArgs)
 		goto done;
 	}
 
-	Status = XPm_PollForMask(PMC_ANALOG_SCAN_CLEAR_PASS,
-				 (PMC_ANALOG_SCAN_CLEAR_PASS_LPD_IOU_MASK |
-				  PMC_ANALOG_SCAN_CLEAR_PASS_LPD_MASK |
-				  PMC_ANALOG_SCAN_CLEAR_PASS_LPD_RPU_MASK),
-				 XPM_POLL_TIMEOUT);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_SCAN_PASS_TIMEOUT;
-                goto done;
-        }
+	RegVal = XPm_In32(PMC_ANALOG_SCAN_CLEAR_PASS);
+	if ((RegVal &
+	     (u32)((u32)PMC_ANALOG_SCAN_CLEAR_PASS_LPD_IOU_MASK |
+		   (u32)PMC_ANALOG_SCAN_CLEAR_PASS_LPD_MASK |
+		   (u32)PMC_ANALOG_SCAN_CLEAR_PASS_LPD_RPU_MASK)) !=
+	     (u32)((u32)PMC_ANALOG_SCAN_CLEAR_PASS_LPD_IOU_MASK |
+		   (u32)PMC_ANALOG_SCAN_CLEAR_PASS_LPD_MASK |
+		   (u32)PMC_ANALOG_SCAN_CLEAR_PASS_LPD_RPU_MASK)) {
+		DbgErr = XPM_INT_ERR_SCAN_PASS;
+		goto done;
+	}
 
 	 /* unwrite trigger bits */
         PmRmw32(PMC_ANALOG_SCAN_CLEAR_TRIGGER,
