@@ -52,6 +52,8 @@
 *                       DmaWriteKeyHole command
 * 1.06  ma   06/17/2021 Added readback support for SSIT Slave SLRs
 *       ma   06/28/2021 Added support for proc command
+*       bsv  07/05/2021 Added code to handle case where bitstream data starts
+*                       at 32K boundary
 *
 * </pre>
 *
@@ -1901,6 +1903,11 @@ static int XPlmi_KeyHoleXfr(XPlmi_KeyHoleXfrParams* KeyHoleXfrParams)
 
 	if (LenTemp > KeyHoleXfrParams->Len) {
 		LenTemp = KeyHoleXfrParams->Len;
+	}
+
+	if (LenTemp == 0U) {
+		Status = XST_SUCCESS;
+		goto END;
 	}
 
 	if (KeyHoleXfrParams->Func == NULL) {

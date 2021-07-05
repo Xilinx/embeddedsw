@@ -34,6 +34,8 @@
 *       bm   02/17/2021 Add overflow check for payloadlen
 *       ma   03/24/2021 Reduced minimum digits of time stamp decimals to 3
 *       bsv  04/16/2021 Add provision to store Subsystem Id in XilPlmi
+* 1.04  bsv  07/05/2021 Added code to handle case where bitstream data starts
+*                       at 32K boundary
 *
 * </pre>
 *
@@ -344,10 +346,19 @@ static int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *S
 	*Size = XPlmi_CmdSize(BufPtr, BufLen);
 	CmdPtr->Len = *Size;
 	/*
-	 * Check if Cmd payload is less than buffer size,
-	 * then copy to temporary buffer
+	 * Check if Cmd payload is less than buffer size, then copy to
+	 * temporary buffer. This is excluded for Dma KeyHole command
+	 * since the command requires the source data to start at 16 byte
+	 * aligned address and by copying the bitstream data to a temporary
+	 * location, we might violate the condition on alignment. Since
+	 * the data is guaranteed to start at 16 byte aligned address by bootgen,
+	 * skipping copy to temporary buffer works for Dma keyhole but it may
+	 * not work for DMA write command, since there is no guarantee on the
+	 * start address of DMA data.
 	 */
-	if ((*Size > BufLen) && (BufLen < XPLMI_CMD_LEN_TEMPBUF)) {
+	if ((*Size > BufLen) && (BufLen < XPLMI_CMD_LEN_TEMPBUF)
+		&& ((BufPtr[0U] & XPLMI_PLM_CMD_MASK) !=
+		XPLMI_PLM_DMA_KEYHOLE_VAL)) {
 		/* Copy Cmd to temporary buffer */
 		Status = Xil_SecureMemCpy(CdoPtr->TempCmdBuf, BufLen * XPLMI_WORD_LEN,
 				BufPtr, BufLen * XPLMI_WORD_LEN);
