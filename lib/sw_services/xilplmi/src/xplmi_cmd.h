@@ -33,6 +33,8 @@
 *       ma   03/03/2021 Added IpiReqType member in XPlmi_Cmd structure
 *       bsv  04/13/2021 Added support for variable Keyhole sizes in
 *                       DmaWriteKeyHole command
+* 1.04  bsv  07/05/2021 Added code to handle case where bitstream data starts
+*                       at 32K boundary
 *
 * </pre>
 *
@@ -52,10 +54,12 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 #define XPLMI_CMD_API_ID_MASK			(0xFFU)
 #define XPLMI_CMD_MODULE_ID_MASK		(0xFF00U)
+#define XPLMI_PLM_CMD_MASK			(0xFFFFU)
 #define XPLMI_CMD_LEN_MASK			(0xFF0000U)
 #define XPLMI_CMD_RESP_SIZE			(8U)
 #define XPLMI_CMD_RESUME_DATALEN		(8U)
 #define XPLMI_CMD_MODULE_ID_SHIFT		(8U)
+#define XPLMI_PLM_DMA_KEYHOLE_VAL		(0x10DU)
 
 /**************************** Type Definitions *******************************/
 typedef struct XPlmi_Cmd XPlmi_Cmd;
