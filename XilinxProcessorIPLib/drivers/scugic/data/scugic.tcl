@@ -80,7 +80,9 @@
 # 4.5   mus  12/14/20 Updated get_psu_interrupt_id proc with additional checks
 #                     to fix BSP generation for specific designs. It fixes
 #                     CR#1084286.
-#
+# 4.6   mus  06/25/21 Used get_param_value instead of get_property to read
+#                     IP parameters. This has been done to support SSIT
+#                     devices.
 ##############################################################################
 
 #uses "xillib.tcl"
@@ -160,11 +162,11 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
 
     lappend newargs
     foreach arg $args {
-	set value [common::get_property CONFIG.$arg $drv_handle]
-	if {[llength $value] == 0} {
+	set value [::hsi::utils::get_param_value $drv_handle $arg]
+	if {[llength $value] == 0 || [string compare -nocase "DEVICE_ID" $arg] == 0} {
 	    lappend newargs $arg
 	} else {
-	    puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] [common::get_property CONFIG.$arg $drv_handle]$uSuffix"
+	    puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] [::hsi::utils::get_param_value $drv_handle $arg]$uSuffix"
 	}
     }
     set args $newargs
@@ -184,7 +186,7 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
 			if {([string compare -nocase $proctype "psu_cortexr5"] == 0) || ([string compare -nocase $proctype "psv_cortexr5"] == 0)} {
 				set value 0xF9001000
 			} elseif {[string compare -nocase $proctype "ps7_cortexa9"] == 0} {
-				set value [common::get_property CONFIG.$arg $periph]
+				set value [::hsi::utils::get_param_value $periph $arg]
 			} elseif {([string compare -nocase $proctype "psu_cortexa72"] == 0) || ([string compare -nocase $proctype "psv_cortexa72"] == 0) } {
 			        set value 0xF9040000
 			} else {
@@ -198,7 +200,7 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
 			if {([string compare -nocase $proctype "psu_cortexr5"] == 0) || ([string compare -nocase $proctype "psv_cortexr5"] == 0) } {
 				set value 0xF9001FFF
 			} elseif {[string compare -nocase $proctype "ps7_cortexa9"] == 0} {
-				set value [common::get_property CONFIG.$arg $periph]
+				set value [::hsi::utils::get_param_value $periph $arg]
 			} elseif {([string compare -nocase $proctype "psu_cortexa72"] == 0) || ([string compare -nocase $proctype "psv_cortexa72"] == 0) } {
 			        set value 0xF9041000
 			} else {
@@ -223,7 +225,7 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
                                 }
 			}
 		} else {
-			set value [common::get_property CONFIG.$arg $periph]
+			set value [::hsi::utils::get_param_value $periph $arg]
 		}
 	    if {[llength $value] == 0} {
 		set value 0
@@ -329,7 +331,7 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
 			if {([string compare -nocase $proctype "psu_cortexr5"] == 0) || ([string compare -nocase $proctype "psv_cortexr5"] == 0)} {
 				set rvalue 0xF9001000
 			} elseif {[string compare -nocase $proctype "ps7_cortexa9"] == 0} {
-				set rvalue [common::get_property CONFIG.$arg $periph]
+				set rvalue [::hsi::utils::get_param_value $periph $arg]
 			} elseif {([string compare -nocase $proctype "psu_cortexa72"] == 0) || ([string compare -nocase $proctype "psv_cortexa72"] == 0) } {
 			        set rvalue 0xF9040000
 			} else {
@@ -343,7 +345,7 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
 			if {([string compare -nocase $proctype "psu_cortexr5"] == 0) || ([string compare -nocase $proctype "psv_cortexr5"] == 0)} {
 				set rvalue 0xF9001FFF
 			} elseif {[string compare -nocase $proctype "ps7_cortexa9"] == 0} {
-				set rvalue [common::get_property CONFIG.$arg $periph]
+				set rvalue [::hsi::utils::get_param_value $periph $arg]
 			} elseif {([string compare -nocase $proctype "psu_cortexa72"] == 0) || ([string compare -nocase $proctype "psv_cortexa72"] == 0)} {
 			        set rvalue 0xF9041000
 			} else {
@@ -368,9 +370,9 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
                                 }
 			}
 		} else {
-			set rvalue [common::get_property CONFIG.$arg $periph]
+			set rvalue [::hsi::utils::get_param_value $periph $arg]
 		}
-		if {[llength $rvalue] == 0} {
+		if {[llength $rvalue] == 0 || [string compare -nocase "DEVICE_ID" $arg] == 0} {
 			set rvalue 0
 		}
 		set rvalue [::hsi::utils::format_addr_string $rvalue $arg]
@@ -439,9 +441,9 @@ proc xdefine_zynq_config_file {drv_handle file_name drv_string args} {
        set comma ""
        foreach arg $args {
            # Check if this is a driver parameter or a peripheral parameter
-           set value [common::get_property CONFIG.$arg $drv_handle]
-           if {[llength $value] == 0} {
-            set local_value [common::get_property CONFIG.$arg $periph ]
+           set value [::hsi::utils::get_param_value $drv_handle $arg]
+           if {[llength $value] == 0 || [string compare -nocase "DEVICE_ID" $arg] == 0} {
+            set local_value [::hsi::utils::get_param_value $periph $arg]
             # If a parameter isn't found locally (in the current
             # peripheral), we will (for some obscure and ancient reason)
             # look in peripherals connected via point to point links
