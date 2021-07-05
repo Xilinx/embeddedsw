@@ -13,6 +13,9 @@
 # 3.1   sk   11/09/15 Removed delete filename statement CR# 784758.
 # 3.4   ms   04/18/17 Modified tcl file to add suffix U for all macros
 #                     definitions of ttcps in xparameters.h
+# 3.15  mus  06/25/21 Replaced get_property with get_param_value to read
+#                     IP parameters. This has been done to support SSIT
+#                     devices.
 #
 ##############################################################################
 #uses "xillib.tcl"
@@ -45,11 +48,12 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
 
     lappend newargs
     foreach arg $args {
-	set value [common::get_property CONFIG.$arg $drv_handle]
-	if {[llength $value] == 0} {
+	set value [::hsi::utils::get_param_value  $drv_handle $arg]
+
+	if {[llength $value] == 0 || [string compare -nocase "DEVICE_ID" $arg] == 0} {
 	    lappend newargs $arg
 	} else {
-	    puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] [common::get_property CONFIG.$arg $drv_handle]$uSuffix"
+	    puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] [::hsi::utils::get_param_value $drv_handle $arg]$uSuffix"
 	}
     }
     set args $newargs
@@ -121,9 +125,9 @@ proc xdefine_config_file {drv_handle file_name drv_string args} {
 	    set comma ""
 	    foreach arg $args {
 		# Check if this is a driver parameter or a peripheral parameter
-		set value [common::get_property CONFIG.$arg $drv_handle]
-		if {[llength $value] == 0} {
-		    set local_value [common::get_property CONFIG.$arg $periph]
+		set value [::hsi::utils::get_param_value $drv_handle $arg]
+		if {[llength $value] == 0 || [string compare -nocase "DEVICE_ID" $arg] == 0} {
+		    set local_value [::hsi::utils::get_param_value $periph $arg]
 		    # If a parameter isn't found locally (in the current
 		    # peripheral), we will (for some obscure and ancient reason)
 		    # look in peripherals connected via point to point links
