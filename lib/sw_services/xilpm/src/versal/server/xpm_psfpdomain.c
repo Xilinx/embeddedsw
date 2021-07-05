@@ -137,6 +137,7 @@ static XStatus FpdScanClear(const u32 *Args, u32 NumOfArgs)
 	XStatus Status = XST_FAILURE;
 	const XPm_Psm *Psm;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 RegVal;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -167,11 +168,13 @@ static XStatus FpdScanClear(const u32 *Args, u32 NumOfArgs)
 		goto done;
 	}
 
-	Status = XPm_PollForMask(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_SCAN_CLEAR_FPD_OFFSET,
-			PSM_GLOBAL_SCAN_CLEAR_PASS_STATUS, 0x10000U);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_SCAN_PASS_TIMEOUT;
-		goto done;
+	RegVal = XPm_In32(Psm->PsmGlobalBaseAddr +
+			      PSM_GLOBAL_SCAN_CLEAR_FPD_OFFSET);
+	if ((RegVal &
+	    (u32)PSM_GLOBAL_SCAN_CLEAR_PASS_STATUS) !=
+	    (u32)PSM_GLOBAL_SCAN_CLEAR_PASS_STATUS) {
+		DbgErr = XPM_INT_ERR_SCAN_PASS;
+                goto done;
 	}
 
 	/* Unwrite trigger bits */

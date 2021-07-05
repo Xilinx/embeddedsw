@@ -572,7 +572,7 @@ static XStatus PlHouseClean(u32 TriggerTime)
 			if ((PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
 				Status = XST_SUCCESS;
 			} else {
-				DbgErr = XPM_INT_ERR_SCAN_PASS_TIMEOUT;
+				DbgErr = XPM_INT_ERR_SCAN_PASS;
 				goto done;
 			}
 		}

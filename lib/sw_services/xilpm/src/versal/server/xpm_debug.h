@@ -50,8 +50,8 @@ extern "C" {
 #define XPM_INT_ERR_PRE_BISR_REQ		0x3104U
 /* Scan clear done timeout */
 #define XPM_INT_ERR_SCAN_CLEAR_TIMEOUT		0x3105U
-/* Scan clear pass timeout */
-#define XPM_INT_ERR_SCAN_PASS_TIMEOUT		0x3106U
+/* Scan clear pass error */
+#define XPM_INT_ERR_SCAN_PASS			0x3106U
 /* LBIST done timeout */
 #define XPM_INT_ERR_LBIST_DONE_TIMEOUT		0x3107U
 /* Error during BISR repair */
