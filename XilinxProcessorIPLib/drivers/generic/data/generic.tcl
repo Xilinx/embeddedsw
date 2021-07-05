@@ -16,6 +16,11 @@
 # 3.0     nsk    02/26/21 Modified the generate proc to
 #                         generate both canonical and
 #                         peripheral defines
+# 3.1     mus    06/30/21 Updated tcl logic to read BASEADDRESS/
+#                         HIGHADDRESS parameters of IP blocks to
+#                         support SSIT devices. Now get_param_value
+#                         proc would be used instead of get_property
+#                         proc to read those parameters.
 ###############################################################
 
 #----------------------------------------------------
@@ -69,7 +74,7 @@ proc get_ip_param_name {periph_handle param type {device_id ""}} {
        # so duplicate macros will be defined in xparameters.h, so use NAME
        # instead of IP_NAME. will remove this check, once it is fixed
        if {[string match -nocase $name "psv_fpd_smmutcu"]} {
-           set prop [common::get_property CONFIG.C_S_AXI_BASEADDR $periph_handle]
+           set prop [::hsi::utils::get_param_value $periph_handle C_S_AXI_BASEADDR]
            if {$prop == 0xFD000000} {
                set name [common::get_property NAME $periph_handle ]
            }
