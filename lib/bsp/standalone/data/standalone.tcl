@@ -1,5 +1,5 @@
 ##############################################################################
-# Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # MODIFICATION HISTORY:
@@ -62,6 +62,9 @@
 #                     xsleep_timer_config proc accordingly. It fixes
 #                     CR#1069210
 # 7.4   mus  12/14/20 Updated generate proc to support CIPS3.
+# 7.6   mus  06/25/21 Updated tcl logic to access base address/high address
+#                     of specific IP block. This change has been done to
+#                     support SSIT devices.
 ##############################################################################
 
 # ----------------------------------------------------------------------------
@@ -571,8 +574,8 @@ proc generate {os_handle} {
             }
 	   set design_list [hsi::get_cells -hier]
            if {[lsearch  -nocase $design_list "psu_ddr_1"] >= 0} {
-                set psu_ddr_1_baseaddr [common::get_property CONFIG.C_S_AXI_BASEADDR [hsi::get_cells -hier "psu_ddr_1"]]
-                set psu_ddr_1_highaddr [common::get_property CONFIG.C_S_AXI_HIGHADDR [hsi::get_cells -hier "psu_ddr_1"]]
+                set psu_ddr_1_baseaddr [::hsi::utils::get_param_value [hsi::get_cells -hier "psu_ddr_1"] C_S_AXI_BASEADDR]
+                set psu_ddr_1_highaddr [::hsi::utils::get_param_value [hsi::get_cells -hier "psu_ddr_1"] C_S_AXI_HIGHADDR ]
                 puts $file_handle "/******************************************************************/"
                 puts $file_handle ""
                 puts $file_handle " /*Definitions for peripheral PSU_R5_DDR_1 */"
