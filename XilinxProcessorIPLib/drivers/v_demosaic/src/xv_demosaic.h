@@ -1,5 +1,5 @@
 // ==============================================================
-// Copyright (c) 1986 - 2020 Xilinx Inc. All rights reserved.
+// Copyright (c) 1986 - 2021 Xilinx Inc. All rights reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
 
@@ -36,6 +36,18 @@ typedef uint8_t u8;
 typedef uint16_t u16;
 typedef uint32_t u32;
 #else
+
+typedef void (*XVDemosaic_Callback)(void *InstancePtr);
+
+/************************** Constant Definitions *****************************/
+#define XVDEMOSAIC_IRQ_DONE_MASK            (0x01)
+#define XVDEMOSAIC_IRQ_READY_MASK           (0x02)
+
+typedef enum {
+  XVDEMOSAIC_HANDLER_DONE = 1,  /**< Handler for ap_done */
+  XVDEMOSAIC_HANDLER_READY      /**< Handler for ap_ready */
+} XVDEMOSAIC_HandlerType;
+
 /**
 * This typedef contains configuration information for the demosaic core
 * Each core instance should have a configuration structure associated.
@@ -57,6 +69,12 @@ typedef struct {
 typedef struct {
     XV_demosaic_Config Config;    /**< Hardware Configuration */
     u32 IsReady;                  /**< Device is initialized and ready */
+    XVDemosaic_Callback FrameDoneCallback;
+    void *CallbackDoneRef;     /**< To be passed to the connect interrupt
+                                callback */
+    XVDemosaic_Callback FrameReadyCallback;
+    void *CallbackReadyRef;     /**< To be passed to the connect interrupt
+                                callback */
 } XV_demosaic;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -113,6 +131,10 @@ void XV_demosaic_InterruptDisable(XV_demosaic *InstancePtr, u32 Mask);
 void XV_demosaic_InterruptClear(XV_demosaic *InstancePtr, u32 Mask);
 u32 XV_demosaic_InterruptGetEnabled(XV_demosaic *InstancePtr);
 u32 XV_demosaic_InterruptGetStatus(XV_demosaic *InstancePtr);
+
+void XVDemosaic_SetCallback(XV_demosaic *InstancePtr, u32 HandlerType,
+		void *CallbackFunc, void *CallbackRef);
+void XVDemosaic_InterruptHandler(XV_demosaic *InstancePtr);
 
 #ifdef __cplusplus
 }
