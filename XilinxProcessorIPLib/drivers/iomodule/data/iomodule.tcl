@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2011 - 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -30,6 +30,10 @@
 # 2.6      mus    09/25/18 Updated tcl to replace "hsi::get_cells -of_object"
 #                          with the "hsi::get_cells -of_objects". CR#1011395.
 # 2.10     nsk    12/14/20 Modified the tcl to not to use the instance names.
+# 2.12     mus    07/06/21 Updated is_psmicroblaze_iomodule proc to support
+#                          SSIT devices. Also added check for IS_PL flag
+#                          to avoid incorrect settings, in case PL iomodule
+#                          instance base address matches with PSM/PMC iomodule.
 ##############################################################################
 
 
@@ -906,7 +910,18 @@ proc is_psmicroblaze_iomodule {drv_handle} {
         if {$index >= 0} {
                 set base_val [common::get_property BASE_VALUE [lindex [get_mem_ranges -of_objects [hsi::get_cells -hier [get_sw_processor]]] $index]]
 		set base_val [string trimleft $base_val "0x"]
-		set addr_list "F0280000 FFC80000"
+		set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
+		foreach periph $periphs {
+			set baseaddr [::hsi::utils::get_param_value $periph C_BASEADDR]
+			set baseaddr [string trimleft $base_val "0x"]
+			if {[string compare -nocase $base_val $baseaddr] == 0} {
+				set is_pl [common::get_property IS_PL $periph]
+				if {$is_pl == 1} {
+					return $val
+				}
+			}
+		}
+		set addr_list "F0280000 FFC80000 100280000 108280000 110280000 118280000"
 		if {[lsearch -nocase $addr_list $base_val] >= 0} {
 			set val 1
 		}
