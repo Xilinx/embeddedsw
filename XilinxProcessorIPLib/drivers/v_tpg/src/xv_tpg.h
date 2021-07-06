@@ -1,5 +1,5 @@
 // ==============================================================
-// Copyright (c) 2015 - 2020 Xilinx Inc. All rights reserved.
+// Copyright (c) 2015 - 2021 Xilinx Inc. All rights reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
 
@@ -64,6 +64,17 @@ typedef enum
   XTPG_BKGND_LAST
 }XTpg_PatternId;
 
+typedef void (*XVTpg_Callback)(void *InstancePtr);
+
+/************************** Constant Definitions *****************************/
+#define XVTPG_IRQ_DONE_MASK            (0x01)
+#define XVTPG_IRQ_READY_MASK           (0x02)
+
+typedef enum {
+  XVTPG_HANDLER_DONE = 1,  /**< Handler for ap_done */
+  XVTPG_HANDLER_READY      /**< Handler for ap_ready */
+} XVTPG_HandlerType;
+
 /**
 * This typedef contains configuration information for the tpg core
 * Each core instance should have a configuration structure associated.
@@ -93,6 +104,12 @@ typedef struct {
 typedef struct {
     XV_tpg_Config Config;  /**< Hardware Configuration */
     u32 IsReady;           /**< Device is initialized and ready */
+    XVTpg_Callback FrameDoneCallback;
+    void *CallbackDoneRef;     /**< To be passed to the connect interrupt
+                                callback */
+    XVTpg_Callback FrameReadyCallback;
+    void *CallbackReadyRef;     /**< To be passed to the connect interrupt
+                                callback */
 } XV_tpg;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -196,6 +213,10 @@ void XV_tpg_InterruptDisable(XV_tpg *InstancePtr, u32 Mask);
 void XV_tpg_InterruptClear(XV_tpg *InstancePtr, u32 Mask);
 u32 XV_tpg_InterruptGetEnabled(XV_tpg *InstancePtr);
 u32 XV_tpg_InterruptGetStatus(XV_tpg *InstancePtr);
+
+void XVTpg_SetCallback(XV_tpg *InstancePtr, u32 HandlerType,
+		void *CallbackFunc, void *CallbackRef);
+void XVTpg_InterruptHandler(XV_tpg *InstancePtr);
 
 #ifdef __cplusplus
 }

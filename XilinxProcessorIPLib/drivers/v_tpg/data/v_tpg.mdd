@@ -1,5 +1,5 @@
 ##############################################################################
-# Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+# Copyright (C) 2015 - 2021 Xilinx, Inc. All rights reserved.
 # SPDX-License-Identifier: MIT
 ##
 #############################################################################
@@ -8,11 +8,11 @@ OPTION psf_version = 2.1;
 
 BEGIN driver v_tpg
 
- OPTION supported_peripherals = (v_tpg_v8_[0-1]);
+ OPTION supported_peripherals = (v_tpg_v8_[0-2]);
  OPTION driver_state = ACTIVE;
  OPTION DEPENDS = (video_common);
  OPTION copyfiles = all;
  OPTION name = v_tpg;
- OPTION version = 8.3;
+ OPTION version = 8.4;
 
 END driver
