@@ -1,5 +1,5 @@
 // ==============================================================
-// Copyright (c) 1986 - 2020 Xilinx Inc. All rights reserved.
+// Copyright (c) 1986 - 2021 Xilinx Inc. All rights reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
 
@@ -36,6 +36,18 @@ typedef uint8_t u8;
 typedef uint16_t u16;
 typedef uint32_t u32;
 #else
+
+typedef void (*XVGamma_Lut_Callback)(void *InstancePtr);
+
+/************************** Constant Definitions *****************************/
+#define XVGAMMA_LUT_IRQ_DONE_MASK            (0x01)
+#define XVGAMMA_LUT_IRQ_READY_MASK           (0x02)
+
+typedef enum {
+  XVGAMMA_LUT_HANDLER_DONE = 1,  /**< Handler for ap_done */
+  XVGAMMA_LUT_HANDLER_READY      /**< Handler for ap_ready */
+} XVGAMMA_LUT_HandlerType;
+
 /**
 * This typedef contains configuration information for the gamma lut core
 * Each core instance should have a configuration structure associated.
@@ -56,6 +68,12 @@ typedef struct {
 typedef struct {
     XV_gamma_lut_Config Config;  /**< Hardware Configuration */
     u32 IsReady;                 /**< Device is initialized and ready */
+    XVGamma_Lut_Callback FrameDoneCallback;
+    void *CallbackDoneRef;     /**< To be passed to the connect interrupt
+                                callback */
+    XVGamma_Lut_Callback FrameReadyCallback;
+    void *CallbackReadyRef;     /**< To be passed to the connect interrupt
+                                callback */
 } XV_gamma_lut;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -139,6 +157,10 @@ void XV_gamma_lut_InterruptDisable(XV_gamma_lut *InstancePtr, u32 Mask);
 void XV_gamma_lut_InterruptClear(XV_gamma_lut *InstancePtr, u32 Mask);
 u32 XV_gamma_lut_InterruptGetEnabled(XV_gamma_lut *InstancePtr);
 u32 XV_gamma_lut_InterruptGetStatus(XV_gamma_lut *InstancePtr);
+
+void XVGammaLut_SetCallback(XV_gamma_lut *InstancePtr, u32 HandlerType,
+		void *CallbackFunc, void *CallbackRef);
+void XVGammaLut_InterruptHandler(XV_gamma_lut *InstancePtr);
 
 #ifdef __cplusplus
 }
