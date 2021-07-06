@@ -15,7 +15,8 @@
 #include "xpm_power.h"
 #include "xpm_regulator.h"
 
-#ifdef XPAR_PSV_PMC_I2C_0_DEVICE_ID
+#if defined (XPAR_XIICPS_0_DEVICE_ID) || defined (XPAR_XIICPS_1_DEVICE_ID) || \
+    defined (XPAR_XIICPS_2_DEVICE_ID)
 #include "xiicps.h"
 
 #define IIC_SCLK_RATE		400000
@@ -57,6 +58,8 @@ static XStatus I2CInitialize(XIicPs *Iic)
 {
 	XStatus Status = XST_FAILURE;
 	XIicPs_Config *Config;
+	const XPm_Device *Device;
+	u16 I2CDeviceId;
 
 	/* Request the PMC_I2C device */
 	Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_I2C_PMC,
@@ -66,7 +69,33 @@ static XStatus I2CInitialize(XIicPs *Iic)
 		goto done;
 	}
 
-	Config = XIicPs_LookupConfig(XPAR_PSV_PMC_I2C_0_DEVICE_ID);
+	Device = XPmDevice_GetById(PM_DEV_I2C_PMC);
+	if (NULL == Device) {
+		Status = XPM_PM_INVALID_NODE;
+		goto done;
+	}
+
+#ifdef XPAR_XIICPS_0_DEVICE_ID
+	if (XPAR_XIICPS_0_BASEADDR == Device->Node.BaseAddress) {
+		I2CDeviceId = XPAR_XIICPS_0_DEVICE_ID;
+	} else
+#endif
+#ifdef XPAR_XIICPS_1_DEVICE_ID
+	if (XPAR_XIICPS_1_BASEADDR == Device->Node.BaseAddress) {
+		I2CDeviceId = XPAR_XIICPS_1_DEVICE_ID;
+	} else
+#endif
+#ifdef XPAR_XIICPS_2_DEVICE_ID
+	if (XPAR_XIICPS_2_BASEADDR == Device->Node.BaseAddress) {
+		I2CDeviceId = XPAR_XIICPS_2_DEVICE_ID;
+	} else
+#endif
+	{
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	Config = XIicPs_LookupConfig(I2CDeviceId);
 	if (NULL == Config) {
 		goto done;
 	}
