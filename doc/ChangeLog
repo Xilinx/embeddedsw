@@ -494,12 +494,6 @@ Fixed MISRAC issues
 usbpsu_v1_9:
 Fix Doxygen warnings.
 
-usbpsu_v1_9:
-Fix Doxygen warnings.
-
-usbpsu_v1_9:
-Fix Doxygen warnings.
-
 xilffs_v4_5:
 Maintain discrete global variables for each controller instance.
 
@@ -1086,7 +1080,6 @@ Fix check for base address in Zynq clock setup.
 Fix mkfs usage in lwip examples.
 Fix RX pbuf freeing in GEM error handling path.
 Add axiethernet support on versal silicon.
-Fix lwip application failure on VCU118 board.
 Add check in tcl for raw mode selection.
 Use Xil_In32 and Xil_Out32 functions to read/write registers.
 Modify the sys_now function to return milliseconds instead of
@@ -1094,6 +1087,7 @@ ticks to fix lwip timers issue.
 While using for loop to create a delay we are not seeing any delay
 with default O2 optimization. So, replace the for loop delay code
 with sleep for a 1-second delay to fix the issue.
+Fix lwip application failure on VCU118 board.
 
 scuwdt_v2_3
 Update the Makefile for parallel execution.
@@ -1121,6 +1115,57 @@ Update the Makefile for parallel execution.
 
 wdtps_v3_4:
 Update the Makefile for parallel execution.
+
+v_axi4s_remap_v1_3:
+Added example to this driver.
+
+v_multi_scaler_v1_2:
+mdd file is updated to call driver wrt to IP version used.
+
+v_csc_v2_5:
+Driver version is updated as IP version is changed
+
+v_deinterlacer_v7_2:
+Driver version is updated as IP version is changed
+
+v_demosaic_v1_2:
+Driver version is updated as IP version is changed
+
+v_frmbuf_rd_v4_3:
+Driver version is updated as IP version is changed
+
+v_frmbuf_wr_v4_3:
+Driver version is updated as IP version is changed
+
+v_gamma_lut_v1_2:
+Driver version is updated as IP version is changed
+
+v_hcresampler_v3_2:
+Driver version is updated as IP version is changed
+
+v_hscaler_v3_4:
+Driver version is updated as IP version is changed
+
+v_mix_v6_1:
+Driver version is updated as IP version is changed
+
+v_letterbox_v2_3:
+Driver version is updated as IP version is changed
+
+v_scenechange_v1_2:
+Driver version is updated as IP version is changed
+
+v_tpg_v8_3:
+Driver version is updated as IP version is changed
+
+v_vcresampler_v3_2:
+Driver version is updated as IP version is changed
+
+v_vscaler_v3_2:
+Driver version is updated as IP version is changed
+
+vprocss_v2_8:
+Driver version is updated as IP version is changed
 
 clk_wiz_v1_4:
 Add updates for clocking wizard.
@@ -1399,7 +1444,6 @@ Added support for checksum in FSBL if secure code is excluded
 zynq_fsbl:
 Add support for 2Gb flash parts in Zynq FSBL
 
-<<<<<<< HEAD
 New Files Added for 2020.2:
 MIT SPDX License:
 XilinxProcessorIPLib/drivers/aienginev2/data/aienginev2.mdd
@@ -1609,8 +1653,6 @@ SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note
 XilinxProcessorIPLib/drivers/aienginev2/src/io_backend/ext/ion.h
 XilinxProcessorIPLib/drivers/aienginev2/src/io_backend/ext/xlnx-ai-engine.h
 
-=======
->>>>>>> b52f3ce... The patch updates ChangeLog with changes in versal_plm, xilpdi, xilplmi, xiloader, zynqmp_fsbl and zynq_fsbl components.
 Changes for 2020.1
 ===============================
 axipcie_v3_2:
