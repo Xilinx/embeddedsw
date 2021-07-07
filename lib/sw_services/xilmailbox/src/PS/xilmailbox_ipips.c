@@ -163,7 +163,7 @@ static u32 XIpiPs_SendData(XMailbox *InstancePtr, void *MsgBufferPtr,
 	u32 Status = XST_SUCCESS;
 
 	XIpiPsu_WriteMessage(IpiInstancePtr, DataPtr->RemoteId,
-			     MsgBufferPtr, MsgLen, BufferType);
+			     (u32 *)MsgBufferPtr, MsgLen, BufferType);
 	XIpiPsu_TriggerIpi(IpiInstancePtr, DataPtr->RemoteId);
 	if (Is_Blocking != 0U) {
 		Status =  XIpiPs_PollforDone(InstancePtr);
@@ -230,7 +230,7 @@ static u32 XIpiPs_RecvData(XMailbox *InstancePtr, void *MsgBufferPtr,
 	XIpiPsu *IpiInstancePtr = &DataPtr->IpiInst;
 
 	Status = XIpiPsu_ReadMessage(IpiInstancePtr, DataPtr->SourceId,
-				     MsgBufferPtr, MsgLen, BufferType);
+				     (u32 *)MsgBufferPtr, MsgLen, BufferType);
 	return Status;
 }
 
