@@ -65,7 +65,7 @@ u32 XMailbox_Initialize(XMailbox *InstancePtr, u8 DeviceId)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	memset(InstancePtr, 0, sizeof(XMailbox));
+	(void)memset((void *)InstancePtr, 0, sizeof(XMailbox));
 
 	InstancePtr->XMbox_IPI_SendData = XIpiPs_SendData;
 	InstancePtr->XMbox_IPI_Send = XIpiPs_Send;
@@ -133,7 +133,11 @@ static u32 XIpiPs_Send(XMailbox *InstancePtr, u8 Is_Blocking)
 	XIpiPsu *IpiInstancePtr = &DataPtr->IpiInst;
 	u32 Status = XST_SUCCESS;
 
-	XIpiPsu_TriggerIpi(IpiInstancePtr, DataPtr->RemoteId);
+	Status = (u32)XIpiPsu_TriggerIpi(IpiInstancePtr, DataPtr->RemoteId);
+	if (Status != (u32)XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
 	if (Is_Blocking != 0U) {
 		Status =  XIpiPs_PollforDone(InstancePtr);
 	}
@@ -163,9 +167,17 @@ static u32 XIpiPs_SendData(XMailbox *InstancePtr, void *MsgBufferPtr,
 	XIpiPsu *IpiInstancePtr = &DataPtr->IpiInst;
 	u32 Status = XST_SUCCESS;
 
-	XIpiPsu_WriteMessage(IpiInstancePtr, DataPtr->RemoteId,
+	Status = (u32)XIpiPsu_WriteMessage(IpiInstancePtr, DataPtr->RemoteId,
 			     (u32 *)MsgBufferPtr, MsgLen, BufferType);
-	XIpiPsu_TriggerIpi(IpiInstancePtr, DataPtr->RemoteId);
+	if (Status != (u32)XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	Status = (u32)XIpiPsu_TriggerIpi(IpiInstancePtr, DataPtr->RemoteId);
+	if (Status != (u32)XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
 	if (Is_Blocking != 0U) {
 		Status =  XIpiPs_PollforDone(InstancePtr);
 	}
