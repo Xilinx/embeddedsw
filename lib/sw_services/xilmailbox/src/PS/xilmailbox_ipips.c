@@ -250,7 +250,7 @@ static u32 XIpiPs_RecvData(XMailbox *InstancePtr, void *MsgBufferPtr,
 static XStatus XIpiPs_RegisterIrq(XScuGic *IntcInstancePtr,
 				  XMailbox *InstancePtr,
 				  u32 IpiIntrId) {
-	u32 Status = XST_FAILURE;
+	s32 Status = XST_FAILURE;
 	XScuGic_Config *IntcConfigPtr;
 
 	/* Initialize the interrupt controller driver */
