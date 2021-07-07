@@ -7,7 +7,7 @@
 /**
 *
 * @file xcanfd.h
-* @addtogroup canfd_v2_5
+* @addtogroup canfd_v2_6
 * @{
 * @details
 *
