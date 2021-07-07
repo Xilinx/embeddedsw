@@ -7,7 +7,7 @@
 /**
  *
  * @file xilmailbox.c
- * @addtogroup xilmailbox_v1_3
+ * @addtogroup xilmailbox_v1_4
  * @{
  * @details
  *
@@ -22,6 +22,7 @@
  * 1.0   adk  14/02/19    Initial Release
  * 1.1   sd   16/08/19    Initialise status variable
  * 1.3   sd   03/03/21    Doxygen Fixes
+ * 1.4   sd   23/06/21    Fix MISRA-C warnings
  *</pre>
  *
  *@note
