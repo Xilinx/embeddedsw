@@ -754,8 +754,6 @@ static XStatus PldInitStart(const u32 *Args, u32 NumOfArgs)
 		}
 	}
 
-	RamRailPwrSts = XPmPower_CheckPower(VccRamRail,
-				PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_RAM_MASK);
 	SocRailPwrSts =  XPmPower_CheckPower(VccSocRail,
 				PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_SOC_MASK);
 	if ((XST_SUCCESS == RamRailPwrSts) && (XST_SUCCESS == SocRailPwrSts)) {
