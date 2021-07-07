@@ -29,6 +29,9 @@ static inline u64 XAie_IODummyGetTid(void)
 	return 0;
 }
 
+void _XAie_IOCommon_MarkTilesInUse(XAie_DevInst *DevInst,
+		XAie_BackendTilesArray *Args);
+
 #ifdef XAIE_RSC_DISABLE
 static inline AieRC _XAie_RequestRscCommon(XAie_DevInst *DevInst,
 		XAie_BackendTilesRsc *Arg) {

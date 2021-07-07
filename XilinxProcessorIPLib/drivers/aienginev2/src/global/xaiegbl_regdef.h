@@ -688,6 +688,8 @@ typedef struct XAie_DeviceOps {
 	AieRC (*SetPartColClockAfterRst)(XAie_DevInst *DevInst, u8 Enable);
 	AieRC (*SetPartIsolationAfterRst)(XAie_DevInst *DevInst);
 	AieRC (*PartMemZeroInit)(XAie_DevInst *DevInst);
+	AieRC (*RequestTiles)(XAie_DevInst *DevInst,
+			XAie_BackendTilesArray *Args);
 } XAie_DeviceOps;
 
 #endif

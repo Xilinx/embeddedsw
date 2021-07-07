@@ -432,4 +432,22 @@ AieRC _XAie_PrivilegeTeardownPart(XAie_DevInst *DevInst)
 	return RC;
 }
 
+/*****************************************************************************/
+/**
+* This API enables clock for all the tiles passed as argument to this API.
+*
+* @param	DevInst: AI engine partition device instance pointer
+* @param	Args: Backend tile args
+*
+* @return       XAIE_OK on success, error code on failure
+*
+* @note		Internal only.
+*
+*******************************************************************************/
+AieRC _XAie_PrivilegeRequestTiles(XAie_DevInst *DevInst,
+		XAie_BackendTilesArray *Args)
+{
+	return DevInst->DevOps->RequestTiles(DevInst, Args);
+}
+
 /** @} */
