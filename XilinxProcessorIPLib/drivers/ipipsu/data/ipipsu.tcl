@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -17,6 +17,11 @@
 # 2.8  nsk  12/14/20  Modified the tcl to not to gnerate the instance
 #                     names.
 # 2.8  nsk  01/19/21  Updated to use IP_NAME for IPIs mapped.
+# 2.10  sd  07/02/21  Updated tcl logic to read BASEADDRESS
+#                         HIGHADDRESS parameters of IP blocks to
+#                         support SSIT devices. Now get_param_value
+#                         proc would be used instead of get_property
+#                         proc to read those parameters.
 ##############################################################################
 
 #uses "xillib.tcl"
@@ -36,9 +41,8 @@ proc ipi_format_hexmask {bitpos} {
 }
 proc ipi_define_xpar {inst param} {
 	set uSuffix "U"
-	set param_name [string range $param [string length "CONFIG."] [string length $param]]
-	set name [string range $param_name 2 end]
-	set param_value [common::get_property $param [hsi::get_cells -hier $inst]]
+	set name [string range $param 2 end]
+	set param_value [::hsi::utils::get_param_value [hsi::get_cells -hier $inst] $param]
 	if { [string compare $name "BUFFER_INDEX"] == 0} {
 		if { [string compare $param_value "NIL"] == 0} {
 			set param_value 0xFFFF
@@ -175,10 +179,10 @@ proc ipi_generate_params {file_name iszynqmp} {
 	foreach ipi_inst $proc_ipi_list {
 		puts $file_handle [format "/* Parameter definitions for peripheral %s */" $ipi_inst]
 		puts $file_handle [format "#define  XPAR_%s_%s  %s$uSuffix" [string toupper $ipi_inst] "DEVICE_ID" $idx]
-		puts $file_handle [ipi_define_xpar $ipi_inst CONFIG.C_S_AXI_BASEADDR]
-		puts $file_handle [ipi_define_xpar $ipi_inst CONFIG.C_BIT_POSITION]
-		puts $file_handle [ipi_define_xpar $ipi_inst CONFIG.C_BUFFER_INDEX]
-		puts $file_handle [ipi_define_xpar $ipi_inst CONFIG.C_INT_ID]
+		puts $file_handle [ipi_define_xpar $ipi_inst C_S_AXI_BASEADDR]
+		puts $file_handle [ipi_define_xpar $ipi_inst C_BIT_POSITION]
+		puts $file_handle [ipi_define_xpar $ipi_inst C_BUFFER_INDEX]
+		puts $file_handle [ipi_define_xpar $ipi_inst C_INT_ID]
 		puts $file_handle ""
 		incr idx
 	}
@@ -200,8 +204,8 @@ proc ipi_generate_params {file_name iszynqmp} {
 	puts $file_handle ""
 
 	foreach ipi_inst $ipi_list {
-		puts $file_handle [ipi_define_xpar $ipi_inst CONFIG.C_BIT_POSITION]
-		puts $file_handle [ipi_define_xpar $ipi_inst CONFIG.C_BUFFER_INDEX]
+		puts $file_handle [ipi_define_xpar $ipi_inst C_BIT_POSITION]
+		puts $file_handle [ipi_define_xpar $ipi_inst C_BUFFER_INDEX]
 	}
 	# Generate Canonical definitions to map IPI instance -> Processors
 	puts $file_handle "/* Target List for referring to processor IPI Targets */"
