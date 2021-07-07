@@ -7,7 +7,7 @@
 /**
 *
 * @file xwdttb_selftest.c
-* @addtogroup wdttb_v5_2
+* @addtogroup wdttb_v5_3
 * @{
 *
 * Contains diagnostic self-test functions for the XWdtTb component.

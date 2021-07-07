@@ -7,7 +7,7 @@
 /**
 *
 * @file xwdttb.h
-* @addtogroup wdttb_v5_2
+* @addtogroup wdttb_v5_3
 * @{
 * @details
 *
