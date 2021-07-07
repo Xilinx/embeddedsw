@@ -153,7 +153,7 @@ u32 XMailbox_Recv(XMailbox *InstancePtr, u32 SourceId, void *BufferPtr,
 *
 * @return
 *		- XST_SUCCESS when handler is installed.
-*		- XST_INVALID_PARAM when HandlerType is invalid.
+*		- XST_FAILURE when HandlerType is invalid.
 *
 * @note		Invoking this function for a handler that already has been
 *		installed replaces it with the new handler.
@@ -162,8 +162,6 @@ u32 XMailbox_Recv(XMailbox *InstancePtr, u32 SourceId, void *BufferPtr,
 s32 XMailbox_SetCallBack(XMailbox *InstancePtr, XMailbox_Handler HandlerType,
 			 void *CallBackFuncPtr, void *CallBackRefPtr)
 {
-	s32 Status;
-
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CallBackFuncPtr != NULL);
@@ -175,23 +173,14 @@ s32 XMailbox_SetCallBack(XMailbox *InstancePtr, XMailbox_Handler HandlerType,
 	 * Calls the respective callback function corresponding to
 	 * the handler type
 	 */
-	switch (HandlerType) {
-		case XMAILBOX_RECV_HANDLER:
-			InstancePtr->RecvHandler =
-				(XMailbox_RecvHandler)((void *)CallBackFuncPtr);
-			InstancePtr->RecvRefPtr = CallBackRefPtr;
-			Status = (XST_SUCCESS);
-			break;
-
-		case XMAILBOX_ERROR_HANDLER:
-			InstancePtr->ErrorHandler =
-				(XMailbox_ErrorHandler)((void *)CallBackFuncPtr);
-			InstancePtr->ErrorRefPtr = CallBackRefPtr;
-			Status = (XST_SUCCESS);
-			break;
-		default:
-			Status = (s32)XST_INVALID_PARAM;
-			break;
+	if (HandlerType == XMAILBOX_RECV_HANDLER) {
+		InstancePtr->RecvHandler =
+			(XMailbox_RecvHandler)((void *)CallBackFuncPtr);
+		InstancePtr->RecvRefPtr = CallBackRefPtr;
+	} else {
+		InstancePtr->ErrorHandler =
+			(XMailbox_ErrorHandler)((void *)CallBackFuncPtr);
+		InstancePtr->ErrorRefPtr = CallBackRefPtr;
 	}
 
 	return (s32)XST_SUCCESS;
