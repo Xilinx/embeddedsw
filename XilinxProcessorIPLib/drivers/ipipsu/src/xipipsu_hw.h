@@ -6,7 +6,7 @@
 /**
 *
 * @file xipipsu_hw.h
-* @addtogroup ipipsu_v2_9
+* @addtogroup ipipsu_v2_10
 * @{
 *
 * This file contains macro definitions for low level HW related params
