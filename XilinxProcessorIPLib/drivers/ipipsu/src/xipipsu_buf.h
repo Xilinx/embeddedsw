@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
  * @file xipipsu_buf.h
-* @addtogroup ipipsu_v2_9
+* @addtogroup ipipsu_v2_10
 * @{
 * @details
  *
