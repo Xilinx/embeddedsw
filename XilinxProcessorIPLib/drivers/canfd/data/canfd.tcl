@@ -16,6 +16,11 @@
 # 2.1	nsk	09/03/18 Added support for all CANFD versions
 #			 i.e. PS CANFD, PL CANFD 1.0 and PL CANFD 2.0
 # 2.3	sne	11/28/19 Updated tcl file to support CANFD PS and PL on versal.
+# 2.6   sd	07/05/21  Updated tcl logic to read BASEADDRESS
+#                         HIGHADDRESS parameters of IP blocks to
+#                         support SSIT devices. Now get_param_value
+#                         proc would be used instead of get_property
+#                         proc to read those parameters.
 #
 ###############################################################################
 
@@ -161,8 +166,8 @@ proc xdefine_params_include_file {file_handle periph device_id} {
 		}
 	} else {
 		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "DEVICE_ID"] $device_id$uSuffix"
-		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "BASEADDR"] [common::get_property CONFIG.C_S_AXI_BASEADDR $periph]$uSuffix"
-		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "HIGHADDR"] [common::get_property CONFIG.C_S_AXI_HIGHADDR $periph]$uSuffix"
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "BASEADDR"] [::hsi::utils::get_param_value $periph C_S_AXI_BASEADDR]$uSuffix"
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "HIGHADDR"] [::hsi::utils::get_param_value $periph C_S_AXI_HIGHADDR]$uSuffix"
 		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "RX_MODE"] [common::get_property CONFIG.RX_MODE $periph]$uSuffix"
 		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "NUM_OF_RX_MB_BUF"] [common::get_property CONFIG.NUM_OF_RX_MB_BUF $periph]$uSuffix"
 		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "NUM_OF_TX_BUF"] [common::get_property CONFIG.NUM_OF_TX_BUF $periph]$uSuffix"
