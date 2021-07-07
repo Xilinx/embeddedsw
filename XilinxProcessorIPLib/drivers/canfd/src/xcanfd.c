@@ -7,7 +7,7 @@
 /**
 *
 * @file xcanfd.c
-* @addtogroup canfd_v2_5
+* @addtogroup canfd_v2_6
 * @{
 *
 * The XCanFd driver. Functions in this file are the minimum required functions
