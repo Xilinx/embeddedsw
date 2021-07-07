@@ -345,7 +345,7 @@ static void XIpiPs_IntrHandler(void *XMailboxPtr)
  ****************************************************************************/
 static void XIpiPs_ErrorIntrHandler(void *XMailboxPtr)
 {
-	XMailbox *InstancePtr = (XMailbox *)((void *)XMailboxPtr);
+	const XMailbox *InstancePtr = (XMailbox *)((void *)XMailboxPtr);
 	u32 Status = XST_FAILURE;
 
 	Status = XIpiPsu_ReadReg(IPI_BASEADDRESS, XIPIPSU_ISR_OFFSET);
