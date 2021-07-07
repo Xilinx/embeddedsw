@@ -190,9 +190,9 @@ s32 XMailbox_SetCallBack(XMailbox *InstancePtr, XMailbox_Handler HandlerType,
 			Status = (XST_SUCCESS);
 			break;
 		default:
-			Status = (XST_INVALID_PARAM);
+			Status = (s32)XST_INVALID_PARAM;
 			break;
 	}
 
-	return Status;
+	return (s32)XST_SUCCESS;
 }
