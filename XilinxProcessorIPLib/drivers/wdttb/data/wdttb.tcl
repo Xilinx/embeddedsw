@@ -16,6 +16,11 @@
 # 4.5      mus    04/10/19 Added -hier option to get_cells command to support
 #                          hierarchical designs. Fix for CR#1020269.
 # 4.5	   sne	  09/24/19 Updated Tcl file for WWDT and AXI Timebase WDT.
+# 5.3	   sd	  07/05/21 Updated tcl logic to read BASEADDRESS
+#                         HIGHADDRESS parameters of IP blocks to
+#                         support SSIT devices. Now get_param_value
+#                         proc would be used instead of get_property
+#                         proc to read those parameters.
 #
 ###############################################################################
 
@@ -153,8 +158,8 @@ proc xdefine_params_include_file {file_handle periph device_id} {
                         puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "IS_PL"] 1$uSuffix"
 	} else {
 		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "DEVICE_ID"] $device_id$uSuffix"
-		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "BASEADDR"] [common::get_property CONFIG.C_S_AXI_BASEADDR $periph]$uSuffix"
-		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "HIGHADDR"] [common::get_property CONFIG.C_S_AXI_HIGHADDR $periph]$uSuffix"
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "BASEADDR"] [::hsi::utils::get_param_value $periph C_S_AXI_BASEADDR]$uSuffix"
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "HIGHADDR"] [::hsi::utils::get_param_value $periph C_S_AXI_HIGHADDR]$uSuffix"
 		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "ENABLE_WINDOW_WDT"] 0$uSuffix"
 		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "MAX_COUNT_WIDTH"] 0$uSuffix"
 		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "SST_COUNT_WIDTH"] 0$uSuffix"
