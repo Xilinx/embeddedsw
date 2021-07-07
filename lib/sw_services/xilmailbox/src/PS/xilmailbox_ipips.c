@@ -87,19 +87,19 @@ u32 XMailbox_Initialize(XMailbox *InstancePtr, u8 DeviceId)
 /****************************************************************************/
 static u32 XIpiPs_Init(XMailbox *InstancePtr, u8 DeviceId)
 {
-	u32 Status = XST_FAILURE;
+	s32 Status = (s32)XST_FAILURE;
 	XIpiPsu_Config *CfgPtr;
 	XMailbox_Agent *DataPtr = &InstancePtr->Agent;
 	XIpiPsu *IpiInstancePtr = &DataPtr->IpiInst;
 
 	CfgPtr = XIpiPsu_LookupConfig(DeviceId);
 	if (NULL == CfgPtr) {
-		return Status;
+		return (u32)Status;
 	}
 
 	Status = XIpiPsu_CfgInitialize(IpiInstancePtr, CfgPtr, CfgPtr->BaseAddress);
-	if (Status != XST_SUCCESS) {
-		return Status;
+	if (Status != (s32)XST_SUCCESS) {
+		return (u32)Status;
 	}
 
 	/* Enable reception of IPI from all CPUs */
@@ -112,7 +112,7 @@ static u32 XIpiPs_Init(XMailbox *InstancePtr, u8 DeviceId)
 	Status = XIpiPs_RegisterIrq(&DataPtr->GicInst, InstancePtr,
 				    CfgPtr->IntId);
 
-	return Status;
+	return (u32)Status;
 }
 
 /*****************************************************************************/
@@ -241,7 +241,7 @@ static u32 XIpiPs_RecvData(XMailbox *InstancePtr, void *MsgBufferPtr,
 	XMailbox_Agent *DataPtr = &InstancePtr->Agent;
 	XIpiPsu *IpiInstancePtr = &DataPtr->IpiInst;
 
-	Status = XIpiPsu_ReadMessage(IpiInstancePtr, DataPtr->SourceId,
+	Status = (u32)XIpiPsu_ReadMessage(IpiInstancePtr, DataPtr->SourceId,
 				     (u32 *)MsgBufferPtr, MsgLen, BufferType);
 	return Status;
 }
@@ -262,19 +262,19 @@ static u32 XIpiPs_RecvData(XMailbox *InstancePtr, void *MsgBufferPtr,
 static XStatus XIpiPs_RegisterIrq(XScuGic *IntcInstancePtr,
 				  XMailbox *InstancePtr,
 				  u32 IpiIntrId) {
-	s32 Status = XST_FAILURE;
+	s32 Status = (s32)XST_FAILURE;
 	XScuGic_Config *IntcConfigPtr;
 
 	/* Initialize the interrupt controller driver */
 	IntcConfigPtr = XScuGic_LookupConfig(XPAR_SCUGIC_0_DEVICE_ID);
 	if (NULL == IntcConfigPtr) {
-		return XST_FAILURE;
+		return (s32)XST_FAILURE;
 	}
 
 	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfigPtr,
 				       IntcConfigPtr->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+		return (s32)XST_FAILURE;
 	}
 
 	/*
@@ -289,7 +289,7 @@ static XStatus XIpiPs_RegisterIrq(XScuGic *IntcInstancePtr,
 				 (Xil_InterruptHandler) XIpiPs_IntrHandler,
 				 (void *)InstancePtr);
 	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+		return (s32)XST_FAILURE;
 
 	}
 
@@ -297,7 +297,7 @@ static XStatus XIpiPs_RegisterIrq(XScuGic *IntcInstancePtr,
 				 (Xil_InterruptHandler) XIpiPs_ErrorIntrHandler,
 				 (void *)InstancePtr);
 	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+		return (s32)XST_FAILURE;
 	}
 
 
