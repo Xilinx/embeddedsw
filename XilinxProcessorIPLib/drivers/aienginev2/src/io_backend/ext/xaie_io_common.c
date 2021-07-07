@@ -500,4 +500,49 @@ AieRC _XAie_RequestAllocatedRscCommon(XAie_DevInst *DevInst,
 }
 #endif /* !XAIE_RSC_DISABLE */
 
+/*****************************************************************************/
+/**
+* This API marks the bitmap with for the tiles which are clock enabled.
+*
+* @param	DevInst: AI engine partition device instance pointer
+* @param	Args: Backend tile args
+*
+* @return       XAIE_OK on success, error code on failure
+*
+* @note		Internal only.
+*
+*******************************************************************************/
+void _XAie_IOCommon_MarkTilesInUse(XAie_DevInst *DevInst,
+		XAie_BackendTilesArray *Args)
+{
+	/* Setup the requested tiles bitmap locally */
+	if (Args->Locs == NULL) {
+		u32 StartBit, NumTiles;
+
+		NumTiles = DevInst->NumCols * (DevInst->NumRows - 1);
+		/* Loc is NULL, it suggests all tiles are requested */
+		StartBit = _XAie_GetTileBitPosFromLoc(DevInst,
+					XAie_TileLoc(0, 1));
+		_XAie_SetBitInBitmap(DevInst->TilesInUse, StartBit,
+				NumTiles);
+	} else {
+		for(u32 i = 0; i < Args->NumTiles; i++) {
+			u32 Bit;
+
+			if(Args->Locs[i].Row == 0) {
+				continue;
+			}
+
+			/*
+			 * If a tile is ungated, the rows below it are
+			 * ungated.
+			 */
+			Bit = _XAie_GetTileBitPosFromLoc(DevInst,
+					XAie_TileLoc(Args->Locs[i].Col, 1));
+			_XAie_SetBitInBitmap(DevInst->TilesInUse,
+					Bit, Args->Locs[i].Row);
+		}
+	}
+}
+
 /** @} */

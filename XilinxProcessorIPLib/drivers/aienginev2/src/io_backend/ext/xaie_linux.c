@@ -1529,12 +1529,17 @@ AieRC _XAie_LinuxIO_RequestAllocatedRsc(void *IOInst,
 static AieRC XAie_LinuxIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 		XAie_BackendOpCode Op, void *Arg)
 {
-	(void)DevInst;
+	AieRC RC;
+
 	switch(Op) {
 	case XAIE_BACKEND_OP_CONFIG_SHIMDMABD:
 		return _XAie_LinuxIO_ConfigShimDmaBd(IOInst, Arg);
 	case XAIE_BACKEND_OP_REQUEST_TILES:
-		return _XAie_LinuxIO_RequestTiles(IOInst, Arg);
+		RC = _XAie_LinuxIO_RequestTiles(IOInst, Arg);
+		if(RC == XAIE_OK)
+			_XAie_IOCommon_MarkTilesInUse(DevInst,
+					(XAie_BackendTilesArray *)Arg);
+		return RC;
 	case XAIE_BACKEND_OP_RELEASE_TILES:
 		return _XAie_LinuxIO_ReleaseTiles(IOInst, Arg);
 	case XAIE_BACKEND_OP_REQUEST_RESOURCE:

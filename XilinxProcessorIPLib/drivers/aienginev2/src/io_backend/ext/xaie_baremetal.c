@@ -444,10 +444,8 @@ static AieRC XAie_BaremetalIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 			break;
 		}
 		case XAIE_BACKEND_OP_REQUEST_TILES:
-		{
-			XAIE_DBG("Backend doesn't support Op %u.\n", Op);
-			return XAIE_FEATURE_NOT_SUPPORTED;
-		}
+			return _XAie_PrivilegeRequestTiles(DevInst,
+					(XAie_BackendTilesArray *)Arg);
 		case XAIE_BACKEND_OP_REQUEST_RESOURCE:
 			return _XAie_RequestRscCommon(DevInst, Arg);
 		case XAIE_BACKEND_OP_RELEASE_RESOURCE:
