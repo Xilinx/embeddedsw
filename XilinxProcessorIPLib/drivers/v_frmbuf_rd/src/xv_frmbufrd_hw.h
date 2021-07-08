@@ -1,5 +1,5 @@
 // ==============================================================
-// Copyright (c) 1986 - 2020 Xilinx Inc. All rights reserved.
+// Copyright (c) 1986 - 2021 Xilinx Inc. All rights reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
 #ifndef XV_FRMBUFRD_HW_H_  /* prevent circular inclusions */
@@ -60,30 +60,49 @@ extern "C" {
 //        bit 0  - HwReg_field_id[0] (Read/Write)
 //        others - reserved
 // 0x4c : reserved
+// 0x50 : Data signal of fidOutMode
+//        bit 31~0 - fidOutMode[31:0] (Read/Write)
+// 0x54 : reserved
+// 0x58 : Data signal of fid_error_i
+//        bit 31~0 - fid_error_i[31:0] (Read/Write)
+// 0x5c : reserved
+// 0x60 : Data signal of fid_error_o
+//        bit 31~0 - fid_error_o[31:0] (Read)
+// 0x64 : reserved
+// 0x68 : Data signal of HwReg_field_out
+//        bit 0  - HwReg_field_out[0] (Read)
+//        others - reserved
+// 0x6c : reserved
 // (SC = Self Clear, COR = Clear on Read, TOW = Toggle on Write, COH = Clear on Handshake)
 
-#define XV_FRMBUFRD_CTRL_ADDR_AP_CTRL                  0x00
-#define XV_FRMBUFRD_CTRL_BITS_FLUSH_BIT_POS	      	   (5)
-#define XV_FRMBUFRD_CTRL_BITS_FLUSH_BIT		           (1 << XV_FRMBUFRD_CTRL_BITS_FLUSH_BIT_POS)
-#define XV_FRMBUFRD_CTRL_BITS_FLUSH_STATUSBIT_POS      (6)
-#define XV_FRMBUFRD_CTRL_BITS_FLUSH_STATUSBIT          (1 << XV_FRMBUFRD_CTRL_BITS_FLUSH_STATUSBIT_POS)
-#define XV_FRMBUFRD_CTRL_ADDR_GIE                      0x04
-#define XV_FRMBUFRD_CTRL_ADDR_IER                      0x08
-#define XV_FRMBUFRD_CTRL_ADDR_ISR                      0x0c
-#define XV_FRMBUFRD_CTRL_ADDR_HWREG_WIDTH_DATA         0x10
-#define XV_FRMBUFRD_CTRL_BITS_HWREG_WIDTH_DATA         16
-#define XV_FRMBUFRD_CTRL_ADDR_HWREG_HEIGHT_DATA        0x18
-#define XV_FRMBUFRD_CTRL_BITS_HWREG_HEIGHT_DATA        16
-#define XV_FRMBUFRD_CTRL_ADDR_HWREG_STRIDE_DATA        0x20
-#define XV_FRMBUFRD_CTRL_BITS_HWREG_STRIDE_DATA        16
-#define XV_FRMBUFRD_CTRL_ADDR_HWREG_VIDEO_FORMAT_DATA  0x28
-#define XV_FRMBUFRD_CTRL_BITS_HWREG_VIDEO_FORMAT_DATA  16
-#define XV_FRMBUFRD_CTRL_ADDR_HWREG_FRM_BUFFER_V_DATA  0x30
-#define XV_FRMBUFRD_CTRL_BITS_HWREG_FRM_BUFFER_V_DATA  64
-#define XV_FRMBUFRD_CTRL_ADDR_HWREG_FRM_BUFFER2_V_DATA 0x3c
-#define XV_FRMBUFRD_CTRL_BITS_HWREG_FRM_BUFFER2_V_DATA 64
-#define XV_FRMBUFRD_CTRL_ADDR_HWREG_FIELD_ID_DATA      0x48
-#define XV_FRMBUFRD_CTRL_BITS_HWREG_FIELD_ID_DATA      1
+#define XV_FRMBUFRD_CTRL_ADDR_AP_CTRL                  	0x00
+#define XV_FRMBUFRD_CTRL_BITS_FLUSH_BIT_POS	      	   	(5)
+#define XV_FRMBUFRD_CTRL_BITS_FLUSH_BIT		           	(1 << XV_FRMBUFRD_CTRL_BITS_FLUSH_BIT_POS)
+#define XV_FRMBUFRD_CTRL_BITS_FLUSH_STATUSBIT_POS      	(6)
+#define XV_FRMBUFRD_CTRL_BITS_FLUSH_STATUSBIT          	(1 << XV_FRMBUFRD_CTRL_BITS_FLUSH_STATUSBIT_POS)
+#define XV_FRMBUFRD_CTRL_ADDR_GIE                      	0x04
+#define XV_FRMBUFRD_CTRL_ADDR_IER                      	0x08
+#define XV_FRMBUFRD_CTRL_ADDR_ISR                      	0x0c
+#define XV_FRMBUFRD_CTRL_ADDR_HWREG_WIDTH_DATA         	0x10
+#define XV_FRMBUFRD_CTRL_BITS_HWREG_WIDTH_DATA         	16
+#define XV_FRMBUFRD_CTRL_ADDR_HWREG_HEIGHT_DATA        	0x18
+#define XV_FRMBUFRD_CTRL_BITS_HWREG_HEIGHT_DATA        	16
+#define XV_FRMBUFRD_CTRL_ADDR_HWREG_STRIDE_DATA        	0x20
+#define XV_FRMBUFRD_CTRL_BITS_HWREG_STRIDE_DATA        	16
+#define XV_FRMBUFRD_CTRL_ADDR_HWREG_VIDEO_FORMAT_DATA  	0x28
+#define XV_FRMBUFRD_CTRL_BITS_HWREG_VIDEO_FORMAT_DATA  	16
+#define XV_FRMBUFRD_CTRL_ADDR_HWREG_FRM_BUFFER_V_DATA  	0x30
+#define XV_FRMBUFRD_CTRL_BITS_HWREG_FRM_BUFFER_V_DATA  	64
+#define XV_FRMBUFRD_CTRL_ADDR_HWREG_FRM_BUFFER2_V_DATA 	0x3c
+#define XV_FRMBUFRD_CTRL_BITS_HWREG_FRM_BUFFER2_V_DATA 	64
+#define XV_FRMBUFRD_CTRL_ADDR_HWREG_FIELD_ID_DATA      	0x48
+#define XV_FRMBUFRD_CTRL_BITS_HWREG_FIELD_ID_DATA      	0x1
+#define XV_FRMBUFRD_CTRL_ADDR_HWREG_FIDOUTMODE_DATA     0x50
+#define XV_FRMBUFRD_CTRL_BITS_HWREG_FIDOUTMODE_DATA     0x3
+#define XV_FRMBUFRD_CTRL_ADDR_HWREG_FID_ERROR_DATA     	0x58
+#define XV_FRMBUFRD_CTRL_BITS_HWREG_FID_ERROR_DATA     	0x1
+#define XV_FRMBUFRD_CTRL_ADDR_HWREG_FIELD_OUT_DATA 		0x60
+#define XV_FRMBUFRD_CTRL_BITS_HWREG_FIELD_OUT_DATA 		0x1
 
 #ifdef __cplusplus
 }
