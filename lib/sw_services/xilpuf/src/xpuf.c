@@ -38,6 +38,7 @@
 *       har  05/03/2021 Restructured code in XPuf_StartRegeneration to remove
 *                       repeated code
 *       am   05/18/2021 Resolved MISRA C violations
+* 1.4   har  07/09/2021 Fixed Doxygen warnings
 *
 * </pre>
 *
@@ -56,12 +57,13 @@
 
 /************************** Constant Definitions *****************************/
 #define XPUF_STATUS_WAIT_TIMEOUT		(1000000U)
-					/* Recommended software timeout is 1 second */
+				/**< Recommended software timeout is 1 second */
 #define XPUF_SHUT_GLB_VAR_FLTR_ENABLED_SHIFT	(31)
-
+		/**< Shift for Global Variation Filter bit in shutter value */
 /********************Macros (Inline function) Definitions*********************/
 #define XPuf_Printf(DebugType, ...)	\
 	if ((DebugType) == (1U)) {xil_printf (__VA_ARGS__);}
+		/**< For prints in XilPuf library */
 
 /*****************************************************************************/
 /**
