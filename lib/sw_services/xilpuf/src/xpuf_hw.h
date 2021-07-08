@@ -25,6 +25,7 @@
 *       har  09/30/2020 Removed header files which were not required
 * 1.3   har  01/06/2021 Added offset for PUF_CLEAR register and its definition
 *       har  03/08/2021 Added offset for IRO frequency
+* 1.4   har  07/09/2021 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -38,11 +39,14 @@ extern "C" {
 
 /****************************** Include Files *********************************/
 /*************************** Constant Definitions *****************************/
-/*
- * PMC_GLOBAL Base Address
- */
 #define XPUF_PMC_GLOBAL_BASEADDR			(0xF1110000U)
+					/**< PMC_GLOBAL Base Address */
 
+/**
+ * @name  Offsets for PUF registers in PMC_GLOBAL module
+ * @{
+ */
+/**< PUF register offsets */
 #define XPUF_PMC_GLOBAL_PUF_CMD_OFFSET			(0x00040000U)
 #define XPUF_PMC_GLOBAL_PUF_CFG0_OFFSET			(0x00040004U)
 #define XPUF_PMC_GLOBAL_PUF_CFG1_OFFSET			(0x00040008U)
@@ -54,35 +58,58 @@ extern "C" {
 #define XPUF_PMC_GLOBAL_PUF_CHASH_OFFSET		(0x00040028U)
 #define XPUF_PMC_GLOBAL_PUF_CLEAR_OFFSET		(0x0004002CU)
 #define XPUF_PMC_GLOBAL_PUF_ID_0_OFFSET			(0x00040030U)
+/** @} */
 
-/* PUF COMMAND register definition */
+/**
+ * @name  PUF Command register definition
+ * @{
+ */
+/**< PUF_CMD register definition */
 #define XPUF_CMD_REGISTRATION		(0x01U)
 #define XPUF_CMD_REGEN_ON_DEMAND	(0x02U)
 #define XPUF_CMD_REGEN_ID_ONLY		(0x03U)
+/** @} */
 
-/* PUF CFG0 register definition */
+/**
+ * @name  PUF Configuration 0 register definition
+ * @{
+ */
+/**< PUF_CFG0 register definition */
 #define XPUF_CFG0_GLOBAL_FILTER_ENABLE		(0x01U)
 #define XPUF_CFG0_HASH_SEL			(0x02U)
+/** @} */
 
-/* PUF CFG1 register definition */
+/**
+ * @name  PUF Configuration 1 register definition
+ * @{
+ */
+/**< PUF_CFG1 register definition */
 #define XPUF_CFG1_INIT_VAL_4K			(0x0C230090U)
 #define XPUF_CFG1_INIT_VAL_12K			(0x00230150U)
+/** @} */
 
-/* PUF STATUS register definition */
+/**
+ * @name  PUF Status register definition
+ * @{
+ */
+/**< PUF_STATUS register definition */
 #define XPUF_STATUS_SYNDROME_WORD_RDY		((u32)0x01U << 0U)
 #define XPUF_STATUS_ID_ZERO			((u32)0x01U << 1U)
 #define XPUF_STATUS_ID_RDY			((u32)0x01U << 2U)
 #define XPUF_STATUS_KEY_RDY			((u32)0x01U << 3U)
 #define XPUF_STATUS_PUF_DONE			((u32)0x01U << 30U)
-
-/* PUF CLEAR register definition */
+/** @} */
+/**< Clear PUF ID bit in PUF_STATUS register */
 #define XPUF_CLEAR_ID				(0x1U)
 
-/*
- * EFUSE_CACHE Base Address
- */
 #define XPUF_EFUSE_CACHE_BASEADDR		(0xF1250000U)
+				/**< EFUSE_CACHE Base Address */
 
+/**
+ * @name  Offsets for registers in EFUSE_CACHE module
+ * @{
+ */
+/**< EFUSE_CACHE register offsets. */
 #define XPUF_PUF_ECC_PUF_CTRL_OFFSET		(0x000000A4U)
 #define XPUF_EFUSE_CACHE_SECURITY_CONTROL	(0x000000ACU)
 
@@ -92,17 +119,15 @@ extern "C" {
 
 /* EFUSE_CACHE SECURITY_CONTROL register definition */
 #define XPUF_PUF_DIS				((u32)1U << 18U)
+/** @} */
 
-/* Reset value of PUF_SYN_ADDR register */
+/**< Reset value of PUF_SYN_ADDR register */
 #define XPUF_EFUSE_SYN_ADD_INIT			(0xF1250A04U)
 
-/*
- * EFUSE_CTRL Base Address
- */
 #define XPUF_EFUSE_CTRL_BASEADDR		(0xF1240000U)
-
+					/**< EFUSE_CTRL Base Address */
 #define XPUF_ANLG_OSC_SW_1LP_OFFSET		(0x00000060U)
-
+					/**< IRO Trim Fuse Select */
 
 /***************** Macros (Inline Functions) Definitions ********************/
 
