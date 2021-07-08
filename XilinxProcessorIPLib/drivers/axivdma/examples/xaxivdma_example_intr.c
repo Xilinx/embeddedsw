@@ -8,10 +8,11 @@
  *
  * @file xaxivdma_example_intr.c
  *
- * This example demonstrates how to use the AXI Video DMA with other video IPs
- * to do video frame transfers. This example does not work by itself. It needs
- * two other Video IPs, one for writing video frames to the memory and one for
- * reading video frames from the memory.
+ * This example demonstrates how to use the AXI Video DMA in loopback mode
+ * to do video frame transfers. This example reads video frames from memory,
+ * using Memory Map to Stream (MM2S) interface, and then video frames are
+ * written to memory using  Stream to Memory Map (S2MM) AXI4 interface.
+ * At the end of transfer it does sanity check and report pass/fail status.
  *
  * To see the debug print, you need a Uart16550 or uartlite in your system,
  * and please set "-DDEBUG" in your compiler options. You need to rebuild your
