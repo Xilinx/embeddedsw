@@ -24,6 +24,7 @@
 #include "xil_types.h"
 #include "xparameters.h"
 #include "xdptxss.h"
+#include "xvphy.h"
 
 #include "xclk_wiz.h"
 #include "xclk_wiz_hw.h"
@@ -73,7 +74,7 @@ int wait_for_lock_vidGen(void)
 			break;
 		}
 		count++;
-		rdata = XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04);
+		rdata = XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & 1;
 	}
 	return error;
 }
@@ -97,13 +98,21 @@ void ComputeMandD_vidGen(u32 VidFreq){
 	u32 DivVal = 0;
 	u32 rdata=0;
 
-	RefFreq = 100000;
+#if XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTYE4
+	RefFreq = 107000;
+    for (m = 2; m <= 128; m++) {
+            for (d = 1; d <= 106; d++) {
+                    Fvco = RefFreq * m / d;
+                    if ( Fvco >= 800000 && Fvco <= 1600000 ) {
 
+#else
+	RefFreq = 100000;
 	for (m = 20; m <= 64; m++) {
 		for (d = 1; d <= 80; d++) {
 			Fvco = RefFreq * m / d;
-
 			if ( Fvco >= 600000 && Fvco <= 900000 ) {
+#endif
+
 				for (Div = 1; Div <= 128; Div++ ) {
 					Freq = Fvco/Div;
 

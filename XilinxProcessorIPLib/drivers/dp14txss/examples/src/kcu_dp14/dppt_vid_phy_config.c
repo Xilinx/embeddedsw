@@ -38,8 +38,10 @@ void PLLRefClkSel (XVphy *InstancePtr, u8 link_rate)
 	case 0x6:
 		XVphy_CfgQuadRefClkFreq(InstancePtr, 0, ONBOARD_REF_CLK,
 					270000000);
+#if XPAR_VPHY_0_TRANSCEIVER != XVPHY_GTYE4
 		XVphy_CfgQuadRefClkFreq(InstancePtr, 0, DP159_FORWARDED_CLK,
 					270000000);
+#endif
 		XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 					XVPHY_DP_LINK_RATE_HZ_162GBPS);
 		XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CMN1,
@@ -48,8 +50,10 @@ void PLLRefClkSel (XVphy *InstancePtr, u8 link_rate)
 	case 0x14:
 		XVphy_CfgQuadRefClkFreq(InstancePtr, 0, ONBOARD_REF_CLK,
 					270000000);
+#if XPAR_VPHY_0_TRANSCEIVER != XVPHY_GTYE4
 		XVphy_CfgQuadRefClkFreq(InstancePtr, 0, DP159_FORWARDED_CLK,
 					270000000);
+#endif
 		XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 					XVPHY_DP_LINK_RATE_HZ_540GBPS);
 		XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CMN1,
@@ -58,8 +62,10 @@ void PLLRefClkSel (XVphy *InstancePtr, u8 link_rate)
 	case 0x1E:
 		XVphy_CfgQuadRefClkFreq(InstancePtr, 0, ONBOARD_REF_CLK,
 					270000000);
+#if XPAR_VPHY_0_TRANSCEIVER != XVPHY_GTYE4
 		XVphy_CfgQuadRefClkFreq(InstancePtr, 0, DP159_FORWARDED_CLK,
 					270000000);
+#endif
 		XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 					XVPHY_DP_LINK_RATE_HZ_810GBPS);
 		XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CMN1,
@@ -68,8 +74,10 @@ void PLLRefClkSel (XVphy *InstancePtr, u8 link_rate)
 	default:
 		XVphy_CfgQuadRefClkFreq(InstancePtr, 0, ONBOARD_REF_CLK,
 					270000000);
+#if XPAR_VPHY_0_TRANSCEIVER != XVPHY_GTYE4
 		XVphy_CfgQuadRefClkFreq(InstancePtr, 0, DP159_FORWARDED_CLK,
 					270000000);
+#endif
 		XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 					XVPHY_DP_LINK_RATE_HZ_270GBPS);
 		XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CMN1,
