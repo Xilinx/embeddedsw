@@ -36,6 +36,7 @@
 * 1.04  td   11/23/2020 Coverity Warning Fixes
 *       bm   02/12/2021 Updated logic to use BootHdr directly from PMC RAM
 *       ma   03/24/2021 Redirect XilPdi prints to XilLoader
+* 1.05  bm   07/08/2021 Code cleanup
 *
 * </pre>
 *
@@ -234,7 +235,7 @@ int XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr * MetaHdrPtr)
 	 */
 	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
 			MetaHdrPtr->BootHdrPtr->BootHdrFwRsvd.MetaHdrOfst,
-			(u64)(UINTPTR) &(SmapBusWidthCheck),
+			(u64)(UINTPTR)SmapBusWidthCheck,
 			SMAP_BUS_WIDTH_LENGTH, 0x0U);
 	if (XST_SUCCESS != Status) {
 		XilPdi_Printf("Device Copy Failed \n\r");
@@ -246,7 +247,7 @@ int XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr * MetaHdrPtr)
 		(SMAP_BUS_WIDTH_32_WORD1 == SmapBusWidthCheck[0U])) {
 		Offset = 0U;
 	} else {
-		Status = Xil_SecureMemCpy((void *)&(MetaHdrPtr->ImgHdrTbl),
+		Status = Xil_SecureMemCpy((void *)&MetaHdrPtr->ImgHdrTbl,
 				SMAP_BUS_WIDTH_LENGTH, (void *)SmapBusWidthCheck,
 				SMAP_BUS_WIDTH_LENGTH);
 		if (XST_SUCCESS != Status) {
@@ -259,8 +260,8 @@ int XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr * MetaHdrPtr)
 	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
 			MetaHdrPtr->BootHdrPtr->BootHdrFwRsvd.MetaHdrOfst +
 			SMAP_BUS_WIDTH_LENGTH,
-			(u64)(UINTPTR) &(MetaHdrPtr->ImgHdrTbl) + Offset,
-			(XIH_IHT_LEN - Offset), 0x0U);
+			(u64)(UINTPTR)&MetaHdrPtr->ImgHdrTbl + Offset,
+			XIH_IHT_LEN - Offset, 0x0U);
 	if (XST_SUCCESS != Status) {
 		XilPdi_Printf("Device Copy Failed \n\r");
 		goto END;
@@ -297,12 +298,12 @@ int XilPdi_ReadAndVerifyImgHdr(XilPdi_MetaHdr * MetaHdrPtr)
 	if (MetaHdrPtr->Flag == XILPDI_METAHDR_RD_HDRS_FROM_DEVICE) {
 		Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
 				((u64)MetaHdrPtr->ImgHdrTbl.ImgHdrAddr * XIH_PRTN_WORD_LEN),
-				(u64)(UINTPTR)&(MetaHdrPtr->ImgHdr[0U]),
+				(u64)(UINTPTR)MetaHdrPtr->ImgHdr,
 				NoOfImgs * XIH_IH_LEN, 0x0U);
 	} else {
 		/* Performs memory copy */
-		Status = MetaHdrPtr->XMemCpy((void *)&(MetaHdrPtr->ImgHdr[0U]),
-			NoOfImgs * XIH_IH_LEN, (void *)(UINTPTR)(MetaHdrPtr->BufferAddr),
+		Status = MetaHdrPtr->XMemCpy((void *)MetaHdrPtr->ImgHdr,
+			NoOfImgs * XIH_IH_LEN, (void *)(UINTPTR)MetaHdrPtr->BufferAddr,
 			NoOfImgs * XIH_IH_LEN);
 	}
 	if (XST_SUCCESS != Status) {
@@ -350,12 +351,12 @@ int XilPdi_ReadAndVerifyPrtnHdr(XilPdi_MetaHdr * MetaHdrPtr)
 	if (MetaHdrPtr->Flag == XILPDI_METAHDR_RD_HDRS_FROM_DEVICE) {
 		Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
 				((u64)MetaHdrPtr->ImgHdrTbl.PrtnHdrAddr * XIH_PRTN_WORD_LEN),
-				(u64)(UINTPTR)&(MetaHdrPtr->PrtnHdr[0U]),
+				(u64)(UINTPTR)MetaHdrPtr->PrtnHdr,
 			       NoOfPrtns * XIH_PH_LEN, 0x0U);
 	} else {
 		/* Performs memory copy */
-		Status = MetaHdrPtr->XMemCpy((void *)&(MetaHdrPtr->PrtnHdr[0U]),
-			NoOfPrtns * XIH_PH_LEN, (void *)(UINTPTR)(MetaHdrPtr->BufferAddr),
+		Status = MetaHdrPtr->XMemCpy((void *)MetaHdrPtr->PrtnHdr,
+			NoOfPrtns * XIH_PH_LEN, (void *)(UINTPTR)MetaHdrPtr->BufferAddr,
 			NoOfPrtns * XIH_PH_LEN);
 	}
 	if (XST_SUCCESS != Status) {
@@ -394,6 +395,7 @@ int XilPdi_ValidateHdrs(const XilPdi_MetaHdr *MetaHdrPtr)
 {
 	int Status = XST_FAILURE;
 	u32 Index;
+
 	for (Index = 0U; Index < MetaHdrPtr->ImgHdrTbl.NoOfImgs; Index++) {
 		Status = XilPdi_ValidateChecksum(&MetaHdrPtr->ImgHdr[Index],
 						XIH_IH_LEN / XIH_PRTN_WORD_LEN);
