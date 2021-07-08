@@ -283,6 +283,13 @@ proc generate {os_handle} {
 				if { $enable_sw_profile == "true" } {
 					error "ERROR: Profiling is not supported for A53/A72"
 				}
+				set pvconsoledir "../${standalone_version}/src/arm/ARMv8/64bit/xpvxenconsole"
+				set hypervisor_guest [common::get_property CONFIG.hypervisor_guest $os_handle ]
+				if { $hypervisor_guest == "true" } {
+					foreach entry [glob -nocomplain [file join $pvconsoledir *]] {
+						file copy -force $entry "./src/"
+					}
+				}
 				set need_config_file "true"
 
                                 set pss_ref_clk_mhz [common::get_property CONFIG.C_PSS_REF_CLK_FREQ $hw_proc_handle]
