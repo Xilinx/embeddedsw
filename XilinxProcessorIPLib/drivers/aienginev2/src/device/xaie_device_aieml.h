@@ -30,6 +30,7 @@ AieRC _XAieMl_SetPartColShimReset(XAie_DevInst *DevInst, u8 Enable);
 AieRC _XAieMl_SetPartColClockAfterRst(XAie_DevInst *DevInst, u8 Enable);
 AieRC _XAieMl_SetPartIsolationAfterRst(XAie_DevInst *DevInst);
 AieRC _XAieMl_PartMemZeroInit(XAie_DevInst *DevInst);
+AieRC _XAieMl_RequestTiles(XAie_DevInst *DevInst, XAie_BackendTilesArray *Args);
 
 #endif /* XAIE_DEVICE_AIEML */
 /** @} */
