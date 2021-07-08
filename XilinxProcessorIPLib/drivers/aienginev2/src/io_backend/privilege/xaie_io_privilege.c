@@ -447,7 +447,26 @@ AieRC _XAie_PrivilegeTeardownPart(XAie_DevInst *DevInst)
 AieRC _XAie_PrivilegeRequestTiles(XAie_DevInst *DevInst,
 		XAie_BackendTilesArray *Args)
 {
-	return DevInst->DevOps->RequestTiles(DevInst, Args);
+	AieRC RC;
+	/* TODO: Configure previlege registers only for non-AIE devices. */
+	if(DevInst->DevProp.DevGen != XAIE_DEV_GEN_AIE) {
+		RC = _XAie_PrivilegeSetPartProtectedRegs(DevInst, XAIE_ENABLE);
+		if(RC != XAIE_OK) {
+			XAIE_ERROR("Failed to initialize partition, enable"
+					" protected registers failed.\n");
+			 return RC;
+		}
+	}
+
+	RC = DevInst->DevOps->RequestTiles(DevInst, Args);
+	if(RC != XAIE_OK) {
+		XAIE_ERROR("Request tiles failed\n");
+	}
+
+	if(DevInst->DevProp.DevGen != XAIE_DEV_GEN_AIE)
+		_XAie_PrivilegeSetPartProtectedRegs(DevInst, XAIE_DISABLE);
+
+	return RC;
 }
 
 /** @} */
