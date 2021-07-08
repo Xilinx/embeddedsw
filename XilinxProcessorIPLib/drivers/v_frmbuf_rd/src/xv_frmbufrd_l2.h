@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017-2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017-2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xv_frmbufrd_l2.h
-* @addtogroup v_frmbuf_rd_v4_4
+* @addtogroup v_frmbuf_rd_v4_5
 * @{
 * @details
 *
@@ -640,6 +640,11 @@ UINTPTR XVFrmbufRd_GetChromaBufferAddr(XV_FrmbufRd_l2 *InstancePtr);
 int XVFrmbufRd_SetFieldID(XV_FrmbufRd_l2 *InstancePtr,
                           u32 FieldID);
 u32 XVFrmbufRd_GetFieldID(XV_FrmbufRd_l2 *InstancePtr);
+int XVFrmbufRd_Set_FidOutMode(XV_FrmbufRd_l2 *InstancePtr, u32 fidmodeval);
+u32 XVFrmbufRd_Get_FidOutMode(XV_FrmbufRd_l2 *InstancePtr);
+u32 XVFrmbufRd_Get_FidErrorOut(XV_FrmbufRd_l2 *InstancePtr);
+u32 XVFrmbufRd_Get_FidErrorCount(XV_FrmbufRd_l2 *InstancePtr);
+u32 XVFrmbufRd_Get_FieldOut(XV_FrmbufRd_l2 *InstancePtr);
 void XVFrmbufRd_DbgReportStatus(XV_FrmbufRd_l2 *InstancePtr);
 
 /* Interrupt related function */
