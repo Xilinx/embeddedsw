@@ -42,6 +42,8 @@
 *                     boot is A-HWRoT or Emulated A-HWRoT
 *       ma   05/21/21 Read KAT Status from RTCA Secure Boot State location
 * 1.01  kpt  06/23/21 Added check to compare DNA before enabling Auth Jtag
+*            07/01/21 Added support to disable Jtag as per the timeout
+*                     set by user
 *
 * </pre>
 *
@@ -136,13 +138,14 @@ static int XLoader_SecureEncOnlyValidations(const XLoader_SecureParams *SecurePt
 static int XLoader_ValidateIV(const u32 *IHPtr, const u32 *EfusePtr);
 static void XLoader_ReadIV(u32 *IV, const u32 *EfuseIV);
 static void XLoader_EnableJtag(void);
-static int XLoader_AuthJtag(void);
+static int XLoader_AuthJtag(u32 *TimeOut);
 static int XLoader_CheckAuthJtagIntStatus(void *Arg);
 static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	u32 Size, u8 Last);
 static int XLoader_CheckSecureState(u32 RegVal, u32 Var, u32 ExpectedValue);
 static int XLoader_ReadDna(u32 *EfuseDna);
 static int XLoader_ReadandCompareDna(const u32 *UserDna);
+static void XLoader_DisableJtag(void);
 
 /************************** Variable Definitions *****************************/
 static XLoader_AuthCertificate AuthCert;
@@ -2957,7 +2960,8 @@ int XLoader_AddAuthJtagToScheduler(void)
 
 /*****************************************************************************/
 /**
-* @brief	This function checks the status of Auth JTAG interrupt status.
+* @brief	This function checks the status of Auth JTAG interrupt status and
+*               it disables the Jtag as per the timeout set by user.
 *
 * @param	Arg Not used in the function currently
 *
@@ -2970,6 +2974,8 @@ static int XLoader_CheckAuthJtagIntStatus(void *Arg)
 {
 	volatile int Status = XST_FAILURE;
 	u32 InterruptStatus;
+	static u32 JtagTimeOut = 0U;
+	static u8 JtagTimerEnabled = FALSE;
 
 	(void)Arg;
 
@@ -2979,16 +2985,35 @@ static int XLoader_CheckAuthJtagIntStatus(void *Arg)
 	if (InterruptStatus == XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_MASK) {
 		XPlmi_Out32(XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_OFFSET,
 			XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_MASK);
-		Status = XLoader_AuthJtag();
+		Status = XLoader_AuthJtag(&JtagTimeOut);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
+		if (JtagTimeOut == 0U) {
+			JtagTimerEnabled = FALSE;
+		}
+		else {
+			JtagTimerEnabled = TRUE;
+		}
 	}
 	else {
+		if (JtagTimerEnabled == TRUE) {
+			JtagTimeOut--;
+			if (JtagTimeOut == 0U) {
+				Status = XLOADER_DAP_TIMEOUT_DISABLED;
+				goto END;
+			}
+		}
 		Status = XST_SUCCESS;
 	}
 
 END:
+	/* Reset DAP status */
+	if (Status != XST_SUCCESS) {
+		XLoader_DisableJtag();
+		JtagTimerEnabled = FALSE;
+		JtagTimeOut = 0U;
+	}
 	return Status;
 }
 
@@ -2997,12 +3022,12 @@ END:
 * @brief       This function authenticates the data pushed in through PMC TAP
 *              before enabling the JTAG
 *
-* @param       None
+* @param       TimeOut Pointer to store the timeout value set by the user
 *
 * @return      XST_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
-static int XLoader_AuthJtag(void)
+static int XLoader_AuthJtag(u32 *TimeOut)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
@@ -3153,6 +3178,7 @@ static int XLoader_AuthJtag(void)
 			}
 		}
 		XLoader_EnableJtag();
+		*TimeOut = SecureParams.AuthJtagMessagePtr->JtagEnableTimeout;
 	}
 
 END:
@@ -3161,10 +3187,7 @@ END:
 
 /*****************************************************************************/
 /**
-* @brief       This function authenticates the data pushed in through PMC TAP
-*              before enabling the JTAG
-*
-* @param       None
+* @brief       This function enables the Jtag
 *
 * @return      None
 *
@@ -3197,6 +3220,44 @@ static void XLoader_EnableJtag(void)
 	 */
 	XPlmi_Out32(XLOADER_CRP_RST_DBG_OFFSET,
 		XLOADER_CRP_RST_DBG_ENABLE_MASK);
+}
+
+/*****************************************************************************/
+/**
+* @brief       This function disables the Jtag
+*
+* @return      None
+*
+****************************************************************************/
+static void XLoader_DisableJtag(void)
+{
+	/*
+	 * Reset DBG module
+	 */
+	XPlmi_Out32(XLOADER_CRP_RST_DBG_OFFSET,
+			(XLOADER_CRP_RST_DBG_DPC_MASK |
+			XLOADER_CRP_RST_DBG_RESET_MASK));
+
+	/*
+	 * Enable security gate
+	 */
+	XPlmi_Out32(XLOADER_PMC_TAP_DAP_SECURITY_OFFSET,
+		~XLOADER_DAP_SECURITY_GATE_DISABLE_MASK);
+
+	/*
+	 * Disable all the instructions
+	 */
+	XPlmi_Out32(XLOADER_PMC_TAP_INST_MASK_0_OFFSET,
+			XLOADER_PMC_TAP_INST_DISABLE_MASK_0);
+	XPlmi_Out32(XLOADER_PMC_TAP_INST_MASK_1_OFFSET,
+			XLOADER_PMC_TAP_INST_DISABLE_MASK_1);
+
+	/*
+	 * Disable secure/non-secure debug
+	 * Disabled invasive & non-invasive debug
+	 */
+	XPlmi_Out32(XLOADER_PMC_TAP_DAP_CFG_OFFSET,
+				0x0U);
 }
 
 /*****************************************************************************/
