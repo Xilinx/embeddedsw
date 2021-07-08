@@ -7,7 +7,7 @@
 /**
 *
 * @file xaxivdma.c
-* @addtogroup axivdma_v6_9
+* @addtogroup axivdma_v6_10
 * @{
 *
 * Implementation of the driver API functions for the AXI Video DMA engine.

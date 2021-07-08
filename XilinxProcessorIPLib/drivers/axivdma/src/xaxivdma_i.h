@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
  *  @file xaxivdma_i.h
-* @addtogroup axivdma_v6_9
+* @addtogroup axivdma_v6_10
 * @{
  *
  * Internal API definitions shared by driver files.
