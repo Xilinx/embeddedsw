@@ -7,7 +7,7 @@
 /**
 *
 * @file xaxivdma_channel.c
-* @addtogroup axivdma_v6_9
+* @addtogroup axivdma_v6_10
 * * @{
 *
 * Implementation of the channel related functions. These functions are used

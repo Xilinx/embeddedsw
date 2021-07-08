@@ -7,7 +7,7 @@
 /**
 *
 * @file xaxivdma.h
-* @addtogroup axivdma_v6_9
+* @addtogroup axivdma_v6_10
 * @{
 * @details
 *

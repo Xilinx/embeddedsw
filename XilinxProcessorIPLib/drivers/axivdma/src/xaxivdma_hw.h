@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
  *  @file xaxivdma_hw.h
-* @addtogroup axivdma_v6_9
+* @addtogroup axivdma_v6_10
 * @{
  *
  * Hardware definition file. It defines the register interface and Buffer
