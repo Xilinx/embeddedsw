@@ -56,6 +56,7 @@
 *       td   05/20/2021 Fixed blind write on locking NPI address space in
 *                       XPlmi_ClearNpiErrors
 * 1.06  ma   06/28/2021 Added handler for CPM_NCR error
+*       ma   07/08/2021 Fix logic in reading link down error mask value
 *
 * </pre>
 *
@@ -599,7 +600,7 @@ static void XPlmi_HandleLinkDownError(u32 Cpm5PcieIrStatusReg,
 	u8 PcieLocalErrEnable = (u8)((~XPlmi_In32(Cpm5PcieIrStatusReg + 4U)) &
 			CPM5_SLCR_PCIE_IR_STATUS_PCIE_LOCAL_ERR_MASK);
 	u32 LinkDownErr = XPlmi_In32(Cpm5DmaCsrIntDecReg);
-	u8 LinkDownErrEnable = (u8)((~XPlmi_In32(Cpm5DmaCsrIntDecReg + 4U)) &
+	u8 LinkDownErrEnable = (u8)(XPlmi_In32(Cpm5DmaCsrIntDecReg + 4U) &
 			CPM5_DMA_CSR_LINK_DOWN_MASK);
 
 	/*
