@@ -21,6 +21,7 @@
  * 					   Added support for retraining on color format change.
  * 1.4   ND   04/03/21 Moved all global variables declaration from .h to .c
  * 				       files due to gcc compiler compilation error.
+ * 1.5	 KU   06/17/21 Added support for VCU118
 *******************************************************************************/
 
 #include "dppt.h"
@@ -217,6 +218,52 @@ static XVphy_User_Config PHY_User_Config_Table[] =
  *	LineRate,      LineRateHz,       QPLLRefClkSrc,
  *	CPLLRefClkSrc, QPLLRefClkFreqHz, CPLLRefClkFreqHz
  * */
+#if XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTYE4
+        {   0,  XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
+        XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
+        0x06,    XVPHY_DP_LINK_RATE_HZ_162GBPS,      ONBOARD_REF_CLK,
+        ONBOARD_REF_CLK,         270000000,           270000000     },
+        {   1,  XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
+        XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
+        0x0A,    XVPHY_DP_LINK_RATE_HZ_270GBPS,      ONBOARD_REF_CLK,
+        ONBOARD_REF_CLK,            270000000,           270000000  },
+        {   2,  XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
+        XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
+        0x14,    XVPHY_DP_LINK_RATE_HZ_540GBPS,      ONBOARD_REF_CLK,
+        ONBOARD_REF_CLK,            270000000,           270000000  },
+        {   3,  XVPHY_PLL_TYPE_QPLL1,  XVPHY_PLL_TYPE_CPLL,
+        XVPHY_CHANNEL_ID_CMN1,    XVPHY_CHANNEL_ID_CHA,
+        0x06,    XVPHY_DP_LINK_RATE_HZ_162GBPS,      ONBOARD_REF_CLK,
+        ONBOARD_REF_CLK,         270000000,           270000000     },
+        {   4,  XVPHY_PLL_TYPE_QPLL1,  XVPHY_PLL_TYPE_CPLL,
+        XVPHY_CHANNEL_ID_CMN1,    XVPHY_CHANNEL_ID_CHA,
+        0x0A,    XVPHY_DP_LINK_RATE_HZ_270GBPS,      ONBOARD_REF_CLK,
+        ONBOARD_REF_CLK,        270000000,           270000000      },
+        {   5,  XVPHY_PLL_TYPE_QPLL1,  XVPHY_PLL_TYPE_CPLL,
+        XVPHY_CHANNEL_ID_CMN1,    XVPHY_CHANNEL_ID_CHA,
+        0x14,    XVPHY_DP_LINK_RATE_HZ_540GBPS,      ONBOARD_REF_CLK,
+        ONBOARD_REF_CLK,        270000000,           270000000      },
+        {   6,  XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
+        XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
+        0x06,    XVPHY_DP_LINK_RATE_HZ_162GBPS,      ONBOARD_REF_CLK,
+        ONBOARD_REF_CLK,         270000000,           270000000         },
+        {   7,  XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
+        XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
+        0x0A,    XVPHY_DP_LINK_RATE_HZ_270GBPS,      ONBOARD_REF_CLK,
+        ONBOARD_REF_CLK,                270000000,           270000000  },
+        {   8,  XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
+        XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
+        0x14,    XVPHY_DP_LINK_RATE_HZ_540GBPS,      ONBOARD_REF_CLK,
+        ONBOARD_REF_CLK,                270000000,           270000000  },
+        {   9,  XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
+        XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
+        0x1E,    XVPHY_DP_LINK_RATE_HZ_810GBPS,      ONBOARD_REF_CLK,
+        ONBOARD_REF_CLK,                270000000,           270000000  },
+        {   10,     XVPHY_PLL_TYPE_QPLL1,  XVPHY_PLL_TYPE_CPLL,
+        XVPHY_CHANNEL_ID_CMN1,    XVPHY_CHANNEL_ID_CHA,
+        0x1E,    XVPHY_DP_LINK_RATE_HZ_810GBPS,      ONBOARD_REF_CLK,
+        ONBOARD_REF_CLK,        270000000,           270000000      }
+#else
 	{   0,  XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
 	XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
 	0x06,    XVPHY_DP_LINK_RATE_HZ_162GBPS,      DP159_FORWARDED_CLK,
@@ -261,6 +308,7 @@ static XVphy_User_Config PHY_User_Config_Table[] =
 	XVPHY_CHANNEL_ID_CMN1,    XVPHY_CHANNEL_ID_CHA,
 	0x1E,    XVPHY_DP_LINK_RATE_HZ_810GBPS,      DP159_FORWARDED_CLK,
 	DP159_FORWARDED_CLK,        270000000,           270000000      }
+#endif
 };
 
 /* extern XVidC_VideoMode resolution_table[]; */
@@ -1362,18 +1410,6 @@ int main(void)
 					    &DpTxSsInst);
 			training_done = 0;
 			start_tracking = 0;
-				xil_printf("\r\n**************************%c*****************"
-							"************************\r\n",UserInput);
-				xil_printf("In this configuration the RX acts as Master while "
-							"the TX is used to\r\n");
-				xil_printf("display the video that is received on RX. This "
-							"mode operates on the\r\n");
-				xil_printf("clock forwarded by DP159. RX uses CPLL, TX uses "
-							"QPLL and they operate\r\n");
-				xil_printf("on independent reference clocks\r\n");
-				xil_printf("*************************************************"
-							"******************\r\n");
-
 				XDpRxSs_SetLinkRate(&DpRxSsInst, LineRate_init);
 				XDpRxSs_SetLaneCount(&DpRxSsInst, LaneCount_init);
 				XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
@@ -2925,6 +2961,17 @@ void Dprx_InterruptHandlerLinkBW(void *InstancePtr)
 	gt_stable = 0;
 
 	PLLRefClkSel (&VPhy_Instance, DpRxSsInst.UsrOpt.LinkRate);
+
+#if XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTYE4
+    XVphy_ResetGtPll(&VPhy_Instance, 0, XVPHY_CHANNEL_ID_CHA,
+                     XVPHY_DIR_RX,(TRUE));
+
+    XVphy_PllInitialize(&VPhy_Instance, 0, XVPHY_CHANNEL_ID_CHA,
+                        ONBOARD_REF_CLK, ONBOARD_REF_CLK,
+                        XVPHY_PLL_TYPE_QPLL1, XVPHY_PLL_TYPE_CPLL);
+    Status = XVphy_ClkInitialize(&VPhy_Instance, 0, XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_RX);
+
+#else
 	switch (DpRxSsInst.UsrOpt.LinkRate) {
 	case XDP_DPCD_MAX_LINK_RATE_162GBPS:
 //		if(is_TX_CPLL) {
@@ -2957,6 +3004,7 @@ void Dprx_InterruptHandlerLinkBW(void *InstancePtr)
 
 	Status = XVphy_ClkInitialize(&VPhy_Instance, 0,
 			 XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_RX);
+#endif
 
 	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_GENERAL, "+++++++ RX GT configuration "
@@ -4116,7 +4164,11 @@ int VideoFMC_Init(void)
 	}
 
 	/* Set the I2C Mux to select the HPC FMC */
+#if XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTYE4
+	Buffer[0] = 0x02;
+#else
 	Buffer[0] = 0x05;
+#endif
 	ByteCount = XIic_Send(XPAR_IIC_0_BASEADDR, I2C_MUX_ADDR,
 			(u8*)Buffer, 1, XIIC_STOP);
 	if (ByteCount != 1) {
@@ -4264,6 +4316,10 @@ void video_change_detect(u32 *count_track, u32 *rxMsamisc0_track,
 				*recv_frame_clk_int_track == 76) {
 
 				*recv_frame_clk_int_track = 75;
+			} else if (*recv_frame_clk_int_track == 119 ||
+				*recv_frame_clk_int_track == 121) {
+
+				*recv_frame_clk_int_track = 120;
 
 			}
 

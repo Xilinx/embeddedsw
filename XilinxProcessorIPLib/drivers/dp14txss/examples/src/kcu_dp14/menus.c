@@ -110,7 +110,9 @@ void app_help()
 	print("\n\r");
 	print(" Select option\n\r");
 #if !BUFFER_BYPASS
+#if XPAR_VPHY_0_TRANSCEIVER != XVPHY_GTYE4
 	  print(" r = Activate Rx-Tx passthrough (RX, TX use CPLL) \n\r");
+#endif
 #endif
 	print(" s = Activate Rx-Tx passthrough (RX uses CPLL, TX use QPLL)  \n\r");
 	print(" t = Activate Tx Only path (TX uses QPLL) \n\r");
