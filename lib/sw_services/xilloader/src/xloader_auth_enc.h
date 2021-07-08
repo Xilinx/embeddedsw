@@ -24,6 +24,7 @@
 *                     alignment
 *       bm   05/13/21 Updated code to use common crypto instances from xilsecure
 * 1.01  kpt  06/23/21 Added macros required to read and compare DNA
+*       kpt  07/01/21 Added macros required to disable Jtag
 *
 * </pre>
 *
@@ -211,6 +212,13 @@ extern "C" {
 							XLOADER_DAP_CFG_DBGEN_MASK)
 #define XLOADER_PMC_TAP_INST_MASK_ENABLE_MASK		(0U)
 #define XLOADER_CRP_RST_DBG_ENABLE_MASK			(0U)
+
+#define XLOADER_PMC_TAP_INST_DISABLE_MASK_0		(0x3DFFF8FDU)
+#define XLOADER_PMC_TAP_INST_DISABLE_MASK_1		(0x05DBFF8FU)
+#define XLOADER_CRP_RST_DBG_DPC_MASK            (0x00000002U)
+#define XLOADER_CRP_RST_DBG_RESET_MASK          (0x00000001U)
+
+#define XLOADER_DAP_TIMEOUT_DISABLED			(2U)
 
 #define XLOADER_PDI_DPACM_ENABLED			(1U)
 #define XLOADER_PDI_DPACM_DISABLED			(0U)
