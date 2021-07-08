@@ -55,11 +55,6 @@ AieRC XAie_PmRequestTiles(XAie_DevInst *DevInst, XAie_LocType *Loc,
 		return XAIE_INVALID_ARGS;
 	}
 
-	if(DevInst->DevProp.DevGen != XAIE_DEV_GEN_AIE) {
-		XAIE_ERROR("Clock gating not supported\n");
-		return XAIE_ERR;
-	}
-
 	if(NumTiles > (DevInst->NumRows * DevInst->NumCols)) {
 		XAIE_ERROR("Invalid NumTiles\n");
 		return XAIE_INVALID_ARGS;

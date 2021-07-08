@@ -226,4 +226,106 @@ AieRC _XAieMl_PartMemZeroInit(XAie_DevInst *DevInst)
 	return XAIE_OK;
 }
 
+/*****************************************************************************/
+/**
+* This API sets the column clock control register. Its configuration affects
+* (enable or disable) all tile's clock above the Shim tile.
+*
+* @param        DevInst: Device Instance
+* @param        Loc: Location of AIE SHIM tile
+* @param        Enable: XAIE_ENABLE to enable column global clock buffer,
+*                       XAIE_DISABLE to disable.
+*
+* @return       XAIE_OK for success, and error code for failure.
+*
+* @note         It is not required to check the DevInst and the Loc tile type
+*               as the caller function should provide the correct value.
+*               It is internal function to this file
+*
+******************************************************************************/
+static AieRC _XAieMl_PmSetColumnClockBuffer(XAie_DevInst *DevInst,
+		XAie_LocType Loc, u8 Enable)
+{
+	u8 TileType;
+	u32 FldVal;
+	u64 RegAddr;
+	const XAie_PlIfMod *PlIfMod;
+	const XAie_ShimClkBufCntr *ClkBufCntr;
+
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
+	PlIfMod = DevInst->DevProp.DevMod[TileType].PlIfMod;
+	ClkBufCntr = PlIfMod->ClkBufCntr;
+
+	RegAddr = ClkBufCntr->RegOff +
+			_XAie_GetTileAddr(DevInst, 0U, Loc.Col);
+	FldVal = XAie_SetField(Enable, ClkBufCntr->ClkBufEnable.Lsb,
+			ClkBufCntr->ClkBufEnable.Mask);
+
+	return XAie_MaskWrite32(DevInst, RegAddr, ClkBufCntr->ClkBufEnable.Mask,
+			FldVal);
+}
+
+/*****************************************************************************/
+/**
+* This API enables clock for all the tiles passed as argument to this API.
+*
+* @param	DevInst: AI engine partition device instance pointer
+* @param	Args: Backend tile args
+*
+* @return       XAIE_OK on success, error code on failure
+*
+* @note		Internal only.
+*
+*******************************************************************************/
+AieRC _XAieMl_RequestTiles(XAie_DevInst *DevInst, XAie_BackendTilesArray *Args)
+{
+	AieRC RC;
+	u32 SetTileStatus;
+
+
+	if(Args->Locs == NULL) {
+		u32 NumTiles;
+
+		XAie_LocType TileLoc = XAie_TileLoc(0, 1);
+		NumTiles = (DevInst->NumRows - 1) * (DevInst->NumCols);
+
+		SetTileStatus = _XAie_GetTileBitPosFromLoc(DevInst, TileLoc);
+		_XAie_SetBitInBitmap(DevInst->TilesInUse, SetTileStatus,
+				NumTiles);
+
+		return DevInst->DevOps->SetPartColClockAfterRst(DevInst,
+				XAIE_ENABLE);
+	}
+
+	for(u32 i = 0; i < Args->NumTiles; i++) {
+		u32 ColClockStatus;
+		XAie_LocType ColLoc;
+
+		if(Args->Locs[i].Row == 0)
+			continue;
+
+		/*
+		 * Check if column clock buffer is already enabled and continue
+		 */
+		ColLoc.Col = Args->Locs[i].Col;
+		ColLoc.Row = 0U;
+		ColClockStatus = _XAie_GetTileBitPosFromLoc(DevInst, ColLoc);
+		if(CheckBit(DevInst->TilesInUse, ColClockStatus))
+			continue;
+
+		RC = _XAieMl_PmSetColumnClockBuffer(DevInst, ColLoc,
+				XAIE_ENABLE);
+		if(RC != XAIE_OK) {
+			XAIE_ERROR("Failed to enable clock for column: %d\n",
+					ColLoc.Col);
+			return RC;
+		}
+
+		_XAie_SetBitInBitmap(DevInst->TilesInUse, ColClockStatus,
+				DevInst->NumRows);
+	}
+
+	return XAIE_OK;
+}
+
 /** @} */
