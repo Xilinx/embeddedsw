@@ -29,6 +29,7 @@
 *                       for psm is alive feature
 *       bm   04/03/2021 Updated StartupTaskList to be in line with the new
 *                       TaskNode structure
+* 1.04  td   07/08/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -62,8 +63,6 @@
  * @brief This function call all the init functions of all the different
  * modules. As a part of init functions, modules can register the
  * command handlers, interrupt handlers with the interface layer.
- *
- * @param	None
  *
  * @return	Status as defined in xplmi_status.h
  *

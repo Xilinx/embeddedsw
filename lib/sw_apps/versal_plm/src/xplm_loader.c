@@ -27,6 +27,7 @@
 *       ma   01/12/2021 Initialize BootMode and PdiInstance with invalid value
 *       ma   02/03/2021 Remove redundant call to enable GIC SBI interrupt
 * 1.05  ma   03/24/2021 Asterisk alignment
+* 1.06  td   07/08/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -52,8 +53,6 @@
 /**
 * @brief It initializes the loader structures and registers CDO loader
 * commands and interrupts
-*
-* @param	None
 *
 * @return	None
 *

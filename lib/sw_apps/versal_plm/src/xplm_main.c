@@ -26,6 +26,7 @@
 *       td   10/19/2020 MISRA C Fixes
 * 1.03  skd  03/16/2021 Warnings Fixed
 *       ma   03/24/2021 Store DebugLog structure to RTCA
+* 1.04  td   07/08/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -54,8 +55,6 @@ static int XPlm_Init(void);
 /*****************************************************************************/
 /**
  * @brief This is PLM main function
- *
- * @param	None
  *
  * @return	Ideally should not return, in case if it reaches end,
  *		error is returned
@@ -103,8 +102,6 @@ int main(void)
 /*****************************************************************************/
 /**
  * @brief This function initializes the processor and task list structures
- *
- * @param	None
  *
  * @return	Status as defined in xplmi_status.h
  *

@@ -21,6 +21,7 @@
 *       bsv  09/13/2020 Clear security critical data in case of exceptions,
 *                       also place AES, ECDSA_RSA and SHA3 in reset
 * 1.03  ma   05/03/2021 Trigger FW_NCR error for post boot exceptions
+* 1.04  td   07/08/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -52,8 +53,6 @@ extern u32 _stack_end;
 /**
  * @brief This function enables the exceptions and interrupts
  * Enable interrupts from the hardware
- *
- * @param	None
  *
  * @return	None
  *
@@ -122,7 +121,6 @@ static void XPlm_ExceptionHandler(void *Data)
  * @brief This function initializes the processor, enables exceptions and start
  * timer
  *
- * @param	None
  * @return	Status as defined in xplmi_status.h
  *
  *****************************************************************************/

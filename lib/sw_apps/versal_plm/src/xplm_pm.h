@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xplm_pm.n
+* @file xplm_pm.h
 *
 * This file contains the header functions of wrapper xilpm
 *
@@ -22,6 +22,7 @@
 *       skd  03/16/2021 Added code to monitor if psm is alive or not
 *       rama 03/22/2021 Added hook for STL periodic execution and
 *                       FTTI configuration support for keep alive task
+* 1.04  td   07/08/2021 Fix doxygen warnings
 *
 * </pre>
 *
