@@ -13,6 +13,8 @@
 # 1.4	adk	09/19/18 Use -hier option while using get_cells command to
 #			 support hierarchical designs.
 # 1.8   nsk     12/14/20 Modified the tcl to not to use the instance names.
+# 1.10	sk	07/09/21 Update get_instance_nr proc address list to support
+# 			 SSIT devices.
 #
 ##############################################################################
 
@@ -53,10 +55,13 @@ proc get_instance_nr {drv_handle} {
 	if {$index >= 0} {
 		set base_val [common::get_property BASE_VALUE [lindex [get_mem_ranges -of_objects [hsi::get_cells -hier [get_sw_processor]]] $index]]
 		set base_val [string trimleft $base_val "0x"]
-	        set addr_list "F11C0000 F11D0000"
-		set index [lsearch $addr_list $base_val]
-	        if {[lsearch -nocase $addr_list $base_val] >= 0} {
-			set val $index
+		set addr_list_1 "F11C0000 1011C0000 1091C0000 1111C0000 1191C0000"
+	        set addr_list_2 "F11D0000 1011D0000 1091D0000 1111D0000 1191D0000"
+	        if {[lsearch -nocase $addr_list_1 $base_val] >= 0} {
+			set val 0
+	        }
+	        if {[lsearch -nocase $addr_list_2 $base_val] >= 0} {
+			set val 1
 	        }
 	}
 	return $val
