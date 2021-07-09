@@ -29,6 +29,7 @@
 *       bm   02/17/2021 Reinitialize Status in XPlm_ModuleInit to add redundancy
 *       rb   03/09/2021 Updated Sem Init API call
 *       rama 03/22/2021 Fixed compilation warning on STL inclusion
+* 1.05  td   07/08/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -71,8 +72,6 @@ static int XPlm_SecureInit(void);
  * @brief This function initializes the XilSecure module and registers the
  * interrupt handlers and other requests.
  *
- * @param	None
- *
  * @return	Status as defined in xplmi_status.h
  *
  *****************************************************************************/
@@ -89,8 +88,6 @@ static int XPlm_SecureInit(void)
  * @brief This function initializes the Error module and registers the
  * error commands of the CDO.
  *
- * @param	None
- *
  * @return	Status as defined in xplmi_status.h
  *
  *****************************************************************************/
@@ -105,8 +102,6 @@ static int XPlm_ErrInit(void)
 /**
  * @brief This function initializes the PLMI module and registers the
  * general commands of the CDO.
- *
- * @param	None
  *
  * @return	Status as defined in xplmi_status.h
  *

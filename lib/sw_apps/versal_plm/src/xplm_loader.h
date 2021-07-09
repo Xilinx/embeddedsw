@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
 * 1.03  kc   06/12/2020 Added IPI mask to PDI CDO commands to get
 *                       subsystem information
 * 1.04  bm   12/16/2020 Removed KAT related macros
+* 1.05  td   07/08/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -51,8 +52,6 @@ extern "C" {
  * @brief	This function reads the boot mode register and returns the
  * 			boot source
  *
- * @param	Void
- *
  * @return	Boot Source
  *
  *****************************************************************************/
@@ -69,8 +68,6 @@ static inline PdiSrc_t XLoader_GetBootMode(void)
 /*****************************************************************************/
 /**
  * @brief	This function checks if the boot mode is jtag or not.
- *
- * @param	Void
  *
  * @return	TRUE if JTAG and FALSE otherwise
  *

@@ -30,6 +30,7 @@
 *       bm   04/10/2021 Updated scheduler function calls
 *       bsv  04/16/2021 Add provision to store Subsystem Id in XilPlmi
 *       bm   04/27/2021 Updated priority of XPlm_KeepAliveTask
+* 1.05  td   07/08/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -54,19 +55,22 @@
 
 /************************** Constant Definitions *****************************/
 /**
- * NPLL CFG params
+ * XPLM_NOCPLL_CFG_VAL    NPLL CFG params
  * LOCK_DLY[31:25]=0x3f, LOCK_CNT[22:13]=0x2EE, LFHF[11:10]=0x3,
  * CP[8:5]=0x3, RES[3:0]=0x5
  */
 #define XPLM_NOCPLL_CFG_VAL		(0x7E5DCC65U)
 
 /**
- * NPLL CTRL params
+ * @{
+ * XPLM_NOCPLL_CTRL_VAL    NPLL CTRL params
  * POST_SRC[26:24]=0x0, PRE_SRC[22:20]=0x0, CLKOUTDIV[17:16]=0x3,
  * FBDIV[15:8]=0x48, BYPASS[3]=0x1, RESET[0]=0x1
+ *
  */
 #define XPLM_NOCPLL_CTRL_VAL		(0x34809U)
 #define NOCPLL_TIMEOUT			(100000U)
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
