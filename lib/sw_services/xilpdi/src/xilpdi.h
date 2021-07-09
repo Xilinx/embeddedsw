@@ -45,6 +45,7 @@
 *       ma   03/24/2021 Change ImgName to u8 to print max characters of
 *                       PDI image names
 *       har  03/31/2021 Added PdiId in XilPdi_ImgHdrTbl structure
+* 1.06  td   07/08/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -66,42 +67,61 @@ extern "C" {
 #include "xil_io.h"
 
 /************************** Constant Definitions *****************************/
+/**
+ * @name XilPdi Definitions
+ *
+ * @{
+ */
 #define XIH_MIN_PRTNS			(1U)
 #define XIH_MAX_PRTNS			(32U)
 #define XIH_MIN_IMGS			(1U)
 #define XIH_MAX_IMGS			(32U)
 
-/* Boot header address in PRAM copied by ROM*/
+/**
+ * Boot header address in PRAM copied by ROM
+ */
 #define XIH_BH_PRAM_ADDR		(0xF201E000U)
 
-/* Boot header Key source field */
+/**
+ * Boot header Key source field
+ */
 #define XIH_BH_AES_KEYSRC_OFFSET	(0x08U)
 #define XIH_BH_IMG_ATTRB_OFFSET		(0x24U)
 
-/* Boot header Attr fields */
+/**
+ * Boot header Attr fields
+ */
 #define XIH_BH_IMG_ATTRB_BH_AUTH_MASK	(0xC000U)
 #define XIH_BH_IMG_ATTRB_BH_AUTH_SHIFT	(14U)
 #define XIH_BH_IMG_ATTRB_BH_AUTH_VALUE	(0x3U)
 
-/* Boot header PUF fields */
+/**
+ * Boot header PUF fields
+ */
 #define XIH_BH_PUF_HD_OFFSET		(0x918U)
 #define XIH_BH_PUF_CHASH_OFFSET		(0xF18U)
 #define XIH_BH_PUF_AUX_OFFSET		(0xF1CU)
 
-/* SMAP bus width macros */
+/**
+ * SMAP bus width macros
+ */
 #define SMAP_BUS_WIDTH_LENGTH		(16U)
 #define SMAP_BUS_WIDTH_WORD_LEN		(4U)
 #define SMAP_BUS_WIDTH_8_WORD1				(0xDD000000U)
 #define SMAP_BUS_WIDTH_16_WORD1				(0x00DD0000U)
 #define SMAP_BUS_WIDTH_32_WORD1				(0x000000DDU)
 
-/* Defines for length of the headers */
+/**
+ *  Defines for length of the headers
+ */
 #define XIH_IHT_LEN			(128U)
 #define XIH_IH_LEN			(64U)
 #define XIH_PH_LEN			(128U)
 #define XIH_PRTN_WORD_LEN		(0x4U)
 
-/* IHT attributes */
+/**
+ * IHT attributes
+ */
 #define XIH_IHT_ATTR_PUFHD_MASK		(0xC000U)
 #define XIH_IHT_ATTR_PUFHD_SHIFT		(14U)
 #define XIH_IHT_ATTR_DPA_CM_MASK		(0x3000U)
@@ -109,7 +129,9 @@ extern "C" {
 
 #define XIH_IHT_EXT_IDCODE_MASK			(0x3FU)
 
-/* Secondary Boot Device (SBD) in IHT Attributes */
+/**
+ * Secondary Boot Device (SBD) in IHT Attributes
+ */
 #define XIH_IHT_ATTR_SBD_MASK	        (0xFC0U)
 #define XIH_IHT_ATTR_SBD_SHIFT			(0x6U)
 #define XIH_IHT_ATTR_SBD_SAME	        (0x0U)
@@ -130,7 +152,9 @@ extern "C" {
 #define XIH_IHT_ATTR_SBD_EMMC_0			(0x13U)
 #define XIH_IHT_ATTR_SBD_EMMC_0_RAW		(0x14U)
 
-/* Prtn Attribute fields */
+/**
+ *  Prtn Attribute fields
+ */
 #define XIH_PH_ATTRB_DPA_CM_EN_MASK		(0x18000000U)
 #define XIH_PH_ATTRB_PRTN_TYPE_MASK		(0x7000000U)
 #define XIH_PH_ATTRB_HIVEC_MASK			(0x800000U)
@@ -144,7 +168,9 @@ extern "C" {
 #define XIH_PH_ATTRB_TZ_SECURE_MASK		(0x0001U)
 #define XIH_PH_ATTRB_PUFHD_SHIFT		(14U)
 
-/* Prtn Attribute Values */
+/**
+ *  Prtn Attribute Values
+ */
 #define XIH_PH_ATTRB_PRTN_TYPE_RSVD		(0x0000000U)
 #define XIH_PH_ATTRB_PRTN_TYPE_ELF		(0x1000000U)
 #define XIH_PH_ATTRB_PRTN_TYPE_CDO		(0x2000000U)
@@ -163,7 +189,7 @@ extern "C" {
 
 #define XIH_PH_ATTRB_A72_EXEC_ST_AA64			(0x0000U)
 
-/*
+/**
  * Below is the bit mapping of fields in the ATF Handoff parameters
  * with that of Prtn header. The number of bits shifted is
  * is based on the difference between these two offsets
@@ -188,13 +214,13 @@ extern "C" {
 #define XIH_PRTN_FLAGS_DSTN_CPU_A72_0		(0x00U)
 #define XIH_PRTN_FLAGS_DSTN_CPU_A72_1		(0x20U)
 
-/*
+/**
  * Number of entries possible in ATF:
  * 				2 cores * 3 (EL2 non-secure, EL1 secure and EL1 non-secure)
  */
 #define XILPDI_MAX_ENTRIES_FOR_ATF	(6U)
 
-/*
+/**
  * Errors during XilPdi processing
  */
 #define XILPDI_ERR_IHT_CHECKSUM		(0x1)
@@ -206,7 +232,7 @@ extern "C" {
 #define XILPDI_ERR_IH_CHECKSUM		(0x40)
 #define XILPDI_ERR_PH_CHECKSUM		(0x80)
 
-/*
+/**
  * Image Header Attributes
  */
 #define XILPDI_IH_ATTRIB_COPY_MEMORY_SHIFT		(0x6U)
@@ -219,12 +245,14 @@ extern "C" {
 #define XILPDI_METAHDR_RD_HDRS_FROM_DEVICE		(0x0U)
 #define XILPDI_METAHDR_RD_HDRS_FROM_MEMBUF		(0x1U)
 
-/* Array size for image name */
+/**
+ * Array size for image name
+ */
 #define XILPDI_IMG_NAME_ARRAY_SIZE				(16U)
 
 /**************************** Type Definitions *******************************/
 
-/*
+/**
  * Structure to store the Boot Header PMC FW fields
  */
 typedef struct {
@@ -232,7 +260,7 @@ typedef struct {
 	u32 FwRsvd[24U]; /**< FW Reserved fields */
 } XilPdi_BootHdrFwRsvd;
 
-/*
+/**
  * Structure to store the boot header table details.
  * It contains all the information of boot header table in order.
  */
@@ -255,7 +283,7 @@ typedef struct {
 	XilPdi_BootHdrFwRsvd BootHdrFwRsvd; /**< FW reserved fields */
 } XilPdi_BootHdr __attribute__ ((aligned(16U)));
 
-/*
+/**
  * Structure to store the image header table details.
  * It contains all the information of image header table in order.
  */
@@ -280,7 +308,7 @@ typedef struct {
 	u32 Checksum; /**< Checksum of the image header table */
 } XilPdi_ImgHdrTbl __attribute__ ((aligned(16U)));
 
-/*
+/**
  * Structure to store the Image header details.
  * It contains all the information of Image header in order.
  */
@@ -299,7 +327,7 @@ typedef struct {
 	u32 Checksum; /**< Checksum of the image header */
 } XilPdi_ImgHdr __attribute__ ((aligned(16U)));
 
-/*
+/**
  * Structure to store the partition header details.
  * It contains all the information of partition header in order.
  */
@@ -326,7 +354,7 @@ typedef struct {
 	u32 Checksum; /**< checksum of the partition header */
 } XilPdi_PrtnHdr __attribute__ ((aligned(16U)));
 
-/*
+/**
  * Structure of the image header which contains
  * information of image header table and
  * partition headers.
@@ -337,17 +365,17 @@ typedef struct {
 	XilPdi_ImgHdr ImgHdr[XIH_MAX_PRTNS]; /**< Prtn header */
 	XilPdi_PrtnHdr PrtnHdr[XIH_MAX_PRTNS]; /**< Prtn header */
 	u64 FlashOfstAddr; /**< Start of DPI start address in Flash */
-	/**< Function pointer for device copy */
 	int (*DeviceCopy) (u64 SrcAddr, u64 DestAddress, u32 Length,
-															u32 Flags);
+			u32 Flags); /**< Function pointer for device copy */
 	u32 Flag; /**< To read from flash or buffer,
 				0 for flash and 1 for buffer */
 	/**< PUF related fields */
-	u64 BufferAddr;
-	int (*XMemCpy)(void * DestPtr, u32 DestPtrLen, const void * SrcPtr, u32 Len);
+	u64 BufferAddr; /**< Buffer Address */
+	int (*XMemCpy)(void * DestPtr, u32 DestPtrLen,
+			const void * SrcPtr, u32 Len); /**< MemCpy Function Pointer */
 } XilPdi_MetaHdr __attribute__ ((aligned(16U)));
 
-/*
+/**
  * Structure corresponding to each partition entry
  */
 typedef struct {
@@ -355,14 +383,16 @@ typedef struct {
 	u64 PrtnFlags; /**< Attributes of partition */
 } XilPdi_PrtnEntry;
 
-/*
+/**
  * Structure for handoff parameters to ARM Trusted Firmware (ATF)
  */
 typedef struct {
 	char MagicValue[4U]; /**< 32 bit magic string */
 	u32 NumEntries; /**< Number of Entries */
-	/**< Structure corresponding to each entry */
-	XilPdi_PrtnEntry Entry[XILPDI_MAX_ENTRIES_FOR_ATF];
+	XilPdi_PrtnEntry Entry[XILPDI_MAX_ENTRIES_FOR_ATF]; /**< Structure
+														corresponding to each
+														entry */
+
 } XilPdi_ATFHandoffParams __attribute__ ((aligned(16U)));
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -518,7 +548,7 @@ static inline u32 XilPdi_GetPufHdMetaHdr(const XilPdi_ImgHdrTbl *IHdrTbl)
 /**
 * @brief	This function gets Copy to Memory value from Image Header Table.
 *
-* @param	IHdrTbl is pointer to the Image Header Table
+* @param	ImgHdr is pointer to the Image Header Table
 *
 * @return	Copy to Memory Value
 *
@@ -532,7 +562,7 @@ static inline u32 XilPdi_GetCopyToMemory(const XilPdi_ImgHdr *ImgHdr)
 /**
 * @brief	This function gets Delay Load value from Image Header Table.
 *
-* @param	IHdrTbl is pointer to the Image Header Table
+* @param	ImgHdr is pointer to the Image Header Table
 *
 * @return	Delay Load Value
 *
@@ -546,7 +576,7 @@ static inline u32 XilPdi_GetDelayLoad(const XilPdi_ImgHdr *ImgHdr)
 /**
 * @brief	This function gets Delay Handoff value from Image Header Table.
 *
-* @param	IHdrTbl is pointer to the Image Header Table
+* @param	ImgHdr is pointer to the Image Header Table
 *
 * @return	Delay Handoff Value
 *
@@ -630,6 +660,7 @@ int XilPdi_ReadAndVerifyImgHdr(XilPdi_MetaHdr *MetaHdrPtr);
 int XilPdi_ReadAndVerifyPrtnHdr(XilPdi_MetaHdr *MetaHdrPtr);
 int XilPdi_ValidateHdrs(const XilPdi_MetaHdr *MetaHdrPtr);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
