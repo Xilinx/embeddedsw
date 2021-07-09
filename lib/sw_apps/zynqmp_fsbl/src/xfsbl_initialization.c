@@ -50,6 +50,8 @@
 *                     non-secure when RSA_EN is not programmed
 *       bsv  06/10/21 Mark DDR as memory just after ECC initialization to
 *                     avoid speculative accesses
+*       bsv  07/07/21 Assign correct values to SecondaryBootDevice in Fsbl
+*                     instance pointer
 *
 * </pre>
 *
@@ -459,14 +461,11 @@ u32 XFsbl_BootDeviceInitAndValidate(XFsblPs * FsblInstancePtr)
 	 FsblInstancePtr->ImageHeader.ImageHeaderTable.PartitionPresentDevice;
 
 	/**
-	 *  Configure the secondary boot device if required
+	 *  Configure the secondary boot device
 	 */
-	if (FsblInstancePtr->SecondaryBootDevice !=
-			FsblInstancePtr->PrimaryBootDevice) {
-		Status = XFsbl_SecondaryBootDeviceInit(FsblInstancePtr);
-		if (XFSBL_SUCCESS != Status) {
-			goto END;
-		}
+	Status = XFsbl_SecondaryBootDeviceInit(FsblInstancePtr);
+	if (XFSBL_SUCCESS != Status) {
+		goto END;
 	}
 
 END:
@@ -1588,11 +1587,8 @@ static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 	if (Status == XFSBL_SUCCESS) {
 		Status = FsblInstancePtr->DeviceOps.DeviceInit(SecBootMode);
 		if(Status == XFSBL_SUCCESS) {
+			FsblInstancePtr->SecondaryBootDevice = SecBootMode;
 			Status = XFsbl_ValidateHeader(FsblInstancePtr);
-			if(FsblInstancePtr->ImageHeader.ImageHeaderTable.PartitionPresentDevice != 0U)
-			{
-				Status = XFSBL_STATUS_SECONDARY_BOOT_MODE;
-			}
 		}
 	}
 
