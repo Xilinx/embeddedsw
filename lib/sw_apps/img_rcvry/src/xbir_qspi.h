@@ -42,7 +42,7 @@ int Xbir_QspiRead (u32 SrcAddr, u8 *DestAddr, u32 Length);
 int Xbir_QspiWrite(u32 Addr, u8 *WrBuff, u32 Len);
 int Xbir_QspiFlashErase(u32 Address, u32 Length);
 int Xbir_QspiWrite(u32 Address, u8 *WrBuffer, u32 Length);
-u16 Xbir_QspiGetPageSize(void);
+void Xbir_QspiGetPageSize(u32 *SectorSize, u16 *PageSize);
 
 #ifdef __cplusplus
 }

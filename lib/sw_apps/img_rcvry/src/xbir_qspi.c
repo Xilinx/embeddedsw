@@ -697,11 +697,11 @@ int Xbir_QspiWrite(u32 Address, u8 *WrBuffer, u32 Length)
 	int Status = XST_FAILURE;
 	u8 WrEnableCmd;
 	u8 RdStatusCmd;
-	u8 FlashStatus[2U];
+	u8 FlashStatus[2U] = {0U};
 	u8 WrCmd[5U];
 	u32 RealAddr;
 	u32 CmdByteCount;
-	XQspiPsu_Msg FlashMsg[5U];
+	XQspiPsu_Msg FlashMsg[2U] = {0U};
 
 	WrEnableCmd = WRITE_ENABLE_CMD;
 	/*
@@ -830,12 +830,12 @@ int Xbir_QspiFlashErase(u32 Address, u32 Length)
 	int Status = XST_FAILURE;
 	u8 WrEnableCmd;
 	u8 RdStatusCmd;
-	u8 FlashStatus[2U];
+	u8 FlashStatus[2U] = {0U};
 	int Sector;
 	u32 RealAddr;
 	u32 NumSect;
 	u8 WrBuffer[8U];
-	XQspiPsu_Msg FlashMsg[5U];
+	XQspiPsu_Msg FlashMsg[2U] = {0U};
 	u32 SectorOffset;
 
 	SectorOffset = Address & (FlashInfo.SectSize - 1U);
@@ -1249,12 +1249,15 @@ END:
  * @brief
  * This API returns the page size of the flash
  *
- * @param       None
+ * @param	SectorSize is pointer to sector size of flash
  *
- * @return	Page Size of the flash
+ * @param	PageSize is pointer to page size of flash
+ *
+ * @return	None
  *
  ******************************************************************************/
-u16 Xbir_QspiGetPageSize(void)
+void Xbir_QspiGetPageSize(u32 *SectorSize, u16 *PageSize)
 {
-	return FlashInfo.PageSize;
+	*SectorSize = FlashInfo.SectSize;
+	*PageSize = FlashInfo.PageSize;
 }

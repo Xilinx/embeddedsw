@@ -574,14 +574,6 @@ int Xbir_SsiProcessAdditionalPayload (struct tcp_pcb *Tpcb, u8 *HttpReq,
 
 			Xbir_Printf("Starting img update\r\n");
 
-			Xbir_Printf("Erasing flash\r\n");
-			Status = Xbir_SysEraseBootImg(HttpArg->ImgId);
-			if (Status != XST_SUCCESS) {
-				Xbir_Printf("ERROR: Flash erase failed\r\n");
-				goto END;
-			}
-			Xbir_Printf("Flash erase complete\r\n");
-
 			Xbir_Printf("Starting img upload to flash\r\n");
 			Status = Xbir_SsiUpdateImg(Tpcb, ImgData, ImgSizeInThisPkt);
 			Xbir_SsiLastUploadSize = ImgSize;
@@ -1039,13 +1031,6 @@ static int Xbir_SsiInitiateImgUpdate (struct tcp_pcb *Tpcb, u8 *HttpReq,
 		ImgSizeInThisPkt = HttpReqLen - (u16)(ImgData - HttpReq);
 		ImgSize = HttpArg->Fsize;
 		Xbir_Printf("Starting image update\r\n");
-		Xbir_Printf("Erasing flash\r\n");
-		Status = Xbir_SysEraseBootImg(HttpArg->ImgId);
-		if (Status != XST_SUCCESS) {
-			Xbir_Printf("ERROR: Flash erase failed\r\n");
-			goto END;
-		}
-		Xbir_Printf("Flash erase complete\r\n");
 
 		Xbir_Printf("Starting img upload to flash\r\n");
 		Status = Xbir_SsiUpdateImg (Tpcb, ImgData, ImgSizeInThisPkt);
