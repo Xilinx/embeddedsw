@@ -151,6 +151,10 @@ proc xdefine_cortexr5_params {drvhandle} {
 				append extra_flags " -Os -flto -ffat-lto-objects"
 				common::set_property -name {EXTRA_COMPILER_FLAGS} -value $extra_flags -objects [hsi::get_sw_processor]
 			}
+			set compiler_flags [common::get_property CONFIG.compiler_flags [hsi::get_sw_processor]]
+			set substring "-O2"
+			set compiler_flags [string map [list $substring ""] $compiler_flags]
+			common::set_property -name {COMPILER_FLAGS} -value $compiler_flags -objects [hsi::get_sw_processor]
 		}
    }
 	# Add "versal" flag to extra compiler flags, if device is versal

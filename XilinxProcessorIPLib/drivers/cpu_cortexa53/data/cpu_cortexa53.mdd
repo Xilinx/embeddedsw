@@ -11,7 +11,7 @@ OPTION copyfiles = all;
 OPTION driver_state = ACTIVE;
 OPTION supported_peripherals = (psu_cortexa53);
 OPTION default_os = "standalone_v7_0";
-OPTION VERSION = 1.9;
+OPTION VERSION = 2.0;
 OPTION NAME = cpu_cortexa53;
 
 
