@@ -1,6 +1,6 @@
 /* vim: set et fde fdm=syntax ft=c.doxygen ts=4 sts=4 sw=4 : */
 /*
- * Copyright © 2011 Saleem Abdulrasool <compnerd@compnerd.org>.
+ * Copyright © 2021 Saleem Abdulrasool <compnerd@compnerd.org>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without

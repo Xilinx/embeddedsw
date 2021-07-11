@@ -1,5 +1,5 @@
 ##******************************************************************************
-# Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -11,6 +11,6 @@ BEGIN driver video_common
 	OPTION supported_peripherals = ();
 	OPTION driver_state = ACTIVE;
 	OPTION copyfiles = all;
-	OPTION VERSION = 4.11;
+	OPTION VERSION = 4.12;
 	OPTION NAME = video_common;
 END driver
