@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
  *
  * @file xvidc.h
- * @addtogroup video_common_v4_11
+ * @addtogroup video_common_v4_12
  * @{
  * @details
  *
@@ -436,6 +436,9 @@ typedef enum {
 	XVIDC_CSF_MEM_Y_UV16,       // [31:0] Y:Y 16:16, [31:0] V:U 16:16
 	XVIDC_CSF_MEM_Y_UV16_420,   // [31:0] Y:Y 16:16, [31:0] V:U 16:16
 	XVIDC_CSF_MEM_Y16,          // [47:0] Y2:Y1:Y0 16:16:16
+        XVIDC_CSF_MEM_R_G_B8,       // [7:0] R:8, [7:0] G:8, [7:0] B:8
+	XVIDC_CSF_MEM_Y_U_V8_420,   // [15:0] Y:Y 8:8, [7:0] U:8, [7:0] V:8
+	XVIDC_CSF_MEM_Y_U_V8,       // [7:0] Y:8, [7:0] U:8, [7:0] V:8
 	XVIDC_CSF_MEM_END,          // End of memory formats
 
 	/* Streaming formats with components re-ordered */

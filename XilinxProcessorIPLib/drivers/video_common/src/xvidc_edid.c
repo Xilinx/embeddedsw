@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
  *
  * @file xvidc_edid.c
- * @addtogroup video_common_v4_11
+ * @addtogroup video_common_v4_12
  * @{
  *
  * Contains function definitions related to the Extended Display Identification

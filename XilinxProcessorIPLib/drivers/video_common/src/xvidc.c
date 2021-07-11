@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
  *
  * @file xvidc.c
- * @addtogroup video_common_v4_11
+ * @addtogroup video_common_v4_12
  * @{
  *
  * Contains common utility functions that are typically used by video-related
@@ -840,8 +840,11 @@ const char *XVidC_GetColorFormatStr(XVidC_ColorFormat ColorFormatId)
 		case XVIDC_CSF_MEM_Y_UV16_420: return ("Y_UV16_420");
 		case XVIDC_CSF_MEM_Y12:        return ("Y12");
 		case XVIDC_CSF_MEM_Y16:        return ("Y16");
+		case XVIDC_CSF_MEM_R_G_B8:     return ("R_G_B8");
+		case XVIDC_CSF_MEM_Y_U_V8_420: return ("Y_U_V8_420");
+		case XVIDC_CSF_MEM_Y_U_V8:     return ("Y_U_V8");
 		default:
-					       return ("Color space format not supported");
+			return ("Color space format not supported");
 	}
 }
 
