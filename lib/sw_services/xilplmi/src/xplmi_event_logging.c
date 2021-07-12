@@ -31,6 +31,7 @@
 * 1.04  bm   03/04/2021 Add Address range check for Log Buffers
 *       ma   03/24/2021 Store DebugLog structure to RTCA
 *       ma   03/24/2021 Fix issue in log level configuration
+* 1.05  td   07/08/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -232,25 +233,25 @@ static void XPlmi_RetrieveBufferInfo(XPlmi_Cmd *Cmd,
  *		Command payload parameters are
  *		Sub command
  *		1 - Configure print log level
- *			@Arg1 - Log Level
+ *			Arg1 - Log Level
  *		2 - Configure Debug Log buffer memory
- *			@Arg1 - High Address
- *			@Arg2 - Low Address
- *			@Arg3 - Length
+ *			Arg1 - High Address
+ *			Arg2 - Low Address
+ *			Arg3 - Length
  *		3 - Retrieve Debug Log buffer
- *			@Arg1 - High Address
- *			@Arg2 - Low Address
+ *			Arg1 - High Address
+ *			Arg2 - Low Address
  *		4 - Retrieve Debug Log buffer information
  *		5 - Configure Trace Log buffer memory
- *			@Arg1 - High Address
- *			@Arg2 - Low Address
- *			@Arg3 - Length
+ *			Arg1 - High Address
+ *			Arg2 - Low Address
+ *			Arg3 - Length
  *		6 - Retrieve Trace Log buffer
- *			@Arg1 - High Address
- *			@Arg2 - Low Address
+ *			Arg1 - High Address
+ *			Arg2 - Low Address
  *		7 - Retrieve Trace Log buffer information
  *
- * @param	Pointer to the command structure
+ * @param	Cmd is pointer to the command structure
 
  * @return	Returns the Status of Event Logging API
  *

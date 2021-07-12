@@ -29,6 +29,7 @@
 *       bm   04/03/2021 Move task creation out of interrupt context
 *       bm   04/10/2021 Updated scheduler to support private data pointer and
 *                       also delay in non-periodic tasks
+* 1.04  td   07/08/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -99,13 +100,14 @@ END:
 * @brief	The function checks the specified task is periodic or not, returns
 * corresponding periodicity status.
 *
-* @param    Scheduler pointer
-* @param    Task index
+* @param    SchedPtr is the Scheduler pointer
+* @param    TaskListIndex is the Task index
 *
 * @return	TRUE or FALSE based on the task peridocity status
 *
 ****************************************************************************/
-static u8 XPlmi_IsTaskNonPeriodic(const XPlmi_Scheduler_t *SchedPtr, u32 TaskListIndex)
+static u8 XPlmi_IsTaskNonPeriodic(const XPlmi_Scheduler_t *SchedPtr,
+	u32 TaskListIndex)
 {
 	u8 ReturnVal = (u8)FALSE;
 
@@ -120,8 +122,6 @@ static u8 XPlmi_IsTaskNonPeriodic(const XPlmi_Scheduler_t *SchedPtr, u32 TaskLis
 /**
 * @brief	The function initializes scheduler and returns the
 * initialization status.
-*
-* @param    None.
 *
 * @return	None
 *

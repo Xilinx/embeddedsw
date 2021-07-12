@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +17,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   07/28/2020 Initial release
 *       bm   10/14/2020 Code clean up
+* 1.01  td   07/08/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -137,8 +138,6 @@ END:
  *		is powered down and if LPD MIO is used. Also required
  *		when debugging.
  *
- * @param	None
- *
  * @return	None
  *
  *****************************************************************************/
@@ -166,8 +165,6 @@ void XPlmi_SetPlmMode(u8 Mode)
 /**
  * @brief	This function Sets the PLM Status.
  *
- * @param	None
- *
  * @return	None
  *
  *****************************************************************************/
@@ -179,8 +176,6 @@ void XPlmi_SetPlmLiveStatus(void)
 /*****************************************************************************/
 /**
  * @brief	This function clears the PLM status.
- *
- * @param	None
  *
  * @return	None
  *
@@ -195,8 +190,6 @@ void XPlmi_ClearPlmLiveStatus(void)
  * @brief	This function is handler for WDT. Scheduler calls this
  *		function periodically to check the PLM Live status and to
  *		toggle the MIO.
- *
- * @param	None
  *
  * @return	None
  *

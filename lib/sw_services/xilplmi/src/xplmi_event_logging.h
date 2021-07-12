@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file XPlmi_event_logging.h
+* @file xplmi_event_logging.h
 *
 * This file contains the code for event logging.
 *
@@ -24,6 +24,7 @@
 * 1.02  kc   06/18/2020 Made static functions inline
 *       bm   10/14/2020 Code clean up
 * 1.03  ma   03/24/2021 Store DebugLog structure to RTCA
+* 1.04  td   07/08/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -63,6 +64,7 @@ typedef struct {
 /************************** Function Prototypes ******************************/
 int XPlmi_EventLogging(XPlmi_Cmd * Cmd);
 void XPlmi_StoreTraceLog(u32 *TraceData, u32 Len);
+void XPlmi_InitDebugLogBuffer(void);
 
 /***************** Macros (Inline Functions) Definitions *********************/
 /** Event Logging sub command IDs */
@@ -94,9 +96,9 @@ void XPlmi_StoreTraceLog(u32 *TraceData, u32 Len);
  * @brief	This function writes to trace buffer
  *
  * @param	Header of the Trace log
- * *
+ *
  * @return	None
- * *
+ *
  ******************************************************************************/
 static inline void XPlmi_TraceLog2(u32 Header)
 {
@@ -154,8 +156,6 @@ static inline void XPlmi_TraceLog5(u32 Header, u32 Arg1, u32 Arg2, u32 Arg3)
 	u32 TraceBuffer[] = {Header, 0U, 0U, Arg1, Arg2, Arg3};
 	XPlmi_StoreTraceLog(TraceBuffer, XPLMI_ARRAY_SIZE(TraceBuffer));
 }
-
-void XPlmi_InitDebugLogBuffer(void);
 
 /************************** Variable Definitions *****************************/
 extern XPlmi_LogInfo *DebugLog;

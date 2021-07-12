@@ -33,6 +33,7 @@
 *       ma   03/24/2021 Reduced minimum digits of time stamp decimals to 3
 *       skd  03/25/2021 Compilation warning fix
 *       bm   04/03/2021 Move task creation out of interrupt context
+* 1.05  td   07/08/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -118,8 +119,6 @@ static void XPlmi_InitPitTimer(u8 Timer, u32 ResetValue)
  * @brief	This function is used to read the 64 bit timer value.
  * It reads from PIT1 and PIT2 and makes it 64 bit.
  *
- * @param	None
- *
  * @return	Returns 64 bit timer value
  *
  ******************************************************************************/
@@ -196,8 +195,6 @@ void XPlmi_MeasurePerfTime(u64 TCur, XPlmi_PerfTime *PerfTime)
 /**
  * @brief	This function prints the ROM time.
  *
- * @param	None
- *
  * @return	None
  *
  *****************************************************************************/
@@ -221,8 +218,6 @@ void XPlmi_PrintRomTime(void)
 /**
  * @brief	This function prints the PLM time stamp.
  *
- * @param	None
- *
  * @return	None
  *
  *****************************************************************************/
@@ -239,8 +234,6 @@ void XPlmi_PrintPlmTimeStamp(void)
 /*****************************************************************************/
 /**
 * @brief	It sets the PMC IRO frequency.
-*
-* @param	None
 *
 * @return	None
 *
@@ -265,8 +258,6 @@ static void XPlmi_SetPmcIroFreq(void)
 /*****************************************************************************/
 /**
 * @brief	It initializes the IO module structures and PIT timers.
-*
-* @param	None
 *
 * @return	XST_SUCCESS on success and error code failure
 *
@@ -359,7 +350,6 @@ static struct HandlerTable g_TopLevelInterruptTable[] = {
 *
 * @brief	This function connects the interrupt handler of the IO Module to the
 * processor.
-* @param    None.
 *
 * @return	XST_SUCCESS if handlers are registered properly
 *

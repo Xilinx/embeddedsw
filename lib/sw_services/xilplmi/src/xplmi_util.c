@@ -34,6 +34,7 @@
 *       bm   03/04/2021 Add VerifyAddrRange API
 *       bm   03/17/2021 Mark reserved address region as invalid in
 *                       VerifyAddrRange API
+* 1.05  td   07/08/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -151,7 +152,7 @@ int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
  *
  * @param	RegAddr 64 bit address
  * @param	Mask is the bit field to be polled
- * @param	Expected Value is value to be polled
+ * @param	ExpectedValue is value to be polled
  * @param   TimeOutInUs is delay time in micro sec
  *
  * @return	XST_SUCCESS on success and error code on failure
@@ -313,14 +314,15 @@ void XPlmi_UtilWrite64(u32 HighAddr, u32 LowAddr, u32 Value)
 * debug type.
 *
 * @param	DebugType printing of the array will happen as defined by the debug type
-* @param	Buf pointer to the  buffer to be printed
+* @param	BufAddr pointer to the  buffer to be printed
 * @param	Len length of the bytes to be printed
 * @param	Str pointer to the data that is printed along the data
 *
 * @return	None
 *
 *****************************************************************************/
-void XPlmi_PrintArray (u32 DebugType, const u64 BufAddr, u32 Len, const char *Str)
+void XPlmi_PrintArray (u32 DebugType, const u64 BufAddr, u32 Len,
+	const char *Str)
 {
 	u32 Index;
 	u64 Addr = BufAddr;

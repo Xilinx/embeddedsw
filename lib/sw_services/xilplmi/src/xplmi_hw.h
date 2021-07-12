@@ -52,6 +52,7 @@
 *       bsv  06/17/2021 Update warning in case some IPIs are disabled
 *       ma   06/23/2021 Added readback support for SSIT Slave SLRs
 *       ma   06/28/2021 Added macros related to CPM registers
+*       td   07/08/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -417,8 +418,6 @@ static inline u8 XPlmi_InByte64(u64 Addr)
 /**
  * @brief       This function disables waking up of PPU1 processor
  *
- * @param       None
- *
  * @return      None
  *
  *****************************************************************************/
@@ -434,7 +433,7 @@ static inline void XPlmi_PpuWakeUpDis(void)
  * @brief	This function writes 32-bit value to 64-bit register
  *
  * @param	Addr is the address of the register
- * @param	Value is the value to store in register
+ * @param	Data is the value to store in register
  *
  * @return	None
  *
@@ -449,7 +448,7 @@ static inline void XPlmi_Out64(u64 Addr, u32 Data)
  * @brief	This function writes 8-bit value to 64-bit register
  *
  * @param	Addr is the address of the register
- * @param	Value is the value to store in register
+ * @param	Data is the value to store in register
  *
  * @return	None
  *

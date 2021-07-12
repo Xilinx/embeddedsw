@@ -36,6 +36,7 @@
 *       bm   05/05/2021 Added USR_ACCESS support for PLD0 image
 *       ma   05/21/2021 Copy secure boot state from PMC GLOBAL GEN STORAGE2
                         register to RTCA Secure State offset
+* 1.05  td   07/08/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -73,8 +74,6 @@ u8 LpdInitialized = (u8)0U;
 /**
 * @brief	This function  will initialize the PLMI module.
 *
-* @param    None
-*
 * @return   None.
 *
 ****************************************************************************/
@@ -97,8 +96,6 @@ END:
 /**
  * @brief	This function initializes the Runtime Configuration Area with
  * default values.
- *
- * @param	None
  *
  * @return	None
  *
@@ -135,8 +132,6 @@ static void XPlmi_RunTimeConfigInit(void)
  * different modules. As a part of init functions, modules can register the
  * command handlers, interrupt handlers with the interface layer.
  *
- * @param	None
- *
  * @return	None
  *
  *****************************************************************************/
@@ -171,8 +166,6 @@ void XPlmi_LpdInit(void)
 /*****************************************************************************/
 /**
  * @brief	This function prints PLM banner
- *
- * @param	None
  *
  * @return	None
  *
@@ -231,8 +224,6 @@ void XPlmi_PrintPlmBanner(void)
 /**
  * @brief	This function prints ROM version using ROM digest value.
  *
- * @param	None
- *
  * @return	None
  *
  *****************************************************************************/
@@ -263,8 +254,6 @@ static void XPlmi_PrintRomVersion(void)
 /*****************************************************************************/
 /**
  * @brief	This function resets LpdInitialized variable to 0.
- *
- * @param	None
  *
  * @return	None
  *

@@ -33,6 +33,7 @@
 *       bm   04/03/2021 Move task creation out of interrupt context
 *       bsv  04/08/2021 Moved Task Time prints to DEBUG_DETAILED to reduce
 *                       logs on console
+* 1.06  td   07/08/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -191,8 +192,6 @@ void XPlmi_TaskTriggerNow(XPlmi_TaskNode *Task)
 /**
  * @brief	This function initializes the task queues list.
  *
- * @param	None
- *
  * @return	None
  *
  *****************************************************************************/
@@ -212,8 +211,6 @@ void XPlmi_TaskInit(void)
  * @brief	This function will be checking for tasks in the queue based on the
  * priority. After calling every task handlers, next high priority task will
  * be called.
- *
- * @param	None
  *
  * @return	None
  *
