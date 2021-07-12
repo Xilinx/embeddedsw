@@ -30,6 +30,7 @@
 *                       instead of Error ID. Also, added support to configure
 *                       multiple errors at once.
 *       ma   05/03/2021 Minor updates related to PSM and FW errors
+* 1.05  td   07/08/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -239,8 +240,6 @@ static XPlmi_Module XPlmi_ErrModule =
 /*****************************************************************************/
 /**
  * @brief	This function registers the PLM error commands to the PLMI.
- *
- * @param	None
  *
  * @return	None
  *

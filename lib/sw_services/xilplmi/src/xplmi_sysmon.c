@@ -24,6 +24,7 @@
  * 1.02  bm   10/14/2020 Code clean up
  *       td   10/19/2020 MISRA C Fixes
  * 1.03  bm   02/08/2021 Add GetSysmonPsv API
+ * 1.04  td   07/08/2021 Fix doxygen warnings
  *
  * </pre>
  *
@@ -66,8 +67,6 @@ XSysMonPsv* XPlmi_GetSysmonInst(void)
 /**
  * @brief	This function initializes the SysMon.
  *
- * @param	void
- *
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
@@ -104,8 +103,6 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function detects if we are still in over-temperature condition.
- *
- * @param	None
  *
  * @return	None
  *

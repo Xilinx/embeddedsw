@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,7 @@
 *       td   10/19/2020 MISRA C Fixes
 * 1.04  td   11/23/2020 MISRA C Rule 17.8 Fixes
 *       ma   03/24/2021 Reduced minimum digits of time stamp decimals to 3
+* 1.05  td   07/08/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -115,8 +116,6 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function will initialize the DMA driver instances.
- *
- * @param	None
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
@@ -704,7 +703,7 @@ int XPlmi_EccInit(u64 Addr, u32 Len)
 /**
  * @brief	This function is used to Set the memory with a value.
  *
- * @param	DestAddress is the address where the val need to be set
+ * @param	DestAddr is the address where the val need to be set
  * @param	Val is the value that has to be set
  * @param	Len is size of memory to be set in words
  *

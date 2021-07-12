@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,8 +21,7 @@
 *                       IDs
 *       bm   10/14/2020 Code clean up
 *       td   10/19/2020 MISRA C Fixes
-* </pre>
-*
+* 1.03  td   07/08/2021 Fix doxygen warnings
 * </pre>
 *
 * @note

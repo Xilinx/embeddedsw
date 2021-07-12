@@ -29,6 +29,7 @@
 *       ma   03/24/2021 Store DebugLog structure to RTCA
 *       ma   03/24/2021 Print logs to memory when PrintToBuf is TRUE
 *       td   05/20/2021 Support user configurable uart baudrate
+* 1.05  td   07/08/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -67,8 +68,6 @@ void outbyte(char8 c);
 /*****************************************************************************/
 /**
  * @brief	This function initializes the PS UART
- *
- * @param	None
  *
  * @return	Returns XST_SUCCESS on success and error code on failure
  *

@@ -57,6 +57,7 @@
 *                       XPlmi_ClearNpiErrors
 * 1.06  ma   06/28/2021 Added handler for CPM_NCR error
 *       ma   07/08/2021 Fix logic in reading link down error mask value
+*       td   07/08/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -430,8 +431,6 @@ void XPlmi_UpdateErrorSubsystemId(u32 ErrorNodeId,
 /*****************************************************************************/
 /**
  * @brief	This function triggers Power on Reset
- *
- * @param	None
  *
  * @return	None
  *
@@ -1449,8 +1448,6 @@ void XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown)
  * @brief	This function initializes the PSM error actions. Disables all the
  * PSM error actions and registers default action.
  *
- * @param	None
- *
  * @return	XST_SUCCESS
  *
 *****************************************************************************/
@@ -1521,8 +1518,6 @@ int XPlmi_PsEmInit(void)
 /**
  * @brief	This function dumps the registers which can help debugging.
  *
- * @param	None
- *
  * @return	None
  *
  *****************************************************************************/
@@ -1576,8 +1571,6 @@ static void XPlmi_DumpRegisters(void)
  * @brief	This function sets clock source to IRO for ES1 silicon and resets
  * the device.
  *
- * @param	None
- *
  * @return	None
  *
  *****************************************************************************/
@@ -1616,8 +1609,6 @@ void XPlmi_TriggerFwNcrError(void)
 /*****************************************************************************/
 /**
  * @brief	This function sets the sysmon clock to IRO for ES1 silicon
- *
- * @param	None
  *
  * @return	None
  *

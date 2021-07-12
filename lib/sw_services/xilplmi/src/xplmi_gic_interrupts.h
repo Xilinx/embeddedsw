@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xplm_gic_interrupts.h
+* @file xplmi_gic_interrupts.h
 *
 * This is the header file for xplm_gic_interrupts.c
 *
@@ -22,6 +22,7 @@
 * 1.03  bm   10/14/2020 Code clean up
 *       td   10/19/2020 MISRA C Fixes
 * 1.04  bm   04/03/2021 Move task creation out of interrupt context
+* 1.04  td   07/08/2021 Fix doxygen warnings
 *
 * </pre>
 *

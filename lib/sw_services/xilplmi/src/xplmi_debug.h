@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 *
-* @file XPlmi_debug.h
+* @file xplmi_debug.h
 *
 * This file contains the code to enable debug levels in PLM.
 *
@@ -26,6 +26,7 @@
 * 1.03  kc   07/28/2020 Moved LpdInitialized from xplmi_debug.c to xplmi.c
 *       bm   10/14/2020 Code clean up
 * 1.04  bm   02/01/2021 Add XPlmi_Print functions using xil_vprintf
+* 1.05  td   07/08/2021 Fix doxygen warnings
 *
 * </pre>
 *

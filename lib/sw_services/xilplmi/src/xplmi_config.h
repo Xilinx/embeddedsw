@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xplm_config.h
+* @file xplmi_config.h
 *
 * This is the header file which contains PLM configuration
 * for users.
@@ -28,6 +28,7 @@
 *       bm   10/14/2020 Code clean up
 * 1.06  bm   12/16/2020 Added PLM_SECURE_EXCLUDE macro
 *       bm   05/22/2021 Made PLM_USB_EXCLUDE as default to reduce default PLM Size
+* 1.07  td   07/08/2021 Fix doxygen warnings
 *
 * </pre>
 *

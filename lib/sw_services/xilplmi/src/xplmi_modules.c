@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xplmi_module.c
+* @file xplmi_modules.c
 *
 * This is the file which contains module registration code.
 *
@@ -19,6 +19,7 @@
 * 1.00  kc   08/23/2018 Initial release
 * 1.01  bsv  04/04/2020 Code clean up
 * 1.02  bm   10/14/2020 Code clean up
+* 1.03  td   07/08/2021 Fix doxygen warnings
 *
 * </pre>
 *
