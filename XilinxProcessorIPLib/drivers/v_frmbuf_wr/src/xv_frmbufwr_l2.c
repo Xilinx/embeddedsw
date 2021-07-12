@@ -32,6 +32,7 @@
 *			 a hard reset, when flushing is done.(There is a flush
 *			 status bit and is asserted when the flush is done).
 * 4.10  vv    02/05/19   Added new pixel formats with 12 and 16 bpc.
+* 4.50  kp    12/07/21   Added new 3 planar video format Y_U_V8.
 * </pre>
 *
 ******************************************************************************/
@@ -143,6 +144,9 @@ XVidC_ColorFormat WrMemory2Live(XVidC_ColorFormat MemFmt)
        case XVIDC_CSF_MEM_Y16 :
             StrmFmt = XVIDC_CSF_YONLY;
             break;
+       case XVIDC_CSF_MEM_Y_U_V8 :
+            StrmFmt = XVIDC_CSF_YCRCB_444;
+            break;
        default:
             StrmFmt = (XVidC_ColorFormat)~0;
             break;
@@ -170,7 +174,7 @@ int XVFrmbufWr_Initialize(XV_FrmbufWr_l2 *InstancePtr, u16 DeviceId)
   memset(InstancePtr, 0, sizeof(XV_FrmbufWr_l2));
   Status = XV_frmbufwr_Initialize(&InstancePtr->FrmbufWr, DeviceId);
 
-  if(Status == XST_SUCCESS) {
+  if (Status == XST_SUCCESS) {
     SetPowerOnDefaultState(InstancePtr);
   }
   return(Status);
@@ -523,7 +527,11 @@ int XVFrmbufWr_SetMemFormat(XV_FrmbufWr_l2 *InstancePtr,
            FmtValid = TRUE;
          }
          break;
-
+      case XVIDC_CSF_MEM_Y_U_V8 :
+         if (XVFrmbufWr_IsY_U_V8Enabled(InstancePtr)) {
+           FmtValid = TRUE;
+         }
+         break;
       default :
          FmtValid = FALSE;
          break;
@@ -580,14 +588,14 @@ int XVFrmbufWr_SetBufferAddr(XV_FrmbufWr_l2 *InstancePtr,
 
   /* Check if addr is aligned to aximm width (2*PPC*32-bits (4Bytes)) */
   Align = 2 * InstancePtr->FrmbufWr.Config.PixPerClk * 4;
-  if((Addr % Align) != 0) {
+  if ((Addr % Align) != 0) {
      AddrValid = FALSE;
      Status   = XVFRMBUFWR_ERR_MEM_ADDR_MISALIGNED;
   } else {
      AddrValid = TRUE;
   }
 
-  if(AddrValid) {
+  if (AddrValid) {
     XV_frmbufwr_Set_HwReg_frm_buffer_V(&InstancePtr->FrmbufWr, Addr);
     Status = XST_SUCCESS;
   }
@@ -616,6 +624,7 @@ UINTPTR XVFrmbufWr_GetBufferAddr(XV_FrmbufWr_l2 *InstancePtr)
 /*****************************************************************************/
 /**
 * This function sets the buffer address for the UV plane for semi-planar formats
+* or Only U Plane for 3 planar formats
 *
 * @param  InstancePtr is a pointer to core instance to be worked upon
 * @param  Addr is the absolute address of buffer in memory
@@ -635,14 +644,14 @@ int XVFrmbufWr_SetChromaBufferAddr(XV_FrmbufWr_l2 *InstancePtr,
 
   /* Check if addr is aligned to aximm width (2*PPC*32-bits (4Bytes)) */
   Align = 2 * InstancePtr->FrmbufWr.Config.PixPerClk * 4;
-  if((Addr % Align) != 0) {
+  if ((Addr % Align) != 0) {
      AddrValid = FALSE;
      Status   = XVFRMBUFWR_ERR_MEM_ADDR_MISALIGNED;
   } else {
      AddrValid = TRUE;
   }
 
-  if(AddrValid) {
+  if (AddrValid) {
     XV_frmbufwr_Set_HwReg_frm_buffer2_V(&InstancePtr->FrmbufWr, Addr);
     Status = XST_SUCCESS;
   }
@@ -652,6 +661,7 @@ int XVFrmbufWr_SetChromaBufferAddr(XV_FrmbufWr_l2 *InstancePtr,
 /*****************************************************************************/
 /**
 * This function reads the buffer address for the UV plane for semi-planar formats
+* or Only U plane for 3 planar formats
 *
 * @param  InstancePtr is a pointer to core instance to be worked upon
 *
@@ -665,6 +675,55 @@ UINTPTR XVFrmbufWr_GetChromaBufferAddr(XV_FrmbufWr_l2 *InstancePtr)
   Xil_AssertNonvoid(InstancePtr != NULL);
 
   ReadVal = XV_frmbufwr_Get_HwReg_frm_buffer2_V(&InstancePtr->FrmbufWr);
+  return(ReadVal);
+}
+
+/*****************************************************************************/
+/**
+* This function sets the buffer address for the V plane for 3 planar formats
+*
+* @param  InstancePtr is a pointer to core instance to be worked upon
+* @param  Addr is the absolute address of buffer in memory
+*
+* @return XST_SUCCESS or XST_FAILURE
+*
+******************************************************************************/
+int XVFrmbufWr_SetVChromaBufferAddr(XV_FrmbufWr_l2 *InstancePtr,
+                             UINTPTR Addr)
+{
+  UINTPTR Align;
+  u32 AddrValid = FALSE;
+  int Status = XST_FAILURE;
+  Xil_AssertNonvoid(InstancePtr != NULL);
+  Xil_AssertNonvoid(Addr != 0);
+  Align = 2 * InstancePtr->FrmbufWr.Config.PixPerClk * 4;
+  if ((Addr % Align) != 0) {
+     AddrValid = FALSE;
+     Status   = XVFRMBUFWR_ERR_MEM_ADDR_MISALIGNED;
+  } else {
+     AddrValid = TRUE;
+  }
+  if (AddrValid) {
+    XV_frmbufwr_Set_HwReg_frm_buffer3_V(&InstancePtr->FrmbufWr, Addr);
+    Status = XST_SUCCESS;
+  }
+  return(Status);
+}
+
+/*****************************************************************************/
+/**
+* This function reads the buffer address for the V plane for 3 planar formats
+*
+* @param  InstancePtr is a pointer to core instance to be worked upon
+*
+* @return Address of buffer in memory
+*
+******************************************************************************/
+UINTPTR XVFrmbufWr_GetVChromaBufferAddr(XV_FrmbufWr_l2 *InstancePtr)
+{
+  UINTPTR ReadVal = 0;
+  Xil_AssertNonvoid(InstancePtr != NULL);
+  ReadVal = XV_frmbufwr_Get_HwReg_frm_buffer3_V(&InstancePtr->FrmbufWr);
   return(ReadVal);
 }
 
@@ -739,6 +798,7 @@ void XVFrmbufWr_DbgReportStatus(XV_FrmbufWr_l2 *InstancePtr)
   xil_printf("Y_UV16_420 Enabled:         %d\r\n", InstancePtr->FrmbufWr.Config.Y_UV16_420En);
   xil_printf("Y12 Enabled:                %d\r\n", InstancePtr->FrmbufWr.Config.Y12En);
   xil_printf("Y16 Enabled:                %d\r\n", InstancePtr->FrmbufWr.Config.Y16En);
+  xil_printf("Y_U_V8 Enabled:             %d\r\n", InstancePtr->FrmbufWr.Config.Y_U_V8En);
   xil_printf("Interlaced Enabled:         %d\r\n", InstancePtr->FrmbufWr.Config.Interlaced);
 
   xil_printf("Control Reg:                0x%x\r\n", ctrl);
