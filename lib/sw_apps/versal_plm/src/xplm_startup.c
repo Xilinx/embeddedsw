@@ -30,6 +30,8 @@
 *       bm   04/03/2021 Updated StartupTaskList to be in line with the new
 *                       TaskNode structure
 * 1.04  td   07/08/2021 Fix doxygen warnings
+*       ma   07/12/2021 Minor updates to StartupTaskList as per the new
+*                       XPlmi_TaskNode structure
 *
 * </pre>
 *
@@ -84,24 +86,24 @@ int XPlm_AddStartUpTasks(void)
 	const struct XPlmi_TaskNode StartUpTaskList[] =
 	{
 		{XPLM_TASK_PRIORITY_0, XPLMI_INVALID_INTR_ID, 0U, {NULL, NULL},
-			XPlm_ModuleInit, 0U, (u8)FALSE, (u8)FALSE},
+			XPlm_ModuleInit, 0U, (u8)FALSE},
 		{XPLM_TASK_PRIORITY_0, XPLMI_INVALID_INTR_ID, 0U, {NULL, NULL},
-			XPlm_HookBeforePmcCdo, 0U, (u8)FALSE, (u8)FALSE},
+			XPlm_HookBeforePmcCdo, 0U, (u8)FALSE},
 		{XPLM_TASK_PRIORITY_0, XPLMI_INVALID_INTR_ID, 0U, {NULL, NULL},
-			XPlm_ProcessPmcCdo, 0U, (u8)FALSE, (u8)FALSE},
+			XPlm_ProcessPmcCdo, 0U, (u8)FALSE},
 		{XPLM_TASK_PRIORITY_0, XPLMI_INVALID_INTR_ID, 0U, {NULL, NULL},
-			XPlm_HookAfterPmcCdo, 0U, (u8)FALSE, (u8)FALSE},
+			XPlm_HookAfterPmcCdo, 0U, (u8)FALSE},
 		{XPLM_TASK_PRIORITY_0, XPLMI_INVALID_INTR_ID, 0U, {NULL, NULL},
-			XPlm_LoadBootPdi, 0U, (u8)FALSE, (u8)FALSE},
+			XPlm_LoadBootPdi, 0U, (u8)FALSE},
 		{XPLM_TASK_PRIORITY_0, XPLMI_INVALID_INTR_ID, 0U, {NULL, NULL},
-			XPlm_HookAfterBootPdi, 0U, (u8)FALSE, (u8)FALSE},
+			XPlm_HookAfterBootPdi, 0U, (u8)FALSE},
 #ifdef XPAR_XIPIPSU_0_DEVICE_ID
 		{XPLM_TASK_PRIORITY_0, XPLMI_INVALID_INTR_ID, 0U, {NULL, NULL},
-			XPlm_CreateKeepAliveTask, PtrMilliSeconds, (u8)FALSE, (u8)FALSE},
+			XPlm_CreateKeepAliveTask, PtrMilliSeconds, (u8)FALSE},
 #endif /* XPAR_XIPIPSU_0_DEVICE_ID */
 #ifdef XPLM_SEM
 		{XPLM_TASK_PRIORITY_0, XPLMI_INVALID_INTR_ID, 0U, {NULL, NULL},
-			XPlm_SemScanInit, 0U, (u8)FALSE, (u8)FALSE}
+			XPlm_SemScanInit, 0U, (u8)FALSE}
 #endif
 	};
 
