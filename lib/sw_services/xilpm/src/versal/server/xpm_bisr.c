@@ -202,10 +202,11 @@ typedef struct XPm_NidbEfuseGrpInfo {
 	u8 NpiOffset;
 } XPm_NidbEfuseGrpInfo;
 
-static u32 XPmTagIdWhiteList[TAG_ID_ARRAY_SIZE] = {0};
-
-static void XPmBisr_InitTagIdList(void)
+static void XPmBisr_InitTagIdList(
+		u32 (*XPmTagIdWhiteListiPtr)[TAG_ID_ARRAY_SIZE])
 {
+	u32 *XPmTagIdWhiteList = (u32 *)XPmTagIdWhiteListiPtr;
+
 	XPmTagIdWhiteList[LPD_TAG_ID] =	TAG_ID_VALID_MASK | TAG_ID_TYPE_LPD;
 	XPmTagIdWhiteList[FPD_TAG_ID] =	TAG_ID_VALID_MASK | TAG_ID_TYPE_FPD;
 	XPmTagIdWhiteList[CPM_TAG_ID] =	TAG_ID_VALID_MASK | TAG_ID_TYPE_CPM;
@@ -231,11 +232,12 @@ static void XPmBisr_InitTagIdList(void)
 	return;
 }
 
-static XStatus XPmBisr_TagSupportCheck(u32 TagId)
+static XStatus XPmBisr_TagSupportCheck(u32 TagId,
+			const u32 (*XPmTagIdWhiteList)[TAG_ID_ARRAY_SIZE])
 {
 	XStatus Status = XST_FAILURE;
-
-	if (TAG_ID_VALID_MASK == (XPmTagIdWhiteList[TagId] & TAG_ID_VALID_MASK)) {
+	if (TAG_ID_VALID_MASK ==
+		((*XPmTagIdWhiteList)[TagId] & TAG_ID_VALID_MASK)) {
 		Status = XST_SUCCESS;
 	}
 
@@ -1325,6 +1327,7 @@ XStatus XPmBisr_Repair(u32 TagId)
 	u32 EfuseCacheBaseAddr;
 	u32 EfuseTagBitS1Addr;
 	u32 EfuseTagBitS2Addr;
+	u32 XPmTagIdWhiteList[TAG_ID_ARRAY_SIZE] = {0};
 	const XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 
 	if (NULL == EfuseCache) {
@@ -1342,7 +1345,7 @@ XStatus XPmBisr_Repair(u32 TagId)
 	EfuseTagBitS2Addr = (EfuseCacheBaseAddr + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET);
 
 	//set up the white list
-	XPmBisr_InitTagIdList();
+	XPmBisr_InitTagIdList(&XPmTagIdWhiteList);
 
 	//check requested ID is a valid ID
 	if (TagId > 255U) {
@@ -1380,7 +1383,9 @@ XStatus XPmBisr_Repair(u32 TagId)
 			EfuseBisrTagId = (EfuseRowTag & PMC_EFUSE_BISR_TAG_ID_MASK)>>PMC_EFUSE_BISR_TAG_ID_SHIFT;
 			EfuseBisrSize = (EfuseRowTag & PMC_EFUSE_BISR_SIZE_MASK)>>PMC_EFUSE_BISR_SIZE_SHIFT;
 			EfuseBisrOptional = (EfuseRowTag & PMC_EFUSE_BISR_OPTIONAL_MASK)>>PMC_EFUSE_BISR_OPTIONAL_SHIFT;
-			if (XST_SUCCESS == XPmBisr_TagSupportCheck(EfuseBisrTagId)) {//check supported TAG_ID
+			if (XST_SUCCESS ==
+			    XPmBisr_TagSupportCheck(EfuseBisrTagId,
+			                            &XPmTagIdWhiteList)) {//check supported TAG_ID
 				if (EfuseBisrTagId == TagId) {//check if matched TAG_ID
 					switch(TagType) {
 					case TAG_ID_TYPE_ME:
