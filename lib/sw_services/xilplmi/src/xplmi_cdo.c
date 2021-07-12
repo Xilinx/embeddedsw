@@ -36,6 +36,8 @@
 *       bsv  04/16/2021 Add provision to store Subsystem Id in XilPlmi
 * 1.04  bsv  07/05/2021 Added code to handle case where bitstream data starts
 *                       at 32K boundary
+*       bm   07/12/2021 Updated CDO offset print with byte offset including
+*                       header length
 *
 * </pre>
 *
@@ -391,8 +393,8 @@ static int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *S
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL,
 			"CMD: 0x%08x execute failed, Processed Cdo Length 0x%0x\n\r",
-			CmdPtr->CmdId,
-			CdoPtr->ProcessedCdoLen + CdoPtr->BufLen - BufLen);
+			CmdPtr->CmdId, (CdoPtr->ProcessedCdoLen + CdoPtr->BufLen
+			- BufLen + XPLMI_CDO_HDR_LEN) * XPLMI_WORD_LEN);
 		PrintLen = CmdPtr->PayloadLen;
 		if (PrintLen > XPLMI_CMD_LEN_TEMPBUF) {
 			PrintLen = XPLMI_CMD_LEN_TEMPBUF;
