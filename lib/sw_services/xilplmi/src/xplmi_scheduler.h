@@ -25,6 +25,8 @@
 * 1.02  bm   04/03/2021 Move task creation out of interrupt context
 *       bm   04/10/2021 Updated scheduler to support private data pointer and
 *                       also delay in non-periodic tasks
+* 1.03  ma   07/12/2021 Added support to register Error Handler for scheduler
+*                       task
 *
 * </pre>
 *
@@ -50,12 +52,14 @@ extern "C" {
 #define PMC_PMC_MB_IO_IRQ_ACK			(0xF028003CU)
 
 typedef int (*XPlmi_Callback_t)(void *Data);
+typedef void (*XPlmi_ErrorFunc_t)(int Status);
 
 struct XPlmi_Task_t{
 	u32 Interval;
 	u32 OwnerId;
 	u32 TriggerTime;
 	XPlmi_Callback_t CustomerFunc;
+	XPlmi_ErrorFunc_t ErrorFunc;
 	XPlmi_TaskNode *Task;
 	const void *Data;
 	TaskPriority_t Priority;
@@ -72,8 +76,8 @@ typedef struct {
 void XPlmi_SchedulerInit(void);
 void XPlmi_SchedulerHandler(void *Data);
 int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
-	u32 MilliSeconds, TaskPriority_t Priority, void *Data,
-	u8 TaskType);
+	XPlmi_ErrorFunc_t ErrorFunc, u32 MilliSeconds, TaskPriority_t Priority,
+	void *Data,	u8 TaskType);
 int XPlmi_SchedulerRemoveTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 	u32 MilliSeconds, const void *Data);
 

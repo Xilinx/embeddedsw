@@ -81,6 +81,7 @@
 *       td   05/20/2021 Added error code for NPI locking error
 * 1.06  kpt  06/23/2021 Added error code for DNA comparison failure
 *       ma   06/28/2021 Added error codes related to proc command
+*       ma   07/12/2021 Added error code for scheduler task missed error
 *
 * </pre>
 *
@@ -250,7 +251,9 @@ typedef enum {
 	XPLMI_UNSUPPORTED_PROC_LENGTH, /**< 0x137 - Received proc does not fit in
 						proc memory */
 	XPLMI_ERR_PROC_LPD_NOT_INITIALIZED, /**< 0x138 LPD is not initialized
-						     proc command cannot be stored/executed */
+						proc command cannot be stored/executed */
+	XPLMI_ERR_SCHED_TASK_MISSED, /**< 0x139 Scheduler task missed executing
+						at the scheduled interval */
 
 	/** Status codes used in PLM */
 	XPLM_ERR_TASK_CREATE = 0x200,	/**< 0x200 - Error when task create
