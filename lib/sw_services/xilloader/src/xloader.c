@@ -97,6 +97,7 @@
 *       bm   05/05/2021 Added USR_ACCESS support for PLD0 image
 *       bm   05/10/2021 Updated chunking logic for hashes
 *       ma   05/18/2021 Minor code cleanup
+* 1.04  td   07/08/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -281,8 +282,6 @@ static XLoader_ImageInfoTbl ImageInfoTbl = {
 /**
  * @brief	This function initializes the loader instance and registers loader
  * commands with PLM.
- *
- * @param	None
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
@@ -1232,7 +1231,7 @@ END:
  *
  * @param	CpuId CPU ID
  * @param	ExecState CPU execution state
- * @param	VinitHi resembles highvec configuration for CPU
+ * @param	VInitHi resembles highvec configuration for CPU
  *
  * @return	None
  *
@@ -1348,7 +1347,7 @@ END:
  *
  * @param	ParentImgID whose corresponding child image info entries are
  * invalidated
- * @param	Pointer to ChangeCount that has to be modified
+ * @param	ChangeCount points to ChangeCount that has to be modified
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
@@ -1406,7 +1405,7 @@ END:
  * @brief	This function returns the ImageInfoEntry by checking if an entry
  * exists for that particular ImgId in the ImgInfoTbl
  *
- * @param	ImgId of the the entry that has to be stored
+ * @param	ImgID of the the entry that has to be stored
  *
  * @return	Address of ImageInfo Entry in the table
  *
@@ -1457,7 +1456,7 @@ END:
 /**
  * @brief	This function stores the ImageInfo to Image Info Table
  *
- * @param	Pointer to ImageInfo that has to be written.
+ * @param	ImageInfo is a Pointer to ImageInfo that has to be written.
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
@@ -1523,8 +1522,8 @@ END:
 /**
  * @brief	This function loads the ImageInfo table to the given memory address
  *
- * @param	64 bit Destination Address
- * @param	Max Size of Buffer present at Destination Address
+ * @param	DestAddr is the 64 bit Destination Address
+ * @param	MaxSize is the max size of Buffer present at Destination Address
  * @param	NumEntries that are loaded from the Image Info Table
  *
  * @return	XST_SUCCESS on success and error code on failure
@@ -1834,14 +1833,15 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function is used to reload the image only in PDI. This function will
- * take ImageId as an input and based on the subsystem info available, it will
- * read the image partitions and loads them.
+ * @brief	This function is used to reload the image only in PDI. This
+ * function will take ImageId as an input and based on the subsystem info
+ * available, it will read the image partitions and loads them.
  *
- * @param	ImageId Id of the image present in PDI
- * @param	FuncID is verified with the FuncID present in PDI
+ * @param   PdiPtr is Pdi instance pointer
+ * @param   ImageId Id of the image present in PDI
+ * @param   FuncID is verified with the FuncID present in PDI
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return  XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 static int XLoader_ReloadImage(XilPdi *PdiPtr, u32 ImageId, const u32 *FuncID)
@@ -2320,6 +2320,8 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function is used to clear PMC state
+ *
+ * @return	None
  *
  *****************************************************************************/
 void XLoader_PMCStateClear(void)

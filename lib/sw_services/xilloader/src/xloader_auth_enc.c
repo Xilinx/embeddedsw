@@ -44,6 +44,7 @@
 * 1.01  kpt  06/23/21 Added check to compare DNA before enabling Auth Jtag
 *            07/01/21 Added support to disable Jtag as per the timeout
 *                     set by user
+*       td   07/08/21 Fix doxygen warnings
 *
 * </pre>
 *
@@ -1110,7 +1111,7 @@ END:
 * @brief	This function validates SPK by verifying if the given SPK ID
 * has been revoked or not.
 *
-* @param	SpkId is ID of the SPK
+* @param	RevokeId is ID of the SPK to be verified for revocation
 *
 * @return	XST_SUCCESS on success and error code on failure
 *
@@ -1282,8 +1283,6 @@ END:
 /*****************************************************************************/
 /**
 * @brief	This function validates for non-zero Meta header IV and Black IV.
-*
-* @param	None
 *
 * @return	XST_SUCCESS on both Meta header IV and Black IV are non-zero
 *			and error code on failure.
@@ -1461,7 +1460,7 @@ static inline void XLoader_I2Osp(u32 Integer, u32 Size, u8 *Convert)
  * @param	Sha3InstancePtr is pointer to the XSecure_Sha3 instance.
  * @param	Out is pointer in which output of this
 		function will be stored.
- * @param	Outlen specifies the required length.
+ * @param	OutLen specifies the required length.
  * @param	Input is pointer which holds the input data for
  *		which mask should be calculated which should be 48 bytes length
  *
@@ -1525,11 +1524,11 @@ END:
  * required PSS operations to extract salt and calculates M prime hash and
  * compares with hash obtained from EM.
  *
- * @param	SecurePtr is pointer to the XLoader_SecureParams instance.
- * @param	RsaInstancePtr is pointer to the XSecure_Rsa instance.
- * @param	Signature is pointer to RSA signature for data to be
+ * @param   SecurePtr is pointer to the XLoader_SecureParams instance
+ * @param   MsgHash of the data to be authenticated.
+ * @param   Key is pointer to the XSecure_Rsa instance.
+ * @param   Signature is pointer to RSA signature for data to be
  *		authenticated.
- * @param	Hash of the data to be authenticated.
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
@@ -1817,7 +1816,6 @@ static int XLoader_EcdsaSignVerify(const XSecure_EllipticCrvTyp CrvType, const u
  * @brief	This function decrypts the secure header/footer.
  *
  * @param	SecurePtr	Pointer to the XLoader_SecureParams
- * @param	AesInstancePtr	Pointer to the AES instance
  * @param	SrcAddr		Pointer to the buffer where header/footer present
  *
  * @return	XST_SUCCESS on success and error code on failure
@@ -1887,7 +1885,6 @@ END:
  * @brief	This function decrypts the data.
  *
  * @param	SecurePtr is pointer to the XLoader_SecureParams
- * @param	AesInstancePtr is pointer to the AES instance
  * @param	SrcAddr is pointer to the buffer where header/footer present
  * @param	DestAddr is pointer to the buffer where header/footer should
  * 		be copied
@@ -1984,7 +1981,6 @@ static int XLoader_DataDecrypt(XLoader_SecureParams *SecurePtr,
  * @brief	This function decrypts the data.
  *
  * @param	SecurePtr is pointer to the XLoader_SecureParams
- * @param	AesInstacePtr is pointer to the Aes instance
  * @param	SrcAddr is address to the buffer where header/footer present
  * @param	DestAddr is the address to which header / footer is copied
  * @param	Size is the number of bytes to be copied
@@ -2067,7 +2063,6 @@ END:
  * @brief	This function helps in key selection.
  *
  * @param	SecurePtr is pointer to the XLoader_SecureParams
- * @param	AesInstancePtr is pointer to the AES instance
  * @param	KeyDetails is pointer to the key details.
  * @param	KeySrc is pointer to the key source to be updated as
  *		key source for decrypting. If key provided is KEK format, this API
@@ -2833,8 +2828,8 @@ END:
 /**
 * @brief       IV Criteria check
 *
-* @param       IHPTR      IV to be compared
-*              EfusePtr   eFUSE cache address
+* @param       IHPtr is the IV to be compared
+* @param       EfusePtr is the eFUSE cache address
 *
 * @return      XST_SUCCESS on success.
 *              XLOADER_SEC_IV_METAHDR_RANGE_ERROR on Failure.
@@ -2885,7 +2880,7 @@ END:
 * @brief       This function reads IV from eFUSE
 *
 * @param       IV       Pointer to store the IV.
-*              EfuseIV  Pointer to read the IV from eFUSE
+* @param       EfuseIV  Pointer to read the IV from eFUSE
 *
 * @return      None
 *
@@ -2904,8 +2899,6 @@ static void XLoader_ReadIV(u32 *IV, const u32 *EfuseIV)
 /**
 * @brief        This function adds periodic checks of the status of Auth
 *               JTAG interrupt status to the scheduler.
-*
-* @param        None
 *
 * @return       XST_SUCCESS otherwise error code is returned
 *
@@ -3265,7 +3258,6 @@ static void XLoader_DisableJtag(void)
 * @brief       This function is called to clear secure critical data related to
 * authentication and encryption in case of exceptions. The function also places
 * AES, ECDSA_RSA in reset.
-* @param       None
 *
 * @return      None
 *
@@ -3580,14 +3572,14 @@ END:
 
 /*****************************************************************************/
 /**
-* @brief	This function checks if the secure state of boot matches the
-*		expected value or not.
+* @brief    This function checks if the secure state of boot matches the
+*           expected value or not.
 *
-* @param	RegVal - Value of secure state stored in register
-*		Var - Value of secure state stored in variable
-*		ExpectedValue - Expected value of secure state
+* @param    RegVal - Value of secure state stored in register
+* @param    Var - Value of secure state stored in variable
+* @param    ExpectedValue - Expected value of secure state
 *
-* @return	XST_SUCCESS on success and error code on failure
+* @return   XST_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
 static int XLoader_CheckSecureState(u32 RegVal, u32 Var, u32 ExpectedValue)

@@ -23,7 +23,8 @@
 *       bsv   10/13/2020 Code clean up
 * 1.03  kal   12/22/2020 Perform Cfu/Cfi recovery before re-triggering
 *                        PL House cleaning in case of error in PL loading.
-*       skd   03/25/2021 Compilation warning fix
+* 1.04  skd   03/25/2021 Compilation warning fix
+* 1.05  td    07/08/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -56,8 +57,6 @@ static XCframe XLoader_CframeIns = {0U}; /** CFRAME Driver Instance */
 /*****************************************************************************/
 /**
  * @brief	This function initializes the Cframe driver.
- *
- * @param 	None
  *
  * @return	XST_SUCCESS on success and error code on failure
  *

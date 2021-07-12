@@ -84,6 +84,7 @@
 *       ma   05/18/21 Minor code cleanup
 *       ma   05/20/21 Fix warnings introduced due to volatile qualifier
 *       har  05/20/21 Added checks in case both efuse auth and bh auth are enabled
+* 1.06  td   07/08/21 Fix doxygen warnings
 *
 * </pre>
 *
@@ -335,8 +336,6 @@ static int XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr,
 /**
  * @brief	This function is called to clear secure critical data in case of
  * exceptions. The function also places AES, ECDSA_RSA and SHA3 in reset.
- *
- * @param	None
  *
  * @return	None
  *
