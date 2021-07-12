@@ -28,6 +28,7 @@
 *			 a hard reset, when flushing is done.(There is a flush
 *			 status bit and is asserted when the flush is done).
 * 4.10  vv    02/05/19   Added new pixel formats with 12 and 16 bpc.
+* 4.50  kp    12/07/21   Added new 3 planar video format Y_U_V8
 * </pre>
 *
 ******************************************************************************/
@@ -67,9 +68,10 @@
 #define FRMBUF_IDLE_TIMEOUT (1000000)
 
 #define NUM_TEST_MODES 4
-#define NUM_TEST_FORMATS 26
+#define NUM_TEST_FORMATS 27
 
 #define CHROMA_ADDR_OFFSET   (0x01000000U)
+#define V_CHROMA_ADDR_OFFSET (0x03000000U)
 
 //mapping between memory and streaming video formats
 typedef struct {
@@ -106,7 +108,8 @@ VideoFormats ColorFormats[NUM_TEST_FORMATS] =
   {XVIDC_CSF_MEM_Y_UV12_420, XVIDC_CSF_YCRCB_420, 12},
   {XVIDC_CSF_MEM_Y_UV16_420, XVIDC_CSF_YCRCB_420, 16},
   {XVIDC_CSF_MEM_Y12,        XVIDC_CSF_YONLY, 12},
-  {XVIDC_CSF_MEM_Y16,        XVIDC_CSF_YONLY, 16}
+  {XVIDC_CSF_MEM_Y16,        XVIDC_CSF_YONLY, 16},
+  {XVIDC_CSF_MEM_Y_U_V8,     XVIDC_CSF_YCRCB_444, 8}
 };
 
 XV_FrmbufRd_l2     frmbufrd;
@@ -170,7 +173,7 @@ static int SetupInterrupts(void)
   /* Initialize the Interrupt controller */
   Status = XIntc_Initialize(IntcPtr,
                             XPAR_PROCESSOR_SS_PROCESSOR_AXI_INTC_DEVICE_ID);
-  if(Status != XST_SUCCESS) {
+  if (Status != XST_SUCCESS) {
     xil_printf("ERROR:: Interrupt controller device not found\r\n");
     return(XST_FAILURE);
   }
@@ -217,7 +220,7 @@ static int SetupInterrupts(void)
   /* Initialize the Interrupt controller */
   XScuGic_Config *IntcCfgPtr;
   IntcCfgPtr = XScuGic_LookupConfig(PS_ACPU_GIC_DEVICE_ID);
-  if(IntcCfgPtr == NULL)
+  if (IntcCfgPtr == NULL)
   {
     print("ERR:: Interrupt Controller not found");
     return (XST_DEVICE_NOT_FOUND);
@@ -278,32 +281,32 @@ static int DriverInit(void)
   XGpio_Config *GpioCfgPtr;
 
   vtc_Config = XVtc_LookupConfig(XPAR_V_TC_0_DEVICE_ID);
-  if(vtc_Config == NULL) {
+  if (vtc_Config == NULL) {
     xil_printf("ERROR:: VTC device not found\r\n");
     return(XST_FAILURE);
   }
 
   Status = XVtc_CfgInitialize(&vtc, vtc_Config, vtc_Config->BaseAddress);
-  if(Status != XST_SUCCESS) {
+  if (Status != XST_SUCCESS) {
     xil_printf("ERROR:: VTC Initialization failed %d\r\n", Status);
     return(XST_FAILURE);
   }
 
   Status = XVFrmbufRd_Initialize(&frmbufrd, XPAR_V_FRMBUF_RD_0_DEVICE_ID);
-  if(Status != XST_SUCCESS) {
+  if (Status != XST_SUCCESS) {
     xil_printf("ERROR:: Frame Buffer Read initialization failed\r\n");
     return(XST_FAILURE);
   }
 
   Status = XVFrmbufWr_Initialize(&frmbufwr, XPAR_V_FRMBUF_WR_0_DEVICE_ID);
-  if(Status != XST_SUCCESS) {
+  if (Status != XST_SUCCESS) {
     xil_printf("ERROR:: Frame Buffer Write initialization failed\r\n");
     return(XST_FAILURE);
   }
 
   //Video Lock Monitor
   GpioCfgPtr = XGpio_LookupConfig(XPAR_VIDEO_LOCK_MONITOR_DEVICE_ID);
-  if(GpioCfgPtr == NULL) {
+  if (GpioCfgPtr == NULL) {
     xil_printf("ERROR:: Video Lock Monitor GPIO device not found\r\n");
     return(XST_FAILURE);
   }
@@ -311,7 +314,7 @@ static int DriverInit(void)
   Status = XGpio_CfgInitialize(&vmon,
                                GpioCfgPtr,
                                GpioCfgPtr->BaseAddress);
-  if(Status != XST_SUCCESS)  {
+  if (Status != XST_SUCCESS)  {
     xil_printf("ERROR:: Video Lock Monitor GPIO Initialization failed %d\r\n",
                Status);
     return(XST_FAILURE);
@@ -377,6 +380,7 @@ static u32 CalcStride(XVidC_ColorFormat Cfmt,
     case XVIDC_CSF_MEM_Y_UV8:
     case XVIDC_CSF_MEM_Y_UV8_420:
     case  XVIDC_CSF_MEM_Y8:
+    case  XVIDC_CSF_MEM_Y_U_V8:
       /* 1 byte per pixel (Y_UV8, Y_UV8_420, Y8) */
       bpp_numerator = 1;
       break;
@@ -443,14 +447,26 @@ static int ConfigFrmbuf(u32 StrideInBytes,
 
   /* Configure Frame Buffers */
   Status = XVFrmbufRd_SetMemFormat(&frmbufrd, StrideInBytes, Cfmt, StreamPtr);
-  if(Status != XST_SUCCESS) {
+  if (Status != XST_SUCCESS) {
     xil_printf("ERROR:: Unable to configure Frame Buffer Read\r\n");
     return(XST_FAILURE);
   }
 
+  Status = XVFrmbufWr_SetMemFormat(&frmbufwr, StrideInBytes, Cfmt, StreamPtr);
+  if (Status != XST_SUCCESS) {
+    xil_printf("ERROR:: Unable to configure Frame Buffer Write\r\n");
+    return(XST_FAILURE);
+  }
+
   Status = XVFrmbufRd_SetBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR);
-  if(Status != XST_SUCCESS) {
+  if (Status != XST_SUCCESS) {
     xil_printf("ERROR:: Unable to configure Frame Buffer Read buffer address\r\n");
+    return(XST_FAILURE);
+  }
+
+  Status = XVFrmbufWr_SetBufferAddr(&frmbufwr, XVFRMBUFWR_BUFFER_BASEADDR);
+  if (Status != XST_SUCCESS) {
+    xil_printf("ERROR:: Unable to configure Frame Buffer Write buffer address\r\n");
     return(XST_FAILURE);
   }
 
@@ -458,29 +474,32 @@ static int ConfigFrmbuf(u32 StrideInBytes,
   if ((Cfmt == XVIDC_CSF_MEM_Y_UV8) || (Cfmt == XVIDC_CSF_MEM_Y_UV8_420) ||
       (Cfmt == XVIDC_CSF_MEM_Y_UV10) || (Cfmt == XVIDC_CSF_MEM_Y_UV10_420) ||
       (Cfmt == XVIDC_CSF_MEM_Y_UV12) || (Cfmt == XVIDC_CSF_MEM_Y_UV12_420) ||
-      (Cfmt == XVIDC_CSF_MEM_Y_UV16) || (Cfmt == XVIDC_CSF_MEM_Y_UV16_420)) {
-    Status = XVFrmbufRd_SetChromaBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR+CHROMA_ADDR_OFFSET);
-    if(Status != XST_SUCCESS) {
-      xil_printf("ERROR:: Unable to configure Frame Buffer Read chroma buffer address\r\n");
-      return(XST_FAILURE);
-    }
-    Status = XVFrmbufWr_SetChromaBufferAddr(&frmbufwr, XVFRMBUFWR_BUFFER_BASEADDR+CHROMA_ADDR_OFFSET);
-    if(Status != XST_SUCCESS) {
-      xil_printf("ERROR:: Unable to configure Frame Buffer Write chroma buffer address\r\n");
-      return(XST_FAILURE);
-    }
+      (Cfmt == XVIDC_CSF_MEM_Y_UV16) || (Cfmt == XVIDC_CSF_MEM_Y_UV16_420) ||
+      (Cfmt == XVIDC_CSF_MEM_Y_U_V8)) {
+	  Status = XVFrmbufRd_SetChromaBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR+CHROMA_ADDR_OFFSET);
+	  if (Status != XST_SUCCESS) {
+		  xil_printf("ERROR:: Unable to configure Frame Buffer Read chroma buffer address\r\n");
+		  return(XST_FAILURE);
+	  }
+	  Status = XVFrmbufWr_SetChromaBufferAddr(&frmbufwr, XVFRMBUFWR_BUFFER_BASEADDR+CHROMA_ADDR_OFFSET);
+	  if (Status != XST_SUCCESS) {
+		  xil_printf("ERROR:: Unable to configure Frame Buffer Write chroma buffer address\r\n");
+		  return(XST_FAILURE);
+	  }
   }
 
-  Status = XVFrmbufWr_SetMemFormat(&frmbufwr, StrideInBytes, Cfmt, StreamPtr);
-  if(Status != XST_SUCCESS) {
-    xil_printf("ERROR:: Unable to configure Frame Buffer Write\r\n");
-    return(XST_FAILURE);
-  }
-
-  Status = XVFrmbufWr_SetBufferAddr(&frmbufwr, XVFRMBUFWR_BUFFER_BASEADDR);
-  if(Status != XST_SUCCESS) {
-    xil_printf("ERROR:: Unable to configure Frame Buffer Write buffer address\r\n");
-    return(XST_FAILURE);
+  /* Set V Buffer Address for 3 planar color formats */
+  if (Cfmt == XVIDC_CSF_MEM_Y_U_V8) {
+	  Status = XVFrmbufRd_SetVChromaBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR+V_CHROMA_ADDR_OFFSET);
+	  if (Status != XST_SUCCESS) {
+		  xil_printf("ERROR:: Unable to configure Frame Buffer Read V buffer address\r\n");
+		  return(XST_FAILURE);
+	  }
+	  Status = XVFrmbufWr_SetVChromaBufferAddr(&frmbufwr, XVFRMBUFWR_BUFFER_BASEADDR+V_CHROMA_ADDR_OFFSET);
+	  if (Status != XST_SUCCESS) {
+		  xil_printf("ERROR:: Unable to configure Frame Buffer Write V buffer address\r\n");
+		  return(XST_FAILURE);
+	  }
   }
 
   /* Enable Interrupt */
@@ -510,7 +529,6 @@ static int ValidateTestCase(u16 PixPerClk,
   int Status = TRUE;
   int valid_mode = TRUE;
   int valid_format = TRUE;
-
 
   if ((PixPerClk == 1) && (Mode == XVIDC_VM_UHD_60_P)) {
     xil_printf("Video Mode %s not supported for 1 pixel/clock\r\n", XVidC_GetVideoModeStr(Mode));
@@ -559,7 +577,7 @@ static int CheckVidoutLock(void)
   usleep(1000000); //wait
 
   while(!Lock && Timeout) {
-    if(XVMonitor_IsVideoLocked(&vmon)) {
+    if (XVMonitor_IsVideoLocked(&vmon)) {
       xil_printf("Locked\r\n");
       Lock = TRUE;
       Status = TRUE;
@@ -567,7 +585,7 @@ static int CheckVidoutLock(void)
     --Timeout;
   }
 
-  if(!Timeout) {
+  if (!Timeout) {
       xil_printf("<ERROR:: Not Locked>\r\n\r\n");
   }
   return(Status);
@@ -604,7 +622,7 @@ static int CheckVidinOverflow(void)
     --Timeout;
   }
 
-  if(Overflow) {
+  if (Overflow) {
     xil_printf("<ERROR:: Video overflow>\r\n\r\n");
   } else {
     xil_printf("No overflow\r\n");
@@ -678,7 +696,7 @@ int main(void)
 
   /* Initialize VTC, Frame Buffers, GPIO */
   Status = DriverInit();
-  if(Status != XST_SUCCESS) {
+  if (Status != XST_SUCCESS) {
     xil_printf("ERROR:: Driver Initialization Failed\r\n");
     xil_printf("ERROR:: Test could not be completed\r\n");
     return(1);
@@ -700,7 +718,7 @@ int main(void)
   resetIp();
 
   /* Sanity check */
-  if(XVMonitor_IsVideoLocked(&vmon)) {
+  if (XVMonitor_IsVideoLocked(&vmon)) {
     xil_printf("ERROR:: Video should not be locked\r\n");
     xil_printf("ERROR:: Test could not be completed\r\n");
     return(1);
@@ -751,14 +769,14 @@ int main(void)
         xil_printf("Wait for vid out lock: ");
         Lock = CheckVidoutLock();
         Overflow = CheckVidinOverflow();
-        if(Lock && !Overflow) {
+        if (Lock && !Overflow) {
           ++PassCount;
         } else {
           ++FailCount;
         }
 
         resetIp();
-        if(XVMonitor_IsVideoLocked(&vmon)) {
+        if (XVMonitor_IsVideoLocked(&vmon)) {
           xil_printf("ERROR:: Video should not be locked\r\n");
           xil_printf("ERROR:: Test could not be completed\r\n");
           return(1);
@@ -769,7 +787,7 @@ int main(void)
     }
   }
 
-  if(FailCount) {
+  if (FailCount) {
     xil_printf("\r\n\r\nINFO: Test completed. %d/%d tests failed.\r\n",
                FailCount, TestCount);
   } else if (PassCount > 0){

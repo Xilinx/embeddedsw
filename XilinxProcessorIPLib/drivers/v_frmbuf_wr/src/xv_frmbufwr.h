@@ -76,6 +76,7 @@ typedef struct {
   u16 Y_UV16En;             /**< Y_UV16     support */
   u16 Y_UV16_420En;         /**< Y_UV16_420 support */
   u16 Y16En;                /**< Y16      support */
+  u16 Y_U_V8En;             /**< Y_U_V8   support */
   u16 Interlaced;           /**< Interlaced support */
 } XV_frmbufwr_Config;
 #endif
@@ -141,6 +142,8 @@ void XV_frmbufwr_Set_HwReg_frm_buffer_V(XV_frmbufwr *InstancePtr, u64 Data);
 u64 XV_frmbufwr_Get_HwReg_frm_buffer_V(XV_frmbufwr *InstancePtr);
 void XV_frmbufwr_Set_HwReg_frm_buffer2_V(XV_frmbufwr *InstancePtr, u64 Data);
 u64 XV_frmbufwr_Get_HwReg_frm_buffer2_V(XV_frmbufwr *InstancePtr);
+void XV_frmbufwr_Set_HwReg_frm_buffer3_V(XV_frmbufwr *InstancePtr, u64 Data);
+u64 XV_frmbufwr_Get_HwReg_frm_buffer3_V(XV_frmbufwr *InstancePtr);
 u32 XV_frmbufwr_Get_HwReg_field_id(XV_frmbufwr *InstancePtr);
 
 void XV_frmbufwr_InterruptGlobalEnable(XV_frmbufwr *InstancePtr);
