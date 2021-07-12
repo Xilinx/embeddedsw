@@ -30,6 +30,9 @@
 *       bm   04/10/2021 Updated scheduler to support private data pointer and
 *                       also delay in non-periodic tasks
 * 1.04  td   07/08/2021 Fix doxygen warnings
+*       ma   07/12/2021 Added error handler for each scheduler task to handle
+*                       cases when a scheduled task does not get executed in
+*                       allotted time
 *
 * </pre>
 *
@@ -167,12 +170,30 @@ void XPlmi_SchedulerHandler(void *Data)
 			Task = Sched.TaskList[Idx].Task;
 			/* Skip the task, if its already present in the queue */
 			if (metal_list_is_empty(&Task->TaskNode) == (int)TRUE) {
+				Task->State &= (u8)(~XPLMI_SCHED_TASK_MISSED);
 				XPlmi_TaskTriggerNow(Task);
+			} else {
+				/*
+				 * Check if a module has registered ErrorFunc for the task and
+				 * the previously scheduled task is executed or not
+				 */
+				if ((Sched.TaskList[Idx].ErrorFunc != NULL) &&
+					((Task->State & (u8)(XPLMI_TASK_IN_PROGRESS_AND_MISSED)) ==
+							(u8)0x0U)) {
+					/* Update scheduler task state with task missed flag */
+					Task->State |= (u8)XPLMI_SCHED_TASK_MISSED;
+					/*
+					 * Call the task specific ErrorFunc if
+					 * previously scheduled task is not executed
+					 */
+					Sched.TaskList[Idx].ErrorFunc(XPLMI_ERR_SCHED_TASK_MISSED);
+				}
 			}
 			/* Remove the task from scheduler if it is non-periodic*/
 			if (Sched.TaskList[Idx].Type == XPLMI_NON_PERIODIC_TASK) {
 				Sched.TaskList[Idx].OwnerId = 0U;
 				Sched.TaskList[Idx].CustomerFunc = NULL;
+				Sched.TaskList[Idx].ErrorFunc = NULL;
 			}
 		}
 	}
@@ -188,6 +209,8 @@ void XPlmi_SchedulerHandler(void *Data)
 *
 * @param	OwnerId Id of the owner, used while removing the task.
 * @param	CallbackFn callback function that should be called
+* @param	ErrorFunc error function to be called when task does not execute
+* 		on scheduled interval
 * @param	MilliSeconds For Periodic tasks, it's the Periodicity of the task.
 * 		For Non-Periodic tasks, it's the delay after which task has to
 * 		be scheduled. Value should be in multiples of 10ms
@@ -199,8 +222,8 @@ void XPlmi_SchedulerHandler(void *Data)
 *
 ****************************************************************************/
 int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
-			   u32 MilliSeconds, TaskPriority_t Priority,
-			   void *Data, u8 TaskType)
+		XPlmi_ErrorFunc_t ErrorFunc, u32 MilliSeconds,
+		TaskPriority_t Priority, void *Data, u8 TaskType)
 {
 	int Status = XST_FAILURE;
 	XPlmi_PerfTime ExtraTime = {0U};
@@ -231,6 +254,7 @@ int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 			Sched.TaskList[Idx].Interval = MilliSeconds / XPLMI_SCHED_TICK;
 			Sched.TaskList[Idx].OwnerId = OwnerId;
 			Sched.TaskList[Idx].CustomerFunc = CallbackFn;
+			Sched.TaskList[Idx].ErrorFunc = ErrorFunc;
 			Sched.TaskList[Idx].Priority = Priority;
 			Sched.TaskList[Idx].Type = TaskType;
 			Sched.TaskList[Idx].Data = Data;
@@ -244,10 +268,10 @@ int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 			Task->IntrId = XPLMI_INVALID_INTR_ID;
 			Sched.TaskList[Idx].Task = Task;
 			if (TaskType == XPLMI_PERIODIC_TASK) {
-				Task->IsPersistent = (u8)TRUE;
+				Task->State |= (u8)XPLMI_TASK_IS_PERSISTENT;
 			}
 			else {
-				Task->IsPersistent = (u8)FALSE;
+				Task->State &= (u8)(~XPLMI_TASK_IS_PERSISTENT);
 				microblaze_disable_interrupts();
 				XPlmi_MeasurePerfTime(Sched.LastTimerTick, &ExtraTime);
 				if (Sched.Tick == 0U) {
@@ -301,7 +325,7 @@ int XPlmi_SchedulerRemoveTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 			Sched.TaskList[Idx].OwnerId = 0U;
 			Sched.TaskList[Idx].CustomerFunc = NULL;
 			Sched.TaskList[Idx].Data = NULL;
-			Sched.TaskList[Idx].Task->IsPersistent = (u8)FALSE;
+			Sched.TaskList[Idx].Task->State &= (u8)(~XPLMI_TASK_IS_PERSISTENT);
 			microblaze_disable_interrupts();
 			XPlmi_TaskDelete(Sched.TaskList[Idx].Task);
 			microblaze_enable_interrupts();

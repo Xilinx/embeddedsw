@@ -21,6 +21,7 @@
 * 1.02  bsv  04/04/2020 Code clean up
 * 1.03  bm   10/14/2020 Code clean up
 * 1.04  bm   04/03/2021 Move task creation out of interrupt context
+* 1.05  ma   07/12/2021 Minor updates to task related code
 *
 * </pre>
 *
@@ -76,7 +77,7 @@ int XPlmi_GicRegisterHandler(u32 PlmIntrId, GicIntHandler_t Handler, void *Data)
 		goto END;
 	}
 	Task->IntrId = PlmIntrId | XPLMI_IOMODULE_PMC_GIC_IRQ;
-	Task->IsPersistent = (u8)TRUE;
+	Task->State |= (u8)XPLMI_TASK_IS_PERSISTENT;
 
 	/* Get the GicP mask */
 	GicPVal = (PlmIntrId & XPLMI_GICP_MASK) >> 8U;

@@ -24,6 +24,7 @@
 *                       with the same handler exists, to ensure no
 *                       interrupt task handlers get missed
 *       bm   04/03/2021 Move task creation out of interrupt context
+* 1.04  ma   07/12/2021 Minor updates to task related code
 *
 * </pre>
 *
@@ -50,6 +51,12 @@ extern "C" {
 #define XPLMI_TASK_PRIORITIES		(2U)
 #define XPLMI_INVALID_INTR_ID		(0xFFFFFFFFU)
 
+#define XPLMI_TASK_IN_QUEUE					(0x1U)
+#define XPLMI_TASK_IS_PERSISTENT			(0x2U)
+#define XPLMI_TASK_IN_PROGRESS				(0x4U)
+#define XPLMI_SCHED_TASK_MISSED				(0x8U)
+#define XPLMI_TASK_IN_PROGRESS_AND_MISSED	(0xCU)
+
 typedef enum {
         XPLM_TASK_PRIORITY_0 = 0,
         XPLM_TASK_PRIORITY_1, /**< 1 */
@@ -65,8 +72,7 @@ struct XPlmi_TaskNode {
     struct metal_list TaskNode;
     int (*Handler)(void * PrivData);
     void * PrivData;
-    u8 InQueue;
-    u8 IsPersistent;
+    u8 State;
 };
 
 /***************** Macros (Inline Functions) Definitions *********************/

@@ -34,6 +34,7 @@
 *       bsv  04/08/2021 Moved Task Time prints to DEBUG_DETAILED to reduce
 *                       logs on console
 * 1.06  td   07/08/2021 Fix doxygen warnings
+*       ma   07/12/2021 Minor updates to task related code
 *
 * </pre>
 *
@@ -92,6 +93,7 @@ XPlmi_TaskNode* XPlmi_TaskCreate(TaskPriority_t Priority,
 	metal_list_init(&Task->TaskNode);
 	Task->Handler = Handler;
 	Task->PrivData = PrivData;
+	Task->State = (u8)0x0U;
 
 END:
 	return Task;
@@ -108,11 +110,12 @@ END:
  *****************************************************************************/
 void XPlmi_TaskDelete(XPlmi_TaskNode *Task)
 {
-	if (Task->InQueue != (u8)TRUE) {
+	if ((Task->State & (u8)XPLMI_TASK_IN_QUEUE) != (u8)XPLMI_TASK_IN_QUEUE) {
 		if (metal_list_is_empty(&Task->TaskNode) == (int)FALSE) {
 			metal_list_del(&Task->TaskNode);
 		}
-		if (Task->IsPersistent != (u8)TRUE) {
+		if ((Task->State & (u8)XPLMI_TASK_IS_PERSISTENT) !=
+				(u8)XPLMI_TASK_IS_PERSISTENT) {
 			Task->Delay = 0U;
 			Task->PrivData = NULL;
 			Task->Handler = NULL;
@@ -120,8 +123,9 @@ void XPlmi_TaskDelete(XPlmi_TaskNode *Task)
 		}
 	}
 	else {
-		Task->InQueue = (u8)FALSE;
+		Task->State &= (u8)(~XPLMI_TASK_IN_QUEUE);
 	}
+	Task->State &= (u8)(~XPLMI_TASK_IN_PROGRESS);
 }
 
 /*****************************************************************************/
@@ -179,10 +183,10 @@ void XPlmi_TaskTriggerNow(XPlmi_TaskNode *Task)
 {
 	Xil_AssertVoid(Task->Handler != NULL);
 	if (metal_list_is_empty(&Task->TaskNode) != (int)FALSE) {
-		Task->InQueue = (u8)FALSE;
+		Task->State &= (u8)(~XPLMI_TASK_IN_QUEUE);
 	}
 	else {
-		Task->InQueue = (u8)TRUE;
+		Task->State |= (u8)XPLMI_TASK_IN_QUEUE;
 		metal_list_del(&Task->TaskNode);
 	}
 	metal_list_add_tail(&TaskQueue[Task->Priority], &Task->TaskNode);
@@ -257,6 +261,9 @@ void XPlmi_TaskDispatchLoop(void)
 				Node[Index] = Node[Index]->next;
 				break;
 			}
+		}
+		if (Task != NULL) {
+			Task->State |= (u8)XPLMI_TASK_IN_PROGRESS;
 		}
 		microblaze_enable_interrupts();
 
