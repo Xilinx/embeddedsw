@@ -45,6 +45,8 @@
 *            07/01/21 Added support to disable Jtag as per the timeout
 *                     set by user
 *       td   07/08/21 Fix doxygen warnings
+*       ma   07/12/21 Register NULL error handler for
+*                     XLoader_CheckAuthJtagIntStatus scheduler task
 *
 * </pre>
 *
@@ -2928,7 +2930,7 @@ int XLoader_AddAuthJtagToScheduler(void)
 		else {
 			Status = XST_FAILURE;
 			Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_LOADER_ID,
-				XLoader_CheckAuthJtagIntStatus,
+				XLoader_CheckAuthJtagIntStatus, NULL,
 				XLOADER_AUTH_JTAG_INT_STATUS_POLL_INTERVAL,
 				XPLM_TASK_PRIORITY_1, NULL, XPLMI_PERIODIC_TASK);
 			if (Status != XST_SUCCESS) {

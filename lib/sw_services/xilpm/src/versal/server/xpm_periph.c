@@ -231,7 +231,7 @@ static XStatus HbMon_StartTimer(u32 HbMonIdx, u32 TimeoutVal)
 		 * Start the scheduler if not running
 		 */
 		Status = XPlmi_SchedulerAddTask(HbMon_SchedId, HbMon_Scheduler,
-						HbMon_SchedFreq, XPLM_TASK_PRIORITY_0,
+						NULL, HbMon_SchedFreq, XPLM_TASK_PRIORITY_0,
 						NULL, XPLMI_PERIODIC_TASK);
 		if (XST_SUCCESS != Status) {
 			goto done;
