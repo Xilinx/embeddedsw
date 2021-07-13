@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -29,6 +29,7 @@
 * 	kal  09/03/2020 Fixed Security CoE review comments
 *	am   10/13/2020 Resolved MISRA C violations
 * 2.3	kal  01/27/2021 Added XNvm_ZeroizeAndVerify API
+* 2.4   kal  07/13/2021 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -43,7 +44,7 @@
 
 /*************************** Constant Definitions *****************************/
 
-/* Polynomial used for CRC calculation */
+/**< Polynomial used for CRC calculation */
 #define REVERSE_POLYNOMIAL	(0x82F63B78U)
 
 
@@ -142,7 +143,7 @@ u32 XNvm_AesCrcCalc(const u32 *Key)
 }
 
 /*****************************************************************************/
-/*
+/**
  * @brief	This function is used to zeroize the memory
  *
  * @param	DataPtr Pointer to the memory which need to be zeroized.

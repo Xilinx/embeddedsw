@@ -62,6 +62,7 @@
 *	kpt  05/20/2021 Added support for programming PUF efuses as
 *                       general purpose data
 *       am   05/22/2021 Resolved MISRA C violations
+* 2.4   kal  07/13/2021 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -79,43 +80,75 @@
 #include "xstatus.h"
 
 /*************************** Constant Definitions *****************************/
+/**
+ * @name eFuse macro definitions
+ */
+/**< One Micro Second Timeout */
 #define XNVM_ONE_MICRO_SECOND			(1U)
+/**< CRC for Aes zero key */
 #define XNVM_EFUSE_CRC_AES_ZEROS		(0x6858A3D5U)
+/**< TPGM Divisor value */
 #define XNVM_EFUSE_TPGM_DIV			(200000UL)
+/**< TRD Divisor value */
 #define XNVM_EFUSE_TRD_DIV			(4608294UL)
+/**< TRMD Divisor value */
 #define XNVM_EFUSE_TRMD_DIV			(2000000UL)
+/**< TSU_H_PS Divisor value */
 #define XNVM_EFUSE_TSU_H_PS_DIV			(4807692UL)
+/**< TSU_H_PS_CS Divisor value */
 #define XNVM_EFUSE_TSU_H_PS_CS_DIV		(6993007UL)
+/**< TSU_H_CS Divisor value */
 #define XNVM_EFUSE_TSU_H_CS_DIV			(5434783UL)
+/**< Efuse total number of rows */
 #define XNVM_EFUSE_TOTAL_NUM_OF_ROWS		(768U)
+/**< PPK hash number of eFuse rows */
 #define XNVM_EFUSE_TOTAL_PPK_HASH_ROWS  (XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS * 3U)
+/**< eFuse word length */
 #define XNVM_EFUSE_WORD_LEN			(4U)
+/**< Default secure value for 32 bit */
 #define XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET	(0xFFFFFFFFU)
+/**< Default secure value for 8 bit */
 #define XNVM_EFUSE_SEC_DEF_VAL_BYTE_SET		(0xFFU)
+/**< Sysmon VCCPMC Amux ctrl value */
 #define XNVM_EFUSE_SYSMON_VCCPMC_AMUX_CTRL	(0x0bU)
+/**< Sysmon VCCPMC Abus sw1 value */
 #define XNVM_EFUSE_SYSMON_VCCPMC_ABUS_SW1	(0x00U)
+/**< Sysmon VCCPMC Abus sw0 value*/
 #define XNVM_EFUSE_SYSMON_VCCPMC_ABUS_SW0	(0x02U)
+/**< Sysmon VCCPMC mode value */
 #define XNVM_EFUSE_SYSMON_VCCPMC_MODE		(0x00U)
+/**< Sysmon number of measurement registers */
 #define XNVM_EFUSE_SYSMON_NUM_MEASURE_REGS	(0x20U)
+/**< Sysmon number of supplies per flag */
 #define XNVM_EFUSE_SYSMON_NUM_SUPPLIES_PER_FLAG	(32U)
+/**< Sysmon Psv timeout value */
 #define XNVM_EFUSE_SYSMONPSV_TIMEOUT		(100000U)
+/**< Fraction multiplier value */
 #define XNVM_EFUSE_FRACTION_MUL_VALUE		(1000000U)
+/** @} */
 
 /***************************** Type Definitions *******************************/
-/* Operation mode - Read, Program(Write) */
+/**
+ * @name  Operation mode
+ */
 typedef enum {
-	XNVM_EFUSE_MODE_RD,
-	XNVM_EFUSE_MODE_PGM
+	XNVM_EFUSE_MODE_RD, /**< eFuse read mode */
+	XNVM_EFUSE_MODE_PGM /**< eFuse program mode */
 } XNvm_EfuseOpMode;
+/** @} */
 
-/* eFUSE read type - Normal read, Margin read */
+/**
+ * @name  Read mode
+ */
 typedef enum {
-	XNVM_EFUSE_NORMAL_RD,
-	XNVM_EFUSE_MARGIN_RD
+	XNVM_EFUSE_NORMAL_RD, /**< eFuse normal read */
+	XNVM_EFUSE_MARGIN_RD /**< eFuse margin read */
 } XNvm_EfuseRdMode;
+/** @} */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
+/**< XilNvm specific printf definition */
 #define XNvm_Printf(DebugType, ...)	\
 	if ((DebugType) == (1U)) {xil_printf (__VA_ARGS__);}
 
@@ -1338,7 +1371,7 @@ END:
  * @brief	This function is used to read the Misc eFUSE control bits from
  *			cache.
  *
- * @param	ReadMiscCtrlBits - Pointer to the XNvm_MiscCtrlBits which holds
+ * @param	MiscCtrlBits - Pointer to the XNvm_MiscCtrlBits which holds
  *				the read secure control bits.
  *
  * @return	- XST_SUCCESS - On Successful read.
@@ -1865,9 +1898,9 @@ END :
  * @brief	This function reads the Offchip revoke eFuse value from
  * 		eFUSE cache.
  *
- * @param	OffchipFusePtr - Pointer to the data which hold the Offchip
+ * @param	OffchipIdPtr - Pointer to the data which hold the Offchip
  * 				revoke ID values.
- * @param 	OffchipFuseNum - Offchip fuse number to read.
+ * @param 	OffchipIdNum - Offchip fuse number to read.
  *
  * @return	- XST_SUCCESS - On successfull read.
  *		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
@@ -1897,7 +1930,7 @@ int XNvm_EfuseReadOffchipRevokeId(u32 *OffchipIdPtr,
 /**
  * @brief	This function reads User eFuses from Cache.
  *
- *@param	UserFuseData - UserFuseData to be read from eFuse Cache.
+ *@param	UserFusesData - UserFuseData to be read from eFuse Cache.
  *
  *@return	- XST_SUCCESS - if reads successfully.
  *		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
@@ -4112,7 +4145,7 @@ END:
 /**
  * @brief	This function Validates BootEncCtrl row for programming.
  *
- * @param	WriteUserFuses - Pointer to BootEnvCtrl structure.
+ * @param	BootEnvCtrl - Pointer to BootEnvCtrl structure.
  *
  * @return	- XST_SUCCESS - if programming is successful.
  *		- XNVM_EFUSE_ERR_BOOT_ENV_CTRL_ALREADY_PRGMD - Requested bits
@@ -4937,7 +4970,7 @@ static int XNvm_EfusePgmBit(XNvm_EfuseType Page, u32 Row, u32 Col)
 /**
  * @brief	This function verify the specified bit set in the eFUSE.
  *
- * @param	Page- It is an enum variable of type XNvm_EfuseType.
+ * @param	Page - It is an enum variable of type XNvm_EfuseType.
  * @param	Row - It is an 32-bit Row number (0-based addressing).
  * @param	Col - It is an 32-bit Col number (0-based addressing).
  *
@@ -5035,8 +5068,6 @@ static int XNvm_EfusePgmAndVerifyBit(XNvm_EfuseType Page, u32 Row, u32 Col)
 /**
  * @brief	This function performs the Protection checks when the eFuse
  * 		cache is reloaded
- *
- * @param	None
  *
  * @return	- XST_SUCCESS - on successful protection checks.
  *		- XNVM_EFUSE_ERR_IN_PROTECTION_CHECK - Error in protection check
