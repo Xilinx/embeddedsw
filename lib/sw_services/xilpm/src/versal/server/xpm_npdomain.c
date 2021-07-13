@@ -36,10 +36,12 @@ static XStatus NpdInitStart(const u32 *Args, u32 NumOfArgs)
 	const XPm_Rail *VccSocRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_SOC);
 
 	/* Check vccint_soc first to make sure power is on */
-	while (XST_SUCCESS != Status) {
+	while (TRUE) {
 		Status = XPmPower_CheckPower(VccSocRail, PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_SOC_MASK);
+		if (XST_SUCCESS == Status) {
+			break;
+		}
 
-		usleep(10);
 		NpdPowerUpTime++;
 		if (NpdPowerUpTime > XPM_POLL_TIMEOUT) {
 			/* TODO: Request PMC to power up VCCINT_SOC rail and wait for the acknowledgement.*/
@@ -47,6 +49,7 @@ static XStatus NpdInitStart(const u32 *Args, u32 NumOfArgs)
 			Status = XST_FAILURE;
 			goto done;
 		}
+		usleep(10);
 	}
 	if ((NULL == VccSocRail) || (VccSocRail->Source != XPM_PGOOD_SYSMON)) {
 		if (PLATFORM_VERSION_SILICON == XPm_GetPlatform()) {

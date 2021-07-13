@@ -620,9 +620,7 @@ static XStatus PldInitStart(const u32 *Args, u32 NumOfArgs)
 	/* If PL power is still not up, return error as PLD can't
 	   be initialized */
 	if (1U != HcleanDone) {
-		while ((XST_SUCCESS != IntRailPwrSts) ||
-		       (XST_SUCCESS != RamRailPwrSts) ||
-		       (XST_SUCCESS != AuxRailPwrSts)) {
+		while (TRUE) {
 			IntRailPwrSts = XPmPower_CheckPower(VccintRail,
 					PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_PL_MASK);
 			RamRailPwrSts =  XPmPower_CheckPower(VccRamRail,
@@ -630,8 +628,12 @@ static XStatus PldInitStart(const u32 *Args, u32 NumOfArgs)
 			AuxRailPwrSts =  XPmPower_CheckPower(VccauxRail,
 					PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCAUX_MASK);
 
-			/** Wait for PL power up */
-			usleep(10);
+			if ((XST_SUCCESS == IntRailPwrSts) &&
+			    (XST_SUCCESS == RamRailPwrSts) &&
+			    (XST_SUCCESS == AuxRailPwrSts)) {
+				break;
+			}
+
 			PlPowerUpTime++;
 			if (PlPowerUpTime > XPM_POLL_TIMEOUT)
 			{
@@ -641,6 +643,9 @@ static XStatus PldInitStart(const u32 *Args, u32 NumOfArgs)
 				/* TODO: Request PMC to power up all required rails and wait for the acknowledgement.*/
 				goto done;
 			}
+
+			/** Wait for PL power up */
+			usleep(10);
 		}
 
 		/* Skip PL release delay if using sysmon */
