@@ -211,6 +211,25 @@ u64 XV_frmbufrd_Get_HwReg_frm_buffer2_V(XV_frmbufrd *InstancePtr) {
     return Data;
 }
 
+void XV_frmbufrd_Set_HwReg_frm_buffer3_V(XV_frmbufrd *InstancePtr, u64 Data) {
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    XV_frmbufrd_WriteReg(InstancePtr->Config.BaseAddress, XV_FRMBUFRD_CTRL_ADDR_HWREG_FRM_BUFFER3_V_DATA, (u32)(Data));
+    XV_frmbufrd_WriteReg(InstancePtr->Config.BaseAddress, XV_FRMBUFRD_CTRL_ADDR_HWREG_FRM_BUFFER3_V_DATA + 4, (u32)(Data >> 32));
+}
+
+u64 XV_frmbufrd_Get_HwReg_frm_buffer3_V(XV_frmbufrd *InstancePtr) {
+    u64 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XV_frmbufrd_ReadReg(InstancePtr->Config.BaseAddress, XV_FRMBUFRD_CTRL_ADDR_HWREG_FRM_BUFFER3_V_DATA);
+    Data += (u64)XV_frmbufrd_ReadReg(InstancePtr->Config.BaseAddress, XV_FRMBUFRD_CTRL_ADDR_HWREG_FRM_BUFFER3_V_DATA + 4) << 32;
+    return Data;
+}
+
 void XV_frmbufrd_Set_HwReg_field_id(XV_frmbufrd *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
