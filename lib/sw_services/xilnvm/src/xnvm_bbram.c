@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -25,6 +25,7 @@
 * 	kal  12/23/2020 Disable BBRAM programming in error case also
 *	kal  01/27/2021	Zeroize BBRAM in case of CRC mismatch
 *			Zeroize BBRAM User Data in case of write failure
+* 2.4   kal  07/13/2021 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -41,8 +42,8 @@
 
 /*************************** Constant Definitions *****************************/
 
-/* Polynomial used for CRC calculation */
 #define REVERSE_POLYNOMIAL	(0x82F63B78U)
+				/**< Polynomial used for CRC calculation */
 
 /***************************** Type Definitions *******************************/
 
@@ -68,8 +69,6 @@ static INLINE u32 XNvm_BbramReadReg(u32 Offset)
  *
  * @param	Offset is the register offset of the register.
  * @param	Data is the 32-bit value to write to the register.
- *
- * @return	None
  *
  ******************************************************************************/
 static INLINE void XNvm_BbramWriteReg(u32 Offset, u32 Data)
@@ -228,11 +227,8 @@ int XNvm_BbramWriteUsrData(u32 UsrData)
 /**
  * @brief	Reads 32-bit user data from BBRAM.
  *
- * @param   None
- *
  * @return  32-bit user data stored in BBRAM
  *
- * @note    None.
  ******************************************************************************/
 u32 XNvm_BbramReadUsrData(void)
 {
@@ -242,8 +238,6 @@ u32 XNvm_BbramReadUsrData(void)
 /******************************************************************************/
 /**
  * @brief	Zeroize the BBRAM.
- *
- * @param   None
  *
  * @return - XST_SUCCESS - Zeroization of BBRAM done.
  *         - XNVM_BBRAM_ERROR_ZEROIZE_TIMEOUT - Timed out during BBRAM
