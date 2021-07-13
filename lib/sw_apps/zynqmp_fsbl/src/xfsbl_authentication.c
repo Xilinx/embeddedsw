@@ -38,6 +38,7 @@
 *       bsv  04/01/21 Added TPM support
 *       bsv  05/03/21 Add provision to load bitstream from OCM with DDR
 *                     present in design
+* 8.0   bsv  07/13/21 Remove unwanted CsuDma initializations
 *
 * </pre>
 *
@@ -98,15 +99,14 @@ u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen)
 	u32 UserFuseAddr;
 	u32 UserFuseVal;
 
-	/* Re-initialize CSU DMA. This is a workaround and need to be removed */
-	Status = XFsbl_CsuDmaInit(NULL);
-	if (XFSBL_SUCCESS != Status) {
-		goto END;
-	}
-
 	(void)XFsbl_ShaStart(ShaCtx, HashLen);
 	if (SpkIdFuseSel == XFSBL_SPKID_EFUSE) {
 		Status = XFsbl_Sha3PadSelect(XSECURE_CSU_KECCAK_SHA3);
+		if (Status != XST_SUCCESS) {
+			XFsbl_Printf(DEBUG_GENERAL, "XFsbl_SpkVer: Error in "
+				"SHA3 padding selection\r\n");
+			goto END;
+		}
 	}
 	else if (SpkIdFuseSel != XFSBL_USER_EFUSE) {
 		Status = XFSBL_ERROR_INVALID_EFUSE_SELECT;
@@ -114,12 +114,6 @@ u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen)
 		XFsbl_Printf(DEBUG_GENERAL,
 					"XFsbl_SpkVer: "
 				        "XFSBL_ERROR_INVALID_EFUSE_SELECT\r\n");
-		goto END;
-	}
-
-	if (Status != XST_SUCCESS) {
-		XFsbl_Printf(DEBUG_GENERAL,
-					"XFsbl_SpkVer: Error in SHA3 padding selection\r\n");
 		goto END;
 	}
 
@@ -601,12 +595,6 @@ u32 XFsbl_BhAuthentication(const XFsblPs * FsblInstancePtr, u8 *Data,
 	}
 	else {
 		SizeofBH = XIH_BH_MIN_SIZE;
-	}
-
-	/* Initialize CSU DMA driver */
-	Status = XFsbl_CsuDmaInit(NULL);
-	if (XFSBL_SUCCESS != Status) {
-		goto END;
 	}
 
 	/* If EFUSE RSA enabled verify PPK */
