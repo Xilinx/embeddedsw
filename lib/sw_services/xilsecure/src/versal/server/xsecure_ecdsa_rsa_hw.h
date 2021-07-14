@@ -22,6 +22,7 @@
 *                        XSECURE_ECDSA_RSA_CFG_CLEAR_ENDIANNESS_MASK
 *       am      09/24/20 Resolved MISRA C violations
 *       har     10/12/20 Addressed security review comments
+* 4.6   har     07/14/21 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -36,78 +37,64 @@ extern "C" {
 /***************************** Include Files *********************************/
 
 /************************** Constant Definitions *****************************/
-
-/* ECDSA RSA core's base Address */
 #define XSECURE_ECDSA_RSA_BASEADDR			(0xF1200000U)
 					/**< Base address of ECDSA RSA core */
 
-/* Register offsets */
-/**
- * Register: RAM data register
- */
 #define XSECURE_ECDSA_RSA_RAM_DATA_OFFSET		(0x00000000U)
+					/**< Offset of RAM_DATA register */
 
 /**
- * Register: RAM address register
+ * @name  RAM_ADDR register
+ * @{
  */
+/**< RAM address register offset and definitions */
 #define XSECURE_ECDSA_RSA_RAM_ADDR_OFFSET		(0x00000004U)
 #define XSECURE_ECDSA_RSA_RAM_ADDR_WRRD_B_MASK		(0x80000000U)
+/** @} */
 
 /**
- * Register: Control register
+ * @name  CTRL register
+ * @{
  */
+/**< CTRL register offset and definitions */
 #define XSECURE_ECDSA_RSA_CTRL_OFFSET			(0x00000008U)
-
 #define XSECURE_ECDSA_RSA_CTRL_CLR_DATA_BUF_MASK	(0x00000080U)
+/** @} */
 
-/**
- * Register: Status Register
- */
 #define XSECURE_ECDSA_RSA_STATUS_OFFSET			(0x0000000CU)
+						/**< Offset of Status register */
 
-/**
- * Register: MINV value register
- */
 #define XSECURE_ECDSA_RSA_MINV_OFFSET			(0x00000010U)
+						/**< Offset of MINV register */
 
-/**
- * Register: Key Length register
- */
 #define XSECURE_ECDSA_RSA_KEY_LEN_OFFSET		(0x00000020U)
+							/**< Offset of Key Len register */
 
-/**
- * Register: CFG 0
- */
 #define XSECURE_ECDSA_RSA_CFG0_OFFSET			(0x00000028U)
+							/**< Offset of CFG0 register */
 
-/**
- * Register: CFG 1
- */
 #define XSECURE_ECDSA_RSA_CFG1_OFFSET			(0x0000002CU)
+							/**< Offset of CFG1 register */
 
-/**
- * Register: CFG 2
- */
 #define XSECURE_ECDSA_RSA_CFG2_OFFSET			(0x00000030U)
+							/**< Offset of CFG2 register */
 
-/**
- * Register: XSECURE_ECDSA_RSA_CFG5
- */
 #define XSECURE_ECDSA_RSA_CFG5_OFFSET			(0x0000003CU)
+							/**< Offset of CFG5 register */
 
-/**
- * Register: XSECURE_ECDSA_RSA_RESET
- */
 #define XSECURE_ECDSA_RSA_RESET_OFFSET			(0x00000040U)
+							/**< Offset of RESET register */
 
 /**
- * Register: XSECURE_ECDSA_RSA_RSA_CFG
+ * @name  CFG register
+ * @{
  */
+/**< CFG register offset and definitions */
 #define XSECURE_ECDSA_RSA_CFG_OFFSET			(0x00000058U)
-
 #define XSECURE_ECDSA_RSA_CFG_RD_ENDIANNESS_MASK	(0x00000002U)
 #define XSECURE_ECDSA_RSA_RSA_CFG_WR_ENDIANNESS_MASK	(0x00000001U)
 #define XSECURE_ECDSA_RSA_CFG_CLEAR_ENDIANNESS_MASK	(0U)
+/** @} */
 
 #ifdef __cplusplus
 }

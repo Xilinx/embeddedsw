@@ -32,6 +32,7 @@
 *       bm      01/13/21 Added 64 bit In and Out apis
 *       har     02/01/21 Removed Status variable from XSecure_ReadReg
 *       bm      05/19/21 Added macro for word aligned mask
+* 4.6   har     07/14/21 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -62,22 +63,31 @@ extern "C" {
 /***************************** Type Definitions******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XSecure_MemCpy			Xil_MemCpy /**< Backward compatibility */
 
-/* Backward compatibility */
-#define XSecure_MemCpy			Xil_MemCpy
-
+/**
+ * @name  Definition of asserts if macro is defined
+ * @{
+ */
+/**< All asserts are under XSECDEBUG macro now */
 #ifdef XSECDEBUG
-/* All asserts are under XSECDEBUG macro now */
 #define XSecure_AssertVoid		(Xil_AssertVoid)
 #define XSecure_AssertVoidAlways	(Xil_AssertVoidAlways)
 #define XSecure_AssertNonvoid		(Xil_AssertNonvoid)
 #define XSecure_AssertNonvoidAlways	(Xil_AssertNonvoidAlways)
+/** @} */
+/**
+ * @name  Definition of asserts if macro is undefined
+ * @{
+ */
+/**< Asserts if XSECDEBUG macro is undefined */
 #else
 #define XSecure_AssertVoid(Expression)
 #define XSecure_AssertVoidAlways()
 #define XSecure_AssertNonvoid(Expression)
 #define XSecure_AssertNonvoidAlways()
 #endif
+/** @} */
 
 /*****************************************************************************/
 /**
@@ -181,9 +191,10 @@ static inline void XSecure_OutByte64(u64 Addr, u8 Data)
 #endif
 }
 
-#define XSecure_In32		(Xil_In32)
-#define XSecure_Out32		(Xil_Out32)
-#define XSecure_SecureOut32	(Xil_SecureOut32)
+#define XSecure_In32		(Xil_In32)		/**< Reads data from 32-bit address */
+#define XSecure_Out32		(Xil_Out32)		/**< Writes data to 32-bit address */
+#define XSecure_SecureOut32	(Xil_SecureOut32)/**< Writes data to 32-bit address
+												and checks for blind writes*/
 
 /************************** Function Prototypes ******************************/
 void XSecure_SetReset(u32 BaseAddress, u32 Offset);

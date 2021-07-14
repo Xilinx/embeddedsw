@@ -18,6 +18,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kal   03/04/2021 Initial release
+* 4.6   har   07/14/2021 Fixed doxygen warnings
 *
 * </pre>
 *

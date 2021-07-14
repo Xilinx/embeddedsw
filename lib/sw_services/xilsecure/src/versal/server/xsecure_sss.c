@@ -26,6 +26,7 @@
 *                        writes
 *       kpt     11/12/20 Fixed SSS Cfg issue
 * 4.5   am      11/24/20 Resolved Coverity warnings
+* 4.6   har     07/14/21 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -241,8 +242,7 @@ END:
 /**
  * @brief	This function sets the DMA source of type XSecure_SssSrc based
  * 		on the provided DMA device ID
- *
- * @param	InstancePtr	- Instance pointer to the XSecure_Sss
+*
  * @param	DmaId		- Device ID of DMA
  * @param	Resource	- DMA source is updated into the pointer
  *

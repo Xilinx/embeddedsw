@@ -21,6 +21,7 @@
 *       bm    05/13/2021 Updated code to use common crypto instance
 *       har   05/18/2021 Added check for key source for IPI calls
 *       am    05/21/2021 Resolved Coverity violations
+* 4.6   har   07/14/2021 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -39,12 +40,14 @@
 #include "xsecure_error.h"
 
 /************************** Constant Definitions *****************************/
-
-
 #define XSECURE_AES_DEC_KEY_SRC_MASK	0x000000FFU
+			/**< AES decrypt key source mask for KEK decryption */
 #define XSECURE_AES_DST_KEY_SRC_MASK	0x0000FF00U
+			/**< AES destination key source mask for KEK decryption */
 #define XSECURE_AES_KEY_SIZE_MASK	0xFFFF0000U
+			/**< Key Size mask */
 #define XSECURE_PMCDMA_DEVICEID		PMCDMA_0_DEVICE_ID
+			/**< AES destination key source mask for KEK decryption */
 
 /************************** Function Prototypes *****************************/
 static int XSecure_AesInit(void);

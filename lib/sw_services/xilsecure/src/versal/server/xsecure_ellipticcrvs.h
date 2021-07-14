@@ -21,6 +21,7 @@
 *       har  10/12/20 Addressed security review comments
 *       har  10/14/20 Replaced ecdsa with elliptic in names of function and
 *                     macros
+* 4.6   har  07/14/21 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -39,18 +40,24 @@ extern "C" {
 #include <Ecdsa.h>
 
 /************************** Constant Definitions ****************************/
+/**
+ * @name Supported ECC curves
+ * @{
+ */
+/**< Macros to enable /disable support of NIST P-384 and NIST P-521 curve */
 #define XSECURE_ECC_SUPPORT_NIST_P384
 #define XSECURE_ECC_SUPPORT_NIST_P521
+/** @} */
 
 /***************************** Type Definitions ******************************/
 typedef enum {
-	XSECURE_ECC_NIST_P384 = 4,
-	XSECURE_ECC_NIST_P521 = 5
+	XSECURE_ECC_NIST_P384 = 4,		/**< NIST P-384 curve value in Ecdsa.h */
+	XSECURE_ECC_NIST_P521 = 5		/**< NIST P-521 curve value in Ecdsa.h */
 } XSecure_EllipticCrvTyp;
 
 typedef enum {
-	XSECURE_ECC_PRIME = 0,
-	XSECURE_ECC_BINARY = 1,
+	XSECURE_ECC_PRIME = 0,		/**< Prime curve value in Ecdsa.h */
+	XSECURE_ECC_BINARY = 1,		/**< Binary curve value in Ecdsa.h */
 } XSecure_EllipticCrvClass;
 
 extern EcdsaCrvInfo XSecure_EllipticCrvsDb[];

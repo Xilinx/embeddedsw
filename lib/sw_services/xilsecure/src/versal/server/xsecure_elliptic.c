@@ -29,6 +29,7 @@
 *       kpt 02/14/21  Added redundancy for ECDSA hash length check
 *       har 03/22/21  Added volatile keyword to status variables used in
 *                     XSECURE_TEMPORAL_CHECK
+* 4.6   har  07/14/21 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -48,8 +49,14 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+/**
+ * @name  Value of Public Strength (bits 7:4) in Authentication Certificate
+ * @{
+ */
+/**< Public Strength value for NIST P-384 curve and NIST P-521 curve */
 #define XSECURE_ECDSA_KAT_NIST_P384	0U
 #define XSECURE_ECDSA_KAT_NIST_P521	2U
+/** @} */
 
 /************************** Function Prototypes ******************************/
 static EcdsaCrvInfo* XSecure_EllipticGetCrvData(XSecure_EllipticCrvTyp CrvTyp);

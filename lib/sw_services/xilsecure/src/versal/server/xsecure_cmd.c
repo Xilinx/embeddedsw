@@ -18,6 +18,8 @@
 * 1.0   kal  03/23/2021 Initial release
 *       har  05/18/2021 Added support for secure access control for Xilsecure
 *                       IPI calls
+* 4.6   har  07/14/2021 Fixed doxygen warnings
+*
 * </pre>
 *
 * @note
@@ -58,6 +60,17 @@ static XPlmi_Module XPlmi_Secure =
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Definitions ******************************/
+/*****************************************************************************/
+/**
+ * @brief	This function checks if a particular Secure API ID is supported
+ * or not.
+ *
+ * @param	ApiId is API ID in the IPI request
+ *
+ * @return	XST_SUCCESS in case of success
+ *		XST_INVALID_PARAM in case of unsupported API ID
+ *
+ *****************************************************************************/
 static int XSecure_FeaturesCmd(u32 ApiId)
 {
 	int Status = XST_INVALID_PARAM;

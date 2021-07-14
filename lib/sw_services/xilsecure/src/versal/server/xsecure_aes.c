@@ -61,6 +61,7 @@
 *       kpt  03/21/2021 Added volatile keyword for SStatus variable in
 *                       XSecure_AesDecryptKat to avoid compiler optimization.
 *       am   05/21/2021 Resolved MISRA C violations
+* 4.6   har  07/14/2021 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -77,19 +78,36 @@
 
 /************************** Constant Definitions *****************************/
 #define XSECURE_MAX_KEY_SOURCES			XSECURE_AES_EXPANDED_KEYS
-#define XSECURE_KEK_DEC_ENABLE			(0x1U)
-#define XSECURE_AES_DISABLE_KUP_IV_UPDATE	(0x0U)
-#define XSECURE_AES_ENABLE_KUP_IV_UPDATE	(0x1U)
-#define XSECURE_ENABLE_BYTE_SWAP		(0x1U)
-#define XSECURE_DISABLE_BYTE_SWAP		(0x0U)
+										/**< Max key source value */
+
+#define XSECURE_KEK_DEC_ENABLE			(0x1U)	/**< Triggers decryption operation
+											for black key */
+
+#define XSECURE_AES_DISABLE_KUP_IV_UPDATE	(0x0U)	/**< Disables IV and Key save
+											features for KUP */
+#define XSECURE_AES_ENABLE_KUP_IV_UPDATE	(0x1U)	/**< Enables IV and Key save
+											features for KUP */
+
+#define XSECURE_ENABLE_BYTE_SWAP		(0x1U)	/**< Enables data swap in AES */
+#define XSECURE_DISABLE_BYTE_SWAP		(0x0U)	/**< Disables data swap in AES */
+
+/**
+ * @name AES KAT parameters
+ * @{
+ */
+/**< AES KAT parameters */
 #define XSECURE_KAT_IV_SIZE_IN_WORDS		(4U)
 #define XSECURE_KAT_MSG_SIZE_IN_WORDS		(4U)
 #define XSECURE_KAT_GCMTAG_SIZE_IN_WORDS	(4U)
 #define XSECURE_KAT_AES_SPLIT_DATA_SIZE		(4U)
 #define XSECURE_KAT_KEY_SIZE_IN_WORDS		(8U)
 #define XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS	(16U)
-#define XSECURE_AES_AAD_ENABLE			(0x1U)
-#define XSECURE_AES_AAD_DISABLE			(0x0U)
+/** @} */
+
+#define XSECURE_AES_AAD_ENABLE			(0x1U)	/**< Enables authentication of
+													data pushed in AES engine*/
+#define XSECURE_AES_AAD_DISABLE			(0x0U)	/**< Disables authentication of
+													data pushed in AES engine*/
 
 static const u32 KatKey[XSECURE_KAT_KEY_SIZE_IN_WORDS] =
 			  {0xD55455D7U, 0x2B247897U, 0xC4BF1CDU , 0x1A2D14EDU,
@@ -132,23 +150,23 @@ static const u32 MiC1[XSECURE_KAT_AES_SPLIT_DATA_SIZE] =
 
 /**************************** Type Definitions *******************************/
 typedef struct {
-	u32 RegOffset;
-	u32 KeySrcSelVal;
-	u8  UsrWrAllowed;
-	u8  DecAllowed;
-	u8  EncAllowed;
-	u8  KeyDecSrcAllowed;
-	u32 KeyDecSrcSelVal;
-	u32 KeyClearVal;
+	u32 RegOffset;	/**< Register offset for key source */
+	u32 KeySrcSelVal;	/**< Selection value for key source */
+	u8  UsrWrAllowed;	/**< User write allowed or not for key source */
+	u8  DecAllowed;		/**< Decryption allowed or not for key source */
+	u8  EncAllowed;		/**< Encryption allowed or not for key source */
+	u8  KeyDecSrcAllowed;	/**< Key decryption source allowed */
+	u32 KeyDecSrcSelVal;	/**< Selection value for key decryption source*/
+	u32 KeyClearVal;	/**< Key source clear value*/
 } XSecure_AesKeyLookup;
 
 typedef struct {
-	u64 SrcDataAddr;
-	u64 DestDataAddr;
-	u8 SrcChannelCfg;
-	u8 DestChannelCfg;
-	u8 IsLastChunkSrc;
-	u8 IsLastChunkDest;
+	u64 SrcDataAddr;	/**< Address of source buffer */
+	u64 DestDataAddr;	/**< Address of destination buffer */
+	u8 SrcChannelCfg;	/**< DMA Source channel configuration */
+	u8 DestChannelCfg;	/**< DMA destination channel configuration  */
+	u8 IsLastChunkSrc;	/**< Flag for last update in source */
+	u8 IsLastChunkDest;	/**< Flag for last update in destination */
 } XSecure_AesDmaCfg;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -1585,7 +1603,7 @@ END:
 /**
  * @brief	This function performs known answer test(KAT) on AES engine
  *
- * @param	InstancePtr	- Pointer to the XSecure_Aes instance
+ * @param	AesInstance	- Pointer to the XSecure_Aes instance
  *
  * @return	- XST_SUCCESS - When KAT Pass
  * 		- XSECURE_AESKAT_INVALID_PARAM - Invalid Argument
@@ -2167,7 +2185,7 @@ END:
  * This function configures the PMC DMA channels
  *
  * @param       InstancePtr             Pointer to the XSecure_Aes instance.
- * @param       XSecure_AesDmaCfg       DMA SRC and DEST channel configuration
+ * @param       AesDmaCfg       DMA SRC and DEST channel configuration
  * @param       Size                    Size of data in bytes.
  *
  * @return

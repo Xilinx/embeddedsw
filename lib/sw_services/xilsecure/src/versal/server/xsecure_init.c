@@ -23,6 +23,7 @@
 *       har 10/12/2020 Addressed security review comments
 * 4.5   ma  04/05/2021 Use error mask instead of ID to set an error action
 *       bm  05/13/2021 Add common crypto instances
+* 4.6   har 07/14/2021 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -41,14 +42,20 @@
 /**************************** Type Definitions *******************************/
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XPLMI_EVENT_ERROR_PMC_ERR2	(0x28104000U)
+					/**< PLMI Event PMC error 2 */
 #define	XSECURE_NODEIDX_ERROR_PMCAPB_MASK	(0x1U)
+					/**< Node Idx Error PMC APB mask */
 #define XSECURE_TAMPER_INT_MASK		(8U)
-#define XSECURE_GD0_GLITCH_STATUS_MASK	(0x200U)
-#define XSECURE_GD1_GLITCH_STATUS_MASK	(0x2000000U)
+					/**< Tamper interrupt mask */
+#define XSECURE_GD0_GLITCH_STATUS_MASK	(0x200U)	/**< Glitch detector0 status mask */
+#define XSECURE_GD1_GLITCH_STATUS_MASK	(0x2000000U)	/**< Glitch detector1 status mask */
 #define XSECURE_GD_STATUS 		(XSECURE_GD1_GLITCH_STATUS_MASK | \
 					 XSECURE_GD0_GLITCH_STATUS_MASK)
+					/**< Glitch detector status mask */
 #define PMC_ANALOG_GD_CTRL_REG		(0xF1160000U)
+					/**< PMC_ANALOG base address */
 #define PMC_GLOBAL_ISR_REG		(0xF1110010U)
+					/**< PMC_GLOBAL_ISR register offset */
 
 /************************** Function Prototypes ******************************/
 static int XSecure_RegisterTampIntHandler(void);
@@ -60,8 +67,6 @@ static int XSecure_RegisterTampIntHandler(void);
 /*****************************************************************************/
 /**
  * @brief	This function registers the handler for tamper interrupt
- *
- * @param	None
  *
  * @return	- XST_SUCCESS - On success
  *     		- XPLMI_INVALID_ERROR_ID      - On invalid ID
@@ -82,8 +87,6 @@ int XSecure_Init(void)
 /*****************************************************************************/
 /**
  * @brief	This function registers the handler for tamper interrupt
- *
- * @param	None
  *
  * @return	- XST_SUCCESS - On success
  *     		- XPLMI_INVALID_ERROR_ID      - On invalid ID

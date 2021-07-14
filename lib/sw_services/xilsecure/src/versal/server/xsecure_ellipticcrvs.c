@@ -20,6 +20,7 @@
 * 4.3   har  08/24/20 Updated file version to sync with library version
 *       am   09/24/20 Resolved MISRA C violations
 *       har  10/12/20 Addressed security review comments
+* 4.6   har  07/14/21 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -370,8 +371,6 @@ EcdsaCrvInfo XSecure_EllipticCrvsDb[] =
 /*****************************************************************************/
 /**
  * @brief	This function calculates the total number of curves supported
- *
- * @param	None
  *
  * @return	Returns the number of curves supported
  *

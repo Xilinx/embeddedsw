@@ -22,6 +22,7 @@
 * 4.4   kpt 01/27/2021 Fixed bug in clearing tamper interrupt
 * 4.5   kpt 02/04/2021 Added redundancy for tamper interrupt and response
 *                      checks
+* 4.6   har 07/14/2021 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -39,14 +40,38 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+/**
+ * @name PMC_GLOBAL_IER register
+ * @{
+ */
+/**< PMC_GLOBAL_IER register offset and definitions */
 #define PMC_GLOBAL_IER_REG_ADDR		(0xF1110018U)
 #define PMC_GLOBAL_IER_TAMPER_INT	(0x00000008U)
+/** @} */
+
+/**
+ * @name PMC_GLOBAL_ISR register
+ * @{
+ */
+/**< PMC_GLOBAL_ISR register offset and definitions */
 #define PMC_GLOBAL_ISR_REG_ADDR		(0xF1110010U)
 #define PMC_GLOBAL_ISR_TAMPER_INT	(0x00000008U)
+/** @} */
+
 #define PMC_GLOBAL_TAMPER_RESP_0	(0xF1110530U)
+					/**< TAMPER_RESP_0 register offset */
+
 #define PMC_GLOBAL_SLD_MASK		((1U<<2U)|(1U<<3U))
+					/**< Secure Lockdown mask */
+
+/**
+ * @name TAMPER_TRIG register
+ * @{
+ */
+/**< TAMPER_TRIG register offset and definitions */
 #define PMC_GLOBAL_TAMPER_TRIG		(0xF1110570U)
 #define PMC_GLOBAL_TAMPER_TRIG_VAL	(1U)
+/** @} */
 
 /************************** Function Prototypes ******************************/
 
@@ -57,8 +82,6 @@
 /*****************************************************************************/
 /**
  * @brief	This function enables the tamper interrupt in PMC_GLOBAL
- *
- * @param	None
  *
  * @return	None
  *
@@ -74,8 +97,6 @@ void XSecure_EnableTamperInterrupt(void)
 /*****************************************************************************/
 /**
  * @brief	This function processes the tamper response
- *
- * @param	None
  *
  * @return 	- XST_SUCCESS - Always
  *
@@ -135,8 +156,6 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function executes the secure lock down for LPD/FPD/PL/NoC
- *
- * @param	None
  *
  * @return	None
  *

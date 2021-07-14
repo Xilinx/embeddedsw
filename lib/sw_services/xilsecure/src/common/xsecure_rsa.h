@@ -60,6 +60,7 @@
 * 4.3   am   09/24/20 Resolved MISRA C violations
 *       har  10/12/20 Addressed security review comments
 *       ana  10/15/20 Updated doxygen tags
+* 4.6   har  07/14/21 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -84,9 +85,14 @@ extern "C" {
 #define XSECURE_RSA_BYTE_PAD2		(0X01U) /**<PKCS T Padding Byte */
 #define XSECURE_RSA_BYTE_PAD3		(0XFFU)	/**<PKCS T Padding Byte */
 
-/* Error Codes */
+/**
+ * @name  RSA error codes
+ * @{
+ */
+/**< Error Codes */
 #define XSECURE_RSA_INVALID_PARAM	 (0x82U)
 #define XSECURE_RSA_STATE_MISMATCH_ERROR (0x84U)
+/** @} */
 
 /***************************** Type Definitions ******************************/
 

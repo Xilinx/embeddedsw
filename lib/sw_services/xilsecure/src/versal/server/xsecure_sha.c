@@ -38,6 +38,7 @@
 *       bm   01/13/21 Added 64-bit support
 *       kpt  05/02/21 Added check to verify the DMA state in
 *                     XSecure_Sha3Initialize
+* 4.6   har  07/14/21 Fixed doxygen warnings
 *
 * </pre>
 * @note
@@ -53,12 +54,14 @@
 
 /************************** Constant Definitions *****************************/
 #define XSECURE_SHA3_HASH_LENGTH_IN_BITS		(384U)
+					/**< SHA 3 hash length in bits */
 #define XSECURE_SHA3_HASH_LENGTH_IN_WORDS		\
 					(XSECURE_SHA3_HASH_LENGTH_IN_BITS / 32U)
-
-/* Nist padding masks */
+					/**< SHA 3 hash length in words */
 #define XSECURE_SHA3_START_NIST_PADDING_MASK		(0x06U)
+						/**< Nist Start padding masks */
 #define XSECURE_SHA3_END_NIST_PADDING_MASK		(0x80U)
+						/**< Nist End padding masks */
 
 static const u8 ExpectedHash[XSECURE_HASH_SIZE_IN_BYTES] = {
 			0x86U, 0x89U, 0xACU, 0xE3U, 0xA5U, 0xF9U, 0xF5U, 0x71U, 0xD6U,

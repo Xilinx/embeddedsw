@@ -20,6 +20,7 @@
 *       har  04/14/21 Renamed XSecure_ConfigIpi as XSecure_SetIpi
 *                     Added XSecure_InitializeIpi
 *       am   05/22/21 Resolved MISRA C violation
+* 4.6   har  07/14/21 Fixed doxygen warnings
 *
 * </pre>
 * @note
@@ -39,16 +40,25 @@ extern "C" {
 
 /************************** Constant Definitions ****************************/
 #define XILSECURE_MODULE_ID			(0x05UL)
+				/**< Module ID for xilsecure */
 
 #define HEADER(len, ApiId) ((len << 16U) | (XILSECURE_MODULE_ID << 8U) | ((u32)ApiId))
+				/**< Header for XilSecure Commands */
 
-/* 1 for API ID + 5 for API arguments + 1 for reserved + 1 for CRC */
 #define PAYLOAD_ARG_CNT			(8U)
-/* 1 for status + 3 for values + 3 for reserved + 1 for CRC */
+	/**< 1 for API ID + 5 for API arguments + 1 for reserved + 1 for CRC */
+
 #define RESPONSE_ARG_CNT		(8U)
+	/**< 1 for status + 3 for values + 3 for reserved + 1 for CRC */
+
 #define XSECURE_IPI_TIMEOUT		(~0U)
+					/**< IPI timeout */
+
 #define TARGET_IPI_INT_MASK		XPAR_XIPIPS_TARGET_PSV_PMC_0_CH0_MASK
+					/**< Target IPI interrupt mask */
+
 #define XSECURE_IPI_UNUSED_PARAM	(0U)
+					/**< Unused param */
 
 /**************************** Type Definitions *******************************/
 
