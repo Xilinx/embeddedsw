@@ -110,8 +110,6 @@ void XVGammaLut_InterruptHandler(XV_gamma_lut *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	InstancePtr->IntrCount++;
-
 	/* Get the interrupt source */
 	Status = XV_gamma_lut_InterruptGetStatus(InstancePtr);
 
