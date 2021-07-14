@@ -82,6 +82,7 @@
 * 1.06  kpt  06/23/2021 Added error code for DNA comparison failure
 *       ma   06/28/2021 Added error codes related to proc command
 *       ma   07/12/2021 Added error code for scheduler task missed error
+*       bm   07/12/2021 Added error code for setting IRO frequency
 *
 * </pre>
 *
@@ -254,6 +255,8 @@ typedef enum {
 						proc command cannot be stored/executed */
 	XPLMI_ERR_SCHED_TASK_MISSED, /**< 0x139 Scheduler task missed executing
 						at the scheduled interval */
+	XPLMI_ERR_SET_PMC_IRO_FREQ, /**< 0x13A - Error when setting PMC IRO frequency
+						is failed */
 
 	/** Status codes used in PLM */
 	XPLM_ERR_TASK_CREATE = 0x200,	/**< 0x200 - Error when task create

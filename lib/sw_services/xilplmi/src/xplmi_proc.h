@@ -31,6 +31,7 @@
 * 		td   10/19/2020 MISRA C Fixes
 * 1.04  td   11/23/2020 MISRA C Rule 10.4 Fixes
 *       ma   03/24/2021 Reduced minimum digits of time stamp decimals to 3
+* 1.05  bm   07/12/2021 Updated IRO freqency defines
 *
 * </pre>
 *
@@ -56,8 +57,8 @@ extern "C" {
 #define MB_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK	(0x2U)
 
 /* PMC IRO Frequency related macros */
+#define XPLMI_PMC_IRO_FREQ_400_MHZ	(400000000U)
 #define XPLMI_PMC_IRO_FREQ_320_MHZ	(320000000U)
-#define XPLMI_PMC_IRO_FREQ_130_MHZ	(130000000U)
 
 /** PIT related macros */
 #define XPLMI_PIT1_RESET_VALUE		(0xFFFFFFFDU)

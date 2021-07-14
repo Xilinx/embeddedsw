@@ -34,6 +34,7 @@
 *       skd  03/25/2021 Compilation warning fix
 *       bm   04/03/2021 Move task creation out of interrupt context
 * 1.05  td   07/08/2021 Fix doxygen warnings
+*            07/12/2021 Updated IRO frequency to 400MHz for MP and HP parts
 *
 * </pre>
 *
@@ -47,15 +48,38 @@
 #include "xplmi_scheduler.h"
 #include "xplmi_debug.h"
 #include "xplmi_err.h"
+#include "microblaze_sleep.h"
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_MB_MSR_BIP_MASK		(0x8U)
+#define XPLMI_EFUSE_CTRL_UNLOCK_VAL	(0xDF0DU)
+#define XPLMI_EFUSE_CTRL_LOCK_VAL	(1U)
+#define XPLMI_EFUSE_IRO_TRIM_320MHZ	(0U)
+#define XPLMI_EFUSE_IRO_TRIM_400MHZ	(1U)
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XPLMI_MAP_PLMID(Lvl0, Lvl1, Lvl2)	\
 	(((Lvl0) << 0U) | ((Lvl1) << 8U) | ((Lvl2) << 16U))
+#define XPLMI_PMC_VOLTAGE_MULTIPLIER	(32768.0f)
+#define XPLMI_PMC_VERSION_1_0		(0x10U)
+
+/*****************************************************************************/
+/**
+ * @brief        This function converts voltage to raw voltage value
+ *
+ * @param        Voltage is the floating point voltage value
+ *
+ * @return       32-bit voltage value
+ *
+ ******************************************************************************/
+static inline u32 XPlmi_GetRawVoltage(float Voltage)
+{
+	float RawVoltage = Voltage * XPLMI_PMC_VOLTAGE_MULTIPLIER;
+
+	return (u32)RawVoltage;
+}
 
 /************************** Function Prototypes ******************************/
 static int XPlmi_IoModuleRegisterHandler(u32 IoModIntrNum,
@@ -235,24 +259,41 @@ void XPlmi_PrintPlmTimeStamp(void)
 /**
 * @brief	It sets the PMC IRO frequency.
 *
-* @return	None
+* @return	XST_SUCCESS on success and error code failure
 *
 *****************************************************************************/
-static void XPlmi_SetPmcIroFreq(void)
+static int XPlmi_SetPmcIroFreq(void)
 {
-	u32 Trim5;
-	u32 Trim7;
+	int Status = XST_FAILURE;
+	u32 RawVoltage = 0U;
+	u32 PmcVersion = XPlmi_In32(PMC_TAP_VERSION);
 
-	Trim5 = XPlmi_In32(EFUSE_CACHE_ANLG_TRIM_5);
-	Trim7 = XPlmi_In32(EFUSE_CACHE_ANLG_TRIM_7);
 
-	/* Set the Frequency */
-	if (((Trim5 & EFUSE_TRIM_LP_MASK) != 0U) ||
-		((Trim7 & EFUSE_TRIM_LP_MASK) != 0U)) {
+	PmcVersion = ((PmcVersion & PMC_TAP_VERSION_PMC_VERSION_MASK) >>
+				PMC_TAP_VERSION_PMC_VERSION_SHIFT);
+	if (PmcVersion == XPLMI_PMC_VERSION_1_0) {
 		PmcIroFreq = XPLMI_PMC_IRO_FREQ_320_MHZ;
-	} else {
-		PmcIroFreq = XPLMI_PMC_IRO_FREQ_130_MHZ;
 	}
+	else {
+		RawVoltage = Xil_In32(XPLMI_SYSMON_SUPPLY0_ADDR);
+		RawVoltage &= XPLMI_SYSMON_SUPPLYX_MASK;
+		/* Update IR0 frequency to 400MHz for MP and HP parts */
+		XPlmi_Out32(EFUSE_CTRL_WR_LOCK, XPLMI_EFUSE_CTRL_UNLOCK_VAL);
+		if (RawVoltage >= XPlmi_GetRawVoltage(XPLMI_VCC_PMC_MP_MIN)) {
+			PmcIroFreq = XPLMI_PMC_IRO_FREQ_400_MHZ;
+			XPlmi_Out32(EFUSE_CTRL_ANLG_OSC_SW_1LP,
+				XPLMI_EFUSE_IRO_TRIM_400MHZ);
+		}
+		else {
+			PmcIroFreq = XPLMI_PMC_IRO_FREQ_320_MHZ;
+			XPlmi_Out32(EFUSE_CTRL_ANLG_OSC_SW_1LP,
+				XPLMI_EFUSE_IRO_TRIM_320MHZ);
+		}
+		XPlmi_Out32(EFUSE_CTRL_WR_LOCK, XPLMI_EFUSE_CTRL_LOCK_VAL);
+	}
+	Status = (int)Xil_SetMBFrequency(PmcIroFreq);
+
+	return Status;
 }
 
 /*****************************************************************************/
@@ -283,7 +324,12 @@ int XPlmi_StartTimer(void)
 		goto END;
 	}
 
-	XPlmi_SetPmcIroFreq();
+	Status = XPlmi_SetPmcIroFreq();
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_SET_PMC_IRO_FREQ, Status);
+		goto END;
+	}
+
 	/*
 	 * PLM scheduler is running too fast for QEMU, so increasing the
 	 * scheduler's poling time to 100ms for QEMU instead of 10ms

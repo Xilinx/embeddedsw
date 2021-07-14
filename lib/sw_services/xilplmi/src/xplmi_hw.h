@@ -53,6 +53,8 @@
 *       ma   06/23/2021 Added readback support for SSIT Slave SLRs
 *       ma   06/28/2021 Added macros related to CPM registers
 *       td   07/08/2021 Fix doxygen warnings
+*       bm   07/12/2021 Removed obsolete EFUSE_CACHE defines and added sysmon
+*                       related defines
 *
 * </pre>
 *
@@ -532,10 +534,10 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 /*
  * Definitions required from Efuse
  */
-#define EFUSE_CACHE_BASEADDR		(0XF1250000U)
-#define EFUSE_CACHE_ANLG_TRIM_5		(EFUSE_CACHE_BASEADDR + 0X000000E0U)
-#define EFUSE_CACHE_ANLG_TRIM_7		(EFUSE_CACHE_BASEADDR + 0X000000F8U)
-#define EFUSE_TRIM_LP_MASK		(0xFFFFU)
+#define EFUSE_CACHE_BASEADDR		(0xF1250000U)
+#define EFUSE_CTRL_BASEADDR		(0xF1240000U)
+#define EFUSE_CTRL_WR_LOCK		(EFUSE_CTRL_BASEADDR + 0x0U)
+#define EFUSE_CTRL_ANLG_OSC_SW_1LP	(EFUSE_CTRL_BASEADDR + 0x60U)
 
 /*
  * Definition for QSPI to be included
@@ -741,6 +743,11 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define XPLMI_PMC_ALIAS1_BASEADDR		(0x108000000UL)
 #define XPLMI_PMC_ALIAS2_BASEADDR		(0x110000000UL)
 #define XPLMI_PMC_ALIAS3_BASEADDR		(0x118000000UL)
+
+/* Sysmon supply 0 address */
+#define XPLMI_SYSMON_SUPPLY0_ADDR		(0xF1271040U)
+#define XPLMI_SYSMON_SUPPLYX_MASK		(0x0000FFFFU)
+#define XPLMI_VCC_PMC_MP_MIN			(0.775f)
 
 /************************** Function Prototypes ******************************/
 
