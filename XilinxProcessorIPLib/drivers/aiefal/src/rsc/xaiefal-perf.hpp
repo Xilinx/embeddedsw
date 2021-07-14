@@ -458,7 +458,10 @@ namespace xaiefal {
 				XAie_Events lStopE = StopEvent;
 				XAie_Events lRstE = RstEvent;
 
-				if (StartMod != static_cast<XAie_ModuleType>(Rsc.Mod)) {
+				RC = XAie_PerfCounterEventValueSet(dev(), Loc, static_cast<XAie_ModuleType>(Rsc.Mod),
+					Rsc.RscId, EventVal);
+
+				if (RC == XAIE_OK && StartMod != static_cast<XAie_ModuleType>(Rsc.Mod)) {
 					StartBC->getEvent(Loc, static_cast<XAie_ModuleType>(Rsc.Mod), lStartE);
 					RC = XAie_EventBroadcast(dev(), Loc, StartMod, StartBC->getBc(), StartEvent);
 					if (RC == XAIE_OK) {
@@ -504,6 +507,7 @@ namespace xaiefal {
 			iRC = (int)XAie_PerfCounterControlReset(dev(), Loc, static_cast<XAie_ModuleType>(Rsc.Mod), Rsc.RscId);
 			iRC |= (int)XAie_PerfCounterResetControlReset(dev(), Loc, static_cast<XAie_ModuleType>(Rsc.Mod), Rsc.RscId);
 			iRC |= (int)XAie_PerfCounterReset(dev(), Loc, static_cast<XAie_ModuleType>(Rsc.Mod), Rsc.RscId);
+			iRC |= (int)XAie_PerfCounterEventValueReset(dev(), Loc, static_cast<XAie_ModuleType>(Rsc.Mod), Rsc.RscId);
 
 			if (StartMod != static_cast<XAie_ModuleType>(Rsc.Mod)) {
 				StartBC->getEvent(Loc, static_cast<XAie_ModuleType>(Rsc.Mod), StartEvent);
