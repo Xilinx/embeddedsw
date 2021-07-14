@@ -31,6 +31,7 @@
 * 			Onsemi redriver tweaked for TMDS mode in TX
 * 1.03  ssh    03/17/21 Added EdidHdmi20_t, PsIic0 and PsIic1 declarations
 * 1.04  ssh    04/20/21 Added support for Dynamic HDR and Versal
+* 1.05	ssh    07/14/21 Added support for Native Video
 *
 * </pre>
 *
@@ -270,6 +271,10 @@ XHdmi_Exdes xhdmi_exdes_ctrlr;
 Exdes_Debug_Printf exdes_debug_print = NULL;
 Exdes_Debug_Printf exdes_aux_debug_print = NULL;
 Exdes_Debug_Printf exdes_hdcp_debug_print = NULL;
+
+#if defined (VTEM2FSYNC) && (! defined XPAR_XVTC_NUM_INSTANCES)
+u8 BaseFrameRate_VRR = 0;
+#endif
 
 #if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
                       (XPAR_XV_FRMBUFRD_NUM_INSTANCES)
@@ -644,7 +649,7 @@ u32 XV_Rx_InitController(XV_Rx *InstancePtr, u32 HdmiRxSsDevId,
 #endif /* defined(__arm__) || (__aarch64__) */
 
 #if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
-                      (XPAR_XV_FRMBUFRD_NUM_INSTANCES)
+                      (XPAR_XV_FRMBUFRD_NUM_INSTANCES) || (!defined XPAR_XVTC_NUM_INSTANCES)
 
 #if (EDID_INIT == 0) // 2.1 Default
 	memcpy(&(InstancePtr->Edid), &SampleEdid,
@@ -654,15 +659,21 @@ u32 XV_Rx_InitController(XV_Rx *InstancePtr, u32 HdmiRxSsDevId,
 	memcpy(&(InstancePtr->Edid), &SampleEdid_1,
 		         sizeof(InstancePtr->Edid));
 	 xil_printf("HDMI 2.1 VRR EDID is Initialized !!\r\n");
-#else
+#elif (EDID_INIT == 2)
 	 memcpy(&(InstancePtr->Edid), &SampleEdid_2,
 		         sizeof(InstancePtr->Edid));
 	 xil_printf("FreeSync EDID is Initialized !!\r\n");
+#elif (EDID_INIT == 3)
+		memcpy(&(InstancePtr->Edid), &SampleEdid_3,
+			         sizeof(InstancePtr->Edid));
+		 xil_printf("HDMI 2.1 VRR TMDS EDID is Initialized !!\r\n");
 #endif
 
 #else
-	 memcpy(&(InstancePtr->Edid), &SampleEdid,
-		       sizeof(InstancePtr->Edid));
+	memcpy(&(InstancePtr->Edid), &SampleEdid,
+		         sizeof(InstancePtr->Edid));
+	 xil_printf("HDMI 2.1 Default EDID is Initialized !!\r\n");
+
 #endif
 
 	/* Get User Edid Info */
@@ -679,7 +690,8 @@ u32 XV_Rx_InitController(XV_Rx *InstancePtr, u32 HdmiRxSsDevId,
 	}
 /* update EDID based on MAX FRL Rate */
 #if (!defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES)) && \
-			(!defined (XPAR_XV_FRMBUFRD_NUM_INSTANCES))
+			(!defined (XPAR_XV_FRMBUFRD_NUM_INSTANCES)) && \
+				(defined XPAR_XVTC_NUM_INSTANCES)
 
 
 	 switch (HdmiRxSs.Config.MaxFrlRate) {
@@ -2593,8 +2605,10 @@ void Exdes_ProcessVRRTimingChange()
 	HdmiRxSsVidStreamPtr = XV_HdmiRxSs1_GetVideoStream(&HdmiRxSs);
 	vfp_diff = HdmiRxSsVidStreamPtr->Timing.F0PVFrontPorch ;
 
+#if defined (XPAR_XVTC_NUM_INSTANCES)
 #if (VRR_MODE == 1) // Manual Stretch
 	XV_HdmiTxSS1_SetVrrVfpStretch(&HdmiTxSs,vfp_diff);
+#endif
 #endif
 
 #endif
@@ -2624,15 +2638,17 @@ void Exdes_VTEMPToSPDIFConversion()
 	HdmiRxSsVidStreamPtr_l = XV_HdmiRxSs1_GetVideoStream(&HdmiRxSs);
 	BaseFrameRate_VRR = HdmiRxSsVidStreamPtr_l->BaseFrameRate ;
 	if(VrrInforFrame.VrrIfType == XV_HDMIC_VRRINFO_TYPE_VTEM) {
-		VrrInforFrame.SrcProdDescIF.FreeSync.Version                    = 0x2;
-		VrrInforFrame.SrcProdDescIF.FreeSync.FreeSyncSupported          = 0x1;
-		VrrInforFrame.SrcProdDescIF.FreeSync.FreeSyncEnabled            = 0x1;
+
 		if (VrrInforFrame.VidTimingExtMeta.VRREnabled == 0x1) {
 			VrrInforFrame.SrcProdDescIF.FreeSync.FreeSyncActive     = 0x1;
 		}
 		else {
+
 			VrrInforFrame.SrcProdDescIF.FreeSync.FreeSyncActive     = 0x0;
 		}
+	VrrInforFrame.SrcProdDescIF.FreeSync.Version                    = 0x2;
+	VrrInforFrame.SrcProdDescIF.FreeSync.FreeSyncSupported          = 0x1;
+	VrrInforFrame.SrcProdDescIF.FreeSync.FreeSyncEnabled            = 0x1;
 		//Setting Minimum refresh rate to 40Hz
 		VrrInforFrame.SrcProdDescIF.FreeSync.FreeSyncMinRefreshRate     = 0x28;
 		VrrInforFrame.SrcProdDescIF.FreeSync.FreeSyncMaxRefreshRate     = BaseFrameRate_VRR;
@@ -3038,8 +3054,9 @@ u32 Exdes_UpdateTxParams(XHdmi_Exdes *ExdesInstance,
                  defined (XPAR_XV_HDMIRXSS1_NUM_INSTANCES)
 	u64 LineRate;
 #endif
-#if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
-                      (XPAR_XV_FRMBUFRD_NUM_INSTANCES)
+#if (!defined XPAR_XVTC_NUM_INSTANCES) || (defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
+                      (XPAR_XV_FRMBUFRD_NUM_INSTANCES))
+
    u8 FVaFactor = FVA_FACTOR;
 #endif
 	XVidC_VideoStream *HdmiTxSsVidStreamPtr;
@@ -3139,16 +3156,16 @@ u32 Exdes_UpdateTxParams(XHdmi_Exdes *ExdesInstance,
 					ANSI_COLOR_RESET "\r\n",
 					XV_HdmiRxSs1_GetTransportMode(&HdmiRxSs));
 
-#if defined (XPAR_XV_FRMBUFRD_NUM_INSTANCES) && \
-                      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
+#if (!defined XPAR_XVTC_NUM_INSTANCES) || (defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
+                      (XPAR_XV_FRMBUFRD_NUM_INSTANCES))
 		 /* Read FVA factor from VTEM */
 			if(VrrInforFrame.VrrIfType == XV_HDMIC_VRRINFO_TYPE_VTEM) {
 				FVaFactor = VrrInforFrame.VidTimingExtMeta.FVAFactorMinus1+1;
 			}
 		 /*update Gaming Features */
 		 Exdes_UpdateGamingFeatures(&HdmiTxSs,TRUE,FVaFactor,CNMVRR);
-#endif
 
+#endif
 		}
 
 		if (xhdmi_exdes_ctrlr.crop)
@@ -5255,6 +5272,7 @@ void XV_Rx_HdmiTrigCb_StreamOn(void *InstancePtr)
 ******************************************************************************/
 void XV_Rx_HdmiTrigCb_VrrVfpEvent(void *InstancePtr)
 {
+#if defined (XPAR_XV_HDMITXSS1_NUM_INSTANCES)
 	if (xhdmi_exdes_ctrlr.IsTxPresent &&
 		(xhdmi_exdes_ctrlr.ForceIndependent == FALSE) &&
 		(xhdmi_exdes_ctrlr.TxStartTransmit == FALSE) &&
@@ -5263,10 +5281,12 @@ void XV_Rx_HdmiTrigCb_VrrVfpEvent(void *InstancePtr)
 	} else {
 		Exdes_ReadVRRTimingChange();
 	}
+#elif
+	Exdes_ReadVRRTimingChange();
+#endif
 
 //	 xil_printf(" App : VFP Changed \r\n");
 }
-
 /*****************************************************************************/
 /**
 *
@@ -5281,16 +5301,20 @@ void XV_Rx_HdmiTrigCb_VrrVfpEvent(void *InstancePtr)
 ******************************************************************************/
 void XV_Rx_HdmiTrigCb_VtemEvent(void *InstancePtr)
 {
+#if defined (XPAR_XV_HDMITXSS1_NUM_INSTANCES)
 	if (xhdmi_exdes_ctrlr.IsTxPresent &&
 		(xhdmi_exdes_ctrlr.ForceIndependent == FALSE) &&
 		(xhdmi_exdes_ctrlr.TxStartTransmit == FALSE) &&
+
 		(HdmiTxSs.IsStreamUp == TRUE)) {
 		Exdes_ProcessVTEMPacket();
 	} else {
 		Exdes_ReadVTEMPacket();
 	}
+#elif
+	Exdes_ReadVTEMPacket();
+#endif
 }
-
 
 #if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
                       (XPAR_XV_FRMBUFRD_NUM_INSTANCES)
@@ -6212,8 +6236,8 @@ int main()
 	 */
 	ResetAuxFifo();
 #endif
-#if defined (XPAR_XV_FRMBUFRD_NUM_INSTANCES) && \
-                      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
+#if (!defined XPAR_XVTC_NUM_INSTANCES) || (defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
+                      (XPAR_XV_FRMBUFRD_NUM_INSTANCES))
 #if defined (VTEM2FSYNC)
 	XV_HdmiC_VrrInfoFrame  *HdmiRxVrrInfoFrameVRRPtr;
 	XVidC_VideoStream      *HdmiRxSsVidStreamVRRPtr;
@@ -6646,8 +6670,8 @@ int main()
 			}
 
 			/* Set VRR Mode */
-#if defined (XPAR_XV_FRMBUFRD_NUM_INSTANCES) && \
-                      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
+#if (!defined XPAR_XVTC_NUM_INSTANCES) || (defined (XPAR_XV_FRMBUFRD_NUM_INSTANCES) && \
+                      (XPAR_XV_FRMBUFWR_NUM_INSTANCES))
 #if defined (VTEM2FSYNC)
 			HdmiRxVrrInfoFrameVRRPtr = XV_HdmiRxSs1_GetVrrIf(&HdmiRxSs);
 			HdmiRxSsVidStreamVRRPtr  = XV_HdmiRxSs1_GetVideoStream(&HdmiRxSs);
@@ -6657,19 +6681,23 @@ int main()
 				  VrrInforFrame.SrcProdDescIF.FreeSync.FreeSyncMaxRefreshRate  = BaseFrameRate_VRR;
 			}
 
-
 #endif
             /* Copy VTEM/FSYNC Packet Data */
 			if(VrrInforFrame.VrrIfType == XV_HDMIC_VRRINFO_TYPE_VTEM) {
 				XV_HdmiTxSs1_VrrControl(&HdmiTxSs,TRUE);
 				XV_HdmiTxSs1_SetVrrIf(&HdmiTxSs,&VrrInforFrame);
 			} else if(VrrInforFrame.VrrIfType == XV_HDMIC_VRRINFO_TYPE_SPDIF) {
+
 				XV_HdmiTxSs1_FSyncControl(&HdmiTxSs,TRUE);
+
 				XV_HdmiTxSs1_SetVrrIf(&HdmiTxSs,&VrrInforFrame);
 			} else {
 				XV_HdmiTxSs1_VrrControl(&HdmiTxSs,FALSE);
 				XV_HdmiTxSs1_FSyncControl(&HdmiTxSs,FALSE);
 			}
+
+#if defined (XPAR_XV_FRMBUFRD_NUM_INSTANCES) && \
+                      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
             // Copy only for PT
 			if ( (xhdmi_exdes_ctrlr.ForceIndependent == FALSE) &&
 				 (xhdmi_exdes_ctrlr.IsTxPresent == TRUE) &&
@@ -6683,6 +6711,8 @@ int main()
 		 Exdes_ProcessVRRTimingChange();
 #endif
 			}
+#endif
+
 #endif
 
 			/* Disable the TxStartTransmit flag */
