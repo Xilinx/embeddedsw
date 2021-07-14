@@ -22,6 +22,7 @@
 *                        whether DMA is already initialized
 *       bm    05/13/2021 Updated code to use common crypto instance
 *       am    05/22/2021 Resolved MISRA C violation rule 17.8
+* 4.6   har   07/14/2021 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -39,9 +40,10 @@
 #include "xsecure_error.h"
 
 /************************** Constant Definitions *****************************/
-
 #define XSECURE_IPI_CONTINUE_MASK		(0x80000000U)
+					/**< IPI Continue Mask */
 #define XSECURE_IPI_FIRST_PACKET_MASK		(0x40000000U)
+					/**< IPI First packet Mask */
 
 /************************** Function Prototypes *****************************/
 

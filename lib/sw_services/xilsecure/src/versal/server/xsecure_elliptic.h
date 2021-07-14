@@ -27,6 +27,7 @@
 *       har  10/14/20 Replaced ecdsa with elliptic in names of function and
 *                     macros
 * 4.5   har  01/18/21 Updated prototype for XSecure_EllipticKat
+* 4.6   har  07/14/21 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -45,19 +46,22 @@ extern "C" {
 
 /************************** Constant Definitions ****************************/
 #define XSECURE_ECC_P384_SIZE_IN_BYTES	(48U)
+									/**< Size of NIST P-384 curve in bytes */
 #define XSECURE_ECC_P521_SIZE_IN_BYTES	(66U)
+									/**< Size of NIST P-521 curve in bytes */
 #define XSECURE_ECC_P384_DATA_SIZE_WORDS	\
 					(XSECURE_ECC_P384_SIZE_IN_BYTES / XSECURE_WORD_SIZE)
+									/**< Size of NIST P-384 curve in words */
 
 /***************************** Type Definitions ******************************/
 typedef struct {
-	u8 *Qx;
-	u8 *Qy;
+	u8 *Qx;		/**< Public key curve point x */
+	u8 *Qy;		/**< Public key curve point y */
 } XSecure_EllipticKey;
 
 typedef struct {
-	u8 *SignR;
-	u8 *SignS;
+	u8 *SignR;		/**< The signature component R */
+	u8 *SignS;		/**< The signature component S */
 } XSecure_EllipticSign;
 
 /***************************** Function Prototypes ***************************/

@@ -37,6 +37,7 @@
 *       am   09/24/20 Resolved MISRA C violations
 *       har  10/12/20 Addressed security review comments
 *       am   10/10/20 Resolved Coverity warnings
+* 4.6   har  07/14/21 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -203,6 +204,7 @@ static const u32 ExpectedOutput[XSECURE_RSA_4096_SIZE_WORDS] = {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XSECURE_TIMEOUT_MAX		(0x1FFFFFU)
+					/**< Recommended software timeout */
 
 /************************** Function Prototypes ******************************/
 
@@ -739,8 +741,6 @@ static void XSecure_RsaDataLenCfg(const XSecure_Rsa *InstancePtr, u32 Cfg0,
 /**
  * @brief	This function performs KAT on RSA core
  *
- * @param 	None
- *
  * @return
  * 	- XST_SUCCESS - On success
  * 	- XSECURE_RSA_KAT_ENCRYPT_FAILED_ERROR - When RSA KAT fails
@@ -787,8 +787,6 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function returns PKCS padding as per the silicon version
- *
- * @param	None
  *
  * @return	XSecure_Silicon2_TPadSha3
  *

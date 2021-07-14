@@ -28,6 +28,7 @@
 *       am   09/24/20 Resolved MISRA C violations
 *       har  10/12/20 Addressed security review comments
 *       ana  10/15/20 Updated doxygen tags
+* 4.6   har  07/14/21 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -110,12 +111,12 @@ extern "C" {
 /* @}*/
 
 typedef enum {
-	XSECURE_RSA_UNINITIALIZED = 0x0,
+	XSECURE_RSA_UNINITIALIZED = 0x0,/**< 0x0 */
 	XSECURE_RSA_INITIALIZED			/**< 0x1 */
 } XSecure_RsaState;
 
 typedef enum {
-	XSECURE_RSA_SIGN_ENC = 0x0,
+	XSECURE_RSA_SIGN_ENC = 0x0,		/**< 0x0 */
 	XSECURE_RSA_SIGN_DEC			/**< 0x1 */
 }XSecure_RsaOps;
 
@@ -132,7 +133,7 @@ typedef struct {
 	u8* ModExt; /**< Precalc. R sq. mod N */
 	u8* ModExpo; /**< Exponent */
 	u8 EncDec; /**< 0 for signature verification and 1 for generation */
-	u32 SizeInWords;/** RSA key size in words */
+	u32 SizeInWords;/**< RSA key size in words */
 	XSecure_RsaState RsaState;/**< RSA State */
 } XSecure_Rsa;
 

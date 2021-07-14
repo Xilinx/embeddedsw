@@ -22,6 +22,7 @@
 *       har  04/14/21 Renamed XSecure_ConfigIpi as XSecure_SetIpi
 *                     Added XSecure_InitializeIpi
 *       am   05/22/21 Resolved MISRA C violations
+* 4.6   har  07/14/21 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -50,17 +51,18 @@ static XIpiPsu *IpiPtr;
  * @brief  This function sends IPI request to the target module and gets the
  * response from it
  *
- * @param	Payload 	API id and call arguments to be written
- * 				in IPI buffer
- * 		Arg0 		Payload argument 0
- * 		Arg1 		Payload argument 1
- *		Arg2 		Payload argument 2
- *		Arg3 		Payload argument 3
- *		Arg4 		Payload argument 4
- *		Arg5 		Payload argument 5
+ * @param	Arg0		Payload argument 0
+ * @param	Arg1		Payload argument 1
+ * @param	Arg2		Payload argument 2
+ * @param	Arg3		Payload argument 3
+ * @param	Arg4		Payload argument 4
+ * @param	Arg5		Payload argument 5
  *
  * @return	- XST_SUCCESS - If the IPI send and receive is successful
  * 		- XST_FAILURE - If there is a failure
+ *
+ * @note	Payload  consists of API id and call arguments to be written
+ * 		in IPI buffer
  *
  ****************************************************************************/
 int XSecure_ProcessIpi(u32 Arg0, u32 Arg1, u32 Arg2, u32 Arg3,

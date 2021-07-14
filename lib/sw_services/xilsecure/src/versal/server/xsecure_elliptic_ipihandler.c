@@ -33,6 +33,8 @@
 
 /************************** Constant Definitions *****************************/
 #define XSECURE_ELLIPTIC_P521_ALIGN_BYTES	(2U)
+				/**< Size of NIST P-521 curve is 66 bytes. This macro is used
+				to make the address word aligned */
 
 /************************** Function Prototypes *****************************/
 static int XSecure_EllipticGenKey(u32 CurveType, u32 SrcAddrLow,

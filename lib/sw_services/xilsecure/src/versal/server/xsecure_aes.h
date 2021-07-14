@@ -34,6 +34,7 @@
 *       har  10/12/2020 Addressed security review comments
 *       ana  10/15/2020 Updated doxygen tags
 * 4.5   har  03/02/2021 Added prototype for XSecure_AesUpdateAad
+* 4.6   har  07/14/2021 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -105,34 +106,34 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 typedef enum {
-	XSECURE_AES_BBRAM_KEY = 0,
-	XSECURE_AES_BBRAM_RED_KEY,
-	XSECURE_AES_BH_KEY,
-	XSECURE_AES_BH_RED_KEY,
-	XSECURE_AES_EFUSE_KEY,
-	XSECURE_AES_EFUSE_RED_KEY,
-	XSECURE_AES_EFUSE_USER_KEY_0,
-	XSECURE_AES_EFUSE_USER_KEY_1,
-	XSECURE_AES_EFUSE_USER_RED_KEY_0,
-	XSECURE_AES_EFUSE_USER_RED_KEY_1,
-	XSECURE_AES_KUP_KEY,
-	XSECURE_AES_PUF_KEY,
-	XSECURE_AES_USER_KEY_0,
-	XSECURE_AES_USER_KEY_1,
-	XSECURE_AES_USER_KEY_2,
-	XSECURE_AES_USER_KEY_3,
-	XSECURE_AES_USER_KEY_4,
-	XSECURE_AES_USER_KEY_5,
-	XSECURE_AES_USER_KEY_6,
-	XSECURE_AES_USER_KEY_7,
-	XSECURE_AES_EXPANDED_KEYS,
-	XSECURE_AES_ALL_KEYS,
+	XSECURE_AES_BBRAM_KEY = 0,		/**< BBRAM Key */
+	XSECURE_AES_BBRAM_RED_KEY,		/**< BBRAM Red Key */
+	XSECURE_AES_BH_KEY,			/**< BH Key */
+	XSECURE_AES_BH_RED_KEY,			/**< BH Red Key */
+	XSECURE_AES_EFUSE_KEY,			/**< eFUSE Key */
+	XSECURE_AES_EFUSE_RED_KEY,		/**< eFUSE Red Key */
+	XSECURE_AES_EFUSE_USER_KEY_0,		/**< eFUSE User Key 0 */
+	XSECURE_AES_EFUSE_USER_KEY_1,		/**< eFUSE User Key 1 */
+	XSECURE_AES_EFUSE_USER_RED_KEY_0,	/**< eFUSE User Red Key 0 */
+	XSECURE_AES_EFUSE_USER_RED_KEY_1,	/**< eFUSE User Red Key 1 */
+	XSECURE_AES_KUP_KEY,			/**< KUP key */
+	XSECURE_AES_PUF_KEY,			/**< PUF key */
+	XSECURE_AES_USER_KEY_0,			/**< User Key 0 */
+	XSECURE_AES_USER_KEY_1,			/**< User Key 1 */
+	XSECURE_AES_USER_KEY_2,			/**< User Key 2 */
+	XSECURE_AES_USER_KEY_3,			/**< User Key 3 */
+	XSECURE_AES_USER_KEY_4,			/**< User Key 4 */
+	XSECURE_AES_USER_KEY_5,			/**< User Key 5 */
+	XSECURE_AES_USER_KEY_6,			/**< User Key 6 */
+	XSECURE_AES_USER_KEY_7,			/**< User Key 7 */
+	XSECURE_AES_EXPANDED_KEYS,		/**< Expanded keys */
+	XSECURE_AES_ALL_KEYS,			/**< AES All keys */
 } XSecure_AesKeySrc;
 
 
 typedef enum {
-	XSECURE_AES_KEY_SIZE_128 = 0,
-	XSECURE_AES_KEY_SIZE_256 = 2,
+	XSECURE_AES_KEY_SIZE_128 = 0,	/**< Key Length = 32 bytes = 256 bits */
+	XSECURE_AES_KEY_SIZE_256 = 2,	/**< Key Length = 16 bytes = 128 bits */
 }XSecure_AesKeySize;
 
 /** @cond xsecure_internal
