@@ -83,7 +83,7 @@ int XDmaPcie_CfgInitialize(XDmaPcie *InstancePtr, XDmaPcie_Config *CfgPtr,
 	XDmaPcie_DisableInterrupts(InstancePtr, XDMAPCIE_IM_DISABLE_ALL_MASK);
 
 	/* Max number of buses */
-#ifdef versal
+#if defined(versal) || defined(QDMA_PCIE_BRIDGE)
 	InstancePtr->MaxNumOfBuses = XDMAPCIE_NUM_BUSES;
 #else
 	Data = XDmaPcie_ReadReg(InstancePtr->Config.BaseAddress,
@@ -1352,7 +1352,7 @@ void XDmaPcie_ReadRemoteConfigSpace(XDmaPcie *InstancePtr, u8 Bus, u8 Device,
 	while(XDmaPcie_IsEcamBusy(InstancePtr));
 
 	/* Read data from that location */
-	Data = XDmaPcie_ReadReg((InstancePtr->Config.BaseAddress),
+	Data = XDmaPcie_ReadReg((InstancePtr->Config.Ecam),
 								Location);
 	*DataPtr = Data;
 
@@ -1391,7 +1391,8 @@ void XDmaPcie_WriteRemoteConfigSpace(XDmaPcie *InstancePtr, u8 Bus, u8 Device,
 	Xil_AssertVoid(InstancePtr->Config.IncludeRootComplex ==
 							XDMAPCIE_IS_RC);
 
-	if ((Bus == 0) || (Bus > InstancePtr->MaxNumOfBuses)) {
+	if (((Bus == 0) && !((Device == 0) && (Function == 0))) ||
+		(Bus > InstancePtr->MaxNumOfBuses)) {
 		return;
 	}
 
@@ -1402,7 +1403,7 @@ void XDmaPcie_WriteRemoteConfigSpace(XDmaPcie *InstancePtr, u8 Bus, u8 Device,
 
 
 	/* Write data to that location */
-	XDmaPcie_WriteReg((InstancePtr->Config.BaseAddress),
+	XDmaPcie_WriteReg((InstancePtr->Config.Ecam),
 				Location , Data);
 
 
@@ -1410,7 +1411,7 @@ void XDmaPcie_WriteRemoteConfigSpace(XDmaPcie *InstancePtr, u8 Bus, u8 Device,
 	while (Count) {
 
 		TestWrite =
-			XDmaPcie_ReadReg((InstancePtr->Config.BaseAddress),
+			XDmaPcie_ReadReg((InstancePtr->Config.Ecam),
 								Location);
 
 		if (TestWrite == Data) {
