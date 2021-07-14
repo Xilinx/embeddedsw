@@ -35,11 +35,14 @@ extern "C" {
 
 #include "xil_types.h"
 #include "xil_io.h"
+#include "xparameters.h"
 
 #endif /* _ASMLANGUAGE */
 
 /************************** Constant Definitions *****************************/
-
+#ifdef XPAR_QDMA_0_DEVICE_ID
+#define QDMA_PCIE_BRIDGE
+#endif
 
 /** @name Registers
  *
@@ -54,7 +57,7 @@ extern "C" {
 						       * register offset
 						       */
 
-#ifdef versal
+#if defined(versal) || defined(QDMA_PCIE_BRIDGE)
 #define XDMAPCIE_VSECC_OFFSET			0xE00 /**<
 						       * VSEC Capability
 						       * Register
@@ -656,7 +659,7 @@ extern "C" {
 /* Offset used for getting the VSEC register contents */
 #define XDMAPCIE_VSEC2_OFFSET_WRT_VSEC1 	0xD8
 
-#ifdef versal
+#if defined(versal) || defined(QDMA_PCIE_BRIDGE)
 /* Number of buses */
 #define XDMAPCIE_NUM_BUSES	16
 #endif
