@@ -32,6 +32,7 @@
 *		     	Fixed doxygen warnings.
 *	ag	03/31/21	Fixed IPI poll for ack condition check.
 *	sd  06/02/21	Update the crc code remove the check for max length.
+* 2.10	sd	07/14/21	Fix a unused label warning
 * </pre>
 *
 *****************************************************************************/
@@ -266,7 +267,9 @@ XStatus XIpiPsu_ReadMessage(XIpiPsu *InstancePtr, u32 SrcCpuMask, u32 *MsgPtr,
 		Status = (XStatus)XST_SUCCESS;
 	}
 
+#ifdef ENABLE_IPI_CRC
 END:
+#endif
 	return Status;
 }
 
