@@ -214,7 +214,8 @@ typedef enum {
 
 #define FVA_FACTOR 1
 #define CNMVRR     1
-#define EDID_INIT  1 // 0 - Default, 1- 2.1 VRR EDID, 2 - AMD FreeSync EDID
+#define EDID_INIT  1 // 0 - Default, 1- 2.1 VRR EDID, 2 - AMD FreeSync EDID, 3 - HDMI 2.1 VRR TMDS
+
 
 //#define  VTEM2FSYNC 1 // Enable When RX is VRR and TX is Fsync
 /* Defining constants for colors in printing */
