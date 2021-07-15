@@ -47,6 +47,7 @@
 *       td   07/08/21 Fix doxygen warnings
 *       ma   07/12/21 Register NULL error handler for
 *                     XLoader_CheckAuthJtagIntStatus scheduler task
+*       har  07/15/21 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -79,13 +80,21 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XLOADER_RSA_PSS_MSB_PADDING_MASK	(u8)(0x80U)
+					/**< RSA PSS MSB padding mask */
 #define XLOADER_RSA_EM_MSB_INDEX		(0x0U)
+					/**< RSA EM MSB Index */
 #define XLOADER_PUF_SHUT_GLB_VAR_FLTR_EN_SHIFT	(31U)
+		/**< Shift for Global Variation Filter in PUF shutter value */
 #define XLOADER_AES_KEY_CLR_REG			(0xF11E0014U)
+					/**< AES key clear register address */
 #define XLOADER_AES_ALL_KEYS_CLR_VAL		(0x3FFFF3U)
+					/**< AES all key clear value */
 #define XLOADER_AES_KEY_ZEROED_STATUS_REG	(0xF11E0064U)
+					/**< AES key zeroed register address */
 #define XLOADER_AES_RESET_VAL			(0x1U)
+					/**< AES Reset value */
 #define XLOADER_AES_RESET_REG			(0xF11E0010U)
+					/**< AES Reset register address */
 
 /*****************************************************************************/
 /**

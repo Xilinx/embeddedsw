@@ -25,6 +25,7 @@
 *       bm   05/13/21 Updated code to use common crypto instances from xilsecure
 * 1.01  kpt  06/23/21 Added macros required to read and compare DNA
 *       kpt  07/01/21 Added macros required to disable Jtag
+*       har  07/15/21 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -229,37 +230,42 @@ extern "C" {
 #define XLOADER_KAT_DONE				(0x000001F0U)
 
 /**************************** Type Definitions *******************************/
+/**< RSA Key */
 typedef struct {
-	u32 PubModulus[128U];
-	u32 PubModulusExt[128U];
-	u32 PubExponent;
+	u32 PubModulus[128U];	/**< Public Modulus */
+	u32 PubModulusExt[128U];	/**< Public Modulus Extension */
+	u32 PubExponent;	/**< Public Exponent */
 } XLoader_RsaKey;
 
+/**< Authentication Certificate */
 typedef struct {
-	u32 AuthHdr;
-	u32 SpkId;
-	u32 UserData[14U];
-	XLoader_RsaKey Ppk;
-	u32 PPKPadding[3U];
-	XLoader_RsaKey Spk;
-	u32 SPKPadding;
-	u32 Alignment1[2U];
-	u32 SPKSignature[128U];
-	u32 BHSignature[128U];
-	u32 ImgSignature[128U];
+	u32 AuthHdr;	/**< Authentication Header */
+	u32 SpkId;	/**< SPK ID */
+	u32 UserData[14U];	/**< User data */
+	XLoader_RsaKey Ppk;	/**< PPK */
+	u32 PPKPadding[3U];	/**< PPK padding */
+	XLoader_RsaKey Spk;	/**< SPK */
+	u32 SPKPadding;		/**< SPK padding */
+	u32 Alignment1[2U];	/**< Alignment gap */
+	u32 SPKSignature[128U];	/**< SPK signature */
+	u32 BHSignature[128U];	/**< Bootheader signature */
+	u32 ImgSignature[128U];	/**< Image signature */
 } XLoader_AuthCertificate;
 
+/**< Authentication Type */
 typedef enum {
 	XLOADER_ECDSA,	/**< 0x0 - ECDSA */
 	XLOADER_RSA		/**< 0x1 - RSA */
 } XLoader_AuthType;
 
+/**< PPK selection type */
 typedef enum {
 	XLOADER_PPK_SEL_0,	/**< 0 - PPK 0 */
 	XLOADER_PPK_SEL_1,	/**< 1 - PPK 1 */
 	XLOADER_PPK_SEL_2	/**< 2 - PPK 2 */
 } XLoader_PpkSel;
 
+/**< RSA signature vars */
 typedef struct
 {
 	u8 EmHash[48];	/**< EM hash */
@@ -267,58 +273,64 @@ typedef struct
 	u8 Padding1[8];	/**< Padding 1 */
 } XLoader_Vars;
 
+/**< KEK info */
 typedef struct {
-	u32 PdiKeySrc;
-	u64 KekIvAddr;
-	u32 PufHdLocation;
-	XSecure_AesKeySrc KeySrc;
-	XSecure_AesKeySrc KeyDst;
+	u32 PdiKeySrc;	/**< PDI Key Source */
+	u64 KekIvAddr;	/**< KEK IV address */
+	u32 PufHdLocation;	/**< PUF helper data location */
+	XSecure_AesKeySrc KeySrc;	/**< Source key source */
+	XSecure_AesKeySrc KeyDst;	/**< Destination key source */
 } XLoader_AesKekInfo;
 
+/**< Authenticated Message structure */
 typedef struct {
-	u32 AuthHdr;
-	u32 RevocationIdMsgType;
-	u32 Attrb;
-	u32 Dna[XLOADER_EFUSE_DNA_NUM_ROWS];
-	u32 JtagEnableTimeout;
+	u32 AuthHdr;	/**< Authentication Header */
+	u32 RevocationIdMsgType;	/**< Revocation ID */
+	u32 Attrb;	/**< Attributes */
+	u32 Dna[XLOADER_EFUSE_DNA_NUM_ROWS];	/**< DNA */
+	u32 JtagEnableTimeout;	/**< JTAG enable timeout */
 	u32 AuthJtagPadding[XLOADER_AUTH_JTAG_PADDING_SIZE];
-	XLoader_RsaKey PpkData;
+				/**< SHA padding for Auth JTAG signature */
+	XLoader_RsaKey PpkData;		/**< PPK */
 	u32 AuthJtagPpkShaPadding[XLOADER_AUTH_JTAG_SHA_PADDING_SIZE];
+				/**< SHA padding for PPK */
 	u32 EnableJtagSignature[XLOADER_ENABLE_AUTH_JTAG_SIGNATURE_SIZE];
+				/**< Auth JTAG signature */
 } XLoader_AuthJtagMessage;
 #endif
 
 typedef struct {
-	volatile u8 SecureEn;
-	volatile u8 SecureEnTmp;
-	u8 IsNextChunkCopyStarted;
-	u8 IsCheckSumEnabled;
-	u8 IsDoubleBuffering;
+	volatile u8 SecureEn;	/**< Security enabled or disabled */
+	volatile u8 SecureEnTmp;	/**< Security enabled or disabled (temp)*/
+	u8 IsNextChunkCopyStarted;	/**< Next chunk copy started or not */
+	u8 IsCheckSumEnabled;	/**< Checksum enabled or disabled */
+	u8 IsDoubleBuffering;	/**< Double buffering enabled or disabled */
 	u8 IsCdo; /**< CDO or Elf */
-	XilPdi *PdiPtr;
-	XilPdi_PrtnHdr *PrtnHdr;
-	u64 NextBlkAddr;
-	u32 ChunkAddr;
-	u32 NextChunkAddr;
+	XilPdi *PdiPtr;		/**< PDI pointer */
+	XilPdi_PrtnHdr *PrtnHdr;/**< Partition header */
+	u64 NextBlkAddr;	/**< Next block address */
+	u32 ChunkAddr;		/**< Chunk address */
+	u32 NextChunkAddr;	/**< Next chunk address */
 	/* Verified data is at */
-	u32 SecureData;
-	u32 SecureDataLen;
-	u32 ProcessedLen;
-	u32 RemainingDataLen;
-	u32 RemainingEncLen;
-	u32 BlockNum;
-	u32 Sha3Hash[XLOADER_SHA3_LEN / 4U];
-	u32 SecureHdrLen;
-	XPmcDma *PmcDmaInstPtr;
+	u32 SecureData;		/**< Secure data */
+	u32 SecureDataLen;	/**< Secure data length */
+	u32 ProcessedLen;	/**< Processed data length */
+	u32 RemainingDataLen;	/**< Remaining data length */
+	u32 RemainingEncLen;	/**< Remaining encrypted data length */
+	u32 BlockNum;		/**< Block number */
+	u32 Sha3Hash[XLOADER_SHA3_LEN / 4U];	/**< SHA3 hash */
+	u32 SecureHdrLen;	/**< Secure header length */
+	XPmcDma *PmcDmaInstPtr;	/**< PMC DMA instance pointer */
 #ifndef PLM_SECURE_EXCLUDE
-	XLoader_AuthType SigType;
-	XLoader_AuthCertificate *AcPtr;
-	XSecure_Aes *AesInstPtr;
+	XLoader_AuthType SigType;	/**< Signature type */
+	XLoader_AuthCertificate *AcPtr;/**< Authentication certificate pointer */
+	XSecure_Aes *AesInstPtr;	/**< AES instance pointer */
 	XLoader_AuthJtagMessage* AuthJtagMessagePtr;
-	u8 IsEncrypted;
-	u8 IsEncryptedTmp;
-	u8 IsAuthenticated;
-	u8 IsAuthenticatedTmp;
+					/**< Auth JTAG message pointer */
+	u8 IsEncrypted;		/**< Encryption enabled or disabled */
+	u8 IsEncryptedTmp;	/**< Encryption enabled or disabled (temp)*/
+	u8 IsAuthenticated;	/**< Authentication enabled or disabled */
+	u8 IsAuthenticatedTmp;	/**<  enabled or disabled */
 #endif
 } XLoader_SecureParams;
 
