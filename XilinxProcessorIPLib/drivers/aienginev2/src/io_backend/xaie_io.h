@@ -50,6 +50,7 @@ typedef enum {
 	XAIE_BACKEND_OP_REQUEST_ALLOCATED_RESOURCE,
 	XAIE_BACKEND_OP_PARTITION_INITIALIZE,
 	XAIE_BACKEND_OP_PARTITION_TEARDOWN,
+	XAIE_BACKEND_OP_GET_RSC_STAT,
 } XAie_BackendOpCode;
 
 /*
@@ -88,6 +89,23 @@ typedef struct XAie_BackendTilesRsc {
 	XAie_ModuleType Mod;
 	XAie_UserRsc *Rscs;
 } XAie_BackendTilesRsc;
+
+/*
+ * Typedef for enum of AIE resoure statistics type
+ */
+typedef enum {
+	XAIE_BACKEND_RSC_STAT_STATIC,
+	XAIE_BACKEND_RSC_STAT_AVAIL,
+} XAie_BackendRscStatType;
+
+/*
+ * Typedef for structure for resource statistics request
+ */
+typedef struct XAie_BackendRscStat {
+	u32 NumRscStats;
+	XAie_BackendRscStatType RscStatType;
+	XAie_UserRscStat *RscStats;
+} XAie_BackendRscStat;
 
 /*
  * Typdef to capture all the backend IO operations
