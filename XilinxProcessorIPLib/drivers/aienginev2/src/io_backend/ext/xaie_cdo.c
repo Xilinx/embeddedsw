@@ -340,6 +340,8 @@ static AieRC XAie_CdoIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 					(XAie_PartInitOpts *)Arg);
 		case XAIE_BACKEND_OP_PARTITION_TEARDOWN:
 			return _XAie_PrivilegeTeardownPart(DevInst);
+		case XAIE_BACKEND_OP_GET_RSC_STAT:
+			return _XAie_GetRscStatCommon(DevInst, Arg);
 		default:
 			XAIE_ERROR("Backend doesn't support Op %u.\n", Op);
 			RC = XAIE_FEATURE_NOT_SUPPORTED;
