@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
  *
  * @file xhdmic.h
- * @addtogroup hdmi_common_v1_5
+ * @addtogroup hdmi_common_v1_6
  * @{
  * @details
  *
@@ -26,6 +26,7 @@
  *       mmo  15/08/19 Updated the VIC table to support HDMI 2.1 Resolution
  *                     Added Audio ACR CTS/N Enumeration and Library
  * 1.3   EB   02/12/19 Added 3D Audio Enumerations and APIs
+ * 1.6   kp   15/07/21 Updated the VIC table as per latest CTA spec
  * </pre>
  *
 *******************************************************************************/
@@ -46,7 +47,7 @@ extern "C" {
 #include "xil_assert.h"
 
 /************************** Constant Definitions ******************************/
-#define VICTABLE_SIZE 126
+#define VICTABLE_SIZE 154
 #define AUX_VSIF_TYPE 0x81
 #define AUX_AVI_INFOFRAME_TYPE 0x82
 #define AUX_GENERAL_CONTROL_PACKET_TYPE 0x3
@@ -60,8 +61,18 @@ extern "C" {
 /**
 * This typedef contains Video identification information in tabular form.
 */
+typedef enum {
+	XHDMIC_PIC_ASPECT_RATIO_NA,
+	XHDMIC_PIC_ASPECT_RATIO_4_3,
+	XHDMIC_PIC_ASPECT_RATIO_16_9,
+	XHDMIC_PIC_ASPECT_RATIO_64_27,
+	XHDMIC_PIC_ASPECT_RATIO_256_135,
+	XHDMIC_PIC_ASPECT_RATIO_RESERVED
+} XHdmiC_PicAspectRatio;
+
 typedef struct {
 	XVidC_VideoMode VmId;	/**< Video mode/Resolution ID */
+	XHdmiC_PicAspectRatio PicAspectRatio;   /**< Picture Aspect Ratio */
 	u8 Vic;			/**< Video Identification code */
 } XHdmiC_VicTable;
 
@@ -122,13 +133,6 @@ typedef enum {
 	XHDMIC_COLORIMETRY_ITU709,
 	XHDMIC_COLORIMETRY_EXTENDED
 } XHdmiC_Colorimetry;
-
-typedef enum {
-	XHDMIC_PIC_ASPECT_RATIO_NA,
-	XHDMIC_PIC_ASPECT_RATIO_4_3,
-	XHDMIC_PIC_ASPECT_RATIO_16_9,
-	XHDMIC_PIC_ASPECT_RATIO_RESERVED
-} XHdmiC_PicAspectRatio;
 
 typedef enum {
 	XHDMIC_EXTENDED_COLORIMETRY_YCC_601,
