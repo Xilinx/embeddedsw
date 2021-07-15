@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,9 +17,11 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   11/10/2017 Initial release
-* 1.01  bsv  29/05/2019 XCframe_ReadReg API added
+* 1.01  bsv  05/29/2019 XCframe_ReadReg API added
 * 1.02  bsv  11/06/2019 XCframe_ClearCframeErr API added
-* 1.03  bsv  17/02/2020 XCframe_SafetyWriteReg API added
+* 1.03  bsv  02/17/2020 XCframe_SafetyWriteReg API added
+* 1.04  bsv  07/15/2021 Fix doxygen warnings
+*
 * </pre>
 *
 * @note
@@ -86,8 +88,9 @@ s32 XCframe_CfgInitialize(XCframe *InstancePtr, XCframe_Config *CfgPtr,
  * This function writes to 128 bit CFRAME register
  *
  * @param	InstancePtr is a pointer to the XCframe instance.
- * @param	Addr   CFRAME register address
- * @param	Value128 128 bit value to be stored
+ * @param	AddrOffset is offset of the Cframe register
+ * @param	FrameNo is the index of frame
+ * @param       Val is pointer to the value to be written
  *
  * @return	None
  *
@@ -115,7 +118,8 @@ void XCframe_WriteReg(XCframe *InstancePtr, u32 AddrOffset,
  * This function reads the 128 bit CFRAME register
  *
  * @param       InstancePtr is a pointer to the XCframe instance.
- * @param       Addr      CFRAME register address
+ * @param	AddrOffset is offset of the Cframe register
+ * @param	FrameNo is the index of frame
  * @param       ValPtr    128 bit variable to store the read data
  *
  * @return      None
@@ -140,8 +144,9 @@ void XCframe_ReadReg(XCframe *InstancePtr, u32 AddrOffset,
  * 			validate the write operation.
  *
  * @param	InstancePtr is a pointer to the XCframe instance.
- * @param	Addr   CFRAME register address
- * @param	Value128 128 bit value to be stored
+ * @param	AddrOffset is offset of the Cframe register
+ * @param	FrameNo is the index of frame
+ * @param       Val is pointer to the value to be written
  *
  * @return	Success or Failure
  *
@@ -166,12 +171,13 @@ int XCframe_SafetyWriteReg(XCframe *InstancePtr, u32 AddrOffset,
  * This function writes the value to CFRAME cmd register
  *
  * @param	InstancePtr is a pointer to the XCframe instance.
+ * @param	CframeNo is the index of frame
  * @param	Cmd to be initiated by CFRAME block
  *
  * @return	None
  *
  ******************************************************************************/
-void XCframe_WriteCmd(XCframe *InstancePtr,	XCframe_FrameNo CframeNo, u32 Cmd)
+void XCframe_WriteCmd(XCframe *InstancePtr, XCframe_FrameNo CframeNo, u32 Cmd)
 {
 	Xuint128 CfrCmd={0};
 
@@ -186,12 +192,12 @@ void XCframe_WriteCmd(XCframe *InstancePtr,	XCframe_FrameNo CframeNo, u32 Cmd)
  * This function writes the VGG TRIM value
  *
  * @param	InstancePtr is a pointer to the XCframe instance.
- * @param	Value Trim value to be applied for
+ * @param	TrimVal is pointer to the TRIM value
  *
  * @return	None
  *
  ******************************************************************************/
-void XCframe_VggTrim(XCframe *InstancePtr,	Xuint128 *TrimVal)
+void XCframe_VggTrim(XCframe *InstancePtr, Xuint128 *TrimVal)
 {
 	Xuint128 MaskVal={0};
 
@@ -207,15 +213,15 @@ void XCframe_VggTrim(XCframe *InstancePtr,	Xuint128 *TrimVal)
 
 /*****************************************************************************/
 /**
- * This function writes the BRAM TRIM value
+ * This function writes the CRAM TRIM value
  *
  * @param	InstancePtr is a pointer to the XCframe instance.
- * @param	Value Trim value to be applied for
+ * @param	TrimValue is to hold CRAM TRIM value
  *
  * @return	None
  *
  ******************************************************************************/
-void XCframe_CramTrim(XCframe *InstancePtr,	u32 TrimValue)
+void XCframe_CramTrim(XCframe *InstancePtr, u32 TrimValue)
 {
 	Xuint128 TrimVal={0};
 	Xuint128 MaskVal={0};
@@ -234,7 +240,7 @@ void XCframe_CramTrim(XCframe *InstancePtr,	u32 TrimValue)
  * This function writes the BRAM TRIM value
  *
  * @param	InstancePtr is a pointer to the XCframe instance.
- * @param	Value Trim value to be applied for
+ * @param	TrimValue is to hold BRAM TRIM value
  *
  * @return	None
  *
@@ -261,7 +267,7 @@ void XCframe_BramTrim(XCframe *InstancePtr, u32 TrimValue)
  * This function writes the BRAM TRIM value
  *
  * @param	InstancePtr is a pointer to the XCframe instance.
- * @param	Value Trim value to be applied
+ * @param	TrimValue is to hold URAM TRIM value
  *
  * @return	None
  *
@@ -285,10 +291,12 @@ void XCframe_UramTrim(XCframe *InstancePtr, u32 TrimValue)
 
 /*****************************************************************************/
 /**
- * This function sets the CFRAME read parameters with mentioned CFRAME length and
- * frame number
+ * This function sets the CFRAME read parameters with mentioned CFRAME length
+ * and frame number.
  *
- * @param
+ * @param       InstancePtr is a pointer to the XCframe instance.
+ * @param	CframeNo is the index of frame
+ * @param       CframeLen is total length of Cframes
  *
  * @return	None
  *
@@ -311,7 +319,7 @@ void XCframe_SetReadParam(XCframe *InstancePtr,
 /**
  * This function clears CFRAME ISRs and is called as part of CFRAME error recovery
  *
- * @param XCframe Instance Pointer
+ * @param	InstancePtr is a pointer to the XCframe instance
  *
  * @return	None
  *
