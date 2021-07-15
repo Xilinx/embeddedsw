@@ -7,7 +7,7 @@
 /**
 *
 * @file xnandpsu.h
-* @addtogroup nandpsu_v1_8
+* @addtogroup nandpsu_v1_9
 * @{
 * @details
 *
@@ -148,6 +148,7 @@
 # 1.6	sd     06/02/20    Added Clock support
 * 1.6	sd     20/03/20    Added compilation flag
 * 1.8   sg     03/18/21    Added validation check for parameter page.
+* 1.9   akm    07/15/21    Initialize NandInstPtr with Data Interface & Timing mode info.
 *
 * </pre>
 *
@@ -206,6 +207,7 @@ extern "C" {
 #define XNANDPSU_NVDDR_CLK_4		((u16)83U * (u16)1000U * (u16)1000U)
 #define XNANDPSU_NVDDR_CLK_5		((u16)100U * (u16)1000U * (u16)1000U)
 
+#define XNANDPSU_MAX_TIMING_MODE	5
 /**
  * The XNandPsu_Config structure contains configuration information for NAND
  * controller.
