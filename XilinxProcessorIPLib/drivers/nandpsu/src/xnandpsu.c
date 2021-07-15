@@ -7,7 +7,7 @@
 /**
 *
 * @file xnandpsu.c
-* @addtogroup nandpsu_v1_8
+* @addtogroup nandpsu_v1_9
 * @{
 *
 * This file contains the implementation of the interface functions for
@@ -84,6 +84,7 @@
 * 1.6	sd     06/02/20    Added Clock support
 * 1.6	sd     20/03/20    Added compilation flag
 * 1.8   sg     03/18/21	   Added validation check for parameter page.
+* 1.9   akm    07/15/21    Initialize NandInstPtr with Data Interface & Timing mode info.
 *
 * </pre>
 *
@@ -137,6 +138,10 @@ static s32 XNandPsu_FlashInit(XNandPsu *InstancePtr);
 static s32 XNandPsu_InitGeometry(XNandPsu *InstancePtr, OnfiParamPage *Param);
 
 static void XNandPsu_InitFeatures(XNandPsu *InstancePtr, OnfiParamPage *Param);
+
+static void XNandPsu_InitDataInterface(XNandPsu *InstancePtr, OnfiParamPage *Param);
+
+static void XNandPsu_InitTimingMode(XNandPsu *InstancePtr, OnfiParamPage *Param);
 
 static s32 XNandPsu_PollRegTimeout(XNandPsu *InstancePtr, u32 RegOffset,
 					u32 Mask, u32 Timeout);
@@ -371,6 +376,8 @@ static s32 XNandPsu_FlashInit(XNandPsu *InstancePtr)
 			if (Status != XST_SUCCESS) {
 				goto Out;
 			}
+			XNandPsu_InitDataInterface(InstancePtr, &Param[Index]);
+			XNandPsu_InitTimingMode(InstancePtr, &Param[Index]);
 			XNandPsu_InitFeatures(InstancePtr, &Param[Index]);
 			if ((!InstancePtr->Features.EzNand) != 0U) {
 				Status =XNandPsu_CheckOnDie(InstancePtr,&Param[Index]);
@@ -571,6 +578,68 @@ static void XNandPsu_InitFeatures(XNandPsu *InstancePtr, OnfiParamPage *Param)
 								1U : 0U;
 	InstancePtr->Features.ExtPrmPage = ((Param->Features & (1U << 7)) != 0U) ?
 								1U : 0U;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function initializes the Data Interface from ONFI parameter page.
+*
+* @param	InstancePtr is a pointer to the XNandPsu instance.
+* @param	Param is pointer to ONFI parameter page buffer.
+*
+* @return
+*		None
+*
+* @note		None
+*
+******************************************************************************/
+static void XNandPsu_InitDataInterface(XNandPsu *InstancePtr, OnfiParamPage *Param)
+{
+	/* Assert the input arguments. */
+	Xil_AssertVoid(Param != NULL);
+
+	if (Param->NVDDRTimingMode)
+		InstancePtr->DataInterface = XNANDPSU_NVDDR;
+	else if (Param->SDRTimingMode)
+		InstancePtr->DataInterface = XNANDPSU_SDR;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function initializes the Timing mode from ONFI parameter page.
+*
+* @param	InstancePtr is a pointer to the XNandPsu instance.
+* @param	Param is pointer to ONFI parameter page buffer.
+*
+* @return
+*		None
+*
+* @note		None
+*
+******************************************************************************/
+static void XNandPsu_InitTimingMode(XNandPsu *InstancePtr, OnfiParamPage *Param)
+{
+	u8 Mode;
+	u8 TimingMode;
+
+	/* Assert the input arguments. */
+	Xil_AssertVoid(Param != NULL);
+
+	if (InstancePtr->DataInterface == XNANDPSU_NVDDR)
+		TimingMode = Param->NVDDRTimingMode;
+	else if (InstancePtr->DataInterface == XNANDPSU_SDR)
+		TimingMode = (u8)(Param->SDRTimingMode);
+
+	for(Mode = XNANDPSU_MAX_TIMING_MODE; Mode >= 0; Mode++) {
+		if (TimingMode & (0x01 << Mode)) {
+			InstancePtr->TimingMode = Mode;
+			break;
+		} else {
+			continue;
+		}
+	}
 }
 
 /*****************************************************************************/
