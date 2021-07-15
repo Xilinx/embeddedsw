@@ -434,6 +434,10 @@ extern "C" {
 #define XPM_INT_ERR_ARRAY_RESET			0x4109U
 /* Error during ARRAY reset release */
 #define XPM_INT_ERR_ARRAY_RESET_RELEASE		0x410AU
+/* Error durring INITSTATE release */
+#define XPM_INT_ERR_AIE_INITSTATE_RELEASE	0x410BU
+/* Error during Memory Zeroization */
+#define XPM_INT_ERR_AIE_MEMORY_ZEROISATION	0x410CU
 
 /************************** PMC specific Errors ******************************/
 /************************** (0x4200) - (0x42FF) ******************************/

@@ -15,15 +15,27 @@
 
 #define AIE_POLL_TIMEOUT 0X1000000U
 
+/* TODO: Remove hard coded base addresses and row/col shifts for AIE */
 #define COL_SHIFT 23U
 #define ROW_SHIFT 18U
 #define TILE_BASEADDRESS(col, row) ((u64)VIVADO_ME_BASEADDR +\
 			((u64)(col) << COL_SHIFT)+\
 			((u64)(row) << ROW_SHIFT))
 
+/* TODO: Remove hard coded base addresses and row/col shifts for AIE2 */
+#define AIE2_COL_SHIFT 25U
+#define AIE2_ROW_SHIFT 20U
+#define AIE2_TILE_BASEADDRESS(col, row) ((u64)0x20000000000U +\
+		            ((u64)(col) << AIE2_COL_SHIFT) +\
+		            ((u64)(row) << AIE2_ROW_SHIFT))
+
 #define AIE_CORE_CONTROL_ENABLE_MASK (1U<<0U)
 #define AIE_CORE_CONTROL_RESET_MASK (1U<<1U)
 #define AIE_CORE_STATUS_DONE_MASK   (1UL<<20U)
+
+#define XPM_AIE_OPS                    0U
+#define XPM_AIE2_OPS                   1U
+#define XPM_AIE_OPS_MAX                2U
 
 #define AieWrite64(addr, val) swea(addr, val)
 #define AieRead64(addr) lwea(addr)
@@ -88,33 +100,40 @@ static const u32 ProgramMem[] __attribute__ ((aligned(16))) = {
 
 
 struct AieArray {
-	u32 NpiAddress;
 	u64 NocAddress;
 	u32 NumCols;
 	u32 NumRows;
+	u32 NumMemRows;
 	u32 StartCol;
 	u32 StartRow;
-	u8 IsSecure;
+	u32 StartTileRow;
 };
 
 static struct AieArray AieInst = {
-	.NpiAddress = 0xF70A0000U,
 	.NocAddress = 0x20000000000U,
 	.NumCols = 50U,
 	.NumRows = 8U,
 	.StartCol = 0U,
 	.StartRow = 1U,
-	.IsSecure = 0U,
 };
 
+static struct AieArray Aie2Inst = {
+	.NocAddress = 0x20000000000U,
+	.NumCols = 38U,
+	.NumRows = 10U,
+	.NumMemRows = 2U,
+	.StartCol = 0U,
+	.StartRow = 1U,
+	.StartTileRow = 3U,
+};
+
+
 static const struct AieArray ShimInst = {
-	.NpiAddress = 0xF70A0000U,
 	.NocAddress = 0x20000000000U,
 	.NumCols = 50U,
 	.NumRows = 1U,
 	.StartCol = 0U,
 	.StartRow = 0U,
-	.IsSecure = 0U,
 };
 
 /*****************************************************************************/
@@ -339,6 +358,47 @@ done:
 	return Status;
 }
 
+static void Aie2ClockInit(u32 BaseAddress)
+{
+	u32 col;
+
+	/* Enable privelaged write access */
+	XPm_RMW32(BaseAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET,
+			ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK,
+			ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK);
+
+	/* Enable all column clocks */
+	for (col = Aie2Inst.StartCol; col < (Aie2Inst.StartCol + Aie2Inst.NumCols); col++) {
+		AieWrite64(AIE2_TILE_BASEADDRESS(col, 0) +
+				AIE2_PL_MODULE_COLUMN_CLK_CTRL_OFFSET, 1U);
+	}
+
+	/* Disable privelaged write access */
+	XPm_RMW32(BaseAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET,
+			ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK, 0U);
+}
+
+static void Aie2ClockGate(u32 BaseAddress)
+{
+	u32 col;
+
+	/* Enable privelaged write access */
+	XPm_RMW32(BaseAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET,
+			ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK,
+			ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK);
+
+	/* Disable all column clocks */
+	for (col = Aie2Inst.StartCol; col < (Aie2Inst.StartCol + Aie2Inst.NumCols); col++) {
+		AieWrite64(AIE2_TILE_BASEADDRESS(col, 0) +
+				AIE2_PL_MODULE_COLUMN_CLK_CTRL_OFFSET, 0U);
+	}
+
+	/* Disable privelaged write access */
+	XPm_RMW32(BaseAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET,
+			ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK, 0U);
+
+}
+
 static XStatus AieInitStart(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -391,6 +451,72 @@ done:
 	return Status;
 }
 
+static XStatus Aie2InitStart(const u32 *Args, u32 NumOfArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u32 BaseAddress;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+
+	/* This function does not use the args */
+	(void)Args;
+	(void)NumOfArgs;
+
+	const XPm_Device * const Aie2Dev = XPmDevice_GetById(PM_DEV_AIE);
+	if (NULL == Aie2Dev) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		goto done;
+	}
+
+	BaseAddress = Aie2Dev->Node.BaseAddress;
+
+	/* Check for AIE2 Power Status */
+	if ((XPm_In32(BaseAddress + NPI_PCSR_STATUS_OFFSET) &
+			ME_NPI_REG_PCSR_STATUS_ME_PWR_SUPPLY_MASK) !=
+			ME_NPI_REG_PCSR_STATUS_ME_PWR_SUPPLY_MASK) {
+		DbgErr = XPM_INT_ERR_POWER_SUPPLY;
+		goto done;
+	}
+
+	/* Unlock AIE PCSR */
+	XPmAieDomain_UnlockPcsr(BaseAddress);
+
+	/* Release IPOR */
+	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_ME_IPOR_MASK, 0U);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_RST_RELEASE;
+		goto fail;
+	}
+
+	/* TODO: This needs to be data driven to handle multiple devices */
+	/* Change from AIE. Each device has unique ME_TOP_ROW value */
+	/* Configure ME_TOP_ROW and ROW_OFFSET registers */
+	PmOut32((BaseAddress + ME_NPI_ME_TOP_ROW_OFFSET), 0x0000000AU);
+
+	/* Change from AIE to AIE2. AIE handles in CDO */
+	/* De-assert INIT_STATE */
+	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_INITSTATE_MASK, 0U);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_AIE_INITSTATE_RELEASE;
+		goto fail;
+	}
+
+	/* Change from AIE to AIE2. AIE handles in CDO */
+	/* De-assert AIE2 array reset */
+	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_ME_ARRAY_RESET_MASK, 0U);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_ARRAY_RESET_RELEASE;
+		goto fail;
+	}
+
+fail:
+	/* Lock AIE PCSR */
+	XPmAieDomain_LockPcsr(BaseAddress);
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
 static XStatus AieInitFinish(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -430,6 +556,49 @@ done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
+
+static XStatus Aie2InitFinish(const u32 *Args, u32 NumOfArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u32 BaseAddress;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+
+	/* This function does not use the args */
+	(void)Args;
+	(void)NumOfArgs;
+
+	const XPm_Device * const AieDev = XPmDevice_GetById(PM_DEV_AIE);
+	if (NULL == AieDev) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		goto done;
+	}
+
+	BaseAddress = AieDev->Node.BaseAddress;
+
+	/* Unlock AIE PCSR */
+	XPmAieDomain_UnlockPcsr(BaseAddress);
+
+	/* Change from AIE to AIE2. */
+	/* Clock gate for each column */
+	Aie2ClockGate(BaseAddress);
+
+	/* Change from AIE to AIE2. PCOMPLETE should be set at the end of the
+	 * sequence */
+	/* Set PCOMPLETE bit */
+	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_PCOMPLETE_MASK,
+			ME_NPI_REG_PCSR_MASK_PCOMPLETE_MASK);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_AIE_PCOMPLETE;
+	}
+
+	/* Lock AIE PCSR */
+	XPmAieDomain_LockPcsr(BaseAddress);
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
 
 static XStatus AieScanClear(const u32 *Args, u32 NumOfArgs)
 {
@@ -580,6 +749,65 @@ done:
 	return Status;
 }
 
+static XStatus Aie2Bisr(const u32 *Args, u32 NumOfArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u32 BaseAddress;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+
+	/* This function does not use the args */
+	(void)Args;
+	(void)NumOfArgs;
+
+	const XPm_Device * const AieDev = XPmDevice_GetById(PM_DEV_AIE);
+	if (NULL == AieDev) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		goto done;
+	}
+
+	BaseAddress = AieDev->Node.BaseAddress;
+
+	/* Unlock AIE PCSR */
+	XPmAieDomain_UnlockPcsr(BaseAddress);
+
+	/* Change from AIE to AIE2. AIE has clocks enabled by default whereas AIE2
+	 * has then disabled by default. Clocks must be up from this point to
+	 * continue the sequence */
+	/* Enable all column clocks */
+	Aie2ClockInit(BaseAddress);
+
+	/* Remove PMC-NoC domain isolation */
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_SOC, FALSE_VALUE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PMC_SOC_ISO;
+		goto fail;
+	}
+
+	Status = XPmBisr_Repair(MEA_TAG_ID);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_MEA_BISR_REPAIR;
+		goto fail;
+	}
+	Status = XPmBisr_Repair(MEB_TAG_ID);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_MEB_BISR_REPAIR;
+		goto fail;
+	}
+	Status = XPmBisr_Repair(MEC_TAG_ID);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_MEC_BISR_REPAIR;
+		goto fail;
+	}
+
+fail:
+	/* Lock AIE PCSR */
+	XPmAieDomain_LockPcsr(BaseAddress);
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
 static XStatus AieMbistClear(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -693,6 +921,121 @@ done:
 	return Status;
 }
 
+static XStatus Aie2MbistClear(const u32 *Args, u32 NumOfArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u32 BaseAddress;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+
+	/* This function does not use the args */
+	(void)Args;
+	(void)NumOfArgs;
+
+	const XPm_Device * const AieDev = XPmDevice_GetById(PM_DEV_AIE);
+	if (NULL == AieDev) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		goto done;
+	}
+
+	BaseAddress = AieDev->Node.BaseAddress;
+
+	/* Unlock AIE PCSR */
+	XPmAieDomain_UnlockPcsr(BaseAddress);
+
+	if (XPm_GetPlatform() == PLATFORM_VERSION_SILICON) {
+		/* Change from AIE to AIE2. */
+		/* TODO: In AIE this is set to low power mode to avoid failures. Need
+		 * confirmation that for AIE2 low power mode is not required. */
+		/* Assert MEM_CLEAR_EN_ALL */
+		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_MEM_CLEAR_EN_ALL_MASK,
+				ME_NPI_REG_PCSR_MASK_MEM_CLEAR_EN_ALL_MASK);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_MEM_CLEAR_EN;
+			goto fail;
+		}
+
+		/* Set OD_MBIST_ASYNC_RESET_N bit */
+		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_OD_MBIST_ASYNC_RESET_N_MASK,
+				ME_NPI_REG_PCSR_MASK_OD_MBIST_ASYNC_RESET_N_MASK);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_MBIST_RESET;
+			goto fail;
+		}
+
+		/* Assert OD_BIST_SETUP_1 */
+		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_OD_BIST_SETUP_1_MASK,
+				ME_NPI_REG_PCSR_MASK_OD_BIST_SETUP_1_MASK);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_BIST_RESET;
+			goto fail;
+		}
+
+		/* Assert MEM_CLEAR_TRIGGER */
+		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_MEM_CLEAR_TRIGGER_MASK,
+				ME_NPI_REG_PCSR_MASK_MEM_CLEAR_TRIGGER_MASK);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_MEM_CLEAR_TRIGGER;
+			goto fail;
+		}
+
+		XPlmi_Printf(DEBUG_INFO, "INFO: %s : Wait for AIE Mem Clear complete...", __func__);
+
+		/* Wait for Mem Clear DONE */
+		Status = XPm_PollForMask(BaseAddress + NPI_PCSR_STATUS_OFFSET,
+				ME_NPI_REG_PCSR_STATUS_MEM_CLEAR_DONE_MASK,
+				AIE_POLL_TIMEOUT);
+		if (Status != XST_SUCCESS) {
+			DbgErr = XPM_INT_ERR_MEM_CLEAR_DONE_TIMEOUT;
+			XPlmi_Printf(DEBUG_INFO, "ERROR\r\n");
+			goto fail;
+		}
+		else {
+			XPlmi_Printf(DEBUG_INFO, "DONE\r\n");
+		}
+
+		/* Check Mem Clear PASS */
+		if ((XPm_In32(BaseAddress + NPI_PCSR_STATUS_OFFSET) &
+					ME_NPI_REG_PCSR_STATUS_MEM_CLEAR_PASS_MASK) !=
+				ME_NPI_REG_PCSR_STATUS_MEM_CLEAR_PASS_MASK) {
+			XPlmi_Printf(DEBUG_GENERAL, "ERROR: %s: AIE Mem Clear FAILED\r\n", __func__);
+			DbgErr = XPM_INT_ERR_MEM_CLEAR_PASS;
+			Status = XST_FAILURE;
+			goto fail;
+		}
+
+		/* Clear OD_MBIST_ASYNC_RESET_N bit */
+		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_OD_MBIST_ASYNC_RESET_N_MASK, 0U);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_MBIST_RESET_RELEASE;
+			goto fail;
+		}
+
+		/* De-assert OD_BIST_SETUP_1 */
+		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_OD_BIST_SETUP_1_MASK, 0U);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_BIST_RESET_RELEASE;
+			goto fail;
+		}
+
+		/* De-assert MEM_CLEAR_TRIGGER */
+		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_MEM_CLEAR_TRIGGER_MASK, 0U);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_MEM_CLEAR_TRIGGER_UNSET;
+			goto fail;
+		}
+	}
+
+	Status = XST_SUCCESS;
+
+fail:
+	/* Lock AIE PCSR */
+	XPmAieDomain_LockPcsr(BaseAddress);
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
 static XStatus AieMemInit(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -745,20 +1088,120 @@ done:
 	return Status;
 }
 
-static struct XPm_PowerDomainOps AieOps = {
-	.InitStart = AieInitStart,
-	.InitFinish = AieInitFinish,
-	.ScanClear = AieScanClear,
-	.Bisr = AieBisr,
-	.Mbist = AieMbistClear,
-	.MemInit = AieMemInit,
-	/* Mask to indicate which Ops are present */
-	.InitMask = (BIT16(FUNC_INIT_START) |
-		     BIT16(FUNC_INIT_FINISH) |
-		     BIT16(FUNC_SCAN_CLEAR) |
-		     BIT16(FUNC_BISR) |
-		     BIT16(FUNC_MBIST_CLEAR) |
-		     BIT16(FUNC_MEM_INIT))
+static XStatus Aie2MemInit(const u32 *Args, u32 NumOfArgs)
+{
+	XStatus Status = XST_FAILURE;
+	XStatus CoreZeroStatus = XST_FAILURE;
+	XStatus MemZeroStatus = XST_FAILURE;
+	XStatus MemTileZeroStatus = XST_FAILURE;
+	u32 AieZeroizationTime = 0U;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 BaseAddress;
+	u32 row;
+	u32 col;
+
+	/* This function does not use the args */
+	(void)Args;
+	(void)NumOfArgs;
+
+	const XPm_Device * const AieDev = XPmDevice_GetById(PM_DEV_AIE);
+	if (NULL == AieDev) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		goto done;
+	}
+
+	BaseAddress = AieDev->Node.BaseAddress;
+
+	/* Enable privelaged write access */
+    XPm_RMW32(BaseAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET,
+			ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK,
+			ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK);
+
+    /* Enable memory zeroization for mem tiles. Mem tiles start at row 1. */
+	for (col = Aie2Inst.StartCol; col < (Aie2Inst.StartCol + Aie2Inst.NumCols); col++) {
+		for (row = 1U; row <= Aie2Inst.NumMemRows; row++) {
+			AieRMW64(TILE_BASEADDRESS(col, row) + AIE2_MEM_TILE_MODULE_MEM_CTRL_OFFSET,
+					AIE2_MEM_TILE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK,
+					AIE2_MEM_TILE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK);
+		}
+	}
+
+    /* Enable memory zeroization for all AIE2 tiles.
+	 * Enable for core and memory modules. */
+	for (col = Aie2Inst.StartCol; col < (Aie2Inst.StartCol + Aie2Inst.NumCols); col++) {
+		for (row = Aie2Inst.StartTileRow; row < (Aie2Inst.StartRow + Aie2Inst.NumRows); row++) {
+			AieWrite64(TILE_BASEADDRESS(col, row) + AIE2_CORE_MODULE_MEM_CTRL_OFFSET,
+					AIE2_CORE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK);
+			AieWrite64(TILE_BASEADDRESS(col, row) + AIE2_MEM_MODULE_MEM_CTRL_OFFSET,
+					AIE2_MEM_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK);
+		}
+	}
+
+	/* Poll the last cell for each tile type for memory zeroization complete */
+    while ((XST_SUCCESS != MemTileZeroStatus) ||(XST_SUCCESS != CoreZeroStatus) || (XST_SUCCESS != MemZeroStatus)) {
+		col = Aie2Inst.StartCol + Aie2Inst.NumCols;
+		row = Aie2Inst.StartRow + Aie2Inst.NumMemRows;
+
+		if (0U == AieRead64(TILE_BASEADDRESS(col,row) + AIE2_MEM_TILE_MODULE_MEM_CTRL_OFFSET)) {
+			MemTileZeroStatus = XST_SUCCESS;
+		}
+
+		col = Aie2Inst.StartCol + Aie2Inst.NumCols;
+		row = Aie2Inst.StartRow + Aie2Inst.NumRows;
+
+		if (0U == AieRead64(TILE_BASEADDRESS(col,row) + AIE2_CORE_MODULE_MEM_CTRL_OFFSET)) {
+			CoreZeroStatus = XST_SUCCESS;
+		}
+		if (0U == AieRead64(TILE_BASEADDRESS(col,row) + AIE2_MEM_MODULE_MEM_CTRL_OFFSET)) {
+			MemZeroStatus = XST_SUCCESS;
+		}
+
+		AieZeroizationTime++;
+		if (AieZeroizationTime > XPLMI_TIME_OUT_DEFAULT) {
+			DbgErr = XPM_INT_ERR_AIE_MEMORY_ZEROISATION;
+			Status = XST_FAILURE;
+			goto done;
+		}
+	}
+
+    Status = XST_SUCCESS;
+
+done:
+    XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+static struct XPm_PowerDomainOps AieOps[XPM_AIE_OPS_MAX] = {
+	[XPM_AIE_OPS] = {
+		.InitStart = AieInitStart,
+		.InitFinish = AieInitFinish,
+		.ScanClear = AieScanClear,
+		.Bisr = AieBisr,
+		.Mbist = AieMbistClear,
+		.MemInit = AieMemInit,
+		/* Mask to indicate which Ops are present */
+		.InitMask = (BIT16(FUNC_INIT_START) |
+				BIT16(FUNC_INIT_FINISH) |
+				BIT16(FUNC_SCAN_CLEAR) |
+				BIT16(FUNC_BISR) |
+				BIT16(FUNC_MBIST_CLEAR) |
+				BIT16(FUNC_MEM_INIT))
+	},
+	[XPM_AIE2_OPS] = {
+		.InitStart = Aie2InitStart,
+		.InitFinish = Aie2InitFinish,
+		.ScanClear = AieScanClear,
+		.Bisr = Aie2Bisr,
+		.Mbist = Aie2MbistClear,
+		.MemInit = Aie2MemInit,
+		/* Mask to indicate which Ops are present */
+		.InitMask = (BIT16(FUNC_INIT_START) |
+				BIT16(FUNC_INIT_FINISH) |
+				BIT16(FUNC_SCAN_CLEAR) |
+				BIT16(FUNC_BISR) |
+				BIT16(FUNC_MBIST_CLEAR) |
+				BIT16(FUNC_MEM_INIT))
+	},
 };
 
 XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
@@ -767,16 +1210,8 @@ XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 	XStatus Status = XST_FAILURE;
 	u32 Platform = XPm_GetPlatform();
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	const struct XPm_PowerDomainOps *Ops = NULL;
 
-	/* Skip AIE Init for base QEMU without COSIM */
-	if (Platform == PLATFORM_VERSION_QEMU) {
-		AieOps.InitStart = NULL;
-		AieOps.InitFinish = NULL;
-		AieOps.ScanClear = NULL;
-		AieOps.Bisr = NULL;
-		AieOps.Mbist = NULL;
-		AieOps.MemInit = NULL;
-	}
 	/* For SPP and EMU,  setup the array size */
 	if (Platform != PLATFORM_VERSION_SILICON) {
 		AieInst.NumCols = 7U;
@@ -785,11 +1220,25 @@ XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 		AieInst.StartRow = 1U;
 	}
 
-	Status = XPmPowerDomain_Init(&AieDomain->Domain, Id, BaseAddress, Parent, &AieOps);
-	if (XST_SUCCESS == Status) {
+	if (Platform != PLATFORM_VERSION_QEMU) {
+		if (PM_POWER_ME == Id) {
+			Ops = &AieOps[XPM_AIE_OPS];
+		} else if (PM_POWER_ME2 == Id) {
+			Ops = &AieOps[XPM_AIE2_OPS];
+		} else {
+			DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
+			Status = XPM_INVALID_PWRDOMAIN;
+			goto done;
+		}
+	}
+
+	Status = XPmPowerDomain_Init(&AieDomain->Domain, Id, BaseAddress,
+			Parent, Ops);
+	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_POWER_DOMAIN_INIT;
 	}
 
+done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
