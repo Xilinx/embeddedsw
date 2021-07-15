@@ -7,7 +7,7 @@
 /**
 *
 * @file xnandpsu_hw.h
-* @addtogroup nandpsu_v1_8
+* @addtogroup nandpsu_v1_9
 * @{
 *
 * This file contains identifiers and low-level macros/functions for the Arasan
