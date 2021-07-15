@@ -22,6 +22,8 @@
 * 3.00  bsv  06/27/2020 Code clean up
 * 4.00  ma   06/17/2021 Added defines for CFU_STREAM_2 and CFU_FDRO_2
 *                       base addresses
+*       bsv  07/15/2021 Fix doxygen warnings
+*
 * </pre>
 *
 * @note
@@ -44,6 +46,10 @@ extern "C" {
 #include "xcfupmc_hw.h"
 
 /************************** Constant Definitions *****************************/
+/**@cond cfupmc_internal
+ * @{
+ */
+
 /* CFU key hole register address */
 /* Address updates after RTL HW40 */
 #define CFU_STREAM_ADDR	(0xF12C0000U)
@@ -62,6 +68,10 @@ extern "C" {
 #define CFU_APB_CFU_CTL_IGNORE_CFI_ERROR_CLR_VAL	(0x0U)
 #define CFU_APB_CFU_CTL_DECOMPRESS_CLR_VAL	(0x0U)
 
+/**
+ * @}
+ * @endcond
+ */
 
 /**************************** Type Definitions *******************************/
 /**
@@ -86,10 +96,13 @@ typedef struct {
 	XCfupmc_Config Config;		/**< Hardware configuration */
 	u32 IsReady;			/**< Device and the driver instance
 						*  are initialized */
-	u8 DeCompress;
-	u8 Crc32Check;
-	u32 Crc32Val;
-	u8 Crc8Dis;
+	u8 DeCompress;			/**< Indicates whether compression is
+						* is enabled or not */
+	u8 Crc32Check;			/**< Indicates if CRC32 is enabled
+						* or not */
+	u32 Crc32Val;			/**< Checksum value */
+	u8 Crc8Dis;			/**< Indicates if CRC8 is enabled
+						* or not */
 }XCfupmc;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -141,11 +154,20 @@ static inline u32 XCfupmc_ReadStatus(const XCfupmc *InstancePtr)
 	return XCfupmc_ReadReg(CFU_APB_CFU_STATUS);
 }
 
+/**@cond cfu_apb_internal
+ * @{
+ */
+
 #ifdef XCFUPMC_DEBUG
 #define XCfupmc_Printf(...)	xil_printf(__VA_ARGS__)
 #else
 #define XCfupmc_Printf(...)
 #endif
+
+/**
+ * @}
+ * @endcond
+ */
 
 /************************** Function Prototypes ******************************/
 XCfupmc_Config *XCfupmc_LookupConfig(u16 DeviceId);
