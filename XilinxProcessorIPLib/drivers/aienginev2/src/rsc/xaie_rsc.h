@@ -323,6 +323,24 @@ static inline AieRC XAie_ReleaseBroadcastChannel(XAie_DevInst *DevInst, u32 User
 	(void)Rscs;
 	return XAIE_FEATURE_NOT_SUPPORTED;
 }
+
+static inline AieRC XAie_GetStaticRscStat(XAie_DevInst *DevInst, u32 NumRscStat,
+		XAie_UserRscStat *RscStats)
+{
+	(void)DevInst;
+	(void)NumRscStat;
+	(void)RscStats;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+
+AieRC XAie_GetAvailRscStat(XAie_DevInst *DevInst, u32 NumRscStat,
+		XAie_UserRscStat *RscStats)
+{
+	(void)DevInst;
+	(void)NumRscStat;
+	(void)RscStats;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
 #else /* !XAIE_RSC_DISABLE */
 
 /* Performance counter resource management APIs */
@@ -425,5 +443,9 @@ static inline XAie_UserRscReq XAie_SetupRscRequest(XAie_LocType Loc,
 }
 
 AieRC XAie_LoadStaticRscfromMem(XAie_DevInst *DevInst, const char *MetaData);
+AieRC XAie_GetStaticRscStat(XAie_DevInst *DevInst, u32 NumRscStat,
+		XAie_UserRscStat *RscStats);
+AieRC XAie_GetAvailRscStat(XAie_DevInst *DevInst, u32 NumRscStat,
+		XAie_UserRscStat *RscStats);
 #endif /* XAIE_RSC_DISABLE */
 #endif		/* end of protection macro */
