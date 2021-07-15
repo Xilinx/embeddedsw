@@ -10,6 +10,9 @@
 #include <assert.h>
 #include "xilskey_jslib.h"
 
+/**
+* Maximum TAPS
+*/
 #define MAX_TAPS 16
 
 
@@ -103,7 +106,12 @@ js_command_sequence_t *js_create_command_sequence(
     return &cmds->base;
 }
 
-
+/****************************************************************************/
+/**
+*
+* This function frees the buffer
+*
+*****************************************************************************/
 static void free_buffers(
     js_lib_command_buffer_t *buf)
 {
@@ -145,7 +153,14 @@ int js_delete_command_sequence(
     return 0;
 }
 
-
+/****************************************************************************/
+/**
+*
+* This function performs get command operation
+*
+* @return	returns return value of type js_lib_command_t
+*
+*****************************************************************************/
 static js_lib_command_t *get_command(
     js_lib_command_sequence_t *cmds)
 {
@@ -191,7 +206,14 @@ int js_add_state_change(
     return 0;
 }
 
-
+/****************************************************************************/
+/**
+*
+* This function performs get buffer operation
+*
+* @return	returns ret value
+*
+*****************************************************************************/
 static unsigned char *get_buffer(
     js_lib_command_sequence_t *cmds,
     size_t size)
@@ -400,7 +422,14 @@ int js_close_port(
     return port->close_port(port);
 }
 
-
+/****************************************************************************/
+/**
+*
+* This function performs normalize command sequence operation
+*
+* @return	returns 0
+*
+*****************************************************************************/
 int js_lib_normalize_command_sequence(
     js_lib_command_sequence_t *dest_seq,
     js_lib_command_sequence_t *src_seq)

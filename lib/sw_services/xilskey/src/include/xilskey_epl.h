@@ -37,6 +37,10 @@
 *       psl     03/20/19 Added eFuse key write support for SSIT devices.
 *       psl     03/29/19 Added Support for user configurable GPIO for jtag
 *                        control
+* 7.2   am      07/13/21 Fixed doxygen warnings
+*
+* </pre>
+*
 ****************************************************************************/
 #ifndef XILSKEY_EPL_H
 #define XILSKEY_EPL_H
@@ -432,7 +436,7 @@ typedef struct {
 
 u32 XilSKey_EfusePl_SystemInit(XilSKey_EPl *InstancePtr);
 
-u32 XilSKey_EfusePl_Program(XilSKey_EPl *PlInstancePtr);
+u32 XilSKey_EfusePl_Program(XilSKey_EPl *InstancePtr);
 
 u32 XilSKey_EfusePl_ReadStatus(XilSKey_EPl *InstancePtr, u32 *StatusBits);
 

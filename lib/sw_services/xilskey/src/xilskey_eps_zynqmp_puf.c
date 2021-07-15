@@ -44,7 +44,8 @@
 *                     controller.
 *       kal 05/14/20  Added Cache Reload in XilSKey_Write_Puf_EfusePs_SecureBits
 *                     to reflect programmed bit when read from puf example.
-* 7.0	am	10/04/20  Resolved MISRA C violations
+* 7.0	am  10/04/20  Resolved MISRA C violations
+* 7.2   am  07/13/21  Fixed doxygen warnings
 *
 * </pre>
 *
@@ -57,12 +58,17 @@
 #include "xilskey_eps_zynqmp.h"
 #include "sleep.h"
 /************************** Constant Definitions *****************************/
+	/**
+	* Status of PUF word syndrome ready timeout
+	*/
 #define XILSKEY_PUF_STATUS_SYN_WRD_RDY_TIMEOUT	(500000U)
 
 /**************************** Type Definitions ******************************/
 typedef enum {
-	XSK_EFUSEPS_PUF_REGISTRATION_STARTED,
-	XSK_EFUSEPS_PUF_REGISTRATION_COMPLETE
+	XSK_EFUSEPS_PUF_REGISTRATION_STARTED, /**<0x0 - PUF registration
+						* started */
+	XSK_EFUSEPS_PUF_REGISTRATION_COMPLETE /**<0x1 - PUF registration
+						* complete */
 } XilsKey_PufRegistrationState;
 
 
@@ -889,10 +895,11 @@ END:
 * This function is used to read the PS eFUSE PUF secure bits from cache
 * or from eFUSE array.
 *
-* @param	SecureBits	Pointer to the XilSKey_Puf_Secure structure
-*		which holds the read eFUSE secure bits from the PUF.
-* @param	ReadOption	Indicates whether or not to read from the actual
-* 		eFUSE array or from the eFUSE cache.
+* @param	SecureBitsRead - Pointer to the XilSKey_Puf_Secure structure
+*                                which holds the read eFUSE secure bits from the
+*                                PUF.
+* @param	ReadOption     - Indicates whether or not to read from the
+*                                actual eFUSE array or from the eFUSE cache.
 *		- 0(XSK_EFUSEPS_READ_FROM_CACHE) Reads from cache
 *		- 1(XSK_EFUSEPS_READ_FROM_EFUSE) Reads from eFUSE array
 *
@@ -1000,8 +1007,6 @@ END:
 /***************************************************************************/
 /**
 * This function checks whether PUF is already programmed or not.
-*
-* @param	None.
 *
 * @return
 *		- XST_SUCCESS if all rows are zero

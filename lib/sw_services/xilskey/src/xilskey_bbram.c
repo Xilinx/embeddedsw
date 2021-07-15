@@ -31,6 +31,10 @@
 *                        server only once to solve stack corruption issue.
 *       vns     08/29/19 Initialized Status variables
 * 6.9   vns     03/18/20 Fixed Armcc compilation errors
+* 7.2   am      07/13/21 Fixed doxygen warnings
+*
+* </pre>
+*
 ****************************************************************************/
 /***************************** Include Files *********************************/
 #include "xparameters.h"
@@ -65,22 +69,39 @@
 #define XSK_BBRAM_CTRL_ENABLE_VAL		(0x2)	/**< Value for
 							  *  default state */
 
-/* DEF masks for calculating ECC of 28 bit 0f a control word */
+/**
+ * @name  DEF masks for BBRAM
+ * @{
+ */
+/**< DEF masks for calculating ECC of 28 bit 0f a control word */
 #define XSK_BBRAM_P0_MASK	0X36AD555
 #define XSK_BBRAM_P1_MASK	0X2D9B333
 #define XSK_BBRAM_P2_MASK	0X1C78F0F
 #define XSK_BBRAM_P3_MASK	0X03F80FF
 #define XSK_BBRAM_P4_MASK	0X0007FFF
+/** @} */
 
 /**************************** Type Definitions ******************************/
+/**
+ * @name XilSKey_JtagSlr structure definition
+ * @{
+ */
+/**< XilSKey_JtagSlr structure provides information of JtagSlr's */
 typedef struct {
-    /* Number of SLRs to iterate through */
+	/**
+	* Number of SLRs to iterate through
+	*/
     u32 NumSlr;
-    /* Current SLR to iterate through */
+	/**
+	* Current SLR to iterate through
+	*/
     u32 CurSlr;
-    /* Device IR length */
+        /**
+	* Device IR length
+	*/
     u32 IrLen;
 }XilSKey_JtagSlr;
+/** @} */
 
 /***************** Macros (Inline Functions) Definitions ********************/
 /************************** Variable Definitions ****************************/

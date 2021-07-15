@@ -22,6 +22,7 @@
 *                        PBR_BOOT_ERROR.
 * 6.7   arc     01/05/19 Fixed MISRA-C violations.
 * 7.1	kal	02/28/21 Added new macros for eFuse classification
+* 7.2   am      07/13/21 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -50,6 +51,7 @@ extern "C" {
 /** @name Write lock register
  * @{
  */
+/**< Write lock register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_WR_LOCK_OFFSET	0x00000000U
 #define XSK_ZYNQMP_EFUSEPS_WR_LOCK_RSTVAL	0x00000001U
 
@@ -60,9 +62,11 @@ extern "C" {
 #define XSK_ZYNQMO_EFUSEP_WR_UNLOCK_VALUE	0xDF0D
 /*@}*/
 
-/** @name Cfg register
+/**
+ * @name  Configuration register
  * @{
  */
+/**< Configuration register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_CFG_OFFSET		0x00000004U
 #define XSK_ZYNQMP_EFUSEPS_CFG_RSTVAL		0x00000000U
 
@@ -88,11 +92,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_CFG_CLK_SEL_WIDTH	1U
 #define XSK_ZYNQMP_EFUSEPS_CFG_CLK_SEL_MASK	0x00000001U
 #define XSK_ZYNQMP_EFUSEPS_CFG_CLK_SEL_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name Status register
+/**
+ * @name  Status register
  * @{
  */
+/**< Status register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_STS_OFFSET		0x00000008U
 #define XSK_ZYNQMP_EFUSEPS_STS_RSTVAL		0x00000000U
 
@@ -130,11 +136,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_STS_0_TBIT_WIDTH		1U
 #define XSK_ZYNQMP_EFUSEPS_STS_0_TBIT_MASK		0x00000001U
 #define XSK_ZYNQMP_EFUSEPS_STS_0_TBIT_DEFVAL		0x0U
-/*@}*/
+/** @} */
 
-/** @name program address register
+/**
+ * @name  Program address register
  * @{
  */
+/**< program address register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_PGM_ADDR_OFFSET	0x0000000CU
 #define XSK_ZYNQMP_EFUSEPS_PGM_ADDR_RSTVAL	0x00000000U
 
@@ -152,11 +160,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_PGM_ADDR_COL_WIDTH	5U
 #define XSK_ZYNQMP_EFUSEPS_PGM_ADDR_COL_MASK	0x0000001fU
 #define XSK_ZYNQMP_EFUSEPS_PGM_ADDR_COL_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name read address register
+/**
+ * @name  Read address register
  * @{
  */
+/**< Read address register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_RD_ADDR_OFFSET	0x00000010U
 #define XSK_ZYNQMP_EFUSEPS_RD_ADDR_RSTVAL	0x00000000U
 
@@ -169,11 +179,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_RD_ADDR_ROW_WIDTH	6U
 #define XSK_ZYNQMP_EFUSEPS_RD_ADDR_ROW_MASK	0x000007e0U
 #define XSK_ZYNQMP_EFUSEPS_RD_ADDR_ROW_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name read data register
+/**
+ * @name  Read data register
  * @{
  */
+/**< Read data register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_RD_DATA_OFFSET	0x00000014U
 #define XSK_ZYNQMP_EFUSEPS_RD_DATA_RSTVAL	0x00000000U
 
@@ -181,11 +193,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_RD_DATA_WIDTH	32U
 #define XSK_ZYNQMP_EFUSEPS_RD_DATA_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_RD_DATA_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name TPGM register
+/**
+ * @name  TPGM register
  * @{
  */
+/**< TPGM register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_TPGM_OFFSET		0x00000018U
 #define XSK_ZYNQMP_EFUSEPS_TPGM_RSTVAL		0x00000000U
 
@@ -193,11 +207,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_TPGM_VAL_WIDTH	16U
 #define XSK_ZYNQMP_EFUSEPS_TPGM_VAL_MASK	0x0000ffffU
 #define XSK_ZYNQMP_EFUSEPS_TPGM_VAL_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name TRD register
+/**
+ * @name  TRD register
  * @{
  */
+/**< TRD register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_TRD_OFFSET		0x0000001CU
 #define XSK_ZYNQMP_EFUSEPS_TRD_RSTVAL		0x00000022U
 
@@ -205,11 +221,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_TRD_VAL_WIDTH	8U
 #define XSK_ZYNQMP_EFUSEPS_TRD_VAL_MASK		0x000000ffU
 #define XSK_ZYNQMP_EFUSEPS_TRD_VAL_DEFVAL	0x22U
-/*@}*/
+/** @} */
 
-/** @name TSU_H_PS register
+/**
+ * @name  TSU_H_PS register
  * @{
  */
+/**< TSU_H_PS register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_TSU_H_PS_OFFSET	0x00000020U
 #define XSK_ZYNQMP_EFUSEPS_TSU_H_PS_RSTVAL	0x000000ffU
 
@@ -217,11 +235,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_TSU_H_PS_VAL_WIDTH	8U
 #define XSK_ZYNQMP_EFUSEPS_TSU_H_PS_VAL_MASK	0x000000ffU
 #define XSK_ZYNQMP_EFUSEPS_TSU_H_PS_VAL_DEFVAL	0xffU
-/*@}*/
+/** @} */
 
-/** @name TSU H PS register
+/**
+ * @name  TSU_H_PS_CS register
  * @{
  */
+/**< TSU_H_PS_CS register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_TSU_H_PS_CS_OFFSET	0x00000024U
 #define XSK_ZYNQMP_EFUSEPS_TSU_H_PS_CS_RSTVAL	0x0000000bU
 
@@ -229,11 +249,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_TSU_H_PS_CS_VAL_WIDTH	8U
 #define XSK_ZYNQMP_EFUSEPS_TSU_H_PS_CS_VAL_MASK	0x000000ffU
 #define XSK_ZYNQMP_EFUSEPS_TSU_H_PS_CS_VAL_DEFVAL	0xbU
-/*@}*/
+/** @} */
 
-/** @name TSU H CS register
+/**
+ * @name  TSU_H_CS register
  * @{
  */
+/**< TSU_H_CS register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_TSU_H_CS_OFFSET	0x0000002CU
 #define XSK_ZYNQMP_EFUSEPS_TSU_H_CS_RSTVAL	0x00000007U
 
@@ -241,11 +263,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_TSU_H_CS_VAL_WIDTH	4U
 #define XSK_ZYNQMP_EFUSEPS_TSU_H_CS_VAL_MASK	0x0000000fU
 #define XSK_ZYNQMP_EFUSEPS_TSU_H_CS_VAL_DEFVAL	0x7U
-/*@}*/
+/** @} */
 
-/** @name ISR register
+/**
+ * @name  ISR register
  * @{
  */
+/**< ISR register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_ISR_OFFSET		0x00000030U
 #define XSK_ZYNQMP_EFUSEPS_ISR_RSTVAL		0x00000000U
 
@@ -278,11 +302,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_ISR_PGM_DONE_WIDTH		1U
 #define XSK_ZYNQMP_EFUSEPS_ISR_PGM_DONE_MASK	0x00000001U
 #define XSK_ZYNQMP_EFUSEPS_ISR_PGM_DONE_DEFVAL		0U
-/*@}*/
+/** @} */
 
-/** @name IMR register
+/**
+ * @name  IMR register
  * @{
  */
+/**< IMR register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_IMR_OFFSET		0x00000034U
 #define XSK_ZYNQMP_EFUSEPS_IMR_RSTVAL		0x8000001fU
 
@@ -315,11 +341,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_IMR_PGM_DONE_WIDTH		1U
 #define XSK_ZYNQMP_EFUSEPS_IMR_PGM_DONE_MASK	0x00000001U
 #define XSK_ZYNQMP_EFUSEPS_IMR_PGM_DONE_DEFVAL		0x1U
-/*@}*/
+/** @} */
 
-/** @name IER register
+/**
+ * @name  IER register
  * @{
  */
+/**< IER register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_IER_OFFSET		0x00000038U
 #define XSK_ZYNQMP_EFUSEPS_IER_RSTVAL		0x00000000U
 
@@ -352,11 +380,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_IER_PGM_DONE_WIDTH	1U
 #define XSK_ZYNQMP_EFUSEPS_IER_PGM_DONE_MASK	0x00000001U
 #define XSK_ZYNQMP_EFUSEPS_IER_PGM_DONE_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name IDR register
+/**
+ * @name  IDR register
  * @{
  */
+/**< IDR register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_IDR_OFFSET		0x0000003CU
 #define XSK_ZYNQMP_EFUSEPS_IDR_RSTVAL		0x00000000U
 
@@ -389,11 +419,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_IDR_PGM_DONE_WIDTH		1U
 #define XSK_ZYNQMP_EFUSEPS_IDR_PGM_DONE_MASK	0x00000001U
 #define XSK_ZYNQMP_EFUSEPS_IDR_PGM_DONE_DEFVAL		0x0U
-/*@}*/
+/** @} */
 
-/** @name Cache load register
+/**
+ * @name  Cache load register
  * @{
  */
+/**< Cache load register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_CACHE_LOAD_OFFSET	0x00000040U
 #define XSK_ZYNQMP_EFUSEPS_CACHE_LOAD_RSTVAL	0x00000000U
 
@@ -401,11 +433,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_CACHE_LOAD_WIDTH	1U
 #define XSK_ZYNQMP_EFUSEPS_CACHE_LOAD_MASK	0x00000001U
 #define XSK_ZYNQMP_EFUSEPS_CACHE_LOAD_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name Program lock register
+/**
+ * @name  Program lock register
  * @{
  */
+/**< Program lock register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_PGM_LOCK_OFFSET	0x00000044U
 #define XSK_ZYNQMP_EFUSEPS_PGM_LOCK_RSTVAL	0x00000000U
 
@@ -413,11 +447,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_PGM_LOCK_SPK_ID_WIDTH	1U
 #define XSK_ZYNQMP_EFUSEPS_PGM_LOCK_SPK_ID_MASK	0x00000001U
 #define XSK_ZYNQMP_EFUSEPS_PGM_LOCK_SPK_ID_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name AES CRC register
+/**
+ * @name  AES CRC register
  * @{
  */
+/**< AES CRC register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_AES_CRC_OFFSET	0x00000048U
 #define XSK_ZYNQMP_EFUSEPS_AES_CRC_RSTVAL	0x00000000U
 
@@ -425,18 +461,22 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_AES_CRC_VAL_WIDTH		32U
 #define XSK_ZYNQMP_EFUSEPS_AES_CRC_VAL_MASK	0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_AES_CRC_VAL_DEFVAL		0x0U
-/*@}*/
+/** @} */
 
-/** @name Tbits programming enable register
+/**
+ * @name  Tbits programming enable register
  * @{
  */
+/**< Tbits programming enable register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_TBITS_PRGRMG_EN_OFFSET	0x00000100U
 #define XSK_ZYNQMP_EFUSEPS_TBITS_PRGRMG_EN_MASK		0x00000008U
-/*@}*/
+/** @} */
 
-/** @name DNA 0 register
+/**
+ * @name  DNA 0 register
  * @{
  */
+/**< DNA 0 register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_DNA_0_OFFSET		0x0000100CU
 #define XSK_ZYNQMP_EFUSEPS_DNA_0_RSTVAL		0x00000000U
 
@@ -444,11 +484,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_DNA_0_WIDTH		32U
 #define XSK_ZYNQMP_EFUSEPS_DNA_0_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_DNA_0_DEFVAL		0x0U
-/*@}*/
+/** @} */
 
-/** @name DNA 1 register
+/**
+ * @name  DNA 1 register
  * @{
  */
+/**< DNA 1 register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_DNA_1_OFFSET		0x00001010U
 #define XSK_ZYNQMP_EFUSEPS_DNA_1_RSTVAL		0x00000000U
 
@@ -456,11 +498,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_DNA_1_WIDTH		32U
 #define XSK_ZYNQMP_EFUSEPS_DNA_1_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_DNA_1_DEFVAL		0x0U
-/*@}*/
+/** @} */
 
-/** @name DNA 2 register
+/**
+ * @name  DNA 2 register
  * @{
  */
+/**< DNA 2 register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_DNA_2_OFFSET		0x00001014U
 #define XSK_ZYNQMP_EFUSEPS_DNA_2_RSTVAL		0x00000000U
 
@@ -468,11 +512,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_DNA_2_WIDTH		32U
 #define XSK_ZYNQMP_EFUSEPS_DNA_2_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_DNA_2_DEFVAL		0x0U
-/*@}*/
+/** @} */
 
-/** @name User_0 register
+/**
+ * @name  USER 0 register
  * @{
  */
+/**< USER 0 register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_USER_0_OFFSET	0x00001020U
 #define XSK_ZYNQMP_EFUSEPS_USER_0_RSTVAL	0x00000000U
 
@@ -480,11 +526,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_USER_0_WIDTH		32U
 #define XSK_ZYNQMP_EFUSEPS_USER_0_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_USER_0_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name User_1 register
+/**
+ * @name  USER 1 register
  * @{
  */
+/**< USER 1 register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_USER_1_OFFSET	0x00001024U
 #define XSK_ZYNQMP_EFUSEPS_USER_1_RSTVAL	0x00000000U
 
@@ -492,11 +540,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_USER_1_WIDTH		32U
 #define XSK_ZYNQMP_EFUSEPS_USER_1_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_USER_1_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name User_2 register
+/**
+ * @name  USER 2 register
  * @{
  */
+/**< USER 2 register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_USER_2_OFFSET	0x00001028U
 #define XSK_ZYNQMP_EFUSEPS_USER_2_RSTVAL	0x00000000U
 
@@ -504,11 +554,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_USER_2_WIDTH		32U
 #define XSK_ZYNQMP_EFUSEPS_USER_2_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_USER_2_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name User_3 register
+/**
+ * @name  USER 3 register
  * @{
  */
+/**< USER 3 register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_USER_3_OFFSET	0x0000102CU
 #define XSK_ZYNQMP_EFUSEPS_USER_3_RSTVAL	0x00000000U
 
@@ -516,11 +568,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_USER_3_WIDTH		32U
 #define XSK_ZYNQMP_EFUSEPS_USER_3_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_USER_3_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name User_4 register
+/**
+ * @name  USER 4 register
  * @{
  */
+/**< USER 4 register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_USER_4_OFFSET	0x00001030U
 #define XSK_ZYNQMP_EFUSEPS_USER_4_RSTVAL	0x00000000U
 
@@ -528,11 +582,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_USER_4_WIDTH		32U
 #define XSK_ZYNQMP_EFUSEPS_USER_4_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_USER_4_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name User_5 register
+/**
+ * @name  USER 5 register
  * @{
  */
+/**< USER 5 register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_USER_5_OFFSET	0x00001034U
 #define XSK_ZYNQMP_EFUSEPS_USER_5_RSTVAL	0x00000000U
 
@@ -540,11 +596,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_USER_5_WIDTH		32U
 #define XSK_ZYNQMP_EFUSEPS_USER_5_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_USER_5_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name User_6 register
+/**
+ * @name  USER 6 register
  * @{
  */
+/**< USER 6 register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_USER_6_OFFSET	0x00001038U
 #define XSK_ZYNQMP_EFUSEPS_USER_6_RSTVAL	0x00000000U
 
@@ -552,11 +610,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_USER_6_WIDTH		32U
 #define XSK_ZYNQMP_EFUSEPS_USER_6_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_USER_6_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name User_7 register
+/**
+ * @name  USER 7 register
  * @{
  */
+/**< USER 7 register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_USER_7_OFFSET	0x0000103CU
 #define XSK_ZYNQMP_EFUSEPS_USER_7_RSTVAL	0x00000000U
 
@@ -564,11 +624,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_USER_7_WIDTH		32U
 #define XSK_ZYNQMP_EFUSEPS_USER_7_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_USER_7_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name Misc user control register
+/**
+ * @name  Misc user control register
  * @{
  */
+/**< Misc user control register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_MISC_USER_CTRL_OFFSET	0x00001040U
 #define XSK_ZYNQMP_EFUSEPS_MISC_USER_CTRL_RSTVAL	0x00000000U
 
@@ -622,28 +684,34 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_MISC_USER_CTRL_USR_WRLK_0_WIDTH	1U
 #define XSK_ZYNQMP_EFUSEPS_MISC_USER_CTRL_USR_WRLK_0_MASK	0x00000001U
 #define XSK_ZYNQMP_EFUSEPS_MISC_USER_CTRL_USR_WRLK_0_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name PBR Boot error register
+/**
+ * @name  PBR Boot error register
  * @{
  */
+/**< PBR Boot error register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_PBR_BOOT_ERR_OFFSET		0x00001044U
 #define XSK_ZYNQMP_EFUSEPS_PBR_BOOT_ERR_MASK		0x00000007U
 #define XSK_ZYNQMP_EFUSEPS_PBR_BOOT_ERR_SHIFT		0U
-/*@}*/
+/** @} */
 
-/** @name Xilinx specific register
+/**
+ * @name  Xilinx reserved register
  * @{
  */
+/**< Xilinx reserved register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_RESERVED_OFFSET			0x0000104CU
 #define XSK_ZYNQMP_EFUSEPS_RESERVED1_MASK			0x0000FFFFU
 #define XSK_ZYNQMP_EFUSEPS_RESERVED2_MASK			0xFFFF0000U
 #define XSK_ZYNQMP_EFUSEPS_RESERVED_SHIFT			16U
-/*@}*/
+/** @} */
 
-/** @name Puf CHASH register
+/**
+ * @name  PUF CHASH register
  * @{
  */
+/**< PUF CHASH register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_PUF_CHASH_OFFSET	0x00001050U
 #define XSK_ZYNQMP_EFUSEPS_PUF_CHASH_RSTVAL	0x00000000U
 
@@ -651,11 +719,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_PUF_CHASH_WIDTH	32U
 #define XSK_ZYNQMP_EFUSEPS_PUF_CHASH_MASK	0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_PUF_CHASH_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name Puf MISC register
+/**
+ * @name  PUF MISC register
  * @{
  */
+/**< PUF MISC register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_PUF_MISC_OFFSET		0x00001054U
 #define XSK_ZYNQMP_EFUSEPS_PUF_MISC_RSTVAL		0x00000000U
 
@@ -683,11 +753,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_PUF_MISC_AUX_WIDTH		24U
 #define XSK_ZYNQMP_EFUSEPS_PUF_MISC_AUX_MASK		0x00ffffffU
 #define XSK_ZYNQMP_EFUSEPS_PUF_MISC_AUX_DEFVAL		0x0U
-/*@}*/
+/** @} */
 
-/** @name Secure control register
+/**
+ * @name  Secure control register
  * @{
  */
+/**< Secure control register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_SEC_CTRL_OFFSET			0x00001058U
 #define XSK_ZYNQMP_EFUSEPS_SEC_CTRL_RSTVAL			0x00000000U
 
@@ -775,11 +847,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_SEC_CTRL_AES_RDLK_WIDTH		1U
 #define XSK_ZYNQMP_EFUSEPS_SEC_CTRL_AES_RDLK_MASK		0x00000001U
 #define XSK_ZYNQMP_EFUSEPS_SEC_CTRL_AES_RDLK_DEFVAL		0x0U
-/*@}*/
+/** @} */
 
-/** @name SPK ID register
+/**
+ * @name  SPK ID register
  * @{
  */
+/**< SPK ID register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_SPK_ID_OFFSET	0x0000105CU
 #define XSK_ZYNQMP_EFUSEPS_SPK_ID_RSTVAL	0x00000000U
 
@@ -787,11 +861,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_SPK_ID_WIDTH		32U
 #define XSK_ZYNQMP_EFUSEPS_SPK_ID_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_SPK_ID_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name PPK0_0 register
+/**
+ * @name  PPK0 0 register
  * @{
  */
+/**< PPK0 0 register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_PPK0_0_OFFSET	0x000010A0U
 #define XSK_ZYNQMP_EFUSEPS_PPK0_0_RSTVAL	0x00000000U
 
@@ -799,11 +875,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_PPK0_0_WIDTH		32U
 #define XSK_ZYNQMP_EFUSEPS_PPK0_0_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_PPK0_0_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name PPK0_1 register
+/**
+ * @name  PPK0 1 register
  * @{
  */
+/**< PPK0 1 register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_PPK0_1_OFFSET	0x000010A4U
 #define XSK_ZYNQMP_EFUSEPS_PPK0_1_RSTVAL	0x00000000U
 
@@ -811,11 +889,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_PPK0_1_WIDTH		32U
 #define XSK_ZYNQMP_EFUSEPS_PPK0_1_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_PPK0_1_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name PPK0_2 register
+/**
+ * @name  PPK0 2 register
  * @{
  */
+/**< PPK0 2 register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_PPK0_2_OFFSET	0x000010A8U
 #define XSK_ZYNQMP_EFUSEPS_PPK0_2_RSTVAL	0x00000000U
 
@@ -823,11 +903,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_PPK0_2_WIDTH		32U
 #define XSK_ZYNQMP_EFUSEPS_PPK0_2_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_PPK0_2_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name PPK0_3 register
+/**
+ * @name  PPK0 3 register
  * @{
  */
+/**< PPK0 3 register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_PPK0_3_OFFSET	0x000010ACU
 #define XSK_ZYNQMP_EFUSEPS_PPK0_3_RSTVAL	0x00000000U
 
@@ -835,11 +917,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_PPK0_3_WIDTH		32U
 #define XSK_ZYNQMP_EFUSEPS_PPK0_3_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_PPK0_3_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name PPK0_4 register
+/**
+ * @name  PPK0 4 register
  * @{
  */
+/**< PPK0 4 register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_PPK0_4_OFFSET	0x000010B0U
 #define XSK_ZYNQMP_EFUSEPS_PPK0_4_RSTVAL	0x00000000U
 
@@ -847,11 +931,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_PPK0_4_WIDTH		32U
 #define XSK_ZYNQMP_EFUSEPS_PPK0_4_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_PPK0_4_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name PPK0_5 register
+/**
+ * @name  PPK0 5 register
  * @{
  */
+/**< PPK0 5 register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_PPK0_5_OFFSET	0x000010B4U
 #define XSK_ZYNQMP_EFUSEPS_PPK0_5_RSTVAL	0x00000000U
 
@@ -859,11 +945,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_PPK0_5_WIDTH		32U
 #define XSK_ZYNQMP_EFUSEPS_PPK0_5_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_PPK0_5_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name PPK0_6 register
+/**
+ * @name  PPK0 6 register
  * @{
  */
+/**< PPK0 6 register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_PPK0_6_OFFSET	0x000010B8U
 #define XSK_ZYNQMP_EFUSEPS_PPK0_6_RSTVAL	0x00000000U
 
@@ -871,11 +959,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_PPK0_6_WIDTH		32U
 #define XSK_ZYNQMP_EFUSEPS_PPK0_6_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_PPK0_6_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name PPK0_7 register
+/**
+ * @name  PPK0 7 register
  * @{
  */
+/**< PPK0 7 register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_PPK0_7_OFFSET	0x000010BCU
 #define XSK_ZYNQMP_EFUSEPS_PPK0_7_RSTVAL	0x00000000U
 
@@ -883,11 +973,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_PPK0_7_WIDTH		32U
 #define XSK_ZYNQMP_EFUSEPS_PPK0_7_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_PPK0_7_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name PPK0_8 register
+/**
+ * @name  PPK0 8 register
  * @{
  */
+/**< PPK0 8 register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_PPK0_8_OFFSET	0x000010C0U
 #define XSK_ZYNQMP_EFUSEPS_PPK0_8_RSTVAL	0x00000000U
 
@@ -895,11 +987,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_PPK0_8_WIDTH		32U
 #define XSK_ZYNQMP_EFUSEPS_PPK0_8_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_PPK0_8_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name PPK0_9 register
+/**
+ * @name  PPK0 9 register
  * @{
  */
+/**< PPK0 9 register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_PPK0_9_OFFSET	0x000010C4U
 #define XSK_ZYNQMP_EFUSEPS_PPK0_9_RSTVAL	0x00000000U
 
@@ -907,11 +1001,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_PPK0_9_WIDTH		32U
 #define XSK_ZYNQMP_EFUSEPS_PPK0_9_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_PPK0_9_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name PPK0_10 register
+/**
+ * @name  PPK0 10 register
  * @{
  */
+/**< PPK0 10 register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_PPK0_10_OFFSET	0x000010C8U
 #define XSK_ZYNQMP_EFUSEPS_PPK0_10_RSTVAL	0x00000000U
 
@@ -919,11 +1015,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_PPK0_10_WIDTH	32U
 #define XSK_ZYNQMP_EFUSEPS_PPK0_10_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_PPK0_10_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name PPK0_11 register
+/**
+ * @name  PPK0 11 register
  * @{
  */
+/**< PPK0 11 register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_PPK0_11_OFFSET	0x000010CCU
 #define XSK_ZYNQMP_EFUSEPS_PPK0_11_RSTVAL	0x00000000U
 
@@ -931,11 +1029,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_PPK0_11_WIDTH	32U
 #define XSK_ZYNQMP_EFUSEPS_PPK0_11_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_PPK0_11_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name PPK1_0 register
+/**
+ * @name  PPK1 0 register
  * @{
  */
+/**< PPK1 0 register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_PPK1_0_OFFSET	0x000010D0U
 #define XSK_ZYNQMP_EFUSEPS_PPK1_0_RSTVAL	0x00000000U
 
@@ -943,11 +1043,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_PPK1_0_WIDTH		32U
 #define XSK_ZYNQMP_EFUSEPS_PPK1_0_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_PPK1_0_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name PPK1_1 register
+/**
+ * @name  PPK1 1 register
  * @{
  */
+/**< PPK1 1 register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_PPK1_1_OFFSET	0x000010D4U
 #define XSK_ZYNQMP_EFUSEPS_PPK1_1_RSTVAL	0x00000000U
 
@@ -955,11 +1057,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_PPK1_1_WIDTH		32U
 #define XSK_ZYNQMP_EFUSEPS_PPK1_1_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_PPK1_1_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name PPK1_2 register
+/**
+ * @name  PPK1 2 register
  * @{
  */
+/**< PPK1 2 register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_PPK1_2_OFFSET	0x000010D8U
 #define XSK_ZYNQMP_EFUSEPS_PPK1_2_RSTVAL	0x00000000U
 
@@ -967,11 +1071,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_PPK1_2_WIDTH		32U
 #define XSK_ZYNQMP_EFUSEPS_PPK1_2_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_PPK1_2_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name PPK1_3 register
+/**
+ * @name  PPK1 3 register
  * @{
  */
+/**< PPK1 3 register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_PPK1_3_OFFSET	0x000010DCU
 #define XSK_ZYNQMP_EFUSEPS_PPK1_3_RSTVAL	0x00000000U
 
@@ -979,11 +1085,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_PPK1_3_WIDTH		32U
 #define XSK_ZYNQMP_EFUSEPS_PPK1_3_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_PPK1_3_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name PPK1_4 register
+/**
+ * @name  PPK1 4 register
  * @{
  */
+/**< PPK1 4 register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_PPK1_4_OFFSET	0x000010E0U
 #define XSK_ZYNQMP_EFUSEPS_PPK1_4_RSTVAL	0x00000000U
 
@@ -991,11 +1099,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_PPK1_4_WIDTH		32U
 #define XSK_ZYNQMP_EFUSEPS_PPK1_4_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_PPK1_4_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name PPK1_5 register
+/**
+ * @name  PPK1 5 register
  * @{
  */
+/**< PPK1 5 register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_PPK1_5_OFFSET	0x000010E4U
 #define XSK_ZYNQMP_EFUSEPS_PPK1_5_RSTVAL	0x00000000U
 
@@ -1003,11 +1113,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_PPK1_5_WIDTH		32U
 #define XSK_ZYNQMP_EFUSEPS_PPK1_5_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_PPK1_5_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name PPK1_6 register
+/**
+ * @name  PPK1 6 register
  * @{
  */
+/**< PPK1 6 register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_PPK1_6_OFFSET	0x000010E8U
 #define XSK_ZYNQMP_EFUSEPS_PPK1_6_RSTVAL	0x00000000U
 
@@ -1015,11 +1127,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_PPK1_6_WIDTH		32U
 #define XSK_ZYNQMP_EFUSEPS_PPK1_6_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_PPK1_6_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name PPK1_7 register
+/**
+ * @name  PPK1 7 register
  * @{
  */
+/**< PPK1 7 register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_PPK1_7_OFFSET	0x000010ECU
 #define XSK_ZYNQMP_EFUSEPS_PPK1_7_RSTVAL	0x00000000U
 
@@ -1027,11 +1141,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_PPK1_7_WIDTH		32U
 #define XSK_ZYNQMP_EFUSEPS_PPK1_7_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_PPK1_7_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name PPK1_8 register
+/**
+ * @name  PPK1 8 register
  * @{
  */
+/**< PPK1 8 register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_PPK1_8_OFFSET	0x000010F0U
 #define XSK_ZYNQMP_EFUSEPS_PPK1_8_RSTVAL	0x00000000U
 
@@ -1039,11 +1155,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_PPK1_8_WIDTH		32U
 #define XSK_ZYNQMP_EFUSEPS_PPK1_8_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_PPK1_8_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name PPK1_8 register
+/**
+ * @name  PPK1 9 register
  * @{
  */
+/**< PPK1 9 register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_PPK1_9_OFFSET	0x000010F4U
 #define XSK_ZYNQMP_EFUSEPS_PPK1_9_RSTVAL	0x00000000U
 
@@ -1051,11 +1169,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_PPK1_9_WIDTH		32U
 #define XSK_ZYNQMP_EFUSEPS_PPK1_9_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_PPK1_9_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name PPK1_10 register
+/**
+ * @name  PPK1 10 register
  * @{
  */
+/**< PPK1 10 register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_PPK1_10_OFFSET	0x000010F8U
 #define XSK_ZYNQMP_EFUSEPS_PPK1_10_RSTVAL	0x00000000U
 
@@ -1063,11 +1183,13 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_PPK1_10_WIDTH	32U
 #define XSK_ZYNQMP_EFUSEPS_PPK1_10_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_PPK1_10_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name PPK1_11 register
+/**
+ * @name  PPK1 11 register
  * @{
  */
+/**< PPK1 11 register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_PPK1_11_OFFSET	0x000010FCU
 #define XSK_ZYNQMP_EFUSEPS_PPK1_11_RSTVAL	0x00000000U
 
@@ -1075,21 +1197,24 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_PPK1_11_WIDTH	32U
 #define XSK_ZYNQMP_EFUSEPS_PPK1_11_MASK		0xffffffffU
 #define XSK_ZYNQMP_EFUSEPS_PPK1_11_DEFVAL	0x0U
-/*@}*/
+/** @} */
 
-/** @name PUF masks and shifts
+/**
+ * @name  PUF masks and shifts
  * @{
  */
+/**< PUF masks and shifts register offsets and definitions */
 #define XSK_ZYNQMP_EFUSEPS_PUF_ROW_UPPER_MASK		0xFFFF0000U
 #define XSK_ZYNQMP_EFUSEPS_PUF_ROW_LOWER_MASK		0x0000FFFFU
 #define XSK_ZYNQMP_EFUSEPS_PUF_ROW_HALF_WORD_SHIFT	16U
 #define XSK_ZYNQMP_EFUSEPS_PUF_ROW_LOWER_NIBBLE_MASK 0x0FU
+/** @} */
 
-/*@}*/
-
-/** @name CSU module register offset and base address
+/**
+ * @name  CSU PUF register
  * @{
  */
+/**< CSU PUF register offsets and definitions */
 #define XSK_ZYNQMP_CSU_BASEADDR			(0XFFCA0000U)
 
 #define XSK_ZYNQMP_CSU_PUF_CMD			(0X4000U)
@@ -1106,12 +1231,16 @@ extern "C" {
 #define XSK_ZYNQMP_CSU_PUF_STATUS_SYN_WRD_RDY_MASK	(0X00000001U)
 
 #define XSK_ZYNQMP_CSU_PUF_WORD			(0X4018U)
+/** @} */
 
 /**
- * Register: CSU_PUF_TM_STATUS
+ * @name  CSU_PUF_TM_STATUS register
+ * @{
  */
+/**< CSU_PUF_TM_STATUS register masks and definitions */
 #define XSK_ZYNQMP_CSU_PUF_TM_STATUS		(0X4804U)
 #define XSK_ZYNQMP_CSU_PUF_TM_STATUS_DN_MASK	(0X00000001U)
+/** @} */
 
 /**
  * Register: CSU_PUF_TM_UL
@@ -1127,20 +1256,44 @@ extern "C" {
  * Register: CSU_PUF_TM_SW
  */
 #define XSK_ZYNQMP_CSU_PUF_TM_SW		(0X00004810U)
+
 /**
- * Register: CSU_PUF_TM_TR
+ * @name  CSU_PUF_TM_TR
+ * @{
  */
+/**< CSU_PUF_TM_TR masks and definitions */
 #define XSK_ZYNQMP_CSU_PUF_TM_TR		(0X00004814U)
 #define XSK_ZYNQMP_CSU_PUF_TM_TR_US_MASK	(0X03000000U)
 #define XSK_ZYNQMP_CSU_PUF_TM_TR_ER_MASK	(0X00FF0000U)
 #define XSK_ZYNQMP_CSU_PUF_TM_TR_FRR_MASK	(0X00000001U)
+/** @} */
 
+/**
+ * @name  Secure control read mask
+ * @{
+ */
+/**< Secure control read masks definition */
 #define XSK_ZYNQMP_CRITICAL_SEC_CTRL_READ_MASK		(0X5FFFFFFFU)
 #define XSK_ZYNQMP_KEY_MANAGE_SEC_CTRL_READ_MASK	(0XA0000000U)
+/** @} */
+
+/**
+ * @name  MISC control read mask
+ * @{
+ */
+/**< MISC control read masks definition */
 #define XSK_ZYNQMP_USER_FUSE_MISC_CTRL_READ_MASK	(0X000000FFU)
 #define XSK_ZYNQMP_CRITICAL_MISC_CTRL_READ_MASK		(0X00FE0000U)
+/** @} */
+
+/**
+ * @name  PUF MISC read mask
+ * @{
+ */
+/**< PUF MISC read masks definition */
 #define XSK_ZYNQMP_CRITICAL_PUF_MISC_READ_MASK		(0X10FFFFFFU)
 #define XSK_ZYNQMP_KEY_MANAGE_PUF_MISC_READ_MASK	(0X70000000U)
+/** @} */
 
 #ifdef __cplusplus
 }

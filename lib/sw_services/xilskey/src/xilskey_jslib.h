@@ -27,7 +27,7 @@ typedef struct js_lib_state_info_struct js_lib_state_info_t;
 
 
 
-/*
+/**
  * JTAG server object
  *
  * Server instances are created by implementation specific create
@@ -38,101 +38,101 @@ typedef struct js_lib_state_info_struct js_lib_state_info_t;
  * breakpoint hit.
  */
 struct js_server_struct {
-    char dummy;
+    char dummy; /**< dummy */
 };
 
 
-/*
+/**
  * JTAG server library object
  */
 struct js_lib_server_struct {
-    /* Public part of object */
+    /** Public part of object */
     js_server_t base;
 
-    /* See js_get_port_descr_list() */
+    /** See js_get_port_descr_list() */
     int (*get_port_descr_list)(
         js_lib_server_t *server,
         js_port_descr_t **port_listp);
 
-    /* See js_open_port() */
+    /** See js_open_port() */
     int (*open_port)(
         js_lib_server_t *server,
         js_port_descr_t *port_descr,
         js_lib_port_t **port);
 
-    /* See js_deinit_server() */
+    /** See js_deinit_server() */
     void (*deinit_server)(
         js_lib_server_t *server);
 
-    /* Error of last command */
+    /** Error of last command */
     char last_error[100];
 };
 
 struct js_lib_port_struct {
-    /* Base class - must be first. */
+    /** Base class - must be first. */
     js_port_t base;
 
-    /* See js_get_property() */
+    /** See js_get_property() */
     int (*get_property)(
         js_lib_port_t *port,
         js_property_kind_t kind,
         js_property_value_t *valuep);
 
-    /* See js_set_property() */
+    /** See js_set_property() */
     int (*set_property)(
         js_lib_port_t *port,
         js_property_kind_t kind,
         js_property_value_t value);
 
-    /* See js_run_command_sequence() */
+    /** See js_run_command_sequence() */
     int (*run_command_sequence)(
         js_lib_command_sequence_t *commands);
 
-    /* See js_close_port() */
+    /** See js_close_port() */
     int (*close_port)(
         js_lib_port_t *port);
 };
 
 
 struct js_lib_command_buffer_struct {
-    js_lib_command_buffer_t *next;
+    js_lib_command_buffer_t *next; /**< Stores next address */
 
-    /* First available byte in buffer */
+    /** First available byte in buffer */
     unsigned char *buf_free;
 
-    /* End of buffer */
+    /** End of buffer */
     unsigned char *buf_end;
 
-    /* Start of buffer (must be last) */
+    /** Start of buffer (must be last) */
     unsigned char buf_start[1];
 };
 
 
-/*
+/**
  * JTAG command sequence library object
  */
 struct js_lib_command_sequence_struct {
-    /* Client visible part */
+    /** Client visible part */
     js_command_sequence_t base;
 
-    /* Array of commands */
+    /** Array of commands */
     js_lib_command_t *cmd_list;
 
-    /* Count of added commands */
+    /** Count of added commands */
     unsigned int cmd_count;
 
-    /* Command list capacity */
+    /** Command list capacity */
     unsigned int cmd_max;
 
-    /* Size of command objects  */
+    /** Size of command objects  */
     unsigned int cmd_size;
 
-    /* Command buffer pool */
+    /** Command buffer pool */
     js_lib_command_buffer_t *buf_head;
 };
 
 
-/*
+/**
  * JTAG command object
  *
  * Command object are added to JTAG command sequence object using
@@ -142,42 +142,42 @@ struct js_lib_command_sequence_struct {
  * loops.
  */
 typedef enum {
-    JS_CMD_SET_STATE,
-    JS_CMD_SHIFT
+    JS_CMD_SET_STATE, /**< JS command set state */
+    JS_CMD_SHIFT	/**< JS command shift */
 } js_command_kind_t;
 
 struct js_lib_command_struct {
-    /* Command to execute */
+    /** Command to execute */
     js_command_kind_t kind;
 
-    /* Flags for command */
+    /** Flags for command */
     unsigned int flags;
 
-    /* State after command */
+    /** State after command */
     js_state_t state;
 
-    /* Command specific count */
+    /** Command specific count */
     size_t count;
 
-    /* TDI buffer pointer */
+    /** TDI buffer pointer */
     unsigned char *tdi_buf;
 
-    /* TDO buffer pointer */
+    /** TDO buffer pointer */
     unsigned char *tdo_buf;
 };
 
 
 struct js_lib_state_info_struct {
-    /* Name of state */
+    /** Name of state */
     const char *name;
 
-    /* TMS bits to move to other state */
+    /** TMS bits to move to other state */
     unsigned char state_tms[JS_STATE_MAX];
 
-    /* Clocks to move to other state */
+    /** Clocks to move to other state */
     unsigned char state_clk[JS_STATE_MAX];
 
-    /* Nearest stable state */
+    /** Nearest stable state */
     js_state_t stable_state;
 };
 
