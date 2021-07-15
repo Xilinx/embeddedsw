@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -13,9 +13,11 @@
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver   Who             Date     Changes
+* Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------------
-* 1.00  Ana		   24/06/20      First release
+* 1.00  Ana  06/24/20 First release
+* 1.01  td   06/10/21 Added check to ensure board param option is only enabled
+*                     when UPDATE_A_B option is disabled and vice-versa
 *
 * </pre>
 *
@@ -52,7 +54,9 @@ extern "C" {
 //#define XIS_UPDATE_A_B_MECHANISM
 //#define XIS_UART_ENABLE
 #ifdef XPAR_XIICPS_NUM_INSTANCES
+#ifndef XIS_UPDATE_A_B_MECHANISM
 #define XIS_GET_BOARD_PARAMS
+#endif
 #define XIS_MUX_ADDR 			(0x74U)
 #define XIS_I2C_MUX_INDEX		(0x1U)
 #define XIS_EEPROM_ADDRESS		(0x54U)
