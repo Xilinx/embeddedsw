@@ -24,6 +24,7 @@
 *      ms   04/10/17    Modified Comment lines to follow doxygen rules.
 * 1.4  nsk  10/04/2018  Added support for ICCARM Compiler.
 * 1.6  sd   31/03/2020  Fixed a gcc warning.
+* 1.9  akm  07/15/2021  Switch to best supported Data interface and Timing mode.
 *</pre>
 *
 ******************************************************************************/
@@ -152,6 +153,13 @@ s32 NandReadWriteExample(u16 NandDeviceId)
 	 */
 	Status = XNandPsu_CfgInitialize(NandInstPtr, Config,
 			Config->BaseAddress);
+	if (Status != XST_SUCCESS) {
+		goto Out;
+	}
+
+	Status = XNandPsu_ChangeTimingMode(NandInstPtr,
+					   NandInstPtr->DataInterface,
+					   NandInstPtr->TimingMode);
 	if (Status != XST_SUCCESS) {
 		goto Out;
 	}
