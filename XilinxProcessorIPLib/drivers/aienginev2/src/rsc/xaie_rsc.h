@@ -60,6 +60,17 @@ typedef enum {
 	XAIE_MAX_RSC,
 } XAie_RscType;
 
+/*
+ * This structure is used to request the statistics of a resource type of a
+ * module of a tile.
+ */
+typedef struct {
+	XAie_LocType Loc;
+	u8 Mod;
+	u8 RscType;
+	u8 NumRscs;
+} __attribute__((packed, aligned(4))) XAie_UserRscStat;
+
 /************************** Function Prototypes  *****************************/
 #ifdef XAIE_RSC_DISABLE
 /* Performance counter resource management APIs */

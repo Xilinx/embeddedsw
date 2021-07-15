@@ -498,6 +498,114 @@ AieRC _XAie_RequestAllocatedRscCommon(XAie_DevInst *DevInst,
 	XAIE_ERROR("Resource in use\n");
 	return XAIE_INVALID_ARGS;
 }
+
+/*****************************************************************************/
+/**
+* This API gets number of available resource from a resource bitmap
+*
+* @param	Bitmap: Resource bitmap
+* @param	Offsets: Offsets structure contains the resource start bit
+*			offsets and the total number of resources.
+*
+* @return       Number of used resources.
+*
+* @note		Internal to this file only. It doesn't validate arguments.
+*
+*******************************************************************************/
+static u32 _XAie_GetAvailRscsFromBitmap(u32 *Bitmap,
+		XAie_BitmapOffsets *Offsets)
+{
+	u32 StartBit = Offsets->StartBit;
+	u32 StaticBitmapOffset = Offsets->StaticBitmapOffset;
+	u32 MaxRscVal = Offsets->MaxRscVal;
+	u32 Count = 0;
+
+	for(u32 i = StartBit; i < StartBit + MaxRscVal; i++) {
+		if(!((CheckBit(Bitmap, i)) |
+			CheckBit(Bitmap, (i + StaticBitmapOffset)))) {
+			Count++;
+		}
+	}
+
+	return Count;
+}
+
+/*****************************************************************************/
+/**
+* This API gets number of statically allocated resource from a resource bitmap
+*
+* @param	Bitmap: Resource bitmap
+* @param	Offsets: Offsets structure contains the resource start bit
+*			offsets and the total number of resources.
+*
+* @return       Number of statically allocated resources.
+*
+* @note		Internal to this file only. It doesn't validate arguments.
+*
+*******************************************************************************/
+static u32 _XAie_GetStaticRscsFromBitmap(u32 *Bitmap,
+		XAie_BitmapOffsets *Offsets)
+{
+	u32 StartBit = Offsets->StartBit + Offsets->StaticBitmapOffset;
+	u32 Count = 0;
+
+	for(u32 i = StartBit; i < StartBit + Offsets->MaxRscVal; i++) {
+		if(CheckBit(Bitmap, i)) {
+			Count++;
+		}
+	}
+
+	return Count;
+}
+
+/*****************************************************************************/
+/**
+* This API gets requested resource statics information
+*
+* @param	DevInst: AI engine partition device instance pointer
+* @param	Arg: Contains resource statistics type, and the array of
+*			resource statistics usage reqests.
+*
+* @return       XAIE_OK on success, error code on failure
+*
+* @note		Internal only.
+*
+*******************************************************************************/
+AieRC _XAie_GetRscStatCommon(XAie_DevInst *DevInst, XAie_BackendRscStat *Arg)
+{
+	XAie_UserRscStat *RscStats = Arg->RscStats;
+
+	for (u32 i = 0; i < Arg->NumRscStats; i++) {
+		u8 TileType;
+		u32 *Bitmap;
+		XAie_BitmapOffsets Offsets;
+
+		TileType = DevInst->DevOps->GetTTypefromLoc(DevInst,
+				RscStats[i].Loc);
+		_XAie_RscMgr_GetBitmapOffsets(DevInst,
+				(XAie_RscType)(RscStats[i].RscType),
+				RscStats[i].Loc,
+				(XAie_ModuleType)(RscStats[i].Mod), &Offsets);
+		if (Offsets.MaxRscVal == 0) {
+			XAIE_ERROR("Get Rsc Stat failed, (%u, %u), Mod %u, RscTyps %u is invalid.\n",
+				RscStats[i].Loc.Col, RscStats[i].Loc.Row,
+				RscStats[i].Mod, RscStats[i].RscType);
+			return XAIE_INVALID_ARGS;
+		}
+
+		Bitmap = DevInst->RscMapping[TileType].
+			Bitmaps[RscStats[i].RscType];
+		if (Arg->RscStatType == XAIE_BACKEND_RSC_STAT_STATIC) {
+			RscStats[i].NumRscs = _XAie_GetStaticRscsFromBitmap(
+					Bitmap, &Offsets);
+		} else {
+			RscStats[i].NumRscs = _XAie_GetAvailRscsFromBitmap(
+					Bitmap, &Offsets);
+		}
+	}
+
+	return XAIE_OK;
+}
 #endif /* !XAIE_RSC_DISABLE */
 
 /*****************************************************************************/
