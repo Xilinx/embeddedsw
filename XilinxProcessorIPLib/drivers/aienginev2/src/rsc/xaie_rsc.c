@@ -1365,6 +1365,95 @@ AieRC XAie_LoadStaticRscfromMem(XAie_DevInst *DevInst, const char *MetaData)
 
 	return XAIE_OK;
 }
+
+/*****************************************************************************/
+/**
+* This helper API is used to get resource statistics information.
+*
+* @param	DevInst: Device Instance
+* @param	NumRscStat: Number of resource statistics requests
+* @param	RscStats: Resuorce statistics requests. Each element contains
+*		the resource type, module type and tile type.
+* @param	RscStatType: resource statistics type it supports:
+*			* XAIE_BACKEND_RSC_STAT_STATIC
+*			* XAIE_BACKEND_RSC_STAT_USED
+*
+* @return	XAIE_OK on success and error code on failure.
+*
+* @note		This function is internal to this file only.
+*
+*******************************************************************************/
+static AieRC _XAie_GetRscsStat(XAie_DevInst *DevInst, u32 NumRscStat,
+		XAie_UserRscStat *RscStats,
+		XAie_BackendRscStatType RscStatType)
+{
+	XAie_BackendRscStat BRscStats = {0};
+
+	if((DevInst == XAIE_NULL) || (NumRscStat == 0) ||
+		(DevInst->IsReady != XAIE_COMPONENT_IS_READY) ||
+		(RscStats == XAIE_NULL)) {
+		XAIE_ERROR("Invalid arguments for requesting resource statistics\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	for (u32 i = 0; i < NumRscStat; i++) {
+		if (_XAie_CheckModule(DevInst, RscStats[i].Loc,
+			(XAie_ModuleType)(RscStats[i].Mod)) != XAIE_OK) {
+			XAIE_ERROR("Invalid tile(%u, %u) for requesting resource statistics\n",
+				RscStats[i].Loc.Col, RscStats[i].Loc.Row);
+			return XAIE_INVALID_ARGS;
+		}
+	}
+
+	BRscStats.NumRscStats = NumRscStat;
+	BRscStats.RscStatType = RscStatType;
+	BRscStats.RscStats = RscStats;
+	return XAie_RunOp(DevInst, XAIE_BACKEND_OP_GET_RSC_STAT,
+			(void *)&BRscStats);
+}
+
+/*****************************************************************************/
+/**
+* This API is used to request the number of statically allocated resources of a
+* resource type of a module of a tile.
+*
+* @param	DevInst: Device Instance
+* @param	NumRscStat: Number of resource statistics requests
+* @param	RscStats: Resuorce statistics requests
+*
+* @return	XAIE_OK on success and error code on failure.
+*
+* @note		None
+*
+*******************************************************************************/
+AieRC XAie_GetStaticRscStat(XAie_DevInst *DevInst, u32 NumRscStat,
+		XAie_UserRscStat *RscStats)
+{
+	return _XAie_GetRscsStat(DevInst, NumRscStat, RscStats,
+			XAIE_BACKEND_RSC_STAT_STATIC);
+}
+
+/*****************************************************************************/
+/**
+* This API is used to request the number of available resources of a resource
+* type of a module of a tile.
+*
+* @param	DevInst: Device Instance
+* @param	NumRscStat: Number of resource statistics requests
+* @param	RscStats: Resuorce statistics requests
+*
+* @return	XAIE_OK on success and error code on failure.
+*
+* @note		None
+*
+*******************************************************************************/
+AieRC XAie_GetAvailRscStat(XAie_DevInst *DevInst, u32 NumRscStat,
+		XAie_UserRscStat *RscStats)
+{
+	return _XAie_GetRscsStat(DevInst, NumRscStat, RscStats,
+			XAIE_BACKEND_RSC_STAT_AVAIL);
+}
+
 #endif /* !XAIE_RSC_DISABLE */
 
 /** @} */
