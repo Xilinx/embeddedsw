@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,8 @@
 * 1.00  kc   12/21/2017 Initial release
 * 1.01  bsv  06/11/2019 Added XCframe_ClearCframeErr API
 * 1.02  bsv  17/02/2020 XCframe_SafetyWriteReg API added
+* 1.03  bsv  07/15/2021 Fix doxygen warnings
+*
 * </pre>
 *
 * @note
@@ -41,6 +43,10 @@ extern "C" {
 #include "xcframe_hw.h"
 
 /************************** Constant Definitions *****************************/
+/**@cond cframe_internal
+ * @{
+ */
+
 /* Cframe command types */
 #define XCFRAME_CMD_REG_WCFG			(0x1U)
 #define XCFRAME_CMD_REG_ROWON		(0x2U)
@@ -55,9 +61,6 @@ extern "C" {
 
 #define XCFRAME_FRAME_OFFSET				(0x2000U)
 
-/** @name Frame Num
- * @{
- */
 typedef enum
 {
 	XCFRAME_FRAME_0 = 0,
@@ -91,6 +94,11 @@ typedef struct
 } Xuint128 __attribute__ ((aligned(16)));
 
 /**
+ * @}
+ * @endcond
+ */
+
+/**
 * This typedef contains configuration information for a CFRAME core.
 * Each CFRAME core should have a configuration structure associated.
 */
@@ -115,11 +123,20 @@ typedef struct {
 }XCframe;
 
 /***************** Macros (Inline Functions) Definitions *********************/
+/**@cond cframe_internal
+ * @{
+ */
+
 #ifdef XCFRAME_DEBUG
 #define XCframe_Printf(...)	xil_printf(...)
 #else
 #define XCframe_Printf(...)
 #endif
+
+/**
+ * @}
+ * @endcond
+ */
 
 /************************** Function Prototypes ******************************/
 XCframe_Config *XCframe_LookupConfig(u16 DeviceId);
@@ -127,7 +144,7 @@ s32 XCframe_CfgInitialize(XCframe *InstancePtr, XCframe_Config *CfgPtr,
 			u32 EffectiveAddr);
 s32 XCframe_SelfTest(XCframe *InstancePtr);
 void XCframe_WriteReg(XCframe *InstancePtr, u32 AddrOffset,
-		XCframe_FrameNo FrameNo, Xuint128 *Value128);
+		XCframe_FrameNo FrameNo, Xuint128 *Val);
 void XCframe_WriteCmd(XCframe *InstancePtr,	XCframe_FrameNo CframeNo, u32 Cmd);
 void XCframe_VggTrim(XCframe *InstancePtr,	Xuint128 *TrimVal);
 void XCframe_CramTrim(XCframe *InstancePtr,	u32 TrimValue);
