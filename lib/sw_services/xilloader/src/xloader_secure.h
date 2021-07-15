@@ -49,6 +49,7 @@
 *                     encryption related code to xloader_auth_enc.h file
 * 1.05  har  03/17/21 Added API to set the secure state of device
 *       har  05/20/21 Updated copyright year
+* 1.06  har  07/15/21 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -75,21 +76,35 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 #define XLOADER_WORD_IN_BITS					(32U)
+						/**< Word length in bits */
 
-/* In case of failure of any security operation, the buffer must be
+/**
+ * @name  Clear buffer error codes
+ * @{
+ */
+/**< In case of failure of any security operation, the buffer must be
  * cleared.In case of success/failure in clearing the buffer,
  * the following error codes shall be updated in the status
  */
 #define XLOADER_SEC_CHUNK_CLEAR_ERR		((u32)0x20U << 8U)
-#define XLOADER_SEC_BUF_CLEAR_ERR		((u32)0x80U << 8U) /* Error in clearing buffer */
-#define XLOADER_SEC_BUF_CLEAR_SUCCESS	((u32)0x40U << 8U) /* Buffer is successfully cleared */
+#define XLOADER_SEC_BUF_CLEAR_ERR		((u32)0x80U << 8U)
+				/**< Error in clearing buffer */
+#define XLOADER_SEC_BUF_CLEAR_SUCCESS	((u32)0x40U << 8U)
+				/**< Buffer is successfully cleared */
+/** @} */
 
 #define XLOADER_EFUSE_PPK0_START_OFFSET			(0xF1250100U)
+					/**< PPK0 Start register address */
 #define XLOADER_EFUSE_PPK1_START_OFFSET			(0xF1250120U)
+					/**< PPK1 Start register address */
 #define XLOADER_EFUSE_PPK2_START_OFFSET			(0xF1250140U)
+					/**< PPK2 Start register address */
 #define XLOADER_EFUSE_PPK2_END_OFFSET			(0xF125015CU)
+					/**< PPK2 End register address */
 #define XLOADER_EFUSE_SEC_MISC0_OFFSET			(0xF12500E4U)
+					/**< Security Misc0 register address */
 #define XLOADER_EFUSE_SEC_DEC_MASK			(0x0000FFFFU)
+			/**< DEC_ONLY fuse mask in Security Misc0 register */
 
 /**************************** Type Definitions *******************************/
 

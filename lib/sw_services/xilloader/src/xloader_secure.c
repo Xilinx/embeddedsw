@@ -85,6 +85,7 @@
 *       ma   05/20/21 Fix warnings introduced due to volatile qualifier
 *       har  05/20/21 Added checks in case both efuse auth and bh auth are enabled
 * 1.06  td   07/08/21 Fix doxygen warnings
+*       har  07/15/21 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -110,7 +111,9 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XLOADER_SHA3_RESET_REG			(0xF1210004U)
+					/**< SHA3 Reset register address */
 #define XLOADER_SHA3_RESET_VAL			(0x1U)
+					/**< SHA3 Reset value */
 
 /************************** Function Prototypes ******************************/
 static int XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr,
