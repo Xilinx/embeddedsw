@@ -52,6 +52,7 @@
  * 4.5   jsr  07/03/18 Added XVIDC_VM_720x486_60_I video format
  * 4.5   yas  03/08/19 Added support for frame rates 144HZ and 240HZ
  * 4.6   mmo  02/14/19 Added 5k, 8k, 10k and Low Resolution with 200Hz, 240Hz
+ * 4.12  kp   15/07/21 Added new 3planar video formats and video timing modes
  * </pre>
  *
 *******************************************************************************/
@@ -134,6 +135,7 @@ typedef enum {
 	XVIDC_VM_1280x720_24_P,
 	XVIDC_VM_1280x720_25_P,
 	XVIDC_VM_1280x720_30_P,
+	XVIDC_VM_1280x720_48_P,
 	XVIDC_VM_1280x720_50_P,
 	XVIDC_VM_1280x720_60_P,
 	XVIDC_VM_1280x720_100_P,
@@ -182,6 +184,7 @@ typedef enum {
 	XVIDC_VM_1680x720_24_P,
 	XVIDC_VM_1680x720_25_P,
 	XVIDC_VM_1680x720_30_P,
+	XVIDC_VM_1680x720_48_P,
 	XVIDC_VM_1680x720_50_P,
 	XVIDC_VM_1680x720_60_P,
 	XVIDC_VM_1680x720_100_P,
@@ -436,7 +439,7 @@ typedef enum {
 	XVIDC_CSF_MEM_Y_UV16,       // [31:0] Y:Y 16:16, [31:0] V:U 16:16
 	XVIDC_CSF_MEM_Y_UV16_420,   // [31:0] Y:Y 16:16, [31:0] V:U 16:16
 	XVIDC_CSF_MEM_Y16,          // [47:0] Y2:Y1:Y0 16:16:16
-        XVIDC_CSF_MEM_R_G_B8,       // [7:0] R:8, [7:0] G:8, [7:0] B:8
+	XVIDC_CSF_MEM_R_G_B8,       // [7:0] R:8, [7:0] G:8, [7:0] B:8
 	XVIDC_CSF_MEM_Y_U_V8_420,   // [15:0] Y:Y 8:8, [7:0] U:8, [7:0] V:8
 	XVIDC_CSF_MEM_Y_U_V8,       // [7:0] Y:8, [7:0] U:8, [7:0] V:8
 	XVIDC_CSF_MEM_END,          // End of memory formats

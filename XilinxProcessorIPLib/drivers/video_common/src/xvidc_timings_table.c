@@ -32,6 +32,7 @@
  *                         1280x720_30_P
  * 4.5	 jsr  07/03/18 Added timing for new video mode XVIDC_VM_720x486_60_I
  * 4.6   mmo  02/14/19 Added 5k, 8k, 10k and Low Resolution with 200Hz, 240Hz
+ * 4.12  kp   15/07/21 Added new video timing modes
  * </pre>
  *
 *******************************************************************************/
@@ -227,6 +228,9 @@ const XVidC_VideoTimingMode XVidC_VideoTimingModes[XVIDC_VM_NUM_SUPPORTED] =
 	{ XVIDC_VM_1280x720_30_P, "1280x720@30Hz", XVIDC_FR_30HZ,
 		{1280, 1760, 40, 220, 3300, 1,
 		720, 5, 5, 20, 750, 0, 0, 0, 0, 1} },
+	{ XVIDC_VM_1280x720_48_P, "1280x720@48Hz", XVIDC_FR_48HZ,
+	        {1280, 960, 40, 220, 2500, 1,
+		720, 5, 5, 20, 750, 0, 0, 0, 0, 1} },
 	{ XVIDC_VM_1280x720_50_P, "1280x720@50Hz", XVIDC_FR_50HZ,
 		{1280, 440, 40, 220, 1980, 1,
 		720, 5, 5, 20, 750, 0, 0, 0, 0, 1} },
@@ -371,6 +375,9 @@ const XVidC_VideoTimingMode XVidC_VideoTimingModes[XVIDC_VM_NUM_SUPPORTED] =
 	{XVIDC_VM_1680x720_30_P, "1680x720@30Hz", XVIDC_FR_30HZ,
 		{1680, 700, 40, 220, 2640, 1,
 		720, 5, 5, 20, 750, 0, 0, 0, 0, 0} },
+	{XVIDC_VM_1680x720_48_P, "1680x720@48Hz", XVIDC_FR_48HZ,
+	        {1680, 810, 40, 220, 2750, 1,
+		720, 5, 5, 20, 750, 0, 0, 0, 0, 1} },
 	{ XVIDC_VM_1680x720_50_P, "1680x720@50Hz", XVIDC_FR_50HZ,
 		{1680, 260, 40, 220, 2200, 1,
 		720, 5, 5, 20, 750, 0, 0, 0, 0, 1} },
