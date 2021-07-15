@@ -63,6 +63,7 @@
 *			deferred error
 *       td   05/20/2021 Fixed blind write on locking NPI address space in
 *                       XPlmi_ClearNpiErrors
+* 1.06  td   07/15/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -91,12 +92,21 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XLOADER_SUCCESS_NOT_PRTN_OWNER	(0x100U)
+#define XLOADER_SUCCESS_NOT_PRTN_OWNER	(0x100U) /**< Indicates that PLM is not
+												   the partition owner */
+/**
+ * @{
+ * @cond DDR calibration errors
+ */
 #define DDRMC_OFFSET_CALIB_ERR		(0x840CU)
 #define DDRMC_OFFSET_CALIB_ERR_NIBBLE_1	(0x8420U)
 #define DDRMC_OFFSET_CALIB_ERR_NIBBLE_2	(0x841CU)
 #define DDRMC_OFFSET_CALIB_ERR_NIBBLE_3	(0x8418U)
 #define DDRMC_OFFSET_CALIB_STAGE_PTR	(0x8400U)
+/**
+ * @}
+ * @endcond
+ */
 
 /************************** Function Prototypes ******************************/
 static int XLoader_PrtnHdrValidation(const XilPdi_PrtnHdr* PrtnHdr, u32 PrtnNum);

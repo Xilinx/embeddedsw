@@ -25,6 +25,7 @@
 *                        PL House cleaning in case of error in PL loading.
 * 1.04  skd   03/25/2021 Compilation warning fix
 * 1.05  td    07/08/2021 Fix doxygen warnings
+*       td    07/15/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -50,7 +51,7 @@ static void XLoader_CfiErrHandler(const XCfupmc *InstancePtr);
 static void XLoader_CfuErrHandler(const XCfupmc *InstancePtr);
 
 /************************** Variable Definitions *****************************/
-static XCframe XLoader_CframeIns = {0U}; /** CFRAME Driver Instance */
+static XCframe XLoader_CframeIns = {0U}; /**< CFRAME Driver Instance */
 
 /*****************************************************************************/
 
