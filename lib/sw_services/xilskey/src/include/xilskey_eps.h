@@ -32,6 +32,9 @@
 * 4.0   vns     10/20/15 Added cplusplus boundary blocks.
 * 6.6   vns     06/06/18 Added doxygen tags
 * 6.7   arc     01/05/19 Fixed MISRA-C changes.
+* 7.2   am      07/13/21 Fixed doxygen warnings
+*
+* </pre>
 *
 *****************************************************************************/
 
@@ -93,8 +96,8 @@ typedef struct {
 /**
  * PS eFUSE interface functions
  */
-u32 XilSKey_EfusePs_Write(XilSKey_EPs *PsInstancePtr);
-u32 XilSKey_EfusePs_Read (XilSKey_EPs *PsInstancePtr);
+u32 XilSKey_EfusePs_Write(XilSKey_EPs *InstancePtr);
+u32 XilSKey_EfusePs_Read (XilSKey_EPs *InstancePtr);
 u32 XilSKey_EfusePs_ReadStatus(XilSKey_EPs *InstancePtr, u32 *StatusBits);
 
 #ifdef __cplusplus

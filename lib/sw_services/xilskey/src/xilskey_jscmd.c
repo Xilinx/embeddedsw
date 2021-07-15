@@ -66,9 +66,9 @@
 * 7.1   am      11/29/20 Resolved MISRA C violations
 * 7.1   kpt     04/08/21 Ignored product version of user defined IDCODE when comparing
 *                        with the tap code read from Jtag
+* 7.2   am      07/13/21 Fixed doxygen warnings
 *
 * </pre>
-*
 *
 ******************************************************************************/
 
@@ -80,7 +80,7 @@
 #include <Windows.h>
 
 #if defined(_MSC_VER)
-#  pragma warning(disable:4996) /* 'strcpy': This function or variable may be unsafe */
+#  pragma warning(disable:4996) /**< 'strcpy': This function or variable may be unsafe */
 #endif
 
 typedef long ssize_t;
@@ -97,20 +97,19 @@ typedef long ssize_t;
 #include "xilskey_bbram.h"
 #include "xilskey_config.h"
 
-XilSKey_JtagSlr XilSKeyJtag; /*JTAG Tap Instance*/
+XilSKey_JtagSlr XilSKeyJtag; /**< JTAG Tap Instance */
 
-//#define DEBUG_PRINT
 
 #ifdef DEBUG_PRINT
-#define js_printf		printf
+#define js_printf		printf	/**< define DEBUG_PRINT */
 #else
-void dummy_printf(const char *ctrl1, ...);
-#define js_printf		dummy_printf
+void dummy_printf(const char *ctrl1, ...); /**< function prototype of dummy_printf */
+#define js_printf		dummy_printf	/**< Dummy PRINTF */
 #endif
 
-#define DEFAULT_FREQUENCY         10000000
-#define MAX_FREQUENCY             30000000
-#define ZYNQ_DAP_ID 0x0ba00477
+#define DEFAULT_FREQUENCY         10000000 /**< Default frequency */
+#define MAX_FREQUENCY             30000000 /**< Maximum frequency */
+#define ZYNQ_DAP_ID 0x0ba00477		/**< DAP Id */
 #define KINTEX_ULTRA_MB_DAP_ID 0x03822093 /**< Kintex Ultrascale microblaze TAP ID */
 #define KINTEX_ULTRAPLUS_DAP_ID 0x04A62093 /**< Kintex Ultrascale plus microblaze TAP ID */
 
@@ -119,7 +118,7 @@ void dummy_printf(const char *ctrl1, ...);
 #define VIRTEX_ULTRAPLUS_DAP_ID	0x04b31093		/**< VIRTEX Ultrascale plus microblaze TAP id */
 #define VIRTEX_ULTRAPLUS_VC13P_DAP_ID 0x04B51093  /**< XCVU13P VIRTEX Ultrascale Plus microblaze TAP id */
 #define ZYNQ_ULTRAPLUS_PL_DAP_ID	0x0484A093	/**< Zynq Ultrascale plus TAP ID */
-#define set_last_error(JS, ...) js_set_last_error(&(JS)->js.base, __VA_ARGS__)
+#define set_last_error(JS, ...) js_set_last_error(&(JS)->js.base, __VA_ARGS__)	/**< Set last error */
 
 typedef struct js_port_impl_struct js_port_impl_t;
 typedef struct js_command_impl_struct js_command_impl_t;
@@ -145,47 +144,41 @@ static int close_port(
 
 
 struct js_command_impl_struct {
-    /* Command to execute */
-    js_lib_command_t lib;
+    js_lib_command_t lib; /**< Command to execute */
 
-    /* Intermediatre command processing state */
-    size_t byte_offset;
-    js_state_t start_state;
-    js_state_t end_state;
-    unsigned int write_bytes;
-    unsigned int read_bytes;
-    unsigned int partial_bytes;
-    int state_bits;
+    size_t byte_offset; /**< Intermediatre command processing state */
+    js_state_t start_state; /**< Start state */
+    js_state_t end_state;   /**< End state */
+    unsigned int write_bytes; /**< Write bytes */
+    unsigned int read_bytes;  /**< Read bytes */
+    unsigned int partial_bytes; /**< Partial bytes */
+    int state_bits; /**< State bits */
 };
 
 
 struct js_zynq {
-    /* Base class - must be first. */
-    js_lib_server_t js;
+    js_lib_server_t js; /**< Base class - must be first. */
 
-    /* Port list */
-    js_port_descr_t *port_list;
-    unsigned int port_count;
-    unsigned int port_max;
+    js_port_descr_t *port_list; /**< Port list */
+    unsigned int port_count;	/**< Port count */
+    unsigned int port_max;	/**< Port max */
 };
 
 
 struct js_port_impl_struct {
-    /* Base class - must be first. */
-    js_lib_port_t lib;
+    js_lib_port_t lib; /**< Base class - must be first. */
 
-    /* Command sequence after normalization */
-    js_lib_command_sequence_t *cmdseq;
+    js_lib_command_sequence_t *cmdseq; /**< Command sequence after
+					* normalization */
 
-    /* Current JTAG state */
-    js_state_t state;
+    js_state_t state; /**< Current JTAG state */
 
-    int irPrePadBits;
-    int irPostPadBits;
-    int drPrePadBits;
-    int drPostPadBits;
+    int irPrePadBits;	/**< IR pre-pad bits */
+    int irPostPadBits;	/**< IR post-pad bits */
+    int drPrePadBits;	/**< DR pre-pad bits */
+    int drPostPadBits;	/**< DR post-pad bits */
 
-    js_node_t root_node_obj;
+    js_node_t root_node_obj; /**< Root node object */
 };
 
 
@@ -195,8 +188,14 @@ static XGpioPs structXGpioPs;
 static XGpio structXGpio;
 #endif
 
+/**
+ * @name Xilskey jscmd API declarations
+ * @{
+ */
+/**< Prototype declarations for Xilskey jscmd APIs */
 int setPin (int pin, int value);
 int readPin (int pin);
+/** @} */
 
 u32 Bbram_ReadKey[8];
 
@@ -212,12 +211,24 @@ const id_codes_t IDcodeArray [] = {
   {XSK_USER_DEVICE_SERIES, XSK_USER_DEVICE_ID, XSK_USER_DEVICE_IRLEN, XSK_USER_DEVICE_NUMSLR, XSK_USER_DEVICE_MASTER_SLR}   /**< USER_ENTRY */
 };
 
+/****************************************************************************/
+/**
+*
+* This function performs Gpio Configuration
+*
+*****************************************************************************/
 void GpioConfig(unsigned long addr, unsigned long mask, unsigned long val)
 {
 	unsigned long current_val = *(volatile unsigned long *)addr;
 	*(volatile unsigned long *) addr = ( val & mask ) | ( current_val  & ~mask);
 }
 
+/****************************************************************************/
+/**
+*
+* This function performs Gpio Jtag initialization
+*
+*****************************************************************************/
 void JtagInitGpio (XilSKey_ModuleSelection Module)
 {
 #ifdef XSK_ARM_PLATFORM
@@ -303,6 +314,14 @@ void JtagInitGpio (XilSKey_ModuleSelection Module)
 #endif
 } /* initGpio() */
 
+/****************************************************************************/
+/**
+*
+* This function calculates ByteCount From BitCount
+*
+* @return	ByteCount
+*
+*****************************************************************************/
 int getByteCountFromBitCount (int bitCount)
 {
    int byteCount = bitCount / 8;
@@ -313,9 +332,11 @@ int getByteCountFromBitCount (int bitCount)
    return (byteCount);
 }
 
-// File generated by JTAG.EXE. This are the tms values and
-// the corresponding bit counts to navigate quickly from any state
-// to any state.
+/**
+ *  File generated by JTAG.EXE. This are the tms values and
+ *  the corresponding bit counts to navigate quickly from any state
+ *  to any state.
+ */
 const unsigned int JTAGNavigateTable [256] =
 {
     0x0101, // Start=00, End=00, TMSValue=01, BitCount= 1
@@ -576,7 +597,14 @@ const unsigned int JTAGNavigateTable [256] =
     0x1B05, // Start=15, End=15, TMSValue=1B, BitCount= 5
 };
 
-
+/****************************************************************************/
+/**
+*
+* This function calculates instructions
+*
+* @return	u32-bit val value
+*
+*****************************************************************************/
 u32 calcInstr(u8 Instr, u8 cmd)
 {
 	int index;
@@ -601,6 +629,14 @@ u32 calcInstr(u8 Instr, u8 cmd)
 	return val;
 }
 
+/****************************************************************************/
+/**
+*
+* This function calculates Navigate TAPValue
+*
+* @return	int tableValue
+*
+*****************************************************************************/
 unsigned int getNavigateTAPValue (unsigned char startState, unsigned char endState)
 {
     unsigned char index;
@@ -614,6 +650,12 @@ unsigned int getNavigateTAPValue (unsigned char startState, unsigned char endSta
     return (tableValue);
 }
 
+/****************************************************************************/
+/**
+*
+* This function performs NavigateTAP
+*
+*****************************************************************************/
 void navigateTAP (unsigned char startState, unsigned char endState)
 {
     unsigned int tableValue = getNavigateTAPValue (startState, endState);
@@ -699,6 +741,12 @@ int readPin (int pin)
 	return (retVal);
 }
 
+/****************************************************************************/
+/**
+*
+* This function performs Jtag shift TDI operation
+*
+*****************************************************************************/
 void jtagShiftTDI (unsigned char tdiData, unsigned char* tdoData, int clkCount, int exitState)
 {
    int count = clkCount;
@@ -742,8 +790,16 @@ void jtagShiftTDI (unsigned char tdiData, unsigned char* tdoData, int clkCount, 
    }
 }
 
-// This function will be used to shift long bits. Returns a 1 if shift state is to be exited.
-// If tdoBuf != NULL, data will be read from device.
+/****************************************************************************/
+/**
+*
+* This function will be used to shift long bits.
+*
+* @return	1 if shift state is to be exited.
+*
+* @note		If tdoBuf != NULL, data will be read from device.
+*
+*****************************************************************************/
 int jtagShiftTDIBits (unsigned char* tdiBuf, unsigned char* tdoBuf, int bitCount, js_state_t endState, unsigned int flags)
 {
 	unsigned char* tdoByte = NULL;
@@ -805,6 +861,14 @@ int jtagShiftTDIBits (unsigned char* tdiBuf, unsigned char* tdoBuf, int bitCount
     return (exitState);
 }
 
+/****************************************************************************/
+/**
+*
+* This function sets Jtag Pre and Post Pads
+*
+* @return	status value
+*
+*****************************************************************************/
 int jtag_setPreAndPostPads (js_port_t *port_arg, int irPrePadBits, int irPostPadBits, int drPrePadBits, int drPostPadBits)
 {
 	int status = 0;
@@ -816,6 +880,14 @@ int jtag_setPreAndPostPads (js_port_t *port_arg, int irPrePadBits, int irPostPad
 	return (status);
 }
 
+/****************************************************************************/
+/**
+*
+* This function performs Jtag navigate operation
+*
+* @return	status value
+*
+*****************************************************************************/
 int jtag_navigate (js_port_t *port, js_state_t state)
 {
 	int status = 0;
@@ -836,9 +908,14 @@ int jtag_navigate (js_port_t *port, js_state_t state)
 	return (status);
 }
 
-// This function takes care of padding
-// Must be set up with pre/post ir/dr info
-
+/****************************************************************************/
+/**
+*
+* This function takes care of padding Must be set up with pre/post ir/dr info
+*
+* @return	status value
+*
+*****************************************************************************/
 int jtag_shift (js_port_t *port_arg, unsigned char mode, int bits, unsigned char* wrBuffer, unsigned char* rdBuffer, js_state_t state)
 {
 	int status = 0;
@@ -911,7 +988,14 @@ int jtag_shift (js_port_t *port_arg, unsigned char mode, int bits, unsigned char
         return 0;
 }*/
 
-
+/****************************************************************************/
+/**
+*
+* This function performs get property operation
+*
+* @return	-1 value
+*
+*****************************************************************************/
 static int get_property(
     js_lib_port_t *port_arg,
     js_property_kind_t kind,
@@ -927,7 +1011,14 @@ static int get_property(
     return -1;
 }
 
-
+/****************************************************************************/
+/**
+*
+* This function performs set property operation
+*
+* @return	-1 value
+*
+*****************************************************************************/
 static int set_property(
     js_lib_port_t *port_arg,
     js_property_kind_t kind,
@@ -943,6 +1034,14 @@ static int set_property(
     return -1;
 }
 
+/****************************************************************************/
+/**
+*
+* This function performs run command sequence operation
+*
+* @return	0 value
+*
+*****************************************************************************/
 static int run_command_sequence(
     js_lib_command_sequence_t *cmds)
 {
@@ -1018,6 +1117,14 @@ static int run_command_sequence(
     return 0;
 }
 
+/****************************************************************************/
+/**
+*
+* This function performs get port description list operation
+*
+* @return	1 value
+*
+*****************************************************************************/
 static int get_port_descr_list(
     js_lib_server_t *server,
     js_port_descr_t **port_listp)
@@ -1027,7 +1134,14 @@ static int get_port_descr_list(
 	return 1;
 }
 
-
+/****************************************************************************/
+/**
+*
+* This function performs open port operation
+*
+* @return	-1 value
+*
+*****************************************************************************/
 int open_port(
     js_lib_server_t *server,
     js_port_descr_t *port_descr,
@@ -1089,7 +1203,14 @@ int open_port(
 	return -1;
 }
 
-
+/****************************************************************************/
+/**
+*
+* This function performs close port operation
+*
+* @return	ret value
+*
+*****************************************************************************/
 static int close_port(
     js_lib_port_t *port_arg)
 {
@@ -1109,7 +1230,12 @@ static int close_port(
     return ret;
 }
 
-
+/****************************************************************************/
+/**
+*
+* This function performs deinit server operation
+*
+*****************************************************************************/
 static void deinit_server(
     js_lib_server_t *server)
 {
@@ -1261,6 +1387,17 @@ void JtagRead(unsigned char row, unsigned int * row_data, unsigned char marginOp
 		row_data_ptr[2] = rdBuffer [6];
 		row_data_ptr[3] = rdBuffer [7];
 }
+
+/****************************************************************************/
+/**
+*
+* This function validates MIO pins
+*
+* @return	0 value
+*
+* @note		none
+*
+*****************************************************************************/
 int JtagValidateMioPins(XilSKey_ModuleSelection Module)
 {
 
@@ -1457,7 +1594,7 @@ do_deinit:
 *
 * This function initializes JTAG server for use in BBRAM algorithm
 *
-* @param  BBRAM instance pointer
+* @param  InstancePtr - instance pointer
 *
 * @return
 *
@@ -1596,8 +1733,6 @@ do_deinit:
 *
 * This function implements the BBRAM algorithm initialization
 *
-* @param  None
-*
 * @return
 *
 *	- XST_FAILURE - In case of failure
@@ -1674,7 +1809,7 @@ int Bbram_Init(void)
 *
 * This function implements the BBRAM program key
 *
-* @param  BBRAM instance pointer
+* @param  InstancePtr - instance pointer
 *
 * @return
 *
@@ -1818,7 +1953,7 @@ int Bbram_ProgramKey(XilSKey_Bbram *InstancePtr)
 * Program and verify key have to be done together;
 * These API's cannot be used independently.
 *
-* @param  BBRAM instance pointer
+* @param  InstancePtr - instance pointer
 *
 * @return
 *
@@ -2042,12 +2177,7 @@ int Bbram_VerifyKey(XilSKey_Bbram *InstancePtr)
 *
 * This function does de-initialization
 *
-* @param  none
-*
-* @return
-*
-*	none
-*
+* @return none
 *
 * @note
 *
@@ -2241,7 +2371,6 @@ SKIP_HARDWARE:
 * This function reads entire row of Ultrascale's EFUSE.
 *
 * @param	Row specifies the row number of EFUSE.
-* @param	Bit Specifies the bit location in the given row.
 * @param	MarginOption is a variable which tells the margin option in
 *		which read operation to be performed.
 * @param	Page tell the page of EFUSE in which the given row is located.
@@ -2557,8 +2686,6 @@ u32 JtagAES_Check_Ultrascale(u32 *Crc, u8 MarginOption)
 *
 * This function implements the UltraScale's BBRAM algorithm initialization
 *
-* @param	None
-*
 * @return
 *		- XST_FAILURE - In case of failure
 *		- XST_SUCCESS - In case of Success
@@ -2766,8 +2893,6 @@ void Bbram_DeInit_Ultra(void)
 *
 * This function close  UltraScale.
 *
-* @param 	none
-*
 * @return	none
 *
 * @note		none
@@ -2874,8 +2999,6 @@ int Bbram_VerifyKey_Ultra(u32 *Crc32)
 *
 * This function validates GPIO pin connections of Master JTAG and hardware
 * module for eFUSE programming.
-*
-* @param	None.
 *
 * @return	None.
 *
@@ -2998,8 +3121,6 @@ static INLINE int JtagValidateMioPins_Efuse_Ultra(void)
 * This function validates GPIO pin connections of Master JTAG and hardware
 * module for BBRAM programming.
 *
-* @param	None.
-*
 * @return	None.
 *
 * @note		Hardware module is not required over here.
@@ -3071,8 +3192,6 @@ static INLINE int JtagValidateMioPins_Bbram_Ultra(void)
 /**
 *
 * This function attempt to get the ZU+ PL_IDCODE via JTAG.
-*
-* @param	None.
 *
 * @return	ZU+ PL IDCODE if it exists
 *

@@ -48,6 +48,10 @@
 *       psl     08/23/19 Added Debug define to avoid writing of eFuse.
 *       vns     08/29/19 Initialized Status variables
 * 6.9   vns     03/18/20 Fixed Armcc compilation errors
+* 7.2   am      07/13/21 Fixed doxygen warnings
+*
+* </pre>
+*
 ****************************************************************************/
 /***************************** Include Files *********************************/
 #include "xparameters.h"
@@ -218,7 +222,7 @@
 						     * end row of FUSE for
 						     * Ultrascale plus series */
 
-/*
+/**
  * Unsupported bits of Control register
  */
 #define XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT3_ULTRA	(3)
@@ -302,8 +306,9 @@ typedef enum {
  * Fuse Secure Row Bit Indices of Ultrascale series
  */
 typedef enum {
-	XSK_EFUSEPL_SEC_ALLOW_ENCRYPT_ONLY,
-	XSK_EFUSEPL_SEC_FORCE_AES_ONLY_ULTRA,		/**< Bit 0 of Fuse Secure
+	XSK_EFUSEPL_SEC_ALLOW_ENCRYPT_ONLY,	/**< Bit 0 of Fuse Secure
+						 *  row of Ultrascale */
+	XSK_EFUSEPL_SEC_FORCE_AES_ONLY_ULTRA,		/**< Bit 1 of Fuse Secure
 							  *  row of Ultrascale */
 	XSK_EFUSEPL_SEC_RSA_AUTH_EN_ULTRA ,	/**< Bit 2 of Fuse Secure
 							  *  row of Ultrascale */
@@ -336,8 +341,10 @@ XSKEfusePl_Fpga	PlFpgaFlag;		/**< For Storing Fpga series */
 extern XilSKey_JtagSlr XilSKeyJtag;
 /************************** Function Prototypes *****************************/
 /**
- * PL eFUSE interface functions
- */
+ * @name API declarations
+ * @{
+ */
+/**< Prototype declarations for PL eFUSE interface functions */
 static u8 XilSKey_EfusePl_ProgramBit(u8 Row, u8 Bit);
 
 static u8 XilSKey_EfusePl_ProgramRow(u8 Row, u8 *RowData);
@@ -346,7 +353,7 @@ static u8 XilSKey_EfusePl_ProgramControlRegister(u8 *CtrlData);
 
 static u8 XilSKey_EfusePl_ReadBit(u8 Row, u8 Bit, u8 MarginOption, u8 *BitData);
 
-static u8 XilSKey_EfusePl_ReadRow(u32 Row, u8 MarginOption, u8 *RowData);
+static u8 XilSKey_EfusePl_ReadRow(u32 Row, u8 MarginOption, u8 *RowDataBytes);
 
 static u8 XilSKey_EfusePl_ReadControlRegister(u8 *CtrlData);
 
@@ -410,6 +417,8 @@ static INLINE u8 XilSKey_EfusePl_Ultra_Check(u8 Row,
 		u8 Bit, u8 Redundant, u8 Page);
 static INLINE u32 XilSKey_EfusePl_ReadRowData_Ultra(u8 Row,
 						u8 *RowData, u8 Page);
+/** @} */
+
 /**
  * 	JTAG Server Initialization routine
  */
@@ -512,11 +521,10 @@ u32 XilSKey_EfusePl_SystemInit(XilSKey_EPl *InstancePtr)
 /****************************************************************************/
 /**
 *
-*
 * Programs PL eFUSE with input data given through InstancePtr.
 *
-* @param	InstancePtr	Pointer to PL eFUSE instance which holds the
-*		input data to be written to PL eFUSE.
+* @param	InstancePtr - Pointer to PL eFUSE instance which holds the
+*                             input data to be written to PL eFUSE.
 *
 * @return
 *		- XST_FAILURE - In case of failure
@@ -768,10 +776,8 @@ u8 XilSKey_EfusePl_ProgramBit(u8 Row, u8 Bit)
 *
 * Programs PL eFUSE row
 *
-*
-*
-* @param	Row	- 		row number
-* @param	RowData-	row data pointer
+* @param Row     - row number
+* @param RowData - row data pointer
 *
 * @return
 *
@@ -940,10 +946,10 @@ u8 XilSKey_EfusePl_ProgramControlRegister(u8 *CtrlData)
 *	Reads a PL eFUSE bit & stores.
 *
 *
-* @param	Row			-	row number
-* @param	Bit			- 	bit position in the specified row
-* @param	MarginOption-	Margin Option(One of the reading method of PLeFUSE)
-* @param	BitData		- 	Place holder to store the read value
+* @param	Row	     - row number
+* @param	Bit	     - bit position in the specified row
+* @param	MarginOption - Margin Option(One of the reading method of PLeFUSE)
+* @param	BitData	     - Place holder to store the read value
 *
 * @return
 *
@@ -1018,9 +1024,9 @@ u8 XilSKey_EfusePl_ReadBit(u8 Row, u8 Bit, u8 MarginOption, u8 *BitData)
 *	Reads row data of a specified row
 *
 *
-* @param	Row				- 	row number
-* @param	MarginOption	-	Margin Option(One of the reading method of PLeFUSE)
-* @param	RowDataBytes	-	To store the read data bytes of specified row.
+* @param	Row          - row number
+* @param	MarginOption - Margin Option(One of the reading method of PLeFUSE)
+* @param	RowDataBytes - To store the read data bytes of specified row
 *
 * @return
 *
@@ -1032,7 +1038,7 @@ u8 XilSKey_EfusePl_ReadBit(u8 Row, u8 Bit, u8 MarginOption, u8 *BitData)
 *
 *****************************************************************************/
 
-u8 XilSKey_EfusePl_ReadRow(u32 Row, u8 MarginOption, u8 *RowDataBytes)
+u8 XilSKey_EfusePl_ReadRow(u32 Row, u8 MarginOption, u8* RowDataBytes)
 {
 #ifdef XSK_ZYNQ_PLATFORM
 	XSKEfusePs_XAdc PL_XAdc;
@@ -1798,7 +1804,7 @@ static INLINE u32 XilSKey_EfusePl_ReadKey_Checks(XilSKey_EPl *InstancePtr)
 *
 *
 * @param	Row is the row number of Fuse array.
-* @param	Margin option is the option to select in which mode read has
+* @param	MarginOption is the option to select in which mode read has
 *		to be happened
 * @param	RowDataBytes is a pointer to an array to store the read value
 *		of given row.
@@ -1946,7 +1952,7 @@ static INLINE u8 XilSKey_EfusePl_ReadRow_Ultra(u32 Row, u8 MarginOption,
 *
 * @param	Row is the row number of Fuse array.
 * @param	Bit is the bit position to be read.
-* @param	Margin option is the option to select in which mode read has
+* @param	MarginOption is the option to select in which mode read has
 *		to be happened
 * @param	BitData is a pointer to a variable to store the read value
 *		of given given bit in provided row.
@@ -2908,7 +2914,7 @@ static INLINE u32 XilSKey_EfusePl_Program_Checks(XilSKey_EPl *InstancePtr)
 * Programs a range of rows for PL eFUSE of Ultrascale.
 *
 * @param	RowStart is the starting row to be programmed.
-* @param	Rowend is the row till which need to be programmed.
+* @param	RowEnd is the row till which need to be programmed.
 * @param	DataPrgrmg is the data to be programmed.
 * @param	Page is the Page to be programmed.
 *
@@ -3032,7 +3038,6 @@ static INLINE u32 XilSKey_EfusePl_Program_RowRange_ultra(u8 RowStart, u8 RowEnd,
 *
 * Programs a AES key rows for PL eFUSE of Ultrascale.
 *
-* @param	None.
 * @return
 *	- XST_FAILURE - In case of failure
 *	- XST_SUCCESS - In case of Success
@@ -3233,7 +3238,7 @@ static INLINE u32 XilSKey_EfusePl_GetRowData_Ultra(u8 Row, u8 *RowData, u8 Page)
 * This API gets the rows data of given range of FUSE's array of Ultrascale
 *
 * @param	RowStart is the starting row to be programmed.
-* @param	Rowend is the row till which need to be programmed.
+* @param	RowEnd is the row till which need to be programmed.
 * @param	KeyRead is a pointer of array in which read data is updated.
 * @param	Page is the Page to be programmed.
 *
@@ -3422,7 +3427,7 @@ static INLINE u8 XilSkey_EfusePl_VerifyBit_Ultra(u8 Row, u8 Bit, u8 Redundant,
 }
 
 /*****************************************************************************/
-/*
+/**
 * This function throws an error if user requests already programmed User FUSE
 * bit to revert, and copies the bits to be programmed in particular row into
 * provided UserFuses_TobePrgrmd pointer.

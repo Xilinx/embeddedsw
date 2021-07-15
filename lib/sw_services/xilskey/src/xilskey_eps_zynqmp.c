@@ -87,6 +87,7 @@
 *                      general purpose data
 *       kpt   05/21/21 Added support to allow PPK Hash programming multiple
 *                      times
+* 7.2   am    07/13/21 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -101,12 +102,12 @@
 
 
 /**************************** Type Definitions ******************************/
-
-/*
- * XilSKey_UsrFuses holds the User FUSES which needs to be
- * actually programmed
- */
+/**
+* XilSKey_UsrFuses holds the User FUSES which needs to be
+* actually programmed */
 typedef struct {
+	/**
+	* UserFuse data to be programmed */
 	u8 UserFuse[XSK_ZYNQMP_EFUSEPS_USER_FUSE_ROW_LEN_IN_BITS];
 }XilSKey_UsrFuses;
 
@@ -117,7 +118,11 @@ typedef struct {
 
 
 /************************** Function Prototypes *****************************/
-
+/**
+ * @name API declarations
+ * @{
+ */
+/**< Prototype declarations for xilskey eps zynqmp API's */
 static INLINE u32 XilSKey_ZynqMp_EfusePsWrite_Checks(
 				XilSKey_ZynqMpEPs *InstancePtr);
 static INLINE u32 XilSKey_ZynqMp_EfusePs_WriteAndVerify_RowRange(const u8 *Data,
@@ -151,6 +156,8 @@ static u32 XilSkey_ZynqMpUsrFuseRd(u32 Offset, u32 *Buffer, u32 Size, u8 UsrFuse
 static u32 XilSKey_ZynqMp_EfusePs_ProgramPufUserFuse(const XilSKey_Efuse *EfuseAccess);
 static u32 XilSKey_ZynqMp_EfusePs_ReadPufUserFuse(const XilSKey_Efuse *EfuseAccess);
 #endif
+/** @} */
+
 /************************** Function Definitions *****************************/
 
 /***************************************************************************/
@@ -800,8 +807,9 @@ END:
 }
 
 /*****************************************************************************/
-/* This function programs and verifys the Row range provided with provided data
-*  array in bits.
+/**
+* This function programs and verifys the Row range provided with provided data
+* array in bits.
 *
 * @param	Data is a pointer to an array which contains data to be
 *		programmed.
@@ -851,8 +859,9 @@ END:
 }
 
 /*****************************************************************************/
-/* This function programs and verifys the Row range provided with provided data
-*  array in bytes.
+/**
+* This function programs and verifys the Row range provided with provided data
+* array in bytes.
 *
 * @param	Data is a pointer to an array which contains data to be
 *		programmed.
@@ -1036,7 +1045,7 @@ u32 XilSKey_ZynqMp_EfusePs_ReadRow(u8 Row, XskEfusePs_Type EfuseType,
 }
 
 /*****************************************************************************/
-/*
+/**
 * This function programs a particular bit.
 *
 * @param	Row specifies the row number to program.
@@ -2050,7 +2059,7 @@ u32 XilSKey_ZynqMp_EfusePs_CheckForZeros(u8 RowStart, u8 RowEnd,
 }
 
 /*****************************************************************************/
-/*
+/**
 * This function is used verify eFUSE keys for Zeros before programming.
 *
 * @param	InstancePtr is a pointer to eFUSE ps instance.
@@ -2085,7 +2094,7 @@ END:
 }
 
 /*****************************************************************************/
-/*
+/**
 * This function throws an error if user requests already programmed User FUSE
 * bit to revert, and copies the bits to be programmed in particular row into
 * provided UserFuses_TobePrgrmd pointer.
@@ -2094,7 +2103,7 @@ END:
 *		of an User FUSE row.
 * @param	UserFuses_Read is a pointer to already programmed bits of User
 *		FUSE row on eFUSE.
-* @param	UserFuses_TobePrgrmd holds User FUSE row bits which needs to be
+* @param	UserFuses_ToBePrgrmd holds User FUSE row bits which needs to be
 *		programmed actually.
 *
 * @return
@@ -2131,13 +2140,13 @@ END:
 }
 
 /*****************************************************************************/
-/*
+/**
 * This function throws an error if user requests already programmed User FUSE
 * bit to revert, and copies the User FUSE bits which needs actually to be
 * programmed into provided UserFuses_TobePrgrmd pointer.
 *
 * @param	InstancePtr is a pointer to eFUSE ps instance.
-* @param	UserFuses_TobePrgrmd holds User FUSE bits which needs to be
+* @param	ToBePrgrmd holds User FUSE bits which needs to be
 *		actually programmed.
 *
 * @return
@@ -2333,7 +2342,7 @@ END:
 }
 
 /*****************************************************************************/
-/*
+/**
 * This function programs RSA enable secure control bits of eFUSE
 *
 * @param	SecBits_read is a pointer which holds 32 bits of secure
@@ -2391,7 +2400,7 @@ END:
 #if defined (XSK_ACCESS_PUF_USER_EFUSE)
 
 /*****************************************************************************/
-/*
+/**
 * This function programs PUF HD eFuses as general purpose eFuses
 *
 * @param	PufFuse is pointer to the XilSKey_PufEfuse structure
@@ -2567,7 +2576,7 @@ END:
 }
 
 /*****************************************************************************/
-/*
+/**
 * This function reads PUF HD eFuses as general purpose eFuses
 *
 * @param	EfuseAccess is a pointer to the XilSKey_Efuse structure
@@ -2664,7 +2673,7 @@ END:
 #if defined(XSK_ACCESS_USER_EFUSE)
 
 /*****************************************************************************/
-/*
+/**
 * This function programs PUF HD eFuses for general purpose data
 *
 * @param	EfuseAccess is pointer to the XilSKey_Efuse structure
@@ -2694,7 +2703,7 @@ static u32 XilSKey_ZynqMp_EfusePs_ProgramPufUserFuse(
 }
 
 /*****************************************************************************/
-/*
+/**
 * This function reads PUF HD eFuses for general purpose data
 *
 * @param	EfuseAccess is a pointer to the XilSKey_Efuse structure
@@ -2811,7 +2820,7 @@ u32 XilSkey_ZynqMpEfuseAccess(const u32 AddrHigh, const u32 AddrLow)
 }
 
 /*****************************************************************************/
-/*
+/**
 * This function provides support to program eFUSE memory
 *
 * @param	AddrHigh	Higher 32-bit address of the XilSKey_Efuse
@@ -3221,8 +3230,9 @@ END:
 	return Status;
 }
 
+#if defined (XSK_ACCESS_USER_EFUSE)
 /*****************************************************************************/
-/*
+/**
 * This function provides support to read user eFUSEs
 *
 * @param	Offset	Offset specifies the user fuses offset to be read.
@@ -3236,7 +3246,6 @@ END:
 *		ErrorCode - on Failure
 *
 ******************************************************************************/
-#if defined (XSK_ACCESS_USER_EFUSE)
 static u32 XilSkey_ZynqMpUsrFuseRd(u32 Offset, u32 *Buffer,
 					u32 Size, u8 UsrFuseNum)
 {
@@ -3265,7 +3274,7 @@ END:
 #endif
 
 /*****************************************************************************/
-/*
+/**
 * This function provides support to read  eFUSE memory
 *
 * @param	AddrHigh	Higher 32-bit address of the

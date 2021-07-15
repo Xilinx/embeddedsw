@@ -32,6 +32,9 @@
 *                        DFT bits
 * 6.6   vns     06/06/18 Added doxygen tags
 * 6.8   vns     08/29/19 Initialized Status variables
+* 7.2   am      07/13/21 Fixed doxygen warnings
+*
+* </pre>
 *
 *****************************************************************************/
 
@@ -66,8 +69,8 @@ static u8 XilSKey_EfusePs_IsReadModeSupported (u8 ReadMode);
 /**
 * This function is used to write to the PS eFUSE.
 *
-* @param	InstancePtr	Pointer to the PsEfuseHandle which describes
-*		which PS eFUSE bit should be burned.
+* @param	InstancePtr - Pointer to the PsEfuseHandle which describes
+*                             which PS eFUSE bit should be burned.
 *
 * @return
 * 		- XST_SUCCESS.
@@ -306,8 +309,8 @@ ExitFinal:
 /**
 * This function is used to read the PS eFUSE.
 *
-* @param  InstancePtr	Pointer to the PsEfuseHandle which describes
-* 	  which PS eFUSE should be burned.
+* @param	InstancePtr - Pointer to the PsEfuseHandle which describes
+*                             which PS eFUSE should be burned.
 *
 * @return
 * 		- XST_SUCCESS no errors occurred.

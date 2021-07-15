@@ -14,6 +14,11 @@ extern "C" {
 #include "xil_types.h"
 #include "xilskey_jscmd.h"
 
+/**
+ * @name Jtag API declarations
+ * @{
+ */
+/**< Prototype declarations for Jtag API's */
 void JtagInitGpio(XilSKey_Register Register);
 void GpioConfig(volatile unsigned long *addr, unsigned long mask, unsigned long val);
 int JtagServerInit(XilSKey_EPl *PlInstancePtr);
@@ -26,6 +31,7 @@ void JtagRead_Ultrascale(u8 Row, u32 *RowData, u8 MarginOption,
 void JtagRead_Status_Ultrascale(u32 *Rowdata);
 void Jtag_Read_Sysmon(u8 Row, u32 *Row_Data);
 u32 JtagAES_Check_Ultrascale(u32 *Crc, u8 MarginOption);
+/** @} */
 
 #ifdef __cplusplus
 }

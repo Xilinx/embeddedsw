@@ -63,6 +63,7 @@
 * 7.1   am      11/26/20 Resolved Coverity warnings
 *       kpt     03/17/21 Corrected error code when VCCINT levels are out of
 *                        range in XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks
+* 7.2   am      07/13/21 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -424,7 +425,6 @@ END:
 * This function checks temperature and voltage ranges of ZynqMP to access
 * PS eFUSE
 *
-* @param	None
 * @return
 *		Error code: On failure
 *		XST_SUCCESS on Success
@@ -473,10 +473,6 @@ END:
 *
 * Initializes the global timer & starts it.
 * Calculates the timer ticks for 1us.
-*
-*
-*
-* @param	None.
 *
 * @return
 *
@@ -1088,8 +1084,6 @@ END:
 /****************************************************************************/
 /**
  * This API initializes the Timer based on platform
- *
- * @param	None.
  *
  * @return	RefClk will be returned.
  *
