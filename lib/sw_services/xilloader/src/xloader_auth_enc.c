@@ -48,6 +48,7 @@
 *       ma   07/12/21 Register NULL error handler for
 *                     XLoader_CheckAuthJtagIntStatus scheduler task
 *       har  07/15/21 Fixed doxygen warnings
+*       td   07/15/21 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -160,7 +161,8 @@ static int XLoader_ReadandCompareDna(const u32 *UserDna);
 static void XLoader_DisableJtag(void);
 
 /************************** Variable Definitions *****************************/
-static XLoader_AuthCertificate AuthCert;
+static XLoader_AuthCertificate AuthCert; /**< Instance of authentication
+										   certificate */
 
 /************************** Function Definitions *****************************/
 

@@ -98,6 +98,7 @@
 *       bm   05/10/2021 Updated chunking logic for hashes
 *       ma   05/18/2021 Minor code cleanup
 * 1.04  td   07/08/2021 Fix doxygen warnings
+*       td   07/15/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -134,7 +135,8 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XLOADER_IMAGE_INFO_TBL_MAX_NUM	(XPLMI_IMAGE_INFO_TBL_BUFFER_LEN / \
-						sizeof(XLoader_ImageInfo))
+		sizeof(XLoader_ImageInfo)) /**< Maximum number of image info tables in
+									 the available buffer */
 
 /************************** Function Prototypes ******************************/
 static int XLoader_PdiRequestBootDevice(PdiSrc_t DeviceFlags);
@@ -155,11 +157,16 @@ static int XLoader_StartImage(XilPdi *PdiPtr);
 static int XLoader_StoreImageInfo(const XLoader_ImageInfo *ImageInfo);
 
 /************************** Variable Definitions *****************************/
-XilPdi SubsystemPdiIns = {0U};
-static XilPdi_ATFHandoffParams ATFHandoffParams = {0};
-XilPdi* BootPdiPtr = NULL;
+XilPdi SubsystemPdiIns = {0U}; /**< Instance of subsystem pdi */
+static XilPdi_ATFHandoffParams ATFHandoffParams = {0}; /**< Instance containing
+														 ATF handoff params */
+XilPdi* BootPdiPtr = NULL; /**< Pointer to instance of boot pdi */
 
 /*****************************************************************************/
+/**
+ * @{
+ * @cond xloader_internal
+ */
 static const XLoader_DeviceOps DeviceOps[] =
 {
 	{"JTAG", 0U, XLoader_SbiInit, XLoader_SbiCopy, NULL},  /* JTAG - 0U */
@@ -277,6 +284,10 @@ static XLoader_ImageInfoTbl ImageInfoTbl = {
 	.Count = 0U,
 	.IsBufferFull = FALSE,
 };
+/**
+ * @}
+ * @endcond
+ */
 
 /*****************************************************************************/
 /**
