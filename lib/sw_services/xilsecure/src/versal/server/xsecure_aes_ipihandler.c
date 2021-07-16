@@ -22,6 +22,8 @@
 *       har   05/18/2021 Added check for key source for IPI calls
 *       am    05/21/2021 Resolved Coverity violations
 * 4.6   har   07/14/2021 Fixed doxygen warnings
+*       kpt   07/15/2021 Added XSecure_AesInit in XSecure_AesWriteKey to avoid
+*                        multiple calls from client
 *
 * </pre>
 *
@@ -417,6 +419,11 @@ static int XSecure_AesKeyWrite(u8  KeySize, u8 KeySrc,
                 (KeySrc == XSECURE_AES_BH_KEY) ||
                 (KeySrc == XSECURE_AES_BH_RED_KEY)) {
 		Status = XSECURE_AES_DEVICE_KEY_NOT_ALLOWED;
+		goto END;
+	}
+
+	Status = XSecure_AesInit();
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
