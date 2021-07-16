@@ -62,6 +62,7 @@
 *                       XSecure_AesDecryptKat to avoid compiler optimization.
 *       am   05/21/2021 Resolved MISRA C violations
 * 4.6   har  07/14/2021 Fixed doxygen warnings
+*       kpt  07/15/2021 Added 64bit support for XSecure_AesWriteKey
 *
 * </pre>
 *
@@ -551,9 +552,10 @@ int XSecure_AesWriteKey(const XSecure_Aes *InstancePtr,
 	XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize, u64 KeyAddr)
 {
 	int Status = XST_FAILURE;
+	int StatusTmp = XST_FAILURE;
 	u32 Offset;
 	u32 Index = 0U;
-	const u32 *Key;
+	u32 Key[XSECURE_AES_KEY_SIZE_256BIT_WORDS] = {0U};
 	u32 KeySizeInWords;
 
 	/* Validate the input arguments */
@@ -585,8 +587,6 @@ int XSecure_AesWriteKey(const XSecure_Aes *InstancePtr,
 		goto END;
 	}
 
-	Key = (u32 *)(INTPTR)KeyAddr;
-
 	if ((XSECURE_AES_BH_KEY == KeySrc) &&
 			(XSECURE_AES_KEY_SIZE_128 == KeySize)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
@@ -606,6 +606,9 @@ int XSecure_AesWriteKey(const XSecure_Aes *InstancePtr,
 		KeySizeInWords = XSECURE_AES_KEY_SIZE_256BIT_WORDS;
 	}
 
+	XSecure_MemCpy64((u64)(UINTPTR)Key, KeyAddr, KeySizeInWords *
+				XSECURE_WORD_SIZE);
+
 	Offset = Offset + (KeySizeInWords * XSECURE_WORD_SIZE) -
 				XSECURE_WORD_SIZE;
 
@@ -617,6 +620,11 @@ int XSecure_AesWriteKey(const XSecure_Aes *InstancePtr,
 	Status = XST_SUCCESS;
 
 END:
+	StatusTmp = Xil_SecureZeroize((u8*)Key, XSECURE_AES_KEY_SIZE_256BIT_BYTES);
+	if (Status == XST_SUCCESS) {
+		Status = StatusTmp;
+	}
+
 	return Status;
 }
 
