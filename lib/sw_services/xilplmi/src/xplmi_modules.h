@@ -24,6 +24,7 @@
 *       ma   03/04/2021 Added CheckIpiAccessHandler handler to XPlmi_Module
 *       rama 03/22/2021 Added STL module ID to support STL execution
 *       kal  03/30/2021 Added XilSecure module ID
+* 1.04  bsv  07/16/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -41,10 +42,12 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xplmi_cmd.h"
 
+/**@cond xplmi_internal
+ * @{
+ */
+
 /************************** Constant Definitions *****************************/
 #define XPLMI_MAX_MODULES			(11U)
-
-/* TODO add enum for declaring module ids */
 #define XPLMI_MODULE_GENERIC_ID			(1U)
 #define XPLMI_MODULE_XILPM_ID			(2U)
 #define XPLMI_MODULE_SEM_ID			(3U)
@@ -52,8 +55,7 @@ extern "C" {
 #define XPLMI_MODULE_XILPSM_ID			(6U)
 #define XPLMI_MODULE_LOADER_ID			(7U)
 #define XPLMI_MODULE_ERROR_ID			(8U)
-
-#define XPLMI_MODULE_STL_ID				(10U)
+#define XPLMI_MODULE_STL_ID			(10U)
 #define XPLMI_MODULE_COMMAND(FUNC)		{ (FUNC) }
 
 /**************************** Type Definitions *******************************/
@@ -75,6 +77,11 @@ void XPlmi_ModuleRegister(XPlmi_Module *Module);
 
 /************************** Variable Definitions *****************************/
 extern XPlmi_Module *Modules[XPLMI_MAX_MODULES];
+
+/**
+ * @}
+ * @endcond
+ */
 
 #ifdef __cplusplus
 }

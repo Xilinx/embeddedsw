@@ -25,6 +25,7 @@
 *                       interrupt task handlers get missed
 *       bm   04/03/2021 Move task creation out of interrupt context
 * 1.04  ma   07/12/2021 Minor updates to task related code
+*       bsv  07/16/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -45,6 +46,10 @@ extern "C" {
 #include "xstatus.h"
 #include "list.h"
 #include "xplmi_proc.h"
+
+/**@cond xplmi_internal
+ * @{
+ */
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_TASK_MAX			(64U)
@@ -97,6 +102,11 @@ XPlmi_TaskNode* XPlmi_GetTaskInstance(int (*Handler)(void *Arg),
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
+
+/**
+ * @}
+ * @endcond
+ */
 
 #ifdef __cplusplus
 }

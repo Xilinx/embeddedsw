@@ -34,7 +34,8 @@
 *       skd  03/25/2021 Compilation warning fix
 *       bm   04/03/2021 Move task creation out of interrupt context
 * 1.05  td   07/08/2021 Fix doxygen warnings
-*            07/12/2021 Updated IRO frequency to 400MHz for MP and HP parts
+*       bm   07/12/2021 Updated IRO frequency to 400MHz for MP and HP parts
+*       bsv  07/16/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -50,6 +51,10 @@
 #include "xplmi_err.h"
 #include "microblaze_sleep.h"
 
+/**@cond xplmi_internal
+ * @{
+ */
+
 /************************** Constant Definitions *****************************/
 #define XPLMI_MB_MSR_BIP_MASK		(0x8U)
 #define XPLMI_EFUSE_CTRL_UNLOCK_VAL	(0xDF0DU)
@@ -64,6 +69,11 @@
 	(((Lvl0) << 0U) | ((Lvl1) << 8U) | ((Lvl2) << 16U))
 #define XPLMI_PMC_VOLTAGE_MULTIPLIER	(32768.0f)
 #define XPLMI_PMC_VERSION_1_0		(0x10U)
+
+/**
+ * @}
+ * @endcond
+ */
 
 /*****************************************************************************/
 /**

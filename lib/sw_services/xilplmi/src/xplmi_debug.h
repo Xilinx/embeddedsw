@@ -27,6 +27,7 @@
 *       bm   10/14/2020 Code clean up
 * 1.04  bm   02/01/2021 Add XPlmi_Print functions using xil_vprintf
 * 1.05  td   07/08/2021 Fix doxygen warnings
+*       bsv  07/16/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -46,6 +47,10 @@ extern "C" {
 #include "xplmi_config.h"
 #include "xplmi_event_logging.h"
 #include "xplmi_proc.h"
+
+/**@cond xplmi_internal
+ * @{
+ */
 
 /************************** Constant Definitions *****************************/
 /**
@@ -108,6 +113,11 @@ void XPlmi_Print_WoTS(u32 DebugType, const char8 *Ctrl1, ...);
 #endif
 
 /************************** Variable Definitions *****************************/
+
+/**
+ * @}
+ * @endcond
+ */
 
 #ifdef __cplusplus
 }

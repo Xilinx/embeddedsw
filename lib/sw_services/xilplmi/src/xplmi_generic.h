@@ -39,6 +39,7 @@
 *                       DmaWriteKeyHole command
 * 1.06  ma   06/17/2021 Added readback support for SSIT Slave SLRs
 *       ma   06/28/2021 Added support for proc command
+*       bsv  07/16/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -55,6 +56,10 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xplmi_debug.h"
 #include "xplmi_dma.h"
+
+/**@cond xplmi_internal
+ * @{
+ */
 
 /************************** Constant Definitions *****************************/
 enum {
@@ -136,6 +141,7 @@ typedef struct {
 /* Defines related to procs */
 #define XPLMI_PROC_LOCATION_ADDRESS			(0xFFC3E000U)
 #define XPLMI_PROC_LOCATION_LENGTH			(0x8000U)
+
 /************************** Function Prototypes ******************************/
 void XPlmi_GenericInit(void);
 int XPlmi_GetReadBackPropsValue(XPlmi_ReadBackProps *ReadBackVal);
@@ -145,6 +151,11 @@ int XPlmi_ExecuteProc(u32 ProcId);
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
+
+/**
+ * @}
+ * @endcond
+ */
 
 #ifdef __cplusplus
 }

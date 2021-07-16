@@ -18,6 +18,7 @@
 * 1.00  kc   07/28/2020 Initial release
 *       bm   10/14/2020 Code clean up
 * 1.01  td   07/08/2021 Fix doxygen warnings
+*       bsv  07/16/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -32,6 +33,9 @@
 #include "xplmi_debug.h"
 #include "xplmi.h"
 
+/**@cond xplmi_internal
+ * @{
+ */
 /************************** Constant Definitions *****************************/
 #define XPLMI_WDT_PERIODICITY		(100U)
 #define XPLMI_SCHEDULER_PERIOD		(10U)
@@ -70,6 +74,11 @@ static XPlmi_Wdt WdtInstance = {
 	.GpioAddr = 0U,
 	.GpioMask = 0U
 };
+
+/**
+ * @}
+ * @endcond
+ */
 
 /*****************************************************************************/
 /**

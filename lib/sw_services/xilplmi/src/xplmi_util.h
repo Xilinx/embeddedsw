@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2017 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,7 @@
 *       bm   10/14/2020 Code clean up
 *       td   10/19/2020 MISRA C Fixes
 * 1.04  bm   03/04/2021 Add VerifyAddrRange API
+* 1.05  bsv  07/16/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -47,6 +48,10 @@ extern "C" {
 #include "xil_io.h"
 #include "xil_types.h"
 #include "xstatus.h"
+
+/**@cond xplmi_internal
+ * @{
+ */
 
 /************************** Constant Definitions *****************************/
 
@@ -70,6 +75,11 @@ int XPlmi_UtilPollForMask64(u32 HighAddr, u32 LowAddr, u32 Mask,
 	u32 TimeOutInUs);
 void XPlmi_PrintArray (u32 DebugType, const u64 BufAddr, u32 Len, const char *Str);
 int XPlmi_VerifyAddrRange(u64 StartAddr, u64 EndAddr);
+
+/**
+ * @}
+ * @endcond
+ */
 
 #ifdef __cplusplus
 }

@@ -40,6 +40,7 @@
 *       ma   05/03/2021 Minor updates related to PSM and FW errors
 *       td   05/20/2021 Fixed blind write on locking NPI address space in
 *                       XPlmi_ClearNpiErrors
+* 1.06  bsv  07/16/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -57,6 +58,10 @@ extern "C" {
 #include "xplmi_debug.h"
 #include "xplmi_error_node.h"
 #include "xplmi_hw.h"
+
+/**@cond xplmi_internal
+ * @{
+ */
 
 /************************** Constant Definitions *****************************/
 /* Action to be taken when an error occurs */
@@ -96,9 +101,9 @@ typedef s32 (*XPlmi_ShutdownHandler_t)(u32 SubsystemId, const u32 Type,
 
 /* Data Structure to hold Error Info */
 struct XPlmi_Error_t {
-	XPlmi_ErrorHandler_t Handler;
-	u8 Action;
-	u32 SubsystemId;
+	XPlmi_ErrorHandler_t Handler; /**< Error Handler function pointer */
+	u8 Action; /**< Action to take on error */
+	u32 SubsystemId; /**< Subsystem ID for shutdown or restart */
 };
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -179,6 +184,11 @@ void XPlmi_ErrModuleInit(void);
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
+
+/**
+ * @}
+ * @endcond
+ */
 
 #ifdef __cplusplus
 }

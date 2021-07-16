@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,7 @@
 * 1.03  bm   09/02/2020 Add XPlmi_MemSet API
 *       bsv  09/30/2020 Added wait for non blocking SBI DMA
 *       bm   10/14/2020 Code clean up
+* 1.04  bsv  07/16/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -40,6 +41,10 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xpmcdma.h"
+
+/**@cond xplmi_internal
+ * @{
+ */
 
 /************************** Constant Definitions *****************************/
 
@@ -71,8 +76,8 @@ extern "C" {
 
 #define XPLMI_DATA_INIT_PZM			(0xDEADBEEFU)
 #define XPLMI_PZM_WORD_LEN			(16U)
-
 #define XPLMI_SET_CHUNK_SIZE			(128U)
+
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
@@ -89,6 +94,11 @@ int XPlmi_WaitForNonBlkDma(u32 DmaFlags);
 void XPlmi_SetMaxOutCmds(u8 Val);
 int XPlmi_MemSet(u64 DestAddr, u32 Val, u32 Len);
 int XPlmi_MemSetBytes(const void * DestPtr, u32 DestLen, u8 Val, u32 Len);
+
+/**
+ * @}
+ * @endcond
+ */
 
 #ifdef __cplusplus
 }

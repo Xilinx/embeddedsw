@@ -38,6 +38,7 @@
 *                       at 32K boundary
 *       bm   07/12/2021 Updated CDO offset print with byte offset including
 *                       header length
+*       bsv  07/16/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -52,7 +53,8 @@
 #include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
-#define XPLMI_CMD_LEN_TEMPBUF		(0x8U)
+#define XPLMI_CMD_LEN_TEMPBUF		(0x8U) /**< This buffer is used to
+			store commands which extend across 32K boundaries */
 
 /**************************** Type Definitions *******************************/
 

@@ -33,6 +33,7 @@
 *       ma   07/12/2021 Added error handler for each scheduler task to handle
 *                       cases when a scheduled task does not get executed in
 *                       allotted time
+*       bsv  07/16/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -45,12 +46,22 @@
 #include "xplmi_debug.h"
 #include "xplmi_wdt.h"
 
+/**@cond xplmi_internal
+ * @{
+ */
+
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+
 #define XPLMI_SCHED_TICK	(10U)
+
+/**
+ * @}
+ * @endcond
+ */
 
 /************************** Function Prototypes ******************************/
 static u8 XPlmi_IsTaskNonPeriodic(const XPlmi_Scheduler_t *SchedPtr,

@@ -54,6 +54,7 @@
 *       ma   06/28/2021 Added support for proc command
 *       bsv  07/05/2021 Added code to handle case where bitstream data starts
 *                       at 32K boundary
+*       bsv  07/16/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -76,6 +77,10 @@
 #include "xplmi_cmd.h"
 #include "xil_util.h"
 #include "xplmi_cdo.h"
+
+/**@cond xplmi_internal
+ * @{
+ */
 
 /************************** Constant Definitions *****************************/
 
@@ -115,10 +120,6 @@
 	(XPLMI_PMC_ALIAS3_BASEADDR + XPLMI_CFU_STREAM_2_SLR_OFFSET)
 
 /************************** Function Prototypes ******************************/
-/**
- * @{
- * @cond xplmi_internal
- */
 static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
         XPlmi_Cmd* Cmd);
 static XPlmi_ReadBackProps* XPlmi_GetReadBackPropsInstance(void);

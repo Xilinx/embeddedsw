@@ -32,6 +32,7 @@
 * 1.04  td   11/23/2020 MISRA C Rule 10.4 Fixes
 *       ma   03/24/2021 Reduced minimum digits of time stamp decimals to 3
 * 1.05  bm   07/12/2021 Updated IRO freqency defines
+*       bsv  07/16/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -51,6 +52,10 @@ extern "C" {
 #include "xplmi_gic_interrupts.h"
 #include "xplmi_util.h"
 #include "xplmi_status.h"
+
+/**@cond xplmi_internal
+ * @{
+ */
 
 /************************** Constant Definitions *****************************/
 #define IOMODULE_DEVICE_ID XPAR_IOMODULE_0_DEVICE_ID
@@ -86,11 +91,16 @@ extern "C" {
 #define XPLMI_IOMODULE_PMC_GPI			(22U)
 #define XPLMI_IOMODULE_MASK				(0xFFU)
 
+/**
+ * @}
+ * @endcond
+ */
+
 /*
  * External interrupt mapping
  */
 enum {
-	XPLMI_CFRAME_SEU = 0U,
+	XPLMI_CFRAME_SEU = 0U,	/**< 0U */
 	XPLMI_IPI_IRQ,	/**< 1U */
 	XPLMI_SBI_DATA_RDY, /**< 2U */
 	XPLMI_MAX_EXT_INTR, /**< 3U */
@@ -100,8 +110,8 @@ enum {
  * Performance measurement structure
  */
 typedef struct {
-	u64 TPerfMs;
-	u64 TPerfMsFrac;
+	u64 TPerfMs;	/**< Whole part of time in milliseconds */
+	u64 TPerfMsFrac; /**< Fractional part of time in milliseconds */
 } XPlmi_PerfTime;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -120,7 +130,7 @@ void XPlmi_PrintPlmTimeStamp(void);
 
 /* Handler Table Structure */
 struct HandlerTable {
-	XInterruptHandler Handler;
+	XInterruptHandler Handler;	/**< Pointer to interrupt handler */
 };
 
 #ifdef __cplusplus

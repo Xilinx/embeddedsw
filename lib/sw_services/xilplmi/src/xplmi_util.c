@@ -35,6 +35,7 @@
 *       bm   03/17/2021 Mark reserved address region as invalid in
 *                       VerifyAddrRange API
 * 1.05  td   07/08/2021 Fix doxygen warnings
+*       bsv  07/16/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -48,6 +49,10 @@
 #include "xplmi.h"
 #include "xplmi_debug.h"
 #include "sleep.h"
+
+/**@cond xplmi_internal
+ * @{
+ */
 
 /************************** Constant Definitions *****************************/
 
@@ -64,6 +69,11 @@
 #define XPLMI_RSVD_BASE_ADDR		(0xA0000000U)
 #define XPLMI_RSVD_HIGH_ADDR		(0xA3FFFFFFU)
 #define XPLMI_M_AXI_FPD_MEM_HIGH_ADDR	(0xBFFFFFFFU)
+
+/**
+ * @}
+ * @endcond
+ */
 
 /************************** Function Prototypes ******************************/
 
