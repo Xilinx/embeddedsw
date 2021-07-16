@@ -36,6 +36,7 @@
 *      td        11/19/20 Updated XSECURE_TEMPORAL_CHECK and
 *                         XSECURE_TEMPORAL_IMPL to fix MISRA C Rule 15.3
 * 7.4  am        11/26/20 Added Xil_StrCpyRange function
+* 7.6  kpt       07/15/21 Added Xil_SecureZeroize function
 *
 * </pre>
 *
@@ -166,6 +167,9 @@ int Xil_SecureMemCpy(void * DestPtr, u32 DestPtrLen, const void * SrcPtr, u32 Le
 
 /* Compares Len bytes from memory1 and memory2 */
 int Xil_MemCmp(const void * Buf1Ptr, const void * Buf2Ptr, u32 Len);
+
+/* Zeroizes the memory of given length */
+int Xil_SecureZeroize(u8 *DataPtr, const u32 Length);
 
 #ifdef __cplusplus
 }

@@ -26,6 +26,7 @@
 *       td       10/16/20 Added Xil_Strcpy, Xil_Strcat, Xil_SecureMemCpy and
 *                         Xil_MemCmp functions
 * 7.4   am       11/26/20 Added Xil_StrCpyRange function
+* 7.6   kpt      07/15/21 Added Xil_SecureZeroize function
 *
 * </pre>
 *
@@ -728,4 +729,37 @@ int Xil_MemCmp(const void * Buf1Ptr, const void * Buf2Ptr, u32 Len)
 
 END:
 	return RetVal;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is used to zeroize the memory
+ *
+ * @param	DataPtr Pointer to the memory which need to be zeroized.
+ * @param	Length	Length of the data in bytes.
+ *
+ * @return
+ *		- XST_SUCCESS: If Zeroization is successful.
+ *		- XST_FAILURE: If Zeroization is not successful.
+ ********************************************************************************/
+int Xil_SecureZeroize(u8 *DataPtr, const u32 Length)
+{
+	u32 Index;
+	int Status = XST_FAILURE;
+
+	/* Clear the data */
+	(void)memset(DataPtr, 0, Length);
+
+	/* Read it back to verify */
+	 for (Index = 0U; Index < Length; Index++) {
+		if (DataPtr[Index] != 0x00U) {
+			goto END;
+		}
+	}
+	if (Index == Length) {
+		Status = XST_SUCCESS;
+	}
+
+END:
+	return Status;
 }
