@@ -83,6 +83,8 @@
 *       ma   06/28/2021 Added error codes related to proc command
 *       ma   07/12/2021 Added error code for scheduler task missed error
 *       bm   07/12/2021 Added error code for setting IRO frequency
+*       bsv  07/16/2021 Fix doxygen warnings
+*       bsv  07/16/2021 Added Macronix flash support
 *
 * </pre>
 *
@@ -446,7 +448,7 @@ typedef enum {
 							PM_DEV_TCM_0_B */
 	XLOADER_ERR_PM_DEV_TCM_1_A,		/**< 0x349 - Failed in XPM Request Device for
 							PM_DEV_TCM_1_A */
-	XLOADER_ERR_PM_DEV_TCM_1_B,		/***<0x34A - Failed in XPM Request Device for
+	XLOADER_ERR_PM_DEV_TCM_1_B,		/**< 0x34A - Failed in XPM Request Device for
 							PM_DEV_TCM_1_B */
 	XLOADER_ERR_PM_DEV_DDR_0,		/**< 0x34B - Failed to XPM Request Device for
 							PM_DEV_DDR_0 */
@@ -509,6 +511,7 @@ typedef enum {
 							PM_DEV_DDR_0 */
 	XLOADER_ERR_REQUEST_BOOT_DEVICE,	/**< 0x368 - Failed to Request Boot Device */
 	XLOADER_ERR_RELEASE_BOOT_DEVICE,	/**< 0x369 - Failed to Release Boot Device */
+	XLOADER_ERR_OSPI_DUAL_BYTE_OP_DISABLE,	/**< 0x36A - Failed to disable DUAL BYTE OP */
 
 	/**< Security Major error codes */
 	XLOADER_ERR_INIT_GET_DMA = 0x600,

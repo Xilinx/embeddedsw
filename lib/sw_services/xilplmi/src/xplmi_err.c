@@ -58,6 +58,7 @@
 * 1.06  ma   06/28/2021 Added handler for CPM_NCR error
 *       ma   07/08/2021 Fix logic in reading link down error mask value
 *       td   07/08/2021 Fix doxygen warnings
+*       bsv  07/16/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -70,6 +71,10 @@
 #include "xplmi.h"
 #include "xplmi_sysmon.h"
 
+/**@cond xplmi_internal
+ * @{
+ */
+
 /************************** Constant Definitions *****************************/
 #define XPLMI_SYSMON_CLK_SRC_IRO_VAL	(0U)
 #define XPLMI_UPDATE_TYPE_INCREMENT	(1U)
@@ -80,6 +85,12 @@
 /* Proc IDs for CPM Proc CDOs */
 #define CPM_NCR_PCIE0_LINK_DOWN_PROC_ID					(0x1U)
 #define CPM_NCR_PCIE1_LINK_DOWN_PROC_ID					(0x2U)
+
+/**
+ * @}
+ * @endcond
+ */
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/

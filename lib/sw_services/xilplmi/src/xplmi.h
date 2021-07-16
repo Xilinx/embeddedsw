@@ -38,6 +38,7 @@
 *       har  03/31/2021 Added RTCA defines for PDI ID
 *       bm   05/05/2021 Added USR_ACCESS defines for PLD0 image
 *       ma   05/21/2021 Added RTCA define for Secure Boot State
+* 1.06  bsv  07/16/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -56,31 +57,36 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 /* SDK release version */
-#define SDK_RELEASE_YEAR	"2021"
-#define SDK_RELEASE_QUARTER	"2"
+#define SDK_RELEASE_YEAR	"2021" /**< Specifies the SDK release year */
+#define SDK_RELEASE_QUARTER	"2"    /**< Specifies the SDK release quarter */
 
 /*
  * Device Copy flag related macros
  */
-#define XPLMI_DEVICE_COPY_STATE_MASK		(0x7U << 5U)
-#define XPLMI_DEVICE_COPY_STATE_BLK			(0x0U << 5U)
-#define XPLMI_DEVICE_COPY_STATE_INITIATE	(0x1U << 5U)
-#define XPLMI_DEVICE_COPY_STATE_WAIT_DONE	(0x2U << 5U)
-/*
- * PMCRAM CHUNK SIZE
- */
-#define XPLMI_CHUNK_SIZE	(0x10000U)
+#define XPLMI_DEVICE_COPY_STATE_MASK		(0x7U << 5U) /**< Device copy state
+														   mask flag */
+#define XPLMI_DEVICE_COPY_STATE_BLK			(0x0U << 5U) /**< Flag set to block
+														   device copy */
+#define XPLMI_DEVICE_COPY_STATE_INITIATE	(0x1U << 5U) /**< Flag set after
+														   device copy initiates */
+#define XPLMI_DEVICE_COPY_STATE_WAIT_DONE	(0x2U << 5U) /**< Flag set after
+														   device copy done */
 
-/* IPI command Secure/Non-secure flags */
-#define XPLMI_CMD_SECURE					0x0U
-#define XPLMI_CMD_NON_SECURE				0x1U
+#define XPLMI_CHUNK_SIZE	(0x10000U) /**< PMCRAM chunk size */
+
+#define XPLMI_CMD_SECURE		0x0U /**< IPI command secure flag */
+#define XPLMI_CMD_NON_SECURE	0x1U /**< IPI command non-secure flag */
 
 /**************************** Type Definitions *******************************/
-#define UART_INITIALIZED	((u8)(1U << 0U))
-#define LPD_INITIALIZED		((u8)(1U << 1U))
-#define LPD_WDT_INITIALIZED	((u8)(1U << 2U))
+#define UART_INITIALIZED	((u8)(1U << 0U)) /**< Flag indicates UART is initialized */
+#define LPD_INITIALIZED		((u8)(1U << 1U)) /**< Flag indicates LPD is initialized */
+#define LPD_WDT_INITIALIZED	((u8)(1U << 2U)) /**< Flag indicates LPD_WDT is initialized */
 
 /***************** Macros (Inline Functions) Definitions *********************/
+
+/**@cond xplmi_internal
+ * @{
+ */
 
 /*
  * PLM RunTime Configuration Registers related defines
@@ -147,6 +153,11 @@ void XPlmi_PrintPlmBanner(void);
 
 /************************** Variable Definitions *****************************/
 extern u8 LpdInitialized;
+
+/**
+ * @}
+ * @endcond
+ */
 
 #ifdef __cplusplus
 }

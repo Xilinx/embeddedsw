@@ -51,15 +51,18 @@
 #include "xplmi_hw.h"
 
 /************************** Constant Definitions *****************************/
-#define XPLMI_DIGEST_PMC_1_0_ROM_1_0	(0x2B004AC7U)
-#define XPLMI_DIGEST_PMC_2_0_ROM_2_0	(0xB576B550U)
+#define XPLMI_DIGEST_PMC_1_0_ROM_1_0	(0x2B004AC7U) /**< PMC1 ROM version 1
+														digest */
+#define XPLMI_DIGEST_PMC_2_0_ROM_2_0	(0xB576B550U) /**< PMC2 ROM version 2
+														digest */
 
-#define XPLMI_ROM_VERSION_1_0		(0x10U)
-#define XPLMI_ROM_VERSION_2_0		(0x20U)
-#define XPLMI_INVALID_ROM_VERSION	(0x0U)
+#define XPLMI_ROM_VERSION_1_0		(0x10U) /**< ROM version 1 */
+#define XPLMI_ROM_VERSION_2_0		(0x20U) /**< ROM version 2 */
+#define XPLMI_INVALID_ROM_VERSION	(0x0U) /**< Invalid ROM version */
 
 /**************************** Type Definitions *******************************/
-typedef int (*XPlmi_InitHandler)(void);
+typedef int (*XPlmi_InitHandler)(void); /**< Function pointer for PLM LPD
+										  Initialization handlers */
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -68,7 +71,7 @@ static void XPlmi_RunTimeConfigInit(void);
 static void XPlmi_PrintRomVersion(void);
 
 /************************** Variable Definitions *****************************/
-u8 LpdInitialized = (u8)0U;
+u8 LpdInitialized = (u8)0U; /**< 1 if LPD is initialized */
 
 /******************************************************************************/
 /**

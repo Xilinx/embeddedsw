@@ -25,6 +25,7 @@
 *       bm   10/14/2020 Code clean up
 * 1.03  ma   03/24/2021 Store DebugLog structure to RTCA
 * 1.04  td   07/08/2021 Fix doxygen warnings
+*       bsv  07/16/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -48,18 +49,23 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 /* Circular buffer Structure */
 typedef struct {
-	u64 StartAddr;
-	u32 Len;
-	u32 Offset:31;
-	u32 IsBufferFull:1;
+	u64 StartAddr;	/**< Start address of log buffer */
+	u32 Len;	/**< Length of log in bytes */
+	u32 Offset:31;	/**< Variable that holds the offset of current log
+				from Start Address */
+	u32 IsBufferFull:1;	/**< If set, Log buffer is full and Offset
+					gets reset to 0 */
 } XPlmi_CircularBuffer;
 
 typedef struct {
-	XPlmi_CircularBuffer LogBuffer;
-	u8 LogLevel;
-	u8 PrintToBuf;
+	XPlmi_CircularBuffer LogBuffer;	/**< Instance of circular buffer */
+	u8 LogLevel;	/**< LogLevel indicates levels like DEBUG_INFO */
+	u8 PrintToBuf;	/**< If set, log is also written to PMC_RAM */
 } XPlmi_LogInfo;
 
+/**@cond xplmi_internal
+ * @{
+ */
 
 /************************** Function Prototypes ******************************/
 int XPlmi_EventLogging(XPlmi_Cmd * Cmd);
@@ -159,6 +165,11 @@ static inline void XPlmi_TraceLog5(u32 Header, u32 Arg1, u32 Arg2, u32 Arg3)
 
 /************************** Variable Definitions *****************************/
 extern XPlmi_LogInfo *DebugLog;
+
+/**
+ * @}
+ * @endcond
+ */
 
 #ifdef __cplusplus
 }

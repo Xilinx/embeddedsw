@@ -29,6 +29,7 @@
 * 1.06  bm   12/16/2020 Added PLM_SECURE_EXCLUDE macro
 *       bm   05/22/2021 Made PLM_USB_EXCLUDE as default to reduce default PLM Size
 * 1.07  td   07/08/2021 Fix doxygen warnings
+*       bsv  07/16/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -41,6 +42,10 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/**@cond xplmi_internal
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -142,6 +147,12 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
+
+/**
+ * @}
+ * @endcond
+ */
+
 
 #ifdef __cplusplus
 }

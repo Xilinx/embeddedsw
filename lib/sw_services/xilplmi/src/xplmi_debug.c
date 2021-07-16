@@ -30,6 +30,7 @@
 *       ma   03/24/2021 Print logs to memory when PrintToBuf is TRUE
 *       td   05/20/2021 Support user configurable uart baudrate
 * 1.05  td   07/08/2021 Fix doxygen warnings
+*       bsv  07/16/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -58,8 +59,8 @@ void outbyte(char8 c);
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-/* SPP Input Clk Freq should be 25 MHz */
-#define XPLMI_SPP_INPUT_CLK_FREQ	(25000000U)
+#define XPLMI_SPP_INPUT_CLK_FREQ	(25000000U) /**< SPP Input Clk Freq
+						should be 25 MHz */
 
 /************************** Function Prototypes ******************************/
 
@@ -174,7 +175,6 @@ void outbyte(char8 c)
  *
  * @param   DebugType is the PLM Debug level for the message
  * @param   Ctrl1 is the format specified string to print
- * @param   ... variable arguments that define the format specifiers in Ctrl1
  *
  *****************************************************************************/
 void XPlmi_Print(u32 DebugType, const char8 *Ctrl1, ...)
@@ -196,7 +196,6 @@ void XPlmi_Print(u32 DebugType, const char8 *Ctrl1, ...)
  *
  * @param   DebugType is the PLM Debug level for the message
  * @param   Ctrl1 is the format specified string to print
- * @param   ... variable arguments that define the format specifiers in Ctrl1
  *
  *****************************************************************************/
 void XPlmi_Print_WoTS(u32 DebugType, const char8 *Ctrl1, ...)

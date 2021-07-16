@@ -35,6 +35,7 @@
 *                       DmaWriteKeyHole command
 * 1.04  bsv  07/05/2021 Added code to handle case where bitstream data starts
 *                       at 32K boundary
+*       bsv  07/16/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -50,6 +51,10 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xplmi_status.h"
+
+/**@cond xplmi_internal
+ * @{
+ */
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_CMD_API_ID_MASK			(0xFFU)
@@ -92,6 +97,11 @@ struct XPlmi_Cmd {
 /************************** Function Prototypes ******************************/
 int XPlmi_CmdExecute(XPlmi_Cmd * CmdPtr);
 int XPlmi_CmdResume(XPlmi_Cmd * CmdPtr);
+
+/**
+ * @}
+ * @endcond
+ */
 
 /************************** Variable Definitions *****************************/
 

@@ -27,6 +27,7 @@
 *                       also delay in non-periodic tasks
 * 1.03  ma   07/12/2021 Added support to register Error Handler for scheduler
 *                       task
+*       bsv  07/16/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -43,6 +44,10 @@ extern "C" {
 
 #include "xil_types.h"
 #include "xplmi_task.h"
+
+/**@cond xplmi_internal
+ * @{
+ */
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_SCHED_MAX_TASK		(10U)
@@ -80,6 +85,11 @@ int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 	void *Data,	u8 TaskType);
 int XPlmi_SchedulerRemoveTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 	u32 MilliSeconds, const void *Data);
+
+/**
+ * @}
+ * @endcond
+ */
 
 #ifdef __cplusplus
 }

@@ -32,6 +32,7 @@
 *       ma   03/24/2021 Store DebugLog structure to RTCA
 *       ma   03/24/2021 Fix issue in log level configuration
 * 1.05  td   07/08/2021 Fix doxygen warnings
+*       bsv  07/16/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -53,6 +54,11 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+
+/**@cond xplmi_internal
+ * @{
+ */
+
 #define XPLMI_DEBUG_LOG_BUFFER_HIGH_ADDR	((u64)XPLMI_DEBUG_LOG_BUFFER_ADDR + \
 						XPLMI_DEBUG_LOG_BUFFER_LEN - 1U)
 #define XPLMI_TRACE_LOG_BUFFER_HIGH_ADDR	((u64)XPLMI_TRACE_LOG_BUFFER_ADDR + \
@@ -60,6 +66,11 @@
 
 #define XPLMI_TRACE_LOG_BUFFER	(0U)
 #define XPLMI_DEBUG_LOG_BUFFER	(1U)
+
+/**
+ * @}
+ * @endcond
+ */
 
 /************************** Function Prototypes ******************************/
 

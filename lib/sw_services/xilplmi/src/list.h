@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, Xilinx Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2015 - 2021, Xilinx Inc. and Contributors. All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -18,8 +18,9 @@
 extern "C" {
 #endif
 
-/** \defgroup list List Primitives
- *  @{ */
+/**@cond libmetal_internal
+ * @{
+ */
 
 struct metal_list {
 	struct metal_list *next, *prev;
@@ -93,7 +94,10 @@ static inline struct metal_list *metal_list_first(struct metal_list *list)
 	for ((node) = (list)->next;		\
 	     (node) != (list);			\
 	     (node) = (node)->next)
-/** @} */
+/**
+ * @}
+ * @endcond
+ */
 
 #ifdef __cplusplus
 }

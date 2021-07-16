@@ -55,6 +55,7 @@
 *       td   07/08/2021 Fix doxygen warnings
 *       bm   07/12/2021 Removed obsolete EFUSE_CACHE defines and added sysmon
 *                       related defines
+*       bsv  07/16/2021 Fix doxygen and compilation warnings
 *
 * </pre>
 *
@@ -73,6 +74,10 @@ extern "C" {
 #include "xplmi_config.h"
 #include "xparameters.h"
 #include "xil_io.h"
+
+/**@cond xplmi_internal
+ * @{
+ */
 
 /************************** Constant Definitions *****************************/
 
@@ -601,14 +606,18 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define CRP_RST_SBI_RESET_MASK			(0X00000001U)
 #define CRP_RST_PDMA				(CRP_BASEADDR + 0X00000328U)
 #define CRP_RST_PDMA_RESET1_MASK		(0X00000002U)
+#ifndef CRP_RST_NONPS
 #define CRP_RST_NONPS		(CRP_BASEADDR + 0X00000320U)
+#endif
 #define CRP_RST_NONPS_NPI_RESET_MASK		(0X10U)
 #define CRP_RST_NONPS_NPI_RESET_SHIFT		(0X4U)
 
 /*
  * Register: CRP_RST_PS
  */
+#ifndef CRP_RST_PS
 #define CRP_RST_PS		(CRP_BASEADDR + 0x0000031CU)
+#endif
 #define CRP_RST_PS_PMC_SRST_MASK		(0X00000008U)
 #define CRP_RST_PS_PMC_POR_MASK		(0X00000080U)
 
@@ -752,6 +761,11 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
+
+/**
+ * @}
+ * @endcond
+ */
 
 #ifdef __cplusplus
 }

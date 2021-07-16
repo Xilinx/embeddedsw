@@ -30,6 +30,7 @@
 *       bm   10/14/2020 Code clean up
 * 1.03  bm   02/17/2021 Add Max payload length for long commands
 *       bsv  04/16/2021 Add provision to store Subsystem Id in XilPlmi
+* 1.04  bsv  07/16/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -47,6 +48,10 @@ extern "C" {
 #include "xplmi_cmd.h"
 #include "xplmi_debug.h"
 #include "xplmi_status.h"
+
+/**@cond xplmi_internal
+ * @{
+ */
 
 /************************** Constant Definitions *****************************/
 /** CDO Header definitions */
@@ -99,6 +104,11 @@ typedef struct {
 /************************** Function Prototypes ******************************/
 int XPlmi_InitCdo(XPlmiCdo *CdoPtr);
 int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr);
+
+/**
+ * @}
+ * @endcond
+ */
 
 /************************** Variable Definitions *****************************/
 

@@ -23,6 +23,7 @@
 *       td   10/19/2020 MISRA C Fixes
 * 1.04  bm   04/03/2021 Move task creation out of interrupt context
 * 1.04  td   07/08/2021 Fix doxygen warnings
+*       bsv  07/16/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -40,6 +41,10 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xplmi_ipi.h"
 
+/**@cond xplmi_internal
+ * @{
+ */
+
 /************************** Constant Definitions *****************************/
 #define XPLMI_GICP_SOURCE_COUNT		(0x5U)
 #define XPLMI_NO_OF_BITS_IN_REG		(32U)
@@ -48,11 +53,16 @@ extern "C" {
 #define XPLMI_GICPX_MASK		(0xFF0000U)
 #define XPLMI_GICPX_LEN			(0x14U)
 
+/**
+ * @}
+ * @endcond
+ */
+
 /*
  * PMC GIC interrupts
  */
 enum {
-	XPLMI_PMC_GIC_IRQ_GICP0 = 0U,
+	XPLMI_PMC_GIC_IRQ_GICP0 = 0U, /**< 0U */
 	XPLMI_PMC_GIC_IRQ_GICP1, /**< 1U */
 	XPLMI_PMC_GIC_IRQ_GICP2, /**< 2U */
 	XPLMI_PMC_GIC_IRQ_GICP3, /**< 3U */
@@ -139,8 +149,8 @@ enum {
 /* Handler Table Structure */
 typedef int (*GicIntHandler_t)(void *Data);
 struct GicIntrHandlerTable {
-	void *Data;
-	GicIntHandler_t GicHandler;
+	void *Data; /**< Data is argument to interrupt handler */
+	GicIntHandler_t GicHandler; /**< Function pointer to interrupt handler */
 };
 
 /***************** Macros (Inline Functions) Definitions *********************/

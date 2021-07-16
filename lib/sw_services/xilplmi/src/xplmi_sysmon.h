@@ -23,6 +23,7 @@
 * 1.01  bsv  04/04/2020 Code clean up
 * 1.02  bm   10/14/2020 Code clean up
 * 1.03  bm   02/08/2021 Add GetSysmonInst API
+* 1.04  bsv  07/16/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -40,6 +41,10 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xsysmonpsv.h"
 
+/**@cond xplmi_internal
+ * @{
+ */
+
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -55,6 +60,11 @@ XSysMonPsv* XPlmi_GetSysmonInst(void);
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
+
+/**
+ * @}
+ * @endcond
+ */
 
 #ifdef __cplusplus
 }

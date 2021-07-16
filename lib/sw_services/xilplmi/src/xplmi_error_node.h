@@ -20,6 +20,7 @@
 *       bsv  04/04/2020 Code clean up
 * 1.02  bm   10/14/2020 Code clean up
 * 1.03  pj   03/24/2021 Added Software Error node for Healthy boot monitoring
+* 1.04  bsv  07/16/2021 Fix doxygen warnings
 *
 * </pre>
 *
@@ -32,6 +33,10 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/**@cond xplmi_internal
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -204,6 +209,11 @@ typedef enum {
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
+
+/**
+ * @}
+ * @endcond
+ */
 
 #ifdef __cplusplus
 }
