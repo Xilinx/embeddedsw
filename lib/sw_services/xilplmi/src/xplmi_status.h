@@ -85,6 +85,7 @@
 *       bm   07/12/2021 Added error code for setting IRO frequency
 *       bsv  07/16/2021 Fix doxygen warnings
 *       bsv  07/16/2021 Added Macronix flash support
+*       bm   07/16/2021 Added error code for decrypt metaheader
 *
 * </pre>
 *
@@ -512,6 +513,8 @@ typedef enum {
 	XLOADER_ERR_REQUEST_BOOT_DEVICE,	/**< 0x368 - Failed to Request Boot Device */
 	XLOADER_ERR_RELEASE_BOOT_DEVICE,	/**< 0x369 - Failed to Release Boot Device */
 	XLOADER_ERR_OSPI_DUAL_BYTE_OP_DISABLE,	/**< 0x36A - Failed to disable DUAL BYTE OP */
+	XLOADER_ERR_INVALID_METAHDR_BUFF_SIZE, /**< 0x36B - Error when buffer size given by user
+							is less than the metaheader length */
 
 	/**< Security Major error codes */
 	XLOADER_ERR_INIT_GET_DMA = 0x600,

@@ -43,6 +43,7 @@
 *       ma   03/04/2021 Added XLoader_CheckIpiAccess handler for checking
 *                       secure access for IPI commands
 *       bm   03/16/2021 Added Image Upgrade support
+* 1.06  bm   07/16/2021 Added decrypt metaheader support
 *
 * </pre>
 *
@@ -62,6 +63,7 @@
 #include "xplmi.h"
 #include "xpm_api.h"
 #include "xpm_nodeid.h"
+#include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -119,6 +121,11 @@ static XPlmi_Module XPlmi_Loader;
 /* Loader command defines */
 #define XLOADER_CMD_READBACK_CMD_ID				(0x7U)
 #define XLOADER_CMD_UPDATE_MULTIBOOT_CMD_ID	(0x8U)
+
+#define XLOADER_IMG_HDR_TBL_EXPORT_MASK0	(0x00021F7FU)
+#define XLOADER_IMG_HDR_EXPORT_MASK0	(0x00003FFBU)
+#define XLOADER_PRTN_HDR_EXPORT_MASK0	(0x00001DFFU)
+#define XLOADER_META_HDR_LEN_OFFSET	(0x40U)
 
 /************************** Function Prototypes ******************************/
 
@@ -632,19 +639,119 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function can act as a placeholder for Unimplemented cmds
+ * @brief	This function zeroizes non-exportable fields of a buffer
+ *
+ * @param	Buffer is the pointer to the metaheader buffer
+ * @param	Mask is the exportable mask which is used to zeroise the
+ * non-exportable fields of the buffer
+ * @param	Size is the size of the buffer in bytes
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+static void XLoader_GetExportableBuffer(u32 *Buffer, u32 Mask, u32 Size)
+{
+	u32 Index = 0U;
+	for (Index = 0U; Index < (Size / XPLMI_WORD_LEN); Index++) {
+		if (((Mask >> Index) & 0x1U) == (u8)FALSE) {
+			Buffer[Index] = 0U;
+		}
+	}
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function decrypts the metaheader during run-time and exports
+ * it to the user specified location. This command requires the source buffer to
+ * contain SMAP header at the start of the buffer.
+ *
+ *  Command payload parameters are:
+ *	- Source Buffer Low Address
+ *	- Source Buffer High Address
+ *	- Source Buffer Size
+ *	- Destination Buffer Low Address
+ *	- Destination Buffer High Address
+ *	- Destination Buffer Size
  *
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS
+ * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XLoader_UnImplementedCmd(XPlmi_Cmd *Cmd)
+static int XLoader_DecryptMetaheader(XPlmi_Cmd *Cmd)
 {
-	/* For MISRA C */
-	(void)Cmd;
+	int Status = XST_FAILURE;
+	XilPdi* PdiPtr = &SubsystemPdiIns;
+	u64 SrcAddr = (u64)Cmd->Payload[0U];
+	u64 DestAddr = (u64)Cmd->Payload[3U];
+	u32 SrcSize = (u32)Cmd->Payload[2U];
+	u32 DestSize = (u32)Cmd->Payload[5U];
+	u32 DataSize = 0U;
+	u32 Index = 0U;
 
-	return XST_SUCCESS;
+	XPlmi_SetPlmMode(XPLMI_MODE_CONFIGURATION);
+	SrcAddr = ((u64)Cmd->Payload[1U]) | (SrcAddr << 32U);
+	DestAddr = ((u64)Cmd->Payload[4U]) | (DestAddr << 32U);
+	DataSize = XPlmi_In64(SrcAddr + XLOADER_META_HDR_LEN_OFFSET);
+	/* Add SMAP header length */
+	DataSize = (DataSize  + 1U) * XPLMI_WORD_LEN;
+	if ((SrcSize < DataSize) || (DestSize < (DataSize - XPLMI_WORD_LEN))) {
+		Status = XPlmi_UpdateStatus(
+				XLOADER_ERR_INVALID_METAHDR_BUFF_SIZE, 0);
+		goto END;
+	}
+
+	PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
+	PdiPtr->IpiMask = Cmd->IpiMask;
+	/* Decrypt Metaheader by using PdiInit */
+	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_PdiInit, PdiPtr,
+			XLOADER_PDI_SRC_DDR, SrcAddr);
+
+	/* Zeroize non-exportable fields of image header table */
+	XLoader_GetExportableBuffer((u32 *)&PdiPtr->MetaHdr.ImgHdrTbl,
+		XLOADER_IMG_HDR_TBL_EXPORT_MASK0, XIH_IHT_LEN);
+	/* Zeroize non-exportable fields of image headers */
+	for (Index = 0U; Index < PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs; Index++) {
+		XLoader_GetExportableBuffer((u32 *)&PdiPtr->MetaHdr.ImgHdr[Index],
+			XLOADER_IMG_HDR_EXPORT_MASK0, XIH_IH_LEN);
+	}
+	/* Zeroize non-exportable fields of partition headers */
+	for (Index = 0U; Index < PdiPtr->MetaHdr.ImgHdrTbl.NoOfPrtns; Index++) {
+		XLoader_GetExportableBuffer((u32 *)&PdiPtr->MetaHdr.PrtnHdr[Index],
+			XLOADER_PRTN_HDR_EXPORT_MASK0, XIH_PH_LEN);
+	}
+
+	/* Copy image header table to destination address*/
+	DataSize = XIH_IHT_LEN;
+	Status = XPlmi_DmaXfr((u64)(UINTPTR)&PdiPtr->MetaHdr.ImgHdrTbl, DestAddr,
+			 DataSize / XPLMI_WORD_LEN, XPLMI_PMCDMA_0);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	DestAddr += DataSize;
+	/* Copy image headers to destination address*/
+	DataSize = XIH_IH_LEN * PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs;
+	Status = XPlmi_DmaXfr((u64)(UINTPTR)PdiPtr->MetaHdr.ImgHdr, DestAddr,
+			DataSize / XPLMI_WORD_LEN, XPLMI_PMCDMA_0);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	DestAddr += DataSize;
+	/* Copy partition headers to destination address*/
+	DataSize = XIH_PH_LEN * PdiPtr->MetaHdr.ImgHdrTbl.NoOfPrtns;
+	Status = XPlmi_DmaXfr((u64)(UINTPTR)PdiPtr->MetaHdr.PrtnHdr, DestAddr,
+			DataSize / XPLMI_WORD_LEN, XPLMI_PMCDMA_0);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	XPlmi_Printf(DEBUG_GENERAL, "Decrypted Metaheader Successfully\n\r");
+
+END:
+	XPlmi_Out32(PMC_GLOBAL_DONE, XLOADER_PDI_LOAD_COMPLETE);
+	XPlmi_SetPlmMode(XPLMI_MODE_OPERATIONAL);
+	Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;
+
+	return Status;
 }
 
 /**
@@ -702,7 +809,7 @@ static const XPlmi_ModuleCmd XLoader_Cmds[] =
 	XPLMI_MODULE_COMMAND(XLoader_GetImageInfo),
 	XPLMI_MODULE_COMMAND(XLoader_SetImageInfo),
 	XPLMI_MODULE_COMMAND(XLoader_GetImageInfoList),
-	XPLMI_MODULE_COMMAND(XLoader_UnImplementedCmd),
+	XPLMI_MODULE_COMMAND(XLoader_DecryptMetaheader),
 	XPLMI_MODULE_COMMAND(XLoader_LoadReadBackPdi),
 	XPLMI_MODULE_COMMAND(XLoader_UpdateMultiboot),
 	XPLMI_MODULE_COMMAND(XLoader_AddImageStorePdi),

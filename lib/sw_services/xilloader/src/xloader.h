@@ -80,6 +80,7 @@
 *                       Added function for PMC State clear
 *       bm   03/16/2021 Added Image Upgrade support
 *       bm   05/10/2021 Added additional macro for PDI version
+* 1.04  bm   07/16/2021 Updated XLoader_PdiInit prototype
 *
 * </pre>
 *
@@ -398,6 +399,7 @@ int XLoader_LoadImageInfoTbl(u64 DestAddr, u32 MaxSize, u32 *NumEntries);
 void XLoader_PMCStateClear(void);
 XLoader_ImageStore* XLoader_GetPdiList(void);
 int XLoader_DdrOps(u8 Type);
+int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr);
 
 /* Functions defined in xloader_prtn_load.c */
 int XLoader_LoadImagePrtns(XilPdi* PdiPtr);
