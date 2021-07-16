@@ -99,6 +99,7 @@
 *       ma   05/18/2021 Minor code cleanup
 * 1.04  td   07/08/2021 Fix doxygen warnings
 *       td   07/15/2021 Fix doxygen warnings
+*       bm   07/16/2021 Updated XLoader_PdiInit prototype
 *
 * </pre>
 *
@@ -141,7 +142,6 @@
 /************************** Function Prototypes ******************************/
 static int XLoader_PdiRequestBootDevice(PdiSrc_t DeviceFlags);
 static int XLoader_PdiReleaseBootDevice(PdiSrc_t DeviceFlags);
-static int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr);
 static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal);
 static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr);
 static int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr);
@@ -487,7 +487,7 @@ static int XLoader_PdiReleaseBootDevice(PdiSrc_t DeviceFlags)
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
+int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 {
 	volatile int Status = XST_FAILURE;
 	u32 RegVal = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT);
