@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 ###############################################################################
 
@@ -15,8 +15,8 @@ INCLUDES=-I./. -I${INCLUDEDIR}
 
 NVM_DIR = .
 OUTS = *.o
-OBJECTS = $(addsuffix .o, $(basename $(wildcard *.c) $(wildcard */*.c)))
-NVM_SRCS := $(wildcard *.c) $(wildcard */*.c)
+OBJECTS = $(addsuffix .o, $(basename $(wildcard *.c)))
+NVM_SRCS := $(wildcard *.c)
 NVM_OBJS = $(addprefix $(NVM_DIR)/, $(NVM_SRCS:%.c=%.o))
 
 INCLUDEFILES := $(wildcard *.h)
