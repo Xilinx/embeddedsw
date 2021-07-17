@@ -25,6 +25,7 @@
 *       rama 03/22/2021 Added STL module ID to support STL execution
 *       kal  03/30/2021 Added XilSecure module ID
 * 1.04  bsv  07/16/2021 Fix doxygen warnings
+*       kal  07/17/2021 Added XilNvm module ID
 *
 * </pre>
 *
@@ -47,7 +48,9 @@ extern "C" {
  */
 
 /************************** Constant Definitions *****************************/
-#define XPLMI_MAX_MODULES			(11U)
+#define XPLMI_MAX_MODULES			(12U)
+
+/* TODO add enum for declaring module ids */
 #define XPLMI_MODULE_GENERIC_ID			(1U)
 #define XPLMI_MODULE_XILPM_ID			(2U)
 #define XPLMI_MODULE_SEM_ID			(3U)
@@ -56,6 +59,7 @@ extern "C" {
 #define XPLMI_MODULE_LOADER_ID			(7U)
 #define XPLMI_MODULE_ERROR_ID			(8U)
 #define XPLMI_MODULE_STL_ID			(10U)
+#define XPLMI_MODULE_XILNVM_ID			(11U)
 #define XPLMI_MODULE_COMMAND(FUNC)		{ (FUNC) }
 
 /**************************** Type Definitions *******************************/
