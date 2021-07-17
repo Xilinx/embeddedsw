@@ -30,6 +30,7 @@
 *       bm   05/22/2021 Made PLM_USB_EXCLUDE as default to reduce default PLM Size
 * 1.07  td   07/08/2021 Fix doxygen warnings
 *       bsv  07/16/2021 Fix doxygen warnings
+*       kal  07/17/2021 Added PLM_NVM_EXCLUDE macro
 *
 * </pre>
 *
@@ -110,7 +111,7 @@ extern "C" {
 /**
  * @name PLM code include options
  *
- *  PLM by default includes all the code except USB code.
+ *  PLM by default includes all the code except USB code and NVM code.
  *  Unwanted code can be excluded from the elf by defining here
  *  Below blocks can be excluded from the code.
  *		- PLM_QSPI_EXCLUDE QSPI code will be excluded
@@ -119,6 +120,7 @@ extern "C" {
  *		- PLM_USB_EXCLUDE USB code will be excluded
  *		- PLM_SEM_EXCLUDE SEM code will be excluded
  *		- PLM_SECURE_EXCLUDE secure code will be excluded
+ *		- PLM_NVM_EXCLUDE Nvm code will be excluded
  */
 //#define PLM_QSPI_EXCLUDE
 //#define PLM_SD_EXCLUDE
@@ -126,6 +128,7 @@ extern "C" {
 #define PLM_USB_EXCLUDE
 //#define PLM_SEM_EXCLUDE
 //#define PLM_SECURE_EXCLUDE
+#define PLM_NVM_EXCLUDE
 /**
  * @name PLM DEBUG MODE options
  *
