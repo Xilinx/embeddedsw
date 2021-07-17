@@ -30,6 +30,7 @@
 *       rb   03/09/2021 Updated Sem Init API call
 *       rama 03/22/2021 Fixed compilation warning on STL inclusion
 * 1.05  td   07/08/2021 Fix doxygen warnings
+*       kal  07/13/2021 Added module support for XilNvm
 *
 * </pre>
 *
@@ -43,6 +44,9 @@
 #include "xplmi_sysmon.h"
 #include "xpm_api.h"
 #include "xsecure_init.h"
+#ifndef PLM_NVM_EXCLUDE
+#include "xnvm_init.h"
+#endif
 #include "xplmi_err.h"
 #include "xplm_loader.h"
 #include "xplm_pm.h"
@@ -62,6 +66,9 @@
 static int XPlm_PlmiInit(void);
 static int XPlm_ErrInit(void);
 static int XPlm_SecureInit(void);
+#ifndef PLM_NVM_EXCLUDE
+static void XPlm_NvmInit(void);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -113,6 +120,21 @@ static int XPlm_PlmiInit(void)
 
 	return Status;
 }
+
+#ifndef PLM_NVM_EXCLUDE
+/*****************************************************************************/
+/**
+ * @brief This function initializes the XilNvm module and registers the
+ * interrupt handlers and other requests.
+ *
+ * @return	Status as defined in xplmi_status.h
+ *
+ *****************************************************************************/
+static void XPlm_NvmInit(void)
+{
+	XNvm_Init();
+}
+#endif
 
 /*****************************************************************************/
 /**
@@ -169,6 +191,9 @@ int XPlm_ModuleInit(void *Arg)
 		goto END;
 	}
 
+#ifndef PLM_NVM_EXCLUDE
+	XPlm_NvmInit();
+#endif
 #ifdef PLM_ENABLE_STL
 	Status = XPlm_StlInit();
 	if (Status != XST_SUCCESS) {
