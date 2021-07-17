@@ -1,5 +1,5 @@
 #/******************************************************************************
-#* Copyright (c) 2018-2020 Xilinx, Inc.  All rights reserved.
+#* Copyright (c) 2018-2021 Xilinx, Inc.  All rights reserved.
 #* SPDX-License-Identifier: MIT
 #******************************************************************************/
 
@@ -48,4 +48,8 @@ END
 
 BEGIN LIBRARY
  PARAMETER LIBRARY_NAME = xilpuf
+END
+
+BEGIN LIBRARY
+ PARAMETER LIBRARY_NAME = xilnvm
 END
