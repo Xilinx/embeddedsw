@@ -86,6 +86,13 @@ mv $BSP_DIR/libsrc/xilsecure/src/libxilsecure_pmc.a $BSP_DIR/libsrc/xilsecure/sr
 rm -f $BSP_DIR/libsrc/xilsecure/src/libxilsecure_*.a
 BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilsecure/src/Makefile"
 
+mkdir -p $BSP_DIR/libsrc/xilnvm/src
+cp -r $SERVICES_DIR/xilnvm/src/Makefile $BSP_DIR/libsrc/xilnvm/src
+cp -r $SERVICES_DIR/xilnvm/src/common/* $BSP_DIR/libsrc/xilnvm/src/
+cp -r $SERVICES_DIR/xilnvm/src/server/* $BSP_DIR/libsrc/xilnvm/src/
+cp $BSP_DIR/libsrc/xilnvm/src/*.h $BSP_DIR/include/
+BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilnvm/src/Makefile"
+
 mkdir -p $BSP_DIR/libsrc/xilsem
 cp -r $SERVICES_DIR/xilsem/src/ $BSP_DIR/libsrc/xilsem/
 cp -r $SERVICES_DIR/xilsem/src/server/*.h $BSP_DIR/include/
