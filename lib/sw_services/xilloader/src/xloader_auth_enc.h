@@ -26,6 +26,7 @@
 * 1.01  kpt  06/23/21 Added macros required to read and compare DNA
 *       kpt  07/01/21 Added macros required to disable Jtag
 *       har  07/15/21 Fixed doxygen warnings
+*       har  07/18/21 Added description for all macros
 *
 * </pre>
 *
@@ -53,6 +54,11 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Constant Definitions *****************************/
+/**
+ * @name  RSA PSS Padding
+ * @{
+ */
+/**< Macro definitions related to RSA PSS padding */
 #define XLOADER_RSA_SIG_EXP_BYTE	(0xBCU)
 #define XLOADER_RSA_EM_MSB_EXP_BYTE	(0x0U)
 #define XLOADER_I2OSP_INT_LIMIT		(256U)
@@ -61,27 +67,43 @@ extern "C" {
 #define XLOADER_RSA_PSS_DB_LEN		(415U)
 #define XLOADER_RSA_PSS_PADDING1	(8U)
 #define XLOADER_RSA_PSS_BUFFER_LEN	(480U)
+/** @} */
 
+/**
+ * @name  Masks for KAT status
+ * @{
+ */
+/**< Masks are used to determine if KAT for the respective crypto hardware
+ * has already been run or not.
+ */
 #define XLOADER_SHA3_KAT_MASK		(0x00000010U)
 #define XLOADER_RSA_KAT_MASK		(0x00000020U)
 #define XLOADER_ECC_P384_KAT_MASK		(0x00000040U)
 #define XLOADER_AES_KAT_MASK		(0x00000080U)
 #define XLOADER_DPACM_KAT_MASK		(0x00000100U)
 #define XLOADER_ECC_P521_KAT_MASK		(0x00000200U)
+/** @} */
 
 #define XLOADER_SPK_SIZE		(XSECURE_RSA_4096_KEY_SIZE + \
 						XSECURE_RSA_4096_KEY_SIZE \
 						+ 4U +4U)
+/**< Size of Secondary Public Key(in bytes) in Authentication Certificate */
 #define XLOADER_PPK_SIZE		(XSECURE_RSA_4096_KEY_SIZE + \
 						XSECURE_RSA_4096_KEY_SIZE \
 						+ 4U +12U)
+/**< Size of Primary Public Key(in bytes) in Authentication Certificate */
 #define XLOADER_SPK_SIG_SIZE		XSECURE_RSA_4096_KEY_SIZE
+/**< Size of SPK signature(in bytes) in Authentication Certificate */
 #define XLOADER_BHDR_SIG_SIZE		XSECURE_RSA_4096_KEY_SIZE
+/**< Size of Bootheader signature(in bytes) in Authentication Certificate */
 #define XLOADER_PARTITION_SIG_SIZE	XSECURE_RSA_4096_KEY_SIZE
+/**< Size of Partition signature(in bytes) in Authentication Certificate */
 
 #define XLOADER_AUTH_HEADER_SIZE	(8U)
+/**< Size of Authentication header(in bytes) in Authentication Certificate */
 
 #define XLOADER_AUTH_CERT_USER_DATA	((u32)64U - XLOADER_AUTH_HEADER_SIZE)
+	/**< Size of User Data(in bytes) in Authentication Certificate */
 
 #define XLOADER_AUTH_CERT_MIN_SIZE	(XLOADER_AUTH_HEADER_SIZE \
 						+ XLOADER_AUTH_CERT_USER_DATA \
@@ -91,143 +113,241 @@ extern "C" {
 						+ 8U \
 						+ XLOADER_BHDR_SIG_SIZE \
 						+ XLOADER_PARTITION_SIG_SIZE)
+		/**< Minimum Size of Authentication Certificate(in bytes) */
 
 #define XLOADER_AC_AH_PUB_STRENGTH_MASK		(0xF0U)
+		/**< Mask for Public Strength in Authentication Certificate */
 #define XLOADER_AC_AH_REVOKE_ID_MASK		(0xFFU)
+		/**< Mask for Revocation ID in Authentication Certificate */
 #define XLOADER_AC_AH_PUB_STRENGTH_SHIFT	(0x4U)
+		/**< Shift for Public Strength in Authentication Certificate */
 #define XLOADER_PUB_STRENGTH_ECDSA_P384		(0x0U)
+	/**< Value of ECDSA P-384 as Public Strength in Authentication Certificate */
 #define XLOADER_PUB_STRENGTH_RSA_4096		(0x1U)
+	/**< Value of RSA 4096 as Public Strength in Authentication Certificate */
 #define XLOADER_PUB_STRENGTH_ECDSA_P521		(0x2U)
+	/**< Value of ECDSA P-521 as Public Strength in Authentication Certificate */
 
 #define XLOADER_ECDSA_P384_KEYSIZE		(48U)
+			/**< Key size(in bytes) for ECDSA P-384 curve */
 #define XLOADER_ECDSA_P521_KEYSIZE		(66U)
+			/**< Key size(in bytes) for ECDSA P-521 curve */
 #define XLOADER_ECDSA_MAX_KEYSIZE		XLOADER_ECDSA_P521_KEYSIZE
+			/**< ECDSA Max Key size(in bytes) */
 
-#define XLOADER_SECURE_HDR_SIZE			(48U)/**< Secure Header Size in Bytes*/
-#define XLOADER_SECURE_GCM_TAG_SIZE		(16U) /**< GCM Tag Size in Bytes */
+#define XLOADER_SECURE_HDR_SIZE			(48U)
+			/**< Secure Header Size(in bytes) */
+#define XLOADER_SECURE_GCM_TAG_SIZE		(16U)
+			/**< GCM Tag Size(in bytes) */
 #define XLOADER_SECURE_HDR_TOTAL_SIZE		(XLOADER_SECURE_HDR_SIZE + \
 							XLOADER_SECURE_GCM_TAG_SIZE)
-#define XLOADER_SECURE_METAHDR_RD_IMG_PRTN_HDRS (0x0U)
-#define XLOADER_SECURE_METAHDR_RD_IMG_HDRS      (0x1U)
-#define XLOADER_SECURE_METAHDR_RD_PRTN_HDRS     (0x2U)
+			/**< Total size of Secure Header (in bytes) */
+#define XLOADER_SECURE_METAHDR_RD_IMG_PRTN_HDRS	(0x0U)
+			/**< Value to read secure headers */
+#define XLOADER_SECURE_METAHDR_RD_IMG_HDRS	(0x1U)
+			/**< Value to read Image headers */
+#define XLOADER_SECURE_METAHDR_RD_PRTN_HDRS	(0x2U)
+			/**< Value to read Partition headers */
 
-#define XLOADER_128_BIT_ALIGNED_MASK            (0x0FU)
+#define XLOADER_128_BIT_ALIGNED_MASK		(0x0FU)
+			/**< Mask to check if data is 128-bit aligned */
 
-/* AES key source */
-#define XLOADER_EFUSE_KEY		(0xA5C3C5A3U) /* eFuse Key */
-#define XLOADER_EFUSE_BLK_KEY		(0xA5C3C5A5U) /* eFUSE Black Key */
+/**< AES key source */
+#define XLOADER_EFUSE_KEY		(0xA5C3C5A3U)
+						/**< eFUSE Key */
+#define XLOADER_EFUSE_BLK_KEY		(0xA5C3C5A5U)
+						/**< eFUSE Black Key */
+#define XLOADER_BBRAM_KEY		(0x3A5C3C5AU)
+						/**< BBRAM Key */
+#define XLOADER_BBRAM_BLK_KEY		(0x3A5C3C59U)
+						/**< BBRAM Black Key */
+#define XLOADER_BH_BLK_KEY		(0xA35C7C53U)
+						/**< Boot Header Black Key */
+#define XLOADER_EFUSE_USR_KEY0		(0x5C3CA5A3U)
+						/**< eFUSE User Key 0 */
+#define XLOADER_EFUSE_USR_BLK_KEY0	(0x5C3CA5A5U)
+						/**< eFUSE User key 0 Black */
+#define XLOADER_EFUSE_USR_KEY1		(0xC3A5C5A3U)
+						/**< eFUSE User Key 1 */
+#define XLOADER_EFUSE_USR_BLK_KEY1	(0xC3A5C5A5U)
+						/**< eFUSE User key 1 Black */
 
-#define XLOADER_BBRAM_KEY		(0x3A5C3C5AU) /* BBRAM Key */
-#define XLOADER_BBRAM_BLK_KEY		(0x3A5C3C59U) /* BBRAM Black Key */
+#define XLOADER_USR_KEY0		(0xC5C3A5A3U)
+						/**< User Key 0 */
+#define XLOADER_USR_KEY1		(0xC3A5C5B3U)
+						/**< User Key 1 */
+#define XLOADER_USR_KEY2		(0xC5C3A5C3U)
+						/**< User Key 2 */
+#define XLOADER_USR_KEY3		(0xC3A5C5D3U)
+						/**< User Key 3 */
+#define XLOADER_USR_KEY4		(0xC5C3A5E3U)
+						/**< User Key 4 */
+#define XLOADER_USR_KEY5		(0xC3A5C5F3U)
+						/**< User Key 5 */
+#define XLOADER_USR_KEY6		(0xC5C3A563U)
+						/**< User Key 6 */
+#define XLOADER_USR_KEY7		(0xC3A5C573U)
+						/**< User Key 7 */
 
-#define XLOADER_BH_BLK_KEY		(0xA35C7C53U) /*Boot Header Black Key */
-
-#define XLOADER_EFUSE_USR_KEY0		(0x5C3CA5A3U) /* eFuse User Key 0 */
-#define XLOADER_EFUSE_USR_BLK_KEY0	(0x5C3CA5A5U) /* eFUSE User key 0 Black */
-
-#define XLOADER_EFUSE_USR_KEY1		(0xC3A5C5A3U) /* eFuse User Key 1 */
-#define XLOADER_EFUSE_USR_BLK_KEY1	(0xC3A5C5A5U) /* eFUSE User key 1 Black */
-
-#define XLOADER_USR_KEY0		(0xC5C3A5A3U) /* User Key 0 */
-#define XLOADER_USR_KEY1		(0xC3A5C5B3U) /* User Key 1 */
-#define XLOADER_USR_KEY2		(0xC5C3A5C3U) /* User Key 2 */
-#define XLOADER_USR_KEY3		(0xC3A5C5D3U) /* User Key 3 */
-#define XLOADER_USR_KEY4		(0xC5C3A5E3U) /* User Key 4 */
-#define XLOADER_USR_KEY5		(0xC3A5C5F3U) /* User Key 5 */
-#define XLOADER_USR_KEY6		(0xC5C3A563U) /* User Key 6 */
-#define XLOADER_USR_KEY7		(0xC3A5C573U) /* User Key 7 */
-
-/* Efuse addresses */
+/**< eFUSE related macro definitions */
 #define XLOADER_EFUSE_MISC_CTRL_OFFSET			(0xF12500A0U)
+					/**< Misc Ctrl register address */
 #define XLOADER_EFUSE_MISC_CTRL_PPK0_INVLD		(0x0000000CU)
+					/**< PPK0 invalid value */
 #define XLOADER_EFUSE_MISC_CTRL_PPK1_INVLD		(0x00000030U)
+					/**< PPK1 invalid value */
 #define XLOADER_EFUSE_MISC_CTRL_PPK2_INVLD		(0x000000C0U)
+					/**< PPK2 invalid value */
 #define XLOADER_EFUSE_MISC_CTRL_ALL_PPK_INVLD		(0x000000FCU)
+					/**< All PPKs invalid value */
 
 #define XLOADER_EFUSE_PPK0_START_OFFSET			(0xF1250100U)
+					/**< PPK0 start register address */
 #define XLOADER_EFUSE_PPK1_START_OFFSET			(0xF1250120U)
+					/**< PPK1 start register address */
 #define XLOADER_EFUSE_PPK2_START_OFFSET			(0xF1250140U)
+					/**< PPK2 start register address */
 #define XLOADER_EFUSE_PPK2_END_OFFSET			(0xF125015CU)
+					/**< PPK2 end register address */
 #define XLOADER_EFUSE_PPK_HASH_LEN			(32U)
+					/**< PPK hash length stored in eFUSE */
 
 #define XLOADER_SECURE_IV_LEN				(4U)
+				/**< Secure IV length in words */
 #define XLOADER_SECURE_IV_NUM_ROWS			(3U)
+				/**< No. of eFUSE rows for Secure IV */
 #define XLOADER_EFUSE_IV_METAHDR_START_OFFSET		(0xF1250180U)
+				/**< Metaheader IV start register address */
 #define XLOADER_EFUSE_IV_METAHDR_END_OFFSET		(0xF1250188U)
+				/**< Metaheader IV end register address */
 #define XLOADER_EFUSE_IV_BLACK_OBFUS_START_OFFSET	(0xF12501D0U)
+				/**< Black IV start register address */
 #define XLOADER_EFUSE_IV_BLACK_OBFUS_END_OFFSET		(0xF12501D8U)
+				/**< Black IV start register address */
 
 #define XLOADER_EFUSE_REVOCATION_ID_0_OFFSET		(0xF12500B0U)
+				/**< Revocation ID 0 register address */
 #define XLOADER_EFUSE_REVOCATION_ID_7_OFFSET		(0xF12500CCU)
+				/**< Revocation ID 7 register address */
 
 #define XLOADER_EFUSE_SEC_MISC1_OFFSET			(0xF12500E8U)
+				/**< Security Misc1 register address */
 #define XLOADER_EFUSE_SEC_DPA_DIS_MASK			(0xFFFF0000U)
+				/**< DPA CM disabled mask */
 
 #define XLOADER_EFUSE_DNA_START_OFFSET			(0xF1250020U)
+				/**< DNA start register address */
 #define XLOADER_EFUSE_DNA_NUM_ROWS			(4U)
+				/**< Number of eFUSE rows for DNA */
 
 #define XLOADER_EFUSE_DNA_LEN_IN_BYTES			(XLOADER_EFUSE_DNA_NUM_ROWS * \
 							sizeof(u32))
+				/**< Size of DNA(in bytes) */
 
 #define XLOADER_AC_AH_DNA_MASK				(0x03U)
+			/**< Mask for DNA in Authentication Certificate */
 
 #define XLOADER_REVOCATION_IDMAX			(0xFFU)
+			/**< Maximum value of Revocation ID */
 
 #define XLOADER_PUF_HD_BHDR				(0x3U)
+			/**< Value of PUF HD stored in bootheader */
 
-/* KEK key decryption status */
+
+/**< KEK key decryption status */
 #define XLOADER_BBRAM_RED_KEY				(0x00000001U)
+			/**< Decrypted key stored in BBRAM */
 #define XLOADER_BHDR_RED_KEY				(0x00000002U)
+			/**< Decrypted key stored in Bootheader */
 #define XLOADER_EFUSE_RED_KEY				(0x00000004U)
+			/**< Decrypted key stored in eFUSE AES key */
 #define XLOADER_EFUSE_USR0_RED_KEY			(0x00000008U)
+			/**< Decrypted key stored in eFUSE User 0 key */
 #define XLOADER_EFUSE_USR1_RED_KEY			(0x00000010U)
+			/**< Decrypted key stored in eFUSE User 1 key */
 
 #define XLOADER_EFUSE_CACHE_SECURITY_CONTROL_OFFSET	(0xF12500ACU)
+				/**< Security Control register address */
 #define XLOADER_PMC_TAP_AUTH_JTAG_DATA_OFFSET		(0xF11B0030U)
+			/**< Authenticated JTAG Data start register address */
 #define XLOADER_PMC_TAP_DAP_CFG_OFFSET			(0xF11B0008U)
+				/**< DAP CFG register address */
 #define XLOADER_PMC_TAP_INST_MASK_0_OFFSET		(0xF11B0000U)
+				/**< Instruction Mask 0 register address */
 #define XLOADER_PMC_TAP_INST_MASK_1_OFFSET		(0xF11B0004U)
+				/**< Instruction Mask 1 register address */
 #define XLOADER_PMC_TAP_DAP_SECURITY_OFFSET		(0xF11B000CU)
+				/**< DAP security register address */
 #define XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_OFFSET	(0xF11B0018U)
+		/**< Authenticated JTAG interrupt status register address */
 #define XLOADER_CRP_RST_DBG_OFFSET			(0xF1260400U)
+				/**< CRP reset debug register address */
 
 #define XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_MASK	(0x1U)
+			/**< Mask for Authenticated JTAG interrupt status */
 #define XLOADER_AUTH_JTAG_DIS_MASK			(0x180000U)
+			/**< Mask for disabling Authenticated JTAG */
 #define XLOADER_AUTH_JTAG_DATA_LEN_IN_WORDS		(512U)
+			/**< Authenticated JTAG data length(in words) */
 #define XLOADER_AUTH_JTAG_DATA_AH_LENGTH		(104U)
+	/**< Length of Authentication Header in Authenticated JTAG message */
 #define XLOADER_AUTH_JTAG_MAX_ATTEMPTS			(1U)
+		/**< Maximum allowed attempts to authenticate JTAG message */
 #define XLOADER_AUTH_FAIL_COUNTER_RST_VALUE		(0U)
+		/**< . Reset value of counter to keep track of failed attempts
+			of authenticating JTAG message */
 
 #define XLOADER_AUTH_JTAG_PADDING_SIZE			(18U)
+			/**< Authenticated JTAG padding size */
 #define XLOADER_AUTH_JTAG_SHA_PADDING_SIZE		(3U)
+			/**< Authenticated SHA padding size */
 #define XLOADER_ENABLE_AUTH_JTAG_SIGNATURE_SIZE		(226U)
+			/**< Authenticated JTAG signature size */
 
 #define XLOADER_DAP_SECURITY_GATE_DISABLE_MASK		(0xFFFFFFFFU)
+			/**< MAsk to disable DAP security gate */
 #define XLOADER_DAP_CFG_SPNIDEN_MASK			(0x1U)
+			/**< Mask to enable secure non-invasive debug */
 #define XLOADER_DAP_CFG_SPIDEN_MASK			(0x2U)
+			/**< Mask to enable secure invasive debug */
 #define XLOADER_DAP_CFG_NIDEN_MASK			(0x4U)
+			/**< Mask to enable non-secure non-invasive debug */
 #define XLOADER_DAP_CFG_DBGEN_MASK			(0x8U)
+			/**< Mask to enable non-secure invasive debug */
 #define XLOADER_DAP_CFG_ENABLE_ALL_DBG_MASK		(XLOADER_DAP_CFG_SPNIDEN_MASK | \
 							XLOADER_DAP_CFG_SPIDEN_MASK | \
 							XLOADER_DAP_CFG_NIDEN_MASK |  \
 							XLOADER_DAP_CFG_DBGEN_MASK)
+			/**< Mask to enable all types of debug */
 #define XLOADER_PMC_TAP_INST_MASK_ENABLE_MASK		(0U)
+		/**< Value to mask all instructions for Instruction mask 0/1 register */
 #define XLOADER_CRP_RST_DBG_ENABLE_MASK			(0U)
+			/**< Mask to enable debug for CRP_RST */
 
 #define XLOADER_PMC_TAP_INST_DISABLE_MASK_0		(0x3DFFF8FDU)
+		/**< Value to unmask instructions for Instruction mask 0 register */
 #define XLOADER_PMC_TAP_INST_DISABLE_MASK_1		(0x05DBFF8FU)
+		/**< Value to unmask instructions for Instruction mask 1 register */
 #define XLOADER_CRP_RST_DBG_DPC_MASK            (0x00000002U)
+				/**< Value to reset DPC within the PMC only */
 #define XLOADER_CRP_RST_DBG_RESET_MASK          (0x00000001U)
+				/**< Value to reset all debug in the LPD/FPD */
 
 #define XLOADER_DAP_TIMEOUT_DISABLED			(2U)
+				/**< Timeout disabled for DAP */
 
 #define XLOADER_PDI_DPACM_ENABLED			(1U)
+				/**< DPA counter measures are enabled in PDI */
 #define XLOADER_PDI_DPACM_DISABLED			(0U)
+				/**< DPA counter measures are disabled in PDI */
 
 #define EFUSE_CACHE_MISC_CTRL				(0xF12500A0U)
+				/**< Misc Control register address */
 #define EFUSE_CACHE_MISC_CTRL_CRYPTO_KAT_EN_MASK	(0X00008000U)
+			/**< Mask to enable running of KAT for Crypto engines */
 
 #define XLOADER_KAT_DONE				(0x000001F0U)
+			/**< Value to indicate that KAT is done */
 
 /**************************** Type Definitions *******************************/
 /**< RSA Key */
