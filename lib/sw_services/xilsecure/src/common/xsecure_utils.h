@@ -33,6 +33,7 @@
 *       har     02/01/21 Removed Status variable from XSecure_ReadReg
 *       bm      05/19/21 Added macro for word aligned mask
 * 4.6   har     07/14/21 Fixed doxygen warnings
+*       gm      07/16/21 Support added to read 32 bit data from 64bit address
 *
 * </pre>
 *
@@ -171,6 +172,23 @@ static inline void XSecure_Out64(u64 Addr, u32 Data)
 	swea(Addr, Data);
 #else
 	Xil_Out64(Addr, Data);
+#endif
+}
+
+/*****************************************************************************/
+/**
+ * @brief        This function writes 32 bit data to 64-bit address
+ *
+ * @param        Addr is the address
+ * @param        Data is the value to be written
+ *
+ ******************************************************************************/
+static inline void XSecure_OutWord64(u64 Addr, u32 Data)
+{
+#ifdef VERSAL_PLM
+	swea(Addr, Data);
+#else
+	Xil_Out32((UINTPTR)Addr, Data);
 #endif
 }
 

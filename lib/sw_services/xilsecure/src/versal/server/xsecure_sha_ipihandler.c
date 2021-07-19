@@ -23,6 +23,7 @@
 *       bm    05/13/2021 Updated code to use common crypto instance
 *       am    05/22/2021 Resolved MISRA C violation rule 17.8
 * 4.6   har   07/14/2021 Fixed doxygen warnings
+*       gm    07/16/2021 Added support for 64-bit address
 *
 * </pre>
 *
@@ -38,6 +39,7 @@
 #include "xsecure_sha_ipihandler.h"
 #include "xsecure_init.h"
 #include "xsecure_error.h"
+#include "xplmi_hw.h"
 
 /************************** Constant Definitions *****************************/
 #define XSECURE_IPI_CONTINUE_MASK		(0x80000000U)
@@ -141,6 +143,8 @@ static int XSecure_ShaUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
 	XSecure_Sha3 *XSecureSha3InstPtr = XSecure_GetSha3Instance();
 	u64 DataAddr = ((u64)SrcAddrHigh << 32) | (u64)SrcAddrLow;
 	u64 DstAddr = ((u64)DstAddrHigh << 32) | (u64)DstAddrLow;
+	XSecure_Sha3Hash Hash = {0U};
+	u32 Index = 0U;
 
 	if ((InputSize & XSECURE_IPI_FIRST_PACKET_MASK) != 0x0U) {
 		Status = XSecure_ShaInitialize();
@@ -155,14 +159,13 @@ static int XSecure_ShaUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
 		Status = XSecure_Sha3Update64Bit(XSecureSha3InstPtr, DataAddr, InputSize);
 	}
 	else {
-		if (DstAddrHigh != 0x0U) {
-			XSecure_Printf(XSECURE_DEBUG_GENERAL,
-				"64 bit address not supported for DstAddr\n\r");
-			Status = XST_INVALID_PARAM;
-		}
-		else {
-			Status = XSecure_Sha3Finish(XSecureSha3InstPtr,
-					(XSecure_Sha3Hash *)(UINTPTR)DstAddr);
+		Status = XSecure_Sha3Finish(XSecureSha3InstPtr,
+				(XSecure_Sha3Hash *)&Hash);
+		if (XST_SUCCESS == Status) {
+			for (Index = 0U; Index < XSECURE_HASH_SIZE_IN_BYTES; Index++) {
+				XPlmi_OutByte64((DstAddr + Index),
+						Hash.Hash[Index]);
+			}
 		}
 	}
 
