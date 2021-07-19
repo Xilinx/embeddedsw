@@ -227,9 +227,29 @@ void XPm_Wait(u32 TimeOutCount);
 /**
  * Poll for mask for a period represented by TimeOut
  */
-XStatus XPm_PollForMask(u32 RegAddress, u32 Mask, u32 TimeOutCount);
-XStatus XPm_PollForMask64(u64 RegAddress, u32 Mask, u32 TimeOutCount);
-XStatus XPm_PollForZero(u32 RegAddress, u32 Mask, u32 TimeOutCount);
+static inline XStatus XPm_PollForMask(u32 RegAddress, u32 Mask,
+				      u32 TimeOut)
+{
+	return XPlmi_UtilPoll(RegAddress, Mask, Mask, TimeOut);
+}
+
+/**
+ * Poll for mask for a period represented by TimeOut for 64 bit registers
+ */
+static inline XStatus XPm_PollForMask64(u64 RegAddress, u32 Mask,
+					u32 TimeOut)
+{
+	return XPlmi_UtilPoll64(RegAddress, Mask, Mask, TimeOut);
+}
+
+/**
+ * Poll for zero for a period represented by TimeOut
+ */
+static inline XStatus XPm_PollForZero(u32 RegAddress, u32 Mask,
+				      u32 TimeOut)
+{
+	return XPlmi_UtilPoll(RegAddress, Mask, 0, TimeOut);
+}
 
 /**
  * Compute parity of a 32-bit word
