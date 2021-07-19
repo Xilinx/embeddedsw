@@ -26,6 +26,7 @@
 * 1.04  skd   03/25/2021 Compilation warning fix
 * 1.05  td    07/08/2021 Fix doxygen warnings
 *       td    07/15/2021 Fix doxygen warnings
+*       bsv   07/18/2021 Debug enhancements
 *
 * </pre>
 *
@@ -47,6 +48,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+#ifndef PLM_DEBUG_MODE
 static void XLoader_CfiErrHandler(const XCfupmc *InstancePtr);
 static void XLoader_CfuErrHandler(const XCfupmc *InstancePtr);
 
@@ -143,6 +145,7 @@ static void XLoader_CfuErrHandler(const XCfupmc *InstancePtr)
 			PMC_GLOBAL_PMC_ERR1_STATUS_CFU_MASK);
 	return;
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -160,19 +163,22 @@ int XLoader_CframeErrorHandler(u32 ImageId)
 	int Status = XST_FAILURE;
 	u32 Err1Status = XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS);
 	u32 Err2Status = XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
-	u32 CfiErrStatus;
-	u32 CountVal = 0U;
 	u32 CfuIsrStatus = XPlmi_In32(CFU_APB_CFU_ISR);
 	u32 CfuStatus = XPlmi_In32(CFU_APB_CFU_STATUS);
+#ifndef PLM_DEBUG_MODE
 	XCfupmc XLoader_CfuIns = {0U}; /** CFU Driver Instance */
-
-	CountVal = XPlmi_In32(CFU_APB_CFU_QWORD_CNT);
+	u32 CfiErrStatus;
+	u32 CountVal = XPlmi_In32(CFU_APB_CFU_QWORD_CNT);
+#else
+	(void)ImageId;
+#endif
 
 	XPlmi_Printf(DEBUG_GENERAL, "Error loading PL data: \n\r"
 		"CFU_ISR: 0x%08x, CFU_STATUS: 0x%08x \n\r"
 		"PMC ERR1: 0x%08x, PMC ERR2: 0x%08x\n\r",
 		CfuIsrStatus, CfuStatus, Err1Status, Err2Status);
 
+#ifndef PLM_DEBUG_MODE
 	CfiErrStatus = Err1Status & PMC_GLOBAL_PMC_ERR1_STATUS_CFRAME_MASK;
 	if (CfiErrStatus == 0U) {
 		CfiErrStatus = Err2Status & PMC_GLOBAL_PMC_ERR2_STATUS_CFI_MASK;
@@ -193,8 +199,11 @@ int XLoader_CframeErrorHandler(u32 ImageId)
 			goto END;
 		}
 	}
+#endif
 	Status = XST_SUCCESS;
 
+#ifndef PLM_DEBUG_MODE
 END:
+#endif
 	return Status;
 }

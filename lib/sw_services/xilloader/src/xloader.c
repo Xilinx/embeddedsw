@@ -100,6 +100,7 @@
 * 1.04  td   07/08/2021 Fix doxygen warnings
 *       td   07/15/2021 Fix doxygen warnings
 *       bm   07/16/2021 Updated XLoader_PdiInit prototype
+*       bsv  07/18/2021 Debug enhancements
 *
 * </pre>
 *
@@ -316,10 +317,12 @@ int XLoader_Init(void)
 		goto END;
 	}
 
+#ifndef PLM_DEBUG_MODE
 	Status = XLoader_CframeInit();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+#endif
 
 	/* Setting the secure state of boot in registers and global variables */
 	Status = XST_FAILURE;
