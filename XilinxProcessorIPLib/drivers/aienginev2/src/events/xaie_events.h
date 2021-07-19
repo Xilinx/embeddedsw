@@ -725,6 +725,8 @@ AieRC XAie_EventGenerate(XAie_DevInst *DevInst, XAie_LocType Loc,
 AieRC XAie_EventComboConfig(XAie_DevInst *DevInst, XAie_LocType Loc,
 		XAie_ModuleType Module, XAie_EventComboId ComboId,
 		XAie_EventComboOps Op, XAie_Events Event1, XAie_Events Event2);
+AieRC XAie_EventGetComboEventBase(XAie_DevInst *DevInst, XAie_LocType Loc,
+		XAie_ModuleType Module, XAie_Events *Event);
 AieRC XAie_EventComboReset(XAie_DevInst *DevInst, XAie_LocType Loc,
 		XAie_ModuleType Module, XAie_EventComboId ComboId);
 AieRC XAie_EventSelectStrmPort(XAie_DevInst *DevInst, XAie_LocType Loc,
