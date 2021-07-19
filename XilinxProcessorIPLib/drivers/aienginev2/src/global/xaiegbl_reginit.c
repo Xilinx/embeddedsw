@@ -3116,6 +3116,7 @@ XAie_TileMod AieMod[] =
 /* Device level operations for aie */
 XAie_DeviceOps AieDevOps =
 {
+	.IsCheckerBoard = 1,
 	.GetTTypefromLoc = &_XAie_GetTTypefromLoc,
 	.SetPartColShimReset = &_XAie_SetPartColShimReset,
 	.SetPartColClockAfterRst = &_XAie_SetPartColClockAfterRst,
