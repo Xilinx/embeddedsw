@@ -801,4 +801,31 @@ AieRC XAie_FreeTransactionInstance(XAie_TxnInst *TxnInst)
 	return _XAie_TxnFree(TxnInst);
 }
 
+/*****************************************************************************/
+/**
+*
+* This is the API to return if the device generation has checkboarded tiles for
+* broadcast ungating
+*
+* @param	DevInst - Global AIE device instance pointer.
+* @param	IsCheckerBoard - pointer to be set if tile is checkerboarded
+* @return	XAIE_OK on success
+*
+* @note		None.
+*
+******************************************************************************/
+AieRC XAie_IsDeviceCheckerboard(XAie_DevInst *DevInst, u8 *IsCheckerBoard)
+{
+	if((DevInst == XAIE_NULL) ||
+		(DevInst->IsReady != XAIE_COMPONENT_IS_READY) ||
+		(IsCheckerBoard == NULL)) {
+		XAIE_ERROR("Invalid arguments\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	*IsCheckerBoard = DevInst->DevOps->IsCheckerBoard;
+
+	return XAIE_OK;
+}
+
 /** @} */
