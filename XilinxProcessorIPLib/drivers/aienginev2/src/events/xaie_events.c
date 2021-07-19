@@ -1462,4 +1462,53 @@ AieRC XAie_EventReadStatus(XAie_DevInst *DevInst, XAie_LocType Loc,
 	return XAIE_OK;
 }
 
+/*****************************************************************************/
+/**
+*
+* This API returns the user base event based on the tile location
+*
+* @param	DevInst: Device Instance
+* @param	Loc: Location of AIE Tile
+* @param	Module: Module of tile.
+*			for AIE Tile - XAIE_MEM_MOD or XAIE_CORE_MOD,
+*			for Shim tile - XAIE_PL_MOD.
+* @param	Event: Base event of tile
+*
+* @return	XAIE_OK, error code on failure
+*
+* @note		None
+******************************************************************************/
+AieRC XAie_EventGetUserEventBase(XAie_DevInst *DevInst, XAie_LocType Loc,
+		XAie_ModuleType Module, XAie_Events *Event)
+{
+	AieRC RC;
+	u8 TileType;
+
+	if((DevInst == XAIE_NULL) || (Event == NULL) ||
+			(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid arguments\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
+	if(TileType == XAIEGBL_TILE_TYPE_MAX) {
+		XAIE_ERROR("Invalid tile type\n");
+		return XAIE_INVALID_TILE;
+	}
+
+	RC = _XAie_CheckModule(DevInst, Loc, Module);
+	if(RC != XAIE_OK) {
+		XAIE_ERROR("Invalid module\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	if (TileType == XAIEGBL_TILE_TYPE_AIETILE) {
+		*Event = DevInst->DevProp.DevMod[TileType].EvntMod[Module].UserEventBase;
+	} else {
+		*Event = DevInst->DevProp.DevMod[TileType].EvntMod[0U].UserEventBase;
+	}
+
+	return RC;
+}
+
 /** @} */
