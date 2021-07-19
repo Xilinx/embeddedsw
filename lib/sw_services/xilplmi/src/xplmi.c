@@ -37,6 +37,7 @@
 *       ma   05/21/2021 Copy secure boot state from PMC GLOBAL GEN STORAGE2
                         register to RTCA Secure State offset
 * 1.05  td   07/08/2021 Fix doxygen warnings
+*       bsv  07/18/2021 Print PLM banner at the beginning of PLM execution
 *
 * </pre>
 *
@@ -69,6 +70,7 @@ typedef int (*XPlmi_InitHandler)(void); /**< Function pointer for PLM LPD
 /************************** Function Prototypes ******************************/
 static void XPlmi_RunTimeConfigInit(void);
 static void XPlmi_PrintRomVersion(void);
+static void XPlmi_PrintEarlyLog(void);
 
 /************************** Variable Definitions *****************************/
 u8 LpdInitialized = (u8)0U; /**< 1 if LPD is initialized */
@@ -162,8 +164,8 @@ void XPlmi_LpdInit(void)
 	}
 	if (XST_SUCCESS == Status) {
 		LpdInitialized |= LPD_INITIALIZED;
+		XPlmi_PrintEarlyLog();
 	}
-	XPlmi_PrintPlmBanner();
 }
 
 /*****************************************************************************/
@@ -178,49 +180,58 @@ void XPlmi_PrintPlmBanner(void)
 	u32 Version;
 	u32 PsVersion;
 	u32 PmcVersion;
-	static u8 IsBannerPrinted = (u8)FALSE;
 	u32 BootMode;
 	u32 MultiBoot;
 
-	if ((u8)FALSE == IsBannerPrinted) {
-		/* Print early log */
-		if (DebugLog->LogBuffer.IsBufferFull == (u32)FALSE) {
-			DebugLog->PrintToBuf = (u8)FALSE;
-			XPlmi_OutByte64(DebugLog->LogBuffer.StartAddr + DebugLog->LogBuffer.Offset, 0U);
-			XPlmi_Printf_WoTS(DEBUG_PRINT_ALWAYS, "%s", (UINTPTR)DebugLog->LogBuffer.StartAddr);
-			DebugLog->PrintToBuf = (u8)TRUE;
-		}
-		/* Print the PLM Banner */
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
-			"****************************************\n\r");
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
-			"Xilinx Versal Platform Loader and Manager \n\r");
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
-			"Release %s.%s   %s  -  %s\n\r",
-			SDK_RELEASE_YEAR, SDK_RELEASE_QUARTER, __DATE__, __TIME__);
+	/* Print the PLM Banner */
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS,
+		"****************************************\n\r");
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS,
+		"Xilinx Versal Platform Loader and Manager \n\r");
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS,
+		"Release %s.%s   %s  -  %s\n\r",
+		SDK_RELEASE_YEAR, SDK_RELEASE_QUARTER, __DATE__, __TIME__);
 
-		/* Read the Version */
-		Version = XPlmi_In32(PMC_TAP_VERSION);
-		PsVersion = ((Version & PMC_TAP_VERSION_PS_VERSION_MASK) >>
-				PMC_TAP_VERSION_PS_VERSION_SHIFT);
-		PmcVersion = ((Version & PMC_TAP_VERSION_PMC_VERSION_MASK) >>
-				PMC_TAP_VERSION_PMC_VERSION_SHIFT);
-		BootMode = XPlmi_In32(CRP_BOOT_MODE_USER) &
-				CRP_BOOT_MODE_USER_BOOT_MODE_MASK;
-		MultiBoot = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT);
+	/* Read the Version */
+	Version = XPlmi_In32(PMC_TAP_VERSION);
+	PsVersion = ((Version & PMC_TAP_VERSION_PS_VERSION_MASK) >>
+			PMC_TAP_VERSION_PS_VERSION_SHIFT);
+	PmcVersion = ((Version & PMC_TAP_VERSION_PMC_VERSION_MASK) >>
+			PMC_TAP_VERSION_PMC_VERSION_SHIFT);
+	BootMode = XPlmi_In32(CRP_BOOT_MODE_USER) &
+			CRP_BOOT_MODE_USER_BOOT_MODE_MASK;
+	MultiBoot = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT);
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Platform Version: v%u.%u "
+			 "PMC: v%u.%u, PS: v%u.%u\n\r",
+			(PmcVersion / 16U), (PmcVersion % 16U),
+			(PmcVersion / 16U), (PmcVersion % 16U),
+			(PsVersion / 16U), (PsVersion % 16U));
+	XPlmi_PrintRomVersion();
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "BOOTMODE: 0x%x, MULTIBOOT: 0x%x"
+			"\n\r", BootMode, MultiBoot);
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS,
+		"****************************************\n\r");
+}
 
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Platform Version: v%u.%u "
-				 "PMC: v%u.%u, PS: v%u.%u\n\r",
-				(PmcVersion / 16U), (PmcVersion % 16U),
-				(PmcVersion / 16U), (PmcVersion % 16U),
-				(PsVersion / 16U), (PsVersion % 16U));
-		XPlmi_PrintRomVersion();
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "BOOTMODE: 0x%x, MULTIBOOT: 0x%x"
-				"\n\r", BootMode, MultiBoot);
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
-			"****************************************\n\r");
-		IsBannerPrinted = (u8)TRUE;
+/*****************************************************************************/
+/**
+ * @brief	This function prints early log.
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+static void XPlmi_PrintEarlyLog(void)
+{
+	DebugLog->PrintToBuf = (u8)FALSE;
+	/* Print early log */
+	if (DebugLog->LogBuffer.IsBufferFull == (u32)FALSE) {
+		XPlmi_OutByte64(DebugLog->LogBuffer.StartAddr + DebugLog->LogBuffer.Offset, 0U);
+		XPlmi_Printf_WoTS(DEBUG_PRINT_ALWAYS, "%s", (UINTPTR)DebugLog->LogBuffer.StartAddr);
 	}
+	else {
+		XPlmi_PrintPlmBanner();
+	}
+	DebugLog->PrintToBuf = (u8)TRUE;
 }
 
 /*****************************************************************************/
