@@ -660,6 +660,9 @@ typedef struct XAie_EvntMod {
 	const u8 *XAie_EventNumber;	/* Array of event numbers with true event val */
 	u32 EventMin;		/* number corresponding to evt 0 in the enum */
 	u32 EventMax;		/* number corresponding to last evt in enum */
+	u32 ComboEventBase;
+	u32 PerfCntEventBase;
+	u32 UserEventBase;
 	u32 GenEventRegOff;
 	XAie_RegFldAttr GenEvent;
 	u32 ComboInputRegOff;
