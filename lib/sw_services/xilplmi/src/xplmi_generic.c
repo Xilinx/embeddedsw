@@ -55,6 +55,7 @@
 *       bsv  07/05/2021 Added code to handle case where bitstream data starts
 *                       at 32K boundary
 *       bsv  07/16/2021 Fix doxygen warnings
+*       bsv  07/18/2021 Debug enhancements
 *
 * </pre>
 *
@@ -1313,7 +1314,7 @@ static int XPlmi_LogString(XPlmi_Cmd *Cmd)
 	StringIndex += (Len * XPLMI_WORD_LEN);
 	if ((Cmd->ProcessedLen + Cmd->PayloadLen) == Cmd->Len) {
 		/* Print the string only when complete payload is received */
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%s", LogString);
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%s\n\r", LogString);
 	}
 
 END:

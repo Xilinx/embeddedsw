@@ -59,6 +59,7 @@
 *       ma   07/08/2021 Fix logic in reading link down error mask value
 *       td   07/08/2021 Fix doxygen warnings
 *       bsv  07/16/2021 Fix doxygen warnings
+*       bsv  07/18/2021 Debug enhancements
 *
 * </pre>
 *
@@ -125,7 +126,9 @@ static u32 EmSubsystemId = 0U;
  *****************************************************************************/
 void XPlmi_ErrMgr(int ErrStatus)
 {
+#ifndef PLM_DEBUG_MODE
 	u32 RegVal;
+#endif
 
 	/* Print the PLM error */
 	XPlmi_Printf(DEBUG_GENERAL, "PLM Error Status: 0x%08lx\n\r", ErrStatus);
