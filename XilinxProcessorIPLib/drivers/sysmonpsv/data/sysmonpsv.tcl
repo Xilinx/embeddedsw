@@ -1,5 +1,5 @@
 ##############################################################################
-# Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2016 - 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -13,6 +13,7 @@
 # 	aad  02/25/19 Fix XSysMonPsv_Supply list enum when no supplies
 # 		      are configured
 # 2.1   aad  03/29/21 Add supply names in string format.
+# 2.4   aad  07/15/21 Add support for SSIT devices
 #
 ##############################################################################
 
@@ -36,9 +37,9 @@ proc generate_include_file {drv_handle file_name drv_string args} {
     # Print all parameters for all peripherals
     foreach periph $periphs {
         puts $file_handle ""
-        puts $file_handle "/* Definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
+        puts $file_handle "/* Definitions for peripheral [string toupper [::hsi::utils::get_param_value $periph NAME ]] */"
         foreach arg $args {
-            set value [common::get_property CONFIG.$arg $periph]
+            set value [::hsi::utils::get_param_value $periph $arg]
             if {[llength $value] == 0} {
                 set value 0
             }
@@ -49,10 +50,10 @@ proc generate_include_file {drv_handle file_name drv_string args} {
     for {set index 0} {$index < 160} {incr index} {
 	    set meas "C_MEAS_${index}"
 	    set id   "${meas}_ROOT_ID"
-            set value [common::get_property CONFIG.$meas $drv_handle]
+            set value [::hsi::utils::get_param_value $drv_handle $meas]
             if {[llength $value] == 0} {
-		 set local_value [common::get_property CONFIG.$meas $periph]
-		 set id_value [common::get_property CONFIG.$id $periph]
+		 set local_value [::hsi::utils::get_param_value $periph $meas]
+		 set id_value [::hsi::utils::get_param_value $periph $id]
                 if {[string compare -nocase $local_value ""] != 0} {
 			set final_value "#define XPAR_PMC_SYSMON_0_${local_value}\t${id_value}"
 			puts $file_handle $final_value
@@ -74,7 +75,7 @@ proc generate_canonical_xpars {drv_handle file_name drv_string args} {
 
    # Get the names of all the peripherals connected to this driver
    foreach periph $periphs {
-       set peripheral_name [string toupper [common::get_property NAME $periph]]
+       set peripheral_name [string toupper [::hsi::utils::get_param_value $periph NAME]]
        lappend peripherals $peripheral_name
    }
 
@@ -96,7 +97,7 @@ proc generate_canonical_xpars {drv_handle file_name drv_string args} {
 
    set i 0
    foreach periph $periphs {
-       set periph_name [string toupper [common::get_property NAME $periph]]
+       set periph_name [string toupper [::hsi::utils::get_param_value $periph NAME]]
 
        # Generate canonical definitions only for the peripherals whose
        # canonical name is not the same as hardware instance name
@@ -126,10 +127,10 @@ proc generate_canonical_xpars {drv_handle file_name drv_string args} {
     for {set index 0} {$index < 160} {incr index} {
 	    set meas "C_MEAS_${index}"
 	    set id   "${meas}_ROOT_ID"
-            set value [common::get_property CONFIG.$meas $drv_handle]
+            set value [::hsi::utils::get_param_value $drv_handle $meas]
             if {[llength $value] == 0} {
-		 set local_value [common::get_property CONFIG.$meas $periph]
-		 set id_value [common::get_property CONFIG.$id $periph]
+		 set local_value [::hsi::utils::get_param_value $periph $meas]
+		 set id_value [::hsi::utils::get_param_value $periph $id]
                 if {[string compare -nocase $local_value ""] != 0} {
 			set final_value "#define XPAR_XSYSMONPSV_0_${local_value}\t${id_value}"
 			puts $file_handle $final_value
@@ -178,9 +179,9 @@ proc generate_sysmon_config {drv_handle file_name drv_string args} {
 	 puts $config_file [format "%s\t\t\t{" $start_comma]
 	 for {set index 0} {$index < 160} {incr index} {
 		    set measid "C_MEAS_${index}"
-		    set value [common::get_property CONFIG.$measid $drv_handle]
+		    set value [::hsi::utils::get_param_value $drv_handle $measid ]
 		  if {[llength $value] == 0} {
-			 set local_value [common::get_property CONFIG.$measid $periph]
+			 set local_value [::hsi::utils::get_param_value $periph $measid]
 			  if {[string compare -nocase $local_value ""] != 0} {
 				set final_value "XPAR_PMC_SYSMON_0_${local_value}"
 				puts -nonewline $config_file [format "%s\t\t\t\t%s,\n" $comma $final_value]
@@ -202,9 +203,9 @@ proc generate_sysmon_config {drv_handle file_name drv_string args} {
 	    puts $config_file "const char * [format "\ %s_Supply_Arr" $drv_string]\[\] = {"
 	    for {set index 0} {$index < 160} {incr index} {
 		    set measid "C_MEAS_${index}"
-		    set value [common::get_property CONFIG.$measid $drv_handle]
+		    set value [::hsi::utils::get_param_value $drv_handle $measid]
 		    if {[llength $value] == 0} {
-				set local_value [common::get_property CONFIG.$measid $periph]
+				set local_value [::hsi::utils::get_param_value $periph $measid]
 				if {[string compare -nocase $local_value ""] != 0} {
 					puts $config_file "\t\"${local_value}\","
 				}
@@ -230,9 +231,9 @@ proc generate_sysmon_supplies {drv_handle file_name drv_string} {
     puts $config_file "typedef enum \{"
     for {set index 0} {$index < 160} {incr index} {
 	    set measid "C_MEAS_${index}"
-            set value [common::get_property CONFIG.$measid $drv_handle]
+            set value [::hsi::utils::get_param_value $drv_handle $measid]
             if {[llength $value] == 0} {
-		 set local_value [common::get_property CONFIG.$measid $periph]
+		 set local_value [::hsi::utils::get_param_value $periph $measid]
                 if {[string compare -nocase $local_value ""] != 0} {
 		 puts -nonewline $config_file [format "%s\t%s,\n" $comma $local_value]
 		} elseif {[string compare -nocase $local_value ""] == 0} {
