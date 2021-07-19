@@ -16,6 +16,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0  kal   03/23/2021 Initial release
+* 4.6  gm    07/16/2021 Added support for 64-bit address
 *
 * </pre>
 *
@@ -116,46 +117,24 @@ static int XSecure_EllipticGenKey(u32 CurveType, u32 SrcAddrLow,
 	volatile int Status = XST_FAILURE;
 	u64 SrcAddr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
 	u64 DstAddr = ((u64)DstAddrHigh << 32U) | (u64)DstAddrLow;
-	XSecure_EllipticKey Key;
-	u32 Size;
+	u32 OffSet = 0U;
 
-	if (CurveType == XSECURE_ECC_NIST_P384) {
-		Size = XSECURE_ECC_P384_SIZE_IN_BYTES;
+	if (CurveType == (u32)XSECURE_ECC_NIST_P384) {
+		OffSet = XSECURE_ECC_P384_SIZE_IN_BYTES;
 	}
-	else if (CurveType == XSECURE_ECC_NIST_P521) {
-		Size = XSECURE_ECC_P521_SIZE_IN_BYTES;
+	else if (CurveType == (u32)XSECURE_ECC_NIST_P521) {
+		OffSet = XSECURE_ECC_P521_SIZE_IN_BYTES;
 	}
 	else {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	if (DstAddrHigh != 0x0U) {
-		XSecure_Printf(XSECURE_DEBUG_GENERAL,
-				"64 bit address not supported for DstAddr\r\n");
-		Status = XST_INVALID_PARAM;
-		goto END;
-	}
+	XSecure_EllipticKeyAddr KeyAddr = {DstAddr, (DstAddr + (u64)OffSet)};
+	Status = XSecure_EllipticGenerateKey_64Bit(
+			(XSecure_EllipticCrvTyp)CurveType,
+			SrcAddr, (XSecure_EllipticKeyAddr *) &KeyAddr);
 
-	Key.Qx = (u8 *)(UINTPTR)DstAddr;
-	if (CurveType == XSECURE_ECC_NIST_P384) {
-		Key.Qy = (u8 *)(UINTPTR)(DstAddr + Size);
-	}
-	else {
-		Key.Qy = (u8 *)(UINTPTR)(DstAddr + Size +
-					XSECURE_ELLIPTIC_P521_ALIGN_BYTES);
-	}
-
-	if (SrcAddrHigh != 0x0U) {
-		XSecure_Printf(XSECURE_DEBUG_GENERAL,
-				"64 bit address not supported for SrcAddr\r\n");
-		Status = XST_INVALID_PARAM;
-		goto END;
-	}
-
-	Status = XSecure_EllipticGenerateKey((XSecure_EllipticCrvTyp)CurveType,
-			(u8 *)(UINTPTR)SrcAddr,
-			&Key);
 END:
 	return Status;
 }
@@ -186,7 +165,6 @@ static int XSecure_EllipticGenSign(u32 SrcAddrLow, u32 SrcAddrHigh,
 	u64 SrcAddr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
 	u64 DstAddr = ((u64)DstAddrHigh << 32U) | (u64)DstAddrLow;
 	XSecure_EllipticSignGenParams EcdsaParams;
-	XSecure_EllipticSign Sign;
 
 	Status = XPlmi_DmaXfr(SrcAddr, (UINTPTR)&EcdsaParams, sizeof(EcdsaParams),
 			XPLMI_PMCDMA_0);
@@ -194,44 +172,17 @@ static int XSecure_EllipticGenSign(u32 SrcAddrLow, u32 SrcAddrHigh,
 		goto END;
 	}
 
-	if (DstAddrHigh != 0x0U) {
-		XSecure_Printf(XSECURE_DEBUG_GENERAL,
-				"64 bit address not supported for DstAddr\r\n");
-		Status = XST_INVALID_PARAM;
-		goto END;
-	}
+	XSecure_EllipticHashData HashInfo = {EcdsaParams.HashAddr,
+			EcdsaParams.Size};
+	XSecure_EllipticSignAddr SignAddr = {DstAddr,
+			(DstAddr + (u64)EcdsaParams.Size)};
 
-	Sign.SignR = (u8 *)(UINTPTR)DstAddr;
-	if (EcdsaParams.CurveType == XSECURE_ECC_NIST_P384) {
-		Sign.SignS = (u8 *)(UINTPTR)(DstAddr + EcdsaParams.Size);
-	}
-	else if (EcdsaParams.CurveType == XSECURE_ECC_NIST_P521){
-		Sign.SignS = (u8 *)(UINTPTR)(DstAddr +
-				XSECURE_ELLIPTIC_P521_ALIGN_BYTES +
-				EcdsaParams.Size);
-	}
-	else {
-		Status = XST_INVALID_PARAM;
-		goto END;
-	}
-
-	if (((EcdsaParams.HashAddr >> 32) != 0x0U) ||
-		((EcdsaParams.PrivKeyAddr >> 32) != 0x0U) ||
-		((EcdsaParams.EPrivKeyAddr >> 32) != 0x0U)) {
-		XSecure_Printf(XSECURE_DEBUG_GENERAL,
-				"64 bit address not supported for "
-				"XSecure_EllipticGenSign\r\n");
-		Status = XST_INVALID_PARAM;
-		goto END;
-	}
-
-	Status = XSecure_EllipticGenerateSignature(
+	Status = XSecure_EllipticGenerateSignature_64Bit(
 			(XSecure_EllipticCrvTyp)EcdsaParams.CurveType,
-			(u8 *)(UINTPTR)EcdsaParams.HashAddr,
-			EcdsaParams.Size,
-			(u8 *)(UINTPTR)EcdsaParams.PrivKeyAddr,
-			(u8 *)(UINTPTR)EcdsaParams.EPrivKeyAddr,
-			&Sign);
+			(XSecure_EllipticHashData *) &HashInfo,
+			EcdsaParams.PrivKeyAddr,
+			EcdsaParams.EPrivKeyAddr,
+			(XSecure_EllipticSignAddr *) &SignAddr);
 
 END:
 	return Status;
@@ -255,13 +206,12 @@ static int XSecure_EllipticValidatePubKey(u32 CurveType, u32 SrcAddrLow,
 {
 	volatile int Status = XST_FAILURE;
 	u64 SrcAddr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
-	XSecure_EllipticKey Key;
 	u32 Size;
 
-	if (CurveType == XSECURE_ECC_NIST_P384) {
+	if (CurveType == (u32)XSECURE_ECC_NIST_P384) {
 		Size = XSECURE_ECC_P384_SIZE_IN_BYTES;
 	}
-	else if (CurveType == XSECURE_ECC_NIST_P521) {
+	else if (CurveType == (u32)XSECURE_ECC_NIST_P521) {
 		Size = XSECURE_ECC_P521_SIZE_IN_BYTES;
 	}
 	else {
@@ -269,26 +219,10 @@ static int XSecure_EllipticValidatePubKey(u32 CurveType, u32 SrcAddrLow,
 		goto END;
 	}
 
-	if (SrcAddrHigh != 0x0U) {
-		XSecure_Printf(XSECURE_DEBUG_GENERAL,
-				"64 bit address not supported for SrcAddr\r\n");
-		Status = XST_INVALID_PARAM;
-		goto END;
-	}
-
-	Key.Qx = (u8 *)(UINTPTR)SrcAddr;
-
-	if (CurveType == XSECURE_ECC_NIST_P384) {
-		Key.Qy = (u8 *)(UINTPTR)(SrcAddr + Size);
-	}
-	else {
-		Key.Qy = (u8 *)(UINTPTR)(SrcAddr + Size +
-					XSECURE_ELLIPTIC_P521_ALIGN_BYTES);
-	}
-
-	Status = XSecure_EllipticValidateKey((XSecure_EllipticCrvTyp)CurveType,
-						&Key);
-
+	XSecure_EllipticKeyAddr KeyAddr = {SrcAddr, (SrcAddr + (u64)Size)};
+	Status = XSecure_EllipticValidateKey_64Bit(
+			(XSecure_EllipticCrvTyp)CurveType,
+			(XSecure_EllipticKeyAddr *) &KeyAddr);
 END:
 	return Status;
 }
@@ -313,8 +247,6 @@ static int XSecure_EllipticVerifySignature(u32 SrcAddrLow, u32 SrcAddrHigh)
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
 	XSecure_EllipticSignVerifyParams EcdsaParams;
-	XSecure_EllipticKey Key;
-	XSecure_EllipticSign Sign;
 
 	Status = XPlmi_DmaXfr(Addr, (UINTPTR)&EcdsaParams,
 			sizeof(EcdsaParams),
@@ -323,50 +255,17 @@ static int XSecure_EllipticVerifySignature(u32 SrcAddrLow, u32 SrcAddrHigh)
 		goto END;
 	}
 
-	if (((EcdsaParams.PubKeyAddr >> 32) != 0x0U) ||
-			((EcdsaParams.SignAddr >> 32) != 0x0U) ||
-			((EcdsaParams.HashAddr >> 32) != 0x0U)) {
-		XSecure_Printf(XSECURE_DEBUG_GENERAL,
-				"64 bit address not supported for "
-				"XSecure_EllipticVerifySign\r\n");
-		Status = XST_INVALID_PARAM;
-		goto END;
-	}
-
-	Key.Qx = (u8 *)(UINTPTR)EcdsaParams.PubKeyAddr;
-	if (EcdsaParams.CurveType == XSECURE_ECC_NIST_P384) {
-		Key.Qy = (u8 *)(UINTPTR)(EcdsaParams.PubKeyAddr +
-				EcdsaParams.Size);
-	}
-	else if (EcdsaParams.CurveType == XSECURE_ECC_NIST_P521) {
-		Key.Qy = (u8 *)(UINTPTR)(EcdsaParams.PubKeyAddr +
-				EcdsaParams.Size +
-				XSECURE_ELLIPTIC_P521_ALIGN_BYTES);
-	}
-	else {
-		Status = XST_INVALID_PARAM;
-		goto END;
-	}
-
-	Sign.SignR = (u8 *)(UINTPTR)EcdsaParams.SignAddr;
-
-	if (EcdsaParams.CurveType == XSECURE_ECC_NIST_P384) {
-		Sign.SignS = (u8 *)(UINTPTR)(EcdsaParams.SignAddr +
-				EcdsaParams.Size);
-	}
-	else {
-		Sign.SignS =
-			(u8 *)(UINTPTR)(EcdsaParams.SignAddr +
-					XSECURE_ELLIPTIC_P521_ALIGN_BYTES +
-					EcdsaParams.Size);
-	}
-
-	Status = XSecure_EllipticVerifySign(
+	XSecure_EllipticKeyAddr KeyAddr = {EcdsaParams.PubKeyAddr,
+			(EcdsaParams.PubKeyAddr + (u64)EcdsaParams.Size)};
+	XSecure_EllipticHashData HashInfo = {EcdsaParams.HashAddr,
+			EcdsaParams.Size};
+	XSecure_EllipticSignAddr SignAddr = {EcdsaParams.SignAddr,
+			(EcdsaParams.SignAddr + (u64)EcdsaParams.Size)};
+	Status = XSecure_EllipticVerifySign_64Bit(
 			(XSecure_EllipticCrvTyp)EcdsaParams.CurveType,
-			(u8 *)(UINTPTR)EcdsaParams.HashAddr,
-			EcdsaParams.Size,
-			&Key,
-			&Sign);
+			(XSecure_EllipticHashData *) &HashInfo,
+			(XSecure_EllipticKeyAddr *) &KeyAddr,
+			(XSecure_EllipticSignAddr *) &SignAddr);
 
 END:
 	return Status;

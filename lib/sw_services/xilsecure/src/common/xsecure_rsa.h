@@ -61,6 +61,7 @@
 *       har  10/12/20 Addressed security review comments
 *       ana  10/15/20 Updated doxygen tags
 * 4.6   har  07/14/21 Fixed doxygen warnings
+*       gm   07/16/21 Added APIs to support 64-bit address
 *
 * </pre>
 *
@@ -101,17 +102,26 @@ extern "C" {
 /* Initialization */
 int XSecure_RsaInitialize(XSecure_Rsa *InstancePtr, u8 *Mod, u8 *ModExt,
 	u8 *ModExpo);
+int XSecure_RsaInitialize_64Bit(XSecure_Rsa *InstancePtr, u64 Mod, u64 ModExt,
+	u64 ModExpo);
 
 /* RSA Signature Validation, assuming PKCS padding */
 int XSecure_RsaSignVerification(const u8 *Signature, const u8 *Hash,
+	u32 HashLen);
+int XSecure_RsaSignVerification_64Bit(const u64 Signature, const u64 Hash,
 	u32 HashLen);
 
 /* RSA Public Encrypt operation */
 int XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, u8 *Input,
 	u32 Size, u8 *Result);
+int XSecure_RsaPublicEncrypt_64Bit(XSecure_Rsa *InstancePtr, u64 Input,
+	u32 Size, u64 Result);
+
 /* RSA Private Decryption operation */
 int XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, u8 *Input,
 	u32 Size, u8 *Result);
+int XSecure_RsaPrivateDecrypt_64Bit(XSecure_Rsa *InstancePtr, u64 Input,
+	u32 Size, u64 Result);
 
 #ifdef __cplusplus
 }

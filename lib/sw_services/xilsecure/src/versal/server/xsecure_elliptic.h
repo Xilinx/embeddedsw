@@ -28,6 +28,7 @@
 *                     macros
 * 4.5   har  01/18/21 Updated prototype for XSecure_EllipticKat
 * 4.6   har  07/14/21 Fixed doxygen warnings
+*       gm   07/16/21 Added support for 64-bit address
 *
 * </pre>
 *
@@ -64,6 +65,21 @@ typedef struct {
 	u8 *SignS;		/**< The signature component S */
 } XSecure_EllipticSign;
 
+typedef struct {
+	u64 Qx;		/**< Address of Public key curve point x */
+	u64 Qy;		/**< Address of Public key curve point y */
+} XSecure_EllipticKeyAddr;
+
+typedef struct {
+	u64 SignR;		/**< Address of the signature component R */
+	u64 SignS;		/**< Address of the signature component S */
+} XSecure_EllipticSignAddr;
+
+typedef struct {
+	u64 Addr;		/**< Address of the hash */
+	u32 Len;		/**< Length of the hash */
+} XSecure_EllipticHashData;
+
 /***************************** Function Prototypes ***************************/
 int XSecure_EllipticGenerateKey(XSecure_EllipticCrvTyp CrvType, const u8* D,
 	XSecure_EllipticKey *Key);
@@ -74,6 +90,18 @@ int XSecure_EllipticValidateKey(XSecure_EllipticCrvTyp CrvType,
 int XSecure_EllipticVerifySign(XSecure_EllipticCrvTyp CrvType, const u8 *Hash,
 	const u32 HashLen, XSecure_EllipticKey *Key, XSecure_EllipticSign *Sign);
 int XSecure_EllipticKat(u32 AuthCurve);
+
+/* 64 Bit address supported APIs */
+int XSecure_EllipticGenerateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
+	const u64 DAddr, XSecure_EllipticKeyAddr *KeyAddr);
+int XSecure_EllipticGenerateSignature_64Bit(XSecure_EllipticCrvTyp CrvType,
+	XSecure_EllipticHashData *HashInfo, const u64 DAddr,
+	const u64 KAddr, XSecure_EllipticSignAddr *SignAddr);
+int XSecure_EllipticValidateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
+	XSecure_EllipticKeyAddr *KeyAddr);
+int XSecure_EllipticVerifySign_64Bit(XSecure_EllipticCrvTyp CrvType,
+	XSecure_EllipticHashData *HashInfo, XSecure_EllipticKeyAddr *KeyAddr,
+	XSecure_EllipticSignAddr *SignAddr);
 
 #ifdef __cplusplus
 }

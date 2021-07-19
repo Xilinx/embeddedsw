@@ -29,6 +29,7 @@
 *       har  10/12/20 Addressed security review comments
 *       ana  10/15/20 Updated doxygen tags
 * 4.6   har  07/14/21 Fixed doxygen warnings
+*       gm   07/16/21 Added 64-bit address support
 *
 * </pre>
 *
@@ -129,9 +130,9 @@ typedef enum {
 
 typedef struct {
 	u32 BaseAddress; /**< Device Base Address */
-	u8* Mod; /**< Modulus */
-	u8* ModExt; /**< Precalc. R sq. mod N */
-	u8* ModExpo; /**< Exponent */
+	u64 ModAddr; /**< Modulus */
+	u64 ModExtAddr; /**< Precalc. R sq. mod N */
+	u64 ModExpoAddr; /**< Exponent */
 	u8 EncDec; /**< 0 for signature verification and 1 for generation */
 	u32 SizeInWords;/**< RSA key size in words */
 	XSecure_RsaState RsaState;/**< RSA State */
@@ -143,8 +144,8 @@ typedef struct {
 int XSecure_RsaCfgInitialize(XSecure_Rsa *InstancePtr);
 
 /* Versal specific RSA core encryption/decryption function */
-int XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
-	u8 *Result, XSecure_RsaOps RsaOp, u32 KeySize);
+int XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u64 Input,
+	u64 Result, XSecure_RsaOps RsaOp, u32 KeySize);
 
 /* This function performs KAT on RSA core */
 int XSecure_RsaPublicEncryptKat(void);

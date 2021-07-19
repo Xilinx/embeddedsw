@@ -38,6 +38,7 @@
 *       har  10/12/20 Addressed security review comments
 *       am   10/10/20 Resolved Coverity warnings
 * 4.6   har  07/14/21 Fixed doxygen warnings
+*       gm   07/16/21 Added support for 64-bit address
 *
 * </pre>
 *
@@ -205,15 +206,17 @@ static const u32 ExpectedOutput[XSECURE_RSA_4096_SIZE_WORDS] = {
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XSECURE_TIMEOUT_MAX		(0x1FFFFFU)
 					/**< Recommended software timeout */
+#define SIZEOF_INT_IN_BYTES		(0x4U)
+					/**< Size of integer om bytes */
 
 /************************** Function Prototypes ******************************/
 
 static void XSecure_RsaPutData(const XSecure_Rsa *InstancePtr);
 static int XSecure_RsaZeroizeVerify(const XSecure_Rsa *InstancePtr);
 static void XSecure_RsaWriteMem(const XSecure_Rsa *InstancePtr,
-	u32* WrData, u8 RamOffset);
+	u64 WrDataAddr, u8 RamOffset);
 static void XSecure_RsaMod32Inverse(const XSecure_Rsa *InstancePtr);
-static void XSecure_RsaGetData(const XSecure_Rsa *InstancePtr, u32 *RdData);
+static void XSecure_RsaGetData(const XSecure_Rsa *InstancePtr, u64 RdDataAddr);
 static void XSecure_RsaDataLenCfg(const XSecure_Rsa *InstancePtr, u32 Cfg0, u32 Cfg1,
 	u32 Cfg2, u32 Cfg5);
 
@@ -254,10 +257,10 @@ END:
  * 			of RSA operations with provided inputs
  *
  * @param	InstancePtr	- Pointer to the XSecure_Rsa instance
- * @param	Input		- Pointer to the buffer which contains the input
+ * @param	Input		- Address of the buffer which contains the input
  *				  data to be encrypted/decrypted
- * @param	Result		- Pointer to buffer where resultant encrypted/decrypted
- *				  data to be stored
+ * @param	Result		- Address of buffer where resultant
+ *				  encrypted/decrypted data to be stored
  * @param	RsaOp		- Flag to inform the operation to be performed
  * 				  is either encryption/decryption
  * @param	KeySize		- Size of the key in bytes
@@ -267,8 +270,8 @@ END:
  * 		- XST_FAILURE - On failure
  *
 ******************************************************************************/
-int XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
-	u8 *Result, XSecure_RsaOps RsaOp, u32 KeySize)
+int XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u64 Input,
+	u64 Result, XSecure_RsaOps RsaOp, u32 KeySize)
 {
 	int Status = XST_FAILURE;
 	int ErrorCode = XST_FAILURE;
@@ -314,7 +317,7 @@ int XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 	XSecure_RsaPutData(InstancePtr);
 
 	/* Initialize Digest */
-	XSecure_RsaWriteMem(InstancePtr, (u32 *)Input,
+	XSecure_RsaWriteMem(InstancePtr, Input,
 				XSECURE_RSA_RAM_DIGEST);
 
 	/* Initialize MINV values from Mod. */
@@ -362,7 +365,7 @@ int XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 	}
 
 	/* Start the RSA operation. */
-	if (InstancePtr->ModExt != NULL) {
+	if (InstancePtr->ModExtAddr != 0U) {
 		XSecure_WriteReg(InstancePtr->BaseAddress,
 				XSECURE_ECDSA_RSA_CTRL_OFFSET,
 			XSECURE_RSA_CONTROL_EXP_PRE);
@@ -397,7 +400,7 @@ int XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 		goto END_RST;
 	}
 	/* Copy the result */
-	XSecure_RsaGetData(InstancePtr, (u32 *)Result);
+	XSecure_RsaGetData(InstancePtr, Result);
 
 	ErrorCode = XST_SUCCESS;
 END_RST:
@@ -435,16 +438,16 @@ static void XSecure_RsaPutData(const XSecure_Rsa *InstancePtr)
 	XSecure_AssertVoid(InstancePtr != NULL);
 
 	/* Initialize Modular exponentiation */
-	XSecure_RsaWriteMem(InstancePtr, (u32 *)InstancePtr->ModExpo,
+	XSecure_RsaWriteMem(InstancePtr, InstancePtr->ModExpoAddr,
 				XSECURE_RSA_RAM_EXPO);
 
 	/* Initialize Modular. */
-	XSecure_RsaWriteMem(InstancePtr, (u32 *)InstancePtr->Mod,
+	XSecure_RsaWriteMem(InstancePtr, InstancePtr->ModAddr,
 				XSECURE_RSA_RAM_MOD);
 
-	if (InstancePtr->ModExt != NULL) {
+	if (InstancePtr->ModExtAddr != 0U) {
 		/* Initialize Modular extension (R*R Mod M) */
-		XSecure_RsaWriteMem(InstancePtr, (u32 *)InstancePtr->ModExt,
+		XSecure_RsaWriteMem(InstancePtr, InstancePtr->ModExtAddr,
 				XSECURE_RSA_RAM_RES_Y);
 	}
 }
@@ -454,21 +457,22 @@ static void XSecure_RsaPutData(const XSecure_Rsa *InstancePtr)
  * @brief	This function reads back the resulting data from RSA RAM
  *
  * @param	InstancePtr	- Pointer to the XSecure_Rsa instance
- * @param	RdData		- Pointer to the location where RSA output data
+ * @param	RdDataAddr	- Address of the location where RSA output data
  *				  will be written
  *
  * @return	None
  *
  ******************************************************************************/
-static void XSecure_RsaGetData(const XSecure_Rsa *InstancePtr, u32 *RdData)
+static void XSecure_RsaGetData(const XSecure_Rsa *InstancePtr, u64 RdDataAddr)
 {
 	u32 Index;
 	u32 DataOffset;
 	int TmpIndex;
+	u32 WrOffSet;
 
 	/* Assert validates the input arguments */
 	XSecure_AssertVoid(InstancePtr != NULL);
-	XSecure_AssertVoid(RdData != NULL);
+	XSecure_AssertVoid(RdDataAddr != 0U);
 
 	TmpIndex = (int)(InstancePtr->SizeInWords) - 1;
 
@@ -484,9 +488,11 @@ static void XSecure_RsaGetData(const XSecure_Rsa *InstancePtr, u32 *RdData)
 			if(TmpIndex < 0) {
 				goto END;
 			}
-			RdData[TmpIndex] =
+			WrOffSet = SIZEOF_INT_IN_BYTES * (u32)TmpIndex;
+			XSecure_OutWord64(
+				(RdDataAddr + (u64)WrOffSet),
 				XSecure_ReadReg(InstancePtr->BaseAddress,
-				XSECURE_ECDSA_RSA_RAM_DATA_OFFSET);
+				XSECURE_ECDSA_RSA_RAM_DATA_OFFSET));
 			TmpIndex --;
 		}
 	}
@@ -511,15 +517,17 @@ static void XSecure_RsaMod32Inverse(const XSecure_Rsa *InstancePtr)
 {
 	/* Calculate the MINV */
 	u8 Count;
-	const u32 *ModPtr;
 	u32 ModVal;
 	u32 Inv;
+	u32 OffSet = 0U;
+
 
 	/* Assert validates the input arguments */
 	XSecure_AssertVoid(InstancePtr != NULL);
 
-	ModPtr = (u32 *)(InstancePtr->Mod);
-	ModVal = Xil_Htonl(ModPtr[InstancePtr->SizeInWords - 1U]);
+	OffSet = (InstancePtr->SizeInWords - 1U) * SIZEOF_INT_IN_BYTES;
+	ModVal = XSecure_In64((InstancePtr->ModAddr + OffSet));
+	ModVal = Xil_Htonl(ModVal);
 	Inv = (u32)2U - ModVal;
 
 	for (Count = 0U; Count < XSECURE_WORD_SIZE; ++Count) {
@@ -538,23 +546,24 @@ static void XSecure_RsaMod32Inverse(const XSecure_Rsa *InstancePtr)
  * @brief	This function writes data to RSA RAM at a given offset
  *
  * @param	InstancePtr	- Pointer to the XSecure_Aes instance
- * @param	WrData		- Pointer to the data to be written to RSA RAM
+ * @param	WrDataAddr	- Address of the data to be written to RSA RAM
  * @param	RamOffset	- Offset for the data to be written in RSA RAM
  *
  * @return	None
  *
  ******************************************************************************/
 static void XSecure_RsaWriteMem(const XSecure_Rsa *InstancePtr,
-	u32* WrData, u8 RamOffset)
+	u64 WrDataAddr, u8 RamOffset)
 {
 	u32 Index;
 	u32 DataOffset;
 	u32 TmpIndex;
 	u32 Data;
+	u32 OffSet;
 
 	/* Assert validates the input arguments */
 	XSecure_AssertVoid(InstancePtr != NULL);
-	XSecure_AssertVoid(WrData != NULL);
+	XSecure_AssertVoid(WrDataAddr != 0U);
 
 	/** Each of this loop will write 192 bits of data*/
 	for (DataOffset = 0U; DataOffset < XSECURE_RSA_MAX_RD_WR_CNT;
@@ -569,7 +578,7 @@ static void XSecure_RsaWriteMem(const XSecure_Rsa *InstancePtr,
 			if((XSECURE_RSA_RAM_EXPO == RamOffset) &&
 			  (InstancePtr->EncDec == (u8)XSECURE_RSA_SIGN_ENC)) {
 				if(0U == TmpIndex ) {
-					Data = *WrData;
+					Data = XSecure_In64(WrDataAddr);
 				}
 				else
 				{
@@ -584,7 +593,8 @@ static void XSecure_RsaWriteMem(const XSecure_Rsa *InstancePtr,
 				}
 				else
 				{
-					Data = WrData[(InstancePtr->SizeInWords - 1U) - TmpIndex];
+					OffSet = ((InstancePtr->SizeInWords - 1U) - TmpIndex) * SIZEOF_INT_IN_BYTES;
+					Data = XSecure_In64((WrDataAddr + OffSet));
 				}
 			}
 			XSecure_WriteReg(InstancePtr->BaseAddress,
