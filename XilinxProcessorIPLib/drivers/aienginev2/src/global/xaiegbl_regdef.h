@@ -815,6 +815,7 @@ typedef struct XAie_TileMod {
 
 
 typedef struct XAie_DeviceOps {
+	u8 IsCheckerBoard;
 	u8 (*GetTTypefromLoc)(XAie_DevInst *DevInst, XAie_LocType Loc);
 	AieRC (*SetPartColShimReset)(XAie_DevInst *DevInst, u8 Enable);
 	AieRC (*SetPartColClockAfterRst)(XAie_DevInst *DevInst, u8 Enable);
