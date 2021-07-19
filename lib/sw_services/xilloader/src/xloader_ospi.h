@@ -27,6 +27,7 @@
 *       skd  07/14/2020 XLoader_OspiCopy prototype changed
 *       skd  08/21/2020 Added GIGADEVICE and ISSI flash ID macros
 *       bsv  10/13/2020 Code clean up
+* 1.03  bsv  07/16/2021 Added Macronix flash support
 *
 * </pre>
 *
@@ -47,17 +48,19 @@ extern "C" {
 /*
  * Flash connection type as defined in Vivado
  */
-#define MICRON_ID				(0x20U)
-#define READ_CMD_OCTAL_4B    			(0x7CU)
-#define READ_ID					(0x9FU)
-#define MICRON_INDEX_START			(0x0U)
-#define WRITE_DISABLE_CMD			(0x4U)
+#define READ_CMD_4B    			(0x13U)
+#define READ_CMD_OCTAL_4B    		(0x7CU)
+#define READ_ID				(0x9FU)
+#define WRITE_DISABLE_CMD		(0x4U)
 #define OSPI_WRITE_ENABLE_CMD		(0x6U)
 #define ENTER_4B_ADDR_MODE      	(0xB7U)
 #define EXIT_4B_ADDR_MODE       	(0xE9U)
 #define READ_FLAG_STATUS_CMD		(0x70U)
-#define WRITE_CONFIG_REG			(0x81U)
-#define READ_CONFIG_REG				(0x85U)
+#define WRITE_CONFIG_REG		(0x81U)
+#define READ_CONFIG_REG			(0x85U)
+#define WRITE_CONFIG2_REG_MX		(0x72U)
+#define READ_CONFIG2_REG_MX		(0x71U)
+#define READ_CMD_OPI_MX			(0xEEU)
 
 /*
  * Identification of Flash
@@ -70,30 +73,35 @@ extern "C" {
 #define	MICRON_OCTAL_ID_BYTE0		  (0x2CU)
 #define GIGADEVICE_OCTAL_ID_BYTE0     (0xC8U)
 #define ISSI_OCTAL_ID_BYTE0           (0x9DU)
+#define MACRONIX_OCTAL_ID_BYTE0           (0xC2U)
 #define MICRON_OCTAL_ID_BYTE2_512	(0x1AU)
 #define MICRON_OCTAL_ID_BYTE2_1G	(0x1BU)
 #define MICRON_OCTAL_ID_BYTE2_2G	(0x1CU)
+#define MACRONIX_OCTAL_ID_BYTE2_512	(0x3AU)
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XLOADER_OSPI_MACRONIX_EXTENDED_OPCODE		(0xFFU)
+#define XLOADER_MACRONIX_OSPI_DDR_DUMMY_CYCLES		(20U)
 #define XLOADER_OSPI_DDR_DUMMY_CYCLES	(16U)
 #define XLOADER_OSPI_SDR_DUMMY_CYCLES	(8U)
+#define XLOADER_MACRONIX_OSPI_SET_DDR_DUMMY_CYCLES	(4U)
 #define XLOADER_READ_ID_BYTES		(8U)
 #define XLOADER_OSPI_READ_ADDR_SIZE	(4U)
 #define XLOADER_OSPI_DDR_MODE_BYTE_CNT	(2U)
 #define XLOADER_OSPI_SDR_MODE_BYTE_CNT	(1U)
-#define XLOADER_OSPI_DUMMY_CYCLES	(8U)
 
 #define XLOADER_OSPI_ENTER_4B_ADDR_MODE_CMD_BYTE_CNT	(0U)
 #define XLOADER_OSPI_ENTER_4B_ADDR_MODE_CMD_ADDR_SIZE	(3U)
 #define XLOADER_OSPI_READ_FLAG_STATUS_CMD_ADDR_SIZE	(0U)
 #define XLOADER_OSPI_WRITE_CFG_REG_CMD_ADDR_SIZE	(3U)
+#define XLOADER_MACRONIX_OSPI_WRITE_CFG_REG_CMD_ADDR_SIZE	(4U)
 #define XLOADER_OSPI_WRITE_CFG_REG_CMD_BYTE_CNT		(1U)
 #define XLOADER_OSPI_READ_CFG_REG_CMD_ADDR_SIZE		(4U)
 #define XLOADER_OSPI_READ_CFG_REG_CMD_BYTE_CNT		(2U)
 #define XLOADER_WRITE_CFG_REG_VAL		(0xE7U)
-#define XLOADER_WRITE_CFG_REG_VAL		(0xE7U)
+#define XLOADER_MACRONIX_WRITE_CFG_REG_VAL		(0x02U)
 #define XLOADER_OSPI_WRITE_DONE_MASK	(0x80U)
 
 /************************** Function Prototypes ******************************/
