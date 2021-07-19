@@ -27,6 +27,7 @@
 * 1.03  skd  03/16/2021 Warnings Fixed
 *       ma   03/24/2021 Store DebugLog structure to RTCA
 * 1.04  td   07/08/2021 Fix doxygen warnings
+*       bsv  07/18/2021 Print PLM banner at the beginning of PLM execution
 *
 * </pre>
 *
@@ -70,8 +71,6 @@ int main(void)
 #ifdef DEBUG_UART_MDM
 	/** If MDM UART, banner can be printed before any initialization */
 	XPlmi_InitUart();
-	/** Print PLM banner  */
-	XPlmi_PrintPlmBanner();
 #endif
 
 	/** Initialize the processor, tasks lists */
@@ -80,6 +79,10 @@ int main(void)
 	{
 		XPlmi_ErrMgr(Status);
 	}
+
+	/** Timestamps are enabled now */
+	/** Print PLM banner */
+	XPlmi_PrintPlmBanner();
 
 	/** Initialize the start up events */
 	Status = XPlm_AddStartUpTasks();
