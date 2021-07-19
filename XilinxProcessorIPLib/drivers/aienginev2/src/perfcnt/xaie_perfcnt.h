@@ -53,4 +53,6 @@ AieRC XAie_PerfCounterEventValueReset(XAie_DevInst *DevInst, XAie_LocType Loc,
 AieRC XAie_PerfCounterGetControlConfig(XAie_DevInst *DevInst, XAie_LocType Loc,
 		XAie_ModuleType Module, u8 Counter, XAie_Events *StartEvent,
 		XAie_Events *StopEvent, XAie_Events *ResetEvent);
+AieRC XAie_PerfCounterGetEventBase(XAie_DevInst *DevInst, XAie_LocType Loc,
+		XAie_ModuleType Module, XAie_Events *Event);
 #endif		/* end of protection macro */
