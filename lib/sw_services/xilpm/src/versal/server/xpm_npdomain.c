@@ -218,8 +218,6 @@ static XStatus NpdScanClear(const u32 *Args, u32 NumOfArgs)
 	u32 SlrType;
 	XPm_OutClockNode *Clk;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	u32 IdCode = XPm_GetIdCode();
-	u32 PlatformVersion = XPm_GetPlatformVersion();
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -233,16 +231,6 @@ static XStatus NpdScanClear(const u32 *Args, u32 NumOfArgs)
 	if ((SlrType != SLR_TYPE_MONOLITHIC_DEV) &&
 	    (SlrType != SLR_TYPE_SSIT_DEV_MASTER_SLR)) {
 		PmDbg("Skipping Scan-Clear of NPD for Slave SLR\n\r");
-		Status = XST_SUCCESS;
-		goto done;
-	}
-
-	/*
-	 * As per EDT-1007863, NoC ScanClear is failing on xcvp1802 ES1 silicon.
-	 * Skip ScanClear as workaround
-	 */
-	if ((PLATFORM_VERSION_SILICON_ES1 == PlatformVersion) &&
-		(PMC_TAP_IDCODE_DEV_SBFMLY_VP1802 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK))) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
