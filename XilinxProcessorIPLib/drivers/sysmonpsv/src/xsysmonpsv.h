@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xsysmonpsv.h
-* @addtogroup sysmonpsv_v2_3
+* @addtogroup sysmonpsv_v2_4
 *
 * The XSysMon driver supports the Xilinx System Monitor device on Versal
 *
