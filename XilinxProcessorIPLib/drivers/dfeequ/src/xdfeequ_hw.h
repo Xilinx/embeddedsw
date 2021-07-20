@@ -23,6 +23,7 @@
 *       dc     03/15/21 Add data latency api
 *       dc     04/20/21 Doxygen documentation update
 *       dc     05/08/21 Update to common trigger
+* 1.1   dc     07/13/21 Update to common latency requirements
 *
 * </pre>
 *
@@ -59,12 +60,12 @@ extern "C" {
 #define XDFEEQU_MODEL_PARAM_TUSER_WIDTH_WIDTH 7U
 #define XDFEEQU_MODEL_PARAM_TUSER_WIDTH_OFFSET 24U
 
-#define XDFEEQU_DELAY 0x0CU /**< Register offset */
-#define XDFEEQU_DELAY_WIDTH 6U
-#define XDFEEQU_DELAY_OFFSET 0U
-#define XDFEEQU_DATA_LATENCY 0x10U /**< Register offset */
-#define XDFEEQU_DATA_LATENCY_WIDTH 4U
-#define XDFEEQU_DATA_LATENCY_OFFSET 0U
+#define XDFEEQU_DELAY_OFFSET 0x0CU /**< Register offset */
+#define XDFEEQU_DELAY_VALUE_WIDTH 6U
+#define XDFEEQU_DELAY_VALUE_OFFSET 0U
+#define XDFEEQU_DATA_LATENCY_OFFSET 0x10U /**< Register offset */
+#define XDFEEQU_DATA_LATENCY_VALUE_WIDTH 4U
+#define XDFEEQU_DATA_LATENCY_VALUE_OFFSET 0U
 
 #define XDFEEQU_CURRENT_CONTROL_OFFSET 0x20U /* Register offset */
 #define XDFEEQU_NEXT_CONTROL_OFFSET 0x24U /* Register offset */

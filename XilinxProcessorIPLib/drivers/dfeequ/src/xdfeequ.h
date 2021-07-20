@@ -49,6 +49,7 @@
 *       dc     04/06/21 Register with full node name
 *       dc     04/20/21 Doxygen documentation update
 *       dc     05/08/21 Update to common trigger
+* 1.1   dc     07/13/21 Update to common latency requirements
 *
 * </pre>
 *
@@ -113,6 +114,21 @@ typedef __s16 s16;
 typedef __u64 u64;
 typedef __s64 s64;
 typedef __s8 s8;
+#else
+#define XDFEEQU_CUSTOM_DEV(_dev_name, _baseaddr, _idx)                         \
+	{                                                                      \
+		.name = _dev_name, .bus = NULL, .num_regions = 1,              \
+		.regions = { {                                                 \
+			.virt = (void *)_baseaddr,                             \
+			.physmap = &metal_phys[_idx],                          \
+			.size = 0x10000,                                       \
+			.page_shift = (u32)(-1),                               \
+			.page_mask = (u32)(-1),                                \
+			.mem_flags = 0x0,                                      \
+			.ops = { NULL },                                       \
+		} },                                                           \
+		.node = { NULL }, .irq_num = 0, .irq_info = NULL,              \
+	}
 #endif
 
 typedef enum XDfeEqu_StateId {
@@ -219,8 +235,6 @@ typedef struct {
 	u32 Set; /**< [0-3] Coefficient set that the coefficients apply to */
 	s16 Coefficients[24]; /**< Signed real numbers. Array of
 		Coefficients. */
-	u32 Shift; /**< [0-7] Shift value. Set by the formula given in
-		specification item 10 in complex equalizer. */
 } XDfeEqu_Coefficients;
 
 /**
@@ -311,7 +325,8 @@ void XDfeEqu_GetTriggersCfg(const XDfeEqu *InstancePtr,
 void XDfeEqu_SetTriggersCfg(const XDfeEqu *InstancePtr,
 			    XDfeEqu_TriggerCfg *TriggerCfg);
 void XDfeEqu_LoadCoefficients(const XDfeEqu *InstancePtr, u32 ChannelField,
-			      u32 Mode, const XDfeEqu_Coefficients *EqCoeffs);
+			      u32 Mode, u32 Shift,
+			      const XDfeEqu_Coefficients *EqCoeffs);
 void XDfeEqu_GetEventStatus(const XDfeEqu *InstancePtr, u32 ChannelId,
 			    XDfeEqu_Status *Status);
 void XDfeEqu_ClearEventStatus(const XDfeEqu *InstancePtr, u32 ChannelId);
