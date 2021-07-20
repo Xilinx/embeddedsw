@@ -1513,6 +1513,47 @@ AieRC _XAie_LinuxIO_RequestAllocatedRsc(void *IOInst,
 
 /*****************************************************************************/
 /**
+* This API gets requested resource statics information
+*
+* @param	DevInst: AI engine partition device instance pointer
+* @param	Arg: Contains resource statistics type, and the array of
+*			resource statistics usage reqests.
+*
+* @return       XAIE_OK on success, error code on failure
+*
+* @note		Internal only.
+*
+*******************************************************************************/
+AieRC _XAie_LinuxIO_GetRscStat(void *IOInst, XAie_BackendRscStat *Arg)
+{
+	XAie_LinuxIO *LinuxIOInst = (XAie_LinuxIO *)IOInst;
+	struct aie_rsc_user_stat_array RStatArray;
+	int Ret;
+
+	RStatArray.num_stats = Arg->NumRscStats;
+	RStatArray.stats = (__u64)(uintptr_t)(Arg->RscStats);
+
+	if (Arg->RscStatType == XAIE_BACKEND_RSC_STAT_STATIC) {
+		RStatArray.stats_type = AIE_RSC_STAT_TYPE_STATIC;
+	} else if (Arg->RscStatType == XAIE_BACKEND_RSC_STAT_AVAIL) {
+		RStatArray.stats_type = AIE_RSC_STAT_TYPE_AVAIL;
+	} else {
+		XAIE_ERROR("Failed to request resource statistics, invalid stat type.\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	Ret = ioctl(LinuxIOInst->PartitionFd, AIE_RSC_GET_STAT_IOCTL,
+			    &RStatArray);
+	if (Ret != 0) {
+		XAIE_ERROR("Failed to request resource statistics from Linux Partition.\n");
+		return XAIE_ERR;
+	}
+
+	return XAIE_OK;
+}
+
+/*****************************************************************************/
+/**
 
 * This is the function to run backend operations
 *
@@ -1550,6 +1591,8 @@ static AieRC XAie_LinuxIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 		return _XAie_LinuxIO_FreeRsc(IOInst, Arg);
 	case XAIE_BACKEND_OP_REQUEST_ALLOCATED_RESOURCE:
 		return _XAie_LinuxIO_RequestAllocatedRsc(IOInst, Arg);
+	case XAIE_BACKEND_OP_GET_RSC_STAT:
+		return _XAie_LinuxIO_GetRscStat(IOInst, Arg);
 	default:
 		XAIE_ERROR("Linux backend does not support operation %d\n", Op);
 		return XAIE_FEATURE_NOT_SUPPORTED;
