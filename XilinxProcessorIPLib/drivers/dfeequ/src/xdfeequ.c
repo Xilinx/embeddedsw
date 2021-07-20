@@ -26,6 +26,7 @@
 *       dc     04/20/21 Doxygen documentation update
 *       dc     05/08/21 Update to common trigger
 * 1.1   dc     05/26/21 Update CFG_SHIFT calculation
+*       dc     07/13/21 Update to common latency requirements
 *
 * </pre>
 *
@@ -45,15 +46,13 @@
 #endif
 
 /**************************** Macros Definitions ****************************/
-#define XDFEEQU_SEQUENCE_ENTRY_NULL 8U /**< Null sequence entry flag */
-#define XDFEEQU_NO_EMPTY_CCID_FLAG 0xFFFFU /**< Not Empty CCID flag */
+#define XDFEEQU_SEQUENCE_ENTRY_NULL 8U /* Null sequence entry flag */
+#define XDFEEQU_NO_EMPTY_CCID_FLAG 0xFFFFU /* Not Empty CCID flag */
 #define XDFEEQU_U32_NUM_BITS 32U
 #define XDFEEQU_COEFF_LOAD_TIMEOUT                                             \
-	1000U /**< Units of us declared in XDFEEQU_WAIT */
-#define XDFEEQU_WAIT 10U /**< Units of us */
-#define XDFEEQU_DELAY_MAX                                                      \
-	(1U << XDFEEQU_DELAY_WIDTH) /**< Maximum delay value */
-#define XDFEEQU_TAP_MAX 24U /**< Maximum tap value */
+	1000U /* Units of us declared in XDFEEQU_WAIT */
+#define XDFEEQU_WAIT 10U /* Units of us */
+#define XDFEEQU_TAP_MAX 24U /* Maximum tap value */
 
 #define XDFEEQU_DRIVER_VERSION_MINOR 1U
 #define XDFEEQU_DRIVER_VERSION_MAJOR 1U
@@ -86,7 +85,6 @@ extern void XDfeEqu_CfgInitialize(XDfeEqu *InstancePtr);
 * @param    AddrOffset is address offset relative to instance base address.
 * @param    Data is value to be written.
 *
-*
 ****************************************************************************/
 void XDfeEqu_WriteReg(const XDfeEqu *InstancePtr, u32 AddrOffset, u32 Data)
 {
@@ -103,7 +101,6 @@ void XDfeEqu_WriteReg(const XDfeEqu *InstancePtr, u32 AddrOffset, u32 Data)
 * @param    AddrOffset is address offset relative to instance base address.
 *
 * @return   Register value.
-*
 *
 ****************************************************************************/
 u32 XDfeEqu_ReadReg(const XDfeEqu *InstancePtr, u32 AddrOffset)
@@ -1132,18 +1129,16 @@ void XDfeEqu_SetTriggersCfg(const XDfeEqu *InstancePtr,
 * @param    ChannelField is a flag in which bits indicate the channel is
 *           enabled.
 * @param    Mode is an Equalizer mode.
+* @param    Shift is a coefficient shift value.
 * @param    EqCoeffs is the Equalizer coefficients container.
 *
 ****************************************************************************/
 void XDfeEqu_LoadCoefficients(const XDfeEqu *InstancePtr, u32 ChannelField,
-			      u32 Mode, const XDfeEqu_Coefficients *EqCoeffs)
+			      u32 Mode, u32 Shift,
+			      const XDfeEqu_Coefficients *EqCoeffs)
 {
 	u32 NumValues;
-	s32 CoeffSum = 0;
-	double ScaleFactor;
-	u32 Shift;
 	u32 LoadDone;
-	u32 SumItemNum;
 	u32 Index;
 
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -1155,28 +1150,7 @@ void XDfeEqu_LoadCoefficients(const XDfeEqu *InstancePtr, u32 ChannelField,
 	Xil_AssertVoid(EqCoeffs->Set < (1U << XDFEEQU_SET_TO_WRITE_SET_WIDTH));
 	Xil_AssertVoid(EqCoeffs->NUnits > 0U);
 
-	/* Determine scale shift value using expression given in specification
-	   item 10 in complex equalizer. */
 	NumValues = EqCoeffs->NUnits * XDFEEQU_TAP_UNIT_SIZE;
-	if (Mode == XDFEEQU_DATAPATH_MODE_REAL) {
-		SumItemNum = NumValues;
-	} else {
-		/* Complex is data number x2 */
-		SumItemNum = 2U * NumValues;
-	}
-
-	for (Index = 0; Index < SumItemNum; Index++) {
-		CoeffSum += EqCoeffs->Coefficients[Index];
-	}
-
-	/* The following two lines are a formula to claculate a shift value.
-	   Coefficient AXI stream will have TLAST to indicate that all
-	   coefficients, shift values, num_active_units associated with one
-	   co-efficient set have arrived. The first value on co-efficient
-	   stream will be a shift value associated with that co-efficient
-	   set. */
-	ScaleFactor = (double)CoeffSum / (24U * ((u32)1 << 15));
-	Shift = (u32)floor(fabs(log2(ScaleFactor)));
 
 	/* Check is load in progress */
 	for (Index = 0; Index < XDFEEQU_COEFF_LOAD_TIMEOUT; Index++) {
@@ -1262,9 +1236,9 @@ void XDfeEqu_SetTUserDelay(const XDfeEqu *InstancePtr, u32 Delay)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFEEQU_STATE_INITIALISED);
-	Xil_AssertVoid(Delay < XDFEEQU_DELAY_MAX);
+	Xil_AssertVoid(Delay < (1U << XDFEEQU_DELAY_VALUE_WIDTH));
 
-	XDfeEqu_WriteReg(InstancePtr, XDFEEQU_DELAY, Delay);
+	XDfeEqu_WriteReg(InstancePtr, XDFEEQU_DELAY_OFFSET, Delay);
 }
 
 /****************************************************************************/
@@ -1282,8 +1256,9 @@ u32 XDfeEqu_GetTUserDelay(const XDfeEqu *InstancePtr)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	return XDfeEqu_RdRegBitField(InstancePtr, XDFEEQU_DELAY,
-				     XDFEEQU_DELAY_WIDTH, XDFEEQU_DELAY_OFFSET);
+	return XDfeEqu_RdRegBitField(InstancePtr, XDFEEQU_DELAY_OFFSET,
+				     XDFEEQU_DELAY_VALUE_WIDTH,
+				     XDFEEQU_DELAY_VALUE_OFFSET);
 }
 
 /****************************************************************************/
@@ -1304,19 +1279,19 @@ u32 XDfeEqu_GetTDataDelay(const XDfeEqu *InstancePtr, u32 Tap)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Tap < XDFEEQU_TAP_MAX);
 
-	Data = XDfeEqu_RdRegBitField(InstancePtr, XDFEEQU_DATA_LATENCY,
-				     XDFEEQU_DATA_LATENCY_WIDTH,
-				     XDFEEQU_DATA_LATENCY_OFFSET);
+	Data = XDfeEqu_RdRegBitField(InstancePtr, XDFEEQU_DATA_LATENCY_OFFSET,
+				     XDFEEQU_DATA_LATENCY_VALUE_WIDTH,
+				     XDFEEQU_DATA_LATENCY_VALUE_OFFSET);
 	return (Data + Tap);
 }
 
 /*****************************************************************************/
 /**
 *
-* This API is used to get the driver version.
+* This API gets the driver and HW design version.
 *
-* @param    SwVersion is driver version numbers.
-* @param    HwVersion is HW version numbers.
+* @param    SwVersion is driver version number.
+* @param    HwVersion is HW version number.
 *
 *
 ******************************************************************************/

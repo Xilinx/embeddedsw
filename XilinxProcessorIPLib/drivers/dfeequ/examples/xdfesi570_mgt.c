@@ -17,6 +17,7 @@
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     01/04/21 Initial version
+* 1.1   dc     07/13/21 Update to common latency requirements
 * </pre>
 *
 ******************************************************************************/
@@ -488,8 +489,10 @@ u32 XDfeSi570_SetFrequency(double CurrentFrequency, double NewFrequency)
 	u8 MuxAddr = 0x8U;
 	u8 Tx = 1U;
 	u8 Rx[20];
+	u64 Rx_new;
 	u32 Index = 0;
 	u64 RFREQ;
+	u64 RFREQ_new;
 	double RFREQ_f;
 	double f_RFREQ_new;
 	u32 N;
@@ -547,12 +550,12 @@ u32 XDfeSi570_SetFrequency(double CurrentFrequency, double NewFrequency)
 exit_loop:
 	/* Find RFREQ for the chosen N and HS_DIV */
 	f_RFREQ_new = f_dco / f_xtal;
-	u64 RFREQ_new = (u64)(f_RFREQ_new * (1U << 28U));
+	RFREQ_new = (u64)(f_RFREQ_new * (1U << 28U));
 
 	/* Sort RFREQ into u8 array */
-	u64 Rx_new = RFREQ_new + ((u64)(N_new - 1U) << 38U);
-	for (int i = 0; i < 6U; i++) {
-		Rx[i] = Rx_new & 0xffU;
+	Rx_new = RFREQ_new + ((u64)(N_new - 1U) << 38U);
+	for (Index = 0; Index < 6U; Index++) {
+		Rx[Index] = Rx_new & 0xffU;
 		Rx_new = Rx_new >> 8U;
 	}
 
