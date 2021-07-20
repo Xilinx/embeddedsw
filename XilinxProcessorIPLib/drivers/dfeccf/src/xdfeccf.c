@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfeccf.c
-* @addtogroup dfeccf_v1_0
+* @addtogroup dfeccf_v1_1
 * @{
 *
 * Contains the APIs for DFE Channel Filter component.
@@ -31,6 +31,7 @@
 *       dc     04/22/21 Add write MappedId field
 *       dc     05/08/21 Update to common trigger
 *       dc     05/18/21 Handling CCUpdate trigger
+* 1.1   dc     07/13/21 Update to common latency requirements
 *
 * </pre>
 *
@@ -56,8 +57,9 @@
 #define XDFECCF_COEFF_LOAD_TIMEOUT 100U /**< Units of 10us */
 #define XDFECCF_ACTIVE_SET_NUM 8U /**< Maximum number of active sets */
 #define XDFECCF_U32_NUM_BITS 32U
+#define XDFECCF_TAP_NUMBER_MAX 256U /**< Maximum tap number */
 
-#define XDFECCF_DRIVER_VERSION_MINOR 0U
+#define XDFECCF_DRIVER_VERSION_MINOR 1U
 #define XDFECCF_DRIVER_VERSION_MAJOR 1U
 
 /************************** Function Prototypes *****************************/
@@ -576,14 +578,15 @@ static u32 XDfeCcf_NextMappedId(const XDfeCcf *InstancePtr,
 static u32 XDfeCcf_EnableCCUpdateTrigger(const XDfeCcf *InstancePtr)
 {
 	u32 Data;
-	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Exit with error if CC_UPDATE status is high */
-	if (XDFECCF_CC_UPDATE_TRIGGERED_HIGH == XDfeCcf_RdRegBitField(
-			InstancePtr, XDFECCF_ISR,
-			XDFECCF_CC_UPDATE_TRIGGERED_WIDTH,
-			XDFECCF_CC_UPDATE_TRIGGERED_OFFSET)) {
-		metal_log(METAL_LOG_ERROR, "CCUpdate status high in %s\n", __func__);
+	if (XDFECCF_CC_UPDATE_TRIGGERED_HIGH ==
+	    XDfeCcf_RdRegBitField(InstancePtr, XDFECCF_ISR,
+				  XDFECCF_CC_UPDATE_TRIGGERED_WIDTH,
+				  XDFECCF_CC_UPDATE_TRIGGERED_OFFSET)) {
+		metal_log(METAL_LOG_ERROR, "CCUpdate status high in %s\n",
+			  __func__);
 		return XST_FAILURE;
 	}
 
@@ -1066,7 +1069,13 @@ void XDfeCcf_Deactivate(XDfeCcf *InstancePtr)
 *
 * @param    InstancePtr is a pointer to the Ccf instance.
 * @param    CCID is a Channel ID.
-* @param    BitSequence maps the sequence.
+* @param    SlotSeqBitmap - up to 16 defined slots into which a CC can be
+*           allocated. The number of slots can be from 1 to 16 depending on
+*           system initisalation. The number of slots is defined by the
+*           "sequence length" parameter which is provided during initilazation.
+*           The Bit offset within the SlotSeqBitmap indicates the equivalent
+*           Slot number to allocate. e.g. 0x0003  means the caller wants the
+*           passed component carrier (CC) to be allocated to slots 0 and 1.
 * @param    CarrierCfg is a CC configuration container.
 *
 * @return
@@ -1074,7 +1083,7 @@ void XDfeCcf_Deactivate(XDfeCcf *InstancePtr)
 *           - XST_FAILURE if error occurs.
 *
 ****************************************************************************/
-u32 XDfeCcf_AddCC(XDfeCcf *InstancePtr, s32 CCID, u32 BitSequence,
+u32 XDfeCcf_AddCC(XDfeCcf *InstancePtr, s32 CCID, u32 SlotSeqBitmap,
 		  const XDfeCcf_CarrierCfg *CarrierCfg)
 {
 	XDfeCcf_CCCfg CCCfg;
@@ -1102,7 +1111,7 @@ u32 XDfeCcf_AddCC(XDfeCcf *InstancePtr, s32 CCID, u32 BitSequence,
 	}
 
 	/* Try to add CC to sequence and update carrier configuration */
-	AddSuccess = XDfeCcf_AddCCID(InstancePtr, CCID, BitSequence,
+	AddSuccess = XDfeCcf_AddCCID(InstancePtr, CCID, SlotSeqBitmap,
 				     &CCCfg.Sequence);
 	if (AddSuccess == (u32)XST_SUCCESS) {
 		/* Update carrier configuration, mark flush as we need to clear
@@ -1149,9 +1158,9 @@ u32 XDfeCcf_RemoveCC(XDfeCcf *InstancePtr, s32 CCID)
 {
 	XDfeCcf_CCCfg CCCfg;
 
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFECCF_STATE_OPERATIONAL);
-	Xil_AssertVoid(CCID <= XDFECCF_CC_NUM);
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->StateId == XDFECCF_STATE_OPERATIONAL);
+	Xil_AssertNonvoid(CCID <= XDFECCF_CC_NUM);
 
 	/* Read current CC configuration */
 	XDfeCcf_GetCurrentCCCfg(InstancePtr, &CCCfg);
@@ -1183,14 +1192,14 @@ u32 XDfeCcf_RemoveCC(XDfeCcf *InstancePtr, s32 CCID)
 *
 ****************************************************************************/
 u32 XDfeCcf_UpdateCC(const XDfeCcf *InstancePtr, s32 CCID,
-		      XDfeCcf_CarrierCfg *CarrierCfg)
+		     XDfeCcf_CarrierCfg *CarrierCfg)
 {
 	XDfeCcf_CCCfg CCCfg;
 
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFECCF_STATE_OPERATIONAL);
-	Xil_AssertVoid(CCID <= XDFECCF_CC_NUM);
-	Xil_AssertVoid(CarrierCfg != NULL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->StateId == XDFECCF_STATE_OPERATIONAL);
+	Xil_AssertNonvoid(CCID <= XDFECCF_CC_NUM);
+	Xil_AssertNonvoid(CarrierCfg != NULL);
 
 	/* Read current CC configuration */
 	XDfeCcf_GetCurrentCCCfg(InstancePtr, &CCCfg);
@@ -1237,9 +1246,9 @@ u32 XDfeCcf_UpdateAntenna(const XDfeCcf *InstancePtr, u32 Ant, bool Enabled)
 {
 	XDfeCcf_CCCfg CCCfg;
 
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFECCF_STATE_OPERATIONAL);
-	Xil_AssertVoid(Ant <= XDFECCF_ANT_NUM_MAX);
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->StateId == XDFECCF_STATE_OPERATIONAL);
+	Xil_AssertNonvoid(Ant <= XDFECCF_ANT_NUM_MAX);
 
 	/* Read current CC configuration */
 	XDfeCcf_GetCurrentCCCfg(InstancePtr, &CCCfg);
@@ -1528,18 +1537,16 @@ void XDfeCcf_GetActiveSets(const XDfeCcf *InstancePtr, u32 *IsActive)
 *
 * @param    InstancePtr is a pointer to the Ccf instance.
 * @param    Set is a coefficient set Id.
+* @param    Shift is a coefficient shift value.
 * @param    Coeffs is an array of filter coefficients.
 *
 *
 ****************************************************************************/
-void XDfeCcf_LoadCoefficients(const XDfeCcf *InstancePtr, u32 Set,
+void XDfeCcf_LoadCoefficients(const XDfeCcf *InstancePtr, u32 Set, u32 Shift,
 			      const XDfeCcf_Coefficients *Coeffs)
 {
 	u32 NumValues;
 	u32 IsOdd;
-	s32 CoeffSum = 0;
-	double ScaleFactor;
-	u32 Shift;
 	u32 LoadActive;
 	u32 Val;
 	u32 Index;
@@ -1548,28 +1555,12 @@ void XDfeCcf_LoadCoefficients(const XDfeCcf *InstancePtr, u32 Set,
 	Xil_AssertVoid(Coeffs != NULL);
 	Xil_AssertVoid(Coeffs->Num != 0U); /* Protect from division with 0 */
 
-	/* Determine scale shift value using expression defined in
-	   Channel Filter FIR (R16) #DetailedDescription */
 	IsOdd = Coeffs->Num % 2U;
 	if (0U != Coeffs->Symmetric) {
 		NumValues = (Coeffs->Num + 1U) / 2U;
 	} else {
 		NumValues = Coeffs->Num;
 	}
-
-	for (Index = 0; Index < NumValues; Index++) {
-		CoeffSum += Coeffs->Value[Index];
-	}
-
-	if (0U != Coeffs->Symmetric) {
-		CoeffSum = 2 * CoeffSum;
-		if (0U != IsOdd) {
-			CoeffSum = CoeffSum - Coeffs->Value[NumValues - 1U];
-		}
-	}
-
-	ScaleFactor = (double)CoeffSum / (256U * ((u32)1 << 15));
-	Shift = (u32)floor(fabs(log2(ScaleFactor)));
 
 	/* Check is load in progress */
 	for (Index = 0; Index < XDFECCF_COEFF_LOAD_TIMEOUT; Index++) {
@@ -1610,6 +1601,69 @@ void XDfeCcf_LoadCoefficients(const XDfeCcf *InstancePtr, u32 Set,
 	/* Load coefficients */
 	XDfeCcf_WrRegBitField(InstancePtr, XDFECCF_COEFF_LOAD,
 			      XDFECCF_STATUS_WIDTH, XDFECCF_STATUS_OFFSET, 1U);
+}
+
+/****************************************************************************/
+/**
+*
+* Sets the delay, which will be added to TUSER and TLAST (delay matched
+* through the IP).
+*
+* @param    InstancePtr is a pointer to the Ccf instance.
+* @param    Delay is a requested delay variable.
+*
+****************************************************************************/
+void XDfeCcf_SetTUserDelay(const XDfeCcf *InstancePtr, u32 Delay)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->StateId == XDFECCF_STATE_INITIALISED);
+	Xil_AssertVoid(Delay < (1U << XDFECCF_DELAY_VALUE_WIDTH));
+
+	XDfeCcf_WriteReg(InstancePtr, XDFECCF_DELAY_OFFSET, Delay);
+}
+
+/****************************************************************************/
+/**
+*
+* Reads the delay, which will be added to TUSER and TLAST (delay matched
+* through the IP).
+*
+* @param    InstancePtr is a pointer to the Ccf instance.
+*
+* @return   Delay value
+*
+****************************************************************************/
+u32 XDfeCcf_GetTUserDelay(const XDfeCcf *InstancePtr)
+{
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	return XDfeCcf_RdRegBitField(InstancePtr, XDFECCF_DELAY_OFFSET,
+				     XDFECCF_DELAY_VALUE_WIDTH,
+				     XDFECCF_DELAY_VALUE_OFFSET);
+}
+
+/****************************************************************************/
+/**
+*
+* Returns CONFIG.DATA_LATENCY.VALUE + tap, where the tap is between 0
+* and 256 in symmetric mode and between 0 and 128 in non-symmetric.
+*
+* @param    InstancePtr is a pointer to the Ccf instance.
+* @param    Tap is a tap variable.
+*
+* @return   Data latency value.
+*
+****************************************************************************/
+u32 XDfeCcf_GetTDataDelay(const XDfeCcf *InstancePtr, u32 Tap)
+{
+	u32 Data;
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(Tap < XDFECCF_TAP_NUMBER_MAX);
+
+	Data = XDfeCcf_RdRegBitField(InstancePtr, XDFECCF_DATA_LATENCY_OFFSET,
+				     XDFECCF_DATA_LATENCY_VALUE_WIDTH,
+				     XDFECCF_DATA_LATENCY_VALUE_OFFSET);
+	return (Data + Tap);
 }
 
 /*****************************************************************************/

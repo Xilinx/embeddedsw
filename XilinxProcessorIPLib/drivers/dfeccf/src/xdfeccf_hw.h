@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfeccf_hw.h
-* @addtogroup dfeccf_v1_0
+* @addtogroup dfeccf_v1_1
 * @{
 *
 * Contains the register definitions for xdfeccf. This is
@@ -25,6 +25,7 @@
 *       dc     04/20/21 Doxygen documentation update
 *       dc     05/08/21 Update to common trigger
 *       dc     05/18/21 Handling CCUpdate trigger
+* 1.1   dc     07/13/21 Update to common latency requirements
 *
 * </pre>
 *
@@ -60,22 +61,28 @@ extern "C" {
 #define XDFECCF_MODEL_PARAM_NUM_CC_PER_ANTENNA_OFFSET 8U
 #define XDFECCF_MODEL_PARAM_ANTENNA_INTERLEAVE_WIDTH 3U
 #define XDFECCF_MODEL_PARAM_ANTENNA_INTERLEAVE_OFFSET 12U
-#define XDFECCF_GAIN_STG_EN_OFFSET 0x0C /**< Register offset */
-#define XDFECCF_GAIN_STG_EN_DISABLED 0x00
-#define XDFECCF_GAIN_STG_EN_ENABLED 0x01
+#define XDFECCF_GAIN_STG_EN_OFFSET 0x0CU /**< Register offset */
+#define XDFECCF_GAIN_STG_EN_DISABLED 0x00U
+#define XDFECCF_GAIN_STG_EN_ENABLED 0x01U
 
+#define XDFECCF_DELAY_OFFSET 0x10 /**< Register offset */
+#define XDFECCF_DELAY_VALUE_WIDTH 12U
+#define XDFECCF_DELAY_VALUE_OFFSET 0U
+#define XDFECCF_DATA_LATENCY_OFFSET 0x14U /**< Register offset */
+#define XDFECCF_DATA_LATENCY_VALUE_WIDTH 4U
+#define XDFECCF_DATA_LATENCY_VALUE_OFFSET 0U
 /* State */
-#define XDFECCF_STATE_OPERATIONAL_OFFSET 0x10U /**< Register offset */
+#define XDFECCF_STATE_OPERATIONAL_OFFSET 0x20U /**< Register offset */
 #define XDFECCF_STATE_OPERATIONAL_BITFIELD_WIDTH 1U
 #define XDFECCF_STATE_OPERATIONAL_BITFIELD_OFFSET 0U
 #define XDFECCF_STATE_OPERATIONAL_NO 0U
 #define XDFECCF_STATE_OPERATIONAL_YES 1U
-#define XDFECCF_STATE_LOW_POWER_OFFSET 0x14U /**< Register offset */
+#define XDFECCF_STATE_LOW_POWER_OFFSET 0x24U /**< Register offset */
 
 /* Triggers */
-#define XDFECCF_TRIGGERS_ACTIVATE_OFFSET 0x20U /**< Register offset */
-#define XDFECCF_TRIGGERS_LOW_POWER_OFFSET 0x28U /**< Register offset */
-#define XDFECCF_TRIGGERS_CC_UPDATE_OFFSET 0x2CU /**< Register offset */
+#define XDFECCF_TRIGGERS_ACTIVATE_OFFSET 0x30U /**< Register offset */
+#define XDFECCF_TRIGGERS_LOW_POWER_OFFSET 0x38U /**< Register offset */
+#define XDFECCF_TRIGGERS_CC_UPDATE_OFFSET 0x3CU /**< Register offset */
 /* Bit fields */
 #define XDFECCF_TRIGGERS_TRIGGER_ENABLE_WIDTH 1U
 #define XDFECCF_TRIGGERS_TRIGGER_ENABLE_OFFSET 0U

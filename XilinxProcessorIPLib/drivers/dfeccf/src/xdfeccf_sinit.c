@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfeccf_sinit.c
-* @addtogroup dfeccf_v1_0
+* @addtogroup dfeccf_v1_1
 * @{
 *
 * The implementation of the XDfeCcf component's static initialization

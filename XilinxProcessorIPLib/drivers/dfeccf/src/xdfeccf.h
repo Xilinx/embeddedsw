@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfeccf.h
-* @addtogroup dfeccf_v1_0
+* @addtogroup dfeccf_v1_1
 * @{
 *
 * The Channel Filter IP provides a wrapper around the Channel Filter
@@ -66,6 +66,7 @@
 *       dc     04/20/21 Doxygen documentation update
 *       dc     05/08/21 Update to common trigger
 *       dc     05/18/21 Handling CCUpdate trigger
+* 1.1   dc     07/13/21 Update to common latency requirements
 *
 * </pre>
 *
@@ -122,6 +123,21 @@ typedef __s16 s16;
 typedef __u64 u64;
 typedef __s64 s64;
 typedef __s8 s8;
+#else
+#define XDFECCF_CUSTOM_DEV(_dev_name, _baseaddr, _idx)                         \
+	{                                                                      \
+		.name = _dev_name, .bus = NULL, .num_regions = 1,              \
+		.regions = { {                                                 \
+			.virt = (void *)_baseaddr,                             \
+			.physmap = &metal_phys[_idx],                          \
+			.size = 0x10000,                                       \
+			.page_shift = (u32)(-1),                               \
+			.page_mask = (u32)(-1),                                \
+			.mem_flags = 0x0,                                      \
+			.ops = { NULL },                                       \
+		} },                                                           \
+		.node = { NULL }, .irq_num = 0, .irq_info = NULL,              \
+	}
 #endif
 
 typedef enum XDfeCcf_StateId {
@@ -357,7 +373,7 @@ u32 XDfeCcf_AddCC(XDfeCcf *InstancePtr, s32 CCID, u32 BitSequence,
 		  const XDfeCcf_CarrierCfg *CarrierCfg);
 u32 XDfeCcf_RemoveCC(XDfeCcf *InstancePtr, s32 CCID);
 u32 XDfeCcf_UpdateCC(const XDfeCcf *InstancePtr, s32 CCID,
-		      XDfeCcf_CarrierCfg *CarrierCfg);
+		     XDfeCcf_CarrierCfg *CarrierCfg);
 u32 XDfeCcf_UpdateAntenna(const XDfeCcf *InstancePtr, u32 Ant, bool Enabled);
 void XDfeCcf_GetTriggersCfg(const XDfeCcf *InstancePtr,
 			    XDfeCcf_TriggerCfg *TriggerCfg);
@@ -366,12 +382,17 @@ void XDfeCcf_SetTriggersCfg(const XDfeCcf *InstancePtr,
 void XDfeCcf_GetCC(const XDfeCcf *InstancePtr, s32 CCID,
 		   XDfeCcf_CarrierCfg *CarrierCfg);
 void XDfeCcf_GetActiveSets(const XDfeCcf *InstancePtr, u32 *IsActive);
-void XDfeCcf_LoadCoefficients(const XDfeCcf *InstancePtr, u32 Set,
+void XDfeCcf_LoadCoefficients(const XDfeCcf *InstancePtr, u32 Set, u32 Shift,
 			      const XDfeCcf_Coefficients *Coeffs);
 void XDfeCcf_GetEventStatus(const XDfeCcf *InstancePtr, XDfeCcf_Status *Status);
 void XDfeCcf_ClearEventStatus(const XDfeCcf *InstancePtr);
 void XDfeCcf_SetInterruptMask(const XDfeCcf *InstancePtr,
 			      const XDfeCcf_InterruptMask *Mask);
+void XDfeCcf_SetInterruptMask(const XDfeCcf *InstancePtr,
+			      const XDfeCcf_InterruptMask *Mask);
+void XDfeCcf_SetTUserDelay(const XDfeCcf *InstancePtr, u32 Delay);
+u32 XDfeCcf_GetTUserDelay(const XDfeCcf *InstancePtr);
+u32 XDfeCcf_GetTDataDelay(const XDfeCcf *InstancePtr, u32 Tap);
 void XDfeCcf_GetVersions(const XDfeCcf *InstancePtr, XDfeCcf_Version *SwVersion,
 			 XDfeCcf_Version *HwVersion);
 

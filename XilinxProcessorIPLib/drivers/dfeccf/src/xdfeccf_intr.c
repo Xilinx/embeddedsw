@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfeccf_intr.c
-* @addtogroup dfeccf_v1_0
+* @addtogroup dfeccf_v1_1
 * @{
 *
 * This file contains functions related to Channel Filter interrupt handling.
