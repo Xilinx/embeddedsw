@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfexmix.c
-* @addtogroup xdfemix_v1_0
+* @addtogroup xdfemix_v1_1
 * @{
 *
 * Contains the APIs for DFE Mixer component.
@@ -32,6 +32,7 @@
 *       dc     04/27/21 Update CARRIER_CONFIGURATION handling
 *       dc     05/08/21 Update to common trigger
 *       dc     05/18/21 Handling CCUpdate trigger
+* 1.1   dc     07/13/21 Update to common latency requirements
 *
 * </pre>
 *
@@ -56,6 +57,7 @@
 #define XDFEMIX_NO_EMPTY_CCID_FLAG 0xFFFFU /* Not Empty CCID flag */
 #define XDFEMIX_PHASE_OFFSET_ROUNDING_BITS 14U
 #define XDFEMIX_U32_NUM_BITS 32U
+#define XDFEMIX_TAP_MAX 24U /* Maximum tap value */
 
 #define XDFEMIXER_CURRENT false
 #define XDFEMIXER_NEXT true
@@ -63,7 +65,7 @@
 #define XDFEMIXER_PHACC_DISABLE false
 #define XDFEMIXER_PHACC_ENABLE true
 
-#define XDFEMIX_DRIVER_VERSION_MINOR 0U
+#define XDFEMIX_DRIVER_VERSION_MINOR 1U
 #define XDFEMIX_DRIVER_VERSION_MAJOR 1U
 
 /************************** Function Prototypes *****************************/
@@ -894,7 +896,8 @@ static void XDfeMix_SetPLMixerDelay(const XDfeMix *InstancePtr)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	XDfeMix_WriteReg(InstancePtr, PL_MIXER_DELAY, PL_MIXER_DELAY_VALUE);
+	XDfeMix_WriteReg(InstancePtr, XDFEMIX_PL_MIXER_DELAY,
+			 XDFEMIX_PL_MIXER_DELAY_VALUE);
 }
 
 /****************************************************************************/
@@ -913,14 +916,15 @@ static void XDfeMix_SetPLMixerDelay(const XDfeMix *InstancePtr)
 static u32 XDfeMix_EnableCCUpdateTrigger(const XDfeMix *InstancePtr)
 {
 	u32 Data;
-	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Exit with error if CC_UPDATE status is high */
-	if (XDFEMIX_CC_UPDATE_TRIGGERED_HIGH == XDfeMix_RdRegBitField(
-			InstancePtr, XDFEMIX_ISR,
-			XDFEMIX_CC_UPDATE_TRIGGERED_WIDTH,
-			XDFEMIX_CC_UPDATE_TRIGGERED_OFFSET)) {
-		metal_log(METAL_LOG_ERROR, "CCUpdate status high in %s\n", __func__);
+	if (XDFEMIX_CC_UPDATE_TRIGGERED_HIGH ==
+	    XDfeMix_RdRegBitField(InstancePtr, XDFEMIX_ISR,
+				  XDFEMIX_CC_UPDATE_TRIGGERED_WIDTH,
+				  XDFEMIX_CC_UPDATE_TRIGGERED_OFFSET)) {
+		metal_log(METAL_LOG_ERROR, "CCUpdate status high in %s\n",
+			  __func__);
 		return XST_FAILURE;
 	}
 
@@ -1503,9 +1507,9 @@ u32 XDfeMix_RemoveCC(XDfeMix *InstancePtr, s32 CCID)
 {
 	XDfeMix_CCCfg CCCfg;
 
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEMIX_STATE_OPERATIONAL);
-	Xil_AssertVoid(CCID <= XDFEMIX_CC_NUM);
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->StateId == XDFEMIX_STATE_OPERATIONAL);
+	Xil_AssertNonvoid(CCID <= XDFEMIX_CC_NUM);
 
 	/* Read current CC configuration */
 	XDfeMix_GetCurrentCCCfg(InstancePtr, &CCCfg);
@@ -1540,7 +1544,7 @@ u32 XDfeMix_RemoveCC(XDfeMix *InstancePtr, s32 CCID)
 *
 ****************************************************************************/
 u32 XDfeMix_MoveCC(XDfeMix *InstancePtr, s32 CCID, u32 Rate, u32 FromNCO,
-		    u32 ToNCO)
+		   u32 ToNCO)
 {
 	XDfeMix_CCCfg NextCCCfg;
 	XDfeMix_Frequency Freq;
@@ -1550,12 +1554,12 @@ u32 XDfeMix_MoveCC(XDfeMix *InstancePtr, s32 CCID, u32 Rate, u32 FromNCO,
 	XDfeMix_PhaseOffset PhaseDiff = { 0 };
 	u32 NCOGain;
 
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEMIX_STATE_OPERATIONAL);
-	Xil_AssertVoid(CCID <= XDFEMIX_CC_NUM);
-	Xil_AssertVoid(Rate <= XDFEMIX_RATE_MAX);
-	Xil_AssertVoid(FromNCO <= XDFEMIX_NCO_MAX);
-	Xil_AssertVoid(ToNCO <= XDFEMIX_NCO_MAX);
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->StateId == XDFEMIX_STATE_OPERATIONAL);
+	Xil_AssertNonvoid(CCID <= XDFEMIX_CC_NUM);
+	Xil_AssertNonvoid(Rate <= XDFEMIX_RATE_MAX);
+	Xil_AssertNonvoid(FromNCO <= XDFEMIX_NCO_MAX);
+	Xil_AssertNonvoid(ToNCO <= XDFEMIX_NCO_MAX);
 
 	XDfeMix_GetCurrentCCCfg(InstancePtr, &NextCCCfg);
 	XDfeMix_SetNextCCCfg(InstancePtr, &NextCCCfg);
@@ -1607,14 +1611,13 @@ void XDfeMix_UpdateCC(const XDfeMix *InstancePtr)
 *           - XST_FAILURE if error occurs.
 *
 ****************************************************************************/
-u32 XDfeMix_SetAntennaGain(XDfeMix *InstancePtr, u32 AntennaId,
-			    u32 AntennaGain)
+u32 XDfeMix_SetAntennaGain(XDfeMix *InstancePtr, u32 AntennaId, u32 AntennaGain)
 {
 	XDfeMix_CCCfg CCCfg;
 
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(AntennaGain <= 1U);
-	Xil_AssertVoid(AntennaId <= XDFEMIX_ANT_NUM_MAX);
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(AntennaGain <= 1U);
+	Xil_AssertNonvoid(AntennaId <= XDFEMIX_ANT_NUM_MAX);
 
 	XDfeMix_GetCurrentCCCfg(InstancePtr, &CCCfg);
 	XDfeMix_SetNextCCCfg(InstancePtr, &CCCfg);
@@ -1857,13 +1860,76 @@ void XDfeMix_GetMixerStatus(const XDfeMix *InstancePtr, s32 CCID,
 				   Val);
 }
 
+/****************************************************************************/
+/**
+*
+* Sets the delay, which will be added to TUSER and TLAST (delay matched
+* through the IP).
+*
+* @param    InstancePtr is a pointer to the Mixer instance.
+* @param    Delay is a requested delay variable.
+*
+****************************************************************************/
+void XDfeMix_SetTUserDelay(const XDfeMix *InstancePtr, u32 Delay)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->StateId == XDFEMIX_STATE_INITIALISED);
+	Xil_AssertVoid(Delay < (1U << XDFEMIX_DELAY_VALUE_WIDTH));
+
+	XDfeMix_WriteReg(InstancePtr, XDFEMIX_DELAY_OFFSET, Delay);
+}
+
+/****************************************************************************/
+/**
+*
+* Reads the delay, which will be added to TUSER and TLAST (delay matched
+* through the IP).
+*
+* @param    InstancePtr is a pointer to the Mixer instance.
+*
+* @return   Delay value
+*
+****************************************************************************/
+u32 XDfeMix_GetTUserDelay(const XDfeMix *InstancePtr)
+{
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	return XDfeMix_RdRegBitField(InstancePtr, XDFEMIX_DELAY_OFFSET,
+				     XDFEMIX_DELAY_VALUE_WIDTH,
+				     XDFEMIX_DELAY_VALUE_OFFSET);
+}
+
+/****************************************************************************/
+/**
+*
+* Returns CONFIG.DATA_LATENCY.VALUE + tap, where the tap is between 0
+* and 23 in real mode and between 0 and 11 in complex/matrix mode.
+*
+* @param    InstancePtr is a pointer to the Mixer instance.
+* @param    Tap is a tap variable.
+*
+* @return   Data latency value.
+*
+****************************************************************************/
+u32 XDfeMix_GetTDataDelay(const XDfeMix *InstancePtr, u32 Tap)
+{
+	u32 Data;
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(Tap < XDFEMIX_TAP_MAX);
+
+	Data = XDfeMix_RdRegBitField(InstancePtr, XDFEMIX_LATENCY_OFFSET,
+				     XDFEMIX_LATENCY_VALUE_WIDTH,
+				     XDFEMIX_LATENCY_VALUE_OFFSET);
+	return (Data + Tap);
+}
+
 /*****************************************************************************/
 /**
 *
-* This API is used to get the driver version.
+* This API gets the driver and HW design version.
 *
-* @param    SwVersion is driver version numbers.
-* @param    HwVersion is HW version numbers.
+* @param    SwVersion is driver version number.
+* @param    HwVersion is HW version number.
 *
 *
 ******************************************************************************/
@@ -1873,8 +1939,8 @@ void XDfeMix_GetVersions(const XDfeMix *InstancePtr, XDfeMix_Version *SwVersion,
 	u32 Version;
 
 	Xil_AssertVoid(InstancePtr->StateId != XDFEMIX_STATE_NOT_READY);
-	/* Driver version */
 
+	/* Driver version */
 	SwVersion->Major = XDFEMIX_DRIVER_VERSION_MAJOR;
 	SwVersion->Minor = XDFEMIX_DRIVER_VERSION_MINOR;
 
