@@ -27,15 +27,13 @@
 /***************************** Include Files *********************************/
 #ifdef __AIEMETAL__
 
-#include <metal/alloc.h>
-#include <metal/device.h>
-#include <metal/io.h>
-#include <metal/irq.h>
-#include <metal/list.h>
-#include <metal/mutex.h>
-#include <metal/shmem.h>
-#include <metal/shmem-provider.h>
-#include <metal/utilities.h>
+#include <dirent.h>
+#include <fcntl.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/mman.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <unistd.h>
 
 #endif
@@ -43,22 +41,20 @@
 #include "xaie_helper.h"
 #include "xaie_io.h"
 #include "xaie_io_common.h"
+#include "xaie_io_privilege.h"
 #include "xaie_npi.h"
 
 /***************************** Macro Definitions *****************************/
-#define SHM_NUM_ULONG	8					/**< number of ulong for bitmap */
-#define SHM_MAX_IDS	(sizeof(unsigned long) * SHM_NUM_ULONG)	/**< max number of IDs = 64 * 16 = 512 */
-
+#define XAIE_UIO_SYSFS_PATH		"/sys/class/uio"
+#define XAIE_UIO_DRIVER_PATH_MAX	500U
 /****************************** Type Definitions *****************************/
 #ifdef __AIEMETAL__
 
 typedef struct XAie_MetalIO {
-	struct metal_device *device;	/**< libmetal device */
-	struct metal_io_region *io;	/**< libmetal io region */
-	u64 io_base;			/**< libmetal io region base */
-	struct metal_device *npi_device;	/**< libmetal NPI device */
-	struct metal_io_region *npi_io;	/**< libmetal NPI io region */
-	unsigned long shm_ids[SHM_NUM_ULONG];	/**< bitmap for shm name space */
+	int DevFd;
+	u64 BaseAddr;
+	u64 MapSize;
+	void *NpiBaseAddr;
 } XAie_MetalIO;
 
 #endif /* __AIEMETAL__ */
@@ -83,12 +79,8 @@ static AieRC XAie_MetalIO_Finish(void *IOInst)
 {
 	XAie_MetalIO *MetalIOInst = (XAie_MetalIO *)IOInst;
 
-	metal_device_close(MetalIOInst->device);
-	if (MetalIOInst->npi_device) {
-		metal_device_close(MetalIOInst->npi_device);
-	}
-	metal_free_memory(IOInst);
-	metal_finish();
+	munmap((void *)MetalIOInst->BaseAddr, MetalIOInst->MapSize);
+	close(MetalIOInst->DevFd);
 
 	return XAIE_OK;
 }
@@ -108,58 +100,72 @@ static AieRC XAie_MetalIO_Finish(void *IOInst)
 *******************************************************************************/
 static AieRC XAie_MetalIO_Init(XAie_DevInst *DevInst)
 {
+	u64 Size = 0x100000000;
 	XAie_MetalIO *MetalIOInst;
-	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
-	int ret;
+	DIR *Dir;
+	struct dirent *DirEntry;
+	int Fd;
+	FILE *DevFile;
+	void *Addr;
+	char path[XAIE_UIO_DRIVER_PATH_MAX];
+	char DevName[XAIE_UIO_DRIVER_PATH_MAX];
 
-	ret = metal_init(&init_param);
-	if(ret) {
-		XAIE_ERROR("failed to metal_init %d\n", ret);
+	MetalIOInst = (XAie_MetalIO *)malloc(sizeof(*MetalIOInst));
+	if(MetalIOInst == NULL) {
+		XAIE_ERROR("Initialization failed. Failed to allocate memory.\n");
 		return XAIE_ERR;
 	}
 
-	MetalIOInst = (XAie_MetalIO *)metal_allocate_memory(
-			sizeof(*MetalIOInst));
-	if(MetalIOInst == NULL) {
-		XAIE_ERROR("Memory allocation failed\n");
-		goto finish;
+	/* iterate over all uio devices and check device name */
+	Dir = opendir(XAIE_UIO_SYSFS_PATH);
+	while(1U) {
+		DirEntry = readdir(Dir);
+		if(DirEntry == NULL) {
+			XAIE_ERROR("UIO device for aie not found\n");
+			closedir(Dir);
+			return XAIE_ERR;
+		}
+		if((strcmp(DirEntry->d_name, ".") == 0) ||
+				(strcmp(DirEntry->d_name, "..") == 0))
+			continue;
+		sprintf(path, "%s/%s/name", XAIE_UIO_SYSFS_PATH,
+				DirEntry->d_name);
+		DevFile = fopen(path, "r");
+		fgets(DevName, XAIE_UIO_DRIVER_PATH_MAX, DevFile);
+		fclose(DevFile);
+		if(strncmp(DevName, "xilinx-aiengine",
+					strlen("xilinx-aiengine")) == 0)
+			break;
 	}
 
-
-	ret = metal_device_open("platform", "xilinx-aiengine",
-			&MetalIOInst->device);
-	if(ret) {
-		XAIE_ERROR("failed to metal_device_open\n");
-		goto free_mem;
+	sprintf(path, "/dev/%s", DirEntry->d_name);
+	closedir(Dir);
+	Fd = open(path, O_RDWR);
+	if(Fd < 0) {
+		XAIE_ERROR("Failed to open uio device\n");
+		free(MetalIOInst);
+		return XAIE_ERR;
 	}
 
-	MetalIOInst->io = metal_device_io_region(MetalIOInst->device, 0);
-	if(!MetalIOInst->io) {
-		XAIE_ERROR("failed to metal_device_io_region\n");
-		goto close;
+	Addr = mmap(NULL, Size, PROT_READ | PROT_WRITE, MAP_SHARED, Fd, 0);
+	if(Addr == MAP_FAILED) {
+		XAIE_ERROR("Failed to map device region.\n");
+		free(MetalIOInst);
+		close(Fd);
+		return XAIE_ERR;
 	}
 
-	MetalIOInst->io_base = metal_io_phys(MetalIOInst->io, 0);
-
-	ret = metal_device_open("platform", "f70a0000.aie-npi",
-			&MetalIOInst->npi_device);
-	if (ret == 0) {
-		MetalIOInst->npi_io = metal_device_io_region(MetalIOInst->npi_device, 0);
-	}
+	MetalIOInst->BaseAddr = (u64)Addr;
+	MetalIOInst->DevFd = Fd;
+	MetalIOInst->MapSize = Size;
+	/*
+	 * TODO: Enable NPI access
+	 */
+	MetalIOInst->NpiBaseAddr = NULL;
 
 	DevInst->IOInst = (void *)MetalIOInst;
 
 	return XAIE_OK;
-
-close:
-	metal_device_close(MetalIOInst->device);
-
-free_mem:
-	metal_free_memory(MetalIOInst);
-
-finish:
-	metal_finish();
-	return XAIE_ERR;
 }
 
 /*****************************************************************************/
@@ -180,7 +186,7 @@ static AieRC XAie_MetalIO_Read32(void *IOInst, u64 RegOff, u32 *Data)
 {
 	XAie_MetalIO *MetalIOInst = (XAie_MetalIO *)IOInst;
 
-	*Data = metal_io_read32(MetalIOInst->io, RegOff);
+	*Data = *((u32 *)(MetalIOInst->BaseAddr + RegOff));
 
 	return XAIE_OK;
 }
@@ -203,7 +209,7 @@ static AieRC XAie_MetalIO_Write32(void *IOInst, u64 RegOff, u32 Data)
 {
 	XAie_MetalIO *MetalIOInst = (XAie_MetalIO *)IOInst;
 
-	metal_io_write32(MetalIOInst->io, RegOff, Data);
+	*((u32 *)(MetalIOInst->BaseAddr + RegOff)) = Data;
 
 	return XAIE_OK;
 }
@@ -214,7 +220,7 @@ static AieRC XAie_MetalIO_Write32(void *IOInst, u64 RegOff, u32 Data)
 * This is the memory IO function to write masked 32bit data to the specified
 * address.
 *
-* @param	IOInst: IO instance pointer
+* @param	OInst: IO instance pointer
 * @param	RegOff: Register offset to read from.
 * @param	Mask: Mask to be applied to Data.
 * @param	Data: 32-bit data to be written.
@@ -359,7 +365,7 @@ static void _XAie_MetalIO_NpiWrite32(void *IOInst, u32 RegOff, u32 RegVal)
 {
 	XAie_MetalIO *MetalIOInst = (XAie_MetalIO *)IOInst;
 
-	metal_io_write32(MetalIOInst->npi_io, RegOff, RegVal);
+	*((u32 *)(MetalIOInst->NpiBaseAddr + RegOff)) = RegVal;
 }
 
 /*****************************************************************************/
@@ -388,7 +394,7 @@ static AieRC XAie_MetalIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 		{
 			XAie_BackendNpiWrReq *Req = Arg;
 
-			if (MetalIOInst->npi_io != NULL) {
+			if (MetalIOInst->NpiBaseAddr != NULL) {
 				_XAie_MetalIO_NpiWrite32(IOInst,
 						Req->NpiRegOff, Req->Val);
 				RC = XAIE_OK;
@@ -399,7 +405,7 @@ static AieRC XAie_MetalIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 		{
 			u8 RstEnable = (u8)((uintptr_t)Arg & 0xFF);
 
-			if (MetalIOInst->npi_io != NULL) {
+			if (MetalIOInst->NpiBaseAddr != NULL) {
 				_XAie_NpiSetShimReset(DevInst, RstEnable);
 				RC = XAIE_OK;
 			}
@@ -407,7 +413,7 @@ static AieRC XAie_MetalIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 		}
 		case XAIE_BACKEND_OP_SET_PROTREG:
 		{
-			if (MetalIOInst->npi_io != NULL) {
+			if (MetalIOInst->NpiBaseAddr != NULL) {
 				RC = _XAie_NpiSetProtectedRegEnable(DevInst,
 						Arg);
 			}
