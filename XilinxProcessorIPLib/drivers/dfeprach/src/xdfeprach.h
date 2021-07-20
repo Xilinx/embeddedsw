@@ -57,6 +57,7 @@
 *       dc     05/08/21 Update to common trigger
 *       dc     05/18/21 Handling RachUpdate trigger
 * 1.1   dc     06/30/21 Doxygen documentation update
+*       dc     07/13/21 Update to common latency requirements
 *
 * </pre>
 *
@@ -111,6 +112,21 @@ typedef __s16 s16;
 typedef __u64 u64;
 typedef __s64 s64;
 typedef __s8 s8;
+#else
+#define XDFEPRACH_CUSTOM_DEV(_dev_name, _baseaddr, _idx)                       \
+	{                                                                      \
+		.name = _dev_name, .bus = NULL, .num_regions = 1,              \
+		.regions = { {                                                 \
+			.virt = (void *)_baseaddr,                             \
+			.physmap = &metal_phys[_idx],                          \
+			.size = 0x10000,                                       \
+			.page_shift = (u32)(-1),                               \
+			.page_mask = (u32)(-1),                                \
+			.mem_flags = 0x0,                                      \
+			.ops = { NULL },                                       \
+		} },                                                           \
+		.node = { NULL }, .irq_num = 0, .irq_info = NULL,              \
+	}
 #endif
 
 typedef enum XDfePrach_StateId {
@@ -138,8 +154,8 @@ typedef struct {
 typedef struct {
 	u32 TriggerEnable; /**< [0,1], Enable Trigger:
 		0 = DISABLED: Trigger Pulse and State outputs are disabled.
-		1 = ENABLED: Trigger Pulse and State outputs are enabled and follows
-			the settings described. */
+		1 = ENABLED: Trigger Pulse and State outputs are enabled and follow
+			the settings described below. */
 	u32 Mode; /**< [0-3], Specify Trigger Mode. In TUSER_Single_Shot mode as
 		soon as the TUSER_Edge_level condition is met the State output will be
 		driven to the value specified in STATE_OUTPUT. The Pulse output will
@@ -537,6 +553,9 @@ void XDfePrach_GetInterruptStatus(const XDfePrach *InstancePtr,
 				  XDfePrach_InterruptMask *Flags);
 void XDfePrach_ClearInterruptStatus(const XDfePrach *InstancePtr,
 				    const XDfePrach_InterruptMask *Flags);
+void XDfePrach_SetTUserDelay(const XDfePrach *InstancePtr, u32 Delay);
+u32 XDfePrach_GetTUserDelay(const XDfePrach *InstancePtr);
+u32 XDfePrach_GetTDataDelay(const XDfePrach *InstancePtr);
 void XDfePrach_GetVersions(const XDfePrach *InstancePtr,
 			   XDfePrach_Version *SwVersion,
 			   XDfePrach_Version *HwVersion);
