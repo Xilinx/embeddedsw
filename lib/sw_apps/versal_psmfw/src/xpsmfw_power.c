@@ -357,13 +357,6 @@ XStatus XPsmFw_FpdPreHouseClean(void)
 	 */
 	LocalPwrState = XPsmFw_Read32(PSM_LOCAL_PWR_STATE);
 
-	/*
-	 * Power up ACPUx power islands.
-	 * Remove physical isolation.
-	 */
-	XPsmFw_Write32(PSM_LOCAL_ACPU0_PWR_CNTRL, 0x0000000F);
-	XPsmFw_Write32(PSM_LOCAL_ACPU1_PWR_CNTRL, 0x0000000F);
-
 	/* Update PWR_STATE register to reflect that all ACPUs are powerd up */
 	XPsmFw_Write32(PSM_LOCAL_PWR_STATE,
 			   (LocalPwrState | PSM_LOCAL_PWR_STATE_ACPU0_MASK |
@@ -401,16 +394,6 @@ void XPsmFw_FpdPostHouseClean(void)
 
 	/* Check if FPD is already powered up */
 	if (!CHECK_BIT(LocalPwrState, PSM_LOCAL_PWR_STATE_FP_MASK)) {
-		/* Check the Saved PWR_STATE in Stage 3 and power off any ACPU cores that were off */
-		if (0U != (LocalPwrState & PSM_LOCAL_PWR_STATE_ACPU0_MASK)) {
-			XPsmFw_Write32(PSM_LOCAL_ACPU0_PWR_CNTRL,
-				       PSM_LOCAL_ACPU0_PWR_CNTRL_ISOLATION_MASK);
-		}
-		if (0U != (LocalPwrState & PSM_LOCAL_PWR_STATE_ACPU1_MASK)) {
-			XPsmFw_Write32(PSM_LOCAL_ACPU1_PWR_CNTRL,
-				       PSM_LOCAL_ACPU1_PWR_CNTRL_ISOLATION_MASK);
-		}
-
 		/* Update the PWR_STATE to reflect the ACPU cores that were powered off */
 		XPsmFw_Write32(PSM_LOCAL_PWR_STATE, LocalPwrState);
 
