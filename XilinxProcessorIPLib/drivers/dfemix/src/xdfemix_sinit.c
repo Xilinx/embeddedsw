@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfemix_sinit.c
-* @addtogroup xdfemix_v1_0
+* @addtogroup xdfemix_v1_1
 * @{
 *
 * The implementation of the XDfeMix component's static initialization
@@ -26,6 +26,7 @@
 *       dc     04/06/21 Register with full node name
 *       dc     04/07/21 Fix bare metal initialisation
 *       dc     04/20/21 Doxygen documentation update
+* 1.1   dc     07/13/21 Update to common latency requirements
 *
 * </pre>
 *
@@ -102,9 +103,8 @@ XDfeMix XDfeMix_Mixer[XDFEMIX_MAX_NUM_INSTANCES];
 * @param    ConfigTable is a configuration table container.
 *
 * @return
- *           - XST_SUCCESS if successful.
- *           - XST_FAILURE if device entry not found for given device ID.
-*
+*           - XST_SUCCESS if successful.
+*           - XST_FAILURE if device entry not found for given device ID.
 *
 ******************************************************************************/
 u32 XDfeMix_GetConfigTable(XDfeMix *InstancePtr, XDfeMix_Config **ConfigTable)
@@ -132,18 +132,17 @@ u32 XDfeMix_GetConfigTable(XDfeMix *InstancePtr, XDfeMix_Config **ConfigTable)
 /*****************************************************************************/
 /**
 *
-* Compares two strings in the reversed order. This function compares
-* only the last "Count" number of characters of Str1Ptr and Str2Ptr.
+* Compares two strings in the reversed order. This function compares only
+* the last "Count" number of characters of Str1Ptr and Str2Ptr.
 *
 * @param    Str1Ptr is base address of first string.
 * @param    Str2Ptr is base address of second string.
-* @param    Count is the number of last characters  to be compared between
-*           Str1Ptr and Str2Ptr
+* @param    Count is the number of last characters to be compared between
+*           Str1Ptr and Str2Ptr.
 *
 * @return
 *           0 if last "Count" number of bytes matches between Str1Ptr and
 *           Str2Ptr, else difference in unmatched character.
-*
 *
 ******************************************************************************/
 static s32 XDfeMix_Strrncmp(const char *Str1Ptr, const char *Str2Ptr,
@@ -177,9 +176,8 @@ static s32 XDfeMix_Strrncmp(const char *Str1Ptr, const char *Str2Ptr,
 * @param    DeviceNodeName is device node name.
 *
 * @return
- *           - XST_SUCCESS if successful.
- *           - XST_FAILURE if device entry not found for given device ID.
- *
+*           - XST_SUCCESS if successful.
+*           - XST_FAILURE if device entry not found for given device ID.
 *
 ******************************************************************************/
 static s32 XDfeMix_IsDeviceCompatible(char *DeviceNamePtr,
@@ -266,8 +264,8 @@ static s32 XDfeMix_IsDeviceCompatible(char *DeviceNamePtr,
 * @param    InstancePtr is a pointer to the mixer instance.
 *
 * @return
- *           - XST_SUCCESS if successful.
- *           - XST_FAILURE if device entry not found for given device ID.
+*           - XST_SUCCESS if successful.
+*           - XST_FAILURE if device entry not found for given device ID.
 *
 * @note
 *         - For BM, a table contains the configuration info for each device
@@ -408,7 +406,6 @@ end_failure:
 * @return
 *           - XST_SUCCESS if successful.
 *           - XST_FAILURE if an error occurs.
-*
 *
 ******************************************************************************/
 s32 XDfeMix_RegisterMetal(XDfeMix *InstancePtr, struct metal_device **DevicePtr,

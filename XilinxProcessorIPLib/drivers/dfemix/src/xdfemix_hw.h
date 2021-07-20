@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfemix_reg.h
-* @addtogroup xdfemix_v1_0
+* @addtogroup xdfemix_v1_1
 * @{
 *
 * Contains the register definitions for dfemixer. This is
@@ -25,6 +25,7 @@
 *       dc     04/20/21 Doxygen documentation update
 *       dc     05/08/21 Update to common trigger
 *       dc     05/18/21 Handling CCUpdate trigger
+* 1.1   dc     07/13/21 Update to common latency requirements
 *
 * </pre>
 *
@@ -146,10 +147,17 @@ extern "C" {
 #define XDFEMIX_CC_SEQUENCE_ERROR_OFFSET 3U
 #define XDFEMIX_IRQ_FLAGS_MASK 0xFU
 
-#define PL_MIXER_DELAY 0x44U /* Register offset */
-#define PL_MIXER_DELAY_WIDTH 3U
-#define PL_MIXER_DELAY_OFFSET 0U
-#define PL_MIXER_DELAY_VALUE 2U
+/* Delay */
+#define XDFEMIX_PL_MIXER_DELAY 0x44U /* Register offset */
+#define XDFEMIX_PL_MIXER_DELAY_WIDTH 3U
+#define XDFEMIX_PL_MIXER_DELAY_OFFSET 0U
+#define XDFEMIX_PL_MIXER_DELAY_VALUE 2U
+#define XDFEMIX_DELAY_OFFSET 0x80U /**< Register offset */
+#define XDFEMIX_DELAY_VALUE_WIDTH 10U
+#define XDFEMIX_DELAY_VALUE_OFFSET 0U
+#define XDFEMIX_LATENCY_OFFSET 0x84U /**< Register offset */
+#define XDFEMIX_LATENCY_VALUE_WIDTH 7U
+#define XDFEMIX_LATENCY_VALUE_OFFSET 0U
 
 /* CC_Configuration */
 #define XDFEMIX_ANTENNA_GAIN_CURRENT 0x1000U /* Register offset */

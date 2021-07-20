@@ -7,10 +7,10 @@
 /**
 *
 * @file xdfexmix_intr.c
-* @addtogroup xdfemix_v1_0
+* @addtogroup xdfemix_v1_1
 * @{
 *
-* This file contains functions related to Equalizer interrupt handling.
+* This file contains functions related to Mixer interrupt handling.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -22,6 +22,7 @@
 *       dc     03/18/21 New model parameter list
 *       dc     04/18/21 Update trigger and event handlers
 *       dc     04/20/21 Doxygen documentation update
+* 1.1   dc     07/13/21 Update to common latency requirements
 *
 * </pre>
 *
@@ -44,7 +45,6 @@ extern u32 XDfeMix_WrBitField(u32 FieldWidth, u32 FieldOffset, u32 Data,
 *
 * @param    InstancePtr is a pointer to the Mixer instance.
 * @param    Flags are interrupted flags container.
-*
 *
 ****************************************************************************/
 void XDfeMix_GetInterruptMask(const XDfeMix *InstancePtr,
@@ -76,7 +76,6 @@ void XDfeMix_GetInterruptMask(const XDfeMix *InstancePtr,
 *
 * @param    InstancePtr is a pointer to the Mixer instance.
 * @param    Flags are interrupted flags container.
-*
 *
 ****************************************************************************/
 void XDfeMix_SetInterruptMask(const XDfeMix *InstancePtr,
@@ -110,7 +109,6 @@ void XDfeMix_SetInterruptMask(const XDfeMix *InstancePtr,
 * @param    InstancePtr is a pointer to the Mixer instance.
 * @param    Flags are interrupted flags container.
 *
-*
 ****************************************************************************/
 void XDfeMix_InterruptEnable(const XDfeMix *InstancePtr,
 			     const XDfeMix_InterruptMask *Flags)
@@ -142,7 +140,6 @@ void XDfeMix_InterruptEnable(const XDfeMix *InstancePtr,
 *
 * @param    InstancePtr is a pointer to the Mixer instance.
 * @param    Flags are interrupted flags container.
-*
 *
 ****************************************************************************/
 void XDfeMix_InterruptDisable(const XDfeMix *InstancePtr,
@@ -177,7 +174,6 @@ void XDfeMix_InterruptDisable(const XDfeMix *InstancePtr,
 * @param    InstancePtr is a pointer to the Mixer instance.
 * @param    Flags are interrupted flags container.
 *
-*
 ****************************************************************************/
 void XDfeMix_GetInterruptStatus(const XDfeMix *InstancePtr,
 				XDfeMix_InterruptMask *Flags)
@@ -209,7 +205,6 @@ void XDfeMix_GetInterruptStatus(const XDfeMix *InstancePtr,
 *
 * @param    InstancePtr is a pointer to the Mixer instance.
 * @param    Flags are interrupted flags container.
-*
 *
 ****************************************************************************/
 void XDfeMix_ClearInterruptStatus(const XDfeMix *InstancePtr,

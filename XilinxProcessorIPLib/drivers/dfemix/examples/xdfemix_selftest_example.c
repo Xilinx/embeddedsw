@@ -8,14 +8,16 @@
 *
 * @file xdfemix_selftest_example.c
 *
-* This file contains a selftest example for using the Mixer hardware
+* This file contains a selftest examples for using the Mixer hardware
 * and Mixer driver.
-* This example does some writes to the hardware to do some sanity checks.
+* The examples are:
+*     - initialise an instance of Mixer.
+*     - add CCs to a sequence.
 *
 * Note: MGT si570 oscillator is set to 152.25MHz by default. The DFE IP wrapper
 *       requires MGT clock to be set to 122.88MHz (some IP use 61.44MHz).
 *       Prerequisite is to set the MGT si570 oscillator to the required IP
-*       before running the example code. This is for the ZCU208 prodaction
+*       before running the example code. This is for the ZCU670 production
 *       platform.
 *
 * <pre>
@@ -32,6 +34,7 @@
 *       dc     04/06/21 Register with full node name
 *       dc     04/08/21 Set sequence length only once
 *       dc     04/14/21 Add FIR_ENABLE/MIXER_ENABLE register support
+* 1.1   dc     07/13/21 Update to common latency requirements
 *
 * </pre>
 *
@@ -44,6 +47,7 @@
 #endif
 #include "xdfemix.h"
 #include "xdfemix_hw.h"
+#include <math.h>
 
 /************************** Constant Definitions ****************************/
 
@@ -53,43 +57,27 @@
 #ifdef __BAREMETAL__
 #define printf xil_printf
 #define XDFEMIX_NODE_NAME XPAR_XDFEMIX_0_DEV_NAME
+#define XDFESI570_CURRENT_FREQUENCY 156.25
+#define XDFESI570_NEW_FREQUENCY 122.88
 #else
 #define XDFEMIX_NODE_NAME "a7c40000.xdfe_cc_mixer"
 #endif
-
-#define XDFESI570_CURRENT_FREQUENCY 156.25
-#define XDFESI570_NEW_FREQUENCY 122.88
-#define XDFEMIX_TRIGGER_ENABLED_ONESHOT 0x1001U
 
 /************************** Function Prototypes *****************************/
 extern int XDfeSi570_SetMgtOscillator(double CurrentFrequency,
 				      double NewFrequency);
 static int XDfeMix_SelfTestExample();
-static int XDfeMix_AddCCTestExample();
+static int XDfeMix_AddCCExample();
 
 /************************** Variable Definitions ****************************/
 #ifdef __BAREMETAL__
 metal_phys_addr_t metal_phys[XDFEMIX_MAX_NUM_INSTANCES] = {
 	XPAR_XDFEMIX_0_S_AXI_BASEADDR,
 };
+
 struct metal_device CustomDevice[XDFEMIX_MAX_NUM_INSTANCES] = {
-	{
-		.name = XPAR_XDFEMIX_0_DEV_NAME,
-		.bus = NULL,
-		.num_regions = 1,
-		.regions = { {
-			.virt = (void *)XPAR_XDFEMIX_0_S_AXI_BASEADDR,
-			.physmap = &metal_phys[0],
-			.size = 0x10000,
-			.page_shift = (u32)(-1),
-			.page_mask = (u32)(-1),
-			.mem_flags = 0x0,
-			.ops = { NULL },
-		} },
-		.node = { NULL },
-		.irq_num = 0,
-		.irq_info = NULL,
-	},
+	XDFEMIX_CUSTOM_DEV(XPAR_XDFEMIX_0_DEV_NAME,
+			   XPAR_XDFEMIX_0_S_AXI_BASEADDR, 0)
 };
 #endif
 
@@ -104,12 +92,10 @@ struct metal_device CustomDevice[XDFEMIX_MAX_NUM_INSTANCES] = {
 *		- XST_SUCCESS if the example has completed successfully.
 *		- XST_FAILURE if the example has failed.
 *
-* @note		None.
-*
 *****************************************************************************/
 int main(void)
 {
-	printf("DFE Mixer (MIX) Selftest Example Test\r\n");
+	printf("DFE Mixer (MIX) Selftest Example\r\n");
 
 #ifdef __BAREMETAL__
 	if (XST_SUCCESS !=
@@ -121,45 +107,43 @@ int main(void)
 #endif
 
 	/*
-	 * Run the DFE Mixer init/close example, specify the Device
-	 * ID that is generated in xparameters.h.
+	 * Run the DFE Mixer init/close example. For bare metal specify
+	 * the Device ID that is generated in xparameters.h.
 	 */
 	if (XST_SUCCESS != XDfeMix_SelfTestExample()) {
-		printf("Selftest Example Test failed\r\n");
+		printf("Selftest Example failed\r\n");
 		return XST_FAILURE;
 	}
 
 	/*
-	 * Run the DFE Mixer pass through example, specify the Device
-	 * ID that is generated in xparameters.h.
+	 * Run the DFE Mixer pass through example. For bare metal specify
+	 * the Device ID that is generated in xparameters.h.
 	 */
-	if (XST_SUCCESS != XDfeMix_AddCCTestExample()) {
-		printf("Pass through Example Test failed\r\n");
+	if (XST_SUCCESS != XDfeMix_AddCCExample()) {
+		printf("Pass through Example failed\r\n");
 		return XST_FAILURE;
 	}
 
-	printf("Successfully run Selftest and Add CC Example Test\r\n");
+	printf("\r\nSuccessfully run Selftest and Add CC Example\r\n");
 	return XST_SUCCESS;
 }
 
 /****************************************************************************/
 /**
 *
-* This function runs a test on the DFE Mixer device using the driver APIs.
+* This function runs the DFE Mixer device using the driver APIs.
 * This function does the following tasks:
 *	- Create and system initialize the device driver instance.
+*	- Read SW and HW version numbers.
 *	- Reset the device.
 *	- Configure the device.
 *	- Initialize the device.
 *	- Activate the device.
-*	- Write and read coefficient.
 *	- DeActivate the device.
 *
 * @return
 *		- XST_SUCCESS if the example has completed successfully.
 *		- XST_FAILURE if the example has failed.
-*
-* @note   	None
 *
 ****************************************************************************/
 static int XDfeMix_SelfTestExample()
@@ -167,110 +151,159 @@ static int XDfeMix_SelfTestExample()
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
 	XDfeMix_Cfg Cfg;
 	XDfeMix *InstancePtr = NULL;
+	XDfeMix_Version SwVersion;
+	XDfeMix_Version HwVersion;
 	XDfeMix_Init Init;
 
+	printf("\r\nMixer: One instance initialisation example\r\n");
+
 	/* Initialize libmetal */
-	if (0 != metal_init(&init_param)) {
-		(void)printf("ERROR: Failed to run metal initialization\n");
+	if (XST_SUCCESS != metal_init(&init_param)) {
+		(void)printf("ERROR: Failed to run metal initialization\r\n");
 		return XST_FAILURE;
 	}
 
 	/* Initialize the instance of channel filter driver */
 	InstancePtr = XDfeMix_InstanceInit(XDFEMIX_NODE_NAME);
+
+	/* Get SW and HW version numbers */
+	XDfeMix_GetVersions(InstancePtr, &SwVersion, &HwVersion);
+	printf("SW Version: Major %d, Minor %d\r\n", SwVersion.Major,
+	       SwVersion.Minor);
+	printf("HW Version: Major %d, Minor %d, Revision %d, Patch %d\r\n",
+	       HwVersion.Major, HwVersion.Minor, HwVersion.Revision,
+	       HwVersion.Patch);
+
 	/* Go through initialization states of the state machine */
 	XDfeMix_Reset(InstancePtr);
 	XDfeMix_Configure(InstancePtr, &Cfg);
-	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_ACTIVATE_OFFSET,
-			 XDFEMIX_TRIGGER_ENABLED_ONESHOT);
 	XDfeMix_Initialize(InstancePtr, &Init);
-	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_ACTIVATE_OFFSET,
-			 XDFEMIX_TRIGGER_ENABLED_ONESHOT);
-	XDfeMix_Activate(InstancePtr, true);
-
-	/* Write and read a dummy frequency configuration */
-	XDfeMix_WriteReg(InstancePtr, XDFEMIX_FREQ_CONTROL_WORD, 0x12345678);
-	if (0x12345678 !=
-	    XDfeMix_ReadReg(InstancePtr, XDFEMIX_FREQ_CONTROL_WORD)) {
-		return XST_FAILURE;
-	}
+	XDfeMix_Activate(InstancePtr, false);
 
 	XDfeMix_Deactivate(InstancePtr);
 	XDfeMix_InstanceClose(InstancePtr);
+
+	printf("Mixer: Multi Instances Example pass\r\n");
+
 	return XST_SUCCESS;
 }
 
 /****************************************************************************/
 /**
 *
-* This function runs a test on the DFE Mixer device using the
-* driver APIs.
+* This function runs the DFE Mixer device using the driver APIs.
 * This function does the following tasks:
 *	- Create and system initialize the device driver instance.
+*	- Read SW and HW version numbers.
 *	- Reset the device.
 *	- Configure the device.
 *	- Initialize the device.
-	- Set the triggers
+*	- Set the triggers
 *	- Activate the device.
-	- Add Component Channel.
+*	- Add Component Channel.
 *	- DeActivate the device.
 *
 * @return
 *		- XST_SUCCESS if the example has completed successfully.
 *		- XST_FAILURE if the example has failed.
 *
-* @note   	None
-*
 ****************************************************************************/
-static int XDfeMix_AddCCTestExample()
+static int XDfeMix_AddCCExample()
 {
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
 	XDfeMix_Cfg Cfg;
 	XDfeMix *InstancePtr = NULL;
-	XDfeMix_Init Init = { { 4, { 0 } } };
-	u32 CCID = 0;
-	u32 NCO = 1;
-	u32 Rate = 7;
-	u32 FrequencyControlWord = 0x11;
-	u32 FrequencySingleModCount = 0x12;
-	u32 FrequencyDualModCount = 0x13;
-	u32 FrequencyPhaseOffset = 0x14;
-	u32 PhaseAcc = 0x15;
-	u32 PhaseDualModCount = 0x16;
-	u32 PhaseDualModSel = 0x17;
-	u32 NCOGain = 1;
+	XDfeMix_Init Init;
+	u32 CCID;
+	u32 BitSequence = 0xffff;
+	u32 AntennaId;
+	u32 AntennaGain;
+	double FreqMhz;
+	double NcoFreqMhz;
+	double FrequencyControlWord;
 	XDfeMix_TriggerCfg TriggerCfg;
-	XDfeMix_CarrierCfg CarrierCfg = { { NCO, Rate },
-					  { { FrequencyControlWord,
-					      FrequencySingleModCount,
-					      FrequencyDualModCount,
-					      { FrequencyPhaseOffset } },
-					    { PhaseAcc, PhaseDualModCount,
-					      PhaseDualModSel },
-					    NCOGain } };
+	XDfeMix_CarrierCfg CarrierCfg;
+	XDfeMix_Version SwVersion;
+	XDfeMix_Version HwVersion;
+	XDfeMix_InterruptMask ClearMask;
+
+	printf("\r\nMixer: Pass through example\r\n");
 
 	/* Initialize libmetal */
-	if (0 != metal_init(&init_param)) {
-		(void)printf("ERROR: Failed to run metal initialization\n");
+	if (XST_SUCCESS != metal_init(&init_param)) {
+		(void)printf("ERROR: Failed to run metal initialization\r\n");
 		return XST_FAILURE;
 	}
 
 	/* Initialize the instance of channel filter driver */
 	InstancePtr = XDfeMix_InstanceInit(XDFEMIX_NODE_NAME);
 
+	/* Get SW and HW version numbers */
+	XDfeMix_GetVersions(InstancePtr, &SwVersion, &HwVersion);
+	printf("SW Version: Major %d, Minor %d\r\n", SwVersion.Major,
+	       SwVersion.Minor);
+	printf("HW Version: Major %d, Minor %d, Revision %d, Patch %d\r\n",
+	       HwVersion.Major, HwVersion.Minor, HwVersion.Revision,
+	       HwVersion.Patch);
+
 	/* Go through initialization states of the state machine */
+	/* Reset */
 	XDfeMix_Reset(InstancePtr);
+	/* Configure */
 	XDfeMix_Configure(InstancePtr, &Cfg);
-	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_ACTIVATE_OFFSET,
-			 XDFEMIX_TRIGGER_ENABLED_ONESHOT);
+	/* Initialise */
+	Init.Sequence.Length = 16;
 	XDfeMix_Initialize(InstancePtr, &Init);
-	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_ACTIVATE_OFFSET,
-			 XDFEMIX_TRIGGER_ENABLED_ONESHOT);
+
+	/* Set trigger */
+	TriggerCfg.Activate.Mode = 1U;
+	TriggerCfg.Activate.TuserEdgeLevel = 0;
+	TriggerCfg.Activate.TUSERBit = 0;
+	TriggerCfg.CCUpdate.Mode = 1U;
+	TriggerCfg.CCUpdate.TuserEdgeLevel = 1U;
+	TriggerCfg.CCUpdate.TUSERBit = 0;
 	XDfeMix_SetTriggersCfg(InstancePtr, &TriggerCfg);
+
+	/* Activate - disable low power */
 	XDfeMix_Activate(InstancePtr, false);
 
-	/* Add channel */
-	XDfeMix_AddCC(InstancePtr, CCID, 0x7, &CarrierCfg);
+	/* Set antenna gain */
 
+	/* Clear interrupt status */
+	ClearMask.DLCCUpdate = 1U;
+	usleep(10000);
+	XDfeMix_ClearInterruptStatus(InstancePtr, &ClearMask);
+	/* Set antenna 0 gain */
+	AntennaId = 0;
+	AntennaGain = 1U;
+	XDfeMix_SetAntennaGain(InstancePtr, AntennaId, AntennaGain);
+
+	/* Clear interrupt status */
+	ClearMask.DLCCUpdate = 1U;
+	usleep(10000);
+	XDfeMix_ClearInterruptStatus(InstancePtr, &ClearMask);
+	/* Set antenna 0 gain */
+	AntennaId = 1U;
+	XDfeMix_SetAntennaGain(InstancePtr, AntennaId, AntennaGain);
+
+	/* Add component carrier */
+	/* Clear interrupt status */
+	ClearMask.DLCCUpdate = 1U;
+	usleep(10000);
+	XDfeMix_ClearInterruptStatus(InstancePtr, &ClearMask);
+	/* Add CC */
+	CCID = 0;
+	CarrierCfg.DUCDDCCfg.Rate = 2U;
+	CarrierCfg.DUCDDCCfg.NCO = 0;
+	CarrierCfg.DUCDDCCfg.CCGain = 3U;
+	CarrierCfg.NCO.NCOGain = 0;
+	FreqMhz = 40;
+	NcoFreqMhz = 491.52;
+	FrequencyControlWord = floor((FreqMhz / NcoFreqMhz) * 0x100000000);
+	CarrierCfg.NCO.FrequencyCfg.FrequencyControlWord = FrequencyControlWord;
+	XDfeMix_AddCC(InstancePtr, CCID, BitSequence, &CarrierCfg);
+
+	/* Close and exit */
 	XDfeMix_Deactivate(InstancePtr);
 	XDfeMix_InstanceClose(InstancePtr);
 	return XST_SUCCESS;

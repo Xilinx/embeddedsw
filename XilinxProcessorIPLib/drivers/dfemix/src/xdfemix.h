@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfemix.h
-* @addtogroup xdfemix_v1_0
+* @addtogroup xdfemix_v1_1
 * @{
 *
 * The Channel Mixer IP provides a wrapper around the Channel Mixer and
@@ -66,6 +66,7 @@
 *       dc     04/27/21 Update CARRIER_CONFIGURATION handling
 *       dc     05/08/21 Update to common trigger
 *       dc     05/18/21 Handling CCUpdate trigger
+* 1.1   dc     07/13/21 Update to common latency requirements
 *
 * </pre>
 *
@@ -123,6 +124,21 @@ typedef __s16 s16;
 typedef __u64 u64;
 typedef __s64 s64;
 typedef __s8 s8;
+#else
+#define XDFEMIX_CUSTOM_DEV(_dev_name, _baseaddr, _idx)                         \
+	{                                                                      \
+		.name = _dev_name, .bus = NULL, .num_regions = 1,              \
+		.regions = { {                                                 \
+			.virt = (void *)_baseaddr,                             \
+			.physmap = &metal_phys[_idx],                          \
+			.size = 0x10000,                                       \
+			.page_shift = (u32)(-1),                               \
+			.page_mask = (u32)(-1),                                \
+			.mem_flags = 0x0,                                      \
+			.ops = { NULL },                                       \
+		} },                                                           \
+		.node = { NULL }, .irq_num = 0, .irq_info = NULL,              \
+	}
 #endif
 
 typedef enum XDfeMix_StateId {
@@ -413,10 +429,10 @@ u32 XDfeMix_AddCC(XDfeMix *InstancePtr, s32 CCID, u32 BitSequence,
 		  const XDfeMix_CarrierCfg *CarrierCfg);
 u32 XDfeMix_RemoveCC(XDfeMix *InstancePtr, s32 CCID);
 u32 XDfeMix_MoveCC(XDfeMix *InstancePtr, s32 CCID, u32 Rate, u32 FromNCO,
-		    u32 ToNCO);
+		   u32 ToNCO);
 void XDfeMix_UpdateCC(const XDfeMix *InstancePtr);
 u32 XDfeMix_SetAntennaGain(XDfeMix *InstancePtr, u32 AntennaId,
-			    u32 AntennaGain);
+			   u32 AntennaGain);
 void XDfeMix_GetTriggersCfg(const XDfeMix *InstancePtr,
 			    XDfeMix_TriggerCfg *TriggerCfg);
 void XDfeMix_SetTriggersCfg(const XDfeMix *InstancePtr,
@@ -437,6 +453,9 @@ void XDfeMix_GetInterruptStatus(const XDfeMix *InstancePtr,
 				XDfeMix_InterruptMask *Flags);
 void XDfeMix_ClearInterruptStatus(const XDfeMix *InstancePtr,
 				  const XDfeMix_InterruptMask *Flags);
+void XDfeMix_SetTUserDelay(const XDfeMix *InstancePtr, u32 Delay);
+u32 XDfeMix_GetTUserDelay(const XDfeMix *InstancePtr);
+u32 XDfeMix_GetTDataDelay(const XDfeMix *InstancePtr, u32 Tap);
 void XDfeMix_GetVersions(const XDfeMix *InstancePtr, XDfeMix_Version *SwVersion,
 			 XDfeMix_Version *HwVersion);
 
