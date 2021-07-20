@@ -26,6 +26,7 @@
 *       dc     05/08/21 Update to common trigger
 *       dc     05/18/21 Handling RachUpdate trigger
 * 1.1   dc     06/30/21 Doxygen documentation update
+*       dc     07/13/21 Update to common latency requirements
 *
 * </pre>
 *
@@ -45,9 +46,9 @@
 #endif
 
 /**************************** Macros Definitions ****************************/
-#define XDFEPRACH_SEQUENCE_ENTRY_DEFAULT 0U /**< Default sequence entry flag */
-#define XDFEPRACH_SEQUENCE_ENTRY_NULL (-1) /**< Null sequence entry flag */
-#define XDFEPRACH_NO_EMPTY_CCID_FLAG 0xFFFFU /**< Not Empty CCID flag */
+#define XDFEPRACH_SEQUENCE_ENTRY_DEFAULT 0U /* Default sequence entry flag */
+#define XDFEPRACH_SEQUENCE_ENTRY_NULL (-1) /* Null sequence entry flag */
+#define XDFEPRACH_NO_EMPTY_CCID_FLAG 0xFFFFU /* Not Empty CCID flag */
 #define XDFEPRACH_U32_NUM_BITS 32U
 
 #define XDFEPRACH_CURRENT false
@@ -56,7 +57,7 @@
 #define XDFEPRACH_PHACC_DISABLE false
 #define XDFEPRACH_PHACC_ENABLE true
 
-#define XDFEPRACH_DRIVER_VERSION_MINOR 0U
+#define XDFEPRACH_DRIVER_VERSION_MINOR 1U
 #define XDFEPRACH_DRIVER_VERSION_MAJOR 1U
 
 /************************** Function Prototypes *****************************/
@@ -176,6 +177,7 @@ void XDfePrach_WriteReg(const XDfePrach *InstancePtr, u32 AddrOffset, u32 Data)
 * @param    AddrOffset is address offset relative to instance base address.
 *
 * @return   Register value.
+*
 ****************************************************************************/
 u32 XDfePrach_ReadReg(const XDfePrach *InstancePtr, u32 AddrOffset)
 {
@@ -1431,7 +1433,7 @@ static void XDfePrach_SetRCPhaseReset(const XDfePrach *InstancePtr,
 static u32 XDfePrach_EnableUpdateTrigger(const XDfePrach *InstancePtr)
 {
 	u32 Data;
-	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Exit with error if RACH_UPDATE status is high */
 	if (XDFEPRACH_RACH_UPDATE_TRIGGERED_HIGH ==
@@ -2058,9 +2060,9 @@ u32 XDfePrach_RemoveCC(XDfePrach *InstancePtr, s32 CCID)
 {
 	XDfePrach_CCCfg CCCfg;
 
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(CCID < XDFEPRACH_CC_NUM_MAX);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(CCID < XDFEPRACH_CC_NUM_MAX);
+	Xil_AssertNonvoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
 
 	/* Read current CC configuration. */
 	XDfePrach_GetCurrentCCCfg(InstancePtr, &CCCfg);
@@ -2103,10 +2105,10 @@ u32 XDfePrach_UpdateCC(const XDfePrach *InstancePtr, s32 CCID,
 {
 	XDfePrach_CCCfg CCCfg;
 
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(CCID < XDFEPRACH_CC_NUM_MAX);
-	Xil_AssertVoid(CarrierCfg != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(CCID < XDFEPRACH_CC_NUM_MAX);
+	Xil_AssertNonvoid(CarrierCfg != NULL);
+	Xil_AssertNonvoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
 
 	/* Read current CC configuration. */
 	XDfePrach_GetCurrentCCCfg(InstancePtr, &CCCfg);
@@ -2239,9 +2241,9 @@ u32 XDfePrach_RemoveRC(const XDfePrach *InstancePtr, u32 RCId)
 	u32 Index;
 	XDfePrach_RCCfg RCCfg[XDFEPRACH_RC_NUM_MAX];
 
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(RCId < XDFEPRACH_RC_NUM_MAX);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(RCId < XDFEPRACH_RC_NUM_MAX);
+	Xil_AssertNonvoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
 
 	/* Read current RC configuration. */
 	XDfePrach_GetRCCfg(InstancePtr, false, RCCfg);
@@ -2773,6 +2775,66 @@ void XDfePrach_GetCapturePhase(const XDfePrach *InstancePtr, u32 RachChan,
 		XDFEPRACH_CAPTURED_PHASE_DUAL_MOD_SEL_OFFSET);
 }
 
+/****************************************************************************/
+/**
+*
+* Sets the delay, which will be added to TUSER and TLAST (delay matched
+* through the IP).
+*
+* @param    InstancePtr is a pointer to the PRACH instance.
+* @param    Delay is a requested delay variable.
+*
+****************************************************************************/
+void XDfePrach_SetTUserDelay(const XDfePrach *InstancePtr, u32 Delay)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->StateId == XDFEPRACH_STATE_INITIALISED);
+	Xil_AssertVoid(Delay < (1U << XDFEPRACH_DELAY_VALUE_WIDTH));
+
+	XDfePrach_WriteReg(InstancePtr, XDFEPRACH_DELAY_OFFSET, Delay);
+}
+
+/****************************************************************************/
+/**
+*
+* Reads the delay, which will be added to TUSER and TLAST (delay matched
+* through the IP).
+*
+* @param    InstancePtr is a pointer to the PRACH instance.
+*
+* @return   Delay value
+*
+****************************************************************************/
+u32 XDfePrach_GetTUserDelay(const XDfePrach *InstancePtr)
+{
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	return XDfePrach_RdRegBitField(InstancePtr, XDFEPRACH_DELAY_OFFSET,
+				       XDFEPRACH_DELAY_VALUE_WIDTH,
+				       XDFEPRACH_DELAY_VALUE_OFFSET);
+}
+
+/****************************************************************************/
+/**
+*
+* Returns CONFIG.DATA_LATENCY.VALUE + tap, where the tap is between 0
+* and 23 in real mode and between 0 and 11 in complex/matrix mode.
+*
+* @param    InstancePtr is a pointer to the PRACH instance.
+*
+* @return   Data latency value.
+*
+****************************************************************************/
+u32 XDfePrach_GetTDataDelay(const XDfePrach *InstancePtr)
+{
+	u32 Data;
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Data = XDfePrach_RdRegBitField(InstancePtr, XDFEPRACH_LATENCY_OFFSET,
+				       XDFEPRACH_LATENCY_VALUE_WIDTH,
+				       XDFEPRACH_LATENCY_VALUE_OFFSET);
+	return Data;
+}
+
 /*****************************************************************************/
 /**
 *
@@ -2790,8 +2852,8 @@ void XDfePrach_GetVersions(const XDfePrach *InstancePtr,
 	u32 Version;
 
 	Xil_AssertVoid(InstancePtr->StateId != XDFEPRACH_STATE_NOT_READY);
-	/* Driver version */
 
+	/* Driver version */
 	SwVersion->Major = XDFEPRACH_DRIVER_VERSION_MAJOR;
 	SwVersion->Minor = XDFEPRACH_DRIVER_VERSION_MINOR;
 

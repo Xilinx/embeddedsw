@@ -23,6 +23,7 @@
 *       dc     05/08/21 Update to common trigger
 *       dc     05/18/21 Handling RachUpdate trigger
 * 1.1   dc     06/30/21 Doxygen documentation update
+*       dc     07/13/21 Update to common latency requirements
 *
 * </pre>
 *
@@ -116,7 +117,6 @@ extern "C" {
 #define XDFEPRACH_IMR 0x40U /**< Register offset */
 #define XDFEPRACH_IMR_INTERRUPT 0U
 #define XDFEPRACH_IMR_NO_INTERRUPT 1U
-
 #define XDFEPRACH_DECIMATOR_OVERFLOW_WIDTH 1U
 #define XDFEPRACH_DECIMATOR_OVERFLOW_OFFSET 0U
 #define XDFEPRACH_MIXER_OVERFLOW_WIDTH 1U
@@ -136,6 +136,14 @@ extern "C" {
 #define XDFEPRACH_FRAME_INIT_TRIGGERED_LOW 0U
 #define XDFEPRACH_FRAME_INIT_TRIGGERED_HIGH 1U
 #define XDFEPRACH_IRQ_FLAGS_MASK 0x7FU
+
+/* Latency */
+#define XDFEPRACH_DELAY_OFFSET 0x80U /**< Register offset */
+#define XDFEPRACH_DELAY_VALUE_WIDTH 15U
+#define XDFEPRACH_DELAY_VALUE_OFFSET 0U
+#define XDFEPRACH_LATENCY_OFFSET 0x84U /**< Register offset */
+#define XDFEPRACH_LATENCY_VALUE_WIDTH 15U
+#define XDFEPRACH_LATENCY_VALUE_OFFSET 0U
 
 /* RACH configuration */
 
