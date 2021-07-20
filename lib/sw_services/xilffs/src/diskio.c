@@ -61,6 +61,7 @@
 * 4.3   mn   02/24/20 Remove unused macro defines
 *       mn   04/08/20 Set IsReady to '0' before calling XSdPs_CfgInitialize
 * 4.5   sk   03/31/21 Maintain discrete global variables for each controller.
+* 4.6   sk   07/20/21 Fixed compilation warning in RAM interface.
 *
 * </pre>
 *
@@ -437,6 +438,8 @@ DRESULT disk_ioctl (
 		res = RES_PARERR;
 		break;
 	}
+
+	(void)pdrv;
 #endif
 
 #if !defined(FILE_SYSTEM_INTERFACE_SD) && !defined(FILE_SYSTEM_INTERFACE_RAM)
