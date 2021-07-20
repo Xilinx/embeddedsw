@@ -4,6 +4,9 @@ xilpm_v3_5:
 Versal
   Make OSPI a default pre-allocated device.
 
+xilffs_v4_6:
+Fix compilation warning with RAM interface.
+
 Changes for 2021.1
 ===============================
 
