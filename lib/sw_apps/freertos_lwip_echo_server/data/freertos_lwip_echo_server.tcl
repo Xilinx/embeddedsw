@@ -1,3 +1,8 @@
+#/******************************************************************************
+#* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+#* SPDX-License-Identifier: MIT
+#******************************************************************************/
+
 set use_softeth_on_zynq 0
 set use_ethernetlite_on_zynq 0
 proc swapp_get_name {} {
