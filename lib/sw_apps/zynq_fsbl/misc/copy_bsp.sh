@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+
 # this script will copy the required bsp directories
 
 # this will take board and compiler as arguments
