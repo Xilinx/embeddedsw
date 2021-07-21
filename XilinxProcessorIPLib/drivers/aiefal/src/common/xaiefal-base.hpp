@@ -38,6 +38,9 @@ namespace xaiefal {
 	class XAiePCEvent;
 	class XAiePCRange;
 	class XAieStreamPortSelect;
+	class XAieRscGroupRuntime;
+	class XAieRscGroupStatic;
+	class XAieRscGroupAvail;
 
 # define XAIEDEV_DEFAULT_GROUP_STATIC "Static"
 # define XAIEDEV_DEFAULT_GROUP_AVAIL "Avail"
@@ -132,10 +135,6 @@ namespace xaiefal {
 			XAieGroupEventMapPl[4] = XAIE_EVENT_GROUP_STREAM_SWITCH_PL;
 			XAieGroupEventMapPl[5] = XAIE_EVENT_GROUP_BROADCAST_A_PL;
 			XAieGroupEventMapPl[6] = XAIE_EVENT_GROUP_USER_EVENT_PL;
-
-			_createGroup<XAieRscGroupAvail>("Avail");
-			_createGroup<XAieRscGroupStatic>("Static");
-			_createGroup<XAieRscGroupRuntime>("Generic");
 		}
 		~XAieDevHandle() {
 			if (FinishOnDestruct) {
@@ -160,6 +159,18 @@ namespace xaiefal {
 		}
 
 		/**
+		 * This function creates a resource group based on resource
+		 * group name if the resource group doesn't exist.
+		 */
+		template<class GT>
+		void createGroup(const std::string &GName) {
+			_XAIEFAL_MUTEX_ACQUIRE(mLock);
+			if (RscGroupsMap.find(GName) == RscGroupsMap.end()) {
+				_createGroup<GT>(GName);
+			}
+		}
+
+		/**
 		 * This function returns resource group based on resource
 		 * group name. If the resource group doesn't exist, it will
 		 * create the group.
@@ -169,10 +180,10 @@ namespace xaiefal {
 		 */
 		XAieDevHdRscGroupWrapper &getRscGroup(const std::string &GName) {
 			_XAIEFAL_MUTEX_ACQUIRE(mLock);
-			if (RscGroups.find(GName) == RscGroups.end()) {
+			if (RscGroupsMap.find(GName) == RscGroupsMap.end()) {
 				_createGroup<XAieRscGroupRuntime>(GName);
 			}
-			return RscGroups[GName];
+			return RscGroupsMap[GName];
 		}
 
 		/**
@@ -183,10 +194,10 @@ namespace xaiefal {
 		 */
 		void removeRscGroup(const std::string &GName) {
 			_XAIEFAL_MUTEX_ACQUIRE(mLock);
-			auto it = RscGroups.find(GName);
+			auto it = RscGroupsMap.find(GName);
 
-			if (it != RscGroups.end()) {
-				RscGroups.erase(it);
+			if (it != RscGroupsMap.end()) {
+				RscGroupsMap.erase(it);
 			}
 		}
 
@@ -197,14 +208,15 @@ namespace xaiefal {
 	private:
 		XAie_DevInst *Dev;
 		bool FinishOnDestruct;
-		std::map <std::string, XAieDevHdRscGroupWrapper> RscGroups; /**< resource groups */
+		std::map <std::string, XAieDevHdRscGroupWrapper> RscGroupsMap; /**< resource groups map */
 		_XAIEFAL_MUTEX_DECLARE(mLock); /**< mutex lock */
 
 	private:
 		template<class GT>
 		void _createGroup(const std::string &GName) {
-			auto GPtr = std::make_shared<GT>(GName);
-			RscGroups[GName] = XAieDevHdRscGroupWrapper(GPtr);
+			auto GPtr = std::make_shared<GT>(shared_from_this(),
+					GName);
+			RscGroupsMap[GName] = XAieDevHdRscGroupWrapper(GPtr);
 			Logger::log(LogLevel::INFO) << "Resource group " <<
 				GName << " is created." << std::endl;
 		}
@@ -471,6 +483,7 @@ namespace xaiefal {
 			TraceCntr = std::make_shared<XAieTraceCntr>(AieHandle,
 					Loc, Mod);
 			AieHandle->getRscGroup("Generic").addRsc(TraceCntr);
+			AieHandle->getRscGroup("Avail").addRsc(TraceCntr);
 		}
 		~XAieMod() {}
 
@@ -1006,6 +1019,10 @@ namespace xaiefal {
 		AieHandle = std::make_shared<XAieDevHandle>(DevPtr,
 			TurnOnFinishOnDestruct);
 
+		AieHandle->createGroup<XAieRscGroupAvail>("Avail");
+		AieHandle->createGroup<XAieRscGroupStatic>("Static");
+		AieHandle->createGroup<XAieRscGroupRuntime>("Generic");
+
 		NumCols = DevPtr->NumCols;
 		NumRows = DevPtr->NumRows;
 		for (uint32_t c = 0; c < NumCols; c++) {
@@ -1014,6 +1031,7 @@ namespace xaiefal {
 					XAie_TileLoc(c, r)));
 			}
 		}
+
 	}
 
 	/**
