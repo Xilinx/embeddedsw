@@ -1,3 +1,8 @@
+#/******************************************************************************
+#* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+#* SPDX-License-Identifier: MIT
+#******************************************************************************/
+
 set [namespace current]::memcfg "";
 
 proc swapp_get_name {} {

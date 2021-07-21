@@ -1,3 +1,8 @@
+#/******************************************************************************
+#* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+#* SPDX-License-Identifier: MIT
+#******************************************************************************/
+
 BEGIN APPLICATION peripheral_tests
 OPTION NAME = Peripheral Tests
 OPTION DESCRIPTION = "Simple test routines for all peripherals in the hardware."
