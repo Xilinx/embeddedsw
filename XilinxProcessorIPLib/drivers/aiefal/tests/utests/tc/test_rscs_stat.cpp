@@ -9,6 +9,10 @@
 
 #include "common/tc_config.h"
 
+#define XAIE_TOTAL_MODS (XAIE_AIE_TILE_NUM_ROWS * XAIE_NUM_COLS * 2 \
+		+ XAIE_MEM_TILE_NUM_ROWS * XAIE_NUM_COLS + \
+		XAIE_NUM_COLS)
+
 using namespace std;
 using namespace xaiefal;
 
@@ -175,4 +179,103 @@ TEST(RSC, RSCBasic) {
 	CHECK_EQUAL(hasRsc, false);
 	hasRsc = Aie.tile(1,2).core().userEvent()->getRscStat("CustomerRuntime").hasRsc();
 	CHECK_EQUAL(hasRsc, true);
+}
+
+
+TEST(RSC, RscDefaultGroups) {
+	AieRC RC;
+	std::vector<XAie_LocType> vL;
+	XAie_ModuleType StartM, EndM;
+	XAie_UserRscReq RscReq[2];
+	XAie_UserRsc ReturnRsc[XAIE_TOTAL_MODS];
+	u32 UserRscNum;
+	FILE *f;
+	long fsize;
+	char *buf;
+
+	XAie_SetupConfig(ConfigPtr, HW_GEN, XAIE_BASE_ADDR,
+			XAIE_COL_SHIFT, XAIE_ROW_SHIFT,
+			XAIE_NUM_COLS, XAIE_NUM_ROWS, XAIE_SHIM_ROW,
+			XAIE_MEM_TILE_ROW_START, XAIE_MEM_TILE_NUM_ROWS,
+			XAIE_AIE_TILE_ROW_START, XAIE_AIE_TILE_NUM_ROWS);
+
+	XAie_InstDeclare(DevInst, &ConfigPtr);
+
+	RC = XAie_CfgInitialize(&(DevInst), &ConfigPtr);
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	XAieDev Aie(&DevInst, true);
+
+	XAie_PmRequestTiles(&DevInst, NULL, 0);
+	RscReq[0] = XAie_SetupRscRequest(XAie_TileLoc(1,1), XAIE_CORE_MOD, 1);
+	RscReq[1] = XAie_SetupRscRequest(XAie_TileLoc(1,2), XAIE_CORE_MOD, 1);
+	XAie_RequestPerfcnt(&DevInst, 2, RscReq, 2, ReturnRsc);
+	UserRscNum = XAIE_TOTAL_MODS;
+	XAie_RequestBroadcastChannel(&DevInst, &UserRscNum, ReturnRsc, 1);
+	XAie_SaveAllocatedRscsToFile(&DevInst, "./rscs.bin");
+	f = fopen("./rscs.bin", "rb");
+	CHECK_FALSE(f == NULL);
+	fseek(f, 0, SEEK_END);
+	fsize = ftell(f);
+	fseek(f, 0, SEEK_SET);
+	buf = (char *)malloc(fsize + 1);
+	CHECK_FALSE(buf == NULL);
+	fread(buf, 1, fsize, f);
+	buf[fsize] = 0;
+	RC = XAie_LoadStaticRscfromMem(&DevInst, buf);
+	free(buf);
+
+	//First test SHIM tiles left to right
+	vL.push_back(XAie_TileLoc(0,0));
+	vL.push_back(XAie_TileLoc(1,0));
+	vL.push_back(XAie_TileLoc(2,0));
+	StartM = XAIE_PL_MOD;
+	EndM = XAIE_PL_MOD;
+	auto BC = Aie.broadcast(vL, StartM, EndM);
+	RC = BC->reserve();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	auto PCounter = Aie.tile(1,1).core().stallCycles();
+	RC = PCounter->reserve();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	auto PCounter1 = Aie.tile(1,2).core().perfCounter();
+	RC = PCounter1->initialize(XAIE_CORE_MOD, XAIE_EVENT_ACTIVE_CORE,
+		   XAIE_MEM_MOD, XAIE_EVENT_GROUP_DMA_ACTIVITY_MEM);
+	CHECK_EQUAL(RC, XAIE_OK);
+	RC = PCounter1->reserve();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	auto TraceEvent1 = Aie.tile(1,1).mem().traceEvent();
+	TraceEvent1->setEvent(XAIE_CORE_MOD, XAIE_EVENT_MEMORY_STALL_CORE);
+	RC = TraceEvent1->reserve();
+	CHECK_EQUAL(RC, XAIE_OK);
+
+	auto RscsStat = Aie.getRscStat(XAIEDEV_DEFAULT_GROUP_AVAIL);
+	uint32_t NumRsc = RscsStat.getNumRsc(XAie_TileLoc(1,0), XAIE_PL_MOD, XAIE_BCAST_CHANNEL_RSC);
+	CHECK_EQUAL(14, NumRsc);
+	NumRsc = RscsStat.getNumRsc(XAie_TileLoc(1,2), XAIE_CORE_MOD, XAIE_BCAST_CHANNEL_RSC);
+	CHECK_EQUAL(14, NumRsc);
+	NumRsc = RscsStat.getNumRsc(XAie_TileLoc(1,3), XAIE_CORE_MOD, XAIE_BCAST_CHANNEL_RSC);
+	CHECK_EQUAL(15, NumRsc);
+	NumRsc = RscsStat.getNumRsc(XAie_TileLoc(1,1), XAIE_CORE_MOD, XAIE_PERFCNT_RSC);
+	CHECK_EQUAL(2, NumRsc);
+
+	Aie.tile(1,1).getRscStat(XAIEDEV_DEFAULT_GROUP_AVAIL).show();
+	Aie.tile(1,1).mem().getRscStat(XAIEDEV_DEFAULT_GROUP_AVAIL).show();
+	Aie.tile(1,1).mem().traceEvent()->getRscStat(XAIEDEV_DEFAULT_GROUP_AVAIL).show();
+
+	auto RscsStatStatic = Aie.getRscStat(XAIEDEV_DEFAULT_GROUP_STATIC);
+	NumRsc = RscsStatStatic.getNumRsc(XAie_TileLoc(1,0), XAIE_PL_MOD, XAIE_BCAST_CHANNEL_RSC);
+	CHECK_EQUAL(1, NumRsc);
+	NumRsc = RscsStatStatic.getNumRsc(XAie_TileLoc(1,2), XAIE_CORE_MOD, XAIE_BCAST_CHANNEL_RSC);
+	CHECK_EQUAL(1, NumRsc);
+	NumRsc = RscsStatStatic.getNumRsc(XAie_TileLoc(1,3), XAIE_CORE_MOD, XAIE_BCAST_CHANNEL_RSC);
+	CHECK_EQUAL(1, NumRsc);
+	NumRsc = RscsStatStatic.getNumRsc(XAie_TileLoc(1,1), XAIE_CORE_MOD, XAIE_PERFCNT_RSC);
+	CHECK_EQUAL(1, NumRsc);
+
+	Aie.tile(1,1).getRscStat(XAIEDEV_DEFAULT_GROUP_STATIC).show();
+	Aie.tile(1,1).mem().getRscStat(XAIEDEV_DEFAULT_GROUP_STATIC).show();
+	Aie.tile(1,1).core().perfCounter()->getRscStat(XAIEDEV_DEFAULT_GROUP_STATIC).show();
 }
