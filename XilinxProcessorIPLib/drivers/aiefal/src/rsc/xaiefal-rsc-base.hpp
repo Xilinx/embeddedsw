@@ -327,6 +327,26 @@ namespace xaiefal {
 			return AieHd->dev();
 		}
 
+		/**
+		 * This function returns number of available child resources
+		 * which is managed by this resource in AIEFAL
+		 */
+		virtual uint32_t getAvailManagedRscs() {
+			std::string rName(typeid(*this).name());
+			throw std::invalid_argument("get max rsc num not supported of rsc " +
+					rName);
+		}
+
+		/**
+		 * This function returns the type of child resources
+		 * which is managed by this resource in AIEFAL
+		 */
+		virtual uint32_t getManagedRscsType() {
+			std::string rName(typeid(*this).name());
+			throw std::invalid_argument("get managed rsc type not supported of rsc " +
+					rName);
+		}
+
 	protected:
 		XAieRscState State; /**< resource state */
 		std::shared_ptr<XAieDevHandle> AieHd; /**< AI engine device instance */
@@ -427,6 +447,14 @@ namespace xaiefal {
 		 */
 		XAie_LocType loc() const {
 			return Loc;
+		}
+		/**
+		 * This function returns module type
+		 *
+		 * @return module type
+		 */
+		XAie_ModuleType mod() const {
+			return Mod;
 		}
 		/**
 		 * This function returns resource id

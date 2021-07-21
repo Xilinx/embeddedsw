@@ -342,6 +342,12 @@ namespace xaiefal {
 		uint32_t getRscType() const {
 			return static_cast<uint32_t>(XAIE_TRACE_CTRL_RSC);
 		}
+		uint32_t getAvailManagedRscs() {
+			return TraceSlotBits.size() - TraceSlotBits.count();
+		}
+		uint32_t getManagedRscsType() {
+			return static_cast<uint32_t>(XAIE_TRACE_EVENTS_RSC);
+		}
 	protected:
 		AieRC _reserve() {
 			AieRC RC;

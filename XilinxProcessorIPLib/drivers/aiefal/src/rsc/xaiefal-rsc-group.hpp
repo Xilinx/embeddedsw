@@ -8,7 +8,6 @@
 #include <fstream>
 #include <functional>
 #include <map>
-#include <unordered_map>
 #include <vector>
 #include <xaiengine.h>
 #include <xaiefal/common/xaiefal-common.hpp>
@@ -19,6 +18,7 @@
 namespace xaiefal {
 	class XAieRsc;
 	class XAieRscGetRscsWrapper;
+	class XAieDevHandle;
 
 	enum XAieFalRscType {
 		XAIE_TRACE_EVENTS_RSC = 0x100U,
@@ -164,8 +164,10 @@ namespace xaiefal {
 	 */
 	class XAieRscGroupBase {
 	public:
-		XAieRscGroupBase(const std::string &Name = ""):
-			FuncName(Name) {}
+		XAieRscGroupBase(std::shared_ptr<XAieDevHandle> DevHd,
+				const std::string &Name = ""):
+			FuncName(Name), AieHd(DevHd) {}
+		XAieRscGroupBase() {}
 		~XAieRscGroupBase() {}
 
 		/**
@@ -283,6 +285,7 @@ namespace xaiefal {
 		}
 	protected:
 		std::string FuncName; /**< function name of this group */
+		std::weak_ptr<XAieDevHandle> AieHd; /**< AI engine device instance */
 
 		/**
 		 * This function is to return resources statics of this function
@@ -315,132 +318,218 @@ namespace xaiefal {
 			vLocs.push_back(Loc);
 			return _getRscStat(vLocs, Mod, RscType, RscId);
 		}
-	};
-
-	/**
-	 * @class XAieRscGroupRuntime
-	 * @brief class to runtime resources functional group
-	 * Each element in the group is a resource.
-	 */
-	class XAieRscGroupRuntime : public XAieRscGroupBase {
-	public:
-		XAieRscGroupRuntime(const std::string &Name = ""):
-			XAieRscGroupBase(Name) {}
-		~XAieRscGroupRuntime() {}
 
 		/**
-		 * This function adds a resource to the resource group.
+		 * This function is to create tile vectors for all tiles of
+		 * an AIE partition device.
 		 *
-		 * @param  AI engine resource shared pointer
-		 * @return XAIE_OK for success, error code for failure.
+		 * @param DevInst AI engine device instance pointer
+		 * @return vector of tiles locations of all tiles of the
+		 *	   AIE partition device.
 		 */
-		AieRC addRsc(std::shared_ptr<XAieRsc> R) {
-			bool toAdd = true;
-			std::vector<std::weak_ptr<XAieRsc>>::iterator it;
+		static inline std::vector<XAie_LocType> _getAllTilesLocs(
+				XAie_DevInst *DevInst) {
+			std::vector<XAie_LocType> vLocs(DevInst->NumCols *
+					DevInst->NumRows);
+			uint8_t C = 0, R = 0;
 
-			for (it = vRefs.begin(); it != vRefs.end();) {
-				auto lR = it->lock();
+			for (std::vector<XAie_LocType>::iterator it = vLocs.begin() ;
+				it != vLocs.end(); ++it) {
+				*it = XAie_TileLoc(C, R);
 
-				if (lR == nullptr) {
-					vRefs.erase(it);
-					continue;
-				}
-				it++;
-				if (lR == R) {
-					toAdd = false;
-					break;
+				R++;
+				if (R == DevInst->NumRows) {
+					R = 0;
+					C++;
 				}
 			}
-			if (toAdd) {
-				vRefs.push_back(R);
-			}
-			return XAIE_OK;
+
+			return vLocs;
 		}
-	private:
-		std::vector<std::weak_ptr<XAieRsc>> vRefs; /**< vector of AI engine resource objects */
 
-		XAieRscStat _getRscStat(const std::vector<XAie_LocType> &vLocs,
-				uint32_t Mod, uint32_t RscType,
-				uint32_t RscId) const {
-			XAieRscStat RscStat(FuncName);
-			std::vector<XAie_UserRsc> vRscs;
+		/**
+		 * This function is to create resources statistics array to pass
+		 * to lower level driver to get the resources statistics.
+		 *
+		 * @param DevInst AI engine device instance pointer
+		 * @param vLocs tile locations, (0xFF, 0xFF) for any tile
+		 * @param Mod module type, 0xFFFFFFFF for any module
+		 * @param RscType, resource type, 0xFFFFFFFF for any resource type
+		 *
+		 * @return resource statistics vector which can be passed to
+		 *	   lower level driver.
+		 */
+		static inline std::vector<XAie_UserRscStat> _createDrvRscStats(
+				XAie_DevInst *DevInst,
+				const std::vector<XAie_LocType> &vLocs,
+				uint32_t Mod, uint32_t RscType) {
+			uint32_t NumStats = 0;
+			uint32_t MaxNumRscs = static_cast<uint32_t>(XAIE_MAX_RSC);
+			uint32_t ShimModNumRscs = 0, CoreModNumRscs = 0;
+			uint32_t CoreMemModNumRscs = 0, MemModNumRscs = 0;
+			uint32_t NumTiles = 0, NumCoreTiles = 0, NumShimTiles = 0;
+			uint32_t i;
 
-			for (auto Ref: vRefs) {
-				auto R = Ref.lock();
-
-				if (R == nullptr) {
-					continue;
-				}
-
-				auto RscWrapper = std::make_shared<
-					XAieRscGetRscsWrapper>(R, vRscs);
+			if (RscType != XAIE_RSC_TYPE_ANY && RscType > static_cast<uint32_t>(XAIE_MAX_RSC)) {
+				throw std::invalid_argument("Invalid Rsc Type to get rsc stat");
 			}
 
-			for (auto R: vRscs) {
-				for (auto L: vLocs) {
-					if ((L.Col != XAIE_LOC_ANY && R.Loc.Col != L.Col) ||
-						(L.Row != XAIE_LOC_ANY && R.Loc.Row != L.Row) ||
-						(Mod != XAIE_MOD_ANY && R.Mod != Mod) ||
-						(RscType != XAIE_RSC_TYPE_ANY && R.RscType != RscType) ||
-						(RscId != XAIE_RSC_ID_ANY && R.RscId != RscId)) {
+			// Get number of resources per module
+			if (static_cast<XAie_ModuleType>(Mod) == XAIE_PL_MOD ||
+				Mod == XAIE_MOD_ANY) {
+				if (RscType == XAIE_RSC_TYPE_ANY) {
+					ShimModNumRscs = MaxNumRscs - 1;
+				} else if (static_cast<XAie_RscType>(RscType) == XAIE_PC_EVENTS_RSC) {
+					ShimModNumRscs = 0;
+				} else {
+					ShimModNumRscs = 1;
+				}
+			}
+			if (static_cast<XAie_ModuleType>(Mod) == XAIE_CORE_MOD ||
+				Mod == XAIE_MOD_ANY) {
+				if (RscType == XAIE_RSC_TYPE_ANY) {
+					CoreModNumRscs = MaxNumRscs;
+				} else {
+					CoreModNumRscs = 1;
+				}
+			}
+			if (static_cast<XAie_ModuleType>(Mod) == XAIE_MEM_MOD ||
+				Mod == XAIE_MOD_ANY) {
+				if (RscType == XAIE_RSC_TYPE_ANY) {
+					MemModNumRscs = MaxNumRscs - 1;
+					CoreMemModNumRscs = MaxNumRscs - 2;
+				} else if (static_cast<XAie_RscType>(RscType) == XAIE_PC_EVENTS_RSC) {
+					MemModNumRscs = 0;
+					CoreMemModNumRscs = 0;
+				} else {
+					MemModNumRscs = 1;
+					if (static_cast<XAie_RscType>(RscType) == XAIE_SS_EVENT_PORTS_RSC) {
+						CoreMemModNumRscs = 0;
+					} else {
+						CoreMemModNumRscs = 1;
+					}
+				}
+			}
+
+			for (auto L: vLocs) {
+				if (L.Row == XAIE_LOC_ANY ||
+					L.Col == XAIE_LOC_ANY) {
+					throw std::invalid_argument("Invalid tile location to get rsc stat");
+				}
+				NumTiles++;
+				if (L.Row == 0) {
+					NumShimTiles++;
+				} else if (L.Row >= DevInst->AieTileRowStart) {
+					NumCoreTiles++;
+				}
+			}
+
+			// Calculate number of resource statistics
+			NumStats += NumShimTiles * ShimModNumRscs;
+			NumStats += NumCoreTiles * CoreModNumRscs;
+			NumStats += NumCoreTiles * CoreMemModNumRscs;
+			NumStats += (NumTiles - NumShimTiles - NumCoreTiles) * MemModNumRscs;
+
+			std::vector<XAie_UserRscStat> RscsStats(NumStats);
+
+			// Fill in Rsc stats parameters
+			i = 0;
+			for (auto L: vLocs) {
+				if (L.Row == 0) {
+					// Shim Tiles
+					if (ShimModNumRscs == 0) {
 						continue;
 					}
-					RscStat.addRscStat(R.Loc, R.Mod, R.RscType, 1);
+					if (ShimModNumRscs == 1) {
+						RscsStats[i].Loc = L;
+						RscsStats[i].Mod = static_cast<uint8_t>(XAIE_PL_MOD);
+						RscsStats[i].RscType = static_cast<uint8_t>(RscType);
+						RscsStats[i].NumRscs = 0;
+						i++;
+						continue;
+					}
+					for (uint8_t Rsc = static_cast<uint8_t>(XAIE_PERFCNT_RSC);
+						Rsc < static_cast<uint8_t>(XAIE_MAX_RSC); Rsc++) {
+						if (Rsc == static_cast<uint8_t>(XAIE_PC_EVENTS_RSC)) {
+							continue;
+						}
+						RscsStats[i].Loc = L;
+						RscsStats[i].Mod = static_cast<uint8_t>(XAIE_PL_MOD);
+						RscsStats[i].RscType = Rsc;
+						RscsStats[i].NumRscs = 0;
+						i++;
+					}
+				} else if (L.Row >= DevInst->AieTileRowStart) {
+					// Core tiles, core modules
+					if (CoreModNumRscs == 1) {
+						RscsStats[i].Loc = L;
+						RscsStats[i].Mod = static_cast<uint8_t>(XAIE_CORE_MOD);
+						RscsStats[i].RscType = static_cast<uint8_t>(RscType);
+						RscsStats[i].NumRscs = 0;
+						i++;
+					} else if (CoreModNumRscs > 1) {
+						for (uint8_t Rsc = static_cast<uint8_t>(XAIE_PERFCNT_RSC);
+							Rsc < static_cast<uint8_t>(XAIE_MAX_RSC); Rsc++) {
+							RscsStats[i].Loc = L;
+							RscsStats[i].Mod = static_cast<uint8_t>(XAIE_CORE_MOD);
+							RscsStats[i].RscType = Rsc;
+							RscsStats[i].NumRscs = 0;
+							i++;
+						}
+					}
+
+					// Core tiles, mem modules
+					if (CoreMemModNumRscs == 0) {
+						continue;
+					}
+					if (CoreMemModNumRscs == 1) {
+						RscsStats[i].Loc = L;
+						RscsStats[i].Mod = static_cast<uint8_t>(XAIE_MEM_MOD);
+						RscsStats[i].RscType = static_cast<uint8_t>(RscType);
+						RscsStats[i].NumRscs = 0;
+						i++;
+						continue;
+					}
+					for (uint8_t Rsc = static_cast<uint8_t>(XAIE_PERFCNT_RSC);
+						Rsc < static_cast<uint8_t>(XAIE_MAX_RSC); Rsc++) {
+						if (Rsc == static_cast<uint8_t>(XAIE_PC_EVENTS_RSC) ||
+							Rsc == static_cast<uint8_t>(XAIE_SS_EVENT_PORTS_RSC)) {
+							continue;
+						}
+						RscsStats[i].Loc = L;
+						RscsStats[i].Mod = static_cast<uint8_t>(XAIE_MEM_MOD);
+						RscsStats[i].RscType = Rsc;
+						RscsStats[i].NumRscs = 0;
+						i++;
+					}
+				} else {
+					// Other tiles
+					if (MemModNumRscs == 0) {
+						continue;
+					}
+					if (MemModNumRscs == 1) {
+						RscsStats[i].Loc = L;
+						RscsStats[i].Mod = static_cast<uint8_t>(XAIE_MEM_MOD);
+						RscsStats[i].RscType = static_cast<uint8_t>(RscType);
+						RscsStats[i].NumRscs = 0;
+						i++;
+						continue;
+					}
+					for (uint8_t Rsc = static_cast<uint8_t>(XAIE_PERFCNT_RSC);
+						Rsc < static_cast<uint8_t>(XAIE_MAX_RSC); Rsc++) {
+						if (Rsc == static_cast<uint8_t>(XAIE_PC_EVENTS_RSC)) {
+							continue;
+						}
+						RscsStats[i].Loc = L;
+						RscsStats[i].Mod = static_cast<uint8_t>(XAIE_MEM_MOD);
+						RscsStats[i].RscType = Rsc;
+						RscsStats[i].NumRscs = 0;
+						i++;
+					}
 				}
 			}
 
-			return RscStat;
-		}
-	};
-
-	/**
-	 * @class XAieRscGroupStatic
-	 * @brief class to statically allocated resources group
-	 * Each element in the group is a resource.
-	 */
-	class XAieRscGroupStatic : public XAieRscGroupBase {
-	public:
-		XAieRscGroupStatic(): XAieRscGroupBase("Static") {};
-		XAieRscGroupStatic(const std::string &Name = ""):
-			XAieRscGroupBase(Name) {}
-		~XAieRscGroupStatic() {}
-	private:
-		XAieRscStat _getRscStat(const std::vector<XAie_LocType> &vLocs,
-				uint32_t Mod, uint32_t RscType,
-				uint32_t RscId) const {
-			XAieRscStat RscStat(FuncName);
-
-			(void)vLocs;
-			(void)Mod;
-			(void)RscType;
-			(void)RscId;
-			/* TODO: get static resources from driver */
-			return RscStat;
-		}
-	};
-
-	/**
-	 * @class XAieRscGroupAvail
-	 * @brief class to runtime resources functional group
-	 * Each element in the group is a resource.
-	 */
-	class XAieRscGroupAvail : public XAieRscGroupBase {
-	public:
-		XAieRscGroupAvail(): XAieRscGroupBase("Avail") {};
-		XAieRscGroupAvail(const std::string &Name = ""):
-			XAieRscGroupBase(Name) {}
-	private:
-		XAieRscStat _getRscStat(const std::vector<XAie_LocType> &vLocs,
-				uint32_t Mod, uint32_t RscType,
-				uint32_t RscId) const {
-			XAieRscStat RscStat(FuncName);
-
-			(void)vLocs;
-			(void)Mod;
-			(void)RscType;
-			(void)RscId;
-			/* TODO: get available resources from driver */
-			return RscStat;
+			return RscsStats;
 		}
 	};
 }
