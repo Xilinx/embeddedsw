@@ -333,7 +333,7 @@ static inline AieRC XAie_GetStaticRscStat(XAie_DevInst *DevInst, u32 NumRscStat,
 	return XAIE_FEATURE_NOT_SUPPORTED;
 }
 
-AieRC XAie_GetAvailRscStat(XAie_DevInst *DevInst, u32 NumRscStat,
+static inline AieRC XAie_GetAvailRscStat(XAie_DevInst *DevInst, u32 NumRscStat,
 		XAie_UserRscStat *RscStats)
 {
 	(void)DevInst;
