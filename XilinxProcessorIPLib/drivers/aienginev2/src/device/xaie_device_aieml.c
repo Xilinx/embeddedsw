@@ -220,10 +220,9 @@ AieRC _XAieMl_PartMemZeroInit(XAie_DevInst *DevInst)
 
 	RegAddr = MCtrlModLast->MemCtrlRegOff +
 		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
-	XAie_MaskPoll(DevInst, RegAddr,
+	return XAie_MaskPoll(DevInst, RegAddr,
 			MCtrlModLast->MemZeroisation.Mask, 0, 0);
 
-	return XAIE_OK;
 }
 
 /*****************************************************************************/
