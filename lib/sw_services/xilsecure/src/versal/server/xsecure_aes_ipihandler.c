@@ -198,7 +198,7 @@ static int XSecure_AesOperationInit(u32 SrcAddrLow, u32 SrcAddrHigh)
 		goto END;
 	}
 
-	if (AesParams.OperationId == XSECURE_ENCRYPT) {
+	if (AesParams.OperationId == (u32)XSECURE_ENCRYPT) {
 		Status = XSecure_AesEncryptInit(XSecureAesInstPtr,
 				(XSecure_AesKeySrc)AesParams.KeySrc,
 				(XSecure_AesKeySize)AesParams.KeySize,
