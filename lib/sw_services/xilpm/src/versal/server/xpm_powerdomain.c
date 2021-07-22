@@ -83,7 +83,8 @@ XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
 		PowerDomain->Parents[0] = Parent->Node.Id;
 	}
 
-	Status = XST_SUCCESS;
+	/* Set houseclean disable mask to default */
+	PowerDomain->HcDisableMask = (u32)HOUSECLEAN_DISABLE_DEFAULT_MASK;
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
@@ -1360,7 +1361,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 
 		XPmPower_UpdateResetFlags(PwrDomain, FUNC_INIT_START);
 		if ((NULL != Ops) && (NULL != Ops->InitStart)) {
-			Status = Ops->InitStart(Args, NumArgs);
+			Status = Ops->InitStart(PwrDomain, Args, NumArgs);
 			if (XST_SUCCESS != Status) {
 				DbgErr = XPM_INT_ERR_FUNC_INIT_START;
 				goto done;
@@ -1376,7 +1377,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			goto done;
 		}
 		if ((NULL != Ops) && (NULL != Ops->InitFinish)) {
-			Status = Ops->InitFinish(Args, NumArgs);
+			Status = Ops->InitFinish(PwrDomain, Args, NumArgs);
 			if (XST_SUCCESS != Status) {
 				DbgErr = XPM_INT_ERR_FUNC_INIT_FINISH;
 				goto done;
@@ -1453,7 +1454,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			goto done;
 		}
 		if ((NULL != Ops) && (NULL != Ops->ScanClear)) {
-			Status = Ops->ScanClear(Args, NumArgs);
+			Status = Ops->ScanClear(PwrDomain, Args, NumArgs);
 			if (XST_SUCCESS != Status) {
 				DbgErr = XPM_INT_ERR_FUNC_SCAN_CLEAR;
 				goto done;
@@ -1475,7 +1476,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			goto done;
 		}
 		if ((NULL != Ops) && (NULL != Ops->Bisr)) {
-			Status = Ops->Bisr(Args, NumArgs);
+			Status = Ops->Bisr(PwrDomain, Args, NumArgs);
 			if (XST_SUCCESS != Status) {
 				DbgErr = XPM_INT_ERR_FUNC_BISR;
 				goto done;
@@ -1496,7 +1497,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			goto done;
 		}
 		if ((NULL != Ops) && (NULL != Ops->Lbist)) {
-			XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (Ops->Lbist), (Args), (NumArgs));
+			XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (Ops->Lbist), (PwrDomain), (Args), (NumArgs));
 			XStatus LocalStatus = StatusTmp; /* Copy volatile to local to avoid MISRA */
 			/* Required for redundancy */
 			if ((XST_SUCCESS != Status) || (XST_SUCCESS != LocalStatus)) {
@@ -1519,7 +1520,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			goto done;
 		}
 		if ((NULL != Ops) && (NULL != Ops->Mbist)) {
-			XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (Ops->Mbist), (Args), (NumArgs));
+			XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (Ops->Mbist), (PwrDomain), (Args), (NumArgs));
 			XStatus LocalStatus = StatusTmp; /* Copy volatile to local to avoid MISRA */
 			/* Required for redundancy */
 			if ((XST_SUCCESS != Status) || (XST_SUCCESS != LocalStatus)) {
@@ -1537,7 +1538,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			goto done;
 		}
 		if ((NULL != Ops) && (NULL != Ops->PlHouseclean)) {
-			Status = Ops->PlHouseclean(Args, NumArgs);
+			Status = Ops->PlHouseclean(PwrDomain, Args, NumArgs);
 			if (XST_SUCCESS != Status) {
 				DbgErr = XPM_INT_ERR_FUNC_HOUSECLEAN_PL;
 				goto done;
@@ -1553,7 +1554,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
                         goto done;
                 }
                 if ((NULL != Ops) && (NULL != Ops->MemInit)) {
-                        Status = Ops->MemInit(Args, NumArgs);
+                        Status = Ops->MemInit(PwrDomain, Args, NumArgs);
                         if (XST_SUCCESS != Status) {
 				DbgErr = XPM_INT_ERR_FUNC_MEM_INIT;
                                 goto done;
@@ -1569,7 +1570,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
                         goto done;
                 }
                 if ((NULL != Ops) && (NULL != Ops->HcComplete)) {
-                        Status = Ops->HcComplete(Args, NumArgs);
+                        Status = Ops->HcComplete(PwrDomain, Args, NumArgs);
                         if (XST_SUCCESS != Status) {
 				DbgErr = XPM_INT_ERR_FUNC_HOUSECLEAN_COMPLETE;
                                 goto done;

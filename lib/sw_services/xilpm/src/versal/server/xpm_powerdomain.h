@@ -26,15 +26,15 @@ typedef struct XPm_PowerDomain XPm_PowerDomain;
  * classes.
  */
 struct XPm_PowerDomainOps {
-	XStatus (*InitStart)(const u32 *Args, u32 NumOfArgs);
-	XStatus (*InitFinish)(const u32 *Args, u32 NumOfArgs);
-	XStatus (*ScanClear)(const u32 *Args, u32 NumOfArgs);
-	XStatus (*Mbist)(const u32 *Args, u32 NumOfArgs);
-	XStatus (*Lbist)(const u32 *Args, u32 NumOfArgs);
-	XStatus (*Bisr)(const u32 *Args, u32 NumOfArgs);
-	XStatus (*PlHouseclean)(const u32 *Args, u32 NumOfArgs);
-	XStatus (*MemInit)(const u32 *Args, u32 NumOfArgs);
-	XStatus (*HcComplete)(const u32 *Args, u32 NumOfArgs);
+	XStatus (*InitStart)(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+	XStatus (*InitFinish)(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+	XStatus (*ScanClear)(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+	XStatus (*Mbist)(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+	XStatus (*Lbist)(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+	XStatus (*Bisr)(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+	XStatus (*PlHouseclean)(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+	XStatus (*MemInit)(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+	XStatus (*HcComplete)(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
 	const u16 InitMask;	/**< Mask to indicate which Ops are present */
 };
 
@@ -44,6 +44,7 @@ struct XPm_PowerDomain {
 	u32 Parents[MAX_POWERDOMAINS]; /**< List of Parent Rail Ids */
 	u32 Children[MAX_POWERDOMAINS]; /**< List of depedent children Ids */
 	u16 InitFlag; /**< Flag to indicate which Ops are performed */
+	u32 HcDisableMask; /**< Mask for skipping housecleaning operations */
 };
 
 /************************** Function Prototypes ******************************/
