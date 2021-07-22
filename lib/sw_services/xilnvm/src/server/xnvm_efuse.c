@@ -1855,9 +1855,7 @@ int XNvm_EfuseWriteRevocationId(u32 RevokeId, XSysMonPsv *SysMonInstPtr)
 	EfuseData.RevokeIds = &WriteRevokeId;
 
 	Status = XNvm_EfuseWrite(&EfuseData);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+
 END:
 	return Status;
 }
@@ -5932,9 +5930,6 @@ int XNvm_EfuseWritePufAsUserFuses(XNvm_EfusePufFuse *PufFuse)
 	}
 
 	Status = XNvm_EfuseCacheLoad();
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
 
 END:
 	XNvm_EfuseDisableProgramming();
