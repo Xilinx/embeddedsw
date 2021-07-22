@@ -314,9 +314,13 @@ AieRC XAie_DataMemBlockRead(XAie_DevInst *DevInst, XAie_LocType Loc, u32 Addr,
 
 	/* Aligned bytes */
 	for(u32 AlignedWord = 0; AlignedWord < RemBytes / 4;
-		AlignedWord++, BytePtr += 4, DmAddrRoundUp += 4)
+		AlignedWord++, BytePtr += 4, DmAddrRoundUp += 4) {
 		RC = XAie_Read32(DevInst, DmAddrRoundUp,
 				(u32 *)(CharDst + BytePtr));
+		if(RC != XAIE_OK) {
+			return RC;
+		}
+	}
 
 	/* Remaining bytes */
 	if(RemBytes % XAIE_MEM_WORD_ALIGN_SIZE) {
