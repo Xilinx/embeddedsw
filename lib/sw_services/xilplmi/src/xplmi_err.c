@@ -60,6 +60,7 @@
 *       td   07/08/2021 Fix doxygen warnings
 *       bsv  07/16/2021 Fix doxygen warnings
 *       bsv  07/18/2021 Debug enhancements
+*       kc   07/22/2021 XPlmi_PorHandler scope updated to global
 *
 * </pre>
 *
@@ -105,7 +106,6 @@ static void XPlmi_ErrIntrSubTypeHandler(u32 ErrorNodeId, u32 RegMask);
 static void XPlmi_EmClearError(u32 ErrorNodeType, u32 ErrorId);
 static void XPlmi_SoftResetHandler(void);
 static void XPlmi_SysmonClkSetIro(void);
-static void XPlmi_PORHandler(void);
 static void XPlmi_DumpRegisters(void);
 static u32 XPlmi_UpdateNumErrOutsCount(u8 UpdateType);
 static void XPlmi_HandleLinkDownError(u32 Cpm5PcieIrStatusReg,
@@ -449,7 +449,7 @@ void XPlmi_UpdateErrorSubsystemId(u32 ErrorNodeId,
  * @return	None
  *
  *****************************************************************************/
-static void XPlmi_PORHandler(void) {
+void XPlmi_PORHandler(void) {
 	u32 RegVal;
 
 	XPlmi_SysmonClkSetIro();

@@ -56,6 +56,7 @@
 *       bm   07/12/2021 Removed obsolete EFUSE_CACHE defines and added sysmon
 *                       related defines
 *       bsv  07/16/2021 Fix doxygen and compilation warnings
+*       kc   07/22/2021 Added VP1802 idcode and external POR macros
 *
 * </pre>
 *
@@ -487,9 +488,13 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 
 #define PMC_TAP_IDCODE_SI_REV_1		(0x00000000U)
 #define PMC_TAP_IDCODE_SBFMLY_S		(0x00080000U)
+#define PMC_TAP_IDCODE_SBFMLY_H		(0x00100000U)
 #define PMC_TAP_IDCODE_DEV_80		(0x00028000U)
+#define PMC_TAP_IDCODE_DEV_14		(0x00014000U)
 #define PMC_TAP_IDCODE_ES1_VC1902	(PMC_TAP_IDCODE_SI_REV_1 | \
 	PMC_TAP_IDCODE_SBFMLY_S | PMC_TAP_IDCODE_DEV_80)
+#define PMC_TAP_IDCODE_ES1_VP1802	(PMC_TAP_IDCODE_SI_REV_1 | \
+	PMC_TAP_IDCODE_SBFMLY_H | PMC_TAP_IDCODE_DEV_14)
 
 #ifndef PMC_TAP_VERSION
 #define PMC_TAP_VERSION		(PMC_TAP_BASEADDR + 0X00000004U)
@@ -602,6 +607,7 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #ifndef CRP_RESET_REASON
 #define CRP_RESET_REASON		(CRP_BASEADDR + 0X00000220U)
 #endif
+#define CRP_RESET_REASON_EXT_POR_MASK		(0x1U)
 #define CRP_RST_SBI				(CRP_BASEADDR + 0X00000324U)
 #define CRP_RST_SBI_RESET_MASK			(0X00000001U)
 #define CRP_RST_PDMA				(CRP_BASEADDR + 0X00000328U)

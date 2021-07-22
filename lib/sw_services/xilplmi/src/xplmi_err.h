@@ -41,6 +41,7 @@
 *       td   05/20/2021 Fixed blind write on locking NPI address space in
 *                       XPlmi_ClearNpiErrors
 * 1.06  bsv  07/16/2021 Fix doxygen warnings
+*       kc   07/22/2021 XPlmi_PorHandler scope updated to global
 *
 * </pre>
 *
@@ -177,6 +178,7 @@ void XPlmi_SetEmSubsystemId(const u32 *Id);
 int XPlmi_CheckNpiErrors(void);
 int XPlmi_ClearNpiErrors(void);
 void XPlmi_TriggerFwNcrError(void);
+void XPlmi_PORHandler(void);
 
 /* Functions defined in xplmi_err_cmd.c */
 void XPlmi_ErrModuleInit(void);
