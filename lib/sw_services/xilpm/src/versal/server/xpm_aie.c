@@ -25,7 +25,7 @@
 /* TODO: Remove hard coded base addresses and row/col shifts for AIE2 */
 #define AIE2_COL_SHIFT 25U
 #define AIE2_ROW_SHIFT 20U
-#define AIE2_TILE_BASEADDRESS(col, row) ((u64)0x20000000000U +\
+#define AIE2_TILE_BASEADDRESS(col, row) ((u64)VIVADO_ME_BASEADDR +\
 		            ((u64)(col) << AIE2_COL_SHIFT) +\
 		            ((u64)(row) << AIE2_ROW_SHIFT))
 
@@ -1099,6 +1099,7 @@ static XStatus Aie2MemInit(const u32 *Args, u32 NumOfArgs)
 	u32 BaseAddress;
 	u32 row;
 	u32 col;
+	u32 mrow;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -1113,46 +1114,49 @@ static XStatus Aie2MemInit(const u32 *Args, u32 NumOfArgs)
 	BaseAddress = AieDev->Node.BaseAddress;
 
 	/* Enable privelaged write access */
-    XPm_RMW32(BaseAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET,
+	XPm_RMW32(BaseAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET,
 			ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK,
 			ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK);
 
-    /* Enable memory zeroization for mem tiles. Mem tiles start at row 1. */
+	/* Enable memory zeroization for mem tiles. Mem tiles start at row 1. */
 	for (col = Aie2Inst.StartCol; col < (Aie2Inst.StartCol + Aie2Inst.NumCols); col++) {
 		for (row = 1U; row <= Aie2Inst.NumMemRows; row++) {
-			AieRMW64(TILE_BASEADDRESS(col, row) + AIE2_MEM_TILE_MODULE_MEM_CTRL_OFFSET,
+			AieRMW64(AIE2_TILE_BASEADDRESS(col, row) + AIE2_MEM_TILE_MODULE_MEM_CTRL_OFFSET,
 					AIE2_MEM_TILE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK,
 					AIE2_MEM_TILE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK);
 		}
 	}
 
-    /* Enable memory zeroization for all AIE2 tiles.
+	/* Enable memory zeroization for all AIE2 tiles.
 	 * Enable for core and memory modules. */
 	for (col = Aie2Inst.StartCol; col < (Aie2Inst.StartCol + Aie2Inst.NumCols); col++) {
 		for (row = Aie2Inst.StartTileRow; row < (Aie2Inst.StartRow + Aie2Inst.NumRows); row++) {
-			AieWrite64(TILE_BASEADDRESS(col, row) + AIE2_CORE_MODULE_MEM_CTRL_OFFSET,
+			AieWrite64(AIE2_TILE_BASEADDRESS(col, row) + AIE2_CORE_MODULE_MEM_CTRL_OFFSET,
 					AIE2_CORE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK);
-			AieWrite64(TILE_BASEADDRESS(col, row) + AIE2_MEM_MODULE_MEM_CTRL_OFFSET,
+			AieWrite64(AIE2_TILE_BASEADDRESS(col, row) + AIE2_MEM_MODULE_MEM_CTRL_OFFSET,
 					AIE2_MEM_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK);
 		}
 	}
 
-	/* Poll the last cell for each tile type for memory zeroization complete */
-    while ((XST_SUCCESS != MemTileZeroStatus) ||(XST_SUCCESS != CoreZeroStatus) || (XST_SUCCESS != MemZeroStatus)) {
-		col = Aie2Inst.StartCol + Aie2Inst.NumCols;
-		row = Aie2Inst.StartRow + Aie2Inst.NumMemRows;
+	col = Aie2Inst.StartCol + Aie2Inst.NumCols - 1U;
+	row = Aie2Inst.StartRow + Aie2Inst.NumRows - 1U;
+	mrow = Aie2Inst.StartRow + Aie2Inst.NumMemRows - 1U;
 
-		if (0U == AieRead64(TILE_BASEADDRESS(col,row) + AIE2_MEM_TILE_MODULE_MEM_CTRL_OFFSET)) {
+	/* Poll the last cell for each tile type for memory zeroization complete */
+	while ((XST_SUCCESS != MemTileZeroStatus) ||
+	       (XST_SUCCESS != CoreZeroStatus) ||
+	       (XST_SUCCESS != MemZeroStatus)) {
+
+		if (0U == AieRead64(AIE2_TILE_BASEADDRESS(col, mrow) +
+				AIE2_MEM_TILE_MODULE_MEM_CTRL_OFFSET)) {
 			MemTileZeroStatus = XST_SUCCESS;
 		}
-
-		col = Aie2Inst.StartCol + Aie2Inst.NumCols;
-		row = Aie2Inst.StartRow + Aie2Inst.NumRows;
-
-		if (0U == AieRead64(TILE_BASEADDRESS(col,row) + AIE2_CORE_MODULE_MEM_CTRL_OFFSET)) {
+		if (0U == AieRead64(AIE2_TILE_BASEADDRESS(col, row) +
+				AIE2_CORE_MODULE_MEM_CTRL_OFFSET)) {
 			CoreZeroStatus = XST_SUCCESS;
 		}
-		if (0U == AieRead64(TILE_BASEADDRESS(col,row) + AIE2_MEM_MODULE_MEM_CTRL_OFFSET)) {
+		if (0U == AieRead64(AIE2_TILE_BASEADDRESS(col, row) +
+				AIE2_MEM_MODULE_MEM_CTRL_OFFSET)) {
 			MemZeroStatus = XST_SUCCESS;
 		}
 
@@ -1164,10 +1168,10 @@ static XStatus Aie2MemInit(const u32 *Args, u32 NumOfArgs)
 		}
 	}
 
-    Status = XST_SUCCESS;
+	Status = XST_SUCCESS;
 
 done:
-    XPm_PrintDbgErr(Status, DbgErr);
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
