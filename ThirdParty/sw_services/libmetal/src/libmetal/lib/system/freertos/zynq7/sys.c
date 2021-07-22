@@ -18,6 +18,8 @@
 #include "xil_exception.h"
 #include "xil_mmu.h"
 #include "xscugic.h"
+#include "FreeRTOS.h"
+#include "task.h"
 
 /* Translation table is 16K in size */
 #define     ARM_AR_MEM_TTB_SIZE                    16*1024
@@ -64,7 +66,7 @@ void metal_machine_cache_invalidate(void *addr, unsigned int len)
  */
 void metal_weak metal_generic_default_poll(void)
 {
-	asm volatile("wfi");
+	taskYIELD();
 }
 
 void *metal_machine_io_mem_map(void *va, metal_phys_addr_t pa,
