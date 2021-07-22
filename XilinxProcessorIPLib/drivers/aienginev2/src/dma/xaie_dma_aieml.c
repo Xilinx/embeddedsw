@@ -161,8 +161,15 @@ AieRC _XAieMl_DmaSetLock(XAie_DmaDesc *DmaDesc, XAie_Lock Acq, XAie_Lock Rel,
 AieRC _XAieMl_DmaSetMultiDim(XAie_DmaDesc *DmaDesc, XAie_DmaTensor *Tensor)
 {
 	for(u8 i = 0U; i < Tensor->NumDim; i++) {
+		const XAie_DmaBdProp *BdProp = DmaDesc->DmaMod->BdProp;
 		if(Tensor->Dim[i].Aie2DimDesc.StepSize == 0U) {
 			XAIE_ERROR("Invalid stepsize for dimension %d\n", i);
+			return XAIE_ERR;
+		}
+		if((Tensor->Dim[i].Aie2DimDesc.StepSize > BdProp->StepSizeMax) ||
+				(Tensor->Dim[i].Aie2DimDesc.Wrap > BdProp->WrapMax)) {
+			XAIE_ERROR("Invalid stepsize or wrap for dimension %d\n",
+					i);
 			return XAIE_ERR;
 		}
 	}
@@ -911,6 +918,14 @@ AieRC _XAieMl_ShimDmaUpdateBdAddr(XAie_DevInst *DevInst,
 AieRC _XAieMl_DmaSetBdIteration(XAie_DmaDesc *DmaDesc, u16 StepSize, u8 Wrap,
 		u8 IterCurr)
 {
+	const XAie_DmaBdProp *BdProp = DmaDesc->DmaMod->BdProp;
+
+	if((StepSize > BdProp->IterStepSizeMax) || (Wrap > BdProp->IterWrapMax) ||
+			(IterCurr > BdProp->IterCurrMax)) {
+		XAIE_ERROR("Iteration parameters exceed max value.\n");
+		return XAIE_ERR;
+	}
+
 	DmaDesc->MultiDimDesc.Gen2MultiDimDesc.IterDesc.StepSize = StepSize;
 	DmaDesc->MultiDimDesc.Gen2MultiDimDesc.IterDesc.Wrap = Wrap;
 	DmaDesc->MultiDimDesc.Gen2MultiDimDesc.IterCurr = IterCurr;
