@@ -26,6 +26,8 @@
 * </pre>
 *
 ******************************************************************************/
+#ifndef XAIEGBL_PARAMS_H
+#define XAIEGBL_PARAMS_H
 
 #define XAIEGBL_MEM_DATMEM		0x00000000
 #define XAIEGBL_MEM_DATMEMWID		128
@@ -19384,4 +19386,5 @@
 #define XAIEGBL_NOC_DEMCFG_SOU2_DEFVAL		0x0
 #define XAIEGBL_NOC_VALUE_DEMCFG(South5,South4,South3,South2)		(((South5&0x00000003)<<10)+((South4&0x00000003)<<8)+((South3&0x00000003)<<6)+((South2&0x00000003)<<4))
 
+#endif /* XAIEGBL_PARAMS_H */
 /* Append new macros here */
