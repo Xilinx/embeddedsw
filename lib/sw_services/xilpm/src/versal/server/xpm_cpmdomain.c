@@ -38,6 +38,7 @@ static XStatus CpmInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	const XPm_CpmDomain *Cpm = (XPm_CpmDomain *)PwrDomain;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 PlatformVersion;
+	u32 DisableMask;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -85,6 +86,12 @@ static XStatus CpmInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		XPmCpmDomain_LockPcsr(Cpm->CpmPcsrBaseAddr);
 	}
 
+	/* Get houseclean disable mask */
+	DisableMask = XPm_In32(PM_HOUSECLEAN_DISABLE_REG_1) >> HOUSECLEAN_CPM_SHIFT;
+
+	/* Set Houseclean Mask */
+	PwrDomain->HcDisableMask |= DisableMask;
+
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -99,10 +106,10 @@ static XStatus Cpm5InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	XStatus AuxRailPwrSts = XST_FAILURE;
 	XStatus RamRailPwrSts = XST_FAILURE;
 
-	const XPm_CpmDomain *Cpm = (XPm_CpmDomain *)PwrDomain;
 	u32 i;
 	const XPm_Device* Device = NULL;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 DisableMask;
 
 	/* This function does not use any args */
 	(void)Args;
@@ -154,6 +161,12 @@ static XStatus Cpm5InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		}
 	}
 
+	/* Get houseclean disable mask */
+	DisableMask = XPm_In32(PM_HOUSECLEAN_DISABLE_REG_1) >> HOUSECLEAN_CPM_SHIFT;
+
+	/* Set Houseclean Mask */
+	PwrDomain->HcDisableMask |= DisableMask;
+
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -174,7 +187,6 @@ static XStatus CpmInitFinish(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		PmErr("Failed to send CCIX_EN IPI to PSM, Return: 0x%x\r\n", Status);
 	}
 
-done:
 	return Status;
 }
 
@@ -194,21 +206,13 @@ static XStatus Cpm5ScanClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XPM_ERR_SCAN_CLR;
-	const XPm_CpmDomain *Cpm (XPm_CpmDomain *)PwrDomain;
+	const XPm_CpmDomain *Cpm = (XPm_CpmDomain *)PwrDomain;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 RegVal;
 
 	/* This function does not use the args */
 	(void)Args;
 	(void)NumOfArgs;
-
-	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
-		PmInfo("Skipping ScanClear for CPM5\r\n");
-		Status = XST_SUCCESS;
-		goto done;
-	}
-
-	PmInfo("Triggering ScanClear for CPM5\r\n");
 
 	/* Unlock PCSR */
 	XPmCpmDomain_UnlockPcsr(Cpm->CpmPcsrBaseAddr);
@@ -224,49 +228,57 @@ static XStatus Cpm5ScanClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		      CPM_PCSR_MASK_SCAN_CLEAR_HOLDSTATE_WEN_MASK, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
 		DbgErr = XPM_INT_ERR_REG_WRT_CPM5SCNCLR_PCSR_MASK;
-		goto fail;
+		goto done;
 	}
 
 	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_PCR_OFFSET, 0U);
 
-	/* Run scan clear on CPM */
-	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_MASK_OFFSET,
-		CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK);
-	/* Check that the register value written properly or not! */
-	PmChkRegMask32((Cpm->CpmPcsrBaseAddr + CPM_PCSR_MASK_OFFSET),
-		      CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK,
-		      CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK, Status);
-	if (XPM_REG_WRITE_FAILED == Status) {
-		DbgErr = XPM_INT_ERR_REG_WRT_CPM5SCNCLR_PCSR_MASK;
-		goto fail;
-	}
+	if (HOUSECLEAN_DISABLE_SCAN_CLEAR_MASK != (PwrDomain->HcDisableMask &
+				HOUSECLEAN_DISABLE_SCAN_CLEAR_MASK)) {
+		PmInfo("Triggering ScanClear for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 
-	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_PCR_OFFSET,
-		CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK);
-	/* Check that the register value written properly or not! */
-	PmChkRegMask32((Cpm->CpmPcsrBaseAddr + CPM_PCSR_PCR_OFFSET),
-		      CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK,
-		      CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK, Status);
-	if (XPM_REG_WRITE_FAILED == Status) {
-		DbgErr = XPM_INT_ERR_REG_WRT_CPM5SCNCLR_PCSR_PCR;
-		goto fail;
-	}
+		/* Run scan clear on CPM */
+		PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_MASK_OFFSET,
+				CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK);
+		/* Check that the register value written properly or not! */
+		PmChkRegMask32((Cpm->CpmPcsrBaseAddr + CPM_PCSR_MASK_OFFSET),
+				CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK,
+				CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK, Status);
+		if (XPM_REG_WRITE_FAILED == Status) {
+			DbgErr = XPM_INT_ERR_REG_WRT_CPM5SCNCLR_PCSR_MASK;
+			goto done;
+		}
 
-	/* Wait for Scan Clear do be done */
-	Status = XPm_PollForMask(Cpm->CpmPcsrBaseAddr + CPM_PCSR_PSR_OFFSET,
-				 CPM_PCSR_PSR_SCAN_CLEAR_DONE_MASK,
-				 XPM_POLL_TIMEOUT);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_SCAN_CLEAR_TIMEOUT;
-		goto fail;
-	}
+		PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_PCR_OFFSET,
+				CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK);
+		/* Check that the register value written properly or not! */
+		PmChkRegMask32((Cpm->CpmPcsrBaseAddr + CPM_PCSR_PCR_OFFSET),
+				CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK,
+				CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK, Status);
+		if (XPM_REG_WRITE_FAILED == Status) {
+			DbgErr = XPM_INT_ERR_REG_WRT_CPM5SCNCLR_PCSR_PCR;
+			goto done;
+		}
 
-	/* Check if Scan Clear Passed */
-	RegVal = XPm_In32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_PSR_OFFSET);
-	if ((RegVal & (u32)CPM_PCSR_PSR_SCAN_CLEAR_PASS_MASK) !=
-	    (u32)CPM_PCSR_PSR_SCAN_CLEAR_PASS_MASK) {
-		DbgErr = XPM_INT_ERR_SCAN_PASS;
-		goto fail;
+		/* Wait for Scan Clear do be done */
+		Status = XPm_PollForMask(Cpm->CpmPcsrBaseAddr + CPM_PCSR_PSR_OFFSET,
+				CPM_PCSR_PSR_SCAN_CLEAR_DONE_MASK,
+				XPM_POLL_TIMEOUT);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_SCAN_CLEAR_TIMEOUT;
+			goto done;
+		}
+
+		/* Check if Scan Clear Passed */
+		RegVal = XPm_In32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_PSR_OFFSET);
+		if ((RegVal & (u32)CPM_PCSR_PSR_SCAN_CLEAR_PASS_MASK) !=
+				(u32)CPM_PCSR_PSR_SCAN_CLEAR_PASS_MASK) {
+			DbgErr = XPM_INT_ERR_SCAN_PASS;
+			goto done;
+		}
+	} else {
+		/* ScanClear is skipped */
+		PmInfo("Skipping ScanClear for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 	}
 
 	/* Assert the HOLDSTATE bit and release open the clock gates in CPM */
@@ -278,7 +290,7 @@ static XStatus Cpm5ScanClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		      CPM_PCSR_MASK_SCAN_CLEAR_HOLDSTATE_WEN_MASK, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
 		DbgErr = XPM_INT_ERR_REG_WRT_CPM5SCNCLR_PCSR_MASK;
-		goto fail;
+		goto done;
 	}
 
 	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_PCR_OFFSET,
@@ -300,11 +312,10 @@ static XStatus Cpm5ScanClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		DbgErr = XPM_INT_ERR_CPM_TOPSW_REF_CLK_ENABLE;
 	}
 
-fail:
+done:
 	/* Lock PCSR */
 	XPmCpmDomain_LockPcsr(Cpm->CpmPcsrBaseAddr);
 
-done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
@@ -317,25 +328,26 @@ static XStatus CpmBisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
-	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
-	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
-		PmInfo("Skipping BISR for CPM\r\n");
-		Status = XST_SUCCESS;
-		goto done;
+	if (HOUSECLEAN_DISABLE_BISR_MASK != (PwrDomain->HcDisableMask &
+				HOUSECLEAN_DISABLE_BISR_MASK)) {
+		PmInfo("Triggering BISR for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
+
+		/* Bisr */
+		Status = XPmBisr_Repair(CPM_TAG_ID);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_BISR_REPAIR;
+		}
+
+	} else {
+		/* BISR is skipped */
+		PmInfo("Skipping BISR for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 	}
 
-	PmInfo("Triggering BISR for CPM\r\n");
+	Status = XST_SUCCESS;
 
-	/* Bisr */
-	Status = XPmBisr_Repair(CPM_TAG_ID);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_BISR_REPAIR;
-	}
-
-done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
@@ -348,23 +360,22 @@ static XStatus Cpm5Bisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	u32 i;
 
 	/* This function does not use the args */
-	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
-	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
-		PmInfo("Skipping BISR for CPM5\r\n");
-		Status = XST_SUCCESS;
-		goto done;
-	}
+	if (HOUSECLEAN_DISABLE_BISR_MASK != (PwrDomain->HcDisableMask &
+				HOUSECLEAN_DISABLE_BISR_MASK)) {
+		PmInfo("Triggering BISR for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 
-	PmInfo("Triggering BISR for CPM5\r\n");
-
-	/* Bisr on CPM5 PD*/
-	Status = XPmBisr_Repair(CPM5_TAG_ID);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_CPM5_BISR_REPAIR;
-		goto done;
+		/* Bisr on CPM5 PD*/
+		Status = XPmBisr_Repair(CPM5_TAG_ID);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_CPM5_BISR_REPAIR;
+			goto done;
+		}
+	} else {
+		/* BISR is skipped */
+		PmInfo("Skipping BISR for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 	}
 
 	for (i = 0; i < ARRAY_SIZE(GtyAddresses); ++i) {
@@ -380,12 +391,19 @@ static XStatus Cpm5Bisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET, 1U);
 	}
 
-	/* Bisr on GTYP_CPM5 */
-	Status = XPmBisr_Repair(CPM5_GTYP_TAG_ID);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_CPM5_GTYP_BISR_REPAIR;
-		goto done;
+	if (HOUSECLEAN_DISABLE_BISR_MASK != (PwrDomain->HcDisableMask &
+				HOUSECLEAN_DISABLE_BISR_MASK)) {
+		PmInfo("Triggering BISR for CPM5_GTYP\r\n");
+
+		/* Bisr on GTYP_CPM5 */
+		Status = XPmBisr_Repair(CPM5_GTYP_TAG_ID);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_CPM5_GTYP_BISR_REPAIR;
+			goto done;
+		}
 	}
+
+	Status = XST_SUCCESS;
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
@@ -404,13 +422,14 @@ static XStatus CpmMbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	(void)Args;
 	(void)NumOfArgs;
 
-	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
-		PmInfo("Skipping MBIST for CPM\r\n");
+	if (HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK == (PwrDomain->HcDisableMask &
+				HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK)) {
+		PmInfo("Skipping MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 		Status = XST_SUCCESS;
 		goto done;
 	}
 
-	PmInfo("Triggering MBIST for CPM\r\n");
+	PmInfo("Triggering MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 
 	/* Unlock Writes */
 	PmOut32(Cpm->CpmSlcrSecureBaseAddr + CPM_SLCR_SECURE_WPROT0_OFFSET, 0);
@@ -543,13 +562,14 @@ static XStatus Cpm5MbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	(void)Args;
 	(void)NumOfArgs;
 
-	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
-		PmInfo("Skipping MBIST for CPM5\r\n");
+	if (HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK == (PwrDomain->HcDisableMask &
+				HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK)) {
+		PmInfo("Skipping MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 		Status = XST_SUCCESS;
 		goto done;
 	}
 
-	PmInfo("Triggering MBIST for CPM5\r\n");
+	PmInfo("Triggering MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 
 	/* Disable write protection */
 	PmOut32(Cpm->CpmSlcrSecureBaseAddr + CPM5_SLCR_SECURE_WPROTS_OFFSET, 0);
@@ -589,11 +609,13 @@ static XStatus Cpm5MbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		goto done;
 	}
 
-	/* Cleanup Operation. Unwrite trigger bit and enable write protection */
-	PmOut32(Cpm->CpmSlcrSecureBaseAddr + CPM5_SLCR_SECURE_OD_MBIST_TRIGGER_OFFSET,
-		0x0);
-	PmOut32(Cpm->CpmSlcrSecureBaseAddr + CPM5_SLCR_SECURE_WPROTS_OFFSET,
-		0x1);
+	/* Unwrite trigger bit and enable write protection */
+	PmOut32(Cpm->CpmSlcrSecureBaseAddr +
+			CPM5_SLCR_SECURE_OD_MBIST_TRIGGER_OFFSET, 0x0);
+
+	/* Enable write protection */
+	PmOut32(Cpm->CpmSlcrSecureBaseAddr +
+			CPM5_SLCR_SECURE_WPROTS_OFFSET, 0x1);
 
 	for (i = 0U; i < ARRAY_SIZE(GtyAddresses); ++i) {
 		if (0U == GtyAddresses[i]) {
@@ -693,6 +715,9 @@ XStatus XPmCpmDomain_Init(XPm_CpmDomain *CpmDomain, u32 Id, u32 BaseAddress,
 		CpmDomain->CpmSlcrSecureBaseAddr = CPM5_SLCR_SECURE_BASEADDR;
 		CpmDomain->CpmCrCpmBaseAddr = CPM5_CRX_BASEADDR;
 	}
+
+	/* Clear CPM section of PMC RAM register reserved for houseclean disable */
+	XPm_RMW32(PM_HOUSECLEAN_DISABLE_REG_1, PM_HOUSECLEAN_DISABLE_CPM_MASK, 0U);
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
