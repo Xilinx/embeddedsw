@@ -63,6 +63,7 @@
 *                       general purpose data
 *       am   05/22/2021 Resolved MISRA C violations
 * 2.4   kal  07/13/2021 Fixed doxygen warnings
+*       am   07/07/2021 Fixed 2021.1 review comments
 *
 * </pre>
 *
@@ -265,8 +266,8 @@ static int XNvm_EfusePrgmPufFuses(const XNvm_EfusePufFuse *WritePufFuses);
  * 		Revocation Ids
  * 		User Fuses
  * 		Secure and Control bits.
- * 		Misc Ctrl bits.
- * 		Security Misc1 bits.
+ * 		Miscellaneous Control bits.
+ * 		Security Miscellaneous1 bits.
  * 		BootEnvCtrl bits.
  *
  * @param	WriteNvm - Pointer to Efuse data to be written.
@@ -816,11 +817,11 @@ END:
 
 /******************************************************************************/
 /**
- * @brief	This function is used to read the Security Misc1 bits from
- *		cache.
+ * @brief	This function is used to read the security miscellaneous1 bits
+ *		from cache.
  *
  * @param	SecMisc1Bits - Pointer to the XNvm_EfuseSecMisc1Bits which holds
- * 				the security misc1 control bits.
+ * 		               the security miscellaneous1 control bits.
  *
  * @return	- XST_SUCCESS - On Successful read.
  * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
@@ -1368,8 +1369,8 @@ END:
 
 /******************************************************************************/
 /**
- * @brief	This function is used to read the Misc eFUSE control bits from
- *			cache.
+ * @brief	This function is used to read the miscellaneous eFUSE control
+ *		bits from cache.
  *
  * @param	MiscCtrlBits - Pointer to the XNvm_MiscCtrlBits which holds
  *				the read secure control bits.
@@ -2531,7 +2532,8 @@ END:
 
 /******************************************************************************/
 /**
- * @brief	This function programs Security Misc1 eFuses specified by user.
+ * @brief	This function programs security miscellaneous1 eFuses specified
+ *              by user.
  *
  * @param	Misc1Bits	Pointer to the XNvm_EfuseSecMisc1Bits structure,
  * 				which holds the XNvm_EfuseSecMisc1Bits data to
