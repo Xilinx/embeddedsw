@@ -422,6 +422,11 @@ typedef struct {
 	u8 AddrAlignMask;
 	u8 AddrAlignShift;
 	u8 LenActualOffset;
+	u32 StepSizeMax;
+	u16 WrapMax;
+	u32 IterStepSizeMax;
+	u8 IterWrapMax;
+	u8 IterCurrMax;
 	const XAie_DmaBdBuffer *Buffer;
 	const XAie_DmaBdDoubleBuffer *DoubleBuffer;
 	const XAie_DmaBdLock *Lock;
