@@ -915,7 +915,7 @@ AieRC _XAieMl_ShimDmaUpdateBdAddr(XAie_DevInst *DevInst,
 *		hardware.
 *
 ******************************************************************************/
-AieRC _XAieMl_DmaSetBdIteration(XAie_DmaDesc *DmaDesc, u16 StepSize, u8 Wrap,
+AieRC _XAieMl_DmaSetBdIteration(XAie_DmaDesc *DmaDesc, u32 StepSize, u8 Wrap,
 		u8 IterCurr)
 {
 	const XAie_DmaBdProp *BdProp = DmaDesc->DmaMod->BdProp;
