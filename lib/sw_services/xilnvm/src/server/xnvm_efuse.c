@@ -5546,7 +5546,7 @@ static int XNvm_EfuseTempAndVoltChecks(const XSysMonPsv *SysMonInstPtr)
 	int Status = XST_FAILURE;
 	u32 ReadReg = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
 	u32 SupplyReg = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
-	u32 TimeOut = XNVM_EFUSE_SYSMONPSV_TIMEOUT;
+	u32 SysmonEventsMask = 0U;
 	u32 Mode;
 	u32 Index;
 	u32 AbusSw1;
@@ -5643,29 +5643,19 @@ static int XNvm_EfuseTempAndVoltChecks(const XSysMonPsv *SysMonInstPtr)
 	Offset = XNVM_EFUSE_WORD_LEN *
 		(SupplyReg / XNVM_EFUSE_SYSMON_NUM_SUPPLIES_PER_FLAG);
 	Shift = SupplyReg % XNVM_EFUSE_SYSMON_NUM_SUPPLIES_PER_FLAG;
+	SysmonEventsMask = (u32)1U << Shift;
 
-	while (TimeOut > 0U) {
-		/* Read the New data flag */
-		ReadReg = XSysMonPsv_ReadReg(SysMonInstPtr->Config.BaseAddress +
-				Offset + XSYSMONPSV_NEW_DATA_FLAG0);
-
-		ReadReg &= ((u32)1U << Shift);
-		if (ReadReg != 0x00U) {
-			break;
-		}
-		TimeOut--;
+	Status = (int)Xil_WaitForEvents((SysMonInstPtr->Config.BaseAddress +
+		Offset + XSYSMONPSV_NEW_DATA_FLAG0), SysmonEventsMask,
+		SysmonEventsMask, XNVM_EFUSE_SYSMONPSV_TIMEOUT, &ReadReg);
+	if(Status != XST_SUCCESS) {
+		Status = (int)XNVM_EFUSE_ERROR_SYSMON_NO_NEW_DATA;
+		goto END;
 	}
-
-	if (TimeOut == 0U) {
-		if (ReadReg == 0x00U) {
-			Status = (int)XNVM_EFUSE_ERROR_SYSMON_NO_NEW_DATA;
-			goto END;
-		}
-		else {
-			/* Clear the New data flag if its set */
-			XSysMonPsv_WriteReg(SysMonInstPtr->Config.BaseAddress +
-				Offset + XSYSMONPSV_NEW_DATA_FLAG0, ReadReg);
-		}
+	else {
+		/* Clear the New data flag if its set */
+		XSysMonPsv_WriteReg(SysMonInstPtr->Config.BaseAddress +
+			Offset + XSYSMONPSV_NEW_DATA_FLAG0, ReadReg);
 	}
 
 	if (ReadReg != 0x00U) {
