@@ -1,1 +1,1 @@
-xdfemix_selftest_example.c=xdfesi570_mgt.c
+xdfemix_examples.c=xdfesi570_mgt.c, xdfemix_one_instance_initialization_example.c, xdfemix_pass_through_example.c, xdfemix_examples.h

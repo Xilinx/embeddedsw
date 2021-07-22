@@ -33,6 +33,7 @@
 *       dc     05/08/21 Update to common trigger
 *       dc     05/18/21 Handling CCUpdate trigger
 * 1.1   dc     07/13/21 Update to common latency requirements
+*       dc     07/21/21 Add and reorganise examples
 *
 * </pre>
 *
@@ -256,7 +257,7 @@ static s32 XDfeMix_GetNotUsedCCID(XDfeMix_CCSequence *Sequence)
 /**
 *
 * Adds the specified CCID, to the CC sequence. The sequence is defined with
-* BitSequence where bit0 coresponds to CC[0], bit1 to CC[1], and so on.
+* SlotSeqBitmap where bit0 coresponds to CC[0], bit1 to CC[1], and so on.
 *
 * Sequence data in returned CCIDSequence is not the same as what is written
 * in registers, the translation is:
@@ -273,7 +274,7 @@ static s32 XDfeMix_GetNotUsedCCID(XDfeMix_CCSequence *Sequence)
 *
 * @param    InstancePtr is a pointer to the XDfeMix instance.
 * @param    CCID is a CC ID.
-* @param    BitSequence maps the sequence.
+* @param    SlotSeqBitmap maps the sequence.
 * @param    CCIDSequence is a CC sequence array.
 *
 * @return
@@ -282,7 +283,7 @@ static s32 XDfeMix_GetNotUsedCCID(XDfeMix_CCSequence *Sequence)
 *
 *
 ****************************************************************************/
-static u32 XDfeMix_AddCCID(XDfeMix *InstancePtr, s32 CCID, u32 BitSequence,
+static u32 XDfeMix_AddCCID(XDfeMix *InstancePtr, s32 CCID, u32 SlotSeqBitmap,
 			   XDfeMix_CCSequence *CCIDSequence)
 {
 	u32 Index;
@@ -294,16 +295,16 @@ static u32 XDfeMix_AddCCID(XDfeMix *InstancePtr, s32 CCID, u32 BitSequence,
 
 	/* Check does sequence fit in the defined length */
 	Mask = (1U << CCIDSequence->Length) - 1U;
-	if (0U != (BitSequence & (~Mask))) {
+	if (0U != (SlotSeqBitmap & (~Mask))) {
 		metal_log(METAL_LOG_ERROR, "Sequence map does not fit in %s\n",
 			  __func__);
 		return XST_FAILURE;
 	}
 
-	/* Check are bits set in BitSequence to 1 avaliable (-1)*/
+	/* Check are bits set in SlotSeqBitmap to 1 avaliable (-1)*/
 	Mask = 1U;
 	for (Index = 0U; Index < CCIDSequence->Length; Index++) {
-		if (0U != (BitSequence & Mask)) {
+		if (0U != (SlotSeqBitmap & Mask)) {
 			if (CCIDSequence->CCID[Index] !=
 			    XDFEMIX_SEQUENCE_ENTRY_NULL) {
 				metal_log(METAL_LOG_ERROR,
@@ -318,7 +319,7 @@ static u32 XDfeMix_AddCCID(XDfeMix *InstancePtr, s32 CCID, u32 BitSequence,
 	/* Now, write the sequence */
 	Mask = 1U;
 	for (Index = 0U; Index < CCIDSequence->Length; Index++) {
-		if (0U != (BitSequence & Mask)) {
+		if (0U != (SlotSeqBitmap & Mask)) {
 			CCIDSequence->CCID[Index] = CCID;
 		}
 		Mask <<= 1U;
@@ -1439,7 +1440,13 @@ void XDfeMix_Deactivate(XDfeMix *InstancePtr)
 *
 * @param    InstancePtr is a pointer to the Mixer instance.
 * @param    CCID is a Channel ID.
-* @param    BitSequence maps the sequence.
+* @param    SlotSeqBitmap - up to 16 defined slots into which a CC can be
+*           allocated. The number of slots can be from 1 to 16 depending on
+*           system initialization. The number of slots is defined by the
+*           "sequence length" parameter which is provided during initialization.
+*           The Bit offset within the SlotSeqBitmap indicates the equivalent
+*           Slot number to allocate. e.g. 0x0003  means the caller wants the
+*           passed component carrier (CC) to be allocated to slots 0 and 1.
 * @param    CarrierCfg is a CC configuration container.
 *
 * @return
@@ -1447,7 +1454,7 @@ void XDfeMix_Deactivate(XDfeMix *InstancePtr)
 *           - XST_FAILURE if error occurs.
 *
 ****************************************************************************/
-u32 XDfeMix_AddCC(XDfeMix *InstancePtr, s32 CCID, u32 BitSequence,
+u32 XDfeMix_AddCC(XDfeMix *InstancePtr, s32 CCID, u32 SlotSeqBitmap,
 		  const XDfeMix_CarrierCfg *CarrierCfg)
 {
 	XDfeMix_CCCfg CCCfg;
@@ -1464,7 +1471,7 @@ u32 XDfeMix_AddCC(XDfeMix *InstancePtr, s32 CCID, u32 BitSequence,
 	XDfeMix_GetCurrentCCCfg(InstancePtr, &CCCfg);
 
 	/* Try to add CC to sequence and update carrier configuration */
-	AddSuccess = XDfeMix_AddCCID(InstancePtr, CCID, BitSequence,
+	AddSuccess = XDfeMix_AddCCID(InstancePtr, CCID, SlotSeqBitmap,
 				     &CCCfg.Sequence);
 	if (AddSuccess == (u32)XST_FAILURE) {
 		metal_log(METAL_LOG_ERROR, "CC not added to a sequence in %s\n",
