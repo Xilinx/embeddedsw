@@ -19,6 +19,8 @@
 #include "xil_mpu.h"
 #include "xreg_cortexr5.h"
 #include "xscugic.h"
+#include "FreeRTOS.h"
+#include "task.h"
 
 void sys_irq_restore_enable(unsigned int flags)
 {
@@ -56,7 +58,7 @@ void metal_machine_cache_invalidate(void *addr, unsigned int len)
  */
 void metal_weak metal_generic_default_poll(void)
 {
-	asm volatile("wfi");
+	taskYIELD();
 }
 
 /**

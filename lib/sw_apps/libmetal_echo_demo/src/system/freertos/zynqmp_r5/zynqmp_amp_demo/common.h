@@ -45,6 +45,8 @@
 #include <metal/device.h>
 #include <sys/types.h>
 #include "sys_init.h"
+#include "FreeRTOS.h"
+#include "task.h"
 
 /* Devices names */
 #define BUS_NAME        "generic"
@@ -172,7 +174,7 @@ int shmem_throughput_demod();
 
 static inline void wait_for_interrupt()
 {
-	asm volatile("wfi");
+	taskYIELD();
 }
 
 /**
