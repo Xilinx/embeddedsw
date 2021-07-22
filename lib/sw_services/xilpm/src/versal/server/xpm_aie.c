@@ -490,7 +490,7 @@ static XStatus Aie2InitStart(const u32 *Args, u32 NumOfArgs)
 	/* TODO: This needs to be data driven to handle multiple devices */
 	/* Change from AIE. Each device has unique ME_TOP_ROW value */
 	/* Configure ME_TOP_ROW and ROW_OFFSET registers */
-	PmOut32((BaseAddress + ME_NPI_ME_TOP_ROW_OFFSET), 0x0000000AU);
+	PmOut32((BaseAddress + ME_NPI_ME_TOP_ROW_OFFSET), Aie2Inst.NumRows);
 
 	/* Change from AIE to AIE2. AIE handles in CDO */
 	/* De-assert INIT_STATE */
@@ -1213,27 +1213,43 @@ XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 {
 	XStatus Status = XST_FAILURE;
 	u32 Platform = XPm_GetPlatform();
+	u32 IdCode = XPm_GetIdCode();
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	const struct XPm_PowerDomainOps *Ops = NULL;
 
-	/* For SPP and EMU,  setup the array size */
-	if (Platform != PLATFORM_VERSION_SILICON) {
-		AieInst.NumCols = 7U;
-		AieInst.NumRows = 5U;
-		AieInst.StartCol = 6U;
-		AieInst.StartRow = 1U;
+	/* Set HC Ops based on AIE version */
+	if (PM_POWER_ME == Id) {
+		/* AIE1: Ops */
+		Ops = &AieOps[XPM_AIE_OPS];
+		/* AIE1: Array size for SPP/EMU (non-silicon platforms) */
+		if (Platform != PLATFORM_VERSION_SILICON) {
+			AieInst.NumCols = 7U;
+			AieInst.NumRows = 5U;
+			AieInst.StartCol = 6U;
+			AieInst.StartRow = 1U;
+		}
+	} else if (PM_POWER_ME2 == Id) {
+		/* AIE2: Ops */
+		Ops = &AieOps[XPM_AIE2_OPS];
+	} else {
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
+		Status = XPM_INVALID_PWRDOMAIN;
+		goto done;
 	}
 
-	if (Platform != PLATFORM_VERSION_QEMU) {
-		if (PM_POWER_ME == Id) {
-			Ops = &AieOps[XPM_AIE_OPS];
-		} else if (PM_POWER_ME2 == Id) {
-			Ops = &AieOps[XPM_AIE2_OPS];
-		} else {
-			DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
-			Status = XPM_INVALID_PWRDOMAIN;
-			goto done;
-		}
+	/* AIE2 Instance for VE2302 (TODO: Remove this when topology support is added) */
+	if (PMC_TAP_IDCODE_DEV_SBFMLY_VE2302 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK)) {
+		Aie2Inst.NumCols = 17U;
+		Aie2Inst.NumRows = 3U;
+		Aie2Inst.NumMemRows = 1U;
+		Aie2Inst.StartCol = 0U;
+		Aie2Inst.StartRow = 1U;
+		Aie2Inst.StartTileRow = 2U;
+	}
+
+	/* NOP for HC on QEMU */
+	if (Platform == PLATFORM_VERSION_QEMU) {
+		Ops = NULL;
 	}
 
 	Status = XPmPowerDomain_Init(&AieDomain->Domain, Id, BaseAddress,
