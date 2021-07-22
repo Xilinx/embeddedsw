@@ -20,8 +20,8 @@ static XStatus FpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	XStatus Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 DisableMask;
 
-	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -60,6 +60,13 @@ static XStatus FpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_FPD_POR;
 	}
+
+	/* Get houseclean disable mask */
+	DisableMask = XPm_In32(PM_HOUSECLEAN_DISABLE_REG_1) >> HOUSECLEAN_FPD_SHIFT;
+
+	/* Set Houseclean Mask */
+	PwrDomain->HcDisableMask |= DisableMask;
+
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -146,15 +153,17 @@ static XStatus FpdScanClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 RegVal;
 
-	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
-	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
-		PmInfo("Skipping ScanClear for FPD\r\n");
+	if (HOUSECLEAN_DISABLE_SCAN_CLEAR_MASK == (PwrDomain->HcDisableMask &
+				HOUSECLEAN_DISABLE_SCAN_CLEAR_MASK)) {
+		PmInfo("Skipping ScanClear for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 		Status = XST_SUCCESS;
 		goto done;
 	}
+
+	PmInfo("Triggering ScanClear for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 
 	Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);;
 	if (NULL == Psm) {
@@ -162,8 +171,6 @@ static XStatus FpdScanClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		Status = XST_FAILURE;
 		goto done;
 	}
-
-	PmInfo("Triggering ScanClear for FPD\r\n");
 
 	/* Trigger scan clear, This Register bit is WO type */
 	PmRmw32(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_SCAN_CLEAR_FPD_OFFSET,
@@ -201,7 +208,6 @@ static XStatus FpdBisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -211,8 +217,6 @@ static XStatus FpdBisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		DbgErr = XPM_INT_ERR_RST_RELEASE;
 		goto done;
 	}
-
-	PmInfo("Triggering BISR for FPD\r\n");
 
 	/* Call PSM to execute pre bisr requirements */
 	Payload[0] = PSM_API_FPD_HOUSECLEAN;
@@ -230,10 +234,18 @@ static XStatus FpdBisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		goto done;
 	}
 
-	/* Trigger Bisr repair */
-	Status = XPmBisr_Repair(FPD_TAG_ID);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_BISR_REPAIR;
+	if (HOUSECLEAN_DISABLE_BISR_MASK != (PwrDomain->HcDisableMask &
+				HOUSECLEAN_DISABLE_BISR_MASK)) {
+		PmInfo("Triggering BISR for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
+
+		/* Trigger Bisr repair */
+		Status = XPmBisr_Repair(FPD_TAG_ID);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_BISR_REPAIR;
+		}
+	} else {
+		/* BISR is skipped */
+		PmInfo("Skipping BISR for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 	}
 
 done:
@@ -249,7 +261,6 @@ static XStatus FpdMbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	const XPm_Psm *Psm;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -282,13 +293,14 @@ static XStatus FpdMbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		goto done;
 	}
 
-	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
-		PmInfo("Skipping MBIST for FPD\r\n");
+	if (HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK == (PwrDomain->HcDisableMask &
+				HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK)) {
+		PmInfo("Skipping MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 		Status = XST_SUCCESS;
 		goto done;
 	}
 
-	PmInfo("Triggering MBIST for FPD\r\n");
+	PmInfo("Triggering MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 
 	PmRmw32(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_MBIST_RST_OFFSET,
 		PSM_GLOBAL_MBIST_RST_FPD_MASK, PSM_GLOBAL_MBIST_RST_FPD_MASK);
@@ -405,6 +417,9 @@ XStatus XPmPsFpDomain_Init(XPm_PsFpDomain *PsFpd, u32 Id, u32 BaseAddress,
 		DbgErr = XPM_INT_ERR_INVALID_BASEADDR;
 		Status = XST_FAILURE;
 	}
+
+	/* Clear FPD section of PMC RAM register reserved for houseclean disable */
+	XPm_RMW32(PM_HOUSECLEAN_DISABLE_REG_1, PM_HOUSECLEAN_DISABLE_FPD_MASK, 0U);
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
