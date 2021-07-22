@@ -13,10 +13,15 @@
 * exposed to the user.
 *
 ******************************************************************************/
+
+#ifndef XAIE_RESET_AIEML_H
+#define XAIE_RESET_AIEML_H
+
 /***************************** Include Files *********************************/
 #include "xaiegbl.h"
 
 /************************** Function Prototypes  *****************************/
 AieRC _XAieMl_RstShims(XAie_DevInst *DevInst, u32 StartCol, u32 NumCols);
 
+#endif /* XAIE_RESET_AIEML_H */
 /** @} */

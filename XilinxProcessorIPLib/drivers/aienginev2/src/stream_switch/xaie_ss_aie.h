@@ -21,7 +21,10 @@
 * </pre>
 *
 ******************************************************************************/
+#ifndef XAIE_SS_AIE_H
+#define XAIE_SS_AIE_H
 
+/***************************** Include Files *********************************/
 #include "xaie_helper.h"
 
 /************************** Constant Definitions *****************************/
@@ -30,3 +33,6 @@
 
 AieRC _XAie_StrmSwCheckPortValidity(StrmSwPortType Slave, u8 SlvPortNum,
 		StrmSwPortType Master, u8 MstrPortNum);
+
+#endif /* XAIE_SS_AIE_H */
+/** @} */
