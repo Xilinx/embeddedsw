@@ -248,10 +248,11 @@ static AieRC _XAieMl_PmSetColumnClockBuffer(XAie_DevInst *DevInst,
 	u8 TileType;
 	u32 FldVal;
 	u64 RegAddr;
+	XAie_LocType ShimLoc = XAie_TileLoc(Loc.Col, 0U);
 	const XAie_PlIfMod *PlIfMod;
 	const XAie_ShimClkBufCntr *ClkBufCntr;
 
-	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, ShimLoc);
 	PlIfMod = DevInst->DevProp.DevMod[TileType].PlIfMod;
 	ClkBufCntr = PlIfMod->ClkBufCntr;
 
@@ -298,7 +299,6 @@ AieRC _XAieMl_RequestTiles(XAie_DevInst *DevInst, XAie_BackendTilesArray *Args)
 
 	for(u32 i = 0; i < Args->NumTiles; i++) {
 		u32 ColClockStatus;
-		XAie_LocType ColLoc;
 
 		if(Args->Locs[i].Row == 0)
 			continue;
@@ -306,17 +306,16 @@ AieRC _XAieMl_RequestTiles(XAie_DevInst *DevInst, XAie_BackendTilesArray *Args)
 		/*
 		 * Check if column clock buffer is already enabled and continue
 		 */
-		ColLoc.Col = Args->Locs[i].Col;
-		ColLoc.Row = 0U;
-		ColClockStatus = _XAie_GetTileBitPosFromLoc(DevInst, ColLoc);
+		ColClockStatus = _XAie_GetTileBitPosFromLoc(DevInst,
+				Args->Locs[i]);
 		if(CheckBit(DevInst->TilesInUse, ColClockStatus))
 			continue;
 
-		RC = _XAieMl_PmSetColumnClockBuffer(DevInst, ColLoc,
+		RC = _XAieMl_PmSetColumnClockBuffer(DevInst, Args->Locs[i],
 				XAIE_ENABLE);
 		if(RC != XAIE_OK) {
 			XAIE_ERROR("Failed to enable clock for column: %d\n",
-					ColLoc.Col);
+					Args->Locs[i].Col);
 			return RC;
 		}
 
