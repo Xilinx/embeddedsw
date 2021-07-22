@@ -7,7 +7,7 @@
 /**
 *
 * @file xiicps_selftest.c
-* @addtogroup iicps_v3_13
+* @addtogroup iicps_v3_14
 * @{
 *
 * This component contains the implementation of selftest functions for the
