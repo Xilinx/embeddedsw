@@ -5529,56 +5529,28 @@ END:
 
 /******************************************************************************/
 /**
- * @brief	This function performs the Temparature and Voltage checks to
- * 		ensure that they are in limits before eFuse programming.
+ * @brief	This function reads root register ID where measurement is
+ * 		stored in Root SysMon.
  *
- * @param	SysMonInstPtr - Pointer to SysMon instance.
+ * @param	SysmonpsvSatBaseAddr - Pointer to SysMon base address
  *
- * @return	- XST_SUCCESS - On successful Voltage and Temparature checks.
- *		- XNVM_EFUSE_ERROR_READ_VOLTAGE_OUT_OF_RANGE - Voltage is
- *								out of range
- *		- XNVM_EFUSE_ERROR_READ_TMEPERATURE_OUT_OF_RANGE - Temparature
- *								is out of range
+ * @return	On Success reads and returns SupplyReg Id
+ *		On Failure returns default SupplyReg value
  *
  ******************************************************************************/
-static int XNvm_EfuseTempAndVoltChecks(const XSysMonPsv *SysMonInstPtr)
+static int XNvm_GetSysmonSupplyRegId(UINTPTR SysmonpsvSatBaseAddr)
 {
-	int Status = XST_FAILURE;
+	UINTPTR BaseAddr = SysmonpsvSatBaseAddr;
 	u32 ReadReg = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
 	u32 SupplyReg = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
-	u32 SysmonEventsMask = 0U;
-	u32 Mode;
-	u32 Index;
-	u32 AbusSw1;
+	u32 Index = 0U;
 	u32 AbusSw0;
+	u32 AbusSw1;
 	u32 AmuxCtrl;
-	u32 RawTemp;
-	u32 RawVoltage;
-	int FractionalPart;
-	int IntegralPart;
-	float Voltage;
-	float Temparature;
-	u32 Offset;
-	u32 Shift;
-	char Signchar = ' ';
-
-	if (SysMonInstPtr == NULL) {
-		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
-		goto END;
-	}
-
-	if (SysMonInstPtr->IsReady != XIL_COMPONENT_IS_READY) {
-		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
-		goto END;
-	}
-
-	/* Unlock the sysmon register space */
-	XSysMonPsv_WriteReg(
-			SysMonInstPtr->Config.BaseAddress + XSYSMONPSV_PCSR_LOCK,
-			XNVM_EFUSE_SYSMON_LOCK_CODE);
+	u32 Mode;
 
 	for (Index = 0U; Index < XNVM_EFUSE_SYSMON_NUM_MEASURE_REGS; Index++) {
-		ReadReg = XSysMonPsv_ReadReg((UINTPTR)(XNVM_EFUSE_SYSMONPSV_SAT0_BASEADDR +
+		ReadReg = XSysMonPsv_ReadReg((UINTPTR)(BaseAddr +
 				XNVM_EFUSE_SYSMONPSV_SAT_MEASURE0_OFFSET +
 				(XNVM_EFUSE_WORD_LEN * Index)));
 		AbusSw0 = (ReadReg &
@@ -5604,36 +5576,60 @@ static int XNvm_EfuseTempAndVoltChecks(const XSysMonPsv *SysMonInstPtr)
 			break;
 		}
 	}
-	if (SupplyReg == XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET) {
-		for (Index = 0U; Index < XNVM_EFUSE_SYSMON_NUM_MEASURE_REGS;
-			Index++) {
-			ReadReg = XSysMonPsv_ReadReg((UINTPTR)
-				(XNVM_EFUSE_SYSMONPSV_SAT1_BASEADDR +
-				XNVM_EFUSE_SYSMONPSV_SAT_MEASURE0_OFFSET +
-				(XNVM_EFUSE_WORD_LEN * Index)));
-			AbusSw0 = (ReadReg &
-				XNVM_EFUSE_SYSMON_SAT_CONFIG_ABUS_SW0_MASK) >>
-				XNVM_EFUSE_SYSMON_SAT_CONFIG_ABUS_SW0_SHIFT;
-			AbusSw1 = (ReadReg &
-				XNVM_EFUSE_SYSMON_SAT_CONFIG_ABUS_SW1_MASK) >>
-				XNVM_EFUSE_SYSMON_SAT_CONFIG_ABUS_SW1_SHIFT;
-			AmuxCtrl = (ReadReg &
-				XNVM_EFUSE_SYSMON_SAT_CONFIG_AMUX_CTRL_MASK) >>
-				XNVM_EFUSE_SYSMON_SAT_CONFIG_AMUX_CTRL_SHIFT;
-			Mode = (ReadReg &
-				XNVM_EFUSE_SYSMON_SAT_CONFIG_MODE_MASK) >>
-				XNVM_EFUSE_SYSMON_SAT_CONFIG_MODE_SHIFT;
 
-			if ((XNVM_EFUSE_SYSMON_VCCPMC_ABUS_SW1 == AbusSw1) &&
-				(XNVM_EFUSE_SYSMON_VCCPMC_ABUS_SW0 == AbusSw0) &&
-				(XNVM_EFUSE_SYSMON_VCCPMC_AMUX_CTRL == AmuxCtrl) &&
-				(XNVM_EFUSE_SYSMON_VCCPMC_MODE == Mode)) {
-				SupplyReg = (ReadReg &
-					XNVM_EFUSE_SYSMON_SAT_ADDR_ID_MASK) >>
-					XNVM_EFUSE_SYSMON_SAT_ADDR_ID_SHIFT;
-				break;
-			}
-		}
+	return SupplyReg;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function performs the Temparature and Voltage checks to
+ * 		ensure that they are in limits before eFuse programming.
+ *
+ * @param	SysMonInstPtr - Pointer to SysMon instance.
+ *
+ * @return	- XST_SUCCESS - On successful Voltage and Temparature checks.
+ *		- XNVM_EFUSE_ERROR_READ_VOLTAGE_OUT_OF_RANGE - Voltage is
+ *								out of range
+ *		- XNVM_EFUSE_ERROR_READ_TMEPERATURE_OUT_OF_RANGE - Temparature
+ *								is out of range
+ *
+ ******************************************************************************/
+static int XNvm_EfuseTempAndVoltChecks(const XSysMonPsv *SysMonInstPtr)
+{
+	int Status = XST_FAILURE;
+	u32 ReadReg = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
+	u32 SupplyReg = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
+	u32 SysmonEventsMask = 0U;
+	u32 RawTemp;
+	u32 RawVoltage;
+	int FractionalPart;
+	int IntegralPart;
+	float Voltage;
+	float Temparature;
+	u32 Offset;
+	u32 Shift;
+	char Signchar = ' ';
+
+	if (SysMonInstPtr == NULL) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if (SysMonInstPtr->IsReady != XIL_COMPONENT_IS_READY) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	/* Unlock the sysmon register space */
+	XSysMonPsv_WriteReg(
+			SysMonInstPtr->Config.BaseAddress + XSYSMONPSV_PCSR_LOCK,
+			XNVM_EFUSE_SYSMON_LOCK_CODE);
+
+	SupplyReg = (u32)XNvm_GetSysmonSupplyRegId(
+		(UINTPTR)XNVM_EFUSE_SYSMONPSV_SAT0_BASEADDR);
+	if (SupplyReg == XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET) {
+		SupplyReg = (u32)XNvm_GetSysmonSupplyRegId(
+			(UINTPTR)XNVM_EFUSE_SYSMONPSV_SAT1_BASEADDR);
 	}
 
 	if (SupplyReg == XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET) {
