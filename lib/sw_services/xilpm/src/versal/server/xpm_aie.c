@@ -405,9 +405,9 @@ static XStatus AieInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 DisableMask;
 
 	/* This function does not use the args */
-	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -441,6 +441,12 @@ static XStatus AieInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	/* Hardcode ME_TOP_ROW value for XCVC1902 device */
 	PmOut32((BaseAddress + ME_NPI_ME_TOP_ROW_OFFSET), 0x00000008U);
 
+	/* Get houseclean disable mask */
+	DisableMask = XPm_In32(PM_HOUSECLEAN_DISABLE_REG_2) >> HOUSECLEAN_AIE_SHIFT;
+
+	/* Set Houseclean Mask */
+	PwrDomain->HcDisableMask |= DisableMask;
+
 	Status = XST_SUCCESS;
 	goto done;
 
@@ -459,9 +465,9 @@ static XStatus Aie2InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 DisableMask;
 
 	/* This function does not use the args */
-	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -511,6 +517,12 @@ static XStatus Aie2InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		DbgErr = XPM_INT_ERR_ARRAY_RESET_RELEASE;
 		goto fail;
 	}
+
+	/* Get houseclean disable mask */
+	DisableMask = XPm_In32(PM_HOUSECLEAN_DISABLE_REG_2) >> HOUSECLEAN_AIE_SHIFT;
+
+	/* Set Houseclean Mask */
+	PwrDomain->HcDisableMask |= DisableMask;
 
 fail:
 	/* Lock AIE PCSR */
@@ -615,7 +627,6 @@ static XStatus AieScanClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
-	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -634,8 +645,10 @@ static XStatus AieScanClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		goto fail;
 	}
 
-	if (PLATFORM_VERSION_SILICON == XPm_GetPlatform()) {
-		PmInfo("Triggering ScanClear for AIE\r\n");
+	if (HOUSECLEAN_DISABLE_SCAN_CLEAR_MASK != (PwrDomain->HcDisableMask &
+				HOUSECLEAN_DISABLE_SCAN_CLEAR_MASK)) {
+		PmInfo("Triggering ScanClear for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
+
 		/* Trigger Scan Clear */
 		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK,
 						ME_NPI_REG_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK);
@@ -676,7 +689,8 @@ static XStatus AieScanClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 			goto fail;
 		}
 	} else {
-		PmInfo("Skipping ScanClear for AIE\r\n");
+		/* ScanClear is skipped */
+		PmInfo("Skipping ScanClear for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 	}
 
 	/* De-assert ODISABLE[0] */
@@ -712,7 +726,6 @@ static XStatus AieBisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
-	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -724,8 +737,6 @@ static XStatus AieBisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	BaseAddress = AieDev->Node.BaseAddress;
 
-	PmInfo("Triggering BISR for AIE\r\n");
-
 	/* Remove PMC-NoC domain isolation */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_SOC, FALSE_VALUE);
 	if (XST_SUCCESS != Status) {
@@ -733,21 +744,31 @@ static XStatus AieBisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		goto fail;
 	}
 
-	Status = XPmBisr_Repair(MEA_TAG_ID);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_MEA_BISR_REPAIR;
-		goto fail;
-        }
-	Status = XPmBisr_Repair(MEB_TAG_ID);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_MEB_BISR_REPAIR;
-		goto fail;
-        }
-	Status = XPmBisr_Repair(MEC_TAG_ID);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_MEC_BISR_REPAIR;
-		goto fail;
-        }
+	if (HOUSECLEAN_DISABLE_BISR_MASK != (PwrDomain->HcDisableMask &
+				HOUSECLEAN_DISABLE_BISR_MASK)) {
+		PmInfo("Triggering BISR for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
+
+		Status = XPmBisr_Repair(MEA_TAG_ID);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_MEA_BISR_REPAIR;
+			goto fail;
+		}
+
+		Status = XPmBisr_Repair(MEB_TAG_ID);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_MEB_BISR_REPAIR;
+			goto fail;
+		}
+
+		Status = XPmBisr_Repair(MEC_TAG_ID);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_MEC_BISR_REPAIR;
+			goto fail;
+		}
+	} else {
+		/* BISR is skipped */
+		PmInfo("Skipping BISR for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
+	}
 
 	goto done;
 
@@ -768,7 +789,6 @@ static XStatus Aie2Bisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
-	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -796,20 +816,29 @@ static XStatus Aie2Bisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		goto fail;
 	}
 
-	Status = XPmBisr_Repair(MEA_TAG_ID);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_MEA_BISR_REPAIR;
-		goto fail;
-	}
-	Status = XPmBisr_Repair(MEB_TAG_ID);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_MEB_BISR_REPAIR;
-		goto fail;
-	}
-	Status = XPmBisr_Repair(MEC_TAG_ID);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_MEC_BISR_REPAIR;
-		goto fail;
+	if (HOUSECLEAN_DISABLE_BISR_MASK != (PwrDomain->HcDisableMask &
+				HOUSECLEAN_DISABLE_BISR_MASK)) {
+		PmInfo("Triggering BISR for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
+
+		Status = XPmBisr_Repair(MEA_TAG_ID);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_MEA_BISR_REPAIR;
+			goto fail;
+		}
+
+		Status = XPmBisr_Repair(MEB_TAG_ID);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_MEB_BISR_REPAIR;
+			goto fail;
+		}
+
+		Status = XPmBisr_Repair(MEC_TAG_ID);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_MEC_BISR_REPAIR;
+		}
+	} else {
+		/* BISR is skipped */
+		PmInfo("Skipping BISR for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 	}
 
 fail:
@@ -829,7 +858,6 @@ static XStatus AieMbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
-	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -841,8 +869,9 @@ static XStatus AieMbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	BaseAddress = AieDev->Node.BaseAddress;
 
-	if (XPm_GetPlatform() == PLATFORM_VERSION_SILICON) {
-		PmInfo("Triggering MBIST for AIE\r\n");
+	if (HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK != (PwrDomain->HcDisableMask &
+				HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK)) {
+		PmInfo("Triggering MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 
 		/* Clear MEM_CLEAR_EN_ALL to minimize power during mem clear */
 		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_MEM_CLEAR_EN_ALL_MASK, 0U);
@@ -921,7 +950,8 @@ static XStatus AieMbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 			goto fail;
 		}
 	} else {
-		PmInfo("Skipping MBIST for AIE\r\n");
+		/* MBIST is skipped */
+		PmInfo("Skipping MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 	}
 
 	Status = XST_SUCCESS;
@@ -944,7 +974,6 @@ static XStatus Aie2MbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
-	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -959,7 +988,9 @@ static XStatus Aie2MbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	/* Unlock AIE PCSR */
 	XPmAieDomain_UnlockPcsr(BaseAddress);
 
-	if (XPm_GetPlatform() == PLATFORM_VERSION_SILICON) {
+	if (HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK != (PwrDomain->HcDisableMask &
+				HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK)) {
+		PmInfo("Triggering MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 		/* Change from AIE to AIE2. */
 		/* TODO: In AIE this is set to low power mode to avoid failures. Need
 		 * confirmation that for AIE2 low power mode is not required. */
@@ -1040,6 +1071,9 @@ static XStatus Aie2MbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 			DbgErr = XPM_INT_ERR_MEM_CLEAR_TRIGGER_UNSET;
 			goto fail;
 		}
+	} else {
+		/* MBIST is skipped */
+		PmInfo("Skipping MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 	}
 
 	Status = XST_SUCCESS;
@@ -1278,6 +1312,9 @@ XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_POWER_DOMAIN_INIT;
 	}
+
+	/* Clear AIE section of PMC RAM register reserved for houseclean disable */
+	XPm_RMW32(PM_HOUSECLEAN_DISABLE_REG_2, PM_HOUSECLEAN_DISABLE_AIE_MASK, 0U);
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
