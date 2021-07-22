@@ -21,6 +21,9 @@
 * </pre>
 *
 ******************************************************************************/
+#ifndef XAIE_DMA_AIEML_H
+#define XAIE_DMA_AIEML_H
+
 /***************************** Include Files *********************************/
 #include "xaiegbl.h"
 
@@ -57,4 +60,5 @@ AieRC _XAieMl_ShimDmaUpdateBdAddr(XAie_DevInst *DevInst,
 AieRC _XAieMl_DmaSetBdIteration(XAie_DmaDesc *DmaDesc, u16 StepSize, u8 Wrap,
 		u8 IterCurr);
 
+#endif /* XAIE_DMA_AIEML_H */
 /** @} */

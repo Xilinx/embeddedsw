@@ -25,6 +25,9 @@
 * </pre>
 *
 ******************************************************************************/
+#ifndef XAIEMLGBL_PARAMS_H
+#define XAIEMLGBL_PARAMS_H
+
 /* AIE-ML core module register definitions */
 #define XAIEMLGBL_CORE_MODULE_PROGRAM_MEMORY                             0x00020000
 #define XAIEMLGBL_CORE_MODULE_PROGRAM_MEMORY_WIDTH                       128
@@ -33517,3 +33520,6 @@
 #define XAIEMLGBL_MEM_TILE_MODULE_MODULE_RESET_CONTROL_STREAM_SWITCH_RESET_WIDTH 1
 #define XAIEMLGBL_MEM_TILE_MODULE_MODULE_RESET_CONTROL_STREAM_SWITCH_RESET_MASK 0x00000001
 #define XAIEMLGBL_MEM_TILE_MODULE_MODULE_RESET_CONTROL_STREAM_SWITCH_RESET_DEFVAL 0x0
+
+#endif /* XAIEMLGBL_PARAMS_H */
+/** @} */
