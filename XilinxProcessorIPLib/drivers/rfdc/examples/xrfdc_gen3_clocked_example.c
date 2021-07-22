@@ -25,6 +25,7 @@
 * 8.1   cog    06/29/20 First release.
 *       cog    07/03/20 The metal_phys parameter is baremetal only.
 *       cog    07/03/20 Formatting and text changes.
+* 11.0  cog    07/12/21 Simplified clock distribution user interface.
 *
 * </pre>
 *
@@ -261,51 +262,51 @@ int ClockedExample(u16 RFdcDeviceId)
 			}
 		}
 	}
-		/*Reset IP - the clock distribution will bring the tiles up again*/
-		XRFdc_WriteReg16(RFdcInstPtr, 0x0, 0x4, 1);
+	/*Reset IP - the clock distribution will bring the tiles up again*/
+	XRFdc_WriteReg16(RFdcInstPtr, 0x0, 0x4, 1);
 
-		printf("\n Configuring the Clock \r\n");
-		/* This takes a reference clock of 245.76 MHz into ADC1/DAC1 uses PLL to increase to 2211.84 GHz
-		   and distrubutes the ful rate clock to all other ADC/DAC tiles.*/
-		memset(&Distribution_Settings, 0, sizeof(Distribution_Settings));
-		if(XRFdc_IsHighSpeedADC(RFdcInstPtr, Tile) == XRFDC_ENABLED) { /*ZCU208*/
-			DACClockedTile = XRFDC_TILE_ID0;
-			DACSource = XRFDC_CLK_DST_TILE_228;
-		} else { /*ZCU216*/
-			DACClockedTile = XRFDC_TILE_ID2;
-			DACSource = XRFDC_CLK_DST_TILE_230;
-		}
-		ADCClockedTile = XRFDC_TILE_ID2;
-		ADCSource = XRFDC_CLK_DST_TILE_226;
+	printf("\n Configuring the Clock \r\n");
+	/* This takes a reference clock of 245.76 MHz into ADC1/DAC1 uses PLL to increase to 2211.84 GHz
+	   and distrubutes the ful rate clock to all other ADC/DAC tiles.*/
+	memset(&Distribution_Settings, 0, sizeof(Distribution_Settings));
+	if(XRFdc_IsHighSpeedADC(RFdcInstPtr, Tile) == XRFDC_ENABLED) { /*ZCU208*/
+		Distribution_Settings.SourceTileId = XRFDC_TILE_ID0;
+	} else { /*ZCU216*/
+		Distribution_Settings.SourceTileId = XRFDC_TILE_ID2;
+	}
 
-		for (int i =0;i<4;i++) {
-			Distribution_Settings.DAC[i].SourceTile                   = DACSource;
-			Distribution_Settings.ADC[i].SourceTile                   = ADCSource;
-			Distribution_Settings.DAC[i].PLLSettings.SampleRate       = 2211.84;
-			Distribution_Settings.ADC[i].PLLSettings.SampleRate       = 2211.84;
-			if(i == DACClockedTile){
-				Distribution_Settings.DAC[i].PLLEnable                    = 1;
-				Distribution_Settings.DAC[i].PLLSettings.RefClkFreq       = 245.76;
-				Distribution_Settings.DAC[i].DistributedClock             = XRFDC_DIST_OUT_OUTDIV;
-			} else {
-				Distribution_Settings.DAC[i].PLLEnable                    = 0;
-				Distribution_Settings.DAC[i].PLLSettings.RefClkFreq       = 2211.84;
-				Distribution_Settings.DAC[i].DistributedClock             = XRFDC_DIST_OUT_NONE;
-			}
-			if(i == ADCClockedTile){
-				Distribution_Settings.ADC[i].PLLEnable                    = 1;
-				Distribution_Settings.ADC[i].PLLSettings.RefClkFreq       = 245.76;
-				Distribution_Settings.ADC[i].DistributedClock             = XRFDC_DIST_OUT_OUTDIV;
-			} else {
-				Distribution_Settings.ADC[i].PLLEnable                    = 0;
-				Distribution_Settings.ADC[i].PLLSettings.RefClkFreq       = 2211.84;
-				Distribution_Settings.ADC[i].DistributedClock             = XRFDC_DIST_OUT_NONE;
-			}
-		}
-		Status = XRFdc_SetClkDistribution(RFdcInstPtr, &Distribution_Settings);
-		if (Status != XRFDC_SUCCESS) {
-			return XRFDC_FAILURE;
-		}
+	Distribution_Settings.SourceType = XRFDC_DAC_TILE;
+	Distribution_Settings.EdgeTileIds[0] = XRFDC_TILE_ID0;
+	Distribution_Settings.EdgeTileIds[1] = XRFDC_TILE_ID3;
+	Distribution_Settings.EdgeTypes[0] = XRFDC_DAC_TILE;
+	Distribution_Settings.EdgeTypes[1] = XRFDC_DAC_TILE;
+	Distribution_Settings.DistRefClkFreq = 245.76;
+	Distribution_Settings.DistributedClock = XRFDC_DIST_OUT_RX;
+	Distribution_Settings.SampleRates[1][0] = 2211.84;
+	Distribution_Settings.SampleRates[1][1] = 2211.84;
+	Distribution_Settings.SampleRates[1][2] = 2211.84;
+	Distribution_Settings.SampleRates[1][3] = 2211.84;
+	Status = XRFdc_SetClkDistribution(RFdcInstPtr, &Distribution_Settings);
+	if (Status != XRFDC_SUCCESS) {
+		return XRFDC_FAILURE;
+	}
+
+	Distribution_Settings.SourceTileId = XRFDC_TILE_ID2;
+	Distribution_Settings.SourceType = XRFDC_ADC_TILE;
+	Distribution_Settings.EdgeTileIds[0] = XRFDC_TILE_ID0;
+	Distribution_Settings.EdgeTileIds[1] = XRFDC_TILE_ID3;
+	Distribution_Settings.EdgeTypes[0] = XRFDC_ADC_TILE;
+	Distribution_Settings.EdgeTypes[1] = XRFDC_ADC_TILE;
+	Distribution_Settings.DistRefClkFreq = 245.76;
+	Distribution_Settings.DistributedClock = XRFDC_DIST_OUT_RX;
+	Distribution_Settings.SampleRates[0][0] = 2211.84;
+	Distribution_Settings.SampleRates[0][1] = 2211.84;
+	Distribution_Settings.SampleRates[0][2] = 2211.84;
+	Distribution_Settings.SampleRates[0][3] = 2211.84;
+	Status = XRFdc_SetClkDistribution(RFdcInstPtr, &Distribution_Settings);
+	if (Status != XRFDC_SUCCESS) {
+		return XRFDC_FAILURE;
+	}
 
 	for (Block = 0; Block <4; Block++) {
 		if (XRFdc_IsDACBlockEnabled(RFdcInstPtr, Tile, Block)) {
