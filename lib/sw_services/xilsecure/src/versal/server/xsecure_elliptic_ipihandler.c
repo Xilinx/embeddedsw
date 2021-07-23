@@ -16,7 +16,6 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0  kal   03/23/2021 Initial release
-*      am    05/22/2021 Resolved MISRA C violation
 *
 * </pre>
 *
@@ -120,10 +119,10 @@ static int XSecure_EllipticGenKey(u32 CurveType, u32 SrcAddrLow,
 	XSecure_EllipticKey Key;
 	u32 Size;
 
-	if (CurveType == (u32)XSECURE_ECC_NIST_P384) {
+	if (CurveType == XSECURE_ECC_NIST_P384) {
 		Size = XSECURE_ECC_P384_SIZE_IN_BYTES;
 	}
-	else if (CurveType == (u32)XSECURE_ECC_NIST_P521) {
+	else if (CurveType == XSECURE_ECC_NIST_P521) {
 		Size = XSECURE_ECC_P521_SIZE_IN_BYTES;
 	}
 	else {
@@ -139,7 +138,7 @@ static int XSecure_EllipticGenKey(u32 CurveType, u32 SrcAddrLow,
 	}
 
 	Key.Qx = (u8 *)(UINTPTR)DstAddr;
-	if (CurveType == (u32)XSECURE_ECC_NIST_P384) {
+	if (CurveType == XSECURE_ECC_NIST_P384) {
 		Key.Qy = (u8 *)(UINTPTR)(DstAddr + Size);
 	}
 	else {
@@ -203,10 +202,10 @@ static int XSecure_EllipticGenSign(u32 SrcAddrLow, u32 SrcAddrHigh,
 	}
 
 	Sign.SignR = (u8 *)(UINTPTR)DstAddr;
-	if (EcdsaParams.CurveType == (u32)XSECURE_ECC_NIST_P384) {
+	if (EcdsaParams.CurveType == XSECURE_ECC_NIST_P384) {
 		Sign.SignS = (u8 *)(UINTPTR)(DstAddr + EcdsaParams.Size);
 	}
-	else if (EcdsaParams.CurveType == (u32)XSECURE_ECC_NIST_P521){
+	else if (EcdsaParams.CurveType == XSECURE_ECC_NIST_P521){
 		Sign.SignS = (u8 *)(UINTPTR)(DstAddr +
 				XSECURE_ELLIPTIC_P521_ALIGN_BYTES +
 				EcdsaParams.Size);
@@ -259,10 +258,10 @@ static int XSecure_EllipticValidatePubKey(u32 CurveType, u32 SrcAddrLow,
 	XSecure_EllipticKey Key;
 	u32 Size;
 
-	if (CurveType == (u32)XSECURE_ECC_NIST_P384) {
+	if (CurveType == XSECURE_ECC_NIST_P384) {
 		Size = XSECURE_ECC_P384_SIZE_IN_BYTES;
 	}
-	else if (CurveType == (u32)XSECURE_ECC_NIST_P521) {
+	else if (CurveType == XSECURE_ECC_NIST_P521) {
 		Size = XSECURE_ECC_P521_SIZE_IN_BYTES;
 	}
 	else {
@@ -279,7 +278,7 @@ static int XSecure_EllipticValidatePubKey(u32 CurveType, u32 SrcAddrLow,
 
 	Key.Qx = (u8 *)(UINTPTR)SrcAddr;
 
-	if (CurveType == (u32)XSECURE_ECC_NIST_P384) {
+	if (CurveType == XSECURE_ECC_NIST_P384) {
 		Key.Qy = (u8 *)(UINTPTR)(SrcAddr + Size);
 	}
 	else {
@@ -335,11 +334,11 @@ static int XSecure_EllipticVerifySignature(u32 SrcAddrLow, u32 SrcAddrHigh)
 	}
 
 	Key.Qx = (u8 *)(UINTPTR)EcdsaParams.PubKeyAddr;
-	if (EcdsaParams.CurveType == (u32)XSECURE_ECC_NIST_P384) {
+	if (EcdsaParams.CurveType == XSECURE_ECC_NIST_P384) {
 		Key.Qy = (u8 *)(UINTPTR)(EcdsaParams.PubKeyAddr +
 				EcdsaParams.Size);
 	}
-	else if (EcdsaParams.CurveType == (u32)XSECURE_ECC_NIST_P521) {
+	else if (EcdsaParams.CurveType == XSECURE_ECC_NIST_P521) {
 		Key.Qy = (u8 *)(UINTPTR)(EcdsaParams.PubKeyAddr +
 				EcdsaParams.Size +
 				XSECURE_ELLIPTIC_P521_ALIGN_BYTES);
@@ -351,7 +350,7 @@ static int XSecure_EllipticVerifySignature(u32 SrcAddrLow, u32 SrcAddrHigh)
 
 	Sign.SignR = (u8 *)(UINTPTR)EcdsaParams.SignAddr;
 
-	if (EcdsaParams.CurveType == (u32)XSECURE_ECC_NIST_P384) {
+	if (EcdsaParams.CurveType == XSECURE_ECC_NIST_P384) {
 		Sign.SignS = (u8 *)(UINTPTR)(EcdsaParams.SignAddr +
 				EcdsaParams.Size);
 	}
