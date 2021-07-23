@@ -800,6 +800,46 @@ enum XPmPinParam {
 	PINCTRL_CONFIG_VOLTAGE_STATUS,			/**< Pin config voltage status */
 };
 
+/**
+ * IOCTL IDs
+ */
+typedef enum {
+	IOCTL_GET_RPU_OPER_MODE,			/**< Get RPU mode */
+	IOCTL_SET_RPU_OPER_MODE,			/**< Set RPU mode */
+	IOCTL_RPU_BOOT_ADDR_CONFIG,			/**< RPU boot address config */
+	IOCTL_TCM_COMB_CONFIG,				/**< TCM config */
+	IOCTL_SET_TAPDELAY_BYPASS,			/**< TAP delay bypass */
+	IOCTL_SET_SGMII_MODE,				/**< SGMII mode */
+	IOCTL_SD_DLL_RESET,				/**< SD DLL reset */
+	IOCTL_SET_SD_TAPDELAY,				/**< SD TAP delay */
+	/* Ioctl for clock driver */
+	IOCTL_SET_PLL_FRAC_MODE,			/**< Set PLL frac mode */
+	IOCTL_GET_PLL_FRAC_MODE,			/**< Get PLL frac mode */
+	IOCTL_SET_PLL_FRAC_DATA,			/**< Set PLL frac data */
+	IOCTL_GET_PLL_FRAC_DATA,			/**< Get PLL frac data */
+	IOCTL_WRITE_GGS,				/**< Write GGS */
+	IOCTL_READ_GGS,					/**< Read GGS */
+	IOCTL_WRITE_PGGS,				/**< Write PGGS */
+	IOCTL_READ_PGGS,				/**< Read PGGS */
+	/* IOCTL for ULPI reset */
+	IOCTL_ULPI_RESET,				/**< ULPI reset */
+	/* Set healthy bit value */
+	IOCTL_SET_BOOT_HEALTH_STATUS,			/**< Set boot status */
+	IOCTL_AFI,					/**< AFI */
+	/* Probe counter read/write */
+	IOCTL_PROBE_COUNTER_READ,			/**< Probe counter read */
+	IOCTL_PROBE_COUNTER_WRITE,			/**< Probe counter write */
+	/* Ospi mux select */
+	IOCTL_OSPI_MUX_SELECT,				/**< OSPI mux select */
+	/* USB PMU state req */
+	IOCTL_USB_SET_STATE,				/**< USB set state */
+	IOCTL_GET_LAST_RESET_REASON,			/**< Get last reset reason */
+	/* AIE ISR Clear */
+	IOCTL_AIE_ISR_CLEAR,				/**< AIE ISR clear */
+	/* Register SGI to ATF */
+	IOCTL_REGISTER_SGI,				/**< Register SGI to ATF */
+} pm_ioctl_id;
+
 #ifdef __cplusplus
 }
 #endif

@@ -2053,4 +2053,43 @@ XStatus XPm_PinCtrlGetParameter(const u32 pin,
 done:
 	return status;
 }
+
+/****************************************************************************/
+/**
+ * @brief  This function performs driver-like IOCTL functions on shared system
+ * devices.
+ *
+ * @param deviceId              ID of the device
+ * @param ioctlId               IOCTL function ID
+ * @param arg1                  Argument 1
+ * @param arg2                  Argument 2
+ * @param response              Ioctl response
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ ****************************************************************************/
+XStatus XPm_DevIoctl(const u32 deviceId, const pm_ioctl_id ioctlId,
+		     const u32 arg1, const u32 arg2, u32 *const response)
+{
+	XStatus status = (XStatus)XST_FAILURE;
+	u32 payload[PAYLOAD_ARG_CNT];
+
+
+	if (NULL != primary_master) {
+		/* Send request to the PMU */
+		PACK_PAYLOAD4(payload, PM_IOCTL, deviceId, ioctlId, arg1, arg2);
+		status = pm_ipi_send(primary_master, payload);
+
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+
+		/* Return result from IPI return buffer */
+		status = pm_ipi_buff_read32(primary_master, response, NULL, NULL);
+	}
+
+done:
+	return status;
+}
  /** @} */
