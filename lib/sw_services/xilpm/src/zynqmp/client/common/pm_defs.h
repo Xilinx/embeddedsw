@@ -838,7 +838,21 @@ typedef enum {
 	IOCTL_AIE_ISR_CLEAR,				/**< AIE ISR clear */
 	/* Register SGI to ATF */
 	IOCTL_REGISTER_SGI,				/**< Register SGI to ATF */
+	/* Runtime feature configuration */
+	IOCTL_SET_FEATURE_CONFIG,			/**< Set feature config */
+	IOCTL_GET_FEATURE_CONFIG,			/**< Get feature config */
 } pm_ioctl_id;
+
+/**
+ * IOCTL IDs
+ */
+typedef enum {
+	XPM_FEATURE_INVALID,
+	XPM_FEATURE_OVERTEMP_STATUS,
+	XPM_FEATURE_OVERTEMP_VALUE,
+	XPM_FEATURE_EXTWDT_STATUS,
+	XPM_FEATURE_EXTWDT_VALUE,
+}pm_feature_id;
 
 #ifdef __cplusplus
 }
