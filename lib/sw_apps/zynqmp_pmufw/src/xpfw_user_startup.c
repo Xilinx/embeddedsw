@@ -78,5 +78,7 @@ void XPfw_UserStartUp(void)
 	ModUltra96Init();
 	ModCommonInit();
 	ModExtWdtInit();
+#ifndef ENABLE_RUNTIME_OVERTEMP
 	ModOverTempInit();
+#endif
 }

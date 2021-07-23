@@ -29,6 +29,9 @@
 #include "pm_clock.h"
 #include "pm_requirement.h"
 #include "pm_config.h"
+#ifdef ENABLE_IOCTL
+#include "pm_ioctl.h"
+#endif
 #include "xpfw_platform.h"
 #include "xpfw_resets.h"
 #include "rpu.h"
@@ -1989,11 +1992,28 @@ static void PmDevIoctl(const PmMaster* const master, const u32 deviceId,
 		       XPm_IoctlId ioctlId, u32 arg1, u32 arg2)
 {
 	s32 status = XST_FAILURE;
+	u32 value = 0;
 
 	PmInfo("%s> PmDevIoctl(%lu, %lu, %lu, %lu)\r\n", master->name,
 		deviceId, ioctlId, arg1, arg2);
 
-	IPI_RESPONSE1(master->ipiMask, (u32)status);
+	switch (ioctlId) {
+	case PM_IOCTL_SET_FEATURE_CONFIG:
+		status = PmSetFeatureConfig((XPm_FeatureConfigId)arg1, arg2);
+		break;
+	case PM_IOCTL_GET_FEATURE_CONFIG:
+		status = PmGetFeatureConfig((XPm_FeatureConfigId)arg1, &value);
+		break;
+	default:
+		status = XST_INVALID_PARAM;
+		break;
+	}
+
+	if (PM_IOCTL_GET_FEATURE_CONFIG == ioctlId) {
+		IPI_RESPONSE2(master->ipiMask, (u32)status, value);
+	} else {
+		IPI_RESPONSE1(master->ipiMask, (u32)status);
+	}
 }
 #endif
 

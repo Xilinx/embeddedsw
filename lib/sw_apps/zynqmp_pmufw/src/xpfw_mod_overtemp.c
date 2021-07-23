@@ -41,6 +41,7 @@
  */
 #define OT_REG_VAL (((u32)(( (float)OVERTEMP_DEGC + 280.23087870f)* 4096.0f / 509.3140064f) <<4) | 0x3U)
 
+#ifndef ENABLE_RUNTIME_OVERTEMP
 static void InitOverTempAlarm(void)
 {
 	/* Clear OT alaram disable bit */
@@ -50,6 +51,7 @@ static void InitOverTempAlarm(void)
 	/* Set OT alarm upper threshold */
 	XPfw_Write32(AMS_PSSYSMON_ALARM_OT_UPPER, OT_REG_VAL);
 }
+#endif /* ENABLE_RUNTIME_OVERTEMP */
 
 /* Over Temperature Handler for LPD/FPD OT errors */
 static void OverTempHandler(u8 ErrorId)
@@ -59,6 +61,27 @@ static void OverTempHandler(u8 ErrorId)
 	PmKillBoardPower();
 }
 
+#ifdef ENABLE_RUNTIME_OVERTEMP
+void SetOverTempLimit(u32 DegCel)
+{
+	(void)DegCel;
+}
+
+u32 GetOverTempLimit(void)
+{
+	return 0;
+}
+
+s32 OverTempCfgInit(void)
+{
+	return XST_FAILURE;
+}
+
+s32 OverTempCfgDeInit(void)
+{
+	return XST_FAILURE;
+}
+#else
 static void OverTempCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
 {
 	s32 Status;
@@ -89,6 +112,7 @@ void ModOverTempInit(void)
 		XPfw_Printf(DEBUG_DETAILED,"Over-Temp: Set Cfg handler failed\r\n");
 	}
 }
+#endif /* ENABLE_RUNTIME_OVERTEMP */
 
 #else /* ENABLE_MOD_OVERTEMP */
 void ModOverTempInit(void) { }

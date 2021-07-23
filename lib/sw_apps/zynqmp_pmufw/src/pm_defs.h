@@ -120,6 +120,9 @@ typedef enum {
 #ifdef ENABLE_IOCTL
 /* PM IOCTL IDs */
 typedef enum {
+	/* Enable or disable feature control */
+	PM_IOCTL_SET_FEATURE_CONFIG = 26,
+	PM_IOCTL_GET_FEATURE_CONFIG = 27,
 	/* Invalid IOCTL ID */
 	PM_IOCTL_INVALID = 0,
 } XPm_IoctlId;
