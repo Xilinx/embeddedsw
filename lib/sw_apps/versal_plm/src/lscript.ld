@@ -1,12 +1,12 @@
 /******************************************************************************
  *
- * Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+ * Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
  * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
 _STACK_SIZE = DEFINED(_STACK_SIZE) ? _STACK_SIZE : 0x1800;
 _HEAP_SIZE = DEFINED(_HEAP_SIZE) ? _HEAP_SIZE : 0x100;
-_USER_CODE_SIZE = DEFINED(_USER_CODE_SIZE) ? _USER_CODE_SIZE : 0x4000;
+_USER_CODE_SIZE = DEFINED(_USER_CODE_SIZE) ? _USER_CODE_SIZE : 0x0;
 /* Define Memories in the system */
 
 MEMORY
