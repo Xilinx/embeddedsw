@@ -1975,6 +1975,28 @@ done:
 	IPI_RESPONSE1(master->ipiMask, (u32)status);
 }
 
+#ifdef ENABLE_IOCTL
+/**
+ * PmDevIoctl() - This function performs driver-like IOCTL functions on
+ * shared system devices.
+ * @master	Master that initiated the call
+ * @deviceId	Node id of the device
+ * @ioctlId	The ioctl id to be requested for
+ * @arg1	Argument to be passed to the ioctl call
+ * @arg2	Argument to be passed to the ioctl call
+ */
+static void PmDevIoctl(const PmMaster* const master, const u32 deviceId,
+		       XPm_IoctlId ioctlId, u32 arg1, u32 arg2)
+{
+	s32 status = XST_FAILURE;
+
+	PmInfo("%s> PmDevIoctl(%lu, %lu, %lu, %lu)\r\n", master->name,
+		deviceId, ioctlId, arg1, arg2);
+
+	IPI_RESPONSE1(master->ipiMask, (u32)status);
+}
+#endif
+
 /**
  * PmApiApprovalCheck() - Check if the API ID can be processed at the moment
  * @apiId	PM API ID
@@ -2179,6 +2201,11 @@ void PmProcessRequest(PmMaster *const master, const u32 *pload)
 	case PM_API(PM_PINCTRL_CONFIG_PARAM_SET):
 		PmPinCtrlConfigParamSet(master, pload[1], pload[2], pload[3]);
 		break;
+#ifdef ENABLE_IOCTL
+	case PM_API(PM_IOCTL):
+		PmDevIoctl(master, pload[1], (XPm_IoctlId)pload[2], pload[3], pload[4]);
+		break;
+#endif
 	default:
 		PmWarn("Unsupported EEMI API #%lu\r\n", pload[0]);
 		IPI_RESPONSE1(master->ipiMask, XST_INVALID_VERSION);
