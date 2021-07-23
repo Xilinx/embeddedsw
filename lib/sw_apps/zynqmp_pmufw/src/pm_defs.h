@@ -17,6 +17,7 @@ extern "C" {
 #endif
 
 #include "pmu_global.h"
+#include "xpfw_config.h"
 
 /*********************************************************************
  * Macro definitions
@@ -115,6 +116,14 @@ typedef enum {
 	PM_EFUSE_ACCESS,		/* 0x35 */
 	PM_API_MAX,			/* 0x36 */
 } XPm_ApiId;
+
+#ifdef ENABLE_IOCTL
+/* PM IOCTL IDs */
+typedef enum {
+	/* Invalid IOCTL ID */
+	PM_IOCTL_INVALID = 0,
+} XPm_IoctlId;
+#endif
 
 /* PM API callback ids */
 #define PM_INIT_SUSPEND_CB      30U

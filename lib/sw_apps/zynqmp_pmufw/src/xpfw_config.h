@@ -258,6 +258,10 @@ extern "C" {
 #define ENABLE_RPU_RUN_MODE_VAL				(0U)
 #endif
 
+#ifndef ENABLE_IOCTL_VAL
+#define ENABLE_IOCTL_VAL				(0U)
+#endif
+
 /*
  * XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT
  * 		Default watchdog timeout
@@ -485,6 +489,10 @@ extern "C" {
 #if (USE_DDR_FOR_APU_RESTART_VAL) && (!defined(USE_DDR_FOR_APU_RESTART))
 #define USE_DDR_FOR_APU_RESTART
 #endif
+#endif
+
+#if (ENABLE_IOCTL_VAL) && (!defined(ENABLE_IOCTL))
+#define ENABLE_IOCTL
 #endif
 
 #ifdef __cplusplus
