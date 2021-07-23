@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,9 +18,11 @@
 *
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
-* 1.0   kc  22/10/17      First release
-* 1.1   bsv 29/05/2019    Macros declared for CFRM_ISR_OFFSET,
+* 1.0   kc  10/22/17      First release
+* 1.1   bsv 05/29/2019    Macros declared for CFRM_ISR_OFFSET,
 *			  CFRM_IER_OFFSET and STATUS_OFFSET
+* 1.2   bsv 07/23/2021    Fix doxygen warnings
+*
 * </pre>
 *
 ******************************************************************************/
@@ -37,8 +39,9 @@ extern "C" {
 #include "xil_io.h"
 
 /************************** Constant Definitions *****************************/
-/** @name Registers offsets
+/**
  * @{
+ * @cond cframe_internal
  */
 #define XCFRAME_CRC_OFFSET				(0x000U)
 #define XCFRAME_FAR_OFFSET				(0x010U)
@@ -65,8 +68,6 @@ extern "C" {
 #define XCFRAME_CFRM_IER_OFFSET			(0x170U)
 #define XCFRAME_CFRM_IDR_OFFSET			(0x180U)
 #define XCFRAME_STATUS_OFFSET			(0x240U)
-/*@}*/
-
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XCframe_In32		Xil_In32	/**< Input operation */
@@ -107,6 +108,10 @@ extern "C" {
 #define XCframe_WriteReg32(BaseAddress, RegOffset, Data) \
 		XCframe_Out32(BaseAddress + (u32)(RegOffset), (u32)(Data))
 
+/**
+ * @}
+ * @endcond
+ */
 
 #ifdef __cplusplus
 }
