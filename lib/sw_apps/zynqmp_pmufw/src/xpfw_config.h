@@ -266,6 +266,10 @@ extern "C" {
 #define ENABLE_RUNTIME_OVERTEMP_VAL 			(0U)
 #endif
 
+#ifndef ENABLE_RUNTIME_EXTWDT_VAL
+#define ENABLE_RUNTIME_EXTWDT_VAL 			(0U)
+#endif
+
 /*
  * XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT
  * 		Default watchdog timeout
@@ -506,6 +510,16 @@ extern "C" {
 #endif
 #ifndef ENABLE_EM
 #define ENABLE_EM
+#endif
+#ifndef ENABLE_IOCTL
+#define ENABLE_IOCTL
+#endif
+#endif
+
+#if (ENABLE_RUNTIME_EXTWDT_VAL) && (!defined(ENABLE_RUNTIME_EXTWDT))
+#define ENABLE_RUNTIME_EXTWDT
+#ifndef ENABLE_MOD_EXTWDT
+#define ENABLE_MOD_EXTWDT
 #endif
 #ifndef ENABLE_IOCTL
 #define ENABLE_IOCTL
