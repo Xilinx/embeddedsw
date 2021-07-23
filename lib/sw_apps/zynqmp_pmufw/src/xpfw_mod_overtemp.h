@@ -10,7 +10,17 @@
 extern "C" {
 #endif
 
+#include "xpfw_config.h"
+#include "xil_types.h"
+
+#ifdef ENABLE_RUNTIME_OVERTEMP
+s32 OverTempCfgInit(void);
+s32 OverTempCfgDeInit(void);
+void SetOverTempLimit(u32 DegCel);
+u32 GetOverTempLimit(void);
+#else
 void ModOverTempInit(void);
+#endif
 
 #ifdef __cplusplus
 }
