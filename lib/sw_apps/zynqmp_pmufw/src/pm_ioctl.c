@@ -52,8 +52,12 @@ s32 PmSetFeatureConfig(XPm_FeatureConfigId configId, u32 value)
 		}
 		break;
 	case XPM_FEATURE_OVERTEMP_VALUE:
-		SetOverTempLimit(value);
-		status = XST_SUCCESS;
+		if (((s32)value >= OT_LIMIT_MIN) && ((s32)value <= OT_LIMIT_MAX)) {
+			SetOverTempLimit(value);
+			status = XST_SUCCESS;
+		} else {
+			status = XST_INVALID_PARAM;
+		}
 		break;
 #endif /* ENABLE_RUNTIME_OVERTEMP */
 #ifdef ENABLE_RUNTIME_EXTWDT
@@ -71,8 +75,12 @@ s32 PmSetFeatureConfig(XPm_FeatureConfigId configId, u32 value)
 		}
 		break;
 	case XPM_FEATURE_EXTWDT_VALUE:
-		SetExtWdtInterval(value);
-		status = XST_SUCCESS;
+		if ((value >= EWDT_LIMIT_MIN) && (value <= EWDT_LIMIT_MAX)) {
+			SetExtWdtInterval(value);
+			status = XST_SUCCESS;
+		} else {
+			status = XST_INVALID_PARAM;
+		}
 		break;
 #endif /* ENABLE_RUNTIME_EXTWDT */
 	default:
