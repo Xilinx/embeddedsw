@@ -530,6 +530,57 @@ AieRC XAie_EventSelectStrmPortReset(XAie_DevInst *DevInst, XAie_LocType Loc,
 			XAIE_STRMSW_SLAVE, Port, 0U);
 }
 
+/*****************************************************************************/
+/**
+*
+* This API returns the port idle base event based on the tile location
+*
+* @param	DevInst: Device Instance
+* @param	Loc: Location of AIE Tile
+* @param	Module: Module of tile.
+*			for AIE Tile - XAIE_MEM_MOD or XAIE_CORE_MOD,
+*			for Shim tile - XAIE_PL_MOD.
+* @param	Event: Base event of tile
+*
+* @return	XAIE_OK on success, error code on failure
+*
+* @note		None
+******************************************************************************/
+AieRC XAie_EventGetIdlePortEventBase(XAie_DevInst *DevInst, XAie_LocType Loc,
+		XAie_ModuleType Module, XAie_Events *Event)
+{
+	AieRC RC;
+	u8 TileType;
+
+	if((DevInst == XAIE_NULL) || (Event == NULL) ||
+			(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid device instance\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
+	if(TileType == XAIEGBL_TILE_TYPE_MAX) {
+		XAIE_ERROR("Invalid tile type\n");
+		return XAIE_INVALID_TILE;
+	}
+
+	RC = _XAie_CheckModule(DevInst, Loc, Module);
+	if(RC != XAIE_OK) {
+		XAIE_ERROR("Invalid module\n");
+		return RC;
+	}
+
+	if (TileType == XAIEGBL_TILE_TYPE_AIETILE) {
+		if (Module == XAIE_MEM_MOD) {
+			return XAIE_INVALID_ARGS;
+		}
+		*Event = DevInst->DevProp.DevMod[TileType].EvntMod[Module].PortIdleEventBase;
+	} else {
+		*Event = DevInst->DevProp.DevMod[TileType].EvntMod[0U].PortIdleEventBase;
+	}
+
+	return RC;
+}
 
 /*****************************************************************************/
 /**
