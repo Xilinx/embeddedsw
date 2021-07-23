@@ -28,6 +28,11 @@
 #error "ERROR: External WDT feature requires scheduler to be enabled! Define ENABLE_SCHEDULER"
 #endif
 
+#ifdef ENABLE_RUNTIME_EXTWDT
+static const XPfw_Module_t *ModPtr;
+static u32 ExtWdtInterval = EXTWDT_INTERVAL_MS / 2U;
+#endif
+
 /* Toggle PMU GPO1 bit specified for EXTWDT */
 static void ExtWdtToggle(void)
 {
@@ -41,28 +46,101 @@ static void ExtWdtToggle(void)
 
 
 #ifdef ENABLE_RUNTIME_EXTWDT
+/****************************************************************************/
+/**
+ * @brief  Set external watchdog timer interval.
+ *
+ * @param  Interval The EXT WDT timer interval value in ms
+ *
+ * @return None.
+ *
+ * @note   None.
+ *
+ ****************************************************************************/
 void SetExtWdtInterval(u32 Interval)
 {
-	(void)Interval;
+	ExtWdtInterval = Interval;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Get external watchdog timer interval.
+ *
+ * @param  None.
+ *
+ * @return EXT WDT interval value in ms
+ *
+ * @note   None.
+ *
+ ****************************************************************************/
 u32 GetExtWdtInterval(void)
 {
-	return 0;
+	return ExtWdtInterval;
 }
 
+/****************************************************************************/
+/**
+ * @brief  This function removes scheduled task for the EXTWDT.
+ *
+ * @param  None.
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error
+ * 	   code or a reason code
+ *
+ * @note   None.
+ *
+ ****************************************************************************/
 s32 ExtWdtCfgDeInit(void)
 {
-	return XST_FAILURE;
+	s32 Status = XST_FAILURE;
+	u32 Interval = GetExtWdtInterval();
+
+	/* De-Register scheduled task for External WDT service*/
+	Status = XPfw_CoreRemoveTask(ModPtr,
+				     Interval,
+				     ExtWdtToggle);
+	if (XST_SUCCESS != Status) {
+		XPfw_Printf(DEBUG_DETAILED,"EXTWDT: Failed to De-Init EXT WDT Task\r\n");
+	}
+
+	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  This function schedule a task for the EXTWDT.
+ *
+ * @param  None.
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error
+ * 	   code or a reason code
+ *
+ * @note   None.
+ *
+ ****************************************************************************/
 s32 ExtWdtCfgInit(void)
 {
-	return XST_FAILURE;
+	s32 Status = XST_FAILURE;
+	u32 Interval = GetExtWdtInterval();
+
+	/* Register scheduler task for External WDT service*/
+	Status = XPfw_CoreScheduleTask(ModPtr,
+				       Interval,
+				       ExtWdtToggle);
+	if (XST_SUCCESS != Status) {
+		XPfw_Printf(DEBUG_DETAILED,"EXTWDT: Failed to Init EXT WDT Task\r\n");
+	}
+
+	return Status;
 }
 
+/*
+ * Create a Mod and assign the Handlers. We will call this function
+ * from XPfw_UserStartup()
+ */
 void ModExtWdtInit(void)
 {
+	ModPtr = XPfw_CoreCreateMod();
 }
 #else
 static void ExtWdtCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
