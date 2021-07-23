@@ -14,6 +14,9 @@ extern "C" {
 #include "xil_types.h"
 
 #ifdef ENABLE_RUNTIME_OVERTEMP
+#define OT_LIMIT_MIN		(s32)(-55)
+#define OT_LIMIT_MAX		(s32)(125)
+
 s32 OverTempCfgInit(void);
 s32 OverTempCfgDeInit(void);
 void SetOverTempLimit(u32 DegCel);

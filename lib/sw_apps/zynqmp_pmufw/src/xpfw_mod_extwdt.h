@@ -14,6 +14,9 @@ extern "C" {
 #include "xil_types.h"
 
 #ifdef ENABLE_RUNTIME_EXTWDT
+#define EWDT_LIMIT_MIN 			(50U)
+#define EWDT_LIMIT_MAX 			(2000U)
+
 s32 ExtWdtCfgInit(void);
 s32 ExtWdtCfgDeInit(void);
 void SetExtWdtInterval(u32 Interval);
