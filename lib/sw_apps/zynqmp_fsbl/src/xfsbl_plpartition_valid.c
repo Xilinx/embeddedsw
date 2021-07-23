@@ -51,6 +51,7 @@
 * 6.0   bsv     04/01/21 Added TPM support
 *       bsv     05/03/21 Add provision to load bitstream from OCM with DDR
 *                        present in design
+* 7.0   bsv     07/23/21 Reset SHA engine in failure cases
 *
 * </pre>
 *
@@ -336,7 +337,7 @@ static u32 XFsbl_ReAuthenticationBlock(XFsblPs_PlPartition *PartitionParams,
 	Status = XSecure_Sha3Initialize(&SecureSha3,
 			PartitionParams->CsuDmaPtr);
 	if (Status != XFSBL_SUCCESS) {
-		return Status;
+		goto END;
 	}
 	XSecure_Sha3Start(&SecureSha3);
 
@@ -416,8 +417,9 @@ static u32 XFsbl_ReAuthenticationBlock(XFsblPs_PlPartition *PartitionParams,
 	}
 
 END:
+	XSecure_SetReset(SecureSha3.BaseAddress,
+		XSECURE_CSU_SHA3_RESET_OFFSET);
 	return Status;
-
 }
 
 /******************************************************************************
