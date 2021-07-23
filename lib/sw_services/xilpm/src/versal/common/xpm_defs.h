@@ -335,6 +335,11 @@ typedef enum {
 	IOCTL_GET_LAST_RESET_REASON,			/**< Get last reset reason */
 	/* AIE ISR Clear */
 	IOCTL_AIE_ISR_CLEAR,				/**< AIE ISR clear */
+	/* Register SGI to ATF */
+	IOCTL_REGISTER_SGI,				/**< Register SGI to ATF */
+	/* Runtime feature configuration */
+	IOCTL_SET_FEATURE_CONFIG,			/**< Set runtime feature config */
+	IOCTL_GET_FEATURE_CONFIG,			/**< Get runtime feature config */
 } pm_ioctl_id;
 
 /**
