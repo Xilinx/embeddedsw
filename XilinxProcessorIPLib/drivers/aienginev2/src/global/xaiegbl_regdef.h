@@ -668,6 +668,7 @@ typedef struct XAie_EvntMod {
 	u32 ComboEventBase;
 	u32 PerfCntEventBase;
 	u32 UserEventBase;
+	u32 PortIdleEventBase;
 	u32 GenEventRegOff;
 	XAie_RegFldAttr GenEvent;
 	u32 ComboInputRegOff;
