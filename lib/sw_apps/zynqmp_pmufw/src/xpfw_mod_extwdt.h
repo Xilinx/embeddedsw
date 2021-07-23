@@ -10,6 +10,15 @@
 extern "C" {
 #endif
 
+#include "xpfw_config.h"
+#include "xil_types.h"
+
+#ifdef ENABLE_RUNTIME_EXTWDT
+s32 ExtWdtCfgInit(void);
+s32 ExtWdtCfgDeInit(void);
+void SetExtWdtInterval(u32 Interval);
+u32 GetExtWdtInterval(void);
+#endif
 void ModExtWdtInit(void);
 
 #ifdef __cplusplus

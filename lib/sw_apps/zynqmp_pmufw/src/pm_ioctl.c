@@ -12,10 +12,17 @@
 #ifdef ENABLE_RUNTIME_OVERTEMP
 #include "xpfw_mod_overtemp.h"
 #endif
+#ifdef ENABLE_RUNTIME_EXTWDT
+#include "xpfw_mod_extwdt.h"
+#endif
 
 #ifdef ENABLE_RUNTIME_OVERTEMP
 static u32 OverTempState = 0U;
 #endif /* ENABLE_RUNTIME_OVERTEMP */
+
+#ifdef ENABLE_RUNTIME_EXTWDT
+static u32 ExtWdtState = 0U;
+#endif /* ENABLE_RUNTIME_EXTWDT */
 
 /**
  * PmSetFeatureConfig() - The feature can be configured by using IOCTL.
@@ -49,6 +56,25 @@ s32 PmSetFeatureConfig(XPm_FeatureConfigId configId, u32 value)
 		status = XST_SUCCESS;
 		break;
 #endif /* ENABLE_RUNTIME_OVERTEMP */
+#ifdef ENABLE_RUNTIME_EXTWDT
+	case XPM_FEATURE_EXTWDT_STATUS:
+		if ((1U == value) && (0U == ExtWdtState)) {
+			/* Initialize external watchdog */
+			status = ExtWdtCfgInit();
+			ExtWdtState = 1U;
+		} else if ((0U == value) && (1U == ExtWdtState)) {
+			/* De-initialize external watchdog */
+			status = ExtWdtCfgDeInit();
+			ExtWdtState = 0U;
+		} else {
+			status = XST_INVALID_PARAM;
+		}
+		break;
+	case XPM_FEATURE_EXTWDT_VALUE:
+		SetExtWdtInterval(value);
+		status = XST_SUCCESS;
+		break;
+#endif /* ENABLE_RUNTIME_EXTWDT */
 	default:
 		status = XST_INVALID_PARAM;
 		break;
@@ -80,6 +106,16 @@ s32 PmGetFeatureConfig(XPm_FeatureConfigId configId, u32 *value)
 		status = XST_SUCCESS;
 		break;
 #endif /* ENABLE_RUNTIME_OVERTEMP */
+#ifdef ENABLE_RUNTIME_EXTWDT
+	case XPM_FEATURE_EXTWDT_STATUS:
+		*value = ExtWdtState;
+		status = XST_SUCCESS;
+		break;
+	case XPM_FEATURE_EXTWDT_VALUE:
+		*value = GetExtWdtInterval();
+		status = XST_SUCCESS;
+		break;
+#endif /* ENABLE_RUNTIME_EXTWDT */
 	default:
 		status = XST_INVALID_PARAM;
 		break;

@@ -40,6 +40,31 @@ static void ExtWdtToggle(void)
 
 
 
+#ifdef ENABLE_RUNTIME_EXTWDT
+void SetExtWdtInterval(u32 Interval)
+{
+	(void)Interval;
+}
+
+u32 GetExtWdtInterval(void)
+{
+	return 0;
+}
+
+s32 ExtWdtCfgDeInit(void)
+{
+	return XST_FAILURE;
+}
+
+s32 ExtWdtCfgInit(void)
+{
+	return XST_FAILURE;
+}
+
+void ModExtWdtInit(void)
+{
+}
+#else
 static void ExtWdtCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
 {
 	s32 Status;
@@ -65,6 +90,7 @@ void ModExtWdtInit(void)
 		XPfw_Printf(DEBUG_DETAILED,"EXTWDT: Set Cfg handler failed\r\n");
 	}
 }
+#endif /* ENABLE_RUNTIME_EXTWDT */
 
 #else /* ENABLE_MOD_EXTWDT */
 void ModExtWdtInit(void) { }

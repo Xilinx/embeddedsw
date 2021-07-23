@@ -25,6 +25,10 @@ typedef enum {
 	XPM_FEATURE_OVERTEMP_STATUS = 1,
 	XPM_FEATURE_OVERTEMP_VALUE = 2,
 #endif
+#ifdef ENABLE_RUNTIME_EXTWDT
+	XPM_FEATURE_EXTWDT_STATUS = 3,
+	XPM_FEATURE_EXTWDT_VALUE = 4,
+#endif
 } XPm_FeatureConfigId;
 
 /*********************************************************************
