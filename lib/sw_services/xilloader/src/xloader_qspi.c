@@ -31,6 +31,7 @@
 *			IDs and Unsupported Flash Sizes
 *       bsv  10/13/2020 Code clean up
 * 1.04  ma   03/24/2021 Minor updates to prints in XilLoader
+* 1.05  bsv  07/22/2021 Added support for Winbond flash part
 *
 * </pre>
 *
@@ -183,7 +184,8 @@ static int FlashReadID(XQspiPsu *QspiPsuPtr)
 	else if ((ReadBuffer[2U] == XLOADER_FLASH_SIZE_ID_2G)
 		|| (ReadBuffer[2U] == XLOADER_MACRONIX_FLASH_SIZE_ID_2G)
 		|| (ReadBuffer[2U] ==
-			XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_2G)){
+			XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_2G)
+		|| (ReadBuffer[2U] == XLOADER_WINBOND_FLASH_SIZE_ID_2G)) {
 		QspiFlashSize = XLOADER_FLASH_SIZE_2G;
 		XLoader_Printf(DEBUG_INFO, "2G Bits\r\n");
 	}
@@ -335,7 +337,6 @@ int XLoader_QspiInit(u32 DeviceFlags)
 		goto END;
 	}
 
-	/* TODO add code: For a Stacked connection, read second Flash ID */
 	if ((QspiMode == XQSPIPSU_CONNECTION_MODE_PARALLEL) ||
 		(QspiMode == XQSPIPSU_CONNECTION_MODE_STACKED)) {
 		QspiFlashSize = 2U * QspiFlashSize;
@@ -739,15 +740,19 @@ int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	FlashMsg[2U].BusWidth = QspiBusWidth;
 	FlashMsg[2U].Flags = XQSPIPSU_MSG_FLAG_RX;
 
-	if (QspiMode == XQSPIPSU_CONNECTION_MODE_PARALLEL) {
-		FlashMsg[2U].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
-		BankSize =  XLOADER_BANKSIZE * 2U;
-		BankMask =  XLOADER_BANKMASK;
-		BankMask *= 2U;
+	if (QspiFlashMake == XLOADER_WINBOND_ID) {
+		BankSize = XLOADER_WINBOND_BANKSIZE;
+		BankMask = XLOADER_WINBOND_BANKMASK;
 	}
 	else {
-		BankSize =  XLOADER_BANKSIZE;
-		BankMask =  XLOADER_BANKMASK;
+		BankSize = XLOADER_BANKSIZE;
+		BankMask = XLOADER_BANKMASK;
+	}
+
+	if (QspiMode == XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+		FlashMsg[2U].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
+		BankSize *= 2U;
+		BankMask *= 2U;
 	}
 
 	/*
@@ -769,7 +774,8 @@ int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		 */
 		QspiAddr = XLoader_GetQspiAddr(SrcAddrLow);
 
-		if (QspiBootMode == XLOADER_PDI_SRC_QSPI24) {
+		if ((QspiBootMode == XLOADER_PDI_SRC_QSPI24) ||
+			(QspiFlashMake == XLOADER_WINBOND_ID)) {
 
 			/*
 			 * Multiply address by 2 in case of Dual Parallel
@@ -788,7 +794,12 @@ int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 			 * Select bank check logic for DualQspi
 			 */
 			if (QspiFlashSize > BankSize) {
-				BankSel = QspiAddr / XLOADER_BANKSIZE;
+				if (QspiFlashMake == XLOADER_WINBOND_ID) {
+					BankSel = QspiAddr / XLOADER_WINBOND_BANKSIZE;
+				}
+				else {
+					BankSel = QspiAddr / XLOADER_BANKSIZE;
+				}
 				Status = SendBankSelect(BankSel);
 				if (Status != XST_SUCCESS) {
 					Status = XPlmi_UpdateStatus(

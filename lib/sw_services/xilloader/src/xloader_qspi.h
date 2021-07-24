@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *       skd  08/21/2020 Removed flash size macros
 *       bsv  10/13/2020 Code clean up
+* 1.04  bsv  07/22/2021 Added support for Winbond flash part
 *
 * </pre>
 *
@@ -84,11 +85,14 @@ extern "C" {
  * Macros related to Qspi Bank Size
  */
 #define XLOADER_FLASH_SIZE_16MB			(0x1000000U)
-#define XLOADER_BANKSIZE			(XLOADER_FLASH_SIZE_16MB)
+#define XLOADER_BANKSIZE			XLOADER_FLASH_SIZE_16MB
+#define XLOADER_FLASH_SIZE_64MB			(0x4000000U)
+#define XLOADER_WINBOND_BANKSIZE		XLOADER_FLASH_SIZE_64MB
 /*
  * Bank mask
  */
-#define XLOADER_BANKMASK		(0xFFFFFFFFU & ~(XLOADER_BANKSIZE - 1U))
+#define XLOADER_BANKMASK		(~(XLOADER_BANKSIZE - 1U))
+#define XLOADER_WINBOND_BANKMASK		(~(XLOADER_WINBOND_BANKSIZE - 1U))
 
 /*
  * Identification of Flash
@@ -117,6 +121,7 @@ extern "C" {
 #define XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_512M       (0x3AU)
 #define XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_1G         (0x3BU)
 #define XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_2G		(0x3CU)
+#define XLOADER_WINBOND_FLASH_SIZE_ID_2G		(0x22U)
 
 /*Qspi width detection macros*/
 #define XLOADER_QSPI_BUSWIDTH_DETECT_VALUE	(0xAA995566U)
