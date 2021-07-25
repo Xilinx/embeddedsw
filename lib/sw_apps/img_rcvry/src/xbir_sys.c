@@ -42,6 +42,8 @@
 #define XBIR_LATCH_TIME_FOR_PHY_RESET_IN_US	(200L)
 #define XBIR_POST_RESET_STABILIZATION_TIME_FOR_PHY_IN_US	(250000L)
 #define XBIR_BYTE_HEX_LEN	(2U)
+#define XBIR_SYS_PRODUCT_TYPE_LEN	(2U)
+#define XBIR_SYS_PRODUCT_TYPE_NAME_OFFSET	(4U)
 
 /**************************** Type Definitions *******************************/
 
@@ -58,6 +60,7 @@ static int Xbir_SysWrvBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo, u32 Offset)
 static void Xbir_SysShowBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo);
 static int Xbir_EthPhyReset (void);
 static int Xbir_SysReadSysInfoFromEeprom (void);
+static int Xbir_KVPhyReset (void);
 
 /************************** Variable Definitions *****************************/
 static const u32 Xbir_UtilCrcTable[] = {
@@ -150,13 +153,32 @@ END:
  * @brief
  * This function brings the ethernet phy out of reset.
  *
- * @param	None
- *
  * @return	XST_SUCCESS on successfully bringing phy out of reset
  * 		Error code on failure
  *
  *****************************************************************************/
 static int Xbir_EthPhyReset (void)
+{
+	int Status = XST_FAILURE;
+
+	if (strncmp((char *)&CCInfo.BoardPrdName[XBIR_SYS_PRODUCT_TYPE_NAME_OFFSET],
+		"KV", XBIR_SYS_PRODUCT_TYPE_LEN) == 0U) {
+		Status = Xbir_KVPhyReset();
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief
+ * This function brings the ethernet phy of KV260 out of reset.
+ *
+ * @return	XST_SUCCESS on successfully bringing phy out of reset
+ * 		Error code on failure
+ *
+ *****************************************************************************/
+static int Xbir_KVPhyReset (void)
 {
 	int Status = XST_FAILURE;
 	XGpioPs Gpio = {0U};
