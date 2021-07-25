@@ -7,7 +7,7 @@
 /**
 *
 * @file xusbpsu_local.h
-* @addtogroup usbpsu_v1_9
+* @addtogroup usbpsu_v1_10
 * @{
 * @details
 *
