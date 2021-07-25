@@ -7,7 +7,7 @@
 /**
  *
  * @file xusbpsu_endpoint.h
-* @addtogroup usbpsu_v1_9
+* @addtogroup usbpsu_v1_10
 * @{
  *
  * This is an internal file containing the definitions for endpoints. It is

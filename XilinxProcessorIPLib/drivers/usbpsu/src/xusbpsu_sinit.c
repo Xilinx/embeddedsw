@@ -7,7 +7,7 @@
 /**
 *
 * @file xusbpsu_sinit.c
-* @addtogroup usbpsu_v1_9
+* @addtogroup usbpsu_v1_10
 * @{
 *
 *
