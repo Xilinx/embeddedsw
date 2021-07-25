@@ -11,7 +11,7 @@ BEGIN driver vprocss
   OPTION supported_peripherals = (v_proc_ss_v[2]_[0-3] );
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 2.9;
+  OPTION VERSION = 2.10;
   OPTION DEPENDS = (video_common v_csc v_deinterlacer v_hcresampler v_vcresampler v_hscaler v_vscaler v_letterbox axivdma gpio axis_switch);
   OPTION NAME = vprocss;
 

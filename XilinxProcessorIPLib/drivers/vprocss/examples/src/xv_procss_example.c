@@ -534,13 +534,8 @@ int main(void)
   PeriphPtr = &PeriphInst;
   VpssPtr   = &VprocInst;
 
-  /* Initialize ICache */
-  Xil_ICacheInvalidate();
-  Xil_ICacheEnable();
-
-  /* Initialize DCache */
-  Xil_DCacheInvalidate();
-  Xil_DCacheEnable();
+  Xil_DCacheDisable();
+  usleep(1000);
 
   xil_printf("\r\n--------------------------------------------------------\r\n");
   xil_printf("  Video Processing Subsystem Example Design %s\r\n", XVPROCSS_SW_VER);
