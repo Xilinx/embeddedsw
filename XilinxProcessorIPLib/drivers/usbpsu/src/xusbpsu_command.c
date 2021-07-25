@@ -18,6 +18,8 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   pm  03/03/20 First release
 * 1.8	pm  24/07/20 Fixed MISRA-C and Coverity warnings
+* 1.10	pm  24/07/21 Fixed MISRA-C and Coverity warnings
+*
 * </pre>
 *
 *****************************************************************************/
@@ -94,7 +96,7 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 					  (Dir == XUSBPSU_EP_DIR_OUT));
 	Xil_AssertNonvoid((Maxsize >= 64U) && (Maxsize <= 1024U));
 
-	PhyEpNum = (u32)XUSBPSU_PhysicalEp(UsbEpNum, Dir);
+	PhyEpNum = (u32)XUSBPSU_PhysicalEp((u32)UsbEpNum, (u32)Dir);
 	Ept = &InstancePtr->eps[PhyEpNum];
 
 	Ept->UsbEpNum	= UsbEpNum;
@@ -186,7 +188,7 @@ s32 XUsbPsu_EpDisable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir)
 	Xil_AssertNonvoid((Dir == XUSBPSU_EP_DIR_IN) ||
 						(Dir == XUSBPSU_EP_DIR_OUT));
 
-	PhyEpNum = (u32)XUSBPSU_PhysicalEp(UsbEpNum, Dir);
+	PhyEpNum = (u8)XUSBPSU_PhysicalEp(UsbEpNum, Dir);
 	Ept = &InstancePtr->eps[PhyEpNum];
 
 	/* make sure HW endpoint isn't stalled */
@@ -234,7 +236,7 @@ s32 XUsbPsu_SendEpCmd(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 	Xil_AssertNonvoid((Dir == XUSBPSU_EP_DIR_IN) ||
 					  (Dir == XUSBPSU_EP_DIR_OUT));
 
-	PhyEpNum = (u32)XUSBPSU_PhysicalEp(UsbEpNum, Dir);
+	PhyEpNum = (u32)XUSBPSU_PhysicalEp((u32)UsbEpNum, (u32)Dir);
 
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DEPCMDPAR0(PhyEpNum),
 					 Params->Param0);
