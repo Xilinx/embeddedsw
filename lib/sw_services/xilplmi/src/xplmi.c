@@ -38,6 +38,7 @@
                         register to RTCA Secure State offset
 * 1.05  td   07/08/2021 Fix doxygen warnings
 *       bsv  07/18/2021 Print PLM banner at the beginning of PLM execution
+*       bsv  07/24/2021 Clear RTC area at the beginning of PLM
 *
 * </pre>
 *
@@ -68,7 +69,6 @@ typedef int (*XPlmi_InitHandler)(void); /**< Function pointer for PLM LPD
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static void XPlmi_RunTimeConfigInit(void);
 static void XPlmi_PrintRomVersion(void);
 static void XPlmi_PrintEarlyLog(void);
 
@@ -86,7 +86,6 @@ int XPlmi_Init(void)
 {
 	int Status = XST_FAILURE;
 
-	XPlmi_RunTimeConfigInit();
 	Status = XPlmi_SetUpInterruptSystem();
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -102,12 +101,20 @@ END:
  * @brief	This function initializes the Runtime Configuration Area with
  * default values.
  *
- * @return	None
+ * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static void XPlmi_RunTimeConfigInit(void)
+int XPlmi_RunTimeConfigInit(void)
 {
+	int Status = XST_FAILURE;
 	u32 DevSecureState = XPlmi_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE2);
+
+	DebugLog->LogLevel = 0U;
+	Status = XPlmi_MemSet((u64)XPLMI_RTCFG_BASEADDR, 0U,
+		(XPLMI_RTCFG_SIZE / XPLMI_WORD_LEN));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	XPlmi_Out32(XPLMI_RTCFG_RTCA_ADDR, XPLMI_RTCFG_IDENTIFICATION);
 	XPlmi_Out32(XPLMI_RTCFG_VERSION_ADDR, XPLMI_RTCFG_VER);
@@ -122,13 +129,11 @@ static void XPlmi_RunTimeConfigInit(void)
 				XPLMI_RTCFG_SECURESTATE_AHWROT);
 	XPlmi_Out32(XPLMI_RTCFG_SECURESTATE_SHWROT_ADDR,
 				XPLMI_RTCFG_SECURESTATE_SHWROT);
-	XPlmi_Out32(XPLMI_RTCFG_PMC_ERR1_STATUS_ADDR, 0U);
-	XPlmi_Out32(XPLMI_RTCFG_PMC_ERR2_STATUS_ADDR, 0U);
-	XPlmi_Out32(XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR, 0U);
-	XPlmi_Out32(XPLMI_RTCFG_PSM_ERR2_STATUS_ADDR, 0U);
 	XPlmi_Out32(XPLMI_RTCFG_PDI_ID_ADDR, XPLMI_RTCFG_PDI_ID);
-	XPlmi_Out32(XPLMI_RTCFG_USR_ACCESS_ADDR, 0U);
 	XPlmi_Out32(XPLMI_RTCFG_SECURE_STATE_ADDR, DevSecureState);
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
