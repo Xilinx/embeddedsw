@@ -29,6 +29,7 @@
 * 1.04  td   07/08/2021 Fix doxygen warnings
 *       bsv  07/18/2021 Print PLM banner at the beginning of PLM execution
 *       kc   07/22/2021 Issue internal POR for VP1802 ES1 devices
+*       bsv  07/24/2021 Clear RTC area at the beginning of PLM
 *
 * </pre>
 *
@@ -69,14 +70,6 @@ int main(void)
 {
 	int Status = XST_FAILURE;
 
-	/* Initialize debug log structure */
-	XPlmi_InitDebugLogBuffer();
-
-#ifdef DEBUG_UART_MDM
-	/** If MDM UART, banner can be printed before any initialization */
-	XPlmi_InitUart();
-#endif
-
 	/** Initialize the processor, tasks lists */
 	Status = XPlm_Init();
 	if (Status != XST_SUCCESS)
@@ -98,17 +91,20 @@ int main(void)
 	/** Run the handlers in task loop based on the priority */
 	XPlmi_TaskDispatchLoop();
 
-	/** should never reach here */
+	/** Should never reach here */
 	while (TRUE) {
 		;
 	}
+	Status = XST_FAILURE;
 
-	return XST_FAILURE;
+END:
+	return Status;
 }
 
 /*****************************************************************************/
 /**
- * @brief This function initializes the processor and task list structures
+ * @brief This function initializes DMA, Run Time Config area, the processor
+ * 		and task list structures.
  *
  * @return	Status as defined in xplmi_status.h
  *
@@ -136,6 +132,25 @@ static int XPlm_Init(void)
 	 * Otherwise MB will always wakeup, irrespective of the sleep state
 	 */
 	XPlmi_PpuWakeUpDis();
+
+	/* Initializes the DMA pointers */
+	Status = XPlmi_DmaInit();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XPlmi_RunTimeConfigInit();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/* Initialize debug log structure */
+	XPlmi_InitDebugLogBuffer();
+
+#ifdef DEBUG_UART_MDM
+	/** If MDM UART, banner can be printed before any initialization */
+	XPlmi_InitUart();
+#endif
 
 	/** Initialize the processor, enable exceptions */
 	Status = XPlm_InitProc();

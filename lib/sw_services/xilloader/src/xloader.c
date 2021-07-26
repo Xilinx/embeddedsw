@@ -103,6 +103,7 @@
 *       bsv  07/18/2021 Debug enhancements
 *       bsv  07/19/2021 Disable UART prints when invalid header is encountered
 *                       in slave boot modes
+*       bsv  07/24/2021 Clear RTC area at the beginning of PLM
 *
 * </pre>
 *
@@ -303,12 +304,6 @@ static XLoader_ImageInfoTbl ImageInfoTbl = {
 int XLoader_Init(void)
 {
 	volatile int Status = XST_FAILURE;
-
-	/* Initializes the DMA pointers */
-	Status = XPlmi_DmaInit();
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
 
 	/* Initialize the loader commands */
 	XLoader_CmdsInit();

@@ -39,6 +39,7 @@
 *       bm   05/05/2021 Added USR_ACCESS defines for PLD0 image
 *       ma   05/21/2021 Added RTCA define for Secure Boot State
 * 1.06  bsv  07/16/2021 Fix doxygen warnings
+*       bsv  07/24/2021 Clear RTC area at the beginning of PLM
 *
 * </pre>
 *
@@ -150,6 +151,7 @@ int XPlmi_Init(void);
 void XPlmi_LpdInit(void);
 void XPlmi_ResetLpdInitialized(void);
 void XPlmi_PrintPlmBanner(void);
+int XPlmi_RunTimeConfigInit(void);
 
 /************************** Variable Definitions *****************************/
 extern u8 LpdInitialized;
