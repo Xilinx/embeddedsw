@@ -6,7 +6,7 @@
 /******************************************************************************/
 /**
  *
- * @file xdppsu_example_common.c
+ * @file xdppsu_common_example.c
  *
  * Contains a design example using the XDpPsu driver. It performs a self test on
  * the DisplayPort TX core by training the main link at the maximum common
