@@ -101,6 +101,8 @@
 *       td   07/15/2021 Fix doxygen warnings
 *       bm   07/16/2021 Updated XLoader_PdiInit prototype
 *       bsv  07/18/2021 Debug enhancements
+*       bsv  07/19/2021 Disable UART prints when invalid header is encountered
+*                       in slave boot modes
 *
 * </pre>
 *
@@ -735,10 +737,14 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL, "Image Header Table Validation "
 					"failed\n\r");
+		PdiPtr->ValidHeader = (u8)FALSE;
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMGHDR_TBL, Status);
 		goto END;
 	}
-
+	if (PdiPtr->ValidHeader == (u8)FALSE) {
+		PdiPtr->ValidHeader = (u8)TRUE;
+		DebugLog->LogLevel |= (DebugLog->LogLevel >> XPLMI_LOG_LEVEL_SHIFT);
+	}
 #ifndef PLM_SECURE_EXCLUDE
 	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
 		/* Update KEK red key availability status */

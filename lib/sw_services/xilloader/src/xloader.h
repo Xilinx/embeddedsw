@@ -81,6 +81,8 @@
 *       bm   03/16/2021 Added Image Upgrade support
 *       bm   05/10/2021 Added additional macro for PDI version
 * 1.04  bm   07/16/2021 Updated XLoader_PdiInit prototype
+*       bsv  07/19/2021 Disable UART prints when invalid header is encountered
+*                       in slave boot modes
 *
 * </pre>
 *
@@ -309,7 +311,8 @@ typedef struct {
  * required for PDI
  */
 typedef struct {
-	u8 PdiType; /**< Indicate PDI Type, full PDI, partial PDI */
+	u8 PdiType; /**< Indicates PDI Type, full PDI, partial PDI */
+	u8 ValidHeader; /**< Indicates if Image header table is valid or not */
 	PdiSrc_t PdiSrc; /**< Source of the PDI - Boot device, DDR */
 	u64 PdiAddr; /**< Address where PDI is present in PDI Source */
 	u32 PdiId; /**< Indicates the full PDI Id */

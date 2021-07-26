@@ -26,6 +26,9 @@
 * 1.03  ma   03/24/2021 Store DebugLog structure to RTCA
 * 1.04  td   07/08/2021 Fix doxygen warnings
 *       bsv  07/16/2021 Fix doxygen warnings
+*       bsv  07/19/2021 Disable UART prints when invalid header is encountered
+*                       in slave boot modes
+*
 *
 * </pre>
 *
@@ -81,6 +84,7 @@ void XPlmi_InitDebugLogBuffer(void);
 #define XPLMI_LOGGING_CMD_CONFIG_TRACE_MEM		(0x5U)
 #define XPLMI_LOGGING_CMD_RETRIEVE_TRACE_DATA	(0x6U)
 #define XPLMI_LOGGING_CMD_RETRIEVE_TRACE_BUFFER_INFO	(0x7U)
+#define XPLMI_LOG_LEVEL_SHIFT		(0x4U)
 
 /* Trace log buffer length shift */
 #define XPLMI_TRACE_LOG_LEN_SHIFT		(16U)
