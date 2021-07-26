@@ -22,6 +22,8 @@
  *            dd/mm/yy
  * ----- ---- -------- -----------------------------------------------
  * 1.0   gm   10/12/18 Initial release.
+ * 1.1   ssh  07/26/21 Added definitions for registers and masks
+ *
  * </pre>
  *
 *******************************************************************************/
@@ -33,6 +35,29 @@
 #include "xhdmiphy1.h"
 #include "xhdmiphy1_i.h"
 #if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5)
+
+#define XHDMIPHY1_MMCM_DRP_CLKFBOUT_1_REG 0x0C
+#define XHDMIPHY1_MMCM_DRP_CLKFBOUT_2_REG 0x0D
+#define XHDMIPHY1_MMCM_DRP_DIVCLK_DIVIDE_REG 0x21
+#define XHDMIPHY1_MMCM_DRP_DESKEW_REG 0x20
+#define XHDMIPHY1_MMCM_DRP_CLKOUT0_REG1 0x0E
+#define XHDMIPHY1_MMCM_DRP_CLKOUT0_REG2 0x0F
+#define XHDMIPHY1_MMCM_DRP_CLKOUT1_REG1 0x10
+#define XHDMIPHY1_MMCM_DRP_CLKOUT1_REG2 0x11
+#define XHDMIPHY1_MMCM_DRP_CLKOUT2_REG1 0x12
+#define XHDMIPHY1_MMCM_DRP_CLKOUT2_REG2 0x13
+#define XHDMIPHY1_MMCM_DRP_CP_REG1 0x1E
+#define XHDMIPHY1_MMCM_DRP_RES_REG1 0x2A
+#define XHDMIPHY1_MMCM_DRP_LOCK_REG1 0x27
+#define XHDMIPHY1_MMCM_DRP_LOCK_REG2 0x28
+
+#define XHDMIPHY1_MMCM_WRITE_VAL	0xFFFF
+#define XHDMIPHY1_MMCM_CP_RES_MASK	0xF
+#define XHDMIPHY1_MMCM_RES_MASK		0x1E
+#define XHDMIPHY1_MMCM_LOCK1_MASK1	0x8000
+#define XHDMIPHY1_MMCM_LOCK1_MASK2	0x7FFF
+#define XHDMIPHY1_MMCM_DRP_DESKEW_REG_VAL1 0x0400
+#define XHDMIPHY1_MMCM_DRP_DESKEW_REG_VAL2 0x0000
 
 /**************************** Function Prototypes *****************************/
 static u32 XHdmiphy1_Mmcme5DividerEncoding(XHdmiphy1_MmcmDivType DivType,
@@ -519,77 +544,74 @@ u32 XHdmiphy1_MmcmWriteParameters(XHdmiphy1 *InstancePtr, u8 QuadId,
 			!MmcmParams->ClkOut2Div) {
 		return XST_FAILURE;
 	}
-
 	/* Write CLKFBOUT_1 & CLKFBOUT_2 Values */
 	DrpVal32 = XHdmiphy1_Mmcme5DividerEncoding(XHDMIPHY1_MMCM_CLKFBOUT_MULT_F,
 						MmcmParams->ClkFbOutMult);
-	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x0C,
-						(u16)(DrpVal32 & 0xFFFF));
-	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x0D,
-						(u16)((DrpVal32 >> 16) & 0xFFFF));
+	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, XHDMIPHY1_MMCM_DRP_CLKFBOUT_1_REG,
+						(u16)(DrpVal32 & XHDMIPHY1_MMCM_WRITE_VAL));
+	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, XHDMIPHY1_MMCM_DRP_CLKFBOUT_2_REG,
+						(u16)((DrpVal32 >> 16) & XHDMIPHY1_MMCM_WRITE_VAL));
 
 	/* Write DIVCLK_DIVIDE & DESKEW_2 Values */
 	DrpVal32 = XHdmiphy1_Mmcme5DividerEncoding(XHDMIPHY1_MMCM_DIVCLK_DIVIDE,
 						MmcmParams->DivClkDivide) ;
-	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x21,
-						(u16)((DrpVal32 >> 16) & 0xFFFF));
-	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x20,
+	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, XHDMIPHY1_MMCM_DRP_DIVCLK_DIVIDE_REG,
+						(u16)((DrpVal32 >> 16) & XHDMIPHY1_MMCM_WRITE_VAL));
+	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, XHDMIPHY1_MMCM_DRP_DESKEW_REG,
 						((MmcmParams->DivClkDivide == 0) ? 0x0000 :
 								((MmcmParams->DivClkDivide % 2) ?
-                                    0x0400 : 0x0000)));
-
+								XHDMIPHY1_MMCM_DRP_DESKEW_REG_VAL1 : XHDMIPHY1_MMCM_DRP_DESKEW_REG_VAL2)));
 	/* Write CLKOUT0_1 & CLKOUT0_2 Values */
 	DrpVal32 = XHdmiphy1_Mmcme5DividerEncoding(XHDMIPHY1_MMCM_CLKOUT_DIVIDE,
 						MmcmParams->ClkOut0Div);
-	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x0E,
-						(u16)(DrpVal32 & 0xFFFF));
-	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x0F,
-						(u16)((DrpVal32 >> 16) & 0xFFFF));
+	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, XHDMIPHY1_MMCM_DRP_CLKOUT0_REG1,
+						(u16)(DrpVal32 & XHDMIPHY1_MMCM_WRITE_VAL));
+	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, XHDMIPHY1_MMCM_DRP_CLKOUT0_REG2,
+						(u16)((DrpVal32 >> 16) & XHDMIPHY1_MMCM_WRITE_VAL));
 
 	/* Write CLKOUT1_1 & CLKOUT1_2 Values */
 	DrpVal32 = XHdmiphy1_Mmcme5DividerEncoding(XHDMIPHY1_MMCM_CLKOUT_DIVIDE,
 						MmcmParams->ClkOut1Div);
-	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x10,
-						(u16)(DrpVal32 & 0xFFFF));
-	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x11,
-						(u16)((DrpVal32 >> 16) & 0xFFFF));
+	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, XHDMIPHY1_MMCM_DRP_CLKOUT1_REG1,
+						(u16)(DrpVal32 & XHDMIPHY1_MMCM_WRITE_VAL));
+	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, XHDMIPHY1_MMCM_DRP_CLKOUT1_REG2,
+						(u16)((DrpVal32 >> 16) & XHDMIPHY1_MMCM_WRITE_VAL));
 
 	/* Write CLKOUT2_1 & CLKOUT2_2 Values */
 	DrpVal32 = XHdmiphy1_Mmcme5DividerEncoding(XHDMIPHY1_MMCM_CLKOUT_DIVIDE,
 						MmcmParams->ClkOut2Div);
-	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x12,
-						(u16)(DrpVal32 & 0xFFFF));
-	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x13,
-						(u16)((DrpVal32 >> 16) & 0xFFFF));
-
+	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, XHDMIPHY1_MMCM_DRP_CLKOUT2_REG1,
+						(u16)(DrpVal32 & XHDMIPHY1_MMCM_WRITE_VAL));
+	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, XHDMIPHY1_MMCM_DRP_CLKOUT2_REG2,
+						(u16)((DrpVal32 >> 16) & XHDMIPHY1_MMCM_WRITE_VAL));
 	/* Write CP & RES Values */
 	DrpVal32 = XHdmiphy1_Mmcme5CpResEncoding(MmcmParams->ClkFbOutMult);
 	/* CP */
-	DrpRdVal = XHdmiphy1_DrpRd(InstancePtr, QuadId, ChId, 0x1E, &DrpRdVal);
-	DrpRdVal &= ~(0xF);
+	DrpRdVal = XHdmiphy1_DrpRd(InstancePtr, QuadId, ChId, XHDMIPHY1_MMCM_DRP_CP_REG1, &DrpRdVal);
+	DrpRdVal &= ~(XHDMIPHY1_MMCM_CP_RES_MASK);
 
-	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x1E,
-						(u16)((DrpVal32 & 0xF) | DrpRdVal));
+	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, XHDMIPHY1_MMCM_DRP_CP_REG1,
+						(u16)((DrpVal32 & XHDMIPHY1_MMCM_CP_RES_MASK) | DrpRdVal));
 
 	/* RES */
-	DrpRdVal = XHdmiphy1_DrpRd(InstancePtr, QuadId, ChId, 0x2A, &DrpRdVal);
-	DrpRdVal &= ~(0x1E);
-	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x2A,
-						(u16)(((DrpVal32 >> 15) & 0x1E) | DrpRdVal));
+	DrpRdVal = XHdmiphy1_DrpRd(InstancePtr, QuadId, ChId, XHDMIPHY1_MMCM_DRP_RES_REG1, &DrpRdVal);
+	DrpRdVal &= ~(XHDMIPHY1_MMCM_RES_MASK);
+	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, XHDMIPHY1_MMCM_DRP_RES_REG1,
+						(u16)(((DrpVal32 >> 15) & XHDMIPHY1_MMCM_RES_MASK) | DrpRdVal));
 
 	/* Write Lock Reg1 & Reg2 Values */
 	DrpVal32 = XHdmiphy1_Mmcme5LockReg1Reg2Encoding(MmcmParams->ClkFbOutMult);
 	/* LOCK_1 */
-	DrpRdVal = XHdmiphy1_DrpRd(InstancePtr, QuadId, ChId, 0x27, &DrpRdVal);
-	DrpRdVal &= ~(0x8000);
-	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x27,
-						(u16)((DrpVal32 & 0x7FFF) | DrpRdVal));
+	DrpRdVal = XHdmiphy1_DrpRd(InstancePtr, QuadId, ChId, XHDMIPHY1_MMCM_DRP_LOCK_REG1, &DrpRdVal);
+	DrpRdVal &= ~(XHDMIPHY1_MMCM_LOCK1_MASK1);
+	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, XHDMIPHY1_MMCM_DRP_LOCK_REG1,
+						(u16)((DrpVal32 & XHDMIPHY1_MMCM_LOCK1_MASK2) | DrpRdVal));
 
 	/* LOCK_2 */
-	DrpRdVal = XHdmiphy1_DrpRd(InstancePtr, QuadId, ChId, 0x28, &DrpRdVal);
-	DrpRdVal &= ~(0x8000);
-	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x28,
-						(u16)(((DrpVal32 >> 16) & 0x7FFF) | DrpRdVal));
+	DrpRdVal = XHdmiphy1_DrpRd(InstancePtr, QuadId, ChId, XHDMIPHY1_MMCM_DRP_LOCK_REG2, &DrpRdVal);
+	DrpRdVal &= ~(XHDMIPHY1_MMCM_LOCK1_MASK1);
+	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, XHDMIPHY1_MMCM_DRP_LOCK_REG2,
+						(u16)(((DrpVal32 >> 16) & XHDMIPHY1_MMCM_LOCK1_MASK2) | DrpRdVal));
 
 	return XST_SUCCESS;
 }

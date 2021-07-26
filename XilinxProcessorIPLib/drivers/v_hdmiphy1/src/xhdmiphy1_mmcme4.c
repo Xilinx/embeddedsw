@@ -22,6 +22,8 @@
  *            dd/mm/yy
  * ----- ---- -------- -----------------------------------------------
  * 1.0   gm   10/12/18 Initial release.
+ * 1.1   ssh  07/26/21 Added definitions for registers and masks
+ *
  * </pre>
  *
 *******************************************************************************/
@@ -34,6 +36,24 @@
 #include "xhdmiphy1_i.h"
 #if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4 || \
      XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE4)
+
+#define XHDMIPHY1_MMCM_CLKOUT0_REG1 0x08
+#define XHDMIPHY1_MMCM_CLKOUT0_REG2 0x09
+#define XHDMIPHY1_MMCM_CLKOUT1_REG1 0x0A
+#define XHDMIPHY1_MMCM_CLKOUT1_REG2 0x0B
+#define XHDMIPHY1_MMCM_CLKOUT2_REG1 0x0C
+#define XHDMIPHY1_MMCM_CLKOUT2_REG2 0x0D
+#define XHDMIPHY1_MMCM_CLKFBOUT_REG1 0x14
+#define XHDMIPHY1_MMCM_CLKFBOUT_REG2 0x15
+#define XHDMIPHY1_MMCM_DIVCLK_DIV_REG 0x16
+#define XHDMIPHY1_MMCM_DRP_LOCK_REG1 0x18
+#define XHDMIPHY1_MMCM_DRP_LOCK_REG2 0x19
+#define XHDMIPHY1_MMCM_DRP_LOCK_REG3 0x1A
+#define XHDMIPHY1_MMCM_DRP_FILTER_REG1 0x4E
+#define XHDMIPHY1_MMCM_DRP_FILTER_REG2 0x4F
+#define XHDMIPHY1_MMCM_PWR_REG  0x27
+
+#define XHDMIPHY1_MMCM_WRITE_VAL 0xFFFF
 
 /**************************** Function Prototypes *****************************/
 static u32 XHdmiphy1_Mmcme4DividerEncoding(XHdmiphy1_MmcmDivType DivType,
@@ -223,7 +243,7 @@ u16 XHdmiphy1_Mmcme4FilterReg2Encoding(u8 Mult)
 /**
 * This function returns the DRP encoding of LockReg1 optimized for:
 * Phase = 0; Dutycycle = 0.5; No Fractional division
-*
+* v . njm
 * @param	Mult is the divider to be encoded
 *
 * @return
@@ -463,65 +483,64 @@ u32 XHdmiphy1_MmcmWriteParameters(XHdmiphy1 *InstancePtr, u8 QuadId,
 
 
 	/* Write Power Register Value */
-	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x27, 0xFFFF);
+	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, XHDMIPHY1_MMCM_PWR_REG, XHDMIPHY1_MMCM_WRITE_VAL);
 
 	/* Write CLKFBOUT Reg1 & Reg2 Values */
 	DrpVal32 = XHdmiphy1_Mmcme4DividerEncoding(XHDMIPHY1_MMCM_CLKFBOUT_MULT_F,
 						MmcmParams->ClkFbOutMult);
-	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x14,
-						(u16)(DrpVal32 & 0xFFFF));
-	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x15,
-						(u16)((DrpVal32 >> 16) & 0xFFFF));
+	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, XHDMIPHY1_MMCM_CLKFBOUT_REG1,
+						(u16)(DrpVal32 & XHDMIPHY1_MMCM_WRITE_VAL));
+	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, XHDMIPHY1_MMCM_CLKFBOUT_REG2,
+						(u16)((DrpVal32 >> 16) & XHDMIPHY1_MMCM_WRITE_VAL));
 
 	/* Write DIVCLK_DIVIDE Value */
 	DrpVal32 = XHdmiphy1_Mmcme4DividerEncoding(XHDMIPHY1_MMCM_DIVCLK_DIVIDE,
 						MmcmParams->DivClkDivide) ;
-	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x16,
-						(u16)(DrpVal32 & 0xFFFF));
+	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, XHDMIPHY1_MMCM_DIVCLK_DIV_REG,
+						(u16)(DrpVal32 & XHDMIPHY1_MMCM_WRITE_VAL));
 
 	/* Write CLKOUT0 Reg1 & Reg2 Values */
 	DrpVal32 = XHdmiphy1_Mmcme4DividerEncoding(XHDMIPHY1_MMCM_CLKOUT_DIVIDE,
 						MmcmParams->ClkOut0Div);
-	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x08,
-						(u16)(DrpVal32 & 0xFFFF));
-	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x09,
-						(u16)((DrpVal32 >> 16) & 0xFFFF));
+	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, XHDMIPHY1_MMCM_CLKOUT0_REG1,
+						(u16)(DrpVal32 & XHDMIPHY1_MMCM_WRITE_VAL));
+	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, XHDMIPHY1_MMCM_CLKOUT0_REG2,
+						(u16)((DrpVal32 >> 16) & XHDMIPHY1_MMCM_WRITE_VAL));
 
 	/* Write CLKOUT1 Reg1 & Reg2 Values */
 	DrpVal32 = XHdmiphy1_Mmcme4DividerEncoding(XHDMIPHY1_MMCM_CLKOUT_DIVIDE,
 						MmcmParams->ClkOut1Div);
-	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x0A,
-						(u16)(DrpVal32 & 0xFFFF));
-	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x0B,
-						(u16)((DrpVal32 >> 16) & 0xFFFF));
+	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, XHDMIPHY1_MMCM_CLKOUT1_REG1,
+						(u16)(DrpVal32 & XHDMIPHY1_MMCM_WRITE_VAL));
+	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, XHDMIPHY1_MMCM_CLKOUT1_REG2,
+						(u16)((DrpVal32 >> 16) & XHDMIPHY1_MMCM_WRITE_VAL));
 
 	/* Write CLKOUT2 Reg1 & Reg2 Values */
 	DrpVal32 = XHdmiphy1_Mmcme4DividerEncoding(XHDMIPHY1_MMCM_CLKOUT_DIVIDE,
 						MmcmParams->ClkOut2Div);
-	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x0C,
-						(u16)(DrpVal32 & 0xFFFF));
-	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x0D,
-						(u16)((DrpVal32 >> 16) & 0xFFFF));
-
+	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, XHDMIPHY1_MMCM_CLKOUT2_REG1,
+						(u16)(DrpVal32 & XHDMIPHY1_MMCM_WRITE_VAL));
+	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, XHDMIPHY1_MMCM_CLKOUT2_REG2,
+						(u16)((DrpVal32 >> 16) & XHDMIPHY1_MMCM_WRITE_VAL));
 	/* Write Lock Reg1 Value */
 	DrpVal = XHdmiphy1_Mmcme4LockReg1Encoding(MmcmParams->ClkFbOutMult);
-	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x18, DrpVal);
+	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, XHDMIPHY1_MMCM_DRP_LOCK_REG1, DrpVal);
 
 	/* Write Lock Reg2 Value */
 	DrpVal = XHdmiphy1_Mmcme4LockReg2Encoding(MmcmParams->ClkFbOutMult);
-	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x19, DrpVal);
+	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, XHDMIPHY1_MMCM_DRP_LOCK_REG2, DrpVal);
 
 	/* Write Lock Reg3 Value */
 	DrpVal = XHdmiphy1_Mmcme4LockReg3Encoding(MmcmParams->ClkFbOutMult);
-	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x1A, DrpVal);
+	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, XHDMIPHY1_MMCM_DRP_LOCK_REG3, DrpVal);
 
 	/* Write Filter Reg1 Value */
 	DrpVal = XHdmiphy1_Mmcme4FilterReg1Encoding(MmcmParams->ClkFbOutMult);
-	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x4E, DrpVal);
+	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, XHDMIPHY1_MMCM_DRP_FILTER_REG1, DrpVal);
 
 	/* Write Filter Reg2 Value */
 	DrpVal = XHdmiphy1_Mmcme4FilterReg2Encoding(MmcmParams->ClkFbOutMult);
-	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x4F, DrpVal);
+	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, XHDMIPHY1_MMCM_DRP_FILTER_REG2, DrpVal);
 
 	return XST_SUCCESS;
 }
