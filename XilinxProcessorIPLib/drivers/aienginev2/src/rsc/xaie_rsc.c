@@ -227,8 +227,9 @@ AieRC _XAie_RscMgrInit(XAie_DevInst *DevInst)
 					"type:%d\n", i);
 			for(u8 k = 0U; k < i; k++) {
 				free(DevInst->RscMapping[k].Bitmaps);
-				goto error;
 			}
+			free(DevInst->RscMapping);
+			return XAIE_ERR;
 		}
 
 		for(u8 RscType = 0U; RscType < XAIE_MAX_RSC; RscType++) {
@@ -259,7 +260,11 @@ AieRC _XAie_RscMgrInit(XAie_DevInst *DevInst)
 				for(u8 k = 0U; k < RscType; k++) {
 					free(RscMap->Bitmaps[k]);
 				}
-				goto freeRscMaps;
+				for(u8 k = 0U; k < i; k++) {
+					free(DevInst->RscMapping[k].Bitmaps);
+				}
+				free(DevInst->RscMapping);
+				return XAIE_ERR;
 			}
 		}
 	}
@@ -268,18 +273,6 @@ AieRC _XAie_RscMgrInit(XAie_DevInst *DevInst)
 		DevInst->RscMapping[XAIEGBL_TILE_TYPE_SHIMPL];
 
 	return XAIE_OK;
-
-freeRscMaps:
-	for(u8 k = 0U; k < i; k++) {
-		free(DevInst->RscMapping[k].Bitmaps);
-	}
-
-error:
-	free(DevInst->RscMapping);
-
-	XAIE_ERROR("Memory allocation for resource manager bitmaps failed\n");
-	return XAIE_ERR;
-
 }
 
 /*****************************************************************************/
@@ -1134,12 +1127,17 @@ AieRC XAie_SaveAllocatedRscsToFile(XAie_DevInst *DevInst, const char *File)
 
 	/* Write NumRscs and first offset value to file */
 	Ret = fwrite(&NumRscsInFile, sizeof(NumRscsInFile), 1U, F);
-	if(Ret != 1U)
-		goto error;
+	if(Ret != 1U) {
+		fclose(F);
+		XAIE_ERROR("Failed to write resource bitmaps to file\n");
+		return XAIE_ERR;
+	}
 	Ret = fwrite(&FirstRscsOffset, sizeof(FirstRscsOffset), 1U, F);
-	if(Ret != 1U)
-		goto error;
-
+	if(Ret != 1U) {
+		fclose(F);
+		XAIE_ERROR("Failed to write resource bitmaps to file\n");
+		return XAIE_ERR;
+	}
 	for(u8 i = 0U; i < XAIEGBL_TILE_TYPE_MAX; i++) {
 		u32 NumRows;
 		XAie_ResourceManager *RscMap;
@@ -1177,8 +1175,11 @@ AieRC XAie_SaveAllocatedRscsToFile(XAie_DevInst *DevInst, const char *File)
 				XAIE_DBG("RSC HEADER: 0x%lx\n", RscHeader);
 				Ret = fwrite(&RscHeader, sizeof(RscHeader), 1U,
 					       F);
-				if(Ret != 1U)
-					goto error;
+				if(Ret != 1U) {
+					fclose(F);
+					XAIE_ERROR("Failed to write resource bitmaps to file\n");
+					return XAIE_ERR;
+				}
 
 				if(Mod == XAIE_CORE_MOD) {
 					u32 MemModRscs;
@@ -1210,8 +1211,11 @@ AieRC XAie_SaveAllocatedRscsToFile(XAie_DevInst *DevInst, const char *File)
 
 					Ret = fwrite(&Payload, sizeof(Payload),
 								1U, F);
-					if(Ret != 1U)
-						goto error;
+					if(Ret != 1U) {
+						free(DevInst->RscMapping);
+						XAIE_ERROR("Memory allocation for resource manager bitmaps failed\n");
+						return XAIE_ERR;
+					}
 				}
 
 				NumRscsInFile++;
@@ -1222,16 +1226,15 @@ AieRC XAie_SaveAllocatedRscsToFile(XAie_DevInst *DevInst, const char *File)
 	/* Update Number of Rscs entries */
 	rewind(F);
 	Ret = fwrite(&NumRscsInFile, sizeof(NumRscsInFile), 1U, F);
-	if(Ret != 1U)
-		goto error;
+	if(Ret != 1U) {
+		fclose(F);
+		XAIE_ERROR("Failed to write resource bitmaps to file\n");
+		return XAIE_ERR;
+	}
 
 	fclose(F);
 	return XAIE_OK;
 
-error:
-	fclose(F);
-	XAIE_ERROR("Failed to write resource bitmaps to file\n");
-	return XAIE_ERR;
 }
 
 /*****************************************************************************/
