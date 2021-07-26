@@ -1835,6 +1835,44 @@ AieRC XAie_DmaWriteChannel(XAie_DevInst *DevInst,
 
 /******************************************************************************/
 /**
+* This api sets the number of 32 bit words to be added before and after each
+* dimenstion for a DMA BD descriptor.
+*
+* @param	DmaDesc: Initialized dma descriptor.
+* @param	PadTensor: Padding tensor with After and Before values for each
+*		dimension.
+*
+* @return	XAIE_OK on success, error code on failure.
+*
+* @note		The API sets up the value in the dma descriptor and does not
+*		configure the buffer descriptor field in the hardware.
+*
+*******************************************************************************/
+AieRC XAie_DmaSetPadding(XAie_DmaDesc *DmaDesc, XAie_DmaPadTensor *PadTensor)
+{
+	const XAie_DmaMod *DmaMod;
+	if((DmaDesc == XAIE_NULL) || (PadTensor == XAIE_NULL) ||
+			(DmaDesc->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid Arguments\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	DmaMod = DmaDesc->DmaMod;
+	if(DmaMod->ZeroPadding == XAIE_FEATURE_UNAVAILABLE) {
+		XAIE_ERROR("Feature unavailable\n");
+		return XAIE_FEATURE_NOT_SUPPORTED;
+	}
+
+	for(u8 i = 0U; i < PadTensor->NumDim; i++) {
+		DmaDesc->PadDesc[i].After = PadTensor->PadDesc[i].After;
+		DmaDesc->PadDesc[i].Before = PadTensor->PadDesc[i].Before;
+	}
+
+	return XAIE_OK;
+}
+
+/******************************************************************************/
+/**
 * This api sets the number of zeros to be added before or after  the given
 * dimension for a dma descriptor.
 *

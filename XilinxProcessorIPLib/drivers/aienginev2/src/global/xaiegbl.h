@@ -314,6 +314,11 @@ typedef struct {
 } XAie_PadDesc;
 
 typedef struct {
+	u8 NumDim;
+	XAie_PadDesc *PadDesc;
+} XAie_DmaPadTensor;
+
+typedef struct {
 	u8 EnOutofOrderId;
 	u8 EnTokenIssue;
 	u8 EnCompression;
