@@ -6,7 +6,7 @@
 /******************************************************************************/
 /**
  *
- * @file xdppsu_example_common.h
+ * @file xdppsu_common_example.h
  *
  * Contains a design example using the XDpPsu driver. It performs a self test on
  * the DisplayPort TX core by training the main link at the maximum common
@@ -22,9 +22,9 @@
  *
 *******************************************************************************/
 
-#ifndef XDPPSU_EXAMPLE_COMMON_H_
+#ifndef XDPPSU_COMMON_EXAMPLE_H_
 /* Prevent circular inclusions by using protection macros. */
-#define XDPPSU_EXAMPLE_COMMON_H_
+#define XDPPSU_COMMON_EXAMPLE_H_
 
 /******************************* Include Files ********************************/
 
@@ -71,4 +71,4 @@ u32 DpPsu_Run(XDpPsu *InstancePtr);
 
 XDpPsu DpPsuInstance;
 
-#endif /* XDPPSU_EXAMPLE_COMMON_H_ */
+#endif /* XDPPSU_COMMON_EXAMPLE_H_ */
