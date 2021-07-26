@@ -8,6 +8,7 @@
 #include "xpm_core.h"
 #include "xpm_psm.h"
 #include "xpm_debug.h"
+#include "xpm_notifier.h"
 
 XStatus XPmCore_Init(XPm_Core *Core, u32 Id, XPm_Power *Power,
 		     XPm_ClockNode *Clock, XPm_ResetNode *Reset, u8 IpiCh,
@@ -171,6 +172,8 @@ XStatus XPmCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 
 	Core->Device.Node.State = (u8)XPM_DEVSTATE_RUNNING;
 	Core->isCoreUp = 1;
+	/* Send notification about core state change */
+	XPmNotifier_Event(Core->Device.Node.Id, (u32)EVENT_STATE_CHANGE);
 
 done:
 	return Status;
@@ -204,6 +207,8 @@ XStatus XPmCore_AfterDirectWakeUp(XPm_Core *Core)
 	Core->Device.Node.State = (u8)XPM_DEVSTATE_RUNNING;
 	Core->isCoreUp = 1;
 	Status = XST_SUCCESS;
+	/* Send notification about core state change */
+	XPmNotifier_Event(Core->Device.Node.Id, (u32)EVENT_STATE_CHANGE);
 
 done:
 	return Status;
@@ -285,6 +290,8 @@ XStatus XPmCore_AfterDirectPwrDwn(XPm_Core *Core)
 	Core->Device.Node.State = (u8)XPM_DEVSTATE_UNUSED;
 	Core->isCoreUp = 0;
 	Status = XST_SUCCESS;
+	/* Send notification about core state change */
+	XPmNotifier_Event(Core->Device.Node.Id, (u32)EVENT_STATE_CHANGE);
 
 done:
 	return Status;
