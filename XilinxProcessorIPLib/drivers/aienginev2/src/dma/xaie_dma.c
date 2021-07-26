@@ -1869,19 +1869,11 @@ AieRC XAie_DmaSetZeroPadding(XAie_DmaDesc *DmaDesc, u8 Dim,
 	switch(Pos){
 	case DMA_ZERO_PADDING_BEFORE: {
 		switch(Dim){
-		case 0:
+		case 0U:
+		case 1U:
+		case 2U:
 		{
-			DmaDesc->ZeroPadDesc.D0_ZeroBefore = NumZeros;
-			break;
-		}
-		case 1:
-		{
-			DmaDesc->ZeroPadDesc.D1_ZeroBefore = NumZeros;
-			break;
-		}
-		case 2:
-		{
-			DmaDesc->ZeroPadDesc.D2_ZeroBefore = NumZeros;
+			DmaDesc->PadDesc[Dim].Before = NumZeros;
 			break;
 		}
 		default:
@@ -1893,19 +1885,11 @@ AieRC XAie_DmaSetZeroPadding(XAie_DmaDesc *DmaDesc, u8 Dim,
 
 	case DMA_ZERO_PADDING_AFTER: {
 		switch(Dim){
-		case 0:
+		case 0U:
+		case 1U:
+		case 2U:
 		{
-			DmaDesc->ZeroPadDesc.D0_ZeroAfter = NumZeros;
-			break;
-		}
-		case 1:
-		{
-			DmaDesc->ZeroPadDesc.D1_ZeroAfter = NumZeros;
-			break;
-		}
-		case 2:
-		{
-			DmaDesc->ZeroPadDesc.D2_ZeroAfter = NumZeros;
+			DmaDesc->PadDesc[Dim].After = NumZeros;
 			break;
 		}
 		default:
