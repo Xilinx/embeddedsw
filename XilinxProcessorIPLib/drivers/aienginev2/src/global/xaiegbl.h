@@ -309,13 +309,9 @@ typedef union {
 } XAie_MultiDimDesc;
 
 typedef struct {
-	u8 D0_ZeroBefore;
-	u8 D0_ZeroAfter;
-	u8 D1_ZeroBefore;
-	u8 D1_ZeroAfter;
-	u8 D2_ZeroBefore;
-	u8 D2_ZeroAfter;
-} XAie_ZeroPadDesc;
+	u8 Before;
+	u8 After;
+} XAie_PadDesc;
 
 typedef struct {
 	u8 EnOutofOrderId;
@@ -337,7 +333,7 @@ typedef struct {
 	XAie_LockDesc LockDesc_2;
 	XAie_AddrDesc AddrDesc_2;
 	XAie_MultiDimDesc MultiDimDesc;
-	XAie_ZeroPadDesc ZeroPadDesc;
+	XAie_PadDesc PadDesc[3U];
 	const XAie_DmaMod *DmaMod;
 	const XAie_LockMod *LockMod;
 	XAie_MemInst *MemInst;
