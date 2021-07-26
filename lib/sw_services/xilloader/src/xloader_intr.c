@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,8 @@
 *       td   08/19/2020 Fixed MISRA C violations Rule 10.3
 *       bm   10/14/2020 Code clean up
 *       ana  10/19/2020 Added doxygen comments
+* 1.03  bsv  07/19/2021 Disable UART prints when invalid header is encountered
+*                       in slave boot modes
 *
 * </pre>
 *
@@ -48,6 +50,8 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XLOADER_SBI_DELAY_IN_MICROSEC		(5000U)
+#define XLOADER_LOG_LEVEL_MASK		(0xF0U)
 
 /************************** Function Prototypes ******************************/
 /**
@@ -64,8 +68,6 @@ static int XLoader_SbiLoadPdi(void *Data);
 /**
  * @brief	This function initializes the loader instance and registers loader
  * commands with PLM.
- *
- * @param	None
  *
  * @return	Returns XST_SUCCESS
  *
@@ -132,10 +134,12 @@ static int XLoader_SbiLoadPdi(void *Data)
 	}
 
 	PdiAddr = 0U;
-
-	XPlmi_Printf(DEBUG_GENERAL, "SBI PDI Load: Started\n\r");
 	PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
 	PdiPtr->IpiMask = 0U;
+	if (PdiPtr->ValidHeader == (u8)FALSE) {
+		DebugLog->LogLevel &= XLOADER_LOG_LEVEL_MASK;
+	}
+	XPlmi_Printf(DEBUG_GENERAL, "SBI PDI Load: Started\n\r")
 	Status = XLoader_LoadPdi(PdiPtr, PdiSrc, PdiAddr);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -146,6 +150,10 @@ END:
 	if (Status != XST_SUCCESS) {
 		/* Update the error code */
 		XPlmi_ErrMgr(Status);
+		if (PdiPtr->ValidHeader == (u8)FALSE) {
+			DebugLog->LogLevel |= (DebugLog->LogLevel >> XPLMI_LOG_LEVEL_SHIFT);
+			usleep(XLOADER_SBI_DELAY_IN_MICROSEC);
+		}
 	}
 	Status = XLoader_ClearIntrSbiDataRdy();
 	return Status;
@@ -159,8 +167,6 @@ END:
 /**
  * @brief	This function clears the previous SBI data ready
  * and enables IRQ for next interrupt.
- *
- * @param	None
  *
  * @return	XST_SUCCESS on success and error code on failure
  *

@@ -28,6 +28,8 @@
 *       ma   02/03/2021 Remove redundant call to enable GIC SBI interrupt
 * 1.05  ma   03/24/2021 Asterisk alignment
 * 1.06  td   07/08/2021 Fix doxygen warnings
+*       bsv  07/19/2021 Disable UART prints when invalid header is encountered
+*                       in slave boot modes
 *
 * </pre>
 *
@@ -120,6 +122,8 @@ int XPlm_LoadBootPdi(void *Arg)
 
 	PdiPtr->PdiType = XLOADER_PDI_TYPE_FULL;
 	PdiPtr->IpiMask = 0U;
+	PdiPtr->ValidHeader = (u8)TRUE;
+	SubsystemPdiIns.ValidHeader = (u8)TRUE;
 	Status = XLoader_LoadPdi(PdiPtr, BootMode, 0U);
 	if (Status != XST_SUCCESS) {
 		goto ERR_END;

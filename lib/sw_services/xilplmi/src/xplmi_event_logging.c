@@ -33,6 +33,8 @@
 *       ma   03/24/2021 Fix issue in log level configuration
 * 1.05  td   07/08/2021 Fix doxygen warnings
 *       bsv  07/16/2021 Fix doxygen warnings
+*       bsv  07/19/2021 Disable UART prints when invalid header is encountered
+*                       in slave boot modes
 *
 * </pre>
 *
@@ -280,7 +282,7 @@ int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
 		case XPLMI_LOGGING_CMD_CONFIG_LOG_LEVEL:
 			Arg1 = (u64)((1U << (u32)Arg1) - 1U);
 			if (Arg1 <= XPlmiDbgCurrentTypes) {
-				DebugLog->LogLevel = (u8)Arg1;
+				DebugLog->LogLevel = ((u8)Arg1 << XPLMI_LOG_LEVEL_SHIFT) | (u8)Arg1;
 				Status = XST_SUCCESS;
 			} else {
 				Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_LOG_LEVEL,
@@ -372,7 +374,8 @@ void XPlmi_InitDebugLogBuffer(void)
 	DebugLog->LogBuffer.Len = XPLMI_DEBUG_LOG_BUFFER_LEN;
 	DebugLog->LogBuffer.Offset = 0x0U;
 	DebugLog->LogBuffer.IsBufferFull = (u32)FALSE;
-	DebugLog->LogLevel = (u8)XPlmiDbgCurrentTypes;
+	DebugLog->LogLevel = ((u8)XPlmiDbgCurrentTypes << XPLMI_LOG_LEVEL_SHIFT) |
+		(u8)XPlmiDbgCurrentTypes;
 	DebugLog->PrintToBuf = (u8)TRUE;
 }
 
