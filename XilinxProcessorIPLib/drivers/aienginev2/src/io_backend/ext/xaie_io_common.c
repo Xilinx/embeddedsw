@@ -395,6 +395,12 @@ AieRC _XAie_RequestRscCommon(XAie_DevInst *DevInst, XAie_BackendTilesRsc *Args)
 	if(Args->RscType == XAIE_BCAST_CHANNEL_RSC)
 		return _XAie_RequestBroadcastChannelRscCommon(DevInst, Args);
 
+	/*
+	* RscArrPerTile initalized to zeros by memset to avoid MISRA violation.
+	* RscArrPerTile gets properly intialized in _XAie_RequestRscContig.
+	*/
+	memset(RscArrPerTile, 0, sizeof(u32) * Args->NumRscPerTile);
+
 	if(Args->Flags == XAIE_RSC_MGR_CONTIG_FLAG) {
 		RC = _XAie_RequestRscContig(Args->Bitmap, Args->StartBit,
 				Args->StaticBitmapOffset, Args->NumRscPerTile,
