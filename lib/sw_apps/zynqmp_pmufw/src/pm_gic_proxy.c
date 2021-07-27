@@ -11,6 +11,7 @@
 #include "lpd_slcr.h"
 #include "pm_periph.h"
 #include "pm_master.h"
+#include "pm_usb.h"
 
 /* GIC Proxy base address */
 #define GIC_PROXY_BASE_ADDR		LPD_SLCR_GICP0_IRQ_STATUS
@@ -33,6 +34,7 @@ static void PmWakeEventGicProxySet(PmWakeEvent* const wake, const u32 ipiMask,
 				   const u32 enable)
 {
 	PmWakeEventGicProxy* gicWake = (PmWakeEventGicProxy*)wake->derived;
+	u32 regVal;
 
 	/* Only APU's interrupts are routed through GIC Proxy */
 	if (ipiMask != pmMasterApu_g.ipiMask) {
@@ -42,6 +44,21 @@ static void PmWakeEventGicProxySet(PmWakeEvent* const wake, const u32 ipiMask,
 	if (0U == enable) {
 		pmGicProxy.groups[gicWake->group].setMask &= ~gicWake->mask;
 	} else {
+
+		/* Keep FPD ON if USB is set as wakeup source in USB3 mode */
+		if (pmSlaveUsb0_g.slv.wake->derived == gicWake) {
+
+			/*
+			 * Check USB3_0_FPD_PIPE_CLK[0] to identify USB mode
+			 * 0 => USB3.0 enabled
+			 * 1 => USB2.0 only enabled
+			 */
+			regVal = XPfw_Read32(USB3_0_FPD_PIPE_CLK);
+			if (0U == (regVal & USB3_0_FPD_PIPE_CLK_OPTION_MASK)) {
+				pmPowerDomainFpd_g.power.useCount++;
+			}
+		}
+
 		u32 addr = GIC_PROXY_BASE_ADDR +
 			   GIC_PROXY_GROUP_OFFSET((u32)gicWake->group) +
 			   GIC_PROXY_IRQ_STATUS_OFFSET;
@@ -124,9 +141,26 @@ static void PmGicProxyDisable(void)
  */
 static void PmGicProxyClear(void)
 {
-	u32 g;
+	u32 g, regVal;
+	const PmWakeEventGicProxy* usbWake = (PmWakeEventGicProxy*) pmSlaveUsb0_g.slv.wake->derived;
 
 	for (g = 0U; g < pmGicProxy.groupsCnt; g++) {
+
+		/*
+		 * Decrease FPD use count which was incremented
+		 * in PmWakeEventGicProxySet().
+		 * */
+		if ((g == usbWake->group) && (0U != (pmGicProxy.groups[g].setMask & usbWake->mask))) {
+			/*
+			 * Check USB3_0_FPD_PIPE_CLK[0] to identify USB mode
+			 * 0 => USB3.0 enabled
+			 * 1 => USB2.0 only enabled
+			 */
+			regVal = XPfw_Read32(USB3_0_FPD_PIPE_CLK);
+			if (0U == (regVal & USB3_0_FPD_PIPE_CLK_OPTION_MASK)) {
+				pmPowerDomainFpd_g.power.useCount--;
+			}
+		}
 		pmGicProxy.groups[g].setMask = 0U;
 	}
 
