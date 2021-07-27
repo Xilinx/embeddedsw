@@ -37,10 +37,12 @@
 #include "xaie_helper.h"
 #include "xaie_io.h"
 #include "xaie_io_common.h"
+#include "xaie_npi.h"
 
 /****************************** Type Definitions *****************************/
 typedef struct {
 	u64 BaseAddr;
+	u64 NpiBaseAddr;
 } XAie_SimIO;
 
 /************************** Function Definitions *****************************/
@@ -88,6 +90,7 @@ static AieRC XAie_SimIO_Init(XAie_DevInst *DevInst)
 	}
 
 	IOInst->BaseAddr = DevInst->BaseAddr;
+	IOInst->NpiBaseAddr = XAIE_NPI_BASEADDR;
 	DevInst->IOInst = IOInst;
 
 	return XAIE_OK;
@@ -287,11 +290,43 @@ static AieRC XAie_SimIO_CmdWrite(void *IOInst, u8 Col, u8 Row, u8 Command,
 	return XAIE_OK;
 }
 
+/*****************************************************************************/
+/**
+*
+* This is the function to write 32 bit value to NPI register address.
+*
+* @param	IOInst: IO instance pointer
+* @param	RegOff: NPI register offset
+* @param	RegVal: Value to write to register
+*
+* @return	None.
+*
+* @note		Internal only.
+*
+*******************************************************************************/
+static void _XAie_SimIO_NpiWrite32(void *IOInst, u32 RegOff, u32 RegVal)
+{
+	XAie_SimIO *SimIOInst = (XAie_SimIO *)IOInst;
+	u64 RegAddr;
+
+	RegAddr = SimIOInst->NpiBaseAddr + RegOff;
+	ess_Write32(RegAddr, RegVal);
+	return;
+}
+
 static AieRC XAie_SimIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 		XAie_BackendOpCode Op, void *Arg)
 {
 	(void)DevInst;
 	switch(Op) {
+	case XAIE_BACKEND_OP_NPIWR32:
+	{
+		XAie_BackendNpiWrReq *Req = Arg;
+
+		_XAie_SimIO_NpiWrite32(IOInst, Req->NpiRegOff,
+				Req->Val);
+		break;
+	}
 	case XAIE_BACKEND_OP_CONFIG_SHIMDMABD:
 	{
 		XAie_ShimDmaBdArgs *BdArgs = (XAie_ShimDmaBdArgs *)Arg;
