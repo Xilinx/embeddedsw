@@ -102,7 +102,6 @@
 * 11.0  cog    05/31/21 Upversion.
 *       cog    06/10/21 When setting the powermode, the IP now takes care of the
 *                       configuration registers.
-*       cog    07/12/21 Simplified clock distribution user interface.
 *
 *</pre>
 *
@@ -1897,7 +1896,6 @@ extern "C" {
 
 #define XRFDC_CLOCK_DETECT_MASK 0x0000FFFFU /**< Clock detect mask */
 #define XRFDC_CLOCK_DETECT_SRC_MASK 0x00005555U /**< Clock detect mask */
-#define XRFDC_CLOCK_DETECT_DST_SHIFT 1U /**< Clock detect mask */
 
 /* @} */
 

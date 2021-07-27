@@ -277,7 +277,6 @@
 *                       for DFE variants.
 *       cog    05/05/21 Rename the MAX/MIN macros to avoid potential conflicts.
 * 11.0  cog    05/31/21 Upversion.
-*       cog    07/12/21 Simplified clock distribution user interface.
 *
 * </pre>
 *
@@ -362,42 +361,33 @@ typedef struct {
 * ClkIntraTile Settings.
 */
 typedef struct {
-	u8 SourceType;
 	u8 SourceTile;
-	u32 PLLEnable;
-	double RefClkFreq;
-	double SampleRate;
+	u8 PLLEnable;
+	XRFdc_PLL_Settings PLLSettings;
 	u8 DivisionFactor;
-	u8 DistributedClock;
 	u8 Delay;
+	u8 DistributedClock;
 } XRFdc_Tile_Clock_Settings;
+/**
+* Clk Distribution.
+*/
+typedef struct {
+	u8 Enabled;
+	u8 DistributionSource;
+	u8 UpperBound;
+	u8 LowerBound;
+	u8 MaxDelay;
+	u8 MinDelay;
+	u8 IsDelayBalanced;
+} XRFdc_Distribution;
 /**
 * Clk Distribution Settings.
 */
 typedef struct {
-	u8 MaxDelay;
-	u8 MinDelay;
-	u8 IsDelayBalanced;
-	u8 Source;
-	u8 UpperBound;
-	u8 LowerBound;
-	XRFdc_Tile_Clock_Settings ClkSettings[2][4]; /*[Type][Tile] e.g. ClkSettings[XRFDC_ADC_TILE][1] for ADC1*/
-} XRFdc_Distribution_Info;
-
-typedef struct {
-	u32 SourceTileId;
-	u32 SourceType;
-	u32 EdgeTileIds[2];
-	u32 EdgeTypes[2];
-	double DistRefClkFreq;
-	u32 DistributedClock;
-	double SampleRates[2][4]; /*[Type][Tile] e.g. ClkSettings[XRFDC_ADC_TILE][1] for ADC1*/
-	u32 ShutdownMode;
-	XRFdc_Distribution_Info Info;
+	XRFdc_Tile_Clock_Settings DAC[4];
+	XRFdc_Tile_Clock_Settings ADC[4];
+	XRFdc_Distribution DistributionStatus[8];
 } XRFdc_Distribution_Settings;
-typedef struct {
-	XRFdc_Distribution_Settings Distributions[8];
-} XRFdc_Distribution_System_Settings;
 #ifndef __BAREMETAL__
 #pragma pack()
 #endif
@@ -1061,7 +1051,6 @@ typedef struct {
 #define XRFDC_SM_STATE0 0x0U
 #define XRFDC_SM_STATE1 0x1U
 #define XRFDC_SM_STATE3 0x3U
-#define XRFDC_SM_STATE7 0x7U
 #define XRFDC_SM_STATE15 0xFU
 
 #define XRFDC_STATE_OFF 0x0U
@@ -1420,7 +1409,7 @@ u32 XRFdc_GetFabClkOutDiv(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u16 *FabClk
 u32 XRFdc_SetDither(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Mode);
 u32 XRFdc_GetDither(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *ModePtr);
 u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *DistributionSettingsPtr);
-u32 XRFdc_GetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_System_Settings *DistributionArrayPtr);
+u32 XRFdc_GetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *DistributionSettingsPtr);
 u32 XRFdc_SetDataPathMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Mode);
 u32 XRFdc_GetDataPathMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *ModePtr);
 u32 XRFdc_SetIMRPassMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Mode);
