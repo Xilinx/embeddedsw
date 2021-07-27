@@ -758,6 +758,9 @@ typedef struct XAie_L1IntrMod {
 	u8 NumIrqEvents;
 	u8 IrqEventOff;
 	u8 NumBroadcastIds;
+	u8 MaxErrorBcIdsRvd;
+	u8 (*IntrCtrlL1IrqId)(XAie_DevInst *DevInst, XAie_LocType Loc,
+		XAie_BroadcastSw Switch);
 } XAie_L1IntrMod;
 
 /*
