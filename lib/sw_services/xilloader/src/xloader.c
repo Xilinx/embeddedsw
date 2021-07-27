@@ -105,6 +105,7 @@
 *                       in slave boot modes
 *       bsv  07/24/2021 Clear RTC area at the beginning of PLM
 *       ma   07/27/2021 Added temporal check for XLoader_SetSecureState
+*       ma   07/27/2021 Added temporal check for XilPdi_ValidateImgHdrTbl
 *
 * </pre>
 *
@@ -698,7 +699,8 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 	/*
 	 * Check the validity of Img Hdr Table fields
 	 */
-	Status = XilPdi_ValidateImgHdrTbl(&(PdiPtr->MetaHdr.ImgHdrTbl));
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp,
+			XilPdi_ValidateImgHdrTbl, &(PdiPtr->MetaHdr.ImgHdrTbl));
 
 	/*
 	 * Update the PDI ID in the RTC area of PMC RAM
@@ -726,7 +728,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 			PdiPtr->MetaHdr.ImgHdrTbl.Idcode);
 	XPlmi_Printf(DEBUG_INFO, "Attributes: 0x%x\n\r",
 			PdiPtr->MetaHdr.ImgHdrTbl.Attr);
-	if (Status != XST_SUCCESS) {
+	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 		XPlmi_Printf(DEBUG_GENERAL, "Image Header Table Validation "
 					"failed\n\r");
 		PdiPtr->ValidHeader = (u8)FALSE;
