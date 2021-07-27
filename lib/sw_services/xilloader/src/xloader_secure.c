@@ -86,6 +86,7 @@
 *       har  05/20/21 Added checks in case both efuse auth and bh auth are enabled
 * 1.06  td   07/08/21 Fix doxygen warnings
 *       har  07/15/21 Fixed doxygen warnings
+*       har  07/27/21 Added prints for Secure State
 *
 * </pre>
 *
@@ -780,6 +781,8 @@ int XLoader_SetSecureState(void)
 		 * PPK fuses are programmed
 		 */
 		AHWRoT = XPLMI_RTCFG_SECURESTATE_AHWROT;
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "State of Boot(Authentication):"
+			" Asymmetric HWRoT\r\n");
 	}
 	else if (Status != StatusTmp) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_GLITCH_DETECTED, 0);
@@ -792,6 +795,8 @@ int XLoader_SetSecureState(void)
 			 * BHDR authentication is enabled
 			 */
 			AHWRoT = XPLMI_RTCFG_SECURESTATE_EMUL_AHWROT;
+			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "State of Boot(Authentication):"
+			" Emulated Asymmetric HWRoT\r\n");
 		}
 		else if (IsBhdrAuth != IsBhdrAuthTmp) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_GLITCH_DETECTED, 0);
@@ -827,6 +832,8 @@ int XLoader_SetSecureState(void)
 		 * One or more DEC_ONLY efuse bits are programmed
 		 */
 		SHWRoT = XPLMI_RTCFG_SECURESTATE_SHWROT;
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "State of Boot(Encryption):"
+			" Symmetric HWRoT\r\n");
 	}
 	else if ((ReadReg == 0x0U) && (ReadRegTmp == 0x0U)) {
 		XSECURE_TEMPORAL_IMPL(PlmEncStatus, PlmEncStatusTmp,
@@ -836,6 +843,8 @@ int XLoader_SetSecureState(void)
 			 * PLM is encrypted
 			 */
 			SHWRoT = XPLMI_RTCFG_SECURESTATE_EMUL_SHWROT;
+			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "State of Boot(Encryption):"
+			" Emulated Symmetric HWRoT\r\n");
 		}
 		else if ((PlmEncStatus == 0x0U) && (PlmEncStatusTmp == 0x0U)) {
 			/*
@@ -853,6 +862,12 @@ int XLoader_SetSecureState(void)
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_GLITCH_DETECTED, 0);
 		goto END;
 	}
+
+	if ((AHWRoT == XPLMI_RTCFG_SECURESTATE_NONSECURE) && (SHWRoT ==
+		XPLMI_RTCFG_SECURESTATE_NONSECURE)) {
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Non Secure Boot\r\n");
+	}
+
 	/*
 	 * Set the secure state for encryption in register and global variable
 	 */
