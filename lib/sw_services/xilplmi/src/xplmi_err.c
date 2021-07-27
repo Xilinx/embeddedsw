@@ -61,6 +61,7 @@
 *       bsv  07/16/2021 Fix doxygen warnings
 *       bsv  07/18/2021 Debug enhancements
 *       kc   07/22/2021 XPlmi_PorHandler scope updated to global
+*       ma   07/27/2021 Updated print statements in CPM handlers
 *
 * </pre>
 *
@@ -634,7 +635,7 @@ static void XPlmi_HandleLinkDownError(u32 Cpm5PcieIrStatusReg,
 			Status = XPlmi_ExecuteProc(ProcId);
 			if (Status != XST_SUCCESS) {
 				XPlmi_Printf(DEBUG_GENERAL, "Error in handling PCIE "
-						"link down error: 0x%x\r\n", Status);
+						"link down event: 0x%x\r\n", Status);
 				/*
 				 * Update error manager with error received
 				 * while executing proc
@@ -650,12 +651,12 @@ static void XPlmi_HandleLinkDownError(u32 Cpm5PcieIrStatusReg,
 		} else {
 			/* Received error is other than Link down error */
 			XPlmi_Printf(DEBUG_GENERAL, "Received error is other than "
-					"link down error: 0x%x\r\n", LinkDownErr);
+					"link down event: 0x%x\r\n", LinkDownErr);
 		}
 	} else {
 		/* Received error is other than PCIE local event */
 		XPlmi_Printf(DEBUG_GENERAL, "Received error is other than "
-				"PCIE local event error: 0x%x\r\n", PcieLocalErr);
+				"PCIE local event: 0x%x\r\n", PcieLocalErr);
 	}
 }
 
@@ -685,7 +686,7 @@ static void XPlmi_CpmErrHandler(u32 ErrorNodeId, u32 RegMask)
 		if ((CpmErrors & CPM5_SLCR_PS_UNCORR_IR_STATUS_PCIE0_MASK) ==
 				CPM5_SLCR_PS_UNCORR_IR_STATUS_PCIE0_MASK) {
 			/* Handle PCIE0 link down error */
-			XPlmi_Printf(DEBUG_GENERAL, "Received CPM NCR PCIE0 error\r\n");
+			XPlmi_Printf(DEBUG_GENERAL, "Received CPM PCIE0 interrupt\r\n");
 			XPlmi_HandleLinkDownError(CPM5_SLCR_PCIE0_IR_STATUS,
 					CPM5_DMA0_CSR_INT_DEC, CPM_NCR_PCIE0_LINK_DOWN_PROC_ID);
 			/* Clear PCIE0 error */
@@ -697,7 +698,7 @@ static void XPlmi_CpmErrHandler(u32 ErrorNodeId, u32 RegMask)
 		if ((CpmErrors & CPM5_SLCR_PS_UNCORR_IR_STATUS_PCIE1_MASK) ==
 				CPM5_SLCR_PS_UNCORR_IR_STATUS_PCIE1_MASK) {
 			/* Handle PCIE1 link down error */
-			XPlmi_Printf(DEBUG_GENERAL, "Received CPM NCR PCIE1 error\r\n");
+			XPlmi_Printf(DEBUG_GENERAL, "Received CPM PCIE1 interrupt\r\n");
 			XPlmi_HandleLinkDownError(CPM5_SLCR_PCIE1_IR_STATUS,
 					CPM5_DMA1_CSR_INT_DEC, CPM_NCR_PCIE1_LINK_DOWN_PROC_ID);
 			/* Clear PCIE1 error */
