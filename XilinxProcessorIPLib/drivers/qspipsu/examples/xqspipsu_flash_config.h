@@ -25,6 +25,7 @@
 * 1.12	akm 07/07/20 Add support for Macronix flash(MX66U2G45G, MX66L2G45G)
 *                    and ISSI flash(IS25LP01G, IS25WP01G) parts.
 * 1.13  akm 12/10/20 Set Read command as per the qspi bus width.
+* 1.14  akm 07/16/21 Enable Quad Mode for Winbond flashes.
 *
 *</pre>
 *
@@ -80,6 +81,10 @@ extern "C" {
 #define EXTADD_REG_WR		0xC5
 #define	DIE_ERASE_CMD		0xC4
 #define READ_FLAG_STATUS_CMD	0x70
+
+#define WRITE_STATUS_REG_2_CMD	0x31
+#define READ_STATUS_REG_2_CMD	0x35
+#define WB_QUAD_MODE_ENABLE_BIT	0x01
 
 /*
  * The following constants define the offsets within a FlashBuffer data
@@ -254,6 +259,9 @@ FlashInfo Flash_Config_Table[] = {
 	/*w25q128jv*/
 	{0xef7018, SECTOR_SIZE_64K, NUM_OF_SECTORS256, BYTES256_PER_PAGE,
 		0x10000, 0x1000000, 0xFFFF0000, 1},
+	/*w25h02jv*/
+	{0xef9022, SECTOR_SIZE_64K, NUM_OF_SECTORS4096, BYTES256_PER_PAGE,
+		0x100000, 0x10000000, 0xFFFF0000, 4},
 	/* Macronix */
 	/*mx66l1g45g*/
 	{0xc2201b, SECTOR_SIZE_64K, NUM_OF_SECTORS2048, BYTES256_PER_PAGE,

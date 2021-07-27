@@ -62,6 +62,7 @@
 *                     function on IAR compiler.
 * 1.13  akm 11/30/20 Removed unwanted header files.
 * 1.13  akm 12/10/20 Set Read command as per the qspi bus width.
+* 1.14  akm 07/16/21 Enable Quad Mode for Winbond flashes.
 *
 *</pre>
 *
@@ -1923,6 +1924,123 @@ int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr)
 			return XST_FAILURE;
 		}
 		while (TransferInProgress);
+		break;
+	case WINBOND_ID_BYTE0:
+		ReadStatusCmd = READ_STATUS_REG_2_CMD;
+		FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
+		FlashMsg[0].RxBfrPtr = NULL;
+		FlashMsg[0].ByteCount = 1;
+		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+		FlashMsg[1].TxBfrPtr = NULL;
+		FlashMsg[1].RxBfrPtr = FlashStatus;
+		FlashMsg[1].ByteCount = 2;
+		FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+		FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
+		TransferInProgress = TRUE;
+		Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+		while (TransferInProgress);
+
+		if (QspiPsuPtr->Config.ConnectionMode ==
+			XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+			if (FSRFlag) {
+				FlashStatus[1] &= FlashStatus[0];
+			} else {
+				FlashStatus[1] |= FlashStatus[0];
+			}
+		}
+		/*
+		 * Set Quad Enable Bit in the buffer
+		 */
+		StatusRegVal = FlashStatus[1];
+		StatusRegVal |= 0x1 << WB_QUAD_MODE_ENABLE_BIT;
+		/*
+		 * Write Enable
+		 */
+		WriteEnableCmd = WRITE_ENABLE_CMD;
+		FlashMsg[0].TxBfrPtr = &WriteEnableCmd;
+		FlashMsg[0].RxBfrPtr = NULL;
+		FlashMsg[0].ByteCount = 1;
+		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+		TransferInProgress = TRUE;
+		Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 1);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+		while (TransferInProgress);
+		/*
+		 * Write Status register
+		 */
+		WriteBuffer[COMMAND_OFFSET] = WRITE_STATUS_REG_2_CMD;
+		FlashMsg[0].TxBfrPtr = WriteBuffer;
+		FlashMsg[0].RxBfrPtr = NULL;
+		FlashMsg[0].ByteCount = 1;
+		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+		FlashMsg[1].TxBfrPtr = &StatusRegVal;
+		FlashMsg[1].RxBfrPtr = NULL;
+		FlashMsg[1].ByteCount = 1;
+		FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+		FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_TX;
+		TransferInProgress = TRUE;
+		Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+		while (TransferInProgress);
+
+		while (1) {
+			ReadStatusCmd = READ_STATUS_CMD;
+			FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
+			FlashMsg[0].RxBfrPtr = NULL;
+			FlashMsg[0].ByteCount = 1;
+			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+			FlashMsg[1].TxBfrPtr = NULL;
+			FlashMsg[1].RxBfrPtr = FlashStatus;
+			FlashMsg[1].ByteCount = 2;
+			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
+			TransferInProgress = TRUE;
+			Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			while (TransferInProgress);
+
+			if (QspiPsuPtr->Config.ConnectionMode ==
+				XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+				if (FSRFlag) {
+					FlashStatus[1] &= FlashStatus[0];
+				} else {
+					FlashStatus[1] |= FlashStatus[0];
+				}
+			}
+			if ((FlashStatus[1] & 0x01) == 0x00) {
+				break;
+			}
+		}
+		/*
+		 * Write Disable
+		 */
+		WriteEnableCmd = WRITE_DISABLE_CMD;
+		FlashMsg[0].TxBfrPtr = &WriteEnableCmd;
+		FlashMsg[0].RxBfrPtr = NULL;
+		FlashMsg[0].ByteCount = 1;
+		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+		TransferInProgress = TRUE;
+		Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+		while (TransferInProgress);
+		break;
 
 	default:
 		/*
