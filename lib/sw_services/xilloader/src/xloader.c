@@ -104,6 +104,7 @@
 *       bsv  07/19/2021 Disable UART prints when invalid header is encountered
 *                       in slave boot modes
 *       bsv  07/24/2021 Clear RTC area at the beginning of PLM
+*       ma   07/27/2021 Added temporal check for XLoader_SetSecureState
 *
 * </pre>
 *
@@ -322,11 +323,7 @@ int XLoader_Init(void)
 #endif
 
 	/* Setting the secure state of boot in registers and global variables */
-	Status = XST_FAILURE;
-	Status = XLoader_SetSecureState();
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_SetSecureState);
 
 #ifndef PLM_SECURE_EXCLUDE
 	/* Adding task to the scheduler to handle Authenticated JTAG message */
