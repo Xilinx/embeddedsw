@@ -29,7 +29,10 @@
 ******************************************************************************/
 /***************************** Include Files *********************************/
 #include "xaie_events.h"
+#include "xaie_feature_config.h"
 #include "xaie_helper.h"
+
+#ifdef XAIE_FEATURE_EVENTS_ENABLE
 
 /***************************** Macro Definitions *****************************/
 #define XAIE_EVENT_PC_RESET		0xFFFF
@@ -1511,4 +1514,5 @@ AieRC XAie_EventGetUserEventBase(XAie_DevInst *DevInst, XAie_LocType Loc,
 	return RC;
 }
 
+#endif /* XAIE_FEATURE_EVENTS_ENABLE */
 /** @} */

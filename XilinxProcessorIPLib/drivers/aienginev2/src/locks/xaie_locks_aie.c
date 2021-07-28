@@ -22,9 +22,13 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
+#include "xaie_feature_config.h"
 #include "xaie_helper.h"
 #include "xaie_locks.h"
 #include "xaiegbl_defs.h"
+
+#ifdef XAIE_FEATURE_LOCK_ENABLE
+
 /************************** Constant Definitions *****************************/
 #define XAIE_LOCK_WITH_VALUE_OFF	0x20
 #define XAIE_LOCK_RESULT_SUCCESS	1U
@@ -164,4 +168,5 @@ AieRC _XAie_LockSetValue(XAie_DevInst *DevInst, const XAie_LockMod *LockMod,
 	return XAIE_FEATURE_NOT_SUPPORTED;
 }
 
+#endif /* XAIE_FEATURE_LOCK_ENABLE */
 /** @} */

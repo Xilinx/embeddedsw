@@ -21,9 +21,14 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
+
+#include "xaie_feature_config.h"
 #include "xaie_helper.h"
 #include "xaie_tilectrl.h"
 #include "xaiegbl_defs.h"
+
+#ifdef XAIE_FEATURE_PRIVILEGED_ENABLE
+
 /************************** Constant Definitions *****************************/
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
@@ -78,4 +83,5 @@ AieRC _XAie_TileCtrlSetIsolation(XAie_DevInst *DevInst, XAie_LocType Loc,
 	return XAie_Write32(DevInst, RegAddr, FldVal);
 }
 
+#endif /* XAIE_FEATURE_PRIVILEGED_ENABLE */
 /** @} */

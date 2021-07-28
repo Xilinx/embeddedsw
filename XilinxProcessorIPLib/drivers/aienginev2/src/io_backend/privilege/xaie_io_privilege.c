@@ -25,9 +25,13 @@
 #include <stdlib.h>
 
 #include "xaie_clock.h"
+#include "xaie_feature_config.h"
 #include "xaie_helper.h"
 #include "xaie_io_privilege.h"
 #include "xaie_npi.h"
+
+#ifdef XAIE_FEATURE_PRIVILEGED_ENABLE
+
 /*****************************************************************************/
 /***************************** Macro Definitions *****************************/
 
@@ -469,4 +473,26 @@ AieRC _XAie_PrivilegeRequestTiles(XAie_DevInst *DevInst,
 	return RC;
 }
 
+#else /* XAIE_FEATURE_PRIVILEGED_ENABLE */
+AieRC _XAie_PrivilegeInitPart(XAie_DevInst *DevInst, XAie_PartInitOpts *Opts)
+{
+	(void)DevInst;
+	(void)Opts;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+
+AieRC _XAie_PrivilegeTeardownPart(XAie_DevInst *DevInst)
+{
+	(void)DevInst;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+
+AieRC _XAie_PrivilegeRequestTiles(XAie_DevInst *DevInst,
+		XAie_BackendTilesArray *Args)
+{
+	(void)DevInst;
+	(void)Args;
+	return XAIE_FEATURE_NOT_SUPPORTED;
+}
+#endif /* XAIE_FEATURE_PRIVILEGED_ENABLE */
 /** @} */

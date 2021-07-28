@@ -22,10 +22,16 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
+#include "xaie_feature_config.h"
 #include "xaie_ecc.h"
 #include "xaie_events.h"
 #include "xaie_helper.h"
 #include "xaie_perfcnt.h"
+
+#if defined(XAIE_FEATURE_PRIVILEGED_ENABLE) && \
+	defined(XAIE_FEATURE_PERFCOUNT_ENABLE) && \
+	defined(XAIE_FEATURE_EVENTS_ENABLE) && \
+	defined(XAIE_FEATURE_RSC_ENABLE)
 
 /*****************************************************************************/
 /***************************** Macro Definitions *****************************/
@@ -417,3 +423,6 @@ AieRC _XAie_EccOnMemTile(XAie_DevInst *DevInst, XAie_LocType Loc)
 
 	return XAIE_OK;
 }
+
+#endif /* XAIE_FEATURE_PRIVILEGED_ENABLE && XAIE_FEATURE_PERFCOUNT_ENABLE &&
+	* XAIE_FEATURE_EVENTS_ENABLE && XAIE_FEATURE_RSC_ENABLE */

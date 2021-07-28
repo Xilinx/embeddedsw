@@ -20,9 +20,10 @@
 * </pre>
 *
 ******************************************************************************/
-
+#include "xaie_feature_config.h"
 #include "xaie_helper.h"
 
+#ifdef XAIE_FEATURE_SS_ENABLE
 /************************** Constant Definitions *****************************/
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
@@ -53,3 +54,5 @@ AieRC _XAie_StrmSwCheckPortValidity(StrmSwPortType Slave, u8 SlvPortNum,
 	(void)MstrPortNum;
 	return XAIE_OK;
 }
+
+#endif /* XAIE_FEATURE_SS_ENABLE */

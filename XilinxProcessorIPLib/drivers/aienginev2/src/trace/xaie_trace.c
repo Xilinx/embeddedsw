@@ -23,8 +23,11 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
+#include "xaie_feature_config.h"
 #include "xaie_helper.h"
 #include "xaie_trace.h"
+
+#ifdef XAIE_FEATURE_TRACE_ENABLE
 
 /************************** Constant Definitions *****************************/
 /************************** Function Definitions *****************************/
@@ -837,4 +840,5 @@ AieRC XAie_TraceEventReset(XAie_DevInst *DevInst, XAie_LocType Loc,
 			0U);
 }
 
+#endif /* XAIE_FEATURE_TIMER_ENABLE */
 /** @} */

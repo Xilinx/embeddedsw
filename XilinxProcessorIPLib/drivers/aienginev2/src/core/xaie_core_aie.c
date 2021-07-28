@@ -25,6 +25,9 @@
 
 #include "xaie_core_aie.h"
 #include "xaie_events_aie.h"
+#include "xaie_feature_config.h"
+
+#ifdef XAIE_FEATURE_CORE_ENABLE
 
 /************************** Constant Definitions *****************************/
 
@@ -183,4 +186,5 @@ AieRC _XAie_CoreReadDoneBit(XAie_DevInst *DevInst, XAie_LocType Loc,
 	return XAIE_OK;
 }
 
+#endif /* XAIE_FEATURE_CORE_ENABLE */
 /** @} */
