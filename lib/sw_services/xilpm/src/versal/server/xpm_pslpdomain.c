@@ -15,13 +15,11 @@
 #include "xpm_debug.h"
 #include "xpm_rail.h"
 
-static XStatus LpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
-		u32 NumOfArgs)
+static XStatus LpdInitStart(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -108,12 +106,10 @@ done:
 	return Status;
 }
 
-static XStatus LpdInitFinish(XPm_PowerDomain *PwrDomain, const u32 *Args,
-		u32 NumOfArgs)
+static XStatus LpdInitFinish(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 
-	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -122,14 +118,12 @@ static XStatus LpdInitFinish(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	return Status;
 }
 
-static XStatus LpdHcComplete(XPm_PowerDomain *PwrDomain, const u32 *Args,
-		u32 NumOfArgs)
+static XStatus LpdHcComplete(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 SysmonAddr;
 
-	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -171,15 +165,13 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE
  *
  ****************************************************************************/
-static XStatus LpdScanClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
-		u32 NumOfArgs)
+static XStatus LpdScanClear(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 RegBitMask;
 	u32 RegVal;
 
-	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -250,8 +242,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE
  *
  ****************************************************************************/
-static XStatus LpdLbist(XPm_PowerDomain *PwrDomain, const u32 *Args,
-		u32 NumOfArgs)
+static XStatus LpdLbist(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	const XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
@@ -261,7 +252,6 @@ static XStatus LpdLbist(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 RegBitMask;
 
-	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -357,13 +347,17 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE
  *
  ****************************************************************************/
-static XStatus LpdBisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
-		u32 NumOfArgs)
+static XStatus LpdBisr(const u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	const XPm_Device *XramDevice = XPmDevice_GetById(PM_DEV_XRAM_0);
-	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)PwrDomain;
+	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 	u16 DbgErr;
+
+	if (NULL == LpDomain) {
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
+		goto done;
+	}
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -498,8 +492,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE
  *
  ****************************************************************************/
-static XStatus LpdMbist(XPm_PowerDomain *PwrDomain, const u32 *Args,
-		u32 NumOfArgs)
+static XStatus LpdMbist(const u32 *Args, u32 NumOfArgs)
 {
 	volatile XStatus Status = XST_FAILURE;
 	volatile XStatus StatusTmp = XST_FAILURE;
@@ -507,7 +500,6 @@ static XStatus LpdMbist(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	u32 RegBitMask;
 	XPm_ClockNode *UsbClk, *Can0Clk, *Can1Clk;
 
-	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
