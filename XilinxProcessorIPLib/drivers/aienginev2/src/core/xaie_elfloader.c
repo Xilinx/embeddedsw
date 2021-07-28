@@ -29,12 +29,14 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
-#ifndef XAIE_ELF_LOADER_DISABLE
 #include <stdlib.h>
 
 #include "xaie_elfloader.h"
+#include "xaie_feature_config.h"
 #include "xaie_ecc.h"
 #include "xaie_mem.h"
+
+#ifdef XAIE_FEATURE_ELF_ENABLE
 /************************** Constant Definitions *****************************/
 #define XAIESIM_CMDIO_CMD_SETSTACK       0U
 #define XAIESIM_CMDIO_CMD_LOADSYM        1U
@@ -710,5 +712,5 @@ AieRC XAie_LoadElfSectionBlock(XAie_DevInst *DevInst, XAie_LocType Loc,
 			(Size + 4U - 1U) / 4U);
 }
 
-#endif /* XAIE_ELF_LOADER_DISABLE */
+#endif /* XAIE_FEATURE_ELF_ENABLE */
 /** @} */
