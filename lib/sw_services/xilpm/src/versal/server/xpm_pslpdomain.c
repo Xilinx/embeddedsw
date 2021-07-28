@@ -20,8 +20,8 @@ static XStatus LpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	u32 DisableMask;
 
+	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -49,13 +49,6 @@ static XStatus LpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_PS_POR;
 	}
-
-	/* Get houseclean disable mask */
-	DisableMask = XPm_In32(PM_HOUSECLEAN_DISABLE_REG_1) >> HOUSECLEAN_LPD_SHIFT;
-
-	/* Set Houseclean Mask */
-	PwrDomain->HcDisableMask |= DisableMask;
-
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -186,56 +179,57 @@ static XStatus LpdScanClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	u32 RegBitMask;
 	u32 RegVal;
 
+	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
-	if (HOUSECLEAN_DISABLE_SCAN_CLEAR_MASK != (PwrDomain->HcDisableMask &
-				HOUSECLEAN_DISABLE_SCAN_CLEAR_MASK)) {
-		PmInfo("Triggering ScanClear for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
+	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
+		PmInfo("Skipping ScanClear for LPD\r\n");
+		Status = XST_SUCCESS;
+		goto done;
+	}
 
-		/* Trigger Scan clear on LPD/LPD_IOU */
-		RegBitMask = ((u32)PMC_ANALOG_SCAN_CLEAR_TRIGGER_LPD_MASK |
+	PmInfo("Triggering ScanClear for LPD\r\n");
+
+	/* Trigger Scan clear on LPD/LPD_IOU */
+	RegBitMask = ((u32)PMC_ANALOG_SCAN_CLEAR_TRIGGER_LPD_MASK |
 		      (u32)PMC_ANALOG_SCAN_CLEAR_TRIGGER_LPD_IOU_MASK |
 		      (u32)PMC_ANALOG_SCAN_CLEAR_TRIGGER_LPD_RPU_MASK);
-		PmRmw32(PMC_ANALOG_SCAN_CLEAR_TRIGGER, RegBitMask, RegBitMask);
-		/* Check that the register value written properly or not! */
-		PmChkRegMask32(PMC_ANALOG_SCAN_CLEAR_TRIGGER, RegBitMask, RegBitMask, Status);
-		if (XPM_REG_WRITE_FAILED == Status) {
-			DbgErr = XPM_INT_ERR_REG_WRT_LPDLSCNCLR_TRIGGER;
-			goto done;
-		}
+	PmRmw32(PMC_ANALOG_SCAN_CLEAR_TRIGGER, RegBitMask, RegBitMask);
+	/* Check that the register value written properly or not! */
+	PmChkRegMask32(PMC_ANALOG_SCAN_CLEAR_TRIGGER, RegBitMask, RegBitMask, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_LPDLSCNCLR_TRIGGER;
+		goto done;
+	}
 
-		Status = XPm_PollForMask(PMC_ANALOG_SCAN_CLEAR_DONE,
+	Status = XPm_PollForMask(PMC_ANALOG_SCAN_CLEAR_DONE,
 				 (PMC_ANALOG_SCAN_CLEAR_DONE_LPD_IOU_MASK |
 				  PMC_ANALOG_SCAN_CLEAR_DONE_LPD_MASK |
 				  PMC_ANALOG_SCAN_CLEAR_DONE_LPD_RPU_MASK),
 				 XPM_POLL_TIMEOUT);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_SCAN_CLEAR_TIMEOUT;
-			goto done;
-		}
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_SCAN_CLEAR_TIMEOUT;
+		goto done;
+	}
 
-		RegVal = XPm_In32(PMC_ANALOG_SCAN_CLEAR_PASS);
-		if ((RegVal & (u32)((u32)PMC_ANALOG_SCAN_CLEAR_PASS_LPD_IOU_MASK |
-				(u32)PMC_ANALOG_SCAN_CLEAR_PASS_LPD_MASK |
-				(u32)PMC_ANALOG_SCAN_CLEAR_PASS_LPD_RPU_MASK)) !=
-				(u32)((u32)PMC_ANALOG_SCAN_CLEAR_PASS_LPD_IOU_MASK |
-				(u32)PMC_ANALOG_SCAN_CLEAR_PASS_LPD_MASK |
-				(u32)PMC_ANALOG_SCAN_CLEAR_PASS_LPD_RPU_MASK)) {
-			DbgErr = XPM_INT_ERR_SCAN_PASS;
-			goto done;
-		}
+	RegVal = XPm_In32(PMC_ANALOG_SCAN_CLEAR_PASS);
+	if ((RegVal &
+	     (u32)((u32)PMC_ANALOG_SCAN_CLEAR_PASS_LPD_IOU_MASK |
+		   (u32)PMC_ANALOG_SCAN_CLEAR_PASS_LPD_MASK |
+		   (u32)PMC_ANALOG_SCAN_CLEAR_PASS_LPD_RPU_MASK)) !=
+	     (u32)((u32)PMC_ANALOG_SCAN_CLEAR_PASS_LPD_IOU_MASK |
+		   (u32)PMC_ANALOG_SCAN_CLEAR_PASS_LPD_MASK |
+		   (u32)PMC_ANALOG_SCAN_CLEAR_PASS_LPD_RPU_MASK)) {
+		DbgErr = XPM_INT_ERR_SCAN_PASS;
+		goto done;
+	}
 
-		/* unwrite trigger bits */
-		PmRmw32(PMC_ANALOG_SCAN_CLEAR_TRIGGER,
-				(PMC_ANALOG_SCAN_CLEAR_TRIGGER_LPD_MASK |
+	 /* unwrite trigger bits */
+        PmRmw32(PMC_ANALOG_SCAN_CLEAR_TRIGGER,
+                (PMC_ANALOG_SCAN_CLEAR_TRIGGER_LPD_MASK |
                  PMC_ANALOG_SCAN_CLEAR_TRIGGER_LPD_IOU_MASK |
                  PMC_ANALOG_SCAN_CLEAR_TRIGGER_LPD_RPU_MASK), 0);
-
-	} else {
-		/* ScanClear is skipped */
-		PmInfo("Skipping ScanClear for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
-	}
 
 	/*
 	 * Pulse PS POR
@@ -244,7 +238,6 @@ static XStatus LpdScanClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_PS_POR;
 	}
-
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -268,82 +261,82 @@ static XStatus LpdLbist(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 RegBitMask;
 
+	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
-	if (HOUSECLEAN_DISABLE_LBIST_MASK != (PwrDomain->HcDisableMask &
-			HOUSECLEAN_DISABLE_LBIST_MASK)) {
-		PmInfo("Triggering LBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
+	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
+		PmInfo("Skipping LBIST for LPD\r\n");
+		Status = XST_SUCCESS;
+		goto done;
+	}
 
-		if (NULL == EfuseCache) {
-			DbgErr = XPM_INT_ERR_INVALID_DEVICE;
-			Status = XST_FAILURE;
-			goto done;
-		}
+	PmInfo("Triggering LBIST for LPD\r\n");
 
-		/* Check if Lbist is enabled*/
-		RegAddr = EfuseCache->Node.BaseAddress + EFUSE_CACHE_MISC_CTRL_OFFSET;
-		RegVal = XPm_In32(RegAddr) & EFUSE_CACHE_MISC_CTRL_LBIST_EN_MASK;
-		/* Required for redundancy */
-		RegValTmp = XPm_In32(RegAddr) & EFUSE_CACHE_MISC_CTRL_LBIST_EN_MASK;
-		u32 LocalRegVal = RegValTmp; /* Copy volatile to local to avoid MISRA */
-		if ((EFUSE_CACHE_MISC_CTRL_LBIST_EN_MASK != RegVal) &&
-				(EFUSE_CACHE_MISC_CTRL_LBIST_EN_MASK != LocalRegVal)) {
-			Status = XST_SUCCESS;
-			goto done;
-		}
+	if (NULL == EfuseCache) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		Status = XST_FAILURE;
+		goto done;
+	}
 
-		/* Enable LBIST isolation */
-		RegBitMask = ((u32)PMC_ANALOG_LBIST_ISOLATION_EN_LPD_MASK |
+	/* Check if Lbist is enabled*/
+	RegAddr = EfuseCache->Node.BaseAddress + EFUSE_CACHE_MISC_CTRL_OFFSET;
+	RegVal = XPm_In32(RegAddr) & EFUSE_CACHE_MISC_CTRL_LBIST_EN_MASK;
+	/* Required for redundancy */
+	RegValTmp = XPm_In32(RegAddr) & EFUSE_CACHE_MISC_CTRL_LBIST_EN_MASK;
+	u32 LocalRegVal = RegValTmp; /* Copy volatile to local to avoid MISRA */
+	if ((EFUSE_CACHE_MISC_CTRL_LBIST_EN_MASK != RegVal) &&
+	    (EFUSE_CACHE_MISC_CTRL_LBIST_EN_MASK != LocalRegVal)) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/* Enable LBIST isolation */
+	RegBitMask = ((u32)PMC_ANALOG_LBIST_ISOLATION_EN_LPD_MASK |
 		      (u32)PMC_ANALOG_LBIST_ISOLATION_EN_LPD_RPU_MASK);
-		PmRmw32(PMC_ANALOG_LBIST_ISOLATION_EN, RegBitMask, RegBitMask);
-		/* Check that Lbist isolation Enabled */
-		PmChkRegMask32(PMC_ANALOG_LBIST_ISOLATION_EN, RegBitMask, RegBitMask, Status);
-		if (XPM_REG_WRITE_FAILED == Status) {
-			DbgErr = XPM_INT_ERR_REG_WRT_LPDLBIST_ISO_EN;
-			goto done;
-		}
+	PmRmw32(PMC_ANALOG_LBIST_ISOLATION_EN, RegBitMask, RegBitMask);
+	/* Check that Lbist isolation Enabled */
+	PmChkRegMask32(PMC_ANALOG_LBIST_ISOLATION_EN, RegBitMask, RegBitMask, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_LPDLBIST_ISO_EN;
+		goto done;
+	}
 
-		/* Trigger LBIST on LPD */
-		RegBitMask = ((u32)PMC_ANALOG_LBIST_ENABLE_LPD_MASK |
+	/* Trigger LBIST on LPD */
+	RegBitMask = ((u32)PMC_ANALOG_LBIST_ENABLE_LPD_MASK |
 		      (u32)PMC_ANALOG_LBIST_ENABLE_LPD_RPU_MASK);
-		PmRmw32(PMC_ANALOG_LBIST_ENABLE, RegBitMask, RegBitMask);
-		/* Check that Lbist triggered on LPD */
-		PmChkRegMask32(PMC_ANALOG_LBIST_ENABLE, RegBitMask, RegBitMask, Status);
-		if (XPM_REG_WRITE_FAILED == Status) {
-			DbgErr = XPM_INT_ERR_REG_WRT_LPDLBIST_ENABLE;
-			goto done;
-		}
+	PmRmw32(PMC_ANALOG_LBIST_ENABLE, RegBitMask, RegBitMask);
+	/* Check that Lbist triggered on LPD */
+	PmChkRegMask32(PMC_ANALOG_LBIST_ENABLE, RegBitMask, RegBitMask, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_LPDLBIST_ENABLE;
+		goto done;
+	}
 
-		/* Release LBIST reset */
-		RegBitMask = ((u32)PMC_ANALOG_LBIST_RST_N_LPD_MASK |
+	/* Release LBIST reset */
+	RegBitMask = ((u32)PMC_ANALOG_LBIST_RST_N_LPD_MASK |
 		      (u32)PMC_ANALOG_LBIST_RST_N_LPD_RPU_MASK);
-		PmRmw32(PMC_ANALOG_LBIST_RST_N, RegBitMask, RegBitMask);
-		/* Check that Lbist reset released */
-		PmChkRegMask32(PMC_ANALOG_LBIST_RST_N, RegBitMask, RegBitMask, Status);
-		if (XPM_REG_WRITE_FAILED == Status) {
-			DbgErr = XPM_INT_ERR_REG_WRT_LPDLBIST_RST_N;
-			goto done;
-		}
+	PmRmw32(PMC_ANALOG_LBIST_RST_N, RegBitMask, RegBitMask);
+	/* Check that Lbist reset released */
+	PmChkRegMask32(PMC_ANALOG_LBIST_RST_N, RegBitMask, RegBitMask, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_LPDLBIST_RST_N;
+		goto done;
+	}
 
-		Status = XPm_PollForMask(PMC_ANALOG_LBIST_DONE,
+	Status = XPm_PollForMask(PMC_ANALOG_LBIST_DONE,
 				 (PMC_ANALOG_LBIST_DONE_LPD_MASK |
 				  PMC_ANALOG_LBIST_DONE_LPD_RPU_MASK),
 				 XPM_POLL_TIMEOUT);
 
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_LBIST_DONE_TIMEOUT;
-			goto done;
-		}
-
-		/* Unwrite trigger bits */
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_LBIST_DONE_TIMEOUT;
+                goto done;
+        }
+	/* Unwrite trigger bits */
         PmRmw32(PMC_ANALOG_LBIST_ENABLE,
-			(PMC_ANALOG_LBIST_ENABLE_LPD_MASK |
-			 PMC_ANALOG_LBIST_ENABLE_LPD_RPU_MASK), 0);
-	} else {
-		/* LBIST is skipped */
-		PmInfo("Skipping LBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
-	}
+                (PMC_ANALOG_LBIST_ENABLE_LPD_MASK |
+                 PMC_ANALOG_LBIST_ENABLE_LPD_RPU_MASK), 0);
 
 	/*
 	 * Pulse PS POR
@@ -382,28 +375,22 @@ static XStatus LpdBisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		goto done;
 	}
 
-	if (HOUSECLEAN_DISABLE_BISR_MASK != (PwrDomain->HcDisableMask &
-			HOUSECLEAN_DISABLE_BISR_MASK)) {
-		PmInfo("Triggering BISR for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
+	PmInfo("Triggering BISR for LPD\r\n");
 
-		Status = XPmBisr_Repair(LPD_TAG_ID);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_BISR_REPAIR;
-			goto done;
-		}
+	Status = XPmBisr_Repair(LPD_TAG_ID);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_BISR_REPAIR;
+		goto done;
+	}
 
-		if (NULL == XramDevice) {
-			DbgErr = XPM_INT_ERR_INVALID_DEVICE;
-			goto done;
-		}
+	if (NULL == XramDevice) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		goto done;
+	}
 
-		Status = XPmBisr_Repair(XRAM_TAG_ID);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_XRAM_BISR_REPAIR;
-		}
-	} else {
-		/* BISR is skipped */
-		PmInfo("Skipping BISR for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
+	Status = XPmBisr_Repair(XRAM_TAG_ID);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_XRAM_BISR_REPAIR;
 	}
 
 done:
@@ -519,20 +506,20 @@ static XStatus LpdMbist(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 RegBitMask;
 	XPm_ClockNode *UsbClk, *Can0Clk, *Can1Clk;
-	u32 RegValue;
 
 	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
-	if (HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK == (PwrDomain->HcDisableMask &
-			HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK)) {
-		PmInfo("Skipping MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
+	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
+		PmInfo("Skipping MBIST for LPD\r\n");
 		Status = XST_SUCCESS;
 		goto done;
 	}
 
-	PmInfo("Triggering MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
+	PmInfo("Triggering MBIST for LPD\r\n");
+
+	u32 RegValue;
 
 	/* Pre bisr requirements - In case if Bisr is skipped */
 	Status = LpdPreBisrReqs();
@@ -702,9 +689,6 @@ XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd, u32 Id, u32 BaseAddress,
 		DbgErr = XPM_INT_ERR_INVALID_BASEADDR;
 		Status = XST_FAILURE;
 	}
-
-	/* Clear LPD section of PMC RAM register reserved for houseclean disable */
-	XPm_RMW32(PM_HOUSECLEAN_DISABLE_REG_1, PM_HOUSECLEAN_DISABLE_LPD_MASK, 0U);
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
