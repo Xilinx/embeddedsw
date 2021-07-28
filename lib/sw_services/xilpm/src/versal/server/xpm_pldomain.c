@@ -399,6 +399,7 @@ static XStatus PlHouseClean(u32 TriggerTime)
 	XStatus Status = XST_FAILURE;
 	const XPm_PlDomain *Pld;
 	u32 Value;
+	u32 Platform = XPm_GetPlatform();
 	u32 PlatformVersion = XPm_GetPlatformVersion();
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 DeviceType;
@@ -489,14 +490,13 @@ static XStatus PlHouseClean(u32 TriggerTime)
 		/* CRAM TRIM */
 		PldApplyTrim(XPM_PL_TRIM_CRAM);
 
-		if (HOUSECLEAN_DISABLE_PL_HC_MASK == (Pld->Domain.HcDisableMask &
-					HOUSECLEAN_DISABLE_PL_HC_MASK)) {
-			PmInfo("Skipping PL Houseclean, power node 0x%x\r\n", Pld->Domain.Power.Node.Id);
+		if (PLATFORM_VERSION_SILICON != Platform) {
+			PmInfo("Skipping PL houseclean\r\n");
 			Status = XST_SUCCESS;
 			goto done;
 		}
 
-		PmInfo("Running PL Houseclean, power node 0x%x\r\n", Pld->Domain.Power.Node.Id);
+		PmInfo("Running PL houseclean\r\n");
 
 		/* LAGUNA REPAIR */
 		/* Read PMC_TAP to check if device is SSIT device */
@@ -610,7 +610,6 @@ static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	u32 Platform = XPm_GetPlatform();
 	u32 IdCode = XPm_GetIdCode();
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	u32 DisableMask;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -620,13 +619,6 @@ static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	const XPm_Rail *VccauxRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCAUX);
 	const XPm_Rail *VccSocRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_SOC);
 	const XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
-
-	/* Get houseclean disable mask */
-	DisableMask = XPm_In32(PM_HOUSECLEAN_DISABLE_REG_2) >> HOUSECLEAN_PLD_SHIFT;
-
-	/* Set Houseclean Mask */
-	PwrDomain->HcDisableMask |= DisableMask;
-
 
 	/* If PL power is still not up, return error as PLD can't
 	   be initialized */
@@ -1002,7 +994,6 @@ static XStatus XPmPlDomain_InitandHouseclean(void)
 	volatile u32 PlatformTypeTmp = 0xFFU;
 	u32 PlatformVersion;
 	const XPm_Pmc *Pmc;
-	XPm_PlDomain *Pld;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	const XPm_Rail *VccintRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PL);
@@ -1053,19 +1044,15 @@ static XStatus XPmPlDomain_InitandHouseclean(void)
 	PlatformTypeTmp = XPm_GetPlatform();
 	u32 LocalPlatformType = PlatformTypeTmp; /* Copy volatile to local to avoid MISRA */
 
-	Pld = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
-	if (NULL == Pld) {
-		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
-		goto done;
-	}
-
 	/* Check if housecleaning needs to be bypassed */
-	if ( HOUSECLEAN_DISABLE_PL_HC_MASK == (Pld->Domain.HcDisableMask &
-				HOUSECLEAN_DISABLE_PL_HC_MASK)) {
+	if ((PLATFORM_VERSION_FCV == PlatformType) &&
+	    (PLATFORM_VERSION_FCV == LocalPlatformType)) {
 		PlpdHouseCleanBypass = 1;
 		PlpdHouseCleanBypassTmp = 1;
-		PmInfo("Enabling PL Houseclean bypass, power node 0x%x\r\n", Pld->Domain.Power.Node.Id);
+		PmInfo("Bypass PL Houseclean\r\n");
 	}
+
+	PmInfo("Running PL Houseclean\r\n");
 
 	/* Check for PL POR Status */
 	Status = XPm_PollForMask(Pmc->PmcGlobalBaseAddr +
@@ -1173,8 +1160,6 @@ static XStatus XPmPlDomain_InitandHouseclean(void)
 
 	u32 LocalPlpdHCBypass = PlpdHouseCleanBypassTmp; /* Copy volatile to local to avoid MISRA */
 	if ((0U == PlpdHouseCleanBypass) || (0U == LocalPlpdHCBypass)) {
-		PmInfo("Running PL Houseclean, power node 0x%x\r\n", Pld->Domain.Power.Node.Id);
-
 		XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (PlHouseClean), (PLHCLEAN_EARLY_BOOT));
 		/* Required for redundancy */
 		XStatus LocalStatus = StatusTmp; /* Copy volatile to local to avoid MISRA */
@@ -1226,9 +1211,6 @@ XStatus XPmPlDomain_Init(XPm_PlDomain *PlDomain, u32 Id, u32 BaseAddress,
 		DbgErr = XPM_INT_ERR_INVALID_BASEADDR;
 		Status = XST_FAILURE;
 	}
-
-	/* Clear PLD section of PMC RAM register reserved for houseclean disable */
-	XPm_RMW32(PM_HOUSECLEAN_DISABLE_REG_2, PM_HOUSECLEAN_DISABLE_PLD_MASK, 0U);
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
