@@ -2128,9 +2128,17 @@ void XHdmi_DisplayHdcpDebugMenu(void) {
 	xil_printf(" 5 - Set downstream capability to 2.2\r\n");
 	xil_printf(" 6 - Set downstream capability to both\r\n");
 	/*xil_printf(" 7 - Toggle downstream content blocking \r\n");*/
+	xil_printf(" 8 - Set user HDCP preference to 1.4\r\n");
+	xil_printf(" 9 - Set user HDCP preference to 2.2\r\n");
+	xil_printf(" 10 - Reset upstream user preference\r\n");
+	xil_printf(" 11 - Set user HDCP preference to NONE\r\n");
 #elif defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
 	xil_printf(" 1 - Set upstream capability to none\r\n");
 	xil_printf(" 2 - Set upstream capability to both\r\n");
+	xil_printf(" 3 - Set upstream user preference to 1.4\r\n");
+	xil_printf(" 4 - Set upstream user preference to 2.2\r\n");
+	xil_printf(" 5 - Reset upstream user preference\r\n");
+	xil_printf(" 6 - Set user HDCP preference to NONE\r\n");
 #elif defined (XPAR_XV_HDMITXSS_NUM_INSTANCES)
 	xil_printf(" 1 - Set downstream capability to none\r\n");
 	xil_printf(" 2 - Set downstream capability to 1.4\r\n");
@@ -2240,7 +2248,40 @@ static XHdmi_MenuType XHdmi_HdcpDebugMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			}
 			break;
 #endif
-
+#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
+#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
+		case 8:
+#else
+		case 3:
+#endif
+			XV_HdmiRxSs_SetUserHdcpProtocol(&HdmiRxSs,
+					XV_HDMIRXSS_HDCP_14);
+			break;
+#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
+		case 9:
+#else
+		case 4:
+#endif
+			XV_HdmiRxSs_SetUserHdcpProtocol(&HdmiRxSs,
+					XV_HDMIRXSS_HDCP_22);
+			break;
+#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
+		case 10:
+#else
+		case 5:
+#endif
+			XV_HdmiRxSs_SetUserHdcpProtocol(&HdmiRxSs,
+					XV_HDMIRXSS_HDCP_NOUSERPREF);
+			break;
+#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
+		case 11:
+#else
+		case 6:
+#endif
+			XV_HdmiRxSs_SetUserHdcpProtocol(&HdmiRxSs,
+					XV_HDMIRXSS_HDCP_NONE);
+			break;
+#endif
 			// Exit
 		case 99 :
 			xil_printf("Returning to main menu.\r\n");
