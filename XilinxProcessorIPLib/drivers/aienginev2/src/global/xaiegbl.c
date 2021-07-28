@@ -326,7 +326,8 @@ AieRC XAie_SetIOBackend(XAie_DevInst *DevInst, XAie_BackendType Backend)
 		return XAIE_INVALID_ARGS;
 	}
 
-	if(Backend >= XAIE_IO_BACKEND_MAX) {
+	if(Backend >= XAIE_IO_BACKEND_MAX ||
+		_XAie_GetBackendPtr(Backend) == NULL) {
 		XAIE_ERROR("Invalid backend request \n");
 		return XAIE_INVALID_ARGS;
 	}
