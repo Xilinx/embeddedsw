@@ -28,8 +28,11 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
+#include "xaie_feature_config.h"
 #include "xaie_helper.h"
 #include "xaie_mem.h"
+
+#ifdef XAIE_FEATURE_DATAMEM_ENABLE
 
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
@@ -339,4 +342,5 @@ AieRC XAie_DataMemBlockRead(XAie_DevInst *DevInst, XAie_LocType Loc, u32 Addr,
 	return XAIE_OK;
 }
 
+#endif /* XAIE_FEATURE_DATAMEM_ENABLE */
 /** @} */

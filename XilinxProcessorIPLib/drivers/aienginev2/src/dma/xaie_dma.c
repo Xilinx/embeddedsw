@@ -34,8 +34,11 @@
 /***************************** Include Files *********************************/
 #include <string.h>
 #include "xaie_dma.h"
+#include "xaie_feature_config.h"
 #include "xaie_helper.h"
 #include "xaiegbl_regdef.h"
+
+#ifdef XAIE_FEATURE_DMA_ENABLE
 
 /************************** Constant Definitions *****************************/
 #define XAIE_DMA_32BIT_TXFER_LEN			2U
@@ -2012,4 +2015,5 @@ AieRC XAie_DmaTlastDisable(XAie_DmaDesc *DmaDesc)
 	return XAIE_OK;
 }
 
+#endif /* XAIE_FEATURE_DMA_ENABLE */
 /** @} */

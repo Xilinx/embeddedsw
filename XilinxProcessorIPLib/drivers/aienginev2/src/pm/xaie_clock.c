@@ -23,7 +23,10 @@
 ******************************************************************************/
 /***************************** Include Files *********************************/
 #include "xaie_clock.h"
+#include "xaie_feature_config.h"
 #include "xaie_helper.h"
+
+#ifdef XAIE_FEATURE_PRIVILEGED_ENABLE
 
 /*****************************************************************************/
 /***************************** Macro Definitions *****************************/
@@ -122,4 +125,5 @@ u8 _XAie_PmIsTileRequested(XAie_DevInst *DevInst, XAie_LocType Loc)
 	return XAIE_DISABLE;
 }
 
+#endif /* XAIE_FEATURE_PRIVILEGED_ENABLE */
 /** @} */

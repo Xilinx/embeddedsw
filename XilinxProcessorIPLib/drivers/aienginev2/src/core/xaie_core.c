@@ -33,6 +33,9 @@
 /***************************** Include Files *********************************/
 #include "xaie_core.h"
 #include "xaie_events.h"
+#include "xaie_feature_config.h"
+
+#ifdef XAIE_FEATURE_CORE_ENABLE
 
 /************************** Constant Definitions *****************************/
 #define XAIETILE_CORE_STATUS_DEF_WAIT_USECS 500U
@@ -982,5 +985,7 @@ AieRC XAie_CoreProcessorBusDisable(XAie_DevInst *DevInst, XAie_LocType Loc)
 {
 	return _XAie_CoreProcessorBusConfig(DevInst, Loc, XAIE_DISABLE);
 }
+
+#endif /* XAIE_FEATURE_CORE_ENABLE */
 
 /** @} */

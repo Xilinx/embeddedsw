@@ -29,9 +29,12 @@
 #include <stdlib.h>
 
 #include "xaie_events.h"
+#include "xaie_feature_config.h"
 #include "xaie_helper.h"
 #include "xaie_timer.h"
 #include "xaiegbl.h"
+
+#ifdef XAIE_FEATURE_TIMER_ENABLE
 
 /*****************************************************************************/
 /***************************** Macro Definitions *****************************/
@@ -756,3 +759,5 @@ AieRC XAie_SyncTimer(XAie_DevInst *DevInst)
 
 	return XAIE_OK;
 }
+
+#endif /* XAIE_FEATURE_TIMER_ENABLE */

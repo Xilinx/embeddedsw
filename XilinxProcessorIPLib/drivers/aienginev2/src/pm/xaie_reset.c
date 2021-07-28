@@ -14,10 +14,13 @@
 ******************************************************************************/
 /***************************** Include Files *********************************/
 #include "xaie_clock.h"
+#include "xaie_feature_config.h"
 #include "xaie_helper.h"
 #include "xaie_npi.h"
 #include "xaie_reset.h"
 #include "xaiegbl.h"
+
+#ifdef XAIE_FEATURE_PRIVILEGED_ENABLE
 
 /*****************************************************************************/
 /***************************** Macro Definitions *****************************/
@@ -334,4 +337,5 @@ AieRC XAie_ClearPartitionMems(XAie_DevInst *DevInst)
 	return XAIE_OK;
 }
 
+#endif /* XAIE_FEATURE_PRIVILEGED_ENABLE */
 /** @} */
