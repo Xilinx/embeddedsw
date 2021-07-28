@@ -25,6 +25,7 @@
 
 /***************************** Include Files *********************************/
 #include "xaiegbl.h"
+#include "xaie_feature_config.h"
 
 /***************************** Macro Definitions *****************************/
 /**************************** Type Definitions *******************************/
@@ -72,7 +73,7 @@ typedef struct {
 } __attribute__((packed, aligned(4))) XAie_UserRscStat;
 
 /************************** Function Prototypes  *****************************/
-#ifdef XAIE_RSC_DISABLE
+#ifndef XAIE_FEATURE_RSC_ENABLE
 /* Performance counter resource management APIs */
 static inline AieRC XAie_RequestPerfcnt(XAie_DevInst *DevInst, u32 NumTiles,
 		XAie_UserRscReq *RscReq, u32 UserRscNum, XAie_UserRsc *Rscs) {
@@ -341,7 +342,7 @@ static inline AieRC XAie_GetAvailRscStat(XAie_DevInst *DevInst, u32 NumRscStat,
 	(void)RscStats;
 	return XAIE_FEATURE_NOT_SUPPORTED;
 }
-#else /* !XAIE_RSC_DISABLE */
+#else /* !XAIE_FEATURE_RSC_ENABLE */
 
 /* Performance counter resource management APIs */
 AieRC XAie_RequestPerfcnt(XAie_DevInst *DevInst, u32 NumTiles,
@@ -447,5 +448,5 @@ AieRC XAie_GetStaticRscStat(XAie_DevInst *DevInst, u32 NumRscStat,
 		XAie_UserRscStat *RscStats);
 AieRC XAie_GetAvailRscStat(XAie_DevInst *DevInst, u32 NumRscStat,
 		XAie_UserRscStat *RscStats);
-#endif /* XAIE_RSC_DISABLE */
+#endif /* XAIE_FEATURE_RSC_ENABLE */
 #endif		/* end of protection macro */

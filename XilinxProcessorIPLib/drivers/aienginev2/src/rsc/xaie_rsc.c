@@ -22,13 +22,15 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
-#ifndef XAIE_RSC_DISABLE
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "xaie_feature_config.h"
 #include "xaie_rsc.h"
 #include "xaie_rsc_internal.h"
 #include "xaie_helper.h"
+
+#ifdef XAIE_FEATURE_RSC_ENABLE
 /*****************************************************************************/
 /***************************** Macro Definitions *****************************/
 #define XAIE_TRACE_CTRL_RSCS_PER_MOD	1U
@@ -1457,6 +1459,6 @@ AieRC XAie_GetAvailRscStat(XAie_DevInst *DevInst, u32 NumRscStat,
 			XAIE_BACKEND_RSC_STAT_AVAIL);
 }
 
-#endif /* !XAIE_RSC_DISABLE */
+#endif /* XAIE_FEATURE_RSC_ENABLE */
 
 /** @} */
