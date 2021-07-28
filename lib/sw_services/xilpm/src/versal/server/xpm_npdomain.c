@@ -347,8 +347,13 @@ static XStatus NpdMbist(const u32 *Args, u32 NumOfArgs)
 	}
 
 	/* Trigger Mem clear */
+	/*TODO: Recognise NSU nodes using node type from node structure*/
 	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {
-		if (0U == NpdMemIcAddresses[i]) {
+		if ((((u32)XPM_NODEIDX_MEMIC_NSU_MIN1 <= i) &&
+		     ((u32)XPM_NODEIDX_MEMIC_NSU_MAX1 >= i)) ||
+		    (((u32)XPM_NODEIDX_MEMIC_NSU_MIN2 <= i) &&
+		     ((u32)XPM_NODEIDX_MEMIC_NSU_MAX2 >= i)) ||
+		    (0U == NpdMemIcAddresses[i])) {
 			continue;
 		}
 
