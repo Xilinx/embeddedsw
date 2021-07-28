@@ -24,6 +24,7 @@
 #define XAIE_RSC_INTERNAL_H
 
 /***************************** Include Files *********************************/
+#include "xaie_feature_config.h"
 #include "xaiegbl.h"
 
 /************************** Macro Definitions ********************************/
@@ -39,7 +40,7 @@ typedef struct {
 } XAie_BitmapOffsets;
 
 /************************** Function Prototypes  *****************************/
-#ifdef XAIE_RSC_DISABLE
+#ifndef XAIE_FEATURE_RSC_ENABLE
 /* Global resource management APIs */
 static inline AieRC _XAie_RscMgrInit(XAie_DevInst *DevInst) {
 	(void) DevInst;

@@ -24,6 +24,7 @@
 /***************************** Include Files *********************************/
 #include <stdlib.h>
 
+#include "xaie_feature_config.h"
 #include "xaie_io.h"
 #include "xaie_helper.h"
 #include "xaie_rsc_internal.h"
@@ -32,7 +33,7 @@
 #define XAIE_BROADCAST_CHANNEL_MASK     0xFFFF
 
 /************************** Function Definitions *****************************/
-#ifndef XAIE_RSC_DISABLE
+#ifdef XAIE_FEATURE_RSC_ENABLE
 /*****************************************************************************/
 /**
 * This API finds free resource after checking static and runtime allocated
@@ -612,7 +613,7 @@ AieRC _XAie_GetRscStatCommon(XAie_DevInst *DevInst, XAie_BackendRscStat *Arg)
 
 	return XAIE_OK;
 }
-#endif /* !XAIE_RSC_DISABLE */
+#endif /* XAIE_FEATURE_RSC_ENABLE */
 
 /*****************************************************************************/
 /**

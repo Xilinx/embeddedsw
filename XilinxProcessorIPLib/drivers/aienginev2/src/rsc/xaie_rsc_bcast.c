@@ -22,14 +22,16 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
-#ifndef XAIE_RSC_DISABLE
 #include <stdlib.h>
 
 #include "xaie_clock.h"
+#include "xaie_feature_config.h"
 #include "xaie_helper.h"
 #include "xaie_io.h"
 #include "xaie_rsc.h"
 #include "xaie_rsc_internal.h"
+
+#ifdef XAIE_FEATURE_RSC_ENABLE
 /*****************************************************************************/
 /***************************** Macro Definitions *****************************/
 /************************** Function Definitions *****************************/
@@ -268,6 +270,6 @@ AieRC XAie_ReleaseBroadcastChannel(XAie_DevInst *DevInst, u32 UserRscNum,
 	return _XAie_RscMgr_ReleaseRscs(DevInst, UserRscNum, Rscs,
 			XAIE_BCAST_CHANNEL_RSC);
 }
-#endif /* !XAIE_RSC_DISABLE */
+#endif /* XAIE_FEATURE_RSC_ENABLE */
 
 /** @} */
