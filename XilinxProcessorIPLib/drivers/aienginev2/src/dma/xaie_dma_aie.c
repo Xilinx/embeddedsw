@@ -22,10 +22,13 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
+#include "xaie_feature_config.h"
 #include "xaie_helper.h"
 #include "xaie_io.h"
 #include "xaiegbl.h"
 #include "xaiegbl_regdef.h"
+
+#ifdef XAIE_FEATURE_DMA_ENABLE
 
 /************************** Constant Definitions *****************************/
 #define XAIE_DMA_TILEDMA_2DX_DEFAULT_INCR		0U
@@ -764,5 +767,7 @@ AieRC _XAie_DmaSetBdIteration(XAie_DmaDesc *DmaDesc, u32 StepSize, u8 Wrap,
 
 	return XAIE_FEATURE_NOT_SUPPORTED;
 }
+
+#endif /* XAIE_FEATURE_DMA_ENABLE */
 
 /** @} */

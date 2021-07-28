@@ -14,9 +14,12 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
+#include "xaie_feature_config.h"
 #include "xaie_helper.h"
 #include "xaie_npi.h"
 #include "xaiegbl.h"
+
+#ifdef XAIE_FEATURE_PRIVILEGED_ENABLE
 
 /************************** Constant Definitions *****************************/
 #define XAIE2_NPI_PCSR_UNLOCK_CODE			0xF9E8D7C6U
@@ -116,4 +119,5 @@ static AieRC _XAie2_NpiSetProtectedRegField(XAie_DevInst *DevInst,
 	return XAIE_OK;
 }
 
+#endif /* XAIE_FEATURE_PRIVILEGED_ENABLE */
 /** @} */

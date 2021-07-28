@@ -13,9 +13,12 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
+#include "xaie_feature_config.h"
 #include "xaie_helper.h"
 #include "xaie_npi.h"
 #include "xaiegbl.h"
+
+#ifdef XAIE_FEATURE_PRIVILEGED_ENABLE
 
 /*****************************************************************************/
 /***************************** Macro Definitions *****************************/
@@ -67,4 +70,6 @@ AieRC _XAieMl_RstShims(XAie_DevInst *DevInst, u32 StartCol, u32 NumCols)
 
 	return XAIE_OK;
 }
+
+#endif /* XAIE_FEATURE_PRIVILEGED_ENABLE */
 /** @} */

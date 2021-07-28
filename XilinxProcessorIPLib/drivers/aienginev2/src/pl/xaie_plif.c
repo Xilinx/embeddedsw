@@ -25,9 +25,12 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
+#include "xaie_feature_config.h"
 #include "xaie_plif.h"
 #include "xaiegbl_defs.h"
 #include "xaie_helper.h"
+
+#ifdef XAIE_FEATURE_PL_ENABLE
 
 /************************** Constant Definitions *****************************/
 #define XAIE_PLIF_WIDTH_64SHIFT 6U
@@ -850,4 +853,5 @@ AieRC XAie_EnableAieToPlStrmPort(XAie_DevInst *DevInst, XAie_LocType Loc,
 			XAIE_MUX_DEMUX_CONFIG_TYPE_PL);
 }
 
+#endif /* XAIE_FEATURE_PL_ENABLE */
 /** @} */

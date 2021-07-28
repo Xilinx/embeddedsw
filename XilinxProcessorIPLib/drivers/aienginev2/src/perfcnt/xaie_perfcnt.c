@@ -27,8 +27,11 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
+#include "xaie_feature_config.h"
 #include "xaie_perfcnt.h"
 #include "xaie_events.h"
+
+#ifdef XAIE_FEATURE_PERFCOUNT_ENABLE
 
 /*****************************************************************************/
 /***************************** Macro Definitions *****************************/
@@ -777,3 +780,5 @@ AieRC XAie_PerfCounterGetEventBase(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 	return RC;
 }
+
+#endif /* XAIE_FEATURE_PERFCOUNT_ENABLE */

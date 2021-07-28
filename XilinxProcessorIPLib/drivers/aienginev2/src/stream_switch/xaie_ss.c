@@ -34,8 +34,11 @@
 ******************************************************************************/
 /***************************** Include Files *********************************/
 #include "xaie_events.h"
+#include "xaie_feature_config.h"
 #include "xaie_helper.h"
 #include "xaie_ss.h"
+
+#ifdef XAIE_FEATURE_SS_ENABLE
 
 /************************** Constant Definitions *****************************/
 #define XAIE_SS_MASTER_PORT_ARBITOR_LSB		0U
@@ -1024,4 +1027,5 @@ AieRC XAie_StrmSwDeterministicMergeDisable(XAie_DevInst *DevInst,
 			XAIE_DISABLE);
 }
 
+#endif /* XAIE_FEATURE_SS_ENABLE */
 /** @} */

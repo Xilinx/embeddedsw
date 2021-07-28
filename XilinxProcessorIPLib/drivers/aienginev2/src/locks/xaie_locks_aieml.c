@@ -24,9 +24,12 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
+#include "xaie_feature_config.h"
 #include "xaie_helper.h"
 #include "xaie_locks.h"
 #include "xaiegbl_defs.h"
+
+#ifdef XAIE_FEATURE_LOCK_ENABLE
 /************************** Constant Definitions *****************************/
 #define XAIEML_LOCK_VALUE_MASK		0x7F
 #define XAIEML_LOCK_VALUE_SHIFT		0x2
@@ -160,4 +163,5 @@ AieRC _XAieMl_LockSetValue(XAie_DevInst *DevInst, const XAie_LockMod *LockMod,
 	return XAie_Write32(DevInst, RegAddr, RegVal);
 }
 
+#endif /* XAIE_FEATURE_LOCK_ENABLE */
 /** @} */

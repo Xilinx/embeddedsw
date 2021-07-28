@@ -13,9 +13,12 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
+#include "xaie_feature_config.h"
 #include "xaie_helper.h"
 #include "xaie_npi.h"
 #include "xaiegbl.h"
+
+#ifdef XAIE_FEATURE_PRIVILEGED_ENABLE
 
 /************************** Constant Definitions *****************************/
 /****************************** Type Definitions *****************************/
@@ -299,4 +302,5 @@ AieRC _XAie_NpiIrqDisable(XAie_DevInst *DevInst, u8 NpiIrqID, u8 AieIrqID)
 	return _XAie_NpiIrqConfig(DevInst, XAIE_DISABLE, NpiIrqID, AieIrqID);
 }
 
+#endif /* XAIE_FEATURE_PRIVILEGED_ENABLE */
 /** @} */

@@ -21,10 +21,12 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
+#include "xaie_feature_config.h"
 #include "xaie_helper.h"
 #include "xaie_clock.h"
 #include "xaie_tilectrl.h"
 
+#ifdef XAIE_FEATURE_PRIVILEGED_ENABLE
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
 /**
@@ -495,4 +497,5 @@ AieRC _XAie_RequestTiles(XAie_DevInst *DevInst, XAie_BackendTilesArray *Args)
 	return XAIE_OK;
 }
 
+#endif /* XAIE_FEATURE_PRIVILEGED_ENABLE */
 /** @} */
