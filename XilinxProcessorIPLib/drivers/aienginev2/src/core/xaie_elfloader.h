@@ -22,10 +22,11 @@
 * </pre>
 *
 ******************************************************************************/
-#ifndef XAIE_ELF_LOADER_DISABLE
-
 #ifndef XAIELOADER_H
 #define XAIELOADER_H
+
+#include "xaie_feature_config.h"
+#ifdef XAIE_FEATURE_ELF_ENABLE
 
 /***************************** Include Files *********************************/
 #include <elf.h>
@@ -54,7 +55,7 @@ AieRC XAie_LoadElfSection(XAie_DevInst *DevInst, XAie_LocType Loc,
 AieRC XAie_LoadElfSectionBlock(XAie_DevInst *DevInst, XAie_LocType Loc,
 		const unsigned char* SectionPtr, u64 TgtAddr, u32 Size);
 
-#endif		/* end of protection macro */
+#endif /* XAIE_FEATURE_ELF_ENABLE */
 
-#endif /* XAIE_ELF_LOADER_DISABLE */
+#endif		/* end of protection macro */
 /** @} */
