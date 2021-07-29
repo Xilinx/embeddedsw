@@ -8,19 +8,21 @@
 *
 * @file xsysmonpsv_sinit.c
 * @addtogroup sysmonpsv_v2_4
+* @{
 *
 * Functions in this file are the minimum required functions for the XSysMonPsv
 * driver. See xsysmonpsv.h for a detailed description of the driver.
 *
-* @note		None.
+* @note         None.
 *
 * <pre>
 *
 * MODIFICATION HISTORY:
 *
-* Ver   Who    Date	    Changes
+* Ver   Who    Date         Changes
 * ----- -----  -------- -----------------------------------------------
 * 1.0   aad    20/11/18 First release.
+* 2.4   aad    07/26/21 Fixed doxygen comments.
 *
 * </pre>
 *
@@ -40,7 +42,8 @@
 /************************** Function Prototypes *****************************/
 
 /************************** Variable Definitions ****************************/
-extern XSysMonPsv_Config XSysMonPsv_ConfigTable[];
+extern XSysMonPsv_Config XSysMonPsv_ConfigTable[];      /**< Config Table for
+                                                          sysmon device */
 
 /*****************************************************************************/
 /**
@@ -49,22 +52,20 @@ extern XSysMonPsv_Config XSysMonPsv_ConfigTable[];
 * ID. The table XSysmonPsu_ConfigTable[] contains the configuration information
 * for each device in the system.
 *
-* @param	None.
+* @return       A pointer to the configuration table entry corresponding to the
+*               given device , or NULL if no match is found.
 *
-* @return	A pointer to the configuration table entry corresponding to the
-*		given device , or NULL if no match is found.
-*
-* @note		None.
+* @note         None.
 *
 ******************************************************************************/
 XSysMonPsv_Config *XSysMonPsv_LookupConfig(void)
 {
-	XSysMonPsv_Config *CfgPtr = NULL;
-	u32 Index;
+        XSysMonPsv_Config *CfgPtr = NULL;
+        u32 Index;
 
-	for (Index = 0U; Index < (u32)XPAR_XSYSMONPSV_NUM_INSTANCES; Index++) {
-			CfgPtr = &XSysMonPsv_ConfigTable[Index];
-	}
+        for (Index = 0U; Index < (u32)XPAR_XSYSMONPSV_NUM_INSTANCES; Index++) {
+                        CfgPtr = &XSysMonPsv_ConfigTable[Index];
+        }
 
-	return CfgPtr;
+        return CfgPtr;
 }
