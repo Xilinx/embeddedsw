@@ -126,10 +126,10 @@ u8 _XAie_GetTTypefromLoc(XAie_DevInst *DevInst, XAie_LocType Loc)
 
 		return XAIEGBL_TILE_TYPE_SHIMNOC;
 
-	} else if(Loc.Row >= DevInst->ReservedRowStart &&
-			(Loc.Row < (DevInst->ReservedRowStart +
-				     DevInst->ReservedNumRows))) {
-		return XAIEGBL_TILE_TYPE_RESERVED;
+	} else if(Loc.Row >= DevInst->MemTileRowStart &&
+			(Loc.Row < (DevInst->MemTileRowStart +
+				     DevInst->MemTileNumRows))) {
+		return XAIEGBL_TILE_TYPE_MEMTILE;
 	} else if (Loc.Row >= DevInst->AieTileRowStart &&
 			(Loc.Row < (DevInst->AieTileRowStart +
 				     DevInst->AieTileNumRows))) {
