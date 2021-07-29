@@ -7,7 +7,7 @@
 /**
 *
 * @file xsysmonpsv_sinit.c
-* @addtogroup sysmonpsv_v2_4
+* @addtogroup sysmonpsv_v2_3
 * @{
 *
 * Functions in this file are the minimum required functions for the XSysMonPsv
@@ -22,7 +22,7 @@
 * Ver   Who    Date         Changes
 * ----- -----  -------- -----------------------------------------------
 * 1.0   aad    20/11/18 First release.
-* 2.4   aad    07/26/21 Fixed doxygen comments.
+* 2.3   aad    07/26/21 Fixed doxygen comments.
 *
 * </pre>
 *
