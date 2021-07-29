@@ -1087,7 +1087,7 @@ static XAie_ModuleType _XAie_GetModTypefromModIndex(u8 TileType, u8 ModIndex)
 
 				break;
 			}
-		case XAIEGBL_TILE_TYPE_RESERVED:
+		case XAIEGBL_TILE_TYPE_MEMTILE:
 			{
 				if(ModIndex == 0U)
 					return XAIE_MEM_MOD;
