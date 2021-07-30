@@ -8,7 +8,7 @@
 /**
 *
 * @file xcfupmc_sinit.c
-* @addtogroup cfupmc_v1_2
+* @addtogroup cfupmc_v1_3
 * @{
 *
 * This file contains static initialization methods for Xilinx CFU core.
