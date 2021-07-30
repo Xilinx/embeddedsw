@@ -1816,8 +1816,7 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType,
 
 	switch (SubType) {
 	case PM_SHUTDOWN_SUBTYPE_RST_SUBSYSTEM:
-
-		Status = XPmSubsystem_Restart(SubsystemId);
+		Status = XPmSubsystem_ForcePwrDwn(SubsystemId);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
