@@ -30,6 +30,7 @@
 *       bsv  07/18/2021 Print PLM banner at the beginning of PLM execution
 *       kc   07/22/2021 Issue internal POR for VP1802 ES1 devices
 *       bsv  07/24/2021 Clear RTC area at the beginning of PLM
+*       rb   07/28/2021 Check Efuse DNA_57 bit before issuing internal POR
 *
 * </pre>
 *
@@ -55,6 +56,7 @@
 
 /************************** Function Prototypes ******************************/
 static int XPlm_Init(void);
+static void XPlm_PerformInternalPOR(void);
 
 /************************** Variable Definitions *****************************/
 
@@ -97,8 +99,57 @@ int main(void)
 	}
 	Status = XST_FAILURE;
 
-END:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function check conditions and perform internal POR
+ * 		for VP1802 and VP1502 device if required.
+ *
+ * @return	None.
+ *
+ *****************************************************************************/
+static void XPlm_PerformInternalPOR(void)
+{
+	u32 IdCode = XPlmi_In32(PMC_TAP_IDCODE) &
+			PMC_TAP_IDCODE_SIREV_DVCD_MASK;
+	u32 ResetReason = XPlmi_In32(CRP_RESET_REASON);
+	u32 SlrType = XPlmi_In32(PMC_TAP_SLR_TYPE) & PMC_TAP_SLR_TYPE_VAL_MASK;
+	u32 DnaBit = XPlmi_In32(EFUSE_CACHE_DNA_1) &
+			EFUSE_CACHE_DNA_1_BIT25_MASK;
+	PdiSrc_t BootMode = XLoader_GetBootMode();
+
+	if ((IdCode != PMC_TAP_IDCODE_ES1_VP1802) &&
+		(IdCode != PMC_TAP_IDCODE_ES1_VP1502)) {
+		/* Not a VP1802 Or VP1502 device */
+		goto END;
+	}
+
+	if (SlrType != XLOADER_SSIT_MASTER_SLR) {
+		/* Not a Master SLR */
+		goto END;
+	}
+
+	if ((BootMode == XLOADER_PDI_SRC_JTAG) ||
+		(BootMode == XLOADER_PDI_SRC_SMAP)) {
+		/* Bootmode check failed for IPOR of VP1502/VP1802 device */
+		goto END;
+	}
+
+	if (DnaBit == 0x00U) {
+		/* Efuse DNA_57 bit should be non-zero for IPOR */
+		goto END;
+	}
+
+	/* All the pre-conditions are met to do IPOR of VP1502/VP1802 device */
+	if (ResetReason == CRP_RESET_REASON_EXT_POR_MASK) {
+		usleep(PLM_VP1802_POR_SETTLE_TIME);
+		XPlmi_PORHandler();
+	}
+
+END:
+	return;
 }
 
 /*****************************************************************************/
@@ -114,10 +165,6 @@ static int XPlm_Init(void)
 	int Status = XST_FAILURE;
 	u32 PmcVersion = XPlmi_In32(PMC_TAP_VERSION) &
 			PMC_TAP_VERSION_PMC_VERSION_MASK;
-	u32 IdCode = XPlmi_In32(PMC_TAP_IDCODE);
-	u32 ResetReason = XPlmi_In32(CRP_RESET_REASON);
-	u32 SlrType = XPlmi_In32(PMC_TAP_SLR_TYPE) & PMC_TAP_SLR_TYPE_VAL_MASK;
-	PdiSrc_t BootMode = XLoader_GetBootMode();
 
 	/**
 	 * Disable CFRAME isolation for VCCRAM for ES1 Silicon
@@ -158,18 +205,8 @@ static int XPlm_Init(void)
 		goto END;
 	}
 
-	if (((IdCode & PMC_TAP_IDCODE_SIREV_DVCD_MASK) ==
-	     PMC_TAP_IDCODE_ES1_VP1802) &&
-	    (SlrType == XLOADER_SSIT_MASTER_SLR) &&
-	    ((BootMode != XLOADER_PDI_SRC_JTAG) &&
-	     (BootMode != XLOADER_PDI_SRC_SMAP))) {
-		if (SlrType == XLOADER_SSIT_MASTER_SLR) {
-			usleep(PLM_VP1802_POR_SETTLE_TIME);
-		}
-		if (ResetReason == CRP_RESET_REASON_EXT_POR_MASK) {
-			XPlmi_PORHandler();
-		}
-	}
+	/** Do Internal POR if any specific case */
+	XPlm_PerformInternalPOR();
 
 	/** Initialize the tasks lists */
 	XPlmi_TaskInit();
