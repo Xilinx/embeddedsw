@@ -487,6 +487,7 @@ static void HdmiRx1_VtdIntrHandler(XV_HdmiRx1 *InstancePtr)
 	const XVidC_VideoTimingMode *VidEntry;
 	u8 Vic;
 	XVidC_VideoTiming *BaseTiming;
+	u8 Error = FALSE;
 
 	if ((InstancePtr->VrrIF.VrrIfType == XV_HDMIC_VRRINFO_TYPE_VTEM) &&
 			(InstancePtr->VrrIF.VidTimingExtMeta.VRREnabled)) {
@@ -612,33 +613,68 @@ static void HdmiRx1_VtdIntrHandler(XV_HdmiRx1 *InstancePtr)
 			                                 InstancePtr->Stream.Video.PixPerClk);
 			        }
 
-				/*
-				* If the color format is YUV 420 and horizontal parameters are
-				* divisible by 8 or in case of other color formats, horizontal
-				* parameters are divisble by 4, print error message at rate
-				* limited and return with failure.
-				*/
-				if (((InstancePtr->Stream.Video.ColorFormatId ==
-					XVIDC_CSF_YCRCB_420) &&
-					((InstancePtr->Stream.Video.Timing.HTotal % 8) ||
-					 (InstancePtr->Stream.Video.Timing.HActive % 8))) ||
-					(InstancePtr->Stream.Video.Timing.HTotal % 4) ||
-					(InstancePtr->Stream.Video.Timing.HActive % 4) ||
-					(InstancePtr->Stream.Video.Timing.HSyncWidth % 4)) {
+				/* Video Interface can be only one of 0, 1 or 2 */
+				Xil_AssertVoid(InstancePtr->SubsysVidIntfc == 0 ||
+					       InstancePtr->SubsysVidIntfc == 1 ||
+					       InstancePtr->SubsysVidIntfc == 2);
 
-						if (!(InstancePtr->IsErrorPrintCount%500)) {
-							xil_printf(ANSI_COLOR_YELLOW "[ERROR] Resolution: %dx%d@%dHz,"\
-							"%s,%dbpc is not supported in %d Pixel per Clock Mode. \r\n"ANSI_COLOR_RESET,
-							InstancePtr->Stream.Video.Timing.HActive,
-							InstancePtr->Stream.Video.Timing.VActive,
-							InstancePtr->Stream.Video.FrameRate,
-							XVidC_GetColorFormatStr(InstancePtr->Stream.Video.ColorFormatId),
-							InstancePtr->Stream.Video.ColorDepth,
-							InstancePtr->Stream.Video.PixPerClk
-							);
-							InstancePtr->IsErrorPrintCount = 0;
+				if (InstancePtr->SubsysVidIntfc == 0) {
+					/* AXI4 Stream Interface */
+					/* PPC can only be 4 or 8 */
+					Xil_AssertVoid(InstancePtr->SubsysPpc == XVIDC_PPC_4 ||
+						       InstancePtr->SubsysPpc == XVIDC_PPC_8);
+					if (InstancePtr->SubsysPpc == XVIDC_PPC_4) {
+						if (InstancePtr->Stream.Video.ColorFormatId != XVIDC_CSF_YCRCB_420) {
+							/* for RGB/YUV444/YUV422 */
+							if (InstancePtr->Stream.Video.Timing.HActive % 4)
+								Error = TRUE;
+						} else {
+							/* for YUV420 */
+							if (InstancePtr->Stream.Video.Timing.HActive % 8)
+								Error = TRUE;
 						}
-						InstancePtr->IsErrorPrintCount++;
+					} else {
+						/* 8PPC case for all color formats */
+						if (InstancePtr->Stream.Video.Timing.HActive % 8)
+							Error = TRUE;
+					}
+				} else if (InstancePtr->SubsysVidIntfc == 1) {
+					/* Native Interface support only 4 ppc */
+					Xil_AssertVoid(InstancePtr->SubsysPpc == XVIDC_PPC_4);
+
+					if (InstancePtr->SubsysPpc == XVIDC_PPC_4) {
+						if (InstancePtr->Stream.Video.ColorFormatId != XVIDC_CSF_YCRCB_420) {
+							/* for RGB/YUV444/YUV422 */
+							if ((InstancePtr->Stream.Video.Timing.HActive % 4) ||
+							    (InstancePtr->Stream.Video.Timing.HSyncWidth % 4) ||
+							    (InstancePtr->Stream.Video.Timing.HTotal % 4))
+								Error = TRUE;
+						} else {
+							/* for YUV 420 */
+							if ((InstancePtr->Stream.Video.Timing.HActive % 8) ||
+							    (InstancePtr->Stream.Video.Timing.HTotal % 8))
+								Error = TRUE;
+						}
+					}
+				} else if (InstancePtr->SubsysVidIntfc == 2) {
+					/* Native DE Interface support only 4 ppc */
+					Xil_AssertVoid(InstancePtr->SubsysPpc == XVIDC_PPC_4);
+				}
+
+				if (Error) {
+					if (!(InstancePtr->IsErrorPrintCount % 500)) {
+						xil_printf(ANSI_COLOR_YELLOW "[ERROR] Resolution: %dx%d@%dHz,"\
+							   "%s,%dbpc is not supported in %d Pixel per Clock Mode. \r\n"ANSI_COLOR_RESET,
+							   InstancePtr->Stream.Video.Timing.HActive,
+							   InstancePtr->Stream.Video.Timing.VActive,
+							   InstancePtr->Stream.Video.FrameRate,
+							   XVidC_GetColorFormatStr(InstancePtr->Stream.Video.ColorFormatId),
+							   InstancePtr->Stream.Video.ColorDepth,
+							   InstancePtr->Stream.Video.PixPerClk
+							  );
+						InstancePtr->IsErrorPrintCount = 0;
+					}
+					InstancePtr->IsErrorPrintCount++;
 				} else {
 					/* Enable AXI Stream output */
 					XV_HdmiRx1_AxisEnable(InstancePtr, (TRUE));

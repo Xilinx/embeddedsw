@@ -438,6 +438,8 @@ typedef struct {
 	u8 IsFirstVtemReceived;
 	u8  DBMessage;					/**< Debug Message for Logs */
 	u16  IsErrorPrintCount;      /**< Error Print is completed */
+	u8 SubsysVidIntfc;			/**< Video Interface 0 - AXI4S, 1 - Native, 2 - Native DE */
+	XVidC_PixelsPerClock SubsysPpc;		/**< Subsystem Pixels per clock */
 } XV_HdmiRx1;
 
 /***************** Macros (Inline Functions) Definitions *********************/
