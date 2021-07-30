@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,7 @@
 *       sk   03/13/19 Added dual parallel support and QPI support for 24bit
 *                     boot mode for Macronix flash parts.
 * 5.0   bsv  11/15/20 Added Macronix 2G flash support
+* 6.0   bsv  07/29/21 Added Winbond 2G flash support
 *
 * </pre>
 *
@@ -126,6 +127,9 @@ extern "C" {
 #define FLASH_SIZE_16MB			(0x1000000U)
 #define BANKSIZE			(FLASH_SIZE_16MB)
 #define SINGLEBANKSIZE			BANKSIZE
+#define FLASH_SIZE_64MB			(0x4000000U)
+#define WINBOND_BANKSIZE		FLASH_SIZE_64MB
+#define WINBOND_BANKMASK		(~(WINBOND_BANKSIZE - 1U))
 
 /*
  * Bank mask

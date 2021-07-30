@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,7 @@
 *       sk   03/13/19 Added dual parallel support and QPI support for 24bit
 *                     boot mode for Macronix flash parts.
 * 5.0   bsv  11/15/20 Added Macronix 2G flash support
+* 6.0   bsv  07/29/21 Added Winbond 2G flash support
 *
 * </pre>
 *
@@ -1193,6 +1194,9 @@ u32 XFsbl_Qspi32Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 	u32 TransferBytes;
 	u32 DiscardByteCnt;
 	u32 UStatus;
+	u32 BankSize;
+	u32 BankMask;
+	u32 OrigAddr;
 
 	XFsbl_Printf(DEBUG_INFO,"QSPI Reading Src 0x%0lx, Dest %0lx, Length %0lx\r\n",
 			SrcAddress, DestAddress, Length);
@@ -1207,7 +1211,20 @@ u32 XFsbl_Qspi32Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 		goto END;
 	}
 
+	if (QspiFlashMake == WINBOND_ID) {
+		BankSize = WINBOND_BANKSIZE;
+		BankMask = WINBOND_BANKMASK;
+	}
+	else {
+		BankSize = BANKSIZE;
+		BankMask = BANKMASK;
+	}
 
+	if (QspiPsuInstance.Config.ConnectionMode ==
+	    XQSPIPSU_CONNECTION_MODE_PARALLEL){
+		BankSize *=  2U;
+		BankMask *=  2U;
+	}
 	/**
 	 * Update no of bytes to be copied
 	 */
@@ -1227,6 +1244,30 @@ u32 XFsbl_Qspi32Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 		 * If stacked assert the slave select based on address
 		 */
 		QspiAddr = XFsbl_GetQspiAddr((u32 )SrcAddress);
+		if (QspiFlashMake == WINBOND_ID) {
+			/**
+			 * Multiply address by 2 in case of Dual Parallel
+			 * This address is used to calculate the bank crossing
+			 * condition
+			 */
+			if (QspiPsuInstance.Config.ConnectionMode ==
+				XQSPIPSU_CONNECTION_MODE_PARALLEL){
+				OrigAddr = QspiAddr * 2U;
+			} else {
+				OrigAddr = QspiAddr;
+			}
+
+			/**
+			 * If data to be read spans beyond the current die, then
+			 * calculate Transfer Bytes in current die. Else
+			 * transfer bytes are same
+			 */
+			if ((OrigAddr & BankMask) != ((OrigAddr + TransferBytes)
+					& BankMask)) {
+				TransferBytes = (OrigAddr & BankMask) + BankSize
+					- OrigAddr;
+			}
+		}
 
 		XFsbl_Printf(DEBUG_INFO,".");
 		XFsbl_Printf(DEBUG_DETAILED,
