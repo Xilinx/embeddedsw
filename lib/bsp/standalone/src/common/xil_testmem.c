@@ -23,6 +23,8 @@
 *                     compiled only for 32 bit Microblaze processor, if
 *                     XPAR_MICROBLAZE_ADDR_SIZE is greater than 32.
 *                     It fixes CR#1089129.
+* 7.6   mus  07/29/21 Updated Xil_TestMem8 to fix issues reported by static
+*                     analysis tool. It fixes CR#1105956.
 * </pre>
 *
 *****************************************************************************/
@@ -177,7 +179,7 @@ s32 Xil_TestMem8(u32 Addrlow, u32 Addrhigh, u32 Words, u8 Pattern, u8 Subtest)
 			 * Generate an initial value for walking ones test to test
 			 * for bad data bits
 			 */
-			Val = ~(1U << j);
+			Val = (u8) (~(1U << j));
 			/*
 			 * START walking zeros test
 			 * Write a one to each data bit indifferent locations
@@ -191,7 +193,7 @@ s32 Xil_TestMem8(u32 Addrlow, u32 Addrhigh, u32 Words, u8 Pattern, u8 Subtest)
 			 * Restore the reference 'Val' to the
 			 * initial value
 			 */
-			Val = ~(1U << j);
+			Val = (u8) (~(1U << j));
 			/* Read the values from each location that was written */
 			for (I = 0U; I < NUM_OF_BITS_IN_BYTE; I++) {
 				/* read memory location */
@@ -1375,7 +1377,7 @@ s32 Xil_TestMem8(u8 *Addr, u32 Words, u8 Pattern, u8 Subtest)
 			 * Generate an initial value for walking ones test to test
 			 * for bad data bits
 			 */
-			Val = ~(1U << j);
+			Val = (u8) (~(1U << j));
 			/*
 			 * START walking zeros test
 			 * Write a one to each data bit indifferent locations
@@ -1389,7 +1391,7 @@ s32 Xil_TestMem8(u8 *Addr, u32 Words, u8 Pattern, u8 Subtest)
 			 * Restore the reference 'Val' to the
 			 * initial value
 			 */
-			Val = ~(1U << j);
+			Val = (u8) (~(1U << j));
 			/* Read the values from each location that was written */
 			for (I = 0U; I < (u32)8; I++) {
 				/* read memory location */
