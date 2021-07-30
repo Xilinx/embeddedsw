@@ -2508,7 +2508,7 @@ XStatus XPmDevice_IsClockActive(const XPm_Device *Device)
 						ClkHandle->Clock->Node.Id);
 				Status = XST_SUCCESS;
 			} else {
-				PmErr("XPmClock_GetClockData failed with Status 0x%x"
+				PmDbg("XPmClock_GetClockData failed with Status 0x%x"
 						" for clock id: 0x%x\r\n",
 						Status,
 						ClkHandle->Clock->Node.Id);
