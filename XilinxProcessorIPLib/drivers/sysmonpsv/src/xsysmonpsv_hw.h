@@ -7,7 +7,7 @@
 /**
 *
 * @file xsysmonpsv_hw.h
-* @addtogroup sysmonpsv_v2_3
+* @addtogroup sysmonpsv_v2_4
 * @{
 *
 * This header file contains the identifiers and basic driver functions (or
@@ -24,7 +24,7 @@
 * 1.1   aad    07/11/19 Fixed NEW_DATA_MASK
 * 2.0   aad    10/12/20 MISRAC Violations
 * 2.1   aad    02/24/21 Added additional macro to support production silicon.
-* 2.3   aad    07/26/21 Added doxygen comments for Macros
+* 2.4   aad    07/26/21 Added doxygen comments for Macros
 *       aad    07/26/21 Removed unsed Macros
 *
 * </pre>

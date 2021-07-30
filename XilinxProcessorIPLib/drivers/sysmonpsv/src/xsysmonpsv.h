@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xsysmonpsv.h
-* @addtogroup sysmonpsv_v2_3
+* @addtogroup sysmonpsv_v2_4
 * @{
 *
 * The XSysMon driver supports the Xilinx System Monitor device on Versal
@@ -109,7 +109,7 @@
 * 2.2   aad    03/29/21 Added an array that contains the supply names in
 *                       strings.
 * 2.3   aad    04/30/21 Size optimization for PLM code.
-* 2.3   aad    07/26/21 Added doxygen comments.
+* 2.4   aad    07/26/21 Added doxygen comments.
 *
 * </pre>
 *

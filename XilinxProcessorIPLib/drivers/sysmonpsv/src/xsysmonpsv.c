@@ -7,7 +7,7 @@
 /**
 *
 * @file xsysmonpsv.c
-* @addtogroup sysmonpsv_v2_3
+* @addtogroup sysmonpsv_v2_4
 * @{
 *
 * Functions in this file are the minimum required functions for the XSysMonPsv
@@ -27,7 +27,7 @@
 *                       config and modes for temperature and voltages
 * 2.1   aad    02/24/21 Added documentation and support for production
 *                       silicon.
-* 2.3   aad    07/26/21 Fixed doxygen comments.
+* 2.4   aad    07/26/21 Fixed doxygen comments.
 *
 * </pre>
 *

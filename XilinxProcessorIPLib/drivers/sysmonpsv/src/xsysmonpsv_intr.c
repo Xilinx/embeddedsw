@@ -7,7 +7,7 @@
 /**
 *
 * @file xsysmonpsv_intr.c
-* @addtogroup sysmonpsv_v2_3
+* @addtogroup sysmonpsv_v2_4
 * @{
 *
 * Functions in this file are the minimum required functions for the XSysMonPsv
@@ -25,7 +25,7 @@
 * 1.3   aad    06/23/20 Fixed the register to read enabled interrupts.
 * 2.0   aad    02/10/20 Added new Interrupt handler structure.
 * 2.3   aad    04/30/21 Size optimization for PLM.
-*       aad    07/26/21 Fixed doxygen comments.
+* 2.4   aad    07/26/21 Fixed doxygen comments.
 *
 * </pre>
 *
