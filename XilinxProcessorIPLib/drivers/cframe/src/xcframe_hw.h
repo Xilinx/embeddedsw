@@ -7,7 +7,7 @@
 /**
 *
 * @file xcframe_hw.h
-* @addtogroup cframe_v1_2
+* @addtogroup cframe_v1_3
 * @{
 *
 * This header file contains identifiers and register-level driver functions (or
