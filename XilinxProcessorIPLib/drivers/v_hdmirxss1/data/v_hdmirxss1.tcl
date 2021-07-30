@@ -19,7 +19,8 @@ proc generate {drv_handle} {
                     "C_MAX_BITS_PER_COMPONENT" \
 		    "C_MAX_FRL_RATE" \
 		    "C_DYNAMIC_HDR" \
-                    "AXI_LITE_FREQ_HZ"
+                    "AXI_LITE_FREQ_HZ" \
+		    "C_VID_INTERFACE"
 
   hier_ip_define_config_file $drv_handle "xv_hdmirxss1_g.c" "XV_HdmiRxSs1" \
                     "DEVICE_ID" \
@@ -29,7 +30,8 @@ proc generate {drv_handle} {
                     "C_MAX_BITS_PER_COMPONENT" \
 		    "C_MAX_FRL_RATE" \
 		    "C_DYNAMIC_HDR" \
-                    "AXI_LITE_FREQ_HZ"
+                    "AXI_LITE_FREQ_HZ" \
+		    "C_VID_INTERFACE"
 
   hier_ip_define_canonical_xpars $drv_handle "xparameters.h" \
                     "XV_HdmiRxSs1" \
@@ -40,7 +42,8 @@ proc generate {drv_handle} {
                     "C_MAX_BITS_PER_COMPONENT" \
 		    "C_MAX_FRL_RATE" \
 		    "C_DYNAMIC_HDR" \
-                    "AXI_LITE_FREQ_HZ"
+                    "AXI_LITE_FREQ_HZ" \
+		    "C_VID_INTERFACE"
 }
 
 #

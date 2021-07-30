@@ -97,6 +97,9 @@ int XV_HdmiRxSs1_SubcoreInitHdmiRx1(XV_HdmiRxSs1 *HdmiRxSs1Ptr)
     XV_HdmiRx1_DdcLoadEdid(HdmiRxSs1Ptr->HdmiRx1Ptr, HdmiRxSs1Ptr->EdidPtr,
         HdmiRxSs1Ptr->EdidLength);
 
+    /* set the video interface and Ppc */
+    HdmiRxSs1Ptr->HdmiRx1Ptr->SubsysVidIntfc = HdmiRxSs1Ptr->Config.VideoInterface;
+    HdmiRxSs1Ptr->HdmiRx1Ptr->SubsysPpc = HdmiRxSs1Ptr->Config.Ppc;
   }
   return(XST_SUCCESS);
 }
