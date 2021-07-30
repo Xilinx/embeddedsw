@@ -124,6 +124,7 @@ XStatus XPmSubsystem_AddPermission(const XPm_Subsystem *Host,
 				   const u32 Operations);
 XStatus XPmSubsystem_IsOperationAllowed(const u32 HostId, const u32 TargetId,
 					const u32 Operation, const u32 CmdType);
+XStatus XPmSubsystem_ForcePwrDwn(u32 SubsystemId);
 
 #ifdef __cplusplus
 }
