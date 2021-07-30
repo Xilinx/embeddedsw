@@ -325,3 +325,49 @@ XStatus XPmCore_GetWakeupLatency(const u32 DeviceId, u32 *Latency)
 done:
 	return Status;
 }
+
+XStatus XPmCore_ForcePwrDwn(u32 DeviceId)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_Power *Acpu0PwrNode = XPmPower_GetById(PM_POWER_ACPU_0);
+	const XPm_Power *Acpu1PwrNode = XPmPower_GetById(PM_POWER_ACPU_1);
+	const XPm_Power *FpdPwrNode = XPmPower_GetById(PM_POWER_FPD);
+	XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
+
+	if (NULL == Core) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	if ((NULL != Core->CoreOps) && (NULL != Core->CoreOps->PowerDown)) {
+		Status = Core->CoreOps->PowerDown(Core);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		/**
+		 * Disable the direct wake in case of force
+		 * power down.
+		 */
+		DISABLE_WAKE(Core->SleepMask);
+	} else {
+		Status = XST_FAILURE;
+		goto done;
+	}
+	/*
+	 * Do APU GIC pulse reset if All the cores are in Power OFF
+	 * state and FPD in Power ON state. Now APU has two core as
+	 * ACPU0 and ACPU1.
+	 */
+	if (((PM_DEV_ACPU_0 == DeviceId) || (PM_DEV_ACPU_1 == DeviceId)) &&
+	    (NULL != Acpu0PwrNode) && (NULL != Acpu1PwrNode) &&
+	    (NULL != FpdPwrNode) &&
+	    ((u8)XPM_POWER_STATE_OFF != FpdPwrNode->Node.State) &&
+	    ((u8)XPM_POWER_STATE_OFF == Acpu0PwrNode->Node.State) &&
+	    ((u8)XPM_POWER_STATE_OFF == Acpu1PwrNode->Node.State)) {
+		Status = XPmReset_AssertbyId(PM_RST_ACPU_GIC,
+					     (u32)PM_RESET_ACTION_PULSE);
+	}
+
+done:
+	return Status;
+}

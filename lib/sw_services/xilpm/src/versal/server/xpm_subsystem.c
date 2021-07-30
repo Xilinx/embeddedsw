@@ -1084,3 +1084,67 @@ u32 XPmSubsystem_GetMaxSubsysIdx(void)
 {
 	return MaxSubsysIdx;
 }
+
+/****************************************************************************/
+/**
+ * @brief  Handler for idle subsystem and force down cleanup
+ *
+ * @param Subsystem	Target Subsystem
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPmSubsystem_ForcePwrDwn(u32 SubsystemId)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Subsystem *Subsystem = XPmSubsystem_GetById(SubsystemId);
+	const XPm_Requirement *Reqm = NULL;
+	u32 DeviceId = 0U;
+
+	if (NULL == Subsystem) {
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	}
+
+	if ((u32)POWERED_OFF == Subsystem->State) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	Reqm = Subsystem->Requirements;
+	while (NULL != Reqm) {
+		DeviceId = Reqm->Device->Node.Id;
+		if ((1U == Reqm->Allocated) && ((u32)XPM_NODESUBCL_DEV_CORE ==
+		    NODESUBCLASS(DeviceId))) {
+			Status = XPmCore_ForcePwrDwn(DeviceId);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		}
+		Reqm = Reqm->NextDevice;
+	}
+
+	/* Idle the subsystem */
+	Status = XPmSubsystem_Idle(Subsystem->Id);
+	if(XST_SUCCESS != Status) {
+		Status = XPM_ERR_SUBSYS_IDLE;
+		goto done;
+	}
+
+	Status = XPmSubsystem_ForceDownCleanup(Subsystem->Id);
+	if(XST_SUCCESS != Status) {
+		Status = XPM_ERR_CLEANUP;
+		goto done;
+	}
+
+	/* Clear the pending suspend cb reason */
+	Subsystem->PendCb.Reason = 0U;
+
+	Status = XPmSubsystem_SetState(Subsystem->Id, (u32)POWERED_OFF);
+
+done:
+	return Status;
+}
