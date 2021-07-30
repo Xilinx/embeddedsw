@@ -57,6 +57,7 @@
 *                       related defines
 *       bsv  07/16/2021 Fix doxygen and compilation warnings
 *       kc   07/22/2021 Added VP1802 idcode and external POR macros
+*       rb   07/28/2021 Added Efuse DNA and VP1502 idcode macros
 *
 * </pre>
 *
@@ -491,10 +492,13 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define PMC_TAP_IDCODE_SBFMLY_H		(0x00100000U)
 #define PMC_TAP_IDCODE_DEV_80		(0x00028000U)
 #define PMC_TAP_IDCODE_DEV_14		(0x00014000U)
+#define PMC_TAP_IDCODE_DEV_8		(0x00008000U)
 #define PMC_TAP_IDCODE_ES1_VC1902	(PMC_TAP_IDCODE_SI_REV_1 | \
 	PMC_TAP_IDCODE_SBFMLY_S | PMC_TAP_IDCODE_DEV_80)
 #define PMC_TAP_IDCODE_ES1_VP1802	(PMC_TAP_IDCODE_SI_REV_1 | \
 	PMC_TAP_IDCODE_SBFMLY_H | PMC_TAP_IDCODE_DEV_14)
+#define PMC_TAP_IDCODE_ES1_VP1502	(PMC_TAP_IDCODE_SI_REV_1 | \
+	PMC_TAP_IDCODE_SBFMLY_H | PMC_TAP_IDCODE_DEV_8)
 
 #ifndef PMC_TAP_VERSION
 #define PMC_TAP_VERSION		(PMC_TAP_BASEADDR + 0X00000004U)
@@ -711,6 +715,11 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define EFUSE_CACHE_IP_DISABLE_0_EID2_MASK		(0x03F00000U)
 #define EFUSE_CACHE_IP_DISABLE_0_EID2_SHIFT		(20U)
 
+/*
+ * Register: EFUSE_CACHE_DNA_1
+ */
+#define EFUSE_CACHE_DNA_1		(EFUSE_CACHE_BASEADDR + 0x00000024U)
+#define EFUSE_CACHE_DNA_1_BIT25_MASK	(0x02000000U)
 /*
  * Register: PMC_TAP_SLR_TYPE
  */
