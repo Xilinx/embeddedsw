@@ -41,18 +41,21 @@ proc nvm_drc {libhandle} {
 		foreach entry [glob -nocomplain -types f [file join "$server" *]] {
 			file copy -force $entry "./src"
 		}
-	} elseif {$proc_type != "psu_pmc" || $proc_type != "psv_pmc"} {
+	} elseif {$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
+		$proc_type == "psv_cortexr5"} {
 		foreach entry [glob -nocomplain -types f [file join "$client" *]] {
 			file copy -force $entry "./src"
 		}
 	}
 	if {$mode == "server"} {
-		if {$proc_type != "psu_pmc" || $proc_type != "psv_pmc"} {
+		if {$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
+		$proc_type == "psv_cortexr5"} {
 			file delete -force ./src/xnvm_bbram_ipihandler.c
 			file delete -force ./src/xnvm_bbram_ipihandler.h
+			file delete -force ./src/xnvm_efuse_ipihandler.c
+			file delete -force ./src/xnvm_efuse_ipihandler.h
 			file delete -force ./src/xnvm_cmd.c
 			file delete -force ./src/xnvm_cmd.h
-			file delete -force ./src/xnvm_defs.h
 			file delete -force ./src/xnvm_init.c
 			file delete -force ./src/xnvm_init.h
 		}
