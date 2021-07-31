@@ -64,6 +64,7 @@
 *       am   05/22/2021 Resolved MISRA C violations
 * 2.4   kal  07/13/2021 Fixed doxygen warnings
 *       am   07/07/2021 Fixed 2021.1 review comments
+*       kal  07/25/2021 Moved XNvm_Printf definition to xnvm_def.h
 *
 * </pre>
 *
@@ -148,10 +149,6 @@ typedef enum {
 /** @} */
 
 /****************** Macros (Inline Functions) Definitions *********************/
-
-/**< XilNvm specific printf definition */
-#define XNvm_Printf(DebugType, ...)	\
-	if ((DebugType) == (1U)) {xil_printf (__VA_ARGS__);}
 
 /******************************************************************************/
 /**
