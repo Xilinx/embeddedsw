@@ -645,6 +645,7 @@
 *	Please make sure if intention is to check only CRC of the provided key
 *	and not programming AES key then do not modify XNVM_EFUSE_WRITE_AES_KEY
 *	(TRUE will Program key).
+*	This check is only applicable for server mode of eFuse example
 *
 *	#define XNVM_EFUSE_CHECK_USER_KEY_0_CRC			FALSE
 *	Default value is FALSE
@@ -656,6 +657,7 @@
 *	Please make sure if intention is to check only CRC of the provided key
 *	and not programming USER_KEY_0 key then do not modify
 *	XNVM_EFUSE_WRITE_USER_KEY_0 (TRUE will Program key).
+*	This check is only applicable for server mode of eFuse example
 *
 *	#define XNVM_EFUSE_CHECK_USER_KEY_1_CRC			FALSE
 *	Default value is FALSE
@@ -667,6 +669,7 @@
 *	Please make sure if intention is to check only CRC of the provided key
 *	and not programming USER_KEY_1 key then do not modify
 *	XNVM_EFUSE_WRITE_USER_KEY_1 (TRUE will Program key).
+*	This check is only applicable for server mode of eFuse example
 *
 *	#define XNVM_EFUSE_EXPECTED_AES_KEY_CRC		XNVM_EFUSE_CRC_AES_ZEROS
 *	This is expected crc of the programmed Aes key given in hexa decimal.
@@ -716,7 +719,6 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xnvm_efuse.h"
 
 /************************** Constant Definitions *****************************/
 
