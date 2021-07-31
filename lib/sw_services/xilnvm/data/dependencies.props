@@ -1,3 +1,4 @@
 xilnvm_bbram_versal_server_example.c = NULL
 xilnvm_bbram_versal_client_example.c = NULL
-xilnvm_efuse_versal_example.c = xilnvm_efuse_versal_input.h
+xilnvm_efuse_versal_server_example.c = xilnvm_efuse_versal_input.h
+xilnvm_efuse_versal_client_example.c = xilnvm_efuse_versal_input.h
