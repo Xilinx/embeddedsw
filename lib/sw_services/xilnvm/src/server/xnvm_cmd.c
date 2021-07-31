@@ -16,6 +16,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kal  07/05/2021 Initial release
+*       kal  07/25/2021 Registered eFUSE IPI handlers
 *
 * </pre>
 *
@@ -31,6 +32,7 @@
 #include "xplmi_modules.h"
 #include "xnvm_defs.h"
 #include "xnvm_bbram_ipihandler.h"
+#include "xnvm_efuse_ipihandler.h"
 #include "xnvm_cmd.h"
 
 /************************** Function Prototypes ******************************/
@@ -68,11 +70,28 @@ static int XNvm_FeaturesCmd(u32 ApiId)
 	int Status = XST_INVALID_PARAM;
 
 	switch (ApiId) {
-	case XNVM_API(XNVM_BBRAM_WRITE_AES_KEY):
-	case XNVM_API(XNVM_BBRAM_ZEROIZE):
-	case XNVM_API(XNVM_BBRAM_WRITE_USER_DATA):
-	case XNVM_API(XNVM_BBRAM_READ_USER_DATA):
-	case XNVM_API(XNVM_BBRAM_LOCK_WRITE_USER_DATA):
+	case XNVM_BBRAM_WRITE_AES_KEY:
+	case XNVM_BBRAM_ZEROIZE:
+	case XNVM_BBRAM_WRITE_USER_DATA:
+	case XNVM_BBRAM_READ_USER_DATA:
+	case XNVM_BBRAM_LOCK_WRITE_USER_DATA:
+	case XNVM_EFUSE_WRITE:
+	case XNVM_EFUSE_READ_IV:
+	case XNVM_EFUSE_READ_REVOCATION_ID:
+	case XNVM_EFUSE_READ_OFFCHIP_REVOCATION_ID:
+	case XNVM_EFUSE_READ_USER_FUSES:
+	case XNVM_EFUSE_READ_MISC_CTRL_BITS:
+	case XNVM_EFUSE_READ_SEC_CTRL_BITS:
+	case XNVM_EFUSE_READ_SEC_MISC1_BITS:
+	case XNVM_EFUSE_READ_BOOT_ENV_CTRL_BITS:
+	case XNVM_EFUSE_READ_PUF_SEC_CTRL_BITS:
+	case XNVM_EFUSE_READ_PPK_HASH:
+	case XNVM_EFUSE_READ_DEC_EFUSE_ONLY:
+	case XNVM_EFUSE_READ_DNA:
+#ifdef XNVM_ACCESS_PUF_USER_DATA
+	case XNVM_EFUSE_READ_PUF_USER_FUSE:
+	case XNVM_EFUSE_PUF_USER_FUSE_WRITE:
+#endif
 		Status = XST_SUCCESS;
 		break;
 	default:
@@ -114,6 +133,25 @@ static int XNvm_ProcessCmd(XPlmi_Cmd *Cmd)
 	case XNVM_API(XNVM_BBRAM_READ_USER_DATA):
 	case XNVM_API(XNVM_BBRAM_LOCK_WRITE_USER_DATA):
 		Status = XNvm_BbramIpiHandler(Cmd);
+		break;
+	case XNVM_API(XNVM_EFUSE_WRITE):
+	case XNVM_API(XNVM_EFUSE_READ_IV):
+	case XNVM_API(XNVM_EFUSE_READ_REVOCATION_ID):
+	case XNVM_API(XNVM_EFUSE_READ_OFFCHIP_REVOCATION_ID):
+	case XNVM_API(XNVM_EFUSE_READ_USER_FUSES):
+	case XNVM_API(XNVM_EFUSE_READ_MISC_CTRL_BITS):
+	case XNVM_API(XNVM_EFUSE_READ_SEC_CTRL_BITS):
+	case XNVM_API(XNVM_EFUSE_READ_SEC_MISC1_BITS):
+	case XNVM_API(XNVM_EFUSE_READ_BOOT_ENV_CTRL_BITS):
+	case XNVM_API(XNVM_EFUSE_READ_PUF_SEC_CTRL_BITS):
+	case XNVM_API(XNVM_EFUSE_READ_PPK_HASH):
+	case XNVM_API(XNVM_EFUSE_READ_DEC_EFUSE_ONLY):
+	case XNVM_API(XNVM_EFUSE_READ_DNA):
+#ifdef XNVM_ACCESS_PUF_USER_DATA
+	case XNVM_API(XNVM_EFUSE_PUF_USER_FUSE_WRITE):
+	case XNVM_API(XNVM_EFUSE_READ_PUF_USER_FUSE):
+#endif
+		Status = XNvm_EfuseIpiHandler(Cmd);
 		break;
 	default:
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
