@@ -466,68 +466,6 @@ AieRC XAie_IntrCtrlL2Disable(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 /*****************************************************************************/
 /**
-*
-* This API sets NoC interrupt ID to which the interrupt from second level
-* interrupt controller shall be driven to.
-*
-* @param	DevInst: Device Instance
-* @param	Loc: Location of AIE Tile
-* @param	NoCIrqId: NoC IRQ index on which the interrupt shall be
-*			  driven.
-*
-* @return	XAIE_OK on success, error code on failure.
-*
-* @note		None.
-*
-******************************************************************************/
-AieRC XAie_IntrCtrlL2IrqSet(XAie_DevInst *DevInst, XAie_LocType Loc,
-		u8 NoCIrqId)
-{
-	AieRC RC;
-	u64 RegAddr;
-	u32 RegOffset;
-	u8 TileType;
-	const XAie_L2IntrMod *L2IntrMod;
-	XAie_NpiProtRegReq ProtRegReq = {0};
-
-	if((DevInst == XAIE_NULL) ||
-			(DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
-		XAIE_ERROR("Invalid device instance\n");
-		return XAIE_INVALID_ARGS;
-	}
-
-	TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
-	if(TileType != XAIEGBL_TILE_TYPE_SHIMNOC) {
-		XAIE_ERROR("Invalid tile type\n");
-		return XAIE_INVALID_TILE;
-	}
-
-	L2IntrMod = DevInst->DevProp.DevMod[TileType].L2IntrMod;
-
-	if(L2IntrMod == NULL || NoCIrqId >= L2IntrMod->NumNoCIntr) {
-		XAIE_ERROR("Invalid module type or broadcast ID\n");
-		return XAIE_INVALID_ARGS;
-	}
-
-	RegOffset = L2IntrMod->IrqRegOff;
-	RegAddr = _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) + RegOffset;
-
-	ProtRegReq.Enable = XAIE_ENABLE;
-	XAie_RunOp(DevInst, XAIE_BACKEND_OP_SET_PROTREG, (void *)&ProtRegReq);
-
-	RC = XAie_Write32(DevInst, RegAddr, NoCIrqId);
-	if(RC != XAIE_OK) {
-		return RC;
-	}
-
-	ProtRegReq.Enable = XAIE_DISABLE;
-	XAie_RunOp(DevInst, XAIE_BACKEND_OP_SET_PROTREG, (void *)&ProtRegReq);
-
-	return XAIE_OK;
-}
-
-/*****************************************************************************/
-/**
 * This API enables default group error events which are marked as fatal errors.
 * It also channels them on broadcast line #0.
 *
@@ -957,13 +895,6 @@ AieRC XAie_ErrorHandlingInit(XAie_DevInst *DevInst)
 					XAIE_ERROR_L2_ENABLE);
 			if(RC != XAIE_OK) {
 				XAIE_ERROR("Failed to enable interrupts to L2\n");
-				return RC;
-			}
-
-			RC = XAie_IntrCtrlL2IrqSet(DevInst, Loc,
-					XAIE_ERROR_NPI_INTR_ID);
-			if(RC != XAIE_OK) {
-				XAIE_ERROR("Failed to configure L2 IRQ line\n");
 				return RC;
 			}
 		} else {
