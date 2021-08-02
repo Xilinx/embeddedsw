@@ -24,6 +24,8 @@
 * 1.4   adk    11/02/17  Updated example to fix compilation errors for IAR
 *			 compiler.
 * 1.7   adk    21/03/19  Fix data alignment in the example for IAR compiler.
+* 1.13	sk     08/02/21	 Make Done, Pause variables as volatile to fix failure
+* 			 at optimization level 2.
 * </pre>
 *
 ******************************************************************************/
@@ -80,8 +82,8 @@ u32 Src1Buf[400] __attribute__ ((aligned (64)));/**< Source buffer */
 u32 AlloMem[200] __attribute__ ((aligned (64)));
 			/**< memory allocated for descriptors */
 #endif
-u8 Done = 0;		/**< Variable for Done interrupt */
-u8 Pause = 0;		/**< Variable for Pause interrupt */
+volatile static u8 Done = 0;	/**< Variable for Done interrupt */
+volatile static u8 Pause = 0;	/**< Variable for Pause interrupt */
 
 /*****************************************************************************/
 /**

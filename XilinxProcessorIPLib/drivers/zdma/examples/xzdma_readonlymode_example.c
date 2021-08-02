@@ -24,6 +24,8 @@
 * 1.3   mus    08/14/17  Do not perform cache operations if CCI is enabled
 * 1.4   adk    11/02/17  Updated example to fix compilation errors for IAR
 *			 compiler.
+* 1.13	sk     08/02/21	 Make Done variable as volatile to fix failure at
+* 			 optimization level 2.
 * </pre>
 *
 ******************************************************************************/
@@ -64,7 +66,7 @@ static void DoneHandler(void *CallBackRef);
 XZDma ZDma;		/**<Instance of the ZDMA Device */
 XScuGic Intc;		/**< XIntc Instance */
 u32 SrcBuf[256];	/**< Source buffer */
-u8 Done = 0;		/**< Done flag */
+volatile static u8 Done = 0;	/**< Done flag */
 
 /*****************************************************************************/
 /**
