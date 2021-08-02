@@ -7,7 +7,7 @@
 /**
 *
 * @file xzdma.c
-* @addtogroup zdma_v1_12
+* @addtogroup zdma_v1_13
 * @{
 *
 * This file contains the implementation of the interface functions for ZDMA
