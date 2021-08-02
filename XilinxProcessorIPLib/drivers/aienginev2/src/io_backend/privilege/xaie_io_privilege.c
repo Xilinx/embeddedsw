@@ -41,6 +41,7 @@
 #define XAIE_ISOLATE_SOUTH_MASK	(1U << 0)
 #define XAIE_ISOLATE_ALL_MASK	((1U << 4) - 1)
 
+#define XAIE_ERROR_NPI_INTR_ID	0x1U
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
 /**
@@ -262,6 +263,70 @@ static AieRC _XAie_PrivilegeSetPartProtectedRegs(XAie_DevInst *DevInst,
 
 /*****************************************************************************/
 /**
+*
+* This API sets NoC interrupt ID to which the interrupt from second level
+* interrupt controller shall be driven to.
+*
+* @param	DevInst: Device Instance
+* @param	Loc: Location of AIE Tile
+* @param	NoCIrqId: NoC IRQ index on which the interrupt shall be
+*			  driven.
+*
+* @return	XAIE_OK on success, error code on failure.
+*
+* @note		None.
+*
+******************************************************************************/
+static AieRC _XAie_PrivilegeSetL2IrqId(XAie_DevInst *DevInst, XAie_LocType Loc,
+		u8 NoCIrqId)
+{
+	u64 RegAddr;
+	u32 RegOffset;
+	const XAie_L2IntrMod *IntrMod;
+
+	IntrMod = DevInst->DevProp.DevMod[XAIEGBL_TILE_TYPE_SHIMNOC].L2IntrMod;
+	RegOffset = IntrMod->IrqRegOff;
+	RegAddr = _XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col) + RegOffset;
+	return XAie_Write32(DevInst, RegAddr, NoCIrqId);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API sets NoC interrupt ID to which the error interrupts from second
+* level interrupt controller shall be driven to. All the second level interrupt
+* controllers with a given partition are configured.
+*
+* @param	DevInst: Device Instance
+*
+* @return	XAIE_OK on success, error code on failure.
+*
+* @note		None.
+*
+******************************************************************************/
+static AieRC _XAie_PrivilegeSetL2ErrIrq(XAie_DevInst *DevInst)
+{
+	AieRC RC;
+	XAie_LocType Loc = XAie_TileLoc(0, DevInst->ShimRow);
+
+	for (Loc.Col = 0; Loc.Col < DevInst->NumCols; Loc.Col++) {
+		u8 TileType = DevInst->DevOps->GetTTypefromLoc(DevInst, Loc);
+		if(TileType != XAIEGBL_TILE_TYPE_SHIMNOC)
+			continue;
+
+		RC = _XAie_PrivilegeSetL2IrqId(DevInst, Loc,
+				XAIE_ERROR_NPI_INTR_ID);
+		if(RC != XAIE_OK) {
+			XAIE_ERROR("Failed to configure L2 error IRQ channel\n");
+			return RC;
+		}
+	}
+
+	return XAIE_OK;
+}
+
+/*****************************************************************************/
+/**
 * This API initializes the AI engine partition
 *
 * @param	DevInst: AI engine partition device instance pointer
@@ -356,6 +421,12 @@ AieRC _XAie_PrivilegeInitPart(XAie_DevInst *DevInst, XAie_PartInitOpts *Opts)
 			_XAie_PrivilegeSetPartProtectedRegs(DevInst, XAIE_DISABLE);
 			return RC;
 		}
+	}
+
+	RC = _XAie_PrivilegeSetL2ErrIrq(DevInst);
+	if(RC != XAIE_OK) {
+		XAIE_ERROR("Failed to configure L2 error IRQ channels\n");
+		return RC;
 	}
 
 	RC = _XAie_PrivilegeSetPartProtectedRegs(DevInst, XAIE_DISABLE);
