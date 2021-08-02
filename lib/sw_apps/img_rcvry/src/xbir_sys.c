@@ -17,6 +17,7 @@
 /***************************** Include Files *********************************/
 #include "xbir_sys.h"
 #include "xbir_qspi.h"
+#include "xbir_sd.h"
 #include "xbir_i2c.h"
 #include "xbir_qspimap.h"
 #include "string.h"
@@ -126,6 +127,11 @@ int Xbir_SysInit (void)
 		goto END;
 	}
 
+	Status = Xbir_SdInit();
+	if (Status != XST_SUCCESS) {
+		Xbir_Printf("Init failed..\n\r");
+		goto END;
+	}
 	Status = Xbir_IicInit();
 	if (Status != XST_SUCCESS) {
 		goto END;
