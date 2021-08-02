@@ -70,6 +70,13 @@ extern "C" {
 #define XBIR_ERROR_SEND_SUCCESS_RESPONSE	(0x48U)
 #define XBIR_ERROR_JSON_INCOMPLETE_IMG_CFG_REQ	(0x49U)
 
+#define XBIR_ERROR_SD_CONFIG		(0x50U)
+#define XBIR_ERROR_SD_CONFIG_INIT	(0x51U)
+#define XBIR_ERROR_SD_WRITE		(0x52U)
+#define XBIR_ERROR_SD_READ		(0x53U)
+#define XBIR_ERROR_SD_ERASE		(0x54U)
+#define XBIR_ERROR_SD_CARD_INIT		(0x55U)
+
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
