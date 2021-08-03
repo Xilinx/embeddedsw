@@ -48,6 +48,7 @@
 	.extern ullICCEOIR
 	.extern ullICCIAR
 	.extern _freertos_vector_table
+	.extern SynchronousInterruptHandler
 
 	.global FreeRTOS_IRQ_Handler
 	.global FreeRTOS_SWI_Handler
@@ -62,11 +63,7 @@
 #endif
 .endm
 
-.macro portSAVE_CONTEXT
-
-	/* Switch to use the EL0 stack pointer. */
-	MSR 	SPSEL, #0
-
+.macro saveallgpregisters
 	/* Save the entire context. */
 	STP 	X0, X1, [SP, #-0x10]!
 	STP 	X2, X3, [SP, #-0x10]!
@@ -84,6 +81,100 @@
 	STP 	X26, X27, [SP, #-0x10]!
 	STP 	X28, X29, [SP, #-0x10]!
 	STP 	X30, XZR, [SP, #-0x10]!
+.endm
+
+.macro restoreallgpregisters
+	LDP 	X30, XZR, [SP], #0x10
+	LDP 	X28, X29, [SP], #0x10
+	LDP 	X26, X27, [SP], #0x10
+	LDP 	X24, X25, [SP], #0x10
+	LDP 	X22, X23, [SP], #0x10
+	LDP 	X20, X21, [SP], #0x10
+	LDP 	X18, X19, [SP], #0x10
+	LDP 	X16, X17, [SP], #0x10
+	LDP 	X14, X15, [SP], #0x10
+	LDP 	X12, X13, [SP], #0x10
+	LDP 	X10, X11, [SP], #0x10
+	LDP 	X8, X9, [SP], #0x10
+	LDP 	X6, X7, [SP], #0x10
+	LDP 	X4, X5, [SP], #0x10
+	LDP 	X2, X3, [SP], #0x10
+	LDP 	X0, X1, [SP], #0x10
+.endm
+
+.macro savefuncontextgpregs
+	STP		X0, X1, [SP, #-0x10]!
+	STP		X2, X3, [SP, #-0x10]!
+	STP		X4, X5, [SP, #-0x10]!
+	STP		X6, X7, [SP, #-0x10]!
+	STP		X8, X9, [SP, #-0x10]!
+	STP		X10, X11, [SP, #-0x10]!
+	STP		X12, X13, [SP, #-0x10]!
+	STP		X14, X15, [SP, #-0x10]!
+	STP		X16, X17, [SP, #-0x10]!
+	STP		X18, X19, [SP, #-0x10]!
+	STP		X29, X30, [SP, #-0x10]!
+.endm
+
+.macro restorefuncontextgpregs
+	LDP		X29, X30, [SP], #0x10
+	LDP		X18, X19, [SP], #0x10
+	LDP		X16, X17, [SP], #0x10
+	LDP		X14, X15, [SP], #0x10
+	LDP		X12, X13, [SP], #0x10
+	LDP		X10, X11, [SP], #0x10
+	LDP		X8, X9, [SP], #0x10
+	LDP		X6, X7, [SP], #0x10
+	LDP		X4, X5, [SP], #0x10
+	LDP		X2, X3, [SP], #0x10
+	LDP		X0, X1, [SP], #0x10
+.endm
+
+.macro savefloatregisters
+	STP		Q0, Q1, [SP,#-0x20]!
+	STP		Q2, Q3, [SP,#-0x20]!
+	STP		Q4, Q5, [SP,#-0x20]!
+	STP		Q6, Q7, [SP,#-0x20]!
+	STP		Q8, Q9, [SP,#-0x20]!
+	STP		Q10, Q11, [SP,#-0x20]!
+	STP		Q12, Q13, [SP,#-0x20]!
+	STP		Q14, Q15, [SP,#-0x20]!
+	STP		Q16, Q17, [SP,#-0x20]!
+	STP		Q18, Q19, [SP,#-0x20]!
+	STP		Q20, Q21, [SP,#-0x20]!
+	STP		Q22, Q23, [SP,#-0x20]!
+	STP		Q24, Q25, [SP,#-0x20]!
+	STP		Q26, Q27, [SP,#-0x20]!
+	STP		Q28, Q29, [SP,#-0x20]!
+	STP		Q30, Q31, [SP,#-0x20]!
+.endm
+
+.macro restorefloatregisters
+	LDP		Q30, Q31, [SP], #0x20
+	LDP		Q28, Q29, [SP], #0x20
+	LDP		Q26, Q27, [SP], #0x20
+	LDP		Q24, Q25, [SP], #0x20
+	LDP		Q22, Q23, [SP], #0x20
+	LDP		Q20, Q21, [SP], #0x20
+	LDP		Q18, Q19, [SP], #0x20
+	LDP		Q16, Q17, [SP], #0x20
+	LDP		Q14, Q15, [SP], #0x20
+	LDP		Q12, Q13, [SP], #0x20
+	LDP		Q10, Q11, [SP], #0x20
+	LDP		Q8, Q9, [SP], #0x20
+	LDP		Q6, Q7, [SP], #0x20
+	LDP		Q4, Q5, [SP], #0x20
+	LDP		Q2, Q3, [SP], #0x20
+	LDP		Q0, Q1, [SP], #0x20
+.endm
+
+.macro portSAVE_CONTEXT
+
+	/* Switch to use the EL0 stack pointer. */
+	MSR 	SPSEL, #0
+
+	/* Save the entire context. */
+	saveallgpregisters
 
 	/* Save the SPSR. */
 #if EL1_NONSECURE
@@ -108,22 +199,7 @@
 	/* Save the FPU context, if any (32 128-bit registers). */
 	CMP		X2, #0
 	B.EQ	1f
-	STP		Q0, Q1, [SP,#-0x20]!
-	STP		Q2, Q3, [SP,#-0x20]!
-	STP		Q4, Q5, [SP,#-0x20]!
-	STP		Q6, Q7, [SP,#-0x20]!
-	STP		Q8, Q9, [SP,#-0x20]!
-	STP		Q10, Q11, [SP,#-0x20]!
-	STP		Q12, Q13, [SP,#-0x20]!
-	STP		Q14, Q15, [SP,#-0x20]!
-	STP		Q16, Q17, [SP,#-0x20]!
-	STP		Q18, Q19, [SP,#-0x20]!
-	STP		Q20, Q21, [SP,#-0x20]!
-	STP		Q22, Q23, [SP,#-0x20]!
-	STP		Q24, Q25, [SP,#-0x20]!
-	STP		Q26, Q27, [SP,#-0x20]!
-	STP		Q28, Q29, [SP,#-0x20]!
-	STP		Q30, Q31, [SP,#-0x20]!
+	savefloatregisters
 
 1:
 	/* Store the critical nesting count and FPU context indicator. */
@@ -188,22 +264,7 @@
 	/* Restore the FPU context, if any. */
 	CMP		X2, #0
 	B.EQ	1f
-	LDP		Q30, Q31, [SP], #0x20
-	LDP		Q28, Q29, [SP], #0x20
-	LDP		Q26, Q27, [SP], #0x20
-	LDP		Q24, Q25, [SP], #0x20
-	LDP		Q22, Q23, [SP], #0x20
-	LDP		Q20, Q21, [SP], #0x20
-	LDP		Q18, Q19, [SP], #0x20
-	LDP		Q16, Q17, [SP], #0x20
-	LDP		Q14, Q15, [SP], #0x20
-	LDP		Q12, Q13, [SP], #0x20
-	LDP		Q10, Q11, [SP], #0x20
-	LDP		Q8, Q9, [SP], #0x20
-	LDP		Q6, Q7, [SP], #0x20
-	LDP		Q4, Q5, [SP], #0x20
-	LDP		Q2, Q3, [SP], #0x20
-	LDP		Q0, Q1, [SP], #0x20
+	restorefloatregisters
 1:
 	LDP 	X2, X3, [SP], #0x10  /* SPSR and ELR. */
 
@@ -219,22 +280,7 @@
 	MSR		ELR_EL3, X2
 #endif
 
-	LDP 	X30, XZR, [SP], #0x10
-	LDP 	X28, X29, [SP], #0x10
-	LDP 	X26, X27, [SP], #0x10
-	LDP 	X24, X25, [SP], #0x10
-	LDP 	X22, X23, [SP], #0x10
-	LDP 	X20, X21, [SP], #0x10
-	LDP 	X18, X19, [SP], #0x10
-	LDP 	X16, X17, [SP], #0x10
-	LDP 	X14, X15, [SP], #0x10
-	LDP 	X12, X13, [SP], #0x10
-	LDP 	X10, X11, [SP], #0x10
-	LDP 	X8, X9, [SP], #0x10
-	LDP 	X6, X7, [SP], #0x10
-	LDP 	X4, X5, [SP], #0x10
-	LDP 	X2, X3, [SP], #0x10
-	LDP 	X0, X1, [SP], #0x10
+	restoreallgpregisters
 
 	/* Switch to use the ELx stack pointer.  _RB_ Might not be required. */
 	MSR 	SPSEL, #1
@@ -266,13 +312,13 @@ FreeRTOS_SWI_Handler:
 	CMP		X1, #0x17 	/* 0x17 = SMC instruction. */
 #endif
 	B.NE	FreeRTOS_Abort
-	BL 		vTaskSwitchContext
+	BL 	vTaskSwitchContext
 
 	portRESTORE_CONTEXT
 
 FreeRTOS_Abort:
 	/* Full ESR is in X0, exception class code is in X1. */
-	B		.
+	BL	SynchronousInterruptHandler
 
 /******************************************************************************
  * vPortRestoreTaskContext is used to start the scheduler.
@@ -303,35 +349,8 @@ vPortRestoreTaskContext:
 .type FreeRTOS_IRQ_Handler, %function
 FreeRTOS_IRQ_Handler:
 	/* Save volatile registers. */
-	STP		X0, X1, [SP, #-0x10]!
-	STP		X2, X3, [SP, #-0x10]!
-	STP		X4, X5, [SP, #-0x10]!
-	STP		X6, X7, [SP, #-0x10]!
-	STP		X8, X9, [SP, #-0x10]!
-	STP		X10, X11, [SP, #-0x10]!
-	STP		X12, X13, [SP, #-0x10]!
-	STP		X14, X15, [SP, #-0x10]!
-	STP		X16, X17, [SP, #-0x10]!
-	STP		X18, X19, [SP, #-0x10]!
-	STP		X29, X30, [SP, #-0x10]!
-
-
-	STP		Q0, Q1, [SP,#-0x20]!
-	STP		Q2, Q3, [SP,#-0x20]!
-	STP		Q4, Q5, [SP,#-0x20]!
-	STP		Q6, Q7, [SP,#-0x20]!
-	STP		Q8, Q9, [SP,#-0x20]!
-	STP		Q10, Q11, [SP,#-0x20]!
-	STP		Q12, Q13, [SP,#-0x20]!
-	STP		Q14, Q15, [SP,#-0x20]!
-	STP		Q16, Q17, [SP,#-0x20]!
-	STP		Q18, Q19, [SP,#-0x20]!
-	STP		Q20, Q21, [SP,#-0x20]!
-	STP		Q22, Q23, [SP,#-0x20]!
-	STP		Q24, Q25, [SP,#-0x20]!
-	STP		Q26, Q27, [SP,#-0x20]!
-	STP		Q28, Q29, [SP,#-0x20]!
-	STP		Q30, Q31, [SP,#-0x20]!
+	savefuncontextgpregs
+	savefloatregisters
 
 	/* Save the SPSR and ELR. */
 #if EL1_NONSECURE
@@ -417,34 +436,8 @@ FreeRTOS_IRQ_Handler:
 	DSB		SY
 	ISB		SY
 
-	LDP		Q30, Q31, [SP], #0x20
-	LDP		Q28, Q29, [SP], #0x20
-	LDP		Q26, Q27, [SP], #0x20
-	LDP		Q24, Q25, [SP], #0x20
-	LDP		Q22, Q23, [SP], #0x20
-	LDP		Q20, Q21, [SP], #0x20
-	LDP		Q18, Q19, [SP], #0x20
-	LDP		Q16, Q17, [SP], #0x20
-	LDP		Q14, Q15, [SP], #0x20
-	LDP		Q12, Q13, [SP], #0x20
-	LDP		Q10, Q11, [SP], #0x20
-	LDP		Q8, Q9, [SP], #0x20
-	LDP		Q6, Q7, [SP], #0x20
-	LDP		Q4, Q5, [SP], #0x20
-	LDP		Q2, Q3, [SP], #0x20
-	LDP		Q0, Q1, [SP], #0x20
-
-	LDP		X29, X30, [SP], #0x10
-	LDP		X18, X19, [SP], #0x10
-	LDP		X16, X17, [SP], #0x10
-	LDP		X14, X15, [SP], #0x10
-	LDP		X12, X13, [SP], #0x10
-	LDP		X10, X11, [SP], #0x10
-	LDP		X8, X9, [SP], #0x10
-	LDP		X6, X7, [SP], #0x10
-	LDP		X4, X5, [SP], #0x10
-	LDP		X2, X3, [SP], #0x10
-	LDP		X0, X1, [SP], #0x10
+	restorefloatregisters
+	restorefuncontextgpregs
 
 	/* Save the context of the current task and select a new task to run. */
 	portSAVE_CONTEXT
@@ -464,34 +457,8 @@ Exit_IRQ_No_Context_Switch:
 	DSB		SY
 	ISB		SY
 
-	LDP		Q30, Q31, [SP], #0x20
-	LDP		Q28, Q29, [SP], #0x20
-	LDP		Q26, Q27, [SP], #0x20
-	LDP		Q24, Q25, [SP], #0x20
-	LDP		Q22, Q23, [SP], #0x20
-	LDP		Q20, Q21, [SP], #0x20
-	LDP		Q18, Q19, [SP], #0x20
-	LDP		Q16, Q17, [SP], #0x20
-	LDP		Q14, Q15, [SP], #0x20
-	LDP		Q12, Q13, [SP], #0x20
-	LDP		Q10, Q11, [SP], #0x20
-	LDP		Q8, Q9, [SP], #0x20
-	LDP		Q6, Q7, [SP], #0x20
-	LDP		Q4, Q5, [SP], #0x20
-	LDP		Q2, Q3, [SP], #0x20
-	LDP		Q0, Q1, [SP], #0x20
-
-	LDP		X29, X30, [SP], #0x10
-	LDP		X18, X19, [SP], #0x10
-	LDP		X16, X17, [SP], #0x10
-	LDP		X14, X15, [SP], #0x10
-	LDP		X12, X13, [SP], #0x10
-	LDP		X10, X11, [SP], #0x10
-	LDP		X8, X9, [SP], #0x10
-	LDP		X6, X7, [SP], #0x10
-	LDP		X4, X5, [SP], #0x10
-	LDP		X2, X3, [SP], #0x10
-	LDP		X0, X1, [SP], #0x10
+	restorefloatregisters
+	restorefuncontextgpregs
 
 	exception_return
 
