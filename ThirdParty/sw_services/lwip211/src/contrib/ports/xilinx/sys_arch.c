@@ -6,7 +6,7 @@
 
 /*
  * Copyright (c) 2001-2003 Swedish Institute of Computer Science.
- * Copyright (C) 2007 - 2019 Xilinx, Inc.
+ * Copyright (C) 2007 - 2021 Xilinx, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -41,8 +41,7 @@
 #include "lwipopts.h"
 #include "xil_printf.h"
 
-#ifdef OS_IS_FREERTOS
-
+#if !NO_SYS
 
 #include "arch/sys_arch.h"
 

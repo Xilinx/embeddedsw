@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (c) 2007 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2007 - 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 ###############################################################################
 
@@ -551,7 +551,6 @@ proc generate_lwip_opts {libhandle} {
 			set tcpip_mbox_size	[common::get_property CONFIG.tcpip_mbox_size $libhandle]
 			set default_tcp_recvmbox_size	[common::get_property CONFIG.default_tcp_recvmbox_size $libhandle]
 			set default_udp_recvmbox_size	[common::get_property CONFIG.default_udp_recvmbox_size $libhandle]
-			puts $lwipopts_fd "\#define OS_IS_FREERTOS"
 			puts $lwipopts_fd "\#define DEFAULT_THREAD_PRIO $thread_prio"
 			if {$processor_type == "psu_cortexa53" || $processor_type == "psv_cortexa72" } {
 				puts $lwipopts_fd "\#define TCPIP_THREAD_PRIO ($thread_prio)"

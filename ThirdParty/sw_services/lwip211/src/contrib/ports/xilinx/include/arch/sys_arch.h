@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2001-2003 Swedish Institute of Computer Science.
- * Copyright (C) 2007 - 2019 Xilinx, Inc.
+ * Copyright (C) 2007 - 2021 Xilinx, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -41,7 +41,7 @@ extern "C" {
 #include "lwipopts.h"
 
 
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 
 #include "FreeRTOS.h"
 #include "task.h"
@@ -64,7 +64,7 @@ typedef unsigned long sys_prot_t;
 #define sys_mbox_set_invalid( x ) ( ( *x ) = NULL )
 #define sys_sem_valid( x ) ( ( ( *x ) == NULL) ? pdFALSE : pdTRUE )
 #define sys_sem_set_invalid( x ) ( ( *x ) = NULL )
-#endif
+#endif /* !NO_SYS */
 
 #ifdef __cplusplus
 }
