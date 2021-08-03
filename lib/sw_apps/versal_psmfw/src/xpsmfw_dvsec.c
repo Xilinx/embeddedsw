@@ -56,16 +56,16 @@ static void XPsmFw_DvsecInit(void)
 {
 	u32 Value;
 
-	Value = Dvsec_Rd32(PCIEA_ATTRIB_0, PCIE_PF0_PDVSEC_VID_OFF);
+	Value = Dvsec_Rd32(CpmParam.PcieaAttrib0, PCIE_PF0_PDVSEC_VID_OFF);
 	DvsecPcsrProtocol[DVSEC_PCSR_PROT_DVSEC_HDR_IDX].Val =
 			DvsecPcsrProtocol[DVSEC_PCSR_PROT_DVSEC_HDR_IDX].Val |
 			(Value & DVSEC_LOW_16B_MASK);
 
-	Value = Dvsec_Rd32(PCIEA_ATTRIB_0, PCIE_PF0_PCSR_SIZE_OFF);
+	Value = Dvsec_Rd32(CpmParam.PcieaAttrib0, PCIE_PF0_PCSR_SIZE_OFF);
 	DvsecPcsrProtocol[DVSEC_PCSR_PROT_PL_CAPSTAT_IDX].Val =
 			DvsecPcsrProtocol[DVSEC_PCSR_PROT_PL_CAPSTAT_IDX].Val |
 			(Value & DVSEC_LOW_11B_MASK);
-	Value = Dvsec_Rd32(PCIEA_ATTRIB_0, PCIE_PF0_PCR_SIZE_OFF);
+	Value = Dvsec_Rd32(CpmParam.PcieaAttrib0, PCIE_PF0_PCR_SIZE_OFF);
 	DvsecPcsrProtocol[DVSEC_PCSR_PROT_PL_CNTRL_IDX].Val =
 			DvsecPcsrProtocol[DVSEC_PCSR_PROT_PL_CNTRL_IDX].Val |
 			(Value & DVSEC_LOW_11B_MASK);
@@ -85,7 +85,7 @@ static void XPsmFw_DvsecInit(void)
  ****************************************************************************/
 void XPsmFw_DvsecRead(void)
 {
-	if (((Xil_In32(CPM_SLCR_BASE + CPM_MISC_IR_STA_OFF)
+	if (((Xil_In32(CpmParam.CpmSlcr + CPM_MISC_IR_STA_OFF)
 		& CPM_SLCR_DVSEC_CFG_RD_MASK) == CPM_SLCR_DVSEC_CFG_RD_MASK) &&
 	     (PlIntrRcvd == FALSE_VALUE)) {
 		static u8 DvsecInit;
@@ -96,28 +96,28 @@ void XPsmFw_DvsecRead(void)
 			XPsmFw_DvsecInit();
 			DvsecInit = 1U;
 		}
-		RegNum = (((Xil_In32(PCIEA_ATTRIB_0 + PCIE_CFG_ADDR_OFF)) >>
+		RegNum = (((Xil_In32(CpmParam.PcieaAttrib0 + PCIE_CFG_ADDR_OFF)) >>
 			   PCIE_PDVSEC_REG_NO_SHIFT) << PCIE_PDVSEC_REG_FIX_SHIFT);
 
 		if ((RegNum >= DvsecPcsrPrimary[0].DvsecOff) &&
 		    (RegNum <= DvsecPcsrPrimary[DVSEC_PCSR_PRIM_LEN - 1U].DvsecOff)) {
 			Index = DVSEC_CALC_IDX(RegNum, DvsecPcsrPrimary);
 
-			Dvsec_Wr_M32(PCIEA_DVSEC_0, RegNum,
+			Dvsec_Wr_M32(CpmParam.PcieaDvsec0, RegNum,
 				    ~(DVSEC_DEV_ID_MASK << DVSEC_DEV_ID_SHIFT),
 				    DvsecPcsrPrimary[Index].Val);
 		} else if ((RegNum >= DvsecPcsrProtocol[0].DvsecOff) &&
 			 (RegNum <= DvsecPcsrProtocol[DVSEC_PCSR_PROT_LEN - 1U].DvsecOff)) {
 			Index = DVSEC_CALC_IDX(RegNum, DvsecPcsrProtocol);
-			Dvsec_Wr32(PCIEA_DVSEC_0, RegNum,
+			Dvsec_Wr32(CpmParam.PcieaDvsec0, RegNum,
 				      DvsecPcsrProtocol[Index].Val);
 		} else {
-			Dvsec_Wr32(PCIEA_DVSEC_0, RegNum, 0U);
+			Dvsec_Wr32(CpmParam.PcieaDvsec0, RegNum, 0U);
 		}
 
-		Xil_Out32(PCIEA_ATTRIB_0 + PCIE_CFG_ADDR_OFF, PCIE_CFG_MASK);
-		Xil_Out32(CPM_SLCR_BASE + CPM_MISC_IR_STA_OFF,
-			  Xil_In32(CPM_SLCR_BASE + CPM_MISC_IR_STA_OFF));
+		Xil_Out32(CpmParam.PcieaAttrib0 + PCIE_CFG_ADDR_OFF, PCIE_CFG_MASK);
+		Xil_Out32(CpmParam.CpmSlcr + CPM_MISC_IR_STA_OFF,
+			  Xil_In32(CpmParam.CpmSlcr + CPM_MISC_IR_STA_OFF));
 	}
 }
 
@@ -134,12 +134,12 @@ void XPsmFw_DvsecRead(void)
  ****************************************************************************/
 void XPsmFw_DvsecWrite(void)
 {
-	if (((Xil_In32(CPM_SLCR_BASE + CPM_CORR_IR_STA_OFF) &
+	if (((Xil_In32(CpmParam.CpmSlcr + CPM_CORR_IR_STA_OFF) &
 		CPM_SLCR_DVSEC_CFG_WR_MASK) == CPM_SLCR_DVSEC_CFG_WR_MASK) &&
 	    (PlIntrRcvd == FALSE_VALUE)) {
-		Xil_Out32(CPM_SLCR_BASE + CPM_CORR_IR_STA_OFF,
-			  Xil_In32(CPM_SLCR_BASE + CPM_CORR_IR_STA_OFF));
-		Xil_Out32(PCIEA_ATTRIB_0 + PCIE_CFG_ADDR_OFF, PCIE_CFG_MASK);
+		Xil_Out32(CpmParam.CpmSlcr + CPM_CORR_IR_STA_OFF,
+			  Xil_In32(CpmParam.CpmSlcr + CPM_CORR_IR_STA_OFF));
+		Xil_Out32(CpmParam.PcieaAttrib0 + PCIE_CFG_ADDR_OFF, PCIE_CFG_MASK);
 	}
 }
 
@@ -159,15 +159,15 @@ void XPsmFw_DvsecPLHandler(void)
 	PlIntrRcvd = TRUE_VALUE;
 
 	/* Enable PL CPM SLCR MISC/CORR interrupts */
-	Xil_Out32(CPM_SLCR_BASE + CPM_PL_MISC_IRQ_ENA_OFF,
+	Xil_Out32(CpmParam.CpmSlcr + CPM_PL_MISC_IRQ_ENA_OFF,
 		  CPM_MISC_IRQ_UNMASK);
-	Xil_Out32(CPM_SLCR_BASE + CPM_PL_CORR_IRQ_ENA_OFF,
+	Xil_Out32(CpmParam.CpmSlcr + CPM_PL_CORR_IRQ_ENA_OFF,
 		  CPM_CORR_IRQ_UNMASK);
 
 	/* Disable PS CPM SLCR MISC/CORR interrupts */
-	Xil_Out32(CPM_SLCR_BASE + CPM_PS_MISC_IRQ_DIS_OFF,
+	Xil_Out32(CpmParam.CpmSlcr + CPM_PS_MISC_IRQ_DIS_OFF,
 			CPM_MISC_IRQ_UNMASK);
-	Xil_Out32(CPM_SLCR_BASE + CPM_PS_CORR_IRQ_DIS_OFF,
+	Xil_Out32(CpmParam.CpmSlcr + CPM_PS_CORR_IRQ_DIS_OFF,
 			CPM_CORR_IRQ_UNMASK);
 
 	/* Disable PSM GIC interrupts */
@@ -189,17 +189,17 @@ static void XPsmFw_Cpm5DvsecInit(void)
 {
 	u32 Value;
 
-	Value = Dvsec_Rd32(CPM5_PCIEA_ATTRIB_0, CPM5_PCIE_PF0_PDVSEC_VID_OFF);
+	Value = Dvsec_Rd32(CpmParam.PcieaAttrib0, CPM5_PCIE_PF0_PDVSEC_VID_OFF);
 	DvsecPcsrProtocol[DVSEC_PCSR_PROT_DVSEC_HDR_IDX].Val =
 			DvsecPcsrProtocol[DVSEC_PCSR_PROT_DVSEC_HDR_IDX].Val |
 			(Value & DVSEC_LOW_16B_MASK);
 
-	Value = Dvsec_Rd32(CPM5_PCIEA_ATTRIB_0, CPM5_PCIE_PF0_PCSR_SIZE_OFF);
+	Value = Dvsec_Rd32(CpmParam.PcieaAttrib0, CPM5_PCIE_PF0_PCSR_SIZE_OFF);
 	DvsecPcsrProtocol[DVSEC_PCSR_PROT_PL_CAPSTAT_IDX].Val =
 			DvsecPcsrProtocol[DVSEC_PCSR_PROT_PL_CAPSTAT_IDX].Val |
 			(Value & DVSEC_LOW_11B_MASK);
 
-	Value = Dvsec_Rd32(CPM5_PCIEA_ATTRIB_0, CPM5_PCIE_PF0_PCR_SIZE_OFF);
+	Value = Dvsec_Rd32(CpmParam.PcieaAttrib0, CPM5_PCIE_PF0_PCR_SIZE_OFF);
 	DvsecPcsrProtocol[DVSEC_PCSR_PROT_PL_CNTRL_IDX].Val =
 			DvsecPcsrProtocol[DVSEC_PCSR_PROT_PL_CNTRL_IDX].Val |
 			(Value & DVSEC_LOW_11B_MASK);
@@ -227,7 +227,7 @@ static void XPsmFw_Cpm5DvsecRead(void)
 		XPsmFw_Cpm5DvsecInit();
 		Cpm5DvsecInit = 1U;
 	}
-	RegNum = ((((Xil_In32(CPM5_PCIE0_CSR + CPM5_CFG_MGMT_DVSEC_OFF)) &
+	RegNum = ((((Xil_In32(CpmParam.PcieCsr0 + CPM5_CFG_MGMT_DVSEC_OFF)) &
 		    CPM5_PCIE_PDVSEC_REG_MASK ) >> CPM5_PCIE_PDVSEC_REG_NO_SHIFT)
 		  << CPM5_PCIE_PDVSEC_REG_FIX_SHIFT);
 
@@ -235,26 +235,26 @@ static void XPsmFw_Cpm5DvsecRead(void)
 	    (RegNum <= DvsecPcsrPrimary[DVSEC_PCSR_PRIM_LEN - 1U].DvsecOff)) {
 		Index = DVSEC_CALC_IDX(RegNum, DvsecPcsrPrimary);
 
-		Dvsec_Wr_M32(CPM5_PCIEA_DVSEC_0, RegNum,
+		Dvsec_Wr_M32(CpmParam.PcieaDvsec0, RegNum,
 			    ~(DVSEC_DEV_ID_MASK << DVSEC_DEV_ID_SHIFT),
 			    DvsecPcsrPrimary[Index].Val);
 	} else if ((RegNum >= DvsecPcsrProtocol[0].DvsecOff) &&
 		 (RegNum <= DvsecPcsrProtocol[DVSEC_PCSR_PROT_LEN - 1U].DvsecOff)) {
 		Index = DVSEC_CALC_IDX(RegNum, DvsecPcsrProtocol);
-		Dvsec_Wr32(CPM5_PCIEA_DVSEC_0, RegNum,
+		Dvsec_Wr32(CpmParam.PcieaDvsec0, RegNum,
 			      DvsecPcsrProtocol[Index].Val);
 	} else {
-		Dvsec_Wr32(CPM5_PCIEA_DVSEC_0, RegNum, 0U);
+		Dvsec_Wr32(CpmParam.PcieaDvsec0, RegNum, 0U);
 	}
 
 	/* Acknowledging Status registers */
-	Xil_Out32(CPM5_SLCR_BASE + CPM5_MISC_IR_STA_OFF,
-		  Xil_In32(CPM5_SLCR_BASE + CPM5_MISC_IR_STA_OFF));
-	Xil_Out32(CPM5_SLCR_BASE + CPM5_PCIE0_IR_STA_OFF,
-			  Xil_In32(CPM5_SLCR_BASE + CPM5_PCIE0_IR_STA_OFF));
+	Xil_Out32(CpmParam.CpmSlcr + CPM5_MISC_IR_STA_OFF,
+		  Xil_In32(CpmParam.CpmSlcr + CPM5_MISC_IR_STA_OFF));
+	Xil_Out32(CpmParam.CpmSlcr + CPM5_PCIE0_IR_STA_OFF,
+			  Xil_In32(CpmParam.CpmSlcr + CPM5_PCIE0_IR_STA_OFF));
 
 	/* Send Completion */
-	Xil_Out32(CPM5_PCIE0_CSR + CPM5_CFG_MGMT_DVSEC_OFF, PCIE_CFG_MASK);
+	Xil_Out32(CpmParam.PcieCsr0 + CPM5_CFG_MGMT_DVSEC_OFF, PCIE_CFG_MASK);
 }
 
 /****************************************************************************/
@@ -271,13 +271,13 @@ static void XPsmFw_Cpm5DvsecRead(void)
 static void XPsmFw_Cpm5DvsecWrite(void)
 {
 	/* Acknowledging Status registers */
-	Xil_Out32(CPM5_SLCR_BASE + CPM5_CORR_IR_STA_OFF,
-		  Xil_In32(CPM5_SLCR_BASE + CPM5_CORR_IR_STA_OFF));
-	Xil_Out32(CPM5_SLCR_BASE + CPM5_PCIE0_IR_STA_OFF,
-			  Xil_In32(CPM5_SLCR_BASE + CPM5_PCIE0_IR_STA_OFF));
+	Xil_Out32(CpmParam.CpmSlcr + CPM5_CORR_IR_STA_OFF,
+		  Xil_In32(CpmParam.CpmSlcr + CPM5_CORR_IR_STA_OFF));
+	Xil_Out32(CpmParam.CpmSlcr + CPM5_PCIE0_IR_STA_OFF,
+			  Xil_In32(CpmParam.CpmSlcr + CPM5_PCIE0_IR_STA_OFF));
 
 	/* Send Completion */
-	Xil_Out32(CPM5_PCIE0_CSR + CPM5_CFG_MGMT_DVSEC_OFF, PCIE_CFG_MASK);
+	Xil_Out32(CpmParam.PcieCsr0 + CPM5_CFG_MGMT_DVSEC_OFF, PCIE_CFG_MASK);
 }
 
 /****************************************************************************/
@@ -293,13 +293,13 @@ static void XPsmFw_Cpm5DvsecWrite(void)
  ****************************************************************************/
 void XPsmFw_Cpm5DvsecHandler(void)
 {
-	if (((Xil_In32(CPM5_SLCR_BASE + CPM5_PCIE0_IR_STA_OFF) &
+	if (((Xil_In32(CpmParam.CpmSlcr + CPM5_PCIE0_IR_STA_OFF) &
 		CPM5_SLCR_DVSEC_CFG_RD_MASK) != 0U) &&
 	    (PlIntrRcvd == FALSE_VALUE)) {
 		XPsmFw_Cpm5DvsecRead();
 	}
 
-	if (((Xil_In32(CPM5_SLCR_BASE + CPM5_PCIE0_IR_STA_OFF) &
+	if (((Xil_In32(CpmParam.CpmSlcr + CPM5_PCIE0_IR_STA_OFF) &
 		CPM5_SLCR_DVSEC_CFG_WR_MASK) != 0U) &&
 	    (PlIntrRcvd == FALSE_VALUE)) {
 		XPsmFw_Cpm5DvsecWrite();
@@ -322,15 +322,15 @@ void XPsmFw_Cpm5DvsecPLHandler(void)
 	PlIntrRcvd = TRUE_VALUE;
 
 	/* Enable PL CPM5 DVSEC interrupts */
-	Xil_Out32(CPM5_SLCR_BASE + CPM_PL_MISC_IRQ_ENA_OFF,
+	Xil_Out32(CpmParam.CpmSlcr + CPM_PL_MISC_IRQ_ENA_OFF,
 		  CPM5_MISC_IRQ_UNMASK);
-	Xil_Out32(CPM5_SLCR_BASE + CPM_PL_CORR_IRQ_ENA_OFF,
+	Xil_Out32(CpmParam.CpmSlcr + CPM_PL_CORR_IRQ_ENA_OFF,
 		  CPM5_CORR_IRQ_UNMASK);
 
 	/* Disable PS CPM5 DVSEC interrupts */
-	Xil_Out32(CPM5_SLCR_BASE + CPM_PS_MISC_IRQ_DIS_OFF,
+	Xil_Out32(CpmParam.CpmSlcr + CPM_PS_MISC_IRQ_DIS_OFF,
 			CPM5_MISC_IRQ_UNMASK);
-	Xil_Out32(CPM5_SLCR_BASE + CPM_PS_CORR_IRQ_DIS_OFF,
+	Xil_Out32(CpmParam.CpmSlcr + CPM_PS_CORR_IRQ_DIS_OFF,
 			CPM5_CORR_IRQ_UNMASK);
 
 	/* Disable PSM GIC interrupts */
