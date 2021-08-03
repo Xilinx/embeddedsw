@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 - 2019 Xilinx, Inc.
+ * Copyright (C) 2010 - 2021 Xilinx, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -31,11 +31,9 @@
 #include "lwipopts.h"
 
 #if !NO_SYS
-#ifdef OS_IS_FREERTOS
 #include "FreeRTOS.h"
 #include "semphr.h"
 #include "timers.h"
-#endif
 #include "lwip/sys.h"
 #endif
 
@@ -95,7 +93,7 @@ struct xemac_s *xemac_fast;
 xaxiemacif_s *xaxiemacif_fast;
 #endif
 
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 u32 xInsideISR = 0;
 #endif
 
@@ -252,7 +250,7 @@ static void axidma_send_handler(void *arg)
 	xaxiemacif_s   *xaxiemacif;
 	XAxiDma_BdRing *txringptr;
 
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 	xInsideISR++;
 #endif
 	xemac = (struct xemac_s *)(arg);
@@ -275,7 +273,7 @@ static void axidma_send_handler(void *arg)
 		xil_printf("%s: Error: axidma error interrupt is asserted\r\n",
 			__FUNCTION__);
 		XAxiDma_Reset(&xaxiemacif->axidma);
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 		xInsideISR--;
 #endif
 		return;
@@ -287,7 +285,7 @@ static void axidma_send_handler(void *arg)
 
 	XAxiDma_BdRingIntEnable(txringptr, XAXIDMA_IRQ_ALL_MASK);
 
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 	xInsideISR--;
 #endif
 }
@@ -369,7 +367,7 @@ static void axidma_recv_handler(void *arg)
 	xaxiemacif_s *xaxiemacif;
 	XAxiDma_BdRing *rxring;
 
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 	xInsideISR++;
 #endif
 
@@ -403,7 +401,7 @@ static void axidma_recv_handler(void *arg)
 		}
 		XAxiDma_BdRingIntEnable(rxring, XAXIDMA_IRQ_ALL_MASK);
 		XAxiDma_Resume(&xaxiemacif->axidma);
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 		xInsideISR--;
 #endif
 		return;
@@ -462,7 +460,7 @@ static void axidma_recv_handler(void *arg)
 #endif
 	}
 	XAxiDma_BdRingIntEnable(rxring, XAXIDMA_IRQ_ALL_MASK);
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 	xInsideISR--;
 #endif
 
@@ -641,7 +639,7 @@ XStatus init_axi_dma(struct xemac_s *xemac)
 #if NO_SYS
 	struct xtopology_t *xtopologyp = &xtopology[xemac->topology_index];
 #endif
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 	struct xtopology_t *xtopologyp = &xtopology[xemac->topology_index];
 #endif
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007 - 2019 Xilinx, Inc.
+ * Copyright (C) 2007 - 2021 Xilinx, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -52,9 +52,9 @@ struct xemac_s {
 	void *state;
 #if !NO_SYS
     sys_sem_t sem_rx_data_available;
-#endif
-#if defined(OS_IS_FREERTOS) && defined(__arm__) && !defined(ARMR5)
+#if defined(__arm__) && !defined(ARMR5)
 	TimerHandle_t xTimer;
+#endif
 #endif
 };
 

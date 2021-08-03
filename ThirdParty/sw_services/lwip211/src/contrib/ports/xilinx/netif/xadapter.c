@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007 - 2019 Xilinx, Inc.
+ * Copyright (C) 2007 - 2021 Xilinx, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -60,9 +60,7 @@
 
 #if !NO_SYS
 #include "lwip/tcpip.h"
-#endif
 
-#ifdef OS_IS_FREERTOS
 #define THREAD_STACKSIZE 256
 #define LINK_DETECT_THREAD_INTERVAL 1000 /* one second */
 
@@ -129,7 +127,7 @@ xemac_add(struct netif *netif,
 {
 	int i;
 
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 	/* Start thread to detect link periodically for Hot Plug autodetect */
 	sys_thread_new("link_detect_thread", link_detect_thread, netif,
 			THREAD_STACKSIZE, tskIDLE_PRIORITY);
@@ -411,7 +409,7 @@ void eth_link_detect(struct netif *netif)
 	}
 }
 
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 void link_detect_thread(void *p)
 {
 	struct netif *netif = (struct netif *) p;

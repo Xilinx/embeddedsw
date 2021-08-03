@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 - 2019 Xilinx, Inc.
+ * Copyright (C) 2010 - 2021 Xilinx, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -31,11 +31,9 @@
 #include "lwipopts.h"
 
 #if !NO_SYS
-#ifdef OS_IS_FREERTOS
 #include "FreeRTOS.h"
 #include "semphr.h"
 #include "timers.h"
-#endif
 #include "lwip/sys.h"
 #endif
 
@@ -79,7 +77,7 @@ struct xemac_s *xemac_fast;
 xaxiemacif_s *xaxiemacif_fast;
 #endif
 
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 unsigned int xInsideISR = 0;
 #endif
 
@@ -183,7 +181,7 @@ xllfifo_intr_handler(struct xemac_s *xemac)
 
 	u32_t pending_fifo_intr = XLlFifo_IntPending(llfifo);
 
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 	xInsideISR++;
 #endif
 
@@ -204,7 +202,7 @@ xllfifo_intr_handler(struct xemac_s *xemac)
 		pending_fifo_intr = XLlFifo_IntPending(llfifo);
 	}
 
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 	xInsideISR--;
 #endif
 
@@ -217,12 +215,7 @@ XStatus init_axi_fifo(struct xemac_s *xemac)
 	xaxiemacif_fast = xaxiemacif;
 	xemac_fast = xemac;
 #endif
-#if NO_SYS
 	struct xtopology_t *xtopologyp = &xtopology[xemac->topology_index];
-#endif
-#ifdef OS_IS_FREERTOS
-	struct xtopology_t *xtopologyp = &xtopology[xemac->topology_index];
-#endif
 
 	/* initialize ll fifo */
 	XLlFifo_Initialize(&xaxiemacif->axififo,

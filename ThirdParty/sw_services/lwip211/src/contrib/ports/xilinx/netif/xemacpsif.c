@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 - 2019 Xilinx, Inc.
+ * Copyright (C) 2010 - 2021 Xilinx, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -76,9 +76,11 @@ static u8_t xemacps_mld6_mcast_entry_mask;
 XEmacPs_Config *mac_config;
 struct netif *NetIf;
 
-#if defined(OS_IS_FREERTOS) && defined(__arm__) && !defined(ARMR5)
+#if !NO_SYS
+#if defined(__arm__) && !defined(ARMR5)
 int32_t lExpireCounter = 0;
 #define RESETRXTIMEOUT 10
+#endif
 #endif
 
 /*
@@ -212,7 +214,7 @@ s32_t xemacpsif_input(struct netif *netif)
 	struct pbuf *p;
 	SYS_ARCH_DECL_PROTECT(lev);
 
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 	while (1)
 #endif
 	{
@@ -264,8 +266,8 @@ s32_t xemacpsif_input(struct netif *netif)
 	return 1;
 }
 
-
-#if defined(OS_IS_FREERTOS) && defined(__arm__) && !defined(ARMR5)
+#if !NO_SYS
+#if defined(__arm__) && !defined(ARMR5)
 void vTimerCallback( TimerHandle_t pxTimer )
 {
 	/* Do something if the pxTimer parameter is NULL */
@@ -278,7 +280,8 @@ void vTimerCallback( TimerHandle_t pxTimer )
 		xemacpsif_resetrx_on_no_rxdata(NetIf);
 	}
 }
- #endif
+#endif
+#endif
 
 static err_t low_level_init(struct netif *netif)
 {
@@ -368,8 +371,8 @@ static err_t low_level_init(struct netif *netif)
 	dmacrreg = dmacrreg | (0x00000010);
 	XEmacPs_WriteReg(xemacpsif->emacps.Config.BaseAddress,
 											XEMACPS_DMACR_OFFSET, dmacrreg);
-
-#if defined(OS_IS_FREERTOS) && defined(__arm__) && !defined(ARMR5)
+#if !NO_SYS
+#if defined(__arm__) && !defined(ARMR5)
 	/* Freertos tick is 10ms by default; set period to the same */
 	xemac->xTimer = xTimerCreate("Timer", 10, pdTRUE, ( void * ) 1, vTimerCallback);
 	if (xemac->xTimer == NULL) {
@@ -379,6 +382,7 @@ static err_t low_level_init(struct netif *netif)
 			xil_printf("In %s:Timer start failed....\r\n", __func__);
 		}
 	}
+#endif
 #endif
 	setup_isr(xemac);
 	init_dma(xemac);

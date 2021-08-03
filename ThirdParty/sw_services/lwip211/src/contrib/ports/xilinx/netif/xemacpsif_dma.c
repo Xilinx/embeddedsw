@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 - 2019 Xilinx, Inc.
+ * Copyright (C) 2010 - 2021 Xilinx, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -48,7 +48,7 @@
 #ifdef CONFIG_XTRACE
 #include "xtrace.h"
 #endif
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 #include "FreeRTOS.h"
 #include "semphr.h"
 #include "timers.h"
@@ -116,7 +116,7 @@ u8_t bd_space[0x100000] __attribute__ ((aligned (0x100000)));
 static volatile u32_t bd_space_index = 0;
 static volatile u32_t bd_space_attr_set = 0;
 
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 long xInsideISR = 0;
 #endif
 
@@ -250,7 +250,7 @@ void emacps_send_handler(void *arg)
 	xemacpsif_s   *xemacpsif;
 	XEmacPs_BdRing *txringptr;
 	u32_t regval;
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 	xInsideISR++;
 #endif
 	xemac = (struct xemac_s *)(arg);
@@ -261,7 +261,7 @@ void emacps_send_handler(void *arg)
 
 	/* If Transmit done interrupt is asserted, process completed BD's */
 	process_sent_bds(xemacpsif, txringptr);
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 	xInsideISR--;
 #endif
 }
@@ -463,7 +463,7 @@ void emacps_recv_handler(void *arg)
 	xemacpsif = (xemacpsif_s *)(xemac->state);
 	rxring = &XEmacPs_GetRxRing(&xemacpsif->emacps);
 
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 	xInsideISR++;
 #endif
 
@@ -526,7 +526,7 @@ void emacps_recv_handler(void *arg)
 #endif
 	}
 
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 	xInsideISR--;
 #endif
 	return;
