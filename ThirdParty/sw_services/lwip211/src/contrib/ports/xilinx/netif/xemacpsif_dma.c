@@ -504,7 +504,9 @@ void emacps_recv_handler(void *arg)
 			/* Invalidate RX frame before queuing to handle
 			 * L1 cache prefetch conditions on any architecture.
 			 */
-			Xil_DCacheInvalidateRange((UINTPTR)p->payload, rx_bytes);
+			if (xemacpsif->emacps.Config.IsCacheCoherent == 0) {
+				Xil_DCacheInvalidateRange((UINTPTR)p->payload, rx_bytes);
+			}
 
 			/* store it in the receive queue,
 			 * where it'll be processed by a different handler
@@ -521,14 +523,12 @@ void emacps_recv_handler(void *arg)
 		/* free up the BD's */
 		XEmacPs_BdRingFree(rxring, bd_processed, rxbdset);
 		setup_rx_bds(xemacpsif, rxring);
-#if !NO_SYS
-		sys_sem_signal(&xemac->sem_rx_data_available);
-#endif
 	}
-
 #if !NO_SYS
+	sys_sem_signal(&xemac->sem_rx_data_available);
 	xInsideISR--;
 #endif
+
 	return;
 }
 
@@ -750,8 +750,11 @@ XStatus init_dma(struct xemac_s *xemac)
 		XEmacPs_Out32((xemacpsif->emacps.Config.BaseAddress + XEMACPS_TXQBASE_OFFSET),
 				   (UINTPTR)bdtxterminate);
 	}
-
-
+#if !NO_SYS
+	xPortInstallInterruptHandler(xtopologyp->scugic_emac_intr,
+						( Xil_InterruptHandler ) XEmacPs_IntrHandler,
+						(void *)&xemacpsif->emacps);
+#else
 	/*
 	 * Connect the device driver handler that will be called when an
 	 * interrupt for the device occurs, the handler defined above performs
@@ -760,6 +763,7 @@ XStatus init_dma(struct xemac_s *xemac)
 	XScuGic_RegisterHandler(INTC_BASE_ADDR, xtopologyp->scugic_emac_intr,
 				(Xil_ExceptionHandler)XEmacPs_IntrHandler,
 						(void *)&xemacpsif->emacps);
+#endif
 	/*
 	 * Enable the interrupt for emacps.
 	 */
