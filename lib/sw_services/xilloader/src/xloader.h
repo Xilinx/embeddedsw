@@ -83,6 +83,7 @@
 * 1.04  bm   07/16/2021 Updated XLoader_PdiInit prototype
 *       bsv  07/19/2021 Disable UART prints when invalid header is encountered
 *                       in slave boot modes
+*       bm   07/30/2021 Added Metaheader PDI type
 *
 * </pre>
 *
@@ -150,6 +151,7 @@ extern "C" {
 #define XLOADER_PDI_TYPE_FULL		(0x1U)
 #define XLOADER_PDI_TYPE_PARTIAL	(0x2U)
 #define XLOADER_PDI_TYPE_RESTORE	(0x3U)
+#define XLOADER_PDI_TYPE_METAHEADER	(0x4U)
 
 /*
  * Secondary boot mode related macros

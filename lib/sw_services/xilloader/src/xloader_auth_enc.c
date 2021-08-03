@@ -49,6 +49,7 @@
 *                     XLoader_CheckAuthJtagIntStatus scheduler task
 *       har  07/15/21 Fixed doxygen warnings
 *       td   07/15/21 Fixed doxygen warnings
+*       bm   07/30/21 Updated decrypt metaheader logic to support full PDIs
 *
 * </pre>
 *
@@ -601,8 +602,13 @@ int XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr)
 	}
 
 	/* Copy Authentication certificate */
-	AcOffset = SecurePtr->PdiPtr->MetaHdr.FlashOfstAddr +
-			((u64)(ImgHdrTbl->AcOffset) * XIH_PRTN_WORD_LEN);
+	if (SecurePtr->PdiPtr->PdiType == XLOADER_PDI_TYPE_METAHEADER) {
+		AcOffset = SecurePtr->PdiPtr->MetaHdr.FlashOfstAddr + XIH_IHT_LEN;
+	}
+	else {
+		AcOffset = SecurePtr->PdiPtr->MetaHdr.FlashOfstAddr +
+				((u64)(ImgHdrTbl->AcOffset) * XIH_PRTN_WORD_LEN);
+	}
 
 	Status = SecurePtr->PdiPtr->DeviceCopy(AcOffset,
 		(UINTPTR)SecurePtr->AcPtr, XLOADER_AUTH_CERT_MIN_SIZE, 0U);
@@ -2414,8 +2420,20 @@ static int XLoader_ReadHdrs(const XLoader_SecureParams *SecurePtr,
 		TotalSize = MetaHdr->ImgHdrTbl.NoOfPrtns * XIH_PH_LEN;
 	}
 	else {
-		ImgHdrAddr = MetaHdr->ImgHdrTbl.ImgHdrAddr
-						* XIH_PRTN_WORD_LEN;
+		if (SecurePtr->PdiPtr->PdiType == XLOADER_PDI_TYPE_METAHEADER) {
+			if (SecurePtr->IsAuthenticated == (u8)TRUE) {
+				ImgHdrAddr = ((MetaHdr->ImgHdrTbl.ImgHdrAddr -
+					MetaHdr->ImgHdrTbl.AcOffset) *
+					XIH_PRTN_WORD_LEN) + XIH_IHT_LEN;
+			}
+			else {
+				ImgHdrAddr = XIH_IHT_LEN;
+			}
+		}
+		else {
+			ImgHdrAddr = MetaHdr->ImgHdrTbl.ImgHdrAddr
+					* XIH_PRTN_WORD_LEN;
+		}
 
 		if (SecurePtr->IsAuthenticated == (u8)TRUE) {
 			TotalSize = TotalSize - XLOADER_AUTH_CERT_MIN_SIZE;
