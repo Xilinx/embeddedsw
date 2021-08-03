@@ -1,7 +1,7 @@
 /******************************************************************************
 *
 * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
-* Copyright (C) 2014 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2021 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy of
 * this software and associated documentation files (the "Software"), to deal in
@@ -64,10 +64,10 @@
 .globl _vector_table
 .globl _freertos_vector_table
 
-.globl FIQInterrupt
-.globl IRQInterrupt
 .globl SErrorInterrupt
 .globl SynchronousInterrupt
+.globl SynchronousInterruptHandler
+.globl SErrorInterruptHandler
 
 .macro exception_return
 	eret
@@ -186,7 +186,7 @@ _freertos_vector_table:
 	b	.
 #endif
 .org (FREERTOS_VBAR + 0x180)
-	b	.
+	b	SErrorInterruptHandler
 
 .org (FREERTOS_VBAR + 0x200)
 	b	FreeRTOS_SWI_Handler
@@ -198,7 +198,7 @@ _freertos_vector_table:
 	b	FreeRTOS_IRQ_Handler
 
 .org (FREERTOS_VBAR + 0x380)
-	b	.
+	b	SErrorInterruptHandler
 
 .org (FREERTOS_VBAR + 0x400)
 	b	.
@@ -258,64 +258,6 @@ SynchronousInterruptHandler:
 
 	exception_return
 
-IRQInterruptHandler:
-	stp	X0,X1, [sp,#-0x10]!
-	stp	X2,X3, [sp,#-0x10]!
-	stp	X4,X5, [sp,#-0x10]!
-	stp	X6,X7, [sp,#-0x10]!
-	stp	X8,X9, [sp,#-0x10]!
-	stp	X10,X11, [sp,#-0x10]!
-	stp	X12,X13, [sp,#-0x10]!
-	stp	X14,X15, [sp,#-0x10]!
-	stp	X16,X17, [sp,#-0x10]!
-	stp     X18,X19, [sp,#-0x10]!
-	stp     X29,X30, [sp,#-0x10]!
-
-	bl      IRQInterrupt
-
-	ldp     X29,X30, [sp], #0x10
-	ldp     X18,X19, [sp], #0x10
-	ldp	X16,X17, [sp], #0x10
-	ldp	X14,X15, [sp], #0x10
-	ldp	X12,X13, [sp], #0x10
-	ldp	X10,X11, [sp], #0x10
-	ldp	X8,X9, [sp], #0x10
-	ldp	X6,X7, [sp], #0x10
-	ldp	X4,X5, [sp], #0x10
-	ldp	X2,X3, [sp], #0x10
-	ldp	X0,X1, [sp], #0x10
-
-	exception_return
-
-FIQInterruptHandler:
-
-	stp	X0,X1, [sp,#-0x10]!
-	stp	X2,X3, [sp,#-0x10]!
-	stp	X4,X5, [sp,#-0x10]!
-	stp	X6,X7, [sp,#-0x10]!
-	stp	X8,X9, [sp,#-0x10]!
-	stp	X10,X11, [sp,#-0x10]!
-	stp	X12,X13, [sp,#-0x10]!
-	stp	X14,X15, [sp,#-0x10]!
-	stp	X16,X17, [sp,#-0x10]!
-	stp     X18,X19, [sp,#-0x10]!
-	stp     X29,X30, [sp,#-0x10]!
-
-        bl      FIQInterrupt
-
-	ldp     X29,X30, [sp], #0x10
-        ldp     X18,X19, [sp], #0x10
-	ldp	X16,X17, [sp], #0x10
-	ldp	X14,X15, [sp], #0x10
-	ldp	X12,X13, [sp], #0x10
-	ldp	X10,X11, [sp], #0x10
-	ldp	X8,X9, [sp], #0x10
-	ldp	X6,X7, [sp], #0x10
-	ldp	X4,X5, [sp], #0x10
-	ldp	X2,X3, [sp], #0x10
-	ldp	X0,X1, [sp], #0x10
-
-	exception_return
 
 SErrorInterruptHandler:
 
