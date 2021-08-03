@@ -44,6 +44,7 @@
 *                       secure access for IPI commands
 *       bm   03/16/2021 Added Image Upgrade support
 * 1.06  bm   07/16/2021 Added decrypt metaheader support
+*       bm   07/30/2021 Updated decrypt metaheader logic to support full PDIs
 *
 * </pre>
 *
@@ -125,7 +126,7 @@ static XPlmi_Module XPlmi_Loader;
 #define XLOADER_IMG_HDR_TBL_EXPORT_MASK0	(0x00021F7FU)
 #define XLOADER_IMG_HDR_EXPORT_MASK0	(0x00003FFBU)
 #define XLOADER_PRTN_HDR_EXPORT_MASK0	(0x00001DFFU)
-#define XLOADER_META_HDR_LEN_OFFSET	(0x40U)
+#define XLOADER_META_HDR_LEN_OFFSET	(0x30U)
 
 /************************** Function Prototypes ******************************/
 
@@ -662,8 +663,7 @@ static void XLoader_GetExportableBuffer(u32 *Buffer, u32 Mask, u32 Size)
 /*****************************************************************************/
 /**
  * @brief	This function decrypts the metaheader during run-time and exports
- * it to the user specified location. This command requires the source buffer to
- * contain SMAP header at the start of the buffer.
+ * it to the user specified location.
  *
  *  Command payload parameters are:
  *	- Source Buffer Low Address
@@ -693,15 +693,14 @@ static int XLoader_DecryptMetaheader(XPlmi_Cmd *Cmd)
 	SrcAddr = ((u64)Cmd->Payload[1U]) | (SrcAddr << 32U);
 	DestAddr = ((u64)Cmd->Payload[4U]) | (DestAddr << 32U);
 	DataSize = XPlmi_In64(SrcAddr + XLOADER_META_HDR_LEN_OFFSET);
-	/* Add SMAP header length */
-	DataSize = (DataSize  + 1U) * XPLMI_WORD_LEN;
-	if ((SrcSize < DataSize) || (DestSize < (DataSize - XPLMI_WORD_LEN))) {
+	DataSize *= XPLMI_WORD_LEN;
+	if ((SrcSize < DataSize) || (DestSize < DataSize)) {
 		Status = XPlmi_UpdateStatus(
 				XLOADER_ERR_INVALID_METAHDR_BUFF_SIZE, 0);
 		goto END;
 	}
 
-	PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
+	PdiPtr->PdiType = XLOADER_PDI_TYPE_METAHEADER;
 	PdiPtr->IpiMask = Cmd->IpiMask;
 	/* Decrypt Metaheader by using PdiInit */
 	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_PdiInit, PdiPtr,
