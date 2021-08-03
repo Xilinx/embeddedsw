@@ -62,6 +62,7 @@
 *       bsv  07/18/2021 Debug enhancements
 *       kc   07/22/2021 XPlmi_PorHandler scope updated to global
 *       ma   07/27/2021 Updated print statements in CPM handlers
+*       bm   08/02/2021 Change debug log level of PMC error status prints
 *
 * </pre>
 *
@@ -1409,11 +1410,11 @@ void XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown)
 	XPlmi_Out32(XPLMI_RTCFG_PMC_ERR1_STATUS_ADDR, PmcErr1Status);
 	XPlmi_Out32(XPLMI_RTCFG_PMC_ERR2_STATUS_ADDR, PmcErr2Status);
 	if (PmcErr1Status != 0U) {
-		XPlmi_Printf(DEBUG_GENERAL, "PMC_GLOBAL_PMC_ERR1_STATUS: "
+		XPlmi_Printf(DEBUG_INFO, "PMC_GLOBAL_PMC_ERR1_STATUS: "
 			"0x%08x\n\r", PmcErr1Status);
 	}
 	if (PmcErr2Status != 0U) {
-		XPlmi_Printf(DEBUG_GENERAL, "PMC_GLOBAL_PMC_ERR2_STATUS: "
+		XPlmi_Printf(DEBUG_INFO, "PMC_GLOBAL_PMC_ERR2_STATUS: "
 			"0x%08x\n\r", PmcErr2Status);
 	}
 
