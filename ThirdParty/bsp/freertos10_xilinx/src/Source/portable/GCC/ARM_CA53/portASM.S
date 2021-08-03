@@ -1,7 +1,7 @@
 /*
  * FreeRTOS Kernel V10.4.3
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
- * Copyright (C) 2014 - 2020 Xilinx, Inc. All rights reserved.
+ * Copyright (C) 2014 - 2021 Xilinx, Inc. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -315,6 +315,24 @@ FreeRTOS_IRQ_Handler:
 	STP		X18, X19, [SP, #-0x10]!
 	STP		X29, X30, [SP, #-0x10]!
 
+
+	STP		Q0, Q1, [SP,#-0x20]!
+	STP		Q2, Q3, [SP,#-0x20]!
+	STP		Q4, Q5, [SP,#-0x20]!
+	STP		Q6, Q7, [SP,#-0x20]!
+	STP		Q8, Q9, [SP,#-0x20]!
+	STP		Q10, Q11, [SP,#-0x20]!
+	STP		Q12, Q13, [SP,#-0x20]!
+	STP		Q14, Q15, [SP,#-0x20]!
+	STP		Q16, Q17, [SP,#-0x20]!
+	STP		Q18, Q19, [SP,#-0x20]!
+	STP		Q20, Q21, [SP,#-0x20]!
+	STP		Q22, Q23, [SP,#-0x20]!
+	STP		Q24, Q25, [SP,#-0x20]!
+	STP		Q26, Q27, [SP,#-0x20]!
+	STP		Q28, Q29, [SP,#-0x20]!
+	STP		Q30, Q31, [SP,#-0x20]!
+
 	/* Save the SPSR and ELR. */
 #if EL1_NONSECURE
 	MRS		X3, SPSR_EL1
@@ -352,11 +370,8 @@ FreeRTOS_IRQ_Handler:
 	/* Call the C handler. */
 	BL vApplicationIRQHandler
 	/* Disable interrupts. */
-#if defined(GICv2)
 	MSR 	DAIFSET, #3
-#else
-	MSR 	DAIFSET, #2
-#endif
+
 	DSB		SY
 	ISB		SY
 
@@ -402,6 +417,23 @@ FreeRTOS_IRQ_Handler:
 	DSB		SY
 	ISB		SY
 
+	LDP		Q30, Q31, [SP], #0x20
+	LDP		Q28, Q29, [SP], #0x20
+	LDP		Q26, Q27, [SP], #0x20
+	LDP		Q24, Q25, [SP], #0x20
+	LDP		Q22, Q23, [SP], #0x20
+	LDP		Q20, Q21, [SP], #0x20
+	LDP		Q18, Q19, [SP], #0x20
+	LDP		Q16, Q17, [SP], #0x20
+	LDP		Q14, Q15, [SP], #0x20
+	LDP		Q12, Q13, [SP], #0x20
+	LDP		Q10, Q11, [SP], #0x20
+	LDP		Q8, Q9, [SP], #0x20
+	LDP		Q6, Q7, [SP], #0x20
+	LDP		Q4, Q5, [SP], #0x20
+	LDP		Q2, Q3, [SP], #0x20
+	LDP		Q0, Q1, [SP], #0x20
+
 	LDP		X29, X30, [SP], #0x10
 	LDP		X18, X19, [SP], #0x10
 	LDP		X16, X17, [SP], #0x10
@@ -431,6 +463,23 @@ Exit_IRQ_No_Context_Switch:
 #endif
 	DSB		SY
 	ISB		SY
+
+	LDP		Q30, Q31, [SP], #0x20
+	LDP		Q28, Q29, [SP], #0x20
+	LDP		Q26, Q27, [SP], #0x20
+	LDP		Q24, Q25, [SP], #0x20
+	LDP		Q22, Q23, [SP], #0x20
+	LDP		Q20, Q21, [SP], #0x20
+	LDP		Q18, Q19, [SP], #0x20
+	LDP		Q16, Q17, [SP], #0x20
+	LDP		Q14, Q15, [SP], #0x20
+	LDP		Q12, Q13, [SP], #0x20
+	LDP		Q10, Q11, [SP], #0x20
+	LDP		Q8, Q9, [SP], #0x20
+	LDP		Q6, Q7, [SP], #0x20
+	LDP		Q4, Q5, [SP], #0x20
+	LDP		Q2, Q3, [SP], #0x20
+	LDP		Q0, Q1, [SP], #0x20
 
 	LDP		X29, X30, [SP], #0x10
 	LDP		X18, X19, [SP], #0x10
