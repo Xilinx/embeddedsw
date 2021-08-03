@@ -1247,6 +1247,14 @@ XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 		Aie2Inst.StartTileRow = 2U;
 	}
 
+	/* AIE Instance for VC1702 (TODO: Remove this when topology support is added) */
+	if (PMC_TAP_IDCODE_DEV_SBFMLY_VC1702 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK)) {
+		AieInst.NumCols = 38U;
+		AieInst.NumRows = 8U;
+		AieInst.StartCol = 0U;
+		AieInst.StartRow = 1U;
+	}
+
 	/* NOP for HC on QEMU */
 	if (Platform == PLATFORM_VERSION_QEMU) {
 		Ops = NULL;
