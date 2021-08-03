@@ -455,12 +455,10 @@ static void axidma_recv_handler(void *arg)
 		/* return all the processed bd's back to the stack */
 		/* setup_rx_bds -> use XAxiDma_BdRingGetFreeCnt */
 		setup_rx_bds(rxring);
-#if !NO_SYS
-		sys_sem_signal(&xemac->sem_rx_data_available);
-#endif
 	}
 	XAxiDma_BdRingIntEnable(rxring, XAXIDMA_IRQ_ALL_MASK);
 #if !NO_SYS
+	sys_sem_signal(&xemac->sem_rx_data_available);
 	xInsideISR--;
 #endif
 

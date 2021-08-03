@@ -439,9 +439,6 @@ static void axi_mcdma_recv_handler(void *CallBackRef, u32 ChanId)
 	setup_rx_bds(Rx_Chan, Rx_Chan->BdCnt);
 #if !NO_SYS
 	sys_sem_signal(&xemac->sem_rx_data_available);
-#endif
-
-#if !NO_SYS
 	xInsideISR--;
 #endif
 }
