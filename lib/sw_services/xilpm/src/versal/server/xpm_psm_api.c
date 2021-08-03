@@ -16,6 +16,7 @@
 #include "xpm_regs.h"
 #include "xpm_subsystem.h"
 #include "xpm_requirement.h"
+#include "xpm_cpmdomain.h"
 
 static XPlmi_ModuleCmd XPlmi_PsmCmds[PSM_API_MAX+1];
 static XPlmi_Module XPlmi_Psm =
@@ -368,6 +369,7 @@ XStatus XPm_CCIXEnEvent(u32 PowerId)
 {
 	u32 Payload[PAYLOAD_ARG_CNT];
 	XStatus Status = XST_FAILURE;
+	const XPm_CpmDomain *Cpm;
 	u32 RegAddr;
 	u32 RegVal;
 
@@ -389,11 +391,18 @@ XStatus XPm_CCIXEnEvent(u32 PowerId)
 		goto done;
 	}
 
+	Cpm = (XPm_CpmDomain *)XPmPower_GetById(PowerId);
+	if (NULL == Cpm) {
+		Status = XPM_INVALID_PWRDOMAIN;
+		goto done;
+	}
+
 	PmIn32(RegAddr, RegVal);
 
 	if (RegVal == DVSEC_PCSR_START_ADDR)  {
 		Payload[0] = PSM_API_CCIX_EN;
 		Payload[1] = PowerId;
+		Payload[2] = Cpm->CpmSlcrBaseAddr;
 
 		Status = XPm_IpiSend(PSM_IPI_INT_MASK, Payload);
 		if (XST_SUCCESS != Status) {
