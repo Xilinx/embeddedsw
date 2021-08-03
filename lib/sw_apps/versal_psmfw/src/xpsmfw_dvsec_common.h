@@ -37,6 +37,18 @@ void XPsmFw_DvsecPLHandler(void);
 void XPsmFw_GicP2IrqDisable(void);
 void XPsmFw_Cpm5DvsecHandler(void);
 void XPsmFw_Cpm5DvsecPLHandler(void);
+void XPsmFw_GicP2IrqEnable(void);
+XStatus XPsmFw_DvsecEnable(u32 CpmPowerId, u32 CpmSlcrAddr);
+
+typedef struct {
+	u32 CpmPowerId;
+	u32 CpmSlcr;
+	u32 PcieaDvsec0;
+	u32 PcieaAttrib0;
+	u32 PcieCsr0;
+} CpmParam_t;
+
+extern CpmParam_t CpmParam;
 
 #ifdef __cplusplus
 }

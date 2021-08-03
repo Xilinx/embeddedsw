@@ -8,7 +8,7 @@
 #include "xpsmfw_ipi_manager.h"
 #include "xpsmfw_power.h"
 #include "xpsmfw_stl.h"
-#include "xpsmfw_gic.h"
+#include "xpsmfw_dvsec_common.h"
 
 #define PACK_PAYLOAD(Payload, Arg0, Arg1)	\
 	Payload[0] = (u32)Arg0;		\
@@ -187,8 +187,7 @@ XStatus XPsmFw_ProcessIpi(u32 *Payload)
 			Status = XPsmFw_FpHouseClean(Payload[1]);
 			break;
 		case PSM_API_CCIX_EN:
-			XPsmFw_GicP2IrqEnable(Payload[1]);
-			Status = XST_SUCCESS;
+			Status = XPsmFw_DvsecEnable(Payload[1], Payload[2]);
 			break;
 		case PSM_API_KEEP_ALIVE:
 			Status = XPsmFw_KeepAliveEvent();
