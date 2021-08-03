@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 - 2019 Xilinx, Inc.
+ * Copyright (C) 2010 - 2021 Xilinx, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -45,7 +45,7 @@ extern u32_t phymapemac1[32];
 extern u32_t phyaddrforemac;
 extern enum ethernet_link_status eth_link_status;
 
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 extern long xInsideISR;
 #endif
 
@@ -219,7 +219,7 @@ void emacps_error_handler(void *arg,u8 Direction, u32 ErrorWord)
 	xemacpsif_s   *xemacpsif;
 	XEmacPs_BdRing *rxring;
 	XEmacPs_BdRing *txring;
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 	xInsideISR++;
 #endif
 
@@ -270,7 +270,7 @@ void emacps_error_handler(void *arg,u8 Direction, u32 ErrorWord)
 			break;
 		}
 	}
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 	xInsideISR--;
 #endif
 }

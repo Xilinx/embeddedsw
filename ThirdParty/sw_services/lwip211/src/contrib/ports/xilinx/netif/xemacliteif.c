@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007 - 2019 Xilinx, Inc.
+ * Copyright (C) 2007 - 2021 Xilinx, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -32,11 +32,9 @@
 #include "xlwipconfig.h"
 
 #if !NO_SYS
-#ifdef OS_IS_FREERTOS
 #include "FreeRTOS.h"
 #include "semphr.h"
 #include "timers.h"
-#endif
 #include "lwip/timeouts.h"
 #endif
 
@@ -132,7 +130,7 @@ unsigned configure_IEEE_phy_speed_emaclite(XEmacLite *xemaclitep, unsigned speed
  */
 unsigned char xemac_tx_frame[XEL_MAX_FRAME_SIZE] __attribute__((aligned(64)));
 
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 unsigned int xInsideISR = 0;
 #endif
 
@@ -164,7 +162,7 @@ xemacif_recv_handler(void *arg) {
 	int len = 0;
 	struct xtopology_t *xtopologyp = &xtopology[xemac->topology_index];
 
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 	xInsideISR++;
 #endif
 
@@ -184,7 +182,7 @@ xemacif_recv_handler(void *arg) {
 		 * and we do not actively poll the emaclite
 		 */
 		XEmacLite_Recv(instance, xemac_tx_frame);
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 		xInsideISR--;
 #endif
 		return;
@@ -198,7 +196,7 @@ xemacif_recv_handler(void *arg) {
 		lwip_stats.link.drop++;
 #endif
 		pbuf_free(p);
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 		xInsideISR--;
 #endif
 		return;
@@ -211,7 +209,7 @@ xemacif_recv_handler(void *arg) {
 		lwip_stats.link.drop++;
 #endif
 		pbuf_free(p);
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 		xInsideISR--;
 #endif
 		return;
@@ -219,8 +217,6 @@ xemacif_recv_handler(void *arg) {
 
 #if !NO_SYS
 	sys_sem_signal(&xemac->sem_rx_data_available);
-#endif
-#ifdef OS_IS_FREERTOS
 	xInsideISR--;
 #endif
 }
@@ -345,7 +341,7 @@ xemacif_send_handler(void *arg) {
 	XEmacLite *instance = xemacliteif->instance;
 	struct xtopology_t *xtopologyp = &xtopology[xemac->topology_index];
 
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 	xInsideISR++;
 #endif
 #if XLWIP_CONFIG_INCLUDE_EMACLITE_ON_ZYNQ == 1
@@ -358,7 +354,7 @@ xemacif_send_handler(void *arg) {
 		_unbuffered_low_level_output(instance, p);
 		pbuf_free(p);
 	}
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 	xInsideISR--;
 #endif
 }
@@ -420,7 +416,7 @@ xemacliteif_input(struct netif *netif)
 	struct pbuf *p;
 	SYS_ARCH_DECL_PROTECT(lev);
 
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 	while (1)
 #endif
 	{

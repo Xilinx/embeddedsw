@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 - 2019 Xilinx, Inc.
+ * Copyright (C) 2018 - 2021 Xilinx, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -31,9 +31,7 @@
 #include "lwipopts.h"
 
 #if !NO_SYS
-#ifdef OS_IS_FREERTOS
 #include "FreeRTOS.h"
-#endif
 #include "lwip/sys.h"
 #endif
 
@@ -98,7 +96,7 @@ static u8_t bd_space[BD_SIZE] __attribute__ ((aligned (BLOCK_SIZE_1MB)));
 
 static u8_t *bd_mem_ptr = bd_space;
 
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 u32 xInsideISR = 0;
 #endif
 
@@ -250,7 +248,7 @@ static void axi_mcdma_send_error_handler(void *CallBackRef, u32 ChanId, u32 Mask
 	u32 timeOut;
 	XMcdma *McDmaInstPtr = (XMcdma *)((void *)CallBackRef);
 
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 	xInsideISR++;
 #endif
 	xil_printf("%s: Error: aximcdma error interrupt is asserted, Chan_id = "
@@ -268,7 +266,7 @@ static void axi_mcdma_send_error_handler(void *CallBackRef, u32 ChanId, u32 Mask
 		xil_printf("%s: Error: aximcdma reset timed out\r\n", __func__);
 	}
 
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 	xInsideISR--;
 #endif
 }
@@ -278,13 +276,13 @@ static void axi_mcdma_send_handler(void *CallBackRef, u32 ChanId)
 	XMcdma *McDmaInstPtr = (XMcdma *)((void *)CallBackRef);
 	XMcdma_ChanCtrl *Tx_Chan = XMcdma_GetMcdmaTxChan(McDmaInstPtr, ChanId);
 
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 	xInsideISR++;
 #endif
 
 	process_sent_bds(Tx_Chan);
 
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 	xInsideISR--;
 #endif
 }
@@ -356,7 +354,7 @@ static void axi_mcdma_recv_error_handler(void *CallBackRef, u32 ChanId)
 	xaxiemacif_s *xaxiemacif = (xaxiemacif_s *)(xemac->state);
 	XMcdma *McDmaInstPtr = &xaxiemacif->aximcdma;
 
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 	xInsideISR++;
 #endif
 	xil_printf("%s: Error: aximcdma error interrupt is asserted\r\n",
@@ -379,7 +377,7 @@ static void axi_mcdma_recv_error_handler(void *CallBackRef, u32 ChanId)
 
 	XMcDma_ChanToHw(Rx_Chan);
 
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 	xInsideISR--;
 #endif
 	return;
@@ -395,7 +393,7 @@ static void axi_mcdma_recv_handler(void *CallBackRef, u32 ChanId)
 	XMcdma *McDmaInstPtr = &xaxiemacif->aximcdma;
 	XMcdma_ChanCtrl *Rx_Chan;
 
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 	xInsideISR++;
 #endif
 
@@ -443,7 +441,7 @@ static void axi_mcdma_recv_handler(void *CallBackRef, u32 ChanId)
 	sys_sem_signal(&xemac->sem_rx_data_available);
 #endif
 
-#ifdef OS_IS_FREERTOS
+#if !NO_SYS
 	xInsideISR--;
 #endif
 }
