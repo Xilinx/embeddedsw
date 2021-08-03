@@ -38,9 +38,7 @@ struct GicP2HandlerTable_t {
 	GicHandlerFunction_t Cpm5Handler;
 };
 
-void XPsmFw_DispatchGicP2Handler(u32 GicP2Status, u32 GicP2IntMask);
-
-void XPsmFw_GicP2IrqEnable(u32 PowerId);
+XStatus XPsmFw_DispatchGicP2Handler(u32 GicP2Status, u32 GicP2IntMask);
 
 #ifdef __cplusplus
 }

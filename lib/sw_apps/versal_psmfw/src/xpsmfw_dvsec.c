@@ -26,6 +26,7 @@
 #include "xpsmfw_dvsec.h"
 
 static u8 PlIntrRcvd = FALSE_VALUE;
+CpmParam_t CpmParam;
 
 static DvsecPcsr DvsecPcsrProtocol[DVSEC_PCSR_PROT_LEN] = {
 	{0x644U, 0x00000023U},
@@ -334,4 +335,71 @@ void XPsmFw_Cpm5DvsecPLHandler(void)
 
 	/* Disable PSM GIC interrupts */
 	XPsmFw_GicP2IrqDisable();
+}
+
+/****************************************************************************/
+/**
+ * @brief	Initialize CPM PowerId and Base address params
+ *
+ * @param	CpmPowerId	The PowerId of CPM domain
+ * @param	CpmSlcrAddr	BaseAddress of CPM_SLCR module
+ *
+ * @return	XST_SUCCESS or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
+static XStatus XPsmFw_CpmInit(u32 CpmPowerId, u32 CpmSlcrAddr)
+{
+	XStatus Status = XST_FAILURE;
+
+	(void)memset(&CpmParam, 0, sizeof(CpmParam));
+	CpmParam.CpmPowerId = CpmPowerId;
+	CpmParam.CpmSlcr = CpmSlcrAddr;
+
+	switch(CpmParam.CpmPowerId) {
+	case XPSMFW_POWER_CPM5:
+		CpmParam.PcieaDvsec0 = CpmParam.CpmSlcr + CPM5_PCIEA_DVSEC0_SLCR_OFF;
+		CpmParam.PcieaAttrib0 = CpmParam.CpmSlcr + CPM5_PCIEA_ATTRIB0_SLCR_OFF;
+		CpmParam.PcieCsr0 = CpmParam.CpmSlcr + CPM5_PCIEA_CSR0_SLCR_OFF;
+		Status = XST_SUCCESS;
+		break;
+	case XPSMFW_POWER_CPM:
+		CpmParam.PcieaDvsec0 = CpmParam.CpmSlcr + PCIEA_DVSEC0_SLCR_OFF;
+		CpmParam.PcieaAttrib0 = CpmParam.CpmSlcr + PCIEA_ATTRIB0_SLCR_OFF;
+		Status = XST_SUCCESS;
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
+	}
+
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief	Enable DVSEC functionality in PSM
+ *
+ * @param	CpmPowerId	The PowerId of CPM domain
+ * @param	CpmSlcrAddr	BaseAddress of CPM_SLCR module
+ *
+ * @return	XST_SUCCESS or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
+XStatus XPsmFw_DvsecEnable(u32 CpmPowerId, u32 CpmSlcrAddr)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* Initialize CPM power id and base address params */
+	Status = XPsmFw_CpmInit(CpmPowerId, CpmSlcrAddr);
+
+	/* Enable PSM GIC interrupts */
+	if (Status == XST_SUCCESS) {
+		XPsmFw_GicP2IrqEnable();
+	}
+
+	return Status;
 }
