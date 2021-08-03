@@ -37,8 +37,10 @@
  *			  and reading
  *	 kal   02/20/2021 Added Environmental Monitor Disable interface support
  *	 har   04/21/2021 Fixed CPP warnings
- *   kpt   05/20/2021 Added support for programming PUF efuses as
- *                    general purpose data
+ *       kpt   05/20/2021 Added support for programming PUF efuses as
+ *                        general purpose data
+ *       kpt   08/03/2021 Status variable set to XST_SUCCESS in
+ *                        XilNvm_EfuseInitPufFuses
  *
  * </pre>
  *
@@ -2036,6 +2038,7 @@ static int XilNvm_EfuseInitPufFuses(XNvm_EfusePufFuse *PufFuse)
 		PufFuse->StartPufFuseNum = XNVM_EFUSE_PRGM_PUF_FUSE_NUM;
 		PufFuse->NumOfPufFuses = XNVM_EFUSE_NUM_OF_PUF_FUSES;
 	}
+	Status = XST_SUCCESS;
 END:
 	return Status;
 }

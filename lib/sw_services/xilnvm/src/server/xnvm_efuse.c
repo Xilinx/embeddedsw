@@ -65,6 +65,8 @@
 * 2.4   kal  07/13/2021 Fixed doxygen warnings
 *       am   07/07/2021 Fixed 2021.1 review comments
 *       kal  07/25/2021 Moved XNvm_Printf definition to xnvm_def.h
+*       kpt  08/03/2021 Added XNvm_EfuseResetReadMode in
+*                       XNvm_EfuseWritePufAsUserFuses
 *
 * </pre>
 *
@@ -5915,6 +5917,7 @@ int XNvm_EfuseWritePufAsUserFuses(XNvm_EfusePufFuse *PufFuse)
 	Status = XNvm_EfuseCacheLoad();
 
 END:
+	XNvm_EfuseResetReadMode();
 	XNvm_EfuseDisableProgramming();
 	LockStatus = XNvm_EfuseLockController();
 	if (XST_SUCCESS == Status) {
