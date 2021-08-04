@@ -52,11 +52,8 @@ extern "C" {
 
 #define ARRAYSIZE(x)	(u32)(sizeof(x)/sizeof(x[0]))
 
-//TODO: This macro should come from other config file like xparameters.h
-#define PSMFW_CLK_FREQ                                (400000000U)
-#define MILLISECOND_TO_TICKS(x)                       ((x) * (PSMFW_CLK_FREQ/1000U))
-#define MICROSECOND_TO_TICKS(x)                       ((x) * (PSMFW_CLK_FREQ/1000000U))
-#define NENOSECOND_TO_TICKS(x)                        ((MICROSECOND_TO_TICKS(x))/1000U)
+#define MICROSECOND_TO_TICKS(x)		((x) * (((u32)XPAR_CPU_CORE_CLOCK_FREQ_HZ)/1000000U))
+#define NANOSECOND_TO_TICKS(x)			((MICROSECOND_TO_TICKS(x))/1000U)
 
 /* Custom Flags */
 #define MASK32_ALL_HIGH	((u32)0xFFFFFFFFU)
