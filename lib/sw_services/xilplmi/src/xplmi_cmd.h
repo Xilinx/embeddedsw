@@ -36,6 +36,7 @@
 * 1.04  bsv  07/05/2021 Added code to handle case where bitstream data starts
 *                       at 32K boundary
 *       bsv  07/16/2021 Fix doxygen warnings
+*       bsv  08/02/2021 Change type of variables to reduce size
 *
 * </pre>
 *
@@ -87,9 +88,9 @@ struct XPlmi_Cmd {
 	u32 Response[XPLMI_CMD_RESP_SIZE];
 	int (*ResumeHandler)(XPlmi_Cmd * CmdPtr);
 	u32 ResumeData[XPLMI_CMD_RESUME_DATALEN];
-	u32 DeferredError;
 	XPlmi_KeyHoleParams KeyHoleParams;
 	u32 IpiReqType;
+	u8 DeferredError;
 };
 
 /***************** Macros (Inline Functions) Definitions *********************/

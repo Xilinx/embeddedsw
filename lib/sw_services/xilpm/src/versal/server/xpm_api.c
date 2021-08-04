@@ -43,7 +43,7 @@
 
 #define XPm_RegisterWakeUpHandler(GicId, SrcId, NodeId)	\
 	{ \
-		Status = XPlmi_GicRegisterHandler(((GicId) << (8U)) | ((SrcId) << (16U)), \
+		Status = XPlmi_GicRegisterHandler(GicId, SrcId, \
 				XPm_DispatchWakeHandler, (void *)(NodeId)); \
 		if (Status != XST_SUCCESS) {\
 			goto END;\

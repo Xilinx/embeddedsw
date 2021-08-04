@@ -39,6 +39,7 @@
 *       bm   07/12/2021 Updated CDO offset print with byte offset including
 *                       header length
 *       bsv  07/16/2021 Fix doxygen warnings
+*       bsv  08/02/2021 Code clean up to reduce size
 *
 * </pre>
 *
@@ -192,19 +193,12 @@ int XPlmi_InitCdo(XPlmiCdo *CdoPtr)
 	int Status = XST_FAILURE;
 
 	/* Initialize the CDO structure variables */
-	CdoPtr->CopiedCmdLen = 0U;
-	CdoPtr->CmdState = XPLMI_CMD_STATE_START;
-	CdoPtr->BufLen = 0U;
-	CdoPtr->CdoLen = 0U;
-	CdoPtr->ProcessedCdoLen = 0U;
-	CdoPtr->DeferredError = (u8)FALSE;
-	Status = XPlmi_MemSetBytes(&CdoPtr->Cmd.KeyHoleParams,
-			sizeof(XPlmi_KeyHoleParams), 0U, sizeof(XPlmi_KeyHoleParams));
+	Status = XPlmi_MemSetBytes(CdoPtr, sizeof(XPlmiCdo), 0U,
+		sizeof(XPlmiCdo));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 	/* Initialize the CDO buffer user params */
-	CdoPtr->CmdEndDetected = (u8)FALSE;
 	CdoPtr->Cdo1stChunk = (u8)TRUE;
 
 END:

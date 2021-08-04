@@ -30,6 +30,7 @@
 * 1.06  td   07/08/2021 Fix doxygen warnings
 *       bsv  07/19/2021 Disable UART prints when invalid header is encountered
 *                       in slave boot modes
+*       bsv  08/02/2021 Updated function return type as part of code clean up
 *
 * </pre>
 *
@@ -139,10 +140,7 @@ END:
 	 * This is used to identify PLM has completed boot PDI
 	 */
 	XPlmi_SetBootPdiDone();
-	Status = XLoader_ClearIntrSbiDataRdy();
-	if (Status != XST_SUCCESS) {
-		goto ERR_END;
-	}
+	XLoader_ClearIntrSbiDataRdy();
 
 ERR_END:
 	return Status;

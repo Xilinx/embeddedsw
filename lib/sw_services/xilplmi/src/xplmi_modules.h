@@ -26,6 +26,7 @@
 *       kal  03/30/2021 Added XilSecure module ID
 * 1.04  bsv  07/16/2021 Fix doxygen warnings
 *       kal  07/17/2021 Added XilNvm module ID
+*       bsv  08/02/2021 Removed incorrect comment
 *
 * </pre>
 *
@@ -49,8 +50,6 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_MAX_MODULES			(12U)
-
-/* TODO add enum for declaring module ids */
 #define XPLMI_MODULE_GENERIC_ID			(1U)
 #define XPLMI_MODULE_XILPM_ID			(2U)
 #define XPLMI_MODULE_SEM_ID			(3U)

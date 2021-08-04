@@ -31,6 +31,7 @@
 * 1.03  bm   02/17/2021 Add Max payload length for long commands
 *       bsv  04/16/2021 Add provision to store Subsystem Id in XilPlmi
 * 1.04  bsv  07/16/2021 Fix doxygen warnings
+*       bsv  08/02/2021 Code clean up to reduce size
 *
 * </pre>
 *
@@ -87,17 +88,17 @@ typedef struct {
 	u32 BufLen;		/**< Buffer length */
 	u32 CdoLen;		/**< CDO length */
 	u32 ProcessedCdoLen;	/**< Processed CDO length */
-	u32 CmdState;		/**< Cmd processing state */
 	u32 CopiedCmdLen;	/**< Copied Command length */
 	u32 TempCmdBuf[8U];	/**< Temporary buffer to store commands
 				 between iterations */
 	XPlmi_Cmd Cmd;		/**< Cmd instance */
+	u32 SubsystemId;	/**< SubsystemId as derived from XilPM */
+	u8 CmdState;		/**< Cmd processing state */
 	u8 CmdEndDetected;	/**< Flag to detect end of commands */
 	u8 Cdo1stChunk;		/**< This is used for first time to validate
 				CDO header*/
-	u32 DeferredError;	/**< Defer the error for any command till the
+	u8 DeferredError;	/**< Defer the error for any command till the
 				  end of CDO processing */
-	u32 SubsystemId;	/**< SubsystemId as derived from XilPM */
 } XPlmiCdo;
 /***************** Macros (Inline Functions) Definitions *********************/
 

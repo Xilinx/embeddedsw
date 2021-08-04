@@ -84,6 +84,8 @@
 *       bsv  07/19/2021 Disable UART prints when invalid header is encountered
 *                       in slave boot modes
 *       bm   07/30/2021 Added Metaheader PDI type
+*       bsv  08/02/2021 Updated function return type as part of code clean up
+*
 *
 * </pre>
 *
@@ -416,7 +418,7 @@ void XLoader_CmdsInit(void);
 /* Functions defined in xloader_intr.c */
 int XLoader_IntrInit(void);
 void XLoader_SbiRecovery(void);
-int XLoader_ClearIntrSbiDataRdy(void);
+void XLoader_ClearIntrSbiDataRdy(void);
 
 /************************** Variable Definitions *****************************/
 extern XilPdi* BootPdiPtr;

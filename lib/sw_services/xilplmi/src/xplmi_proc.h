@@ -33,6 +33,7 @@
 *       ma   03/24/2021 Reduced minimum digits of time stamp decimals to 3
 * 1.05  bm   07/12/2021 Updated IRO freqency defines
 *       bsv  07/16/2021 Fix doxygen warnings
+*       bsv  08/02/2021 Removed unnecessary structure
 *
 * </pre>
 *
@@ -89,22 +90,11 @@ extern "C" {
 #define XPLMI_IOMODULE_ERR_IRQ			(18U)
 #define XPLMI_IOMODULE_CFRAME_SEU		(20U)
 #define XPLMI_IOMODULE_PMC_GPI			(22U)
-#define XPLMI_IOMODULE_MASK				(0xFFU)
 
 /**
  * @}
  * @endcond
  */
-
-/*
- * External interrupt mapping
- */
-enum {
-	XPLMI_CFRAME_SEU = 0U,	/**< 0U */
-	XPLMI_IPI_IRQ,	/**< 1U */
-	XPLMI_SBI_DATA_RDY, /**< 2U */
-	XPLMI_MAX_EXT_INTR, /**< 3U */
-};
 
 /*
  * Performance measurement structure
@@ -127,11 +117,6 @@ int XPlmi_PlmIntrClear(u32 IntrId);
 int XPlmi_RegisterHandler(u32 IntrId, GicIntHandler_t Handler, void *Data);
 void XPlmi_PrintRomTime(void);
 void XPlmi_PrintPlmTimeStamp(void);
-
-/* Handler Table Structure */
-struct HandlerTable {
-	XInterruptHandler Handler;	/**< Pointer to interrupt handler */
-};
 
 #ifdef __cplusplus
 }

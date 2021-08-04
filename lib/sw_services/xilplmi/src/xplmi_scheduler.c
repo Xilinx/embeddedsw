@@ -34,6 +34,7 @@
 *                       cases when a scheduled task does not get executed in
 *                       allotted time
 *       bsv  07/16/2021 Fix doxygen warnings
+*       bsv  08/02/2021 Removed unnecessary initializations to reduce code size
 *
 * </pre>
 *
@@ -237,7 +238,7 @@ int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 		TaskPriority_t Priority, void *Data, u8 TaskType)
 {
 	int Status = XST_FAILURE;
-	XPlmi_PerfTime ExtraTime = {0U};
+	XPlmi_PerfTime ExtraTime;
 	u32 Idx;
 	u32 TriggerTime = 0U;
 	XPlmi_TaskNode *Task = NULL;
