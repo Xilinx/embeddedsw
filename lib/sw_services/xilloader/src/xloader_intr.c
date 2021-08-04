@@ -32,6 +32,7 @@
 *       ana  10/19/2020 Added doxygen comments
 * 1.03  bsv  07/19/2021 Disable UART prints when invalid header is encountered
 *                       in slave boot modes
+*       bsv  08/02/2021 Updated function return type as part of code clean up
 *
 * </pre>
 *
@@ -80,8 +81,8 @@ int XLoader_IntrInit(void)
 	 * Register the SBI RDY interrupt to enable the PDI loading from
 	 * SBI interface.
 	 */
-	Status = XPlmi_RegisterHandler(XPLMI_SBI_DATA_RDY, XLoader_SbiLoadPdi,
-			(void *)0U);
+	Status = XPlmi_GicRegisterHandler(XPLMI_PMC_GIC_IRQ_GICP4, XPLMI_GICP4_SRC8,
+		XLoader_SbiLoadPdi, (void *)0U);
 
 	return Status;
 }
@@ -118,10 +119,7 @@ static int XLoader_SbiLoadPdi(void *Data)
 	 * Disable the SBI RDY interrupt so that PDI load does not
 	 * interrupt itself
 	 */
-	Status = XPlmi_PlmIntrDisable(XPLMI_SBI_DATA_RDY);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	XPlmi_GicIntrDisable(XPLMI_PMC_GIC_IRQ_GICP4, XPLMI_GICP4_SRC8);
 
 	/* Store the command fields in resume data */
 	RegVal = XPlmi_In32(SLAVE_BOOT_SBI_CTRL) &
@@ -155,7 +153,7 @@ END:
 			usleep(XLOADER_SBI_DELAY_IN_MICROSEC);
 		}
 	}
-	Status = XLoader_ClearIntrSbiDataRdy();
+	XLoader_ClearIntrSbiDataRdy();
 	return Status;
 }
 
@@ -168,12 +166,11 @@ END:
  * @brief	This function clears the previous SBI data ready
  * and enables IRQ for next interrupt.
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return	None
  *
  *****************************************************************************/
-int XLoader_ClearIntrSbiDataRdy(void)
+void XLoader_ClearIntrSbiDataRdy(void)
 {
-	int Status = XST_FAILURE;
 	/* Clear the SBI interrupt */
 	XPlmi_UtilRMW(SLAVE_BOOT_SBI_IRQ_STATUS,
 		SLAVE_BOOT_SBI_IRQ_STATUS_DATA_RDY_MASK,
@@ -183,14 +180,8 @@ int XLoader_ClearIntrSbiDataRdy(void)
 		SLAVE_BOOT_SBI_IRQ_ENABLE_DATA_RDY_MASK);
 
 	/* Clear and Enable GIC interrupt */
-	Status = XPlmi_PlmIntrClear(XPLMI_SBI_DATA_RDY);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	XPlmi_PlmIntrEnable(XPLMI_SBI_DATA_RDY);
-
-END:
-	return Status;
+	XPlmi_GicIntrClearStatus(XPLMI_PMC_GIC_IRQ_GICP4, XPLMI_GICP4_SRC8);
+	XPlmi_GicIntrEnable(XPLMI_PMC_GIC_IRQ_GICP4, XPLMI_GICP4_SRC8);
 }
 
 /**

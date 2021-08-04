@@ -56,6 +56,7 @@
 *                       at 32K boundary
 *       bsv  07/16/2021 Fix doxygen warnings
 *       bsv  07/18/2021 Debug enhancements
+*       bsv  08/02/2021 Code clean up to reduce size
 *
 * </pre>
 *
@@ -259,7 +260,6 @@ static int XPlmi_MaskPoll(XPlmi_Cmd *Cmd)
 	XPlmi_PerfTime PerfTime = {0U};
 #endif
 
-	/* HACK - waiting for min of 1s **/
 	if (TimeOutInUs < XPLMI_MASK_POLL_MIN_TIMEOUT) {
 		TimeOutInUs = XPLMI_MASK_POLL_MIN_TIMEOUT;
 	}
@@ -828,19 +828,16 @@ static int XPlmi_DmaXfer(XPlmi_Cmd *Cmd)
 				XPLMI_TIME_OUT_DEFAULT);
 		XPlmi_UtilRMW(SLAVE_BOOT_SBI_MODE,
 				SLAVE_BOOT_SBI_MODE_SELECT_MASK, 0U);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
 	} else {
 		if ((Flags & XPLMI_DMA_SRC_NPI) == XPLMI_DMA_SRC_NPI) {
 			Status = XPlmi_NpiRead(SrcAddr, DestAddr, Len);
 		} else {
 			Status = XPlmi_DmaXfr(SrcAddr, DestAddr, Len, Flags);
 		}
-		if (Status != XST_SUCCESS) {
-			XPlmi_Printf(DEBUG_GENERAL, "DMA XFER Failed\n\r");
-			goto END;
-		}
+	}
+	if (Status != XST_SUCCESS) {
+		XPlmi_Printf(DEBUG_GENERAL, "DMA XFER Failed\n\r");
+		goto END;
 	}
 
 END:
@@ -1381,31 +1378,6 @@ static int XPlmi_Marker(XPlmi_Cmd *Cmd)
 
 /*****************************************************************************/
 /**
- * @brief	This function searches the proc list and for the given ProcId.
- *
- * @param	ProcId is proc ID to search
- *
- * @return	Index for the ProcId
- *
- *****************************************************************************/
-static u8 XPlmi_FindProc(u32 ProcId, XPlmi_ProcList *ProcList)
-{
-	u8 Index = 0U;
-
-	/* Parse through the ProcList to find the ProcId */
-	while (Index < ProcList->ProcCount) {
-		/* Check if ProcId matches */
-		if (ProcList->ProcData[Index].Id == ProcId) {
-			break;
-		}
-		Index++;
-	}
-
-	return Index;
-}
-
-/*****************************************************************************/
-/**
  * @brief	This function provides functionality to move procs when proc
  *          command is received for existing ProcId.
  *
@@ -1494,8 +1466,8 @@ int XPlmi_ExecuteProc(u32 ProcId)
 {
 	int Status = XST_FAILURE;
 	XPlmiCdo ProcCdo;
-	XPlmi_ProcList *ProcList = XPlmi_GetProcList();
-	u8 ProcIndex = XPlmi_FindProc(ProcId, ProcList);
+	XPlmi_ProcList *ProcList = NULL;
+	u8 ProcIndex = 0U;
 	XPlmi_Printf(DEBUG_GENERAL, "Proc ID received: 0x%x\r\n", ProcId);
 
 	/* If LPD is not initialized, do not execute the proc */
@@ -1505,20 +1477,24 @@ int XPlmi_ExecuteProc(u32 ProcId)
 		Status = (int)XPLMI_ERR_PROC_LPD_NOT_INITIALIZED;
 		goto END;
 	}
-
+	ProcList = XPlmi_GetProcList();
+	ProcList->ProcData[ProcList->ProcCount].Id = ProcId;
+	while (ProcList->ProcData[ProcIndex].Id != ProcId) {
+		ProcIndex++;
+	}
 	/* Execute proc if the received ProcId is valid */
 	if (ProcIndex < ProcList->ProcCount) {
 		/* Pass the Proc CDO to CDO parser */
-		Status = XPlmi_InitCdo(&ProcCdo);
+		Status = XPlmi_MemSetBytes((const void *)&ProcCdo,
+			sizeof(ProcCdo), 0U, sizeof(ProcCdo));
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 		/* Fill ProcCdo structure with Proc related parameters */
 		ProcCdo.BufPtr = (u32 *)(UINTPTR)ProcList->ProcData[ProcIndex].Addr;
 		ProcCdo.BufLen = (ProcList->ProcData[ProcIndex + 1U].Addr -
-				ProcList->ProcData[ProcIndex].Addr)/XPLMI_WORD_LEN;
+			ProcList->ProcData[ProcIndex].Addr) / XPLMI_WORD_LEN;
 		ProcCdo.CdoLen = ProcCdo.BufLen;
-		ProcCdo.Cdo1stChunk = (u8)FALSE;
 		/* Execute Proc */
 		Status = XPlmi_ProcessCdo(&ProcCdo);
 	} else {
@@ -1548,7 +1524,7 @@ static int XPlmi_Proc(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	u32 ProcId;
-	u8 Index;
+	u8 Index = 0U;
 	u32 SrcAddr;
 	u32 LenDiff = 0U;
 	u32 CmdLenInBytes = (Cmd->Len - 1U) * XPLMI_WORD_LEN;
@@ -1571,7 +1547,10 @@ static int XPlmi_Proc(XPlmi_Cmd *Cmd)
 		/* Get the proc list */
 		ProcList = XPlmi_GetProcList();
 		/* Check if received ProcId is already in memory */
-		Index = XPlmi_FindProc(ProcId, ProcList);
+		ProcList->ProcData[ProcList->ProcCount].Id = ProcId;
+		while (ProcList->ProcData[Index].Id != ProcId) {
+			Index++;
+		}
 		if (Index < ProcList->ProcCount) {
 			/*
 			 * Get Length difference if received proc length is greater than

@@ -45,6 +45,7 @@
  *                       of IPI access error
  * 1.04  bsv  06/09/2021 Add warning in case IPI-0 interrupt is disabled
  *       bsv  06/17/2021 Update warning in case some IPIs are disabled
+ *       bsv  08/02/2021 Reduce PLM code size
  *
  * </pre>
  *
@@ -141,8 +142,8 @@ int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler)
 			IpiCfgPtr->TargetList[Index].Mask);
 	}
 
-	Status = XPlmi_RegisterHandler(XPLMI_IPI_IRQ, XPlmi_IpiDispatchHandler,
-			(void *)0U);
+	Status = XPlmi_GicRegisterHandler(XPLMI_PMC_GIC_IRQ_GICP0, XPLMI_GICP0_SRC27,
+				XPlmi_IpiDispatchHandler, (void *)0U);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -151,7 +152,7 @@ int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler)
 	/*
 	 * Enable the IPI IRQ
 	 */
-	XPlmi_PlmIntrEnable(XPLMI_IPI_IRQ);
+	XPlmi_GicIntrEnable(XPLMI_PMC_GIC_IRQ_GICP0, XPLMI_GICP0_SRC27);
 	RegVal = XPlmi_In32(PS7_IPI_PMC_IMR);
 	RegVal = (RegVal & XPLMI_IPI_PMC_IMR_MASK) >>
 		XPLMI_IPI_PMC_IMR_SHIFT;
@@ -160,16 +161,16 @@ int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler)
 	}
 
 	Index = 0U;
-	XPlmi_Print_WoTS(DEBUG_GENERAL, "INFO: IPIs disabled:");
+	XPlmi_Printf_WoTS(DEBUG_GENERAL, "INFO: IPIs disabled:");
 	while(RegVal != 0U) {
 		if ((RegVal & 1U) == 1U) {
-			XPlmi_Print_WoTS(DEBUG_GENERAL,
+			XPlmi_Printf_WoTS(DEBUG_GENERAL,
 			" IPI-%u", Index);
 		}
 		RegVal = RegVal >> 1U;
 		++Index;
 	}
-	XPlmi_Print_WoTS(DEBUG_GENERAL, "\n\r");
+	XPlmi_Printf_WoTS(DEBUG_GENERAL, "\n\r");
 
 END:
 	XPlmi_Printf(DEBUG_DETAILED,
@@ -194,15 +195,14 @@ int XPlmi_IpiDispatchHandler(void *Data)
 	u32 Payload[XPLMI_IPI_MAX_MSG_LEN] = {0U};
 	u32 MaskIndex;
 	XPlmi_Cmd Cmd = {0U};
-	int StatusTmp = XST_FAILURE;
 	u8 PendingPsmIpi = (u8)FALSE;
 
 	/* For MISRA C */
-	(void )Data;
+	(void)Data;
 
 	SrcCpuMask = Xil_In32(IPI_PMC_ISR);
 
-	for (MaskIndex = 0; MaskIndex < XPLMI_IPI_MASK_COUNT; MaskIndex++) {
+	for (MaskIndex = 0U; MaskIndex < XPLMI_IPI_MASK_COUNT; MaskIndex++) {
 		if ((SrcCpuMask & IpiInst.Config.TargetList[MaskIndex].Mask) != 0U) {
 			Cmd.IpiReqType = XPLMI_CMD_NON_SECURE;
 			Cmd.IpiMask = IpiInst.Config.TargetList[MaskIndex].Mask;
@@ -263,11 +263,8 @@ END:
 	}
 
 	/* Clear and enable the GIC IPI interrupt */
-	StatusTmp = XPlmi_PlmIntrClear(XPLMI_IPI_IRQ);
-	if ((StatusTmp != XST_SUCCESS) && (Status == XST_SUCCESS)) {
-		Status = StatusTmp;
-	}
-	XPlmi_PlmIntrEnable(XPLMI_IPI_IRQ);
+	XPlmi_GicIntrClearStatus(XPLMI_PMC_GIC_IRQ_GICP0, XPLMI_GICP0_SRC27);
+	XPlmi_GicIntrEnable(XPLMI_PMC_GIC_IRQ_GICP0, XPLMI_GICP0_SRC27);
 
 	return Status;
 }

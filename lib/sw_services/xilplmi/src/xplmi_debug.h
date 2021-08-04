@@ -28,6 +28,7 @@
 * 1.04  bm   02/01/2021 Add XPlmi_Print functions using xil_vprintf
 * 1.05  td   07/08/2021 Fix doxygen warnings
 *       bsv  07/16/2021 Fix doxygen warnings
+*       bsv  08/02/2021 Code clean up to reduce size
 *
 * </pre>
 *
@@ -56,18 +57,17 @@ extern "C" {
 /**
  * Debug levels for PLM
  */
-#define DEBUG_PRINT_ALWAYS	(0x00000001U)    /* unconditional messages */
-#define DEBUG_GENERAL		(0x00000002U)    /* general debug  messages */
-#define DEBUG_INFO		(0x00000004U)    /* More debug information */
-#define DEBUG_DETAILED		(0x00000008U)    /* More debug information */
+#define DEBUG_PRINT_ALWAYS	(0x01U)    /* unconditional messages */
+#define DEBUG_GENERAL		(0x02U)    /* general debug  messages */
+#define DEBUG_INFO		(0x04U)    /* More debug information */
+#define DEBUG_DETAILED		(0x08U)    /* More debug information */
 
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
 /* Functions defined in xplmi_debug.c */
 int XPlmi_InitUart(void);
-void XPlmi_Print(u32 DebugType, const char8 *Ctrl1, ...);
-void XPlmi_Print_WoTS(u32 DebugType, const char8 *Ctrl1, ...);
+void XPlmi_Print(u8 DebugType, const char8 *Ctrl1, ...);
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #ifdef PLM_PRINT_PERF
@@ -90,15 +90,17 @@ void XPlmi_Print_WoTS(u32 DebugType, const char8 *Ctrl1, ...);
 #define XPlmiDbgCurrentTypes (0U)
 #endif
 
+#define XPLMI_DEBUG_PRINT_TIMESTAMP_MASK		(16U)
+
 #define XPlmi_Printf(DebugType, ...) \
 	if(((DebugType) & (XPlmiDbgCurrentTypes)) != (u8)FALSE) { \
-		XPlmi_Print(DebugType, __VA_ARGS__);\
+		XPlmi_Print((DebugType | XPLMI_DEBUG_PRINT_TIMESTAMP_MASK), __VA_ARGS__);\
 	}
 
 /* Prints without TimeStamp */
 #define XPlmi_Printf_WoTS(DebugType, ...) \
 	if(((DebugType) & (XPlmiDbgCurrentTypes)) != (u8)FALSE) { \
-		XPlmi_Print_WoTS(DebugType, __VA_ARGS__);\
+		XPlmi_Print(DebugType, __VA_ARGS__);\
 	}
 
 /* Check if UART is present in design */
