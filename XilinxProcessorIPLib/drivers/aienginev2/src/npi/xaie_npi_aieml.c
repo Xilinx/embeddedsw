@@ -107,8 +107,6 @@ static AieRC _XAie2_NpiSetProtectedRegField(XAie_DevInst *DevInst,
 		CFirst = Req->StartCol;
 	}
 
-	CFirst += (DevInst->BaseAddr & XAIE2_COL_MASK) >>
-		DevInst->DevProp.ColShift;
 	CLast = CFirst + NumCols - 1;
 
 	*RegVal |= XAie_SetField(CFirst, _XAie2NpiMod.ProtRegFirstCol.Lsb,
