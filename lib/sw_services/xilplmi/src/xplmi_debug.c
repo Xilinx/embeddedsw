@@ -31,6 +31,7 @@
 *       td   05/20/2021 Support user configurable uart baudrate
 * 1.05  td   07/08/2021 Fix doxygen warnings
 *       bsv  07/16/2021 Fix doxygen warnings
+*       bsv  08/02/2021 Code clean up to reduce size
 *
 * </pre>
 *
@@ -156,9 +157,10 @@ void outbyte(char8 c)
 #endif
 
 	if (DebugLog->PrintToBuf == (u8)TRUE) {
-		CurrentAddr = DebugLog->LogBuffer.StartAddr + DebugLog->LogBuffer.Offset;
-		if (CurrentAddr >=
-				(DebugLog->LogBuffer.StartAddr + DebugLog->LogBuffer.Len)) {
+		CurrentAddr = DebugLog->LogBuffer.StartAddr +
+			DebugLog->LogBuffer.Offset;
+		if (CurrentAddr >= (DebugLog->LogBuffer.StartAddr +
+				DebugLog->LogBuffer.Len)) {
 			DebugLog->LogBuffer.Offset = 0x0U;
 			DebugLog->LogBuffer.IsBufferFull = TRUE;
 			CurrentAddr = DebugLog->LogBuffer.StartAddr;
@@ -177,34 +179,16 @@ void outbyte(char8 c)
  * @param   Ctrl1 is the format specified string to print
  *
  *****************************************************************************/
-void XPlmi_Print(u32 DebugType, const char8 *Ctrl1, ...)
+void XPlmi_Print(u8 DebugType, const char8 *Ctrl1, ...)
 {
 	va_list Args;
 
 	va_start(Args, Ctrl1);
 
-	if(((DebugType) & (DebugLog->LogLevel)) != (u8)FALSE) {
-		XPlmi_PrintPlmTimeStamp();
-		xil_vprintf(Ctrl1, Args);
-	}
-	va_end(Args);
-}
-
-/*****************************************************************************/
-/**
- * @brief   This function prints debug messages without timestamp
- *
- * @param   DebugType is the PLM Debug level for the message
- * @param   Ctrl1 is the format specified string to print
- *
- *****************************************************************************/
-void XPlmi_Print_WoTS(u32 DebugType, const char8 *Ctrl1, ...)
-{
-	va_list Args;
-
-	va_start(Args, Ctrl1);
-
-	if(((DebugType) & (DebugLog->LogLevel)) != (u8)FALSE) {
+	if (((DebugType) & (DebugLog->LogLevel)) != 0U) {
+		if ((DebugType & XPLMI_DEBUG_PRINT_TIMESTAMP_MASK) != 0U) {
+			XPlmi_PrintPlmTimeStamp();
+		}
 		xil_vprintf(Ctrl1, Args);
 	}
 	va_end(Args);

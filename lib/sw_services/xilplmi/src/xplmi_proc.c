@@ -36,6 +36,7 @@
 * 1.05  td   07/08/2021 Fix doxygen warnings
 *       bm   07/12/2021 Updated IRO frequency to 400MHz for MP and HP parts
 *       bsv  07/16/2021 Fix doxygen warnings
+*       bsv  08/02/2021 Code clean up to reduce size
 *
 * </pre>
 *
@@ -65,8 +66,6 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XPLMI_MAP_PLMID(Lvl0, Lvl1, Lvl2)	\
-	(((Lvl0) << 0U) | ((Lvl1) << 8U) | ((Lvl2) << 16U))
 #define XPLMI_PMC_VOLTAGE_MULTIPLIER	(32768.0f)
 #define XPLMI_PMC_VERSION_1_0		(0x10U)
 
@@ -101,16 +100,6 @@ static void XPlmi_GetPerfTime(u64 TCur, u64 TStart, XPlmi_PerfTime *PerfTime);
 /************************** Variable Definitions *****************************/
 static u32 PmcIroFreq; /* Frequency of the PMC IRO */
 static XIOModule IOModule; /* Instance of the IO Module */
-static u32 PlmIntrMap[XPLMI_MAX_EXT_INTR] = {
-	[XPLMI_CFRAME_SEU] = XPLMI_MAP_PLMID(XPLMI_IOMODULE_CFRAME_SEU,
-						0x0U, 0x0U),
-	[XPLMI_IPI_IRQ] = XPLMI_MAP_PLMID(XPLMI_IOMODULE_PMC_GIC_IRQ,
-						XPLMI_PMC_GIC_IRQ_GICP0,
-						XPLMI_GICP0_SRC27),
-	[XPLMI_SBI_DATA_RDY] = XPLMI_MAP_PLMID(XPLMI_IOMODULE_PMC_GIC_IRQ,
-						XPLMI_PMC_GIC_IRQ_GICP4,
-						XPLMI_GICP4_SRC8),
-};
 
 /*****************************************************************************/
 /**
@@ -219,9 +208,7 @@ static void XPlmi_GetPerfTime(u64 TCur, u64 TStart, XPlmi_PerfTime *PerfTime)
  *****************************************************************************/
 void XPlmi_MeasurePerfTime(u64 TCur, XPlmi_PerfTime *PerfTime)
 {
-	u64 TEnd = 0U;
-
-	TEnd = XPlmi_GetTimerValue();
+	u64 TEnd = XPlmi_GetTimerValue();
 	XPlmi_GetPerfTime(TCur, TEnd, PerfTime);
 }
 
@@ -235,7 +222,7 @@ void XPlmi_MeasurePerfTime(u64 TCur, XPlmi_PerfTime *PerfTime)
 void XPlmi_PrintRomTime(void)
 {
 	u64 PmcRomTime;
-	XPlmi_PerfTime PerfTime = {0U};
+	XPlmi_PerfTime PerfTime;
 
 	/* Get PMC ROM time */
 	PmcRomTime = (u64)XPlmi_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE0);
@@ -257,7 +244,7 @@ void XPlmi_PrintRomTime(void)
  *****************************************************************************/
 void XPlmi_PrintPlmTimeStamp(void)
 {
-	XPlmi_PerfTime PerfTime = {0U};
+	XPlmi_PerfTime PerfTime;
 
 	/* Print time stamp of PLM */
 	XPlmi_MeasurePerfTime((XPLMI_PIT1_CYCLE_VALUE << 32U) |
@@ -275,7 +262,7 @@ void XPlmi_PrintPlmTimeStamp(void)
 static int XPlmi_SetPmcIroFreq(void)
 {
 	int Status = XST_FAILURE;
-	u32 RawVoltage = 0U;
+	u32 RawVoltage;
 	u32 PmcVersion = XPlmi_In32(PMC_TAP_VERSION);
 
 
@@ -361,44 +348,17 @@ int XPlmi_StartTimer(void)
 	XPlmi_InitPitTimer((u8)XPLMI_PIT2, XPLMI_PIT2_RESET_VALUE);
 	XPlmi_InitPitTimer((u8)XPLMI_PIT1, XPLMI_PIT1_RESET_VALUE);
 	XPlmi_InitPitTimer((u8)XPLMI_PIT3, Pit3ResetValue);
+
 END:
 	return Status;
 }
 
 /* Structure for Top level interrupt table */
-static struct HandlerTable g_TopLevelInterruptTable[] = {
-	{XPlmi_IntrHandler},
-	{XPlmi_IntrHandler},
-	{XPlmi_IntrHandler},
-	{XPlmi_IntrHandler},
-	{XPlmi_IntrHandler},
-	{XPlmi_SchedulerHandler},
-	{XPlmi_IntrHandler},
-	{XPlmi_IntrHandler},
-	{XPlmi_IntrHandler},
-	{XPlmi_IntrHandler},
-	{XPlmi_IntrHandler},
-	{XPlmi_IntrHandler},
-	{XPlmi_IntrHandler},
-	{XPlmi_IntrHandler},
-	{XPlmi_IntrHandler},
-	{XPlmi_IntrHandler},
-	{XPlmi_GicIntrHandler},
-	{XPlmi_IntrHandler},
-	{XPlmi_ErrIntrHandler},
-	{XPlmi_IntrHandler},
-	{XPlmi_IntrHandler},
-	{XPlmi_IntrHandler},
-	{XPlmi_IntrHandler},
-	{XPlmi_IntrHandler},
-	{XPlmi_IntrHandler},
-	{XPlmi_IntrHandler},
-	{XPlmi_IntrHandler},
-	{XPlmi_IntrHandler},
-	{XPlmi_IntrHandler},
-	{XPlmi_IntrHandler},
-	{XPlmi_IntrHandler},
-	{XPlmi_IntrHandler}
+static XInterruptHandler g_TopLevelInterruptTable[] = {
+	XPlmi_GicIntrHandler,
+	XPlmi_IntrHandler,
+	XPlmi_ErrIntrHandler,
+	NULL,
 };
 
 /******************************************************************************/
@@ -413,28 +373,39 @@ static struct HandlerTable g_TopLevelInterruptTable[] = {
 int XPlmi_SetUpInterruptSystem(void)
 {
 	int Status =  XST_FAILURE;
-	u8 IntrNum;
+	u8 IntrNum = XIN_IOMODULE_EXTERNAL_INTERRUPT_INTR;
+	u8 Index;
+	u8 Size = (u8)(XPLMI_ARRAY_SIZE(g_TopLevelInterruptTable) - 1U);
 
 	/*
 	 * Connect a device driver handler that will be called when an interrupt
 	 * for the device occurs, the device driver handler performs the specific
 	 * interrupt processing for the device
 	 */
-	for (IntrNum = XIN_IOMODULE_EXTERNAL_INTERRUPT_INTR;
-		IntrNum < XPAR_IOMODULE_INTC_MAX_INTR_SIZE; IntrNum++) {
+	for (Index = 0U; Index < Size; ++Index) {
 		Status = XIOModule_Connect(&IOModule, IntrNum,
-			(XInterruptHandler) g_TopLevelInterruptTable[IntrNum].Handler,
+			(XInterruptHandler)g_TopLevelInterruptTable[Index],
 			(void *)(u32)IntrNum);
-		if (Status != XST_SUCCESS)
-		{
+		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XPLMI_ERR_IOMOD_CONNECT, Status);
 			goto END;
 		}
+		++IntrNum;
 	}
-	IntrNum = XIN_IOMODULE_PIT_3_INTERRUPT_INTR;
-	Status = XIOModule_Connect(&IOModule, IntrNum,
-			(XInterruptHandler) g_TopLevelInterruptTable[IntrNum].Handler,
+	++IntrNum;
+	while (IntrNum < XPAR_IOMODULE_INTC_MAX_INTR_SIZE) {
+		Status = XIOModule_Connect(&IOModule, IntrNum,
+			(XInterruptHandler)XPlmi_IntrHandler,
 			(void *)(u32)IntrNum);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XPLMI_ERR_IOMOD_CONNECT, Status);
+			goto END;
+		}
+		IntrNum++;
+	}
+
+	Status = XIOModule_Connect(&IOModule, XIN_IOMODULE_PIT_3_INTERRUPT_INTR,
+		(XInterruptHandler)XPlmi_SchedulerHandler, (void *)(u32)IntrNum);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_IOMOD_CONNECT, Status);
 		goto END;
@@ -480,8 +451,8 @@ static void XPlmi_IntrHandler(void *CallbackRef)
 	/*
 	 * Indicate Interrupt received
 	 */
-	XPlmi_Printf(DEBUG_GENERAL,
-		"Received Interrupt: 0x%0x\n\r", (u32) CallbackRef);
+	XPlmi_Printf(DEBUG_GENERAL, "Received Interrupt: 0x%0x\n\r",
+		(u32) CallbackRef);
 }
 
 /****************************************************************************/
@@ -495,24 +466,8 @@ static void XPlmi_IntrHandler(void *CallbackRef)
 ****************************************************************************/
 void XPlmi_PlmIntrEnable(u32 IntrId)
 {
-	u32 PlmIntrId;
-	u32 IoModIntrNum;
-
-	PlmIntrId = PlmIntrMap[IntrId];
-	IoModIntrNum = PlmIntrId & XPLMI_IOMODULE_MASK;
-
-	switch (IoModIntrNum)
-	{
-		case XPLMI_IOMODULE_PMC_GIC_IRQ:
-			XPlmi_GicIntrEnable(PlmIntrId);
-			break;
-
-		case XPLMI_IOMODULE_CFRAME_SEU:
-			XIOModule_Enable(&IOModule, XPLMI_IOMODULE_CFRAME_SEU);
-			break;
-
-		default:
-			break;
+	if (IntrId == 0U) {
+		XIOModule_Enable(&IOModule, XPLMI_IOMODULE_CFRAME_SEU);
 	}
 }
 
@@ -528,35 +483,12 @@ void XPlmi_PlmIntrEnable(u32 IntrId)
 int XPlmi_PlmIntrDisable(u32 IntrId)
 {
 	int Status = XST_FAILURE;
-	u32 PlmIntrId;
-	u32 IoModIntrNum;
 
-	if (IntrId >= (u32)XPLMI_MAX_EXT_INTR) {
-		Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_INTR_ID_DISABLE, 0);
-		goto END;
+	if (IntrId == 0U) {
+		XIOModule_Disable(&IOModule, XPLMI_IOMODULE_CFRAME_SEU);
+		Status = XST_SUCCESS;
 	}
 
-	PlmIntrId = PlmIntrMap[IntrId];
-	IoModIntrNum = PlmIntrId & XPLMI_IOMODULE_MASK;
-
-	switch (IoModIntrNum)
-	{
-		case XPLMI_IOMODULE_PMC_GIC_IRQ:
-			XPlmi_GicIntrDisable(PlmIntrId);
-			Status = XST_SUCCESS;
-			break;
-
-		case XPLMI_IOMODULE_CFRAME_SEU:
-			XIOModule_Disable(&IOModule, (u8 )IoModIntrNum);
-			Status = XST_SUCCESS;
-			break;
-
-		default:
-			Status = XPlmi_UpdateStatus(XPLMI_ERR_IO_MOD_INTR_NUM_DISABLE, 0);
-			break;
-	}
-
-END:
 	return Status;
 }
 
@@ -572,35 +504,12 @@ END:
 int XPlmi_PlmIntrClear(u32 IntrId)
 {
 	int Status = XST_FAILURE;
-	u32 PlmIntrId;
-	u32 IoModIntrNum;
 
-	if (IntrId >= (u32)XPLMI_MAX_EXT_INTR) {
-		Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_INTR_ID_CLEAR, 0);
-		goto END;
+	if (IntrId == 0U) {
+		XIOModule_Acknowledge(&IOModule, XPLMI_IOMODULE_CFRAME_SEU);
+		Status = XST_SUCCESS;
 	}
 
-	PlmIntrId = PlmIntrMap[IntrId];
-	IoModIntrNum = PlmIntrId & XPLMI_IOMODULE_MASK;
-
-	switch (IoModIntrNum)
-	{
-		case XPLMI_IOMODULE_PMC_GIC_IRQ:
-			XPlmi_GicIntrClearStatus(PlmIntrId);
-			Status = XST_SUCCESS;
-			break;
-
-		case XPLMI_IOMODULE_CFRAME_SEU:
-			XIOModule_Acknowledge(&IOModule, (u8 )IoModIntrNum);
-			Status = XST_SUCCESS;
-			break;
-
-		default:
-			Status = XPlmi_UpdateStatus(XPLMI_ERR_IO_MOD_INTR_NUM_CLEAR, 0);
-			break;
-	}
-
-END:
 	return Status;
 }
 
@@ -619,8 +528,14 @@ static int XPlmi_IoModuleRegisterHandler(u32 IoModIntrNum,
 			XInterruptHandler Handler, void *Data)
 {
 	int Status = XST_FAILURE;
+	u8 InterruptTableSize =
+		(u8)XPLMI_ARRAY_SIZE(g_TopLevelInterruptTable) - 1U;
 
-	g_TopLevelInterruptTable[IoModIntrNum].Handler = Handler;
+	if (g_TopLevelInterruptTable[InterruptTableSize] != NULL) {
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_REGISTER_IOMOD_HANDLER, 0);
+		goto END;
+	}
+	g_TopLevelInterruptTable[InterruptTableSize] = Handler;
 	Status = XIOModule_Connect(&IOModule, (u8)IoModIntrNum, Handler, Data);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL, "IoModule Connect Failed:0x%0x\n\r",
@@ -648,33 +563,11 @@ END:
 int XPlmi_RegisterHandler(u32 IntrId, GicIntHandler_t Handler, void *Data)
 {
 	int Status = XST_FAILURE;
-	u32 PlmIntrId;
-	u32 IoModIntrNum;
 
-	if (IntrId >= (u32)XPLMI_MAX_EXT_INTR) {
-		Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_INTR_ID_REGISTER, 0);
-		goto END;
+	if (IntrId == 0U) {
+		Status = XPlmi_IoModuleRegisterHandler(XPLMI_IOMODULE_CFRAME_SEU,
+			(XInterruptHandler)(void*)Handler, Data);
 	}
 
-	PlmIntrId = PlmIntrMap[IntrId];
-	IoModIntrNum = PlmIntrId & XPLMI_IOMODULE_MASK;
-
-	switch (IoModIntrNum)
-	{
-		case XPLMI_IOMODULE_PMC_GIC_IRQ:
-			Status = XPlmi_GicRegisterHandler(PlmIntrId, Handler, Data);
-			break;
-
-		case XPLMI_IOMODULE_CFRAME_SEU:
-			Status = XPlmi_IoModuleRegisterHandler(IoModIntrNum,
-				      (XInterruptHandler)(void*)Handler, Data);
-			break;
-
-		default:
-			Status = XPlmi_UpdateStatus(XPLMI_ERR_IO_MOD_INTR_NUM_REGISTER, 0);
-			break;
-	}
-
-END:
 	return Status;
 }

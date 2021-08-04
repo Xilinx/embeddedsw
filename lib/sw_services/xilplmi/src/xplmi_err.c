@@ -451,11 +451,9 @@ void XPlmi_UpdateErrorSubsystemId(u32 ErrorNodeId,
  *
  *****************************************************************************/
 void XPlmi_PORHandler(void) {
-	u32 RegVal;
-
 	XPlmi_SysmonClkSetIro();
-	RegVal = XPlmi_In32(CRP_RST_PS);
-	XPlmi_Out32(CRP_RST_PS, RegVal | CRP_RST_PS_PMC_POR_MASK);
+	XPlmi_UtilRMW(CRP_RST_PS, CRP_RST_PS_PMC_POR_MASK,
+		CRP_RST_PS_PMC_POR_MASK);
 	while(TRUE) {
 		;
 	}
@@ -1384,8 +1382,8 @@ END:
 void XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown)
 {
 	u32 Index;
-	u32 PmcErr1Status = 0U;
-	u32 PmcErr2Status = 0U;
+	u32 PmcErr1Status;
+	u32 PmcErr2Status;
 	u32 RegMask;
 	u32 SiliconVal = XPlmi_In32(PMC_TAP_VERSION) &
 			PMC_TAP_VERSION_PMC_VERSION_MASK;
@@ -1470,8 +1468,8 @@ int XPlmi_PsEmInit(void)
 {
 	int Status = XST_FAILURE;
 	u32 Index;
-	u32 PsmErr1Status = 0U;
-	u32 PsmErr2Status = 0U;
+	u32 PsmErr1Status;
+	u32 PsmErr2Status;
 	u32 RegMask;
 
 	/* Disable all the Error Actions */

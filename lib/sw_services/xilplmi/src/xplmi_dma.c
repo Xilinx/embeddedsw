@@ -30,6 +30,7 @@
 * 1.04  td   11/23/2020 MISRA C Rule 17.8 Fixes
 *       ma   03/24/2021 Reduced minimum digits of time stamp decimals to 3
 * 1.05  td   07/08/2021 Fix doxygen warnings
+*       bsv  08/02/2021 Code clean up to reduce size
 *
 * </pre>
 *
@@ -320,7 +321,7 @@ static int XPlmi_DmaChXfer(u64 Addr, u32 Len, XPmcDma_Channel Channel, u32 Flags
 		XPmcDma_SetConfig(DmaPtr, Channel, &DmaCtrl);
 	}
 
-	XPmcDma_64BitTransfer(DmaPtr, Channel , (u32)(Addr & 0xFFFFFFFFU),
+	XPmcDma_64BitTransfer(DmaPtr, Channel , (u32)(Addr),
 		(u32)(Addr >> 32U), Len, 0U);
 
 	if (((Flags & XPLMI_DMA_SRC_NONBLK) != 0U) ||
@@ -471,8 +472,7 @@ int XPlmi_WaitForNonBlkDestDma(u32 DmaFlags)
 	}
 
 	/* To acknowledge the transfer has completed */
-	XPmcDma_IntrClear(PmcDmaPtr, XPMCDMA_DST_CHANNEL,
-				XPMCDMA_IXR_DONE_MASK);
+	XPmcDma_IntrClear(PmcDmaPtr, XPMCDMA_DST_CHANNEL, XPMCDMA_IXR_DONE_MASK);
 	DmaCtrl.AxiBurstType = 0U;
 	XPmcDma_SetConfig(PmcDmaPtr, XPMCDMA_DST_CHANNEL, &DmaCtrl);
 
@@ -555,6 +555,10 @@ int XPlmi_DmaXfr(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags)
 	XPlmi_PerfTime PerfTime = {0U};
 #endif
 
+	if (Len == 0U) {
+		Status = XST_SUCCESS;
+		goto END;
+	}
 	Status = XPlmi_StartDma(SrcAddr, DestAddr, Len, Flags, &DmaPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -664,9 +668,9 @@ static int XPlmi_StartDma(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags,
 
 	/* Data transfer in loop back mode */
 	XPmcDma_64BitTransfer(DmaPtr, XPMCDMA_DST_CHANNEL,
-		(u32)(DestAddr & 0xFFFFFFFFU), (u32)(DestAddr >> 32U), Len, EnLast);
+		(u32)(DestAddr), (u32)(DestAddr >> 32U), Len, EnLast);
 	XPmcDma_64BitTransfer(DmaPtr, XPMCDMA_SRC_CHANNEL,
-		(u32)(SrcAddr & 0xFFFFFFFFU), (u32)(SrcAddr >> 32U), Len, EnLast);
+		(u32)(SrcAddr), (u32)(SrcAddr >> 32U), Len, EnLast);
 	*DmaPtrAddr = DmaPtr;
 	Status = XST_SUCCESS;
 	return Status;

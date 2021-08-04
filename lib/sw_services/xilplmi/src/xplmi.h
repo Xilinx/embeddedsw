@@ -40,6 +40,7 @@
 *       ma   05/21/2021 Added RTCA define for Secure Boot State
 * 1.06  bsv  07/16/2021 Fix doxygen warnings
 *       bsv  07/24/2021 Clear RTC area at the beginning of PLM
+*       bsv  08/02/2021 Code clean up to reduce elf size
 *
 * </pre>
 *
@@ -75,8 +76,10 @@ extern "C" {
 
 #define XPLMI_CHUNK_SIZE	(0x10000U) /**< PMCRAM chunk size */
 
-#define XPLMI_CMD_SECURE		0x0U /**< IPI command secure flag */
-#define XPLMI_CMD_NON_SECURE	0x1U /**< IPI command non-secure flag */
+#define XPLMI_CMD_SECURE		(0x0U) /**< IPI command secure flag */
+#define XPLMI_CMD_NON_SECURE	(0x1U) /**< IPI command non-secure flag */
+#define XPLMI_PMC_VERSION_MASK		(0xFU) /**< Used to calculate PMC Version */
+#define XPLMI_PMC_VERSION_SHIFT		(0x4U) /**< Used to calculate PMC Version */
 
 /**************************** Type Definitions *******************************/
 #define UART_INITIALIZED	((u8)(1U << 0U)) /**< Flag indicates UART is initialized */

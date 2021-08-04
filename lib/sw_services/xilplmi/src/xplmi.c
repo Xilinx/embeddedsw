@@ -39,6 +39,7 @@
 * 1.05  td   07/08/2021 Fix doxygen warnings
 *       bsv  07/18/2021 Print PLM banner at the beginning of PLM execution
 *       bsv  07/24/2021 Clear RTC area at the beginning of PLM
+*       bsv  08/02/2021 Code clean up to reduce elf size
 *
 * </pre>
 *
@@ -63,8 +64,6 @@
 #define XPLMI_INVALID_ROM_VERSION	(0x0U) /**< Invalid ROM version */
 
 /**************************** Type Definitions *******************************/
-typedef int (*XPlmi_InitHandler)(void); /**< Function pointer for PLM LPD
-										  Initialization handlers */
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -148,29 +147,23 @@ END:
 void XPlmi_LpdInit(void)
 {
 	int Status = XST_FAILURE;
-	u32 Index;
-	/*
-	 * It contains all the PS LPD init functions to be run for every module that
-	 * is present as a part of PLM.
-	 */
-	const XPlmi_InitHandler LpdInitList[] = {
-#ifdef DEBUG_UART_PS
-		XPlmi_InitUart,
-#endif
-		XPlmi_PsEmInit,
-	};
 
-	for (Index = 0U; Index < XPLMI_ARRAY_SIZE(LpdInitList); Index++) {
-		Status = LpdInitList[Index]();
-		if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus(XPLM_ERR_LPD_MOD, Status);
-			break;
-		}
+#ifdef DEBUG_UART_PS
+	Status = XPlmi_InitUart();
+	if (Status != XST_SUCCESS) {
+		goto END;
 	}
-	if (XST_SUCCESS == Status) {
-		LpdInitialized |= LPD_INITIALIZED;
-		XPlmi_PrintEarlyLog();
+#endif
+	Status = XPlmi_PsEmInit();
+	if (Status != XST_SUCCESS) {
+		goto END;
 	}
+
+	LpdInitialized |= LPD_INITIALIZED;
+	XPlmi_PrintEarlyLog();
+
+END:
+	return;
 }
 
 /*****************************************************************************/
@@ -183,10 +176,11 @@ void XPlmi_LpdInit(void)
 void XPlmi_PrintPlmBanner(void)
 {
 	u32 Version;
-	u32 PsVersion;
-	u32 PmcVersion;
+	u8 PsVersion;
+	u8 PmcVersion;
 	u32 BootMode;
 	u32 MultiBoot;
+	u8 PmcVersionDecimal;
 
 	/* Print the PLM Banner */
 	XPlmi_Printf(DEBUG_PRINT_ALWAYS,
@@ -199,18 +193,21 @@ void XPlmi_PrintPlmBanner(void)
 
 	/* Read the Version */
 	Version = XPlmi_In32(PMC_TAP_VERSION);
-	PsVersion = ((Version & PMC_TAP_VERSION_PS_VERSION_MASK) >>
+	PsVersion = (u8)((Version & PMC_TAP_VERSION_PS_VERSION_MASK) >>
 			PMC_TAP_VERSION_PS_VERSION_SHIFT);
-	PmcVersion = ((Version & PMC_TAP_VERSION_PMC_VERSION_MASK) >>
+	PmcVersion = (u8)((Version & PMC_TAP_VERSION_PMC_VERSION_MASK) >>
 			PMC_TAP_VERSION_PMC_VERSION_SHIFT);
 	BootMode = XPlmi_In32(CRP_BOOT_MODE_USER) &
 			CRP_BOOT_MODE_USER_BOOT_MODE_MASK;
 	MultiBoot = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT);
+	PmcVersionDecimal = (u8)(PmcVersion & XPLMI_PMC_VERSION_MASK);
+	PmcVersion = (u8)(PmcVersion >> XPLMI_PMC_VERSION_SHIFT);
+
 	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Platform Version: v%u.%u "
-			 "PMC: v%u.%u, PS: v%u.%u\n\r",
-			(PmcVersion / 16U), (PmcVersion % 16U),
-			(PmcVersion / 16U), (PmcVersion % 16U),
-			(PsVersion / 16U), (PsVersion % 16U));
+		"PMC: v%u.%u, PS: v%u.%u\n\r", PmcVersion, PmcVersionDecimal,
+		PmcVersion, PmcVersionDecimal,
+		(PsVersion >> XPLMI_PMC_VERSION_SHIFT),
+		(PsVersion & XPLMI_PMC_VERSION_MASK));
 	XPlmi_PrintRomVersion();
 	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "BOOTMODE: 0x%x, MULTIBOOT: 0x%x"
 			"\n\r", BootMode, MultiBoot);
@@ -230,8 +227,10 @@ static void XPlmi_PrintEarlyLog(void)
 	DebugLog->PrintToBuf = (u8)FALSE;
 	/* Print early log */
 	if (DebugLog->LogBuffer.IsBufferFull == (u32)FALSE) {
-		XPlmi_OutByte64(DebugLog->LogBuffer.StartAddr + DebugLog->LogBuffer.Offset, 0U);
-		XPlmi_Printf_WoTS(DEBUG_PRINT_ALWAYS, "%s", (UINTPTR)DebugLog->LogBuffer.StartAddr);
+		XPlmi_OutByte64(DebugLog->LogBuffer.StartAddr +
+			DebugLog->LogBuffer.Offset, 0U);
+		XPlmi_Printf_WoTS(DEBUG_PRINT_ALWAYS, "%s",
+			(UINTPTR)DebugLog->LogBuffer.StartAddr);
 	}
 	else {
 		XPlmi_PrintPlmBanner();
@@ -266,7 +265,7 @@ static void XPlmi_PrintRomVersion(void)
 
 	if (RomVersion != XPLMI_INVALID_ROM_VERSION) {
 		XPlmi_Printf(DEBUG_INFO, "ROM Version: v%u.%u\n\r",
-			(RomVersion / 16U), (RomVersion % 16U));
+			(RomVersion >> 4U), (RomVersion & 15U));
 	}
 }
 

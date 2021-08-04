@@ -36,6 +36,7 @@
 *                       VerifyAddrRange API
 * 1.05  td   07/08/2021 Fix doxygen warnings
 *       bsv  07/16/2021 Fix doxygen warnings
+*       bsv  08/02/2021 Code clean up to reduce size
 *
 * </pre>
 *
@@ -331,25 +332,25 @@ void XPlmi_UtilWrite64(u32 HighAddr, u32 LowAddr, u32 Value)
 * @return	None
 *
 *****************************************************************************/
-void XPlmi_PrintArray (u32 DebugType, const u64 BufAddr, u32 Len,
+void XPlmi_PrintArray (u8 DebugType, const u64 BufAddr, u32 Len,
 	const char *Str)
 {
 	u32 Index;
 	u64 Addr = BufAddr;
 
-	if ((DebugType & XPlmiDbgCurrentTypes) != 0U) {
+	if (((DebugType) & XPlmiDbgCurrentTypes) != 0U) {
 		XPlmi_Printf(DebugType, "%s START, Len:0x%08x\r\n 0x%08x%08x: ",
 			     Str, Len, (u32)(Addr >> 32U), (u32)Addr);
 		for (Index = 0U; Index < Len; Index++) {
 			XPlmi_Printf_WoTS(DebugType, "0x%08x ", XPlmi_In64(Addr));
 			if (((Index + 1U) % XPLMI_WORD_LEN) == 0U) {
-				XPlmi_Printf_WoTS(DebugType, "\r\n 0x%08x%08x: ",
+				XPlmi_Printf_WoTS((DebugType), "\r\n 0x%08x%08x: ",
 					(u32)(Addr >> 32U), (u32)Addr);
 			}
 			Addr += XPLMI_WORD_LEN;
 		}
-		XPlmi_Printf_WoTS(DebugType, "\r\n");
-		XPlmi_Printf(DebugType, "%s END\r\n", Str);
+		XPlmi_Printf_WoTS((DebugType), "\r\n");
+		XPlmi_Printf((DebugType), "%s END\r\n", Str);
 	}
 	return;
 }

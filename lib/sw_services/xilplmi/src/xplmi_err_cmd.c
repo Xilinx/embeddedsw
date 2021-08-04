@@ -31,6 +31,7 @@
 *                       multiple errors at once.
 *       ma   05/03/2021 Minor updates related to PSM and FW errors
 * 1.05  td   07/08/2021 Fix doxygen warnings
+*       bsv  08/02/2021 Code clean up to reduce size
 *
 * </pre>
 *
@@ -122,6 +123,12 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 	u32 NodeId = Cmd->Payload[0U];
 	u32 ErrorAction = Cmd->Payload[1U];
 	u32 ErrorMasks = Cmd->Payload[2U];
+	u32 PmcPsmCrErrMask = (u32)1U << (u32)XPLMI_NODEIDX_ERROR_PMC_PSM_CR;
+	u32 PmcPsmNCrErrMask = (u32)1U << (u32)XPLMI_NODEIDX_ERROR_PMC_PSM_NCR;
+	u32 FwErrMask = (u32)1U << (u32)XPLMI_NODEIDX_ERROR_FW_CR;
+	u32 PmcPsmCrErrVal = ErrorMasks & PmcPsmCrErrMask;
+	u32 PmcPsmNCrErrVal = ErrorMasks & PmcPsmNCrErrMask;
+	u32 FwErrVal = ErrorMasks & FwErrMask;
 
 	XPlmi_Printf(DEBUG_DETAILED,
 		"%s: NodeId: 0x%0x,  ErrorAction: 0x%0x, ErrorMasks: 0x%0x\n\r",
@@ -148,38 +155,36 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 		goto END;
 	}
 
-	/* Only allow HW error actions for PSM_CR error */
-	if ((NodeId == XPLMI_EVENT_ERROR_PMC_ERR1) &&
-		((ErrorMasks &
-			((u32)1U << (u32)XPLMI_NODEIDX_ERROR_PMC_PSM_CR)) != (u32)FALSE)) {
-		if ((XPLMI_EM_ACTION_SUBSYS_SHUTDN == ErrorAction) ||
-			(XPLMI_EM_ACTION_SUBSYS_RESTART == ErrorAction)) {
-			XPlmi_Printf(DEBUG_GENERAL,
-				"Error: XPlmi_CmdEmSetAction: Invalid/unsupported error "
-				"action 0x%x received for PMC PSM_CR error", ErrorAction);
-			Status = XPLMI_INVALID_ERROR_ACTION;
-			goto END;
+	if (NodeId == XPLMI_EVENT_ERROR_PMC_ERR1) {
+		/* Only allow HW error actions for PSM_CR error */
+		if (PmcPsmCrErrVal != 0U) {
+			if ((XPLMI_EM_ACTION_SUBSYS_SHUTDN == ErrorAction) ||
+				(XPLMI_EM_ACTION_SUBSYS_RESTART == ErrorAction)) {
+				XPlmi_Printf(DEBUG_GENERAL, "Error: "
+					"XPlmi_CmdEmSetAction: Invalid/unsupported"
+					" error action 0x%x received for "
+					"PMC PSM_CR error", ErrorAction);
+				Status = XPLMI_INVALID_ERROR_ACTION;
+				goto END;
+			}
+
+			if (IsPsmCrChanged == (u8)TRUE) {
+				XPlmi_Printf(DEBUG_GENERAL, "Error: "
+					"XPlmi_CmdEmSetAction: PMC PSM_CR error"
+					" action cannot be changed more than "
+					"once\r\n");
+				Status = XPLMI_CANNOT_CHANGE_ACTION;
+				goto END;
+			}
 		}
-		if (IsPsmCrChanged == (u8)TRUE) {
-			XPlmi_Printf(DEBUG_GENERAL,
-				"Error: XPlmi_CmdEmSetAction: PMC PSM_CR error action cannot be"
-				"changed more than once\r\n");
+		/* PMC's PSM_NCR error action must not be changed */
+		if ((FwErrVal | PmcPsmNCrErrVal) != 0U) {
+			XPlmi_Printf(DEBUG_GENERAL, "Error: XPlmi_CmdEmSetAction: "
+				"Error Action cannot be changed for PMC FW CR "
+				"and PSM_NCR\r\n");
 			Status = XPLMI_CANNOT_CHANGE_ACTION;
 			goto END;
 		}
-	}
-
-	/* PMC's PSM_NCR error action must not be changed */
-	if ((NodeId == XPLMI_EVENT_ERROR_PMC_ERR1) &&
-		(((ErrorMasks &
-			((u32)1U << (u32)XPLMI_NODEIDX_ERROR_FW_CR)) != (u32)FALSE) ||
-		((ErrorMasks &
-			((u32)1U << (u32)XPLMI_NODEIDX_ERROR_PMC_PSM_NCR)) != (u32)FALSE))) {
-		XPlmi_Printf(DEBUG_GENERAL,
-			"Error: XPlmi_CmdEmSetAction: Error Action "
-			"cannot be changed for PMC FW CR and PSM_NCR\r\n");
-		Status = XPLMI_CANNOT_CHANGE_ACTION;
-		goto END;
 	}
 
 	/*
@@ -200,8 +205,7 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 	}
 
 	if ((NodeId == XPLMI_EVENT_ERROR_PMC_ERR1) &&
-		((ErrorMasks &
-			((u32)1U << (u32)XPLMI_NODEIDX_ERROR_PMC_PSM_CR)) != (u32)FALSE)) {
+		(PmcPsmCrErrVal  != 0U)) {
 		IsPsmCrChanged = (u8)TRUE;
 	}
 
