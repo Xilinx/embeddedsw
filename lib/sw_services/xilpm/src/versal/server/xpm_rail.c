@@ -76,17 +76,17 @@ static XStatus I2CInitialize(XIicPs *Iic)
 	}
 
 #ifdef XPAR_XIICPS_0_DEVICE_ID
-	if (XPAR_XIICPS_0_BASEADDR == Device->Node.BaseAddress) {
+	if ((u32)XPAR_XIICPS_0_BASEADDR == Device->Node.BaseAddress) {
 		I2CDeviceId = XPAR_XIICPS_0_DEVICE_ID;
 	} else
 #endif
 #ifdef XPAR_XIICPS_1_DEVICE_ID
-	if (XPAR_XIICPS_1_BASEADDR == Device->Node.BaseAddress) {
+	if ((u32)XPAR_XIICPS_1_BASEADDR == Device->Node.BaseAddress) {
 		I2CDeviceId = XPAR_XIICPS_1_DEVICE_ID;
 	} else
 #endif
 #ifdef XPAR_XIICPS_2_DEVICE_ID
-	if (XPAR_XIICPS_2_BASEADDR == Device->Node.BaseAddress) {
+	if ((u32)XPAR_XIICPS_2_BASEADDR == Device->Node.BaseAddress) {
 		I2CDeviceId = XPAR_XIICPS_2_DEVICE_ID;
 	} else
 #endif
