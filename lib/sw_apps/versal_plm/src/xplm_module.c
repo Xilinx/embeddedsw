@@ -31,6 +31,7 @@
 *       rama 03/22/2021 Fixed compilation warning on STL inclusion
 * 1.05  td   07/08/2021 Fix doxygen warnings
 *       kal  07/13/2021 Added module support for XilNvm
+*       bm   08/03/2021 Added temporal redundancy check for XPlm_SecureInit
 *
 * </pre>
 *
@@ -183,13 +184,7 @@ int XPlm_ModuleInit(void *Arg)
 		goto END;
 	}
 
-	/* Reinitialize Status to add redundancy */
-	Status = XST_FAILURE;
-
-	Status = XPlm_SecureInit();
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	XSECURE_TEMPORAL_CHECK(END, Status, XPlm_SecureInit);
 
 #ifndef PLM_NVM_EXCLUDE
 	XPlm_NvmInit();
