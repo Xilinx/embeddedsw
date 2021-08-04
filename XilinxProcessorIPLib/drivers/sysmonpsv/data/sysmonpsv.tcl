@@ -13,7 +13,7 @@
 # 	aad  02/25/19 Fix XSysMonPsv_Supply list enum when no supplies
 # 		      are configured
 # 2.1   aad  03/29/21 Add supply names in string format.
-# 2.4   aad  07/15/21 Add support for SSIT devices
+# 2.3   aad  07/15/21 Add support for SSIT devices
 #
 ##############################################################################
 
