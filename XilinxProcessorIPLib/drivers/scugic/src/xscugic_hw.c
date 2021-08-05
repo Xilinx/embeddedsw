@@ -129,7 +129,7 @@ static void DistInit(const XScuGic_Config *Config)
 {
 	u32 Int_Id;
 
-#if USE_AMP == 1
+#if (defined (USE_AMP) && (USE_AMP==1))
 	#warning "Building GIC for AMP"
 
 	/*
