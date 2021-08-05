@@ -56,6 +56,7 @@
 *                     change was to fix CR-1024716.
 * 4.1   mus  06/12/19 Updated XSCUGIC_MAX_NUM_INTR_INPUTS for Versal.
 * 4.6	sk   06/07/21 Delete the commented macro code to fix the MISRA-C warning.
+* 4.6	sk   08/05/21 Fix Scugic Misrac violations.
 *
 * </pre>
 *
@@ -676,7 +677,7 @@ extern "C" {
 void XScuGic_DeviceInterruptHandler(void *DeviceId);
 s32  XScuGic_DeviceInitialize(u32 DeviceId);
 void XScuGic_RegisterHandler(u32 BaseAddress, s32 InterruptID,
-			     Xil_InterruptHandler Handler, void *CallBackRef);
+			     Xil_InterruptHandler IntrHandler, void *CallBackRef);
 void XScuGic_SetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
                                         u8 Priority, u8 Trigger);
 void XScuGic_GetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
