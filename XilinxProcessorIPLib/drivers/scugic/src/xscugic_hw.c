@@ -705,7 +705,7 @@ void XScuGic_InterruptMapFromCpuByDistAddr(u32 DistBaseAddress,
 	Offset = (Int_Id & 0x3U);
 	Cpu_CoreId = (0x1U << Cpu_Id);
 
-	RegValue |= (Cpu_CoreId) << (Offset*8U);
+	RegValue |= (u32)(Cpu_CoreId) << (Offset*8U);
 
 	XScuGic_WriteReg(DistBaseAddress,
 					XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id),

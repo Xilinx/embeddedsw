@@ -1009,7 +1009,7 @@ void XScuGic_InterruptMaptoCpu(XScuGic *InstancePtr, u8 Cpu_Identifier, u32 Int_
 	Offset = (Int_Id & 0x3U);
 	Cpu_CoreId = (0x1U << Cpu_Identifier);
 
-	RegValue |= (Cpu_CoreId) << (Offset*8U);
+	RegValue |= (u32)(Cpu_CoreId) << (Offset*8U);
 	XScuGic_DistWriteReg(InstancePtr,
 					XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id),
 					RegValue);
