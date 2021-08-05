@@ -22,6 +22,8 @@
 * 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.10  mus  07/17/18 Updated file to fix the various coding style issues
 *                     reported by checkpatch. It fixes CR#1006344.
+* 4.6	sk   08/05/21 Remove XScuGic_Config variable definition to fix
+* 		      misrac violation.
 *
 * </pre>
 *
@@ -44,7 +46,6 @@
 
 /************************** Variable Definitions *****************************/
 
-extern XScuGic_Config XScuGic_ConfigTable[XPAR_SCUGIC_NUM_INSTANCES];
 
 /************************** Function Prototypes ******************************/
 

@@ -169,6 +169,7 @@
 * 4.5   asa  03/07/21 Included a header file xil_spinlock.h to ensure that
 *                     GIC driver can use newly introduced spinlock
 *                     functionality.
+* 4.6	sk   08/05/21 Fix scugic misrac violations.
 *
 * </pre>
 *
@@ -236,6 +237,10 @@ typedef struct
 	u32 IsReady;		 /**< Device is initialized and ready */
 	u32 UnhandledInterrupts; /**< Intc Statistics */
 } XScuGic;
+
+/************************** Variable Definitions *****************************/
+
+extern XScuGic_Config XScuGic_ConfigTable[];	/**< Config table */
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
