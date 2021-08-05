@@ -1186,7 +1186,7 @@ void XScuGic_Stop(XScuGic *InstancePtr)
 
 		Target_Cpu = XScuGic_DistReadReg(InstancePtr,
 					XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id));
-		if ((Target_Cpu != LocalCpuID) && (Target_Cpu != 0)) {
+		if ((Target_Cpu != LocalCpuID) && (Target_Cpu != (u32)0)) {
 			/*
 			 * If any other CPU is also programmed to target
 			 * register, GIC distributor can not be disabled.
@@ -1205,7 +1205,7 @@ void XScuGic_Stop(XScuGic *InstancePtr)
 	 * If GIC distributor is safe to be disabled, disable all the interrupt
 	 * and then disable distributor.
 	 */
-	if (DistDisable == 1) {
+	if (DistDisable == (u32)1) {
 		for (Int_Id = 0U; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
 				Int_Id = Int_Id+32U) {
 			/*
