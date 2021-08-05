@@ -56,16 +56,16 @@ u32 Xil_IsSpinLockEnabled(void);
 /***************************************************************************/
 #if !defined (__aarch64__) && defined(__GNUC__) && !defined(__clang__)
 #define XIL_SPINLOCK()              \
-    if(Xil_IsSpinLockEnabled()!=(u32)0)     \
-        Xil_SpinLock();
+    if(Xil_IsSpinLockEnabled()!=(u32)0) {    \
+        Xil_SpinLock();  }
 #else
 #define XIL_SPINLOCK()
 #endif /* !(__aarch64__) &&  (__GNUC__) && !(__clang__)*/
 
 #if !defined (__aarch64__) && defined(__GNUC__) && !defined(__clang__)
 #define XIL_SPINUNLOCK()              \
-    if(Xil_IsSpinLockEnabled()!=(u32)0)       \
-        Xil_SpinUnlock();
+    if(Xil_IsSpinLockEnabled()!=(u32)0) {      \
+        Xil_SpinUnlock();  }
 #else
 #define XIL_SPINUNLOCK()
 #endif /* !(__aarch64__) &&  (__GNUC__) && !(__clang__)*/
