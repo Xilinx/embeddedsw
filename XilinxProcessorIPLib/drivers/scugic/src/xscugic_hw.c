@@ -768,7 +768,7 @@ void XScuGic_InterruptUnmapFromCpuByDistAddr(u32 DistBaseAddress,
 				XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id));
 
 	Offset = (Int_Id & 0x3U);
-	Cpu_CoreId = (0x1U << Cpu_Id);
+	Cpu_CoreId = ((u32)0x1U << Cpu_Id);
 
 	RegValue &= ~(Cpu_CoreId << (Offset*8U));
 	XScuGic_WriteReg(DistBaseAddress,
@@ -800,7 +800,7 @@ void XScuGic_UnmapAllInterruptsFromCpuByDistAddr(u32 DistBaseAddress,
 {
 	u32 Int_Id;
 	u32 Target_Cpu;
-	u32 LocalCpuID = (1U << Cpu_Id);
+	u32 LocalCpuID = ((u32)1U << Cpu_Id);
 
 	/*
 	 * Call spinlock to protect multiple applications running at separate
