@@ -170,7 +170,7 @@ static void StubHandler(void *CallBackRef);
 * @note		None.
 *
 ******************************************************************************/
-static void DoDistributorInit(XScuGic *InstancePtr)
+static void DoDistributorInit(const XScuGic *InstancePtr)
 {
 	u32 Int_Id;
 
@@ -313,7 +313,7 @@ static void DistributorInit(XScuGic *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-static void CPUInitialize(XScuGic *InstancePtr)
+static void CPUInitialize(const XScuGic *InstancePtr)
 {
 	/*
 	 * Program the priority mask of the CPU using the Priority mask register
