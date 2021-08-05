@@ -585,8 +585,6 @@ void XScuGic_InterruptHandler(XScuGic *InstancePtr);
  */
 s32  XScuGic_SelfTest(XScuGic *InstancePtr);
 
-void XScuGic_EnableSGI_PPI(XScuGic *InstancePtr,u32 ID);
-void XScuGic_SetPPI_SGI_Priority(XScuGic *InstancePtr,u32 ID, u32 priority);
 #if defined (GICv3)
 void XScuGic_MarkCoreAsleep(XScuGic *InstancePtr);
 void XScuGic_MarkCoreAwake(XScuGic *InstancePtr);
