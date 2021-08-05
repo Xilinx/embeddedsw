@@ -13,8 +13,8 @@ OUTS = $(LIBSOURCES:.c=.o)
 INCLUDEFILES = ./*/*.h ./*/*/*.h
 INCLUDEDIR = ../include
 NAME := xaiengine
-MAJOR = 2
-MINOR = 2
+MAJOR = 3
+MINOR = 0
 VERSION = $(MAJOR).$(MINOR)
 
 all: include lib$(NAME).so
