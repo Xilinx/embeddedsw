@@ -420,14 +420,6 @@ extern "C" {
 #define XSCUGIC_CNTR_EN_S_MASK		0x00000001U    /**< Secure enable, 0=Disabled, 1=Enabled */
 /* @} */
 
-/** @name Priority Mask Register
- * Priority Mask register definitions
- * The CPU interface does not send interrupt if the level of the interrupt is
- * lower than the level of the register.
- * @{
- */
-/*#define XSCUGIC_PRIORITY_MASK		0x000000FFU*/   /**< All interrupts */
-/* @} */
 
 /** @name Binary Point Register
  * Binary Point register definitions
