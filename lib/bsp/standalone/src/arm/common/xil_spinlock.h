@@ -19,6 +19,8 @@
 * Ver   Who      Date     Changes
 * ----- -------- -------- -----------------------------------------------
 * 7.5 	asa		 02/16/21 First release
+* 7.6	sk	 08/05/21 Add Boolean check and braces for Xil_IsSpinLockEnabled
+* 			  if condition to fix misrac violations.
 * </pre>
 *
 ******************************************************************************/
@@ -54,7 +56,7 @@ u32 Xil_IsSpinLockEnabled(void);
 /***************************************************************************/
 #if !defined (__aarch64__) && defined(__GNUC__) && !defined(__clang__)
 #define XIL_SPINLOCK()              \
-    if(Xil_IsSpinLockEnabled())     \
+    if(Xil_IsSpinLockEnabled()!=(u32)0)     \
         Xil_SpinLock();
 #else
 #define XIL_SPINLOCK()
@@ -62,7 +64,7 @@ u32 Xil_IsSpinLockEnabled(void);
 
 #if !defined (__aarch64__) && defined(__GNUC__) && !defined(__clang__)
 #define XIL_SPINUNLOCK()              \
-    if(Xil_IsSpinLockEnabled())       \
+    if(Xil_IsSpinLockEnabled()!=(u32)0)       \
         Xil_SpinUnlock();
 #else
 #define XIL_SPINUNLOCK()
