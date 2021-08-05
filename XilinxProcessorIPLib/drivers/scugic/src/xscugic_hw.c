@@ -77,6 +77,7 @@
 *                     the existing flow will remain unchanged. On how to
 *                     enable spinlocks, please refer to the documentations
 *                     at: lib/bsp/standalone/src/arm/common/gcc/xil_spinlock.c
+* 4.6	sk   08/05/21 Fix Scugic Misrac violations.
 * </pre>
 *
 ******************************************************************************/
@@ -675,6 +676,7 @@ void XScuGic_InterruptMapFromCpuByDistAddr(u32 DistBaseAddress,
 		u8 Cpu_Id, u32 Int_Id)
 {
 	u32 RegValue;
+	u8 Cpu_CoreId;
 #if !defined (GICv3)
 	u32 Offset;
 #endif
@@ -702,9 +704,9 @@ void XScuGic_InterruptMapFromCpuByDistAddr(u32 DistBaseAddress,
 					XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id));
 
 	Offset = (Int_Id & 0x3U);
-	Cpu_Id = (0x1U << Cpu_Id);
+	Cpu_CoreId = (0x1U << Cpu_Id);
 
-	RegValue |= (Cpu_Id) << (Offset*8U);
+	RegValue |= (Cpu_CoreId) << (Offset*8U);
 
 	XScuGic_WriteReg(DistBaseAddress,
 					XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id),
@@ -735,6 +737,7 @@ void XScuGic_InterruptUnmapFromCpuByDistAddr(u32 DistBaseAddress,
 			u8 Cpu_Id, u32 Int_Id)
 {
 	u32 RegValue;
+	u32 Cpu_CoreId;
 #if !defined (GICv3)
 	u32 Offset;
 #endif
@@ -765,9 +768,9 @@ void XScuGic_InterruptUnmapFromCpuByDistAddr(u32 DistBaseAddress,
 				XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id));
 
 	Offset = (Int_Id & 0x3U);
-	Cpu_Id = (0x1U << Cpu_Id);
+	Cpu_CoreId = (0x1U << Cpu_Id);
 
-	RegValue &= ~(Cpu_Id << (Offset*8U));
+	RegValue &= ~(Cpu_CoreId << (Offset*8U));
 	XScuGic_WriteReg(DistBaseAddress,
 			XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id), RegValue);
 

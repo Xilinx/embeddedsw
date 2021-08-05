@@ -128,6 +128,7 @@
 *                     the existing flow will remain unchanged. On how to
 *                     enable spinlocks, please refer to the documentations
 *                     at: lib/bsp/standalone/src/arm/common/gcc/xil_spinlock.c
+* 4.6	sk   08/05/21 Fix scugic Misra-c violations.
 * </pre>
 *
 ******************************************************************************/
@@ -977,6 +978,7 @@ void XScuGic_GetPriorityTriggerType(XScuGic *InstancePtr, u32 Int_Id,
 void XScuGic_InterruptMaptoCpu(XScuGic *InstancePtr, u8 Cpu_Id, u32 Int_Id)
 {
 	u32 RegValue;
+	u8 Cpu_CoreId;
 
 #if defined (GICv3)
 	u32 Temp;
@@ -1005,9 +1007,9 @@ void XScuGic_InterruptMaptoCpu(XScuGic *InstancePtr, u8 Cpu_Id, u32 Int_Id)
 			XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id));
 
 	Offset = (Int_Id & 0x3U);
-	Cpu_Id = (0x1U << Cpu_Id);
+	Cpu_CoreId = (0x1U << Cpu_Id);
 
-	RegValue |= (Cpu_Id) << (Offset*8U);
+	RegValue |= (Cpu_CoreId) << (Offset*8U);
 	XScuGic_DistWriteReg(InstancePtr,
 					XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id),
 					RegValue);
@@ -1035,6 +1037,7 @@ void XScuGic_InterruptMaptoCpu(XScuGic *InstancePtr, u8 Cpu_Id, u32 Int_Id)
 void XScuGic_InterruptUnmapFromCpu(XScuGic *InstancePtr, u8 Cpu_Id, u32 Int_Id)
 {
 	u32 RegValue;
+	u32 Cpu_CoreId;
 
 #if defined (GICv3)
 	u32 Temp;
@@ -1063,9 +1066,9 @@ void XScuGic_InterruptUnmapFromCpu(XScuGic *InstancePtr, u8 Cpu_Id, u32 Int_Id)
 				XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id));
 
 	Offset = (Int_Id & 0x3U);
-	Cpu_Id = (0x1U << Cpu_Id);
+	Cpu_CoreId = (0x1U << Cpu_Id);
 
-	RegValue &= ~(Cpu_Id << (Offset*8U));
+	RegValue &= ~(Cpu_CoreId << (Offset*8U));
 	XScuGic_DistWriteReg(InstancePtr,
 				XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id),
 			RegValue);
