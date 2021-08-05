@@ -1,8 +1,8 @@
-/* SPDX-License-Identifier: GPL-2.0 */
+/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
 /*
  * The header for UIO driver
  *
- * Copyright (C) 2019 Xilinx, Inc.
+ * Copyright (C) 2021 Xilinx, Inc.
  *
  * Author: Hyun Woo Kwon <hyun.kwon@xilinx.com>
  */
