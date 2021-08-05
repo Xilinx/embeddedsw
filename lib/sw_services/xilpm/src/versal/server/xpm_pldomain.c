@@ -1110,6 +1110,17 @@ static XStatus XPmPlDomain_InitandHouseclean(void)
 			goto done;
 		}
 
+		/* Check for PL POR Status */
+		/* This check is repeated due to ES1 workaround where PL POR is toggled again */
+		Status = XPm_PollForMask(Pmc->PmcGlobalBaseAddr +
+					 PMC_GLOBAL_PL_STATUS_OFFSET,
+					 PMC_GLOBAL_PL_STATUS_POR_PL_B_MASK,
+					 XPM_POLL_TIMEOUT);
+		if(XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_PL_STATUS_TIMEOUT;
+			goto done;
+		}
+
 		// Reset to allow PUDC_B pin to function
 		XPm_RMW32(Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_PUDC_B_OVERRIDE_OFFSET,
 				PMC_GLOBAL_PUDC_B_OVERRIDE_VAL_MASK,
@@ -1136,16 +1147,6 @@ static XStatus XPmPlDomain_InitandHouseclean(void)
 				PMC_GLOBAL_ERR2_STATUS_CFRAME_SEU_ECC_MASK);
 	}
 
-	/* Check for PL POR Status */
-	/* This check is repeated due to ES1 workaround where PL POR is toggled again */
-	Status = XPm_PollForMask(Pmc->PmcGlobalBaseAddr +
-				 PMC_GLOBAL_PL_STATUS_OFFSET,
-				 PMC_GLOBAL_PL_STATUS_POR_PL_B_MASK,
-				 XPM_POLL_TIMEOUT);
-	if(XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_PL_STATUS_TIMEOUT;
-		goto done;
-	}
 
 #ifdef PLM_PRINT_PERF_PL
 	XPlmi_Printf(DEBUG_GENERAL, "PL POR B status good\n\r");
