@@ -279,7 +279,7 @@ static void DistributorInit(XScuGic *InstancePtr)
 {
 	u32 RegValue;
 
-#if USE_AMP==1 && (defined (ARMA9) || defined(__aarch64__))
+#if (defined (USE_AMP) && (USE_AMP==1)) && (defined (ARMA9) || defined(__aarch64__))
 #warning "Building GIC for AMP"
 	/*
 	 * GIC initialization is taken care by master CPU in
@@ -1150,7 +1150,7 @@ void XScuGic_Stop(XScuGic *InstancePtr)
 	u32 Int_Id;
 	u32 RegValue;
 	u32 Target_Cpu;
-	#if USE_AMP==1
+	#if (defined (USE_AMP) && (USE_AMP==1))
 	u32 DistDisable = 0; /* Do not disable distributor */
 	#else
 	u32 DistDisable = 1; /* Track distributor status*/
