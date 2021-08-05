@@ -1066,7 +1066,7 @@ void XScuGic_InterruptUnmapFromCpu(XScuGic *InstancePtr, u8 Cpu_Id, u32 Int_Id)
 				XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id));
 
 	Offset = (Int_Id & 0x3U);
-	Cpu_CoreId = (0x1U << Cpu_Id);
+	Cpu_CoreId = ((u32)0x1U << Cpu_Id);
 
 	RegValue &= ~(Cpu_CoreId << (Offset*8U));
 	XScuGic_DistWriteReg(InstancePtr,
@@ -1097,7 +1097,7 @@ void XScuGic_UnmapAllInterruptsFromCpu(XScuGic *InstancePtr, u8 Cpu_Id)
 {
 	u32 Int_Id;
 	u32 Target_Cpu;
-	u32 LocalCpuID = (1U << Cpu_Id);
+	u32 LocalCpuID = ((u32)1U << Cpu_Id);
 
 	Xil_AssertVoid(InstancePtr != NULL);
 
