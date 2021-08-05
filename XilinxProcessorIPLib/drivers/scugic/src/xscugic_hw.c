@@ -98,9 +98,9 @@
 
 /************************** Function Prototypes ******************************/
 
-static void DistInit(XScuGic_Config *Config);
+static void DistInit(const XScuGic_Config *Config);
 #if !defined (GICv3)
-static void CPUInit(XScuGic_Config *Config);
+static void CPUInit(const XScuGic_Config *Config);
 #endif
 static XScuGic_Config *LookupConfigByBaseAddress(u32 CpuBaseAddress);
 
@@ -125,7 +125,7 @@ static XScuGic_Config *LookupConfigByBaseAddress(u32 CpuBaseAddress);
 * @note		None.
 *
 ******************************************************************************/
-static void DistInit(XScuGic_Config *Config)
+static void DistInit(const XScuGic_Config *Config)
 {
 	u32 Int_Id;
 
@@ -263,7 +263,7 @@ static void DistInit(XScuGic_Config *Config)
 * @note		None.
 *
 ******************************************************************************/
-static void CPUInit(XScuGic_Config *Config)
+static void CPUInit(const XScuGic_Config *Config)
 {
 	/*
 	 * Program the priority mask of the CPU using the Priority mask
