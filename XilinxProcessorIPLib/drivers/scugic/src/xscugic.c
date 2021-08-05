@@ -526,7 +526,7 @@ void XScuGic_Disconnect(XScuGic *InstancePtr, u32 Int_Id)
 	 * The Int_Id is used to create the appropriate mask for the
 	 * desired bit position. Int_Id currently limited to 0 - 31
 	 */
-	Mask = 0x00000001U << (Int_Id % 32U);
+	Mask = (u32)0x00000001U << (Int_Id % 32U);
 
 	/*
 	 * Disable the interrupt such that it won't occur while disconnecting
@@ -606,7 +606,7 @@ void XScuGic_Enable(XScuGic *InstancePtr, u32 Int_Id)
 	 * The Int_Id is used to create the appropriate mask for the
 	 * desired bit position.
 	 */
-	Mask = 0x00000001U << (Int_Id % 32U);
+	Mask = (u32)0x00000001U << (Int_Id % 32U);
 	/*
 	 * Enable the selected interrupt source by setting the
 	 * corresponding bit in the Enable Set register.
@@ -680,7 +680,7 @@ void XScuGic_Disable(XScuGic *InstancePtr, u32 Int_Id)
 	 * The Int_Id is used to create the appropriate mask for the
 	 * desired bit position. Int_Id currently limited to 0 - 31
 	 */
-	Mask = 0x00000001U << (Int_Id % 32U);
+	Mask = (u32)0x00000001U << (Int_Id % 32U);
 
 	/*
 	 * Disable the selected interrupt source by setting the
@@ -874,7 +874,7 @@ void XScuGic_SetPriorityTriggerType(XScuGic *InstancePtr, u32 Int_Id,
 	 * Shift and Mask the correct bits for the priority and trigger in the
 	 * register
 	 */
-	RegValue &= ~(XSCUGIC_PRIORITY_MASK << ((Int_Id%4U)*8U));
+	RegValue &= ~((u32)XSCUGIC_PRIORITY_MASK << ((Int_Id%4U)*8U));
 	RegValue |= (u32)LocalPriority << ((Int_Id%4U)*8U);
 
 	/*
@@ -893,7 +893,7 @@ void XScuGic_SetPriorityTriggerType(XScuGic *InstancePtr, u32 Int_Id,
 	 * Shift and Mask the correct bits for the priority and trigger in the
 	 * register
 	 */
-	RegValue &= ~(XSCUGIC_INT_CFG_MASK << ((Int_Id%16U)*2U));
+	RegValue &= ~((u32)XSCUGIC_INT_CFG_MASK << ((Int_Id%16U)*2U));
 	RegValue |= (u32)Trigger << ((Int_Id%16U)*2U);
 
 	/*

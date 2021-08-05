@@ -570,7 +570,7 @@ void XScuGic_SetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
 	 * Shift and Mask the correct bits for the priority and trigger in the
 	 * register
 	 */
-	RegValue &= ~(XSCUGIC_PRIORITY_MASK << ((Int_Id%4U)*8U));
+	RegValue &= ~((u32)XSCUGIC_PRIORITY_MASK << ((Int_Id%4U)*8U));
 	RegValue |= (u32)LocalPriority << ((Int_Id%4U)*8U);
 
 	/*
@@ -588,7 +588,7 @@ void XScuGic_SetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
 	 * Shift and Mask the correct bits for the priority and trigger in the
 	 * register
 	 */
-	RegValue &= ~(XSCUGIC_INT_CFG_MASK << ((Int_Id%16U)*2U));
+	RegValue &= ~((u32)XSCUGIC_INT_CFG_MASK << ((Int_Id%16U)*2U));
 	RegValue |= (u32)Trigger << ((Int_Id%16U)*2U);
 
 	/*
@@ -881,7 +881,7 @@ void XScuGic_EnableIntr (u32 DistBaseAddress, u32 Int_Id)
 	 */
 	XIL_SPINLOCK();
 	XScuGic_WriteReg((DistBaseAddress), XSCUGIC_ENABLE_SET_OFFSET +
-			(((Int_Id) / 32U) * 4U), (0x00000001U << ((Int_Id) % 32U)));
+			(((Int_Id) / 32U) * 4U), ((u32)0x00000001U << ((Int_Id) % 32U)));
 	/*
 	 * Release the lock previously taken. This macro ensures that the lock
 	 * is given only if spinlock mechanism is enabled by the user.
@@ -938,7 +938,7 @@ void XScuGic_DisableIntr (u32 DistBaseAddress, u32 Int_Id)
 	 */
 	XIL_SPINLOCK();
 	XScuGic_WriteReg((DistBaseAddress), XSCUGIC_DISABLE_OFFSET +
-			(((Int_Id) / 32U) * 4U), (0x00000001U << ((Int_Id) % 32U)));
+			(((Int_Id) / 32U) * 4U), ((u32)0x00000001U << ((Int_Id) % 32U)));
 	/*
 	 * Release the lock previously taken. This macro ensures that the lock
 	 * is given only if spinlock mechanism is enabled by the user.
