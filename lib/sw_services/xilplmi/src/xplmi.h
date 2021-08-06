@@ -41,6 +41,7 @@
 * 1.06  bsv  07/16/2021 Fix doxygen warnings
 *       bsv  07/24/2021 Clear RTC area at the beginning of PLM
 *       bsv  08/02/2021 Code clean up to reduce elf size
+*       ma   08/06/2021 Added RTCA define for storing PMC_FW_ERR register value
 *
 * </pre>
 *
@@ -115,6 +116,7 @@ extern "C" {
 #define XPLMI_RTCFG_PDI_ID_ADDR			(XPLMI_RTCFG_BASEADDR + 0x164U)
 #define XPLMI_RTCFG_USR_ACCESS_ADDR		(XPLMI_RTCFG_BASEADDR + 0x168U)
 #define XPLMI_RTCFG_SECURE_STATE_ADDR	(XPLMI_RTCFG_BASEADDR + 0x16CU)
+#define XPLMI_RTCFG_PMC_FW_ERR_VAL_ADDR	(XPLMI_RTCFG_BASEADDR + 0x184U)
 
 /* Masks of PLM RunTime Configuration Registers */
 #define XPLMI_RTCFG_IMGINFOTBL_NUM_ENTRIES_MASK	(0x0000FFFFU)

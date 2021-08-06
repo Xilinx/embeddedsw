@@ -63,6 +63,7 @@
 *       kc   07/22/2021 XPlmi_PorHandler scope updated to global
 *       ma   07/27/2021 Updated print statements in CPM handlers
 *       bm   08/02/2021 Change debug log level of PMC error status prints
+*       ma   08/06/2021 Save PMC_FW_ERR register value to RTCA and clear it
 *
 * </pre>
 *
@@ -1385,12 +1386,18 @@ void XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown)
 	u32 Index;
 	u32 PmcErr1Status;
 	u32 PmcErr2Status;
+	u32 FwErr;
 	u32 RegMask;
 	u32 SiliconVal = XPlmi_In32(PMC_TAP_VERSION) &
 			PMC_TAP_VERSION_PMC_VERSION_MASK;
 
 	/* Register Error module commands */
 	XPlmi_ErrModuleInit();
+
+	/* Save FW_ERR register value to RTCA and clear it */
+	FwErr = XPlmi_In32(PMC_GLOBAL_PMC_FW_ERR);
+	XPlmi_Out32(XPLMI_RTCFG_PMC_FW_ERR_VAL_ADDR, FwErr);
+	XPlmi_Out32(PMC_GLOBAL_PMC_FW_ERR, 0x0U);
 
 	/* Disable all the Error Actions */
 	XPlmi_Out32(PMC_GLOBAL_PMC_POR1_DIS, MASK32_ALL_HIGH);
