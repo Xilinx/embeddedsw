@@ -203,10 +203,13 @@ XStatus XPmRail_Control(XPm_Rail *Rail, u8 State)
 
 	RegulatorSlaveAddress = (u16)Regulator->Node.BaseAddress;
 	for (i = 0; i < Regulator->Config.CmdLen; i++) {
-		MuxAddress = (u16)Regulator->Config.CmdArr[j++];
-		BytesLen = Regulator->Config.CmdArr[j++];
+		MuxAddress = (u16)Regulator->Config.CmdArr[j];
+		j++;
+		BytesLen = Regulator->Config.CmdArr[j];
+		j++;
 		for (k = 0; k < BytesLen; k++) {
-			WriteBuffer[k] = Regulator->Config.CmdArr[j++];
+			WriteBuffer[k] = Regulator->Config.CmdArr[j];
+			j++;
 		}
 		Status = I2CWrite(&IicInstance, MuxAddress, WriteBuffer,
 				  (s32)BytesLen);
@@ -220,9 +223,11 @@ XStatus XPmRail_Control(XPm_Rail *Rail, u8 State)
 
 	Mode = ((u8)XPM_POWER_STATE_ON == State) ? 1U : 0U;
 	for (i = 0; i < Rail->I2cModes[Mode].CmdLen; i++) {
-		BytesLen = Rail->I2cModes[Mode].CmdArr[j++];
+		BytesLen = Rail->I2cModes[Mode].CmdArr[j];
+		j++;
 		for (k = 0; k < BytesLen; k++) {
-			WriteBuffer[k] = Rail->I2cModes[Mode].CmdArr[j++];
+			WriteBuffer[k] = Rail->I2cModes[Mode].CmdArr[j];
+			j++;
 		}
 
 		Status = I2CWrite(&IicInstance, RegulatorSlaveAddress, WriteBuffer,
