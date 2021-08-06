@@ -7,7 +7,7 @@
 /**
 *
 * @file xscugic_hw.c
-* @addtogroup scugic_v4_6
+* @addtogroup scugic_v4_7
 * @{
 *
 * This file contains low-level driver functions that can be used to access the
