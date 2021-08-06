@@ -527,13 +527,18 @@ u32 XV_Tx_VideoSetupAndStart(XV_Tx *InstancePtr,
 			HdmiTxSsVidStreamPtr->ColorDepth,
 			HdmiTxSsVidStreamPtr->ColorFormatId);
 
-	TmdsClock = XV_HdmiTxSs1_SetStream(InstancePtr->HdmiTxSs,
-			HdmiTxSsVidStreamPtr->Timing,
-			HdmiTxSsVidStreamPtr->FrameRate,
-			HdmiTxSsVidStreamPtr->ColorFormatId,
-			HdmiTxSsVidStreamPtr->ColorDepth,
-			NULL);
-    xil_printf("TMDS Clock:%d\r\n",TmdsClock);
+	Status = XV_HdmiTxSs1_SetStream(InstancePtr->HdmiTxSs,
+					HdmiTxSsVidStreamPtr->Timing,
+					HdmiTxSsVidStreamPtr->FrameRate,
+					HdmiTxSsVidStreamPtr->ColorFormatId,
+					HdmiTxSsVidStreamPtr->ColorDepth,
+					NULL, &TmdsClock);
+	if (Status != XST_SUCCESS) {
+		xil_printf("\r\n XV_HdmiTxSs1_SetStream failed %u\r\n", Status);
+		return Status;
+	}
+
+	xil_printf("TMDS Clock:%d\r\n",TmdsClock);
 	xdbg_xv_tx_new_stream_setup_print("%s,%d. Tmds clock = %d \r\n"
 			"\tNew Hdmi Tx Stream Params : PPC %d, "
 			"ColorDepth %d, ColorFrmtId %d. \r\n",
