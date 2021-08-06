@@ -1447,7 +1447,7 @@ void XV_HdmiTx1_AudioEnable(XV_HdmiTx1 *InstancePtr);
 void XV_HdmiTx1_Clear(XV_HdmiTx1 *InstancePtr);
 u8 XV_HdmiTx1_GetVic(XVidC_VideoMode VideoMode);
 XVidC_VideoMode XV_HdmiTx1_GetVideoModeFromVic(u8 Vic);
-u64 XV_HdmiTx1_SetStream(XV_HdmiTx1 *InstancePtr,
+u32 XV_HdmiTx1_SetStream(XV_HdmiTx1 *InstancePtr,
 		XVidC_VideoTiming VideoTiming,
 		XVidC_FrameRate FrameRate,
 		XVidC_ColorFormat ColorFormat,
@@ -1456,7 +1456,8 @@ u64 XV_HdmiTx1_SetStream(XV_HdmiTx1 *InstancePtr,
 		XVidC_3DInfo *Info3D,
 		u8 FVaFactor,
 		u8 VrrEnabled,
-		u8 CnmvrrEnabled);
+		u8 CnmvrrEnabled,
+		u64 *TmdsClk);
 u64 XV_HdmiTx1_GetTmdsClk(XV_HdmiTx1 *InstancePtr);
 
 void XV_HdmiTx1_INT_VRST(XV_HdmiTx1 *InstancePtr, u8 Reset);

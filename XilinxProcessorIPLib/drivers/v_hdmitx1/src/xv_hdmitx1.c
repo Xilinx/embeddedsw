@@ -912,25 +912,30 @@ void XV_HdmiTx1_ShowSCDC(XV_HdmiTx1 *InstancePtr)
 *       - 16 = XVIDC_BPC_16
 * @param    Ppc specifies the pixel per clock.
 *       - 4 = XVIDC_PPC_4
+* @param    Info3D 3D info
+* @param    FVaFactor - Fast Video Active Factor
+* @param    VrrEnabled - VRR is enabled or not
+* @param    CnmvrrEnabled - Negative VRR supported flag
+* @param    TmdsClock, reference clock calculated based on the input parameters.
 *
-* @return   TmdsClock, reference clock calculated based on the input
-*       parameters.
+* @returns	XST_SUCCESS on success else
+*		XST_FAILURE
 *
 * @note     None.
 *
 ******************************************************************************/
-u64 XV_HdmiTx1_SetStream(XV_HdmiTx1 *InstancePtr,
-		XVidC_VideoTiming VideoTiming,
-		XVidC_FrameRate FrameRate,
-		XVidC_ColorFormat ColorFormat,
-		XVidC_ColorDepth Bpc,
-		XVidC_PixelsPerClock Ppc,
-		XVidC_3DInfo *Info3D,
-		u8 FVaFactor,
-		u8 VrrEnabled,
-		u8 CnmvrrEnabled)
+u32 XV_HdmiTx1_SetStream(XV_HdmiTx1 *InstancePtr,
+			 XVidC_VideoTiming VideoTiming,
+			 XVidC_FrameRate FrameRate,
+			 XVidC_ColorFormat ColorFormat,
+			 XVidC_ColorDepth Bpc,
+			 XVidC_PixelsPerClock Ppc,
+			 XVidC_3DInfo *Info3D,
+			 u8 FVaFactor,
+			 u8 VrrEnabled,
+			 u8 CnmvrrEnabled,
+			 u64 *TmdsClock)
 {
-	u64 TmdsClock;
 	u16 Vblank0;
 	u16 Vblank1;
 	u16 Vfpfva;
@@ -1043,13 +1048,13 @@ u64 XV_HdmiTx1_SetStream(XV_HdmiTx1 *InstancePtr,
 	XV_HdmiTx1_SetColorDepth(InstancePtr);
 
 	/* Calculate reference clock. First calculate the pixel clock */
-	TmdsClock = XV_HdmiTx1_GetTmdsClk(InstancePtr);
+	*TmdsClock = XV_HdmiTx1_GetTmdsClk(InstancePtr);
 
 	/*  update Timing Values for FVA & VRR */
 
 
 		if (FVaFactor > 1){
-			TmdsClock = TmdsClock * FVaFactor;
+			*TmdsClock = *TmdsClock * FVaFactor;
 		}
 		if (FVaFactor > 1) {
 			Vfpfva = (InstancePtr->Stream.Video.Timing.F0PVFrontPorch *
@@ -1080,10 +1085,10 @@ u64 XV_HdmiTx1_SetStream(XV_HdmiTx1 *InstancePtr,
 			}
 		}
 	/* Store TMDS clock for future reference */
-	InstancePtr->Stream.TMDSClock = TmdsClock;
+	InstancePtr->Stream.TMDSClock = *TmdsClock;
 
 	/* HDMI 2.0 */
-	if (InstancePtr->Stream.ScdcSupport && TmdsClock > 340000000) {
+	if (InstancePtr->Stream.ScdcSupport && *TmdsClock > 340000000) {
 		InstancePtr->Stream.IsScrambled = (TRUE);
 		InstancePtr->Stream.TMDSClockRatio  = 1;
 	} else {
@@ -1096,11 +1101,11 @@ u64 XV_HdmiTx1_SetStream(XV_HdmiTx1 *InstancePtr,
 	XV_HdmiTx1_ClockRatio(InstancePtr);
 
 	if ((InstancePtr->Stream.ScdcSupport == (FALSE)) &&
-	    (TmdsClock > 340000000)) {
-		TmdsClock = 0;
+	    (*TmdsClock > 340000000)) {
+		*TmdsClock = 0;
 	}
 
-	return TmdsClock;
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
