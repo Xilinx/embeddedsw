@@ -28,25 +28,20 @@
 static u32 GtyAddresses[XPM_NODEIDX_DEV_GTYP_CPM5_MAX -
 			XPM_NODEIDX_DEV_GTYP_CPM5_MIN + 1] = {0};
 
-static XStatus CpmInitStart(const u32 *Args, u32 NumOfArgs)
+static XStatus CpmInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	XStatus PslpRailPwrSts = XST_FAILURE;
 	XStatus IntRailPwrSts = XST_FAILURE;
 	XStatus AuxRailPwrSts = XST_FAILURE;
-	const XPm_CpmDomain *Cpm;
+	const XPm_CpmDomain *Cpm = (XPm_CpmDomain *)PwrDomain;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 PlatformVersion;
 
 	/* This function does not use the args */
 	(void)Args;
 	(void)NumOfArgs;
-
-	Cpm = (XPm_CpmDomain *)XPmPower_GetById(PM_POWER_CPM);
-	if (NULL == Cpm) {
-		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
-		goto done;
-	}
 
 	const XPm_Rail *VccintPslpRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PSLP);
 	const XPm_Rail *VccintRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PL);
@@ -95,7 +90,8 @@ done:
 	return Status;
 }
 
-static XStatus Cpm5InitStart(const u32 *Args, u32 NumofArgs)
+static XStatus Cpm5InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumofArgs)
 {
 	XStatus Status = XPM_ERR_INIT_START;
 	XStatus PslpRailPwrSts = XST_FAILURE;
@@ -103,7 +99,7 @@ static XStatus Cpm5InitStart(const u32 *Args, u32 NumofArgs)
 	XStatus AuxRailPwrSts = XST_FAILURE;
 	XStatus RamRailPwrSts = XST_FAILURE;
 
-	const XPm_CpmDomain *Cpm;
+	const XPm_CpmDomain *Cpm = (XPm_CpmDomain *)PwrDomain;
 	u32 i;
 	const XPm_Device* Device = NULL;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -111,13 +107,6 @@ static XStatus Cpm5InitStart(const u32 *Args, u32 NumofArgs)
 	/* This function does not use any args */
 	(void)Args;
 	(void)NumofArgs;
-
-	Cpm = (XPm_CpmDomain *)XPmPower_GetById(PM_POWER_CPM5);
-	if (NULL == Cpm) {
-		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
-		Status = XPM_INVALID_PWRDOMAIN;
-		goto done;
-	}
 
 	const XPm_Rail *VccintPslpRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PSLP);
 	const XPm_Rail *VccintRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PL);
@@ -170,36 +159,30 @@ done:
 	return Status;
 }
 
-static XStatus CpmInitFinish(const u32 *Args, u32 NumOfArgs)
+static XStatus CpmInitFinish(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	u32 PowerId;
 
 	/* This function does not use the args */
 	(void)Args;
 	(void)NumOfArgs;
 
-	if (XPmPower_GetById(PM_POWER_CPM5) != NULL) {
-		PowerId = PM_POWER_CPM5;
-	} else if (XPmPower_GetById(PM_POWER_CPM) != NULL) {
-		PowerId = PM_POWER_CPM;
-	} else {
-		Status = XPM_INVALID_PWRDOMAIN;
-		goto done;
-	}
 	/* Send a CCIX_EN IPI to PSM if its a valid CPM CCIX design */
-	Status = XPm_CCIXEnEvent(PowerId);
+	Status = XPm_CCIXEnEvent(PwrDomain->Power.Node.Id);
 	if (XST_SUCCESS != Status) {
-		PmErr("Failed to send CCIX_EN IPI to PSM, Return: 0x%x\r\n",
-		      Status);
+		PmErr("Failed to send CCIX_EN IPI to PSM, Return: 0x%x\r\n", Status);
 	}
+
 done:
 	return Status;
 }
 
-static XStatus CpmScanClear(const u32 *Args, u32 NumOfArgs)
+static XStatus CpmScanClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
 {
 	/* This function does not use the args */
+	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -207,10 +190,11 @@ static XStatus CpmScanClear(const u32 *Args, u32 NumOfArgs)
 	return XST_SUCCESS;
 }
 
-static XStatus Cpm5ScanClear(const u32 *Args, u32 NumOfArgs)
+static XStatus Cpm5ScanClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
 {
 	XStatus Status = XPM_ERR_SCAN_CLR;
-	const XPm_CpmDomain *Cpm;
+	const XPm_CpmDomain *Cpm (XPm_CpmDomain *)PwrDomain;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 RegVal;
 
@@ -225,13 +209,6 @@ static XStatus Cpm5ScanClear(const u32 *Args, u32 NumOfArgs)
 	}
 
 	PmInfo("Triggering ScanClear for CPM5\r\n");
-
-	Cpm = (XPm_CpmDomain *)XPmPower_GetById(PM_POWER_CPM5);
-	if (NULL == Cpm) {
-		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
-		Status = XPM_INVALID_PWRDOMAIN;
-		goto done;
-	}
 
 	/* Unlock PCSR */
 	XPmCpmDomain_UnlockPcsr(Cpm->CpmPcsrBaseAddr);
@@ -333,12 +310,14 @@ done:
 }
 
 
-static XStatus CpmBisr(const u32 *Args, u32 NumOfArgs)
+static XStatus CpmBisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
+	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -361,13 +340,15 @@ done:
 	return Status;
 }
 
-static XStatus Cpm5Bisr(const u32 *Args, u32 NumOfArgs)
+static XStatus Cpm5Bisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 i;
 
 	/* This function does not use the args */
+	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -411,10 +392,11 @@ done:
 	return Status;
 }
 
-static XStatus CpmMbistClear(const u32 *Args, u32 NumOfArgs)
+static XStatus CpmMbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	const XPm_CpmDomain *Cpm;
+	const XPm_CpmDomain *Cpm = (XPm_CpmDomain *)PwrDomain;
 	u32 RegValue;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
@@ -429,13 +411,6 @@ static XStatus CpmMbistClear(const u32 *Args, u32 NumOfArgs)
 	}
 
 	PmInfo("Triggering MBIST for CPM\r\n");
-
-	Cpm = (XPm_CpmDomain *)XPmPower_GetById(PM_POWER_CPM);
-	if (NULL == Cpm) {
-		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
-		Status = XST_FAILURE;
-		goto done;
-	}
 
 	/* Unlock Writes */
 	PmOut32(Cpm->CpmSlcrSecureBaseAddr + CPM_SLCR_SECURE_WPROT0_OFFSET, 0);
@@ -555,11 +530,12 @@ done:
 	return Status;
 }
 
-static XStatus Cpm5MbistClear(const u32 *Args, u32 NumOfArgs)
+static XStatus Cpm5MbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
 {
 	volatile XStatus Status = XPM_ERR_MBIST_CLR;
 	volatile XStatus StatusTmp = XPM_ERR_MBIST_CLR;
-	const XPm_CpmDomain *Cpm;
+	const XPm_CpmDomain *Cpm = (XPm_CpmDomain *)PwrDomain;
 	u32 RegValue, i;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
@@ -574,13 +550,6 @@ static XStatus Cpm5MbistClear(const u32 *Args, u32 NumOfArgs)
 	}
 
 	PmInfo("Triggering MBIST for CPM5\r\n");
-
-	Cpm = (XPm_CpmDomain *)XPmPower_GetById(PM_POWER_CPM5);
-	if (NULL == Cpm) {
-		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
-		Status = XPM_INVALID_PWRDOMAIN;
-		goto done;
-	}
 
 	/* Disable write protection */
 	PmOut32(Cpm->CpmSlcrSecureBaseAddr + CPM5_SLCR_SECURE_WPROTS_OFFSET, 0);

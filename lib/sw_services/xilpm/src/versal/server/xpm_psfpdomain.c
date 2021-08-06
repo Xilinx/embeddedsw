@@ -14,12 +14,14 @@
 #include "xpm_debug.h"
 #include "xpm_rail.h"
 
-static XStatus FpdInitStart(const u32 *Args, u32 NumOfArgs)
+static XStatus FpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
+	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -63,10 +65,12 @@ done:
 	return Status;
 }
 
-static XStatus FpdInitFinish(const u32 *Args, u32 NumOfArgs)
+static XStatus FpdInitFinish(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 
+	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -75,13 +79,15 @@ static XStatus FpdInitFinish(const u32 *Args, u32 NumOfArgs)
 	return Status;
 }
 
-static XStatus FpdHcComplete(const u32 *Args, u32 NumOfArgs)
+static XStatus FpdHcComplete(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 SysmonAddr;
 
+	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -132,13 +138,15 @@ done:
 	return Status;
 }
 
-static XStatus FpdScanClear(const u32 *Args, u32 NumOfArgs)
+static XStatus FpdScanClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	const XPm_Psm *Psm;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 RegVal;
 
+	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -186,12 +194,14 @@ done:
 	return Status;
 }
 
-static XStatus FpdBisr(const u32 *Args, u32 NumOfArgs)
+static XStatus FpdBisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
+	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -231,13 +241,15 @@ done:
 	return Status;
 }
 
-static XStatus FpdMbistClear(const u32 *Args, u32 NumOfArgs)
+static XStatus FpdMbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
 {
-        XStatus Status = XST_FAILURE;
-        u32 Payload[PAYLOAD_ARG_CNT] = {0};
+	XStatus Status = XST_FAILURE;
+	u32 Payload[PAYLOAD_ARG_CNT] = {0};
 	const XPm_Psm *Psm;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
+	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
