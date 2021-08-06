@@ -36,10 +36,12 @@ u32 HcleanDone = 0;
 
 static XStatus XPmPlDomain_InitandHouseclean(void);
 
-static XStatus PldInitFinish(const u32 *Args, u32 NumOfArgs)
+static XStatus PldInitFinish(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
 
+	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -595,14 +597,15 @@ done:
 	return Status;
 }
 
-static XStatus PldInitStart(const u32 *Args, u32 NumOfArgs)
+static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	XStatus IntRailPwrSts = XST_FAILURE;
 	XStatus RamRailPwrSts = XST_FAILURE;
 	XStatus AuxRailPwrSts = XST_FAILURE;
 	XStatus SocRailPwrSts = XST_FAILURE;
-	const XPm_PlDomain *Pld;
+	const XPm_PlDomain *Pld = (XPm_PlDomain *)PwrDomain;
 	u32 PlPowerUpTime=0;
 	u32 Platform = XPm_GetPlatform();
 	u32 IdCode = XPm_GetIdCode();
@@ -661,13 +664,6 @@ static XStatus PldInitStart(const u32 *Args, u32 NumOfArgs)
 			DbgErr = XPM_INT_ERR_DOMAIN_INIT_AND_HC;
 			goto done;
 		}
-	}
-
-	Pld = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
-	if (NULL == Pld) {
-		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
-		Status = XST_FAILURE;
-		goto done;
 	}
 
 	/*

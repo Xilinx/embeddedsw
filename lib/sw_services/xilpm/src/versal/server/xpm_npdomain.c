@@ -24,12 +24,14 @@
 
 static u32 NpdMemIcAddresses[XPM_NODEIDX_MEMIC_MAX];
 
-static XStatus NpdInitStart(const u32 *Args, u32 NumOfArgs)
+static XStatus NpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 NpdPowerUpTime = 0;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
+	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -96,7 +98,8 @@ static void NpdPreBisrReqs(void)
 	return;
 }
 
-static XStatus NpdInitFinish(const u32 *Args, u32 NumOfArgs)
+static XStatus NpdInitFinish(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	XStatus SocRailPwrSts = XST_FAILURE;
@@ -108,6 +111,7 @@ static XStatus NpdInitFinish(const u32 *Args, u32 NumOfArgs)
 	u32 SlrType;
 	u32 SysmonAddr;
 
+	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -210,7 +214,8 @@ done:
 	return Status;
 }
 
-static XStatus NpdScanClear(const u32 *Args, u32 NumOfArgs)
+static XStatus NpdScanClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	const XPm_Pmc *Pmc;
@@ -219,6 +224,7 @@ static XStatus NpdScanClear(const u32 *Args, u32 NumOfArgs)
 	XPm_OutClockNode *Clk;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
+	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -296,7 +302,8 @@ done:
 	return Status;
 }
 
-static XStatus NpdMbist(const u32 *Args, u32 NumOfArgs)
+static XStatus NpdMbist(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 RegValue;
@@ -305,6 +312,7 @@ static XStatus NpdMbist(const u32 *Args, u32 NumOfArgs)
 	u32 DdrMcAddresses[XPM_NODEIDX_DEV_DDRMC_MAX - XPM_NODEIDX_DEV_DDRMC_MIN + 1] = {0};
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
+	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -481,7 +489,8 @@ done:
 	return Status;
 }
 
-static XStatus NpdBisr(const u32 *Args, u32 NumOfArgs)
+static XStatus NpdBisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 i = 0;
@@ -489,6 +498,7 @@ static XStatus NpdBisr(const u32 *Args, u32 NumOfArgs)
 	u32 DdrMcAddresses[XPM_NODEIDX_DEV_DDRMC_MAX - XPM_NODEIDX_DEV_DDRMC_MIN + 1] = {0};
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
+	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 

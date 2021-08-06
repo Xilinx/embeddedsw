@@ -399,13 +399,15 @@ static void Aie2ClockGate(u32 BaseAddress)
 
 }
 
-static XStatus AieInitStart(const u32 *Args, u32 NumOfArgs)
+static XStatus AieInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
+	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -451,13 +453,15 @@ done:
 	return Status;
 }
 
-static XStatus Aie2InitStart(const u32 *Args, u32 NumOfArgs)
+static XStatus Aie2InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
+	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -517,13 +521,15 @@ done:
 	return Status;
 }
 
-static XStatus AieInitFinish(const u32 *Args, u32 NumOfArgs)
+static XStatus AieInitFinish(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
+	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -557,13 +563,15 @@ done:
 	return Status;
 }
 
-static XStatus Aie2InitFinish(const u32 *Args, u32 NumOfArgs)
+static XStatus Aie2InitFinish(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
+	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -599,14 +607,15 @@ done:
 	return Status;
 }
 
-
-static XStatus AieScanClear(const u32 *Args, u32 NumOfArgs)
+static XStatus AieScanClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
+	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -695,13 +704,15 @@ done:
 	return Status;
 }
 
-static XStatus AieBisr(const u32 *Args, u32 NumOfArgs)
+static XStatus AieBisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
+	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -749,13 +760,15 @@ done:
 	return Status;
 }
 
-static XStatus Aie2Bisr(const u32 *Args, u32 NumOfArgs)
+static XStatus Aie2Bisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
+	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -808,13 +821,15 @@ done:
 	return Status;
 }
 
-static XStatus AieMbistClear(const u32 *Args, u32 NumOfArgs)
+static XStatus AieMbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
+	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -921,13 +936,15 @@ done:
 	return Status;
 }
 
-static XStatus Aie2MbistClear(const u32 *Args, u32 NumOfArgs)
+static XStatus Aie2MbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
+	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -1036,13 +1053,15 @@ done:
 	return Status;
 }
 
-static XStatus AieMemInit(const u32 *Args, u32 NumOfArgs)
+static XStatus AieMemInit(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
+	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -1088,7 +1107,8 @@ done:
 	return Status;
 }
 
-static XStatus Aie2MemInit(const u32 *Args, u32 NumOfArgs)
+static XStatus Aie2MemInit(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	XStatus CoreZeroStatus = XST_FAILURE;
@@ -1102,6 +1122,7 @@ static XStatus Aie2MemInit(const u32 *Args, u32 NumOfArgs)
 	u32 mrow;
 
 	/* This function does not use the args */
+	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
