@@ -413,12 +413,12 @@ extern "C" {
 * Shift
 *  @{
 */
-#define XVTC_ASIZE_VERT_MASK	0x1FFF0000 /**< Total number of lines
+#define XVTC_ASIZE_VERT_MASK	0x3FFF0000 /**< Total number of lines
 					      *  (including blanking) for
 					      *  frame or field 1 */
 #define XVTC_ASIZE_VERT_SHIFT	16	    /**<  Bit shift for End Cycle or
 					      *   Line Count */
-#define XVTC_ASIZE_HORI_MASK	0x00001FFF /**< Horizontal Active Frame
+#define XVTC_ASIZE_HORI_MASK	0x00003FFF /**< Horizontal Active Frame
 					      *  Size.The width of the frame
 					      *  without blanking in number
 					      *  of pixels or clocks. */
@@ -478,12 +478,12 @@ extern "C" {
 * and Shift
 * @{
 */
-#define XVTC_VSIZE_F1_MASK	0x1FFF0000 /**< Total number of lines
+#define XVTC_VSIZE_F1_MASK	0x3FFF0000 /**< Total number of lines
 					      *  (including blanking) for
 					      *  frame or field 1 */
 #define XVTC_VSIZE_F1_SHIFT	16	/**< Bit shift for End Cycle or
 					  *  Line Count */
-#define XVTC_VSIZE_F0_MASK	0x00001FFF /**< Total number of lines
+#define XVTC_VSIZE_F0_MASK	0x00003FFF /**< Total number of lines
 					      *  (including blanking) for
 					      *  frame or field 0 */
 /*@}*/
@@ -491,12 +491,12 @@ extern "C" {
 /** @name Generator/Detector Sync/Blank Register Bit Definitions and Shift
 * @{
 */
-#define XVTC_SB_END_MASK	0x1FFF0000 /**< End cycle or line count
+#define XVTC_SB_END_MASK	0x3FFF0000 /**< End cycle or line count
 					      *  of horizontal sync, vertical
 					      *  sync or vertical blank */
 #define XVTC_SB_END_SHIFT	16	    /**< Bit shift for End Cycle or
 					      *  Line Count */
-#define XVTC_SB_START_MASK	0x00001FFF /**< Start cycle or line count
+#define XVTC_SB_START_MASK	0x00003FFF /**< Start cycle or line count
 					      *  of horizontal sync, vertical
 					      *  sync or vertical blank */
 /*@}*/
@@ -504,22 +504,22 @@ extern "C" {
 /** @name Generator/Detector VBlank/VSync Horizontal Bit Definitions and Shift
 * @{
 */
-#define XVTC_XVXHOX_HEND_MASK	0x1FFF0000	/**< Horizontal Offset End
+#define XVTC_XVXHOX_HEND_MASK	0x3FFF0000	/**< Horizontal Offset End
 						  *  Mask */
 #define XVTC_XVXHOX_HEND_SHIFT	16		/**< Horizontal End Shift */
-#define XVTC_XVXHOX_HSTART_MASK	0x00001FFF	/**< Horizontal Offset Start
+#define XVTC_XVXHOX_HSTART_MASK	0x00003FFF	/**< Horizontal Offset Start
 						  *  Offset */
 /*@}*/
 
 /** @name Frame Sync 00 - 15
 * @{
 */
-#define XVTC_FSXX_VSTART_MASK	0x1FFF0000 /**< Vertical line count during
+#define XVTC_FSXX_VSTART_MASK	0x3FFF0000 /**< Vertical line count during
 					      *  which current Frame Sync is
 					      *  active Mask */
 #define XVTC_FSXX_VSTART_SHIFT	16	    /**< Bit shift for the vertical
 					      *  line count */
-#define XVTC_FSXX_HSTART_MASK	0x00001FFF /**< Horizontal cycle count
+#define XVTC_FSXX_HSTART_MASK	0x00003FFF /**< Horizontal cycle count
 					      *  during which current
 					      *  Frame Sync is active Mask */
 /*@}*/
@@ -527,12 +527,12 @@ extern "C" {
 /** @name VTC Generator Global Delay Bit Definition and Shift
 * @{
 */
-#define XVTC_GGD_VDELAY_MASK	0x1FFF0000	/**< Total lines per frame to
+#define XVTC_GGD_VDELAY_MASK	0x3FFF0000	/**< Total lines per frame to
 						  *  delay generator output
 						  *  Mask */
 #define XVTC_GGD_VDELAY_SHIFT	16		/**< Bit shift for the total
 						  *  lines */
-#define XVTC_GGD_HDELAY_MASK	0x00001FFF	/**< Total clock cycles per
+#define XVTC_GGD_HDELAY_MASK	0x00003FFF	/**< Total clock cycles per
 						  *  line to delay generator
 						  *  output Mask */
 /*@}*/

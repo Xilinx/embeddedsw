@@ -18,7 +18,7 @@ BEGIN driver vtc
   OPTION supported_peripherals = (v_tc);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 8.3;
+  OPTION VERSION = 8.4;
   OPTION NAME = vtc;
 
 END driver
