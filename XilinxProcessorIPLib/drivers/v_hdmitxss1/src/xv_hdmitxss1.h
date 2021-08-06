@@ -306,6 +306,7 @@ typedef struct
 	u32 MaxFrlRate;                   /** < Maximum FRL Rate Supporte */
 	u32 DynHdr;			/**< Supports Dynamic HDR */
     u32 AxiLiteClkFreq;               /**< AXI Lite Clock Frequency in Hz */
+    u8 VideoInterface;	/**< 0 - AXI4S 1 - Native 2 - Native DE video interface */
     XV_HdmiTxSs1_SubCore HdcpTimer;    /**< Sub-core instance configuration */
     XV_HdmiTxSs1_SubCore Hdcp14;       /**< Sub-core instance configuration */
     XV_HdmiTxSs1_SubCore Hdcp22;       /**< Sub-core instance configuration */
