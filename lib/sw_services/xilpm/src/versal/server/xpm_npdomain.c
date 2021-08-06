@@ -30,6 +30,7 @@ static XStatus NpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	XStatus Status = XST_FAILURE;
 	u32 NpdPowerUpTime = 0;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 DisableMask;
 
 	(void)PwrDomain;
 	(void)Args;
@@ -76,6 +77,12 @@ static XStatus NpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		DbgErr = XPM_INT_ERR_RST_RELEASE;
 		goto done;
 	}
+
+	/* Get houseclean disable mask */
+	DisableMask = XPm_In32(PM_HOUSECLEAN_DISABLE_REG_1) >> HOUSECLEAN_NPD_SHIFT;
+
+	/* Set Houseclean Mask */
+	PwrDomain->HcDisableMask |= DisableMask;
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
@@ -224,14 +231,8 @@ static XStatus NpdScanClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	XPm_OutClockNode *Clk;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
-
-	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
-		Status = XST_SUCCESS;
-		goto done;
-	}
 
 	SlrType = XPm_GetSlrType();
 	if ((SlrType != SLR_TYPE_MONOLITHIC_DEV) &&
@@ -240,8 +241,6 @@ static XStatus NpdScanClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		Status = XST_SUCCESS;
 		goto done;
 	}
-
-	PmInfo("Triggering ScanClear for NPD\r\n");
 
 	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 	if (NULL == Pmc) {
@@ -255,21 +254,29 @@ static XStatus NpdScanClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		(PMC_GLOBAL_ERR1_STATUS_NOC_TYPE_1_NCR_MASK |
 		PMC_GLOBAL_ERR1_STATUS_DDRMC_MC_NCR_MASK));
 
-	PmRmw32(PMC_ANALOG_SCAN_CLEAR_TRIGGER,
-		PMC_ANALOG_SCAN_CLEAR_TRIGGER_NOC_MASK,
-		PMC_ANALOG_SCAN_CLEAR_TRIGGER_NOC_MASK);
-	/* Check that the register value written properly or not! */
-	PmChkRegMask32(PMC_ANALOG_SCAN_CLEAR_TRIGGER,
+	if (HOUSECLEAN_DISABLE_SCAN_CLEAR_MASK != (PwrDomain->HcDisableMask &
+				HOUSECLEAN_DISABLE_SCAN_CLEAR_MASK)) {
+		PmInfo("Triggering ScanClear for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
+
+		PmRmw32(PMC_ANALOG_SCAN_CLEAR_TRIGGER,
+			PMC_ANALOG_SCAN_CLEAR_TRIGGER_NOC_MASK,
+			PMC_ANALOG_SCAN_CLEAR_TRIGGER_NOC_MASK);
+		/* Check that the register value written properly or not! */
+		PmChkRegMask32(PMC_ANALOG_SCAN_CLEAR_TRIGGER,
 			 PMC_ANALOG_SCAN_CLEAR_TRIGGER_NOC_MASK,
 			 PMC_ANALOG_SCAN_CLEAR_TRIGGER_NOC_MASK, Status);
-	if (XPM_REG_WRITE_FAILED == Status) {
-		DbgErr = XPM_INT_ERR_REG_WRT_NPDLSCNCLR_TRIGGER;
-		goto done;
-	}
+		if (XPM_REG_WRITE_FAILED == Status) {
+			DbgErr = XPM_INT_ERR_REG_WRT_NPDLSCNCLR_TRIGGER;
+			goto done;
+		}
 
-	/* 200 us is not enough and scan clear pass status is updated
-		after so increasing delay for scan clear to finish */
-	usleep(400);
+		/* 200 us is not enough and scan clear pass status is updated
+			after so increasing delay for scan clear to finish */
+		usleep(400);
+	} else {
+		/* ScanClear is skipped */
+		PmInfo("Skipping ScanClear for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
+	}
 
 	/* Enable NPI Clock */
 	Clk = (XPm_OutClockNode *)XPmClock_GetByIdx((u32)XPM_NODEIDX_CLK_NPI_REF);
@@ -312,7 +319,6 @@ static XStatus NpdMbist(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	u32 DdrMcAddresses[XPM_NODEIDX_DEV_DDRMC_MAX - XPM_NODEIDX_DEV_DDRMC_MIN + 1] = {0};
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -326,13 +332,14 @@ static XStatus NpdMbist(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	/* NPD pre bisr requirements - in case if bisr was skipped */
 	NpdPreBisrReqs();
 
-	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
-		PmInfo("Skipping MBIST for NPD\r\n");
+	if (HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK == (PwrDomain->HcDisableMask &
+				HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK)) {
+		PmInfo("Skipping MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 		Status = XST_SUCCESS;
 		goto done;
 	}
 
-	PmInfo("Triggering MBIST for NPD\r\n");
+	PmInfo("Triggering MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 
 	/* Deassert PCSR Lock*/
 	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {
@@ -498,7 +505,6 @@ static XStatus NpdBisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	u32 DdrMcAddresses[XPM_NODEIDX_DEV_DDRMC_MAX - XPM_NODEIDX_DEV_DDRMC_MIN + 1] = {0};
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -512,49 +518,81 @@ static XStatus NpdBisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	/* NPD pre bisr requirements */
 	NpdPreBisrReqs();
 
-
-	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
-		PmInfo("Skipping BISR for NPD\r\n");
-		Status = XST_SUCCESS;
+	/* Release NPI Reset */
+	Status = XPmReset_AssertbyId(PM_RST_NPI, (u32)PM_RESET_ACTION_RELEASE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_RST_RELEASE;
 		goto done;
 	}
 
-	PmInfo("Triggering BISR for NPD\r\n");
-
-	/* Enable Bisr clock */
-	for (i = 0U; i < ARRAY_SIZE(DdrMcAddresses); i++) {
-		if (0U == DdrMcAddresses[i]) {
-			continue;
-		}
-		/* Unlock writes */
-		XPmNpDomain_UnlockNpiPcsr(DdrMcAddresses[i]);
-		PmRmw32(DdrMcAddresses[i] + NOC_DDRMC_UB_CLK_GATE_OFFSET,
-			NOC_DDRMC_UB_CLK_GATE_BISR_EN_MASK,
-			NOC_DDRMC_UB_CLK_GATE_BISR_EN_MASK);
-	}
-
-	/* Run BISR */
-	Status = XPmBisr_Repair(DDRMC_TAG_ID);
-	if (Status != XST_SUCCESS) {
-		DbgErr = XPM_INT_ERR_BISR_REPAIR;
-		goto fail;
-	}
-
-	/* Disable Bisr clock */
-	for (i = 0U; i < ARRAY_SIZE(DdrMcAddresses); i++) {
-		if (0U == DdrMcAddresses[i]) {
-			continue;
-		}
-		PmRmw32(DdrMcAddresses[i] + NOC_DDRMC_UB_CLK_GATE_OFFSET,
-			NOC_DDRMC_UB_CLK_GATE_BISR_EN_MASK, 0);
-		/* Lock writes */
-		XPmNpDomain_LockNpiPcsr(DdrMcAddresses[i]);
-	}
-
-	/* NIDB Lane Repair */
-	Status = XPmBisr_NidbLaneRepair();
+	/* Release NoC Reset */
+	Status = XPmReset_AssertbyId(PM_RST_NOC, (u32)PM_RESET_ACTION_RELEASE);
 	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_NIDB_BISR_REPAIR;
+		DbgErr = XPM_INT_ERR_RST_RELEASE;
+		goto done;
+	}
+
+	/* Release Sys Resets */
+	Status = XPmReset_AssertbyId(PM_RST_SYS_RST_1, (u32)PM_RESET_ACTION_RELEASE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_RST_RELEASE;
+		goto done;
+	}
+
+	Status = XPmReset_AssertbyId(PM_RST_SYS_RST_2, (u32)PM_RESET_ACTION_RELEASE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_RST_RELEASE;
+		goto done;
+	}
+
+	Status = XPmReset_AssertbyId(PM_RST_SYS_RST_3, (u32)PM_RESET_ACTION_RELEASE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_RST_RELEASE;
+		goto done;
+	}
+
+	if (HOUSECLEAN_DISABLE_BISR_MASK != (PwrDomain->HcDisableMask &
+				HOUSECLEAN_DISABLE_BISR_MASK)) {
+		PmInfo("Triggering BISR for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
+
+		/* Enable Bisr clock */
+		for (i = 0U; i < ARRAY_SIZE(DdrMcAddresses); i++) {
+			if (0U == DdrMcAddresses[i]) {
+				continue;
+			}
+			/* Unlock writes */
+			XPmNpDomain_UnlockNpiPcsr(DdrMcAddresses[i]);
+			PmRmw32(DdrMcAddresses[i] + NOC_DDRMC_UB_CLK_GATE_OFFSET,
+				NOC_DDRMC_UB_CLK_GATE_BISR_EN_MASK,
+				NOC_DDRMC_UB_CLK_GATE_BISR_EN_MASK);
+		}
+
+		/* Run BISR */
+		Status = XPmBisr_Repair(DDRMC_TAG_ID);
+		if (Status != XST_SUCCESS) {
+			DbgErr = XPM_INT_ERR_BISR_REPAIR;
+			goto fail;
+		}
+
+		/* Disable Bisr clock */
+		for (i = 0U; i < ARRAY_SIZE(DdrMcAddresses); i++) {
+			if (0U == DdrMcAddresses[i]) {
+				continue;
+			}
+			PmRmw32(DdrMcAddresses[i] + NOC_DDRMC_UB_CLK_GATE_OFFSET,
+				NOC_DDRMC_UB_CLK_GATE_BISR_EN_MASK, 0);
+			/* Lock writes */
+			XPmNpDomain_LockNpiPcsr(DdrMcAddresses[i]);
+		}
+
+		/* NIDB Lane Repair */
+		Status = XPmBisr_NidbLaneRepair();
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_NIDB_BISR_REPAIR;
+		}
+	} else {
+		/* BISR is skipped */
+		PmInfo("Skipping BISR for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 	}
 
 	goto done;
@@ -597,6 +635,9 @@ XStatus XPmNpDomain_Init(XPm_NpDomain *Npd, u32 Id, u32 BaseAddress,
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_POWER_DOMAIN_INIT;
 	}
+
+	/* Clear NPD section of PMC RAM register reserved for houseclean disable */
+	XPm_RMW32(PM_HOUSECLEAN_DISABLE_REG_1, PM_HOUSECLEAN_DISABLE_NPD_MASK, 0U);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
