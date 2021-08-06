@@ -831,23 +831,6 @@ static int XV_HdmiTxSs1_VtcSetup(XV_HdmiTxSs1 *HdmiTxSs1Ptr)
 
   VideoTiming.Interlaced = HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.IsInterlaced;
 
-  /* 4 pixels per clock */
-  /*
-   * If the parameters below are not divisible by the current PPC setting,
-   * log an error as VTC does not support such video timing
-   */
-  if (VideoTiming.HActiveVideo & 0x3 || VideoTiming.HFrontPorch & 0x3 ||
-		VideoTiming.HBackPorch & 0x3 || VideoTiming.HSyncWidth & 0x3) {
-#ifdef XV_HDMITXSS1_LOG_ENABLE
-	XV_HdmiTxSs1_LogWrite(HdmiTxSs1Ptr, XV_HDMITXSS1_LOG_EVT_VTC_RES_ERR, 0);
-#endif
-	XV_HdmiTxSs1_ErrorCallback(HdmiTxSs1Ptr);
-  }
-  VideoTiming.HActiveVideo = VideoTiming.HActiveVideo/4;
-  VideoTiming.HFrontPorch = VideoTiming.HFrontPorch/4;
-  VideoTiming.HBackPorch = VideoTiming.HBackPorch/4;
-  VideoTiming.HSyncWidth = VideoTiming.HSyncWidth/4;
-
     /* For YUV420 the line width is double there for double the blanking */
     if (HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.ColorFormatId == XVIDC_CSF_YCRCB_420) {
     	/* If the parameters below are not divisible by the current PPC setting,
@@ -886,9 +869,6 @@ static int XV_HdmiTxSs1_VtcSetup(XV_HdmiTxSs1 *HdmiTxSs1Ptr)
     Vtc_Hblank = VideoTiming.HFrontPorch +
         VideoTiming.HBackPorch +
         VideoTiming.HSyncWidth;
-
-    /* Quad pixel mode*/
-      Vtc_Hblank *= 4;
 
     /* For YUV420 the line width is double there for double the blanking */
     if (HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.ColorFormatId == XVIDC_CSF_YCRCB_420) {
@@ -2324,6 +2304,50 @@ u64 XV_HdmiTxSs1_SetStream(XV_HdmiTxSs1 *InstancePtr,
 	u32 PixelRate = 0;
 	u64 LnkClock;
 	u64 VidClock;
+	u8 Error = 0;
+
+	Xil_AssertNonvoid(InstancePtr->Config.VideoInterface <= 2);
+
+	if (InstancePtr->Config.VideoInterface == 0) {
+		Xil_AssertNonvoid(InstancePtr->Config.Ppc == XVIDC_PPC_4 ||
+				  InstancePtr->Config.Ppc == XVIDC_PPC_8);
+		if (InstancePtr->Config.Ppc == XVIDC_PPC_4) {
+			if (ColorFormat != XVIDC_CSF_YCRCB_420) {
+				if (VideoTiming.HActive % 4)
+					Error = 1;
+			} else {
+				if (VideoTiming.HActive % 8)
+					Error = 1;
+			}
+		}
+		if (InstancePtr->Config.Ppc == XVIDC_PPC_8) {
+			if (VideoTiming.HActive % 8)
+				Error = 1;
+		}
+	} else if (InstancePtr->Config.VideoInterface == 1) {
+
+		Xil_AssertNonvoid(InstancePtr->Config.Ppc == XVIDC_PPC_4);
+
+		if (InstancePtr->Config.Ppc == XVIDC_PPC_4) {
+			if (ColorFormat != XVIDC_CSF_YCRCB_420) {
+				if (VideoTiming.HActive % 4 ||
+				    VideoTiming.HSyncWidth % 4 ||
+				    VideoTiming.HTotal % 4)
+					Error = 1;
+			} else {
+				if (VideoTiming.HActive % 8 ||
+				    VideoTiming.HTotal % 8)
+					Error = 1;
+			}
+		}
+	} else if (InstancePtr->Config.VideoInterface == 2) {
+		Xil_AssertNonvoid(InstancePtr->Config.Ppc == XVIDC_PPC_4);
+	}
+
+	if (Error) {
+		xdbg_printf(XDBG_DEBUG_ERROR,"\r\nInvalid VideoTimings passed!\r\n");
+		return XST_INVALID_PARAM;
+	}
 
 	TmdsClock = XV_HdmiTx1_SetStream(InstancePtr->HdmiTx1Ptr,
 			VideoTiming, FrameRate, ColorFormat, Bpc,
