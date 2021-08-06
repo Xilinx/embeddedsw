@@ -68,7 +68,7 @@ static XPmDevice_SoftResetInfo DeviceRstData[] = {
  * @DeviceId:	 Device ID of QSPI node
  * @BaseAddress: QSPI base address
  */
-int NodeQspiIdle(u16 DeviceId, u32 BaseAddress)
+XStatus NodeQspiIdle(u16 DeviceId, u32 BaseAddress)
 {
 	XStatus Status = XST_FAILURE;
 	const XQspiPsu_Config *ConfigPtr;
@@ -98,7 +98,7 @@ done:
  * @DeviceId:	 Device ID of OSPI node
  * @BaseAddress: OSPI base address
  */
-int NodeOspiIdle(u16 DeviceId, u32 BaseAddress)
+XStatus NodeOspiIdle(u16 DeviceId, u32 BaseAddress)
 {
 	XStatus Status = XST_FAILURE;
 	XOspiPsv_Config *ConfigPtr;
@@ -131,7 +131,7 @@ done:
  * @DeviceId:	 Device ID of SDIO node
  * @BaseAddress: SDIO base address
  */
-int NodeSdioIdle(u16 DeviceId, u32 BaseAddress)
+XStatus NodeSdioIdle(u16 DeviceId, u32 BaseAddress)
 {
 	XStatus Status = XST_FAILURE;
 	XSdPs_Config *ConfigPtr;
@@ -161,7 +161,7 @@ done:
  * @DeviceId:	 Device ID of USB node
  * @BaseAddress: USB base address
  */
-int NodeUsbIdle(u16 DeviceId, u32 BaseAddress)
+XStatus NodeUsbIdle(u16 DeviceId, u32 BaseAddress)
 {
 	XStatus Status = XST_FAILURE;
 	XUsbPsu_Config *ConfigPtr;
@@ -190,9 +190,9 @@ done:
  * @DeviceId:	 Device ID of GEM node
  * @BaseAddress: GEM base address
  */
-int NodeGemIdle(u16 DeviceId, u32 BaseAddress)
+XStatus NodeGemIdle(u16 DeviceId, u32 BaseAddress)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	u32 Reg;
 	u32 Timeout = XPM_MAX_TIMEOUT;
 
@@ -238,9 +238,9 @@ done:
  * @DeviceId:	 Device ID of ZDMA node
  * @BaseAddr:    ZDMA base address of the first channel
  */
-int NodeZdmaIdle(u16 DeviceId, u32 BaseAddr)
+XStatus NodeZdmaIdle(u16 DeviceId, u32 BaseAddr)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	u8 Channel = 0U;
 	u32 RegVal = 0U, LocalTimeout;
 	u32 BaseAddress = BaseAddr;
@@ -302,9 +302,9 @@ done:
 }
 #endif
 
-int XPmDevice_SoftResetIdle(const XPm_Device *Device, const u32 IdleReq)
+XStatus XPmDevice_SoftResetIdle(const XPm_Device *Device, const u32 IdleReq)
 {
-	int Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	u32 Idx;
 	u32 DevRstDataSize = ARRAY_SIZE(DeviceRstData);
 	const XPmDevice_SoftResetInfo *RstInfo = NULL;
