@@ -2284,29 +2284,40 @@ XHdmiC_DRMInfoFrame *XV_HdmiTxSs1_GetDrmInfoframe(XV_HdmiTxSs1 *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function set HDMI TX susbsystem stream parameters
+* This function set HDMI TX susbsystem stream parameters. It returns the
+* calculated TMDS clock value.
 *
-* @param  None.
+* @param  InstancePtr -	Pointer to HDMI 2.1 Tx Subsystem.
+*	  VideoTiming -	Video Timing of the video to be displayed.
+*	  FrameRate -	Frame rate to set
+*	  ColorFormat -	Color format of stream (RGB, YUV444/422/420)
+*	  Bpc -		Bit per component
+*	  Info3D -	3D Info
+*	  TmdsClock -	Address where the calculated TMDS Clock value is stored.
 *
-* @return Calculated TMDS Clock
+* @return XST_SUCCESS - In case TMDS clock is calculated correctly
+*	  XST_INVALID_PARAM - In case invalid parameters
 *
 * @note   None.
 *
 ******************************************************************************/
-u64 XV_HdmiTxSs1_SetStream(XV_HdmiTxSs1 *InstancePtr,
-		XVidC_VideoTiming VideoTiming,
-		XVidC_FrameRate FrameRate,
-		XVidC_ColorFormat ColorFormat,
-		XVidC_ColorDepth Bpc,
-		XVidC_3DInfo *Info3D)
+u32 XV_HdmiTxSs1_SetStream(XV_HdmiTxSs1 *InstancePtr,
+			   XVidC_VideoTiming VideoTiming,
+			   XVidC_FrameRate FrameRate,
+			   XVidC_ColorFormat ColorFormat,
+			   XVidC_ColorDepth Bpc,
+			   XVidC_3DInfo *Info3D,
+			   u64 *TmdsClock)
 {
-	u64 TmdsClock = 0;
 	u32 PixelRate = 0;
 	u64 LnkClock;
 	u64 VidClock;
 	u8 Error = 0;
+	u32 Status;
 
 	Xil_AssertNonvoid(InstancePtr->Config.VideoInterface <= 2);
+
+	*TmdsClock = 0;
 
 	if (InstancePtr->Config.VideoInterface == 0) {
 		Xil_AssertNonvoid(InstancePtr->Config.Ppc == XVIDC_PPC_4 ||
@@ -2349,11 +2360,14 @@ u64 XV_HdmiTxSs1_SetStream(XV_HdmiTxSs1 *InstancePtr,
 		return XST_INVALID_PARAM;
 	}
 
-	TmdsClock = XV_HdmiTx1_SetStream(InstancePtr->HdmiTx1Ptr,
-			VideoTiming, FrameRate, ColorFormat, Bpc,
-			InstancePtr->Config.Ppc, Info3D,
-			InstancePtr->FvaFactor,InstancePtr->VrrEnabled,InstancePtr->CnmvrrEnabled);
-
+	Status = XV_HdmiTx1_SetStream(InstancePtr->HdmiTx1Ptr,
+				      VideoTiming, FrameRate, ColorFormat, Bpc,
+				      InstancePtr->Config.Ppc, Info3D,
+				      InstancePtr->FvaFactor,InstancePtr->VrrEnabled,
+				      InstancePtr->CnmvrrEnabled,
+				      TmdsClock);
+	if (Status != XST_SUCCESS)
+		return Status;
 
 #ifdef XV_HDMITXSS1_LOG_ENABLE
 	XV_HdmiTxSs1_LogWrite(InstancePtr, XV_HDMITXSS1_LOG_EVT_SETSTREAM, 0);
@@ -2363,12 +2377,12 @@ u64 XV_HdmiTxSs1_SetStream(XV_HdmiTxSs1 *InstancePtr,
     if (InstancePtr->HdmiTx1Ptr->Stream.IsFrl == TRUE)  {
 
 		if (ColorFormat == XVIDC_CSF_YCRCB_422) {
-			PixelRate = TmdsClock;
+			PixelRate = *TmdsClock;
 			PixelRate = PixelRate / 1000 ;
 			VidClock = PixelRate/InstancePtr->HdmiTx1Ptr->Stream.CorePixPerClk;
 			LnkClock = VidClock;
 		} else {
-			PixelRate = (TmdsClock * 8 )/ Bpc;
+			PixelRate = (*TmdsClock * 8 )/ Bpc;
 			PixelRate = PixelRate / 1000 ;
 			VidClock = PixelRate/InstancePtr->HdmiTx1Ptr->Stream.CorePixPerClk;
 			LnkClock = (VidClock * (Bpc)) / 8;
@@ -2387,7 +2401,7 @@ u64 XV_HdmiTxSs1_SetStream(XV_HdmiTxSs1 *InstancePtr,
 	}
 
 
-	if (TmdsClock == 0) {
+	if (*TmdsClock == 0) {
 		xdbg_printf(XDBG_DEBUG_GENERAL,
 				"\r\nWarning: Sink does not support HDMI 2.0"
 				"\r\n");
@@ -2398,7 +2412,7 @@ u64 XV_HdmiTxSs1_SetStream(XV_HdmiTxSs1 *InstancePtr,
 				"\r\n\r\n");
 	}
 
-	return TmdsClock;
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
