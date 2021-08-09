@@ -6,7 +6,7 @@
 
 /*****************************************************************************/
 /**
-* @file xaie2gbl_reginit.c
+* @file xaiemlgbl_reginit.c
 * @{
 *
 * This file contains the instances of the register bit field definitions for the
@@ -36,14 +36,14 @@
 * 2.3   Dishita 04/20/2020  Add timer properties
 * 2.4   Tejus   05/26/2020  Restructure and optimize core module.
 * 2.5   Tejus   06/01/2020  Add data structure for core debug register.
-* 2.6   Nishad  06/02/2020  Rename included header file xaie2gbl_events to
-*			    xaie_events_aie2
+* 2.6   Nishad  06/02/2020  Rename included header file xaiemlgbl_events to
+*			    xaie_events_aieml
 * 2.7   Nishad  06/03/2020  Rename XAIEGBL_<MODULE>_EVENT_* macros to
 *			    XAIE_EVENTS_<MODULE>_*
 * 2.8   Nishad  06/09/2020  Fix typo in *_MEMORY_* event macros
 * 2.9   Tejus   06/05/2020  Populate fifo mode availability in data structure.
 * 3.0   Nishad  06/16/2020  Add trace module properties
-* 3.1   Nishad  06/25/2020  Fix typo in Aie2MemTileTraceMod structure
+* 3.1   Nishad  06/25/2020  Fix typo in AieMlMemTileTraceMod structure
 * 3.2   Nishad  06/28/2020  Populate stream switch port event selection, event
 *			    generation and combo event properties
 * 3.3   Nishad  07/01/2020  Populate MstrConfigBaseAddr stream switch property
@@ -80,7 +80,7 @@
 /*
  * Global instance for Core module Core_Control register.
  */
-static const  XAie_RegCoreCtrl Aie2CoreCtrlReg =
+static const  XAie_RegCoreCtrl AieMlCoreCtrlReg =
 {
 	XAIEMLGBL_CORE_MODULE_CORE_CONTROL,
 	{XAIEMLGBL_CORE_MODULE_CORE_CONTROL_ENABLE_LSB, XAIEMLGBL_CORE_MODULE_CORE_CONTROL_ENABLE_MASK},
@@ -90,7 +90,7 @@ static const  XAie_RegCoreCtrl Aie2CoreCtrlReg =
 /*
  * Global instance for Core module Core_Status register.
  */
-static const  XAie_RegCoreSts Aie2CoreStsReg =
+static const  XAie_RegCoreSts AieMlCoreStsReg =
 {
 	XAIEMLGBL_CORE_MODULE_CORE_STATUS,
 	{XAIEMLGBL_CORE_MODULE_CORE_STATUS_CORE_DONE_LSB, XAIEMLGBL_CORE_MODULE_CORE_STATUS_CORE_DONE_MASK},
@@ -101,7 +101,7 @@ static const  XAie_RegCoreSts Aie2CoreStsReg =
 /*
  * Global instance for Core module for core debug registers.
  */
-static const XAie_RegCoreDebug Aie2CoreDebugReg =
+static const XAie_RegCoreDebug AieMlCoreDebugReg =
 {
 	.RegOff = XAIEMLGBL_CORE_MODULE_DEBUG_CONTROL0,
 	.DebugCtrl1Offset = XAIEMLGBL_CORE_MODULE_DEBUG_CONTROL1,
@@ -139,7 +139,7 @@ static const XAie_RegCoreDebugStatus AieMlCoreDebugStatus =
 /*
  * Global instance for core event registers in the core module.
  */
-static const XAie_RegCoreEvents Aie2CoreEventReg =
+static const XAie_RegCoreEvents AieMlCoreEventReg =
 {
 	.EnableEventOff = XAIEMLGBL_CORE_MODULE_ENABLE_EVENTS,
 	.DisableEventOccurred.Lsb = XAIEMLGBL_CORE_MODULE_ENABLE_EVENTS_DISABLE_EVENT_OCCURRED_LSB,
@@ -164,7 +164,7 @@ static const XAie_RegCoreAccumCtrl AieMlCoreAccumCtrlReg =
 #endif /* XAIE_FEATURE_CORE_ENABLE */
 
 #ifdef XAIE_FEATURE_DMA_ENABLE
-static const  XAie_DmaBdEnProp Aie2MemTileDmaBdEnProp =
+static const  XAie_DmaBdEnProp AieMlMemTileDmaBdEnProp =
 {
 	.NxtBd.Idx = 1U,
 	.NxtBd.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_1_NEXT_BD_LSB,
@@ -183,7 +183,7 @@ static const  XAie_DmaBdEnProp Aie2MemTileDmaBdEnProp =
 	.TlastSuppress.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_2_TLAST_SUPPRESS_MASK,
 };
 
-static const  XAie_DmaBdPkt Aie2MemTileDmaBdPktProp =
+static const  XAie_DmaBdPkt AieMlMemTileDmaBdPktProp =
 {
 	.EnPkt.Idx = 0U,
 	.EnPkt.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_0_ENABLE_PACKET_LSB,
@@ -196,26 +196,26 @@ static const  XAie_DmaBdPkt Aie2MemTileDmaBdPktProp =
 	.PktType.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_0_PACKET_TYPE_MASK,
 };
 
-static const  XAie_DmaBdLock Aie2MemTileDmaLockProp =
+static const  XAie_DmaBdLock AieMlMemTileDmaLockProp =
 {
-	.Aie2DmaLock.LckRelVal.Idx = 7U,
-	.Aie2DmaLock.LckRelVal.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_7_LOCK_REL_VALUE_LSB,
-	.Aie2DmaLock.LckRelVal.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_7_LOCK_REL_VALUE_MASK,
-	.Aie2DmaLock.LckRelId.Idx = 7U,
-	.Aie2DmaLock.LckRelId.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_7_LOCK_REL_ID_LSB,
-	.Aie2DmaLock.LckRelId.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_7_LOCK_REL_ID_MASK,
-	.Aie2DmaLock.LckAcqEn.Idx = 7U,
-	.Aie2DmaLock.LckAcqEn.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_7_LOCK_ACQ_ENABLE_LSB,
-	.Aie2DmaLock.LckAcqEn.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_7_LOCK_ACQ_ENABLE_MASK,
-	.Aie2DmaLock.LckAcqVal.Idx = 7U,
-	.Aie2DmaLock.LckAcqVal.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_7_LOCK_ACQ_VALUE_LSB,
-	.Aie2DmaLock.LckAcqVal.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_7_LOCK_ACQ_VALUE_MASK,
-	.Aie2DmaLock.LckAcqId.Idx = 7U,
-	.Aie2DmaLock.LckAcqId.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_7_LOCK_ACQ_ID_LSB,
-	.Aie2DmaLock.LckAcqId.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_7_LOCK_ACQ_ID_MASK,
+	.AieMlDmaLock.LckRelVal.Idx = 7U,
+	.AieMlDmaLock.LckRelVal.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_7_LOCK_REL_VALUE_LSB,
+	.AieMlDmaLock.LckRelVal.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_7_LOCK_REL_VALUE_MASK,
+	.AieMlDmaLock.LckRelId.Idx = 7U,
+	.AieMlDmaLock.LckRelId.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_7_LOCK_REL_ID_LSB,
+	.AieMlDmaLock.LckRelId.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_7_LOCK_REL_ID_MASK,
+	.AieMlDmaLock.LckAcqEn.Idx = 7U,
+	.AieMlDmaLock.LckAcqEn.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_7_LOCK_ACQ_ENABLE_LSB,
+	.AieMlDmaLock.LckAcqEn.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_7_LOCK_ACQ_ENABLE_MASK,
+	.AieMlDmaLock.LckAcqVal.Idx = 7U,
+	.AieMlDmaLock.LckAcqVal.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_7_LOCK_ACQ_VALUE_LSB,
+	.AieMlDmaLock.LckAcqVal.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_7_LOCK_ACQ_VALUE_MASK,
+	.AieMlDmaLock.LckAcqId.Idx = 7U,
+	.AieMlDmaLock.LckAcqId.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_7_LOCK_ACQ_ID_LSB,
+	.AieMlDmaLock.LckAcqId.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_7_LOCK_ACQ_ID_MASK,
 };
 
-static const  XAie_DmaBdBuffer Aie2MemTileBufferProp =
+static const  XAie_DmaBdBuffer AieMlMemTileBufferProp =
 {
 	.TileDmaBuff.BaseAddr.Idx = 1U,
 	.TileDmaBuff.BaseAddr.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_1_BASE_ADDRESS_LSB,
@@ -225,7 +225,7 @@ static const  XAie_DmaBdBuffer Aie2MemTileBufferProp =
 	.TileDmaBuff.BufferLen.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_0_BUFFER_LENGTH_MASK,
 };
 
-static const XAie_DmaBdDoubleBuffer Aie2MemTileDoubleBufferProp =
+static const XAie_DmaBdDoubleBuffer AieMlMemTileDoubleBufferProp =
 {
 	.EnDoubleBuff = {0U},
 	.BaseAddr_B = {0U},
@@ -235,41 +235,41 @@ static const XAie_DmaBdDoubleBuffer Aie2MemTileDoubleBufferProp =
 	.BuffSelect = {0U},
 };
 
-static const  XAie_DmaBdMultiDimAddr Aie2MemTileMultiDimProp =
+static const  XAie_DmaBdMultiDimAddr AieMlMemTileMultiDimProp =
 {
-	.Aie2MultiDimAddr.DmaDimProp[1U].StepSize.Idx = 3U,
-	.Aie2MultiDimAddr.DmaDimProp[1U].StepSize.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_3_D1_STEPSIZE_LSB,
-	.Aie2MultiDimAddr.DmaDimProp[1U].StepSize.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_3_D1_STEPSIZE_MASK,
-	.Aie2MultiDimAddr.DmaDimProp[0U].StepSize.Idx = 2U,
-	.Aie2MultiDimAddr.DmaDimProp[0U].StepSize.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_2_D0_STEPSIZE_LSB,
-	.Aie2MultiDimAddr.DmaDimProp[0U].StepSize.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_2_D0_STEPSIZE_MASK,
-	.Aie2MultiDimAddr.DmaDimProp[1U].Wrap.Idx = 3U,
-	.Aie2MultiDimAddr.DmaDimProp[1U].Wrap.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_3_D1_WRAP_LSB,
-	.Aie2MultiDimAddr.DmaDimProp[1U].Wrap.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_3_D1_WRAP_MASK,
-	.Aie2MultiDimAddr.DmaDimProp[0U].Wrap.Idx = 2U,
-	.Aie2MultiDimAddr.DmaDimProp[0U].Wrap.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_2_D0_WRAP_LSB,
-	.Aie2MultiDimAddr.DmaDimProp[0U].Wrap.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_2_D0_WRAP_MASK,
-	.Aie2MultiDimAddr.DmaDimProp[2U].StepSize.Idx = 4U,
-	.Aie2MultiDimAddr.DmaDimProp[2U].StepSize.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_4_D2_STEPSIZE_LSB,
-	.Aie2MultiDimAddr.DmaDimProp[2U].StepSize.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_4_D2_STEPSIZE_MASK,
-	.Aie2MultiDimAddr.DmaDimProp[2U].Wrap.Idx = 4U,
-	.Aie2MultiDimAddr.DmaDimProp[2U].Wrap.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_4_D2_WRAP_LSB,
-	.Aie2MultiDimAddr.DmaDimProp[2U].Wrap.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_4_D2_WRAP_MASK,
-	.Aie2MultiDimAddr.IterCurr.Idx = 6U,
-	.Aie2MultiDimAddr.IterCurr.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_6_ITERATION_CURRENT_LSB,
-	.Aie2MultiDimAddr.IterCurr.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_6_ITERATION_CURRENT_MASK,
-	.Aie2MultiDimAddr.Iter.Wrap.Idx = 6U,
-	.Aie2MultiDimAddr.Iter.Wrap.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_6_ITERATION_WRAP_LSB,
-	.Aie2MultiDimAddr.Iter.Wrap.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_6_ITERATION_WRAP_MASK,
-	.Aie2MultiDimAddr.Iter.StepSize.Idx = 6U,
-	.Aie2MultiDimAddr.Iter.StepSize.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_6_ITERATION_STEPSIZE_LSB,
-	.Aie2MultiDimAddr.Iter.StepSize.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_6_ITERATION_STEPSIZE_MASK,
-	.Aie2MultiDimAddr.DmaDimProp[3U].StepSize.Idx = 5U,
-	.Aie2MultiDimAddr.DmaDimProp[3U].StepSize.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_5_D3_STEPSIZE_LSB,
-	.Aie2MultiDimAddr.DmaDimProp[3U].StepSize.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_5_D3_STEPSIZE_MASK,
+	.AieMlMultiDimAddr.DmaDimProp[1U].StepSize.Idx = 3U,
+	.AieMlMultiDimAddr.DmaDimProp[1U].StepSize.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_3_D1_STEPSIZE_LSB,
+	.AieMlMultiDimAddr.DmaDimProp[1U].StepSize.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_3_D1_STEPSIZE_MASK,
+	.AieMlMultiDimAddr.DmaDimProp[0U].StepSize.Idx = 2U,
+	.AieMlMultiDimAddr.DmaDimProp[0U].StepSize.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_2_D0_STEPSIZE_LSB,
+	.AieMlMultiDimAddr.DmaDimProp[0U].StepSize.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_2_D0_STEPSIZE_MASK,
+	.AieMlMultiDimAddr.DmaDimProp[1U].Wrap.Idx = 3U,
+	.AieMlMultiDimAddr.DmaDimProp[1U].Wrap.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_3_D1_WRAP_LSB,
+	.AieMlMultiDimAddr.DmaDimProp[1U].Wrap.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_3_D1_WRAP_MASK,
+	.AieMlMultiDimAddr.DmaDimProp[0U].Wrap.Idx = 2U,
+	.AieMlMultiDimAddr.DmaDimProp[0U].Wrap.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_2_D0_WRAP_LSB,
+	.AieMlMultiDimAddr.DmaDimProp[0U].Wrap.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_2_D0_WRAP_MASK,
+	.AieMlMultiDimAddr.DmaDimProp[2U].StepSize.Idx = 4U,
+	.AieMlMultiDimAddr.DmaDimProp[2U].StepSize.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_4_D2_STEPSIZE_LSB,
+	.AieMlMultiDimAddr.DmaDimProp[2U].StepSize.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_4_D2_STEPSIZE_MASK,
+	.AieMlMultiDimAddr.DmaDimProp[2U].Wrap.Idx = 4U,
+	.AieMlMultiDimAddr.DmaDimProp[2U].Wrap.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_4_D2_WRAP_LSB,
+	.AieMlMultiDimAddr.DmaDimProp[2U].Wrap.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_4_D2_WRAP_MASK,
+	.AieMlMultiDimAddr.IterCurr.Idx = 6U,
+	.AieMlMultiDimAddr.IterCurr.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_6_ITERATION_CURRENT_LSB,
+	.AieMlMultiDimAddr.IterCurr.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_6_ITERATION_CURRENT_MASK,
+	.AieMlMultiDimAddr.Iter.Wrap.Idx = 6U,
+	.AieMlMultiDimAddr.Iter.Wrap.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_6_ITERATION_WRAP_LSB,
+	.AieMlMultiDimAddr.Iter.Wrap.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_6_ITERATION_WRAP_MASK,
+	.AieMlMultiDimAddr.Iter.StepSize.Idx = 6U,
+	.AieMlMultiDimAddr.Iter.StepSize.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_6_ITERATION_STEPSIZE_LSB,
+	.AieMlMultiDimAddr.Iter.StepSize.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_6_ITERATION_STEPSIZE_MASK,
+	.AieMlMultiDimAddr.DmaDimProp[3U].StepSize.Idx = 5U,
+	.AieMlMultiDimAddr.DmaDimProp[3U].StepSize.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_5_D3_STEPSIZE_LSB,
+	.AieMlMultiDimAddr.DmaDimProp[3U].StepSize.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_5_D3_STEPSIZE_MASK,
 };
 
-static const  XAie_DmaBdZeroPad Aie2MemTileZeroPadProp =
+static const  XAie_DmaBdZeroPad AieMlMemTileZeroPadProp =
 {
 	.D0_ZeroBefore.Idx = 1U,
 	.D0_ZeroBefore.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_1_D0_ZERO_BEFORE_LSB,
@@ -291,7 +291,7 @@ static const  XAie_DmaBdZeroPad Aie2MemTileZeroPadProp =
 	.D2_ZeroAfter.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_5_D2_ZERO_AFTER_MASK,
 };
 
-static const  XAie_DmaBdCompression Aie2MemTileCompressionProp =
+static const  XAie_DmaBdCompression AieMlMemTileCompressionProp =
 {
 	.EnCompression.Idx = 4U,
 	.EnCompression.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_4_ENABLE_COMPRESSION_LSB,
@@ -299,7 +299,7 @@ static const  XAie_DmaBdCompression Aie2MemTileCompressionProp =
 };
 
 /* Data structure to capture register offsets and masks for Mem Tile Dma */
-static const  XAie_DmaBdProp Aie2MemTileDmaProp =
+static const  XAie_DmaBdProp AieMlMemTileDmaProp =
 {
 	.AddrAlignMask = 0x3,
 	.AddrAlignShift = 0x2,
@@ -310,35 +310,35 @@ static const  XAie_DmaBdProp Aie2MemTileDmaProp =
 	.IterStepSizeMax = (1U << 17) - 1U,
 	.IterWrapMax = (1U << 6U) - 1U,
 	.IterCurrMax = (1U << 6) - 1U,
-	.Buffer = &Aie2MemTileBufferProp,
-	.DoubleBuffer = &Aie2MemTileDoubleBufferProp,
-	.Lock = &Aie2MemTileDmaLockProp,
-	.Pkt = &Aie2MemTileDmaBdPktProp,
-	.BdEn = &Aie2MemTileDmaBdEnProp,
-	.AddrMode = &Aie2MemTileMultiDimProp,
-	.ZeroPad = &Aie2MemTileZeroPadProp,
-	.Compression = &Aie2MemTileCompressionProp,
+	.Buffer = &AieMlMemTileBufferProp,
+	.DoubleBuffer = &AieMlMemTileDoubleBufferProp,
+	.Lock = &AieMlMemTileDmaLockProp,
+	.Pkt = &AieMlMemTileDmaBdPktProp,
+	.BdEn = &AieMlMemTileDmaBdEnProp,
+	.AddrMode = &AieMlMemTileMultiDimProp,
+	.ZeroPad = &AieMlMemTileZeroPadProp,
+	.Compression = &AieMlMemTileCompressionProp,
 	.SysProp = NULL
 };
 
-static const XAie_DmaChStatus Aie2MemTileDmaChStatus =
+static const XAie_DmaChStatus AieMlMemTileDmaChStatus =
 {
 	/* This database is common for mm2s and s2mm channels */
-	.Aie2DmaChStatus.Status.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_STATUS_LSB,
-	.Aie2DmaChStatus.Status.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_STATUS_MASK,
-	.Aie2DmaChStatus.TaskQSize.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_TASK_QUEUE_SIZE_LSB,
-	.Aie2DmaChStatus.TaskQSize.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_TASK_QUEUE_SIZE_MASK,
-	.Aie2DmaChStatus.StalledLockAcq.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_ACQ_LSB,
-	.Aie2DmaChStatus.StalledLockAcq.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_ACQ_MASK,
-	.Aie2DmaChStatus.StalledLockRel.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_REL_LSB,
-	.Aie2DmaChStatus.StalledLockRel.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_REL_MASK,
-	.Aie2DmaChStatus.StalledStreamStarve.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_STALLED_STREAM_STARVATION_LSB,
-	.Aie2DmaChStatus.StalledStreamStarve.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_STALLED_STREAM_STARVATION_MASK,
-	.Aie2DmaChStatus.StalledTCT.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_STALLED_TCT_OR_COUNT_FIFO_FULL_LSB,
-	.Aie2DmaChStatus.StalledTCT.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_STALLED_TCT_OR_COUNT_FIFO_FULL_MASK,
+	.AieMlDmaChStatus.Status.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_STATUS_LSB,
+	.AieMlDmaChStatus.Status.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_STATUS_MASK,
+	.AieMlDmaChStatus.TaskQSize.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_TASK_QUEUE_SIZE_LSB,
+	.AieMlDmaChStatus.TaskQSize.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_TASK_QUEUE_SIZE_MASK,
+	.AieMlDmaChStatus.StalledLockAcq.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_ACQ_LSB,
+	.AieMlDmaChStatus.StalledLockAcq.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_ACQ_MASK,
+	.AieMlDmaChStatus.StalledLockRel.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_REL_LSB,
+	.AieMlDmaChStatus.StalledLockRel.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_REL_MASK,
+	.AieMlDmaChStatus.StalledStreamStarve.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_STALLED_STREAM_STARVATION_LSB,
+	.AieMlDmaChStatus.StalledStreamStarve.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_STALLED_STREAM_STARVATION_MASK,
+	.AieMlDmaChStatus.StalledTCT.Lsb = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_STALLED_TCT_OR_COUNT_FIFO_FULL_LSB,
+	.AieMlDmaChStatus.StalledTCT.Mask = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0_STALLED_TCT_OR_COUNT_FIFO_FULL_MASK,
 };
 
-static const  XAie_DmaChProp Aie2MemTileDmaChProp =
+static const  XAie_DmaChProp AieMlMemTileDmaChProp =
 {
 	.HasFoTMode = XAIE_FEATURE_AVAILABLE,
 	.HasControllerId = XAIE_FEATURE_AVAILABLE,
@@ -374,15 +374,15 @@ static const  XAie_DmaChProp Aie2MemTileDmaChProp =
 	.PauseMem = {0U},
 	.Enable = {0U},
 	.StartQSizeMax = 4U,
-	.DmaChStatus = &Aie2MemTileDmaChStatus,
+	.DmaChStatus = &AieMlMemTileDmaChStatus,
 };
 
 /* Mem Tile Dma Module */
-static const  XAie_DmaMod Aie2MemTileDmaMod =
+static const  XAie_DmaMod AieMlMemTileDmaMod =
 {
 	.BaseAddr = XAIEMLGBL_MEM_TILE_MODULE_DMA_BD0_0,
 	.IdxOffset = 0x20,  /* This is the offset between each BD */
-	.NumBds = 48,	   /* Number of BDs for AIE2 Tile DMA */
+	.NumBds = 48,	   /* Number of BDs for AIEML Tile DMA */
 	.NumLocks = 192U,
 	.NumAddrDim = 4U,
 	.DoubleBuffering = XAIE_FEATURE_UNAVAILABLE,
@@ -400,8 +400,8 @@ static const  XAie_DmaMod Aie2MemTileDmaMod =
 	.ChIdxOffset = 0x8,  /* This is the offset between each channel */
 	.ChStatusBase = XAIEMLGBL_MEM_TILE_MODULE_DMA_S2MM_STATUS_0,
 	.ChStatusOffset = 0x20,
-	.BdProp = &Aie2MemTileDmaProp,
-	.ChProp = &Aie2MemTileDmaChProp,
+	.BdProp = &AieMlMemTileDmaProp,
+	.ChProp = &AieMlMemTileDmaChProp,
 	.DmaBdInit = &_XAieMl_MemTileDmaInit,
 	.SetLock = &_XAieMl_DmaSetLock,
 	.SetIntrleave = NULL,
@@ -415,7 +415,7 @@ static const  XAie_DmaMod Aie2MemTileDmaMod =
 	.UpdateBdAddr = &_XAieMl_DmaUpdateBdAddr,
 };
 
-static const  XAie_DmaBdEnProp Aie2TileDmaBdEnProp =
+static const  XAie_DmaBdEnProp AieMlTileDmaBdEnProp =
 {
 	.NxtBd.Idx = 5U,
 	.NxtBd.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_5_NEXT_BD_LSB,
@@ -434,7 +434,7 @@ static const  XAie_DmaBdEnProp Aie2TileDmaBdEnProp =
 	.TlastSuppress.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_5_TLAST_SUPPRESS_MASK,
 };
 
-static const  XAie_DmaBdPkt Aie2TileDmaBdPktProp =
+static const  XAie_DmaBdPkt AieMlTileDmaBdPktProp =
 {
 	.EnPkt.Idx = 1U,
 	.EnPkt.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_1_ENABLE_PACKET_LSB,
@@ -447,26 +447,26 @@ static const  XAie_DmaBdPkt Aie2TileDmaBdPktProp =
 	.PktType.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_1_PACKET_TYPE_MASK,
 };
 
-static const  XAie_DmaBdLock Aie2TileDmaLockProp =
+static const  XAie_DmaBdLock AieMlTileDmaLockProp =
 {
-	.Aie2DmaLock.LckRelVal.Idx = 5U,
-	.Aie2DmaLock.LckRelVal.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_5_LOCK_REL_VALUE_LSB,
-	.Aie2DmaLock.LckRelVal.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_5_LOCK_REL_VALUE_MASK,
-	.Aie2DmaLock.LckRelId.Idx = 5U,
-	.Aie2DmaLock.LckRelId.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_5_LOCK_REL_ID_LSB,
-	.Aie2DmaLock.LckRelId.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_5_LOCK_REL_ID_MASK,
-	.Aie2DmaLock.LckAcqEn.Idx = 5U,
-	.Aie2DmaLock.LckAcqEn.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_5_LOCK_ACQ_ENABLE_LSB,
-	.Aie2DmaLock.LckAcqEn.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_5_LOCK_ACQ_ENABLE_MASK,
-	.Aie2DmaLock.LckAcqVal.Idx = 5U,
-	.Aie2DmaLock.LckAcqVal.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_5_LOCK_ACQ_VALUE_LSB,
-	.Aie2DmaLock.LckAcqVal.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_5_LOCK_ACQ_VALUE_MASK,
-	.Aie2DmaLock.LckAcqId.Idx = 5U,
-	.Aie2DmaLock.LckAcqId.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_5_LOCK_ACQ_ID_LSB,
-	.Aie2DmaLock.LckAcqId.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_5_LOCK_ACQ_ID_MASK,
+	.AieMlDmaLock.LckRelVal.Idx = 5U,
+	.AieMlDmaLock.LckRelVal.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_5_LOCK_REL_VALUE_LSB,
+	.AieMlDmaLock.LckRelVal.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_5_LOCK_REL_VALUE_MASK,
+	.AieMlDmaLock.LckRelId.Idx = 5U,
+	.AieMlDmaLock.LckRelId.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_5_LOCK_REL_ID_LSB,
+	.AieMlDmaLock.LckRelId.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_5_LOCK_REL_ID_MASK,
+	.AieMlDmaLock.LckAcqEn.Idx = 5U,
+	.AieMlDmaLock.LckAcqEn.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_5_LOCK_ACQ_ENABLE_LSB,
+	.AieMlDmaLock.LckAcqEn.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_5_LOCK_ACQ_ENABLE_MASK,
+	.AieMlDmaLock.LckAcqVal.Idx = 5U,
+	.AieMlDmaLock.LckAcqVal.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_5_LOCK_ACQ_VALUE_LSB,
+	.AieMlDmaLock.LckAcqVal.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_5_LOCK_ACQ_VALUE_MASK,
+	.AieMlDmaLock.LckAcqId.Idx = 5U,
+	.AieMlDmaLock.LckAcqId.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_5_LOCK_ACQ_ID_LSB,
+	.AieMlDmaLock.LckAcqId.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_5_LOCK_ACQ_ID_MASK,
 };
 
-static const  XAie_DmaBdBuffer Aie2TileDmaBufferProp =
+static const  XAie_DmaBdBuffer AieMlTileDmaBufferProp =
 {
 	.TileDmaBuff.BaseAddr.Idx = 0U,
 	.TileDmaBuff.BaseAddr.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_0_BASE_ADDRESS_LSB,
@@ -476,7 +476,7 @@ static const  XAie_DmaBdBuffer Aie2TileDmaBufferProp =
 	.TileDmaBuff.BufferLen.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_0_BUFFER_LENGTH_MASK,
 };
 
-static const XAie_DmaBdDoubleBuffer Aie2TileDmaDoubleBufferProp =
+static const XAie_DmaBdDoubleBuffer AieMlTileDmaDoubleBufferProp =
 {
 	.EnDoubleBuff = {0U},
 	.BaseAddr_B = {0U},
@@ -486,38 +486,38 @@ static const XAie_DmaBdDoubleBuffer Aie2TileDmaDoubleBufferProp =
 	.BuffSelect = {0U},
 };
 
-static const  XAie_DmaBdMultiDimAddr Aie2TileDmaMultiDimProp =
+static const  XAie_DmaBdMultiDimAddr AieMlTileDmaMultiDimProp =
 {
-	.Aie2MultiDimAddr.DmaDimProp[0U].StepSize.Idx = 2U,
-	.Aie2MultiDimAddr.DmaDimProp[0U].StepSize.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_2_D0_STEPSIZE_LSB,
-	.Aie2MultiDimAddr.DmaDimProp[0U].StepSize.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_2_D0_STEPSIZE_MASK,
-	.Aie2MultiDimAddr.DmaDimProp[0U].Wrap.Idx = 3U,
-	.Aie2MultiDimAddr.DmaDimProp[0U].Wrap.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_3_D0_WRAP_LSB,
-	.Aie2MultiDimAddr.DmaDimProp[0U].Wrap.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_3_D0_WRAP_MASK,
-	.Aie2MultiDimAddr.DmaDimProp[1U].StepSize.Idx = 2U,
-	.Aie2MultiDimAddr.DmaDimProp[1U].StepSize.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_2_D1_STEPSIZE_LSB,
-	.Aie2MultiDimAddr.DmaDimProp[1U].StepSize.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_2_D1_STEPSIZE_MASK,
-	.Aie2MultiDimAddr.DmaDimProp[1U].Wrap.Idx = 3U,
-	.Aie2MultiDimAddr.DmaDimProp[1U].Wrap.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_3_D1_WRAP_LSB,
-	.Aie2MultiDimAddr.DmaDimProp[1U].Wrap.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_3_D1_WRAP_MASK,
-	.Aie2MultiDimAddr.DmaDimProp[2U].StepSize.Idx = 3U,
-	.Aie2MultiDimAddr.DmaDimProp[2U].StepSize.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_3_D2_STEPSIZE_LSB,
-	.Aie2MultiDimAddr.DmaDimProp[2U].StepSize.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_3_D2_STEPSIZE_MASK,
-	.Aie2MultiDimAddr.IterCurr.Idx = 4U,
-	.Aie2MultiDimAddr.IterCurr.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_4_ITERATION_CURRENT_LSB,
-	.Aie2MultiDimAddr.IterCurr.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_4_ITERATION_CURRENT_MASK,
-	.Aie2MultiDimAddr.Iter.Wrap.Idx = 4U,
-	.Aie2MultiDimAddr.Iter.Wrap.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_4_ITERATION_WRAP_LSB,
-	.Aie2MultiDimAddr.Iter.Wrap.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_4_ITERATION_WRAP_MASK,
-	.Aie2MultiDimAddr.Iter.StepSize.Idx = 4U,
-	.Aie2MultiDimAddr.Iter.StepSize.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_4_ITERATION_STEPSIZE_LSB,
-	.Aie2MultiDimAddr.Iter.StepSize.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_4_ITERATION_STEPSIZE_MASK,
-	.Aie2MultiDimAddr.DmaDimProp[2U].Wrap = {0U},
-	.Aie2MultiDimAddr.DmaDimProp[3U].Wrap = {0U},
-	.Aie2MultiDimAddr.DmaDimProp[3U].StepSize = {0U}
+	.AieMlMultiDimAddr.DmaDimProp[0U].StepSize.Idx = 2U,
+	.AieMlMultiDimAddr.DmaDimProp[0U].StepSize.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_2_D0_STEPSIZE_LSB,
+	.AieMlMultiDimAddr.DmaDimProp[0U].StepSize.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_2_D0_STEPSIZE_MASK,
+	.AieMlMultiDimAddr.DmaDimProp[0U].Wrap.Idx = 3U,
+	.AieMlMultiDimAddr.DmaDimProp[0U].Wrap.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_3_D0_WRAP_LSB,
+	.AieMlMultiDimAddr.DmaDimProp[0U].Wrap.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_3_D0_WRAP_MASK,
+	.AieMlMultiDimAddr.DmaDimProp[1U].StepSize.Idx = 2U,
+	.AieMlMultiDimAddr.DmaDimProp[1U].StepSize.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_2_D1_STEPSIZE_LSB,
+	.AieMlMultiDimAddr.DmaDimProp[1U].StepSize.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_2_D1_STEPSIZE_MASK,
+	.AieMlMultiDimAddr.DmaDimProp[1U].Wrap.Idx = 3U,
+	.AieMlMultiDimAddr.DmaDimProp[1U].Wrap.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_3_D1_WRAP_LSB,
+	.AieMlMultiDimAddr.DmaDimProp[1U].Wrap.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_3_D1_WRAP_MASK,
+	.AieMlMultiDimAddr.DmaDimProp[2U].StepSize.Idx = 3U,
+	.AieMlMultiDimAddr.DmaDimProp[2U].StepSize.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_3_D2_STEPSIZE_LSB,
+	.AieMlMultiDimAddr.DmaDimProp[2U].StepSize.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_3_D2_STEPSIZE_MASK,
+	.AieMlMultiDimAddr.IterCurr.Idx = 4U,
+	.AieMlMultiDimAddr.IterCurr.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_4_ITERATION_CURRENT_LSB,
+	.AieMlMultiDimAddr.IterCurr.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_4_ITERATION_CURRENT_MASK,
+	.AieMlMultiDimAddr.Iter.Wrap.Idx = 4U,
+	.AieMlMultiDimAddr.Iter.Wrap.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_4_ITERATION_WRAP_LSB,
+	.AieMlMultiDimAddr.Iter.Wrap.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_4_ITERATION_WRAP_MASK,
+	.AieMlMultiDimAddr.Iter.StepSize.Idx = 4U,
+	.AieMlMultiDimAddr.Iter.StepSize.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_4_ITERATION_STEPSIZE_LSB,
+	.AieMlMultiDimAddr.Iter.StepSize.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_4_ITERATION_STEPSIZE_MASK,
+	.AieMlMultiDimAddr.DmaDimProp[2U].Wrap = {0U},
+	.AieMlMultiDimAddr.DmaDimProp[3U].Wrap = {0U},
+	.AieMlMultiDimAddr.DmaDimProp[3U].StepSize = {0U}
 };
 
-static const  XAie_DmaBdCompression Aie2TileDmaCompressionProp =
+static const  XAie_DmaBdCompression AieMlTileDmaCompressionProp =
 {
 	.EnCompression.Idx = 1U,
 	.EnCompression.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_1_ENABLE_COMPRESSION_LSB,
@@ -525,7 +525,7 @@ static const  XAie_DmaBdCompression Aie2TileDmaCompressionProp =
 };
 
 /* Data structure to capture register offsets and masks for Tile Dma */
-static const  XAie_DmaBdProp Aie2TileDmaProp =
+static const  XAie_DmaBdProp AieMlTileDmaProp =
 {
 	.AddrAlignMask = 0x3,
 	.AddrAlignShift = 0x2,
@@ -536,38 +536,38 @@ static const  XAie_DmaBdProp Aie2TileDmaProp =
 	.IterStepSizeMax = (1U << 13) - 1U,
 	.IterWrapMax = (1U << 6U) - 1U,
 	.IterCurrMax = (1U << 6) - 1U,
-	.Buffer = &Aie2TileDmaBufferProp,
-	.DoubleBuffer = &Aie2TileDmaDoubleBufferProp,
-	.Lock = &Aie2TileDmaLockProp,
-	.Pkt = &Aie2TileDmaBdPktProp,
-	.BdEn = &Aie2TileDmaBdEnProp,
-	.AddrMode = &Aie2TileDmaMultiDimProp,
+	.Buffer = &AieMlTileDmaBufferProp,
+	.DoubleBuffer = &AieMlTileDmaDoubleBufferProp,
+	.Lock = &AieMlTileDmaLockProp,
+	.Pkt = &AieMlTileDmaBdPktProp,
+	.BdEn = &AieMlTileDmaBdEnProp,
+	.AddrMode = &AieMlTileDmaMultiDimProp,
 	.ZeroPad = NULL,
-	.Compression = &Aie2TileDmaCompressionProp,
+	.Compression = &AieMlTileDmaCompressionProp,
 	.SysProp = NULL
 };
 
-static const XAie_DmaChStatus Aie2TileDmaChStatus =
+static const XAie_DmaChStatus AieMlTileDmaChStatus =
 {
 	/* This database is common for mm2s and s2mm channels */
-	.Aie2DmaChStatus.Status.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_STATUS_LSB,
-	.Aie2DmaChStatus.Status.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_STATUS_MASK,
-	.Aie2DmaChStatus.TaskQSize.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_TASK_QUEUE_SIZE_LSB,
-	.Aie2DmaChStatus.TaskQSize.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_TASK_QUEUE_SIZE_MASK,
-	.Aie2DmaChStatus.StalledLockAcq.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_ACQ_LSB,
-	.Aie2DmaChStatus.StalledLockAcq.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_ACQ_MASK,
-	.Aie2DmaChStatus.StalledLockRel.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_REL_LSB,
-	.Aie2DmaChStatus.StalledLockRel.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_REL_MASK,
-	.Aie2DmaChStatus.StalledStreamStarve.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_STALLED_STREAM_STARVATION_LSB,
-	.Aie2DmaChStatus.StalledStreamStarve.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_STALLED_STREAM_STARVATION_MASK,
-	.Aie2DmaChStatus.StalledTCT.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_STALLED_TCT_OR_COUNT_FIFO_FULL_LSB,
-	.Aie2DmaChStatus.StalledTCT.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_STALLED_TCT_OR_COUNT_FIFO_FULL_MASK,
+	.AieMlDmaChStatus.Status.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_STATUS_LSB,
+	.AieMlDmaChStatus.Status.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_STATUS_MASK,
+	.AieMlDmaChStatus.TaskQSize.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_TASK_QUEUE_SIZE_LSB,
+	.AieMlDmaChStatus.TaskQSize.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_TASK_QUEUE_SIZE_MASK,
+	.AieMlDmaChStatus.StalledLockAcq.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_ACQ_LSB,
+	.AieMlDmaChStatus.StalledLockAcq.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_ACQ_MASK,
+	.AieMlDmaChStatus.StalledLockRel.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_REL_LSB,
+	.AieMlDmaChStatus.StalledLockRel.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_REL_MASK,
+	.AieMlDmaChStatus.StalledStreamStarve.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_STALLED_STREAM_STARVATION_LSB,
+	.AieMlDmaChStatus.StalledStreamStarve.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_STALLED_STREAM_STARVATION_MASK,
+	.AieMlDmaChStatus.StalledTCT.Lsb = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_STALLED_TCT_OR_COUNT_FIFO_FULL_LSB,
+	.AieMlDmaChStatus.StalledTCT.Mask = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0_STALLED_TCT_OR_COUNT_FIFO_FULL_MASK,
 };
 
 /* Data structure to capture register offsets and masks for Mem Tile and
  * Tile Dma Channels
  */
-static const  XAie_DmaChProp Aie2DmaChProp =
+static const  XAie_DmaChProp AieMlDmaChProp =
 {
 	.HasFoTMode = XAIE_FEATURE_AVAILABLE,
 	.HasControllerId = XAIE_FEATURE_AVAILABLE,
@@ -603,15 +603,15 @@ static const  XAie_DmaChProp Aie2DmaChProp =
 	.PauseMem = {0U},
 	.Enable = {0U},
 	.StartQSizeMax = 4U,
-	.DmaChStatus = &Aie2TileDmaChStatus,
+	.DmaChStatus = &AieMlTileDmaChStatus,
 };
 
 /* Tile Dma Module */
-static const  XAie_DmaMod Aie2TileDmaMod =
+static const  XAie_DmaMod AieMlTileDmaMod =
 {
 	.BaseAddr = XAIEMLGBL_MEMORY_MODULE_DMA_BD0_0,
 	.IdxOffset = 0x20,  	/* This is the offset between each BD */
-	.NumBds = 16U,	   	/* Number of BDs for AIE2 Tile DMA */
+	.NumBds = 16U,	   	/* Number of BDs for AIEML Tile DMA */
 	.NumLocks = 16U,
 	.NumAddrDim = 3U,
 	.DoubleBuffering = XAIE_FEATURE_UNAVAILABLE,
@@ -629,8 +629,8 @@ static const  XAie_DmaMod Aie2TileDmaMod =
 	.ChIdxOffset = 0x8,  /* This is the offset between each channel */
 	.ChStatusBase = XAIEMLGBL_MEMORY_MODULE_DMA_S2MM_STATUS_0,
 	.ChStatusOffset = 0x10,
-	.BdProp = &Aie2TileDmaProp,
-	.ChProp = &Aie2DmaChProp,
+	.BdProp = &AieMlTileDmaProp,
+	.ChProp = &AieMlDmaChProp,
 	.DmaBdInit = &_XAieMl_TileDmaInit,
 	.SetLock = &_XAieMl_DmaSetLock,
 	.SetIntrleave = NULL,
@@ -644,7 +644,7 @@ static const  XAie_DmaMod Aie2TileDmaMod =
 	.UpdateBdAddr = &_XAieMl_DmaUpdateBdAddr,
 };
 
-static const  XAie_DmaBdEnProp Aie2ShimDmaBdEnProp =
+static const  XAie_DmaBdEnProp AieMlShimDmaBdEnProp =
 {
 	.NxtBd.Idx = 7U,
 	.NxtBd.Lsb = XAIEMLGBL_NOC_MODULE_DMA_BD0_7_NEXT_BD_LSB,
@@ -663,7 +663,7 @@ static const  XAie_DmaBdEnProp Aie2ShimDmaBdEnProp =
 	.TlastSuppress.Mask = XAIEMLGBL_NOC_MODULE_DMA_BD0_7_TLAST_SUPPRESS_MASK,
 };
 
-static const  XAie_DmaBdPkt Aie2ShimDmaBdPktProp =
+static const  XAie_DmaBdPkt AieMlShimDmaBdPktProp =
 {
 	.EnPkt.Idx = 2U,
 	.EnPkt.Lsb = XAIEMLGBL_NOC_MODULE_DMA_BD0_2_ENABLE_PACKET_LSB,
@@ -676,26 +676,26 @@ static const  XAie_DmaBdPkt Aie2ShimDmaBdPktProp =
 	.PktType.Mask = XAIEMLGBL_NOC_MODULE_DMA_BD0_2_PACKET_TYPE_MASK,
 };
 
-static const  XAie_DmaBdLock Aie2ShimDmaLockProp =
+static const  XAie_DmaBdLock AieMlShimDmaLockProp =
 {
-	.Aie2DmaLock.LckRelVal.Idx = 7U,
-	.Aie2DmaLock.LckRelVal.Lsb = XAIEMLGBL_NOC_MODULE_DMA_BD0_7_LOCK_REL_VALUE_LSB,
-	.Aie2DmaLock.LckRelVal.Mask = XAIEMLGBL_NOC_MODULE_DMA_BD0_7_LOCK_REL_VALUE_MASK,
-	.Aie2DmaLock.LckRelId.Idx = 7U,
-	.Aie2DmaLock.LckRelId.Lsb = XAIEMLGBL_NOC_MODULE_DMA_BD0_7_LOCK_REL_ID_LSB,
-	.Aie2DmaLock.LckRelId.Mask = XAIEMLGBL_NOC_MODULE_DMA_BD0_7_LOCK_REL_ID_MASK,
-	.Aie2DmaLock.LckAcqEn.Idx = 7U,
-	.Aie2DmaLock.LckAcqEn.Lsb = XAIEMLGBL_NOC_MODULE_DMA_BD0_7_LOCK_ACQ_ENABLE_LSB,
-	.Aie2DmaLock.LckAcqEn.Mask = XAIEMLGBL_NOC_MODULE_DMA_BD0_7_LOCK_ACQ_ENABLE_MASK,
-	.Aie2DmaLock.LckAcqVal.Idx = 7U,
-	.Aie2DmaLock.LckAcqVal.Lsb = XAIEMLGBL_NOC_MODULE_DMA_BD0_7_LOCK_ACQ_VALUE_LSB,
-	.Aie2DmaLock.LckAcqVal.Mask = XAIEMLGBL_NOC_MODULE_DMA_BD0_7_LOCK_ACQ_VALUE_MASK,
-	.Aie2DmaLock.LckAcqId.Idx = 7U,
-	.Aie2DmaLock.LckAcqId.Lsb = XAIEMLGBL_NOC_MODULE_DMA_BD0_7_LOCK_ACQ_ID_LSB,
-	.Aie2DmaLock.LckAcqId.Mask = XAIEMLGBL_NOC_MODULE_DMA_BD0_7_LOCK_ACQ_ID_MASK,
+	.AieMlDmaLock.LckRelVal.Idx = 7U,
+	.AieMlDmaLock.LckRelVal.Lsb = XAIEMLGBL_NOC_MODULE_DMA_BD0_7_LOCK_REL_VALUE_LSB,
+	.AieMlDmaLock.LckRelVal.Mask = XAIEMLGBL_NOC_MODULE_DMA_BD0_7_LOCK_REL_VALUE_MASK,
+	.AieMlDmaLock.LckRelId.Idx = 7U,
+	.AieMlDmaLock.LckRelId.Lsb = XAIEMLGBL_NOC_MODULE_DMA_BD0_7_LOCK_REL_ID_LSB,
+	.AieMlDmaLock.LckRelId.Mask = XAIEMLGBL_NOC_MODULE_DMA_BD0_7_LOCK_REL_ID_MASK,
+	.AieMlDmaLock.LckAcqEn.Idx = 7U,
+	.AieMlDmaLock.LckAcqEn.Lsb = XAIEMLGBL_NOC_MODULE_DMA_BD0_7_LOCK_ACQ_ENABLE_LSB,
+	.AieMlDmaLock.LckAcqEn.Mask = XAIEMLGBL_NOC_MODULE_DMA_BD0_7_LOCK_ACQ_ENABLE_MASK,
+	.AieMlDmaLock.LckAcqVal.Idx = 7U,
+	.AieMlDmaLock.LckAcqVal.Lsb = XAIEMLGBL_NOC_MODULE_DMA_BD0_7_LOCK_ACQ_VALUE_LSB,
+	.AieMlDmaLock.LckAcqVal.Mask = XAIEMLGBL_NOC_MODULE_DMA_BD0_7_LOCK_ACQ_VALUE_MASK,
+	.AieMlDmaLock.LckAcqId.Idx = 7U,
+	.AieMlDmaLock.LckAcqId.Lsb = XAIEMLGBL_NOC_MODULE_DMA_BD0_7_LOCK_ACQ_ID_LSB,
+	.AieMlDmaLock.LckAcqId.Mask = XAIEMLGBL_NOC_MODULE_DMA_BD0_7_LOCK_ACQ_ID_MASK,
 };
 
-static const  XAie_DmaBdBuffer Aie2ShimDmaBufferProp =
+static const  XAie_DmaBdBuffer AieMlShimDmaBufferProp =
 {
 	.ShimDmaBuff.AddrLow.Idx = 1U,
 	.ShimDmaBuff.AddrLow.Lsb = XAIEMLGBL_NOC_MODULE_DMA_BD0_1_BASE_ADDRESS_LOW_LSB,
@@ -708,7 +708,7 @@ static const  XAie_DmaBdBuffer Aie2ShimDmaBufferProp =
 	.ShimDmaBuff.BufferLen.Mask = XAIEMLGBL_NOC_MODULE_DMA_BD0_0_BUFFER_LENGTH_MASK,
 };
 
-static const  XAie_DmaBdDoubleBuffer Aie2ShimDmaDoubleBufferProp =
+static const  XAie_DmaBdDoubleBuffer AieMlShimDmaDoubleBufferProp =
 {
 	.EnDoubleBuff = {0U},
 	.BaseAddr_B = {0U},
@@ -718,38 +718,38 @@ static const  XAie_DmaBdDoubleBuffer Aie2ShimDmaDoubleBufferProp =
 	.BuffSelect = {0U},
 };
 
-static const  XAie_DmaBdMultiDimAddr Aie2ShimDmaMultiDimProp =
+static const  XAie_DmaBdMultiDimAddr AieMlShimDmaMultiDimProp =
 {
-	.Aie2MultiDimAddr.DmaDimProp[0U].StepSize.Idx = 3U,
-	.Aie2MultiDimAddr.DmaDimProp[0U].StepSize.Lsb = XAIEMLGBL_NOC_MODULE_DMA_BD0_3_D0_STEPSIZE_LSB,
-	.Aie2MultiDimAddr.DmaDimProp[0U].StepSize.Mask = XAIEMLGBL_NOC_MODULE_DMA_BD0_3_D0_STEPSIZE_MASK,
-	.Aie2MultiDimAddr.DmaDimProp[0U].Wrap.Idx = 3U,
-	.Aie2MultiDimAddr.DmaDimProp[0U].Wrap.Lsb = XAIEMLGBL_NOC_MODULE_DMA_BD0_3_D0_WRAP_LSB,
-	.Aie2MultiDimAddr.DmaDimProp[0U].Wrap.Mask = XAIEMLGBL_NOC_MODULE_DMA_BD0_3_D0_WRAP_MASK,
-	.Aie2MultiDimAddr.DmaDimProp[1U].StepSize.Idx =3U ,
-	.Aie2MultiDimAddr.DmaDimProp[1U].StepSize.Lsb = XAIEMLGBL_NOC_MODULE_DMA_BD0_4_D1_STEPSIZE_LSB,
-	.Aie2MultiDimAddr.DmaDimProp[1U].StepSize.Mask = XAIEMLGBL_NOC_MODULE_DMA_BD0_4_D1_STEPSIZE_MASK,
-	.Aie2MultiDimAddr.DmaDimProp[1U].Wrap.Idx = 3U,
-	.Aie2MultiDimAddr.DmaDimProp[1U].Wrap.Lsb = XAIEMLGBL_NOC_MODULE_DMA_BD0_4_D1_WRAP_LSB,
-	.Aie2MultiDimAddr.DmaDimProp[1U].Wrap.Mask = XAIEMLGBL_NOC_MODULE_DMA_BD0_4_D1_WRAP_MASK,
-	.Aie2MultiDimAddr.DmaDimProp[2U].StepSize.Idx = 5U,
-	.Aie2MultiDimAddr.DmaDimProp[2U].StepSize.Lsb = XAIEMLGBL_NOC_MODULE_DMA_BD0_5_D2_STEPSIZE_LSB,
-	.Aie2MultiDimAddr.DmaDimProp[2U].StepSize.Mask = XAIEMLGBL_NOC_MODULE_DMA_BD0_5_D2_STEPSIZE_MASK,
-	.Aie2MultiDimAddr.IterCurr.Idx = 6U,
-	.Aie2MultiDimAddr.IterCurr.Lsb = XAIEMLGBL_NOC_MODULE_DMA_BD0_6_ITERATION_CURRENT_LSB,
-	.Aie2MultiDimAddr.IterCurr.Mask = XAIEMLGBL_NOC_MODULE_DMA_BD0_6_ITERATION_CURRENT_MASK,
-	.Aie2MultiDimAddr.Iter.Wrap.Idx = 6U,
-	.Aie2MultiDimAddr.Iter.Wrap.Lsb = XAIEMLGBL_NOC_MODULE_DMA_BD0_6_ITERATION_WRAP_LSB,
-	.Aie2MultiDimAddr.Iter.Wrap.Mask = XAIEMLGBL_NOC_MODULE_DMA_BD0_6_ITERATION_WRAP_MASK,
-	.Aie2MultiDimAddr.Iter.StepSize.Idx = 6U,
-	.Aie2MultiDimAddr.Iter.StepSize.Lsb = XAIEMLGBL_NOC_MODULE_DMA_BD0_6_ITERATION_STEPSIZE_LSB,
-	.Aie2MultiDimAddr.Iter.StepSize.Mask = XAIEMLGBL_NOC_MODULE_DMA_BD0_6_ITERATION_STEPSIZE_MASK,
-	.Aie2MultiDimAddr.DmaDimProp[2U].Wrap = {0U},
-	.Aie2MultiDimAddr.DmaDimProp[3U].Wrap = {0U},
-	.Aie2MultiDimAddr.DmaDimProp[3U].StepSize = {0U}
+	.AieMlMultiDimAddr.DmaDimProp[0U].StepSize.Idx = 3U,
+	.AieMlMultiDimAddr.DmaDimProp[0U].StepSize.Lsb = XAIEMLGBL_NOC_MODULE_DMA_BD0_3_D0_STEPSIZE_LSB,
+	.AieMlMultiDimAddr.DmaDimProp[0U].StepSize.Mask = XAIEMLGBL_NOC_MODULE_DMA_BD0_3_D0_STEPSIZE_MASK,
+	.AieMlMultiDimAddr.DmaDimProp[0U].Wrap.Idx = 3U,
+	.AieMlMultiDimAddr.DmaDimProp[0U].Wrap.Lsb = XAIEMLGBL_NOC_MODULE_DMA_BD0_3_D0_WRAP_LSB,
+	.AieMlMultiDimAddr.DmaDimProp[0U].Wrap.Mask = XAIEMLGBL_NOC_MODULE_DMA_BD0_3_D0_WRAP_MASK,
+	.AieMlMultiDimAddr.DmaDimProp[1U].StepSize.Idx =3U ,
+	.AieMlMultiDimAddr.DmaDimProp[1U].StepSize.Lsb = XAIEMLGBL_NOC_MODULE_DMA_BD0_4_D1_STEPSIZE_LSB,
+	.AieMlMultiDimAddr.DmaDimProp[1U].StepSize.Mask = XAIEMLGBL_NOC_MODULE_DMA_BD0_4_D1_STEPSIZE_MASK,
+	.AieMlMultiDimAddr.DmaDimProp[1U].Wrap.Idx = 3U,
+	.AieMlMultiDimAddr.DmaDimProp[1U].Wrap.Lsb = XAIEMLGBL_NOC_MODULE_DMA_BD0_4_D1_WRAP_LSB,
+	.AieMlMultiDimAddr.DmaDimProp[1U].Wrap.Mask = XAIEMLGBL_NOC_MODULE_DMA_BD0_4_D1_WRAP_MASK,
+	.AieMlMultiDimAddr.DmaDimProp[2U].StepSize.Idx = 5U,
+	.AieMlMultiDimAddr.DmaDimProp[2U].StepSize.Lsb = XAIEMLGBL_NOC_MODULE_DMA_BD0_5_D2_STEPSIZE_LSB,
+	.AieMlMultiDimAddr.DmaDimProp[2U].StepSize.Mask = XAIEMLGBL_NOC_MODULE_DMA_BD0_5_D2_STEPSIZE_MASK,
+	.AieMlMultiDimAddr.IterCurr.Idx = 6U,
+	.AieMlMultiDimAddr.IterCurr.Lsb = XAIEMLGBL_NOC_MODULE_DMA_BD0_6_ITERATION_CURRENT_LSB,
+	.AieMlMultiDimAddr.IterCurr.Mask = XAIEMLGBL_NOC_MODULE_DMA_BD0_6_ITERATION_CURRENT_MASK,
+	.AieMlMultiDimAddr.Iter.Wrap.Idx = 6U,
+	.AieMlMultiDimAddr.Iter.Wrap.Lsb = XAIEMLGBL_NOC_MODULE_DMA_BD0_6_ITERATION_WRAP_LSB,
+	.AieMlMultiDimAddr.Iter.Wrap.Mask = XAIEMLGBL_NOC_MODULE_DMA_BD0_6_ITERATION_WRAP_MASK,
+	.AieMlMultiDimAddr.Iter.StepSize.Idx = 6U,
+	.AieMlMultiDimAddr.Iter.StepSize.Lsb = XAIEMLGBL_NOC_MODULE_DMA_BD0_6_ITERATION_STEPSIZE_LSB,
+	.AieMlMultiDimAddr.Iter.StepSize.Mask = XAIEMLGBL_NOC_MODULE_DMA_BD0_6_ITERATION_STEPSIZE_MASK,
+	.AieMlMultiDimAddr.DmaDimProp[2U].Wrap = {0U},
+	.AieMlMultiDimAddr.DmaDimProp[3U].Wrap = {0U},
+	.AieMlMultiDimAddr.DmaDimProp[3U].StepSize = {0U}
 };
 
-static const  XAie_DmaSysProp Aie2ShimDmaSysProp =
+static const  XAie_DmaSysProp AieMlShimDmaSysProp =
 {
 	.SMID.Idx = 5U,
 	.SMID.Lsb = XAIEMLGBL_NOC_MODULE_DMA_BD0_5_SMID_LSB,
@@ -769,7 +769,7 @@ static const  XAie_DmaSysProp Aie2ShimDmaSysProp =
 };
 
 /* Data structure to capture register offsets and masks for Tile Dma */
-static const  XAie_DmaBdProp Aie2ShimDmaProp =
+static const  XAie_DmaBdProp AieMlShimDmaProp =
 {
 	.AddrAlignMask = 0x3,
 	.AddrAlignShift = 2U,
@@ -780,38 +780,38 @@ static const  XAie_DmaBdProp Aie2ShimDmaProp =
 	.IterStepSizeMax = (1U << 20) - 1U,
 	.IterWrapMax = (1U << 6U) - 1U,
 	.IterCurrMax = (1U << 6) - 1U,
-	.Buffer = &Aie2ShimDmaBufferProp,
-	.DoubleBuffer = &Aie2ShimDmaDoubleBufferProp,
-	.Lock = &Aie2ShimDmaLockProp,
-	.Pkt = &Aie2ShimDmaBdPktProp,
-	.BdEn = &Aie2ShimDmaBdEnProp,
-	.AddrMode = &Aie2ShimDmaMultiDimProp,
+	.Buffer = &AieMlShimDmaBufferProp,
+	.DoubleBuffer = &AieMlShimDmaDoubleBufferProp,
+	.Lock = &AieMlShimDmaLockProp,
+	.Pkt = &AieMlShimDmaBdPktProp,
+	.BdEn = &AieMlShimDmaBdEnProp,
+	.AddrMode = &AieMlShimDmaMultiDimProp,
 	.ZeroPad = NULL,
 	.Compression = NULL,
-	.SysProp = &Aie2ShimDmaSysProp
+	.SysProp = &AieMlShimDmaSysProp
 };
 
-static const XAie_DmaChStatus Aie2ShimDmaChStatus =
+static const XAie_DmaChStatus AieMlShimDmaChStatus =
 {
 	/* This database is common for mm2s and s2mm channels */
-	.Aie2DmaChStatus.Status.Lsb = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_STATUS_LSB,
-	.Aie2DmaChStatus.Status.Mask = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_STATUS_MASK,
-	.Aie2DmaChStatus.TaskQSize.Lsb = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_TASK_QUEUE_SIZE_LSB,
-	.Aie2DmaChStatus.TaskQSize.Mask = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_TASK_QUEUE_SIZE_MASK,
-	.Aie2DmaChStatus.StalledLockAcq.Lsb = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_ACQ_LSB,
-	.Aie2DmaChStatus.StalledLockAcq.Mask = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_ACQ_MASK,
-	.Aie2DmaChStatus.StalledLockRel.Lsb = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_REL_LSB,
-	.Aie2DmaChStatus.StalledLockRel.Mask = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_REL_MASK,
-	.Aie2DmaChStatus.StalledStreamStarve.Lsb = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_STALLED_STREAM_STARVATION_LSB,
-	.Aie2DmaChStatus.StalledStreamStarve.Mask = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_STALLED_STREAM_STARVATION_MASK,
-	.Aie2DmaChStatus.StalledTCT.Lsb = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_STALLED_TCT_OR_COUNT_FIFO_FULL_LSB,
-	.Aie2DmaChStatus.StalledTCT.Mask = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_STALLED_TCT_OR_COUNT_FIFO_FULL_MASK,
+	.AieMlDmaChStatus.Status.Lsb = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_STATUS_LSB,
+	.AieMlDmaChStatus.Status.Mask = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_STATUS_MASK,
+	.AieMlDmaChStatus.TaskQSize.Lsb = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_TASK_QUEUE_SIZE_LSB,
+	.AieMlDmaChStatus.TaskQSize.Mask = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_TASK_QUEUE_SIZE_MASK,
+	.AieMlDmaChStatus.StalledLockAcq.Lsb = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_ACQ_LSB,
+	.AieMlDmaChStatus.StalledLockAcq.Mask = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_ACQ_MASK,
+	.AieMlDmaChStatus.StalledLockRel.Lsb = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_REL_LSB,
+	.AieMlDmaChStatus.StalledLockRel.Mask = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_STALLED_LOCK_REL_MASK,
+	.AieMlDmaChStatus.StalledStreamStarve.Lsb = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_STALLED_STREAM_STARVATION_LSB,
+	.AieMlDmaChStatus.StalledStreamStarve.Mask = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_STALLED_STREAM_STARVATION_MASK,
+	.AieMlDmaChStatus.StalledTCT.Lsb = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_STALLED_TCT_OR_COUNT_FIFO_FULL_LSB,
+	.AieMlDmaChStatus.StalledTCT.Mask = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0_STALLED_TCT_OR_COUNT_FIFO_FULL_MASK,
 };
 
 /* Data structure to capture register offsets and masks for Mem Tile and
  * Tile Dma Channels
  */
-static const  XAie_DmaChProp Aie2ShimDmaChProp =
+static const  XAie_DmaChProp AieMlShimDmaChProp =
 {
 	.HasFoTMode = XAIE_FEATURE_AVAILABLE,
 	.HasControllerId = XAIE_FEATURE_AVAILABLE,
@@ -847,15 +847,15 @@ static const  XAie_DmaChProp Aie2ShimDmaChProp =
 	.PauseMem = {0U},
 	.Enable = {0U},
 	.StartQSizeMax = 4U,
-	.DmaChStatus = &Aie2ShimDmaChStatus,
+	.DmaChStatus = &AieMlShimDmaChStatus,
 };
 
 /* Tile Dma Module */
-static const  XAie_DmaMod Aie2ShimDmaMod =
+static const  XAie_DmaMod AieMlShimDmaMod =
 {
 	.BaseAddr = XAIEMLGBL_NOC_MODULE_DMA_BD0_0,
 	.IdxOffset = 0x20,  	/* This is the offset between each BD */
-	.NumBds = 16U,	   	/* Number of BDs for AIE2 Tile DMA */
+	.NumBds = 16U,	   	/* Number of BDs for AIEML Tile DMA */
 	.NumLocks = 16U,
 	.NumAddrDim = 3U,
 	.DoubleBuffering = XAIE_FEATURE_UNAVAILABLE,
@@ -873,8 +873,8 @@ static const  XAie_DmaMod Aie2ShimDmaMod =
 	.ChIdxOffset = 0x8,  /* This is the offset between each channel */
 	.ChStatusBase = XAIEMLGBL_NOC_MODULE_DMA_S2MM_STATUS_0,
 	.ChStatusOffset = 0x8,
-	.BdProp = &Aie2ShimDmaProp,
-	.ChProp = &Aie2ShimDmaChProp,
+	.BdProp = &AieMlShimDmaProp,
+	.ChProp = &AieMlShimDmaChProp,
 	.DmaBdInit = &_XAieMl_ShimDmaInit,
 	.SetLock = &_XAieMl_DmaSetLock,
 	.SetIntrleave = NULL,
@@ -894,7 +894,7 @@ static const  XAie_DmaMod Aie2ShimDmaMod =
  * Array of all Tile Stream Switch Master Config registers
  * The data structure contains number of ports and the register offsets
  */
-static const  XAie_StrmPort Aie2TileStrmMstr[SS_PORT_TYPE_MAX] =
+static const  XAie_StrmPort AieMlTileStrmMstr[SS_PORT_TYPE_MAX] =
 {
 	{	/* Core */
 		.NumPorts = 1,
@@ -938,7 +938,7 @@ static const  XAie_StrmPort Aie2TileStrmMstr[SS_PORT_TYPE_MAX] =
  * Array of all Tile Stream Switch Slave Config registers
  * The data structure contains number of ports and the register offsets
  */
-static const  XAie_StrmPort Aie2TileStrmSlv[SS_PORT_TYPE_MAX] =
+static const  XAie_StrmPort AieMlTileStrmSlv[SS_PORT_TYPE_MAX] =
 {
 	{	/* Core */
 		.NumPorts = 1,
@@ -982,7 +982,7 @@ static const  XAie_StrmPort Aie2TileStrmSlv[SS_PORT_TYPE_MAX] =
  * Array of all Shim NOC/PL Stream Switch Master Config registers
  * The data structure contains number of ports and the register offsets
  */
-static const  XAie_StrmPort Aie2ShimStrmMstr[SS_PORT_TYPE_MAX] =
+static const  XAie_StrmPort AieMlShimStrmMstr[SS_PORT_TYPE_MAX] =
 {
 	{	/* Core */
 		.NumPorts = 0,
@@ -1026,7 +1026,7 @@ static const  XAie_StrmPort Aie2ShimStrmMstr[SS_PORT_TYPE_MAX] =
  * Array of all Shim NOC/PL Stream Switch Slave Config registers
  * The data structure contains number of ports and the register offsets
  */
-static const  XAie_StrmPort Aie2ShimStrmSlv[SS_PORT_TYPE_MAX] =
+static const  XAie_StrmPort AieMlShimStrmSlv[SS_PORT_TYPE_MAX] =
 {
 	{	/* Core */
 		.NumPorts = 0,
@@ -1070,7 +1070,7 @@ static const  XAie_StrmPort Aie2ShimStrmSlv[SS_PORT_TYPE_MAX] =
  * Array of all Mem Tile Stream Switch Master Config registers
  * The data structure contains number of ports and the register offsets
  */
-static const  XAie_StrmPort Aie2MemTileStrmMstr[SS_PORT_TYPE_MAX] =
+static const  XAie_StrmPort AieMlMemTileStrmMstr[SS_PORT_TYPE_MAX] =
 {
 	{	/* Core */
 		.NumPorts = 0,
@@ -1114,7 +1114,7 @@ static const  XAie_StrmPort Aie2MemTileStrmMstr[SS_PORT_TYPE_MAX] =
  * Array of all Mem Tile Stream Switch Slave Config registers
  * The data structure contains number of ports and the register offsets
  */
-static const  XAie_StrmPort Aie2MemTileStrmSlv[SS_PORT_TYPE_MAX] =
+static const  XAie_StrmPort AieMlMemTileStrmSlv[SS_PORT_TYPE_MAX] =
 {
 	{	/* Core */
 		.NumPorts = 0,
@@ -1155,10 +1155,10 @@ static const  XAie_StrmPort Aie2MemTileStrmSlv[SS_PORT_TYPE_MAX] =
 };
 
 /*
- * Array of all Shim NOC/PL Stream Switch Slave Slot Config registers of AIE2.
+ * Array of all Shim NOC/PL Stream Switch Slave Slot Config registers of AIEML.
  * The data structure contains number of ports and the register base address.
  */
-static const  XAie_StrmPort Aie2ShimStrmSlaveSlot[SS_PORT_TYPE_MAX] =
+static const  XAie_StrmPort AieMlShimStrmSlaveSlot[SS_PORT_TYPE_MAX] =
 {
 	{	/* Core */
 		.NumPorts = 0,
@@ -1199,10 +1199,10 @@ static const  XAie_StrmPort Aie2ShimStrmSlaveSlot[SS_PORT_TYPE_MAX] =
 };
 
 /*
- * Array of all AIE2 Tile Stream Switch Slave Slot Config registers.
+ * Array of all AIEML Tile Stream Switch Slave Slot Config registers.
  * The data structure contains number of ports and the register offsets
  */
-static const  XAie_StrmPort Aie2TileStrmSlaveSlot[SS_PORT_TYPE_MAX] =
+static const  XAie_StrmPort AieMlTileStrmSlaveSlot[SS_PORT_TYPE_MAX] =
 {
 	{	/* Core */
 		.NumPorts = 1,
@@ -1243,10 +1243,10 @@ static const  XAie_StrmPort Aie2TileStrmSlaveSlot[SS_PORT_TYPE_MAX] =
 };
 
 /*
- * Array of all AIE2 Mem Tile Stream Switch Slave Slot Config registers
+ * Array of all AIEML Mem Tile Stream Switch Slave Slot Config registers
  * The data structure contains number of ports and the register offsets
  */
-static const  XAie_StrmPort Aie2MemTileStrmSlaveSlot[SS_PORT_TYPE_MAX] =
+static const  XAie_StrmPort AieMlMemTileStrmSlaveSlot[SS_PORT_TYPE_MAX] =
 {
 	{	/* Core */
 		.NumPorts = 0,
@@ -1286,7 +1286,7 @@ static const  XAie_StrmPort Aie2MemTileStrmSlaveSlot[SS_PORT_TYPE_MAX] =
 	}
 };
 
-static const XAie_StrmSwPortMap Aie2TileStrmSwMasterPortMap[] =
+static const XAie_StrmSwPortMap AieMlTileStrmSwMasterPortMap[] =
 {
 	{
 		/* PhyPort 0 */
@@ -1405,7 +1405,7 @@ static const XAie_StrmSwPortMap Aie2TileStrmSwMasterPortMap[] =
 	},
 };
 
-static const XAie_StrmSwPortMap Aie2TileStrmSwSlavePortMap[] =
+static const XAie_StrmSwPortMap AieMlTileStrmSwSlavePortMap[] =
 {
 	{
 		/* PhyPort 0 */
@@ -1534,7 +1534,7 @@ static const XAie_StrmSwPortMap Aie2TileStrmSwSlavePortMap[] =
 	},
 };
 
-static const XAie_StrmSwPortMap Aie2ShimStrmSwMasterPortMap[] =
+static const XAie_StrmSwPortMap AieMlShimStrmSwMasterPortMap[] =
 {
 	{
 		/* PhyPort 0 */
@@ -1648,7 +1648,7 @@ static const XAie_StrmSwPortMap Aie2ShimStrmSwMasterPortMap[] =
 	},
 };
 
-static const XAie_StrmSwPortMap Aie2ShimStrmSwSlavePortMap[] =
+static const XAie_StrmSwPortMap AieMlShimStrmSwSlavePortMap[] =
 {
 	{
 		/* PhyPort 0 */
@@ -1767,7 +1767,7 @@ static const XAie_StrmSwPortMap Aie2ShimStrmSwSlavePortMap[] =
 	},
 };
 
-static const XAie_StrmSwPortMap Aie2MemTileStrmSwMasterPortMap[] =
+static const XAie_StrmSwPortMap AieMlMemTileStrmSwMasterPortMap[] =
 {
 	{
 		/* PhyPort 0 */
@@ -1856,7 +1856,7 @@ static const XAie_StrmSwPortMap Aie2MemTileStrmSwMasterPortMap[] =
 	},
 };
 
-static const XAie_StrmSwPortMap Aie2MemTileStrmSwSlavePortMap[] =
+static const XAie_StrmSwPortMap AieMlMemTileStrmSwSlavePortMap[] =
 {
 	{
 		/* PhyPort 0 */
@@ -2019,7 +2019,7 @@ static const XAie_StrmSwDetMerge AieMlShimTileStrmSwDetMerge = {
 /*
  * Data structure to capture all stream configs for XAIEGBL_TILE_TYPE_AIETILE
  */
-static const  XAie_StrmMod Aie2TileStrmSw =
+static const  XAie_StrmMod AieMlTileStrmSw =
 {
 	.SlvConfigBaseAddr = XAIEMLGBL_CORE_MODULE_STREAM_SWITCH_SLAVE_CONFIG_AIE_CORE0,
 	.MstrConfigBaseAddr = XAIEMLGBL_CORE_MODULE_STREAM_SWITCH_MASTER_CONFIG_AIE_CORE0,
@@ -2039,13 +2039,13 @@ static const  XAie_StrmMod Aie2TileStrmSw =
 	.SlotEn = {XAIEMLGBL_CORE_MODULE_STREAM_SWITCH_SLAVE_AIE_CORE0_SLOT0_ENABLE_LSB, XAIEMLGBL_CORE_MODULE_STREAM_SWITCH_SLAVE_AIE_CORE0_SLOT0_ENABLE_MASK},
 	.SlotMsel = {XAIEMLGBL_CORE_MODULE_STREAM_SWITCH_SLAVE_AIE_CORE0_SLOT0_MSEL_LSB, XAIEMLGBL_CORE_MODULE_STREAM_SWITCH_SLAVE_AIE_CORE0_SLOT0_MSEL_MASK},
 	.SlotArbitor = {XAIEMLGBL_CORE_MODULE_STREAM_SWITCH_SLAVE_AIE_CORE0_SLOT0_ARBIT_LSB, XAIEMLGBL_CORE_MODULE_STREAM_SWITCH_SLAVE_AIE_CORE0_SLOT0_ARBIT_MASK},
-	.MstrConfig = Aie2TileStrmMstr,
-	.SlvConfig = Aie2TileStrmSlv,
-	.SlvSlotConfig = Aie2TileStrmSlaveSlot,
+	.MstrConfig = AieMlTileStrmMstr,
+	.SlvConfig = AieMlTileStrmSlv,
+	.SlvSlotConfig = AieMlTileStrmSlaveSlot,
 	.MaxMasterPhyPortId = 22U,
 	.MaxSlavePhyPortId = 24U,
-	.MasterPortMap = Aie2TileStrmSwMasterPortMap,
-	.SlavePortMap = Aie2TileStrmSwSlavePortMap,
+	.MasterPortMap = AieMlTileStrmSwMasterPortMap,
+	.SlavePortMap = AieMlTileStrmSwSlavePortMap,
 	.DetMerge = &AieMlAieTileStrmSwDetMerge,
 	.PortVerify = _XAieMl_AieTile_StrmSwCheckPortValidity,
 };
@@ -2053,7 +2053,7 @@ static const  XAie_StrmMod Aie2TileStrmSw =
 /*
  * Data structure to capture all stream configs for XAIEGBL_TILE_TYPE_SHIMNOC/PL
  */
-static const  XAie_StrmMod Aie2ShimStrmSw =
+static const  XAie_StrmMod AieMlShimStrmSw =
 {
 	.SlvConfigBaseAddr = XAIEMLGBL_PL_MODULE_STREAM_SWITCH_SLAVE_CONFIG_TILE_CTRL,
 	.MstrConfigBaseAddr = XAIEMLGBL_PL_MODULE_STREAM_SWITCH_MASTER_CONFIG_TILE_CTRL,
@@ -2073,13 +2073,13 @@ static const  XAie_StrmMod Aie2ShimStrmSw =
 	.SlotEn = {XAIEMLGBL_CORE_MODULE_STREAM_SWITCH_SLAVE_AIE_CORE0_SLOT0_ENABLE_LSB, XAIEMLGBL_CORE_MODULE_STREAM_SWITCH_SLAVE_AIE_CORE0_SLOT0_ENABLE_MASK},
 	.SlotMsel = {XAIEMLGBL_CORE_MODULE_STREAM_SWITCH_SLAVE_AIE_CORE0_SLOT0_MSEL_LSB, XAIEMLGBL_CORE_MODULE_STREAM_SWITCH_SLAVE_AIE_CORE0_SLOT0_MSEL_MASK},
 	.SlotArbitor = {XAIEMLGBL_CORE_MODULE_STREAM_SWITCH_SLAVE_AIE_CORE0_SLOT0_ARBIT_LSB, XAIEMLGBL_CORE_MODULE_STREAM_SWITCH_SLAVE_AIE_CORE0_SLOT0_ARBIT_MASK},
-	.MstrConfig = Aie2ShimStrmMstr,
-	.SlvConfig = Aie2ShimStrmSlv,
-	.SlvSlotConfig = Aie2ShimStrmSlaveSlot,
+	.MstrConfig = AieMlShimStrmMstr,
+	.SlvConfig = AieMlShimStrmSlv,
+	.SlvSlotConfig = AieMlShimStrmSlaveSlot,
 	.MaxMasterPhyPortId = 21U,
 	.MaxSlavePhyPortId = 22U,
-	.MasterPortMap = Aie2ShimStrmSwMasterPortMap,
-	.SlavePortMap = Aie2ShimStrmSwSlavePortMap,
+	.MasterPortMap = AieMlShimStrmSwMasterPortMap,
+	.SlavePortMap = AieMlShimStrmSwSlavePortMap,
 	.DetMerge = &AieMlShimTileStrmSwDetMerge,
 	.PortVerify = _XAieMl_ShimTile_StrmSwCheckPortValidity,
 };
@@ -2087,7 +2087,7 @@ static const  XAie_StrmMod Aie2ShimStrmSw =
 /*
  * Data structure to capture all stream configs for XAIEGBL_TILE_TYPE_MEMTILE
  */
-static const  XAie_StrmMod Aie2MemTileStrmSw =
+static const  XAie_StrmMod AieMlMemTileStrmSw =
 {
 	.SlvConfigBaseAddr = XAIEMLGBL_MEM_TILE_MODULE_STREAM_SWITCH_SLAVE_CONFIG_DMA_0,
 	.MstrConfigBaseAddr = XAIEMLGBL_MEM_TILE_MODULE_STREAM_SWITCH_MASTER_CONFIG_DMA0,
@@ -2107,13 +2107,13 @@ static const  XAie_StrmMod Aie2MemTileStrmSw =
 	.SlotEn = {XAIEMLGBL_CORE_MODULE_STREAM_SWITCH_SLAVE_AIE_CORE0_SLOT0_ENABLE_LSB, XAIEMLGBL_CORE_MODULE_STREAM_SWITCH_SLAVE_AIE_CORE0_SLOT0_ENABLE_MASK},
 	.SlotMsel = {XAIEMLGBL_CORE_MODULE_STREAM_SWITCH_SLAVE_AIE_CORE0_SLOT0_MSEL_LSB, XAIEMLGBL_CORE_MODULE_STREAM_SWITCH_SLAVE_AIE_CORE0_SLOT0_MSEL_MASK},
 	.SlotArbitor = {XAIEMLGBL_CORE_MODULE_STREAM_SWITCH_SLAVE_AIE_CORE0_SLOT0_ARBIT_LSB, XAIEMLGBL_CORE_MODULE_STREAM_SWITCH_SLAVE_AIE_CORE0_SLOT0_ARBIT_MASK},
-	.MstrConfig = Aie2MemTileStrmMstr,
-	.SlvConfig = Aie2MemTileStrmSlv,
-	.SlvSlotConfig = Aie2MemTileStrmSlaveSlot,
+	.MstrConfig = AieMlMemTileStrmMstr,
+	.SlvConfig = AieMlMemTileStrmSlv,
+	.SlvSlotConfig = AieMlMemTileStrmSlaveSlot,
 	.MaxMasterPhyPortId = 16U,
 	.MaxSlavePhyPortId = 17U,
-	.MasterPortMap = Aie2MemTileStrmSwMasterPortMap,
-	.SlavePortMap = Aie2MemTileStrmSwSlavePortMap,
+	.MasterPortMap = AieMlMemTileStrmSwMasterPortMap,
+	.SlavePortMap = AieMlMemTileStrmSwSlavePortMap,
 	.DetMerge = &AieMlMemTileStrmSwDetMerge,
 	.PortVerify = _XAieMl_MemTile_StrmSwCheckPortValidity,
 };
@@ -2121,7 +2121,7 @@ static const  XAie_StrmMod Aie2MemTileStrmSw =
 
 #ifdef XAIE_FEATURE_PL_ENABLE
 /* Register field attributes for PL interface down sizer for 32 and 64 bits */
-static const  XAie_RegFldAttr Aie2DownSzr32_64Bit[] =
+static const  XAie_RegFldAttr AieMlDownSzr32_64Bit[] =
 {
 	{XAIEMLGBL_PL_MODULE_PL_INTERFACE_DOWNSIZER_CONFIG_SOUTH0_LSB, XAIEMLGBL_PL_MODULE_PL_INTERFACE_DOWNSIZER_CONFIG_SOUTH0_MASK},
 	{XAIEMLGBL_PL_MODULE_PL_INTERFACE_DOWNSIZER_CONFIG_SOUTH1_LSB, XAIEMLGBL_PL_MODULE_PL_INTERFACE_DOWNSIZER_CONFIG_SOUTH1_MASK},
@@ -2134,7 +2134,7 @@ static const  XAie_RegFldAttr Aie2DownSzr32_64Bit[] =
 };
 
 /* Register field attributes for PL interface down sizer for 128 bits */
-static const  XAie_RegFldAttr Aie2DownSzr128Bit[] =
+static const  XAie_RegFldAttr AieMlDownSzr128Bit[] =
 {
 	{XAIEMLGBL_PL_MODULE_PL_INTERFACE_DOWNSIZER_CONFIG_SOUTH0_SOUTH1_128_COMBINE_LSB, XAIEMLGBL_PL_MODULE_PL_INTERFACE_DOWNSIZER_CONFIG_SOUTH0_SOUTH1_128_COMBINE_MASK},
 	{XAIEMLGBL_PL_MODULE_PL_INTERFACE_DOWNSIZER_CONFIG_SOUTH2_SOUTH3_128_COMBINE_LSB, XAIEMLGBL_PL_MODULE_PL_INTERFACE_DOWNSIZER_CONFIG_SOUTH2_SOUTH3_128_COMBINE_MASK},
@@ -2143,7 +2143,7 @@ static const  XAie_RegFldAttr Aie2DownSzr128Bit[] =
 };
 
 /* Register field attributes for PL interface up sizer */
-static const  XAie_RegFldAttr Aie2UpSzr32_64Bit[] =
+static const  XAie_RegFldAttr AieMlUpSzr32_64Bit[] =
 {
 	{XAIEMLGBL_PL_MODULE_PL_INTERFACE_UPSIZER_CONFIG_SOUTH0_LSB, XAIEMLGBL_PL_MODULE_PL_INTERFACE_UPSIZER_CONFIG_SOUTH0_MASK},
 	{XAIEMLGBL_PL_MODULE_PL_INTERFACE_UPSIZER_CONFIG_SOUTH1_LSB, XAIEMLGBL_PL_MODULE_PL_INTERFACE_UPSIZER_CONFIG_SOUTH1_MASK},
@@ -2154,7 +2154,7 @@ static const  XAie_RegFldAttr Aie2UpSzr32_64Bit[] =
 };
 
 /* Register field attributes for PL interface up sizer for 128 bits */
-static const  XAie_RegFldAttr Aie2UpSzr128Bit[] =
+static const  XAie_RegFldAttr AieMlUpSzr128Bit[] =
 {
 	{XAIEMLGBL_PL_MODULE_PL_INTERFACE_UPSIZER_CONFIG_SOUTH0_SOUTH1_128_COMBINE_LSB, XAIEMLGBL_PL_MODULE_PL_INTERFACE_UPSIZER_CONFIG_SOUTH0_SOUTH1_128_COMBINE_MASK},
 	{XAIEMLGBL_PL_MODULE_PL_INTERFACE_UPSIZER_CONFIG_SOUTH2_SOUTH3_128_COMBINE_LSB, XAIEMLGBL_PL_MODULE_PL_INTERFACE_UPSIZER_CONFIG_SOUTH2_SOUTH3_128_COMBINE_MASK},
@@ -2162,7 +2162,7 @@ static const  XAie_RegFldAttr Aie2UpSzr128Bit[] =
 };
 
 /* Register field attributes for PL interface down sizer bypass */
-static const  XAie_RegFldAttr Aie2DownSzrByPass[] =
+static const  XAie_RegFldAttr AieMlDownSzrByPass[] =
 {
 	{XAIEMLGBL_PL_MODULE_PL_INTERFACE_DOWNSIZER_BYPASS_SOUTH0_LSB, XAIEMLGBL_PL_MODULE_PL_INTERFACE_DOWNSIZER_BYPASS_SOUTH0_MASK},
 	{XAIEMLGBL_PL_MODULE_PL_INTERFACE_DOWNSIZER_BYPASS_SOUTH1_LSB, XAIEMLGBL_PL_MODULE_PL_INTERFACE_DOWNSIZER_BYPASS_SOUTH1_MASK},
@@ -2173,7 +2173,7 @@ static const  XAie_RegFldAttr Aie2DownSzrByPass[] =
 };
 
 /* Register field attributes for PL interface down sizer enable */
-static const  XAie_RegFldAttr Aie2DownSzrEnable[] =
+static const  XAie_RegFldAttr AieMlDownSzrEnable[] =
 {
 	{XAIEMLGBL_PL_MODULE_PL_INTERFACE_DOWNSIZER_ENABLE_SOUTH0_LSB, XAIEMLGBL_PL_MODULE_PL_INTERFACE_DOWNSIZER_ENABLE_SOUTH0_MASK},
 	{XAIEMLGBL_PL_MODULE_PL_INTERFACE_DOWNSIZER_ENABLE_SOUTH1_LSB, XAIEMLGBL_PL_MODULE_PL_INTERFACE_DOWNSIZER_ENABLE_SOUTH1_MASK},
@@ -2186,7 +2186,7 @@ static const  XAie_RegFldAttr Aie2DownSzrEnable[] =
 };
 
 /* Register field attributes for SHIMNOC Mux configuration */
-static const  XAie_RegFldAttr Aie2ShimMuxConfig[] =
+static const  XAie_RegFldAttr AieMlShimMuxConfig[] =
 {
 	{XAIEMLGBL_NOC_MODULE_MUX_CONFIG_SOUTH2_LSB, XAIEMLGBL_NOC_MODULE_MUX_CONFIG_SOUTH2_MASK},
 	{XAIEMLGBL_NOC_MODULE_MUX_CONFIG_SOUTH3_LSB, XAIEMLGBL_NOC_MODULE_MUX_CONFIG_SOUTH3_MASK},
@@ -2195,7 +2195,7 @@ static const  XAie_RegFldAttr Aie2ShimMuxConfig[] =
 };
 
 /* Register field attributes for SHIMNOC DeMux configuration */
-static const  XAie_RegFldAttr Aie2ShimDeMuxConfig[] =
+static const  XAie_RegFldAttr AieMlShimDeMuxConfig[] =
 {
 	{XAIEMLGBL_NOC_MODULE_DEMUX_CONFIG_SOUTH2_LSB, XAIEMLGBL_NOC_MODULE_DEMUX_CONFIG_SOUTH2_MASK},
 	{XAIEMLGBL_NOC_MODULE_DEMUX_CONFIG_SOUTH3_LSB, XAIEMLGBL_NOC_MODULE_DEMUX_CONFIG_SOUTH3_MASK},
@@ -2205,14 +2205,14 @@ static const  XAie_RegFldAttr Aie2ShimDeMuxConfig[] =
 
 #ifdef XAIE_FEATURE_PRIVILEGED_ENABLE
 /* Register to set SHIM clock buffer control */
-static const XAie_ShimClkBufCntr Aie2ShimClkBufCntr =
+static const XAie_ShimClkBufCntr AieMlShimClkBufCntr =
 {
 	.RegOff = 0xFFF20,
 	.RstEnable = XAIE_DISABLE,
 	.ClkBufEnable = {0, 0x1}
 };
 
-static const XAie_ShimRstMod Aie2ShimTileRst =
+static const XAie_ShimRstMod AieMlShimTileRst =
 {
 	.RegOff = 0,
 	.RstCntr = {0},
@@ -2220,7 +2220,7 @@ static const XAie_ShimRstMod Aie2ShimTileRst =
 };
 
 /* Register feild attributes for Shim AXI MM config for NSU Errors */
-static const XAie_ShimNocAxiMMConfig Aie2ShimNocAxiMMConfig =
+static const XAie_ShimNocAxiMMConfig AieMlShimNocAxiMMConfig =
 {
 	.RegOff = XAIEMLGBL_NOC_MODULE_ME_AXIMM_CONFIG,
 	.NsuSlvErr = {XAIEMLGBL_NOC_MODULE_ME_AXIMM_CONFIG_SLVERR_BLOCK_LSB, XAIEMLGBL_NOC_MODULE_ME_AXIMM_CONFIG_SLVERR_BLOCK_MASK},
@@ -2238,21 +2238,21 @@ static const XAie_RegCoreProcBusCtrl AieMlCoreProcBusCtrlReg =
 };
 
 /* Core Module */
-static const  XAie_CoreMod Aie2CoreMod =
+static const  XAie_CoreMod AieMlCoreMod =
 {
 	.IsCheckerBoard = 0U,
 	.ProgMemAddr = 0x0,
 	.ProgMemSize = 16 * 1024,
 	.DataMemAddr = 0x40000,
 	.ProgMemHostOffset = XAIEMLGBL_CORE_MODULE_PROGRAM_MEMORY,
-	.DataMemSize = 64 * 1024,		/* AIE2 Tile Memory is 64kB */
+	.DataMemSize = 64 * 1024,		/* AIEML Tile Memory is 64kB */
 	.DataMemShift = 16,
 	.EccEvntRegOff = XAIEMLGBL_CORE_MODULE_ECC_SCRUBBING_EVENT,
-	.CoreCtrl = &Aie2CoreCtrlReg,
+	.CoreCtrl = &AieMlCoreCtrlReg,
 	.CoreDebugStatus = &AieMlCoreDebugStatus,
-	.CoreSts = &Aie2CoreStsReg,
-	.CoreDebug = &Aie2CoreDebugReg,
-	.CoreEvent = &Aie2CoreEventReg,
+	.CoreSts = &AieMlCoreStsReg,
+	.CoreDebug = &AieMlCoreDebugReg,
+	.CoreEvent = &AieMlCoreEventReg,
 	.CoreAccumCtrl = &AieMlCoreAccumCtrlReg,
 	.ProcBusCtrl = &AieMlCoreProcBusCtrlReg,
 	.ConfigureDone = &_XAieMl_CoreConfigureDone,
@@ -2264,7 +2264,7 @@ static const  XAie_CoreMod Aie2CoreMod =
 
 #ifdef XAIE_FEATURE_DATAMEM_ENABLE
 /* Data Memory Module for Tile data memory*/
-static const  XAie_MemMod Aie2TileMemMod =
+static const  XAie_MemMod AieMlTileMemMod =
 {
 	.Size = 0x10000,
 	.MemAddr = XAIEMLGBL_MEMORY_MODULE_DATAMEMORY,
@@ -2272,7 +2272,7 @@ static const  XAie_MemMod Aie2TileMemMod =
 };
 
 /* Data Memory Module for Mem Tile data memory*/
-static const  XAie_MemMod Aie2MemTileMemMod =
+static const  XAie_MemMod AieMlMemTileMemMod =
 {
 	.Size = 0x80000,
 	.MemAddr = XAIEMLGBL_MEM_TILE_MODULE_DATAMEMORY,
@@ -2282,7 +2282,7 @@ static const  XAie_MemMod Aie2MemTileMemMod =
 
 #ifdef XAIE_FEATURE_PL_ENABLE
 /* PL Interface module for SHIMPL Tiles */
-static const  XAie_PlIfMod Aie2PlIfMod =
+static const  XAie_PlIfMod AieMlPlIfMod =
 {
 	.UpSzrOff = XAIEMLGBL_PL_MODULE_PL_INTERFACE_UPSIZER_CONFIG,
 	.DownSzrOff = XAIEMLGBL_PL_MODULE_PL_INTERFACE_DOWNSIZER_CONFIG,
@@ -2292,20 +2292,20 @@ static const  XAie_PlIfMod Aie2PlIfMod =
 	.NumUpSzrPorts = 0x6,
 	.MaxByPassPortNum = 0x6,
 	.NumDownSzrPorts = 0x8,
-	.UpSzr32_64Bit = Aie2UpSzr32_64Bit,
-	.UpSzr128Bit = Aie2UpSzr128Bit,
-	.DownSzr32_64Bit = Aie2DownSzr32_64Bit,
-	.DownSzr128Bit = Aie2DownSzr128Bit,
-	.DownSzrEn = Aie2DownSzrEnable,
-	.DownSzrByPass = Aie2DownSzrByPass,
+	.UpSzr32_64Bit = AieMlUpSzr32_64Bit,
+	.UpSzr128Bit = AieMlUpSzr128Bit,
+	.DownSzr32_64Bit = AieMlDownSzr32_64Bit,
+	.DownSzr128Bit = AieMlDownSzr128Bit,
+	.DownSzrEn = AieMlDownSzrEnable,
+	.DownSzrByPass = AieMlDownSzrByPass,
 	.ShimNocMuxOff = 0x0,
 	.ShimNocDeMuxOff = 0x0,
 	.ShimNocMux = NULL,
 	.ShimNocDeMux = NULL,
 	.ColRst = {0, 0x1},
 #ifdef XAIE_FEATURE_PRIVILEGED_ENABLE
-	.ClkBufCntr = &Aie2ShimClkBufCntr,
-	.ShimTileRst = &Aie2ShimTileRst,
+	.ClkBufCntr = &AieMlShimClkBufCntr,
+	.ShimTileRst = &AieMlShimTileRst,
 #else
 	.ClkBufCntr = NULL,
 	.ShimTileRst = NULL,
@@ -2314,7 +2314,7 @@ static const  XAie_PlIfMod Aie2PlIfMod =
 };
 
 /* PL Interface module for SHIMNOC Tiles */
-static const  XAie_PlIfMod Aie2ShimTilePlIfMod =
+static const  XAie_PlIfMod AieMlShimTilePlIfMod =
 {
 	.UpSzrOff = XAIEMLGBL_PL_MODULE_PL_INTERFACE_UPSIZER_CONFIG,
 	.DownSzrOff = XAIEMLGBL_PL_MODULE_PL_INTERFACE_DOWNSIZER_CONFIG,
@@ -2324,21 +2324,21 @@ static const  XAie_PlIfMod Aie2ShimTilePlIfMod =
 	.NumUpSzrPorts = 0x6,
 	.MaxByPassPortNum = 0x6,
 	.NumDownSzrPorts = 0x8,
-	.UpSzr32_64Bit = Aie2UpSzr32_64Bit,
-	.UpSzr128Bit = Aie2UpSzr128Bit,
-	.DownSzr32_64Bit = Aie2DownSzr32_64Bit,
-	.DownSzr128Bit = Aie2DownSzr128Bit,
-	.DownSzrEn = Aie2DownSzrEnable,
-	.DownSzrByPass = Aie2DownSzrByPass,
+	.UpSzr32_64Bit = AieMlUpSzr32_64Bit,
+	.UpSzr128Bit = AieMlUpSzr128Bit,
+	.DownSzr32_64Bit = AieMlDownSzr32_64Bit,
+	.DownSzr128Bit = AieMlDownSzr128Bit,
+	.DownSzrEn = AieMlDownSzrEnable,
+	.DownSzrByPass = AieMlDownSzrByPass,
 	.ShimNocMuxOff = XAIEMLGBL_NOC_MODULE_MUX_CONFIG,
 	.ShimNocDeMuxOff = XAIEMLGBL_NOC_MODULE_DEMUX_CONFIG,
-	.ShimNocMux = Aie2ShimMuxConfig,
-	.ShimNocDeMux = Aie2ShimDeMuxConfig,
+	.ShimNocMux = AieMlShimMuxConfig,
+	.ShimNocDeMux = AieMlShimDeMuxConfig,
 	.ColRst = {0, 0x1},
 #ifdef XAIE_FEATURE_PRIVILEGED_ENABLE
-	.ClkBufCntr = &Aie2ShimClkBufCntr,
-	.ShimTileRst = &Aie2ShimTileRst,
-	.ShimNocAxiMM = &Aie2ShimNocAxiMMConfig,
+	.ClkBufCntr = &AieMlShimClkBufCntr,
+	.ShimTileRst = &AieMlShimTileRst,
+	.ShimNocAxiMM = &AieMlShimNocAxiMMConfig,
 #else
 	.ClkBufCntr = NULL,
 	.ShimTileRst = NULL,
@@ -2355,7 +2355,7 @@ static const XAie_RegFldAttr AieMlTileLockInit =
 };
 
 /* Lock Module for AIE Tiles  */
-static const  XAie_LockMod Aie2TileLockMod =
+static const  XAie_LockMod AieMlTileLockMod =
 {
 	.BaseAddr = XAIEMLGBL_MEMORY_MODULE_LOCK_REQUEST,
 	.NumLocks = 16U,
@@ -2379,7 +2379,7 @@ static const XAie_RegFldAttr AieMlShimNocLockInit =
 };
 
 /* Lock Module for SHIM NOC Tiles  */
-static const  XAie_LockMod Aie2ShimNocLockMod =
+static const  XAie_LockMod AieMlShimNocLockMod =
 {
 	.BaseAddr = XAIEMLGBL_NOC_MODULE_LOCK_REQUEST,
 	.NumLocks = 16U,
@@ -2403,7 +2403,7 @@ static const XAie_RegFldAttr AieMlMemTileLockInit =
 };
 
 /* Lock Module for Mem Tiles  */
-static const  XAie_LockMod Aie2MemTileLockMod =
+static const  XAie_LockMod AieMlMemTileLockMod =
 {
 	.BaseAddr = XAIEMLGBL_MEM_TILE_MODULE_LOCK_REQUEST,
 	.NumLocks = 64U,
@@ -2422,199 +2422,170 @@ static const  XAie_LockMod Aie2MemTileLockMod =
 #endif /* XAIE_FEATURE_LOCK_ENABLE */
 
 #ifdef XAIE_FEATURE_EVENTS_ENABLE
-/* Enum to event number mapping of all events of AIE2 Core Mod of aie tile */
-static const u8 Aie2CoreModEventMapping[] =
+/* Enum to event number mapping of all events of AIEML Core Mod of aie tile */
+static const u8 AieMlCoreModEventMapping[] =
 {
-	XAIE2_EVENTS_CORE_NONE,
-	XAIE2_EVENTS_CORE_TRUE,
-	XAIE2_EVENTS_CORE_GROUP_0,
-	XAIE2_EVENTS_CORE_TIMER_SYNC,
-	XAIE2_EVENTS_CORE_TIMER_VALUE_REACHED,
-	XAIE2_EVENTS_CORE_PERF_CNT_0,
-	XAIE2_EVENTS_CORE_PERF_CNT_1,
-	XAIE2_EVENTS_CORE_PERF_CNT_2,
-	XAIE2_EVENTS_CORE_PERF_CNT_3,
-	XAIE2_EVENTS_CORE_COMBO_EVENT_0,
-	XAIE2_EVENTS_CORE_COMBO_EVENT_1,
-	XAIE2_EVENTS_CORE_COMBO_EVENT_2,
-	XAIE2_EVENTS_CORE_COMBO_EVENT_3,
-	XAIE2_EVENTS_CORE_GROUP_PC_EVENT,
-	XAIE2_EVENTS_CORE_PC_0,
-	XAIE2_EVENTS_CORE_PC_1,
-	XAIE2_EVENTS_CORE_PC_2,
-	XAIE2_EVENTS_CORE_PC_3,
-	XAIE2_EVENTS_CORE_PC_RANGE_0_1,
-	XAIE2_EVENTS_CORE_PC_RANGE_2_3,
-	XAIE2_EVENTS_CORE_GROUP_STALL,
-	XAIE2_EVENTS_CORE_MEMORY_STALL,
-	XAIE2_EVENTS_CORE_STREAM_STALL,
-	XAIE2_EVENTS_CORE_CASCADE_STALL,
-	XAIE2_EVENTS_CORE_LOCK_STALL,
-	XAIE2_EVENTS_CORE_DEBUG_HALTED,
-	XAIE2_EVENTS_CORE_ACTIVE,
-	XAIE2_EVENTS_CORE_DISABLED,
-	XAIE2_EVENTS_CORE_ECC_ERROR_STALL,
-	XAIE2_EVENTS_CORE_ECC_SCRUBBING_STALL,
-	XAIE2_EVENTS_CORE_GROUP_PROGRAM_FLOW,
-	XAIE2_EVENTS_CORE_INSTR_EVENT_0,
-	XAIE2_EVENTS_CORE_INSTR_EVENT_1,
-	XAIE2_EVENTS_CORE_INSTR_CALL,
-	XAIE2_EVENTS_CORE_INSTR_RETURN,
-	XAIE2_EVENTS_CORE_INSTR_VECTOR,
-	XAIE2_EVENTS_CORE_INSTR_LOAD,
-	XAIE2_EVENTS_CORE_INSTR_STORE,
-	XAIE2_EVENTS_CORE_INSTR_STREAM_GET,
-	XAIE2_EVENTS_CORE_INSTR_STREAM_PUT,
-	XAIE2_EVENTS_CORE_INSTR_CASCADE_GET,
-	XAIE2_EVENTS_CORE_INSTR_CASCADE_PUT,
-	XAIE2_EVENTS_CORE_INSTR_LOCK_ACQUIRE_REQ,
-	XAIE2_EVENTS_CORE_INSTR_LOCK_RELEASE_REQ,
-	XAIE2_EVENTS_CORE_GROUP_ERRORS_0,
-	XAIE2_EVENTS_CORE_GROUP_ERRORS_1,
-	XAIE2_EVENTS_CORE_SRS_OVERFLOW,
-	XAIE2_EVENTS_CORE_UPS_OVERFLOW,
+	XAIEML_EVENTS_CORE_NONE,
+	XAIEML_EVENTS_CORE_TRUE,
+	XAIEML_EVENTS_CORE_GROUP_0,
+	XAIEML_EVENTS_CORE_TIMER_SYNC,
+	XAIEML_EVENTS_CORE_TIMER_VALUE_REACHED,
+	XAIEML_EVENTS_CORE_PERF_CNT_0,
+	XAIEML_EVENTS_CORE_PERF_CNT_1,
+	XAIEML_EVENTS_CORE_PERF_CNT_2,
+	XAIEML_EVENTS_CORE_PERF_CNT_3,
+	XAIEML_EVENTS_CORE_COMBO_EVENT_0,
+	XAIEML_EVENTS_CORE_COMBO_EVENT_1,
+	XAIEML_EVENTS_CORE_COMBO_EVENT_2,
+	XAIEML_EVENTS_CORE_COMBO_EVENT_3,
+	XAIEML_EVENTS_CORE_GROUP_PC_EVENT,
+	XAIEML_EVENTS_CORE_PC_0,
+	XAIEML_EVENTS_CORE_PC_1,
+	XAIEML_EVENTS_CORE_PC_2,
+	XAIEML_EVENTS_CORE_PC_3,
+	XAIEML_EVENTS_CORE_PC_RANGE_0_1,
+	XAIEML_EVENTS_CORE_PC_RANGE_2_3,
+	XAIEML_EVENTS_CORE_GROUP_STALL,
+	XAIEML_EVENTS_CORE_MEMORY_STALL,
+	XAIEML_EVENTS_CORE_STREAM_STALL,
+	XAIEML_EVENTS_CORE_CASCADE_STALL,
+	XAIEML_EVENTS_CORE_LOCK_STALL,
+	XAIEML_EVENTS_CORE_DEBUG_HALTED,
+	XAIEML_EVENTS_CORE_ACTIVE,
+	XAIEML_EVENTS_CORE_DISABLED,
+	XAIEML_EVENTS_CORE_ECC_ERROR_STALL,
+	XAIEML_EVENTS_CORE_ECC_SCRUBBING_STALL,
+	XAIEML_EVENTS_CORE_GROUP_PROGRAM_FLOW,
+	XAIEML_EVENTS_CORE_INSTR_EVENT_0,
+	XAIEML_EVENTS_CORE_INSTR_EVENT_1,
+	XAIEML_EVENTS_CORE_INSTR_CALL,
+	XAIEML_EVENTS_CORE_INSTR_RETURN,
+	XAIEML_EVENTS_CORE_INSTR_VECTOR,
+	XAIEML_EVENTS_CORE_INSTR_LOAD,
+	XAIEML_EVENTS_CORE_INSTR_STORE,
+	XAIEML_EVENTS_CORE_INSTR_STREAM_GET,
+	XAIEML_EVENTS_CORE_INSTR_STREAM_PUT,
+	XAIEML_EVENTS_CORE_INSTR_CASCADE_GET,
+	XAIEML_EVENTS_CORE_INSTR_CASCADE_PUT,
+	XAIEML_EVENTS_CORE_INSTR_LOCK_ACQUIRE_REQ,
+	XAIEML_EVENTS_CORE_INSTR_LOCK_RELEASE_REQ,
+	XAIEML_EVENTS_CORE_GROUP_ERRORS_0,
+	XAIEML_EVENTS_CORE_GROUP_ERRORS_1,
+	XAIEML_EVENTS_CORE_SRS_OVERFLOW,
+	XAIEML_EVENTS_CORE_UPS_OVERFLOW,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
-	XAIE2_EVENTS_CORE_FP_INVALID,
+	XAIEML_EVENTS_CORE_FP_INVALID,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
-	XAIE2_EVENTS_CORE_PM_REG_ACCESS_FAILURE,
-	XAIE2_EVENTS_CORE_STREAM_PKT_PARITY_ERROR,
-	XAIE2_EVENTS_CORE_CONTROL_PKT_ERROR,
-	XAIE2_EVENTS_CORE_AXI_MM_SLAVE_ERROR,
-	XAIE2_EVENTS_CORE_INSTR_DECOMPRSN_ERROR,
-	XAIE2_EVENTS_CORE_DM_ADDRESS_OUT_OF_RANGE,
-	XAIE2_EVENTS_CORE_PM_ECC_ERROR_SCRUB_CORRECTED,
-	XAIE2_EVENTS_CORE_PM_ECC_ERROR_SCRUB_2BIT,
-	XAIE2_EVENTS_CORE_PM_ECC_ERROR_1BIT,
-	XAIE2_EVENTS_CORE_PM_ECC_ERROR_2BIT,
-	XAIE2_EVENTS_CORE_PM_ADDRESS_OUT_OF_RANGE,
-	XAIE2_EVENTS_CORE_DM_ACCESS_TO_UNAVAILABLE,
-	XAIE2_EVENTS_CORE_LOCK_ACCESS_TO_UNAVAILABLE,
+	XAIEML_EVENTS_CORE_PM_REG_ACCESS_FAILURE,
+	XAIEML_EVENTS_CORE_STREAM_PKT_PARITY_ERROR,
+	XAIEML_EVENTS_CORE_CONTROL_PKT_ERROR,
+	XAIEML_EVENTS_CORE_AXI_MM_SLAVE_ERROR,
+	XAIEML_EVENTS_CORE_INSTR_DECOMPRSN_ERROR,
+	XAIEML_EVENTS_CORE_DM_ADDRESS_OUT_OF_RANGE,
+	XAIEML_EVENTS_CORE_PM_ECC_ERROR_SCRUB_CORRECTED,
+	XAIEML_EVENTS_CORE_PM_ECC_ERROR_SCRUB_2BIT,
+	XAIEML_EVENTS_CORE_PM_ECC_ERROR_1BIT,
+	XAIEML_EVENTS_CORE_PM_ECC_ERROR_2BIT,
+	XAIEML_EVENTS_CORE_PM_ADDRESS_OUT_OF_RANGE,
+	XAIEML_EVENTS_CORE_DM_ACCESS_TO_UNAVAILABLE,
+	XAIEML_EVENTS_CORE_LOCK_ACCESS_TO_UNAVAILABLE,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
-	XAIE2_EVENTS_CORE_GROUP_STREAM_SWITCH,
-	XAIE2_EVENTS_CORE_PORT_IDLE_0,
-	XAIE2_EVENTS_CORE_PORT_RUNNING_0,
-	XAIE2_EVENTS_CORE_PORT_STALLED_0,
-	XAIE2_EVENTS_CORE_PORT_TLAST_0,
-	XAIE2_EVENTS_CORE_PORT_IDLE_1,
-	XAIE2_EVENTS_CORE_PORT_RUNNING_1,
-	XAIE2_EVENTS_CORE_PORT_STALLED_1,
-	XAIE2_EVENTS_CORE_PORT_TLAST_1,
-	XAIE2_EVENTS_CORE_PORT_IDLE_2,
-	XAIE2_EVENTS_CORE_PORT_RUNNING_2,
-	XAIE2_EVENTS_CORE_PORT_STALLED_2,
-	XAIE2_EVENTS_CORE_PORT_TLAST_2,
-	XAIE2_EVENTS_CORE_PORT_IDLE_3,
-	XAIE2_EVENTS_CORE_PORT_RUNNING_3,
-	XAIE2_EVENTS_CORE_PORT_STALLED_3,
-	XAIE2_EVENTS_CORE_PORT_TLAST_3,
-	XAIE2_EVENTS_CORE_PORT_IDLE_4,
-	XAIE2_EVENTS_CORE_PORT_RUNNING_4,
-	XAIE2_EVENTS_CORE_PORT_STALLED_4,
-	XAIE2_EVENTS_CORE_PORT_TLAST_4,
-	XAIE2_EVENTS_CORE_PORT_IDLE_5,
-	XAIE2_EVENTS_CORE_PORT_RUNNING_5,
-	XAIE2_EVENTS_CORE_PORT_STALLED_5,
-	XAIE2_EVENTS_CORE_PORT_TLAST_5,
-	XAIE2_EVENTS_CORE_PORT_IDLE_6,
-	XAIE2_EVENTS_CORE_PORT_RUNNING_6,
-	XAIE2_EVENTS_CORE_PORT_STALLED_6,
-	XAIE2_EVENTS_CORE_PORT_TLAST_6,
-	XAIE2_EVENTS_CORE_PORT_IDLE_7,
-	XAIE2_EVENTS_CORE_PORT_RUNNING_7,
-	XAIE2_EVENTS_CORE_PORT_STALLED_7,
-	XAIE2_EVENTS_CORE_PORT_TLAST_7,
-	XAIE2_EVENTS_CORE_GROUP_BROADCAST,
-	XAIE2_EVENTS_CORE_BROADCAST_0,
-	XAIE2_EVENTS_CORE_BROADCAST_1,
-	XAIE2_EVENTS_CORE_BROADCAST_2,
-	XAIE2_EVENTS_CORE_BROADCAST_3,
-	XAIE2_EVENTS_CORE_BROADCAST_4,
-	XAIE2_EVENTS_CORE_BROADCAST_5,
-	XAIE2_EVENTS_CORE_BROADCAST_6,
-	XAIE2_EVENTS_CORE_BROADCAST_7,
-	XAIE2_EVENTS_CORE_BROADCAST_8,
-	XAIE2_EVENTS_CORE_BROADCAST_9,
-	XAIE2_EVENTS_CORE_BROADCAST_10,
-	XAIE2_EVENTS_CORE_BROADCAST_11,
-	XAIE2_EVENTS_CORE_BROADCAST_12,
-	XAIE2_EVENTS_CORE_BROADCAST_13,
-	XAIE2_EVENTS_CORE_BROADCAST_14,
-	XAIE2_EVENTS_CORE_BROADCAST_15,
-	XAIE2_EVENTS_CORE_GROUP_USER_EVENT,
-	XAIE2_EVENTS_CORE_USER_EVENT_0,
-	XAIE2_EVENTS_CORE_USER_EVENT_1,
-	XAIE2_EVENTS_CORE_USER_EVENT_2,
-	XAIE2_EVENTS_CORE_USER_EVENT_3,
-	XAIE2_EVENTS_CORE_EDGE_DETECTION_EVENT_0,
-	XAIE2_EVENTS_CORE_EDGE_DETECTION_EVENT_1,
-	XAIE2_EVENTS_CORE_FP_HUGE,
-	XAIE2_EVENTS_CORE_INT_FP_0,
-	XAIE2_EVENTS_CORE_FP_INF,
-	XAIE2_EVENTS_CORE_INSTR_WARNING,
-	XAIE2_EVENTS_CORE_INSTR_ERROR,
-	XAIE2_EVENTS_CORE_DECOMPRESSION_UNDERFLOW,
-	XAIE2_EVENTS_CORE_STREAM_SWITCH_PORT_PARITY_ERROR,
-	XAIE2_EVENTS_CORE_PROCESSOR_BUS_ERROR,
+	XAIEML_EVENTS_CORE_GROUP_STREAM_SWITCH,
+	XAIEML_EVENTS_CORE_PORT_IDLE_0,
+	XAIEML_EVENTS_CORE_PORT_RUNNING_0,
+	XAIEML_EVENTS_CORE_PORT_STALLED_0,
+	XAIEML_EVENTS_CORE_PORT_TLAST_0,
+	XAIEML_EVENTS_CORE_PORT_IDLE_1,
+	XAIEML_EVENTS_CORE_PORT_RUNNING_1,
+	XAIEML_EVENTS_CORE_PORT_STALLED_1,
+	XAIEML_EVENTS_CORE_PORT_TLAST_1,
+	XAIEML_EVENTS_CORE_PORT_IDLE_2,
+	XAIEML_EVENTS_CORE_PORT_RUNNING_2,
+	XAIEML_EVENTS_CORE_PORT_STALLED_2,
+	XAIEML_EVENTS_CORE_PORT_TLAST_2,
+	XAIEML_EVENTS_CORE_PORT_IDLE_3,
+	XAIEML_EVENTS_CORE_PORT_RUNNING_3,
+	XAIEML_EVENTS_CORE_PORT_STALLED_3,
+	XAIEML_EVENTS_CORE_PORT_TLAST_3,
+	XAIEML_EVENTS_CORE_PORT_IDLE_4,
+	XAIEML_EVENTS_CORE_PORT_RUNNING_4,
+	XAIEML_EVENTS_CORE_PORT_STALLED_4,
+	XAIEML_EVENTS_CORE_PORT_TLAST_4,
+	XAIEML_EVENTS_CORE_PORT_IDLE_5,
+	XAIEML_EVENTS_CORE_PORT_RUNNING_5,
+	XAIEML_EVENTS_CORE_PORT_STALLED_5,
+	XAIEML_EVENTS_CORE_PORT_TLAST_5,
+	XAIEML_EVENTS_CORE_PORT_IDLE_6,
+	XAIEML_EVENTS_CORE_PORT_RUNNING_6,
+	XAIEML_EVENTS_CORE_PORT_STALLED_6,
+	XAIEML_EVENTS_CORE_PORT_TLAST_6,
+	XAIEML_EVENTS_CORE_PORT_IDLE_7,
+	XAIEML_EVENTS_CORE_PORT_RUNNING_7,
+	XAIEML_EVENTS_CORE_PORT_STALLED_7,
+	XAIEML_EVENTS_CORE_PORT_TLAST_7,
+	XAIEML_EVENTS_CORE_GROUP_BROADCAST,
+	XAIEML_EVENTS_CORE_BROADCAST_0,
+	XAIEML_EVENTS_CORE_BROADCAST_1,
+	XAIEML_EVENTS_CORE_BROADCAST_2,
+	XAIEML_EVENTS_CORE_BROADCAST_3,
+	XAIEML_EVENTS_CORE_BROADCAST_4,
+	XAIEML_EVENTS_CORE_BROADCAST_5,
+	XAIEML_EVENTS_CORE_BROADCAST_6,
+	XAIEML_EVENTS_CORE_BROADCAST_7,
+	XAIEML_EVENTS_CORE_BROADCAST_8,
+	XAIEML_EVENTS_CORE_BROADCAST_9,
+	XAIEML_EVENTS_CORE_BROADCAST_10,
+	XAIEML_EVENTS_CORE_BROADCAST_11,
+	XAIEML_EVENTS_CORE_BROADCAST_12,
+	XAIEML_EVENTS_CORE_BROADCAST_13,
+	XAIEML_EVENTS_CORE_BROADCAST_14,
+	XAIEML_EVENTS_CORE_BROADCAST_15,
+	XAIEML_EVENTS_CORE_GROUP_USER_EVENT,
+	XAIEML_EVENTS_CORE_USER_EVENT_0,
+	XAIEML_EVENTS_CORE_USER_EVENT_1,
+	XAIEML_EVENTS_CORE_USER_EVENT_2,
+	XAIEML_EVENTS_CORE_USER_EVENT_3,
+	XAIEML_EVENTS_CORE_EDGE_DETECTION_EVENT_0,
+	XAIEML_EVENTS_CORE_EDGE_DETECTION_EVENT_1,
+	XAIEML_EVENTS_CORE_FP_HUGE,
+	XAIEML_EVENTS_CORE_INT_FP_0,
+	XAIEML_EVENTS_CORE_FP_INF,
+	XAIEML_EVENTS_CORE_INSTR_WARNING,
+	XAIEML_EVENTS_CORE_INSTR_ERROR,
+	XAIEML_EVENTS_CORE_DECOMPRESSION_UNDERFLOW,
+	XAIEML_EVENTS_CORE_STREAM_SWITCH_PORT_PARITY_ERROR,
+	XAIEML_EVENTS_CORE_PROCESSOR_BUS_ERROR,
 };
 
-/* Enum to event number mapping of all events of AIE2 Mem Mod of aie tile */
-static const u8 Aie2MemModEventMapping[] =
+/* Enum to event number mapping of all events of AIEML Mem Mod of aie tile */
+static const u8 AieMlMemModEventMapping[] =
 {
-	XAIE2_EVENTS_MEM_NONE,
-	XAIE2_EVENTS_MEM_TRUE,
-	XAIE2_EVENTS_MEM_GROUP_0,
-	XAIE2_EVENTS_MEM_TIMER_SYNC,
-	XAIE2_EVENTS_MEM_TIMER_VALUE_REACHED,
-	XAIE2_EVENTS_MEM_PERF_CNT_0,
-	XAIE2_EVENTS_MEM_PERF_CNT_1,
-	XAIE2_EVENTS_MEM_COMBO_EVENT_0,
-	XAIE2_EVENTS_MEM_COMBO_EVENT_1,
-	XAIE2_EVENTS_MEM_COMBO_EVENT_2,
-	XAIE2_EVENTS_MEM_COMBO_EVENT_3,
-	XAIE2_EVENTS_MEM_GROUP_WATCHPOINT,
-	XAIE2_EVENTS_MEM_WATCHPOINT_0,
-	XAIE2_EVENTS_MEM_WATCHPOINT_1,
-	XAIE2_EVENTS_MEM_GROUP_DMA_ACTIVITY,
+	XAIEML_EVENTS_MEM_NONE,
+	XAIEML_EVENTS_MEM_TRUE,
+	XAIEML_EVENTS_MEM_GROUP_0,
+	XAIEML_EVENTS_MEM_TIMER_SYNC,
+	XAIEML_EVENTS_MEM_TIMER_VALUE_REACHED,
+	XAIEML_EVENTS_MEM_PERF_CNT_0,
+	XAIEML_EVENTS_MEM_PERF_CNT_1,
+	XAIEML_EVENTS_MEM_COMBO_EVENT_0,
+	XAIEML_EVENTS_MEM_COMBO_EVENT_1,
+	XAIEML_EVENTS_MEM_COMBO_EVENT_2,
+	XAIEML_EVENTS_MEM_COMBO_EVENT_3,
+	XAIEML_EVENTS_MEM_GROUP_WATCHPOINT,
+	XAIEML_EVENTS_MEM_WATCHPOINT_0,
+	XAIEML_EVENTS_MEM_WATCHPOINT_1,
+	XAIEML_EVENTS_MEM_GROUP_DMA_ACTIVITY,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
-	XAIE2_EVENTS_MEM_DMA_S2MM_0_FINISHED_BD,
-	XAIE2_EVENTS_MEM_DMA_S2MM_1_FINISHED_BD,
-	XAIE2_EVENTS_MEM_DMA_MM2S_0_FINISHED_BD,
-	XAIE2_EVENTS_MEM_DMA_MM2S_1_FINISHED_BD,
-	XAIE_EVENT_INVALID,
-	XAIE_EVENT_INVALID,
-	XAIE_EVENT_INVALID,
-	XAIE_EVENT_INVALID,
-	XAIE_EVENT_INVALID,
-	XAIE_EVENT_INVALID,
-	XAIE_EVENT_INVALID,
-	XAIE_EVENT_INVALID,
-	XAIE_EVENT_INVALID,
-	XAIE_EVENT_INVALID,
-	XAIE_EVENT_INVALID,
-	XAIE_EVENT_INVALID,
-	XAIE2_EVENTS_MEM_GROUP_LOCK,
-	XAIE_EVENT_INVALID,
-	XAIE2_EVENTS_MEM_LOCK_0_REL,
-	XAIE_EVENT_INVALID,
-	XAIE2_EVENTS_MEM_LOCK_1_REL,
-	XAIE_EVENT_INVALID,
-	XAIE2_EVENTS_MEM_LOCK_2_REL,
-	XAIE_EVENT_INVALID,
-	XAIE2_EVENTS_MEM_LOCK_3_REL,
-	XAIE_EVENT_INVALID,
-	XAIE2_EVENTS_MEM_LOCK_4_REL,
-	XAIE_EVENT_INVALID,
-	XAIE2_EVENTS_MEM_LOCK_5_REL,
-	XAIE_EVENT_INVALID,
-	XAIE2_EVENTS_MEM_LOCK_6_REL,
-	XAIE_EVENT_INVALID,
-	XAIE2_EVENTS_MEM_LOCK_7_REL,
+	XAIEML_EVENTS_MEM_DMA_S2MM_0_FINISHED_BD,
+	XAIEML_EVENTS_MEM_DMA_S2MM_1_FINISHED_BD,
+	XAIEML_EVENTS_MEM_DMA_MM2S_0_FINISHED_BD,
+	XAIEML_EVENTS_MEM_DMA_MM2S_1_FINISHED_BD,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
@@ -2627,155 +2598,179 @@ static const u8 Aie2MemModEventMapping[] =
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
+	XAIEML_EVENTS_MEM_GROUP_LOCK,
+	XAIE_EVENT_INVALID,
+	XAIEML_EVENTS_MEM_LOCK_0_REL,
+	XAIE_EVENT_INVALID,
+	XAIEML_EVENTS_MEM_LOCK_1_REL,
+	XAIE_EVENT_INVALID,
+	XAIEML_EVENTS_MEM_LOCK_2_REL,
+	XAIE_EVENT_INVALID,
+	XAIEML_EVENTS_MEM_LOCK_3_REL,
+	XAIE_EVENT_INVALID,
+	XAIEML_EVENTS_MEM_LOCK_4_REL,
+	XAIE_EVENT_INVALID,
+	XAIEML_EVENTS_MEM_LOCK_5_REL,
+	XAIE_EVENT_INVALID,
+	XAIEML_EVENTS_MEM_LOCK_6_REL,
+	XAIE_EVENT_INVALID,
+	XAIEML_EVENTS_MEM_LOCK_7_REL,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
-	XAIE2_EVENTS_MEM_GROUP_MEMORY_CONFLICT,
-	XAIE2_EVENTS_MEM_CONFLICT_DM_BANK_0,
-	XAIE2_EVENTS_MEM_CONFLICT_DM_BANK_1,
-	XAIE2_EVENTS_MEM_CONFLICT_DM_BANK_2,
-	XAIE2_EVENTS_MEM_CONFLICT_DM_BANK_3,
-	XAIE2_EVENTS_MEM_CONFLICT_DM_BANK_4,
-	XAIE2_EVENTS_MEM_CONFLICT_DM_BANK_5,
-	XAIE2_EVENTS_MEM_CONFLICT_DM_BANK_6,
-	XAIE2_EVENTS_MEM_CONFLICT_DM_BANK_7,
-	XAIE2_EVENTS_MEM_GROUP_ERRORS,
-	XAIE2_EVENTS_MEM_DM_ECC_ERROR_SCRUB_CORRECTED,
-	XAIE2_EVENTS_MEM_DM_ECC_ERROR_SCRUB_2BIT,
-	XAIE2_EVENTS_MEM_DM_ECC_ERROR_1BIT,
-	XAIE2_EVENTS_MEM_DM_ECC_ERROR_2BIT,
-	XAIE2_EVENTS_MEM_DM_PARITY_ERROR_BANK_2,
-	XAIE2_EVENTS_MEM_DM_PARITY_ERROR_BANK_3,
-	XAIE2_EVENTS_MEM_DM_PARITY_ERROR_BANK_4,
-	XAIE2_EVENTS_MEM_DM_PARITY_ERROR_BANK_5,
-	XAIE2_EVENTS_MEM_DM_PARITY_ERROR_BANK_6,
-	XAIE2_EVENTS_MEM_DM_PARITY_ERROR_BANK_7,
-	XAIE2_EVENTS_MEM_DMA_S2MM_0_ERROR,
-	XAIE2_EVENTS_MEM_DMA_S2MM_1_ERROR,
-	XAIE2_EVENTS_MEM_DMA_MM2S_0_ERROR,
-	XAIE2_EVENTS_MEM_DMA_MM2S_1_ERROR,
-	XAIE2_EVENTS_MEM_GROUP_BROADCAST,
-	XAIE2_EVENTS_MEM_BROADCAST_0,
-	XAIE2_EVENTS_MEM_BROADCAST_1,
-	XAIE2_EVENTS_MEM_BROADCAST_2,
-	XAIE2_EVENTS_MEM_BROADCAST_3,
-	XAIE2_EVENTS_MEM_BROADCAST_4,
-	XAIE2_EVENTS_MEM_BROADCAST_5,
-	XAIE2_EVENTS_MEM_BROADCAST_6,
-	XAIE2_EVENTS_MEM_BROADCAST_7,
-	XAIE2_EVENTS_MEM_BROADCAST_8,
-	XAIE2_EVENTS_MEM_BROADCAST_9,
-	XAIE2_EVENTS_MEM_BROADCAST_10,
-	XAIE2_EVENTS_MEM_BROADCAST_11,
-	XAIE2_EVENTS_MEM_BROADCAST_12,
-	XAIE2_EVENTS_MEM_BROADCAST_13,
-	XAIE2_EVENTS_MEM_BROADCAST_14,
-	XAIE2_EVENTS_MEM_BROADCAST_15,
-	XAIE2_EVENTS_MEM_GROUP_USER_EVENT,
-	XAIE2_EVENTS_MEM_USER_EVENT_0,
-	XAIE2_EVENTS_MEM_USER_EVENT_1,
-	XAIE2_EVENTS_MEM_USER_EVENT_2,
-	XAIE2_EVENTS_MEM_USER_EVENT_3,
-	XAIE2_EVENTS_MEM_EDGE_DETECTION_EVENT_0,
-	XAIE2_EVENTS_MEM_EDGE_DETECTION_EVENT_1,
-	XAIE2_EVENTS_MEM_DMA_S2MM_0_START_TASK,
-	XAIE2_EVENTS_MEM_DMA_S2MM_1_START_TASK,
-	XAIE2_EVENTS_MEM_DMA_MM2S_0_START_TASK,
-	XAIE2_EVENTS_MEM_DMA_MM2S_1_START_TASK,
-	XAIE2_EVENTS_MEM_DMA_S2MM_0_FINISHED_TASK,
-	XAIE2_EVENTS_MEM_DMA_S2MM_1_FINISHED_TASK,
-	XAIE2_EVENTS_MEM_DMA_MM2S_0_FINISHED_TASK,
-	XAIE2_EVENTS_MEM_DMA_MM2S_1_FINISHED_TASK,
-	XAIE2_EVENTS_MEM_DMA_S2MM_0_STALLED_LOCK,
-	XAIE2_EVENTS_MEM_DMA_S2MM_1_STALLED_LOCK,
-	XAIE2_EVENTS_MEM_DMA_MM2S_0_STALLED_LOCK,
-	XAIE2_EVENTS_MEM_DMA_MM2S_1_STALLED_LOCK,
-	XAIE2_EVENTS_MEM_DMA_S2MM_0_STREAM_STARVATION,
-	XAIE2_EVENTS_MEM_DMA_S2MM_1_STREAM_STARVATION,
-	XAIE2_EVENTS_MEM_DMA_MM2S_0_STREAM_BACKPRESSURE,
-	XAIE2_EVENTS_MEM_DMA_MM2S_1_STREAM_BACKPRESSURE,
-	XAIE2_EVENTS_MEM_DMA_S2MM_0_MEMORY_BACKPRESSURE,
-	XAIE2_EVENTS_MEM_DMA_S2MM_1_MEMORY_BACKPRESSURE,
-	XAIE2_EVENTS_MEM_DMA_MM2S_0_MEMORY_STARVATION,
-	XAIE2_EVENTS_MEM_DMA_MM2S_1_MEMORY_STARVATION,
-	XAIE2_EVENTS_MEM_LOCK_SEL0_ACQ_EQ,
-	XAIE2_EVENTS_MEM_LOCK_SEL0_ACQ_GE,
-	XAIE2_EVENTS_MEM_LOCK_SEL0_EQUAL_TO_VALUE,
-	XAIE2_EVENTS_MEM_LOCK_SEL1_ACQ_EQ,
-	XAIE2_EVENTS_MEM_LOCK_SEL1_ACQ_GE,
-	XAIE2_EVENTS_MEM_LOCK_SEL1_EQUAL_TO_VALUE,
-	XAIE2_EVENTS_MEM_LOCK_SEL2_ACQ_EQ,
-	XAIE2_EVENTS_MEM_LOCK_SEL2_ACQ_GE,
-	XAIE2_EVENTS_MEM_LOCK_SEL2_EQUAL_TO_VALUE,
-	XAIE2_EVENTS_MEM_LOCK_SEL3_ACQ_EQ,
-	XAIE2_EVENTS_MEM_LOCK_SEL3_ACQ_GE,
-	XAIE2_EVENTS_MEM_LOCK_SEL3_EQUAL_TO_VALUE,
-	XAIE2_EVENTS_MEM_LOCK_SEL4_ACQ_EQ,
-	XAIE2_EVENTS_MEM_LOCK_SEL4_ACQ_GE,
-	XAIE2_EVENTS_MEM_LOCK_SEL4_EQUAL_TO_VALUE,
-	XAIE2_EVENTS_MEM_LOCK_SEL5_ACQ_EQ,
-	XAIE2_EVENTS_MEM_LOCK_SEL5_ACQ_GE,
-	XAIE2_EVENTS_MEM_LOCK_SEL5_EQUAL_TO_VALUE,
-	XAIE2_EVENTS_MEM_LOCK_SEL6_ACQ_EQ,
-	XAIE2_EVENTS_MEM_LOCK_SEL6_ACQ_GE,
-	XAIE2_EVENTS_MEM_LOCK_SEL6_EQUAL_TO_VALUE,
-	XAIE2_EVENTS_MEM_LOCK_SEL7_ACQ_EQ,
-	XAIE2_EVENTS_MEM_LOCK_SEL7_ACQ_GE,
-	XAIE2_EVENTS_MEM_LOCK_SEL7_EQUAL_TO_VALUE,
-	XAIE2_EVENTS_MEM_LOCK_ERROR,
-	XAIE2_EVENTS_MEM_DMA_TASK_TOKEN_STALL,
+	XAIE_EVENT_INVALID,
+	XAIE_EVENT_INVALID,
+	XAIE_EVENT_INVALID,
+	XAIE_EVENT_INVALID,
+	XAIE_EVENT_INVALID,
+	XAIE_EVENT_INVALID,
+	XAIE_EVENT_INVALID,
+	XAIE_EVENT_INVALID,
+	XAIE_EVENT_INVALID,
+	XAIE_EVENT_INVALID,
+	XAIE_EVENT_INVALID,
+	XAIE_EVENT_INVALID,
+	XAIEML_EVENTS_MEM_GROUP_MEMORY_CONFLICT,
+	XAIEML_EVENTS_MEM_CONFLICT_DM_BANK_0,
+	XAIEML_EVENTS_MEM_CONFLICT_DM_BANK_1,
+	XAIEML_EVENTS_MEM_CONFLICT_DM_BANK_2,
+	XAIEML_EVENTS_MEM_CONFLICT_DM_BANK_3,
+	XAIEML_EVENTS_MEM_CONFLICT_DM_BANK_4,
+	XAIEML_EVENTS_MEM_CONFLICT_DM_BANK_5,
+	XAIEML_EVENTS_MEM_CONFLICT_DM_BANK_6,
+	XAIEML_EVENTS_MEM_CONFLICT_DM_BANK_7,
+	XAIEML_EVENTS_MEM_GROUP_ERRORS,
+	XAIEML_EVENTS_MEM_DM_ECC_ERROR_SCRUB_CORRECTED,
+	XAIEML_EVENTS_MEM_DM_ECC_ERROR_SCRUB_2BIT,
+	XAIEML_EVENTS_MEM_DM_ECC_ERROR_1BIT,
+	XAIEML_EVENTS_MEM_DM_ECC_ERROR_2BIT,
+	XAIEML_EVENTS_MEM_DM_PARITY_ERROR_BANK_2,
+	XAIEML_EVENTS_MEM_DM_PARITY_ERROR_BANK_3,
+	XAIEML_EVENTS_MEM_DM_PARITY_ERROR_BANK_4,
+	XAIEML_EVENTS_MEM_DM_PARITY_ERROR_BANK_5,
+	XAIEML_EVENTS_MEM_DM_PARITY_ERROR_BANK_6,
+	XAIEML_EVENTS_MEM_DM_PARITY_ERROR_BANK_7,
+	XAIEML_EVENTS_MEM_DMA_S2MM_0_ERROR,
+	XAIEML_EVENTS_MEM_DMA_S2MM_1_ERROR,
+	XAIEML_EVENTS_MEM_DMA_MM2S_0_ERROR,
+	XAIEML_EVENTS_MEM_DMA_MM2S_1_ERROR,
+	XAIEML_EVENTS_MEM_GROUP_BROADCAST,
+	XAIEML_EVENTS_MEM_BROADCAST_0,
+	XAIEML_EVENTS_MEM_BROADCAST_1,
+	XAIEML_EVENTS_MEM_BROADCAST_2,
+	XAIEML_EVENTS_MEM_BROADCAST_3,
+	XAIEML_EVENTS_MEM_BROADCAST_4,
+	XAIEML_EVENTS_MEM_BROADCAST_5,
+	XAIEML_EVENTS_MEM_BROADCAST_6,
+	XAIEML_EVENTS_MEM_BROADCAST_7,
+	XAIEML_EVENTS_MEM_BROADCAST_8,
+	XAIEML_EVENTS_MEM_BROADCAST_9,
+	XAIEML_EVENTS_MEM_BROADCAST_10,
+	XAIEML_EVENTS_MEM_BROADCAST_11,
+	XAIEML_EVENTS_MEM_BROADCAST_12,
+	XAIEML_EVENTS_MEM_BROADCAST_13,
+	XAIEML_EVENTS_MEM_BROADCAST_14,
+	XAIEML_EVENTS_MEM_BROADCAST_15,
+	XAIEML_EVENTS_MEM_GROUP_USER_EVENT,
+	XAIEML_EVENTS_MEM_USER_EVENT_0,
+	XAIEML_EVENTS_MEM_USER_EVENT_1,
+	XAIEML_EVENTS_MEM_USER_EVENT_2,
+	XAIEML_EVENTS_MEM_USER_EVENT_3,
+	XAIEML_EVENTS_MEM_EDGE_DETECTION_EVENT_0,
+	XAIEML_EVENTS_MEM_EDGE_DETECTION_EVENT_1,
+	XAIEML_EVENTS_MEM_DMA_S2MM_0_START_TASK,
+	XAIEML_EVENTS_MEM_DMA_S2MM_1_START_TASK,
+	XAIEML_EVENTS_MEM_DMA_MM2S_0_START_TASK,
+	XAIEML_EVENTS_MEM_DMA_MM2S_1_START_TASK,
+	XAIEML_EVENTS_MEM_DMA_S2MM_0_FINISHED_TASK,
+	XAIEML_EVENTS_MEM_DMA_S2MM_1_FINISHED_TASK,
+	XAIEML_EVENTS_MEM_DMA_MM2S_0_FINISHED_TASK,
+	XAIEML_EVENTS_MEM_DMA_MM2S_1_FINISHED_TASK,
+	XAIEML_EVENTS_MEM_DMA_S2MM_0_STALLED_LOCK,
+	XAIEML_EVENTS_MEM_DMA_S2MM_1_STALLED_LOCK,
+	XAIEML_EVENTS_MEM_DMA_MM2S_0_STALLED_LOCK,
+	XAIEML_EVENTS_MEM_DMA_MM2S_1_STALLED_LOCK,
+	XAIEML_EVENTS_MEM_DMA_S2MM_0_STREAM_STARVATION,
+	XAIEML_EVENTS_MEM_DMA_S2MM_1_STREAM_STARVATION,
+	XAIEML_EVENTS_MEM_DMA_MM2S_0_STREAM_BACKPRESSURE,
+	XAIEML_EVENTS_MEM_DMA_MM2S_1_STREAM_BACKPRESSURE,
+	XAIEML_EVENTS_MEM_DMA_S2MM_0_MEMORY_BACKPRESSURE,
+	XAIEML_EVENTS_MEM_DMA_S2MM_1_MEMORY_BACKPRESSURE,
+	XAIEML_EVENTS_MEM_DMA_MM2S_0_MEMORY_STARVATION,
+	XAIEML_EVENTS_MEM_DMA_MM2S_1_MEMORY_STARVATION,
+	XAIEML_EVENTS_MEM_LOCK_SEL0_ACQ_EQ,
+	XAIEML_EVENTS_MEM_LOCK_SEL0_ACQ_GE,
+	XAIEML_EVENTS_MEM_LOCK_SEL0_EQUAL_TO_VALUE,
+	XAIEML_EVENTS_MEM_LOCK_SEL1_ACQ_EQ,
+	XAIEML_EVENTS_MEM_LOCK_SEL1_ACQ_GE,
+	XAIEML_EVENTS_MEM_LOCK_SEL1_EQUAL_TO_VALUE,
+	XAIEML_EVENTS_MEM_LOCK_SEL2_ACQ_EQ,
+	XAIEML_EVENTS_MEM_LOCK_SEL2_ACQ_GE,
+	XAIEML_EVENTS_MEM_LOCK_SEL2_EQUAL_TO_VALUE,
+	XAIEML_EVENTS_MEM_LOCK_SEL3_ACQ_EQ,
+	XAIEML_EVENTS_MEM_LOCK_SEL3_ACQ_GE,
+	XAIEML_EVENTS_MEM_LOCK_SEL3_EQUAL_TO_VALUE,
+	XAIEML_EVENTS_MEM_LOCK_SEL4_ACQ_EQ,
+	XAIEML_EVENTS_MEM_LOCK_SEL4_ACQ_GE,
+	XAIEML_EVENTS_MEM_LOCK_SEL4_EQUAL_TO_VALUE,
+	XAIEML_EVENTS_MEM_LOCK_SEL5_ACQ_EQ,
+	XAIEML_EVENTS_MEM_LOCK_SEL5_ACQ_GE,
+	XAIEML_EVENTS_MEM_LOCK_SEL5_EQUAL_TO_VALUE,
+	XAIEML_EVENTS_MEM_LOCK_SEL6_ACQ_EQ,
+	XAIEML_EVENTS_MEM_LOCK_SEL6_ACQ_GE,
+	XAIEML_EVENTS_MEM_LOCK_SEL6_EQUAL_TO_VALUE,
+	XAIEML_EVENTS_MEM_LOCK_SEL7_ACQ_EQ,
+	XAIEML_EVENTS_MEM_LOCK_SEL7_ACQ_GE,
+	XAIEML_EVENTS_MEM_LOCK_SEL7_EQUAL_TO_VALUE,
+	XAIEML_EVENTS_MEM_LOCK_ERROR,
+	XAIEML_EVENTS_MEM_DMA_TASK_TOKEN_STALL,
 };
 
-/* Enum to event number mapping of all events of AIE2 NOC tile */
-static const u8 Aie2NocModEventMapping[] =
+/* Enum to event number mapping of all events of AIEML NOC tile */
+static const u8 AieMlNocModEventMapping[] =
 {
-	XAIE2_EVENTS_PL_NONE,
-	XAIE2_EVENTS_PL_TRUE,
-	XAIE2_EVENTS_PL_GROUP_0,
-	XAIE2_EVENTS_PL_TIMER_SYNC,
-	XAIE2_EVENTS_PL_TIMER_VALUE_REACHED,
-	XAIE2_EVENTS_PL_PERF_CNT_0,
-	XAIE2_EVENTS_PL_PERF_CNT_1,
-	XAIE2_EVENTS_PL_COMBO_EVENT_0,
-	XAIE2_EVENTS_PL_COMBO_EVENT_1,
-	XAIE2_EVENTS_PL_COMBO_EVENT_2,
-	XAIE2_EVENTS_PL_COMBO_EVENT_3,
-	XAIE2_EVENTS_PL_GROUP_DMA_ACTIVITY,
+	XAIEML_EVENTS_PL_NONE,
+	XAIEML_EVENTS_PL_TRUE,
+	XAIEML_EVENTS_PL_GROUP_0,
+	XAIEML_EVENTS_PL_TIMER_SYNC,
+	XAIEML_EVENTS_PL_TIMER_VALUE_REACHED,
+	XAIEML_EVENTS_PL_PERF_CNT_0,
+	XAIEML_EVENTS_PL_PERF_CNT_1,
+	XAIEML_EVENTS_PL_COMBO_EVENT_0,
+	XAIEML_EVENTS_PL_COMBO_EVENT_1,
+	XAIEML_EVENTS_PL_COMBO_EVENT_2,
+	XAIEML_EVENTS_PL_COMBO_EVENT_3,
+	XAIEML_EVENTS_PL_GROUP_DMA_ACTIVITY,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
-	XAIE2_EVENTS_PL_DMA_S2MM_0_FINISHED_BD,
-	XAIE2_EVENTS_PL_DMA_S2MM_1_FINISHED_BD,
-	XAIE2_EVENTS_PL_DMA_MM2S_0_FINISHED_BD,
-	XAIE2_EVENTS_PL_DMA_MM2S_1_FINISHED_BD,
-	XAIE_EVENT_INVALID,
-	XAIE_EVENT_INVALID,
-	XAIE_EVENT_INVALID,
-	XAIE_EVENT_INVALID,
-	XAIE_EVENT_INVALID,
-	XAIE_EVENT_INVALID,
-	XAIE_EVENT_INVALID,
-	XAIE_EVENT_INVALID,
-	XAIE2_EVENTS_PL_GROUP_LOCK,
-	XAIE_EVENT_INVALID,
-	XAIE2_EVENTS_PL_LOCK_0_REL,
-	XAIE_EVENT_INVALID,
-	XAIE2_EVENTS_PL_LOCK_1_REL,
-	XAIE_EVENT_INVALID,
-	XAIE2_EVENTS_PL_LOCK_2_REL,
-	XAIE_EVENT_INVALID,
-	XAIE2_EVENTS_PL_LOCK_3_REL,
-	XAIE_EVENT_INVALID,
-	XAIE2_EVENTS_PL_LOCK_4_REL,
-	XAIE_EVENT_INVALID,
-	XAIE2_EVENTS_PL_LOCK_5_REL,
+	XAIEML_EVENTS_PL_DMA_S2MM_0_FINISHED_BD,
+	XAIEML_EVENTS_PL_DMA_S2MM_1_FINISHED_BD,
+	XAIEML_EVENTS_PL_DMA_MM2S_0_FINISHED_BD,
+	XAIEML_EVENTS_PL_DMA_MM2S_1_FINISHED_BD,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
+	XAIE_EVENT_INVALID,
+	XAIE_EVENT_INVALID,
+	XAIE_EVENT_INVALID,
+	XAIEML_EVENTS_PL_GROUP_LOCK,
+	XAIE_EVENT_INVALID,
+	XAIEML_EVENTS_PL_LOCK_0_REL,
+	XAIE_EVENT_INVALID,
+	XAIEML_EVENTS_PL_LOCK_1_REL,
+	XAIE_EVENT_INVALID,
+	XAIEML_EVENTS_PL_LOCK_2_REL,
+	XAIE_EVENT_INVALID,
+	XAIEML_EVENTS_PL_LOCK_3_REL,
+	XAIE_EVENT_INVALID,
+	XAIEML_EVENTS_PL_LOCK_4_REL,
+	XAIE_EVENT_INVALID,
+	XAIEML_EVENTS_PL_LOCK_5_REL,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
@@ -2791,134 +2786,139 @@ static const u8 Aie2NocModEventMapping[] =
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
-	XAIE2_EVENTS_PL_GROUP_ERRORS,
-	XAIE2_EVENTS_PL_AXI_MM_SLAVE_ERROR,
-	XAIE2_EVENTS_PL_CONTROL_PKT_ERROR,
-	XAIE2_EVENTS_PL_AXI_MM_DECODE_NSU_ERROR,
-	XAIE2_EVENTS_PL_AXI_MM_SLAVE_NSU_ERROR,
-	XAIE2_EVENTS_PL_AXI_MM_UNSUPPORTED_TRAFFIC,
-	XAIE2_EVENTS_PL_AXI_MM_UNSECURE_ACCESS_IN_SECURE_MODE,
-	XAIE2_EVENTS_PL_AXI_MM_BYTE_STROBE_ERROR,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
-	XAIE2_EVENTS_PL_GROUP_STREAM_SWITCH,
-	XAIE2_EVENTS_PL_PORT_IDLE_0,
-	XAIE2_EVENTS_PL_PORT_RUNNING_0,
-	XAIE2_EVENTS_PL_PORT_STALLED_0,
-	XAIE2_EVENTS_PL_PORT_TLAST_0,
-	XAIE2_EVENTS_PL_PORT_IDLE_1,
-	XAIE2_EVENTS_PL_PORT_RUNNING_1,
-	XAIE2_EVENTS_PL_PORT_STALLED_1,
-	XAIE2_EVENTS_PL_PORT_TLAST_1,
-	XAIE2_EVENTS_PL_PORT_IDLE_2,
-	XAIE2_EVENTS_PL_PORT_RUNNING_2,
-	XAIE2_EVENTS_PL_PORT_STALLED_2,
-	XAIE2_EVENTS_PL_PORT_TLAST_2,
-	XAIE2_EVENTS_PL_PORT_IDLE_3,
-	XAIE2_EVENTS_PL_PORT_RUNNING_3,
-	XAIE2_EVENTS_PL_PORT_STALLED_3,
-	XAIE2_EVENTS_PL_PORT_TLAST_3,
-	XAIE2_EVENTS_PL_PORT_IDLE_4,
-	XAIE2_EVENTS_PL_PORT_RUNNING_4,
-	XAIE2_EVENTS_PL_PORT_STALLED_4,
-	XAIE2_EVENTS_PL_PORT_TLAST_4,
-	XAIE2_EVENTS_PL_PORT_IDLE_5,
-	XAIE2_EVENTS_PL_PORT_RUNNING_5,
-	XAIE2_EVENTS_PL_PORT_STALLED_5,
-	XAIE2_EVENTS_PL_PORT_TLAST_5,
-	XAIE2_EVENTS_PL_PORT_IDLE_6,
-	XAIE2_EVENTS_PL_PORT_RUNNING_6,
-	XAIE2_EVENTS_PL_PORT_STALLED_6,
-	XAIE2_EVENTS_PL_PORT_TLAST_6,
-	XAIE2_EVENTS_PL_PORT_IDLE_7,
-	XAIE2_EVENTS_PL_PORT_RUNNING_7,
-	XAIE2_EVENTS_PL_PORT_STALLED_7,
-	XAIE2_EVENTS_PL_PORT_TLAST_7,
-	XAIE2_EVENTS_PL_GROUP_BROADCAST_A,
-	XAIE2_EVENTS_PL_BROADCAST_A_0,
-	XAIE2_EVENTS_PL_BROADCAST_A_1,
-	XAIE2_EVENTS_PL_BROADCAST_A_2,
-	XAIE2_EVENTS_PL_BROADCAST_A_3,
-	XAIE2_EVENTS_PL_BROADCAST_A_4,
-	XAIE2_EVENTS_PL_BROADCAST_A_5,
-	XAIE2_EVENTS_PL_BROADCAST_A_6,
-	XAIE2_EVENTS_PL_BROADCAST_A_7,
-	XAIE2_EVENTS_PL_BROADCAST_A_8,
-	XAIE2_EVENTS_PL_BROADCAST_A_9,
-	XAIE2_EVENTS_PL_BROADCAST_A_10,
-	XAIE2_EVENTS_PL_BROADCAST_A_11,
-	XAIE2_EVENTS_PL_BROADCAST_A_12,
-	XAIE2_EVENTS_PL_BROADCAST_A_13,
-	XAIE2_EVENTS_PL_BROADCAST_A_14,
-	XAIE2_EVENTS_PL_BROADCAST_A_15,
 	XAIE_EVENT_INVALID,
-	XAIE2_EVENTS_PL_USER_EVENT_0,
-	XAIE2_EVENTS_PL_USER_EVENT_1,
+	XAIEML_EVENTS_PL_GROUP_ERRORS,
+	XAIEML_EVENTS_PL_AXI_MM_SLAVE_ERROR,
+	XAIEML_EVENTS_PL_CONTROL_PKT_ERROR,
+	XAIEML_EVENTS_PL_AXI_MM_DECODE_NSU_ERROR,
+	XAIEML_EVENTS_PL_AXI_MM_SLAVE_NSU_ERROR,
+	XAIEML_EVENTS_PL_AXI_MM_UNSUPPORTED_TRAFFIC,
+	XAIEML_EVENTS_PL_AXI_MM_UNSECURE_ACCESS_IN_SECURE_MODE,
+	XAIEML_EVENTS_PL_AXI_MM_BYTE_STROBE_ERROR,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
-	XAIE2_EVENTS_PL_EDGE_DETECTION_EVENT_0,
-	XAIE2_EVENTS_PL_EDGE_DETECTION_EVENT_1,
-	XAIE2_EVENTS_PL_DMA_S2MM_0_START_TASK,
-	XAIE2_EVENTS_PL_DMA_S2MM_1_START_TASK,
-	XAIE2_EVENTS_PL_DMA_MM2S_0_START_TASK,
-	XAIE2_EVENTS_PL_DMA_MM2S_1_START_TASK,
-	XAIE2_EVENTS_PL_DMA_S2MM_0_FINISHED_TASK,
-	XAIE2_EVENTS_PL_DMA_S2MM_1_FINISHED_TASK,
-	XAIE2_EVENTS_PL_DMA_MM2S_0_FINISHED_TASK,
-	XAIE2_EVENTS_PL_DMA_MM2S_1_FINISHED_TASK,
-	XAIE2_EVENTS_PL_DMA_S2MM_0_STALLED_LOCK,
-	XAIE2_EVENTS_PL_DMA_S2MM_1_STALLED_LOCK,
-	XAIE2_EVENTS_PL_DMA_MM2S_0_STALLED_LOCK,
-	XAIE2_EVENTS_PL_DMA_MM2S_1_STALLED_LOCK,
-	XAIE2_EVENTS_PL_DMA_S2MM_0_STREAM_STARVATION,
-	XAIE2_EVENTS_PL_DMA_S2MM_1_STREAM_STARVATION,
-	XAIE2_EVENTS_PL_DMA_MM2S_0_STREAM_BACKPRESSURE,
-	XAIE2_EVENTS_PL_DMA_MM2S_1_STREAM_BACKPRESSURE,
-	XAIE2_EVENTS_PL_DMA_S2MM_0_MEMORY_BACKPRESSURE,
-	XAIE2_EVENTS_PL_DMA_S2MM_1_MEMORY_BACKPRESSURE,
-	XAIE2_EVENTS_PL_DMA_MM2S_0_MEMORY_STARVATION,
-	XAIE2_EVENTS_PL_DMA_MM2S_1_MEMORY_STARVATION,
-	XAIE2_EVENTS_PL_LOCK_0_ACQ_EQ,
-	XAIE2_EVENTS_PL_LOCK_0_ACQ_GE,
-	XAIE2_EVENTS_PL_LOCK_0_EQUAL_TO_VALUE,
-	XAIE2_EVENTS_PL_LOCK_1_ACQ_EQ,
-	XAIE2_EVENTS_PL_LOCK_1_ACQ_GE,
-	XAIE2_EVENTS_PL_LOCK_1_EQUAL_TO_VALUE,
-	XAIE2_EVENTS_PL_LOCK_2_ACQ_EQ,
-	XAIE2_EVENTS_PL_LOCK_2_ACQ_GE,
-	XAIE2_EVENTS_PL_LOCK_2_EQUAL_TO_VALUE,
-	XAIE2_EVENTS_PL_LOCK_3_ACQ_EQ,
-	XAIE2_EVENTS_PL_LOCK_3_ACQ_GE,
-	XAIE2_EVENTS_PL_LOCK_3_EQUAL_TO_VALUE,
-	XAIE2_EVENTS_PL_LOCK_4_ACQ_EQ,
-	XAIE2_EVENTS_PL_LOCK_4_ACQ_GE,
-	XAIE2_EVENTS_PL_LOCK_4_EQUAL_TO_VALUE,
-	XAIE2_EVENTS_PL_LOCK_5_ACQ_EQ,
-	XAIE2_EVENTS_PL_LOCK_5_ACQ_GE,
-	XAIE2_EVENTS_PL_LOCK_5_EQUAL_TO_VALUE,
-	XAIE2_EVENTS_PL_STREAM_SWITCH_PARITY_ERROR,
-	XAIE2_EVENTS_PL_DMA_S2MM_ERROR,
-	XAIE2_EVENTS_PL_DMA_MM2S_ERROR,
-	XAIE2_EVENTS_PL_LOCK_ERROR,
-	XAIE2_EVENTS_PL_DMA_TASK_TOKEN_STALL,
+	XAIE_EVENT_INVALID,
+	XAIE_EVENT_INVALID,
+	XAIEML_EVENTS_PL_GROUP_STREAM_SWITCH,
+	XAIEML_EVENTS_PL_PORT_IDLE_0,
+	XAIEML_EVENTS_PL_PORT_RUNNING_0,
+	XAIEML_EVENTS_PL_PORT_STALLED_0,
+	XAIEML_EVENTS_PL_PORT_TLAST_0,
+	XAIEML_EVENTS_PL_PORT_IDLE_1,
+	XAIEML_EVENTS_PL_PORT_RUNNING_1,
+	XAIEML_EVENTS_PL_PORT_STALLED_1,
+	XAIEML_EVENTS_PL_PORT_TLAST_1,
+	XAIEML_EVENTS_PL_PORT_IDLE_2,
+	XAIEML_EVENTS_PL_PORT_RUNNING_2,
+	XAIEML_EVENTS_PL_PORT_STALLED_2,
+	XAIEML_EVENTS_PL_PORT_TLAST_2,
+	XAIEML_EVENTS_PL_PORT_IDLE_3,
+	XAIEML_EVENTS_PL_PORT_RUNNING_3,
+	XAIEML_EVENTS_PL_PORT_STALLED_3,
+	XAIEML_EVENTS_PL_PORT_TLAST_3,
+	XAIEML_EVENTS_PL_PORT_IDLE_4,
+	XAIEML_EVENTS_PL_PORT_RUNNING_4,
+	XAIEML_EVENTS_PL_PORT_STALLED_4,
+	XAIEML_EVENTS_PL_PORT_TLAST_4,
+	XAIEML_EVENTS_PL_PORT_IDLE_5,
+	XAIEML_EVENTS_PL_PORT_RUNNING_5,
+	XAIEML_EVENTS_PL_PORT_STALLED_5,
+	XAIEML_EVENTS_PL_PORT_TLAST_5,
+	XAIEML_EVENTS_PL_PORT_IDLE_6,
+	XAIEML_EVENTS_PL_PORT_RUNNING_6,
+	XAIEML_EVENTS_PL_PORT_STALLED_6,
+	XAIEML_EVENTS_PL_PORT_TLAST_6,
+	XAIEML_EVENTS_PL_PORT_IDLE_7,
+	XAIEML_EVENTS_PL_PORT_RUNNING_7,
+	XAIEML_EVENTS_PL_PORT_STALLED_7,
+	XAIEML_EVENTS_PL_PORT_TLAST_7,
+	XAIEML_EVENTS_PL_GROUP_BROADCAST_A,
+	XAIEML_EVENTS_PL_BROADCAST_A_0,
+	XAIEML_EVENTS_PL_BROADCAST_A_1,
+	XAIEML_EVENTS_PL_BROADCAST_A_2,
+	XAIEML_EVENTS_PL_BROADCAST_A_3,
+	XAIEML_EVENTS_PL_BROADCAST_A_4,
+	XAIEML_EVENTS_PL_BROADCAST_A_5,
+	XAIEML_EVENTS_PL_BROADCAST_A_6,
+	XAIEML_EVENTS_PL_BROADCAST_A_7,
+	XAIEML_EVENTS_PL_BROADCAST_A_8,
+	XAIEML_EVENTS_PL_BROADCAST_A_9,
+	XAIEML_EVENTS_PL_BROADCAST_A_10,
+	XAIEML_EVENTS_PL_BROADCAST_A_11,
+	XAIEML_EVENTS_PL_BROADCAST_A_12,
+	XAIEML_EVENTS_PL_BROADCAST_A_13,
+	XAIEML_EVENTS_PL_BROADCAST_A_14,
+	XAIEML_EVENTS_PL_BROADCAST_A_15,
+	XAIE_EVENT_INVALID,
+	XAIEML_EVENTS_PL_USER_EVENT_0,
+	XAIEML_EVENTS_PL_USER_EVENT_1,
+	XAIE_EVENT_INVALID,
+	XAIE_EVENT_INVALID,
+	XAIEML_EVENTS_PL_EDGE_DETECTION_EVENT_0,
+	XAIEML_EVENTS_PL_EDGE_DETECTION_EVENT_1,
+	XAIEML_EVENTS_PL_DMA_S2MM_0_START_TASK,
+	XAIEML_EVENTS_PL_DMA_S2MM_1_START_TASK,
+	XAIEML_EVENTS_PL_DMA_MM2S_0_START_TASK,
+	XAIEML_EVENTS_PL_DMA_MM2S_1_START_TASK,
+	XAIEML_EVENTS_PL_DMA_S2MM_0_FINISHED_TASK,
+	XAIEML_EVENTS_PL_DMA_S2MM_1_FINISHED_TASK,
+	XAIEML_EVENTS_PL_DMA_MM2S_0_FINISHED_TASK,
+	XAIEML_EVENTS_PL_DMA_MM2S_1_FINISHED_TASK,
+	XAIEML_EVENTS_PL_DMA_S2MM_0_STALLED_LOCK,
+	XAIEML_EVENTS_PL_DMA_S2MM_1_STALLED_LOCK,
+	XAIEML_EVENTS_PL_DMA_MM2S_0_STALLED_LOCK,
+	XAIEML_EVENTS_PL_DMA_MM2S_1_STALLED_LOCK,
+	XAIEML_EVENTS_PL_DMA_S2MM_0_STREAM_STARVATION,
+	XAIEML_EVENTS_PL_DMA_S2MM_1_STREAM_STARVATION,
+	XAIEML_EVENTS_PL_DMA_MM2S_0_STREAM_BACKPRESSURE,
+	XAIEML_EVENTS_PL_DMA_MM2S_1_STREAM_BACKPRESSURE,
+	XAIEML_EVENTS_PL_DMA_S2MM_0_MEMORY_BACKPRESSURE,
+	XAIEML_EVENTS_PL_DMA_S2MM_1_MEMORY_BACKPRESSURE,
+	XAIEML_EVENTS_PL_DMA_MM2S_0_MEMORY_STARVATION,
+	XAIEML_EVENTS_PL_DMA_MM2S_1_MEMORY_STARVATION,
+	XAIEML_EVENTS_PL_LOCK_0_ACQ_EQ,
+	XAIEML_EVENTS_PL_LOCK_0_ACQ_GE,
+	XAIEML_EVENTS_PL_LOCK_0_EQUAL_TO_VALUE,
+	XAIEML_EVENTS_PL_LOCK_1_ACQ_EQ,
+	XAIEML_EVENTS_PL_LOCK_1_ACQ_GE,
+	XAIEML_EVENTS_PL_LOCK_1_EQUAL_TO_VALUE,
+	XAIEML_EVENTS_PL_LOCK_2_ACQ_EQ,
+	XAIEML_EVENTS_PL_LOCK_2_ACQ_GE,
+	XAIEML_EVENTS_PL_LOCK_2_EQUAL_TO_VALUE,
+	XAIEML_EVENTS_PL_LOCK_3_ACQ_EQ,
+	XAIEML_EVENTS_PL_LOCK_3_ACQ_GE,
+	XAIEML_EVENTS_PL_LOCK_3_EQUAL_TO_VALUE,
+	XAIEML_EVENTS_PL_LOCK_4_ACQ_EQ,
+	XAIEML_EVENTS_PL_LOCK_4_ACQ_GE,
+	XAIEML_EVENTS_PL_LOCK_4_EQUAL_TO_VALUE,
+	XAIEML_EVENTS_PL_LOCK_5_ACQ_EQ,
+	XAIEML_EVENTS_PL_LOCK_5_ACQ_GE,
+	XAIEML_EVENTS_PL_LOCK_5_EQUAL_TO_VALUE,
+	XAIEML_EVENTS_PL_STREAM_SWITCH_PARITY_ERROR,
+	XAIEML_EVENTS_PL_DMA_S2MM_ERROR,
+	XAIEML_EVENTS_PL_DMA_MM2S_ERROR,
+	XAIEML_EVENTS_PL_LOCK_ERROR,
+	XAIEML_EVENTS_PL_DMA_TASK_TOKEN_STALL,
 };
 
-/* Enum to event number mapping of all events of AIE2 PL Module */
-static const u8 Aie2PlModEventMapping[] =
+/* Enum to event number mapping of all events of AIEML PL Module */
+static const u8 AieMlPlModEventMapping[] =
 {
-	XAIE2_EVENTS_PL_NONE,
-	XAIE2_EVENTS_PL_TRUE,
-	XAIE2_EVENTS_PL_GROUP_0,
-	XAIE2_EVENTS_PL_TIMER_SYNC,
-	XAIE2_EVENTS_PL_TIMER_VALUE_REACHED,
-	XAIE2_EVENTS_PL_PERF_CNT_0,
-	XAIE2_EVENTS_PL_PERF_CNT_1,
-	XAIE2_EVENTS_PL_COMBO_EVENT_0,
-	XAIE2_EVENTS_PL_COMBO_EVENT_1,
-	XAIE2_EVENTS_PL_COMBO_EVENT_2,
-	XAIE2_EVENTS_PL_COMBO_EVENT_3,
+	XAIEML_EVENTS_PL_NONE,
+	XAIEML_EVENTS_PL_TRUE,
+	XAIEML_EVENTS_PL_GROUP_0,
+	XAIEML_EVENTS_PL_TIMER_SYNC,
+	XAIEML_EVENTS_PL_TIMER_VALUE_REACHED,
+	XAIEML_EVENTS_PL_PERF_CNT_0,
+	XAIEML_EVENTS_PL_PERF_CNT_1,
+	XAIEML_EVENTS_PL_COMBO_EVENT_0,
+	XAIEML_EVENTS_PL_COMBO_EVENT_1,
+	XAIEML_EVENTS_PL_COMBO_EVENT_2,
+	XAIEML_EVENTS_PL_COMBO_EVENT_3,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
@@ -2969,9 +2969,9 @@ static const u8 Aie2PlModEventMapping[] =
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
-	XAIE2_EVENTS_PL_GROUP_ERRORS,
-	XAIE2_EVENTS_PL_AXI_MM_SLAVE_ERROR,
-	XAIE2_EVENTS_PL_CONTROL_PKT_ERROR,
+	XAIEML_EVENTS_PL_GROUP_ERRORS,
+	XAIEML_EVENTS_PL_AXI_MM_SLAVE_ERROR,
+	XAIEML_EVENTS_PL_CONTROL_PKT_ERROR,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
@@ -2981,63 +2981,63 @@ static const u8 Aie2PlModEventMapping[] =
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
-	XAIE2_EVENTS_PL_GROUP_STREAM_SWITCH,
-	XAIE2_EVENTS_PL_PORT_IDLE_0,
-	XAIE2_EVENTS_PL_PORT_RUNNING_0,
-	XAIE2_EVENTS_PL_PORT_STALLED_0,
-	XAIE2_EVENTS_PL_PORT_TLAST_0,
-	XAIE2_EVENTS_PL_PORT_IDLE_1,
-	XAIE2_EVENTS_PL_PORT_RUNNING_1,
-	XAIE2_EVENTS_PL_PORT_STALLED_1,
-	XAIE2_EVENTS_PL_PORT_TLAST_1,
-	XAIE2_EVENTS_PL_PORT_IDLE_2,
-	XAIE2_EVENTS_PL_PORT_RUNNING_2,
-	XAIE2_EVENTS_PL_PORT_STALLED_2,
-	XAIE2_EVENTS_PL_PORT_TLAST_2,
-	XAIE2_EVENTS_PL_PORT_IDLE_3,
-	XAIE2_EVENTS_PL_PORT_RUNNING_3,
-	XAIE2_EVENTS_PL_PORT_STALLED_3,
-	XAIE2_EVENTS_PL_PORT_TLAST_3,
-	XAIE2_EVENTS_PL_PORT_IDLE_4,
-	XAIE2_EVENTS_PL_PORT_RUNNING_4,
-	XAIE2_EVENTS_PL_PORT_STALLED_4,
-	XAIE2_EVENTS_PL_PORT_TLAST_4,
-	XAIE2_EVENTS_PL_PORT_IDLE_5,
-	XAIE2_EVENTS_PL_PORT_RUNNING_5,
-	XAIE2_EVENTS_PL_PORT_STALLED_5,
-	XAIE2_EVENTS_PL_PORT_TLAST_5,
-	XAIE2_EVENTS_PL_PORT_IDLE_6,
-	XAIE2_EVENTS_PL_PORT_RUNNING_6,
-	XAIE2_EVENTS_PL_PORT_STALLED_6,
-	XAIE2_EVENTS_PL_PORT_TLAST_6,
-	XAIE2_EVENTS_PL_PORT_IDLE_7,
-	XAIE2_EVENTS_PL_PORT_RUNNING_7,
-	XAIE2_EVENTS_PL_PORT_STALLED_7,
-	XAIE2_EVENTS_PL_PORT_TLAST_7,
-	XAIE2_EVENTS_PL_GROUP_BROADCAST_A,
-	XAIE2_EVENTS_PL_BROADCAST_A_0,
-	XAIE2_EVENTS_PL_BROADCAST_A_1,
-	XAIE2_EVENTS_PL_BROADCAST_A_2,
-	XAIE2_EVENTS_PL_BROADCAST_A_3,
-	XAIE2_EVENTS_PL_BROADCAST_A_4,
-	XAIE2_EVENTS_PL_BROADCAST_A_5,
-	XAIE2_EVENTS_PL_BROADCAST_A_6,
-	XAIE2_EVENTS_PL_BROADCAST_A_7,
-	XAIE2_EVENTS_PL_BROADCAST_A_8,
-	XAIE2_EVENTS_PL_BROADCAST_A_9,
-	XAIE2_EVENTS_PL_BROADCAST_A_10,
-	XAIE2_EVENTS_PL_BROADCAST_A_11,
-	XAIE2_EVENTS_PL_BROADCAST_A_12,
-	XAIE2_EVENTS_PL_BROADCAST_A_13,
-	XAIE2_EVENTS_PL_BROADCAST_A_14,
-	XAIE2_EVENTS_PL_BROADCAST_A_15,
+	XAIEML_EVENTS_PL_GROUP_STREAM_SWITCH,
+	XAIEML_EVENTS_PL_PORT_IDLE_0,
+	XAIEML_EVENTS_PL_PORT_RUNNING_0,
+	XAIEML_EVENTS_PL_PORT_STALLED_0,
+	XAIEML_EVENTS_PL_PORT_TLAST_0,
+	XAIEML_EVENTS_PL_PORT_IDLE_1,
+	XAIEML_EVENTS_PL_PORT_RUNNING_1,
+	XAIEML_EVENTS_PL_PORT_STALLED_1,
+	XAIEML_EVENTS_PL_PORT_TLAST_1,
+	XAIEML_EVENTS_PL_PORT_IDLE_2,
+	XAIEML_EVENTS_PL_PORT_RUNNING_2,
+	XAIEML_EVENTS_PL_PORT_STALLED_2,
+	XAIEML_EVENTS_PL_PORT_TLAST_2,
+	XAIEML_EVENTS_PL_PORT_IDLE_3,
+	XAIEML_EVENTS_PL_PORT_RUNNING_3,
+	XAIEML_EVENTS_PL_PORT_STALLED_3,
+	XAIEML_EVENTS_PL_PORT_TLAST_3,
+	XAIEML_EVENTS_PL_PORT_IDLE_4,
+	XAIEML_EVENTS_PL_PORT_RUNNING_4,
+	XAIEML_EVENTS_PL_PORT_STALLED_4,
+	XAIEML_EVENTS_PL_PORT_TLAST_4,
+	XAIEML_EVENTS_PL_PORT_IDLE_5,
+	XAIEML_EVENTS_PL_PORT_RUNNING_5,
+	XAIEML_EVENTS_PL_PORT_STALLED_5,
+	XAIEML_EVENTS_PL_PORT_TLAST_5,
+	XAIEML_EVENTS_PL_PORT_IDLE_6,
+	XAIEML_EVENTS_PL_PORT_RUNNING_6,
+	XAIEML_EVENTS_PL_PORT_STALLED_6,
+	XAIEML_EVENTS_PL_PORT_TLAST_6,
+	XAIEML_EVENTS_PL_PORT_IDLE_7,
+	XAIEML_EVENTS_PL_PORT_RUNNING_7,
+	XAIEML_EVENTS_PL_PORT_STALLED_7,
+	XAIEML_EVENTS_PL_PORT_TLAST_7,
+	XAIEML_EVENTS_PL_GROUP_BROADCAST_A,
+	XAIEML_EVENTS_PL_BROADCAST_A_0,
+	XAIEML_EVENTS_PL_BROADCAST_A_1,
+	XAIEML_EVENTS_PL_BROADCAST_A_2,
+	XAIEML_EVENTS_PL_BROADCAST_A_3,
+	XAIEML_EVENTS_PL_BROADCAST_A_4,
+	XAIEML_EVENTS_PL_BROADCAST_A_5,
+	XAIEML_EVENTS_PL_BROADCAST_A_6,
+	XAIEML_EVENTS_PL_BROADCAST_A_7,
+	XAIEML_EVENTS_PL_BROADCAST_A_8,
+	XAIEML_EVENTS_PL_BROADCAST_A_9,
+	XAIEML_EVENTS_PL_BROADCAST_A_10,
+	XAIEML_EVENTS_PL_BROADCAST_A_11,
+	XAIEML_EVENTS_PL_BROADCAST_A_12,
+	XAIEML_EVENTS_PL_BROADCAST_A_13,
+	XAIEML_EVENTS_PL_BROADCAST_A_14,
+	XAIEML_EVENTS_PL_BROADCAST_A_15,
 	XAIE_EVENT_INVALID,
-	XAIE2_EVENTS_PL_USER_EVENT_0,
-	XAIE2_EVENTS_PL_USER_EVENT_1,
+	XAIEML_EVENTS_PL_USER_EVENT_0,
+	XAIEML_EVENTS_PL_USER_EVENT_1,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
-	XAIE2_EVENTS_PL_EDGE_DETECTION_EVENT_0,
-	XAIE2_EVENTS_PL_EDGE_DETECTION_EVENT_1,
+	XAIEML_EVENTS_PL_EDGE_DETECTION_EVENT_0,
+	XAIEML_EVENTS_PL_EDGE_DETECTION_EVENT_1,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
@@ -3076,177 +3076,177 @@ static const u8 Aie2PlModEventMapping[] =
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
-	XAIE2_EVENTS_PL_STREAM_SWITCH_PARITY_ERROR,
+	XAIEML_EVENTS_PL_STREAM_SWITCH_PARITY_ERROR,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
 	XAIE_EVENT_INVALID,
 };
 
-/* Enum to event number mapping of all events of AIE2 Mem Tile Module */
-static const u8 Aie2MemTileModEventMapping[] =
+/* Enum to event number mapping of all events of AIEML Mem Tile Module */
+static const u8 AieMlMemTileModEventMapping[] =
 {
-	XAIE2_EVENTS_MEM_TILE_NONE,
-	XAIE2_EVENTS_MEM_TILE_TRUE,
-	XAIE2_EVENTS_MEM_TILE_GROUP_0,
-	XAIE2_EVENTS_MEM_TILE_TIMER_SYNC,
-	XAIE2_EVENTS_MEM_TILE_TIMER_VALUE_REACHED,
-	XAIE2_EVENTS_MEM_TILE_PERF_CNT0_EVENT,
-	XAIE2_EVENTS_MEM_TILE_PERF_CNT1_EVENT,
-	XAIE2_EVENTS_MEM_TILE_PERF_CNT2_EVENT,
-	XAIE2_EVENTS_MEM_TILE_PERF_CNT3_EVENT,
-	XAIE2_EVENTS_MEM_TILE_COMBO_EVENT_0,
-	XAIE2_EVENTS_MEM_TILE_COMBO_EVENT_1,
-	XAIE2_EVENTS_MEM_TILE_COMBO_EVENT_2,
-	XAIE2_EVENTS_MEM_TILE_COMBO_EVENT_3,
-	XAIE2_EVENTS_MEM_TILE_EDGE_DETECTION_EVENT_0,
-	XAIE2_EVENTS_MEM_TILE_EDGE_DETECTION_EVENT_1,
-	XAIE2_EVENTS_MEM_TILE_GROUP_WATCHPOINT,
-	XAIE2_EVENTS_MEM_TILE_WATCHPOINT_0,
-	XAIE2_EVENTS_MEM_TILE_WATCHPOINT_1,
-	XAIE2_EVENTS_MEM_TILE_WATCHPOINT_2,
-	XAIE2_EVENTS_MEM_TILE_WATCHPOINT_3,
-	XAIE2_EVENTS_MEM_TILE_GROUP_DMA_ACTIVITY,
-	XAIE2_EVENTS_MEM_TILE_DMA_S2MM_SEL0_START_TASK,
-	XAIE2_EVENTS_MEM_TILE_DMA_S2MM_SEL1_START_TASK,
-	XAIE2_EVENTS_MEM_TILE_DMA_MM2S_SEL0_START_TASK,
-	XAIE2_EVENTS_MEM_TILE_DMA_MM2S_SEL1_START_TASK,
-	XAIE2_EVENTS_MEM_TILE_DMA_S2MM_SEL0_FINISHED_BD,
-	XAIE2_EVENTS_MEM_TILE_DMA_S2MM_SEL1_FINISHED_BD,
-	XAIE2_EVENTS_MEM_TILE_DMA_MM2S_SEL0_FINISHED_BD,
-	XAIE2_EVENTS_MEM_TILE_DMA_MM2S_SEL1_FINISHED_BD,
-	XAIE2_EVENTS_MEM_TILE_DMA_S2MM_SEL0_FINISHED_TASK,
-	XAIE2_EVENTS_MEM_TILE_DMA_S2MM_SEL1_FINISHED_TASK,
-	XAIE2_EVENTS_MEM_TILE_DMA_MM2S_SEL0_FINISHED_TASK,
-	XAIE2_EVENTS_MEM_TILE_DMA_MM2S_SEL1_FINISHED_TASK,
-	XAIE2_EVENTS_MEM_TILE_DMA_S2MM_SEL0_STALLED_LOCK,
-	XAIE2_EVENTS_MEM_TILE_DMA_S2MM_SEL1_STALLED_LOCK,
-	XAIE2_EVENTS_MEM_TILE_DMA_MM2S_SEL0_STALLED_LOCK,
-	XAIE2_EVENTS_MEM_TILE_DMA_MM2S_SEL1_STALLED_LOCK,
-	XAIE2_EVENTS_MEM_TILE_DMA_S2MM_SEL0_STREAM_STARVATION,
-	XAIE2_EVENTS_MEM_TILE_DMA_S2MM_SEL1_STREAM_STARVATION,
-	XAIE2_EVENTS_MEM_TILE_DMA_MM2S_SEL0_STREAM_BACKPRESSURE,
-	XAIE2_EVENTS_MEM_TILE_DMA_MM2S_SEL1_STREAM_BACKPRESSURE,
-	XAIE2_EVENTS_MEM_TILE_DMA_S2MM_SEL0_MEMORY_BACKPRESSURE,
-	XAIE2_EVENTS_MEM_TILE_DMA_S2MM_SEL1_MEMORY_BACKPRESSURE,
-	XAIE2_EVENTS_MEM_TILE_DMA_MM2S_SEL0_MEMORY_STARVATION,
-	XAIE2_EVENTS_MEM_TILE_DMA_MM2S_SEL1_MEMORY_STARVATION,
-	XAIE2_EVENTS_MEM_TILE_GROUP_LOCK,
-	XAIE2_EVENTS_MEM_TILE_LOCK_SEL0_ACQ_EQ,
-	XAIE2_EVENTS_MEM_TILE_LOCK_SEL0_ACQ_GE,
-	XAIE2_EVENTS_MEM_TILE_LOCK_SEL0_REL,
-	XAIE2_EVENTS_MEM_TILE_LOCK_SEL0_EQUAL_TO_VALUE,
-	XAIE2_EVENTS_MEM_TILE_LOCK_SEL1_ACQ_EQ,
-	XAIE2_EVENTS_MEM_TILE_LOCK_SEL1_ACQ_GE,
-	XAIE2_EVENTS_MEM_TILE_LOCK_SEL1_REL,
-	XAIE2_EVENTS_MEM_TILE_LOCK_SEL1_EQUAL_TO_VALUE,
-	XAIE2_EVENTS_MEM_TILE_LOCK_SEL2_ACQ_EQ,
-	XAIE2_EVENTS_MEM_TILE_LOCK_SEL2_ACQ_GE,
-	XAIE2_EVENTS_MEM_TILE_LOCK_SEL2_REL,
-	XAIE2_EVENTS_MEM_TILE_LOCK_SEL2_EQUAL_TO_VALUE,
-	XAIE2_EVENTS_MEM_TILE_LOCK_SEL3_ACQ_EQ,
-	XAIE2_EVENTS_MEM_TILE_LOCK_SEL3_ACQ_GE,
-	XAIE2_EVENTS_MEM_TILE_LOCK_SEL3_REL,
-	XAIE2_EVENTS_MEM_TILE_LOCK_SEL3_EQUAL_TO_VALUE,
-	XAIE2_EVENTS_MEM_TILE_LOCK_SEL4_ACQ_EQ,
-	XAIE2_EVENTS_MEM_TILE_LOCK_SEL4_ACQ_GE,
-	XAIE2_EVENTS_MEM_TILE_LOCK_SEL4_REL,
-	XAIE2_EVENTS_MEM_TILE_LOCK_SEL4_EQUAL_TO_VALUE,
-	XAIE2_EVENTS_MEM_TILE_LOCK_SEL5_ACQ_EQ,
-	XAIE2_EVENTS_MEM_TILE_LOCK_SEL5_ACQ_GE,
-	XAIE2_EVENTS_MEM_TILE_LOCK_SEL5_REL,
-	XAIE2_EVENTS_MEM_TILE_LOCK_SEL5_EQUAL_TO_VALUE,
-	XAIE2_EVENTS_MEM_TILE_LOCK_SEL6_ACQ_EQ,
-	XAIE2_EVENTS_MEM_TILE_LOCK_SEL6_ACQ_GE,
-	XAIE2_EVENTS_MEM_TILE_LOCK_SEL6_REL,
-	XAIE2_EVENTS_MEM_TILE_LOCK_SEL6_EQUAL_TO_VALUE,
-	XAIE2_EVENTS_MEM_TILE_LOCK_SEL7_ACQ_EQ,
-	XAIE2_EVENTS_MEM_TILE_LOCK_SEL7_ACQ_GE,
-	XAIE2_EVENTS_MEM_TILE_LOCK_SEL7_REL,
-	XAIE2_EVENTS_MEM_TILE_LOCK_SEL7_EQUAL_TO_VALUE,
-	XAIE2_EVENTS_MEM_TILE_GROUP_STREAM_SWITCH,
-	XAIE2_EVENTS_MEM_TILE_PORT_IDLE_0,
-	XAIE2_EVENTS_MEM_TILE_PORT_RUNNING_0,
-	XAIE2_EVENTS_MEM_TILE_PORT_STALLED_0,
-	XAIE2_EVENTS_MEM_TILE_PORT_TLAST_0,
-	XAIE2_EVENTS_MEM_TILE_PORT_IDLE_1,
-	XAIE2_EVENTS_MEM_TILE_PORT_RUNNING_1,
-	XAIE2_EVENTS_MEM_TILE_PORT_STALLED_1,
-	XAIE2_EVENTS_MEM_TILE_PORT_TLAST_1,
-	XAIE2_EVENTS_MEM_TILE_PORT_IDLE_2,
-	XAIE2_EVENTS_MEM_TILE_PORT_RUNNING_2,
-	XAIE2_EVENTS_MEM_TILE_PORT_STALLED_2,
-	XAIE2_EVENTS_MEM_TILE_PORT_TLAST_2,
-	XAIE2_EVENTS_MEM_TILE_PORT_IDLE_3,
-	XAIE2_EVENTS_MEM_TILE_PORT_RUNNING_3,
-	XAIE2_EVENTS_MEM_TILE_PORT_STALLED_3,
-	XAIE2_EVENTS_MEM_TILE_PORT_TLAST_3,
-	XAIE2_EVENTS_MEM_TILE_PORT_IDLE_4,
-	XAIE2_EVENTS_MEM_TILE_PORT_RUNNING_4,
-	XAIE2_EVENTS_MEM_TILE_PORT_STALLED_4,
-	XAIE2_EVENTS_MEM_TILE_PORT_TLAST_4,
-	XAIE2_EVENTS_MEM_TILE_PORT_IDLE_5,
-	XAIE2_EVENTS_MEM_TILE_PORT_RUNNING_5,
-	XAIE2_EVENTS_MEM_TILE_PORT_STALLED_5,
-	XAIE2_EVENTS_MEM_TILE_PORT_TLAST_5,
-	XAIE2_EVENTS_MEM_TILE_PORT_IDLE_6,
-	XAIE2_EVENTS_MEM_TILE_PORT_RUNNING_6,
-	XAIE2_EVENTS_MEM_TILE_PORT_STALLED_6,
-	XAIE2_EVENTS_MEM_TILE_PORT_TLAST_6,
-	XAIE2_EVENTS_MEM_TILE_PORT_IDLE_7,
-	XAIE2_EVENTS_MEM_TILE_PORT_RUNNING_7,
-	XAIE2_EVENTS_MEM_TILE_PORT_STALLED_7,
-	XAIE2_EVENTS_MEM_TILE_PORT_TLAST_7,
-	XAIE2_EVENTS_MEM_TILE_GROUP_MEMORY_CONFLICT,
-	XAIE2_EVENTS_MEM_TILE_CONFLICT_DM_BANK_0,
-	XAIE2_EVENTS_MEM_TILE_CONFLICT_DM_BANK_1,
-	XAIE2_EVENTS_MEM_TILE_CONFLICT_DM_BANK_2,
-	XAIE2_EVENTS_MEM_TILE_CONFLICT_DM_BANK_3,
-	XAIE2_EVENTS_MEM_TILE_CONFLICT_DM_BANK_4,
-	XAIE2_EVENTS_MEM_TILE_CONFLICT_DM_BANK_5,
-	XAIE2_EVENTS_MEM_TILE_CONFLICT_DM_BANK_6,
-	XAIE2_EVENTS_MEM_TILE_CONFLICT_DM_BANK_7,
-	XAIE2_EVENTS_MEM_TILE_CONFLICT_DM_BANK_8,
-	XAIE2_EVENTS_MEM_TILE_CONFLICT_DM_BANK_9,
-	XAIE2_EVENTS_MEM_TILE_CONFLICT_DM_BANK_10,
-	XAIE2_EVENTS_MEM_TILE_CONFLICT_DM_BANK_11,
-	XAIE2_EVENTS_MEM_TILE_CONFLICT_DM_BANK_12,
-	XAIE2_EVENTS_MEM_TILE_CONFLICT_DM_BANK_13,
-	XAIE2_EVENTS_MEM_TILE_CONFLICT_DM_BANK_14,
-	XAIE2_EVENTS_MEM_TILE_CONFLICT_DM_BANK_15,
-	XAIE2_EVENTS_MEM_TILE_GROUP_ERRORS,
-	XAIE2_EVENTS_MEM_TILE_DM_ECC_ERROR_SCRUB_CORRECTED,
-	XAIE2_EVENTS_MEM_TILE_DM_ECC_ERROR_SCRUB_2BIT,
-	XAIE2_EVENTS_MEM_TILE_DM_ECC_ERROR_1BIT,
-	XAIE2_EVENTS_MEM_TILE_DM_ECC_ERROR_2BIT,
-	XAIE2_EVENTS_MEM_TILE_DMA_S2MM_ERROR,
-	XAIE2_EVENTS_MEM_TILE_DMA_MM2S_ERROR,
-	XAIE2_EVENTS_MEM_TILE_STREAM_SWITCH_PARITY_ERROR,
-	XAIE2_EVENTS_MEM_TILE_STREAM_PKT_ERROR,
-	XAIE2_EVENTS_MEM_TILE_CONTROL_PKT_ERROR,
-	XAIE2_EVENTS_MEM_TILE_AXI_MM_SLAVE_ERROR,
-	XAIE2_EVENTS_MEM_TILE_LOCK_ERROR,
-	XAIE2_EVENTS_MEM_TILE_DMA_TASK_TOKEN_STALL,
-	XAIE2_EVENTS_MEM_TILE_GROUP_BROADCAST,
-	XAIE2_EVENTS_MEM_TILE_BROADCAST_0,
-	XAIE2_EVENTS_MEM_TILE_BROADCAST_1,
-	XAIE2_EVENTS_MEM_TILE_BROADCAST_2,
-	XAIE2_EVENTS_MEM_TILE_BROADCAST_3,
-	XAIE2_EVENTS_MEM_TILE_BROADCAST_4,
-	XAIE2_EVENTS_MEM_TILE_BROADCAST_5,
-	XAIE2_EVENTS_MEM_TILE_BROADCAST_6,
-	XAIE2_EVENTS_MEM_TILE_BROADCAST_7,
-	XAIE2_EVENTS_MEM_TILE_BROADCAST_8,
-	XAIE2_EVENTS_MEM_TILE_BROADCAST_9,
-	XAIE2_EVENTS_MEM_TILE_BROADCAST_10,
-	XAIE2_EVENTS_MEM_TILE_BROADCAST_11,
-	XAIE2_EVENTS_MEM_TILE_BROADCAST_12,
-	XAIE2_EVENTS_MEM_TILE_BROADCAST_13,
-	XAIE2_EVENTS_MEM_TILE_BROADCAST_14,
-	XAIE2_EVENTS_MEM_TILE_BROADCAST_15,
-	XAIE2_EVENTS_MEM_TILE_GROUP_USER_EVENT,
-	XAIE2_EVENTS_MEM_TILE_USER_EVENT_0,
-	XAIE2_EVENTS_MEM_TILE_USER_EVENT_1,
+	XAIEML_EVENTS_MEM_TILE_NONE,
+	XAIEML_EVENTS_MEM_TILE_TRUE,
+	XAIEML_EVENTS_MEM_TILE_GROUP_0,
+	XAIEML_EVENTS_MEM_TILE_TIMER_SYNC,
+	XAIEML_EVENTS_MEM_TILE_TIMER_VALUE_REACHED,
+	XAIEML_EVENTS_MEM_TILE_PERF_CNT0_EVENT,
+	XAIEML_EVENTS_MEM_TILE_PERF_CNT1_EVENT,
+	XAIEML_EVENTS_MEM_TILE_PERF_CNT2_EVENT,
+	XAIEML_EVENTS_MEM_TILE_PERF_CNT3_EVENT,
+	XAIEML_EVENTS_MEM_TILE_COMBO_EVENT_0,
+	XAIEML_EVENTS_MEM_TILE_COMBO_EVENT_1,
+	XAIEML_EVENTS_MEM_TILE_COMBO_EVENT_2,
+	XAIEML_EVENTS_MEM_TILE_COMBO_EVENT_3,
+	XAIEML_EVENTS_MEM_TILE_EDGE_DETECTION_EVENT_0,
+	XAIEML_EVENTS_MEM_TILE_EDGE_DETECTION_EVENT_1,
+	XAIEML_EVENTS_MEM_TILE_GROUP_WATCHPOINT,
+	XAIEML_EVENTS_MEM_TILE_WATCHPOINT_0,
+	XAIEML_EVENTS_MEM_TILE_WATCHPOINT_1,
+	XAIEML_EVENTS_MEM_TILE_WATCHPOINT_2,
+	XAIEML_EVENTS_MEM_TILE_WATCHPOINT_3,
+	XAIEML_EVENTS_MEM_TILE_GROUP_DMA_ACTIVITY,
+	XAIEML_EVENTS_MEM_TILE_DMA_S2MM_SEL0_START_TASK,
+	XAIEML_EVENTS_MEM_TILE_DMA_S2MM_SEL1_START_TASK,
+	XAIEML_EVENTS_MEM_TILE_DMA_MM2S_SEL0_START_TASK,
+	XAIEML_EVENTS_MEM_TILE_DMA_MM2S_SEL1_START_TASK,
+	XAIEML_EVENTS_MEM_TILE_DMA_S2MM_SEL0_FINISHED_BD,
+	XAIEML_EVENTS_MEM_TILE_DMA_S2MM_SEL1_FINISHED_BD,
+	XAIEML_EVENTS_MEM_TILE_DMA_MM2S_SEL0_FINISHED_BD,
+	XAIEML_EVENTS_MEM_TILE_DMA_MM2S_SEL1_FINISHED_BD,
+	XAIEML_EVENTS_MEM_TILE_DMA_S2MM_SEL0_FINISHED_TASK,
+	XAIEML_EVENTS_MEM_TILE_DMA_S2MM_SEL1_FINISHED_TASK,
+	XAIEML_EVENTS_MEM_TILE_DMA_MM2S_SEL0_FINISHED_TASK,
+	XAIEML_EVENTS_MEM_TILE_DMA_MM2S_SEL1_FINISHED_TASK,
+	XAIEML_EVENTS_MEM_TILE_DMA_S2MM_SEL0_STALLED_LOCK,
+	XAIEML_EVENTS_MEM_TILE_DMA_S2MM_SEL1_STALLED_LOCK,
+	XAIEML_EVENTS_MEM_TILE_DMA_MM2S_SEL0_STALLED_LOCK,
+	XAIEML_EVENTS_MEM_TILE_DMA_MM2S_SEL1_STALLED_LOCK,
+	XAIEML_EVENTS_MEM_TILE_DMA_S2MM_SEL0_STREAM_STARVATION,
+	XAIEML_EVENTS_MEM_TILE_DMA_S2MM_SEL1_STREAM_STARVATION,
+	XAIEML_EVENTS_MEM_TILE_DMA_MM2S_SEL0_STREAM_BACKPRESSURE,
+	XAIEML_EVENTS_MEM_TILE_DMA_MM2S_SEL1_STREAM_BACKPRESSURE,
+	XAIEML_EVENTS_MEM_TILE_DMA_S2MM_SEL0_MEMORY_BACKPRESSURE,
+	XAIEML_EVENTS_MEM_TILE_DMA_S2MM_SEL1_MEMORY_BACKPRESSURE,
+	XAIEML_EVENTS_MEM_TILE_DMA_MM2S_SEL0_MEMORY_STARVATION,
+	XAIEML_EVENTS_MEM_TILE_DMA_MM2S_SEL1_MEMORY_STARVATION,
+	XAIEML_EVENTS_MEM_TILE_GROUP_LOCK,
+	XAIEML_EVENTS_MEM_TILE_LOCK_SEL0_ACQ_EQ,
+	XAIEML_EVENTS_MEM_TILE_LOCK_SEL0_ACQ_GE,
+	XAIEML_EVENTS_MEM_TILE_LOCK_SEL0_REL,
+	XAIEML_EVENTS_MEM_TILE_LOCK_SEL0_EQUAL_TO_VALUE,
+	XAIEML_EVENTS_MEM_TILE_LOCK_SEL1_ACQ_EQ,
+	XAIEML_EVENTS_MEM_TILE_LOCK_SEL1_ACQ_GE,
+	XAIEML_EVENTS_MEM_TILE_LOCK_SEL1_REL,
+	XAIEML_EVENTS_MEM_TILE_LOCK_SEL1_EQUAL_TO_VALUE,
+	XAIEML_EVENTS_MEM_TILE_LOCK_SEL2_ACQ_EQ,
+	XAIEML_EVENTS_MEM_TILE_LOCK_SEL2_ACQ_GE,
+	XAIEML_EVENTS_MEM_TILE_LOCK_SEL2_REL,
+	XAIEML_EVENTS_MEM_TILE_LOCK_SEL2_EQUAL_TO_VALUE,
+	XAIEML_EVENTS_MEM_TILE_LOCK_SEL3_ACQ_EQ,
+	XAIEML_EVENTS_MEM_TILE_LOCK_SEL3_ACQ_GE,
+	XAIEML_EVENTS_MEM_TILE_LOCK_SEL3_REL,
+	XAIEML_EVENTS_MEM_TILE_LOCK_SEL3_EQUAL_TO_VALUE,
+	XAIEML_EVENTS_MEM_TILE_LOCK_SEL4_ACQ_EQ,
+	XAIEML_EVENTS_MEM_TILE_LOCK_SEL4_ACQ_GE,
+	XAIEML_EVENTS_MEM_TILE_LOCK_SEL4_REL,
+	XAIEML_EVENTS_MEM_TILE_LOCK_SEL4_EQUAL_TO_VALUE,
+	XAIEML_EVENTS_MEM_TILE_LOCK_SEL5_ACQ_EQ,
+	XAIEML_EVENTS_MEM_TILE_LOCK_SEL5_ACQ_GE,
+	XAIEML_EVENTS_MEM_TILE_LOCK_SEL5_REL,
+	XAIEML_EVENTS_MEM_TILE_LOCK_SEL5_EQUAL_TO_VALUE,
+	XAIEML_EVENTS_MEM_TILE_LOCK_SEL6_ACQ_EQ,
+	XAIEML_EVENTS_MEM_TILE_LOCK_SEL6_ACQ_GE,
+	XAIEML_EVENTS_MEM_TILE_LOCK_SEL6_REL,
+	XAIEML_EVENTS_MEM_TILE_LOCK_SEL6_EQUAL_TO_VALUE,
+	XAIEML_EVENTS_MEM_TILE_LOCK_SEL7_ACQ_EQ,
+	XAIEML_EVENTS_MEM_TILE_LOCK_SEL7_ACQ_GE,
+	XAIEML_EVENTS_MEM_TILE_LOCK_SEL7_REL,
+	XAIEML_EVENTS_MEM_TILE_LOCK_SEL7_EQUAL_TO_VALUE,
+	XAIEML_EVENTS_MEM_TILE_GROUP_STREAM_SWITCH,
+	XAIEML_EVENTS_MEM_TILE_PORT_IDLE_0,
+	XAIEML_EVENTS_MEM_TILE_PORT_RUNNING_0,
+	XAIEML_EVENTS_MEM_TILE_PORT_STALLED_0,
+	XAIEML_EVENTS_MEM_TILE_PORT_TLAST_0,
+	XAIEML_EVENTS_MEM_TILE_PORT_IDLE_1,
+	XAIEML_EVENTS_MEM_TILE_PORT_RUNNING_1,
+	XAIEML_EVENTS_MEM_TILE_PORT_STALLED_1,
+	XAIEML_EVENTS_MEM_TILE_PORT_TLAST_1,
+	XAIEML_EVENTS_MEM_TILE_PORT_IDLE_2,
+	XAIEML_EVENTS_MEM_TILE_PORT_RUNNING_2,
+	XAIEML_EVENTS_MEM_TILE_PORT_STALLED_2,
+	XAIEML_EVENTS_MEM_TILE_PORT_TLAST_2,
+	XAIEML_EVENTS_MEM_TILE_PORT_IDLE_3,
+	XAIEML_EVENTS_MEM_TILE_PORT_RUNNING_3,
+	XAIEML_EVENTS_MEM_TILE_PORT_STALLED_3,
+	XAIEML_EVENTS_MEM_TILE_PORT_TLAST_3,
+	XAIEML_EVENTS_MEM_TILE_PORT_IDLE_4,
+	XAIEML_EVENTS_MEM_TILE_PORT_RUNNING_4,
+	XAIEML_EVENTS_MEM_TILE_PORT_STALLED_4,
+	XAIEML_EVENTS_MEM_TILE_PORT_TLAST_4,
+	XAIEML_EVENTS_MEM_TILE_PORT_IDLE_5,
+	XAIEML_EVENTS_MEM_TILE_PORT_RUNNING_5,
+	XAIEML_EVENTS_MEM_TILE_PORT_STALLED_5,
+	XAIEML_EVENTS_MEM_TILE_PORT_TLAST_5,
+	XAIEML_EVENTS_MEM_TILE_PORT_IDLE_6,
+	XAIEML_EVENTS_MEM_TILE_PORT_RUNNING_6,
+	XAIEML_EVENTS_MEM_TILE_PORT_STALLED_6,
+	XAIEML_EVENTS_MEM_TILE_PORT_TLAST_6,
+	XAIEML_EVENTS_MEM_TILE_PORT_IDLE_7,
+	XAIEML_EVENTS_MEM_TILE_PORT_RUNNING_7,
+	XAIEML_EVENTS_MEM_TILE_PORT_STALLED_7,
+	XAIEML_EVENTS_MEM_TILE_PORT_TLAST_7,
+	XAIEML_EVENTS_MEM_TILE_GROUP_MEMORY_CONFLICT,
+	XAIEML_EVENTS_MEM_TILE_CONFLICT_DM_BANK_0,
+	XAIEML_EVENTS_MEM_TILE_CONFLICT_DM_BANK_1,
+	XAIEML_EVENTS_MEM_TILE_CONFLICT_DM_BANK_2,
+	XAIEML_EVENTS_MEM_TILE_CONFLICT_DM_BANK_3,
+	XAIEML_EVENTS_MEM_TILE_CONFLICT_DM_BANK_4,
+	XAIEML_EVENTS_MEM_TILE_CONFLICT_DM_BANK_5,
+	XAIEML_EVENTS_MEM_TILE_CONFLICT_DM_BANK_6,
+	XAIEML_EVENTS_MEM_TILE_CONFLICT_DM_BANK_7,
+	XAIEML_EVENTS_MEM_TILE_CONFLICT_DM_BANK_8,
+	XAIEML_EVENTS_MEM_TILE_CONFLICT_DM_BANK_9,
+	XAIEML_EVENTS_MEM_TILE_CONFLICT_DM_BANK_10,
+	XAIEML_EVENTS_MEM_TILE_CONFLICT_DM_BANK_11,
+	XAIEML_EVENTS_MEM_TILE_CONFLICT_DM_BANK_12,
+	XAIEML_EVENTS_MEM_TILE_CONFLICT_DM_BANK_13,
+	XAIEML_EVENTS_MEM_TILE_CONFLICT_DM_BANK_14,
+	XAIEML_EVENTS_MEM_TILE_CONFLICT_DM_BANK_15,
+	XAIEML_EVENTS_MEM_TILE_GROUP_ERRORS,
+	XAIEML_EVENTS_MEM_TILE_DM_ECC_ERROR_SCRUB_CORRECTED,
+	XAIEML_EVENTS_MEM_TILE_DM_ECC_ERROR_SCRUB_2BIT,
+	XAIEML_EVENTS_MEM_TILE_DM_ECC_ERROR_1BIT,
+	XAIEML_EVENTS_MEM_TILE_DM_ECC_ERROR_2BIT,
+	XAIEML_EVENTS_MEM_TILE_DMA_S2MM_ERROR,
+	XAIEML_EVENTS_MEM_TILE_DMA_MM2S_ERROR,
+	XAIEML_EVENTS_MEM_TILE_STREAM_SWITCH_PARITY_ERROR,
+	XAIEML_EVENTS_MEM_TILE_STREAM_PKT_ERROR,
+	XAIEML_EVENTS_MEM_TILE_CONTROL_PKT_ERROR,
+	XAIEML_EVENTS_MEM_TILE_AXI_MM_SLAVE_ERROR,
+	XAIEML_EVENTS_MEM_TILE_LOCK_ERROR,
+	XAIEML_EVENTS_MEM_TILE_DMA_TASK_TOKEN_STALL,
+	XAIEML_EVENTS_MEM_TILE_GROUP_BROADCAST,
+	XAIEML_EVENTS_MEM_TILE_BROADCAST_0,
+	XAIEML_EVENTS_MEM_TILE_BROADCAST_1,
+	XAIEML_EVENTS_MEM_TILE_BROADCAST_2,
+	XAIEML_EVENTS_MEM_TILE_BROADCAST_3,
+	XAIEML_EVENTS_MEM_TILE_BROADCAST_4,
+	XAIEML_EVENTS_MEM_TILE_BROADCAST_5,
+	XAIEML_EVENTS_MEM_TILE_BROADCAST_6,
+	XAIEML_EVENTS_MEM_TILE_BROADCAST_7,
+	XAIEML_EVENTS_MEM_TILE_BROADCAST_8,
+	XAIEML_EVENTS_MEM_TILE_BROADCAST_9,
+	XAIEML_EVENTS_MEM_TILE_BROADCAST_10,
+	XAIEML_EVENTS_MEM_TILE_BROADCAST_11,
+	XAIEML_EVENTS_MEM_TILE_BROADCAST_12,
+	XAIEML_EVENTS_MEM_TILE_BROADCAST_13,
+	XAIEML_EVENTS_MEM_TILE_BROADCAST_14,
+	XAIEML_EVENTS_MEM_TILE_BROADCAST_15,
+	XAIEML_EVENTS_MEM_TILE_GROUP_USER_EVENT,
+	XAIEML_EVENTS_MEM_TILE_USER_EVENT_0,
+	XAIEML_EVENTS_MEM_TILE_USER_EVENT_1,
 };
 #endif /* XAIE_FEATURE_EVENTS_ENABLE */
 
@@ -3255,7 +3255,7 @@ static const u8 Aie2MemTileModEventMapping[] =
  * Data structure to capture registers & offsets for Core and memory Module of
  * performance counter.
  */
-static const XAie_PerfMod Aie2TilePerfCnt[] =
+static const XAie_PerfMod AieMlTilePerfCnt[] =
 {
 	{	.MaxCounterVal = 2U,
 		.StartStopShift = 16U,
@@ -3289,7 +3289,7 @@ static const XAie_PerfMod Aie2TilePerfCnt[] =
  * Data structure to capture registers & offsets for PL Module of performance
  * counter.
  */
-static const XAie_PerfMod Aie2PlPerfCnt =
+static const XAie_PerfMod AieMlPlPerfCnt =
 {
 	.MaxCounterVal = 2U,
 	.StartStopShift = 16U,
@@ -3308,7 +3308,7 @@ static const XAie_PerfMod Aie2PlPerfCnt =
  * Data structure to capture registers & offsets for Mem tile Module of
  * performance counter.
  */
-static const XAie_PerfMod Aie2MemTilePerfCnt =
+static const XAie_PerfMod AieMlMemTilePerfCnt =
 {
 	.MaxCounterVal = 4U,
 	.StartStopShift = 16U,
@@ -3326,7 +3326,7 @@ static const XAie_PerfMod Aie2MemTilePerfCnt =
 #endif /* XAIE_FEATURE_PERFCOUNT_ENABLE */
 
 #ifdef XAIE_FEATURE_EVENTS_ENABLE
-static const XAie_EventGroup Aie2MemGroupEvent[] =
+static const XAie_EventGroup AieMlMemGroupEvent[] =
 {
 	{
 		.GroupEvent = XAIE_EVENT_GROUP_0_MEM,
@@ -3378,7 +3378,7 @@ static const XAie_EventGroup Aie2MemGroupEvent[] =
 	},
 };
 
-static const XAie_EventGroup Aie2CoreGroupEvent[] =
+static const XAie_EventGroup AieMlCoreGroupEvent[] =
 {
 	{
 		.GroupEvent = XAIE_EVENT_GROUP_0_CORE,
@@ -3436,7 +3436,7 @@ static const XAie_EventGroup Aie2CoreGroupEvent[] =
 	},
 };
 
-static const XAie_EventGroup Aie2PlGroupEvent[] =
+static const XAie_EventGroup AieMlPlGroupEvent[] =
 {
 	{
 		.GroupEvent = XAIE_EVENT_GROUP_0_PL,
@@ -3476,7 +3476,7 @@ static const XAie_EventGroup Aie2PlGroupEvent[] =
 	},
 };
 
-static const XAie_EventGroup Aie2MemTileGroupEvent[] = {
+static const XAie_EventGroup AieMlMemTileGroupEvent[] = {
 	{
 		.GroupEvent = XAIE_EVENT_GROUP_0_MEM_TILE,
 		.GroupOff = 0U,
@@ -3627,10 +3627,10 @@ static const XAie_EventMap AieMlMemTileMemModBroadcastEventStart =
  *	Stream_Switch_Port_Parity_Error,
  *	Processor_Bus_Error.
  */
-static const XAie_EvntMod Aie2TileEvntMod[] =
+static const XAie_EvntMod AieMlTileEvntMod[] =
 {
 	{
-		.XAie_EventNumber = Aie2MemModEventMapping,
+		.XAie_EventNumber = AieMlMemModEventMapping,
 		.EventMin = XAIE_EVENT_NONE_MEM,
 		.EventMax = XAIE_EVENT_DMA_TASK_TOKEN_STALL_MEM,
 		.ComboEventBase = XAIE_EVENT_COMBO_EVENT_0_MEM,
@@ -3663,7 +3663,7 @@ static const XAie_EvntMod Aie2TileEvntMod[] =
 		.BaseGroupEventRegOff = XAIEMLGBL_MEMORY_MODULE_EVENT_GROUP_0_ENABLE,
 		.NumGroupEvents = 8U,
 		.DefaultGroupErrorMask = 0x7FFAU,
-		.Group = Aie2MemGroupEvent,
+		.Group = AieMlMemGroupEvent,
 		.BasePCEventRegOff = XAIE_FEATURE_UNAVAILABLE,
 		.NumPCEvents = XAIE_FEATURE_UNAVAILABLE,
 		.PCAddr = {XAIE_FEATURE_UNAVAILABLE, XAIE_FEATURE_UNAVAILABLE},
@@ -3675,7 +3675,7 @@ static const XAie_EvntMod Aie2TileEvntMod[] =
 		.BroadcastEventMap = &AieMlTileMemModBroadcastEventStart,
 	},
 	{
-		.XAie_EventNumber = Aie2CoreModEventMapping,
+		.XAie_EventNumber = AieMlCoreModEventMapping,
 		.EventMin = XAIE_EVENT_NONE_CORE,
 		.EventMax = XAIE_EVENT_PROCESSOR_BUS_ERROR_CORE,
 		.ComboEventBase = XAIE_EVENT_COMBO_EVENT_0_CORE,
@@ -3708,7 +3708,7 @@ static const XAie_EvntMod Aie2TileEvntMod[] =
 		.BaseGroupEventRegOff = XAIEMLGBL_CORE_MODULE_EVENT_GROUP_0_ENABLE,
 		.NumGroupEvents = 9U,
 		.DefaultGroupErrorMask = 0x1CF5F80U,
-		.Group = Aie2CoreGroupEvent,
+		.Group = AieMlCoreGroupEvent,
 		.BasePCEventRegOff = XAIEMLGBL_CORE_MODULE_PC_EVENT0,
 		.NumPCEvents = 4U,
 		.PCAddr = {XAIEMLGBL_CORE_MODULE_PC_EVENT0_PC_ADDRESS_LSB, XAIEMLGBL_CORE_MODULE_PC_EVENT0_PC_ADDRESS_MASK},
@@ -3736,9 +3736,9 @@ static const XAie_EvntMod Aie2TileEvntMod[] =
  *	DMA_MM2S_Error,
  *	Lock_Error.
  */
-static const XAie_EvntMod Aie2NocEvntMod =
+static const XAie_EvntMod AieMlNocEvntMod =
 {
-	.XAie_EventNumber = Aie2NocModEventMapping,
+	.XAie_EventNumber = AieMlNocModEventMapping,
 	.EventMin = XAIE_EVENT_NONE_PL,
 	.EventMax = XAIE_EVENT_DMA_TASK_TOKEN_STALL_PL,
 	.ComboEventBase = XAIE_EVENT_COMBO_EVENT_0_PL,
@@ -3771,7 +3771,7 @@ static const XAie_EvntMod Aie2NocEvntMod =
 	.BaseGroupEventRegOff = XAIEMLGBL_PL_MODULE_EVENT_GROUP_0_ENABLE,
 	.NumGroupEvents = 6U,
 	.DefaultGroupErrorMask = 0x7FFU,
-	.Group = Aie2PlGroupEvent,
+	.Group = AieMlPlGroupEvent,
 	.BasePCEventRegOff = XAIE_FEATURE_UNAVAILABLE,
 	.NumPCEvents = XAIE_FEATURE_UNAVAILABLE,
 	.PCAddr = {XAIE_FEATURE_UNAVAILABLE, XAIE_FEATURE_UNAVAILABLE},
@@ -3798,9 +3798,9 @@ static const XAie_EvntMod Aie2NocEvntMod =
  *	DMA_MM2S_Error,
  *	Lock_Error.
  */
-static const XAie_EvntMod Aie2PlEvntMod =
+static const XAie_EvntMod AieMlPlEvntMod =
 {
-	.XAie_EventNumber = Aie2PlModEventMapping,
+	.XAie_EventNumber = AieMlPlModEventMapping,
 	.EventMin = XAIE_EVENT_NONE_PL,
 	.EventMax = XAIE_EVENT_DMA_TASK_TOKEN_STALL_PL,
 	.ComboEventBase = XAIE_EVENT_COMBO_EVENT_0_PL,
@@ -3833,7 +3833,7 @@ static const XAie_EvntMod Aie2PlEvntMod =
 	.BaseGroupEventRegOff = XAIEMLGBL_PL_MODULE_EVENT_GROUP_0_ENABLE,
 	.NumGroupEvents = 6U,
 	.DefaultGroupErrorMask = 0x7FFU,
-	.Group = Aie2PlGroupEvent,
+	.Group = AieMlPlGroupEvent,
 	.BasePCEventRegOff = XAIE_FEATURE_UNAVAILABLE,
 	.NumPCEvents = XAIE_FEATURE_UNAVAILABLE,
 	.PCAddr = {XAIE_FEATURE_UNAVAILABLE, XAIE_FEATURE_UNAVAILABLE},
@@ -3858,9 +3858,9 @@ static const XAie_EvntMod Aie2PlEvntMod =
  *	AXI-MM_Slave_Error,
  *	Lock_Error.
  */
-static const XAie_EvntMod Aie2MemTileEvntMod =
+static const XAie_EvntMod AieMlMemTileEvntMod =
 {
-	.XAie_EventNumber = Aie2MemTileModEventMapping,
+	.XAie_EventNumber = AieMlMemTileModEventMapping,
 	.EventMin = XAIE_EVENT_NONE_MEM_TILE,
 	.EventMax = XAIE_EVENT_USER_EVENT_1_MEM_TILE,
 	.ComboEventBase = XAIE_EVENT_COMBO_EVENT_0_MEM_TILE,
@@ -3893,7 +3893,7 @@ static const XAie_EvntMod Aie2MemTileEvntMod =
 	.BaseGroupEventRegOff = XAIEMLGBL_MEM_TILE_MODULE_EVENT_GROUP_0_ENABLE,
 	.NumGroupEvents = 9U,
 	.DefaultGroupErrorMask = 0x7FAU,
-	.Group = Aie2MemTileGroupEvent,
+	.Group = AieMlMemTileGroupEvent,
 	.BasePCEventRegOff = XAIE_FEATURE_UNAVAILABLE,
 	.NumPCEvents = XAIE_FEATURE_UNAVAILABLE,
 	.PCAddr = {XAIE_FEATURE_UNAVAILABLE, XAIE_FEATURE_UNAVAILABLE},
@@ -3907,7 +3907,7 @@ static const XAie_EvntMod Aie2MemTileEvntMod =
 #endif /* XAIE_FEATURE_EVENTS_ENABLE */
 
 #ifdef XAIE_FEATURE_TIMER_ENABLE
-static const XAie_TimerMod Aie2TileTimerMod[] =
+static const XAie_TimerMod AieMlTileTimerMod[] =
 {
 	 {
 		.TrigEventLowValOff = XAIEMLGBL_MEMORY_MODULE_TIMER_TRIG_EVENT_LOW_VALUE,
@@ -3929,7 +3929,7 @@ static const XAie_TimerMod Aie2TileTimerMod[] =
 	}
 };
 
-static const XAie_TimerMod Aie2PlTimerMod =
+static const XAie_TimerMod AieMlPlTimerMod =
 {
 	.TrigEventLowValOff = XAIEMLGBL_PL_MODULE_TIMER_TRIG_EVENT_LOW_VALUE,
 	.TrigEventHighValOff = XAIEMLGBL_PL_MODULE_TIMER_TRIG_EVENT_HIGH_VALUE,
@@ -3940,7 +3940,7 @@ static const XAie_TimerMod Aie2PlTimerMod =
 	{XAIEMLGBL_PL_MODULE_TIMER_CONTROL_RESET_EVENT_LSB, XAIEMLGBL_PL_MODULE_TIMER_CONTROL_RESET_EVENT_MASK}
 };
 
-static const XAie_TimerMod Aie2MemTileTimerMod =
+static const XAie_TimerMod AieMlMemTileTimerMod =
 {
 	.TrigEventLowValOff = XAIEMLGBL_MEM_TILE_MODULE_TIMER_TRIG_EVENT_LOW_VALUE ,
 	.TrigEventHighValOff = XAIEMLGBL_MEM_TILE_MODULE_TIMER_TRIG_EVENT_HIGH_VALUE,
@@ -3957,7 +3957,7 @@ static const XAie_TimerMod Aie2MemTileTimerMod =
  * Data structure to configure trace event register for XAIE_MEM_MOD module
  * type
  */
-static const XAie_RegFldAttr Aie2MemTraceEvent[] =
+static const XAie_RegFldAttr AieMlMemTraceEvent[] =
 {
 	{XAIEMLGBL_MEMORY_MODULE_TRACE_EVENT0_TRACE_EVENT0_LSB, XAIEMLGBL_MEMORY_MODULE_TRACE_EVENT0_TRACE_EVENT0_MASK},
 	{XAIEMLGBL_MEMORY_MODULE_TRACE_EVENT0_TRACE_EVENT1_LSB, XAIEMLGBL_MEMORY_MODULE_TRACE_EVENT0_TRACE_EVENT1_MASK},
@@ -3973,7 +3973,7 @@ static const XAie_RegFldAttr Aie2MemTraceEvent[] =
  * Data structure to configure trace event register for XAIE_CORE_MOD module
  * type
  */
-static const XAie_RegFldAttr Aie2CoreTraceEvent[] =
+static const XAie_RegFldAttr AieMlCoreTraceEvent[] =
 {
 	{XAIEMLGBL_CORE_MODULE_TRACE_EVENT0_TRACE_EVENT0_LSB, XAIEMLGBL_CORE_MODULE_TRACE_EVENT0_TRACE_EVENT0_MASK},
 	{XAIEMLGBL_CORE_MODULE_TRACE_EVENT0_TRACE_EVENT1_LSB, XAIEMLGBL_CORE_MODULE_TRACE_EVENT0_TRACE_EVENT1_MASK},
@@ -3989,7 +3989,7 @@ static const XAie_RegFldAttr Aie2CoreTraceEvent[] =
  * Data structure to configure trace event register for XAIE_PL_MOD module
  * type
  */
-static const XAie_RegFldAttr Aie2PlTraceEvent[] =
+static const XAie_RegFldAttr AieMlPlTraceEvent[] =
 {
 	{XAIEMLGBL_PL_MODULE_TRACE_EVENT0_TRACE_EVENT0_LSB, XAIEMLGBL_PL_MODULE_TRACE_EVENT0_TRACE_EVENT0_MASK},
 	{XAIEMLGBL_PL_MODULE_TRACE_EVENT0_TRACE_EVENT1_LSB, XAIEMLGBL_PL_MODULE_TRACE_EVENT0_TRACE_EVENT1_MASK},
@@ -4005,7 +4005,7 @@ static const XAie_RegFldAttr Aie2PlTraceEvent[] =
  * Data structure to configure trace event register for
  * XAIEGBL_TILE_TYPE_MEMTILE type
  */
-static const XAie_RegFldAttr Aie2MemTileTraceEvent[] =
+static const XAie_RegFldAttr AieMlMemTileTraceEvent[] =
 {
 	{XAIEMLGBL_MEM_TILE_MODULE_TRACE_EVENT0_TRACE_EVENT0_LSB, XAIEMLGBL_MEM_TILE_MODULE_TRACE_EVENT0_TRACE_EVENT0_MASK},
 	{XAIEMLGBL_MEM_TILE_MODULE_TRACE_EVENT0_TRACE_EVENT1_LSB, XAIEMLGBL_MEM_TILE_MODULE_TRACE_EVENT0_TRACE_EVENT1_MASK},
@@ -4021,7 +4021,7 @@ static const XAie_RegFldAttr Aie2MemTileTraceEvent[] =
  * Data structure to configure trace module for XAIEGBL_TILE_TYPE_AIETILE tile
  * type
  */
-static const XAie_TraceMod Aie2TileTraceMod[] =
+static const XAie_TraceMod AieMlTileTraceMod[] =
 {
 	{
 		.CtrlRegOff = XAIEMLGBL_MEMORY_MODULE_TRACE_CONTROL0,
@@ -4037,7 +4037,7 @@ static const XAie_TraceMod Aie2TileTraceMod[] =
 		.PktId = {XAIEMLGBL_MEMORY_MODULE_TRACE_CONTROL1_ID_LSB, XAIEMLGBL_MEMORY_MODULE_TRACE_CONTROL1_ID_MASK},
 		.State = {XAIEMLGBL_MEMORY_MODULE_TRACE_STATUS_STATE_LSB, XAIEMLGBL_MEMORY_MODULE_TRACE_STATUS_STATE_MASK},
 		.ModeSts = {XAIEMLGBL_MEMORY_MODULE_TRACE_STATUS_MODE_LSB, XAIEMLGBL_MEMORY_MODULE_TRACE_STATUS_MODE_MASK},
-		.Event = Aie2MemTraceEvent
+		.Event = AieMlMemTraceEvent
 	},
 	{
 		.CtrlRegOff = XAIEMLGBL_CORE_MODULE_TRACE_CONTROL0,
@@ -4053,7 +4053,7 @@ static const XAie_TraceMod Aie2TileTraceMod[] =
 		.PktId = {XAIEMLGBL_CORE_MODULE_TRACE_CONTROL1_ID_LSB, XAIEMLGBL_CORE_MODULE_TRACE_CONTROL1_ID_MASK},
 		.State = {XAIEMLGBL_CORE_MODULE_TRACE_STATUS_STATE_LSB, XAIEMLGBL_CORE_MODULE_TRACE_STATUS_STATE_MASK},
 		.ModeSts = {XAIEMLGBL_CORE_MODULE_TRACE_STATUS_MODE_LSB, XAIEMLGBL_CORE_MODULE_TRACE_STATUS_MODE_MASK},
-		.Event = Aie2CoreTraceEvent
+		.Event = AieMlCoreTraceEvent
 	}
 };
 
@@ -4061,7 +4061,7 @@ static const XAie_TraceMod Aie2TileTraceMod[] =
  * Data structure to configure trace module for XAIEGBL_TILE_TYPE_SHIMNOC/PL
  * tile type
  */
-static const XAie_TraceMod Aie2PlTraceMod =
+static const XAie_TraceMod AieMlPlTraceMod =
 {
 	.CtrlRegOff = XAIEMLGBL_PL_MODULE_TRACE_CONTROL0,
 	.PktConfigRegOff = XAIEMLGBL_PL_MODULE_TRACE_CONTROL1,
@@ -4076,14 +4076,14 @@ static const XAie_TraceMod Aie2PlTraceMod =
 	.PktId = {XAIEMLGBL_PL_MODULE_TRACE_CONTROL1_ID_LSB, XAIEMLGBL_PL_MODULE_TRACE_CONTROL1_ID_MASK},
 	.State = {XAIEMLGBL_PL_MODULE_TRACE_STATUS_STATE_LSB, XAIEMLGBL_PL_MODULE_TRACE_STATUS_STATE_MASK},
 	.ModeSts = {XAIEMLGBL_PL_MODULE_TRACE_STATUS_MODE_LSB, XAIEMLGBL_PL_MODULE_TRACE_STATUS_MODE_MASK},
-	.Event = Aie2PlTraceEvent
+	.Event = AieMlPlTraceEvent
 };
 
 /*
  * Data structure to configure trace module for XAIEGBL_TILE_TYPE_MEMTILE
  * tile type
  */
-static const XAie_TraceMod Aie2MemTileTraceMod =
+static const XAie_TraceMod AieMlMemTileTraceMod =
 {
 	.CtrlRegOff = XAIEMLGBL_MEM_TILE_MODULE_TRACE_CONTROL0,
 	.PktConfigRegOff = XAIEMLGBL_MEM_TILE_MODULE_TRACE_CONTROL1,
@@ -4098,7 +4098,7 @@ static const XAie_TraceMod Aie2MemTileTraceMod =
 	.PktId = {XAIEMLGBL_MEM_TILE_MODULE_TRACE_CONTROL1_ID_LSB, XAIEMLGBL_MEM_TILE_MODULE_TRACE_CONTROL1_ID_MASK},
 	.State = {XAIEMLGBL_MEM_TILE_MODULE_TRACE_STATUS_STATE_LSB, XAIEMLGBL_MEM_TILE_MODULE_TRACE_STATUS_STATE_MASK},
 	.ModeSts = {XAIEMLGBL_MEM_TILE_MODULE_TRACE_STATUS_MODE_LSB, XAIEMLGBL_MEM_TILE_MODULE_TRACE_STATUS_MODE_MASK},
-	.Event = Aie2MemTileTraceEvent
+	.Event = AieMlMemTileTraceEvent
 };
 #endif /* XAIE_FEATURE_TRACE_ENABLE */
 
@@ -4107,7 +4107,7 @@ static const XAie_TraceMod Aie2MemTileTraceMod =
  * Data structure to configures first level interrupt controller for
  * XAIEGBL_TILE_TYPE_SHIMPL tile type
  */
-static const XAie_L1IntrMod Aie2PlL1IntrMod =
+static const XAie_L1IntrMod AieMlPlL1IntrMod =
 {
 	.BaseEnableRegOff = XAIEMLGBL_PL_MODULE_INTERRUPT_CONTROLLER_1ST_LEVEL_ENABLE_A,
 	.BaseDisableRegOff = XAIEMLGBL_PL_MODULE_INTERRUPT_CONTROLLER_1ST_LEVEL_DISABLE_A,
@@ -4131,7 +4131,7 @@ static const XAie_L1IntrMod Aie2PlL1IntrMod =
  * Data structure to configures second level interrupt controller for
  * XAIEGBL_TILE_TYPE_SHIMNOC tile type
  */
-static const XAie_L2IntrMod Aie2NoCL2IntrMod =
+static const XAie_L2IntrMod AieMlNoCL2IntrMod =
 {
 	.EnableRegOff = XAIEMLGBL_NOC_MODULE_INTERRUPT_CONTROLLER_2ND_LEVEL_ENABLE,
 	.DisableRegOff = XAIEMLGBL_NOC_MODULE_INTERRUPT_CONTROLLER_2ND_LEVEL_DISABLE,
@@ -4146,7 +4146,7 @@ static const XAie_L2IntrMod Aie2NoCL2IntrMod =
  * Data structure to configures tile control for
  * XAIEGBL_TILE_TYPE_AIETILE tile type
  */
-static const XAie_TileCtrlMod Aie2CoreTileCtrlMod =
+static const XAie_TileCtrlMod AieMlCoreTileCtrlMod =
 {
 	.TileCtrlRegOff = XAIEMLGBL_CORE_MODULE_TILE_CONTROL,
 	.IsolateEast = {XAIEMLGBL_CORE_MODULE_TILE_CONTROL_ISOLATE_FROM_EAST_LSB, XAIEMLGBL_CORE_MODULE_TILE_CONTROL_ISOLATE_FROM_EAST_MASK},
@@ -4160,7 +4160,7 @@ static const XAie_TileCtrlMod Aie2CoreTileCtrlMod =
  * Data structure to configures tile control for
  * XAIEGBL_TILE_TYPE_MEMTILE tile type
  */
-static const XAie_TileCtrlMod Aie2MemTileCtrlMod =
+static const XAie_TileCtrlMod AieMlMemTileCtrlMod =
 {
 	.TileCtrlRegOff = XAIEMLGBL_MEM_TILE_MODULE_TILE_CONTROL,
 	.IsolateEast = {XAIEMLGBL_MEM_TILE_MODULE_TILE_CONTROL_ISOLATE_FROM_EAST_LSB, XAIEMLGBL_MEM_TILE_MODULE_TILE_CONTROL_ISOLATE_FROM_EAST_MASK},
@@ -4174,7 +4174,7 @@ static const XAie_TileCtrlMod Aie2MemTileCtrlMod =
  * Data structure to configures tile control for
  * XAIEGBL_TILE_TYPE_SHIMPL/NOC tile type
  */
-static const XAie_TileCtrlMod Aie2ShimTileCtrlMod =
+static const XAie_TileCtrlMod AieMlShimTileCtrlMod =
 {
 	.TileCtrlRegOff = XAIEMLGBL_PL_MODULE_TILE_CONTROL,
 	.IsolateEast = {XAIEMLGBL_PL_MODULE_TILE_CONTROL_ISOLATE_FROM_EAST_LSB, XAIEMLGBL_PL_MODULE_TILE_CONTROL_ISOLATE_FROM_EAST_MASK},
@@ -4188,7 +4188,7 @@ static const XAie_TileCtrlMod Aie2ShimTileCtrlMod =
  * Data structure to configures memory control for
  * XAIEGBL_TILE_TYPE_AIETILE tile type
  */
-static const XAie_MemCtrlMod Aie2TileMemCtrlMod[] =
+static const XAie_MemCtrlMod AieMlTileMemCtrlMod[] =
 {
 	{
 		.MemCtrlRegOff = XAIEMLGBL_MEMORY_MODULE_MEMORY_CONTROL,
@@ -4204,7 +4204,7 @@ static const XAie_MemCtrlMod Aie2TileMemCtrlMod[] =
  * Data structure to configures memory control for
  * XAIEGBL_TILE_TYPE_MEMTILE tile type
  */
-static const XAie_MemCtrlMod Aie2MemTileMemCtrlMod =
+static const XAie_MemCtrlMod AieMlMemTileMemCtrlMod =
 {
 	.MemCtrlRegOff = XAIEMLGBL_MEM_TILE_MODULE_MEMORY_CONTROL,
 	.MemZeroisation = {XAIEMLGBL_MEM_TILE_MODULE_MEMORY_CONTROL_MEMORY_ZEROISATION_LSB, XAIEMLGBL_MEM_TILE_MODULE_MEMORY_CONTROL_MEMORY_ZEROISATION_MASK},
@@ -4212,200 +4212,200 @@ static const XAie_MemCtrlMod Aie2MemTileMemCtrlMod =
 #endif /* XAIE_FEATURE_PRIVILEGED_ENABLE */
 
 #ifdef XAIE_FEATURE_CORE_ENABLE
-	#define AIE2COREMOD &Aie2CoreMod
+	#define AIEMLCOREMOD &AieMlCoreMod
 #else
-	#define AIE2COREMOD NULL
+	#define AIEMLCOREMOD NULL
 #endif
 #ifdef XAIE_FEATURE_SS_ENABLE
-	#define AIE2TILESTRMSW &Aie2TileStrmSw
-	#define AIE2SHIMSTRMSW &Aie2ShimStrmSw
-	#define AIE2MEMTILESTRMSW &Aie2MemTileStrmSw
+	#define AIEMLTILESTRMSW &AieMlTileStrmSw
+	#define AIEMLSHIMSTRMSW &AieMlShimStrmSw
+	#define AIEMLMEMTILESTRMSW &AieMlMemTileStrmSw
 #else
-	#define AIE2TILESTRMSW NULL
-	#define AIE2SHIMSTRMSW NULL
-	#define AIE2MEMTILESTRMSW NULL
+	#define AIEMLTILESTRMSW NULL
+	#define AIEMLSHIMSTRMSW NULL
+	#define AIEMLMEMTILESTRMSW NULL
 #endif
 #ifdef XAIE_FEATURE_DMA_ENABLE
-	#define AIE2TILEDMAMOD &Aie2TileDmaMod
-	#define AIE2SHIMDMAMOD &Aie2ShimDmaMod
-	#define AIE2MEMTILEDMAMOD &Aie2MemTileDmaMod
+	#define AIEMLTILEDMAMOD &AieMlTileDmaMod
+	#define AIEMLSHIMDMAMOD &AieMlShimDmaMod
+	#define AIEMLMEMTILEDMAMOD &AieMlMemTileDmaMod
 #else
-	#define AIE2TILEDMAMOD NULL
-	#define AIE2SHIMDMAMOD NULL
-	#define AIE2MEMTILEDMAMOD NULL
+	#define AIEMLTILEDMAMOD NULL
+	#define AIEMLSHIMDMAMOD NULL
+	#define AIEMLMEMTILEDMAMOD NULL
 #endif
 #ifdef XAIE_FEATURE_DATAMEM_ENABLE
-	#define AIE2TILEMEMMOD &Aie2TileMemMod
-	#define AIE2MEMTILEMEMMOD &Aie2MemTileMemMod
+	#define AIEMLTILEMEMMOD &AieMlTileMemMod
+	#define AIEMLMEMTILEMEMMOD &AieMlMemTileMemMod
 #else
-	#define AIE2TILEMEMMOD NULL
-	#define AIE2MEMTILEMEMMOD NULL
+	#define AIEMLTILEMEMMOD NULL
+	#define AIEMLMEMTILEMEMMOD NULL
 #endif
 #ifdef XAIE_FEATURE_LOCK_ENABLE
-	#define AIE2TILELOCKMOD &Aie2TileLockMod
-	#define AIE2SHIMNOCLOCKMOD &Aie2ShimNocLockMod
-	#define AIE2MEMTILELOCKMOD &Aie2MemTileLockMod
+	#define AIEMLTILELOCKMOD &AieMlTileLockMod
+	#define AIEMLSHIMNOCLOCKMOD &AieMlShimNocLockMod
+	#define AIEMLMEMTILELOCKMOD &AieMlMemTileLockMod
 #else
-	#define AIE2TILELOCKMOD NULL
-	#define AIE2SHIMNOCLOCKMOD NULL
-	#define AIE2MEMTILELOCKMOD NULL
+	#define AIEMLTILELOCKMOD NULL
+	#define AIEMLSHIMNOCLOCKMOD NULL
+	#define AIEMLMEMTILELOCKMOD NULL
 #endif
 #ifdef XAIE_FEATURE_PERFCOUNT_ENABLE
-	#define AIE2TILEPERFCNT Aie2TilePerfCnt
-	#define AIE2PLPERFCNT &Aie2PlPerfCnt
-	#define AIE2MEMTILEPERFCNT &Aie2MemTilePerfCnt
+	#define AIEMLTILEPERFCNT AieMlTilePerfCnt
+	#define AIEMLPLPERFCNT &AieMlPlPerfCnt
+	#define AIEMLMEMTILEPERFCNT &AieMlMemTilePerfCnt
 #else
-	#define AIE2TILEPERFCNT NULL
-	#define AIE2PLPERFCNT NULL
-	#define AIE2MEMTILEPERFCNT NULL
+	#define AIEMLTILEPERFCNT NULL
+	#define AIEMLPLPERFCNT NULL
+	#define AIEMLMEMTILEPERFCNT NULL
 #endif
 #ifdef XAIE_FEATURE_EVENTS_ENABLE
-	#define AIE2TILEEVNTMOD Aie2TileEvntMod
-	#define AIE2NOCEVNTMOD &Aie2NocEvntMod
-	#define AIE2PLEVNTMOD &Aie2PlEvntMod
-	#define AIE2MEMTILEEVNTMOD &Aie2MemTileEvntMod
+	#define AIEMLTILEEVNTMOD AieMlTileEvntMod
+	#define AIEMLNOCEVNTMOD &AieMlNocEvntMod
+	#define AIEMLPLEVNTMOD &AieMlPlEvntMod
+	#define AIEMLMEMTILEEVNTMOD &AieMlMemTileEvntMod
 #else
-	#define AIE2TILEEVNTMOD NULL
-	#define AIE2NOCEVNTMOD NULL
-	#define AIE2PLEVNTMOD NULL
-	#define AIE2MEMTILEEVNTMOD NULL
+	#define AIEMLTILEEVNTMOD NULL
+	#define AIEMLNOCEVNTMOD NULL
+	#define AIEMLPLEVNTMOD NULL
+	#define AIEMLMEMTILEEVNTMOD NULL
 #endif
 #ifdef XAIE_FEATURE_TIMER_ENABLE
-	#define AIE2TILETIMERMOD Aie2TileTimerMod
-	#define AIE2PLTIMERMOD &Aie2PlTimerMod
-	#define AIE2MEMTILETIMERMOD &Aie2MemTileTimerMod
+	#define AIEMLTILETIMERMOD AieMlTileTimerMod
+	#define AIEMLPLTIMERMOD &AieMlPlTimerMod
+	#define AIEMLMEMTILETIMERMOD &AieMlMemTileTimerMod
 #else
-	#define AIE2TILETIMERMOD NULL
-	#define AIE2PLTIMERMOD NULL
-	#define AIE2MEMTILETIMERMOD NULL
+	#define AIEMLTILETIMERMOD NULL
+	#define AIEMLPLTIMERMOD NULL
+	#define AIEMLMEMTILETIMERMOD NULL
 #endif
 #ifdef XAIE_FEATURE_TRACE_ENABLE
-	#define AIE2TILETRACEMOD Aie2TileTraceMod
-	#define AIE2PLTRACEMOD &Aie2PlTraceMod
-	#define AIE2MEMTILETRACEMOD &Aie2MemTileTraceMod
+	#define AIEMLTILETRACEMOD AieMlTileTraceMod
+	#define AIEMLPLTRACEMOD &AieMlPlTraceMod
+	#define AIEMLMEMTILETRACEMOD &AieMlMemTileTraceMod
 #else
-	#define AIE2TILETRACEMOD NULL
-	#define AIE2PLTRACEMOD NULL
-	#define AIE2MEMTILETRACEMOD NULL
+	#define AIEMLTILETRACEMOD NULL
+	#define AIEMLPLTRACEMOD NULL
+	#define AIEMLMEMTILETRACEMOD NULL
 #endif
 #ifdef XAIE_FEATURE_PL_ENABLE
-	#define AIE2SHIMTILEPLIFMOD &Aie2ShimTilePlIfMod
-	#define AIE2PLIFMOD &Aie2PlIfMod
+	#define AIEMLSHIMTILEPLIFMOD &AieMlShimTilePlIfMod
+	#define AIEMLPLIFMOD &AieMlPlIfMod
 #else
-	#define AIE2SHIMTILEPLIFMOD NULL
-	#define AIE2PLIFMOD NULL
+	#define AIEMLSHIMTILEPLIFMOD NULL
+	#define AIEMLPLIFMOD NULL
 #endif
 #ifdef XAIE_FEATURE_INTR_L1_ENABLE
-	#define AIE2PLL1INTRMOD &Aie2PlL1IntrMod
+	#define AIEMLPLL1INTRMOD &AieMlPlL1IntrMod
 #else
-	#define AIE2PLL1INTRMOD NULL
+	#define AIEMLPLL1INTRMOD NULL
 #endif
 #ifdef XAIE_FEATURE_INTR_L2_ENABLE
-	#define AIE2NOCL2INTRMOD &Aie2NoCL2IntrMod
+	#define AIEMLNOCL2INTRMOD &AieMlNoCL2IntrMod
 #else
-	#define AIE2NOCL2INTRMOD NULL
+	#define AIEMLNOCL2INTRMOD NULL
 #endif
 #ifdef XAIE_FEATURE_PRIVILEGED_ENABLE
-	#define AIE2CORETILECTRLMOD &Aie2CoreTileCtrlMod
-	#define AIE2TILEMEMCTRLMOD Aie2TileMemCtrlMod
-	#define AIE2SHIMTILECTRLMOD &Aie2ShimTileCtrlMod
-	#define AIE2MEMTILECTRLMOD &Aie2MemTileCtrlMod
-	#define AIE2MEMTILEMEMCTRLMOD &Aie2MemTileMemCtrlMod
+	#define AIEMLCORETILECTRLMOD &AieMlCoreTileCtrlMod
+	#define AIEMLTILEMEMCTRLMOD AieMlTileMemCtrlMod
+	#define AIEMLSHIMTILECTRLMOD &AieMlShimTileCtrlMod
+	#define AIEMLMEMTILECTRLMOD &AieMlMemTileCtrlMod
+	#define AIEMLMEMTILEMEMCTRLMOD &AieMlMemTileMemCtrlMod
 #else
-	#define AIE2CORETILECTRLMOD NULL
-	#define AIE2TILEMEMCTRLMOD NULL
-	#define AIE2SHIMTILECTRLMOD NULL
-	#define AIE2MEMTILECTRLMOD NULL
-	#define AIE2MEMTILEMEMCTRLMOD NULL
+	#define AIEMLCORETILECTRLMOD NULL
+	#define AIEMLTILEMEMCTRLMOD NULL
+	#define AIEMLSHIMTILECTRLMOD NULL
+	#define AIEMLMEMTILECTRLMOD NULL
+	#define AIEMLMEMTILEMEMCTRLMOD NULL
 #endif
 
 /*
- * AIE2 Module
+ * AIEML Module
  * This data structure captures all the modules for each tile type.
  * Depending on the tile type, this data strcuture can be used to access all
  * hardware properties of individual modules.
  */
-XAie_TileMod Aie2Mod[] =
+XAie_TileMod AieMlMod[] =
 {
 	{
 		/*
-		 * AIE2 Tile Module indexed using XAIEGBL_TILE_TYPE_AIETILE
+		 * AIEML Tile Module indexed using XAIEGBL_TILE_TYPE_AIETILE
 		 */
 		.NumModules = 2U,
-		.CoreMod = AIE2COREMOD,
-		.StrmSw  = AIE2TILESTRMSW,
-		.DmaMod  = AIE2TILEDMAMOD,
-		.MemMod  = AIE2TILEMEMMOD,
+		.CoreMod = AIEMLCOREMOD,
+		.StrmSw  = AIEMLTILESTRMSW,
+		.DmaMod  = AIEMLTILEDMAMOD,
+		.MemMod  = AIEMLTILEMEMMOD,
 		.PlIfMod = NULL,
-		.LockMod = AIE2TILELOCKMOD,
-		.PerfMod = AIE2TILEPERFCNT,
-		.EvntMod = AIE2TILEEVNTMOD,
-		.TimerMod = AIE2TILETIMERMOD,
-		.TraceMod = AIE2TILETRACEMOD,
+		.LockMod = AIEMLTILELOCKMOD,
+		.PerfMod = AIEMLTILEPERFCNT,
+		.EvntMod = AIEMLTILEEVNTMOD,
+		.TimerMod = AIEMLTILETIMERMOD,
+		.TraceMod = AIEMLTILETRACEMOD,
 		.L1IntrMod = NULL,
 		.L2IntrMod = NULL,
-		.TileCtrlMod = AIE2CORETILECTRLMOD,
-		.MemCtrlMod = AIE2TILEMEMCTRLMOD,
+		.TileCtrlMod = AIEMLCORETILECTRLMOD,
+		.MemCtrlMod = AIEMLTILEMEMCTRLMOD,
 	},
 	{
 		/*
-		 * AIE2 Shim Noc Module indexed using XAIEGBL_TILE_TYPE_SHIMNOC
+		 * AIEML Shim Noc Module indexed using XAIEGBL_TILE_TYPE_SHIMNOC
 		 */
 		.NumModules = 1U,
 		.CoreMod = NULL,
-		.StrmSw  = AIE2SHIMSTRMSW,
-		.DmaMod  = AIE2SHIMDMAMOD,
+		.StrmSw  = AIEMLSHIMSTRMSW,
+		.DmaMod  = AIEMLSHIMDMAMOD,
 		.MemMod  = NULL,
-		.PlIfMod = AIE2SHIMTILEPLIFMOD,
-		.LockMod = AIE2SHIMNOCLOCKMOD,
-		.PerfMod = AIE2PLPERFCNT,
-		.EvntMod = AIE2NOCEVNTMOD,
-		.TimerMod = AIE2PLTIMERMOD,
-		.TraceMod = AIE2PLTRACEMOD,
-		.L1IntrMod = AIE2PLL1INTRMOD,
-		.L2IntrMod = AIE2NOCL2INTRMOD,
-		.TileCtrlMod = AIE2SHIMTILECTRLMOD,
+		.PlIfMod = AIEMLSHIMTILEPLIFMOD,
+		.LockMod = AIEMLSHIMNOCLOCKMOD,
+		.PerfMod = AIEMLPLPERFCNT,
+		.EvntMod = AIEMLNOCEVNTMOD,
+		.TimerMod = AIEMLPLTIMERMOD,
+		.TraceMod = AIEMLPLTRACEMOD,
+		.L1IntrMod = AIEMLPLL1INTRMOD,
+		.L2IntrMod = AIEMLNOCL2INTRMOD,
+		.TileCtrlMod = AIEMLSHIMTILECTRLMOD,
 		.MemCtrlMod = NULL,
 	},
 	{
 		/*
-		 * AIE2 Shim PL Module indexed using XAIEGBL_TILE_TYPE_SHIMPL
+		 * AIEML Shim PL Module indexed using XAIEGBL_TILE_TYPE_SHIMPL
 		 */
 		.NumModules = 1U,
 		.CoreMod = NULL,
-		.StrmSw  = AIE2SHIMSTRMSW,
+		.StrmSw  = AIEMLSHIMSTRMSW,
 		.DmaMod  = NULL,
 		.MemMod  = NULL,
-		.PlIfMod = AIE2PLIFMOD,
+		.PlIfMod = AIEMLPLIFMOD,
 		.LockMod = NULL,
-		.PerfMod = AIE2PLPERFCNT,
-		.EvntMod = AIE2PLEVNTMOD,
-		.TimerMod = AIE2PLTIMERMOD,
-		.TraceMod = AIE2PLTRACEMOD,
-		.L1IntrMod = AIE2PLL1INTRMOD,
+		.PerfMod = AIEMLPLPERFCNT,
+		.EvntMod = AIEMLPLEVNTMOD,
+		.TimerMod = AIEMLPLTIMERMOD,
+		.TraceMod = AIEMLPLTRACEMOD,
+		.L1IntrMod = AIEMLPLL1INTRMOD,
 		.L2IntrMod = NULL,
-		.TileCtrlMod = AIE2SHIMTILECTRLMOD,
+		.TileCtrlMod = AIEMLSHIMTILECTRLMOD,
 		.MemCtrlMod = NULL,
 	},
 	{
 		/*
-		 * AIE2 MemTile Module indexed using XAIEGBL_TILE_TYPE_MEMTILE
+		 * AIEML MemTile Module indexed using XAIEGBL_TILE_TYPE_MEMTILE
 		 */
 		.NumModules = 1U,
 		.CoreMod = NULL,
-		.StrmSw  = AIE2MEMTILESTRMSW,
-		.DmaMod  = AIE2MEMTILEDMAMOD,
-		.MemMod  = AIE2MEMTILEMEMMOD,
+		.StrmSw  = AIEMLMEMTILESTRMSW,
+		.DmaMod  = AIEMLMEMTILEDMAMOD,
+		.MemMod  = AIEMLMEMTILEMEMMOD,
 		.PlIfMod = NULL,
-		.LockMod = AIE2MEMTILELOCKMOD,
-		.PerfMod = AIE2MEMTILEPERFCNT,
-		.EvntMod = AIE2MEMTILEEVNTMOD,
-		.TimerMod = AIE2MEMTILETIMERMOD,
-		.TraceMod = AIE2MEMTILETRACEMOD,
+		.LockMod = AIEMLMEMTILELOCKMOD,
+		.PerfMod = AIEMLMEMTILEPERFCNT,
+		.EvntMod = AIEMLMEMTILEEVNTMOD,
+		.TimerMod = AIEMLMEMTILETIMERMOD,
+		.TraceMod = AIEMLMEMTILETRACEMOD,
 		.L1IntrMod = NULL,
 		.L2IntrMod = NULL,
-		.TileCtrlMod = AIE2MEMTILECTRLMOD,
-		.MemCtrlMod = AIE2MEMTILEMEMCTRLMOD,
+		.TileCtrlMod = AIEMLMEMTILECTRLMOD,
+		.MemCtrlMod = AIEMLMEMTILEMEMCTRLMOD,
 	}
 };
 

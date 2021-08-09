@@ -198,7 +198,7 @@ AieRC XAie_DmaSetPkt(XAie_DmaDesc *DmaDesc, XAie_Packet Pkt)
 *
 * @note		The api sets up the value in the dma descriptor and does not
 *		configure the buffer descriptor field in the hardware. This API
-*		works only for AIE2 and has no effect on AIE. The buffer
+*		works only for AIEML and has no effect on AIE. The buffer
 *		descriptor with this feature enabled can work only for MM2S
 *		channels.
 *
