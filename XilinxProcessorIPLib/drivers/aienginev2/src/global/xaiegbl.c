@@ -48,13 +48,13 @@
 
 /************************** Variable Definitions *****************************/
 extern XAie_TileMod AieMod[XAIEGBL_TILE_TYPE_MAX];
-extern XAie_TileMod Aie2Mod[XAIEGBL_TILE_TYPE_MAX];
+extern XAie_TileMod AieMlMod[XAIEGBL_TILE_TYPE_MAX];
 
 extern XAie_DeviceOps AieDevOps;
 extern XAie_DeviceOps AieMlDevOps;
 
-#if XAIE_DEV_SINGLE_GEN == XAIE_DEV_GEN_AIE2
-#define XAIE_DEV_SINGLE_MOD Aie2Mod
+#if XAIE_DEV_SINGLE_GEN == XAIE_DEV_GEN_AIEML
+#define XAIE_DEV_SINGLE_MOD AieMlMod
 #define XAIE_DEV_SINGLE_DEVOPS AieMlDevOps
 #elif XAIE_DEV_SINGLE_GEN == XAIE_DEV_GEN_AIE
 #define XAIE_DEV_SINGLE_MOD AieMod
@@ -105,9 +105,9 @@ AieRC XAie_CfgInitialize(XAie_DevInst *InstPtr, XAie_Config *ConfigPtr)
 		InstPtr->DevProp.DevGen = XAIE_DEV_SINGLE_GEN;
 		InstPtr->DevOps = &XAIE_DEV_SINGLE_DEVOPS;
 #else
-	if(ConfigPtr->AieGen == XAIE_DEV_GEN_AIE2) {
-		InstPtr->DevProp.DevMod = Aie2Mod;
-		InstPtr->DevProp.DevGen = XAIE_DEV_GEN_AIE2;
+	if(ConfigPtr->AieGen == XAIE_DEV_GEN_AIEML) {
+		InstPtr->DevProp.DevMod = AieMlMod;
+		InstPtr->DevProp.DevGen = XAIE_DEV_GEN_AIEML;
 		InstPtr->DevOps = &AieMlDevOps;
 	} else if(ConfigPtr->AieGen == XAIE_DEV_GEN_AIE) {
 		InstPtr->DevProp.DevMod = AieMod;
