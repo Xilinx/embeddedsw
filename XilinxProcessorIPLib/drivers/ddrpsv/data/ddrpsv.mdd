@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -10,6 +10,6 @@ BEGIN driver ddrpsv
         OPTION supported_peripherals = (axi_noc noc_mc_ddr4);
         OPTION driver_state = ACTIVE;
         OPTION copyfiles = all;
-        OPTION VERSION = 1.3;
+        OPTION VERSION = 1.4;
         OPTION NAME = ddrpsv;
 END driver

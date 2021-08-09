@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
  *
  * @file xddrpsv.h
- * @addtogroup ddrpsv_v1_3
+ * @addtogroup ddrpsv_v1_4
  * @{
  * @details
  *
@@ -64,6 +64,10 @@
  *                     points to 0x4FFF_FFFF. It is incorrect as, there is
  *                     hole in address range starting from 0x4000 to
  *                     0x3FFF_FFFF.
+ * 1.4   mus  08/09/21 Updated generate proc to add checks for psv_pmc and
+ *                     psv_psm processor. As macros exported by this tcl are
+ *                     consumed by only ARM based BSP's, we can skip
+ *                     it for firmware processor BSP. It fixes CR#1105828.
  *
  * </pre>
  *
