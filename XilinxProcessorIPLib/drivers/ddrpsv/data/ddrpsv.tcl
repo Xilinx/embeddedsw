@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -54,6 +54,10 @@
 #                          points to 0x4FFF_FFFF. It is incorrect as, there is
 #                          hole in address range starting from 0x4000 to
 #                          0x3FFF_FFFF.
+# 1.4   mus   08/09/21     Updated generate proc to add checks for psv_pmc and
+#                          psv_psm processor. As macros exported by this tcl are
+#                          consumed by only ARM based BSP's, we can skip
+#                          it for firmware processor BSP. It fixes CR#1105828
 #
 ###############################################################################
 set file_handle 0
@@ -84,7 +88,15 @@ global base_addr_list
 global high_addr_list
 
 proc generate {drv_handle} {
-      define_addr_params $drv_handle "xparameters.h"
+      set sw_proc_handle [hsi::get_sw_processor]
+      set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
+      set proctype [common::get_property IP_NAME $hw_proc_handle ]
+
+      # define_addr_params macro proc exports macros related to available DDR regions to
+      # xparameters.h. Those macro's are comsumed by MPU/MMU tables in ARM based BSPs.
+      if { $proctype != "psv_pmc" && $proctype != "psv_psm" } {
+              define_addr_params $drv_handle "xparameters.h"
+      }
 }
 
 proc define_addr_params {drv_handle file_name} {
