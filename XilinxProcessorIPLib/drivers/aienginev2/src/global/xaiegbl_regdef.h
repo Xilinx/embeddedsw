@@ -288,7 +288,7 @@ typedef struct {
 } XAie_AieDmaLock;
 
 /*
- * The typedef captures the buffer descriptor lock properties of aie2
+ * The typedef captures the buffer descriptor lock properties of aieml
  */
 typedef struct {
 	XAie_RegBdFldAttr LckRelVal;
@@ -296,14 +296,14 @@ typedef struct {
 	XAie_RegBdFldAttr LckAcqEn;
 	XAie_RegBdFldAttr LckAcqVal;
 	XAie_RegBdFldAttr LckAcqId;
-} XAie_Gen2DmaLock;
+} XAie_AieMlDmaLock;
 
 /*
  * union to capture lock properties of dma
  */
 typedef union {
 	XAie_AieDmaLock AieDmaLock;
-	XAie_Gen2DmaLock Aie2DmaLock;
+	XAie_AieMlDmaLock AieMlDmaLock;
 } XAie_DmaBdLock;
 
 /*
@@ -357,22 +357,22 @@ typedef struct {
 } XAie_AieAddressMode;
 
 /*
- * The typedef captures the dimension descriptors for aie2
+ * The typedef captures the dimension descriptors for aieml
  */
 typedef struct {
 	XAie_RegBdFldAttr StepSize;
 	XAie_RegBdFldAttr Wrap;
-} XAie_Gen2DmaDimProp;
+} XAie_AieMlDmaDimProp;
 
 /*
- * The typedef captures buffer descriptor fields of aie2 multi dimension
+ * The typedef captures buffer descriptor fields of aieml multi dimension
  * address generation
  */
 typedef struct {
-	XAie_Gen2DmaDimProp DmaDimProp[4U];
-	XAie_Gen2DmaDimProp Iter;
+	XAie_AieMlDmaDimProp DmaDimProp[4U];
+	XAie_AieMlDmaDimProp Iter;
 	XAie_RegBdFldAttr IterCurr;
-} XAie_Gen2AddressMode;
+} XAie_AieMlAddressMode;
 
 /*
  * union captures multi dimension address generation properties between hardware
@@ -380,7 +380,7 @@ typedef struct {
  */
 typedef union {
 	XAie_AieAddressMode AieMultiDimAddr;
-	XAie_Gen2AddressMode Aie2MultiDimAddr;
+	XAie_AieMlAddressMode AieMlMultiDimAddr;
 } XAie_DmaBdMultiDimAddr;
 
 /*
@@ -451,11 +451,11 @@ typedef struct {
 	XAie_RegFldAttr StalledStreamStarve;
 	XAie_RegFldAttr TaskQSize;
 	XAie_RegFldAttr StalledTCT;
-} XAie_Gen2DmaChStatus;
+} XAie_AieMlDmaChStatus;
 
 typedef union {
 	XAie_AieDmaChStatus AieDmaChStatus;
-	XAie_Gen2DmaChStatus Aie2DmaChStatus;
+	XAie_AieMlDmaChStatus AieMlDmaChStatus;
 } XAie_DmaChStatus;
 
 /*

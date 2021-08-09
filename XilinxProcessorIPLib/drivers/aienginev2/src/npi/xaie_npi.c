@@ -25,7 +25,7 @@
 
 /************************** Variable Definitions *****************************/
 extern XAie_NpiMod _XAieNpiMod;
-extern XAie_NpiMod _XAie2NpiMod;
+extern XAie_NpiMod _XAieMlNpiMod;
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
 /**
@@ -49,8 +49,8 @@ static XAie_NpiMod *_XAie_NpiGetMod(XAie_DevInst *DevInst)
 
 	if (DevInst->DevProp.DevGen == XAIE_DEV_GEN_AIE) {
 		return &_XAieNpiMod;
-	} else if (DevInst->DevProp.DevGen == XAIE_DEV_GEN_AIE2) {
-		return &_XAie2NpiMod;
+	} else if (DevInst->DevProp.DevGen == XAIE_DEV_GEN_AIEML) {
+		return &_XAieMlNpiMod;
 	}
 
 	XAIE_ERROR("failed to get NPI module, invalid dev version.\n");

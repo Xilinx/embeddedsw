@@ -58,7 +58,7 @@
 *
 * @return	XAIE_OK if Lock Release, else XAIE_LOCK_RESULT_FAILED.
 *
-* @note 	Internal API for AIE2. This API should not be called directly.
+* @note 	Internal API for AIEML. This API should not be called directly.
 *		It is invoked only using the function pointer part of the lock
 *		module data structure.
 *
@@ -104,7 +104,7 @@ AieRC _XAieMl_LockRelease(XAie_DevInst *DevInst, const XAie_LockMod *LockMod,
 *
 * @return	XAIE_OK if Lock Acquired, else XAIE_LOCK_RESULT_FAILED.
 *
-* @note 	Internal API for AIE2. This API should not be called directly.
+* @note 	Internal API for AIEML. This API should not be called directly.
 *		It is invoked only using the function pointer part of the lock
 *		module data structure.
 *

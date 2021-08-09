@@ -21,7 +21,7 @@
 * 1.0   Tejus   07/25/2019  Initial creation
 * 1.1   Tejus   07/31/2019  Update register defn to r0p6  
 * 1.2   Dishita 09/17/2020  Update register defn to r0p14
-* 1.3   Dishita 09/17/2020  Replace XAIE2GBL with XAIEMLGBL
+* 1.3   Dishita 09/17/2020  Replace XAIEMLGBL with XAIEMLGBL
 * </pre>
 *
 ******************************************************************************/
