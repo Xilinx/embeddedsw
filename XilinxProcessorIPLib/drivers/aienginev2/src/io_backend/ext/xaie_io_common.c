@@ -139,20 +139,14 @@ static AieRC _XAie_RequestRsc(u32 *Bitmap, u32 StartBit,
 		u32 Index;
 		RC = _XAie_FindAvailableRsc(Bitmap, StaticBitmapOffset,
 				StartBit, MaxRscVal, &Index);
-		if(RC != XAIE_OK) {
-			/* Clear bitmap if any resource request failed */
-			for(u32 j = 0; j < i; j++)
-				_XAie_ClrBitInBitmap(Bitmap, RscArrPerTile[j]
-				+ StartBit, 1U);
-			XAIE_WARN("Unable to find free resource\n");
-
+		if(RC != XAIE_OK)
 			return XAIE_ERR;
-		}
 
-		/* Set the bit as allocated if the request was successful*/
-		_XAie_SetBitInBitmap(Bitmap, Index + StartBit, 1U);
 		RscArrPerTile[i] = Index;
 	}
+
+	for(u32 i = 0; i < NumRscPerTile; i++)
+		_XAie_SetBitInBitmap(Bitmap, RscArrPerTile[i] + StartBit, 1U);
 
 	return XAIE_OK;
 }
