@@ -26,6 +26,7 @@
 *       bm   04/03/2021 Move task creation out of interrupt context
 * 1.04  ma   07/12/2021 Minor updates to task related code
 *       bsv  07/16/2021 Fix doxygen warnings
+*       ma   08/05/2021 Add separate task for each IPI channel
 *
 * </pre>
 *
@@ -45,14 +46,13 @@ extern "C" {
 #include "xil_types.h"
 #include "xstatus.h"
 #include "list.h"
-#include "xplmi_proc.h"
 
 /**@cond xplmi_internal
  * @{
  */
 
 /************************** Constant Definitions *****************************/
-#define XPLMI_TASK_MAX			(64U)
+#define XPLMI_TASK_MAX			(72U)
 #define XPLMI_TASK_PRIORITIES		(2U)
 #define XPLMI_INVALID_INTR_ID		(0xFFFFFFFFU)
 

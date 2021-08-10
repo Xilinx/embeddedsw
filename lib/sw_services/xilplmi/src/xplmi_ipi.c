@@ -46,6 +46,7 @@
  * 1.04  bsv  06/09/2021 Add warning in case IPI-0 interrupt is disabled
  *       bsv  06/17/2021 Update warning in case some IPIs are disabled
  *       bsv  08/02/2021 Reduce PLM code size
+ *       ma   08/05/2021 Add separate task for each IPI channel
  *
  * </pre>
  *
@@ -121,6 +122,8 @@ int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler)
 	XIpiPsu_Config *IpiCfgPtr;
 	u32 Index;
 	u32 RegVal;
+	u32 IpiIntrId = XPLMI_IPI_INTR_ID | XPLMI_IOMODULE_PMC_GIC_IRQ;
+	XPlmi_TaskNode *Task = NULL;
 
 	/* Load Config for Processor IPI Channel */
 	IpiCfgPtr = XIpiPsu_LookupConfig(XPAR_XIPIPSU_0_DEVICE_ID);
@@ -140,12 +143,18 @@ int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler)
 	for (Index = 0U; Index < XPLMI_IPI_MASK_COUNT; Index++) {
 		XIpiPsu_InterruptEnable(&IpiInst,
 			IpiCfgPtr->TargetList[Index].Mask);
-	}
 
-	Status = XPlmi_GicRegisterHandler(XPLMI_PMC_GIC_IRQ_GICP0, XPLMI_GICP0_SRC27,
-				XPlmi_IpiDispatchHandler, (void *)0U);
-	if (Status != XST_SUCCESS) {
-		goto END;
+		Task = XPlmi_TaskCreate(XPLM_TASK_PRIORITY_0, XPlmi_IpiDispatchHandler,
+				(void *)IpiCfgPtr->TargetList[Index].BufferIndex);
+		if (Task == NULL) {
+			Status = XPlmi_UpdateStatus(XPLM_ERR_TASK_CREATE, 0);
+			XPlmi_Printf(DEBUG_GENERAL, "IPI Interrupt task creation "
+				"error\n\r");
+			goto END;
+		}
+		Task->IntrId = IpiIntrId |
+			(IpiCfgPtr->TargetList[Index].BufferIndex << XPLMI_IPI_INDEX_SHIFT);
+		Task->State |= (u8)XPLMI_TASK_IS_PERSISTENT;
 	}
 
 	(void) XPlmi_GetPmSubsystemHandler(SubsystemHandler);
@@ -191,67 +200,65 @@ END:
 int XPlmi_IpiDispatchHandler(void *Data)
 {
 	volatile int Status = XST_FAILURE;
-	u32 SrcCpuMask;
 	u32 Payload[XPLMI_IPI_MAX_MSG_LEN] = {0U};
-	u32 MaskIndex;
+	u8 MaskIndex;
 	XPlmi_Cmd Cmd = {0U};
 	u8 PendingPsmIpi = (u8)FALSE;
 
-	/* For MISRA C */
-	(void)Data;
-
-	SrcCpuMask = Xil_In32(IPI_PMC_ISR);
-
 	for (MaskIndex = 0U; MaskIndex < XPLMI_IPI_MASK_COUNT; MaskIndex++) {
-		if ((SrcCpuMask & IpiInst.Config.TargetList[MaskIndex].Mask) != 0U) {
-			Cmd.IpiReqType = XPLMI_CMD_NON_SECURE;
-			Cmd.IpiMask = IpiInst.Config.TargetList[MaskIndex].Mask;
-			if (IPI_PMC_ISR_PSM_BIT_MASK == Cmd.IpiMask) {
-				PendingPsmIpi = (u8)TRUE;
-			}
-			Status = XPlmi_IpiRead(IpiInst.Config.TargetList[MaskIndex].Mask,
-					&Payload[0U], XPLMI_IPI_MAX_MSG_LEN, XIPIPSU_BUF_TYPE_MSG);
+		if (IpiInst.Config.TargetList[MaskIndex].BufferIndex == (u32)Data) {
+			break;
+		}
+	}
 
-			if (XST_SUCCESS != Status) {
-				goto END;
-			}
+	if (MaskIndex != XPLMI_IPI_MASK_COUNT) {
+		Cmd.IpiReqType = XPLMI_CMD_NON_SECURE;
+		Cmd.IpiMask = IpiInst.Config.TargetList[MaskIndex].Mask;
+		if (IPI_PMC_ISR_PSM_BIT_MASK == Cmd.IpiMask) {
+			PendingPsmIpi = (u8)TRUE;
+		}
+		Status = XPlmi_IpiRead(IpiInst.Config.TargetList[MaskIndex].Mask,
+				&Payload[0U], XPLMI_IPI_MAX_MSG_LEN, XIPIPSU_BUF_TYPE_MSG);
 
-			Cmd.CmdId = Payload[0U];
-			Status = XST_FAILURE;
-			Status = XPlmi_ValidateIpiCmd(&Cmd,
-					IpiInst.Config.TargetList[MaskIndex].BufferIndex);
-			if (Status != XST_SUCCESS) {
-				goto END;
-			}
+		if (XST_SUCCESS != Status) {
+			goto END;
+		}
 
-			Cmd.Len = (Cmd.CmdId >> 16U) & 255U;
-			if (Cmd.Len > XPLMI_MAX_IPI_CMD_LEN) {
-				Cmd.Len = Payload[1U];
-				Cmd.Payload = (u32 *)&Payload[2U];
-			} else {
-				Cmd.Payload = (u32 *)&Payload[1U];
-			}
+		Cmd.CmdId = Payload[0U];
+		Status = XST_FAILURE;
+		Status = XPlmi_ValidateIpiCmd(&Cmd,
+				IpiInst.Config.TargetList[MaskIndex].BufferIndex);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 
-			/* Ack PSM IPIs before running handlers */
-			if (IPI_PMC_ISR_PSM_BIT_MASK == Cmd.IpiMask) {
-				PendingPsmIpi = (u8)FALSE;
-				XPlmi_Out32(IPI_PMC_ISR,
-					IPI_PMC_ISR_PSM_BIT_MASK);
-			}
+		Cmd.Len = (Cmd.CmdId >> 16U) & 255U;
+		if (Cmd.Len > XPLMI_MAX_IPI_CMD_LEN) {
+			Cmd.Len = Payload[1U];
+			Cmd.Payload = (u32 *)&Payload[2U];
+		} else {
+			Cmd.Payload = (u32 *)&Payload[1U];
+		}
 
-			Status = XPlmi_CmdExecute(&Cmd);
+		/* Ack PSM IPIs before running handlers */
+		if (IPI_PMC_ISR_PSM_BIT_MASK == Cmd.IpiMask) {
+			PendingPsmIpi = (u8)FALSE;
+			XPlmi_Out32(IPI_PMC_ISR,
+				IPI_PMC_ISR_PSM_BIT_MASK);
+		}
+
+		Status = XPlmi_CmdExecute(&Cmd);
 
 END:
-			Cmd.Response[0U] = (u32)Status;
-			/* Send response to caller */
-			(void)XPlmi_IpiWrite(Cmd.IpiMask, Cmd.Response,
-					XPLMI_CMD_RESP_SIZE, XIPIPSU_BUF_TYPE_RESP);
-			/* Ack all IPIs */
-			if ((LpdInitialized & LPD_INITIALIZED) == LPD_INITIALIZED) {
-				if ((IPI_PMC_ISR_PSM_BIT_MASK != Cmd.IpiMask) ||
-					(PendingPsmIpi == (u8)TRUE)) {
-						XPlmi_Out32(IPI_PMC_ISR, Cmd.IpiMask);
-				}
+		Cmd.Response[0U] = (u32)Status;
+		/* Send response to caller */
+		(void)XPlmi_IpiWrite(Cmd.IpiMask, Cmd.Response,
+				XPLMI_CMD_RESP_SIZE, XIPIPSU_BUF_TYPE_RESP);
+		/* Ack all IPIs */
+		if ((LpdInitialized & LPD_INITIALIZED) == LPD_INITIALIZED) {
+			if ((IPI_PMC_ISR_PSM_BIT_MASK != Cmd.IpiMask) ||
+				(PendingPsmIpi == (u8)TRUE)) {
+					XPlmi_Out32(IPI_PMC_ISR, Cmd.IpiMask);
 			}
 		}
 	}
