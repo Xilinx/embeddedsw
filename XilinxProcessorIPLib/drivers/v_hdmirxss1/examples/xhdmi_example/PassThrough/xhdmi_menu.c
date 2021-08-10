@@ -87,7 +87,9 @@ static XHdmi_MenuType XHdmi_AudioChannelMenu(XHdmi_Menu *InstancePtr, u8 Input);
 static XHdmi_MenuType
 	XHdmi_AudioSampFreqMenu(XHdmi_Menu *InstancePtr, u8 Input);
 #endif
+#ifdef XPAR_XV_TPG_NUM_INSTANCES
 static XHdmi_MenuType XHdmi_VideoMenu(XHdmi_Menu *InstancePtr, u8 Input);
+#endif
 #endif
 #if defined(USE_HDCP_HDMI_RX) || defined(USE_HDCP_HDMI_TX)
 static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input);
@@ -182,7 +184,9 @@ static XHdmi_MenuFuncType* const XHdmi_MenuTable[XHDMI_NUM_MENUS] = {
     XHdmi_AudioChannelMenu,
     XHdmi_AudioSampFreqMenu,
 #endif
+#ifdef XPAR_XV_TPG_NUM_INSTANCES
     XHdmi_VideoMenu,
+#endif
 #endif
 #if defined(USE_HDCP_HDMI_RX) || defined(USE_HDCP_HDMI_TX)
     XHdmi_HdcpMainMenu,
@@ -1491,7 +1495,7 @@ void XHdmi_DisplayVideoMenu(void) {
     xil_printf(" 99 - Exit\r\n");
     xil_printf("Enter Selection -> ");
 }
-
+#ifdef XPAR_XV_TPG_NUM_INSTANCES
 /*****************************************************************************/
 /**
 *
@@ -1638,6 +1642,8 @@ static XHdmi_MenuType XHdmi_VideoMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 #endif
     return Menu;
 }
+
+#endif
 
 #ifdef USE_HDMI_AUDGEN
 /*****************************************************************************/
