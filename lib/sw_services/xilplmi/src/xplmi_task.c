@@ -35,6 +35,7 @@
 *                       logs on console
 * 1.06  td   07/08/2021 Fix doxygen warnings
 *       ma   07/12/2021 Minor updates to task related code
+*       ma   08/05/2021 Add separate task for each IPI channel
 *
 * </pre>
 *
@@ -47,6 +48,7 @@
 #include "xplmi_debug.h"
 #include "xplmi_wdt.h"
 #include "mb_interface.h"
+#include "xplmi_proc.h"
 
 /************************** Constant Definitions *****************************/
 

@@ -32,7 +32,8 @@
 *                       SET BOARD command via IPI
 *       bm   10/14/2020 Code clean up
 * 1.03  ma   03/04/2021 Added IPI secure related defines
-*       bsv  04/16/2021 Add provision to store Subsystem Id in XilPlmi
+*       bsv  04/16/2021 Added provision to store Subsystem Id in XilPlmi
+*       ma   08/09/2021 Added IPI_PMC_IMR register define
 *
 * </pre>
 *
@@ -63,6 +64,7 @@ extern "C" {
 /* IPI defines */
 #define IPI_BASEADDR				(0xFF300000U)
 #define IPI_PMC_ISR					(IPI_BASEADDR + 0x20010U)
+#define IPI_PMC_IMR					(IPI_BASEADDR + 0x20014U)
 #define IPI_PMC_ISR_PSM_BIT_MASK	(0x1U)
 #define IPI_PMC_ISR_IPI5_BIT_MASK	(0x80U)
 #define IPI_NO_BUF_CHANNEL_INDEX	(0xFFFFU)

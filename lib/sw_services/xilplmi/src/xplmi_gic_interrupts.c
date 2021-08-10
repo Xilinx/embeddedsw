@@ -23,6 +23,7 @@
 * 1.04  bm   04/03/2021 Move task creation out of interrupt context
 * 1.05  ma   07/12/2021 Minor updates to task related code
 *       bsv  08/02/2021 Code clean up to reduce code size
+*       ma   08/05/2021 Add separate task for each IPI channel
 *
 * </pre>
 *
@@ -34,7 +35,6 @@
 #include "xplmi_gic_interrupts.h"
 #include "xplmi_hw.h"
 #include "xplmi_util.h"
-#include "xplmi_task.h"
 #include "xplmi_debug.h"
 
 /************************** Constant Definitions *****************************/
@@ -45,57 +45,9 @@
 
 /************************** Function Prototypes ******************************/
 static void XPlmi_GicIntrAddTask(u32 Index);
-static int XPlmi_GicTaskHandler(void *Arg);
+static void XPlmi_GicAddTask(u32 PlmIntrId);
 
 /************************** Variable Definitions *****************************/
-static struct GicIntrHandlerTable g_GicPInterruptTable[] = {
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP0_MASK | XPLMI_GICP0_SRC13) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP0_MASK | XPLMI_GICP0_SRC14) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP0_MASK | XPLMI_GICP0_SRC15) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP0_MASK | XPLMI_GICP0_SRC16) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP0_MASK | XPLMI_GICP0_SRC17) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP0_MASK | XPLMI_GICP0_SRC18) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP0_MASK | XPLMI_GICP0_SRC19) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP0_MASK | XPLMI_GICP0_SRC20) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP0_MASK | XPLMI_GICP0_SRC21) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP0_MASK | XPLMI_GICP0_SRC22) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP0_MASK | XPLMI_GICP0_SRC23) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP0_MASK | XPLMI_GICP0_SRC24) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP0_MASK | XPLMI_GICP0_SRC25) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP0_MASK | XPLMI_GICP0_SRC26) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP0_MASK | XPLMI_GICP0_SRC27) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP1_MASK | XPLMI_GICP1_SRC5) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP1_MASK | XPLMI_GICP1_SRC6) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP1_MASK | XPLMI_GICP1_SRC7) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP1_MASK | XPLMI_GICP1_SRC8) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP1_MASK | XPLMI_GICP1_SRC9) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP1_MASK | XPLMI_GICP1_SRC10) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP1_MASK | XPLMI_GICP1_SRC11) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP1_MASK | XPLMI_GICP1_SRC12) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP1_MASK | XPLMI_GICP1_SRC13) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP1_MASK | XPLMI_GICP1_SRC14) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP1_MASK | XPLMI_GICP1_SRC15) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP1_MASK | XPLMI_GICP1_SRC16) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP1_MASK | XPLMI_GICP1_SRC24) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP1_MASK | XPLMI_GICP1_SRC25) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP1_MASK | XPLMI_GICP1_SRC26) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP1_MASK | XPLMI_GICP1_SRC27) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP1_MASK | XPLMI_GICP1_SRC28) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP1_MASK | XPLMI_GICP1_SRC29) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP1_MASK | XPLMI_GICP1_SRC30) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP1_MASK | XPLMI_GICP1_SRC31) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP2_MASK | XPLMI_GICP2_SRC0) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP2_MASK | XPLMI_GICP2_SRC1) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP2_MASK | XPLMI_GICP2_SRC2) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP2_MASK | XPLMI_GICP2_SRC3) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP2_MASK | XPLMI_GICP2_SRC10) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP3_MASK | XPLMI_GICP3_SRC30) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP3_MASK | XPLMI_GICP3_SRC31) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP4_MASK | XPLMI_GICP4_SRC0) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP4_MASK | XPLMI_GICP4_SRC1) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP4_MASK | XPLMI_GICP4_SRC14) },
-	{ NULL, NULL, (XPLMI_PMC_GIC_IRQ_GICP4_MASK | XPLMI_GICP4_SRC8) },
-};
 
 /*****************************************************************************/
 /**
@@ -113,13 +65,10 @@ int XPlmi_GicRegisterHandler(u32 GicPVal, u32 GicPxVal, GicIntHandler_t Handler,
 	void *Data)
 {
 	int Status = XST_FAILURE;
-	u8 GicIndex;
-	u8 GicSource;
 	XPlmi_TaskNode *Task = NULL;
 	u32 PlmIntrId = (GicPVal << 8U) | (GicPxVal << 16U);
 
-	Task = XPlmi_TaskCreate(XPLM_TASK_PRIORITY_0,
-			XPlmi_GicTaskHandler, (void *)PlmIntrId);
+	Task = XPlmi_TaskCreate(XPLM_TASK_PRIORITY_0, Handler, Data);
 	if (Task == NULL) {
 		Status = XPlmi_UpdateStatus(XPLM_ERR_TASK_CREATE, 0);
 		XPlmi_Printf(DEBUG_GENERAL, "GIC Interrupt task creation "
@@ -128,19 +77,7 @@ int XPlmi_GicRegisterHandler(u32 GicPVal, u32 GicPxVal, GicIntHandler_t Handler,
 	}
 	Task->IntrId = PlmIntrId | XPLMI_IOMODULE_PMC_GIC_IRQ;
 	Task->State |= (u8)XPLMI_TASK_IS_PERSISTENT;
-
-	/** Register Handler */
-	GicSource = ((u8)GicPVal << XPLMI_GICP_SOURCE_SHIFT) | (u8)GicPxVal;
-	for (GicIndex = 0U; GicIndex < XPLMI_ARRAY_SIZE(g_GicPInterruptTable);
-		++GicIndex) {
-		if (g_GicPInterruptTable[GicIndex].GicSource != GicSource) {
-			continue;
-		}
-		g_GicPInterruptTable[GicIndex].GicHandler = Handler;
-		g_GicPInterruptTable[GicIndex].Data = Data;
-		Status = XST_SUCCESS;
-		break;
-	}
+	Status = XST_SUCCESS;
 
 END:
 	return Status;
@@ -235,9 +172,7 @@ void XPlmi_GicIntrHandler(void *CallbackRef)
 	u32 GicOffset;
 	u32 GicPMask;
 	u32 GicMask;
-	u32 GicTableIndex;
 	u32 PlmIntrId;
-	u32 Index;
 
 	(void)CallbackRef;
 
@@ -267,29 +202,10 @@ void XPlmi_GicIntrHandler(void *CallbackRef)
 			if ((GicPNIntrMask & GicPMask) != 0U) {
 				continue;
 			}
-			GicTableIndex = (GicIndex << XPLMI_GICP_SOURCE_SHIFT) |
-				GicPIndex;
-			for (Index = 0U;
-				Index < XPLMI_ARRAY_SIZE(g_GicPInterruptTable);
-				++Index) {
-				if (g_GicPInterruptTable[Index].GicSource ==
-					GicTableIndex) {
-					break;
-				}
-			}
-			if (Index == XPLMI_ARRAY_SIZE(g_GicPInterruptTable)) {
-				continue;
-			}
-
-			if(g_GicPInterruptTable[Index].GicHandler != NULL) {
-				PlmIntrId = ((GicIndex << 8U) | (GicPIndex << 16U));
-				XPlmi_GicIntrAddTask(PlmIntrId);
-				XPlmi_Out32((PMC_GLOBAL_GICP0_IRQ_DISABLE + GicOffset), GicPMask);
-			}
-			else {
-				XPlmi_Printf(DEBUG_GENERAL, "%s: Error: Unhandled GIC interrupt"
-					" received\n\r", __func__);
-			}
+			PlmIntrId = ((GicIndex << XPLMI_GICP_INDEX_SHIFT) |
+					(GicPIndex << XPLMI_GICPX_INDEX_SHIFT));
+			XPlmi_GicAddTask(PlmIntrId);
+			XPlmi_Out32((PMC_GLOBAL_GICP0_IRQ_DISABLE + GicOffset), GicPMask);
 			XPlmi_Out32(PMC_GLOBAL_GICP0_IRQ_STATUS + GicOffset, GicPMask);
 		}
 		XPlmi_Out32(PMC_GLOBAL_GICP_PMC_IRQ_STATUS, GicMask);
@@ -300,7 +216,48 @@ void XPlmi_GicIntrHandler(void *CallbackRef)
 
 /*****************************************************************************/
 /**
- * @brief	This function adds the GiCTaskHandler to the TaskQueue.
+ * @brief	This will add the GIC interrupt task handler to the TaskQueue.
+ *
+ * @param	PlmIntrId is the GIC interrupt ID of the task
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+static void XPlmi_GicAddTask(u32 PlmIntrId)
+{
+#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+	u16 IpiIntrVal;
+	u16 IpiMaskVal;
+	u8 IpiIndex;
+	u16 IpiIndexMask;
+
+	/* Check if the received interrupt is IPI */
+	if (PlmIntrId == XPLMI_IPI_INTR_ID) {
+		IpiIntrVal = (u16)Xil_In32(IPI_PMC_ISR);
+		IpiMaskVal = (u16)Xil_In32(IPI_PMC_IMR);
+		/*
+		 * Check IPI source channel and add channel specific task to
+		 * task queue according to the channel priority
+		 */
+		for (IpiIndex = 0U; IpiIndex < XPLMI_IPI_MASK_COUNT; ++IpiIndex) {
+			IpiIndexMask = (u16)1U << IpiIndex;
+			if (((IpiIntrVal & IpiIndexMask) != 0U) &&
+				((IpiMaskVal & IpiIndexMask) == 0U)) {
+				XPlmi_GicIntrAddTask(PlmIntrId |
+					((u32)IpiIndex << XPLMI_IPI_INDEX_SHIFT));
+			}
+		}
+	} else
+#endif
+	{
+		/* Add task to the task queue */
+		XPlmi_GicIntrAddTask(PlmIntrId);
+	}
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function adds the GiC task handler to the TaskQueue.
  *
  * @param	Index is the interrupt index with GicPx and its corresponding
  *              bit details.
@@ -321,42 +278,4 @@ static void XPlmi_GicIntrAddTask(u32 Index)
 
 END:
 	return;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This is GicTaskhandler with executes the registered handler. In
- * case of SUCCESS or error, IRQ status is cleared and enabled again.
- * If the task is in still progress, then interrupt is not cleared and Task
- * handler is called again from TaskDispatcher.
- *
- * @param	Arg is index of the interrupt handler.
- *
- * @return	None
- *
- *****************************************************************************/
-static int XPlmi_GicTaskHandler(void *Arg)
-{
-	int Status = XST_FAILURE;
-	u32 Index = (u32)Arg;
-	u32 GicIndex = (Index & XPLMI_GICP_MASK) >> 8U;
-	u32 GicPIndex = (Index & XPLMI_GICPX_MASK) >> 16U;
-	u32 GicSource;
-
-	GicSource = (GicIndex << XPLMI_GICP_SOURCE_SHIFT) | GicPIndex;
-
-	/*
-	 * Call Gic interrupt handler. GIC interrupt handlers should follow
-	 * the return values as followed by task handler.
-	 * Interrupt clear and enable should be done by Handler only.
-	 */
-	for (Index = 0U; Index < XPLMI_ARRAY_SIZE(g_GicPInterruptTable); ++Index) {
-		if (g_GicPInterruptTable[Index].GicSource == GicSource) {
-			Status = g_GicPInterruptTable[Index].GicHandler(
-				g_GicPInterruptTable[Index].Data);
-			break;
-		}
-	}
-
-	return Status;
 }
