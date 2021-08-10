@@ -24,6 +24,8 @@
 #                     structure
 # 2.13  mus  05/23/21 Added -fno-tree-loop-distribute-patterns to prevent for loops
 #                     to memset conversions. It fixes CR#1090083.
+# 2.14  mus  08/10/21 Fixed compiler detection logic to support compiler placed
+#                     at user defined path. It fixes CR#1106407.
 #
 ###############################################################################
 OPTION psf_version = 2.1;
@@ -34,7 +36,7 @@ OPTION copyfiles = all;
 OPTION driver_state = ACTIVE;
 OPTION supported_peripherals = (microblaze psu_pmu psu_pmc psu_psm psv_pmc psv_psm);
 OPTION default_os = "standalone_v5_0";
-OPTION VERSION = 2.13;
+OPTION VERSION = 2.14;
 OPTION NAME = cpu;
 
 PARAM name = compiler, desc = "Compiler used to compile both BSP/Libraries and Applications.", type = string, default = mb-gcc;
