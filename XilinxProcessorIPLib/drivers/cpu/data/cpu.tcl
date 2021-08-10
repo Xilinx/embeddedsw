@@ -59,6 +59,8 @@
 ##                     parameters which are not required. It fixes CR#1081668.
 ## 2.13  mus  05/23/21 Added -fno-tree-loop-distribute-patterns to prevent for loops
 ##                     to memset conversions. It fixes CR#1090083.
+## 2.14  mus  08/10/21 Fixed compiler detection logic to support compiler placed
+##                     at user defined path. It fixes CR#1106407.
 # uses xillib.tcl
 
 ########################################
@@ -97,13 +99,14 @@ proc generate {drv_handle} {
     set compiler [common::get_property CONFIG.compiler $drv_handle]
     # preserve case
     set temp $compiler
-    set compiler [string tolower $compiler]
+    set compiler [string tolower [file tail $compiler]]
+    set compiler_full_path 0
     if { $compiler == "mb-gcc" || $compiler == "mb-g++" || $compiler == "mb-c++" } {
         # If the user has just specified the compiler without specifying a path,
         # we default to the compiler root being the EDK installation
-        if {[string compare "mb-gcc" $compiler] == 0 ||
-            [string compare "mb-g++" $compiler] == 0 ||
-            [string compare "mb-c++" $compiler] == 0 } {
+        if {[string compare "mb-gcc" $temp] == 0 ||
+            [string compare "mb-g++" $temp] == 0 ||
+            [string compare "mb-c++" $temp] == 0 } {
 
             set compiler_root ""
             set xilinx_edk_gnu [array get env XILINX_EDK_GNU]
@@ -127,10 +130,13 @@ proc generate {drv_handle} {
                     append compiler_root $env(XILINX_SDK) "/gnu/microblaze/" $gnu_osdir
             }
         } else {
-            set compiler_root [file dirname $temp]
-
-            ## Big time kludge here. We rely on the compiler toolchain name staying the same forever here.
-            set compiler_root [string range $compiler_root 0 [expr [string length $compiler_root] - 4]]
+            if { [file exists $temp] } {
+                # Assumes that compiler path is .../<compiler_root/bin/<compiler>
+                set compiler_root [file dirname [file dirname $temp]]
+		set compiler_full_path 1
+            } else {
+	        error  "ERROR: Compiler specified in BSP settings doesn't exist : $temp"
+            }
         }
 	puts $compiler_root
         # Copy the library files - libc.a, libm.a, libxil.a
@@ -439,6 +445,11 @@ proc generate {drv_handle} {
         append compiler_flags " -mcpu=v" $cpu_version
     }
 
+    # When a full path is specified to compiler parameter in BSP settings, hsi omits the default value
+    # from the compiler flags. Add them here.
+    if { $compiler_full_path == 1 } {
+	 append compiler_flags " [common::get_property CONFIG.compiler_flags $drv_handle]"
+    }
     common::set_property CONFIG.compiler_flags $compiler_flags $drv_handle
 
     # Append LTO flag in extra_compiler_flags for BSPs of PMU Firmware, PLM
