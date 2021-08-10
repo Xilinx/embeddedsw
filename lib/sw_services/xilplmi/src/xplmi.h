@@ -42,6 +42,7 @@
 *       bsv  07/24/2021 Clear RTC area at the beginning of PLM
 *       bsv  08/02/2021 Code clean up to reduce elf size
 *       ma   08/06/2021 Added RTCA define for storing PMC_FW_ERR register value
+*       bm   08/09/2021 Cleared PMC CDO buffer by default after processing
 *
 * </pre>
 *
@@ -150,6 +151,10 @@ extern "C" {
 				PMC_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK) == \
 				PMC_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK) ? \
 					(TRUE) : (FALSE))
+
+/* Maximum length of PMC CDO */
+#define XPLMI_PMC_CDO_MAX_LEN		(0x14000U)
+#define XPLMI_PMC_CDO_MAX_WORD_LEN	(XPLMI_PMC_CDO_MAX_LEN / XPLMI_WORD_LEN)
 
 /************************** Function Prototypes ******************************/
 int XPlmi_Init(void);

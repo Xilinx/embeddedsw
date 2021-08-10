@@ -106,6 +106,7 @@
 *       bsv  07/24/2021 Clear RTC area at the beginning of PLM
 *       ma   07/27/2021 Added temporal check for XLoader_SetSecureState
 *       ma   07/27/2021 Added temporal check for XilPdi_ValidateImgHdrTbl
+*       bm   08/09/2021 Removed obsolete XLoader_PMCStateClear API
 *
 * </pre>
 *
@@ -2329,21 +2330,4 @@ static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 	}
 END:
 	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function is used to clear PMC state
- *
- * @return	None
- *
- *****************************************************************************/
-void XLoader_PMCStateClear(void)
-{
-	/* Clear PMC RAM CDO memory */
-	(void)XPlmi_MemSet(XPLMI_PMCRAM_CHUNK_MEMORY, XPLMI_DATA_INIT_PZM,
-			XLOADER_CHUNK_SIZE / XPLMI_WORD_LEN);
-
-	/* Clear secure state of PMC */
-	XLoader_SecureClear();
 }

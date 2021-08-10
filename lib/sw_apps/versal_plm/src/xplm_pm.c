@@ -32,6 +32,7 @@
 *       bm   04/27/2021 Updated priority of XPlm_KeepAliveTask
 * 1.05  td   07/08/2021 Fix doxygen warnings
 *       ma   07/12/2021 Register NULL error handler for XPlm_KeepAliveTask
+*       bm   08/09/2021 Cleared PMC CDO buffer by default after processing
 *
 * </pre>
 *
@@ -49,6 +50,7 @@
 #include "xplmi_scheduler.h"
 #include "xplmi_util.h"
 #include "xloader.h"
+#include "xloader_secure.h"
 #include "xplmi_sysmon.h"
 #ifdef PLM_ENABLE_STL
 #include "xplm_stl.h"
@@ -205,6 +207,7 @@ END:
 int XPlm_ProcessPmcCdo(void *Arg)
 {
 	int Status = XST_FAILURE;
+	int SStatus = XST_FAILURE;
 	XPlmiCdo Cdo;
 	u32 SlrType = XLOADER_SSIT_INVALID_SLR;
 
@@ -240,8 +243,16 @@ int XPlm_ProcessPmcCdo(void *Arg)
 	Cdo.SubsystemId = PM_SUBSYS_PMC;
 	Status = XPlmi_ProcessCdo(&Cdo);
 
-	if (XST_SUCCESS != Status) {
-		XLoader_PMCStateClear();
+	/* Clear PMC CDO memory irrespective of success or failure */
+	SStatus = XPlmi_MemSet(XPLMI_PMCRAM_BASEADDR, XPLMI_DATA_INIT_PZM,
+			XPLMI_PMC_CDO_MAX_WORD_LEN);
+	if ((XST_SUCCESS != Status) || (XST_SUCCESS != SStatus)) {
+		XLoader_SecureClear();
+		if (Status == XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XPLM_ERR_PMC_RAM_MEMSET,
+					SStatus);
+		}
+		goto END;
 	}
 
 	Status = XPlmi_SysMonInit();
