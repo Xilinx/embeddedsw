@@ -142,6 +142,7 @@
 *       sk     04/08/21 Fixed doxygen warnings in all source files.
 *       sk     05/25/21 Fix the compilation issue in Cortex-A72 + EL1_NS by
 *                       removing the DLL reset logic (Dead code for Versal).
+* 3.13  sk     08/10/21 Limit the SD operating frequency to 19MHz for Versal.
 *
 * </pre>
 *
@@ -288,6 +289,11 @@ typedef struct {
 } XSdPs;
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#ifdef versal
+#define SD_HS_MODE_ENABLE	0
+#else
+#define SD_HS_MODE_ENABLE	1
+#endif
 
 /************************** Function Prototypes ******************************/
 XSdPs_Config *XSdPs_LookupConfig(u16 DeviceId);
