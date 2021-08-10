@@ -26,6 +26,7 @@
 *                       always, write zero to tap register for zero tap value.
 *       sk     12/17/20 Removed checking platform specific SD macros and used
 *                       Baseaddress instead.
+* 3.13  sk     08/10/21 Limit the SD operating frequency to 19MHz for Versal.
 *
 * </pre>
 *
@@ -211,7 +212,9 @@ s32 XSdPs_SdModeInit(XSdPs *InstancePtr)
 #else
 	static u8 SCR[8] __attribute__ ((aligned(32))) = { 0U };
 #endif
+#if SD_HS_MODE_ENABLE
 	u8 ReadBuff[64] = { 0U };
+#endif
 
 	Status = XSdPs_Get_BusWidth(InstancePtr, SCR);
 	if (Status != XST_SUCCESS) {
@@ -228,6 +231,7 @@ s32 XSdPs_SdModeInit(XSdPs *InstancePtr)
 		}
 	}
 
+#if SD_HS_MODE_ENABLE
 	/* Get speed supported by device */
 	Status = XSdPs_Get_BusSpeed(InstancePtr, ReadBuff);
 	if (Status != XST_SUCCESS) {
@@ -279,6 +283,7 @@ s32 XSdPs_SdModeInit(XSdPs *InstancePtr)
 			}
 		}
 	}
+#endif
 
 	Status = XSdPs_SetBlkSize(InstancePtr, XSDPS_BLK_SIZE_512_MASK);
 	if (Status != XST_SUCCESS) {
