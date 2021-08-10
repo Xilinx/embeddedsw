@@ -3394,7 +3394,6 @@ void XV_HdmiTxSS1_SetVrrMode(XV_HdmiTxSs1 *InstancePtr,
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->VtcPtr != NULL);
 
 	InstancePtr->VrrEnabled = VrrEn;
 	InstancePtr->CnmvrrEnabled = CnmvrrEn;
