@@ -25,6 +25,7 @@
 * 1.04  td   07/08/2021 Fix doxygen warnings
 *       bsv  07/16/2021 Fix doxygen warnings
 *       bsv  08/02/2021 Code clean up to reduce size
+*       ma   08/05/2021 Add separate task for each IPI channel
 *
 * </pre>
 *
@@ -41,6 +42,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xplmi_ipi.h"
+#include "xplmi_task.h"
 
 /**@cond xplmi_internal
  * @{
@@ -49,9 +51,8 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 #define XPLMI_GICP_SOURCE_COUNT		(0x5U)
 #define XPLMI_NO_OF_BITS_IN_REG		(32U)
-#define XPLMI_GICP_SOURCE_SHIFT		(5U)
-#define XPLMI_GICP_MASK			(0xFF00U)
-#define XPLMI_GICPX_MASK		(0xFF0000U)
+#define XPLMI_GICP_INDEX_SHIFT		(8U)
+#define XPLMI_GICPX_INDEX_SHIFT		(16U)
 #define XPLMI_GICPX_LEN			(0x14U)
 
 /*
@@ -62,13 +63,6 @@ extern "C" {
 #define XPLMI_PMC_GIC_IRQ_GICP2		(2U)
 #define XPLMI_PMC_GIC_IRQ_GICP3		(3U)
 #define XPLMI_PMC_GIC_IRQ_GICP4		(4U)
-
-#define XPLMI_PMC_GIC_IRQ_GICP0_MASK		(0U)
-#define XPLMI_PMC_GIC_IRQ_GICP1_MASK		(32U)
-#define XPLMI_PMC_GIC_IRQ_GICP2_MASK		(64U)
-#define XPLMI_PMC_GIC_IRQ_GICP3_MASK		(96U)
-#define XPLMI_PMC_GIC_IRQ_GICP4_MASK		(128U)
-
 /*
  * PMC GICP0 interrupts
  */
@@ -135,6 +129,8 @@ extern "C" {
 #define XPLMI_GICP4_SRC8	(8U) /**< SBI interrupt */
 #define XPLMI_GICP4_SRC14	(14U) /**< RTC interrupt */
 
+#define XPLMI_IPI_INTR_ID		(0x1B0000U)
+#define XPLMI_IPI_INDEX_SHIFT	(24U)
 /**
  * @}
  * @endcond
@@ -143,11 +139,6 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 /* Handler Table Structure */
 typedef int (*GicIntHandler_t)(void *Data);
-struct GicIntrHandlerTable {
-	GicIntHandler_t GicHandler; /**< Function pointer to interrupt handler */
-	void *Data; /**< Data is argument to interrupt handler */
-	u8 GicSource; /**< Denotes interrupt source */
-};
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
