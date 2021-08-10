@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfxasm_sinit.c
-* @addtogroup dfxasm_v1_0
+* @addtogroup dfxasm_v1_1
 * @{
 *
 * This file contains the implementation of the Xdfxasm driver's static
