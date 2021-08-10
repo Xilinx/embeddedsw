@@ -85,7 +85,7 @@
 *                       in slave boot modes
 *       bm   07/30/2021 Added Metaheader PDI type
 *       bsv  08/02/2021 Updated function return type as part of code clean up
-*
+*       bm   08/09/2021 Removed obsolete XLoader_PMCStateClear API prototype
 *
 * </pre>
 *
@@ -403,7 +403,6 @@ int XLoader_CframeInit(void);
 void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr);
 XLoader_ImageInfo* XLoader_GetImageInfoEntry(u32 ImgID);
 int XLoader_LoadImageInfoTbl(u64 DestAddr, u32 MaxSize, u32 *NumEntries);
-void XLoader_PMCStateClear(void);
 XLoader_ImageStore* XLoader_GetPdiList(void);
 int XLoader_DdrOps(u8 Type);
 int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr);

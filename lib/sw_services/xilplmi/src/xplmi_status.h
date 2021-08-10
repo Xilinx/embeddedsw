@@ -86,6 +86,7 @@
 *       bsv  07/16/2021 Fix doxygen warnings
 *       bsv  07/16/2021 Added Macronix flash support
 *       bm   07/16/2021 Added error code for decrypt metaheader
+*       bm   08/09/2021 Cleared PMC CDO buffer by default after processing
 *
 * </pre>
 *
@@ -286,6 +287,8 @@ typedef enum {
 	XPLM_ERR_PSM_NOT_ALIVE,			/**< 0x208 - PSM is not alive */
 	XPLM_ERR_IPI_SEND,			/**< 0x209 - Error while sending
 						     IPI */
+	XPLM_ERR_PMC_RAM_MEMSET,	/**< 0x20A - Error while clearing the
+						PMC CDO region in PMC RAM */
 
 	/** Status codes used in XLOADER */
 	XLOADER_UNSUPPORTED_BOOT_MODE = 0x300, /**< 0x300 - Error for
