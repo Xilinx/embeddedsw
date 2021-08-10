@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +18,10 @@
 * Ver	 Who   Date	      Changes
 * ---- ----- ------------  ----------------------------------------------
 * 1.0   dp    07/14/2020     First Release
+* 1.1   dp    08/10/2021     Typecast ShutdownMode to XDfxasm_State while
+*                            invoking XDfxasm_SetState() in the routine
+*                            XDfxasm_TestState() to avoid compilation issue
+*                            with cpp compiler.
 *
 * </pre>
 *
@@ -150,7 +154,7 @@ u32 XDfxasm_TestState(void)
 	 */
 	for (Index = 0; Index < 4; Index++) {
 		ShutdownMode = Index %2;
-		XDfxasm_SetState(&Dfxasm, ShutdownMode);
+		XDfxasm_SetState(&Dfxasm, (XDfxasm_State)ShutdownMode);
 		ShutdownState = XDfxasm_GetState(&Dfxasm) & 0x1;
 		if (ShutdownState != ShutdownMode) {
 			xil_printf("    ERROR: ShutdownState = %0u,"
