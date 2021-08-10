@@ -7,7 +7,7 @@
 /**
 *
 * @file xsdps_sinit.c
-* @addtogroup sdps_v3_12
+* @addtogroup sdps_v3_13
 * @{
 *
 * The implementation of the XSdPs component's static initialization
