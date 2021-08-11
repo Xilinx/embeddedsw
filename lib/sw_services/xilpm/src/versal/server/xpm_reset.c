@@ -29,6 +29,23 @@ static u32 PmNumResets;
 
 u32 UserAssertPsSrst = 0U;
 
+static const u32 PermissionResets[] = {
+	PM_RST_PMC_POR,
+	PM_RST_PMC,
+	PM_RST_SYS_RST_1,
+	PM_RST_SYS_RST_2,
+	PM_RST_SYS_RST_3,
+	PM_RST_PL_POR,
+	PM_RST_NOC_POR,
+	PM_RST_PL_SRST,
+	PM_RST_NOC,
+	PM_RST_NPI,
+	PM_RST_PL0,
+	PM_RST_PL1,
+	PM_RST_PL2,
+	PM_RST_PL3,
+};
+
 static XPm_ResetOps ResetOps[XPM_RSTOPS_MAX] = {
 	[XPM_RSTOPS_GENRERIC] = {
 			.SetState = Reset_AssertCommon,
@@ -709,27 +726,37 @@ XStatus XPmReset_IsPermissionReset(const u32 ResetId)
 {
 	u32 Index;
 	XStatus Status = XPM_PM_NO_ACCESS;
-	const u32 PermissionResets[] = {
-		PM_RST_PMC_POR,
-		PM_RST_PMC,
-		PM_RST_SYS_RST_1,
-		PM_RST_SYS_RST_2,
-		PM_RST_SYS_RST_3,
-		PM_RST_PL_POR,
-		PM_RST_NOC_POR,
-		PM_RST_PL_SRST,
-		PM_RST_NOC,
-		PM_RST_NPI,
-		PM_RST_PL0,
-		PM_RST_PL1,
-		PM_RST_PL2,
-		PM_RST_PL3,
-	};
 
 	for (Index = 0; Index < (ARRAY_SIZE(PermissionResets)); Index++) {
 		if (ResetId == PermissionResets[Index]) {
 			Status = XST_SUCCESS;
 			goto done;
+		}
+	}
+
+done:
+	return Status;
+}
+
+/*
+ * In the case of default subsystem with a pre-defined set of requirements,
+ * add entire list of resets that are allowed to have permissions to the
+ * default subsystem.
+ */
+XStatus XPmReset_AddPermForGlobalResets(const XPm_Subsystem *Subsystem)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Index, Flags;
+	XPm_ResetNode *Rst = NULL;
+	Flags = (1U << RESET_PERM_SHIFT_NS) | (1U << RESET_PERM_SHIFT_S);
+
+	for (Index = 0U; Index < (ARRAY_SIZE(PermissionResets)); Index++) {
+		Rst = XPmReset_GetById( PermissionResets[Index]  );
+		if (NULL != Rst) {
+			Status = XPmReset_AddPermission(Rst, Subsystem, Flags);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
 		}
 	}
 

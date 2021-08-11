@@ -493,16 +493,12 @@ extern "C" {
 #define XPM_INT_ERR_RESET_PERMISSION		0x4602U
 /* Subsystem not allowed to access pin */
 #define XPM_INT_ERR_PIN_PERMISSION		0x4603U
-/* Default subsystem present, not allowed to add new subsystem */
-#define XPM_INT_ERR_DEFAULT_SUBSYS_ADDED	0x4604U
 /* Subsystem already added */
-#define XPM_INT_ERR_SUBSYS_ADDED		0x4605U
+#define XPM_INT_ERR_SUBSYS_ADDED		0x4604U
 /* Error during set subsystem state */
-#define XPM_INT_ERR_SUBSYS_SET_STATE		0x4606U
-/* Adding default subsystem while non-default subsystems are present */
-#define XPM_INT_ERR_OTHER_SUBSYS_ADDED		0x4607U
+#define XPM_INT_ERR_SUBSYS_SET_STATE		0x4605U
 /* Subsystem not allowed access */
-#define  XPM_INT_ERR_SUBSYS_ACCESS		0x4608U
+#define  XPM_INT_ERR_SUBSYS_ACCESS		0x4606U
 
 /************************* Power specific Errors *****************************/
 /************************** (0x4700) - (0x47FF) ******************************/
