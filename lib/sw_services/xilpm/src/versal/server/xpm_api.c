@@ -695,43 +695,14 @@ END:
 
 static void XPm_CheckLastResetReason(void)
 {
-	u32 CurrResetReason;
-	u32 PreviousSysResetReason;
-	u32 LatestSysReset;
-	u32 SysRstReason;
 	u32 RegVal;
 
-	PmIn32(CRP_RESET_REASON, CurrResetReason);
-	/* Read previous system reset reason stored in PGGS2 BIT[3:0] */
+	/* Read PGGS2 register value for checking CRP_RESET_REASON */
 	PmIn32(PGGS_BASEADDR + 0x8U, RegVal);
-	PreviousSysResetReason = (RegVal << 7U) & CRP_RESET_REASON_SYS_RESET_MASK;
 
-	SysRstReason = CurrResetReason & CRP_RESET_REASON_SYS_RESET_MASK;
+	/* Mask out CRP_RESET_REASON value */
+	ResetReason = RegVal & (CRP_RESET_REASON_MASK);
 
-	/* No need to do anything is same system reset occurs back to back */
-	if (CurrResetReason == PreviousSysResetReason) {
-		ResetReason = CurrResetReason;
-		goto done;
-	}
-
-	LatestSysReset = SysRstReason & ~PreviousSysResetReason;
-
-	/*
-	 * Clear all reset reasons, except the latest sys reset reason.
-	 * The reset reason can not be completely cleared since ROM need
-	 * to know if last reset was due to sys reset or not.
-	 * Clear all POR and all sys resets except the latest so
-	 * next reset reason can be uniquely identified.
-	 */
-	PmOut32(CRP_RESET_REASON, CurrResetReason & ~LatestSysReset);
-
-	/* Store latest system reset reason in PGGS2 BIT[3:0] */
-	PmRmw32(PGGS_BASEADDR + 0x8U, 0xFU, (LatestSysReset >> 7U));
-
-	/* Mast out previous system reset reason. */
-	ResetReason = CurrResetReason & ~PreviousSysResetReason;
-
-done:
 	return;
 }
 
