@@ -87,6 +87,8 @@
 * 1.06  td   07/08/21 Fix doxygen warnings
 *       har  07/15/21 Fixed doxygen warnings
 *       har  07/27/21 Added prints for Secure State
+*       kpt  08/11/21 Added redundant check for Xil_MemCmp in
+*                     XLoader_VerifyHashNUpdateNext
 *
 * </pre>
 *
@@ -370,6 +372,7 @@ static int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	u64 DataAddr, u32 Size, u8 Last)
 {
 	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
 	XSecure_Sha3Hash BlkHash = {0U};
 	u32 HashAddr = SecurePtr->ChunkAddr + Size;
@@ -420,9 +423,9 @@ static int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 		goto END;
 	}
 
-	Status = XST_FAILURE;
-	Status = Xil_MemCmp(ExpHash, BlkHash.Hash, XLOADER_SHA3_LEN);
-	if (Status != XST_SUCCESS) {
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, Xil_MemCmp, ExpHash, BlkHash.Hash,
+			XLOADER_SHA3_LEN);
+	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 		XPlmi_Printf(DEBUG_INFO, "Hash mismatch error\n\r");
 		XPlmi_PrintArray(DEBUG_INFO, (UINTPTR)BlkHash.Hash,
 			XLOADER_SHA3_LEN / XIH_PRTN_WORD_LEN, "Calculated Hash");
