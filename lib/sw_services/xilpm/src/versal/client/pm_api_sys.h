@@ -63,7 +63,8 @@ typedef struct XPm_Ntfier {
 	 */
 	void (*const callback)(struct XPm_Ntfier* const notifier);
 	const u32 node; /**< Node argument (the node to receive notifications about) */
-	enum XPmNotifyEvent event;	/**< Event argument (the event type to receive notifications about) */
+	u32 event;	/**< Event argument (the event type to receive notifications about) */
+	u32 received_event;	/**< Event received from PLM) */
 	u32 flags;	/**< Flags */
 	/**
 	 *  Operating point of node in question. Contains the value updated
@@ -146,8 +147,7 @@ XStatus XPm_GetOpCharacteristic(const u32 DeviceId,
 XStatus XPm_InitFinalize(void);
 XStatus XPm_RegisterNotifier(XPm_Notifier* const Notifier);
 XStatus XPm_UnregisterNotifier(XPm_Notifier* const Notifier);
-void XPm_NotifyCb(const u32 Node, const enum XPmNotifyEvent Event,
-		  const u32 Oppoint);
+void XPm_NotifyCb(const u32 Node, const u32 Event, const u32 Oppoint);
 
 void XPm_InitSuspendCb(const enum XPmSuspendReason Reason,
 		       const u32 Latency, const u32 State, const u32 Timeout);
@@ -160,6 +160,7 @@ XStatus XPm_FeatureCheck(const u32 FeatureId, u32 *Version);
 XStatus XPm_SetConfiguration(const u32 Address);
 XStatus XPm_MmioWrite(const u32 Address, const u32 Mask, const u32 Value);
 XStatus XPm_MmioRead(const u32 Address, u32 *const Value);
+u32 XPm_GetRegisterNotifierVersionServer(void);
 /** @endcond */
 
 #ifdef __cplusplus

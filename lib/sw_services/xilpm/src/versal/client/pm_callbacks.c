@@ -6,6 +6,12 @@
 
 #include "pm_callbacks.h"
 
+#define NODE_CLASS_SHIFT        26U
+#define NODE_CLASS_MASK_BITS    0x3FU
+#define NODE_CLASS_MASK         ((u32)NODE_CLASS_MASK_BITS << NODE_CLASS_SHIFT)
+#define NODECLASS(ID)           (((ID) & NODE_CLASS_MASK) >> NODE_CLASS_SHIFT)
+#define XPM_NODECLASS_EVENT     10
+
 static XPm_Notifier* NotifierList = NULL;
 
 /****************************************************************************/
@@ -24,17 +30,28 @@ static XPm_Notifier* NotifierList = NULL;
 XStatus XPm_NotifierAdd(XPm_Notifier* const Notifier)
 {
 	XStatus Status = (s32)XST_FAILURE;
+	const XPm_Notifier* Curr;
 
 	if (NULL == Notifier) {
 		Status = (s32)XST_INVALID_PARAM;
 		goto done;
 	}
 
-	Notifier->received = 0U;
+	/* Prevention of adding same Notifier in NotifierList */
+	Curr = NotifierList;
+	while (NULL != Curr) {
+		if (Notifier == Curr) {
+			break;
+		}
+		Curr = Curr->next;
+	}
 
-	/* New notifiers are added at the front of list */
-	Notifier->next = NotifierList;
-	NotifierList = Notifier;
+	if (NULL == Curr) {
+		/* New notifiers are added at the front of list */
+		Notifier->received = 0U;
+		Notifier->next = NotifierList;
+		NotifierList = Notifier;
+	}
 
 	Status = (s32)XST_SUCCESS;
 
@@ -99,10 +116,12 @@ done:
  * @note   None
  *
  ****************************************************************************/
-void XPm_NotifierProcessEvent(const u32 Node, const enum XPmNotifyEvent Event,
+void XPm_NotifierProcessEvent(const u32 Node, const u32 Event,
 			      const u32 Oppoint)
 {
 	XPm_Notifier* Notifier = NULL;
+	XStatus Status = (s32)XST_FAILURE;
+	u32 ApiVersionServer = XPm_GetRegisterNotifierVersionServer();
 
 	/* Validate the notifier list */
 	if (NULL != NotifierList) {
@@ -111,11 +130,24 @@ void XPm_NotifierProcessEvent(const u32 Node, const enum XPmNotifyEvent Event,
 
 	while (NULL != Notifier) {
 		if ((Node == Notifier->node) &&
-		    (Event == Notifier->event)) {
+		    (((((u32)XST_API_REG_NOTIFIER_VERSION <= ApiVersionServer) && /* For new version of XilPM Server */
+		      ((((u32)XPM_NODECLASS_EVENT == NODECLASS(Node)) && (0U != (Event & Notifier->event))) ||
+		       (((u32)XPM_NODECLASS_EVENT != NODECLASS(Node)) && (Event == Notifier->event))))) ||
+		     (((u32)XST_API_BASE_VERSION == ApiVersionServer) && /* For old version of XilPM Server */
+		      (Event == Notifier->event)))) {
 			Notifier->oppoint = Oppoint;
 			Notifier->received++;
+			Notifier->received_event = Notifier->event & Event;
+
 			if (NULL != Notifier->callback) {
 				Notifier->callback(Notifier);
+
+				if ((u32)XPM_NODECLASS_EVENT == NODECLASS(Node)) {
+					Status = XPm_RegisterNotifier(Notifier);
+				        if ((s32)XST_SUCCESS != Status) {
+						xil_printf("Re-registration failed Status = %d\n", Status);
+					}
+				}
 			}
 			/* There could be multiple pairs with different notifiers */
 		}
