@@ -58,6 +58,8 @@
 *       bsv  07/16/2021 Fix doxygen and compilation warnings
 *       kc   07/22/2021 Added VP1802 idcode and external POR macros
 *       rb   07/28/2021 Added Efuse DNA and VP1502 idcode macros
+*       rb   07/29/2021 Added macros for persistent general storage register
+*                       and reset reason masks
 *
 * </pre>
 *
@@ -123,6 +125,12 @@ extern "C" {
  * Register: PMC_GLOBAL_GLOBAL_GEN_STORAGE4
  */
 #define PMC_GLOBAL_GLOBAL_GEN_STORAGE4    (PMC_GLOBAL_BASEADDR + 0X00000040U)
+
+/*
+ * Register: PMC_GLOBAL_PERS_GEN_STORAGE2
+ */
+#define PMC_GLOBAL_PERS_GEN_STORAGE2	(PMC_GLOBAL_BASEADDR + 0X00000058U)
+#define PERS_GEN_STORAGE2_ACC_RR_MASK	(0xFFFF0000U)
 
 /*
  * Register: PMC_GLOBAL_PMC_GSW_ERR
@@ -611,6 +619,8 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #ifndef CRP_RESET_REASON
 #define CRP_RESET_REASON		(CRP_BASEADDR + 0X00000220U)
 #endif
+#define CRP_RESET_REASON_MASK		(0x0000FFFFU)
+#define CRP_RESET_REASON_SHIFT		(16U)
 #define CRP_RESET_REASON_EXT_POR_MASK		(0x1U)
 #define CRP_RST_SBI				(CRP_BASEADDR + 0X00000324U)
 #define CRP_RST_SBI_RESET_MASK			(0X00000001U)

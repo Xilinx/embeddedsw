@@ -40,6 +40,7 @@
 *       bsv  07/18/2021 Print PLM banner at the beginning of PLM execution
 *       bsv  07/24/2021 Clear RTC area at the beginning of PLM
 *       bsv  08/02/2021 Code clean up to reduce elf size
+*       rb   07/29/2021 Update reset reason during Init
 *
 * </pre>
 *
@@ -70,6 +71,7 @@
 /************************** Function Prototypes ******************************/
 static void XPlmi_PrintRomVersion(void);
 static void XPlmi_PrintEarlyLog(void);
+static void XPlmi_UpdateResetReason(void);
 
 /************************** Variable Definitions *****************************/
 u8 LpdInitialized = (u8)0U; /**< 1 if LPD is initialized */
@@ -85,6 +87,8 @@ int XPlmi_Init(void)
 {
 	int Status = XST_FAILURE;
 
+	XPlmi_UpdateResetReason();
+
 	Status = XPlmi_SetUpInterruptSystem();
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -93,6 +97,30 @@ int XPlmi_Init(void)
 
 END:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function updates reset reason.
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+static void XPlmi_UpdateResetReason(void)
+{
+	u32 AccResetReason = XPlmi_In32(PMC_GLOBAL_PERS_GEN_STORAGE2) &
+				PERS_GEN_STORAGE2_ACC_RR_MASK;
+	u32 ResetReason = XPlmi_In32(CRP_RESET_REASON) &
+				CRP_RESET_REASON_MASK;
+
+	/* Accumulate previous reset reasons and add last reset reason */
+	AccResetReason |= (ResetReason << CRP_RESET_REASON_SHIFT) | ResetReason;
+
+	/* Store Reset Reason to Persistent2 address */
+	XPlmi_Out32(PMC_GLOBAL_PERS_GEN_STORAGE2, AccResetReason);
+
+	/* Clear Reset Reason register, by writing the same value */
+	XPlmi_Out32(CRP_RESET_REASON, ResetReason);
 }
 
 /*****************************************************************************/
