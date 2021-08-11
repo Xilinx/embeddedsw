@@ -96,6 +96,7 @@ XStatus XPmReset_IsOperationAllowed(const u32 SubsystemId,
 				    const XPm_ResetNode *Rst,
 				    const u32 CmdType);
 void XPmReset_MakeCpmPorResetCustom(void);
+XStatus XPmReset_AddPermForGlobalResets(const XPm_Subsystem *Subsystem);
 
 #ifdef __cplusplus
 }
