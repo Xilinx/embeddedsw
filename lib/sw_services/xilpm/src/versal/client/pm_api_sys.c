@@ -134,6 +134,33 @@ static XStatus Xpm_IpiReadBuff32(struct XPm_Proc *const Proc, u32 *Val1,
 done:
 	return Status;
 }
+
+/****************************************************************************/
+/**
+ * @brief  Returns version of register notifier API from fetched from server
+ *
+ * @return PmApiRegisterNotifierVersionServer register notifier API version
+ * fetched from server
+ *
+ ****************************************************************************/
+u32 XPm_GetRegisterNotifierVersionServer(void)
+{
+	XStatus Status = (s32)XST_FAILURE;
+	static u32 PmApiRegisterNotifierVersionServer = 0U;
+
+	if (0U == PmApiRegisterNotifierVersionServer) {
+		/*Fetching version of PM_REGISTER_NOTIFIER API from server*/
+		Status = XPm_FeatureCheck((u32)PM_REGISTER_NOTIFIER,
+					  &PmApiRegisterNotifierVersionServer);
+		if ((s32)XST_SUCCESS != Status) {
+			XPm_Err("Couldn't fetch server API version for"
+				"pm_register_notifier\n");
+			PmApiRegisterNotifierVersionServer = 0U;
+		}
+	}
+
+	return PmApiRegisterNotifierVersionServer;
+}
 /** @endcond */
 
 /****************************************************************************/
@@ -1816,10 +1843,16 @@ XStatus XPm_RegisterNotifier(XPm_Notifier* const Notifier)
 {
 	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
+	u32 Version;
 
 	if (NULL == Notifier) {
 		XPm_Err("NULL notifier pointer\n");
 		Status = (s32)XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Version = XPm_GetRegisterNotifierVersionServer();
+	if (0U == Version) {
 		goto done;
 	}
 
@@ -1992,8 +2025,7 @@ void XPm_AcknowledgeCb(const u32 Node, const XStatus Status, const u32 Oppoint)
  * @return None
  *
  ****************************************************************************/
-void XPm_NotifyCb(const u32 Node, const enum XPmNotifyEvent Event,
-		  const u32 Oppoint)
+void XPm_NotifyCb(const u32 Node, const u32 Event, const u32 Oppoint)
 {
 	XPm_Dbg("%s (%d, %d, %d)\n", __func__, Node, Event, Oppoint);
 	XPm_NotifierProcessEvent(Node, Event, Oppoint);

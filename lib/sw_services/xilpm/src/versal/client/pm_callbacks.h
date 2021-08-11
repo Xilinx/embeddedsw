@@ -17,7 +17,7 @@ XStatus XPm_NotifierAdd(XPm_Notifier* const Notifier);
 
 XStatus XPm_NotifierRemove(XPm_Notifier* const Notifier);
 
-void XPm_NotifierProcessEvent(const u32 Node, const enum XPmNotifyEvent Event,
+void XPm_NotifierProcessEvent(const u32 Node, const u32 Event,
 			      const u32 Oppoint);
 
 #ifdef __cplusplus
