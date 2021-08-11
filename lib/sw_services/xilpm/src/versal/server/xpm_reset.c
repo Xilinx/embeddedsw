@@ -770,8 +770,7 @@ XStatus XPmReset_IsOperationAllowed(const u32 SubsystemId,
 {
 	XStatus Status = XST_FAILURE;
 
-	if ((PM_SUBSYS_PMC == SubsystemId) ||
-	    (PM_SUBSYS_DEFAULT == SubsystemId)) {
+	if (PM_SUBSYS_PMC == SubsystemId) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -797,8 +796,7 @@ XStatus XPmReset_AddPermission(XPm_ResetNode *Rst,
 	XStatus Status = XST_FAILURE;
 
 	/* PMC and default subsystem can always enact operations */
-	if ((NULL == Subsystem) || (PM_SUBSYS_DEFAULT == Subsystem->Id) ||
-	    (PM_SUBSYS_PMC == Subsystem->Id)) {
+	if ((NULL == Subsystem) || (PM_SUBSYS_PMC == Subsystem->Id)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}

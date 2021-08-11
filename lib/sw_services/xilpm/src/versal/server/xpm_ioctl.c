@@ -516,8 +516,7 @@ XStatus XPmIoctl_AddRegPermission(const XPm_Subsystem *Subsystem, u32 DeviceId,
 		}
 	}
 
-	if ((PM_SUBSYS_PMC == SubsystemId) ||
-	    (PM_SUBSYS_DEFAULT == SubsystemId)) {
+	if (PM_SUBSYS_PMC == SubsystemId) {
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
@@ -619,11 +618,9 @@ static XStatus XPmIoctl_IsOperationAllowed(u32 RegNum, u32 SubsystemId,
 
 	/*
 	 * RegNum is validated later in each operation so do not need to
-	 * validate here in case of PMC and default subsystems. PMC and
-	 * default subsystems are always allowed to enact operations.
+	 * validate here in case of PMC subsystem.
 	 */
-	if ((PM_SUBSYS_PMC == SubsystemId) ||
-	    (PM_SUBSYS_DEFAULT == SubsystemId)) {
+	if (PM_SUBSYS_PMC == SubsystemId) {
 		Status = XST_SUCCESS;
 		goto done;
 	}

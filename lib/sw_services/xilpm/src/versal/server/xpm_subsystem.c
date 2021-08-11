@@ -27,8 +27,7 @@ XStatus XPmSubsystem_AddPermission(const XPm_Subsystem *Host,
 	XStatus Status = XST_FAILURE;
 
 	if ((NULL == Target) || (NULL == Host) ||
-	    (PM_SUBSYS_DEFAULT == Host->Id)    || (PM_SUBSYS_PMC == Host->Id) ||
-	    (PM_SUBSYS_DEFAULT == Target->Id)  || (PM_SUBSYS_PMC == Target->Id)) {
+	    (PM_SUBSYS_PMC == Host->Id) || (PM_SUBSYS_PMC == Target->Id)) {
 		goto done;
 	}
 
@@ -76,13 +75,8 @@ XStatus XPmSubsystem_IsOperationAllowed(const u32 HostId, const u32 TargetId,
 		Status = XPM_PM_NO_ACCESS;
 		DbgErr = XPM_INT_ERR_INVALID_SUBSYSTEMID;
 		goto done;
-	} else if ((PM_SUBSYS_PMC == HostId) || (PM_SUBSYS_DEFAULT == HostId)) {
+	} else if (PM_SUBSYS_PMC == HostId) {
 		Status = XST_SUCCESS;
-		goto done;
-	} else if (PM_SUBSYS_DEFAULT == TargetId) {
-		/* Host is not PMC or default and target is default subsystem. */
-		Status = XPM_PM_NO_ACCESS;
-		DbgErr = XPM_INT_ERR_INVALID_SUBSYSTEMID;
 		goto done;
 	} else {
 		/* Required by MISRA */
@@ -471,8 +465,8 @@ XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType)
 			 * upon power domains.
 			 */
 			Status = XPM_PM_NO_ACCESS;
+			goto done;
 		}
-		goto done;
 	} else {
 		Status = XPM_PM_NO_ACCESS;
 		goto done;
@@ -503,7 +497,7 @@ XPm_Subsystem * XPmSubsystem_GetById(u32 SubsystemId)
 	XPm_Subsystem *SubSystem = NULL;
 
 	if ((INVALID_SUBSYSID == SubsystemId) ||
-	    ((MAX_NUM_SUBSYSTEMS + 2U) <= NODEINDEX(SubsystemId))) {
+	    (MAX_NUM_SUBSYSTEMS <= NODEINDEX(SubsystemId))) {
 		goto done;
 	}
 
@@ -809,12 +803,8 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 	/*
 	 * Ensure the subsystem being added is within the range of supported
 	 * subsystem IDs for the subsystem permissions logic.
-	 *
-	 * The '+2' is because the IDs that would be <2 are the default
-	 * subsystem and PMC, which are not part of the subsystem permissions
-	 * logic.
 	 */
-	if ((MAX_NUM_SUBSYSTEMS + 2U) <= NODEINDEX(SubsystemId)) {
+	if (MAX_NUM_SUBSYSTEMS <= NODEINDEX(SubsystemId)) {
 		DbgErr = XPM_INT_ERR_INVALID_SUBSYSTEMID;
 		Status = XST_INVALID_PARAM;
 		goto done;
