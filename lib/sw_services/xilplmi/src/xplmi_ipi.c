@@ -47,6 +47,7 @@
  *       bsv  06/17/2021 Update warning in case some IPIs are disabled
  *       bsv  08/02/2021 Reduce PLM code size
  *       ma   08/05/2021 Add separate task for each IPI channel
+ *       ma   08/12/2021 Fix issue in task creation for IPI channels
  *
  * </pre>
  *
@@ -70,6 +71,7 @@
 #define XPLMI_PMC_IMAGE_ID		(0x1C000001U)
 #define XPLMI_IPI_PMC_IMR_MASK		(0xFCU)
 #define XPLMI_IPI_PMC_IMR_SHIFT		(0x2U)
+#define XPLMI_GIC_IPI_INTR_ID		(0x1B0010U)
 
 /************************** Function Prototypes ******************************/
 static int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex);
@@ -122,7 +124,7 @@ int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler)
 	XIpiPsu_Config *IpiCfgPtr;
 	u32 Index;
 	u32 RegVal;
-	u32 IpiIntrId = XPLMI_IPI_INTR_ID | XPLMI_IOMODULE_PMC_GIC_IRQ;
+	u32 IpiIntrId;
 	XPlmi_TaskNode *Task = NULL;
 
 	/* Load Config for Processor IPI Channel */
@@ -144,17 +146,22 @@ int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler)
 		XIpiPsu_InterruptEnable(&IpiInst,
 			IpiCfgPtr->TargetList[Index].Mask);
 
-		Task = XPlmi_TaskCreate(XPLM_TASK_PRIORITY_0, XPlmi_IpiDispatchHandler,
-				(void *)IpiCfgPtr->TargetList[Index].BufferIndex);
-		if (Task == NULL) {
-			Status = XPlmi_UpdateStatus(XPLM_ERR_TASK_CREATE, 0);
-			XPlmi_Printf(DEBUG_GENERAL, "IPI Interrupt task creation "
-				"error\n\r");
-			goto END;
-		}
-		Task->IntrId = IpiIntrId |
+		IpiIntrId = XPLMI_GIC_IPI_INTR_ID |
 			(IpiCfgPtr->TargetList[Index].BufferIndex << XPLMI_IPI_INDEX_SHIFT);
-		Task->State |= (u8)XPLMI_TASK_IS_PERSISTENT;
+		Task = XPlmi_GetTaskInstance(NULL, NULL, IpiIntrId);
+		if (Task == NULL) {
+			Task = XPlmi_TaskCreate(XPLM_TASK_PRIORITY_0,
+					XPlmi_IpiDispatchHandler,
+					(void *)IpiCfgPtr->TargetList[Index].BufferIndex);
+			if (Task == NULL) {
+				Status = XPlmi_UpdateStatus(XPLM_ERR_TASK_CREATE, 0);
+				XPlmi_Printf(DEBUG_GENERAL, "IPI Interrupt task creation "
+						"error\n\r");
+				goto END;
+			}
+			Task->IntrId = IpiIntrId;
+			Task->State |= (u8)XPLMI_TASK_IS_PERSISTENT;
+		}
 	}
 
 	(void) XPlmi_GetPmSubsystemHandler(SubsystemHandler);
