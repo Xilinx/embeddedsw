@@ -43,6 +43,7 @@
 *       bsv  08/02/2021 Code clean up to reduce elf size
 *       ma   08/06/2021 Added RTCA define for storing PMC_FW_ERR register value
 *       bm   08/09/2021 Cleared PMC CDO buffer by default after processing
+*       bm   08/12/2021 Added support to configure uart during run-time
 *
 * </pre>
 *
@@ -87,6 +88,19 @@ extern "C" {
 #define UART_INITIALIZED	((u8)(1U << 0U)) /**< Flag indicates UART is initialized */
 #define LPD_INITIALIZED		((u8)(1U << 1U)) /**< Flag indicates LPD is initialized */
 #define LPD_WDT_INITIALIZED	((u8)(1U << 2U)) /**< Flag indicates LPD_WDT is initialized */
+#define UART_PRINT_ENABLED	((u8)(1U << 3U)) /**< Flag indicates UART prints are enabled */
+
+/* Minor Error Codes */
+enum {
+	XPLMI_ERR_CURRENT_UART_INVALID = 0x2, /**< 0x2 - Error when current uart
+						selected has invalid base address */
+	XPLMI_ERR_INVALID_UART_SELECT, /**< 0x3 - Error when invalid uart select
+						argument is passed */
+	XPLMI_ERR_INVALID_UART_ENABLE, /**< 0x4 - Error when invalid uart enable
+						argument is passed */
+	XPLMI_ERR_NO_UART_PRESENT, /**< 0x5 - Error when no uart is present to
+						configure in run-time */
+};
 
 /***************** Macros (Inline Functions) Definitions *********************/
 

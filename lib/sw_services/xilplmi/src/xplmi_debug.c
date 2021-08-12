@@ -32,6 +32,7 @@
 * 1.05  td   07/08/2021 Fix doxygen warnings
 *       bsv  07/16/2021 Fix doxygen warnings
 *       bsv  08/02/2021 Code clean up to reduce size
+*       bm   08/12/2021 Added support to configure uart during run-time
 *
 * </pre>
 *
@@ -62,10 +63,27 @@ void outbyte(char8 c);
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XPLMI_SPP_INPUT_CLK_FREQ	(25000000U) /**< SPP Input Clk Freq
 						should be 25 MHz */
+#define UART_PRINT_INITIALIZED	(UART_INITIALIZED | UART_PRINT_ENABLED)
+					/**< Flag indicates UART is initialized
+						and prints are enabled */
+#define XPLMI_UART_SELECT_CURRENT	(0U) /**< Flag indicates current uart is selected */
+
+#if (XPAR_XUARTPSV_NUM_INSTANCES > 0U)
+#define XPLMI_UART_SELECT_0		(1U) /**< Flag indicates UART0 is selected */
+#define XPLMI_UART_ENABLE 		(0U) /**< Flag indicates UART prints are enabled */
+#define XPLMI_UART_DISABLE		(1U) /**< Flag indicates UART prints are disabled */
+#endif
+
+#if (XPAR_XUARTPSV_NUM_INSTANCES > 1U)
+#define XPLMI_UART_SELECT_1		(2U) /**< Flag indicates UART1 is selected */
+#endif
+
+#define XPLMI_INVALID_UART_BASE_ADDR	(0U)
 
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
+static u32 UartBaseAddr = XPLMI_INVALID_UART_BASE_ADDR; /**< Base address of Uart */
 
 /*****************************************************************************/
 /**
@@ -123,18 +141,75 @@ int XPlmi_InitUart(void)
 		}
 	}
 
-#ifndef PLM_PRINT_NO_UART
 	LpdInitialized |= UART_INITIALIZED;
-#endif
 #endif
 
 #ifdef DEBUG_UART_MDM
 	LpdInitialized |= UART_INITIALIZED;
 #endif
 
+#if !defined(PLM_PRINT_NO_UART) && defined(STDOUT_BASEADDRESS)
+	LpdInitialized |= UART_PRINT_ENABLED;
+#endif
+#ifdef STDOUT_BASEADDRESS
+	UartBaseAddr = (u32)STDOUT_BASEADDRESS;
+#endif
+
 	Status = XST_SUCCESS;
 
 END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function configures the PS UART base address
+ *
+ * @param 	UartSelect is the uart number to be selected
+ * @param 	UartEnable is the flag used to enable or disable uart
+ *
+ * @return	Returns XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XPlmi_ConfigUart(u8 UartSelect, u8 UartEnable)
+{
+	int Status = XPLMI_ERR_NO_UART_PRESENT;
+
+#if (XPAR_XUARTPSV_NUM_INSTANCES > 0U)
+	if (UartSelect == XPLMI_UART_SELECT_0) {
+		UartBaseAddr = XPAR_XUARTPSV_0_BASEADDR;
+	}
+#if (XPAR_XUARTPSV_NUM_INSTANCES > 1U)
+	else if (UartSelect == XPLMI_UART_SELECT_1) {
+		UartBaseAddr = XPAR_XUARTPSV_1_BASEADDR;
+	}
+#endif
+	else if (UartSelect == XPLMI_UART_SELECT_CURRENT) {
+		if (UartBaseAddr == XPLMI_INVALID_UART_BASE_ADDR) {
+			Status = XPLMI_ERR_CURRENT_UART_INVALID;
+			goto END;
+		}
+	}
+	else {
+		Status = XPLMI_ERR_INVALID_UART_SELECT;
+		goto END;
+	}
+
+	if (UartEnable == XPLMI_UART_ENABLE) {
+		LpdInitialized |= UART_PRINT_ENABLED;
+	}
+	else if (UartEnable == XPLMI_UART_DISABLE) {
+		LpdInitialized &= ~(UART_PRINT_ENABLED);
+	}
+	else {
+		Status = XPLMI_ERR_INVALID_UART_ENABLE;
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+#endif
 	return Status;
 }
 
@@ -150,9 +225,9 @@ END:
 void outbyte(char8 c)
 {
 	u64 CurrentAddr;
-#ifdef STDOUT_BASEADDRESS
-	if(((LpdInitialized) & UART_INITIALIZED) == UART_INITIALIZED) {
-		XUartPsv_SendByte(STDOUT_BASEADDRESS, (u8)c);
+#if (XPAR_XUARTPSV_NUM_INSTANCES > 0U)
+	if (((LpdInitialized) & UART_PRINT_INITIALIZED) == UART_PRINT_INITIALIZED) {
+		XUartPsv_SendByte(UartBaseAddr, (u8)c);
 	}
 #endif
 
