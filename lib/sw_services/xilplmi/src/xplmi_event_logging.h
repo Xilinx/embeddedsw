@@ -28,6 +28,7 @@
 *       bsv  07/16/2021 Fix doxygen warnings
 *       bsv  07/19/2021 Disable UART prints when invalid header is encountered
 *                       in slave boot modes
+*       bm   08/12/2021 Added support to configure uart during run-time
 *
 *
 * </pre>
@@ -84,6 +85,7 @@ void XPlmi_InitDebugLogBuffer(void);
 #define XPLMI_LOGGING_CMD_CONFIG_TRACE_MEM		(0x5U)
 #define XPLMI_LOGGING_CMD_RETRIEVE_TRACE_DATA	(0x6U)
 #define XPLMI_LOGGING_CMD_RETRIEVE_TRACE_BUFFER_INFO	(0x7U)
+#define XPLMI_LOGGING_CMD_CONFIG_UART			(0x8U)
 #define XPLMI_LOG_LEVEL_SHIFT		(0x4U)
 
 /* Trace log buffer length shift */

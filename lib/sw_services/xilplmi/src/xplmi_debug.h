@@ -29,6 +29,7 @@
 * 1.05  td   07/08/2021 Fix doxygen warnings
 *       bsv  07/16/2021 Fix doxygen warnings
 *       bsv  08/02/2021 Code clean up to reduce size
+*       bm   08/12/2021 Added support to configure uart during run-time
 *
 * </pre>
 *
@@ -68,6 +69,7 @@ extern "C" {
 /* Functions defined in xplmi_debug.c */
 int XPlmi_InitUart(void);
 void XPlmi_Print(u8 DebugType, const char8 *Ctrl1, ...);
+int XPlmi_ConfigUart(u8 UartSelect, u8 UartEnable);
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #ifdef PLM_PRINT_PERF

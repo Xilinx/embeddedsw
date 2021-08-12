@@ -35,6 +35,7 @@
 *       bsv  07/16/2021 Fix doxygen warnings
 *       bsv  07/19/2021 Disable UART prints when invalid header is encountered
 *                       in slave boot modes
+*       bm   08/12/2021 Added support to configure uart during run-time
 *
 * </pre>
 *
@@ -263,6 +264,9 @@ static void XPlmi_RetrieveBufferInfo(XPlmi_Cmd *Cmd,
  *			Arg1 - High Address
  *			Arg2 - Low Address
  *		7 - Retrieve Trace Log buffer information
+ *		8 - Configure Uart
+ *			Arg1 - Uart Select
+ *			Arg2 - Uart Enable
  *
  * @param	Cmd is pointer to the command structure
 
@@ -315,12 +319,16 @@ int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
 			XPlmi_RetrieveBufferInfo(Cmd, &TraceLog);
 			Status = XST_SUCCESS;
 			break;
+		case XPLMI_LOGGING_CMD_CONFIG_UART:
+			Status = XPlmi_ConfigUart((u8)Arg1, (u8)Arg2);
+			break;
 		default:
 			XPlmi_Printf(DEBUG_GENERAL,
 				"Received invalid event logging command\n\r");
 			Status = XST_INVALID_PARAM;
 			break;
 	}
+
 	return Status;
 }
 
