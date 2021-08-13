@@ -35,7 +35,10 @@
 *       bsv  07/16/2021 Fix doxygen warnings
 *       bsv  07/19/2021 Disable UART prints when invalid header is encountered
 *                       in slave boot modes
+*       bsv  08/02/2021 Code clean up to reduce size
 *       bm   08/12/2021 Added support to configure uart during run-time
+*       bsv  08/13/2021 Code clean up to reduce size by optimizing
+*                       XPlmi_RetrieveBufferData
 *
 * </pre>
 *
@@ -51,6 +54,7 @@
 #include "xplmi_hw.h"
 #include "xplmi.h"
 #include "xplmi_util.h"
+#include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -92,33 +96,6 @@ static XPlmi_CircularBuffer TraceLog = {
 	.IsBufferFull = (u32)FALSE,
 };
 
-
-/*****************************************************************************/
-/**
- * @brief	This function retrieves remaining buffer data to the destination. location
- *
- * @param 	SourceAddr from where the buffer data is read
- * @param 	DestAddr to which the buffer data is copied
- * @param 	Len of data to be copied
- *
- * @return	None
- *
- *****************************************************************************/
-static void XPlmi_RetrieveRemBytes(u64 SourceAddr, u64 DestAddr, u32 Len)
-{
-	u32 RemLen;
-	u32 Index;
-	u32 Offset;
-	u8 RemData;
-
-	RemLen = Len & (XPLMI_WORD_LEN - 1U);
-	Offset = Len & ~(XPLMI_WORD_LEN - 1U);
-	for (Index = 0U; Index < RemLen; ++Index) {
-		RemData = XPlmi_InByte64((SourceAddr + Offset) + Index);
-		XPlmi_OutByte64(DestAddr + Offset + Index, RemData);
-	}
-}
-
 /*****************************************************************************/
 /**
  * @brief	This function retrieves buffer data to the destination location.
@@ -129,41 +106,39 @@ static void XPlmi_RetrieveRemBytes(u64 SourceAddr, u64 DestAddr, u32 Len)
  * @return	None
  *
  *****************************************************************************/
-static int XPlmi_RetrieveBufferData(const XPlmi_CircularBuffer * Buffer, u64 DestAddr)
+static int XPlmi_RetrieveBufferData(const XPlmi_CircularBuffer * Buffer,
+	u64 DestAddr)
 {
 	int Status = XST_FAILURE;
 	u64 CurrentAddr;
 	u32 Len;
+	u8 LogLevel = DebugLog->LogLevel;
 
+	DebugLog->LogLevel = 0U;
 	if (Buffer->IsBufferFull == (u32)TRUE) {
 		Len = (u32)(Buffer->Len - Buffer->Offset);
 		CurrentAddr = (Buffer->StartAddr + (u64)Buffer->Offset);
-		Status = XPlmi_DmaXfr(CurrentAddr, DestAddr, (Len / XPLMI_WORD_LEN),
-			XPLMI_PMCDMA_0);
+	}
+	else {
+		Len = Buffer->Len;
+		CurrentAddr = Buffer->StartAddr;
+	}
+	Status = XPlmi_MemCpy64(DestAddr, CurrentAddr, Len);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if (Buffer->IsBufferFull == (u32)TRUE) {
+		DestAddr += Len;
+		Len = Buffer->Offset;
+		Status = XPlmi_MemCpy64(DestAddr, Buffer->StartAddr, Len);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		/* Retrieve remaining bytes */
-		XPlmi_RetrieveRemBytes(CurrentAddr, DestAddr, Len);
-		Status = XPlmi_DmaXfr(Buffer->StartAddr, DestAddr + Len,
-				((Buffer->Len - Len) / XPLMI_WORD_LEN), XPLMI_PMCDMA_0);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-		/* Retrieve remaining bytes */
-		XPlmi_RetrieveRemBytes(Buffer->StartAddr, (DestAddr + Len),
-				(Buffer->Len - Len));
-	} else {
-		Status = XPlmi_DmaXfr(Buffer->StartAddr, DestAddr,
-			(Buffer->Len / XPLMI_WORD_LEN), XPLMI_PMCDMA_0);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-		/* Retrieve remaining bytes */
-		XPlmi_RetrieveRemBytes(Buffer->StartAddr, DestAddr, Buffer->Len);
 	}
 
 END:
+	DebugLog->LogLevel = LogLevel;
 	return Status;
 }
 
@@ -185,36 +160,43 @@ static int XPlmi_ConfigureLogMem(XPlmi_CircularBuffer *LogBuffer, u64 StartAddr,
 {
 	int Status = XST_FAILURE;
 	u64 EndAddr = 0U;
+	u32 StartLimit;
+	u32 EndLimit;
 
-	if (NumBytes != 0U) {
-		EndAddr = StartAddr + NumBytes - 1U;
-		Status = XPlmi_VerifyAddrRange(StartAddr, EndAddr);
-		if ((Status != XST_SUCCESS) &&
-			(BufType == XPLMI_TRACE_LOG_BUFFER) &&
-			((StartAddr < (u64)XPLMI_TRACE_LOG_BUFFER_ADDR) ||
-			(EndAddr > (u64)XPLMI_TRACE_LOG_BUFFER_HIGH_ADDR))) {
-			Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_LOG_BUF_ADDR,
-					Status);
-		}
-		else if ((Status != XST_SUCCESS) &&
-			(BufType == XPLMI_DEBUG_LOG_BUFFER) &&
-			((StartAddr < (u64)XPLMI_DEBUG_LOG_BUFFER_ADDR) ||
-			(EndAddr > (u64)XPLMI_DEBUG_LOG_BUFFER_HIGH_ADDR))) {
-			Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_LOG_BUF_ADDR,
-					Status);
-		}
-		else {
-			LogBuffer->StartAddr = StartAddr;
-			LogBuffer->Offset = 0x0U;
-			LogBuffer->Len = NumBytes;
-			LogBuffer->IsBufferFull = (u32)FALSE;
-			Status = XST_SUCCESS;
-		}
-	} else {
+	if (NumBytes == 0U) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_LOG_BUF_LEN,
 					Status);
+		goto END1;
 	}
 
+	EndAddr = StartAddr + NumBytes - 1U;
+	Status = XPlmi_VerifyAddrRange(StartAddr, EndAddr);
+	if (Status != XST_SUCCESS) {
+		if (BufType == XPLMI_TRACE_LOG_BUFFER) {
+			StartLimit = XPLMI_TRACE_LOG_BUFFER_ADDR;
+			EndLimit = XPLMI_TRACE_LOG_BUFFER_HIGH_ADDR;
+		}
+		else if (BufType == XPLMI_DEBUG_LOG_BUFFER) {
+			StartLimit = XPLMI_DEBUG_LOG_BUFFER_ADDR;
+			EndLimit = XPLMI_DEBUG_LOG_BUFFER_HIGH_ADDR;
+		}
+		else {
+			goto END;
+		}
+		if ((StartAddr < StartLimit) || (EndAddr > EndLimit)) {
+			Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_LOG_BUF_ADDR,
+				Status);
+			goto END1;
+		}
+	}
+END:
+	LogBuffer->StartAddr = StartAddr;
+	LogBuffer->Offset = 0x0U;
+	LogBuffer->Len = NumBytes;
+	LogBuffer->IsBufferFull = (u32)FALSE;
+	Status = XST_SUCCESS;
+
+END1:
 	return Status;
 }
 
@@ -349,7 +331,7 @@ int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
 void XPlmi_StoreTraceLog(u32 *TraceData, u32 Len)
 {
 	u32 Index;
-	XPlmi_PerfTime PerfTime = {0U};
+	XPlmi_PerfTime PerfTime;
 
 	/* Get time stamp of PLM */
 	XPlmi_MeasurePerfTime((XPLMI_PIT1_CYCLE_VALUE << 32U) |
@@ -360,8 +342,7 @@ void XPlmi_StoreTraceLog(u32 *TraceData, u32 Len)
 	TraceData[2U] = (u32)PerfTime.TPerfMsFrac;
 
 	for (Index = 0U; Index < Len; Index++) {
-		if ((TraceLog.StartAddr + TraceLog.Offset) >=
-				(TraceLog.StartAddr + TraceLog.Len)) {
+		if (TraceLog.Offset >= TraceLog.Len) {
 			TraceLog.Offset = 0x0U;
 			TraceLog.IsBufferFull = (u32)TRUE;
 		}

@@ -24,6 +24,7 @@
 *                       subsystem information
 * 1.04  bm   12/16/2020 Removed KAT related macros
 * 1.05  td   07/08/2021 Fix doxygen warnings
+*       bsv  08/13/2021 Remove unnecessary header file
 *
 * </pre>
 *
@@ -38,7 +39,7 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xplm_default.h"
+#include "xplmi_hw.h"
 #include "xloader.h"
 
 /************************** Constant Definitions *****************************/
@@ -81,7 +82,6 @@ static inline u8 XLoader_IsJtagSbiMode(void)
 }
 
 /************************** Function Prototypes ******************************/
-int XPlm_LoaderInit(void);
 int XPlm_LoadBootPdi(void *Arg);
 
 /************************** Variable Definitions *****************************/

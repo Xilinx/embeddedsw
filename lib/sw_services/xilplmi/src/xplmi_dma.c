@@ -31,6 +31,7 @@
 *       ma   03/24/2021 Reduced minimum digits of time stamp decimals to 3
 * 1.05  td   07/08/2021 Fix doxygen warnings
 *       bsv  08/02/2021 Code clean up to reduce size
+*       bsv  08/13/2021 Code clean to reduce elf size by optimizing memset APIs
 *
 * </pre>
 *
@@ -717,21 +718,15 @@ int XPlmi_EccInit(u64 Addr, u32 Len)
 int XPlmi_MemSet(u64 DestAddr, u32 Val, u32 Len)
 {
 	int Status = XST_FAILURE;
-	u32 Src[XPLMI_SET_CHUNK_SIZE];
 	u32 Count;
 	u32 Index;
-	u32 SrcAddrLow = (u32)(&Src[0U]);
-	u64 SrcAddr = (u64)(SrcAddrLow);
+	u64 SrcAddr = DestAddr;
 	u32 ChunkSize;
-	u32 DestOffset = 0U;
 
 	if (Val == XPLMI_DATA_INIT_PZM)	{
 		Status = XPlmi_EccInit(DestAddr, Len * XPLMI_WORD_LEN);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-	} else {
-
+	}
+	else {
 		if (Len < XPLMI_SET_CHUNK_SIZE) {
 			ChunkSize = Len;
 		} else {
@@ -739,27 +734,25 @@ int XPlmi_MemSet(u64 DestAddr, u32 Val, u32 Len)
 		}
 
 		for (Index = 0U; Index < ChunkSize; ++Index) {
-			Src[Index] = Val;
+			XPlmi_Out64(DestAddr, Val);
+			DestAddr += XPLMI_WORD_LEN;
 		}
 
 		Count = Len / XPLMI_SET_CHUNK_SIZE ;
 
 		/* DMA in chunks of 512 Bytes */
-		for (Index = 0U; Index < Count; ++Index) {
-			Status = XPlmi_DmaXfr(SrcAddr, (DestAddr + (u64)DestOffset),
+		for (Index = 1U; Index < Count; ++Index) {
+			Status = XPlmi_DmaXfr(SrcAddr, DestAddr,
 					XPLMI_SET_CHUNK_SIZE, XPLMI_PMCDMA_0);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
-			DestOffset += (XPLMI_SET_CHUNK_SIZE * XPLMI_WORD_LEN);
+			DestAddr += (XPLMI_SET_CHUNK_SIZE * XPLMI_WORD_LEN);
 		}
 
 		/* DMA of residual bytes */
-		Status = XPlmi_DmaXfr(SrcAddr, (DestAddr + (u64)DestOffset),
-				Len % XPLMI_SET_CHUNK_SIZE, XPLMI_PMCDMA_0);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
+		Status = XPlmi_DmaXfr(SrcAddr, DestAddr, (Len % ChunkSize),
+			XPLMI_PMCDMA_0);
 	}
 
 END:
@@ -782,7 +775,7 @@ int XPlmi_InitNVerifyMem(u64 Addr, u32 Len)
 	int Status = XST_FAILURE;
 #ifndef PLM_DEBUG_MODE
 	u64 SrcAddr = Addr;
-	u32 NoWords = Len / XPLMI_WORD_LEN;
+	u32 NoWords = Len >> XPLMI_WORD_LEN_SHIFT;
 	u32 Index;
 	u32 Data;
 
@@ -843,57 +836,92 @@ void XPlmi_SetMaxOutCmds(u8 Val)
 int XPlmi_MemSetBytes(const void * DestPtr, u32 DestLen, u8 Val, u32 Len)
 {
 	int Status = XST_FAILURE;
-	u64 DestAddr = (u64)(u32)DestPtr;
-	u32 StartBytes = 0U;
-	u32 EndBytes;
-	u32 Index;
-	u32 LenWords;
-	u32 SetLen = Len;
+	u64 DestAddr = (u64)(UINTPTR)DestPtr;
+	u8 StartBytes;
 	u32 WordVal = ((u32)Val) | ((u32)Val << 8U) |
 			((u32)Val << 16U) | ((u32)Val << 24U);
 
 	if (DestPtr == NULL) {
 		goto END;
 	}
-
-	if ((DestAddr % XPLMI_WORD_LEN) != 0U) {
-		StartBytes = XPLMI_WORD_LEN - ((u32)DestAddr % XPLMI_WORD_LEN);
-	}
-
 	if (Len > DestLen) {
-		SetLen = DestLen;
-	}
-
-	if (SetLen < StartBytes) {
-		StartBytes = SetLen;
-	}
-
-	SetLen -= StartBytes;
-	LenWords = SetLen / XPLMI_WORD_LEN;
-	EndBytes = SetLen % XPLMI_WORD_LEN;
-
-	for (Index = 0U; Index < StartBytes; Index++) {
-		XPlmi_OutByte64(DestAddr + Index, Val);
-	}
-
-	if (LenWords > 0U) {
-		Status = XPlmi_MemSet(DestAddr + StartBytes, WordVal, LenWords);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-	}
-
-	DestAddr = DestAddr + StartBytes + (LenWords * XPLMI_WORD_LEN);
-	for (Index = 0U; Index < EndBytes; Index++) {
-		XPlmi_OutByte64(DestAddr + Index, Val);
-	}
-
-	if (Len > DestLen) {
-		Status = XST_FAILURE;
 		goto END;
 	}
 
+	StartBytes = XPLMI_WORD_LEN - (u8)(DestAddr & XPLMI_WORD_LEN_MASK);
+	if (StartBytes < Len) {
+			StartBytes = (u8)Len;
+			goto END1;
+	}
+	while (StartBytes > 0U) {
+		XPlmi_OutByte64(DestAddr, Val);
+		DestAddr++;
+		--StartBytes;
+	}
+	Len = Len - StartBytes;
+	StartBytes = (u8)(Len & XPLMI_WORD_LEN_MASK);
+	Len = Len - StartBytes;
+
+	Status = XPlmi_MemSet(DestAddr, WordVal, (Len >> XPLMI_WORD_LEN_SHIFT));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	DestAddr += Len;
+
+END1:
+	while (StartBytes > 0U) {
+		XPlmi_OutByte64(DestAddr, Val);
+		DestAddr++;
+		--StartBytes;
+	}
+
 	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+int XPlmi_MemCpy64(u64 DestAddr, u64 SrcAddr, u32 Len)
+{
+	int Status = XST_FAILURE;
+	u32 SrcBytes = (u32)(XPLMI_WORD_LEN - (u8)(SrcAddr & XPLMI_WORD_LEN_MASK));
+	u32 DestBytes = (u32)(XPLMI_WORD_LEN - (u8)(DestAddr & XPLMI_WORD_LEN_MASK));
+
+	u8 Data;
+	u32 LenWords;
+
+	if ((SrcBytes != DestBytes) || (SrcBytes < Len)) {
+		SrcBytes = Len;
+	}
+	Len = Len - SrcBytes;
+	while (SrcBytes > 0U) {
+		Data = XPlmi_InByte64(SrcAddr);
+		XPlmi_OutByte64(DestAddr, Data);
+		++SrcAddr;
+		++DestAddr;
+		--SrcBytes;
+	}
+	if (Len == 0U) {
+		Status = XST_SUCCESS;
+		goto END;
+	}
+	Status = XPlmi_DmaXfr(SrcAddr, DestAddr, (Len >> XPLMI_WORD_LEN_SHIFT),
+		XPLMI_PMCDMA_0);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	SrcBytes = Len & XPLMI_WORD_LEN_MASK;
+	LenWords = Len - SrcBytes;
+	DestAddr += LenWords;
+	SrcAddr += LenWords;
+	while (SrcBytes > 0U) {
+		Data = XPlmi_InByte64(SrcAddr);
+		XPlmi_OutByte64(DestAddr, Data);
+		++SrcAddr;
+		++DestAddr;
+		--SrcBytes;
+	}
 
 END:
 	return Status;

@@ -18,6 +18,7 @@
 * 1.00  rama 08/12/2020 Initial release
 * 1.01  rama 03/22/2021 Updated hook for periodic STL execution and FTTI
 *                       configuration
+* 1.02  bsv  08/13/2021 Remove unwanted header file
 *
 * </pre>
 *
@@ -26,8 +27,6 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xplm_default.h"
-
 #ifdef PLM_ENABLE_STL
 #include "xstl_plminterface.h"
 #include "xplm_stl.h"

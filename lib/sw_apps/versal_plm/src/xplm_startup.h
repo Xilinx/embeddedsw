@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
 * 1.02  kc   02/26/2020 Added XPLM_SEM macro to include/disable SEM
 *                       functionality
 *       kc   03/23/2020 Minor code cleanup
+* 1.03  bsv  08/13/2021 Removed unnecessary header file
 *
 * </pre>
 *
@@ -35,7 +36,6 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xplm_default.h"
 #include "xplm_hooks.h"
 #include "xplmi_task.h"
 
