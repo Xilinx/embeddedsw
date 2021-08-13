@@ -67,6 +67,8 @@
 *       kal  07/25/2021 Moved XNvm_Printf definition to xnvm_def.h
 *       kpt  08/03/2021 Added XNvm_EfuseResetReadMode in
 *                       XNvm_EfuseWritePufAsUserFuses
+*       kal  08/13/2021 Add most restrictive range check for device temparature
+*                       before eFuse programming
 *
 * </pre>
 *
@@ -5444,19 +5446,15 @@ static int XNvm_EfuseTemparatureCheck(float Temparature)
 			break;
 	}
 
-	switch (EfuseTempMin) {
-		case XNVM_EFUSE_LP_RANGE_CHECK:
-			TempMin = XNVM_EFUSE_TEMP_LP_MIN;
-			break;
-		case XNVM_EFUSE_MP_RANGE_CHECK:
-			TempMin = XNVM_EFUSE_TEMP_MP_MIN;
-			break;
-		case XNVM_EFUSE_HP_RANGE_CHECK:
-			TempMin = XNVM_EFUSE_TEMP_HP_MIN;
-			break;
-		default:
-			TempMin = XNVM_EFUSE_FULL_RANGE_TEMP_MIN;
-			break;
+	/* Junction temparature operating range for
+	 * eFUSE programming as per TSMC data sheet
+	 */
+
+	if (EfuseTempMin == XNVM_EFUSE_LP_RANGE_CHECK) {
+		TempMin = XNVM_EFUSE_TEMP_LP_MIN;
+	}
+	else {
+		TempMin = XNVM_EFUSE_TEMP_MP_MIN;
 	}
 
 	if ((Temparature < TempMin) || (Temparature > TempMax)) {
