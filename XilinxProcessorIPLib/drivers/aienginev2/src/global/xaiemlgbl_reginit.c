@@ -772,7 +772,7 @@ static const  XAie_DmaSysProp AieMlShimDmaSysProp =
 static const  XAie_DmaBdProp AieMlShimDmaProp =
 {
 	.AddrAlignMask = 0x3,
-	.AddrAlignShift = 2U,
+	.AddrAlignShift = 0U,
 	.AddrMax = 0x1000000000000,
 	.LenActualOffset = 0U,
 	.StepSizeMax = (1U << 20) - 1U,
