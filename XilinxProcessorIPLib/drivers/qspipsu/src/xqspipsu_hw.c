@@ -422,7 +422,7 @@ void XQspiPsu_GenFifoEntryDataLen(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		*GenFifoEntry &= ~(u32)XQSPIPSU_GENFIFO_IMM_DATA_MASK;
 		*GenFifoEntry |= Msg->ByteCount;
 	#ifdef DEBUG
-	xil_printf("\nFifoEntry=%08x\r\n", GenFifoEntry);
+	xil_printf("\nFifoEntry=%08x\r\n", *GenFifoEntry);
 	#endif
 		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPSU_GEN_FIFO_OFFSET,
 				*GenFifoEntry);
@@ -452,7 +452,7 @@ void XQspiPsu_GenFifoEntryDataLen(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 			*GenFifoEntry &= ~(u32)XQSPIPSU_GENFIFO_IMM_DATA_MASK;
 			*GenFifoEntry |= ImmData & 0xFFU;
 	#ifdef DEBUG
-			xil_printf("\nFifoEntry=%08x\r\n", GenFifoEntry);
+			xil_printf("\nFifoEntry=%08x\r\n", *GenFifoEntry);
 	#endif
 			XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPSU_GEN_FIFO_OFFSET,
 					*GenFifoEntry);
