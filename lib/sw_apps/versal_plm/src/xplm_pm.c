@@ -33,6 +33,7 @@
 * 1.05  td   07/08/2021 Fix doxygen warnings
 *       ma   07/12/2021 Register NULL error handler for XPlm_KeepAliveTask
 *       bm   08/09/2021 Cleared PMC CDO buffer by default after processing
+*       bsv  08/13/2021 Remove unwanted header file
 *
 * </pre>
 *
@@ -41,7 +42,6 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xplm_default.h"
 #include "xplm_pm.h"
 #include "xpm_api.h"
 #include "xpm_ipi.h"
@@ -51,7 +51,12 @@
 #include "xplmi_util.h"
 #include "xloader.h"
 #include "xloader_secure.h"
+#include "xplmi.h"
 #include "xplmi_sysmon.h"
+#include "xplmi_task.h"
+#include "xplmi_hw.h"
+#include "xplmi_status.h"
+#include "xplmi_cdo.h"
 #ifdef PLM_ENABLE_STL
 #include "xplm_stl.h"
 #endif

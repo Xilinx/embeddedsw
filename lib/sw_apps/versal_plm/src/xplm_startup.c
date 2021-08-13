@@ -32,6 +32,7 @@
 * 1.04  td   07/08/2021 Fix doxygen warnings
 *       ma   07/12/2021 Minor updates to StartupTaskList as per the new
 *                       XPlmi_TaskNode structure
+*       bsv  08/09/2021 Code clean up to reduce elf size
 *
 * </pre>
 *
@@ -51,6 +52,11 @@
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
+typedef int (*TaskHandler)(void * PrivData);
+typedef struct {
+	TaskHandler Handler;
+	void * PrivData;
+} StartupTaskHandler;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -83,34 +89,26 @@ int XPlm_AddStartUpTasks(void)
 	 * Start up tasks of the PLM.
 	 * Current they point to the loading of the Boot PDI.
 	 */
-	const struct XPlmi_TaskNode StartUpTaskList[] =
-	{
-		{XPLM_TASK_PRIORITY_0, XPLMI_INVALID_INTR_ID, 0U, {NULL, NULL},
-			XPlm_ModuleInit, 0U, (u8)FALSE},
-		{XPLM_TASK_PRIORITY_0, XPLMI_INVALID_INTR_ID, 0U, {NULL, NULL},
-			XPlm_HookBeforePmcCdo, 0U, (u8)FALSE},
-		{XPLM_TASK_PRIORITY_0, XPLMI_INVALID_INTR_ID, 0U, {NULL, NULL},
-			XPlm_ProcessPmcCdo, 0U, (u8)FALSE},
-		{XPLM_TASK_PRIORITY_0, XPLMI_INVALID_INTR_ID, 0U, {NULL, NULL},
-			XPlm_HookAfterPmcCdo, 0U, (u8)FALSE},
-		{XPLM_TASK_PRIORITY_0, XPLMI_INVALID_INTR_ID, 0U, {NULL, NULL},
-			XPlm_LoadBootPdi, 0U, (u8)FALSE},
-		{XPLM_TASK_PRIORITY_0, XPLMI_INVALID_INTR_ID, 0U, {NULL, NULL},
-			XPlm_HookAfterBootPdi, 0U, (u8)FALSE},
+	const StartupTaskHandler StartUpTaskList[] = {
+		{XPlm_ModuleInit, NULL},
+		{XPlm_HookBeforePmcCdo, NULL},
+		{XPlm_ProcessPmcCdo, NULL},
+		{XPlm_HookAfterPmcCdo, NULL},
+		{XPlm_HookAfterPmcCdo, NULL},
+		{XPlm_LoadBootPdi, NULL},
+		{XPlm_HookAfterBootPdi, NULL},
 #ifdef XPAR_XIPIPSU_0_DEVICE_ID
-		{XPLM_TASK_PRIORITY_0, XPLMI_INVALID_INTR_ID, 0U, {NULL, NULL},
-			XPlm_CreateKeepAliveTask, PtrMilliSeconds, (u8)FALSE},
+		{XPlm_CreateKeepAliveTask, PtrMilliSeconds},
 #endif /* XPAR_XIPIPSU_0_DEVICE_ID */
 #ifdef XPLM_SEM
-		{XPLM_TASK_PRIORITY_0, XPLMI_INVALID_INTR_ID, 0U, {NULL, NULL},
-			XPlm_SemScanInit, 0U, (u8)FALSE}
+		{XPlm_SemScanInit, NULL},
 #endif
 	};
 
-	for (Index = 0U; Index < ARRAY_SIZE(StartUpTaskList); Index++) {
-		Task = XPlmi_TaskCreate(StartUpTaskList[Index].Priority,
-					StartUpTaskList[Index].Handler,
-					StartUpTaskList[Index].PrivData);
+	for (Index = 0U; Index < XPLMI_ARRAY_SIZE(StartUpTaskList); Index++) {
+		Task = XPlmi_TaskCreate(XPLM_TASK_PRIORITY_0,
+			StartUpTaskList[Index].Handler,
+			StartUpTaskList[Index].PrivData);
 		if (Task == NULL) {
 			Status = XPlmi_UpdateStatus(XPLM_ERR_TASK_CREATE, 0);
 			goto END;

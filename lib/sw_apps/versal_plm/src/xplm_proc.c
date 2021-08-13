@@ -22,6 +22,7 @@
 *                       also place AES, ECDSA_RSA and SHA3 in reset
 * 1.03  ma   05/03/2021 Trigger FW_NCR error for post boot exceptions
 * 1.04  td   07/08/2021 Fix doxygen warnings
+*       bsv  08/13/2021 Removed unnecessary header file
 *
 * </pre>
 *
@@ -31,7 +32,6 @@
 
 /***************************** Include Files *********************************/
 #include "xplm_proc.h"
-#include "xplm_default.h"
 #include "xloader_secure.h"
 #include "xplmi_err.h"
 

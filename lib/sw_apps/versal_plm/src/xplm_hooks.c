@@ -21,6 +21,7 @@
 * 1.02  kc   02/19/2020 Moved PLM banner print to XilPlmi
 *       kc   03/23/2020 Minor code cleanup
 * 1.03  bm   01/08/2021 Updated PmcCdo function names and related comments
+*       bsv  08/13/2021 Removed unnecessary header file
 *
 * </pre>
 *
@@ -30,7 +31,6 @@
 
 /***************************** Include Files *********************************/
 #include "xplm_hooks.h"
-#include "xplm_default.h"
 #include "xpm_api.h"
 /************************** Constant Definitions *****************************/
 

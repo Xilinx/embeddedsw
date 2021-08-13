@@ -31,6 +31,7 @@
 *       kc   07/22/2021 Issue internal POR for VP1802 ES1 devices
 *       bsv  07/24/2021 Clear RTC area at the beginning of PLM
 *       rb   07/28/2021 Check Efuse DNA_57 bit before issuing internal POR
+*       bsv  08/13/2021 Code clean up to reduce size
 *
 * </pre>
 *
@@ -39,13 +40,13 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xplm_default.h"
 #include "xplm_proc.h"
 #include "xplm_startup.h"
 #include "xpm_api.h"
 #include "xpm_subsystem.h"
 #include "xplm_loader.h"
 #include "xplmi_err.h"
+#include "xplmi.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -115,7 +116,8 @@ static void XPlm_PerformInternalPOR(void)
 	u32 IdCode = XPlmi_In32(PMC_TAP_IDCODE) &
 			PMC_TAP_IDCODE_SIREV_DVCD_MASK;
 	u32 ResetReason = XPlmi_In32(CRP_RESET_REASON);
-	u32 SlrType = XPlmi_In32(PMC_TAP_SLR_TYPE) & PMC_TAP_SLR_TYPE_VAL_MASK;
+	u8 SlrType = (u8)(XPlmi_In32(PMC_TAP_SLR_TYPE) &
+		PMC_TAP_SLR_TYPE_VAL_MASK);
 	u32 DnaBit = XPlmi_In32(EFUSE_CACHE_DNA_1) &
 			EFUSE_CACHE_DNA_1_BIT25_MASK;
 	PdiSrc_t BootMode = XLoader_GetBootMode();
@@ -163,8 +165,8 @@ END:
 static int XPlm_Init(void)
 {
 	int Status = XST_FAILURE;
-	u32 PmcVersion = XPlmi_In32(PMC_TAP_VERSION) &
-			PMC_TAP_VERSION_PMC_VERSION_MASK;
+	u8 PmcVersion = (u8)(XPlmi_In32(PMC_TAP_VERSION) &
+			PMC_TAP_VERSION_PMC_VERSION_MASK);
 
 	/**
 	 * Disable CFRAME isolation for VCCRAM for ES1 Silicon
