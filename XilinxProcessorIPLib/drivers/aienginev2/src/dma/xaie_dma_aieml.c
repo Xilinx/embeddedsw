@@ -490,7 +490,8 @@ AieRC _XAieMl_ShimDmaWriteBd(XAie_DevInst *DevInst , XAie_DmaDesc *DmaDesc,
 			BdProp->Buffer->ShimDmaBuff.BufferLen.Lsb,
 			BdProp->Buffer->ShimDmaBuff.BufferLen.Mask);
 
-	BdWord[1U] = XAie_SetField(DmaDesc->AddrDesc.Address,
+	BdWord[1U] = XAie_SetField(DmaDesc->AddrDesc.Address >>
+				BdProp->Buffer->ShimDmaBuff.AddrLow.Lsb,
 			BdProp->Buffer->ShimDmaBuff.AddrLow.Lsb,
 			BdProp->Buffer->ShimDmaBuff.AddrLow.Mask);
 
