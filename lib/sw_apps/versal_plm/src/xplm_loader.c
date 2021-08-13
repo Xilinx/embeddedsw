@@ -31,6 +31,7 @@
 *       bsv  07/19/2021 Disable UART prints when invalid header is encountered
 *                       in slave boot modes
 *       bsv  08/02/2021 Updated function return type as part of code clean up
+*       bsv  08/13/2021 Code clean up to reduce size
 *
 * </pre>
 *
@@ -41,6 +42,7 @@
 /***************************** Include Files *********************************/
 #include "xplm_loader.h"
 #include "xloader_auth_enc.h"
+#include "xplmi.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -51,23 +53,6 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-
-/*****************************************************************************/
-/**
-* @brief It initializes the loader structures and registers CDO loader
-* commands and interrupts
-*
-* @return	None
-*
-*****************************************************************************/
-int XPlm_LoaderInit(void)
-{
-	int Status =  XST_FAILURE;
-
-	Status = XLoader_Init();
-
-	return Status;
-}
 
 /*****************************************************************************/
 /**
@@ -82,7 +67,6 @@ int XPlm_LoadBootPdi(void *Arg)
 {
 	int Status = XST_FAILURE;
 	PdiSrc_t BootMode = XLOADER_PDI_SRC_INVALID;
-	XilPdi *PdiPtr;
 	static XilPdi PdiInstance = {0U};
 
 	(void )Arg;
@@ -92,11 +76,10 @@ int XPlm_LoadBootPdi(void *Arg)
 	 * 1. Read Boot mode register and multiboot offset register
 	 * 2. Load subsystem present in PDI
 	 */
-	PdiPtr = &PdiInstance;
-	PdiPtr->SlrType = XPlmi_In32(PMC_TAP_SLR_TYPE) &
+	PdiInstance.SlrType = XPlmi_In32(PMC_TAP_SLR_TYPE) &
 					PMC_TAP_SLR_TYPE_VAL_MASK;
-	if ((PdiPtr->SlrType == XLOADER_SSIT_MASTER_SLR) ||
-		(PdiPtr->SlrType == XLOADER_SSIT_MONOLITIC)) {
+	if ((PdiInstance.SlrType == XLOADER_SSIT_MASTER_SLR) ||
+		(PdiInstance.SlrType == XLOADER_SSIT_MONOLITIC)) {
 		BootMode = XLoader_GetBootMode();
 	} else {
 		BootMode = XLOADER_PDI_SRC_SBI;
@@ -113,7 +96,7 @@ int XPlm_LoadBootPdi(void *Arg)
 	}
 
 #ifndef PLM_SECURE_EXCLUDE
-	Status = XLoader_UpdateKatStatus(PdiPtr);
+	Status = XLoader_UpdateKatStatus(&PdiInstance);
 	if (Status != XST_SUCCESS) {
 		goto ERR_END;
 	}
@@ -121,11 +104,11 @@ int XPlm_LoadBootPdi(void *Arg)
 
 	XPlmi_Printf(DEBUG_GENERAL, "***********Boot PDI Load: Started***********\n\r");
 
-	PdiPtr->PdiType = XLOADER_PDI_TYPE_FULL;
-	PdiPtr->IpiMask = 0U;
-	PdiPtr->ValidHeader = (u8)TRUE;
+	PdiInstance.PdiType = XLOADER_PDI_TYPE_FULL;
+	PdiInstance.IpiMask = 0U;
+	PdiInstance.ValidHeader = (u8)TRUE;
 	SubsystemPdiIns.ValidHeader = (u8)TRUE;
-	Status = XLoader_LoadPdi(PdiPtr, BootMode, 0U);
+	Status = XLoader_LoadPdi(&PdiInstance, BootMode, 0U);
 	if (Status != XST_SUCCESS) {
 		goto ERR_END;
 	}
@@ -135,6 +118,7 @@ int XPlm_LoadBootPdi(void *Arg)
 	/** Print ROM time and PLM time stamp */
 	XPlmi_PrintRomTime();
 	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Total PLM Boot Time \n\r");
+
 END:
 	/**
 	 * This is used to identify PLM has completed boot PDI

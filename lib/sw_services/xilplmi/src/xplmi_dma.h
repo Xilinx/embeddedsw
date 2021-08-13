@@ -25,6 +25,7 @@
 *       bsv  09/30/2020 Added wait for non blocking SBI DMA
 *       bm   10/14/2020 Code clean up
 * 1.04  bsv  07/16/2021 Fix doxygen warnings
+*       bsv  08/13/2021 Code clean up to reduce elf size
 *
 * </pre>
 *
@@ -77,6 +78,8 @@ extern "C" {
 #define XPLMI_DATA_INIT_PZM			(0xDEADBEEFU)
 #define XPLMI_PZM_WORD_LEN			(16U)
 #define XPLMI_SET_CHUNK_SIZE			(128U)
+#define XPLMI_WORD_LEN_MASK			(0x3U)
+#define XPLMI_WORD_LEN_SHIFT			(0x2U)
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -94,6 +97,7 @@ int XPlmi_WaitForNonBlkDma(u32 DmaFlags);
 void XPlmi_SetMaxOutCmds(u8 Val);
 int XPlmi_MemSet(u64 DestAddr, u32 Val, u32 Len);
 int XPlmi_MemSetBytes(const void * DestPtr, u32 DestLen, u8 Val, u32 Len);
+int XPlmi_MemCpy64(u64 DestAddr, u64 SrcAddr, u32 Len);
 
 /**
  * @}

@@ -32,6 +32,7 @@
 * 1.05  td   07/08/2021 Fix doxygen warnings
 *       kal  07/13/2021 Added module support for XilNvm
 *       bm   08/03/2021 Added temporal redundancy check for XPlm_SecureInit
+*       bsv  08/13/2021 Code clean up to reduce size
 *
 * </pre>
 *
@@ -41,7 +42,6 @@
 
 /***************************** Include Files *********************************/
 #include "xplm_module.h"
-#include "xplm_default.h"
 #include "xplmi_sysmon.h"
 #include "xpm_api.h"
 #include "xsecure_init.h"
@@ -51,6 +51,8 @@
 #include "xplmi_err.h"
 #include "xplm_loader.h"
 #include "xplm_pm.h"
+#include "xplmi.h"
+#include "xil_util.h"
 #ifdef XPLM_SEM
 #include "xplm_sem_init.h"
 #endif
@@ -64,78 +66,10 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static int XPlm_PlmiInit(void);
-static int XPlm_ErrInit(void);
-static int XPlm_SecureInit(void);
-#ifndef PLM_NVM_EXCLUDE
-static void XPlm_NvmInit(void);
-#endif
 
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
-
-/*****************************************************************************/
-/**
- * @brief This function initializes the XilSecure module and registers the
- * interrupt handlers and other requests.
- *
- * @return	Status as defined in xplmi_status.h
- *
- *****************************************************************************/
-static int XPlm_SecureInit(void)
-{
-	int Status = XST_FAILURE;
-	Status = XSecure_Init();
-
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief This function initializes the Error module and registers the
- * error commands of the CDO.
- *
- * @return	Status as defined in xplmi_status.h
- *
- *****************************************************************************/
-static int XPlm_ErrInit(void)
-{
-	XPlmi_EmInit(XPm_SystemShutdown);
-
-	return XST_SUCCESS;
-}
-
-/*****************************************************************************/
-/**
- * @brief This function initializes the PLMI module and registers the
- * general commands of the CDO.
- *
- * @return	Status as defined in xplmi_status.h
- *
- *****************************************************************************/
-static int XPlm_PlmiInit(void)
-{
-	int Status = XST_FAILURE;
-	Status = XPlmi_Init();
-
-	return Status;
-}
-
-#ifndef PLM_NVM_EXCLUDE
-/*****************************************************************************/
-/**
- * @brief This function initializes the XilNvm module and registers the
- * interrupt handlers and other requests.
- *
- * @return	Status as defined in xplmi_status.h
- *
- *****************************************************************************/
-static void XPlm_NvmInit(void)
-{
-	XNvm_Init();
-}
-#endif
 
 /*****************************************************************************/
 /**
@@ -164,30 +98,27 @@ int XPlm_ModuleInit(void *Arg)
 	 * 	-STL
 	 */
 
-	Status = XPlm_PlmiInit();
+	Status = XPlmi_Init();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XPlm_ErrInit();
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	XPlmi_EmInit(XPm_SystemShutdown);
 
 	Status = XPlm_PmInit();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XPlm_LoaderInit();
+	Status = XLoader_Init();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	XSECURE_TEMPORAL_CHECK(END, Status, XPlm_SecureInit);
+	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_Init);
 
 #ifndef PLM_NVM_EXCLUDE
-	XPlm_NvmInit();
+	XNvm_Init();
 #endif
 #ifdef PLM_ENABLE_STL
 	Status = XPlm_StlInit();
@@ -196,7 +127,7 @@ int XPlm_ModuleInit(void *Arg)
 	}
 #endif
 #ifdef XPLM_SEM
-	Status = XPlm_SemInit();
+	Status = XSem_Init();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

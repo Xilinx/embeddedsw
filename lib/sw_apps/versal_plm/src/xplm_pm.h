@@ -23,6 +23,7 @@
 *       rama 03/22/2021 Added hook for STL periodic execution and
 *                       FTTI configuration support for keep alive task
 * 1.04  td   07/08/2021 Fix doxygen warnings
+*       bsv  08/13/2021 Removed unwanted header file
 *
 * </pre>
 *
@@ -37,6 +38,7 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
+#include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
 #ifdef XPAR_XIPIPSU_0_DEVICE_ID
