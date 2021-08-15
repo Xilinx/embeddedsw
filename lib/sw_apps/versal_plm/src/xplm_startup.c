@@ -33,6 +33,7 @@
 *       ma   07/12/2021 Minor updates to StartupTaskList as per the new
 *                       XPlmi_TaskNode structure
 *       bsv  08/09/2021 Code clean up to reduce elf size
+*       bsv  08/13/2021 Removed unwanted header files from xplm_startup.h
 *
 * </pre>
 *
@@ -45,6 +46,8 @@
 #include "xplm_pm.h"
 #include "xplm_module.h"
 #include "xplm_loader.h"
+#include "xplm_hooks.h"
+#include "xplmi_task.h"
 #ifdef XPLM_SEM
 #include "xplm_sem_init.h"
 #endif
@@ -82,7 +85,6 @@ int XPlm_AddStartUpTasks(void)
 	XPlmi_TaskNode *Task;
 #ifdef XPAR_XIPIPSU_0_DEVICE_ID
 	static u32 MilliSeconds = XPLM_DEFAULT_FTTI_TIME;
-	void *PtrMilliSeconds = &MilliSeconds;
 #endif /* XPAR_XIPIPSU_0_DEVICE_ID */
 
 	/**
@@ -98,7 +100,7 @@ int XPlm_AddStartUpTasks(void)
 		{XPlm_LoadBootPdi, NULL},
 		{XPlm_HookAfterBootPdi, NULL},
 #ifdef XPAR_XIPIPSU_0_DEVICE_ID
-		{XPlm_CreateKeepAliveTask, PtrMilliSeconds},
+		{XPlm_CreateKeepAliveTask, (void *)&MilliSeconds},
 #endif /* XPAR_XIPIPSU_0_DEVICE_ID */
 #ifdef XPLM_SEM
 		{XPlm_SemScanInit, NULL},

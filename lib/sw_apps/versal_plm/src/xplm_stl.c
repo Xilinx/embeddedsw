@@ -19,6 +19,7 @@
 * 1.01  rama 03/22/2021 Updated hook for periodic STL execution and FTTI
 *                       configuration
 * 1.02  bsv  08/13/2021 Remove unwanted header file
+*       bsv  08/13/2021 Removed unwanted goto statements
 *
 * </pre>
 *
@@ -55,7 +56,6 @@ static int XPlm_ChangeStlPeriodicity(u32 FttiTime);
 static int XPlm_ChangeStlPeriodicity(u32 FttiTime)
 {
 	int Status = XST_FAILURE;
-	u32 *NewFtti = &FttiTime;
 
 	if (FttiTime < DEFAULT_FTTI_TIME) {
 		Status = XST_INVALID_PARAM;
@@ -67,7 +67,7 @@ static int XPlm_ChangeStlPeriodicity(u32 FttiTime)
 		goto END;
 	}
 
-	Status = XPlm_CreateKeepAliveTask((void *)NewFtti);
+	Status = XPlm_CreateKeepAliveTask((void *)&FttiTime);
 
 END:
 	return Status;
@@ -86,13 +86,10 @@ int XPlm_StlInit(void)
 	int Status = XST_FAILURE;
 
 	Status = XStl_Init(XPlm_ChangeStlPeriodicity);
-	if (Status != XST_SUCCESS)
-	{
+	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XPLM_ERR_STL_MOD, Status);
-		goto END;
 	}
 
-END:
 	return Status;
 }
 

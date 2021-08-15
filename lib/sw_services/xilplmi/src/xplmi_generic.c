@@ -57,6 +57,7 @@
 *       bsv  07/16/2021 Fix doxygen warnings
 *       bsv  07/18/2021 Debug enhancements
 *       bsv  08/02/2021 Code clean up to reduce size
+*       bsv  08/15/2021 Removed unwanted goto statements
 *
 * </pre>
 *
@@ -433,7 +434,6 @@ static int XPlmi_DmaTransfer(u64 Dest, u64 Src, u32 Len, u32 Flags)
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_UNALIGNED_DMA_XFER,
 			Status);
-		goto END;
 	}
 
 END:
@@ -837,7 +837,6 @@ static int XPlmi_DmaXfer(XPlmi_Cmd *Cmd)
 	}
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL, "DMA XFER Failed\n\r");
-		goto END;
 	}
 
 END:
@@ -1019,9 +1018,6 @@ static int XPlmi_CfiRead(XPlmi_Cmd *Cmd)
 			SLAVE_BOOT_SBI_STATUS_JTAG_DOUT_FIFO_SPACE_VAL,
 			XPLMI_TIME_OUT_DEFAULT);
 	}
-	if(Status != XST_SUCCESS) {
-		goto END;
-	}
 
 END:
 	XPlmi_UtilRMW(SLAVE_BOOT_SBI_MODE, SLAVE_BOOT_SBI_MODE_SELECT_MASK, 0U);
@@ -1125,7 +1121,6 @@ static int XPlmi_DmaWriteKeyHole(XPlmi_Cmd *Cmd)
 	Status = XPlmi_KeyHoleXfr(&KeyHoleXfrParams);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
-		goto END;
 	}
 
 END:

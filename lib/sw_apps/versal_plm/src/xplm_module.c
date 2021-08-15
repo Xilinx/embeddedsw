@@ -33,6 +33,7 @@
 *       kal  07/13/2021 Added module support for XilNvm
 *       bm   08/03/2021 Added temporal redundancy check for XPlm_SecureInit
 *       bsv  08/13/2021 Code clean up to reduce size
+*       bsv  08/13/2021 Removed unwanted goto statements
 *
 * </pre>
 *
@@ -128,9 +129,6 @@ int XPlm_ModuleInit(void *Arg)
 #endif
 #ifdef XPLM_SEM
 	Status = XSem_Init();
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
 #endif
 
 END:

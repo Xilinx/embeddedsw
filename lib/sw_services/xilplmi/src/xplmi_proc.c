@@ -37,6 +37,7 @@
 *       bm   07/12/2021 Updated IRO frequency to 400MHz for MP and HP parts
 *       bsv  07/16/2021 Fix doxygen warnings
 *       bsv  08/02/2021 Code clean up to reduce size
+*       bsv  08/15/2021 Removed unwanted goto statements
 *
 * </pre>
 *
@@ -542,7 +543,6 @@ static int XPlmi_IoModuleRegisterHandler(u32 IoModIntrNum,
 			     Status);
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_REGISTER_IOMOD_HANDLER,
 					    Status);
-		goto END;
 	}
 
 END:

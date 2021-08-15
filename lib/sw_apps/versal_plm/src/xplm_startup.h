@@ -22,6 +22,7 @@
 *                       functionality
 *       kc   03/23/2020 Minor code cleanup
 * 1.03  bsv  08/13/2021 Removed unnecessary header file
+*       bsv  08/13/2021 Removed unwanted header files
 *
 * </pre>
 *
@@ -36,8 +37,6 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xplm_hooks.h"
-#include "xplmi_task.h"
 
 /************************** Constant Definitions *****************************/
 

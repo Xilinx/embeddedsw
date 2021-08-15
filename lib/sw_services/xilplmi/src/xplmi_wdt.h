@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   07/28/2020 Initial release
 *       ana  10/19/2020 Added doxygen comments
+* 1.01  bsv  08/13/2021 Code clean up
 *
 * </pre>
 *
@@ -57,7 +58,7 @@ void XPlmi_ClearPlmLiveStatus(void);
  * @}
  * @endcond
  */
-int XPlmi_EnableWdt(u32 NodeId, u32 Periodicity);
+int XPlmi_EnableWdt(u32 NodeId, u16 Periodicity);
 /**
  * @{
  * @cond xplmi_internal
