@@ -48,6 +48,7 @@
  *       bsv  08/02/2021 Reduce PLM code size
  *       ma   08/05/2021 Add separate task for each IPI channel
  *       ma   08/12/2021 Fix issue in task creation for IPI channels
+ *       bsv  08/15/2021 Removed unwanted goto statements
  *
  * </pre>
  *
@@ -306,13 +307,9 @@ int XPlmi_IpiWrite(u32 DestCpuMask, u32 *MsgPtr, u32 MsgLen, u8 Type)
 			((XIPIPSU_BUF_TYPE_MSG == Type) || (XIPIPSU_BUF_TYPE_RESP == Type))) {
 			Status = XIpiPsu_WriteMessage(&IpiInst, DestCpuMask,
 				MsgPtr, MsgLen, Type);
-			if (Status != XST_SUCCESS) {
-				goto END;
-			}
 		}
 	}
 
-END:
 	XPlmi_Printf(DEBUG_DETAILED, "%s: IPI write status: 0x%x\r\n",
 				__func__, Status);
 	return Status;
@@ -350,11 +347,9 @@ int XPlmi_IpiRead(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen, u8 Type)
 						"is invalid\r\n", __func__);
 				Status = XPlmi_UpdateStatus(XPLMI_IPI_READ_ERR, 0);
 			}
-			goto END;
 		}
 	}
 
-END:
 	XPlmi_Printf(DEBUG_DETAILED, "%s: IPI read status: 0x%x\r\n", __func__, Status);
 	return Status;
 }

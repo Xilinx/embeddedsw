@@ -34,6 +34,7 @@
 *       ma   07/12/2021 Register NULL error handler for XPlm_KeepAliveTask
 *       bm   08/09/2021 Cleared PMC CDO buffer by default after processing
 *       bsv  08/13/2021 Remove unwanted header file
+*       bsv  08/13/2021 Removed unwanted goto statements
 *
 * </pre>
 *
@@ -152,13 +153,10 @@ int XPlm_PmInit(void)
 	 * variables, events
 	 */
 	Status = XPm_Init(XPlm_PmRequestCb, &XLoader_RestartImage);
-	if (Status != XST_SUCCESS)
-	{
+	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XPLM_ERR_PM_MOD, Status);
-		goto END;
 	}
 
-END:
 	return Status;
 }
 
@@ -261,9 +259,7 @@ int XPlm_ProcessPmcCdo(void *Arg)
 	}
 
 	Status = XPlmi_SysMonInit();
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+
 END:
 	return Status;
 }

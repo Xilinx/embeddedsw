@@ -35,6 +35,7 @@
 *                       allotted time
 *       bsv  07/16/2021 Fix doxygen warnings
 *       bsv  08/02/2021 Removed unnecessary initializations to reduce code size
+*       bsv  08/15/2021 Removed unwanted goto statements
 *
 * </pre>
 *
@@ -143,7 +144,7 @@ static u8 XPlmi_IsTaskNonPeriodic(const XPlmi_Scheduler_t *SchedPtr,
 ****************************************************************************/
 void XPlmi_SchedulerInit(void)
 {
-	u32 Idx;
+	u8 Idx;
 
 	/* Disable all the tasks */
 	for (Idx = 0U; Idx < XPLMI_SCHED_MAX_TASK; Idx++) {
@@ -169,7 +170,7 @@ void XPlmi_SchedulerInit(void)
 ****************************************************************************/
 void XPlmi_SchedulerHandler(void *Data)
 {
-	u32 Idx;
+	u8 Idx;
 	(void)Data;
 	XPlmi_TaskNode *Task = NULL;
 
@@ -239,14 +240,9 @@ int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 {
 	int Status = XST_FAILURE;
 	XPlmi_PerfTime ExtraTime;
-	u32 Idx;
+	u8 Idx;
 	u32 TriggerTime = 0U;
 	XPlmi_TaskNode *Task = NULL;
-
-	if (XPlmi_GetTaskInstance(CallbackFn, Data, XPLMI_INVALID_INTR_ID) != NULL) {
-		Status = XPlmi_UpdateStatus(XPLMI_ERR_TASK_EXISTS, 0);
-		goto END;
-	}
 
 	if ((TaskType !=  XPLMI_PERIODIC_TASK) &&
 		(TaskType != XPLMI_NON_PERIODIC_TASK)) {
@@ -259,6 +255,11 @@ int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 		goto END;
 	}
 
+	if (XPlmi_GetTaskInstance(CallbackFn, Data, XPLMI_INVALID_INTR_ID) != NULL) {
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_TASK_EXISTS, 0);
+		goto END;
+	}
+
 	/* Get the Next Free Task Index */
 	for (Idx = 0U; Idx < XPLMI_SCHED_MAX_TASK; Idx++) {
 		if (NULL == Sched.TaskList[Idx].CustomerFunc) {
@@ -267,7 +268,6 @@ int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 			Sched.TaskList[Idx].OwnerId = OwnerId;
 			Sched.TaskList[Idx].CustomerFunc = CallbackFn;
 			Sched.TaskList[Idx].ErrorFunc = ErrorFunc;
-			Sched.TaskList[Idx].Priority = Priority;
 			Sched.TaskList[Idx].Type = TaskType;
 			Sched.TaskList[Idx].Data = Data;
 			Task = XPlmi_TaskCreate(Priority, CallbackFn, Data);
@@ -322,7 +322,7 @@ int XPlmi_SchedulerRemoveTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 		u32 MilliSeconds, const void *Data)
 {
 	int Status = XST_FAILURE;
-	u32 Idx;
+	u8 Idx;
 	u32 TaskCount = 0U;
 
 	/* Find the Task Index */

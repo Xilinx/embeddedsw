@@ -64,6 +64,7 @@
 *       ma   07/27/2021 Updated print statements in CPM handlers
 *       bm   08/02/2021 Change debug log level of PMC error status prints
 *       ma   08/06/2021 Save PMC_FW_ERR register value to RTCA and clear it
+*       bsv  08/15/2021 Removed unwanted goto statements
 *
 * </pre>
 *
@@ -1740,9 +1741,7 @@ int XPlmi_ClearNpiErrors(void)
 	Status = Xil_SecureOut32(NPI_NIR_REG_PCSR_LOCK, 1U);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_NPI_LOCK, Status);
-		goto END;
 	}
 
-END:
 	return Status;
 }

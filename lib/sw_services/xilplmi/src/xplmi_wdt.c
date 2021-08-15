@@ -19,6 +19,7 @@
 *       bm   10/14/2020 Code clean up
 * 1.01  td   07/08/2021 Fix doxygen warnings
 *       bsv  07/16/2021 Fix doxygen warnings
+*       bsv  08/13/2021 Code clean up
 *
 * </pre>
 *
@@ -55,7 +56,7 @@ typedef struct {
 	u8 PlmLiveStatus; /**< PLM sets this bit to indicate it is alive */
 	u8 IsEnabled; /**< Used to indicate if WDT is enabled or not */
 	u8 PlmMode; /**< Indicates PLM configuration / operational mode */
-	u32 Periodicity; /**< WDT period at which PLM should set the
+	u16 Periodicity; /**< WDT period at which PLM should set the
 			   live status */
 	u32 GpioAddr; /**< GPIO address corresponding to MIO used for WDT */
 	u32 GpioMask; /**< GPIO Mask corresponding to MIO used for WDT */
@@ -91,7 +92,7 @@ static XPlmi_Wdt WdtInstance = {
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XPlmi_EnableWdt(u32 NodeId, u32 Periodicity)
+int XPlmi_EnableWdt(u32 NodeId, u16 Periodicity)
 {
 	int Status = XST_FAILURE;
 	u32 MioNum;
@@ -216,7 +217,7 @@ void XPlmi_WdtHandler(void)
 
 	/** Toggle MIO only when last reset period exceeds periodicity */
 	if (WdtLastResetPeriod >
-	    (WdtInstance.Periodicity - XPLMI_WDT_PERIODICITY_MIN)) {
+	    (u32)(WdtInstance.Periodicity - XPLMI_WDT_PERIODICITY_MIN)) {
 		if ((WdtInstance.PlmMode == XPLMI_MODE_CONFIGURATION) ||
 		    (WdtInstance.PlmLiveStatus == (u8)TRUE)) {
 			XPlmi_Out32(WdtInstance.GpioAddr,
