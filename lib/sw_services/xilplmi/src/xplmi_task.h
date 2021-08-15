@@ -27,6 +27,7 @@
 * 1.04  ma   07/12/2021 Minor updates to task related code
 *       bsv  07/16/2021 Fix doxygen warnings
 *       ma   08/05/2021 Add separate task for each IPI channel
+*       bsv  08/15/2021 Replaced enums with macros
 *
 * </pre>
 *
@@ -62,22 +63,21 @@ extern "C" {
 #define XPLMI_SCHED_TASK_MISSED				(0x8U)
 #define XPLMI_TASK_IN_PROGRESS_AND_MISSED	(0xCU)
 
-typedef enum {
-        XPLM_TASK_PRIORITY_0 = 0,
-        XPLM_TASK_PRIORITY_1, /**< 1 */
-} TaskPriority_t;
+#define XPLM_TASK_PRIORITY_0		(0U)
+#define XPLM_TASK_PRIORITY_1		(1U)
+#define TaskPriority_t u8
 
 /**************************** Type Definitions *******************************/
 typedef struct XPlmi_TaskNode XPlmi_TaskNode;
 
 struct XPlmi_TaskNode {
-    TaskPriority_t Priority;
+    u8 Priority;
+    u8 State;
     u32 IntrId;
     u32 Delay;
     struct metal_list TaskNode;
     int (*Handler)(void * PrivData);
     void * PrivData;
-    u8 State;
 };
 
 /***************** Macros (Inline Functions) Definitions *********************/

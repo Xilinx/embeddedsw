@@ -31,6 +31,7 @@
 * 1.04  bm   03/04/2021 Add VerifyAddrRange API
 * 1.05  bsv  07/16/2021 Fix doxygen warnings
 *       bsv  08/02/2021 Code clean up to reduce size
+*       bsv  08/15/2021 Removed unwanted goto statements
 *
 * </pre>
 *
@@ -46,9 +47,7 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xil_io.h"
 #include "xil_types.h"
-#include "xstatus.h"
 
 /**@cond xplmi_internal
  * @{
@@ -66,7 +65,6 @@ extern "C" {
 #define XPLMI_WORD_LEN			(4U)
 
 /************************** Function Prototypes ******************************/
-
 void XPlmi_UtilRMW(u32 RegAddr, u32 Mask, u32 Value);
 int XPlmi_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutInUs);
 int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs);

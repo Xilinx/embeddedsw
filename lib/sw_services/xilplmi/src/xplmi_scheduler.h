@@ -28,6 +28,7 @@
 * 1.03  ma   07/12/2021 Added support to register Error Handler for scheduler
 *                       task
 *       bsv  07/16/2021 Fix doxygen warnings
+*       bsv  08/15/2021 Removed redundant element in structure
 *
 * </pre>
 *
@@ -67,7 +68,6 @@ struct XPlmi_Task_t{
 	XPlmi_ErrorFunc_t ErrorFunc;
 	XPlmi_TaskNode *Task;
 	const void *Data;
-	TaskPriority_t Priority;
 	u8 Type;
 };
 

@@ -40,6 +40,7 @@
 *                       header length
 *       bsv  07/16/2021 Fix doxygen warnings
 *       bsv  08/02/2021 Code clean up to reduce size
+*       bsv  08/15/2021 Removed unwanted goto statements
 *
 * </pre>
 *
@@ -304,10 +305,8 @@ static int XPlmi_CdoCmdResume(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Si
 		}
 		XPlmi_PrintArray(DEBUG_GENERAL, (u64)(UINTPTR)CmdPtr->Payload, PrintLen,
 				 "CMD payload");
-		goto END;
 	}
 
-END:
 	return Status;
 }
 

@@ -32,6 +32,7 @@
 * 1.05  td   07/08/2021 Fix doxygen warnings
 *       bsv  08/02/2021 Code clean up to reduce size
 *       bsv  08/13/2021 Code clean to reduce elf size by optimizing memset APIs
+*       bsv  08/15/2021 Removed unwanted goto statements
 *
 * </pre>
 *
@@ -108,7 +109,6 @@ static int XPlmi_DmaDrvInit(XPmcDma *DmaPtr, u32 DeviceId)
 	Status = XPmcDma_SelfTest(DmaPtr);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_DMA_SELFTEST, Status);
-		goto END;
 	}
 
 END:
@@ -132,9 +132,6 @@ int XPlmi_DmaInit(void)
 	}
 
 	Status = XPlmi_DmaDrvInit(&PmcDma1, PMCDMA_1_DEVICE_ID);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
 
 END:
 	return Status;

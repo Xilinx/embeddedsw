@@ -39,6 +39,7 @@
 *       bm   08/12/2021 Added support to configure uart during run-time
 *       bsv  08/13/2021 Code clean up to reduce size by optimizing
 *                       XPlmi_RetrieveBufferData
+*       bsv  08/15/2021 Removed unwanted goto statements
 *
 * </pre>
 *
@@ -132,9 +133,6 @@ static int XPlmi_RetrieveBufferData(const XPlmi_CircularBuffer * Buffer,
 		DestAddr += Len;
 		Len = Buffer->Offset;
 		Status = XPlmi_MemCpy64(DestAddr, Buffer->StartAddr, Len);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
 	}
 
 END:
