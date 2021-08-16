@@ -19,6 +19,8 @@
 *       har  05/18/2021 Added support for secure access control for Xilsecure
 *                       IPI calls
 * 4.6   har  07/14/2021 Fixed doxygen warnings
+*       kal  08/16/2021 Fixed magic number usage comment and fixed bug in
+*                       XSecure_FeaturesCmd API
 *
 * </pre>
 *
@@ -101,9 +103,9 @@ static int XSecure_FeaturesCmd(u32 ApiId)
 	case XSECURE_API(XSECURE_API_AES_SET_DPA_CM):
 	case XSECURE_API(XSECURE_API_AES_DECRYPT_KAT):
 	case XSECURE_API(XSECURE_API_AES_DECRYPT_CM_KAT):
+#endif
 		Status = XST_SUCCESS;
 		break;
-#endif
 	default:
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "Cmd not supported\r\n");
 		Status = XST_INVALID_PARAM;
@@ -123,7 +125,7 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 	int Status = XST_FAILURE;
 	u32 *Pload = Cmd->Payload;
 
-	switch (Cmd->CmdId & 0xFFU) {
+	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 	case XSECURE_API(XSECURE_API_FEATURES):
 		Status = XSecure_FeaturesCmd(Pload[0]);
 		break;
