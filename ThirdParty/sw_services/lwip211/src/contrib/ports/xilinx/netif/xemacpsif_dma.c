@@ -564,8 +564,8 @@ XStatus init_dma(struct xemac_s *xemac)
 	volatile UINTPTR tempaddress;
 	u32_t index;
 	u32_t gigeversion;
-	XEmacPs_Bd *bdtxterminate;
-	XEmacPs_Bd *bdrxterminate;
+	XEmacPs_Bd *bdtxterminate = NULL;
+	XEmacPs_Bd *bdrxterminate = NULL;
 	u32 *temp;
 
 	xemacpsif_s *xemacpsif = (xemacpsif_s *)(xemac->state);
