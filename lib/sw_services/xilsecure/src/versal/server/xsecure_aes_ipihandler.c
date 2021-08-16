@@ -24,6 +24,7 @@
 * 4.6   har   07/14/2021 Fixed doxygen warnings
 *       kpt   07/15/2021 Added XSecure_AesInit in XSecure_AesWriteKey to avoid
 *                        multiple calls from client
+*       kal   08/16/2021 Fixed magic number usage comment
 *
 * </pre>
 *
@@ -84,7 +85,7 @@ int XSecure_AesIpiHandler(XPlmi_Cmd *Cmd)
 	volatile int Status = XST_FAILURE;
 	u32 *Pload = Cmd->Payload;
 
-	switch (Cmd->CmdId & 0xFFU) {
+	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 	case XSECURE_API(XSECURE_API_AES_INIT):
 		Status = XSecure_AesInit();
 		break;
