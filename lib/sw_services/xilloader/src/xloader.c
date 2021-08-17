@@ -107,6 +107,7 @@
 *       ma   07/27/2021 Added temporal check for XLoader_SetSecureState
 *       ma   07/27/2021 Added temporal check for XilPdi_ValidateImgHdrTbl
 *       bm   08/09/2021 Removed obsolete XLoader_PMCStateClear API
+*       bsv  08/17/2021 Code clean up
 *
 * </pre>
 *
@@ -814,22 +815,30 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 	 * Read and verify image headers and partition headers
 	 */
 	if (SecureParams.SecureEn != (u8)TRUE) {
-		PdiPtr->MetaHdr.Flag = XILPDI_METAHDR_RD_HDRS_FROM_DEVICE;
 		/* Read IHT and PHT to structures and verify checksum */
 		XPlmi_Printf(DEBUG_INFO, "Reading 0x%x Image Headers\n\r",
 				PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs);
-		Status = XilPdi_ReadAndVerifyImgHdr(&(PdiPtr->MetaHdr));
+		Status = XilPdi_ReadImgHdrs(&PdiPtr->MetaHdr);
+		if (XST_SUCCESS != Status) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_IMGHDR, Status);
+			goto END;
+		}
+		Status = XilPdi_VerifyImgHdrs(&PdiPtr->MetaHdr);
 		if (XST_SUCCESS != Status) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_IMGHDR, Status);
 			goto END;
 		}
 
 		XPlmi_Printf(DEBUG_INFO, "Reading 0x%x Partition Headers\n\r",
-				PdiPtr->MetaHdr.ImgHdrTbl.NoOfPrtns);
-		Status = XilPdi_ReadAndVerifyPrtnHdr(&PdiPtr->MetaHdr);
-		if (Status != XST_SUCCESS) {
+			PdiPtr->MetaHdr.ImgHdrTbl.NoOfPrtns);
+		Status = XilPdi_ReadPrtnHdrs(&PdiPtr->MetaHdr);
+		if (XST_SUCCESS != Status) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTNHDR, Status);
 			goto END;
+		}
+		Status = XilPdi_VerifyPrtnHdrs(&PdiPtr->MetaHdr);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTNHDR, Status);
 		}
 	}
 #ifndef PLM_SECURE_EXCLUDE

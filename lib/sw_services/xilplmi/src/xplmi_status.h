@@ -87,6 +87,7 @@
 *       bsv  07/16/2021 Added Macronix flash support
 *       bm   07/16/2021 Added error code for decrypt metaheader
 *       bm   08/09/2021 Cleared PMC CDO buffer by default after processing
+*       bsv  08/17/2021 Code clean up
 *
 * </pre>
 *
@@ -567,10 +568,10 @@ typedef enum {
 	XLOADER_ERR_HDR_AUTH_DISABLED,
 		/**< 0x613 Authentication disabled for IH/PH */
 
-	XLOADER_ERR_SEC_IH_READ_VERIFY_FAIL,
-		/**< 0x614 Failed to read IH and verify checksum */
-	XLOADER_ERR_SEC_PH_READ_VERIFY_FAIL,
-		/**< 0x615 Failed to read PH and verify checksum */
+	XLOADER_ERR_SEC_IH_READ_FAIL,
+		/**< 0x614 Failed to read IH */
+	XLOADER_ERR_SEC_PH_READ_FAIL,
+		/**< 0x615 Failed to read PH */
 
 	XLOADER_ERR_PRTN_HASH_CALC_FAIL,
 		/**< 0x616 Hash calculation failed for partition authentication */
@@ -637,6 +638,10 @@ typedef enum {
 		 of boot is non secure */
 	XLOADER_ERR_AUTH_JTAG_INVALID_DNA,
 		/**< 0x632 User provided Device DNA is not valid **/
+	XLOADER_ERR_SEC_IH_VERIFY_FAIL,
+		/**< 0x633 Failed to verify checksum of image headers */
+	XLOADER_ERR_SEC_PH_VERIFY_FAIL,
+		/**< 0x634 Failed to verify checksum of partition headers */
 
 	XPLMI_ERR_CDO_CMD = 0x2000,
 		/**< 0x2XXX, CDO command handler has failed.
