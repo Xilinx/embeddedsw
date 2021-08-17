@@ -31,13 +31,14 @@ namespace xaiefal {
 		XAiePerfCounter() = delete;
 		XAiePerfCounter(std::shared_ptr<XAieDevHandle> DevHd,
 			XAie_LocType L, XAie_ModuleType M,
-			bool CrossM = false):
+			bool CrossM = false, uint32_t Threshold = 0):
 			XAieSingleTileRsc(DevHd, L, M), CrossMod(CrossM) {
 			StartMod = Mod;
 			StopMod = Mod;
 			RstMod = Mod;
 			RstEvent = XAIE_EVENT_NONE_CORE;
 			State.Initialized = 1;
+			EventVal = Threshold;
 		}
 		XAiePerfCounter(XAieDev &Dev,
 			XAie_LocType L, XAie_ModuleType M,
@@ -458,8 +459,10 @@ namespace xaiefal {
 				XAie_Events lStopE = StopEvent;
 				XAie_Events lRstE = RstEvent;
 
-				RC = XAie_PerfCounterEventValueSet(dev(), Loc, static_cast<XAie_ModuleType>(Rsc.Mod),
-					Rsc.RscId, EventVal);
+				if(EventVal != 0) {
+					RC = XAie_PerfCounterEventValueSet(dev(), Loc, static_cast<XAie_ModuleType>(Rsc.Mod),
+						Rsc.RscId, EventVal);
+				}
 
 				if (RC == XAIE_OK && StartMod != static_cast<XAie_ModuleType>(Rsc.Mod)) {
 					StartBC->getEvent(Loc, static_cast<XAie_ModuleType>(Rsc.Mod), lStartE);
