@@ -46,6 +46,7 @@
 *                       PDI image names
 *       har  03/31/2021 Added PdiId in XilPdi_ImgHdrTbl structure
 * 1.06  td   07/08/2021 Fix doxygen warnings
+*       bsv  08/16/2021 Code clean up
 *
 * </pre>
 *
@@ -118,6 +119,7 @@ extern "C" {
 #define XIH_IH_LEN			(64U)
 #define XIH_PH_LEN			(128U)
 #define XIH_PRTN_WORD_LEN		(0x4U)
+#define XIH_PRTN_WORD_LEN_SHIFT		(0x2U)
 
 /**
  * IHT attributes
@@ -242,9 +244,6 @@ extern "C" {
 #define XILPDI_IH_ATTRIB_DELAY_HANDOFF_SHIFT	(0x8U)
 #define XILPDI_IH_ATTRIB_DELAY_HANDOFF_MASK		(0X00000100U)
 
-#define XILPDI_METAHDR_RD_HDRS_FROM_DEVICE		(0x0U)
-#define XILPDI_METAHDR_RD_HDRS_FROM_MEMBUF		(0x1U)
-
 /**
  * Array size for image name
  */
@@ -367,12 +366,6 @@ typedef struct {
 	u64 FlashOfstAddr; /**< Start of DPI start address in Flash */
 	int (*DeviceCopy) (u64 SrcAddr, u64 DestAddress, u32 Length,
 			u32 Flags); /**< Function pointer for device copy */
-	u32 Flag; /**< To read from flash or buffer,
-				0 for flash and 1 for buffer */
-	/**< PUF related fields */
-	u64 BufferAddr; /**< Buffer Address */
-	int (*XMemCpy)(void * DestPtr, u32 DestPtrLen,
-			const void * SrcPtr, u32 Len); /**< MemCpy Function Pointer */
 } XilPdi_MetaHdr __attribute__ ((aligned(16U)));
 
 /**
@@ -656,9 +649,10 @@ int XilPdi_ValidatePrtnHdr(const XilPdi_PrtnHdr *PrtnHdr);
 int XilPdi_ValidateImgHdrTbl(const XilPdi_ImgHdrTbl *ImgHdrTbl);
 void XilPdi_ReadBootHdr(XilPdi_MetaHdr *MetaHdrPtr);
 int XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr *MetaHdrPtr);
-int XilPdi_ReadAndVerifyImgHdr(XilPdi_MetaHdr *MetaHdrPtr);
-int XilPdi_ReadAndVerifyPrtnHdr(XilPdi_MetaHdr *MetaHdrPtr);
-int XilPdi_ValidateHdrs(const XilPdi_MetaHdr *MetaHdrPtr);
+int XilPdi_VerifyImgHdrs(const XilPdi_MetaHdr * MetaHdrPtr);
+int XilPdi_VerifyPrtnHdrs(const XilPdi_MetaHdr * MetaHdrPtr);
+int XilPdi_ReadImgHdrs(const XilPdi_MetaHdr * MetaHdrPtr);
+int XilPdi_ReadPrtnHdrs(const XilPdi_MetaHdr * MetaHdrPtr);
 
 /** @} */
 #ifdef __cplusplus

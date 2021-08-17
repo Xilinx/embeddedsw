@@ -89,6 +89,7 @@
 *       har  07/27/21 Added prints for Secure State
 *       kpt  08/11/21 Added redundant check for Xil_MemCmp in
 *                     XLoader_VerifyHashNUpdateNext
+*       bsv  08/17/21 Code clean up
 *
 * </pre>
 *
@@ -327,7 +328,7 @@ static int XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr,
 	SecurePtr->IsNextChunkCopyStarted = (u8)TRUE;
 
 	/* Initiate the data copy */
-	Status = SecurePtr->PdiPtr->DeviceCopy(NextBlkAddr,
+	Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(NextBlkAddr,
 			SecurePtr->NextChunkAddr, CopyLen,
 			XPLMI_DEVICE_COPY_STATE_INITIATE);
 	if (Status != XST_SUCCESS) {
@@ -488,7 +489,7 @@ static int XLoader_ChecksumInit(XLoader_SecureParams *SecurePtr,
 
 		/* Copy checksum hash */
 		if (SecurePtr->PdiPtr->PdiType == XLOADER_PDI_TYPE_RESTORE) {
-			Status = SecurePtr->PdiPtr->DeviceCopy(
+			Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(
 					SecurePtr->PdiPtr->CopyToMemAddr,
 					(UINTPTR)SecurePtr->Sha3Hash, XLOADER_SHA3_LEN, 0U);
 			SecurePtr->PdiPtr->CopyToMemAddr += XLOADER_SHA3_LEN;
@@ -498,13 +499,13 @@ static int XLoader_ChecksumInit(XLoader_SecureParams *SecurePtr,
 					((u64)SecurePtr->PrtnHdr->ChecksumWordOfst *
 						XIH_PRTN_WORD_LEN);
 			if (SecurePtr->PdiPtr->CopyToMem == (u8)TRUE) {
-				Status = SecurePtr->PdiPtr->DeviceCopy(ChecksumOffset,
+				Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(ChecksumOffset,
 						SecurePtr->PdiPtr->CopyToMemAddr,
 						XLOADER_SHA3_LEN, 0U);
 				SecurePtr->PdiPtr->CopyToMemAddr += XLOADER_SHA3_LEN;
 			}
 			else {
-				Status = SecurePtr->PdiPtr->DeviceCopy(ChecksumOffset,
+				Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(ChecksumOffset,
 					(UINTPTR)SecurePtr->Sha3Hash, XLOADER_SHA3_LEN, 0U);
 			}
 		}
@@ -622,13 +623,13 @@ int XLoader_SecureChunkCopy(XLoader_SecureParams *SecurePtr, u64 SrcAddr,
 	if (SecurePtr->IsNextChunkCopyStarted == (u8)TRUE) {
 		SecurePtr->IsNextChunkCopyStarted = (u8)FALSE;
 		/* Wait for copy to get completed */
-		Status = SecurePtr->PdiPtr->DeviceCopy(SrcAddr,
+		Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(SrcAddr,
 					SecurePtr->ChunkAddr, TotalSize,
 					XPLMI_DEVICE_COPY_STATE_WAIT_DONE);
 	}
 	else {
 		/* Copy the data to PRAM buffer */
-		Status = SecurePtr->PdiPtr->DeviceCopy(SrcAddr,
+		Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(SrcAddr,
 					SecurePtr->ChunkAddr, TotalSize,
 					XPLMI_DEVICE_COPY_STATE_BLK);
 	}

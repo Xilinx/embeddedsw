@@ -27,6 +27,7 @@
 *       kpt  07/01/21 Added macros required to disable Jtag
 *       har  07/15/21 Fixed doxygen warnings
 *       har  07/18/21 Added description for all macros
+*       bsv  08/17/21 Code clean up
 *
 * </pre>
 *
@@ -142,12 +143,6 @@ extern "C" {
 #define XLOADER_SECURE_HDR_TOTAL_SIZE		(XLOADER_SECURE_HDR_SIZE + \
 							XLOADER_SECURE_GCM_TAG_SIZE)
 			/**< Total size of Secure Header (in bytes) */
-#define XLOADER_SECURE_METAHDR_RD_IMG_PRTN_HDRS	(0x0U)
-			/**< Value to read secure headers */
-#define XLOADER_SECURE_METAHDR_RD_IMG_HDRS	(0x1U)
-			/**< Value to read Image headers */
-#define XLOADER_SECURE_METAHDR_RD_PRTN_HDRS	(0x2U)
-			/**< Value to read Partition headers */
 
 #define XLOADER_128_BIT_ALIGNED_MASK		(0x0FU)
 			/**< Mask to check if data is 128-bit aligned */

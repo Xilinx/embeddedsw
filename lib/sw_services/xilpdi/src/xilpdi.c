@@ -37,6 +37,7 @@
 *       bm   02/12/2021 Updated logic to use BootHdr directly from PMC RAM
 *       ma   03/24/2021 Redirect XilPdi prints to XilLoader
 * 1.05  bm   07/08/2021 Code cleanup
+*       bsv  08/17/2021 Code clean up
 *
 * </pre>
 *
@@ -57,7 +58,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static int XilPdi_ValidateChecksum(const void *Buffer, const u32 Len);
+static int XilPdi_ValidateChecksum(const void *Buffer, u32 Len);
 
 /************************** Variable Definitions *****************************/
 
@@ -76,24 +77,26 @@ static int XilPdi_ValidateChecksum(const void *Buffer, const u32 Len);
 			XST_FAILURE if checksum validation fails
 *
 *****************************************************************************/
-static int XilPdi_ValidateChecksum(const void *Buffer, const u32 Len)
+static int XilPdi_ValidateChecksum(const void *Buffer, u32 Len)
 {
 	int Status = XST_FAILURE;
 	u32 Checksum = 0U;
 	u32 Count;
 	const u32 *BufferPtr = (const u32 *)Buffer;
 
+	Len >>= XIH_PRTN_WORD_LEN_SHIFT;
+
 	/* Len has to be at least equal to 2 */
 	if (Len < 2U)
 	{
 		goto END;
 	}
-
+	--Len;
 	/*
 	 * Checksum = ~(X1 + X2 + X3 + .... + Xn)
 	 * Calculate the checksum
 	 */
-	for (Count = 0U; Count < (Len - 1U); Count++) {
+	for (Count = 0U; Count < Len; Count++) {
 		/*
 		 * Read the word from the header
 		 */
@@ -104,9 +107,9 @@ static int XilPdi_ValidateChecksum(const void *Buffer, const u32 Len)
 	Checksum ^= 0xFFFFFFFFU;
 
 	/* Validate the checksum */
-	if (BufferPtr[Len - 1U] != Checksum) {
-		XilPdi_Printf("Error: Checksum 0x%0lx != %0lx\r\n",
-								Checksum, BufferPtr[Len - 1U]);
+	if (BufferPtr[Len] != Checksum) {
+		XilPdi_Printf("Error: Checksum 0x%0lx != %0lx\r\n", Checksum,
+			BufferPtr[Len]);
 	} else {
 		Status = XST_SUCCESS;
 	}
@@ -132,8 +135,7 @@ int XilPdi_ValidateImgHdrTbl(const XilPdi_ImgHdrTbl * ImgHdrTbl)
 	int Status = XST_FAILURE;
 
 	/* Check the check sum of the Image Header Table */
-	Status = XilPdi_ValidateChecksum(ImgHdrTbl,
-				XIH_IHT_LEN / XIH_PRTN_WORD_LEN);
+	Status = XilPdi_ValidateChecksum(ImgHdrTbl, XIH_IHT_LEN);
 	if (XST_SUCCESS != Status) {
 		Status = XILPDI_ERR_IHT_CHECKSUM;
 		XilPdi_Printf("XILPDI_ERR_IHT_CHECKSUM\n\r");
@@ -151,7 +153,6 @@ int XilPdi_ValidateImgHdrTbl(const XilPdi_ImgHdrTbl * ImgHdrTbl)
 		(ImgHdrTbl->NoOfPrtns > XIH_MAX_PRTNS)) {
 		Status = XILPDI_ERR_NO_OF_PRTNS;
 		XilPdi_Printf("XILPDI_ERR_NO_OF_PRTNS\n\r");
-		goto END;
 	}
 
 END:
@@ -264,7 +265,6 @@ int XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr * MetaHdrPtr)
 			XIH_IHT_LEN - Offset, 0x0U);
 	if (XST_SUCCESS != Status) {
 		XilPdi_Printf("Device Copy Failed \n\r");
-		goto END;
 	}
 
 END:
@@ -273,7 +273,7 @@ END:
 
 /****************************************************************************/
 /**
-* @brief	This function reads and verifies the Image Header.
+* @brief	This function reads the Image Headers.
 *
 * @param	MetaHdrPtr is pointer to Meta Header
 *
@@ -281,13 +281,10 @@ END:
 *			Errors as mentioned in xilpdi.h on failure
 *
 *****************************************************************************/
-int XilPdi_ReadAndVerifyImgHdr(XilPdi_MetaHdr * MetaHdrPtr)
+int XilPdi_ReadImgHdrs(const XilPdi_MetaHdr * MetaHdrPtr)
 {
 	int Status = XST_FAILURE;
-	u32 NoOfImgs;
-	u32 ImgIndex;
-
-	NoOfImgs = MetaHdrPtr->ImgHdrTbl.NoOfImgs;
+	u32 TotalLen = MetaHdrPtr->ImgHdrTbl.NoOfImgs * XIH_IH_LEN;
 
 	/*
 	 * Read the Img headers of 64 bytes
@@ -295,80 +292,60 @@ int XilPdi_ReadAndVerifyImgHdr(XilPdi_MetaHdr * MetaHdrPtr)
 	 */
 
 	/* Performs device copy */
-	if (MetaHdrPtr->Flag == XILPDI_METAHDR_RD_HDRS_FROM_DEVICE) {
-		Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
-				((u64)MetaHdrPtr->ImgHdrTbl.ImgHdrAddr * XIH_PRTN_WORD_LEN),
-				(u64)(UINTPTR)MetaHdrPtr->ImgHdr,
-				NoOfImgs * XIH_IH_LEN, 0x0U);
-	} else {
-		/* Performs memory copy */
-		Status = MetaHdrPtr->XMemCpy((void *)MetaHdrPtr->ImgHdr,
-			NoOfImgs * XIH_IH_LEN, (void *)(UINTPTR)MetaHdrPtr->BufferAddr,
-			NoOfImgs * XIH_IH_LEN);
-	}
-	if (XST_SUCCESS != Status) {
-		XilPdi_Printf("Device Copy Failed \n\r");
-		goto END;
-	}
+	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
+			((u64)MetaHdrPtr->ImgHdrTbl.ImgHdrAddr * XIH_PRTN_WORD_LEN),
+			(u64)(UINTPTR)MetaHdrPtr->ImgHdr, TotalLen, 0x0U);
 
-	for (ImgIndex = 0U; ImgIndex < NoOfImgs; ImgIndex++) {
-
-		Status = XilPdi_ValidateChecksum(&MetaHdrPtr->ImgHdr[ImgIndex],
-				XIH_IH_LEN / XIH_PRTN_WORD_LEN);
-		if (XST_SUCCESS != Status) {
-			Status = XILPDI_ERR_IH_CHECKSUM;
-			goto END;
-		}
-	}
-
-	Status = XST_SUCCESS;
-
-END:
 	return Status;
 }
 
 /****************************************************************************/
 /**
-* @brief	This function reads and verifies the Partition Header.
+* @brief	This function reads the Partition Headers.
 *
-* @param	MetaHdrPtr is pointer to the MetaHeader
+* @param	MetaHdrPtr is pointer to Meta Header
 *
-* @return	XST_SUCCESS on successful validation of Partition Header
+* @return	XST_SUCCESS on successful validation of Image Header
 *			Errors as mentioned in xilpdi.h on failure
 *
 *****************************************************************************/
-int XilPdi_ReadAndVerifyPrtnHdr(XilPdi_MetaHdr * MetaHdrPtr)
+int XilPdi_ReadPrtnHdrs(const XilPdi_MetaHdr * MetaHdrPtr)
 {
 	int Status = XST_FAILURE;
-	u32 PrtnIndex;
-	u32 NoOfPrtns;
+	u32 TotalLen = MetaHdrPtr->ImgHdrTbl.NoOfPrtns * XIH_PH_LEN;
 
-	NoOfPrtns = MetaHdrPtr->ImgHdrTbl.NoOfPrtns;
-
-	/* Read partition headers into partition structures */
+	/*
+	 * Read the Img headers of 64 bytes
+	 * and update the Image Header structure for all images
+	 */
 
 	/* Performs device copy */
-	if (MetaHdrPtr->Flag == XILPDI_METAHDR_RD_HDRS_FROM_DEVICE) {
-		Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
-				((u64)MetaHdrPtr->ImgHdrTbl.PrtnHdrAddr * XIH_PRTN_WORD_LEN),
-				(u64)(UINTPTR)MetaHdrPtr->PrtnHdr,
-			       NoOfPrtns * XIH_PH_LEN, 0x0U);
-	} else {
-		/* Performs memory copy */
-		Status = MetaHdrPtr->XMemCpy((void *)MetaHdrPtr->PrtnHdr,
-			NoOfPrtns * XIH_PH_LEN, (void *)(UINTPTR)MetaHdrPtr->BufferAddr,
-			NoOfPrtns * XIH_PH_LEN);
-	}
-	if (XST_SUCCESS != Status) {
-		XilPdi_Printf("Device Copy Failed \n\r");
-		goto END;
-	}
+	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
+			((u64)MetaHdrPtr->ImgHdrTbl.PrtnHdrAddr * XIH_PRTN_WORD_LEN),
+			(u64)(UINTPTR)MetaHdrPtr->PrtnHdr, TotalLen, 0x0U);
 
-	for (PrtnIndex = 0U; PrtnIndex < NoOfPrtns; PrtnIndex++) {
+	return Status;
+}
 
-		Status = XilPdi_ValidateChecksum(
-				&MetaHdrPtr->PrtnHdr[PrtnIndex],
-				XIH_PH_LEN / XIH_PRTN_WORD_LEN);
+/****************************************************************************/
+/**
+* @brief	This function verifies Partition Headers.
+*
+* @param	MetaHdrPtr is pointer to MetaHeader table
+*
+* @return	XST_SUCCESS on successful read
+*			Errors as mentioned in xilpdi.h on failure
+*
+*****************************************************************************/
+int XilPdi_VerifyPrtnHdrs(const XilPdi_MetaHdr * MetaHdrPtr)
+{
+	int Status = XST_FAILURE;
+	u8 PrtnIndex;
+
+	for (PrtnIndex = 0U; PrtnIndex < (u8)MetaHdrPtr->ImgHdrTbl.NoOfPrtns;
+		PrtnIndex++) {
+		Status = XilPdi_ValidateChecksum(&MetaHdrPtr->PrtnHdr[PrtnIndex],
+				XIH_PH_LEN);
 		if (XST_SUCCESS != Status) {
 			Status = XILPDI_ERR_PH_CHECKSUM;
 			goto END;
@@ -381,38 +358,33 @@ END:
 	return Status;
 }
 
-/*****************************************************************************/
+/**************************************************************************/
 /**
- * @brief
- * This function validates the Checksum of image and partition headers.
- *
- * @param	MetaHdrPtr is Pointer to the Meta header.
- *
- * @return	XST_SUCCESS on success and error code on failure
- *
- ******************************************************************************/
-int XilPdi_ValidateHdrs(const XilPdi_MetaHdr *MetaHdrPtr)
+* @brief	This function verifies Image headers.
+*
+* @param	MetaHdrPtr is pointer to MetaHeader table
+*
+* @return	XST_SUCCESS on successful read
+*			Errors as mentioned in xilpdi.h on failure
+*
+*****************************************************************************/
+int XilPdi_VerifyImgHdrs(const XilPdi_MetaHdr * MetaHdrPtr)
 {
 	int Status = XST_FAILURE;
-	u32 Index;
+	u8 ImgIndex;
 
-	for (Index = 0U; Index < MetaHdrPtr->ImgHdrTbl.NoOfImgs; Index++) {
-		Status = XilPdi_ValidateChecksum(&MetaHdrPtr->ImgHdr[Index],
-						XIH_IH_LEN / XIH_PRTN_WORD_LEN);
-		if (Status != XST_SUCCESS) {
+	for (ImgIndex = 0U; ImgIndex < (u8)MetaHdrPtr->ImgHdrTbl.NoOfImgs;
+		ImgIndex++) {
+		Status = XilPdi_ValidateChecksum(&MetaHdrPtr->ImgHdr[ImgIndex],
+				XIH_IH_LEN);
+		if (XST_SUCCESS != Status) {
 			Status = XILPDI_ERR_IH_CHECKSUM;
 			goto END;
 		}
 	}
-	for (Index = 0U; Index < MetaHdrPtr->ImgHdrTbl.NoOfPrtns; Index++) {
-		Status = XilPdi_ValidateChecksum(&MetaHdrPtr->PrtnHdr[Index],
-						XIH_PH_LEN / XIH_PRTN_WORD_LEN);
-		if (Status != XST_SUCCESS) {
-			Status = XILPDI_ERR_PH_CHECKSUM;
-			goto END;
-		}
-	}
+
 	Status = XST_SUCCESS;
+
 END:
 	return Status;
 }
