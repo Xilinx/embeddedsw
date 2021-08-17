@@ -50,6 +50,7 @@
 *       har  07/15/21 Fixed doxygen warnings
 *       td   07/15/21 Fixed doxygen warnings
 *       bm   07/30/21 Updated decrypt metaheader logic to support full PDIs
+*       bsv  08/17/21 Code clean up
 *
 * </pre>
 *
@@ -136,10 +137,8 @@ static int XLoader_PpkVerify(const XLoader_SecureParams *SecurePtr);
 static int XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, const u8 *PpkHash);
 static int XLoader_VerifyRevokeId(u32 RevokeId);
 static int XLoader_PpkCompare(const u32 EfusePpkOffset, const u8 *PpkHash);
-static int XLoader_AuthHdrs(XLoader_SecureParams *SecurePtr,
+static int XLoader_AuthHdrs(const XLoader_SecureParams *SecurePtr,
 	XilPdi_MetaHdr *MetaHdr);
-static int XLoader_ReadHdrs(const XLoader_SecureParams *SecurePtr,
-	const XilPdi_MetaHdr *MetaHdr, const u64 BufferAddr);
 static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 	XilPdi_MetaHdr *MetaHdr, u64 BufferAddr);
 static int XLoader_AuthNDecHdrs(XLoader_SecureParams *SecurePtr,
@@ -203,7 +202,7 @@ int XLoader_SecureAuthInit(XLoader_SecureParams *SecurePtr,
 
 		/* Copy Authentication certificate */
 		if (SecurePtr->PdiPtr->PdiType == XLOADER_PDI_TYPE_RESTORE) {
-			Status = SecurePtr->PdiPtr->DeviceCopy(
+			Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(
 					SecurePtr->PdiPtr->CopyToMemAddr,
 					(UINTPTR)SecurePtr->AcPtr,
 					XLOADER_AUTH_CERT_MIN_SIZE, 0U);
@@ -211,13 +210,13 @@ int XLoader_SecureAuthInit(XLoader_SecureParams *SecurePtr,
 		}
 		else {
 			if (SecurePtr->PdiPtr->CopyToMem == (u8)TRUE) {
-				Status = SecurePtr->PdiPtr->DeviceCopy(AcOffset,
+				Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(AcOffset,
 						SecurePtr->PdiPtr->CopyToMemAddr,
 						XLOADER_AUTH_CERT_MIN_SIZE, 0U);
 				SecurePtr->PdiPtr->CopyToMemAddr += XLOADER_AUTH_CERT_MIN_SIZE;
 			}
 			else {
-				Status = SecurePtr->PdiPtr->DeviceCopy(AcOffset,
+				Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(AcOffset,
 							(UINTPTR)SecurePtr->AcPtr,
 							XLOADER_AUTH_CERT_MIN_SIZE, 0U);
 			}
@@ -492,7 +491,6 @@ int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 			" match PLM Key Source\n\r");
 			Status = XPlmi_UpdateStatus(
 				XLOADER_ERR_METAHDR_KEYSRC_MISMATCH, 0);
-			goto END;
 	}
 
 END:
@@ -610,7 +608,7 @@ int XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr)
 				((u64)(ImgHdrTbl->AcOffset) * XIH_PRTN_WORD_LEN);
 	}
 
-	Status = SecurePtr->PdiPtr->DeviceCopy(AcOffset,
+	Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(AcOffset,
 		(UINTPTR)SecurePtr->AcPtr, XLOADER_AUTH_CERT_MIN_SIZE, 0U);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_IHT_COPY_FAIL,
@@ -700,23 +698,24 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 	int Clearchunk = XST_FAILURE;
 	u32 Ihs;
 	u32 TotalSize;
+	u32 ImgHdrAddr = MetaHdr->ImgHdrTbl.ImgHdrAddr * XIH_PRTN_WORD_LEN;
+	u32 TotalImgHdrLen = MetaHdr->ImgHdrTbl.NoOfImgs * XIH_IH_LEN;
+	u32 TotalPrtnHdrLen = MetaHdr->ImgHdrTbl.NoOfPrtns * XIH_PH_LEN;
 
 	XPlmi_Printf(DEBUG_INFO,
 		"Loading secure image headers and partition headers\n\r");
+	/* Get DMA instance */
+	SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance((u32)PMCDMA_0_DEVICE_ID);
+	if (SecurePtr->PmcDmaInstPtr == NULL) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_GET_DMA, 0);
+		goto END;
+	}
 
 	/*
 	 * If headers are in encrypted format
 	 * either authentication is enabled or not
 	 */
 	if (SecurePtr->IsEncrypted == (u8)TRUE) {
-
-		/* Get DMA instance */
-		SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance((u32)PMCDMA_0_DEVICE_ID);
-		if (SecurePtr->PmcDmaInstPtr == NULL) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_GET_DMA, 0);
-			goto END;
-		}
-
 		SecurePtr->AesInstPtr = XSecure_GetAesInstance();
 		/* Initialize AES driver */
 		Status = XSecure_AesInitialize(SecurePtr->AesInstPtr, SecurePtr->PmcDmaInstPtr);
@@ -735,11 +734,35 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 
 		XPlmi_Printf(DEBUG_INFO, "Headers are in encrypted format\n\r");
 		SecurePtr->ChunkAddr = XPLMI_PMCRAM_CHUNK_MEMORY;
-		MetaHdr->Flag = XLOADER_SECURE_METAHDR_RD_IMG_PRTN_HDRS;
-		TotalSize =  MetaHdr->ImgHdrTbl.TotalHdrLen * XIH_PRTN_WORD_LEN;
 		/* Read headers to a buffer */
-		Status = XLoader_ReadHdrs(SecurePtr, MetaHdr, SecurePtr->ChunkAddr);
-		if (Status != XST_SUCCESS) {
+		/* Read IHT and PHT to buffers along with encryption overhead */
+		TotalSize =  MetaHdr->ImgHdrTbl.TotalHdrLen * XIH_PRTN_WORD_LEN;
+		if (SecurePtr->PdiPtr->PdiType == XLOADER_PDI_TYPE_METAHEADER) {
+			if (SecurePtr->IsAuthenticated == (u8)TRUE) {
+				ImgHdrAddr = ((MetaHdr->ImgHdrTbl.ImgHdrAddr -
+					MetaHdr->ImgHdrTbl.AcOffset) *
+					XIH_PRTN_WORD_LEN) + XIH_IHT_LEN;
+			}
+			else {
+				ImgHdrAddr = XIH_IHT_LEN;
+			}
+		}
+
+		if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
+			(SecurePtr->IsAuthenticatedTmp == (u8)TRUE)) {
+			XPlmi_Printf(DEBUG_INFO, "Authentication is enabled\n\r");
+			TotalSize -= XLOADER_AUTH_CERT_MIN_SIZE;
+		}
+		/* Validate Meta header length */
+		if (TotalSize > XLOADER_CHUNK_SIZE) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_METAHDR_LEN_OVERFLOW, 0);
+			goto END;
+		}
+
+		Status = MetaHdr->DeviceCopy((MetaHdr->FlashOfstAddr + ImgHdrAddr),
+			SecurePtr->ChunkAddr, TotalSize, 0x0U);
+		if (XST_SUCCESS != Status) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_COPY_FAIL, Status);
 			goto END;
 		}
 
@@ -747,8 +770,6 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 		/* Authenticate headers and decrypt the headers */
 		if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
 			(SecurePtr->IsAuthenticatedTmp == (u8)TRUE)) {
-			XPlmi_Printf(DEBUG_INFO, "Authentication is enabled\n\r");
-			TotalSize -= XLOADER_AUTH_CERT_MIN_SIZE;
 			Status = XLoader_AuthNDecHdrs(SecurePtr, MetaHdr,
 						SecurePtr->ChunkAddr);
 		}
@@ -764,26 +785,25 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 			}
 			goto END;
 		}
-
-		/* Read and verify headers to structures */
-		MetaHdr->Flag = XILPDI_METAHDR_RD_HDRS_FROM_MEMBUF;
-		MetaHdr->BufferAddr = SecurePtr->ChunkAddr;
-		MetaHdr->XMemCpy = Xil_SecureMemCpy;
-
 		/* Read IHT and PHT to structures and verify checksum */
 		XPlmi_Printf(DEBUG_INFO, "Reading 0x%x Image Headers\n\r",
-				MetaHdr->ImgHdrTbl.NoOfImgs);
-		Status = XilPdi_ReadAndVerifyImgHdr(MetaHdr);
+			MetaHdr->ImgHdrTbl.NoOfImgs);
+		Status = Xil_SecureMemCpy((void *)MetaHdr->ImgHdr, TotalImgHdrLen,
+			(void *)(UINTPTR)SecurePtr->ChunkAddr, TotalImgHdrLen);
 		if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus(
-				XLOADER_ERR_SEC_IH_READ_VERIFY_FAIL, Status);
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_SEC_IH_READ_FAIL, Status);
+			goto END;
+		}
+		Status = XilPdi_VerifyImgHdrs(MetaHdr);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_SEC_IH_VERIFY_FAIL, Status);
 			goto END;
 		}
 		/* Verify Meta header is revoked or not */
 		for (Ihs = 0U; Ihs < MetaHdr->ImgHdrTbl.NoOfImgs; Ihs++) {
 			XSECURE_TEMPORAL_IMPL(Status, StatusTmp,
-					XLoader_VerifyRevokeId,
-					MetaHdr->ImgHdr[Ihs].EncRevokeID);
+				XLoader_VerifyRevokeId,
+				MetaHdr->ImgHdr[Ihs].EncRevokeID);
 			if ((Status != XST_SUCCESS) ||
 				(StatusTmp != XST_SUCCESS)) {
 				XPlmi_Printf(DEBUG_GENERAL, "Meta header is revoked\n\r");
@@ -795,40 +815,40 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 			Status = XST_FAILURE;
 			goto END;
 		}
+
 		/* Update buffer address to point to PHs */
-		MetaHdr->BufferAddr = (u64)(SecurePtr->ChunkAddr) +
-					((u64)(MetaHdr->ImgHdrTbl.NoOfImgs) * XIH_IH_LEN);
 		XPlmi_Printf(DEBUG_INFO, "Reading 0x%x Partition Headers\n\r",
-				MetaHdr->ImgHdrTbl.NoOfPrtns);
-		Status = XilPdi_ReadAndVerifyPrtnHdr(MetaHdr);
-		if(Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus(
-				XLOADER_ERR_SEC_PH_READ_VERIFY_FAIL, Status);
-			goto END;
-		}
+			MetaHdr->ImgHdrTbl.NoOfPrtns);
+		Status = Xil_SecureMemCpy((void *)MetaHdr->PrtnHdr, TotalPrtnHdrLen,
+			(void *)(UINTPTR)(SecurePtr->ChunkAddr + TotalImgHdrLen),
+			TotalPrtnHdrLen);
 	}
 	/* If authentication is enabled */
 	else if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
 			(SecurePtr->IsAuthenticatedTmp == (u8)TRUE)) {
 		XPlmi_Printf(DEBUG_INFO, "Headers are only authenticated\n\r");
 		Status = XLoader_AuthHdrs(SecurePtr, MetaHdr);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
 	}
 	else {
 		XPlmi_Printf(DEBUG_INFO, "Headers are not secure\n\r");
-		Status = (int)XLOADER_ERR_HDR_NOT_SECURE;
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_NOT_SECURE, 0);
+		goto END1;
+	}
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_SEC_PH_READ_FAIL, Status);
 		goto END;
+	}
+	Status = XilPdi_VerifyPrtnHdrs(MetaHdr);
+	if(Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_SEC_PH_VERIFY_FAIL, Status);
 	}
 
 END:
-	if ((Status != XST_SUCCESS) &&
-		(Status != (int)XLOADER_ERR_HDR_NOT_SECURE)) {
+	if (Status != XST_SUCCESS) {
 		ClearIHs = XPlmi_InitNVerifyMem((UINTPTR)&MetaHdr->ImgHdr[0U],
-			(MetaHdr->ImgHdrTbl.NoOfImgs * XIH_IH_LEN));
+			TotalImgHdrLen);
 		ClearPHs = XPlmi_InitNVerifyMem((UINTPTR)&MetaHdr->PrtnHdr[0U],
-			(MetaHdr->ImgHdrTbl.NoOfPrtns * XIH_PH_LEN));
+			TotalPrtnHdrLen);
 		if ((ClearIHs != XST_SUCCESS) || (ClearPHs != XST_SUCCESS)) {
 			Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_ERR);
 		}
@@ -836,11 +856,7 @@ END:
 			Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_SUCCESS);
 		}
 	}
-	else {
-		if (Status == (int)XLOADER_ERR_HDR_NOT_SECURE) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_NOT_SECURE, 0);
-		}
-	}
+END1:
 	return Status;
 }
 
@@ -2275,40 +2291,23 @@ static int XLoader_AesKeySelect(const XLoader_SecureParams *SecurePtr,
  *			Error code on failure
  *
  ******************************************************************************/
-static int XLoader_AuthHdrs(XLoader_SecureParams *SecurePtr,
+static int XLoader_AuthHdrs(const XLoader_SecureParams *SecurePtr,
 			XilPdi_MetaHdr *MetaHdr)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
-	int SStatus = XST_FAILURE;
 	XSecure_Sha3Hash Sha3Hash;
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
 
-	/* Get DMA instance */
-	SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance((u32)PMCDMA_0_DEVICE_ID);
-	if (SecurePtr->PmcDmaInstPtr == NULL) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_GET_DMA, 0);
+	Status = XilPdi_ReadImgHdrs(MetaHdr);
+	if (XST_SUCCESS != Status) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_SEC_IH_READ_FAIL, Status);
 		goto END;
 	}
 
-	/* Read IHT and PHT to structures and verify checksum */
-	MetaHdr->Flag = XLOADER_SECURE_METAHDR_RD_IMG_HDRS;
-	SStatus = XLoader_ReadHdrs(SecurePtr, MetaHdr,
-				(u64)(UINTPTR)&(MetaHdr->ImgHdr[0]));
-	if (SStatus != XST_SUCCESS)
-	{
-		Status = XPlmi_UpdateStatus(
-				XLOADER_ERR_SEC_IH_READ_VERIFY_FAIL, SStatus);
-		goto END;
-	}
-
-	MetaHdr->Flag = XLOADER_SECURE_METAHDR_RD_PRTN_HDRS;
-	SStatus = XLoader_ReadHdrs(SecurePtr, MetaHdr,
-				(u64)(UINTPTR)&(MetaHdr->PrtnHdr[0]));
-	if(SStatus != XST_SUCCESS)
-	{
-		Status = XPlmi_UpdateStatus(
-				XLOADER_ERR_SEC_PH_READ_VERIFY_FAIL, SStatus);
+	Status = XilPdi_ReadPrtnHdrs(MetaHdr);
+	if (XST_SUCCESS != Status) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_SEC_PH_READ_FAIL, Status);
 		goto END;
 	}
 
@@ -2374,89 +2373,19 @@ static int XLoader_AuthHdrs(XLoader_SecureParams *SecurePtr,
 		goto END;
 	}
 
-	Status = XilPdi_ValidateHdrs(MetaHdr);
+	Status = XilPdi_VerifyImgHdrs(MetaHdr);
 	if (Status != XST_SUCCESS) {
-		XPlmi_Printf(DEBUG_INFO, "Checksum validation of"
-				" partition and image headers failed\n\r");
+		XPlmi_Printf(DEBUG_INFO, "Checksum validation of image headers "
+			"failed\n\r");
 		goto END;
 	}
-	XPlmi_Printf(DEBUG_INFO, "Authentication of"
-				" partition and image headers is successful\n\r");
+	XPlmi_Printf(DEBUG_INFO, "Authentication of image headers is "
+		"successful\n\r");
 
 END:
 	return Status;
 }
 
-/*****************************************************************************/
-/**
- * @brief
- * This function copies whole secure headers to the buffer.
- *
- * @param	SecurePtr	Pointer to the XLoader_SecureParams
- * @param	MetaHdr		Pointer to the Meta header.
- * @param	BufferAddr	Read whole headers to the mentioned buffer
- *		address
- *
- * @return	XST_SUCCESS if verification was successful.
- *			Error code on failure
- *
- ******************************************************************************/
-static int XLoader_ReadHdrs(const XLoader_SecureParams *SecurePtr,
-			const XilPdi_MetaHdr *MetaHdr, const u64 BufferAddr)
-{
-	int Status = XST_FAILURE;
-	u32 TotalSize = MetaHdr->ImgHdrTbl.TotalHdrLen * XIH_PRTN_WORD_LEN;
-	u32 ImgHdrAddr;
-
-	/* Update the first image header address */
-	if (MetaHdr->Flag == XLOADER_SECURE_METAHDR_RD_IMG_HDRS) {
-		ImgHdrAddr = MetaHdr->ImgHdrTbl.ImgHdrAddr
-						* XIH_PRTN_WORD_LEN;
-		TotalSize = MetaHdr->ImgHdrTbl.NoOfImgs * XIH_IH_LEN;
-	}
-	else if (MetaHdr->Flag == XLOADER_SECURE_METAHDR_RD_PRTN_HDRS) {
-		ImgHdrAddr = MetaHdr->ImgHdrTbl.PrtnHdrAddr
-						* XIH_PRTN_WORD_LEN;
-		TotalSize = MetaHdr->ImgHdrTbl.NoOfPrtns * XIH_PH_LEN;
-	}
-	else {
-		if (SecurePtr->PdiPtr->PdiType == XLOADER_PDI_TYPE_METAHEADER) {
-			if (SecurePtr->IsAuthenticated == (u8)TRUE) {
-				ImgHdrAddr = ((MetaHdr->ImgHdrTbl.ImgHdrAddr -
-					MetaHdr->ImgHdrTbl.AcOffset) *
-					XIH_PRTN_WORD_LEN) + XIH_IHT_LEN;
-			}
-			else {
-				ImgHdrAddr = XIH_IHT_LEN;
-			}
-		}
-		else {
-			ImgHdrAddr = MetaHdr->ImgHdrTbl.ImgHdrAddr
-					* XIH_PRTN_WORD_LEN;
-		}
-
-		if (SecurePtr->IsAuthenticated == (u8)TRUE) {
-			TotalSize = TotalSize - XLOADER_AUTH_CERT_MIN_SIZE;
-		}
-		/* Validate Meta header length */
-		if (TotalSize > XLOADER_CHUNK_SIZE) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_METAHDR_LEN_OVERFLOW, 0);
-			goto END;
-		}
-	}
-
-	/* Read IHT and PHT to buffers along with encryption overhead */
-	Status = MetaHdr->DeviceCopy(MetaHdr->FlashOfstAddr + ImgHdrAddr,
-		BufferAddr, TotalSize, 0x0U);
-	if (XST_SUCCESS != Status) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_COPY_FAIL, Status);
-		goto END;
-	}
-	XPlmi_Printf(DEBUG_INFO, "Secure headers copy is successful\r\n");
-
-END:
-	return Status;
-}
 
 /*****************************************************************************/
 /**
