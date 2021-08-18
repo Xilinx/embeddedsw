@@ -37,6 +37,7 @@
 * 1.3   sk   10/06/20 Clear the ISR for polled mode transfers.
 * 1.4   sk   02/18/21 Added support for Dual byte opcode.
 *       sk   05/07/21 Fixed MISRAC violations.
+* 1.5   sk   08/17/21 Added DCache invalidate after non-blocking DMA read.
 *
 * </pre>
 *
@@ -496,8 +497,11 @@ u32 XOspiPsv_CheckDmaDone(XOspiPsv *InstancePtr)
 {
 	u32 Status;
 	u32 ReadReg;
+	XOspiPsv_Msg *Msg;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	Msg = InstancePtr->Msg;
 
 	ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
 				XOSPIPSV_OSPIDMA_DST_I_STS);
@@ -519,6 +523,11 @@ u32 XOspiPsv_CheckDmaDone(XOspiPsv *InstancePtr)
 		XOSPIPSV_IRQ_STATUS_REG,
 		XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
 			XOSPIPSV_IRQ_STATUS_REG));
+
+	if ((Msg->Xfer64bit != (u8)1U) &&
+			(InstancePtr->Config.IsCacheCoherent == 0U)) {
+		Xil_DCacheInvalidateRange((INTPTR)Msg->RxBfrPtr, (INTPTR)Msg->ByteCount);
+	}
 
 	Status = XOspiPsv_CheckOspiIdle(InstancePtr);
 
