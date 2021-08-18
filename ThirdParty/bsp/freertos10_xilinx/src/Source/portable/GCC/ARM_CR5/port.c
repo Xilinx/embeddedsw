@@ -132,7 +132,7 @@ the CPU itself before modifying certain hardware registers. */
 #define portCLEAR_INTERRUPT_MASK()									\
 {																	\
 	portCPU_IRQ_DISABLE();											\
-	portICCPMR_PRIORITY_MASK_REGISTER = portUNMASK_VALUE;			\
+	Xil_Out32(portICCPMR_PRIORITY_MASK_REGISTER_ADDRESS, portUNMASK_VALUE);			\
 	__asm volatile (	"DSB		\n"								\
 						"ISB		\n" );							\
 	portCPU_IRQ_ENABLE();											\
@@ -441,7 +441,7 @@ uint32_t ulAPSR, ulCycles = 8; /* 8 bits per byte. */
 	#if( configASSERT_DEFINED == 1 )
 	{
 		volatile uint32_t ulOriginalPriority;
-		volatile uint8_t * const pucFirstUserPriorityRegister = ( volatile uint8_t * const ) ( configINTERRUPT_CONTROLLER_BASE_ADDRESS + portINTERRUPT_PRIORITY_REGISTER_OFFSET );
+		volatile uint8_t * const pucFirstUserPriorityRegister = ( volatile uint8_t * const ) Xil_In32( configINTERRUPT_CONTROLLER_BASE_ADDRESS + portINTERRUPT_PRIORITY_REGISTER_OFFSET );
 		volatile uint8_t ucMaxPriorityValue;
 
 		/* Determine how many priority bits are implemented in the GIC.
@@ -485,9 +485,9 @@ uint32_t ulAPSR, ulCycles = 8; /* 8 bits per byte. */
 		/* Only continue if the binary point value is set to its lowest possible
 		setting.  See the comments in vPortValidateInterruptPriority() below for
 		more information. */
-		configASSERT( ( portICCBPR_BINARY_POINT_REGISTER & portBINARY_POINT_BITS ) <= portMAX_BINARY_POINT_VALUE );
+		configASSERT( ( Xil_In32(portICCBPR_BINARY_POINT_REGISTER_ADDRESS) & portBINARY_POINT_BITS ) <= portMAX_BINARY_POINT_VALUE );
 
-		if( ( portICCBPR_BINARY_POINT_REGISTER & portBINARY_POINT_BITS ) <= portMAX_BINARY_POINT_VALUE )
+		if( ( Xil_In32(portICCBPR_BINARY_POINT_REGISTER_ADDRESS) & portBINARY_POINT_BITS ) <= portMAX_BINARY_POINT_VALUE )
 		{
 			/* Interrupts are turned off in the CPU itself to ensure tick does
 			not execute	while the scheduler is being started.  Interrupts are
@@ -584,7 +584,7 @@ void FreeRTOS_Tick_Handler( void )
 	necessary to turn off interrupts in the CPU itself while the ICCPMR is being
 	updated. */
 	portCPU_IRQ_DISABLE();
-	portICCPMR_PRIORITY_MASK_REGISTER = ( uint32_t ) ( configMAX_API_CALL_INTERRUPT_PRIORITY << portPRIORITY_SHIFT );
+	Xil_Out32(portICCPMR_PRIORITY_MASK_REGISTER_ADDRESS, ( uint32_t ) ( configMAX_API_CALL_INTERRUPT_PRIORITY << portPRIORITY_SHIFT ));
 	__asm volatile (	"dsb		\n"
 						"isb		\n" ::: "memory" );
 	portCPU_IRQ_ENABLE();
@@ -632,7 +632,7 @@ uint32_t ulReturn;
 	/* Interrupt in the CPU must be turned off while the ICCPMR is being
 	updated. */
 	portCPU_IRQ_DISABLE();
-	if( portICCPMR_PRIORITY_MASK_REGISTER == ( uint32_t ) ( configMAX_API_CALL_INTERRUPT_PRIORITY << portPRIORITY_SHIFT ) )
+	if( Xil_In32(portICCPMR_PRIORITY_MASK_REGISTER_ADDRESS) == ( uint32_t ) ( configMAX_API_CALL_INTERRUPT_PRIORITY << portPRIORITY_SHIFT ) )
 	{
 		/* Interrupts were already masked. */
 		ulReturn = pdTRUE;
@@ -640,7 +640,7 @@ uint32_t ulReturn;
 	else
 	{
 		ulReturn = pdFALSE;
-		portICCPMR_PRIORITY_MASK_REGISTER = ( uint32_t ) ( configMAX_API_CALL_INTERRUPT_PRIORITY << portPRIORITY_SHIFT );
+		Xil_Out32(portICCPMR_PRIORITY_MASK_REGISTER_ADDRESS, ( uint32_t ) ( configMAX_API_CALL_INTERRUPT_PRIORITY << portPRIORITY_SHIFT ));
 		__asm volatile (	"dsb		\n"
 							"isb		\n" ::: "memory" );
 	}
@@ -669,7 +669,7 @@ uint32_t ulReturn;
 		FreeRTOS maintains separate thread and ISR API functions to ensure
 		interrupt entry is as fast and simple as possible. */
 
-		configASSERT( portICCRPR_RUNNING_PRIORITY_REGISTER >= ( uint32_t ) ( configMAX_API_CALL_INTERRUPT_PRIORITY << portPRIORITY_SHIFT ) );
+		configASSERT( Xil_In32(portICCRPR_RUNNING_PRIORITY_REGISTER_ADDRESS) >= ( uint32_t ) ( configMAX_API_CALL_INTERRUPT_PRIORITY << portPRIORITY_SHIFT ) );
 
 		/* Priority grouping:  The interrupt controller (GIC) allows the bits
 		that define each interrupt's priority to be split between bits that
@@ -681,7 +681,7 @@ uint32_t ulReturn;
 		The priority grouping is configured by the GIC's binary point register
 		(ICCBPR).  Writing 0 to ICCBPR will ensure it is set to its lowest
 		possible value (which may be above 0). */
-		configASSERT( ( portICCBPR_BINARY_POINT_REGISTER & portBINARY_POINT_BITS ) <= portMAX_BINARY_POINT_VALUE );
+		configASSERT( ( Xil_In32(portICCBPR_BINARY_POINT_REGISTER_ADDRESS) & portBINARY_POINT_BITS ) <= portMAX_BINARY_POINT_VALUE );
 	}
 
 #endif /* configASSERT_DEFINED */
