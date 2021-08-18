@@ -7,7 +7,7 @@
 /**
 *
 * @file xospipsv_options.c
-* @addtogroup ospipsv_v1_4
+* @addtogroup ospipsv_v1_5
 * @{
 *
 * This file implements functions to configure the OSPIPSV component,
