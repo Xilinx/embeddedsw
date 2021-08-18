@@ -72,6 +72,7 @@
  *		     instance is already configured.
  * 1.13 akm 01/04/21 Fix MISRA-C violations.
  * 1.14 akm 06/24/21 Allow enough time for the controller to reset the FIFOs.
+ * 1.14 akm 08/12/21 Perform Dcache invalidate at the end of the DMA transfer.
  *
  * </pre>
  *
@@ -495,7 +496,12 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 						XQSPIPSU_QSPIDMA_DST_I_STS_DONE_MASK) != (u32)FALSE) {
 					XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 							XQSPIPSU_QSPIDMA_DST_I_STS_OFFSET, DmaIntrSts);
-
+					/* DMA transfer done, Invalidate Data Cache */
+					if (!((Msg[Index].RxAddr64bit >= XQSPIPSU_RXADDR_OVER_32BIT) ||
+					    (Msg[Index].Xfer64bit != (u8)0U)) &&
+					    (InstancePtr->Config.IsCacheCoherent == 0U)) {
+						Xil_DCacheInvalidateRange((INTPTR)Msg[Index].RxBfrPtr, (INTPTR)Msg[Index].ByteCount);
+					}
 					IOPending = XQspiPsu_SetIOMode(InstancePtr, &Msg[Index]);
 					InstancePtr->RxBytes = 0;
 					if (IOPending == (u32)TRUE) {
@@ -702,6 +708,12 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 		(MsgCnt < NumMsg) && ((TxRxFlag & XQSPIPSU_MSG_FLAG_RX) != (u32)FALSE)) {
 		if ((DmaIntrStatusReg &
 			XQSPIPSU_QSPIDMA_DST_I_STS_DONE_MASK) != (u32)FALSE) {
+			/* DMA transfer done, Invalidate Data Cache */
+			if (!((Msg[MsgCnt].RxAddr64bit >= XQSPIPSU_RXADDR_OVER_32BIT) ||
+			    (Msg[MsgCnt].Xfer64bit != (u8)0U)) &&
+			    (InstancePtr->Config.IsCacheCoherent == 0U)) {
+				Xil_DCacheInvalidateRange((INTPTR)Msg[MsgCnt].RxBfrPtr, (INTPTR)Msg[MsgCnt].ByteCount);
+			}
 			if (XQspiPsu_SetIOMode(InstancePtr, &Msg[MsgCnt]) == (u32)TRUE) {
 				XQspiPsu_GenFifoEntryData(InstancePtr, &Msg[MsgCnt]);
 				XQspiPsu_ManualStartEnable(InstancePtr);
@@ -937,6 +949,7 @@ s32 XQspiPsu_StartDmaTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 	/* list */
 	Index = 0;
 	while (Index < (s32)NumMsg) {
+		InstancePtr->Msg = &Msg[Index];
 		XQspiPsu_GenFifoEntryData(InstancePtr, &Msg[Index]);
 		if (InstancePtr->IsManualstart == (u32)TRUE) {
 #ifdef DEBUG
@@ -995,6 +1008,12 @@ s32 XQspiPsu_CheckDmaDone(XQspiPsu *InstancePtr)
 	DmaIntrSts = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress, XQSPIPSU_QSPIDMA_DST_I_STS_OFFSET);
 	if ((DmaIntrSts & XQSPIPSU_QSPIDMA_DST_I_STS_DONE_MASK)	!= (u32)FALSE) {
 		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPSU_QSPIDMA_DST_I_STS_OFFSET, DmaIntrSts);
+		/* DMA transfer done, Invalidate Data Cache */
+		if (!((InstancePtr->Msg->RxAddr64bit >= XQSPIPSU_RXADDR_OVER_32BIT) ||
+		    (InstancePtr->Msg->Xfer64bit != (u8)0U)) &&
+		    (InstancePtr->Config.IsCacheCoherent == 0U)) {
+			Xil_DCacheInvalidateRange((INTPTR)InstancePtr->Msg->RxBfrPtr, (INTPTR)InstancePtr->RxBytes);
+		}
 		/* De-select slave */
 		XQspiPsu_GenFifoEntryCSDeAssert(InstancePtr);
 		if (InstancePtr->IsManualstart == (u8)TRUE) {
