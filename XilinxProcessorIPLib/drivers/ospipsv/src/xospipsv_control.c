@@ -7,7 +7,7 @@
 /**
 *
 * @file xospipsv_control.c
-* @addtogroup ospipsv_v1_4
+* @addtogroup ospipsv_v1_5
 * @{
 *
 * This file implements the low level functions used by the functions in
