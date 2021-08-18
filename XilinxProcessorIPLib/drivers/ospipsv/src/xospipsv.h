@@ -43,6 +43,7 @@
 *       sk   02/18/21 Updated RX Tuning algorithm for Master DLL mode.
 *       sk   04/08/21 Fixed doxygen warnings in all source files.
 *       sk   05/07/21 Fixed MISRAC violations.
+* 1.5   sk   08/17/21 Added DCache invalidate after non-blocking DMA read.
 *
 * </pre>
 *
