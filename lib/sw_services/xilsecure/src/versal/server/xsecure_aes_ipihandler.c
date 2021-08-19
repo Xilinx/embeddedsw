@@ -25,6 +25,7 @@
 *       kpt   07/15/2021 Added XSecure_AesInit in XSecure_AesWriteKey to avoid
 *                        multiple calls from client
 *       kal   08/16/2021 Fixed magic number usage comment
+*       kal   08/18/2021 Fixed SW-BP-LOCK-RESOURCE review comments
 *
 * </pre>
 *
@@ -377,19 +378,17 @@ static int XSecure_AesKeyZeroize(u32 KeySrc)
 	volatile int Status = XST_FAILURE;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
-	if ((KeySrc == XSECURE_AES_BBRAM_KEY) ||
-		(KeySrc == XSECURE_AES_BBRAM_RED_KEY) ||
-		(KeySrc == XSECURE_AES_EFUSE_KEY) ||
-		(KeySrc == XSECURE_AES_EFUSE_RED_KEY) ||
-		(KeySrc == XSECURE_AES_BH_KEY) ||
-		(KeySrc == XSECURE_AES_BH_RED_KEY)) {
-		Status = XSECURE_AES_DEVICE_KEY_NOT_ALLOWED;
-		goto END;
+	if ((KeySrc == XSECURE_AES_KUP_KEY) ||
+		(KeySrc == XSECURE_AES_EXPANDED_KEYS) ||
+		((KeySrc >= XSECURE_AES_USER_KEY_0) &&
+		(KeySrc <= XSECURE_AES_USER_KEY_7))) {
+		Status = XSecure_AesKeyZero(XSecureAesInstPtr,
+				(XSecure_AesKeySrc)KeySrc);
+	}
+	else {
+		Status = (int)XSECURE_AES_INVALID_PARAM;
 	}
 
-	Status = XSecure_AesKeyZero(XSecureAesInstPtr, (XSecure_AesKeySrc)KeySrc);
-
-END:
 	return Status;
 }
 
@@ -413,13 +412,9 @@ static int XSecure_AesKeyWrite(u8  KeySize, u8 KeySrc,
 	u64 KeyAddr = ((u64)KeyAddrHigh << 32U) | (u64)KeyAddrLow;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
-	if ((KeySrc == XSECURE_AES_BBRAM_KEY) ||
-		(KeySrc == XSECURE_AES_BBRAM_RED_KEY) ||
-		(KeySrc == XSECURE_AES_EFUSE_KEY) ||
-		(KeySrc == XSECURE_AES_EFUSE_RED_KEY) ||
-                (KeySrc == XSECURE_AES_BH_KEY) ||
-                (KeySrc == XSECURE_AES_BH_RED_KEY)) {
-		Status = XSECURE_AES_DEVICE_KEY_NOT_ALLOWED;
+	if ((KeySrc == XSECURE_AES_BH_KEY) ||
+		(KeySrc == XSECURE_AES_BH_RED_KEY)) {
+		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
 
