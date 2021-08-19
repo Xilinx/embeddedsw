@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2017 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 *       bsv  09/30/2020 Added parallel DMA support for SBI, JTAG, SMAP and PCIE
 *                       boot modes
 *       bsv  10/13/2020 Code clean up
+*       rb   08/11/2021 Fix compilation warnings
 *
 * </pre>
 *
@@ -77,35 +78,25 @@ int XLoader_SbiInit(u32 DeviceFlags)
 	XPlmi_UtilRMW(CRP_RST_SBI,
 	       CRP_RST_SBI_RESET_MASK, ~CRP_RST_SBI_RESET_MASK);
 
-	switch ((PdiSrc_t)DeviceFlags) {
-		case XLOADER_PDI_SRC_SMAP:
-			XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL,
-			       SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK,
-			       XLOADER_SBI_CTRL_INTERFACE_SMAP);
-			Status = XST_SUCCESS;
-			break;
-		case XLOADER_PDI_SRC_JTAG:
-			XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL,
-			       SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK,
-			       XLOADER_SBI_CTRL_INTERFACE_JTAG);
-			Status = XST_SUCCESS;
-			break;
-		case XLOADER_PDI_SRC_PCIE:
-			XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL,
-			       SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK,
-			       XLOADER_SBI_CTRL_INTERFACE_AXI_SLAVE);
-			Status = XST_SUCCESS;
-			break;
-		case XLOADER_PDI_SRC_SBI:
-			Status = XST_SUCCESS;
-			break;
-		default:
-			Status = XST_FAILURE;
-			break;
-	}
-	if (Status != XST_SUCCESS) {
+	if ((PdiSrc_t)DeviceFlags == XLOADER_PDI_SRC_SMAP) {
+		XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL,
+				SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK,
+				XLOADER_SBI_CTRL_INTERFACE_SMAP);
+	} else if ((PdiSrc_t)DeviceFlags == XLOADER_PDI_SRC_JTAG) {
+		XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL,
+				SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK,
+				XLOADER_SBI_CTRL_INTERFACE_JTAG);
+	} else if ((PdiSrc_t)DeviceFlags == XLOADER_PDI_SRC_PCIE) {
+		XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL,
+				SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK,
+				XLOADER_SBI_CTRL_INTERFACE_AXI_SLAVE);
+	} else if ((PdiSrc_t)DeviceFlags == XLOADER_PDI_SRC_SBI) {
+		/* Do nothing */
+	} else {
 		goto END;
 	}
+
+	Status = XST_SUCCESS;
 
 	/*
 	 * Enable the SBI. This is required for
