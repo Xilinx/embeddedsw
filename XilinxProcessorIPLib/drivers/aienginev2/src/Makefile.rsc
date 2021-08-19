@@ -1,3 +1,8 @@
+###############################################################################
+# Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+###############################################################################
 
 CROSSCOMPILE ?=
 RSCMETA ?= aie_rsc_meta.bin
