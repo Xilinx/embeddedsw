@@ -33,6 +33,7 @@
 *       bsv  07/16/2021 Fix doxygen warnings
 *       bsv  08/02/2021 Code clean up to reduce size
 *       bm   08/12/2021 Added support to configure uart during run-time
+*       rb   08/11/2021 Fix compilation warnings
 *
 * </pre>
 *
@@ -52,9 +53,6 @@
 #include "xplmi_status.h"
 #include "xparameters.h"
 #include <stdarg.h>
-
-/* PLM specific outbyte function */
-void outbyte(char8 c);
 
 /************************** Constant Definitions *****************************/
 
@@ -199,7 +197,7 @@ int XPlmi_ConfigUart(u8 UartSelect, u8 UartEnable)
 		LpdInitialized |= UART_PRINT_ENABLED;
 	}
 	else if (UartEnable == XPLMI_UART_DISABLE) {
-		LpdInitialized &= ~(UART_PRINT_ENABLED);
+		LpdInitialized &= (u8)(~UART_PRINT_ENABLED);
 	}
 	else {
 		Status = XPLMI_ERR_INVALID_UART_ENABLE;
