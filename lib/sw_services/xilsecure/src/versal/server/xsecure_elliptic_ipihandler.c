@@ -17,6 +17,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0  kal   03/23/2021 Initial release
 * 4.6  gm    07/16/2021 Added support for 64-bit address
+*      rb    08/11/2021 Fix compilation warnings
 *
 * </pre>
 *
@@ -33,9 +34,6 @@
 #include "xstatus.h"
 
 /************************** Constant Definitions *****************************/
-#define XSECURE_ELLIPTIC_P521_ALIGN_BYTES	(2U)
-				/**< Size of NIST P-521 curve is 66 bytes. This macro is used
-				to make the address word aligned */
 
 /************************** Function Prototypes *****************************/
 static int XSecure_EllipticGenKey(u32 CurveType, u32 SrcAddrLow,
