@@ -58,6 +58,7 @@
 *       bsv  07/18/2021 Debug enhancements
 *       bsv  08/02/2021 Code clean up to reduce size
 *       bsv  08/15/2021 Removed unwanted goto statements
+*       rb   08/19/2021 Fix compilation warning
 *
 * </pre>
 *
@@ -1259,7 +1260,7 @@ static int XPlmi_SetWdtParam(XPlmi_Cmd *Cmd)
 
 	XPlmi_Printf(DEBUG_INFO, "Enabling WDT with Node:0x%08x, "
 		     "Periodicity: %u ms\n\r", NodeId, Periodicity);
-	Status = XPlmi_EnableWdt(NodeId, Periodicity);
+	Status = XPlmi_EnableWdt(NodeId, (u16)Periodicity);
 
 	return Status;
 }

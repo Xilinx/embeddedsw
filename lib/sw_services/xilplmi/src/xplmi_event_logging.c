@@ -40,6 +40,7 @@
 *       bsv  08/13/2021 Code clean up to reduce size by optimizing
 *                       XPlmi_RetrieveBufferData
 *       bsv  08/15/2021 Removed unwanted goto statements
+*       rb   08/11/2021 Fix compilation warnings
 *
 * </pre>
 *
@@ -266,7 +267,7 @@ int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
 		case XPLMI_LOGGING_CMD_CONFIG_LOG_LEVEL:
 			Arg1 = (u64)((1U << (u32)Arg1) - 1U);
 			if (Arg1 <= XPlmiDbgCurrentTypes) {
-				DebugLog->LogLevel = ((u8)Arg1 << XPLMI_LOG_LEVEL_SHIFT) | (u8)Arg1;
+				DebugLog->LogLevel = (u8)((Arg1 << XPLMI_LOG_LEVEL_SHIFT) | Arg1);
 				Status = XST_SUCCESS;
 			} else {
 				Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_LOG_LEVEL,

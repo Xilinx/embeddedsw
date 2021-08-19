@@ -25,6 +25,7 @@
  *       td   10/19/2020 MISRA C Fixes
  * 1.03  bm   02/08/2021 Add GetSysmonPsv API
  * 1.04  td   07/08/2021 Fix doxygen warnings
+ *       rb   08/11/2021 Fix compilation warnings
  *
  * </pre>
  *
@@ -79,7 +80,7 @@ int XPlmi_SysMonInit(void)
 
 	ConfigPtr = XSysMonPsv_LookupConfig();
 	if (ConfigPtr != NULL) {
-		Status = XSysMonPsv_CfgInitialize(SysMonInstPtr, ConfigPtr);
+		Status = (int) XSysMonPsv_CfgInitialize(SysMonInstPtr, ConfigPtr);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
