@@ -31,6 +31,7 @@
 *                     XSECURE_TEMPORAL_CHECK
 * 4.6   har 07/14/21  Fixed doxygen warnings
 *       gm  07/16/21  Added support for 64-bit address
+*       rb  08/11/21  Fix compilation warnings
 *
 * </pre>
 *
@@ -202,7 +203,7 @@ int XSecure_EllipticGenerateSignature_64Bit(XSecure_EllipticCrvTyp CrvType,
 	const u64 KAddr, XSecure_EllipticSignAddr *SignAddr)
 {
 	int Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
-	int StatusTmp = XST_FAILURE;
+	int StatusTemp = XST_FAILURE;
 	volatile int GenStatus = XST_FAILURE;
 	EcdsaCrvInfo *Crv = NULL;
 	u8 PaddedHash[XSECURE_ECC_P521_SIZE_IN_BYTES] = {0U};
@@ -276,14 +277,14 @@ SIG_ERR:
 
 END:
 	/* Zeroize local key copy */
-	StatusTmp = Xil_SecureZeroize((u8*)D, XSECURE_ECC_P521_SIZE_IN_BYTES);
+	StatusTemp = Xil_SecureZeroize((u8*)D, XSECURE_ECC_P521_SIZE_IN_BYTES);
 	if (Status == XST_SUCCESS) {
-		Status |= StatusTmp;
+		Status |= StatusTemp;
 	}
-	StatusTmp = XST_FAILURE;
-	StatusTmp = Xil_SecureZeroize((u8*)K, XSECURE_ECC_P521_SIZE_IN_BYTES);
+	StatusTemp = XST_FAILURE;
+	StatusTemp = Xil_SecureZeroize((u8*)K, XSECURE_ECC_P521_SIZE_IN_BYTES);
 	if (Status == XST_SUCCESS) {
-		Status |= StatusTmp;
+		Status |= StatusTemp;
 	}
 	XSecure_SetReset(XSECURE_ECDSA_RSA_BASEADDR,
 		XSECURE_ECDSA_RSA_RESET_OFFSET);
