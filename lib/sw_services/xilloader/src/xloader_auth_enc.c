@@ -51,6 +51,7 @@
 *       td   07/15/21 Fixed doxygen warnings
 *       bm   07/30/21 Updated decrypt metaheader logic to support full PDIs
 *       bsv  08/17/21 Code clean up
+*       rb   08/11/21 Fix compilation warnings
 *
 * </pre>
 *
@@ -1667,7 +1668,7 @@ static int XLoader_RsaSignVerify(const XLoader_SecureParams *SecurePtr,
 	/* Check DB = PS <414 zeros> || 0x01 */
 	for (Index = 0U; Index < (XLOADER_RSA_PSS_DB_LEN - 1U); Index++) {
 		if (Index == 0x0U) {
-			Buffer[Index] = (Buffer[Index] &
+			Buffer[Index] = (u8)(Buffer[Index] &
 					(~XLOADER_RSA_PSS_MSB_PADDING_MASK));
 		}
 
