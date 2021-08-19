@@ -34,6 +34,7 @@
 *       bm   08/03/2021 Added temporal redundancy check for XPlm_SecureInit
 *       bsv  08/13/2021 Code clean up to reduce size
 *       bsv  08/13/2021 Removed unwanted goto statements
+*       rb   08/17/2021 Fix compilation warning
 *
 * </pre>
 *
@@ -55,7 +56,7 @@
 #include "xplmi.h"
 #include "xil_util.h"
 #ifdef XPLM_SEM
-#include "xplm_sem_init.h"
+#include "xilsem.h"
 #endif
 #ifdef PLM_ENABLE_STL
 #include "xplm_stl.h"
