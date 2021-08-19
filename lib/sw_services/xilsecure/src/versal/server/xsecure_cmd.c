@@ -21,6 +21,7 @@
 * 4.6   har  07/14/2021 Fixed doxygen warnings
 *       kal  08/16/2021 Fixed magic number usage comment and fixed bug in
 *                       XSecure_FeaturesCmd API
+*       rb   08/11/2021 Fix compilation warnings
 *
 * </pre>
 *
@@ -40,7 +41,7 @@
 #include "xsecure_elliptic_ipihandler.h"
 #include "xsecure_rsa_ipihandler.h"
 #include "xsecure_sha_ipihandler.h"
-
+#include "xsecure_cmd.h"
 
 /************************** Function Prototypes ******************************/
 static int XSecure_CheckIpiAccess(u32 CmdId, u32 IpiReqType);
