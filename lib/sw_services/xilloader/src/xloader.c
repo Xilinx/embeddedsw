@@ -108,6 +108,7 @@
 *       ma   07/27/2021 Added temporal check for XilPdi_ValidateImgHdrTbl
 *       bm   08/09/2021 Removed obsolete XLoader_PMCStateClear API
 *       bsv  08/17/2021 Code clean up
+*       rb   08/11/2021 Fix compilation warnings
 *
 * </pre>
 *
@@ -412,6 +413,12 @@ static int XLoader_PdiRequestBootDevice(PdiSrc_t DeviceFlags)
 			goto END;
 		}
 		break;
+	case XLOADER_PDI_SRC_JTAG:
+	case XLOADER_PDI_SRC_SMAP:
+	case XLOADER_PDI_SRC_DDR:
+	case XLOADER_PDI_SRC_SBI:
+	case XLOADER_PDI_SRC_PCIE:
+	case XLOADER_PDI_SRC_INVALID:
 	default:
 		Status = XST_SUCCESS;
 		break;
@@ -467,6 +474,12 @@ static int XLoader_PdiReleaseBootDevice(PdiSrc_t DeviceFlags)
 		Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_OSPI,
 					   XPLMI_CMD_SECURE);
 		break;
+	case XLOADER_PDI_SRC_JTAG:
+	case XLOADER_PDI_SRC_SMAP:
+	case XLOADER_PDI_SRC_DDR:
+	case XLOADER_PDI_SRC_SBI:
+	case XLOADER_PDI_SRC_PCIE:
+	case XLOADER_PDI_SRC_INVALID:
 	default:
 		Status = XST_SUCCESS;
 		break;
@@ -621,7 +634,7 @@ END:
 static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 {
 	volatile int Status = XST_FAILURE;
-	volatile int StatusTmp =  XST_FAILURE;
+	volatile int StatusTemp =  XST_FAILURE;
 	XLoader_SecureParams SecureParams = {0U};
 #ifdef PLM_SECURE_EXCLUDE
 	u8 IsEncrypted;
@@ -701,7 +714,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 	/*
 	 * Check the validity of Img Hdr Table fields
 	 */
-	XSECURE_TEMPORAL_IMPL(Status, StatusTmp,
+	XSECURE_TEMPORAL_IMPL(Status, StatusTemp,
 			XilPdi_ValidateImgHdrTbl, &(PdiPtr->MetaHdr.ImgHdrTbl));
 
 	/*
@@ -730,7 +743,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 			PdiPtr->MetaHdr.ImgHdrTbl.Idcode);
 	XPlmi_Printf(DEBUG_INFO, "Attributes: 0x%x\n\r",
 			PdiPtr->MetaHdr.ImgHdrTbl.Attr);
-	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+	if ((Status != XST_SUCCESS) || (StatusTemp != XST_SUCCESS)) {
 		XPlmi_Printf(DEBUG_GENERAL, "Image Header Table Validation "
 					"failed\n\r");
 		PdiPtr->ValidHeader = (u8)FALSE;
@@ -843,10 +856,10 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 	}
 #ifndef PLM_SECURE_EXCLUDE
 	else {
-		XSECURE_TEMPORAL_IMPL(Status, StatusTmp,
+		XSECURE_TEMPORAL_IMPL(Status, StatusTemp,
 			XLoader_ReadAndVerifySecureHdrs, &SecureParams,
 			&(PdiPtr->MetaHdr));
-		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+		if ((Status != XST_SUCCESS) || (StatusTemp != XST_SUCCESS)) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_SECURE_METAHDR,
 						Status);
 			goto END;
