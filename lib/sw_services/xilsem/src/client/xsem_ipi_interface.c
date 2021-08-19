@@ -19,6 +19,7 @@
 * 0.3   hv   03/11/2021   Doxygen changes
 * 0.4   hb   03/15/2021   MISRA fixes and formatted code
 * 0.5   rb   04/07/2021   Doxygen changes
+* 0.6	hv   08/18/2021   Fix Doxygen warnings
 *
 * </pre>
 *
@@ -29,8 +30,8 @@
 
 /***************************** Include Files *********************************/
 /**
- * @{
  * @cond xsem_internal
+ * @{
  */
 #include "xsem_ipi_interface.h"
 

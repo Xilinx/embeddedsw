@@ -28,6 +28,8 @@
 *                         formatted code
 * 0.9   rb   04/07/2021   Doxygen changes
 * 1.0	hv   05/04/2021   Updated Doxygen comments
+* 1.1	hv   08/18/2021   Fix Doxygen warnings
+*
 * </pre>
 *
 * @note
@@ -61,57 +63,68 @@ extern "C" {
 /** NPI Error Injection Acknowledgment ID */
 #define CMD_ACK_NPI_ERRINJECT		(0x00010307U)
 
+/** Maximum CRAM error register count */
 #define MAX_CRAMERR_REGISTER_CNT	(7U)
+/** Maximum NPI slave skip count */
 #define MAX_NPI_SLV_SKIP_CNT		(8U)
+/** Maximum NPI Error info count */
 #define MAX_NPI_ERR_INFO_CNT		(2U)
 
-/* PMC_RAM - Base Address */
+/** PMC_RAM - Base Address */
 #define PMC_RAM_BASEADDR		(0XF2014000U)
 
-/* SEM NPI Status */
+/** SEM NPI Status */
 #define PMC_RAM_SEM_NPI_STATUS		(PMC_RAM_BASEADDR + 0x00000050U)
 
-/* SEM NPI Slave Skip Count */
+/** SEM NPI Slave Skip Count */
 #define PMC_RAM_SEM_NPI_SLVSKIP_CNT0	(PMC_RAM_BASEADDR + 0x00000054U)
 
-/* SEM NPI Scan Count */
+/** SEM NPI Scan Count */
 #define PMC_RAM_SEM_NPI_SCAN_CNT	(PMC_RAM_BASEADDR + 0x00000074U)
 
-/* SEM NPI Heartbeat Count */
+/** SEM NPI Heartbeat Count */
 #define PMC_RAM_SEM_NPI_HEARTBEAT_CNT	(PMC_RAM_BASEADDR + 0x00000078U)
 
-/* SEM NPI Error Info 0 */
+/** SEM NPI Error Info 0 */
 #define PMC_RAM_SEM_NPIERR_INFO0	(PMC_RAM_BASEADDR + 0x0000007CU)
 
-/* SEM NPI Error Info 1 */
+/** SEM NPI Error Info 1 */
 #define PMC_RAM_SEM_NPIERR_INFO1	(PMC_RAM_BASEADDR + 0x00000080U)
 
-/* PMC_RAM_SEM_CRAM_STATUS */
+/** PMC_RAM_SEM_CRAM_STATUS */
 #define PMC_RAM_SEM_CRAM_STATUS		(PMC_RAM_BASEADDR + 0X00000084U)
 
-/* PMC_RAM_SEM_CRAMERR_ADDRL0 */
+/** PMC_RAM_SEM_CRAMERR_ADDRL0 */
 #define PMC_RAM_SEM_CRAMERR_ADDRL0	(PMC_RAM_BASEADDR + 0X00000088U)
 
-/* PMC_RAM_SEM_CRAMERR_ADDRH0 */
+/** PMC_RAM_SEM_CRAMERR_ADDRH0 */
 #define PMC_RAM_SEM_CRAMERR_ADDRH0	(PMC_RAM_BASEADDR + 0X0000008CU)
 
-/* PMC_RAM_SEM_CRAM_COR_BITCNT */
+/** PMC_RAM_SEM_CRAM_COR_BITCNT */
 #define PMC_RAM_SEM_CRAM_COR_BITCNT	(PMC_RAM_BASEADDR + 0X000000C0U)
 
+/** Read 32 bit register */
 #define XSem_In32			Xil_In32
 
 /* CRAM Commands ID */
+/** Command ID for CRAM initialization */
 #define CMD_ID_CFR_INIT			(0x01U)
+/** Command ID for CRAM Start scan */
 #define CMD_ID_CFR_START_SCAN		(0x02U)
+/** Command ID for CRAM Stop scan */
 #define CMD_ID_CFR_STOP_SCAN		(0x03U)
+/** Command ID for CRAM error injection */
 #define CMD_ID_CFR_NJCT_ERR		(0x04U)
 
 /* NPI Commands ID */
+/** Command ID for NPI Start scan */
 #define CMD_NPI_STARTSCAN		(0x05U)
+/** Command ID for NPI Stop scan */
 #define CMD_NPI_STOPSCAN		(0x06U)
+/** Command ID for NPI error injection */
 #define CMD_NPI_ERRINJECT		(0x07U)
 
-/* Event Notification Register Command ID */
+/** Event Notification Register Command ID */
 #define CMD_EM_EVENT_REGISTER		(0x08U)
 
 /**
@@ -212,8 +225,8 @@ typedef struct {
 #define XSEM_EVENT_DISABLE	(0x0U)
 
 /**
- * XSem_Notifier - This structure contains details of event notifications
- * to be registered with the XilSEM server
+ * XSem_Notifier : This structure contains details of event notifications
+ * 	               to be registered with the XilSEM server
  */
 typedef struct {
 	/**
@@ -224,7 +237,7 @@ typedef struct {
 	 */
 	u32 Module;
 	/**
-	 * The event types specify the specific event registration.</br>
+	 * The event types specify the specific event registration.
 	 * For CRAM module, events are:
 	 * - Uncorrectable ECC error: use XSEM_EVENT_CRAM_UNCOR_ECC_ERR
 	 * - Uncorrectable CRC error: use XSEM_EVENT_CRAM_CRC_ERR
