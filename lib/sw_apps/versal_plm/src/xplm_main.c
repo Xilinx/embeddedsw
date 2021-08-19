@@ -32,6 +32,7 @@
 *       bsv  07/24/2021 Clear RTC area at the beginning of PLM
 *       rb   07/28/2021 Check Efuse DNA_57 bit before issuing internal POR
 *       bsv  08/13/2021 Code clean up to reduce size
+*       rb   08/11/2021 Fix compilation warning
 *
 * </pre>
 *
@@ -115,7 +116,7 @@ static void XPlm_PerformInternalPOR(void)
 {
 	u32 IdCode = XPlmi_In32(PMC_TAP_IDCODE) &
 			PMC_TAP_IDCODE_SIREV_DVCD_MASK;
-	u32 ResetReason = XPlmi_In32(CRP_RESET_REASON);
+	u32 CrpResetReason = XPlmi_In32(CRP_RESET_REASON);
 	u8 SlrType = (u8)(XPlmi_In32(PMC_TAP_SLR_TYPE) &
 		PMC_TAP_SLR_TYPE_VAL_MASK);
 	u32 DnaBit = XPlmi_In32(EFUSE_CACHE_DNA_1) &
@@ -145,7 +146,7 @@ static void XPlm_PerformInternalPOR(void)
 	}
 
 	/* All the pre-conditions are met to do IPOR of VP1502/VP1802 device */
-	if (ResetReason == CRP_RESET_REASON_EXT_POR_MASK) {
+	if (CrpResetReason == CRP_RESET_REASON_EXT_POR_MASK) {
 		usleep(PLM_VP1802_POR_SETTLE_TIME);
 		XPlmi_PORHandler();
 	}
