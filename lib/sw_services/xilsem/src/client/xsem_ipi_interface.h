@@ -22,6 +22,7 @@
 * 0.4   hv   03/11/2021   Doxygen changes
 * 0.5   hb   03/15/2021   MISRA fixes, updated IPI macro and formatted code
 * 0.6   rb   04/07/2021   Doxygen changes
+* 0.7	hv   08/18/2021   Fix Doxygen warnings
 *
 * </pre>
 * @note
@@ -33,8 +34,8 @@
 #define XSEM_IPI_INTERFACE_H
 /***************************** Include Files *********************************/
 /**
- * @{
  * @cond xsem_internal
+ * @{
  */
 #include "xparameters.h"
 #include "xil_types.h"
