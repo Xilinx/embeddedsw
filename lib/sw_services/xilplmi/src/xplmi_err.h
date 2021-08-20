@@ -42,6 +42,8 @@
 *                       XPlmi_ClearNpiErrors
 * 1.06  bsv  07/16/2021 Fix doxygen warnings
 *       kc   07/22/2021 XPlmi_PorHandler scope updated to global
+*       rv   08/04/2021 Added support to pass subsystem restart handler to
+*			XPlmi_EmInit
 *
 * </pre>
 *
@@ -99,6 +101,8 @@ typedef void (*XPlmi_ErrorHandler_t) (u32 ErrorNodeId, u32 RegMask);
 /* Pointer to Shutdown Handler Function */
 typedef s32 (*XPlmi_ShutdownHandler_t)(u32 SubsystemId, const u32 Type,
 		const u32 SubType, const u32 CmdType);
+/* Pointer to Subsystem Restart Handler Function */
+typedef s32 (*XPlmi_RestartHandler_t)(const u32 SubsystemId);
 
 /* Data Structure to hold Error Info */
 struct XPlmi_Error_t {
@@ -165,7 +169,8 @@ static inline u8 XPlmi_NpiOutOfReset(void)
 }
 
 /************************** Function Prototypes ******************************/
-void XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown);
+void XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown,
+		  XPlmi_RestartHandler_t SubsystemRestart);
 int XPlmi_PsEmInit(void);
 int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMasks, u8 ActionId,
 		XPlmi_ErrorHandler_t ErrorHandler);

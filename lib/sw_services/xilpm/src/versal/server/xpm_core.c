@@ -4,6 +4,7 @@
 ******************************************************************************/
 
 
+#include "xplmi.h"
 #include "xplmi_scheduler.h"
 #include "xpm_psm_api.h"
 #include "xpm_core.h"
@@ -425,6 +426,13 @@ XStatus XPmCore_ProcessPendingForcePwrDwn(u32 DeviceId)
 	if ((u8)PENDING_POWER_OFF == Subsystem->State) {
 		if (NULL == Reqm) {
 			Status = XPmSubsystem_ForcePwrDwn(Subsystem->Id);
+		}
+	} else if ((u8)PENDING_RESTART == Subsystem->State) {
+		if (NULL == Reqm) {
+			Status = XPm_SystemShutdown(SubsystemId,
+					PM_SHUTDOWN_TYPE_RESET,
+					PM_SHUTDOWN_SUBTYPE_RST_SUBSYSTEM,
+					XPLMI_CMD_SECURE);
 		}
 	} else {
 		Ack = Core->FrcPwrDwnReq.AckType;
