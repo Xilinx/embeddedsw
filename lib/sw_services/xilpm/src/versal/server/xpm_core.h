@@ -59,6 +59,7 @@ XStatus XPmCore_AfterDirectWakeUp(XPm_Core *Core);
 XStatus XPmCore_AfterDirectPwrDwn(XPm_Core *Core);
 XStatus XPmCore_GetWakeupLatency(const u32 DeviceId, u32 *Latency);
 XStatus XPmCore_ForcePwrDwn(u32 DeviceId);
+XStatus XPmCore_ProcessPendingForcePwrDwn(u32 DeviceId);
 
 #ifdef __cplusplus
 }

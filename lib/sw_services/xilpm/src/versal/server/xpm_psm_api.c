@@ -214,7 +214,7 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 	}
 
 	if ((u8)XPM_DEVSTATE_SUSPENDING != Core->Device.Node.State) {
-		Status = XST_FAILURE;
+		Status = XPmCore_ProcessPendingForcePwrDwn(DeviceId);
 		goto done;
 	}
 
