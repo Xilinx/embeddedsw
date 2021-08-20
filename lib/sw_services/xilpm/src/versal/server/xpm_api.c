@@ -3,6 +3,7 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#include "xplmi_ipi.h"
 #include "xplmi_util.h"
 #include "xpm_api.h"
 #include "xpm_defs.h"
@@ -427,7 +428,8 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 					   Pload[3], Cmd->IpiReqType);
 		break;
 	case PM_API(PM_FORCE_POWERDOWN):
-		Status = XPm_ForcePowerdown(SubsystemId, Pload[0], Pload[1], Cmd->IpiReqType);
+		Status = XPm_ForcePowerdown(SubsystemId, Pload[0], Pload[1],
+					    Cmd->IpiReqType, Cmd->IpiMask);
 		break;
 	case PM_API(PM_SYSTEM_SHUTDOWN):
 		Status = XPm_SystemShutdown(SubsystemId, Pload[0], Pload[1], Cmd->IpiReqType);
@@ -1767,6 +1769,37 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  Function for processing ack request
+ *
+ * @param Ack		Acknowledgement type
+ * @param IpiMask	IPI mask of initiator of request
+ * @param Status	Return status
+ *
+ * @return None
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+void XPm_ProcessAckReq(const u32 Ack, const u32 IpiMask, const int Status)
+{
+	if (0U == IpiMask) {
+		return;
+	}
+
+	if ((u32)REQUEST_ACK_BLOCKING == Ack) {
+		/* Return status immediately */
+		IPI_RESPONSE1(IpiMask, (u32)Status);
+		/* Clear interrupt status */
+		PmOut32(IPI_PMC_ISR, IpiMask);
+		/* Enable IPI interrupt */
+		PmOut32(IPI_PMC_IER, IpiMask);
+	} else {
+		/* No returning of the acknowledge */
+	}
+}
+
+/****************************************************************************/
+/**
  * @brief  This function can be used by a subsystem to Powerdown other
  * 	   processor or domain node or subsystem forcefully.
  *
@@ -1774,6 +1807,7 @@ done:
  * @param Node 		Processor or domain node or subsystem to be powered down
  * @param Ack		Ack request
  * @param CmdType	IPI command request type
+ * @param IpiMask	IPI mask of initiator
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -1783,18 +1817,20 @@ done:
  *
  ****************************************************************************/
 XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
-			   const u32 CmdType)
+			   const u32 CmdType, const u32 IpiMask)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
 
-	/* Warning Fix */
-	(void) (Ack);
+	if ((u32)REQUEST_ACK_BLOCKING == Ack) {
+		/* Disable IPI interrupt */
+		PmOut32(IPI_PMC_IDR, IpiMask);
+	}
 
 	/*Validate access first */
 	Status = XPm_IsForcePowerDownAllowed(SubsystemId, NodeId, CmdType);
 	if (XST_SUCCESS != Status) {
-		goto done;
+		goto process_ack;
 	}
 
 	if ((NODECLASS(NodeId) == (u32)XPM_NODECLASS_DEVICE) &&
@@ -1802,9 +1838,11 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 		XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(NodeId);
 		if (NULL == Core) {
 			Status = XST_INVALID_PARAM;
-			goto done;
+			goto process_ack;
 		}
 		if ((1U == Core->isCoreUp) && (1U == Core->IsCoreIdleSupported)) {
+			Core->FrcPwrDwnReq.AckType = Ack;
+			Core->FrcPwrDwnReq.InitiatorIpiMask = IpiMask;
 			XPm_CoreIdle(Core);
 			Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_XILPM_ID,
 							XPm_ForcePwrDwnCb,
@@ -1813,6 +1851,7 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 							XPLM_TASK_PRIORITY_1,
 							(void *)NodeId,
 							XPLMI_NON_PERIODIC_TASK);
+			goto done;
 		} else {
 			Status = XPmCore_ForcePwrDwn(NodeId);
 		}
@@ -1822,7 +1861,7 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 		Subsystem = XPmSubsystem_GetById(NodeId);
 		if (NULL == Subsystem) {
 			Status = XST_INVALID_PARAM;
-			goto done;
+			goto process_ack;
 		}
 
 		if (0U != (Subsystem->Flags & (u8)SUBSYSTEM_IDLE_SUPPORTED)) {
@@ -1832,9 +1871,11 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 				goto done;
 			}
 
+			Subsystem->FrcPwrDwnReq.AckType = Ack;
+			Subsystem->FrcPwrDwnReq.InitiatorIpiMask = IpiMask;
 			Status = XPm_SubsystemIdleCores(Subsystem);
 			if (XST_SUCCESS != Status) {
-				goto done;
+				goto process_ack;
 			}
 			Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_XILPM_ID,
 							XPm_ForcePwrDwnCb,
@@ -1843,14 +1884,26 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 							XPLM_TASK_PRIORITY_1,
 							(void *)NodeId,
 							XPLMI_NON_PERIODIC_TASK);
+			goto done;
 		} else {
 			Status = XPmSubsystem_ForcePwrDwn(NodeId);
+			goto done;
 		}
 	} else {
 		Status = XPM_PM_INVALID_NODE;
 	}
 
+process_ack:
+	XPm_ProcessAckReq(Ack, IpiMask, Status);
+
 done:
+	if ((u32)REQUEST_ACK_BLOCKING != Ack) {
+		/* Write response */
+		IPI_RESPONSE1(IpiMask, (u32)Status);
+		/* Clear interrupt status */
+		PmOut32(IPI_PMC_ISR, IpiMask);
+	}
+
 	if (XST_SUCCESS != Status) {
 		PmErr("0x%x\n\r", Status);
 	}

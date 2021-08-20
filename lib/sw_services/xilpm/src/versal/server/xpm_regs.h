@@ -31,6 +31,7 @@ extern "C" {
 #define CPM5_SLCR_BASEADDR					(0xFCDD0000U)
 #define CPM5_SLCR_SECURE_BASEADDR				(0xFCDE0000U)
 #define CPM5_CRX_BASEADDR					(0xFCDC0000U)
+#define IPI_BASEADDR						(0xFF300000U)
 
 /**
  * PMC Global module
@@ -709,6 +710,12 @@ extern "C" {
 #define XPM_USB_CUR_PWR_OFFSET					(0x00000600U)
 #define XPM_USB_PWR_REQ_OFFSET					(0x00000608U)
 #define XPM_USB_PWR_MASK					(0x3U)
+
+/**
+ * IPI registers
+ */
+#define IPI_PMC_IER				(IPI_BASEADDR + 0x20018U)
+#define IPI_PMC_IDR				(IPI_BASEADDR + 0x2001CU)
 
 /**
  * IPI register masks
