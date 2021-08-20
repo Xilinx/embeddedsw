@@ -107,7 +107,7 @@ struct perf_stats {
 #define MAX_SEND_RETRY 10
 
 /* Number of parallel UDP clients */
-#define NUM_OF_PARALLEL_CLIENTS 2
+#define NUM_OF_PARALLEL_CLIENTS 1
 
 /* Sleep in microseconds in case of UDP send errors */
 #define ERROR_SLEEP 100
