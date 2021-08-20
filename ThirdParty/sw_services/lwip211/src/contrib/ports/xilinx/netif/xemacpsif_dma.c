@@ -337,7 +337,6 @@ XStatus emacps_sgsend(xemacpsif_s *xemacpsif, struct pbuf *p)
 	q = p->next;
 	for(; q != NULL; q = q->next) {
 		XEmacPs_BdClearTxUsed(txbd);
-		dsb();
 		txbd = XEmacPs_BdRingNext(txring, txbd);
 	}
 	XEmacPs_BdClearTxUsed(temp_txbd);
