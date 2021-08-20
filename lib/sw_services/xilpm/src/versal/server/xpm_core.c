@@ -9,6 +9,8 @@
 #include "xpm_psm.h"
 #include "xpm_debug.h"
 #include "xpm_notifier.h"
+#include "xpm_requirement.h"
+#include "xpm_subsystem.h"
 
 XStatus XPmCore_Init(XPm_Core *Core, u32 Id, XPm_Power *Power,
 		     XPm_ClockNode *Clock, XPm_ResetNode *Reset, u8 IpiCh,
@@ -374,6 +376,50 @@ XStatus XPmCore_ForcePwrDwn(u32 DeviceId)
 	    ((u8)XPM_POWER_STATE_OFF == Acpu1PwrNode->Node.State)) {
 		Status = XPmReset_AssertbyId(PM_RST_ACPU_GIC,
 					     (u32)PM_RESET_ACTION_PULSE);
+	}
+
+done:
+	return Status;
+}
+
+XStatus XPmCore_ProcessPendingForcePwrDwn(u32 DeviceId)
+{
+	XStatus Status = XST_FAILURE;
+	u32 SubsystemId;
+	XPm_Requirement *Reqm;
+	XPm_Subsystem *Subsystem;
+	XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
+
+	if (NULL == Core) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Status = XPmCore_ForcePwrDwn(DeviceId);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	SubsystemId = XPmDevice_GetSubsystemIdOfCore(&Core->Device);
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	Reqm = Subsystem->Requirements;
+	while (NULL != Reqm) {
+		DeviceId = Reqm->Device->Node.Id;
+		if ((1U == Reqm->Allocated) &&
+		    ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(DeviceId)) &&
+		    ((u8)XPM_DEVSTATE_PENDING_PWR_DWN == Reqm->Device->Node.State)) {
+			break;
+		}
+		Reqm = Reqm->NextDevice;
+	}
+
+	if (((u8)PENDING_POWER_OFF == Subsystem->State) && (NULL == Reqm)) {
+		Status = XPmSubsystem_ForcePwrDwn(Subsystem->Id);
 	}
 
 done:
