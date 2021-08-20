@@ -675,8 +675,19 @@ proc generate_lwip_opts {libhandle} {
 	# UDP options
 	set lwip_udp 		[expr [common::get_property CONFIG.lwip_udp $libhandle] == true]
 	set udp_ttl 		[common::get_property CONFIG.udp_ttl $libhandle]
+	set udp_block_tx        [expr [common::get_property CONFIG.udp_tx_blocking $libhandle] == true]
 	puts $lwipopts_fd "\#define LWIP_UDP $lwip_udp"
 	puts $lwipopts_fd "\#define UDP_TTL $udp_ttl"
+	if {$lwip_udp == 0} {
+	if {$udp_block_tx == 1} {
+	puts "WARNING: udp block on tx is being set with UDP disabled. The udp block on tx flag is being disabled."
+	puts $lwipopts_fd "\#define LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE 0"
+	} else {
+	puts $lwipopts_fd "\#define LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE 0"
+	}
+	} else {
+	puts $lwipopts_fd "\#define LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE $udp_block_tx"
+	}
 	puts $lwipopts_fd ""
 
 	# TCP options

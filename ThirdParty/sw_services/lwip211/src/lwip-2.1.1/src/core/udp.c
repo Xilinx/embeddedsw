@@ -442,6 +442,60 @@ chkerr:
 #endif /* CHECKSUM_CHECK_UDP */
 }
 
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE && NO_SYS
+err_t
+udp_send_blocking(struct udp_pcb *pcb, struct pbuf *p)
+{
+  err_t err_val;
+  udp_set_flags(pcb, UDP_FLAGS_BLOCK_TX_TILL_COMPLETE);
+
+  /* send to the packet using remote ip and port stored in the pcb */
+  err_val = udp_send(pcb, p);
+  udp_clear_flags(pcb, UDP_FLAGS_BLOCK_TX_TILL_COMPLETE);
+  return err_val;
+
+}
+
+err_t
+udp_sendto_blocking(struct udp_pcb *pcb, struct pbuf *p,
+           const ip_addr_t *dst_ip, u16_t dst_port)
+{
+  err_t err_val;
+
+  udp_set_flags(pcb, UDP_FLAGS_BLOCK_TX_TILL_COMPLETE);
+
+  err_val = udp_sendto(pcb, p, dst_ip, dst_port);
+  udp_clear_flags(pcb, UDP_FLAGS_BLOCK_TX_TILL_COMPLETE);
+  return err_val;
+
+}
+
+#if LWIP_CHECKSUM_ON_COPY && CHECKSUM_GEN_UDP
+err_t
+udp_send_chksum_blocking(struct udp_pcb *pcb, struct pbuf *p,
+                u8_t have_chksum, u16_t chksum)
+{
+	err_t err_val;
+	udp_set_flags(pcb, UDP_FLAGS_BLOCK_TX_TILL_COMPLETE);
+	err_val = udp_send_chksum(pcb, p, have_chksum, chksum);
+	udp_clear_flags(pcb, UDP_FLAGS_BLOCK_TX_TILL_COMPLETE);
+	return err_val;
+}
+
+err_t
+udp_sendto_chksum_blocking(struct udp_pcb *pcb, struct pbuf *p, const ip_addr_t *dst_ip,
+                  u16_t dst_port, u8_t have_chksum, u16_t chksum)
+{
+	err_t err_val;
+	udp_set_flags(pcb, UDP_FLAGS_BLOCK_TX_TILL_COMPLETE);
+	err_val = udp_sendto_chksum(pcb, p, dst_ip, dst_port, have_chksum, chksum);
+	udp_clear_flags(pcb, UDP_FLAGS_BLOCK_TX_TILL_COMPLETE);
+	return err_val;
+}
+
+#endif
+#endif
+
 /**
  * @ingroup udp_raw
  * Sends the pbuf p using UDP. The pbuf is not deallocated.
@@ -497,6 +551,7 @@ udp_send_chksum(struct udp_pcb *pcb, struct pbuf *p,
                            have_chksum, chksum);
 }
 #endif /* LWIP_CHECKSUM_ON_COPY && CHECKSUM_GEN_UDP */
+
 
 /**
  * @ingroup udp_raw
@@ -729,6 +784,11 @@ udp_sendto_if_src_chksum(struct udp_pcb *pcb, struct pbuf *p, const ip_addr_t *d
     return ERR_VAL;
   }
 
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+  if ((pcb->flags & UDP_FLAGS_BLOCK_TX_TILL_COMPLETE) != 0) {
+	netif_set_opt_block_tx(netif, NETIF_ENABLE_BLOCKING_TX_FOR_PACKET);
+  }
+#endif
 #if LWIP_IPV4 && IP_SOF_BROADCAST
   /* broadcast filter? */
   if (!ip_get_option(pcb, SOF_BROADCAST) &&
