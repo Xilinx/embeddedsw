@@ -35,6 +35,7 @@
 *       bsv  08/13/2021 Code clean up to reduce size
 *       bsv  08/13/2021 Removed unwanted goto statements
 *       rb   08/17/2021 Fix compilation warning
+*       rv   08/19/2021 Updated EmInit to pass subsystem restart handler
 *
 * </pre>
 *
@@ -105,7 +106,7 @@ int XPlm_ModuleInit(void *Arg)
 		goto END;
 	}
 
-	XPlmi_EmInit(XPm_SystemShutdown);
+	XPlmi_EmInit(XPm_SystemShutdown, XPm_IdleRestartHandler);
 
 	Status = XPlm_PmInit();
 	if (Status != XST_SUCCESS) {

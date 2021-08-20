@@ -176,6 +176,7 @@ XStatus XPm_GetDeviceBaseAddr(u32 DeviceId, u32 *BaseAddr);
 int XPm_ForcePwrDwnCb(void *Data);
 void XPm_ProcessAckReq(const u32 Ack, const u32 IpiMask, const int Status,
 		       const u32 NodeId, const u32 NodeState);
+XStatus XPm_IdleRestartHandler(const u32 SubsystemId);
 
 #ifdef __cplusplus
 }
