@@ -7,6 +7,7 @@
 #ifndef XPM_SUBSYSTEM_H_
 #define XPM_SUBSYSTEM_H_
 
+#include "xpm_api.h"
 #include "xpm_defs.h"
 #include "xstatus.h"
 
@@ -97,6 +98,7 @@ struct XPm_Subsystem {
 	struct XPm_PendSuspCb PendCb;
 	struct XPm_Reqm *Requirements;
 		/**< Head of the requirement list for all devices. */
+	struct XPm_FrcPwrDwnReq FrcPwrDwnReq;
 	void (*NotifyCb)(u32 SubsystemId, const u32 EventId);
 	XPm_Subsystem *NextSubsystem;
 };

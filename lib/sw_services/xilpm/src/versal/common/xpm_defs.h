@@ -53,6 +53,15 @@ enum XPmBootStatus {
 };
 
 /**
+ *  PM Acknowledge Request Types
+ */
+enum XPmRequestAck {
+	REQUEST_ACK_NO = 1,
+	REQUEST_ACK_BLOCKING,
+	REQUEST_ACK_NON_BLOCKING,
+};
+
+/**
  *  Device capability requirements enumeration.
  */
 enum XPmCapability {
