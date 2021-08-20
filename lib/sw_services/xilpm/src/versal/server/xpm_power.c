@@ -745,7 +745,7 @@ XStatus XPmPower_ForcePwrDwn(u32 SubsystemId, u32 NodeId, u32 CmdType)
 		}
 
 		Status = XPm_ForcePowerdown(SubsystemId, Power->Node.Id, 0U,
-					    CmdType);
+					    CmdType, 0U);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}

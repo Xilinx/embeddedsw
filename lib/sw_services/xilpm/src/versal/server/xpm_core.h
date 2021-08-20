@@ -43,6 +43,7 @@ struct XPm_Core {
 	u8 PsmToPlmEvent_ProcIdx; /**< Processor index in the PsmToPlmEvent structure */
 	u8 isCoreUp;
 	u8 IsCoreIdleSupported; /**< Flag for core idle is supported */
+	struct XPm_FrcPwrDwnReq FrcPwrDwnReq;
 };
 
 /************************** Function Prototypes ******************************/

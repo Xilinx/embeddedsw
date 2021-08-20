@@ -946,6 +946,8 @@ XStatus XPmSubsystem_ForcePwrDwn(u32 SubsystemId)
 	XPm_Subsystem *Subsystem = XPmSubsystem_GetById(SubsystemId);
 	const XPm_Requirement *Reqm = NULL;
 	u32 DeviceId = 0U;
+	u32 Ack = 0U;
+	u32 IpiMask = 0U;
 
 	if (NULL == Subsystem) {
 		Status = XPM_INVALID_SUBSYSID;
@@ -1007,6 +1009,8 @@ XStatus XPmSubsystem_ForcePwrDwn(u32 SubsystemId)
 		goto done;
 	}
 
+	Ack = Subsystem->FrcPwrDwnReq.AckType;
+	IpiMask = Subsystem->FrcPwrDwnReq.InitiatorIpiMask;
 	Status = XPlmi_SchedulerRemoveTask(XPLMI_MODULE_XILPM_ID,
 					   XPm_ForcePwrDwnCb, 0U,
 					   (void *)SubsystemId);
@@ -1016,5 +1020,7 @@ XStatus XPmSubsystem_ForcePwrDwn(u32 SubsystemId)
 	}
 
 done:
+	XPm_ProcessAckReq(Ack, IpiMask, Status);
+
 	return Status;
 }

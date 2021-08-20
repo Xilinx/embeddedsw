@@ -390,6 +390,8 @@ XStatus XPmCore_ProcessPendingForcePwrDwn(u32 DeviceId)
 	XPm_Requirement *Reqm;
 	XPm_Subsystem *Subsystem;
 	XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
+	u32 Ack = 0U;
+	u32 IpiMask = 0U;
 
 	if (NULL == Core) {
 		Status = XST_INVALID_PARAM;
@@ -424,6 +426,8 @@ XStatus XPmCore_ProcessPendingForcePwrDwn(u32 DeviceId)
 			Status = XPmSubsystem_ForcePwrDwn(Subsystem->Id);
 		}
 	} else {
+		Ack = Core->FrcPwrDwnReq.AckType;
+		IpiMask = Core->FrcPwrDwnReq.InitiatorIpiMask;
 		Status = XPlmi_SchedulerRemoveTask(XPLMI_MODULE_XILPM_ID,
 						   XPm_ForcePwrDwnCb, 0U,
 						   (void *)DeviceId);
@@ -434,5 +438,7 @@ XStatus XPmCore_ProcessPendingForcePwrDwn(u32 DeviceId)
 	}
 
 done:
+	XPm_ProcessAckReq(Ack, IpiMask, Status);
+
 	return Status;
 }
