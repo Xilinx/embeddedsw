@@ -5,6 +5,7 @@
 
 
 #include "xpm_api.h"
+#include "xpm_core.h"
 #include "xpm_ipi.h"
 #include "xpm_notifier.h"
 #include "xpm_power.h"
@@ -56,7 +57,7 @@ static int XPmNotifier_SchedulerTask(void *Arg);
  * @return None
  *
  ****************************************************************************/
-XStatus XPmNotifier_Register(const XPm_Subsystem* const Subsystem,
+XStatus XPmNotifier_Register(XPm_Subsystem* const Subsystem,
 			 const u32 NodeId,
 			 const u32 Event, const u32 Wake, const u32 IpiMask)
 {
@@ -114,6 +115,16 @@ XStatus XPmNotifier_Register(const XPm_Subsystem* const Subsystem,
 	if (0U != Wake) {
 		/* Wake subsystem for this event */
 		PmNotifiers[Idx].WakeMask |= Event;
+	}
+
+	if ((u8)EVENT_CPU_IDLE_FORCE_PWRDWN == Event) {
+		XPm_Core* const Core = (XPm_Core *)XPmDevice_GetById(NodeId);
+		if (NULL == Core) {
+			goto done;
+		}
+
+		Core->IsCoreIdleSupported = 1U;
+		Subsystem->Flags |= (u8)SUBSYSTEM_IDLE_SUPPORTED;
 	}
 
 	Status = XST_SUCCESS;

@@ -4300,7 +4300,7 @@ XStatus XPm_RegisterNotifier(const u32 SubsystemId, const u32 NodeId,
 			 const u32 IpiMask)
 {
 	XStatus Status = XST_FAILURE;
-	const XPm_Subsystem* Subsystem = NULL;
+	XPm_Subsystem* Subsystem = NULL;
 
 
 	/* Validate SubsystemId */
@@ -4322,7 +4322,8 @@ XStatus XPm_RegisterNotifier(const u32 SubsystemId, const u32 NodeId,
 	     (((0U != Wake) && (1U != Wake)) ||
 	      ((0U != Enable) && (1U != Enable)) ||
 	      (((u32)EVENT_STATE_CHANGE != Event) &&
-	       ((u32)EVENT_ZERO_USERS != Event)))) {
+	       ((u32)EVENT_ZERO_USERS != Event) &&
+	       ((u32)EVENT_CPU_IDLE_FORCE_PWRDWN != Event)))) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
