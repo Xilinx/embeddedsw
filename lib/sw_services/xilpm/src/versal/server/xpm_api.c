@@ -39,6 +39,7 @@
 #include "xpm_debug.h"
 #include "xpm_device.h"
 #include "xpm_regulator.h"
+#include "xplmi_scheduler.h"
 #include "xplmi_sysmon.h"
 
 #define XPm_RegisterWakeUpHandler(GicId, SrcId, NodeId)	\
@@ -1849,6 +1850,54 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  Handler for force power down timer
+ *
+ * @param Data	Node ID of subsystem/core for which power down event came
+ *
+ * @return XST_SUCCESS in case of success and error code in case of failure
+ *
+ * @note   none
+ *
+ ****************************************************************************/
+int XPm_ForcePwrDwnCb(void *Data)
+{
+	int Status = XST_FAILURE;
+	XPm_Subsystem *Subsystem;
+	u32 NodeId = (u32)Data;
+	XPm_Core *Core;
+
+	if ((u32)XPM_NODECLASS_SUBSYSTEM == NODECLASS(NodeId)) {
+		Subsystem = XPmSubsystem_GetById(NodeId);
+		if (NULL == Subsystem) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+		if ((u8)PENDING_POWER_OFF != Subsystem->State) {
+			Status = XST_SUCCESS;
+			goto done;
+		}
+
+		Status = XPmSubsystem_ForcePwrDwn(NodeId);
+	} else {
+		Core = (XPm_Core *)XPmDevice_GetById(NodeId);
+		if (NULL == Core) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+		if ((u8)XPM_DEVSTATE_PENDING_PWR_DWN !=
+		    Core->Device.Node.State) {
+			Status = XST_SUCCESS;
+			goto done;
+		}
+		Status = XPmCore_ProcessPendingForcePwrDwn(NodeId);
+	}
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief  This function can be used by a subsystem to Powerdown other
  * 	   processor or domain node or subsystem forcefully.
  *
@@ -1888,7 +1937,13 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 		}
 		if ((1U == Core->isCoreUp) && (1U == Core->IsCoreIdleSupported)) {
 			XPm_CoreIdle(Core);
-			Status = XST_SUCCESS;
+			Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_XILPM_ID,
+							XPm_ForcePwrDwnCb,
+							NULL,
+							XPM_PWR_DWN_TIMEOUT,
+							XPLM_TASK_PRIORITY_1,
+							(void *)NodeId,
+							XPLMI_NON_PERIODIC_TASK);
 		} else {
 			Status = XPmCore_ForcePwrDwn(NodeId);
 		}
@@ -1909,6 +1964,16 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 			}
 
 			Status = XPm_SubsystemIdleCores(Subsystem);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+			Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_XILPM_ID,
+							XPm_ForcePwrDwnCb,
+							NULL,
+							XPM_PWR_DWN_TIMEOUT,
+							XPLM_TASK_PRIORITY_1,
+							(void *)NodeId,
+							XPLMI_NON_PERIODIC_TASK);
 		} else {
 			Status = XPmSubsystem_ForcePwrDwn(NodeId);
 		}
