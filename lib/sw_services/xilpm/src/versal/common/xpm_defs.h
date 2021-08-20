@@ -399,6 +399,7 @@ enum XPmOpCharType {
 enum XPmNotifyEvent {
         EVENT_STATE_CHANGE = 1,				/**< State change event */
         EVENT_ZERO_USERS = 2,				/**< Zero user event */
+	EVENT_CPU_IDLE_FORCE_PWRDWN = 4,		/**< CPU idle event during force power down */
 };
 
 /**
