@@ -19,6 +19,9 @@ extern "C" {
 /* Persistent global general storage register base address */
 #define PGGS_BASEADDR	(0xF1110050U)
 
+/* Force power down timeout in us */
+#define XPM_PWR_DWN_TIMEOUT	(60000U)
+
 #define MAX_BASEADDR_LEN	3
 
 /* Extern Variable and Function */
@@ -146,6 +149,7 @@ XStatus XPm_HookAfterPlmCdo(void);
 int XPm_RestartCbWrapper(const u32 SubsystemId);
 u32 XPm_GetSubsystemId(u32 ImageId);
 XStatus XPm_GetDeviceBaseAddr(u32 DeviceId, u32 *BaseAddr);
+int XPm_ForcePwrDwnCb(void *Data);
 
 #ifdef __cplusplus
 }
