@@ -244,6 +244,7 @@ static int XPmNotifier_SchedulerTask(void *Arg)
 				Event = Payload[2];
 				if (((u8)ONLINE == Notifier->Subsystem->State) ||
 				    ((u8)PENDING_POWER_OFF ==  Notifier->Subsystem->State) ||
+				    ((u8)PENDING_RESTART == Notifier->Subsystem->State) ||
 				    (0U != (Event & Notifier->WakeMask))) {
 					(*PmRequestCb)(Notifier->IpiMask,
 						       (u32)PM_NOTIFY_CB,

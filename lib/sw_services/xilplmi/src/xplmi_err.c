@@ -65,6 +65,8 @@
 *       bm   08/02/2021 Change debug log level of PMC error status prints
 *       ma   08/06/2021 Save PMC_FW_ERR register value to RTCA and clear it
 *       bsv  08/15/2021 Removed unwanted goto statements
+*       rv   08/19/2021 Updated XPLMI_EM_ACTION_SUBSYS_RESTART error action
+*			handling
 *
 * </pre>
 *
@@ -104,6 +106,7 @@
 /************************** Function Prototypes ******************************/
 static s32 (* PmSystemShutdown)(u32 SubsystemId, const u32 Type, const u32 SubType,
 				const u32 CmdType);
+static s32 (* PmSubsysRestart)(const u32 SubsystemId);
 static void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 RegMask);
 static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 RegMask);
 static void XPlmi_ErrIntrSubTypeHandler(u32 ErrorNodeId, u32 RegMask);
@@ -787,11 +790,8 @@ static void XPlmi_ErrIntrSubTypeHandler(u32 ErrorNodeId, u32 RegMask)
 				XPLMI_CMD_SECURE);
 		break;
 	case XPLMI_EM_ACTION_SUBSYS_RESTART:
-		XPlmi_Printf(DEBUG_GENERAL, "System restart 0x%x\r\n", ErrorTable[ErrorId].SubsystemId);
-		Status = (*PmSystemShutdown)(ErrorTable[ErrorId].SubsystemId,
-				XPLMI_SUBSYS_SHUTDN_TYPE_RESTART,
-				XPLMI_RESTART_SUBTYPE_SUBSYS,
-				XPLMI_CMD_SECURE);
+		XPlmi_Printf(DEBUG_GENERAL, "Subsystem Restart 0x%x\r\n", ErrorTable[ErrorId].SubsystemId);
+		Status = (*PmSubsysRestart)(ErrorTable[ErrorId].SubsystemId);
 		break;
 	default:
 		Status = XPLMI_INVALID_ERROR_ACTION;
@@ -1377,12 +1377,15 @@ END:
  * actions and registers default action.
  *
  * @param	SystemShutdown is the pointer to the PM system shutdown
- * 			callback handler for action subtype system shutdown/restart
+ *		callback handler for action subtype system shutdown
+ * @param	SubsystemRestart is pointer to the PM subsystem restart
+ *		with CPU idle support handler for action subtype restart
  *
  * @return	None
  *
  *****************************************************************************/
-void XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown)
+void XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown,
+		  XPlmi_RestartHandler_t SubsystemRestart)
 {
 	u32 Index;
 	u32 PmcErr1Status;
@@ -1434,6 +1437,7 @@ void XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown)
 	XPlmi_SysMonOTDetect();
 
 	PmSystemShutdown = SystemShutdown;
+	PmSubsysRestart = SubsystemRestart;
 
 	/* Set the default actions as defined in the Error table */
 	for (Index = XPLMI_NODEIDX_ERROR_BOOT_CR;
