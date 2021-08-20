@@ -58,6 +58,7 @@ typedef enum {
 	SUSPENDING,
 	SUSPENDED,
 	POWERED_OFF,
+	PENDING_POWER_OFF,
 	MAX_STATE
 } XPm_SubsysState;
 
