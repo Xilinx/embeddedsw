@@ -34,6 +34,15 @@ extern "C" {
 	}									\
 }
 
+#define IPI_MESSAGE4(Mask, Arg0, Arg1, Arg2, Arg3)				\
+{										\
+	u32 Response[XPLMI_CMD_RESP_SIZE] = {Arg0, Arg1, Arg2, Arg3};		\
+	if (XST_SUCCESS != XPlmi_IpiWrite(Mask, Response, XPLMI_CMD_RESP_SIZE,	\
+					  XIPIPSU_BUF_TYPE_MSG)) {		\
+		PmWarn("Error in IPI write response\r\n");			\
+	}									\
+}
+
 struct XPm_FrcPwrDwnReq {
 	u32 AckType;
 	u32 InitiatorIpiMask;
@@ -165,7 +174,8 @@ int XPm_RestartCbWrapper(const u32 SubsystemId);
 u32 XPm_GetSubsystemId(u32 ImageId);
 XStatus XPm_GetDeviceBaseAddr(u32 DeviceId, u32 *BaseAddr);
 int XPm_ForcePwrDwnCb(void *Data);
-void XPm_ProcessAckReq(const u32 Ack, const u32 IpiMask, const int Status);
+void XPm_ProcessAckReq(const u32 Ack, const u32 IpiMask, const int Status,
+		       const u32 NodeId, const u32 NodeState);
 
 #ifdef __cplusplus
 }
