@@ -1774,13 +1774,16 @@ done:
  * @param Ack		Acknowledgement type
  * @param IpiMask	IPI mask of initiator of request
  * @param Status	Return status
+ * @param NodeId	Node ID of target subsystem/core
+ * @param NodeState	State of target node
  *
  * @return None
  *
  * @note   None
  *
  ****************************************************************************/
-void XPm_ProcessAckReq(const u32 Ack, const u32 IpiMask, const int Status)
+void XPm_ProcessAckReq(const u32 Ack, const u32 IpiMask, const int Status,
+		       const u32 NodeId, const u32 NodeState)
 {
 	if (0U == IpiMask) {
 		return;
@@ -1793,6 +1796,13 @@ void XPm_ProcessAckReq(const u32 Ack, const u32 IpiMask, const int Status)
 		PmOut32(IPI_PMC_ISR, IpiMask);
 		/* Enable IPI interrupt */
 		PmOut32(IPI_PMC_IER, IpiMask);
+	} else if ((u32)REQUEST_ACK_NON_BLOCKING == Ack) {
+		/* Return acknowledge through callback */
+		IPI_MESSAGE4(IpiMask, PM_ACKNOWLEDGE_CB, NodeId, (u32)Status,
+			      NodeState);
+		if (XST_SUCCESS != XPlmi_IpiTrigger(IpiMask)) {
+			PmWarn("Error in IPI trigger\r\n");
+		}
 	} else {
 		/* No returning of the acknowledge */
 	}
@@ -1821,6 +1831,8 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
+	u32 NodeState = 0U;
+	XPm_Power *Power;
 
 	if ((u32)REQUEST_ACK_BLOCKING == Ack) {
 		/* Disable IPI interrupt */
@@ -1854,9 +1866,15 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 			goto done;
 		} else {
 			Status = XPmCore_ForcePwrDwn(NodeId);
+			NodeState = Core->Device.Node.State;
 		}
 	} else if ((u32)XPM_NODECLASS_POWER == NODECLASS(NodeId)) {
+		Power = XPmPower_GetById(NodeId);
+		if (NULL == Power) {
+			goto process_ack;
+		}
 		Status = XPmPower_ForcePwrDwn(SubsystemId, NodeId, CmdType);
+		NodeState = Power->Node.State;
 	} else if ((u32)XPM_NODECLASS_SUBSYSTEM == NODECLASS(NodeId)) {
 		Subsystem = XPmSubsystem_GetById(NodeId);
 		if (NULL == Subsystem) {
@@ -1875,6 +1893,7 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 			Subsystem->FrcPwrDwnReq.InitiatorIpiMask = IpiMask;
 			Status = XPm_SubsystemIdleCores(Subsystem);
 			if (XST_SUCCESS != Status) {
+				NodeState = Subsystem->State;
 				goto process_ack;
 			}
 			Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_XILPM_ID,
@@ -1894,7 +1913,7 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 	}
 
 process_ack:
-	XPm_ProcessAckReq(Ack, IpiMask, Status);
+	XPm_ProcessAckReq(Ack, IpiMask, Status, NodeId, NodeState);
 
 done:
 	if ((u32)REQUEST_ACK_BLOCKING != Ack) {
