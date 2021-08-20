@@ -83,23 +83,43 @@ int32_t lExpireCounter = 0;
 #endif
 #endif
 
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+extern volatile u32_t notifyinfo[4*XLWIP_CONFIG_N_TX_DESC];
+#endif
+
 /*
  * this function is always called with interrupts off
  * this function also assumes that there are available BD's
  */
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+static err_t _unbuffered_low_level_output(xemacpsif_s *xemacpsif,
+		struct pbuf *p, u32_t block_till_tx_complete, u32_t *to_block_index )
+#else
 static err_t _unbuffered_low_level_output(xemacpsif_s *xemacpsif,
 													struct pbuf *p)
+#endif
 {
 	XStatus status = 0;
+	err_t err = ERR_MEM;
 
 #if ETH_PAD_SIZE
 	pbuf_header(p, -ETH_PAD_SIZE);	/* drop the padding word */
 #endif
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+	if (block_till_tx_complete == 1) {
+		status = emacps_sgsend(xemacpsif, p, 1, to_block_index);
+	} else {
+		status = emacps_sgsend(xemacpsif, p, 0, to_block_index);
+	}
+#else
 	status = emacps_sgsend(xemacpsif, p);
+#endif
 	if (status != XST_SUCCESS) {
 #if LINK_STATS
-	lwip_stats.link.drop++;
+		lwip_stats.link.drop++;
 #endif
+	} else {
+		err = ERR_OK;
 	}
 
 #if ETH_PAD_SIZE
@@ -110,7 +130,7 @@ static err_t _unbuffered_low_level_output(xemacpsif_s *xemacpsif,
 	lwip_stats.link.xmit++;
 #endif /* LINK_STATS */
 
-	return ERR_OK;
+	return err;
 
 }
 
@@ -125,16 +145,19 @@ static err_t _unbuffered_low_level_output(xemacpsif_s *xemacpsif,
 
 static err_t low_level_output(struct netif *netif, struct pbuf *p)
 {
-	SYS_ARCH_DECL_PROTECT(lev);
-    err_t err;
+    err_t err = ERR_MEM;
     s32_t freecnt;
     XEmacPs_BdRing *txring;
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+	u32_t notfifyblocksleepcntr;
+	u32_t to_block_index;
+#endif
 
+	SYS_ARCH_DECL_PROTECT(lev);
 	struct xemac_s *xemac = (struct xemac_s *)(netif->state);
 	xemacpsif_s *xemacpsif = (xemacpsif_s *)(xemac->state);
 
 	SYS_ARCH_PROTECT(lev);
-
 	/* check if space is available to send */
     freecnt = is_tx_space_available(xemacpsif);
     if (freecnt <= 5) {
@@ -143,17 +166,41 @@ static err_t low_level_output(struct netif *netif, struct pbuf *p)
 	}
 
     if (is_tx_space_available(xemacpsif)) {
-		_unbuffered_low_level_output(xemacpsif, p);
-		err = ERR_OK;
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+		if (netif_is_opt_block_tx_set(netif, NETIF_ENABLE_BLOCKING_TX_FOR_PACKET)) {
+			err = _unbuffered_low_level_output(xemacpsif, p, 1, &to_block_index);
+		} else {
+			err = _unbuffered_low_level_output(xemacpsif, p, 0, &to_block_index);
+		}
+#else
+		err = _unbuffered_low_level_output(xemacpsif, p);
+#endif
 	} else {
 #if LINK_STATS
 		lwip_stats.link.drop++;
 #endif
 		printf("pack dropped, no space\r\n");
-		err = ERR_MEM;
+		SYS_ARCH_UNPROTECT(lev);
+		goto return_pack_dropped;
 	}
-
 	SYS_ARCH_UNPROTECT(lev);
+
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+	if (netif_is_opt_block_tx_set(netif, NETIF_ENABLE_BLOCKING_TX_FOR_PACKET)) {
+		/* Wait for approx 1 second before timing out */
+		notfifyblocksleepcntr = 900000;
+		while(notifyinfo[to_block_index] == 1) {
+			usleep(1);
+			notfifyblocksleepcntr--;
+			if (notfifyblocksleepcntr <= 0) {
+				err = ERR_TIMEOUT;
+				break;
+			}
+		}
+	}
+	netif_clear_opt_block_tx(netif, NETIF_ENABLE_BLOCKING_TX_FOR_PACKET);
+#endif
+return_pack_dropped:
 	return err;
 }
 

@@ -136,7 +136,12 @@ void  process_sent_bds(xemacpsif_s *xemacpsif, XEmacPs_BdRing *txring);
 u32_t phy_setup_emacps (XEmacPs *xemacpsp, u32_t phy_addr);
 void detect_phy(XEmacPs *xemacpsp);
 void emacps_send_handler(void *arg);
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+XStatus emacps_sgsend(xemacpsif_s *xemacpsif, struct pbuf *p,
+		u32_t block_till_tx_complete, u32_t *to_block_index);
+#else
 XStatus emacps_sgsend(xemacpsif_s *xemacpsif, struct pbuf *p);
+#endif
 void emacps_recv_handler(void *arg);
 void emacps_error_handler(void *arg,u8 Direction, u32 ErrorWord);
 void setup_rx_bds(xemacpsif_s *xemacpsif, XEmacPs_BdRing *rxring);

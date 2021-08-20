@@ -66,6 +66,9 @@ static UINTPTR tx_pbufs_storage[4*XLWIP_CONFIG_N_TX_DESC];
 static UINTPTR rx_pbufs_storage[4*XLWIP_CONFIG_N_RX_DESC];
 
 static s32_t emac_intr_num;
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+volatile u32_t notifyinfo[4*XLWIP_CONFIG_N_TX_DESC];
+#endif
 
 /******************************************************************************
  * Each BD is of 8 bytes of size and the BDs (BD chain) need to be  put
@@ -164,6 +167,35 @@ u32_t get_base_index_txpbufsstorage (xemacpsif_s *xemacpsif)
 	return index;
 }
 
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+static inline
+u32_t get_base_index_tasknotifyinfo (xemacpsif_s *xemacpsif)
+{
+	u32_t index;
+#ifdef XPAR_XEMACPS_0_BASEADDR
+	if (xemacpsif->emacps.Config.BaseAddress == XPAR_XEMACPS_0_BASEADDR) {
+		index = 0;
+	}
+#endif
+#ifdef XPAR_XEMACPS_1_BASEADDR
+	if (xemacpsif->emacps.Config.BaseAddress == XPAR_XEMACPS_1_BASEADDR) {
+		index = XLWIP_CONFIG_N_TX_DESC;
+	}
+#endif
+#ifdef XPAR_XEMACPS_2_BASEADDR
+	if (xemacpsif->emacps.Config.BaseAddress == XPAR_XEMACPS_2_BASEADDR) {
+		index = 2 * XLWIP_CONFIG_N_TX_DESC;
+	}
+#endif
+#ifdef XPAR_XEMACPS_3_BASEADDR
+	if (xemacpsif->emacps.Config.BaseAddress == XPAR_XEMACPS_3_BASEADDR) {
+		index = 3 * XLWIP_CONFIG_N_TX_DESC;
+	}
+#endif
+	return index;
+}
+#endif
+
 static inline
 u32_t get_base_index_rxpbufsstorage (xemacpsif_s *xemacpsif)
 {
@@ -202,8 +234,14 @@ void process_sent_bds(xemacpsif_s *xemacpsif, XEmacPs_BdRing *txring)
 	struct pbuf *p;
 	u32 *temp;
 	u32_t index;
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+	u32_t tx_task_notifier_index;
+#endif
 
 	index = get_base_index_txpbufsstorage (xemacpsif);
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+	tx_task_notifier_index = get_base_index_tasknotifyinfo (xemacpsif);
+#endif
 
 	while (1) {
 		/* obtain processed BD's */
@@ -230,6 +268,9 @@ void process_sent_bds(xemacpsif_s *xemacpsif, XEmacPs_BdRing *txring)
 			if (p != NULL) {
 				pbuf_free(p);
 			}
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+			notifyinfo[tx_task_notifier_index + bdindex] = 0;
+#endif
 			tx_pbufs_storage[index + bdindex] = 0;
 			curbdpntr = XEmacPs_BdRingNext(txring, curbdpntr);
 			n_pbufs_freed--;
@@ -265,8 +306,12 @@ void emacps_send_handler(void *arg)
 	xInsideISR--;
 #endif
 }
-
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+XStatus emacps_sgsend(xemacpsif_s *xemacpsif, struct pbuf *p,
+					u32_t block_till_tx_complete, u32_t *to_block_index)
+#else
 XStatus emacps_sgsend(xemacpsif_s *xemacpsif, struct pbuf *p)
+#endif
 {
 	struct pbuf *q;
 	s32_t n_pbufs;
@@ -274,13 +319,19 @@ XStatus emacps_sgsend(xemacpsif_s *xemacpsif, struct pbuf *p)
 	XEmacPs_Bd *temp_txbd;
 	XStatus status;
 	XEmacPs_BdRing *txring;
-	u32_t bdindex;
+	u32_t bdindex = 0;
 	u32_t index;
 	u32_t max_fr_size;
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+	u32_t tx_task_notifier_index;
+#endif
 
 	txring = &(XEmacPs_GetTxRing(&xemacpsif->emacps));
 
 	index = get_base_index_txpbufsstorage (xemacpsif);
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+	tx_task_notifier_index = get_base_index_tasknotifyinfo (xemacpsif);
+#endif
 
 	/* first count the number of pbufs */
 	for (q = p, n_pbufs = 0; q != NULL; q = q->next)
@@ -326,6 +377,12 @@ XStatus emacps_sgsend(xemacpsif_s *xemacpsif, struct pbuf *p)
 		XEmacPs_BdClearLast(txbd);
 		txbd = XEmacPs_BdRingNext(txring, txbd);
 	}
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+    if (block_till_tx_complete == 1) {
+		notifyinfo[tx_task_notifier_index + bdindex] = 1;
+		*to_block_index = tx_task_notifier_index + bdindex;
+	}
+#endif
 	XEmacPs_BdSetLast(last_txbd);
 	/* For fragmented packets, remember the 1st BD allocated for the 1st
 	   packet fragment. The used bit for this BD should be cleared at the end

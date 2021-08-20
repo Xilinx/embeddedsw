@@ -110,6 +110,7 @@ BEGIN LIBRARY lwip211
 	PROPERTY desc = "UDP Options";
 	PARAM name = udp_options, desc = "Is UDP required ?", type = bool, default = true, permit = none;
 	PARAM name = lwip_udp, desc = "Is UDP required ?", type = bool, default = true;
+	PARAM name = udp_tx_blocking, desc = "Application sending a UDP packet blocks till the pkt is txed", type = bool, default = false;
 	PARAM name = udp_ttl, desc = "UDP TTL value", type = int, default = 255;
   END CATEGORY
 
