@@ -1809,6 +1809,14 @@ done:
 	return Status;
 }
 
+static void XPm_CoreIdle(XPm_Core *Core)
+{
+	ENABLE_WFI(Core->SleepMask);
+	Core->Device.Node.State = (u8)XPM_DEVSTATE_PENDING_PWR_DWN;
+	XPmNotifier_Event(Core->Device.Node.Id,
+			  (u8)EVENT_CPU_IDLE_FORCE_PWRDWN);
+}
+
 /****************************************************************************/
 /**
  * @brief  This function can be used by a subsystem to Powerdown other
@@ -1842,7 +1850,17 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 
 	if ((NODECLASS(NodeId) == (u32)XPM_NODECLASS_DEVICE) &&
 	    (NODESUBCLASS(NodeId) == (u32)XPM_NODESUBCL_DEV_CORE)) {
-		Status = XPmCore_ForcePwrDwn(NodeId);
+		XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(NodeId);
+		if (NULL == Core) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+		if ((1U == Core->isCoreUp) && (1U == Core->IsCoreIdleSupported)) {
+			XPm_CoreIdle(Core);
+			Status = XST_SUCCESS;
+		} else {
+			Status = XPmCore_ForcePwrDwn(NodeId);
+		}
 	} else if ((u32)XPM_NODECLASS_POWER == NODECLASS(NodeId)) {
 		Status = XPmPower_ForcePwrDwn(SubsystemId, NodeId, CmdType);
 	} else if ((u32)XPM_NODECLASS_SUBSYSTEM == NODECLASS(NodeId)) {

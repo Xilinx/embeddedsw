@@ -157,6 +157,10 @@ static XStatus XPmNotifier_GetNotifyCbData(const u32 Idx, u32 *Payload)
 		if ((u32)EVENT_STATE_CHANGE ==
 		    ((u32)EVENT_STATE_CHANGE & Notifier->PendEvent)) {
 			Payload[2] = (u32)EVENT_STATE_CHANGE;
+		} else if ((u32)EVENT_CPU_IDLE_FORCE_PWRDWN ==
+			   ((u32)EVENT_CPU_IDLE_FORCE_PWRDWN &
+			   Notifier->PendEvent)) {
+			Payload[2] = (u32)EVENT_CPU_IDLE_FORCE_PWRDWN;
 		} else {
 			Payload[2] = (u32)EVENT_ZERO_USERS;
 		}
