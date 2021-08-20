@@ -1817,6 +1817,36 @@ static void XPm_CoreIdle(XPm_Core *Core)
 			  (u8)EVENT_CPU_IDLE_FORCE_PWRDWN);
 }
 
+static XStatus XPm_SubsystemIdleCores(XPm_Subsystem *Subsystem)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Requirement *Reqm;
+	u32 DeviceId;
+
+	Reqm = Subsystem->Requirements;
+	while (NULL != Reqm) {
+		DeviceId = Reqm->Device->Node.Id;
+		if ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(DeviceId)) {
+			XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
+			if (NULL == Core) {
+				Status = XST_INVALID_PARAM;
+				goto done;
+			}
+			if ((1U == Core->isCoreUp) &&
+			    (1U == Core->IsCoreIdleSupported)) {
+				XPm_CoreIdle(Core);
+				Status = XST_SUCCESS;
+			} else {
+				Status = XPmCore_ForcePwrDwn(DeviceId);
+			}
+		}
+		Reqm = Reqm->NextDevice;
+	}
+
+done:
+	return Status;
+}
+
 /****************************************************************************/
 /**
  * @brief  This function can be used by a subsystem to Powerdown other
@@ -1838,6 +1868,7 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 			   const u32 CmdType)
 {
 	XStatus Status = XST_FAILURE;
+	XPm_Subsystem *Subsystem;
 
 	/* Warning Fix */
 	(void) (Ack);
@@ -1864,7 +1895,23 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 	} else if ((u32)XPM_NODECLASS_POWER == NODECLASS(NodeId)) {
 		Status = XPmPower_ForcePwrDwn(SubsystemId, NodeId, CmdType);
 	} else if ((u32)XPM_NODECLASS_SUBSYSTEM == NODECLASS(NodeId)) {
-		Status = XPmSubsystem_ForcePwrDwn(NodeId);
+		Subsystem = XPmSubsystem_GetById(NodeId);
+		if (NULL == Subsystem) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+
+		if (0U != (Subsystem->Flags & (u8)SUBSYSTEM_IDLE_SUPPORTED)) {
+			Status = XPmSubsystem_SetState(Subsystem->Id,
+						       (u8)PENDING_POWER_OFF);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+
+			Status = XPm_SubsystemIdleCores(Subsystem);
+		} else {
+			Status = XPmSubsystem_ForcePwrDwn(NodeId);
+		}
 	} else {
 		Status = XPM_PM_INVALID_NODE;
 	}
