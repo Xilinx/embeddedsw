@@ -170,7 +170,11 @@ static void udp_packet_send(u8_t finished)
 		payload[0] = htonl(packet_id);
 
 		while (retries) {
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+			err = udp_send_blocking(pcb[i], packet);
+#else
 			err = udp_send(pcb[i], packet);
+#endif
 			if (err != ERR_OK) {
 				xil_printf("Error on udp_send: %d\r\n", err);
 				retries--;
@@ -203,10 +207,11 @@ static void udp_packet_send(u8_t finished)
 		 * To avoid this, added delay of 2us between each
 		 * packets.
 		 */
+#if !LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
 #if defined (__aarch64__) && defined (XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_DMA)
 		usleep(2);
 #endif /* __aarch64__ */
-
+#endif
 	}
 	packet_id++;
 }

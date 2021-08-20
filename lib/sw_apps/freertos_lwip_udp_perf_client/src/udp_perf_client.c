@@ -164,8 +164,13 @@ static int udp_packet_send(u8_t finished)
 
 	for (i = 0; i < NUM_OF_PARALLEL_CLIENTS; i++) {
 		while (retries) {
-			count = lwip_sendto(sock[i], send_buf, sizeof(send_buf), 0,
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+			count = lwip_sendto_blocking(sock[i], send_buf, sizeof(send_buf), 0,
 					(struct sockaddr *)&addr, len);
+#else
+			count = lwip_sendto(sock[i], send_buf, sizeof(send_buf), 0,
+								(struct sockaddr *)&addr, len);
+#endif
 			if (count <= 0) {
 				retries--;
 				usleep(ERROR_SLEEP);
@@ -195,9 +200,11 @@ static int udp_packet_send(u8_t finished)
 		 * To avoid this, added delay of 1us between each
 		 * packets
 		 */
+#if !LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
 #if defined (__aarch64__) && defined (XLWIP_CONFIG_INCLUDE_GEM)
 		usleep(1);
 #endif /* __aarch64__ */
+#endif
 	}
 	return 0;
 }
