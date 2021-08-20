@@ -4,6 +4,7 @@
 ******************************************************************************/
 
 
+#include "xplmi_scheduler.h"
 #include "xpm_psm_api.h"
 #include "xpm_core.h"
 #include "xpm_psm.h"
@@ -418,8 +419,18 @@ XStatus XPmCore_ProcessPendingForcePwrDwn(u32 DeviceId)
 		Reqm = Reqm->NextDevice;
 	}
 
-	if (((u8)PENDING_POWER_OFF == Subsystem->State) && (NULL == Reqm)) {
-		Status = XPmSubsystem_ForcePwrDwn(Subsystem->Id);
+	if ((u8)PENDING_POWER_OFF == Subsystem->State) {
+		if (NULL == Reqm) {
+			Status = XPmSubsystem_ForcePwrDwn(Subsystem->Id);
+		}
+	} else {
+		Status = XPlmi_SchedulerRemoveTask(XPLMI_MODULE_XILPM_ID,
+						   XPm_ForcePwrDwnCb, 0U,
+						   (void *)DeviceId);
+		if (XST_SUCCESS != Status) {
+			PmDbg("Task not present\r\n");
+			Status = XST_SUCCESS;
+		}
 	}
 
 done:

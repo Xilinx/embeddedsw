@@ -4,6 +4,7 @@
 ******************************************************************************/
 
 #include "xplmi.h"
+#include "xplmi_scheduler.h"
 #include "xpm_subsystem.h"
 #include "xpm_clock.h"
 #include "xpm_pll.h"
@@ -1116,6 +1117,17 @@ XStatus XPmSubsystem_ForcePwrDwn(u32 SubsystemId)
 	Subsystem->PendCb.Reason = 0U;
 
 	Status = XPmSubsystem_SetState(Subsystem->Id, (u32)POWERED_OFF);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = XPlmi_SchedulerRemoveTask(XPLMI_MODULE_XILPM_ID,
+					   XPm_ForcePwrDwnCb, 0U,
+					   (void *)SubsystemId);
+	if (XST_SUCCESS != Status) {
+		PmDbg("Task not present\r\n");
+		Status = XST_SUCCESS;
+	}
 
 done:
 	return Status;
