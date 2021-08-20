@@ -275,12 +275,8 @@ XStatus emacps_sgsend(xemacpsif_s *xemacpsif, struct pbuf *p)
 	XStatus status;
 	XEmacPs_BdRing *txring;
 	u32_t bdindex;
-	u32_t lev;
 	u32_t index;
 	u32_t max_fr_size;
-
-	lev = mfcpsr();
-	mtcpsr(lev | 0x000000C0);
 
 	txring = &(XEmacPs_GetTxRing(&xemacpsif->emacps));
 
@@ -293,7 +289,6 @@ XStatus emacps_sgsend(xemacpsif_s *xemacpsif, struct pbuf *p)
 	/* obtain as many BD's */
 	status = XEmacPs_BdRingAlloc(txring, n_pbufs, &txbdset);
 	if (status != XST_SUCCESS) {
-		mtcpsr(lev);
 		LWIP_DEBUGF(NETIF_DEBUG, ("sgsend: Error allocating TxBD\r\n"));
 		return XST_FAILURE;
 	}
@@ -301,7 +296,6 @@ XStatus emacps_sgsend(xemacpsif_s *xemacpsif, struct pbuf *p)
 	for(q = p, txbd = txbdset; q != NULL; q = q->next) {
 		bdindex = XEMACPS_BD_TO_INDEX(txring, txbd);
 		if (tx_pbufs_storage[index + bdindex] != 0) {
-			mtcpsr(lev);
 			LWIP_DEBUGF(NETIF_DEBUG, ("PBUFS not available\r\n"));
 			return XST_FAILURE;
 		}
@@ -351,7 +345,6 @@ XStatus emacps_sgsend(xemacpsif_s *xemacpsif, struct pbuf *p)
 
 	status = XEmacPs_BdRingToHw(txring, n_pbufs, txbdset);
 	if (status != XST_SUCCESS) {
-		mtcpsr(lev);
 		LWIP_DEBUGF(NETIF_DEBUG, ("sgsend: Error submitting TxBD\r\n"));
 		return XST_FAILURE;
 	}
@@ -360,8 +353,6 @@ XStatus emacps_sgsend(xemacpsif_s *xemacpsif, struct pbuf *p)
 	XEMACPS_NWCTRL_OFFSET,
 	(XEmacPs_ReadReg((xemacpsif->emacps).Config.BaseAddress,
 	XEMACPS_NWCTRL_OFFSET) | XEMACPS_NWCTRL_STARTTX_MASK));
-
-	mtcpsr(lev);
 	return status;
 }
 
