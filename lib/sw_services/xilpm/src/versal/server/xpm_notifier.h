@@ -16,7 +16,7 @@ extern "C" {
 
 extern void (* PmRequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload);
 
-XStatus XPmNotifier_Register(const XPm_Subsystem* const Subsystem,
+XStatus XPmNotifier_Register(XPm_Subsystem* const Subsystem,
 			 const u32 NodeId,
 			 const u32 Event, const u32 Wake, const u32 IpiMask);
 
