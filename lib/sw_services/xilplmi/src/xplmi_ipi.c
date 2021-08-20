@@ -49,6 +49,7 @@
  *       ma   08/05/2021 Add separate task for each IPI channel
  *       ma   08/12/2021 Fix issue in task creation for IPI channels
  *       bsv  08/15/2021 Removed unwanted goto statements
+ *       rv   08/19/2021 Do not ack force power down command
  *
  * </pre>
  *
@@ -73,6 +74,7 @@
 #define XPLMI_IPI_PMC_IMR_MASK		(0xFCU)
 #define XPLMI_IPI_PMC_IMR_SHIFT		(0x2U)
 #define XPLMI_GIC_IPI_INTR_ID		(0x1B0010U)
+#define PM_FORCE_POWERDOWN		(0x8U)
 
 /************************** Function Prototypes ******************************/
 static int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex);
@@ -258,15 +260,18 @@ int XPlmi_IpiDispatchHandler(void *Data)
 		Status = XPlmi_CmdExecute(&Cmd);
 
 END:
-		Cmd.Response[0U] = (u32)Status;
-		/* Send response to caller */
-		(void)XPlmi_IpiWrite(Cmd.IpiMask, Cmd.Response,
-				XPLMI_CMD_RESP_SIZE, XIPIPSU_BUF_TYPE_RESP);
-		/* Ack all IPIs */
-		if ((LpdInitialized & LPD_INITIALIZED) == LPD_INITIALIZED) {
-			if ((IPI_PMC_ISR_PSM_BIT_MASK != Cmd.IpiMask) ||
-				(PendingPsmIpi == (u8)TRUE)) {
+		if (((u8)PM_FORCE_POWERDOWN) != (u8)(Cmd.CmdId & 0xFFU)) {
+			Cmd.Response[0U] = (u32)Status;
+			/* Send response to caller */
+			(void)XPlmi_IpiWrite(Cmd.IpiMask, Cmd.Response,
+					XPLMI_CMD_RESP_SIZE,
+					XIPIPSU_BUF_TYPE_RESP);
+			/* Ack all IPIs */
+			if ((LpdInitialized & LPD_INITIALIZED) == LPD_INITIALIZED) {
+				if ((IPI_PMC_ISR_PSM_BIT_MASK != Cmd.IpiMask) ||
+				    (PendingPsmIpi == (u8)TRUE)) {
 					XPlmi_Out32(IPI_PMC_ISR, Cmd.IpiMask);
+				}
 			}
 		}
 	}
