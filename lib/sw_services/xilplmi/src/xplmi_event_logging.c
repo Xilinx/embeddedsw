@@ -41,6 +41,8 @@
 *                       XPlmi_RetrieveBufferData
 *       bsv  08/15/2021 Removed unwanted goto statements
 *       rb   08/11/2021 Fix compilation warnings
+*       ma   08/17/2021 Added check for buffer length to be word aligned
+*                       Return error codes as minor error codes from this file
 *
 * </pre>
 *
@@ -162,9 +164,9 @@ static int XPlmi_ConfigureLogMem(XPlmi_CircularBuffer *LogBuffer, u64 StartAddr,
 	u32 StartLimit;
 	u32 EndLimit;
 
-	if (NumBytes == 0U) {
-		Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_LOG_BUF_LEN,
-					Status);
+	if ((NumBytes == 0U) ||
+		((NumBytes & XPLMI_WORD_LEN_MASK) != 0U)) {
+		Status = (int)XPLMI_ERR_INVALID_LOG_BUF_LEN;
 		goto END1;
 	}
 
@@ -183,8 +185,7 @@ static int XPlmi_ConfigureLogMem(XPlmi_CircularBuffer *LogBuffer, u64 StartAddr,
 			goto END;
 		}
 		if ((StartAddr < StartLimit) || (EndAddr > EndLimit)) {
-			Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_LOG_BUF_ADDR,
-				Status);
+			Status = (int)XPLMI_ERR_INVALID_LOG_BUF_ADDR;
 			goto END1;
 		}
 	}
@@ -270,8 +271,7 @@ int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
 				DebugLog->LogLevel = (u8)((Arg1 << XPLMI_LOG_LEVEL_SHIFT) | Arg1);
 				Status = XST_SUCCESS;
 			} else {
-				Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_LOG_LEVEL,
-						Status);
+				Status = (int)XPLMI_ERR_INVALID_LOG_LEVEL;
 			}
 			break;
 		case XPLMI_LOGGING_CMD_CONFIG_LOG_MEM:
