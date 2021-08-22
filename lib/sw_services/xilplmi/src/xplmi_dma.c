@@ -33,6 +33,7 @@
 *       bsv  08/02/2021 Code clean up to reduce size
 *       bsv  08/13/2021 Code clean to reduce elf size by optimizing memset APIs
 *       bsv  08/15/2021 Removed unwanted goto statements
+*       bsv  08/22/2021 Fix bug in XPlmi_MemSetBytes
 *
 * </pre>
 *
@@ -845,8 +846,9 @@ int XPlmi_MemSetBytes(const void * DestPtr, u32 DestLen, u8 Val, u32 Len)
 		goto END;
 	}
 
-	StartBytes = XPLMI_WORD_LEN - (u8)(DestAddr & XPLMI_WORD_LEN_MASK);
-	if (StartBytes < Len) {
+	StartBytes = (XPLMI_WORD_LEN - (u8)(DestAddr & XPLMI_WORD_LEN_MASK)) &
+		XPLMI_WORD_LEN_MASK;
+	if (StartBytes > Len) {
 			StartBytes = (u8)Len;
 			goto END1;
 	}
