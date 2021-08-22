@@ -63,6 +63,8 @@
 *       am   05/21/2021 Resolved MISRA C violations
 * 4.6   har  07/14/2021 Fixed doxygen warnings
 *       kpt  07/15/2021 Added 64bit support for XSecure_AesWriteKey
+*       kal  08/19/2021 Renamed XSecure_AesPmcDmaCfgByteSwap to
+*                       XSecure_AesPmcDmaCfgAndXfer
 *
 * </pre>
 *
@@ -183,7 +185,7 @@ static int XSecure_AesDpaCmDecryptKat(const XSecure_Aes *AesInstance,
 	const u32 *KeyPtr, const u32 *DataPtr, u32 *OutputPtr);
 static int XSecure_AesOpInit(const XSecure_Aes *InstancePtr,
 	XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize, u64 IvAddr);
-static int XSecure_AesPmcDmaCfgByteSwap(const XSecure_Aes *InstancePtr,
+static int XSecure_AesPmcDmaCfgAndXfer(const XSecure_Aes *InstancePtr,
 	XSecure_AesDmaCfg AesDmaCfg, u32 Size);
 
 /************************** Variable Definitions *****************************/
@@ -677,7 +679,7 @@ int XSecure_AesUpdateAad(XSecure_Aes *InstancePtr, u64 AadAddr, u32 AadSize)
 	AesDmaCfg.SrcChannelCfg = TRUE;
 	AesDmaCfg.IsLastChunkSrc = FALSE;
 
-	Status = XSecure_AesPmcDmaCfgByteSwap(InstancePtr, AesDmaCfg, AadSize);
+	Status = XSecure_AesPmcDmaCfgAndXfer(InstancePtr, AesDmaCfg, AadSize);
 	if (Status != XST_SUCCESS) {
 		goto END_AAD;
 	}
@@ -796,7 +798,7 @@ int XSecure_AesKekDecrypt(const XSecure_Aes *InstancePtr,
 	AesDmaCfg.SrcDataAddr = IvAddr;
 	AesDmaCfg.IsLastChunkSrc = TRUE;
 
-	Status = XSecure_AesPmcDmaCfgByteSwap(InstancePtr, AesDmaCfg,
+	Status = XSecure_AesPmcDmaCfgAndXfer(InstancePtr, AesDmaCfg,
 		XSECURE_SECURE_GCM_TAG_SIZE);
 	if (Status != XST_SUCCESS) {
 		goto END_RST;
@@ -974,7 +976,7 @@ int XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	AesDmaCfg.IsLastChunkSrc = IsLastChunk;
 	AesDmaCfg.IsLastChunkDest = FALSE;
 
-	Status = XSecure_AesPmcDmaCfgByteSwap(InstancePtr, AesDmaCfg, Size);
+	Status = XSecure_AesPmcDmaCfgAndXfer(InstancePtr, AesDmaCfg, Size);
 
 END_RST:
 	/* Clear endianness */
@@ -1043,7 +1045,7 @@ int XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 	AesDmaCfg.SrcDataAddr = GcmTagAddr;
 	AesDmaCfg.IsLastChunkSrc = FALSE;
 
-	Status = XSecure_AesPmcDmaCfgByteSwap(InstancePtr, AesDmaCfg,
+	Status = XSecure_AesPmcDmaCfgAndXfer(InstancePtr, AesDmaCfg,
 		XSECURE_SECURE_GCM_TAG_SIZE);
 	if (Status != XST_SUCCESS) {
 		goto END_RST;
@@ -1283,7 +1285,7 @@ int XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	AesDmaCfg.IsLastChunkSrc = IsLastChunk;
 	AesDmaCfg.IsLastChunkDest = FALSE;
 
-	Status = XSecure_AesPmcDmaCfgByteSwap(InstancePtr, AesDmaCfg, Size);
+	Status = XSecure_AesPmcDmaCfgAndXfer(InstancePtr, AesDmaCfg, Size);
 	if (Status != XST_SUCCESS) {
 		goto END_RST;
 	}
@@ -1347,7 +1349,7 @@ int XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 	AesDmaCfg.DestChannelCfg = TRUE;
 	AesDmaCfg.IsLastChunkDest = FALSE;
 
-	Status = XSecure_AesPmcDmaCfgByteSwap(InstancePtr, AesDmaCfg,
+	Status = XSecure_AesPmcDmaCfgAndXfer(InstancePtr, AesDmaCfg,
 		XSECURE_SECURE_GCM_TAG_SIZE);
 	if (Status != XST_SUCCESS) {
 		goto END_RST;
@@ -2176,7 +2178,7 @@ static int XSecure_AesOpInit(const XSecure_Aes *InstancePtr,
 	AesDmaCfg.SrcChannelCfg = TRUE;
 	AesDmaCfg.SrcDataAddr = IvAddr;
 	AesDmaCfg.IsLastChunkSrc = FALSE;
-	Status = XSecure_AesPmcDmaCfgByteSwap(InstancePtr, AesDmaCfg,
+	Status = XSecure_AesPmcDmaCfgAndXfer(InstancePtr, AesDmaCfg,
 			XSECURE_SECURE_GCM_TAG_SIZE);
 
 	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
@@ -2201,7 +2203,7 @@ END:
  *              - Error code on failure
  *
  ******************************************************************************/
-static int XSecure_AesPmcDmaCfgByteSwap(const XSecure_Aes *InstancePtr,
+static int XSecure_AesPmcDmaCfgAndXfer(const XSecure_Aes *InstancePtr,
 	XSecure_AesDmaCfg AesDmaCfg, u32 Size)
 {
 	int Status = XST_FAILURE;
