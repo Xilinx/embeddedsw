@@ -22,6 +22,8 @@
 *       kpt  05/02/21 Updated XSecure_Sha3Update function to accept multiple
 *                     data update requests from user and maintained sha driver
 *                     state using XSecure_ShaState
+* 4.6   kal  08/22/21 Updated doxygen comment description for
+*                     XSecure_Sha3Initialize API
 *
 * </pre>
 *
@@ -48,10 +50,11 @@ static XSecure_ShaState Sha3State = XSECURE_SHA_UNINITIALIZED;
 
 /*****************************************************************************/
 /**
- * @brief       This function sends IPI request to initialize the SHA3 engine
+ * @brief       This function stores the Sha3 initialize state and sends as
+ *              part of XSECURE_API_SHA3_UPDATE CDO command.
  *
- * @return	- XST_SUCCESS - If the initialization is successful
- * 		- XST_FAILURE - If there is a failure
+ * @return	- XST_SUCCESS - If the Sha3 is in uninitialized state
+ * 		- XST_FAILURE - If the Sha3 is not in uninitialized state
  *
  ******************************************************************************/
 int XSecure_Sha3Initialize(void)
