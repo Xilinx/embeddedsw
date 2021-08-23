@@ -7,7 +7,7 @@
 /**
 *
 * @file xcsiss_hw.h
-* @addtogroup csiss_v1_5
+* @addtogroup csiss_v1_6
 * @{
 *
 * This header file contains identifiers and register-level core functions (or
