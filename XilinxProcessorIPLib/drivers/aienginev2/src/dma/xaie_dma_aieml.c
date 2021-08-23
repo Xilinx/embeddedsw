@@ -35,6 +35,8 @@
 #define XAIEML_MEMTILEDMA_NUM_BD_WORDS			8U
 #define XAIEML_DMA_STEPSIZE_DEFAULT			1U
 #define XAIEML_DMA_ITERWRAP_DEFAULT			1U
+#define XAIEML_DMA_PAD_NUM_DIMS				3U
+
 #define XAIEML_DMA_STATUS_IDLE				0x0
 #define XAIEML_DMA_STATUS_CHNUM_OFFSET			0x4
 
@@ -191,6 +193,61 @@ AieRC _XAieMl_DmaSetMultiDim(XAie_DmaDesc *DmaDesc, XAie_DmaTensor *Tensor)
 /*****************************************************************************/
 /**
 *
+* This API checks the validity of wrap and padding before and after fields of
+* the Dma descriptor.
+*
+* @param	DmaDesc: Dma Descriptor
+*
+* @return	XAIE_OK on success, XAIE_INVALID_DMA_DESC on failure
+*
+* @note		Internal Only.
+*		If D0_wrap == 0:
+*			D1/D2 padding after/before must be 0
+*			D0 padding after must be 0
+*		If D1_wrap == 0:
+*			D2 padding after/before must be 0
+*			D1 padding after must be 0
+*		If D2_wrap == 0:
+*			D2 padding after must be 0
+*
+******************************************************************************/
+static AieRC _XAieMl_DmaMemTileCheckPaddingConfig(XAie_DmaDesc *DmaDesc)
+{
+	XAie_AieMlDimDesc *DDesc = DmaDesc->MultiDimDesc.AieMlMultiDimDesc.DimDesc;
+	XAie_PadDesc *PDesc = DmaDesc->PadDesc;
+
+	for(u8 Dim = 0U; Dim < XAIEML_DMA_PAD_NUM_DIMS; Dim++) {
+		if(DDesc[Dim].Wrap == 0U) {
+
+			if(PDesc[Dim].After != 0U) {
+				XAIE_ERROR("Padding after for dimension %u must"
+						" be 0 when wrap is 1\n", Dim);
+				return XAIE_INVALID_DMA_DESC;
+			}
+
+			for(u8 PadDim = Dim + 1U;
+					PadDim < XAIEML_DMA_PAD_NUM_DIMS;
+					PadDim++) {
+				if((PDesc[PadDim].After != 0U) ||
+						(PDesc[PadDim].Before != 0U)) {
+					XAIE_ERROR("After and Before pading "
+							"for dimension %u must "
+							"be 0 when wrap for "
+							"dimension %u is 0\n",
+							PadDim, Dim);
+					return XAIE_ERR;
+				}
+			}
+		}
+	}
+
+	XAIE_DBG("Zero padding and wrap configuration is correct\n");
+	return XAIE_OK;
+}
+
+/*****************************************************************************/
+/**
+*
 * This API writes a Dma Descriptor which is initialized and setup by other APIs
 * into the corresponding registers and register fields in the hardware. This API
 * is specific to AIEML Memory Tiles only.
@@ -214,6 +271,10 @@ AieRC _XAieMl_MemTileDmaWriteBd(XAie_DevInst *DevInst , XAie_DmaDesc *DmaDesc,
 	u32 BdWord[XAIEML_MEMTILEDMA_NUM_BD_WORDS];
 	const XAie_DmaMod *DmaMod;
 	const XAie_DmaBdProp *BdProp;
+
+	RC = _XAieMl_DmaMemTileCheckPaddingConfig(DmaDesc);
+	if(RC != XAIE_OK)
+		return RC;
 
 	DmaMod = DevInst->DevProp.DevMod[DmaDesc->TileType].DmaMod;
 	BdProp = DmaMod->BdProp;
