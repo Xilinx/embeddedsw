@@ -32,6 +32,7 @@
 *       ma   05/03/2021 Minor updates related to PSM and FW errors
 * 1.05  td   07/08/2021 Fix doxygen warnings
 *       bsv  08/02/2021 Code clean up to reduce size
+*       ma   08/19/2021 Renamed error related macros
 *
 * </pre>
 *
@@ -120,19 +121,20 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 {
 	int Status = XST_FAILURE;
 	static u8 IsPsmCrChanged = (u8)FALSE;
-	u32 NodeId = Cmd->Payload[0U];
+	XPlmi_EventType NodeType =
+			(XPlmi_EventType)XPlmi_EventNodeType(Cmd->Payload[0U]);
 	u32 ErrorAction = Cmd->Payload[1U];
 	u32 ErrorMasks = Cmd->Payload[2U];
-	u32 PmcPsmCrErrMask = (u32)1U << (u32)XPLMI_NODEIDX_ERROR_PMC_PSM_CR;
-	u32 PmcPsmNCrErrMask = (u32)1U << (u32)XPLMI_NODEIDX_ERROR_PMC_PSM_NCR;
-	u32 FwErrMask = (u32)1U << (u32)XPLMI_NODEIDX_ERROR_FW_CR;
+	u32 PmcPsmCrErrMask = (u32)1U << (u32)XPLMI_ERROR_PMC_PSM_CR;
+	u32 PmcPsmNCrErrMask = (u32)1U << (u32)XPLMI_ERROR_PMC_PSM_NCR;
+	u32 FwErrMask = (u32)1U << (u32)XPLMI_ERROR_FW_CR;
 	u32 PmcPsmCrErrVal = ErrorMasks & PmcPsmCrErrMask;
 	u32 PmcPsmNCrErrVal = ErrorMasks & PmcPsmNCrErrMask;
 	u32 FwErrVal = ErrorMasks & FwErrMask;
 
 	XPlmi_Printf(DEBUG_DETAILED,
 		"%s: NodeId: 0x%0x,  ErrorAction: 0x%0x, ErrorMasks: 0x%0x\n\r",
-		 __func__, NodeId, ErrorAction, ErrorMasks);
+		 __func__, Cmd->Payload[0U], ErrorAction, ErrorMasks);
 
 	/* Do not allow CUSTOM error action as it is not supported */
 	if ((XPLMI_EM_ACTION_CUSTOM == ErrorAction) ||
@@ -146,16 +148,12 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 	}
 
 	/* Do not allow invalid node id */
-	if ((NodeId != XPLMI_EVENT_ERROR_PMC_ERR1) &&
-		(NodeId != XPLMI_EVENT_ERROR_PMC_ERR2) &&
-		(NodeId != XPLMI_EVENT_ERROR_PSM_ERR1) &&
-		(NodeId != XPLMI_EVENT_ERROR_PSM_ERR2) &&
-		(NodeId != XPLMI_EVENT_ERROR_SW_ERR)) {
+	if (NodeType > XPLMI_NODETYPE_EVENT_SW_ERR) {
 		Status = XPLMI_INVALID_NODE_ID;
 		goto END;
 	}
 
-	if (NodeId == XPLMI_EVENT_ERROR_PMC_ERR1) {
+	if (NodeType == XPLMI_NODETYPE_EVENT_PMC_ERR1) {
 		/* Only allow HW error actions for PSM_CR error */
 		if (PmcPsmCrErrVal != 0U) {
 			if ((XPLMI_EM_ACTION_SUBSYS_SHUTDN == ErrorAction) ||
@@ -190,8 +188,8 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 	/*
 	 * Allow error action setting for PSM errors only if LPD is initialized
 	 */
-	if (((NodeId == XPLMI_EVENT_ERROR_PSM_ERR1) ||
-		(NodeId == XPLMI_EVENT_ERROR_PSM_ERR2)) &&
+	if (((NodeType == XPLMI_NODETYPE_EVENT_PSM_ERR1) ||
+		(NodeType == XPLMI_NODETYPE_EVENT_PSM_ERR2)) &&
 		((LpdInitialized & LPD_INITIALIZED) != LPD_INITIALIZED)) {
 		XPlmi_Printf(DEBUG_GENERAL, "LPD is not initialized to configure "
 				"PSM errors and actions\n\r");
@@ -199,12 +197,12 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 		goto END;
 	}
 
-	Status = XPlmi_EmSetAction(NodeId, ErrorMasks, (u8)ErrorAction, NULL);
+	Status = XPlmi_EmSetAction(Cmd->Payload[0U], ErrorMasks, (u8)ErrorAction, NULL);
 	if(Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	if ((NodeId == XPLMI_EVENT_ERROR_PMC_ERR1) &&
+	if ((NodeType == XPLMI_NODETYPE_EVENT_PMC_ERR1) &&
 		(PmcPsmCrErrVal  != 0U)) {
 		IsPsmCrChanged = (u8)TRUE;
 	}

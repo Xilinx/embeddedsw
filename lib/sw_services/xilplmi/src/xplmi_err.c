@@ -67,6 +67,7 @@
 *       bsv  08/15/2021 Removed unwanted goto statements
 *       rv   08/19/2021 Updated XPLMI_EM_ACTION_SUBSYS_RESTART error action
 *			handling
+*       ma   08/19/2021 Renamed error related macros
 *
 * </pre>
 *
@@ -176,250 +177,250 @@ void XPlmi_ErrMgr(int ErrStatus)
  * Structure to define error action type and handler if error to be handled
  * by PLM
  */
-static struct XPlmi_Error_t ErrorTable[XPLMI_NODEIDX_ERROR_SW_ERR_MAX] = {
-	[XPLMI_NODEIDX_ERROR_BOOT_CR] =
+static struct XPlmi_Error_t ErrorTable[XPLMI_ERROR_SW_ERR_MAX] = {
+	[XPLMI_ERROR_BOOT_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_BOOT_NCR] =
+	[XPLMI_ERROR_BOOT_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_FW_CR] =
+	[XPLMI_ERROR_FW_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_ERROUT, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_FW_NCR] =
+	[XPLMI_ERROR_FW_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_SRST, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_GSW_CR] =
+	[XPLMI_ERROR_GSW_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_GSW_NCR] =
+	[XPLMI_ERROR_GSW_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_CFU] =
+	[XPLMI_ERROR_CFU] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_CFRAME] =
+	[XPLMI_ERROR_CFRAME] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PMC_PSM_CR] =
+	[XPLMI_ERROR_PMC_PSM_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_SRST, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PMC_PSM_NCR] =
+	[XPLMI_ERROR_PMC_PSM_NCR] =
 	{ .Handler = NULL,
 			.Action = XPLMI_EM_ACTION_CUSTOM, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_DDRMB_CR] =
+	[XPLMI_ERROR_DDRMB_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_DDRMB_NCR] =
+	[XPLMI_ERROR_DDRMB_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_NOCTYPE1_CR] =
+	[XPLMI_ERROR_NOCTYPE1_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_NOCTYPE1_NCR] =
+	[XPLMI_ERROR_NOCTYPE1_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_NOCUSER] =
+	[XPLMI_ERROR_NOCUSER] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_MMCM] =
+	[XPLMI_ERROR_MMCM] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_AIE_CR] =
+	[XPLMI_ERROR_AIE_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_AIE_NCR] =
+	[XPLMI_ERROR_AIE_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_DDRMC_CR] =
+	[XPLMI_ERROR_DDRMC_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_DDRMC_NCR] =
+	[XPLMI_ERROR_DDRMC_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_GT_CR] =
+	[XPLMI_ERROR_GT_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_GT_NCR] =
+	[XPLMI_ERROR_GT_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PLSMON_CR] =
+	[XPLMI_ERROR_PLSMON_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PLSMON_NCR] =
+	[XPLMI_ERROR_PLSMON_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PL0] =
+	[XPLMI_ERROR_PL0] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PL1] =
+	[XPLMI_ERROR_PL1] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PL2] =
+	[XPLMI_ERROR_PL2] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PL3] =
+	[XPLMI_ERROR_PL3] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_NPIROOT] =
+	[XPLMI_ERROR_NPIROOT] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_SSIT3] =
+	[XPLMI_ERROR_SSIT3] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_SSIT4] =
+	[XPLMI_ERROR_SSIT4] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_SSIT5] =
+	[XPLMI_ERROR_SSIT5] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PMCAPB] =
+	[XPLMI_ERROR_PMCAPB] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PMCROM] =
+	[XPLMI_ERROR_PMCROM] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_MB_FATAL0] =
+	[XPLMI_ERROR_MB_FATAL0] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_MB_FATAL1] =
+	[XPLMI_ERROR_MB_FATAL1] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PMCPAR] =
+	[XPLMI_ERROR_PMCPAR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PMC_CR] =
+	[XPLMI_ERROR_PMC_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PMC_NCR] =
+	[XPLMI_ERROR_PMC_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PMCSMON0] =
+	[XPLMI_ERROR_PMCSMON0] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PMCSMON1] =
+	[XPLMI_ERROR_PMCSMON1] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PMCSMON2] =
+	[XPLMI_ERROR_PMCSMON2] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PMCSMON3] =
+	[XPLMI_ERROR_PMCSMON3] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PMCSMON4] =
+	[XPLMI_ERROR_PMCSMON4] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PMC_RSRV1] =
+	[XPLMI_ERROR_PMC_RSRV1] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PMC_RSRV2] =
+	[XPLMI_ERROR_PMC_RSRV2] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PMC_RSRV3] =
+	[XPLMI_ERROR_PMC_RSRV3] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PMCSMON8] =
+	[XPLMI_ERROR_PMCSMON8] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PMCSMON9] =
+	[XPLMI_ERROR_PMCSMON9] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_CFI] =
+	[XPLMI_ERROR_CFI] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_SEUCRC] =
+	[XPLMI_ERROR_SEUCRC] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_SEUECC] =
+	[XPLMI_ERROR_SEUECC] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PMC_RSRV4] =
+	[XPLMI_ERROR_PMC_RSRV4] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PMC_RSRV5] =
+	[XPLMI_ERROR_PMC_RSRV5] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_RTCALARM] =
+	[XPLMI_ERROR_RTCALARM] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_NPLL] =
+	[XPLMI_ERROR_NPLL] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PPLL] =
+	[XPLMI_ERROR_PPLL] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_CLKMON] =
+	[XPLMI_ERROR_CLKMON] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PMCTO] =
+	[XPLMI_ERROR_PMCTO] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PMCXMPU] =
+	[XPLMI_ERROR_PMCXMPU] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PMCXPPU] =
+	[XPLMI_ERROR_PMCXPPU] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_SSIT0] =
+	[XPLMI_ERROR_SSIT0] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_SSIT1] =
+	[XPLMI_ERROR_SSIT1] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_SSIT2] =
+	[XPLMI_ERROR_SSIT2] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PS_SW_CR] =
+	[XPLMI_ERROR_PS_SW_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PS_SW_NCR] =
+	[XPLMI_ERROR_PS_SW_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PSM_B_CR] =
+	[XPLMI_ERROR_PSM_B_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PSM_B_NCR] =
+	[XPLMI_ERROR_PSM_B_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_MB_FATAL] =
+	[XPLMI_ERROR_MB_FATAL] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PSM_CR] =
+	[XPLMI_ERROR_PSM_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PSM_NCR] =
+	[XPLMI_ERROR_PSM_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_OCM_ECC] =
+	[XPLMI_ERROR_OCM_ECC] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_L2_ECC] =
+	[XPLMI_ERROR_L2_ECC] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_RPU_ECC] =
+	[XPLMI_ERROR_RPU_ECC] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_RPU_LS] =
+	[XPLMI_ERROR_RPU_LS] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_RPU_CCF] =
+	[XPLMI_ERROR_RPU_CCF] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_GIC_AXI] =
+	[XPLMI_ERROR_GIC_AXI] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_GIC_ECC] =
+	[XPLMI_ERROR_GIC_ECC] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_APLL_LOCK] =
+	[XPLMI_ERROR_APLL_LOCK] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_RPLL_LOCK] =
+	[XPLMI_ERROR_RPLL_LOCK] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_CPM_CR] =
+	[XPLMI_ERROR_CPM_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_CPM_NCR] =
+	[XPLMI_ERROR_CPM_NCR] =
 	{ .Handler = XPlmi_CpmErrHandler,
 			.Action = XPLMI_EM_ACTION_CUSTOM, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_LPD_APB] =
+	[XPLMI_ERROR_LPD_APB] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_FPD_APB] =
+	[XPLMI_ERROR_FPD_APB] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_LPD_PAR] =
+	[XPLMI_ERROR_LPD_PAR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_FPD_PAR] =
+	[XPLMI_ERROR_FPD_PAR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_IOU_PAR] =
+	[XPLMI_ERROR_IOU_PAR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PSM_PAR] =
+	[XPLMI_ERROR_PSM_PAR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_LPD_TO] =
+	[XPLMI_ERROR_LPD_TO] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_FPD_TO] =
+	[XPLMI_ERROR_FPD_TO] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PSM_TO] =
+	[XPLMI_ERROR_PSM_TO] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_XRAM_CR] =
+	[XPLMI_ERROR_XRAM_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_XRAM_NCR] =
+	[XPLMI_ERROR_XRAM_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PSM_RSRV1] =
+	[XPLMI_ERROR_PSM_RSRV1] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PSM_RSRV2] =
+	[XPLMI_ERROR_PSM_RSRV2] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PSM_RSRV3] =
+	[XPLMI_ERROR_PSM_RSRV3] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_LPD_SWDT] =
+	[XPLMI_ERROR_LPD_SWDT] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_FPD_SWDT] =
+	[XPLMI_ERROR_FPD_SWDT] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PSM_RSRV4] =
+	[XPLMI_ERROR_PSM_RSRV4] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PSM_RSRV5] =
+	[XPLMI_ERROR_PSM_RSRV5] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PSM_RSRV6] =
+	[XPLMI_ERROR_PSM_RSRV6] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PSM_RSRV7] =
+	[XPLMI_ERROR_PSM_RSRV7] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PSM_RSRV8] =
+	[XPLMI_ERROR_PSM_RSRV8] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PSM_RSRV9] =
+	[XPLMI_ERROR_PSM_RSRV9] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PSM_RSRV10] =
+	[XPLMI_ERROR_PSM_RSRV10] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PSM_RSRV11] =
+	[XPLMI_ERROR_PSM_RSRV11] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PSM_RSRV12] =
+	[XPLMI_ERROR_PSM_RSRV12] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PSM_RSRV13] =
+	[XPLMI_ERROR_PSM_RSRV13] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PSM_RSRV14] =
+	[XPLMI_ERROR_PSM_RSRV14] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PSM_RSRV15] =
+	[XPLMI_ERROR_PSM_RSRV15] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PSM_RSRV16] =
+	[XPLMI_ERROR_PSM_RSRV16] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PSM_RSRV17] =
+	[XPLMI_ERROR_PSM_RSRV17] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PSM_RSRV18] =
+	[XPLMI_ERROR_PSM_RSRV18] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_PSM_RSRV19] =
+	[XPLMI_ERROR_PSM_RSRV19] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_LPD_XMPU] =
+	[XPLMI_ERROR_LPD_XMPU] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_LPD_XPPU] =
+	[XPLMI_ERROR_LPD_XPPU] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_FPD_XMPU] =
+	[XPLMI_ERROR_FPD_XMPU] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_HB_MON_0] =
+	[XPLMI_ERROR_HB_MON_0] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_HB_MON_1] =
+	[XPLMI_ERROR_HB_MON_1] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_HB_MON_2] =
+	[XPLMI_ERROR_HB_MON_2] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_HB_MON_3] =
+	[XPLMI_ERROR_HB_MON_3] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 };
 
@@ -442,7 +443,7 @@ void XPlmi_UpdateErrorSubsystemId(u32 ErrorNodeId,
 
 	for (; ErrMasks != 0U; ErrMasks >>= 1U) {
 		if (((ErrMasks & 0x1U) != 0U) &&
-			(ErrorId < XPLMI_NODEIDX_ERROR_SW_ERR_MAX)) {
+			(ErrorId < XPLMI_ERROR_SW_ERR_MAX)) {
 			ErrorTable[ErrorId].SubsystemId = SubsystemId;
 		}
 		ErrorId++;
@@ -560,9 +561,9 @@ void XPlmi_HandleSwError(u32 ErrorNodeId, u32 RegMask)
 {
 	u32 ErrorId = XPlmi_GetErrorId(ErrorNodeId, RegMask);
 
-	if ((ErrorNodeId == XPLMI_EVENT_ERROR_SW_ERR) &&
-			(ErrorId < XPLMI_NODEIDX_ERROR_SW_ERR_MAX) &&
-			(ErrorId >= XPLMI_NODEIDX_ERROR_HB_MON_0)) {
+	if ((ErrorNodeId == XPLMI_NODETYPE_EVENT_ERROR_SW_ERR) &&
+			(ErrorId < XPLMI_ERROR_SW_ERR_MAX) &&
+			(ErrorId >= XPLMI_ERROR_HB_MON_0)) {
 		switch (ErrorTable[ErrorId].Action) {
 		case XPLMI_EM_ACTION_POR:
 			XPlmi_PORHandler();
@@ -740,24 +741,24 @@ static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 RegMask)
 	Err2Status = XPlmi_In32(PSM_GLOBAL_REG_PSM_ERR2_STATUS);
 
 	if (Err1Status != 0U) {
-		for (Index = XPLMI_NODEIDX_ERROR_PS_SW_CR;
-				Index < XPLMI_NODEIDX_ERROR_PSMERR1_MAX; Index++) {
+		for (Index = XPLMI_ERROR_PS_SW_CR;
+				Index < XPLMI_ERROR_PSMERR1_MAX; Index++) {
 			ErrRegMask = XPlmi_ErrRegMask(Index);
 			if (((Err1Status & ErrRegMask) != (u32)FALSE)
 				&& (ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)) {
 				XPlmi_HandlePsmError(
-					XPLMI_EVENT_ERROR_PSM_ERR1, ErrRegMask);
+					XPLMI_NODETYPE_EVENT_ERROR_PSM_ERR1, ErrRegMask);
 			}
 		}
 	}
 	if (Err2Status != 0U) {
-		for (Index = XPLMI_NODEIDX_ERROR_LPD_SWDT;
-				Index < XPLMI_NODEIDX_ERROR_PSMERR2_MAX; Index++) {
+		for (Index = XPLMI_ERROR_LPD_SWDT;
+				Index < XPLMI_ERROR_PSMERR2_MAX; Index++) {
 			ErrRegMask = XPlmi_ErrRegMask(Index);
 			if (((Err2Status & ErrRegMask) != (u32)FALSE)
 				&& (ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)) {
 				XPlmi_HandlePsmError(
-					XPLMI_EVENT_ERROR_PSM_ERR2, ErrRegMask);
+					XPLMI_NODETYPE_EVENT_ERROR_PSM_ERR2, ErrRegMask);
 			}
 		}
 	}
@@ -838,22 +839,22 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 	 */
 
 	if (Err1Status != 0U) {
-		for (Index = XPLMI_NODEIDX_ERROR_BOOT_CR;
-				Index < XPLMI_NODEIDX_ERROR_PMCERR1_MAX; Index++) {
+		for (Index = XPLMI_ERROR_BOOT_CR;
+				Index < XPLMI_ERROR_PMCERR1_MAX; Index++) {
 			RegMask = XPlmi_ErrRegMask(Index);
 			if (((Err1Status & RegMask) != (u32)FALSE) &&
 					((ErrorTable[Index].Handler != NULL) ||
-					(Index == XPLMI_NODEIDX_ERROR_PMC_PSM_NCR)) &&
+					(Index == XPLMI_ERROR_PMC_PSM_NCR)) &&
 					(ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)) {
 				/* PSM errors are handled in PsmErrHandler */
-				if (Index != XPLMI_NODEIDX_ERROR_PMC_PSM_NCR) {
-					(void)XPlmi_EmDisable(XPLMI_EVENT_ERROR_PMC_ERR1,
+				if (Index != XPLMI_ERROR_PMC_PSM_NCR) {
+					(void)XPlmi_EmDisable(XPLMI_NODETYPE_EVENT_ERROR_PMC_ERR1,
 							RegMask);
-					ErrorTable[Index].Handler(XPLMI_EVENT_ERROR_PMC_ERR1,
+					ErrorTable[Index].Handler(XPLMI_NODETYPE_EVENT_ERROR_PMC_ERR1,
 							RegMask);
 				}
 				else {
-					XPlmi_ErrPSMIntrHandler(XPLMI_EVENT_ERROR_PMC_ERR1,
+					XPlmi_ErrPSMIntrHandler(XPLMI_NODETYPE_EVENT_ERROR_PMC_ERR1,
 							RegMask);
 				}
 				XPlmi_EmClearError((u32)XPLMI_NODETYPE_EVENT_PMC_ERR1, Index);
@@ -862,16 +863,16 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 	}
 
 	if (Err2Status != 0U) {
-		for (Index = XPLMI_NODEIDX_ERROR_PMCAPB;
-				Index < XPLMI_NODEIDX_ERROR_PMCERR2_MAX; Index++) {
+		for (Index = XPLMI_ERROR_PMCAPB;
+				Index < XPLMI_ERROR_PMCERR2_MAX; Index++) {
 			RegMask = XPlmi_ErrRegMask(Index);
 			if (((Err2Status & RegMask) != (u32)FALSE)
 				&& (ErrorTable[Index].Handler != NULL) &&
 				(ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)) {
-				(void)XPlmi_EmDisable(XPLMI_EVENT_ERROR_PMC_ERR2,
+				(void)XPlmi_EmDisable(XPLMI_NODETYPE_EVENT_ERROR_PMC_ERR2,
 						      RegMask);
 				ErrorTable[Index].Handler(
-					XPLMI_EVENT_ERROR_PMC_ERR2, RegMask);
+					XPLMI_NODETYPE_EVENT_ERROR_PMC_ERR2, RegMask);
 				XPlmi_EmClearError((u32)XPLMI_NODETYPE_EVENT_PMC_ERR2, Index);
 			}
 		}
@@ -907,7 +908,7 @@ static void XPlmi_EmClearError(u32 ErrorNodeType, u32 ErrorId)
 		XPlmi_Out32(PSM_GLOBAL_REG_PSM_ERR1_STATUS, RegMask);
 		/* If action is error out, clear PMC FW_CR error */
 		if ((ErrorTable[ErrorId].Action == XPLMI_EM_ACTION_ERROUT) &&
-			(ErrorTable[XPLMI_NODEIDX_ERROR_PMC_PSM_CR].Action !=
+			(ErrorTable[XPLMI_ERROR_PMC_PSM_CR].Action !=
 					XPLMI_EM_ACTION_ERROUT)) {
 			NumErrOuts =
 					XPlmi_UpdateNumErrOutsCount(XPLMI_UPDATE_TYPE_DECREMENT);
@@ -922,7 +923,7 @@ static void XPlmi_EmClearError(u32 ErrorNodeType, u32 ErrorId)
 		XPlmi_Out32(PSM_GLOBAL_REG_PSM_ERR2_STATUS, RegMask);
 		/* If action is error out, clear PMC FW_CR error */
 		if ((ErrorTable[ErrorId].Action == XPLMI_EM_ACTION_ERROUT) &&
-			(ErrorTable[XPLMI_NODEIDX_ERROR_PMC_PSM_CR].Action !=
+			(ErrorTable[XPLMI_ERROR_PMC_PSM_CR].Action !=
 					XPLMI_EM_ACTION_ERROUT)) {
 			NumErrOuts =
 					XPlmi_UpdateNumErrOutsCount(XPLMI_UPDATE_TYPE_DECREMENT);
@@ -1037,7 +1038,7 @@ static int XPlmi_EmEnablePOR(u32 ErrorNodeType, u32 RegMask)
 		Status = XST_SUCCESS;
 		break;
 	case XPLMI_NODETYPE_EVENT_PSM_ERR1:
-		if (ErrorTable[XPLMI_NODEIDX_ERROR_PMC_PSM_CR].Action ==
+		if (ErrorTable[XPLMI_ERROR_PMC_PSM_CR].Action ==
 				XPLMI_EM_ACTION_POR) {
 			XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR1_EN, RegMask);
 		} else {
@@ -1046,7 +1047,7 @@ static int XPlmi_EmEnablePOR(u32 ErrorNodeType, u32 RegMask)
 		Status = XST_SUCCESS;
 		break;
 	case XPLMI_NODETYPE_EVENT_PSM_ERR2:
-		if (ErrorTable[XPLMI_NODEIDX_ERROR_PMC_PSM_CR].Action ==
+		if (ErrorTable[XPLMI_ERROR_PMC_PSM_CR].Action ==
 				XPLMI_EM_ACTION_POR) {
 			XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR2_EN, RegMask);
 		} else {
@@ -1093,7 +1094,7 @@ static int XPlmi_EmEnableSRST(u32 ErrorNodeType, u32 RegMask)
 		Status = XST_SUCCESS;
 		break;
 	case XPLMI_NODETYPE_EVENT_PSM_ERR1:
-		if (ErrorTable[XPLMI_NODEIDX_ERROR_PMC_PSM_CR].Action ==
+		if (ErrorTable[XPLMI_ERROR_PMC_PSM_CR].Action ==
 				XPLMI_EM_ACTION_SRST) {
 			XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR1_EN, RegMask);
 		} else {
@@ -1102,7 +1103,7 @@ static int XPlmi_EmEnableSRST(u32 ErrorNodeType, u32 RegMask)
 		Status = XST_SUCCESS;
 		break;
 	case XPLMI_NODETYPE_EVENT_PSM_ERR2:
-		if (ErrorTable[XPLMI_NODEIDX_ERROR_PMC_PSM_CR].Action ==
+		if (ErrorTable[XPLMI_ERROR_PMC_PSM_CR].Action ==
 				XPLMI_EM_ACTION_SRST) {
 			XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR2_EN, RegMask);
 		} else {
@@ -1150,7 +1151,7 @@ static int XPlmi_EmEnablePSError(u32 ErrorNodeType, u32 RegMask)
 		Status = XST_SUCCESS;
 		break;
 	case XPLMI_NODETYPE_EVENT_PSM_ERR1:
-		if (ErrorTable[XPLMI_NODEIDX_ERROR_PMC_PSM_CR].Action ==
+		if (ErrorTable[XPLMI_ERROR_PMC_PSM_CR].Action ==
 				XPLMI_EM_ACTION_ERROUT) {
 			XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR1_EN, RegMask);
 		} else {
@@ -1159,7 +1160,7 @@ static int XPlmi_EmEnablePSError(u32 ErrorNodeType, u32 RegMask)
 		Status = XST_SUCCESS;
 		break;
 	case XPLMI_NODETYPE_EVENT_PSM_ERR2:
-		if (ErrorTable[XPLMI_NODEIDX_ERROR_PMC_PSM_CR].Action ==
+		if (ErrorTable[XPLMI_ERROR_PMC_PSM_CR].Action ==
 				XPLMI_EM_ACTION_ERROUT) {
 			XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR2_EN, RegMask);
 		} else {
@@ -1330,7 +1331,7 @@ int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMasks, u8 ActionId,
 		RegMask = XPlmi_ErrRegMask(ErrorId);
 
 		/* Check for Valid Error ID */
-		if ((ErrorId >= XPLMI_NODEIDX_ERROR_SW_ERR_MAX) ||
+		if ((ErrorId >= XPLMI_ERROR_SW_ERR_MAX) ||
 				(ErrorTable[ErrorId].Action == XPLMI_EM_ACTION_INVALID)) {
 			/* Invalid Error Id */
 			Status = XPLMI_INVALID_ERROR_ID;
@@ -1340,7 +1341,7 @@ int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMasks, u8 ActionId,
 		}
 
 		if((XPLMI_EM_ACTION_CUSTOM == ActionId) && (NULL == ErrorHandler) &&
-				(XPLMI_NODEIDX_ERROR_PMC_PSM_NCR != ErrorId)) {
+				(XPLMI_ERROR_PMC_PSM_NCR != ErrorId)) {
 			/* Null handler */
 			Status = XPLMI_INVALID_ERROR_HANDLER;
 			XPlmi_Printf(DEBUG_GENERAL, "Invalid Error Handler \n\r");
@@ -1440,11 +1441,11 @@ void XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown,
 	PmSubsysRestart = SubsystemRestart;
 
 	/* Set the default actions as defined in the Error table */
-	for (Index = XPLMI_NODEIDX_ERROR_BOOT_CR;
-		Index < XPLMI_NODEIDX_ERROR_PMCERR1_MAX; Index++) {
+	for (Index = XPLMI_ERROR_BOOT_CR;
+		Index < XPLMI_ERROR_PMCERR1_MAX; Index++) {
 		if (ErrorTable[Index].Action != XPLMI_EM_ACTION_INVALID) {
 			RegMask = XPlmi_ErrRegMask(Index);
-			if (XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PMC_ERR1, RegMask,
+			if (XPlmi_EmSetAction(XPLMI_NODETYPE_EVENT_ERROR_PMC_ERR1, RegMask,
 						ErrorTable[Index].Action,
 						ErrorTable[Index].Handler) != XST_SUCCESS) {
 				XPlmi_Printf(DEBUG_GENERAL,
@@ -1454,11 +1455,11 @@ void XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown,
 		}
 	}
 
-	for (Index = XPLMI_NODEIDX_ERROR_PMCAPB;
-		Index < XPLMI_NODEIDX_ERROR_PMCERR2_MAX; Index++) {
+	for (Index = XPLMI_ERROR_PMCAPB;
+		Index < XPLMI_ERROR_PMCERR2_MAX; Index++) {
 		if (ErrorTable[Index].Action != XPLMI_EM_ACTION_INVALID) {
 			RegMask = XPlmi_ErrRegMask(Index);
-			if (XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PMC_ERR2, RegMask,
+			if (XPlmi_EmSetAction(XPLMI_NODETYPE_EVENT_ERROR_PMC_ERR2, RegMask,
 						ErrorTable[Index].Action,
 						ErrorTable[Index].Handler) != XST_SUCCESS) {
 				XPlmi_Printf(DEBUG_GENERAL,
@@ -1508,11 +1509,11 @@ int XPlmi_PsEmInit(void)
 	XPlmi_Out32(PSM_GLOBAL_REG_PSM_ERR2_STATUS, MASK32_ALL_HIGH);
 
 	/* Set the default actions as defined in the Error table */
-	for (Index = XPLMI_NODEIDX_ERROR_PS_SW_CR;
-		Index < XPLMI_NODEIDX_ERROR_PSMERR1_MAX; Index++) {
+	for (Index = XPLMI_ERROR_PS_SW_CR;
+		Index < XPLMI_ERROR_PSMERR1_MAX; Index++) {
 		if (ErrorTable[Index].Action != XPLMI_EM_ACTION_INVALID) {
 			RegMask = XPlmi_ErrRegMask(Index);
-			if (XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PSM_ERR1, RegMask,
+			if (XPlmi_EmSetAction(XPLMI_NODETYPE_EVENT_ERROR_PSM_ERR1, RegMask,
 						ErrorTable[Index].Action,
 						ErrorTable[Index].Handler) != XST_SUCCESS) {
 				XPlmi_Printf(DEBUG_GENERAL,
@@ -1522,11 +1523,11 @@ int XPlmi_PsEmInit(void)
 		}
 	}
 
-	for (Index = XPLMI_NODEIDX_ERROR_LPD_SWDT;
-		Index < XPLMI_NODEIDX_ERROR_PSMERR2_MAX; Index++) {
+	for (Index = XPLMI_ERROR_LPD_SWDT;
+		Index < XPLMI_ERROR_PSMERR2_MAX; Index++) {
 		if (ErrorTable[Index].Action != XPLMI_EM_ACTION_INVALID) {
 			RegMask = XPlmi_ErrRegMask(Index);
-			if (XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PSM_ERR2, RegMask,
+			if (XPlmi_EmSetAction(XPLMI_NODETYPE_EVENT_ERROR_PSM_ERR2, RegMask,
 						ErrorTable[Index].Action,
 						ErrorTable[Index].Handler) != XST_SUCCESS) {
 				XPlmi_Printf(DEBUG_GENERAL,
@@ -1622,8 +1623,8 @@ static void XPlmi_SoftResetHandler(void)
  *****************************************************************************/
 void XPlmi_TriggerFwNcrError(void)
 {
-	if ((ErrorTable[XPLMI_NODEIDX_ERROR_FW_NCR].Action == XPLMI_EM_ACTION_SRST) ||
-		(ErrorTable[XPLMI_NODEIDX_ERROR_FW_NCR].Action == XPLMI_EM_ACTION_POR)) {
+	if ((ErrorTable[XPLMI_ERROR_FW_NCR].Action == XPLMI_EM_ACTION_SRST) ||
+		(ErrorTable[XPLMI_ERROR_FW_NCR].Action == XPLMI_EM_ACTION_POR)) {
 		XPlmi_SysmonClkSetIro();
 	}
 
