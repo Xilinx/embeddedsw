@@ -45,6 +45,8 @@
 * 2.11  mus  02/26/20 Updated as per 2020.1 Vitis toolchain directory structure
 * 2.13  mus  05/23/21 Added -fno-tree-loop-distribute-patterns to prevent for loops
 *                     to memset conversions. It fixes CR#1090083.
+* 2.14  mus  08/23/21 Removed fsl.h, it is duplicate of standalone/src/microblaze/fsl.h.
+*                     It fixes CR#1108558.
 *
 * </pre>
 *
