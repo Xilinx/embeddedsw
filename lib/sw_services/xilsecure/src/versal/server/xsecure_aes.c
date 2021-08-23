@@ -65,6 +65,7 @@
 *       kpt  07/15/2021 Added 64bit support for XSecure_AesWriteKey
 *       kal  08/19/2021 Renamed XSecure_AesPmcDmaCfgByteSwap to
 *                       XSecure_AesPmcDmaCfgAndXfer
+*       har  08/23/2021 Updated AAD size check
 *
 * </pre>
 *
@@ -639,7 +640,7 @@ END:
  * @param	AadAddr		- Address of the additional authenticated data
  * @param	AadSize		- Size of additional authenticated data in bytes,
  *				  whereas number of bytes provided should be
- *				  multiples of 4
+ *				  quad-word aligned(multiples of 16 bytes)
  *
  * @return	- XST_SUCCESS - On successful update of AAD
  *		- XSECURE_AES_INVALID_PARAM - On invalid parameter
@@ -661,7 +662,7 @@ int XSecure_AesUpdateAad(XSecure_Aes *InstancePtr, u64 AadAddr, u32 AadSize)
 		goto END;
 	}
 
-	if ((AadAddr == 0x00U) || ((AadSize % XSECURE_WORD_SIZE) != 0x00U)) {
+	if ((AadAddr == 0x00U) || ((AadSize % XSECURE_QWORD_SIZE) != 0x00U)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END_RST;
 	}
