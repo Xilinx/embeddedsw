@@ -34,6 +34,7 @@
 *       bm      05/19/21 Added macro for word aligned mask
 * 4.6   har     07/14/21 Fixed doxygen warnings
 *       gm      07/16/21 Support added to read 32 bit data from 64bit address
+*       har     08/14/21 Added macro for QWord
 *
 * </pre>
 *
@@ -58,6 +59,7 @@ extern "C" {
 #define XSECURE_RESET_SET		(1U) /**< To set the core into reset */
 #define XSECURE_RESET_UNSET		(0U) /**< To take the core out of reset */
 #define XSECURE_WORD_SIZE		(4U) /**< WORD size in BYTES */
+#define XSECURE_QWORD_SIZE		(16U) /**< QWORD size in BYTES */
 #define XSECURE_WORD_IN_BITS		(32U)/**< WORD size in BITS */
 #define XSECURE_WORD_ALIGN_MASK		(XSECURE_WORD_SIZE - 1U)/**< WORD alignment */
 
