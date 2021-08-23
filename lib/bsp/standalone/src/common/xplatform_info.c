@@ -30,6 +30,10 @@
 * 7.0	aru 03/15/19  Check for versal before aarch64 and armr5
 *		      in XGetPlatform_Info()
 * 7.2   adk 08/01/20  Added versal support for the XGetPSVersion_Info function.
+* 7.6   mus 08/23/21  Updated prototypes for functions which are not taking any
+*                     arguments with void keyword. This has been done to fix
+*                     compilation warnings with "-Wstrict-prototypes" flag.
+*                     It fixes CR#1108601.
 * </pre>
 *
 ******************************************************************************/
@@ -62,7 +66,7 @@
 * @return   The information about platform defined in xplatform_info.h
 *
 ******************************************************************************/
-u32 XGetPlatform_Info()
+u32 XGetPlatform_Info(void)
 {
 #if defined (versal)
 	return XPLAT_VERSAL;
@@ -85,7 +89,7 @@ u32 XGetPlatform_Info()
 *
 ******************************************************************************/
 #if defined (ARMR5) || (__aarch64__) || (ARMA53_32)
-u32 XGet_Zynq_UltraMp_Platform_info()
+u32 XGet_Zynq_UltraMp_Platform_info(void)
 {
 #if EL1_NONSECURE
 	XSmc_OutVar reg;
@@ -114,7 +118,7 @@ u32 XGet_Zynq_UltraMp_Platform_info()
 *
 ******************************************************************************/
 #if defined (ARMR5) || (__aarch64__) || (ARMA53_32) || (PSU_PMU) || defined(versal)
-u32 XGetPSVersion_Info()
+u32 XGetPSVersion_Info(void)
 {
 #if EL1_NONSECURE
         /*
