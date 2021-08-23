@@ -33,6 +33,10 @@
 *                      routines in sync with Microblaze frequency.
 *                      Added Xil_GetMBFrequency to read current Microbalze frequency.
 *                      It fixes CR#1094568.
+* 7.6   mus  08/23/21  Updated prototypes for functions which are not taking any
+*                      arguments with void keyword. This has been done to fix
+*                      compilation warnings with "-Wstrict-prototypes" flag.
+*                      It fixes CR#1108601.
 *
 * </pre>
 *
@@ -105,10 +109,10 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 
 static void Xil_SleepAxiTimer(u32 delay, u64 frequency);
-static void XTime_StartAxiTimer();
+static void XTime_StartAxiTimer(void);
 #else
 u32 Xil_SetMBFrequency(u32 Val);
-u32 Xil_GetMBFrequency();
+u32 Xil_GetMBFrequency(void);
 #endif
 /**
  *@endcond

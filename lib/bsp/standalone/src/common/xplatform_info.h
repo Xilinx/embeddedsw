@@ -25,6 +25,10 @@
 * 6.4    ms   05/23/17 Added PSU_PMU macro to support XGetPSVersion_Info
 *                      function for PMUFW.
 * 7.2    adk  08/01/20 Added versal support for the XGetPSVersion_Info function.
+* 7.6    mus  08/23/21 Updated prototypes for functions which are not taking any
+*                      arguments with void keyword. This has been done to fix
+*                      compilation warnings with "-Wstrict-prototypes" flag.
+*                      It fixes CR#1108601.
 * </pre>
 *
 ******************************************************************************/
@@ -88,11 +92,11 @@ extern "C" {
 u32 XGetPlatform_Info(void);
 
 #if defined (ARMR5) || (__aarch64__) || (ARMA53_32) || (PSU_PMU) || defined(versal)
-u32 XGetPSVersion_Info();
+u32 XGetPSVersion_Info(void);
 #endif
 
 #if defined (ARMR5) || (__aarch64__) || (ARMA53_32)
-u32 XGet_Zynq_UltraMp_Platform_info();
+u32 XGet_Zynq_UltraMp_Platform_info(void);
 #endif
 /************************** Function Prototypes ******************************/
 
