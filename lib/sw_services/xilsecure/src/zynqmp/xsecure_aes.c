@@ -53,6 +53,7 @@
 *                    and then write to PCAP
 *       bsv 05/03/21 Add provision to load bitstream from OCM with DDR
 *                     present in design
+* 4.6   kal 08/11/21 Added EXPORT CONTROL eFuse check in AesInitialize
 *
 * </pre>
 *
@@ -64,6 +65,7 @@
 #include "xsecure_aes.h"
 #include "xil_io.h"
 #include "xsecure_utils.h"
+#include "xsecure_cryptochk.h"
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #ifdef XSECURE_TPM_ENABLE
@@ -137,6 +139,13 @@ static s32 XSecure_PassChunkToAes(XCsuDma *InstancePtr, const u8* SrcAddr,
 s32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr,
 				u32 KeySel, u32* IvPtr,  u32* KeyPtr)
 {
+	int Status = XST_FAILURE;
+
+	Status = (int)XSecure_CryptoCheck();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CsuDmaPtr != NULL);
@@ -161,7 +170,8 @@ s32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr,
 
 	XSecure_SssInitialize(&InstancePtr->SssInstance);
 
-	return XST_SUCCESS;
+END:
+	return Status;
 }
 
 /*****************************************************************************/

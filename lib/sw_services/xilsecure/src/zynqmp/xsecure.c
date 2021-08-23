@@ -223,7 +223,6 @@ u32 XSecure_Sha3Hash(u32 SrcAddrHigh, u32 SrcAddrLow, u32 SrcSize, u32 Flags)
 
 		Status = (u32)XSecure_Sha3Initialize(&Sha3Instance, &CsuDma);
 		if (Status != (u32)XST_SUCCESS) {
-			Status = XSECURE_SHA3_INIT_FAIL;
 			goto END;
 		}
 		XSecure_Sha3Start(&Sha3Instance);
@@ -355,15 +354,16 @@ static u32 XSecure_InitAes(u32 AddrHigh, u32 AddrLow)
 	}
 	/* Initialize the Aes driver so that it's ready to use */
 	if (AesParams->KeySrc == XSECURE_AES_KUP_KEY) {
-		(void)XSecure_AesInitialize(&SecureAes, &CsuDma,
+		Status = (u32)XSecure_AesInitialize(&SecureAes, &CsuDma,
 				XSECURE_CSU_AES_KEY_SRC_KUP,
 				XsecureIv, KeyPtr);
 	}
 	else {
-		(void)XSecure_AesInitialize(&SecureAes, &CsuDma,
+		Status = (u32)XSecure_AesInitialize(&SecureAes, &CsuDma,
 				XSECURE_CSU_AES_KEY_SRC_DEV,
 				XsecureIv, NULL);
 	}
+
 END:
 	return Status;
 
@@ -1202,7 +1202,10 @@ u32 XSecure_PpkVerify(XCsuDma *CsuDmaInstPtr, u8 *AuthCert)
 	}
 
 	/* Calculate PPK hash */
-	(void)XSecure_Sha3Initialize(&Sha3Inst, CsuDmaInstPtr);
+	Status = XSecure_Sha3Initialize(&Sha3Inst, CsuDmaInstPtr);
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
 	Status = (u32)XSecure_Sha3PadSelection(&Sha3Inst,
 				XSECURE_CSU_KECCAK_SHA3);
 	if (Status != (u32)XST_SUCCESS) {
@@ -1288,7 +1291,10 @@ u32 XSecure_SpkAuthentication(XCsuDma *CsuDmaInstPtr, u8 *AuthCert, u8 *Ppk)
 	}
 
 	/* Initialize sha3 */
-	(void)XSecure_Sha3Initialize(&Sha3Instance, CsuDmaInstPtr);
+	Status = XSecure_Sha3Initialize(&Sha3Instance, CsuDmaInstPtr);
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
 	if (SpkIdFuseSel == XSECURE_SPKID_EFUSE) {
                 (void)XSecure_Sha3PadSelection(&Sha3Instance, XSECURE_CSU_KECCAK_SHA3);
         }
@@ -1563,14 +1569,18 @@ static u32 XSecure_DecryptPartition(XSecure_ImageInfo *ImageHdrInfo,
 
 	/* Initialize the AES driver so that it's ready to use */
 	if (ImageHdrInfo->KeySrc == XSECURE_KEY_SRC_KUP) {
-		(void)XSecure_AesInitialize(&SecureAes, &CsuDma,
+		Status = (u32)XSecure_AesInitialize(&SecureAes, &CsuDma,
 				XSECURE_CSU_AES_KEY_SRC_KUP,
 				(u32 *)ImageHdrInfo->Iv, AesKupKey);
 	}
 	else {
-		(void)XSecure_AesInitialize(&SecureAes, &CsuDma,
+		Status = (u32)XSecure_AesInitialize(&SecureAes, &CsuDma,
 					XSECURE_CSU_AES_KEY_SRC_DEV,
 					(u32 *)ImageHdrInfo->Iv, NULL);
+	}
+
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
 	}
 
 	if (ImageHdrInfo->PartitionHdr->DestinationLoadAddress == 0x00U) {
