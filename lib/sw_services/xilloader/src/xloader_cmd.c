@@ -45,6 +45,7 @@
 *       bm   03/16/2021 Added Image Upgrade support
 * 1.06  bm   07/16/2021 Added decrypt metaheader support
 *       bm   07/30/2021 Updated decrypt metaheader logic to support full PDIs
+*       kpt  08/22/2021 Added redundancy to XLoader_CheckIpiAccess
 *
 * </pre>
 *
@@ -771,25 +772,30 @@ END:
 static int XLoader_CheckIpiAccess(u32 CmdId, u32 IpiReqType)
 {
 	int Status = XST_FAILURE;
-	u32 ModuleCmdId = CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK;
+	volatile u8 ModuleCmdId = (u8)(CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK);
+	volatile u8 ModuleCmdIdTmp = (u8)(CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK);
+	volatile u32 IpiReqTypeTmp = IpiReqType;
 
 	/* Secure check for Loader IPI commands */
-	switch (ModuleCmdId) {
-		/*
-		 * Check IPI request type for Readback and Update Multiboot IPI
-		 * commands and allow access only if the request is secure
-		 */
-		case XLOADER_CMD_READBACK_CMD_ID:
-		case XLOADER_CMD_UPDATE_MULTIBOOT_CMD_ID:
-			if (XPLMI_CMD_SECURE == IpiReqType) {
-				Status = XST_SUCCESS;
-			}
-			break;
-
-		/* Allow access for all other IPI commands */
-		default:
+	if (((ModuleCmdId == XLOADER_CMD_READBACK_CMD_ID) &&
+		(ModuleCmdIdTmp == XLOADER_CMD_READBACK_CMD_ID)) ||
+		((ModuleCmdId == XLOADER_CMD_UPDATE_MULTIBOOT_CMD_ID) &&
+		(ModuleCmdIdTmp == XLOADER_CMD_UPDATE_MULTIBOOT_CMD_ID))) {
+		if ((XPLMI_CMD_SECURE == IpiReqType) &&
+			(XPLMI_CMD_SECURE == IpiReqTypeTmp)) {
 			Status = XST_SUCCESS;
-			break;
+		}
+	}
+	else if (((ModuleCmdId != XLOADER_CMD_READBACK_CMD_ID) &&
+		(ModuleCmdIdTmp != XLOADER_CMD_READBACK_CMD_ID)) &&
+		((ModuleCmdId != XLOADER_CMD_UPDATE_MULTIBOOT_CMD_ID) &&
+		(ModuleCmdIdTmp != XLOADER_CMD_UPDATE_MULTIBOOT_CMD_ID))) {
+		if (ModuleCmdId == ModuleCmdIdTmp) {
+			Status = XST_SUCCESS;
+		}
+	}
+	else {
+		Status = (int)XLOADER_ERR_GLITCH_DETECTED;
 	}
 
 	return Status;
