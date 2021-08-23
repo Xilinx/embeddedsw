@@ -50,6 +50,8 @@
  *       ma   08/12/2021 Fix issue in task creation for IPI channels
  *       bsv  08/15/2021 Removed unwanted goto statements
  *       rv   08/19/2021 Do not ack force power down command
+ *       rv   08/22/2021 Use XPLMI_PLM_GENERIC_CMD_ID_MASK macro instead of hard
+ *			 coded value
  *
  * </pre>
  *
@@ -260,7 +262,8 @@ int XPlmi_IpiDispatchHandler(void *Data)
 		Status = XPlmi_CmdExecute(&Cmd);
 
 END:
-		if (((u8)PM_FORCE_POWERDOWN) != (u8)(Cmd.CmdId & 0xFFU)) {
+		if (((u8)PM_FORCE_POWERDOWN) != (u8)(Cmd.CmdId &
+		    XPLMI_PLM_GENERIC_CMD_ID_MASK)) {
 			Cmd.Response[0U] = (u32)Status;
 			/* Send response to caller */
 			(void)XPlmi_IpiWrite(Cmd.IpiMask, Cmd.Response,
