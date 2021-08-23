@@ -39,6 +39,7 @@
 *                       repeated code
 *       am   05/18/2021 Resolved MISRA C violations
 * 1.4   har  07/09/2021 Fixed Doxygen warnings
+*       har  08/12/2021 Added comment related to IRO frequency
 *
 * </pre>
 *
@@ -199,10 +200,14 @@ static int XPuf_StartRegeneration(XPuf_Data *PufData);
  *                                                  waiting for PUF Syndrome data
  *          XPUF_ERROR_PUF_DONE_WAIT_TIMEOUT      - Timeout occurred while
  *                                                  waiting for PUF done bit
- *	    XST_FAILURE - Unexpected event
+ *          XPUF_IRO_FREQ_MISMATCH                - Mismatch in IRO frequency
+ *                                                  at the time of PUF registration
+ *          XST_FAILURE - Unexpected event
  *
  * @note	Helper data will be available in PufData->SyndromeData,
- *			PufData->Chash, PufData->Aux
+ *		PufData->Chash, PufData->Aux
+ *		PUF is only supported when using a nominal VCC_PMC of 0.70V or
+ *		IRO frequency of 320 MHz
  *
  *****************************************************************************/
 int XPuf_Registration(XPuf_Data *PufData)
@@ -321,7 +326,12 @@ END:
  *              XPUF_ERROR_PUF_DONE_KEY_ID_NT_RDY    - Key ready bit and ID ready
  *                                                     bit is not set
  *              XPUF_ERROR_PUF_DONE_ID_NT_RDY        - Id ready bit is not set
+ *              XPUF_IRO_FREQ_MISMATCH               - Mismatch in IRO frequency
+ *                                                     at the time of PUF regeneration
  *              XST_FAILURE - Unexpected event
+ *
+ * @note	PUF is only supported when using a nominal VCC_PMC of 0.70V or
+ *		IRO frequency of 320 MHz
  *
  *****************************************************************************/
 int XPuf_Regeneration(XPuf_Data *PufData)
