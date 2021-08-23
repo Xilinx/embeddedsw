@@ -1,9 +1,27 @@
-/*
- * si570_cmds.h
+/******************************************************************************
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+ *****************************************************************************/
+
+/*****************************************************************************/
+/**
  *
- *  Created on: Nov 26, 2013
- *      Author: mcgett
- */
+ * @file si570drv.h
+ *
+ * This file contains low-level driver functions for controlling the
+ * SiliconLabs Si570 clock generator as mounted on the VCK190 demo board.
+ * The user should refer to the hardware device specification for more details
+ * of the device operation.
+ *
+ * <pre>
+ * MODIFICATION HISTORY:
+ *
+ * Ver   Who Date         Changes
+ * ----- --- ----------   -----------------------------------------------
+ * 1.0   ssh 07/28/2021	  Initial release.
+ * </pre>
+ *
+ ****************************************************************************/
 
 #include "xil_types.h"
 #include "xparameters.h"
