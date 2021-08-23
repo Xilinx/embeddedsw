@@ -31,6 +31,7 @@
 *       har  04/06/20 Moved PKCS padding related code for zynqmp here from the
 *                     common directory
 *       har  10/12/20 Addressed security review comments
+* 4.6   kal  08/11/21 Added EXPORT CONTROL eFuse check in RsaCfgInitialize
 *
 * </pre>
 *
@@ -42,6 +43,7 @@
 #include "xsecure_rsa_core.h"
 #include "xsecure_rsa_hw.h"
 #include "xplatform_info.h"
+#include "xsecure_cryptochk.h"
 
 /************************** Constant Definitions *****************************/
 /* PKCS padding for SHA-3 in 1.0 Silicon */
@@ -87,9 +89,14 @@ u32 XSecure_RsaCfgInitialize(XSecure_Rsa *InstancePtr)
 {
 	u32 Status = (u32)XST_FAILURE;
 
-	InstancePtr->BaseAddress = XSECURE_CSU_RSA_BASE;
-	Status = (u32)XST_SUCCESS;
+	Status = XSecure_CryptoCheck();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
+	InstancePtr->BaseAddress = XSECURE_CSU_RSA_BASE;
+
+END:
 	return Status;
 }
 

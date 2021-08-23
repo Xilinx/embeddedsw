@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -48,6 +48,7 @@
 *       kpt  04/06/20 Updated Sha3 State variable in Xsecure_Sha3Update
 *       vns  04/13/20 Improved SHA3Finish to handle if last update is set
 *       kot  04/21/20 Fixed MISRA C violations
+* 4.6   kal  08/11/21 Added EXPORT CONTROL eFuse check in Sha3Initialize
 *
 * @note
 *
@@ -59,6 +60,7 @@
 #include "xil_util.h"
 #include "xil_assert.h"
 #include "xsecure_utils.h"
+#include "xsecure_cryptochk.h"
 
 /************************** Constant Definitions *****************************/
 #define XSECURE_CSU_SHA3_HASH_LENGTH_IN_BITS	(384U)
@@ -129,6 +131,13 @@ static void XSecure_Sha3NistPadd(XSecure_Sha3 *InstancePtr, u8 *Dst,
 
 s32 XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XCsuDma* CsuDmaPtr)
 {
+	int Status = XST_FAILURE;
+
+	Status = (int)XSecure_CryptoCheck();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CsuDmaPtr != NULL);
@@ -143,7 +152,8 @@ s32 XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XCsuDma* CsuDmaPtr)
 
 	InstancePtr->Sha3State = XSECURE_SHA3_INITIALIZED;
 
-	return XST_SUCCESS;
+END:
+	return Status;
 }
 
 /*****************************************************************************/
