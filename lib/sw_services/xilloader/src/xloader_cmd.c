@@ -46,6 +46,7 @@
 * 1.06  bm   07/16/2021 Added decrypt metaheader support
 *       bm   07/30/2021 Updated decrypt metaheader logic to support full PDIs
 *       kpt  08/22/2021 Added redundancy to XLoader_CheckIpiAccess
+*       bm   08/24/2021 Updated decrypt metaheader command to extract metaheader
 *
 * </pre>
 *
@@ -101,6 +102,11 @@ static XPlmi_Module XPlmi_Loader;
 #define XLOADER_CMD_MULTIBOOT_IMG_LOCATION_INDEX	(1U)
 #define XLOADER_CMD_IMGSTORE_PDIADDR_HIGH_INDEX		(0U)
 #define XLOADER_CMD_IMGSTORE_PDIADDR_LOW_INDEX		(1U)
+#define XLOADER_CMD_EXTRACT_METAHDR_PDIADDR_HIGH_INDEX	(0U)
+#define XLOADER_CMD_EXTRACT_METAHDR_PDIADDR_LOW_INDEX	(1U)
+#define XLOADER_CMD_EXTRACT_METAHDR_DESTADDR_HIGH_INDEX	(2U)
+#define XLOADER_CMD_EXTRACT_METAHDR_DESTADDR_LOW_INDEX	(3U)
+#define XLOADER_CMD_EXTRACT_METAHDR_DEST_SIZE_INDEX	(4U)
 #define XLOADER_RESP_CMD_EXEC_STATUS_INDEX	(0U)
 #define XLOADER_RESP_CMD_FEATURES_CMD_SUPPORTED	(1U)
 #define XLOADER_RESP_CMD_READBACK_PROCESSED_LEN_INDEX	(1U)
@@ -127,7 +133,7 @@ static XPlmi_Module XPlmi_Loader;
 #define XLOADER_IMG_HDR_TBL_EXPORT_MASK0	(0x00021F7FU)
 #define XLOADER_IMG_HDR_EXPORT_MASK0	(0x00003FFBU)
 #define XLOADER_PRTN_HDR_EXPORT_MASK0	(0x00001DFFU)
-#define XLOADER_META_HDR_LEN_OFFSET	(0x30U)
+#define XLOADER_DDR_LOW_END_ADDR	(0x7FFFFFFFU)
 
 /************************** Function Prototypes ******************************/
 
@@ -679,33 +685,74 @@ static void XLoader_GetExportableBuffer(u32 *Buffer, u32 Mask, u32 Size)
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XLoader_DecryptMetaheader(XPlmi_Cmd *Cmd)
+static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	XilPdi* PdiPtr = &SubsystemPdiIns;
-	u64 SrcAddr = (u64)Cmd->Payload[0U];
-	u64 DestAddr = (u64)Cmd->Payload[3U];
-	u32 SrcSize = (u32)Cmd->Payload[2U];
-	u32 DestSize = (u32)Cmd->Payload[5U];
-	u32 DataSize = 0U;
-	u32 Index = 0U;
+	u64 SrcAddr = (u64)Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_PDIADDR_HIGH_INDEX];
+	u64 DestAddr = (u64)Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_DESTADDR_HIGH_INDEX];
+	u32 DestSize = (u32)Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_DEST_SIZE_INDEX];
+	u32 IdString;
+	u32 DataSize;
+	u64 MetaHdrOfst;
+	u32 Index;
 
 	XPlmi_SetPlmMode(XPLMI_MODE_CONFIGURATION);
-	SrcAddr = ((u64)Cmd->Payload[1U]) | (SrcAddr << 32U);
-	DestAddr = ((u64)Cmd->Payload[4U]) | (DestAddr << 32U);
-	DataSize = XPlmi_In64(SrcAddr + XLOADER_META_HDR_LEN_OFFSET);
-	DataSize *= XPLMI_WORD_LEN;
-	if ((SrcSize < DataSize) || (DestSize < DataSize)) {
-		Status = XPlmi_UpdateStatus(
-				XLOADER_ERR_INVALID_METAHDR_BUFF_SIZE, 0);
+	SrcAddr = ((u64)Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_PDIADDR_LOW_INDEX]) |
+			(SrcAddr << 32U);
+	DestAddr = ((u64)Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_DESTADDR_LOW_INDEX]) |
+			(DestAddr << 32U);
+
+	IdString = XPlmi_In64(SrcAddr + XIH_BH_IMAGE_IDENT_OFFSET);
+	if (IdString == XIH_BH_IMAGE_IDENT) {
+		PdiPtr->PdiType = XLOADER_PDI_TYPE_FULL_METAHEADER;
+	}
+	else {
+		IdString = XPlmi_In64(SrcAddr + SMAP_BUS_WIDTH_LENGTH +
+				XIH_IHT_IDENT_STRING_OFFSET);
+		if (IdString == XIH_IHT_PPDI_IDENT_VAL) {
+			PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;;
+		}
+		else {
+			Status = XLOADER_ERR_INVALID_PDI_INPUT;
+			goto END;
+		}
+	}
+
+	Status = XPlmi_VerifyAddrRange(SrcAddr, SrcAddr + (XPLMI_WORD_LEN - 1U));
+	if (Status != XST_SUCCESS) {
+		Status = XLOADER_ERR_INVALID_METAHEADER_SRC_ADDR;
 		goto END;
 	}
 
-	PdiPtr->PdiType = XLOADER_PDI_TYPE_METAHEADER;
+	/* Check if Metaheader offset is pointing to a valid location */
+	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL_METAHEADER) {
+		MetaHdrOfst = SrcAddr + (u64)XPlmi_In64(SrcAddr +
+				XIH_BH_META_HDR_OFFSET);
+		if ((MetaHdrOfst > XLOADER_DDR_LOW_END_ADDR) &&
+			(MetaHdrOfst <= (u64)XPAR_PSV_OCM_RAM_0_S_AXI_HIGHADDR)) {
+			Status = XLOADER_ERR_INVALID_METAHEADER_OFFSET;
+			goto END;
+		}
+	}
+
+	Status = XPlmi_VerifyAddrRange(DestAddr, DestAddr + DestSize - 1U);
+	if (Status != XST_SUCCESS) {
+		Status = XLOADER_ERR_INVALID_METAHEADER_DEST_ADDR;
+		goto END;
+	}
+
 	PdiPtr->IpiMask = Cmd->IpiMask;
-	/* Decrypt Metaheader by using PdiInit */
+	/* Extract Metaheader using PdiInit */
 	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_PdiInit, PdiPtr,
 			XLOADER_PDI_SRC_DDR, SrcAddr);
+
+	DataSize = (PdiPtr->MetaHdr.ImgHdrTbl.TotalHdrLen * XPLMI_WORD_LEN) +
+			XIH_IHT_LEN;
+	if (DestSize < DataSize) {
+		Status = XLOADER_ERR_INVALID_METAHDR_BUFF_SIZE;
+		goto END;
+	}
 
 	/* Zeroize non-exportable fields of image header table */
 	XLoader_GetExportableBuffer((u32 *)&PdiPtr->MetaHdr.ImgHdrTbl,
@@ -744,7 +791,7 @@ static int XLoader_DecryptMetaheader(XPlmi_Cmd *Cmd)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	XPlmi_Printf(DEBUG_GENERAL, "Decrypted Metaheader Successfully\n\r");
+	XPlmi_Printf(DEBUG_GENERAL, "Extracted Metaheader Successfully\n\r");
 
 END:
 	XPlmi_Out32(PMC_GLOBAL_DONE, XLOADER_PDI_LOAD_COMPLETE);
@@ -814,7 +861,7 @@ static const XPlmi_ModuleCmd XLoader_Cmds[] =
 	XPLMI_MODULE_COMMAND(XLoader_GetImageInfo),
 	XPLMI_MODULE_COMMAND(XLoader_SetImageInfo),
 	XPLMI_MODULE_COMMAND(XLoader_GetImageInfoList),
-	XPLMI_MODULE_COMMAND(XLoader_DecryptMetaheader),
+	XPLMI_MODULE_COMMAND(XLoader_ExtractMetaheader),
 	XPLMI_MODULE_COMMAND(XLoader_LoadReadBackPdi),
 	XPLMI_MODULE_COMMAND(XLoader_UpdateMultiboot),
 	XPLMI_MODULE_COMMAND(XLoader_AddImageStorePdi),

@@ -47,6 +47,7 @@
 *       har  03/31/2021 Added PdiId in XilPdi_ImgHdrTbl structure
 * 1.06  td   07/08/2021 Fix doxygen warnings
 *       bsv  08/16/2021 Code clean up
+*       bm   08/24/2021 Added Extract Metaheader support
 *
 * </pre>
 *
@@ -77,6 +78,17 @@ extern "C" {
 #define XIH_MAX_PRTNS			(32U)
 #define XIH_MIN_IMGS			(1U)
 #define XIH_MAX_IMGS			(32U)
+
+/**
+ * Boot header identification string
+ */
+#define XIH_BH_IMAGE_IDENT		(0x584C4E58U) /**< XLNX pattern */
+#define XIH_BH_IMAGE_IDENT_OFFSET	(0x14U)
+
+/**
+ * Offset to the metaheader offset field present in boot header
+ */
+#define XIH_BH_META_HDR_OFFSET		(0xC4U)
 
 /**
  * Boot header address in PRAM copied by ROM
@@ -130,6 +142,12 @@ extern "C" {
 #define XIH_IHT_ATTR_BYPS_MASK				(0x1U) /**< IDCODE checks bypass */
 
 #define XIH_IHT_EXT_IDCODE_MASK			(0x3FU)
+
+/*
+ * IHT Identification string
+ */
+#define XIH_IHT_IDENT_STRING_OFFSET		(0x28U)
+#define XIH_IHT_PPDI_IDENT_VAL			(0x50504449U)
 
 /**
  * Secondary Boot Device (SBD) in IHT Attributes

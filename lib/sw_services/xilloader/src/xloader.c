@@ -109,6 +109,7 @@
 *       bm   08/09/2021 Removed obsolete XLoader_PMCStateClear API
 *       bsv  08/17/2021 Code clean up
 *       rb   08/11/2021 Fix compilation warnings
+*       bm   08/24/2021 Added Extract Metaheader support
 *
 * </pre>
 *
@@ -645,7 +646,8 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 	/*
 	 * Read meta header from PDI source
 	 */
-	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
+	if ((PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) ||
+			(PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL_METAHEADER)) {
 		XilPdi_ReadBootHdr(&PdiPtr->MetaHdr);
 		/*
 		 * Print FW Rsvd fields Details
@@ -681,6 +683,11 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 		}
 		else {
 			PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->PdiAddr;
+		}
+
+		if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL_METAHEADER) {
+			XPlmi_Out32((UINTPTR)&PdiPtr->MetaHdr.BootHdrPtr->BootHdrFwRsvd.MetaHdrOfst,
+				XPlmi_In64(PdiPtr->PdiAddr + XIH_BH_META_HDR_OFFSET));
 		}
 	}
 	else {
@@ -1578,7 +1585,8 @@ int XLoader_LoadImageInfoTbl(u64 DestAddr, u32 MaxSize, u32 *NumEntries)
 	u64 ImageInfoOffset = 0U;
 
 	if (Len > MaxLen) {
-		Len = MaxLen;
+		Status  = XLOADER_ERR_INVALID_DEST_IMGINFOTBL_SIZE;
+		goto END;
 	}
 
 	while (Count < Len) {
