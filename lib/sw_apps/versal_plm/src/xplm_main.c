@@ -33,6 +33,8 @@
 *       rb   07/28/2021 Check Efuse DNA_57 bit before issuing internal POR
 *       bsv  08/13/2021 Code clean up to reduce size
 *       rb   08/11/2021 Fix compilation warning
+*       ma   08/23/2021 Move XPlmi_InitDebugLogBuffer and XPlm_InitProc to
+*                       happen as soon as PLM starts
 *
 * </pre>
 *
@@ -183,6 +185,15 @@ static int XPlm_Init(void)
 	 */
 	XPlmi_PpuWakeUpDis();
 
+	/* Initialize debug log structure */
+	XPlmi_InitDebugLogBuffer();
+
+	/** Initialize the processor, enable exceptions */
+	Status = XPlm_InitProc();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	/* Initializes the DMA pointers */
 	Status = XPlmi_DmaInit();
 	if (Status != XST_SUCCESS) {
@@ -194,19 +205,10 @@ static int XPlm_Init(void)
 		goto END;
 	}
 
-	/* Initialize debug log structure */
-	XPlmi_InitDebugLogBuffer();
-
 #ifdef DEBUG_UART_MDM
 	/** If MDM UART, banner can be printed before any initialization */
 	XPlmi_InitUart();
 #endif
-
-	/** Initialize the processor, enable exceptions */
-	Status = XPlm_InitProc();
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
 
 	/** Do Internal POR if any specific case */
 	XPlm_PerformInternalPOR();
