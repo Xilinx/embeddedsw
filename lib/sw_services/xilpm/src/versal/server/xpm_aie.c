@@ -403,7 +403,7 @@ static XStatus AieInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	u32 BaseAddress;
+	u32 BaseAddress = 0U;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 DisableMask;
 
@@ -434,7 +434,7 @@ static XStatus AieInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_ME_IPOR_MASK, 0U);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_RST_RELEASE;
-		goto fail;
+		goto done;
 	}
 
 	/* TODO: Configure TOP_ROW and ROW_OFFSET by reading from EFUSE */
@@ -447,14 +447,12 @@ static XStatus AieInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	/* Set Houseclean Mask */
 	PwrDomain->HcDisableMask |= DisableMask;
 
-	Status = XST_SUCCESS;
-	goto done;
-
-fail:
-	/* Lock ME PCSR */
-	XPmAieDomain_LockPcsr(BaseAddress);
-
 done:
+	if (0U != BaseAddress) {
+		/* Lock ME PCSR */
+		XPmAieDomain_LockPcsr(BaseAddress);
+	}
+
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
@@ -463,7 +461,7 @@ static XStatus Aie2InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	u32 BaseAddress;
+	u32 BaseAddress = 0U;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 DisableMask;
 
@@ -494,7 +492,7 @@ static XStatus Aie2InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_ME_IPOR_MASK, 0U);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_RST_RELEASE;
-		goto fail;
+		goto done;
 	}
 
 	/* TODO: This needs to be data driven to handle multiple devices */
@@ -507,7 +505,7 @@ static XStatus Aie2InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_INITSTATE_MASK, 0U);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_AIE_INITSTATE_RELEASE;
-		goto fail;
+		goto done;
 	}
 
 	/* Change from AIE to AIE2. AIE handles in CDO */
@@ -515,7 +513,7 @@ static XStatus Aie2InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_ME_ARRAY_RESET_MASK, 0U);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_ARRAY_RESET_RELEASE;
-		goto fail;
+		goto done;
 	}
 
 	/* Get houseclean disable mask */
@@ -524,11 +522,12 @@ static XStatus Aie2InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	/* Set Houseclean Mask */
 	PwrDomain->HcDisableMask |= DisableMask;
 
-fail:
-	/* Lock AIE PCSR */
-	XPmAieDomain_LockPcsr(BaseAddress);
-
 done:
+	if (0U != BaseAddress) {
+		/* Lock AIE PCSR */
+		XPmAieDomain_LockPcsr(BaseAddress);
+	}
+
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
@@ -537,7 +536,7 @@ static XStatus AieInitFinish(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	u32 BaseAddress;
+	u32 BaseAddress = 0U;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
@@ -553,24 +552,26 @@ static XStatus AieInitFinish(XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	BaseAddress = AieDev->Node.BaseAddress;
 
+	/* Unlock ME PCSR */
+	XPmAieDomain_UnlockPcsr(BaseAddress);
+
 	/* Set PCOMPLETE bit */
 	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_PCOMPLETE_MASK,
 				 ME_NPI_REG_PCSR_MASK_PCOMPLETE_MASK);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_AIE_PCOMPLETE;
-		goto fail;
+		goto done;
 	}
 
 	/* Clock gate ME Array column-wise (except SHIM array) */
 	AieClkGateByCol();
 
-	Status = XST_SUCCESS;
-
-fail:
-	/* Lock ME PCSR */
-	XPmAieDomain_LockPcsr(BaseAddress);
-
 done:
+	if (0U != BaseAddress) {
+		/* Lock ME PCSR */
+		XPmAieDomain_LockPcsr(BaseAddress);
+	}
+
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
@@ -579,7 +580,7 @@ static XStatus Aie2InitFinish(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	u32 BaseAddress;
+	u32 BaseAddress = 0U;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
@@ -611,10 +612,12 @@ static XStatus Aie2InitFinish(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		DbgErr = XPM_INT_ERR_AIE_PCOMPLETE;
 	}
 
-	/* Lock AIE PCSR */
-	XPmAieDomain_LockPcsr(BaseAddress);
-
 done:
+	if (0U != BaseAddress) {
+		/* Lock AIE PCSR */
+		XPmAieDomain_LockPcsr(BaseAddress);
+	}
+
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
@@ -623,7 +626,7 @@ static XStatus AieScanClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	u32 BaseAddress;
+	u32 BaseAddress = 0U;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
@@ -638,11 +641,14 @@ static XStatus AieScanClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	BaseAddress = AieDev->Node.BaseAddress;
 
+	/* Unlock ME PCSR */
+	XPmAieDomain_UnlockPcsr(BaseAddress);
+
 	/* De-assert ODISABLE[1] */
 	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_ODISABLE_1_MASK, 0U);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_ODISABLE_1_RELEASE;
-		goto fail;
+		goto done;
 	}
 
 	if (HOUSECLEAN_DISABLE_SCAN_CLEAR_MASK != (PwrDomain->HcDisableMask &
@@ -654,7 +660,7 @@ static XStatus AieScanClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 						ME_NPI_REG_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_SCAN_CLEAR_TRIGGER;
-			goto fail;
+			goto done;
 		}
 
 		XPlmi_Printf(DEBUG_INFO, "INFO: %s : Wait for AIE Scan Clear complete...", __func__);
@@ -666,7 +672,7 @@ static XStatus AieScanClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_SCAN_CLEAR_TIMEOUT;
 			XPlmi_Printf(DEBUG_INFO, "ERROR\r\n");
-			goto fail;
+			goto done;
 		}
 		else {
 			XPlmi_Printf(DEBUG_INFO, "DONE\r\n");
@@ -679,14 +685,14 @@ static XStatus AieScanClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 			DbgErr = XPM_INT_ERR_SCAN_CLEAR_PASS;
 			XPlmi_Printf(DEBUG_GENERAL, "ERROR: %s: AIE Scan Clear FAILED\r\n", __func__);
 			Status = XST_FAILURE;
-			goto fail;
+			goto done;
 		}
 
 		/* Unwrite trigger bits */
 		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK, 0);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_SCAN_CLEAR_TRIGGER_UNSET;
-			goto fail;
+			goto done;
 		}
 	} else {
 		/* ScanClear is skipped */
@@ -697,23 +703,21 @@ static XStatus AieScanClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_ODISABLE_0_MASK, 0U);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_ODISABLE_0_RELEASE;
-		goto fail;
+		goto done;
 	}
 
 	/* De-assert GATEREG */
 	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_GATEREG_MASK, 0U);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_GATEREG_UNSET;
-		goto fail;
 	}
 
-	goto done;
-
-fail:
-	/* Lock ME PCSR */
-	XPmAieDomain_LockPcsr(BaseAddress);
-
 done:
+	if (0U != BaseAddress) {
+		/* Lock ME PCSR */
+		XPmAieDomain_LockPcsr(BaseAddress);
+	}
+
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
@@ -722,7 +726,7 @@ static XStatus AieBisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	u32 BaseAddress;
+	u32 BaseAddress = 0U;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
@@ -737,11 +741,14 @@ static XStatus AieBisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	BaseAddress = AieDev->Node.BaseAddress;
 
+	/* Unlock ME PCSR */
+	XPmAieDomain_UnlockPcsr(BaseAddress);
+
 	/* Remove PMC-NoC domain isolation */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_SOC, FALSE_VALUE);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_PMC_SOC_ISO;
-		goto fail;
+		goto done;
 	}
 
 	if (HOUSECLEAN_DISABLE_BISR_MASK != (PwrDomain->HcDisableMask &
@@ -751,32 +758,31 @@ static XStatus AieBisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		Status = XPmBisr_Repair(MEA_TAG_ID);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_MEA_BISR_REPAIR;
-			goto fail;
+			goto done;
 		}
 
 		Status = XPmBisr_Repair(MEB_TAG_ID);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_MEB_BISR_REPAIR;
-			goto fail;
+			goto done;
 		}
 
 		Status = XPmBisr_Repair(MEC_TAG_ID);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_MEC_BISR_REPAIR;
-			goto fail;
+			goto done;
 		}
 	} else {
 		/* BISR is skipped */
 		PmInfo("Skipping BISR for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 	}
 
-	goto done;
-
-fail:
-	/* Lock ME PCSR */
-	XPmAieDomain_LockPcsr(BaseAddress);
-
 done:
+	if (0U != BaseAddress) {
+		/* Lock ME PCSR */
+		XPmAieDomain_LockPcsr(BaseAddress);
+	}
+
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
@@ -785,7 +791,7 @@ static XStatus Aie2Bisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	u32 BaseAddress;
+	u32 BaseAddress = 0U;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
@@ -813,7 +819,7 @@ static XStatus Aie2Bisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_SOC, FALSE_VALUE);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_PMC_SOC_ISO;
-		goto fail;
+		goto done;
 	}
 
 	if (HOUSECLEAN_DISABLE_BISR_MASK != (PwrDomain->HcDisableMask &
@@ -823,13 +829,13 @@ static XStatus Aie2Bisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		Status = XPmBisr_Repair(MEA_TAG_ID);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_MEA_BISR_REPAIR;
-			goto fail;
+			goto done;
 		}
 
 		Status = XPmBisr_Repair(MEB_TAG_ID);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_MEB_BISR_REPAIR;
-			goto fail;
+			goto done;
 		}
 
 		Status = XPmBisr_Repair(MEC_TAG_ID);
@@ -841,11 +847,12 @@ static XStatus Aie2Bisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		PmInfo("Skipping BISR for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 	}
 
-fail:
-	/* Lock AIE PCSR */
-	XPmAieDomain_LockPcsr(BaseAddress);
-
 done:
+	if (0U != BaseAddress) {
+		/* Lock AIE PCSR */
+		XPmAieDomain_LockPcsr(BaseAddress);
+	}
+
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
@@ -854,7 +861,7 @@ static XStatus AieMbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	u32 BaseAddress;
+	u32 BaseAddress = 0U;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
@@ -869,6 +876,9 @@ static XStatus AieMbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	BaseAddress = AieDev->Node.BaseAddress;
 
+	/* Unlock ME PCSR */
+	XPmAieDomain_UnlockPcsr(BaseAddress);
+
 	if (HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK != (PwrDomain->HcDisableMask &
 				HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK)) {
 		PmInfo("Triggering MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
@@ -877,7 +887,7 @@ static XStatus AieMbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_MEM_CLEAR_EN_ALL_MASK, 0U);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_MEM_CLEAR_EN;
-			goto fail;
+			goto done;
 		}
 
 		/* Set OD_MBIST_ASYNC_RESET_N bit */
@@ -885,7 +895,7 @@ static XStatus AieMbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 					ME_NPI_REG_PCSR_MASK_OD_MBIST_ASYNC_RESET_N_MASK);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_MBIST_RESET;
-			goto fail;
+			goto done;
 		}
 
 		/* Assert OD_BIST_SETUP_1 */
@@ -893,7 +903,7 @@ static XStatus AieMbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 					ME_NPI_REG_PCSR_MASK_OD_BIST_SETUP_1_MASK);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_BIST_RESET;
-			goto fail;
+			goto done;
 		}
 
 		/* Assert MEM_CLEAR_TRIGGER */
@@ -901,7 +911,7 @@ static XStatus AieMbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 			ME_NPI_REG_PCSR_MASK_MEM_CLEAR_TRIGGER_MASK);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_MEM_CLEAR_TRIGGER;
-			goto fail;
+			goto done;
 		}
 
 		XPlmi_Printf(DEBUG_INFO, "INFO: %s : Wait for AIE Mem Clear complete...", __func__);
@@ -913,7 +923,7 @@ static XStatus AieMbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		if (Status != XST_SUCCESS) {
 			DbgErr = XPM_INT_ERR_MEM_CLEAR_DONE_TIMEOUT;
 			XPlmi_Printf(DEBUG_INFO, "ERROR\r\n");
-			goto fail;
+			goto done;
 		}
 		else {
 			XPlmi_Printf(DEBUG_INFO, "DONE\r\n");
@@ -926,42 +936,41 @@ static XStatus AieMbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 			XPlmi_Printf(DEBUG_GENERAL, "ERROR: %s: AIE Mem Clear FAILED\r\n", __func__);
 			DbgErr = XPM_INT_ERR_MEM_CLEAR_PASS;
 			Status = XST_FAILURE;
-			goto fail;
+			goto done;
 		}
 
 		/* Clear OD_MBIST_ASYNC_RESET_N bit */
 		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_OD_MBIST_ASYNC_RESET_N_MASK, 0U);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_MBIST_RESET_RELEASE;
-			goto fail;
+			goto done;
 		}
 
 		/* De-assert OD_BIST_SETUP_1 */
 		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_OD_BIST_SETUP_1_MASK, 0U);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_BIST_RESET_RELEASE;
-			goto fail;
+			goto done;
 		}
 
 		/* De-assert MEM_CLEAR_TRIGGER */
 		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_MEM_CLEAR_TRIGGER_MASK, 0U);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_MEM_CLEAR_TRIGGER_UNSET;
-			goto fail;
+			goto done;
 		}
 	} else {
 		/* MBIST is skipped */
 		PmInfo("Skipping MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
+		Status = XST_SUCCESS;
 	}
 
-	Status = XST_SUCCESS;
-	goto done;
-
-fail:
-	/* Lock ME PCSR */
-	XPmAieDomain_LockPcsr(BaseAddress);
-
 done:
+	if (0U != BaseAddress) {
+		/* Lock ME PCSR */
+		XPmAieDomain_LockPcsr(BaseAddress);
+	}
+
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
@@ -970,7 +979,7 @@ static XStatus Aie2MbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	u32 BaseAddress;
+	u32 BaseAddress = 0U;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
@@ -999,7 +1008,7 @@ static XStatus Aie2MbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 				ME_NPI_REG_PCSR_MASK_MEM_CLEAR_EN_ALL_MASK);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_MEM_CLEAR_EN;
-			goto fail;
+			goto done;
 		}
 
 		/* Set OD_MBIST_ASYNC_RESET_N bit */
@@ -1007,7 +1016,7 @@ static XStatus Aie2MbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 				ME_NPI_REG_PCSR_MASK_OD_MBIST_ASYNC_RESET_N_MASK);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_MBIST_RESET;
-			goto fail;
+			goto done;
 		}
 
 		/* Assert OD_BIST_SETUP_1 */
@@ -1015,7 +1024,7 @@ static XStatus Aie2MbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 				ME_NPI_REG_PCSR_MASK_OD_BIST_SETUP_1_MASK);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_BIST_RESET;
-			goto fail;
+			goto done;
 		}
 
 		/* Assert MEM_CLEAR_TRIGGER */
@@ -1023,7 +1032,7 @@ static XStatus Aie2MbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 				ME_NPI_REG_PCSR_MASK_MEM_CLEAR_TRIGGER_MASK);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_MEM_CLEAR_TRIGGER;
-			goto fail;
+			goto done;
 		}
 
 		XPlmi_Printf(DEBUG_INFO, "INFO: %s : Wait for AIE Mem Clear complete...", __func__);
@@ -1035,7 +1044,7 @@ static XStatus Aie2MbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		if (Status != XST_SUCCESS) {
 			DbgErr = XPM_INT_ERR_MEM_CLEAR_DONE_TIMEOUT;
 			XPlmi_Printf(DEBUG_INFO, "ERROR\r\n");
-			goto fail;
+			goto done;
 		}
 		else {
 			XPlmi_Printf(DEBUG_INFO, "DONE\r\n");
@@ -1048,41 +1057,41 @@ static XStatus Aie2MbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 			XPlmi_Printf(DEBUG_GENERAL, "ERROR: %s: AIE Mem Clear FAILED\r\n", __func__);
 			DbgErr = XPM_INT_ERR_MEM_CLEAR_PASS;
 			Status = XST_FAILURE;
-			goto fail;
+			goto done;
 		}
 
 		/* Clear OD_MBIST_ASYNC_RESET_N bit */
 		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_OD_MBIST_ASYNC_RESET_N_MASK, 0U);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_MBIST_RESET_RELEASE;
-			goto fail;
+			goto done;
 		}
 
 		/* De-assert OD_BIST_SETUP_1 */
 		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_OD_BIST_SETUP_1_MASK, 0U);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_BIST_RESET_RELEASE;
-			goto fail;
+			goto done;
 		}
 
 		/* De-assert MEM_CLEAR_TRIGGER */
 		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_MEM_CLEAR_TRIGGER_MASK, 0U);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_MEM_CLEAR_TRIGGER_UNSET;
-			goto fail;
+			goto done;
 		}
 	} else {
 		/* MBIST is skipped */
 		PmInfo("Skipping MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
+		Status = XST_SUCCESS;
 	}
 
-	Status = XST_SUCCESS;
-
-fail:
-	/* Lock AIE PCSR */
-	XPmAieDomain_LockPcsr(BaseAddress);
-
 done:
+	if (0U != BaseAddress) {
+		/* Lock AIE PCSR */
+		XPmAieDomain_LockPcsr(BaseAddress);
+	}
+
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
@@ -1091,7 +1100,7 @@ static XStatus AieMemInit(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	u32 BaseAddress;
+	u32 BaseAddress = 0U;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
@@ -1106,6 +1115,9 @@ static XStatus AieMemInit(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 	BaseAddress = AieDev->Node.BaseAddress;
+
+	/* Unlock ME PCSR */
+	XPmAieDomain_UnlockPcsr(BaseAddress);
 
 	PmDbg("---------- START ----------\r\n");
 
@@ -1131,12 +1143,16 @@ static XStatus AieMemInit(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	Status = ArrayReset();
 	if (XST_SUCCESS != Status) {
 		PmErr("ERROR: Array reset failed\r\n");
-		/* Lock ME PCSR */
-		XPmAieDomain_LockPcsr(BaseAddress);
+		goto done;
 	}
 	PmDbg("---------- END ----------\r\n");
 
 done:
+	if (0U != BaseAddress) {
+		/* Lock ME PCSR */
+		XPmAieDomain_LockPcsr(BaseAddress);
+	}
+
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
