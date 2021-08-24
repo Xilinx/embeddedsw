@@ -83,9 +83,9 @@
 * 1.04  bm   07/16/2021 Updated XLoader_PdiInit prototype
 *       bsv  07/19/2021 Disable UART prints when invalid header is encountered
 *                       in slave boot modes
-*       bm   07/30/2021 Added Metaheader PDI type
 *       bsv  08/02/2021 Updated function return type as part of code clean up
 *       bm   08/09/2021 Removed obsolete XLoader_PMCStateClear API prototype
+*       bm   08/24/2021 Added Extract Metaheader support
 *
 * </pre>
 *
@@ -153,7 +153,7 @@ extern "C" {
 #define XLOADER_PDI_TYPE_FULL		(0x1U)
 #define XLOADER_PDI_TYPE_PARTIAL	(0x2U)
 #define XLOADER_PDI_TYPE_RESTORE	(0x3U)
-#define XLOADER_PDI_TYPE_METAHEADER	(0x4U)
+#define XLOADER_PDI_TYPE_FULL_METAHEADER 	(0x4U)
 
 /*
  * Secondary boot mode related macros
@@ -259,6 +259,22 @@ enum {
 							UsbPrivateData */
 	XLOADER_ERR_MEMSET_DFU_OBJ, /**< 0xD - Error during memset on
 							DfuObj */
+	XLOADER_ERR_INVALID_METAHDR_BUFF_SIZE, /**< 0xE- Error when buffer size given by user
+							is less than the metaheader length */
+	XLOADER_ERR_INVALID_PDI_INPUT,	/**< 0xF - Error when PDI given is not a full PDI
+							or partial PDI */
+	XLOADER_ERR_INVALID_DEST_IMGINFOTBL_SIZE, /**< 0x10 - Error when the destination
+							buffer provided to store image info
+							table is less than the current length
+							of image info table */
+	XLOADER_ERR_INVALID_METAHEADER_SRC_ADDR, /**< 0x11 - Error when invalid source address
+							is passed as a input to extract metaheader
+							command */
+	XLOADER_ERR_INVALID_METAHEADER_DEST_ADDR, /**< 0x12 - Error when invalid destination address
+							is passed as a input to extract metaheader
+							command */
+	XLOADER_ERR_INVALID_METAHEADER_OFFSET,	/**< 0x13 - Error when the metaheader offset provided
+							in full PDI is not present in DDR */
 };
 
 /* Multiboot register offset mask */
