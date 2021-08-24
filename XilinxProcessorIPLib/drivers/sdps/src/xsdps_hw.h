@@ -1319,7 +1319,7 @@ static INLINE void XSdPs_WriteReg16(u32 BaseAddress, u8 RegOffset, u16 RegisterV
 	u32 Reg;
 	BaseAddress += RegOffset & 0xFC;
 	Reg = XSdPs_In32(BaseAddress);
-	Reg &= ~(0xFFFF<<((RegOffset & 0x3)*8));
+	Reg &= ~(0xFFFFU<<((RegOffset & 0x3)*8));
 	Reg |= RegisterValue <<((RegOffset & 0x3)*8);
 	XSdPs_Out32(BaseAddress, Reg);
 #else
@@ -1375,7 +1375,7 @@ static INLINE void XSdPs_WriteReg8(u32 BaseAddress, u8 RegOffset, u8 RegisterVal
 	u32 Reg;
 	BaseAddress += RegOffset & 0xFC;
 	Reg = XSdPs_In32(BaseAddress);
-	Reg &= ~(0xFF<<((RegOffset & 0x3)*8));
+	Reg &= ~(0xFFU<<((RegOffset & 0x3)*8));
 	Reg |= RegisterValue <<((RegOffset & 0x3)*8);
 	XSdPs_Out32(BaseAddress, Reg);
 #else
