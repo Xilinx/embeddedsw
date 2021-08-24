@@ -34,6 +34,9 @@
 #                          SSIT devices. Also added check for IS_PL flag
 #                          to avoid incorrect settings, in case PL iomodule
 #                          instance base address matches with PSM/PMC iomodule.
+# 2.12     mus    08/24/21 Updated xredefine_iomodule with additional checks,
+#                          to avoid tcl errors for HW design where interrupts
+#                          are not connected to iomodule. It fixes CR#1108543
 ##############################################################################
 
 
@@ -516,7 +519,7 @@ proc xredefine_iomodule {drvhandle config_inc} {
         for {set i 0} {$i < $num_intr_inputs} {incr i} {
 
             # Skip global (external) ports
-            if {$source_periph($i) == ""} {
+            if {[info exist source_periph($i)] == 0 || $source_periph($i) == ""} {
                 continue
             }
             set port_type($i) [common::get_property TYPE $source_periph($i)]
