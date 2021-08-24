@@ -41,6 +41,7 @@
 *       bsv  07/24/2021 Clear RTC area at the beginning of PLM
 *       bsv  08/02/2021 Code clean up to reduce elf size
 *       rb   07/29/2021 Update reset reason during Init
+*       ma   08/23/2021 Do not clear Debug Log RTCA memory
 *
 * </pre>
 *
@@ -136,9 +137,15 @@ int XPlmi_RunTimeConfigInit(void)
 	int Status = XST_FAILURE;
 	u32 DevSecureState = XPlmi_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE2);
 
-	DebugLog->LogLevel = 0U;
 	Status = XPlmi_MemSet((u64)XPLMI_RTCFG_BASEADDR, 0U,
-		(XPLMI_RTCFG_SIZE / XPLMI_WORD_LEN));
+		(XPLMI_RTCFG_DBG_LOG_BUF_OFFSET >> XPLMI_WORD_LEN_SHIFT));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XPlmi_MemSet((u64)(XPLMI_RTCFG_BASEADDR + XPLMI_RTCFG_LOG_UART_OFFSET),
+		0U,	((XPLMI_RTCFG_SIZE - XPLMI_RTCFG_LOG_UART_OFFSET)
+				>> XPLMI_WORD_LEN_SHIFT));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
