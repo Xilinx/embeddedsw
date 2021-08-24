@@ -31,7 +31,9 @@
 #ifndef xvidc_cea861_h
 #define xvidc_cea861_h
 
-#define XVIDC_EDID_VERBOSITY                    0
+#ifndef XVIDC_EDID_VERBOSITY
+#define XVIDC_EDID_VERBOSITY 0
+#endif
 
 #define ARRAY_SIZE(arr)                         (sizeof(arr) / sizeof(arr[0]))
 
