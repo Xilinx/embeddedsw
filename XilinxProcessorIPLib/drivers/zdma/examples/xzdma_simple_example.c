@@ -34,6 +34,11 @@
 *			 test compilation errors with armclang compiler.
 * 1.12	sk	02/16/21 Add the documentation for XZDma_SimpleExample()
 *			 function parameters to fix the doxygen warning.
+* 1.13  asa     08/24/21 Make changes to add a missing data invalidation
+*                        operation just before the destination buffer data is
+*                        being read.
+*                        Changes were done for other cleanups and also to
+*                        ensure that the DMA is reset before the program exits.
 * </pre>
 *
 ******************************************************************************/
@@ -223,8 +228,6 @@ int XZDma_SimpleExample(INTC *IntcInstPtr, XZDma *ZdmaInstPtr,
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	/* Enable required interrupts */
-	XZDma_EnableIntr(ZdmaInstPtr, (XZDMA_IXR_ALL_INTR_MASK));
 
 	/* Configuration settings */
 	Configure.OverFetch = 1;
@@ -253,10 +256,16 @@ int XZDma_SimpleExample(INTC *IntcInstPtr, XZDma *ZdmaInstPtr,
 	Data.SrcCoherent = 1;
 	Data.Size = SIZE; /* Size in bytes */
 
+	/* Enable required interrupts */
+	XZDma_EnableIntr(ZdmaInstPtr, (XZDMA_IXR_ALL_INTR_MASK));
+
 	XZDma_Start(ZdmaInstPtr, &Data, 1); /* Initiates the data transfer */
 
 	/* Wait till DMA error or done interrupt generated */
 	while (!ErrorStatus && (Done == 0));
+
+	/* Enable required interrupts */
+	XZDma_DisableIntr(ZdmaInstPtr, (XZDMA_IXR_ALL_INTR_MASK));
 
 	if (ErrorStatus) {
 		if (ErrorStatus & XZDMA_IXR_AXI_WR_DATA_MASK)
@@ -266,6 +275,12 @@ int XZDma_SimpleExample(INTC *IntcInstPtr, XZDma *ZdmaInstPtr,
 		return XST_FAILURE;
 	}
 
+	/* Before the destination buffer data is accessed do one more invalidation
+         * to ensure that the latest data is read. This is as per ARM recommendations.
+         */
+	if (!Config->IsCacheCoherent) {
+		Xil_DCacheInvalidateRange((INTPTR)ZDmaDstBuf, SIZE);
+	}
 	/* Checking the data transferred */
 	for (Index = 0; Index < SIZE/4; Index++) {
 		if (ZDmaSrcBuf[Index] != ZDmaDstBuf[Index]) {
@@ -274,6 +289,9 @@ int XZDma_SimpleExample(INTC *IntcInstPtr, XZDma *ZdmaInstPtr,
 	}
 
 	Done = 0;
+
+	/* Reset the DMA to remove all configurations done in this example  */
+	XZDma_Reset(ZdmaInstPtr);
 
 	return XST_SUCCESS;
 }

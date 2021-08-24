@@ -30,6 +30,11 @@
 * 1.7   adk    21/03/19  Fix alignment pragmas in the example for IAR compiler.
 * 1.13	sk     08/02/21	 Make Done variable as volatile to fix failure at
 * 			 optimization level 2.
+* 1.13  asa    08/24/21  Make changes to add a missing data invalidation
+*                        operation just before the destination buffer data is
+*                        being read.
+*                        Changes were done for other cleanups and also to
+*                        ensure that the DMA is reset before the program exits.
 * </pre>
 *
 ******************************************************************************/
@@ -156,7 +161,7 @@ int XZDma_WriteOnlyExample(u16 DeviceId)
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	XZDma_EnableIntr(&ZDma, XZDMA_IXR_DMA_DONE_MASK);
+
 	/*
 	 * Connect to the interrupt controller.
 	 */
@@ -208,14 +213,24 @@ int XZDma_WriteOnlyExample(u16 DeviceId)
 	}
 
 	if (!Config->IsCacheCoherent) {
-	Xil_DCacheInvalidateRange((INTPTR)DstBuf, SIZE);
+		Xil_DCacheFlushRange((INTPTR)DstBuf, SIZE);
 	}
+
+	XZDma_EnableIntr(&ZDma, XZDMA_IXR_DMA_DONE_MASK);
 
 	XZDma_Start(&ZDma, &Data, 1); /* Initiates the data transfer */
 
 	/* Wait till DMA destination done interrupt generated */
 	while (Done == 0);
 
+	XZDma_DisableIntr(&ZDma, XZDMA_IXR_DMA_DONE_MASK);
+
+	/* Before the destination buffer data is accessed do one more invalidation
+         * to ensure that the latest data is read. This is as per ARM recommendations.
+         */
+	if (!Config->IsCacheCoherent) {
+		Xil_DCacheInvalidateRange((INTPTR)DstBuf, SIZE);
+	}
 	/* Validation */
 	if (ZDma.Config.DmaType == 0) { /* For GDMA */
 		for (Index = 0; Index < (SIZE/4)/4; Index++) {
@@ -241,7 +256,10 @@ int XZDma_WriteOnlyExample(u16 DeviceId)
 		}
 	}
 
-return XST_SUCCESS;
+	/* Reset the DMA to remove all configurations done in this example  */
+	XZDma_Reset(&ZDma);
+
+	return XST_SUCCESS;
 
 }
 
