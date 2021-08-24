@@ -26,6 +26,14 @@
 * 1.7   adk    21/03/19  Fix data alignment in the example for IAR compiler.
 * 1.13	sk     08/02/21	 Make Done, Pause variables as volatile to fix failure
 * 			 at optimization level 2.
+* 1.13  asa    08/24/21  Make changes to add a missing data invalidation
+*                        operation just before the destination buffer data is
+*                        being read. Along with the changes were done to ensure
+*                        proper sizes for linear SG buffers.
+*                        Changes were done to allocate the buffers with sizes
+*                        which are in sync with other examples.
+*                        Changes were done for other cleanups and also to
+*                        ensure that the DMA is reset before the program exits.
 * </pre>
 *
 ******************************************************************************/
@@ -56,6 +64,12 @@ static void ErrorHandler(void *CallBackRef, u32 Mask);
 						/**< SCUGIC Device ID */
 #define ZDMA_INTR_DEVICE_ID	XPAR_XADMAPS_0_INTR/**< ZDMA Interrupt Id */
 
+#define TESTDATA1		0xABCD1230 /**< Test data */
+#define TESTDATA2		0x00005000 /**< Test data */
+
+#define DESCRIPTOR1_DATA_SIZE	1024 /**< Descriptor 1 data in bytes */
+#define DESCRIPTOR2_DATA_SIZE	64   /**< Descriptor 2 data in bytes */
+
 /**************************** Type Definitions *******************************/
 
 
@@ -77,9 +91,9 @@ XScuGic Intc;		/**< XIntc Instance */
 #else
 u32 DstBuf[256] __attribute__ ((aligned (64)));	/**< Destination buffer */
 u32 SrcBuf[256] __attribute__ ((aligned (64)));	/**< Source buffer */
-u32 Dst1Buf[400] __attribute__ ((aligned (64)));/**< Destination buffer */
-u32 Src1Buf[400] __attribute__ ((aligned (64)));/**< Source buffer */
-u32 AlloMem[200] __attribute__ ((aligned (64)));
+u32 Dst1Buf[256] __attribute__ ((aligned (64)));/**< Destination buffer */
+u32 Src1Buf[256] __attribute__ ((aligned (64)));/**< Source buffer */
+u32 AlloMem[256] __attribute__ ((aligned (64)));
 			/**< memory allocated for descriptors */
 #endif
 volatile static u8 Done = 0;	/**< Variable for Done interrupt */
@@ -160,12 +174,12 @@ int XZDma_LinearExample(u16 DeviceId)
 	}
 
 	/* Filling the buffers for data transfer */
-	Value = 0x1230;
-	for (Index = 0; Index < 5; Index++) {
+	Value = TESTDATA1;
+	for (Index = 0; Index < (DESCRIPTOR1_DATA_SIZE/4); Index++) {
 		SrcBuf[Index] = Value++;
 	}
-	Value = 0x002345F;
-	for (Index = 0; Index < 5; Index++) {
+	Value = TESTDATA2;
+	for (Index = 0; Index < (DESCRIPTOR2_DATA_SIZE/4); Index++) {
 		Src1Buf[Index] = Value++;
 	}
 
@@ -206,13 +220,9 @@ int XZDma_LinearExample(u16 DeviceId)
 	}
 	XZDma_SetChDataConfig(&ZDma, &Configure);
 
-	/* Enable required interrupts */
-	XZDma_EnableIntr(&ZDma, (XZDMA_IXR_DMA_DONE_MASK |
-				XZDMA_IXR_DMA_PAUSE_MASK));
-
 	/* Filling the data transfer elements */
 	Data[0].SrcAddr = (UINTPTR)SrcBuf;
-	Data[0].Size = 1000;
+	Data[0].Size = DESCRIPTOR1_DATA_SIZE;
 	Data[0].DstAddr = (UINTPTR)DstBuf;
 	if (Config->IsCacheCoherent) {
 	    Data[0].SrcCoherent = 1;
@@ -224,7 +234,7 @@ int XZDma_LinearExample(u16 DeviceId)
 	    Data[0].Pause = 1;
 
 	Data[1].SrcAddr = (UINTPTR)Src1Buf;
-	Data[1].Size = 1200;
+	Data[1].Size = DESCRIPTOR2_DATA_SIZE;
 	Data[1].DstAddr = (UINTPTR)Dst1Buf;
 	if (Config->IsCacheCoherent) {
 	    Data[1].SrcCoherent = 1;
@@ -239,10 +249,12 @@ int XZDma_LinearExample(u16 DeviceId)
 	if (!Config->IsCacheCoherent) {
 	    Xil_DCacheFlushRange((INTPTR)Data[0].SrcAddr, Data[0].Size);
 	    Xil_DCacheInvalidateRange((INTPTR)Data[0].DstAddr, Data[0].Size);
-	Xil_DCacheFlushRange((INTPTR)Data[1].SrcAddr, Data[1].Size);
-	Xil_DCacheInvalidateRange((INTPTR)Data[1].DstAddr, Data[1].Size);
+	    Xil_DCacheFlushRange((INTPTR)Data[1].SrcAddr, Data[1].Size);
+	    Xil_DCacheInvalidateRange((INTPTR)Data[1].DstAddr, Data[1].Size);
 	}
-
+	/* Enable required interrupts */
+	XZDma_EnableIntr(&ZDma, (XZDMA_IXR_DMA_DONE_MASK |
+					XZDMA_IXR_DMA_PAUSE_MASK));
 	XZDma_Start(&ZDma, Data, 2); /* Initiates the data transfer */
 
 	/* wait until pause interrupt is generated and has been resumed */
@@ -253,17 +265,31 @@ int XZDma_LinearExample(u16 DeviceId)
 
 	while (Done == 0); /* Wait till DMA done interrupt generated */
 
+	/* Disable relevant interrupts */
+	XZDma_DisableIntr(&ZDma, (XZDMA_IXR_DMA_DONE_MASK |
+						XZDMA_IXR_DMA_PAUSE_MASK));
+
+	/* Before the destination buffer data is accessed do one more invalidation
+         * to ensure that the latest data is read. This is as per ARM recommendations.
+         */
+	if (!Config->IsCacheCoherent) {
+		Xil_DCacheInvalidateRange((INTPTR)Data[0].DstAddr, Data[0].Size);
+		Xil_DCacheInvalidateRange((INTPTR)Data[1].DstAddr, Data[1].Size);
+	}
 	/* Validating the data transfer */
-	for (Index = 0; Index < 250; Index++) {
+	for (Index = 0; Index < (DESCRIPTOR1_DATA_SIZE/4); Index++) {
 		if (SrcBuf[Index] != DstBuf[Index]) {
 			return XST_FAILURE;
 		}
 	}
-	for (Index = 0; Index < 300; Index++) {
+	for (Index = 0; Index < (DESCRIPTOR2_DATA_SIZE/4); Index++) {
 		if (Src1Buf[Index] != Dst1Buf[Index]) {
 			return XST_FAILURE;
 		}
 	}
+
+	/* Reset the DMA to remove all configurations done in this example  */
+	XZDma_Reset(&ZDma);
 
 	return XST_SUCCESS;
 
