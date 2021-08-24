@@ -53,6 +53,7 @@
  * 4.5   yas  03/08/19 Added support for frame rates 144HZ and 240HZ
  * 4.6   mmo  02/14/19 Added 5k, 8k, 10k and Low Resolution with 200Hz, 240Hz
  * 4.12  kp   15/07/21 Added new 3planar video formats and video timing modes
+         kp   24/08/21 Added new video timing modes related to different VTotal
  * </pre>
  *
 *******************************************************************************/
@@ -92,6 +93,7 @@ typedef enum {
 	XVIDC_VM_1440x576_200_I,
 	XVIDC_VM_1920x1080_48_I,
 	XVIDC_VM_1920x1080_50_I,
+	XVIDC_VM_1920x1080_50_I_VT1250,
 	XVIDC_VM_1920x1080_60_I,
 	XVIDC_VM_1920x1080_96_I,
 	XVIDC_VM_1920x1080_100_I,
@@ -167,7 +169,10 @@ typedef enum {
 	XVIDC_VM_1400x1050_85_P,
 	XVIDC_VM_1400x1050_120_P_RB,
 	XVIDC_VM_1440x240_60_P,
+	XVIDC_VM_1440x240_60_P_VT263,
 	XVIDC_VM_1440x288_50_P,
+	XVIDC_VM_1440x288_50_P_VT314,
+	XVIDC_VM_1440x288_50_P_VT312,
 	XVIDC_VM_1440x480_60_P,
 	XVIDC_VM_1440x576_50_P,
 	XVIDC_VM_1440x900_60_P,
@@ -240,7 +245,10 @@ typedef enum {
 	XVIDC_VM_2560x1600_85_P,
 	XVIDC_VM_2560x1600_120_P_RB,
 	XVIDC_VM_2880x240_60_P,
+	XVIDC_VM_2880x240_60_P_VT263,
 	XVIDC_VM_2880x288_50_P,
+	XVIDC_VM_2880x288_50_P_VT314,
+	XVIDC_VM_2880x288_50_P_VT312,
 	XVIDC_VM_2880x480_60_P,
 	XVIDC_VM_2880x576_50_P,
 	XVIDC_VM_3840x2160_24_P,
