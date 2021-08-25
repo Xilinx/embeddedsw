@@ -7,7 +7,7 @@
 /**
 *
 * @file xbram_hw.h
-* @addtogroup bram_v4_6
+* @addtogroup bram_v4_7
 * @{
 *
 * This header file contains identifiers and driver functions (or

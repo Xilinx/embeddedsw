@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xbram_selftest.c
-* @addtogroup bram_v4_6
+* @addtogroup bram_v4_7
 * @{
 *
 * The implementation of the XBram driver's self test function. This SelfTest
