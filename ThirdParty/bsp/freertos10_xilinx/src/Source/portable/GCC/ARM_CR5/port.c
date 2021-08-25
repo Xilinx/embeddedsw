@@ -441,20 +441,20 @@ uint32_t ulAPSR, ulCycles = 8; /* 8 bits per byte. */
 	#if( configASSERT_DEFINED == 1 )
 	{
 		volatile uint32_t ulOriginalPriority;
-		volatile uint8_t * const pucFirstUserPriorityRegister = ( volatile uint8_t * const ) Xil_In32( configINTERRUPT_CONTROLLER_BASE_ADDRESS + portINTERRUPT_PRIORITY_REGISTER_OFFSET );
+		volatile uint32_t ulFirstUserPriorityRegister = ( configINTERRUPT_CONTROLLER_BASE_ADDRESS + portINTERRUPT_PRIORITY_REGISTER_OFFSET );
 		volatile uint8_t ucMaxPriorityValue;
 
 		/* Determine how many priority bits are implemented in the GIC.
 
 		Save the interrupt priority value that is about to be clobbered. */
-		ulOriginalPriority = *pucFirstUserPriorityRegister;
+		ulOriginalPriority = Xil_In32(ulFirstUserPriorityRegister);
 
 		/* Determine the number of priority bits available.  First write to
 		all possible bits. */
-		*pucFirstUserPriorityRegister = portMAX_8_BIT_VALUE;
+		Xil_Out32(ulFirstUserPriorityRegister, portMAX_8_BIT_VALUE);
 
 		/* Read the value back to see how many bits stuck. */
-		ucMaxPriorityValue = *pucFirstUserPriorityRegister;
+		ucMaxPriorityValue = Xil_In32(ulFirstUserPriorityRegister);
 
 		/* Shift to the least significant bits. */
 		while( ( ucMaxPriorityValue & portBIT_0_SET ) != portBIT_0_SET )
@@ -470,7 +470,7 @@ uint32_t ulAPSR, ulCycles = 8; /* 8 bits per byte. */
 			}
 		}
 
-		*pucFirstUserPriorityRegister = ulOriginalPriority;
+		Xil_Out32(ulFirstUserPriorityRegister, ulOriginalPriority);
 	}
 	#endif /* conifgASSERT_DEFINED */
 
