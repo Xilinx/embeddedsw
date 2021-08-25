@@ -25,6 +25,9 @@
 * 4.1   ms   01/23/17 Modified xil_printf statement in main function to
 *                     ensure that "Successfully ran" and "Failed" strings are
 *                     available in all examples. This is a fix for CR-965028.
+* 4.7   mus  08/25/21 BRAM and interrupt controller instance need not to be
+*                     declared in case of peripheral test, added condition to skip
+*                     them in case of peripheral test (CR#1108877)
 *</pre>
 *
 ******************************************************************************/
@@ -71,9 +74,11 @@ static void BramDisableIntr(XIntc* IntcInstancePtr, XBram* InstancePtr,
  * The following are declared globally so they are zeroed and so they are
  * easily accessible from a debugger
  */
+ #ifndef TESTAPP_GEN
 XBram Bram;	/* The Instance of the BRAM Driver */
 
 XIntc Intc;	/* The Instance of the Interrupt Controller Driver */
+#endif
 
 static volatile u32 IntrCount;		/* Total number of interrupts */
 static volatile int ExceptionCount;	/* Total number of exceptions */
