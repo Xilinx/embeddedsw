@@ -278,6 +278,7 @@
 *       cog    05/05/21 Rename the MAX/MIN macros to avoid potential conflicts.
 * 11.0  cog    05/31/21 Upversion.
 *       cog    07/12/21 Simplified clock distribution user interface.
+*       cog    08/18/21 Disallow VOP for DC coupled DACs.
 *
 * </pre>
 *
@@ -630,6 +631,7 @@ typedef struct {
 	u32 MultibandConfig;
 	double MaxSampleRate;
 	u32 NumSlices;
+	u32 LinkCoupling;
 	XRFdc_DACBlock_AnalogDataPath_Config DACBlock_Analog_Config[4];
 	XRFdc_DACBlock_DigitalDataPath_Config DACBlock_Digital_Config[4];
 } XRFdc_DACTile_Config;

@@ -29,6 +29,7 @@
 *       cog    01/11/21 Tuning for autocalibration.
 * 11.0  cog    05/31/21 Upversion.
 *       cog    08/05/21 Fixed issue where VOP initial value was incorrect.
+*       cog    08/18/21 Disallow VOP for DC coupled DACs.
 *
 * </pre>
 *
@@ -42,7 +43,7 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-
+#define XRFDC_DAC_LINK_COUPLING_AC 0x0U
 /************************** Function Prototypes ******************************/
 
 /*****************************************************************************/
@@ -2618,6 +2619,13 @@ u32 XRFdc_SetDACVOP(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 uACurrent
 	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
 		Status = XRFDC_FAILURE;
 		metal_log(METAL_LOG_ERROR, "\n Requested functionality not available for this IP in %s\r\n", __func__);
+		goto RETURN_PATH;
+	}
+
+	if (InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].LinkCoupling != XRFDC_DAC_LINK_COUPLING_AC) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR,
+			  "\n Requested functionality not available DC coupled configuration in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
