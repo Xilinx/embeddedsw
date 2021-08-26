@@ -110,6 +110,7 @@
 *       bsv  08/17/2021 Code clean up
 *       rb   08/11/2021 Fix compilation warnings
 *       bm   08/24/2021 Added Extract Metaheader support
+*       bm   08/26/2021 Updated XLOADER_PDI_LOAD_STARTED register write
 *
 * </pre>
 *
@@ -520,7 +521,10 @@ int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 	/*
 	 * Mark PDI loading is started.
 	 */
-	XPlmi_Out32(PMC_GLOBAL_DONE, XLOADER_PDI_LOAD_STARTED);
+	if ((PdiPtr->PdiType != XLOADER_PDI_TYPE_FULL_METAHEADER) &&
+		(PdiPtr->PdiType != XLOADER_PDI_TYPE_PARTIAL_METAHEADER)) {
+		XPlmi_Out32(PMC_GLOBAL_DONE, XLOADER_PDI_LOAD_STARTED);
+	}
 
 	/*
 	 * Store address of the structure in PMC_GLOBAL.GLOBAL_GEN_STORAGE4.
