@@ -47,6 +47,8 @@
 *       bm   07/30/2021 Updated decrypt metaheader logic to support full PDIs
 *       kpt  08/22/2021 Added redundancy to XLoader_CheckIpiAccess
 *       bm   08/24/2021 Updated decrypt metaheader command to extract metaheader
+*       bm   08/26/2021 Removed XLOADER_PDI_LOAD_COMPLETE write from
+*                       extract metaheader command
 *
 * </pre>
 *
@@ -711,7 +713,7 @@ static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 		IdString = XPlmi_In64(SrcAddr + SMAP_BUS_WIDTH_LENGTH +
 				XIH_IHT_IDENT_STRING_OFFSET);
 		if (IdString == XIH_IHT_PPDI_IDENT_VAL) {
-			PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;;
+			PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL_METAHEADER;
 		}
 		else {
 			Status = XLOADER_ERR_INVALID_PDI_INPUT;
@@ -794,7 +796,6 @@ static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 	XPlmi_Printf(DEBUG_GENERAL, "Extracted Metaheader Successfully\n\r");
 
 END:
-	XPlmi_Out32(PMC_GLOBAL_DONE, XLOADER_PDI_LOAD_COMPLETE);
 	XPlmi_SetPlmMode(XPLMI_MODE_OPERATIONAL);
 	Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;
 
