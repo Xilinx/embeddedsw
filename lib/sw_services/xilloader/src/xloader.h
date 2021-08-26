@@ -86,6 +86,7 @@
 *       bsv  08/02/2021 Updated function return type as part of code clean up
 *       bm   08/09/2021 Removed obsolete XLoader_PMCStateClear API prototype
 *       bm   08/24/2021 Added Extract Metaheader support
+*       bm   08/26/2021 Added XLOADER_PDI_TYPE_PARTIAL_METAHEADER macro
 *
 * </pre>
 *
@@ -154,6 +155,7 @@ extern "C" {
 #define XLOADER_PDI_TYPE_PARTIAL	(0x2U)
 #define XLOADER_PDI_TYPE_RESTORE	(0x3U)
 #define XLOADER_PDI_TYPE_FULL_METAHEADER 	(0x4U)
+#define XLOADER_PDI_TYPE_PARTIAL_METAHEADER 	(0x5U)
 
 /*
  * Secondary boot mode related macros
