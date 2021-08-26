@@ -40,6 +40,8 @@
 	#define XAIE_DEFAULT_BACKEND XAIE_IO_BACKEND_CDO
 #elif defined (__AIEBAREMETAL__)
 	#define XAIE_DEFAULT_BACKEND XAIE_IO_BACKEND_BAREMETAL
+#elif defined (__AIESOCKET__)
+	#define XAIE_DEFAULT_BACKEND XAIE_IO_BACKEND_SOCKET
 #else
 	#define __AIEDEBUG__
 	#define XAIE_DEFAULT_BACKEND XAIE_IO_BACKEND_DEBUG
@@ -70,6 +72,11 @@
 #else
 	#define BAREMETALBACKEND NULL
 #endif
+#if defined (__AIESOCKET__)
+	#define SOCKETBACKEND &SocketBackend
+#else
+	#define SOCKETBACKEND NULL
+#endif
 #if defined (__AIEDEBUG__)
 	#define DEBUGBACKEND &DebugBackend
 #else
@@ -83,6 +90,7 @@ extern const XAie_Backend CdoBackend;
 extern const XAie_Backend BaremetalBackend;
 extern const XAie_Backend DebugBackend;
 extern const XAie_Backend LinuxBackend;
+extern const XAie_Backend SocketBackend;
 
 static const XAie_Backend *IOBackend[XAIE_IO_BACKEND_MAX] =
 {
@@ -92,6 +100,7 @@ static const XAie_Backend *IOBackend[XAIE_IO_BACKEND_MAX] =
 	BAREMETALBACKEND,
 	DEBUGBACKEND,
 	LINUXBACKEND,
+	SOCKETBACKEND,
 };
 
 /************************** Function Definitions *****************************/
