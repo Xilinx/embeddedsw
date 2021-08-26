@@ -220,13 +220,15 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
   {
     case XVPROCSS_SCALE_1_1:
         if(XVprocSsPtr->VdmaPtr) {
-          pTable[index++] = XVPROCSS_SUBCORE_VDMA;
+          if (StrmInPtr->IsInterlaced)
+		  pTable[index++] = XVPROCSS_SUBCORE_VDMA;
 	    }
         break;
 
     case XVPROCSS_SCALE_UP:
 	    if(XVprocSsPtr->VdmaPtr) {
-          pTable[index++] = XVPROCSS_SUBCORE_VDMA;     /* VDMA is before Scaler */
+	          if (StrmInPtr->IsInterlaced)
+			  pTable[index++] = XVPROCSS_SUBCORE_VDMA;     /* VDMA is before Scaler */
 	    }
         pTable[index++] = XVPROCSS_SUBCORE_SCALER_V;
         pTable[index++] = XVPROCSS_SUBCORE_SCALER_H;
@@ -236,7 +238,8 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
         pTable[index++] = XVPROCSS_SUBCORE_SCALER_H;
         pTable[index++] = XVPROCSS_SUBCORE_SCALER_V;
 	    if(XVprocSsPtr->VdmaPtr) {
-          pTable[index++] = XVPROCSS_SUBCORE_VDMA;     /* VDMA is after Scaler */
+	          if (StrmInPtr->IsInterlaced)
+			  pTable[index++] = XVPROCSS_SUBCORE_VDMA;     /* VDMA is after Scaler */
 	    }
         break;
 
@@ -472,24 +475,24 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
      * progressive frame to downstream cores
      */
 	CtxtPtr->VidInHeight *= 2;
-  }
 
-  /* If Vdma is enabled, RD/WR Client needs to be programmed before Scaler */
-  if (XVprocSsPtr->VdmaPtr) {
-    switch (CtxtPtr->ScaleMode) {
-      case XVPROCSS_SCALE_1_1:
-      case XVPROCSS_SCALE_UP:
-          XVprocSs_VdmaSetWinToUpScaleMode(XVprocSsPtr, XVPROCSS_VDMA_UPDATE_ALL_CH);
-          break;
+	/* If Vdma is enabled, RD/WR Client needs to be programmed before Scaler */
+	if (XVprocSsPtr->VdmaPtr) {
+		switch (CtxtPtr->ScaleMode) {
+			case XVPROCSS_SCALE_1_1:
+			case XVPROCSS_SCALE_UP:
+				XVprocSs_VdmaSetWinToUpScaleMode(XVprocSsPtr, XVPROCSS_VDMA_UPDATE_ALL_CH);
+				break;
 
-      case XVPROCSS_SCALE_DN:
-	      XVprocSs_VdmaSetWinToDnScaleMode(XVprocSsPtr, XVPROCSS_VDMA_UPDATE_ALL_CH);
-          break;
+			case XVPROCSS_SCALE_DN:
+				XVprocSs_VdmaSetWinToDnScaleMode(XVprocSsPtr, XVPROCSS_VDMA_UPDATE_ALL_CH);
+				break;
 
-      default:
-          break;
-    }
-    StartCorePtr[XVPROCSS_SUBCORE_VDMA] = TRUE;
+			default:
+			break;
+		}
+		StartCorePtr[XVPROCSS_SUBCORE_VDMA] = TRUE;
+	}
   }
 
   for (count=0; count<CtxtPtr->RtrNumCores; ++count) {
