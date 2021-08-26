@@ -52,6 +52,8 @@
  *       rv   08/19/2021 Do not ack force power down command
  *       rv   08/22/2021 Use XPLMI_PLM_GENERIC_CMD_ID_MASK macro instead of hard
  *			 coded value
+ *       rv   08/25/2021 Check for module ID also along with API ID for xilpm
+ *			 force power down command
  *
  * </pre>
  *
@@ -216,6 +218,8 @@ int XPlmi_IpiDispatchHandler(void *Data)
 	u8 MaskIndex;
 	XPlmi_Cmd Cmd = {0U};
 	u8 PendingPsmIpi = (u8)FALSE;
+	u8 ModuleId;
+	u8 ApiId;
 
 	for (MaskIndex = 0U; MaskIndex < XPLMI_IPI_MASK_COUNT; MaskIndex++) {
 		if (IpiInst.Config.TargetList[MaskIndex].BufferIndex == (u32)Data) {
@@ -262,8 +266,16 @@ int XPlmi_IpiDispatchHandler(void *Data)
 		Status = XPlmi_CmdExecute(&Cmd);
 
 END:
-		if (((u8)PM_FORCE_POWERDOWN) != (u8)(Cmd.CmdId &
-		    XPLMI_PLM_GENERIC_CMD_ID_MASK)) {
+		ModuleId = (u8)((Cmd.CmdId & XPLMI_CMD_MODULE_ID_MASK) >>
+			   XPLMI_CMD_MODULE_ID_SHIFT);
+		ApiId = (u8)(Cmd.CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK);
+		/**
+		 * Skip providing ack for xilpm force power down command as
+		 * force power down command supports blocking/non-blocking
+		 * acknowledgement and it is handled from xilpm.
+		 */
+		if (((u8)XPLMI_MODULE_XILPM_ID != ModuleId) ||
+		    ((u8)PM_FORCE_POWERDOWN != ApiId)) {
 			Cmd.Response[0U] = (u32)Status;
 			/* Send response to caller */
 			(void)XPlmi_IpiWrite(Cmd.IpiMask, Cmd.Response,
