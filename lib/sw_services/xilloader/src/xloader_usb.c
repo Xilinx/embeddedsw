@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ****************************************************************************/
 
@@ -20,6 +20,7 @@
 * 1.01   bsv 07/08/2020 Moved Ch9Handler APIs to xloader_dfu_util.c
 *        skd 07/14/2020 XLoader_UsbCopy prototype changed
 *        td  08/19/2020 Fixed MISRA C violations Rule 10.3
+* 1.02   bsv 08/26/2021 Code clean up
 *
 * </pre>
 *
@@ -33,16 +34,19 @@
 #include "xplmi_util.h"
 #include "sleep.h"
 #include "xloader.h"
+#include "xpm_api.h"
+#include "xpm_nodeid.h"
+#include "xplmi.h"
+#include "xloader_ddr.h"
 
 /************************** Constant Definitions ****************************/
 #define XLOADER_USB_DEVICE_ID		(XPAR_XUSBPSU_0_DEVICE_ID)
-#define XLOADER_DOWNLOAD_COMPLETE	(2U)
 
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
 u8* DfuVirtFlash = (u8*)XLOADER_DDR_TEMP_BUFFER_ADDRESS;
-u32 DownloadDone = 0U;
+u8 DownloadDone = 0U;
 
 /*****************************************************************************/
 /**
@@ -60,8 +64,14 @@ int XLoader_UsbInit(u32 DeviceFlags)
 	Usb_Config *UsbConfigPtr;
 	struct XUsbPsu UsbPrivateData;
 	struct Usb_DevData UsbInstance;
+	u32 CapSecureAccess = (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE;
 
 	(void) DeviceFlags;
+	Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_USB_0,
+		CapSecureAccess, XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	Status = XPlmi_MemSetBytes(&UsbInstance, sizeof(UsbInstance),
 				0U, sizeof(UsbInstance));
@@ -95,6 +105,11 @@ int XLoader_UsbInit(u32 DeviceFlags)
 			UsbConfigPtr, UsbConfigPtr->BaseAddress);
 	if (XST_SUCCESS != Status) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_USB_CFG, Status);
+		goto END;
+	}
+
+	Status = XLoader_DdrInit(XLOADER_PDI_SRC_DDR);
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -160,15 +175,27 @@ END:
 int XLoader_UsbCopy(u64 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 {
 	int Status = XST_FAILURE;
-	(void)Flags;
 
-	Status = XPlmi_DmaXfr(SrcAddress + XLOADER_DDR_TEMP_BUFFER_ADDRESS,
-			DestAddress, Length / XPLMI_WORD_LEN, XPLMI_PMCDMA_1);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Status = XLoader_DdrCopy((SrcAddress + XLOADER_DDR_TEMP_BUFFER_ADDRESS),
+			DestAddress, Length, Flags);
 
-END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function releases control of USB.
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XLoader_UsbRelease(void)
+{
+	int Status = XST_FAILURE;
+
+	Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_USB_0,
+		XPLMI_CMD_SECURE);
+
 	return Status;
 }
 #endif

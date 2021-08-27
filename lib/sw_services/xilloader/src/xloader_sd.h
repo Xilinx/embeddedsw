@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +33,7 @@
 *       bsv  09/04/2020 Updated XLOADER_BASE_FILE_NAME_LEN_SD_1 macro value
 *       bsv  10/13/2020 Code clean up
 * 1.04  bm   12/15/2020 Removed XLOADER_SD_MAX_BOOT_FILES_LIMIT macro
+* 1.05  bsv  08/26/2021 Code clean up
 *
 * </pre>
 *
@@ -59,18 +60,15 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XLOADER_BASE_FILE_NAME_LEN_SD_1 	(16U)
-#define XLOADER_NUM_DIGITS_IN_FILE_NAME 	(4U)
-#define XLOADER_SD_SBD_ADDR_SET_MASK		(0x100U)
-#define XLOADER_SD_SBD_ADDR_SHIFT			(0x9U)
-#define XLOADER_LOGICAL_DRV_MASK		(0xF0000U)
+#define XLOADER_BASE_FILE_NAME_LEN_SD		(20U)
+#define XLOADER_LOGICAL_DRV_MASK		(0xFU)
 #define XLOADER_LOGICAL_DRV_SHIFT		(16U)
-#define XLOADER_SD_SBD_ADDR_MASK		(0xFFFFU)
 #define XLOADER_SD_DRV_NUM_0			(0U)
 #define XLOADER_SD_DRV_NUM_1			(1U)
 #define XLOADER_SD_DRV_NUM_5			(5U)
 #define XLOADER_SD_RAW_BLK_SIZE			(512U)
-#define XLOADER_SD_RAW_NUM_SECTORS		(128U)
+#define XLOADER_SD_CHUNK_SIZE		(0x200000U)
+#define XLOADER_NUM_SECTORS		(0x1000U)
 
 /************************** Function Prototypes ******************************/
 int XLoader_SdInit(u32 DeviceFlags);
