@@ -27,6 +27,7 @@
 * 1.05  td    07/08/2021 Fix doxygen warnings
 *       td    07/15/2021 Fix doxygen warnings
 *       bsv   07/18/2021 Debug enhancements
+*       bsv   08/26/2021 Code clean up
 *
 * </pre>
 *
@@ -44,11 +45,11 @@
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
-
+#ifndef PLM_DEBUG_MODE
 /***************** Macros (Inline Functions) Definitions *********************/
+#define PMC_GLOBAL_PMC_ERR2_STATUS_CFI_SHIFT	(16U)
 
 /************************** Function Prototypes ******************************/
-#ifndef PLM_DEBUG_MODE
 static void XLoader_CfiErrHandler(const XCfupmc *InstancePtr);
 static void XLoader_CfuErrHandler(const XCfupmc *InstancePtr);
 
@@ -89,7 +90,6 @@ int XLoader_CframeInit(void)
 				Config->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_CFRAME_CFG, Status);
-		goto END;
 	}
 
 END:
@@ -155,20 +155,20 @@ static void XLoader_CfuErrHandler(const XCfupmc *InstancePtr)
  *
  * @param       ImageId is Id of the image present in PDI
  *
- * @return      XST_SUCCESS on success and error code on failure
+ * @return      void
  *
  *****************************************************************************/
-int XLoader_CframeErrorHandler(u32 ImageId)
+void XLoader_CframeErrorHandler(u32 ImageId)
 {
-	int Status = XST_FAILURE;
 	u32 Err1Status = XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS);
 	u32 Err2Status = XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
 	u32 CfuIsrStatus = XPlmi_In32(CFU_APB_CFU_ISR);
 	u32 CfuStatus = XPlmi_In32(CFU_APB_CFU_STATUS);
 #ifndef PLM_DEBUG_MODE
-	XCfupmc XLoader_CfuIns = {0U}; /** CFU Driver Instance */
-	u32 CfiErrStatus;
+	XCfupmc XLoader_CfuIns; /** CFU Driver Instance */
+	u8 CfiErrStatus;
 	u32 CountVal = XPlmi_In32(CFU_APB_CFU_QWORD_CNT);
+	u8 PlHouseClean = (u8)((CountVal != 0U) && (ImageId == PM_DEV_PLD_0));
 #else
 	(void)ImageId;
 #endif
@@ -179,31 +179,20 @@ int XLoader_CframeErrorHandler(u32 ImageId)
 		CfuIsrStatus, CfuStatus, Err1Status, Err2Status);
 
 #ifndef PLM_DEBUG_MODE
-	CfiErrStatus = Err1Status & PMC_GLOBAL_PMC_ERR1_STATUS_CFRAME_MASK;
+	CfiErrStatus = (u8)(Err1Status & PMC_GLOBAL_PMC_ERR1_STATUS_CFRAME_MASK);
 	if (CfiErrStatus == 0U) {
-		CfiErrStatus = Err2Status & PMC_GLOBAL_PMC_ERR2_STATUS_CFI_MASK;
+		CfiErrStatus = (u8)((Err2Status & PMC_GLOBAL_PMC_ERR2_STATUS_CFI_MASK)
+			>> PMC_GLOBAL_PMC_ERR2_STATUS_CFI_SHIFT);
 	}
 
-	if (CfiErrStatus != 0U) {
+	if ((CfiErrStatus != 0U) || (PlHouseClean == (u8)TRUE)) {
 		XLoader_CfiErrHandler(&XLoader_CfuIns);
 	}
 
 	XLoader_CfuErrHandler(&XLoader_CfuIns);
 
-	if ((CountVal != 0U) && (ImageId == PM_DEV_PLD_0)) {
-		XLoader_CfiErrHandler(&XLoader_CfuIns);
-		XLoader_CfuErrHandler(&XLoader_CfuIns);
-
-		Status = XPmPlDomain_RetriggerPlHouseClean();
-		if (XST_SUCCESS != Status) {
-			goto END;
-		}
+	if (PlHouseClean == (u8)TRUE) {
+		(void)XPmPlDomain_RetriggerPlHouseClean();
 	}
 #endif
-	Status = XST_SUCCESS;
-
-#ifndef PLM_DEBUG_MODE
-END:
-#endif
-	return Status;
 }
