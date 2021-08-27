@@ -29,6 +29,7 @@
 *       skd  08/21/2020 Removed flash size macros
 *       bsv  10/13/2020 Code clean up
 * 1.04  bsv  07/22/2021 Added support for Winbond flash part
+*       bsv  08/26/2021 Code clean up
 *
 * </pre>
 *
@@ -149,6 +150,7 @@ extern "C" {
 int XLoader_QspiInit(u32 DeviceFlags);
 int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags);
 int XLoader_QspiGetBusWidth(u64 ImageOffsetAddress);
+int XLoader_QspiRelease(void);
 
 /************************** Variable Definitions *****************************/
 
