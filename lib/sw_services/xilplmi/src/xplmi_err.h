@@ -44,6 +44,7 @@
 *       kc   07/22/2021 XPlmi_PorHandler scope updated to global
 *       rv   08/04/2021 Added support to pass subsystem restart handler to
 *			XPlmi_EmInit
+*       rv   08/26/2021 Remove unused macro definitions
 *
 * </pre>
 *
@@ -80,8 +81,6 @@ extern "C" {
 
 /* Subsystem shutdown/restart related macros */
 #define XPLMI_SUBSYS_SHUTDN_TYPE_SHUTDN		(0U)
-#define XPLMI_SUBSYS_SHUTDN_TYPE_RESTART	(1U)
-#define XPLMI_RESTART_SUBTYPE_SUBSYS		(0U)
 
 /* PLMI ERROR Management error codes */
 #define XPLMI_INVALID_ERROR_ID		(1)
