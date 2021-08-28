@@ -57,6 +57,8 @@
 #include "sensor_cfgs.h"
 #include "xmipi_menu.h"
 #include "pipeline_program.h"
+#include "xv_frmbufwr_l2.h"
+#include "xv_frmbufrd_l2.h"
 
 
 /************************** Constant Definitions *****************************/
@@ -76,17 +78,19 @@
 #define HDMI_TX_SS_INTR_ID 	HDMI_TXSS_INTR_ID
 
 #define VPHY_DEV_ID	XPAR_VPHY_0_DEVICE_ID
-#define VPHY_INTRID	XPAR_FABRIC_VPHY_0_VEC_ID
+#define VPHY_INTRID XPAR_FABRIC_VPHY_0_VEC_ID
 
 #define VID_PHY_DEVICE_ID	VPHY_DEV_ID
 #define VID_PHY_INTR_ID		VPHY_INTRID
 
-#define GPIO_TPG_RESET_DEVICE_ID	XPAR_GPIO_2_DEVICE_ID
+#define GPIO_TPG_RESET_DEVICE_ID	XPAR_GPIO_3_DEVICE_ID
 
 #define V_TPG_DEVICE_ID		XPAR_XV_TPG_0_DEVICE_ID
 
 #define GPIO_SENSOR		XPAR_AXI_GPIO_0_SENSOR_BASEADDR
 #define GPIO_IP_RESET	XPAR_GPIO_3_BASEADDR
+#define GPIO_IP_RESET1   XPAR_GPIO_4_BASEADDR
+#define GPIO_IP_RESET2   XPAR_GPIO_2_BASEADDR
 
 #ifdef XPAR_PSU_ACPU_GIC_DEVICE_ID
 #define PSU_INTR_DEVICE_ID	XPAR_PSU_ACPU_GIC_DEVICE_ID
@@ -96,6 +100,9 @@
 #define PSU_INTR_DEVICE_ID	XPAR_PSU_RCPU_GIC_DEVICE_ID
 #endif
 
+
+#define XPAR_INTC_0_V_FRMBUF_WR_0_VEC_ID XPAR_FABRIC_V_FRMBUF_WR_0_VEC_ID
+#define XPAR_INTC_0_V_FRMBUF_RD_0_VEC_ID XPAR_FABRIC_V_FRMBUF_RD_0_VEC_ID
 
 /**************************** Type Definitions *******************************/
 
@@ -133,6 +140,8 @@ XV_tpg Tpg;
 XV_tpg_Config *Tpg_ConfigPtr;
 XTpg_PatternId Pattern; /**< Video pattern */
 
+
+
 u8 IsPassThrough; /**< Demo mode 0-colorbar 1-pass through */
 u8 StartTxAfterRxFlag;
 u8 TxBusy;         /* TX busy flag is set while the TX is initialized */
@@ -145,11 +154,14 @@ XMipi_Menu HdmiMenu;      /* Menu structure */
 XPipeline_Cfg Pipeline_Cfg;
 XPipeline_Cfg New_Cfg;
 
+extern XV_FrmbufWr_l2     frmbufwr;
+extern XV_FrmbufRd_l2     frmbufrd;
+
 extern XIic IicIoExpander;
 extern XIic IicSensor; /* The instance of the IIC device. */
 
 extern XVprocSs scaler_new_inst;
-extern XAxiVdma TpgVdma;
+
 
 /************************** Function Definitions *****************************/
 
@@ -162,7 +174,7 @@ extern void Reconfigure_DSI();
 extern void Reconfigure_HDMI(void);
 extern void SelectDSIOutput(void);
 extern void SelectHDMIOutput(void);
-
+extern void config_csi_cap_path();
 /*****************************************************************************/
 /**
  * This function clones the EDID of the connected sink device to the HDMI RX
@@ -639,9 +651,26 @@ int SetupInterruptSystem(void) {
 		return XST_FAILURE;
 	}
 
+	Status = XScuGic_Connect(IntcInstPtr, XPAR_INTC_0_V_FRMBUF_WR_0_VEC_ID,
+					(XInterruptHandler) XVFrmbufWr_InterruptHandler,
+					(void *) &frmbufwr);
+
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	Status = XScuGic_Connect(IntcInstPtr, XPAR_INTC_0_V_FRMBUF_RD_0_VEC_ID,
+					(XInterruptHandler) XVFrmbufRd_InterruptHandler,
+					(void *) &frmbufrd);
+
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
 	/* Enable IO expander and sensor IIC interrupts */
 	XScuGic_Enable(IntcInstPtr, IIC_SENSOR_INTR_ID);
-
+	XScuGic_Enable(IntcInstPtr, XPAR_INTC_0_V_FRMBUF_WR_0_VEC_ID);
+	XScuGic_Enable(IntcInstPtr, XPAR_INTC_0_V_FRMBUF_RD_0_VEC_ID);
 	Xil_ExceptionInit();
 
 	/*Register the interrupt controller handler with the exception table.*/
@@ -791,9 +820,13 @@ void CamReset(void)
 ******************************************************************************/
 void Reset_IP_Pipe(void)
 {
-	Xil_Out32(GPIO_IP_RESET, 0x01);
-	Xil_Out32(GPIO_IP_RESET, 0x00);
-	Xil_Out32(GPIO_IP_RESET, 0x01);
+
+	Xil_Out32(GPIO_IP_RESET1, 0x00);
+	Xil_Out32(GPIO_IP_RESET2, 0x00);
+	usleep(1000);
+	Xil_Out32(GPIO_IP_RESET1, 0x01);
+	Xil_Out32(GPIO_IP_RESET2, 0x03);
+
 }
 
 /*****************************************************************************/
@@ -976,13 +1009,9 @@ xil_printf("\r\n");
 		return XST_FAILURE;
 	}
 
-	/* Initialize VDMAs in the design */
-	Status = InitializeVdma();
-	if (Status != XST_SUCCESS) {
-		xil_printf(TXT_RED "CSI Vdma Init failed status = %x.\r\n",
-				 Status);
-		return XST_FAILURE;
-	}
+	config_csi_cap_path();
+
+
 
 	/* MIPI colour depth in bits per clock */
 	SetColorDepth();
@@ -1112,24 +1141,23 @@ xil_printf("\r\n");
 	CamReset();
 	xil_printf("Sensor is  Enabled\r\n");
 
+
 	/* Program Camera sensor */
-	Status = SetupCameraSensor();
-	if (Status != XST_SUCCESS) {
-		xil_printf("Failed to setup Camera sensor\r\n");
-		return XST_FAILURE;
-	}
+		Status = SetupCameraSensor();
+		if (Status != XST_SUCCESS) {
+			xil_printf("Failed to setup Camera sensor\r\n");
+			return XST_FAILURE;
+		}
 
 
-	/* Initialize VDMA with the the resolution mentioned */
-	InitCSC2TPG_Vdma();
+	start_csi_cap_pipe(Pipeline_Cfg.VideoMode);
 
 	InitImageProcessingPipe();
 
 	/* Set colorbar pattern */
 	ResetTpg();
-	Pattern = XTPG_BKGND_CHECKER_BOARD;
+	Pattern = XTPG_BKGND_COLOR_BARS;
 	XV_ConfigTpg(&Tpg);
-
 	/*If HDMI is disconnected then make DSI the default video destination*/
 	if (HdmiTxSs.IsStreamConnected == (FALSE)) {
 		print(TXT_RED);
@@ -1171,11 +1199,11 @@ xil_printf("\r\n");
 	/* Initialize menu */
 	XMipi_MenuInitialize(&HdmiMenu, UART_BASEADDR);
 
+
 	/* Enable DSI IP */
 	EnableDSI();
 
-	/* Start reading the pixel data from memory */
-	XAxiVdma_DmaStart(&TpgVdma, XAXIVDMA_READ);
+
 
 	New_Cfg = Pipeline_Cfg;
 
@@ -1197,7 +1225,6 @@ xil_printf("\r\n");
 		}
 
 		if (New_Cfg.VideoSrc != Pipeline_Cfg.VideoSrc) {
-			XAxiVdma_DmaStop(&TpgVdma, XAXIVDMA_READ);
 			usleep(1000000);
 
 			if (New_Cfg.VideoSrc == XVIDSRC_SENSOR) {
@@ -1214,7 +1241,6 @@ xil_printf("\r\n");
 			ResetTpg();
 			/* Configure TPG IP */
 			XV_ConfigTpg(&Tpg);
-			XAxiVdma_DmaStart(&TpgVdma, XAXIVDMA_READ);
 
 			PrintPipeConfig();
 		}

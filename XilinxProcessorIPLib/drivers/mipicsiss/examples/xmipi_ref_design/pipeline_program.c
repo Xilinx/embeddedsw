@@ -34,9 +34,10 @@
 #include "xdsitxss.h"
 #include "xgpio.h"
 #include "xcsiss.h"
-#include "xaxivdma.h"
 #include <xvidc.h>
 #include <xvprocss.h>
+#include "xv_frmbufwr_l2.h"
+#include "xv_frmbufrd_l2.h"
 
 #define IIC_SENSOR_DEV_ID	XPAR_AXI_IIC_1_SENSOR_DEVICE_ID
 
@@ -53,12 +54,13 @@
 #define ScalerFrame	0x30000000
 
 #define XVPROCSS_DEVICE_ID	XPAR_XVPROCSS_0_DEVICE_ID
-#define VDMA_NUM_FSTORES	XPAR_AXIVDMA_0_NUM_FSTORES
 #define XDSITXSS_DEVICE_ID	XPAR_DSITXSS_0_DEVICE_ID
 #define XDSITXSS_INTR_ID	XPAR_FABRIC_MIPI_DSI_TX_SUBSYSTEM_0_INTERRUPT_INTR
 #define DSI_BYTES_PER_PIXEL	(3)
 #define DSI_H_RES		(1920)
 #define DSI_V_RES		(1200)
+#define HDMI_H_RES		(1920)
+#define HDMI_V_RES		(1080)
 #define DSI_DISPLAY_HORI_VAL	(DSI_H_RES * DSI_BYTES_PER_PIXEL)
 #define DSI_DISPLAY_VERT_VAL	(DSI_V_RES)
 #define DSI_HBACK_PORCH			(0x39D)
@@ -74,19 +76,25 @@
 
 XDsiTxSs DsiTxSs;
 
-#define XGPIO_STREAM_MUX_GPIO_DEVICE_ID	XPAR_GPIO_4_DEVICE_ID
+#define XGPIO_STREAM_MUX_GPIO_DEVICE_ID	XPAR_GPIO_5_DEVICE_ID
 XGpio Gpio_Stream_Mux;
 
 #define XCSIRXSS_DEVICE_ID	XPAR_CSISS_0_DEVICE_ID
 XCsiSs CsiRxSs;
 
-#define XVDMACSI_DEVICE_ID	XPAR_PROCESSING_SS_AXI_VDMA_CSIRX2CFA_DEVICE_ID
-XAxiVdma CsiVdma;
 
-#define XVDMATPG_DEVICE_ID	XPAR_AXIVDMA_0_DEVICE_ID
-XAxiVdma TpgVdma;
 
 XVprocSs scaler_new_inst;
+
+
+XVidC_VideoMode VideoMode;
+XVidC_VideoStream  VidStream;
+XVidC_ColorFormat  Cfmt;
+XVidC_VideoStream  StreamOut;
+
+
+XV_FrmbufWr_l2     frmbufwr;
+XV_FrmbufRd_l2     frmbufrd;
 
 /**************************** Type Definitions *******************************/
 typedef u8 AddressType;
@@ -112,6 +120,28 @@ extern u8 TxRestartColorbar;
 void ConfigDemosaicResolution(XVidC_VideoMode videomode);
 void DisableDemosaicResolution();
 
+
+
+#define DDR_BASEADDR 0x10000000
+
+#define BUFFER_BASEADDR0 (DDR_BASEADDR + (0x10000000))
+#define BUFFER_BASEADDR1 (DDR_BASEADDR + (0x20000000))
+#define BUFFER_BASEADDR2 (DDR_BASEADDR + (0x30000000))
+#define BUFFER_BASEADDR3 (DDR_BASEADDR + (0x40000000))
+#define BUFFER_BASEADDR4 (DDR_BASEADDR + (0x50000000))
+#define CHROMA_ADDR_OFFSET   (0x01000000U)
+
+u32 frame_array[5] = {BUFFER_BASEADDR0, BUFFER_BASEADDR1, BUFFER_BASEADDR2,
+		              BUFFER_BASEADDR3, BUFFER_BASEADDR4};
+u32 rd_ptr = 4 ;
+u32 wr_ptr = 0 ;
+u64 XVFRMBUFRD_BUFFER_BASEADDR;
+u64 XVFRMBUFWR_BUFFER_BASEADDR;
+u32 frmrd_start  = 0;
+u32 frm_cnt = 0;
+u32 frm_cnt1 = 0;
+
+
 /*****************************************************************************/
 /**
  * This Send handler is called asynchronously from an interrupt
@@ -128,6 +158,103 @@ void DisableDemosaicResolution();
 static void SendHandler(XIic *InstancePtr) {
 	TransmitComplete = 0;
 }
+
+
+/*****************************************************************************/
+/**
+ * This function configures Frame Buffer for defined mode
+ *
+ * @return XST_SUCCESS if init is OK else XST_FAILURE
+ *
+ *****************************************************************************/
+static int ConfigFrmbuf(u32 StrideInBytes,
+                        XVidC_ColorFormat Cfmt,
+                        XVidC_VideoStream *StreamPtr
+						)
+{
+  int Status;
+
+
+  XVFrmbufWr_WaitForIdle(&frmbufwr);
+  XVFrmbufRd_WaitForIdle(&frmbufrd);
+
+
+  XVFRMBUFWR_BUFFER_BASEADDR = frame_array[wr_ptr];
+
+  XVFRMBUFRD_BUFFER_BASEADDR = frame_array[rd_ptr];
+    /* Configure Frame Buffers */
+
+
+    Status = XVFrmbufWr_SetMemFormat(&frmbufwr, StrideInBytes, Cfmt, StreamPtr);
+    if(Status != XST_SUCCESS) {
+      xil_printf("ERROR:: Unable to configure Frame Buffer Write\r\n");
+      return(XST_FAILURE);
+    }
+    Status = XVFrmbufWr_SetBufferAddr(&frmbufwr, XVFRMBUFWR_BUFFER_BASEADDR);
+    if(Status != XST_SUCCESS) {
+      xil_printf("ERROR:: Unable to configure Frame \
+                                        Buffer Write buffer address\r\n");
+      return(XST_FAILURE);
+    }
+
+    /* Set Chroma Buffer Address for semi-planar color formats */
+    if ((Cfmt == XVIDC_CSF_MEM_Y_UV8) || (Cfmt == XVIDC_CSF_MEM_Y_UV8_420) ||
+        (Cfmt == XVIDC_CSF_MEM_Y_UV10) || (Cfmt == XVIDC_CSF_MEM_Y_UV10_420)) {
+
+      Status = XVFrmbufWr_SetChromaBufferAddr(&frmbufwr,
+                               XVFRMBUFWR_BUFFER_BASEADDR+CHROMA_ADDR_OFFSET);
+      if(Status != XST_SUCCESS) {
+        xil_printf("ERROR::Unable to configure Frame Buffer \
+                                           Write chroma buffer address\r\n");
+        return(XST_FAILURE);
+      }
+    }
+
+    /* Configure Frame Buffer Read*/
+        Status = XVFrmbufRd_SetMemFormat(&frmbufrd, StrideInBytes,
+                                                       Cfmt, StreamPtr);
+        if(Status != XST_SUCCESS) {
+          xil_printf("ERROR:: Unable to configure Frame Buffer Read\r\n");
+          return(XST_FAILURE);
+        }
+
+        Status = XVFrmbufRd_SetBufferAddr(&frmbufrd,
+                                      XVFRMBUFRD_BUFFER_BASEADDR);
+        if(Status != XST_SUCCESS) {
+          xil_printf("ERROR:: Unable to configure Frame \
+                                         Buffer Read buffer address\r\n");
+          return(XST_FAILURE);
+        }
+
+
+        /* Set Chroma Buffer Address for semi-planar color formats */
+        if ((Cfmt == XVIDC_CSF_MEM_Y_UV8) ||
+            (Cfmt == XVIDC_CSF_MEM_Y_UV8_420) ||
+            (Cfmt == XVIDC_CSF_MEM_Y_UV10) ||
+            (Cfmt == XVIDC_CSF_MEM_Y_UV10_420)) {
+
+          Status = XVFrmbufRd_SetChromaBufferAddr(&frmbufrd,
+                       XVFRMBUFRD_BUFFER_BASEADDR+CHROMA_ADDR_OFFSET);
+          if(Status != XST_SUCCESS) {
+            xil_printf("ERROR:: Unable to configure Frame \
+                               Buffer Read chroma buffer address\r\n");
+            return(XST_FAILURE);
+          }
+        }
+
+
+  /* Enable Interrupt */
+  XVFrmbufWr_InterruptEnable(&frmbufwr, XVFRMBUFWR_IRQ_DONE_MASK);
+
+  XVFrmbufRd_InterruptEnable(&frmbufrd, XVFRMBUFRD_IRQ_DONE_MASK);
+
+
+  return(Status);
+}
+
+
+
+
 
 /*****************************************************************************/
 /**
@@ -537,6 +664,102 @@ void ConfigDemosaic(u32 width , u32 height)
 
 /*****************************************************************************/
 /**
+ *
+ * This function is called when a Frame Buffer Write Done has occurred.
+ *
+ * @param	CallbackRef is a callback function reference.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ *****************************************************************************/
+void FrmbufwrDoneCallback(void *CallbackRef) {
+	 //xil_printf("  Wr Done  \r\n");
+	int Status;
+
+	 rd_ptr = wr_ptr;
+	 if(wr_ptr == 0)
+		 rd_ptr = 4 ;
+	 else
+		 rd_ptr = wr_ptr -1 ;
+
+	 if(wr_ptr == 4) {
+
+		  wr_ptr = 0;
+	 }
+	 else{
+		 wr_ptr = wr_ptr + 1;
+	 }
+
+     XVFRMBUFRD_BUFFER_BASEADDR = frame_array[rd_ptr];
+	 XVFRMBUFWR_BUFFER_BASEADDR = frame_array[wr_ptr];
+
+	 Status = XVFrmbufWr_SetBufferAddr(&frmbufwr,
+                                               XVFRMBUFWR_BUFFER_BASEADDR);
+	   if(Status != XST_SUCCESS) {
+	     xil_printf("ERROR:: Unable to configure Frame Buffer \
+                                                 Write buffer address\r\n");
+	   }
+
+	   /* Set Chroma Buffer Address for semi-planar color formats */
+	   if ((Cfmt == XVIDC_CSF_MEM_Y_UV8) ||
+               (Cfmt == XVIDC_CSF_MEM_Y_UV8_420) ||
+	       (Cfmt == XVIDC_CSF_MEM_Y_UV10) ||
+               (Cfmt == XVIDC_CSF_MEM_Y_UV10_420)) {
+	     Status = XVFrmbufWr_SetChromaBufferAddr(&frmbufwr,
+                             XVFRMBUFWR_BUFFER_BASEADDR+CHROMA_ADDR_OFFSET);
+	     if(Status != XST_SUCCESS) {
+	       xil_printf("ERROR:: Unable to configure Frame Buffer \
+                                           Write chroma buffer address\r\n");
+	     }
+	   }
+
+	  Status = XVFrmbufRd_SetBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR);
+	   if(Status != XST_SUCCESS) {
+	     xil_printf("ERROR:: Unable to configure Frame Buffer \
+                                                   Read buffer address\r\n");
+	   }
+
+	   /* Set Chroma Buffer Address for semi-planar color formats */
+	   if ((Cfmt == XVIDC_CSF_MEM_Y_UV8) ||
+               (Cfmt == XVIDC_CSF_MEM_Y_UV8_420) ||
+	       (Cfmt == XVIDC_CSF_MEM_Y_UV10) ||
+               (Cfmt == XVIDC_CSF_MEM_Y_UV10_420)) {
+	     Status = XVFrmbufRd_SetChromaBufferAddr(&frmbufrd,
+                            XVFRMBUFRD_BUFFER_BASEADDR+CHROMA_ADDR_OFFSET);
+	     if(Status != XST_SUCCESS) {
+	       xil_printf("ERROR:: Unable to configure Frame \
+                                      Buffer Read chroma buffer address\r\n");
+	     }
+	   }
+
+	   if ( (frmrd_start == 0) && (wr_ptr == 2)){
+		   XV_frmbufrd_EnableAutoRestart(&frmbufrd.FrmbufRd);
+		   XVFrmbufRd_Start(&frmbufrd);
+		   frmrd_start = 1 ;
+	   }
+frm_cnt++;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function is called when a Frame Buffer Read Done has occurred.
+ *
+ * @param	CallbackRef is a callback function reference.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ *****************************************************************************/
+void FrmbufrdDoneCallback(void *CallbackRef) {
+      frm_cnt1++;
+}
+
+/*****************************************************************************/
+/**
  * This function disables Demosaic, GammaLut and VProcSS IPs
  *
  * @return	None.
@@ -551,6 +774,201 @@ void DisableImageProcessingPipe(void)
 	Xil_Out32((VPROCSSCSC_BASE + 0x00), 0x0  );
 
 }
+
+/*****************************************************************************/
+/**
+ * This function calculates the stride
+ *
+ * @returns stride in bytes
+ *
+ *****************************************************************************/
+static u32 CalcStride(XVidC_ColorFormat Cfmt,
+                      u16 AXIMMDataWidth,
+                      XVidC_VideoStream *StreamPtr)
+{
+  u32 stride;
+  int width = StreamPtr->Timing.HActive;
+  u16 MMWidthBytes = AXIMMDataWidth/8;
+
+  if ((Cfmt == XVIDC_CSF_MEM_Y_UV10) || (Cfmt == XVIDC_CSF_MEM_Y_UV10_420)
+      || (Cfmt == XVIDC_CSF_MEM_Y10)) {
+    // 4 bytes per 3 pixels (Y_UV10, Y_UV10_420, Y10)
+    stride = ((((width*4)/3)+MMWidthBytes-1)/MMWidthBytes)*MMWidthBytes;
+  }
+  else if ((Cfmt == XVIDC_CSF_MEM_Y_UV8) || (Cfmt == XVIDC_CSF_MEM_Y_UV8_420)
+           || (Cfmt == XVIDC_CSF_MEM_Y8)) {
+    // 1 byte per pixel (Y_UV8, Y_UV8_420, Y8)
+    stride = ((width+MMWidthBytes-1)/MMWidthBytes)*MMWidthBytes;
+  }
+  else if ((Cfmt == XVIDC_CSF_MEM_RGB8) || (Cfmt == XVIDC_CSF_MEM_YUV8)
+           || (Cfmt == XVIDC_CSF_MEM_BGR8)) {
+    // 3 bytes per pixel (RGB8, YUV8, BGR8)
+     stride = (((width*3)+MMWidthBytes-1)/MMWidthBytes)*MMWidthBytes;
+  }
+  else {
+    // 4 bytes per pixel
+    stride = (((width*4)+MMWidthBytes-1)/MMWidthBytes)*MMWidthBytes;
+  }
+
+  return(stride);
+}
+
+
+int start_csi_cap_pipe(XVidC_VideoMode VideoMode)
+{
+
+    int stride;
+    XVidC_VideoTiming const *TimingPtr;
+	int  widthIn, heightIn;
+	/* Local variables */
+	XVidC_VideoMode  resIdOut;
+
+
+	/* Default Resolution that to be displayed */
+	Pipeline_Cfg.VideoMode = VideoMode ;
+
+	/* Select the sensor configuration based on resolution and lane */
+	switch (Pipeline_Cfg.VideoMode) {
+
+		case XVIDC_VM_1920x1080_30_P:
+		case XVIDC_VM_1920x1080_60_P:
+	        widthIn  = 1920;
+	        heightIn = 1080;
+			break;
+
+		case XVIDC_VM_3840x2160_30_P:
+		case XVIDC_VM_3840x2160_60_P:
+	        widthIn  = 3840;
+	        heightIn = 2160;
+			break;
+
+		case XVIDC_VM_1280x720_60_P:
+			widthIn  = 1280;
+			heightIn = 720;
+			break;
+
+		default:
+		    xil_printf("Invalid Input Selection ");
+			return XST_FAILURE;
+			break;
+
+	}
+
+
+    usleep(1000);
+
+	resIdOut = XVidC_GetVideoModeId(widthIn, heightIn, XVIDC_FR_60HZ,
+					FALSE);
+
+	StreamOut.VmId = resIdOut;
+	StreamOut.Timing.HActive = widthIn;
+	StreamOut.Timing.VActive = heightIn;
+	StreamOut.ColorFormatId = XVIDC_CSF_RGB;
+	StreamOut.FrameRate = XVIDC_FR_60HZ;
+	StreamOut.IsInterlaced = 0;
+
+
+	/* Setup a default stream */
+	StreamOut.ColorDepth = (XVidC_ColorDepth)frmbufwr.FrmbufWr.Config.MaxDataWidth;
+	StreamOut.PixPerClk = (XVidC_PixelsPerClock)frmbufwr.FrmbufWr.Config.PixPerClk;
+
+	VidStream.PixPerClk =(XVidC_PixelsPerClock)frmbufwr.FrmbufWr.Config.PixPerClk;
+	VidStream.ColorDepth = (XVidC_ColorDepth)frmbufwr.FrmbufWr.Config.MaxDataWidth;
+	Cfmt = XVIDC_CSF_MEM_RGB8 ;
+	VidStream.ColorFormatId = StreamOut.ColorFormatId;
+	VidStream.VmId = StreamOut.VmId;
+
+	/* Get mode timing parameters */
+	TimingPtr = XVidC_GetTimingInfo(VidStream.VmId);
+	VidStream.Timing = *TimingPtr;
+	VidStream.FrameRate = XVidC_GetFrameRate(VidStream.VmId);
+	xil_printf("\r\n********************************************\r\n");
+	xil_printf("Test Input Stream: %s (%s)\r\n",
+	           XVidC_GetVideoModeStr(VidStream.VmId),
+	           XVidC_GetColorFormatStr(Cfmt));
+	xil_printf("********************************************\r\n");
+	stride = CalcStride(Cfmt ,
+	                         frmbufwr.FrmbufWr.Config.AXIMMDataWidth,
+	                               &StreamOut);
+	 xil_printf(" Stride is calculated %d \r\n",stride);
+	ConfigFrmbuf(stride, Cfmt, &StreamOut);
+	xil_printf(" Frame Buffer Setup is Done\r\n");
+
+
+	XV_frmbufwr_EnableAutoRestart(&frmbufwr.FrmbufWr);
+	XVFrmbufWr_Start(&frmbufwr);
+
+
+	xil_printf(TXT_RST);
+
+      return 0;
+
+}
+
+
+/*****************************************************************************/
+/**
+ *
+ * Main function to initialize the video pipleline and process user input
+ *
+ * @return	XST_SUCCESS if MIPI example was successful else XST_FAILURE
+ *
+ * @note	None.
+ *
+ *****************************************************************************/
+
+int config_csi_cap_path(){
+
+
+	u32 Status;
+	/* Initialize Frame Buffer Write */
+	 Status =  XVFrmbufWr_Initialize(&frmbufwr, XPAR_XV_FRMBUFWR_0_DEVICE_ID);
+	if (Status != XST_SUCCESS) {
+		xil_printf(TXT_RED "Frame Buffer Write Init failed status = %x.\r\n"
+				 TXT_RST, Status);
+		return XST_FAILURE;
+	}
+
+
+	/* Initialize Frame Buffer Read */
+	Status =  XVFrmbufRd_Initialize(&frmbufrd, XPAR_XV_FRMBUFRD_0_DEVICE_ID);
+	if (Status != XST_SUCCESS) {
+		xil_printf(TXT_RED "Frame Buffer Read Init failed status = %x.\r\n"
+				 TXT_RST, Status);
+		return XST_FAILURE;
+	}
+
+
+	Status = XVFrmbufWr_SetCallback(&frmbufwr,
+	                                    XVFRMBUFWR_HANDLER_DONE,
+	                                    (void *)FrmbufwrDoneCallback,
+	                                    (void *) &frmbufwr);
+	if (Status != XST_SUCCESS) {
+		xil_printf(TXT_RED "Frame Buffer Write Call back  failed status = %x.\r\n"
+					TXT_RST, Status);
+		return XST_FAILURE;
+	}
+
+
+	Status = XVFrmbufRd_SetCallback(&frmbufrd,
+	                                XVFRMBUFRD_HANDLER_DONE,
+	                                (void *)FrmbufrdDoneCallback,
+	                                (void *) &frmbufrd);
+	if (Status != XST_SUCCESS) {
+		xil_printf(TXT_RED "Frame Buffer Read Call back  failed status = %x.\r\n"
+				 TXT_RST, Status);
+		return XST_FAILURE;
+	}
+
+
+	print("\r\n\r\n--------------------------------\r\n");
+
+	return 0;
+
+}
+
+
+
 
 /*****************************************************************************/
 /**
@@ -676,123 +1094,6 @@ int StartSensor(void)
 	return Status;
 }
 
-/*****************************************************************************/
-/**
- *
- * This function initializes the vdma IP for give configuration
- *
- * @param	VdmaInst is the pointer to XAxiVdma instance
- * @param	bpp is the bits per pixel
- * @param	FrameBase is the address of the frame buffer
- *
- * @return None.
- *
- * @note   None.
- *
- *****************************************************************************/
-void InitVDMA(XAxiVdma *VdmaInst, u32 bpp, u32 FrameBase)
-{
-	u32 width, height;
-	XAxiVdma_FrameCounter FrameCounter;
-	XAxiVdma_DmaSetup DmaConfig;
-
-	switch (Pipeline_Cfg.VideoMode) {
-
-		case XVIDC_VM_3840x2160_30_P:
-		case XVIDC_VM_3840x2160_60_P:
-			width = 3840;
-			height = 2160;
-			break;
-		case XVIDC_VM_1920x1080_30_P:
-		case XVIDC_VM_1920x1080_60_P:
-			width = 1920;
-			height = 1080;
-			break;
-		case XVIDC_VM_1280x720_60_P:
-			width = 1280;
-			height = 720;
-			break;
-
-		default:
-			xil_printf("InitVDMA - Invalid Video Mode \r\n");
-			return;
-	}
-
-	XAxiVdma_Reset(VdmaInst, XAXIVDMA_READ);
-	while (XAxiVdma_ResetNotDone(VdmaInst, XAXIVDMA_READ));
-
-	XAxiVdma_Reset(VdmaInst, XAXIVDMA_WRITE);
-	while (XAxiVdma_ResetNotDone(VdmaInst, XAXIVDMA_WRITE));
-
-	FrameCounter.ReadDelayTimerCount = 0;
-	FrameCounter.ReadFrameCount = VDMA_NUM_FSTORES;
-	FrameCounter.WriteDelayTimerCount = 0;
-	FrameCounter.WriteFrameCount = VDMA_NUM_FSTORES;
-
-	XAxiVdma_SetFrameCounter(VdmaInst, &FrameCounter);
-
-	/* S2MM write channel config */
-	/* Vertical size input */
-	DmaConfig.VertSizeInput = height;
-	/* Horizontal size input */
-	DmaConfig.HoriSizeInput = (width * bpp);
-	/* Stride */
-	DmaConfig.Stride = (width * bpp);
-	/* Frame Delay */
-	DmaConfig.FrameDelay = 1;
-	/* Circular Buffer Mode? */
-	DmaConfig.EnableCircularBuf = 1;
-	/* Gen-Lock Mode? */
-	DmaConfig.EnableSync = 0;
-	/* Master we synchronize with */
-	DmaConfig.PointNum = 0;
-	/* Frame Counter Enable */
-	DmaConfig.EnableFrameCounter = 0;
-	/* Fixed Frame Store Address index */
-	DmaConfig.FixedFrameStoreAddr = 0;
-	/* Gen-Lock Repeat? */
-	DmaConfig.GenLockRepeat = 0;
-
-	XAxiVdma_DmaConfig(VdmaInst, XAXIVDMA_WRITE, &DmaConfig);
-
-	/* Start Addresses of Frame Store Buffers. */
-	DmaConfig.FrameStoreStartAddr[0] = (u32) FrameBase;
-	DmaConfig.FrameStoreStartAddr[1] = (u32) FrameBase
-			+ (width * height * bpp);
-	DmaConfig.FrameStoreStartAddr[2] = (u32) FrameBase
-			+ (width * height * bpp * 2);
-	XAxiVdma_DmaSetBufferAddr(VdmaInst, XAXIVDMA_WRITE,
-					DmaConfig.FrameStoreStartAddr);
-
-	/* MM2S Read channel config */
-	DmaConfig.EnableSync = 1;
-
-	XAxiVdma_DmaConfig(VdmaInst, XAXIVDMA_READ, &DmaConfig);
-
-	XAxiVdma_DmaSetBufferAddr(VdmaInst, XAXIVDMA_READ,
-					DmaConfig.FrameStoreStartAddr);
-
-	XAxiVdma_GenLockSourceSelect(VdmaInst, XAXIVDMA_INTERNAL_GENLOCK,
-					XAXIVDMA_READ);
-
-	XAxiVdma_DmaStart(VdmaInst, XAXIVDMA_WRITE);
-
-}
-
-/*****************************************************************************/
-/**
- * This function provides information to program vdma wrt BPC
- *
- * @return	None.
- *
- * @note	None.
- *
- *****************************************************************************/
-void InitCSC2TPG_Vdma(void)
-{
-	/* Need to Modify with respect to input BPP */
-	InitVDMA(&TpgVdma, 3, FRAME_BASE);
-}
 
 /*****************************************************************************/
 /**
@@ -946,9 +1247,8 @@ void ResetVprocSs_Scaler(void)
 void EnableDSI(void)
 {
 
-//	XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_ENABLE);
 	XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_DSI, XDSITXSS_ENABLE);
-	 XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_PHY, XDSITXSS_ENABLE);
+	XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_PHY, XDSITXSS_ENABLE);
 }
 
 /*****************************************************************************/
@@ -963,7 +1263,6 @@ void EnableDSI(void)
 void DisableDSI(void)
 {
 
-	//XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_DISABLE);
 	XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_DSI, XDSITXSS_DISABLE);
 	XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_PHY, XDSITXSS_DISABLE);
 	usleep(100000);
@@ -990,14 +1289,9 @@ void InitDSI(void)
 
 	XDsiTxSs_Reset(&DsiTxSs);
 
-usleep(100000);
+        usleep(100000);
 	Status = XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_PHY, XDSITXSS_ENABLE);
-//	XDphy_Activate(DsiTxSs.DphyPtr, XDSITXSS_ENABLE);
 
-/*	if (!XDsiTxSs_IsControllerReady(&DsiTxSs)) {
-		xil_printf("DSI Controller NOT Ready!!!!\r\n");
-		return;
-	}*/
 	do {
 		Status = XDsiTxSs_IsControllerReady(&DsiTxSs);
 	} while (!Status);
@@ -1123,20 +1417,7 @@ void DisableScaler(void)
 	XVprocSs_Stop(&scaler_new_inst);
 }
 
-/*****************************************************************************/
-/**
- * This function stops VDMA IP transactions.
- *
- * @return	None.
- *
- * @note	None.
- *
- *****************************************************************************/
-void DisableTPGVdma(void)
-{
-	XAxiVdma_DmaStop(&TpgVdma, XAXIVDMA_WRITE);
-	XAxiVdma_DmaStop(&TpgVdma, XAXIVDMA_READ);
-}
+
 
 /*****************************************************************************/
 /**
@@ -1256,39 +1537,8 @@ void SetColorDepth(void)
 	return;
 }
 
-/*****************************************************************************/
-/**
- * This function initializes Axi VDMA IP and gets config parameters.
- *
- * @return	XST_SUCCESS if successful or else XST_FAILURE.
- *
- * @note	None.
- *
- *****************************************************************************/
-u32 InitializeVdma(void)
-{
-	u32 Status = 0;
-	XAxiVdma_Config *VdmaCfgPtr = NULL;
-	print(TXT_RED);
 
 
-	VdmaCfgPtr = XAxiVdma_LookupConfig(XVDMATPG_DEVICE_ID);
-	if (!VdmaCfgPtr) {
-		xil_printf("TPG VDMA LookupCfg failed\r\n");
-		return XST_FAILURE;
-	}
-
-	Status = XAxiVdma_CfgInitialize(&TpgVdma, VdmaCfgPtr,
-					VdmaCfgPtr->BaseAddress);
-
-	if (Status != XST_SUCCESS) {
-		xil_printf("Vdma Cfg init failed - %x\r\n", Status);
-		return Status;
-	}
-
-	print(TXT_RST);
-	return XST_SUCCESS;
-}
 
 /*****************************************************************************/
 /**
@@ -1370,6 +1620,7 @@ void PrintPipeConfig(void)
 	xil_printf(" Lanes\r\n");
 
 	xil_printf("-----------------------------------------------------\r\n");
+
 	xil_printf(TXT_RST);
 	return;
 }
