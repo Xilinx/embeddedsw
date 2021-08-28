@@ -82,6 +82,7 @@ void XMipi_MenuInitialize(XMipi_Menu *InstancePtr, u32 UartBaseAddress);
 void XMipi_MenuProcess(XMipi_Menu *InstancePtr);
 void XMipi_MenuReset(XMipi_Menu *InstancePtr);
 extern void InitImageProcessingPipe(void);
+extern void start_csi_cap_pipe(XVidC_VideoMode VideoMode);
 extern void DisableImageProcessingPipe(void);
 extern void CamReset(void);
 extern void Reset_IP_Pipe(void);

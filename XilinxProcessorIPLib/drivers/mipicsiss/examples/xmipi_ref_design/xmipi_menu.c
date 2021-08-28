@@ -30,6 +30,10 @@
 #include "sensor_cfgs.h"
 #include "pipeline_program.h"
 
+#include "xv_frmbufwr_l2.h"
+#include "xv_frmbufrd_l2.h"
+
+
 /************************** Constant Definitions *****************************/
 extern u8 Edid[];
 extern u8 TxRestartColorbar;
@@ -67,7 +71,15 @@ extern void EnableDSI();
 extern XVprocSs scaler_new_inst;
 extern XPipeline_Cfg Pipeline_Cfg;
 extern XPipeline_Cfg New_Cfg;
-extern XAxiVdma TpgVdma;
+
+extern XV_FrmbufWr_l2     frmbufwr;
+extern XV_FrmbufRd_l2     frmbufrd;
+
+extern u32 rd_ptr;
+extern u32 wr_ptr ;
+extern u32 frmrd_start;
+extern u32 frm_cnt ;
+extern u32 frm_cnt1;
 
 /**
  * This table contains the function pointers for all possible states.
@@ -273,7 +285,6 @@ xil_printf("Please select independent PLL layout to enable TX only mode.\n\r");
 			Xil_DCacheDisable();
 			break;
 	}
-
 	return Menu;
 }
 
@@ -393,13 +404,13 @@ xil_printf(" XVIDC_VM_3840x2160_30_P\n\r" TXT_RST);
 	DisableCSI();
 	DisableImageProcessingPipe();
 	Reset_IP_Pipe();
-	DisableTPGVdma();
 	DisableScaler();
 	DisableDSI();
-
+	rd_ptr = 4 ; wr_ptr = 0; frmrd_start  = 0;
+	frm_cnt = 0; frm_cnt1 = 0;
 	/* Enable pipeline */
 	ResetTpg();
-	InitCSC2TPG_Vdma();
+	start_csi_cap_pipe(Pipeline_Cfg.VideoMode);
 	XV_ConfigTpg(&Tpg);
 
 	InitVprocSs_Scaler(0);
@@ -423,7 +434,7 @@ xil_printf(" XVIDC_VM_3840x2160_30_P\n\r" TXT_RST);
 	if (Pipeline_Cfg.VideoDestn == XVIDDES_DSI) {
 	        EnableDSI();
         }
-	XAxiVdma_DmaStart(&TpgVdma, XAXIVDMA_READ);
+
 
 	usleep(200000);
 	StartSensor();
@@ -585,6 +596,8 @@ xil_printf(TXT_RED "Current resolution doesn't support dual lane\n\r" TXT_RST);
 	DisableImageProcessingPipe();
 	Reset_IP_Pipe();
 	CamReset();
+	rd_ptr = 4 ; wr_ptr = 0; frmrd_start  = 0;
+	frm_cnt = 0; frm_cnt1 = 0;
 	usleep(20000);
 	InitImageProcessingPipe();
 	EnableCSI();
@@ -594,7 +607,6 @@ xil_printf(TXT_RED "Current resolution doesn't support dual lane\n\r" TXT_RST);
 
 	usleep(200000);
 
-	XAxiVdma_DmaStart(&TpgVdma, XAXIVDMA_READ);
 
 	TxRestartColorbar = 1;
 
@@ -617,13 +629,17 @@ void Reconfigure_DSI(void) {
 	DisableCSI();
 	DisableImageProcessingPipe();
 	Reset_IP_Pipe();
-	DisableTPGVdma();
 	DisableScaler();
 	DisableDSI();
-
+	rd_ptr = 4 ; wr_ptr = 0; frmrd_start  = 0;
+	frm_cnt = 0; frm_cnt1 = 0;
 	/* Enable pipeline */
 	ResetTpg();
-	InitCSC2TPG_Vdma();
+
+
+
+	start_csi_cap_pipe(Pipeline_Cfg.VideoMode);
+
 	XV_ConfigTpg(&Tpg);
 	InitVprocSs_Scaler(0);
 	InitDSI();
@@ -632,7 +648,6 @@ void Reconfigure_DSI(void) {
 	usleep(20000);
 	SetupCameraSensor();
 
-	XAxiVdma_DmaStart(&TpgVdma, XAXIVDMA_READ);
 
 	usleep(200000);
 	StartSensor();
@@ -651,27 +666,24 @@ void Reconfigure_HDMI(void) {
 	DisableCSI();
 	DisableImageProcessingPipe();
 	Reset_IP_Pipe();
-	DisableTPGVdma();
 	DisableScaler();
 	DisableDSI();
-
+	rd_ptr = 4 ; wr_ptr = 0; frmrd_start  = 0;
+	frm_cnt = 0; frm_cnt1 = 0;
 	/* Enable pipeline */
 	ResetTpg();
-	InitCSC2TPG_Vdma();
+	start_csi_cap_pipe(Pipeline_Cfg.VideoMode);
 	XV_ConfigTpg(&Tpg);
 	InitVprocSs_Scaler(0);
 
-	//InitDSI();
 	InitImageProcessingPipe();
 	EnableCSI();
 	usleep(20000);
 	SetupCameraSensor();
 
-	XAxiVdma_DmaStart(&TpgVdma, XAXIVDMA_READ);
 
 	usleep(200000);
 	StartSensor();
-//	EnableDSI();
 
 	usleep(200000);
 	TxRestartColorbar = 1;
