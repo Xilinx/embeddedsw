@@ -34,6 +34,8 @@
 *                     arguments with void keyword. This has been done to fix
 *                     compilation warnings with "-Wstrict-prototypes" flag.
 *                     It fixes CR#1108601.
+* 7.6    mus 08/30/21 Updated flag checking to fix compilation warnings
+*                     reported with "-Wundef" flag. It fixes CR#1108601.
 * </pre>
 *
 ******************************************************************************/
@@ -70,9 +72,9 @@ u32 XGetPlatform_Info(void)
 {
 #if defined (versal)
 	return XPLAT_VERSAL;
-#elif defined (ARMR5) || (__aarch64__) || (ARMA53_32) || (PSU_PMU)
+#elif defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (PSU_PMU)
 	return XPLAT_ZYNQ_ULTRA_MP;
-#elif (__microblaze__)
+#elif defined (__microblaze__)
 	return XPLAT_MICROBLAZE;
 #else
 	return XPLAT_ZYNQ;
@@ -88,7 +90,7 @@ u32 XGetPlatform_Info(void)
 *			xplatform_info.h
 *
 ******************************************************************************/
-#if defined (ARMR5) || (__aarch64__) || (ARMA53_32)
+#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
 u32 XGet_Zynq_UltraMp_Platform_info(void)
 {
 #if EL1_NONSECURE
@@ -117,7 +119,7 @@ u32 XGet_Zynq_UltraMp_Platform_info(void)
 * @return   The information about PS Silicon version.
 *
 ******************************************************************************/
-#if defined (ARMR5) || (__aarch64__) || (ARMA53_32) || (PSU_PMU) || defined(versal)
+#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (PSU_PMU) || defined (versal)
 u32 XGetPSVersion_Info(void)
 {
 #if EL1_NONSECURE
