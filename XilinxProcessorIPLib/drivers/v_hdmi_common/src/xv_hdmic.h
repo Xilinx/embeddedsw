@@ -27,6 +27,7 @@
  *                     Added Audio ACR CTS/N Enumeration and Library
  * 1.3   EB   02/12/19 Added 3D Audio Enumerations and APIs
  * 1.6   kp   15/07/21 Updated the VIC table as per latest CTA spec
+ *       kp   30/08/21 Increased the VIC table size
  * </pre>
  *
 *******************************************************************************/
@@ -47,7 +48,7 @@ extern "C" {
 #include "xil_assert.h"
 
 /************************** Constant Definitions ******************************/
-#define VICTABLE_SIZE 154
+#define VICTABLE_SIZE 166
 #define AUX_VSIF_TYPE 0x81
 #define AUX_AVI_INFOFRAME_TYPE 0x82
 #define AUX_GENERAL_CONTROL_PACKET_TYPE 0x3
