@@ -7,7 +7,7 @@
 /**
 *
 * @file xvtc_intr.c
-* @addtogroup vtc_v8_3
+* @addtogroup vtc_v8_4
 * @{
 *
 * This file contains interrupt related functions of Xilinx VTC core.
