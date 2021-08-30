@@ -7,7 +7,7 @@
 /**
 *
 * @file xdptxss.h
-* @addtogroup dptxss_v6_5
+* @addtogroup dptxss_v6_6
 * @{
 * @details
 *
