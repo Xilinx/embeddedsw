@@ -26,7 +26,7 @@
  * 1.2   ku   28/04/21 Updated Min Max limits for DRU Refclk
  * </pre>
  *
- * @addtogroup xhdmiphy1_v2_2
+ * @addtogroup xhdmiphy1_v2_3
  * @{
 *******************************************************************************/
 #include "xparameters.h"
