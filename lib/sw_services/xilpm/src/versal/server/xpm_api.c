@@ -1920,7 +1920,6 @@ done:
 void XPm_ProcessAckReq(const u32 Ack, const u32 IpiMask, const int Status,
 		       const u32 NodeId, const u32 NodeState)
 {
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
 	if (0U == IpiMask) {
 		return;
 	}
@@ -1942,13 +1941,6 @@ void XPm_ProcessAckReq(const u32 Ack, const u32 IpiMask, const int Status,
 	} else {
 		/* No returning of the acknowledge */
 	}
-#else
-	(void)Ack;
-	(void)IpiMask;
-	(void)Status;
-	(void)NodeId;
-	(void)NodeState;
-#endif
 }
 
 /****************************************************************************/
@@ -2059,14 +2051,12 @@ process_ack:
 	XPm_ProcessAckReq(Ack, IpiMask, Status, NodeId, NodeState);
 
 done:
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
 	if ((u32)REQUEST_ACK_BLOCKING != Ack) {
 		/* Write response */
 		IPI_RESPONSE1(IpiMask, (u32)Status);
 		/* Clear interrupt status */
 		PmOut32(IPI_PMC_ISR, IpiMask);
 	}
-#endif
 
 	if (XST_SUCCESS != Status) {
 		PmErr("0x%x\n\r", Status);
