@@ -29,6 +29,8 @@
 *                      arguments with void keyword. This has been done to fix
 *                      compilation warnings with "-Wstrict-prototypes" flag.
 *                      It fixes CR#1108601.
+* 7.6    mus  08/30/21 Updated flag checking to fix compilation warnings
+*                      reported with "-Wundef" flag.
 * </pre>
 *
 ******************************************************************************/
@@ -91,11 +93,11 @@ extern "C" {
 
 u32 XGetPlatform_Info(void);
 
-#if defined (ARMR5) || (__aarch64__) || (ARMA53_32) || (PSU_PMU) || defined(versal)
+#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (PSU_PMU) || defined (versal)
 u32 XGetPSVersion_Info(void);
 #endif
 
-#if defined (ARMR5) || (__aarch64__) || (ARMA53_32)
+#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
 u32 XGet_Zynq_UltraMp_Platform_info(void);
 #endif
 /************************** Function Prototypes ******************************/
