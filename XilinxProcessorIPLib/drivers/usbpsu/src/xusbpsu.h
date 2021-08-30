@@ -46,6 +46,7 @@
 *	pm    03/14/20 Added clocking support
 * 1.8	pm    24/07/20 Fixed MISRA-C and Coverity warnings
 * 1.9	pm    03/21/21 Fixed doxygen warnings
+* 1.10	pm    08/30/21 Update MACRO to fix plm compilation warnings
 *
 * </pre>
 *
@@ -76,7 +77,7 @@ extern "C" {
  * The header sleep.h and API usleep() can only be used with an arm design.
  * MB_Sleep() is used for microblaze design.
  */
-#if defined (__arm__) || defined (__aarch64__) || (__ICCARM__)
+#if defined (__arm__) || defined (__aarch64__) || defined (__ICCARM__)
 #include "sleep.h"
 #endif
 
