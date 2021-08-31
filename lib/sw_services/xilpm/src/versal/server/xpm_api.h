@@ -10,6 +10,7 @@
 #include "xil_types.h"
 #include "xstatus.h"
 #include "xpm_defs.h"
+#include "xplmi_ipi.h"
 
 
 #ifdef __cplusplus
@@ -24,6 +25,7 @@ extern "C" {
 
 #define MAX_BASEADDR_LEN	3
 
+#ifdef XPAR_XIPIPSU_0_DEVICE_ID
 /* Macros for IPI responses (return values and callbacks) */
 #define IPI_RESPONSE1(Mask, Arg0)						\
 {										\
@@ -42,6 +44,7 @@ extern "C" {
 		PmWarn("Error in IPI write response\r\n");			\
 	}									\
 }
+#endif
 
 struct XPm_FrcPwrDwnReq {
 	u32 AckType;
