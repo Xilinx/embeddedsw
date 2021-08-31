@@ -65,15 +65,16 @@ static XAie_NpiMod *_XAie_NpiGetMod(XAie_DevInst *DevInst)
 * @param	DevInst : AI engine device pointer
 * @param	Lock : XAIE_ENABLE to lock, XAIE_DISABLE to unlock
 *
-* @return	None
+* @return	XAIE_OK for success, and error value for failure
 *
 * @note		This function will not check if NPI module is available as
 *		it expects the caller function will do the checking.
 *******************************************************************************/
-static void _XAie_NpiSetLock(XAie_DevInst *DevInst, u8 Lock)
+static AieRC _XAie_NpiSetLock(XAie_DevInst *DevInst, u8 Lock)
 {
 	XAie_NpiMod *NpiMod;
 	XAie_BackendNpiWrReq Req;
+	XAie_BackendNpiMaskPollReq MPReq;
 	u32 LockVal;
 
 	NpiMod = _XAie_NpiGetMod(DevInst);
@@ -86,6 +87,12 @@ static void _XAie_NpiSetLock(XAie_DevInst *DevInst, u8 Lock)
 
 	Req = _XAie_SetBackendNpiWrReq(NpiMod->PcsrLockOff, LockVal);
 	XAie_RunOp(DevInst, XAIE_BACKEND_OP_NPIWR32, &Req);
+
+	/* TODO: Use proper mask to verify if bit is set correctly */
+	MPReq = _XAie_SetBackendNpiMaskPollReq(NpiMod->PcsrLockOff, 0U,
+			0U, XAIE_NPI_TIMEOUT_US);
+
+	return XAie_RunOp(DevInst, XAIE_BACKEND_OP_NPIMASKPOLL32, &MPReq);
 }
 
 /*****************************************************************************/
@@ -97,7 +104,7 @@ static void _XAie_NpiSetLock(XAie_DevInst *DevInst, u8 Lock)
 * @param	RegVal : Value to write to PCSR register
 * @param	Mask : Mask to write to PCSR register
 *
-* @return	None
+* @return	XAIE_OK for success, and error value for failure
 *
 * @note		Sequence to write PCSR control register is as follows:
 *		* unlock the PCSR register
@@ -106,17 +113,22 @@ static void _XAie_NpiSetLock(XAie_DevInst *DevInst, u8 Lock)
 *		* disable PCSR mask from mask register
 *		* lock the PCSR register
 *******************************************************************************/
-static void _XAie_NpiWritePcsr(XAie_DevInst *DevInst, u32 RegVal, u32 Mask)
+static AieRC _XAie_NpiWritePcsr(XAie_DevInst *DevInst, u32 RegVal, u32 Mask)
 {
 	XAie_NpiMod *NpiMod;
 	XAie_BackendNpiWrReq Req;
+	XAie_BackendNpiMaskPollReq MPReq;
+	AieRC RC;
 
 	NpiMod = _XAie_NpiGetMod(DevInst);
 	if (NpiMod == NULL) {
-		return;
+		return XAIE_ERR;
 	}
 
-	_XAie_NpiSetLock(DevInst, XAIE_DISABLE);
+	RC = _XAie_NpiSetLock(DevInst, XAIE_DISABLE);
+	if (RC != XAIE_OK) {
+		return RC;
+	}
 
 	Req = _XAie_SetBackendNpiWrReq(NpiMod->PcsrMaskOff, Mask);
 	XAie_RunOp(DevInst, XAIE_BACKEND_OP_NPIWR32, &Req);
@@ -127,7 +139,14 @@ static void _XAie_NpiWritePcsr(XAie_DevInst *DevInst, u32 RegVal, u32 Mask)
 	Req = _XAie_SetBackendNpiWrReq(NpiMod->PcsrMaskOff, 0);
 	XAie_RunOp(DevInst, XAIE_BACKEND_OP_NPIWR32, &Req);
 
+	/* TODO: Use proper mask to verify if bit is set correctly */
+	MPReq = _XAie_SetBackendNpiMaskPollReq(NpiMod->PcsrCntrOff, 0U,
+			0U, XAIE_NPI_TIMEOUT_US);
+
+	RC = XAie_RunOp(DevInst, XAIE_BACKEND_OP_NPIMASKPOLL32, &MPReq);
 	_XAie_NpiSetLock(DevInst, XAIE_ENABLE);
+
+	return RC;
 }
 
 /*****************************************************************************/
@@ -139,25 +158,25 @@ static void _XAie_NpiWritePcsr(XAie_DevInst *DevInst, u32 RegVal, u32 Mask)
 * @param	RstEnable : XAIE_ENABLE to assert reset, and XAIE_DISABLE to
 *			    deassert reset.
 *
-* @return	None
+* @return	XAIE_OK for success, and error value for failure
 *
 * @note		None.
 *
 *******************************************************************************/
-void _XAie_NpiSetShimReset(XAie_DevInst *DevInst, u8 RstEnable)
+AieRC _XAie_NpiSetShimReset(XAie_DevInst *DevInst, u8 RstEnable)
 {
 	u32 RegVal, Mask;
 	XAie_NpiMod *NpiMod;
 
 	NpiMod = _XAie_NpiGetMod(DevInst);
 	if (NpiMod == NULL) {
-		return;
+		return XAIE_ERR;
 	}
 
 	Mask = NpiMod->ShimReset.Mask;
 	RegVal = XAie_SetField(RstEnable, NpiMod->ShimReset.Lsb, Mask);
 
-	_XAie_NpiWritePcsr(DevInst, RegVal, Mask);
+	return _XAie_NpiWritePcsr(DevInst, RegVal, Mask);
 }
 
 /*****************************************************************************/
@@ -179,6 +198,7 @@ AieRC _XAie_NpiSetProtectedRegEnable(XAie_DevInst *DevInst,
 	u32 RegVal;
 	XAie_NpiMod *NpiMod;
 	XAie_BackendNpiWrReq IOReq;
+	XAie_BackendNpiMaskPollReq MPReq;
 	AieRC RC;
 
 	NpiMod = _XAie_NpiGetMod(DevInst);
@@ -193,8 +213,22 @@ AieRC _XAie_NpiSetProtectedRegEnable(XAie_DevInst *DevInst,
 
 	IOReq = _XAie_SetBackendNpiWrReq(NpiMod->ProtRegOff, RegVal);
 
-	_XAie_NpiSetLock(DevInst, XAIE_DISABLE);
+	RC = _XAie_NpiSetLock(DevInst, XAIE_DISABLE);
+	if (RC != XAIE_OK) {
+		return RC;
+	}
+
 	RC = XAie_RunOp(DevInst, XAIE_BACKEND_OP_NPIWR32, &IOReq);
+	if (RC != XAIE_OK) {
+		_XAie_NpiSetLock(DevInst, XAIE_ENABLE);
+		return RC;
+	}
+
+	/* TODO: Use proper mask to verify if bit is set correctly */
+	MPReq = _XAie_SetBackendNpiMaskPollReq(NpiMod->ProtRegOff, 0U,
+			0U, XAIE_NPI_TIMEOUT_US);
+
+	RC = XAie_RunOp(DevInst, XAIE_BACKEND_OP_NPIMASKPOLL32, &MPReq);
 	_XAie_NpiSetLock(DevInst, XAIE_ENABLE);
 
 	return RC;
@@ -257,7 +291,11 @@ AieRC _XAie_NpiIrqConfig(XAie_DevInst *DevInst, u8 Ops, u8 NpiIrqID,
 
 	IOReq = _XAie_SetBackendNpiWrReq(RegOff, 1U << AieIrqID);
 
-	_XAie_NpiSetLock(DevInst, XAIE_DISABLE);
+	RC = _XAie_NpiSetLock(DevInst, XAIE_DISABLE);
+	if (RC != XAIE_OK) {
+		return RC;
+	}
+
 	RC = XAie_RunOp(DevInst, XAIE_BACKEND_OP_NPIWR32, &IOReq);
 	_XAie_NpiSetLock(DevInst, XAIE_ENABLE);
 
