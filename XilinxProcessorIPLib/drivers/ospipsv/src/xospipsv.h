@@ -44,6 +44,7 @@
 *       sk   04/08/21 Fixed doxygen warnings in all source files.
 *       sk   05/07/21 Fixed MISRAC violations.
 * 1.5   sk   08/17/21 Added DCache invalidate after non-blocking DMA read.
+*       sk   08/30/21 Limit RX maximum number of taps to 127.
 *
 * </pre>
 *
@@ -312,7 +313,7 @@ extern XOspiPsv_Config XOspiPsv_ConfigTable[];
 #define XOSPIPSV_DDR_TX_VAL			0x0U
 #define XOSPIPSV_DDR_TX_VAL_MASTER		0x1EU
 #define XOSPIPSV_SDR_TX_VAL_MASTER		0x3CU
-#define XOSPIPSV_DLL_MAX_TAPS			0x80U
+#define XOSPIPSV_DLL_MAX_TAPS			0x7FU
 /** @} */
 
 /**
