@@ -32,7 +32,6 @@
 *       bsv  10/13/2020 Code clean up
 * 1.04  ma   03/24/2021 Minor updates to prints in XilLoader
 * 1.05  bsv  07/22/2021 Added support for Winbond flash part
-*       bsv  08/26/2021 Code clean up
 *
 * </pre>
 *
@@ -48,8 +47,6 @@
 #include "xplmi.h"
 #ifdef XLOADER_QSPI
 #include "xqspipsu.h"
-#include "xpm_api.h"
-#include "xpm_nodeid.h"
 
 /************************** Constant Definitions *****************************/
 /*
@@ -94,7 +91,7 @@ static int FlashReadID(XQspiPsu *QspiPsuPtr)
 	int Status = XST_FAILURE;
 	XQspiPsu_Msg FlashMsg[2U] = {0U,};
 	u8 TxBfr;
-	u8 ReadBuffer[4U] __attribute__ ((aligned(32U)));
+	u8 ReadBuffer[4U] __attribute__ ((aligned(32U))) = {0U};
 
 	/*
 	 * Read ID
@@ -222,14 +219,7 @@ int XLoader_QspiInit(u32 DeviceFlags)
 	int Status = XST_FAILURE;
 	const XQspiPsu_Config *QspiConfig =
 		XQspiPsu_LookupConfig(XLOADER_QSPI_DEVICE_ID);
-	u32 CapSecureAccess = (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE;
 
-	Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_QSPI,
-		CapSecureAccess, XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
-	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_QSPI, Status);
-		goto END;
-	}
 	QspiBootMode = (PdiSrc_t)DeviceFlags;
 	Status = XPlmi_MemSetBytes(&QspiPsuInstance, sizeof(QspiPsuInstance),
 				0U, sizeof(QspiPsuInstance));
@@ -369,7 +359,7 @@ END:
 int XLoader_QspiGetBusWidth(u64 ImageOffsetAddress)
 {
 	int Status = XST_FAILURE;
-	u32 QspiWidthBuffer[4U];
+	u32 QspiWidthBuffer[4U] = {0U};
 
 	/* Qspi width detection for 1x, 2x and 4x */
 	if (QspiBootMode == XLOADER_PDI_SRC_QSPI24) {
@@ -431,10 +421,12 @@ int XLoader_QspiGetBusWidth(u64 ImageOffsetAddress)
 					XLOADER_ERR_QSPI_CONNECTION, Status);
 				XLoader_Printf(DEBUG_GENERAL,
 					"XLOADER_ERR_QSPI_CONNECTION\r\n");
+				goto END;
 			}
 		}
 	}
 
+END:
 	return Status;
 }
 
@@ -906,19 +898,4 @@ END:
 	return Status;
 }
 
-/*****************************************************************************/
-/**
- * @brief	This function releases control of QSPI.
- *
- * @return	XST_SUCCESS on success and error code on failure
- *
- *****************************************************************************/
-int XLoader_QspiRelease(void)
-{
-	int Status = XST_FAILURE;
-
-	Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_QSPI, XPLMI_CMD_SECURE);
-
-	return Status;
-}
 #endif

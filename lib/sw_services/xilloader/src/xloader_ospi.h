@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,7 +28,6 @@
 *       skd  08/21/2020 Added GIGADEVICE and ISSI flash ID macros
 *       bsv  10/13/2020 Code clean up
 * 1.03  bsv  07/16/2021 Added Macronix flash support
-*       bsv  08/26/2021 Code clean up
 *
 * </pre>
 *
@@ -108,7 +107,6 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 int XLoader_OspiInit(u32 DeviceFlags);
 int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
-int XLoader_OspiRelease(void);
 
 /************************** Variable Definitions *****************************/
 
