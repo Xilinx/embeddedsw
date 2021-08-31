@@ -32,6 +32,7 @@
 * 1.03  ssh    03/17/21 Added EdidHdmi20_t, PsIic0 and PsIic1 declarations
 * 1.04  ssh    04/20/21 Added support for Dynamic HDR and Versal
 * 1.05	ssh    07/14/21 Added support for Native Video
+* 1.06  KU     30/08/21 RX FRL settings updated for VCU118
 *
 * </pre>
 *
