@@ -2,6 +2,7 @@ Changes for 2021.2
 ===============================
 ospipsv_v1_5:
 Added DCache invalidate at the end of the non-blocking DMA read transfer.
+Limit RX maximum number of taps to 127.
 
 sdps_v3_13:
 Limit the SD operating frequency to 19MHz by default for Versal platform.
