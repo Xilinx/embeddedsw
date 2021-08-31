@@ -17,6 +17,7 @@
 *              dd/mm/yy
 * ----- ------ -------- --------------------------------------------------
 * 1.00  YB     11/05/19 Initial release.
+* 1.01  KU     30/08/21 GT mode change for VCU118 based on Interop
 *</pre>
 *
 *****************************************************************************/
@@ -2265,17 +2266,23 @@ static void XV_Rx_HdmiRx_EnterStateFrlConfig(XV_Rx *InstancePtr)
 #ifdef XPS_BOARD_VCU118
 	u8 rate = HdmiRxSs.HdmiRx1Ptr->Stream.Frl.LineRate;
 
-	if (rate != 12) {
-		//LPM
-		XHdmiphy1_SetRxLpm(&Hdmiphy1, 0,
-				XHDMIPHY1_CHANNEL_ID_CHA, XHDMIPHY1_DIR_RX, 1);
+/*
+ * Based on Interop testing this is being changed
+ * GT is in DFE for 12G and 10G else LPM
+ */
 
-	} else {
+	if (rate == 12 || rate == 10) {
 		//DFE
 		XHdmiphy1_SetRxLpm(&Hdmiphy1, 0,
 				XHDMIPHY1_CHANNEL_ID_CHA, XHDMIPHY1_DIR_RX, 0);
 
+	} else {
+		//LPM
+		XHdmiphy1_SetRxLpm(&Hdmiphy1, 0,
+				XHDMIPHY1_CHANNEL_ID_CHA, XHDMIPHY1_DIR_RX, 1);
+
 	}
+
 #endif
 	XHdmiphy1_Hdmi21Config(&Hdmiphy1, 0, XHDMIPHY1_DIR_RX,
 			       LineRate, NChannels);
