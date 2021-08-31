@@ -90,6 +90,7 @@
 *       kpt  08/11/21 Added redundant check for Xil_MemCmp in
 *                     XLoader_VerifyHashNUpdateNext
 *       bsv  08/17/21 Code clean up
+*       bsv  08/31/21 Code clean up
 *
 * </pre>
 *
@@ -176,11 +177,11 @@ int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	}
 
 	Status = XLoader_ChecksumInit(SecurePtr, PrtnHdr);
+#ifndef PLM_SECURE_EXCLUDE
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-#ifndef PLM_SECURE_EXCLUDE
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_SecureAuthInit,
 			SecurePtr, PrtnHdr);
 	if ((Status != XST_SUCCESS) && (StatusTmp != XST_SUCCESS)) {
@@ -191,9 +192,6 @@ int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	StatusTmp = XST_FAILURE;
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_SecureEncInit,
 			SecurePtr, PrtnHdr);
-	if ((Status != XST_SUCCESS) && (StatusTmp != XST_SUCCESS)) {
-		goto END;
-	}
 #endif
 
 END:
@@ -375,7 +373,7 @@ static int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
-	XSecure_Sha3Hash BlkHash = {0U};
+	XSecure_Sha3Hash BlkHash;
 	u32 HashAddr = SecurePtr->ChunkAddr + Size;
 	u32 DataLen = Size;
 	u8 *ExpHash = (u8 *)SecurePtr->Sha3Hash;
@@ -441,9 +439,6 @@ static int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	if (Last != (u8)TRUE) {
 		Status = Xil_SecureMemCpy(ExpHash, XLOADER_SHA3_LEN,
 					(u8 *)HashAddr, XLOADER_SHA3_LEN);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
 	}
 
 END:
@@ -644,9 +639,6 @@ int XLoader_SecureChunkCopy(XLoader_SecureParams *SecurePtr, u64 SrcAddr,
 		Status = XLoader_StartNextChunkCopy(SecurePtr,
 					(SecurePtr->RemainingDataLen - TotalSize),
 					SrcAddr + TotalSize, BlockSize);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
 	}
 END:
 	return Status;
@@ -878,9 +870,6 @@ int XLoader_SetSecureState(void)
 	(void)XLoader_GetSHWRoT((u32 *)&SHWRoT);
 	Status = XST_FAILURE;
 	Status = Xil_SecureOut32(XPLMI_RTCFG_SECURESTATE_SHWROT_ADDR, SHWRoT);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
 
 END:
 	return Status;
