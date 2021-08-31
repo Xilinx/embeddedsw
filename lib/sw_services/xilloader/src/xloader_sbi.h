@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2017 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
 * 1.03  bsv  07/07/2020 Remove unused functions
 *       skd  07/14/2020 XLoader_SbiCopy prototype changed
 *       bsv  10/13/2020 Code clean up
+* 1.04  bsv  08/31/2021 Code clean up
 *
 * </pre>
 *
@@ -49,6 +50,7 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 int XLoader_SbiInit(u32 DeviceFlags);
 int XLoader_SbiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags);
+int XLoader_SbiRecovery(void);
 
 /************************** Variable Definitions *****************************/
 

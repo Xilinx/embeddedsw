@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * 1.02  bsv  04/09/2020 Code clean up of Xilloader
 * 1.03  skd  07/14/2020 Added 64bit support for DDR source address
 *       bsv  10/13/2020 Code clean up
+* 1.04  bsv  08/26/2021 Code clean up
 *
 * </pre>
 *
@@ -47,6 +48,7 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 int XLoader_DdrInit(u32 DeviceFlags);
 int XLoader_DdrCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags);
+int XLoader_DdrRelease(void);
 
 /************************** Variable Definitions *****************************/
 

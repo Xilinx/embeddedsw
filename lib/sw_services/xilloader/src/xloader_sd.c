@@ -34,6 +34,7 @@
 *       bsv  09/04/2020 Added error checks for XPlmi_Strcat function calls
 *       bsv  10/13/2020 Code clean up
 *       td	 10/19/2020	MISRA C Fixes
+* 1.04  bsv  08/31/2021 Code clean up
 *
 * </pre>
 *
@@ -49,6 +50,9 @@
 #include "ff.h"
 #include "xplmi_generic.h"
 #include "xil_util.h"
+#include "xpm_api.h"
+#include "xpm_nodeid.h"
+#include "xplmi.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -57,35 +61,33 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static int XLoader_MakeSdFileName(char* SdEmmcFileName, u32 MultiBootOffset);
-static u8 XLoader_GetDrvNumSD(u32 DeviceFlags);
+static int XLoader_MakeSdFileName(u32 MultiBootOffset);
+static u8 XLoader_GetDrvNumSD(u8 DeviceFlags);
 
 /************************** Variable Definitions *****************************/
 static FIL FFil;		/* File object */
 static XSdPs SdInstance;
-static char BootFile[XLOADER_BASE_FILE_NAME_LEN_SD_1 + 1U] = {'\0'};
+static char BootFile[XLOADER_BASE_FILE_NAME_LEN_SD + 1U] = {'\0'};
 static u32 SdCdnVal = 0U;
 static u32 SdCdnReg = 0U;
+static u32 SdDeviceNode;
 
 /*****************************************************************************/
 /**
  * @brief	This function creates the Boot image name for file system devices
  * based on the multiboot register.
  *
- * @param	SdEmmcFileName is the pointer to the file name
  * @param	MultiBootOffset is the value of the multiboot register that
  *			would be suffixed to the filename
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
-static int XLoader_MakeSdFileName(char* SdEmmcFileName, u32 MultiBootOffset)
+static int XLoader_MakeSdFileName(u32 MultiBootOffset)
 {
 	int Status = XST_FAILURE;
-	u8 Index;
+	u8 Index = 10U;
 	u8 Value;
-	char BootNo[XLOADER_NUM_DIGITS_IN_FILE_NAME + 1U] = "0000";
-	u32 MultiBootOffsetTmp = MultiBootOffset;
 
 	if (MultiBootOffset >= XLOADER_SD_MAX_BOOT_FILES_LIMIT) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_SD_MAX_BOOT_FILES_LIMIT, 0);
@@ -93,42 +95,27 @@ static int XLoader_MakeSdFileName(char* SdEmmcFileName, u32 MultiBootOffset)
 	}
 
 	if (0x0U == MultiBootOffset) {
-		Status = Xil_Strcat(SdEmmcFileName, "BOOT.BIN",
-			XLOADER_BASE_FILE_NAME_LEN_SD_1);
+		Status = Xil_Strcat(BootFile, "BOOT.BIN",
+			XLOADER_BASE_FILE_NAME_LEN_SD);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 	}
 	else {
-		Index = XLOADER_NUM_DIGITS_IN_FILE_NAME - 1U;
-		while (MultiBootOffsetTmp > 0U) {
-			Value = (u8)(MultiBootOffsetTmp % 10U);
-			MultiBootOffsetTmp /= 10U;
-			BootNo[Index] += (char)Value;
+		Status = Xil_Strcat(BootFile, "BOOT0000.BIN",
+			XLOADER_BASE_FILE_NAME_LEN_SD);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		while (MultiBootOffset > 0U) {
+			Value = (u8)(MultiBootOffset % 10U);
+			MultiBootOffset /= 10U;
+			BootFile[Index] += (char)Value;
 			Index--;
-		}
-		Status = Xil_Strcat(SdEmmcFileName, "BOOT",
-			XLOADER_BASE_FILE_NAME_LEN_SD_1);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-
-		Status = Xil_Strcat(SdEmmcFileName, BootNo,
-			XLOADER_BASE_FILE_NAME_LEN_SD_1);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-
-		Status = Xil_Strcat(SdEmmcFileName, ".BIN",
-			XLOADER_BASE_FILE_NAME_LEN_SD_1);
-		if (Status != XST_SUCCESS) {
-			goto END;
 		}
 	}
 
-	XLoader_Printf(DEBUG_INFO, "File name is %s\r\n", SdEmmcFileName);
-
-	Status = XST_SUCCESS;
+	XLoader_Printf(DEBUG_INFO, "File name is %s\r\n", BootFile);
 
 END:
 	return Status;
@@ -144,7 +131,7 @@ END:
  * @return      Drive number
  *
  *****************************************************************************/
-static u8 XLoader_GetDrvNumSD(u32 DeviceFlags)
+static u8 XLoader_GetDrvNumSD(u8 DeviceFlags)
 {
 	u8 DrvNum;
 	/*
@@ -153,25 +140,15 @@ static u8 XLoader_GetDrvNumSD(u32 DeviceFlags)
 	 */
 #ifdef XPAR_XSDPS_1_DEVICE_ID
 	if ((DeviceFlags == XLOADER_PDI_SRC_SD0) ||
-		(DeviceFlags == XLOADER_PDI_SRC_SD0_RAW) ||
-		(DeviceFlags == XLOADER_PDI_SRC_EMMC0) ||
-		(DeviceFlags == XLOADER_PDI_SRC_EMMC0_RAW)) {
+		(DeviceFlags == XLOADER_PDI_SRC_EMMC0)) {
 		DrvNum = XLOADER_SD_DRV_NUM_0;
 	}
 	else {
 		/*
 		 * For XLOADER_SD1_BOOT_MODE or XLOADER_SD1_LS_BOOT_MODE
-		 * or XLOADER_EMMC_BOOT_MODE or XLOADER_SD1_RAW_BOOT_MODE
-		 * or XLOADER_SD1_LS_RAW_BOOT_MODE or XLOADER_EMMC_RAW_BOOT_MODE
+		 * or XLOADER_EMMC_BOOT_MODE
 		 */
-		if ((DeviceFlags == XLOADER_PDI_SRC_SD1)
-		|| (DeviceFlags == XLOADER_PDI_SRC_SD1_LS)
-		|| (DeviceFlags == XLOADER_PDI_SRC_EMMC)) {
-			DrvNum = XLOADER_SD_DRV_NUM_5;
-		}
-		else {
-			DrvNum = XLOADER_SD_DRV_NUM_1;
-		}
+		DrvNum = XLOADER_SD_DRV_NUM_5;
 	}
 #else
 	(void)DeviceFlags;
@@ -195,60 +172,57 @@ int XLoader_SdInit(u32 DeviceFlags)
 	int Status = XST_FAILURE;
 	FRESULT Rc;
 	u32 MultiBootOffset;
-	u32 UPdiSrc = DeviceFlags & XLOADER_PDISRC_FLAGS_MASK;
-	PdiSrc_t PdiSrc = (PdiSrc_t)UPdiSrc;
-	u8 DrvNum = XLoader_GetDrvNumSD(UPdiSrc);
+	u8 PdiSrc = (u8)(DeviceFlags & XLOADER_PDISRC_FLAGS_MASK);
+	u8 DrvNum = XLoader_GetDrvNumSD(PdiSrc);
 	static FATFS FatFileSystem;
-	u32 Flags;
+	u32 CapSecureAccess = (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE;
+	u32 ErrorCode;
 
 	Status = XPlmi_MemSetBytes(BootFile, sizeof(BootFile), 0U, sizeof(BootFile));
 	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET, (int)XLOADER_ERR_MEMSET_SD_BOOT_FILE);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET,
+			(int)XLOADER_ERR_MEMSET_SD_BOOT_FILE);
 		goto END;
 	}
 
 	if ((PdiSrc == XLOADER_PDI_SRC_SD0) ||
 		(PdiSrc == XLOADER_PDI_SRC_EMMC0)) {
-		SdCdnVal = XPlmi_In32(PMC_IOU_SLCR_SD0_CDN_CTRL);
-		XPlmi_Out32(PMC_IOU_SLCR_SD0_CDN_CTRL,
-			PMC_IOU_SLCR_SD0_CDN_CTRL_SD0_CDN_CTRL_MASK);
+		SdDeviceNode = PM_DEV_SDIO_0;
 		SdCdnReg = PMC_IOU_SLCR_SD0_CDN_CTRL;
+		ErrorCode = XLOADER_ERR_PM_DEV_SDIO_0;
 	}
 	else {
-		SdCdnVal = XPlmi_In32(PMC_IOU_SLCR_SD1_CDN_CTRL);
-		XPlmi_Out32(PMC_IOU_SLCR_SD1_CDN_CTRL,
-			PMC_IOU_SLCR_SD1_CDN_CTRL_SD1_CDN_CTRL_MASK);
+		SdDeviceNode = PM_DEV_SDIO_1;
 		SdCdnReg = PMC_IOU_SLCR_SD1_CDN_CTRL;
+		ErrorCode = XLOADER_ERR_PM_DEV_SDIO_1;
 	}
 
+	Status = XPm_RequestDevice(PM_SUBSYS_PMC, SdDeviceNode,
+		CapSecureAccess, XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(ErrorCode, Status);
+		goto END;
+	}
+	SdCdnVal = XPlmi_In32(SdCdnReg);
+	XPlmi_Out32(SdCdnReg, PMC_IOU_SLCR_SD0_CDN_CTRL_SD0_CDN_CTRL_MASK);
 
-	if ((DeviceFlags & XLOADER_SD_SBD_ADDR_SET_MASK) ==
-		XLOADER_SD_SBD_ADDR_SET_MASK) {
-		/*
-		 * Filesystem boot modes require the filename extension as well as
-		 * the logical drive in which the secondary pdi file is present.
-		 * To meet these requirements and to reuse the same code for primary
-		 * and secondary boot modes, bits 0 to 7 in DeviceFlags denote the
-		 * PdiSrc. Bit 8, if set, denotes that filesystem boot is secondary.
-		 * Bits 9 to 24 denote the file name extension. Example if the offset
-		 * is 4, file name should be BOOT0004.BIN, these bits are analogous to
-		 * multiboot offset in case of primary boot mode. Bits 25, 26, 27 and 28
-		 * denote the logical drive number of the secondary device. Please note
-		 * that bits 25, 26, 27 and 28 in device flags actually map to bits 16,
-		 * 17, 18 and 19 in secondary device address specified in bif file.
-		 */
-		Flags = DeviceFlags >> XLOADER_SD_SBD_ADDR_SHIFT;
-		/* Secondary Boot in FAT filesystem mode */
-		MultiBootOffset = (Flags & XLOADER_SD_SBD_ADDR_MASK);
-		DrvNum += (u8)((Flags & XLOADER_LOGICAL_DRV_MASK) >>
-				XLOADER_LOGICAL_DRV_SHIFT);
-	}
-	else {
-		/* Primary Boot in FAT filesystem mode */
-		MultiBootOffset = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT) &
-					XLOADER_MULTIBOOT_OFFSET_MASK;
-		MultiBootOffset &= XLOADER_MULTIBOOT_OFFSET_MASK;
-	}
+	/*
+	 * Filesystem boot modes require the filename extension as well as
+	 * the logical drive in which the secondary pdi file is present.
+	 * To meet these requirements and to reuse the same code for primary
+	 * and secondary boot modes, bits 0 to 3 in DeviceFlags denote the
+	 * PdiSrc. Bits 4 to 19 denote the file name extension.
+	 * Example if the offset is 4, file name should be BOOT0004.BIN, these
+	 * bits are analogous to multiboot offset in case of primary boot mode.
+	 * Bits 20, 21, 22 and 23 denote the logical drive number of the
+	 * secondary device. Please note that bits 20, 21, 22 and 23 in device
+	 * flags actually map to bits 16, 17, 18 and 19 in secondary device
+	 * address specified in bif file.
+	 */
+	DeviceFlags >>= XLOADER_SD_ADDR_SHIFT;
+	MultiBootOffset = (DeviceFlags & XLOADER_SD_ADDR_MASK);
+	DeviceFlags >>= XLOADER_LOGICAL_DRV_SHIFT;
+	DrvNum += (u8)(DeviceFlags & XLOADER_LOGICAL_DRV_MASK);
 
 	/* Set logical drive number */
 	/* Register volume work area, initialize device */
@@ -269,7 +243,7 @@ int XLoader_SdInit(u32 DeviceFlags)
 	/*
 	 * Create boot image name
 	 */
-	Status = XLoader_MakeSdFileName(BootFile, MultiBootOffset);
+	Status = XLoader_MakeSdFileName(MultiBootOffset);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -312,7 +286,6 @@ int XLoader_SdCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	FRESULT Rc; /* Result code */
 	UINT Br = 0U;
 	u32 TrfLen;
-	u32 Len = Length;
 	u64 DestOffset = 0U;
 	(void)Flags;
 
@@ -326,7 +299,7 @@ int XLoader_SdCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	}
 
 	if ((DestAddr >> 32U) == 0U) {
-		Rc = f_read(&FFil, (void*)(UINTPTR)DestAddr, Len, &Br);
+		Rc = f_read(&FFil, (void*)(UINTPTR)DestAddr, Length, &Br);
 		if (Rc != FR_OK) {
 			XLoader_Printf(DEBUG_GENERAL, "SD: f_read returned %d\r\n", Rc);
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_SD_F_READ, (int)Rc);
@@ -335,12 +308,12 @@ int XLoader_SdCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		}
 	}
 	else {
-		while(Len > 0U) {
-			if(Len > XLOADER_CHUNK_SIZE) {
+		while(Length > 0U) {
+			if(Length > XLOADER_CHUNK_SIZE) {
 				TrfLen = XLOADER_CHUNK_SIZE;
 			}
 			else {
-				TrfLen = Len;
+				TrfLen = Length;
 			}
 
 			Rc = f_read(&FFil, (void*)(UINTPTR)XPLMI_PMCRAM_BASEADDR, TrfLen, &Br);
@@ -354,12 +327,12 @@ int XLoader_SdCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 					(DestAddr + DestOffset), (TrfLen / XPLMI_WORD_LEN),
 					XPLMI_PMCDMA_0);
             if (Status != XST_SUCCESS) {
-            Status = XPlmi_UpdateStatus(XLOADER_ERR_DMA_XFER, Status);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_DMA_XFER, Status);
                  XLoader_Printf(DEBUG_GENERAL, "XLOADER_ERR_SD_F_READ\n\r");
                  goto END;
             }
 
-			Len -= TrfLen;
+			Length -= TrfLen;
 			DestOffset += TrfLen;
 		}
 	}
@@ -399,9 +372,10 @@ END:
 		XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_SD_UMOUNT\n\r");
 		goto END;
 	}
-	Status = XST_SUCCESS;
 
 END:
+	Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, SdDeviceNode,
+		XPLMI_CMD_SECURE);
 	XPlmi_Out32(SdCdnReg, SdCdnVal);
 	return Status;
  }
@@ -419,29 +393,44 @@ END:
 int XLoader_RawInit(u32 DeviceFlags)
 {
 	int Status = XST_FAILURE;
-	u32 UPdiSrc = DeviceFlags & XLOADER_PDISRC_FLAGS_MASK;
-	PdiSrc_t PdiSrc = (PdiSrc_t)UPdiSrc;
-	u8 DrvNum = XLoader_GetDrvNumSD(UPdiSrc);
+	u8 PdiSrc = (u8)(DeviceFlags & XLOADER_PDISRC_FLAGS_MASK);
+	u8 DrvNum = XLoader_GetDrvNumSD(PdiSrc);
 	XSdPs_Config *SdConfig;
+	u32 CapSecureAccess = (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE;
+	u32 ErrorCode;
+	u32 SdRawBootVal = DeviceFlags & XLOADER_SD_RAWBOOT_MASK;
+	u32 MmcConfig;
 
 	Status = XPlmi_MemSetBytes(&SdInstance, sizeof(SdInstance),
 				0U, sizeof(SdInstance));
 	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET, (int)XLOADER_ERR_MEMSET_SD_INSTANCE);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET,
+			(int)XLOADER_ERR_MEMSET_SD_INSTANCE);
 		goto END;
 	}
-	if ((PdiSrc == XLOADER_PDI_SRC_SD0_RAW) ||
-		(PdiSrc == XLOADER_PDI_SRC_EMMC0_RAW)) {
-		SdCdnVal = XPlmi_In32(PMC_IOU_SLCR_SD0_CDN_CTRL);
-		XPlmi_Out32(PMC_IOU_SLCR_SD0_CDN_CTRL,
-			PMC_IOU_SLCR_SD0_CDN_CTRL_SD0_CDN_CTRL_MASK);
+	if ((PdiSrc == XLOADER_PDI_SRC_SD0) ||
+		(PdiSrc == XLOADER_PDI_SRC_EMMC0)) {
+		SdDeviceNode = PM_DEV_SDIO_0;
 		SdCdnReg = PMC_IOU_SLCR_SD0_CDN_CTRL;
+		ErrorCode = XLOADER_ERR_PM_DEV_SDIO_0;
 	}
 	else {
-		SdCdnVal = XPlmi_In32(PMC_IOU_SLCR_SD1_CDN_CTRL);
-		XPlmi_Out32(PMC_IOU_SLCR_SD1_CDN_CTRL,
-			PMC_IOU_SLCR_SD1_CDN_CTRL_SD1_CDN_CTRL_MASK);
+		SdDeviceNode = PM_DEV_SDIO_1;
 		SdCdnReg = PMC_IOU_SLCR_SD1_CDN_CTRL;
+		ErrorCode = XLOADER_ERR_PM_DEV_SDIO_1;
+	}
+
+	Status = XPm_RequestDevice(PM_SUBSYS_PMC, SdDeviceNode,
+		CapSecureAccess, XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(ErrorCode, Status);
+		goto END;
+	}
+	SdCdnVal = XPlmi_In32(SdCdnReg);
+	XPlmi_Out32(SdCdnReg, PMC_IOU_SLCR_SD0_CDN_CTRL_SD0_CDN_CTRL_MASK);
+
+	if (DrvNum != XLOADER_SD_DRV_NUM_0) {
+		DrvNum = XLOADER_SD_DRV_NUM_1;
 	}
 
 	/*
@@ -472,22 +461,25 @@ int XLoader_RawInit(u32 DeviceFlags)
 		goto END;
 	}
 
-	if ((PdiSrc_t)DeviceFlags == XLOADER_PDI_SRC_EMMC_RAW) {
-		Status = XSdPs_Set_Mmc_ExtCsd(
-					&SdInstance, XSDPS_MMC_PART_CFG_0_ARG);
+	if ((PdiSrc != XLOADER_PDI_SRC_EMMC1) &&
+		(PdiSrc != XLOADER_PDI_SRC_EMMC0)) {
+		goto END1;
 	}
-	else if ((PdiSrc_t)DeviceFlags == XLOADER_PDI_SRC_EMMC_RAW_BP1) {
-		Status = XSdPs_Set_Mmc_ExtCsd(
-					&SdInstance, XSDPS_MMC_PART_CFG_1_ARG);
+
+	if (SdRawBootVal == XLOADER_SD_RAWBOOT_VAL) {
+		MmcConfig = XSDPS_MMC_PART_CFG_0_ARG;
 	}
-	else if ((PdiSrc_t)DeviceFlags == XLOADER_PDI_SRC_EMMC_RAW_BP2)
+	else if (SdRawBootVal == XLOADER_EMMC_BP1_RAW_VAL) {
+		MmcConfig = XSDPS_MMC_PART_CFG_1_ARG;
+	}
+	else if (SdRawBootVal == XLOADER_EMMC_BP2_RAW_VAL)
 	{
-		Status = XSdPs_Set_Mmc_ExtCsd(
-					&SdInstance, XSDPS_MMC_PART_CFG_2_ARG);
+		MmcConfig = XSDPS_MMC_PART_CFG_2_ARG;
 	}
 	else {
-		/* MISRA-C compliance */
+		goto END1;
 	}
+	Status = XSdPs_Set_Mmc_ExtCsd(&SdInstance, MmcConfig);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(
 					XLOADER_ERR_MMC_PART_CONFIG, Status);
@@ -495,8 +487,8 @@ int XLoader_RawInit(u32 DeviceFlags)
 		goto END;
 	}
 
+END1:
 	XLoader_Printf(DEBUG_INFO,"Raw init completed\n\r");
-
 END:
 	return Status;
 }
@@ -520,86 +512,88 @@ END:
 int XLoader_RawCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 {
 	int Status = XST_FAILURE;
-	u64 BlockNumber;
-	u64 DataOffset;
-	u32 RemainingBytes;
-	u8 ReadBuffer[1024U];
+	u8 ReadBuffer[XLOADER_SD_RAW_BLK_SIZE];
 	u8* ReadBuffPtr;
-	u32 SectorReadLen;
-	u32 NoOfSectors;
-	u64 DestOffset = 0U;
+	u16 DestOffset = (u16)(SrcAddr % XLOADER_SD_RAW_BLK_SIZE);
+	u64 StartBlock = SrcAddr / XLOADER_SD_RAW_BLK_SIZE;
+	u32 TrfLen;
+	u32 NumBlocks;
 	(void) Flags;
 
-	RemainingBytes = Length;
-	BlockNumber = SrcAddr / XLOADER_SD_RAW_BLK_SIZE;
-	DataOffset = SrcAddr % XLOADER_SD_RAW_BLK_SIZE;
-	/*
-	 * Setting the Read len for the first sector partial read
-	 */
-	SectorReadLen =  (u32)(XLOADER_SD_RAW_BLK_SIZE - DataOffset);
+	XLoader_Printf(DEBUG_INFO, "SD Raw Reading Src 0x%0x%08x,"
+		"Dest 0x%0x%08x, Length 0x%0x, Flags 0x%0x\r\n",
+		(u32)(SrcAddr >> 32U), (u32)(SrcAddr), (u32)(DestAddr >> 32U),
+		(u32)DestAddr, Length, Flags);
+	SdInstance.Dma64BitAddr = 0U;
+	Status = XSdPs_ReadPolled(&SdInstance, (u32)StartBlock, 1U, ReadBuffer);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
-	XLoader_Printf(DEBUG_INFO, "SD Raw Reading Src 0x%0x%08x, Dest 0x%0x%08x, "
-		       "Length 0x%0x, Flags 0x%0x\r\n", (u32)(SrcAddr >> 32U),
-		       (u32)(SrcAddr), (u32)(DestAddr >> 32U), (u32)DestAddr,
-		       Length, Flags);
+	TrfLen = (u32)(XLOADER_SD_RAW_BLK_SIZE - DestOffset);
+	if (Length < TrfLen) {
+		TrfLen = Length;
+	}
+	Status = XPlmi_DmaXfr((u64)(UINTPTR)&ReadBuffer[DestOffset], DestAddr,
+		(TrfLen >> XPLMI_WORD_LEN_SHIFT), XPLMI_PMCDMA_0);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	DestAddr += TrfLen;
+	Length -= TrfLen;
+	++StartBlock;
 
-	do
-	{
-		/*
-		 * Make sure last sector data is read properly
-		 */
-		if (RemainingBytes < SectorReadLen) {
-			SectorReadLen = RemainingBytes;
-		}
-
-		/*
-		 * Read to temparory PRAM address if the length is not equal to 512 bytes
-		 */
-		if (SectorReadLen != XLOADER_SD_RAW_BLK_SIZE) {
-			ReadBuffPtr = &ReadBuffer[0U];
-			NoOfSectors = 1U;
+	while (Length > XLOADER_SD_CHUNK_SIZE) {
+		if((DestAddr >> 32U) == 0U) {
+			ReadBuffPtr = (u8 *)(UINTPTR)(DestAddr);
 		}
 		else {
-			if(((DestAddr + DestOffset) >> 32U) == 0U) {
-				ReadBuffPtr = (u8 *)(UINTPTR)(DestAddr + DestOffset);
-			}
-			else {
-				SdInstance.Dma64BitAddr = DestAddr + DestOffset;
-				ReadBuffPtr = NULL;
-			}
-			NoOfSectors = RemainingBytes / XLOADER_SD_RAW_BLK_SIZE;
-			if (NoOfSectors > XLOADER_SD_RAW_NUM_SECTORS) {
-				NoOfSectors = XLOADER_SD_RAW_NUM_SECTORS;
-			}
+			SdInstance.Dma64BitAddr = DestAddr;
+			ReadBuffPtr = NULL;
 		}
-
-		Status  = XSdPs_ReadPolled(&SdInstance, (u32)BlockNumber,
-					NoOfSectors, (u8*)ReadBuffPtr);
+		Status  = XSdPs_ReadPolled(&SdInstance, (u32)StartBlock,
+			XLOADER_NUM_SECTORS, ReadBuffPtr);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
+		SrcAddr += XLOADER_SD_CHUNK_SIZE;
+		DestAddr += XLOADER_SD_CHUNK_SIZE;
+		Length -= XLOADER_SD_CHUNK_SIZE;
+		StartBlock += XLOADER_NUM_SECTORS;
+	}
+	if (Length == 0U) {
+		goto END;
+	}
 
-		/*
-		 * Copy the temporary read data to actual destination
-		 */
-		if (SectorReadLen != XLOADER_SD_RAW_BLK_SIZE) {
-			Status = XPlmi_DmaXfr(((UINTPTR)ReadBuffPtr + DataOffset),
-					(DestAddr + DestOffset), (SectorReadLen / XPLMI_WORD_LEN),
-					XPLMI_PMCDMA_0);
-			if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_DMA_XFER_SD_RAW, Status);
-				 XLoader_Printf(DEBUG_GENERAL, "XLOADER_ERR_SD_RAW_READ\n\r");
-				 goto END;
-			}
+	if((DestAddr >> 32U) == 0U) {
+		ReadBuffPtr = (u8 *)(UINTPTR)(DestAddr);
+	}
+	else {
+		SdInstance.Dma64BitAddr = DestAddr;
+		ReadBuffPtr = NULL;
+	}
+	NumBlocks = Length / XLOADER_SD_RAW_BLK_SIZE;
+	if (NumBlocks != 0U) {
+		Status = XSdPs_ReadPolled(&SdInstance, (u32)StartBlock,
+			NumBlocks, ReadBuffPtr);
+		if (Status != XST_SUCCESS) {
+			goto END;
 		}
-		BlockNumber += NoOfSectors;
-		DestOffset += ((u64)NoOfSectors * SectorReadLen);
-		RemainingBytes -= (NoOfSectors * SectorReadLen);
-		SectorReadLen = XLOADER_SD_RAW_BLK_SIZE;
-		DataOffset = 0U;
-	} while (RemainingBytes > 0U);
-
-	Status = XST_SUCCESS;
+		TrfLen = NumBlocks * XLOADER_SD_RAW_BLK_SIZE;
+		DestAddr += TrfLen;
+		Length -= TrfLen;
+		StartBlock += NumBlocks;
+	}
+	if (Length == 0U) {
+		goto END;
+	}
+	SdInstance.Dma64BitAddr = 0U;
+	Status  = XSdPs_ReadPolled(&SdInstance, (u32)StartBlock, 1U, ReadBuffer);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Status = XPlmi_DmaXfr((u64)(UINTPTR)&ReadBuffer[0U], DestAddr,
+		(Length >> XPLMI_WORD_LEN_SHIFT), XPLMI_PMCDMA_0);
 
 END:
 	return Status;
@@ -620,8 +614,8 @@ int XLoader_RawRelease(void)
 	int Status = XST_FAILURE;
 
 	XPlmi_Out32(SdCdnReg, SdCdnVal);
-
-	Status = XST_SUCCESS;
+	Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, SdDeviceNode,
+		XPLMI_CMD_SECURE);
 
 	return Status;
 }
