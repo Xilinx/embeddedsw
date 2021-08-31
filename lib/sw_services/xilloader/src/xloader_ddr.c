@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,7 @@
 *       bsv  09/30/2020 Added parallel DMA support for SBI, JTAG, SMAP and PCIE
 *                       boot modes
 *       bsv  10/13/2020 Code clean up
+* 1.04  bsv  08/31/2021 Code clean up
 *
 * </pre>
 *
@@ -40,6 +41,8 @@
 #include "xloader_ddr.h"
 #include "xplmi.h"
 #include "xplmi_dma.h"
+#include "xpm_api.h"
+#include "xpm_nodeid.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -50,24 +53,38 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
+static u8 DdrRequested = (u8)FALSE;
 
 /*****************************************************************************/
 /**
- * @brief	This function is used to initialize for DDR init. Nothing is
- * required in this. DDR must be already initialized by this time.
+ * @brief	This function is used to initialize for DDR init.
  *
  * @param	DeviceFlags Loader init prototype requires flags
  *
- * @return	XST_SUCCESS
+ * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 int XLoader_DdrInit(u32 DeviceFlags)
 {
 	int Status = XST_FAILURE;
+	u32 CapSecureAccess = (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE;
+	u32 CapContext = (u32)PM_CAP_CONTEXT;
 
-	(void)DeviceFlags;
-	Status = XST_SUCCESS;
+	if (DdrRequested == (u8)FALSE) {
+		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_DDR_0,
+			(CapSecureAccess | CapContext), XPM_DEF_QOS, 0U,
+			XPLMI_CMD_SECURE);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_DDR_0, 0);
+			goto END;
+		}
+	}
+	else {
+		Status = XST_SUCCESS;
+	}
+	DdrRequested = (u8)DeviceFlags;
 
+END:
 	return Status;
 }
 
@@ -91,9 +108,9 @@ int XLoader_DdrCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	u32 DmaFlags;
 	u32 ParallelDmaFlags = Flags & XPLMI_DEVICE_COPY_STATE_MASK;
 
-	if (((SrcAddr % XPLMI_WORD_LEN) != 0U) ||
-		((DestAddr % XPLMI_WORD_LEN) != 0U) ||
-		((Length % XPLMI_WORD_LEN) != 0U)) {
+	if (((SrcAddr & XPLMI_WORD_LEN_MASK) != 0U) ||
+		((DestAddr & XPLMI_WORD_LEN_MASK) != 0U) ||
+		((Length & XPLMI_WORD_LEN_MASK) != 0U)) {
 		Status = XPlmi_UpdateStatus(XLOADER_DDR_COPY_UNSUPPORTED_PARAMS, 0);
 		goto END;
 	}
@@ -114,9 +131,36 @@ int XLoader_DdrCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	if (ParallelDmaFlags == XPLMI_DEVICE_COPY_STATE_INITIATE) {
 		DmaFlags |= XPLMI_DMA_SRC_NONBLK;
 	}
-	Status = XPlmi_DmaXfr(SrcAddr, DestAddr, Length / XPLMI_WORD_LEN, DmaFlags);
-	if (Status != XST_SUCCESS) {
-		goto END;
+	Status = XPlmi_DmaXfr(SrcAddr, DestAddr, Length >> (XPLMI_WORD_LEN_SHIFT),
+		DmaFlags);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function releases control of DDR.
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XLoader_DdrRelease(void)
+{
+	int Status = XST_FAILURE;
+
+	if (DdrRequested == XLOADER_PDI_SRC_DDR) {
+		Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_DDR_0,
+			XPLMI_CMD_SECURE);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(
+				XLOADER_ERR_RELEASE_PM_DEV_DDR_0, 0);
+			goto END;
+		}
+		DdrRequested = (u8)FALSE;
+	}
+	else {
+		Status = XST_SUCCESS;
 	}
 
 END:

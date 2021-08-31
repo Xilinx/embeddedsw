@@ -52,6 +52,7 @@
 *       bsv  08/17/21 Code clean up
 *       rb   08/11/21 Fix compilation warnings
 *       bm   08/24/2021 Added Extract Metaheader support
+*       bsv  08/31/21 Code clean up
 *
 * </pre>
 *
@@ -1493,7 +1494,7 @@ static int XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 	int Status = XST_FAILURE;
 	u32 Counter = 0U;
 	u32 HashLen = XLOADER_SHA3_LEN;
-	XSecure_Sha3Hash HashStore = {0U};
+	XSecure_Sha3Hash HashStore;
 	u8 Convert[XIH_PRTN_WORD_LEN] = {0U};
 	u32 Size = XLOADER_SHA3_LEN;
 	u8 *OutTmp = Out;
@@ -1558,7 +1559,7 @@ static int XLoader_RsaSignVerify(const XLoader_SecureParams *SecurePtr,
 {
 	volatile int Status = XST_FAILURE;
 	volatile u32 DbTmp = 0U;
-	XSecure_Sha3Hash MPrimeHash = {0U};
+	XSecure_Sha3Hash MPrimeHash;
 	volatile u8 HashTmp;
 	u8 XSecure_RsaSha3Array[XSECURE_RSA_4096_KEY_SIZE];
 	XLoader_Vars Xsecure_Varsocm __attribute__ ((aligned(32U)));
@@ -3531,12 +3532,10 @@ static int XLoader_CheckSecureState(u32 RegVal, u32 Var, u32 ExpectedValue)
 {
 	int Status = XST_FAILURE;
 
-	if ((RegVal != Var) || (RegVal != ExpectedValue)) {
-		goto END;
+	if ((RegVal == Var) && (RegVal == ExpectedValue)) {
+		Status = XST_SUCCESS;
 	}
-	Status = XST_SUCCESS;
 
-END:
 	return Status;
 }
 

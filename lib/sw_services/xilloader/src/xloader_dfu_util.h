@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
 *        bsv 04/09/2020 Code clean up
 * 1.01   bsv 07/08/2020 Moved Ch9Handler APIs from xloader_usb.c
 *        td  08/19/2020 Fixed MISRA C violations Rule 10.3
+* 1.02   bsv 08/31/2021 Code clean up
 *
 * </pre>
 *
@@ -203,6 +204,11 @@ extern "C" {
 #define XLOADER_USB3_DFUFUNC_DETACH_TIMEOUT_MS		(u16)(8192U)
 #define XLOADER_USB3_DFU_VERSION			(u16)(0x0110U)
 
+/* Macros to track DFU Download status */
+#define XLOADER_DFU_DOWNLOAD_NOT_STARTED		(1U)
+#define XLOADER_DFU_DOWNLOAD_IN_PROGRESS		(2U)
+#define XLOADER_DOWNLOAD_COMPLETE	(3U)
+
 /*
  * Standard USB structures as per 2.0 specification
  */
@@ -374,7 +380,7 @@ typedef struct {
 	void * Data_ptr;
 }XLoader_UsbCh9_Data;
 
-extern u32 DownloadDone;
+extern u8 DownloadDone;
 extern u8* DfuVirtFlash;
 extern XLoader_UsbCh9_Data Dfu_data;
 extern struct XLoaderPs_DfuIf DfuObj;

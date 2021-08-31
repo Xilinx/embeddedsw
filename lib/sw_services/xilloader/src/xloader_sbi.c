@@ -28,7 +28,8 @@
 *       bsv  09/30/2020 Added parallel DMA support for SBI, JTAG, SMAP and PCIE
 *                       boot modes
 *       bsv  10/13/2020 Code clean up
-*       rb   08/11/2021 Fix compilation warnings
+* 1.04  rb   08/11/2021 Fix compilation warnings
+*       bsv  08/31/2021 Code clean up
 *
 * </pre>
 *
@@ -78,19 +79,19 @@ int XLoader_SbiInit(u32 DeviceFlags)
 	XPlmi_UtilRMW(CRP_RST_SBI,
 	       CRP_RST_SBI_RESET_MASK, ~CRP_RST_SBI_RESET_MASK);
 
-	if ((PdiSrc_t)DeviceFlags == XLOADER_PDI_SRC_SMAP) {
+	if (DeviceFlags == XLOADER_PDI_SRC_SMAP) {
 		XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL,
 				SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK,
 				XLOADER_SBI_CTRL_INTERFACE_SMAP);
-	} else if ((PdiSrc_t)DeviceFlags == XLOADER_PDI_SRC_JTAG) {
+	} else if (DeviceFlags == XLOADER_PDI_SRC_JTAG) {
 		XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL,
 				SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK,
 				XLOADER_SBI_CTRL_INTERFACE_JTAG);
-	} else if ((PdiSrc_t)DeviceFlags == XLOADER_PDI_SRC_PCIE) {
+	} else if (DeviceFlags == XLOADER_PDI_SRC_PCIE) {
 		XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL,
 				SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK,
 				XLOADER_SBI_CTRL_INTERFACE_AXI_SLAVE);
-	} else if ((PdiSrc_t)DeviceFlags == XLOADER_PDI_SRC_SBI) {
+	} else if (DeviceFlags == XLOADER_PDI_SRC_SBI) {
 		/* Do nothing */
 	} else {
 		goto END;
@@ -128,7 +129,6 @@ int XLoader_SbiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 {
 	int Status = XST_FAILURE;
 	u32 ReadFlags;
-	u32 ParallelDmaFlags = Flags & (~(XPLMI_DEVICE_COPY_STATE_MASK));
 	(void) (SrcAddr);
 
 	ReadFlags = Flags & XPLMI_DEVICE_COPY_STATE_MASK;
@@ -142,12 +142,9 @@ int XLoader_SbiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	if (ReadFlags == XPLMI_DEVICE_COPY_STATE_INITIATE) {
 		ReadFlags = XPLMI_DMA_DST_NONBLK;
 	}
-	ReadFlags |= (ParallelDmaFlags | XPLMI_PMCDMA_1);
-	Status = XPlmi_SbiDmaXfer(DestAddr, Length / XPLMI_WORD_LEN,
+	ReadFlags |= XPLMI_PMCDMA_1;
+	Status = XPlmi_SbiDmaXfer(DestAddr, (Length >> XPLMI_WORD_LEN_SHIFT),
 		ReadFlags);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
 
 END:
 	return Status;
@@ -157,13 +154,12 @@ END:
 /**
  * @brief	This function will reset the SBI interface.
  *
- * @param	None
- *
- * @return	None
+ * @return	XST_SUCCESS
  *
  *****************************************************************************/
-void XLoader_SbiRecovery(void)
+int XLoader_SbiRecovery(void)
 {
+	int Status = XST_FAILURE;
 	u32 SbiCtrl;
 
 	SbiCtrl = XPlmi_In32(SLAVE_BOOT_SBI_CTRL);
@@ -177,5 +173,8 @@ void XLoader_SbiRecovery(void)
 
 	/* Restore the interface setting */
 	XPlmi_Out32(SLAVE_BOOT_SBI_CTRL, SbiCtrl);
+	Status = XST_SUCCESS;
+
+	return Status;
 }
 #endif /* end of XLOADER_SBI */
