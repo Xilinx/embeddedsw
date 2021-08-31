@@ -22,8 +22,6 @@
 
 #define PACK_PAYLOAD0(Payload, ApiId)	\
 	PACK_PAYLOAD(Payload, HEADER(0U, ApiId), 0U)
-#define PACK_PAYLOAD1(Payload, ApiId, Arg1)	\
-	PACK_PAYLOAD(Payload, HEADER(1U, ApiId), Arg1)
 
 static XStatus XPsmFw_FpHouseClean(u32 FunctionId)
 {

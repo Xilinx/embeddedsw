@@ -436,6 +436,9 @@ static XStatus XPsmFwACPUxPwrUp(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpDw
 {
 	XStatus Status = XST_FAILURE;
 
+	/* Warning fix for unused parameter */
+	(void)Type;
+
 	Status = XPsmFwIslandPwrUp(Args);
 	if (XST_SUCCESS != Status) {
 		goto done;
@@ -716,6 +719,9 @@ static XStatus XPsmFwRPUxPwrUp(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpDwn
 	XStatus Status = XST_FAILURE;
 	u32 RegVal;
 
+	/* Warning fix for unused parameter */
+	(void)Type;
+
 	Status = XPsmFwIslandPwrUp(Args);
 	if (XST_SUCCESS != Status) {
 		goto done;
@@ -860,6 +866,9 @@ static XStatus XPsmFwRPUxPwrDwn(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpDw
 {
 	XStatus Status = XST_FAILURE;
 	u32 RegVal;
+
+	/* Warning fix for unused parameter */
+	(void)Type;
 
 	/* Check for DEBUGNOPWRDWN bit */
 	RegVal = XPsmFw_Read32(RPU_RPU_GLBL_STATUS);
