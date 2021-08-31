@@ -7,6 +7,9 @@ CC := mb-gcc
 CC_FLAGS := -MMD -MP    -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v10.0 -mno-xl-soft-mul -mxl-multiply-high
 CFLAGS := -Os
 LN_FLAGS := -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+ifeq ($(findstring gcc, $(CC)), gcc)
+    CUSTOM_COMPILER_FLAGS+=-Wall -Wextra -Warray-bounds=2 -Wformat=2 -Wno-main -Wimplicit-function-declaration -Wmissing-prototypes -Wmissing-braces -Wmultistatement-macros -Wparentheses -Wreturn-type -Wsequence-point -Wbool-compare -Wbool-operation -Wchar-subscripts -Wenum-compare -Winit-self -fno-strict-aliasing -Wtautological-compare -Wuninitialized -Wunused-function -Wunused-label -Wunused-variable -Wcast-function-type -Wenum-conversion -Wmissing-parameter-type -Wtype-limits -Wshift-negative-value -Wshadow -Wdouble-promotion -Wundef -fno-common -Wconversion -Wnull-dereference -Wmissing-include-dirs -Wswitch-default -Wswitch-enum -Wswitch-bool -Wshift-overflow=2 -Wswitch-outside-range -Wswitch-unreachable -Wunused-parameter -Wduplicated-branches -Wduplicated-cond -Wdiv-by-zero -Wshadow=local -Wpointer-arith -Wunused-macros -Wconversion -Wdangling-else -Wlogical-op -Waggressive-loop-optimizations -Wstrict-prototypes -Woverflow -Wredundant-decls -Wvla
+endif
 
 c_SOURCES := $(wildcard *.c)
 INCLUDES := $(wildcard *.h)
@@ -35,7 +38,7 @@ $(LIBS):
 	$(MAKE) -C ../misc/versal_psmfw_bsp
 
 %.o:%.c
-	$(CC) $(CC_FLAGS) $(CFLAGS) -c $< -o $@ $(INCLUDEPATH)
+	$(CC) $(CC_FLAGS) $(CFLAGS) $(CUSTOM_COMPILER_FLAGS) -c $< -o $@ $(INCLUDEPATH)
 
 clean:
 	rm -rf $(OBJS) $(LIBS) $(EXEC) *.o *.d
