@@ -31,7 +31,6 @@
 *       bsv  10/13/2020 Code clean up
 * 1.03  ma   03/24/2021 Minor updates to prints in XilLoader
 * 1.04  bsv  07/16/2021 Added Macronix flash support
-*       bsv  08/26/2021 Code clean up
 *
 * </pre>
 *
@@ -50,9 +49,6 @@
 
 #ifdef XLOADER_OSPI
 #include "xospipsv.h"		/* OSPIPSV device driver */
-#include "xpm_api.h"
-#include "xpm_nodeid.h"
-
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -68,6 +64,7 @@ static int XLoader_FlashSetDDRMode(XOspiPsv *OspiPsvPtr);
 static XOspiPsv OspiPsvInstance;
 static u8 OspiFlashMake;
 static u32 OspiFlashSize = 0U;
+static u8 ChipSelect;
 
 /*****************************************************************************/
 /**
@@ -100,7 +97,7 @@ static int FlashReadID(XOspiPsv *OspiPsvPtr)
 	FlashMsg.RxBfrPtr = ReadBuffer;
 	FlashMsg.ByteCount = XLOADER_READ_ID_BYTES;
 	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
-	Status = (int)XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
+	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -215,25 +212,13 @@ int XLoader_OspiInit(u32 DeviceFlags)
 	XOspiPsv_Config *OspiConfig;
 	u8 OspiMode;
 	(void)DeviceFlags;
-	u32 CapSecureAccess = (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE;
 
-	Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_OSPI,
-		CapSecureAccess, XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
-	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_OSPI, Status);
-		goto END;
-	}
-
-	Status = (int)XOspiPsv_DeviceReset(XOSPIPSV_HWPIN_RESET);
+	Status = XOspiPsv_DeviceReset(XOSPIPSV_HWPIN_RESET);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XPlmi_MemSetBytes(&OspiPsvInstance, sizeof(OspiPsvInstance), 0U,
-		sizeof(OspiPsvInstance));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	memset(&OspiPsvInstance, 0U, sizeof(OspiPsvInstance));
 
 	/*
 	 * Initialize the OSPI driver so that it's ready to use
@@ -245,7 +230,7 @@ int XLoader_OspiInit(u32 DeviceFlags)
 		goto END;
 	}
 
-	Status = (int)XOspiPsv_CfgInitialize(&OspiPsvInstance, OspiConfig);
+	Status = XOspiPsv_CfgInitialize(&OspiPsvInstance, OspiConfig);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_CFG, Status);
 		XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_OSPI_CFG\r\n");
@@ -261,7 +246,8 @@ int XLoader_OspiInit(u32 DeviceFlags)
 	 * Set the prescaler for OSPIPSV clock
 	 */
 	XOspiPsv_SetClkPrescaler(&OspiPsvInstance, XOSPIPSV_CLK_PRESCALE_6);
-	Status = (int)XOspiPsv_SelectFlash(&OspiPsvInstance, XOSPIPSV_SELECT_FLASH_CS0);
+	ChipSelect = XOSPIPSV_SELECT_FLASH_CS0;
+	Status = XOspiPsv_SelectFlash(&OspiPsvInstance, ChipSelect);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_SEL_FLASH_CS0,
 			Status);
@@ -303,7 +289,8 @@ int XLoader_OspiInit(u32 DeviceFlags)
 		}
 
 		if (OspiMode == XOSPIPSV_CONNECTION_MODE_STACKED) {
-			Status = (int)XOspiPsv_SelectFlash(&OspiPsvInstance, XOSPIPSV_SELECT_FLASH_CS1);
+			ChipSelect = XOSPIPSV_SELECT_FLASH_CS1;
+			Status = XOspiPsv_SelectFlash(&OspiPsvInstance, ChipSelect);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(
 						XLOADER_ERR_OSPI_SEL_FLASH_CS1, Status);
@@ -311,7 +298,7 @@ int XLoader_OspiInit(u32 DeviceFlags)
 			}
 
 			/* Set Flash device and Controller modes */
-			Status = (int)XOspiPsv_SetSdrDdrMode(&OspiPsvInstance,
+			Status = XOspiPsv_SetSdrDdrMode(&OspiPsvInstance,
 						XOSPIPSV_EDGE_MODE_SDR_NON_PHY);
 			if (Status != XST_SUCCESS) {
 				goto END1;
@@ -329,19 +316,20 @@ int XLoader_OspiInit(u32 DeviceFlags)
 
 END1:
 	if ((XPLMI_PLATFORM == PMC_TAP_VERSION_SILICON) && (Status != XST_SUCCESS)) {
-		Status = (int)XOspiPsv_DeviceReset(XOSPIPSV_HWPIN_RESET);
+		Status = XOspiPsv_DeviceReset(XOSPIPSV_HWPIN_RESET);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 
-		Status = (int)XOspiPsv_SelectFlash(&OspiPsvInstance, XOSPIPSV_SELECT_FLASH_CS0);
+		ChipSelect = XOSPIPSV_SELECT_FLASH_CS0;
+		Status = XOspiPsv_SelectFlash(&OspiPsvInstance, ChipSelect);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(
 					XLOADER_ERR_OSPI_SEL_FLASH_CS0, Status);
 			goto END;
 		}
 		if (OspiFlashMake == MACRONIX_OCTAL_ID_BYTE0) {
-			Status = (int)XOspiPsv_ConfigDualByteOpcode(
+			Status = XOspiPsv_ConfigDualByteOpcode(
 				&OspiPsvInstance,
 				(u32)XOSPIPSV_DUAL_BYTE_OP_DISABLE);
 			if (Status != XST_SUCCESS) {
@@ -352,7 +340,7 @@ END1:
 			}
 		}
 
-		Status = (int)XOspiPsv_SetSdrDdrMode(&OspiPsvInstance,
+		Status = XOspiPsv_SetSdrDdrMode(&OspiPsvInstance,
 				XOSPIPSV_EDGE_MODE_SDR_NON_PHY);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(
@@ -361,15 +349,16 @@ END1:
 		}
 
 		if (OspiMode == XOSPIPSV_CONNECTION_MODE_STACKED) {
-			Status = (int)XOspiPsv_SelectFlash(&OspiPsvInstance,
-				XOSPIPSV_SELECT_FLASH_CS1);
+			ChipSelect = XOSPIPSV_SELECT_FLASH_CS1;
+			Status = XOspiPsv_SelectFlash(&OspiPsvInstance,
+				ChipSelect);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(
 					XLOADER_ERR_OSPI_SEL_FLASH_CS1, Status);
 				goto END;
 			}
 
-			Status = (int)XOspiPsv_SetSdrDdrMode(&OspiPsvInstance,
+			Status = XOspiPsv_SetSdrDdrMode(&OspiPsvInstance,
 						XOSPIPSV_EDGE_MODE_SDR_NON_PHY);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(
@@ -385,7 +374,8 @@ END1:
 	 */
 	if (OspiMode == XOSPIPSV_CONNECTION_MODE_STACKED) {
 		XLoader_FlashEnterExit4BAddMode(&OspiPsvInstance, TRUE);
-		Status = (int)XOspiPsv_SelectFlash(&OspiPsvInstance, XOSPIPSV_SELECT_FLASH_CS0);
+		ChipSelect = XOSPIPSV_SELECT_FLASH_CS0;
+		Status = XOspiPsv_SelectFlash(&OspiPsvInstance, ChipSelect);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(
 						XLOADER_ERR_OSPI_SEL_FLASH_CS0, Status);
@@ -423,7 +413,6 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	u8 ReadCmd = READ_CMD_OCTAL_4B;
 	u8 Proto;
 	u8 Dummy;
-	static u8 ChipSelect = XOSPIPSV_SELECT_FLASH_CS0;
 #ifdef PLM_PRINT_PERF_DMA
 	u64 OspiCopyTime = XPlmi_GetTimerValue();
 	XPlmi_PerfTime PerfTime = {0U};
@@ -437,7 +426,7 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	/* Just wait for the Data to be copied */
 	if (Flags == XPLMI_DEVICE_COPY_STATE_WAIT_DONE) {
 		do {
-			Status = (int)XOspiPsv_CheckDmaDone(&OspiPsvInstance);
+			Status = XOspiPsv_CheckDmaDone(&OspiPsvInstance);
 		} while (Status != XST_SUCCESS);
 		goto END1;
 	}
@@ -454,8 +443,7 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 				 */
 				if (ChipSelect == XOSPIPSV_SELECT_FLASH_CS1) {
 					ChipSelect = XOSPIPSV_SELECT_FLASH_CS0;
-					Status = (int)XOspiPsv_SelectFlash(
-						&OspiPsvInstance, ChipSelect);
+					Status = XOspiPsv_SelectFlash(&OspiPsvInstance, ChipSelect);
 					if (Status != XST_SUCCESS) {
 						Status = XPlmi_UpdateStatus(
 									XLOADER_ERR_OSPI_SEL_FLASH_CS0, Status);
@@ -476,7 +464,7 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 				 */
 				if (ChipSelect == XOSPIPSV_SELECT_FLASH_CS0) {
 					ChipSelect = XOSPIPSV_SELECT_FLASH_CS1;
-					Status = (int)XOspiPsv_SelectFlash(&OspiPsvInstance, ChipSelect);
+					Status = XOspiPsv_SelectFlash(&OspiPsvInstance, ChipSelect);
 					if (Status != XST_SUCCESS) {
 						Status = XPlmi_UpdateStatus(
 									XLOADER_ERR_OSPI_SEL_FLASH_CS1, Status);
@@ -549,14 +537,14 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	}
 
 	if (Flags == XPLMI_DEVICE_COPY_STATE_INITIATE) {
-		Status = (int)XOspiPsv_StartDmaTransfer(&OspiPsvInstance, &FlashMsg);
+		Status = XOspiPsv_StartDmaTransfer(&OspiPsvInstance, &FlashMsg);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_READ, Status);
 		}
 		goto END1;
 	}
 
-	Status = (int)XOspiPsv_PollTransfer(&OspiPsvInstance, &FlashMsg);
+	Status = XOspiPsv_PollTransfer(&OspiPsvInstance, &FlashMsg);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_READ, Status);
 		goto END1;
@@ -569,7 +557,7 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 			 * is on flash 1.
 			 */
 			ChipSelect = XOSPIPSV_SELECT_FLASH_CS1;
-			Status = (int)XOspiPsv_SelectFlash(&OspiPsvInstance, ChipSelect);
+			Status = XOspiPsv_SelectFlash(&OspiPsvInstance, ChipSelect);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(
 							XLOADER_ERR_OSPI_SEL_FLASH_CS1, Status);
@@ -608,7 +596,7 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 			/* Check to call blocking or non-blocking DMA */
 			if (FlagsTmp == XPLMI_DEVICE_COPY_STATE_INITIATE) {
 				 /* Non-Blocking DMA transfer */
-				Status = (int)XOspiPsv_StartDmaTransfer(&OspiPsvInstance, &FlashMsg);
+				Status = XOspiPsv_StartDmaTransfer(&OspiPsvInstance, &FlashMsg);
 				if (Status != XST_SUCCESS) {
 					Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_READ, Status);
 				}
@@ -616,9 +604,10 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 			}
 
 			/* Blocking DMA transfer */
-			Status = (int)XOspiPsv_PollTransfer(&OspiPsvInstance, &FlashMsg);
+			Status = XOspiPsv_PollTransfer(&OspiPsvInstance, &FlashMsg);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_READ, Status);
+				goto END1;
 			}
 
 		}
@@ -633,6 +622,7 @@ END1:
 	(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac,
 	SrcAddrLow, (u32)(DestAddr >> 32U), (u32)DestAddr, Length, Flags);
 #endif
+
 END:
 	return Status;
 }
@@ -652,7 +642,7 @@ END:
 static int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable)
 {
 	int Status = XST_FAILURE;
-	u8 Command;
+	u32 Command;
 	u8 FlashStatus = 0U;
 	XOspiPsv_Msg FlashMsg = {0U};
 
@@ -683,7 +673,7 @@ static int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable)
 	FlashMsg.ByteCount = 0U;
 	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
 	FlashMsg.IsDDROpCode = FALSE;
-	Status = (int)XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
+	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_4BMODE, Status);
 		goto END;
@@ -697,7 +687,7 @@ static int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable)
 	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
 	FlashMsg.Addrsize = XLOADER_OSPI_ENTER_4B_ADDR_MODE_CMD_ADDR_SIZE;
 	FlashMsg.IsDDROpCode = FALSE;
-	Status = (int)XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
+	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_4BMODE, Status);
 		goto END;
@@ -724,7 +714,7 @@ static int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable)
 		if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
 			FlashMsg.Dummy += XLOADER_OSPI_SDR_DUMMY_CYCLES;
 		}
-		Status = (int)XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
+		Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_4BMODE,
 						Status);
@@ -752,9 +742,10 @@ static int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable)
 		FlashMsg.Proto = XOSPIPSV_WRITE_1_1_1;
 	}
 
-	Status = (int)XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
+	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_4BMODE, Status);
+		goto END;
 	}
 
 END:
@@ -806,7 +797,7 @@ static int XLoader_FlashSetDDRMode(XOspiPsv *OspiPsvPtr)
 		FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
 	}
 
-	Status = (int)XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
+	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -826,22 +817,21 @@ static int XLoader_FlashSetDDRMode(XOspiPsv *OspiPsvPtr)
 		FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
 	}
 
-	Status = (int)XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
+	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
 	if ((OspiFlashMake == MACRONIX_OCTAL_ID_BYTE0) &&
 		(OspiPsvPtr->DualByteOpcodeEn == 0U)) {
-		Status = (int)XOspiPsv_ConfigDualByteOpcode(OspiPsvPtr,
+		Status = XOspiPsv_ConfigDualByteOpcode(OspiPsvPtr,
 			(u32)XOSPIPSV_DUAL_BYTE_OP_ENABLE);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 	}
 
-	Status = (int)XOspiPsv_SetSdrDdrMode(OspiPsvPtr,
-		XOSPIPSV_EDGE_MODE_DDR_PHY);
+	Status = XOspiPsv_SetSdrDdrMode(OspiPsvPtr, XOSPIPSV_EDGE_MODE_DDR_PHY);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -862,7 +852,7 @@ static int XLoader_FlashSetDDRMode(XOspiPsv *OspiPsvPtr)
 	if (OspiPsvPtr->DualByteOpcodeEn != 0U) {
 		FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
 	}
-	Status = (int)XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
+	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -873,23 +863,6 @@ static int XLoader_FlashSetDDRMode(XOspiPsv *OspiPsvPtr)
 	XLoader_Printf(DEBUG_GENERAL,"OSPI mode switched to DDR\n\r");
 
 END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function releases control of OSPI.
- *
- * @return	XST_SUCCESS on success and error code on failure
- *
- *****************************************************************************/
-int XLoader_OspiRelease(void)
-{
-	int Status = XST_FAILURE;
-
-	Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_OSPI,
-		XPLMI_CMD_SECURE);
-
 	return Status;
 }
 #endif

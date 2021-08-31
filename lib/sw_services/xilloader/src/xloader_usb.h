@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,7 +21,6 @@
 * 1.01   bsv 07/08/2020 Moved Ch9Handler APIs to xloader_dfu_util.c
 *        skd 07/14/2020 XLoader_UsbCopy prototype changed
 *        td  08/19/2020 Fixed MISRA C violations Rule 10.3
-* 1.02   bsv 08/26/2021 Code clean up
 *
 * </pre>
 *
@@ -86,7 +85,6 @@ void XLoader_Ch9Handler(struct Usb_DevData *InstancePtr,
 	SetupPacket *SetupData);
 int XLoader_UsbInit(u32 DeviceFlags);
 int XLoader_UsbCopy(u64 SrcAddress, u64 DestAddress, u32 Length, u32 Flags);
-int XLoader_UsbRelease(void);
 
 #endif/*XLOADER_USB*/
 

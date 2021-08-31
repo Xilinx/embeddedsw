@@ -87,7 +87,6 @@
 *       bm   08/09/2021 Removed obsolete XLoader_PMCStateClear API prototype
 *       bm   08/24/2021 Added Extract Metaheader support
 *       bm   08/26/2021 Added XLOADER_PDI_TYPE_PARTIAL_METAHEADER macro
-*       bsv  08/26/2021 Code clean up
 *
 * </pre>
 *
@@ -159,10 +158,9 @@ extern "C" {
 #define XLOADER_PDI_TYPE_PARTIAL_METAHEADER 	(0x5U)
 
 /*
- * SD boot mode related macros
+ * Secondary boot mode related macros
  */
-#define XLOADER_PDISRC_FLAGS_MASK	(0xFU)
-#define XLOADER_PDISRC_FLAGS_SHIFT	(0x4U)
+#define XLOADER_PDISRC_FLAGS_MASK	(0xFFU)
 
 /*
  * PDI Loading status
@@ -211,67 +209,75 @@ extern "C" {
 /* Macro for Image Index Not found */
 #define XLOADER_IMG_INDEX_NOT_FOUND		(0xFFFFFFFFU)
 
+
 /* Boot Modes */
-#define XLOADER_PDI_SRC_JTAG		(0x0U)
-#define XLOADER_PDI_SRC_QSPI24		(0x1U)
-#define XLOADER_PDI_SRC_QSPI32		(0x2U)
-#define XLOADER_PDI_SRC_SD0		(0x3U)
-#define XLOADER_PDI_SRC_EMMC0		(0x4U)
-#define XLOADER_PDI_SRC_SD1		(0x5U)
-#define XLOADER_PDI_SRC_EMMC1		(0x6U)
-#define XLOADER_PDI_SRC_USB		(0x7U)
-#define XLOADER_PDI_SRC_OSPI		(0x8U)
-#define XLOADER_PDI_SRC_SMAP		(0xAU)
-#define XLOADER_PDI_SRC_PCIE		(0xBU)
-#define XLOADER_PDI_SRC_SD1_LS		(0xEU)
-#define XLOADER_PDI_SRC_DDR		(0xFU)
-#define XLOADER_PDI_SRC_SBI		(0x14U)
-#define XLOADER_PDI_SRC_INVALID		(0xFFU)
-
-#define XLOADER_SBI_INDEX		(0U)
-#define XLOADER_QSPI_INDEX		(1U)
-#define XLOADER_SD_INDEX		(2U)
-#define XLOADER_SD_RAW_INDEX		(3U)
-#define XLOADER_DDR_INDEX		(4U)
-#define XLOADER_OSPI_INDEX		(5U)
-#define XLOADER_USB_INDEX		(6U)
-#define XLOADER_INVALID_INDEX		(7U)
-#define PdiSrc_t			u32
-
-typedef struct {
-	const char* Name;
-	u8 Index;
-} PdiSrcMap;
+typedef enum {
+	XLOADER_PDI_SRC_JTAG = (0x0),
+	XLOADER_PDI_SRC_QSPI24 = (0x1),
+	XLOADER_PDI_SRC_QSPI32 = (0x2),
+	XLOADER_PDI_SRC_SD0 = (0x3),
+	XLOADER_PDI_SRC_SD1 = (0x5),
+	XLOADER_PDI_SRC_EMMC = (0x6),
+	XLOADER_PDI_SRC_USB = (0x7),
+	XLOADER_PDI_SRC_OSPI = (0x8),
+	XLOADER_PDI_SRC_SMAP = (0xA),
+	XLOADER_PDI_SRC_SD1_LS = (0xE),
+	XLOADER_PDI_SRC_DDR = (0xF),
+	XLOADER_PDI_SRC_SBI = (0x10),
+	XLOADER_PDI_SRC_PCIE = (0x11),
+	XLOADER_PDI_SRC_SD0_RAW = (0x12),
+	XLOADER_PDI_SRC_SD1_RAW = (0x13),
+	XLOADER_PDI_SRC_EMMC_RAW = (0x14),
+	XLOADER_PDI_SRC_SD1_LS_RAW = (0x15),
+	XLOADER_PDI_SRC_EMMC_RAW_BP1 = (0x16),
+	XLOADER_PDI_SRC_EMMC_RAW_BP2 = (0x17),
+	XLOADER_PDI_SRC_EMMC0 = (0x18),
+	XLOADER_PDI_SRC_EMMC0_RAW = (0x19),
+	XLOADER_PDI_SRC_INVALID = (0xFF),
+} PdiSrc_t;
 
 /* Minor Error Codes */
-#define XLOADER_ERR_INVALID_IMGID		(0x2U) /**< Invalid ImgID passed in Command */
-#define XLOADER_ERR_NO_VALID_IMG_FOUND		(0x3U) /**< No Valid Image Found in the Image Info Table */
-#define XLOADER_ERR_IMAGE_INFO_TBL_FULL		(0x4U) /**< Image Info Table is Full */
-#define XLOADER_ERR_PARENT_QUERY_RELATION_CHECK	(0x5U) /**< Error on Parent Query while checking for Child Relation */
-#define XLOADER_ERR_MEMSET_BOOT_HDR_FW_RSVD	(0x6U) /**< Error during memset on XilPdi_BootHdrFwRsvd */
-#define XLOADER_ERR_MEMSET_PDIPTR		(0x7U) /**< Error during memset on PdiPtr */
-#define XLOADER_ERR_MEMSET_QSPI_PSU_INST	(0x8U) /**< Error during memset on QspiPsuInstance */
-#define XLOADER_ERR_MEMSET_SD_BOOT_FILE		(0x9U) /**< Error during memset on SD BootFile */
-#define XLOADER_ERR_MEMSET_SD_INSTANCE		(0xAU) /**< Error during memset on SdInstance */
-#define XLOADER_ERR_MEMSET_USB_INSTANCE		(0xBU) /**< Error during memset on UsbInstance */
-#define XLOADER_ERR_MEMSET_USB_PRIVATE_DATA	(0xCU) /**< Error during memset on UsbPrivateData */
-#define XLOADER_ERR_MEMSET_DFU_OBJ		(0xDU) /**< Error during memset on DfuObj */
-#define XLOADER_ERR_INVALID_METAHDR_BUFF_SIZE	(0xEU) /**< Error when buffer size given by user
+enum {
+	XLOADER_ERR_INVALID_IMGID = 0x2, /**< 0x2 - Invalid ImgID passed
+						in Command */
+	XLOADER_ERR_NO_VALID_IMG_FOUND,	 /**< 0x3 - No Valid Image Found
+						in the Image Info Table */
+	XLOADER_ERR_IMAGE_INFO_TBL_FULL, /**< 0x4 - Image Info Table is Full */
+	XLOADER_ERR_PARENT_QUERY_RELATION_CHECK, /**< 0x5 - Error on Parent Query while checking
+							for Child Relation */
+	XLOADER_ERR_MEMSET_BOOT_HDR_FW_RSVD, /**< 0x6 - Error during memset on
+							XilPdi_BootHdrFwRsvd */
+	XLOADER_ERR_MEMSET_PDIPTR, /**< 0x7 - Error during memset on
+							PdiPtr */
+	XLOADER_ERR_MEMSET_QSPI_PSU_INST, /**< 0x8 - Error during memset on
+							QspiPsuInstance */
+	XLOADER_ERR_MEMSET_SD_BOOT_FILE, /**< 0x9 - Error during memset on
+							SD BootFile */
+	XLOADER_ERR_MEMSET_SD_INSTANCE, /**< 0xA - Error during memset on
+							SdInstance */
+	XLOADER_ERR_MEMSET_USB_INSTANCE, /**< 0xB - Error during memset on
+							UsbInstance */
+	XLOADER_ERR_MEMSET_USB_PRIVATE_DATA, /**< 0xC - Error during memset on
+							UsbPrivateData */
+	XLOADER_ERR_MEMSET_DFU_OBJ, /**< 0xD - Error during memset on
+							DfuObj */
+	XLOADER_ERR_INVALID_METAHDR_BUFF_SIZE, /**< 0xE- Error when buffer size given by user
 							is less than the metaheader length */
-#define XLOADER_ERR_INVALID_PDI_INPUT	(0xFU) /**< Error when PDI given is not a full PDI
+	XLOADER_ERR_INVALID_PDI_INPUT,	/**< 0xF - Error when PDI given is not a full PDI
 							or partial PDI */
-#define XLOADER_ERR_INVALID_DEST_IMGINFOTBL_SIZE	(0x10U) /**< Error when the destination
+	XLOADER_ERR_INVALID_DEST_IMGINFOTBL_SIZE, /**< 0x10 - Error when the destination
 							buffer provided to store image info
 							table is less than the current length
 							of image info table */
-#define XLOADER_ERR_INVALID_METAHEADER_SRC_ADDR		(0x11U) /**< Error when invalid source address
+	XLOADER_ERR_INVALID_METAHEADER_SRC_ADDR, /**< 0x11 - Error when invalid source address
 							is passed as a input to extract metaheader
 							command */
-#define XLOADER_ERR_INVALID_METAHEADER_DEST_ADDR	(0x12U) /**< Error when invalid destination address
+	XLOADER_ERR_INVALID_METAHEADER_DEST_ADDR, /**< 0x12 - Error when invalid destination address
 							is passed as a input to extract metaheader
 							command */
-#define XLOADER_ERR_INVALID_METAHEADER_OFFSET	(0x13U) /**< Error when the metaheader offset provided
+	XLOADER_ERR_INVALID_METAHEADER_OFFSET,	/**< 0x13 - Error when the metaheader offset provided
 							in full PDI is not present in DDR */
+};
 
 /* Multiboot register offset mask */
 #define XLOADER_MULTIBOOT_OFFSET_MASK		(0x001FFFFFU)
@@ -297,13 +303,10 @@ typedef struct {
 
 #define XLOADER_MAX_PDI_LIST		(32U)
 
-#if defined(XLOADER_SD_0) || defined(XLOADER_SD_1)
-#define XLOADER_SD_ADDR_MASK		(0xFFFFU)
-#define XLOADER_SD_ADDR_SHIFT		(0x4U)
-#endif
-
-/* DDR related macro */
+#define XLOADER_DDR_NOT_REQUESTED	(0U)
+#define XLOADER_REQUEST_DDR		(1U)
 #define XLOADER_HOLD_DDR		(2U)
+#define XLOADER_RELEASE_DDR		(3U)
 
 /**************************** Type Definitions *******************************/
 /*
@@ -315,6 +318,8 @@ typedef struct {
 } XLoader_HandoffParam;
 
 typedef struct {
+	char *Name; /**< Source name */
+	u32 DeviceBaseAddr; /**< Flash device base address */
 	int (*Init) (u32 DeviceFlags); /**< Function pointer for Device
 				initialization code */
 	/**< Function pointer for device copy */
@@ -330,29 +335,39 @@ typedef struct {
 typedef struct {
 	u8 PdiType; /**< Indicates PDI Type, full PDI, partial PDI */
 	u8 ValidHeader; /**< Indicates if Image header table is valid or not */
-	u8 PdiIndex; /**< Index in DeviceOps array */
-	u32 PdiSrc; /**< Source of the PDI - Boot device, DDR */
-
+	PdiSrc_t PdiSrc; /**< Source of the PDI - Boot device, DDR */
 	u64 PdiAddr; /**< Address where PDI is present in PDI Source */
 	u32 PdiId; /**< Indicates the full PDI Id */
 	XilPdi_MetaHdr MetaHdr; /**< Metaheader of the PDI */
+	int (*DeviceCopy) (u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+	u32 NoOfHandoffCpus; /**< Number of CPU's loader will handoff to */
 	XLoader_HandoffParam HandoffParam[XLOADER_MAX_HANDOFF_CPUS];
 	u32 CurImgId; /**< Current Processing image ID */
 	u32 CurPrtnId; /**< Current Processing Partition ID */
 	u32 IpiMask; /**< Info about which master has sent the request*/
-	u8 NoOfHandoffCpus; /**< Number of CPU's loader will handoff to */
-	u8 ImageNum; /**< Image number in the PDI */
-	u8 PrtnNum; /**< Partition number in the PDI */
-	u8 SlrType; /**< SLR Type */
-	u8 CopyToMem; /**< Copy to Memory is enabled if set */
-	u8 DelayHandoff; /**< Delay handoff is enabled if set */
-	u8 DelayLoad; /**< Delay Load is enabled if set */
-	u64 CopyToMemAddr; /**< Address to which image is copied */
+	u32 ImageNum; /**< Image number in the PDI */
+	u32 PrtnNum; /**< Partition number in the PDI */
+	u32 SlrType; /**< SLR Type */
+	u32 CopyToMem; /**< Copy to Memory is enabled if set */
+	u32 DelayHandoff; /**< Delay handoff is enabled if set */
 #ifndef PLM_SECURE_EXCLUDE
 	u32 PlmKatStatus; /**< PLM Known Answer Test Status */
 	u32 KekStatus; /**< KEK status flag */
 #endif
+	u32 DelayLoad; /**< Delay Load is enabled if set */
+	u64 CopyToMemAddr; /**< Address to which image is copied */
 } XilPdi;
+
+/* Structure to store various attributes required for IDCODEs checks */
+typedef struct {
+	u32 IdCodeIHT; /**< IdCode as read from IHT */
+	u32 ExtIdCodeIHT; /**< Extended IdCode as read from IHT */
+	u32 IdCodeRd; /**< IdCode as read from Device */
+	u32 ExtIdCodeRd; /**< Extended IdCode as read from Device */
+	u8 BypassChkIHT; /**< Flag to bypass checks */
+	u8 IsVC1902Es1; /**< Flag to indicate IsVC1902-ES1 device */
+	u8 IsExtIdCodeZero; /**< Flag to indicate Extended IdCode is valid */
+} XLoader_IdCodeInfo __attribute__ ((aligned(16U)));
 
 /* Structure to store various parameters for Device Copy */
 typedef struct {
@@ -401,12 +416,13 @@ int XLoader_LoadPdi(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr);
  * @cond xloader_internal
  */
 int XLoader_RestartImage(u32 ImageId, u32 *FuncID);
-void XLoader_CframeErrorHandler(u32 ImageId);
+int XLoader_CframeErrorHandler(u32 ImageId);
 int XLoader_CframeInit(void);
 void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr);
 XLoader_ImageInfo* XLoader_GetImageInfoEntry(u32 ImgID);
 int XLoader_LoadImageInfoTbl(u64 DestAddr, u32 MaxSize, u32 *NumEntries);
 XLoader_ImageStore* XLoader_GetPdiList(void);
+int XLoader_DdrOps(u8 Type);
 int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr);
 
 /* Functions defined in xloader_prtn_load.c */
@@ -418,6 +434,7 @@ void XLoader_CmdsInit(void);
 
 /* Functions defined in xloader_intr.c */
 int XLoader_IntrInit(void);
+void XLoader_SbiRecovery(void);
 void XLoader_ClearIntrSbiDataRdy(void);
 
 /************************** Variable Definitions *****************************/
