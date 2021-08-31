@@ -18,6 +18,7 @@
 * ----- ------ -------- --------------------------------------------------
 * X.XX  XX     YY/MM/DD
 * 1.00  GM     19/05/14 Initial release.
+* 1.01  KU     21/08/30 RX FRL settings updated for VCU118
 * </pre>
 *
 ******************************************************************************/
@@ -513,16 +514,29 @@ const Onsemi_RegisterField OnsemiRegisterFields[] = {
 	{RX_R3_TMDS_20, 0x1D, 0x03},
 	{RX_R3_TMDS_20, 0x1E, 0x00},
 
+#ifdef XPS_BOARD_VCU118
+	{RX_R3_FRL, 0x0A, 0xA4},
+#else
 	{RX_R3_FRL, 0x0A, 0x24},
+#endif
 	{RX_R3_FRL, 0x0B, 0x0D},
 	{RX_R3_FRL, 0x0C, 0x00},
 	{RX_R3_FRL, 0x0D, 0x20},
 	{RX_R3_FRL, 0x0E, 0x07},
+#ifdef XPS_BOARD_VCU118
+	{RX_R3_FRL, 0x0F, 0x21},
+	{RX_R3_FRL, 0x10, 0x02},
+#else
 	{RX_R3_FRL, 0x0F, 0x20},
 	{RX_R3_FRL, 0x10, 0x00},
+#endif
 	{RX_R3_FRL, 0x11, 0x0F},
 	{RX_R3_FRL, 0x12, 0xAA},
+#ifdef XPS_BOARD_VCU118
+	{RX_R3_FRL, 0x13, 0x00},
+#else
 	{RX_R3_FRL, 0x13, 0x21},
+#endif
 	{RX_R3_FRL, 0x14, 0x00},
 	{RX_R3_FRL, 0x15, 0x00},
 	{RX_R3_FRL, 0x16, 0x21},
@@ -531,15 +545,13 @@ const Onsemi_RegisterField OnsemiRegisterFields[] = {
 	{RX_R3_FRL, 0x19, 0x21},
 	{RX_R3_FRL, 0x1A, 0x00},
 	{RX_R3_FRL, 0x1B, 0x00},
-#ifdef XPS_BOARD_ZCU106
 	{RX_R3_FRL, 0x1C, 0x21},
-	{RX_R3_FRL, 0x1D, 0x00},
-#else
-	{RX_R3_FRL, 0x1C, 0x20},
+#ifdef XPS_BOARD_VCU118
 	{RX_R3_FRL, 0x1D, 0x07},
+#else
+	{RX_R3_FRL, 0x1D, 0x00},
 #endif
 	{RX_R3_FRL, 0x1E, 0x00},
-
 };
 
 /************************** Function Prototypes ******************************/
