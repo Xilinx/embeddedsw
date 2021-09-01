@@ -45,6 +45,7 @@
 *       bm   08/09/2021 Cleared PMC CDO buffer by default after processing
 *       bm   08/12/2021 Added support to configure uart during run-time
 *       ma   08/23/2021 Do not clear Debug Log RTCA memory
+*       ma   08/30/2021 Added defines related to SSIT
 *
 * </pre>
 *
@@ -157,6 +158,13 @@ enum {
 #define XPLMI_RTCFG_SECURESTATE_EMUL_AHWROT	(0x5A5A5A5AU)
 #define XPLMI_RTCFG_SECURESTATE_EMUL_SHWROT	(0x69696969U)
 #define XPLMI_RTCFG_SECURESTATE_NONSECURE	(0xD2D2D2D2U)
+
+/*
+ * SLR Types
+ */
+#define XPLMI_SSIT_MONOLITIC		(0x7U)
+#define XPLMI_SSIT_MASTER_SLR		(0x6U)
+#define XPLMI_SSIT_INVALID_SLR		(0x0U)
 
 /*
  * Using FW_IS_PRESENT to indicate Boot PDI loading is completed
