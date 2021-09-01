@@ -75,7 +75,6 @@ AieRC XAie_TraceEvent(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 	RC = _XAie_CheckModule(DevInst, Loc, Module);
 	if(RC != XAIE_OK) {
-		XAIE_ERROR("Invalid module\n");
 		return XAIE_INVALID_ARGS;
 	}
 
@@ -158,7 +157,6 @@ AieRC XAie_TraceStartEvent(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 	RC = _XAie_CheckModule(DevInst, Loc, Module);
 	if(RC != XAIE_OK) {
-		XAIE_ERROR("Invalid module\n");
 		return XAIE_INVALID_ARGS;
 	}
 
@@ -234,7 +232,6 @@ AieRC XAie_TraceStopEvent(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 	RC = _XAie_CheckModule(DevInst, Loc, Module);
 	if(RC != XAIE_OK) {
-		XAIE_ERROR("Invalid module\n");
 		return XAIE_INVALID_ARGS;
 	}
 
@@ -309,7 +306,6 @@ AieRC XAie_TracePktConfig(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 	RC = _XAie_CheckModule(DevInst, Loc, Module);
 	if(RC != XAIE_OK) {
-		XAIE_ERROR("Invalid module\n");
 		return XAIE_INVALID_ARGS;
 	}
 
@@ -379,7 +375,6 @@ AieRC XAie_TraceModeConfig(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 	RC = _XAie_CheckModule(DevInst, Loc, Module);
 	if(RC != XAIE_OK) {
-		XAIE_ERROR("Invalid module\n");
 		return XAIE_INVALID_ARGS;
 	}
 
@@ -444,7 +439,6 @@ AieRC XAie_TraceGetState(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 	RC = _XAie_CheckModule(DevInst, Loc, Module);
 	if(RC != XAIE_OK) {
-		XAIE_ERROR("Invalid module\n");
 		return XAIE_INVALID_ARGS;
 	}
 
@@ -510,7 +504,6 @@ AieRC XAie_TraceGetMode(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 	RC = _XAie_CheckModule(DevInst, Loc, Module);
 	if(RC != XAIE_OK) {
-		XAIE_ERROR("Invalid module\n");
 		return XAIE_INVALID_ARGS;
 	}
 
@@ -580,7 +573,6 @@ AieRC XAie_TraceControlConfig(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 	RC = _XAie_CheckModule(DevInst, Loc, Module);
 	if(RC != XAIE_OK) {
-		XAIE_ERROR("Invalid module\n");
 		return XAIE_INVALID_ARGS;
 	}
 
@@ -665,7 +657,6 @@ AieRC XAie_TraceControlConfigReset(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 	RC = _XAie_CheckModule(DevInst, Loc, Module);
 	if(RC != XAIE_OK) {
-		XAIE_ERROR("Invalid module\n");
 		return XAIE_INVALID_ARGS;
 	}
 
@@ -719,7 +710,6 @@ AieRC XAie_TracePktConfigReset(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 	RC = _XAie_CheckModule(DevInst, Loc, Module);
 	if(RC != XAIE_OK) {
-		XAIE_ERROR("Invalid module\n");
 		return XAIE_INVALID_ARGS;
 	}
 
@@ -823,7 +813,6 @@ AieRC XAie_TraceEventReset(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 	RC = _XAie_CheckModule(DevInst, Loc, Module);
 	if(RC != XAIE_OK) {
-		XAIE_ERROR("Invalid module\n");
 		return XAIE_INVALID_ARGS;
 	}
 
