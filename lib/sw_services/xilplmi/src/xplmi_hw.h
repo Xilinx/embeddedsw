@@ -61,6 +61,7 @@
 *       rb   07/29/2021 Added macros for persistent general storage register
 *                       and reset reason masks
 *       rb   08/11/2021 Fix compilation warnings
+*       ma   08/30/2021 Added SSIT related define
 *
 * </pre>
 *
@@ -779,9 +780,11 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 
 /* PMC master and Slave SLR base addresses */
 #define XPLMI_PMC_LOCAL_BASEADDR		(0xF0000000U)
+#define XPLMI_PMC_LOCAL_ADDR_LEN		(0x8000000U)
 #define XPLMI_PMC_ALIAS1_BASEADDR		(0x108000000UL)
 #define XPLMI_PMC_ALIAS2_BASEADDR		(0x110000000UL)
 #define XPLMI_PMC_ALIAS3_BASEADDR		(0x118000000UL)
+#define XPLMI_PMC_ALIAS_MAX_ADDR		(XPLMI_PMC_ALIAS3_BASEADDR + XPLMI_PMC_LOCAL_ADDR_LEN)
 
 /* Sysmon supply 0 address */
 #define XPLMI_SYSMON_SUPPLY0_ADDR		(0xF1271040U)

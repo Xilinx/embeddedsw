@@ -68,6 +68,8 @@
 *       rv   08/19/2021 Updated XPLMI_EM_ACTION_SUBSYS_RESTART error action
 *			handling
 *       ma   08/19/2021 Renamed error related macros
+*       ma   08/30/2021 Modified XPlmi_ErrMgr function to handle errors in
+*                       SSIT Slave SLRs
 *
 * </pre>
 *
@@ -79,6 +81,7 @@
 #include "xplmi_err.h"
 #include "xplmi.h"
 #include "xplmi_sysmon.h"
+#include "xplmi_ssit.h"
 
 /**@cond xplmi_internal
  * @{
@@ -137,6 +140,8 @@ void XPlmi_ErrMgr(int ErrStatus)
 #ifndef PLM_DEBUG_MODE
 	u32 RegVal;
 #endif
+	u8 SlrType = (u8)(XPlmi_In32(PMC_TAP_SLR_TYPE) &
+			PMC_TAP_SLR_TYPE_VAL_MASK);
 
 	/* Print the PLM error */
 	XPlmi_Printf(DEBUG_GENERAL, "PLM Error Status: 0x%08lx\n\r", ErrStatus);
@@ -144,32 +149,48 @@ void XPlmi_ErrMgr(int ErrStatus)
 			(u32)ErrStatus);
 
 	/*
-	 * Fallback if boot PDI is not done
-	 * else just return, so that we receive next requests
+	 * Check if SLR Type is Master or Monolithic
+	 * and take error action accordingly.
 	 */
-	if (XPlmi_IsLoadBootPdiDone() == FALSE) {
-		XPlmi_DumpRegisters();
+	if ((SlrType == XPLMI_SSIT_MASTER_SLR) ||
+		(SlrType == XPLMI_SSIT_MONOLITIC)) {
 		/*
-		 * If boot mode is jtag, donot reset. This is to keep
-		 * the system state intact for further debug.
+		 * Fallback if boot PDI is not done
+		 * else just return, so that we receive next requests
 		 */
+		if (XPlmi_IsLoadBootPdiDone() == FALSE) {
+			XPlmi_DumpRegisters();
+			/*
+			 * If boot mode is jtag, donot reset. This is to keep
+			 * the system state intact for further debug.
+			 */
 #ifndef PLM_DEBUG_MODE
-		if((XPlmi_In32(CRP_BOOT_MODE_USER) &
-			CRP_BOOT_MODE_USER_BOOT_MODE_MASK) == 0U)
+			if((XPlmi_In32(CRP_BOOT_MODE_USER) &
+					CRP_BOOT_MODE_USER_BOOT_MODE_MASK) == 0U)
 #endif
-		{
-			while (TRUE) {
-				;
+			{
+				while (TRUE) {
+					;
+				}
 			}
-		}
 
 #ifndef PLM_DEBUG_MODE
-		/* Update Multiboot register */
-		RegVal = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT);
-		XPlmi_Out32(PMC_GLOBAL_PMC_MULTI_BOOT, RegVal + 1U);
+			/* Update Multiboot register */
+			RegVal = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT);
+			XPlmi_Out32(PMC_GLOBAL_PMC_MULTI_BOOT, RegVal + 1U);
 
-		XPlmi_TriggerFwNcrError();
+			XPlmi_TriggerFwNcrError();
 #endif
+		}
+	} else {
+		/*
+		 * Trigger SSIT error to Master SLR if SLR Type is Slave SLR
+		 * And clear it immediately
+		 */
+		XPlmi_UtilRMW(PMC_GLOBAL_SSIT_ERR, PMC_GLOBAL_SSIT_ERR_IRQ_OUT_2_MASK,
+				PMC_GLOBAL_SSIT_ERR_IRQ_OUT_2_MASK);
+		XPlmi_UtilRMW(PMC_GLOBAL_SSIT_ERR, PMC_GLOBAL_SSIT_ERR_IRQ_OUT_2_MASK,
+				0x0U);
 	}
 }
 
