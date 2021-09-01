@@ -341,11 +341,16 @@ AieRC XAie_EventComboReset(XAie_DevInst *DevInst, XAie_LocType Loc,
 		return XAIE_INVALID_TILE;
 	}
 
+	if(_XAie_CheckModule(DevInst, Loc, Module) != XAIE_OK) {
+		return XAIE_INVALID_ARGS;
+	}
+
 	if(Module == XAIE_CORE_MOD) {
 		Event = XAIE_EVENT_NONE_CORE;
 	} else if(Module == XAIE_PL_MOD) {
 		Event = XAIE_EVENT_NONE_PL;
-	} else if(Module == XAIE_MEM_MOD) {
+	} else {
+		/* Memory module */
 		if(TileType == XAIEGBL_TILE_TYPE_MEMTILE)
 			Event = XAIE_EVENT_NONE_MEM_TILE;
 		else
@@ -723,11 +728,16 @@ AieRC XAie_EventBroadcastReset(XAie_DevInst *DevInst, XAie_LocType Loc,
 		return XAIE_INVALID_TILE;
 	}
 
+	if(_XAie_CheckModule(DevInst, Loc, Module) != XAIE_OK) {
+		return XAIE_INVALID_ARGS;
+	}
+
 	if(Module == XAIE_CORE_MOD) {
 		Event = XAIE_EVENT_NONE_CORE;
 	} else if(Module == XAIE_PL_MOD) {
 		Event = XAIE_EVENT_NONE_PL;
-	} else if(Module == XAIE_MEM_MOD) {
+	} else {
+		/* Memory module */
 		if(TileType == XAIEGBL_TILE_TYPE_MEMTILE)
 			Event = XAIE_EVENT_NONE_MEM_TILE;
 		else
