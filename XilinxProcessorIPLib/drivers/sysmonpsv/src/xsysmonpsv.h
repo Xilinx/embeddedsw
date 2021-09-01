@@ -110,6 +110,7 @@
 *                       strings.
 * 2.3   aad    04/30/21 Size optimization for PLM code.
 * 2.3   aad    07/26/21 Added doxygen comments.
+* 2.3   aad    09/01/21 Fixed compilation warning.
 *
 * </pre>
 *
@@ -499,7 +500,7 @@ void XSysMonPsv_SetSupplyEventHandler(XSysMonPsv *InstancePtr,
                                       XSysMonPsv_Handler CallbackFunc,
                                       void *CallbackRef);
 
-#if defined (ARMR5) || (__arch64__)
+#if defined (ARMR5) || defined (__arch64__)
 void XSysMonPsv_AlarmEventHandler(XSysMonPsv *InstancePtr);
 #endif
 
