@@ -28,6 +28,9 @@
 * 3.10  mus  09/19/18 Update prototype of LowInterruptHandler to fix the GCC
 *                     warning
 * 4.0   mus  01/28/19  Updated to support Cortexa72 GIC (GIC500).
+* 4.7	sk   09/01/21 Update datatype of CpuBaseAddress, DistBaseAddress,
+* 		      CallbackRef and BaseAddress from u32 to standard UINTPTR
+* 		      to support on all platforms.
 * </pre>
 ******************************************************************************/
 
@@ -65,15 +68,15 @@
 
 /************************** Function Prototypes ******************************/
 
-static int ScuGicLowLevelExample(u32 CpuBaseAddress, u32 DistBaseAddress);
+static int ScuGicLowLevelExample(UINTPTR CpuBaseAddress, UINTPTR DistBaseAddress);
 
 void SetupInterruptSystem();
 
-void LowInterruptHandler(u32 CallbackRef);
+void LowInterruptHandler(UINTPTR CallbackRef);
 
-static void GicDistInit(u32 BaseAddress);
+static void GicDistInit(UINTPTR BaseAddress);
 
-static void GicCPUInit(u32 BaseAddress);
+static void GicCPUInit(UINTPTR BaseAddress);
 
 
 /************************** Variable Definitions *****************************/
@@ -138,7 +141,7 @@ int main(void)
 * @note		None.
 *
 ******************************************************************************/
-static int ScuGicLowLevelExample(u32 CpuBaseAddress, u32 DistBaseAddress)
+static int ScuGicLowLevelExample(UINTPTR CpuBaseAddress, UINTPTR DistBaseAddress)
 {
 
 
@@ -250,9 +253,9 @@ void SetupInterruptSystem(void)
 * @note     None.
 *
 ******************************************************************************/
-void LowInterruptHandler(u32 CallbackRef)
+void LowInterruptHandler(UINTPTR CallbackRef)
 {
-	u32 BaseAddress;
+	UINTPTR BaseAddress;
 	u32 IntID;
 
 
@@ -296,7 +299,7 @@ void LowInterruptHandler(u32 CallbackRef)
 }
 
 
-static void GicDistInit(u32 BaseAddress)
+static void GicDistInit(UINTPTR BaseAddress)
 {
 	u32 Int_Id;
 
@@ -407,7 +410,7 @@ for (Int_Id = 32U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+1){
 #endif
 }
 
-static void GicCPUInit(u32 BaseAddress)
+static void GicCPUInit(UINTPTR BaseAddress)
 {
 	/*
 	 * Program the priority mask of the CPU using the Priority mask register

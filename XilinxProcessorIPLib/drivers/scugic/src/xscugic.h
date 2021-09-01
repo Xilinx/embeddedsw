@@ -170,6 +170,8 @@
 *                     GIC driver can use newly introduced spinlock
 *                     functionality.
 * 4.6	sk   08/05/21 Fix scugic misrac violations.
+* 4.7	sk   08/30/21 Update datatype of CpuBaseAddress and DistBaseAddress
+* 		      from u32 to standard UINTPTR to support on all platforms.
 *
 * </pre>
 *
@@ -220,8 +222,8 @@ typedef struct
 typedef struct
 {
 	u16 DeviceId;		/**< Unique ID  of device */
-	u32 CpuBaseAddress;	/**< CPU Interface Register base address */
-	u32 DistBaseAddress;	/**< Distributor Register base address */
+	UINTPTR CpuBaseAddress;	/**< CPU Interface Register base address */
+	UINTPTR DistBaseAddress;	/**< Distributor Register base address */
 	XScuGic_VectorTableEntry HandlerTable[XSCUGIC_MAX_NUM_INTR_INPUTS];/**<
 				 Vector table of interrupt handlers */
 } XScuGic_Config;
