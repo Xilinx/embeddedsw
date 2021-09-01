@@ -23,6 +23,8 @@
 * 1.03  ma   05/03/2021 Trigger FW_NCR error for post boot exceptions
 * 1.04  td   07/08/2021 Fix doxygen warnings
 *       bsv  08/13/2021 Removed unnecessary header file
+*       ma   08/30/2021 Trigger FW_NCR error only for master and monolithic
+*                       devices
 *
 * </pre>
 *
@@ -34,6 +36,7 @@
 #include "xplm_proc.h"
 #include "xloader_secure.h"
 #include "xplmi_err.h"
+#include "xplmi.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -91,6 +94,8 @@ static void XPlm_ExceptionInit(void)
 static void XPlm_ExceptionHandler(void *Data)
 {
 	int Status = (int) Data;
+	u8 SlrType = (u8)(XPlmi_In32(PMC_TAP_SLR_TYPE) &
+			PMC_TAP_SLR_TYPE_VAL_MASK);
 
 	XPlmi_Printf(DEBUG_GENERAL, "Received Exception \n\r"
 		"MSR: 0x%08x, EAR: 0x%08x, EDR: 0x%08x, ESR: 0x%08x, \n\r"
@@ -102,12 +107,19 @@ static void XPlm_ExceptionHandler(void *Data)
 	XPlmi_ErrMgr(Status);
 
 	/*
-	 * Trigger FW_NCR error for post boot exceptions if
-	 * boot mode is other than JTAG
+	 * Check if SLR Type is Master or Monolithic
+	 * and take error action accordingly.
 	 */
-	if((XPlmi_In32(CRP_BOOT_MODE_USER) &
-		CRP_BOOT_MODE_USER_BOOT_MODE_MASK) != 0U) {
-		XPlmi_TriggerFwNcrError();
+	if ((SlrType == XPLMI_SSIT_MASTER_SLR) ||
+		(SlrType == XPLMI_SSIT_MONOLITIC)) {
+		/*
+		 * Trigger FW_NCR error for post boot exceptions if
+		 * boot mode is other than JTAG
+		 */
+		if((XPlmi_In32(CRP_BOOT_MODE_USER) &
+				CRP_BOOT_MODE_USER_BOOT_MODE_MASK) != 0U) {
+			XPlmi_TriggerFwNcrError();
+		}
 	}
 
 	/* Just in case if control reaches here */

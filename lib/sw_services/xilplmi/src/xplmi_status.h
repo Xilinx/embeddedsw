@@ -87,6 +87,7 @@
 *       bsv  07/16/2021 Added Macronix flash support
 *       bm   08/09/2021 Cleared PMC CDO buffer by default after processing
 *       bsv  08/17/2021 Code clean up
+*       ma   08/30/2021 Added error code for SSIT errors
 *
 * </pre>
 *
@@ -261,6 +262,7 @@ typedef enum {
 						at the scheduled interval */
 	XPLMI_ERR_SET_PMC_IRO_FREQ, /**< 0x13A - Error when setting PMC IRO frequency
 						is failed */
+	XPLMI_ERR_FROM_SSIT_SLAVE, /**< 0x13B - Error received from SSIT Slave SLR */
 
 	/** Status codes used in PLM */
 	XPLM_ERR_TASK_CREATE = 0x200,	/**< 0x200 - Error when task create
