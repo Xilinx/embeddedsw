@@ -50,6 +50,8 @@
 *       bm   08/26/2021 Removed XLOADER_PDI_LOAD_COMPLETE write from
 *                       extract metaheader command
 *       bsv  08/31/2021 Code clean up
+*       kpt  09/01/2021 Added local volatile variable to avoid compiler
+*                       optimization in XLoader_CheckIpiAccess
 *
 * </pre>
 *
@@ -821,15 +823,16 @@ static int XLoader_CheckIpiAccess(u32 CmdId, u32 IpiReqType)
 	int Status = XST_FAILURE;
 	volatile u8 ModuleCmdId = (u8)(CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK);
 	volatile u8 ModuleCmdIdTmp = (u8)(CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK);
-	volatile u32 IpiReqTypeTmp = IpiReqType;
+	volatile u32 IpiRequestType = IpiReqType;
+	volatile u32 IpiRequestTypeTmp = IpiReqType;
 
 	/* Secure check for Loader IPI commands */
 	if (((ModuleCmdId == XLOADER_CMD_READBACK_CMD_ID) &&
 		(ModuleCmdIdTmp == XLOADER_CMD_READBACK_CMD_ID)) ||
 		((ModuleCmdId == XLOADER_CMD_UPDATE_MULTIBOOT_CMD_ID) &&
 		(ModuleCmdIdTmp == XLOADER_CMD_UPDATE_MULTIBOOT_CMD_ID))) {
-		if ((XPLMI_CMD_SECURE == IpiReqType) &&
-			(XPLMI_CMD_SECURE == IpiReqTypeTmp)) {
+		if ((XPLMI_CMD_SECURE == IpiRequestType) &&
+			(XPLMI_CMD_SECURE == IpiRequestTypeTmp)) {
 			Status = XST_SUCCESS;
 		}
 	}
