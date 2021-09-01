@@ -66,6 +66,7 @@
 * 1.06  td   07/15/2021 Fix doxygen warnings
 *       bsv  08/17/2021 Code clean up
 *       bsv  08/31/2021 Code clean up
+*       bsv  09/01/2021 Added checks for zero length in XLoader_ProcessCdo
 *
 * </pre>
 *
@@ -727,6 +728,9 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 		if (Cdo.Cmd.KeyHoleParams.ExtraWords != 0x0U) {
 			Cdo.Cmd.KeyHoleParams.ExtraWords *= XPLMI_WORD_LEN;
 			DeviceCopy->Len -= Cdo.Cmd.KeyHoleParams.ExtraWords;
+			if (DeviceCopy->Len == 0U) {
+				break;
+			}
 			DeviceCopy->SrcAddr += Cdo.Cmd.KeyHoleParams.ExtraWords;
 			if ((IsNextChunkCopyStarted == (u8)TRUE) &&
 					(Cdo.Cmd.KeyHoleParams.ExtraWords < ChunkLen)) {
@@ -748,6 +752,9 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 					goto END;
 				}
 				TransferWords = (DeviceCopy->Len - ChunkLenTemp);
+				if (TransferWords == 0U) {
+					break;
+				}
 				if (Cdo.Cmd.KeyHoleParams.ExtraWords < TransferWords) {
 					TransferWords = Cdo.Cmd.KeyHoleParams.ExtraWords;
 				}
