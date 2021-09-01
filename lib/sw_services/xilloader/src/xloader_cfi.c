@@ -28,6 +28,7 @@
 *       td    07/15/2021 Fix doxygen warnings
 *       bsv   07/18/2021 Debug enhancements
 *       bsv   08/31/2021 Code clean up
+*       ma    09/01/2021 Fix issue in clearing the CFI and CFU errors
 *
 * </pre>
 *
@@ -114,11 +115,9 @@ static void XLoader_CfiErrHandler(const XCfupmc *InstancePtr)
 	XCfupmc_ClearIgnoreCfiErr(InstancePtr);
 
 	/** Clear ISRs */
-	XPlmi_UtilRMW(PMC_GLOBAL_PMC_ERR1_STATUS,
-			PMC_GLOBAL_PMC_ERR1_STATUS_CFRAME_MASK,
+	XPlmi_Out32(PMC_GLOBAL_PMC_ERR1_STATUS,
 			PMC_GLOBAL_PMC_ERR1_STATUS_CFRAME_MASK);
-	XPlmi_UtilRMW(PMC_GLOBAL_PMC_ERR2_STATUS,
-			PMC_GLOBAL_PMC_ERR2_STATUS_CFI_MASK,
+	XPlmi_Out32(PMC_GLOBAL_PMC_ERR2_STATUS,
 			PMC_GLOBAL_PMC_ERR2_STATUS_CFI_MASK);
 	XCfupmc_ClearCfuIsr(InstancePtr);
 
@@ -140,8 +139,7 @@ static void XLoader_CfuErrHandler(const XCfupmc *InstancePtr)
 
 	/** CFU error checking and handling */
 	XCfupmc_CfuErrHandler(InstancePtr);
-	XPlmi_UtilRMW(PMC_GLOBAL_PMC_ERR1_STATUS,
-			PMC_GLOBAL_PMC_ERR1_STATUS_CFU_MASK,
+	XPlmi_Out32(PMC_GLOBAL_PMC_ERR1_STATUS,
 			PMC_GLOBAL_PMC_ERR1_STATUS_CFU_MASK);
 	return;
 }
