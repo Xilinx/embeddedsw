@@ -48,7 +48,9 @@
 *       bsv  04/01/21 Added TPM support
 *       bsv  04/28/21 Added support to ensure authenticated images boot as
 *                     non-secure when RSA_EN is not programmed
-*
+*            09/01/21 Changed authenticated image handling in the case that
+*                     RSA_EN is not programmed so that image will be
+*                     authenticated if it contains an authentication certificate
 * </pre>
 *
 * @note
@@ -111,7 +113,6 @@ void XFsbl_RegisterHandlers(void);
 
 /************************** Variable Definitions *****************************/
 extern XFsblPs FsblInstance;
-
 #ifdef __clang__
 extern u8 Image$$DATA_SECTION$$Base;
 extern u8 Image$$DATA_SECTION$$Limit;
@@ -1259,20 +1260,26 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 	}
 
 	/* If authentication is enabled */
+#ifdef XFSBL_SECURE
+	/* Read AC offset from Image header table */
+	Status = FsblInstancePtr->DeviceOps.DeviceCopy(FlashImageOffsetAddress
+		+ ImageHeaderTableAddressOffset + XIH_IHT_AC_OFFSET,
+		(PTRSIZE ) &AcOffset, XIH_FIELD_LEN);
+	if (XFSBL_SUCCESS != Status) {
+		XFsbl_Printf(DEBUG_GENERAL,"Device Copy Failed \n\r");
+		goto END;
+	}
+#endif
 	if (((EfuseCtrl & EFUSE_SEC_CTRL_RSA_EN_MASK) != 0U) ||
 	    ((BootHdrAttrb & XIH_BH_IMAGE_ATTRB_RSA_MASK)
+#ifdef XFSBL_SECURE
+		== XIH_BH_IMAGE_ATTRB_RSA_MASK) || AcOffset != 0x00U) {
+#else
 		== XIH_BH_IMAGE_ATTRB_RSA_MASK)) {
+#endif
 		FsblInstancePtr->AuthEnabled = TRUE;
 		XFsbl_Printf(DEBUG_INFO,"Authentication Enabled\r\n");
 #ifdef XFSBL_SECURE
-		 /* Read AC offset from Image header table */
-		Status = FsblInstancePtr->DeviceOps.DeviceCopy(FlashImageOffsetAddress
-		            + ImageHeaderTableAddressOffset + XIH_IHT_AC_OFFSET,
-			   (PTRSIZE ) &AcOffset, XIH_FIELD_LEN);
-		if (XFSBL_SUCCESS != Status) {
-			XFsbl_Printf(DEBUG_GENERAL,"Device Copy Failed \n\r");
-			goto END;
-		}
 		if (AcOffset != 0x00U) {
 			/* Authentication exists copy AC to OCM */
 			Status = FsblInstancePtr->DeviceOps.DeviceCopy(
