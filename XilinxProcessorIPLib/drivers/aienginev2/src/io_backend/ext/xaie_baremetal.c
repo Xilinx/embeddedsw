@@ -67,6 +67,7 @@ static XAie_BaremetalIO BaremetalIO;
 *******************************************************************************/
 static AieRC XAie_BaremetalIO_Finish(void *IOInst)
 {
+	(void)IOInst;
 	return XAIE_OK;
 }
 
@@ -289,6 +290,7 @@ static XAie_MemInst* XAie_BaremetalMemAllocate(XAie_DevInst *DevInst, u64 Size,
 {
 	XAie_MemInst *MemInst;
 
+	(void)Cache;
 	MemInst = (XAie_MemInst *)malloc(sizeof(*MemInst));
 	if(MemInst == NULL) {
 		XAIE_ERROR("memory allocation failed\n");
