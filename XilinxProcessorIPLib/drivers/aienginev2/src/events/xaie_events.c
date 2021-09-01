@@ -80,7 +80,6 @@ AieRC XAie_EventGenerate(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 	RC = _XAie_CheckModule(DevInst, Loc, Module);
 	if(RC != XAIE_OK) {
-		XAIE_ERROR("Invalid module\n");
 		return XAIE_INVALID_ARGS;
 	}
 
@@ -151,7 +150,6 @@ static AieRC _XAie_EventComboControl(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 	RC = _XAie_CheckModule(DevInst, Loc, Module);
 	if(RC != XAIE_OK) {
-		XAIE_ERROR("Invalid module\n");
 		return XAIE_INVALID_ARGS;
 	}
 
@@ -291,7 +289,6 @@ AieRC XAie_EventGetComboEventBase(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 	RC = _XAie_CheckModule(DevInst, Loc, Module);
 	if(RC != XAIE_OK) {
-		XAIE_ERROR("Invalid module\n");
 		return XAIE_INVALID_ARGS;
 	}
 
@@ -571,7 +568,6 @@ AieRC XAie_EventGetIdlePortEventBase(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 	RC = _XAie_CheckModule(DevInst, Loc, Module);
 	if(RC != XAIE_OK) {
-		XAIE_ERROR("Invalid module\n");
 		return RC;
 	}
 
@@ -620,7 +616,6 @@ static AieRC _XAie_EventBroadcastConfig(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 	RC = _XAie_CheckModule(DevInst, Loc, Module);
 	if(RC != XAIE_OK) {
-		XAIE_ERROR("Invalid module\n");
 		return XAIE_INVALID_ARGS;
 	}
 
@@ -799,7 +794,6 @@ AieRC XAie_EventBroadcastBlockDir(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 	RC = _XAie_CheckModule(DevInst, Loc, Module);
 	if(RC != XAIE_OK) {
-		XAIE_ERROR("Invalid module\n");
 		return XAIE_INVALID_ARGS;
 	}
 
@@ -888,7 +882,6 @@ AieRC XAie_EventBroadcastBlockMapDir(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 	RC = _XAie_CheckModule(DevInst, Loc, Module);
 	if(RC != XAIE_OK) {
-		XAIE_ERROR("Invalid module\n");
 		return XAIE_INVALID_ARGS;
 	}
 
@@ -977,7 +970,6 @@ AieRC XAie_EventBroadcastUnblockDir(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 	RC = _XAie_CheckModule(DevInst, Loc, Module);
 	if(RC != XAIE_OK) {
-		XAIE_ERROR("Invalid module\n");
 		return XAIE_INVALID_ARGS;
 	}
 
@@ -1051,7 +1043,6 @@ static AieRC _XAie_EventGroupConfig(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 	RC = _XAie_CheckModule(DevInst, Loc, Module);
 	if(RC != XAIE_OK) {
-		XAIE_ERROR("Invalid module\n");
 		return XAIE_INVALID_ARGS;
 	}
 
@@ -1498,7 +1489,6 @@ AieRC XAie_EventReadStatus(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 	RC = _XAie_CheckModule(DevInst, Loc, Module);
 	if(RC != XAIE_OK) {
-		XAIE_ERROR("Invalid module\n");
 		return XAIE_INVALID_ARGS;
 	}
 
@@ -1562,7 +1552,6 @@ AieRC XAie_EventGetUserEventBase(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 	RC = _XAie_CheckModule(DevInst, Loc, Module);
 	if(RC != XAIE_OK) {
-		XAIE_ERROR("Invalid module\n");
 		return XAIE_INVALID_ARGS;
 	}
 

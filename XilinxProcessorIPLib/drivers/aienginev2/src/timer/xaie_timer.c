@@ -91,7 +91,6 @@ AieRC XAie_SetTimerTrigEventVal(XAie_DevInst *DevInst, XAie_LocType Loc,
 	/* check for module and tiletype combination */
 	RC = _XAie_CheckModule(DevInst, Loc, Module);
 	if(RC != XAIE_OK) {
-		XAIE_ERROR("Invalid Module\n");
 		return XAIE_INVALID_ARGS;
 	}
 
@@ -159,7 +158,6 @@ AieRC XAie_ResetTimer(XAie_DevInst *DevInst, XAie_LocType Loc,
 	/* check for module and tiletype combination */
 	RC = _XAie_CheckModule(DevInst, Loc, Module);
 	if(RC != XAIE_OK) {
-		XAIE_ERROR("Invalid Module\n");
 		return XAIE_INVALID_ARGS;
 	}
 
@@ -232,7 +230,6 @@ AieRC XAie_SetTimerResetEvent(XAie_DevInst *DevInst, XAie_LocType Loc,
 	/* check for module and tiletype combination */
 	RC = _XAie_CheckModule(DevInst, Loc, Module);
 	if(RC != XAIE_OK) {
-		XAIE_ERROR("Invalid Module\n");
 		return XAIE_INVALID_ARGS;
 	}
 
@@ -319,7 +316,6 @@ AieRC XAie_ReadTimer(XAie_DevInst *DevInst, XAie_LocType Loc,
 	/* check for module and tiletype combination */
 	RC = _XAie_CheckModule(DevInst, Loc, Module);
         if(RC != XAIE_OK) {
-		XAIE_ERROR("Invalid Module\n");
                 return XAIE_INVALID_ARGS;
 	}
 
@@ -395,7 +391,6 @@ AieRC XAie_WaitCycles(XAie_DevInst *DevInst, XAie_LocType Loc,
 	/* check for module and tiletype combination */
 	RC = _XAie_CheckModule(DevInst, Loc, Module);
 	if(RC != XAIE_OK) {
-		XAIE_ERROR("Invalid Module\n");
 		return XAIE_INVALID_ARGS;
 	}
 
