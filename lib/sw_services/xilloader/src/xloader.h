@@ -88,6 +88,7 @@
 *       bm   08/24/2021 Added Extract Metaheader support
 *       bm   08/26/2021 Added XLOADER_PDI_TYPE_PARTIAL_METAHEADER macro
 *       bsv  08/31/2021 Code clean up
+*       ma   09/01/2021 Use SSIT defines from XilPlmi
 *
 * </pre>
 *
@@ -173,9 +174,9 @@ extern "C" {
 /*
  * SLR Types
  */
-#define XLOADER_SSIT_MONOLITIC		(0x7U)
-#define XLOADER_SSIT_MASTER_SLR		(0x6U)
-#define XLOADER_SSIT_INVALID_SLR	(0x0U)
+#define XLOADER_SSIT_MONOLITIC		XPLMI_SSIT_MONOLITIC
+#define XLOADER_SSIT_MASTER_SLR		XPLMI_SSIT_MASTER_SLR
+#define XLOADER_SSIT_INVALID_SLR	XPLMI_SSIT_INVALID_SLR
 
 /*
  * Flash Size macros
