@@ -58,6 +58,8 @@
 *                        devices is prevented from corrupting system behavior.
 * 6.0   mus     08/24/16 Check CPU core before putting cpu1 to reset for single core
 *                        zynq-7000s devices
+* 7.6   mus     09/02/21 SCU invalidation should be done only from primary CPU, so
+*                        skipping it when USE_AMP is set to 1. It fixes CR#1109723
 *
 * </pre>
 *
@@ -214,9 +216,11 @@ OKToRun:
 	mcr	p15, 0, r0, c12, c0, 0
 
 	/*invalidate scu*/
+#if USE_AMP!=1
 	ldr	r7, =0xf8f0000c
 	ldr	r6, =0xffff
 	str	r6, [r7]
+#endif
 
 	/* Invalidate caches and TLBs */
 	mov	r0,#0				/* r0 = 0  */
