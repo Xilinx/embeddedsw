@@ -14,6 +14,7 @@
 extern "C" {
 #endif
 
+/** @cond xilpm_internal */
 /*
  * NOTE: All macros defined in this file is to just maintain the
  *       compatibility with existing ZynqMP application.
@@ -193,16 +194,7 @@ extern "C" {
 /* NOTE: This macros are currently not supported for Versal. It may come in future */
 #define PM_NOTIFY_STL_NO_OP		(34U)
 
-/**
- *  PM Acknowledge Request Types
- */
-/* TODO: Add support for this macros in future */
-enum XPmRequestAck {
-	REQUEST_ACK_NO = 1,
-	REQUEST_ACK_BLOCKING,
-	REQUEST_ACK_NON_BLOCKING,
-	REQUEST_ACK_CB_CERROR,
-};
+/** @endcond */
 
 #ifdef __cplusplus
 }

@@ -6,6 +6,7 @@
 
 #include "pm_callbacks.h"
 
+/** @cond xilpm_internal */
 #define NODE_CLASS_SHIFT        26U
 #define NODE_CLASS_MASK_BITS    0x3FU
 #define NODE_CLASS_MASK         ((u32)NODE_CLASS_MASK_BITS << NODE_CLASS_SHIFT)
@@ -154,3 +155,4 @@ void XPm_NotifierProcessEvent(const u32 Node, const u32 Event,
 		Notifier = Notifier->next;
 	}
 }
+/** @endcond */
