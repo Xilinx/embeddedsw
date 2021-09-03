@@ -50,10 +50,10 @@ static XSecure_ShaState Sha3State = XSECURE_SHA_UNINITIALIZED;
 
 /*****************************************************************************/
 /**
- * @brief       This function stores the Sha3 initialize state and sends as
- *              part of XSECURE_API_SHA3_UPDATE CDO command.
+ * @brief       This function stores the Sha3 initialize state as initialized
+ *              if the current state is uninitialized.
  *
- * @return	- XST_SUCCESS - If the Sha3 is in uninitialized state
+ * @return	- XST_SUCCESS - If the Sha3 state is changed to initialized state
  * 		- XST_FAILURE - If the Sha3 is not in uninitialized state
  *
  ******************************************************************************/
