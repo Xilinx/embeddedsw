@@ -56,9 +56,10 @@ enum XPmBootStatus {
  *  PM Acknowledge Request Types
  */
 enum XPmRequestAck {
-	REQUEST_ACK_NO = 1,
-	REQUEST_ACK_BLOCKING,
-	REQUEST_ACK_NON_BLOCKING,
+	REQUEST_ACK_NO = 1,				/**< No Ack */
+	REQUEST_ACK_BLOCKING,				/**< Blocking Ack */
+	REQUEST_ACK_NON_BLOCKING,			/**< Non blocking Ack */
+	REQUEST_ACK_CB_CERROR,				/**< Callback Error */
 };
 
 /**
@@ -470,11 +471,25 @@ enum XPmNotifyEvent {
 #define XPM_RPU_TCM_COMB	1U
 /** @} */
 
-/**< Boot health status mask */
+/**
+ * @name Boot health status mask
+ * @{
+ */
+/**
+ * Boot health status mask
+ */
 #define XPM_BOOT_HEALTH_STATUS_MASK	(0x1U)
+/** @} */
 
-/**< Tap delay signal type */
+/**
+ * @name Tap delay signal type
+ * @{
+ */
+/**
+ * Tap delay signal type
+ */
 #define XPM_TAPDELAY_QSPI		(2U)
+/** @} */
 
 /**
  * @name Tap delay bypass
