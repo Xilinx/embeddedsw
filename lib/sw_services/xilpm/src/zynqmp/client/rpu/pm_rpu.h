@@ -11,6 +11,8 @@
 extern "C" {
 #endif
 
+/** @cond xilpm_internal */
+
 /**
  * RPU Base Address
  */
@@ -1492,6 +1494,8 @@ extern "C" {
 #define RPU_RPU_1_AXI_OVER_ARCACHE_EN_SHIFT   0U
 #define RPU_RPU_1_AXI_OVER_ARCACHE_EN_WIDTH   1U
 #define RPU_RPU_1_AXI_OVER_ARCACHE_EN_MASK    0X00000001U
+
+/** @endcond */
 
 #ifdef __cplusplus
 }

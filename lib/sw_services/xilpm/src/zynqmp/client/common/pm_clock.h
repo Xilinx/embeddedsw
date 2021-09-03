@@ -22,6 +22,7 @@
 extern "C" {
 #endif
 
+/** @cond xilpm_internal */
 XStatus XPm_GetClockParentBySelect(const enum XPmClock clockId,
 				   const u32 select,
 				   enum XPmClock* const parentId);
@@ -36,6 +37,7 @@ u8 XPm_MapDivider(const enum XPmClock clockId,
 		  const u32 div_val,
 		  u32* const div0,
 		  u32* const div1);
+/** @endcond */
 
 #ifdef __cplusplus
 }

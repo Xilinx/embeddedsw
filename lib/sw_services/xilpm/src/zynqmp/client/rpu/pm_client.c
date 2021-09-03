@@ -18,6 +18,8 @@
 #include <xpseudo_asm.h>
 #include "xreg_cortexr5.h"
 
+/** @cond xilpm_internal */
+
 #define PM_CLIENT_RPU_ERR_INJ            0xFF9A0020U
 #define PM_CLIENT_RPU_FAULT_LOG_EN_MASK  0x00000101U
 
@@ -52,7 +54,7 @@ static struct XPm_Master *const pm_masters_all[] = {
 
 /**
  * pm_get_master() - returns pointer to the master structure
- * @cpuid:	id of the cpu whose master struct pointer should be returned
+ * @param  cpuid ID of the cpu whose master struct pointer should be returned
  *
  * Return: pointer to a master structure if master is found, otherwise NULL
  */
@@ -69,7 +71,7 @@ done:
 
 /**
  * pm_get_master_by_node() - returns pointer to the master structure
- * @nid:	ndoe id of the cpu master
+ * @param  nid ndoe id of the cpu master
  *
  * Return: pointer to a master structure if master is found, otherwise NULL
  */
@@ -245,3 +247,4 @@ void XPm_ClientSetPrimaryMaster(void)
 		pm_print("Running in Split mode\n");
 	}
 }
+/** @endcond */
