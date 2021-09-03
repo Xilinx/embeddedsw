@@ -96,7 +96,7 @@ int XPlm_LoadBootPdi(void *Arg)
 	}
 
 #ifndef PLM_SECURE_EXCLUDE
-	Status = XLoader_UpdateKatStatus(&PdiInstance);
+	Status = XLoader_GetKatStatus(&PdiInstance);
 	if (Status != XST_SUCCESS) {
 		goto ERR_END;
 	}
