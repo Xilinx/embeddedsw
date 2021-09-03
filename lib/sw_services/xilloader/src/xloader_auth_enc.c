@@ -53,6 +53,7 @@
 *       rb   08/11/21 Fix compilation warnings
 *       bm   08/24/2021 Added Extract Metaheader support
 *       bsv  08/31/21 Code clean up
+*       kpt  09/02/21 Added support to update KAT status in RTC area
 *
 * </pre>
 *
@@ -161,6 +162,8 @@ static int XLoader_CheckSecureState(u32 RegVal, u32 Var, u32 ExpectedValue);
 static int XLoader_ReadDna(u32 *EfuseDna);
 static int XLoader_ReadandCompareDna(const u32 *UserDna);
 static void XLoader_DisableJtag(void);
+static void XLoader_SetKatStatus(u32 PlmKatStatus);
+
 
 /************************** Variable Definitions *****************************/
 static XLoader_AuthCertificate AuthCert; /**< Instance of authentication
@@ -634,6 +637,9 @@ int XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr)
 			goto END;
 		}
 		SecurePtr->PdiPtr->PlmKatStatus |= XLOADER_SHA3_KAT_MASK;
+
+		/* Update KAT status */
+		XLoader_SetKatStatus(SecurePtr->PdiPtr->PlmKatStatus);
 	}
 
 	Status = XST_FAILURE;
@@ -951,6 +957,9 @@ static int XLoader_DataAuth(const XLoader_SecureParams *SecurePtr, u8 *Hash,
 			goto END;
 		}
 		SecurePtr->PdiPtr->PlmKatStatus |= AuthKatMask;
+
+		/* Update KAT status */
+		XLoader_SetKatStatus(SecurePtr->PdiPtr->PlmKatStatus);
 	}
 
 	/* Check Secure state of device
@@ -2751,6 +2760,9 @@ static int XLoader_AesKatTest(XLoader_SecureParams *SecurePtr)
 			goto END;
 		}
 		SecurePtr->PdiPtr->PlmKatStatus |= XLOADER_DPACM_KAT_MASK;
+
+		/* Update KAT status */
+		XLoader_SetKatStatus(SecurePtr->PdiPtr->PlmKatStatus);
 	}
 
 	if((SecurePtr->PdiPtr->PlmKatStatus & XLOADER_AES_KAT_MASK) == 0U) {
@@ -2761,6 +2773,9 @@ static int XLoader_AesKatTest(XLoader_SecureParams *SecurePtr)
 			goto END;
 		}
 		SecurePtr->PdiPtr->PlmKatStatus |= XLOADER_AES_KAT_MASK;
+
+		/* Update KAT status */
+		XLoader_SetKatStatus(SecurePtr->PdiPtr->PlmKatStatus);
 	}
 	XPlmi_Printf(DEBUG_INFO, "KAT test on AES crypto engine is successful\r\n");
 
@@ -3232,14 +3247,16 @@ void XLoader_AuthEncClear(void)
 
 /*****************************************************************************/
 /**
- * @brief	This function is called to set PlmKatStatus in the PdiPtr
+ * @brief	This function is called to set PlmKatStatus in the PdiPtr from
+ *          XPLMI_RTCFG_SECURE_STATE_ADDR
  *
  * @param	PdiPtr is the pointer the XilPdi instance
  *
- * @return	None
+ * @return	XST_SUCCESS on success
+ *       	XST_FAILURE on failure
  *
  *****************************************************************************/
-int XLoader_UpdateKatStatus(XilPdi *PdiPtr)
+int XLoader_GetKatStatus(XilPdi *PdiPtr)
 {
 	int Status = XST_FAILURE;
 	u32 CryptoKat;
@@ -3260,6 +3277,21 @@ int XLoader_UpdateKatStatus(XilPdi *PdiPtr)
 
 END:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is called to set XPLMI_RTCFG_SECURE_STATE_ADDR with
+ *          PlmKatStatus
+ *
+ * @param	PlmKatStatus contains the KAT status updated by PLM
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+static void XLoader_SetKatStatus(u32 PlmKatStatus)
+{
+	XPlmi_Out32(XPLMI_RTCFG_SECURE_STATE_ADDR, PlmKatStatus);
 }
 
 /*****************************************************************************/
