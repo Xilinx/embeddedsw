@@ -13,6 +13,7 @@
 #include "pm_callbacks.h"
 #include "pm_client.h"
 
+/** @cond xilpm_internal */
 static XPm_Notifier* notifierList = NULL;
 
 /****************************************************************************/
@@ -136,4 +137,5 @@ void XPm_NotifierProcessEvent(const enum XPmNodeId node,
 		notifier = notifier->next;
 	}
 }
+/** @endcond */
  /** @} */

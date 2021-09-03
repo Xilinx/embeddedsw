@@ -25,7 +25,11 @@
 extern "C" {
 #endif
 
+/** @cond xilpm_internal */
+
 #define pm_print(MSG, ...)	xil_printf("APU: "MSG,##__VA_ARGS__)
+
+/** @endcond */
 
 #ifdef __cplusplus
 }

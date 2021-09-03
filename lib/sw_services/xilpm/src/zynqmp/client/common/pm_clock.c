@@ -13,6 +13,9 @@
 #include "pm_clock.h"
 #include "pm_common.h"
 
+/**
+ * @cond xilpm_internal
+ */
 #define PM_CLOCK_TYPE_DIV0	(1U << PM_CLOCK_DIV0_ID)	/* bits 13:8 */
 #define PM_CLOCK_TYPE_DIV1	(1U << PM_CLOCK_DIV1_ID)	/* bits 21:16 */
 #define PM_DIV_WIDTH		0x3FU
@@ -1061,7 +1064,7 @@ done:
 /**
  * @brief  Get number of divider that a given clock has
  *
- * @param  clock ID of the target clock
+ * @param  clockId ID of the target clock
  *
  * @return Encoded clock divider types. If the clock ID is invalid zero is
  * returned.
@@ -1087,8 +1090,8 @@ done:
 /**
  * @brief  Map effective divider value for given clock on DIV0 and DIV1 dividers
  *
- * @param  clock ID of the target clock
- * @param  div Effective divider value
+ * @param  clockId ID of the target clock
+ * @param  div_val Effective divider value
  * @param  div0 Location to store mapped DIV0 value
  * @param  div1 Location to store mapped DIV1 value
  *
@@ -1153,4 +1156,5 @@ u8 XPm_MapDivider(const enum XPmClock clockId,
 done:
 	return mapped;
 }
+/** @endcond */
  /** @} */

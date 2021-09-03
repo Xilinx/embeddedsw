@@ -11,6 +11,8 @@
 extern "C" {
 #endif
 
+/** @cond xilpm_internal */
+
 /**
  * APU Base Address
  */
@@ -579,6 +581,8 @@ extern "C" {
 #define APU_XPD_STAT_CMP_DONE_SHIFT   0U
 #define APU_XPD_STAT_CMP_DONE_WIDTH   1U
 #define APU_XPD_STAT_CMP_DONE_MASK    0X00000001U
+
+/** @endcond */
 
 #ifdef __cplusplus
 }

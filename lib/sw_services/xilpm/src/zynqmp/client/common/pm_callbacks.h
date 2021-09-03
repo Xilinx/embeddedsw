@@ -23,6 +23,7 @@
 extern "C" {
 #endif
 
+/** @cond xilpm_internal */
 XStatus XPm_NotifierAdd(XPm_Notifier* const notifier);
 
 XStatus XPm_NotifierRemove(XPm_Notifier* const notifier);
@@ -30,6 +31,7 @@ XStatus XPm_NotifierRemove(XPm_Notifier* const notifier);
 void XPm_NotifierProcessEvent(const enum XPmNodeId node,
 			      const enum XPmNotifyEvent event,
 			      const u32 oppoint);
+/** @endcond */
 
 #ifdef __cplusplus
 }
