@@ -21,6 +21,8 @@
 * 1.0   kal  07/05/21 Initial release
 *       kal  07/25/21 Added eFUSE IPI API_IDs and common structures between
 *                     client and server
+*       kpt  08/27/21 Added client-server support for puf helper data efuse
+*                     programming
 *
 * </pre>
 * @note
@@ -57,6 +59,7 @@ extern "C" {
 #define XNVM_EFUSE_IV_LEN_IN_WORDS                      (3U)
 #define XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS		(8U)
 #define XNVM_EFUSE_DNA_IN_WORDS				(4U)
+#define XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS	(127U)
 #define XNVM_NUM_OF_REVOKE_ID_FUSES			(8U)
 #define XNVM_NUM_OF_OFFCHIP_ID_FUSES			(8U)
 #define XNVM_EFUSE_IV_LEN_IN_BITS			(96U)
@@ -254,6 +257,15 @@ typedef struct {
 	u32 NumOfPufFuses;
 	u64 PufFuseDataAddr;
 } XNvm_EfusePufFuseAddr;
+#else
+typedef struct {
+	XNvm_EfusePufSecCtrlBits PufSecCtrlBits;
+	u8 PrgmPufHelperData;
+	u8 EnvMonitorDis;
+	u32 EfuseSynData[XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS];
+	u32 Chash;
+	u32 Aux;
+}XNvm_EfusePufHdAddr;
 #endif
 
 typedef struct {
@@ -281,6 +293,7 @@ typedef enum {
 	XNVM_BBRAM_READ_USER_DATA,
 	XNVM_BBRAM_LOCK_WRITE_USER_DATA,
 	XNVM_EFUSE_WRITE,
+	XNVM_EFUSE_WRITE_PUF,
 	XNVM_EFUSE_PUF_USER_FUSE_WRITE,
 	XNVM_EFUSE_READ_IV,
 	XNVM_EFUSE_READ_REVOCATION_ID,
@@ -295,6 +308,7 @@ typedef enum {
 	XNVM_EFUSE_READ_DEC_EFUSE_ONLY,
 	XNVM_EFUSE_READ_DNA,
 	XNVM_EFUSE_READ_PUF_USER_FUSE,
+	XNVM_EFUSE_READ_PUF,
 	XNVM_API_MAX,
 } XNvm_ApiId;
 
