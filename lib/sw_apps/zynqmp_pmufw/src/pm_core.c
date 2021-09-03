@@ -865,9 +865,10 @@ static void PmFpgaLoad(const PmMaster *const master,
 						 0U, KeyAddr, Flags);
 	}
 
-    if ((XST_SUCCESS == (s32)Status) && ((Flags & XFPGA_AUTHENTICATION_OCM_EN) ==
-		XFPGA_AUTHENTICATION_OCM_EN)) {
-	FSBL_Store_Restore_Info.IsOCM_Used = TRUE;
+    if ((XFpgaInstance.PLInfo.SecureOcmState == (u32)TRUE) &&
+			((Flags & XFPGA_AUTHENTICATION_OCM_EN) ==
+					XFPGA_AUTHENTICATION_OCM_EN)) {
+	FSBL_Store_Restore_Info.OcmAndFsblInfo |= XPFW_OCM_IS_USED;
     }
 #if defined (ENABLE_WDT) &&	\
 	(XPFW_CFG_PMU_FPGA_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT)
