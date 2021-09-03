@@ -18,6 +18,8 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kal   07/30/2021 Initial release
+*       kpt   08/27/2021 Added server API's to support puf helper data efuse
+*                        programming
 *
 * </pre>
 *
@@ -61,6 +63,9 @@ static int XNvm_EfuseDnaRead(u32 AddrLow, u32 AddrHigh);
 #ifdef XNVM_ACCESS_PUF_USER_DATA
 static int XNvm_EfusePufUserDataWrite(u32 AddrLow, u32 AddrHigh);
 static int XNvm_EfusePufUserFusesRead(u32 AddrLow, u32 AddrHigh);
+#else
+static int XNvm_EfusePufWrite(u32 AddrLow, u32 AddrHigh);
+static int XNvm_EfusePufRead(u32 AddrLow, u32 AddrHigh);
 #endif
 static int XNvm_EfuseMemCopy(u64 SourceAddr, u64 DestAddr, u32 Len);
 
@@ -96,6 +101,13 @@ int XNvm_EfuseIpiHandler(XPlmi_Cmd *Cmd)
 		break;
 	case XNVM_API(XNVM_EFUSE_READ_PUF_USER_FUSE):
 		Status = XNvm_EfusePufUserFusesRead(Pload[0U], Pload[1U]);
+		break;
+#else
+	case XNVM_API(XNVM_EFUSE_WRITE_PUF):
+		Status = XNvm_EfusePufWrite(Pload[0U], Pload[1U]);
+		break;
+	case XNVM_API(XNVM_EFUSE_READ_PUF):
+		Status = XNvm_EfusePufRead(Pload[0U], Pload[1U]);
 		break;
 #endif
 	case XNVM_API(XNVM_EFUSE_READ_IV):
@@ -432,6 +444,107 @@ static int XNvm_EfusePufUserFusesRead(u32 AddrLow, u32 AddrHigh)
 	Status = XNvm_EfuseMemCopy((u64)(UINTPTR)PufUserFuse.PufFuseData,
 			PufFusesAddr.PufFuseDataAddr,
 			PufUserFuse.NumOfPufFuses * XNVM_WORD_LEN);
+
+END:
+	return Status;
+}
+#else
+/*****************************************************************************/
+/**
+ * @brief       This function programs Puf helper data requested by the client with
+ * 		the data provided in given address.
+ *
+ * @param 	AddrLow		Lower 32 bit address of the
+ * 				XNvm_EfusePufHdAddr structure
+ * @param	AddrHigh	Higher 32 bit address of the
+ *				XNvm_EfusePufHdAddr structure
+ *
+ * @return	- XST_SUCCESS - If the programming is successful
+ * 		- ErrorCode - If there is a failure
+ *
+ ******************************************************************************/
+int XNvm_EfusePufWrite(u32 AddrLow, u32 AddrHigh) {
+	int Status = XST_FAILURE;
+	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
+	XNvm_EfusePufHdAddr PufHdAddr = {0};
+	XNvm_EfusePufHd PufHd;
+
+	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&PufHdAddr,
+			sizeof(PufHdAddr));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XNvm_EfuseMemCopy((u64)(UINTPTR)&PufHdAddr.PufSecCtrlBits,
+				(u64)(UINTPTR)&PufHd.PufSecCtrlBits,
+				sizeof(XNvm_EfusePufSecCtrlBits));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	PufHd.Aux = PufHdAddr.Aux;
+	PufHd.Chash = PufHdAddr.Chash;
+	PufHd.EnvMonitorDis = (u8)PufHdAddr.EnvMonitorDis;
+	PufHd.PrgmPufHelperData = PufHdAddr.PrgmPufHelperData;
+	if (PufHd.EnvMonitorDis == TRUE) {
+		PufHd.SysMonInstPtr = NULL;
+	}
+	else {
+		PufHd.SysMonInstPtr = XPlmi_GetSysmonInst();
+	}
+
+	Status = XNvm_EfuseMemCopy((u64)(UINTPTR)&PufHdAddr.EfuseSynData,
+				(u64)(UINTPTR)&PufHd.EfuseSynData,
+				XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS *
+				XNVM_WORD_LEN);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XNvm_EfuseWritePuf(&PufHd);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief       This function reads Puf helper data to given address
+ *              requested by the client.
+ *
+ * @param 	AddrLow		Lower 32 bit address of the
+ * 				XNvm_EfusePufHdAddr structure
+ * @param	AddrHigh	Higher 32 bit address of the
+ *				XNvm_EfusePufHdAddr structure
+ *
+ * @return	- XST_SUCCESS - If the programming is successful
+ * 		- ErrorCode - If there is a failure
+ *
+ ******************************************************************************/
+static int XNvm_EfusePufRead(u32 AddrLow, u32 AddrHigh) {
+	int Status = XST_FAILURE;
+	u64 Addr = ((u64)AddrHigh << 32) | (u64)AddrLow;
+	XNvm_EfusePufHdAddr PufHdAddr = {0};
+	XNvm_EfusePufHd PufHd;
+
+	Status = XNvm_EfuseReadPuf(&PufHd);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	PufHdAddr.Aux = PufHd.Aux;
+	PufHdAddr.Chash = PufHd.Chash;
+
+	Status = XNvm_EfuseMemCopy((u64)(UINTPTR)&PufHd.EfuseSynData,
+				(u64)(UINTPTR)&PufHdAddr.EfuseSynData,
+				XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS *
+				XNVM_WORD_LEN);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XNvm_EfuseMemCopy((u64)(UINTPTR)&PufHdAddr, Addr,
+				sizeof(PufHdAddr));
 
 END:
 	return Status;
