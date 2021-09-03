@@ -30,6 +30,10 @@
 extern "C" {
 #endif
 
+/**
+ * @{
+ * @cond xilpm_internal
+ */
 #define PM_ARRAY_SIZE(x)	(sizeof(x) / sizeof(x[0]))
 
 /* 1 for API ID + 5 for API arguments + 1 for Reserved + 1 for CRC */
@@ -92,6 +96,10 @@ void XPm_ClientSetPrimaryMaster(void);
 extern const enum XPmNodeId subsystem_node;
 extern struct XPm_Master *primary_master;
 
+/**
+ * @}
+ * @endcond
+ */
 #ifdef __cplusplus
 }
 #endif

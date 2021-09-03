@@ -25,6 +25,8 @@
 extern "C" {
 #endif
 
+
+/** @cond xilpm_internal */
 const char* XPm_GetMasterName(void);
 #ifdef DEBUG_MODE
 #if defined (__GNUC__)
@@ -42,6 +44,7 @@ const char* XPm_GetMasterName(void);
 #endif
 
 
+/** @endcond */
 
 #ifdef __cplusplus
 }

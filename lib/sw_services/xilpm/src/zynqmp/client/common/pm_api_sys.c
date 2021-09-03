@@ -46,7 +46,10 @@
 	PACK_PAYLOAD(pl, (api_id), (arg1), (arg2), (arg3), (arg4), 0U, 0U)
 #define PACK_PAYLOAD5(pl, api_id, arg1, arg2, arg3, arg4, arg5) \
 	PACK_PAYLOAD(pl, (api_id), (arg1), (arg2), (arg3), (arg4), (arg5), 0U)
-/**@}*/
+/**
+ * @}
+ * @endcond
+ */
 
 /****************************************************************************/
 /**

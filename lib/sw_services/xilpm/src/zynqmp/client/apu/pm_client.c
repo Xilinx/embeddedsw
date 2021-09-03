@@ -17,6 +17,8 @@
 #include <xreg_cortexa53.h>
 #include <xpseudo_asm.h>
 
+/** @cond xilpm_internal */
+
 /* Mask to get affinity level 0 */
 #define PM_AFL0_MASK   0xFFU
 
@@ -199,3 +201,4 @@ void XPm_ClientSetPrimaryMaster(void)
 	master_id &= PM_AFL0_MASK;
 	primary_master = pm_masters_all[master_id];
 }
+/** @endcond */
