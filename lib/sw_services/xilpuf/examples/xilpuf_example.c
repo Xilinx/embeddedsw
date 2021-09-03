@@ -27,6 +27,7 @@
   *       har  04/14/21 Modified code to use client side APIs of Xilsecure
   *       har  04/21/21 Fixed CPP warnings
   *       har  05/20/21 Added support to program Black IV
+  *       kpt  08/27/21 Replaced xilnvm server API's with client API's
   *
   *@note
   *
@@ -34,9 +35,11 @@
 /***************************** Include Files *********************************/
 #include "xpuf.h"
 #include "xsecure_aesclient.h"
+#include "xnvm_efuseclient.h"
+#include "xnvm_bbramclient.h"
 #include "xsecure_ipi.h"
-#include "xnvm_bbram.h"
-#include "xnvm_efuse.h"
+#include "xnvm_defs.h"
+#include "xnvm_ipi.h"
 #include "xil_util.h"
 #include "xil_mem.h"
 #include "xil_cache.h"
@@ -61,7 +64,7 @@
 
 /************************** Variable Definitions ******************************/
 #if (XPUF_WRITE_HD_IN_EFUSE)
-static XNvm_EfusePufHd PrgmPufHelperData;
+static XNvm_EfusePufHdAddr PrgmPufHelperData;
 #endif
 
 static XPuf_Data PufData;
@@ -86,9 +89,6 @@ static u8 BlackKey[XPUF_RED_KEY_LEN_IN_BYTES];
 static u8 GcmTag[XPUF_GCM_TAG_SIZE];
 #endif
 
-static XSysMonPsv SysMonInst;	/* System Monitor driver instance */
-static XSysMonPsv_Config *ConfigPtr;
-
 /************************** Function Prototypes ******************************/
 static int XPuf_ValidateUserInput(void);
 static int XPuf_GenerateKey(void);
@@ -98,7 +98,6 @@ static void XPuf_ShowPufSecCtrlBits(void);
 static void XPuf_ShowData(const u8* Data, u32 Len);
 static int XPuf_FormatAesKey(const u8* Key, u8* FormattedKey, u32 KeyLen);
 static void XPuf_ReverseData(const u8 *OrgDataPtr, u8* SwapPtr, u32 Len);
-static int XPuf_InitSysMon(XSysMonPsv *SysMonInstPtr);
 
 #if (XPUF_WRITE_SEC_CTRL_BITS == TRUE)
 static int XPuf_WritePufSecCtrlBits(void);
@@ -108,6 +107,17 @@ static int XPuf_WritePufSecCtrlBits(void);
 int main(void)
 {
 	int Status = XST_FAILURE;
+	XIpiPsu IpiInst;
+
+	Status = XNvm_InitializeIpi(&IpiInst);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XNvm_SetIpi(&IpiInst);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	Status = XPuf_ValidateUserInput();
 	if (Status == XST_SUCCESS) {
@@ -186,11 +196,11 @@ END:
 static int XPuf_ValidateUserInput(void)
 {
 	int Status = XST_FAILURE;
-	XNvm_EfusePufSecCtrlBits PufSecCtrlBits;
+	XNvm_EfusePufSecCtrlBits PufSecCtrlBits __attribute__ ((aligned (64U)));
 #if (XPUF_WRITE_HD_IN_EFUSE)
 	u32 Index;
 	u32 CheckHdZero = 0U;
-	XNvm_EfusePufHd PufHelperData;
+	XNvm_EfusePufHdAddr PufHelperData;
 #endif
 
 	/* Checks for programming black key */
@@ -211,12 +221,18 @@ static int XPuf_ValidateUserInput(void)
 		goto END;
 	}
 
+	Xil_DCacheInvalidateRange((UINTPTR)&PufSecCtrlBits,
+			sizeof(PufSecCtrlBits));
+
 	/* Checks for programming helper data */
-	Status = XNvm_EfuseReadPufSecCtrlBits(&PufSecCtrlBits);
+	Status = XNvm_EfuseReadPufSecCtrlBits((u64)(UINTPTR)&PufSecCtrlBits);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Failed while reading PUF security control bits\r\n");
 		goto END;
 	}
+
+	Xil_DCacheInvalidateRange((UINTPTR)&PufSecCtrlBits,
+			sizeof(PufSecCtrlBits));
 
 	if(PufSecCtrlBits.PufDis == TRUE) {
 		Status = XST_FAILURE;
@@ -245,10 +261,17 @@ static int XPuf_ValidateUserInput(void)
 		goto END;
 	}
 
-	Status = XNvm_EfuseReadPuf(&PufHelperData);
+	Xil_DCacheInvalidateRange((UINTPTR)&PufHelperData,
+			sizeof(XNvm_EfusePufHdAddr));
+
+	Status = XNvm_EfuseReadPuf((u64)(UINTPTR)&PufHelperData);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+	Xil_DCacheInvalidateRange((UINTPTR)&PufHelperData,
+			sizeof(XNvm_EfusePufHdAddr));
+
 	for (Index = 0U; Index < XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS; Index++) {
 		CheckHdZero |= PufHelperData.EfuseSynData[Index];
 	}
@@ -340,18 +363,8 @@ static int XPuf_GenerateKey(void)
 	PrgmPufHelperData.PrgmPufHelperData = TRUE;
 
 	PrgmPufHelperData.EnvMonitorDis = XPUF_ENV_MONITOR_DISABLE;
-	if (PrgmPufHelperData.EnvMonitorDis == TRUE) {
-		PrgmPufHelperData.SysMonInstPtr = NULL;
-	}
-	else {
-		PrgmPufHelperData.SysMonInstPtr = &SysMonInst;
-		Status = XPuf_InitSysMon(PrgmPufHelperData.SysMonInstPtr);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-	}
 
-	Status = XNvm_EfuseWritePuf(&PrgmPufHelperData);
+	Status = XNvm_EfuseWritePuf((u64)(UINTPTR)&PrgmPufHelperData);
 	if (Status != XST_SUCCESS)
 	{
 		xil_printf("Programming Helper data into eFUSE failed\r\n");
@@ -518,24 +531,14 @@ static int XPuf_ProgramBlackKeynIV(void)
 	int Status = XST_FAILURE;
 	XNvm_EfuseAesKeys WriteAesKeys = {0U};
 	XNvm_EfuseIvs WriteIvs = {0U};
-	XNvm_EfuseData WriteData = {0U};
+	XNvm_EfuseDataAddr WriteData = {0U};
 	XPuf_WriteBlackKeyOption BlackKeyWriteOption =
 			(XPuf_WriteBlackKeyOption)XPUF_WRITE_BLACK_KEY_OPTION;
 	u8 FlashBlackKey[XPUF_RED_KEY_LEN_IN_BYTES] = {0};
 
 	XPuf_ReverseData(FormattedBlackKey, FlashBlackKey, XPUF_RED_KEY_LEN_IN_BYTES);
 
-	WriteData.EnvMonitorDis = XPUF_ENV_MONITOR_DISABLE;
-	if (WriteData.EnvMonitorDis == TRUE) {
-		WriteData.SysMonInstPtr = NULL;
-	}
-	else {
-		WriteData.SysMonInstPtr = &SysMonInst;
-		Status = XPuf_InitSysMon(WriteData.SysMonInstPtr);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-	}
+	WriteData.EnvMonDisFlag = XPUF_ENV_MONITOR_DISABLE;
 
 	switch (BlackKeyWriteOption) {
 
@@ -543,8 +546,12 @@ static int XPuf_ProgramBlackKeynIV(void)
 			WriteAesKeys.PrgmAesKey = TRUE;
 			Xil_MemCpy(WriteAesKeys.AesKey, FlashBlackKey,
 				XNVM_EFUSE_AES_KEY_LEN_IN_BYTES);
-			WriteData.AesKeys = &WriteAesKeys;
-			Status = XNvm_EfuseWrite(&WriteData);
+			Xil_DCacheInvalidateRange((UINTPTR)&WriteAesKeys,
+						sizeof(WriteAesKeys));
+			WriteData.AesKeyAddr= (u64)(UINTPTR)&WriteAesKeys;
+			Xil_DCacheInvalidateRange((UINTPTR)&WriteData,
+						sizeof(WriteData));
+			Status = XNvm_EfuseWrite((u64)(UINTPTR)&WriteData);
 			if (Status != XST_SUCCESS) {
 				xil_printf("Error in programming Black key to"
 					"eFuse %x\r\n",
@@ -563,8 +570,10 @@ static int XPuf_ProgramBlackKeynIV(void)
 				WriteIvs.PrgmBlkObfusIv = TRUE;
 				Xil_MemCpy(WriteIvs.BlkObfusIv, Iv,
 					XPUF_IV_LEN_IN_BYTES);
-				Status = XNvm_EfuseWriteIVs(&WriteIvs,
-					WriteData.SysMonInstPtr);
+				Xil_DCacheInvalidateRange((UINTPTR)&WriteIvs,
+							sizeof(WriteIvs));
+				Status = XNvm_EfuseWriteIVs((u64)(UINTPTR)&WriteIvs,
+					WriteData.EnvMonDisFlag);
 				if (Status != XST_SUCCESS) {
 					xil_printf("Error in programming"
 						"Black IV in eFUSEs %x\r\n", Status);
@@ -574,7 +583,9 @@ static int XPuf_ProgramBlackKeynIV(void)
 			break;
 
 		case XPUF_BBRAM_AES_KEY:
-			Status = XNvm_BbramWriteAesKey(FlashBlackKey,
+			Xil_DCacheInvalidateRange((UINTPTR)FlashBlackKey,
+					XNVM_EFUSE_AES_KEY_LEN_IN_BYTES);
+			Status = XNvm_BbramWriteAesKey((UINTPTR)FlashBlackKey,
 				 XNVM_EFUSE_AES_KEY_LEN_IN_BYTES);
 			if (Status != XST_SUCCESS) {
 				xil_printf("Error in programming Black key to BBRAM %x\r\n",
@@ -586,8 +597,12 @@ static int XPuf_ProgramBlackKeynIV(void)
 			WriteAesKeys.PrgmUserKey0 = TRUE;
 			Xil_MemCpy(WriteAesKeys.UserKey0, FlashBlackKey,
 				XNVM_EFUSE_AES_KEY_LEN_IN_BYTES);
-			WriteData.AesKeys = &WriteAesKeys;
-			Status = XNvm_EfuseWrite(&WriteData);
+			Xil_DCacheInvalidateRange((UINTPTR)&WriteAesKeys,
+						sizeof(WriteAesKeys));
+			WriteData.AesKeyAddr = (u64)(UINTPTR)&WriteAesKeys;
+			Xil_DCacheInvalidateRange((UINTPTR)&WriteData,
+						sizeof(WriteData));
+			Status = XNvm_EfuseWrite((u64)(UINTPTR)&WriteData);
 			if (Status != XST_SUCCESS) {
 				xil_printf("Error in programming Black key to eFuse %x\r\n",
 				Status);
@@ -598,8 +613,12 @@ static int XPuf_ProgramBlackKeynIV(void)
 			WriteAesKeys.PrgmUserKey1 = TRUE;
 			Xil_MemCpy(WriteAesKeys.UserKey1, FlashBlackKey,
 				XNVM_EFUSE_AES_KEY_LEN_IN_BYTES);
-			WriteData.AesKeys = &WriteAesKeys;
-			Status = XNvm_EfuseWrite(&WriteData);
+			Xil_DCacheInvalidateRange((UINTPTR)&WriteAesKeys,
+						sizeof(WriteAesKeys));
+			WriteData.AesKeyAddr = (u64)(UINTPTR)&WriteAesKeys;
+			Xil_DCacheInvalidateRange((UINTPTR)&WriteData,
+						sizeof(WriteData));
+			Status = XNvm_EfuseWrite((u64)(UINTPTR)&WriteData);
 			if (Status != XST_SUCCESS) {
 				xil_printf("Error in programming Black key to eFuse %x\r\n",
 				Status);
@@ -642,7 +661,7 @@ END:
 static int XPuf_WritePufSecCtrlBits(void)
 {
 	int Status = XST_FAILURE;
-	XNvm_EfusePufHd PrgmPufHelperData;
+	XNvm_EfusePufHdAddr PrgmPufHelperData = {0};
 
 	PrgmPufHelperData.PufSecCtrlBits.PufDis = PUF_DIS;
 	PrgmPufHelperData.PufSecCtrlBits.PufRegenDis = PUF_REGEN_DIS;
@@ -650,17 +669,7 @@ static int XPuf_WritePufSecCtrlBits(void)
 	PrgmPufHelperData.PufSecCtrlBits.PufSynLk = PUF_SYN_LK;
 	PrgmPufHelperData.EnvMonitorDis = XPUF_ENV_MONITOR_DISABLE;
 
-	if (PrgmPufHelperData.EnvMonitorDis == TRUE) {
-		PrgmPufHelperData.SysMonInstPtr = NULL;
-	}
-	else {
-		PrgmPufHelperData.SysMonInstPtr = &SysMonInst;
-		Status = XPuf_InitSysMon(PrgmPufHelperData.SysMonInstPtr);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-	}
-	Status = XNvm_EfuseWritePuf(&PrgmPufHelperData);
+	Status = XNvm_EfuseWritePuf((u64)(UINTPTR)&PrgmPufHelperData);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Error in programming PUF Security Control bits %x\r\n",
 			Status);
@@ -683,13 +692,17 @@ static int XPuf_WritePufSecCtrlBits(void)
 static void XPuf_ShowPufSecCtrlBits(void)
 {
 	int Status = XST_FAILURE;
-	XNvm_EfusePufSecCtrlBits PufSecCtrlBits;
+	XNvm_EfusePufSecCtrlBits PufSecCtrlBits __attribute__ ((aligned (64U)));
 
-	Status = XNvm_EfuseReadPufSecCtrlBits(&PufSecCtrlBits);
+	Xil_DCacheInvalidateRange((UINTPTR)&PufSecCtrlBits, sizeof(PufSecCtrlBits));
+
+	Status = XNvm_EfuseReadPufSecCtrlBits((u64)(UINTPTR)&PufSecCtrlBits);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Failed while reading PUF security control bits\r\n");
 		goto END;
 	}
+
+	Xil_DCacheInvalidateRange((UINTPTR)&PufSecCtrlBits, sizeof(PufSecCtrlBits));
 
 	if (PufSecCtrlBits.PufSynLk == TRUE) {
 		xil_printf("Programming Puf Syndrome data is disabled\n\r");
@@ -813,38 +826,4 @@ static void XPuf_ShowData(const u8* Data, u32 Len)
 		xil_printf("%02x", Data[Index]);
 	}
 	xil_printf("\r\n");
-}
-
-/******************************************************************************/
-/**
- *
- * @brief	This function initializes ConfigPtr of the SysMon Instance.
- *
- * @param	SysMonInstPtr - Pointer to the Sysmon instance pointer.
- *
- * @return	- XST_SUCCESS - On successfully initializing the ConfigPtr.
- *		- XST_FAILURE - On Failure.
- *
- ******************************************************************************/
-static int XPuf_InitSysMon(XSysMonPsv *SysMonInstPtr)
-{
-	int Status = XST_FAILURE;
-
-	if (SysMonInstPtr == NULL) {
-		goto END;
-	}
-
-	ConfigPtr = XSysMonPsv_LookupConfig();
-	if (ConfigPtr == NULL) {
-		goto END;
-	}
-
-	Status = XSysMonPsv_CfgInitialize(SysMonInstPtr, ConfigPtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	Status = XST_SUCCESS;
-
-END:
-	return Status;
 }
