@@ -19,6 +19,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kal  07/29/21 Initial release
+*       kpt  08/27/21 Added client API's to support puf helper data efuse
+*                     programming
 *
 * </pre>
 *
@@ -64,6 +66,9 @@ int XNvm_EfuseReadDna(const u64 DnaAddr);
 #ifdef XNVM_ACCESS_PUF_USER_DATA
 int XNvm_EfuseWritePufAsUserFuses(const u64 PufUserFuseAddr);
 int XNvm_EfuseReadPufAsUserFuses(const u64 PufUserFuseAddr);
+#else
+int XNvm_EfuseWritePuf(const u64 PufHdAddr);
+int XNvm_EfuseReadPuf(const u64 PufHdAddr);
 #endif
 
 /************************** Variable Definitions *****************************/

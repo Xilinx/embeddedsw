@@ -17,6 +17,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kal  07/29/21 Initial release
+*       kpt  08/27/21 Added client API's to support puf helper data efuse
+*                     programming
 *
 * </pre>
 *
@@ -546,6 +548,55 @@ int XNvm_EfuseReadPufAsUserFuses(const u64 PufUserFuseAddr)
 	Status = XNvm_ProcessIpiWithPayload2(
 			(u32)XNVM_EFUSE_READ_PUF_USER_FUSE,
 			(u32)PufUserFuseAddr, (u32)(PufUserFuseAddr >> 32U));
+
+	return Status;
+}
+#else
+
+/*****************************************************************************/
+/**
+ * @brief	This function sends IPI request to program Puf helper data
+ * 		requested by the user
+ *
+ * @param	PufHdAddr	Address of the XNvm_EfusePufHdAddr structure
+ * 				where the user provided helper data to be programmed
+ *
+ * @return	- XST_SUCCESS - If the programming is successful
+ * 		- XST_FAILURE - If there is a failure
+ *
+ ******************************************************************************/
+int XNvm_EfuseWritePuf(const u64 PufHdAddr) {
+	volatile int Status = XST_FAILURE;
+	u64 DataAddr;
+
+	DataAddr = PufHdAddr;
+
+	Xil_DCacheFlushRange((UINTPTR)DataAddr, sizeof(XNvm_EfusePufHdAddr));
+
+	Status = XNvm_ProcessIpiWithPayload2((u32)XNVM_EFUSE_WRITE_PUF,
+			(u32)DataAddr, (u32)(DataAddr >> 32U));
+
+	return Status;
+
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function sends IPI request to read Puf helper data
+ * 		requested by the user
+ *
+ * @param	PufHdAddr	Address of the output buffer to store the
+ * 				Puf helper data
+ *
+ * @return	- XST_SUCCESS - If the read is successful
+ * 		- XST_FAILURE - If there is a failure
+ *
+ ******************************************************************************/
+int XNvm_EfuseReadPuf(const u64 PufHdAddr) {
+	volatile int Status = XST_FAILURE;
+
+	Status = XNvm_ProcessIpiWithPayload2((u32)XNVM_EFUSE_READ_PUF,
+			(u32)PufHdAddr, (u32)(PufHdAddr >> 32U));
 
 	return Status;
 }

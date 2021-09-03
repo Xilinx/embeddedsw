@@ -17,6 +17,8 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kal  07/05/2021 Initial release
 *       kal  07/25/2021 Registered eFUSE IPI handlers
+*       kpt  08/27/2021 Added commands to support puf helper data efuse
+*                       programming
 *
 * </pre>
 *
@@ -91,6 +93,9 @@ static int XNvm_FeaturesCmd(u32 ApiId)
 #ifdef XNVM_ACCESS_PUF_USER_DATA
 	case XNVM_EFUSE_READ_PUF_USER_FUSE:
 	case XNVM_EFUSE_PUF_USER_FUSE_WRITE:
+#else
+	case XNVM_EFUSE_READ_PUF:
+	case XNVM_EFUSE_WRITE_PUF:
 #endif
 		Status = XST_SUCCESS;
 		break;
@@ -150,6 +155,9 @@ static int XNvm_ProcessCmd(XPlmi_Cmd *Cmd)
 #ifdef XNVM_ACCESS_PUF_USER_DATA
 	case XNVM_API(XNVM_EFUSE_PUF_USER_FUSE_WRITE):
 	case XNVM_API(XNVM_EFUSE_READ_PUF_USER_FUSE):
+#else
+	case XNVM_API(XNVM_EFUSE_WRITE_PUF):
+	case XNVM_API(XNVM_EFUSE_READ_PUF):
 #endif
 		Status = XNvm_EfuseIpiHandler(Cmd);
 		break;
