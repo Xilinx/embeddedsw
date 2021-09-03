@@ -20,7 +20,7 @@
 * 1.03  rb   01/28/2021 Added SEM Pre Init API declaration
 * 1.04  rb   03/09/2021 Updates Sem Init API call, removed unused APIs
 * 1.05  rb   03/31/2021 Provided XMPU register update config and API
-*
+* 1.06	hv   09/03/2021 Fix Doxygen warnings
 * </pre>
 *
 * @note
@@ -56,11 +56,19 @@ typedef struct {
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
+/** @cond xilsem_internal
+ * @{
+ */
+/**< XilSEM common function prototypes */
 int XSem_Init (void);
 int XSem_InitScan (void);
 int XSem_StartScan (void);
 int XSem_StopScan (void);
 int XSem_XmpuRegUpdate(XSem_XmpuCfg *XmpuCfg);
+/**
+ * @}
+ * @endcond
+ */
 
 #ifdef __cplusplus
 }
