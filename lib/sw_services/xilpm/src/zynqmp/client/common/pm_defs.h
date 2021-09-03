@@ -847,11 +847,11 @@ typedef enum {
  * IOCTL IDs
  */
 typedef enum {
-	XPM_FEATURE_INVALID,
-	XPM_FEATURE_OVERTEMP_STATUS,
-	XPM_FEATURE_OVERTEMP_VALUE,
-	XPM_FEATURE_EXTWDT_STATUS,
-	XPM_FEATURE_EXTWDT_VALUE,
+	XPM_FEATURE_INVALID,			/**< Invalid ID */
+	XPM_FEATURE_OVERTEMP_STATUS,		/**< Over temperature status */
+	XPM_FEATURE_OVERTEMP_VALUE,		/**< Over temperature limit */
+	XPM_FEATURE_EXTWDT_STATUS,		/**< External watchdog status */
+	XPM_FEATURE_EXTWDT_VALUE,		/**< External watchdog interval */
 }pm_feature_id;
 
 #ifdef __cplusplus
