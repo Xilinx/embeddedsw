@@ -13,7 +13,7 @@
 #include <xreg_cortexr5.h>
 #endif
 
-/** @cond INTERNAL */
+/** @cond xilpm_internal */
 #define XPM_ARRAY_SIZE(x)		(sizeof(x) / sizeof(x[0]))
 
 #define PM_AFL0_MASK			(0xFFU)
