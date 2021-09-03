@@ -643,16 +643,16 @@ s32 XPfw_StoreFsblToDDR(void)
 		goto END;
 	}
 
-	Status = XSecure_Sha3Initialize(&Sha3Instance, &CsuDma);
-	if (XST_SUCCESS != Status) {
-		goto END;
-	}
-
 	FsblStatus = XPfw_Read32(PMU_GLOBAL_GLOBAL_GEN_STORAGE5);
 
 	/* Check if FSBL is running on A53 and not encrypted, store it to DDR */
 	if (FSBL_RUNNING_ON_A53 == (FsblStatus & FSBL_STATE_PROC_INFO_MASK)) {
 		if (0x0U == (FsblStatus & FSBL_ENCRYPTION_STS_MASK)) {
+			Status = XSecure_Sha3Initialize(&Sha3Instance, &CsuDma);
+			if (XST_SUCCESS != Status) {
+				goto END;
+			}
+
 			(void)memcpy((u32 *)FSBL_STORE_ADDR, (u32 *)FSBL_LOAD_ADDR,
 					FSBL_IMAGE_SIZE);
 
@@ -664,6 +664,7 @@ s32 XPfw_StoreFsblToDDR(void)
 											"failed\r\n");
 				goto END;
 			}
+			FSBL_Store_Restore_Info.OcmAndFsblInfo |= XPFW_FSBL_IS_COPIED;
 			XPfw_Printf(DEBUG_DETAILED, "Copied FSBL image to DDR\r\n");
 		} else {
 			XPfw_Printf(DEBUG_DETAILED, "FSBL copy to DDR is skipped.\r\n"

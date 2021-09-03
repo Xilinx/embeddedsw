@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -962,30 +962,20 @@ s32 PmMasterRestart(PmMaster* const master)
 
 	if ((FSBL_RUNNING_ON_A53 == (FsblProcInfo & FSBL_STATE_PROC_INFO_MASK)) &&
 			(master == &pmMasterApu_g)) {
-#if defined(USE_DDR_FOR_APU_RESTART) && defined(ENABLE_SECURE)
-		if (0x0U != (FsblProcInfo & FSBL_ENCRYPTION_STS_MASK)) {
-			if (FSBL_Store_Restore_Info.IsOCM_Used == TRUE) {
-				/* If FSBL is encrypted, it is not copied to DDR */
-				PmWarn("OCM is used by XilFPGA. APU-restart will not work\r\n");
-				status = XST_FAILURE;
-				goto done;
-			} else {
-				/* Do nothing */
-			}
-		} else {
-			status = XPfw_RestoreFsblToOCM();
-			if (XST_SUCCESS != status) {
-				goto done;
-			}
-		}
-#else
-		if (FSBL_Store_Restore_Info.IsOCM_Used == TRUE) {
-			/* If OCM is used by XilFPGA, APU restart will not work */
+		if (FSBL_Store_Restore_Info.OcmAndFsblInfo == XPFW_OCM_IS_USED) {
 			PmWarn("OCM is used by XilFPGA. APU-restart will not work\r\n");
 			status = XST_FAILURE;
 			goto done;
 		}
+
+		if (FSBL_Store_Restore_Info.OcmAndFsblInfo != 0x0U) {
+#if defined(USE_DDR_FOR_APU_RESTART) && defined(ENABLE_SECURE)
+			status = XPfw_RestoreFsblToOCM();
+			if (XST_SUCCESS != status) {
+				goto done;
+			}
 #endif
+		}
 	} else if (((FSBL_RUNNING_ON_R5_0 == (FsblProcInfo & FSBL_STATE_PROC_INFO_MASK)) &&
 					(master == &pmMasterRpu0_g)) ||
 			((FSBL_RUNNING_ON_R5_L == (FsblProcInfo & FSBL_STATE_PROC_INFO_MASK)) &&
