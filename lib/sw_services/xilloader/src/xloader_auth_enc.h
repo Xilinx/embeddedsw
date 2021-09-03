@@ -28,6 +28,7 @@
 *       har  07/15/21 Fixed doxygen warnings
 *       har  07/18/21 Added description for all macros
 *       bsv  08/17/21 Code clean up
+*       kpt  09/02/21 Added support to update KAT status in RTC area
 *
 * </pre>
 *
@@ -82,7 +83,7 @@ extern "C" {
 #define XLOADER_ECC_P384_KAT_MASK		(0x00000040U)
 #define XLOADER_AES_KAT_MASK		(0x00000080U)
 #define XLOADER_DPACM_KAT_MASK		(0x00000100U)
-#define XLOADER_ECC_P521_KAT_MASK		(0x00000200U)
+#define XLOADER_ECC_P521_KAT_MASK		(0x00000400U)
 /** @} */
 
 #define XLOADER_SPK_SIZE		(XSECURE_RSA_4096_KEY_SIZE + \
@@ -341,7 +342,7 @@ extern "C" {
 #define EFUSE_CACHE_MISC_CTRL_CRYPTO_KAT_EN_MASK	(0X00008000U)
 			/**< Mask to enable running of KAT for Crypto engines */
 
-#define XLOADER_KAT_DONE				(0x000001F0U)
+#define XLOADER_KAT_DONE				(0x000005F0U)
 			/**< Value to indicate that KAT is done */
 
 /**************************** Type Definitions *******************************/
@@ -575,7 +576,7 @@ int XLoader_SecureAuthInit(XLoader_SecureParams *SecurePtr,
 int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 	const XilPdi_PrtnHdr *PrtnHdr);
 void XLoader_AuthEncClear(void);
-int XLoader_UpdateKatStatus(XilPdi *PdiPtr);
+int XLoader_GetKatStatus(XilPdi *PdiPtr);
 int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 	u32 BlockSize, u8 Last);
 #endif
