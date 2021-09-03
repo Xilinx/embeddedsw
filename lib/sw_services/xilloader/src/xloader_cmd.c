@@ -49,7 +49,6 @@
 *       bm   08/24/2021 Updated decrypt metaheader command to extract metaheader
 *       bm   08/26/2021 Removed XLOADER_PDI_LOAD_COMPLETE write from
 *                       extract metaheader command
-*       bsv  08/26/2021 Code clean up
 *
 * </pre>
 *
@@ -70,7 +69,6 @@
 #include "xpm_api.h"
 #include "xpm_nodeid.h"
 #include "xil_util.h"
-#include "xloader_ddr.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -201,8 +199,10 @@ static int XLoader_LoadDdrCpyImg(XPlmi_Cmd *Cmd)
 	if (Status != XST_SUCCESS) {
 		/* Update the error code */
 		XPlmi_ErrMgr(Status);
+		goto END;
 	}
 
+END:
 	XPlmi_SetPlmMode(XPLMI_MODE_OPERATIONAL);
 	Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;
 	return Status;
@@ -418,7 +418,11 @@ static int XLoader_LoadReadBackPdi(XPlmi_Cmd *Cmd)
 		goto END;
 	}
 	Status = XLoader_LoadSubsystemPdi(Cmd);
+	if (Status != XST_SUCCESS) {
+		goto END1;
+	}
 
+END1:
 	Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;
 	Status = XPlmi_GetReadBackPropsValue(&ReadBack);
 	if (Status != XST_SUCCESS) {
@@ -480,7 +484,7 @@ static int XLoader_UpdateMultiboot(XPlmi_Cmd *Cmd)
 			goto END;
 		}
 	}
-	else if (PdiSrc == XLOADER_PDI_SRC_EMMC1) {
+	else if (PdiSrc == XLOADER_PDI_SRC_EMMC) {
 		if (FlashType == XLOADER_FLASHTYPE_RAW) {
 			RawBootVal = XLOADER_SD_RAWBOOT_VAL;
 		}
@@ -558,7 +562,7 @@ static int XLoader_AddImageStorePdi(XPlmi_Cmd *Cmd)
 	int Status = XST_FAILURE;
 	u64 PdiAddr = (u64)Cmd->Payload[XLOADER_CMD_IMGSTORE_PDIADDR_HIGH_INDEX];
 	XLoader_ImageStore *PdiList = XLoader_GetPdiList();
-	u8 Index;
+	u8 Index = 0U;
 
 	if (PdiList->Count >= XLOADER_MAX_PDI_LIST) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_PDI_LIST_FULL, 0);
@@ -576,7 +580,7 @@ static int XLoader_AddImageStorePdi(XPlmi_Cmd *Cmd)
 		goto END;
 	}
 
-	Status = XLoader_DdrInit(XLOADER_PDI_SRC_DDR);
+	Status = XLoader_DdrOps(XLOADER_REQUEST_DDR);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -603,8 +607,8 @@ static int XLoader_RemoveImageStorePdi(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	u64 PdiAddr = (u64)Cmd->Payload[XLOADER_CMD_IMGSTORE_PDIADDR_HIGH_INDEX];
-	u8 Index;
-	u8 ShiftIdx;
+	u8 Index = 0U;
+	u8 ShiftIdx = 0U;
 	XLoader_ImageStore *PdiList = XLoader_GetPdiList();
 
 	if (PdiList->Count == 0U) {
@@ -632,7 +636,7 @@ static int XLoader_RemoveImageStorePdi(XPlmi_Cmd *Cmd)
 	}
 	PdiList->Count--;
 	if (PdiList->Count == 0U) {
-		Status = XLoader_DdrRelease();
+		Status = XLoader_DdrOps(XLOADER_RELEASE_DDR);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -657,14 +661,11 @@ END:
  *****************************************************************************/
 static void XLoader_GetExportableBuffer(u32 *Buffer, u32 Mask, u32 Size)
 {
-	u32 Index;
-
-	Size >>= XPLMI_WORD_LEN_SHIFT;
-	for (Index = 0U; Index < Size; Index++) {
-		if ((Mask & 0x1U) == 0U) {
+	u32 Index = 0U;
+	for (Index = 0U; Index < (Size / XPLMI_WORD_LEN); Index++) {
+		if (((Mask >> Index) & 0x1U) == (u8)FALSE) {
 			Buffer[Index] = 0U;
 		}
-		Mask >>= 1U;
 	}
 }
 

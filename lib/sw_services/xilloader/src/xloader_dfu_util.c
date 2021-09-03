@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -22,7 +22,6 @@
 *        td  08/19/2020 Fixed MISRA C violations Rule 10.3
 *        bsv 10/13/2020 Code clean up
 *        td	 10/19/2020	MISRA C Fixes
-* 1.02   bsv 08/26/2021 Code clean up
 *
 * </pre>
 *
@@ -604,13 +603,7 @@ void XLoader_DfuSetState(const struct Usb_DevData* InstancePtr, u32 DfuState)
 			/* Set to runtime mode by default */
 			DfuObj.IsDfu = (u8)FALSE;
 			DfuObj.RuntimeToDfu = (u8)FALSE;
-			if (DownloadDone == 0U) {
-				DownloadDone = XLOADER_DFU_DOWNLOAD_NOT_STARTED;
-			}
-			else if (DownloadDone ==
-				XLOADER_DFU_DOWNLOAD_IN_PROGRESS) {
-				++DownloadDone;
-			}
+			++DownloadDone;
 			Status = XST_SUCCESS;
 			break;
 		case XLOADER_STATE_APP_DETACH:
@@ -648,7 +641,6 @@ void XLoader_DfuSetState(const struct Usb_DevData* InstancePtr, u32 DfuState)
 			DfuObj.CurrState = XLOADER_STATE_DFU_IDLE;
 			DfuObj.NextState = XLOADER_STATE_DFU_DOWNLOAD_SYNC;
 			DfuObj.IsDfu = (u8)TRUE;
-			++DownloadDone;
 			Status = XST_SUCCESS;
 			break;
 		case XLOADER_STATE_DFU_DOWNLOAD_SYNC:
@@ -806,6 +798,9 @@ static void XLoader_DfuClassReq(const struct Usb_DevData* InstancePtr, const Set
 				Result = XUsbPsu_EpBufferSend(
 				(struct XUsbPsu*)InstancePtr->PrivateData,
 				0U, DfuReply, (u32)SetupData->wLength);
+				if (Result != XST_SUCCESS) {
+					goto END;
+				}
 			}
 			break;
 		default:
@@ -816,6 +811,7 @@ static void XLoader_DfuClassReq(const struct Usb_DevData* InstancePtr, const Set
 			break;
 	}
 
+END:
 	return;
 }
 
@@ -922,7 +918,11 @@ static int XLoader_UsbReqGetDescriptor(const struct Usb_DevData *InstancePtr,
 			Status = XST_FAILURE;
 			break;
 	}
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
+END:
 	return Status;
 }
 
@@ -1144,9 +1144,15 @@ static int XLoader_UsbReqSetFeature(const struct Usb_DevData *InstancePtr,
 			Status = XST_SUCCESS;
 			break;
 		default:
+			Status = XST_FAILURE;
 			break;
 	}
 
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+END:
 	return Status;
 }
 #endif
