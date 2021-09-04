@@ -565,7 +565,10 @@ u32 Xil_GetNextMPURegion(void)
 
 /*****************************************************************************/
 /**
-* @brief       Memory mapping for Cortex r5.
+* @brief    Memory mapping for Cortex-R5F. If successful, the mapped
+*           region will include all of the memory requested, but may
+*           include more. Specifically, it will be a power of 2 in
+*           size, aligned on a boundary of that size.
 *
 * @param       Physaddr is base physical address at which to start mapping.
 *                   NULL in Physaddr masks possible mapping errors.
@@ -574,13 +577,14 @@ u32 Xil_GetNextMPURegion(void)
 *
 * @return      Physaddr on success, NULL on error. Ambiguous if Physaddr==NULL
 *
+* @cond Xil_MemMap_internal
 * @note:    u32overflow() is defined for readability and (for __GNUC__) to
 *           - force the type of the check to be the same as the first argument
 *           - hide the otherwise unused third argument of the builtin
 *           - improve safety by choosing the explicit _uadd_ version.
 *           Consider __builtin_add_overflow_p() when available.
 *           Use an alternative (less optimal?) for compilers w/o the builtin.
-*
+* @endcond
 ******************************************************************************/
 void *Xil_MemMap(UINTPTR Physaddr, size_t size, u32 flags)
 {
