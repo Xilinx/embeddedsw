@@ -32,6 +32,7 @@
 * 1.05  bsv  07/16/2021 Fix doxygen warnings
 *       bsv  08/02/2021 Code clean up to reduce size
 *       bsv  08/15/2021 Removed unwanted goto statements
+*       bsv  09/05/2021 Disable prints in slave boot modes in case of error
 *
 * </pre>
 *
@@ -72,7 +73,7 @@ int XPlmi_UtilPoll64(u64 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs);
 void XPlmi_UtilWrite64(u32 HighAddr, u32 LowAddr, u32 Value);
 int XPlmi_UtilPollForMask64(u32 HighAddr, u32 LowAddr, u32 Mask,
 	u32 TimeOutInUs);
-void XPlmi_PrintArray (u8 DebugType, const u64 BufAddr, u32 Len, const char *Str);
+void XPlmi_PrintArray (u16 DebugType, const u64 BufAddr, u32 Len, const char *Str);
 int XPlmi_VerifyAddrRange(u64 StartAddr, u64 EndAddr);
 
 /**

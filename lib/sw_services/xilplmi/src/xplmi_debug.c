@@ -34,6 +34,7 @@
 *       bsv  08/02/2021 Code clean up to reduce size
 *       bm   08/12/2021 Added support to configure uart during run-time
 *       rb   08/11/2021 Fix compilation warnings
+*       bsv  09/05/2021 Disable prints in slave boot modes in case of error
 *
 * </pre>
 *
@@ -252,7 +253,7 @@ void outbyte(char8 c)
  * @param   Ctrl1 is the format specified string to print
  *
  *****************************************************************************/
-void XPlmi_Print(u8 DebugType, const char8 *Ctrl1, ...)
+void XPlmi_Print(u16 DebugType, const char8 *Ctrl1, ...)
 {
 	va_list Args;
 

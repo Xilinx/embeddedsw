@@ -30,6 +30,7 @@
 *       bsv  07/16/2021 Fix doxygen warnings
 *       bsv  08/02/2021 Code clean up to reduce size
 *       bm   08/12/2021 Added support to configure uart during run-time
+*       bsv  09/05/2021 Disable prints in slave boot modes in case of error
 *
 * </pre>
 *
@@ -68,7 +69,7 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 /* Functions defined in xplmi_debug.c */
 int XPlmi_InitUart(void);
-void XPlmi_Print(u8 DebugType, const char8 *Ctrl1, ...);
+void XPlmi_Print(u16 DebugType, const char8 *Ctrl1, ...);
 int XPlmi_ConfigUart(u8 UartSelect, u8 UartEnable);
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -92,7 +93,7 @@ int XPlmi_ConfigUart(u8 UartSelect, u8 UartEnable);
 #define XPlmiDbgCurrentTypes (0U)
 #endif
 
-#define XPLMI_DEBUG_PRINT_TIMESTAMP_MASK		(16U)
+#define XPLMI_DEBUG_PRINT_TIMESTAMP_MASK		(0x100U)
 
 #define XPlmi_Printf(DebugType, ...) \
 	if(((DebugType) & (XPlmiDbgCurrentTypes)) != (u8)FALSE) { \

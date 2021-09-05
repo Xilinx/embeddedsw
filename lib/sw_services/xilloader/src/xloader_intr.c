@@ -33,6 +33,7 @@
 * 1.03  bsv  07/19/2021 Disable UART prints when invalid header is encountered
 *                       in slave boot modes
 *       bsv  08/02/2021 Updated function return type as part of code clean up
+*       bsv  09/05/2021 Disable prints in slave boot modes in case of error
 *
 * </pre>
 *
@@ -137,7 +138,7 @@ static int XLoader_SbiLoadPdi(void *Data)
 	if (PdiPtr->ValidHeader == (u8)FALSE) {
 		DebugLog->LogLevel &= XLOADER_LOG_LEVEL_MASK;
 	}
-	XPlmi_Printf(DEBUG_GENERAL, "SBI PDI Load: Started\n\r")
+	XPlmi_Printf(DEBUG_GENERAL, "SBI PDI Load: Started\n\r");
 	Status = XLoader_LoadPdi(PdiPtr, PdiSrc, PdiAddr);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -148,13 +149,12 @@ END:
 	if (Status != XST_SUCCESS) {
 		/* Update the error code */
 		XPlmi_ErrMgr(Status);
-		if (PdiPtr->ValidHeader == (u8)FALSE) {
-			DebugLog->LogLevel |= (DebugLog->LogLevel >> XPLMI_LOG_LEVEL_SHIFT);
-			usleep(XLOADER_SBI_DELAY_IN_MICROSEC);
-		}
+		PdiPtr->ValidHeader = (u8)FALSE;
+		DebugLog->LogLevel |= (DebugLog->LogLevel >> XPLMI_LOG_LEVEL_SHIFT);
+		usleep(XLOADER_SBI_DELAY_IN_MICROSEC);
 	}
 	XLoader_ClearIntrSbiDataRdy();
-	return Status;
+	return XST_SUCCESS;
 }
 
 /**
