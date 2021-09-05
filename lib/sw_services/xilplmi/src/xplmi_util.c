@@ -37,6 +37,7 @@
 * 1.05  td   07/08/2021 Fix doxygen warnings
 *       bsv  07/16/2021 Fix doxygen warnings
 *       bsv  08/02/2021 Code clean up to reduce size
+*       bsv  09/05/2021 Disable prints in slave boot modes in case of error
 *
 * </pre>
 *
@@ -332,7 +333,7 @@ void XPlmi_UtilWrite64(u32 HighAddr, u32 LowAddr, u32 Value)
 * @return	None
 *
 *****************************************************************************/
-void XPlmi_PrintArray (u8 DebugType, const u64 BufAddr, u32 Len,
+void XPlmi_PrintArray (u16 DebugType, const u64 BufAddr, u32 Len,
 	const char *Str)
 {
 	u32 Index;
