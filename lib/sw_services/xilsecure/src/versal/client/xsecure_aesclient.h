@@ -62,7 +62,13 @@ typedef enum {
 	XSECURE_AES_ALL_KEYS,
 } XSecure_AesKeySource;
 
+typedef enum {
+	XSECURE_AES_KEY_SIZE_128 = 0,   /**< Key Length = 32 bytes = 256 bits */
+	XSECURE_AES_KEY_SIZE_256 = 2,   /**< Key Length = 16 bytes = 128 bits */
+}XSecure_AesKeySize;
+
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XSECURE_AES_INVALID_PARAM       0x51    /**< Invalid Argument for AES */
 
 /************************** Variable Definitions *****************************/
 
@@ -80,7 +86,7 @@ int XSecure_AesEncryptFinal(u64 GcmTagAddr);
 int XSecure_AesKeyZero(XSecure_AesKeySource KeySrc);
 int XSecure_AesWriteKey(XSecure_AesKeySource KeySrc, u32 Size, u64 KeyAddr);
 int XSecure_AesKekDecrypt(u64 IvAddr, XSecure_AesKeySource DstKeySrc,
-	XSecure_AesKeySource DecKeySrc, u32 Size);
+	XSecure_AesKeySource DecKeySrc, XSecure_AesKeySize Size);
 int XSecure_AesSetDpaCm(u8 DpaCmCfg);
 int XSecure_AesDecryptKat(void);
 int XSecure_AesDecryptCmKat(void);
