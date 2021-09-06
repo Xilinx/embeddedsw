@@ -25,6 +25,9 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include "xplmi_config.h"
+
+#ifndef PLM_NVM_EXCLUDE
 #include "xnvm_cmd.h"
 #include "xnvm_init.h"
 
@@ -51,3 +54,5 @@ void XNvm_Init(void)
 {
 	XNvm_CmdsInit();
 }
+
+#endif

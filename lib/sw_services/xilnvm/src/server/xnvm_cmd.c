@@ -27,6 +27,9 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include "xplmi_config.h"
+
+#ifndef PLM_NVM_EXCLUDE
 #include "xplmi_hw.h"
 #include "xplmi.h"
 #include "xplmi_cmd.h"
@@ -186,3 +189,5 @@ void XNvm_CmdsInit(void)
 	}
 	XPlmi_ModuleRegister(&XPlmi_Nvm);
 }
+
+#endif

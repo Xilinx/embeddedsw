@@ -29,6 +29,9 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include "xplmi_config.h"
+
+#ifndef PLM_NVM_EXCLUDE
 #include "xnvm_efuse.h"
 #include "xnvm_efuse_ipihandler.h"
 #include "xnvm_defs.h"
@@ -995,3 +998,5 @@ static int XNvm_EfuseMemCopy(u64 SourceAddr, u64 DestAddr, u32 Len)
 END:
 	return Status;
 }
+
+#endif
