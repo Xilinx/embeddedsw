@@ -27,6 +27,9 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include "xplmi_config.h"
+
+#ifndef PLM_NVM_EXCLUDE
 #include "xnvm_bbram.h"
 #include "xnvm_bbram_ipihandler.h"
 #include "xnvm_defs.h"
@@ -115,7 +118,7 @@ static int XNvm_BbramKeyWrite(u32 Size, u32 KeyAddrLow, u32 KeyAddrHigh)
 	u64 Addr = ((u64)KeyAddrHigh << 32U) | (u64)KeyAddrLow;
 	u8 Key[XNVM_BBRAM_AES_KEY_SIZE];
 
-	Status = XPlmi_MemSet(&Key[0U], 0U,
+	Status = XPlmi_MemSet((u64)(UINTPTR)&Key, 0U,
 			(XNVM_BBRAM_AES_KEY_SIZE / XNVM_WORD_LEN));
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -217,3 +220,5 @@ static int XNvm_BbramLockUsrData(void)
 
 	return Status;
 }
+
+#endif

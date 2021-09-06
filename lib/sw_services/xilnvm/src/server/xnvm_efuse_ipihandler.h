@@ -34,10 +34,15 @@ extern "c" {
 #endif
 
 /***************************** Include Files *********************************/
+#include "xplmi_config.h"
+
+#ifndef PLM_NVM_EXCLUDE
 #include "xplmi_cmd.h"
 
 /************************** Constant Definitions *****************************/
 int XNvm_EfuseIpiHandler(XPlmi_Cmd *Cmd);
+
+#endif /* PLM_NVM_EXCLUDE */
 
 #ifdef __cplusplus
 }

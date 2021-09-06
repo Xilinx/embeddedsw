@@ -30,13 +30,17 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
+#include "xplmi_config.h"
 
+#ifndef PLM_NVM_EXCLUDE
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
 void XNvm_CmdsInit(void);
+
+#endif /* PLM_NVM_EXCLUDE */
 
 #ifdef __cplusplus
 }
