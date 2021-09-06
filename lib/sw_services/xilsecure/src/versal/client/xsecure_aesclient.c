@@ -19,6 +19,7 @@
 * 1.0   kal  03/23/21 Initial release
 * 4.5   kal  03/23/20 Updated file version to sync with library version
 *       har  04/14/21 Added XSecure_AesEncryptData and XSecure_AesDecryptData
+* 4.6   har  08/31/21 Updated check for Size in XSecure_AesKekDecrypt
 *
 * </pre>
 * @note
@@ -343,11 +344,13 @@ int XSecure_AesWriteKey(XSecure_AesKeySource KeySrc, u32 Size, u64 KeyAddr)
  *
  ******************************************************************************/
 int XSecure_AesKekDecrypt(u64 IvAddr, XSecure_AesKeySource DstKeySrc,
-				XSecure_AesKeySource DecKeySrc, u32 Size)
+				XSecure_AesKeySource DecKeySrc, XSecure_AesKeySize Size)
 {
 	volatile int Status = XST_FAILURE;
 
-	if (Size > 0xFFFF) {
+	if ((Size != XSECURE_AES_KEY_SIZE_128) &&
+		 (Size != XSECURE_AES_KEY_SIZE_256)) {
+		Status = XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
 
