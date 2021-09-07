@@ -31,8 +31,20 @@ extern "C" {
 /***************************** Include Files *********************************/
 
 /************************** Constant Definitions *****************************/
+#define XBIR_QSPI_FLASH_ERASE_NOTSTARTED	(0U)
+#define XBIR_QSPI_FLASH_ERASE_STARTED	(1U)
+#define XBIR_QSPI_FLASH_ERASE_COMPLETED	(2U)
+
+#define XBIR_QSPI_NO_IMG_ERASED	(0xFFU)
 
 /**************************** Type Definitions *******************************/
+typedef struct {
+	u32 NumOfSectorsErased;
+	u32 TotalNumOfSectors;
+	u32 SectorSize;
+	u8 CurrentImgErased;
+	u8 State;
+} Xbir_FlashEraseStats;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -42,7 +54,10 @@ int Xbir_QspiRead (u32 SrcAddr, u8 *DestAddr, u32 Length);
 int Xbir_QspiWrite(u32 Addr, u8 *WrBuff, u32 Len);
 int Xbir_QspiFlashErase(u32 Address, u32 Length);
 int Xbir_QspiWrite(u32 Address, u8 *WrBuffer, u32 Length);
-void Xbir_QspiGetPageSize(u32 *SectorSize, u16 *PageSize);
+void Xbir_QspiGetPageSize(u16 *PageSize);
+void Xbir_QspiGetSectorSize(u32 *SectorSize);
+void Xbir_QspiEraseStatsInit(void);
+Xbir_FlashEraseStats* Xbir_GetFlashEraseStats(void);
 
 #ifdef __cplusplus
 }

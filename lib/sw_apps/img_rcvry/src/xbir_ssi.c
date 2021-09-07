@@ -317,6 +317,56 @@ END:
 /*****************************************************************************/
 /**
  * @brief
+ * This function builds the JSON payload with Flash Erase status.
+ *
+ * @param	JsonStr		Json payload
+ * @param	JsonStrLen	Json payload length
+ *
+ * @return	XST_SUCCESS on successful building of JSON string
+ *		XST_FAILURE on insufficient input memory to store JSON string
+ *
+ *****************************************************************************/
+int Xbir_SsiJsonBuildFlashEraseStatus(char *JsonStr, u16 JsonStrLen)
+{
+	int Status = XBIR_ERROR_BOOT_IMG_STATUS_LEN;
+	u16 TotalLen;
+	char ProgressString[4U];
+	Xbir_FlashEraseStats *FlashEraseStats = Xbir_GetFlashEraseStats();
+	u32 Progress = (FlashEraseStats->NumOfSectorsErased * 100) /
+				FlashEraseStats->TotalNumOfSectors;
+
+	snprintf(ProgressString, 4U, "%3u", Progress);
+	JsonStr[0U] = '\0';
+	/* 12U = Number of double quote
+	 * {"Progress":100}
+	 */
+	TotalLen = 1U /* XBIR_SSI_JSON_OBJ_START */ +
+		strlen("Progress") + strlen(ProgressString) +
+		1U /*JSON_OBJ_EN */ + 12U;
+
+	if (TotalLen > JsonStrLen) {
+		Xbir_Printf("ERROR: Invalid Len of Boot Image Status data\r\n");
+		goto END;
+	}
+
+	snprintf(JsonStr, JsonStrLen,
+		"%c \"%s\"%c%s %c",
+		XBIR_SSI_JSON_OBJ_START,
+		"Progress",
+		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
+		ProgressString,
+		XBIR_SSI_JSON_OBJ_END);
+
+	Xbir_Printf("\n[FlashEraseStatus]\n%s\n", JsonStr);
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief
  * This function parses the JSON string and updates the boot persistent state
  * register based on the inputs in JSON string.
  *
@@ -952,6 +1002,7 @@ static int Xbir_SsiUpdateImg (struct tcp_pcb *Tpcb, u8 *HttpReq,
 	int Status = XST_FAILURE;
 	u32 DataSize;
 	Xbir_HttpArg *HttpArg = (Xbir_HttpArg *)Tpcb->callback_arg;
+	Xbir_FlashEraseStats *FlashEraseStats = Xbir_GetFlashEraseStats();
 
 	if (HttpArg->Fsize > 0U) {
 		if (HttpArg->Fsize <= HttpReqLen) {
@@ -974,6 +1025,10 @@ static int Xbir_SsiUpdateImg (struct tcp_pcb *Tpcb, u8 *HttpReq,
 	}
 
 	if (HttpArg->Fsize == 0U) {
+		if (FlashEraseStats->State == XBIR_QSPI_FLASH_ERASE_COMPLETED) {
+			FlashEraseStats->NumOfSectorsErased = 0U;
+			FlashEraseStats->State = XBIR_QSPI_FLASH_ERASE_NOTSTARTED;
+		}
 		Status = Xbir_HttpSendResponseJson(Tpcb, HttpReq, HttpReqLen,
 				XBIR_SSI_JSON_SUCCESS_RESPONSE,
 				strlen(XBIR_SSI_JSON_SUCCESS_RESPONSE));
@@ -1010,6 +1065,7 @@ static int Xbir_SsiInitiateImgUpdate (struct tcp_pcb *Tpcb, u8 *HttpReq,
 	u32 ImgSize;
 	u32 ImgSizeInThisPkt;
 	u32 Offset;
+	Xbir_FlashEraseStats *FlashEraseStats = Xbir_GetFlashEraseStats();
 
 	HttpArg->Fsize = 0U;
 	HttpArg->BoundaryLen = 0U;
@@ -1028,11 +1084,13 @@ static int Xbir_SsiInitiateImgUpdate (struct tcp_pcb *Tpcb, u8 *HttpReq,
 	HttpArg->Offset = Offset;
 
 	if (HttpArg->Fsize > 0U) {
+		if ((FlashEraseStats->State != XBIR_QSPI_FLASH_ERASE_COMPLETED) ||
+				(FlashEraseStats->CurrentImgErased != BootImgId)) {
+			goto END;
+		}
 		ImgSizeInThisPkt = HttpReqLen - (u16)(ImgData - HttpReq);
 		ImgSize = HttpArg->Fsize;
 		Xbir_Printf("Starting image update\r\n");
-
-		Xbir_Printf("Starting img upload to flash\r\n");
 		Status = Xbir_SsiUpdateImg (Tpcb, ImgData, ImgSizeInThisPkt);
 		Xbir_SsiLastUploadSize = ImgSize;
 	}

@@ -78,6 +78,10 @@ static int Xbir_HttpProcessGetBootImgStatusReq (struct tcp_pcb *Tpcb,
 	u8 *HttpReq, u16 HttpReqLen);
 static int Xbir_HttpSendStatus (struct tcp_pcb *Tpcb, u8 *HttpReq,
 	u16 HttpReqLen, u32 InStatus);
+static int Xbir_HttpProcessFlashErase(struct tcp_pcb *Tpcb,
+	u8 *HttpReq, u16 HttpReqLen, Xbir_SysBootImgId BootImgId);
+static int Xbir_HttpProcessFlashEraseStatus(struct tcp_pcb *Tpcb,
+	u8 *HttpReq, u16 HttpReqLen);
 
 /************************** Variable Definitions *****************************/
 static Xbir_HttpArg Http_ArgArray[XBIR_HTTP_ARG_ARRAY_SIZE];
@@ -300,10 +304,23 @@ static Xbir_HttpReqType Xbir_HttpDecodeReq (char *HttpReq, u16 HttpReqLen)
 static int Xbir_HttpProcessGetReq (struct tcp_pcb *Tpcb, u8 *HttpReq,
 	u16 HttpReqLen)
 {
+	int Status = XST_FAILURE;
 	char FileName[XBIR_HTTP_MAX_FILE_NAME_LEN] = "";
+	Xbir_FlashEraseStats *FlashEraseStats = Xbir_GetFlashEraseStats();
 
 	Xbir_HttpExtractFileName((char *)HttpReq, HttpReqLen, FileName,
 		XBIR_HTTP_MAX_FILE_NAME_LEN - 1U);
+
+	/*
+	 * When Flash Erase is started ignore all commands other than
+	 * Flash Erase Status
+	 */
+	if (FlashEraseStats->State == XBIR_QSPI_FLASH_ERASE_STARTED) {
+		if (strncmp(FileName, "flash_erase_status",
+			strlen("flash_erase_status")) != 0) {
+			goto END;
+		}
+	}
 
 	if (strncmp(FileName, "sys_info", strlen("sys_info")) == 0) {
 		Xbir_HttpProcessGetSysInfoReq(Tpcb, HttpReq, HttpReqLen);
@@ -312,11 +329,28 @@ static int Xbir_HttpProcessGetReq (struct tcp_pcb *Tpcb, u8 *HttpReq,
 		strlen("boot_img_status")) == 0) {
 		Xbir_HttpProcessGetBootImgStatusReq(Tpcb, HttpReq, HttpReqLen);
 	}
+	else if (strncmp(FileName, "flash_erase_imgA",
+		strlen("flash_erase_imgA")) == 0) {
+		Xbir_HttpProcessFlashErase(Tpcb, HttpReq, HttpReqLen,
+				XBIR_SYS_BOOT_IMG_A_ID);
+	}
+	else if (strncmp(FileName, "flash_erase_imgB",
+		strlen("flash_erase_imgB")) == 0) {
+		Xbir_HttpProcessFlashErase(Tpcb, HttpReq, HttpReqLen,
+				XBIR_SYS_BOOT_IMG_B_ID);
+	}
+	else if (strncmp(FileName, "flash_erase_status",
+		strlen("flash_erase_status")) == 0) {
+		Xbir_HttpProcessFlashEraseStatus(Tpcb, HttpReq, HttpReqLen);
+	}
 	else {
 		Xbir_HttpProcessGetFileReq(Tpcb, HttpReq, HttpReqLen);
 	}
 
-	return XST_SUCCESS;
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -716,6 +750,64 @@ static int Xbir_HttpProcessGetBootImgStatusReq (struct tcp_pcb *Tpcb,
 	char Buffer[100U] = {0U};
 
 	Status = Xbir_SsiJsonBuildBootImgStatus(Buffer, 100U);
+	if (Status == XST_SUCCESS) {
+		Status = Xbir_HttpSendResponseJson(Tpcb, HttpReq, HttpReqLen,
+			Buffer, strlen(Buffer));
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief
+ * This function processes HTTP GET Flash erase request.
+ *
+ * @param	Tpcb		Pointer to TCP PCB
+ * @param	HttpReq		Pointer to HTTP payload
+ * @param	HttpReqLen	HTTP payload length
+ * @param	BootImgId	Boot Image ID
+ *
+ * @return	XST_SUCCESS if request is processed successfully
+ *		XST_FAILURE if request is not processed
+ *
+ *****************************************************************************/
+static int Xbir_HttpProcessFlashErase(struct tcp_pcb *Tpcb,
+	u8 *HttpReq, u16 HttpReqLen, Xbir_SysBootImgId BootImgId)
+{
+	int Status = XST_FAILURE;
+
+	Status = Xbir_SysEraseBootImg(BootImgId);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = Xbir_HttpProcessFlashEraseStatus(Tpcb, HttpReq, HttpReqLen);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief
+ * This function processes HTTP GET Flash erase status request.
+ *
+ * @param	Tpcb		Pointer to TCP PCB
+ * @param	HttpReq		Pointer to HTTP payload
+ * @param	HttpReqLen	HTTP payload length
+ *
+ * @return	XST_SUCCESS if request is processed successfully
+ *		XST_FAILURE if request is not processed
+ *
+ *****************************************************************************/
+static int Xbir_HttpProcessFlashEraseStatus(struct tcp_pcb *Tpcb,
+	u8 *HttpReq, u16 HttpReqLen)
+{
+	int Status = XST_FAILURE;
+	char Buffer[100U] = {0U};
+
+	Status = Xbir_SsiJsonBuildFlashEraseStatus(Buffer, 100U);
 	if (Status == XST_SUCCESS) {
 		Status = Xbir_HttpSendResponseJson(Tpcb, HttpReq, HttpReqLen,
 			Buffer, strlen(Buffer));

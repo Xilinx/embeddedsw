@@ -22,6 +22,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
+#include "xbir_qspi.h"
 
 /************************** Constant Definitions *****************************/
 #define XBIR_SYS_IMG_A_BOOTABLE_MASK	(0x08U)
@@ -186,7 +187,6 @@ typedef enum {
 	XBIR_SYS_LAST_DATA_CHUNK
 } Xbir_ImgDataStatus;
 
-
 /************************** Function Prototypes ******************************/
 int Xbir_SysInit (void);
 const Xbir_SysInfo* Xbir_SysGetSysBoardInfo (void);
@@ -199,6 +199,7 @@ int Xbir_SysWriteFlash (u32 Offset, u8 *Data, u32 Size,
 	Xbir_ImgDataStatus IsLast);
 int Xbir_SysEraseBootImg (Xbir_SysBootImgId BootImgId);
 int Xbir_SysValidateCrc (Xbir_SysBootImgId BootImgId, u32 Size, u32 InCrc);
+void Xbir_SysExecuteBackgroundTasks(void);
 
 #ifdef __cplusplus
 }

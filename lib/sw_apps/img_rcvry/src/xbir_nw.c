@@ -21,6 +21,7 @@
 #include "lwip/inet.h"
 #include "lwip/priv/tcp_priv.h"
 #include "xbir_nw.h"
+#include "xbir_sys.h"
 
 /************************** Constant Definitions *****************************/
 /* TODO: Read MAC address from EEPROM and assign it */
@@ -175,5 +176,6 @@ void Xbir_NwProcessPkts (struct netif* NetIf)
 			TcpSlowTmrFlag = 0U;
 		}
 		xemacif_input(NetIf);
+		Xbir_SysExecuteBackgroundTasks();
 	}
 }

@@ -29,6 +29,7 @@
 #include "xqspipsu.h"
 #include "xbir_qspi.h"
 #include "xbir_qspi_hw.h"
+#include "xbir_qspimap.h"
 #include "xbir_config.h"
 #include "xbir_err.h"
 
@@ -356,6 +357,28 @@ int Xbir_QspiInit(void)
 
 END:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function initializes the Qspi Flash Erase stats structure
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+void Xbir_QspiEraseStatsInit(void)
+{
+	Xbir_FlashEraseStats *FlashEraseStats = Xbir_GetFlashEraseStats();
+
+	FlashEraseStats->State = XBIR_QSPI_FLASH_ERASE_NOTSTARTED;
+	FlashEraseStats->NumOfSectorsErased = 0U;
+	FlashEraseStats->CurrentImgErased = XBIR_QSPI_NO_IMG_ERASED;
+	Xbir_QspiGetSectorSize(&FlashEraseStats->SectorSize);
+	FlashEraseStats->TotalNumOfSectors = XBIR_QSPI_MAX_BOOT_IMG_SIZE /
+						FlashEraseStats->SectorSize;
+	if ((XBIR_QSPI_MAX_BOOT_IMG_SIZE % FlashEraseStats->SectorSize) != 0U) {
+		FlashEraseStats->TotalNumOfSectors += 1U;
+	}
 }
 
 /*****************************************************************************/
@@ -1247,17 +1270,44 @@ END:
 /*****************************************************************************/
 /**
  * @brief
- * This API returns the page size of the flash
+ * This API returns the sector size of the flash
  *
  * @param	SectorSize is pointer to sector size of flash
+ *
+ * @return	None
+ *
+ ******************************************************************************/
+void Xbir_QspiGetSectorSize(u32 *SectorSize)
+{
+	*SectorSize = FlashInfo.SectSize;
+}
+
+/*****************************************************************************/
+/**
+ * @brief
+ * This API returns the page size of the flash
  *
  * @param	PageSize is pointer to page size of flash
  *
  * @return	None
  *
  ******************************************************************************/
-void Xbir_QspiGetPageSize(u32 *SectorSize, u16 *PageSize)
+void Xbir_QspiGetPageSize(u16 *PageSize)
 {
-	*SectorSize = FlashInfo.SectSize;
 	*PageSize = FlashInfo.PageSize;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function returns pointer to the flash erase stats structure
+ * image id
+ *
+ * @return	Pointer to FlashEraseStats
+ *
+ *****************************************************************************/
+Xbir_FlashEraseStats* Xbir_GetFlashEraseStats(void)
+{
+	static Xbir_FlashEraseStats FlashEraseStats;
+
+	return &FlashEraseStats;
 }

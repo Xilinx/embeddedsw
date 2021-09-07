@@ -20,6 +20,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "lwip/tcp.h"
+#include "xbir_sys.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -28,6 +29,7 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 int Xbir_SsiJsonBuildSysInfo (char *JsonStr, u16 JsonStrLen);
 int Xbir_SsiJsonBuildBootImgStatus (char *JsonStr, u16 JsonStrLen);
+int Xbir_SsiJsonBuildFlashEraseStatus(char *JsonStr, u16 JsonStrLen);
 int Xbir_SsiJsonCfgBootImgStatus (char *JsonStr, u16 JsonStrLen);
 int Xbir_SsiProcessAdditionalPayload (struct tcp_pcb *Tpcb, u8 *HttpReq,
 	u16 HttpReqLen);

@@ -126,6 +126,7 @@ int Xbir_SysInit (void)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+	Xbir_QspiEraseStatsInit();
 
 	Status = Xbir_SdInit();
 	if (Status != XST_SUCCESS) {
@@ -403,9 +404,8 @@ int Xbir_SysWriteFlash (u32 Offset, u8 *Data, u32 Size,
 	u8 *WrBuff = Data;
 	static u32 PrevPendingDataLen = 0U;
 	u16 PageSize;
-	u32 SectorSize;
 
-	Xbir_QspiGetPageSize(&SectorSize, &PageSize);
+	Xbir_QspiGetPageSize(&PageSize);
 
 	if (PrevPendingDataLen > 0U) {
 		if ((Size + PrevPendingDataLen) > sizeof(QspiBuffer)) {
@@ -420,13 +420,6 @@ int Xbir_SysWriteFlash (u32 Offset, u8 *Data, u32 Size,
 	}
 
 	while (DataSize >= PageSize) {
-		if ((WrAddr & (SectorSize - 1U)) == 0U) {
-			Status = Xbir_QspiFlashErase(WrAddr, SectorSize);
-			if (Status != XST_SUCCESS) {
-				Status = XBIR_ERROR_SECTOR_ERASE;
-				goto END;
-			}
-		}
 		Status = Xbir_QspiWrite(WrAddr, WrBuff, PageSize);
 		if (Status != XST_SUCCESS) {
 			Xbir_Printf("ERROR: Image write failed\r\n");
@@ -445,14 +438,6 @@ int Xbir_SysWriteFlash (u32 Offset, u8 *Data, u32 Size,
 	else {
 		PrevPendingDataLen = 0U;
 		if (DataSize > 0U) {
-			if ((WrAddr & (SectorSize - 1U)) == 0U) {
-				Status = Xbir_QspiFlashErase(WrAddr,
-					SectorSize);
-				if (Status != XST_SUCCESS) {
-					Status = XBIR_ERROR_SECTOR_ERASE;
-					goto END;
-				}
-			}
 			Status = Xbir_QspiWrite(WrAddr, WrBuff, DataSize);
 			if (Status != XST_SUCCESS) {
 				Xbir_Printf("ERROR: Image write failed\r\n");
@@ -480,7 +465,17 @@ END:
 int Xbir_SysEraseBootImg (Xbir_SysBootImgId BootImgId)
 {
 	int Status = XBIR_ERROR_BOOT_IMG_ID;
+	Xbir_FlashEraseStats *FlashEraseStats = Xbir_GetFlashEraseStats();
 	u32 Offset;
+
+	if (FlashEraseStats->State == XBIR_QSPI_FLASH_ERASE_NOTSTARTED) {
+		FlashEraseStats->State = XBIR_QSPI_FLASH_ERASE_STARTED;
+		FlashEraseStats->CurrentImgErased = (u8)BootImgId;
+	}
+	else if (FlashEraseStats->State == XBIR_QSPI_FLASH_ERASE_COMPLETED) {
+		Status = XST_SUCCESS;
+		goto END;
+	}
 
 	if (XBIR_SYS_BOOT_IMG_A_ID == BootImgId) {
 		Offset = BootImgStatus.BootImgAOffset;
@@ -493,11 +488,20 @@ int Xbir_SysEraseBootImg (Xbir_SysBootImgId BootImgId)
 		goto END;
 	}
 
-	Status = Xbir_QspiFlashErase(Offset, XBIR_QSPI_MAX_BOOT_IMG_SIZE);
+	Status = Xbir_QspiFlashErase(Offset +
+			(FlashEraseStats->NumOfSectorsErased *
+			 FlashEraseStats->SectorSize), FlashEraseStats->SectorSize);
 	if (Status != XST_SUCCESS) {
 		Xbir_Printf("ERROR: Qspi Flash erase failed during Boot Image"
 			"update\r\n", Status);
 		Status = XBIR_ERROR_SECTOR_ERASE;
+		goto END;
+	}
+
+	FlashEraseStats->NumOfSectorsErased++;
+	if (FlashEraseStats->NumOfSectorsErased ==
+			FlashEraseStats->TotalNumOfSectors) {
+		FlashEraseStats->State = XBIR_QSPI_FLASH_ERASE_COMPLETED;
 	}
 
 END:
@@ -607,11 +611,10 @@ static int Xbir_SysWriteBootImageInfo (Xbir_SysBootImgInfo *BootImgInfo,
 	u32 Offset)
 {
 	int Status = XST_FAILURE;
-	u32 SectorSize;
 	u16 PageSize;
 	u8 WriteBuffer[XBIR_SYS_QSPI_MAX_SUB_SECTOR_SIZE] = {0U};
 
-	Xbir_QspiGetPageSize(&SectorSize, &PageSize);
+	Xbir_QspiGetPageSize(&PageSize);
 	memcpy((void *)WriteBuffer, (void *)BootImgInfo,
 		sizeof(Xbir_SysBootImgInfo));
 
@@ -973,4 +976,22 @@ int Xbir_SysValidateCrc (Xbir_SysBootImgId BootImgId, u32 Size, u32 InCrc)
 
 END:
 	return Status;
+}
+
+
+/*****************************************************************************/
+/**
+ * @brief	This function executes background tasks which will be run in the
+ * loop present in Xbir_NwProcessPkts
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+void Xbir_SysExecuteBackgroundTasks(void)
+{
+	Xbir_FlashEraseStats *FlashEraseStats = Xbir_GetFlashEraseStats();
+
+	if (FlashEraseStats->State == XBIR_QSPI_FLASH_ERASE_STARTED) {
+		(void)Xbir_SysEraseBootImg(FlashEraseStats->CurrentImgErased);
+	}
 }
