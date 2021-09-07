@@ -1698,7 +1698,21 @@ static XStatus XPm_SubsystemIdleCores(XPm_Subsystem *Subsystem)
 	Reqm = Subsystem->Requirements;
 	while (NULL != Reqm) {
 		DeviceId = Reqm->Device->Node.Id;
-		if ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(DeviceId)) {
+		/**
+		 * PSM is required to be up when any application processor is
+		 * running. In case of default subsystem, PSM is part of
+		 * pre-alloc. So PSM might be powered down during force power
+		 * down of subsystem. Currently there is no user option to
+		 * force power down default subsystem because every processor
+		 * is part of default subsystem and we don't allow force power
+		 * down of own subsystem. However, if we want to use
+		 * XPmSubsystem_ForcePwrDwn() from other cases (e.g. subsystem
+		 * restart) then PSM power down will happen. So skip PSM power
+		 * down from XPmSubsystem_ForcePwrDwn().
+		 */
+		if ((1U == Reqm->Allocated) &&
+		    ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(DeviceId)) &&
+		    (PM_DEV_PSM_PROC != DeviceId)) {
 			XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
 			if (NULL == Core) {
 				Status = XST_INVALID_PARAM;
