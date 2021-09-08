@@ -23,6 +23,7 @@
  * 1.2   mn   02/11/21 Added support for 16-Bit Bus Width
  *       mn   05/24/21 Fixed Eye Test issue with higher rank
  *       mn   05/27/21 Get the PS Ref Clk from design
+ * 1.3   mn   09/08/21 Removed illegal write to DXnGTR0.WDQSL register field
  *
  * </pre>
  *
@@ -365,7 +366,9 @@ typedef struct {
 	u32 VRefAuto[8];
 	u32 VRefAutoWr;
 	XMt_ReadCenter RdCenter[8];
+	u32 ReadCenterFetched;
 	XMt_WriteCenter WrCenter[8];
+	u32 WriteCenterFetched;
 	XMt_WriteDs WrDs[8];
 	double TapPs;
 	double DdrFreq;
