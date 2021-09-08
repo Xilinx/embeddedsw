@@ -89,6 +89,7 @@
 *       bm   08/26/2021 Added XLOADER_PDI_TYPE_PARTIAL_METAHEADER macro
 *       bsv  08/31/2021 Code clean up
 *       ma   09/01/2021 Use SSIT defines from XilPlmi
+*       kpt  09/06/2021 Added macro XLOADER_TOTAL_CHUNK_SIZE
 *
 * </pre>
 *
@@ -121,6 +122,7 @@ extern "C" {
 #define XLoader_Printf		XPlmi_Printf
 #define XLOADER_DDR_TEMP_BUFFER_ADDRESS	(0x50000000U)
 #define XLOADER_CHUNK_SIZE		(0x10000U) /* 64K */
+#define XLOADER_TOTAL_CHUNK_SIZE    (XLOADER_CHUNK_SIZE + 0x100U)
 #define XLOADER_SECURE_CHUNK_SIZE	(0x8000U) /* 32K */
 #define XLOADER_DMA_LEN_ALIGN           (0x10U)
 #define XLOADER_IMAGE_SEARCH_OFFSET	(0x8000U) /* 32K */
