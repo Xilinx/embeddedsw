@@ -28,6 +28,7 @@
  *       mn   03/10/21 Fixed doxygen warnings
  *       mn   04/30/21 Fixed rank selection logic for multi rank DDR
  *       mn   05/24/21 Fixed Eye Test issue with higher rank
+ * 1.3   mn   09/08/21 Removed illegal write to DXnGTR0.WDQSL register field
  *
  * </pre>
  *
@@ -138,6 +139,10 @@ u32 XMt_GetDdrConfigParams(XMt_CfgData *XMtPtr)
 		Status = XST_FAILURE;
 		goto RETURN_PATH;
 	}
+
+	XMtPtr->ReadCenterFetched = 0U;
+	XMtPtr->WriteCenterFetched = 0U;
+
 
 	Status = XST_SUCCESS;
 

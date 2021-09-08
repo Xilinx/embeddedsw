@@ -22,6 +22,7 @@
  *       mn   09/27/18 Modify code to add 2D Read/Write Eye Tests support
  *       mn   07/29/20 Modify code to use DRAM VRef for 2D Write Eye Test
  * 1.1   mn   03/10/21 Fixed doxygen warnings
+ * 1.3   mn   09/08/21 Removed illegal write to DXnGTR0.WDQSL register field
  *
  * </pre>
  *
@@ -96,28 +97,6 @@ static INLINE u32 XMt_GetWrWdqsl(u32 Addr)
 {
 	return XMt_GetRegValue(Addr, XMT_DDR_PHY_DX0GTR0_WDQSL_MASK,
 			       XMT_DDR_PHY_DX0GTR0_WDQSL_SHIFT);
-}
-
-/*****************************************************************************/
-/**
- * This function is used to set the Write Path System Latency
- *
- * @param Addr is the address of WDQSL register
- * @param Val is the Wdqsl value
- *
- * @return none
- *
- * @note none
- *****************************************************************************/
-static void XMt_SetWrWdqsl(u32 Addr, u32 Val)
-{
-	u32 RdVal = 0;
-	u32 WrVal = 0;
-
-	RdVal = Xil_In32(Addr);
-	RdVal = RdVal & XMT_WDQSL_MASK;
-	WrVal =  RdVal | (Val << XMT_DDR_PHY_DX0GTR0_WDQSL_SHIFT);
-	Xil_Out32(Addr, WrVal);
 }
 
 /*****************************************************************************/
@@ -232,6 +211,10 @@ static u32 XMt_GetWrCenter(XMt_CfgData *XMtPtr)
 {
 	s32 Index;
 
+	if (XMtPtr->WriteCenterFetched == 1U) {
+		return XST_SUCCESS;
+	}
+
 	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
 		XMtPtr->WrCenter[Index].Wdqd = XMt_GetWrWdqd(XMT_LCDLR1_BASE +
 				(XMT_LANE_OFFSET*Index));
@@ -244,6 +227,8 @@ static u32 XMt_GetWrCenter(XMt_CfgData *XMtPtr)
 		XMtPtr->WrCenter[Index].Tprd = XMt_GetWrTprd(XMT_MDLR0_BASE +
 				(XMT_LANE_OFFSET*Index));
 	}
+
+	XMtPtr->WriteCenterFetched = 1U;
 
 	return XST_SUCCESS;
 }
@@ -264,9 +249,9 @@ static u32 XMt_ResetWrCenter(XMt_CfgData *XMtPtr)
 
 	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
 		XMt_SetWrWdqd(XMT_LCDLR1_BASE + (XMT_LANE_OFFSET*Index),
-				XMtPtr->WrCenter[Index].Wdqd);
-		XMt_SetWrWdqsl(XMT_GTR0_BASE + (XMT_LANE_OFFSET*Index),
-				XMtPtr->WrCenter[Index].Wdqsl);
+				XMtPtr->WrCenter[Index].Wdqd
+			 + (XMtPtr->WrCenter[Index].Wdqsl
+			 *  XMtPtr->TapCount[Index]));
 	}
 
 	return XST_SUCCESS;
