@@ -23,6 +23,7 @@
  * 1.1   mn   03/10/21 Fixed doxygen warnings
  * 1.2   mn   05/13/21 Fixed issue with mismatching read eye width
  * 1.3   mn   06/10/21 Modify code to sweep VRef from 0 to 127 values
+ *       mn   09/08/21 Removed illegal write to DXnGTR0.WDQSL register field
  *
  * </pre>
  *
@@ -97,12 +98,18 @@ static u32 XMt_GetRdCenter(XMt_CfgData *XMtPtr)
 {
 	s32 Index;
 
+	if (XMtPtr->ReadCenterFetched == 1U) {
+		return XST_SUCCESS;
+	}
+
 	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
 		XMtPtr->RdCenter[Index].Qsd = XMt_GetRdQsd(XMT_LANE0LCDLR3_OFFSET +
 				(XMT_LANE_OFFSET * Index));
 		XMtPtr->RdCenter[Index].Qsnd = XMt_GetRdQsnd(XMT_LANE0LCDLR4_OFFSET +
 				(XMT_LANE_OFFSET * Index));
 	}
+
+	XMtPtr->ReadCenterFetched = 1U;
 
 	return XST_SUCCESS;
 }
