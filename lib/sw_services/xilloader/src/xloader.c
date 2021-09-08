@@ -112,6 +112,8 @@
 *       bm   08/24/2021 Added Extract Metaheader support
 *       bm   08/26/2021 Updated XLOADER_PDI_LOAD_STARTED register write
 *       bsv  08/31/2021 Code clean up
+*       kpt  09/06/2021 Fixed SW-BP-ZEROIZE issue in
+*                       XLoader_LoadAndStartSubSystemImages
 *
 * </pre>
 *
@@ -767,7 +769,7 @@ END:
 
 #ifndef PLM_DEBUG_MODE
 	SStatus = XPlmi_MemSet(XPLMI_PMCRAM_CHUNK_MEMORY, XPLMI_DATA_INIT_PZM,
-			XLOADER_CHUNK_SIZE / XPLMI_WORD_LEN);
+			XLOADER_TOTAL_CHUNK_SIZE / XPLMI_WORD_LEN);
 	if (Status == XST_SUCCESS) {
 		Status = SStatus;
 	}
