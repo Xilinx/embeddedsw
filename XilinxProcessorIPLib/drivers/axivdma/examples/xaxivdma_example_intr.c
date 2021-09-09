@@ -52,6 +52,7 @@
  *		       CheckFrame to correct the example logic.
  * 6.9	 sk   05/25/21 Fix data comparison failure wtih optimization level 2.
  * 6.10  rsp  09/09/21 Fix read/write done count check in while loop.
+ *                     Remove unused variable GCC warning in ReadSetup().
  * </pre>
  *
  * ***************************************************************************
@@ -506,7 +507,7 @@ Done:
 ******************************************************************************/
 static int ReadSetup(XAxiVdma *InstancePtr)
 {
-	int Index,Index1;
+	int Index;
 	UINTPTR Addr;
 	int Status;
 
