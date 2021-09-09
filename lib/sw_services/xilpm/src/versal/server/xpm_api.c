@@ -1936,7 +1936,7 @@ void XPm_ProcessAckReq(const u32 Ack, const u32 IpiMask, const int Status,
 {
 #ifdef XPAR_XIPIPSU_0_DEVICE_ID
 	if (0U == IpiMask) {
-		return;
+		goto done;
 	}
 
 	if ((u32)REQUEST_ACK_BLOCKING == Ack) {
@@ -1956,6 +1956,8 @@ void XPm_ProcessAckReq(const u32 Ack, const u32 IpiMask, const int Status,
 	} else {
 		/* No returning of the acknowledge */
 	}
+done:
+	return;
 #else
 	(void)Ack;
 	(void)IpiMask;
