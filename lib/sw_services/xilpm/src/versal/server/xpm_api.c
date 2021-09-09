@@ -1934,7 +1934,7 @@ void XPm_ProcessAckReq(const u32 Ack, const u32 IpiMask, const int Status,
 		PmOut32(IPI_PMC_IER, IpiMask);
 	} else if ((u32)REQUEST_ACK_NON_BLOCKING == Ack) {
 		/* Return acknowledge through callback */
-		IPI_MESSAGE4(IpiMask, PM_ACKNOWLEDGE_CB, NodeId, (u32)Status,
+		IPI_MESSAGE4(IpiMask, (u32)PM_ACKNOWLEDGE_CB, NodeId, (u32)Status,
 			      NodeState);
 		if (XST_SUCCESS != XPlmi_IpiTrigger(IpiMask)) {
 			PmWarn("Error in IPI trigger\r\n");
