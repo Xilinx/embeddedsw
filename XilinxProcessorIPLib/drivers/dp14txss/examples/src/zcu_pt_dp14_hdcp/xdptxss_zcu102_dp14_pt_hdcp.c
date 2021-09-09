@@ -28,6 +28,7 @@
 * 1.05 ND 04/28/21 Moved hdcp1.3 key initialization before
 *                  XDpRxSs_CfgInitialize().
 * 1.06 ND 05/01/21 Update to stop passthrough video on Tx authenticaton failure.
+* 1.07 ND 09/09/21 Updated the Hdcp22Srm[] in keys.c with SRM keys.
 * </pre>
 *
 ******************************************************************************/
