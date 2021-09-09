@@ -72,7 +72,7 @@ done:
 	return Status;
 }
 
-static XStatus FpdInitFinish(XPm_PowerDomain *PwrDomain, const u32 *Args,
+static XStatus FpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -86,7 +86,7 @@ static XStatus FpdInitFinish(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	return Status;
 }
 
-static XStatus FpdHcComplete(XPm_PowerDomain *PwrDomain, const u32 *Args,
+static XStatus FpdHcComplete(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -145,7 +145,7 @@ done:
 	return Status;
 }
 
-static XStatus FpdScanClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
+static XStatus FpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -201,7 +201,7 @@ done:
 	return Status;
 }
 
-static XStatus FpdBisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
+static XStatus FpdBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -253,7 +253,7 @@ done:
 	return Status;
 }
 
-static XStatus FpdMbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
+static XStatus FpdMbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
