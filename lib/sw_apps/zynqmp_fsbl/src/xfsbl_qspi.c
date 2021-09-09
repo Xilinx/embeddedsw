@@ -26,6 +26,7 @@
 *                     boot mode for Macronix flash parts.
 * 5.0   bsv  11/15/20 Added Macronix 2G flash support
 * 6.0   bsv  07/29/21 Added Winbond 2G flash support
+*       bsv  09/08/21 Added MultiDie read support for Micron 2G flash part
 *
 * </pre>
 *
@@ -70,6 +71,8 @@ static u8 TxBfrPtr __attribute__ ((aligned(32)));
 static u8 ReadBuffer[10] __attribute__ ((aligned(32)));
 static u8 WriteBuffer[10] __attribute__ ((aligned(32)));
 static u32 MacronixFlash = 0U;
+u8 MultiDie = (u8)FALSE;
+
 /******************************************************************************
 *
 * This function reads serial FLASH ID connected to the SPI interface.
@@ -177,6 +180,10 @@ static u32 FlashReadID(XQspiPsu *QspiPsuPtr)
 			|| (ReadBuffer[2] == MACRONIX_FLASH_SIZE_ID_2G)
 			|| (ReadBuffer[2] == MACRONIX_FLASH_1_8_V_SIZE_ID_2G)) {
                 QspiFlashSize = FLASH_SIZE_2G;
+		if ((QspiFlashMake == WINBOND_ID) ||
+			(QspiFlashMake == MICRON_ID)) {
+			MultiDie = (u8)TRUE;
+		}
                 XFsbl_Printf(DEBUG_INFO, "2G Bits\r\n");
 	}else {
 		UStatus = XFSBL_ERROR_UNSUPPORTED_QSPI;
@@ -1211,9 +1218,9 @@ u32 XFsbl_Qspi32Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 		goto END;
 	}
 
-	if (QspiFlashMake == WINBOND_ID) {
-		BankSize = WINBOND_BANKSIZE;
-		BankMask = WINBOND_BANKMASK;
+	if (MultiDie == (u8)TRUE) {
+		BankSize = BANKSIZE_64MB;
+		BankMask = BANKMASK_64MB;
 	}
 	else {
 		BankSize = BANKSIZE;
@@ -1244,7 +1251,7 @@ u32 XFsbl_Qspi32Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 		 * If stacked assert the slave select based on address
 		 */
 		QspiAddr = XFsbl_GetQspiAddr((u32 )SrcAddress);
-		if (QspiFlashMake == WINBOND_ID) {
+		if (MultiDie == (u8)TRUE) {
 			/**
 			 * Multiply address by 2 in case of Dual Parallel
 			 * This address is used to calculate the bank crossing
@@ -1256,7 +1263,6 @@ u32 XFsbl_Qspi32Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 			} else {
 				OrigAddr = QspiAddr;
 			}
-
 			/**
 			 * If data to be read spans beyond the current die, then
 			 * calculate Transfer Bytes in current die. Else
