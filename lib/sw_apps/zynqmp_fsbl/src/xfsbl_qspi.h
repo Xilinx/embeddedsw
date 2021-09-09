@@ -26,6 +26,7 @@
 *                     boot mode for Macronix flash parts.
 * 5.0   bsv  11/15/20 Added Macronix 2G flash support
 * 6.0   bsv  07/29/21 Added Winbond 2G flash support
+*       bsv  09/08/21 Added MultiDie read support for Micron 2G flash part
 *
 * </pre>
 *
@@ -127,9 +128,8 @@ extern "C" {
 #define FLASH_SIZE_16MB			(0x1000000U)
 #define BANKSIZE			(FLASH_SIZE_16MB)
 #define SINGLEBANKSIZE			BANKSIZE
-#define FLASH_SIZE_64MB			(0x4000000U)
-#define WINBOND_BANKSIZE		FLASH_SIZE_64MB
-#define WINBOND_BANKMASK		(~(WINBOND_BANKSIZE - 1U))
+#define BANKSIZE_64MB			(0x4000000U)
+#define BANKMASK_64MB			(~(BANKSIZE_64MB - 1U))
 
 /*
  * Bank mask
