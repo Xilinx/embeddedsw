@@ -27,14 +27,14 @@ typedef struct XPm_PowerDomain XPm_PowerDomain;
  */
 struct XPm_PowerDomainOps {
 	XStatus (*InitStart)(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
-	XStatus (*InitFinish)(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
-	XStatus (*ScanClear)(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
-	XStatus (*Mbist)(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
-	XStatus (*Lbist)(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
-	XStatus (*Bisr)(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+	XStatus (*InitFinish)(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+	XStatus (*ScanClear)(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+	XStatus (*Mbist)(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+	XStatus (*Lbist)(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+	XStatus (*Bisr)(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
 	XStatus (*PlHouseclean)(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
-	XStatus (*MemInit)(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
-	XStatus (*HcComplete)(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+	XStatus (*MemInit)(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+	XStatus (*HcComplete)(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
 	const u16 InitMask;	/**< Mask to indicate which Ops are present */
 };
 

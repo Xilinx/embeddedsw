@@ -172,7 +172,7 @@ done:
 	return Status;
 }
 
-static XStatus CpmInitFinish(XPm_PowerDomain *PwrDomain, const u32 *Args,
+static XStatus CpmInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -190,7 +190,7 @@ static XStatus CpmInitFinish(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	return Status;
 }
 
-static XStatus CpmScanClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
+static XStatus CpmScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	/* This function does not use the args */
@@ -202,7 +202,7 @@ static XStatus CpmScanClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	return XST_SUCCESS;
 }
 
-static XStatus Cpm5ScanClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
+static XStatus Cpm5ScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XPM_ERR_SCAN_CLR;
@@ -321,7 +321,7 @@ done:
 }
 
 
-static XStatus CpmBisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
+static XStatus CpmBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -352,7 +352,7 @@ static XStatus CpmBisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	return Status;
 }
 
-static XStatus Cpm5Bisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
+static XStatus Cpm5Bisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -410,7 +410,7 @@ done:
 	return Status;
 }
 
-static XStatus CpmMbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
+static XStatus CpmMbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -549,7 +549,7 @@ done:
 	return Status;
 }
 
-static XStatus Cpm5MbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
+static XStatus Cpm5MbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	volatile XStatus Status = XPM_ERR_MBIST_CLR;

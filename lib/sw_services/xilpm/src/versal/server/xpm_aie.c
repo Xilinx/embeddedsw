@@ -532,7 +532,7 @@ done:
 	return Status;
 }
 
-static XStatus AieInitFinish(XPm_PowerDomain *PwrDomain, const u32 *Args,
+static XStatus AieInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -576,7 +576,7 @@ done:
 	return Status;
 }
 
-static XStatus Aie2InitFinish(XPm_PowerDomain *PwrDomain, const u32 *Args,
+static XStatus Aie2InitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -622,7 +622,7 @@ done:
 	return Status;
 }
 
-static XStatus AieScanClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
+static XStatus AieScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -722,7 +722,7 @@ done:
 	return Status;
 }
 
-static XStatus AieBisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
+static XStatus AieBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -787,7 +787,7 @@ done:
 	return Status;
 }
 
-static XStatus Aie2Bisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
+static XStatus Aie2Bisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -857,7 +857,7 @@ done:
 	return Status;
 }
 
-static XStatus AieMbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
+static XStatus AieMbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -975,7 +975,7 @@ done:
 	return Status;
 }
 
-static XStatus Aie2MbistClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
+static XStatus Aie2MbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -1096,7 +1096,7 @@ done:
 	return Status;
 }
 
-static XStatus AieMemInit(XPm_PowerDomain *PwrDomain, const u32 *Args,
+static XStatus AieMemInit(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -1157,7 +1157,7 @@ done:
 	return Status;
 }
 
-static XStatus Aie2MemInit(XPm_PowerDomain *PwrDomain, const u32 *Args,
+static XStatus Aie2MemInit(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;

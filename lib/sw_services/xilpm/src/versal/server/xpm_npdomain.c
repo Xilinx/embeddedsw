@@ -105,7 +105,7 @@ static void NpdPreBisrReqs(void)
 	return;
 }
 
-static XStatus NpdInitFinish(XPm_PowerDomain *PwrDomain, const u32 *Args,
+static XStatus NpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -221,7 +221,7 @@ done:
 	return Status;
 }
 
-static XStatus NpdScanClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
+static XStatus NpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -309,7 +309,7 @@ done:
 	return Status;
 }
 
-static XStatus NpdMbist(XPm_PowerDomain *PwrDomain, const u32 *Args,
+static XStatus NpdMbist(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -496,7 +496,7 @@ done:
 	return Status;
 }
 
-static XStatus NpdBisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
+static XStatus NpdBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;

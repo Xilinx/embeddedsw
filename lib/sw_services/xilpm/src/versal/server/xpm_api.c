@@ -1689,10 +1689,10 @@ static void XPm_CoreIdle(XPm_Core *Core)
 			  (u8)EVENT_CPU_IDLE_FORCE_PWRDWN);
 }
 
-static XStatus XPm_SubsystemIdleCores(XPm_Subsystem *Subsystem)
+static XStatus XPm_SubsystemIdleCores(const XPm_Subsystem *Subsystem)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Requirement *Reqm;
+	const XPm_Requirement *Reqm;
 	u32 DeviceId;
 
 	Reqm = Subsystem->Requirements;
@@ -1747,9 +1747,9 @@ done:
 int XPm_ForcePwrDwnCb(void *Data)
 {
 	int Status = XST_FAILURE;
-	XPm_Subsystem *Subsystem;
+	const XPm_Subsystem *Subsystem;
 	u32 NodeId = (u32)Data;
-	XPm_Core *Core;
+	const XPm_Core *Core;
 
 	if ((u32)XPM_NODECLASS_SUBSYSTEM == NODECLASS(NodeId)) {
 		Subsystem = XPmSubsystem_GetById(NodeId);
@@ -1856,7 +1856,7 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
 	u32 NodeState = 0U;
-	XPm_Power *Power;
+	const XPm_Power *Power;
 
 	if ((u32)REQUEST_ACK_BLOCKING == Ack) {
 		/* Disable IPI interrupt */
