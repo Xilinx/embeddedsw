@@ -414,9 +414,9 @@ XStatus XPmCore_ProcessPendingForcePwrDwn(u32 DeviceId)
 
 	Reqm = Subsystem->Requirements;
 	while (NULL != Reqm) {
-		DeviceId = Reqm->Device->Node.Id;
 		if ((1U == Reqm->Allocated) &&
-		    ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(DeviceId)) &&
+		    ((u32)XPM_NODESUBCL_DEV_CORE ==
+		     NODESUBCLASS(Reqm->Device->Node.Id)) &&
 		    ((u8)XPM_DEVSTATE_PENDING_PWR_DWN == Reqm->Device->Node.State)) {
 			break;
 		}
