@@ -36,7 +36,7 @@ u32 HcleanDone = 0;
 
 static XStatus XPmPlDomain_InitandHouseclean(void);
 
-static XStatus PldInitFinish(XPm_PowerDomain *PwrDomain, const u32 *Args,
+static XStatus PldInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
@@ -1002,7 +1002,7 @@ static XStatus XPmPlDomain_InitandHouseclean(void)
 	volatile u32 PlatformTypeTmp = 0xFFU;
 	u32 PlatformVersion;
 	const XPm_Pmc *Pmc;
-	XPm_PlDomain *Pld;
+	const XPm_PlDomain *Pld;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	const XPm_Rail *VccintRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PL);

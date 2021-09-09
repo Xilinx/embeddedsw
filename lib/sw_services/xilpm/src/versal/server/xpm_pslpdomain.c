@@ -115,7 +115,7 @@ done:
 	return Status;
 }
 
-static XStatus LpdInitFinish(XPm_PowerDomain *PwrDomain, const u32 *Args,
+static XStatus LpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -129,7 +129,7 @@ static XStatus LpdInitFinish(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	return Status;
 }
 
-static XStatus LpdHcComplete(XPm_PowerDomain *PwrDomain, const u32 *Args,
+static XStatus LpdHcComplete(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -178,7 +178,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE
  *
  ****************************************************************************/
-static XStatus LpdScanClear(XPm_PowerDomain *PwrDomain, const u32 *Args,
+static XStatus LpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -257,7 +257,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE
  *
  ****************************************************************************/
-static XStatus LpdLbist(XPm_PowerDomain *PwrDomain, const u32 *Args,
+static XStatus LpdLbist(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -364,7 +364,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE
  *
  ****************************************************************************/
-static XStatus LpdBisr(XPm_PowerDomain *PwrDomain, const u32 *Args,
+static XStatus LpdBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -511,7 +511,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE
  *
  ****************************************************************************/
-static XStatus LpdMbist(XPm_PowerDomain *PwrDomain, const u32 *Args,
+static XStatus LpdMbist(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	volatile XStatus Status = XST_FAILURE;

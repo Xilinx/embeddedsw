@@ -388,9 +388,9 @@ XStatus XPmCore_ProcessPendingForcePwrDwn(u32 DeviceId)
 {
 	XStatus Status = XST_FAILURE;
 	u32 SubsystemId;
-	XPm_Requirement *Reqm;
-	XPm_Subsystem *Subsystem;
-	XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
+	const XPm_Requirement *Reqm;
+	const XPm_Subsystem *Subsystem;
+	const XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
 	u32 Ack = 0U;
 	u32 IpiMask = 0U;
 	u32 NodeState = 0U;
