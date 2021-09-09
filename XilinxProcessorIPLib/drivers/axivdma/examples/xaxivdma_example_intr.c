@@ -51,6 +51,7 @@
  * 6.9	 sk   05/25/21 Modify the ReadSetup buffer initialization call and
  *		       CheckFrame to correct the example logic.
  * 6.9	 sk   05/25/21 Fix data comparison failure wtih optimization level 2.
+ * 6.10  rsp  09/09/21 Fix read/write done count check in while loop.
  * </pre>
  *
  * ***************************************************************************
@@ -198,8 +199,8 @@ static UINTPTR BlockVert;
 
 /* Frame-buffer count i.e Number of frames to work on
  */
-static u16 ReadCount;
-static u16 WriteCount;
+volatile static u16 ReadCount;
+volatile static u16 WriteCount;
 
 /* DMA channel setup
  */
@@ -446,8 +447,8 @@ int main(void)
 
 	/* Every set of frame buffer finish causes a completion interrupt
 	 */
-	while ((WriteDone < NUM_TEST_FRAME_SETS) && !ReadError &&
-	      (ReadDone < NUM_TEST_FRAME_SETS) && !WriteError) {
+	while (((ReadDone < NUM_TEST_FRAME_SETS) || (WriteDone < NUM_TEST_FRAME_SETS))
+	       && !ReadError && !WriteError) {
 		/* NOP */
 	}
 
