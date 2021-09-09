@@ -54,6 +54,8 @@
 *       bm   08/24/2021 Added Extract Metaheader support
 *       bsv  08/31/21 Code clean up
 *       kpt  09/02/21 Added support to update KAT status in RTC area
+*       am   09/09/21 Fixed multiple SPK Authentication while authenticating
+*                     MetaHeader
 *
 * </pre>
 *
@@ -2359,8 +2361,9 @@ static int XLoader_AuthHdrs(const XLoader_SecureParams *SecurePtr,
 	}
 
 	/* Signature Verification */
-	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_DataAuth, SecurePtr,
-			Sha3Hash.Hash, (u8 *)SecurePtr->AcPtr->ImgSignature);
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_VerifySignature,
+		SecurePtr, Sha3Hash.Hash, &SecurePtr->AcPtr->Spk,
+		(u8 *)SecurePtr->AcPtr->ImgSignature);
 	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_AUTH_FAIL, Status);
 		XPlmi_PrintArray(DEBUG_INFO, (UINTPTR)Sha3Hash.Hash,
@@ -2451,8 +2454,9 @@ static int XLoader_AuthNDecHdrs(XLoader_SecureParams *SecurePtr,
 	}
 
 	/* RSA PSS signature verification */
-	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_DataAuth, SecurePtr,
-			CalHash.Hash, (u8 *)SecurePtr->AcPtr->ImgSignature);
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_VerifySignature,
+		SecurePtr, CalHash.Hash, &SecurePtr->AcPtr->Spk,
+		(u8 *)SecurePtr->AcPtr->ImgSignature);
 	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_AUTH_FAIL,
 							 Status);
