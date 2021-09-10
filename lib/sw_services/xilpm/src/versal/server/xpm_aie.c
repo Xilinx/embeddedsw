@@ -29,8 +29,6 @@
 		            ((u64)(col) << AIE2_COL_SHIFT) +\
 		            ((u64)(row) << AIE2_ROW_SHIFT))
 
-#define AIE_CORE_CONTROL_ENABLE_MASK (1U<<0U)
-#define AIE_CORE_CONTROL_RESET_MASK (1U<<1U)
 #define AIE_CORE_STATUS_DONE_MASK   (1UL<<20U)
 
 #define XPM_AIE_OPS                    0U

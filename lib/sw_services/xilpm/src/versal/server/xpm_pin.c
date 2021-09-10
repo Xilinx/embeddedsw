@@ -1943,7 +1943,9 @@ XStatus XPmPin_Init(XPm_PinNode *Pin, u32 PinId, u32 BaseAddress)
 	if (PinIdx <= PINS_PER_BANK) {
 		Pin->Bank = 0;
 	} else {
-		Pin->Bank = (u8)((PinIdx - PINS_PER_BANK - 1U) / PINS_PER_BANK);
+		Pin->Bank =
+			(u8)(((PinIdx - PINS_PER_BANK - 1U) / PINS_PER_BANK) &
+			BITMASK(PIN_NODE_BANK_BIT_FIELD_SIZE));
 	}
 
 	Pin->BiasStatus = (u8)PINCTRL_BIAS_ENABLE;
@@ -2137,7 +2139,8 @@ XStatus XPmPin_SetPinConfig(u32 PinId, u32 Param, u32 ParamValue)
 		} else {
 			/* Required by MISRA */
 		}
-		Pin->BiasStatus = (u8)Value;
+		Pin->BiasStatus =
+			(u8)(Value & BITMASK(PIN_NODE_BIASSTATUS_BIT_FIELD_SIZE));
 		Status = XST_SUCCESS;
 		break;
 	case (u32)PINCTRL_CONFIG_PULL_CTRL:
@@ -2160,7 +2163,8 @@ XStatus XPmPin_SetPinConfig(u32 PinId, u32 Param, u32 ParamValue)
 				goto done;
 			}
 		}
-		Pin->PullCtrl = (u8)Value;
+		Pin->PullCtrl =
+			(u8)(Value & BITMASK(PIN_NODE_PULLCTRL_BIT_FIELD_SIZE));
 		Status = XST_SUCCESS;
 		break;
 	case (u32)PINCTRL_CONFIG_SCHMITT_CMOS:
@@ -2207,7 +2211,8 @@ XStatus XPmPin_SetPinConfig(u32 PinId, u32 Param, u32 ParamValue)
 			Status = XST_INVALID_PARAM;
 			goto done;
 		}
-		Pin->TriState = (u8)Value;
+		Pin->TriState =
+			(u8)(Value & BITMASK(PIN_NODE_TRISTATE_BIT_FIELD_SIZE));
 		Status = XST_SUCCESS;
 		break;
 	default:

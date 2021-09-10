@@ -545,7 +545,7 @@ static XStatus PowerEvent(XPm_Node *Node, u32 Event)
 					}
 					if (NULL != Power->Parent) {
 						Node->State = (u8)XPM_POWER_STATE_PWR_DOWN_PARENT;
-						Power->WfParentUseCnt = Power->Parent->UseCount - 1U;
+						Power->WfParentUseCnt = (u8)(Power->Parent->UseCount - 1U);
 						Status = Power->Parent->HandleEvent(
 							 &Power->Parent->Node, XPM_POWER_EVENT_PWR_DOWN);
 						/* Todo: Start timer to poll the parent node */
