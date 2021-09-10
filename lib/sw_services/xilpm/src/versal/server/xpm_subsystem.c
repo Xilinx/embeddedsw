@@ -731,7 +731,7 @@ XStatus XPmSubsystem_SetState(const u32 SubsystemId, const u32 State)
 	}
 
 	if (((u32)POWERED_OFF == State) || ((u32)OFFLINE == State)) {
-		Subsystem->Flags &= ~SUBSYSTEM_IS_CONFIGURED;
+		Subsystem->Flags &= (u8)(~SUBSYSTEM_IS_CONFIGURED);
 	}
 
 	Subsystem->State = (u8)State;
@@ -1112,7 +1112,7 @@ XStatus XPmSubsystem_ForcePwrDwn(u32 SubsystemId)
 		goto done;
 	}
 
-	Subsystem->Flags &= ~SUBSYSTEM_IS_CONFIGURED;
+	Subsystem->Flags &= (u8)(~SUBSYSTEM_IS_CONFIGURED);
 
 	Status = XPmSubsystem_ForceDownCleanup(Subsystem->Id);
 	if(XST_SUCCESS != Status) {

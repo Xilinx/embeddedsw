@@ -988,6 +988,16 @@ XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id I
 		}
 		Status = XPm_AieISRClear(SubsystemId, DeviceId, Arg1);
 		break;
+	case IOCTL_SET_PLL_FRAC_MODE:
+	case IOCTL_GET_PLL_FRAC_MODE:
+	case IOCTL_SET_PLL_FRAC_DATA:
+	case IOCTL_GET_PLL_FRAC_DATA:
+	case IOCTL_ULPI_RESET:
+	case IOCTL_AFI:
+	case IOCTL_REGISTER_SGI:
+	case IOCTL_SET_FEATURE_CONFIG:
+	case IOCTL_GET_FEATURE_CONFIG:
+	case IOCTL_SET_SGMII_MODE:
 	default:
 		/* Not supported yet */
 		Status = XPM_ERR_IOCTL;

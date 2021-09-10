@@ -2162,7 +2162,7 @@ XStatus XPm_SetWakeUpSource(const u32 SubsystemId, const u32 TargetNodeId,
 	Periph->WakeProcId = TargetNodeId;
 
 	if (NULL != Periph->PeriphOps->SetWakeupSource) {
-		Periph->PeriphOps->SetWakeupSource(Periph, Enable);
+		Periph->PeriphOps->SetWakeupSource(Periph, (u8)(Enable));
 	}
 
 done:

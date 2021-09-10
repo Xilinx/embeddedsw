@@ -158,6 +158,8 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...);
 
 #define ARRAY_SIZE(x)				(sizeof(x) / sizeof((x)[0]))
 
+#define MIN(x, y)				(((x) < (y)) ? (x) : (y))
+
 #define XPm_Read32				XPm_In32
 #define XPm_Write32				XPm_Out32
 

@@ -53,7 +53,7 @@ static XStatus Pld_UnsetBitPwrBitMask(u8 *BitMask, const u32 NodeId)
 
 	for (i = 0; i < ARRAY_SIZE(PmPwrBitMap); ++i) {
 		if (PmPwrBitMap[i].NodeId == NodeId) {
-			*BitMask &= ~(PmPwrBitMap[i].BitMask);
+			*BitMask &= (u8)(~(PmPwrBitMap[i].BitMask));
 			Status = XST_SUCCESS;
 			break;
 		}

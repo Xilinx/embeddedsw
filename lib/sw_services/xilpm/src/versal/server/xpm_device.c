@@ -716,7 +716,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				/* Todo: Check if clock is disabled */
 				if (TRUE /* Hack: Clock disabled */) {
 					Node->State = (u8)XPM_DEVSTATE_PWR_OFF;
-					Device->WfPwrUseCnt = Device->Power->UseCount - 1U;
+					Device->WfPwrUseCnt = (u8)(Device->Power->UseCount - 1U);
 					Status = Device->Power->HandleEvent(
 						 &Device->Power->Node, (u32)XPM_POWER_EVENT_PWR_DOWN);
 					/* Todo: Start timer to poll power node use count */
@@ -972,7 +972,7 @@ static XStatus SetDevCohVirtAttr(XPm_Requirement *Reqm, u32 ReqCaps,
 	} else {
 		/* Update AttrCaps flag of requirement */
 		if (0U != (Reqm->AttrCaps & Capability)) {
-			Reqm->AttrCaps &= (~Capability);
+			Reqm->AttrCaps &= (u8)(~Capability);
 		} else {
 			Status = XST_SUCCESS;
 			goto done;
@@ -1233,7 +1233,8 @@ static XStatus SetDevRequirement(XPm_Device *Device, const XPm_Subsystem *Subsys
 	 * device's next requirements.
 	 */
 	if ((u8)SUSPENDING == Subsystem->State) {
-		Device->PendingReqm->Next.Capabilities = Capabilities;
+		Device->PendingReqm->Next.Capabilities =
+			(Capabilities & BITMASK(REQ_INFO_CAPS_BIT_FIELD_SIZE));
 		Device->PendingReqm->Next.QoS = QoS;
 		Status = XST_SUCCESS;
 		goto done;
@@ -1245,7 +1246,8 @@ static XStatus SetDevRequirement(XPm_Device *Device, const XPm_Subsystem *Subsys
 		TempReqm.Capabilities = Device->PendingReqm->Curr.Capabilities;
 		TempReqm.QoS = Device->PendingReqm->Curr.QoS;
 
-		Device->PendingReqm->Curr.Capabilities = Capabilities;
+		Device->PendingReqm->Curr.Capabilities =
+			(Capabilities & BITMASK(REQ_INFO_CAPS_BIT_FIELD_SIZE));
 		Device->PendingReqm->Curr.QoS = QoS;
 	}
 
@@ -2143,7 +2145,8 @@ XStatus XPmDevice_SetMaxLatency(const u32 SubsystemId, const u32 DeviceId,
 		goto done;
 	}
 
-	Reqm->Next.Latency = Latency;
+	Reqm->Next.Latency =
+		(Latency & BITMASK(REQ_INFO_LATENCY_BIT_FIELD_SIZE));
 	Reqm->SetLatReq = 1;
 
 	Status = XPmDevice_UpdateStatus(Device);
@@ -2152,7 +2155,8 @@ XStatus XPmDevice_SetMaxLatency(const u32 SubsystemId, const u32 DeviceId,
 		goto done;
 	}
 
-	Reqm->Curr.Latency = Latency;
+	Reqm->Curr.Latency =
+		(Latency & BITMASK(REQ_INFO_LATENCY_BIT_FIELD_SIZE));
 
 done:
 	return Status;
