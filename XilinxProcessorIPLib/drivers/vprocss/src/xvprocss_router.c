@@ -220,16 +220,14 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
   {
     case XVPROCSS_SCALE_1_1:
         if(XVprocSsPtr->VdmaPtr) {
-          if (StrmInPtr->IsInterlaced)
-		  pTable[index++] = XVPROCSS_SUBCORE_VDMA;
-	    }
+          pTable[index++] = XVPROCSS_SUBCORE_VDMA;
+	}
         break;
 
     case XVPROCSS_SCALE_UP:
-	    if(XVprocSsPtr->VdmaPtr) {
-	          if (StrmInPtr->IsInterlaced)
-			  pTable[index++] = XVPROCSS_SUBCORE_VDMA;     /* VDMA is before Scaler */
-	    }
+	if(XVprocSsPtr->VdmaPtr) {
+          pTable[index++] = XVPROCSS_SUBCORE_VDMA;     /* VDMA is before Scaler */
+	}
         pTable[index++] = XVPROCSS_SUBCORE_SCALER_V;
         pTable[index++] = XVPROCSS_SUBCORE_SCALER_H;
         break;
@@ -237,10 +235,9 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
     case XVPROCSS_SCALE_DN:
         pTable[index++] = XVPROCSS_SUBCORE_SCALER_H;
         pTable[index++] = XVPROCSS_SUBCORE_SCALER_V;
-	    if(XVprocSsPtr->VdmaPtr) {
-	          if (StrmInPtr->IsInterlaced)
-			  pTable[index++] = XVPROCSS_SUBCORE_VDMA;     /* VDMA is after Scaler */
-	    }
+	if(XVprocSsPtr->VdmaPtr) {
+          pTable[index++] = XVPROCSS_SUBCORE_VDMA;     /* VDMA is after Scaler */
+	}
         break;
 
     default:
@@ -475,6 +472,7 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
      * progressive frame to downstream cores
      */
 	CtxtPtr->VidInHeight *= 2;
+  }
 
 	/* If Vdma is enabled, RD/WR Client needs to be programmed before Scaler */
 	if (XVprocSsPtr->VdmaPtr) {
@@ -492,7 +490,6 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
 			break;
 		}
 		StartCorePtr[XVPROCSS_SUBCORE_VDMA] = TRUE;
-	}
   }
 
   for (count=0; count<CtxtPtr->RtrNumCores; ++count) {
