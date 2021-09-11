@@ -1,0 +1,16 @@
+###############################################################################
+# Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+###############################################################################
+OPTION psf_version = 2.1;
+
+BEGIN driver trngpsv
+
+  OPTION supported_peripherals = (psv_pmc_trng);
+  OPTION driver_state = ACTIVE;
+  OPTION copyfiles = all;
+  OPTION VERSION = 1.0;
+  OPTION NAME = trngpsv;
+
+END driver
