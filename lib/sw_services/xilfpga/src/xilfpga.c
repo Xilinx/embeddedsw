@@ -60,6 +60,7 @@
  *                      optimizations.
  * 6.0 Nava   02/22/21  Fixed doxygen issues.
  * 6.0 Nava   05/17/21  Fixed misra-c violations.
+ * 6.1 Nava   09/13/21  Fixed compilation warning for versal platform.
  *</pre>
  *
  *@note
@@ -68,11 +69,13 @@
 #include "xilfpga.h"
 
 /************************** Function Prototypes ******************************/
+#ifndef versal
 /* @cond nocomments */
 static u32 XFpga_ValidateBitstreamParam(const XFpga *InstancePtr,
 					UINTPTR BitstreamImageAddr,
 					UINTPTR KeyAddr, u32 Flags);
 /* @endcond */
+#endif
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
@@ -195,16 +198,21 @@ u32 XFpga_BitStream_Load(XFpga *InstancePtr,
 			 UINTPTR BitstreamImageAddr,
 			 UINTPTR KeyAddr, u32 Size, u32 Flags)
 {
-	volatile u32 Status = XFPGA_FAILURE;
+	volatile u32 Status = XFPGA_INVALID_PARAM;
 	UINTPTR	KeyPtr = KeyAddr;
 
 	/* Validate the input arguments */
+#ifdef versal
+	if ((Flags != XFPGA_PDI_LOAD) && (Flags != XFPGA_DELAYED_PDI_LOAD)) {
+		goto END;
+	}
+#else
 	Status = XFpga_ValidateBitstreamParam(InstancePtr, BitstreamImageAddr,
 					      KeyPtr, Flags);
 	if (Status != XFPGA_SUCCESS) {
 		goto END;
 	}
-
+#endif
 	/* Validate Bitstream Image */
 	Status = XFPGA_VALIDATE_ERROR;
 	Status = XFpga_ValidateImage(InstancePtr, BitstreamImageAddr,
@@ -348,16 +356,20 @@ u32 XFpga_ValidateImage(XFpga *InstancePtr,
 			UINTPTR BitstreamImageAddr,
 			UINTPTR KeyAddr, u32 Size, u32 Flags)
 {
-	volatile u32 Status = XFPGA_VALIDATE_ERROR;
-	UINTPTR	KeyPtr = KeyAddr;
+	volatile u32 Status = XFPGA_INVALID_PARAM;
 
 	/* Validate the input arguments */
+#ifdef versal
+	if ((Flags != XFPGA_PDI_LOAD) && (Flags != XFPGA_DELAYED_PDI_LOAD)) {
+		goto END;
+	}
+#else
 	Status = XFpga_ValidateBitstreamParam(InstancePtr, BitstreamImageAddr,
-					      KeyPtr, Flags);
+					      KeyAddr, Flags);
 	if (Status != XFPGA_SUCCESS) {
 		goto END;
 	}
-
+#endif
 	if (InstancePtr->XFpga_ValidateBitstream == NULL) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
@@ -506,16 +518,20 @@ u32 XFpga_PL_Write(XFpga *InstancePtr,UINTPTR BitstreamImageAddr,
 u32 XFpga_Write_Pl(XFpga *InstancePtr,UINTPTR BitstreamImageAddr,
 		UINTPTR KeyAddr, u32 Size, u32 Flags)
 {
-	volatile u32 Status = XFPGA_WRITE_BITSTREAM_ERROR;
-	UINTPTR KeyPtr = KeyAddr;
+	volatile u32 Status = XFPGA_INVALID_PARAM;
 
 	/* Validate the input arguments */
+#ifdef versal
+	if ((Flags != XFPGA_PDI_LOAD) && (Flags != XFPGA_DELAYED_PDI_LOAD)) {
+		goto END;
+	}
+#else
 	Status = XFpga_ValidateBitstreamParam(InstancePtr, BitstreamImageAddr,
-					      KeyPtr, Flags);
+					      KeyAddr, Flags);
 	if (Status != XFPGA_SUCCESS) {
 		goto END;
 	}
-
+#endif
 	if (InstancePtr->XFpga_WriteToPl == NULL) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
@@ -709,7 +725,6 @@ u32 XFpga_InterfaceStatus(XFpga *InstancePtr)
 END:
 	return RegVal;
 }
-#endif
 
 /*****************************************************************************/
 /**
@@ -742,11 +757,7 @@ static u32 XFpga_ValidateBitstreamParam(const XFpga *InstancePtr,
 	if ((InstancePtr == NULL) || (BitstreamImageAddr == 0U)) {
 		goto END;
 	}
-#ifdef versal
-	if ((Flags != XFPGA_PDI_LOAD) && (Flags != XFPGA_DELAYED_PDI_LOAD)) {
-		goto END;
-	}
-#else
+
 	if ((Flags & (~(XFPGA_SECURE_FLAGS | XFPGA_PARTIAL_EN))) != 0U) {
 		goto END;
 	}
@@ -765,7 +776,7 @@ static u32 XFpga_ValidateBitstreamParam(const XFpga *InstancePtr,
 	    (KeyAddr == 0U)) {
 		goto END;
 	}
-#endif
+
 	Status = XFPGA_SUCCESS;
 
 END:
@@ -773,3 +784,4 @@ END:
 }
 
 /*  @endcond */
+#endif
