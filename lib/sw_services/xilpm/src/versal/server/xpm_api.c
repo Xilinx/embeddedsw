@@ -2106,7 +2106,7 @@ done:
 XStatus XPm_IdleRestartHandler(const u32 SubsystemId)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Subsystem *Subsystem = XPmSubsystem_GetById(SubsystemId);
+	const XPm_Subsystem *Subsystem = XPmSubsystem_GetById(SubsystemId);
 
 	if (NULL == Subsystem) {
 		Status = XPM_INVALID_SUBSYSID;
