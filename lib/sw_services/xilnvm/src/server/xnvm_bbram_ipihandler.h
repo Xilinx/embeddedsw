@@ -18,6 +18,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kal   07/05/2021 Initial release
+* 2.4   bsv  09/09/2021 Added PLM_NVM macro
 *
 * </pre>
 *
@@ -36,13 +37,13 @@ extern "c" {
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
 
-#ifndef PLM_NVM_EXCLUDE
+#ifdef PLM_NVM
 #include "xplmi_cmd.h"
 
 /************************** Constant Definitions *****************************/
 int XNvm_BbramIpiHandler(XPlmi_Cmd *Cmd);
 
-#endif /* PLM_NVM_EXCLUDE */
+#endif /* PLM_NVM */
 
 #ifdef __cplusplus
 }

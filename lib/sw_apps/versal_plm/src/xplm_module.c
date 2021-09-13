@@ -36,6 +36,7 @@
 *       bsv  08/13/2021 Removed unwanted goto statements
 *       rb   08/17/2021 Fix compilation warning
 *       rv   08/19/2021 Updated EmInit to pass subsystem restart handler
+*       bsv  09/09/2021 Added PLM_NVM macro
 *
 * </pre>
 *
@@ -44,11 +45,12 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include "xplmi_config.h"
 #include "xplm_module.h"
 #include "xplmi_sysmon.h"
 #include "xpm_api.h"
 #include "xsecure_init.h"
-#ifndef PLM_NVM_EXCLUDE
+#ifdef PLM_NVM
 #include "xnvm_init.h"
 #endif
 #include "xplmi_err.h"
@@ -120,7 +122,7 @@ int XPlm_ModuleInit(void *Arg)
 
 	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_Init);
 
-#ifndef PLM_NVM_EXCLUDE
+#ifdef PLM_NVM
 	XNvm_Init();
 #endif
 #ifdef PLM_ENABLE_STL

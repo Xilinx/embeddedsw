@@ -14,6 +14,7 @@
  * Ver   Who  Date        Changes
  * ----- ---- ---------- -------------------------------------------------------
  * 1.0   kal  07/05/2021 Initial release
+ * 2.4   bsv  09/09/2021 Added PLM_NVM macro
  *
  * </pre>
  *
@@ -30,7 +31,7 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
 
-#ifndef PLM_NVM_EXCLUDE
+#ifdef PLM_NVM
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -38,7 +39,7 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 void XNvm_Init(void);
 
-#endif /* PLM_NVM_EXCLUDE */
+#endif /* PLM_NVM */
 
 #ifdef __cplusplus
 }
