@@ -42,6 +42,7 @@
 *       bsv  08/02/2021 Code clean up to reduce elf size
 *       rb   07/29/2021 Update reset reason during Init
 *       ma   08/23/2021 Do not clear Debug Log RTCA memory
+*       ma   09/13/2021 Set PLM prints log level during RTCA init
 *
 * </pre>
 *
@@ -165,6 +166,10 @@ int XPlmi_RunTimeConfigInit(void)
 				XPLMI_RTCFG_SECURESTATE_SHWROT);
 	XPlmi_Out32(XPLMI_RTCFG_PDI_ID_ADDR, XPLMI_RTCFG_PDI_ID);
 	XPlmi_Out32(XPLMI_RTCFG_SECURE_STATE_ADDR, DevSecureState);
+
+	/* Set PLM prints log level */
+	DebugLog->LogLevel = ((u8)XPlmiDbgCurrentTypes << XPLMI_LOG_LEVEL_SHIFT) |
+		(u8)XPlmiDbgCurrentTypes;
 
 END:
 	return Status;
