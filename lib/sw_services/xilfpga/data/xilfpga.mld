@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (c) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2016 - 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -49,6 +49,7 @@
 #                      violation. fixes this  issue by adding a separate
 #                      function arguments to read KeyAddr and
 #                      Size(Bitstream size).
+# 6.1 Nava   09/13/21  Fixed compilation warnings.
 #
 ##############################################################################
 
@@ -61,7 +62,7 @@ BEGIN LIBRARY xilfpga
   OPTION SUPPORTED_PERIPHERALS = (psv_cortexa72 psv_cortexr5 psu_cortexa53 psu_cortexr5 psu_pmu);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilfpga,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "XilFPGA library provides an interface to the Linux or bare-metal users for configuring the PL over PCAP from PS";
-  OPTION VERSION = 6.0;
+  OPTION VERSION = 6.1;
   OPTION NAME = xilfpga;
 PARAM name = secure_mode, desc = "Enable secure Bitstream loading support", type = bool, default = true;
 PARAM name = debug_mode, desc = "Which is used to Enable the Debug messages in the library", type = bool, default = false;
