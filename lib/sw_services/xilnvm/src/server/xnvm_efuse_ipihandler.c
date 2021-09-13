@@ -20,6 +20,7 @@
 * 1.00  kal   07/30/2021 Initial release
 *       kpt   08/27/2021 Added server API's to support puf helper data efuse
 *                        programming
+* 2.4   bsv  09/09/2021 Added PLM_NVM macro
 *
 * </pre>
 *
@@ -31,7 +32,7 @@
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
 
-#ifndef PLM_NVM_EXCLUDE
+#ifdef PLM_NVM
 #include "xnvm_efuse.h"
 #include "xnvm_efuse_ipihandler.h"
 #include "xnvm_defs.h"
