@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2016 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,6 +35,7 @@
  *                         violation. fixes this  issue by adding a separate
  *                         function arguments to read KeyAddr and
  *                         Size(Bitstream size).
+ * 6.1   Nava    09/13/21  Fixed compilation warning.
  *
  * </pre>
  *
@@ -64,7 +65,7 @@ int main(void)
 {
 	u64 addr = XFPGA_BASE_ADDRESS;
 	XFpga XFpgaInstance = {0U};
-	UINTPTR KeyAddr = NULL;
+	UINTPTR KeyAddr = (UINTPTR)NULL;
 	s32 Status;
 
 	xil_printf("Loading Bitstream for DDR location :0x%x\n\r",
