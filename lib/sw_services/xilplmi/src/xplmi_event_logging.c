@@ -43,6 +43,8 @@
 *       rb   08/11/2021 Fix compilation warnings
 *       ma   08/17/2021 Added check for buffer length to be word aligned
 *                       Return error codes as minor error codes from this file
+*       ma   09/13/2021 Set PLM prints log level to 0 in
+*                       XPlmi_InitDebugLogBuffer function
 *
 * </pre>
 *
@@ -362,8 +364,7 @@ void XPlmi_InitDebugLogBuffer(void)
 	DebugLog->LogBuffer.Len = XPLMI_DEBUG_LOG_BUFFER_LEN;
 	DebugLog->LogBuffer.Offset = 0x0U;
 	DebugLog->LogBuffer.IsBufferFull = (u32)FALSE;
-	DebugLog->LogLevel = ((u8)XPlmiDbgCurrentTypes << XPLMI_LOG_LEVEL_SHIFT) |
-		(u8)XPlmiDbgCurrentTypes;
+	DebugLog->LogLevel = 0U;
 	DebugLog->PrintToBuf = (u8)TRUE;
 }
 
