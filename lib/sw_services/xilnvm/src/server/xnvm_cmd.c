@@ -19,6 +19,7 @@
 *       kal  07/25/2021 Registered eFUSE IPI handlers
 *       kpt  08/27/2021 Added commands to support puf helper data efuse
 *                       programming
+* 2.4   bsv  09/09/2021 Added PLM_NVM macro
 *
 * </pre>
 *
@@ -29,7 +30,7 @@
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
 
-#ifndef PLM_NVM_EXCLUDE
+#ifdef PLM_NVM
 #include "xplmi_hw.h"
 #include "xplmi.h"
 #include "xplmi_cmd.h"

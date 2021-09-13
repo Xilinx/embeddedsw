@@ -31,6 +31,7 @@
 * 1.07  td   07/08/2021 Fix doxygen warnings
 *       bsv  07/16/2021 Fix doxygen warnings
 *       kal  07/17/2021 Added PLM_NVM_EXCLUDE macro
+*       bsv  09/09/2021 Added PLM_NVM macro
 *
 * </pre>
 *
@@ -147,6 +148,10 @@ extern "C" {
  *
  */
 //#define PLM_ENABLE_STL
+#if (!defined(PLM_NVM_EXCLUDE)) && (!defined(PLM_NVM))
+#define PLM_NVM
+#endif
+
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
