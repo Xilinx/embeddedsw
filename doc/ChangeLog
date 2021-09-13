@@ -14,6 +14,9 @@ Versal
 xilffs_v4_6:
 Fix compilation warning with RAM interface.
 
+xilfpga_v6_1:
+Fixed compilation warnings.
+
 New Files Added for 2021.2:
 MIT SPDX License:
 XilinxProcessorIPLib/drivers/aiefal/src/common/xaiefal-common.hpp
