@@ -34,6 +34,7 @@
 *                       XPlmi_TaskNode structure
 *       bsv  08/09/2021 Code clean up to reduce elf size
 *       bsv  08/13/2021 Removed unwanted header files from xplm_startup.h
+*       bm   09/07/2021 Merged pre-boot startup tasks into a single task
 *
 * </pre>
 *
@@ -64,6 +65,7 @@ typedef struct {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+static int XPlm_PreBootTasks(void *Arg);
 
 /************************** Variable Definitions *****************************/
 
@@ -92,11 +94,7 @@ int XPlm_AddStartUpTasks(void)
 	 * Current they point to the loading of the Boot PDI.
 	 */
 	const StartupTaskHandler StartUpTaskList[] = {
-		{XPlm_ModuleInit, NULL},
-		{XPlm_HookBeforePmcCdo, NULL},
-		{XPlm_ProcessPmcCdo, NULL},
-		{XPlm_HookAfterPmcCdo, NULL},
-		{XPlm_HookAfterPmcCdo, NULL},
+		{XPlm_PreBootTasks, NULL},
 		{XPlm_LoadBootPdi, NULL},
 		{XPlm_HookAfterBootPdi, NULL},
 #ifdef XPAR_XIPIPSU_0_DEVICE_ID
@@ -120,6 +118,40 @@ int XPlm_AddStartUpTasks(void)
 		microblaze_enable_interrupts();
 	}
 	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief	This function executes pre boot tasks
+*
+* @param	Arg is the argument passed to pre boot tasks
+*
+* @return	Status as defined in xplmi_status.h
+*
+*****************************************************************************/
+static int XPlm_PreBootTasks(void* Arg)
+{
+	int Status = XST_FAILURE;
+
+	Status = XPlm_ModuleInit(Arg);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XPlm_HookBeforePmcCdo(Arg);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XPlm_ProcessPmcCdo(Arg);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XPlm_HookAfterPmcCdo(Arg);
 
 END:
 	return Status;
