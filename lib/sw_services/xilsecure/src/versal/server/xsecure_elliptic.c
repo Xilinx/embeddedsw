@@ -32,6 +32,7 @@
 * 4.6   har 07/14/21  Fixed doxygen warnings
 *       gm  07/16/21  Added support for 64-bit address
 *       rb  08/11/21  Fix compilation warnings
+*       har 09/13/21  Fixed signature verification issue for P521 curve
 *
 * </pre>
 *
@@ -485,6 +486,7 @@ int XSecure_EllipticVerifySign_64Bit(XSecure_EllipticCrvTyp CrvType,
 	EcdsaKey Key;
 	EcdsaSign Sign;
 	u32 OffSet = 0U;
+	u32 Size = 0U;
 
 	if ((CrvType != XSECURE_ECC_NIST_P384) && (CrvType != XSECURE_ECC_NIST_P521)) {
 		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
@@ -500,15 +502,17 @@ int XSecure_EllipticVerifySign_64Bit(XSecure_EllipticCrvTyp CrvType,
 
 	/* Store Pub key(Qx,Qy) and Sign(SignR, SignS) to local buffers */
 	if (CrvType == XSECURE_ECC_NIST_P521) {
-		OffSet = HashInfo->Len + XSECURE_ECDSA_P521_ALIGN_BYTES;
+		Size = XSECURE_ECC_P521_SIZE_IN_BYTES;
+		OffSet = Size + XSECURE_ECDSA_P521_ALIGN_BYTES;
 	} else {
-		OffSet = HashInfo->Len;
+		Size = XSECURE_ECC_P384_SIZE_IN_BYTES;
+		OffSet = Size;
 	}
-	XSecure_PutData(HashInfo->Len, (u8 *)PubKey, KeyAddr->Qx);
-	XSecure_PutData(HashInfo->Len, (u8 *)(PubKey + OffSet), KeyAddr->Qy);
+	XSecure_PutData(Size, (u8 *)PubKey, KeyAddr->Qx);
+	XSecure_PutData(Size, (u8 *)(PubKey + OffSet), KeyAddr->Qy);
 
-	XSecure_PutData(HashInfo->Len, (u8 *)Signature, SignAddr->SignR);
-	XSecure_PutData(HashInfo->Len, (u8 *)(Signature + OffSet),
+	XSecure_PutData(Size, (u8 *)Signature, SignAddr->SignR);
+	XSecure_PutData(Size, (u8 *)(Signature + OffSet),
 			SignAddr->SignS);
 
 
