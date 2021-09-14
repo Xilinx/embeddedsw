@@ -80,6 +80,7 @@
 * 4.6	sk   08/05/21 Fix Scugic Misrac violations.
 * 4.7	sk   08/30/21 Update datatype of DistBaseAddress and CpuBaseAddress from
 * 		      u32 to standard UINTPTR to support on all platforms.
+* 4.7	sk   09/14/21 Fix gcc compiler warnings for A72 processor.
 * </pre>
 *
 ******************************************************************************/
@@ -677,9 +678,9 @@ void XScuGic_InterruptMapFromCpuByDistAddr(UINTPTR DistBaseAddress,
 		u8 Cpu_Id, u32 Int_Id)
 {
 	u32 RegValue;
-	u8 Cpu_CoreId;
 #if !defined (GICv3)
 	u32 Offset;
+	u8 Cpu_CoreId;
 #endif
 
 	Xil_AssertVoid(Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS);
@@ -738,9 +739,9 @@ void XScuGic_InterruptUnmapFromCpuByDistAddr(UINTPTR DistBaseAddress,
 			u8 Cpu_Id, u32 Int_Id)
 {
 	u32 RegValue;
-	u32 Cpu_CoreId;
 #if !defined (GICv3)
 	u32 Offset;
+	u32 Cpu_CoreId;
 #endif
 
 	Xil_AssertVoid(Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS);
