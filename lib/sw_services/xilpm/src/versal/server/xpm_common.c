@@ -224,6 +224,19 @@ u32 XPm_GetPlatformVersion(void)
 	return DevPlatformVersion;
 }
 
+u32 XPm_GetPmcVersion(void)
+{
+	static u32 DevPmcVersion = NOT_INITIALIZED;
+
+	if (NOT_INITIALIZED == DevPmcVersion) {
+		DevPmcVersion = (XPm_In32(PMC_TAP_VERSION) &
+		            PMC_TAP_VERSION_PMC_VERSION_MASK) >>
+			    PMC_TAP_VERSION_PMC_VERSION_SHIFT;
+	}
+
+	return DevPmcVersion;
+}
+
 u32 XPm_GetSlrType(void)
 {
 	static u32 DevSlrType = NOT_INITIALIZED;

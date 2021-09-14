@@ -172,6 +172,9 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...);
 #define PLATFORM_VERSION_SILICON_ES1		(0x0U)
 #define PLATFORM_VERSION_SILICON_ES2		(0x1U)
 
+#define PMC_VERSION_SILICON_ES1			(0x10U)
+#define PMC_VERSION_SILICON_PROD		(0x20U)
+
 #define XPM_PMC_TAP_IDCODE_SBFMLY_SHIFT		(18U)
 #define XPM_PMC_TAP_IDCODE_DEV_SHIFT		(12U)
 #define XPM_PMC_TAP_IDCODE_SBFMLY_S		((u32)2U << XPM_PMC_TAP_IDCODE_SBFMLY_SHIFT)
@@ -211,6 +214,7 @@ u32 XPm_In32(u32 RegAddress);
 
 u32 XPm_GetPlatform(void);
 u32 XPm_GetPlatformVersion(void);
+u32 XPm_GetPmcVersion(void);
 u32 XPm_GetSlrType(void);
 u32 XPm_GetIdCode(void);
 
