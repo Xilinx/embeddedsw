@@ -88,6 +88,7 @@
 *       bm   08/09/2021 Cleared PMC CDO buffer by default after processing
 *       bsv  08/17/2021 Code clean up
 *       ma   08/30/2021 Added error code for SSIT errors
+*       kpt  09/09/2021 Added error code XLOADER_ERR_SECURE_CLEAR_FAIL
 *
 * </pre>
 *
@@ -641,6 +642,8 @@ typedef enum {
 		/**< 0x633 Failed to verify checksum of image headers */
 	XLOADER_ERR_SEC_PH_VERIFY_FAIL,
 		/**< 0x634 Failed to verify checksum of partition headers */
+	XLOADER_ERR_SECURE_CLEAR_FAIL,
+		/**< 0x635 Failed to place either AES,RSA,SHA3 engine in reset */
 
 	XPLMI_ERR_CDO_CMD = 0x2000,
 		/**< 0x2XXX, CDO command handler has failed.

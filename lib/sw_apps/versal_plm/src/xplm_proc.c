@@ -25,6 +25,7 @@
 *       bsv  08/13/2021 Removed unnecessary header file
 *       ma   08/30/2021 Trigger FW_NCR error only for master and monolithic
 *                       devices
+*       kpt  09/09/21 Fixed SW-BP-BLIND-WRITE in XLoader_SecureClear
 *
 * </pre>
 *
@@ -93,7 +94,7 @@ static void XPlm_ExceptionInit(void)
  *****************************************************************************/
 static void XPlm_ExceptionHandler(void *Data)
 {
-	int Status = (int) Data;
+	int Status = XST_FAILURE;
 	u8 SlrType = (u8)(XPlmi_In32(PMC_TAP_SLR_TYPE) &
 			PMC_TAP_SLR_TYPE_VAL_MASK);
 
@@ -103,7 +104,13 @@ static void XPlm_ExceptionHandler(void *Data)
 		mfmsr(), mfear(), mfedr(), mfesr(),
 		mfgpr(r14), mfgpr(r15), mfgpr(r16), mfgpr(r17));
 
-	XLoader_SecureClear();
+	Status = XLoader_SecureClear();
+	if (Status != XST_SUCCESS) {
+		XPlmi_Printf(DEBUG_GENERAL, "Secure clear failed with"
+			"status:0x%08x \r\n", Status);
+	}
+
+	Status = (int)Data;
 	XPlmi_ErrMgr(Status);
 
 	/*
