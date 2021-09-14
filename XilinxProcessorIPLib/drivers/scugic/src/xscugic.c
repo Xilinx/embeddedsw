@@ -129,6 +129,7 @@
 *                     enable spinlocks, please refer to the documentations
 *                     at: lib/bsp/standalone/src/arm/common/gcc/xil_spinlock.c
 * 4.6	sk   08/05/21 Fix scugic Misra-c violations.
+* 4.7	sk   09/14/21 Fix gcc compiler warnings for A72 processor.
 * </pre>
 *
 ******************************************************************************/
@@ -978,7 +979,6 @@ void XScuGic_GetPriorityTriggerType(XScuGic *InstancePtr, u32 Int_Id,
 void XScuGic_InterruptMaptoCpu(XScuGic *InstancePtr, u8 Cpu_Identifier, u32 Int_Id)
 {
 	u32 RegValue;
-	u8 Cpu_CoreId;
 
 #if defined (GICv3)
 	u32 Temp;
@@ -992,6 +992,7 @@ void XScuGic_InterruptMaptoCpu(XScuGic *InstancePtr, u8 Cpu_Identifier, u32 Int_
 						  (Cpu_Identifier-1));
 	}
 #else
+	u8 Cpu_CoreId;
 	u32 Offset;
 	Xil_AssertVoid(InstancePtr != NULL);
 
@@ -1037,7 +1038,6 @@ void XScuGic_InterruptMaptoCpu(XScuGic *InstancePtr, u8 Cpu_Identifier, u32 Int_
 void XScuGic_InterruptUnmapFromCpu(XScuGic *InstancePtr, u8 Cpu_Identifier, u32 Int_Id)
 {
 	u32 RegValue;
-	u32 Cpu_CoreId;
 
 #if defined (GICv3)
 	u32 Temp;
@@ -1051,6 +1051,7 @@ void XScuGic_InterruptUnmapFromCpu(XScuGic *InstancePtr, u8 Cpu_Identifier, u32 
 						  (Cpu_Identifier-1));
 	}
 #else
+	u32 Cpu_CoreId;
 	u32 Offset;
 	Xil_AssertVoid(InstancePtr != NULL);
 
