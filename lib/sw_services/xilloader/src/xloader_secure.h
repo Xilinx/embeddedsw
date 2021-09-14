@@ -50,6 +50,7 @@
 * 1.05  har  03/17/21 Added API to set the secure state of device
 *       har  05/20/21 Updated copyright year
 * 1.06  har  07/15/21 Fixed doxygen warnings
+*       kpt  09/09/21 Fixed SW-BP-BLIND-WRITE in XLoader_SecureClear
 *
 * </pre>
 *
@@ -114,7 +115,7 @@ int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 int XLoader_ProcessSecurePrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 	u32 BlockSize, u8 Last);
 int XLoader_SecureCopy(XLoader_SecureParams *SecurePtr, u64 DestAddr, u32 Size);
-void XLoader_SecureClear(void);
+int XLoader_SecureClear(void);
 int XLoader_SecureChunkCopy(XLoader_SecureParams *SecurePtr, u64 SrcAddr,
 			u8 Last, u32 BlockSize, u32 TotalSize);
 u32 XLoader_GetAHWRoT(const u32* AHWRoTPtr);

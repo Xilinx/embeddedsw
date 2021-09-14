@@ -91,6 +91,7 @@
 *                     XLoader_VerifyHashNUpdateNext
 *       bsv  08/17/21 Code clean up
 *       bsv  08/31/21 Code clean up
+*       kpt  09/09/21 Fixed SW-BP-BLIND-WRITE in XLoader_SecureClear
 *
 * </pre>
 *
@@ -342,16 +343,25 @@ static int XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr,
  * @brief	This function is called to clear secure critical data in case of
  * exceptions. The function also places AES, ECDSA_RSA and SHA3 in reset.
  *
- * @return	None
+ * @return	XST_SUCCESS on success
+ *          XST_FAILURE on failure
  *
  *****************************************************************************/
-void XLoader_SecureClear(void)
+int XLoader_SecureClear(void)
 {
+	int Status = XST_FAILURE;
+
 #ifndef PLM_SECURE_EXCLUDE
 	XLoader_AuthEncClear();
 #endif
 	/* Place SHA3 in reset */
-	XPlmi_Out32(XLOADER_SHA3_RESET_REG, XLOADER_SHA3_RESET_VAL);
+	Status = Xil_SecureOut32(XLOADER_SHA3_RESET_REG, XLOADER_SHA3_RESET_VAL);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_SECURE_CLEAR_FAIL,
+					Status);
+	}
+
+	return Status;
 }
 
 /*****************************************************************************/
