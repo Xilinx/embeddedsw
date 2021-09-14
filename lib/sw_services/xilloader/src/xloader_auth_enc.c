@@ -56,6 +56,7 @@
 *       kpt  09/02/21 Added support to update KAT status in RTC area
 *       am   09/09/21 Fixed multiple SPK Authentication while authenticating
 *                     MetaHeader
+*       kpt  09/09/21 Fixed SW-BP-BLIND-WRITE in XLoader_AuthEncClear
 *
 * </pre>
 *
@@ -103,6 +104,10 @@
 					/**< AES Reset value */
 #define XLOADER_AES_RESET_REG			(0xF11E0010U)
 					/**< AES Reset register address */
+#define XLOADER_ECDSA_RSA_RESET_REG     (0xF1200040U)
+                    /**< ECDSA RSA Reset register address */
+#define XLOADER_ECDSA_RSA_RESET_VAL			(0x1U)
+					/**< ECDSA RSA Reset value */
 
 /*****************************************************************************/
 /**
@@ -3224,29 +3229,36 @@ static void XLoader_DisableJtag(void)
 * authentication and encryption in case of exceptions. The function also places
 * AES, ECDSA_RSA in reset.
 *
-* @return      None
+* @return      XST_SUCCESS on success
+*              XST_FAILURE on failure
 *
 ******************************************************************************/
-void XLoader_AuthEncClear(void)
+int XLoader_AuthEncClear(void)
 {
+	volatile int Status = XST_FAILURE;
+	volatile int SStatus = XST_FAILURE;
 	XSecure_Rsa *RsaInstPtr = XSecure_GetRsaInstance();
 
-	/* Clear AES keys */
+	/* Clear AES keys if AES is out of reset */
 	XPlmi_Out32(XLOADER_AES_KEY_CLR_REG, XLOADER_AES_ALL_KEYS_CLR_VAL);
 	(void)XPlmi_UtilPollForMask(XLOADER_AES_KEY_ZEROED_STATUS_REG,
 			MASK_ALL, XPLMI_TIME_OUT_DEFAULT);
+
 	/* Place AES in reset */
-	XPlmi_Out32(XLOADER_AES_RESET_REG, XLOADER_AES_RESET_VAL);
+	Status = Xil_SecureOut32(XLOADER_AES_RESET_REG,
+				XLOADER_AES_RESET_VAL);
 
 	/* Clear Rsa memory */
 	(void)XSecure_RsaCfgInitialize(RsaInstPtr);
 	XSecure_ReleaseReset(RsaInstPtr->BaseAddress,
 			XSECURE_ECDSA_RSA_RESET_OFFSET);
-	(void)XSecure_RsaZeroize(RsaInstPtr);
-	/* Place ECDSA RSA in reset */
-	XSecure_SetReset(RsaInstPtr->BaseAddress,
-			XSECURE_ECDSA_RSA_RESET_OFFSET);
+	SStatus = XSecure_RsaZeroize(RsaInstPtr);
 
+	/* Place ECDSA RSA in reset */
+	SStatus |= Xil_SecureOut32(XLOADER_ECDSA_RSA_RESET_REG,
+				XLOADER_ECDSA_RSA_RESET_VAL);
+
+	return (Status | SStatus);
 }
 
 /*****************************************************************************/
