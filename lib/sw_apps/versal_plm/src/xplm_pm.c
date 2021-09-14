@@ -35,6 +35,7 @@
 *       bm   08/09/2021 Cleared PMC CDO buffer by default after processing
 *       bsv  08/13/2021 Remove unwanted header file
 *       bsv  08/13/2021 Removed unwanted goto statements
+*       kpt  09/09/21 Fixed SW-BP-BLIND-WRITE in XLoader_SecureClear
 *
 * </pre>
 *
@@ -250,7 +251,7 @@ int XPlm_ProcessPmcCdo(void *Arg)
 	SStatus = XPlmi_MemSet(XPLMI_PMCRAM_BASEADDR, XPLMI_DATA_INIT_PZM,
 			XPLMI_PMC_CDO_MAX_WORD_LEN);
 	if ((XST_SUCCESS != Status) || (XST_SUCCESS != SStatus)) {
-		XLoader_SecureClear();
+		SStatus = XLoader_SecureClear();
 		if (Status == XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XPLM_ERR_PMC_RAM_MEMSET,
 					SStatus);
