@@ -1,5 +1,44 @@
 Changes for 2021.2
 ===============================
+
+cpu_cortexa53_v2_0:
+As FSBL BSP is compiled with Os optimization, removed O2 from COMPILER_FLAGS
+to avoid confusion.
+
+cpu_cortexr5_v2_0:
+As FSBL BSP is compiled with Os optimization, removed O2 from COMPILER_FLAGS
+to avoid confusion.
+
+generic_v3_1:
+Added support for SSIT devices
+
+iomodule_v2_12:
+Fixed violations reported by coverity tool.
+Added SSIT device support.sysmonpsv
+
+scugic_v4_6:
+Added support for SSIT devices.
+
+xilsem_v1_4:
+- Added support to notify correctable errors over IPI
+- Fixed partial NPI CDO table processing issue
+- Fixed PL_GPO toggling issue for correctable errors
+- Added XSem_NpiErrorHandler to notify if any error in NPI scan periodic
+execution
+- Added support to store and restore CFI clock divisor value. This is to
+support CRAM scan in low clock frequency
+- Added validation for payload length received in NPI descriptor CDO
+- Added support to notify if Crypto is disabled
+- Updated Examples to provide more samples to customers for reading XilSEM
+status without using debug prints
+- Fixed Doxygen warnings
+
+standalone_v7_6:
+Added support for SSIT devices.
+
+aienginev2_v3_0:
+Fixed PV console support for FreeRTOS domU guests
+
 ospipsv_v1_5:
 Added DCache invalidate at the end of the non-blocking DMA read transfer.
 Limit RX maximum number of taps to 127.
@@ -9,7 +48,7 @@ Limit the SD operating frequency to 19MHz by default for Versal platform.
 
 xilpm_v3_5:
 Versal
-  Make OSPI a default pre-allocated device.
+Make OSPI a default pre-allocated device.
 
 xilffs_v4_6:
 Fix compilation warning with RAM interface.
