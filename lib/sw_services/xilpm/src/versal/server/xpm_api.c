@@ -728,7 +728,7 @@ XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId
 	XStatus Status = XST_FAILURE;
 	u32 i;
 	u32 Platform = 0;
-	u32 PlatformVersion = 0;
+	u32 PmcVersion;
 
 	u32 PmcIPORMask = (CRP_RESET_REASON_ERR_POR_MASK |
 			   CRP_RESET_REASON_SLR_POR_MASK |
@@ -765,7 +765,7 @@ XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId
 
 	XPm_PsmModuleInit();
 
-	PlatformVersion = XPm_GetPlatformVersion();
+	PmcVersion = XPm_GetPmcVersion();
 	Platform = XPm_GetPlatform();
 
 	/* Check last reset reason */
@@ -794,7 +794,7 @@ XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId
 		/* For some boards, vccaux workaround is implemented using gpio to control vccram supply.
 		During system reset, when gpio goes low, delay is required for system controller to process
 		vccram rail off, before pdi load is started */
-		if ((PLATFORM_VERSION_SILICON == Platform) && (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
+		if ((PLATFORM_VERSION_SILICON == Platform) && (PMC_VERSION_SILICON_ES1 == PmcVersion)) {
 			usleep(300000);
 		}
 	}
