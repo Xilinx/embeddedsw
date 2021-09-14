@@ -26,6 +26,7 @@
 *                        multiple calls from client
 *       kal   08/16/2021 Fixed magic number usage comment
 *       kal   08/18/2021 Fixed SW-BP-LOCK-RESOURCE review comments
+*       har   09/14/2021 Added check for DecKeySrc in XSecure_AesKekDecrypt
 *
 * </pre>
 *
@@ -446,17 +447,30 @@ END:
 static int XSecure_AesDecryptKek(u32 KeyInfo, u32 IvAddrLow, u32 IvAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
-	u64 IvAddr = ((u64)IvAddrHigh << 32U) | (u64)IvAddrLow;
+	u64 IvAddr;
+	XSecure_AesKeySrc DstKeySrc;
+	XSecure_AesKeySize KeySize;
+	XSecure_Aes *XSecureAesInstPtr;
 	XSecure_AesKeySrc DecKeySrc = (XSecure_AesKeySrc)(KeyInfo &
 		XSECURE_AES_DEC_KEY_SRC_MASK);
-	XSecure_AesKeySrc DstKeySrc = (XSecure_AesKeySrc)(KeyInfo &
+
+	if ((DecKeySrc != XSECURE_AES_EFUSE_USER_KEY_0) &&
+		(DecKeySrc != XSECURE_AES_EFUSE_USER_KEY_1)) {
+		Status = (int)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	IvAddr = ((u64)IvAddrHigh << 32U) | (u64)IvAddrLow;
+	DstKeySrc = (XSecure_AesKeySrc)(KeyInfo &
 		XSECURE_AES_DST_KEY_SRC_MASK);
-	XSecure_AesKeySize KeySize = (XSecure_AesKeySize)(KeyInfo &
+	KeySize = (XSecure_AesKeySize)(KeyInfo &
 		XSECURE_AES_KEY_SIZE_MASK);
-	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
+	XSecureAesInstPtr = XSecure_GetAesInstance();
 
 	Status = XSecure_AesKekDecrypt(XSecureAesInstPtr, DecKeySrc, DstKeySrc,
 				IvAddr, KeySize);
+
+END:
 	return Status;
 }
 
