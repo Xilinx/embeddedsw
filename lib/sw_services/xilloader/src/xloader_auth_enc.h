@@ -29,6 +29,7 @@
 *       har  07/18/21 Added description for all macros
 *       bsv  08/17/21 Code clean up
 *       kpt  09/02/21 Added support to update KAT status in RTC area
+*       kpt  09/09/21 Fixed SW-BP-BLIND-WRITE in XLoader_AuthEncClear
 *
 * </pre>
 *
@@ -575,7 +576,7 @@ int XLoader_SecureAuthInit(XLoader_SecureParams *SecurePtr,
 	const XilPdi_PrtnHdr *PrtnHdr);
 int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 	const XilPdi_PrtnHdr *PrtnHdr);
-void XLoader_AuthEncClear(void);
+int XLoader_AuthEncClear(void);
 int XLoader_GetKatStatus(XilPdi *PdiPtr);
 int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 	u32 BlockSize, u8 Last);
