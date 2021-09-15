@@ -1,1 +1,6 @@
+###############################################################################
+# Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+###############################################################################
+
 xemacps_example_intr_dma.c=xemacps_example_util.c,xemacps_example.h
