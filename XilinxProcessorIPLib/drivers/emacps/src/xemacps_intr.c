@@ -7,7 +7,7 @@
 /**
 *
 * @file xemacps_intr.c
-* @addtogroup emacps_v3_14
+* @addtogroup emacps_v3_15
 * @{
 *
 * Functions in this file implement general purpose interrupt processing related
