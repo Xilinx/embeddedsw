@@ -93,6 +93,7 @@
 *       bsv  08/31/21 Code clean up
 *       kpt  09/09/21 Fixed SW-BP-BLIND-WRITE in XLoader_SecureClear
 *       kpt  09/09/21 Fixed SW-BP-BLIND-WRITE in XLoader_AuthEncClear
+*       kpt  09/15/21 Fixed SW-BP-INIT-FAIL in XLoader_GetAHWRoT
 *
 * </pre>
 *
@@ -710,10 +711,12 @@ static int XLoader_CheckNonZeroPpk(void)
 ******************************************************************************/
 u32 XLoader_GetAHWRoT(const u32* AHWRoTPtr)
 {
-	static u32 SecureStateAHWRoT = 0U;
+	static u32 SecureStateAHWRoT = XPLMI_RTCFG_SECURESTATE_AHWROT;
+
 	if (AHWRoTPtr != NULL) {
 		SecureStateAHWRoT = *AHWRoTPtr;
 	}
+
 	return SecureStateAHWRoT;
 }
 
