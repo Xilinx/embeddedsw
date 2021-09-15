@@ -1,6 +1,18 @@
 Changes for 2021.2
 ===============================
 
+canfd_v2_6:
+Use get_param_value to read C_S_AXI_BASEADDR parameter.
+
+wdttb_v5_3:
+Use get_param_value to read C_S_AXI_BASEADDR parameter
+
+dp14txss_v6_6:
+The KCU105 app has been updated to add support for VCU118
+
+v_tpg_v8_4:
+Interrupt handler is added TPG driver.
+
 cpu_cortexa53_v2_0:
 As FSBL BSP is compiled with Os optimization, removed O2 from COMPILER_FLAGS
 to avoid confusion.
