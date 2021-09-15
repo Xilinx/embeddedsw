@@ -6,7 +6,7 @@
 /**
 *
 * @file xxxvethernet.h
-* @addtogroup xxvethernet_v1_6
+* @addtogroup xxvethernet_v1_7
 * @{
 * @details
 *
