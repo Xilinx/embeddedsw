@@ -6,7 +6,7 @@
 /**
 *
 * @file xaxiethernet.h
-* @addtogroup axiethernet_v5_12
+* @addtogroup axiethernet_v5_13
 * @{
 * @details
 *

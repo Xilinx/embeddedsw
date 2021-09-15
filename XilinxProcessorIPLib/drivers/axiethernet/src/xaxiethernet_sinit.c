@@ -6,7 +6,7 @@
 /**
 *
 * @file xaxiethernet_sinit.c
-* @addtogroup axiethernet_v5_12
+* @addtogroup axiethernet_v5_13
 * @{
 *
 * This file contains static initialization functionality for Axi Ethernet driver.
