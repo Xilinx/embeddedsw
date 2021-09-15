@@ -1,6 +1,26 @@
 Changes for 2021.2
 ===============================
 
+llfifo_v5_6:
+Remove realpath command
+
+mutex_v4_7:
+Remove realpath command
+
+qspipsu_v1_14:
+Allow enough time for the controller to reset the FIFOs
+Enable Quad Mode in winbond flashes
+Print valid GENFIFO register values
+Perform Dcache invalidate at the end of the DMA transfer
+
+xilmailbox_v1_4:
+Added support for freertos
+Fixed MISRA-C violations
+
+v_frmbuf_rd_v4_5:
+Added support for Fid Interlace Solution
+Added support for Y_U_V8 video color format
+
 canfd_v2_6:
 Use get_param_value to read C_S_AXI_BASEADDR parameter.
 
