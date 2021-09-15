@@ -85,6 +85,96 @@ Make OSPI a default pre-allocated device.
 xilffs_v4_6:
 Fix compilation warning with RAM interface.
 
+imgsel:
+Added support for versionless build.
+
+img_rcvry:
+Fix image update failure during first attempt.
+PHY reset sequence done based on board information.
+Added support for SD read/write APIs.
+
+zynq_fsbl:
+Add copyright for the missing files.
+
+zynqmp_fsbl:
+Mark DDR as memory just after ECC initialization to avoid speculative accesses.
+Add support for delayed enumeration of DFU device.
+Fix logical issue in Secondary boot mode.
+Fix versionless build failure when USB is enabled.
+Add copyright for the missing files.
+Reset SHA engine in failure cases in authentication plus encryption cases.
+Add Winbond 2Gb flash support to ZynqMP FSBL.
+
+zynqmp_pmufw:
+Add support for dynamic loading of config object.
+Add copyright for the missing files.
+Add IOCTL call support in PMUFW.
+Add support for runtime feature configuration for OT.
+Add runtime support for External WDT.
+Add min and max limit checks for OT and External WDT features.
+Do not turn off FPD when USB wakeup source is enabled as USB controller uses GT from FPD.
+Handle APU restart gracefully if copying FSBL to DDR is failed.
+
+versal_plm:
+Code optimization/cleanup to reduce PLM size.
+Reduced 16K of reserved PPU1 RAM space for USER CODE to zero.
+Print PLM banner at the very beginning.
+Issue internal POR for VPK1802 ES1 devices to sync slave SLRs.
+Added support for xilnvm commands.
+
+xilloader_v1_5:
+Added support to extract metaheader of user PDIs during run-time.
+Reduce error log in slave boot modes in case of error.
+Added prints to display secure state by default.
+Added support for Winbond QSPI flash.
+Added support for Macronix OSPI flash.
+Support to disable the Auth JTAG after a user provided timeout.
+Fix issue in clearing CFI and CFU errors.
+
+xilpdi_v1_4:
+Minor Code cleanup.
+Added new compilation warning flags.
+
+xilplmi_v1_5:
+Renamed error node ID and event ID for better clarity.
+Support to configure uart during run-time.
+Created separate task for each IPI Channel.
+Updated IRO frequency to 400Mhz for MP, HP parts.
+Add support for registering error callback function to be called when a task missed execution.
+Support for handling CPM_NCR and link-down errors.
+Support for proc command.
+Display warning when APU IPI interrupts are disabled.
+Skip providing ack for force power-down command.
+
+xilsecure_v4_6:
+Fixed doxygen warnings.
+Added 64-bit address support for XilSecure server APIs.
+Updated validation for  AAD size to check if it is quad-word aligned.
+Added license header for Ecdsa.h.
+Added EXPORT CONTROL eFuse check in all crypto init functions for ZynqMP.
+Renamed XSecure_AesPmcDmaCfgByteSwap API with XSecure_AesPmcDmaCfgAndXfer.
+Minor bug fixes.
+Fixed MISRA C warnings.
+
+xilnvm_2_4:
+Fixed doxygen warnings.
+Added client-server support for BBRAM and eFUSE.
+Added most restrictive range checks for device temperature before programming eFuses.
+Removed clearing the BBRAM User Data in case of failure.
+Minor code refactoring in XNvm_EfuseTempAndVoltChecks function.
+
+xilpuf_v1_4:
+Fixed doxygen warnings.
+Updated comments regarding supported IRO frequency for PUF.
+Replaced xilnvm server APIs with xilnvm client APIs in xilpuf example.
+
+xilskey_v7_2:
+Fixed doxygen warnings.
+
+trngpsv_v1_0:
+Added True Random Number Generator (TRNG) driver support in Versal.
+
+
 New Files Added for 2021.2:
 MIT SPDX License:
 XilinxProcessorIPLib/drivers/aiefal/src/common/xaiefal-common.hpp
