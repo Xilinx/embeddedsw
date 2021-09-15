@@ -30,6 +30,7 @@
 *       bsv  08/17/21 Code clean up
 *       kpt  09/02/21 Added support to update KAT status in RTC area
 *       kpt  09/09/21 Fixed SW-BP-BLIND-WRITE in XLoader_AuthEncClear
+*       kpt  09/15/21 Added error code XLOADER_PUF_HD_EFUSE
 *
 * </pre>
 *
@@ -249,6 +250,8 @@ extern "C" {
 
 #define XLOADER_PUF_HD_BHDR				(0x3U)
 			/**< Value of PUF HD stored in bootheader */
+#define XLOADER_PUF_HD_EFUSE				(0x0U)
+			/**< Value of PUF HD stored in efuse */
 
 
 /**< KEK key decryption status */
