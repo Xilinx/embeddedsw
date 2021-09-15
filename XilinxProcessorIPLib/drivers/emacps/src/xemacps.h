@@ -515,11 +515,11 @@ typedef struct {
 #if defined  (XCLOCKING)
 	u32 RefClk;	/**< Input clock */
 #endif
-	u8 S1GDiv0;	/**< 1Gbps Clock Divider 0 */
+	u16 S1GDiv0;	/**< 1Gbps Clock Divider 0 */
 	u8 S1GDiv1;	/**< 1Gbps Clock Divider 1 */
-	u8 S100MDiv0;	/**< 100Mbps Clock Divider 0 */
+	u16 S100MDiv0;	/**< 100Mbps Clock Divider 0 */
 	u8 S100MDiv1;	/**< 100Mbps Clock Divider 1 */
-	u8 S10MDiv0;	/**< 10Mbps Clock Divider 0 */
+	u16 S10MDiv0;	/**< 10Mbps Clock Divider 0 */
 	u8 S10MDiv1;	/**< 10Mbps Clock Divider 1 */
 } XEmacPs_Config;
 
