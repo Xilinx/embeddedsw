@@ -1,2 +1,7 @@
+###############################################################################
+# Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+###############################################################################
+
 xxxvethernet_example_intr_mcdma.c=xxxvethernet_example_util.c,xxxvethernet_example.h
 xxxvethernet_usxgmii_example_intr_mcdma.c=xxxvethernet_example_util.c,xxxvethernet_example.h
