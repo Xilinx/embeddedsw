@@ -7,7 +7,7 @@
 /**
 *
 * @file xemaclite.h
-* @addtogroup emaclite_v4_6
+* @addtogroup emaclite_v4_7
 * @{
 * @details
 *
