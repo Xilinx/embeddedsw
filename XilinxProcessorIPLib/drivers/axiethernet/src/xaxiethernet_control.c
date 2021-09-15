@@ -6,7 +6,7 @@
 /**
 *
 * @file xaxiethernet_control.c
-* @addtogroup axiethernet_v5_12
+* @addtogroup axiethernet_v5_13
 * @{
 *
 * This file has driver APIs related to the controlling of the extended

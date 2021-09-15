@@ -1,3 +1,8 @@
+###############################################################################
+# Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+###############################################################################
+
 xaxiethernet_example_polled.c=xaxiethernet_example_util.c,xaxiethernet_example.h
 xaxiethernet_example_intr_sgdma.c=xaxiethernet_example_util.c,xaxiethernet_example.h
 xaxiethernet_example_intr_fifo.c=xaxiethernet_example_util.c,xaxiethernet_example.h
