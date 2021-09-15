@@ -57,6 +57,7 @@
 *       am   09/09/21 Fixed multiple SPK Authentication while authenticating
 *                     MetaHeader
 *       kpt  09/09/21 Fixed SW-BP-BLIND-WRITE in XLoader_AuthEncClear
+*       kpt  09/15/21 Modified check for PUF HD in XLoader_SecureEncOnlyValidations
 *
 * </pre>
 *
@@ -548,8 +549,8 @@ static int XLoader_SecureEncOnlyValidations(const XLoader_SecureParams *SecurePt
 	PufHdLocationTmp =
 		XilPdi_GetPufHdMetaHdr(&(SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl))
 		>> XIH_PH_ATTRB_PUFHD_SHIFT;
-	if ((PufHdLocation == XLOADER_PUF_HD_BHDR) ||
-		(PufHdLocationTmp == XLOADER_PUF_HD_BHDR)) {
+	if ((PufHdLocation != XLOADER_PUF_HD_EFUSE) ||
+		(PufHdLocationTmp != XLOADER_PUF_HD_EFUSE)) {
 		XPlmi_Printf(DEBUG_INFO, "DEC_ONLY mode is set, "
 			"PUFHD should be from eFuse\n\r");
 		Status = (int)XLOADER_SEC_ENC_ONLY_PUFHD_LOC_ERR;
