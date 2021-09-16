@@ -1,5 +1,8 @@
 Changes for 2021.2
 ===============================
+ipipsu_v2_10:
+Use get_param_value to read C_S_AXI_BASEADDR parameter
+Removed  a unused variable warning
 
 llfifo_v5_6:
 Remove realpath command
