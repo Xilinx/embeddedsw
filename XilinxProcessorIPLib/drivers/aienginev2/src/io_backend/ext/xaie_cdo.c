@@ -276,6 +276,33 @@ static void _XAie_CdoIO_NpiWrite32(void *IOInst, u32 RegOff, u32 RegVal)
 /*****************************************************************************/
 /**
 *
+* This is the memory IO function to mask poll a NPI address for a value.
+*
+* @param	IOInst: IO instance pointer
+* @param	RegOff: Register offset to read from.
+* @param	Mask: Mask to be applied to Data.
+* @param	Value: 32-bit value to poll for
+* @param	TimeOutUs: Timeout in micro seconds.
+*
+* @return	XAIE_OK or XAIE_ERR.
+*
+* @note		None.
+* @note		Internal only.
+*
+*******************************************************************************/
+static AieRC _XAie_CdoIO_NpiMaskPoll(void *IOInst, u64 RegOff, u32 Mask,
+		u32 Value, u32 TimeOutUs)
+{
+	XAie_CdoIO *CdoIOInst = (XAie_CdoIO *)IOInst;
+	/* Round up to msec */
+	cdo_MaskPoll(CdoIOInst->NpiBaseAddr + RegOff, Mask, Value,
+			(TimeOutUs + 999) / 1000);
+	return XAIE_OK;
+}
+
+/*****************************************************************************/
+/**
+*
 * This is the function to run backend operations
 *
 * @param	IOInst: IO instance pointer
@@ -302,6 +329,13 @@ static AieRC XAie_CdoIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 			_XAie_CdoIO_NpiWrite32(IOInst, Req->NpiRegOff,
 					Req->Val);
 			break;
+		}
+		case XAIE_BACKEND_OP_NPIMASKPOLL32:
+		{
+			XAie_BackendNpiMaskPollReq *Req = Arg;
+
+			return _XAie_CdoIO_NpiMaskPoll(IOInst, Req->NpiRegOff,
+					Req->Mask, Req->Val, Req->TimeOutUs);
 		}
 		case XAIE_BACKEND_OP_ASSERT_SHIMRST:
 		{
@@ -409,6 +443,7 @@ static AieRC XAie_CdoIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
 	(void)Mask;
 	(void)Value;
 	(void)TimeOutUs;
+
 	return XAIE_ERR;
 }
 

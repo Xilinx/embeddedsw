@@ -313,6 +313,71 @@ static void _XAie_SimIO_NpiWrite32(void *IOInst, u32 RegOff, u32 RegVal)
 	return;
 }
 
+/*****************************************************************************/
+/**
+*
+* This is the memory IO function to read 32bit data from the specified NPI
+* address.
+*
+* @param	IOInst: IO instance pointer
+* @param	RegOff: Register offset to read from.
+* @param	Data: Pointer to store the 32 bit value
+*
+* @return	XAIE_OK on success.
+*
+* @note		Internal only.
+*
+*******************************************************************************/
+static AieRC XAie_SimIO_NpiRead32(void *IOInst, u64 RegOff, u32 *Data)
+{
+	/* TODO: workaround until read supported/verified */
+	(void)IOInst;
+	(void)RegOff;
+	*Data = 0U;
+
+	return XAIE_OK;
+}
+
+/*****************************************************************************/
+/**
+*
+* This is the memory IO function to mask poll a NPI address for a value.
+*
+* @param	IOInst: IO instance pointer
+* @param	RegOff: Register offset to read from.
+* @param	Mask: Mask to be applied to Data.
+* @param	Value: 32-bit value to poll for
+* @param	TimeOutUs: Timeout in micro seconds.
+*
+* @return	XAIE_OK or XAIE_ERR.
+*
+* @note		Internal only.
+*
+*******************************************************************************/
+static AieRC _XAie_SimIO_NpiMaskPoll(void *IOInst, u64 RegOff, u32 Mask,
+		u32 Value, u32 TimeOutUs)
+{
+	AieRC Ret = XAIE_ERR;
+	u32 RegVal;
+
+
+	/* Increment Timeout value to 1 if user passed value is 1 */
+	if(TimeOutUs == 0U)
+		TimeOutUs++;
+
+	while(TimeOutUs > 0U) {
+		XAie_SimIO_NpiRead32(IOInst, RegOff, &RegVal);
+		if((RegVal & Mask) == Value) {
+			Ret = XAIE_OK;
+			break;
+		}
+		usleep(1);
+		TimeOutUs--;
+	}
+
+	return Ret;
+}
+
 static AieRC XAie_SimIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 		XAie_BackendOpCode Op, void *Arg)
 {
@@ -325,6 +390,13 @@ static AieRC XAie_SimIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 		_XAie_SimIO_NpiWrite32(IOInst, Req->NpiRegOff,
 				Req->Val);
 		break;
+	}
+	case XAIE_BACKEND_OP_NPIMASKPOLL32:
+	{
+		XAie_BackendNpiMaskPollReq *Req = Arg;
+
+		return _XAie_SimIO_NpiMaskPoll(IOInst, Req->NpiRegOff,
+				Req->Mask, Req->Val, Req->TimeOutUs);
 	}
 	case XAIE_BACKEND_OP_CONFIG_SHIMDMABD:
 	{
