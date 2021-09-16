@@ -25,6 +25,8 @@
 #define XAIE_NPI_BASEADDR		0xF70A0000
 #endif
 
+#define XAIE_NPI_TIMEOUT_US		0x00000005U
+
 /*
  * Typedef for structure for NPI protected registers access
  */
