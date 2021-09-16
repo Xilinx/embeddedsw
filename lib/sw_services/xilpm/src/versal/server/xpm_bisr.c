@@ -302,11 +302,11 @@ static XStatus XPmBisr_RepairGty(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional,
 	BaseAddr = BaseAddr + (TagOptional<< EfuseEndpointShift);
 	BisrDataDestAddr = BaseAddr + GTY_CACHE_DATA_REGISTER_OFFSET;
 
-	/* Copy repair data */
-	*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
-
 	/* Unlock PCSR */
 	XPmPlDomain_UnlockGtyPcsr(BaseAddr);
+
+	/* Copy repair data */
+	*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
 
 	/* Trigger Bisr */
 	PmOut32(BaseAddr + GTY_PCSR_MASK_OFFSET, GTY_PCSR_BISR_TRIGGER_MASK);
