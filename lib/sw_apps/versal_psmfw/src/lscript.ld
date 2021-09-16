@@ -12,9 +12,8 @@ _HEAP_SIZE = DEFINED(_HEAP_SIZE) ? _HEAP_SIZE : 0x800;
 MEMORY
 {
    instruction_Mem : ORIGIN = 0xFFC00050, LENGTH = 0x1FFB0
-   data_Mem : ORIGIN = 0xFFC20000, LENGTH = 0x1A000
-   stl_reserved_Mem : ORIGIN = 0xFFC3A000, LENGTH = 0x4000
-   tmr_ram_reserved_Mem : ORIGIN = 0xFFC3FF00, LENGTH = 0x100
+   data_Mem : ORIGIN = 0xFFC20000, LENGTH = 0x1A100
+   stl_reserved_Mem : ORIGIN = 0xFFC3A100, LENGTH = 0x4000
 }
 
 /* Specify the default entry point to the program */
@@ -207,10 +206,6 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    _stack = .;
    __stack = _stack;
 } > data_Mem
-
-.reserved_memory : {
-   KEEP (*(.reserved_memory))
-} > tmr_ram_reserved_Mem
 
 .stl_reserved_memory : {
 	KEEP (*(.stl_reserved_memory))
