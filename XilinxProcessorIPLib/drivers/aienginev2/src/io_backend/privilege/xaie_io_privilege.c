@@ -135,10 +135,12 @@ static AieRC _XAie_PrivilegeRstPartShims(XAie_DevInst *DevInst)
 		return RC;
 	}
 
-	_XAie_NpiSetShimReset(DevInst, XAIE_ENABLE);
-	_XAie_NpiSetShimReset(DevInst, XAIE_DISABLE);
+	RC = _XAie_NpiSetShimReset(DevInst, XAIE_ENABLE);
+	if(RC != XAIE_OK) {
+		return RC;
+	}
 
-	return RC;
+	return _XAie_NpiSetShimReset(DevInst, XAIE_DISABLE);
 }
 
 /*****************************************************************************/
@@ -358,8 +360,7 @@ AieRC _XAie_PrivilegeInitPart(XAie_DevInst *DevInst, XAie_PartInitOpts *Opts)
 		}
 	}
 
-	RC = _XAie_PrivilegeSetPartProtectedRegs(DevInst, XAIE_DISABLE);
-	return RC;
+	return _XAie_PrivilegeSetPartProtectedRegs(DevInst, XAIE_DISABLE);
 }
 
 /*****************************************************************************/
@@ -432,8 +433,7 @@ AieRC _XAie_PrivilegeTeardownPart(XAie_DevInst *DevInst)
 		return RC;
 	}
 
-	RC = _XAie_PrivilegeSetPartProtectedRegs(DevInst, XAIE_DISABLE);
-	return RC;
+	return _XAie_PrivilegeSetPartProtectedRegs(DevInst, XAIE_DISABLE);
 }
 
 /*****************************************************************************/
