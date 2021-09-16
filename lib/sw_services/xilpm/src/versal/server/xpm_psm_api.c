@@ -35,8 +35,7 @@ u32 ProcDevList[PROC_DEV_MAX] = {
 };
 
 /* This replicates PsmToPlmEvent stored at PSM reserved RAM location */
-volatile struct PsmToPlmEvent_t *PsmToPlmEvent =
-				(struct PsmToPlmEvent_t *)PSM_TO_PLM_EVENT_ADDR;
+volatile struct PsmToPlmEvent_t *PsmToPlmEvent;
 
 static int XPm_ProcessPsmCmd(XPlmi_Cmd * Cmd)
 {
@@ -412,6 +411,37 @@ XStatus XPm_CCIXEnEvent(u32 PowerId)
 		Status = XPm_IpiReadStatus(PSM_IPI_INT_MASK);
 	} else {
 		Status = XST_SUCCESS;
+	}
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief This Function requests for PSM_TO_PLM_EVENT_ADDR to PSM.
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code.
+ *
+ * @note none
+ *
+ ****************************************************************************/
+XStatus XPm_GetPsmToPlmEventAddr(void)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Payload[PAYLOAD_ARG_CNT];
+	u32 Response[RESPONSE_ARG_CNT] = {0};
+
+	Payload[0] = PSM_API_GET_PSM_TO_PLM_EVENT_ADDR;
+
+	Status = XPm_IpiSend(PSM_IPI_INT_MASK, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = XPm_IpiRead(PSM_IPI_INT_MASK, &Response);
+	if (XST_SUCCESS == Status) {
+		PsmToPlmEvent = (struct PsmToPlmEvent_t *)Response[1];
 	}
 
 done:

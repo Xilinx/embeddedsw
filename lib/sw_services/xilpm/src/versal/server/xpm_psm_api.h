@@ -23,8 +23,8 @@ extern "C" {
 #define PSM_API_FPD_HOUSECLEAN			(3U)
 #define PSM_API_CCIX_EN				(4U)
 #define PSM_API_DOMAIN_ISO			(6U)
+#define PSM_API_GET_PSM_TO_PLM_EVENT_ADDR	(7U)
 
-#define PSM_TO_PLM_EVENT_ADDR			(0xFFC3FF00U)
 #define PSM_TO_PLM_EVENT_VERSION		(0x2U)
 #define PWR_UP_EVT				(0x1U)
 #define PWR_DWN_EVT				(0x100U)
@@ -52,6 +52,7 @@ XStatus XPm_WakeUpEvent(const u32 DeviceId);
 XStatus XPm_DirectPwrUp(const u32 DeviceId);
 XStatus XPm_DirectPwrDwn(const u32 DeviceId);
 XStatus XPm_CCIXEnEvent(u32 PowerId);
+XStatus XPm_GetPsmToPlmEventAddr(void);
 
 #ifdef __cplusplus
 }

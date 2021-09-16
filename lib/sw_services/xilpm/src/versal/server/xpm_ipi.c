@@ -83,6 +83,43 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief	Reads IPI Response after target module has handled interrupt
+ *
+ * @param	IpiMask		IPI interrupt mask of target
+ * @param	Response	IPI Response buffer
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or an error code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPm_IpiRead(u32 IpiMask, u32 (*Response)[RESPONSE_ARG_CNT])
+{
+	XStatus Status = XST_FAILURE;
+
+	/* Wait until current IPI interrupt is handled by target module */
+	Status = XPlmi_IpiPollForAck(IpiMask, PM_IPI_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		PmDbg("%s: ERROR: Timeout expired\r\n", __func__);
+		goto done;
+	}
+
+	Status = XPlmi_IpiRead(IpiMask, (*Response),
+			       RESPONSE_ARG_CNT, XIPIPSU_BUF_TYPE_RESP);
+	if (XST_SUCCESS != Status) {
+		PmDbg("%s: ERROR: Reading from IPI Response buffer\r\n",
+		      __func__);
+		goto done;
+	}
+
+	Status = (XStatus)(*Response)[0];
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief	Check IPI Response
  *
  * @param	IpiMask		IPI interrupt mask of target

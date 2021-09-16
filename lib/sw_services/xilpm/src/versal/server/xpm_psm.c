@@ -51,6 +51,11 @@ static XStatus XPmPsm_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 		goto done;
 	}
 
+	Status = XPm_GetPsmToPlmEventAddr();
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
 	if (1U == Is_PsmPoweredDown) {
 		/* Restore the context of reserved PSM RAM memory */
 		Status = Xil_SecureMemCpy((void *)PsmToPlmEvent, sizeof(PsmToPlmEvent_bkp),
