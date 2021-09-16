@@ -1,5 +1,38 @@
 Changes for 2021.2
 ===============================
+
+scugic_v4_6:
+Added support for SSIT devices.
+Fixed MISRA-C violations in source code.
+
+axivdma_v6_10:
+- Fix unused variable GCC warning for Index1 in ReadSetup
+- Fix read/write done count check in loop in vdma interrupt example.
+- Update example comment description.
+
+csudma_v1_10:
+Update address lists to support SSIT devices
+
+v_hdmi_common_v1_6:
+Updated the VIC table as per the latest CTA spec.
+Add missing video resolutions IDs in the VIC Table.
+
+v_hdmirxss1_v3_0:
+Onsemi redriver tweaked to get reliable links. GT now put in DFE mode for 10G
+Update example app for #ifdef checks for TPG and for SetStream change
+Add support for arbitrary resolutions
+Add support for Native video
+
+iicps_v3_14:
+Fix Misra-C violations
+
+nandpsu_v1_9:
+Initialize NandInstPtr with Data Interface and Timing mode data
+Switch to best supported data interface and timing mode
+
+usbpsu_v1_10:
+Fixed plm compilation warnings when USB is included
+
 ipipsu_v2_10:
 Use get_param_value to read C_S_AXI_BASEADDR parameter
 Removed  a unused variable warning
