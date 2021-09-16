@@ -280,6 +280,7 @@ XStatus XPsmFw_FpdPreHouseClean(void);
 void XPsmFw_FpdPostHouseClean(void);
 void XPsmFw_FpdMbisr(void);
 void XPsmFw_FpdMbistClear(void);
+void XPsmFw_GetPsmToPlmEventAddr(u32 *EventAddr);
 
 #ifdef __cplusplus
 }

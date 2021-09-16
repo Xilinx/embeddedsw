@@ -96,6 +96,7 @@ extern "C" {
 #define PSM_API_CCIX_EN		(4U)
 #define PSM_API_KEEP_ALIVE	(5U)
 #define PSM_API_DOMAIN_ISO	(6U)
+#define PSM_API_GET_PSM_TO_PLM_EVENT_ADDR	(7U)
 
 /**
  *  PM init node functions
@@ -111,7 +112,7 @@ enum XPmInitFunctions {
 };
 
 XStatus XPsmFw_NotifyPlmEvent(void);
-XStatus XPsmFw_ProcessIpi(u32 *Payload);
+void XPsmFw_ProcessIpi(const u32 *Payload, u32 *Response);
 
 #ifdef __cplusplus
 }

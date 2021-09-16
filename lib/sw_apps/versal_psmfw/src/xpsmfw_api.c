@@ -169,7 +169,7 @@ done:
  * @note	None
  *
  ****************************************************************************/
-XStatus XPsmFw_ProcessIpi(u32 *Payload)
+void XPsmFw_ProcessIpi(const u32 *Payload, u32 *Response)
 {
 	XStatus Status = XST_FAILURE;
 	u32 ApiId = Payload[0];
@@ -193,12 +193,18 @@ XStatus XPsmFw_ProcessIpi(u32 *Payload)
 		case PSM_API_DOMAIN_ISO:
 			Status = XPsmFw_DomainIso(Payload[1], Payload[2]);
 			break;
+		case PSM_API_GET_PSM_TO_PLM_EVENT_ADDR:
+			XPsmFw_GetPsmToPlmEventAddr(&Response[1]);
+			Status = XST_SUCCESS;
+			break;
 		default:
 			Status = XST_INVALID_PARAM;
 			break;
 	}
 
-	return Status;
+	Response[0] = (u32)Status;
+
+	return;
 }
 
 /****************************************************************************/

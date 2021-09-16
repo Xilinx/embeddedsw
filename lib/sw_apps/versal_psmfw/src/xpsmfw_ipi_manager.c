@@ -80,9 +80,8 @@ XStatus XPsmFw_DispatchIpiHandler(u32 SrcMask)
 	if (XST_SUCCESS != Status) {
 		XPsmFw_Printf(DEBUG_ERROR, "Failure to read IPI msg\r\n");
 	} else {
-		Status = XPsmFw_ProcessIpi(&Payload[0]);
+		XPsmFw_ProcessIpi(&Payload[0], &Response[0]);
 
-		Response[0] = (u32)Status;
 		Status = XPsmFw_IpiSendResponse(IPI_PSM_IER_PMC_MASK, Response);
 	}
 

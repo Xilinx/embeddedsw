@@ -44,13 +44,12 @@
 #define PWR_UP_EVT				(0x1U)
 #define PWR_DWN_EVT				(0x100U)
 
-__attribute__((used, section(".reserved_memory")))
-	static volatile struct PsmToPlmEvent_t PsmToPlmEvent = {
-		.Version	= PSM_TO_PLM_EVENT_VERSION,
-		.Event		= {0x0},
-		.CpuIdleFlag 	= {0x0},
-		.ResumeAddress 	= {0x0},
-	};
+static volatile struct PsmToPlmEvent_t PsmToPlmEvent = {
+	.Version	= PSM_TO_PLM_EVENT_VERSION,
+	.Event		= {0x0},
+	.CpuIdleFlag 	= {0x0},
+	.ResumeAddress 	= {0x0},
+};
 
 static u32 LocalPwrState;
 
@@ -1948,4 +1947,15 @@ XStatus XPsmFw_DispatchPwrCtlHandler(u32 PwrCtlStatus, u32 PwrCtlIntMask)
 	}
 
 	return Status;
+}
+
+/**
+ * XPsmFw_GetPsmToPlmEventAddr() - Provides address of
+ * PsmToPlmEvent
+ *
+ * @EventAddr      Buffer pointer to store PsmToPlmEvent
+ */
+void XPsmFw_GetPsmToPlmEventAddr(u32 *EventAddr)
+{
+	*EventAddr = (u32)(&PsmToPlmEvent);
 }
