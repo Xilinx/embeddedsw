@@ -1301,7 +1301,8 @@ XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 	}
 
 	/* AIE Instance for VC1702 (TODO: Remove this when topology support is added) */
-	if (PMC_TAP_IDCODE_DEV_SBFMLY_VC1702 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK)) {
+	if ((PMC_TAP_IDCODE_DEV_SBFMLY_VC1702 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK)) ||
+			(PMC_TAP_IDCODE_DEV_SBFMLY_VE1752 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK))) {
 		AieInst.NumCols = 38U;
 		AieInst.NumRows = 8U;
 		AieInst.StartCol = 0U;
