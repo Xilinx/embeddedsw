@@ -38,6 +38,11 @@
 * 7.2   asa  03/18/20 Add implementation for new APIs that simplifies the
 *                     existing event handling mechanism.
 *                     Older APIs are being deprecated.
+* 7.6   mus  09/16/21 PmcrEventCfg32 is declared with deprecate attribute and
+*                     being used in one of the deprecated function,
+*                     that is always resulting into complialation
+*                     warning. Removed deprecate attribute from PmcrEventCfg32
+*                     to fix un-necessary warning CR#1110990.
 * </pre>
 *
 ******************************************************************************/
@@ -51,11 +56,7 @@
 /************************** Constant Definitions ****************************/
 
 /**************************** Type Definitions ******************************/
-#if defined (__GNUC__)
-typedef const u32 PmcrEventCfg32[XPM_CTRCOUNT] __attribute__ ((deprecated));
-#else
 typedef const u32 PmcrEventCfg32[XPM_CTRCOUNT];
-#endif
 
 /***************** Macros (Inline Functions) Definitions ********************/
 
