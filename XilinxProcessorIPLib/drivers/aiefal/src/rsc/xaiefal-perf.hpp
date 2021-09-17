@@ -300,15 +300,10 @@ namespace xaiefal {
 					" resource not allocated." << std::endl;
 				RC = XAIE_ERR;
 			} else {
-				if (static_cast<XAie_ModuleType>(Rsc.Mod) == XAIE_CORE_MOD) {
-					E = XAIE_EVENT_PERF_CNT_0_CORE;
-				} else if (static_cast<XAie_ModuleType>(Rsc.Mod) == XAIE_MEM_MOD) {
-					E = XAIE_EVENT_PERF_CNT_0_MEM;
-				} else {
-					E = XAIE_EVENT_PERF_CNT_0_PL;
-				}
 				M = static_cast<XAie_ModuleType>(Rsc.Mod);
-				E = (XAie_Events)((uint32_t)E + Rsc.RscId);
+				XAie_Events BaseEvent;
+				XAie_PerfCounterGetEventBase(AieHd->dev(), Loc, M, &BaseEvent);
+				E = static_cast<XAie_Events>(static_cast<uint32_t>(E) + Rsc.RscId);
 				RC = XAIE_OK;
 			}
 
