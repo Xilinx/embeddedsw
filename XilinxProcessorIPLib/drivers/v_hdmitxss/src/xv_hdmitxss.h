@@ -125,20 +125,6 @@ extern "C" {
 #define ANSI_COLOR_YELLOW  "\x1b[33m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
 
-/**
- * This typedef contains the different background colors available
- */
-typedef enum
-{
-  XV_BKGND_BLACK = 0,
-  XV_BKGND_WHITE,
-  XV_BKGND_RED,
-  XV_BKGND_GREEN,
-  XV_BKGND_BLUE,
-  XV_BKGND_NOISE,
-  XV_BKGND_LAST
-}XVMaskColorId;
-
 /** @name Handler Types
 * @{
 */
