@@ -1,3 +1,8 @@
+/******************************************************************************
+* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+
 #include <stdio.h>
 #include "xil_types.h"
 sint32 fcntl (sint32 fd, sint32 cmd, sint32 arg);

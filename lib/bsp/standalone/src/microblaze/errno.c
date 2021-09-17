@@ -1,3 +1,8 @@
+/******************************************************************************
+* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+
 /* The errno variable is stored in the reentrancy structure.  This
    function returns its address for use by the macro errno defined in
    errno.h.  */
