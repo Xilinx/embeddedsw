@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -48,6 +48,7 @@
 *       har  10/12/20 Addressed security review comments
 * 4.5   am   11/24/20 Resolved MISRA C violations
 * 4.6   gm   07/16/21 Added support for 64-bit address
+*       am   09/17/21 Resolved compiler warnings
 *
 * </pre>
 *
@@ -105,7 +106,7 @@ int XSecure_RsaInitialize_64Bit(XSecure_Rsa *InstancePtr, u64 Mod, u64 ModExt,
 		goto END;
 	}
 
-	Status = XSecure_RsaCfgInitialize(InstancePtr);
+	Status = (int)XSecure_RsaCfgInitialize(InstancePtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -319,7 +320,7 @@ int XSecure_RsaPublicEncrypt_64Bit(XSecure_Rsa *InstancePtr, u64 Input,
 	Status = XSecure_RsaOperation(InstancePtr, Input, Result,
 			XSECURE_RSA_SIGN_ENC, Size);
 #else
-	Status = XSecure_RsaOperation(InstancePtr, (u8 *)(UINTPTR)Input,
+	Status = (int)XSecure_RsaOperation(InstancePtr, (u8 *)(UINTPTR)Input,
 			(u8 *)(UINTPTR)Result, XSECURE_RSA_SIGN_ENC, Size);
 #endif
 
@@ -412,7 +413,7 @@ int XSecure_RsaPrivateDecrypt_64Bit(XSecure_Rsa *InstancePtr, u64 Input,
 #ifdef versal
 	ModAddr = InstancePtr->ModAddr;
 #else
-	ModAddr = (u64)InstancePtr->Mod;
+	ModAddr = (u64)(UINTPTR)(InstancePtr->Mod);
 #endif
 
 	/*
@@ -428,7 +429,7 @@ int XSecure_RsaPrivateDecrypt_64Bit(XSecure_Rsa *InstancePtr, u64 Input,
 			Status = XSecure_RsaOperation(InstancePtr, Input,
 					Result, XSECURE_RSA_SIGN_DEC, Size);
 #else
-			Status = XSecure_RsaOperation(InstancePtr,
+			Status = (int)XSecure_RsaOperation(InstancePtr,
 					(u8 *)(UINTPTR)Input,
 					(u8 *)(UINTPTR)Result,
 					XSECURE_RSA_SIGN_DEC,

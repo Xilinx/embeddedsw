@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -24,6 +24,8 @@
 *       har  04/06/20 Added function for selection of PKCS padding
 * 4.3   har  06/17/20 Removed references to unused algorithms
 *       ana  10/15/20 Updated doxygen tags
+* 4.6   am   09/17/21 Resolved compiler warnings
+*
 * </pre>
 *
 * @endcond
@@ -165,7 +167,7 @@ u32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 		u8 *Result, u8 EncDecFlag, u32 Size);
 
 /* ZynqMP specific function for selection of PKCS padding */
-u8* XSecure_RsaGetTPadding();
+u8* XSecure_RsaGetTPadding(void);
 
 #ifdef __cplusplus
 }
