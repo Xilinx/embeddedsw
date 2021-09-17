@@ -35,6 +35,8 @@
 *                         For Cortexa72, these macro's would not be supported
 *                         at EL3, as Cortexa72 is using GIC-500(GICv3),  which
 *                         triggeres only FIQ at EL3. Fix for CR#1062506
+# 7.6   mus      09/17/21 Updated flag checking to fix warning reported with
+#                         -Wundef compiler option CR#1110261
 * </pre>
 *
 ******************************************************************************/
@@ -192,7 +194,7 @@ typedef void (*Xil_InterruptHandler)(void *data);
 #define Xil_ExceptionDisable() \
 		Xil_ExceptionDisableMask(XIL_EXCEPTION_IRQ)
 
-#if ( defined (PLATFORM_ZYNQMP) && EL3 )
+#if ( defined (PLATFORM_ZYNQMP) && defined (EL3) && (EL3==1) )
 /****************************************************************************/
 /**
 * @brief	Enable nested interrupts by clearing the I bit in DAIF.This
@@ -248,7 +250,7 @@ typedef void (*Xil_InterruptHandler)(void *data);
                 __asm__ __volatile__ ("orr    X1, X1, #(0x1<<7)"); \
                 __asm__ __volatile__ ("msr    DAIF, X1");  \
 
-#elif EL1_NONSECURE
+#elif (defined (EL1_NONSECURE) && (EL1_NONSECURE==1))
 /****************************************************************************/
 /**
 * @brief	Enable nested interrupts by clearing the I bit in DAIF.This
