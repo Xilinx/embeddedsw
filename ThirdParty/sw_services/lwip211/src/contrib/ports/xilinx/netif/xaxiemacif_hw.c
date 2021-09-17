@@ -51,7 +51,6 @@ XAxiEthernet_Config *xaxiemac_lookup_config(unsigned mac_base)
 
 void init_axiemac(xaxiemacif_s *xaxiemac, struct netif *netif)
 {
-	unsigned mac_address = (unsigned)(UINTPTR)(netif->state);
 	unsigned link_speed = 1000;
 	unsigned options;
 	XAxiEthernet *xaxiemacp;
