@@ -60,6 +60,20 @@ extern "C" {
 /****************************** Type Definitions ******************************/
 
 /**
+ * This typedef contains the different background colors available
+ */
+typedef enum
+{
+  XV_BKGND_BLACK = 0,
+  XV_BKGND_WHITE,
+  XV_BKGND_RED,
+  XV_BKGND_GREEN,
+  XV_BKGND_BLUE,
+  XV_BKGND_NOISE,
+  XV_BKGND_LAST
+}XVMaskColorId;
+
+/**
 * This typedef contains Video identification information in tabular form.
 */
 typedef enum {
