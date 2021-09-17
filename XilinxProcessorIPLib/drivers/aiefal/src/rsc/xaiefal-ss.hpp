@@ -71,12 +71,8 @@ namespace xaiefal {
 					" resource not reserved." << std::endl;
 				RC = XAIE_ERR;
 			} else {
-				if (Loc.Row == 0) {
-					E = XAIE_EVENT_PORT_IDLE_0_PL;
-				} else {
-					E = XAIE_EVENT_PORT_IDLE_0_CORE;
-				}
-				E = (XAie_Events)((uint32_t)E + Rsc.RscId * 4);
+				XAie_EventGetIdlePortEventBase(AieHd->dev(), Loc, Mod, &E);
+				E = static_cast<XAie_Events>(static_cast<XAie_Events>(E) + Rsc.RscId * 4);
 				RC = XAIE_OK;
 			}
 			return RC;
