@@ -1,3 +1,14 @@
+ /*
+ * This file originated from Dhrystone github:
+ * https://github.com/Keith-S-Thompson/dhrystone/blob/master/v2.1/
+ * This file did not contain a copyright notice or license text.
+ * Accordingly, this file is partially authored by an unknown author or authors
+ * who may hold the copyright(s) to code in this file. Therefore, use of the
+ * non-Xilinx code in this file is at the end users sole risk, and Xilinx
+ * does not grant to end user and rights or licenses to any non-Xilinx code in
+ * this file.
+*/
+
 /*
  ****************************************************************************
  *
