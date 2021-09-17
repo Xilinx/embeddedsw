@@ -69,17 +69,17 @@ extern "C" {
 #define XREG_CPSR				cpsr
 
 /* Current Processor Status Register (CPSR) Bits */
-#define XREG_CPSR_MODE_BITS			0x1F
-#define XREG_CPSR_EL3h_MODE			0xD
-#define XREG_CPSR_EL3t_MODE			0xC
-#define XREG_CPSR_EL2h_MODE			0x9
-#define XREG_CPSR_EL2t_MODE			0x8
-#define XREG_CPSR_EL1h_MODE			0x5
-#define XREG_CPSR_EL1t_MODE			0x4
-#define XREG_CPSR_EL0t_MODE			0x0
+#define XREG_CPSR_MODE_BITS			0x1FU
+#define XREG_CPSR_EL3h_MODE			0xDU
+#define XREG_CPSR_EL3t_MODE			0xCU
+#define XREG_CPSR_EL2h_MODE			0x9U
+#define XREG_CPSR_EL2t_MODE			0x8U
+#define XREG_CPSR_EL1h_MODE			0x5U
+#define XREG_CPSR_EL1t_MODE			0x4U
+#define XREG_CPSR_EL0t_MODE			0x0U
 
-#define XREG_CPSR_IRQ_ENABLE		0x80
-#define XREG_CPSR_FIQ_ENABLE		0x40
+#define XREG_CPSR_IRQ_ENABLE		0x80U
+#define XREG_CPSR_FIQ_ENABLE		0x40U
 
 #define XREG_CPSR_N_BIT				0x80000000U
 #define XREG_CPSR_Z_BIT				0x40000000U
