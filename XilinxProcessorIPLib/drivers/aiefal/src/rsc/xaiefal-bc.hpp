@@ -348,8 +348,6 @@ namespace xaiefal {
 				const std::vector<XAie_LocType> &vL,
 				XAie_ModuleType startM, XAie_ModuleType endM,
 				std::vector<XAie_UserRsc> &vR) {
-			uint16_t bits;
-			int bci = -1;
 
 			if ((vL[0].Row == 0 && startM != XAIE_PL_MOD) ||
 			    (vL.back().Row == 0 && endM != XAIE_PL_MOD) ||
@@ -359,7 +357,6 @@ namespace xaiefal {
 					"BC: invalid tiles and modules combination." << std::endl;
 				return XAIE_INVALID_ARGS;
 			}
-			bits = 0;
 
 			for (size_t i = 0; i < vL.size(); i++) {
 				XAie_UserRsc R;
@@ -424,17 +421,6 @@ namespace xaiefal {
 						}
 					}
 				}
-			}
-			for (int i = 0; i < 16; i++) {
-				if ((bits & (1 << i)) == 0) {
-					bci = i;
-					break;
-				}
-			}
-			if (bci < 0) {
-				Logger::log(LogLevel::ERROR) << __func__ <<
-					"BC: no free BC." << std::endl;
-				return XAIE_INVALID_ARGS;
 			}
 			return XAIE_OK;
 		}
