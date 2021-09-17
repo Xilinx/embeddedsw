@@ -167,61 +167,22 @@ namespace xaiefal {
 		AieRC _start() {
 			AieRC RC = XAIE_OK;
 			int i = 0;
+			uint32_t TType;
+			u32 data;
+			u32 addr;
 
 			for(auto r = vRscs.begin(); r != vRscs.end();) {
 				uint8_t un_block = 0;
-				if ((*r).Loc.Row == 0) {
-					if (r != vRscs.begin()) {
-						if  ((*(r - 1)).Loc.Col < ((*r).Loc.Col ))  {
-							un_block = XAIE_EVENT_BROADCAST_WEST;
-						} else if  ((*(r - 1)).Loc.Col > ((*r).Loc.Col))  {
-							un_block = XAIE_EVENT_BROADCAST_EAST;
-						} else {
-							// Vertical
-							un_block |= XAIE_EVENT_BROADCAST_NORTH;
-						}
-					}
-					if ((r + 1) != vRscs.end()) {
-						if  ((*(r + 1)).Loc.Col < ((*r).Loc.Col ))  {
-							un_block = XAIE_EVENT_BROADCAST_WEST;
-						} else if  ((*(r + 1)).Loc.Col > ((*r).Loc.Col))  {
-							un_block = XAIE_EVENT_BROADCAST_EAST;
-						} else {
-							// Vertical
-							un_block |= XAIE_EVENT_BROADCAST_NORTH;
-						}
-					}
-					RC = XAie_EventBroadcastUnblockDir(dev(),
-						(*r).Loc, static_cast<XAie_ModuleType>((*r).Mod),
-						XAIE_EVENT_SWITCH_A,
-						(*r).RscId,
-						XAIE_EVENT_BROADCAST_ALL);
+				uint8_t un_block_n = 0;
 
-					RC = XAie_EventBroadcastUnblockDir(dev(),
-						(*r).Loc, static_cast<XAie_ModuleType>((*r).Mod),
-						XAIE_EVENT_SWITCH_B,
-						(*r).RscId,
-						XAIE_EVENT_BROADCAST_ALL);
-					RC = XAie_EventBroadcastBlockDir(dev(),
-						(*r).Loc, static_cast<XAie_ModuleType>((*r).Mod),
-						XAIE_EVENT_SWITCH_A,
-						(*r).RscId,
-						XAIE_EVENT_BROADCAST_ALL & (~(un_block | XAIE_EVENT_BROADCAST_EAST)));
-					RC = XAie_EventBroadcastBlockDir(dev(),
-						(*r).Loc, static_cast<XAie_ModuleType>((*r).Mod),
-						XAIE_EVENT_SWITCH_B,
-						(*r).RscId,
-						XAIE_EVENT_BROADCAST_ALL & (~(un_block | XAIE_EVENT_BROADCAST_WEST)));
-					r++;
-				} else { // non SHIM
-					uint8_t un_block_n;
+				TType = _XAie_GetTileTypefromLoc(dev(), (*r).Loc);
+				if (TType == XAIEGBL_TILE_TYPE_AIETILE) {
 					if (r != vRscs.begin()) {
 						if  ((*(r - 1)).Loc.Col < ((*r).Loc.Col ))  {
-							un_block = XAIE_EVENT_BROADCAST_WEST;
+							un_block |= XAIE_EVENT_BROADCAST_WEST;
 						} else if  ((*(r - 1)).Loc.Col > ((*r).Loc.Col))  {
-							un_block = XAIE_EVENT_BROADCAST_EAST;
+							un_block |= XAIE_EVENT_BROADCAST_EAST;
 						} else if ((*(r - 1)).Loc.Row > ((*r).Loc.Row))  {
-							// Vertical
 							un_block |= XAIE_EVENT_BROADCAST_NORTH;
 						} else {
 							un_block |= XAIE_EVENT_BROADCAST_SOUTH;
@@ -230,34 +191,33 @@ namespace xaiefal {
 
 					if ((r + 2) != vRscs.end()) {
 						if  ((*(r + 2)).Loc.Col < ((*r).Loc.Col ))  {
-							un_block = XAIE_EVENT_BROADCAST_WEST;
+							un_block |= XAIE_EVENT_BROADCAST_WEST;
 						} else if  ((*(r + 2)).Loc.Col > ((*r).Loc.Col))  {
-							un_block = XAIE_EVENT_BROADCAST_EAST;
+							un_block |= XAIE_EVENT_BROADCAST_EAST;
 						} else if ((*(r + 2)).Loc.Row > ((*r).Loc.Row))  {
-							// Vertical
 							un_block |= XAIE_EVENT_BROADCAST_NORTH;
 						} else {
 							un_block |= XAIE_EVENT_BROADCAST_SOUTH;
 						}
 					}
 					un_block_n = un_block;
-					if ((*r).Mod == static_cast<uint32_t>(XAIE_MEM_MOD)) {
+					u8 IsCheckerBoard;
+					XAie_IsDeviceCheckerboard(dev(), &IsCheckerBoard);
+					if (IsCheckerBoard) {
+						/* All broadcast core tiles begin with reserving core module first */
 						if ((*r).Loc.Row % 2) {
-							un_block |= XAIE_EVENT_BROADCAST_WEST;
-							un_block_n |= XAIE_EVENT_BROADCAST_EAST;
-						} else {
 							un_block |= XAIE_EVENT_BROADCAST_EAST;
 							un_block_n |= XAIE_EVENT_BROADCAST_WEST;
+						} else {
+							un_block |= XAIE_EVENT_BROADCAST_WEST;
+							un_block_n |= XAIE_EVENT_BROADCAST_EAST;
 						}
+
 					} else {
-						if ((*r).Loc.Row % 2) {
-							un_block |= XAIE_EVENT_BROADCAST_EAST;
-							un_block_n |= XAIE_EVENT_BROADCAST_WEST;
-						} else {
-							un_block |= XAIE_EVENT_BROADCAST_WEST;
-							un_block_n |= XAIE_EVENT_BROADCAST_EAST;
-						}
+						un_block |= XAIE_EVENT_BROADCAST_EAST;
+						un_block_n |= XAIE_EVENT_BROADCAST_WEST;
 					}
+
 					RC = XAie_EventBroadcastUnblockDir(dev(),
 									(*r).Loc, static_cast<XAie_ModuleType>((*r).Mod),
 									XAIE_EVENT_SWITCH_A,
@@ -265,7 +225,7 @@ namespace xaiefal {
 									XAIE_EVENT_BROADCAST_ALL);
 					RC = XAie_EventBroadcastUnblockDir(dev(),
 									(*(r+1)).Loc, static_cast<XAie_ModuleType>((*(r + 1)).Mod),
-									XAIE_EVENT_SWITCH_B,
+									XAIE_EVENT_SWITCH_A,
 									(*(r + 1)).RscId,
 									XAIE_EVENT_BROADCAST_ALL);
 					RC = XAie_EventBroadcastBlockDir(dev(),
@@ -278,7 +238,50 @@ namespace xaiefal {
 									XAIE_EVENT_SWITCH_A,
 									(*(r + 1)).RscId,
 									XAIE_EVENT_BROADCAST_ALL & (~un_block_n));
+
 					r += 2;
+				} else {
+					if (r != vRscs.begin()) {
+						if  ((*(r - 1)).Loc.Col < ((*r).Loc.Col ))  {
+							un_block = XAIE_EVENT_BROADCAST_WEST;
+						} else if  ((*(r - 1)).Loc.Col > ((*r).Loc.Col))  {
+							un_block = XAIE_EVENT_BROADCAST_EAST;
+						} else {
+							un_block = XAIE_EVENT_BROADCAST_NORTH;
+						}
+					}
+					if ((r + 1) != vRscs.end()) {
+						if  ((*(r + 1)).Loc.Col < ((*r).Loc.Col ))  {
+							un_block |= XAIE_EVENT_BROADCAST_WEST;
+						} else if  ((*(r + 1)).Loc.Col > ((*r).Loc.Col))  {
+							un_block |= XAIE_EVENT_BROADCAST_EAST;
+						} else {
+							un_block |= XAIE_EVENT_BROADCAST_NORTH;
+						}
+					}
+					RC = XAie_EventBroadcastUnblockDir(dev(),
+						(*r).Loc, static_cast<XAie_ModuleType>((*r).Mod),
+						XAIE_EVENT_SWITCH_A,
+						(*r).RscId,
+						XAIE_EVENT_BROADCAST_ALL);
+					RC = XAie_EventBroadcastUnblockDir(dev(),
+						(*r).Loc, static_cast<XAie_ModuleType>((*r).Mod),
+						XAIE_EVENT_SWITCH_B,
+						(*r).RscId,
+						XAIE_EVENT_BROADCAST_ALL);
+					RC = XAie_EventBroadcastBlockDir(dev(),
+						(*r).Loc, static_cast<XAie_ModuleType>((*r).Mod),
+						XAIE_EVENT_SWITCH_A,
+						(*r).RscId,
+						XAIE_EVENT_BROADCAST_ALL & (~(un_block | XAIE_EVENT_BROADCAST_EAST)));
+
+					RC = XAie_EventBroadcastBlockDir(dev(),
+						(*r).Loc, static_cast<XAie_ModuleType>((*r).Mod),
+						XAIE_EVENT_SWITCH_B,
+						(*r).RscId,
+						XAIE_EVENT_BROADCAST_ALL & (~(un_block | XAIE_EVENT_BROADCAST_WEST)));
+
+					r++;
 				}
 				if (RC != XAIE_OK) {
 					break;
