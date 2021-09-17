@@ -390,73 +390,7 @@ namespace xaiefal {
 			}
 			return RC;
 		}
-		/**
-		 * This function converts absolute tile location into tile type
-		 * relative tile location. E.g. tile(1, 1), its relative
-		 * location can be tile(1, 0) of core tile depending on the
-		 * actual device.
-		 *
-		 * @param L tile absolute location
-		 * @param rL returns tile relative location
-		 * @param TTypeStr returns the tile type in string
-		 * @return XAIE_OK
-		 */
-		AieRC getRelativeLoc(XAie_LocType L, XAie_LocType &rL,
-			std::string &TTypeStr) const {
-			uint8_t Type = _XAie_GetTileTypefromLoc(
-					AieHandle->dev(), L);
 
-			rL.Col = L.Col;
-			if (Type == XAIEGBL_TILE_TYPE_AIETILE) {
-				rL.Row = L.Row -
-					AieHandle->dev()->AieTileRowStart;
-				TTypeStr = "core";
-			} else {
-				rL.Row = L.Row;
-				TTypeStr = "shim";
-			}
-			return XAIE_OK;
-		}
-		/**
-		 * This function converts tile type relative tile location into
-		 * absolute tile location. E.g. core tile(1, 0), its absolute
-		 * location can be tile(1, 1) depending on the actual device.
-		 *
-		 * @param rL tile type relative location
-		 * @param TTypeStr tile type string
-		 * @param L returns the absolute tile location
-		 * @return XAIE_OK for success, error code for failure
-		 */
-		AieRC getLoc(XAie_LocType rL, const std::string &TTypeStr,
-			XAie_LocType &L) const {
-
-			AieRC RC;
-			if (TTypeStr == "core") {
-				if (rL.Row >=
-					AieHandle->dev()->AieTileNumRows) {
-					RC = XAIE_INVALID_ARGS;
-				} else {
-					L.Row = rL.Row +
-						AieHandle->dev()->AieTileRowStart;
-					RC = XAIE_OK;
-				}
-			} else if (TTypeStr == "shim") {
-				if (rL.Row > 0) {
-				       RC = XAIE_INVALID_ARGS;
-				} else {
-					L.Row = rL.Row;
-					RC = XAIE_OK;
-				}
-			} else {
-				RC = XAIE_INVALID_ARGS;
-			}
-			if (RC != XAIE_OK) {
-				Logger::log(LogLevel::ERROR) << __func__ <<
-					"failed. invalid location." <<
-					std::endl;
-			}
-			return RC;
-		}
 	private:
 		std::shared_ptr<XAieDevHandle> AieHandle; /**< AI engine device
 							    handle */
