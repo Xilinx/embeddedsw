@@ -30,6 +30,7 @@
 *   kpt  05/20/2021 Added macro XNVM_EFUSE_PUF_SYN_CACHE_READ_ROW for
 *                   PUF cache read
 * 2.4   kal  07/13/2021 Fixed doxygen warnings
+*       har  09/16/2021 Added macro for offset for ANLG TRIM 2 register
 *
 * </pre>
 *
@@ -145,6 +146,7 @@ extern "C" {
  */
 /**< eFUSE Cache Register Offsets */
 #define XNVM_EFUSE_CACHE_TBITS0_SVD_OFFSET    			(0x00000000U)
+#define XNVM_EFUSE_CACHE_ANLG_TRIM_2_OFFSET			(0x0000000CU)
 #define XNVM_EFUSE_CACHE_ANLG_TRIM_3_OFFSET			(0x00000010U)
 #define XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_OFFSET			(0x00000094U)
 #define XNVM_EFUSE_CACHE_MISC_CTRL_OFFSET			(0x000000A0U)

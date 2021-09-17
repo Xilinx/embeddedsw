@@ -70,6 +70,8 @@
 *       kal  08/13/2021 Add most restrictive range check for device temparature
 *                       before eFuse programming
 *       har  09/16/2021 Removed magic numbers in XNvm_EfuseWriteSecCtrl function
+*                       Check for Trim2 instead of Trim3 before programming
+*                       Protection bit 37
 *
 * </pre>
 *
@@ -4289,7 +4291,7 @@ static int XNvm_EfusePrgmProtectionEfuse(void)
 	u32 SecurityMisc1Data;
 	u32 MiscCtrlData;
 	u32 BootEnvCtrlRow;
-	u32 AnlgTrim3Row;
+	u32 AnlgTrim2Row;
 	u32 AnlgTrim6Row;
 	u32 AnlgTrim7Row;
 	u32 TrimAms12Row;
@@ -4395,9 +4397,9 @@ static int XNvm_EfusePrgmProtectionEfuse(void)
 	BootEnvCtrlRow = XNvm_EfuseReadReg(
 			XNVM_EFUSE_CACHE_BASEADDR,
 			XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_OFFSET);
-	AnlgTrim3Row = XNvm_EfuseReadReg(
+	AnlgTrim2Row = XNvm_EfuseReadReg(
 			XNVM_EFUSE_CACHE_BASEADDR,
-			XNVM_EFUSE_CACHE_ANLG_TRIM_3_OFFSET);
+			XNVM_EFUSE_CACHE_ANLG_TRIM_2_OFFSET);
 	AnlgTrim6Row = XNvm_EfuseReadReg(
 			XNVM_EFUSE_CACHE_BASEADDR,
 			XNVM_EFUSE_CACHE_ANLG_TRIM_6_OFFSET);
@@ -4408,7 +4410,7 @@ static int XNvm_EfusePrgmProtectionEfuse(void)
 			XNVM_EFUSE_CACHE_BASEADDR,
 			XNVM_EFUSE_CACHE_TRIM_AMS_12_OFFSET);
 	if ((BootEnvCtrlRow != 0x00U) &&
-		(AnlgTrim3Row != 0x00U) &&
+		(AnlgTrim2Row != 0x00U) &&
 		(AnlgTrim6Row != 0x00U) &&
 		(AnlgTrim7Row != 0x00U) &&
 		(TrimAms12Row != 0x00U)) {
