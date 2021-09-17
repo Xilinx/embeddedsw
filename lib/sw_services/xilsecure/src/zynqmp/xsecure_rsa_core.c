@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,7 @@
 *                     common directory
 *       har  10/12/20 Addressed security review comments
 * 4.6   kal  08/11/21 Added EXPORT CONTROL eFuse check in RsaCfgInitialize
+*       am   09/17/21 Resolved compiler warnings
 *
 * </pre>
 *
@@ -309,7 +310,7 @@ static void XSecure_RsaGetData(XSecure_Rsa *InstancePtr, u32 *RdData)
 	 * Each iteration of this loop reads 32 * 6 = 192 bits
 	 * Therefore, for 4096, total iterations required = 4096/192 = 21.33 = 22
 	 */
-	TmpIndex = InstancePtr->SizeInWords - 1;
+	TmpIndex = (s32)(InstancePtr->SizeInWords) - 1;
 	for (DataOffset = 0U; DataOffset < XSECURE_RSA_MAX_RD_WR_CNT; DataOffset++)
 	{
 		XSecure_WriteReg(InstancePtr->BaseAddress,
@@ -329,9 +330,9 @@ static void XSecure_RsaGetData(XSecure_Rsa *InstancePtr, u32 *RdData)
 			 * reverse it after reading it from RSA memory,
 			 */
 			RdData[TmpIndex] = Xil_Htonl(XSecure_ReadReg(
-						InstancePtr->BaseAddress,
-			(XSECURE_CSU_RSA_RD_DATA_0_OFFSET+
-					(Index * XSECURE_WORD_SIZE))));
+				InstancePtr->BaseAddress,
+				(XSECURE_CSU_RSA_RD_DATA_0_OFFSET +
+				(u16)(Index * XSECURE_WORD_SIZE))));
 			TmpIndex--;
 
 		}
@@ -550,8 +551,8 @@ static u32 XSecure_RsaZeroizeVerify(XSecure_Rsa *InstancePtr)
 				DataOffset));
 			for (Index = 0U; Index < XSECURE_RSA_MAX_BUFF; Index++) {
 				Data |= XSecure_ReadReg(InstancePtr->BaseAddress,
-						(XSECURE_CSU_RSA_RD_DATA_0_OFFSET +
-						(Index * XSECURE_WORD_SIZE)));
+					(XSECURE_CSU_RSA_RD_DATA_0_OFFSET +
+					(u16)(Index * XSECURE_WORD_SIZE)));
 			}
 
 			if (Data != 0U) {
@@ -583,7 +584,7 @@ END:
  *              XSecure_Silicon1_TPadSha3 if Silicon version is 1.0
  *
  *****************************************************************************/
-u8* XSecure_RsaGetTPadding()
+u8* XSecure_RsaGetTPadding(void)
 {
 	u8* Tpadding = (u8 *)XNULL ;
 

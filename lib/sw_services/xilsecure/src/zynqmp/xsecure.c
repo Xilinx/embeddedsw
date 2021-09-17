@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2017 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -58,6 +58,8 @@
 *       rpo 04/09/20 Aligned the buffers used by DMA to 64 bytes
 *       kpt 04/10/20 Resolved coverity warnings
 *       ana 04/24/20 Removed support of boot header RSA with 0x1 and 0x2
+* 4.6   am  09/17/21 Resolved compiler warnings
+*
 * </pre>
 *
 * @note
@@ -485,7 +487,7 @@ u32 XSecure_AesOperation(u32 AddrHigh, u32 AddrLow)
 	u64 WrAddr = ((u64)AddrHigh << 32) | (u64)AddrLow;
 	XSecure_AesParams *AesParams = (XSecure_AesParams *)(UINTPTR)WrAddr;
 	u32 Status = (u32)XST_FAILURE;
-	u32 Flags = AesParams->AesOp;
+	u32 Flags = (u32)(AesParams->AesOp);
 
 #ifndef XSECURE_TRUSTED_ENVIRONMENT
 	if (AesParams->KeySrc != XSECURE_AES_KUP_KEY) {
@@ -560,7 +562,7 @@ u32 XSecure_DataAuth(u8 *Signature, XSecure_RsaKey *KeyInst, u8 *Hash)
 
 
 	/* Compare encrypted signature with sha3 hash calculated on data */
-	Status = XSecure_RsaSignVerification(EncSignature, Hash,
+	Status = (u32)XSecure_RsaSignVerification(EncSignature, Hash,
 					XSECURE_HASH_TYPE_SHA3);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = XSECURE_VERIFY_ERR;
@@ -1202,7 +1204,7 @@ u32 XSecure_PpkVerify(XCsuDma *CsuDmaInstPtr, u8 *AuthCert)
 	}
 
 	/* Calculate PPK hash */
-	Status = XSecure_Sha3Initialize(&Sha3Inst, CsuDmaInstPtr);
+	Status = (u32)XSecure_Sha3Initialize(&Sha3Inst, CsuDmaInstPtr);
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
@@ -1291,7 +1293,7 @@ u32 XSecure_SpkAuthentication(XCsuDma *CsuDmaInstPtr, u8 *AuthCert, u8 *Ppk)
 	}
 
 	/* Initialize sha3 */
-	Status = XSecure_Sha3Initialize(&Sha3Instance, CsuDmaInstPtr);
+	Status = (u32)XSecure_Sha3Initialize(&Sha3Instance, CsuDmaInstPtr);
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
@@ -1354,7 +1356,7 @@ u32 XSecure_SpkAuthentication(XCsuDma *CsuDmaInstPtr, u8 *AuthCert, u8 *Ppk)
 	}
 
 	/* Authenticate SPK Signature */
-	Status = XSecure_RsaSignVerification(RsaSha3Array,
+	Status = (u32)XSecure_RsaSignVerification(RsaSha3Array,
 				SpkHash, XSECURE_HASH_TYPE_SHA3);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = XSECURE_VERIFY_ERR;

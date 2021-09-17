@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +17,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 4.0   vns  03/11/19 Initial release
+* 4.6   am   09/17/21 Resolved compiler warnings
 *
 * </pre>
 *
@@ -85,7 +86,7 @@ extern "C" {
 *			void XSecure_PcapWaitForDone(void)
 *
 ******************************************************************************/
-static inline void XSecure_PcapWaitForDone()
+static inline void XSecure_PcapWaitForDone(void)
 {
 	while ((Xil_In32(XSECURE_CSU_PCAP_STATUS) &
 			XSECURE_CSU_PCAP_STATUS_PCAP_WR_IDLE_MASK) !=

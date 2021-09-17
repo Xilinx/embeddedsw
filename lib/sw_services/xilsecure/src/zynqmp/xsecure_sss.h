@@ -19,6 +19,7 @@
 * ----- ------  -------- ------------------------------------------------------
 * 4.2   har     03/26/20 Initial Release
 * 4.5   bsv     04/01/21 Added API to set SSS CFG register to PCAP
+* 4.6   am      09/17/21 Resolved compiler warnings
 *
 * </pre>
 * @endcond
@@ -32,6 +33,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
+#include "xparameters.h"
 
 /************************** Constant Definitions ****************************/
 /** @cond xsecure_internal */
