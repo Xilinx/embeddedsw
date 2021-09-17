@@ -368,7 +368,9 @@ void fsprint(char *s)
 
 int main()
 {
+#ifndef CONFIG_NO_FLASH
 	unsigned long image_addrflash = 0;   /* The address of the boot image in FLASH */
+#endif
 	unsigned long image_start = 0;    /* The address of the final boot image in memory */
 	int failed_reason;
 
