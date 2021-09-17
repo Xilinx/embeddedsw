@@ -186,8 +186,8 @@ s32_t is_checksum_valid(XAxiDma_Bd *rxbd, struct pbuf *p) {
 
 		csum_in_rxbd = extract_csum(rxbd);
 		pseudo_csum = htons(inet_chksum_pseudo(NULL,
-					(ip_addr_t *)&ehdr->ip.src, (ip_addr_t *)&ehdr->ip.dest,
-					proto, tcp_payload_len));
+					proto, tcp_payload_len, (ip_addr_t *)&ehdr->ip.src,
+					(ip_addr_t *)&ehdr->ip.dest));
 
 		/* xps_ll_temac computes the checksum of the packet starting at byte 14
 		 * we need to subtract the values of the ethernet & IP headers
