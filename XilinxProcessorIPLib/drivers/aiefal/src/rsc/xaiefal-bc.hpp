@@ -380,14 +380,16 @@ namespace xaiefal {
 				R.Loc.Col = vL[i].Col;
 				R.Loc.Row = vL[i].Row;
 
-				//check if shim
-				if (R.Loc.Row == 0) {
-					R.Mod = XAIE_PL_MOD;
-					vR.push_back(R);
-				} else {
+				if (TType == XAIEGBL_TILE_TYPE_AIETILE) {
 					R.Mod = XAIE_CORE_MOD;
 					vR.push_back(R);
 					R.Mod = XAIE_MEM_MOD;
+					vR.push_back(R);
+				} else if (TType == XAIEGBL_TILE_TYPE_MEMTILE) {
+					R.Mod = XAIE_MEM_MOD;
+					vR.push_back(R);
+				} else {
+					R.Mod = XAIE_PL_MOD;
 					vR.push_back(R);
 				}
 
