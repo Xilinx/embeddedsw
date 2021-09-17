@@ -49,6 +49,7 @@
 *       vns  04/13/20 Improved SHA3Finish to handle if last update is set
 *       kot  04/21/20 Fixed MISRA C violations
 * 4.6   kal  08/11/21 Added EXPORT CONTROL eFuse check in Sha3Initialize
+*       am   09/17/21 Resolved compiler warnings
 *
 * @note
 *
@@ -503,7 +504,7 @@ void XSecure_Sha3_ReadHash(XSecure_Sha3 *InstancePtr, u8 *Hash)
 	for (Index = 0U; Index < XSECURE_CSU_SHA3_HASH_LENGTH_IN_WORDS; Index++)
 	{
 		RegVal = XSecure_ReadReg(InstancePtr->BaseAddress,
-			XSECURE_CSU_SHA3_DIGEST_0_OFFSET + (Index * 4U));
+			XSECURE_CSU_SHA3_DIGEST_0_OFFSET + (u16)(Index * 4U));
 		HashPtr[XSECURE_CSU_SHA3_HASH_LENGTH_IN_WORDS - Index - 1] = RegVal;
 	}
 }

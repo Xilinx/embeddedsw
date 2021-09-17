@@ -35,6 +35,7 @@
 * 4.6   har     07/14/21 Fixed doxygen warnings
 *       gm      07/16/21 Support added to read 32 bit data from 64bit address
 *       har     08/14/21 Added macro for QWord
+*       am      09/17/21 Resolved compiler warnings
 *
 * </pre>
 *
@@ -137,7 +138,7 @@ static inline u32 XSecure_In64(u64 Addr)
 #ifdef VERSAL_PLM
 	ReadVal = lwea(Addr);
 #else
-	ReadVal = (u32)Xil_In64(Addr);
+	ReadVal = (u32)Xil_In64((UINTPTR)Addr);
 #endif
 	return ReadVal;
 }
@@ -155,7 +156,7 @@ static inline u8 XSecure_InByte64(u64 Addr)
 #ifdef VERSAL_PLM
 	ReadVal = (u8)lbuea(Addr);
 #else
-	ReadVal = Xil_In8(Addr);
+	ReadVal = Xil_In8((UINTPTR)Addr);
 #endif
 	return ReadVal;
 }
@@ -173,7 +174,7 @@ static inline void XSecure_Out64(u64 Addr, u32 Data)
 #ifdef VERSAL_PLM
 	swea(Addr, Data);
 #else
-	Xil_Out64(Addr, Data);
+	Xil_Out64((UINTPTR)Addr, Data);
 #endif
 }
 
@@ -207,7 +208,7 @@ static inline void XSecure_OutByte64(u64 Addr, u8 Data)
 #ifdef VERSAL_PLM
 	sbea(Addr, Data);
 #else
-	Xil_Out8(Addr, Data);
+	Xil_Out8((UINTPTR)Addr, Data);
 #endif
 }
 

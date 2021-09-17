@@ -17,6 +17,7 @@
 * ----- ------  -------- ------------------------------------------------------
 * 4.2   har     03/26/20 Initial release
 * 4.5   bsv     04/01/21 Added API to set SSS CFG register to PCAP
+* 4.6   am      09/17/21 Resolved compiler warnings
 *
 * </pre>
 *
@@ -286,7 +287,7 @@ static u32 XSecure_SssCfg (XSecure_Sss *InstancePtr, XSecure_SssSrc Resource,
 	SssCfg = InputSrcCfg | OutputSrcCfg;
 
 	if ((SssCfg ^ (InputSrcCfgRedundant | OutputSrcCfgRedundant)) == 0) {
-		Status = XSecure_SecureOut32(InstancePtr->Address, SssCfg);
+		Status = (u32)XSecure_SecureOut32(InstancePtr->Address, SssCfg);
 	}
 
 	return Status;

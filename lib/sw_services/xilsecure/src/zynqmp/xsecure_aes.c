@@ -54,6 +54,7 @@
 *       bsv 05/03/21 Add provision to load bitstream from OCM with DDR
 *                     present in design
 * 4.6   kal 08/11/21 Added EXPORT CONTROL eFuse check in AesInitialize
+*       am  09/17/21 Resolved compiler warnings
 *
 * </pre>
 *
@@ -1038,7 +1039,7 @@ static s32 XSecure_AesChunkDecrypt(XSecure_Aes *InstancePtr, const u8 *Src,
 	u32 RemainingBytes = Len % (InstancePtr->ChunkSize);
 	u32 Index;
 	u32 StartAddrByte = 0U;
-	u16 TransferredLen;
+	u32 TransferredLen;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1074,7 +1075,7 @@ static s32 XSecure_AesChunkDecrypt(XSecure_Aes *InstancePtr, const u8 *Src,
 			 * Setting CSU SSS CFG register to AES with DMA as
 			 * source and and destination for AES
 			 */
-			Status = XSecure_SssAes(&InstancePtr->SssInstance,
+			Status = (s32)XSecure_SssAes(&InstancePtr->SssInstance,
 				XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
 			if (Status != (u32)XST_SUCCESS){
 				goto END;
@@ -1112,7 +1113,7 @@ static s32 XSecure_AesChunkDecrypt(XSecure_Aes *InstancePtr, const u8 *Src,
 			 * setting CSU SSS CFG register to PCAP with DMA as
 			 * source
 			 */
-			Status = XSecure_SssPcap(&InstancePtr->SssInstance,
+			Status = (s32)XSecure_SssPcap(&InstancePtr->SssInstance,
 				InstancePtr->CsuDmaPtr->Config.DeviceId);
 			if (Status != (u32)XST_SUCCESS){
 				goto END;
@@ -1134,7 +1135,7 @@ static s32 XSecure_AesChunkDecrypt(XSecure_Aes *InstancePtr, const u8 *Src,
 		 * Setting CSU SSS CFG register to AES with DMA as
 		 * source and and destination for AES
 		 */
-		Status = XSecure_SssAes(&InstancePtr->SssInstance,
+		Status = (s32)XSecure_SssAes(&InstancePtr->SssInstance,
 			XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
 		if (Status != (u32)XST_SUCCESS){
 			goto END;
@@ -1686,7 +1687,7 @@ static s32 XSecure_ReadNPassChunkToAes(XSecure_Aes *InstancePtr,
 
 	XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
 		XCSUDMA_SRC_CHANNEL, 1U);
-	Status = XSecure_SssAes(&InstancePtr->SssInstance,
+	Status = (s32)XSecure_SssAes(&InstancePtr->SssInstance,
 		XSECURE_SSS_DMA0, XSECURE_SSS_PCAP);
 	if (XST_SUCCESS != Status) {
 		goto END;
@@ -1728,7 +1729,7 @@ static s32 XSecure_PassChunkToAes(XCsuDma *InstancePtr, const u8* SrcAddr,
 	/*
 	 * Wait for the SRC_DMA to complete
 	 */
-	Status = XCsuDma_WaitForDoneTimeout(InstancePtr, XCSUDMA_SRC_CHANNEL);
+	Status = (s32)XCsuDma_WaitForDoneTimeout(InstancePtr, XCSUDMA_SRC_CHANNEL);
 	if (XST_SUCCESS != Status) {
 		goto END;
 	}
