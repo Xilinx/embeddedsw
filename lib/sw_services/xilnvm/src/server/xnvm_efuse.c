@@ -69,6 +69,7 @@
 *                       XNvm_EfuseWritePufAsUserFuses
 *       kal  08/13/2021 Add most restrictive range check for device temparature
 *                       before eFuse programming
+*       har  09/16/2021 Removed magic numbers in XNvm_EfuseWriteSecCtrl function
 *
 * </pre>
 *
@@ -1264,7 +1265,7 @@ static int XNvm_EfuseWritePufSecCtrl(const XNvm_EfusePufSecCtrlBits *PufSecCtrlB
 
 	}
 
-	if ((PufSecCtrlBits->PufSynLk != 0x00U) &&
+	if ((PufSecCtrlBits->PufSynLk != FALSE) &&
 		((RowDataVal &
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_PUF_SYN_LK_MASK) !=
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_PUF_SYN_LK_MASK)) {
@@ -1278,7 +1279,7 @@ static int XNvm_EfuseWritePufSecCtrl(const XNvm_EfusePufSecCtrlBits *PufSecCtrlB
 		}
 	}
 
-	if ((PufSecCtrlBits->PufTest2Dis != 0x00U) &&
+	if ((PufSecCtrlBits->PufTest2Dis != FALSE) &&
 		((RowDataVal &
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_PUF_TEST2_DIS_MASK) !=
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_PUF_TEST2_DIS_MASK)) {
@@ -1292,7 +1293,7 @@ static int XNvm_EfuseWritePufSecCtrl(const XNvm_EfusePufSecCtrlBits *PufSecCtrlB
 		}
 	}
 
-	if ((PufSecCtrlBits->PufDis != 0x00U) &&
+	if ((PufSecCtrlBits->PufDis != FALSE) &&
 		((RowDataVal &
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_PUF_DIS_MASK) !=
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_PUF_DIS_MASK)) {
@@ -2094,7 +2095,7 @@ static int XNvm_EfuseWriteSecCtrl(const XNvm_EfuseSecCtrlBits *SecCtrl)
 		goto END;
 	}
 
-	if ((SecCtrl->AesDis != 0x00U) &&
+	if ((SecCtrl->AesDis != FALSE) &&
 		((RowDataVal &
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_AES_DIS_MASK) !=
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_AES_DIS_MASK)) {
@@ -2107,7 +2108,7 @@ static int XNvm_EfuseWriteSecCtrl(const XNvm_EfuseSecCtrlBits *SecCtrl)
 		}
 	}
 
-	if ((SecCtrl->JtagErrOutDis != 0x00U) &&
+	if ((SecCtrl->JtagErrOutDis != FALSE) &&
 		((RowDataVal &
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_JTAG_ERROUT_DIS_MASK) !=
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_JTAG_ERROUT_DIS_MASK)) {
@@ -2121,7 +2122,7 @@ static int XNvm_EfuseWriteSecCtrl(const XNvm_EfuseSecCtrlBits *SecCtrl)
 		}
 	}
 
-	if ((SecCtrl->JtagDis != 0x00U) &&
+	if ((SecCtrl->JtagDis != FALSE) &&
 		((RowDataVal &
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_JTAG_DIS_MASK) !=
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_JTAG_DIS_MASK)) {
@@ -2134,7 +2135,7 @@ static int XNvm_EfuseWriteSecCtrl(const XNvm_EfuseSecCtrlBits *SecCtrl)
 		}
 	}
 
-	if ((SecCtrl->Ppk0WrLk != 0x00U) &&
+	if ((SecCtrl->Ppk0WrLk != FALSE) &&
 		((RowDataVal &
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_PPK0_WR_LK_MASK) !=
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_PPK0_WR_LK_MASK)) {
@@ -2147,7 +2148,7 @@ static int XNvm_EfuseWriteSecCtrl(const XNvm_EfuseSecCtrlBits *SecCtrl)
 			goto END;
 		}
 	}
-	if ((SecCtrl->Ppk1WrLk != 0x00U) &&
+	if ((SecCtrl->Ppk1WrLk != FALSE) &&
 		((RowDataVal &
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_PPK1_WR_LK_MASK) !=
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_PPK1_WR_LK_MASK)) {
@@ -2160,7 +2161,7 @@ static int XNvm_EfuseWriteSecCtrl(const XNvm_EfuseSecCtrlBits *SecCtrl)
 			goto END;
 		}
 	}
-	if ((SecCtrl->Ppk2WrLk != 0x00U) &&
+	if ((SecCtrl->Ppk2WrLk != FALSE) &&
 		((RowDataVal &
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_PPK2_WR_LK_MASK) !=
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_PPK2_WR_LK_MASK)) {
@@ -2173,7 +2174,7 @@ static int XNvm_EfuseWriteSecCtrl(const XNvm_EfuseSecCtrlBits *SecCtrl)
 			goto END;
 		}
 	}
-	if ((SecCtrl->AesCrcLk != 0x00U) &&
+	if ((SecCtrl->AesCrcLk != FALSE) &&
 		((RowDataVal &
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_AES_CRC_LK_1_0_MASK) ==
 		0x00U)) {
@@ -2194,7 +2195,7 @@ static int XNvm_EfuseWriteSecCtrl(const XNvm_EfuseSecCtrlBits *SecCtrl)
 			goto END;
 		}
 	}
-	if ((SecCtrl->AesWrLk != 0x00U) &&
+	if ((SecCtrl->AesWrLk != FALSE) &&
 		((RowDataVal &
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_AES_WR_LK_MASK) !=
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_AES_WR_LK_MASK)) {
@@ -2207,7 +2208,7 @@ static int XNvm_EfuseWriteSecCtrl(const XNvm_EfuseSecCtrlBits *SecCtrl)
 			goto END;
 		}
 	}
-	if ((SecCtrl->UserKey0CrcLk != 0x00U) &&
+	if ((SecCtrl->UserKey0CrcLk != FALSE) &&
 		((RowDataVal &
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_0_CRC_LK_MASK) !=
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_0_CRC_LK_MASK)) {
@@ -2220,7 +2221,7 @@ static int XNvm_EfuseWriteSecCtrl(const XNvm_EfuseSecCtrlBits *SecCtrl)
 			goto END;
 		}
 	}
-	if ((SecCtrl->UserKey0WrLk != 0x00U) &&
+	if ((SecCtrl->UserKey0WrLk != FALSE) &&
 		((RowDataVal &
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_0_WR_LK_MASK) !=
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_0_WR_LK_MASK)) {
@@ -2234,7 +2235,7 @@ static int XNvm_EfuseWriteSecCtrl(const XNvm_EfuseSecCtrlBits *SecCtrl)
 		}
 
 	}
-	if ((SecCtrl->UserKey1CrcLk != 0x00U) &&
+	if ((SecCtrl->UserKey1CrcLk != FALSE) &&
 		((RowDataVal &
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_1_CRC_LK_MASK) !=
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_1_CRC_LK_MASK)) {
@@ -2247,7 +2248,7 @@ static int XNvm_EfuseWriteSecCtrl(const XNvm_EfuseSecCtrlBits *SecCtrl)
 			goto END;
 		}
 	}
-	if ((SecCtrl->UserKey1WrLk != 0x00U) &&
+	if ((SecCtrl->UserKey1WrLk != FALSE) &&
 		((RowDataVal &
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_1_WR_LK_MASK) !=
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_1_WR_LK_MASK)) {
@@ -2261,7 +2262,7 @@ static int XNvm_EfuseWriteSecCtrl(const XNvm_EfuseSecCtrlBits *SecCtrl)
 		}
 
 	}
-	if ((SecCtrl->SecDbgDis != 0x00U) &&
+	if ((SecCtrl->SecDbgDis != FALSE) &&
 		((RowDataVal &
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_SEC_DEBUG_DIS_MASK) ==
 		0x00U)) {
@@ -2282,7 +2283,7 @@ static int XNvm_EfuseWriteSecCtrl(const XNvm_EfuseSecCtrlBits *SecCtrl)
 			goto END;
 		}
 	}
-	if ((SecCtrl->SecLockDbgDis != 0x00U) &&
+	if ((SecCtrl->SecLockDbgDis != FALSE) &&
 		((RowDataVal &
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_SEC_LOCK_DBG_DIS_MASK) ==
 		0x00U)) {
@@ -2303,7 +2304,7 @@ static int XNvm_EfuseWriteSecCtrl(const XNvm_EfuseSecCtrlBits *SecCtrl)
 			goto END;
 		}
 	}
-	if ((SecCtrl->BootEnvWrLk != 0x00U) &&
+	if ((SecCtrl->BootEnvWrLk != FALSE) &&
 		((RowDataVal &
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_BOOT_ENV_WR_LK_MASK) !=
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_BOOT_ENV_WR_LK_MASK)) {
@@ -2316,7 +2317,7 @@ static int XNvm_EfuseWriteSecCtrl(const XNvm_EfuseSecCtrlBits *SecCtrl)
 			goto END;
 		}
 	}
-	if ((SecCtrl->RegInitDis != 0x00U) &&
+	if ((SecCtrl->RegInitDis != FALSE) &&
 		((RowDataVal &
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_REG_INIT_DIS_1_0_MASK) ==
 		0x00U)) {
@@ -3133,7 +3134,7 @@ static int XNvm_EfusePrgmRevocationIdFuses(const XNvm_EfuseRevokeIds *RevokeIds)
 		goto END;
 	}
 
-	if (RevokeIds->PrgmRevokeId != 0x00U) {
+	if (RevokeIds->PrgmRevokeId != FALSE) {
 		Status = XNvm_EfuseComputeProgrammableBits(RevokeIds->RevokeId,
 						PrgmRevokeIds,
 						XNVM_EFUSE_REVOCATION_ID_0_ROW,
@@ -3184,7 +3185,7 @@ static int XNvm_EfusePrgmOffChipRevokeFuses(const XNvm_EfuseOffChipIds *OffChipI
 		goto END;
 	}
 
-	if (OffChipIds->PrgmOffchipId != 0x00U) {
+	if (OffChipIds->PrgmOffchipId != FALSE) {
 		Status = XNvm_EfuseComputeProgrammableBits(OffChipIds->OffChipId,
 					PrgmOffChipIds,
 					XNVM_EFUSE_OFFCHIP_REVOKE_0_ROW,
@@ -3243,9 +3244,9 @@ static int XNvm_EfusePrgmPpkRevokeFuses(const XNvm_EfuseMiscCtrlBits *PpkSelect)
 		goto END;
 	}
 
-	if ((PpkSelect->Ppk0Invalid != 0x00U) ||
-		(PpkSelect->Ppk1Invalid != 0x00U) ||
-		(PpkSelect->Ppk2Invalid != 0x00U)) {
+	if ((PpkSelect->Ppk0Invalid != FALSE) ||
+		(PpkSelect->Ppk1Invalid != FALSE) ||
+		(PpkSelect->Ppk2Invalid != FALSE)) {
 
 		Status = XNvm_EfuseReadCache(XNVM_EFUSE_MISC_CTRL_ROW,
 						&RowData);
@@ -3260,7 +3261,7 @@ static int XNvm_EfusePrgmPpkRevokeFuses(const XNvm_EfuseMiscCtrlBits *PpkSelect)
 		goto END;
 	}
 
-	if ((PpkSelect->Ppk0Invalid != 0x00U) &&
+	if ((PpkSelect->Ppk0Invalid != FALSE) &&
 		((RowData & XNVM_EFUSE_CACHE_MISC_CTRL_PPK0_INVLD_1_0_MASK) ==
 		0x00U)) {
 		Status = XST_FAILURE;
@@ -3283,7 +3284,7 @@ static int XNvm_EfusePrgmPpkRevokeFuses(const XNvm_EfuseMiscCtrlBits *PpkSelect)
 			goto END;
 		}
 	}
-	if ((PpkSelect->Ppk1Invalid != 0x00U) &&
+	if ((PpkSelect->Ppk1Invalid != FALSE) &&
 		((RowData & XNVM_EFUSE_CACHE_MISC_CTRL_PPK1_INVLD_1_0_MASK) ==
 		0x00U)) {
 		Status = XST_FAILURE;
@@ -3305,7 +3306,7 @@ static int XNvm_EfusePrgmPpkRevokeFuses(const XNvm_EfuseMiscCtrlBits *PpkSelect)
 			goto END;
 		}
 	}
-	if ((PpkSelect->Ppk2Invalid != 0x00U) &&
+	if ((PpkSelect->Ppk2Invalid != FALSE) &&
 		((RowData & XNVM_EFUSE_CACHE_MISC_CTRL_PPK2_INVLD_1_0_MASK) ==
 		0x00U)) {
 		Status = XST_FAILURE;
