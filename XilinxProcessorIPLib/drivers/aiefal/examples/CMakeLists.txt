@@ -1,3 +1,9 @@
+###############################################################################
+# Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+###############################################################################
+
 collector_list  (_list PROJECT_INC_DIRS)
 include_directories (${_list} ${CMAKE_CURRENT_SOURCE_DIR})
 

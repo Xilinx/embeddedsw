@@ -1,3 +1,9 @@
+###############################################################################
+# Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+###############################################################################
+
 set (PROJECT_VER_MAJOR  0)
 set (PROJECT_VER_MINOR  1)
 set (PROJECT_VER_PATCH  0)

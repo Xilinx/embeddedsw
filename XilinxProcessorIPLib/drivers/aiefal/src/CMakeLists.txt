@@ -1,3 +1,9 @@
+###############################################################################
+# Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+###############################################################################
+
 file(GLOB_RECURSE _sources *.cpp)
 file(GLOB_RECURSE _headers *.hpp)
 
