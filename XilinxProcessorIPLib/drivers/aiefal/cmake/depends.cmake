@@ -1,3 +1,9 @@
+###############################################################################
+# Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+###############################################################################
+
 if (WITH_XAIEDRV_FIND)
   find_package (Libxaiengine REQUIRED)
   collect (PROJECT_INC_DIRS "${LIBXAIENGINE_INCLUDE_DIR}")

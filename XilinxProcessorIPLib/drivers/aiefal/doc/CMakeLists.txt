@@ -1,3 +1,9 @@
+###############################################################################
+# Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+###############################################################################
+
 find_package(Doxygen)
 if (DOXYGEN_FOUND)
 

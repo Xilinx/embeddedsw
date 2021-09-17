@@ -1,3 +1,9 @@
+###############################################################################
+# Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+###############################################################################
+
 if (CPPUTEST_DIR)
   find_path(CPPUTEST_INC_DIR  NAMES "CppUTest/Utest.h" PATHS ${CPPUTEST_DIR}/include)
   find_library(CPPUTEST_FOUND_LIB NAMES CppUTest PATHS ${CPPUTEST_DIR}/src/CppUTest)

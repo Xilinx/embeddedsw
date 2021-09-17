@@ -1,3 +1,9 @@
+###############################################################################
+# Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+###############################################################################
+
 cmake_minimum_required (VERSION 3.0)
 
 list (APPEND CMAKE_MODULE_PATH
