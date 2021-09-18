@@ -132,7 +132,12 @@ static int SecureSha3Example()
 	/*
 	 * Initialize the SHA-3 driver so that it's ready to use
 	 */
-	XSecure_Sha3Initialize(&Secure_Sha3, &CsuDma);
+	Status = XSecure_Sha3Initialize(&Secure_Sha3, &CsuDma);
+	if (Status != XST_SUCCESS) {
+		xil_printf("SHA Initialization failed, Status = 0x%x \r\n",
+			Status);
+		goto END;
+	}
 
 	XSecure_Sha3Digest(&Secure_Sha3, (UINTPTR)Data, Size, (XSecure_Sha3Hash*)Out);
 

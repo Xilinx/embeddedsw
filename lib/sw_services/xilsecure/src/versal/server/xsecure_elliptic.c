@@ -46,6 +46,7 @@
 #include "xsecure_ecdsa_rsa_hw.h"
 #include "xsecure_utils.h"
 #include "xil_util.h"
+#include "xsecure_cryptochk.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -102,6 +103,11 @@ int XSecure_EllipticGenerateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 	EcdsaKey Key;
 	u32 Size = 0U;
 	u32 OffSet = 0U;
+
+	Status = XSecure_CryptoCheck();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	if ((CrvType != XSECURE_ECC_NIST_P384) &&
 			(CrvType != XSECURE_ECC_NIST_P521)) {
@@ -217,6 +223,11 @@ int XSecure_EllipticGenerateSignature_64Bit(XSecure_EllipticCrvTyp CrvType,
 	EcdsaSign Sign = {0};
 	volatile u32 HashLenTmp = 0xFFFFFFFFU;
 	u32 OffSet = 0U;
+
+	Status = XSecure_CryptoCheck();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	if ((CrvType != XSECURE_ECC_NIST_P384) &&
 			(CrvType != XSECURE_ECC_NIST_P521)) {
@@ -365,6 +376,11 @@ int XSecure_EllipticValidateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 	u32 Size = 0U;
 	u32 OffSet = 0U;
 
+	Status = XSecure_CryptoCheck();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	if ((CrvType != XSECURE_ECC_NIST_P384) &&
 		(CrvType != XSECURE_ECC_NIST_P521)) {
 		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
@@ -487,6 +503,11 @@ int XSecure_EllipticVerifySign_64Bit(XSecure_EllipticCrvTyp CrvType,
 	EcdsaSign Sign;
 	u32 OffSet = 0U;
 	u32 Size = 0U;
+
+	Status = XSecure_CryptoCheck();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	if ((CrvType != XSECURE_ECC_NIST_P384) && (CrvType != XSECURE_ECC_NIST_P521)) {
 		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;

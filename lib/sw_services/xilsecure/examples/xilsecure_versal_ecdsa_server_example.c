@@ -107,7 +107,7 @@ int XSecure_TestP384()
 
 	Status = XSecure_EllipticGenerateKey(XSECURE_ECC_NIST_P384, D, &Key);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Key generation failed for P384 curve %x \r\n", Status);
+		xil_printf("Key generation failed for P384 curve, Status = %x \r\n", Status);
 		goto END;
 	}
 
@@ -122,7 +122,7 @@ int XSecure_TestP384()
 	Status = XSecure_EllipticGenerateSignature(XSECURE_ECC_NIST_P384, Hash,
 		XSECURE_ECC_P384_SIZE_IN_BYTES, D, K, &GeneratedSign);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Sign generation failed for P384 curve %x \r\n", Status);
+		xil_printf("Sign generation failed for P384 curve, Status = %x \r\n", Status);
 		goto END;
 	}
 
@@ -135,14 +135,14 @@ int XSecure_TestP384()
 
 	Status = XSecure_EllipticValidateKey(XSECURE_ECC_NIST_P384, &Key);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Key validation failed for P384 curve %x \r\n", Status);
+		xil_printf("Key validation failed for P384 curve, Status =  %x \r\n", Status);
 		goto END;
 	}
 
 	Status = XSecure_EllipticVerifySign(XSECURE_ECC_NIST_P384, Hash,
 		XSECURE_ECC_P384_SIZE_IN_BYTES, &Key, &GeneratedSign);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Sign verification failed for P384 curve %x \r\n", Status);
+		xil_printf("Sign verification failed for P384 curve, Status = %x \r\n", Status);
 	}
 	else {
 		xil_printf("Successfully tested P384 curve \r\n");
@@ -204,7 +204,7 @@ int XSecure_TestP521()
 
 	Status = XSecure_EllipticGenerateKey(XSECURE_ECC_NIST_P521, D, &Key);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Key generation failed for P521 curve %x \r\n", Status);
+		xil_printf("Key generation failed for P521 curve, Status = %x \r\n", Status);
 		goto END;
 	}
 
@@ -219,7 +219,7 @@ int XSecure_TestP521()
 	Status = XSecure_EllipticGenerateSignature(XSECURE_ECC_NIST_P521, Hash,
 		XSECURE_ECC_P521_SIZE_IN_BYTES, D, K, &GeneratedSign);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Sign generation failed for P521 curve %x \r\n", Status);
+		xil_printf("Sign generation failed for P521 curve, Status = %x \r\n", Status);
 		goto END;
 	}
 
@@ -233,14 +233,14 @@ int XSecure_TestP521()
 
 	Status = XSecure_EllipticValidateKey(XSECURE_ECC_NIST_P521, &Key);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Key validation failed for P521 curve %x \r\n", Status);
+		xil_printf("Key validation failed for P521 curve, Status = %x \r\n", Status);
 		goto END;
 	}
 
 	Status = XSecure_EllipticVerifySign(XSECURE_ECC_NIST_P521, Hash,
 		XSECURE_ECC_P521_SIZE_IN_BYTES, &Key, &GeneratedSign);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Sign verification failed for P521 curve %x \r\n", Status);
+		xil_printf("Sign verification failed for P521 curve, Status = %x \r\n", Status);
 	}
 	else {
 		xil_printf("Successfully tested P521 curve \r\n");
