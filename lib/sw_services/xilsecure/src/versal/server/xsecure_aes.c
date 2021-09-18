@@ -80,6 +80,7 @@
 #include "xsecure_aes_core_hw.h"
 #include "xil_util.h"
 #include "xsecure_error.h"
+#include "xsecure_cryptochk.h"
 
 /************************** Constant Definitions *****************************/
 #define XSECURE_MAX_KEY_SOURCES			XSECURE_AES_EXPANDED_KEYS
@@ -432,6 +433,11 @@ static const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 int XSecure_AesInitialize(XSecure_Aes *InstancePtr, XPmcDma *PmcDmaPtr)
 {
 	int Status = XST_FAILURE;
+
+	Status = XSecure_CryptoCheck();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	/* Validate the input arguments */
 	if ((InstancePtr == NULL) || (PmcDmaPtr == NULL) ||

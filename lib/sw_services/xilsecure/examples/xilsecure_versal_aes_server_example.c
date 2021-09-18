@@ -193,7 +193,8 @@ static int SecureAesExample(void)
 	/* Initialize the Aes driver so that it's ready to use */
 	Status = XSecure_AesInitialize(&Secure_Aes, &PmcDmaInstance);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Failure at Aes initialize\r\n");
+		xil_printf("Failure at Aes initialize, Status = 0x%x \r\n",
+			Status);
 		goto END;
 	}
 
