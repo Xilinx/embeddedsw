@@ -269,10 +269,11 @@ int main(void)
 
 	if(Status != XST_SUCCESS)
 	{
-		xil_printf("\r\nGeneric RSA example failed %d \r\n", Status);
+		xil_printf("\r\nVersal RSA server example failed:Status ="
+			" 0x%x\r\n", Status);
 	}
 	else {
-		xil_printf("\r\nSuccessfully ran Generic RSA example\r\n ");
+		xil_printf("\r\nSuccessfully ran Versal RSA server example\r\n ");
 	}
 
 	return Status;
@@ -306,8 +307,8 @@ static int SecureRsaExample(void)
 	 */
 	Status = XSecure_RsaInitialize(&Secure_Rsa, Modulus, NULL, PrivateExp);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Failed at RSA iniatialization\r\n");
-		Status = XST_FAILURE;
+		xil_printf("Failed at RSA Initialization, Status = 0x%x\r\n",
+			Status);
 		goto END;
 	}
 

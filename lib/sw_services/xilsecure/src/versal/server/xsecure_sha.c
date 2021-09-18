@@ -51,6 +51,7 @@
 #include "xil_assert.h"
 #include "xsecure_sha.h"
 #include "xil_util.h"
+#include "xsecure_cryptochk.h"
 
 /************************** Constant Definitions *****************************/
 #define XSECURE_SHA3_HASH_LENGTH_IN_BITS		(384U)
@@ -129,6 +130,11 @@ static int XSecure_Sha3NistPadd(u8 *Dst, u32 MsgLen);
 int XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XPmcDma* DmaPtr)
 {
 	int Status = XST_FAILURE;
+
+	Status = XSecure_CryptoCheck();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	/* Validate the input arguments */
 	if ((InstancePtr == NULL) || (DmaPtr == NULL) ||

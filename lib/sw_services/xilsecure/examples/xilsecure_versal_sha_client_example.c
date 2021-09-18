@@ -129,7 +129,11 @@ static u32 SecureSha3Example()
 	}
 
 	Xil_DCacheInvalidateRange((UINTPTR)DstAddr, SHA3_HASH_LEN_IN_BYTES);
-	XSecure_Sha3Digest((UINTPTR)&Data, DstAddr, Size);
+	Status = XSecure_Sha3Digest((UINTPTR)&Data, DstAddr, Size);
+	if(Status != XST_SUCCESS) {
+		xil_printf("Calculation of SHA digest failed, Status = %x \n\r", Status);
+		goto END;
+	}
 	Xil_DCacheInvalidateRange((UINTPTR)DstAddr, SHA3_HASH_LEN_IN_BYTES);
 
 	xil_printf(" Calculated Hash \r\n ");

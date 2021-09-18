@@ -51,6 +51,7 @@
 #include "xsecure_rsa.h"
 #include "xil_util.h"
 #include "xsecure_error.h"
+#include "xsecure_cryptochk.h"
 
 /************************** Constant Definitions ****************************/
 /* PKCS padding for SHA-3 in Versal */
@@ -237,6 +238,11 @@ static void XSecure_RsaDataLenCfg(const XSecure_Rsa *InstancePtr, u32 Cfg0, u32 
 int XSecure_RsaCfgInitialize(XSecure_Rsa *InstancePtr)
 {
 	int Status = XST_FAILURE;
+
+	Status = XSecure_CryptoCheck();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	/* Validate the input arguments */
 	if (InstancePtr == NULL) {
