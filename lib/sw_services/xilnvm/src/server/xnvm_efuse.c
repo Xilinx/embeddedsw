@@ -134,6 +134,8 @@
 #define XNVM_EFUSE_SYSMONPSV_TIMEOUT		(100000U)
 /**< Fraction multiplier value */
 #define XNVM_EFUSE_FRACTION_MUL_VALUE		(1000000U)
+
+#define XNVM_NUM_OF_CACHE_ADDR_PER_PAGE		(0x400U)
 /** @} */
 
 /***************************** Type Definitions *******************************/
@@ -4935,6 +4937,21 @@ static int XNvm_EfusePgmBit(XNvm_EfuseType Page, u32 Row, u32 Col)
 	int Status = XST_FAILURE;
 	u32 PgmAddr;
 	u32 EventMask = 0U;
+	u32 CacheOffset = 0U;
+	u32 BitVal = 0U;
+
+	if (((Page == XNVM_EFUSE_PAGE_0) && (Row < XNVM_EFUSE_AES_KEY_START_ROW ||
+		Row > XNVM_EFUSE_USER_KEY_1_END_ROW)) || (Page == XNVM_EFUSE_PAGE_1) ||
+		(Page == XNVM_EFUSE_PAGE_2)) {
+		CacheOffset = (Page * XNVM_NUM_OF_CACHE_ADDR_PER_PAGE) +
+			(Row * XNVM_EFUSE_WORD_LEN);
+		BitVal = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR, CacheOffset) &
+			(1 << Col);
+		if (BitVal != 0x0U) {
+			Status = XST_SUCCESS;
+			goto END;
+		}
+	}
 
 	PgmAddr = ((u32)Page << XNVM_EFUSE_ADDR_PAGE_SHIFT) |
 		(Row << XNVM_EFUSE_ADDR_ROW_SHIFT) |
@@ -4966,6 +4983,7 @@ static int XNvm_EfusePgmBit(XNvm_EfuseType Page, u32 Row, u32 Col)
 			(XNVM_EFUSE_ISR_PGM_DONE |
 			XNVM_EFUSE_ISR_PGM_ERROR));
 
+END:
 	return Status;
 
 }
