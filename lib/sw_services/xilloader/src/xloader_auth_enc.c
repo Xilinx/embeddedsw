@@ -61,6 +61,7 @@
 *       kpt  09/18/21 Fixed SW-BP-REDUNDANCY
 *                     Added check in XLoader_CheckAuthJtagIntStatus to avoid access
 *                     to auth jtag if there is a failure in single attempt
+*                     Renamed BHSignature variable to IHTSignature
 *
 * </pre>
 *
@@ -667,7 +668,7 @@ int XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr)
 
 	/* Authenticating Image header table */
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_DataAuth, SecurePtr,
-		Sha3Hash.Hash, (u8 *)SecurePtr->AcPtr->BHSignature);
+		Sha3Hash.Hash, (u8 *)SecurePtr->AcPtr->IHTSignature);
 	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_IHT_AUTH_FAIL, Status);
 		XPlmi_Printf(DEBUG_INFO, "Authentication of image header table "
