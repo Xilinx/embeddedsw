@@ -46,6 +46,8 @@
 *       bm   08/12/2021 Added support to configure uart during run-time
 *       ma   08/23/2021 Do not clear Debug Log RTCA memory
 *       ma   08/30/2021 Added defines related to SSIT
+*       gm   09/17/2021 Added RunTime Configuration register for MJTAG
+*                       workaround
 *
 * </pre>
 *
@@ -134,6 +136,7 @@ enum {
 #define XPLMI_RTCFG_USR_ACCESS_ADDR		(XPLMI_RTCFG_BASEADDR + 0x168U)
 #define XPLMI_RTCFG_SECURE_STATE_ADDR	(XPLMI_RTCFG_BASEADDR + 0x16CU)
 #define XPLMI_RTCFG_PMC_FW_ERR_VAL_ADDR	(XPLMI_RTCFG_BASEADDR + 0x184U)
+#define XPLMI_RTCFG_PLM_MJTAG_WA		(XPLMI_RTCFG_BASEADDR + 0x188U)
 
 #define XPLMI_RTCFG_DBG_LOG_BUF_OFFSET	(0x10U)
 #define XPLMI_RTCFG_LOG_UART_OFFSET		(0x24U)
@@ -141,9 +144,13 @@ enum {
 /* Masks of PLM RunTime Configuration Registers */
 #define XPLMI_RTCFG_IMGINFOTBL_NUM_ENTRIES_MASK	(0x0000FFFFU)
 #define XPLMI_RTCFG_IMGINFOTBL_CHANGE_CTR_MASK	(0xFFFF0000U)
+#define XPLMI_RTCFG_PLM_MJTAG_WA_IS_ENABLED_MASK	(0x00000001U)
+#define XPLMI_RTCFG_PLM_MJTAG_WA_STATUS_MASK	(0x00000002U)
 
 /* Shifts of PLM RunTime Configuration Registers */
 #define XPLMI_RTCFG_IMGINFOTBL_CHANGE_CTR_SHIFT	(0x10U)
+#define XPLMI_RTCFG_PLM_MJTAG_WA_STATUS_SHIFT	(0x00000001U)
+
 /* Default Values of PLM RunTime Configuration Registers */
 #define XPLMI_RTCFG_VER				(0x1U)
 #define XPLMI_RTCFG_SIZE			(0x400U)

@@ -114,6 +114,7 @@
 *       bsv  08/31/2021 Code clean up
 *       kpt  09/06/2021 Fixed SW-BP-ZEROIZE issue in
 *                       XLoader_LoadAndStartSubSystemImages
+*       gm   09/17/2021 Support added for MJTAG workaround
 *
 * </pre>
 *
@@ -167,6 +168,7 @@ static int XLoader_LoadImage(XilPdi *PdiPtr);
 static int XLoader_ReloadImage(XilPdi *PdiPtr, u32 ImageId, const u32 *FuncID);
 static int XLoader_StartImage(XilPdi *PdiPtr);
 static int XLoader_StoreImageInfo(const XLoader_ImageInfo *ImageInfo);
+static void XLoader_SetJtagTapToReset(void);
 
 /************************** Variable Definitions *****************************/
 XilPdi SubsystemPdiIns = {0U}; /**< Instance of subsystem pdi */
@@ -1343,9 +1345,9 @@ END:
 static int XLoader_LoadImage(XilPdi *PdiPtr)
 {
 	int Status = XST_FAILURE;
-#ifdef XPLM_SEM
 	u32 NodeId = NODESUBCLASS(PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
 
+#ifdef XPLM_SEM
 	/* Stop the SEM scan before PL load */
 	if ((PdiPtr->PdiType != XLOADER_PDI_TYPE_FULL) &&
 		(NodeId == (u32)XPM_NODESUBCL_DEV_PL)) {
@@ -1395,6 +1397,14 @@ static int XLoader_LoadImage(XilPdi *PdiPtr)
 	}
 	/* Log the image load to the Trace Log buffer */
 	XPlmi_TraceLog3(XPLMI_TRACE_LOG_LOAD_IMAGE, PdiPtr->CurImgId);
+
+	/* Apply MJTAG Work-around after first PL loading */
+	if (NodeId == (u32)XPM_NODESUBCL_DEV_PL) {
+		/* Apply MJTAG workaround only if bootmode is other than JTAG */
+		if (PdiPtr->PdiSrc != XLOADER_PDI_SRC_JTAG) {
+			XLoader_SetJtagTapToReset();
+		}
+	}
 
 #ifdef XPLM_SEM
 	/* Resume the SEM scan after PL load */
@@ -1939,4 +1949,78 @@ static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 
 END:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is used to run MJTAG solution workaround in which
+ * JTAG Tap state will be set to reset.
+ *
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+static void XLoader_SetJtagTapToReset(void)
+{
+	u8 Index = 0U;
+	u32 Flag = 0U;
+	u32 Val = 0U;
+
+	/*
+	 * Based on Vivado property, check whether to apply MJTAG workaround
+	 * or not. By default vivado property disables MJTAG workaround.
+	 */
+	Val = XPlmi_In32(XPLMI_RTCFG_PLM_MJTAG_WA);
+	Flag = Val & XPLMI_RTCFG_PLM_MJTAG_WA_IS_ENABLED_MASK;
+	if (Flag != XPLMI_RTCFG_PLM_MJTAG_WA_IS_ENABLED_MASK) {
+		goto END;
+	}
+
+	/* Skip applying MJTAG workaround if already applied */
+	Flag = ((Val & XPLMI_RTCFG_PLM_MJTAG_WA_STATUS_MASK) >>
+			XPLMI_RTCFG_PLM_MJTAG_WA_STATUS_SHIFT);
+	if (Flag != 0U) {
+		goto END;
+	}
+
+	/* Check if End of PL Startup is asserted or not */
+	Flag = ((XPlmi_In32(CFU_APB_CFU_FGCR) & CFU_APB_CFU_FGCR_EOS_MASK));
+	if (Flag != CFU_APB_CFU_FGCR_EOS_MASK) {
+		goto END;
+	}
+
+	/* Enable MJTAG */
+	XPlmi_Out32(PMC_TAP_JTAG_TEST, 1U);
+
+	/* Toggle MJTAG ISO to generate clock pulses, default 10 clock pulses */
+	for (Index = 0U; Index < XPLMI_MJTAG_WA_GASKET_TOGGLE_CNT; Index++) {
+		XPlmi_UtilRMW(PMC_GLOBAL_DOMAIN_ISO_CNTRL,
+				PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_TEST_MASK,
+				0U);
+		XPlmi_UtilRMW(PMC_GLOBAL_DOMAIN_ISO_CNTRL,
+				PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_TEST_MASK,
+				0U);
+
+		/* Delay in between low and high states of toggle */
+		usleep(XPLMI_MJTAG_WA_DELAY_USED_IN_GASKET_TOGGLE);
+
+		XPlmi_UtilRMW(PMC_GLOBAL_DOMAIN_ISO_CNTRL,
+				PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_TEST_MASK,
+				PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_TEST_MASK);
+		XPlmi_UtilRMW(PMC_GLOBAL_DOMAIN_ISO_CNTRL,
+				PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_TEST_MASK,
+				PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_TEST_MASK);
+
+		/* Delay in between high and low states of toggle */
+		usleep(XPLMI_MJTAG_WA_DELAY_USED_IN_GASKET_TOGGLE);
+	}
+
+	/* Disable MJTAG */
+	XPlmi_Out32(PMC_TAP_JTAG_TEST, 0U);
+
+	XPlmi_UtilRMW(XPLMI_RTCFG_PLM_MJTAG_WA,
+				XPLMI_RTCFG_PLM_MJTAG_WA_STATUS_MASK,
+				XPLMI_RTCFG_PLM_MJTAG_WA_STATUS_MASK);
+END:
+	return;
 }
