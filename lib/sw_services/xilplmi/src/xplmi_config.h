@@ -32,6 +32,7 @@
 *       bsv  07/16/2021 Fix doxygen warnings
 *       kal  07/17/2021 Added PLM_NVM_EXCLUDE macro
 *       bsv  09/09/2021 Added PLM_NVM macro
+*       gm   09/17/2021 Added MJTAG workaround related macros
 *
 * </pre>
 *
@@ -151,6 +152,11 @@ extern "C" {
 #if (!defined(PLM_NVM_EXCLUDE)) && (!defined(PLM_NVM))
 #define PLM_NVM
 #endif
+
+#define XPLMI_MJTAG_WA_GASKET_TOGGLE_CNT 10U /**< Number of clock cyles required
+					to change tap state to RESET */
+#define XPLMI_MJTAG_WA_DELAY_USED_IN_GASKET_TOGGLE 1U /**< Delay in usec in
+					between high and low states of toggle */
 
 /************************** Function Prototypes ******************************/
 

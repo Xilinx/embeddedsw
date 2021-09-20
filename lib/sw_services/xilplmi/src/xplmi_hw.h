@@ -62,6 +62,7 @@
 *                       and reset reason masks
 *       rb   08/11/2021 Fix compilation warnings
 *       ma   08/30/2021 Added SSIT related define
+*       gm   09/17/2021 Added MJTAG workaround related define
 *
 * </pre>
 *
@@ -178,6 +179,7 @@ extern "C" {
 #ifndef PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_CFRAME_MASK
 #define PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_CFRAME_MASK   (0X00000400U)
 #endif
+#define PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_TEST_MASK   (0X00000800U)
 
 /*
  * Register: PMC_GLOBAL_PMC_FW_ERR
@@ -741,6 +743,11 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
  */
 #define PMC_TAP_SLR_TYPE		(PMC_TAP_BASEADDR + 0X00000024U)
 #define PMC_TAP_SLR_TYPE_VAL_MASK		(0X00000007U)
+
+/*
+ * Register: PMC_TAP_JTAG_TEST
+ */
+#define PMC_TAP_JTAG_TEST		(PMC_TAP_BASEADDR + 0X00010014U)
 
 /*
  * Register: PMC_IOU_SLCR
