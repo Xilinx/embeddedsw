@@ -59,6 +59,8 @@
 *       kpt  09/09/21 Fixed SW-BP-BLIND-WRITE in XLoader_AuthEncClear
 *       kpt  09/15/21 Modified check for PUF HD in XLoader_SecureEncOnlyValidations
 *       kpt  09/18/21 Fixed SW-BP-REDUNDANCY
+*                     Added check in XLoader_CheckAuthJtagIntStatus to avoid access
+*                     to auth jtag if there is a failure in single attempt
 *
 * </pre>
 *
@@ -2957,6 +2959,7 @@ static int XLoader_CheckAuthJtagIntStatus(void *Arg)
 	volatile u32 InterruptStatusTmp = 0U;
 	static u32 JtagTimeOut = 0U;
 	static u8 JtagTimerEnabled = FALSE;
+	static u8 AuthFailCouter = XLOADER_AUTH_FAIL_COUNTER_RST_VALUE;
 
 	(void)Arg;
 
@@ -2968,10 +2971,19 @@ static int XLoader_CheckAuthJtagIntStatus(void *Arg)
 		(InterruptStatusTmp == XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_MASK)) {
 		XPlmi_Out32(XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_OFFSET,
 			XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_MASK);
-		Status = XLoader_AuthJtag(&JtagTimeOut);
-		if (Status != XST_SUCCESS) {
+		if (AuthFailCouter < XLOADER_AUTH_JTAG_MAX_ATTEMPTS) {
+			Status = XLoader_AuthJtag(&JtagTimeOut);
+			if (Status != XST_SUCCESS) {
+				AuthFailCouter += 1U;
+				goto END;
+			}
+		}
+		else {
+			Status = XPlmi_UpdateStatus(
+				XLOADER_ERR_AUTH_JTAG_EXCEED_ATTEMPTS, 0);
 			goto END;
 		}
+
 		if (JtagTimeOut == 0U) {
 			JtagTimerEnabled = FALSE;
 		}
@@ -3020,7 +3032,6 @@ static int XLoader_AuthJtag(u32 *TimeOut)
 	XLoader_SecureParams SecureParams = {0U};
 	XSecure_Sha3Hash Sha3Hash = {0U};
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
-	static u8 AuthFailCounter = 0U;
 	XLoader_AuthJtagMessage AuthJtagMessage
 		__attribute__ ((aligned (16U))) = {0U};
 	u32 ReadAuthReg = 0x0U;
@@ -3139,14 +3150,8 @@ static int XLoader_AuthJtag(u32 *TimeOut)
 	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 		Status = XPlmi_UpdateStatus(
 			XLOADER_ERR_AUTH_JTAG_SIGN_VERIFY_FAIL, Status);
-		AuthFailCounter += 1U;
-		if (AuthFailCounter > XLOADER_AUTH_JTAG_MAX_ATTEMPTS) {
-			Status = XPlmi_UpdateStatus(
-				XLOADER_ERR_AUTH_JTAG_EXCEED_ATTEMPTS, 0);
-		}
 	}
 	else {
-		AuthFailCounter = XLOADER_AUTH_FAIL_COUNTER_RST_VALUE;
 		UseDna = (u8)(SecureParams.AuthJtagMessagePtr->Attrb &
 				XLOADER_AC_AH_DNA_MASK);
 		UseDnaTmp = (u8)(SecureParams.AuthJtagMessagePtr->Attrb &
