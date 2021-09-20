@@ -1,6 +1,99 @@
 Changes for 2021.2
 ===============================
 
+xilpm_v3_5:
+Versal
+Add node IDs information for error events
+fix doxygen comments
+Add dummy NPI register read in AieBisr()
+Add TTC in default pre-alloc device list
+Add PM_CAP_SECURE to RPU0 in default subsystem definition
+Add support for CPU idle during force power down and subsystem restart
+Use PGGS2 instead of CRP_RESET_REASON for reset reason
+Fix compilation errors
+Add support for registering multiple events simultaneously
+Fix MISRA rule violations
+Skip NSUs in mem-clear
+Add support for VC1702 device
+Add support to notify core state change
+Use standardized poll function
+Add support for new houseclean disable functionality
+Add Init sequence for AIE2
+Remove dead code
+display warning if IPI is not enabled in design
+Fix NIDB repair sequence
+ZynqMP
+Fix doxygen warnings
+Add missing enum info
+Add support for runtime features
+Add IOCTL support
+
+v_frmbuf_wr_v4_5:
+Added support for Y_U_V8 video color format
+
+v_gamma_lut_v1_3:
+Interrupt handler is added Gamma Lut driver.
+Removed undefined variable from Interrupt handler.
+
+bram_v4_7:
+Use get_param_value to read C_S_AXI_BASEADDR parameter
+
+zdma_v1_13:
+Fix example failures at optimization level 2
+Fixed examples to ensure proper cache line alignment, cache invalidation and
+DMA reset
+
+lwip211_v1_6:
+Clean up code to remove usage of OS_IS_FREERTOS macro.
+Improve handling of OS related calls in adapter files.
+Remove unnecessary interrupt disable code and barrier in emacps_sgsend.
+Add support for use case for udp send functionality to block till the
+corresponding packet is txed.
+
+mipicsiss_v1_6:
+Switched VDMA with FRAME BUFFER functionality
+
+v_hdmiphy1_v2_3:
+Added definitions for the phy registers and the mask values written to them
+Uprevved the version of mdd for the changes in src files
+
+v_hdmirx1_v1_3:
+Add support for arbitrary resolutions in AXI4 Stream mode and support
+CTA resolutions.
+Fix FRL training failure for Club3D adapter
+
+v_hdmirxss_v6_2:
+Updated copyright information in src files
+Uprevved the version of mdd for the changes in src files
+
+v_hdmitx1_v2_0:
+Return status instead of TMDS clock value
+
+v_hdmitxss_v6_2:
+Updated copyright information in src files
+Uprevved the version of mdd for the changes in src files
+
+v_hdmitxss1_v3_0:
+Onsemi redriver tweaked to get reliable links. GT now put in DFE mode for 10G
+Update example app for #ifdef checks for TPG and for SetStream change
+Remove unused arguments check
+Return status from set stream
+Add support for arbitrary resolutions
+Add support for Native video
+
+video_common_v4_12:
+Add missing timings from CTA-861-H specification.
+The missing timings VMIDs are as below -
+This patch fixes the vertical polarity, frequency and
+number of active lines for the following VMIDs based on
+Manage EDID verbosity from BSP settings
+
+vprocss_v2_10:
+Example App is modified to disable Dcache
+
+vtc_v8_4:
+Added support for 16K (2^16) in the VTC driver
+
 scugic_v4_6:
 Added support for SSIT devices.
 Fixed MISRA-C violations in source code.
@@ -83,9 +176,6 @@ Added support for SSIT devices
 iomodule_v2_12:
 Fixed violations reported by coverity tool.
 Added SSIT device support.sysmonpsv
-
-scugic_v4_6:
-Added support for SSIT devices.
 
 xilsem_v1_4:
 - Added support to notify correctable errors over IPI
