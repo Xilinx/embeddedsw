@@ -67,6 +67,7 @@
 *       bsv  08/17/2021 Code clean up
 *       bsv  08/31/2021 Code clean up
 *       bsv  09/01/2021 Added checks for zero length in XLoader_ProcessCdo
+*       bsv  09/20/2021 Fixed logical error in processing Cdos
 *
 * </pre>
 *
@@ -753,6 +754,13 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 				}
 				TransferWords = (DeviceCopy->Len - ChunkLenTemp);
 				if (TransferWords == 0U) {
+					Cdo.BufPtr = (u32 *)ChunkAddr;
+					Cdo.BufLen = ChunkLenTemp / XIH_PRTN_WORD_LEN;
+					Cdo.Cmd.KeyHoleParams.ExtraWords = 0x0U;
+					Status = XPlmi_ProcessCdo(&Cdo);
+					if (Status != XST_SUCCESS) {
+						goto END;
+					}
 					break;
 				}
 				if (Cdo.Cmd.KeyHoleParams.ExtraWords < TransferWords) {
