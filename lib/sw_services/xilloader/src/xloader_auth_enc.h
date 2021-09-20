@@ -32,6 +32,7 @@
 *       kpt  09/09/21 Fixed SW-BP-BLIND-WRITE in XLoader_AuthEncClear
 *       kpt  09/15/21 Added error code XLOADER_PUF_HD_EFUSE
 *       kpt  09/18/21 Updated macro value XLOADER_PDI_DPACM_ENABLED
+*                     Renamed BHSignature variable to IHTSignature
 *
 * </pre>
 *
@@ -369,7 +370,7 @@ typedef struct {
 	u32 SPKPadding;		/**< SPK padding */
 	u32 Alignment1[2U];	/**< Alignment gap */
 	u32 SPKSignature[128U];	/**< SPK signature */
-	u32 BHSignature[128U];	/**< Bootheader signature */
+	u32 IHTSignature[128U];	/**< Image Header Table signature */
 	u32 ImgSignature[128U];	/**< Image signature */
 } XLoader_AuthCertificate;
 
