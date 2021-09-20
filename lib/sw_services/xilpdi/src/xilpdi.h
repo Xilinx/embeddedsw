@@ -48,6 +48,8 @@
 * 1.06  td   07/08/2021 Fix doxygen warnings
 *       bsv  08/16/2021 Code clean up
 *       bm   08/24/2021 Added Extract Metaheader support
+*       kpt  09/18/2021 Fixed SW-BP-REDUNDANCY in
+*                       XilPdi_IsDpaCmEnable
 *
 * </pre>
 *
@@ -139,6 +141,7 @@ extern "C" {
 #define XIH_IHT_ATTR_PUFHD_MASK		(0xC000U)
 #define XIH_IHT_ATTR_PUFHD_SHIFT		(14U)
 #define XIH_IHT_ATTR_DPA_CM_MASK		(0x3000U)
+#define XIH_IHT_ATTR_DPA_CM_SHIFT		(12U)
 #define XIH_IHT_ATTR_BYPS_MASK				(0x1U) /**< IDCODE checks bypass */
 
 #define XIH_IHT_EXT_IDCODE_MASK			(0x3FU)
@@ -176,6 +179,7 @@ extern "C" {
  *  Prtn Attribute fields
  */
 #define XIH_PH_ATTRB_DPA_CM_EN_MASK		(0x18000000U)
+#define XIH_PH_ATTRB_DPA_CM_EN_SHIFT		(27U)
 #define XIH_PH_ATTRB_PRTN_TYPE_MASK		(0x7000000U)
 #define XIH_PH_ATTRB_HIVEC_MASK			(0x800000U)
 #define XIH_PH_ATTRB_ENDIAN_MASK		(0x40000U)
@@ -520,10 +524,10 @@ static inline u32 XilPdi_GetPufHdPh(const XilPdi_PrtnHdr *PrtnHdr)
 * @return	TRUE / FALSE
 *
 *****************************************************************************/
-static inline u32 XilPdi_IsDpaCmEnable(const XilPdi_PrtnHdr *PrtnHdr)
+static inline u8 XilPdi_IsDpaCmEnable(const XilPdi_PrtnHdr *PrtnHdr)
 {
-	return ((PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_DPA_CM_EN_MASK) != 0x0U) ?
-		(u8)TRUE : (u8)FALSE;
+	return ((u8)((PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_DPA_CM_EN_MASK) >>
+		XIH_PH_ATTRB_DPA_CM_EN_SHIFT));
 }
 
 /****************************************************************************/
@@ -535,10 +539,10 @@ static inline u32 XilPdi_IsDpaCmEnable(const XilPdi_PrtnHdr *PrtnHdr)
 * @return	TRUE / FALSE
 *
 *****************************************************************************/
-static inline u32 XilPdi_IsDpaCmEnableMetaHdr(const XilPdi_ImgHdrTbl *IHdrTbl)
+static inline u8 XilPdi_IsDpaCmEnableMetaHdr(const XilPdi_ImgHdrTbl *IHdrTbl)
 {
-	return ((IHdrTbl->Attr & XIH_IHT_ATTR_DPA_CM_MASK) != 0x0U) ?
-		(u8)TRUE : (u8)FALSE;
+	return ((u8)((IHdrTbl->Attr & XIH_IHT_ATTR_DPA_CM_MASK) >>
+		XIH_IHT_ATTR_DPA_CM_SHIFT));
 }
 
 /****************************************************************************/

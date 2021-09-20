@@ -95,6 +95,7 @@
 *       kpt  09/09/21 Fixed SW-BP-BLIND-WRITE in XLoader_AuthEncClear
 *       kpt  09/15/21 Fixed SW-BP-INIT-FAIL in XLoader_GetAHWRoT
 *       kpt  09/15/21 Fixed SW-BP-INIT-FAIL in XLoader_GetSHWRoT
+*       kpt  09/18/21 Fixed SW-BP-REDUNDANCY
 *
 * </pre>
 *
@@ -286,7 +287,9 @@ int XLoader_ProcessSecurePrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 	}
 #ifndef PLM_SECURE_EXCLUDE
 	else if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
-		(SecurePtr->IsEncrypted == (u8)TRUE)) {
+		(SecurePtr->IsAuthenticatedTmp == (u8)TRUE) ||
+		(SecurePtr->IsEncrypted == (u8)TRUE) ||
+		(SecurePtr->IsEncryptedTmp == (u8)TRUE)) {
 		Status = XLoader_ProcessAuthEncPrtn(SecurePtr, DestAddr,
 				BlockSize, Last);
 	}
@@ -783,14 +786,10 @@ int XLoader_SetSecureState(void)
 	IsBhdrAuthTmp = (u8)((XPlmi_In32(XIH_BH_PRAM_ADDR + XIH_BH_IMG_ATTRB_OFFSET) &
 		XIH_BH_IMG_ATTRB_BH_AUTH_MASK) >>
 		XIH_BH_IMG_ATTRB_BH_AUTH_SHIFT);
-	if ((Status == XST_SUCCESS) && (StatusTmp == XST_SUCCESS)) {
-		if ((IsBhdrAuth == XIH_BH_IMG_ATTRB_BH_AUTH_VALUE) &&
+	if ((Status == XST_SUCCESS) || (StatusTmp == XST_SUCCESS)) {
+		if ((IsBhdrAuth == XIH_BH_IMG_ATTRB_BH_AUTH_VALUE) ||
 		(IsBhdrAuthTmp == XIH_BH_IMG_ATTRB_BH_AUTH_VALUE)) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_HWROT_BH_AUTH_NOT_ALLOWED, 0);
-			goto END;
-		}
-		if (IsBhdrAuth != IsBhdrAuthTmp) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_GLITCH_DETECTED, 0);
 			goto END;
 		}
 		/*
@@ -800,12 +799,8 @@ int XLoader_SetSecureState(void)
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "State of Boot(Authentication):"
 			" Asymmetric HWRoT\r\n");
 	}
-	else if (Status != StatusTmp) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_GLITCH_DETECTED, 0);
-		goto END;
-	}
 	else {
-		if ((IsBhdrAuth == XIH_BH_IMG_ATTRB_BH_AUTH_VALUE) &&
+		if ((IsBhdrAuth == XIH_BH_IMG_ATTRB_BH_AUTH_VALUE) ||
 			(IsBhdrAuthTmp == XIH_BH_IMG_ATTRB_BH_AUTH_VALUE)) {
 			/*
 			 * BHDR authentication is enabled
@@ -813,10 +808,6 @@ int XLoader_SetSecureState(void)
 			AHWRoT = XPLMI_RTCFG_SECURESTATE_EMUL_AHWROT;
 			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "State of Boot(Authentication):"
 			" Emulated Asymmetric HWRoT\r\n");
-		}
-		else if (IsBhdrAuth != IsBhdrAuthTmp) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_GLITCH_DETECTED, 0);
-			goto END;
 		}
 		else {
 			/*
@@ -843,7 +834,7 @@ int XLoader_SetSecureState(void)
 		XLOADER_EFUSE_SEC_DEC_MASK;
 	ReadRegTmp = XPlmi_In32(XLOADER_EFUSE_SEC_MISC0_OFFSET) &
 		XLOADER_EFUSE_SEC_DEC_MASK;
-	if ((ReadReg != 0x0U) && (ReadRegTmp != 0x0U)) {
+	if ((ReadReg != 0x0U) || (ReadRegTmp != 0x0U)) {
 		/*
 		 * One or more DEC_ONLY efuse bits are programmed
 		 */
@@ -851,10 +842,10 @@ int XLoader_SetSecureState(void)
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "State of Boot(Encryption):"
 			" Symmetric HWRoT\r\n");
 	}
-	else if ((ReadReg == 0x0U) && (ReadRegTmp == 0x0U)) {
+	else {
 		XSECURE_TEMPORAL_IMPL(PlmEncStatus, PlmEncStatusTmp,
 		XilPdi_GetPlmKeySrc);
-		if ((PlmEncStatus != 0x0U) && (PlmEncStatusTmp != 0x0U)) {
+		if ((PlmEncStatus != 0x0U) || (PlmEncStatusTmp != 0x0U)) {
 			/*
 			 * PLM is encrypted
 			 */
@@ -862,21 +853,13 @@ int XLoader_SetSecureState(void)
 			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "State of Boot(Encryption):"
 			" Emulated Symmetric HWRoT\r\n");
 		}
-		else if ((PlmEncStatus == 0x0U) && (PlmEncStatusTmp == 0x0U)) {
+		else {
 			/*
 			 * None of the DEC_ONLY efuse bits are programmed and
 			 * PLM is not encrypted
 			 */
 			SHWRoT = XPLMI_RTCFG_SECURESTATE_NONSECURE;
 		}
-		else {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_GLITCH_DETECTED, 0);
-			goto END;
-		}
-	}
-	else {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_GLITCH_DETECTED, 0);
-		goto END;
 	}
 
 	if ((AHWRoT == XPLMI_RTCFG_SECURESTATE_NONSECURE) && (SHWRoT ==

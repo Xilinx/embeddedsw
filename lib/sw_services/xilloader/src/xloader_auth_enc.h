@@ -31,6 +31,7 @@
 *       kpt  09/02/21 Added support to update KAT status in RTC area
 *       kpt  09/09/21 Fixed SW-BP-BLIND-WRITE in XLoader_AuthEncClear
 *       kpt  09/15/21 Added error code XLOADER_PUF_HD_EFUSE
+*       kpt  09/18/21 Updated macro value XLOADER_PDI_DPACM_ENABLED
 *
 * </pre>
 *
@@ -336,7 +337,7 @@ extern "C" {
 #define XLOADER_DAP_TIMEOUT_DISABLED			(2U)
 				/**< Timeout disabled for DAP */
 
-#define XLOADER_PDI_DPACM_ENABLED			(1U)
+#define XLOADER_PDI_DPACM_ENABLED			(0x3U)
 				/**< DPA counter measures are enabled in PDI */
 #define XLOADER_PDI_DPACM_DISABLED			(0U)
 				/**< DPA counter measures are disabled in PDI */

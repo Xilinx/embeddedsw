@@ -58,6 +58,7 @@
 *                     MetaHeader
 *       kpt  09/09/21 Fixed SW-BP-BLIND-WRITE in XLoader_AuthEncClear
 *       kpt  09/15/21 Modified check for PUF HD in XLoader_SecureEncOnlyValidations
+*       kpt  09/18/21 Fixed SW-BP-REDUNDANCY
 *
 * </pre>
 *
@@ -154,7 +155,7 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 	XilPdi_MetaHdr *MetaHdr, u64 BufferAddr);
 static int XLoader_AuthNDecHdrs(XLoader_SecureParams *SecurePtr,
 	XilPdi_MetaHdr *MetaHdr, u64 BufferAddr);
-static int XLoader_SetAesDpaCm(const XSecure_Aes *AesInstPtr, u32 DpaCmCfg);
+static int XLoader_SetAesDpaCm(const XSecure_Aes *AesInstPtr, u8 DpaCmCfg);
 static int XLoader_DecryptBlkKey(const XSecure_Aes *AesInstPtr,
 	const XLoader_AesKekInfo *KeyDetails);
 static int XLoader_AesKatTest(XLoader_SecureParams *SecurePtr);
@@ -281,7 +282,9 @@ int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 	/* Checksum could not be enabled with authentication or encryption */
 	if ((SecurePtr->IsCheckSumEnabled == (u8)TRUE) &&
 		((SecurePtr->IsAuthenticated == (u8)TRUE) ||
-		 (SecurePtr->IsEncrypted == (u8)TRUE))) {
+		 (SecurePtr->IsAuthenticatedTmp== (u8)TRUE) ||
+		 (SecurePtr->IsEncrypted == (u8)TRUE) ||
+		 (SecurePtr->IsEncryptedTmp == (u8)TRUE))) {
 		XPlmi_Printf(DEBUG_INFO, "Error: Checksum should not be enabled with "
 				"authentication or encryption\n\r");
 		Status = XPlmi_UpdateStatus(
@@ -293,7 +296,8 @@ int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 	/* AES Kat test will run if the image is encrypted
 	 * and metaheader is not encrypted
 	 */
-	if (SecurePtr->IsEncrypted == (u8)TRUE) {
+	if ((SecurePtr->IsEncrypted == (u8)TRUE) ||
+		(SecurePtr->IsEncryptedTmp == (u8)TRUE)) {
 		Status = XLoader_AesKatTest(SecurePtr);
 		if (Status != XST_SUCCESS) {
 			XPlmi_Printf(DEBUG_INFO, "AES KAT test failed\n\r");
@@ -708,7 +712,9 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 	int ClearPHs = XST_FAILURE;
 	int Clearchunk = XST_FAILURE;
 	u32 Ihs;
-	u32 TotalSize;
+	volatile u32 TotalSize = MetaHdr->ImgHdrTbl.TotalHdrLen *
+								XIH_PRTN_WORD_LEN;
+	volatile u32 TotalSizeTmp = XLOADER_CHUNK_SIZE + 1U;
 	u32 ImgHdrAddr = MetaHdr->ImgHdrTbl.ImgHdrAddr * XIH_PRTN_WORD_LEN;
 	u32 TotalImgHdrLen = MetaHdr->ImgHdrTbl.NoOfImgs * XIH_IH_LEN;
 	u32 TotalPrtnHdrLen = MetaHdr->ImgHdrTbl.NoOfPrtns * XIH_PH_LEN;
@@ -726,7 +732,8 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 	 * If headers are in encrypted format
 	 * either authentication is enabled or not
 	 */
-	if (SecurePtr->IsEncrypted == (u8)TRUE) {
+	if ((SecurePtr->IsEncrypted == (u8)TRUE) ||
+		(SecurePtr->IsEncryptedTmp == (u8)TRUE)) {
 		SecurePtr->AesInstPtr = XSecure_GetAesInstance();
 		/* Initialize AES driver */
 		Status = XSecure_AesInitialize(SecurePtr->AesInstPtr, SecurePtr->PmcDmaInstPtr);
@@ -747,14 +754,15 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 		SecurePtr->ChunkAddr = XPLMI_PMCRAM_CHUNK_MEMORY;
 		/* Read headers to a buffer */
 		/* Read IHT and PHT to buffers along with encryption overhead */
-		TotalSize =  MetaHdr->ImgHdrTbl.TotalHdrLen * XIH_PRTN_WORD_LEN;
 		if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
 			(SecurePtr->IsAuthenticatedTmp == (u8)TRUE)) {
 			XPlmi_Printf(DEBUG_INFO, "Authentication is enabled\n\r");
 			TotalSize -= XLOADER_AUTH_CERT_MIN_SIZE;
 		}
+		TotalSizeTmp = TotalSize;
 		/* Validate Meta header length */
-		if (TotalSize > XLOADER_CHUNK_SIZE) {
+		if ((TotalSize > XLOADER_CHUNK_SIZE) ||
+			(TotalSizeTmp > XLOADER_CHUNK_SIZE)) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_METAHDR_LEN_OVERFLOW, 0);
 			goto END;
 		}
@@ -770,14 +778,15 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 		/* Authenticate headers and decrypt the headers */
 		if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
 			(SecurePtr->IsAuthenticatedTmp == (u8)TRUE)) {
-			Status = XLoader_AuthNDecHdrs(SecurePtr, MetaHdr,
-						SecurePtr->ChunkAddr);
+			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_AuthNDecHdrs,
+				SecurePtr, MetaHdr, SecurePtr->ChunkAddr);
 		}
 		/* Decrypt the headers */
 		else {
-			Status = XLoader_DecHdrs(SecurePtr, MetaHdr, SecurePtr->ChunkAddr);
+			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_DecHdrs, SecurePtr,
+				MetaHdr, SecurePtr->ChunkAddr);
 		}
-		if (Status != XST_SUCCESS) {
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 			Clearchunk = XPlmi_InitNVerifyMem((UINTPTR)SecurePtr->ChunkAddr,
 							TotalSize);
 			if (Clearchunk != XST_SUCCESS) {
@@ -1303,15 +1312,12 @@ static int XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, const u8 *PpkHash)
 	/* Check if valid PPK hash is all zeros */
 	XSECURE_TEMPORAL_IMPL(HashStatus, HashStatusTmp, Xil_MemCmp, HashZeros,
 						 (void *)PpkOffset, XLOADER_EFUSE_PPK_HASH_LEN);
-	if ((HashStatus == XST_SUCCESS) && (HashStatusTmp == XST_SUCCESS)) {
+	if ((HashStatus == XST_SUCCESS) || (HashStatusTmp == XST_SUCCESS)) {
 		Status = XLoader_UpdateMinorErr(
 			XLOADER_SEC_PPK_HASH_ALLZERO_INVLD, 0x0);
 	}
-	else if((HashStatus != XST_SUCCESS) && (HashStatusTmp != XST_SUCCESS)) {
-		Status = XST_SUCCESS;
-	}
 	else {
-		Status = XLoader_UpdateMinorErr(XLOADER_SEC_GLITCH_DETECTED_ERROR, 0x0);
+		Status = XST_SUCCESS;
 	}
 
 END:
@@ -1934,7 +1940,8 @@ END:
 static int XLoader_DataDecrypt(XLoader_SecureParams *SecurePtr,
 		u64 SrcAddr, u64 DestAddr, u32 Size)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
 	u64 InAddr = SrcAddr;
 	u64 OutAddr = DestAddr;
 	u32 Iv[XLOADER_SECURE_IV_LEN];
@@ -1978,8 +1985,9 @@ static int XLoader_DataDecrypt(XLoader_SecureParams *SecurePtr,
 			SecurePtr->AesInstPtr->NextBlkLen;
 
 		/* Decrypt Secure footer */
-		Status = XLoader_DecryptSecureBlk(SecurePtr, InAddr);
-		if (Status != XST_SUCCESS) {
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_DecryptSecureBlk,
+			SecurePtr, InAddr);
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 			break;
 		}
 		ChunkSize = ChunkSize - XLOADER_SECURE_HDR_TOTAL_SIZE;
@@ -2033,8 +2041,8 @@ static int XLoader_AesDecryption(XLoader_SecureParams *SecurePtr,
 	volatile int StatusTmp = XST_FAILURE;
 	XSecure_AesKeySrc KeySrc = XSECURE_AES_BBRAM_KEY;
 	u32 ChunkSize = Size;
-	volatile u32 DpaCmCfg;
-	volatile u32 DpaCmCfgTmp;
+	volatile u8 DpaCmCfg;
+	volatile u8 DpaCmCfgTmp;
 	XLoader_AesKekInfo KeyDetails;
 	u64 SrcOffset = 0U;
 
@@ -2076,8 +2084,9 @@ static int XLoader_AesDecryption(XLoader_SecureParams *SecurePtr,
 			goto END;
 		}
 		/* Decrypt Secure header */
-		Status = XLoader_DecryptSecureBlk(SecurePtr, SrcAddr);
-		if (Status != XST_SUCCESS) {
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_DecryptSecureBlk, SecurePtr,
+				SrcAddr);
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 			goto END;
 		}
 		SrcOffset += XLOADER_SECURE_HDR_TOTAL_SIZE;
@@ -2417,7 +2426,8 @@ static int XLoader_AuthNDecHdrs(XLoader_SecureParams *SecurePtr,
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
 	u32 TotalSize = MetaHdr->ImgHdrTbl.TotalHdrLen * XIH_PRTN_WORD_LEN;
 
-	if (SecurePtr->IsAuthenticated == (u8)TRUE) {
+	if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
+		(SecurePtr->IsAuthenticatedTmp == (u8)TRUE)) {
 		TotalSize = TotalSize - XLOADER_AUTH_CERT_MIN_SIZE;
 	}
 
@@ -2474,11 +2484,9 @@ static int XLoader_AuthNDecHdrs(XLoader_SecureParams *SecurePtr,
 	}
 
 	/* Decrypt the headers and copy to structures */
-	Status = XLoader_DecHdrs(SecurePtr, MetaHdr, BufferAddr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_DecHdrs, SecurePtr,
+			MetaHdr, BufferAddr);
+	Status |= StatusTmp;
 END:
 	if (Status != XST_SUCCESS) {
 		/* Clear the buffer */
@@ -2518,7 +2526,7 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 	XSecure_AesKeySrc KeySrc = XSECURE_AES_BBRAM_KEY;
 	u32 TotalSize = MetaHdr->ImgHdrTbl.TotalHdrLen * XIH_PRTN_WORD_LEN;
 	u64 SrcAddr = BufferAddr;
-	u32 PdiDpaCmCfg = XilPdi_IsDpaCmEnableMetaHdr(&MetaHdr->ImgHdrTbl);
+	u8 PdiDpaCmCfg = XilPdi_IsDpaCmEnableMetaHdr(&MetaHdr->ImgHdrTbl);
 	u32 EfuseDpaCmCfg = XPlmi_In32(XLOADER_EFUSE_SEC_MISC1_OFFSET) &
 		(XLOADER_EFUSE_SEC_DPA_DIS_MASK);
 	XLoader_AesKekInfo KeyDetails;
@@ -2527,11 +2535,13 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 	u32 ReadEncReg = 0x0U;
 	u32 SecureStateSHWRoT = XLoader_GetSHWRoT(NULL);
 
-	if (SecurePtr->IsAuthenticated == (u8)TRUE) {
+	if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
+		(SecurePtr->IsAuthenticatedTmp == (u8)TRUE)) {
 		TotalSize = TotalSize - XLOADER_AUTH_CERT_MIN_SIZE;
 	}
 
-	if (SecurePtr->IsEncrypted != (u8)TRUE) {
+	if ((SecurePtr->IsEncrypted != (u8)TRUE) &&
+		(SecurePtr->IsEncryptedTmp != (u8)TRUE)) {
 		XPlmi_Printf(DEBUG_INFO, "Headers are not encrypted\n\r");
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_NOT_ENCRYPTED, 0);
 		goto END;
@@ -2636,9 +2646,9 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 
 	SrcAddr = SrcAddr + XLOADER_SECURE_HDR_TOTAL_SIZE;
 	TotalSize = TotalSize - XLOADER_SECURE_HDR_TOTAL_SIZE;
-	Status = XLoader_DataDecrypt(SecurePtr, (UINTPTR)SrcAddr,
-		(UINTPTR)SecurePtr->ChunkAddr, TotalSize);
-	if (Status != XST_SUCCESS) {
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_DataDecrypt, SecurePtr,
+		(UINTPTR)SrcAddr, (UINTPTR)SecurePtr->ChunkAddr, TotalSize);
+	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_DEC_FAIL, Status);
 		XPlmi_Printf(DEBUG_INFO, "Failed at headers decryption\n\r");
 		goto END;
@@ -2664,7 +2674,7 @@ END:
  *		not successful
  *
  ******************************************************************************/
-static int XLoader_SetAesDpaCm(const XSecure_Aes *AesInstPtr, u32 DpaCmCfg)
+static int XLoader_SetAesDpaCm(const XSecure_Aes *AesInstPtr, u8 DpaCmCfg)
 {
 	int Status = XST_FAILURE;
 
@@ -2825,24 +2835,27 @@ END:
 ******************************************************************************/
 static int XLoader_ValidateIV(const u32 *IHPtr, const u32 *EfusePtr)
 {
-	int Status = XST_FAILURE;
+	int Status = XLOADER_SEC_IV_METAHDR_RANGE_ERROR;
+	volatile u32 IHPtr_0U = IHPtr[0U];
+	volatile u32 IHPtrTmp_0U = IHPtr[0U];
+	volatile u32 IHPtr_1U = IHPtr[1U];
+	volatile u32 IHPtrTmp_1U = IHPtr[1U];
+	volatile u32 IHPtr_2U = IHPtr[2U];
+	volatile u32 IHPtrTmp_2U = IHPtr[2U];
 
-	if ((IHPtr[0U] != EfusePtr[0U]) || (IHPtr[1U] != EfusePtr[1U])) {
-		XPlmi_Printf(DEBUG_INFO, "IV not matched for bits[95:32]\r\n");
-		goto END;
+	if ((IHPtr_0U != EfusePtr[0U]) || (IHPtrTmp_0U != EfusePtr[0U])) {
+		XPlmi_Printf(DEBUG_INFO, "IV range check failed for bits[95:64]\r\n");
 	}
-
-	if (IHPtr[2U] >= EfusePtr[2U]) {
+	else if ((IHPtr_1U != EfusePtr[1U]) || (IHPtrTmp_1U != EfusePtr[1U])) {
+		XPlmi_Printf(DEBUG_INFO, "IV range check failed for bits[63:32]\r\n");
+	}
+	else if ((IHPtr_2U >= EfusePtr[2U]) && (IHPtrTmp_2U >= EfusePtr[2U])) {
 		Status = XST_SUCCESS;
 	}
 	else {
 		XPlmi_Printf(DEBUG_INFO, "IV range check failed for bits[31:0]\r\n");
 	}
 
-END:
-	if (Status != XST_SUCCESS) {
-		Status = XLoader_UpdateMinorErr(XLOADER_SEC_IV_METAHDR_RANGE_ERROR, 0);
-	}
 	return Status;
 }
 
@@ -2878,13 +2891,16 @@ int XLoader_AddAuthJtagToScheduler(void)
 {
 	volatile int Status = XST_FAILURE;
 	volatile u32 AuthJtagDis = XLOADER_AUTH_JTAG_DIS_MASK;
+	volatile u32 AuthJtagDisTmp = XLOADER_AUTH_JTAG_DIS_MASK;
 	u32 ReadAuthReg = 0x0U;
 	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
 
 	AuthJtagDis = XPlmi_In32(XLOADER_EFUSE_CACHE_SECURITY_CONTROL_OFFSET) &
 		XLOADER_AUTH_JTAG_DIS_MASK;
-
-	if (AuthJtagDis != XLOADER_AUTH_JTAG_DIS_MASK) {
+	AuthJtagDisTmp = XPlmi_In32(XLOADER_EFUSE_CACHE_SECURITY_CONTROL_OFFSET) &
+		XLOADER_AUTH_JTAG_DIS_MASK;
+	if ((AuthJtagDis != XLOADER_AUTH_JTAG_DIS_MASK) &&
+		(AuthJtagDisTmp != XLOADER_AUTH_JTAG_DIS_MASK)) {
 		ReadAuthReg = XPlmi_In32(XPLMI_RTCFG_SECURESTATE_AHWROT_ADDR);
 		Status = XLoader_CheckSecureState(ReadAuthReg, SecureStateAHWRoT,
 			XPLMI_RTCFG_SECURESTATE_AHWROT);
@@ -2937,7 +2953,8 @@ int XLoader_AddAuthJtagToScheduler(void)
 static int XLoader_CheckAuthJtagIntStatus(void *Arg)
 {
 	volatile int Status = XST_FAILURE;
-	u32 InterruptStatus;
+	volatile u32 InterruptStatus = 0U;
+	volatile u32 InterruptStatusTmp = 0U;
 	static u32 JtagTimeOut = 0U;
 	static u8 JtagTimerEnabled = FALSE;
 
@@ -2945,8 +2962,10 @@ static int XLoader_CheckAuthJtagIntStatus(void *Arg)
 
 	InterruptStatus = XPlmi_In32(XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_OFFSET) &
 		XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_MASK;
-
-	if (InterruptStatus == XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_MASK) {
+	InterruptStatusTmp = XPlmi_In32(XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_OFFSET) &
+		XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_MASK;
+	if ((InterruptStatus == XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_MASK) &&
+		(InterruptStatusTmp == XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_MASK)) {
 		XPlmi_Out32(XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_OFFSET,
 			XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_MASK);
 		Status = XLoader_AuthJtag(&JtagTimeOut);
@@ -2995,7 +3014,8 @@ static int XLoader_AuthJtag(u32 *TimeOut)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
-	u32 AuthJtagDis = 0U;
+	volatile u32 AuthJtagDis = 0U;
+	volatile u32 AuthJtagDisTmp = 0U;
 	u32 RevokeId = 0U;
 	XLoader_SecureParams SecureParams = {0U};
 	XSecure_Sha3Hash Sha3Hash = {0U};
@@ -3020,8 +3040,11 @@ static int XLoader_AuthJtag(u32 *TimeOut)
 
 	/* Check efuse bits for secure debug disable */
 	AuthJtagDis = XPlmi_In32(XLOADER_EFUSE_CACHE_SECURITY_CONTROL_OFFSET) &
-		XLOADER_AUTH_JTAG_DIS_MASK;
-	if (AuthJtagDis == XLOADER_AUTH_JTAG_DIS_MASK) {
+					XLOADER_AUTH_JTAG_DIS_MASK;
+	AuthJtagDisTmp = XPlmi_In32(XLOADER_EFUSE_CACHE_SECURITY_CONTROL_OFFSET) &
+					XLOADER_AUTH_JTAG_DIS_MASK;
+	if ((AuthJtagDis == XLOADER_AUTH_JTAG_DIS_MASK) ||
+		(AuthJtagDisTmp == XLOADER_AUTH_JTAG_DIS_MASK)) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_DISABLED, 0);
 		goto END;
 	}
@@ -3049,9 +3072,8 @@ static int XLoader_AuthJtag(u32 *TimeOut)
 		goto END;
 	}
 
-	Status = XST_FAILURE;
-	Status = XLoader_PpkVerify(&SecureParams);
-	if (Status != XST_SUCCESS) {
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_PpkVerify, &SecureParams);
+	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_PPK_VERIFY_FAIL,
 			Status);
 		goto END;
@@ -3109,14 +3131,12 @@ static int XLoader_AuthJtag(u32 *TimeOut)
 		goto END;
 	}
 
-	/* Reset the Status */
-	Status = XST_FAILURE;
-
 	/* Verify signature of Auth Jtag data */
-	Status = XLoader_VerifySignature(&SecureParams, Sha3Hash.Hash,
-		 &(SecureParams.AuthJtagMessagePtr->PpkData),
-		 (u8*)&(SecureParams.AuthJtagMessagePtr->EnableJtagSignature));
-	if (Status != XST_SUCCESS) {
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_VerifySignature,
+		&SecureParams, Sha3Hash.Hash,
+		&(SecureParams.AuthJtagMessagePtr->PpkData),
+		(u8*)&(SecureParams.AuthJtagMessagePtr->EnableJtagSignature));
+	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 		Status = XPlmi_UpdateStatus(
 			XLOADER_ERR_AUTH_JTAG_SIGN_VERIFY_FAIL, Status);
 		AuthFailCounter += 1U;
@@ -3347,7 +3367,8 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 		SrcAddr = SecurePtr->NextBlkAddr;
 	}
 
-	if (SecurePtr->IsEncrypted == (u8)TRUE) {
+	if ((SecurePtr->IsEncrypted == (u8)TRUE) ||
+		(SecurePtr->IsEncryptedTmp == (u8)TRUE)) {
 
 		if (SecurePtr->BlockNum == 0x0U) {
 			SecurePtr->RemainingEncLen =
@@ -3386,7 +3407,8 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 					XLoader_VerifyAuthHashNUpdateNext,
 					SecurePtr, TotalSize, Last);
 
-		if ((SecurePtr->IsEncrypted != (u8)TRUE) &&
+		if (((SecurePtr->IsEncrypted != (u8)TRUE) &&
+			(SecurePtr->IsEncryptedTmp != (u8)TRUE)) &&
 			(SecurePtr->IsCdo != (u8)TRUE)) {
 			/* Copy to destination address */
 			Status = XPlmi_DmaXfr((u64)SecurePtr->SecureData,
@@ -3402,7 +3424,8 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 	}
 
 	/* If encryption is enabled */
-	if (SecurePtr->IsEncrypted == (u8)TRUE) {
+	if ((SecurePtr->IsEncrypted == (u8)TRUE) ||
+		(SecurePtr->IsEncryptedTmp == (u8)TRUE)) {
 		if ((SecurePtr->IsAuthenticated != (u8)TRUE) ||
 			(SecurePtr->IsAuthenticatedTmp != (u8)TRUE)) {
 			SecurePtr->SecureData = SecurePtr->ChunkAddr;
@@ -3528,8 +3551,9 @@ static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 		}
 	}
 	else {
-		Status = Xil_MemCmp(ExpHash, BlkHash.Hash, XLOADER_SHA3_LEN);
-		if (Status != XST_SUCCESS) {
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, Xil_MemCmp, ExpHash,
+			BlkHash.Hash, XLOADER_SHA3_LEN);
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 			XPlmi_Printf(DEBUG_INFO, "Hash mismatch error\n\r");
 			XPlmi_PrintArray(DEBUG_INFO, (UINTPTR)BlkHash.Hash,
 				XLOADER_SHA3_LEN / XIH_PRTN_WORD_LEN, "Calculated Hash");

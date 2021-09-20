@@ -66,6 +66,7 @@
 *       kal  08/19/2021 Renamed XSecure_AesPmcDmaCfgByteSwap to
 *                       XSecure_AesPmcDmaCfgAndXfer
 *       har  08/23/2021 Updated AAD size check
+*       kpt  09/18/2021 Added redundancy in XSecure_AesSetDpaCm
 *
 * </pre>
 *
@@ -483,10 +484,11 @@ int XSecure_AesSetDpaCm(const XSecure_Aes *InstancePtr, u32 DpaCmCfg)
 {
 	int Status = XST_FAILURE;
 	u32 ReadReg;
+	volatile u32 DpaCmCfgEn = DpaCmCfg;
+	volatile u32 DpaCmCfgEnTmp = DpaCmCfg;
 
 	/* Validate the input arguments */
-	if ((InstancePtr == NULL) ||
-		((DpaCmCfg != TRUE) && (DpaCmCfg != FALSE))) {
+	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
@@ -500,16 +502,20 @@ int XSecure_AesSetDpaCm(const XSecure_Aes *InstancePtr, u32 DpaCmCfg)
 	if ((XSecure_In32(XSECURE_EFUSE_SECURITY_MISC1) &
 		XSECURE_EFUSE_DPA_CM_DIS_MASK) != XSECURE_EFUSE_DPA_CM_DIS_MASK) {
 
+		if ((DpaCmCfgEn != FALSE) || (DpaCmCfgEnTmp != FALSE)) {
+			DpaCmCfgEn = TRUE;
+			DpaCmCfgEnTmp = TRUE;
+		}
 		/* Disable/enable DPA CM inside AES engine */
 		XSecure_WriteReg(InstancePtr->BaseAddress,
-						XSECURE_AES_CM_EN_OFFSET, DpaCmCfg);
+						XSECURE_AES_CM_EN_OFFSET, (DpaCmCfgEn | DpaCmCfgEnTmp));
 
 		/* Verify status of CM */
 		ReadReg = XSecure_ReadReg(InstancePtr->BaseAddress,
 				XSECURE_AES_STATUS_OFFSET);
 		ReadReg = (ReadReg & XSECURE_AES_STATUS_CM_ENABLED_MASK) >>
 					XSECURE_AES_STATUS_CM_ENABLED_SHIFT;
-		if (ReadReg == DpaCmCfg) {
+		if (ReadReg == (DpaCmCfgEn | DpaCmCfgEnTmp)) {
 			Status = XST_SUCCESS;
 		}
 	}
