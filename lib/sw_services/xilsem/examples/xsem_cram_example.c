@@ -15,6 +15,10 @@
  * 0.1   gm    03/16/2021  Initial Creation
  * 0.2	 hv    07/19/2021  Updated to give more information without debug
  *		   	   prints in XilSEM server
+ * 0.3   rama  09/20/2021  Added more description on error injection
+ *                         arguments for different types of errors and XilSEM
+ *                         behavior after each type of the error
+ *
  * </pre>
  *
  *****************************************************************************/
@@ -210,6 +214,16 @@ XStatus XSem_CfrApiErrNjct (XSemCfrErrInjData *ErrData)
  *****************************************************************************/
 XStatus Xsem_CfrApiInjctCorErr()
 {
+	/* To inject correctable error, inject error in single bit position in
+	 * any of the row/frame/qword. The argument details are
+	 * ErrData[0]: Frame Address : 0, Quadword: 3, Bit position: 4, Row: 0
+	 * Valid ranges: Row 0-3, Qword 0-24, Bit postion 0-127,
+	 * For frame address, refer to the LAST_FRAME_TOP (CFRAME_REG) and
+	 * LAST_FRAME_BOT (CFRAME_REG) registers.
+	 * In Qword 12, 0-23 & 48-71 are syndrome bits. All other bits are data bits.
+	 * To inject single bit error in syndrome, select Qword 12 in any of the
+	 * frame with bit position in range of 0-23 or 48-71
+	 */
 	XSemCfrErrInjData ErrData = {0, 3, 4, 0};
 	XStatus Status = 0U;
 
@@ -228,6 +242,11 @@ XStatus Xsem_CfrApiInjctCorErr()
  *****************************************************************************/
 XStatus Xsem_CfrApiInjctUnCorErr()
 {
+	/* To inject uncorrectable error, the injection has to be done in alternate
+	 * bit positions in the same qword. The argument details are
+	 * ErrData[0]: Frame Address : 0, Quadword: 0, Bit position: 2, Row: 0
+	 * ErrData[1]: Frame Address : 0, Quadword: 0, Bit position: 4, Row: 0
+	 */
 	XSemCfrErrInjData ErrData[2] = {{0, 0, 2, 0},
 					{0, 0, 4, 0},
 					};
@@ -247,12 +266,21 @@ XStatus Xsem_CfrApiInjctUnCorErr()
 }
 
 /******************************************************************************
- * @brief	This function is used to inject CRC error
+ * @brief	This function is used to inject CRC error. This error is treated as
+ * uncorrectable error.
  *
  * @return	Status : Success or Failure
  *****************************************************************************/
 XStatus Xsem_CfrApiInjctCrcErr()
 {
+	/* To inject CRC error, the injection has to be done in alternate bit
+     * positions of the same qword in 3 or more than 3 positions.
+	 * The argument details are
+	 * ErrData[0]: Frame Address : 0, Quadword: 0, Bit position: 0, Row: 0
+	 * ErrData[1]: Frame Address : 0, Quadword: 0, Bit position: 2, Row: 0
+	 * ErrData[2]: Frame Address : 0, Quadword: 0, Bit position: 4, Row: 0
+	 * ErrData[3]: Frame Address : 0, Quadword: 0, Bit position: 6, Row: 0
+	 */
 	XSemCfrErrInjData ErrData[4] = {{0, 0, 0, 0},
 					{0, 0, 2, 0},
 					{0, 0, 4, 0},
@@ -557,14 +585,16 @@ int main(void)
 	/*Capture Initial error count*/
 	IntialCorErrCnt = CfrStatusInfo.ErrCorCnt;
 
-	/*Enable event Notifications*/
+	/* Enable event Notifications to receive notfications from PLM
+	 * upon detection of any error in CFRAME
+	 */
 	Xsem_CfrEventRegisterNotifier(1U);
 
 	/* The following sequence demonstrates how to inject errors in CRAM
 	 * 1. StopScan
 	 * 2. InjectError
 	 * 3. StartScan
-	 * 4. Read Correctable Error count and status
+	 * 4. Read Correctable error count in case of correctable errors and status
 	 */
 	/* Stop Scan */
 	Status = XSem_CfrApiStopScan();
@@ -573,13 +603,26 @@ int main(void)
 		goto END;
 	}
 
-	/*Error injection : 1-bit cor/CRC/Uncor Error*/
+	/* Error injection : This example demonstrates how to inject 1-bit
+	 * Correctable error. If you want to inject CRC error, you need to
+	 * replace the function call Xsem_CfrApiInjctCorErr
+	 * with Xsem_CfrApiInjctCrcErr.
+	 * If you want to inject uncorrectable error replace the function call
+	 * with Xsem_CfrApiInjctUnCorErr.
+	 */
 	Status = Xsem_CfrApiInjctCorErr();
 	if (Status == XST_SUCCESS){
 		IsErrorInjected = 1U;
 	}
 
-	/* Start Scan */
+	/* Start Scan to enable CRAM to detect the injected error.
+	 * In case of CRC or uncorrectable error, XilSEM stops the scan
+	 * and enters into idle state which means no further scan will be
+	 * performed.
+	 * In case of correctable error, XilSEM corrects the error
+	 * if the correction is enabled in the configuration. Else, it will
+	 * report the error and enters into idle state.
+	 */
 	Status = XSem_CfrApiStartScan();
 	if (XST_SUCCESS != Status) {
 		xil_printf("Start Scan Failed\n\r");
