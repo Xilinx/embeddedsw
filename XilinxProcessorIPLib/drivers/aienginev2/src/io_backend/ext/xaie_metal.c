@@ -55,6 +55,7 @@ typedef struct XAie_MetalIO {
 	u64 BaseAddr;
 	u64 MapSize;
 	void *NpiBaseAddr;
+	u64 NpiMapSize;
 } XAie_MetalIO;
 
 #endif /* __AIEMETAL__ */
@@ -80,9 +81,52 @@ static AieRC XAie_MetalIO_Finish(void *IOInst)
 	XAie_MetalIO *MetalIOInst = (XAie_MetalIO *)IOInst;
 
 	munmap((void *)MetalIOInst->BaseAddr, MetalIOInst->MapSize);
+	if(MetalIOInst->NpiBaseAddr != NULL)
+		munmap((void *)MetalIOInst->NpiBaseAddr,
+				MetalIOInst->NpiMapSize);
 	close(MetalIOInst->DevFd);
 
 	return XAIE_OK;
+}
+
+/*****************************************************************************/
+/**
+*
+* This api maps the NPI address space for the user to access NPI registers.
+*
+* @param	IOInst: IO Instance pointer.
+*
+* @return	XAIE_OK on success, error code on failure.
+*
+* @note		If the NPI address space mapping failes, the api will throw
+*		a warning.
+*
+*******************************************************************************/
+void _XAie_MetalIO_MapNpi(XAie_MetalIO *IOInst)
+{
+	int Fd;
+	void *NpiAddr;
+
+	Fd = open("/dev/mem", O_RDWR);
+	if(Fd < 0) {
+		XAIE_WARN("Fialed to open npi register node. Continuing.\n");
+		IOInst->NpiBaseAddr = NULL;
+		return;
+	}
+
+	NpiAddr = mmap(NULL, 0x1000, PROT_READ | PROT_WRITE, MAP_SHARED, Fd,
+			(off_t)XAIE_NPI_BASEADDR);
+	if(NpiAddr == MAP_FAILED) {
+		XAIE_WARN("Failed to mmap NPI space. Continuing without NPI\n");
+		IOInst->NpiBaseAddr = NULL;
+		return;
+	}
+
+	IOInst->NpiBaseAddr = NpiAddr;
+	IOInst->NpiMapSize = 0x1000;
+	XAIE_DBG("NPI space mapped successfuly.\n");
+
+	return;
 }
 
 /*****************************************************************************/
@@ -158,10 +202,8 @@ static AieRC XAie_MetalIO_Init(XAie_DevInst *DevInst)
 	MetalIOInst->BaseAddr = (u64)Addr;
 	MetalIOInst->DevFd = Fd;
 	MetalIOInst->MapSize = Size;
-	/*
-	 * TODO: Enable NPI access
-	 */
-	MetalIOInst->NpiBaseAddr = NULL;
+
+	_XAie_MetalIO_MapNpi(MetalIOInst);
 
 	DevInst->IOInst = (void *)MetalIOInst;
 
