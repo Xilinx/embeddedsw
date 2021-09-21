@@ -26,6 +26,7 @@
 * 2.0   aad    02/10/20 Added new Interrupt handler structure.
 * 2.3   aad    04/30/21 Size optimization for PLM.
 *       aad    07/26/21 Fixed doxygen comments.
+*       aad    09/21/21 Fixed warning.
 *
 * </pre>
 *
@@ -370,7 +371,7 @@ void XSysMonPsv_AlarmEventHandler(XSysMonPsv *InstancePtr)
         u32 DevTempDetected, OTTempDetected, SupplyAlarm;
         /* Upper 16 bits contain Min Temp, Lower 16 bits contain Max Temp */
         u32 TempMinMax, IntrStatus, SupplyReg, SupplyVal;
-        u32 SupplyNum = 0U;
+        u32 SupplyNum = 0U, ListLength = (u32) EndList;
         XSysMonPsv_EventHandler *EventHandler;
         XSysMonPsv_Supply Supply = (XSysMonPsv_Supply) 0;
 
@@ -415,7 +416,7 @@ void XSysMonPsv_AlarmEventHandler(XSysMonPsv *InstancePtr)
         }
 
         if(SupplyAlarm != 0U) {
-                for(SupplyNum = 0U; SupplyNum < (u32)EndList; SupplyNum++) {
+                for(SupplyNum = 0U; SupplyNum < ListLength; SupplyNum++) {
                         Supply = (XSysMonPsv_Supply) SupplyNum;
                         if(XSysMonPsv_IsAlarmCondition(InstancePtr, Supply) == 1U) {
                                 SupplyReg =
