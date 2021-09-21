@@ -37,6 +37,14 @@
 #include "task.h"
 
 #define THREAD_STACKSIZE 1024
+/*
+ * Max number of telnet connections that this application can serve.
+ * The existing implementation does not support closing of an existing telnet.
+ * Once a telnet connection is made, it stays for ever.
+ */
+#define MAX_CONNECTIONS 8
+int new_sd[MAX_CONNECTIONS];
+int connection_index;
 
 u16_t echo_port = 7;
 
@@ -51,7 +59,7 @@ void print_echo_app_header()
 /* thread spawned for each connection */
 void process_echo_request(void *p)
 {
-	int sd = (int)p;
+	int sd = *(int *)p;
 	int RECV_BUF_SIZE = 2048;
 	char recv_buf[RECV_BUF_SIZE];
 	int n, nwrote;
@@ -87,7 +95,7 @@ void process_echo_request(void *p)
 
 void echo_application_thread()
 {
-	int sock, new_sd;
+	int sock;
 	int size;
 #if LWIP_IPV6==0
 	struct sockaddr_in address, remote;
@@ -123,11 +131,16 @@ void echo_application_thread()
 	size = sizeof(remote);
 
 	while (1) {
-		if ((new_sd = lwip_accept(sock, (struct sockaddr *)&remote, (socklen_t *)&size)) > 0) {
+		if ((new_sd[connection_index] = lwip_accept(sock, (struct sockaddr *)&remote, (socklen_t *)&size)) > 0) {
 			sys_thread_new("echos", process_echo_request,
-				(void*)new_sd,
+				(void*)&(new_sd[connection_index]),
 				THREAD_STACKSIZE,
 				DEFAULT_THREAD_PRIO);
+			if (++connection_index>= MAX_CONNECTIONS) {
+				break;
+			}
 		}
 	}
+	xil_printf("Maximum number of connections reached, No further connections will be accepted\r\n");
+	vTaskSuspend(NULL);
 }
