@@ -96,6 +96,7 @@
 *       kpt  09/15/21 Fixed SW-BP-INIT-FAIL in XLoader_GetAHWRoT
 *       kpt  09/15/21 Fixed SW-BP-INIT-FAIL in XLoader_GetSHWRoT
 *       kpt  09/18/21 Fixed SW-BP-REDUNDANCY
+*       kpt  09/20/21 Fixed checksum issue in case of delay load
 *
 * </pre>
 *
@@ -528,7 +529,6 @@ static int XLoader_ChecksumInit(XLoader_SecureParams *SecurePtr,
 				XLOADER_ERR_INIT_CHECKSUM_COPY_FAIL, Status);
 			goto END;
 		}
-		SecurePtr->SecureHdrLen += XLOADER_SHA3_LEN;
 	}
 
 	Status = XST_SUCCESS;
