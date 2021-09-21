@@ -14,6 +14,8 @@
  * ----  ----  ----------  ---------------------------------------------------
  * 0.1   rb    03/16/2021  Initial Creation
  * 0.2   hb    07/20/2021  Added event notification and restructured code
+ * 0.3   hb    09/20/2021  Added description on error injection &
+ *                         correction
  * </pre>
  *
  *****************************************************************************/
@@ -380,7 +382,10 @@ void PrintErrReport(void)
 * - XST_SUCCESS - on successful execution of injection and detection of error
 * - XST_FAILURE - on failure
 *
-* @note		None.
+* @note		Npi example always injects error in the golden SHA of the first
+*           descriptor. The injected SHA error can be corrected by executing
+*           the error injection sequence again. Real SHA errors are
+*           uncorrectable.
 *
 ******************************************************************************/
 int main(void)
@@ -405,6 +410,8 @@ int main(void)
 	 * 2. Inject error
 	 * 3. Start NPI scan
 	 * 4. Read for Golden SHA mismatch error
+	 * Note: Execute the sequence again to correct the injected error,
+	 *       but the error status will remain till POR.
 	 */
 
 	/* Check if NPI is stopped or not started previously */
@@ -436,7 +443,6 @@ int main(void)
 	if (XST_FAILURE == Status) {
 		xil_printf("[%s] ERROR: NPI Scan count not incrementing.\n\r", \
 				__func__, Status);
-		goto END;
 	}
 
 	/* Stop NPI scan before injecting error */
