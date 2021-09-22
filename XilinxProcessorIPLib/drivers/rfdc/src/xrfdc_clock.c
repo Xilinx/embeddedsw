@@ -72,6 +72,7 @@
 * 11.0  cog    05/31/21 Upversion.
 *              06/01/21 MetalLog Updates.
 *       cog    07/12/21 Simplified clock distribution user interface.
+*       cog    09/21/21 Fixed rounding error in cast.
 * </pre>
 *
 ******************************************************************************/
@@ -1741,9 +1742,9 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 		goto RETURN_PATH;
 	}
 
-	PLLFreq = (u32)(RefClkFreq * XRFDC_MILLI);
-	PLLFS = (u32)(SamplingRate * XRFDC_MILLI);
-	OpDiv = PLLFreq / PLLFS;
+	PLLFreq = (u32)((RefClkFreq + 0.0005) * XRFDC_MILLI);
+	PLLFS = (u32)((SamplingRate + 0.0005) * XRFDC_MILLI);
+	OpDiv = (u32)((RefClkFreq / SamplingRate) + 0.5);
 	if (Source == XRFDC_INTERNAL_PLL_CLK) {
 		if ((RefClkFreq < XRFDC_REFFREQ_MIN) || (RefClkFreq > XRFDC_REFFREQ_MAX)) {
 			metal_log(
