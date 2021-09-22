@@ -1,32 +1,50 @@
 Changes for 2021.2
 ===============================
 
+cpu_v2_14:
+Updated tcl logic to use compiler pointed by user
+Removed fsl.h, which is duplicate of standalone/src/microblaze/fsl.h .
+
+ddrpsv_v1_4:
+Updated tcl file to skip its execution for psv_pmc and psv_psm processor
+
+dfxasm_v1_1:
+Fix dfxasm example compilation issue with c++ compiler
+
+freertos10_xilinx_v1_10:
+Fixed PV console support for FreeRTOS domU guests
+Updated R5 port to use Xil_In/Xil_Out for register read/writes. It would sync
+FreeRTOS R5 port with Xilinx STL library. It fixes CR-1076149
+Improved exception handling in A53/A72 port
+Fixed issues related to A53/A72 interrupt context handling
+
 xilpm_v3_5:
-Versal
-Add node IDs information for error events
-fix doxygen comments
-Add dummy NPI register read in AieBisr()
-Add TTC in default pre-alloc device list
-Add PM_CAP_SECURE to RPU0 in default subsystem definition
-Add support for CPU idle during force power down and subsystem restart
-Use PGGS2 instead of CRP_RESET_REASON for reset reason
-Fix compilation errors
-Add support for registering multiple events simultaneously
-Fix MISRA rule violations
-Skip NSUs in mem-clear
-Add support for VC1702 device
-Add support to notify core state change
-Use standardized poll function
-Add support for new houseclean disable functionality
-Add Init sequence for AIE2
-Remove dead code
-display warning if IPI is not enabled in design
-Fix NIDB repair sequence
-ZynqMP
-Fix doxygen warnings
-Add missing enum info
-Add support for runtime features
-Add IOCTL support
+ Versal
+ Add node IDs information for error events
+ fix doxygen comments
+ Add dummy NPI register read in AieBisr()
+ Add TTC in default pre-alloc device list
+ Add PM_CAP_SECURE to RPU0 in default subsystem definition
+ Add support for CPU idle during force power down and subsystem restart
+ Use PGGS2 instead of CRP_RESET_REASON for reset reason
+ Fix compilation errors
+ Add support for registering multiple events simultaneously
+ Fix MISRA rule violations
+ Skip NSUs in mem-clear
+ Add support for VC1702 device
+ Add support to notify core state change
+ Use standardized poll function
+ Add support for new houseclean disable functionality
+ Add Init sequence for AIE2
+ Remove dead code
+ display warning if IPI is not enabled in design
+ Fix NIDB repair sequence
+
+ ZynqMP
+ Fix doxygen warnings
+ Add missing enum info
+ Add support for runtime features
+ Add IOCTL support
 
 v_frmbuf_wr_v4_5:
 Added support for Y_U_V8 video color format
@@ -97,6 +115,9 @@ Added support for 16K (2^16) in the VTC driver
 scugic_v4_6:
 Added support for SSIT devices.
 Fixed MISRA-C violations in source code.
+Update datatype of CpuBaseAddress, DistBaseAddress and BaseAddress from u32 to
+UINTPTR to support on all platforms.
+Fix GCC warnings in source code
 
 axivdma_v6_10:
 - Fix unused variable GCC warning for Index1 in ReadSetup
@@ -175,7 +196,9 @@ Added support for SSIT devices
 
 iomodule_v2_12:
 Fixed violations reported by coverity tool.
-Added SSIT device support.sysmonpsv
+Added SSIT device support.
+Updated logic in tcl to fix BSP creation for HW designs where IOMODULE
+interrupt port is left un-connected.
 
 xilsem_v1_4:
 - Added support to notify correctable errors over IPI
@@ -193,6 +216,9 @@ status without using debug prints
 
 standalone_v7_6:
 Added support for SSIT devices.
+Updated Cortexa9 boot code to skip SCU invalidation when USE_AMP is set to 1.
+It fixes CR-1109723.
+Fixed MISRA-C warnings
 
 aienginev2_v3_0:
 Fixed PV console support for FreeRTOS domU guests
@@ -203,10 +229,6 @@ Limit RX maximum number of taps to 127.
 
 sdps_v3_13:
 Limit the SD operating frequency to 19MHz by default for Versal platform.
-
-xilpm_v3_5:
-Versal
-Make OSPI a default pre-allocated device.
 
 xilffs_v4_6:
 Fix compilation warning with RAM interface.
@@ -282,7 +304,7 @@ Renamed XSecure_AesPmcDmaCfgByteSwap API with XSecure_AesPmcDmaCfgAndXfer.
 Minor bug fixes.
 Fixed MISRA C warnings.
 
-xilnvm_2_4:
+xilnvm_v2_4:
 Fixed doxygen warnings.
 Added client-server support for BBRAM and eFUSE.
 Added most restrictive range checks for device temperature before programming eFuses.
