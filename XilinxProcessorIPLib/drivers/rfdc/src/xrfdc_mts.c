@@ -50,6 +50,7 @@
 *       cog    05/06/21 Minimum gap between edges in DTC scan for T1 should be
 *                       reduced for Gen 3 devices.
 * 11.0  cog    05/31/21 Upversion.
+*       cog    09/21/21 Factor in half bandwidth when using MTS in IMR modes.
 *
 * </pre>
 *
@@ -970,18 +971,23 @@ static u32 XRFdc_MTS_Latency(XRFdc *InstancePtr, u32 Type, XRFdc_MultiConverter_
 	u32 Block_Id;
 	XRFdc_Mixer_Settings Mixer_Settings;
 	u32 IQFactor = 1U;
+	u32 DatapathModeFactor = 1U;
+	u32 DatapathMode;
 
 	Status = XRFDC_MTS_OK;
 	if (Type == XRFDC_ADC_TILE) {
-		(void)XRFdc_GetDecimationFactor(InstancePtr, ConfigPtr->RefTile, 0, &Factor);
+		(void)XRFdc_GetDecimationFactor(InstancePtr, ConfigPtr->RefTile, XRFDC_BLK_ID0, &Factor);
 	} else {
-		(void)XRFdc_GetInterpolationFactor(InstancePtr, ConfigPtr->RefTile, 0, &Factor);
-		(void)XRFdc_GetFabWrVldWords(InstancePtr, Type, ConfigPtr->RefTile, 0, &Write_Words);
-		XRFdc_GetMixerSettings(InstancePtr, Type, ConfigPtr->RefTile, 0, &Mixer_Settings);
+		(void)XRFdc_GetInterpolationFactor(InstancePtr, ConfigPtr->RefTile, XRFDC_BLK_ID0, &Factor);
+		(void)XRFdc_GetFabWrVldWords(InstancePtr, Type, ConfigPtr->RefTile, XRFDC_BLK_ID0, &Write_Words);
+		(void)XRFdc_GetDataPathMode(InstancePtr, ConfigPtr->RefTile, XRFDC_BLK_ID0, &DatapathMode);
+		if ((DatapathMode == XRFDC_DATAPATH_MODE_FSDIVFOUR_FSDIVTWO) ||
+		    (DatapathMode == XRFDC_DATAPATH_MODE_DUC_0_FSDIVFOUR)) {
+			DatapathModeFactor = 2U;
+		}
+		(void)XRFdc_GetMixerSettings(InstancePtr, Type, ConfigPtr->RefTile, XRFDC_BLK_ID0, &Mixer_Settings);
 		if (Mixer_Settings.MixerMode == (XRFDC_MIXER_MODE_C2R)) {
 			IQFactor = 2U;
-		} else {
-			IQFactor = 1U;
 		}
 	}
 	(void)XRFdc_GetFabRdVldWords(InstancePtr, Type, ConfigPtr->RefTile, 0, &Read_Words);
@@ -1022,7 +1028,7 @@ static u32 XRFdc_MTS_Latency(XRFdc *InstancePtr, u32 Type, XRFdc_MultiConverter_
 			 * DAC marker counter is on the tile clock domain so need
 			 * to update SysRef period accordingly
 			 */
-			SysRefT1Period = ((SysRefT1Period * Write_Words) / Read_Words) / IQFactor;
+			SysRefT1Period = ((SysRefT1Period * Write_Words * DatapathModeFactor) / Read_Words) / IQFactor;
 		}
 		metal_log(METAL_LOG_INFO, "SysRef period in terms of %s T1s = %d\n",
 			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", SysRefT1Period);
