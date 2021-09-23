@@ -1,5 +1,20 @@
 Changes for 2021.2
 ===============================
+emacps_v3_15:
+License updates
+Corrected divisor fields in config structure to accommodate Versal
+
+xxvethernet_v1_7:
+License updates
+
+emaclite_v4_7:
+License updates
+
+axiethernet_v5_13:
+License updates
+
+xilfpga_v6_1:
+Fixed compilation warnings.
 
 cpu_v2_14:
 Updated tcl logic to use compiler pointed by user
