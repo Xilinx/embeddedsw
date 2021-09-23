@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,10 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/**
+ *@cond nocomments
+ */
 
 /***************************** Include Files *********************************/
 
@@ -308,6 +312,9 @@ extern "C" {
 
 #define XPAR_SCUWDT_DEVICE_ID		0U
 
+/**
+ *@endcond
+ */
 
 #ifdef __cplusplus
 }
