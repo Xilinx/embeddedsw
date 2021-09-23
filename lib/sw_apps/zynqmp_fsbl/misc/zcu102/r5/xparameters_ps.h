@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,10 @@
 * </pre>
 *
 ******************************************************************************/
+
+/**
+ *@cond nocomments
+ */
 
 #ifndef XPARAMETERS_PS_H_
 #define XPARAMETERS_PS_H_
@@ -320,6 +324,11 @@ extern "C" {
 #endif
 
 #endif /* protection macro */
+
+/**
+ *@endcond
+ */
+
 /**
 * @} End of "addtogroup r5_peripheral_definitions".
 */
