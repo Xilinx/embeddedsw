@@ -68,6 +68,7 @@
 *       bsv  08/31/2021 Code clean up
 *       bsv  09/01/2021 Added checks for zero length in XLoader_ProcessCdo
 *       bsv  09/20/2021 Fixed logical error in processing Cdos
+*       bm   09/23/2021 Fix R5 partition load issue
 *
 * </pre>
 *
@@ -985,8 +986,7 @@ static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len)
 			((Address >= XLOADER_R5_TCMB_LOAD_ADDRESS) &&
 			(Address < (XLOADER_R5_TCMB_LOAD_ADDRESS +
 				XLOADER_R5_TCM_BANK_LENGTH))))) {
-		if ((DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_0) ||
-			(DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_L)) {
+		if (DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_0) {
 			Offset = XLOADER_R5_0_TCMA_BASE_ADDR;
 		}
 		else if (DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_1) {
@@ -995,26 +995,25 @@ static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len)
 		else {
 			/* MISRA-C compliance */
 		}
-	}
 
-	if ((DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_0) ||
-		(DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_1)) {
+		if ((DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_0) ||
+			(DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_1)) {
 			if (((Address % XLOADER_R5_TCM_BANK_LENGTH) + Len) >
 				XLOADER_R5_TCM_BANK_LENGTH) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_TCM_ADDR_OUTOF_RANGE, 0);
 				goto END;
 			}
+		}
 	}
-	else if ((DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_L) &&
+
+	if ((DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_L) &&
 		(Address < XLOADER_R5_TCM_TOTAL_LENGTH)) {
 		if (((Address % XLOADER_R5_TCM_TOTAL_LENGTH) + Len) >
 			XLOADER_R5_TCM_TOTAL_LENGTH) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_TCM_ADDR_OUTOF_RANGE, 0);
 			goto END;
 		}
-	}
-	else {
-		/* Do nothing */
+		Offset = XLOADER_R5_0_TCMA_BASE_ADDR;
 	}
 
 	/*
