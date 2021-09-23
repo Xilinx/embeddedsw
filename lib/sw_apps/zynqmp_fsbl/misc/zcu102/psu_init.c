@@ -29,7 +29,7 @@ static void mask_delay(u32 delay);
 
 static u32 mask_read(u32 add, u32 mask);
 
-static int serdes_rst_seq (u32 lane3_protocol, u32 lane3_rate, u32 lane2_protocol, u32 lane2_rate, u32 lane1_protocol, u32 lane1_rate, u32 lane0_protocol, u32 lane0_rate);
+static int serdes_rst_seq (u32 pllsel, u32 lane3_protocol, u32 lane3_rate, u32 lane2_protocol, u32 lane2_rate, u32 lane1_protocol, u32 lane1_rate, u32 lane0_protocol, u32 lane0_rate);
 
 static int serdes_bist_static_settings(u32 lane_active);
 
@@ -37,7 +37,7 @@ static int serdes_bist_run(u32 lane_active);
 
 static int serdes_bist_result(u32 lane_active);
 
-static int serdes_illcalib_pcie_gen1 (u32 lane3_protocol, u32 lane3_rate, u32 lane2_protocol, u32 lane2_rate, u32 lane1_protocol, u32 lane1_rate, u32 lane0_protocol, u32 lane0_rate, u32 gen2_calib);
+static int serdes_illcalib_pcie_gen1 (u32 pllsel, u32 lane3_protocol, u32 lane3_rate, u32 lane2_protocol, u32 lane2_rate, u32 lane1_protocol, u32 lane1_rate, u32 lane0_protocol, u32 lane0_rate, u32 gen2_calib);
 
 
 static int serdes_illcalib (u32 lane3_protocol, u32 lane3_rate, u32 lane2_protocol, u32 lane2_rate, u32 lane1_protocol, u32 lane1_rate, u32 lane0_protocol, u32 lane0_rate);
@@ -5862,7 +5862,7 @@ unsigned long psu_ddr_init_data(void)
     * General Purpose Register 1
     * (OFFSET, MASK, VALUE)      (0XFD0800C4, 0xFFFFFFFFU ,0x000000E3U)
     */
-	PSU_Mask_Write(DDR_PHY_GPR1_OFFSET, 0xFFFFFFFFU, 0x000000E3U);
+	PSU_Mask_Write(DDR_PHY_GPR1_OFFSET, 0xFFFFFFFFU, 0x000000E4U);
 /*##################################################################### */
 
     /*
@@ -22718,7 +22718,7 @@ static u32 mask_read(u32 add, u32 mask)
 #undef SERDES_ICM_CFG1_OFFSET
 #define SERDES_ICM_CFG1_OFFSET     		0xFD410014
 //It is mandatory to do the reset sequence on all lanes if UPHY_SPARE is used
-static int serdes_rst_seq (u32 lane3_protocol, u32 lane3_rate, u32 lane2_protocol, u32 lane2_rate, u32 lane1_protocol, u32 lane1_rate, u32 lane0_protocol, u32 lane0_rate)
+static int serdes_rst_seq (u32 pllsel, u32 lane3_protocol, u32 lane3_rate, u32 lane2_protocol, u32 lane2_rate, u32 lane1_protocol, u32 lane1_rate, u32 lane0_protocol, u32 lane0_rate)
 {
    Xil_Out32(SERDES_UPHY_SPARE0, 0x00000000); //do reset and powerdown
    Xil_Out32(SERDES_L0_TM_ANA_BYP_4, 0x00000040); //Enable control of RX reset
@@ -22757,10 +22757,10 @@ static int serdes_rst_seq (u32 lane3_protocol, u32 lane3_rate, u32 lane2_protoco
    }
 
    //Check PLL locks for each lane
-   if (lane0_protocol != 0) mask_poll(SERDES_L0_PLL_STATUS_READ_1, 0x00000010U);
-   if (lane1_protocol != 0) mask_poll(SERDES_L1_PLL_STATUS_READ_1, 0x00000010U);
-   if (lane2_protocol != 0) mask_poll(SERDES_L2_PLL_STATUS_READ_1, 0x00000010U);
-   if (lane3_protocol != 0) mask_poll(SERDES_L3_PLL_STATUS_READ_1, 0x00000010U);
+   if (pllsel == 0) mask_poll(SERDES_L0_PLL_STATUS_READ_1, 0x00000010U);
+   if (pllsel == 1) mask_poll(SERDES_L1_PLL_STATUS_READ_1, 0x00000010U);
+   if (pllsel == 2) mask_poll(SERDES_L2_PLL_STATUS_READ_1, 0x00000010U);
+   if (pllsel == 3) mask_poll(SERDES_L3_PLL_STATUS_READ_1, 0x00000010U);
 
    mask_delay(50);
    Xil_Out32(SERDES_L0_TM_ANA_BYP_4, 0x000000C0); //De-assert RX Reset
@@ -22991,7 +22991,7 @@ static int serdes_bist_result(u32 lane_active)
    return (1); //BIST PASS
 }
 
-static int serdes_illcalib_pcie_gen1 (u32 lane3_protocol, u32 lane3_rate, u32 lane2_protocol, u32 lane2_rate, u32 lane1_protocol, u32 lane1_rate, u32 lane0_protocol, u32 lane0_rate, u32 gen2_calib)
+static int serdes_illcalib_pcie_gen1 (u32 pllsel, u32 lane3_protocol, u32 lane3_rate, u32 lane2_protocol, u32 lane2_rate, u32 lane1_protocol, u32 lane1_rate, u32 lane0_protocol, u32 lane0_rate, u32 gen2_calib)
 {
         //The counter values to try are in
         //range 0x0B4 to 0x18C. increments of 8 is ok
@@ -23088,7 +23088,7 @@ static int serdes_illcalib_pcie_gen1 (u32 lane3_protocol, u32 lane3_rate, u32 la
           if (lane3_active == 1) currbistresult[3] = 0;
 
           //bist iterations
-          serdes_rst_seq (lane3_protocol, lane3_rate, lane2_protocol, lane2_rate, lane1_protocol, lane1_rate, lane0_protocol, lane0_rate);
+          serdes_rst_seq (pllsel, lane3_protocol, lane3_rate, lane2_protocol, lane2_rate, lane1_protocol, lane1_rate, lane0_protocol, lane0_rate);
           if (lane3_active == 1) serdes_bist_run(3);
           if (lane2_active == 1) serdes_bist_run(2);
           if (lane1_active == 1) serdes_bist_run(1);
@@ -23491,7 +23491,7 @@ static int serdes_illcalib (u32 lane3_protocol, u32 lane3_rate, u32 lane2_protoc
      PSU_Mask_Write(SERDES_L0_TX_DIG_TM_61, 0x0000000BU, 0x00000000U);
      PSU_Mask_Write(SERDES_L0_TM_DIG_6, 0x0000000FU, 0x00000000U);
      temp_ill12 = Xil_In32(SERDES_L0_TM_ILL12) & 0xF0;
-      serdes_illcalib_pcie_gen1 (0, 0, 0, 0, 0, 0, 1, 0, 0);
+      serdes_illcalib_pcie_gen1 (0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
      //Revert the ILL settings to SATA-Gen2 case
       Xil_Out32(SERDES_L0_PLL_FBDIV_FRAC_3_MSB,temp_pll_fbdiv_frac_3_msb_offset);
       Xil_Out32(SERDES_PLL_REF_SEL0_OFFSET, temp_PLL_REF_SEL_OFFSET);
@@ -23518,7 +23518,7 @@ static int serdes_illcalib (u32 lane3_protocol, u32 lane3_rate, u32 lane2_protoc
      PSU_Mask_Write(SERDES_L1_TX_DIG_TM_61, 0x0000000BU, 0x00000000U);
      PSU_Mask_Write(SERDES_L1_TM_DIG_6, 0x0000000FU, 0x00000000U);
      temp_ill12 = Xil_In32(SERDES_L1_TM_ILL12) & 0xF0;
-      serdes_illcalib_pcie_gen1 (0, 0, 0, 0, 1, 0, 0, 0, 0);
+      serdes_illcalib_pcie_gen1 (1, 0, 0, 0, 0, 1, 0, 0, 0, 0);
      //Revert the ILL settings to SATA-Gen2 case
       Xil_Out32(SERDES_L1_PLL_FBDIV_FRAC_3_MSB,temp_pll_fbdiv_frac_3_msb_offset);
       Xil_Out32(SERDES_PLL_REF_SEL1_OFFSET, temp_PLL_REF_SEL_OFFSET);
@@ -23545,7 +23545,7 @@ static int serdes_illcalib (u32 lane3_protocol, u32 lane3_rate, u32 lane2_protoc
      PSU_Mask_Write(SERDES_L2_TX_DIG_TM_61, 0x0000000BU, 0x00000000U);
      PSU_Mask_Write(SERDES_L2_TM_DIG_6, 0x0000000FU, 0x00000000U);
      temp_ill12 = Xil_In32(SERDES_L2_TM_ILL12) & 0xF0;
-      serdes_illcalib_pcie_gen1 (0, 0, 1, 0, 0, 0, 0, 0, 0);
+      serdes_illcalib_pcie_gen1 (2, 0, 0, 1, 0, 0, 0, 0, 0, 0);
      //Revert the ILL settings to SATA-Gen2 case
       Xil_Out32(SERDES_L2_PLL_FBDIV_FRAC_3_MSB,temp_pll_fbdiv_frac_3_msb_offset);
       Xil_Out32(SERDES_PLL_REF_SEL2_OFFSET, temp_PLL_REF_SEL_OFFSET);
@@ -23572,7 +23572,7 @@ static int serdes_illcalib (u32 lane3_protocol, u32 lane3_rate, u32 lane2_protoc
      PSU_Mask_Write(SERDES_L3_TX_DIG_TM_61, 0x0000000BU, 0x00000000U);
      PSU_Mask_Write(SERDES_L3_TM_DIG_6, 0x0000000FU, 0x00000000U);
      temp_ill12 = Xil_In32(SERDES_L3_TM_ILL12) & 0xF0;
-      serdes_illcalib_pcie_gen1 (1, 0, 0, 0, 0, 0, 0, 0, 0);
+      serdes_illcalib_pcie_gen1 (3, 1, 0, 0, 0, 0, 0, 0, 0, 0);
      //Revert the ILL settings to SATA-Gen2 case
       Xil_Out32(SERDES_L3_PLL_FBDIV_FRAC_3_MSB,temp_pll_fbdiv_frac_3_msb_offset);
       Xil_Out32(SERDES_PLL_REF_SEL3_OFFSET, temp_PLL_REF_SEL_OFFSET);
@@ -23628,12 +23628,12 @@ static int serdes_illcalib (u32 lane3_protocol, u32 lane3_rate, u32 lane2_protoc
   {
    if (lane0_rate == 0)
    {
-     serdes_illcalib_pcie_gen1 (lane3_protocol, lane3_rate, lane2_protocol, lane2_rate, lane1_protocol, lane1_rate, lane0_protocol, 0, 0);
+     serdes_illcalib_pcie_gen1 (0, lane3_protocol, lane3_rate, lane2_protocol, lane2_rate, lane1_protocol, lane1_rate, lane0_protocol, 0, 0);
    }
    else
    {
-     serdes_illcalib_pcie_gen1 (lane3_protocol, lane3_rate, lane2_protocol, lane2_rate, lane1_protocol, lane1_rate, lane0_protocol, 0, 0);
-     serdes_illcalib_pcie_gen1 (lane3_protocol, lane3_rate, lane2_protocol, lane2_rate, lane1_protocol, lane1_rate, lane0_protocol, lane0_rate, 1);
+     serdes_illcalib_pcie_gen1 (0, lane3_protocol, lane3_rate, lane2_protocol, lane2_rate, lane1_protocol, lane1_rate, lane0_protocol, 0, 0);
+     serdes_illcalib_pcie_gen1 (0, lane3_protocol, lane3_rate, lane2_protocol, lane2_rate, lane1_protocol, lane1_rate, lane0_protocol, lane0_rate, 1);
    }
   }
 
