@@ -45,6 +45,15 @@ TEST(PerfCounter, Basic)
 
 	RC = PCounter->getCounterEvent(Mod, CounterE);
 	CHECK_EQUAL(RC, XAIE_OK);
+	XAie_Events ExpectE;
+	XAie_LocType PerfCounterLoc;
+	XAie_ModuleType PerfCounterMod;
+	uint32_t PerfCounterId;
+	PCounter->getRscId(PerfCounterLoc, PerfCounterMod, PerfCounterId);
+	XAie_PerfCounterGetEventBase(Aie->dev(), PerfCounterLoc,
+			PerfCounterMod, &ExpectE);
+	CHECK_EQUAL(static_cast<uint32_t>(CounterE),
+			static_cast<uint32_t>(ExpectE) + PerfCounterId);
 
 	RC = PCounter->start();
 	CHECK_EQUAL(RC, XAIE_OK);
