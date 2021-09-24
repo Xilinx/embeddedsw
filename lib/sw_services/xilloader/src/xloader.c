@@ -115,6 +115,7 @@
 *       kpt  09/06/2021 Fixed SW-BP-ZEROIZE issue in
 *                       XLoader_LoadAndStartSubSystemImages
 *       gm   09/17/2021 Support added for MJTAG workaround
+*       bsv  09/24/2021 Fix secondary Pdi load issue
 *
 * </pre>
 *
@@ -321,14 +322,19 @@ int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 		if (PdiPtr->PdiType != XLOADER_PDI_TYPE_FULL) {
 			SdRawBootVal = PdiSrc & XLOADER_SD_RAWBOOT_MASK;
 		}
-		if ((SdRawBootVal == XLOADER_SD_RAWBOOT_MASK) ||
-			(SdRawBootVal == 0U)) {
-			/* 0 is for QEMU */
-			PdiSrc |= (RegVal << XLOADER_PDISRC_FLAGS_SHIFT);
-		}
 		else {
+			if ((SdRawBootVal == XLOADER_SD_RAWBOOT_MASK) ||
+				(SdRawBootVal == 0U)) {
+				/* 0 is for QEMU */
+				PdiSrc |= (RegVal << XLOADER_PDISRC_FLAGS_SHIFT);
+			}
+			else {
+				PdiSrc |= SdRawBootVal;
+			}
+		}
+		if ((SdRawBootVal != 0U) &&
+			(SdRawBootVal != XLOADER_SD_RAWBOOT_MASK)) {
 			PdiPtr->PdiIndex = XLOADER_SD_RAW_INDEX;
-			PdiSrc |= SdRawBootVal;
 			if (SdRawBootVal == XLOADER_EMMC_BP1_RAW_VAL) {
 				RawString = "_RAW_BP1";
 			}
