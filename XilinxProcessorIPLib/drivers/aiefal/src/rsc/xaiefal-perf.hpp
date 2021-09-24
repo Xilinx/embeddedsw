@@ -301,8 +301,7 @@ namespace xaiefal {
 				RC = XAIE_ERR;
 			} else {
 				M = static_cast<XAie_ModuleType>(Rsc.Mod);
-				XAie_Events BaseEvent;
-				XAie_PerfCounterGetEventBase(AieHd->dev(), Loc, M, &BaseEvent);
+				XAie_PerfCounterGetEventBase(AieHd->dev(), Loc, M, &E);
 				E = static_cast<XAie_Events>(static_cast<uint32_t>(E) + Rsc.RscId);
 				RC = XAIE_OK;
 			}
