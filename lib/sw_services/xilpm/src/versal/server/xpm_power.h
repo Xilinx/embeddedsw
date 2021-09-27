@@ -67,7 +67,7 @@ XStatus XPmPower_Init(XPm_Power *Power,
 XStatus XPmPower_AddParent(u32 Id, const u32 *Parents, u32 NumParents);
 XStatus XPmPower_GetStatus(const u32 SubsystemId, const u32 DeviceId, XPm_DeviceStatus *const DeviceStatus);
 XStatus XPmPower_GetWakeupLatency(const u32 DeviceId, u32 *Latency);
-XStatus XPmPower_ForcePwrDwn(u32 SubsystemId, u32 NodeId, u32 CmdType);
+XStatus XPmPower_ForcePwrDwn(u32 NodeId);
 
 #ifdef __cplusplus
 }

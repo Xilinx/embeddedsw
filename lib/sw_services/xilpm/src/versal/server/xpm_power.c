@@ -709,7 +709,7 @@ done:
 	return Status;
 }
 
-XStatus XPmPower_ForcePwrDwn(u32 SubsystemId, u32 NodeId, u32 CmdType)
+XStatus XPmPower_ForcePwrDwn(u32 NodeId)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Power *Power;
@@ -744,8 +744,7 @@ XStatus XPmPower_ForcePwrDwn(u32 SubsystemId, u32 NodeId, u32 CmdType)
 			continue;
 		}
 
-		Status = XPm_ForcePowerdown(SubsystemId, Power->Node.Id, 0U,
-					    CmdType, 0U);
+		Status = XPmPower_ForcePwrDwn(Power->Node.Id);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}

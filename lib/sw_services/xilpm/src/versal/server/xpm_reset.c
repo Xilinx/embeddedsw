@@ -176,8 +176,7 @@ static XStatus PsOnlyResetAssert(const XPm_ResetNode *Rst)
 			/* Set UserAssertPsSrst flag to skip PS-POR and LPD rail handling for PS-SRST */
 			UserAssertPsSrst = 1U;
 		}
-		Status = XPm_ForcePowerdown(PM_SUBSYS_PMC, PM_POWER_LPD, 0U,
-					    XPLMI_CMD_SECURE, 0U);
+		Status = XPmPower_ForcePwrDwn(PM_POWER_LPD);
 		UserAssertPsSrst = 0U;
 		if (Status != XST_SUCCESS) {
 			PmErr("Error %d in Powerdown of LPD %d\r\n", Status);

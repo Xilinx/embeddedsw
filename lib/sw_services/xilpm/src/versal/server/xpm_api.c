@@ -1897,7 +1897,7 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 		if (NULL == Power) {
 			goto process_ack;
 		}
-		Status = XPmPower_ForcePwrDwn(SubsystemId, NodeId, CmdType);
+		Status = XPmPower_ForcePwrDwn(NodeId);
 		NodeState = Power->Node.State;
 	} else if ((u32)XPM_NODECLASS_SUBSYSTEM == NODECLASS(NodeId)) {
 		Subsystem = XPmSubsystem_GetById(NodeId);
