@@ -267,7 +267,7 @@ Fix versionless build failure when USB is enabled.
 Add copyright for the missing files.
 Reset SHA engine in failure cases in authentication plus encryption cases.
 Add Winbond 2Gb flash support to ZynqMP FSBL.
-Addd Multi-die read support for Micron.
+Added Multi-die read support for Micron.
 
 zynqmp_pmufw:
 Add support for dynamic loading of config object.
