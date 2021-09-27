@@ -37,7 +37,7 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define XBIR_SD_DEVICE_ID	XPAR_XSDPS_0_DEVICE_ID
+#define XBIR_SD_DEVICE_ID	XPAR_XSDPS_1_DEVICE_ID
 
 /**************************** Type Definitions *******************************/
 
