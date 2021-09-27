@@ -23,6 +23,7 @@
 *                     Added XSecure_InitializeIpi
 *       am   05/22/21 Resolved MISRA C violations
 * 4.6   har  07/14/21 Fixed doxygen warnings
+*       kpt  09/27/21 Fixed compilation warnings
 *
 * </pre>
 *
@@ -275,7 +276,7 @@ int XSecure_IpiReadBuff32(void)
 		goto END;
 	}
 
-	Status = Response[0];
+	Status = (int)Response[0];
 
 END:
 	return Status;
