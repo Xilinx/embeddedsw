@@ -267,6 +267,7 @@ Fix versionless build failure when USB is enabled.
 Add copyright for the missing files.
 Reset SHA engine in failure cases in authentication plus encryption cases.
 Add Winbond 2Gb flash support to ZynqMP FSBL.
+Addd Multi-die read support for Micron.
 
 zynqmp_pmufw:
 Add support for dynamic loading of config object.
@@ -293,6 +294,9 @@ Added support for Winbond QSPI flash.
 Added support for Macronix OSPI flash.
 Support to disable the Auth JTAG after a user provided timeout.
 Fix issue in clearing CFI and CFU errors.
+Fix secondary boot issue in SD when multiboot offset is non zero.
+Support added for MJTAG workaround in PLM.
+
 
 xilpdi_v1_4:
 Minor Code cleanup.
@@ -314,8 +318,12 @@ Fixed doxygen warnings.
 Added 64-bit address support for XilSecure server APIs.
 Updated validation for  AAD size to check if it is quad-word aligned.
 Added license header for Ecdsa.h.
-Added EXPORT CONTROL eFuse check in all crypto init functions for ZynqMP.
+Added EXPORT CONTROL eFuse check in all crypto init functions for ZynqMP and Versal.
 Renamed XSecure_AesPmcDmaCfgByteSwap API with XSecure_AesPmcDmaCfgAndXfer.
+Updated check for Size in Client XSecure_AesKekDecrypt.
+Added check for DecKeySrc in Client XSecure_AesKekDecrypt.
+Added redundancy checks for DpaCmCfgEn in XSecure_AesSetDpaCm API.
+Fixed GCC warnings for ZynqMP.
 Minor bug fixes.
 Fixed MISRA C warnings.
 
@@ -325,6 +333,12 @@ Added client-server support for BBRAM and eFUSE.
 Added most restrictive range checks for device temperature before programming eFuses.
 Removed clearing the BBRAM User Data in case of failure.
 Minor code refactoring in XNvm_EfuseTempAndVoltChecks function.
+Added versionless support.
+Changed PLM and Data Partition IV formatting to LE in xilnvm_efuse_versal_server_example.
+Replaced magic number 0x0 with FALSE.
+Updated validation to check for Trim2 instead of Trim 3 for protection bit 37.
+Added check to see if efuse bit is already programmed before programming.
+
 
 xilpuf_v1_4:
 Fixed doxygen warnings.
