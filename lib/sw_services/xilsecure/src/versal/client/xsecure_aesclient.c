@@ -20,6 +20,7 @@
 * 4.5   kal  03/23/20 Updated file version to sync with library version
 *       har  04/14/21 Added XSecure_AesEncryptData and XSecure_AesDecryptData
 * 4.6   har  08/31/21 Updated check for Size in XSecure_AesKekDecrypt
+*       kpt  09/27/21 Fixed compilation warnings
 *
 * </pre>
 * @note
@@ -83,7 +84,7 @@ int XSecure_AesEncryptInit(XSecure_AesKeySource KeySrc, u32 Size, u64 IvAddr)
 	AesParams.KeySize = Size;
 	Buffer = (u64)(UINTPTR)&AesParams;
 
-	Xil_DCacheFlushRange(Buffer, sizeof(AesParams));
+	Xil_DCacheFlushRange((INTPTR)Buffer, sizeof(AesParams));
 
 	Status = XSecure_ProcessIpiWithPayload2(XSECURE_API_AES_OP_INIT,
 			(u32)Buffer, (u32)(Buffer >> 32));
@@ -115,7 +116,7 @@ int XSecure_AesDecryptInit(XSecure_AesKeySource KeySrc, u32 Size, u64 IvAddr)
 	AesParams.KeySize = Size;
 	Buffer = (u64)(UINTPTR)&AesParams;
 
-	Xil_DCacheFlushRange(Buffer, sizeof(AesParams));
+	Xil_DCacheFlushRange((INTPTR)Buffer, sizeof(AesParams));
 
 	Status = XSecure_ProcessIpiWithPayload2(XSECURE_API_AES_OP_INIT,
 			(u32)Buffer, (u32)(Buffer >> 32));
@@ -176,7 +177,7 @@ int XSecure_AesEncryptUpdate(u64 InDataAddr, u64 OutDataAddr,
 	EncInAddr.IsLast = IsLast;
 	SrcAddr = (u64)(UINTPTR)&EncInAddr;
 
-	Xil_DCacheFlushRange(SrcAddr, sizeof(EncInAddr));
+	Xil_DCacheFlushRange((INTPTR)SrcAddr, sizeof(EncInAddr));
 
 	Status = XSecure_ProcessIpiWithPayload4(XSECURE_API_AES_ENCRYPT_UPDATE,
 			(u32)SrcAddr, (u32)(SrcAddr >> 32), (u32)OutDataAddr,
@@ -241,7 +242,7 @@ int XSecure_AesDecryptUpdate(u64 InDataAddr, u64 OutDataAddr,
 	DecInParams.IsLast = IsLast;
 	SrcAddr = (u64)(UINTPTR)&DecInParams;
 
-	Xil_DCacheFlushRange(SrcAddr, sizeof(DecInParams));
+	Xil_DCacheFlushRange((INTPTR)SrcAddr, sizeof(DecInParams));
 
 	Status = XSecure_ProcessIpiWithPayload4(XSECURE_API_AES_DECRYPT_UPDATE,
 			(u32)SrcAddr, (u32)(SrcAddr >> 32),
@@ -355,7 +356,7 @@ int XSecure_AesKekDecrypt(u64 IvAddr, XSecure_AesKeySource DstKeySrc,
 	}
 
 	Status = XSecure_ProcessIpiWithPayload3(XSECURE_API_AES_KEK_DECRYPT,
-			((Size << 16) | (DstKeySrc << 8) | DecKeySrc),
+			(((u32)Size << 16) | ((u32)DstKeySrc << 8) | DecKeySrc),
 			(u32)IvAddr, (u32)(IvAddr >> 32));
 
 END:

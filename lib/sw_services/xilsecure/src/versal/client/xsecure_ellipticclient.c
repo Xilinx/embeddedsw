@@ -18,6 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kal  03/23/21 Initial release
 * 4.5   kal  03/23/20 Updated file version to sync with library version
+* 4.6   kpt  09/27/21 Fixed compilation warnings
 *
 * </pre>
 * @note
@@ -67,7 +68,7 @@ int XSecure_EllipticGenerateSign(u32 CurveType, u64 HashAddr, u32 Size,
 	EcdsaParams.EPrivKeyAddr = EPrivKeyAddr;
 	Buffer = (u64)(UINTPTR)&EcdsaParams;
 
-	Xil_DCacheFlushRange(Buffer, sizeof(EcdsaParams));
+	Xil_DCacheFlushRange((INTPTR)Buffer, sizeof(EcdsaParams));
 
 	Status = XSecure_ProcessIpiWithPayload4(XSECURE_API_ELLIPTIC_GENERATE_SIGN,
 			(u32)Buffer, (u32)(Buffer >> 32),
@@ -174,7 +175,7 @@ int XSecure_EllipticVerifySign(u32 CurveType, u64 HashAddr, u32 Size,
 	EcdsaParams.SignAddr = SignAddr;
 	Buffer = (u64)(UINTPTR)&EcdsaParams;
 
-	Xil_DCacheFlushRange(Buffer, sizeof(EcdsaParams));
+	Xil_DCacheFlushRange((INTPTR)Buffer, sizeof(EcdsaParams));
 
 	Status = XSecure_ProcessIpiWithPayload2(
 			XSECURE_API_ELLIPTIC_VERIFY_SIGN,
