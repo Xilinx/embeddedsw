@@ -78,8 +78,6 @@
 *                     enable spinlocks, please refer to the documentations
 *                     at: lib/bsp/standalone/src/arm/common/gcc/xil_spinlock.c
 * 4.6	sk   08/05/21 Fix Scugic Misrac violations.
-* 4.7	sk   08/30/21 Update datatype of DistBaseAddress and CpuBaseAddress from
-* 		      u32 to standard UINTPTR to support on all platforms.
 * 4.7	sk   09/14/21 Fix gcc compiler warnings for A72 processor.
 * </pre>
 *
@@ -105,7 +103,7 @@ static void DistInit(const XScuGic_Config *Config);
 #if !defined (GICv3)
 static void CPUInit(const XScuGic_Config *Config);
 #endif
-static XScuGic_Config *LookupConfigByBaseAddress(UINTPTR CpuBaseAddress);
+static XScuGic_Config *LookupConfigByBaseAddress(u32 CpuBaseAddress);
 
 /************************** Variable Definitions *****************************/
 
@@ -444,7 +442,7 @@ IntrExit:
 * Note that this function has no effect if the input base address is invalid.
 *
 ******************************************************************************/
-void XScuGic_RegisterHandler(UINTPTR BaseAddress, s32 InterruptID,
+void XScuGic_RegisterHandler(u32 BaseAddress, s32 InterruptID,
 		Xil_InterruptHandler IntrHandler, void *CallBackRef)
 {
 	XScuGic_Config *CfgPtr;
@@ -477,7 +475,7 @@ void XScuGic_RegisterHandler(UINTPTR BaseAddress, s32 InterruptID,
 * @note		None.
 *
 ******************************************************************************/
-static XScuGic_Config *LookupConfigByBaseAddress(UINTPTR CpuBaseAddress)
+static XScuGic_Config *LookupConfigByBaseAddress(u32 CpuBaseAddress)
 {
 	XScuGic_Config *CfgPtr = NULL;
 	u32 Index;
@@ -519,7 +517,7 @@ static XScuGic_Config *LookupConfigByBaseAddress(UINTPTR CpuBaseAddress)
 *	        TriggerType() and should be used when there is no InstancePtr.
 *
 *****************************************************************************/
-void XScuGic_SetPriTrigTypeByDistAddr(UINTPTR DistBaseAddress, u32 Int_Id,
+void XScuGic_SetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
 					u8 Priority, u8 Trigger)
 {
 	u32 RegValue;
@@ -623,7 +621,7 @@ void XScuGic_SetPriTrigTypeByDistAddr(UINTPTR DistBaseAddress, u32 Int_Id,
 *	        TriggerType() and should be used when there is no InstancePtr.
 *
 *****************************************************************************/
-void XScuGic_GetPriTrigTypeByDistAddr(UINTPTR DistBaseAddress, u32 Int_Id,
+void XScuGic_GetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
 					u8 *Priority, u8 *Trigger)
 {
 	u32 RegValue;
@@ -674,7 +672,7 @@ void XScuGic_GetPriTrigTypeByDistAddr(UINTPTR DistBaseAddress, u32 Int_Id,
 * @note		None
 *
 *****************************************************************************/
-void XScuGic_InterruptMapFromCpuByDistAddr(UINTPTR DistBaseAddress,
+void XScuGic_InterruptMapFromCpuByDistAddr(u32 DistBaseAddress,
 		u8 Cpu_Id, u32 Int_Id)
 {
 	u32 RegValue;
@@ -735,7 +733,7 @@ void XScuGic_InterruptMapFromCpuByDistAddr(UINTPTR DistBaseAddress,
 * @note		None
 *
 *****************************************************************************/
-void XScuGic_InterruptUnmapFromCpuByDistAddr(UINTPTR DistBaseAddress,
+void XScuGic_InterruptUnmapFromCpuByDistAddr(u32 DistBaseAddress,
 			u8 Cpu_Id, u32 Int_Id)
 {
 	u32 RegValue;
@@ -797,7 +795,7 @@ void XScuGic_InterruptUnmapFromCpuByDistAddr(UINTPTR DistBaseAddress,
 * @note		None
 *
 *****************************************************************************/
-void XScuGic_UnmapAllInterruptsFromCpuByDistAddr(UINTPTR DistBaseAddress,
+void XScuGic_UnmapAllInterruptsFromCpuByDistAddr(u32 DistBaseAddress,
 			u8 Cpu_Id)
 {
 	u32 Int_Id;
@@ -850,7 +848,7 @@ void XScuGic_UnmapAllInterruptsFromCpuByDistAddr(UINTPTR DistBaseAddress,
 * @note		None.
 *
 ****************************************************************************/
-void XScuGic_EnableIntr (UINTPTR DistBaseAddress, u32 Int_Id)
+void XScuGic_EnableIntr (u32 DistBaseAddress, u32 Int_Id)
 {
 	u8 Cpu_Id = (u8)XScuGic_GetCpuID();
 #if defined (GICv3)
@@ -908,7 +906,7 @@ void XScuGic_EnableIntr (UINTPTR DistBaseAddress, u32 Int_Id)
 * @note		None.
 *
 ****************************************************************************/
-void XScuGic_DisableIntr (UINTPTR DistBaseAddress, u32 Int_Id)
+void XScuGic_DisableIntr (u32 DistBaseAddress, u32 Int_Id)
 {
 	u8 Cpu_Id = (u8)XScuGic_GetCpuID();
 	Xil_AssertVoid(Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS);

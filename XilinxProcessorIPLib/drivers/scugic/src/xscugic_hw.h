@@ -57,8 +57,6 @@
 * 4.1   mus  06/12/19 Updated XSCUGIC_MAX_NUM_INTR_INPUTS for Versal.
 * 4.6	sk   06/07/21 Delete the commented macro code to fix the MISRA-C warning.
 * 4.6	sk   08/05/21 Fix Scugic Misrac violations.
-* 4.7	sk   08/30/21 Update datatype of DistBaseAddress from u32 to standard UINTPTR
-* 		      to support on all platforms.
 *
 * </pre>
 *
@@ -639,7 +637,7 @@ extern "C" {
 *
 * @note
 * C-style signature:
-*    u32 XScuGic_ReadReg(UINTPTR BaseAddress, u32 RegOffset)
+*    u32 XScuGic_ReadReg(u32 BaseAddress, u32 RegOffset)
 *
 *****************************************************************************/
 #define XScuGic_ReadReg(BaseAddress, RegOffset) \
@@ -659,7 +657,7 @@ extern "C" {
 *
 * @note
 * C-style signature:
-*    void XScuGic_WriteReg(UINTPTR BaseAddress, u32 RegOffset, u32 Data)
+*    void XScuGic_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
 *
 *****************************************************************************/
 #define XScuGic_WriteReg(BaseAddress, RegOffset, Data) \
@@ -670,20 +668,20 @@ extern "C" {
 
 void XScuGic_DeviceInterruptHandler(void *DeviceId);
 s32  XScuGic_DeviceInitialize(u32 DeviceId);
-void XScuGic_RegisterHandler(UINTPTR BaseAddress, s32 InterruptID,
+void XScuGic_RegisterHandler(u32 BaseAddress, s32 InterruptID,
 			     Xil_InterruptHandler IntrHandler, void *CallBackRef);
-void XScuGic_SetPriTrigTypeByDistAddr(UINTPTR DistBaseAddress, u32 Int_Id,
+void XScuGic_SetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
                                         u8 Priority, u8 Trigger);
-void XScuGic_GetPriTrigTypeByDistAddr(UINTPTR DistBaseAddress, u32 Int_Id,
+void XScuGic_GetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
 					u8 *Priority, u8 *Trigger);
-void XScuGic_InterruptMapFromCpuByDistAddr(UINTPTR DistBaseAddress,
+void XScuGic_InterruptMapFromCpuByDistAddr(u32 DistBaseAddress,
 							u8 Cpu_Id, u32 Int_Id);
-void XScuGic_InterruptUnmapFromCpuByDistAddr(UINTPTR DistBaseAddress,
+void XScuGic_InterruptUnmapFromCpuByDistAddr(u32 DistBaseAddress,
 											u8 Cpu_Id, u32 Int_Id);
-void XScuGic_UnmapAllInterruptsFromCpuByDistAddr(UINTPTR DistBaseAddress,
+void XScuGic_UnmapAllInterruptsFromCpuByDistAddr(u32 DistBaseAddress,
 												u8 Cpu_Id);
-void XScuGic_EnableIntr (UINTPTR DistBaseAddress, u32 Int_Id);
-void XScuGic_DisableIntr (UINTPTR DistBaseAddress, u32 Int_Id);
+void XScuGic_EnableIntr (u32 DistBaseAddress, u32 Int_Id);
+void XScuGic_DisableIntr (u32 DistBaseAddress, u32 Int_Id);
 /************************** Variable Definitions *****************************/
 #ifdef __cplusplus
 }
