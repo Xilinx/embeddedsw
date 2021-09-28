@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
-* SPDX-License-Identifier: MIT
+ * Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+ * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
 /****************************************************************************/
@@ -24,6 +24,8 @@
  * ----- -----  -------- -----------------------------------------------------
  * 1.1   aad    2/7/19   First release
  * 1.2   aad    3/19/20  Fixed the interrupt disable flag
+ * 2.3   aad    9/28/21  Force generate of interrupt.
+ *
  * </pre>
  *
  *****************************************************************************/
@@ -48,7 +50,7 @@
 
 int SysMonPsvIntrExample();
 static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
-                                XSysMonPsv *SysMonPsvInstPtr, u16 IntrId);
+		XSysMonPsv *SysMonPsvInstPtr, u16 IntrId);
 
 /************************** Variable Definitions ****************************/
 
@@ -72,28 +74,32 @@ volatile u32 ALARM0, ALARM1, ALARM2, ALARM3, ALARM4, OT_ALARM, NEW_DATA;
  *
  *****************************************************************************/
 int main(void) {
-  int Status;
-  IntrStatus = 0;
-  u32 Timeout = 0;
+	int Status;
+	IntrStatus = 0;
+	u32 Timeout = 0;
 
-  Status = SysMonPsvIntrExample();
-  if (Status != XST_SUCCESS) {
-    xil_printf("Sysmon Intr Example Test Failed\r\n");
-    return XST_FAILURE;
-  }
 
-  /* wait for interrupts */
-  while (!IntrStatus) {
-    Timeout++;
-    if (Timeout > SYSMONPSV_TIMEOUT) {
-      xil_printf("Failed to get an interrupt\r\n");
-      return XST_FAILURE;
-    }
-  }
+	Status = SysMonPsvIntrExample();
+	if (Status != XST_SUCCESS) {
+		xil_printf("Sysmon Intr Example Test Failed\r\n");
+		return XST_FAILURE;
+	}
 
-  xil_printf("Successfully ran Sysmon Intr Example Test\r\n");
+	/* wait for interrupts */
+	while (!IntrStatus) {
+		Timeout++;
+		if (Timeout > SYSMONPSV_TIMEOUT) {
+			xil_printf("Failed to get an interrupt\r\n");
+			return XST_FAILURE;
+		}
+	}
 
-  return XST_SUCCESS;
+	if (OT_ALARM) {
+		xil_printf("OT Alarm happened\r\n");
+	}
+	xil_printf("Successfully ran Sysmon Intr Example Test\r\n");
+
+	return XST_SUCCESS;
 }
 
 /****************************************************************************/
@@ -119,49 +125,56 @@ int main(void) {
  *
  ****************************************************************************/
 int SysMonPsvIntrExample() {
-  int Status;
-  XSysMonPsv_Config *ConfigPtr;
-  XSysMonPsv *SysMonInstPtr = &SysMonInst;
-  u32 Mask;
+	int Status;
+	XSysMonPsv_Config *ConfigPtr;
+	XSysMonPsv *SysMonInstPtr = &SysMonInst;
+	u32 Mask, TempRaw;
 
-  printf("\r\nEntering the SysMon Intr Example. \r\n");
+	printf("\r\nEntering the SysMon Intr Example. \r\n");
 
-  /* Initialise the SysMon driver. */
-  ConfigPtr = XSysMonPsv_LookupConfig();
-  if (ConfigPtr == NULL) {
-    return XST_FAILURE;
-  }
+	/* Initialise the SysMon driver. */
+	ConfigPtr = XSysMonPsv_LookupConfig();
+	if (ConfigPtr == NULL) {
+		return XST_FAILURE;
+	}
 
-  XSysMonPsv_CfgInitialize(SysMonInstPtr, ConfigPtr);
+	XSysMonPsv_CfgInitialize(SysMonInstPtr, ConfigPtr);
 
-  /* Unlock the sysmon register space */
-  XSysMonPsv_WriteReg(SysMonInstPtr->Config.BaseAddress + XSYSMONPSV_PCSR_LOCK,
-                      LOCK_CODE);
+	/* Unlock the sysmon register space */
+	XSysMonPsv_WriteReg(SysMonInstPtr->Config.BaseAddress + XSYSMONPSV_PCSR_LOCK,
+			LOCK_CODE);
 
-  /* Clear any bits set in the Interrupt Status Register. */
-  XSysMonPsv_IntrClear(SysMonInstPtr, 0xFFFFFFFF);
+	/* Clear any bits set in the Interrupt Status Register. */
+	XSysMonPsv_IntrClear(SysMonInstPtr, 0xFFFFFFFF);
 
-  Status = SetupInterruptSystem(&IntcInst, SysMonInstPtr, SYSMONPSV_INTR_0_ID);
-  if (Status != XST_SUCCESS)
-    return Status;
+	Status = SetupInterruptSystem(&IntcInst, SysMonInstPtr, SYSMONPSV_INTR_0_ID);
+	if (Status != XST_SUCCESS)
+		return Status;
 
-  /* *
-   * Setup Interrupt for SysMon
-   * - OT_ALARM
-   * - NEW_DATA0
-   * - ALARM0
-   * - ALARM1
-   * - ALARM2
-   * - ALARM3
-   * - ALARM4
-   * */
-  Mask = XSYSMONPSV_IER0_OT_MASK | XSYSMONPSV_IER0_NEW_DATA0_MASK |
-         XSYSMONPSV_IER0_ALARM0_MASK | XSYSMONPSV_IER0_ALARM1_MASK |
-         XSYSMONPSV_IER0_ALARM2_MASK | XSYSMONPSV_IER0_ALARM3_MASK |
-         XSYSMONPSV_IER0_ALARM4_MASK;
-  XSysMonPsv_IntrEnable(SysMonInstPtr, Mask, INTR_0);
+	/* *
+	 * Setup Interrupt for SysMon
+	 * - OT_ALARM
+	 * - NEW_DATA0
+	 * - ALARM0
+	 * - ALARM1
+	 * - ALARM2
+	 * - ALARM3
+	 * - ALARM4
+	 * */
+	Mask = XSYSMONPSV_IER0_OT_MASK | XSYSMONPSV_IER0_NEW_DATA0_MASK |
+			XSYSMONPSV_IER0_ALARM0_MASK | XSYSMONPSV_IER0_ALARM1_MASK |
+			XSYSMONPSV_IER0_ALARM2_MASK | XSYSMONPSV_IER0_ALARM3_MASK |
+			XSYSMONPSV_IER0_ALARM4_MASK;
+	XSysMonPsv_IntrEnable(SysMonInstPtr, Mask, INTR_0);
 
-  return XST_SUCCESS;
+	/* Trigger an OT interrupt by setting the upper thresholds lower than the current
+	 * temperature.
+	 */
+
+	TempRaw = XSysMonPsv_ReadDeviceTemp(SysMonInstPtr, XSYSMONPSV_VAL);
+	XSysMonPsv_SetOTTempThreshold(SysMonInstPtr, XSYSMONPSV_TH_UPPER, (TempRaw - 0x100));
+
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -184,37 +197,37 @@ int SysMonPsvIntrExample() {
  *
  ******************************************************************************/
 static void SysMonPsv_InterruptHandler(void *CallBackRef) {
-  XSysMonPsv *SysMonPtr = (XSysMonPsv *)CallBackRef;
+	XSysMonPsv *SysMonPtr = (XSysMonPsv *)CallBackRef;
 
-  /* Get the interrupt status from the device and check the value. */
-  IntrStatus = XSysMonPsv_IntrGetStatus(SysMonPtr);
+	/* Get the interrupt status from the device and check the value. */
+	IntrStatus = XSysMonPsv_IntrGetStatus(SysMonPtr);
 
-  /* Clear all bits in Interrupt Status Register. */
-  XSysMonPsv_IntrClear(SysMonPtr, IntrStatus);
+	/* Clear all bits in Interrupt Status Register. */
+	XSysMonPsv_IntrClear(SysMonPtr, IntrStatus);
 
-  if (IntrStatus & XSYSMONPSV_ISR_ALARM0_MASK)
-    ALARM0++;
+	if (IntrStatus & XSYSMONPSV_ISR_ALARM0_MASK)
+		ALARM0++;
 
-  if (IntrStatus & XSYSMONPSV_ISR_ALARM1_MASK)
-    ALARM1++;
+	if (IntrStatus & XSYSMONPSV_ISR_ALARM1_MASK)
+		ALARM1++;
 
-  if (IntrStatus & XSYSMONPSV_ISR_ALARM2_MASK)
-    ALARM2++;
+	if (IntrStatus & XSYSMONPSV_ISR_ALARM2_MASK)
+		ALARM2++;
 
-  if (IntrStatus & XSYSMONPSV_ISR_ALARM3_MASK)
-    ALARM3++;
+	if (IntrStatus & XSYSMONPSV_ISR_ALARM3_MASK)
+		ALARM3++;
 
-  if (IntrStatus & XSYSMONPSV_ISR_ALARM4_MASK)
-    ALARM4++;
+	if (IntrStatus & XSYSMONPSV_ISR_ALARM4_MASK)
+		ALARM4++;
 
-  if (IntrStatus & XSYSMONPSV_ISR_NEW_DATA0_MASK)
-    NEW_DATA++;
+	if (IntrStatus & XSYSMONPSV_ISR_NEW_DATA0_MASK)
+		NEW_DATA++;
 
-  if (IntrStatus & XSYSMONPSV_ISR_OT_MASK)
-    OT_ALARM++;
+	if (IntrStatus & XSYSMONPSV_ISR_OT_MASK)
+		OT_ALARM++;
 
-  /* Interrupt disable */
-  XSysMonPsv_IntrDisable(SysMonPtr, IntrStatus, INTR_0);
+	/* Interrupt disable */
+	XSysMonPsv_IntrDisable(SysMonPtr, IntrStatus, INTR_0);
 }
 
 /*****************************************************************************/
@@ -237,48 +250,48 @@ static void SysMonPsv_InterruptHandler(void *CallBackRef) {
  *
  ****************************************************************************/
 static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
-                                XSysMonPsv *SysMonPsvInstPtr, u16 IntrId) {
-  int Status;
-  XScuGic_Config *IntcConfig;
+		XSysMonPsv *SysMonPsvInstPtr, u16 IntrId) {
+	int Status;
+	XScuGic_Config *IntcConfig;
 
-  /* Initialize the interrupt controller driver */
-  IntcConfig = XScuGic_LookupConfig(INTC_DEVICE_ID);
-  if (NULL == IntcConfig) {
-    return XST_FAILURE;
-  }
+	/* Initialize the interrupt controller driver */
+	IntcConfig = XScuGic_LookupConfig(INTC_DEVICE_ID);
+	if (NULL == IntcConfig) {
+		return XST_FAILURE;
+	}
 
-  Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
-                                 IntcConfig->CpuBaseAddress);
-  if (Status != XST_SUCCESS) {
-    return XST_FAILURE;
-  }
+	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
+			IntcConfig->CpuBaseAddress);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
-  /*
-   * Connect the interrupt controller interrupt handler to the
-   * hardware interrupt handling logic in the processor.
-   */
-  Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-                               (Xil_ExceptionHandler)XScuGic_InterruptHandler,
-                               IntcInstancePtr);
-  /*
-   * Connect a device driver handler that will be called when an
-   * interrupt for the device occurs, the device driver handler
-   * performs the specific interrupt processing for the device
-   */
-  Status = XScuGic_Connect(IntcInstancePtr, IntrId,
-                           (Xil_ExceptionHandler)SysMonPsv_InterruptHandler,
-                           (void *)SysMonPsvInstPtr);
-  if (Status != XST_SUCCESS) {
-    return XST_FAILURE;
-  }
+	/*
+	 * Connect the interrupt controller interrupt handler to the
+	 * hardware interrupt handling logic in the processor.
+	 */
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
+			(Xil_ExceptionHandler)XScuGic_InterruptHandler,
+			IntcInstancePtr);
+	/*
+	 * Connect a device driver handler that will be called when an
+	 * interrupt for the device occurs, the device driver handler
+	 * performs the specific interrupt processing for the device
+	 */
+	Status = XScuGic_Connect(IntcInstancePtr, IntrId,
+			(Xil_ExceptionHandler)SysMonPsv_InterruptHandler,
+			(void *)SysMonPsvInstPtr);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
-  /* Enable the interrupt for the device */
-  XScuGic_Enable(IntcInstancePtr, IntrId);
+	/* Enable the interrupt for the device */
+	XScuGic_Enable(IntcInstancePtr, IntrId);
 
-  /*
-   * Enable interrupts in the Processor.
-   */
-  Xil_ExceptionEnable();
+	/*
+	 * Enable interrupts in the Processor.
+	 */
+	Xil_ExceptionEnable();
 
-  return XST_SUCCESS;
+	return XST_SUCCESS;
 }
