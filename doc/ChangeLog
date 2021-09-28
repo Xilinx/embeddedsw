@@ -1,5 +1,24 @@
 Changes for 2021.2
 ===============================
+
+sysmonpsv_v2_3:
+update doxygen documentation
+Add checks if the code is running on PLM
+Resolved warning where __arch64__ was defaulting to zero
+
+v_demosaic_v1_3:
+Interrupt handler is added Demosaic driver.
+Removed undefined variable from Interrupt handler.
+
+aienginev2_v3_0:
+AIE-ML Device support
+DMA Padding API
+Generate API documentation from makefile
+Bug fixes
+
+v_warp_init_v1_1:
+Add index.html to import example application
+
 emacps_v3_15:
 License updates
 Corrected divisor fields in config structure to accommodate Versal
