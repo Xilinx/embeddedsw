@@ -2605,11 +2605,13 @@ updating license content to SPDX based licensing
 canps_v3_4:
 updating license content to SPDX based licensing
 
-cframe_v1_1:
-updating license content to SPDX based licensing
+cframe_v1_3:
+Fix doxygen warnings
 
-cfupmc_v1_1:
-updating license content to SPDX based licensing
+cfupmc_v1_3:
+MJTAG workaround in PLM
+Fix doxygen warnings
+Add support for readback from SSIT Slaves from master
 
 clk_wiz_v1_3:
 updating license content to SPDX based licensing
