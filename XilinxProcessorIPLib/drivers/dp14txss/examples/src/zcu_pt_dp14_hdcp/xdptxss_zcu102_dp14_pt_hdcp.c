@@ -29,6 +29,8 @@
 *                  XDpRxSs_CfgInitialize().
 * 1.06 ND 05/01/21 Update to stop passthrough video on Tx authenticaton failure.
 * 1.07 ND 09/09/21 Updated the Hdcp22Srm[] in keys.c with SRM keys.
+* 1.08 ND 09/29/21 Updated the color format and stream format for 10 bpc
+* 				   420 format
 * </pre>
 *
 ******************************************************************************/
@@ -1870,8 +1872,8 @@ void frameBuffer_start_wr(XVidC_VideoMode VmId,
                     VidStream.ColorFormatId = ColorFormats[4].StreamFormat;
             } else if(Msa[0].ComponentFormat ==
 						XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420){
-					Cfmt = ColorFormats[8].MemFormat;
-					VidStream.ColorFormatId = ColorFormats[8].StreamFormat;
+					Cfmt = ColorFormats[10].MemFormat;
+					VidStream.ColorFormatId = ColorFormats[10].StreamFormat;
             }else {
                     Cfmt = ColorFormats[3].MemFormat;
                     VidStream.ColorFormatId = ColorFormats[3].StreamFormat;
