@@ -1,3 +1,8 @@
+###############################################################################
+# Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+###############################################################################
 xqspipsu_generic_flash_polled_example.c=xqspipsu_flash_config.h
 xqspipsu_generic_flash_interrupt_example.c=xqspipsu_flash_config.h
 xqspipsu_generic_flash_lqspi_example.c=xqspipsu_flash_config.h
