@@ -1,3 +1,8 @@
+###############################################################################
+# Copyright (C) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+###############################################################################
 xusb_intr_example.c=xusb_class_storage.c,xusb_class_storage.h,xusb_ch9_storage.c,xusb_ch9_storage.h,xusb_ch9.c,xusb_ch9.h,xusb_wrapper.c,xusb_wrapper.h
 xusb_poll_example.c=xusb_class_storage.c,xusb_class_storage.h,xusb_ch9_storage.c,xusb_ch9_storage.h,xusb_ch9.c,xusb_ch9.h,xusb_wrapper.c,xusb_wrapper.h
 xusb_dfu_example.c=xusb_class_dfu.c,xusb_class_dfu.h,xusb_ch9_dfu.c,xusb_ch9_dfu.h,xusb_ch9.c,xusb_ch9.h,xusb_wrapper.c,xusb_wrapper.h
