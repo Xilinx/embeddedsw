@@ -1,3 +1,8 @@
+#******************************************************************************
+#* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+#* SPDX-License-Identifier: MIT
+#******************************************************************************
+
 #!/bin/bash
 
 # this script will copy the required bsp directories

@@ -1,7 +1,7 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
- ******************************************************************************/
+******************************************************************************/
 
 #ifndef BSPCONFIG_H  /* prevent circular inclusions */
 #define BSPCONFIG_H  /* by using protection macros */

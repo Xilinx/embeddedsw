@@ -1,3 +1,8 @@
+###############################################################################
+# Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+##############################################################################
+
 xilpuf_regeneration_example.c = NULL
 xilpuf_enc_dec_data_example.c = NULL
 xilpuf_example.c = xilpuf_example.h

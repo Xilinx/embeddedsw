@@ -1,3 +1,8 @@
+###############################################################################
+# Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+##############################################################################
+
 #! armclang --target=arm-arm-nonie-eabi -march=armv8-a -E -x c
 
 #define PSU_OCM_0_MEM_START	0xFFFC0000

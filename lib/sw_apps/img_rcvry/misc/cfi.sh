@@ -1,3 +1,8 @@
+#******************************************************************************
+# Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+#******************************************************************************
+
 rm web.img
 
 # Create image file of 96K

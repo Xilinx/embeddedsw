@@ -1,3 +1,8 @@
+###############################################################################
+# Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+##############################################################################
+
 namespace eval ::pmufw {
 
 proc get_template { file_name } {

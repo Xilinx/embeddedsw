@@ -1,1 +1,6 @@
+###############################################################################
+# Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+##############################################################################
+
 xilpm_selfsuspend_example.c=timer.c,timer.h,gic_setup.c,gic_setup.h

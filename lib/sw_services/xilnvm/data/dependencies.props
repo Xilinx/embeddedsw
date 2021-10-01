@@ -1,3 +1,8 @@
+###############################################################################
+# Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+##############################################################################
+
 xilnvm_bbram_versal_server_example.c = NULL
 xilnvm_bbram_versal_client_example.c = NULL
 xilnvm_efuse_versal_server_example.c = xilnvm_efuse_versal_input.h
