@@ -97,6 +97,7 @@
 *       kpt  09/15/21 Fixed SW-BP-INIT-FAIL in XLoader_GetSHWRoT
 *       kpt  09/18/21 Fixed SW-BP-REDUNDANCY
 *       kpt  09/20/21 Fixed checksum issue in case of delay load
+*       bsv  10/01/21 Addressed code review comments
 *
 * </pre>
 *
@@ -393,7 +394,7 @@ static int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
-	XSecure_Sha3Hash BlkHash;
+	XSecure_Sha3Hash BlkHash = {0U};
 	u32 HashAddr = SecurePtr->ChunkAddr + Size;
 	u32 DataLen = Size;
 	u8 *ExpHash = (u8 *)SecurePtr->Sha3Hash;

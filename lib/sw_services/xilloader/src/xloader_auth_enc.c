@@ -62,6 +62,7 @@
 *                     Added check in XLoader_CheckAuthJtagIntStatus to avoid access
 *                     to auth jtag if there is a failure in single attempt
 *                     Renamed BHSignature variable to IHTSignature
+*       bsv  10/01/21 Addressed code review comments
 *
 * </pre>
 *
@@ -1520,7 +1521,7 @@ static int XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 	int Status = XST_FAILURE;
 	u32 Counter = 0U;
 	u32 HashLen = XLOADER_SHA3_LEN;
-	XSecure_Sha3Hash HashStore;
+	XSecure_Sha3Hash HashStore = {0U};
 	u8 Convert[XIH_PRTN_WORD_LEN] = {0U};
 	u32 Size = XLOADER_SHA3_LEN;
 	u8 *OutTmp = Out;
@@ -1585,7 +1586,7 @@ static int XLoader_RsaSignVerify(const XLoader_SecureParams *SecurePtr,
 {
 	volatile int Status = XST_FAILURE;
 	volatile u32 DbTmp = 0U;
-	XSecure_Sha3Hash MPrimeHash;
+	XSecure_Sha3Hash MPrimeHash = {0U};
 	volatile u8 HashTmp;
 	u8 XSecure_RsaSha3Array[XSECURE_RSA_4096_KEY_SIZE];
 	XLoader_Vars Xsecure_Varsocm __attribute__ ((aligned(32U)));
@@ -1679,8 +1680,8 @@ static int XLoader_RsaSignVerify(const XLoader_SecureParams *SecurePtr,
 	/* Check DB = PS <414 zeros> || 0x01 */
 	for (Index = 0U; Index < (XLOADER_RSA_PSS_DB_LEN - 1U); Index++) {
 		if (Index == 0x0U) {
-			Buffer[Index] = (u8)(Buffer[Index] &
-					(~XLOADER_RSA_PSS_MSB_PADDING_MASK));
+			Buffer[Index] = Buffer[Index] &
+				(u8)(~XLOADER_RSA_PSS_MSB_PADDING_MASK);
 		}
 
 		if (Buffer[Index] != 0x0U) {
@@ -3655,7 +3656,7 @@ END:
 static int XLoader_ReadandCompareDna(const u32 *UserDna)
 {
 	volatile int Status = XST_FAILURE;
-	u32 EfuseDna[XLOADER_EFUSE_DNA_NUM_ROWS];
+	u32 EfuseDna[XLOADER_EFUSE_DNA_NUM_ROWS] = {0U};
 
 	/* Read DNA from efuse cache */
 	Status = XLoader_ReadDna(EfuseDna);

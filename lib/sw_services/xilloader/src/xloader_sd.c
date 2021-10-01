@@ -35,6 +35,7 @@
 *       bsv  10/13/2020 Code clean up
 *       td	 10/19/2020	MISRA C Fixes
 * 1.04  bsv  08/31/2021 Code clean up
+*       bsv  10/01/2021 Addressed code review comments
 *
 * </pre>
 *
@@ -287,6 +288,7 @@ int XLoader_SdCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	UINT Br = 0U;
 	u32 TrfLen;
 	u64 DestOffset = 0U;
+	u32 Len = Length;
 	(void)Flags;
 
 	Rc = f_lseek(&FFil, (FSIZE_t)SrcAddr);
@@ -308,12 +310,12 @@ int XLoader_SdCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		}
 	}
 	else {
-		while(Length > 0U) {
-			if(Length > XLOADER_CHUNK_SIZE) {
+		while(Len > 0U) {
+			if(Len > XLOADER_CHUNK_SIZE) {
 				TrfLen = XLOADER_CHUNK_SIZE;
 			}
 			else {
-				TrfLen = Length;
+				TrfLen = Len;
 			}
 
 			Rc = f_read(&FFil, (void*)(UINTPTR)XPLMI_PMCRAM_BASEADDR, TrfLen, &Br);
@@ -332,7 +334,7 @@ int XLoader_SdCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
                  goto END;
             }
 
-			Length -= TrfLen;
+			Len -= TrfLen;
 			DestOffset += TrfLen;
 		}
 	}
