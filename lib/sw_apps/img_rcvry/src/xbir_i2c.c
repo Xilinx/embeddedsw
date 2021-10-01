@@ -25,9 +25,11 @@
 /***************************** Include Files *********************************/
 #include "xbir_i2c.h"
 #include "xstatus.h"
+#include "xbir_config.h"
 
 #if defined(XPAR_XIICPS_NUM_INSTANCES)
 #include "xbir_err.h"
+#include "sleep.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -42,13 +44,69 @@
 
 #define XBIR_IIC_SCLK_RATE		(100000U)
 #define XBIR_MAX_DELAY			(10000000U)
+#define XBIR_I2C_GPIO_EXPANDER		(0x11U)
+#define XBIR_GEM1_RESET_MASK		(0x40U)
 
 /************************** Function Prototypes ******************************/
+
 
 /************************** Variable Definitions *****************************/
 static XIicPs IicInstance = {0U};	/* The instance of the IIC device. */
 
 /************************** Function Definitions *****************************/
+/*****************************************************************************/
+/**
+ * @brief
+ * This function reads data from the IIC serial EEPROM into a specified buffer.
+ *
+ * @return	XST_SUCCESS on successful read of EEPROM
+ *		Error code on failure
+ *
+ ******************************************************************************/
+int Xbir_I2cExpanderReset(void)
+{
+	int Status = XST_FAILURE;
+	/* Eeprom Page size is 32 bytes and hence 2 bytes for array */
+	u8 Buffer[2U] = {0xDB, 0U};
+	u32 TimeOutCount = XBIR_MAX_DELAY;
+
+	Status = XIicPs_MasterSendPolled(&IicInstance, &Buffer[0U],
+		sizeof(Buffer), XBIR_I2C_GPIO_EXPANDER);
+	if (Status != XST_SUCCESS) {
+		Status = XBIR_ERROR_IIC_MASTER_SEND;
+		goto END;
+	}
+	/*
+	 * Wait until bus is idle to start another transfer.
+	 */
+	TimeOutCount = XBIR_MAX_DELAY;
+	while ((XIicPs_BusIsBusy(&IicInstance)) && (TimeOutCount > 0U)) {
+		TimeOutCount--;
+	}
+	if (TimeOutCount == 0U) {
+		Status = XBIR_ERROR_I2C_READ_TIMEOUT;
+		goto END;
+	}
+		usleep(XBIR_LATCH_TIME_FOR_PHY_RESET_IN_US);
+
+	Buffer[1U] = XBIR_GEM1_RESET_MASK;
+	Status = XIicPs_MasterSendPolled(&IicInstance, &Buffer[0U],
+		sizeof(Buffer), XBIR_I2C_GPIO_EXPANDER);
+	if (Status != XST_SUCCESS) {
+		Status = XBIR_ERROR_IIC_MASTER_SEND;
+		goto END;
+	}
+	TimeOutCount = XBIR_MAX_DELAY;
+	while ((XIicPs_BusIsBusy(&IicInstance)) && (TimeOutCount > 0U)) {
+		TimeOutCount--;
+	}
+	if (TimeOutCount == 0U) {
+		Status = XBIR_ERROR_I2C_READ_TIMEOUT;
+	}
+
+END:
+	return Status;
+}
 
 /*****************************************************************************/
 /**

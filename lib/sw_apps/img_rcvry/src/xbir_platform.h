@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,7 +23,6 @@ extern "C" {
 #include "xttcps.h"
 
 /************************** Constant Definitions *****************************/
-#define XBIR_PLATFORM_EMAC_BASEADDR	XPAR_XEMACPS_0_BASEADDR
 
 /**************************** Type Definitions *******************************/
 

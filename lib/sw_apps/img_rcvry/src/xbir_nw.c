@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +37,7 @@ static int Xbir_NwSetDefaultIp (ip_addr_t *Ip, ip_addr_t *Mask, ip_addr_t *Gw);
 /************************** Variable Definitions *****************************/
 extern u8 TcpFastTmrFlag;
 extern u8 TcpSlowTmrFlag;
+extern u32 EmacBaseAddr;
 
 /*****************************************************************************/
 /**
@@ -58,7 +59,7 @@ int Xbir_NwCfgNetwork (struct netif *NetIf)
 
 	/* Add network interface to the netif_list, and set it as default */
 	if (!xemac_add(NetIf, NULL, NULL, NULL,
-			(u8 *)Xbir_NwMacEthAddr, XBIR_PLATFORM_EMAC_BASEADDR)) {
+			(u8 *)Xbir_NwMacEthAddr, EmacBaseAddr)) {
 		Xbir_Printf("ERROR: Error adding N/W interface\n\r");
 		goto END;
 	}

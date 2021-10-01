@@ -43,9 +43,11 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XBIR_LATCH_TIME_FOR_PHY_RESET_IN_US	(200L)
 
 /************************** Function Prototypes ******************************/
 int Xbir_IicEepromReadData (u8 *BufferPtr, u16 ByteCount, u8 EepromAddr);
+int Xbir_I2cExpanderReset(void);
 
 #endif
 
