@@ -1,5 +1,8 @@
 Changes for 2021.2
 ===============================
+libmetal_v2_2:
+Use the FreeRTOS API's taskYIELD() instead of asm("wfi")
+Add Linux-syscall-note
 
 sysmonpsv_v2_3:
 update doxygen documentation
