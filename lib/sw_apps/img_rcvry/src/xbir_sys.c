@@ -33,6 +33,7 @@
 /************************** Constant Definitions *****************************/
 #define XBIR_SYS_QSPI_MAX_SUB_SECTOR_SIZE	(8192U)/* 8KB */
 #define XBR_SYS_NUM_REDUNDANT_COPY	(2U)
+#define XBIR_ETH_PHY_MIO_38	(38U)
 #define XBIR_GPIO_DIR_OUTPUT	(1U)
 #define XBIR_GPIO_OUTPUT_EN	(1U)
 #define XBIR_GPIO_HIGH	(1U)
@@ -174,11 +175,6 @@ int Xbir_SysInit (void)
 	}
 	Xbir_QspiEraseStatsInit();
 
-	Status = Xbir_SdInit();
-	if (Status != XST_SUCCESS) {
-		Xbir_Printf("Init failed..\n\r");
-		goto END;
-	}
 	Status = Xbir_IicInit();
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -283,16 +279,16 @@ static int Xbir_KVEthInit (void)
 	/*
 	 * Set the direction for the pin to be output.
 	 */
-	XGpioPs_SetDirectionPin(&Gpio, IOU_SLCR_MIO_PIN_38_OFFSET, XBIR_GPIO_DIR_OUTPUT);
-	XGpioPs_SetOutputEnablePin(&Gpio, IOU_SLCR_MIO_PIN_38_OFFSET, XBIR_GPIO_OUTPUT_EN);
+	XGpioPs_SetDirectionPin(&Gpio, XBIR_ETH_PHY_MIO_38, XBIR_GPIO_DIR_OUTPUT);
+	XGpioPs_SetOutputEnablePin(&Gpio, XBIR_ETH_PHY_MIO_38, XBIR_GPIO_OUTPUT_EN);
 
 	/*
 	 * Asserting the active low GPIO, which pushes the PHY into reset,
 	 * wait for 200us and then deasserting the GPIO to bring PHY out of reset
 	 */
-	XGpioPs_WritePin(&Gpio, IOU_SLCR_MIO_PIN_38_OFFSET, XBIR_GPIO_LOW);
+	XGpioPs_WritePin(&Gpio, XBIR_ETH_PHY_MIO_38, XBIR_GPIO_LOW);
 	usleep(XBIR_LATCH_TIME_FOR_PHY_RESET_IN_US);
-	XGpioPs_WritePin(&Gpio, IOU_SLCR_MIO_PIN_38_OFFSET, XBIR_GPIO_HIGH);
+	XGpioPs_WritePin(&Gpio, XBIR_ETH_PHY_MIO_38, XBIR_GPIO_HIGH);
 	usleep(XBIR_POST_RESET_STABILIZATION_TIME_FOR_PHY_IN_US);
 
 END:
