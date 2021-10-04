@@ -66,8 +66,8 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 /* SDK release version */
-#define SDK_RELEASE_YEAR	"2021" /**< Specifies the SDK release year */
-#define SDK_RELEASE_QUARTER	"2"    /**< Specifies the SDK release quarter */
+#define SDK_RELEASE_YEAR	"2022" /**< Specifies the SDK release year */
+#define SDK_RELEASE_QUARTER	"1"    /**< Specifies the SDK release quarter */
 
 /*
  * Device Copy flag related macros
