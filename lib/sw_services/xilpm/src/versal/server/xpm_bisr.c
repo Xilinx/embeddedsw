@@ -326,10 +326,6 @@ static XStatus XPmBisr_RepairGty(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional,
 		goto fail;
 	}
 
-	/* Unwrite Trigger Bit */
-	PmOut32(BaseAddr + GTY_PCSR_MASK_OFFSET, GTY_PCSR_BISR_TRIGGER_MASK);
-	PmOut32(BaseAddr + GTY_PCSR_CONTROL_OFFSET, 0U);
-
 fail:
 	/* Lock PCSR */
 	XPmPlDomain_LockGtyPcsr(BaseAddr);
