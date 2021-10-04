@@ -7,7 +7,7 @@
 /**
 *
 * @file xiomodule_i.h
-* @addtogroup iomodule_v2_12
+* @addtogroup iomodule_v2_13
 * @{
 *
 * This file contains data which is shared between files and internal to the

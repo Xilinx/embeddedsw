@@ -7,7 +7,7 @@
 /**
 *
 * @file xiomodule.c
-* @addtogroup iomodule_v2_12
+* @addtogroup iomodule_v2_13
 * @{
 *
 * Contains required functions for the XIomodule driver for the Xilinx
