@@ -231,6 +231,7 @@
 *                      CR#1088640.
 * 2.12	sk   06/08/21  Fix coverity warnings.
 * 2.12	sk   06/08/21  Fix misra_c_8_2 coverity warning.
+* 2.13	sk   10/04/21  Update functions return type to fix misra-c violation.
 * </pre>
 *
 ******************************************************************************/
@@ -448,13 +449,13 @@ typedef struct {
 /*
  * Required functions in xiomodule.c
  */
-int XIOModule_Initialize(XIOModule * InstancePtr, u16 DeviceId);
-int XIOModule_Timer_Initialize(XIOModule * InstancePtr, u16 DeviceId);
+s32 XIOModule_Initialize(XIOModule * InstancePtr, u16 DeviceId);
+s32 XIOModule_Timer_Initialize(XIOModule * InstancePtr, u16 DeviceId);
 
-int XIOModule_Start(XIOModule * InstancePtr);
+s32 XIOModule_Start(XIOModule * InstancePtr);
 void XIOModule_Stop(XIOModule * InstancePtr);
 
-int XIOModule_Connect(XIOModule * InstancePtr, u8 Id,
+s32 XIOModule_Connect(XIOModule * InstancePtr, u8 Id,
                       XInterruptHandler Handler, void *CallBackRef);
 void XIOModule_Disconnect(XIOModule * InstancePtr, u8 Id);
 
@@ -465,7 +466,7 @@ void XIOModule_Acknowledge(XIOModule * InstancePtr, u8 Id);
 
 XIOModule_Config *XIOModule_LookupConfig(u16 DeviceId);
 
-int XIOModule_ConnectFastHandler(XIOModule *InstancePtr, u8 Id,
+s32 XIOModule_ConnectFastHandler(XIOModule *InstancePtr, u8 Id,
 				 XFastInterruptHandler Handler);
 
 void XIOModule_SetNormalIntrMode(XIOModule *InstancePtr, u8 Id);
@@ -491,7 +492,7 @@ void XIOModule_DiscreteClear(XIOModule *InstancePtr,
 /*
  * Required functions, in file xiomodule_uart.c
  */
-int XIOModule_CfgInitialize(XIOModule *InstancePtr,
+s32 XIOModule_CfgInitialize(XIOModule *InstancePtr,
                             XIOModule_Config *Config,
                             u32 EffectiveAddr);
 
@@ -502,9 +503,9 @@ u32 XIOModule_Send(XIOModule *InstancePtr, u8 *DataBufferPtr,
 u32 XIOModule_Recv(XIOModule *InstancePtr, u8 *DataBufferPtr,
                             u32 NumBytes);
 
-int XIOModule_IsSending(XIOModule *InstancePtr);
+s32 XIOModule_IsSending(XIOModule *InstancePtr);
 
-int XIOModule_SetBaudRate(XIOModule *InstancePtr, u32 BaudRate);
+s32 XIOModule_SetBaudRate(XIOModule *InstancePtr, u32 BaudRate);
 
 /*
  * Functions for statistics, in file xiomodule_stats.c
@@ -532,13 +533,13 @@ void XIOModule_Uart_InterruptHandler(XIOModule *InstancePtr);
 /*
  * Options functions in xiomodule_options.c
  */
-int XIOModule_SetOptions(XIOModule * InstancePtr, u32 Options);
+s32 XIOModule_SetOptions(XIOModule * InstancePtr, u32 Options);
 u32 XIOModule_GetOptions(XIOModule * InstancePtr);
 
 /*
  * Self-test functions in xiomodule_selftest.c
  */
-int XIOModule_SelfTest(XIOModule * InstancePtr);
+s32 XIOModule_SelfTest(XIOModule * InstancePtr);
 
 
 
@@ -551,7 +552,7 @@ u32 XIOModule_GetValue(XIOModule * InstancePtr, u8 TimerNumber);
 void XIOModule_SetResetValue(XIOModule * InstancePtr, u8 TimerNumber,
 			     u32 ResetValue);
 u32 XIOModule_GetCaptureValue(XIOModule * InstancePtr, u8 TimerNumber);
-int XIOModule_IsExpired(XIOModule * InstancePtr, u8 TimerNumber);
+s32 XIOModule_IsExpired(XIOModule * InstancePtr, u8 TimerNumber);
 void XIOModule_Reset(XIOModule * InstancePtr, u8 TimerNumber);
 
 /*
@@ -571,7 +572,7 @@ void XIOModule_Timer_ClearStats(XIOModule * InstancePtr);
 /*
  * Functions for self-test, in file xiomodule_selftest.c
  */
-int XIOModule_Timer_SelfTest(XIOModule * InstancePtr, u8 IOModuleNumber);
+s32 XIOModule_Timer_SelfTest(XIOModule * InstancePtr, u8 IOModuleNumber);
 
 /*
  * Functions for interrupts, in file xiomodule_intr.c

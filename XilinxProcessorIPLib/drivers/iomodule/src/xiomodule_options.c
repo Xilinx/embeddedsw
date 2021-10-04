@@ -21,6 +21,7 @@
 * ----- ---- -------- -----------------------------------------------------
 * 1.00a sa   07/15/11 First release
 * 2.4   mi   09/20/16 Fixed compilation warnings
+* 2.13	sk   10/04/21 Update functions return type to fix misra-c violation.
 * </pre>
 *
 ******************************************************************************/
@@ -84,7 +85,7 @@ static Mapping OptionsTable[] = {
 * @note		None.
 *
 ****************************************************************************/
-int XIOModule_SetOptions(XIOModule * InstancePtr, u32 Options)
+s32 XIOModule_SetOptions(XIOModule * InstancePtr, u32 Options)
 {
 
 	Xil_AssertNonvoid(InstancePtr != NULL);

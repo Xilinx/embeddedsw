@@ -21,6 +21,7 @@
 * 1.00a sa   07/15/11 First release
 * 2.11  mus  05/07/21  Fixed warnings reported by doxygen tool. It fixes
 *                      CR#1088640.
+* 2.13	sk   10/04/21 Update functions return type to fix misra-c violation.
 * </pre>
 *
 ******************************************************************************/
@@ -132,7 +133,7 @@ int XIOModule_Intc_SelfTest(XIOModule * InstancePtr)
 * time this function is called are overwritten.
 *
 ******************************************************************************/
-int XIOModule_Timer_SelfTest(XIOModule * InstancePtr, u8 TimerNumber)
+s32 XIOModule_Timer_SelfTest(XIOModule * InstancePtr, u8 TimerNumber)
 {
 	u32 TimerCount1 = 0;
 	u32 TimerCount2 = 0;
@@ -208,7 +209,7 @@ int XIOModule_Timer_SelfTest(XIOModule * InstancePtr, u8 TimerNumber)
 * time this function is called are overwritten.
 *
 ******************************************************************************/
-int XIOModule_SelfTest(XIOModule * InstancePtr)
+s32 XIOModule_SelfTest(XIOModule * InstancePtr)
 {
 	XStatus Status;
 	u8 Timer;

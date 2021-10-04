@@ -25,6 +25,7 @@
 * 2.5   ms   08/07/17 Fixed compilation warnings.
 * 2.11  mus  05/07/21  Fixed warnings reported by doxygen tool. It fixes
 *                      CR#1088640.
+* 2.13	sk   10/04/21 Update functions return type to fix misra-c violation.
 * </pre>
 *
 *****************************************************************************/
@@ -84,7 +85,7 @@ static void StubHandler(void *CallBackRef, unsigned int ByteCount);
 *		consistent with other drivers.
 *
 *****************************************************************************/
-int XIOModule_CfgInitialize(XIOModule *InstancePtr, XIOModule_Config *Config,
+s32 XIOModule_CfgInitialize(XIOModule *InstancePtr, XIOModule_Config *Config,
 				u32 EffectiveAddr)
 {
 	u32 NewIER;
@@ -151,7 +152,7 @@ int XIOModule_CfgInitialize(XIOModule *InstancePtr, XIOModule_Config *Config,
 * @note		None.
 *
 *****************************************************************************/
-int XIOModule_SetBaudRate(XIOModule *InstancePtr, u32 BaudRate)
+s32 XIOModule_SetBaudRate(XIOModule *InstancePtr, u32 BaudRate)
 {
 	u32 Baud8;
 	u32 Baud16;

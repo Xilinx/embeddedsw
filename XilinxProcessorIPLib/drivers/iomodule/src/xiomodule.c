@@ -30,6 +30,7 @@
 *                     vector address > 32bit.
 * 2.12	sk   06/08/21 Update XIOModule_DiscreteRead and XIOModule_DiscreteWrite
 *		      API's argument(Channel) datatype to fix the coverity warning.
+* 2.13	sk   10/04/21 Update functions return type to fix misra-c violation.
 * </pre>
 *
 ******************************************************************************/
@@ -94,7 +95,7 @@ static void StubHandler(void *CallBackRef);
 * @note		None.
 *
 ******************************************************************************/
-int XIOModule_Initialize(XIOModule * InstancePtr, u16 DeviceId)
+s32 XIOModule_Initialize(XIOModule * InstancePtr, u16 DeviceId)
 {
 	u8 Id;
 	XIOModule_Config *CfgPtr;
@@ -253,7 +254,7 @@ int XIOModule_Initialize(XIOModule * InstancePtr, u16 DeviceId)
 * @note 	Must be called after XIOModule initialization is completed.
 *
 ******************************************************************************/
-int XIOModule_Start(XIOModule * InstancePtr)
+s32 XIOModule_Start(XIOModule * InstancePtr)
 {
 	/*
 	 * Assert the arguments
@@ -322,7 +323,7 @@ void XIOModule_Stop(XIOModule * InstancePtr)
 * that was previously connected.
 *
 ****************************************************************************/
-int XIOModule_Connect(XIOModule * InstancePtr, u8 Id,
+s32 XIOModule_Connect(XIOModule * InstancePtr, u8 Id,
 		  XInterruptHandler Handler, void *CallBackRef)
 {
 	/*
@@ -604,7 +605,7 @@ XIOModule_Config *XIOModule_LookupConfig(u16 DeviceId)
 * that was previously connected.
 *
 ****************************************************************************/
-int XIOModule_ConnectFastHandler(XIOModule *InstancePtr, u8 Id,
+s32 XIOModule_ConnectFastHandler(XIOModule *InstancePtr, u8 Id,
 				    XFastInterruptHandler Handler)
 {
 	u32 CurrentIER, NewIMR;
@@ -821,7 +822,7 @@ void XIOModule_DiscreteWrite(XIOModule * InstancePtr,
 * @note		None.
 *
 ******************************************************************************/
-int XIOModule_Timer_Initialize(XIOModule * InstancePtr, u16 DeviceId)
+s32 XIOModule_Timer_Initialize(XIOModule * InstancePtr, u16 DeviceId)
 {
 	XIOModule_Config *IOModuleConfigPtr;
 	int TimerNumber;
@@ -1153,7 +1154,7 @@ void XIOModule_Reset(XIOModule * InstancePtr, u8 TimerNumber)
 * @note		None.
 *
 ******************************************************************************/
-int XIOModule_IsExpired(XIOModule * InstancePtr, u8 TimerNumber)
+s32 XIOModule_IsExpired(XIOModule * InstancePtr, u8 TimerNumber)
 {
 	u32 CounterReg;
 	u32 TimerOffset = TimerNumber << XTC_TIMER_COUNTER_SHIFT;
