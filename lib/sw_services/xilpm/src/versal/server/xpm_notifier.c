@@ -28,6 +28,7 @@
 #define XPM_NOTIFY_TIMEOUTCOUNT	(0U)
 
 extern XPm_Subsystem *PmSubsystems;
+static u32 PendingEvent = (u32)NOT_PRESENT;
 
 typedef struct {
 	const XPm_Subsystem* Subsystem;
@@ -189,6 +190,32 @@ done:
 	return Status;
 }
 
+static void XPmNotifier_SendPendingSuspendCb(XPm_Subsystem *SubSystem)
+{
+	XStatus IpiAck;
+	u32 Payload[PAYLOAD_ARG_CNT] = {0};
+
+	if (0U != SubSystem->PendCb.Reason) {
+		PendingEvent = (u32)PRESENT;
+
+		IpiAck = XPm_IpiPollForAck(SubSystem->IpiMask, XPM_NOTIFY_TIMEOUTCOUNT);
+		if ((XST_SUCCESS == IpiAck) && ((u8)ONLINE == SubSystem->State)) {
+			Payload[0] = (u32)PM_INIT_SUSPEND_CB;
+			Payload[1] = SubSystem->PendCb.Reason;
+			Payload[2] = SubSystem->PendCb.Latency;
+			Payload[3] = SubSystem->PendCb.State;
+
+			(*PmRequestCb)(SubSystem->IpiMask, (u32)PM_INIT_SUSPEND_CB,
+				       Payload);
+
+			SubSystem->PendCb.Reason = 0U;
+		}
+		if ((u8)ONLINE != SubSystem->State) {
+			SubSystem->PendCb.Reason = 0U;
+		}
+	}
+}
+
 static int XPmNotifier_SchedulerTask(void *Arg)
 {
 	(void)Arg;
@@ -197,33 +224,13 @@ static int XPmNotifier_SchedulerTask(void *Arg)
 	XStatus IpiAck;
 	u32 Index = 0U;
 	u32 Event;
-	u32 PendEvent = (u32)NOT_PRESENT;
+	PendingEvent = (u32)NOT_PRESENT;
 	XPmNotifier* Notifier = NULL;
 	XPm_Subsystem *SubSystem = PmSubsystems; /* Head of SubSystem list */
 
 	/* Search for the pending suspend callback */
 	while (NULL != SubSystem) {
-		if (0U != SubSystem->PendCb.Reason) {
-			PendEvent = (u32)PRESENT;
-			IpiAck = XPm_IpiPollForAck(SubSystem->IpiMask,
-						   XPM_NOTIFY_TIMEOUTCOUNT);
-			if ((XST_SUCCESS == IpiAck) &&
-			    ((u8)ONLINE == SubSystem->State)) {
-				Payload[0] = (u32)PM_INIT_SUSPEND_CB;
-				Payload[1] = SubSystem->PendCb.Reason;
-				Payload[2] = SubSystem->PendCb.Latency;
-				Payload[3] = SubSystem->PendCb.State;
-
-				(*PmRequestCb)(SubSystem->IpiMask,
-					       (u32)PM_INIT_SUSPEND_CB,
-					       Payload);
-
-				SubSystem->PendCb.Reason = 0U;
-			}
-			if ((u8)ONLINE != SubSystem->State) {
-				SubSystem->PendCb.Reason = 0U;
-			}
-		}
+		XPmNotifier_SendPendingSuspendCb(SubSystem);
 		SubSystem = SubSystem->NextSubsystem;
 	}
 
@@ -231,7 +238,7 @@ static int XPmNotifier_SchedulerTask(void *Arg)
 	for (Index = 0; Index < ARRAY_SIZE(PmNotifiers); Index++) {
 		/* Search for the pending Event */
 		if (0U != PmNotifiers[Index].PendEvent) {
-			PendEvent = (u32)PRESENT;
+			PendingEvent = (u32)PRESENT;
 			Notifier = &PmNotifiers[Index];
 			Status = XPmNotifier_GetNotifyCbData(Index, Payload);
 			if (XST_SUCCESS != Status) {
@@ -261,7 +268,7 @@ static int XPmNotifier_SchedulerTask(void *Arg)
 	 * Remove the scheduler task when the loops is in the beginning of the
 	 * function start at 0 and don't find any event.
 	 */
-	if ((u32)NOT_PRESENT == PendEvent) {
+	if ((u32)NOT_PRESENT == PendingEvent) {
 		Status = XPlmi_SchedulerRemoveTask(XPLMI_MODULE_XILPM_ID,
 						   XPmNotifier_SchedulerTask,
 						   XILPM_NOTIFIER_INTERVAL,
