@@ -63,6 +63,7 @@
 *                     to auth jtag if there is a failure in single attempt
 *                     Renamed BHSignature variable to IHTSignature
 *       bsv  10/01/21 Addressed code review comments
+* 1.02  kpt  10/01/21 Removed redundant code in XLoader_VerifyRevokeId
 *
 * </pre>
 *
@@ -1170,31 +1171,14 @@ END:
 static int XLoader_VerifyRevokeId(u32 RevokeId)
 {
 	int Status = XST_FAILURE;
-	u32 RevokeAll = MASK_ALL;
 	volatile u32 Quo;
 	volatile u32 QuoTmp;
 	volatile u32 Mod;
 	volatile u32 ModTmp;
 	volatile u32 Value;
 	volatile u32 ValueTmp;
-	u32 Index;
 
-	/* TBD this API should ultilize XilNvm library */
 	XPlmi_Printf(DEBUG_INFO, "Validating SPKID\n\r");
-	for (Index = XLOADER_EFUSE_REVOCATION_ID_0_OFFSET;
-			Index <= XLOADER_EFUSE_REVOCATION_ID_7_OFFSET;
-			Index += sizeof(u32)) {
-		RevokeAll &= XPlmi_In32(Index);
-		if (RevokeAll != MASK_ALL) {
-			break;
-		}
-	}
-	/* If all bits of REVOCATION_ID are programmed */
-	if(RevokeAll == MASK_ALL) {
-		XPlmi_Printf(DEBUG_INFO, "All IDs are invalid\n\r");
-		Status = XLoader_UpdateMinorErr(XLOADER_SEC_ALL_IDS_REVOKED_ERR, 0x0);
-		goto END;
-	}
 	/* Verify range of provided revocation ID */
 	if(RevokeId > XLOADER_REVOCATION_IDMAX) {
 		XPlmi_Printf(DEBUG_INFO, "Revocation ID provided is out of range, "

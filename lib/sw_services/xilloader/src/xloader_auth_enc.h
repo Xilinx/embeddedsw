@@ -33,6 +33,7 @@
 *       kpt  09/15/21 Added error code XLOADER_PUF_HD_EFUSE
 *       kpt  09/18/21 Updated macro value XLOADER_PDI_DPACM_ENABLED
 *                     Renamed BHSignature variable to IHTSignature
+* 1.02  kpt  10/04/21 Removed macro XLOADER_SEC_ALL_IDS_REVOKED_ERR
 *
 * </pre>
 *
@@ -484,9 +485,7 @@ typedef enum {
 			/**< 0x0D ECDSA invalid key coordinates */
 	XLOADER_SEC_INVALID_AUTH,
 			/**< 0x0E Only RSA and ECDSA are supported */
-	XLOADER_SEC_ALL_IDS_REVOKED_ERR,
-			/**< 0x0F All revocation IDs are invalid */
-	XLOADER_SEC_REVOCATION_ID_OUTOFRANGE_ERR,
+	XLOADER_SEC_REVOCATION_ID_OUTOFRANGE_ERR = 0x10,
 			/**< 0x10 Revocation ID is out of range */
 	XLOADER_SEC_ID_REVOKED,
 			/**< 0x11 Revocation ID range not verified */
