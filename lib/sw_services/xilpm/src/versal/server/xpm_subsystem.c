@@ -18,7 +18,7 @@
 #include "xpm_notifier.h"
 #include "xpm_requirement.h"
 
-XPm_Subsystem *PmSubsystems;
+static XPm_Subsystem *PmSubsystems;
 static u32 MaxSubsysIdx;
 
 XStatus XPmSubsystem_AddPermission(const XPm_Subsystem *Host,

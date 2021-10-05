@@ -27,7 +27,6 @@
 /* Use Time out count 0 to just check for IPI ack without holding the PLM */
 #define XPM_NOTIFY_TIMEOUTCOUNT	(0U)
 
-extern XPm_Subsystem *PmSubsystems;
 static u32 PendingEvent = (u32)NOT_PRESENT;
 
 typedef struct {
@@ -259,12 +258,16 @@ static int XPmNotifier_SchedulerTask(void *Arg)
 	int Status = XST_FAILURE;
 	u32 Index = 0U;
 	PendingEvent = (u32)NOT_PRESENT;
-	XPm_Subsystem *SubSystem = PmSubsystems; /* Head of SubSystem list */
+	XPm_Subsystem *SubSystem = NULL;
+	u32 MaxSubIdx = XPmSubsystem_GetMaxSubsysIdx();
 
-	/* Search for the pending suspend callback */
-	while (NULL != SubSystem) {
+	/* Send pending suspend callback */
+	for (Index = 0; Index <= MaxSubIdx; Index++) {
+		SubSystem = XPmSubsystem_GetByIndex(Index);
+		if (NULL == SubSystem) {
+			continue;
+		}
 		XPmNotifier_SendPendingSuspendCb(SubSystem);
-		SubSystem = SubSystem->NextSubsystem;
 	}
 
 	/* scan for pending events */
