@@ -17,8 +17,8 @@ extern "C" {
 
 #define	INVALID_SUBSYSID			(0xFFFFFFFFU)
 #define MAX_NUM_SUBSYSTEMS			(16U)
-#define SUBSYS_TO_NS_BITPOS(x)			(NODE_INDEX_MASK & ((x) - 2U))
-#define SUBSYS_TO_S_BITPOS(x)			(NODE_INDEX_MASK & ((x) - 2U + MAX_NUM_SUBSYSTEMS))
+#define SUBSYS_TO_NS_BITPOS(x)			(NODE_INDEX_MASK & ((x)))
+#define SUBSYS_TO_S_BITPOS(x)			(NODE_INDEX_MASK & ((x) + MAX_NUM_SUBSYSTEMS))
 
 /**
  * Subsystem specific flags.
