@@ -216,16 +216,49 @@ static void XPmNotifier_SendPendingSuspendCb(XPm_Subsystem *SubSystem)
 	}
 }
 
+static void XPmNotifier_SendPendingNotifyEvent(u32 Index)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Payload[PAYLOAD_ARG_CNT] = {0};
+	XStatus IpiAck;
+	u32 Event;
+	XPmNotifier* Notifier = NULL;
+
+	/* Search for the pending Event */
+	if (0U != PmNotifiers[Index].PendEvent) {
+		PendingEvent = (u32)PRESENT;
+
+		Notifier = &PmNotifiers[Index];
+		Status = XPmNotifier_GetNotifyCbData(Index, Payload);
+		if (XST_SUCCESS != Status) {
+			Notifier->PendEvent = 0U;
+			return;
+		}
+		IpiAck = XPm_IpiPollForAck(Notifier->IpiMask,
+					   XPM_NOTIFY_TIMEOUTCOUNT);
+		if (XST_SUCCESS == IpiAck) {
+			Event = Payload[2];
+			if (((u8)ONLINE == Notifier->Subsystem->State) ||
+			    ((u8)PENDING_POWER_OFF ==  Notifier->Subsystem->State) ||
+			    ((u8)PENDING_RESTART == Notifier->Subsystem->State) ||
+			    (0U != (Event & Notifier->WakeMask))) {
+				(*PmRequestCb)(Notifier->IpiMask,
+					       (u32)PM_NOTIFY_CB,
+					       Payload);
+				Notifier->PendEvent &= ~Event;
+			} else {
+				Notifier->PendEvent &= ~Event;
+			}
+		}
+	}
+}
+
 static int XPmNotifier_SchedulerTask(void *Arg)
 {
 	(void)Arg;
 	int Status = XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT] = {0};
-	XStatus IpiAck;
 	u32 Index = 0U;
-	u32 Event;
 	PendingEvent = (u32)NOT_PRESENT;
-	XPmNotifier* Notifier = NULL;
 	XPm_Subsystem *SubSystem = PmSubsystems; /* Head of SubSystem list */
 
 	/* Search for the pending suspend callback */
@@ -236,32 +269,7 @@ static int XPmNotifier_SchedulerTask(void *Arg)
 
 	/* scan for pending events */
 	for (Index = 0; Index < ARRAY_SIZE(PmNotifiers); Index++) {
-		/* Search for the pending Event */
-		if (0U != PmNotifiers[Index].PendEvent) {
-			PendingEvent = (u32)PRESENT;
-			Notifier = &PmNotifiers[Index];
-			Status = XPmNotifier_GetNotifyCbData(Index, Payload);
-			if (XST_SUCCESS != Status) {
-				Notifier->PendEvent = 0U;
-				continue;
-			}
-			IpiAck = XPm_IpiPollForAck(Notifier->IpiMask,
-						   XPM_NOTIFY_TIMEOUTCOUNT);
-			if (XST_SUCCESS == IpiAck) {
-				Event = Payload[2];
-				if (((u8)ONLINE == Notifier->Subsystem->State) ||
-				    ((u8)PENDING_POWER_OFF ==  Notifier->Subsystem->State) ||
-				    ((u8)PENDING_RESTART == Notifier->Subsystem->State) ||
-				    (0U != (Event & Notifier->WakeMask))) {
-					(*PmRequestCb)(Notifier->IpiMask,
-						       (u32)PM_NOTIFY_CB,
-						       Payload);
-					Notifier->PendEvent &= ~Event;
-				} else {
-					Notifier->PendEvent &= ~Event;
-				}
-			}
-		}
+		XPmNotifier_SendPendingNotifyEvent(Index);
 	}
 
 	/*
