@@ -799,39 +799,6 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	u32 i = 0, j = 0, Prealloc = 0, Capability = 0;
-	const u32 DefaultPreallocDevList[][2] = {
-		{PM_DEV_PSM_PROC, (u32)PM_CAP_ACCESS},
-		{PM_DEV_UART_0, (u32)XPM_MAX_CAPABILITY},
-		{PM_DEV_UART_1, (u32)XPM_MAX_CAPABILITY},
-		{PM_DEV_OCM_0, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
-		{PM_DEV_OCM_1, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
-		{PM_DEV_OCM_2, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
-		{PM_DEV_OCM_3, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
-		{PM_DEV_DDR_0, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
-		{PM_DEV_ACPU_0, (u32)PM_CAP_ACCESS},
-		{PM_DEV_ACPU_1, (u32)PM_CAP_ACCESS},
-		{PM_DEV_SDIO_0, (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE},
-		{PM_DEV_SDIO_1, (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE},
-		{PM_DEV_QSPI, (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE},
-		{PM_DEV_OSPI, (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE},
-		{PM_DEV_I2C_0, (u32)PM_CAP_ACCESS},
-		{PM_DEV_I2C_1, (u32)PM_CAP_ACCESS},
-		{PM_DEV_GEM_0, (u32)XPM_MAX_CAPABILITY},
-		{PM_DEV_GEM_1, (u32)XPM_MAX_CAPABILITY},
-		{PM_DEV_RPU0_0, (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE},
-		{PM_DEV_IPI_0, (u32)PM_CAP_ACCESS},
-		{PM_DEV_IPI_1, (u32)PM_CAP_ACCESS},
-		{PM_DEV_IPI_2, (u32)PM_CAP_ACCESS},
-		{PM_DEV_IPI_3, (u32)PM_CAP_ACCESS},
-		{PM_DEV_IPI_4, (u32)PM_CAP_ACCESS},
-		{PM_DEV_IPI_5, (u32)PM_CAP_ACCESS},
-		{PM_DEV_IPI_6, (u32)PM_CAP_ACCESS},
-		{PM_DEV_TTC_0, (u32)PM_CAP_ACCESS},
-		{PM_DEV_TTC_1, (u32)PM_CAP_ACCESS},
-		{PM_DEV_TTC_2, (u32)PM_CAP_ACCESS},
-		{PM_DEV_TTC_3, (u32)PM_CAP_ACCESS},
-	};
 
 	if (((u32)XPM_NODECLASS_SUBSYSTEM != NODECLASS(SubsystemId)) ||
 	    ((u32)XPM_NODESUBCL_SUBSYSTEM != NODESUBCLASS(SubsystemId)) ||
@@ -854,40 +821,15 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 		goto done;
 	}
 
-	/* If default subsystem is online, no other subsystem is allowed to be created */
-	Subsystem = XPmSubsystem_GetById(PM_SUBSYS_DEFAULT);
-	if ((NULL != Subsystem) && ((u8)OFFLINE != Subsystem->State)) {
-		DbgErr = XPM_INT_ERR_DEFAULT_SUBSYS_ADDED;
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
 	/*
-	 * Don't add default subsystem if any other subsystem is online,
-	 * except for PMC subsystem
+	 * Check if subsystem is being re-added, skip for default
+	 * subsystem since it is already validated before
 	 */
-	if (PM_SUBSYS_DEFAULT == SubsystemId) {
-		Subsystem = PmSubsystems;
-		while (NULL != Subsystem) {
-			if ((PM_SUBSYS_PMC != Subsystem->Id) &&
-			    ((u8)OFFLINE != Subsystem->State)) {
-				DbgErr = XPM_INT_ERR_OTHER_SUBSYS_ADDED;
-				Status = XST_INVALID_PARAM;
-				goto done;
-			}
-			Subsystem = Subsystem->NextSubsystem;
-		}
-	} else {
-		/*
-		 * Check if subsystem is being re-added, skip for default
-		 * subsystem since it is already validated before
-		 */
-		Subsystem = XPmSubsystem_GetById(SubsystemId);
-		if ((NULL != Subsystem) && ((u8)OFFLINE != Subsystem->State)) {
-			DbgErr = XPM_INT_ERR_SUBSYS_ADDED;
-			Status = XST_FAILURE;
-			goto done;
-		}
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if ((NULL != Subsystem) && ((u8)OFFLINE != Subsystem->State)) {
+		DbgErr = XPM_INT_ERR_SUBSYS_ADDED;
+		Status = XST_FAILURE;
+		goto done;
 	}
 
 	Subsystem = (XPm_Subsystem *)XPm_AllocBytes(sizeof(XPm_Subsystem));
@@ -913,54 +855,6 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 
 	if (NODEINDEX(SubsystemId) > MaxSubsysIdx) {
 		MaxSubsysIdx = NODEINDEX(SubsystemId);
-	}
-
-	/* Add all requirements for default subsystem */
-	if(SubsystemId == PM_SUBSYS_DEFAULT)
-	{
-		for (i = 0; i < (u32)XPM_NODEIDX_DEV_MAX; i++) {
-			/*
-			 * Note: XPmDevice_GetByIndex() assumes that the caller
-			 * is responsible for validating the Node ID attributes
-			 * other than node index.
-			 */
-			XPm_Device *Device = XPmDevice_GetByIndex(i);
-			if (NULL != Device) {
-				Prealloc = 0;
-				Capability = 0;
-				for (j = 0; j < ARRAY_SIZE(DefaultPreallocDevList); j++) {
-					if (Device->Node.Id == DefaultPreallocDevList[j][0]) {
-						Prealloc = 1;
-						Capability = DefaultPreallocDevList[j][1];
-						break;
-					}
-				}
-				Status = XPmRequirement_Add(Subsystem, Device,
-						REQUIREMENT_FLAGS(Prealloc, 0U, 0U, 0U,
-							(u32)REQ_ACCESS_SECURE_NONSECURE,
-							(u32)REQ_NO_RESTRICTION),
-						0U, Capability, XPM_DEF_QOS);
-				if (XST_SUCCESS != Status) {
-					DbgErr = XPM_INT_ERR_ADD_REQUIREMENT;
-					goto done;
-				}
-			}
-		}
-
-		for (i = 0; i < (u32)XPM_NODEIDX_DEV_PLD_MAX; i++) {
-			XPm_Device *Device = XPmDevice_GetPlDeviceByIndex(i);
-			if (NULL != Device) {
-				Status = XPmRequirement_Add(Subsystem, Device,
-						(u32)REQUIREMENT_FLAGS(0U, 0U, 0U, 0U,
-							(u32)REQ_ACCESS_SECURE_NONSECURE,
-							(u32)REQ_NO_RESTRICTION),
-						0U, 0U, XPM_DEF_QOS);
-				if (XST_SUCCESS != Status) {
-					DbgErr = XPM_INT_ERR_ADD_REQUIREMENT;
-					goto done;
-				}
-			}
-		}
 	}
 
 	Status = XPmSubsystem_SetState(SubsystemId, (u32)ONLINE);

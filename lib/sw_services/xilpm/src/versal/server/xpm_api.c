@@ -831,11 +831,132 @@ static void PostTopologyHook(void)
 	XPmReset_MakeCpmPorResetCustom();
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function is to link devices to the default subsystem.
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static XStatus XPm_AddReqsDefaultSubsystem(XPm_Subsystem *Subsystem)
+{
+	XStatus Status = XST_FAILURE;
+	u32 i = 0, j = 0, Prealloc = 0, Capability = 0;
+	const u32 DefaultPreallocDevList[][2] = {
+		{PM_DEV_PSM_PROC, (u32)PM_CAP_ACCESS},
+		{PM_DEV_UART_0, (u32)XPM_MAX_CAPABILITY},
+		{PM_DEV_UART_1, (u32)XPM_MAX_CAPABILITY},
+		{PM_DEV_OCM_0, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
+		{PM_DEV_OCM_1, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
+		{PM_DEV_OCM_2, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
+		{PM_DEV_OCM_3, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
+		{PM_DEV_DDR_0, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
+		{PM_DEV_ACPU_0, (u32)PM_CAP_ACCESS},
+		{PM_DEV_ACPU_1, (u32)PM_CAP_ACCESS},
+		{PM_DEV_SDIO_0, (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE},
+		{PM_DEV_SDIO_1, (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE},
+		{PM_DEV_QSPI, (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE},
+		{PM_DEV_OSPI, (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE},
+		{PM_DEV_I2C_0, (u32)PM_CAP_ACCESS},
+		{PM_DEV_I2C_1, (u32)PM_CAP_ACCESS},
+		{PM_DEV_GEM_0, (u32)XPM_MAX_CAPABILITY},
+		{PM_DEV_GEM_1, (u32)XPM_MAX_CAPABILITY},
+		{PM_DEV_RPU0_0, (u32)PM_CAP_ACCESS},
+		{PM_DEV_IPI_0, (u32)PM_CAP_ACCESS},
+		{PM_DEV_IPI_1, (u32)PM_CAP_ACCESS},
+		{PM_DEV_IPI_2, (u32)PM_CAP_ACCESS},
+		{PM_DEV_IPI_3, (u32)PM_CAP_ACCESS},
+		{PM_DEV_IPI_4, (u32)PM_CAP_ACCESS},
+		{PM_DEV_IPI_5, (u32)PM_CAP_ACCESS},
+		{PM_DEV_IPI_6, (u32)PM_CAP_ACCESS},
+	};
+
+	/*
+	 * Only fill out default subsystem if no req's present and only 1
+	 * subsystem has been added.
+	 */
+	if (NULL != Subsystem->Requirements) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	for (i = 0; i < (u32)XPM_NODEIDX_DEV_MAX; i++) {
+		/*
+		 * Note: XPmDevice_GetByIndex() assumes that the caller
+		 * is responsible for validating the Node ID attributes
+		 * other than node index.
+		 */
+		XPm_Device *Device = XPmDevice_GetByIndex(i);
+		if (NULL != Device) {
+			Prealloc = 0;
+			Capability = 0;
+			for (j = 0; j < ARRAY_SIZE(DefaultPreallocDevList); j++) {
+				if (Device->Node.Id == DefaultPreallocDevList[j][0]) {
+					Prealloc = 1;
+					Capability = DefaultPreallocDevList[j][1];
+					break;
+				}
+			}
+			Status = XPmRequirement_Add(Subsystem, Device,
+					REQUIREMENT_FLAGS(Prealloc, 0U, 0U, 0U,
+						(u32)REQ_ACCESS_SECURE_NONSECURE,
+						(u32)REQ_NO_RESTRICTION),
+					0U, Capability, XPM_DEF_QOS);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		}
+	}
+
+	for (i = 0; i < (u32)XPM_NODEIDX_DEV_PLD_MAX; i++) {
+		XPm_Device *Device = XPmDevice_GetPlDeviceByIndex(i);
+		if (NULL != Device) {
+			Status = XPmRequirement_Add(Subsystem, Device,
+					(u32)REQUIREMENT_FLAGS(0U, 0U, 0U, 0U,
+						(u32)REQ_ACCESS_SECURE_NONSECURE,
+						(u32)REQ_NO_RESTRICTION),
+					0U, 0U, XPM_DEF_QOS);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		}
+	}
+
+	/* Add reset permissions */
+	Status = XPmReset_AddPermForGlobalResets(Subsystem);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+	/* Add xGGS Permissions */
+	j = (1U << IOCTL_PERM_READ_SHIFT_NS) | (1U << IOCTL_PERM_WRITE_SHIFT_NS);
+	j |= (1U << IOCTL_PERM_READ_SHIFT_S) | (1U << IOCTL_PERM_WRITE_SHIFT_S);
+	for (i = PM_DEV_GGS_0; i <= PM_DEV_GGS_3; i++) {
+		Status = XPm_AddDevRequirement(Subsystem, i, j, NULL, 0);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	for (i = PM_DEV_PGGS_0; i <= PM_DEV_PGGS_3; i++) {
+		Status = XPm_AddDevRequirement(Subsystem, i, j, NULL, 0);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+
 XStatus XPm_HookAfterPlmCdo(void)
 {
 	XStatus Status = XST_FAILURE;
 	u32 PlatformVersion;
 	u32 SysmonAddr;
+	XPm_Subsystem *Subsystem;
 
 	/*
 	 * TODO: Re-introduce Early Housecleaning
@@ -885,6 +1006,17 @@ XStatus XPm_HookAfterPlmCdo(void)
 		Status = XPmDevice_Request(PM_SUBSYS_PMC, PM_DEV_GPIO_PMC,
 					   XPM_MAX_CAPABILITY, XPM_MAX_QOS,
 					   XPLMI_CMD_SECURE);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	/* If default subsystem is present, attempt to add requirements if needed. */
+	Subsystem = XPmSubsystem_GetById(PM_SUBSYS_DEFAULT);
+	if (((u32)1U == XPmSubsystem_GetMaxSubsysIdx()) &&
+	    (NULL != Subsystem) &&
+	    ((u8)ONLINE == Subsystem->State)) {
+		Status = XPm_AddReqsDefaultSubsystem(Subsystem);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
