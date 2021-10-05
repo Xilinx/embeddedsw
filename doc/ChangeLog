@@ -4,6 +4,17 @@ libmetal_v2_2:
 Use the FreeRTOS API's taskYIELD() instead of asm("wfi")
 Add Linux-syscall-note
 
+rfdc_v11_0:
+Simplified clock distribution user interface
+Fixed issue where VOP initial value was incorrect
+Disallow VOP for DC coupled DACs
+Fixed issue where any end state could be selected in custom startup API if a
+start state of 1 was supplied
+When setting the powermode, the IP now takes care of the configuration
+registers
+Factor in half bandwidth when using MTS in IMR modes
+Fixed rounding error in cast for FS and refclk in XRFdc_DynamicPLLConfig
+
 sysmonpsv_v2_3:
 update doxygen documentation
 Add checks if the code is running on PLM
