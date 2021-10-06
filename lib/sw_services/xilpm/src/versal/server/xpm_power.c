@@ -331,6 +331,9 @@ static XStatus SendPowerUpReq(XPm_Node *Node)
 		case (u32)XPM_NODEIDX_POWER_CPM:
 			Status = XPm_PowerUpCPM(Node);
 			break;
+		case (u32)XPM_NODEIDX_POWER_CPM5:
+			Status = XPm_PowerUpCPM5(Node);
+			break;
 		default:
 			Status = XST_INVALID_PARAM;
 			break;
@@ -410,6 +413,9 @@ static XStatus SendPowerDownReq(const XPm_Node *Node)
 			break;
 		case (u32)XPM_NODEIDX_POWER_CPM:
 			Status = XPm_PowerDwnCPM(Node);
+			break;
+		case (u32)XPM_NODEIDX_POWER_CPM5:
+			Status = XPm_PowerDwnCPM5(Node);
 			break;
 		default:
 			Status = XST_INVALID_PARAM;

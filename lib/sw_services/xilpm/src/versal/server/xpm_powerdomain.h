@@ -62,6 +62,8 @@ XStatus XPm_PowerUpME(const XPm_Node *Node);
 XStatus XPm_PowerDwnME(const XPm_Node *Node);
 XStatus XPm_PowerUpCPM(const XPm_Node *Node);
 XStatus XPm_PowerDwnCPM(const XPm_Node *Node);
+XStatus XPm_PowerUpCPM5(const XPm_Node *Node);
+XStatus XPm_PowerDwnCPM5(const XPm_Node *Node);
 XStatus XPm_PowerUpNoC(XPm_Node *Node);
 XStatus XPm_PowerDwnNoC(void);
 XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,

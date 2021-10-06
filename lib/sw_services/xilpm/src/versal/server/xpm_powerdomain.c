@@ -810,6 +810,18 @@ XStatus XPm_PowerUpCPM(const XPm_Node *Node)
 	return Status;
 }
 
+XStatus XPm_PowerUpCPM5(const XPm_Node *Node)
+{
+	(void)Node;
+	return XST_SUCCESS;
+}
+
+XStatus XPm_PowerDwnCPM5(const XPm_Node *Node)
+{
+	(void)Node;
+	return XST_SUCCESS;
+}
+
 XStatus XPm_PowerDwnCPM(const XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
