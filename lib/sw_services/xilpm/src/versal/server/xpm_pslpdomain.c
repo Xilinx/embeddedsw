@@ -65,7 +65,6 @@ static XStatus LpdPreBisrReqs(void)
 {
 	XStatus Status = XST_FAILURE;
 	const XPm_Device *XramDevice = NULL;
-	const XPm_ResetNode *XramRst = NULL;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* Remove PMC LPD isolation */
@@ -84,30 +83,12 @@ static XStatus LpdPreBisrReqs(void)
 
 	/* Release OCM2 (XRAM) SRST if XRAM exists */
 	XramDevice = XPmDevice_GetById(PM_DEV_XRAM_0);
-	if (NULL == XramDevice) {
-		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
-		goto done;
-	}
-
-	/* Make sure SRST source is PS SRST */
-	/* If PM_RST_XRAM_RST val is 0x0, XRAM_SRST = PS_SRST */
-	/* else XRAM_SRST = PL_SRST */
-	XramRst = XPmReset_GetById(PM_RST_XRAM);
-	if (NULL == XramRst) {
-		DbgErr = XPM_INT_ERR_INVALID_RST;
-		Status = XST_FAILURE;
-		goto done;
-	}
-
-	if (XramRst->Ops->GetState(XramRst) == 0x0U) {
-		Status = XPmReset_AssertbyId(PM_RST_OCM2_RST, (u32)PM_RESET_ACTION_RELEASE);
+	if (NULL != XramDevice) {
+		Status = XPmReset_AssertbyId(PM_RST_OCM2_RST,
+					     (u32)PM_RESET_ACTION_RELEASE);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_RST_RELEASE;
 		}
-	} else {
-		/* We shouldn't reach here. PL SRST is source for XRAM SRST */
-		DbgErr = XPM_INT_ERR_RST_STATE;
-		Status = XPM_ERR_RESET;
 	}
 
 done:
