@@ -34,6 +34,8 @@
 *       kpt  09/18/21 Updated macro value XLOADER_PDI_DPACM_ENABLED
 *                     Renamed BHSignature variable to IHTSignature
 * 1.02  kpt  10/04/21 Removed macro XLOADER_SEC_ALL_IDS_REVOKED_ERR
+*       kpt  10/07/21 Added function pointer ProcessPrtn in
+*                     XLoader_SecureParams
 *
 * </pre>
 *
@@ -422,7 +424,7 @@ typedef struct {
 } XLoader_AuthJtagMessage;
 #endif
 
-typedef struct {
+typedef struct XLoader_SecureParams {
 	volatile u8 SecureEn;	/**< Security enabled or disabled */
 	volatile u8 SecureEnTmp;	/**< Security enabled or disabled (temp)*/
 	u8 IsNextChunkCopyStarted;	/**< Next chunk copy started or not */
@@ -444,6 +446,9 @@ typedef struct {
 	u32 Sha3Hash[XLOADER_SHA3_LEN / 4U];	/**< SHA3 hash */
 	u32 SecureHdrLen;	/**< Secure header length */
 	XPmcDma *PmcDmaInstPtr;	/**< PMC DMA instance pointer */
+	int (*ProcessPrtn)(struct XLoader_SecureParams *SecurePtr, u64 DestAddr,
+				u32 BlockSize, u8 Last); /**< Function pointer to process
+				                          * partition chunk */
 #ifndef PLM_SECURE_EXCLUDE
 	XLoader_AuthType SigType;	/**< Signature type */
 	XLoader_AuthCertificate *AcPtr;/**< Authentication certificate pointer */

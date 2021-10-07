@@ -69,6 +69,7 @@
 *       bsv  09/01/2021 Added checks for zero length in XLoader_ProcessCdo
 *       bsv  09/20/2021 Fixed logical error in processing Cdos
 *       bm   09/23/2021 Fix R5 partition load issue
+* 1.07  kpt  10/07/2021 Decoupled checksum functionality from secure code
 *
 * </pre>
 *
@@ -312,7 +313,8 @@ static int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* Devi
 	volatile int StatusTmp = XST_FAILURE;
 
 	if ((SecureParams->SecureEn == (u8)FALSE) &&
-			(SecureParams->SecureEnTmp == (u8)FALSE)) {
+			(SecureParams->SecureEnTmp == (u8)FALSE) &&
+			(SecureParams->IsCheckSumEnabled == (u8)FALSE)) {
 		Status = PdiPtr->MetaHdr.DeviceCopy(DeviceCopy->SrcAddr,
 			DeviceCopy->DestAddr,DeviceCopy->Len, DeviceCopy->Flags);
 	}
@@ -613,7 +615,9 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 	 * Process CDO in chunks.
 	 * Chunk size is based on the available PRAM size.
 	 */
-	if (SecureParams->SecureEn == (u8)FALSE) {
+	if ((SecureParams->SecureEn == (u8)FALSE) &&
+		(SecureParams->SecureEnTmp == (u8)FALSE) &&
+		(SecureParams->IsCheckSumEnabled == (u8)FALSE)) {
 		if (DeviceCopy->IsDoubleBuffering == (u8)TRUE) {
 			ChunkLen = XLOADER_CHUNK_SIZE / 2U;
 		}
@@ -652,7 +656,8 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 		}
 
 		if ((SecureParams->SecureEn == (u8)FALSE) &&
-			(SecureParams->SecureEnTmp == (u8)FALSE)) {
+			(SecureParams->SecureEnTmp == (u8)FALSE) &&
+			(SecureParams->IsCheckSumEnabled == FALSE)) {
 			if (IsNextChunkCopyStarted == (u8)TRUE) {
 				IsNextChunkCopyStarted = (u8)FALSE;
 				Flags = XPLMI_DEVICE_COPY_STATE_WAIT_DONE;
@@ -708,7 +713,7 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 		else {
 			SecureParams->RemainingDataLen = DeviceCopy->Len;
 
-			Status = XLoader_ProcessSecurePrtn(SecureParams,
+			Status = SecureParams->ProcessPrtn(SecureParams,
 					SecureParams->SecureData, ChunkLen, LastChunk);
 			if (Status != XST_SUCCESS) {
 				goto END;

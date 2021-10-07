@@ -98,6 +98,7 @@
 *       kpt  09/18/21 Fixed SW-BP-REDUNDANCY
 *       kpt  09/20/21 Fixed checksum issue in case of delay load
 *       bsv  10/01/21 Addressed code review comments
+* 1.07  kpt  10/07/21 Decoupled checksum functionality from secure code
 *
 * </pre>
 *
@@ -235,7 +236,7 @@ int XLoader_SecureCopy(XLoader_SecureParams *SecurePtr, u64 DestAddr, u32 Size)
 		SecurePtr->RemainingDataLen = Len;
 
 		/* Call security function */
-		Status = XLoader_ProcessSecurePrtn(SecurePtr, LoadAddr,
+		Status = SecurePtr->ProcessPrtn(SecurePtr, LoadAddr,
 					ChunkLen, LastChunk);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -261,45 +262,6 @@ END:
 			Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_SUCCESS);
 		}
 	}
-	return Status;
-}
-
-/*****************************************************************************/
-/**
-* @brief	This function performs authentication, checksum and decryption
-* of the partition.
-*
-* @param	SecurePtr is pointer to the XLoader_SecureParams instance
-* @param	DestAddr is the address to which data is copied
-* @param	BlockSize is size of the data block to be processed
-*		which doesn't include padding lengths and hash.
-* @param	Last notifies if the block to be processed is last or not
-*
-* @return	XST_SUCCESS on success and error code on failure
-*
-******************************************************************************/
-int XLoader_ProcessSecurePrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
-				u32 BlockSize, u8 Last)
-{
-	int Status = XST_FAILURE;
-
-	if (SecurePtr->IsCheckSumEnabled == (u8)TRUE) {
-		Status = XLoader_ProcessChecksumPrtn(SecurePtr, DestAddr,
-				BlockSize, Last);
-	}
-#ifndef PLM_SECURE_EXCLUDE
-	else if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
-		(SecurePtr->IsAuthenticatedTmp == (u8)TRUE) ||
-		(SecurePtr->IsEncrypted == (u8)TRUE) ||
-		(SecurePtr->IsEncryptedTmp == (u8)TRUE)) {
-		Status = XLoader_ProcessAuthEncPrtn(SecurePtr, DestAddr,
-				BlockSize, Last);
-	}
-#endif
-	else {
-		/* For Misra-C */
-	}
-
 	return Status;
 }
 
@@ -493,8 +455,6 @@ static int XLoader_ChecksumInit(XLoader_SecureParams *SecurePtr,
 		/* Check checksum type */
 		if(ChecksumType == XIH_PH_ATTRB_HASH_SHA3) {
 			SecurePtr->IsCheckSumEnabled = (u8)TRUE;
-			SecurePtr->SecureEn = (u8)TRUE;
-			SecurePtr->SecureEnTmp = (u8)TRUE;
 		}
 		else {
 			/* Only SHA3 checksum is supported */
@@ -530,6 +490,7 @@ static int XLoader_ChecksumInit(XLoader_SecureParams *SecurePtr,
 				XLOADER_ERR_INIT_CHECKSUM_COPY_FAIL, Status);
 			goto END;
 		}
+		SecurePtr->ProcessPrtn = XLoader_ProcessChecksumPrtn;
 	}
 
 	Status = XST_SUCCESS;

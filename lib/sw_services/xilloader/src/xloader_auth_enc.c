@@ -64,6 +64,7 @@
 *                     Renamed BHSignature variable to IHTSignature
 *       bsv  10/01/21 Addressed code review comments
 * 1.02  kpt  10/01/21 Removed redundant code in XLoader_VerifyRevokeId
+*       kpt  10/07/21 Decoupled checksum functionality from secure code
 *
 * </pre>
 *
@@ -245,6 +246,7 @@ int XLoader_SecureAuthInit(XLoader_SecureParams *SecurePtr,
 					XLOADER_ERR_INIT_AC_COPY_FAIL, Status);
 			goto END;
 		}
+		SecurePtr->ProcessPrtn = XLoader_ProcessAuthEncPrtn;
 		SecurePtr->SecureHdrLen += XLOADER_AUTH_CERT_MIN_SIZE;
 		SecurePtr->ProcessedLen = XLOADER_AUTH_CERT_MIN_SIZE;
 	}
@@ -365,6 +367,7 @@ int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 				goto END;
 			}
 		}
+		SecurePtr->ProcessPrtn = XLoader_ProcessAuthEncPrtn;
 	}
 	Status = XST_SUCCESS;
 
