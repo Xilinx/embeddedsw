@@ -56,6 +56,11 @@ proc xdefine_config_file {drv_handle file_name drv_string args} {
         set config_file [open $filename w]
         ::hsi::utils::write_c_header $config_file "Driver configuration"
         set num_insts [::hsi::utils::get_driver_param_name $drv_string "NUM_INSTANCES"]
+
+	set sw_processor [hsi::get_sw_processor]
+	set processor [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_processor]]
+	set processor_type [common::get_property IP_NAME $processor]
+
         puts $config_file "\#include \"xparameters.h\""
         puts $config_file "\#include \"[string tolower $drv_string].h\""
         puts $config_file "\n/*"
@@ -79,20 +84,31 @@ proc xdefine_config_file {drv_handle file_name drv_string args} {
         set arg_name [get_parameter $periphs "psu_pcie_attrib_0" "C_S_AXI_BASEADDR"]
         puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
 
-        set arg_name [get_parameter $periphs "psu_pcie_high2" "C_S_AXI_BASEADDR"]
-        puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
+	if {($processor_type == "psu_cortexa53")} {
+		set arg_name [get_parameter $periphs "psu_pcie_high2" "C_S_AXI_BASEADDR"]
+		puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
+	}
+
+	if {($processor_type == "psu_cortexr5")} {
+		set arg_name [get_parameter $periphs "psu_pcie_low" "C_S_AXI_BASEADDR"]
+		puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
+	}
 
         set arg_name [get_parameter $periphs "psu_pcie_low" "C_S_AXI_BASEADDR"]
         puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
 
-        set arg_name [get_parameter $periphs "psu_pcie_high1" "C_S_AXI_BASEADDR"]
-        puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
+	if {($processor_type == "psu_cortexa53")} {
+		set arg_name [get_parameter $periphs "psu_pcie_high1" "C_S_AXI_BASEADDR"]
+		puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
+	}
 
         set arg_name [get_parameter $periphs "psu_pcie_low" "C_S_AXI_HIGHADDR"]
         puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
 
-        set arg_name [get_parameter $periphs "psu_pcie_high1" "C_S_AXI_HIGHADDR"]
-        puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
+	if {($processor_type == "psu_cortexa53")} {
+		set arg_name [get_parameter $periphs "psu_pcie_high1" "C_S_AXI_HIGHADDR"]
+		puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
+	}
 
         set arg_name [get_parameter $periphs "psu_pcie_dma" "C_S_AXI_BASEADDR"]
         puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]

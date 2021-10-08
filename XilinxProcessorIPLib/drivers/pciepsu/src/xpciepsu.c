@@ -251,11 +251,6 @@ static int XPciePsu_BridgeInit(XPciePsu *InstancePtr)
 					XPCIEPSU_E_ECAM_CONTROL) |
 					(((u32)PSU_ECAM_VALUE_DEFAULT) << E_ECAM_SIZE_SHIFT));
 
-	/* Use NPMem ranges for ECAM in case of 32B processors*/
-#if !defined (__aarch64__) && !defined (__arch64__)
-	CfgPtr->Ecam = CfgPtr->NpMemBaseAddr;
-#endif
-
 	XPciePsu_WriteReg(CfgPtr->BrigReg, XPCIEPSU_E_ECAM_BASE_LO,
 			  LOWER_32_BITS(CfgPtr->Ecam));
 
@@ -491,8 +486,7 @@ static u64 XPciePsu_ReserveBarMem(XPciePsu *InstancePtr,
 	return Ret;
 }
 #else
-static u32 XPciePsu_ReserveBarMem(XPciePsu *InstancePtr,
-				  u8 MemBarArdSize, u32 Size)
+static u32 XPciePsu_ReserveBarMem(XPciePsu *InstancePtr, u32 Size)
 {
 	u32 Ret = 0;
 
@@ -525,11 +519,11 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 	u32 Data = DATA_MASK_32;
 	u32 Location = 0;
 	u32 Size = 0, TestWrite;
-	u8 MemAs;
 #if defined(__aarch64__) || defined(__arch64__)
 	u64 BarAddr;
 	u32 Size_1 = 0, *PPtr;
 	u32 Location_1 = 0;
+	u8 MemAs;
 #else
 	u32 BarAddr;
 #endif
@@ -578,10 +572,9 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 
 		/* check for 32 bit AS or 64 bit AS */
 		if ((Size & XPCIEPSU_CFG_BAR_MEM_AS_MASK) == XPCIEPSU_BAR_MEM_TYPE_64) {
+#if defined(__aarch64__) || defined(__arch64__)
 			/* 64 bit AS is required */
 			MemAs = XPCIEPSU_BAR_MEM_TYPE_64;
-
-#if defined(__aarch64__) || defined(__arch64__)
 			/* Compose function configuration space location */
 			Location_1 = XPciePsu_ComposeExternalConfigAddress(
 				Bus, Device, Function,
@@ -630,7 +623,7 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 			/* actual bar size is 2 << TestWrite */
 			BarAddr =
 				XPciePsu_ReserveBarMem(
-						InstancePtr, MemAs,
+						InstancePtr,
 						((u32)2U << (TestWrite - 1U)));
 
 			Tmp = (u32)BarAddr;
@@ -645,18 +638,23 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 				((2UL << (TestWrite - 1UL)) / 1024UL));
 #endif
 		} else {
-			/* 32 bit AS is required */
-			MemAs = XPCIEPSU_BAR_MEM_TYPE_32;
 
 			TestWrite = XPciePsu_PositionRightmostSetbit(Size);
+
+#if defined(__aarch64__) || defined(__arch64__)
+			/* 32 bit AS is required */
+			MemAs = XPCIEPSU_BAR_MEM_TYPE_32;
 
 			/* actual bar size is 2 << TestWrite */
 			BarAddr =
 				XPciePsu_ReserveBarMem(
 						InstancePtr, MemAs,
-#if defined(__aarch64__) || defined(__arch64__)
 						((u64)2U << (TestWrite - 1U)));
 #else
+			/* actual bar size is 2 << TestWrite */
+			BarAddr =
+				XPciePsu_ReserveBarMem(
+						InstancePtr,
 						((u32)2U << (TestWrite - 1U)));
 #endif
 
@@ -696,6 +694,7 @@ static void XPciePsu_IncreamentNpMem(XPciePsu *InstancePtr)
 	InstancePtr->Config.NpMemBaseAddr <<= MB_SHIFT;
 }
 
+#if defined(__aarch64__) || defined(__arch64__)
 /******************************************************************************/
 /**
 * This function increments to next 1Mb block starting position of
@@ -710,6 +709,7 @@ static void XPciePsu_IncreamentPMem(XPciePsu *InstancePtr)
 	InstancePtr->Config.PMemBaseAddr++;
 	InstancePtr->Config.PMemBaseAddr <<= MB_SHIFT;
 }
+#endif
 
 /******************************************************************************/
 /**
@@ -842,7 +842,9 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u8 BusNum)
 						"enabled\r\n");
 
 					XPciePsu_IncreamentNpMem(InstancePtr);
+#if defined(__aarch64__) || defined(__arch64__)
 					XPciePsu_IncreamentPMem(InstancePtr);
+#endif
 
 				} else {
 					/* This is a bridge */

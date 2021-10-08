@@ -54,8 +54,10 @@ XPciePsu_Config *XPciePsu_LookupConfig(u16 DeviceId)
 					(XPciePsu_ConfigTable[Index].Ecam == 0xffU) ||
 					(XPciePsu_ConfigTable[Index].NpMemBaseAddr == 0xffU) ||
 					(XPciePsu_ConfigTable[Index].NpMemMaxAddr == 0xffU) ||
+#if defined(__aarch64__) || defined(__arch64__)
 					(XPciePsu_ConfigTable[Index].PMemBaseAddr == 0xffU) ||
 					(XPciePsu_ConfigTable[Index].PMemMaxAddr == 0xffU) ||
+#endif
 					(XPciePsu_ConfigTable[Index].PciReg == 0xffU)){
 				CfgPtr = NULL;
 				break;

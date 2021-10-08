@@ -79,11 +79,9 @@ typedef struct {
 	u32 PciReg;		/**< pcie Register base address */
 	u32 Ecam;		/**< Ecam space base address */
 	u32	NpMemBaseAddr;		/**< non prefetchable memory base address */
-	u32	PMemBaseAddr;		/**< prefetchable memory base address */
 	u32	NpMemMaxAddr;	/**< non prefetchable memory max base address*/
-	u32	PMemMaxAddr;	/**< prefetchable memory max base address */
 #endif
-    u32 DmaBaseAddr;	/**< DMA base address */
+	u32 DmaBaseAddr;	/**< DMA base address */
 	u8	PcieMode;		/**< pcie mode rc or endpoint */
 } XPciePsu_Config;
 
