@@ -60,7 +60,7 @@
 int XDmaPcie_CfgInitialize(XDmaPcie *InstancePtr, XDmaPcie_Config *CfgPtr,
 							 UINTPTR EffectiveAddress)
 {
-#ifndef versal
+#if !defined(versal) && !defined(QDMA_PCIE_BRIDGE)
 	u32 Data;
 #endif
 
@@ -95,6 +95,7 @@ int XDmaPcie_CfgInitialize(XDmaPcie *InstancePtr, XDmaPcie_Config *CfgPtr,
 	return (XST_SUCCESS);
 }
 
+#if defined(__aarch64__) || defined(__arch64__)
 static u8 XdmaPcie_IsValidAddr(u64 Addr)
 {
 	if (Addr == 0U) {
@@ -116,7 +117,6 @@ static u8 XdmaPcie_IsValidAddr(u64 Addr)
 * @return  bar address
 *
 *******************************************************************************/
-#if defined(__aarch64__) || defined(__arch64__)
 static u64 XDmaPcie_ReserveBarMem(XDmaPcie *InstancePtr,
 		u8 MemBarArdSize, u64 Size)
 {
@@ -140,8 +140,7 @@ static u64 XDmaPcie_ReserveBarMem(XDmaPcie *InstancePtr,
 	return Ret;
 }
 #else
-static u32 XDmaPcie_ReserveBarMem(XDmaPcie *InstancePtr,
-		u8 MemBarArdSize, u32 Size)
+static u32 XDmaPcie_ReserveBarMem(XDmaPcie *InstancePtr, u32 Size)
 {
 	u32 Ret = 0;
 
@@ -205,11 +204,11 @@ static int XDmaPcie_AllocBarSpace(XDmaPcie *InstancePtr, u32 Headertype, u8 Bus,
 	u32 Data = DATA_MASK_32;
 	u32 Location = 0;
 	u32 Size = 0, TestWrite;
-	u8 MemAs;
 #if defined(__aarch64__) || defined(__arch64__)
 	u64 BarAddr;
 	u32 Size_1 = 0, *PPtr;
 	u32 Location_1 = 0;
+	u8 MemAs;
 #else
 	u32 BarAddr;
 #endif
@@ -257,10 +256,9 @@ static int XDmaPcie_AllocBarSpace(XDmaPcie *InstancePtr, u32 Headertype, u8 Bus,
 
 		/* check for 32 bit AS or 64 bit AS */
 		if ((Size & XDMAPCIE_CFG_BAR_MEM_AS_MASK) == XDMAPCIE_BAR_MEM_TYPE_64) {
+#if defined(__aarch64__) || defined(__arch64__)
 			/* 64 bit AS is required */
 			MemAs = XDMAPCIE_BAR_MEM_TYPE_64;
-
-#if defined(__aarch64__) || defined(__arch64__)
 			/* Compose function configuration space location */
 			Location_1 = XDmaPcie_ComposeExternalConfigAddress(
 				Bus, Device, Function,
@@ -306,7 +304,7 @@ static int XDmaPcie_AllocBarSpace(XDmaPcie *InstancePtr, u32 Headertype, u8 Bus,
 
 			/* actual bar size is 2 << TestWrite */
 			BarAddr =
-				XDmaPcie_ReserveBarMem(InstancePtr, MemAs,
+				XDmaPcie_ReserveBarMem(InstancePtr,
 						(2 << (TestWrite - 1)));
 
 			Tmp = (u32)BarAddr;
@@ -323,15 +321,22 @@ static int XDmaPcie_AllocBarSpace(XDmaPcie *InstancePtr, u32 Headertype, u8 Bus,
 #endif
 
 		} else {
+			TestWrite = XDmaPcie_PositionRightmostSetbit(Size);
+
+#if defined(__aarch64__) || defined(__arch64__)
 			/* 32 bit AS is required */
 			MemAs = XDMAPCIE_BAR_MEM_TYPE_32;
-
-			TestWrite = XDmaPcie_PositionRightmostSetbit(Size);
 
 			/* actual bar size is 2 << TestWrite */
 			BarAddr =
 				XDmaPcie_ReserveBarMem(InstancePtr, MemAs,
 						(2 << (TestWrite - 1)));
+#else
+			/* actual bar size is 2 << TestWrite */
+			BarAddr =
+				XDmaPcie_ReserveBarMem(InstancePtr,
+						(2 << (TestWrite - 1)));
+#endif
 
 			Tmp = (u32)BarAddr;
 
@@ -353,6 +358,7 @@ static int XDmaPcie_AllocBarSpace(XDmaPcie *InstancePtr, u32 Headertype, u8 Bus,
 	return XST_SUCCESS;
 }
 
+#if defined(__aarch64__) || defined(__arch64__)
 /******************************************************************************/
 /**
 * This function increments to next 1Mb block starting position of
@@ -361,13 +367,13 @@ static int XDmaPcie_AllocBarSpace(XDmaPcie *InstancePtr, u32 Headertype, u8 Bus,
 * @param  	InstancePtr pointer to XDmaPcie Instance
 *
 *******************************************************************************/
-static void XDmaPcie_IncreamentPMem(XDmaPcie *InstancePtr)
+static void XDmaPcie_IncrementPMem(XDmaPcie *InstancePtr)
 {
 	InstancePtr->Config.PMemBaseAddr >>= MB_SHIFT;
 	InstancePtr->Config.PMemBaseAddr++;
 	InstancePtr->Config.PMemBaseAddr <<= MB_SHIFT;
 }
-
+#endif
 /******************************************************************************/
 /**
 * This function starts enumeration of PCIe Fabric on the system.
@@ -488,7 +494,9 @@ static void XDmaPcie_FetchDevicesInBus(XDmaPcie *InstancePtr, u32 BusNum)
 						"enabled\r\n");
 
 					XDmaPcie_IncreamentNpMem(InstancePtr);
-					XDmaPcie_IncreamentPMem(InstancePtr);
+#if defined(__aarch64__) || defined(__arch64__)
+					XDmaPcie_IncrementPMem(InstancePtr);
+#endif
 
 				} else {
 					/* This is a bridge */
@@ -599,7 +607,7 @@ static void XDmaPcie_FetchDevicesInBus(XDmaPcie *InstancePtr, u32 BusNum)
 
 #if defined(__aarch64__) || defined(__arch64__)
 					if (XdmaPcie_IsValidAddr(InstancePtr->Config.PMemBaseAddr) == TRUE) {
-						XDmaPcie_IncreamentPMem(InstancePtr);
+						XDmaPcie_IncrementPMem(InstancePtr);
 						Adr09 |= (InstancePtr->Config.PMemBaseAddr
 							  & 0xFFF00000);
 						XDmaPcie_WriteRemoteConfigSpace(
@@ -624,7 +632,7 @@ static void XDmaPcie_FetchDevicesInBus(XDmaPcie *InstancePtr, u32 BusNum)
 					XDmaPcie_IncreamentNpMem(InstancePtr);
 #if defined(__aarch64__) || defined(__arch64__)
 					if (XdmaPcie_IsValidAddr(InstancePtr->Config.PMemBaseAddr) == TRUE) {
-						XDmaPcie_IncreamentPMem(InstancePtr);
+						XDmaPcie_IncrementPMem(InstancePtr);
 					}
 #endif
 
@@ -1159,7 +1167,7 @@ void XDmaPcie_GetLocalBusBar2PcieBar(XDmaPcie *InstancePtr, u8 BarNumber,
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(BarAddrPtr != NULL);
 	Xil_AssertVoid(BarNumber < InstancePtr->Config.LocalBarsNum);
-#ifndef versal
+#if !defined(versal) || defined(QDMA_PCIE_BRIDGE)
 	Xil_AssertVoid(InstancePtr->Config.IncludeBarOffsetReg != FALSE);
 #endif
 
@@ -1196,7 +1204,7 @@ void XDmaPcie_SetLocalBusBar2PcieBar(XDmaPcie *InstancePtr, u8 BarNumber,
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(BarAddrPtr != NULL);
 	Xil_AssertVoid(BarNumber < InstancePtr->Config.LocalBarsNum);
-#ifndef versal
+#if !defined(versal) || defined(QDMA_PCIE_BRIDGE)
 	Xil_AssertVoid(InstancePtr->Config.IncludeBarOffsetReg != FALSE);
 #endif
 

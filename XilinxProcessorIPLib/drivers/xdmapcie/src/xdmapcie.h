@@ -102,7 +102,7 @@ typedef  struct {
 	u8  LocalBarsNum;		/* The number of local bus (AXI) BARs
 					 * in hardware
 					 */
-#ifndef versal
+#if !defined(versal) || defined(QDMA_PCIE_BRIDGE)
 	u8  IncludeBarOffsetReg;	/**<Are BAR Offset registers built in
 					 * hardware
 					 */
@@ -117,9 +117,7 @@ typedef  struct {
 #else
 	u32 Ecam;
 	u32	NpMemBaseAddr;		/**< non prefetchable memory base address */
-	u32	PMemBaseAddr;		/**< prefetchable memory base address */
 	u32	NpMemMaxAddr;	/**< non prefetchable memory max base address*/
-	u32	PMemMaxAddr;	/**< prefetchable memory max base address */
 #endif
 
 } XDmaPcie_Config;
