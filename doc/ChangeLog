@@ -1,6 +1,12 @@
 Changes for 2021.2
 ===============================
 
+aiefal_v1_1:
+enable to get resource usage statistics of:
+static allocated resource
+available resource
+run time allocated resource
+
 dfeccf_v1_1:
 Update to common latency and reorganise examples
 
