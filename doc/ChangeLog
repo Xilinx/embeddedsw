@@ -19,10 +19,10 @@ Update to common latency and CFG_SHIFT calculation
 dfeprach_v1_1:
 Update to common latency, doxygen comments updating and reorganise examples
 
-xdmapcie_v1_4 :
+xdmapcie_v1_4:
 Added support for  QDMA bridge
 
-dppsu_v1_5 :
+dppsu_v1_5:
 Update to use correct Lane Count, added warning for incorrect lane setting and
 corrected file names in dependencies
 
