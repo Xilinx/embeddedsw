@@ -70,6 +70,7 @@
 *       ma   08/19/2021 Renamed error related macros
 *       ma   08/30/2021 Modified XPlmi_ErrMgr function to handle errors in
 *                       SSIT Slave SLRs
+*       bsv  10/11/2021 Added boundary check before incrementing NumErrOuts
 *
 * </pre>
 *
@@ -91,6 +92,7 @@
 #define XPLMI_SYSMON_CLK_SRC_IRO_VAL	(0U)
 #define XPLMI_UPDATE_TYPE_INCREMENT	(1U)
 #define XPLMI_UPDATE_TYPE_DECREMENT	(2U)
+#define XPLMI_MAX_ERR_OUTS		(0xFFFFFFFFU)
 #define XPLMI_PMC_ERR1_SSIT_MASK	(0xE0000000U)
 #define XPLMI_PMC_ERR2_SSIT_MASK	(0xE0000000U)
 
@@ -1700,7 +1702,9 @@ static u32 XPlmi_UpdateNumErrOutsCount(u8 UpdateType)
 	static u32 NumErrOuts = 0U;
 
 	if (UpdateType == XPLMI_UPDATE_TYPE_INCREMENT) {
-		++NumErrOuts;
+		if (NumErrOuts < XPLMI_MAX_ERR_OUTS) {
+			++NumErrOuts;
+		}
 	} else {
 		if (NumErrOuts > 0U) {
 			--NumErrOuts;
