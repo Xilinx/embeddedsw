@@ -54,6 +54,7 @@
  *			 coded value
  *       rv   08/25/2021 Check for module ID also along with API ID for xilpm
  *			 force power down command
+ *       bsv  10/11/2021 Added redundancy for CheckIpiAccess API
  *
  * </pre>
  *
@@ -66,6 +67,7 @@
 #include "xplmi_proc.h"
 #include "xplmi_generic.h"
 #include "xplmi_hw.h"
+#include "xil_util.h"
 
 #ifdef XPAR_XIPIPSU_0_DEVICE_ID
 /************************** Constant Definitions *****************************/
@@ -485,6 +487,7 @@ static int XPlmi_ValidateCmd(u32 ModuleId, u32 ApiId)
 static int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex)
 {
 	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
 	u32 CmdHndlr = (Cmd->CmdId & XPLMI_CMD_MODULE_ID_MASK) >>
 			XPLMI_CMD_MODULE_ID_SHIFT;
 	u32 ApiId = Cmd->CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK;
@@ -521,11 +524,12 @@ static int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex)
 	 * If handler is not registered, do nothing
 	 */
 	if (Modules[CmdHndlr]->CheckIpiAccess != NULL) {
-		Status = XST_FAILURE;
-		Status = Modules[CmdHndlr]->CheckIpiAccess(Cmd->CmdId,
-				Cmd->IpiReqType);
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp,
+			Modules[CmdHndlr]->CheckIpiAccess, Cmd->CmdId,
+			Cmd->IpiReqType);
 		/* Return error code if IPI access failed */
-		if (XST_SUCCESS != Status) {
+		if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
+			Status |= StatusTmp;
 			Status = XPlmi_UpdateStatus(XPLMI_IPI_ACCESS_ERR,
 				Status);
 		}
