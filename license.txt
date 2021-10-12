@@ -1054,6 +1054,7 @@ SPDX-License-Identifier: MIT
 
 FILES:
 ThirdParty/sw_services/lwip211/data/dependencies.props
+lib/bsp/standalone/data/standalone.mss
 lib/bsp/standalone/src/arm/ARMv8/64bit/armclang/ARM_argv_veneer.c
 lib/bsp/standalone/src/arm/common/xil_spinlock.c
 lib/bsp/standalone/src/arm/common/xil_spinlock.h
@@ -1209,25 +1210,6 @@ lib/sw_services/xilsem/examples/xsem_ipi.h
 lib/sw_services/xilsem/examples/xsem_npi_example.c
 lib/sw_services/xilsem/src/client/xsem_client_api.c
 lib/sw_services/xilsem/src/client/xsem_client_api.h
-new_files/lib/sw_apps/imgsel/misc/bspconfig.h
-new_files/lib/sw_apps/zynqmp_pmufw/src/pm_ioctl.c
-new_files/lib/sw_apps/zynqmp_pmufw/src/pm_ioctl.h
-new_files/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c
-new_files/lib/sw_services/xilnvm/src/client/xnvm_bbramclient.c
-new_files/lib/sw_services/xilnvm/src/client/xnvm_bbramclient.h
-new_files/lib/sw_services/xilnvm/src/client/xnvm_ipi.c
-new_files/lib/sw_services/xilnvm/src/client/xnvm_ipi.h
-new_files/lib/sw_services/xilnvm/src/common/xnvm_defs.h
-new_files/lib/sw_services/xilnvm/src/server/xnvm_bbram_ipihandler.c
-new_files/lib/sw_services/xilnvm/src/server/xnvm_bbram_ipihandler.h
-new_files/lib/sw_services/xilnvm/src/server/xnvm_cmd.c
-new_files/lib/sw_services/xilnvm/src/server/xnvm_cmd.h
-new_files/lib/sw_services/xilnvm/src/server/xnvm_init.c
-new_files/lib/sw_services/xilnvm/src/server/xnvm_init.h
-new_files/lib/sw_services/xilsem/examples/xsem_gic_setup.c
-new_files/lib/sw_services/xilsem/examples/xsem_gic_setup.h
-new_files/lib/sw_services/xilsem/examples/xsem_ipi.c
-new_files/lib/sw_services/xilsem/examples/xsem_ipi.h
 --------------------------------------------------------------------------------
 
 
@@ -6128,7 +6110,9 @@ XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_control.h
 XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_hw.c
 XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_interrupt_example.c
 XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c
+XilinxProcessorIPLib/drivers/rfdc/data/dependencies.props
 XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c
+XilinxProcessorIPLib/drivers/sysmonpsv/examples/xsysmonpsv_intr_example.c
 XilinxProcessorIPLib/drivers/trngpsv/data/trngpsv.mdd
 XilinxProcessorIPLib/drivers/trngpsv/data/trngpsv.tcl
 XilinxProcessorIPLib/drivers/trngpsv/examples/xtrngpsv_drng_df_example.c
@@ -6162,28 +6146,6 @@ XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_gwdt_intr_example.c
 XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_config.c
 XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_config.h
 XilinxProcessorIPLib/drivers/xxvethernet/data/dependencies.props
-new_files/XilinxProcessorIPLib/drivers/aienginev2/src/device/xaie_device_aie.c
-new_files/XilinxProcessorIPLib/drivers/aienginev2/src/device/xaie_device_aie.h
-new_files/XilinxProcessorIPLib/drivers/aienginev2/src/io_backend/privilege/xaie_io_privilege.c
-new_files/XilinxProcessorIPLib/drivers/aienginev2/src/io_backend/privilege/xaie_io_privilege.h
-new_files/XilinxProcessorIPLib/drivers/aienginev2/src/pm/xaie_tilectrl.c
-new_files/XilinxProcessorIPLib/drivers/aienginev2/src/pm/xaie_tilectrl.h
-new_files/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_1xNR100_3xNR20_example.c
-new_files/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_examples.c
-new_files/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_examples.h
-new_files/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_multi_instance_initialization_example.c
-new_files/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_pass_through_example.c
-new_files/XilinxProcessorIPLib/drivers/dfeequ/examples/xdfeequ_examples.c
-new_files/XilinxProcessorIPLib/drivers/dfeequ/examples/xdfeequ_examples.h
-new_files/XilinxProcessorIPLib/drivers/dfeequ/examples/xdfeequ_one_instance_initialization_example.c
-new_files/XilinxProcessorIPLib/drivers/dfeequ/examples/xdfeequ_pass_through_example.c
-new_files/XilinxProcessorIPLib/drivers/dfemix/examples/xdfemix_examples.c
-new_files/XilinxProcessorIPLib/drivers/dfemix/examples/xdfemix_examples.h
-new_files/XilinxProcessorIPLib/drivers/dfemix/examples/xdfemix_one_instance_initialization_example.c
-new_files/XilinxProcessorIPLib/drivers/dfemix/examples/xdfemix_pass_through_example.c
-new_files/XilinxProcessorIPLib/drivers/dfeprach/examples/xdfeprach_examples.c
-new_files/XilinxProcessorIPLib/drivers/dfeprach/examples/xdfeprach_examples.h
-new_files/XilinxProcessorIPLib/drivers/dfeprach/examples/xdfeprach_one_instance_initialization_example.c
 --------------------------------------------------------------------------------
 
 
@@ -6366,8 +6328,6 @@ XilinxProcessorIPLib/drivers/aiefal/tests/utests/tc/test_rscs_stat.cpp
 XilinxProcessorIPLib/drivers/aiefal/tests/utests/tc/test_ss.cpp
 XilinxProcessorIPLib/drivers/aiefal/tests/utests/tc/test_trace.cpp
 XilinxProcessorIPLib/drivers/aiefal/tests/utests/tc/test_userevent.cpp
-new_files/XilinxProcessorIPLib/drivers/aiefal/src/common/xaiefal-common.hpp
-new_files/XilinxProcessorIPLib/drivers/aiefal/tests/utests/tc/test_rscs_stat.cpp
 --------------------------------------------------------------------------------
 
 
@@ -6558,7 +6518,6 @@ XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.h
 XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_g.c
 XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h
 XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_sint.c
-XilinxProcessorIPLib/drivers/sysmonpsv/examples/xsysmonpsv_intr_example.c
 XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_intr.c
 XilinxProcessorIPLib/drivers/v_sdirxss/examples/vck190_av_pt/fzetta_fmc/fzetta_fmc_ctlr.c
 XilinxProcessorIPLib/drivers/v_sdirxss/examples/vck190_av_pt/fzetta_fmc/fzetta_fmc_ctlr.h
@@ -6773,9 +6732,6 @@ XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_g.c
 XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h
 XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_sinit.c
 lib/bsp/standalone/src/arm/ARMv8/64bit/platform/versal/gcc/translation_table.S
-new_files/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic_intr.c
-new_files/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_intr.c
-new_files/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_intr.c
 --------------------------------------------------------------------------------
 
 
@@ -8303,6 +8259,7 @@ XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h
 XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_selftest.c
 XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_sinit.c
 XilinxProcessorIPLib/drivers/mbox/data/mbox_header.h
+XilinxProcessorIPLib/drivers/mbox/examples/data.c
 XilinxProcessorIPLib/drivers/mbox/examples/xmbox_example.c
 XilinxProcessorIPLib/drivers/mbox/examples/xmbox_intr_example.c
 XilinxProcessorIPLib/drivers/mbox/examples/xmbox_tapp_example.c
@@ -8371,6 +8328,7 @@ XilinxProcessorIPLib/drivers/csudma/src/xcsudma_selftest.c
 XilinxProcessorIPLib/drivers/csudma/src/xcsudma_sinit.c
 XilinxProcessorIPLib/drivers/nandpsu/examples/xnandpsu_example.c
 XilinxProcessorIPLib/drivers/nandpsu/src/Makefile
+XilinxProcessorIPLib/drivers/qspipsu/data/dependencies.props
 XilinxProcessorIPLib/drivers/qspipsu/data/qspipsu.mdd
 XilinxProcessorIPLib/drivers/qspipsu/data/qspipsu.tcl
 XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.c
@@ -8873,6 +8831,7 @@ XilinxProcessorIPLib/drivers/sdps/examples/xsdps_raw_example.c
 XilinxProcessorIPLib/drivers/uartpsv/examples/xuartpsv_polled_example.c
 XilinxProcessorIPLib/drivers/usb/data/dependencies.props
 XilinxProcessorIPLib/drivers/usbps/data/dependencies.props
+XilinxProcessorIPLib/drivers/usbpsu/data/dependencies.props
 XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_poll_example.c
 XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_gwdt_example.c
 XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_gwdt_selftest_example.c
@@ -9004,7 +8963,6 @@ lib/sw_services/xilsecure/src/versal/server/xsecure_sha.h
 lib/sw_services/xilsecure/src/versal/server/xsecure_tamper.c
 lib/sw_services/xilsecure/src/zynqmp/xsecure_sss.c
 lib/sw_services/xilsecure/src/zynqmp/xsecure_sss.h
-new_files/lib/sw_apps/imgsel/src/Makefile
 --------------------------------------------------------------------------------
 
 
@@ -9389,6 +9347,7 @@ XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu_ep0handler.c
 XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu_ephandler.c
 XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu_event.c
 XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu_local.h
+lib/sw_apps/srec_spi_bootloader/data/srec_spi_bootloader.mss
 --------------------------------------------------------------------------------
 
 
@@ -10059,9 +10018,6 @@ lib/sw_services/xilsecure/src/versal/server/xsecure_rsa_core.h
 lib/sw_services/xilsecure/src/zynqmp/xsecure_rsa_hw.h
 lib/sw_services/xilsecure/src/zynqmp/xsecure_sha_hw.h
 lib/sw_services/xilskey/examples/xilskey_puf_regeneration_example.c
-new_files/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_server_example.c
-new_files/lib/sw_services/xilnvm/src/server/xnvm_bbram.h
-new_files/lib/sw_services/xilnvm/src/server/xnvm_utils.h
 --------------------------------------------------------------------------------
 
 
@@ -11070,8 +11026,6 @@ lib/sw_services/xilsecure/src/common/xsecure_rsa.c
 lib/sw_services/xilsecure/src/zynqmp/xsecure_aes.c
 lib/sw_services/xilsecure/src/zynqmp/xsecure_aes.h
 lib/sw_services/xilsecure/src/zynqmp/xsecure_sha.c
-new_files/lib/sw_apps/imgsel/misc/som/xparameters_ps.h
-new_files/lib/sw_apps/imgsel/misc/zcu102/xparameters_ps.h
 --------------------------------------------------------------------------------
 
 
@@ -11360,12 +11314,6 @@ lib/sw_services/xilsecure/src/zynqmp/xsecure_aes_hw.h
 lib/sw_services/xilsecure/src/zynqmp/xsecure_rsa_core.c
 lib/sw_services/xilsecure/src/zynqmp/xsecure_rsa_core.h
 lib/sw_services/xilsem/src/server/Makefile
-new_files/lib/sw_services/xilnvm/src/server/xnvm_bbram.c
-new_files/lib/sw_services/xilnvm/src/server/xnvm_bbram_hw.h
-new_files/lib/sw_services/xilnvm/src/server/xnvm_efuse.c
-new_files/lib/sw_services/xilnvm/src/server/xnvm_efuse.h
-new_files/lib/sw_services/xilnvm/src/server/xnvm_efuse_hw.h
-new_files/lib/sw_services/xilnvm/src/server/xnvm_utils.c
 --------------------------------------------------------------------------------
 
 
@@ -11988,10 +11936,6 @@ lib/sw_apps/imgsel/misc/xaxipmon_g.c
 lib/sw_apps/imgsel/misc/xcsudma_g.c
 lib/sw_apps/imgsel/misc/xipipsu_g.c
 lib/sw_apps/imgsel/misc/xzdma_g.c
-new_files/lib/sw_apps/imgsel/misc/xaxipmon_g.c
-new_files/lib/sw_apps/imgsel/misc/xcsudma_g.c
-new_files/lib/sw_apps/imgsel/misc/xipipsu_g.c
-new_files/lib/sw_apps/imgsel/misc/xzdma_g.c
 --------------------------------------------------------------------------------
 
 
@@ -12007,7 +11951,6 @@ SPDX-License-Identifier: MIT
 
 FILES:
 lib/sw_apps/imgsel/misc/xusbpsu_g.c
-new_files/lib/sw_apps/imgsel/misc/xusbpsu_g.c
 --------------------------------------------------------------------------------
 
 
