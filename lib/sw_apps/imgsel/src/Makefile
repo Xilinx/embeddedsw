@@ -7,7 +7,7 @@
 BSP_DIR := ../misc/imgsel_bsp
 ASFLAGS = --cpu=8-A.64 --fpu=fp-armv8
 LSCRIPT := -Tlscript_a53.ld
-BOARD   := zcu102
+BOARD   ?= zcu102
 EXEC := imgsel.elf
 LIBS = libxil.a
 c_SOURCES := $(wildcard *.c)
