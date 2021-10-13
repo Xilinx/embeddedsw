@@ -427,10 +427,193 @@ done:
 	return Status;
 }
 
-static XStatus PowerEvent(XPm_Node *Node, u32 Event)
+static XStatus XPmPower_PowerOffState(XPm_Node *Node, u32 Event, u16 *DbgErr)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Power *Power = (XPm_Power *)Node;
+
+	if ((u32)XPM_POWER_EVENT_PWR_UP == Event) {
+		Status = XST_SUCCESS;
+		if (NULL != Power->Parent) {
+			Node->State = (u8)XPM_POWER_STATE_PWR_UP_PARENT;
+			Power->WfParentUseCnt = Power->Parent->UseCount + 1U;
+			Status = Power->Parent->HandleEvent(&Power->Parent->Node,
+							    XPM_POWER_EVENT_PWR_UP);
+			if (XST_SUCCESS != Status) {
+				*DbgErr = XPM_INT_ERR_PWR_PARENT_UP;
+				goto done;
+			}
+			/* Todo: Start timer to poll parent node */
+			/* Hack */
+			Status = Power->HandleEvent(Node, XPM_POWER_EVENT_TIMER);
+		} else {
+			/* Write to PSM power up request register */
+			Status = SendPowerUpReq(Node);
+			if (XST_SUCCESS != Status) {
+				*DbgErr = XPM_INT_ERR_PSM_PWR_UP;
+				goto done;
+			}
+			Node->State = (u8)XPM_POWER_STATE_PWR_UP_SELF;
+			/* Todo: Start timer to poll PSM status register */
+			/* Hack */
+			Status = Power->HandleEvent(Node, XPM_POWER_EVENT_TIMER);
+		}
+	}
+done:
+	return Status;
+}
+
+static XStatus XPmPower_PowerUpParentState(XPm_Node *Node, u32 Event, u16 *DbgErr)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Power *Power = (XPm_Power *)Node;
+
+	if ((u32)XPM_POWER_EVENT_TIMER == Event) {
+		Status = XST_SUCCESS;
+		if (Power->WfParentUseCnt == Power->Parent->UseCount) {
+			Power->WfParentUseCnt = 0;
+			/* Write to PSM power up request register */
+			Status = SendPowerUpReq(Node);
+			if (XST_SUCCESS != Status) {
+				*DbgErr = XPM_INT_ERR_PSM_PWR_UP;
+				goto done;
+			}
+			Node->State = (u8)XPM_POWER_STATE_PWR_UP_SELF;
+			/* Todo: Start timer to poll PSM status register */
+			/* Hack */
+			Status = Power->HandleEvent(Node, XPM_POWER_EVENT_TIMER);
+		} else {
+			/* Todo: Restart timer to poll parent state */
+		}
+	}
+done:
+	return Status;
+}
+
+static XStatus XPmPower_PowerUpSelfState(XPm_Node *Node, u32 Event)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Power *Power = (XPm_Power *)Node;
+
+	if ((u32)XPM_POWER_EVENT_TIMER == Event) {
+		Status = XST_SUCCESS;
+		/* Todo: Read PSM status register */
+		if (TRUE /* Hack: Power node is up */) {
+			Node->State = (u8)XPM_POWER_STATE_ON;
+			XPmNotifier_Event(Node->Id, (u32)EVENT_STATE_CHANGE);
+			Power->UseCount++;
+		} else {
+			/* Todo: Restart timer to poll PSM */
+		}
+	}
+
+	return Status;
+}
+
+static XStatus XPmPower_PowerOnState(XPm_Node *Node, u32 Event, u16 *DbgErr)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Power *Power = (XPm_Power *)Node;
+
+	if ((u32)XPM_POWER_EVENT_PWR_UP == Event) {
+		Status = XST_SUCCESS;
+		/**
+		 * Here UseCount 0 with state ON indicates that power
+		 * is ON (CDO is loaded) but no child node is requested.
+		 * So power parent needs to be requested since power node
+		 * UseCount is changing from 0 to 1
+		 */
+		if ((0U == Power->UseCount) && (NULL != Power->Parent)) {
+			Status = Power->Parent->HandleEvent(&Power->Parent->Node,
+							    XPM_POWER_EVENT_PWR_UP);
+			if (XST_SUCCESS != Status) {
+				*DbgErr = XPM_INT_ERR_PWR_PARENT_UP;
+				goto done;
+			}
+		}
+		Power->UseCount++;
+	} else if ((u32)XPM_POWER_EVENT_PWR_DOWN == Event) {
+		Status = XST_SUCCESS;
+		if (1U == Power->UseCount) {
+			/* Write to PSM power down request register */
+			Status = SendPowerDownReq(Node);
+			if (XST_SUCCESS != Status) {
+				*DbgErr = XPM_INT_ERR_PSM_PWR_DWN;
+				goto done;
+			}
+			Node->State = (u8)XPM_POWER_STATE_PWR_DOWN_SELF;
+			/* Todo: Start timer to poll PSM status register */
+			/* Hack */
+			Status = Power->HandleEvent(Node, XPM_POWER_EVENT_TIMER);
+		} else if (1U < Power->UseCount) {
+			Power->UseCount--;
+		} else {
+			/* Required by MISRA */
+		}
+	} else {
+		/* Required by MISRA */
+	}
+done:
+	return Status;
+}
+
+static XStatus XPmPower_PowerDwnSelfState(XPm_Node *Node, u32 Event)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Power *Power = (XPm_Power *)Node;
+
+	if ((u32)XPM_POWER_EVENT_TIMER == Event) {
+		Status = XST_SUCCESS;
+		/* Todo: Read PSM status register */
+		if (TRUE /* Hack: Power node is down */) {
+			if (1U == Power->UseCount) {
+				Power->UseCount--;
+			}
+			if (NULL != Power->Parent) {
+				Node->State = (u8)XPM_POWER_STATE_PWR_DOWN_PARENT;
+				Power->WfParentUseCnt = (u8)(Power->Parent->UseCount - 1U);
+				Status = Power->Parent->HandleEvent(&Power->Parent->Node,
+								    XPM_POWER_EVENT_PWR_DOWN);
+				/* Todo: Start timer to poll the parent node */
+				/* Hack */
+				Status = Power->HandleEvent(Node, XPM_POWER_EVENT_TIMER);
+			} else {
+				Node->State = (u8)XPM_POWER_STATE_OFF;
+				ResetPowerDomainOpFlags(Power);
+				XPmNotifier_Event(Node->Id, (u32)EVENT_STATE_CHANGE);
+			}
+		} else {
+			/* Todo: Restart timer to poll PSM */
+		}
+	}
+
+	return Status;
+}
+
+static XStatus XPmPower_PowerDwnParentState(XPm_Node *Node, u32 Event)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Power *Power = (XPm_Power *)Node;
+
+	if ((u32)XPM_POWER_EVENT_TIMER == Event) {
+		Status = XST_SUCCESS;
+		if (Power->WfParentUseCnt == Power->Parent->UseCount) {
+			Node->State = (u8)XPM_POWER_STATE_OFF;
+			Power->WfParentUseCnt = 0;
+			ResetPowerDomainOpFlags(Power);
+			XPmNotifier_Event(Node->Id, (u32)EVENT_STATE_CHANGE);
+		} else {
+			/* Todo: Restart timer to poll parent state */
+		}
+	}
+
+	return Status;
+}
+
+static XStatus PowerEvent(XPm_Node *Node, u32 Event)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_Power *Power = (XPm_Power *)Node;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	PmDbg("Id:0x%x, UseCount:%d, State=%x, Event=%x\n\r",
@@ -440,145 +623,22 @@ static XStatus PowerEvent(XPm_Node *Node, u32 Event)
 	{
 		case (u8)XPM_POWER_STATE_STANDBY:
 		case (u8)XPM_POWER_STATE_OFF:
-			if ((u32)XPM_POWER_EVENT_PWR_UP == Event) {
-				Status = XST_SUCCESS;
-				if (NULL != Power->Parent) {
-					Node->State = (u8)XPM_POWER_STATE_PWR_UP_PARENT;
-					Power->WfParentUseCnt = Power->Parent->UseCount + 1U;
-					Status = Power->Parent->HandleEvent(
-						 &Power->Parent->Node, XPM_POWER_EVENT_PWR_UP);
-					if (XST_SUCCESS != Status) {
-						DbgErr = XPM_INT_ERR_PWR_PARENT_UP;
-						break;
-					}
-					/* Todo: Start timer to poll parent node */
-					/* Hack */
-					Status = Power->HandleEvent(Node, XPM_POWER_EVENT_TIMER);
-				} else {
-					/* Write to PSM power up request register */
-					Status = SendPowerUpReq(Node);
-					if (XST_SUCCESS != Status) {
-						DbgErr = XPM_INT_ERR_PSM_PWR_UP;
-						break;
-					}
-					Node->State = (u8)XPM_POWER_STATE_PWR_UP_SELF;
-					/* Todo: Start timer to poll PSM status register */
-					/* Hack */
-					Status = Power->HandleEvent(Node, XPM_POWER_EVENT_TIMER);
-				}
-			}
+			Status = XPmPower_PowerOffState(Node, Event, &DbgErr);
 			break;
 		case (u8)XPM_POWER_STATE_PWR_UP_PARENT:
-			if ((u32)XPM_POWER_EVENT_TIMER == Event) {
-				Status = XST_SUCCESS;
-				if (Power->WfParentUseCnt == Power->Parent->UseCount) {
-					Power->WfParentUseCnt = 0;
-					/* Write to PSM power up request register */
-					Status = SendPowerUpReq(Node);
-					if (XST_SUCCESS != Status) {
-						DbgErr = XPM_INT_ERR_PSM_PWR_UP;
-						break;
-					}
-					Node->State = (u8)XPM_POWER_STATE_PWR_UP_SELF;
-					/* Todo: Start timer to poll PSM status register */
-					/* Hack */
-					Status = Power->HandleEvent(Node, XPM_POWER_EVENT_TIMER);
-				} else {
-					/* Todo: Restart timer to poll parent state */
-				}
-			}
+			Status = XPmPower_PowerUpParentState(Node, Event, &DbgErr);
 			break;
 		case (u8)XPM_POWER_STATE_PWR_UP_SELF:
-			if ((u32)XPM_POWER_EVENT_TIMER == Event) {
-				Status = XST_SUCCESS;
-				/* Todo: Read PSM status register */
-				if (TRUE /* Hack: Power node is up */) {
-					Node->State = (u8)XPM_POWER_STATE_ON;
-					XPmNotifier_Event(Node->Id, (u32)EVENT_STATE_CHANGE);
-					Power->UseCount++;
-				} else {
-					/* Todo: Restart timer to poll PSM */
-				}
-			}
+			Status = XPmPower_PowerUpSelfState(Node, Event);
 			break;
 		case (u8)XPM_POWER_STATE_ON:
-			if ((u32)XPM_POWER_EVENT_PWR_UP == Event) {
-				Status = XST_SUCCESS;
-				/**
-				 * Here UseCount 0 with state ON indicates that power
-				 * is ON (CDO is loaded) but no child node is requested.
-				 * So power parent needs to be requested since power node
-				 * UseCount is changing from 0 to 1
-				 */
-				if ((0U == Power->UseCount) && (NULL != Power->Parent)) {
-					Status = Power->Parent->HandleEvent(
-						 &Power->Parent->Node, XPM_POWER_EVENT_PWR_UP);
-					if (XST_SUCCESS != Status) {
-						DbgErr = XPM_INT_ERR_PWR_PARENT_UP;
-						break;
-					}
-				}
-				Power->UseCount++;
-			} else if ((u32)XPM_POWER_EVENT_PWR_DOWN == Event) {
-				Status = XST_SUCCESS;
-				if (1U == Power->UseCount) {
-					/* Write to PSM power down request register */
-					Status = SendPowerDownReq(Node);
-					if (XST_SUCCESS != Status) {
-						DbgErr = XPM_INT_ERR_PSM_PWR_DWN;
-						break;
-					}
-					Node->State = (u8)XPM_POWER_STATE_PWR_DOWN_SELF;
-					/* Todo: Start timer to poll PSM status register */
-					/* Hack */
-					Status = Power->HandleEvent(Node, XPM_POWER_EVENT_TIMER);
-				} else if (1U < Power->UseCount) {
-					Power->UseCount--;
-				} else {
-					/* Required by MISRA */
-				}
-			} else {
-				/* Required by MISRA */
-			}
+			Status = XPmPower_PowerOnState(Node, Event, &DbgErr);
 			break;
 		case (u8)XPM_POWER_STATE_PWR_DOWN_SELF:
-			if ((u32)XPM_POWER_EVENT_TIMER == Event) {
-				Status = XST_SUCCESS;
-				/* Todo: Read PSM status register */
-				if (TRUE /* Hack: Power node is down */) {
-					if (1U == Power->UseCount) {
-						Power->UseCount--;
-					}
-					if (NULL != Power->Parent) {
-						Node->State = (u8)XPM_POWER_STATE_PWR_DOWN_PARENT;
-						Power->WfParentUseCnt = (u8)(Power->Parent->UseCount - 1U);
-						Status = Power->Parent->HandleEvent(
-							 &Power->Parent->Node, XPM_POWER_EVENT_PWR_DOWN);
-						/* Todo: Start timer to poll the parent node */
-						/* Hack */
-						Status = Power->HandleEvent(Node, XPM_POWER_EVENT_TIMER);
-					} else {
-						Node->State = (u8)XPM_POWER_STATE_OFF;
-						ResetPowerDomainOpFlags(Power);
-						XPmNotifier_Event(Node->Id, (u32)EVENT_STATE_CHANGE);
-					}
-				} else {
-					/* Todo: Restart timer to poll PSM */
-				}
-			}
+			Status = XPmPower_PowerDwnSelfState(Node, Event);
 			break;
 		case (u8)XPM_POWER_STATE_PWR_DOWN_PARENT:
-			if ((u32)XPM_POWER_EVENT_TIMER == Event) {
-				Status = XST_SUCCESS;
-				if (Power->WfParentUseCnt == Power->Parent->UseCount) {
-					Node->State = (u8)XPM_POWER_STATE_OFF;
-					Power->WfParentUseCnt = 0;
-					ResetPowerDomainOpFlags(Power);
-					XPmNotifier_Event(Node->Id, (u32)EVENT_STATE_CHANGE);
-				} else {
-					/* Todo: Restart timer to poll parent state */
-				}
-			}
+			Status = XPmPower_PowerDwnParentState(Node, Event);
 			break;
 		default:
 			Status = XST_FAILURE;
