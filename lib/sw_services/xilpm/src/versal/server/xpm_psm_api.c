@@ -37,6 +37,44 @@ u32 ProcDevList[PROC_DEV_MAX] = {
 /* This replicates PsmToPlmEvent stored at PSM reserved RAM location */
 volatile struct PsmToPlmEvent_t *PsmToPlmEvent;
 
+static XStatus ReleaseDeviceLpd(void)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Core *Core;
+
+	/* Release PMC */
+	Status = XPmDevice_Release(PM_SUBSYS_PMC, PM_DEV_IPI_PMC, XPLMI_CMD_SECURE);
+	if (XST_SUCCESS != Status) {
+		PmErr("Error %d in  XPmDevice_Release(PM_SUBSYS_PMC, PM_DEV_IPI_PMC)\r\n");
+		goto done;
+	}
+#ifdef DEBUG_UART_PS
+	Status = XPmDevice_Release(PM_SUBSYS_PMC, NODE_UART, XPLMI_CMD_SECURE);
+	if (XST_SUCCESS != Status) {
+		PmErr("PMC Error %d in  XPmDevice_Release(PM_SUBSYS_DEFAULT, PM_DEV_UART_0)\r\n");
+		goto done;
+	}
+#endif
+	/* Power down PSM core */
+	Core = (XPm_Core *)XPmDevice_GetById(PM_DEV_PSM_PROC);
+	if (NULL != Core->CoreOps->PowerDown) {
+		Status = Core->CoreOps->PowerDown(Core);
+		if (XST_SUCCESS != Status) {
+			PmErr("Error %d in PSM core PowerDown\r\n");
+			goto done;
+		}
+	}
+
+	/* Release PSM */
+	Status = XPmDevice_Release(PM_SUBSYS_PMC, PM_DEV_PSM_PROC, XPLMI_CMD_SECURE);
+	if (XST_SUCCESS != Status) {
+		PmErr("Error %d in  XPmDevice_Release(PM_SUBSYS_DEFAULT, PM_DEV_PSM_PROC)\r\n");
+	}
+
+done:
+	return Status;
+}
+
 static int XPm_ProcessPsmCmd(XPlmi_Cmd * Cmd)
 {
 	XStatus Status = XST_FAILURE, EventStatus;
@@ -269,34 +307,8 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 		    (0U == PsmPggs0Val) && (0U == PsmPggs1Val) &&
 		    (((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(DeviceId)) ||
 		     ((u32)XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(DeviceId)))) {
-			Status = XPmDevice_Release(PM_SUBSYS_PMC, PM_DEV_IPI_PMC,
-						   XPLMI_CMD_SECURE);
+			Status = ReleaseDeviceLpd();
 			if (XST_SUCCESS != Status) {
-				PmErr("Error %d in  XPmDevice_Release(PM_SUBSYS_PMC, PM_DEV_IPI_PMC)\r\n");
-				goto done;
-			}
-#ifdef DEBUG_UART_PS
-			Status = XPmDevice_Release(PM_SUBSYS_PMC, NODE_UART,
-						   XPLMI_CMD_SECURE);
-			if (XST_SUCCESS != Status) {
-				PmErr("PMC Error %d in  XPmDevice_Release(PM_SUBSYS_DEFAULT, PM_DEV_UART_0)\r\n");
-				goto done;
-			}
-#endif
-			/* Power down PSM core */
-			Core = (XPm_Core *)XPmDevice_GetById(PM_DEV_PSM_PROC);
-			if (NULL != Core->CoreOps->PowerDown) {
-				Status = Core->CoreOps->PowerDown(Core);
-				if (XST_SUCCESS != Status) {
-					PmErr("Error %d in PSM core PowerDown\r\n");
-					goto done;
-				}
-			}
-
-			Status = XPmDevice_Release(PM_SUBSYS_PMC, PM_DEV_PSM_PROC,
-						   XPLMI_CMD_SECURE);
-			if (XST_SUCCESS != Status) {
-				PmErr("Error %d in  XPmDevice_Release(PM_SUBSYS_DEFAULT, PM_DEV_PSM_PROC)\r\n");
 				goto done;
 			}
 		}
