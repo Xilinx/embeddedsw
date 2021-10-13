@@ -79,6 +79,8 @@
 *                     at: lib/bsp/standalone/src/arm/common/gcc/xil_spinlock.c
 * 4.6	sk   08/05/21 Fix Scugic Misrac violations.
 * 4.7	sk   09/14/21 Fix gcc compiler warnings for A72 processor.
+* 4.7	sk   10/13/21 Update APIs to perform interrupt mapping/unmapping only
+* 		      when (Int_Id >= XSCUGIC_SPI_INT_ID_START).
 * </pre>
 *
 ******************************************************************************/
@@ -682,16 +684,16 @@ void XScuGic_InterruptMapFromCpuByDistAddr(u32 DistBaseAddress,
 #endif
 
 	Xil_AssertVoid(Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS);
+
+if (Int_Id >= XSCUGIC_SPI_INT_ID_START) {
 #if defined (GICv3)
 	u32 Temp;
-	if (Int_Id >= 32) {
-		Temp = Int_Id - 32;
-		RegValue = XScuGic_ReadReg(DistBaseAddress,
-				XSCUGIC_IROUTER_OFFSET_CALC(Temp));
-		RegValue |= (Cpu_Id);
-		XScuGic_WriteReg(DistBaseAddress, XSCUGIC_IROUTER_OFFSET_CALC(Temp),
-			RegValue);
-	}
+	Temp = Int_Id - 32;
+	RegValue = XScuGic_ReadReg(DistBaseAddress,
+			XSCUGIC_IROUTER_OFFSET_CALC(Temp));
+	RegValue |= (Cpu_Id);
+	XScuGic_WriteReg(DistBaseAddress, XSCUGIC_IROUTER_OFFSET_CALC(Temp),
+		RegValue);
 #else
 	/*
 	 * Call spinlock to protect multiple applications running at separate
@@ -718,6 +720,7 @@ void XScuGic_InterruptMapFromCpuByDistAddr(u32 DistBaseAddress,
 	XIL_SPINUNLOCK();
 #endif
 }
+}
 
 /****************************************************************************/
 /**
@@ -743,18 +746,16 @@ void XScuGic_InterruptUnmapFromCpuByDistAddr(u32 DistBaseAddress,
 #endif
 
 	Xil_AssertVoid(Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS);
+
+if (Int_Id >= XSCUGIC_SPI_INT_ID_START) {
 #if defined (GICv3)
 	u32 Temp;
-	if (Int_Id >= 32 && Cpu_Id != 0) {
-		Temp = Int_Id - 32;
-		RegValue = XScuGic_ReadReg(DistBaseAddress,
-				XSCUGIC_IROUTER_OFFSET_CALC(Temp));
-		RegValue &= ~(Cpu_Id);
-		XScuGic_WriteReg(DistBaseAddress, XSCUGIC_IROUTER_OFFSET_CALC(Temp),
-			RegValue);
-	} else if (Cpu_Id == 0) {
-		xil_printf("Error: Unable to unmap interrupt id %d from core %d",Int_Id,Cpu_Id);
-	}
+	Temp = Int_Id - 32;
+	RegValue = XScuGic_ReadReg(DistBaseAddress,
+			XSCUGIC_IROUTER_OFFSET_CALC(Temp));
+	RegValue &= ~(Cpu_Id);
+	XScuGic_WriteReg(DistBaseAddress, XSCUGIC_IROUTER_OFFSET_CALC(Temp),
+		RegValue);
 #else
     /*
 	 * Call spinlock to protect multiple applications running at separate
@@ -780,6 +781,7 @@ void XScuGic_InterruptUnmapFromCpuByDistAddr(u32 DistBaseAddress,
 	 */
 	XIL_SPINUNLOCK();
 #endif
+}
 }
 
 /****************************************************************************/
@@ -858,8 +860,6 @@ void XScuGic_EnableIntr (u32 DistBaseAddress, u32 Int_Id)
 
 #if defined (GICv3)
 	if (Int_Id < XSCUGIC_SPI_INT_ID_START) {
-		XScuGic_InterruptMapFromCpuByDistAddr(DistBaseAddress, Cpu_Id,
-			Int_Id);
 
 		Int_Id &= 0x1f;
 		Int_Id = 1 << Int_Id;
@@ -869,6 +869,7 @@ void XScuGic_EnableIntr (u32 DistBaseAddress, u32 Int_Id)
 		Temp |= Int_Id;
 		XScuGic_WriteReg(DistBaseAddress + XSCUGIC_RDIST_SGI_PPI_OFFSET,
 			XSCUGIC_RDIST_ISENABLE_OFFSET,Temp);
+		return;
 	}
 #endif
 
@@ -916,9 +917,6 @@ void XScuGic_DisableIntr (u32 DistBaseAddress, u32 Int_Id)
 
 	if (Int_Id < XSCUGIC_SPI_INT_ID_START) {
 
-		XScuGic_InterruptUnmapFromCpuByDistAddr(DistBaseAddress +
-			XSCUGIC_RDIST_SGI_PPI_OFFSET, Cpu_Id, Int_Id);
-
 		Int_Id &= 0x1f;
 		Int_Id = 1 << Int_Id;
 
@@ -927,6 +925,7 @@ void XScuGic_DisableIntr (u32 DistBaseAddress, u32 Int_Id)
 		Temp &= ~Int_Id;
 		XScuGic_WriteReg(DistBaseAddress + XSCUGIC_RDIST_SGI_PPI_OFFSET,
 			XSCUGIC_RDIST_ISENABLE_OFFSET,Temp);
+		return;
 	}
 #endif
 	XScuGic_InterruptUnmapFromCpuByDistAddr(DistBaseAddress, Cpu_Id, Int_Id);

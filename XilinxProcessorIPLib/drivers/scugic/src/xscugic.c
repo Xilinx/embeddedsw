@@ -130,6 +130,8 @@
 *                     at: lib/bsp/standalone/src/arm/common/gcc/xil_spinlock.c
 * 4.6	sk   08/05/21 Fix scugic Misra-c violations.
 * 4.7	sk   09/14/21 Fix gcc compiler warnings for A72 processor.
+* 4.7	sk   10/13/21 Update APIs to perform interrupt mapping/unmapping only
+* 		      when (Int_Id >= XSCUGIC_SPI_INT_ID_START).
 * </pre>
 *
 ******************************************************************************/
@@ -585,7 +587,6 @@ void XScuGic_Enable(XScuGic *InstancePtr, u32 Int_Id)
 
 #if defined (GICv3)
 	if (Int_Id < XSCUGIC_SPI_INT_ID_START) {
-		XScuGic_InterruptMaptoCpu(InstancePtr, Cpu_Identifier, Int_Id);
 
 		Int_Id &= 0x1f;
 		Int_Id = 1 << Int_Id;
@@ -593,6 +594,7 @@ void XScuGic_Enable(XScuGic *InstancePtr, u32 Int_Id)
 		Temp = XScuGic_ReDistSGIPPIReadReg(InstancePtr,XSCUGIC_RDIST_ISENABLE_OFFSET);
 		Temp |= Int_Id;
 		XScuGic_ReDistSGIPPIWriteReg(InstancePtr,XSCUGIC_RDIST_ISENABLE_OFFSET,Temp);
+		return;
 	}
 #endif
 	XScuGic_InterruptMaptoCpu(InstancePtr, Cpu_Identifier, Int_Id);
@@ -658,14 +660,13 @@ void XScuGic_Disable(XScuGic *InstancePtr, u32 Int_Id)
 #if defined (GICv3)
 	if (Int_Id < XSCUGIC_SPI_INT_ID_START) {
 
-		XScuGic_InterruptUnmapFromCpu(InstancePtr, Cpu_Identifier, Int_Id);
-
 		Int_Id &= 0x1f;
 		Int_Id = 1 << Int_Id;
 
 		Temp = XScuGic_ReDistSGIPPIReadReg(InstancePtr,XSCUGIC_RDIST_ISENABLE_OFFSET);
 		Temp &= ~Int_Id;
 		XScuGic_ReDistSGIPPIWriteReg(InstancePtr,XSCUGIC_RDIST_ISENABLE_OFFSET,Temp);
+		return;
 	}
 #endif
 	XScuGic_InterruptUnmapFromCpu(InstancePtr, Cpu_Identifier, Int_Id);
@@ -980,17 +981,16 @@ void XScuGic_InterruptMaptoCpu(XScuGic *InstancePtr, u8 Cpu_Identifier, u32 Int_
 {
 	u32 RegValue;
 
+if (Int_Id >= XSCUGIC_SPI_INT_ID_START) {
 #if defined (GICv3)
 	u32 Temp;
 	Xil_AssertVoid(InstancePtr != NULL);
-	if (Int_Id >= 32) {
-		Temp = Int_Id - 32;
-		RegValue = XScuGic_DistReadReg(InstancePtr,
-				XSCUGIC_IROUTER_OFFSET_CALC(Temp));
-		RegValue |= Cpu_Identifier;
-		XScuGic_DistWriteReg(InstancePtr, XSCUGIC_IROUTER_OFFSET_CALC(Temp),
-						  (Cpu_Identifier-1));
-	}
+	Temp = Int_Id - 32;
+	RegValue = XScuGic_DistReadReg(InstancePtr,
+			XSCUGIC_IROUTER_OFFSET_CALC(Temp));
+	RegValue |= Cpu_Identifier;
+	XScuGic_DistWriteReg(InstancePtr, XSCUGIC_IROUTER_OFFSET_CALC(Temp),
+					  (Cpu_Identifier-1));
 #else
 	u8 Cpu_CoreId;
 	u32 Offset;
@@ -1021,6 +1021,7 @@ void XScuGic_InterruptMaptoCpu(XScuGic *InstancePtr, u8 Cpu_Identifier, u32 Int_
 	XIL_SPINUNLOCK();
 #endif
 }
+}
 /****************************************************************************/
 /**
 * Unmaps specific SPI interrupt from the target CPU
@@ -1039,17 +1040,16 @@ void XScuGic_InterruptUnmapFromCpu(XScuGic *InstancePtr, u8 Cpu_Identifier, u32 
 {
 	u32 RegValue;
 
+if (Int_Id >= XSCUGIC_SPI_INT_ID_START) {
 #if defined (GICv3)
 	u32 Temp;
 	Xil_AssertVoid(InstancePtr != NULL);
-	if (Int_Id >= 32) {
-		Temp = Int_Id - 32;
-		RegValue = XScuGic_DistReadReg(InstancePtr,
-				XSCUGIC_IROUTER_OFFSET_CALC(Temp));
-		RegValue &= ~Cpu_Identifier;
-		XScuGic_DistWriteReg(InstancePtr, XSCUGIC_IROUTER_OFFSET_CALC(Temp),
+	Temp = Int_Id - 32;
+	RegValue = XScuGic_DistReadReg(InstancePtr,
+			XSCUGIC_IROUTER_OFFSET_CALC(Temp));
+	RegValue &= ~Cpu_Identifier;
+	XScuGic_DistWriteReg(InstancePtr, XSCUGIC_IROUTER_OFFSET_CALC(Temp),
 						  (Cpu_Identifier-1));
-	}
 #else
 	u32 Cpu_CoreId;
 	u32 Offset;
@@ -1080,6 +1080,7 @@ void XScuGic_InterruptUnmapFromCpu(XScuGic *InstancePtr, u8 Cpu_Identifier, u32 
 	 */
 	XIL_SPINUNLOCK();
 #endif
+}
 }
 /****************************************************************************/
 /**
