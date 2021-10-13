@@ -1,0 +1,13 @@
+coresightps_dcc
+csudma
+ddrcpsu
+gpiops
+iicps
+qspipsu
+rtcpsu
+scugic
+sysmonpsu
+ttcps
+uartps
+wdtps
+ipipsu
