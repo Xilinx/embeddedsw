@@ -138,11 +138,78 @@ done:
 #define BITMASK_UPPER_17_BITS			(0xffff8000U)
 #define GET_DELTA_AT_OFFSET(array, x)		(0xfU & (array[(x) / 32U] >> ((x) % 32U)))
 
+static XStatus XPmPowerDomain_CopyCache(u32 EfuseCacheBaseAddress,  u32 PowerDomainId,
+					u32 SateliteIdx, u32 *CacheRead, u32 *DeltaVal)
+{
+	XStatus Status = XST_FAILURE;
+	u32 StartbitOffset, RegValue, i;
+	u32 Arr[8] = {0};
+
+	if (0U == *CacheRead) {
+		/* Copy 256 bits of TSENS_DELTA value to array */
+		PmIn32(EfuseCacheBaseAddress + EFUSE_CACHE_TRIM_AMS_3_OFFSET, RegValue);
+		/*Store 17 bits from current register */
+		Arr[0] = (RegValue & EFUSE_CACHE_TRIM_AMS_3_TSENS_DELTA_16_0_MASK) >>
+			  EFUSE_CACHE_TRIM_AMS_3_TSENS_DELTA_16_0_SHIFT;
+		for (i = 0U; i < 8U; i++) {
+			u32 Address = (EfuseCacheBaseAddress + EFUSE_CACHE_TRIM_AMS_4_OFFSET + (i*4U));
+			PmIn32(Address, RegValue);
+			/* current element already have 17 bits stored from prev register,
+			store 15 bits from current register to current element */
+			Arr[i] |= (RegValue & BITMASK_LOWER_15_BITS) << 17;
+			/* store 17 bits from current register to next element */
+			if (i != 7U) {
+				Arr[i + 1U] = (RegValue & BITMASK_UPPER_17_BITS) >> 15;
+			}
+		}
+
+		/* Set cache read to avoid multiple reads */
+		*CacheRead = 1;
+	}
+
+	switch (NODEINDEX(PowerDomainId)) {
+	case (u32)XPM_NODEIDX_POWER_PMC:
+		if (0U == SateliteIdx) {
+			/* Copy EFUSE_CACHE.TSENS_DELTA_3_0 to PMC_SYSMON.SAT0_EFUSE_CONFIG0[15:12] */
+			*DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 0U);
+		} else if (1U == SateliteIdx) {
+			/* Copy EFUSE_CACHE.TSENS_DELTA_7_4 to PMC_SYSMON.SAT1_EFUSE_CONFIG0[15:12] */
+			*DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 4U);
+		} else {
+			/* Required due to MISRA */
+			PmDbg("[%d] Invalid SateliteIdx\r\n", __LINE__);
+		}
+		Status = XST_SUCCESS;
+		break;
+	case (u32)XPM_NODEIDX_POWER_LPD:
+		/* Copy EFUSE_CACHE.TSENS_DELTA_11_8 to LPD_SYSMON_SAT.EFUSE_CONFIG0[15:12] */
+		*DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 8U);
+		Status = XST_SUCCESS;
+		break;
+	case (u32)XPM_NODEIDX_POWER_FPD:
+		/* Copy EFUSE_CACHE.TSENS_DELTA_15_12 to FPD_SYSMON_SAT.EFUSE_CONFIG0[15:12] */
+		*DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 12U);
+		Status = XST_SUCCESS;
+		break;
+	case (u32)XPM_NODEIDX_POWER_NOC:
+		StartbitOffset = 16U + (SateliteIdx * 4U);
+		/* Copy EFUSE_CACHE.TSENS_DELTA_STARTBIT_ENDBIT to AMS_SAT_N.EFUSE_CONFIG0[15:12] */
+		*DeltaVal =  GET_DELTA_AT_OFFSET(Arr, StartbitOffset);
+		Status = XST_SUCCESS;
+		break;
+	default:
+		Status = XST_FAILURE;
+		break;
+	}
+
+	return Status;
+}
+
 XStatus XPmPowerDomain_ApplyAmsTrim(u32 DestAddress, u32 PowerDomainId, u32 SateliteIdx)
 {
 	XStatus Status = XST_FAILURE;
-	u32 EfuseCacheBaseAddress, StartbitOffset, RegValue, i, DeltaVal = 0;
-	static u32 OffsetVal,SlopeVal,ProcessVal,ResistorVal,BjtOffsetVal,ExtOffsetVal,AnaSpareVal,DigSpareVal,Arr[8];
+	u32 EfuseCacheBaseAddress, RegValue, DeltaVal = 0;
+	static u32 OffsetVal,SlopeVal,ProcessVal,ResistorVal,BjtOffsetVal,ExtOffsetVal,AnaSpareVal,DigSpareVal;
 	static u32 CacheRead=0;
 	static u32 BipSelVal, TsensSelVal, TsensBiasVal;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -213,63 +280,10 @@ XStatus XPmPowerDomain_ApplyAmsTrim(u32 DestAddress, u32 PowerDomainId, u32 Sate
 	/* Copy EFUSE_CACHE.TRIM_AMS_12.SHARED_SPARE_3_4 to dest_reg.TSENS_BIAS_CTRL[1:0] */
 	PmRmw32(DestAddress + TSENS_BIAS_CTRL_OFFSET,  TSENS_BIAS_VAL_MASK, (TsensBiasVal << TSENS_BIAS_VAL_SHIFT));
 
-	if (0U == CacheRead) {
-		/* Copy 256 bits of TSENS_DELTA value to array */
-		PmIn32(EfuseCacheBaseAddress + EFUSE_CACHE_TRIM_AMS_3_OFFSET, RegValue);
-		/*Store 17 bits from current register */
-		Arr[0] = (RegValue & EFUSE_CACHE_TRIM_AMS_3_TSENS_DELTA_16_0_MASK) >> EFUSE_CACHE_TRIM_AMS_3_TSENS_DELTA_16_0_SHIFT;
-		for (i = 0; i < 8U; i++) {
-			u32 Address = (EfuseCacheBaseAddress + EFUSE_CACHE_TRIM_AMS_4_OFFSET + (i*4U));
-			PmIn32(Address, RegValue);
-			/* current element already have 17 bits stored from prev register,
-			store 15 bits from current register to current element */
-			Arr[i] |= (RegValue & BITMASK_LOWER_15_BITS) << 17;
-			/* store 17 bits from current register to next element */
-			if (i != 7U) {
-				Arr[i + 1U] = (RegValue & BITMASK_UPPER_17_BITS) >> 15;
-			}
-		}
-
-		/* Set cache read to avoid multiple reads */
-		CacheRead = 1;
-	}
-
-	switch (NODEINDEX(PowerDomainId)) {
-	case (u32)XPM_NODEIDX_POWER_PMC:
-		if (0U == SateliteIdx) {
-			/* Copy EFUSE_CACHE.TSENS_DELTA_3_0 to PMC_SYSMON.SAT0_EFUSE_CONFIG0[15:12] */
-			DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 0U);
-		} else if (1U == SateliteIdx) {
-			/* Copy EFUSE_CACHE.TSENS_DELTA_7_4 to PMC_SYSMON.SAT1_EFUSE_CONFIG0[15:12] */
-			DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 4U);
-		} else {
-			/* Required due to MISRA */
-			PmDbg("[%d] Invalid SateliteIdx\r\n", __LINE__);
-		}
-		Status = XST_SUCCESS;
-		break;
-	case (u32)XPM_NODEIDX_POWER_LPD:
-		/* Copy EFUSE_CACHE.TSENS_DELTA_11_8 to LPD_SYSMON_SAT.EFUSE_CONFIG0[15:12] */
-		DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 8U);
-		Status = XST_SUCCESS;
-		break;
-	case (u32)XPM_NODEIDX_POWER_FPD:
-		/* Copy EFUSE_CACHE.TSENS_DELTA_15_12 to FPD_SYSMON_SAT.EFUSE_CONFIG0[15:12] */
-		DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 12U);
-		Status = XST_SUCCESS;
-		break;
-	case (u32)XPM_NODEIDX_POWER_NOC:
-		StartbitOffset = 16U + (SateliteIdx * 4U);
-		/* Copy EFUSE_CACHE.TSENS_DELTA_STARTBIT_ENDBIT to AMS_SAT_N.EFUSE_CONFIG0[15:12] */
-		DeltaVal =  GET_DELTA_AT_OFFSET(Arr, StartbitOffset);
-		Status = XST_SUCCESS;
-		break;
-	default:
-		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
-		Status = XST_FAILURE;
-		break;
-	}
+	Status = XPmPowerDomain_CopyCache(EfuseCacheBaseAddress, PowerDomainId,
+					  SateliteIdx, &CacheRead, &DeltaVal);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		goto fail;
 	}
 
