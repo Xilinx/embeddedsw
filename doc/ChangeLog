@@ -1,5 +1,300 @@
 Changes for 2021.2
 ===============================
+
+aiefal_v1_1:
+enable to get resource usage statistics of:
+static allocated resource
+available resource
+run time allocated resource
+
+dfeccf_v1_1:
+Update to common latency and reorganise examples
+
+dfemix_v1_1:
+Update to common latency and reorganise examples
+
+dfeequ_v1_1:
+Update to common latency and CFG_SHIFT calculation
+
+dfeprach_v1_1:
+Update to common latency, doxygen comments updating and reorganise examples
+
+xdmapcie_v1_4:
+Added support for  QDMA bridge
+
+dppsu_v1_5:
+Update to use correct Lane Count, added warning for incorrect lane setting and
+corrected file names in dependencies
+
+libmetal_v2_2:
+Use the FreeRTOS API's taskYIELD() instead of asm("wfi")
+Add Linux-syscall-note
+
+rfdc_v11_0:
+Simplified clock distribution user interface
+Fixed issue where VOP initial value was incorrect
+Disallow VOP for DC coupled DACs
+Fixed issue where any end state could be selected in custom startup API if a start state of 1 was supplied
+When setting the powermode, the IP now takes care of the configuration registers
+Factor in half bandwidth when using MTS in IMR modes
+Fixed rounding error in cast for FS and refclk in XRFdc_DynamicPLLConfig
+
+sysmonpsv_v2_3:
+update doxygen documentation
+Add checks if the code is running on PLM
+Resolved warning where __arch64__ was defaulting to zero
+
+v_demosaic_v1_3:
+Interrupt handler is added Demosaic driver.
+Removed undefined variable from Interrupt handler.
+
+aienginev2_v3_0:
+AIE-ML Device support
+DMA Padding API
+Generate API documentation from makefile
+Bug fixes
+
+v_warp_init_v1_1:
+Add index.html to import example application
+
+emacps_v3_15:
+License updates
+Corrected divisor fields in config structure to accommodate Versal
+
+xxvethernet_v1_7:
+License updates
+
+emaclite_v4_7:
+License updates
+
+axiethernet_v5_13:
+License updates
+
+xilfpga_v6_1:
+Fixed compilation warnings.
+
+cpu_v2_14:
+Updated tcl logic to use compiler pointed by user
+Removed fsl.h, which is duplicate of standalone/src/microblaze/fsl.h .
+
+ddrpsv_v1_4:
+Updated tcl file to skip its execution for psv_pmc and psv_psm processor
+
+dfxasm_v1_1:
+Fix dfxasm example compilation issue with c++ compiler
+
+freertos10_xilinx_v1_10:
+Fixed PV console support for FreeRTOS domU guests
+Updated R5 port to use Xil_In/Xil_Out for register read/writes. It would sync
+FreeRTOS R5 port with Xilinx STL library. It fixes CR-1076149
+Improved exception handling in A53/A72 port
+Fixed issues related to A53/A72 interrupt context handling
+
+xilpm_v3_5:
+ Versal
+ Add node IDs information for error events
+ fix doxygen comments
+ Add dummy NPI register read in AieBisr()
+ Add TTC in default pre-alloc device list
+ Add PM_CAP_SECURE to RPU0 in default subsystem definition
+ Add support for CPU idle during force power down and subsystem restart
+ Use PGGS2 instead of CRP_RESET_REASON for reset reason
+ Fix compilation errors
+ Add support for registering multiple events simultaneously
+ Fix MISRA rule violations
+ Skip NSUs in mem-clear
+ Add support for VC1702 device
+ Add support to notify core state change
+ Use standardized poll function
+ Add support for new houseclean disable functionality
+ Add Init sequence for AIE2
+ Remove dead code
+ display warning if IPI is not enabled in design
+ Fix NIDB repair sequence
+
+ ZynqMP
+ Fix doxygen warnings
+ Add missing enum info
+ Add support for runtime features
+ Add IOCTL support
+
+v_frmbuf_wr_v4_5:
+Added support for Y_U_V8 video color format
+
+v_gamma_lut_v1_3:
+Interrupt handler is added Gamma Lut driver.
+Removed undefined variable from Interrupt handler.
+
+bram_v4_7:
+Use get_param_value to read C_S_AXI_BASEADDR parameter
+
+zdma_v1_13:
+Fix example failures at optimization level 2
+Fixed examples to ensure proper cache line alignment, cache invalidation and
+DMA reset
+
+lwip211_v1_6:
+Clean up code to remove usage of OS_IS_FREERTOS macro.
+Improve handling of OS related calls in adapter files.
+Remove unnecessary interrupt disable code and barrier in emacps_sgsend.
+Add support for use case for udp send functionality to block till the
+corresponding packet is txed.
+
+mipicsiss_v1_6:
+Switched VDMA with FRAME BUFFER functionality
+
+v_hdmiphy1_v2_3:
+Added definitions for the phy registers and the mask values written to them
+Uprevved the version of mdd for the changes in src files
+
+v_hdmirx1_v1_3:
+Add support for arbitrary resolutions in AXI4 Stream mode and support
+CTA resolutions.
+Fix FRL training failure for Club3D adapter
+
+v_hdmirxss_v6_2:
+Updated copyright information in src files
+Uprevved the version of mdd for the changes in src files
+
+v_hdmitx1_v2_0:
+Return status instead of TMDS clock value
+
+v_hdmitxss_v6_2:
+Updated copyright information in src files
+Uprevved the version of mdd for the changes in src files
+
+v_hdmitxss1_v3_0:
+Onsemi redriver tweaked to get reliable links. GT now put in DFE mode for 10G
+Update example app for #ifdef checks for TPG and for SetStream change
+Remove unused arguments check
+Return status from set stream
+Add support for arbitrary resolutions
+Add support for Native video
+
+video_common_v4_12:
+Add missing timings from CTA-861-H specification.
+The missing timings VMIDs are as below -
+This patch fixes the vertical polarity, frequency and
+number of active lines for the following VMIDs based on
+Manage EDID verbosity from BSP settings
+
+vprocss_v2_10:
+Example App is modified to disable Dcache
+
+vtc_v8_4:
+Added support for 16K (2^16) in the VTC driver
+
+scugic_v4_6:
+Added support for SSIT devices.
+Fixed MISRA-C violations in source code.
+Update datatype of CpuBaseAddress, DistBaseAddress and BaseAddress from u32 to
+UINTPTR to support on all platforms.
+Fix GCC warnings in source code
+
+axivdma_v6_10:
+- Fix unused variable GCC warning for Index1 in ReadSetup
+- Fix read/write done count check in loop in vdma interrupt example.
+- Update example comment description.
+
+csudma_v1_10:
+Update address lists to support SSIT devices
+
+v_hdmi_common_v1_6:
+Updated the VIC table as per the latest CTA spec.
+Add missing video resolutions IDs in the VIC Table.
+
+v_hdmirxss1_v3_0:
+Onsemi redriver tweaked to get reliable links. GT now put in DFE mode for 10G
+Update example app for #ifdef checks for TPG and for SetStream change
+Add support for arbitrary resolutions
+Add support for Native video
+
+iicps_v3_14:
+Fix Misra-C violations
+
+nandpsu_v1_9:
+Initialize NandInstPtr with Data Interface and Timing mode data
+Switch to best supported data interface and timing mode
+
+usbpsu_v1_10:
+Fixed plm compilation warnings when USB is included
+
+ipipsu_v2_10:
+Use get_param_value to read C_S_AXI_BASEADDR parameter
+Removed  a unused variable warning
+
+llfifo_v5_6:
+Remove realpath command
+
+mutex_v4_7:
+Remove realpath command
+
+qspipsu_v1_14:
+Allow enough time for the controller to reset the FIFOs
+Enable Quad Mode in winbond flashes
+Print valid GENFIFO register values
+Perform Dcache invalidate at the end of the DMA transfer
+
+xilmailbox_v1_4:
+Added support for freertos
+Fixed MISRA-C violations
+
+v_frmbuf_rd_v4_5:
+Added support for Fid Interlace Solution
+Added support for Y_U_V8 video color format
+
+canfd_v2_6:
+Use get_param_value to read C_S_AXI_BASEADDR parameter.
+
+wdttb_v5_3:
+Use get_param_value to read C_S_AXI_BASEADDR parameter
+
+dp14txss_v6_6:
+The KCU105 app has been updated to add support for VCU118
+
+v_tpg_v8_4:
+Interrupt handler is added TPG driver.
+
+cpu_cortexa53_v2_0:
+As FSBL BSP is compiled with Os optimization, removed O2 from COMPILER_FLAGS
+to avoid confusion.
+
+cpu_cortexr5_v2_0:
+As FSBL BSP is compiled with Os optimization, removed O2 from COMPILER_FLAGS
+to avoid confusion.
+
+generic_v3_1:
+Added support for SSIT devices
+
+iomodule_v2_12:
+Fixed violations reported by coverity tool.
+Added SSIT device support.
+Updated logic in tcl to fix BSP creation for HW designs where IOMODULE
+interrupt port is left un-connected.
+
+xilsem_v1_4:
+- Added support to notify correctable errors over IPI
+- Fixed partial NPI CDO table processing issue
+- Fixed PL_GPO toggling issue for correctable errors
+- Added XSem_NpiErrorHandler to notify if any error in NPI scan periodic
+execution
+- Added support to store and restore CFI clock divisor value. This is to
+support CRAM scan in low clock frequency
+- Added validation for payload length received in NPI descriptor CDO
+- Added support to notify if Crypto is disabled
+- Updated Examples to provide more samples to customers for reading XilSEM
+status without using debug prints
+- Fixed Doxygen warnings
+
+standalone_v7_6:
+Added support for SSIT devices.
+Updated Cortexa9 boot code to skip SCU invalidation when USE_AMP is set to 1.
+It fixes CR-1109723.
+Fixed MISRA-C warnings
+
+aienginev2_v3_0:
+Fixed PV console support for FreeRTOS domU guests
+
 ospipsv_v1_5:
 Added DCache invalidate at the end of the non-blocking DMA read transfer.
 Limit RX maximum number of taps to 127.
@@ -7,15 +302,112 @@ Limit RX maximum number of taps to 127.
 sdps_v3_13:
 Limit the SD operating frequency to 19MHz by default for Versal platform.
 
-xilpm_v3_5:
-Versal
-  Make OSPI a default pre-allocated device.
-
 xilffs_v4_6:
 Fix compilation warning with RAM interface.
 
-xilfpga_v6_1:
-Fixed compilation warnings.
+imgsel:
+Added support for versionless build.
+
+img_rcvry:
+Fix image update failure during first attempt.
+PHY reset sequence done based on board information.
+Added support for SD read/write APIs.
+
+zynq_fsbl:
+Add copyright for the missing files.
+
+zynqmp_fsbl:
+Mark DDR as memory just after ECC initialization to avoid speculative accesses.
+Add support for delayed enumeration of DFU device.
+Fix logical issue in Secondary boot mode.
+Fix versionless build failure when USB is enabled.
+Add copyright for the missing files.
+Reset SHA engine in failure cases in authentication plus encryption cases.
+Add Winbond 2Gb flash support to ZynqMP FSBL.
+Added Multi-die read support for Micron.
+
+zynqmp_pmufw:
+Add support for dynamic loading of config object.
+Add copyright for the missing files.
+Add IOCTL call support in PMUFW.
+Add support for runtime feature configuration for OT.
+Add runtime support for External WDT.
+Add min and max limit checks for OT and External WDT features.
+Do not turn off FPD when USB wakeup source is enabled as USB controller uses GT from FPD.
+Handle APU restart gracefully if copying FSBL to DDR is failed.
+
+versal_plm:
+Code optimization/cleanup to reduce PLM size.
+Reduced 16K of reserved PPU1 RAM space for USER CODE to zero.
+Print PLM banner at the very beginning.
+Issue internal POR for VPK1802 ES1 devices to sync slave SLRs.
+Added support for xilnvm commands.
+
+xilloader_v1_5:
+Added support to extract metaheader of user PDIs during run-time.
+Reduce error log in slave boot modes in case of error.
+Added prints to display secure state by default.
+Added support for Winbond QSPI flash.
+Added support for Macronix OSPI flash.
+Support to disable the Auth JTAG after a user provided timeout.
+Fix issue in clearing CFI and CFU errors.
+Fix secondary boot issue in SD when multiboot offset is non zero.
+Support added for MJTAG workaround in PLM.
+
+
+xilpdi_v1_4:
+Minor Code cleanup.
+Added new compilation warning flags.
+
+xilplmi_v1_5:
+Renamed error node ID and event ID for better clarity.
+Support to configure uart during run-time.
+Created separate task for each IPI Channel.
+Updated IRO frequency to 400Mhz for MP, HP parts.
+Add support for registering error callback function to be called when a task missed execution.
+Support for handling CPM_NCR and link-down errors.
+Support for proc command.
+Display warning when APU IPI interrupts are disabled.
+Skip providing ack for force power-down command.
+
+xilsecure_v4_6:
+Fixed doxygen warnings.
+Added 64-bit address support for XilSecure server APIs.
+Updated validation for  AAD size to check if it is quad-word aligned.
+Added license header for Ecdsa.h.
+Added EXPORT CONTROL eFuse check in all crypto init functions for ZynqMP and Versal.
+Renamed XSecure_AesPmcDmaCfgByteSwap API with XSecure_AesPmcDmaCfgAndXfer.
+Updated check for Size in Client XSecure_AesKekDecrypt.
+Added check for DecKeySrc in Client XSecure_AesKekDecrypt.
+Added redundancy checks for DpaCmCfgEn in XSecure_AesSetDpaCm API.
+Fixed GCC warnings for ZynqMP.
+Minor bug fixes.
+Fixed MISRA C warnings.
+
+xilnvm_v2_4:
+Fixed doxygen warnings.
+Added client-server support for BBRAM and eFUSE.
+Added most restrictive range checks for device temperature before programming eFuses.
+Removed clearing the BBRAM User Data in case of failure.
+Minor code refactoring in XNvm_EfuseTempAndVoltChecks function.
+Added versionless support.
+Changed PLM and Data Partition IV formatting to LE in xilnvm_efuse_versal_server_example.
+Replaced magic number 0x0 with FALSE.
+Updated validation to check for Trim2 instead of Trim 3 for protection bit 37.
+Added check to see if efuse bit is already programmed before programming.
+
+
+xilpuf_v1_4:
+Fixed doxygen warnings.
+Updated comments regarding supported IRO frequency for PUF.
+Replaced xilnvm server APIs with xilnvm client APIs in xilpuf example.
+
+xilskey_v7_2:
+Fixed doxygen warnings.
+
+trngpsv_v1_0:
+Added True Random Number Generator (TRNG) driver support in Versal.
+
 
 New Files Added for 2021.2:
 MIT SPDX License:
@@ -2251,11 +2643,13 @@ updating license content to SPDX based licensing
 canps_v3_4:
 updating license content to SPDX based licensing
 
-cframe_v1_1:
-updating license content to SPDX based licensing
+cframe_v1_3:
+Fix doxygen warnings
 
-cfupmc_v1_1:
-updating license content to SPDX based licensing
+cfupmc_v1_3:
+MJTAG workaround in PLM
+Fix doxygen warnings
+Add support for readback from SSIT Slaves from master
 
 clk_wiz_v1_3:
 updating license content to SPDX based licensing
