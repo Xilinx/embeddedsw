@@ -412,11 +412,14 @@ extern "C" {
 /**
  * CFRAME Module
  */
+#define CFRAME0_FDRI_BASEADDR			(0xF12D1000U)
 #define CFRAME_REG_CMD_OFFSET                  (0x00000060U)
 #define CFRAME_REG_FAR_OFFSET                  (0x00000010U)
 #define CFRAME_REG_FRCNT_OFFSET                (0x00000050U)
-#define CFRAME_REG_FDRI_OFFSET                 (0x00000040U)
-#define CFRAME_REG_FAR_BLOCKTYPE_SHIFT             (20U)
+#define CFRAME_REG_CMD_WCFG			(0x1U)
+#define CFRAME_REG_CMD_ROWON			(0x2U)
+#define CFRAME_REG_CMD_RCFG			(0x4U)
+#define CFRAME0_REG_FAR_BLOCKTYPE_SHIFT        (20U)
 
 /**
  * CFU APB Module

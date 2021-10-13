@@ -143,24 +143,20 @@
 #define XRAM_SLCR_PCSR_PSR_BISR_PASS_MASK		(0x00008000U)
 
 /* Laguna Repair */
-#define LAGUNA_REPAIR_VAL_MASK         (0xFC000000U)
-#define LAGUNA_REPAIR_VAL_SHIFT        (26U)
-#define LAGUNA_REPAIR_X_MASK           (0x03FC0000U)
-#define LAGUNA_REPAIR_X_SHIFT          (18U)
-#define LAGUNA_REPAIR_Y1_MASK          (0x0003FE00U)
-#define LAGUNA_REPAIR_Y1_SHIFT         (9U)
-#define LAGUNA_REPAIR_Y0_MASK          (0x000001FFU)
-#define LAGUNA_REPAIR_Y0_SHIFT         (0U)
-#define LAGUNA_REPAIR_BIT0_MASK        (0x00000001U)
-#define LAGUNA_REPAIR_BIT1_MASK        (0x00000002U)
-#define LAGUNA_REPAIR_BIT2_MASK        (0x00000004U)
-#define LAGUNA_REPAIR_BIT3_MASK        (0x00000008U)
-#define LAGUNA_REPAIR_BIT4_MASK        (0x00000010U)
-#define LAGUNA_REPAIR_BIT5_MASK        (0x00000020U)
+#define LAGUNA_FUSE_Y0_LSB		   (0U)
+#define LAGUNA_FUSE_Y0_BITS		   (9U)
+#define LAGUNA_FUSE_Y1_LSB		   (LAGUNA_FUSE_Y0_LSB + LAGUNA_FUSE_Y0_BITS)
+#define LAGUNA_FUSE_Y1_BITS		   (9U)
+#define LAGUNA_FUSE_X1_LSB		   (LAGUNA_FUSE_Y1_LSB + LAGUNA_FUSE_Y1_BITS)
+#define LAGUNA_FUSE_X1_BITS		   (8U)
+#define LAGUNA_FUSE_REPAIR_LSB		   (LAGUNA_FUSE_X1_LSB + LAGUNA_FUSE_X1_BITS)
+#define LAGUNA_FUSE_REPAIR_BITS	   (6U)
+#define HALF_TILE_NUM_PER_FRAME	   (48U)
+#define RCLK_TILES_NUM_IN_FRAME	   (4U)
 #define FDRO_BASEADDR              (0xF12C2000U)
 #define FSR_TILE_END               (95U)
 #define HALF_FSR_START             (48U)
-#define RCLK_TILE_START            (48U)
+#define FRAME_BLOCK_TYPE_6		   (6U)
 
 typedef struct XPm_NidbEfuseGrpInfo {
 	u8 RdnCntl;
@@ -1089,88 +1085,96 @@ done:
 	return Status;
 }
 
-static void XPmBisr_LagunaRmwOneFrame(const XPm_PlDomain *Pld, u8 RowIndex,
-		u8 LowerTile, u8 UpperTile, u32 LagunaRepairX, u32 LagunaRepairVal)
+static void LagunaRmwOneFrame(const XPm_PlDomain *Pld, u32 RowIndex,
+		u32 FrameAddr, u32 LowerTile, u32 UpperTile, u32 RepairWord)
 {
-	u32 FrameAddr;
 	u32 CFrameAddr;
-	u32 FrameData[100];
-	u32 CurrentFdroAddr;
-	u32 CurrentFdriAddr;
-	u8 i;
-
-	/* Construct type-6 frame address */
-	FrameAddr = ((u32)6U << CFRAME_REG_FAR_BLOCKTYPE_SHIFT) + LagunaRepairX;
+	u32 FrameData[100U];
+	u32 FdriAddr;
+	u32 current_fdro;
+	u32 i;
+	u8 Idx = 0U;
 
 	/* Get CFRAME Address */
 	CFrameAddr = Pld->Cframe0RegBaseAddr + (XCFRAME_FRAME_OFFSET * (u32)RowIndex);
 
-	/*
-	 * Set CFRAME command to read configuration data. CFRAME uses 128-bit wide
-	 * bus so each write must write 4 words.
-	 */
-	/* Write command register to read configuration data */
-	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 0U, 4U);
-	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 4U, 0U);
-	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 8U, 0U);
-	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 12U, 0U);
-	/* Set frame address */
-	XPm_Out32((CFrameAddr + CFRAME_REG_FAR_OFFSET) + 0U, FrameAddr);
-	XPm_Out32((CFrameAddr + CFRAME_REG_FAR_OFFSET) + 4U, 0U);
-	XPm_Out32((CFrameAddr + CFRAME_REG_FAR_OFFSET) + 8U, 0U);
-	XPm_Out32((CFrameAddr + CFRAME_REG_FAR_OFFSET) + 12U, 0U);
+	/* Enable CFRAME Row */
+	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 0x0U, CFRAME_REG_CMD_ROWON);
+	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 0x4U, 0x0U);
+	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 0x8U, 0x0U);
+	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 0xCU, 0x0U);
+
+	/* nop delay */
+	XPm_Wait(300U);
+
+	/* Enable read configuration data */
+	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 0x0U, CFRAME_REG_CMD_RCFG);
+	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 0x4U, 0x0U);
+	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 0x8U, 0x0U);
+	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 0xCU, 0x0U);
+
+	/* nop delay */
+	XPm_Wait(200U);
+
+	/* Set Frame address register */
+	XPm_Out32((CFrameAddr + CFRAME_REG_FAR_OFFSET) + 0x0U, FrameAddr);
+	XPm_Out32((CFrameAddr + CFRAME_REG_FAR_OFFSET) + 0x4U, 0x0U);
+	XPm_Out32((CFrameAddr + CFRAME_REG_FAR_OFFSET) + 0x8U, 0x0U);
+	XPm_Out32((CFrameAddr + CFRAME_REG_FAR_OFFSET) + 0xCU, 0x0U);
+
 	/* Set read count to one frame. One frame is 25 quadwords */
-	XPm_Out32((CFrameAddr + CFRAME_REG_FRCNT_OFFSET) + 0U, 0x19U);
-	XPm_Out32((CFrameAddr + CFRAME_REG_FRCNT_OFFSET) + 4U, 0U);
-	XPm_Out32((CFrameAddr + CFRAME_REG_FRCNT_OFFSET) + 8U, 0U);
-	XPm_Out32((CFrameAddr + CFRAME_REG_FRCNT_OFFSET) + 12U, 0U);
+	XPm_Out32((CFrameAddr + CFRAME_REG_FRCNT_OFFSET) + 0x0U, 0x19U);
+	XPm_Out32((CFrameAddr + CFRAME_REG_FRCNT_OFFSET) + 0x4U, 0x0U);
+	XPm_Out32((CFrameAddr + CFRAME_REG_FRCNT_OFFSET) + 0x8U, 0x0U);
+	XPm_Out32((CFrameAddr + CFRAME_REG_FRCNT_OFFSET) + 0xCU, 0x0U);
 
-	CurrentFdroAddr = FDRO_BASEADDR;
+	/* Read 25 quadwords of Frame data. FDRO address is 128 bits wide so read
+	 * 4 words of data per iteration.
+	 */
+	for (i = 0U; i < 25U; i++) {
+		current_fdro = FDRO_BASEADDR;
 
-	/* Read 100 words of Frame data */
-	for (i = 0U; i < 100U; i++) {
-		FrameData[i] = XPm_In32(CurrentFdroAddr);
-		CurrentFdroAddr += 4U;
+		FrameData[Idx] = XPm_In32(current_fdro);
+		current_fdro += 0x4U;
+		++Idx;
+		FrameData[Idx] = XPm_In32(current_fdro);
+		current_fdro += 0x4U;
+		++Idx;
+		FrameData[Idx] = XPm_In32(current_fdro);
+		current_fdro += 0x4U;
+		++Idx;
+		FrameData[Idx] = XPm_In32(current_fdro);
+		++Idx;
 	}
 
-	/*
-	 * Modify Frame data with repair value.
-	 * RCLK occupies words 48-51 so skip these four words.
-	 * Only 6 bits in a word needs to be modified with repair value.
-	 */
-	for (i = LowerTile; i < UpperTile; i++) {
-		if (i < RCLK_TILE_START) {
-			FrameData[i] |= ((LagunaRepairVal & LAGUNA_REPAIR_BIT0_MASK) << 6U);
-			FrameData[i] |= ((LagunaRepairVal & LAGUNA_REPAIR_BIT1_MASK) << 10U);
-			FrameData[i] |= ((LagunaRepairVal & LAGUNA_REPAIR_BIT2_MASK) << 14U);
-			FrameData[i] |= ((LagunaRepairVal & LAGUNA_REPAIR_BIT3_MASK) << 18U);
-			FrameData[i] |= ((LagunaRepairVal & LAGUNA_REPAIR_BIT4_MASK) << 22U);
-			FrameData[i] |= ((LagunaRepairVal & LAGUNA_REPAIR_BIT5_MASK) << 26U);
-		} else {
-			FrameData[i+4U] |= ((LagunaRepairVal & LAGUNA_REPAIR_BIT0_MASK) << 6U);
-			FrameData[i+4U] |= ((LagunaRepairVal & LAGUNA_REPAIR_BIT1_MASK) << 10U);
-			FrameData[i+4U] |= ((LagunaRepairVal & LAGUNA_REPAIR_BIT2_MASK) << 14U);
-			FrameData[i+4U] |= ((LagunaRepairVal & LAGUNA_REPAIR_BIT3_MASK) << 18U);
-			FrameData[i+4U] |= ((LagunaRepairVal & LAGUNA_REPAIR_BIT4_MASK) << 22U);
-			FrameData[i+4U] |= ((LagunaRepairVal & LAGUNA_REPAIR_BIT5_MASK) << 26U);
+	/* Modify frame data with repair value */
+	for (i = LowerTile; i <= UpperTile; i++) {
+		if ((i < HALF_TILE_NUM_PER_FRAME) || (i >= (HALF_TILE_NUM_PER_FRAME + RCLK_TILES_NUM_IN_FRAME))) {
+			FrameData[i] |= RepairWord;
 		}
 	}
 
-	/*
-	 * Set CFRAME command to write configuration data.
-	 * CFRAME uses 128-bit wide bus so each write must write 4 words.
-	 */
-	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 0U, 1U);
-	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 4U, 0U);
-	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 8U, 0U);
-	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 12U, 0U);
+	/* Enable write configuration data */
+	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 0x0U, CFRAME_REG_CMD_WCFG);
+	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 0x4U, 0x0U);
+	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 0x8U, 0x0U);
+	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 0xCU, 0x0U);
 
-	CurrentFdriAddr = CFrameAddr + CFRAME_REG_FDRI_OFFSET;
+	/* nop delay */
+	XPm_Wait(200U);
+
+	/* Set Frame address register */
+	XPm_Out32((CFrameAddr + CFRAME_REG_FAR_OFFSET) + 0x0U, FrameAddr);
+	XPm_Out32((CFrameAddr + CFRAME_REG_FAR_OFFSET) + 0x4U, 0x0U);
+	XPm_Out32((CFrameAddr + CFRAME_REG_FAR_OFFSET) + 0x8U, 0x0U);
+	XPm_Out32((CFrameAddr + CFRAME_REG_FAR_OFFSET) + 0xCU, 0x0U);
+
+	FdriAddr = CFRAME0_FDRI_BASEADDR + (XCFRAME_FRAME_OFFSET * (u32)RowIndex);
 
 	/* Write 100 words of Frame data */
 	for (i = 0U; i < 100U; i++) {
-		XPm_Out32(CurrentFdriAddr, FrameData[i]);
-		CurrentFdriAddr += 4U;
+		XPm_Out32(FdriAddr, FrameData[i]);
+		FdriAddr += 0x4U;
 	}
 }
 
@@ -1180,22 +1184,23 @@ static u32 XPmBisr_RepairLaguna(u32 EfuseTagAddr, u32 TagSize)
 	u32 TagRow = 0U;
 	u32 TagData;
 	u32 TagDataAddr;
-	u32 LagunaRepairVal;
-	u32 LagunaRepairX;
-	u32 LagunaRepairY0;
-	u32 LagunaRepairY1;
+	u32 RepairWord;
+	u32 LagunaX;
+	u32 Temp;
 	u32 HalfFsr;
 	u32 NumberOfRows;
-	u8 Row0;
-	u8 Row1;
-	u8 Tile0;
-	u8 Tile1;
+	u32 Row0;
+	u32 Row1;
+	u32 Tile0;
+	u32 Tile1;
 	u8 LowerTile;
 	u8 UpperTile;
-	u8 RowIndex;
+	u32 RowIndex;
+	u32 FrameAddr;
 	u32 EfuseCacheBaseAddr;
 	u32 EfuseTagBitS1Addr;
 	u32 EfuseTagBitS2Addr;
+	u8 i;
 
 	const XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 
@@ -1219,15 +1224,14 @@ static u32 XPmBisr_RepairLaguna(u32 EfuseTagAddr, u32 TagSize)
 	EfuseTagBitS2Addr = (EfuseCacheBaseAddr + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET);
 
 	/* Broadcast row on command */
-	XPm_Out32((CFRAME_BCAST_REG_BASEADDR + CFRAME_REG_CMD_OFFSET) + 0U, 2U);
-	XPm_Out32((CFRAME_BCAST_REG_BASEADDR + CFRAME_REG_CMD_OFFSET) + 4U, 0U);
-	XPm_Out32((CFRAME_BCAST_REG_BASEADDR + CFRAME_REG_CMD_OFFSET) + 8U, 0U);
-	XPm_Out32((CFRAME_BCAST_REG_BASEADDR + CFRAME_REG_CMD_OFFSET) + 12U, 0U);
+	XPm_Out32((CFRAME_BCAST_REG_BASEADDR + CFRAME_REG_CMD_OFFSET) + 0x0U, CFRAME_REG_CMD_ROWON);
+	XPm_Out32((CFRAME_BCAST_REG_BASEADDR + CFRAME_REG_CMD_OFFSET) + 0x4U, 0x0U);
+	XPm_Out32((CFRAME_BCAST_REG_BASEADDR + CFRAME_REG_CMD_OFFSET) + 0x8U, 0x0U);
+	XPm_Out32((CFRAME_BCAST_REG_BASEADDR + CFRAME_REG_CMD_OFFSET) + 0xCU, 0x0U);
 
 	/* Get device row info */
 	HalfFsr = (XPm_In32(Pld->CfuApbBaseAddr + CFU_APB_CFU_ROW_RANGE_OFFSET) &
-		(u32)CFU_APB_CFU_ROW_RANGE_HALF_FSR_MASK) >>
-		CFU_APB_CFU_ROW_RANGE_HALF_FSR_SHIFT;
+		(u32)CFU_APB_CFU_ROW_RANGE_HALF_FSR_MASK) >> CFU_APB_CFU_ROW_RANGE_HALF_FSR_SHIFT;
 	NumberOfRows = XPm_In32(Pld->CfuApbBaseAddr + CFU_APB_CFU_ROW_RANGE_OFFSET)
 		& (u32)CFU_APB_CFU_ROW_RANGE_NUM_MASK;
 
@@ -1240,19 +1244,37 @@ static u32 XPmBisr_RepairLaguna(u32 EfuseTagAddr, u32 TagSize)
 		TagRow++;
 		TagDataAddr += 4U;
 
-		/* Set up Laguna pointer coordinates */
-		LagunaRepairVal = (TagData & LAGUNA_REPAIR_VAL_MASK) >> LAGUNA_REPAIR_VAL_SHIFT;
-		LagunaRepairX = (TagData & LAGUNA_REPAIR_X_MASK) >> LAGUNA_REPAIR_X_SHIFT;
-		LagunaRepairY1 =(TagData & LAGUNA_REPAIR_Y1_MASK) >> LAGUNA_REPAIR_Y1_SHIFT;
-		LagunaRepairY0 = (TagData & LAGUNA_REPAIR_Y0_MASK) >> LAGUNA_REPAIR_Y0_SHIFT;
+		/* Laguna pointer coordinate for Y0 */
+		Temp = (TagData >> LAGUNA_FUSE_Y0_LSB) & (((u32)1U << LAGUNA_FUSE_Y0_BITS) - 1U);
+		/* Row index of Y0 and Tile index within Y0. 96 tiles per FSR row */
+		Row0 = Temp / 96U;
+		Tile0 = Temp % 96U;
 
-		/* Get row index of Y0 and Y1. 96 tiles per FSR row */
-		Row0 = (u8)(LagunaRepairY0 / 96U);
-		Row1 = (u8)(LagunaRepairY1 / 96U);
+		/* Laguna pointer coordinate for Y1 */
+		Temp = (TagData >> LAGUNA_FUSE_Y1_LSB) & (((u32)1U << LAGUNA_FUSE_Y1_BITS) - 1U);
+		/* Row index of Y0 and Tile index within Y1. 96 tiles per FSR row */
+		Row1 = Temp / 96U;
+		Tile1 = Temp % 96U;
 
-		/* Get tile index within FSR row */
-		Tile0 = (u8)(LagunaRepairY0 % 96U);
-		Tile1 = (u8)(LagunaRepairY1 % 96U);
+		/* Laguna pointer coordinate for X1 */
+		LagunaX = (TagData >> LAGUNA_FUSE_X1_LSB) & (((u32)1U << LAGUNA_FUSE_X1_BITS) - 1U);
+
+		/*
+		 * Form 32 bit repair word from 6 bits of repair word.
+		 * Only 6 bits in a word need to be modified with repair value.
+		 * bit     5      4     3     2     1     0
+		 * bit    26     22    18    14    10     6
+		 */
+		RepairWord = 0U;
+		for (i = 0U; i < 6U; i++) {
+			if ((TagData & ((u32)1U << (LAGUNA_FUSE_REPAIR_LSB + LAGUNA_FUSE_REPAIR_BITS - 1U))) != 0U) {
+				RepairWord |= 1U;
+			}
+			RepairWord <<= 4U;
+			TagData <<= 1U;
+		}
+
+		RepairWord <<= 2U;
 
 		/* Walk through each FSR row that requires repair */
 		for (RowIndex = Row0; RowIndex <= Row1; RowIndex++) {
@@ -1261,20 +1283,37 @@ static u32 XPmBisr_RepairLaguna(u32 EfuseTagAddr, u32 TagSize)
 
 			/* Bottom row requires repair */
 			if (RowIndex == Row0) {
-				LowerTile = Tile0;
+				LowerTile = (u8)Tile0;
 			}
 
 			/* Top row requires repair */
 			if (RowIndex == Row1) {
-				UpperTile = Tile1;
-				if ((RowIndex == (NumberOfRows - 1U)) && (HalfFsr == 1U)) {
-					LowerTile += HALF_FSR_START;
-					UpperTile += HALF_FSR_START;
-				}
+				UpperTile = (u8)Tile1;
 			}
 
-			XPmBisr_LagunaRmwOneFrame(Pld, RowIndex, LowerTile, UpperTile,
-					LagunaRepairX, LagunaRepairVal);
+			/* Top row is Half FSR */
+			if ((RowIndex == (NumberOfRows - 1U)) && (HalfFsr == 1U)) {
+					LowerTile += HALF_FSR_START;
+					UpperTile += HALF_FSR_START;
+			}
+
+			/*
+			 * Adjust lower and upper tiles to accommodate RCLK tiles.
+			 * RCLK occupies words 48-51 so skip these four words.
+			 */
+			if (LowerTile > (HALF_TILE_NUM_PER_FRAME - 1U)) {
+				LowerTile += RCLK_TILES_NUM_IN_FRAME;
+			}
+			if (UpperTile > (HALF_TILE_NUM_PER_FRAME - 1U)) {
+				UpperTile += RCLK_TILES_NUM_IN_FRAME;
+			}
+
+			/* Construct block type-6 frame address */
+			FrameAddr = LagunaX;
+			FrameAddr |= (FRAME_BLOCK_TYPE_6 << CFRAME0_REG_FAR_BLOCKTYPE_SHIFT);
+
+			LagunaRmwOneFrame(Pld, RowIndex, FrameAddr, LowerTile,
+					UpperTile, RepairWord);
 		}
 	}
 
