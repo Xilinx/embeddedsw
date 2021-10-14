@@ -107,8 +107,8 @@ if [ $PROC == "a53" ]; then
                         cp -f $STANDALONE_DIR/arm/ARMv8/64bit/platform/ZynqMP/gcc/* $BSP_DIR/libsrc/standalone/src/
 			cp -f $STANDALONE_DIR/arm/common/gcc/* $BSP_DIR/libsrc/standalone/src/
 		fi
-		cp $BOARD_DIR/bspconfig.h $BSP_DIR/include
-		cp $BOARD_DIR/bspconfig.h $BSP_DIR/libsrc/standalone/src/
+		cp $WORKING_DIR/bspconfig.h $BSP_DIR/include
+		cp $WORKING_DIR/bspconfig.h $BSP_DIR/libsrc/standalone/src/
 		#Copy xilpm src for apu
 		cp $SERVICES_DIR/xilpm/src/zynqmp/client/apu/* $BSP_DIR/libsrc/xilpm/src/
 		cp $SERVICES_DIR/xilpm/src/zynqmp/client/apu/*.h $BSP_DIR/include/
@@ -120,8 +120,8 @@ if [ $PROC == "a53" ]; then
 		cp -f $STANDALONE_DIR/arm/ARMv8/32bit/gcc/* $BSP_DIR/libsrc/standalone/src/
 		cp -f $STANDALONE_DIR/arm/ARMv8/32bit/platform/ZynqMP/* $BSP_DIR/libsrc/standalone/src/
 		cp -f $STANDALONE_DIR/arm/ARMv8/32bit/*.h $BSP_DIR/include
-		cp $BOARD_DIR/bspconfig32.h $BSP_DIR/include/bspconfig.h
-		cp $BOARD_DIR/bspconfig32.h $BSP_DIR/libsrc/standalone/src/bspconfig.h
+		cp $WORKING_DIR/bspconfig32.h $BSP_DIR/include/bspconfig.h
+		cp $WORKING_DIR/bspconfig32.h $BSP_DIR/libsrc/standalone/src/bspconfig.h
 		#Copy xilpm src for apu
 		cp -rf $SERVICES_DIR/xilpm/src/zynqmp/client/apu/* $BSP_DIR/libsrc/xilpm/src/
 		cp -rf $SERVICES_DIR/xilpm/src/zynqmp/client/apu/*.h $BSP_DIR/include/
@@ -137,8 +137,8 @@ elif [ $PROC == "r5" ]; then
 
 	#include files
 	cp -f $STANDALONE_DIR/arm/cortexr5/*.h $BSP_DIR/include
-	cp $BOARD_DIR/bspconfig32.h $BSP_DIR/include/bspconfig.h
-	cp $BOARD_DIR/bspconfig32.h $BSP_DIR/libsrc/standalone/src/bspconfig.h
+	cp $WORKING_DIR/bspconfig32.h $BSP_DIR/include/bspconfig.h
+	cp $WORKING_DIR/bspconfig32.h $BSP_DIR/libsrc/standalone/src/bspconfig.h
 
 	#copy xilpm src for rpu
 	cp -rf $SERVICES_DIR/xilpm/src/zynqmp/client/rpu/* $BSP_DIR/libsrc/xilpm/src/
@@ -185,8 +185,8 @@ cp -rf $STANDALONE_DIR/arm/common/*.h $BSP_DIR/include/
 cp -rf $STANDALONE_DIR/arm/common/gcc/*.h $BSP_DIR/include/
 cp -rf $STANDALONE_DIR/common/*.h $BSP_DIR/include/
 # no inbyte and outbyte present in standalone
-cp $BOARD_DIR/inbyte.c $BSP_DIR/libsrc/standalone/src/
-cp $BOARD_DIR/outbyte.c $BSP_DIR/libsrc/standalone/src/
+cp $WORKING_DIR/inbyte.c $BSP_DIR/libsrc/standalone/src/
+cp $WORKING_DIR/outbyte.c $BSP_DIR/libsrc/standalone/src/
 cp $BOARD_DIR/xcsudma_g.c $BSP_DIR/libsrc/csudma/src/
 cp $BOARD_DIR/xusbpsu_g.c $BSP_DIR/libsrc/usbpsu/src/
 
