@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +18,8 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   04/21/14 Initial release
 * 2.0   bv   12/02/16 Made compliance to MISRAC 2012 guidelines
+* 3.0   bsv  10/15/21 Fixed bug to support secondary boot with non-zero
+*                     multiboot offset
 *
 * </pre>
 *
@@ -65,10 +67,11 @@ u32 XFsbl_SdInit(u32 DeviceFlags)
 	FRESULT rc;
 	char buffer[32U]={0U};
 	char *boot_file = buffer;
-	u32 MultiBootOffset;
+	u32 MultiBootOffset = 0U;
 	u32 DrvNum;
+	u32 SecBootVal = DeviceFlags & XFSBL_SD_SEC_BOOT_MASK;
 
-	DrvNum = XFsbl_GetDrvNumSD(DeviceFlags);
+	DrvNum = XFsbl_GetDrvNumSD(DeviceFlags & ~XFSBL_SD_SEC_BOOT_MASK);
 
 	/* Set logical drive number */
 	/* Register volume work area, initialize device */
@@ -87,10 +90,12 @@ u32 XFsbl_SdInit(u32 DeviceFlags)
 		goto END;
 	}
 
-	/**
-         * Read the Multiboot Register
-         */
-        MultiBootOffset = XFsbl_In32(CSU_CSU_MULTI_BOOT);
+	if (SecBootVal == 0U) {
+		/**
+		 * Read the Multiboot Register since SD is primary boot mode
+		 */
+		MultiBootOffset = XFsbl_In32(CSU_CSU_MULTI_BOOT);
+	}
 
 	/**
 	 * Create boot image name

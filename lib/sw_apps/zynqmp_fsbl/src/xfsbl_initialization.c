@@ -52,6 +52,8 @@
 *                     avoid speculative accesses
 *       bsv  07/07/21 Assign correct values to SecondaryBootDevice in Fsbl
 *                     instance pointer
+* 9.0   bsv  10/15/21 Fixed bug to support secondary boot with non-zero
+*                     multiboot offset
 *
 * </pre>
 *
@@ -1156,26 +1158,18 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 	 *  Calculate the Flash Offset Address
 	 *  For file system based devices, Flash Offset Address should be 0 always
 	 */
-	if (FsblInstancePtr->SecondaryBootDevice == 0U) {
-		if (!((FsblInstancePtr->PrimaryBootDevice == XFSBL_SD0_BOOT_MODE)
+	if ((FsblInstancePtr->SecondaryBootDevice == 0U) &&
+		(!((FsblInstancePtr->PrimaryBootDevice == XFSBL_SD0_BOOT_MODE)
 				|| (FsblInstancePtr->PrimaryBootDevice == XFSBL_EMMC_BOOT_MODE)
 				|| (FsblInstancePtr->PrimaryBootDevice == XFSBL_SD1_BOOT_MODE)
 				|| (FsblInstancePtr->PrimaryBootDevice == XFSBL_SD1_LS_BOOT_MODE)
-				|| (FsblInstancePtr->PrimaryBootDevice == XFSBL_USB_BOOT_MODE))) {
+				|| (FsblInstancePtr->PrimaryBootDevice == XFSBL_USB_BOOT_MODE)))) {
 			FsblInstancePtr->ImageOffsetAddress = MultiBootOffset
 					* XFSBL_IMAGE_SEARCH_OFFSET;
-		}
 	}
 	else
 	{
-		if (!((FsblInstancePtr->SecondaryBootDevice == XFSBL_SD0_BOOT_MODE)
-				|| (FsblInstancePtr->SecondaryBootDevice == XFSBL_EMMC_BOOT_MODE)
-				|| (FsblInstancePtr->SecondaryBootDevice == XFSBL_SD1_BOOT_MODE)
-				|| (FsblInstancePtr->SecondaryBootDevice == XFSBL_SD1_LS_BOOT_MODE)
-				|| (FsblInstancePtr->SecondaryBootDevice == XFSBL_USB_BOOT_MODE))) {
-			FsblInstancePtr->ImageOffsetAddress = MultiBootOffset
-					* XFSBL_IMAGE_SEARCH_OFFSET;
-		}
+			FsblInstancePtr->ImageOffsetAddress = 0U;
 	}
 
 	FlashImageOffsetAddress = FsblInstancePtr->ImageOffsetAddress;
@@ -1496,7 +1490,7 @@ static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 		FsblInstancePtr->DeviceOps.DeviceInit = XFsbl_SdInit;
 		FsblInstancePtr->DeviceOps.DeviceCopy = XFsbl_SdCopy;
 		FsblInstancePtr->DeviceOps.DeviceRelease = XFsbl_SdRelease;
-		SecBootMode = XFSBL_SD0_BOOT_MODE;
+		SecBootMode = XFSBL_SD0_BOOT_MODE | XFSBL_SD_SEC_BOOT_MASK;
 		Status = XFSBL_SUCCESS;
 #else
 		/**
@@ -1516,7 +1510,7 @@ static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 		FsblInstancePtr->DeviceOps.DeviceInit = XFsbl_SdInit;
 		FsblInstancePtr->DeviceOps.DeviceCopy = XFsbl_SdCopy;
 		FsblInstancePtr->DeviceOps.DeviceRelease = XFsbl_SdRelease;
-		SecBootMode = XFSBL_EMMC_BOOT_MODE;
+		SecBootMode = XFSBL_EMMC_BOOT_MODE | XFSBL_SD_SEC_BOOT_MASK;
 		Status = XFSBL_SUCCESS;
 #else
 		/**
@@ -1537,7 +1531,7 @@ static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 		FsblInstancePtr->DeviceOps.DeviceInit = XFsbl_SdInit;
 		FsblInstancePtr->DeviceOps.DeviceCopy = XFsbl_SdCopy;
 		FsblInstancePtr->DeviceOps.DeviceRelease = XFsbl_SdRelease;
-		SecBootMode = XFSBL_SD1_BOOT_MODE;
+		SecBootMode = XFSBL_SD1_BOOT_MODE | XFSBL_SD_SEC_BOOT_MASK;
 		Status = XFSBL_SUCCESS;
 #else
 		/**
@@ -1560,7 +1554,7 @@ static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 		FsblInstancePtr->DeviceOps.DeviceInit = XFsbl_SdInit;
 		FsblInstancePtr->DeviceOps.DeviceCopy = XFsbl_SdCopy;
 		FsblInstancePtr->DeviceOps.DeviceRelease = XFsbl_SdRelease;
-		SecBootMode = XFSBL_SD1_LS_BOOT_MODE;
+		SecBootMode = XFSBL_SD1_LS_BOOT_MODE | XFSBL_SD_SEC_BOOT_MASK;
 		Status = XFSBL_SUCCESS;
 #else
 		/**

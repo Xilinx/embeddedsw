@@ -21,6 +21,8 @@
 *                     Made compliance to MISRAC 2012 guidelines
 * 3.00  bsv  04/28/21 Added support to ensure authenticated images boot as
 *                     non-secure when RSA_EN is not programmed
+* 4.00  bsv  10/15/21 Fixed bug to support secondary boot with non-zero
+*                     multiboot offset
 *
 * </pre>
 *
@@ -120,6 +122,7 @@ typedef struct {
 #define XFSBL_EMMC_BOOT_MODE		(0x6U)
 #define XFSBL_USB_BOOT_MODE			(0x7U)
 #define XFSBL_SD1_LS_BOOT_MODE	    (0xEU)
+#define XFSBL_SD_SEC_BOOT_MASK		(0x10U)
 
 /**
  * FSBL stages definition
