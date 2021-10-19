@@ -625,13 +625,13 @@ static void XNandPsu_InitTimingMode(XNandPsu *InstancePtr, OnfiParamPage *Param)
 	/* Assert the input arguments. */
 	Xil_AssertVoid(Param != NULL);
 
-	u8 Mode;
+	s8 Mode;
 	u8 TimingMode =  (u8)(Param->SDRTimingMode);
 
 	if (InstancePtr->DataInterface == XNANDPSU_NVDDR)
 		TimingMode = Param->NVDDRTimingMode;
 
-	for(Mode = XNANDPSU_MAX_TIMING_MODE; Mode >= 0; Mode++) {
+	for(Mode = XNANDPSU_MAX_TIMING_MODE; Mode >= 0; Mode--) {
 		if (TimingMode & (0x01 << Mode)) {
 			InstancePtr->TimingMode = Mode;
 			break;
