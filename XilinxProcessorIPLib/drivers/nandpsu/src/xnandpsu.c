@@ -7,7 +7,7 @@
 /**
 *
 * @file xnandpsu.c
-* @addtogroup nandpsu_v1_9
+* @addtogroup nandpsu_v1_10
 * @{
 *
 * This file contains the implementation of the interface functions for
@@ -85,6 +85,7 @@
 * 1.6	sd     20/03/20    Added compilation flag
 * 1.8   sg     03/18/21	   Added validation check for parameter page.
 * 1.9   akm    07/15/21    Initialize NandInstPtr with Data Interface & Timing mode info.
+* 1.10  akm    10/20/21    Fix gcc warnings.
 *
 * </pre>
 *
@@ -461,7 +462,7 @@ static s32 XNandPsu_InitGeometry(XNandPsu *InstancePtr, OnfiParamPage *Param)
 	s32 Status = XST_FAILURE;
 
 	/* Assert the input arguments. */
-	Xil_AssertVoid(Param != NULL);
+	Xil_AssertNonvoid(Param != NULL);
 
 	if (Param->BytesPerPage > XNANDPSU_MAX_PAGE_SIZE) {
 #ifdef XNANDPSU_DEBUG

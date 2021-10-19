@@ -7,7 +7,7 @@
 /**
 *
 * @file xnandpsu.h
-* @addtogroup nandpsu_v1_9
+* @addtogroup nandpsu_v1_10
 * @{
 * @details
 *
@@ -149,6 +149,7 @@
 * 1.6	sd     20/03/20    Added compilation flag
 * 1.8   sg     03/18/21    Added validation check for parameter page.
 * 1.9   akm    07/15/21    Initialize NandInstPtr with Data Interface & Timing mode info.
+* 1.10  akm    10/20/21    Fix gcc warnings.
 *
 * </pre>
 *
