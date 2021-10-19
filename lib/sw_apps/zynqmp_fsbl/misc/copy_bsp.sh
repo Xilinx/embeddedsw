@@ -81,7 +81,11 @@ BSP_SEQUENTIAL_MAKEFILES="BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilsecure/src
 cp -r $SERVICES_DIR/xilpm/ $BSP_DIR/libsrc/
 cp -r $SERVICES_DIR/xilpm/src/zynqmp/client/common/* $BSP_DIR/libsrc/xilpm/src/
 cp -r $SERVICES_DIR/xilpm/src/zynqmp/client/common/*.h $BSP_DIR/include/
-cp $WORKING_DIR/pm_cfg_obj.c  $BSP_DIR/libsrc/xilpm/src/
+if [ -e $BOARD_DIR/pm_cfg_obj.c ]; then
+	cp $BOARD_DIR/pm_cfg_obj.c $BSP_DIR/libsrc/xilpm/src/
+else
+	cp $WORKING_DIR/pm_cfg_obj.c  $BSP_DIR/libsrc/xilpm/src/
+fi
 BSP_SEQUENTIAL_MAKEFILES="BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilpm/src/zynqmp/client/common/Makefile"
 
 rm -rf $BSP_DIR/libsrc/xilpm/src/zynqmp/
