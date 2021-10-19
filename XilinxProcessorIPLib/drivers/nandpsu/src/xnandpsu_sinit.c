@@ -7,7 +7,7 @@
 /**
 *
 * @file xnandpsu_sinit.c
-* @addtogroup nandpsu_v1_9
+* @addtogroup nandpsu_v1_10
 * @{
 *
 * The implementation of the XNandPsu driver's static initialization
