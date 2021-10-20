@@ -14,11 +14,34 @@
 #include "xpm_debug.h"
 #include "xpm_rail.h"
 
+
+static XStatus SendFpdHouseCleanReqToPsm(u32 FuncId, u16 *DbgErr)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Payload[PAYLOAD_ARG_CNT] = {0};
+
+	Payload[0] = PSM_API_FPD_HOUSECLEAN;
+	Payload[1] = FuncId;
+
+	Status = XPm_IpiSend(PSM_IPI_INT_MASK, Payload);
+	if (XST_SUCCESS != Status) {
+		*DbgErr = XPM_INT_ERR_IPI_SEND;
+		goto done;
+	}
+
+	Status = XPm_IpiReadStatus(PSM_IPI_INT_MASK);
+	if (XST_SUCCESS != Status) {
+		*DbgErr = XPM_INT_ERR_IPI_STATUS;
+	}
+
+done:
+	return Status;
+}
+
 static XStatus FpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT] = {0};
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 DisableMask;
 
@@ -41,20 +64,11 @@ static XStatus FpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		goto done;
 	}
 
-	Payload[0] = PSM_API_FPD_HOUSECLEAN;
-	Payload[1] = (u32)FUNC_INIT_START;
-
-	Status = XPm_IpiSend(PSM_IPI_INT_MASK, Payload);
+	Status = SendFpdHouseCleanReqToPsm((u32)FUNC_INIT_START, &DbgErr);
 	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_IPI_SEND;
 		goto done;
 	}
 
-	Status = XPm_IpiReadStatus(PSM_IPI_INT_MASK);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_IPI_STATUS;
-		goto done;
-	}
 	/* Release POR for PS-FPD */
 	Status = XPmReset_AssertbyId(PM_RST_FPD_POR, (u32)PM_RESET_ACTION_RELEASE);
 	if (XST_SUCCESS != Status) {
@@ -90,7 +104,6 @@ static XStatus FpdHcComplete(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT] = {0};
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 SysmonAddr;
 
@@ -105,18 +118,8 @@ static XStatus FpdHcComplete(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		goto done;
 	}
 
-	Payload[0] = PSM_API_FPD_HOUSECLEAN;
-	Payload[1] = (u32)FUNC_INIT_FINISH;
-
-	Status = XPm_IpiSend(PSM_IPI_INT_MASK, Payload);
+	Status = SendFpdHouseCleanReqToPsm((u32)FUNC_INIT_FINISH, &DbgErr);
 	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_IPI_SEND;
-		goto done;
-	}
-
-	Status = XPm_IpiReadStatus(PSM_IPI_INT_MASK);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_IPI_STATUS;
 		goto done;
 	}
 
@@ -205,7 +208,6 @@ static XStatus FpdBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT] = {0};
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	(void)Args;
@@ -219,18 +221,8 @@ static XStatus FpdBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 	/* Call PSM to execute pre bisr requirements */
-	Payload[0] = PSM_API_FPD_HOUSECLEAN;
-	Payload[1] = (u32)FUNC_BISR;
-
-	Status = XPm_IpiSend(PSM_IPI_INT_MASK, Payload);
+	Status = SendFpdHouseCleanReqToPsm((u32)FUNC_BISR, &DbgErr);
 	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_IPI_SEND;
-		goto done;
-	}
-
-	Status = XPm_IpiReadStatus(PSM_IPI_INT_MASK);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_IPI_STATUS;
 		goto done;
 	}
 
@@ -253,11 +245,62 @@ done:
 	return Status;
 }
 
+static XStatus TriggerMemClear(const XPm_Psm *Psm, u16 *DbgErr)
+{
+	XStatus Status = XST_FAILURE;
+
+	PmRmw32(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_MBIST_RST_OFFSET,
+		PSM_GLOBAL_MBIST_RST_FPD_MASK, PSM_GLOBAL_MBIST_RST_FPD_MASK);
+	/* Check that the register value written properly or not! */
+	PmChkRegMask32((Psm->PsmGlobalBaseAddr + PSM_GLOBAL_MBIST_RST_OFFSET),
+			PSM_GLOBAL_MBIST_RST_FPD_MASK, PSM_GLOBAL_MBIST_RST_FPD_MASK, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		*DbgErr = XPM_INT_ERR_REG_WRT_FPDMBISTCLR_RST;
+		goto done;
+	}
+
+	PmRmw32(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_MBIST_SETUP_OFFSET,
+		PSM_GLOBAL_MBIST_SETUP_FPD_MASK, PSM_GLOBAL_MBIST_SETUP_FPD_MASK);
+	/* Check that the register value written properly or not! */
+	PmChkRegMask32((Psm->PsmGlobalBaseAddr + PSM_GLOBAL_MBIST_SETUP_OFFSET),
+			PSM_GLOBAL_MBIST_SETUP_FPD_MASK, PSM_GLOBAL_MBIST_SETUP_FPD_MASK, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		*DbgErr = XPM_INT_ERR_REG_WRT_FPDMBISTCLR_SETUP;
+		goto done;
+	}
+
+	PmRmw32(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_MBIST_PG_EN_OFFSET,
+		PSM_GLOBAL_MBIST_PG_EN_FPD_MASK, PSM_GLOBAL_MBIST_PG_EN_FPD_MASK);
+	/* Check that the register value written properly or not! */
+	PmChkRegMask32((Psm->PsmGlobalBaseAddr + PSM_GLOBAL_MBIST_PG_EN_OFFSET),
+			PSM_GLOBAL_MBIST_PG_EN_FPD_MASK, PSM_GLOBAL_MBIST_PG_EN_FPD_MASK, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		*DbgErr = XPM_INT_ERR_REG_WRT_FPDMBISTCLR_PGEN;
+		goto done;
+	}
+
+	Status = XPm_PollForMask(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_MBIST_DONE_OFFSET,
+				 PSM_GLOBAL_MBIST_DONE_FPD_MASK, 0x10000U);
+	if (XST_SUCCESS != Status) {
+		*DbgErr = XPM_INT_ERR_MBIST_DONE_TIMEOUT;
+		goto done;
+	}
+
+	if (PSM_GLOBAL_MBIST_GO_FPD_MASK !=
+	    (XPm_In32(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_MBIST_GO_OFFSET) &
+	     PSM_GLOBAL_MBIST_GO_FPD_MASK)) {
+		*DbgErr = XPM_INT_ERR_MBIST_GO;
+		Status = XST_FAILURE;
+	}
+
+done:
+	return Status;
+}
+
 static XStatus FpdMbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT] = {0};
 	const XPm_Psm *Psm;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
@@ -267,7 +310,6 @@ static XStatus FpdMbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);;
 	if (NULL == Psm) {
 		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
-		Status = XST_FAILURE;
 		goto done;
 	}
 
@@ -278,18 +320,8 @@ static XStatus FpdMbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		goto done;
 	}
 
-	Payload[0] = PSM_API_FPD_HOUSECLEAN;
-	Payload[1] = (u32)FUNC_MBIST_CLEAR;
-
-	Status = XPm_IpiSend(PSM_IPI_INT_MASK, Payload);
+	Status = SendFpdHouseCleanReqToPsm((u32)FUNC_MBIST_CLEAR, &DbgErr);
 	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_IPI_SEND;
-		goto done;
-	}
-
-	Status = XPm_IpiReadStatus(PSM_IPI_INT_MASK);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_IPI_STATUS;
 		goto done;
 	}
 
@@ -302,48 +334,9 @@ static XStatus FpdMbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	PmInfo("Triggering MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 
-	PmRmw32(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_MBIST_RST_OFFSET,
-		PSM_GLOBAL_MBIST_RST_FPD_MASK, PSM_GLOBAL_MBIST_RST_FPD_MASK);
-	/* Check that the register value written properly or not! */
-	PmChkRegMask32((Psm->PsmGlobalBaseAddr + PSM_GLOBAL_MBIST_RST_OFFSET),
-			PSM_GLOBAL_MBIST_RST_FPD_MASK, PSM_GLOBAL_MBIST_RST_FPD_MASK, Status);
-	if (XPM_REG_WRITE_FAILED == Status) {
-		DbgErr = XPM_INT_ERR_REG_WRT_FPDMBISTCLR_RST;
-		goto done;
-	}
-
-	PmRmw32(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_MBIST_SETUP_OFFSET,
-			PSM_GLOBAL_MBIST_SETUP_FPD_MASK, PSM_GLOBAL_MBIST_SETUP_FPD_MASK);
-	/* Check that the register value written properly or not! */
-	PmChkRegMask32((Psm->PsmGlobalBaseAddr + PSM_GLOBAL_MBIST_SETUP_OFFSET),
-			PSM_GLOBAL_MBIST_SETUP_FPD_MASK, PSM_GLOBAL_MBIST_SETUP_FPD_MASK, Status);
-	if (XPM_REG_WRITE_FAILED == Status) {
-		DbgErr = XPM_INT_ERR_REG_WRT_FPDMBISTCLR_SETUP;
-		goto done;
-	}
-
-	PmRmw32(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_MBIST_PG_EN_OFFSET,
-			PSM_GLOBAL_MBIST_PG_EN_FPD_MASK, PSM_GLOBAL_MBIST_PG_EN_FPD_MASK);
-	/* Check that the register value written properly or not! */
-	PmChkRegMask32((Psm->PsmGlobalBaseAddr + PSM_GLOBAL_MBIST_PG_EN_OFFSET),
-			PSM_GLOBAL_MBIST_PG_EN_FPD_MASK, PSM_GLOBAL_MBIST_PG_EN_FPD_MASK, Status);
-	if (XPM_REG_WRITE_FAILED == Status) {
-		DbgErr = XPM_INT_ERR_REG_WRT_FPDMBISTCLR_PGEN;
-		goto done;
-	}
-
-	Status = XPm_PollForMask(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_MBIST_DONE_OFFSET,
-				 PSM_GLOBAL_MBIST_DONE_FPD_MASK, 0x10000U);
+	Status = TriggerMemClear(Psm, &DbgErr);
 	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_MBIST_DONE_TIMEOUT;
 		goto done;
-	}
-
-	if (PSM_GLOBAL_MBIST_GO_FPD_MASK !=
-	    (XPm_In32(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_MBIST_GO_OFFSET) &
-	     PSM_GLOBAL_MBIST_GO_FPD_MASK)) {
-		DbgErr = XPM_INT_ERR_MBIST_GO;
-		Status = XST_FAILURE;
 	}
 
 	/* Unwrite trigger bits */
