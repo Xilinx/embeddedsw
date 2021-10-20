@@ -887,6 +887,101 @@ done:
 	return Status;
 }
 
+static XStatus TriggerMemClear(u16 *DbgErr)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* Clear MEM_CLEAR_EN_ALL to minimize power during mem clear */
+	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_MEM_CLEAR_EN_ALL_MASK, 0U);
+	if (XST_SUCCESS != Status) {
+		*DbgErr = XPM_INT_ERR_MEM_CLEAR_EN;
+		goto done;
+	}
+
+	/* Set OD_MBIST_ASYNC_RESET_N bit */
+	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_OD_MBIST_ASYNC_RESET_N_MASK,
+			      ME_NPI_REG_PCSR_MASK_OD_MBIST_ASYNC_RESET_N_MASK);
+	if (XST_SUCCESS != Status) {
+		*DbgErr = XPM_INT_ERR_MBIST_RESET;
+		goto done;
+	}
+
+	/* Assert OD_BIST_SETUP_1 */
+	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_OD_BIST_SETUP_1_MASK,
+			      ME_NPI_REG_PCSR_MASK_OD_BIST_SETUP_1_MASK);
+	if (XST_SUCCESS != Status) {
+		*DbgErr = XPM_INT_ERR_BIST_RESET;
+		goto done;
+	}
+
+	/* Assert MEM_CLEAR_TRIGGER */
+	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_MEM_CLEAR_TRIGGER_MASK,
+			      ME_NPI_REG_PCSR_MASK_MEM_CLEAR_TRIGGER_MASK);
+	if (XST_SUCCESS != Status) {
+		*DbgErr = XPM_INT_ERR_MEM_CLEAR_TRIGGER;
+	}
+
+done:
+	return Status;
+}
+
+static XStatus IsMemClearDone(const u32 BaseAddress, u16 *DbgErr)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* Wait for Mem Clear DONE */
+	Status = XPm_PollForMask(BaseAddress + NPI_PCSR_STATUS_OFFSET,
+				 ME_NPI_REG_PCSR_STATUS_MEM_CLEAR_DONE_MASK,
+				 AIE_POLL_TIMEOUT);
+	if (Status != XST_SUCCESS) {
+		*DbgErr = XPM_INT_ERR_MEM_CLEAR_DONE_TIMEOUT;
+		XPlmi_Printf(DEBUG_INFO, "ERROR\r\n");
+		goto done;
+	}
+	else {
+		XPlmi_Printf(DEBUG_INFO, "DONE\r\n");
+	}
+
+	/* Check Mem Clear PASS */
+	if ((XPm_In32(BaseAddress + NPI_PCSR_STATUS_OFFSET) &
+		      ME_NPI_REG_PCSR_STATUS_MEM_CLEAR_PASS_MASK) !=
+		      ME_NPI_REG_PCSR_STATUS_MEM_CLEAR_PASS_MASK) {
+		XPlmi_Printf(DEBUG_GENERAL, "ERROR: %s: AIE Mem Clear FAILED\r\n", __func__);
+		*DbgErr = XPM_INT_ERR_MEM_CLEAR_PASS;
+		Status = XST_FAILURE;
+	}
+
+done:
+	return Status;
+}
+
+static XStatus CleanupMemClear(u16 *DbgErr)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* Clear OD_MBIST_ASYNC_RESET_N bit */
+	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_OD_MBIST_ASYNC_RESET_N_MASK, 0U);
+	if (XST_SUCCESS != Status) {
+		*DbgErr = XPM_INT_ERR_MBIST_RESET_RELEASE;
+		goto done;
+	}
+
+	/* De-assert OD_BIST_SETUP_1 */
+	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_OD_BIST_SETUP_1_MASK, 0U);
+	if (XST_SUCCESS != Status) {
+		*DbgErr = XPM_INT_ERR_BIST_RESET_RELEASE;
+		goto done;
+	}
+
+	/* De-assert MEM_CLEAR_TRIGGER */
+	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_MEM_CLEAR_TRIGGER_MASK, 0U);
+	if (XST_SUCCESS != Status) {
+		*DbgErr = XPM_INT_ERR_MEM_CLEAR_TRIGGER_UNSET;
+	}
+done:
+	return Status;
+}
+
 static XStatus AieMbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
@@ -913,80 +1008,20 @@ static XStatus AieMbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 				HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK)) {
 		PmInfo("Triggering MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 
-		/* Clear MEM_CLEAR_EN_ALL to minimize power during mem clear */
-		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_MEM_CLEAR_EN_ALL_MASK, 0U);
+		Status = TriggerMemClear(&DbgErr);
 		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_MEM_CLEAR_EN;
-			goto fail;
-		}
-
-		/* Set OD_MBIST_ASYNC_RESET_N bit */
-		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_OD_MBIST_ASYNC_RESET_N_MASK,
-					ME_NPI_REG_PCSR_MASK_OD_MBIST_ASYNC_RESET_N_MASK);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_MBIST_RESET;
-			goto fail;
-		}
-
-		/* Assert OD_BIST_SETUP_1 */
-		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_OD_BIST_SETUP_1_MASK,
-					ME_NPI_REG_PCSR_MASK_OD_BIST_SETUP_1_MASK);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_BIST_RESET;
-			goto fail;
-		}
-
-		/* Assert MEM_CLEAR_TRIGGER */
-		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_MEM_CLEAR_TRIGGER_MASK,
-			ME_NPI_REG_PCSR_MASK_MEM_CLEAR_TRIGGER_MASK);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_MEM_CLEAR_TRIGGER;
 			goto fail;
 		}
 
 		XPlmi_Printf(DEBUG_INFO, "INFO: %s : Wait for AIE Mem Clear complete...", __func__);
 
-		/* Wait for Mem Clear DONE */
-		Status = XPm_PollForMask(BaseAddress + NPI_PCSR_STATUS_OFFSET,
-					ME_NPI_REG_PCSR_STATUS_MEM_CLEAR_DONE_MASK,
-					AIE_POLL_TIMEOUT);
-		if (Status != XST_SUCCESS) {
-			DbgErr = XPM_INT_ERR_MEM_CLEAR_DONE_TIMEOUT;
-			XPlmi_Printf(DEBUG_INFO, "ERROR\r\n");
-			goto fail;
-		}
-		else {
-			XPlmi_Printf(DEBUG_INFO, "DONE\r\n");
-		}
-
-		/* Check Mem Clear PASS */
-		if ((XPm_In32(BaseAddress + NPI_PCSR_STATUS_OFFSET) &
-			ME_NPI_REG_PCSR_STATUS_MEM_CLEAR_PASS_MASK) !=
-			ME_NPI_REG_PCSR_STATUS_MEM_CLEAR_PASS_MASK) {
-			XPlmi_Printf(DEBUG_GENERAL, "ERROR: %s: AIE Mem Clear FAILED\r\n", __func__);
-			DbgErr = XPM_INT_ERR_MEM_CLEAR_PASS;
-			Status = XST_FAILURE;
-			goto fail;
-		}
-
-		/* Clear OD_MBIST_ASYNC_RESET_N bit */
-		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_OD_MBIST_ASYNC_RESET_N_MASK, 0U);
+		Status = IsMemClearDone(BaseAddress, &DbgErr);
 		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_MBIST_RESET_RELEASE;
 			goto fail;
 		}
 
-		/* De-assert OD_BIST_SETUP_1 */
-		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_OD_BIST_SETUP_1_MASK, 0U);
+		Status = CleanupMemClear(&DbgErr);
 		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_BIST_RESET_RELEASE;
-			goto fail;
-		}
-
-		/* De-assert MEM_CLEAR_TRIGGER */
-		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_MEM_CLEAR_TRIGGER_MASK, 0U);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_MEM_CLEAR_TRIGGER_UNSET;
 			goto fail;
 		}
 	} else {
