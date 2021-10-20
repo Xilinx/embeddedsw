@@ -2072,6 +2072,160 @@ done:
 	return Status;
 }
 
+static XStatus XPmPin_ConfigSlewRate(u32 BaseAddr, u32 BitMask, u32 Value)
+{
+	XStatus Status = XST_FAILURE;
+
+	if ((u32)PINCTRL_SLEW_RATE_SLOW == Value) {
+		XPm_RMW32((BaseAddr + SEL_SLEW), BitMask, 0);
+	} else if ((u32)PINCTRL_SLEW_RATE_FAST == Value) {
+		XPm_RMW32((BaseAddr + SEL_SLEW), BitMask, BitMask);
+	} else {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+	Status = XST_SUCCESS;
+done:
+	return Status;
+}
+
+static XStatus XPmPin_ConfigBiasStatus(XPm_PinNode *Pin, u32 BaseAddr,
+				       u32 BitMask, u32 Value)
+{
+	XStatus Status = XST_FAILURE;
+	u32 RegPuAddr, RegPdAddr;
+
+	RegPuAddr = BaseAddr + EN_WK_PU;
+	RegPdAddr = BaseAddr + EN_WK_PD;
+
+	if (((u32)PINCTRL_BIAS_ENABLE != Value) &&
+	    ((u32)PINCTRL_BIAS_DISABLE != Value)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	if (((u32)PINCTRL_BIAS_ENABLE == Value) &&
+	    ((u32)PINCTRL_BIAS_DISABLE == Pin->BiasStatus)) {
+		if ((u32)PINCTRL_BIAS_PULL_UP == Pin->PullCtrl) {
+			PmRmw32(RegPuAddr, BitMask, BitMask);
+		} else {
+			PmRmw32(RegPdAddr, BitMask, BitMask);
+		}
+	} else if (((u32)PINCTRL_BIAS_DISABLE == Value) &&
+		   ((u32)PINCTRL_BIAS_ENABLE == Pin->BiasStatus)) {
+		PmRmw32(RegPdAddr, BitMask, 0);
+		PmRmw32(RegPuAddr, BitMask, 0);
+	} else {
+		/* Required by MISRA */
+	}
+	Pin->BiasStatus = (u8)(Value & BITMASK(PIN_NODE_BIASSTATUS_BIT_FIELD_SIZE));
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+static XStatus XPmPin_ConfigPullCtrl(XPm_PinNode *Pin, u32 BaseAddr, u32 BitMask,
+				     u32 Value)
+{
+	XStatus Status = XST_FAILURE;
+	u32 RegPuAddr, RegPdAddr;
+
+	RegPuAddr = BaseAddr + EN_WK_PU;
+	RegPdAddr = BaseAddr + EN_WK_PD;
+
+	if ((u32)PINCTRL_BIAS_ENABLE == Pin->BiasStatus) {
+		if ((u32)PINCTRL_BIAS_PULL_UP == Value) {
+			/* Disable weak pull-down */
+			PmRmw32(RegPdAddr, BitMask, 0);
+			/* Enable weak pull-up */
+			PmRmw32(RegPuAddr, BitMask, BitMask);
+		} else if ((u32)PINCTRL_BIAS_PULL_DOWN == Value) {
+			/* Disable weak pull-up */
+			PmRmw32(RegPuAddr, BitMask, 0);
+			/* Enable weak pull-down */
+			PmRmw32(RegPdAddr, BitMask, BitMask);
+		} else {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+	}
+	Pin->PullCtrl = (u8)(Value & BITMASK(PIN_NODE_PULLCTRL_BIT_FIELD_SIZE));
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+static XStatus XPmPin_ConfigSchmittCmos(u32 BaseAddr, u32 BitMask, u32 Value)
+{
+	XStatus Status = XST_FAILURE;
+
+	if ((u32)PINCTRL_INPUT_TYPE_CMOS == Value) {
+		PmRmw32((BaseAddr + EN_RX_SCHMITT_HYST), BitMask, 0);
+	} else if ((u32)PINCTRL_INPUT_TYPE_SCHMITT == Value) {
+		PmRmw32((BaseAddr + EN_RX_SCHMITT_HYST), BitMask, BitMask);
+	} else {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+	Status = XST_SUCCESS;
+done:
+	return Status;
+}
+
+static XStatus XPmPin_ConfigDriveStrength(const XPm_PinNode *Pin, u32 BaseAddr, u32 Value)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Val = Value;
+	u32 BitMask;
+
+	if ((u32)PINCTRL_DRIVE_STRENGTH_MAX <= Val) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	if ((PINNUM(Pin->Node.Id) * SEL_DRV_WIDTH) < BITS_IN_REG) {
+		Val <<= PINNUM(Pin->Node.Id);
+		BitMask = SEL_DRV0_MASK(Pin->Node.Id);
+		PmRmw32((BaseAddr + SEL_DRV0), BitMask, Val);
+	} else {
+		Val <<= (PINNUM(Pin->Node.Id) - (BITS_IN_REG / SEL_DRV_WIDTH));
+		BitMask = SEL_DRV1_MASK(Pin->Node.Id);
+		PmRmw32((BaseAddr + SEL_DRV1), BitMask, Val);
+	}
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+static XStatus XPmPin_ConfigTriState(XPm_PinNode *Pin, u32 BitMask, u32 Value)
+{
+	XStatus Status = XST_FAILURE;
+	u32 BaseAddr;
+
+	if ((u32)XPM_NODETYPE_LPD_MIO == NODETYPE(Pin->Node.Id)) {
+		BaseAddr = Pin->Node.BaseAddress + TRI_STATE + 4U;
+	} else {
+		BaseAddr = Pin->Node.BaseAddress + TRI_STATE + ((Pin->Bank) * 4U);
+	}
+
+	if ((u32)PINCTRL_TRI_STATE_ENABLE == Value) {
+		PmRmw32(BaseAddr, BitMask, BitMask);
+	} else if ((u32)PINCTRL_TRI_STATE_DISABLE == Value) {
+		/* Add check to make sure that domain is powered on */
+		PmRmw32(BaseAddr, BitMask, 0);
+	} else {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+	Pin->TriState = (u8)(Value & BITMASK(PIN_NODE_TRISTATE_BIT_FIELD_SIZE));
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
 /****************************************************************************/
 /**
  * @brief  This function sets pin configuration on given pin.
@@ -2088,16 +2242,12 @@ XStatus XPmPin_SetPinConfig(u32 PinId, u32 Param, u32 ParamValue)
 	XStatus Status = XST_FAILURE;
 	XPm_PinNode *Pin;
 	u32 BitMask, BaseAddr;
-	u32 RegPuAddr, RegPdAddr;
 	u32 Value = ParamValue;
 
 	Pin = XPmPin_GetById(PinId);
-
 	if (NULL == Pin) {
 		Status = XST_INVALID_PARAM;
 		goto done;
-	} else {
-		/* Required by MISRA */
 	}
 
 	BitMask = (u32)1U << (PINNUM(Pin->Node.Id) % PINS_PER_BANK);
@@ -2105,115 +2255,22 @@ XStatus XPmPin_SetPinConfig(u32 PinId, u32 Param, u32 ParamValue)
 
 	switch (Param) {
 	case (u32)PINCTRL_CONFIG_SLEW_RATE:
-		if ((u32)PINCTRL_SLEW_RATE_SLOW == Value) {
-			XPm_RMW32((BaseAddr + SEL_SLEW), BitMask, 0);
-		} else if ((u32)PINCTRL_SLEW_RATE_FAST == Value) {
-			XPm_RMW32((BaseAddr + SEL_SLEW), BitMask, BitMask);
-		} else {
-			Status = XST_INVALID_PARAM;
-			goto done;
-		}
-		Status = XST_SUCCESS;
+		Status = XPmPin_ConfigSlewRate(BaseAddr, BitMask, Value);
 		break;
 	case (u32)PINCTRL_CONFIG_BIAS_STATUS:
-		RegPuAddr = BaseAddr + EN_WK_PU;
-		RegPdAddr = BaseAddr + EN_WK_PD;
-
-		if (((u32)PINCTRL_BIAS_ENABLE != Value) &&
-		    ((u32)PINCTRL_BIAS_DISABLE != Value)) {
-			Status = XST_INVALID_PARAM;
-			goto done;
-		}
-
-		if (((u32)PINCTRL_BIAS_ENABLE == Value) &&
-		    ((u32)PINCTRL_BIAS_DISABLE == Pin->BiasStatus)) {
-			if ((u32)PINCTRL_BIAS_PULL_UP == Pin->PullCtrl) {
-				PmRmw32(RegPuAddr, BitMask, BitMask);
-			} else {
-				PmRmw32(RegPdAddr, BitMask, BitMask);
-			}
-		} else if (((u32)PINCTRL_BIAS_DISABLE == Value) &&
-			   ((u32)PINCTRL_BIAS_ENABLE == Pin->BiasStatus)) {
-			PmRmw32(RegPdAddr, BitMask, 0);
-			PmRmw32(RegPuAddr, BitMask, 0);
-		} else {
-			/* Required by MISRA */
-		}
-		Pin->BiasStatus =
-			(u8)(Value & BITMASK(PIN_NODE_BIASSTATUS_BIT_FIELD_SIZE));
-		Status = XST_SUCCESS;
+		Status = XPmPin_ConfigBiasStatus(Pin, BaseAddr, BitMask, Value);
 		break;
 	case (u32)PINCTRL_CONFIG_PULL_CTRL:
-		RegPuAddr = BaseAddr + EN_WK_PU;
-		RegPdAddr = BaseAddr + EN_WK_PD;
-
-		if ((u32)PINCTRL_BIAS_ENABLE == Pin->BiasStatus) {
-			if ((u32)PINCTRL_BIAS_PULL_UP == Value) {
-				/* Disable weak pull-down */
-				PmRmw32(RegPdAddr, BitMask, 0);
-				/* Enable weak pull-up */
-				PmRmw32(RegPuAddr, BitMask, BitMask);
-			} else if ((u32)PINCTRL_BIAS_PULL_DOWN == Value) {
-				/* Disable weak pull-up */
-				PmRmw32(RegPuAddr, BitMask, 0);
-				/* Enable weak pull-down */
-				PmRmw32(RegPdAddr, BitMask, BitMask);
-			} else {
-				Status = XST_INVALID_PARAM;
-				goto done;
-			}
-		}
-		Pin->PullCtrl =
-			(u8)(Value & BITMASK(PIN_NODE_PULLCTRL_BIT_FIELD_SIZE));
-		Status = XST_SUCCESS;
+		Status = XPmPin_ConfigPullCtrl(Pin, BaseAddr, BitMask, Value);
 		break;
 	case (u32)PINCTRL_CONFIG_SCHMITT_CMOS:
-		if ((u32)PINCTRL_INPUT_TYPE_CMOS == Value) {
-			PmRmw32((BaseAddr + EN_RX_SCHMITT_HYST), BitMask, 0);
-		} else if ((u32)PINCTRL_INPUT_TYPE_SCHMITT == Value) {
-			PmRmw32((BaseAddr + EN_RX_SCHMITT_HYST), BitMask, BitMask);
-		} else {
-			Status = XST_INVALID_PARAM;
-			goto done;
-		}
-		Status = XST_SUCCESS;
+		Status = XPmPin_ConfigSchmittCmos(BaseAddr, BitMask, Value);
 		break;
 	case (u32)PINCTRL_CONFIG_DRIVE_STRENGTH:
-		if (Value >= (u32)PINCTRL_DRIVE_STRENGTH_MAX) {
-			Status = XST_INVALID_PARAM;
-			goto done;
-		}
-
-		if ((PINNUM(Pin->Node.Id) * SEL_DRV_WIDTH) < BITS_IN_REG) {
-			Value <<= PINNUM(Pin->Node.Id);
-			BitMask = SEL_DRV0_MASK(Pin->Node.Id);
-			PmRmw32((BaseAddr + SEL_DRV0), BitMask, Value);
-		} else {
-			Value <<= (PINNUM(Pin->Node.Id) - (BITS_IN_REG / SEL_DRV_WIDTH));
-			BitMask = SEL_DRV1_MASK(Pin->Node.Id);
-			PmRmw32((BaseAddr + SEL_DRV1), BitMask, Value);
-		}
-		Status = XST_SUCCESS;
+		Status = XPmPin_ConfigDriveStrength(Pin, BaseAddr, Value);
 		break;
 	case (u32)PINCTRL_CONFIG_TRI_STATE:
-		if ((u32)XPM_NODETYPE_LPD_MIO == NODETYPE(Pin->Node.Id)) {
-			BaseAddr = Pin->Node.BaseAddress + TRI_STATE + 4U;
-		} else {
-			BaseAddr = Pin->Node.BaseAddress + TRI_STATE + ((Pin->Bank) * 4U);
-		}
-
-		if (Value == (u32)PINCTRL_TRI_STATE_ENABLE) {
-			PmRmw32(BaseAddr, BitMask, BitMask);
-		} else if (Value == (u32)PINCTRL_TRI_STATE_DISABLE) {
-			/* Add check to make sure that domain is powered on */
-			PmRmw32(BaseAddr, BitMask, 0);
-		} else {
-			Status = XST_INVALID_PARAM;
-			goto done;
-		}
-		Pin->TriState =
-			(u8)(Value & BITMASK(PIN_NODE_TRISTATE_BIT_FIELD_SIZE));
-		Status = XST_SUCCESS;
+		Status = XPmPin_ConfigTriState(Pin, BitMask, Value);
 		break;
 	default:
 		Status = XST_INVALID_PARAM;
