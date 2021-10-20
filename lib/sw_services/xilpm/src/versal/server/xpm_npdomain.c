@@ -766,6 +766,44 @@ done:
 	return Status;
 }
 
+static XStatus XPmNpDomain_IsParentPowerNoc(const XPm_Node *Node, u16 *DbgErr)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_Power *Power;
+
+	/* Node's parent power dmain should be NOC */
+	Power = (XPm_Power *)Node;
+	if ((u32)XPM_NODECLASS_DEVICE == NODECLASS(Power->Node.Id)) {
+		if ((u32)PM_POWER_NOC != Power->Parent->Node.Id) {
+			*DbgErr = XPM_INT_ERR_INVALID_NODE;
+			goto done;
+		}
+	} else if (((u32)XPM_NODECLASS_POWER == NODECLASS(Power->Node.Id)) &&
+		   ((u32)XPM_NODESUBCL_POWER_DOMAIN == NODESUBCLASS(Power->Node.Id))) {
+		const XPm_PowerDomain *PowerD = (XPm_PowerDomain *)Node;
+		u32 i = 0U;
+		while (MAX_POWERDOMAINS > i) {
+			Power = (XPm_Power *)XPmPower_GetById(PowerD->Parents[i]);
+			i++;
+			if ((u32)PM_POWER_NOC == Power->Node.Id) {
+				break;
+			}
+		}
+
+		if (MAX_POWERDOMAINS == i) {
+			*DbgErr = XPM_INT_ERR_INVALID_NODE;
+			goto done;
+		}
+	} else {
+		*DbgErr = XPM_INT_ERR_INVALID_NODE;
+		goto done;
+	}
+
+	Status = XST_SUCCESS;
+done:
+	return Status;
+}
+
 /****************************************************************************/
 /**
  * @brief  This function turns the NOC clock off/on by gateing the clock.
@@ -785,36 +823,12 @@ XStatus XPmNpDomain_ClockGate(const XPm_Node *Node, u8 State)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	const XPm_Power *Power;
 	u32 BaseAddress, Reg;
 	u32 SlrType;
 	u32 Clock_State;
 
-	/* Node's parent power dmain should be NOC */
-	Power = (XPm_Power *)Node;
-	if (NODECLASS(Power->Node.Id) == (u32)XPM_NODECLASS_DEVICE) {
-		if (Power->Parent->Node.Id != (u32)PM_POWER_NOC) {
-			DbgErr = XPM_INT_ERR_INVALID_NODE;
-			goto done;
-		}
-	} else if ((NODECLASS(Power->Node.Id) == (u32)XPM_NODECLASS_POWER) &&
-		   (NODESUBCLASS(Power->Node.Id) == (u32)XPM_NODESUBCL_POWER_DOMAIN)) {
-		const XPm_PowerDomain *PowerD = (XPm_PowerDomain *)Node;
-		u32 i = 0U;
-		while (i < MAX_POWERDOMAINS) {
-			Power = (XPm_Power *)XPmPower_GetById(PowerD->Parents[i]);
-			i++;
-			if (Power->Node.Id == (u32)PM_POWER_NOC) {
-				break;
-			}
-		}
-
-		if (MAX_POWERDOMAINS == i) {
-			DbgErr = XPM_INT_ERR_INVALID_NODE;
-			goto done;
-		}
-	} else {
-		DbgErr = XPM_INT_ERR_INVALID_NODE;
+	Status = XPmNpDomain_IsParentPowerNoc(Node, &DbgErr);
+	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
