@@ -69,8 +69,20 @@ struct XPm_NodeAccess {
 void XPmAccess_RegnodeInit(XPm_RegNode *RegNode,
 			   u32 NodeId, u32 BaseAddress, XPm_Power *Power);
 
+/* Set node access handler */
 XStatus XPmAccess_UpdateTable(XPm_NodeAccess *NodeEntry,
 			      const u32 *Args, u32 NumArgs);
+
+/* IOCTL handlers */
+XStatus XPmAccess_ReadReg(u32 SubsystemId,
+			  u32 DeviceId,
+			  u32 Offset, u32 Count,
+			  u32 *const Response, u32 CmdType);
+
+XStatus XPmAccess_MaskWriteReg(u32 SubsystemId,
+			       u32 DeviceId,
+			       u32 Offset, u32 Mask, u32 Value,
+			       u32 CmdType);
 
 #ifdef __cplusplus
 }

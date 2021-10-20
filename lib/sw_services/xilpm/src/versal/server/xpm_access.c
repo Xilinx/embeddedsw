@@ -9,6 +9,36 @@
 static XPm_RegNode *PmRegnodes;
 static XPm_NodeAccess *PmNodeAccessTable;
 
+XStatus XPmAccess_ReadReg(u32 SubsystemId, u32 DeviceId,
+			  u32 Offset, u32 Count,
+			  u32 *const Response, u32 CmdType)
+{
+	(void)SubsystemId;
+	(void)DeviceId;
+	(void)Offset;
+	(void)Count;
+	(void)Response;
+	(void)CmdType;
+
+	/* TODO */
+	return XST_SUCCESS;
+}
+
+XStatus XPmAccess_MaskWriteReg(u32 SubsystemId, u32 DeviceId,
+			       u32 Offset, u32 Mask, u32 Value,
+			       u32 CmdType)
+{
+	(void)SubsystemId;
+	(void)DeviceId;
+	(void)Offset;
+	(void)Mask;
+	(void)Value;
+	(void)CmdType;
+
+	/* TODO */
+	return XST_SUCCESS;
+}
+
 /****************************************************************************/
 /**
  * @brief  Add a new node access entry to the "Node Access Table"

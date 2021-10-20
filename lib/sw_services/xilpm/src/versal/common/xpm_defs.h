@@ -350,6 +350,9 @@ typedef enum {
 	/* Runtime feature configuration */
 	IOCTL_SET_FEATURE_CONFIG,			/**< Set runtime feature config */
 	IOCTL_GET_FEATURE_CONFIG,			/**< Get runtime feature config */
+	/* Generic IOCTL Read/Write */
+	IOCTL_READ_REG,					/**< Read a 32-bit register */
+	IOCTL_MASK_WRITE_REG,				/**< RMW a 32-bit register */
 } pm_ioctl_id;
 
 /**

@@ -18,6 +18,7 @@
 #include "xpm_periph.h"
 #include "xpm_requirement.h"
 #include "xplmi.h"
+#include "xpm_access.h"
 
 static u32 PsmGgsValues[GGS_REGS] = {0U};
 
@@ -959,7 +960,8 @@ done:
 }
 
 XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id IoctlId,
-	      const u32 Arg1, const u32 Arg2, u32 *const Response, const u32 CmdType)
+	      const u32 Arg1, const u32 Arg2, const u32 Arg3,
+	      u32 *const Response, const u32 CmdType)
 {
 	XStatus Status = XPM_ERR_IOCTL;
 
@@ -1030,6 +1032,16 @@ XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id I
 		break;
 	case IOCTL_AIE_ISR_CLEAR:
 		Status = XPm_AieISRClear(SubsystemId, DeviceId, Arg1);
+		break;
+	case IOCTL_READ_REG:
+		Status = XPmAccess_ReadReg(SubsystemId, DeviceId,
+					   Arg1, Arg2,
+					   Response, CmdType);
+		break;
+	case IOCTL_MASK_WRITE_REG:
+		Status = XPmAccess_MaskWriteReg(SubsystemId, DeviceId,
+						Arg1, Arg2, Arg3,
+						CmdType);
 		break;
 	case IOCTL_SET_PLL_FRAC_MODE:
 	case IOCTL_GET_PLL_FRAC_MODE:

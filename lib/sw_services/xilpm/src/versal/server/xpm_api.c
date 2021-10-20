@@ -590,7 +590,8 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		break;
 	case PM_API(PM_IOCTL):
 		Status = XPm_DevIoctl(SubsystemId, Pload[0], (pm_ioctl_id) Pload[1],
-				      Pload[2], Pload[3], ApiResponse, Cmd->IpiReqType);
+				      Pload[2], Pload[3], Pload[4],
+				      ApiResponse, Cmd->IpiReqType);
 		break;
 	case PM_API(PM_INIT_FINALIZE):
 		Status = XPm_InitFinalize(SubsystemId);
@@ -3415,6 +3416,7 @@ XStatus XPm_GetPinParameter(const u32 PinId,
  * @param IoctlId		IOCTL function ID
  * @param Arg1			Argument 1
  * @param Arg2			Argument 2
+ * @param Arg3			Argument 3
  * @param Response		Ioctl response
  * @param CmdType		IPI command request type
  *
@@ -3430,12 +3432,14 @@ XStatus XPm_GetPinParameter(const u32 PinId,
 XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
 			const pm_ioctl_id  IoctlId,
 			const u32 Arg1,
-			const u32 Arg2, u32 *const Response,
+			const u32 Arg2,
+			const u32 Arg3,
+			u32 *const Response,
 			const u32 CmdType)
 {
 	XStatus Status;
 
-	Status = XPm_Ioctl(SubsystemId, DeviceId, IoctlId, Arg1, Arg2,
+	Status = XPm_Ioctl(SubsystemId, DeviceId, IoctlId, Arg1, Arg2, Arg3,
 			   Response, CmdType);
 	if (XST_SUCCESS != Status) {
 		PmErr("0x%x\n\r", Status);

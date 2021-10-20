@@ -70,6 +70,7 @@
 *       bsv  09/20/2021 Fixed logical error in processing Cdos
 *       bm   09/23/2021 Fix R5 partition load issue
 * 1.07  kpt  10/07/2021 Decoupled checksum functionality from secure code
+*       is   10/12/2021 Updated XPm_DevIoctl to reflect additional command arg
 *
 * </pre>
 *
@@ -392,19 +393,19 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 
 	if (PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_0) {
 		Status = XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_0,
-			IOCTL_SET_RPU_OPER_MODE, XPM_RPU_MODE_SPLIT, 0U, &Mode,
+			IOCTL_SET_RPU_OPER_MODE, XPM_RPU_MODE_SPLIT, 0U, 0U, &Mode,
 			XPLMI_CMD_SECURE);
 		ErrorCode = XLOADER_ERR_PM_DEV_IOCTL_RPU0_SPLIT;
 	}
 	else if (PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_1) {
 		Status = XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_1,
-			IOCTL_SET_RPU_OPER_MODE, XPM_RPU_MODE_SPLIT, 0U, &Mode,
+			IOCTL_SET_RPU_OPER_MODE, XPM_RPU_MODE_SPLIT, 0U, 0U, &Mode,
 			XPLMI_CMD_SECURE);
 		ErrorCode = XLOADER_ERR_PM_DEV_IOCTL_RPU1_SPLIT;
 	}
 	else if (PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_L) {
 		Status = XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_0,
-			IOCTL_SET_RPU_OPER_MODE, XPM_RPU_MODE_LOCKSTEP, 0U,
+			IOCTL_SET_RPU_OPER_MODE, XPM_RPU_MODE_LOCKSTEP, 0U, 0U,
 			&Mode, XPLMI_CMD_SECURE);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(
@@ -412,7 +413,7 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 			goto END;
 		}
 		Status = XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_1,
-			IOCTL_SET_RPU_OPER_MODE, XPM_RPU_MODE_LOCKSTEP, 0U,
+			IOCTL_SET_RPU_OPER_MODE, XPM_RPU_MODE_LOCKSTEP, 0U, 0U,
 			&Mode, XPLMI_CMD_SECURE);
 		ErrorCode = XLOADER_ERR_PM_DEV_IOCTL_RPU1_LOCKSTEP;
 	}
