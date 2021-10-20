@@ -31,6 +31,11 @@ extern "C" {
 #define TARGET_IPI_INT_MASK		XPAR_XIPIPS_TARGET_PSV_PMC_0_CH0_MASK
 
 /**
+ * This macro defines "always false" value which is of boolean type.
+ */
+#define XPM_FALSE_COND			(0U != 0U)
+
+/**
  * XPm_Proc - Processor structure
  */
 struct XPm_Proc {
@@ -56,16 +61,16 @@ extern char ProcName[5];
 
 /* Conditional debugging prints */
 #ifdef DEBUG_MODE
-	#define XPm_Dbg(MSG, ...) 	do { XPm_Print(MSG, ##__VA_ARGS__); } while (0)
+	#define XPm_Dbg(MSG, ...) 	do { XPm_Print(MSG, ##__VA_ARGS__); } while (XPM_FALSE_COND)
 #else
-	#define XPm_Dbg(MSG, ...)	do {} while (0)
+	#define XPm_Dbg(MSG, ...)	do {} while (XPM_FALSE_COND)
 #endif
 
 /* Define below macro to disable error prints for memory constrained applications */
 #ifndef DISABLE_ERROR_PRINTS
-	#define XPm_Err(MSG, ...) 	do { XPm_Print("ERROR: "MSG, ##__VA_ARGS__); } while (0)
+	#define XPm_Err(MSG, ...) 	do { XPm_Print("ERROR: "MSG, ##__VA_ARGS__); } while (XPM_FALSE_COND)
 #else
-	#define XPm_Err(MSG, ...)	do {} while (0)
+	#define XPm_Err(MSG, ...)	do {} while (XPM_FALSE_COND)
 #endif
 
 #define pm_print		XPm_Dbg

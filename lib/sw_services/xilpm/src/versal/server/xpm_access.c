@@ -169,6 +169,17 @@ static XStatus XPmAccess_IsAllowed(u32 SubsystemId, u32 DeviceId,
 	XStatus Status = XST_FAILURE;
 	XPm_NodeAccessMatch Match = { NULL, NULL };
 
+	/**
+	 * Check sanity of given offset:
+	 *  - Max offset width must be NODE_APER_OFFSET_BIT_FIELD_SIZE
+	 *  - Offset must be aligned on a word boundary
+	 */
+	if ((0U != (Offset & ~NODE_APER_OFFSET_MASK)) ||
+	    (0U != (Offset & (sizeof(int) - 1U)))) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
 	Status = XPmAccess_LookupEntry(DeviceId, Offset, &Match);
 	if (XST_SUCCESS != Status) {
 		goto done;

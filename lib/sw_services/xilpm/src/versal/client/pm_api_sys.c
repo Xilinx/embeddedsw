@@ -829,6 +829,76 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  This function performs driver-like IOCTL functions on shared system
+ * devices.
+ *
+ * @param DeviceId              ID of the device
+ * @param IoctlId               IOCTL function ID
+ * @param Payload               Payload buffer
+ * @param Response              Response buffer for Ioctl Response
+ * @param PayloadSize           Payload buffer size
+ * @param ResponseSize          Response buffer size
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note This API is a new version of existing API XPm_DevIoctl API.
+ * It supports all the IOCTL functions supported by the old API and it adds
+ * support for a couple new ones.
+ * Users should migrate to using the new API signature in their applications.
+ * The older API will be deprecated and support for it may be removed in
+ * future releases.
+ *
+ * There are multiple reasons for introducing a new API signature:
+ *  - The old API had fixed number of payload arguments, the new one supports
+ *  variable length of payload buffer for forward compatibility
+ *  - To maintain backwards compatibility for old API
+ *  - For scalability reasons when support for "large payload" is introduced
+ *
+ ****************************************************************************/
+XStatus XPm_DevIoctl2(u32 DeviceId, pm_ioctl_id IoctlId,
+		      const u32 *Payload, u32 PayloadSize,
+		      u32 *const Response, u32 ResponseSize)
+{
+	XStatus Status = (s32)XST_FAILURE;
+	u32 CmdPayload[PAYLOAD_ARG_CNT];
+
+	if ((NULL == Payload) || (NULL == Response)) {
+		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
+		Status = (s32)XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/*
+	 * Payload: 3 for API/Node/Ioctl Ids + 2 for Reserved/CRC
+	 * Response: 4 for Reserved/CRC
+	 */
+	if (((PAYLOAD_ARG_CNT - 5U) < PayloadSize) ||
+	    ((RESPONSE_ARG_CNT - 4U) < ResponseSize)) {
+		XPm_Err("Invalid size of Payload/Response buffer %s\r\n",
+				__func__);
+		Status = (s32)XST_INVALID_PARAM;
+		goto done;
+	}
+
+	PACK_PAYLOAD5(CmdPayload, PM_IOCTL, DeviceId, IoctlId,
+			Payload[0], Payload[1], Payload[2]);
+
+	/* Send request to the target module */
+	Status = XPm_IpiSend(PrimaryProc, CmdPayload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	Status = Xpm_IpiReadBuff32(PrimaryProc, Response, NULL, NULL);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief  This function is used to enable the specified clock
  *
  * @param  ClockId		Clock ID

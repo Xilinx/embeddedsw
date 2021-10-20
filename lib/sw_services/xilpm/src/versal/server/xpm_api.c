@@ -4911,7 +4911,6 @@ XStatus XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
 	case PM_API(PM_PINCTRL_SET_FUNCTION):
 	case PM_API(PM_PINCTRL_CONFIG_PARAM_GET):
 	case PM_API(PM_PINCTRL_CONFIG_PARAM_SET):
-	case PM_API(PM_IOCTL):
 	case PM_API(PM_CLOCK_ENABLE):
 	case PM_API(PM_CLOCK_DISABLE):
 	case PM_API(PM_CLOCK_GETSTATE):
@@ -4943,6 +4942,10 @@ XStatus XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
 		break;
 	case PM_API(PM_REGISTER_NOTIFIER):
 		*Version = XST_API_REG_NOTIFIER_VERSION;
+		Status = XST_SUCCESS;
+		break;
+	case PM_API(PM_IOCTL):
+		*Version = XST_API_PM_IOCTL_VERSION;
 		Status = XST_SUCCESS;
 		break;
 	default:
