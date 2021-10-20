@@ -653,7 +653,8 @@ typedef enum {
 	PM_FEATURE_CHECK,				/**< 0x3F */
 	PM_ISO_CONTROL,					/**< 0x40 */
 	PM_ACTIVATE_SUBSYSTEM,				/**< 0x41 */
-	PM_API_MAX					/**< 0x42 */
+	PM_SET_NODE_ACCESS,				/**< 0x42 */
+	PM_API_MAX					/**< 0x43 */
 } XPm_ApiId;
 
 /**

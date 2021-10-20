@@ -183,6 +183,53 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  This function adds node entry to the access table
+ *
+ * @param Args		node specific arguments
+ * @param NumArgs	number of arguments
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ ****************************************************************************/
+static XStatus XPm_SetNodeAccess(const u32 *Args, u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u32 NodeId;
+	XPm_NodeAccess *NodeEntry;
+
+	/* SET_NODE_ACCESS <NodeId: Arg0> <Arg 1,2> <Arg 3,4> ... */
+	if ((NumArgs < 3U) || (NumArgs % 2U == 0U)) {
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	NodeId = Args[0];
+
+	/* TODO: Check if NodeId is present in database */
+
+	NodeEntry = XPm_AllocBytes(sizeof(XPm_NodeAccess));
+	if (NULL == NodeEntry) {
+		Status = XST_BUFFER_TOO_SMALL;
+		goto done;
+	}
+	NodeEntry->Id = NodeId;
+	NodeEntry->Aperture = NULL;
+	NodeEntry->NextNode = NULL;
+
+	Status = XPmAccess_UpdateTable(NodeEntry, Args, NumArgs);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief  This function adds the Healthy boot monitor node through software.
  *
  * @param  DeviceId 	Device Id
@@ -583,6 +630,9 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		break;
 	case PM_API(PM_ACTIVATE_SUBSYSTEM):
 		Status = XPm_ActivateSubsystem(SubsystemId, Pload[0]);
+		break;
+	case PM_API(PM_SET_NODE_ACCESS):
+		Status = XPm_SetNodeAccess(&Pload[0], Len);
 		break;
 	default:
 		PmErr("CMD: INVALID PARAM\r\n");
@@ -4878,6 +4928,7 @@ XStatus XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
 	case PM_API(PM_ADD_NODE_NAME):
 	case PM_API(PM_ADD_REQUIREMENT):
 	case PM_API(PM_INIT_NODE):
+	case PM_API(PM_SET_NODE_ACCESS):
 	case PM_API(PM_FEATURE_CHECK):
 		*Version = XST_API_BASE_VERSION;
 		Status = XST_SUCCESS;
