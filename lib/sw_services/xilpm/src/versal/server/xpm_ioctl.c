@@ -376,6 +376,7 @@ done:
 /**
  * @brief  This function sets the controller into either D3 or D0 state
  *
+ * @param  SubsystemId	SubsystemId of the subsystem
  * @param  DeviceId	DeviceId of the device
  * @param  ReqState	Requested State (0 - D0, 3 - D3)
  * @param  TimeOut	TimeOut value in micro secs to wait for D3/D0 entry
@@ -383,8 +384,8 @@ done:
  * @return XST_SUCCESS if successful else error code
  *
  ****************************************************************************/
-static XStatus XPm_USBDxState(const u32 DeviceId, const u32 ReqState,
-			  const u32 TimeOut)
+static XStatus XPm_USBDxState(const u32 SubsystemId, const u32 DeviceId,
+			      const u32 ReqState, const u32 TimeOut)
 {
 	XStatus Status = XST_FAILURE;
 	const XPm_Pmc *Pmc;
@@ -393,7 +394,16 @@ static XStatus XPm_USBDxState(const u32 DeviceId, const u32 ReqState,
 	u32 CurState;
 	u32 LocalTimeOut;
 
-	(void)DeviceId;
+	if (PM_DEV_USB_0 != DeviceId) {
+		Status = XPM_INVALID_DEVICEID;
+		goto done;
+	}
+
+	Status = XPm_IsAccessAllowed(SubsystemId, DeviceId);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
 	LocalTimeOut = TimeOut;
 
 	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
@@ -435,6 +445,7 @@ done:
 /**
  * @brief  This function selects/returns the AXI interface to OSPI device
  *
+ * @param  SubsystemId	SubsystemId of the subsystem
  * @param  DeviceId	DeviceId of the device
  * @param  Type		Reset type
  * @param  Response	Output Response (0 - DMA, 1 - LINEAR)
@@ -442,14 +453,22 @@ done:
  * @return XST_SUCCESS if successful else error code or a reason code
  *
  ****************************************************************************/
-static XStatus XPm_OspiMuxSelect(const u32 DeviceId, const u32 Type, u32 *Response)
+static XStatus XPm_OspiMuxSelect(const u32 SubsystemId, const u32 DeviceId,
+				 const u32 Type, u32 *Response)
 {
 	XStatus Status = XST_FAILURE;
 	const XPm_Pmc *Pmc;
 	u32 BaseAddress;
 	u32 Offset;
 
-	(void)DeviceId;
+	if (PM_DEV_OSPI != DeviceId) {
+		goto done;
+	}
+
+	Status = XPm_IsAccessAllowed(SubsystemId, DeviceId);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 	if (NULL == Pmc) {
@@ -650,7 +669,8 @@ done:
 }
 
 
-static XStatus XPm_ReadPggs(u32 PggsNum, u32 *Value)
+static XStatus XPm_ReadPggs(const u32 SubsystemId, const u32 PggsNum,
+			    u32 *const Value, const u32 CmdType)
 {
 	XStatus Status = XST_FAILURE;
 	const XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
@@ -662,6 +682,14 @@ static XStatus XPm_ReadPggs(u32 PggsNum, u32 *Value)
 
 	if ((PSM_PGGS_REGS + PMC_PGGS_REGS) <= PggsNum) {
 		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Status = XPmIoctl_IsOperationAllowed(PggsNum, SubsystemId,
+					     PggsReadPermissions,
+					     (u32)XPM_NODETYPE_DEV_PGGS,
+					     CmdType);
+	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
@@ -678,13 +706,12 @@ static XStatus XPm_ReadPggs(u32 PggsNum, u32 *Value)
 		       ((PggsNum - 2U) << 2U), *Value);
 	}
 
-	Status = XST_SUCCESS;
-
 done:
 	return Status;
 }
 
-static XStatus XPm_WritePggs(u32 PggsNum, u32 Value)
+static XStatus XPm_WritePggs(const u32 SubsystemId, const u32 PggsNum,
+			     const u32 Value, const u32 CmdType)
 {
 	XStatus Status = XST_FAILURE;
 	const XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
@@ -696,6 +723,14 @@ static XStatus XPm_WritePggs(u32 PggsNum, u32 Value)
 
 	if ((PSM_PGGS_REGS + PMC_PGGS_REGS) <= PggsNum) {
 		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Status = XPmIoctl_IsOperationAllowed(PggsNum, SubsystemId,
+					     PggsWritePermissions,
+					     (u32)XPM_NODETYPE_DEV_PGGS,
+					     CmdType);
+	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
@@ -712,30 +747,36 @@ static XStatus XPm_WritePggs(u32 PggsNum, u32 Value)
 			((PggsNum - 2U) << 2U), Value);
 	}
 
-	Status = XST_SUCCESS;
-
 done:
 	return Status;
 }
 
-static XStatus XPm_ReadGgs(u32 GgsNum, u32 *Value)
+static XStatus XPm_ReadGgs(const u32 SubsystemId, const u32 GgsNum,
+			   u32 *const Value, const u32 CmdType)
 {
 	XStatus Status = XST_FAILURE;
 
 	if (GGS_REGS <= GgsNum) {
 		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Status = XPmIoctl_IsOperationAllowed(GgsNum, SubsystemId,
+					     GgsReadPermissions,
+					     (u32)XPM_NODETYPE_DEV_GGS,
+					     CmdType);
+	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
 	*Value = PsmGgsValues[GgsNum];
 
-	Status = XST_SUCCESS;
-
 done:
 	return Status;
 }
 
-static XStatus XPm_WriteGgs(u32 GgsNum, u32 Value)
+static XStatus XPm_WriteGgs(const u32 SubsystemId, const u32 GgsNum,
+			    const u32 Value, const u32 CmdType)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -744,9 +785,15 @@ static XStatus XPm_WriteGgs(u32 GgsNum, u32 Value)
 		goto done;
 	}
 
-	PsmGgsValues[GgsNum] = Value;
+	Status = XPmIoctl_IsOperationAllowed(GgsNum, SubsystemId,
+					     GgsWritePermissions,
+					     (u32)XPM_NODETYPE_DEV_GGS,
+					     CmdType);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
-	Status = XST_SUCCESS;
+	PsmGgsValues[GgsNum] = Value;
 
 done:
 	return Status;
@@ -759,6 +806,11 @@ static XStatus XPm_AieISRClear(u32 SubsystemId, u32 AieDeviceId, u32 Value)
 	u32 IntrClear = 0x0U;
 	u32 IdCode = XPm_GetIdCode();
 	u32 PlatformVersion = XPm_GetPlatformVersion();
+
+	if (PM_DEV_AIE != AieDeviceId) {
+		Status = XPM_INVALID_DEVICEID;
+		goto done;
+	}
 
 	Aie = XPmDevice_GetById(AieDeviceId);
 	if (NULL == Aie) {
@@ -793,128 +845,136 @@ done:
 	return Status;
 }
 
+static XStatus XPm_SetBootHealth(const u32 Value)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_Pmc *Pmc;
+
+	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
+	if (NULL == Pmc) {
+		goto done;
+	}
+
+	PmRmw32(Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_GGS4_OFFSET,
+		XPM_BOOT_HEALTH_STATUS_MASK, Value);
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+static void XPm_GetLastResetReason(u32 *const Response)
+{
+	if (CRP_RESET_REASON_SW_POR_MASK ==
+			(ResetReason & CRP_RESET_REASON_SW_POR_MASK)) {
+		*Response = XPM_RESET_REASON_SW_POR;
+	} else if (CRP_RESET_REASON_SLR_POR_MASK ==
+			(ResetReason & CRP_RESET_REASON_SLR_POR_MASK)) {
+		*Response = XPM_RESET_REASON_SLR_POR;
+	} else if (CRP_RESET_REASON_ERR_POR_MASK ==
+			(ResetReason & CRP_RESET_REASON_ERR_POR_MASK)) {
+		*Response = XPM_RESET_REASON_ERR_POR;
+	} else if (CRP_RESET_REASON_DAP_SYS_MASK ==
+			(ResetReason & CRP_RESET_REASON_DAP_SYS_MASK)) {
+		*Response = XPM_RESET_REASON_DAP_SRST;
+	} else if (CRP_RESET_REASON_SW_SYS_MASK ==
+			(ResetReason & CRP_RESET_REASON_SW_SYS_MASK)) {
+		*Response = XPM_RESET_REASON_SW_SRST;
+	} else if (CRP_RESET_REASON_ERR_SYS_MASK ==
+			(ResetReason & CRP_RESET_REASON_ERR_SYS_MASK)) {
+		*Response = XPM_RESET_REASON_ERR_SRST;
+	} else if (CRP_RESET_REASON_SLR_SYS_MASK ==
+			(ResetReason & CRP_RESET_REASON_SLR_SYS_MASK)) {
+		*Response = XPM_RESET_REASON_SLR_SRST;
+	} else if (CRP_RESET_REASON_EXTERNAL_POR_MASK ==
+			(ResetReason & CRP_RESET_REASON_EXTERNAL_POR_MASK)) {
+		*Response = XPM_RESET_REASON_EXT_POR;
+	} else {
+		*Response = XPM_RESET_REASON_INVALID;
+	}
+}
+
+static XStatus XPm_TapDelayOper(const pm_ioctl_id IoctlId, const u32 SubsystemId,
+				const u32 DeviceId, const u32 Arg1, const u32 Arg2)
+{
+	XStatus Status = XST_FAILURE;
+
+	if ((IOCTL_SET_TAPDELAY_BYPASS == IoctlId) && (PM_DEV_QSPI != DeviceId)) {
+		Status = XPM_INVALID_DEVICEID;
+		goto done;
+	}
+
+	Status = XPm_IsAccessAllowed(SubsystemId, DeviceId);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	if (IOCTL_SET_TAPDELAY_BYPASS == IoctlId) {
+		Status = XPm_SetTapdelayBypass(DeviceId, Arg1, Arg2);
+	} else if (IOCTL_SD_DLL_RESET == IoctlId) {
+		Status = XPm_SdDllReset(DeviceId, Arg1);
+	} else if (IOCTL_SET_SD_TAPDELAY == IoctlId) {
+		Status = XPm_SetSdTapDelay(DeviceId, Arg1, Arg2);
+	} else {
+		Status = XST_INVALID_PARAM;
+	}
+
+done:
+	return Status;
+}
+
 XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id IoctlId,
 	      const u32 Arg1, const u32 Arg2, u32 *const Response, const u32 CmdType)
 {
 	XStatus Status = XPM_ERR_IOCTL;
-	const XPm_Pmc *Pmc;
 
-	switch (IoctlId) {
-	case IOCTL_GET_RPU_OPER_MODE:
+	if ((IOCTL_GET_RPU_OPER_MODE == IoctlId) ||
+	    (IOCTL_SET_RPU_OPER_MODE == IoctlId) ||
+	    (IOCTL_RPU_BOOT_ADDR_CONFIG == IoctlId) ||
+	    (IOCTL_TCM_COMB_CONFIG == IoctlId)) {
 		if ((PM_DEV_RPU0_0 != DeviceId) &&
 		    (PM_DEV_RPU0_1 != DeviceId)) {
 			Status = XPM_INVALID_DEVICEID;
 			goto done;
 		}
+	}
+
+	switch (IoctlId) {
+	case IOCTL_GET_RPU_OPER_MODE:
 		XPm_RpuGetOperMode(DeviceId, Response);
 		Status = XST_SUCCESS;
 		break;
 	case IOCTL_SET_RPU_OPER_MODE:
-		if ((PM_DEV_RPU0_0 != DeviceId) &&
-		    (PM_DEV_RPU0_1 != DeviceId)) {
-			Status = XPM_INVALID_DEVICEID;
-			goto done;
-		}
 		XPm_RpuSetOperMode(DeviceId, Arg1);
 		Status = XST_SUCCESS;
 		break;
 	case IOCTL_RPU_BOOT_ADDR_CONFIG:
-		if ((PM_DEV_RPU0_0 != DeviceId) &&
-		    (PM_DEV_RPU0_1 != DeviceId)) {
-			goto done;
-		}
 		Status = XPm_RpuBootAddrConfig(DeviceId, Arg1);
 		break;
 	case IOCTL_TCM_COMB_CONFIG:
-		if ((PM_DEV_RPU0_0 != DeviceId) &&
-		    (PM_DEV_RPU0_1 != DeviceId)) {
-			Status = XPM_INVALID_DEVICEID;
-			goto done;
-		}
 		Status = XPm_RpuTcmCombConfig(DeviceId, Arg1);
 		break;
 	case IOCTL_SET_TAPDELAY_BYPASS:
-		if (PM_DEV_QSPI != DeviceId) {
-			Status = XPM_INVALID_DEVICEID;
-			goto done;
-		}
-
-		Status = XPm_IsAccessAllowed(SubsystemId, DeviceId);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-
-		Status = XPm_SetTapdelayBypass(DeviceId, Arg1, Arg2);
-		break;
 	case IOCTL_SD_DLL_RESET:
-		Status = XPm_IsAccessAllowed(SubsystemId, DeviceId);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-
-		Status = XPm_SdDllReset(DeviceId, Arg1);
-		break;
 	case IOCTL_SET_SD_TAPDELAY:
-		Status = XPm_IsAccessAllowed(SubsystemId, DeviceId);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-
-		Status = XPm_SetSdTapDelay(DeviceId, Arg1, Arg2);
+		Status = XPm_TapDelayOper(IoctlId, SubsystemId, DeviceId,
+					  Arg1, Arg2);
 		break;
 	case IOCTL_WRITE_GGS:
-		Status = XPmIoctl_IsOperationAllowed(Arg1, SubsystemId,
-						     GgsWritePermissions,
-						     (u32)XPM_NODETYPE_DEV_GGS,
-						     CmdType);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-
-		Status = XPm_WriteGgs(Arg1, Arg2);
+		Status = XPm_WriteGgs(SubsystemId, Arg1, Arg2, CmdType);
 		break;
 	case IOCTL_READ_GGS:
-		Status = XPmIoctl_IsOperationAllowed(Arg1, SubsystemId,
-						     GgsReadPermissions,
-						     (u32)XPM_NODETYPE_DEV_GGS,
-						     CmdType);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-
-		Status = XPm_ReadGgs(Arg1, Response);
+		Status = XPm_ReadGgs(SubsystemId, Arg1, Response, CmdType);
 		break;
 	case IOCTL_WRITE_PGGS:
-		Status = XPmIoctl_IsOperationAllowed(Arg1, SubsystemId,
-						     PggsWritePermissions,
-						     (u32)XPM_NODETYPE_DEV_PGGS,
-						     CmdType);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-
-		Status = XPm_WritePggs(Arg1, Arg2);
+		Status = XPm_WritePggs(SubsystemId, Arg1, Arg2, CmdType);
 		break;
 	case IOCTL_READ_PGGS:
-		Status = XPmIoctl_IsOperationAllowed(Arg1, SubsystemId,
-						     PggsReadPermissions,
-						     (u32)XPM_NODETYPE_DEV_PGGS,
-						     CmdType);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-
-		Status = XPm_ReadPggs(Arg1, Response);
+		Status = XPm_ReadPggs(SubsystemId, Arg1, Response, CmdType);
 		break;
 	case IOCTL_SET_BOOT_HEALTH_STATUS:
-		Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
-		if (NULL == Pmc) {
-			Status = XST_FAILURE;
-			goto done;
-		}
-		PmRmw32(Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_GGS4_OFFSET,
-			XPM_BOOT_HEALTH_STATUS_MASK, Arg1);
-		Status = XST_SUCCESS;
+		Status = XPm_SetBootHealth(Arg1);
 		break;
 	case IOCTL_PROBE_COUNTER_READ:
 		Status = XPm_ProbeCounterAccess(DeviceId, Arg1, Arg2,
@@ -925,64 +985,16 @@ XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id I
 						Response, 1U);
 		break;
 	case IOCTL_OSPI_MUX_SELECT:
-		if (PM_DEV_OSPI != DeviceId) {
-			goto done;
-		}
-
-		Status = XPm_IsAccessAllowed(SubsystemId, DeviceId);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-
-		Status = XPm_OspiMuxSelect(DeviceId, Arg1, Response);
+		Status = XPm_OspiMuxSelect(SubsystemId, DeviceId, Arg1, Response);
 		break;
 	case IOCTL_USB_SET_STATE:
-		if (PM_DEV_USB_0 != DeviceId) {
-			goto done;
-		}
-
-		Status = XPm_IsAccessAllowed(SubsystemId, DeviceId);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-
-		Status = XPm_USBDxState(DeviceId, Arg1, Arg2);
+		Status = XPm_USBDxState(SubsystemId, DeviceId, Arg1, Arg2);
 		break;
 	case IOCTL_GET_LAST_RESET_REASON:
-		if (CRP_RESET_REASON_SW_POR_MASK ==
-		    (ResetReason & CRP_RESET_REASON_SW_POR_MASK)) {
-			*Response = XPM_RESET_REASON_SW_POR;
-		} else if (CRP_RESET_REASON_SLR_POR_MASK ==
-			   (ResetReason & CRP_RESET_REASON_SLR_POR_MASK)) {
-			*Response = XPM_RESET_REASON_SLR_POR;
-		} else if (CRP_RESET_REASON_ERR_POR_MASK ==
-			   (ResetReason & CRP_RESET_REASON_ERR_POR_MASK)) {
-			*Response = XPM_RESET_REASON_ERR_POR;
-		} else if (CRP_RESET_REASON_DAP_SYS_MASK ==
-			   (ResetReason & CRP_RESET_REASON_DAP_SYS_MASK)) {
-			*Response = XPM_RESET_REASON_DAP_SRST;
-		} else if (CRP_RESET_REASON_SW_SYS_MASK ==
-			   (ResetReason & CRP_RESET_REASON_SW_SYS_MASK)) {
-			*Response = XPM_RESET_REASON_SW_SRST;
-		} else if (CRP_RESET_REASON_ERR_SYS_MASK ==
-			   (ResetReason & CRP_RESET_REASON_ERR_SYS_MASK)) {
-			*Response = XPM_RESET_REASON_ERR_SRST;
-		} else if (CRP_RESET_REASON_SLR_SYS_MASK ==
-			   (ResetReason & CRP_RESET_REASON_SLR_SYS_MASK)) {
-			*Response = XPM_RESET_REASON_SLR_SRST;
-		} else if (CRP_RESET_REASON_EXTERNAL_POR_MASK ==
-			   (ResetReason & CRP_RESET_REASON_EXTERNAL_POR_MASK)) {
-			*Response = XPM_RESET_REASON_EXT_POR;
-		} else {
-			*Response = XPM_RESET_REASON_INVALID;
-		}
+		XPm_GetLastResetReason(Response);
 		Status = XST_SUCCESS;
 		break;
 	case IOCTL_AIE_ISR_CLEAR:
-		if (PM_DEV_AIE != DeviceId) {
-			Status = XPM_INVALID_DEVICEID;
-			goto done;
-		}
 		Status = XPm_AieISRClear(SubsystemId, DeviceId, Arg1);
 		break;
 	case IOCTL_SET_PLL_FRAC_MODE:
