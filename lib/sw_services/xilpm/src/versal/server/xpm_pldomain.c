@@ -613,39 +613,17 @@ done:
 	return Status;
 }
 
-static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
-		u32 NumOfArgs)
+static XStatus IsPlPowerUp(const XPm_Pmc *Pmc, u16 *DbgErr)
 {
 	XStatus Status = XST_FAILURE;
 	XStatus IntRailPwrSts = XST_FAILURE;
 	XStatus RamRailPwrSts = XST_FAILURE;
 	XStatus AuxRailPwrSts = XST_FAILURE;
-	XStatus SocRailPwrSts = XST_FAILURE;
-	const XPm_PlDomain *Pld = (XPm_PlDomain *)PwrDomain;
 	u32 PlPowerUpTime=0;
-	u32 Platform = XPm_GetPlatform();
-	u32 IdCode = XPm_GetIdCode();
-	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	u32 DisableMask;
-
-	(void)Args;
-	(void)NumOfArgs;
-
 	const XPm_Rail *VccintRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PL);
 	const XPm_Rail *VccRamRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_RAM);
 	const XPm_Rail *VccauxRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCAUX);
-	const XPm_Rail *VccSocRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_SOC);
-	const XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 
-	/* Get houseclean disable mask */
-	DisableMask = XPm_In32(PM_HOUSECLEAN_DISABLE_REG_2) >> HOUSECLEAN_PLD_SHIFT;
-
-	/* Set Houseclean Mask */
-	PwrDomain->HcDisableMask |= DisableMask;
-
-
-	/* If PL power is still not up, return error as PLD can't
-	   be initialized */
 	if (1U != HcleanDone) {
 		while (TRUE) {
 			IntRailPwrSts = XPmPower_CheckPower(VccintRail,
@@ -665,8 +643,7 @@ static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 			if (PlPowerUpTime > XPM_POLL_TIMEOUT)
 			{
 				XPlmi_Printf(DEBUG_GENERAL, "ERROR: PL Power Up TimeOut\n\r");
-				DbgErr = XPM_INT_ERR_POWER_SUPPLY;
-				Status = XST_FAILURE;
+				*DbgErr = XPM_INT_ERR_POWER_SUPPLY;
 				/* TODO: Request PMC to power up all required rails and wait for the acknowledgement.*/
 				goto done;
 			}
@@ -685,9 +662,48 @@ static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 		Status = XPmPlDomain_InitandHouseclean();
 		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_DOMAIN_INIT_AND_HC;
+			*DbgErr = XPM_INT_ERR_DOMAIN_INIT_AND_HC;
 			goto done;
 		}
+	}
+
+done:
+	return Status;
+}
+
+static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
+{
+	XStatus Status = XST_FAILURE;
+	XStatus RamRailPwrSts = XST_FAILURE;
+	XStatus AuxRailPwrSts = XST_FAILURE;
+	XStatus SocRailPwrSts = XST_FAILURE;
+	const XPm_PlDomain *Pld = (XPm_PlDomain *)PwrDomain;
+	u32 Platform = XPm_GetPlatform();
+	u32 IdCode = XPm_GetIdCode();
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 DisableMask;
+
+	(void)Args;
+	(void)NumOfArgs;
+
+	const XPm_Rail *VccRamRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_RAM);
+	const XPm_Rail *VccauxRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCAUX);
+	const XPm_Rail *VccSocRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_SOC);
+	const XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
+
+	/* Get houseclean disable mask */
+	DisableMask = XPm_In32(PM_HOUSECLEAN_DISABLE_REG_2) >> HOUSECLEAN_PLD_SHIFT;
+
+	/* Set Houseclean Mask */
+	PwrDomain->HcDisableMask |= DisableMask;
+
+
+	/* If PL power is still not up, return error as PLD can't
+	   be initialized */
+	Status = IsPlPowerUp(Pmc, &DbgErr);
+	if (XST_SUCCESS != Status) {
+		goto done;
 	}
 
 	/*
