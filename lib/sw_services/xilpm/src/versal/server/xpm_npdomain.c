@@ -309,15 +309,162 @@ done:
 	return Status;
 }
 
-static XStatus NpdMbist(const XPm_PowerDomain *PwrDomain, const u32 *Args,
-		u32 NumOfArgs)
+static void TriggerMemClear(const u32 *DdrMcAddresses, const u32 DdrMcAddrLength)
+{
+	u32 i;
+
+	/*TODO: Recognise NSU nodes using node type from node structure*/
+	for (i = 0U; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {
+		if ((((u32)XPM_NODEIDX_MEMIC_NSU_MIN1 <= i) &&
+		     ((u32)XPM_NODEIDX_MEMIC_NSU_MAX1 >= i)) ||
+		    (((u32)XPM_NODEIDX_MEMIC_NSU_MIN2 <= i) &&
+		     ((u32)XPM_NODEIDX_MEMIC_NSU_MAX2 >= i)) ||
+		    (0U == NpdMemIcAddresses[i])) {
+			continue;
+		}
+
+		PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_MASK_OFFSET,
+			NPI_PCSR_CONTROL_MEM_CLEAR_TRIGGER_MASK);
+		PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_CONTROL_OFFSET,
+			NPI_PCSR_CONTROL_MEM_CLEAR_TRIGGER_MASK);
+	}
+	for (i = 0U; i < DdrMcAddrLength; i++) {
+		if (0U == DdrMcAddresses[i]) {
+			continue;
+		}
+		PmOut32(DdrMcAddresses[i] + NPI_PCSR_MASK_OFFSET,
+			NPI_PCSR_CONTROL_MEM_CLEAR_TRIGGER_MASK);
+		PmOut32(DdrMcAddresses[i] + NPI_PCSR_CONTROL_OFFSET,
+			NPI_PCSR_CONTROL_MEM_CLEAR_TRIGGER_MASK);
+	}
+}
+
+static XStatus IsMemClearDone(const u32 *DdrMcAddresses, const u32 DdrMcAddrLength,
+			      u16 *DbgErr)
+{
+	XStatus Status = XST_FAILURE;
+	u32 i;
+
+	for (i = 0U; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {
+		if (0U == NpdMemIcAddresses[i]) {
+			continue;
+		}
+
+		Status = XPm_PollForMask(NpdMemIcAddresses[i] + NPI_PCSR_STATUS_OFFSET,
+					 NPI_PCSR_STATUS_MEM_CLEAR_DONE_MASK,
+					 XPM_POLL_TIMEOUT);
+		if (XST_SUCCESS != Status) {
+			*DbgErr = XPM_INT_ERR_MEM_CLEAR_DONE_TIMEOUT;
+			goto done;
+		}
+	}
+	for (i = 0U; i < DdrMcAddrLength; i++) {
+		if (0U == DdrMcAddresses[i]) {
+			continue;
+		}
+		Status = XPm_PollForMask(DdrMcAddresses[i] + NPI_PCSR_STATUS_OFFSET,
+					 NPI_PCSR_STATUS_MEM_CLEAR_DONE_MASK,
+					 XPM_POLL_TIMEOUT);
+		if (XST_SUCCESS != Status) {
+			*DbgErr = XPM_INT_ERR_DDR_MEM_CLEAR_DONE;
+			break;
+		}
+	}
+
+done:
+	return Status;
+}
+
+static XStatus IsMemClearPass(const u32 *DdrMcAddresses, const u32 DdrMcAddrLength,
+			      u16 *DbgErr)
 {
 	XStatus Status = XST_FAILURE;
 	u32 RegValue;
 	u32 i;
+
+	for (i = 0U; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {
+		if (0U == NpdMemIcAddresses[i]) {
+			continue;
+		}
+
+		PmIn32(NpdMemIcAddresses[i] + NPI_PCSR_STATUS_OFFSET, RegValue);
+		if (NPI_PCSR_STATUS_MEM_CLEAR_PASS_MASK !=
+		    (RegValue & NPI_PCSR_STATUS_MEM_CLEAR_PASS_MASK)) {
+			*DbgErr = XPM_INT_ERR_MEM_CLEAR_PASS;
+			goto done;
+		}
+	}
+	for (i = 0U; i < DdrMcAddrLength; i++) {
+		if (0U == DdrMcAddresses[i]) {
+			continue;
+		}
+		PmIn32(DdrMcAddresses[i] + NPI_PCSR_STATUS_OFFSET, RegValue);
+		if (NPI_PCSR_STATUS_MEM_CLEAR_PASS_MASK !=
+		    (RegValue & NPI_PCSR_STATUS_MEM_CLEAR_PASS_MASK)) {
+			*DbgErr = XPM_INT_ERR_DDR_MEM_CLEAR_PASS;
+			goto done;
+		}
+	}
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+static void CleanupMemClear(const u32 *DdrMcAddresses, const u32 DdrMcAddrLength)
+{
+	u32 i;
+
+	for (i = 0U; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {
+		if (0U == NpdMemIcAddresses[i]) {
+			continue;
+		}
+
+                PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_MASK_OFFSET,
+			NPI_PCSR_CONTROL_MEM_CLEAR_TRIGGER_MASK);
+                PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_CONTROL_OFFSET, 0);
+        }
+
+        for (i = 0U; i < DdrMcAddrLength; i++) {
+		if (0U == DdrMcAddresses[i]) {
+			continue;
+		}
+                PmOut32(DdrMcAddresses[i] + NPI_PCSR_MASK_OFFSET,
+                        NPI_PCSR_CONTROL_MEM_CLEAR_TRIGGER_MASK);
+		PmOut32(DdrMcAddresses[i] + NPI_PCSR_CONTROL_OFFSET, 0);
+	}
+}
+
+static void AssertPcsrLockMem(const u32 *DdrMcAddresses, const u32 DdrMcAddrLength)
+{
+	u32 i;
+
+	for (i = 0U; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {
+		if (0U == NpdMemIcAddresses[i]) {
+			continue;
+		}
+
+		XPmNpDomain_LockNpiPcsr(NpdMemIcAddresses[i]);
+	}
+
+	for (i = 0U; i < DdrMcAddrLength; i++) {
+		if (0U == DdrMcAddresses[i]) {
+			continue;
+		}
+
+		XPmNpDomain_LockNpiPcsr(DdrMcAddresses[i]);
+	}
+}
+
+static XStatus NpdMbist(const XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u32 i;
 	const XPm_Device *Device;
 	u32 DdrMcAddresses[XPM_NODEIDX_DEV_DDRMC_MAX - XPM_NODEIDX_DEV_DDRMC_MIN + 1] = {0};
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 DdrMcAddrLength = ARRAY_SIZE(DdrMcAddresses);
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -362,84 +509,18 @@ static XStatus NpdMbist(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 	/* Trigger Mem clear */
-	/*TODO: Recognise NSU nodes using node type from node structure*/
-	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {
-		if ((((u32)XPM_NODEIDX_MEMIC_NSU_MIN1 <= i) &&
-		     ((u32)XPM_NODEIDX_MEMIC_NSU_MAX1 >= i)) ||
-		    (((u32)XPM_NODEIDX_MEMIC_NSU_MIN2 <= i) &&
-		     ((u32)XPM_NODEIDX_MEMIC_NSU_MAX2 >= i)) ||
-		    (0U == NpdMemIcAddresses[i])) {
-			continue;
-		}
-
-		PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_MASK_OFFSET,
-			NPI_PCSR_CONTROL_MEM_CLEAR_TRIGGER_MASK);
-		PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_CONTROL_OFFSET,
-			NPI_PCSR_CONTROL_MEM_CLEAR_TRIGGER_MASK);
-	}
-	for (i = 0U; i < ARRAY_SIZE(DdrMcAddresses); i++) {
-		if (0U == DdrMcAddresses[i]) {
-			continue;
-		}
-		PmOut32(DdrMcAddresses[i] + NPI_PCSR_MASK_OFFSET,
-			NPI_PCSR_CONTROL_MEM_CLEAR_TRIGGER_MASK);
-		PmOut32(DdrMcAddresses[i] + NPI_PCSR_CONTROL_OFFSET,
-			NPI_PCSR_CONTROL_MEM_CLEAR_TRIGGER_MASK);
-	}
+	TriggerMemClear(DdrMcAddresses, DdrMcAddrLength);
 
 	/* Check for Mem clear done */
-	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {
-		if (0U == NpdMemIcAddresses[i]) {
-			continue;
-		}
-
-		Status = XPm_PollForMask(NpdMemIcAddresses[i] +
-					 NPI_PCSR_STATUS_OFFSET,
-					 NPI_PCSR_STATUS_MEM_CLEAR_DONE_MASK,
-					 XPM_POLL_TIMEOUT);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_MEM_CLEAR_DONE_TIMEOUT;
-			goto done;
-		}
-	}
-	for (i = 0U; i < ARRAY_SIZE(DdrMcAddresses); i++) {
-		if (0U == DdrMcAddresses[i]) {
-			continue;
-		}
-		Status = XPm_PollForMask(DdrMcAddresses[i] + NPI_PCSR_STATUS_OFFSET,
-				 NPI_PCSR_STATUS_MEM_CLEAR_DONE_MASK,
-				 XPM_POLL_TIMEOUT);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_DDR_MEM_CLEAR_DONE;
-			goto done;
-		}
+	Status = IsMemClearDone(DdrMcAddresses, DdrMcAddrLength, &DbgErr);
+	if (XST_SUCCESS != Status) {
+		goto done;
 	}
 
 	/* Check for Mem clear Pass/Fail */
-	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {
-		if (0U == NpdMemIcAddresses[i]) {
-			continue;
-		}
-
-		PmIn32(NpdMemIcAddresses[i] + NPI_PCSR_STATUS_OFFSET, RegValue);
-		if (NPI_PCSR_STATUS_MEM_CLEAR_PASS_MASK !=
-		    (RegValue & NPI_PCSR_STATUS_MEM_CLEAR_PASS_MASK)) {
-			DbgErr = XPM_INT_ERR_MEM_CLEAR_PASS;
-			Status = XST_FAILURE;
-			goto done;
-		}
-	}
-	for (i = 0U; i < ARRAY_SIZE(DdrMcAddresses); i++) {
-		if (0U == DdrMcAddresses[i]) {
-			continue;
-		}
-		PmIn32(DdrMcAddresses[i] + NPI_PCSR_STATUS_OFFSET, RegValue);
-		if (NPI_PCSR_STATUS_MEM_CLEAR_PASS_MASK !=
-		    (RegValue & NPI_PCSR_STATUS_MEM_CLEAR_PASS_MASK)) {
-			DbgErr = XPM_INT_ERR_DDR_MEM_CLEAR_PASS;
-			Status = XST_FAILURE;
-			goto done;
-		}
+	Status = IsMemClearPass(DdrMcAddresses, DdrMcAddrLength, &DbgErr);
+	if (XST_SUCCESS != Status) {
+		goto done;
 	}
 
 	/* Disable ILA clock for DDR blocks*/
@@ -453,45 +534,13 @@ static XStatus NpdMbist(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 
 	/* Unwrite trigger bits */
-        for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {
-			if (0U == NpdMemIcAddresses[i]) {
-				continue;
-			}
-
-                PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_MASK_OFFSET,
-			NPI_PCSR_CONTROL_MEM_CLEAR_TRIGGER_MASK);
-                PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_CONTROL_OFFSET, 0);
-        }
-
-        for (i = 0U; i < ARRAY_SIZE(DdrMcAddresses); i++) {
-		if (0U == DdrMcAddresses[i]) {
-			continue;
-		}
-                PmOut32(DdrMcAddresses[i] + NPI_PCSR_MASK_OFFSET,
-                        NPI_PCSR_CONTROL_MEM_CLEAR_TRIGGER_MASK);
-		PmOut32(DdrMcAddresses[i] + NPI_PCSR_CONTROL_OFFSET, 0);
-		}
+	CleanupMemClear(DdrMcAddresses, DdrMcAddrLength);
 
 	Status = XST_SUCCESS;
 
 done:
 	/* Assert PCSR Lock*/
-	for (i = 0U; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {
-		if (0U == NpdMemIcAddresses[i]) {
-			continue;
-		}
-
-		XPmNpDomain_LockNpiPcsr(NpdMemIcAddresses[i]);
-	}
-
-	for (i = 0U; i < ARRAY_SIZE(DdrMcAddresses); i++) {
-		if (0U == DdrMcAddresses[i]) {
-			continue;
-		}
-
-		XPmNpDomain_LockNpiPcsr(DdrMcAddresses[i]);
-	}
-
+	AssertPcsrLockMem(DdrMcAddresses, DdrMcAddrLength);
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
