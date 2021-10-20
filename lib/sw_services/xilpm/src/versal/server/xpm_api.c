@@ -199,7 +199,7 @@ static XStatus XPm_SetNodeAccess(const u32 *Args, u32 NumArgs)
 	XPm_NodeAccess *NodeEntry;
 
 	/* SET_NODE_ACCESS <NodeId: Arg0> <Arg 1,2> <Arg 3,4> ... */
-	if ((NumArgs < 3U) || (NumArgs % 2U == 0U)) {
+	if ((NumArgs < 3U) || ((NumArgs % 2U) == 0U)) {
 		Status = XST_FAILURE;
 		goto done;
 	}
@@ -208,7 +208,7 @@ static XStatus XPm_SetNodeAccess(const u32 *Args, u32 NumArgs)
 
 	/* TODO: Check if NodeId is present in database */
 
-	NodeEntry = XPm_AllocBytes(sizeof(XPm_NodeAccess));
+	NodeEntry = (XPm_NodeAccess *)XPm_AllocBytes(sizeof(XPm_NodeAccess));
 	if (NULL == NodeEntry) {
 		Status = XST_BUFFER_TOO_SMALL;
 		goto done;
@@ -4637,7 +4637,7 @@ static XStatus XPm_AddNodeRegnode(const u32 *Args, u32 NumArgs)
 		goto done;
 	}
 
-	Regnode = XPm_AllocBytes(sizeof(XPm_RegNode));
+	Regnode = (XPm_RegNode *)XPm_AllocBytes(sizeof(XPm_RegNode));
 	if (NULL == Regnode) {
 		Status = XST_BUFFER_TOO_SMALL;
 		goto done;

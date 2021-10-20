@@ -32,9 +32,9 @@ typedef struct XPm_NodeAper XPm_NodeAper;
 #define NODE_APER_ACCESS_SHIFT			(0U)
 #define NODE_APER_ACCESS_MASK			(0xFU)
 
-#define NODE_APER_OFFSET(Ap)	(u32)(((Ap) >> NODE_APER_OFFSET_SHIFT) & NODE_APER_OFFSET_MASK)
-#define NODE_APER_SIZE(Ap)	(u32)(((Ap) >> NODE_APER_SIZE_SHIFT) & NODE_APER_SIZE_MASK)
-#define NODE_APER_ACCESS(Ap)	(u32)(((Ap) >> NODE_APER_ACCESS_SHIFT) & NODE_APER_ACCESS_MASK)
+#define NODE_APER_OFFSET(Ap)			(((Ap) >> NODE_APER_OFFSET_SHIFT) & NODE_APER_OFFSET_MASK)
+#define NODE_APER_SIZE(Ap)			(((Ap) >> NODE_APER_SIZE_SHIFT) & NODE_APER_SIZE_MASK)
+#define NODE_APER_ACCESS(Ap)			(((Ap) >> NODE_APER_ACCESS_SHIFT) & NODE_APER_ACCESS_MASK)
 
 /**
  * Regnode class.
@@ -45,6 +45,24 @@ struct XPm_RegNode {
 	XPm_Power *Power;		/**< Parent power node */
 	XPm_RegNode *NextRegnode;	/**< Link to next regnode */
 };
+
+/**
+ * Node access types.
+ */
+typedef enum {
+	ACCESS_RESERVED = 0U,		/**< 0x0 */
+	ACCESS_ANY_RO,			/**< 0x1 */
+	ACCESS_ANY_RW,			/**< 0x2 */
+	ACCESS_SEC_RO,			/**< 0x3 */
+	ACCESS_SEC_RW,			/**< 0x4 */
+	ACCESS_SEC_NS_SUBSYS_RO,	/**< 0x5 */
+	ACCESS_SEC_NS_SUBSYS_RW,	/**< 0x6 */
+	ACCESS_SEC_SUBSYS_RO,		/**< 0x7 */
+	ACCESS_SEC_SUBSYS_RW,		/**< 0x8 */
+
+	/* Always keep this enum last */
+	ACCESS_TYPE_MAX,		/**< 0x9 */
+} XPm_NodeAccessTypes;
 
 /**
  * Node aperture access attributes for a node.
@@ -66,6 +84,7 @@ struct XPm_NodeAccess {
 };
 
 /************************** Function Prototypes ******************************/
+/* Add regnodes to pm database */
 void XPmAccess_RegnodeInit(XPm_RegNode *RegNode,
 			   u32 NodeId, u32 BaseAddress, XPm_Power *Power);
 
@@ -73,14 +92,19 @@ void XPmAccess_RegnodeInit(XPm_RegNode *RegNode,
 XStatus XPmAccess_UpdateTable(XPm_NodeAccess *NodeEntry,
 			      const u32 *Args, u32 NumArgs);
 
+/* Debug only function meant for printing regnodes and "Node Access Table" */
+void XPmAccess_PrintTable(void);
+
 /* IOCTL handlers */
 XStatus XPmAccess_ReadReg(u32 SubsystemId,
 			  u32 DeviceId,
+			  pm_ioctl_id IoctlId,
 			  u32 Offset, u32 Count,
 			  u32 *const Response, u32 CmdType);
 
 XStatus XPmAccess_MaskWriteReg(u32 SubsystemId,
 			       u32 DeviceId,
+			       pm_ioctl_id IoctlId,
 			       u32 Offset, u32 Mask, u32 Value,
 			       u32 CmdType);
 

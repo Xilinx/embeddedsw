@@ -1034,12 +1034,12 @@ XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id I
 		Status = XPm_AieISRClear(SubsystemId, DeviceId, Arg1);
 		break;
 	case IOCTL_READ_REG:
-		Status = XPmAccess_ReadReg(SubsystemId, DeviceId,
+		Status = XPmAccess_ReadReg(SubsystemId, DeviceId, IoctlId,
 					   Arg1, Arg2,
 					   Response, CmdType);
 		break;
 	case IOCTL_MASK_WRITE_REG:
-		Status = XPmAccess_MaskWriteReg(SubsystemId, DeviceId,
+		Status = XPmAccess_MaskWriteReg(SubsystemId, DeviceId, IoctlId,
 						Arg1, Arg2, Arg3,
 						CmdType);
 		break;
