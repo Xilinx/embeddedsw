@@ -485,6 +485,86 @@ done:
 	return Status;
 }
 
+static XStatus LpdMbistTrigger(u16 *DbgErr)
+{
+	XStatus Status = XST_FAILURE;
+	u32 RegBitMask;
+	u32 RegValue;
+
+	RegBitMask = ((u32)PMC_ANALOG_OD_MBIST_RST_LPD_IOU_MASK |
+		      (u32)PMC_ANALOG_OD_MBIST_RST_LPD_RPU_MASK |
+		      (u32)PMC_ANALOG_OD_MBIST_RST_LPD_MASK);
+	PmRmw32(PMC_ANALOG_OD_MBIST_RST, RegBitMask, RegBitMask);
+	/* Check that the register value written properly or not! */
+	PmChkRegMask32(PMC_ANALOG_OD_MBIST_RST, RegBitMask, RegBitMask, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		*DbgErr = XPM_INT_ERR_REG_WRT_LPDMBIST_RST;
+		goto done;
+	}
+
+	RegBitMask = ((u32)PMC_ANALOG_OD_MBIST_SETUP_LPD_IOU_MASK |
+		      (u32)PMC_ANALOG_OD_MBIST_SETUP_LPD_RPU_MASK |
+		      (u32)PMC_ANALOG_OD_MBIST_SETUP_LPD_MASK);
+	PmRmw32(PMC_ANALOG_OD_MBIST_SETUP, RegBitMask, RegBitMask);
+	/* Check that the register value written properly or not! */
+	PmChkRegMask32(PMC_ANALOG_OD_MBIST_SETUP, RegBitMask, RegBitMask, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		*DbgErr = XPM_INT_ERR_REG_WRT_LPDMBIST_SETUP;
+		goto done;
+	}
+
+	RegBitMask = ((u32)PMC_ANALOG_OD_MBIST_PG_EN_LPD_IOU_MASK |
+		      (u32)PMC_ANALOG_OD_MBIST_PG_EN_LPD_RPU_MASK |
+		      (u32)PMC_ANALOG_OD_MBIST_PG_EN_LPD_MASK);
+	PmRmw32(PMC_ANALOG_OD_MBIST_PG_EN, RegBitMask, RegBitMask);
+	/* Check that the register value written properly or not! */
+	PmChkRegMask32(PMC_ANALOG_OD_MBIST_PG_EN, RegBitMask, RegBitMask, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		*DbgErr = XPM_INT_ERR_REG_WRT_LPDMBIST_PGEN;
+		goto done;
+	}
+
+	Status = XPm_PollForMask(PMC_ANALOG_OD_MBIST_DONE,
+				 (PMC_ANALOG_OD_MBIST_DONE_LPD_IOU_MASK|
+				  PMC_ANALOG_OD_MBIST_DONE_LPD_RPU_MASK |
+				  PMC_ANALOG_OD_MBIST_DONE_LPD_MASK),
+				 XPM_POLL_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		*DbgErr = XPM_INT_ERR_MBIST_DONE_TIMEOUT;
+		goto done;
+	}
+
+	PmIn32(PMC_ANALOG_OD_MBIST_GOOD, RegValue);
+
+	if ((PMC_ANALOG_OD_MBIST_GOOD_LPD_IOU_MASK |
+	     PMC_ANALOG_OD_MBIST_GOOD_LPD_RPU_MASK |
+	     PMC_ANALOG_OD_MBIST_GOOD_LPD_MASK) != RegValue) {
+		*DbgErr = XPM_INT_ERR_MBIST_GOOD;
+		Status = XST_FAILURE;
+	}
+
+done:
+	return Status;
+}
+
+static void CleanupMemClear(void)
+{
+	PmRmw32(PMC_ANALOG_OD_MBIST_RST,
+                (PMC_ANALOG_OD_MBIST_RST_LPD_IOU_MASK |
+                 PMC_ANALOG_OD_MBIST_RST_LPD_RPU_MASK |
+                 PMC_ANALOG_OD_MBIST_RST_LPD_MASK), 0);
+
+        PmRmw32(PMC_ANALOG_OD_MBIST_SETUP,
+                (PMC_ANALOG_OD_MBIST_SETUP_LPD_IOU_MASK |
+                 PMC_ANALOG_OD_MBIST_SETUP_LPD_RPU_MASK |
+                 PMC_ANALOG_OD_MBIST_SETUP_LPD_MASK),0);
+
+        PmRmw32(PMC_ANALOG_OD_MBIST_PG_EN,
+                (PMC_ANALOG_OD_MBIST_PG_EN_LPD_IOU_MASK |
+                 PMC_ANALOG_OD_MBIST_PG_EN_LPD_RPU_MASK |
+                 PMC_ANALOG_OD_MBIST_PG_EN_LPD_MASK),0);
+}
+
 /****************************************************************************/
 /**
  * @brief  This function executes MBIST sequence for LPD
@@ -498,9 +578,7 @@ static XStatus LpdMbist(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	volatile XStatus Status = XST_FAILURE;
 	volatile XStatus StatusTmp = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	u32 RegBitMask;
 	XPm_ClockNode *UsbClk, *Can0Clk, *Can1Clk;
-	u32 RegValue;
 
 	(void)PwrDomain;
 	(void)Args;
@@ -559,74 +637,13 @@ static XStatus LpdMbist(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		goto done;
 	}
 
-	RegBitMask = ((u32)PMC_ANALOG_OD_MBIST_RST_LPD_IOU_MASK |
-		      (u32)PMC_ANALOG_OD_MBIST_RST_LPD_RPU_MASK |
-		      (u32)PMC_ANALOG_OD_MBIST_RST_LPD_MASK);
-	PmRmw32(PMC_ANALOG_OD_MBIST_RST, RegBitMask, RegBitMask);
-	/* Check that the register value written properly or not! */
-	PmChkRegMask32(PMC_ANALOG_OD_MBIST_RST, RegBitMask, RegBitMask, Status);
-	if (XPM_REG_WRITE_FAILED == Status) {
-		DbgErr = XPM_INT_ERR_REG_WRT_LPDMBIST_RST;
-		goto done;
-	}
-
-	RegBitMask = ((u32)PMC_ANALOG_OD_MBIST_SETUP_LPD_IOU_MASK |
-		      (u32)PMC_ANALOG_OD_MBIST_SETUP_LPD_RPU_MASK |
-		      (u32)PMC_ANALOG_OD_MBIST_SETUP_LPD_MASK);
-	PmRmw32(PMC_ANALOG_OD_MBIST_SETUP, RegBitMask, RegBitMask);
-	/* Check that the register value written properly or not! */
-	PmChkRegMask32(PMC_ANALOG_OD_MBIST_SETUP, RegBitMask, RegBitMask, Status);
-	if (XPM_REG_WRITE_FAILED == Status) {
-		DbgErr = XPM_INT_ERR_REG_WRT_LPDMBIST_SETUP;
-		goto done;
-	}
-
-	RegBitMask = ((u32)PMC_ANALOG_OD_MBIST_PG_EN_LPD_IOU_MASK |
-		      (u32)PMC_ANALOG_OD_MBIST_PG_EN_LPD_RPU_MASK |
-		      (u32)PMC_ANALOG_OD_MBIST_PG_EN_LPD_MASK);
-	PmRmw32(PMC_ANALOG_OD_MBIST_PG_EN, RegBitMask, RegBitMask);
-	/* Check that the register value written properly or not! */
-	PmChkRegMask32(PMC_ANALOG_OD_MBIST_PG_EN, RegBitMask, RegBitMask, Status);
-	if (XPM_REG_WRITE_FAILED == Status) {
-		DbgErr = XPM_INT_ERR_REG_WRT_LPDMBIST_PGEN;
-		goto done;
-	}
-
-	Status = XPm_PollForMask(PMC_ANALOG_OD_MBIST_DONE,
-				 (PMC_ANALOG_OD_MBIST_DONE_LPD_IOU_MASK|
-				  PMC_ANALOG_OD_MBIST_DONE_LPD_RPU_MASK |
-				  PMC_ANALOG_OD_MBIST_DONE_LPD_MASK),
-				 XPM_POLL_TIMEOUT);
+	Status = LpdMbistTrigger(&DbgErr);
 	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_MBIST_DONE_TIMEOUT;
-		goto done;
-	}
-
-	PmIn32(PMC_ANALOG_OD_MBIST_GOOD, RegValue);
-
-	if ((PMC_ANALOG_OD_MBIST_GOOD_LPD_IOU_MASK |
-	     PMC_ANALOG_OD_MBIST_GOOD_LPD_RPU_MASK |
-	     PMC_ANALOG_OD_MBIST_GOOD_LPD_MASK) != RegValue) {
-		DbgErr = XPM_INT_ERR_MBIST_GOOD;
-		Status = XST_FAILURE;
 		goto done;
 	}
 
 	/* Unwrite bits after mem clear has finished */
-	PmRmw32(PMC_ANALOG_OD_MBIST_RST,
-                (PMC_ANALOG_OD_MBIST_RST_LPD_IOU_MASK |
-                 PMC_ANALOG_OD_MBIST_RST_LPD_RPU_MASK |
-                 PMC_ANALOG_OD_MBIST_RST_LPD_MASK), 0);
-
-        PmRmw32(PMC_ANALOG_OD_MBIST_SETUP,
-                (PMC_ANALOG_OD_MBIST_SETUP_LPD_IOU_MASK |
-                 PMC_ANALOG_OD_MBIST_SETUP_LPD_RPU_MASK |
-                 PMC_ANALOG_OD_MBIST_SETUP_LPD_MASK),0);
-
-        PmRmw32(PMC_ANALOG_OD_MBIST_PG_EN,
-                (PMC_ANALOG_OD_MBIST_PG_EN_LPD_IOU_MASK |
-                 PMC_ANALOG_OD_MBIST_PG_EN_LPD_RPU_MASK |
-                 PMC_ANALOG_OD_MBIST_PG_EN_LPD_MASK),0);
+	CleanupMemClear();
 
 	/* Required for redundancy */
 	XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (XramMbist));
