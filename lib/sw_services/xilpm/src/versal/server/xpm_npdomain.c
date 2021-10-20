@@ -504,6 +504,13 @@ static XStatus NpdBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	const XPm_Device *Device;
 	u32 DdrMcAddresses[XPM_NODEIDX_DEV_DDRMC_MAX - XPM_NODEIDX_DEV_DDRMC_MIN + 1] = {0};
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	const u32 NpdBisrResetIds[] = {
+		PM_RST_NPI,		/* Release NPI Reset */
+		PM_RST_NOC,		/* Release NoC Reset */
+		PM_RST_SYS_RST_1,	/* Release Sys Resets */
+		PM_RST_SYS_RST_2,
+		PM_RST_SYS_RST_3,
+	};
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -518,37 +525,12 @@ static XStatus NpdBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	/* NPD pre bisr requirements */
 	NpdPreBisrReqs();
 
-	/* Release NPI Reset */
-	Status = XPmReset_AssertbyId(PM_RST_NPI, (u32)PM_RESET_ACTION_RELEASE);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_RST_RELEASE;
-		goto done;
-	}
-
-	/* Release NoC Reset */
-	Status = XPmReset_AssertbyId(PM_RST_NOC, (u32)PM_RESET_ACTION_RELEASE);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_RST_RELEASE;
-		goto done;
-	}
-
-	/* Release Sys Resets */
-	Status = XPmReset_AssertbyId(PM_RST_SYS_RST_1, (u32)PM_RESET_ACTION_RELEASE);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_RST_RELEASE;
-		goto done;
-	}
-
-	Status = XPmReset_AssertbyId(PM_RST_SYS_RST_2, (u32)PM_RESET_ACTION_RELEASE);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_RST_RELEASE;
-		goto done;
-	}
-
-	Status = XPmReset_AssertbyId(PM_RST_SYS_RST_3, (u32)PM_RESET_ACTION_RELEASE);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_RST_RELEASE;
-		goto done;
+	for (i = 0; i < ARRAY_SIZE(NpdBisrResetIds); i++) {
+		Status = XPmReset_AssertbyId(NpdBisrResetIds[i], (u32)PM_RESET_ACTION_RELEASE);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_RST_RELEASE;
+			goto done;
+		}
 	}
 
 	if (HOUSECLEAN_DISABLE_BISR_MASK != (PwrDomain->HcDisableMask &
