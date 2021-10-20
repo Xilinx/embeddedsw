@@ -206,6 +206,115 @@ done:
 	return Status;
 }
 
+static XStatus XPm_GetRegProbeCounterLpd(u32 CounterIdx, u32 ReqType, u32 *Reg,
+					 u32 *ReqTypeOffset)
+{
+	XStatus Status = XST_INVALID_PARAM;
+
+	if (PROBE_COUNTER_CPU_R5_MAX_IDX < CounterIdx) {
+		goto done;
+	}
+
+	if (PROBE_COUNTER_LPD_MAX_REQ_TYPE < ReqType) {
+		goto done;
+	} else if ((PROBE_COUNTER_CPU_R5_MAX_REQ_TYPE < ReqType) &&
+			(PROBE_COUNTER_LPD_MAX_IDX < CounterIdx)) {
+		goto done;
+	} else {
+		/* Required due to MISRA */
+		PmDbg("[%d] Unknown else case\r\n", __LINE__);
+	}
+
+	*Reg = CORESIGHT_LPD_ATM_BASE;
+	*ReqTypeOffset = (ReqType * PROBE_COUNTER_LPD_REQ_TYPE_OFFSET);
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+static XStatus XPm_GetRegProbeCounterFpd(u32 CounterIdx, u32 ReqType, u32 *Reg,
+					 u32 *ReqTypeOffset)
+{
+	XStatus Status = XST_INVALID_PARAM;
+	const u32 FpdReqTypeOffset[] = {
+		PROBE_COUNTER_FPD_RD_REQ_OFFSET,
+		PROBE_COUNTER_FPD_RD_RES_OFFSET,
+		PROBE_COUNTER_FPD_WR_REQ_OFFSET,
+		PROBE_COUNTER_FPD_WR_RES_OFFSET,
+	};
+
+	if (PROBE_COUNTER_FPD_MAX_IDX < CounterIdx) {
+		goto done;
+	}
+
+	if (PROBE_COUNTER_FPD_MAX_REQ_TYPE < ReqType) {
+		goto done;
+	}
+
+	*Reg = CORESIGHT_FPD_ATM_BASE;
+	*ReqTypeOffset = FpdReqTypeOffset[ReqType];
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+static XStatus XPm_GetRegByProbeCounterType(u32 CounterIdx, u32 Arg1, u32 *Reg,
+					    u32 ReqTypeOffset, u8 Write)
+{
+	XStatus Status = XST_FAILURE;
+	u32 ProbeCounterType = (Arg1 >> PROBE_COUNTER_TYPE_SHIFT) & PROBE_COUNTER_TYPE_MASK;
+
+	switch (ProbeCounterType) {
+	case XPM_PROBE_COUNTER_TYPE_LAR_LSR:
+		if (1U == Write) {
+			*Reg += PROBE_COUNTER_LAR_OFFSET;
+		} else {
+			*Reg += PROBE_COUNTER_LSR_OFFSET;
+		}
+		Status = XST_SUCCESS;
+		break;
+	case XPM_PROBE_COUNTER_TYPE_MAIN_CTL:
+		*Reg += ReqTypeOffset + PROBE_COUNTER_MAIN_CTL_OFFSET;
+		Status = XST_SUCCESS;
+		break;
+	case XPM_PROBE_COUNTER_TYPE_CFG_CTL:
+		*Reg += ReqTypeOffset + PROBE_COUNTER_CFG_CTL_OFFSET;
+		Status = XST_SUCCESS;
+		break;
+	case XPM_PROBE_COUNTER_TYPE_STATE_PERIOD:
+		*Reg += ReqTypeOffset + PROBE_COUNTER_STATE_PERIOD_OFFSET;
+		Status = XST_SUCCESS;
+		break;
+	case XPM_PROBE_COUNTER_TYPE_PORT_SEL:
+		*Reg += (ReqTypeOffset + (CounterIdx * 20U) +
+			PROBE_COUNTER_PORT_SEL_OFFSET);
+		Status = XST_SUCCESS;
+		break;
+	case XPM_PROBE_COUNTER_TYPE_SRC:
+		*Reg += (ReqTypeOffset + (CounterIdx * 20U) +
+			PROBE_COUNTER_SRC_OFFSET);
+		Status = XST_SUCCESS;
+		break;
+	case XPM_PROBE_COUNTER_TYPE_VAL:
+		if (1U == Write) {
+			/* This type doesn't support write operation */
+			goto done;
+		}
+		*Reg += (ReqTypeOffset + (CounterIdx * 20U) +
+			PROBE_COUNTER_VAL_OFFSET);
+		Status = XST_SUCCESS;
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
+	}
+
+done:
+	return Status;
+}
+
 /****************************************************************************/
 /**
  * @brief  This function performs read/write operation on probe counter
@@ -247,12 +356,6 @@ static XStatus XPm_ProbeCounterAccess(u32 DeviceId, u32 Arg1, u32 Value,
 	u32 CounterIdx;
 	u32 ReqType;
 	u32 ReqTypeOffset;
-	const u32 FpdReqTypeOffset[] = {
-		PROBE_COUNTER_FPD_RD_REQ_OFFSET,
-		PROBE_COUNTER_FPD_RD_RES_OFFSET,
-		PROBE_COUNTER_FPD_WR_REQ_OFFSET,
-		PROBE_COUNTER_FPD_WR_RES_OFFSET,
-	};
 
 	CounterIdx = Arg1 & PROBE_COUNTER_IDX_MASK;
 	ReqType = ((Arg1 >> PROBE_COUNTER_REQ_TYPE_SHIFT) &
@@ -260,36 +363,10 @@ static XStatus XPm_ProbeCounterAccess(u32 DeviceId, u32 Arg1, u32 Value,
 
 	switch (NODEINDEX(DeviceId)) {
 	case (u32)XPM_NODEIDX_POWER_LPD:
-		if (PROBE_COUNTER_CPU_R5_MAX_IDX < CounterIdx) {
-			goto done;
-		}
-
-		if (PROBE_COUNTER_LPD_MAX_REQ_TYPE < ReqType) {
-			goto done;
-		} else if ((ReqType > PROBE_COUNTER_CPU_R5_MAX_REQ_TYPE) &&
-			   (CounterIdx > PROBE_COUNTER_LPD_MAX_IDX)) {
-			goto done;
-		} else {
-			/* Required due to MISRA */
-			PmDbg("[%d] Unknown else case\r\n", __LINE__);
-		}
-
-		Reg = CORESIGHT_LPD_ATM_BASE;
-		ReqTypeOffset = (ReqType * PROBE_COUNTER_LPD_REQ_TYPE_OFFSET);
-		Status = XST_SUCCESS;
+		Status = XPm_GetRegProbeCounterLpd(CounterIdx, ReqType, &Reg, &ReqTypeOffset);
 		break;
 	case (u32)XPM_NODEIDX_POWER_FPD:
-		if (PROBE_COUNTER_FPD_MAX_IDX < CounterIdx) {
-			goto done;
-		}
-
-		if (PROBE_COUNTER_FPD_MAX_REQ_TYPE < ReqType) {
-			goto done;
-		}
-
-		Reg = CORESIGHT_FPD_ATM_BASE;
-		ReqTypeOffset = FpdReqTypeOffset[ReqType];
-		Status = XST_SUCCESS;
+		Status = XPm_GetRegProbeCounterFpd(CounterIdx, ReqType, &Reg, &ReqTypeOffset);
 		break;
 	default:
 		Status = XPM_PM_INVALID_NODE;
@@ -305,51 +382,8 @@ static XStatus XPm_ProbeCounterAccess(u32 DeviceId, u32 Arg1, u32 Value,
 		goto done;
 	}
 
-	switch ((Arg1 >> PROBE_COUNTER_TYPE_SHIFT) & PROBE_COUNTER_TYPE_MASK) {
-	case XPM_PROBE_COUNTER_TYPE_LAR_LSR:
-		if (1U == Write) {
-			Reg += PROBE_COUNTER_LAR_OFFSET;
-		} else {
-			Reg += PROBE_COUNTER_LSR_OFFSET;
-		}
-		Status = XST_SUCCESS;
-		break;
-	case XPM_PROBE_COUNTER_TYPE_MAIN_CTL:
-		Reg += ReqTypeOffset + PROBE_COUNTER_MAIN_CTL_OFFSET;
-		Status = XST_SUCCESS;
-		break;
-	case XPM_PROBE_COUNTER_TYPE_CFG_CTL:
-		Reg += ReqTypeOffset + PROBE_COUNTER_CFG_CTL_OFFSET;
-		Status = XST_SUCCESS;
-		break;
-	case XPM_PROBE_COUNTER_TYPE_STATE_PERIOD:
-		Reg += ReqTypeOffset + PROBE_COUNTER_STATE_PERIOD_OFFSET;
-		Status = XST_SUCCESS;
-		break;
-	case XPM_PROBE_COUNTER_TYPE_PORT_SEL:
-		Reg += (ReqTypeOffset + (CounterIdx * 20U) +
-			PROBE_COUNTER_PORT_SEL_OFFSET);
-		Status = XST_SUCCESS;
-		break;
-	case XPM_PROBE_COUNTER_TYPE_SRC:
-		Reg += (ReqTypeOffset + (CounterIdx * 20U) +
-			PROBE_COUNTER_SRC_OFFSET);
-		Status = XST_SUCCESS;
-		break;
-	case XPM_PROBE_COUNTER_TYPE_VAL:
-		if (1U == Write) {
-			/* This type doesn't support write operation */
-			goto done;
-		}
-		Reg += (ReqTypeOffset + (CounterIdx * 20U) +
-			PROBE_COUNTER_VAL_OFFSET);
-		Status = XST_SUCCESS;
-		break;
-	default:
-		Status = XST_INVALID_PARAM;
-		break;
-	}
-
+	Status = XPm_GetRegByProbeCounterType(CounterIdx, Arg1, &Reg,
+					      ReqTypeOffset, Write);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
