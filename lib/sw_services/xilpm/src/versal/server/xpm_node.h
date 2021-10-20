@@ -81,6 +81,7 @@ typedef enum {
 	XPM_NODECLASS_PROTECTION,
 	XPM_NODECLASS_EVENT,
 	XPM_NODECLASS_MONITOR,
+	XPM_NODECLASS_REGNODE,
 
 	XPM_NODECLASS_MAX
 } XPm_NodeClass;
@@ -151,6 +152,12 @@ typedef enum {
 	/* Monitor subclasses */
 	XPM_NODESUBCL_MONITOR_SYSMON,
 } XPm_MonitorSubclass;
+
+typedef enum {
+	/* Regnode subclass */
+	XPM_NODESUBCL_REGNODE_PREDEF,
+	XPM_NODESUBCL_REGNODE_USERDEF,
+} XPm_RegnodeSubclass;
 
 /* Node types */
 typedef enum {
@@ -241,6 +248,11 @@ typedef enum {
 	XPM_NODETYPE_MONITOR_SYSMON_PS,
 	XPM_NODETYPE_MONITOR_SYSMON_NPD,
 } XPm_MonitorType;
+
+typedef enum {
+	/* Regnode types */
+	XPM_NODETYPE_REGNODE_GENERIC,
+} XPm_RegnodType;
 
 /* All node IDs */
 typedef enum {

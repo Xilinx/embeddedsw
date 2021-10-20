@@ -42,6 +42,7 @@
 #include "xpm_regulator.h"
 #include "xplmi_scheduler.h"
 #include "xplmi_sysmon.h"
+#include "xpm_access.h"
 
 #define XPm_RegisterWakeUpHandler(GicId, SrcId, NodeId)	\
 	{ \
@@ -4538,6 +4539,66 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  This function add register node to the topology database
+ *
+ * @param Args		arguments
+ * @param NumArgs	number of arguments
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   RegNodes (short for "Register Nodes") are non-firmware managed nodes,
+ * meaning PM_REQUEST_NODE/PM_RELEASE_NODE calls are not supported for such nodes.
+ * These nodes are mainly used to provide controlled access to the protected/secure
+ * address space.
+ *
+ ****************************************************************************/
+static XStatus XPm_AddNodeRegnode(const u32 *Args, u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u32 NodeId, PowerId;
+	u32 BaseAddress;
+	XPm_Power *Power = NULL;
+	XPm_RegNode *Regnode = NULL;
+
+	if (NumArgs < 3U) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	NodeId = Args[0];
+	BaseAddress = Args[1];
+	PowerId = Args[2];
+
+	if ((((u32)XPM_NODESUBCL_REGNODE_PREDEF != NODESUBCLASS(NodeId)) &&
+	    ((u32)XPM_NODESUBCL_REGNODE_USERDEF != NODESUBCLASS(NodeId))) ||
+	    ((u32)XPM_NODETYPE_REGNODE_GENERIC != NODETYPE(NodeId))) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Power = XPmPower_GetById(PowerId);
+	if (NULL == Power) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
+	Regnode = XPm_AllocBytes(sizeof(XPm_RegNode));
+	if (NULL == Regnode) {
+		Status = XST_BUFFER_TOO_SMALL;
+		goto done;
+	}
+
+	XPmAccess_RegnodeInit(Regnode, NodeId, BaseAddress, Power);
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief  This function allows adding node to clock, power, reset, mio
  * 			or device topology
  *
@@ -4560,7 +4621,7 @@ XStatus XPm_AddNode(const u32 *Args, u32 NumArgs)
 		Status = XPm_AddNodePower(Args, NumArgs);
 		break;
 	case (u32)XPM_NODECLASS_CLOCK:
-			Status = XPm_AddNodeClock(Args, NumArgs);
+		Status = XPm_AddNodeClock(Args, NumArgs);
 		break;
 	case (u32)XPM_NODECLASS_RESET:
 		Status = XPm_AddNodeReset(Args, NumArgs);
@@ -4579,6 +4640,9 @@ XStatus XPm_AddNode(const u32 *Args, u32 NumArgs)
 		break;
 	case (u32)XPM_NODECLASS_MONITOR:
 		Status = XPm_AddNodeMonitor(Args, NumArgs);
+		break;
+	case (u32)XPM_NODECLASS_REGNODE:
+		Status = XPm_AddNodeRegnode(Args, NumArgs);
 		break;
 	default:
 		Status = XST_INVALID_PARAM;
