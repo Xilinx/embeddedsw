@@ -52,6 +52,8 @@
 *       bsv  08/31/2021 Code clean up
 *       kpt  09/01/2021 Added local volatile variable to avoid compiler
 *                       optimization in XLoader_CheckIpiAccess
+* 1.07  bm   10/21/2021 Updated Extract Metaheader command to return data size as
+*                       response
 *
 * </pre>
 *
@@ -120,6 +122,7 @@ static XPlmi_Module XPlmi_Loader;
 #define XLOADER_RESP_CMD_GET_IMG_INFO_PID_INDEX		(2U)
 #define XLOADER_RESP_CMD_GET_IMG_INFO_FUNCID_INDEX		(3U)
 #define XLOADER_RESP_CMD_GET_IMG_INFO_LIST_NUM_ENTRIES_INDEX	(1U)
+#define XLOADER_RESP_CMD_EXTRACT_METAHDR_SIZE_INDEX	(1U)
 
 #define XLOADER_CMD_MULTIBOOT_PDISRC_MASK		(0xFF00U)
 #define XLOADER_CMD_MULTIBOOT_FLASHTYPE_MASK		(0xFU)
@@ -697,6 +700,7 @@ static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 	u32 DestSize = (u32)Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_DEST_SIZE_INDEX];
 	u32 IdString;
 	u32 DataSize;
+	u32 TotalDataSize = 0U;
 	u64 MetaHdrOfst;
 	u32 Index;
 
@@ -778,6 +782,7 @@ static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+	TotalDataSize += DataSize;
 	DestAddr += DataSize;
 	/* Copy image headers to destination address*/
 	DataSize = XIH_IH_LEN * PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs;
@@ -786,6 +791,7 @@ static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+	TotalDataSize += DataSize;
 	DestAddr += DataSize;
 	/* Copy partition headers to destination address*/
 	DataSize = XIH_PH_LEN * PdiPtr->MetaHdr.ImgHdrTbl.NoOfPrtns;
@@ -794,11 +800,13 @@ static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+	TotalDataSize += DataSize;
 	XPlmi_Printf(DEBUG_GENERAL, "Extracted Metaheader Successfully\n\r");
 
 END:
 	XPlmi_SetPlmMode(XPLMI_MODE_OPERATIONAL);
 	Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;
+	Cmd->Response[XLOADER_RESP_CMD_EXTRACT_METAHDR_SIZE_INDEX] = TotalDataSize;
 
 	return Status;
 }
