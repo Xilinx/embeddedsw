@@ -318,6 +318,49 @@ static void TcmEccInit(const XPm_MemDevice *Tcm, u32 Mode)
 	return;
 }
 
+static XStatus HaltRpuCore(const XPm_Device *Rpu0, const XPm_Device *Rpu1,
+			   const u32 Id, u32 *RpuMode)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Mode;
+
+	XPm_RpuGetOperMode(PM_DEV_RPU0_0, &Mode);
+	if (XPM_RPU_MODE_SPLIT == Mode) {
+		if (((PM_DEV_TCM_0_A == Id) || (PM_DEV_TCM_0_B == Id)) &&
+		    ((u8)XPM_DEVSTATE_RUNNING != Rpu0->Node.State)) {
+			Status = XPmRpuCore_Halt(Rpu0);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		}
+		if (((PM_DEV_TCM_1_A == Id) || (PM_DEV_TCM_1_B == Id)) &&
+		    ((u8)XPM_DEVSTATE_RUNNING !=  Rpu1->Node.State)) {
+			Status = XPmRpuCore_Halt(Rpu1);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		}
+	}
+
+	if (XPM_RPU_MODE_LOCKSTEP == Mode)
+	{
+		if (((PM_DEV_TCM_0_A == Id) || (PM_DEV_TCM_0_B == Id) ||
+		     (PM_DEV_TCM_1_A == Id) || (PM_DEV_TCM_1_B == Id)) &&
+		     ((u8)XPM_DEVSTATE_RUNNING != Rpu0->Node.State)) {
+			Status = XPmRpuCore_Halt(Rpu0);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		}
+	}
+
+	*RpuMode = Mode;
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
 static XStatus HandleTcmDeviceState(XPm_Device* Device, u32 NextState)
 {
 	XStatus Status = XST_FAILURE;
@@ -342,41 +385,11 @@ static XStatus HandleTcmDeviceState(XPm_Device* Device, u32 NextState)
 
 			/* TCM is only accessible when the RPU is powered on and out of reset and is in halted state
 			 * so bring up RPU too when TCM is requested*/
-			XPm_RpuGetOperMode(PM_DEV_RPU0_0, &Mode);
-			if (XPM_RPU_MODE_SPLIT == Mode) {
-				if (((PM_DEV_TCM_0_A == Id) ||
-				     (PM_DEV_TCM_0_B == Id)) &&
-				    ((u8)XPM_DEVSTATE_RUNNING !=
-				     Rpu0Device->Node.State)) {
-					Status = XPmRpuCore_Halt(Rpu0Device);
-					if (XST_SUCCESS != Status) {
-						goto done;
-					}
-				}
-				if (((PM_DEV_TCM_1_A == Id) ||
-				     (PM_DEV_TCM_1_B == Id)) &&
-				    ((u8)XPM_DEVSTATE_RUNNING !=
-				     Rpu1Device->Node.State)) {
-					Status = XPmRpuCore_Halt(Rpu1Device);
-					if (XST_SUCCESS != Status) {
-						goto done;
-					}
-				}
+			Status = HaltRpuCore(Rpu0Device, Rpu1Device, Id, &Mode);
+			if (XST_SUCCESS != Status) {
+				goto done;
 			}
-			if (XPM_RPU_MODE_LOCKSTEP == Mode)
-			{
-				if (((PM_DEV_TCM_0_A == Id) ||
-				     (PM_DEV_TCM_0_B == Id) ||
-				     (PM_DEV_TCM_1_A == Id) ||
-				     (PM_DEV_TCM_1_B == Id)) &&
-				     ((u8)XPM_DEVSTATE_RUNNING !=
-				      Rpu0Device->Node.State)) {
-					Status = XPmRpuCore_Halt(Rpu0Device);
-					if (XST_SUCCESS != Status) {
-						goto done;
-					}
-				}
-			}
+
 			/* Tcm should be ecc initialized */
 			TcmEccInit((XPm_MemDevice *)Device, Mode);
 		}
