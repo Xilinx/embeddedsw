@@ -28,6 +28,14 @@
 #define NUM_PLD0_PWR_DOMAIN_DEPENDENCY	1U
 #define PWR_DOMAIN_UNUSED_BITMASK	0U
 
+/* If Sysmon low threshold registers are not used they will be programmed to 0.
+ * SysMon data uses Modified Floating point Data format. Bits [18:17] indicate
+ * the exponenent offset used to calculate the actual voltage from the register
+ * reading and is always programmed to 01. We must account for this when
+ * reading the sysmon registers even when they are programmed to zero.
+ */
+#define SYSMON_THRESH_NOT_PROGRAMMED	0x20000U
+
 static u8 SystemResetFlag;
 static u8 DomainPORFlag;
 static u32 PsmApuPwrState;
@@ -37,21 +45,6 @@ static u32 PsmApuPwrState;
  */
 #define RAILIDX(Idx) \
 		((u32)(Idx) - (u32)XPM_NODEIDX_POWER_VCCINT_PMC)
-
-/*
- * RailVoltageTable is a temporary table used for sysmon voltage checks
- * debugging.
- */
-static const u32 RailVoltageTable[8][2] = {
-	[RAILIDX(XPM_NODEIDX_POWER_VCCINT_PMC)] = {0x26000, 0x26666},	/* 0.75V, 0.8V */
-	[RAILIDX(XPM_NODEIDX_POWER_VCCAUX_PMC)] = {0x2b333, 0x2c000},	/* 1.4V, 1.5V */
-	[RAILIDX(XPM_NODEIDX_POWER_VCCINT_PSLP)] = {0x26000, 0x26666},	/* 0.75V, 0.8V */
-	[RAILIDX(XPM_NODEIDX_POWER_VCCINT_PSFP)] = {0x26000, 0x26666},	/* 0.75V, 0.8V */
-	[RAILIDX(XPM_NODEIDX_POWER_VCCINT_SOC)] = {0x26000, 0x26666},	/* 0.75V, 0.8V */
-	[RAILIDX(XPM_NODEIDX_POWER_VCCINT_RAM)] = {0x26000, 0x26666},	/* 0.75V, 0.8V */
-	[RAILIDX(XPM_NODEIDX_POWER_VCCAUX)] = {0x2b333, 0x2c000},		/* 1.4V, 1.5V */
-	[RAILIDX(XPM_NODEIDX_POWER_VCCINT_PL)] = {0x26000, 0x26666},	/* 0.75V, 0.8V */
-};
 
 static const char *PmInitFunctions[FUNC_MAX_COUNT_PMINIT] = {
 	[FUNC_INIT_START]		= "INIT_START",
@@ -1013,10 +1006,67 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief This function is used if SysMon lower threshold registers are not
+ *        programmed. Hardcoded minimum voltage values or EFUSE are used.
+ *
+ * @param  Rail: Pointer to power rail node
+ * @param  RailVoltage: Current Sysmon voltage reading
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note If the lower threshold registers are programmed the PDI will be device
+ *       dependent. Errors are returned to indicate mismatch in device and boot
+ *       image.
+ *****************************************************************************/
+static XStatus SysmonVoltageCheck(const XPm_Rail *Rail, u32 RailVoltage)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 NodeIndex;
+
+	/**
+	 * Hardcoded voltages used when sysmon lower threshold values are not used.
+	 * Second array element is placeholder for when EFUSE is blown.
+	 */
+	u32 RailVoltageTable[8][2] = {
+		[RAILIDX(XPM_NODEIDX_POWER_VCCINT_PMC)] = {0x2547AU, 0U},   /* 0.66V */
+		[RAILIDX(XPM_NODEIDX_POWER_VCCAUX_PMC)] = {0x2b333U, 0U},   /* 1.4V */
+		[RAILIDX(XPM_NODEIDX_POWER_VCCINT_PSLP)] = {0x2547AU, 0U},  /* 0.66V */
+		[RAILIDX(XPM_NODEIDX_POWER_VCCINT_PSFP)] = {0x2547AU, 0U},  /* 0.66V */
+		[RAILIDX(XPM_NODEIDX_POWER_VCCINT_SOC)] = {0x25F5CU, 0U},   /* 0.745V */
+		[RAILIDX(XPM_NODEIDX_POWER_VCCINT_RAM)] = {0x25F5CU, 0U},   /* 0.745V */
+		[RAILIDX(XPM_NODEIDX_POWER_VCCAUX)] = {0x2b333U, 0U},       /* 1.4V */
+		[RAILIDX(XPM_NODEIDX_POWER_VCCINT_PL)] = {0x2547AU, 0U},    /* 0.66V */
+	};
+
+	NodeIndex = NODEINDEX(Rail->Power.Node.Id);
+
+	/**
+	 * Check if current rail voltage reading is below the required minimum
+	 * voltage for proper operation.
+	 */
+	if (RailVoltage < RailVoltageTable[RAILIDX(NodeIndex)][0]) {
+		DbgErr = XPM_INT_ERR_POWER_SUPPLY;
+		Status = XPM_ERR_RAIL_VOLTAGE;
+		goto done;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	if (XST_SUCCESS != Status) {
+		PmDbg("0x%x\r\n", DbgErr);
+	}
+
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief  Check power rail if minimum operational voltage has been reached
  *		   using Sysmon
  *
- * @param  PowerRail: Pointer to power rail node
+ * @param  Rail: Pointer to power rail node
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or error code
  *
@@ -1047,26 +1097,22 @@ static XStatus XPmPower_SysmonCheckPower(const XPm_Rail *Rail)
 		goto done;
 	}
 
-	/*
-	 * Check if lower threshold value is for mid-grade voltage device. Eval
-	 * boards do not support all voltage grades.
-	 *
-	 * TODO: Remove after sysmon power checks have been internally verified
-	 */
-	u32 NodeIndex = NODEINDEX(Rail->Power.Node.Id);
-	PmIn32(SysmonLowThReg, LowThreshVal);
-	if ((LowThreshVal > RailVoltageTable[RAILIDX(NodeIndex)][1]) ||
-			(LowThreshVal < RailVoltageTable[RAILIDX(NodeIndex)][0])) {
-		DbgErr = XPM_INT_ERR_DEVICE_NOT_SUPPORTED;
-		Status = XPM_INVALID_DEV_VOLTAGE_GRADE;
-		goto done;
-	}
-
 	PmIn32(SysmonLowThReg, LowThreshVal);
 	PmIn32(SysmonSupplyReg, RailVoltage);
-	if (RailVoltage < LowThreshVal) {
-		DbgErr = XPM_INT_ERR_POWER_SUPPLY;
-		Status = XPM_ERR_RAIL_VOLTAGE;
+
+	/* If lower threshold values are not programmed, use hardcoded voltages */
+	if (SYSMON_THRESH_NOT_PROGRAMMED == LowThreshVal) {
+		PmDbg("Using hardcoded voltages for power rail checks\r\n");
+		Status = SysmonVoltageCheck(Rail, RailVoltage);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	} else {
+		PmDbg("Using Sysmon lower threshold voltages for power rail checks\r\n");
+		if (RailVoltage < LowThreshVal) {
+			DbgErr = XPM_INT_ERR_POWER_SUPPLY;
+			Status = XPM_ERR_RAIL_VOLTAGE;
+		}
 	}
 
 	/* Unlock Root SysMon registers */
@@ -1080,7 +1126,6 @@ static XStatus XPmPower_SysmonCheckPower(const XPm_Rail *Rail)
 	PmOut32((PMC_SYSMON_BASEADDR + AMS_ROOT_REG_PCSR_LOCK_OFFSET), 1U);
 
 done:
-
 	if (XST_SUCCESS != Status) {
 		PmDbg("0x%x\r\n", DbgErr);
 	}

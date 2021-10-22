@@ -633,10 +633,6 @@ extern "C" {
 /* Error during CPM5_SLCR_SECURE register writing in Cpm5MbistClear */
 #define XPM_INT_ERR_REG_WRT_CPM5MBISTCLR_SLCRSECU_MBIST_TRIGGER		0x501AU
 
-/************************* Sysmon Specific Errors ****************************/
-/************************** (0x5100) - (0x51FF) ******************************/
-#define XPM_INT_ERR_DEVICE_NOT_SUPPORTED		0x5100U
-
 /*************************** Undefined error *********************************/
 #define XPM_INT_ERR_UNDEFINED			0xFFFFU
 

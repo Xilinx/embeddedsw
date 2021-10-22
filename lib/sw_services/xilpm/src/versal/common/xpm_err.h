@@ -138,9 +138,8 @@ extern "C" {
 
 /**************************** SYSMON ERRORS ******************************/
 /************************** (2110L) - (2119L) ****************************/
-#define XPM_INVALID_DEV_VOLTAGE_GRADE            (2110L) /**< Invalid device voltage grade */
-#define XPM_ERR_NEW_DATA_FLAG_TIMEOUT            (2111L) /**< Sysmon new data flag timeout */
-#define XPM_ERR_RAIL_VOLTAGE                     (2112L) /**< Power rail not ramped up */
+#define XPM_ERR_NEW_DATA_FLAG_TIMEOUT            (2110L) /**< Sysmon new data flag timeout */
+#define XPM_ERR_RAIL_VOLTAGE                     (2111L) /**< Power rail not ramped up */
 
 /************************** Variable Definitions *****************************/
 
