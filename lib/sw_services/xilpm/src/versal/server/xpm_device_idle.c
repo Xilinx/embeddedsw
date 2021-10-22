@@ -112,7 +112,7 @@ XStatus NodeOspiIdle(u16 DeviceId, u32 BaseAddress)
 		goto done;
 	}
 
-	Status = XOspiPsv_CfgInitialize(&OspiInst, ConfigPtr);
+	Status = (XStatus)XOspiPsv_CfgInitialize(&OspiInst, ConfigPtr);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -142,7 +142,7 @@ XStatus NodeSdioIdle(u16 DeviceId, u32 BaseAddress)
 		goto done;
 	}
 
-	Status = XSdPs_CfgInitialize(&SdioInst, ConfigPtr, BaseAddress);
+	Status = (XStatus)XSdPs_CfgInitialize(&SdioInst, ConfigPtr, BaseAddress);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -172,7 +172,7 @@ XStatus NodeUsbIdle(u16 DeviceId, u32 BaseAddress)
 		goto done;
 	}
 
-	Status = XUsbPsu_CfgInitialize(&UsbInst, ConfigPtr, BaseAddress);
+	Status = (XStatus)XUsbPsu_CfgInitialize(&UsbInst, ConfigPtr, BaseAddress);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
