@@ -581,7 +581,8 @@ static XStatus PlHouseClean(u32 TriggerTime)
 		RegAddr = PMC_TAP_BASEADDR + PMC_TAP_SLR_TYPE_OFFSET;
 		DeviceType = PMC_TAP_SLR_TYPE_MASK & XPm_In32(RegAddr);
 
-		if ((0U != DeviceType) && (7U != DeviceType)) {
+		if ((SLR_TYPE_INVALID != DeviceType) &&
+		    (SLR_TYPE_MONOLITHIC_DEV != DeviceType)) {
 			Status = XPmBisr_Repair(LAGUNA_TAG_ID);
 			if (XST_SUCCESS != Status) {
 				DbgErr = XPM_INT_ERR_LAGUNA_REPAIR;
