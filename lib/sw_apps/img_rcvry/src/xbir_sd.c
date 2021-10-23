@@ -32,20 +32,10 @@
 #include "xbir_err.h"
 
 /************************** Constant Definitions *****************************/
-/*
- * The following constants map to the XPAR parameters created in the
- * xparameters.h file. They are defined here such that a user can easily
- * change all the needed parameters in one place.
- */
-#define XBIR_SD_DEVICE_ID	XPAR_XSDPS_1_DEVICE_ID
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XBIR_SDPS_BLOCK_SIZE		(512U)
-#define XBIR_SDPS_WRITE_CHUNK_SIZE	(0x200000U)
-#define XBIR_SD_RAW_NUM_SECTORS		(XBIR_SDPS_WRITE_CHUNK_SIZE / \
-	XBIR_SDPS_BLOCK_SIZE)
 
 /************************** Function Prototypes ******************************/
 
@@ -57,17 +47,19 @@ static XSdPs SdInstance;
  * @brief
  * This function is used to initialize SD driver
  *
+ * @param	DrvNum can be 0 or 1 depending on the board configuration
+ *
  * @return	XST_SUCCESS on successful initialization
  *		Error code on failure
  *
  *****************************************************************************/
-int Xbir_SdInit(void)
+int Xbir_SdInit(u8 DrvNum)
 {
 	int Status = XST_FAILURE;
 	XSdPs_Config *SdConfig;
 
 	/* Initialize the SD driver so that it's ready to use */
-	SdConfig =  XSdPs_LookupConfig(XBIR_SD_DEVICE_ID);
+	SdConfig =  XSdPs_LookupConfig(DrvNum);
 	if (NULL == SdConfig) {
 		Status = XBIR_ERROR_SD_CONFIG;
 		goto END;
@@ -102,7 +94,7 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int Xbir_SdRead(u64 SrcAddr, u8* DestAddr, u64 Length)
+int Xbir_SdRead(u32 SrcAddr, u8* DestAddr, u32 Length)
 {
 	int Status = XST_FAILURE;
 	u16 NumOfBlocks = (Length / XBIR_SDPS_BLOCK_SIZE);
@@ -110,6 +102,19 @@ int Xbir_SdRead(u64 SrcAddr, u8* DestAddr, u64 Length)
 
 	Status  = XSdPs_ReadPolled(&SdInstance, BlockNumber, NumOfBlocks,
 		(u8*)DestAddr);
+	if (Status != XST_SUCCESS) {
+		Status = XBIR_ERROR_SD_READ;
+	}
+
+	if ((Length % XBIR_SDPS_BLOCK_SIZE) != 0U) {
+		BlockNumber += NumOfBlocks;
+		DestAddr += NumOfBlocks * XBIR_SDPS_BLOCK_SIZE;
+		Status = XSdPs_ReadPolled(&SdInstance, BlockNumber, 1U,
+			DestAddr);
+		if (Status != XST_SUCCESS) {
+			Status = XBIR_ERROR_SD_READ;
+		}
+	}
 
 	return Status;
 }
@@ -119,6 +124,7 @@ int Xbir_SdRead(u64 SrcAddr, u8* DestAddr, u64 Length)
  * @brief
  * This function writes data in Write Buffer to SD card.
  *
+ * @param	Offset  Starting offset to write
  * @param	WrBuffer Pointer to data to be written
  * @param	Length  Number of bytes to write
  *
@@ -126,29 +132,22 @@ int Xbir_SdRead(u64 SrcAddr, u8* DestAddr, u64 Length)
  * 		Error code on failure
  *
  ******************************************************************************/
-int Xbir_SdWrite(u8 *WrBuffer, u64 Length)
+int Xbir_SdWrite(u32 Offset, u8 *WrBuffer, u32 Length)
 {
 	int Status = XST_FAILURE;
 	u64 NumBlocks = Length / XBIR_SDPS_BLOCK_SIZE;
 	u64 BlockIndex;
 
+	Offset /= XBIR_SDPS_BLOCK_SIZE;
 	for (BlockIndex = 0UL; BlockIndex < NumBlocks;
 		BlockIndex += XBIR_SD_RAW_NUM_SECTORS) {
-		Status = XSdPs_WritePolled(&SdInstance, BlockIndex,
+		Status = XSdPs_WritePolled(&SdInstance, (Offset + BlockIndex),
 			XBIR_SD_RAW_NUM_SECTORS, WrBuffer);
 		if (Status != XST_SUCCESS) {
 			Status = XBIR_ERROR_SD_WRITE;
 			goto END;
 		}
-		WrBuffer += XBIR_SDPS_WRITE_CHUNK_SIZE;
-
-	}
-	if ((Length % XBIR_SDPS_BLOCK_SIZE) != 0L) {
-		Status = XSdPs_WritePolled(&SdInstance, BlockIndex, 1U,
-			WrBuffer);
-		if (Status != XST_SUCCESS) {
-			Status = XBIR_ERROR_SD_WRITE;
-		}
+		WrBuffer += XBIR_SDPS_CHUNK_SIZE;
 	}
 
 END:
@@ -161,36 +160,29 @@ END:
  * This function erases given sectors in SD card from the start.
  *
  * @param	Length  Number of bytes to erase
+ * @param	Offset  Starting offset to erase
  *
  * @return	XST_SUCCESS on successful write
  * 		Error code on failure
  *
  ******************************************************************************/
-int Xbir_SdErase(u64 Length)
+int Xbir_SdErase(u32 Offset, u32 Length)
 {
 	int Status = XST_FAILURE;
-	u64 NumBlocks = Length / XBIR_SDPS_BLOCK_SIZE;
-	u64 BlockIndex;
-	u8 WrBuffer[XBIR_SDPS_WRITE_CHUNK_SIZE] = {0U};
+	u32 NumBlocks = Length / XBIR_SDPS_BLOCK_SIZE;
+	u32 BlockIndex;
+	u8 WrBuffer[XBIR_SDPS_CHUNK_SIZE] = {0U};
 
-	for (BlockIndex = 0UL; BlockIndex < NumBlocks;
+	Offset /= XBIR_SDPS_BLOCK_SIZE;
+	for (BlockIndex = 0U; BlockIndex < NumBlocks;
 		BlockIndex += XBIR_SD_RAW_NUM_SECTORS) {
-		Status = XSdPs_WritePolled(&SdInstance, BlockIndex,
+		Status = XSdPs_WritePolled(&SdInstance, (Offset + BlockIndex),
 			XBIR_SD_RAW_NUM_SECTORS, WrBuffer);
 		if (Status != XST_SUCCESS) {
-			Xbir_Printf("%0x..\n\r", BlockIndex);
 			Status = XBIR_ERROR_SD_ERASE;
-			goto END;
-		}
-	}
-	if ((Length % XBIR_SDPS_BLOCK_SIZE) != 0L) {
-		Status = XSdPs_WritePolled(&SdInstance, BlockIndex, 1U,
-			WrBuffer);
-		if (Status != XST_SUCCESS) {
-			Status = XBIR_ERROR_SD_ERASE;
+			break;
 		}
 	}
 
-END:
 	return Status;
 }

@@ -51,6 +51,7 @@
 #define IOU_SLCR_GEM_CTRL_OFFSET	(0XFF180360U)
 #define IOU_SLCR_GEM_CLK_CTRL_OFFSET	(0XFF180308U)
 #define CRL_APB_GEM_TSU_REF_CTRL_OFFSET		(0XFF5E0100U)
+#define CRL_APB_SDIO1_REF_CTRL_OFFSET		(0XFF5E0070U)
 
 /* MIO related macros */
 #define IOU_SLCR_MIO_PIN_38_OFFSET	(0XFF180098U)
@@ -90,8 +91,15 @@
 #define IOU_SLCR_BANK2_CTRL5_OFFSET	(0XFF180180U)
 #define CRL_APB_RST_LPD_IOU0_OFFSET	(0XFF5E0230U)
 #define CRL_APB_RST_LPD_IOU2_OFFSET	(0XFF5E0238U)
+#define IOU_SLCR_SD_CONFIG_REG1_OFFSET		(0XFF18031CU)
+#define IOU_SLCR_SD_CONFIG_REG2_OFFSET		(0XFF180320U)
+#define IOU_SLCR_SD_CONFIG_REG3_OFFSET		(0XFF180324U)
+#define IOU_SLCR_SD_DLL_CTRL_OFFSET		(0XFF180358U)
+#define	IOU_SLCR_SD_CDN_CTRL_OFFSET		(0XFF18035CU)
 
 /**************************** Type Definitions *******************************/
+typedef int (*Xbir_ReadDevice) (u32 Offset, u8 *Data, u32 Size);
+typedef int (*Xbir_EraseDevice) (u32 Offset, u32 Size);
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -107,7 +115,10 @@ static void Xbir_SysShowBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo);
 static int Xbir_EthInit (void);
 static int Xbir_SysReadSysInfoFromEeprom (void);
 static int Xbir_KVEthInit (void);
+static int Xbir_SysCalculateCrc32 (u32 Offset, u32 Size,
+	Xbir_ReadDevice ReadDevice);
 static int Xbir_KREthInit (void);
+static int Xbir_KVSdInit (u8 DrvNum);
 
 /************************** Variable Definitions *****************************/
 static const u32 Xbir_UtilCrcTable[] = {
@@ -148,10 +159,12 @@ static const u32 Xbir_UtilCrcTable[] = {
 static Xbir_SysBootImgInfo BootImgStatus = \
 		{{0x41U, 0x42U, 0x55U, 0x4DU}, 1U, 4U, 0xAEB1BDB9U, \
 		{0U, 0U, 1U, 1U}, 0x200000U, 0xF80000U, 0x1E00000U};
-static u8 QspiBuffer[XBIR_SYS_QSPI_MAX_SUB_SECTOR_SIZE];
+static u8 WriteBuffer[XBIR_SDPS_CHUNK_SIZE * 2U];
 static Xbir_SysInfo SysInfo = {0U};
 static Xbir_CCInfo CCInfo = {0U};
 u32 EmacBaseAddr = 0U;
+static u32 Crc = 0U;
+static u32 CalcCrc = 0xFFFFFFFFU;
 
 /*****************************************************************************/
 /**
@@ -191,6 +204,12 @@ int Xbir_SysInit (void)
 	Status = Xbir_EthInit();
 	if (Status != XST_SUCCESS) {
 		goto END;
+	}
+
+	if (strncmp((char *)&CCInfo.BoardPrdName
+		[XBIR_SYS_PRODUCT_TYPE_NAME_OFFSET], "KV",
+		XBIR_SYS_PRODUCT_TYPE_LEN) == 0U) {
+		Status = Xbir_KVSdInit((u8)XPAR_XSDPS_1_DEVICE_ID);
 	}
 
 END:
@@ -424,6 +443,9 @@ int Xbir_SysGetBootImgOffset (Xbir_SysBootImgId BootImgId, u32 *Offset)
 	else if (XBIR_SYS_BOOT_IMG_B_ID == BootImgId){
 		*Offset = BootImgStatus.BootImgBOffset;
 	}
+	else if (XBIR_SYS_BOOT_IMG_WIC == BootImgId) {
+		*Offset = 0U;
+	}
 	else {
 		Xbir_Printf("ERROR: Invalid Boot Image ID\n\r");
 		goto END;
@@ -532,15 +554,15 @@ int Xbir_SysWriteFlash (u32 Offset, u8 *Data, u32 Size,
 	Xbir_QspiGetPageSize(&PageSize);
 
 	if (PrevPendingDataLen > 0U) {
-		if ((Size + PrevPendingDataLen) > sizeof(QspiBuffer)) {
+		if ((Size + PrevPendingDataLen) > sizeof(WriteBuffer)) {
 			Xbir_Printf("ERROR: Invalid image size\r\n");
 			Status = XBIR_ERROR_IMAGE_SIZE;
 			goto END;
 		}
-		memcpy (&QspiBuffer[PrevPendingDataLen], Data, Size);
+		memcpy (&WriteBuffer[PrevPendingDataLen], Data, Size);
 		DataSize += PrevPendingDataLen;
 		WrAddr -= PrevPendingDataLen;
-		WrBuff = QspiBuffer;
+		WrBuff = WriteBuffer;
 	}
 
 	while (DataSize >= PageSize) {
@@ -556,7 +578,7 @@ int Xbir_SysWriteFlash (u32 Offset, u8 *Data, u32 Size,
 	}
 
 	if (XBIR_SYS_PARTIAL_DATA_CHUNK == IsLast) {
-		memcpy(QspiBuffer, WrBuff, DataSize);
+		memcpy(WriteBuffer, WrBuff, DataSize);
 		PrevPendingDataLen = DataSize;
 	}
 	else {
@@ -566,7 +588,6 @@ int Xbir_SysWriteFlash (u32 Offset, u8 *Data, u32 Size,
 			if (Status != XST_SUCCESS) {
 				Xbir_Printf("ERROR: Image write failed\r\n");
 				Status = XBIR_ERROR_IMAGE_WRITE;
-				goto END;
 			}
 		}
 	}
@@ -591,32 +612,42 @@ int Xbir_SysEraseBootImg (Xbir_SysBootImgId BootImgId)
 	int Status = XBIR_ERROR_BOOT_IMG_ID;
 	Xbir_FlashEraseStats *FlashEraseStats = Xbir_GetFlashEraseStats();
 	u32 Offset;
+	Xbir_EraseDevice EraseDevice = NULL;
 
-	if (FlashEraseStats->State == XBIR_QSPI_FLASH_ERASE_NOTSTARTED) {
-		FlashEraseStats->State = XBIR_QSPI_FLASH_ERASE_STARTED;
+	if (FlashEraseStats->State == XBIR_FLASH_ERASE_NOTSTARTED) {
+		Xbir_QspiEraseStatsInit();
+		FlashEraseStats->State = XBIR_FLASH_ERASE_STARTED;
 		FlashEraseStats->CurrentImgErased = (u8)BootImgId;
 	}
-	else if (FlashEraseStats->State == XBIR_QSPI_FLASH_ERASE_COMPLETED) {
+	else if (FlashEraseStats->State == XBIR_FLASH_ERASE_COMPLETED) {
 		Status = XST_SUCCESS;
 		goto END;
 	}
 
 	if (XBIR_SYS_BOOT_IMG_A_ID == BootImgId) {
 		Offset = BootImgStatus.BootImgAOffset;
+		EraseDevice = Xbir_QspiFlashErase;
 	}
 	else if (XBIR_SYS_BOOT_IMG_B_ID == BootImgId){
 		Offset = BootImgStatus.BootImgBOffset;
+		EraseDevice = Xbir_QspiFlashErase;
+	}
+	else if (XBIR_SYS_BOOT_IMG_WIC == BootImgId) {
+		Offset = 0U;
+		FlashEraseStats->SectorSize = XBIR_SDPS_CHUNK_SIZE;
+		FlashEraseStats->TotalNumOfSectors = XBIR_SD_ERASE_NUM_CHUNKS;
+		EraseDevice = Xbir_SdErase;
 	}
 	else {
 		Xbir_Printf("ERROR: Invalid image ID\r\n");
 		goto END;
 	}
 
-	Status = Xbir_QspiFlashErase(Offset +
-			(FlashEraseStats->NumOfSectorsErased *
-			 FlashEraseStats->SectorSize), FlashEraseStats->SectorSize);
+	Status = EraseDevice(Offset + (FlashEraseStats->NumOfSectorsErased *
+			 FlashEraseStats->SectorSize),
+			 FlashEraseStats->SectorSize);
 	if (Status != XST_SUCCESS) {
-		Xbir_Printf("ERROR: Qspi Flash erase failed during Boot Image"
+		Xbir_Printf("ERROR: Flash erase failed during Boot Image "
 			"update\r\n", Status);
 		Status = XBIR_ERROR_SECTOR_ERASE;
 		goto END;
@@ -625,7 +656,7 @@ int Xbir_SysEraseBootImg (Xbir_SysBootImgId BootImgId)
 	FlashEraseStats->NumOfSectorsErased++;
 	if (FlashEraseStats->NumOfSectorsErased ==
 			FlashEraseStats->TotalNumOfSectors) {
-		FlashEraseStats->State = XBIR_QSPI_FLASH_ERASE_COMPLETED;
+		FlashEraseStats->State = XBIR_FLASH_ERASE_COMPLETED;
 	}
 
 END:
@@ -1009,16 +1040,17 @@ END:
  *
  * @param	Offset	QSPI Memory region offset
  * @param	Size	Size of the region on which CRC32 is to be calculated
- * @param	Crc	Memory location where calculated CRC32 will be returned
+ * @param	ReadDevice points to QspiRead or SDRead depending on the image
+ *          written
  *
  * @return	XST_SUCCESS on successfully calculating the CRC32.
  *		Error code on failure
  *
  *****************************************************************************/
-static int Xbir_SysCalculateCrc32 (u32 Offset, u32 Size, u32* Crc)
+static int Xbir_SysCalculateCrc32 (u32 Offset, u32 Size,
+	Xbir_ReadDevice ReadDevice)
 {
 	int Status = XST_FAILURE;
-	u32 CalcCrc = 0xFFFFFFFFU;
 	u32 Idx;
 	u32 Len;
 	u32 Addr = Offset;
@@ -1034,7 +1066,7 @@ static int Xbir_SysCalculateCrc32 (u32 Offset, u32 Size, u32* Crc)
 			Len = RemainingSize;
 		}
 
-		Status = Xbir_QspiRead(Addr, ReadBuffer, Len);
+		Status = ReadDevice(Addr, ReadBuffer, Len);
 		if (Status != XST_SUCCESS) {
 			Status = XBIR_ERROR_IMAGE_READ;
 			goto END;
@@ -1049,7 +1081,7 @@ static int Xbir_SysCalculateCrc32 (u32 Offset, u32 Size, u32* Crc)
 		Addr += Len;
 	}
 
-	*Crc = CalcCrc ^ 0xFFFFFFFFU;
+	Crc = CalcCrc ^ 0xFFFFFFFFU;
 	Status = XST_SUCCESS;
 
 END:
@@ -1072,21 +1104,26 @@ END:
  *****************************************************************************/
 int Xbir_SysValidateCrc (Xbir_SysBootImgId BootImgId, u32 Size, u32 InCrc)
 {
-	u32 Status = XBIR_ERROR_BOOT_IMG_ID;
-	u32 Crc = 0U;
+	int Status = XBIR_ERROR_BOOT_IMG_ID;
 	u32 Offset;
 
 	if (XBIR_SYS_BOOT_IMG_A_ID == BootImgId) {
 		Offset = BootImgStatus.BootImgAOffset;
 	}
-	else if (XBIR_SYS_BOOT_IMG_B_ID == BootImgId){
+	else if (XBIR_SYS_BOOT_IMG_B_ID == BootImgId) {
 		Offset = BootImgStatus.BootImgBOffset;
+	}
+	else if (XBIR_SYS_BOOT_IMG_WIC == BootImgId) {
+		Offset = 0U;
+		Status = XST_SUCCESS;
 	}
 	else {
 		goto END;
 	}
 
-	Status = Xbir_SysCalculateCrc32(Offset, Size, &Crc);
+	if (Offset != 0U) {
+		Status = Xbir_SysCalculateCrc32 (Offset, Size, Xbir_QspiRead);
+	}
 	if ((Status == XST_SUCCESS) && (Crc == InCrc)) {
 		Xbir_Printf("CRC matches\r\n");
 		Status = XST_SUCCESS;
@@ -1099,9 +1136,10 @@ int Xbir_SysValidateCrc (Xbir_SysBootImgId BootImgId, u32 Size, u32 InCrc)
 	Xbir_Printf("Flash Img CRC = %08X, Sender Crc = %08X\r\n", Crc, InCrc);
 
 END:
+	Crc = 0U;
+	CalcCrc = 0xFFFFFFFFU;
 	return Status;
 }
-
 
 /*****************************************************************************/
 /**
@@ -1115,7 +1153,137 @@ void Xbir_SysExecuteBackgroundTasks(void)
 {
 	Xbir_FlashEraseStats *FlashEraseStats = Xbir_GetFlashEraseStats();
 
-	if (FlashEraseStats->State == XBIR_QSPI_FLASH_ERASE_STARTED) {
+	if (FlashEraseStats->State == XBIR_FLASH_ERASE_STARTED) {
 		(void)Xbir_SysEraseBootImg(FlashEraseStats->CurrentImgErased);
 	}
+}
+
+/*****************************************************************************/
+/**
+ * @brief
+ * This function writes data to SD.
+ *
+ * @param	Data	Pointer to Data to be written
+ * @param	Size	Size of data to be written
+ * @param	IsLast	Is this last partial data of the image
+ *
+ * @return	XST_SUCCESS on successful flash update with input partial data
+ *		Error code on failure
+ *
+ *****************************************************************************/
+int Xbir_SysWriteSD (u32 Offset, u8 *Data, u32 Size, Xbir_ImgDataStatus IsLast)
+{
+	int Status = XST_FAILURE;
+	u32 DataSize = Size;
+	u32 WrAddr = Offset;
+	u8 *WrBuff = Data;
+	static u32 PrevPendingDataLen = 0U;
+
+	if (PrevPendingDataLen > 0U) {
+		if ((Size + PrevPendingDataLen) > sizeof(WriteBuffer)) {
+			Xbir_Printf("ERROR: Invalid image size\r\n");
+			Status = XBIR_ERROR_IMAGE_SIZE;
+			goto END;
+		}
+		memcpy(&WriteBuffer[PrevPendingDataLen], Data, Size);
+		DataSize += PrevPendingDataLen;
+		WrAddr -= PrevPendingDataLen;
+		WrBuff = WriteBuffer;
+	}
+
+	if (DataSize >= XBIR_SDPS_CHUNK_SIZE) {
+		Status = Xbir_SdWrite(WrAddr, WrBuff,
+			XBIR_SDPS_CHUNK_SIZE);
+		if (Status != XST_SUCCESS) {
+			Xbir_Printf("ERROR: Image write failed\r\n");
+			Status = XBIR_ERROR_IMAGE_WRITE;
+			goto END;
+		}
+		Status = Xbir_SysCalculateCrc32(WrAddr,
+			XBIR_SDPS_CHUNK_SIZE, Xbir_SdRead);
+		if (Status != XST_SUCCESS) {
+			Xbir_Printf("ERROR: Image read failed\r\n");
+			Status = XBIR_ERROR_IMAGE_READ;
+			goto END;
+		}
+		WrAddr += XBIR_SDPS_CHUNK_SIZE;
+		WrBuff += XBIR_SDPS_CHUNK_SIZE;
+		DataSize -= XBIR_SDPS_CHUNK_SIZE;
+	}
+
+	if (XBIR_SYS_PARTIAL_DATA_CHUNK == IsLast) {
+		memcpy(WriteBuffer, WrBuff, DataSize);
+		PrevPendingDataLen = DataSize;
+	}
+	else {
+		PrevPendingDataLen = 0U;
+		if (DataSize > 0U) {
+			Status = Xbir_SdWrite(WrAddr, WrBuff, DataSize);
+			if (Status != XST_SUCCESS) {
+				Xbir_Printf("ERROR: Image write failed\r\n");
+				Status = XBIR_ERROR_IMAGE_WRITE;
+				goto END;
+			}
+			Status = Xbir_SysCalculateCrc32(WrAddr, DataSize,
+				Xbir_SdRead);
+			if (Status != XST_SUCCESS) {
+				Xbir_Printf("ERROR: Image read failed\r\n");
+				Status = XBIR_ERROR_IMAGE_READ;
+				goto END;
+			}
+		}
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief
+ * This function does MIO and clock initializations required for SD on KV260.
+ *
+ * @param	DrvNum can be 0 or 1 depending on the board configuration
+ *
+ * @return	XST_SUCCESS on successfully bringing phy out of reset
+ * 		Error code on failure
+ *
+ *****************************************************************************/
+static int Xbir_KVSdInit (u8 DrvNum)
+{
+	int Status = XST_FAILURE;
+
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_39_OFFSET, 0x000000FEU, 0x00000010U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_40_OFFSET, 0x000000FEU, 0x00000010U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_41_OFFSET, 0x000000FEU, 0x00000010U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_42_OFFSET, 0x000000FEU, 0x00000010U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_45_OFFSET, 0x000000FEU, 0x00000010U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_46_OFFSET, 0x000000FEU, 0x00000010U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_47_OFFSET, 0x000000FEU, 0x00000010U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_48_OFFSET, 0x000000FEU, 0x00000010U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_49_OFFSET, 0x000000FEU, 0x00000010U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_50_OFFSET, 0x000000FEU, 0x00000010U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_51_OFFSET, 0x000000FEU, 0x00000010U);
+
+	/* SD clock settings */
+	Xbir_MaskWrite(CRL_APB_SDIO1_REF_CTRL_OFFSET, 0x013F3F07U,
+		0x001010500U);
+
+	Xil_Out32(IOU_SLCR_MIO_MST_TRI0_OFFSET, 0xD4000000U);
+	Xil_Out32(IOU_SLCR_MIO_MST_TRI1_OFFSET, 0x00B02020U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_MST_TRI2_OFFSET, 0x3FFFU, 0xFC0U);
+	Xbir_MaskWrite(CRL_APB_RST_LPD_IOU2_OFFSET, 0x40U, 0x0U);
+	Xbir_MaskWrite(IOU_SLCR_SD_CONFIG_REG2_OFFSET, 0x33843384U,
+		0x02841284U);
+	Xbir_MaskWrite(IOU_SLCR_SD_CONFIG_REG1_OFFSET, 0x7FFE0000U,
+		0x64500000U);
+	Xbir_MaskWrite(IOU_SLCR_SD_DLL_CTRL_OFFSET, 0x80000U, 0x80000U);
+	Xbir_MaskWrite(IOU_SLCR_SD_CONFIG_REG3_OFFSET, 0x03C00000U, 0x0U);
+	Xbir_MaskWrite(IOU_SLCR_SD_CDN_CTRL_OFFSET, 0x10000U, 0x10000U);
+
+	Status = Xbir_SdInit(DrvNum);
+
+	return Status;
 }

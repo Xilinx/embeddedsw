@@ -162,12 +162,14 @@
 					<button type="button" id="brws_btn" class="btn btn_brws" onclick="onBrws()">Browse</button>
 					<input type:"text" class="file_info file_name" id="fileName" readonly>
 					<input type:"text" class="file_info" id="fileSize" readonly>
-					<input type="file" accept = ".bin" id="img_file" name="img_file">
+					<input type="file" accept=".bin,.wic" id="img_file" name="img_file">
 					<p><b>Select Image to be recovered</b></p>
 					<input type="radio" id="recAimg" name="recimg" value=0>
-					<label for="imgA">Image A</label><br>
+					<label for="imgA">Image A (QSPI)</label><br>
 					<input type="radio" id="recBimg" name="recimg" value=1>
-					<label for="imgB">Image B</label><br> <br>
+					<label for="imgB">Image B (QSPI)</label><br>
+					<input type="radio" id="recWICimg" name="recimg" value=2>
+					<label for="imgB">Image Wic (SD)</label><br> <br>
 					<button type="button" id="upld_btn" class="btn btn_act" onclick="onUpload()" disabled>Upload</button>
 					<progress id="upld_prgrs" value="0" max="100" style="width:400px;"> 0% </progress>
 					<br><input type:"text" class="upld_status" id="upld_status" readonly>
@@ -176,8 +178,8 @@
 		</div>
 
 		<div class="footer">
-			<b>&copy 2020 Xilinx</b>
-			<b style="margin-right:10px; float:right;">Version: 1.0</b>
+			<b>&copy 2021 Xilinx</b>
+			<b style="margin-right:10px; float:right;">Version: 1.2</b>
 		</div>
 		<script src="js/index.js">
 		</script>

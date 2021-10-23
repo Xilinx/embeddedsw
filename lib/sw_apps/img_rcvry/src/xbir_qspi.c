@@ -32,6 +32,7 @@
 #include "xbir_qspimap.h"
 #include "xbir_config.h"
 #include "xbir_err.h"
+#include "xbir_sys.h"
 
 /************************** Constant Definitions *****************************/
 /*
@@ -370,7 +371,7 @@ void Xbir_QspiEraseStatsInit(void)
 {
 	Xbir_FlashEraseStats *FlashEraseStats = Xbir_GetFlashEraseStats();
 
-	FlashEraseStats->State = XBIR_QSPI_FLASH_ERASE_NOTSTARTED;
+	FlashEraseStats->State = XBIR_FLASH_ERASE_NOTSTARTED;
 	FlashEraseStats->NumOfSectorsErased = 0U;
 	FlashEraseStats->CurrentImgErased = XBIR_QSPI_NO_IMG_ERASED;
 	Xbir_QspiGetSectorSize(&FlashEraseStats->SectorSize);
@@ -1105,7 +1106,7 @@ static int Xbir_GetFlashInfo(u8 VendorId, u8 SizeId)
  ******************************************************************************/
 static int Xbir_FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr, u8 Enable)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u8 WriteEnableCmd;
 	u8 Cmd;
 	u8 WriteDisableCmd;

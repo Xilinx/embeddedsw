@@ -31,10 +31,6 @@ extern "C" {
 /***************************** Include Files *********************************/
 
 /************************** Constant Definitions *****************************/
-#define XBIR_QSPI_FLASH_ERASE_NOTSTARTED	(0U)
-#define XBIR_QSPI_FLASH_ERASE_STARTED	(1U)
-#define XBIR_QSPI_FLASH_ERASE_COMPLETED	(2U)
-
 #define XBIR_QSPI_NO_IMG_ERASED	(0xFFU)
 
 /**************************** Type Definitions *******************************/

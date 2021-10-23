@@ -67,6 +67,9 @@ typedef enum {
 	XBIR_HTTP_REQ_GET_CONTENT,
 } XBIR_HTTP_REQ_PARSE_ACTION;
 
+typedef int (*Xbir_WriteDevice) (u32 Offset, u8 *Data, u32 Size,
+	Xbir_ImgDataStatus IsLast);
+
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
@@ -577,6 +580,31 @@ int Xbir_SsiUpdateImgB (struct tcp_pcb *Tpcb, u8 *HttpReq,
 /*****************************************************************************/
 /**
  * @brief
+ * This function initiates the update of WIC Image.
+ *
+ * @param	Tpcb		Pointer to TCP PCB
+ * @param	HttpReq		Pointer to HTTP payload
+ * @param	HttpReqLen	HTTP payload length
+ *
+ * @return	XST_SUCCESS if the image A update starts successfully
+ *		Error code otherwise
+ *
+ *****************************************************************************/
+int Xbir_SsiUpdateImgWIC (struct tcp_pcb *Tpcb, u8 *HttpReq, u16 HttpReqLen)
+{
+	int Status = XST_FAILURE;
+
+	Xbir_Printf("\r\n[Image Update Request]\r\n");
+	Xbir_Printf("Initiating Img WIC upload\r\n");
+	Status = Xbir_SsiInitiateImgUpdate(Tpcb, HttpReq, HttpReqLen,
+		XBIR_SYS_BOOT_IMG_WIC);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief
  * This function handles the multipacket request. The first packet of HTTP
  * POST request contains the size of the content data, and this function
  * processes the input data based on that information.
@@ -692,20 +720,23 @@ u32 Xbir_SsiValidateLastUpdate (char *JsonStr, u16 JsonStrLen)
 	Xbir_Printf("Validating CRC\r\n");
 	Status = Xbir_SysValidateCrc(Xbir_SsiLastImgUpload,
 		Xbir_SsiLastUploadSize, atol(Val));
-
 	if (XST_SUCCESS == Status) {
-		BootImgStatus = Xbir_SysGetBootImgStatus();
 		if (XBIR_SYS_BOOT_IMG_A_ID == Xbir_SsiLastImgUpload) {
+			BootImgStatus = Xbir_SysGetBootImgStatus();
 			Xbir_Printf("Making the boot image A requested image\r\n");
 			Status = Xbir_SysUpdateBootImgStatus(XBIR_SSI_IMG_BOOTABLE,
 				 BootImgStatus->ImgBBootable,
 				 XBIR_SYS_BOOT_IMG_A_ID);
 		}
 		else if (XBIR_SYS_BOOT_IMG_B_ID == Xbir_SsiLastImgUpload) {
+			BootImgStatus = Xbir_SysGetBootImgStatus();
 			Xbir_Printf("Making the boot image B requested image\r\n");
 			Status = Xbir_SysUpdateBootImgStatus(BootImgStatus->ImgABootable,
 				 XBIR_SSI_IMG_BOOTABLE,
 				 XBIR_SYS_BOOT_IMG_B_ID);
+		}
+		else if (XBIR_SYS_BOOT_IMG_WIC == Xbir_SsiLastImgUpload) {
+			Status = XST_SUCCESS;
 		}
 		else {
 			Xbir_Printf("ERROR: Invalid img verification request\r\n");
@@ -1003,6 +1034,14 @@ static int Xbir_SsiUpdateImg (struct tcp_pcb *Tpcb, u8 *HttpReq,
 	u32 DataSize;
 	Xbir_HttpArg *HttpArg = (Xbir_HttpArg *)Tpcb->callback_arg;
 	Xbir_FlashEraseStats *FlashEraseStats = Xbir_GetFlashEraseStats();
+	Xbir_WriteDevice WriteDevice = NULL;
+
+	if (XBIR_SYS_BOOT_IMG_WIC == Xbir_SsiLastImgUpload) {
+		WriteDevice = Xbir_SysWriteSD;
+	}
+	else {
+		WriteDevice = Xbir_SysWriteFlash;
+	}
 
 	if (HttpArg->Fsize > 0U) {
 		if (HttpArg->Fsize <= HttpReqLen) {
@@ -1013,11 +1052,11 @@ static int Xbir_SsiUpdateImg (struct tcp_pcb *Tpcb, u8 *HttpReq,
 		}
 
 		if (HttpArg->Fsize == DataSize) {
-			Xbir_SysWriteFlash(HttpArg->Offset, HttpReq, DataSize,
+			WriteDevice(HttpArg->Offset, HttpReq, DataSize,
 				XBIR_SYS_LAST_DATA_CHUNK);
 		}
 		else {
-			Xbir_SysWriteFlash(HttpArg->Offset, HttpReq, DataSize,
+			WriteDevice(HttpArg->Offset, HttpReq, DataSize,
 				XBIR_SYS_PARTIAL_DATA_CHUNK);
 		}
 		HttpArg->Fsize -= DataSize;
@@ -1025,9 +1064,9 @@ static int Xbir_SsiUpdateImg (struct tcp_pcb *Tpcb, u8 *HttpReq,
 	}
 
 	if (HttpArg->Fsize == 0U) {
-		if (FlashEraseStats->State == XBIR_QSPI_FLASH_ERASE_COMPLETED) {
+		if (FlashEraseStats->State == XBIR_FLASH_ERASE_COMPLETED) {
 			FlashEraseStats->NumOfSectorsErased = 0U;
-			FlashEraseStats->State = XBIR_QSPI_FLASH_ERASE_NOTSTARTED;
+			FlashEraseStats->State = XBIR_FLASH_ERASE_NOTSTARTED;
 		}
 		Status = Xbir_HttpSendResponseJson(Tpcb, HttpReq, HttpReqLen,
 				XBIR_SSI_JSON_SUCCESS_RESPONSE,
@@ -1084,8 +1123,8 @@ static int Xbir_SsiInitiateImgUpdate (struct tcp_pcb *Tpcb, u8 *HttpReq,
 	HttpArg->Offset = Offset;
 
 	if (HttpArg->Fsize > 0U) {
-		if ((FlashEraseStats->State != XBIR_QSPI_FLASH_ERASE_COMPLETED) ||
-				(FlashEraseStats->CurrentImgErased != BootImgId)) {
+		if ((FlashEraseStats->State != XBIR_FLASH_ERASE_COMPLETED) ||
+			(FlashEraseStats->CurrentImgErased != BootImgId)) {
 			goto END;
 		}
 		ImgSizeInThisPkt = HttpReqLen - (u16)(ImgData - HttpReq);

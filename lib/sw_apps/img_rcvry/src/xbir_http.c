@@ -315,7 +315,7 @@ static int Xbir_HttpProcessGetReq (struct tcp_pcb *Tpcb, u8 *HttpReq,
 	 * When Flash Erase is started ignore all commands other than
 	 * Flash Erase Status
 	 */
-	if (FlashEraseStats->State == XBIR_QSPI_FLASH_ERASE_STARTED) {
+	if (FlashEraseStats->State == XBIR_FLASH_ERASE_STARTED) {
 		if (strncmp(FileName, "flash_erase_status",
 			strlen("flash_erase_status")) != 0) {
 			goto END;
@@ -338,6 +338,11 @@ static int Xbir_HttpProcessGetReq (struct tcp_pcb *Tpcb, u8 *HttpReq,
 		strlen("flash_erase_imgB")) == 0) {
 		Xbir_HttpProcessFlashErase(Tpcb, HttpReq, HttpReqLen,
 				XBIR_SYS_BOOT_IMG_B_ID);
+	}
+	else if (strncmp(FileName, "flash_erase_imgWIC",
+		strlen("flash_erase_imgWIC")) == 0) {
+		Xbir_HttpProcessFlashErase(Tpcb, HttpReq, HttpReqLen,
+				XBIR_SYS_BOOT_IMG_WIC);
 	}
 	else if (strncmp(FileName, "flash_erase_status",
 		strlen("flash_erase_status")) == 0) {
@@ -393,6 +398,9 @@ static int Xbir_HttpProcessPostReq (struct tcp_pcb *Tpcb, u8 *HttpReq,
 	}
 	else if (strncmp(FileName, "download_imgB", strlen("download_imgB")) == 0) {
 		Status = Xbir_SsiUpdateImgB(Tpcb, HttpReq, HttpReqLen);
+	}
+	else if (strncmp(FileName, "download_imgWIC", strlen("download_imgWIC")) == 0) {
+		Status = Xbir_SsiUpdateImgWIC(Tpcb, HttpReq, HttpReqLen);
 	}
 	else if (strncmp(FileName, "validate_crc", strlen("validate_crc")) == 0) {
 		JsonStr = strstr((char *)HttpReq, "\r\n\r\n");

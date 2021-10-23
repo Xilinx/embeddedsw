@@ -35,12 +35,16 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XBIR_SDPS_BLOCK_SIZE		(0x200U)
+#define XBIR_SDPS_CHUNK_SIZE	(0x100000U)
+#define XBIR_SD_ERASE_NUM_CHUNKS	(0x400U)
+#define XBIR_SD_RAW_NUM_SECTORS		(0x800U)
 
 /************************** Function Prototypes ******************************/
-int Xbir_SdInit (void);
-int Xbir_SdRead (u64 SrcAddr, u8 *DestAddr, u64 Length);
-int Xbir_SdWrite (u8 *WrBuff, u64 Length);
-int Xbir_SdErase(u64 Length);
+int Xbir_SdInit (u8 DrvNum);
+int Xbir_SdRead (u32 SrcAddr, u8 *DestAddr, u32 Length);
+int Xbir_SdWrite(u32 Offset, u8 *WrBuffer, u32 Length);
+int Xbir_SdErase(u32 Offset, u32 Length);
 
 #ifdef __cplusplus
 }

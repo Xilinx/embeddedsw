@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,6 +38,7 @@ int Xbir_SsiUpdateImgA (struct tcp_pcb *Tpcb, u8 *HttpReq,
 int Xbir_SsiUpdateImgB (struct tcp_pcb *Tpcb, u8 *HttpReq,
 	u16 HttpReqLen);
 u32 Xbir_SsiValidateLastUpdate (char *JsonStr, u16 JsonStrLen);
+int Xbir_SsiUpdateImgWIC (struct tcp_pcb *Tpcb, u8 *HttpReq, u16 HttpReqLen);
 
 #ifdef __cplusplus
 }

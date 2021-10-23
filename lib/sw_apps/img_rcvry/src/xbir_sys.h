@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -40,6 +40,9 @@ extern "C" {
 #define XBIR_SYS_MAX_STATE_NAME_VAL_LEN	(8U)
 #define XBIR_SYS_MAX_PART_NO_VAL_LEN	(20U)
 #define XBIR_SYS_MAX_UUID_VAL_LEN	(20U)
+#define XBIR_FLASH_ERASE_NOTSTARTED	(0U)
+#define XBIR_FLASH_ERASE_STARTED	(1U)
+#define XBIR_FLASH_ERASE_COMPLETED	(2U)
 
 /**************************** Type Definitions *******************************/
 typedef struct {
@@ -179,7 +182,8 @@ typedef struct {
 
 typedef enum {
 	XBIR_SYS_BOOT_IMG_A_ID = 0,
-	XBIR_SYS_BOOT_IMG_B_ID
+	XBIR_SYS_BOOT_IMG_B_ID, /**< 1 */
+	XBIR_SYS_BOOT_IMG_WIC, /**< 2 */
 } Xbir_SysBootImgId;
 
 typedef enum {
@@ -200,6 +204,8 @@ int Xbir_SysWriteFlash (u32 Offset, u8 *Data, u32 Size,
 int Xbir_SysEraseBootImg (Xbir_SysBootImgId BootImgId);
 int Xbir_SysValidateCrc (Xbir_SysBootImgId BootImgId, u32 Size, u32 InCrc);
 void Xbir_SysExecuteBackgroundTasks(void);
+int Xbir_SysWriteSD (u32 Offset, u8 *Data, u32 Size,
+	Xbir_ImgDataStatus IsLast);
 
 #ifdef __cplusplus
 }

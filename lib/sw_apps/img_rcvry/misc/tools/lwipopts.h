@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2001, 2002 Swedish Institute of Computer Science.
- * Copyright (C) 2007 - 2018 Xilinx, Inc.
+ * Copyright (C) 2007 - 2021 Xilinx, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -62,7 +62,7 @@
 #define MEMP_NUM_TCPIP_MSG_INPKT 64
 
 #define MEMP_NUM_SYS_TIMEOUT 8
-#define PBUF_POOL_SIZE 256
+#define PBUF_POOL_SIZE 512
 #define PBUF_POOL_BUFSIZE 1700
 #define PBUF_LINK_HLEN 16
 
