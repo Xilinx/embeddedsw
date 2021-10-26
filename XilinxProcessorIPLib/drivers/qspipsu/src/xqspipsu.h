@@ -8,7 +8,7 @@
 /**
  *
  * @file xqspipsu.h
- * @addtogroup qspipsu_v1_14
+ * @addtogroup qspipsu_v1_15
  * @{
  * @details
  *
@@ -542,6 +542,14 @@ s32 XQspiPsu_SetReadMode(XQspiPsu *InstancePtr, u32 Mode);
 void XQspiPsu_SetWP(const XQspiPsu *InstancePtr, u8 Value);
 void XQspiPsu_WriteProtectToggle(const XQspiPsu *InstancePtr, u32 Toggle);
 void XQspiPsu_Idle(const XQspiPsu *InstancePtr);
+
+/************************** Variable Prototypes ******************************/
+
+/**
+ * This table contains configuration information for each QSPIPSU device
+ * in the system.
+ */
+extern XQspiPsu_Config XQspiPsu_ConfigTable[XPAR_XQSPIPSU_NUM_INSTANCES];
 
 #ifdef __cplusplus
 }

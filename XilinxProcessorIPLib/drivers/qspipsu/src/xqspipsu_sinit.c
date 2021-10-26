@@ -7,7 +7,7 @@
 /**
 *
 * @file xqspipsu_sinit.c
-* @addtogroup qspipsu_v1_14
+* @addtogroup qspipsu_v1_15
 * @{
 *
 * The implementation of the XQspiPsu component's static initialization
@@ -19,6 +19,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 1.0   hk  08/21/14 First release
+* 1.15  akm 10/26/21 Fix MISRA-C violations.
 * </pre>
 *
 ******************************************************************************/
@@ -38,8 +39,6 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-
-extern XQspiPsu_Config XQspiPsu_ConfigTable[XPAR_XQSPIPSU_NUM_INSTANCES];
 
 /*****************************************************************************/
 /**
