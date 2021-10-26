@@ -7,7 +7,7 @@
 /**
 *
 * @file xqspipsu_hw.h
-* @addtogroup qspipsu_v1_14
+* @addtogroup qspipsu_v1_15
 * @{
 *
 * This file contains low level access functions using the base address
