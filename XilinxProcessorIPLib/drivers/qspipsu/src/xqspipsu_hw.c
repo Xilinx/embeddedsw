@@ -8,7 +8,7 @@
 /**
  *
  * @file xqspipsu_hw.c
- * @addtogroup qspipsu_v1_14
+ * @addtogroup qspipsu_v1_15
  * @{
  *
  * This file contains functions to reads RXFifo, writes TXFifo and setup
@@ -22,6 +22,7 @@
  * 1.11   akm  03/09/20 First release
  *         mn  03/30/20 Add xil_smc.h include for Xil_Smc calls
  * 1.13   akm  01/04/21 Fix MISRA-C violations.
+ * 1.15   akm  10/21/21 Fix MISRA-C violations.
  *
  * </pre>
  ******************************************************************************/
@@ -175,7 +176,7 @@ void XQspiPsu_SetupRxDma(const XQspiPsu *InstancePtr,
 		Msg->ByteCount = (u32)DmaRxBytes;
 	}
 	if (InstancePtr->Config.IsCacheCoherent == 0U) {
-		Xil_DCacheInvalidateRange((INTPTR)Msg->RxBfrPtr, Msg->ByteCount);
+		Xil_DCacheInvalidateRange((INTPTR)Msg->RxBfrPtr, (int64_t)Msg->ByteCount);
 	}
 	/* Write no. of words to DMA DST SIZE */
 	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
