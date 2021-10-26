@@ -8,7 +8,8 @@
 # Ver      Who    Date      Changes
 # -------- ------ --------- ----------------------------------------------------
 # 1.0      dc     03/08/21  Initial version
-# 1.1      dc     06/30/21 Doxygen documentation update
+# 1.1      dc     06/30/21  Doxygen documentation update
+#          dc     10/26/21  Add math library '-lm' to linker flags
 ##############################################################################
 
 OPTION psf_version = 2.1;
@@ -22,6 +23,6 @@ BEGIN driver dfeprach
   OPTION NAME = dfeprach;
   OPTION depends = libmetal;
   OPTION APP_COMPILER_FLAGS = "-D __BAREMETAL__";
-  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lgcc,-lc,-lmetal,--end-group";
+  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lgcc,-lc,-lmetal,-lm,--end-group";
 
 END driver
