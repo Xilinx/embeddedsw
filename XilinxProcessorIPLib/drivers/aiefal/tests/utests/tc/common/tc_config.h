@@ -8,7 +8,7 @@
 
 #if AIE_GEN == 2
 
-#define HW_GEN XAIE_DEV_GEN_AIE2
+#define HW_GEN XAIE_DEV_GEN_AIEML
 #define XAIE_NUM_ROWS            8
 #define XAIE_NUM_COLS            50
 #define XAIE_ADDR_ARRAY_OFF      0x800
@@ -18,8 +18,8 @@
 #define XAIE_ROW_SHIFT 20
 #define XAIE_SHIM_ROW 0
 #define XAIE_MEM_TILE_ROW_START 1
-#define XAIE_MEM_TILE_NUM_ROWS 1
-#define XAIE_AIE_TILE_ROW_START 2
+#define XAIE_MEM_TILE_NUM_ROWS 2
+#define XAIE_AIE_TILE_ROW_START 3
 #define XAIE_AIE_TILE_NUM_ROWS 8
 
 #elif AIE_GEN == 1
