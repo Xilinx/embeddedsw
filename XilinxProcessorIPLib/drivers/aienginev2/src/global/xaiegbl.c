@@ -69,6 +69,43 @@ extern XAie_DeviceOps AieMlDevOps;
 /*****************************************************************************/
 /**
 *
+* This API is to set up AI engine partition instance location and size.
+*
+* @param	Inst: Pointer of AI engine partition instance
+* @param	PartBaseAddr: Partition base address
+* @param	PartStartCol: Absolute partition start column
+* @param	PartNumCols: number of columns of the partition
+*
+* @return	XAIE_OK.
+*
+* @note		If this API is not called, the AI engine partition instance
+*		uses the base address and the number of columns from the device
+*		config (XAie_Config), and the start column is 0 by default.
+*		This function do not verify the PartBaseAddr, PartStartCol,
+*		or the PartNumcols. The PartStartCol and the PartNumCols will
+*		be validated in XAie_CfgInitialize().
+*		This functions is supposed to be called before
+*		XAie_CfgInitialize().
+*
+*******************************************************************************/
+AieRC XAie_SetupPartitionConfig(XAie_DevInst *DevInst,
+		u64 PartBaseAddr, u8 PartStartCol, u8 PartNumCols)
+{
+	if (DevInst == XAIE_NULL || DevInst->IsReady) {
+		XAIE_ERROR("Invalid Device instance to set part config.\n");
+		return XAIE_INVALID_DEVICE;
+	}
+
+	DevInst->BaseAddr = PartBaseAddr;
+	DevInst->StartCol = PartStartCol;
+	DevInst->NumCols = PartNumCols;
+
+	return XAIE_OK;
+}
+
+/*****************************************************************************/
+/**
+*
 * This is the global initialization function for all the tiles of the AIE array
 * The function sets up the Device Instance pointer with the appropriate values
 * from the ConfigPtr.
@@ -120,12 +157,20 @@ AieRC XAie_CfgInitialize(XAie_DevInst *InstPtr, XAie_Config *ConfigPtr)
 		return XAIE_INVALID_DEVICE;
 	}
 
+	if(InstPtr->NumCols == 0) {
+		InstPtr->BaseAddr = ConfigPtr->BaseAddr;
+		InstPtr->StartCol = 0;
+		InstPtr->NumCols = ConfigPtr->NumCols;
+	} else if((u32)InstPtr->StartCol + (u32)InstPtr->NumCols >
+			(u32)ConfigPtr->NumCols) {
+		XAIE_ERROR("Invalid Partition location or size.\n");
+		return XAIE_INVALID_DEVICE;
+	}
+
 	InstPtr->IsReady = XAIE_COMPONENT_IS_READY;
 	InstPtr->DevProp.RowShift = ConfigPtr->RowShift;
 	InstPtr->DevProp.ColShift = ConfigPtr->ColShift;
-	InstPtr->BaseAddr = ConfigPtr->BaseAddr;
 	InstPtr->NumRows = ConfigPtr->NumRows;
-	InstPtr->NumCols = ConfigPtr->NumCols;
 	InstPtr->ShimRow = ConfigPtr->ShimRowNum;
 	InstPtr->MemTileRowStart = ConfigPtr->MemTileRowStart;
 	InstPtr->MemTileNumRows = ConfigPtr->MemTileNumRows;

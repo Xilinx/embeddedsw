@@ -122,6 +122,7 @@ typedef struct XAie_List {
  */
 typedef struct {
 	u64 BaseAddr; /* Base address of the partition*/
+	u8 StartCol;  /* Absolute start column of the partition */
 	u8 NumRows;   /* Number of rows allocated to the partition */
 	u8 NumCols;   /* Number of cols allocated to the partition */
 	u8 ShimRow;   /* ShimRow location */
@@ -455,6 +456,8 @@ typedef struct {
 } XAie_Packet;
 
 /**************************** Function prototypes ***************************/
+AieRC XAie_SetupPartitionConfig(XAie_DevInst *DevInst,
+		u64 PartBaseAddr, u8 PartStartCol, u8 PartNumCols);
 AieRC XAie_CfgInitialize(XAie_DevInst *InstPtr, XAie_Config *ConfigPtr);
 AieRC XAie_PartitionInitialize(XAie_DevInst *DevInst, XAie_PartInitOpts *Opts);
 AieRC XAie_PartitionTeardown(XAie_DevInst *DevInst);
