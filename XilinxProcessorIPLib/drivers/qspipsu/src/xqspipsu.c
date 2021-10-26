@@ -488,29 +488,32 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 				XQspiPsu_FillTxFifo(InstancePtr, &Msg[Index],
 						(u32)XQSPIPSU_TXD_DEPTH);
 			}
-			/* Check if DMA RX is complete and update RxBytes */
-			if ((InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) &&
-				((Msg[Index].Flags & XQSPIPSU_MSG_FLAG_RX) != (u32)FALSE)) {
-				DmaIntrSts = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
-					XQSPIPSU_QSPIDMA_DST_I_STS_OFFSET);
-				if ((DmaIntrSts &
+
+			if ((Msg[Index].Flags & XQSPIPSU_MSG_FLAG_RX) != (u32)FALSE) {
+				if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
+					/* Check if DMA RX is complete and update RxBytes */
+					DmaIntrSts = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
+								XQSPIPSU_QSPIDMA_DST_I_STS_OFFSET);
+					if ((DmaIntrSts &
 						XQSPIPSU_QSPIDMA_DST_I_STS_DONE_MASK) != (u32)FALSE) {
-					XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
-							XQSPIPSU_QSPIDMA_DST_I_STS_OFFSET, DmaIntrSts);
-					/* DMA transfer done, Invalidate Data Cache */
-					if (!((Msg[Index].RxAddr64bit >= XQSPIPSU_RXADDR_OVER_32BIT) ||
-					    (Msg[Index].Xfer64bit != (u8)0U)) &&
-					    (InstancePtr->Config.IsCacheCoherent == 0U)) {
-						Xil_DCacheInvalidateRange((INTPTR)Msg[Index].RxBfrPtr, (INTPTR)Msg[Index].ByteCount);
+						XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
+								XQSPIPSU_QSPIDMA_DST_I_STS_OFFSET, DmaIntrSts);
+						/* DMA transfer done, Invalidate Data Cache */
+						if (!((Msg[Index].RxAddr64bit >= XQSPIPSU_RXADDR_OVER_32BIT) ||
+							(Msg[Index].Xfer64bit != (u8)0U)) &&
+							(InstancePtr->Config.IsCacheCoherent == 0U)) {
+							Xil_DCacheInvalidateRange((INTPTR)Msg[Index].RxBfrPtr,
+										(INTPTR)Msg[Index].ByteCount);
+						}
+						IOPending = XQspiPsu_SetIOMode(InstancePtr, &Msg[Index]);
+						InstancePtr->RxBytes = 0;
+						if (IOPending == (u32)TRUE) {
+							break;
+						}
 					}
-					IOPending = XQspiPsu_SetIOMode(InstancePtr, &Msg[Index]);
-					InstancePtr->RxBytes = 0;
-					if (IOPending == (u32)TRUE) {
-						break;
-					}
+				} else {
+					XQspiPsu_IORead(InstancePtr, &Msg[Index], QspiPsuStatusReg);
 				}
-			} else if ((Msg[Index].Flags & XQSPIPSU_MSG_FLAG_RX) != (u32)FALSE) {
-				XQspiPsu_IORead(InstancePtr, &Msg[Index], QspiPsuStatusReg);
 			}
 		} while (((QspiPsuStatusReg &
 			XQSPIPSU_ISR_GENFIFOEMPTY_MASK) == (u32)FALSE) ||
@@ -705,35 +708,38 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 		MsgCnt += 1;
 		DeltaMsgCnt = 1U;
 	}
-	if ((InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) &&
-		(MsgCnt < NumMsg) && ((TxRxFlag & XQSPIPSU_MSG_FLAG_RX) != (u32)FALSE)) {
-		if ((DmaIntrStatusReg &
-			XQSPIPSU_QSPIDMA_DST_I_STS_DONE_MASK) != (u32)FALSE) {
-			/* DMA transfer done, Invalidate Data Cache */
-			if (!((Msg[MsgCnt].RxAddr64bit >= XQSPIPSU_RXADDR_OVER_32BIT) ||
-			    (Msg[MsgCnt].Xfer64bit != (u8)0U)) &&
-			    (InstancePtr->Config.IsCacheCoherent == 0U)) {
-				Xil_DCacheInvalidateRange((INTPTR)Msg[MsgCnt].RxBfrPtr, (INTPTR)Msg[MsgCnt].ByteCount);
+
+	if ((MsgCnt < NumMsg) &&
+                        ((TxRxFlag & XQSPIPSU_MSG_FLAG_RX) != (u32)FALSE)) {
+		if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
+			if ((DmaIntrStatusReg &
+					XQSPIPSU_QSPIDMA_DST_I_STS_DONE_MASK) != (u32)FALSE) {
+				/* DMA transfer done, Invalidate Data Cache */
+				if (!((Msg[MsgCnt].RxAddr64bit >= XQSPIPSU_RXADDR_OVER_32BIT) ||
+						(Msg[MsgCnt].Xfer64bit != (u8)0U)) &&
+						(InstancePtr->Config.IsCacheCoherent == 0U)) {
+					Xil_DCacheInvalidateRange((INTPTR)Msg[MsgCnt].RxBfrPtr, (INTPTR)Msg[MsgCnt].ByteCount);
+				}
+				if (XQspiPsu_SetIOMode(InstancePtr, &Msg[MsgCnt]) == (u32)TRUE) {
+					XQspiPsu_GenFifoEntryData(InstancePtr, &Msg[MsgCnt]);
+					XQspiPsu_ManualStartEnable(InstancePtr);
+				} else {
+					InstancePtr->RxBytes = 0;
+					MsgCnt += 1;
+					DeltaMsgCnt = 1U;
+				}
 			}
-			if (XQspiPsu_SetIOMode(InstancePtr, &Msg[MsgCnt]) == (u32)TRUE) {
-				XQspiPsu_GenFifoEntryData(InstancePtr, &Msg[MsgCnt]);
-				XQspiPsu_ManualStartEnable(InstancePtr);
-			} else {
-				InstancePtr->RxBytes = 0;
-				MsgCnt += 1;
-				DeltaMsgCnt = 1U;
-			}
-		}
-	} else if ((MsgCnt < NumMsg) &&
-			((TxRxFlag & XQSPIPSU_MSG_FLAG_RX) != (u32)FALSE)) {
-		if (InstancePtr->RxBytes != 0) {
-			XQspiPsu_IORead(InstancePtr, &Msg[MsgCnt], QspiPsuStatusReg);
-			if (InstancePtr->RxBytes == 0) {
-				MsgCnt += 1;
-				DeltaMsgCnt = 1U;
+		} else {
+			if (InstancePtr->RxBytes != 0) {
+				XQspiPsu_IORead(InstancePtr, &Msg[MsgCnt], QspiPsuStatusReg);
+				if (InstancePtr->RxBytes == 0) {
+					MsgCnt += 1;
+					DeltaMsgCnt = 1U;
+				}
 			}
 		}
 	}
+
 	/*
 	 * Dummy byte transfer
 	 * MsgCnt < NumMsg check is to ensure is it a valid dummy cycle message

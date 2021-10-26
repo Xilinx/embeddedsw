@@ -298,12 +298,13 @@ void XQspiPsu_RXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg)
 #endif
 	InstancePtr->RxBytes = (s32)Msg->ByteCount;
 
-	if (((Msg->RxAddr64bit >= XQSPIPSU_RXADDR_OVER_32BIT) ||
-		(Msg->Xfer64bit != (u8)0U)) &&
-		(InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA)) {
-		XQspiPsu_Setup64BRxDma(InstancePtr, Msg);
-	} else if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
-		XQspiPsu_SetupRxDma(InstancePtr, Msg);
+	if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
+		if ((Msg->RxAddr64bit >= XQSPIPSU_RXADDR_OVER_32BIT) ||
+			(Msg->Xfer64bit != (u8)0U)) {
+			XQspiPsu_Setup64BRxDma(InstancePtr, Msg);
+		} else {
+			XQspiPsu_SetupRxDma(InstancePtr, Msg);
+		}
 	}
 }
 
@@ -694,7 +695,10 @@ void XQspiPsu_IORead(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		RxThr = RxThr*4;
 		XQspiPsu_ReadRxFifo(InstancePtr, Msg, RxThr);
 
-	} else if ((StatusReg & XQSPIPSU_ISR_GENFIFOEMPTY_MASK) != 0U) {
+		return;
+	}
+
+	if ((StatusReg & XQSPIPSU_ISR_GENFIFOEMPTY_MASK) != 0U) {
 		XQspiPsu_ReadRxFifo(InstancePtr, Msg, InstancePtr->RxBytes);
 	}
 }
