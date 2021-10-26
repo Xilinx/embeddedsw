@@ -55,6 +55,7 @@ endif ("${PROJECT_SYSTEM}" STREQUAL "linux")
 
 if (WITH_TESTS AND (${_host} STREQUAL ${_target}))
 	option (WITH_TESTS_EXEC "Run test applications during build" OFF)
+  option(TEST_HARDWARE "Run tests on hardware" OFF)
 endif (WITH_TESTS AND (${_host} STREQUAL ${_target}))
 
 option (WITH_DOC "Build with documentation" ON)
