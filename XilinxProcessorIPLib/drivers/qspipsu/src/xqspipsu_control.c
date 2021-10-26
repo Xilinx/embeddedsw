@@ -8,7 +8,7 @@
 /**
  *
  * @file xqspipsu_control.c
- * @addtogroup qspipsu_v1_14
+ * @addtogroup qspipsu_v1_15
  * @{
  *
  * This file contains intermediate control functions used by functions
@@ -21,6 +21,7 @@
  * ----- --- -------- -----------------------------------------------
  * 1.11   akm  03/09/20 First release
  * 1.13   akm  01/04/21 Fix MISRA-C violations.
+ * 1.15   akm  10/21/21 Fix MISRA-C violations.
  * </pre>
  *
  ******************************************************************************/
@@ -270,10 +271,10 @@ s32 XQspipsu_Calculate_Tapdelay(const XQspiPsu *InstancePtr, u8 Prescaler)
 		}
 
 		Status =  XQspipsu_Set_TapDelay(InstancePtr, Tapdelay, LBkModeReg, delayReg);
-
-		END:
-		return Status;
 	}
+
+	END:
+	return Status;
 }
 #endif
 /** @} */
