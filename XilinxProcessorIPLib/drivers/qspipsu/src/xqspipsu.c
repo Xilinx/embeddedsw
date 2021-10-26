@@ -8,7 +8,7 @@
 /**
  *
  * @file xqspipsu.c
- * @addtogroup qspipsu_v1_14
+ * @addtogroup qspipsu_v1_15
  * @{
  *
  * This file implements the functions required to use the QSPIPSU hardware to
@@ -73,6 +73,7 @@
  * 1.13 akm 01/04/21 Fix MISRA-C violations.
  * 1.14 akm 06/24/21 Allow enough time for the controller to reset the FIFOs.
  * 1.14 akm 08/12/21 Perform Dcache invalidate at the end of the DMA transfer.
+ * 1.15 akm 10/21/21 Fix MISRA-C violations.
  *
  * </pre>
  *
@@ -326,7 +327,7 @@ void XQspiPsu_Abort(XQspiPsu *InstancePtr)
 
 	FifoStatus = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
 					XQSPIPSU_FIFO_CTRL_OFFSET);
-	while(FifoStatus != 0x00) {
+	while(FifoStatus != 0U) {
 		if (DelayCount == MAX_DELAY_CNT) {
 #ifdef DEBUG
 			xil_printf("Timeout error, FIFO reset failed.\r\n");
