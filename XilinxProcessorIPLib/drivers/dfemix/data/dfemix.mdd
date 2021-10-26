@@ -10,6 +10,7 @@
 # 1.0      dc     07/22/20  Initial version
 #          dc     03/18/21  Add compiler and linker option
 # 1.1      dc     07/13/21  Update to common latency requirements
+#          dc     10/26/21  Add math library '-lm' to linker flags
 ##############################################################################
 
 OPTION psf_version = 2.1;
@@ -23,6 +24,6 @@ BEGIN driver dfemix
   OPTION NAME = dfemix;
   OPTION depends = libmetal;
   OPTION APP_COMPILER_FLAGS = "-D __BAREMETAL__";
-  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lgcc,-lc,-lmetal,--end-group";
+  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lgcc,-lc,-lmetal,-lm,--end-group";
 
 END driver
