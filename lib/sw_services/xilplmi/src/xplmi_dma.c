@@ -35,6 +35,7 @@
 *       bsv  08/15/2021 Removed unwanted goto statements
 *       bsv  08/22/2021 Fix bug in XPlmi_MemSetBytes
 *       ma   08/30/2021 Added XPlmi_SsitWaitForDmaDone function for SSIT cases
+* 1.06  kpt  10/25/2021 Resolved Divide by Zero exception in XPlmi_MemSet
 *
 * </pre>
 *
@@ -789,6 +790,11 @@ int XPlmi_MemSet(u64 DestAddr, u32 Val, u32 Len)
 	u32 Index;
 	u64 SrcAddr = DestAddr;
 	u32 ChunkSize;
+
+	if (Len == 0U) {
+		Status = XST_SUCCESS;
+		goto END;
+	}
 
 	if (Val == XPLMI_DATA_INIT_PZM)	{
 		Status = XPlmi_EccInit(DestAddr, Len * XPLMI_WORD_LEN);
