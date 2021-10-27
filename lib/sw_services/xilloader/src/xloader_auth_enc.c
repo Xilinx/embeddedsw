@@ -65,6 +65,8 @@
 *       bsv  10/01/21 Addressed code review comments
 * 1.02  kpt  10/01/21 Removed redundant code in XLoader_VerifyRevokeId
 *       kpt  10/07/21 Decoupled checksum functionality from secure code
+*       kpt  10/20/21 Modified temporal checks to use temporal variables from
+*                     data section
 *
 * </pre>
 *
@@ -203,6 +205,7 @@ int XLoader_SecureAuthInit(XLoader_SecureParams *SecurePtr,
 {
 	int Status = XST_FAILURE;
 	volatile u32 AuthCertificateOfstTmp = PrtnHdr->AuthCertificateOfst;
+	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
 	u64 AcOffset;
 
 	/* Check if authentication is enabled */
@@ -211,9 +214,9 @@ int XLoader_SecureAuthInit(XLoader_SecureParams *SecurePtr,
 		 XPlmi_Printf(DEBUG_INFO, "Authentication is enabled\n\r");
 
 		SecurePtr->IsAuthenticated = (u8)TRUE;
-		SecurePtr->IsAuthenticatedTmp = (u8)TRUE;
+		SecureTempParams->IsAuthenticated = (u8)TRUE;
 		SecurePtr->SecureEn = (u8)TRUE;
-		SecurePtr->SecureEnTmp = (u8)TRUE;
+		SecureTempParams->SecureEn = (u8)TRUE;
 
 		AcOffset = SecurePtr->PdiPtr->MetaHdr.FlashOfstAddr +
 			((u64)SecurePtr->PrtnHdr->AuthCertificateOfst *
@@ -276,22 +279,23 @@ int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 	u32 ReadReg = 0U;
 	u32 SecureStateSHWRoT = XLoader_GetSHWRoT(NULL);
 	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
+	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
 
 	/* Check if encryption is enabled */
 	if (PrtnHdr->EncStatus != 0x00U) {
 		 XPlmi_Printf(DEBUG_INFO, "Encryption is enabled\n\r");
 		SecurePtr->IsEncrypted = (u8)TRUE;
-		SecurePtr->IsEncryptedTmp = (u8)TRUE;
+		SecureTempParams->IsEncrypted = (u8)TRUE;
 		SecurePtr->SecureEn = (u8)TRUE;
-		SecurePtr->SecureEnTmp = (u8)TRUE;
+		SecureTempParams->SecureEn = (u8)TRUE;
 	}
 
 	/* Checksum could not be enabled with authentication or encryption */
 	if ((SecurePtr->IsCheckSumEnabled == (u8)TRUE) &&
 		((SecurePtr->IsAuthenticated == (u8)TRUE) ||
-		 (SecurePtr->IsAuthenticatedTmp== (u8)TRUE) ||
+		 (SecureTempParams->IsAuthenticated== (u8)TRUE) ||
 		 (SecurePtr->IsEncrypted == (u8)TRUE) ||
-		 (SecurePtr->IsEncryptedTmp == (u8)TRUE))) {
+		 (SecureTempParams->IsEncrypted == (u8)TRUE))) {
 		XPlmi_Printf(DEBUG_INFO, "Error: Checksum should not be enabled with "
 				"authentication or encryption\n\r");
 		Status = XPlmi_UpdateStatus(
@@ -304,7 +308,7 @@ int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 	 * and metaheader is not encrypted
 	 */
 	if ((SecurePtr->IsEncrypted == (u8)TRUE) ||
-		(SecurePtr->IsEncryptedTmp == (u8)TRUE)) {
+		(SecureTempParams->IsEncrypted == (u8)TRUE)) {
 		Status = XLoader_AesKatTest(SecurePtr);
 		if (Status != XST_SUCCESS) {
 			XPlmi_Printf(DEBUG_INFO, "AES KAT test failed\n\r");
@@ -392,6 +396,7 @@ int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
 	u32 SecureStateSHWRoT = XLoader_GetSHWRoT(NULL);
 	u32 MetaHeaderKeySrc = SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl.EncKeySrc;
+	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
 
 	XPlmi_Printf(DEBUG_INFO, "Performing security checks\n\r");
 	/*
@@ -419,7 +424,7 @@ int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 			}
 			else {
 				if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
-					(SecurePtr->IsAuthenticatedTmp == (u8)TRUE)) {
+					(SecureTempParams->IsAuthenticated == (u8)TRUE)) {
 					Status = XPlmi_UpdateStatus(
 						XLOADER_ERR_AUTH_EN_PPK_HASH_ZERO, 0);
 					goto END;
@@ -428,7 +433,7 @@ int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 		}
 		else {
 			if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
-				(SecurePtr->IsAuthenticatedTmp == (u8)TRUE)) {
+				(SecureTempParams->IsAuthenticated == (u8)TRUE)) {
 				/*
 				 * BHDR authentication is
 				 * enabled and PPK hash is not programmed
@@ -448,7 +453,7 @@ int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 	else {
 		/* Authentication is compulsory */
 		if ((SecurePtr->IsAuthenticated == (u8)FALSE) &&
-			(SecurePtr->IsAuthenticatedTmp == (u8)FALSE)) {
+			(SecureTempParams->IsAuthenticated == (u8)FALSE)) {
 			XPlmi_Printf(DEBUG_INFO,
 				"HWROT is enabled, non authenticated PDI is"
 				" not allowed\n\r");
@@ -489,7 +494,7 @@ int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 	}
 	else {
 		if ((SecurePtr->IsEncrypted == (u8)FALSE) &&
-			(SecurePtr->IsEncryptedTmp == (u8)FALSE)) {
+			(SecureTempParams->IsEncrypted == (u8)FALSE)) {
 			XPlmi_Printf(DEBUG_INFO, "DEC_ONLY mode is set,"
 			" non encrypted meta header is not allowed\n\r");
 			Status = XPlmi_UpdateStatus(
@@ -510,7 +515,7 @@ int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 	 * PLM Key source in Bootheader
 	 */
 	if ((SecurePtr->IsEncrypted == (u8)TRUE) &&
-		(SecurePtr->IsEncryptedTmp == (u8)TRUE) &&
+		(SecureTempParams->IsEncrypted == (u8)TRUE) &&
 		(MetaHeaderKeySrc != XilPdi_GetPlmKeySrc())) {
 			XPlmi_Printf(DEBUG_INFO, "Metaheader Key Source does not"
 			" match PLM Key Source\n\r");
@@ -726,6 +731,7 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 	u32 ImgHdrAddr = MetaHdr->ImgHdrTbl.ImgHdrAddr * XIH_PRTN_WORD_LEN;
 	u32 TotalImgHdrLen = MetaHdr->ImgHdrTbl.NoOfImgs * XIH_IH_LEN;
 	u32 TotalPrtnHdrLen = MetaHdr->ImgHdrTbl.NoOfPrtns * XIH_PH_LEN;
+	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
 
 	XPlmi_Printf(DEBUG_INFO,
 		"Loading secure image headers and partition headers\n\r");
@@ -741,7 +747,7 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 	 * either authentication is enabled or not
 	 */
 	if ((SecurePtr->IsEncrypted == (u8)TRUE) ||
-		(SecurePtr->IsEncryptedTmp == (u8)TRUE)) {
+		(SecureTempParams->IsEncrypted == (u8)TRUE)) {
 		SecurePtr->AesInstPtr = XSecure_GetAesInstance();
 		/* Initialize AES driver */
 		Status = XSecure_AesInitialize(SecurePtr->AesInstPtr, SecurePtr->PmcDmaInstPtr);
@@ -763,7 +769,7 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 		/* Read headers to a buffer */
 		/* Read IHT and PHT to buffers along with encryption overhead */
 		if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
-			(SecurePtr->IsAuthenticatedTmp == (u8)TRUE)) {
+			(SecureTempParams->IsAuthenticated == (u8)TRUE)) {
 			XPlmi_Printf(DEBUG_INFO, "Authentication is enabled\n\r");
 			TotalSize -= XLOADER_AUTH_CERT_MIN_SIZE;
 		}
@@ -785,7 +791,7 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 		Status = XST_FAILURE;
 		/* Authenticate headers and decrypt the headers */
 		if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
-			(SecurePtr->IsAuthenticatedTmp == (u8)TRUE)) {
+			(SecureTempParams->IsAuthenticated == (u8)TRUE)) {
 			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_AuthNDecHdrs,
 				SecurePtr, MetaHdr, SecurePtr->ChunkAddr);
 		}
@@ -842,7 +848,7 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 	}
 	/* If authentication is enabled */
 	else if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
-			(SecurePtr->IsAuthenticatedTmp == (u8)TRUE)) {
+			(SecureTempParams->IsAuthenticated == (u8)TRUE)) {
 		XPlmi_Printf(DEBUG_INFO, "Headers are only authenticated\n\r");
 		Status = XLoader_AuthHdrs(SecurePtr, MetaHdr);
 	}
@@ -2416,9 +2422,10 @@ static int XLoader_AuthNDecHdrs(XLoader_SecureParams *SecurePtr,
 	XSecure_Sha3Hash CalHash;
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
 	u32 TotalSize = MetaHdr->ImgHdrTbl.TotalHdrLen * XIH_PRTN_WORD_LEN;
+	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
 
 	if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
-		(SecurePtr->IsAuthenticatedTmp == (u8)TRUE)) {
+		(SecureTempParams->IsAuthenticated == (u8)TRUE)) {
 		TotalSize = TotalSize - XLOADER_AUTH_CERT_MIN_SIZE;
 	}
 
@@ -2525,14 +2532,15 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 	u32 RegVal;
 	u32 ReadEncReg = 0x0U;
 	u32 SecureStateSHWRoT = XLoader_GetSHWRoT(NULL);
+	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
 
 	if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
-		(SecurePtr->IsAuthenticatedTmp == (u8)TRUE)) {
+		(SecureTempParams->IsAuthenticated == (u8)TRUE)) {
 		TotalSize = TotalSize - XLOADER_AUTH_CERT_MIN_SIZE;
 	}
 
 	if ((SecurePtr->IsEncrypted != (u8)TRUE) &&
-		(SecurePtr->IsEncryptedTmp != (u8)TRUE)) {
+		(SecureTempParams->IsEncrypted != (u8)TRUE)) {
 		XPlmi_Printf(DEBUG_INFO, "Headers are not encrypted\n\r");
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_NOT_ENCRYPTED, 0);
 		goto END;
@@ -3348,6 +3356,7 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 	u32 TotalSize = BlockSize;
 	u64 SrcAddr;
 	u64 OutAddr;
+	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
 
 	XPlmi_Printf(DEBUG_INFO,
 			"Processing Block %u\n\r", SecurePtr->BlockNum);
@@ -3362,7 +3371,7 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 	}
 
 	if ((SecurePtr->IsEncrypted == (u8)TRUE) ||
-		(SecurePtr->IsEncryptedTmp == (u8)TRUE)) {
+		(SecureTempParams->IsEncrypted == (u8)TRUE)) {
 
 		if (SecurePtr->BlockNum == 0x0U) {
 			SecurePtr->RemainingEncLen =
@@ -3395,14 +3404,14 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 	}
 
 	if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
-		(SecurePtr->IsAuthenticatedTmp == (u8)TRUE)) {
+		(SecureTempParams->IsAuthenticated == (u8)TRUE)) {
 		/* Verify hash */
 		XSECURE_TEMPORAL_CHECK(END, Status,
 					XLoader_VerifyAuthHashNUpdateNext,
 					SecurePtr, TotalSize, Last);
 
 		if (((SecurePtr->IsEncrypted != (u8)TRUE) &&
-			(SecurePtr->IsEncryptedTmp != (u8)TRUE)) &&
+			(SecureTempParams->IsEncrypted != (u8)TRUE)) &&
 			(SecurePtr->IsCdo != (u8)TRUE)) {
 			/* Copy to destination address */
 			Status = XPlmi_DmaXfr((u64)SecurePtr->SecureData,
@@ -3419,9 +3428,9 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 
 	/* If encryption is enabled */
 	if ((SecurePtr->IsEncrypted == (u8)TRUE) ||
-		(SecurePtr->IsEncryptedTmp == (u8)TRUE)) {
+		(SecureTempParams->IsEncrypted == (u8)TRUE)) {
 		if ((SecurePtr->IsAuthenticated != (u8)TRUE) ||
-			(SecurePtr->IsAuthenticatedTmp != (u8)TRUE)) {
+			(SecureTempParams->IsAuthenticated != (u8)TRUE)) {
 			SecurePtr->SecureData = SecurePtr->ChunkAddr;
 			SecurePtr->SecureDataLen = TotalSize;
 		}

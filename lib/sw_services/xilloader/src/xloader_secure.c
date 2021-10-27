@@ -99,6 +99,8 @@
 *       kpt  09/20/21 Fixed checksum issue in case of delay load
 *       bsv  10/01/21 Addressed code review comments
 * 1.07  kpt  10/07/21 Decoupled checksum functionality from secure code
+*       kpt  10/20/21 Modified temporal checks to use temporal variables from
+*                     data section
 *
 * </pre>
 *
@@ -158,11 +160,22 @@ int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	u32 PrtnNum)
 {
 	volatile int Status = XST_FAILURE;
-	volatile int StatusTmp = XST_FAILURE;
 	XilPdi_PrtnHdr *PrtnHdr;
+	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
+#ifndef PLM_SECURE_EXCLUDE
+	volatile int StatusTmp = XST_FAILURE;
+#endif
 
 	Status = XPlmi_MemSetBytes(SecurePtr, sizeof(XLoader_SecureParams), 0U,
 				sizeof(XLoader_SecureParams));
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET,
+				(int)XLOADER_ERR_MEMSET_SECURE_PTR);
+		goto END;
+	}
+
+	Status = XPlmi_MemSetBytes(SecureTempParams, sizeof(XLoader_SecureTempParams),
+				0U, sizeof(XLoader_SecureTempParams));
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET,
 				(int)XLOADER_ERR_MEMSET_SECURE_PTR);
@@ -838,4 +851,17 @@ int XLoader_SetSecureState(void)
 
 END:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief	This function returns the pointer to XLoader_SecureTempParams
+*
+* @return   Pointer to XLoader_SecureTempParams
+*
+******************************************************************************/
+XLoader_SecureTempParams* XLoader_GetTempParams(void) {
+	static XLoader_SecureTempParams SecureTempParmas;
+
+	return &SecureTempParmas;
 }

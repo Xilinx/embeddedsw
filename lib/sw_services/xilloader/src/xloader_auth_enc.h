@@ -36,6 +36,7 @@
 * 1.02  kpt  10/04/21 Removed macro XLOADER_SEC_ALL_IDS_REVOKED_ERR
 *       kpt  10/07/21 Added function pointer ProcessPrtn in
 *                     XLoader_SecureParams
+*       kpt  10/20/21 Removed temporal variables from XLoader_SecureParams
 *
 * </pre>
 *
@@ -426,7 +427,6 @@ typedef struct {
 
 typedef struct XLoader_SecureParams {
 	volatile u8 SecureEn;	/**< Security enabled or disabled */
-	volatile u8 SecureEnTmp;	/**< Security enabled or disabled (temp)*/
 	u8 IsNextChunkCopyStarted;	/**< Next chunk copy started or not */
 	u8 IsCheckSumEnabled;	/**< Checksum enabled or disabled */
 	u8 IsDoubleBuffering;	/**< Double buffering enabled or disabled */
@@ -456,9 +456,7 @@ typedef struct XLoader_SecureParams {
 	XLoader_AuthJtagMessage* AuthJtagMessagePtr;
 					/**< Auth JTAG message pointer */
 	u8 IsEncrypted;		/**< Encryption enabled or disabled */
-	u8 IsEncryptedTmp;	/**< Encryption enabled or disabled (temp)*/
 	u8 IsAuthenticated;	/**< Authentication enabled or disabled */
-	u8 IsAuthenticatedTmp;	/**<  enabled or disabled */
 #endif
 } XLoader_SecureParams;
 

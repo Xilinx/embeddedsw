@@ -52,6 +52,7 @@
 * 1.06  har  07/15/21 Fixed doxygen warnings
 *       kpt  09/09/21 Fixed SW-BP-BLIND-WRITE in XLoader_SecureClear
 * 1.07  kpt  10/07/21 Removed function prototype XLoader_ProcessSecurePrtn
+*       kpt  10/20/21 Declared temporal variables in XLoader_SecureTempParams
 *
 * </pre>
 *
@@ -109,6 +110,13 @@ extern "C" {
 			/**< DEC_ONLY fuse mask in Security Misc0 register */
 
 /**************************** Type Definitions *******************************/
+typedef struct {
+	volatile u8 SecureEn;	/**< Security enabled or disabled */
+#ifndef PLM_SECURE_EXCLUDE
+	volatile u8 IsEncrypted;	/**< Encryption enabled or disabled */
+	volatile u8 IsAuthenticated;	/**<  Auth enabled or disabled */
+#endif
+} XLoader_SecureTempParams;
 
 /***************************** Function Prototypes ***************************/
 int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
@@ -120,6 +128,7 @@ int XLoader_SecureChunkCopy(XLoader_SecureParams *SecurePtr, u64 SrcAddr,
 u32 XLoader_GetAHWRoT(const u32* AHWRoTPtr);
 u32 XLoader_GetSHWRoT(const u32* SHWRoTPtr);
 int XLoader_SetSecureState(void);
+XLoader_SecureTempParams* XLoader_GetTempParams(void);
 
 #ifdef __cplusplus
 }

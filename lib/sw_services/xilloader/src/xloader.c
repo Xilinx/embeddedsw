@@ -116,6 +116,8 @@
 *                       XLoader_LoadAndStartSubSystemImages
 *       gm   09/17/2021 Support added for MJTAG workaround
 *       bsv  09/24/2021 Fix secondary Pdi load issue
+* 1.05  kpt  10/20/2021 Modified temporal checks to use temporal variables from
+*                       data section
 *
 * </pre>
 *
@@ -415,6 +417,8 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 #ifdef PLM_SECURE_EXCLUDE
 	u8 IsEncrypted;
 	u8 IsAuthenticated;
+#else
+	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
 #endif
 
 	SecureParams.PdiPtr = PdiPtr;
@@ -524,6 +528,14 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 		DebugLog->LogLevel |= (DebugLog->LogLevel >> XPLMI_LOG_LEVEL_SHIFT);
 	}
 #ifndef PLM_SECURE_EXCLUDE
+	Status = XPlmi_MemSetBytes(SecureTempParams, sizeof(XLoader_SecureTempParams),
+				0U, sizeof(XLoader_SecureTempParams));
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET,
+				(int)XLOADER_ERR_MEMSET_SECURE_PTR);
+		goto END;
+	}
+
 	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
 		/* Update KEK red key availability status */
 		XLoader_UpdateKekSrc(PdiPtr);
@@ -535,18 +547,18 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 
 	SecureParams.IsAuthenticated =
 		XilPdi_IsAuthEnabled(&PdiPtr->MetaHdr.ImgHdrTbl);
-	SecureParams.IsAuthenticatedTmp =
+	SecureTempParams->IsAuthenticated =
 		XilPdi_IsAuthEnabled(&PdiPtr->MetaHdr.ImgHdrTbl);
 	SecureParams.IsEncrypted =
 		XilPdi_IsEncEnabled(&PdiPtr->MetaHdr.ImgHdrTbl);
-	SecureParams.IsEncryptedTmp =
+	SecureTempParams->IsEncrypted =
 		XilPdi_IsEncEnabled(&PdiPtr->MetaHdr.ImgHdrTbl);
 	if ((SecureParams.IsEncrypted == (u8)TRUE) ||
-		(SecureParams.IsEncryptedTmp == (u8)TRUE) ||
+		(SecureTempParams->IsEncrypted == (u8)TRUE) ||
 		(SecureParams.IsAuthenticated == (u8)TRUE) ||
-		(SecureParams.IsAuthenticatedTmp == (u8)TRUE)) {
+		(SecureTempParams->IsAuthenticated == (u8)TRUE)) {
 		SecureParams.SecureEn = (u8)TRUE;
-		SecureParams.SecureEnTmp = (u8)TRUE;
+		SecureTempParams->SecureEn = (u8)TRUE;
 	}
 
 	/* Secure flow is not supported for PDI versions older than v4 */
@@ -567,7 +579,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 
 	/* Authentication of IHT */
 	if ((SecureParams.IsAuthenticated == (u8)TRUE) ||
-		(SecureParams.IsAuthenticatedTmp == (u8)TRUE)) {
+		(SecureTempParams->IsAuthenticated == (u8)TRUE)) {
 		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_ImgHdrTblAuth,
 			&SecureParams);
 	}
