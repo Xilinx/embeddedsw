@@ -258,7 +258,11 @@ extern "C" {
 /  GET_SECTOR_SIZE command. */
 
 
-#define FF_USE_TRIM		0
+#ifdef FILE_SYSTEM_USE_TRIM
+#define FF_USE_TRIM	1
+#else
+#define FF_USE_TRIM	0
+#endif
 /* This option switches support for ATA-TRIM. (0:Disable or 1:Enable)
 /  To enable Trim function, also CTRL_TRIM command should be implemented to the
 /  disk_ioctl() function. */

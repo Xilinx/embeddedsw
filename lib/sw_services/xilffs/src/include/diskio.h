@@ -52,7 +52,7 @@ DRESULT disk_ioctl (BYTE pdrv, BYTE cmd, void* buff);
 #define GET_SECTOR_COUNT	1U	/* Get media size (for only f_mkfs()) */
 #define GET_SECTOR_SIZE		2U	/* Get sector size (for multiple sector size (_MAX_SS >= 1024)) */
 #define GET_BLOCK_SIZE		3U	/* Get erase block size (for only f_mkfs()) */
-#define CTRL_ERASE_SECTOR	4U	/* Force erased a block of sectors (for only _USE_ERASE) */
+#define CTRL_TRIM			4U	/* Inform device that the data on the block of sectors is no longer used (needed at FF_USE_TRIM == 1) */
 
 /* Generic command (not used by FatFs) */
 #define CTRL_POWER			5U	/* Get/Set power status */

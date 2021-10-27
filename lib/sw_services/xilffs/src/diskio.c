@@ -395,6 +395,7 @@ DRESULT disk_ioctl (
 
 #ifdef FILE_SYSTEM_INTERFACE_SD
 	void *LocBuff = buff;
+	DWORD *SendBuff = (DWORD *)(void *)buff;
 	if ((disk_status(pdrv) & STA_NOINIT) != 0U) {	/* Check if card is in the socket */
 		return RES_NOTRDY;
 	}
@@ -411,6 +412,15 @@ DRESULT disk_ioctl (
 
 		case (BYTE)GET_BLOCK_SIZE :	/* Get erase block size in unit of sector (DWORD) */
 			(*((DWORD *)((void *)LocBuff))) = ((DWORD)128);
+			res = RES_OK;
+			break;
+
+		case (BYTE)CTRL_TRIM :	/* Erase the data */
+			if ((SdInstance[pdrv].HCS) == 0U) {
+				SendBuff[0] *= (DWORD)XSDPS_BLK_SIZE_512_MASK;
+				SendBuff[1] *= (DWORD)XSDPS_BLK_SIZE_512_MASK;
+			}
+			(void)XSdPs_Erase(&SdInstance[pdrv], SendBuff[0], SendBuff[1]);
 			res = RES_OK;
 			break;
 

@@ -87,6 +87,7 @@ proc xgen_opts_file {libhandle} {
 	set enable_exfat [common::get_property CONFIG.enable_exfat $libhandle]
 	set use_lfn [common::get_property CONFIG.use_lfn $libhandle]
 	set use_mkfs [common::get_property CONFIG.use_mkfs $libhandle]
+	set use_trim [common::get_property CONFIG.use_trim $libhandle]
 	set enable_multi_partition [common::get_property CONFIG.enable_multi_partition $libhandle]
 	set num_logical_vol [common::get_property CONFIG.num_logical_vol $libhandle]
 	set use_strfunc [common::get_property CONFIG.use_strfunc $libhandle]
@@ -159,6 +160,9 @@ proc xgen_opts_file {libhandle} {
 				puts "WARNING : Cannot Enable CHMOD in \
 						Read Only Mode"
 			}
+		}
+		if {$use_trim == true} {
+			puts $file_handle "\#define FILE_SYSTEM_USE_TRIM"
 		}
 		if {$num_logical_vol > 10} {
 			puts "WARNING : File System supports only up to 10 logical drives\
