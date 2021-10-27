@@ -29,6 +29,7 @@
 * 0.9   rb   04/07/2021   Doxygen changes
 * 1.0	hv   05/04/2021   Updated Doxygen comments
 * 1.1	hv   08/18/2021   Fix Doxygen warnings
+* 1.2	hv   10/08/2021   Added user interface to Get SEM configuration
 *
 * </pre>
 *
@@ -62,6 +63,9 @@ extern "C" {
 #define CMD_ACK_NPI_STOPSCAN		(0x00010306U)
 /** NPI Error Injection Acknowledgment ID */
 #define CMD_ACK_NPI_ERRINJECT		(0x00010307U)
+/** SEM Get configuration Acknowledgment ID */
+#define CMD_ACK_SEM_GET_CONFIG		(0x00030309U)
+
 
 /** Maximum CRAM error register count */
 #define MAX_CRAMERR_REGISTER_CNT	(7U)
@@ -126,6 +130,9 @@ extern "C" {
 
 /** Event Notification Register Command ID */
 #define CMD_EM_EVENT_REGISTER		(0x08U)
+
+/** Command ID for SEM Get Configuration */
+#define CMD_ID_SEM_GET_CONFIG		(0x09U)
 
 /**
  * XSemIpiResp - IPI Response Data structure
@@ -273,6 +280,9 @@ XStatus XSem_CmdNpiGetStatus(XSemNpiStatus *NpiStatusInfo);
 
 /* Event Notification Management */
 XStatus XSem_RegisterEvent(XIpiPsu *IpiInst, XSem_Notifier* Notifier);
+
+/* Get XilSEM configuration */
+XStatus XSem_CmdGetConfig(XIpiPsu *IpiInst, XSemIpiResp *Resp);
 
 #ifdef __cplusplus
 }

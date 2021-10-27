@@ -31,6 +31,7 @@
 * 0.7   hb   03/15/2021   MISRA fixes and formatted code
 * 0.8   rb   04/07/2021   Doxygen changes
 * 0.9	hv   05/04/2021   Updated Doxygen comments
+* 1.0	hv   10/08/2021   Added user interface to Get SEM configuration
 * </pre>
 *
 * @note
@@ -337,9 +338,22 @@ END:
  *		- CfrStatusInfo->ErrAddrL: This stores the low address of
  *		the last 7 corrected error details if correction is enabled
  *		in design.
+ *			- Bit [31:28]: Reserved
+ *			- Bit [27:23]: Word location where error was detected
+ *			- Bit [22:16]: Bit location where error was detected
+ *			- Bit [15:2]: Reserved
+ *			- Bit [1:0]: Define validity of error address.
+ *				- 00: Info not available
+ *				- 01: Address out of range
+ *				- 10: Reserved
+ *				- 11: Address valid
  *		- CfrStatusInfo->ErrAddrH: This stores the high address of
  *		the last 7 corrected error details if correction is enabled
  *		in design.
+ *			- Bits[31:27]: Reserved
+ *			- Bits[26:23]: Row number where error was detected
+ *			- Bits[22:20]: Block type of the frame
+ *			- Bits[19:0]: Frame address where error was detected
  *		- CfrStatusInfo->ErrCorCnt: Counter value of Correctable
  *		Error Bits
  *
@@ -690,4 +704,109 @@ XStatus XSem_RegisterEvent(XIpiPsu *IpiInst, XSem_Notifier* Notifier)
 END:
 	return Status;
 }
+
+/*****************************************************************************/
+/**
+ * @brief	This function is used to read CRAM & NPI configuration.
+ *		Primarily this function sends an IPI request to PLM to invoke SEM
+ *		Get configuration command, waits for PLM to process the request and
+ *		reads the response message.
+ *
+ * @param[in]	IpiInst		Pointer to IPI driver instance
+ * @param[out]	Resp		Structure Pointer of IPI response.
+ *		- Resp->RespMsg1: Acknowledgment ID of Get Configuration
+ *
+ *		- Resp->RespMsg2: CRAM Attribute register details
+ *			- Bit [31:16]: Not Implemented
+ *			- Bit [15:9]: Reserved
+ *			- Bit [8]: Reserved
+ *			- Bit [7]: Reserved
+ *			- Bit [6:5]: Indicates when to start CRAM scan
+ *				- 00: Do not automatically start scan
+ *				- 01: Enable scan automatically after
+ *					  device configuration.
+ *				- 10: Reserved
+ *				- 11: Reserved
+ *			- Bit [4]: Reserved
+ *			- Bit [3]: Indicates HwECC/SwECC
+ *				- 0: Uses hardware calculated ECC.
+ *				- 1: Uses software calculated ECC that comes from tools
+ *				     and part of CDO
+ *			- Bit [2]: Indicates Correctable error is to be corrected/not
+ *				- 0: Disables error correction capability
+ *				- 1: Enables error correction capability
+ *			- Bit [1:0]: Define the mode of the scan (Enable/Disable scan)
+ *				- 00: Disable Configuration RAM scan
+ *				- 01: RESERVED
+ *				- 10: Enable Configuration RAM scan
+ *				- 11: RESERVED
+ *
+ *		- Resp->RespMsg3: NPI Attribute register details
+ *			- Bit [31:24]: Not implemented
+ *			- Bit [23:18]: Reserved
+ *			- Bit [17:8]: The scheduled time in milliseconds that the
+ *				          NPI scan will be periodically performed.
+ *				          Default Setting: 0x064 = 100ms
+ *			- Bit [7:6]: Reserved
+ *			- Bit [5:4]: Indicates when to start NPI scan
+ *				- 00: Do not automatically start scan
+ *				- 01: Enable scan automatically after
+ *					  device configuration.
+ *				- 10: Reserved
+ *				- 11: Reserved
+ *			- Bit [3]: Reserved
+ *			- Bit [2]: Indicates HwSHA/SwSHA
+ *				0: Use hardware calculated SHA.
+ *				1: Use software calculated SHA.
+ *			- Bit [1:0]: Reserved
+ *
+ *		- Resp->RespMsg4: Status of Get Configuration command
+ *
+ * @return	This API returns the success or failure.
+ *		- XST_FAILURE: On Get Configuration failure
+ *		- XST_SUCCESS: On Get Configuration success
+ *****************************************************************************/
+XStatus XSem_CmdGetConfig(XIpiPsu *IpiInst, XSemIpiResp *Resp)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
+	u32 Response[RESPONSE_ARG_CNT] = {0U};
+
+	if (NULL == IpiInst) {
+		XSem_Dbg("[%s] ERROR: IpiInst is NULL\n\r", __func__);
+		goto END;
+	}
+
+	if (NULL == Resp) {
+		XSem_Dbg("[%s] ERROR: Resp is NULL\n\r", __func__);
+		goto END;
+	}
+
+	PACK_PAYLOAD1(Payload, CMD_ID_SEM_GET_CONFIG);
+
+	Status = XSem_IpiSendReqPlm(IpiInst, Payload);
+	if (XST_SUCCESS != Status) {
+		XSem_Dbg("[%s] ERROR: XSem_IpiSendReqPlm failed with " \
+				"ErrCode 0x%x\n\r", __func__, Status);
+		goto END;
+	}
+
+	Status = XSem_IpiPlmRespMsg(IpiInst, Response);
+	if (XST_SUCCESS != Status) {
+		XSem_Dbg("[%s] ERROR: XSem_IpiPlmRespMsg failed with " \
+				"ErrCode 0x%x\n\r", __func__, Status);
+		goto END;
+	}
+
+	Resp->RespMsg1 = Response[1U];
+	Resp->RespMsg2 = Response[2U];
+	Resp->RespMsg3 = Response[3U];
+	Resp->RespMsg4 = Response[4U];
+
+	XSem_Dbg("[%s] SUCCESS: 0x%x\n\r", __func__, Status);
+
+END:
+	return Status;
+}
+
 /** @} */
