@@ -22,6 +22,7 @@
 * 3.9   mn     03/03/20 Restructured the code for more readability and modularity
 *       mn     03/16/20 Move XSdPs_Select_Card API to User APIs
 * 3.12  sk     01/28/21 Added support for non-blocking write.
+* 3.14  sk     10/22/21 Add support for Erase feature.
 *
 * </pre>
 *
@@ -104,6 +105,9 @@ s32 XSdPs_CheckEmmcTiming(XSdPs *InstancePtr, u8 *ExtCsd);
 void XSdPs_ConfigPower(XSdPs *InstancePtr);
 void XSdPs_ConfigDma(XSdPs *InstancePtr);
 void XSdPs_ConfigInterrupt(XSdPs *InstancePtr);
+s32 XSdPs_SendErase(XSdPs *InstancePtr);
+s32 XSdPs_SetEndAddr(XSdPs *InstancePtr, u32 EndAddr);
+s32 XSdPs_SetStartAddr(XSdPs *InstancePtr, u32 StartAddr);
 
 #if EL1_NONSECURE && defined (__aarch64__)
 void XSdps_Smc(XSdPs *InstancePtr, u32 RegOffset, u32 Mask, u32 Val);

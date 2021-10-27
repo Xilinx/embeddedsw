@@ -27,6 +27,7 @@
 *       sk     12/17/20 Removed checking platform specific SD macros and used
 *                       Baseaddress instead.
 * 3.13  sk     08/10/21 Limit the SD operating frequency to 19MHz for Versal.
+* 3.14  sk     10/22/21 Add support for Erase feature.
 *
 * </pre>
 *
@@ -1684,6 +1685,15 @@ u32 XSdPs_FrameCmd(XSdPs *InstancePtr, u32 Cmd)
 	case CMD24:
 	case CMD25:
 		RetVal |= RESP_R1 | (u32)XSDPS_DAT_PRESENT_SEL_MASK;
+		break;
+	case CMD32:
+	case CMD33:
+	case CMD35:
+	case CMD36:
+		RetVal |= RESP_R1;
+		break;
+	case CMD38:
+		RetVal |= RESP_R1B;
 		break;
 	case ACMD41:
 		RetVal |= RESP_R3;

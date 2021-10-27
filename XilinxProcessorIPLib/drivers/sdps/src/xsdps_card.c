@@ -26,6 +26,7 @@
 *                       low for versal platform
 * 3.12  sk     01/28/21 Added support for non-blocking write.
 *       sk     02/12/21 Fix the issue in reading CID and CSD.
+* 3.14  sk     10/22/21 Add support for Erase feature.
 *
 * </pre>
 *
@@ -1559,6 +1560,87 @@ s32 XSdPs_SendCmd(XSdPs *InstancePtr, u32 Cmd)
 RETURN_PATH:
 	return Status;
 
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function performs Set the address of the first write block to be erased.
+*
+* @param	InstancePtr is a pointer to the instance to be worked on.
+* @param	StartAddr is the address of the first write block.
+*
+* @return
+* 		- XST_SUCCESS if Set start Address is successful
+* 		- XST_FAILURE if failure - could be because failed to set EndAddr.
+*
+******************************************************************************/
+s32 XSdPs_SetStartAddr(XSdPs *InstancePtr, u32 StartAddr)
+{
+	s32 Status;
+
+	if (InstancePtr->CardType == XSDPS_CARD_SD) {
+		Status = XSdPs_CmdTransfer(InstancePtr, CMD32, StartAddr, 0U);
+	} else {
+		Status = XSdPs_CmdTransfer(InstancePtr, CMD35, StartAddr, 0U);
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function performs Set the address of the last write block to be erased.
+*
+* @param	InstancePtr is a pointer to the instance to be worked on.
+* @param	EndAddr is the address of the last write block.
+*
+* @return
+* 		- XST_SUCCESS if Set End Address is successful.
+* 		- XST_FAILURE if failure - could be because failed to set EndAddr.
+*
+******************************************************************************/
+s32 XSdPs_SetEndAddr(XSdPs *InstancePtr, u32 EndAddr)
+{
+	s32 Status;
+
+	if (InstancePtr->CardType == XSDPS_CARD_SD) {
+		Status = XSdPs_CmdTransfer(InstancePtr, CMD33, EndAddr, 0U);
+	} else {
+		Status = XSdPs_CmdTransfer(InstancePtr, CMD36, EndAddr, 0U);
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function send Erase command to the device and wait for transfer complete
+*
+* @param	InstancePtr is a pointer to the instance to be worked on.
+*
+* @return
+* 		- XST_SUCCESS if erase operation is successful
+* 		- XST_FAILURE if failure - could be because erase operation failed.
+*
+******************************************************************************/
+s32 XSdPs_SendErase(XSdPs *InstancePtr)
+{
+	s32 Status;
+
+	Status = XSdPs_CmdTransfer(InstancePtr, CMD38, 0U, 0U);
+	if (Status != XST_SUCCESS) {
+		Status = XST_FAILURE;
+		goto RETURN_PATH ;
+	}
+
+	/* Check for transfer done */
+	Status = XSdps_CheckTransferDone(InstancePtr);
+
+RETURN_PATH:
+	return Status;
 }
 
 /** @} */

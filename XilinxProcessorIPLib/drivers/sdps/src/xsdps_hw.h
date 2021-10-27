@@ -657,6 +657,11 @@ extern "C" {
 #define ACMD23	 (XSDPS_APP_CMD_PREFIX + 0x1700U)
 #define CMD24	 0x1800U
 #define CMD25	 0x1900U
+#define CMD32	 0x2000U
+#define CMD33	 0x2100U
+#define CMD35	 0x2300U
+#define CMD36	 0x2400U
+#define CMD38	 0x2600U
 #define CMD41	 0x2900U
 #define ACMD41	 (XSDPS_APP_CMD_PREFIX + 0x2900U)
 #define ACMD42	 (XSDPS_APP_CMD_PREFIX + 0x2A00U)
@@ -856,6 +861,9 @@ extern "C" {
 #define C_SIZE_UPPER_MASK		0x00000003U
 #define CSD_STRUCT_MASK			0x00C00000U
 #define CSD_V2_C_SIZE_MASK		0x3FFFFF00U
+#define CSD_CCC_MASK			0xFFF00000U
+#define CSD_CCC_SHIFT			20U
+#define CSD_CCC_CLASS5_MASK		0x20U
 /** @} */
 
 /**

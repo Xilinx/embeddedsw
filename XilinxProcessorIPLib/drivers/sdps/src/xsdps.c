@@ -83,6 +83,7 @@
 * 3.10  mn     06/05/20 Check Transfer completion separately from XSdPs_Read and
 *                       XSdPs_Write APIs
 *       mn     06/05/20 Modified code for SD Non-Blocking Read support
+* 3.14  sk     10/22/21 Add support for Erase feature.
 *
 * </pre>
 *
@@ -451,4 +452,83 @@ RETURN_PATH:
 #endif
 	return Status;
 }
+/*****************************************************************************/
+/**
+* @brief
+* This function performs Erase operation on the given address range.
+*
+* @param	InstancePtr is a pointer to the instance to be worked on.
+* @param	StartAddr is the address of the first write block to be erased.
+* @param	EndAddr is the address of the last write block of the continuous
+*           range to be erased.
+*
+* @return
+* 		- XST_SUCCESS if erase is successful
+* 		- XST_FAILURE if failure - could be because another transfer
+* 		is in progress or card not present or erase operation failure.
+*
+******************************************************************************/
+s32 XSdPs_Erase(XSdPs *InstancePtr, u32 StartAddr, u32 EndAddr)
+{
+	s32 Status;
+	u16 CardCC;
+	u32 PresentStateReg;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+#if defined  (XCLOCKING)
+	Xil_ClockEnable(InstancePtr->Config.RefClk);
+#endif
+
+	if (InstancePtr->IsBusy == TRUE) {
+		Status = XST_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	if ((InstancePtr->HC_Version != XSDPS_HC_SPEC_V3) ||
+				((InstancePtr->Host_Caps & XSDPS_CAPS_SLOT_TYPE_MASK)
+				!= XSDPS_CAPS_EMB_SLOT)) {
+		if(InstancePtr->Config.CardDetect != 0U) {
+			/* Check status to ensure card is present */
+			PresentStateReg = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
+					XSDPS_PRES_STATE_OFFSET);
+			if ((PresentStateReg & XSDPS_PSR_CARD_INSRT_MASK) == 0x0U) {
+				Status = XST_FAILURE;
+				goto RETURN_PATH;
+			}
+		}
+	}
+
+	/* Check for CCC */
+	CardCC = ((InstancePtr->CardSpecData[2] & CSD_CCC_MASK) >> CSD_CCC_SHIFT);
+	if ((CardCC & CSD_CCC_CLASS5_MASK) == 0U) {
+		Status = XST_SUCCESS;
+		goto RETURN_PATH;
+	}
+
+	InstancePtr->TransferMode = XSDPS_TM_DAT_DIR_SEL_MASK;
+
+	Status = XSdPs_SetStartAddr(InstancePtr, StartAddr);
+	if (Status != XST_SUCCESS) {
+		Status = XST_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	Status = XSdPs_SetEndAddr(InstancePtr, EndAddr);
+	if (Status != XST_SUCCESS) {
+		Status = XST_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	Status = XSdPs_SendErase(InstancePtr);
+
+RETURN_PATH:
+#if defined  (XCLOCKING)
+	Xil_ClockDisable(InstancePtr->Config.RefClk);
+#endif
+
+	return Status;
+}
+
 /** @} */

@@ -143,6 +143,7 @@
 *       sk     05/25/21 Fix the compilation issue in Cortex-A72 + EL1_NS by
 *                       removing the DLL reset logic (Dead code for Versal).
 * 3.13  sk     08/10/21 Limit the SD operating frequency to 19MHz for Versal.
+* 3.14  sk     10/22/21 Add support for Erase feature.
 *
 * </pre>
 *
@@ -333,6 +334,7 @@ s32 XSdPs_StartReadTransfer(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff);
 s32 XSdPs_CheckReadTransfer(XSdPs *InstancePtr);
 s32 XSdPs_StartWriteTransfer(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff);
 s32 XSdPs_CheckWriteTransfer(XSdPs *InstancePtr);
+s32 XSdPs_Erase(XSdPs *InstancePtr, u32 StartAddr, u32 EndAddr);
 
 #ifdef __cplusplus
 }
