@@ -27,6 +27,7 @@
 *       dc     04/07/21 Fix bare metal initialisation
 *       dc     04/20/21 Doxygen documentation update
 * 1.1   dc     07/13/21 Update to common latency requirements
+*       dc     11/26/21 Make driver R5 compatible
 *
 * </pre>
 *
@@ -118,7 +119,7 @@ u32 XDfeMix_GetConfigTable(XDfeMix *InstancePtr, XDfeMix_Config **ConfigTable)
 
 	strncpy(Str, InstancePtr->NodeName, sizeof(Str));
 	AddrStr = strtok(Str, ".");
-	Addr = strtol(AddrStr, NULL, 16);
+	Addr = strtoul(AddrStr, NULL, 16);
 
 	for (Index = 0; Index < XDFEMIX_MAX_NUM_INSTANCES; Index++) {
 		if (XDfeMix_ConfigTable[Index].BaseAddr == Addr) {
