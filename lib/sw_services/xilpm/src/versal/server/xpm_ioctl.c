@@ -1053,6 +1053,9 @@ XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id I
 	case IOCTL_SET_FEATURE_CONFIG:
 	case IOCTL_GET_FEATURE_CONFIG:
 	case IOCTL_SET_SGMII_MODE:
+	case IOCTL_SET_SD_CONFIG:
+	case IOCTL_SET_GEM_CONFIG:
+	case IOCTL_SET_USB_CONFIG:
 	default:
 		/* Not supported yet */
 		Status = XPM_ERR_IOCTL;

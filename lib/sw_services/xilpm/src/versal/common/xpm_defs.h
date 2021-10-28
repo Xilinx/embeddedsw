@@ -353,6 +353,10 @@ typedef enum {
 	/* Generic IOCTL Read/Write */
 	IOCTL_READ_REG,					/**< Read a 32-bit register */
 	IOCTL_MASK_WRITE_REG,				/**< RMW a 32-bit register */
+	/* Dynamic MIO config */
+	IOCTL_SET_SD_CONFIG,				/**< Set SD config register value */
+	IOCTL_SET_GEM_CONFIG,				/**< Set GEM config register value */
+	IOCTL_SET_USB_CONFIG,				/**< Set USB config register value */
 } pm_ioctl_id;
 
 /**
