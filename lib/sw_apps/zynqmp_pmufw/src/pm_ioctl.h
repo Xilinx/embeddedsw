@@ -42,6 +42,13 @@ typedef enum {
 	SD_CONFIG_8BIT = 3, /* To set SD_8BIT in SD_CONFIG_REG2 */
 	SD_CONFIG_FIXED = 4, /* To set fixed config registers */
 } XPm_SdConfigType;
+
+/* Config types for GEM configs at run time */
+typedef enum {
+	GEM_CONFIG_INVALID = 0,
+	GEM_CONFIG_SGMII_MODE = 1, /* To set GEM_SGMII_MODE in GEM_CLK_CTRL register */
+	GEM_CONFIG_FIXED = 2, /* To set fixed config registers */
+} XPm_GemConfigType;
 #endif /* ENABLE_DYNAMIC_MIO_CONFIG */
 
 /*********************************************************************
@@ -53,6 +60,7 @@ s32 PmGetFeatureConfig(XPm_FeatureConfigId configId, u32 *value);
 #endif /* ENABLE_FEATURE_CONFIG */
 #ifdef ENABLE_DYNAMIC_MIO_CONFIG
 s32 PmSetSdConfig(u32 nodeId, XPm_SdConfigType configType, u32 value);
+s32 PmSetGemConfig(u32 nodeId, XPm_GemConfigType configType, u32 value);
 #endif /* ENABLE_DYNAMIC_MIO_CONFIG */
 #endif /* ENABLE_IOCTL */
 

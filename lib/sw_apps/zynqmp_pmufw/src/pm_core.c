@@ -2011,6 +2011,9 @@ static void PmDevIoctl(const PmMaster* const master, const u32 deviceId,
 	case PM_IOCTL_SET_SD_CONFIG:
 		status = PmSetSdConfig(deviceId, arg1, arg2);
 		break;
+	case PM_IOCTL_SET_GEM_CONFIG:
+		status = PmSetGemConfig(deviceId, arg1, arg2);
+		break;
 #endif /* ENABLE_DYNAMIC_MIO_CONFIG */
 	default:
 		status = XST_INVALID_PARAM;

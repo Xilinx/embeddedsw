@@ -40,6 +40,16 @@
 			2U << SD##id##_AXI_AWPROT_SHIFT);			\
 	XPfw_RMW32(IOU_AXI_RPRTCN, SD##id##_AXI_ARPROT_MASK,			\
 			2U << SD##id##_AXI_ARPROT_SHIFT);
+
+#define SET_FIXED_GEM_CONFIG(id)						\
+	XPfw_RMW32(IOU_COHERENT_CTRL, GEM##id##_AXI_COH_MASK,			\
+		   1U << GEM##id##_AXI_COH_SHIFT);				\
+	XPfw_RMW32(IOU_INTERCONNECT_ROUTE, GEM##id##_INTERCONNECT_ROUTE_MASK,	\
+		   1U << GEM##id##_INTERCONNECT_ROUTE_SHIFT);			\
+	XPfw_RMW32(IOU_AXI_WPRTCN, GEM##id##_AXI_AWPROT_MASK,			\
+		   2U << GEM##id##_AXI_AWPROT_SHIFT);				\
+	XPfw_RMW32(IOU_AXI_RPRTCN, GEM##id##_AXI_ARPROT_MASK,			\
+		   2U << GEM##id##_AXI_ARPROT_SHIFT);
 #endif /* ENABLE_DYNAMIC_MIO_CONFIG */
 
 #ifdef ENABLE_FEATURE_CONFIG
@@ -265,6 +275,62 @@ s32 PmSetSdConfig(u32 nodeId, XPm_SdConfigType configType, u32 value)
 			PmConfigureSd0Regs();
 		} else {
 			PmConfigureSd1Regs();
+		}
+		status = XST_SUCCESS;
+		break;
+	default:
+		status = XST_INVALID_PARAM;
+	}
+
+done:
+	return status;
+}
+
+/**
+ * PmSetGemConfig() - Configure GEM registers.
+ * @nodeId	GEM node ID
+ * @configType	configuration type
+ * @value	value to be written
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or an error
+ *		code or a reason code
+ */
+s32 PmSetGemConfig(u32 nodeId, XPm_GemConfigType configType, u32 value)
+{
+	s32 status = XST_FAILURE;
+
+	if ((NODE_ETH_0 != nodeId) && (NODE_ETH_1 != nodeId) &&
+	    (NODE_ETH_2 != nodeId) && (NODE_ETH_3 != nodeId)) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	switch(configType) {
+	case GEM_CONFIG_SGMII_MODE:
+		if (NODE_ETH_0 == nodeId) {
+			XPfw_RMW32(GEM_CLK_CTRL, GEM0_SGMII_MODE_MASK,
+				   value << GEM0_SGMII_MODE_SHIFT);
+		} else if (NODE_ETH_1 == nodeId) {
+			XPfw_RMW32(GEM_CLK_CTRL, GEM1_SGMII_MODE_MASK,
+				   value << GEM1_SGMII_MODE_SHIFT);
+		} else if (NODE_ETH_2 == nodeId) {
+			XPfw_RMW32(GEM_CLK_CTRL, GEM2_SGMII_MODE_MASK,
+				   value << GEM2_SGMII_MODE_SHIFT);
+		} else {
+			XPfw_RMW32(GEM_CLK_CTRL, GEM3_SGMII_MODE_MASK,
+				   value << GEM3_SGMII_MODE_SHIFT);
+		}
+		status = XST_SUCCESS;
+		break;
+	case GEM_CONFIG_FIXED:
+		if (NODE_ETH_0 == nodeId) {
+			SET_FIXED_GEM_CONFIG(0);
+		} else if (NODE_ETH_1 == nodeId) {
+			SET_FIXED_GEM_CONFIG(1);
+		} else if (NODE_ETH_2 == nodeId) {
+			SET_FIXED_GEM_CONFIG(2);
+		} else {
+			SET_FIXED_GEM_CONFIG(3);
 		}
 		status = XST_SUCCESS;
 		break;
