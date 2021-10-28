@@ -21,6 +21,7 @@
 *       dc     03/25/21 Device tree item name change
 *       dc     04/18/21 Update trigger and event handlers
 *       dc     04/20/21 Doxygen documentation update
+* 1.1   dc     11/26/21 Correct interrupt mask handler api
 *
 * </pre>
 *
@@ -113,20 +114,32 @@ void XDfeCcf_ClearEventStatus(const XDfeCcf *InstancePtr)
 void XDfeCcf_SetInterruptMask(const XDfeCcf *InstancePtr,
 			      const XDfeCcf_InterruptMask *Mask)
 {
-	u32 Val;
+	u32 ValIER = 0U;
+	u32 ValIDR = 0U;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Mask != NULL);
 
-	Val = XDfeCcf_WrBitField(XDFECCF_OVERFLOW_WIDTH,
-				 XDFECCF_OVERFLOW_OFFSET, 0U, Mask->Overflow);
-	Val = XDfeCcf_WrBitField(XDFECCF_CC_UPDATE_TRIGGERED_WIDTH,
-				 XDFECCF_CC_UPDATE_TRIGGERED_OFFSET, Val,
-				 Mask->CCUpdate);
-	Val = XDfeCcf_WrBitField(XDFECCF_CC_SEQUENCE_ERROR_WIDTH,
-				 XDFECCF_CC_SEQUENCE_ERROR_OFFSET, Val,
-				 Mask->CCSequenceError);
-	XDfeCcf_WriteReg(InstancePtr, XDFECCF_COEFF_CFG, Val);
+	if(Mask->Overflow == XDFECCF_IMR_INTERRUPT) {
+		ValIER |= (1U << XDFECCF_OVERFLOW_OFFSET);
+	} else {
+		ValIDR |= (1U << XDFECCF_OVERFLOW_OFFSET);
+	}
+
+	if(Mask->CCUpdate == XDFECCF_IMR_INTERRUPT) {
+		ValIER |= (1U << XDFECCF_CC_UPDATE_TRIGGERED_OFFSET);
+	} else {
+		ValIDR |= (1U << XDFECCF_CC_UPDATE_TRIGGERED_OFFSET);
+	}
+
+	if(Mask->CCSequenceError == XDFECCF_IMR_INTERRUPT) {
+		ValIER |= (1U << XDFECCF_CC_SEQUENCE_ERROR_OFFSET);
+	} else {
+		ValIDR |= (1U << XDFECCF_CC_SEQUENCE_ERROR_OFFSET);
+	}
+
+	XDfeCcf_WriteReg(InstancePtr, XDFECCF_IER, ValIER);
+	XDfeCcf_WriteReg(InstancePtr, XDFECCF_IDR, ValIDR);
 }
 
 /** @} */
