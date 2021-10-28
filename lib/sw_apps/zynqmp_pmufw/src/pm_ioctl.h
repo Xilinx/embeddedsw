@@ -49,6 +49,12 @@ typedef enum {
 	GEM_CONFIG_SGMII_MODE = 1, /* To set GEM_SGMII_MODE in GEM_CLK_CTRL register */
 	GEM_CONFIG_FIXED = 2, /* To set fixed config registers */
 } XPm_GemConfigType;
+
+/* Config types for USB configs at run time */
+typedef enum {
+	USB_CONFIG_INVALID = 0,
+	USB_CONFIG_FIXED = 1, /* To set fixed config registers */
+} XPm_UsbConfigType;
 #endif /* ENABLE_DYNAMIC_MIO_CONFIG */
 
 /*********************************************************************
@@ -61,6 +67,7 @@ s32 PmGetFeatureConfig(XPm_FeatureConfigId configId, u32 *value);
 #ifdef ENABLE_DYNAMIC_MIO_CONFIG
 s32 PmSetSdConfig(u32 nodeId, XPm_SdConfigType configType, u32 value);
 s32 PmSetGemConfig(u32 nodeId, XPm_GemConfigType configType, u32 value);
+s32 PmSetUsbConfig(u32 nodeId, XPm_UsbConfigType configType, u32 value);
 #endif /* ENABLE_DYNAMIC_MIO_CONFIG */
 #endif /* ENABLE_IOCTL */
 

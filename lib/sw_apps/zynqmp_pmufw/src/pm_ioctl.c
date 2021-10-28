@@ -50,6 +50,9 @@
 		   2U << GEM##id##_AXI_AWPROT_SHIFT);				\
 	XPfw_RMW32(IOU_AXI_RPRTCN, GEM##id##_AXI_ARPROT_MASK,			\
 		   2U << GEM##id##_AXI_ARPROT_SHIFT);
+
+#define SET_FIXED_USB_CONFIG(id)						\
+	XPfw_RMW32(SLCR_USB, TZ_USB3_##id##_MASK, 1U << TZ_USB3_##id##_SHIFT);
 #endif /* ENABLE_DYNAMIC_MIO_CONFIG */
 
 #ifdef ENABLE_FEATURE_CONFIG
@@ -331,6 +334,41 @@ s32 PmSetGemConfig(u32 nodeId, XPm_GemConfigType configType, u32 value)
 			SET_FIXED_GEM_CONFIG(2);
 		} else {
 			SET_FIXED_GEM_CONFIG(3);
+		}
+		status = XST_SUCCESS;
+		break;
+	default:
+		status = XST_INVALID_PARAM;
+	}
+
+done:
+	return status;
+}
+
+/**
+ * PmSetUsbConfig() - Configure USB registers.
+ * @nodeId	USB node ID
+ * @configType	configuration type
+ * @value	value to be written
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or an error
+ *		code or a reason code
+ */
+s32 PmSetUsbConfig(u32 nodeId, XPm_UsbConfigType configType, u32 value)
+{
+	s32 status = XST_FAILURE;
+
+	if ((NODE_USB_0 != nodeId) && (NODE_USB_1 != nodeId)) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	switch(configType) {
+	case USB_CONFIG_FIXED:
+		if (NODE_USB_0 == nodeId) {
+			SET_FIXED_USB_CONFIG(0);
+		} else {
+			SET_FIXED_USB_CONFIG(1);
 		}
 		status = XST_SUCCESS;
 		break;

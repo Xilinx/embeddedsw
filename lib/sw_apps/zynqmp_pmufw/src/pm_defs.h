@@ -130,6 +130,8 @@ typedef enum {
 	PM_IOCTL_SET_SD_CONFIG = 30,
 	/* Set GEM config */
 	PM_IOCTL_SET_GEM_CONFIG = 31,
+	/* Set USB config */
+	PM_IOCTL_SET_USB_CONFIG = 32,
 #endif /* ENABLE_DYNAMIC_MIO_CONFIG */
 	/* Invalid IOCTL ID */
 	PM_IOCTL_INVALID = 0,
