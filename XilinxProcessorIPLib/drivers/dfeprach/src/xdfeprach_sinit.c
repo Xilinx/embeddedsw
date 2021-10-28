@@ -23,6 +23,7 @@
 *       dc     04/07/21 Fix bare metal initialisation
 *       dc     04/21/21 Update due to restructured registers
 * 1.1   dc     06/30/21 Doxygen documentation update
+*       dc     11/26/21 Make driver R5 compatible
 *
 * </pre>
 *
@@ -111,7 +112,7 @@ u32 XDfePrach_GetConfigTable(XDfePrach *InstancePtr,
 
 	strncpy(Str, InstancePtr->NodeName, sizeof(Str));
 	AddrStr = strtok(Str, ".");
-	Addr = strtol(AddrStr, NULL, 16);
+	Addr = strtoul(AddrStr, NULL, 16);
 
 	for (Index = 0; Index < XDFEPRACH_MAX_NUM_INSTANCES; Index++) {
 		if (XDfePrach_ConfigTable[Index].BaseAddr == Addr) {
