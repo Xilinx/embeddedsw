@@ -27,6 +27,7 @@
 *       dc     05/08/21 Update to common trigger
 * 1.1   dc     05/26/21 Update CFG_SHIFT calculation
 *       dc     07/13/21 Update to common latency requirements
+*       dc     11/26/21 Make driver R5 compatible
 *
 * </pre>
 *
@@ -596,7 +597,7 @@ register_metal:
 #ifdef __BAREMETAL__
 	memcpy(Str, InstancePtr->NodeName, XDFEEQU_NODE_NAME_MAX_LENGTH);
 	AddrStr = strtok(Str, ".");
-	Addr = strtol(AddrStr, NULL, 16);
+	Addr = strtoul(AddrStr, NULL, 16);
 	for (Index = 0; Index < XDFEEQU_MAX_NUM_INSTANCES; Index++) {
 		if (Addr == metal_phys[Index]) {
 			InstancePtr->Device = &CustomDevice[Index];

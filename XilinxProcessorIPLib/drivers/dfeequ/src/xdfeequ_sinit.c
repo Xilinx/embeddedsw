@@ -24,6 +24,7 @@
 *       dc     04/06/21 Register with full node name
 *       dc     04/07/21 Fix bare metal initialisation
 *       dc     04/20/21 Doxygen documentation update
+*       dc     11/26/21 Make driver R5 compatible
 *
 * </pre>
 *
@@ -115,7 +116,7 @@ u32 XDfeEqu_GetConfigTable(XDfeEqu *InstancePtr, XDfeEqu_Config **ConfigTable)
 
 	strncpy(Str, InstancePtr->NodeName, sizeof(Str));
 	AddrStr = strtok(Str, ".");
-	Addr = strtol(AddrStr, NULL, 16);
+	Addr = strtoul(AddrStr, NULL, 16);
 
 	for (Index = 0; Index < XDFEEQU_MAX_NUM_INSTANCES; Index++) {
 		if (XDfeEqu_ConfigTable[Index].BaseAddr == Addr) {
