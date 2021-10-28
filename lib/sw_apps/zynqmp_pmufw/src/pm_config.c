@@ -434,6 +434,8 @@ static s32 PmConfigShutdownSectionHandler(u32* const addr)
  */
 static s32 PmConfigSetConfigSectionHandler(u32* const addr)
 {
+	s32 status = XST_FAILURE;
+
 	if (pmConfig.headerLength > 1U) {
 		if (PM_CONFIG_OBJECT_TYPE_BASE == pmConfig.confObjType) {
 			/* Base config object contain permission for overlay and base config. */
@@ -444,7 +446,7 @@ static s32 PmConfigSetConfigSectionHandler(u32* const addr)
 			pmConfig.overlayConfigPerms = PmConfigReadNext(addr);
 		} else {
 			PmErr("Invalid Config Object Type %d\r\n", pmConfig.confObjType);
-			return XST_FAILURE;
+			goto done;
 		}
 	} else {
 		/** Config object contain permission details for base config only.
@@ -452,8 +454,10 @@ static s32 PmConfigSetConfigSectionHandler(u32* const addr)
 		 */
 		pmConfig.configPerms = PmConfigReadNext(addr);
 	}
+	status = XST_SUCCESS;
 
-	return XST_SUCCESS;
+done:
+	return status;
 }
 
 /**
