@@ -841,6 +841,13 @@ typedef enum {
 	/* Runtime feature configuration */
 	IOCTL_SET_FEATURE_CONFIG,			/**< Set feature config */
 	IOCTL_GET_FEATURE_CONFIG,			/**< Get feature config */
+	/* Generic IOCTL Read/Write */
+	IOCTL_READ_REG,					/**< Read a 32-bit register */
+	IOCTL_MASK_WRITE_REG,				/**< RMW a 32-bit register */
+	/* Dynamic MIO config */
+	IOCTL_SET_SD_CONFIG,				/**< Set SD config register value */
+	IOCTL_SET_GEM_CONFIG,				/**< Set GEM config register value */
+	IOCTL_SET_USB_CONFIG,				/**< Set USB config register value */
 } pm_ioctl_id;
 
 /**
@@ -854,6 +861,31 @@ typedef enum {
 	XPM_FEATURE_EXTWDT_VALUE,		/**< External watchdog interval */
 }pm_feature_id;
 
+/**
+ * Config types for SD configs at run time
+ */
+typedef enum {
+	SD_CONFIG_INVALID = 0,
+	SD_CONFIG_EMMC_SEL = 1, /**< To set SD_EMMC_SEL in CTRL_REG_SD and SD_SLOTTYPE */
+	SD_CONFIG_BASECLK = 2, /**< To set SD_BASECLK in SD_CONFIG_REG1 */
+	SD_CONFIG_8BIT = 3, /**< To set SD_8BIT in SD_CONFIG_REG2 */
+	SD_CONFIG_FIXED = 4, /* To set fixed config registers */
+} XPm_SdConfigType;
+
+/**
+ * Config types for GEM configs at run time
+ */
+typedef enum {
+	GEM_CONFIG_INVALID = 0,
+	GEM_CONFIG_SGMII_MODE = 1, /**< To set GEM_SGMII_MODE in GEM_CLK_CTRL register */
+	GEM_CONFIG_FIXED = 2, /* To set fixed config registers */
+} XPm_GemConfigType;
+
+/* Config types for USB configs at run time */
+typedef enum {
+	USB_CONFIG_INVALID = 0,
+	USB_CONFIG_FIXED = 1, /* To set fixed config registers */
+} XPm_UsbConfigType;
 #ifdef __cplusplus
 }
 #endif
