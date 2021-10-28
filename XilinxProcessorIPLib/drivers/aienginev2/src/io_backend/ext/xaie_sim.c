@@ -22,6 +22,7 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
+#include <pthread.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -433,6 +434,11 @@ static AieRC XAie_SimIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 	return XAIE_OK;
 }
 
+static u64 XAie_SimIOGetTid(void)
+{
+		return (u64)pthread_self();
+}
+
 #else
 
 static AieRC XAie_SimIO_Finish(void *IOInst)
@@ -542,6 +548,11 @@ static AieRC XAie_SimIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 	return XAIE_FEATURE_NOT_SUPPORTED;
 }
 
+static u64 XAie_SimIOGetTid(void)
+{
+		return 0;
+}
+
 #endif /* __AIESIM__ */
 
 static XAie_MemInst* XAie_SimMemAllocate(XAie_DevInst *DevInst, u64 Size,
@@ -603,7 +614,7 @@ const XAie_Backend SimBackend =
 	.Ops.MemSyncForDev = XAie_SimMemSyncForDev,
 	.Ops.MemAttach = XAie_SimMemAttach,
 	.Ops.MemDetach = XAie_SimMemDetach,
-	.Ops.GetTid = XAie_IODummyGetTid,
+	.Ops.GetTid = XAie_SimIOGetTid,
 	.Ops.SubmitTxn = NULL,
 };
 
