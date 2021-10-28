@@ -28,6 +28,7 @@
 *                       boot modes
 *       bsv  10/13/2020 Code clean up
 * 1.04  bsv  08/31/2021 Code clean up
+* 1.05  bsv  10/26/2021 Code clean up
 *
 * </pre>
 *
@@ -106,7 +107,6 @@ int XLoader_DdrCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 {
 	int Status = XST_FAILURE;
 	u32 DmaFlags;
-	u32 ParallelDmaFlags = Flags & XPLMI_DEVICE_COPY_STATE_MASK;
 
 	if (((SrcAddr & XPLMI_WORD_LEN_MASK) != 0U) ||
 		((DestAddr & XPLMI_WORD_LEN_MASK) != 0U) ||
@@ -121,14 +121,15 @@ int XLoader_DdrCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		DmaFlags = XPLMI_PMCDMA_1;
 	}
 	DmaFlags |= (Flags & (~(XPLMI_DEVICE_COPY_STATE_MASK)));
+	Flags &= XPLMI_DEVICE_COPY_STATE_MASK;
 	/* Just wait for the Data to be copied */
-	if (ParallelDmaFlags == XPLMI_DEVICE_COPY_STATE_WAIT_DONE) {
+	if (Flags == XPLMI_DEVICE_COPY_STATE_WAIT_DONE) {
 		Status = XPlmi_WaitForNonBlkDma(DmaFlags);
 		goto END;
 	}
 
 	/* Update the flags for NON blocking DMA call */
-	if (ParallelDmaFlags == XPLMI_DEVICE_COPY_STATE_INITIATE) {
+	if (Flags == XPLMI_DEVICE_COPY_STATE_INITIATE) {
 		DmaFlags |= XPLMI_DMA_SRC_NONBLK;
 	}
 	Status = XPlmi_DmaXfr(SrcAddr, DestAddr, Length >> (XPLMI_WORD_LEN_SHIFT),

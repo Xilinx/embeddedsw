@@ -37,6 +37,7 @@
 *       kpt  10/07/21 Added function pointer ProcessPrtn in
 *                     XLoader_SecureParams
 *       kpt  10/20/21 Removed temporal variables from XLoader_SecureParams
+*       10/26/21 Code clean up
 *
 * </pre>
 *
@@ -429,7 +430,6 @@ typedef struct XLoader_SecureParams {
 	volatile u8 SecureEn;	/**< Security enabled or disabled */
 	u8 IsNextChunkCopyStarted;	/**< Next chunk copy started or not */
 	u8 IsCheckSumEnabled;	/**< Checksum enabled or disabled */
-	u8 IsDoubleBuffering;	/**< Double buffering enabled or disabled */
 	u8 IsCdo; /**< CDO or Elf */
 	XilPdi *PdiPtr;		/**< PDI pointer */
 	XilPdi_PrtnHdr *PrtnHdr;/**< Partition header */

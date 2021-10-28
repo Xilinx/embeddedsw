@@ -35,7 +35,8 @@
 *       bsv  10/13/2020 Code clean up
 *       td	 10/19/2020	MISRA C Fixes
 * 1.04  bsv  08/31/2021 Code clean up
-*       bsv  10/01/2021 Addressed code review comments
+* 1.05  bsv  10/01/2021 Addressed code review comments
+*       bsv  10/26/2021 Code clean up
 *
 * </pre>
 *
@@ -288,8 +289,11 @@ int XLoader_SdCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	UINT Br = 0U;
 	u32 TrfLen;
 	u64 DestOffset = 0U;
-	u32 Len = Length;
-	(void)Flags;
+
+	if (Flags == XPLMI_DEVICE_COPY_STATE_INITIATE) {
+		Status = XST_SUCCESS;
+		goto END;
+	}
 
 	Rc = f_lseek(&FFil, (FSIZE_t)SrcAddr);
 	if (Rc != FR_OK) {
@@ -310,12 +314,12 @@ int XLoader_SdCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		}
 	}
 	else {
-		while(Len > 0U) {
-			if(Len > XLOADER_CHUNK_SIZE) {
+		while(Length > 0U) {
+			if(Length > XLOADER_CHUNK_SIZE) {
 				TrfLen = XLOADER_CHUNK_SIZE;
 			}
 			else {
-				TrfLen = Len;
+				TrfLen = Length;
 			}
 
 			Rc = f_read(&FFil, (void*)(UINTPTR)XPLMI_PMCRAM_BASEADDR, TrfLen, &Br);
@@ -334,7 +338,7 @@ int XLoader_SdCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
                  goto END;
             }
 
-			Len -= TrfLen;
+			Length -= TrfLen;
 			DestOffset += TrfLen;
 		}
 	}
@@ -520,7 +524,11 @@ int XLoader_RawCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	u64 StartBlock = SrcAddr / XLOADER_SD_RAW_BLK_SIZE;
 	u32 TrfLen;
 	u32 NumBlocks;
-	(void) Flags;
+
+	if (Flags == XPLMI_DEVICE_COPY_STATE_INITIATE) {
+		Status = XST_SUCCESS;
+		goto END;
+	}
 
 	XLoader_Printf(DEBUG_INFO, "SD Raw Reading Src 0x%0x%08x,"
 		"Dest 0x%0x%08x, Length 0x%0x, Flags 0x%0x\r\n",

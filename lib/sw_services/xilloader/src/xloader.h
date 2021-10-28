@@ -90,6 +90,7 @@
 *       bsv  08/31/2021 Code clean up
 *       ma   09/01/2021 Use SSIT defines from XilPlmi
 *       kpt  09/06/2021 Added macro XLOADER_TOTAL_CHUNK_SIZE
+*       bsv  10/26/2021 Code clean up
 *
 * </pre>
 *
@@ -124,7 +125,8 @@ extern "C" {
 #define XLOADER_CHUNK_SIZE		(0x10000U) /* 64K */
 #define XLOADER_TOTAL_CHUNK_SIZE    (XLOADER_CHUNK_SIZE + 0x100U)
 #define XLOADER_SECURE_CHUNK_SIZE	(0x8000U) /* 32K */
-#define XLOADER_DMA_LEN_ALIGN           (0x10U)
+#define XLOADER_DMA_LEN_ALIGN		(0x10U)
+#define XLOADER_DMA_LEN_ALIGN_MASK	(0xFU)
 #define XLOADER_IMAGE_SEARCH_OFFSET	(0x8000U) /* 32K */
 
 #define XLOADER_R5_0_TCMA_BASE_ADDR	(0xFFE00000U)
@@ -334,19 +336,14 @@ typedef struct {
 	u8 PdiType; /**< Indicates PDI Type, full PDI, partial PDI */
 	u8 ValidHeader; /**< Indicates if Image header table is valid or not */
 	u8 PdiIndex; /**< Index in DeviceOps array */
-	u32 PdiSrc; /**< Source of the PDI - Boot device, DDR */
-
-	u64 PdiAddr; /**< Address where PDI is present in PDI Source */
-	u32 PdiId; /**< Indicates the full PDI Id */
+	u8 SlrType; /**< SLR Type */
+	u32 PdiSrc;
 	XilPdi_MetaHdr MetaHdr; /**< Metaheader of the PDI */
 	XLoader_HandoffParam HandoffParam[XLOADER_MAX_HANDOFF_CPUS];
-	u32 CurImgId; /**< Current Processing image ID */
-	u32 CurPrtnId; /**< Current Processing Partition ID */
 	u32 IpiMask; /**< Info about which master has sent the request*/
 	u8 NoOfHandoffCpus; /**< Number of CPU's loader will handoff to */
 	u8 ImageNum; /**< Image number in the PDI */
 	u8 PrtnNum; /**< Partition number in the PDI */
-	u8 SlrType; /**< SLR Type */
 	u8 CopyToMem; /**< Copy to Memory is enabled if set */
 	u8 DelayHandoff; /**< Delay handoff is enabled if set */
 	u8 DelayLoad; /**< Delay Load is enabled if set */
@@ -363,7 +360,6 @@ typedef struct {
 	u64 DestAddr;	/**< Desrination Address */
 	u32 Len;	/**< Number of bytes to be copied */
 	u32 Flags;	/**< Flags indicate mode of copying */
-	u8 IsDoubleBuffering;	/**< Indicates if parallel DMA is allowed or not */
 } XLoader_DeviceCopy;
 
 /* Structure to store various parameters for processing partitions */
@@ -380,9 +376,8 @@ typedef struct {
 } XLoader_ImageInfo;
 
 typedef struct {
-	XLoader_ImageInfo *TblPtr;
-	u32 Count;
-	u8 IsBufferFull;
+	u32 Count:31;
+	u32 IsBufferFull:1;
 } XLoader_ImageInfoTbl;
 
 typedef struct {

@@ -59,6 +59,7 @@
 *       bsv  08/02/2021 Code clean up to reduce size
 *       bsv  08/15/2021 Removed unwanted goto statements
 *       rb   08/19/2021 Fix compilation warning
+* 1.07  bsv  10/26/2021 Code clean up
 *
 * </pre>
 *
@@ -1791,13 +1792,13 @@ static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
 	u64 BaseAddr = DestAddr;
 	u32 RemData;
 	u64 Src = SrcAddr;
-	u32 LenTmp = Len;
+	u32 LenTmp = Len << XPLMI_WORD_LEN_SHIFT;
 	XPlmi_KeyHoleXfrParams KeyHoleXfrParams;
 
 	KeyHoleXfrParams.SrcAddr = Src;
 	KeyHoleXfrParams.DestAddr = DestAddr;
 	KeyHoleXfrParams.BaseAddr = BaseAddr;
-	KeyHoleXfrParams.Len = LenTmp * XPLMI_WORD_LEN;
+	KeyHoleXfrParams.Len = LenTmp;
 	KeyHoleXfrParams.Keyholesize = Keyholesize;
 	KeyHoleXfrParams.Flags = XPLMI_PMCDMA_0;
 	KeyHoleXfrParams.Func = NULL;
@@ -1810,6 +1811,11 @@ static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
 	RemData = (Cmd->Len - Cmd->PayloadLen) * XPLMI_WORD_LEN;
 	if (RemData == 0U) {
 		goto END;
+	}
+
+	if (Cmd->KeyHoleParams.IsNextChunkCopyStarted == (u8)FALSE) {
+		LenTmp = 0U;
+		goto END2;
 	}
 
 	if (Src < XPLMI_PMCRAM_CHUNK_MEMORY_1) {
@@ -1844,6 +1850,7 @@ static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
 		goto END1;
 	}
 
+END2:
 	KeyHoleXfrParams.SrcAddr = Cmd->KeyHoleParams.SrcAddr + LenTmp;
 	KeyHoleXfrParams.Len = RemData;
 	KeyHoleXfrParams.Flags = 0U;
@@ -1853,7 +1860,6 @@ static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
 		XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
 		goto END;
 	}
-
 END1:
 	Cmd->KeyHoleParams.ExtraWords = Cmd->Len - Cmd->PayloadLen;
 	Cmd->PayloadLen = Cmd->Len + 1U;

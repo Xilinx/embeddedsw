@@ -101,6 +101,7 @@
 * 1.07  kpt  10/07/21 Decoupled checksum functionality from secure code
 *       kpt  10/20/21 Modified temporal checks to use temporal variables from
 *                     data section
+*       bsv  10/26/2021 Code clean up
 *
 * </pre>
 *
@@ -258,10 +259,7 @@ int XLoader_SecureCopy(XLoader_SecureParams *SecurePtr, u64 DestAddr, u32 Size)
 		/* Update variables for next chunk */
 		LoadAddr = LoadAddr + SecurePtr->SecureDataLen;
 		Len = Len - SecurePtr->ProcessedLen;
-
-		if (SecurePtr->IsDoubleBuffering == (u8)TRUE) {
-			SecurePtr->ChunkAddr = SecurePtr->NextChunkAddr;
-		}
+		SecurePtr->ChunkAddr = SecurePtr->NextChunkAddr;
 	}
 
 END:
@@ -608,28 +606,23 @@ int XLoader_SecureChunkCopy(XLoader_SecureParams *SecurePtr, u64 SrcAddr,
 			u8 Last, u32 BlockSize, u32 TotalSize)
 {
 	int Status = XST_FAILURE;
+	u8 Flags = XPLMI_DEVICE_COPY_STATE_BLK;
 
 	if (SecurePtr->IsNextChunkCopyStarted == (u8)TRUE) {
 		SecurePtr->IsNextChunkCopyStarted = (u8)FALSE;
-		/* Wait for copy to get completed */
-		Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(SrcAddr,
-					SecurePtr->ChunkAddr, TotalSize,
-					XPLMI_DEVICE_COPY_STATE_WAIT_DONE);
+		Flags = XPLMI_DEVICE_COPY_STATE_WAIT_DONE;
 	}
-	else {
-		/* Copy the data to PRAM buffer */
-		Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(SrcAddr,
-					SecurePtr->ChunkAddr, TotalSize,
-					XPLMI_DEVICE_COPY_STATE_BLK);
-	}
+
+	/* Wait for copy to get completed */
+	Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(SrcAddr,
+		SecurePtr->ChunkAddr, TotalSize, Flags);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(
 				XLOADER_ERR_DATA_COPY_FAIL, Status);
 		goto END;
 	}
 
-	if ((SecurePtr->IsDoubleBuffering == (u8)TRUE) &&
-				(Last != (u8)TRUE)) {
+	if (Last != (u8)TRUE) {
 		Status = XLoader_StartNextChunkCopy(SecurePtr,
 					(SecurePtr->RemainingDataLen - TotalSize),
 					SrcAddr + TotalSize, BlockSize);

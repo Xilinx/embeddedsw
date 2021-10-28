@@ -37,6 +37,7 @@
 *                       at 32K boundary
 *       bsv  07/16/2021 Fix doxygen warnings
 *       bsv  08/02/2021 Change type of variables to reduce size
+* 1.05  bsv  10/26/2021 Code clean up
 *
 * </pre>
 *
@@ -75,6 +76,7 @@ struct XPlmi_KeyHoleParams {
 	u64 SrcAddr; /**< Boot Source address */
 	u32 ExtraWords; /**< Words that are directly DMAed to CFI */
 	int (*Func) (u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+	u8 IsNextChunkCopyStarted; /**< Used to check if next chunk is copied or not */
 };
 
 struct XPlmi_Cmd {

@@ -118,6 +118,7 @@
 *       bsv  09/24/2021 Fix secondary Pdi load issue
 * 1.05  kpt  10/20/2021 Modified temporal checks to use temporal variables from
 *                       data section
+*       bsv  10/26/2021 Code clean up
 *
 * </pre>
 *
@@ -158,7 +159,7 @@
 									 the available buffer */
 
 /************************** Function Prototypes ******************************/
-static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal);
+static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr);
 static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr);
 static int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr);
 static void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi);
@@ -215,7 +216,6 @@ static const XLoader_DeviceOps DeviceOps[] =
 
 /* Image Info Table */
 static XLoader_ImageInfoTbl ImageInfoTbl = {
-	.TblPtr = (XLoader_ImageInfo *)XPLMI_IMAGE_INFO_TBL_BUFFER_ADDR,
 	.Count = 0U,
 	.IsBufferFull = FALSE,
 };
@@ -358,18 +358,17 @@ int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 	 * Update PDI Ptr with source and address
 	 */
 	PdiPtr->PdiSrc = PdiSrc;
-	PdiPtr->PdiAddr = PdiAddr;
 	PdiPtr->SlrType = (u8)(XPlmi_In32(PMC_TAP_SLR_TYPE) &
 		PMC_TAP_SLR_TYPE_VAL_MASK);
 	if ((PdiPtr->SlrType == XLOADER_SSIT_MASTER_SLR) ||
 		(PdiPtr->SlrType == XLOADER_SSIT_MONOLITIC)) {
 		XPlmi_Printf(DEBUG_GENERAL, "Monolithic/Master Device\n\r");
 
-		Status = DeviceOps[PdiPtr->PdiIndex].Init(PdiPtr->PdiSrc);
+		Status = DeviceOps[PdiPtr->PdiIndex].Init(PdiSrc);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		if (PdiPtr->PdiSrc == XLOADER_PDI_SRC_USB) {
+		if (PdiSrc == XLOADER_PDI_SRC_USB) {
 			PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
 		}
 	}
@@ -377,7 +376,7 @@ int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 	PdiPtr->MetaHdr.DeviceCopy = DeviceOps[PdiPtr->PdiIndex].Copy;
 
 	Status = XST_FAILURE;
-	Status = XLoader_ReadAndValidateHdrs(PdiPtr, RegVal);
+	Status = XLoader_ReadAndValidateHdrs(PdiPtr, RegVal, PdiAddr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -409,7 +408,7 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
+static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTemp =  XST_FAILURE;
@@ -443,7 +442,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 			(PdiPtr->PdiIndex == XLOADER_OSPI_INDEX) ||
 			(PdiPtr->PdiIndex == XLOADER_SD_RAW_INDEX)) {
 			RegVal &= ~(XLOADER_SD_RAWBOOT_MASK);
-			PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->PdiAddr + \
+			PdiPtr->MetaHdr.FlashOfstAddr = PdiAddr + \
 				((u64)RegVal * XLOADER_IMAGE_SEARCH_OFFSET);
 #ifdef XLOADER_QSPI
 			if (PdiPtr->PdiIndex == XLOADER_QSPI_INDEX) {
@@ -456,18 +455,18 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 #endif
 		}
 		else {
-			PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->PdiAddr;
+			PdiPtr->MetaHdr.FlashOfstAddr = PdiAddr;
 		}
 
 		if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL_METAHEADER) {
 			XPlmi_Out32((UINTPTR)&PdiPtr->MetaHdr.BootHdrPtr->BootHdrFwRsvd.MetaHdrOfst,
-				XPlmi_In64(PdiPtr->PdiAddr + XIH_BH_META_HDR_OFFSET));
+				XPlmi_In64(PdiAddr + XIH_BH_META_HDR_OFFSET));
 		}
 	}
 	else {
 		PdiPtr->ImageNum = 0U;
 		PdiPtr->PrtnNum = 0U;
-		PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->PdiAddr;
+		PdiPtr->MetaHdr.FlashOfstAddr = PdiAddr;
 		Status = XPlmi_MemSetBytes(&(PdiPtr->MetaHdr.BootHdrPtr->BootHdrFwRsvd.MetaHdrOfst),
 			sizeof(XilPdi_BootHdrFwRsvd), 0U, sizeof(XilPdi_BootHdrFwRsvd));
 		if (Status != XST_SUCCESS) {
@@ -669,7 +668,7 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 	u8 NoOfDelayedHandoffCpus = 0U;
 	u8 DelayHandoffImageNum[XLOADER_MAX_HANDOFF_CPUS];
 	u8 DelayHandoffPrtnNum[XLOADER_MAX_HANDOFF_CPUS];
-	u8 Index = 0U;
+	u8 Index;
 	u8 ImageNum;
 	u8 PrtnNum;
 	u8 PrtnIndex;
@@ -757,7 +756,7 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 	}
 
 	/* Delay Handoff starts here */
-	for ( ; Index < NoOfDelayedHandoffCpus; ++Index) {
+	for (Index = 0U; Index < NoOfDelayedHandoffCpus; ++Index) {
 		ImageNum = DelayHandoffImageNum[Index];
 		PrtnNum = DelayHandoffPrtnNum[Index];
 		PdiPtr->PrtnNum = PrtnNum;
@@ -1023,17 +1022,12 @@ static int XLoader_GetChildRelation(u32 ChildImgID, u32 ParentImgID, u32 *IsChil
 	int Status = XST_FAILURE;
 	u32 TempParentImgID = ChildImgID;
 
-	while (TRUE) {
+	while (TempParentImgID != 0U) {
 		Status = XPm_Query((u32)XPM_QID_PLD_GET_PARENT, TempParentImgID, 0U, 0U,
 				&TempParentImgID);
 		if (Status != XST_SUCCESS) {
 			Status = (int)XLOADER_ERR_PARENT_QUERY_RELATION_CHECK;
 			goto END;
-		}
-
-		if (TempParentImgID == 0U) {
-			*IsChild = (u32)FALSE;
-			break;
 		}
 
 		if (TempParentImgID == ParentImgID) {
@@ -1064,16 +1058,14 @@ END:
 static int XLoader_InvalidateChildImgInfo(u32 ParentImgID, u32 *ChangeCount)
 {
 	int Status = XST_FAILURE;
-	u32 TempCount = 0;
 	u32 IsChild;
 	u32 Index;
 	u32 NodeId;
+	XLoader_ImageInfo *ImageInfoTblPtr = (XLoader_ImageInfo *)
+		XPLMI_IMAGE_INFO_TBL_BUFFER_ADDR;
 
-	for (Index = 0U; Index < XLOADER_IMAGE_INFO_TBL_MAX_NUM; Index++) {
-		if (TempCount >= ImageInfoTbl.Count) {
-			break;
-		}
-		NodeId = NODESUBCLASS(ImageInfoTbl.TblPtr[Index].ImgID);
+	for (Index = 0U; Index < ImageInfoTbl.Count; Index++) {
+		NodeId = NODESUBCLASS(ImageInfoTblPtr[Index].ImgID);
 		/*
 		 * Only PL and AIE images are supporting hierarchical DFX,
 		 * so only those image entries need to be invalidated
@@ -1082,24 +1074,24 @@ static int XLoader_InvalidateChildImgInfo(u32 ParentImgID, u32 *ChangeCount)
 			(NodeId != (u32)XPM_NODESUBCL_DEV_AIE)) {
 			continue;
 		}
-		Status = XLoader_GetChildRelation(
-			ImageInfoTbl.TblPtr[Index].ImgID, ParentImgID, &IsChild);
+		IsChild = (u32)FALSE;
+		Status = XLoader_GetChildRelation(ImageInfoTblPtr[Index].ImgID,
+			ParentImgID, &IsChild);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 		if (IsChild == (u32)TRUE) {
-			ImageInfoTbl.TblPtr[Index].ImgID = XLOADER_INVALID_IMG_ID;
 			ImageInfoTbl.Count--;
-			(*ChangeCount)++;
-			if (ImageInfoTbl.IsBufferFull == (u8)TRUE) {
-				ImageInfoTbl.IsBufferFull = (u8)FALSE;
+			Status = Xil_SecureMemCpy(&ImageInfoTblPtr[Index],
+				sizeof(XLoader_ImageInfo),
+				&ImageInfoTblPtr[ImageInfoTbl.Count],
+				sizeof(XLoader_ImageInfo));
+			if (Status != XST_SUCCESS) {
+				goto END;
 			}
-		}
-		else if (ImageInfoTbl.TblPtr[Index].ImgID != XLOADER_INVALID_IMG_ID) {
-			TempCount++;
-		}
-		else {
-			/* For MISRA-C */
+			(*ChangeCount)++;
+			ImageInfoTbl.IsBufferFull = (u8)FALSE;
+			--Index;
 		}
 	}
 	Status = XST_SUCCESS;
@@ -1122,36 +1114,18 @@ XLoader_ImageInfo* XLoader_GetImageInfoEntry(u32 ImgID)
 {
 	XLoader_ImageInfo *ImageEntry = NULL;
 	u32 Index;
-	u32 EmptyImgIndex = XLOADER_IMG_INDEX_NOT_FOUND;
-	u32 TempCount = 0U;
+	XLoader_ImageInfo *ImageInfoTblPtr = (XLoader_ImageInfo *)
+		XPLMI_IMAGE_INFO_TBL_BUFFER_ADDR;
+
 	/* Check for a existing valid image entry matching given ImgID */
-	for (Index = 0U; Index < XLOADER_IMAGE_INFO_TBL_MAX_NUM; Index++) {
-		if (TempCount < ImageInfoTbl.Count) {
-			TempCount++;
-			if ((ImageInfoTbl.TblPtr[Index].ImgID == ImgID) &&
-				(ImageInfoTbl.TblPtr[Index].ImgID !=
-				XLOADER_INVALID_IMG_ID)) {
-				ImageEntry = &ImageInfoTbl.TblPtr[Index];
-				goto END;
-			}
-			else if ((ImageInfoTbl.TblPtr[Index].ImgID ==
-				XLOADER_INVALID_IMG_ID) && (EmptyImgIndex ==
-				XLOADER_IMG_INDEX_NOT_FOUND)) {
-				EmptyImgIndex = Index;
-			}
-			else {
-				/* For MISRA-C */
-			}
+	for (Index = 0U; Index < ImageInfoTbl.Count; Index++) {
+		if (ImageInfoTblPtr[Index].ImgID == ImgID) {
+			ImageEntry = &ImageInfoTblPtr[Index];
+			goto END;
 		}
 	}
-
-	/* If no valid image entry is found above, return empty entry */
-	if ((Index == XLOADER_IMAGE_INFO_TBL_MAX_NUM) && (ImageInfoTbl.Count <
-		XLOADER_IMAGE_INFO_TBL_MAX_NUM)) {
-		if (EmptyImgIndex == XLOADER_IMG_INDEX_NOT_FOUND) {
-			EmptyImgIndex = ImageInfoTbl.Count;
-		}
-		ImageEntry = &ImageInfoTbl.TblPtr[EmptyImgIndex];
+	if (ImageInfoTbl.Count < XLOADER_IMAGE_INFO_TBL_MAX_NUM) {
+		ImageEntry = &ImageInfoTblPtr[ImageInfoTbl.Count];
 		ImageEntry->ImgID = XLOADER_INVALID_IMG_ID;
 	}
 
@@ -1240,43 +1214,27 @@ END:
 int XLoader_LoadImageInfoTbl(u64 DestAddr, u32 MaxSize, u32 *NumEntries)
 {
 	int Status = XST_FAILURE;
-	u32 Len = ImageInfoTbl.Count;
 	u32 MaxLen = MaxSize / sizeof(XLoader_ImageInfo);
-	u32 Count = 0U;
-	u32 Index = 0U;
+	u32 Len;
 	u32 SrcAddr = XPLMI_IMAGE_INFO_TBL_BUFFER_ADDR;
-	const XLoader_ImageInfo *ImageInfo = (XLoader_ImageInfo *)(UINTPTR)SrcAddr;
 
-	if (Len > MaxLen) {
+	if (ImageInfoTbl.Count > MaxLen) {
 		Status = (int)XLOADER_ERR_INVALID_DEST_IMGINFOTBL_SIZE;
 		goto END;
 	}
 
-	while (Count < Len) {
-		if (Index >= XLOADER_IMAGE_INFO_TBL_MAX_NUM) {
-			break;
-		}
-
-		if (ImageInfo->ImgID != XLOADER_INVALID_IMG_ID) {
-			Status = XPlmi_DmaXfr((u64)SrcAddr, DestAddr,
-					sizeof(XLoader_ImageInfo) >> XPLMI_WORD_LEN_SHIFT,
-					XPLMI_PMCDMA_0);
-			if (Status != XST_SUCCESS) {
-				goto END;
-			}
-			Count++;
-			DestAddr += sizeof(XLoader_ImageInfo);
-		}
-		Index++;
-		SrcAddr += sizeof(XLoader_ImageInfo);
-		ImageInfo++;
+	Len = ImageInfoTbl.Count * sizeof(XLoader_ImageInfo);
+	Status = XPlmi_DmaXfr((u64)SrcAddr, DestAddr, (Len >> XPLMI_WORD_LEN_SHIFT),
+		XPLMI_PMCDMA_0);
+	if (Status != XST_SUCCESS) {
+		goto END;
 	}
 
 	if (ImageInfoTbl.IsBufferFull == (u8)TRUE) {
 		Status = (int)XLOADER_ERR_IMAGE_INFO_TBL_FULL;
 		XPlmi_Printf(DEBUG_INFO, "Image Info Table Overflowed\r\n");
 	}
-	*NumEntries = Len;
+	*NumEntries = ImageInfoTbl.Count;
 
 END:
 	return Status;
@@ -1396,9 +1354,8 @@ static int XLoader_LoadImage(XilPdi *PdiPtr)
 	}
 
 	PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgName[XILPDI_IMG_NAME_ARRAY_SIZE - 1U] = 0;
-	PdiPtr->CurImgId = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID;
 	/* Update current subsystem ID for EM */
-	XPlmi_SetEmSubsystemId(&PdiPtr->CurImgId);
+	XPlmi_SetEmSubsystemId(&PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
 	Status = XLoader_LoadImagePrtns(PdiPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -1414,8 +1371,8 @@ static int XLoader_LoadImage(XilPdi *PdiPtr)
 		}
 	}
 	/* Log the image load to the Trace Log buffer */
-	XPlmi_TraceLog3(XPLMI_TRACE_LOG_LOAD_IMAGE, PdiPtr->CurImgId);
-
+	XPlmi_TraceLog3(XPLMI_TRACE_LOG_LOAD_IMAGE,
+		PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
 	/* Apply MJTAG Work-around after first PL loading */
 	if (NodeId == (u32)XPM_NODESUBCL_DEV_PL) {
 		/* Apply MJTAG workaround only if bootmode is other than JTAG */
@@ -1470,7 +1427,7 @@ int XLoader_RestartImage(u32 ImageId, u32 *FuncID)
 	int Status = XST_FAILURE;
 	XilPdi *PdiPtr = &SubsystemPdiIns;
 	const XLoader_ImageStore *PdiList = XLoader_GetPdiList();
-	int Index = 0;
+	int Index;
 	u64 PdiAddr;
 
 	/*
@@ -1549,7 +1506,7 @@ static int XLoader_ReloadImage(XilPdi *PdiPtr, u32 ImageId, const u32 *FuncID)
 {
 	int Status = XST_FAILURE;
 	int SStatus = XST_FAILURE;
-	PdiSrc_t PdiSrc = PdiPtr->PdiSrc;
+	u32 PdiSrc = PdiPtr->PdiSrc;
 	u8 PdiIndex = PdiPtr->PdiIndex;
 	u8 PdiType = PdiPtr->PdiType;
 	u8 PrtnNum = 0U;
