@@ -120,13 +120,15 @@ typedef enum {
 #ifdef ENABLE_IOCTL
 /* PM IOCTL IDs */
 typedef enum {
+#ifdef ENABLE_FEATURE_CONFIG
 	/* Enable or disable feature control */
 	PM_IOCTL_SET_FEATURE_CONFIG = 26,
 	PM_IOCTL_GET_FEATURE_CONFIG = 27,
+#endif /* ENABLE_FEATURE_CONFIG */
 	/* Invalid IOCTL ID */
 	PM_IOCTL_INVALID = 0,
 } XPm_IoctlId;
-#endif
+#endif /* ENABLE_IOCTL */
 
 /* PM API callback ids */
 #define PM_INIT_SUSPEND_CB      30U

@@ -15,6 +15,7 @@ extern "C" {
 #ifdef ENABLE_IOCTL
 #include "xil_types.h"
 
+#ifdef ENABLE_FEATURE_CONFIG
 /*********************************************************************
  * Enum definitions
  ********************************************************************/
@@ -24,11 +25,11 @@ typedef enum {
 #ifdef ENABLE_RUNTIME_OVERTEMP
 	XPM_FEATURE_OVERTEMP_STATUS = 1,
 	XPM_FEATURE_OVERTEMP_VALUE = 2,
-#endif
+#endif /* ENABLE_RUNTIME_OVERTEMP */
 #ifdef ENABLE_RUNTIME_EXTWDT
 	XPM_FEATURE_EXTWDT_STATUS = 3,
 	XPM_FEATURE_EXTWDT_VALUE = 4,
-#endif
+#endif /* ENABLE_RUNTIME_EXTWDT */
 } XPm_FeatureConfigId;
 
 /*********************************************************************
@@ -36,7 +37,8 @@ typedef enum {
  ********************************************************************/
 s32 PmSetFeatureConfig(XPm_FeatureConfigId configId, u32 value);
 s32 PmGetFeatureConfig(XPm_FeatureConfigId configId, u32 *value);
-#endif
+#endif /* ENABLE_FEATURE_CONFIG */
+#endif /* ENABLE_IOCTL */
 
 #ifdef __cplusplus
 }

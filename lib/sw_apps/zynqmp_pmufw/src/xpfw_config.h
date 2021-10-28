@@ -514,6 +514,9 @@ extern "C" {
 #ifndef ENABLE_IOCTL
 #define ENABLE_IOCTL
 #endif
+#ifndef ENABLE_FEATURE_CONFIG
+#define ENABLE_FEATURE_CONFIG
+#endif
 #endif
 
 #if (ENABLE_RUNTIME_EXTWDT_VAL) && (!defined(ENABLE_RUNTIME_EXTWDT))
@@ -523,6 +526,9 @@ extern "C" {
 #endif
 #ifndef ENABLE_IOCTL
 #define ENABLE_IOCTL
+#endif
+#ifndef ENABLE_FEATURE_CONFIG
+#define ENABLE_FEATURE_CONFIG
 #endif
 #endif
 

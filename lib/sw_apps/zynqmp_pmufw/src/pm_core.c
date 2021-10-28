@@ -1999,24 +1999,22 @@ static void PmDevIoctl(const PmMaster* const master, const u32 deviceId,
 		deviceId, ioctlId, arg1, arg2);
 
 	switch (ioctlId) {
+#ifdef ENABLE_FEATURE_CONFIG
 	case PM_IOCTL_SET_FEATURE_CONFIG:
 		status = PmSetFeatureConfig((XPm_FeatureConfigId)arg1, arg2);
 		break;
 	case PM_IOCTL_GET_FEATURE_CONFIG:
 		status = PmGetFeatureConfig((XPm_FeatureConfigId)arg1, &value);
 		break;
+#endif /* ENABLE_FEATURE_CONFIG */
 	default:
 		status = XST_INVALID_PARAM;
 		break;
 	}
 
-	if (PM_IOCTL_GET_FEATURE_CONFIG == ioctlId) {
-		IPI_RESPONSE2(master->ipiMask, (u32)status, value);
-	} else {
-		IPI_RESPONSE1(master->ipiMask, (u32)status);
-	}
+	IPI_RESPONSE2(master->ipiMask, (u32)status, value);
 }
-#endif
+#endif /* ENABLE_IOCTL */
 
 /**
  * PmApiApprovalCheck() - Check if the API ID can be processed at the moment

@@ -9,6 +9,7 @@
 #include "pm_ioctl.h"
 #include "pm_common.h"
 
+#ifdef ENABLE_FEATURE_CONFIG
 #ifdef ENABLE_RUNTIME_OVERTEMP
 #include "xpfw_mod_overtemp.h"
 #endif
@@ -30,7 +31,7 @@ static u32 ExtWdtState = 0U;
  * @value	The value to be configured
  *
  * @return	XST_SUCCESS if successful else XST_FAILURE or an error
- * 		code or a reason code
+ *		code or a reason code
  */
 s32 PmSetFeatureConfig(XPm_FeatureConfigId configId, u32 value)
 {
@@ -131,4 +132,5 @@ s32 PmGetFeatureConfig(XPm_FeatureConfigId configId, u32 *value)
 
 	return status;
 }
+#endif /* ENABLE_FEATURE_CONFIG */
 #endif /* ENABLE_IOCTL */
