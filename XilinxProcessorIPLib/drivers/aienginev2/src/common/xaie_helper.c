@@ -1228,8 +1228,25 @@ AieRC XAie_RunOp(XAie_DevInst *DevInst, XAie_BackendOpCode Op, void *Arg)
 			return Backend->Ops.RunOp(DevInst->IOInst, DevInst, Op, Arg);
 		} else if(TxnInst->NumCmds == 0) {
 			return Backend->Ops.RunOp(DevInst->IOInst, DevInst, Op, Arg);
+		} else if((Op == XAIE_BACKEND_OP_CONFIG_SHIMDMABD) &&
+				(Backend->Type != XAIE_IO_BACKEND_LINUX)) {
+			/*
+			 * NOTE: shim dma configuration can be added as register
+			 * write commands for all backends except linux kernel
+			 * backend. to enable this for linux kernel backend,
+			 * kernel has to support shim dma configuration as a new
+			 * operation in transaction ioctl.
+			 */
+			XAie_ShimDmaBdArgs *BdArgs =
+				(XAie_ShimDmaBdArgs *)Arg;
+			for(u8 i = 0; i < BdArgs->NumBdWords; i++) {
+				XAie_Write32(DevInst,
+						BdArgs->Addr + i * 4,
+						BdArgs->BdWords[i]);
+			}
+			return XAIE_OK;
 		} else {
-			XAIE_ERROR("Cmd Write operation is not supported "
+			XAIE_ERROR("Run Op operation is not supported "
 					"when auto flush is disabled\n");
 			return XAIE_ERR;
 		}
