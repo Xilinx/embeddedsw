@@ -2007,6 +2007,11 @@ static void PmDevIoctl(const PmMaster* const master, const u32 deviceId,
 		status = PmGetFeatureConfig((XPm_FeatureConfigId)arg1, &value);
 		break;
 #endif /* ENABLE_FEATURE_CONFIG */
+#ifdef ENABLE_DYNAMIC_MIO_CONFIG
+	case PM_IOCTL_SET_SD_CONFIG:
+		status = PmSetSdConfig(deviceId, arg1, arg2);
+		break;
+#endif /* ENABLE_DYNAMIC_MIO_CONFIG */
 	default:
 		status = XST_INVALID_PARAM;
 		break;

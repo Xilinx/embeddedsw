@@ -8,7 +8,13 @@
 #ifdef ENABLE_IOCTL
 #include "pm_ioctl.h"
 #include "pm_common.h"
-
+#ifdef ENABLE_DYNAMIC_MIO_CONFIG
+#include "iou_slcr.h"
+#include "iou_secure_slcr.h"
+#include "lpd_slcr_secure.h"
+#include "pm_defs.h"
+#include "pm_pinctrl.h"
+#endif
 #ifdef ENABLE_FEATURE_CONFIG
 #ifdef ENABLE_RUNTIME_OVERTEMP
 #include "xpfw_mod_overtemp.h"
@@ -16,7 +22,27 @@
 #ifdef ENABLE_RUNTIME_EXTWDT
 #include "xpfw_mod_extwdt.h"
 #endif
+#endif
 
+#ifdef ENABLE_DYNAMIC_MIO_CONFIG
+#define SET_FIXED_SD_CONFIG(id)							\
+	XPfw_RMW32(SD_CONFIG_REG2, SD##id##_3P0V_MASK, 0U);			\
+	XPfw_RMW32(SD_CONFIG_REG3, SD##id##_RETUNETMR_MASK, 0U);		\
+	XPfw_RMW32(SD_DLL_CTRL, SD##id##_DLL_RST_DIS_MASK,			\
+			1U << SD##id##_DLL_RST_DIS_SHIFT);			\
+	XPfw_RMW32(SD_CONFIG_REG1, SD##id##_TUNIGCOUNT_MASK,			\
+			40U << SD##id##_TUNIGCOUNT_SHIFT);			\
+	XPfw_RMW32(IOU_COHERENT_CTRL, SD##id##_AXI_COH_MASK,			\
+			1U << SD##id##_AXI_COH_SHIFT);				\
+	XPfw_RMW32(IOU_INTERCONNECT_ROUTE, SD##id##_INTERCONNECT_ROUTE_MASK,	\
+			1U << SD##id##_INTERCONNECT_ROUTE_SHIFT);		\
+	XPfw_RMW32(IOU_AXI_WPRTCN, SD##id##_AXI_AWPROT_MASK,			\
+			2U << SD##id##_AXI_AWPROT_SHIFT);			\
+	XPfw_RMW32(IOU_AXI_RPRTCN, SD##id##_AXI_ARPROT_MASK,			\
+			2U << SD##id##_AXI_ARPROT_SHIFT);
+#endif /* ENABLE_DYNAMIC_MIO_CONFIG */
+
+#ifdef ENABLE_FEATURE_CONFIG
 #ifdef ENABLE_RUNTIME_OVERTEMP
 static u32 OverTempState = 0U;
 #endif /* ENABLE_RUNTIME_OVERTEMP */
@@ -133,4 +159,121 @@ s32 PmGetFeatureConfig(XPm_FeatureConfigId configId, u32 *value)
 	return status;
 }
 #endif /* ENABLE_FEATURE_CONFIG */
+
+#ifdef ENABLE_DYNAMIC_MIO_CONFIG
+static inline void PmConfigureSd0Regs(void)
+{
+	u32 fId = 0U;
+
+	SET_FIXED_SD_CONFIG(0);
+
+	XPfw_RMW32(SDIO_CLK_CTRL, SDIO0_FBCLK_SEL_MASK, 1U << SDIO0_FBCLK_SEL_SHIFT);
+	PmPinCtrlGetFunctionInt(38U, &fId);
+	if (PINCTRL_FUNC_SDIO0 == fId) {
+		XPfw_RMW32(SDIO_CLK_CTRL, SDIO0_RX_SRC_SEL_MASK,
+			   1U << SDIO0_RX_SRC_SEL_SHIFT);
+		XPfw_RMW32(SDIO_CLK_CTRL, SDIO0_FBCLK_SEL_MASK, 0U);
+	}
+	PmPinCtrlGetFunctionInt(64U, &fId);
+	if (PINCTRL_FUNC_SDIO0 == fId) {
+		XPfw_RMW32(SDIO_CLK_CTRL, SDIO0_RX_SRC_SEL_MASK,
+			   2U << SDIO0_RX_SRC_SEL_SHIFT);
+		XPfw_RMW32(SDIO_CLK_CTRL, SDIO0_FBCLK_SEL_MASK, 0U);
+	}
+	PmPinCtrlGetFunctionInt(22U, &fId);
+	if (PINCTRL_FUNC_SDIO0 == fId) {
+		XPfw_RMW32(SDIO_CLK_CTRL, SDIO0_RX_SRC_SEL_MASK, 0U);
+		XPfw_RMW32(SDIO_CLK_CTRL, SDIO0_FBCLK_SEL_MASK, 0U);
+	}
+}
+
+static inline void PmConfigureSd1Regs(void)
+{
+	u32 fId = 0U;
+
+	SET_FIXED_SD_CONFIG(1);
+
+	XPfw_RMW32(SDIO_CLK_CTRL, SDIO1_FBCLK_SEL_MASK, 1U << SDIO1_FBCLK_SEL_SHIFT);
+	PmPinCtrlGetFunctionInt(76U, &fId);
+	if (PINCTRL_FUNC_SDIO1 == fId) {
+		XPfw_RMW32(SDIO_CLK_CTRL, SDIO1_RX_SRC_SEL_MASK,
+			   1U << SDIO1_RX_SRC_SEL_SHIFT);
+		XPfw_RMW32(SDIO_CLK_CTRL, SDIO1_FBCLK_SEL_MASK, 0U);
+	}
+	PmPinCtrlGetFunctionInt(51U, &fId);
+	if (PINCTRL_FUNC_SDIO1 == fId) {
+		XPfw_RMW32(SDIO_CLK_CTRL, SDIO1_RX_SRC_SEL_MASK, 0U);
+		XPfw_RMW32(SDIO_CLK_CTRL, SDIO1_FBCLK_SEL_MASK, 0U);
+	}
+}
+
+/**
+ * PmSetSdConfig() - Configure SD registers.
+ * @nodeId	SD node ID
+ * @configType	configuration type
+ * @value	value to be written
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or an error
+ *		code or a reason code
+ */
+s32 PmSetSdConfig(u32 nodeId, XPm_SdConfigType configType, u32 value)
+{
+	s32 status = XST_FAILURE;
+
+	if ((NODE_SD_0 != nodeId) && (NODE_SD_1 != nodeId)) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	switch(configType) {
+	case SD_CONFIG_EMMC_SEL:
+		if (NODE_SD_0 == nodeId) {
+			XPfw_RMW32(CTRL_REG_SD, SD0_EMMC_SEL_MASK,
+				   value << SD0_EMMC_SEL_SHIFT);
+			XPfw_RMW32(SD_CONFIG_REG2, SD0_SLOTTYPE_MASK,
+				   value << SD0_SLOTTYPE_SHIFT);
+		} else {
+			XPfw_RMW32(CTRL_REG_SD, SD1_EMMC_SEL_MASK,
+				   value << SD1_EMMC_SEL_SHIFT);
+			XPfw_RMW32(SD_CONFIG_REG2, SD1_SLOTTYPE_MASK,
+				   value << SD1_SLOTTYPE_SHIFT);
+		}
+		status = XST_SUCCESS;
+		break;
+	case SD_CONFIG_BASECLK:
+		if (NODE_SD_0 == nodeId) {
+			XPfw_RMW32(SD_CONFIG_REG1, SD0_BASECLK_MASK,
+				   value << SD0_BASECLK_SHIFT);
+		} else {
+			XPfw_RMW32(SD_CONFIG_REG1, SD1_BASECLK_MASK,
+				   value << SD1_BASECLK_SHIFT);
+		}
+		status = XST_SUCCESS;
+		break;
+	case SD_CONFIG_8BIT:
+		if (NODE_SD_0 == nodeId) {
+			XPfw_RMW32(SD_CONFIG_REG2, SD0_8BIT_MASK,
+				   value << SD0_8BIT_SHIFT);
+		} else {
+			XPfw_RMW32(SD_CONFIG_REG2, SD1_8BIT_MASK,
+				   value << SD1_8BIT_SHIFT);
+		}
+		status = XST_SUCCESS;
+		break;
+	case SD_CONFIG_FIXED:
+		if (NODE_SD_0 == nodeId) {
+			PmConfigureSd0Regs();
+		} else {
+			PmConfigureSd1Regs();
+		}
+		status = XST_SUCCESS;
+		break;
+	default:
+		status = XST_INVALID_PARAM;
+	}
+
+done:
+	return status;
+}
+#endif /* ENABLE_DYNAMIC_MIO_CONFIG */
 #endif /* ENABLE_IOCTL */

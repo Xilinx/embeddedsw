@@ -31,13 +31,29 @@ typedef enum {
 	XPM_FEATURE_EXTWDT_VALUE = 4,
 #endif /* ENABLE_RUNTIME_EXTWDT */
 } XPm_FeatureConfigId;
+#endif /* ENABLE_FEATURE_CONFIG */
+
+#ifdef ENABLE_DYNAMIC_MIO_CONFIG
+/* Config types for SD configs at run time */
+typedef enum {
+	SD_CONFIG_INVALID = 0,
+	SD_CONFIG_EMMC_SEL = 1, /* To set SD_EMMC_SEL in CTRL_REG_SD and SD_SLOTTYPE */
+	SD_CONFIG_BASECLK = 2, /* To set SD_BASECLK in SD_CONFIG_REG1 */
+	SD_CONFIG_8BIT = 3, /* To set SD_8BIT in SD_CONFIG_REG2 */
+	SD_CONFIG_FIXED = 4, /* To set fixed config registers */
+} XPm_SdConfigType;
+#endif /* ENABLE_DYNAMIC_MIO_CONFIG */
 
 /*********************************************************************
  * Function declarations
  ********************************************************************/
+#ifdef ENABLE_FEATURE_CONFIG
 s32 PmSetFeatureConfig(XPm_FeatureConfigId configId, u32 value);
 s32 PmGetFeatureConfig(XPm_FeatureConfigId configId, u32 *value);
 #endif /* ENABLE_FEATURE_CONFIG */
+#ifdef ENABLE_DYNAMIC_MIO_CONFIG
+s32 PmSetSdConfig(u32 nodeId, XPm_SdConfigType configType, u32 value);
+#endif /* ENABLE_DYNAMIC_MIO_CONFIG */
 #endif /* ENABLE_IOCTL */
 
 #ifdef __cplusplus

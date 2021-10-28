@@ -109,6 +109,8 @@ extern "C" {
  * 	                       GPO1[2] is the board power line.
  * 	- BOARD_SHUTDOWN_PIN_STATE : Tells what should be the state of board power
  * 	                             line when system shutdown request comes
+ *	- ENABLE_DYNAMIC_MIO_CONFIG: Enables IOCTL support for configuring MIO
+ *				     regiisters
  */
 #ifndef ENABLE_PM_VAL
 #define	ENABLE_PM_VAL						(1U)
@@ -268,6 +270,10 @@ extern "C" {
 
 #ifndef ENABLE_RUNTIME_EXTWDT_VAL
 #define ENABLE_RUNTIME_EXTWDT_VAL 			(0U)
+#endif
+
+#ifndef ENABLE_DYNAMIC_MIO_CONFIG_VAL
+#define ENABLE_DYNAMIC_MIO_CONFIG_VAL			(0U)
 #endif
 
 /*
@@ -531,6 +537,14 @@ extern "C" {
 #define ENABLE_FEATURE_CONFIG
 #endif
 #endif
+
+#if (ENABLE_DYNAMIC_MIO_CONFIG_VAL) && (!defined(ENABLE_DYNAMIC_MIO_CONFIG))
+#define ENABLE_DYNAMIC_MIO_CONFIG
+#ifndef ENABLE_IOCTL
+#define ENABLE_IOCTL
+#endif
+#endif
+
 
 #ifdef __cplusplus
 }
