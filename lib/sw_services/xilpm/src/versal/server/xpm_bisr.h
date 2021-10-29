@@ -30,6 +30,7 @@ extern "C" {
 #define BRAM_TAG_ID	0x11
 #define URAM_TAG_ID 	0x12
 #define LAGUNA_TAG_ID   0x13
+#define VDU_TAG_ID  0x15
 #define HSC_TAG_ID	0x16U
 #define CPM5_GTYP_TAG_ID	0x17
 #define GTYP_TAG_ID	0x18

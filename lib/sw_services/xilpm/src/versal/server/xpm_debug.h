@@ -633,6 +633,29 @@ extern "C" {
 /* Error during CPM5_SLCR_SECURE register writing in Cpm5MbistClear */
 #define XPM_INT_ERR_REG_WRT_CPM5MBISTCLR_SLCRSECU_MBIST_TRIGGER		0x501AU
 
+/************************* Sysmon Specific Errors ****************************/
+/************************** (0x5100) - (0x51FF) ******************************/
+#define XPM_INT_ERR_DEVICE_NOT_SUPPORTED		0x5100U
+
+/**************************** VDU Specific Errors ****************************/
+/************************** (0x5200) - (0x52FF) ******************************/
+/* Error releasing VDU_PL isolation */
+#define XPM_INT_ERR_VDU_PL_ISO			0x5200U
+/* Error during VDU EFUSE disable */
+#define XPM_INT_ERR_VDU_EFUSE_DISABLE	0x5201U
+/* Error running VDU BISR repair */
+#define XPM_INT_ERR_VDU_BISR_REPAIR		0x5202U
+/* Error running VDU ScanClear */
+#define XPM_INT_ERR_VDU_SCAN_CLEAR		0x5203U
+/* Error running VDU Mem Clear */
+#define XPM_INT_ERR_VDU_MBIST			0x5204U
+/* Error during secure sysmon transfer for VDU initialization */
+#define XPM_INT_ERR_VDU_SCC				0x5205U
+/* Error running VDU houseclean */
+#define XPM_INT_ERR_VDU_HC				0x5206U
+/* Error during VDU Init */
+#define XPM_INT_ERR_VDU_INIT			0x5207U
+
 /*************************** Undefined error *********************************/
 #define XPM_INT_ERR_UNDEFINED			0xFFFFU
 

@@ -46,6 +46,7 @@
 #define TAG_ID_TYPE_GTM					(13U)
 #define TAG_ID_TYPE_XRAM				(14U)
 #define TAG_ID_TYPE_LAGUNA             (15U)
+#define TAG_ID_TYPE_VDU                 (16U)
 #define TAG_ID_ARRAY_SIZE				(256U)
 
 #define PMC_EFUSE_BISR_UNKN_TAG_ID			(0x1U)
@@ -158,6 +159,8 @@
 #define HALF_FSR_START             (48U)
 #define FRAME_BLOCK_TYPE_6		   (6U)
 
+#define VDU_CACHE_DATA_REGISTER_OFFSET     (0x104U)
+
 typedef struct XPm_NidbEfuseGrpInfo {
 	u8 RdnCntl;
 	u16 NpiBase;
@@ -190,6 +193,7 @@ static void XPmBisr_InitTagIdList(
 	XPmTagIdWhiteList[GTM_TAG_ID] = TAG_ID_VALID_MASK | TAG_ID_TYPE_GTM;
 	XPmTagIdWhiteList[XRAM_TAG_ID] = TAG_ID_VALID_MASK | TAG_ID_TYPE_XRAM;
 	XPmTagIdWhiteList[LAGUNA_TAG_ID] = TAG_ID_VALID_MASK | TAG_ID_TYPE_LAGUNA;
+	XPmTagIdWhiteList[VDU_TAG_ID] = TAG_ID_VALID_MASK | TAG_ID_TYPE_VDU;
 
 	return;
 }
@@ -1321,6 +1325,53 @@ done:
 	return TagDataAddr;
 }
 
+static XStatus XPmBisr_RepairVdu(u32 EfuseTagAddr, u32 TagSize,
+		u32 TagOptional, u32 *TagDataAddr)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 BaseAddr = NPI_FIXED_BASEADDR + (TagOptional << NPI_EFUSE_ENDPOINT_SHIFT);
+	u64 BisrDataDestAddr = BaseAddr + (u64)VDU_CACHE_DATA_REGISTER_OFFSET;
+
+	/* Copy repair data */
+	*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize,
+			BisrDataDestAddr);
+
+	/* Unlock PCSR */
+	XPmPlDomain_UnlockVduPcsr(BaseAddr);
+
+	/* Trigger BISR */
+	PmOut32(BaseAddr + NPI_PCSR_MASK_OFFSET, VDU_PCSR_BISR_TRIGGER_MASK);
+	PmOut32(BaseAddr + NPI_PCSR_CONTROL_OFFSET, VDU_PCSR_BISR_TRIGGER_MASK);
+
+	/* Wait for BISR to finish */
+	Status = XPm_PollForMask(BaseAddr + NPI_PCSR_STATUS_OFFSET,
+			VDU_PCSR_STATUS_BISR_DONE_MASK, XPM_POLL_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_BISR_DONE_TIMEOUT;
+		goto done;
+	}
+
+	/* Check for BISR PASS */
+	if (VDU_PCSR_STATUS_BISR_PASS_MASK !=
+			(XPm_In32(BaseAddr + NPI_PCSR_STATUS_OFFSET) & VDU_PCSR_STATUS_BISR_PASS_MASK)) {
+		DbgErr = XPM_INT_ERR_BISR_PASS;
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	/* Unwrite trigger bit */
+	PmOut32(BaseAddr + NPI_PCSR_MASK_OFFSET, VDU_PCSR_BISR_TRIGGER_MASK);
+	PmOut32(BaseAddr + NPI_PCSR_CONTROL_OFFSET, 0U);
+
+done:
+	/* Lock PCSR */
+	XPmPlDomain_LockVduPcsr(BaseAddr);
+
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
 XStatus XPmBisr_Repair(u32 TagId)
 {
 	XStatus Status = XST_FAILURE;
@@ -1447,6 +1498,9 @@ XStatus XPmBisr_Repair(u32 TagId)
 						if (EfuseNextAddr != ~0U) {
 							Status = XST_SUCCESS;
 						}
+						break;
+					case TAG_ID_TYPE_VDU:
+						Status = XPmBisr_RepairVdu(EfuseCurrAddr, EfuseBisrSize, EfuseBisrOptional, &EfuseNextAddr);
 						break;
 					default: //block type not recognized, no function to handle it
 						XPmBisr_SwError(PMC_EFUSE_BISR_BAD_TAG_TYPE);

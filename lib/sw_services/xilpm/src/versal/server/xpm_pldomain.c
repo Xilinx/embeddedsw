@@ -21,6 +21,10 @@
 /* Modify value of MAX_DEV_GT if we run out */
 #define MAX_DEV_GT		52U
 
+/* The current number of VDU device. Used to run housecleaning for each VDU */
+#define XPM_NODEIDX_DEV_VDU_MIN     XPM_NODEIDX_DEV_VDU_0
+#define XPM_NODEIDX_DEV_VDU_MAX     XPM_NODEIDX_DEV_VDU_3
+
 #define PLHCLEAN_EARLY_BOOT 0U
 #define PLHCLEAN_INIT_NODE  1U
 
@@ -91,6 +95,310 @@ done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
+
+static XStatus InitVduAddrArr(u32 *VduArrPtr, const u32 ArrLen)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	const XPm_Device *Device;
+	u32 i;
+	u32 Idx = 0;
+
+	if (NULL == VduArrPtr) {
+		goto done;
+	}
+
+	for (i = (u32)XPM_NODEIDX_DEV_VDU_MIN; i <= (u32)XPM_NODEIDX_DEV_VDU_MAX; i++) {
+		Device = XPmDevice_GetByIndex(i);
+		if ((NULL == Device) || ((u32)XPM_NODETYPE_DEV_VDU != NODETYPE(Device->Node.Id))) {
+			continue;
+		}
+
+	    if ((NULL == Device->Power) || ((u32)PM_POWER_PLD != Device->Power->Node.Id)) {
+			continue;
+		}
+
+		if (Idx >= ArrLen) {
+			DbgErr = XPM_INT_ERR_VDU_INIT;
+			goto done;
+		}
+
+		VduArrPtr[Idx] = Device->Node.BaseAddress;
+		Idx++;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * This function is used to set/clear bits in VDU PCSR
+ *
+ * @param BaseAddress	BaseAddress of VDU device
+ * @param Mask			Mask to be written into PCSR_MASK register
+ * @param Value			Value to be written into PCSR_CONTROL register
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or error code
+ *****************************************************************************/
+static XStatus VduPcsrWrite(u32 BaseAddress, u32 Mask, u32 Value)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+
+	XPm_Out32((BaseAddress + NPI_PCSR_MASK_OFFSET), Mask);
+	/* Blind write check */
+	PmChkRegOut32((BaseAddress + NPI_PCSR_MASK_OFFSET), Mask, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_NPI_PCSR_MASK;
+		goto done;
+	}
+
+	XPm_Out32((BaseAddress + NPI_PCSR_CONTROL_OFFSET), Value);
+	/* Blind write check */
+	PmChkRegMask32((BaseAddress + NPI_PCSR_CONTROL_OFFSET), Mask, Value, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_NPI_PCSR_CONTROL;
+		goto done;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+static XStatus VduInit(u32 BaseAddress)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+
+	/* Check for VDU power status */
+	if (VDU_NPI_PCSR_STATUS_VDU_PWR_SUPPLY_MASK !=
+			(XPm_In32(BaseAddress + NPI_PCSR_STATUS_OFFSET) & VDU_NPI_PCSR_STATUS_VDU_PWR_SUPPLY_MASK)) {
+		DbgErr = XPM_INT_ERR_POWER_SUPPLY;
+		goto done;
+	}
+
+	/* Unlock PCSR */
+	XPmPlDomain_UnlockVduPcsr(BaseAddress);
+
+	/* Release VDU internal POR */
+	Status = VduPcsrWrite(BaseAddress, VDU_NPI_PCSR_MASK_VDU_IPOR_MASK, 0U);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_RST_RELEASE;
+		goto done;
+	}
+
+	/* Release DFX isolation gasket */
+	Status = VduPcsrWrite(BaseAddress, VDU_NPI_PCSR_MASK_ISO_2_VDU_PL_MASK, 0U);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_VDU_PL_ISO;
+		goto done;
+	}
+
+done:
+	/* Lock PCSR */
+	XPmPlDomain_LockVduPcsr(BaseAddress);
+
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+static XStatus VduScanClear(u32 BaseAddress)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+
+	/* Unlock PCSR */
+	XPmPlDomain_UnlockVduPcsr(BaseAddress);
+
+	/* Trigger Scan Clear */
+	Status = VduPcsrWrite(BaseAddress, VDU_NPI_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK,
+			VDU_NPI_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_SCAN_CLEAR_TRIGGER;
+		goto done;
+	}
+
+	/* Wait for Scan Clear DONE */
+	Status = XPm_PollForMask(BaseAddress + NPI_PCSR_STATUS_OFFSET,
+			VDU_NPI_PCSR_STATUS_SCAN_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_SCAN_CLEAR_TIMEOUT;
+		goto done;
+	}
+
+	/* Check Scan Clear PASS */
+	if (VDU_NPI_PCSR_STATUS_SCAN_CLEAR_PASS_MASK !=
+			(XPm_In32(BaseAddress + NPI_PCSR_STATUS_OFFSET) & VDU_NPI_PCSR_STATUS_SCAN_CLEAR_PASS_MASK)) {
+		DbgErr = XPM_INT_ERR_SCAN_CLEAR_PASS;
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	/* Unwrite trigger bits */
+	Status = VduPcsrWrite(BaseAddress, VDU_NPI_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK, 0U);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_SCAN_CLEAR_TRIGGER_UNSET;
+	}
+
+done:
+	/* Lock PCSR */
+	XPmPlDomain_LockVduPcsr(BaseAddress);
+
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+static XStatus VduMbist(u32 BaseAddress)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+
+	/* Unlock PCSR */
+	XPmPlDomain_UnlockVduPcsr(BaseAddress);
+
+	/* Assert Mem Clear Trigger */
+	Status = VduPcsrWrite(BaseAddress, VDU_NPI_PCSR_MASK_MEM_CLEAR_TRIGGER_MASK,
+					VDU_NPI_PCSR_MASK_MEM_CLEAR_TRIGGER_MASK);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_MEM_CLEAR_TRIGGER;
+		goto done;
+	}
+
+	/* Wait for Mem Clear DONE */
+	Status = XPm_PollForMask(BaseAddress + NPI_PCSR_STATUS_OFFSET,
+					VDU_NPI_PCSR_STATUS_MEM_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_MEM_CLEAR_DONE_TIMEOUT;
+		goto done;
+	}
+
+	/* Check Mem Clear Pass */
+	if (VDU_NPI_PCSR_STATUS_MEM_CLEAR_PASS_MASK !=
+			(XPm_In32(BaseAddress + NPI_PCSR_STATUS_OFFSET) & VDU_NPI_PCSR_STATUS_MEM_CLEAR_PASS_MASK)) {
+		DbgErr = XPM_INT_ERR_MEM_CLEAR_PASS;
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	/* Unwrite trigger bits */
+	Status = VduPcsrWrite(BaseAddress, VDU_NPI_PCSR_MASK_MEM_CLEAR_TRIGGER_MASK, 0U);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_SCAN_CLEAR_TRIGGER_UNSET;
+	}
+
+done:
+	/* Lock PCSR */
+	XPmPlDomain_LockVduPcsr(BaseAddress);
+
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+static XStatus SecureEfuseTransmission(u32 BaseAddress)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+
+	/* TODO: Review with Sysmon hardware team for correct sequence */
+
+	/* Unlock PCSR */
+	XPmPlDomain_UnlockVduPcsr(BaseAddress);
+
+	/* Check for VDU efuse enabled */
+	if ((XPm_In32(BaseAddress + NPI_PCSR_STATUS_OFFSET) &
+				VDU_NPI_PCSR_STATUS_VDU_SSC_EFUSE_DISABLE_MASK) == 0U) {
+		DbgErr = XPM_INT_ERR_VDU_EFUSE_DISABLE;
+		goto done;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	/* Lock PCSR */
+	XPmPlDomain_LockVduPcsr(BaseAddress);
+
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+static XStatus VduHouseClean(void)
+{
+	volatile XStatus Status = XST_FAILURE;
+	volatile XStatus StatusTmp = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 VduAddresses[XPM_NODEIDX_DEV_VDU_MAX - XPM_NODEIDX_DEV_VDU_MIN + 1] = {0};
+	u32 i;
+
+	/* Initialize array with addresses for each VDU device */
+	Status = InitVduAddrArr(VduAddresses, ARRAY_SIZE(VduAddresses));
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Setup VDU for housecleaning and run ScanClear for each VDU device */
+	for (i = 0U; i < ARRAY_SIZE(VduAddresses); i++) {
+		if (0U == VduAddresses[i]) {
+			continue;
+		}
+
+		/* Run setup for VDU */
+		Status = VduInit(VduAddresses[i]);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_VDU_INIT;
+			goto done;
+		}
+
+		/* Trigger scan clear */
+		Status = VduScanClear(VduAddresses[i]);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_VDU_SCAN_CLEAR;
+			goto done;
+		}
+	}
+
+	/* Trigger VDU BISR */
+	Status = XPmBisr_Repair(VDU_TAG_ID);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_VDU_BISR_REPAIR;
+		goto done;
+	}
+
+	/* For each VDU device run MBIST and secure efuse transmission */
+	for (i = 0U; i < ARRAY_SIZE(VduAddresses); i++) {
+		if (0U == VduAddresses[i]) {
+			continue;
+		}
+
+		/* Trigger MBIST */
+		XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (VduMbist), (VduAddresses[i]));
+		/* Copy volatile to local to avoid MISRA */
+		XStatus LocalStatus = StatusTmp;
+		/* Required for redundancy */
+		if ((XST_SUCCESS != Status) || (XST_SUCCESS != LocalStatus)) {
+			DbgErr = XPM_INT_ERR_VDU_MBIST;
+			goto done;
+		}
+
+		/* Secure Efuse Transmission */
+		Status = SecureEfuseTransmission(VduAddresses[i]);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_VDU_SCC;
+			goto done;
+		}
+	}
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
 
 static void PldApplyTrim(u32 TrimType)
 {
@@ -771,6 +1079,11 @@ static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		}
 	}
 
+	/* Run Houseclean sequence for VDU */
+	Status = VduHouseClean();
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_VDU_HC;
+	}
 
 	/* Set init_complete */
 	PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_MASK_OFFSET,
