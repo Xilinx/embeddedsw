@@ -50,6 +50,59 @@ static XStatus XPmAccess_LookupEntry(u32 NodeId, u32 Offset,
 	return Status;
 }
 
+static XStatus XPmAccess_CheckRequirement(u32 SubsystemId, u32 DeviceId)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_Device *Device;
+	const XPm_RegNode *Regnode;
+	u32 SubsysIdx = NODEINDEX(SubsystemId);
+
+	/**
+	 * NOTE:
+	 *  No need for checking if requirement is allocated to the caller subsystem;
+	 *  mere presence of a requirement on the given node from caller subsystem
+	 *  is enough to pass the access criteria.
+	 *
+	 *  Therefore, simply check if the caller has requirement (aka permission)
+	 *  to access the given node.
+	 */
+	switch (NODECLASS(DeviceId)) {
+	case (u32)XPM_NODECLASS_DEVICE:
+		/* Check power parent status */
+		Device = (XPm_Device *)XPmDevice_GetById(DeviceId);
+		if (NULL == Device) {
+			Status = XST_DEVICE_NOT_FOUND;
+			goto done;
+		}
+		/* Check if caller subsystem has a req on this node */
+		if (NULL == XPmDevice_FindRequirement(DeviceId, SubsystemId)) {
+			Status = XST_FAILURE;
+			goto done;
+		}
+		Status = XST_SUCCESS;
+		break;
+	case (u32)XPM_NODECLASS_REGNODE:
+		Regnode = PmRegnodes;
+		while (NULL != Regnode) {
+			if (DeviceId == Regnode->Id) {
+				/* Check if caller subsystem has a req on this node */
+				if (0U != (Regnode->Requirements & BIT32(SubsysIdx))) {
+					Status = XST_SUCCESS;
+				}
+				break;
+			}
+			Regnode = Regnode->NextRegnode;
+		}
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
+	}
+
+done:
+	return Status;
+}
+
 static XStatus XPmAccess_BaseHandler(pm_ioctl_id Op, XPm_NodeAccessTypes AccessType)
 {
 	XStatus Status = XPM_PM_NO_ACCESS;
@@ -107,7 +160,51 @@ static XStatus XPmAccess_SecHandler(u32 SubsystemId, pm_ioctl_id Op, u32 CmdType
 	}
 
 	/* Check if incoming command is Secure */
-	Status = (CmdType == XPLMI_CMD_SECURE)? XST_SUCCESS : XPM_PM_NO_ACCESS;
+	Status = (CmdType == XPLMI_CMD_SECURE) ? XST_SUCCESS : XPM_PM_NO_ACCESS;
+
+done:
+	return Status;
+}
+
+static XStatus XPmAccess_NSecSubsysHandler(u32 SubsystemId, pm_ioctl_id Op,
+					   u32 CmdType,
+					   XPm_NodeAccessTypes AccessType,
+					   const XPm_NodeAccessMatch *const Match)
+{
+	(void)CmdType;
+
+	XStatus Status = XPM_PM_NO_ACCESS;
+
+	Status = XPmAccess_BaseHandler(Op, AccessType);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Check if caller subsystem has access to this entry */
+	Status = XPmAccess_CheckRequirement(SubsystemId, Match->Entry->Id);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+done:
+	return Status;
+}
+
+static XStatus XPmAccess_SecSubsysHandler(u32 SubsystemId, pm_ioctl_id Op,
+					  u32 CmdType,
+					  XPm_NodeAccessTypes AccessType,
+					  const XPm_NodeAccessMatch *const Match)
+{
+	XStatus Status = XPM_PM_NO_ACCESS;
+
+	Status = XPmAccess_NSecSubsysHandler(SubsystemId, Op, CmdType,
+					     AccessType, Match);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Check if incoming command is Secure */
+	Status = (CmdType == XPLMI_CMD_SECURE) ? XST_SUCCESS : XPM_PM_NO_ACCESS;
 
 done:
 	return Status;
@@ -130,10 +227,10 @@ static XStatus XPmAccess_EnforcePolicy(u32 SubsystemId, pm_ioctl_id IoctlId,
 		[ACCESS_ANY_RW] = { .Handler = XPmAccess_AnyHandler },
 		[ACCESS_SEC_RO] = { .Handler = XPmAccess_SecHandler },
 		[ACCESS_SEC_RW] = { .Handler = XPmAccess_SecHandler },
-		[ACCESS_SEC_NS_SUBSYS_RO] = { .Handler = NULL },
-		[ACCESS_SEC_NS_SUBSYS_RW] = { .Handler = NULL },
-		[ACCESS_SEC_SUBSYS_RO] = { .Handler = NULL },
-		[ACCESS_SEC_SUBSYS_RW] = { .Handler = NULL },
+		[ACCESS_SEC_NS_SUBSYS_RO] = { .Handler = XPmAccess_NSecSubsysHandler },
+		[ACCESS_SEC_NS_SUBSYS_RW] = { .Handler = XPmAccess_NSecSubsysHandler },
+		[ACCESS_SEC_SUBSYS_RO] = { .Handler = XPmAccess_SecSubsysHandler },
+		[ACCESS_SEC_SUBSYS_RW] = { .Handler = XPmAccess_SecSubsysHandler },
 	};
 
 	switch (AccessType) {
@@ -414,8 +511,10 @@ void XPmAccess_PrintTable(void)
 	const XPm_RegNode *Regnode = PmRegnodes;
 
 	while (NULL != Regnode) {
-		PmDbg("Id: 0x%08x, Base: 0x%08x, Power: 0x%08x\r\n",
-				Regnode->Id, Regnode->BaseAddress, Regnode->Power->Node.Id);
+		PmDbg("Id: 0x%08x, Base: 0x%08x, Req: 0x%08x, Power: 0x%08x\r\n",
+				Regnode->Id, Regnode->BaseAddress,
+				Regnode->Requirements,
+				Regnode->Power->Node.Id);
 		Regnode = Regnode->NextRegnode;
 	}
 
@@ -443,7 +542,6 @@ void XPmAccess_PrintTable(void)
  * @note   SubsystemId must be validated on caller side
  *
  ****************************************************************************/
-
 XStatus XPmAccess_AddRegnodeRequirement(u32 SubsystemId, u32 RegnodeId)
 {
 	XStatus Status = XST_DEVICE_NOT_FOUND;
