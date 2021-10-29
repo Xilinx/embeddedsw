@@ -42,6 +42,7 @@ typedef struct XPm_NodeAper XPm_NodeAper;
 struct XPm_RegNode {
 	u32 Id;				/**< Node Id for regnode */
 	u32 BaseAddress;		/**< Base address of given node */
+	u32 Requirements;		/**< Requirements from different subsystems */
 	XPm_Power *Power;		/**< Parent power node */
 	XPm_RegNode *NextRegnode;	/**< Link to next regnode */
 };
@@ -87,6 +88,9 @@ struct XPm_NodeAccess {
 /* Add regnodes to pm database */
 void XPmAccess_RegnodeInit(XPm_RegNode *RegNode,
 			   u32 NodeId, u32 BaseAddress, XPm_Power *Power);
+
+/* Add requirements on a regnode from different subsystems */
+XStatus XPmAccess_AddRegnodeRequirement(u32 SubsystemId, u32 RegnodeId);
 
 /* Set node access handler */
 XStatus XPmAccess_UpdateTable(XPm_NodeAccess *NodeEntry,

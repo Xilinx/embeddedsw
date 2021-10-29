@@ -366,8 +366,8 @@ done:
 
 /****************************************************************************/
 /**
- * @brief  This function links a node (dev/rst/subsys) to a subsystem so
- *         requirement assignment could be made by XPm_RequestDevice() or
+ * @brief  This function links a node (dev/rst/subsys/regnode) to a subsystem.
+ *         Requirement assignment could be made by XPm_RequestDevice() or
  *         XPm_SetRequirement() call.
  *
  * @param  Args		Node specific arguments
@@ -406,6 +406,9 @@ static XStatus XPm_AddRequirement(const u32 *Args, const u32 NumArgs)
 	switch (NODECLASS(DevId)) {
 	case (u32)XPM_NODECLASS_DEVICE:
 		Status = XPm_AddDevRequirement(Subsys, DevId, Flags, Args, NumArgs);
+		break;
+	case (u32)XPM_NODECLASS_REGNODE:
+		Status = XPmAccess_AddRegnodeRequirement(SubsysId, DevId);
 		break;
 	case (u32)XPM_NODECLASS_SUBSYSTEM:
 		TarSubsys = XPmSubsystem_GetById(DevId);
@@ -894,6 +897,7 @@ static XStatus XPm_AddReqsDefaultSubsystem(XPm_Subsystem *Subsystem)
 {
 	XStatus Status = XST_FAILURE;
 	u32 i = 0, j = 0, Prealloc = 0, Capability = 0;
+	const XPm_Requirement *Req = NULL;
 	const u32 DefaultPreallocDevList[][2] = {
 		{PM_DEV_PSM_PROC, (u32)PM_CAP_ACCESS},
 		{PM_DEV_UART_0, (u32)XPM_MAX_CAPABILITY},
@@ -924,11 +928,28 @@ static XStatus XPm_AddReqsDefaultSubsystem(XPm_Subsystem *Subsystem)
 	};
 
 	/*
-	 * Only fill out default subsystem if no req's present and only 1
-	 * subsystem has been added.
+	 * Only fill out default subsystem requirements:
+	 *   - if no proc/mem/periph requirements are present
+	 *   - if only 1 subsystem has been added
 	 */
-	if (NULL != Subsystem->Requirements) {
-		Status = XST_SUCCESS;
+	Req = Subsystem->Requirements;
+	while (NULL != Req) {
+		u32 SubClass = NODESUBCLASS(Req->Device->Node.Id);
+		/**
+		 * Requirements can be present for non-plm managed nodes in PMC CDO
+		 * (e.g. regnodes, ddrmcs etc.), thus only check for proc/mem/periph
+		 * requirements which are usually present in subsystem definition;
+		 * and stop as soon as first such requirement is found.
+		 */
+		if (((u32)XPM_NODESUBCL_DEV_CORE == SubClass) ||
+		    ((u32)XPM_NODESUBCL_DEV_PERIPH == SubClass) ||
+		    ((u32)XPM_NODESUBCL_DEV_MEM == SubClass)) {
+			Status = XST_SUCCESS;
+			break;
+		}
+		Req = Req->NextDevice;
+	}
+	if (XST_SUCCESS ==  Status) {
 		goto done;
 	}
 

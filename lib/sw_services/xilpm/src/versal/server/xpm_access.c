@@ -7,8 +7,8 @@
 #include "xpm_common.h"
 #include "xpm_api.h"
 #include "xpm_device.h"
+#include "xpm_subsystem.h"
 #include "xplmi.h"
-#include "assert.h"
 
 static XPm_RegNode *PmRegnodes;
 static XPm_NodeAccess *PmNodeAccessTable;
@@ -433,6 +433,37 @@ void XPmAccess_PrintTable(void)
 
 /****************************************************************************/
 /**
+ * @brief  Add requirements on a regnode from different subsystems
+ *
+ * @param  SubsystemId: Node Id assigned to a Subsystem
+ * @param  RegnodeId: Node Id assigned to a Regnode
+ *
+ * @return XST_SUCCESS if successful, XST_DEVICE_NOT_FOUND otherwise
+ *
+ * @note   SubsystemId must be validated on caller side
+ *
+ ****************************************************************************/
+
+XStatus XPmAccess_AddRegnodeRequirement(u32 SubsystemId, u32 RegnodeId)
+{
+	XStatus Status = XST_DEVICE_NOT_FOUND;
+	u32 SubsysIdx = NODEINDEX(SubsystemId);
+	XPm_RegNode *Regnode = PmRegnodes;
+
+	while (NULL != Regnode) {
+		if (RegnodeId == Regnode->Id) {
+			Regnode->Requirements |= BIT32(SubsysIdx);
+			Status = XST_SUCCESS;
+			break;
+		}
+		Regnode = Regnode->NextRegnode;
+	}
+
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief  Initialize RegNode and add to database
  *
  * @param  RegNode: Pointer to an uninitialized XPm_RegNode struct
@@ -451,6 +482,7 @@ void XPmAccess_RegnodeInit(XPm_RegNode *RegNode,
 	RegNode->Id = NodeId;
 	RegNode->BaseAddress = BaseAddress;
 	RegNode->Power = Power;
+	RegNode->Requirements = 0U;
 
 	/* Add to list of regnodes */
 	RegNode->NextRegnode = PmRegnodes;
