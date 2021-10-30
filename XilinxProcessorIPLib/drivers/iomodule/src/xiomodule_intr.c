@@ -51,6 +51,8 @@
 * 1.03a sa   10/16/12 Moved UART interrupt related functions to separate file
 * 2.11  mus  05/07/21  Fixed warnings reported by doxygen tool. It fixes
 *                      CR#1088640.
+* 2.13	sk   10/30/21 Modify XIOModule_DeviceInterruptHandler argument typecast
+* 		      from u32 to UINTPTR to support on all platforms.
 * </pre>
 *
 * @internal
@@ -157,7 +159,7 @@ void XIOModule_InterruptHandler(XIOModule * InstancePtr)
 	 * (the casts are to avoid a compiler warning)
 	 */
 	XIOModule_DeviceInterruptHandler((void *)
-			         ((u32) (InstancePtr->CfgPtr->DeviceId)));
+			         ((UINTPTR) (InstancePtr->CfgPtr->DeviceId)));
 }
 
 

@@ -26,6 +26,8 @@
 * 2.11  mus  05/07/21  Fixed warnings reported by doxygen tool. It fixes
 *                      CR#1088640.
 * 2.12	sk   06/08/21  Fix coverity warnings.
+* 2.13	sk   10/30/21  Update DeviceId typecast from u32 to UINTPTR to support
+* 		       on all platforms.
 * </pre>
 *
 ******************************************************************************/
@@ -134,7 +136,7 @@ void XIOModule_DeviceInterruptHandler(void *DeviceId)
 	XIOModule_VectorTableEntry *TablePtr;
 
 	/* Get the configuration data using the device ID */
-	CfgPtr = &XIOModule_ConfigTable[(u32) DeviceId];
+	CfgPtr = &XIOModule_ConfigTable[(UINTPTR) DeviceId];
 
 	/* Get the interrupts that are waiting to be serviced
 	 */
