@@ -28,6 +28,9 @@
 * 2.12	sk   06/08/21  Fix coverity warnings.
 * 2.13	sk   10/30/21  Update DeviceId typecast from u32 to UINTPTR to support
 * 		       on all platforms.
+* 2.13	sk   10/30/21  Move (IntrStatus == 0) check to the start of for loop
+* 		       in XIOModule_DeviceInterruptHandler function to skip
+* 		       processing when IntrStatus is 0.
 * </pre>
 *
 ******************************************************************************/
@@ -148,7 +151,15 @@ void XIOModule_DeviceInterruptHandler(void *DeviceId)
 	 */
 	for (IntrNumber = 0U; IntrNumber < XPAR_IOMODULE_INTC_MAX_INTR_SIZE;
 	     IntrNumber++) {
+		/* If there are no other bits set indicating that all interrupts
+		 * have been serviced, then exit the loop
+		 */
+		if (IntrStatus == 0) {
+			break;
+		}
+
 		TablePtr = &(CfgPtr->HandlerTable[IntrNumber]);
+
 		if ((IntrStatus & 1) && (TablePtr->Handler != NULL)) {
 			/* If the interrupt has been setup to acknowledge it
 			 * before servicing the interrupt, then ack it
@@ -190,12 +201,6 @@ void XIOModule_DeviceInterruptHandler(void *DeviceId)
 		IntrMask <<= 1;
 		IntrStatus >>= 1;
 
-		/* If there are no other bits set indicating that all interrupts
-		 * have been serviced, then exit the loop
-		 */
-		if (IntrStatus == 0) {
-			break;
-		}
 	}
 }
 
