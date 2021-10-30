@@ -232,6 +232,7 @@
 * 2.12	sk   06/08/21  Fix coverity warnings.
 * 2.12	sk   06/08/21  Fix misra_c_8_2 coverity warning.
 * 2.13	sk   10/04/21  Update functions return type to fix misra-c violation.
+* 2.13	sk   10/30/21  Add function declaration for XIOModule_Intc_SelfTest.
 * </pre>
 *
 ******************************************************************************/
@@ -573,6 +574,7 @@ void XIOModule_Timer_ClearStats(XIOModule * InstancePtr);
  * Functions for self-test, in file xiomodule_selftest.c
  */
 s32 XIOModule_Timer_SelfTest(XIOModule * InstancePtr, u8 IOModuleNumber);
+int XIOModule_Intc_SelfTest(XIOModule * InstancePtr);
 
 /*
  * Functions for interrupts, in file xiomodule_intr.c
