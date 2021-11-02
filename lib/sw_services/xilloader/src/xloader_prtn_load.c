@@ -74,6 +74,7 @@
 *       kpt  10/20/2021 Modified temporal checks to use temporal variables from
 *                       data section
 *       bsv  10/26/2021 Code clean up
+*       kpt  10/28/2021 Fixed checksum issue in case of copy to memory
 *
 * </pre>
 *
@@ -774,6 +775,7 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 	u32 PrtnNum = PdiPtr->PrtnNum;
 	u8 ToStoreInDdr = (u8)FALSE;
 	u8 PdiType;
+	u64 CopyToMemAddr = PdiPtr->CopyToMemAddr;
 	/* Assign the partition header to local variable */
 	const XilPdi_PrtnHdr * PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
 
@@ -791,7 +793,8 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 	}
 
 	if (PdiPtr->CopyToMem == (u8)TRUE) {
-		Status = XLoader_SecureInit(&SecureParams, PdiPtr, PrtnNum);
+		Status = XLoader_SecureInit(&SecureParams, PdiPtr, PrtnNum,
+					PrtnParams.DeviceCopy.Flags);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -817,7 +820,7 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 		OfstAddr = PdiPtr->MetaHdr.FlashOfstAddr;
 		PrtnParams.DeviceCopy.Flags = XPLMI_PMCDMA_0;
 		ToStoreInDdr = (u8)TRUE;
-		PdiPtr->CopyToMemAddr -= SecureParams.SecureHdrLen;
+		PdiPtr->CopyToMemAddr = CopyToMemAddr;
 		PdiPtr->CopyToMem = (u8)FALSE;
 		PdiType = PdiPtr->PdiType;
 		PdiPtr->PdiType = XLOADER_PDI_TYPE_RESTORE;
@@ -850,7 +853,8 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 		 */
 	}
 
-	Status = XLoader_SecureInit(&SecureParams, PdiPtr, PrtnNum);
+	Status = XLoader_SecureInit(&SecureParams, PdiPtr, PrtnNum,
+				PrtnParams.DeviceCopy.Flags);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

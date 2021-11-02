@@ -67,6 +67,8 @@
 *       kpt  10/07/21 Decoupled checksum functionality from secure code
 *       kpt  10/20/21 Modified temporal checks to use temporal variables from
 *                     data section
+*       kpt  10/28/21 Fixed PMCDMA1 hang issue in sbi checksum copy to memory
+*                     mode
 *
 * </pre>
 *
@@ -228,20 +230,20 @@ int XLoader_SecureAuthInit(XLoader_SecureParams *SecurePtr,
 			Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(
 					SecurePtr->PdiPtr->CopyToMemAddr,
 					(UINTPTR)SecurePtr->AcPtr,
-					XLOADER_AUTH_CERT_MIN_SIZE, 0U);
+					XLOADER_AUTH_CERT_MIN_SIZE, SecurePtr->DmaFlags);
 			SecurePtr->PdiPtr->CopyToMemAddr += XLOADER_AUTH_CERT_MIN_SIZE;
 		}
 		else {
 			if (SecurePtr->PdiPtr->CopyToMem == (u8)TRUE) {
 				Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(AcOffset,
 						SecurePtr->PdiPtr->CopyToMemAddr,
-						XLOADER_AUTH_CERT_MIN_SIZE, 0U);
+						XLOADER_AUTH_CERT_MIN_SIZE, SecurePtr->DmaFlags);
 				SecurePtr->PdiPtr->CopyToMemAddr += XLOADER_AUTH_CERT_MIN_SIZE;
 			}
 			else {
 				Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(AcOffset,
 							(UINTPTR)SecurePtr->AcPtr,
-							XLOADER_AUTH_CERT_MIN_SIZE, 0U);
+							XLOADER_AUTH_CERT_MIN_SIZE, SecurePtr->DmaFlags);
 			}
 		}
 		if (Status != XST_SUCCESS) {

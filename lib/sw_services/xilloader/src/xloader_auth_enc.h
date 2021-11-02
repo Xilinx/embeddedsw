@@ -37,7 +37,8 @@
 *       kpt  10/07/21 Added function pointer ProcessPrtn in
 *                     XLoader_SecureParams
 *       kpt  10/20/21 Removed temporal variables from XLoader_SecureParams
-*       10/26/21 Code clean up
+*       bsv  10/26/21 Code clean up
+*       kpt  10/28/21 Added DmaFlags in XLoader_SecureParams
 *
 * </pre>
 *
@@ -449,6 +450,7 @@ typedef struct XLoader_SecureParams {
 	int (*ProcessPrtn)(struct XLoader_SecureParams *SecurePtr, u64 DestAddr,
 				u32 BlockSize, u8 Last); /**< Function pointer to process
 				                          * partition chunk */
+	u16 DmaFlags;    /**< Flags indicate mode of copying */
 #ifndef PLM_SECURE_EXCLUDE
 	XLoader_AuthType SigType;	/**< Signature type */
 	XLoader_AuthCertificate *AcPtr;/**< Authentication certificate pointer */

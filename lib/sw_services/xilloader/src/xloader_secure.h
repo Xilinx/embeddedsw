@@ -53,6 +53,7 @@
 *       kpt  09/09/21 Fixed SW-BP-BLIND-WRITE in XLoader_SecureClear
 * 1.07  kpt  10/07/21 Removed function prototype XLoader_ProcessSecurePrtn
 *       kpt  10/20/21 Declared temporal variables in XLoader_SecureTempParams
+*       kpt  10/28/21 Added flags in XLoader_SecureInit function prototype
 *
 * </pre>
 *
@@ -120,7 +121,7 @@ typedef struct {
 
 /***************************** Function Prototypes ***************************/
 int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
-	u32 PrtnNum);
+	u32 PrtnNum, u32 Flags);
 int XLoader_SecureCopy(XLoader_SecureParams *SecurePtr, u64 DestAddr, u32 Size);
 int XLoader_SecureClear(void);
 int XLoader_SecureChunkCopy(XLoader_SecureParams *SecurePtr, u64 SrcAddr,

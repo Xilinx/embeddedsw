@@ -101,7 +101,9 @@
 * 1.07  kpt  10/07/21 Decoupled checksum functionality from secure code
 *       kpt  10/20/21 Modified temporal checks to use temporal variables from
 *                     data section
-*       bsv  10/26/2021 Code clean up
+*       bsv  10/26/21 Code clean up
+*       kpt  10/28/21 Added flags in XLoader_SecureInit to indicate the mode of
+*                     copy
 *
 * </pre>
 *
@@ -153,12 +155,13 @@ static int XLoader_CheckNonZeroPpk(void);
 * @param	SecurePtr is pointer to the XLoader_SecureParams instance.
 * @param	PdiPtr is pointer to the XilPdi instance
 * @param	PrtnNum is the partition number to be processed
+* @param	Flags is the indication for the mode of copy
 *
 * @return	XST_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
 int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
-	u32 PrtnNum)
+	u32 PrtnNum, u32 Flags)
 {
 	volatile int Status = XST_FAILURE;
 	XilPdi_PrtnHdr *PrtnHdr;
@@ -190,6 +193,9 @@ int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	SecurePtr->BlockNum = 0x00U;
 	SecurePtr->ProcessedLen = 0x00U;
 	SecurePtr->PrtnHdr = PrtnHdr;
+
+	/* Assign the device copy flags to local variable */
+	SecurePtr->DmaFlags = (u16)Flags;
 
 	/* Get DMA instance */
 	SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance((u32)PMCDMA_0_DEVICE_ID);
@@ -310,7 +316,7 @@ static int XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr,
 	/* Initiate the data copy */
 	Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(NextBlkAddr,
 			SecurePtr->NextChunkAddr, CopyLen,
-			XPLMI_DEVICE_COPY_STATE_INITIATE);
+			XPLMI_DEVICE_COPY_STATE_INITIATE | SecurePtr->DmaFlags);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_DATA_COPY_FAIL,
 				Status);
@@ -478,7 +484,7 @@ static int XLoader_ChecksumInit(XLoader_SecureParams *SecurePtr,
 		if (SecurePtr->PdiPtr->PdiType == XLOADER_PDI_TYPE_RESTORE) {
 			Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(
 					SecurePtr->PdiPtr->CopyToMemAddr,
-					(UINTPTR)SecurePtr->Sha3Hash, XLOADER_SHA3_LEN, 0U);
+					(UINTPTR)SecurePtr->Sha3Hash, XLOADER_SHA3_LEN, SecurePtr->DmaFlags);
 			SecurePtr->PdiPtr->CopyToMemAddr += XLOADER_SHA3_LEN;
 		}
 		else {
@@ -488,12 +494,12 @@ static int XLoader_ChecksumInit(XLoader_SecureParams *SecurePtr,
 			if (SecurePtr->PdiPtr->CopyToMem == (u8)TRUE) {
 				Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(ChecksumOffset,
 						SecurePtr->PdiPtr->CopyToMemAddr,
-						XLOADER_SHA3_LEN, 0U);
+						XLOADER_SHA3_LEN, SecurePtr->DmaFlags);
 				SecurePtr->PdiPtr->CopyToMemAddr += XLOADER_SHA3_LEN;
 			}
 			else {
 				Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(ChecksumOffset,
-					(UINTPTR)SecurePtr->Sha3Hash, XLOADER_SHA3_LEN, 0U);
+					(UINTPTR)SecurePtr->Sha3Hash, XLOADER_SHA3_LEN, SecurePtr->DmaFlags);
 			}
 		}
 		if (Status != XST_SUCCESS){
@@ -615,7 +621,7 @@ int XLoader_SecureChunkCopy(XLoader_SecureParams *SecurePtr, u64 SrcAddr,
 
 	/* Wait for copy to get completed */
 	Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(SrcAddr,
-		SecurePtr->ChunkAddr, TotalSize, Flags);
+		SecurePtr->ChunkAddr, TotalSize, (u32)(Flags | SecurePtr->DmaFlags));
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(
 				XLOADER_ERR_DATA_COPY_FAIL, Status);
