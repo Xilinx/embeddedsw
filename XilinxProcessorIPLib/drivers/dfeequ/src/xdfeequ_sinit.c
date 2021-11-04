@@ -7,9 +7,9 @@
 /**
 *
 * @file xdfeequ_sinit.c
-* @addtogroup xdfeequ_v1_1
+* @addtogroup xdfeequ_v1_2
 * @{
-*
+* @cond nocomments
 * The implementation of the XDfeEqu component's static initialization
 * functionality.
 *
@@ -24,7 +24,8 @@
 *       dc     04/06/21 Register with full node name
 *       dc     04/07/21 Fix bare metal initialisation
 *       dc     04/20/21 Doxygen documentation update
-*       dc     11/26/21 Make driver R5 compatible
+* 1.1   dc     10/26/21 Make driver R5 compatible
+* 1.2   dc     10/29/21 Update doxygen comments
 *
 * </pre>
 *
@@ -49,24 +50,35 @@
 /**************************** Type Definitions *******************************/
 /***************** Macros (Inline Functions) Definitions *********************/
 #ifndef __BAREMETAL__
-#define XDFEEQU_MAX_NUM_INSTANCES 10U
-#define XDFEEQU_CONFIG_DATA_PROPERTY "param-list" /* device tree property */
-#define XDFEEQU_COMPATIBLE_STRING "xlnx,xdfe-equalizer-1.0"
-#define XDFEEQU_PLATFORM_DEVICE_DIR "/sys/bus/platform/devices/"
-#define XDFEEQU_COMPATIBLE_PROPERTY "compatible" /* device tree property */
-#define XDFEEQU_BUS_NAME "platform"
+/**
+* @endcond
+*/
+#define XDFEEQU_COMPATIBLE_STRING                                              \
+	"xlnx,xdfe-equalizer-1.0" /**< Device name property. */
+#define XDFEEQU_PLATFORM_DEVICE_DIR                                            \
+	"/sys/bus/platform/devices/" /**< Device location in a file system. */
+#define XDFEEQU_COMPATIBLE_PROPERTY "compatible" /**< Device tree property */
+#define XDFEEQU_BUS_NAME "platform" /**< System bus name. */
 #define XDFEEQU_DEVICE_ID_SIZE 4U
-#define XDFEEQU_CONFIG_DATA_SIZE sizeof(XDfeEqu_EqConfig)
-#define XDFEEQU_BASEADDR_PROPERTY "reg" /* device tree property */
+#define XDFEEQU_BASEADDR_PROPERTY "reg" /**< Base address property. */
 #define XDFEEQU_BASEADDR_SIZE 8U
-#define XDFEEQU_COMPLEX_MODE_CFG "xlnx,complex-mode"
-#define XDFEEQU_COMPONENT_NAME_CFG "xlnx,component-name"
-#define XDFEEQU_DATA_IWIDTH_CFG "xlnx,data-iwidth"
-#define XDFEEQU_DATA_OWIDTH_CFG "xlnx,data-owidth"
-#define XDFEEQU_MAX_SAMPLE_RATE_CFG "xlnx,max-sample-rate"
-#define XDFEEQU_NUM_CHANNELS_CFG "xlnx,num-channels"
-#define XDFEEQU_TUSER_WIDTH_CFG "xlnx,tuser-width"
-#define XDFEEQU_USE_EMULATION_CFG "xlnx,use-emulation"
+#define XDFEEQU_COMPLEX_MODE_CFG                                               \
+	"xlnx,complex-mode" /**< Complex mode enabled property. */
+#define XDFEEQU_COMPONENT_NAME_CFG                                             \
+	"xlnx,component-name" /**< Component name property. */
+#define XDFEEQU_DATA_IWIDTH_CFG "xlnx,data-iwidth" /**< Data IWIDTH property. */
+#define XDFEEQU_DATA_OWIDTH_CFG "xlnx,data-owidth" /**< Data OWIDTH property. */
+#define XDFEEQU_MAX_SAMPLE_RATE_CFG                                            \
+	"xlnx,max-sample-rate" /**< Sample rate property. */
+#define XDFEEQU_NUM_CHANNELS_CFG                                               \
+	"xlnx,num-channels" /**< Number of channels property. */
+#define XDFEEQU_TUSER_WIDTH_CFG                                                \
+	"xlnx,tuser-width" /**< Width of the TUSER bus. */
+#define XDFEEQU_USE_EMULATION_CFG                                              \
+	"xlnx,use-emulation" /**< Use emulation property. */
+/**
+* @cond nocomments
+*/
 #define XDFEEQU_WORD_SIZE 4U
 
 #else
@@ -100,9 +112,8 @@ XDfeEqu XDfeEqu_Equalizer[XDFEEQU_MAX_NUM_INSTANCES];
 * @param    ConfigTable is a configuration table container.
 *
 * @return
- *           - XST_SUCCESS if successful.
- *           - XST_FAILURE if device entry not found for given device id.
-*
+*           - XST_SUCCESS if successful.
+*           - XST_FAILURE if device entry not found for given device id.
 *
 ******************************************************************************/
 u32 XDfeEqu_GetConfigTable(XDfeEqu *InstancePtr, XDfeEqu_Config **ConfigTable)
@@ -174,9 +185,8 @@ static s32 XDfeEqu_Strrncmp(const char *Str1Ptr, const char *Str2Ptr,
 * @param    DeviceNodeName is device node name,
 *
 * @return
- *           - XST_SUCCESS if successful.
- *           - XST_FAILURE if device entry not found for given device id.
- *
+*           - XST_SUCCESS if successful.
+*           - XST_FAILURE if device entry not found for given device id.
 *
 ******************************************************************************/
 static s32 XDfeEqu_IsDeviceCompatible(char *DeviceNamePtr,
@@ -263,8 +273,8 @@ static s32 XDfeEqu_IsDeviceCompatible(char *DeviceNamePtr,
 * @param    InstancePtr is a pointer to the Channel Filter instance.
 *
 * @return
- *           - XST_SUCCESS if successful.
- *           - XST_FAILURE if device entry not found for given device id.
+*           - XST_SUCCESS if successful.
+*           - XST_FAILURE if device entry not found for given device id.
 *
 * @note
 *         - For BM a table contains the configuration info for each device
@@ -358,7 +368,6 @@ end_failure:
 *           - XST_SUCCESS if successful.
 *           - XST_FAILURE if error occurs.
 *
-*
 ******************************************************************************/
 s32 XDfeEqu_RegisterMetal(XDfeEqu *InstancePtr, struct metal_device **DevicePtr,
 			  const char *DeviceNodeName)
@@ -446,4 +455,7 @@ void XDfeEqu_CfgInitialize(XDfeEqu *InstancePtr)
 #endif
 }
 
+/**
+* @endcond
+*/
 /** @} */

@@ -7,9 +7,9 @@
 /**
 *
 * @file xdfeequ.c
-* @addtogroup xdfeequ_v1_1
+* @addtogroup xdfeequ_v1_2
 * @{
-*
+* @cond nocomments
 * Contains the APIs for the DFE Equalizer Filter component.
 *
 * <pre>
@@ -27,12 +27,15 @@
 *       dc     05/08/21 Update to common trigger
 * 1.1   dc     05/26/21 Update CFG_SHIFT calculation
 *       dc     07/13/21 Update to common latency requirements
-*       dc     11/26/21 Make driver R5 compatible
+*       dc     10/26/21 Make driver R5 compatible
+* 1.2   dc     10/29/21 Update doxygen comments
 *
 * </pre>
-*
+* @endcond
 ******************************************************************************/
-
+/**
+* @cond nocomments
+*/
 #include "xdfeequ.h"
 #include "xdfeequ_hw.h"
 #include <math.h>
@@ -47,20 +50,25 @@
 #endif
 
 /**************************** Macros Definitions ****************************/
-#define XDFEEQU_SEQUENCE_ENTRY_NULL 8U /* Null sequence entry flag */
-#define XDFEEQU_NO_EMPTY_CCID_FLAG 0xFFFFU /* Not Empty CCID flag */
-#define XDFEEQU_U32_NUM_BITS 32U
+#define XDFEEQU_SEQUENCE_ENTRY_NULL (8U) /* Null sequence entry flag */
+#define XDFEEQU_NO_EMPTY_CCID_FLAG (0xFFFFU) /* Not Empty CCID flag */
+#define XDFEEQU_U32_NUM_BITS (32U)
 #define XDFEEQU_COEFF_LOAD_TIMEOUT                                             \
 	1000U /* Units of us declared in XDFEEQU_WAIT */
-#define XDFEEQU_WAIT 10U /* Units of us */
-#define XDFEEQU_TAP_MAX 24U /* Maximum tap value */
-
-#define XDFEEQU_DRIVER_VERSION_MINOR 1U
-#define XDFEEQU_DRIVER_VERSION_MAJOR 1U
+#define XDFEEQU_WAIT (10U) /* Units of us */
+/**
+* @endcond
+*/
+#define XDFEEQU_TAP_MAX (24U) /* Maximum tap value */
+#define XDFEEQU_DRIVER_VERSION_MINOR (2U)
+#define XDFEEQU_DRIVER_VERSION_MAJOR (1U)
 
 /************************** Function Prototypes *****************************/
 
 /************************** Variable Definitions ****************************/
+/**
+* @cond nocomments
+*/
 #ifdef __BAREMETAL__
 extern struct metal_device CustomDevice[XDFEEQU_MAX_NUM_INSTANCES];
 extern metal_phys_addr_t metal_phys[XDFEEQU_MAX_NUM_INSTANCES];
@@ -522,6 +530,9 @@ static void XDfeEqu_DisableLowPowerTrigger(const XDfeEqu *InstancePtr)
 	XDfeEqu_WriteReg(InstancePtr,
 			 XDFEEQU_DYNAMIC_POWER_DOWN_MODE_TRIGGER_OFFSET, Data);
 }
+/**
+* @endcond
+*/
 
 /*************************** Init API ***************************************/
 

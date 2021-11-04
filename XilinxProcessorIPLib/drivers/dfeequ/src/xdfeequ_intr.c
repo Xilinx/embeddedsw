@@ -7,9 +7,9 @@
 /**
 *
 * @file xdfeequ_intr.c
-* @addtogroup xdfeequ_v1_1
+* @addtogroup xdfeequ_v1_2
 * @{
-*
+* @cond nocomments
 * This file contains functions related to Equalizer interrupt handling.
 *
 * <pre>
@@ -21,9 +21,10 @@
 *       dc     02/22/21 align driver to current specification
 *       dc     04/18/21 Update trigger and event handlers
 *       dc     04/20/21 Doxygen documentation update
+* 1.2   dc     10/29/21 Update doxygen comments
 *
 * </pre>
-*
+* @endcond
 ******************************************************************************/
 
 #include "xdfeequ.h"
@@ -32,9 +33,15 @@
 /**************************** Macros Definitions ****************************/
 
 /************************** Function Prototypes *****************************/
+/**
+* @cond nocomments
+*/
 extern u32 XDfeEqu_RdBitField(u32 FieldWidth, u32 FieldOffset, u32 Data);
 extern u32 XDfeEqu_WrBitField(u32 FieldWidth, u32 FieldOffset, u32 Data,
 			      u32 Val);
+/**
+* @endcond
+*/
 
 /****************************************************************************/
 /**
@@ -44,7 +51,6 @@ extern u32 XDfeEqu_WrBitField(u32 FieldWidth, u32 FieldOffset, u32 Data,
 * @param    InstancePtr is a pointer to the Equalizer instance.
 * @param    ChannelId is a channel ID.
 * @param    Status is an Equalizer status container.
-*
 *
 ****************************************************************************/
 void XDfeEqu_GetEventStatus(const XDfeEqu *InstancePtr, u32 ChannelId,

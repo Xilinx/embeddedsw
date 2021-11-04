@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfeequ.h
-* @addtogroup xdfeequ_v1_1
+* @addtogroup xdfeequ_v1_2 Overview
 * @{
 *
 * The DFE Equalizer LogiCore builds upon the Complex Equalizer block
@@ -37,6 +37,7 @@
 * - Does not currently support configuration of the filter coefficients at
 *   startup.
 *
+* @cond nocomments
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -50,9 +51,10 @@
 *       dc     04/20/21 Doxygen documentation update
 *       dc     05/08/21 Update to common trigger
 * 1.1   dc     07/13/21 Update to common latency requirements
+* 1.2   dc     10/29/21 Update doxygen comments
 *
 * </pre>
-*
+* @endcond
 ******************************************************************************/
 #ifndef XDFEEQU_H_
 #define XDFEEQU_H_
@@ -76,32 +78,38 @@ extern "C" {
 
 /**************************** Macros Definitions *****************************/
 #ifndef __BAREMETAL__
-#define XDFEEQU_MAX_NUM_INSTANCES 10U
+#define XDFEEQU_MAX_NUM_INSTANCES (10U)
+/**
+* @cond nocomments
+*/
 #define Xil_AssertNonvoid(Expression) assert(Expression)
 #define Xil_AssertVoid(Expression) assert(Expression)
 #define Xil_AssertVoidAlways() assert(0)
-#define XST_SUCCESS 0L
-#define XST_FAILURE 1L
+/**
+* @endcond
+*/
+#define XST_SUCCESS (0L)
+#define XST_FAILURE (1L)
 #else
 #define XDFEEQU_MAX_NUM_INSTANCES XPAR_XDFEEQU_NUM_INSTANCES
 #endif
 
-#define XDFEEQU_NODE_NAME_MAX_LENGTH 50U /**< Node name maximum length */
+#define XDFEEQU_NODE_NAME_MAX_LENGTH (50U) /**< Node name maximum length */
 
-#define XDFEEQU_CC_NUM 16U /**< Maximum CC number */
-#define XDFEEQU_ANT_NUM_MAX 8U /**< Maximum anntena number */
-#define XDFEEQU_SEQ_LENGTH_MAX 16U /**< Maximum sequence length */
+#define XDFEEQU_CC_NUM (16U) /**< Maximum CC number */
+#define XDFEEQU_ANT_NUM_MAX (8U) /**< Maximum anntena number */
+#define XDFEEQU_SEQ_LENGTH_MAX (16U) /**< Maximum sequence length */
 
-#define XDFEEQU_RATE_MAX 5U /**< Maximum rate Id */
-#define XDFEEQU_NCO_MAX 4U /**< Maximum NCO number */
+#define XDFEEQU_RATE_MAX (5U) /**< Maximum rate Id */
+#define XDFEEQU_NCO_MAX (4U) /**< Maximum NCO number */
 
-#define XDFEEQU_CHANNEL_NUM 8U
-#define XDFEEQU_MAX_NUMBER_OF_UNITS_COMPLEX 0x3U
-#define XDFEEQU_MAX_NUMBER_OF_UNITS_REAL 0x6U
+#define XDFEEQU_CHANNEL_NUM (8U) /* Maximum channel number */
+#define XDFEEQU_MAX_NUMBER_OF_UNITS_COMPLEX (0x3U) /* Complex units number */
+#define XDFEEQU_MAX_NUMBER_OF_UNITS_REAL (0x6U) /* Real units number */
 
-#define XDFEEQU_DATAPATH_MODE_REAL 0U
-#define XDFEEQU_DATAPATH_MODE_COMPLEX 1U
-#define XDFEEQU_DATAPATH_MODE_MATRIX 2U
+#define XDFEEQU_DATAPATH_MODE_REAL (0U) /* Real mode */
+#define XDFEEQU_DATAPATH_MODE_COMPLEX (1U) /* Complex mode */
+#define XDFEEQU_DATAPATH_MODE_MATRIX (2U) /* Matrix mode */
 
 /**************************** Type Definitions *******************************/
 /*********** start - common code to all Logiccores ************/
@@ -155,8 +163,8 @@ typedef struct {
  */
 typedef struct {
 	u32 TriggerEnable; /**< [0,1], Enable Trigger:
-		0 = DISABLED: Trigger Pulse and State outputs are disabled.
-		1 = ENABLED: Trigger Pulse and State outputs are enabled and follow
+		- 0 = DISABLED: Trigger Pulse and State outputs are disabled.
+		- 1 = ENABLED: Trigger Pulse and State outputs are enabled and follow
 			the settings described below. */
 	u32 Mode; /**< [0-3], Specify Trigger Mode. In TUSER_Single_Shot mode as
 		soon as the TUSER_Edge_level condition is met the State output will be
@@ -167,28 +175,28 @@ typedef struct {
 		the value specified in STATE_OUTPUT This will happen continuously until
 		the trigger register is re-written. The pulse output is disabled in
 		Continuous mode:
-		0 = IMMEDIATE: Applies the value of STATE_OUTPUT immediatetly
+		- 0 = IMMEDIATE: Applies the value of STATE_OUTPUT immediatetly
 			the register is written.
-		1 = TUSER_SINGLE_SHOT: Applies the value of STATE_OUTPUT once when
+		- 1 = TUSER_SINGLE_SHOT: Applies the value of STATE_OUTPUT once when
 			the TUSER_EDGE_LEVEL condition is satisfied.
-		2 = TUSER_CONTINUOUS: Applies the value of STATE_OUTPUT continually
+		- 2 = TUSER_CONTINUOUS: Applies the value of STATE_OUTPUT continually
 			when TUSER_EDGE_LEVEL condition is satisfied.
-		3 = RESERVED: Reserved - will default to 0 behaviour. */
+		- 3 = RESERVED: Reserved - will default to 0 behaviour. */
 	u32 TuserEdgeLevel; /**< [0-3], Specify either Edge or Level of the TUSER
 		input as the source condition of the trigger. Difference between Level
 		and Edge is Level will generate a trigger immediately the TUSER level
 		is detected. Edge will ensure a TUSER transition has come first:
-		0 = LOW: Trigger occurs immediately after a low-level is seen on TUSER
+		- 0 = LOW: Trigger occurs immediately after a low-level is seen on TUSER
 			provided tvalid is high.
-		1 = HIGH: Trigger occurs immediately after a high-level is seen on
+		- 1 = HIGH: Trigger occurs immediately after a high-level is seen on
 			TUSER provided tvalid is high.
-		2 = FALLING: Trigger occurs immediately after a high to low transition
+		- 2 = FALLING: Trigger occurs immediately after a high to low transition
 			on TUSER provided tvalid is high.
-		3 = RISING: Trigger occurs immediately after a low to high transition
+		- 3 = RISING: Trigger occurs immediately after a low to high transition
 			on TUSER provided tvalid is high. */
 	u32 StateOutput; /**< [0,1], Specify the State output value:
-		0 = DISABLED: Place the State output into the Disabled state.
-		1 = ENABLED: Place the State output into the Enabled state. */
+		- 0 = DISABLED: Place the State output into the Disabled state.
+		- 1 = ENABLED: Place the State output into the Enabled state. */
 	u32 TUSERBit; /**< [0-255], Specify which DIN TUSER bit to use as the source
 		for the trigger when MODE = 1 or 2. */
 } XDfeEqu_Trigger;
@@ -308,8 +316,14 @@ XDfeEqu *XDfeEqu_InstanceInit(const char *DeviceNodeName);
 void XDfeEqu_InstanceClose(XDfeEqu *InstancePtr);
 
 /* Register access API */
+/**
+* @cond nocomments
+*/
 void XDfeEqu_WriteReg(const XDfeEqu *InstancePtr, u32 AddrOffset, u32 Data);
 u32 XDfeEqu_ReadReg(const XDfeEqu *InstancePtr, u32 AddrOffset);
+/**
+* @endcond
+*/
 
 /* DFE Equalizer component initialization API */
 void XDfeEqu_Reset(XDfeEqu *InstancePtr);

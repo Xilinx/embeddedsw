@@ -7,9 +7,9 @@
 /**
 *
 * @file xdfeequ_reg.h
-* @addtogroup xdfeequ_v1_1
+* @addtogroup xdfeequ_v1_2
 * @{
-*
+* @cond nocomments
 * Contains the register definitions for dfeequ. This is
 * created to be used initially while waiting for IP.
 *
@@ -24,6 +24,7 @@
 *       dc     04/20/21 Doxygen documentation update
 *       dc     05/08/21 Update to common trigger
 * 1.1   dc     07/13/21 Update to common latency requirements
+* 1.2   dc     10/29/21 Update doxygen comments
 *
 * </pre>
 *
@@ -181,4 +182,7 @@ extern "C" {
 #endif
 
 #endif
+/**
+* @endcond
+*/
 /** @} */
