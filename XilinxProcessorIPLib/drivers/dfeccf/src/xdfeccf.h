@@ -7,50 +7,54 @@
 /**
 *
 * @file xdfeccf.h
-* @addtogroup dfeccf_v1_1
+* @addtogroup dfeccf_v1_2 Overview
 * @{
 *
-* The Channel Filter IP provides a wrapper around the Channel Filter
-* block (dfe_channel_filter). Each instance of the block can support
-* up to 64 CC, arranged across a maximum of 8 Antennas. The wrapper
-* provides access to the underlying blocks via TDMA AXI-stream data
-* interfaces. An AXI memory-mapped interface is provided, enabling
+* The RFSoC DFE Channel Filter IP provides a wrapper around the Channel
+* filter block (dfe_channel_filter). Each instance of the block can support
+* up to 64 CC, arranged across a maximum of eight antennas. The wrapper
+* provides access to the underlying blocks via TDMA AXI-Stream data
+* interfaces. A memory mapped AXI interface is provided to enable the
 * configuration and control of the block from a microprocessor.
+*
 * The features that the channel filter IP and the driver support are:
-* - Supports a maximum sampling rate of 491.52Ms/s.
+*
+* - Supports a maximum sampling rate of 491.52 Ms/s.
 * - Supports reallocation of TDM slots.
 * - Using 18-bit data interface.
 * - Using 16-bit coefficients.
 * - Can independently configure complex and real coefficients.
-* - Enables the user to program the co-efficient sets via a processor
-*   interface.
-* - Enables the user to change the co-efficient sets that act on the input data
-*   via a processor interface
+* - Enables you to program the co-efficient sets via a processor
+*     interface.
+* - Enables you to change the co-efficient sets that act on the input data
+*     via a processor interface
 * - Supports TDD power down via a processor interface and TUSER input.
 * - Supports the flushing of the internal buffers via a processor interface.
 * - Indication of overflow provided via a status register.
 * - TUSER/TLAST information accompanying the data is delay matched through
-*   the IP.
+*     the IP.
 *
 * The channel filter driver provides the following features for each of
 * the channels:
-* 1. Setting of the co-efficient sets via the s_axi_ctrl processor interface.
-* 2. Selection of the co-efficient sets to use for the real and imaginary data
-* 3. Inputs via the s_axi_ctrl processor interface.
-* 4. Register bits to control the following inputs of the dfe_channel_filter
-*   blocks:
+*
+* - Setting of the co-efficient sets via the s_axi_ctrl processor interface.
+* - Selection of the co-efficient sets to use for the real and imaginary data
+* - Inputs via the s_axi_ctrl processor interface.
+* - Register bits to control the following inputs of the dfe_channel_filter
+*      blocks:
 *     - Flush buffers
 *     - Enable
 *     - Update coefficients
-* 5. Status register indicating over and underflow of the channel filter for
+* - Status register indicating over and underflow of the channel filter for
 *    both before and after gain stage.
-* 6. Software reset.
-* 7. TUSER and TLAST support on the data interfaces:
+* - Software reset.
+* - TUSER and TLAST support on the data interfaces:
 *
 * An API which will read/write registers has been provided for debugging.
 *
 * There are plans to add more features.
 *
+* @cond nocomments
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -67,9 +71,10 @@
 *       dc     05/08/21 Update to common trigger
 *       dc     05/18/21 Handling CCUpdate trigger
 * 1.1   dc     07/13/21 Update to common latency requirements
+* 1.2   dc     10/29/21 Update doxygen comments
 *
 * </pre>
-*
+* @endcond
 ******************************************************************************/
 #ifndef XDFECCF_H_
 #define XDFECCF_H_
@@ -93,24 +98,33 @@ extern "C" {
 
 /**************************** Macros Definitions *****************************/
 #ifndef __BAREMETAL__
-#define XDFECCF_MAX_NUM_INSTANCES 10U
-#define Xil_AssertNonvoid(Expression) assert(Expression)
-#define Xil_AssertVoid(Expression) assert(Expression)
-#define Xil_AssertVoidAlways() assert(0)
-#define XST_SUCCESS 0U
-#define XST_FAILURE 1U
+#define XDFECCF_MAX_NUM_INSTANCES                                              \
+	(10U) /**< Maximum number of driver instances running at the same time. */
+/**
+* @cond nocomments
+*/
+#define Xil_AssertNonvoid(Expression)                                          \
+	assert(Expression) /**< Assertion for non void return parameter function. */
+#define Xil_AssertVoid(Expression)                                             \
+	assert(Expression) /**< Assertion for void return parameter function. */
+#define Xil_AssertVoidAlways() assert(0) /**< Assertion always. */
+/**
+* @endcond
+*/
+#define XST_SUCCESS (0U) /**< Success flag */
+#define XST_FAILURE (1U) /**< Failure flag */
 #else
 #define XDFECCF_MAX_NUM_INSTANCES XPAR_XDFECCF_NUM_INSTANCES
 #endif
 
-#define XDFECCF_NODE_NAME_MAX_LENGTH 50U /**< Node name maximum length */
+#define XDFECCF_NODE_NAME_MAX_LENGTH (50U) /**< Node name maximum length */
 
-#define XDFECCF_CC_NUM 16 /**< Maximum CC number */
-#define XDFECCF_ANT_NUM_MAX 8U /**< Maximum anntena number */
-#define XDFECCF_SEQ_LENGTH_MAX 16U /**< Maximum sequence length */
+#define XDFECCF_CC_NUM (16) /**< Maximum CC number */
+#define XDFECCF_ANT_NUM_MAX (8U) /**< Maximum anntena number */
+#define XDFECCF_SEQ_LENGTH_MAX (16U) /**< Maximum sequence length */
 
-#define XDFECCF_RATE_MAX 5U /**< Maximum rate Id */
-#define XDFECCF_NCO_MAX 4U /**< Maximum NCO number */
+#define XDFECCF_RATE_MAX (5U) /**< Maximum rate Id */
+#define XDFECCF_NCO_MAX (4U) /**< Maximum NCO number */
 
 /**************************** Type Definitions *******************************/
 /*********** start - common code to all Logiccores ************/
@@ -164,8 +178,8 @@ typedef struct {
  */
 typedef struct {
 	u32 TriggerEnable; /**< [0,1], Enable Trigger:
-		0 = DISABLED: Trigger Pulse and State outputs are disabled.
-		1 = ENABLED: Trigger Pulse and State outputs are enabled and follow
+		- 0 = DISABLED: Trigger Pulse and State outputs are disabled.
+		- 1 = ENABLED: Trigger Pulse and State outputs are enabled and follow
 			the settings described below. */
 	u32 Mode; /**< [0-3], Specify Trigger Mode. In TUSER_Single_Shot mode as
 		soon as the TUSER_Edge_level condition is met the State output will be
@@ -176,28 +190,28 @@ typedef struct {
 		the value specified in STATE_OUTPUT This will happen continuously until
 		the trigger register is re-written. The pulse output is disabled in
 		Continuous mode:
-		0 = IMMEDIATE: Applies the value of STATE_OUTPUT immediatetly
+		- 0 = IMMEDIATE: Applies the value of STATE_OUTPUT immediatetly
 			the register is written.
-		1 = TUSER_SINGLE_SHOT: Applies the value of STATE_OUTPUT once when
+		- 1 = TUSER_SINGLE_SHOT: Applies the value of STATE_OUTPUT once when
 			the TUSER_EDGE_LEVEL condition is satisfied.
-		2 = TUSER_CONTINUOUS: Applies the value of STATE_OUTPUT continually
+		- 2 = TUSER_CONTINUOUS: Applies the value of STATE_OUTPUT continually
 			when TUSER_EDGE_LEVEL condition is satisfied.
-		3 = RESERVED: Reserved - will default to 0 behaviour. */
+		- 3 = RESERVED: Reserved - will default to 0 behaviour. */
 	u32 TuserEdgeLevel; /**< [0-3], Specify either Edge or Level of the TUSER
 		input as the source condition of the trigger. Difference between Level
 		and Edge is Level will generate a trigger immediately the TUSER level
 		is detected. Edge will ensure a TUSER transition has come first:
-		0 = LOW: Trigger occurs immediately after a low-level is seen on TUSER
+		- 0 = LOW: Trigger occurs immediately after a low-level is seen on TUSER
 			provided tvalid is high.
-		1 = HIGH: Trigger occurs immediately after a high-level is seen on
+		- 1 = HIGH: Trigger occurs immediately after a high-level is seen on
 			TUSER provided tvalid is high.
-		2 = FALLING: Trigger occurs immediately after a high to low transition
+		- 2 = FALLING: Trigger occurs immediately after a high to low transition
 			on TUSER provided tvalid is high.
-		3 = RISING: Trigger occurs immediately after a low to high transition
+		- 3 = RISING: Trigger occurs immediately after a low to high transition
 			on TUSER provided tvalid is high. */
 	u32 StateOutput; /**< [0,1], Specify the State output value:
-		0 = DISABLED: Place the State output into the Disabled state.
-		1 = ENABLED: Place the State output into the Enabled state. */
+		- 0 = DISABLED: Place the State output into the Disabled state.
+		- 1 = ENABLED: Place the State output into the Enabled state. */
 	u32 TUSERBit; /**< [0-255], Specify which DIN TUSER bit to use as the source
 		for the trigger when MODE = 1 or 2. */
 } XDfeCcf_Trigger;
@@ -231,9 +245,9 @@ typedef struct {
  * tree/xparameters.h.
  */
 typedef struct {
-	u32 NumAntenna; /**< [1-8] */
-	u32 NumCCPerAntenna; /**< [1-8] */
-	u32 AntenaInterleave; /**< [1-8] */
+	u32 NumAntenna; /**< [1-8] Number of antennas */
+	u32 NumCCPerAntenna; /**< [1-8] Number of channels per antenna */
+	u32 AntennaInterleave; /**< [1-8] Number of Antenna slots */
 } XDfeCcf_ModelParameters;
 
 /**
@@ -249,7 +263,7 @@ typedef struct {
  * Initialization, "one-time" configuration parameters.
  */
 typedef struct {
-	XDfeCcf_CCSequence Sequence;
+	XDfeCcf_CCSequence Sequence; /**< CCID sequence. */
 	u32 GainStage; /**< [0,1] Enable gain stage */
 } XDfeCcf_Init;
 
@@ -259,8 +273,8 @@ typedef struct {
 typedef struct {
 	u32 Num; /**< [0-(128|256)]. True number of coefficients,
 		    when non-symmetric max is 128. */
-	u32 Symmetric; /**< [0,1] Select the use of symetric or non-symetric
-			  filter */
+	u32 Symmetric; /**< [0,1] Select the use of symetric (1) or
+			  non-symetric (0) filter */
 	s16 Value[128]; /**< [Signed real numbers]. Array of coefficients, when
 			   symmetric only the first (Num+1)/2 coefficients
 			   are provided */
@@ -334,9 +348,9 @@ typedef struct {
 typedef struct {
 	u32 DeviceId; /**< The component instance Id */
 	metal_phys_addr_t BaseAddr; /**< Instance base address */
-	u32 NumAntenna; /**< Number of antenas */
+	u32 NumAntenna; /**< Number of antennas */
 	u32 NumCCPerAntenna; /**< Number of channels per antenna */
-	u32 AntenaInterleave; /**< Number of Antenna slots */
+	u32 AntennaInterleave; /**< Number of Antenna slots */
 } XDfeCcf_Config;
 
 /**
@@ -357,9 +371,15 @@ typedef struct {
 XDfeCcf *XDfeCcf_InstanceInit(const char *DeviceNodeName);
 void XDfeCcf_InstanceClose(XDfeCcf *InstancePtr);
 
+/**
+* @cond nocomments
+*/
 /* Register access API */
 void XDfeCcf_WriteReg(const XDfeCcf *InstancePtr, u32 AddrOffset, u32 Data);
 u32 XDfeCcf_ReadReg(const XDfeCcf *InstancePtr, u32 AddrOffset);
+/**
+* @endcond
+*/
 
 /* DFE CCF component initialization API */
 void XDfeCcf_Reset(XDfeCcf *InstancePtr);

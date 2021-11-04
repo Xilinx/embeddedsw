@@ -7,9 +7,9 @@
 /**
 *
 * @file xdfeccf.c
-* @addtogroup dfeccf_v1_1
+* @addtogroup dfeccf_v1_2
 * @{
-*
+* @cond nocomments
 * Contains the APIs for DFE Channel Filter component.
 *
 * <pre>
@@ -33,12 +33,15 @@
 *       dc     05/18/21 Handling CCUpdate trigger
 * 1.1   dc     07/13/21 Update to common latency requirements
 *       dc     07/21/21 Add and reorganise examples
-*       dc     11/26/21 Make driver R5 compatible
+*       dc     10/26/21 Make driver R5 compatible
+* 1.2   dc     10/29/21 Update doxygen comments
 *
 * </pre>
-*
+* @endcond
 ******************************************************************************/
-
+/**
+* @cond nocomments
+*/
 #include "xdfeccf.h"
 #include "xdfeccf_hw.h"
 #include <math.h>
@@ -53,20 +56,25 @@
 #endif
 
 /**************************** Macros Definitions ****************************/
-#define XDFECCF_SEQUENCE_ENTRY_DEFAULT 0U /**< Default sequence entry flag */
+#define XDFECCF_SEQUENCE_ENTRY_DEFAULT (0U) /**< Default sequence entry flag */
 #define XDFECCF_SEQUENCE_ENTRY_NULL (-1) /**< Null sequence entry flag */
-#define XDFECCF_NO_EMPTY_CCID_FLAG 0xFFFFU /**< Not Empty CCID flag */
-#define XDFECCF_COEFF_LOAD_TIMEOUT 100U /**< Units of 10us */
-#define XDFECCF_ACTIVE_SET_NUM 8U /**< Maximum number of active sets */
-#define XDFECCF_U32_NUM_BITS 32U
-#define XDFECCF_TAP_NUMBER_MAX 256U /**< Maximum tap number */
-
-#define XDFECCF_DRIVER_VERSION_MINOR 1U
-#define XDFECCF_DRIVER_VERSION_MAJOR 1U
+#define XDFECCF_NO_EMPTY_CCID_FLAG (0xFFFFU) /**< Not Empty CCID flag */
+#define XDFECCF_COEFF_LOAD_TIMEOUT (100U) /**< Units of 10us */
+/**
+* @endcond
+*/
+#define XDFECCF_ACTIVE_SET_NUM (8U) /**< Maximum number of active sets */
+#define XDFECCF_U32_NUM_BITS (32U) /**< Number of bits in register */
+#define XDFECCF_TAP_NUMBER_MAX (256U) /**< Maximum tap number */
+#define XDFECCF_DRIVER_VERSION_MINOR (2U) /**< Driver's minor version number */
+#define XDFECCF_DRIVER_VERSION_MAJOR (1U) /**< Driver's major version number */
 
 /************************** Function Prototypes *****************************/
 
 /************************** Variable Definitions ****************************/
+/**
+* @cond nocomments
+*/
 #ifdef __BAREMETAL__
 extern struct metal_device CustomDevice[XDFECCF_MAX_NUM_INSTANCES];
 extern metal_phys_addr_t metal_phys[XDFECCF_MAX_NUM_INSTANCES];
@@ -92,9 +100,6 @@ extern void XDfeCcf_CfgInitialize(XDfeCcf *InstancePtr);
 * @param    AddrOffset is address offset relative to instance base address.
 * @param    Data is value to be written.
 *
-*
-
-
 ****************************************************************************/
 void XDfeCcf_WriteReg(const XDfeCcf *InstancePtr, u32 AddrOffset, u32 Data)
 {
@@ -111,7 +116,6 @@ void XDfeCcf_WriteReg(const XDfeCcf *InstancePtr, u32 AddrOffset, u32 Data)
 * @param    AddrOffset is address offset relative to instance base address.
 *
 * @return   Register value.
-*
 *
 ****************************************************************************/
 u32 XDfeCcf_ReadReg(const XDfeCcf *InstancePtr, u32 AddrOffset)
@@ -130,7 +134,6 @@ u32 XDfeCcf_ReadReg(const XDfeCcf *InstancePtr, u32 AddrOffset)
 * @param    FieldWidth is a bit field width.
 * @param    FieldOffset is a bit field offset.
 * @param    FieldData is a bit field data.
-*
 *
 ****************************************************************************/
 void XDfeCcf_WrRegBitField(const XDfeCcf *InstancePtr, u32 Offset,
@@ -161,7 +164,6 @@ void XDfeCcf_WrRegBitField(const XDfeCcf *InstancePtr, u32 Offset,
 *
 * @return   Bit field data.
 *
-*
 ****************************************************************************/
 u32 XDfeCcf_RdRegBitField(const XDfeCcf *InstancePtr, u32 Offset,
 			  u32 FieldWidth, u32 FieldOffset)
@@ -185,7 +187,6 @@ u32 XDfeCcf_RdRegBitField(const XDfeCcf *InstancePtr, u32 Offset,
 *
 * @return   Bit field value.
 *
-*
 ****************************************************************************/
 u32 XDfeCcf_RdBitField(u32 FieldWidth, u32 FieldOffset, u32 Data)
 {
@@ -203,7 +204,6 @@ u32 XDfeCcf_RdBitField(u32 FieldWidth, u32 FieldOffset, u32 Data)
 * @param    Val is a u32 value to be written in the bit field.
 *
 * @return   Data with a written bit field.
-*
 *
 ****************************************************************************/
 u32 XDfeCcf_WrBitField(u32 FieldWidth, u32 FieldOffset, u32 Data, u32 Val)
@@ -228,7 +228,6 @@ u32 XDfeCcf_WrBitField(u32 FieldWidth, u32 FieldOffset, u32 Data, u32 Val)
 * @param    Sequence is a CC sequence array.
 *
 * @return   Unused CCID.
-*
 *
 ****************************************************************************/
 static s32 XDfeCcf_GetNotUsedCCID(XDfeCcf_CCSequence *Sequence)
@@ -263,16 +262,9 @@ static s32 XDfeCcf_GetNotUsedCCID(XDfeCcf_CCSequence *Sequence)
 *
 * Sequence data that is returned in the CCIDSequence is not the same as what is
 * written in the registers. The translation is:
-*              registers       passed back CCIDSequence
-* -----------------------------------------------------
-* Length:      0               0 - if (SEQUENCE[0] == SEQUENCE[1])
-*              0               1 - if (SEQUENCE[0] != SEQUENCE[1])
-*              1               2
-*              2               3
-*              .....
-*              15              16
-* SEQUENCE[x]: x               -1 - if unused CC
-* SEQUENCE[x]: x               x - if used CC
+* - CCIDSequence.CCID[i] = -1        - if [i] is unused slot
+* - CCIDSequence.CCID[i] = new_CCID  - if  [i] is unused slot
+* - a returned CCIDSequence->Length = length in register + 1
 *
 * @param    InstancePtr is a pointer to the XDfeCcf instance.
 * @param    CCID is a CC ID.
@@ -282,7 +274,6 @@ static s32 XDfeCcf_GetNotUsedCCID(XDfeCcf_CCSequence *Sequence)
 * @return
 *           - XST_SUCCESS if successful.
 *           - XST_FAILURE if error occurs.
-*
 *
 ****************************************************************************/
 static u32 XDfeCcf_AddCCID(XDfeCcf *InstancePtr, s32 CCID, u32 SlotSeqBitmap,
@@ -342,7 +333,6 @@ static u32 XDfeCcf_AddCCID(XDfeCcf *InstancePtr, s32 CCID, u32 SlotSeqBitmap,
 * @param    InstancePtr is a pointer to the XDfeCcf instance.
 * @param    CCID is a CC ID.
 * @param    CCIDSequence is a CC sequence array.
-*
 *
 ****************************************************************************/
 static void XDfeCcf_RemoveCCID(XDfeCcf *InstancePtr, s32 CCID,
@@ -427,7 +417,6 @@ static void XDfeCcf_GetCurrentCCCfg(const XDfeCcf *InstancePtr,
 *
 * @param    InstancePtr is a pointer to the Ccf instance.
 * @param    NextCCCfg is Next CC configuration container.
-*
 *
 ****************************************************************************/
 static void XDfeCcf_SetNextCCCfg(const XDfeCcf *InstancePtr,
@@ -689,6 +678,9 @@ static void XDfeCcf_DisableLowPowerTrigger(const XDfeCcf *InstancePtr)
 				  XDFECCF_TRIGGERS_TRIGGER_ENABLE_DISABLED);
 	XDfeCcf_WriteReg(InstancePtr, XDFECCF_TRIGGERS_LOW_POWER_OFFSET, Data);
 }
+/**
+* @endcond
+*/
 
 /*************************** Init API ***************************************/
 
@@ -811,7 +803,6 @@ return_error:
 *
 * @param    InstancePtr is a pointer to the XDfeCcf instance.
 *
-*
 ******************************************************************************/
 void XDfeCcf_InstanceClose(XDfeCcf *InstancePtr)
 {
@@ -841,7 +832,6 @@ void XDfeCcf_InstanceClose(XDfeCcf *InstancePtr)
 *
 * @param    InstancePtr is a pointer to the Ccf instance.
 *
-*
 ****************************************************************************/
 void XDfeCcf_Reset(XDfeCcf *InstancePtr)
 {
@@ -861,7 +851,6 @@ void XDfeCcf_Reset(XDfeCcf *InstancePtr)
 *
 * @param    InstancePtr is a pointer to the Ccf instance.
 * @param    Cfg is a configuration data container.
-*
 *
 ****************************************************************************/
 void XDfeCcf_Configure(XDfeCcf *InstancePtr, XDfeCcf_Cfg *Cfg)
@@ -896,15 +885,15 @@ void XDfeCcf_Configure(XDfeCcf *InstancePtr, XDfeCcf_Cfg *Cfg)
 	InstancePtr->Config.NumCCPerAntenna = XDfeCcf_RdBitField(
 		XDFECCF_MODEL_PARAM_NUM_CC_PER_ANTENNA_WIDTH,
 		XDFECCF_MODEL_PARAM_NUM_CC_PER_ANTENNA_OFFSET, ModelParam);
-	InstancePtr->Config.AntenaInterleave = XDfeCcf_RdBitField(
+	InstancePtr->Config.AntennaInterleave = XDfeCcf_RdBitField(
 		XDFECCF_MODEL_PARAM_ANTENNA_INTERLEAVE_WIDTH,
 		XDFECCF_MODEL_PARAM_ANTENNA_INTERLEAVE_OFFSET, ModelParam);
 
 	/* Copy configs model parameters from InstancePtr */
 	Cfg->ModelParams.NumAntenna = InstancePtr->Config.NumAntenna;
 	Cfg->ModelParams.NumCCPerAntenna = InstancePtr->Config.NumCCPerAntenna;
-	Cfg->ModelParams.AntenaInterleave =
-		InstancePtr->Config.AntenaInterleave;
+	Cfg->ModelParams.AntennaInterleave =
+		InstancePtr->Config.AntennaInterleave;
 
 	/* Release RESET */
 	XDfeCcf_WriteReg(InstancePtr, XDFECCF_RESET_OFFSET, XDFECCF_RESET_OFF);
@@ -918,7 +907,6 @@ void XDfeCcf_Configure(XDfeCcf *InstancePtr, XDfeCcf_Cfg *Cfg)
 *
 * @param    InstancePtr is a pointer to the Ccf instance.
 * @param    Init is an initialisation data container.
-*
 *
 ****************************************************************************/
 void XDfeCcf_Initialize(XDfeCcf *InstancePtr, XDfeCcf_Init *Init)
@@ -1275,7 +1263,6 @@ u32 XDfeCcf_UpdateAntenna(const XDfeCcf *InstancePtr, u32 Ant, bool Enabled)
 * @param    InstancePtr is a pointer to the Ccf instance.
 * @param    TriggerCfg is a trigger configuration container.
 *
-*
 ****************************************************************************/
 void XDfeCcf_GetTriggersCfg(const XDfeCcf *InstancePtr,
 			    XDfeCcf_TriggerCfg *TriggerCfg)
@@ -1348,7 +1335,6 @@ void XDfeCcf_GetTriggersCfg(const XDfeCcf *InstancePtr,
 *
 * @param    InstancePtr is a pointer to the Ccf instance.
 * @param    TriggerCfg is a trigger configuration container.
-*
 *
 ****************************************************************************/
 void XDfeCcf_SetTriggersCfg(const XDfeCcf *InstancePtr,
@@ -1442,7 +1428,6 @@ void XDfeCcf_SetTriggersCfg(const XDfeCcf *InstancePtr,
 * @param    InstancePtr is a pointer to the Ccf instance.
 * @param    CCID is a Channel ID.
 * @param    CarrierCfg is a trigger configuration container.
-*
 *
 ****************************************************************************/
 void XDfeCcf_GetCC(const XDfeCcf *InstancePtr, s32 CCID,
@@ -1541,7 +1526,6 @@ void XDfeCcf_GetActiveSets(const XDfeCcf *InstancePtr, u32 *IsActive)
 * @param    Set is a coefficient set Id.
 * @param    Shift is a coefficient shift value.
 * @param    Coeffs is an array of filter coefficients.
-*
 *
 ****************************************************************************/
 void XDfeCcf_LoadCoefficients(const XDfeCcf *InstancePtr, u32 Set, u32 Shift,
@@ -1675,7 +1659,6 @@ u32 XDfeCcf_GetTDataDelay(const XDfeCcf *InstancePtr, u32 Tap)
 *
 * @param    SwVersion is driver version numbers.
 * @param    HwVersion is HW version numbers.
-*
 *
 ******************************************************************************/
 void XDfeCcf_GetVersions(const XDfeCcf *InstancePtr, XDfeCcf_Version *SwVersion,

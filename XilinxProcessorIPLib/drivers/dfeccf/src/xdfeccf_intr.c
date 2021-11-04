@@ -7,9 +7,9 @@
 /**
 *
 * @file xdfeccf_intr.c
-* @addtogroup dfeccf_v1_1
+* @addtogroup dfeccf_v1_2
 * @{
-*
+* @cond nocomments
 * This file contains functions related to Channel Filter interrupt handling.
 *
 * <pre>
@@ -22,9 +22,10 @@
 *       dc     04/18/21 Update trigger and event handlers
 *       dc     04/20/21 Doxygen documentation update
 * 1.1   dc     11/26/21 Correct interrupt mask handler api
+* 1.2   dc     10/29/21 Update doxygen comments
 *
 * </pre>
-*
+* @endcond
 ******************************************************************************/
 
 #include "xdfeccf.h"
@@ -33,9 +34,15 @@
 /**************************** Macros Definitions ****************************/
 
 /************************** Function Prototypes *****************************/
+/**
+* @cond nocomments
+*/
 extern u32 XDfeCcf_RdBitField(u32 FieldWidth, u32 FieldOffset, u32 Data);
 extern u32 XDfeCcf_WrBitField(u32 FieldWidth, u32 FieldOffset, u32 Data,
 			      u32 Val);
+/**
+* @endcond
+*/
 
 /****************************************************************************/
 /**
@@ -44,7 +51,6 @@ extern u32 XDfeCcf_WrBitField(u32 FieldWidth, u32 FieldOffset, u32 Data,
 *
 * @param    InstancePtr is a pointer to the channel filter instance.
 * @param    Status is a pointer to a returned event status.
-*
 *
 ****************************************************************************/
 void XDfeCcf_GetEventStatus(const XDfeCcf *InstancePtr, XDfeCcf_Status *Status)
@@ -92,7 +98,6 @@ void XDfeCcf_GetEventStatus(const XDfeCcf *InstancePtr, XDfeCcf_Status *Status)
 *
 * @param    InstancePtr is a pointer to the channel filter instance.
 *
-*
 ****************************************************************************/
 void XDfeCcf_ClearEventStatus(const XDfeCcf *InstancePtr)
 {
@@ -108,7 +113,6 @@ void XDfeCcf_ClearEventStatus(const XDfeCcf *InstancePtr)
 *
 * @param    InstancePtr is a pointer to the channel filter instance.
 * @param    Mask is an interrupt mask value.
-*
 *
 ****************************************************************************/
 void XDfeCcf_SetInterruptMask(const XDfeCcf *InstancePtr,

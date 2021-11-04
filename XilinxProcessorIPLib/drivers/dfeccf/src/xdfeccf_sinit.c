@@ -7,9 +7,9 @@
 /**
 *
 * @file xdfeccf_sinit.c
-* @addtogroup dfeccf_v1_1
+* @addtogroup dfeccf_v1_2
 * @{
-*
+* @cond nocomments
 * The implementation of the XDfeCcf component's static initialization
 * functionality.
 *
@@ -26,7 +26,8 @@
 *       dc     04/06/21 Register with full node name
 *       dc     04/07/21 Fix bare metal initialisation
 *       dc     04/20/21 Doxygen documentation update
-* 1.1   dc     11/26/21 Make driver R5 compatible
+* 1.1   dc     10/26/21 Make driver R5 compatible
+* 1.2   dc     10/29/21 Update doxygen comments
 *
 * </pre>
 *
@@ -51,22 +52,32 @@
 /**************************** Type Definitions *******************************/
 /***************** Macros (Inline Functions) Definitions *********************/
 #ifndef __BAREMETAL__
-#define XDFECCF_CONFIG_DATA_PROPERTY "param-list" /* device tree property */
-#define XDFECCF_COMPATIBLE_STRING "xlnx,xdfe-cc-filter-1.0"
-#define XDFECCF_PLATFORM_DEVICE_DIR "/sys/bus/platform/devices/"
-#define XDFECCF_COMPATIBLE_PROPERTY "compatible" /* device tree property */
-#define XDFECCF_BUS_NAME "platform"
+/**
+* @endcond
+*/
+#define XDFECCF_COMPATIBLE_STRING                                              \
+	"xlnx,xdfe-cc-filter-1.0" /**< Device name property. */
+#define XDFECCF_PLATFORM_DEVICE_DIR                                            \
+	"/sys/bus/platform/devices/" /**< Device location in a file system. */
+#define XDFECCF_COMPATIBLE_PROPERTY "compatible" /**< Device tree property */
+#define XDFECCF_BUS_NAME "platform" /**< System bus name. */
 #define XDFECCF_DEVICE_ID_SIZE 4U
-#define XDFECCF_BASEADDR_PROPERTY "reg" /* device tree property */
+#define XDFECCF_BASEADDR_PROPERTY "reg" /**< Base address property. */
 #define XDFECCF_BASEADDR_SIZE 8U
-#define XDFECCF_DATA_IWIDTH_CFG "xlnx,data-iwidth"
-#define XDFECCF_DATA_OWIDTH_CFG "xlnx,data-owidth"
-#define XDFECCF_NUM_ANTENNA_CFG "xlnx,num-antenna"
-#define XDFECCF_NUM_CC_PER_ANTENNA_CFG "xlnx,num-cc-per-antenna"
-#define XDFECCF_NUM_SLOT_CHANNELS_CFG "xlnx,num-slot-channels"
-#define XDFECCF_ANTENNA_INTERLEAVE_CFG "xlnx,antenna-interleave"
-#define XDFECCF_TUSER_WIDTH_CFG "xlnx,tuser-width"
-#define XDFECCF_VERSION_REGISTER_CFG "xlnx,version-register"
+#define XDFECCF_DATA_IWIDTH_CFG "xlnx,data-iwidth" /**< Data IWIDTH property. */
+#define XDFECCF_DATA_OWIDTH_CFG "xlnx,data-owidth" /**< Data OWIDTH property. */
+#define XDFECCF_NUM_ANTENNA_CFG                                                \
+	"xlnx,num-antenna" /**< Number of antenna property. */
+#define XDFECCF_NUM_CC_PER_ANTENNA_CFG                                         \
+	"xlnx,num-cc-per-antenna" /**< Maximum number of CC's per antenna. */
+#define XDFECCF_NUM_SLOT_CHANNELS_CFG                                          \
+	"xlnx,num-slot-channels" /**< Number of slot channels property. */
+#define XDFECCF_ANTENNA_INTERLEAVE_CFG                                         \
+	"xlnx,antenna-interleave" /**< Number of Antenna TDM slots, per CC. */
+#define XDFECCF_TUSER_WIDTH_CFG "xlnx,tuser-width" /**< TUSER width property. */
+/*
+* @cond nocomments
+*/
 #define XDFECCF_MODE_SIZE 10U
 #define XDFECCF_WORD_SIZE 4U
 
@@ -102,7 +113,6 @@ XDfeCcf XDfeCcf_ChFilter[XDFECCF_MAX_NUM_INSTANCES];
 * @return
  *           - XST_SUCCESS if successful.
  *           - XST_FAILURE if device entry not found for given device id.
-*
 *
 ******************************************************************************/
 u32 XDfeCcf_GetConfigTable(XDfeCcf *InstancePtr, XDfeCcf_Config **ConfigTable)
@@ -142,7 +152,6 @@ u32 XDfeCcf_GetConfigTable(XDfeCcf *InstancePtr, XDfeCcf_Config **ConfigTable)
 *           0 if last "Count" number of bytes matches between Str1Ptr and
 *           Str2Ptr, else difference in unmatched character.
 *
-*
 ******************************************************************************/
 static s32 XDfeCcf_Strrncmp(const char *Str1Ptr, const char *Str2Ptr,
 			    size_t Count)
@@ -175,9 +184,8 @@ static s32 XDfeCcf_Strrncmp(const char *Str1Ptr, const char *Str2Ptr,
 * @param    DeviceNodeName is device node name,
 *
 * @return
- *           - XST_SUCCESS if successful.
- *           - XST_FAILURE if device entry not found for given device id.
- *
+*           - XST_SUCCESS if successful.
+*           - XST_FAILURE if device entry not found for given device id.
 *
 ******************************************************************************/
 static s32 XDfeCcf_IsDeviceCompatible(char *DeviceNamePtr,
@@ -264,8 +272,8 @@ static s32 XDfeCcf_IsDeviceCompatible(char *DeviceNamePtr,
 * @param    InstancePtr is a pointer to the Channel Filter instance.
 *
 * @return
- *           - XST_SUCCESS if successful.
- *           - XST_FAILURE if device entry not found for given device id.
+*           - XST_SUCCESS if successful.
+*           - XST_FAILURE if device entry not found for given device id.
 *
 * @note
 *         - For BM a table contains the configuration info for each device
@@ -310,7 +318,7 @@ s32 XDfeCcf_LookupConfig(XDfeCcf *InstancePtr)
 				   &d, XDFECCF_WORD_SIZE)) {
 		goto end_failure;
 	}
-	InstancePtr->Config.AntenaInterleave = ntohl(d);
+	InstancePtr->Config.AntennaInterleave = ntohl(d);
 
 	return XST_SUCCESS;
 
@@ -331,7 +339,7 @@ end_failure:
 
 	InstancePtr->Config.NumAntenna = ConfigTable->NumAntenna;
 	InstancePtr->Config.NumCCPerAntenna = ConfigTable->NumCCPerAntenna;
-	InstancePtr->Config.AntenaInterleave = ConfigTable->AntenaInterleave;
+	InstancePtr->Config.AntennaInterleave = ConfigTable->AntennaInterleave;
 	InstancePtr->Config.BaseAddr = ConfigTable->BaseAddr;
 
 	return XST_SUCCESS;
@@ -350,7 +358,6 @@ end_failure:
 * @return
 *           - XST_SUCCESS if successful.
 *           - XST_FAILURE if error occurs.
-*
 *
 ******************************************************************************/
 s32 XDfeCcf_RegisterMetal(XDfeCcf *InstancePtr, struct metal_device **DevicePtr,
@@ -439,4 +446,7 @@ void XDfeCcf_CfgInitialize(XDfeCcf *InstancePtr)
 #endif
 }
 
+/**
+* @endcond
+*/
 /** @} */

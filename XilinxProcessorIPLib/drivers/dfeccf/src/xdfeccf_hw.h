@@ -7,9 +7,9 @@
 /**
 *
 * @file xdfeccf_hw.h
-* @addtogroup dfeccf_v1_1
+* @addtogroup dfeccf_v1_2
 * @{
-*
+* @cond nocomments
 * Contains the register definitions for xdfeccf. This is
 * created to be used initially while waiting for IP.
 *
@@ -26,6 +26,7 @@
 *       dc     05/08/21 Update to common trigger
 *       dc     05/18/21 Handling CCUpdate trigger
 * 1.1   dc     07/13/21 Update to common latency requirements
+* 1.2   dc     10/29/21 Update doxygen comments
 *
 * </pre>
 *
@@ -195,4 +196,7 @@ extern "C" {
 #endif
 
 #endif
+/**
+* @endcond
+*/
 /** @} */
