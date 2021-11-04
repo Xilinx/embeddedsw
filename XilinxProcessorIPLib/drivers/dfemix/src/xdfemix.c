@@ -7,9 +7,9 @@
 /**
 *
 * @file xdfexmix.c
-* @addtogroup xdfemix_v1_1
+* @addtogroup xdfemix_v1_2
 * @{
-*
+* @cond nocomments
 * Contains the APIs for DFE Mixer component.
 *
 * <pre>
@@ -34,12 +34,15 @@
 *       dc     05/18/21 Handling CCUpdate trigger
 * 1.1   dc     07/13/21 Update to common latency requirements
 *       dc     07/21/21 Add and reorganise examples
-*       dc     11/26/21 Make driver R5 compatible
+*       dc     10/26/21 Make driver R5 compatible
+* 1.2   dc     10/29/21 Update doxygen comments
 *
 * </pre>
-*
+* @endcond
 ******************************************************************************/
-
+/**
+* @cond nocomments
+*/
 #include "xdfemix.h"
 #include "xdfemix_hw.h"
 #include <math.h>
@@ -54,25 +57,29 @@
 #endif
 
 /**************************** Macros Definitions ****************************/
-#define XDFEMIX_SEQUENCE_ENTRY_DEFAULT 0U /* Default sequence entry flag */
+#define XDFEMIX_SEQUENCE_ENTRY_DEFAULT (0U) /* Default sequence entry flag */
 #define XDFEMIX_SEQUENCE_ENTRY_NULL (-1) /* Null sequence entry flag */
-#define XDFEMIX_NO_EMPTY_CCID_FLAG 0xFFFFU /* Not Empty CCID flag */
-#define XDFEMIX_PHASE_OFFSET_ROUNDING_BITS 14U
-#define XDFEMIX_U32_NUM_BITS 32U
-#define XDFEMIX_TAP_MAX 24U /* Maximum tap value */
-
+#define XDFEMIX_NO_EMPTY_CCID_FLAG (0xFFFFU) /* Not Empty CCID flag */
+#define XDFEMIX_U32_NUM_BITS (32U)
 #define XDFEMIXER_CURRENT false
 #define XDFEMIXER_NEXT true
-
 #define XDFEMIXER_PHACC_DISABLE false
 #define XDFEMIXER_PHACC_ENABLE true
-
-#define XDFEMIX_DRIVER_VERSION_MINOR 1U
-#define XDFEMIX_DRIVER_VERSION_MAJOR 1U
+/**
+* @endcond
+*/
+#define XDFEMIX_PHASE_OFFSET_ROUNDING_BITS (14U)
+#define XDFEMIX_TAP_MAX (24U) /* Maximum tap value */
+#define XDFEMIX_DRIVER_VERSION_MINOR (2U)
+#define XDFEMIX_DRIVER_VERSION_MAJOR (1U)
 
 /************************** Function Prototypes *****************************/
 
 /************************** Variable Definitions ****************************/
+/**
+* @cond nocomments
+*/
+
 #ifdef __BAREMETAL__
 extern struct metal_device CustomDevice[XDFEMIX_MAX_NUM_INSTANCES];
 extern metal_phys_addr_t metal_phys[XDFEMIX_MAX_NUM_INSTANCES];
@@ -97,7 +104,6 @@ extern void XDfeMix_CfgInitialize(XDfeMix *InstancePtr);
 * @param    InstancePtr is a pointer to the DFE driver instance.
 * @param    AddrOffset is address offset relative to instance base address.
 * @param    Data is value to be written.
-*
 *
 ****************************************************************************/
 void XDfeMix_WriteReg(const XDfeMix *InstancePtr, u32 AddrOffset, u32 Data)
@@ -133,7 +139,6 @@ u32 XDfeMix_ReadReg(const XDfeMix *InstancePtr, u32 AddrOffset)
 * @param    FieldWidth is a bit field width.
 * @param    FieldOffset is a bit field offset.
 * @param    FieldData is a bit field data.
-*
 *
 ****************************************************************************/
 void XDfeMix_WrRegBitField(const XDfeMix *InstancePtr, u32 Offset,
@@ -260,18 +265,11 @@ static s32 XDfeMix_GetNotUsedCCID(XDfeMix_CCSequence *Sequence)
 * Adds the specified CCID, to the CC sequence. The sequence is defined with
 * SlotSeqBitmap where bit0 coresponds to CC[0], bit1 to CC[1], and so on.
 *
-* Sequence data in returned CCIDSequence is not the same as what is written
-* in registers, the translation is:
-*              registers       passed back CCIDSequence
-* -----------------------------------------------------
-* Length:      0               0 - if (SEQUENCE[0] == SEQUENCE[1])
-*              0               1 - if (SEQUENCE[0] != SEQUENCE[1])
-*              1               2
-*              2               3
-*              .....
-*              15              16
-* SEQUENCE[x]: x               -1 - if unused CC
-* SEQUENCE[x]: x               x - if used CC
+* Sequence data that is returned in the CCIDSequence is not the same as what is
+* written in the registers. The translation is:
+* - CCIDSequence.CCID[i] = -1        - if [i] is unused slot
+* - CCIDSequence.CCID[i] = new_CCID  - if  [i] is unused slot
+* - a returned CCIDSequence->Length = length in register + 1
 *
 * @param    InstancePtr is a pointer to the XDfeMix instance.
 * @param    CCID is a CC ID.
@@ -281,7 +279,6 @@ static s32 XDfeMix_GetNotUsedCCID(XDfeMix_CCSequence *Sequence)
 * @return
 *           - XST_SUCCESS if successful.
 *           - XST_FAILURE if an error occurs.
-*
 *
 ****************************************************************************/
 static u32 XDfeMix_AddCCID(XDfeMix *InstancePtr, s32 CCID, u32 SlotSeqBitmap,
@@ -342,7 +339,6 @@ static u32 XDfeMix_AddCCID(XDfeMix *InstancePtr, s32 CCID, u32 SlotSeqBitmap,
 * @param    CCID is a CC ID.
 * @param    CCIDSequence is a CC sequence array.
 *
-*
 ****************************************************************************/
 static void XDfeMix_RemoveCCID(XDfeMix *InstancePtr, s32 CCID,
 			       XDfeMix_CCSequence *CCIDSequence)
@@ -367,12 +363,13 @@ static void XDfeMix_RemoveCCID(XDfeMix *InstancePtr, s32 CCID,
 /****************************************************************************/
 /**
 *
-* Sets antenna gain.
+* Sets antenna gain to:
+*        - 0 = MINUS6DB: Apply -6dB gain.
+*          1 = ZERODB: Apply 0dB gain.
 *
 * @param    InstancePtr is a pointer to the Mixer instance.
-* @param    AntennaId is an antenna ID.
-* @param    AntennaGain is an antenna gain.
-*
+* @param    AntennaId is an antenna ID [0-7].
+* @param    AntennaGain is an antenna gain [0,1].
 *
 ****************************************************************************/
 static void XDfeMix_SetAntennaGainL(const XDfeMix *InstancePtr, u32 AntennaId,
@@ -400,7 +397,6 @@ static void XDfeMix_SetAntennaGainL(const XDfeMix *InstancePtr, u32 AntennaId,
 * @param    CCID is a Channel ID.
 * @param    DUCDDCCfg is DUC/DDC configuration container.
 *
-*
 ****************************************************************************/
 static void XDfeMix_SetCCDDC(const XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg,
 			     s32 CCID, const XDfeMix_DUCDDCCfg *DUCDDCCfg)
@@ -425,7 +421,6 @@ static void XDfeMix_SetCCDDC(const XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg,
 *
 * @param    InstancePtr is a pointer to the Mixer instance.
 * @param    CurrCCCfg is CC configuration container.
-*
 *
 * @note For a sequence conversion see XDfeMix_AddCCID() comment.
 *
@@ -496,7 +491,6 @@ static void XDfeMix_GetCurrentCCCfg(XDfeMix *InstancePtr,
 *
 * @param    InstancePtr is a pointer to the Mixer instance.
 * @param    CCCfg is a configuration data container.
-*
 *
 ****************************************************************************/
 static void XDfeMix_SetNextCCCfg(const XDfeMix *InstancePtr,
@@ -576,7 +570,6 @@ static void XDfeMix_SetNextCCCfg(const XDfeMix *InstancePtr,
 *
 * @return   Index
 *
-*
 ****************************************************************************/
 static u32 XDfeMix_GetPhaccIndex(const XDfeMix *InstancePtr, bool Next,
 				 s32 CCID)
@@ -607,7 +600,6 @@ static u32 XDfeMix_GetPhaccIndex(const XDfeMix *InstancePtr, bool Next,
 *           current config.
 * @param    CCID is a Channel ID.
 * @param    Freq is a frequency setting for CC.
-*
 *
 ****************************************************************************/
 static void XDfeMix_SetCCFrequency(const XDfeMix *InstancePtr, bool Next,
@@ -673,7 +665,6 @@ static void XDfeMix_GetCCFrequency(const XDfeMix *InstancePtr, bool Next,
 * @param    CCID is a Channel ID.
 * @param    Phase is a phase setting for CC.
 *
-*
 ****************************************************************************/
 static void XDfeMix_SetCCPhase(const XDfeMix *InstancePtr, bool Next, s32 CCID,
 			       const XDfeMix_Phase *Phase)
@@ -705,7 +696,6 @@ static void XDfeMix_SetCCPhase(const XDfeMix *InstancePtr, bool Next, s32 CCID,
 * @param    CCID is a Channel ID.
 * @param    Phase is a phase setting for CC.
 *
-*
 ****************************************************************************/
 static void XDfeMix_GetCCPhase(const XDfeMix *InstancePtr, bool Next, s32 CCID,
 			       XDfeMix_Phase *Phase)
@@ -735,7 +725,6 @@ static void XDfeMix_GetCCPhase(const XDfeMix *InstancePtr, bool Next, s32 CCID,
 * @param    CCID is a Channel ID.
 * @param    Enable is a flag that enables a phase accumulator.
 *
-*
 ****************************************************************************/
 static void XDfeMix_SetCCPhaseAccumEnable(const XDfeMix *InstancePtr, bool Next,
 					  s32 CCID, bool Enable)
@@ -758,7 +747,6 @@ static void XDfeMix_SetCCPhaseAccumEnable(const XDfeMix *InstancePtr, bool Next,
 * Captures phase for all phase accumulators in associated AXI-lite registers.
 *
 * @param    InstancePtr is a pointer to the Mixer instance.
-*
 *
 ****************************************************************************/
 static void XDfeMix_CapturePhase(const XDfeMix *InstancePtr)
@@ -790,7 +778,6 @@ static void XDfeMix_CapturePhase(const XDfeMix *InstancePtr)
 *           the difference causing a wrap-around of a full cycle to give
 *           a positive phase when otherwise a negative number would be
 *           generated.
-*
 *
 ****************************************************************************/
 static void XDfeMix_DerivePhaseOffset(const XDfeMix *InstancePtr,
@@ -824,7 +811,6 @@ static void XDfeMix_DerivePhaseOffset(const XDfeMix *InstancePtr,
 * @param    Frequency is a frequency container.
 * @param    PhaseOffset is a phase offset container.
 *
-*
 ****************************************************************************/
 static void XDfeMix_SetPhaseOffset(const XDfeMix *InstancePtr,
 				   XDfeMix_Frequency *Frequency,
@@ -847,7 +833,6 @@ static void XDfeMix_SetPhaseOffset(const XDfeMix *InstancePtr,
 *           current config.
 * @param    CCID is a Channel ID.
 * @param    NCOGain is an NCO attenuation.
-*
 *
 ****************************************************************************/
 static void XDfeMix_SetCCNCOGain(const XDfeMix *InstancePtr, bool Next,
@@ -873,7 +858,6 @@ static void XDfeMix_SetCCNCOGain(const XDfeMix *InstancePtr, bool Next,
 *
 * @return   NCO attenuation.
 *
-*
 ****************************************************************************/
 static u32 XDfeMix_GetCCNCOGain(const XDfeMix *InstancePtr, bool Next, s32 CCID)
 {
@@ -891,7 +875,6 @@ static u32 XDfeMix_GetCCNCOGain(const XDfeMix *InstancePtr, bool Next, s32 CCID)
 * Writes register CORE.PL_MIXER_DELAY with value 2.
 *
 * @param    InstancePtr is a pointer to the Mixer instance.
-*
 *
 ****************************************************************************/
 static void XDfeMix_SetPLMixerDelay(const XDfeMix *InstancePtr)
@@ -1027,6 +1010,10 @@ static void XDfeMix_DisableLowPowerTrigger(const XDfeMix *InstancePtr)
 				  XDFEMIX_TRIGGERS_TRIGGER_ENABLE_DISABLED);
 	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_LOW_POWER_OFFSET, Data);
 }
+
+/**
+* @endcond
+*/
 
 /*************************** Init API ***************************************/
 
@@ -1173,7 +1160,7 @@ void XDfeMix_InstanceClose(XDfeMix *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Resets and put block into a reset state.
+* Resets and puts block into a reset state.
 *
 * @param    InstancePtr is a pointer to the Mixer instance.
 *
@@ -1197,7 +1184,6 @@ void XDfeMix_Reset(XDfeMix *InstancePtr)
 *
 * @param    InstancePtr is a pointer to the Mixer instance.
 * @param    Cfg is a configuration data container.
-*
 *
 ****************************************************************************/
 void XDfeMix_Configure(XDfeMix *InstancePtr, XDfeMix_Cfg *Cfg)
@@ -1807,7 +1793,6 @@ void XDfeMix_SetTriggersCfg(const XDfeMix *InstancePtr,
 * @param    CCID is a Channel ID.
 * @param    DUCDDCStatus is a DUC/DDC status container.
 *
-*
 ****************************************************************************/
 void XDfeMix_GetDUCDDCStatus(const XDfeMix *InstancePtr, s32 CCID,
 			     XDfeMix_DUCDDCStatus *DUCDDCStatus)
@@ -1840,7 +1825,6 @@ void XDfeMix_GetDUCDDCStatus(const XDfeMix *InstancePtr, s32 CCID,
 * @param    InstancePtr is a pointer to the Mixer instance.
 * @param    CCID is a Channel ID.
 * @param    DUCDDCStatus is a DUC/DDC status container.
-*
 *
 ****************************************************************************/
 void XDfeMix_GetMixerStatus(const XDfeMix *InstancePtr, s32 CCID,
@@ -1938,7 +1922,6 @@ u32 XDfeMix_GetTDataDelay(const XDfeMix *InstancePtr, u32 Tap)
 *
 * @param    SwVersion is driver version number.
 * @param    HwVersion is HW version number.
-*
 *
 ******************************************************************************/
 void XDfeMix_GetVersions(const XDfeMix *InstancePtr, XDfeMix_Version *SwVersion,

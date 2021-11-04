@@ -7,9 +7,9 @@
 /**
 *
 * @file xdfemix_sinit.c
-* @addtogroup xdfemix_v1_1
+* @addtogroup xdfemix_v1_2
 * @{
-*
+* @cond nocomments
 * The implementation of the XDfeMix component's static initialization
 * functionality.
 *
@@ -27,7 +27,8 @@
 *       dc     04/07/21 Fix bare metal initialisation
 *       dc     04/20/21 Doxygen documentation update
 * 1.1   dc     07/13/21 Update to common latency requirements
-*       dc     11/26/21 Make driver R5 compatible
+*       dc     10/26/21 Make driver R5 compatible
+* 1.2   dc     10/29/21 Update doxygen comments
 *
 * </pre>
 *
@@ -52,28 +53,40 @@
 /**************************** Type Definitions *******************************/
 /***************** Macros (Inline Functions) Definitions *********************/
 #ifndef __BAREMETAL__
-#define XDFEMIX_CONFIG_DATA_PROPERTY "param-list" /* device tree property */
-#define XDFEMIX_COMPATIBLE_STRING "xlnx,xdfe-cc-mixer-1.0"
-#define XDFEMIX_PLATFORM_DEVICE_DIR "/sys/bus/platform/devices/"
-#define XDFEMIX_COMPATIBLE_PROPERTY "compatible" /* device tree property */
-#define XDFEMIX_BUS_NAME "platform"
+/**
+* @endcond
+*/
+#define XDFEMIX_COMPATIBLE_STRING                                              \
+	"xlnx,xdfe-cc-mixer-1.0" /**< Device name property. */
+#define XDFEMIX_PLATFORM_DEVICE_DIR                                            \
+	"/sys/bus/platform/devices/" /**< Device location in a file system. */
+#define XDFEMIX_COMPATIBLE_PROPERTY "compatible" /**< Device tree property */
+#define XDFEMIX_BUS_NAME "platform" /**< System bus name. */
 #define XDFEMIX_DEVICE_ID_SIZE 4U
-#define XDFEMIX_CONFIG_DATA_SIZE sizeof(XDfeMix_Config)
-#define XDFEMIX_BASEADDR_PROPERTY "reg" /* device tree property */
+#define XDFEMIX_BASEADDR_PROPERTY "reg" /**< Base address property. */
 #define XDFEMIX_BASEADDR_SIZE 8U
-
-#define XDFEMIX_MODE_CFG "xlnx,mode"
-#define XDFEMIX_NUM_ANTENNA_CFG "xlnx,num-antenna"
-#define XDFEMIX_MAX_USABLE_CCIDS_CFG "xlnx,max-useable-ccids"
-#define XDFEMIX_LANES_CFG "xlnx,lanes"
-#define XDFEMIX_ANTENNA_INTERLEAVE_CFG "xlnx,antenna-interleave"
-#define XDFEMIX_MIXER_CPS_CFG "xlnx,mixer-cps"
-#define XDFEMIX_DATA_IWIDTH_CFG "xlnx,data-iwidth"
-#define XDFEMIX_DATA_OWIDTH_CFG "xlnx,data-owidth"
-#define XDFEMIX_TUSER_WIDTH_CFG "xlnx,tuser-width"
+#define XDFEMIX_MODE_CFG "xlnx,mode" /**< Mode: 0 = DOWNLINK, 1 = UPLINK. */
+#define XDFEMIX_NUM_ANTENNA_CFG                                                \
+	"xlnx,num-antenna" /**< Number of antenna property. */
+#define XDFEMIX_MAX_USABLE_CCIDS_CFG                                           \
+	"xlnx,max-useable-ccids" /**< Maximum number of CC's per antenna. */
+#define XDFEMIX_LANES_CFG                                                      \
+	"xlnx,lanes" /**< Number of parallel data channels required. */
+#define XDFEMIX_ANTENNA_INTERLEAVE_CFG                                         \
+	"xlnx,antenna-interleave" /**< Number of TDM antenna.. */
+#define XDFEMIX_MIXER_CPS_CFG                                                  \
+	"xlnx,mixer-cps" /**< Mixer clock per sample property. */
+#define XDFEMIX_DATA_IWIDTH_CFG                                                \
+	"xlnx,data-iwidth" /**< Input stream data bit width. */
+#define XDFEMIX_DATA_OWIDTH_CFG                                                \
+	"xlnx,data-owidth" /**< Output stream data bit width. */
+#define XDFEMIX_TUSER_WIDTH_CFG                                                \
+	"xlnx,tuser-width" /**< Width of the tuser input. */
+/**
+* @cond nocomments
+*/
 #define XDFEMIX_MODE_SIZE 10U
 #define XDFEMIX_WORD_SIZE 4U
-
 #else
 #define XDFEMIX_BUS_NAME "generic"
 #define XDFEMIX_REGION_SIZE 0x4000U
@@ -495,4 +508,7 @@ void XDfeMix_CfgInitialize(XDfeMix *InstancePtr)
 #endif
 }
 
+/**
+* @endcond
+*/
 /** @} */

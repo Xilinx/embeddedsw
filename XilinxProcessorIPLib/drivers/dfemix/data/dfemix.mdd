@@ -11,6 +11,7 @@
 #          dc     03/18/21  Add compiler and linker option
 # 1.1      dc     07/13/21  Update to common latency requirements
 #          dc     10/26/21  Add math library '-lm' to linker flags
+# 1.2      dc     10/29/21  Update doxygen comments
 ##############################################################################
 
 OPTION psf_version = 2.1;
@@ -20,7 +21,7 @@ BEGIN driver dfemix
   OPTION supported_peripherals = (xdfe_cc_mixer);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.1;
+  OPTION VERSION = 1.2;
   OPTION NAME = dfemix;
   OPTION depends = libmetal;
   OPTION APP_COMPILER_FLAGS = "-D __BAREMETAL__";

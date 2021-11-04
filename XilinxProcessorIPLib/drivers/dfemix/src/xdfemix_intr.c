@@ -7,9 +7,9 @@
 /**
 *
 * @file xdfexmix_intr.c
-* @addtogroup xdfemix_v1_1
+* @addtogroup xdfemix_v1_2
 * @{
-*
+ * @cond nocomments
 * This file contains functions related to Mixer interrupt handling.
 *
 * <pre>
@@ -23,9 +23,10 @@
 *       dc     04/18/21 Update trigger and event handlers
 *       dc     04/20/21 Doxygen documentation update
 * 1.1   dc     07/13/21 Update to common latency requirements
+* 1.2   dc     10/29/21 Update doxygen comments
 *
 * </pre>
-*
+* @endcond
 ******************************************************************************/
 
 #include "xdfemix.h"
@@ -34,9 +35,15 @@
 /**************************** Macros Definitions ****************************/
 
 /************************** Function Prototypes *****************************/
+/**
+* @cond nocomments
+*/
 extern u32 XDfeMix_RdBitField(u32 FieldWidth, u32 FieldOffset, u32 Data);
 extern u32 XDfeMix_WrBitField(u32 FieldWidth, u32 FieldOffset, u32 Data,
 			      u32 Val);
+/**
+* @endcond
+*/
 
 /****************************************************************************/
 /**
