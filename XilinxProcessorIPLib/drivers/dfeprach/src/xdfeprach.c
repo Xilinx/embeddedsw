@@ -7,9 +7,9 @@
 /**
 *
 * @file xdfeprach.c
-* @addtogroup xdfeprach_v1_1
+* @addtogroup xdfeprach_v1_2
 * @{
-*
+* @cond nocomments
 * Contains the APIs for DFE Prach component.
 *
 * <pre>
@@ -28,12 +28,15 @@
 * 1.1   dc     06/30/21 Doxygen documentation update
 *       dc     07/13/21 Update to common latency requirements
 *       dc     07/21/21 Add and reorganise examples
-*       dc     11/26/21 Make driver R5 compatible
+*       dc     10/26/21 Make driver R5 compatible
+* 1.2   dc     10/29/21 Update doxygen comments
 *
 * </pre>
-*
+* @endcond
 ******************************************************************************/
-
+/**
+* @cond nocomments
+*/
 #include "xdfeprach.h"
 #include "xdfeprach_hw.h"
 #include <math.h>
@@ -48,21 +51,23 @@
 #endif
 
 /**************************** Macros Definitions ****************************/
-#define XDFEPRACH_SEQUENCE_ENTRY_DEFAULT 0U /* Default sequence entry flag */
 #define XDFEPRACH_SEQUENCE_ENTRY_NULL (-1) /* Null sequence entry flag */
-#define XDFEPRACH_NO_EMPTY_CCID_FLAG 0xFFFFU /* Not Empty CCID flag */
-#define XDFEPRACH_U32_NUM_BITS 32U
+#define XDFEPRACH_NO_EMPTY_CCID_FLAG (0xFFFFU) /* Not Empty CCID flag */
+#define XDFEPRACH_U32_NUM_BITS (32U) /**< Number of bits in register */
+/**
+* @endcond
+*/
 
-#define XDFEPRACH_CURRENT false
-#define XDFEPRACH_NEXT true
-
-#define XDFEPRACH_PHACC_DISABLE false
-#define XDFEPRACH_PHACC_ENABLE true
-
-#define XDFEPRACH_DRIVER_VERSION_MINOR 1U
-#define XDFEPRACH_DRIVER_VERSION_MAJOR 1U
+#define XDFEPRACH_DRIVER_VERSION_MINOR                                         \
+	(2U) /**< Driver's minor version number */
+#define XDFEPRACH_DRIVER_VERSION_MAJOR                                         \
+	(1U) /**< Driver's major version number */
 
 /************************** Function Prototypes *****************************/
+/**
+* @cond nocomments
+*/
+
 void XDfePrach_WrRegBitField(const XDfePrach *InstancePtr, u32 Offset,
 			     u32 FieldWidth, u32 FieldOffset, u32 FieldData);
 u32 XDfePrach_RdRegBitField(const XDfePrach *InstancePtr, u32 Offset,
@@ -256,6 +261,7 @@ u32 XDfePrach_RdBitField(u32 FieldWidth, u32 FieldOffset, u32 Data)
 	Xil_AssertNonvoid((FieldOffset + FieldWidth) <= XDFEPRACH_U32_NUM_BITS);
 	return (((Data >> FieldOffset) & (((u32)1U << FieldWidth) - 1U)));
 }
+
 /****************************************************************************/
 /**
 *
@@ -325,16 +331,9 @@ static s32 XDfePrach_GetNotUsedCCID(XDfePrach_CCSequence *Sequence)
 *
 * Sequence data returned in the CCIDSequence is not the same as what is
 * written in registers, the translation is:
-*              registers       passed back CCIDSequence
-* -----------------------------------------------------
-* Length:      0               0 - if (SEQUENCE[0] == SEQUENCE[1])
-*              0               1 - if (SEQUENCE[0] != SEQUENCE[1])
-*              1               2
-*              2               3
-*              .....
-*              15              16
-* SEQUENCE[x]: x               -1 - if unused CC
-* SEQUENCE[x]: x               x - if used CC
+* - CCIDSequence.CCID[i] = -1        - if [i] is unused slot
+* - CCIDSequence.CCID[i] = new_CCID  - if  [i] is unused slot
+* - a returned CCIDSequence->Length = length in register + 1
 *
 * @param    InstancePtr is a pointer to the PRACH instance.
 * @param    CCID is a CC ID.
@@ -1586,6 +1585,9 @@ static void XDfePrach_EnableFrameMarkerTrigger(const XDfePrach *InstancePtr)
 			   Data);
 }
 
+/**
+* @endcond
+*/
 /*************************** Init API ***************************************/
 
 /*****************************************************************************/
@@ -1992,7 +1994,7 @@ void XDfePrach_Deactivate(XDfePrach *InstancePtr)
 * Adds specified CCID, with specified configuration.
 *
 * @param    InstancePtr is a pointer to the PRACH instance.
-* @param    CCID is a Channel ID.
+* @param    CCID is a CCID.
 * @param    SlotSeqBitmap - up to 16 defined slots into which a CC can be
 *           allocated. The number of slots can be from 1 to 16 depending on
 *           system initialization. The number of slots is defined by the
@@ -2174,7 +2176,7 @@ void XDfePrach_CloneCC(const XDfePrach *InstancePtr)
 * @param    RachChan is a RACH channel.
 * @param    DdcCfg is a DDC data container.
 * @param    NcoCfg is a NCO data container.
-* @param    Schedule is a Schedule data container.
+* @param    StaticSchedule is a Schedule data container.
 *
 * @return
 *	- XST_SUCCESS on succes

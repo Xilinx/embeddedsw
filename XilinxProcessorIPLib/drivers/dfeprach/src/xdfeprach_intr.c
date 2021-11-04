@@ -7,9 +7,9 @@
 /**
 *
 * @file xdfeprach_intr.c
-* @addtogroup xdfeprach_v1_1
+* @addtogroup xdfeprach_v1_2
 * @{
-*
+* @cond nocomments
 * This file contains functions related to PRACH interrupt handling.
 *
 * <pre>
@@ -20,9 +20,10 @@
 * 1.0   dc     03/08/21 Initial version
 *       dc     04/18/21 Update trigger and event handlers
 * 1.1   dc     06/30/21 Doxygen documentation update
+* 1.2   dc     10/29/21 Update doxygen comments
 *
 * </pre>
-*
+* @endcond
 ******************************************************************************/
 
 #include "xdfeprach.h"
@@ -31,9 +32,15 @@
 /**************************** Macros Definitions ****************************/
 
 /************************** Function Prototypes *****************************/
+/**
+* @cond nocomments
+*/
 extern u32 XDfePrach_RdBitField(u32 FieldWidth, u32 FieldOffset, u32 Data);
 extern u32 XDfePrach_WrBitField(u32 FieldWidth, u32 FieldOffset, u32 Data,
 				u32 Val);
+/**
+* @endcond
+*/
 
 /****************************************************************************/
 /**

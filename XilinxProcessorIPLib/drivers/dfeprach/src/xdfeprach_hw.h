@@ -7,9 +7,9 @@
 /**
 *
 * @file xdfeprach_hw.h
-* @addtogroup xdfeprach_v1_1
+* @addtogroup xdfeprach_v1_2
 * @{
-*
+* @cond nocomments
 * Contains the register definitions for xdfeprach. This is
 * created to be used initialy while waiting for IP.
 *
@@ -24,6 +24,7 @@
 *       dc     05/18/21 Handling RachUpdate trigger
 * 1.1   dc     06/30/21 Doxygen documentation update
 *       dc     07/13/21 Update to common latency requirements
+* 1.2   dc     10/29/21 Update doxygen comments
 *
 * </pre>
 *
@@ -351,4 +352,7 @@ extern "C" {
 #endif
 
 #endif
+/**
+* @endcond
+*/
 /** @} */

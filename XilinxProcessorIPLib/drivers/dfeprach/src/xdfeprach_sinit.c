@@ -7,9 +7,9 @@
 /**
 *
 * @file xdfeprach_sinit.c
-* @addtogroup xdfeprach_v1_1
+* @addtogroup xdfeprach_v1_2
 * @{
-*
+* @cond nocomments
 * The implementation of the XDfePrach component's static initialization
 * functionality.
 *
@@ -23,7 +23,8 @@
 *       dc     04/07/21 Fix bare metal initialisation
 *       dc     04/21/21 Update due to restructured registers
 * 1.1   dc     06/30/21 Doxygen documentation update
-*       dc     11/26/21 Make driver R5 compatible
+*       dc     10/26/21 Make driver R5 compatible
+* 1.2   dc     10/29/21 Update doxygen comments
 *
 * </pre>
 *
@@ -48,23 +49,37 @@
 /**************************** Type Definitions *******************************/
 /***************** Macros (Inline Functions) Definitions *********************/
 #ifndef __BAREMETAL__
-#define XDFEPRACH_CONFIG_DATA_PROPERTY "param-list" /* device tree property */
-#define XDFEPRACH_COMPATIBLE_STRING "xlnx,xdfe-nr-prach-1.0"
-#define XDFEPRACH_PLATFORM_DEVICE_DIR "/sys/bus/platform/devices/"
-#define XDFEPRACH_COMPATIBLE_PROPERTY "compatible" /* device tree property */
-#define XDFEPRACH_BUS_NAME "platform"
+/**
+* @endcond
+*/
+#define XDFEPRACH_COMPATIBLE_STRING                                            \
+	"xlnx,xdfe-nr-prach-1.0" /**< Device name property. */
+#define XDFEPRACH_PLATFORM_DEVICE_DIR                                          \
+	"/sys/bus/platform/devices/" /**< Device location in a file system. */
+#define XDFEPRACH_COMPATIBLE_PROPERTY "compatible" /**< Device tree property */
+#define XDFEPRACH_BUS_NAME "platform" /**< System bus name. */
 #define XDFEPRACH_DEVICE_ID_SIZE 4U
-#define XDFEPRACH_CONFIG_DATA_SIZE sizeof(XDfePrach_Config)
-#define XDFEPRACH_BASEADDR_PROPERTY "reg" /* device tree property */
+#define XDFEPRACH_BASEADDR_PROPERTY "reg" /**< Base address property. */
 #define XDFEPRACH_BASEADDR_SIZE 8U
-#define XDFEPRACH_NUM_ANTENNA_CFG "xlnx,num-antenna"
-#define XDFEPRACH_NUM_CC_PER_ANTENNA_CFG "xlnx,num-cc-per-antenna"
-#define XDFEPRACH_NUM_SLOT_CHANNELS_CFG "xlnx,num-slot-channels"
-#define XDFEPRACH_NUM_SLOTS_CFG "xlnx,num-slots"
-#define XDFEPRACH_NUM_RACH_LINES_CFG "xlnx,num-rach-lanes"
-#define XDFEPRACH_NUM_RACH_CHANNELS_CFG "xlnx,num-rach-channels"
-#define XDFEPRACH_HAS_AXIS_CTRL_CFG "xlnx,has-axis-ctrl"
-#define XDFEPRACH_HAS_IRQ_CFG "xlnx,has-irq"
+#define XDFEPRACH_NUM_ANTENNA_CFG                                              \
+	"xlnx,num-antenna" /**< Number of antenna 1-8. */
+#define XDFEPRACH_NUM_CC_PER_ANTENNA_CFG                                       \
+	"xlnx,num-cc-per-antenna" /**< Maximum number of CC's per antenna 1-8. */
+#define XDFEPRACH_NUM_SLOT_CHANNELS_CFG                                        \
+	"xlnx,num-slot-channels" /**< Number of Parallel Data Channels 1-4. */
+#define XDFEPRACH_NUM_SLOTS_CFG                                                \
+	"xlnx,num-slots" /**< Number of Antenna TDM slots, per CC 1-8. */
+#define XDFEPRACH_NUM_RACH_LINES_CFG                                           \
+	"xlnx,num-rach-lanes" /**< Number of RACH output Lanes 1-2. */
+#define XDFEPRACH_NUM_RACH_CHANNELS_CFG                                        \
+	"xlnx,num-rach-channels" /**<  Number of RACH Channels channels 1-16 */
+#define XDFEPRACH_HAS_AXIS_CTRL_CFG                                            \
+	"xlnx,has-axis-ctrl" /**< The AXIS dynamic scheduling control interface is present */
+#define XDFEPRACH_HAS_IRQ_CFG                                                  \
+	"xlnx,has-irq" /**< The core has an IRQ port enabled. */
+/**
+* @cond nocomments
+*/
 #define XDFEPRACH_WORD_SIZE 4U
 #else
 #define XDFEPRACH_BUS_NAME "generic"
@@ -476,4 +491,7 @@ void XDfePrach_CfgInitialize(XDfePrach *InstancePtr)
 #endif
 }
 
+/**
+* @endcond
+*/
 /** @} */
