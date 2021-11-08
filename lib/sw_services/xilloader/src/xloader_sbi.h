@@ -24,6 +24,7 @@
 *       skd  07/14/2020 XLoader_SbiCopy prototype changed
 *       bsv  10/13/2020 Code clean up
 * 1.04  bsv  08/31/2021 Code clean up
+* 1.05  bsv  11/08/2021 Move XLoader_IsJtagSbiMode to Xilloader
 *
 * </pre>
 *
@@ -51,6 +52,7 @@ extern "C" {
 int XLoader_SbiInit(u32 DeviceFlags);
 int XLoader_SbiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags);
 int XLoader_SbiRecovery(void);
+u8 XLoader_IsJtagSbiMode(void);
 
 /************************** Variable Definitions *****************************/
 

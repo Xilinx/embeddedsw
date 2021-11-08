@@ -30,6 +30,7 @@
 *       bsv  10/13/2020 Code clean up
 * 1.04  rb   08/11/2021 Fix compilation warnings
 *       bsv  08/31/2021 Code clean up
+* 1.05  bsv  11/08/2021 Skip SbiRecovery for SMAP and PCIe boot modes
 *
 * </pre>
 *
@@ -162,6 +163,9 @@ int XLoader_SbiRecovery(void)
 	int Status = XST_FAILURE;
 	u32 SbiCtrl;
 
+	if (XLoader_IsJtagSbiMode() == (u8)FALSE) {
+		goto END;
+	}
 	SbiCtrl = XPlmi_In32(SLAVE_BOOT_SBI_CTRL);
 	/* Reset DMA1, SBI */
 	XPlmi_Out32(CRP_RST_SBI, CRP_RST_SBI_RESET_MASK);
@@ -173,8 +177,24 @@ int XLoader_SbiRecovery(void)
 
 	/* Restore the interface setting */
 	XPlmi_Out32(SLAVE_BOOT_SBI_CTRL, SbiCtrl);
-	Status = XST_SUCCESS;
 
+END:
+	Status = XST_SUCCESS;
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function checks if the boot mode is jtag or not.
+ *
+ * @return	TRUE if JTAG and FALSE otherwise
+ *
+ *****************************************************************************/
+u8 XLoader_IsJtagSbiMode(void)
+{
+	return (u8)(((XPlmi_In32(SLAVE_BOOT_SBI_MODE) &
+				SLAVE_BOOT_SBI_MODE_JTAG_MASK) ==
+				SLAVE_BOOT_SBI_MODE_JTAG_MASK) ?
+				(TRUE) : (FALSE));
 }
 #endif /* end of XLOADER_SBI */

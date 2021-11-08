@@ -25,6 +25,7 @@
 * 1.04  bm   12/16/2020 Removed KAT related macros
 * 1.05  td   07/08/2021 Fix doxygen warnings
 *       bsv  08/13/2021 Remove unnecessary header file
+* 1.07  bsv  11/08/2021 Move XLoader_IsJtagSbiMode to Xilloader
 *
 * </pre>
 *
@@ -64,21 +65,6 @@ static inline PdiSrc_t XLoader_GetBootMode(void)
 				CRP_BOOT_MODE_USER_BOOT_MODE_MASK);
 
 	return (PdiSrc_t)BootMode;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function checks if the boot mode is jtag or not.
- *
- * @return	TRUE if JTAG and FALSE otherwise
- *
- *****************************************************************************/
-static inline u8 XLoader_IsJtagSbiMode(void)
-{
-	return (u8)(((XPlmi_In32(SLAVE_BOOT_SBI_MODE) &
-				SLAVE_BOOT_SBI_MODE_JTAG_MASK) ==
-				SLAVE_BOOT_SBI_MODE_JTAG_MASK) ?
-				(TRUE) : (FALSE));
 }
 
 /************************** Function Prototypes ******************************/

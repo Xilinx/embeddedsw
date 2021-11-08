@@ -32,6 +32,7 @@
 *                       in slave boot modes
 *       bsv  08/02/2021 Updated function return type as part of code clean up
 *       bsv  08/13/2021 Code clean up to reduce size
+* 1.07  bsv  11/08/2021 Move XLoader_IsJtagSbiMode to Xilloader
 *
 * </pre>
 *
@@ -43,6 +44,7 @@
 #include "xplm_loader.h"
 #include "xloader_auth_enc.h"
 #include "xplmi.h"
+#include "xloader_sbi.h"
 
 /************************** Constant Definitions *****************************/
 
