@@ -35,10 +35,6 @@
 #define XBIR_SSI_JSON_SERIAL_NAME		"SerialNo"
 #define XBIR_SSI_JSON_PART_NO_NAME		"PartNo"
 #define XBIR_SSI_JSON_UUID_NAME			"UUID"
-#define XBIR_SSI_JSON_PRIMARY_BOOT_NAME		"PrimaryBootDevMem"
-#define XBIR_SSI_JSON_SECONDARY_BOOT_NAME	"SecondaryBootDevMem"
-#define XBIR_SSI_JSON_PS_DDR_NAME		"PsDdr"
-#define XBIR_SSI_JSON_PL_DDR_NAME		"PlDdr"
 
 #define XBIR_SSI_JSON_MAX_SYS_INFO_LEN		(800U)
 #define XBIR_SSI_JSON_MAX_NAME_LEN		(20U)
@@ -117,26 +113,24 @@ int Xbir_SsiJsonBuildSysInfo (char *JsonStr, u16 JsonStrLen)
 	const Xbir_SysInfo *SysBoardInfo;
 	const Xbir_CCInfo *CcInfo;
 
-
-	/* 80U = For double quotes and spaces in JSON string */
-	u16 TotalLen = sizeof(SysBoardInfo->BoardPrdName) * 2U +
-		sizeof(SysBoardInfo->RevNum) * 2U + 2U +
-		sizeof(SysBoardInfo->BoardSerialNumber) * 2U + 2U +
-		sizeof(SysBoardInfo->BoardPartNum) * 2U + 2U +
-		sizeof(SysBoardInfo->UUID) * 2U + 2U +
-		sizeof(SysBoardInfo->PrimaryBootDev) + 1U +
-		sizeof(SysBoardInfo->SecondaryBootDev) + 1U +
-		sizeof(SysBoardInfo->PsDdr) + 1U +
-		sizeof(SysBoardInfo->PlDdr) + 1U +
-		strlen(XBIR_SSI_JSON_BRD_NAME) + strlen(XBIR_SSI_JSON_REV_NAME) +
-		strlen(XBIR_SSI_JSON_SERIAL_NAME) + strlen(XBIR_SSI_JSON_PART_NO_NAME) +
-		strlen(XBIR_SSI_JSON_UUID_NAME) + strlen(XBIR_SSI_JSON_PRIMARY_BOOT_NAME) +
-		strlen(XBIR_SSI_JSON_SECONDARY_BOOT_NAME) +
-		strlen(XBIR_SSI_JSON_PS_DDR_NAME) + strlen(XBIR_SSI_JSON_PL_DDR_NAME) +
-		3U /* JSON_ OBJ_START */ +
-		3U /* XBIR_SSI_JSON_OBJ_END */ +
-		9U * 2U + 5U * 2U + 9U + /*XBIR_SSI_JSON_OBJ_SEPERATOR */ +
-		80U;
+	u16 TotalLen = sizeof(SysBoardInfo->BoardPrdName) +
+		sizeof(SysBoardInfo->RevNum) +
+		sizeof(SysBoardInfo->BoardSerialNumber) +
+		sizeof(SysBoardInfo->BoardPartNum) +
+		sizeof(SysBoardInfo->UUID) + strlen(XBIR_SSI_JSON_BRD_NAME) +
+		strlen(XBIR_SSI_JSON_REV_NAME) +
+		strlen(XBIR_SSI_JSON_SERIAL_NAME) +
+		strlen(XBIR_SSI_JSON_PART_NO_NAME) +
+		strlen(XBIR_SSI_JSON_UUID_NAME) +
+		strlen(XBIR_SSI_JSON_SYS_BOARD_INFO_NAME) +
+		strlen(XBIR_SSI_JSON_CC_INFO_NAME) +
+		44U + /* Number of double quotes */
+		14U + /* Number of spaces */
+		3U + /* Number of XBIR_SSI_JSON_OBJ_START */
+		3U + /* Number of XBIR_SSI_JSON_OBJ_END */
+		12U + /* Number of XBIR_SSI_JSON_OBJ_SEPERATOR */
+		12U + /* Number of XBIR_SSI_JSON_NAME_VAL_SEPERATOR */
+		1U; /* NULL termination */
 
 	if (Len < TotalLen) {
 		goto END;
@@ -151,8 +145,7 @@ int Xbir_SsiJsonBuildSysInfo (char *JsonStr, u16 JsonStrLen)
 
 	snprintf(Str, Len,
 		"\"%s\"%c%c \"%s\"%c\"%s\"%c \"%s\"%c\"%s\"%c "
-		"\"%s\"%c\"%s\"%c \"%s\"%c\"%s\"%c \"%s\"%c\"%s\"%c "
-		"\"%s\"%c\"%s\"%c \"%s\"%c\"%s\"%c \"%s\"%c\"%s\"%c \"%s\"%c\"%s\"%c %c",
+		"\"%s\"%c\"%s\"%c \"%s\"%c\"%s\"%c \"%s\"%c\"%s\"%c %c",
 		XBIR_SSI_JSON_SYS_BOARD_INFO_NAME,
 
 		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
@@ -182,26 +175,6 @@ int Xbir_SsiJsonBuildSysInfo (char *JsonStr, u16 JsonStrLen)
 		XBIR_SSI_JSON_UUID_NAME,
 		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
 		SysBoardInfo->UUID,
-		XBIR_SSI_JSON_OBJ_SEPERATOR,
-
-		XBIR_SSI_JSON_PRIMARY_BOOT_NAME,
-		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
-		SysBoardInfo->PrimaryBootDev,
-		XBIR_SSI_JSON_OBJ_SEPERATOR,
-
-		XBIR_SSI_JSON_SECONDARY_BOOT_NAME,
-		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
-		SysBoardInfo->SecondaryBootDev,
-		XBIR_SSI_JSON_OBJ_SEPERATOR,
-
-		XBIR_SSI_JSON_PS_DDR_NAME,
-		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
-		SysBoardInfo->PsDdr,
-		XBIR_SSI_JSON_OBJ_SEPERATOR,
-
-		XBIR_SSI_JSON_PL_DDR_NAME,
-		XBIR_SSI_JSON_NAME_VAL_SEPERATOR,
-		SysBoardInfo->PlDdr,
 
 		XBIR_SSI_JSON_OBJ_END,
 		XBIR_SSI_JSON_OBJ_SEPERATOR);

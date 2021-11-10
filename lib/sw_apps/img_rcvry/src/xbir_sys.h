@@ -134,7 +134,6 @@ typedef struct {
 	Xbir_SysBoardInfo SysBoardInfo;
 	Xbir_SysDCLoadInfo SysDCLoadInfo;
 	Xbir_MacAddrInfo MacAddrInfo;
-	Xbir_SysBoardMemRec SysBoardMemRec;
 } Xbir_SysBoardEepromData;
 
 typedef struct {
@@ -148,10 +147,6 @@ typedef struct {
 	u8 BoardPartNum[10U];
 	u8 RevNum[9U];
 	u8 UUID[33U];
-	u8 PrimaryBootDev[13U];
-	u8 SecondaryBootDev[13U];
-	u8 PsDdr[13U];
-	u8 PlDdr[13U];
 } Xbir_SysInfo;
 
 typedef struct {

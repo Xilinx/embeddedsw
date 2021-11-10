@@ -43,6 +43,7 @@
 #define XBIR_POST_RESET_STABILIZATION_TIME_FOR_PHY_IN_US	(250000L)
 #define XBIR_BYTE_HEX_LEN	(2U)
 #define XBIR_SYS_PRODUCT_TYPE_LEN	(2U)
+#define XBIR_SYS_PRODUCT_NAME_LEN	(3U)
 #define XBIR_SYS_PRODUCT_TYPE_NAME_OFFSET	(4U)
 
 /* GEM clock related macros */
@@ -952,12 +953,21 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 	Status = Xbir_IicEepromReadData((u8 *)&SysBoardEepromData,
 		sizeof(Xbir_SysBoardEepromData), XBIR_IIC_SYS_BOARD_EEPROM_ADDRESS);
 	if (Status != XST_SUCCESS) {
+		Xbir_Printf("Unable to access SOM Eeprom\n\r");
 		goto END;
 	}
 
 	memcpy(SysInfo.BoardPrdName,
 		SysBoardEepromData.SysBoardInfo.BoardPrdName,
 		sizeof(SysBoardEepromData.SysBoardInfo.BoardPrdName));
+	if ((strncmp((char *)&SysInfo.BoardPrdName, "SM-",
+		XBIR_SYS_PRODUCT_NAME_LEN) != 0U) &&
+		(strncmp((char *)&SysInfo.BoardPrdName, "SMK",
+		XBIR_SYS_PRODUCT_NAME_LEN) != 0U)) {
+		Xbir_Printf("Unrecognized SOM Eeprom contents\n\r");
+		Status = XBIR_ERR_SOM_EEPROM_CONTENTS;
+		goto END;
+	}
 	memcpy(SysInfo.RevNum,
 		SysBoardEepromData.SysBoardInfo.RevNum,
 		sizeof(SysBoardEepromData.SysBoardInfo.RevNum));
@@ -967,18 +977,6 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 	memcpy(SysInfo.BoardPartNum,
 		SysBoardEepromData.SysBoardInfo.BoardPartNum,
 		sizeof(SysBoardEepromData.SysBoardInfo.BoardPartNum));
-	memcpy(SysInfo.PrimaryBootDev,
-		SysBoardEepromData.SysBoardMemRec.PrimaryBootDev,
-		sizeof(SysBoardEepromData.SysBoardMemRec.PrimaryBootDev));
-	memcpy(SysInfo.SecondaryBootDev,
-		SysBoardEepromData.SysBoardMemRec.SecondaryBootDev,
-		sizeof(SysBoardEepromData.SysBoardMemRec.SecondaryBootDev));
-	memcpy(SysInfo.PsDdr,
-		SysBoardEepromData.SysBoardMemRec.PsDdr,
-		sizeof(SysBoardEepromData.SysBoardMemRec.PsDdr));
-	memcpy(SysInfo.PlDdr,
-		SysBoardEepromData.SysBoardMemRec.PlDdr,
-		sizeof(SysBoardEepromData.SysBoardMemRec.PlDdr));
 
 	UUIDStrPtr = (char *)SysInfo.UUID;
 	for(LoopIndex = 0U; LoopIndex < sizeof(SysBoardEepromData.SysBoardInfo.UUID);
@@ -996,12 +994,19 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 	Status = Xbir_IicEepromReadData((u8 *)&CCEepromData,
 		sizeof(Xbir_CCEepromData), XBIR_IIC_CC_EEPROM_ADDRESS);
 	if (Status != XST_SUCCESS) {
+		Xbir_Printf("Unable to access CC Eeprom\n\r");
 		goto END;
 	}
 
 	memcpy(CCInfo.BoardPrdName,
 		CCEepromData.SysBoardInfo.BoardPrdName,
 		sizeof(CCEepromData.SysBoardInfo.BoardPrdName));
+	if (strncmp((char *)&CCInfo.BoardPrdName, "SCK",
+		XBIR_SYS_PRODUCT_NAME_LEN) != 0U) {
+		Xbir_Printf("Unrecognized CC Eeprom contents\n\r");
+		Status = XBIR_ERR_CC_EEPROM_CONTENTS;
+		goto END;
+	}
 	memcpy(CCInfo.RevNum, CCEepromData.SysBoardInfo.RevNum,
 		sizeof(CCEepromData.SysBoardInfo.RevNum));
 	memcpy(CCInfo.BoardSerialNumber,
