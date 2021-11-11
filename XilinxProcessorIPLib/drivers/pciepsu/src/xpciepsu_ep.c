@@ -63,19 +63,10 @@ void XPciePsu_EP_BridgeInitialize(XPciePsu *PciePsuPtr)
 	Xil_AssertVoid(PciePsuPtr != NULL);
 
 	/* Bridge Configurations */
-#if defined(__aarch64__) || defined(__arch64__)
-	XPciePsu_WriteReg64(PciePsuPtr->Config.BrigReg,
-			XPCIEPSU_E_BREG_BASE_LO,
-			PciePsuPtr->Config.BrigReg);
-	XPciePsu_WriteReg64(PciePsuPtr->Config.BrigReg,
-			XPCIEPSU_E_BREG_BASE_HI, 0U);
-#else
-	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg,
-			XPCIEPSU_E_BREG_BASE_LO,
-			PciePsuPtr->Config.BrigReg);
-	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg,
-			XPCIEPSU_E_BREG_BASE_HI, 0U);
-#endif
+	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg, XPCIEPSU_E_BREG_BASE_LO,
+			LOWER_32_BITS(PciePsuPtr->Config.BrigReg));
+	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg, XPCIEPSU_E_BREG_BASE_HI,
+			UPPER_32_BITS(PciePsuPtr->Config.BrigReg));
 
 	Val = XPciePsu_ReadReg(PciePsuPtr->Config.BrigReg,
 			XPCIEPSU_E_BREG_CONTROL);
