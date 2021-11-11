@@ -56,7 +56,7 @@ write (sint32 fd, char8* buf, sint32 nbytes)
 __attribute__((weak)) sint32
 _write (sint32 fd, char8* buf, sint32 nbytes)
 {
-#if HYP_GUEST && EL1_NONSECURE && XEN_USE_PV_CONSOLE
+#if defined (__aarch64__) && (HYP_GUEST == 1) && (EL1_NONSECURE == 1) && defined (XEN_USE_PV_CONSOLE)
 	sint32 length;
 
 	(void)fd;

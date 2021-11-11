@@ -21,7 +21,7 @@
 
 void print(const char8 *ptr)
 {
-#if HYP_GUEST && EL1_NONSECURE && XEN_USE_PV_CONSOLE
+#if defined (__aarch64__) && (HYP_GUEST == 1) && (EL1_NONSECURE == 1) && defined (XEN_USE_PV_CONSOLE)
 	XPVXenConsole_Write(ptr);
 #else
 #ifdef STDOUT_BASEADDRESS

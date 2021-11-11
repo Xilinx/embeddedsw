@@ -36,6 +36,10 @@
 *                     It fixes CR#1108601.
 * 7.6    mus 08/30/21 Updated flag checking to fix compilation warnings
 *                     reported with "-Wundef" flag. It fixes CR#1108601.
+
+* 7.7    mus 11/02/21 Updated XGet_Zynq_UltraMp_Platform_info and
+*                     XGetPSVersion_Info to fix compilation warning
+*                     reported with "-Wundef" flag CR#1111453
 * </pre>
 *
 ******************************************************************************/
@@ -93,7 +97,7 @@ u32 XGetPlatform_Info(void)
 #if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
 u32 XGet_Zynq_UltraMp_Platform_info(void)
 {
-#if EL1_NONSECURE
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
 	XSmc_OutVar reg;
     /*
 	 * This SMC call will return,
@@ -122,7 +126,7 @@ u32 XGet_Zynq_UltraMp_Platform_info(void)
 #if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (PSU_PMU) || defined (versal)
 u32 XGetPSVersion_Info(void)
 {
-#if EL1_NONSECURE
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
         /*
          * This SMC call will return,
          *  idcode - upper 32 bits of reg.Arg0
