@@ -104,6 +104,15 @@ extern "C" {
 
 #define ENUMERATION_WAIT_TIME			10U
 
+#define DMA0_CHAN_AXI_INTR_STATUS		0x6CU
+#define AXI_INTR_STATUS				0x00000008U
+#define DMA0_CHAN_SCRATCH0			0x50U
+#define DMA_PCIE_INTR_ASSRT_REG_OFFSET		0x70U
+#define PCIE_INTR_STATUS			0x00000008U
+#define INGRESS_TEST_DONE			0xCCCCCCCCU
+#define INGRESS_MIN_SIZE			0x0000000CU
+#define INGRESS_TRANS_SET_OFFSET		0x54U
+
 /***************************** Function Prototypes ****************************/
 void XPciePsu_EP_BridgeInitialize(XPciePsu *PciePsuPtr);
 void XPciePsu_EP_CfgInitialize(XPciePsu *PciePsuPtr,

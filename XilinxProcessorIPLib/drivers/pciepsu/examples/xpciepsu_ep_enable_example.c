@@ -38,7 +38,8 @@
 #include "xil_printf.h"
 #include "xparameters.h" /* Defines for XPAR constants */
 #include "xpciepsu_common.h"
-
+#include <xscugic.h>
+#include <xil_exception.h>
 /**************************** Constant Definitions ****************************/
 
 /****************************** Type Definitions ******************************/
@@ -48,14 +49,110 @@
 #define BAR_NUM		0x2		/* Bar no to setup ingress */
 #define PS_DDR_ADDR	0x1000000	/* 32 or 64 bit PS DDR Addr
 						to setup ingress */
-
+#define INTC_DEVICE_ID		XPAR_SCUGIC_0_DEVICE_ID
+#define PS_PCIE_AXI_INTR_ID	(117U + 32U)
 /***************************** Function Prototypes ****************************/
 
 int XPciePsu_InitEndPoint(XPciePsu *PciePsuPtr, u16 DeviceId);
+void XPciePsu_EP_IntrHandler(XPciePsu *PciePsuPtr);
+int XPciePsu_EP_InitIntr(void);
 
 /**************************** Variable Definitions ****************************/
 /* PCIe IP Instance */
 static XPciePsu PciePsuInstance;
+XScuGic INTCinst;
+
+/******************************************************************************/
+/**
+* This function handles doorbell interrupts for PCIE Endpoint
+*
+* @param   PciePsuPtr is a pointer to an instance of XPciePsu data
+*
+* @return  -None
+*
+* @note    None
+*
+*********************************************************************************/
+
+void XPciePsu_EP_IntrHandler(XPciePsu *PciePsuPtr)
+{
+	u32 val, size;
+
+	XPciePsu_WriteReg(PciePsuPtr->Config.DmaBaseAddr,
+			DMA0_CHAN_AXI_INTR_STATUS,
+			AXI_INTR_STATUS);
+	val=XPciePsu_ReadReg(PciePsuPtr->Config.DmaBaseAddr,
+			DMA0_CHAN_SCRATCH0);
+	xil_printf("In Interrupt handler Value @SCRATCH0 = %x  \n", val);
+
+	if (val == INGRESS_TEST_DONE)
+	{
+		 val = XPciePsu_ReadReg(PciePsuPtr->Config.BrigReg,INGRESS0_CONTROL);
+		if (val & 0x00000001U) {
+			size = (1 << INGRESS_SIZE_ENCODING) * (1 << INGRESS_MIN_SIZE);
+			XPciePsu_WriteReg(PciePsuPtr->Config.DmaBaseAddr,
+					INGRESS_TRANS_SET_OFFSET,
+					size);
+			XPciePsu_WriteReg(PciePsuPtr->Config.DmaBaseAddr,
+					DMA_PCIE_INTR_ASSRT_REG_OFFSET,
+					PCIE_INTR_STATUS);
+			XPciePsu_WriteReg(PciePsuPtr->Config.DmaBaseAddr,
+					DMA0_CHAN_SCRATCH0,
+					0X0U);
+		}
+		else {
+			XPciePsu_WriteReg(PciePsuPtr->Config.DmaBaseAddr,
+					INGRESS_TRANS_SET_OFFSET,
+					0x0U);
+			XPciePsu_WriteReg(PciePsuPtr->Config.DmaBaseAddr,
+					DMA_PCIE_INTR_ASSRT_REG_OFFSET,
+					PCIE_INTR_STATUS);
+			XPciePsu_WriteReg(PciePsuPtr->Config.DmaBaseAddr,
+					DMA0_CHAN_SCRATCH0,
+					0x0U);
+		}
+	}
+}
+
+/******************************************************************************/
+/**
+* This function Initializes interrupts for PCIe EndPoint
+*
+* @param    None
+*
+* @return   - XST_SUCCESS if successful
+*           - XST_FAILURE if unsuccessful
+*
+* @note     None
+*
+********************************************************************************/
+
+int XPciePsu_EP_InitIntr(void)
+{
+	XScuGic_Config *IntcConfig;
+	int Status;
+
+	IntcConfig = XScuGic_LookupConfig(INTC_DEVICE_ID);
+	if (NULL == IntcConfig) {
+			return XST_FAILURE;
+	}
+
+	Status = XScuGic_CfgInitialize(&INTCinst, IntcConfig, IntcConfig->CpuBaseAddress);
+	if (Status != XST_SUCCESS)
+		return XST_FAILURE;
+
+	Xil_ExceptionInit();
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT, (Xil_ExceptionHandler) XScuGic_InterruptHandler, &INTCinst);
+
+	Status = XScuGic_Connect(&INTCinst, PS_PCIE_AXI_INTR_ID, (Xil_ExceptionHandler) XPciePsu_EP_IntrHandler, (void *) &PciePsuInstance);
+	if (Status != XST_SUCCESS)
+			return XST_FAILURE;
+	XScuGic_Enable(&INTCinst, PS_PCIE_AXI_INTR_ID);
+
+	Xil_ExceptionEnable();
+
+	return Status;
+}
 
 /******************************************************************************/
 /**
@@ -76,6 +173,7 @@ int main()
 #ifdef XPAR_PSU_PCIE_DEVICE_ID
 	XPciePsu_InitEndPoint(&PciePsuInstance, XPAR_PSU_PCIE_DEVICE_ID);
 
+	XPciePsu_EP_InitIntr();
 	xil_printf("Waiting for PCIe Link up\r\n");
 	XPciePsu_EP_WaitForLinkup(&PciePsuInstance);
 	xil_printf("PCIe Link up...\r\n");
