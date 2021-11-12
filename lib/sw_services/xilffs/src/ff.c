@@ -29,12 +29,15 @@
 *       mn   08/16/19 Initialize Status variables with failure values
 * 4.3   mn   02/05/20 Add support for Multi Partitions
 *       mn   04/23/20 Add partition 0 for supporting default partition
+* 4.7   sk   11/11/21 Add DCache invalidate for last unaligned byte count
+*                     (< 512 bytes) in f_read().
 ******************************************************************************/
 #include "xparameters.h"
 #if (defined FILE_SYSTEM_INTERFACE_SD) || (defined FILE_SYSTEM_INTERFACE_RAM)
 #include "ff.h"			/* Declarations of FatFs API */
 #include "diskio.h"		/* Declarations of device I/O functions */
 #include "xil_printf.h"
+#include "xil_cache.h"
 
 
 /*--------------------------------------------------------------------------
@@ -3835,6 +3838,14 @@ FRESULT f_read (
 #else
 		mem_cpy(rbuff, fp->buf + fp->fptr % SS(fs), rcnt);	/* Extract partial sector */
 #endif
+		/*
+		 * For unaligned sector size read, file system send local buffer to the low-level driver,
+		 * once the transfer completed then it copies the data from local buffer to user buffer.
+		 * This results to data available in Cache but not in memory. To avoid this problem,
+		 * Invalidate the DCache for the unaligned sector size read, to make sure both Cache
+		 * and memory contents are same.
+		 */
+		Xil_DCacheInvalidateRange((INTPTR)rbuff, rcnt);
 	}
 
 	LEAVE_FF(fs, FR_OK);
