@@ -562,9 +562,6 @@ static XStatus AieInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	BaseAddress = AieDev->Node.BaseAddress;
 
-	/* Unlock ME PCSR */
-	XPmAieDomain_UnlockPcsr(BaseAddress);
-
 	/* Set PCOMPLETE bit */
 	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_PCOMPLETE_MASK,
 				 ME_NPI_REG_PCSR_MASK_PCOMPLETE_MASK);
@@ -605,9 +602,6 @@ static XStatus Aie2InitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 	BaseAddress = AieDev->Node.BaseAddress;
-
-	/* Unlock AIE PCSR */
-	XPmAieDomain_UnlockPcsr(BaseAddress);
 
 	/* Change from AIE to AIE2. */
 	/* Clock gate for each column */
@@ -650,9 +644,6 @@ static XStatus AieScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 	BaseAddress = AieDev->Node.BaseAddress;
-
-	/* Unlock ME PCSR */
-	XPmAieDomain_UnlockPcsr(BaseAddress);
 
 	/* De-assert ODISABLE[1] */
 	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_ODISABLE_1_MASK, 0U);
@@ -758,9 +749,6 @@ static XStatus AieBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	BaseAddress = AieDev->Node.BaseAddress;
 
-	/* Unlock ME PCSR */
-	XPmAieDomain_UnlockPcsr(BaseAddress);
-
 	/* Remove PMC-NoC domain isolation */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_SOC, FALSE_VALUE);
 	if (XST_SUCCESS != Status) {
@@ -828,9 +816,6 @@ static XStatus Aie2Bisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 	BaseAddress = AieDev->Node.BaseAddress;
-
-	/* Unlock AIE PCSR */
-	XPmAieDomain_UnlockPcsr(BaseAddress);
 
 	/* Change from AIE to AIE2. AIE has clocks enabled by default whereas AIE2
 	 * has then disabled by default. Clocks must be up from this point to
@@ -1001,9 +986,6 @@ static XStatus AieMbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	BaseAddress = AieDev->Node.BaseAddress;
 
-	/* Unlock ME PCSR */
-	XPmAieDomain_UnlockPcsr(BaseAddress);
-
 	if (HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK != (PwrDomain->HcDisableMask &
 				HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK)) {
 		PmInfo("Triggering MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
@@ -1064,9 +1046,6 @@ static XStatus Aie2MbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 	BaseAddress = AieDev->Node.BaseAddress;
-
-	/* Unlock AIE PCSR */
-	XPmAieDomain_UnlockPcsr(BaseAddress);
 
 	if (HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK != (PwrDomain->HcDisableMask &
 				HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK)) {
@@ -1193,9 +1172,6 @@ static XStatus AieMemInit(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	BaseAddress = AieDev->Node.BaseAddress;
 
-	/* Unlock ME PCSR */
-	XPmAieDomain_UnlockPcsr(BaseAddress);
-
 	PmDbg("---------- START ----------\r\n");
 
 	/* Enable scrub, Scrub ECC protected memories */
@@ -1307,6 +1283,8 @@ static XStatus Aie2MemInit(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 		AieZeroizationTime++;
 		if (AieZeroizationTime > XPLMI_TIME_OUT_DEFAULT) {
+			/* Lock ME PCSR */
+			XPmAieDomain_LockPcsr(BaseAddress);
 			DbgErr = XPM_INT_ERR_AIE_MEMORY_ZEROISATION;
 			Status = XST_FAILURE;
 			goto done;
