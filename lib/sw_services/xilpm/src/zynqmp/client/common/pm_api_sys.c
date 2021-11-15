@@ -1695,6 +1695,8 @@ done:
  ****************************************************************************/
 XStatus XPm_ClockSetRate(const enum XPmClock clk, const u32 rate)
 {
+	(void)clk;
+	(void)rate;
 	pm_dbg("%s(%u, %u) not supported\n", __func__, clk, rate);
 
 	return (XStatus)XST_NO_FEATURE;
@@ -1712,6 +1714,8 @@ XStatus XPm_ClockSetRate(const enum XPmClock clk, const u32 rate)
  ****************************************************************************/
 XStatus XPm_ClockGetRate(const enum XPmClock clk, u32 *const rate)
 {
+	(void)clk;
+	(void)rate;
 	pm_dbg("%s(%u, %u) not supported\n", __func__, clk, rate);
 
 	return (XStatus)XST_NO_FEATURE;
