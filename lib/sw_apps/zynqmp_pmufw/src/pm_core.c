@@ -2009,13 +2009,13 @@ static void PmDevIoctl(const PmMaster* const master, const u32 deviceId,
 #endif /* ENABLE_FEATURE_CONFIG */
 #ifdef ENABLE_DYNAMIC_MIO_CONFIG
 	case PM_IOCTL_SET_SD_CONFIG:
-		status = PmSetSdConfig(deviceId, arg1, arg2);
+		status = PmSetSdConfig(deviceId, (XPm_SdConfigType)arg1, arg2);
 		break;
 	case PM_IOCTL_SET_GEM_CONFIG:
-		status = PmSetGemConfig(deviceId, arg1, arg2);
+		status = PmSetGemConfig(deviceId, (XPm_GemConfigType)arg1, arg2);
 		break;
 	case PM_IOCTL_SET_USB_CONFIG:
-		status = PmSetUsbConfig(deviceId, arg1, arg2);
+		status = PmSetUsbConfig(deviceId, (XPm_UsbConfigType)arg1, arg2);
 		break;
 #endif /* ENABLE_DYNAMIC_MIO_CONFIG */
 	default:
