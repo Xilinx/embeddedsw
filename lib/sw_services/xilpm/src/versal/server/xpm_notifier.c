@@ -231,7 +231,7 @@ static void XPmNotifier_SendPendingNotifyEvent(u32 Index)
 		Status = XPmNotifier_GetNotifyCbData(Index, Payload);
 		if (XST_SUCCESS != Status) {
 			Notifier->PendEvent = 0U;
-			return;
+			goto done;
 		}
 		IpiAck = XPm_IpiPollForAck(Notifier->IpiMask,
 					   XPM_NOTIFY_TIMEOUTCOUNT);
@@ -250,6 +250,9 @@ static void XPmNotifier_SendPendingNotifyEvent(u32 Index)
 			}
 		}
 	}
+
+done:
+	return;
 }
 
 static int XPmNotifier_SchedulerTask(void *Arg)
