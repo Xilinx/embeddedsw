@@ -43,7 +43,7 @@
 *       rb   07/29/2021 Update reset reason during Init
 *       ma   08/23/2021 Do not clear Debug Log RTCA memory
 *       ma   09/13/2021 Set PLM prints log level during RTCA init
-*
+*       tnt	 11/11/2021 Add RTCA initialization for MIO Flush routine.
 * </pre>
 *
 * @note
@@ -166,7 +166,10 @@ int XPlmi_RunTimeConfigInit(void)
 				XPLMI_RTCFG_SECURESTATE_SHWROT);
 	XPlmi_Out32(XPLMI_RTCFG_PDI_ID_ADDR, XPLMI_RTCFG_PDI_ID);
 	XPlmi_Out32(XPLMI_RTCFG_SECURE_STATE_ADDR, DevSecureState);
-
+	/* MIO flush RTCFG init */
+	XPlmi_Out32(XPLMI_RTCFG_MIO_WA_BANK_500_ADDR, XPLMI_MIO_FLUSH_ALL_PINS);
+	XPlmi_Out32(XPLMI_RTCFG_MIO_WA_BANK_501_ADDR, XPLMI_MIO_FLUSH_ALL_PINS);
+	XPlmi_Out32(XPLMI_RTCFG_MIO_WA_BANK_502_ADDR, XPLMI_MIO_FLUSH_ALL_PINS);
 	/* Set PLM prints log level */
 	DebugLog->LogLevel = ((u8)XPlmiDbgCurrentTypes << XPLMI_LOG_LEVEL_SHIFT) |
 		(u8)XPlmiDbgCurrentTypes;
