@@ -398,6 +398,7 @@ enum XPmInitFunctions {
 	FUNC_MBIST_CLEAR,				/**< Function ID MBIST_CLEAR */
 	FUNC_HOUSECLEAN_PL,				/**< Function ID HOUSECLEAN_PL */
 	FUNC_HOUSECLEAN_COMPLETE,			/**< Function ID HOUSECLEAN_COMPLETE */
+	FUNC_MIO_FLUSH,					/**< Function ID MIO FLUSH */
 	FUNC_MAX_COUNT_PMINIT,				/**< Function ID MAX */
 };
 

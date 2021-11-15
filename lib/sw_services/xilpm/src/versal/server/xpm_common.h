@@ -77,6 +77,10 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...);
 #define PmInfo(...)	PmPrintCommon(XPM_INFO, __VA_ARGS__)
 #define PmDbg(...)	PmPrintCommon(XPM_DBG, __VA_ARGS__)
 
+#ifndef MIO_FLUSH_DEBUG
+#define MIO_FLUSH_DEBUG DEBUG_INFO
+#endif
+
 #ifdef DEBUG_REG_IO
 
 #define PmIn32(ADDR, VAL)					\

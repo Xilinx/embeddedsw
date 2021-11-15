@@ -35,6 +35,7 @@ struct XPm_PowerDomainOps {
 	XStatus (*PlHouseclean)(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
 	XStatus (*MemInit)(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
 	XStatus (*HcComplete)(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+	XStatus (*MioFlush)(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
 	const u16 InitMask;	/**< Mask to indicate which Ops are present */
 };
 

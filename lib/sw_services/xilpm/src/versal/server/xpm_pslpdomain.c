@@ -14,6 +14,10 @@
 #include "xpm_device.h"
 #include "xpm_debug.h"
 #include "xpm_rail.h"
+#include "xplmi.h"
+
+#define NUM_LPD_MIO		26U
+#define LPD_IOU_SCLR_GPIO_MUX	0x40U
 
 static XStatus LpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
@@ -94,6 +98,77 @@ static XStatus LpdPreBisrReqs(void)
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
+}
+
+static XStatus LpdMioFlush(const XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
+{
+	(void)PwrDomain;
+	(void)Args;
+	(void)NumOfArgs;
+
+	u32 SaveIouSclrMioSettings[NUM_LPD_MIO];
+	u32 SaveData0, IsFlushed = 0U;
+	u32 SaveDirm0, SaveTri0, SaveOen0;
+	/* Read a RTCA register get the list of pins to flush */
+	u32 LPD_MIO_0_FLUSH_MASK =  Xil_In32(XPLMI_RTCFG_MIO_WA_BANK_502_ADDR);
+	/* Save GPIO reset state. */
+	u32 SaveRst = Xil_In32(CRL_RST_GPIO);
+	/* Deassert GPIO reset */
+	/* Print a debug line */
+	XPlmi_Printf(MIO_FLUSH_DEBUG,"Starting LPD MIO flush ...\n\r");
+	/* Set all 26 MIO pins to GPIO */
+	for (u32 i = 0U; i < NUM_LPD_MIO; i++){
+		u32 PinAddr = LPD_IOU_SLCR_BASEADDR + (i << 2U);
+		/* Saving all MIO mux settings to local memory */
+		SaveIouSclrMioSettings[i] = Xil_In32(PinAddr);
+		/* Inspect to skip certain pins that are not in the mask */
+		IsFlushed = (LPD_MIO_0_FLUSH_MASK >> i ) & 1U;
+		if (IsFlushed != 0U){
+			/* Only set those pins that are in mask */
+			XPm_Out32(PinAddr, LPD_IOU_SCLR_GPIO_MUX );
+		}else{
+			/* Skip those pins are not in mask */
+			XPlmi_Printf(MIO_FLUSH_DEBUG,"##########Skipping pin %d ...\n\r",i);
+		}
+	}
+	/* Saving TriState data */
+	SaveTri0 = Xil_In32(LPD_IOU_SLCR_MIO_MST_TRI0);
+	/* Saving OE data */
+	SaveOen0 = Xil_In32(LPD_GPIO_OEN_0_ADDR);
+	SaveDirm0 = Xil_In32(LPD_GPIO_DIRM_0_ADDR);
+	/* Assert MST TRI0 and MST_TR1 */
+	XPm_Out32(LPD_IOU_SLCR_MIO_MST_TRI0, SaveTri0 | LPD_MIO_0_FLUSH_MASK);
+	/* save TX DATA */
+	SaveData0 = Xil_In32(LPD_GPIO_DATA_0_ADDR);
+	/* Deassert Tristate to allow LPD_GPIO controller to control the OEN */
+	XPm_Out32(LPD_IOU_SLCR_MIO_MST_TRI0, SaveTri0 & (~LPD_MIO_0_FLUSH_MASK));
+	/* Set all MIO to GPIO output */
+	XPm_Out32(LPD_GPIO_DIRM_0_ADDR, SaveDirm0 | LPD_MIO_0_FLUSH_MASK);
+	/* Set TX Data to zero */
+	XPm_Out32(LPD_GPIO_DATA_0_ADDR, SaveData0 & (~LPD_MIO_0_FLUSH_MASK));
+	/* Assert OE */
+	XPm_Out32(LPD_GPIO_OEN_0_ADDR, SaveOen0 | LPD_MIO_0_FLUSH_MASK);
+	/* Deassert OE */
+	XPm_Out32(LPD_GPIO_OEN_0_ADDR, SaveOen0 & (~LPD_MIO_0_FLUSH_MASK));
+	/* Restore OE */
+	XPm_Out32(LPD_GPIO_OEN_0_ADDR, SaveOen0);
+	/* Restore DIR */
+	XPm_Out32(LPD_GPIO_DIRM_0_ADDR, SaveDirm0);
+	/* Restore TX DATA */
+	XPm_Out32(LPD_GPIO_DATA_0_ADDR, SaveData0);
+	/* Restore TriState */
+	XPm_Out32(LPD_IOU_SLCR_MIO_MST_TRI0, SaveTri0);
+	/* Restore all MIO muxes */
+	for (u32 i = 0U; i < NUM_LPD_MIO; i++){
+		XPm_Out32(LPD_IOU_SLCR_BASEADDR + (i << 2U), SaveIouSclrMioSettings[i]);
+	}
+	/* Restore GPIO reset */
+	Xil_Out32(CRL_RST_GPIO,SaveRst);
+	/* Print debug message */
+	XPlmi_Printf(MIO_FLUSH_DEBUG,"LPD flush MIO done.\n\r");
+	/* Done and return. */
+	return XST_SUCCESS;
 }
 
 static XStatus LpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
@@ -665,6 +740,7 @@ static const struct XPm_PowerDomainOps LpdOps = {
 	.Lbist = LpdLbist,
 	.Bisr = LpdBisr,
 	.HcComplete = LpdHcComplete,
+	.MioFlush = LpdMioFlush,
 	/* Mask to indicate which Ops are present */
 	.InitMask = (BIT16(FUNC_INIT_START) |
 		     BIT16(FUNC_INIT_FINISH) |
@@ -672,7 +748,8 @@ static const struct XPm_PowerDomainOps LpdOps = {
 		     BIT16(FUNC_MBIST_CLEAR) |
 		     BIT16(FUNC_LBIST) |
 		     BIT16(FUNC_BISR) |
-		     BIT16(FUNC_HOUSECLEAN_COMPLETE))
+		     BIT16(FUNC_HOUSECLEAN_COMPLETE) |
+		     BIT16(FUNC_MIO_FLUSH))
 };
 
 XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd, u32 Id, u32 BaseAddress,
