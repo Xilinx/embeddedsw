@@ -285,6 +285,7 @@ s32 PmSetSdConfig(u32 nodeId, XPm_SdConfigType configType, u32 value)
 		break;
 	default:
 		status = XST_INVALID_PARAM;
+		break;
 	}
 
 done:
@@ -341,6 +342,7 @@ s32 PmSetGemConfig(u32 nodeId, XPm_GemConfigType configType, u32 value)
 		break;
 	default:
 		status = XST_INVALID_PARAM;
+		break;
 	}
 
 done:
