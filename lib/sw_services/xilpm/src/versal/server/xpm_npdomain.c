@@ -309,7 +309,7 @@ done:
 	return Status;
 }
 
-static void TriggerMemClear(const u32 *DdrMcAddresses, const u32 DdrMcAddrLength)
+static void TriggerMemClearNpd(const u32 *DdrMcAddresses, const u32 DdrMcAddrLength)
 {
 	u32 i;
 
@@ -339,8 +339,8 @@ static void TriggerMemClear(const u32 *DdrMcAddresses, const u32 DdrMcAddrLength
 	}
 }
 
-static XStatus IsMemClearDone(const u32 *DdrMcAddresses, const u32 DdrMcAddrLength,
-			      u16 *DbgErr)
+static XStatus IsMemClearDoneNpd(const u32 *DdrMcAddresses, const u32 DdrMcAddrLength,
+				 u16 *DbgErr)
 {
 	XStatus Status = XST_FAILURE;
 	u32 i;
@@ -411,7 +411,7 @@ done:
 	return Status;
 }
 
-static void CleanupMemClear(const u32 *DdrMcAddresses, const u32 DdrMcAddrLength)
+static void CleanupMemClearNpd(const u32 *DdrMcAddresses, const u32 DdrMcAddrLength)
 {
 	u32 i;
 
@@ -509,10 +509,10 @@ static XStatus NpdMbist(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 	/* Trigger Mem clear */
-	TriggerMemClear(DdrMcAddresses, DdrMcAddrLength);
+	TriggerMemClearNpd(DdrMcAddresses, DdrMcAddrLength);
 
 	/* Check for Mem clear done */
-	Status = IsMemClearDone(DdrMcAddresses, DdrMcAddrLength, &DbgErr);
+	Status = IsMemClearDoneNpd(DdrMcAddresses, DdrMcAddrLength, &DbgErr);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -534,7 +534,7 @@ static XStatus NpdMbist(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 
 	/* Unwrite trigger bits */
-	CleanupMemClear(DdrMcAddresses, DdrMcAddrLength);
+	CleanupMemClearNpd(DdrMcAddresses, DdrMcAddrLength);
 
 	Status = XST_SUCCESS;
 
