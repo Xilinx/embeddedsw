@@ -174,52 +174,80 @@ s32 PmGetFeatureConfig(XPm_FeatureConfigId configId, u32 *value)
 #endif /* ENABLE_FEATURE_CONFIG */
 
 #ifdef ENABLE_DYNAMIC_MIO_CONFIG
-static inline void PmConfigureSd0Regs(void)
+static inline s32 PmConfigureSd0Regs(void)
 {
 	u32 fId = 0U;
+	s32 status = XST_FAILURE;
 
 	SET_FIXED_SD_CONFIG(0);
 
 	XPfw_RMW32(SDIO_CLK_CTRL, SDIO0_FBCLK_SEL_MASK,
 		   (u32)1U << SDIO0_FBCLK_SEL_SHIFT);
-	PmPinCtrlGetFunctionInt(38U, &fId);
+	status = PmPinCtrlGetFunctionInt(38U, &fId);
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+
 	if (PINCTRL_FUNC_SDIO0 == fId) {
 		XPfw_RMW32(SDIO_CLK_CTRL, SDIO0_RX_SRC_SEL_MASK,
 			   (u32)1U << SDIO0_RX_SRC_SEL_SHIFT);
 		XPfw_RMW32(SDIO_CLK_CTRL, SDIO0_FBCLK_SEL_MASK, 0U);
 	}
-	PmPinCtrlGetFunctionInt(64U, &fId);
+	status = PmPinCtrlGetFunctionInt(64U, &fId);
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+
 	if (PINCTRL_FUNC_SDIO0 == fId) {
 		XPfw_RMW32(SDIO_CLK_CTRL, SDIO0_RX_SRC_SEL_MASK,
 			   (u32)2U << SDIO0_RX_SRC_SEL_SHIFT);
 		XPfw_RMW32(SDIO_CLK_CTRL, SDIO0_FBCLK_SEL_MASK, 0U);
 	}
-	PmPinCtrlGetFunctionInt(22U, &fId);
+	status = PmPinCtrlGetFunctionInt(22U, &fId);
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+
 	if (PINCTRL_FUNC_SDIO0 == fId) {
 		XPfw_RMW32(SDIO_CLK_CTRL, SDIO0_RX_SRC_SEL_MASK, 0U);
 		XPfw_RMW32(SDIO_CLK_CTRL, SDIO0_FBCLK_SEL_MASK, 0U);
 	}
+
+done:
+	return status;
 }
 
-static inline void PmConfigureSd1Regs(void)
+static inline s32 PmConfigureSd1Regs(void)
 {
 	u32 fId = 0U;
+	s32 status = XST_FAILURE;
 
 	SET_FIXED_SD_CONFIG(1);
 
 	XPfw_RMW32(SDIO_CLK_CTRL, SDIO1_FBCLK_SEL_MASK,
 		   (u32)1U << SDIO1_FBCLK_SEL_SHIFT);
-	PmPinCtrlGetFunctionInt(76U, &fId);
+	status = PmPinCtrlGetFunctionInt(76U, &fId);
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+
 	if (PINCTRL_FUNC_SDIO1 == fId) {
 		XPfw_RMW32(SDIO_CLK_CTRL, SDIO1_RX_SRC_SEL_MASK,
 			   (u32)1U << SDIO1_RX_SRC_SEL_SHIFT);
 		XPfw_RMW32(SDIO_CLK_CTRL, SDIO1_FBCLK_SEL_MASK, 0U);
 	}
-	PmPinCtrlGetFunctionInt(51U, &fId);
+	status = PmPinCtrlGetFunctionInt(51U, &fId);
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+
 	if (PINCTRL_FUNC_SDIO1 == fId) {
 		XPfw_RMW32(SDIO_CLK_CTRL, SDIO1_RX_SRC_SEL_MASK, 0U);
 		XPfw_RMW32(SDIO_CLK_CTRL, SDIO1_FBCLK_SEL_MASK, 0U);
 	}
+
+done:
+	return status;
 }
 
 /**
@@ -277,11 +305,10 @@ s32 PmSetSdConfig(u32 nodeId, XPm_SdConfigType configType, u32 value)
 		break;
 	case SD_CONFIG_FIXED:
 		if (NODE_SD_0 == nodeId) {
-			PmConfigureSd0Regs();
+			status = PmConfigureSd0Regs();
 		} else {
-			PmConfigureSd1Regs();
+			status = PmConfigureSd1Regs();
 		}
-		status = XST_SUCCESS;
 		break;
 	default:
 		status = XST_INVALID_PARAM;
