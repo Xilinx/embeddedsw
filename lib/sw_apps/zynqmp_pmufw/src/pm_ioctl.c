@@ -389,6 +389,8 @@ s32 PmSetUsbConfig(u32 nodeId, XPm_UsbConfigType configType, u32 value)
 {
 	s32 status = XST_FAILURE;
 
+	(void)value;
+
 	if ((NODE_USB_0 != nodeId) && (NODE_USB_1 != nodeId)) {
 		status = XST_INVALID_PARAM;
 		goto done;
