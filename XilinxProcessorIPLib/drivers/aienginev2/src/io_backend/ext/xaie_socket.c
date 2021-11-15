@@ -40,6 +40,8 @@
 #include "xaie_helper.h"
 #include "xaie_io.h"
 #include "xaie_io_common.h"
+#include "xaie_io_privilege.h"
+#include "xaie_npi.h"
 
 /***************************** Macro Definitions *****************************/
 #define XAIE_IO_SOCKET_CMDBUFSIZE	48U
@@ -50,6 +52,7 @@
 
 typedef struct XAie_SocketIO {
 	u64 BaseAddr;
+	u64 NpiBaseAddr;
 	int SocketFd;
 } XAie_SocketIO;
 
@@ -183,6 +186,7 @@ static AieRC XAie_SocketIO_Init(XAie_DevInst *DevInst)
 
 	IOInst->SocketFd = SocketFd;
 	IOInst->BaseAddr = DevInst->BaseAddr;
+	IOInst->NpiBaseAddr = XAIE_NPI_BASEADDR;
 	DevInst->IOInst = IOInst;
 
 	freeaddrinfo(slist);
@@ -400,6 +404,37 @@ static AieRC XAie_SocketIO_BlockSet32(void *IOInst, u64 RegOff, u32 Data,
 /*****************************************************************************/
 /**
 *
+* This is the function to write 32 bit value to NPI register address.
+*
+* @param	IOInst: IO instance pointer
+* @param	RegOff: NPI register offset
+* @param	RegVal: Value to write to register
+*
+* @return	None.
+*
+* @note		Internal only.
+*
+*******************************************************************************/
+static void _XAie_SocketIO_NpiWrite32(void *IOInst, u32 RegOff, u32 RegVal)
+{
+	XAie_SocketIO *SocketIOInst = (XAie_SocketIO *)IOInst;
+	char CmdBuf[XAIE_IO_SOCKET_CMDBUFSIZE];
+	size_t Len;
+
+	sprintf(CmdBuf, "W 0X%016lX 0X%08X\n",
+			SocketIOInst->NpiBaseAddr + RegOff, RegVal);
+	Len = write(SocketIOInst->SocketFd, CmdBuf, strlen(CmdBuf));
+	if(Len != strlen(CmdBuf)) {
+		XAIE_ERROR("Failed to submit socket command: %s\n", CmdBuf);
+		return;
+	}
+
+	XAIE_DBG("SEND NPI: %s", CmdBuf);
+}
+
+/*****************************************************************************/
+/**
+*
 * This is the memory IO function to read 32bit data from the specified NPI
 * address.
 *
@@ -414,13 +449,32 @@ static AieRC XAie_SocketIO_BlockSet32(void *IOInst, u64 RegOff, u32 Data,
 *******************************************************************************/
 static AieRC _XAie_SocketIO_NpiRead32(void *IOInst, u64 RegOff, u32 *Data)
 {
-	/* no-op */
-	(void)IOInst;
-	(void)RegOff;
-	*Data = 0U;
+	XAie_SocketIO *SocketIOInst = (XAie_SocketIO *)IOInst;
+	char CmdBuf[XAIE_IO_SOCKET_CMDBUFSIZE];
+	char RdBuf[XAIE_IO_SOCKET_RDBUFSIZE];
+	size_t Len;
+	int Ret;
+
+	sprintf(CmdBuf, "R 0X%016lX\n", SocketIOInst->NpiBaseAddr + RegOff);
+	Len = write(SocketIOInst->SocketFd, CmdBuf, strlen(CmdBuf));
+	if(Len != strlen(CmdBuf)) {
+		XAIE_ERROR("Failed to submit socket command: %s\n", CmdBuf);
+		return XAIE_ERR;
+	}
+
+	XAIE_DBG("SEND NPI: %s", CmdBuf);
+
+	Ret = read(SocketIOInst->SocketFd, RdBuf, XAIE_IO_SOCKET_RDBUFSIZE);
+	if(Ret == -1) {
+		XAIE_ERROR("Failed to read from socket\n");
+		return XAIE_ERR;
+	}
+
+	XAIE_DBG("RCVD NPI: %s", RdBuf);
+	*Data = (u32)strtol(RdBuf, NULL, 0);
+
 	return XAIE_OK;
 }
-
 
 /*****************************************************************************/
 /**
@@ -485,6 +539,14 @@ static AieRC XAie_SocketIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 			}
 			break;
 		}
+		case XAIE_BACKEND_OP_NPIWR32:
+		{
+			XAie_BackendNpiWrReq *Req = Arg;
+
+			_XAie_SocketIO_NpiWrite32(IOInst, Req->NpiRegOff,
+					Req->Val);
+			break;
+		}
 		case XAIE_BACKEND_OP_NPIMASKPOLL32:
 		{
 			XAie_BackendNpiMaskPollReq *Req = Arg;
@@ -503,6 +565,14 @@ static AieRC XAie_SocketIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 			return _XAie_RequestAllocatedRscCommon(DevInst, Arg);
 		case XAIE_BACKEND_OP_GET_RSC_STAT:
 			return _XAie_GetRscStatCommon(DevInst, Arg);
+		case XAIE_BACKEND_OP_REQUEST_TILES:
+			return _XAie_PrivilegeRequestTiles(DevInst,
+					(XAie_BackendTilesArray *)Arg);
+		case XAIE_BACKEND_OP_PARTITION_INITIALIZE:
+			return _XAie_PrivilegeInitPart(DevInst,
+					(XAie_PartInitOpts *)Arg);
+		case XAIE_BACKEND_OP_PARTITION_TEARDOWN:
+			return _XAie_PrivilegeTeardownPart(DevInst);
 		default:
 			XAIE_ERROR("Socket backend does not support operation "
 					"%d\n", Op);
