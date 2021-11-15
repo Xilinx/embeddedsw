@@ -349,11 +349,6 @@ static XStatus FpdMbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	PmRmw32(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_MBIST_PG_EN_OFFSET,
 		PSM_GLOBAL_MBIST_PG_EN_FPD_MASK, 0);
 
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_MBIST_GOOD;
-		goto done;
-	}
-
 	/* Mem clear introduces apu gic ecc error,
 	so pulse gic reset as a work around to fix it */
 	Status = XPmReset_AssertbyId(PM_RST_ACPU_GIC, (u32)PM_RESET_ACTION_ASSERT);
