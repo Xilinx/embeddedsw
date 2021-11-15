@@ -49,6 +49,8 @@
 *       vns     08/29/19 Initialized Status variables
 * 6.9   vns     03/18/20 Fixed Armcc compilation errors
 * 7.2   am      07/13/21 Fixed doxygen warnings
+* 7.3   har     11/15/21 Removed local variable ErrorCode in
+*                        XilSKey_EfusePl_GetRowData_Ultra()
 *
 * </pre>
 *
@@ -3192,7 +3194,6 @@ static INLINE u32 XilSKey_EfusePl_ReadRowData_Ultra(u8 Row,
 *****************************************************************************/
 static INLINE u32 XilSKey_EfusePl_GetRowData_Ultra(u8 Row, u8 *RowData, u8 Page)
 {
-	u32 ErrorCode = (u32)XST_FAILURE;
 
 	if (((Row >= XSK_EFUSEPL_AES_ROW_START_ULTRA) &&
 		(Row <= XSK_EFUSEPL_AES_ROW_END_ULTRA)) &&
