@@ -365,16 +365,14 @@ s32 PmSetUsbConfig(u32 nodeId, XPm_UsbConfigType configType, u32 value)
 		goto done;
 	}
 
-	switch(configType) {
-	case USB_CONFIG_FIXED:
+	if (USB_CONFIG_FIXED == configType) {
 		if (NODE_USB_0 == nodeId) {
 			SET_FIXED_USB_CONFIG(0);
 		} else {
 			SET_FIXED_USB_CONFIG(1);
 		}
 		status = XST_SUCCESS;
-		break;
-	default:
+	} else {
 		status = XST_INVALID_PARAM;
 	}
 
