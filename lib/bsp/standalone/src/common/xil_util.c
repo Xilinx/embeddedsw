@@ -8,7 +8,15 @@
 /**
 * @file xil_util.c
 *
-* This file contains xil utility functions
+* xil_util.c file contains xil utility functions
+* Except few functions, most of these functions are wrappers to standard functions.
+* The standard string functions do not validate the input and that results into
+* buffer overflows. To avoid it, the wrapper function validates the input and
+* then passed to standard function. There are few constant time functions
+* ( xxx_CT() ) which are used to compare the data in constant time.
+* The constant time functions should be used while comparing secure data
+* like password, keys which prevent disclosing of the data using
+* timing analysis.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -27,6 +35,9 @@
 *                         Xil_MemCmp functions
 * 7.4   am       11/26/20 Added Xil_StrCpyRange function
 * 7.6   kpt      07/15/21 Added Xil_SecureZeroize function
+* 7.7   kpt      11/09/21 Added Xil_SMemCmp, Xil_SMemCmp_CT, Xil_SMemCpy,
+*                         Xil_SMemSet, Xil_SStrCat, Xil_SStrCmp, Xil_SStrCmp_CT
+*                         Xil_SStrCpy functions
 *
 * </pre>
 *
@@ -543,7 +554,7 @@ END:
  * @brief	Copies specified range from source string to destination string
  *
  * @param	Src  is a pointer to source string
- * @param	Dst  is a pointer to destination string
+ * @param	Dest  is a pointer to destination string
  * @param	From is 0 based index from where string copy starts
  * @param	To   is 0 based index till which string is copied
  * @param	MaxSrcLen is the maximum length of source string
@@ -555,14 +566,14 @@ END:
  * @note	None
  *
  ****************************************************************************/
-int Xil_StrCpyRange(const u8 *Src, u8 *Dst, u32 From, u32 To, u32 MaxSrcLen,
+int Xil_StrCpyRange(const u8 *Src, u8 *Dest, u32 From, u32 To, u32 MaxSrcLen,
 	u32 MaxDstLen)
 {
 	int Status = XST_FAILURE;
 	u32 SrcLength;
 	u32 Index;
 
-	if ((Src == NULL) || (Dst == NULL)) {
+	if ((Src == NULL) || (Dest == NULL)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -584,10 +595,10 @@ int Xil_StrCpyRange(const u8 *Src, u8 *Dst, u32 From, u32 To, u32 MaxSrcLen,
 	}
 
 	for (Index = From; Index <= To && Src[Index]!= '\0'; Index++) {
-		Dst[Index - From] = Src[Index];
+		Dest[Index - From] = Src[Index];
 	}
 
-	Dst[Index - From] = '\0';
+	Dest[Index - From] = '\0';
 	Status = XST_SUCCESS;
 
 END:
@@ -757,6 +768,375 @@ int Xil_SecureZeroize(u8 *DataPtr, const u32 Length)
 		}
 	}
 	if (Index == Length) {
+		Status = XST_SUCCESS;
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function compares two memory regions for specified number
+ *		of bytes. This function takes size of two memory regions to
+ *		make sure not to read from or write to out of bound memory
+ *		region.
+ *
+ * @param	Src1     - Pointer to first memory range
+ * @param	Src1Size - Maximum size of first memory range
+ * @param	Src2     - Pointer to second memory range
+ * @param	Src2Size - Maximum size of second memory range
+ * @param	CmpLen   - Number of bytes to be compared
+ *
+ * @return
+ *		XST_SUCCESS - If specified number of bytes matches
+ * 		XST_FAILURE - If there is a mistmatch found during comparison
+ * 		XST_INVALID_PARAM - Invalid inputs
+ *
+ *****************************************************************************/
+int Xil_SMemCmp(const void *Src1, const u32 Src1Size,
+	const void *Src2, const u32 Src2Size, u32 CmpLen)
+{
+	int Status = XST_FAILURE;
+
+	if ((Src1 == NULL) || (Src2 == NULL)) {
+		Status =  XST_INVALID_PARAM;
+	}
+	else if ((CmpLen == 0U) || (Src1Size < CmpLen) || (Src2Size < CmpLen)) {
+		Status =  XST_INVALID_PARAM;
+	}
+	else {
+		Status = memcmp (Src1, Src2, CmpLen);
+		if (Status != 0U) {
+			Status = XST_FAILURE;
+		}
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function compares two memory regions for specified number
+ *		of bytes. This function takes size of two memory regions to
+ *		make sure not to read from or write to out of bound memory
+ *		region.
+ *		Note that this function compares till end to make it execute
+ *		in constant time irrespective of the content of input memory.
+ *
+ * @param	Src1     - Pointer to first memory range
+ * @param	Src1Size - Maximum size of first memory range
+ * @param	Src2     - Pointer to second memory range
+ * @param	Src2Size - Maximum size of second memory range
+ * @param	CmpLen   - Number of bytes to be compared
+ *
+ * @return
+ *		XST_SUCCESS - If specified number of bytes matches
+ * 		XST_FAILURE - If mistmatch
+ * 		XST_INVALID_PARAM - Invalid inputs
+ *
+ *****************************************************************************/
+int Xil_SMemCmp_CT(const void *Src1, const u32 Src1Size,
+	const void *Src2, const u32 Src2Size, u32 CmpLen)
+{
+	volatile int Status = XST_FAILURE;
+	volatile int StatusRedundant = XST_FAILURE;
+	volatile u32 Data = 0U;
+	volatile u32 DataRedundant = 0xFFFFFFFFU;
+	u32 Cnt = CmpLen;
+	const u8 *Src_1 = (u8 *)Src1;
+	const u8 *Src_2 = (u8 *)Src2;
+
+
+	if ((Src1 == NULL) || (Src2 == NULL)) {
+		Status =  XST_INVALID_PARAM;
+	}
+	else if ((CmpLen == 0U) || (Src1Size < CmpLen) || (Src2Size < CmpLen)) {
+		Status =  XST_INVALID_PARAM;
+	}
+	else {
+		while (Cnt >= sizeof(u32)) {
+			Data |= (*(u32 *)Src_1 ^ *(u32 *)Src_2);
+			DataRedundant &= ~Data;
+			Src_1 += sizeof(u32);
+			Src_2 += sizeof(u32);
+			Cnt -= sizeof(u32);
+		}
+
+		while (Cnt > 0U) {
+			Data |= (*Src_1 ^ *Src_2);
+			DataRedundant &= ~Data;
+			Src_1++;
+			Src_2++;
+			Cnt--;
+		}
+
+		if ((Data == 0U) && (DataRedundant == 0xFFFFFFFFU)) {
+			Status = XST_SUCCESS;
+			StatusRedundant = XST_SUCCESS;
+		}
+	}
+
+	return (Status | StatusRedundant);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This is wrapper function to memcpy function. This function
+ *		takes size of two memory regions to make sure not read from
+ *		or write to out of bound memory region.
+ *
+ * @param	Dest      - Pointer to destination memory
+ * @param	DestSize  - Memory available at destination
+ * @param	Src       - Pointer to source memory
+ * @param	SrcSize   - Maximum data that can be copied from source
+ * @param	CopyLen   - Number of bytes to be copied
+ *
+ * @return
+ *		XST_SUCCESS - Copy is successful
+ * 		XST_INVALID_PARAM - Invalid inputs
+ *
+ *****************************************************************************/
+int Xil_SMemCpy(void *Dest, const u32 DestSize,
+	const void *Src, const u32 SrcSize, const u32 CopyLen)
+{
+	int Status = XST_FAILURE;
+	const u8 *Src8 = (u8 *) Src;
+	u8 *Dst8 = (u8 *) Dest;
+
+	if ((Dest == NULL) || (Src == NULL)) {
+		Status =  XST_INVALID_PARAM;
+	}
+	else if ((CopyLen == 0U) || (DestSize < CopyLen) || (SrcSize < CopyLen)) {
+		Status =  XST_INVALID_PARAM;
+	}
+	/* Return error for overlap string */
+	else if ((Src8 < Dst8) && (&Src8[CopyLen - 1U] >= Dst8)) {
+		Status =  XST_INVALID_PARAM;
+	}
+	else if ((Dst8 < Src8) && (&Dst8[CopyLen - 1U] >= Src8)) {
+		Status =  XST_INVALID_PARAM;
+	}
+	else {
+		(void)memcpy(Dest, Src, CopyLen);
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This is wrapper function to memset function. This function
+ *		writes specified byte to destination specified number of times.
+ *		This function also takes maximum string size that destination
+ *		holds to make sure not to write out of bound area.
+ *
+ * @param	Dest     - Pointer to destination memory
+ * @param	DestSize - Memory available at destination
+ * @param	Data     - Any value from 0 to 255
+ * @param	Len      - Number of bytes to be copied
+ *
+ * @return
+ *		XST_SUCCESS - Copy is successful
+ * 		XST_INVALID_PARAM - Invalid inputs
+ *
+ *****************************************************************************/
+int Xil_SMemSet(void *Dest, const u32 DestSize,
+	const u8 Data, const u32 Len)
+{
+	int Status = XST_FAILURE;
+
+	if ((Dest == NULL) || (DestSize < Len) || (Len == 0U)) {
+		Status =  XST_INVALID_PARAM;
+	}
+	else {
+		(void)memset(Dest, Data, Len);
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function concatenates two strings. This function
+ *		takes size of both strings to make sure not to read from /
+ *		write to out of bound area.
+ *
+ * @param	DestStr  - Pointer to destination string
+ * @param	DestSize - Maximum string size that detination can hold
+ * @param	SrcStr   - Pointer to source string
+ * @param	SrcSize  - Maximum string size that source can hold
+ *
+ * @return
+ *		XST_SUCCESS - Copy is successful
+ * 		XST_INVALID_PARAM - Invalid inputs
+ *
+ *****************************************************************************/
+int Xil_SStrCat (u8 *DestStr, const u32 DestSize,
+	const u8 *SrcStr, const u32 SrcSize)
+{
+	int Status = XST_FAILURE;
+	u32 SrcLen;
+	u32 DstLen;
+
+	if ((DestStr == NULL) || (SrcStr == NULL)) {
+		Status =  XST_INVALID_PARAM;
+		goto END;
+	}
+
+	SrcLen = strnlen((const char*)SrcStr, SrcSize);
+	DstLen = strnlen((const char*)DestStr, DestSize);
+
+	if ((DestSize <= DstLen) || (SrcSize <= SrcLen)) {
+		Status =  XST_INVALID_PARAM;
+	}
+	else if (DestSize <= SrcLen + DstLen) {
+		Status =  XST_INVALID_PARAM;
+	}
+	else {
+		strcat((char*)DestStr, (const char*)SrcStr);
+		Status = XST_SUCCESS;
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function compares two strings. It also takes maximum string
+ *		size that Src1 and Src2 can hold to make sure not to read out of
+ *		bound data for comparison.
+ *
+ * @param	Str1     - Pointer to first string
+ * @param	Str1Size - Maximum string size that Str1 can hold
+ * @param	Str2     - Pointer to second string
+ * @param	Str2Size - Maximum string size that Str2 can hold
+ *
+ * @return
+ *		XST_SUCCESS - If both strings are same
+ *		XST_FAILURE - If there is difference between two strings
+ * 		XST_INVALID_PARAM - Invalid inputs
+ *
+ *****************************************************************************/
+int Xil_SStrCmp(const u8 *Str1, const u32 Str1Size,
+	const u8 *Str2, const u32 Str2Size)
+{
+	int Status = XST_FAILURE;
+	u32 Str1Len = 0U;
+	u32 Str2Len = 0U;
+
+	if ((Str1 == NULL) || (Str2 == NULL)) {
+		Status =  XST_INVALID_PARAM;
+		goto END;
+	}
+
+	Str1Len = strnlen((const char*)Str1, Str1Size);
+	Str2Len = strnlen((const char*)Str2, Str2Size);
+
+	if ((Str1Size <= Str1Len) || (Str2Size <= Str2Len)) {
+		Status =  XST_INVALID_PARAM;
+	}
+	else if ((Str1Len < Str2Len) || (Str1Len > Str2Len)) {
+		Status = XST_FAILURE;
+	}
+	else {
+		Status = memcmp(Str1, Str2, Str1Len);
+		if (Status != 0) {
+			Status = XST_FAILURE;
+		}
+	}
+
+END:
+	return Status;
+}
+
+
+/*****************************************************************************/
+/**
+ * @brief	This function compares two strings. It also takes maximum string
+ *		size that Src1 and Src2 can hold to make sure not to read out of
+ *		bound data for comparison. This function compares each character
+ *		of the strings so that execution time of the function is not
+ *		dependent on the content of two input strings. The execution
+ *		time is constant when string size are same.
+ *
+ * @param	Str1     - Pointer to first string
+ * @param	Str1Size - Maximum string size that Str1 can hold
+ * @param	Str2     - Pointer to second string
+ * @param	Str2Size - Maximum string size that Str2 can hold
+ *
+ * @return
+ *		XST_SUCCESS - If both strings are same
+ *		XST_FAILURE - If there is difference between two strings
+ * 		XST_INVALID_PARAM - Invalid inputs
+ *
+ *****************************************************************************/
+int Xil_SStrCmp_CT (const u8 *Str1, const u32 Str1Size,
+	const u8 *Str2, const u32 Str2Size)
+{
+	int Status = XST_FAILURE;
+	u32 Str1Len = 0U;
+	u32 Str2Len = 0U;
+
+	if ((Str1 == NULL) || (Str2 == NULL)) {
+		Status =  XST_INVALID_PARAM;
+		goto END;
+	}
+
+	Str1Len = strnlen((const char*)Str1, Str1Size);
+	Str2Len = strnlen((const char*)Str2, Str2Size);
+
+	if ((Str1Size <= Str1Len) || (Str2Size <= Str2Len)) {
+		Status =  XST_INVALID_PARAM;
+	}
+	else if (Str1Len != Str2Len) {
+		Status = XST_FAILURE;
+	}
+	else {
+		Status = Xil_SMemCmp_CT (Str1, Str1Size, Str2, Str2Size, Str1Len);
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function copies one string to other. This function
+ *		takes size of both strings to make sure not to read from /
+ *		write to out of bound area.
+ *
+ * @param	DestStr  - Pointer to destination string
+ * @param	DestSize - Maximum string size that detination can hold
+ * @param	SrcStr   - Pointer to source string
+ * @param	SrcSize  - Maximum string size that source can hold
+ *
+ * @return
+ *		XST_SUCCESS - Copy is successful
+ * 		XST_INVALID_PARAM - Invalid inputs
+ *
+ *****************************************************************************/
+int Xil_SStrCpy(u8 *DestStr, const u32 DestSize,
+	const u8 *SrcStr, const u32 SrcSize)
+{
+	int Status = XST_FAILURE;
+	u32 SrcLen = 0U;
+
+	if ((DestStr == NULL) || (SrcStr == NULL)) {
+		Status =  XST_INVALID_PARAM;
+		goto END;
+	}
+
+	SrcLen = strnlen((const char*)SrcStr, SrcSize);
+
+	if ((DestSize <= SrcLen) || (SrcSize <= SrcLen)) {
+		Status =  XST_INVALID_PARAM;
+	}
+	else {
+		(void)memcpy(DestStr, SrcStr, SrcLen + 1U);
 		Status = XST_SUCCESS;
 	}
 

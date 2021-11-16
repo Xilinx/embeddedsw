@@ -1,6 +1,6 @@
 /******************************************************************************/
 /**
-* Copyright (c) 2019 - 2020  Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021  Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,7 +11,15 @@
 * @{
 * @details
 *
-* This file contains xil utility functions declaration
+* xil_util.h file contains xil utility functions declarations
+* Except few functions, most of these functions are wrappers to standard functions.
+* The standard string functions do not validate the input and that results into
+* buffer overflows. To avoid it, the wrapper function validates the input and
+* then passed to standard function. There are few constant time functions
+* ( xxx_CT() ) which are used to compare the data in constant time.
+* The constant time functions should be used while comparing secure data
+* like password, keys which prevent disclosing of the data using
+* timing analysis.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -37,6 +45,9 @@
 *                         XSECURE_TEMPORAL_IMPL to fix MISRA C Rule 15.3
 * 7.4  am        11/26/20 Added Xil_StrCpyRange function
 * 7.6  kpt       07/15/21 Added Xil_SecureZeroize function
+* 7.7  kpt       11/09/21 Added Xil_SMemCmp, Xil_SMemCmp_CT, Xil_SMemCpy,
+*                         Xil_SMemSet, Xil_SStrCat, Xil_SStrCmp, Xil_SStrCmp_CT
+*                         Xil_SStrCpy functions
 *
 * </pre>
 *
@@ -156,7 +167,7 @@ void Xil_UtilRMW32(u32 Addr, u32 Mask, u32 Value);
 int Xil_Strcpy(char *DestPtr, const char *SrcPtr, const u32 Size);
 
 /* Copies specified range from source string to destination string */
-int Xil_StrCpyRange(const u8 *Src, u8 *Dst, u32 From, u32 To, u32 MaxSrcLen,
+int Xil_StrCpyRange(const u8 *Src, u8 *Dest, u32 From, u32 To, u32 MaxSrcLen,
 	u32 MaxDstLen);
 
 /* Appends string2 to string1 */
@@ -170,6 +181,38 @@ int Xil_MemCmp(const void * Buf1Ptr, const void * Buf2Ptr, u32 Len);
 
 /* Zeroizes the memory of given length */
 int Xil_SecureZeroize(u8 *DataPtr, const u32 Length);
+
+/* Copies Len bytes from source memory to destination memory */
+int Xil_SMemCpy (void *Dest, const u32 DestSize,
+	const void *Src, const u32 SrcSize, const u32 CopyLen);
+
+/* Compares Len bytes between source and destination memory */
+int Xil_SMemCmp (const void *Src1, const u32 Src1Size,
+	const void *Src2, const u32 Src2Size, const u32 CmpLen);
+
+/* Compares Len bytes between source and destination memory with constant time */
+int Xil_SMemCmp_CT (const void *Src1, const u32 Src1Size,
+	const void *Src2, const u32 Src2Size, const u32 CmpLen);
+
+/* Sets the destination memory of given length with given data */
+int Xil_SMemSet (void *Dest, const u32 DestSize,
+	const u8 Data, const u32 Len);
+
+/* Copies source string to destination string */
+int Xil_SStrCpy (u8 *DestStr, const u32 DestSize,
+	const u8 *SrcStr, const u32 SrcSize);
+
+/* Compares source string with destination string */
+int Xil_SStrCmp (const u8 *Str1, const u32 Str1Size,
+	const u8 *Str2, const u32 Str2Size);
+
+/* Compares source string with destination string with constant time */
+int Xil_SStrCmp_CT (const u8 *Str1, const u32 Str1Size,
+	const u8 *Str2, const u32 Str2Size);
+
+/* Concatenates source string to destination string */
+int Xil_SStrCat (u8 *DestStr, const u32 DestSize,
+	const u8 *SrcStr, const u32 SrcSize);
 
 #ifdef __cplusplus
 }
