@@ -47,19 +47,17 @@ static XSdPs SdInstance;
  * @brief
  * This function is used to initialize SD driver
  *
- * @param	DrvNum can be 0 or 1 depending on the board configuration
- *
  * @return	XST_SUCCESS on successful initialization
  *		Error code on failure
  *
  *****************************************************************************/
-int Xbir_SdInit(u8 DrvNum)
+int Xbir_SdInit(void)
 {
 	int Status = XST_FAILURE;
 	XSdPs_Config *SdConfig;
 
 	/* Initialize the SD driver so that it's ready to use */
-	SdConfig =  XSdPs_LookupConfig(DrvNum);
+	SdConfig =  XSdPs_LookupConfig(XPAR_XSDPS_0_DEVICE_ID);
 	if (NULL == SdConfig) {
 		Status = XBIR_ERROR_SD_CONFIG;
 		goto END;
@@ -75,6 +73,12 @@ int Xbir_SdInit(u8 DrvNum)
 	Status = XSdPs_CardInitialize(&SdInstance);
 	if (Status != XST_SUCCESS) {
 		Status = XBIR_ERROR_SD_CARD_INIT;
+		goto END;
+	}
+
+	Status = XSdPs_Set_Mmc_ExtCsd(&SdInstance, XSDPS_MMC_PART_CFG_0_ARG);
+	if (Status != XST_SUCCESS) {
+		Status = XBIR_ERROR_MMC_PART_CONFIG;
 	}
 
 END:
@@ -98,12 +102,13 @@ int Xbir_SdRead(u32 SrcAddr, u8* DestAddr, u32 Length)
 {
 	int Status = XST_FAILURE;
 	u16 NumOfBlocks = (Length / XBIR_SDPS_BLOCK_SIZE);
-	u64 BlockNumber = (SrcAddr / XBIR_SDPS_BLOCK_SIZE);
+	u32 BlockNumber = (SrcAddr / XBIR_SDPS_BLOCK_SIZE);
 
 	Status  = XSdPs_ReadPolled(&SdInstance, BlockNumber, NumOfBlocks,
 		(u8*)DestAddr);
 	if (Status != XST_SUCCESS) {
 		Status = XBIR_ERROR_SD_READ;
+		goto END;
 	}
 
 	if ((Length % XBIR_SDPS_BLOCK_SIZE) != 0U) {
@@ -116,6 +121,7 @@ int Xbir_SdRead(u32 SrcAddr, u8* DestAddr, u32 Length)
 		}
 	}
 
+END:
 	return Status;
 }
 
@@ -136,10 +142,10 @@ int Xbir_SdWrite(u32 Offset, u8 *WrBuffer, u32 Length)
 {
 	int Status = XST_FAILURE;
 	u64 NumBlocks = Length / XBIR_SDPS_BLOCK_SIZE;
-	u64 BlockIndex;
+	u32 BlockIndex;
 
 	Offset /= XBIR_SDPS_BLOCK_SIZE;
-	for (BlockIndex = 0UL; BlockIndex < NumBlocks;
+	for (BlockIndex = 0U; BlockIndex < NumBlocks;
 		BlockIndex += XBIR_SD_RAW_NUM_SECTORS) {
 		Status = XSdPs_WritePolled(&SdInstance, (Offset + BlockIndex),
 			XBIR_SD_RAW_NUM_SECTORS, WrBuffer);

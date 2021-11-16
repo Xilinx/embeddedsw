@@ -52,9 +52,20 @@
 #define IOU_SLCR_GEM_CTRL_OFFSET	(0XFF180360U)
 #define IOU_SLCR_GEM_CLK_CTRL_OFFSET	(0XFF180308U)
 #define CRL_APB_GEM_TSU_REF_CTRL_OFFSET		(0XFF5E0100U)
-#define CRL_APB_SDIO1_REF_CTRL_OFFSET		(0XFF5E0070U)
+#define CRL_APB_SDIO0_REF_CTRL_OFFSET		(0XFF5E006CU)
 
 /* MIO related macros */
+#define IOU_SLCR_MIO_PIN_13_OFFSET	(0XFF180034U)
+#define IOU_SLCR_MIO_PIN_14_OFFSET	(0XFF180038U)
+#define IOU_SLCR_MIO_PIN_15_OFFSET	(0XFF18003CU)
+#define IOU_SLCR_MIO_PIN_16_OFFSET	(0XFF180040U)
+#define IOU_SLCR_MIO_PIN_17_OFFSET	(0XFF180044U)
+#define IOU_SLCR_MIO_PIN_18_OFFSET	(0XFF180048U)
+#define IOU_SLCR_MIO_PIN_19_OFFSET	(0XFF18004CU)
+#define IOU_SLCR_MIO_PIN_20_OFFSET	(0XFF180050U)
+#define IOU_SLCR_MIO_PIN_21_OFFSET	(0XFF180054U)
+#define IOU_SLCR_MIO_PIN_22_OFFSET	(0XFF180058U)
+#define IOU_SLCR_MIO_PIN_23_OFFSET	(0XFF18005CU)
 #define IOU_SLCR_MIO_PIN_38_OFFSET	(0XFF180098U)
 #define IOU_SLCR_MIO_PIN_39_OFFSET	(0XFF18009CU)
 #define IOU_SLCR_MIO_PIN_40_OFFSET	(0XFF1800A0U)
@@ -92,6 +103,7 @@
 #define IOU_SLCR_BANK2_CTRL5_OFFSET	(0XFF180180U)
 #define CRL_APB_RST_LPD_IOU0_OFFSET	(0XFF5E0230U)
 #define CRL_APB_RST_LPD_IOU2_OFFSET	(0XFF5E0238U)
+#define IOU_SLCR_CTRL_REG_SD_OFFSET		(0XFF180310U)
 #define IOU_SLCR_SD_CONFIG_REG1_OFFSET		(0XFF18031CU)
 #define IOU_SLCR_SD_CONFIG_REG2_OFFSET		(0XFF180320U)
 #define IOU_SLCR_SD_CONFIG_REG3_OFFSET		(0XFF180324U)
@@ -119,7 +131,7 @@ static int Xbir_KVEthInit (void);
 static int Xbir_SysCalculateCrc32 (u32 Offset, u32 Size,
 	Xbir_ReadDevice ReadDevice);
 static int Xbir_KREthInit (void);
-static int Xbir_KVSdInit (u8 DrvNum);
+static int Xbir_KVeMMCInit (void);
 
 /************************** Variable Definitions *****************************/
 static const u32 Xbir_UtilCrcTable[] = {
@@ -164,7 +176,6 @@ static u8 WriteBuffer[XBIR_SDPS_CHUNK_SIZE * 2U];
 static Xbir_SysInfo SysInfo = {0U};
 static Xbir_CCInfo CCInfo = {0U};
 u32 EmacBaseAddr = 0U;
-static u32 Crc = 0U;
 static u32 CalcCrc = 0xFFFFFFFFU;
 
 /*****************************************************************************/
@@ -207,10 +218,9 @@ int Xbir_SysInit (void)
 		goto END;
 	}
 
-	if (strncmp((char *)&CCInfo.BoardPrdName
-		[XBIR_SYS_PRODUCT_TYPE_NAME_OFFSET], "KV",
-		XBIR_SYS_PRODUCT_TYPE_LEN) == 0U) {
-		Status = Xbir_KVSdInit((u8)XPAR_XSDPS_1_DEVICE_ID);
+	if (strncmp((char *)&SysInfo.BoardPrdName, "SM-",
+		XBIR_SYS_PRODUCT_NAME_LEN) == 0U) {
+		Status = Xbir_KVeMMCInit();
 	}
 
 END:
@@ -1085,8 +1095,6 @@ static int Xbir_SysCalculateCrc32 (u32 Offset, u32 Size,
 		RemainingSize -= Len;
 		Addr += Len;
 	}
-
-	Crc = CalcCrc ^ 0xFFFFFFFFU;
 	Status = XST_SUCCESS;
 
 END:
@@ -1111,6 +1119,7 @@ int Xbir_SysValidateCrc (Xbir_SysBootImgId BootImgId, u32 Size, u32 InCrc)
 {
 	int Status = XBIR_ERROR_BOOT_IMG_ID;
 	u32 Offset;
+	u32 Crc;
 
 	if (XBIR_SYS_BOOT_IMG_A_ID == BootImgId) {
 		Offset = BootImgStatus.BootImgAOffset;
@@ -1129,6 +1138,7 @@ int Xbir_SysValidateCrc (Xbir_SysBootImgId BootImgId, u32 Size, u32 InCrc)
 	if (Offset != 0U) {
 		Status = Xbir_SysCalculateCrc32 (Offset, Size, Xbir_QspiRead);
 	}
+	Crc = CalcCrc ^ 0xFFFFFFFFU;
 	if ((Status == XST_SUCCESS) && (Crc == InCrc)) {
 		Xbir_Printf("CRC matches\r\n");
 		Status = XST_SUCCESS;
@@ -1248,47 +1258,44 @@ END:
 /*****************************************************************************/
 /**
  * @brief
- * This function does MIO and clock initializations required for SD on KV260.
- *
- * @param	DrvNum can be 0 or 1 depending on the board configuration
+ * This function does MIO and clock initializations required for eMMC on KV260.
  *
  * @return	XST_SUCCESS on successfully bringing phy out of reset
  * 		Error code on failure
  *
  *****************************************************************************/
-static int Xbir_KVSdInit (u8 DrvNum)
+static int Xbir_KVeMMCInit (void)
 {
 	int Status = XST_FAILURE;
 
-	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_39_OFFSET, 0x000000FEU, 0x00000010U);
-	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_40_OFFSET, 0x000000FEU, 0x00000010U);
-	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_41_OFFSET, 0x000000FEU, 0x00000010U);
-	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_42_OFFSET, 0x000000FEU, 0x00000010U);
-	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_45_OFFSET, 0x000000FEU, 0x00000010U);
-	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_46_OFFSET, 0x000000FEU, 0x00000010U);
-	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_47_OFFSET, 0x000000FEU, 0x00000010U);
-	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_48_OFFSET, 0x000000FEU, 0x00000010U);
-	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_49_OFFSET, 0x000000FEU, 0x00000010U);
-	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_50_OFFSET, 0x000000FEU, 0x00000010U);
-	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_51_OFFSET, 0x000000FEU, 0x00000010U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_13_OFFSET, 0x000000FEU, 0x00000008U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_14_OFFSET, 0x000000FEU, 0x00000008U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_15_OFFSET, 0x000000FEU, 0x00000008U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_16_OFFSET, 0x000000FEU, 0x00000008U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_17_OFFSET, 0x000000FEU, 0x00000008U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_18_OFFSET, 0x000000FEU, 0x00000008U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_19_OFFSET, 0x000000FEU, 0x00000008U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_20_OFFSET, 0x000000FEU, 0x00000008U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_21_OFFSET, 0x000000FEU, 0x00000008U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_22_OFFSET, 0x000000FEU, 0x00000008U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_23_OFFSET, 0x000000FEU, 0x00000008U);
 
 	/* SD clock settings */
-	Xbir_MaskWrite(CRL_APB_SDIO1_REF_CTRL_OFFSET, 0x013F3F07U,
-		0x001010500U);
+	Xbir_MaskWrite(CRL_APB_SDIO0_REF_CTRL_OFFSET, 0x013F3F07U, 0x1010500U);
 
 	Xil_Out32(IOU_SLCR_MIO_MST_TRI0_OFFSET, 0xD4000000U);
 	Xil_Out32(IOU_SLCR_MIO_MST_TRI1_OFFSET, 0x00B02020U);
 	Xbir_MaskWrite(IOU_SLCR_MIO_MST_TRI2_OFFSET, 0x3FFFU, 0xFC0U);
-	Xbir_MaskWrite(CRL_APB_RST_LPD_IOU2_OFFSET, 0x40U, 0x0U);
+	Xbir_MaskWrite(CRL_APB_RST_LPD_IOU2_OFFSET, 0x20U, 0x0U);
+	Xbir_MaskWrite(IOU_SLCR_CTRL_REG_SD_OFFSET, 0x00008001U, 0x1U);
 	Xbir_MaskWrite(IOU_SLCR_SD_CONFIG_REG2_OFFSET, 0x33843384U,
 		0x02841284U);
-	Xbir_MaskWrite(IOU_SLCR_SD_CONFIG_REG1_OFFSET, 0x7FFE0000U,
-		0x64500000U);
-	Xbir_MaskWrite(IOU_SLCR_SD_DLL_CTRL_OFFSET, 0x80000U, 0x80000U);
-	Xbir_MaskWrite(IOU_SLCR_SD_CONFIG_REG3_OFFSET, 0x03C00000U, 0x0U);
-	Xbir_MaskWrite(IOU_SLCR_SD_CDN_CTRL_OFFSET, 0x10000U, 0x10000U);
+	Xbir_MaskWrite(IOU_SLCR_SD_CONFIG_REG1_OFFSET, 0x7FFEU, 0x6450U);
+	Xbir_MaskWrite(IOU_SLCR_SD_DLL_CTRL_OFFSET, 0x8U, 0x8U);
+	Xbir_MaskWrite(IOU_SLCR_SD_CONFIG_REG3_OFFSET, 0x03C0U, 0x0U);
+	Xbir_MaskWrite(IOU_SLCR_SD_CDN_CTRL_OFFSET, 0x1U, 0x1U);
 
-	Status = Xbir_SdInit(DrvNum);
+	Status = Xbir_SdInit();
 
 	return Status;
 }
