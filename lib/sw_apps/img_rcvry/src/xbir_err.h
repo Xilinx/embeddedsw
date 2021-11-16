@@ -78,6 +78,7 @@ extern "C" {
 #define XBIR_ERROR_SD_READ		(0x53U)
 #define XBIR_ERROR_SD_ERASE		(0x54U)
 #define XBIR_ERROR_SD_CARD_INIT		(0x55U)
+#define XBIR_ERROR_MMC_PART_CONFIG	(0x56U)
 
 /**************************** Type Definitions *******************************/
 

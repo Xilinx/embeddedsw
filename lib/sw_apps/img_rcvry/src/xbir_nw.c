@@ -30,6 +30,8 @@ static const u8 Xbir_NwMacEthAddr[] = { 0x00U, 0x0AU, 0x35U, 0x00U, 0x01U, 0x02U
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define MAX_PKT_PROC_COUNT	(25U) /* Max packets processed between
+		two background tasks execution */
 
 /************************** Function Prototypes ******************************/
 static int Xbir_NwSetDefaultIp (ip_addr_t *Ip, ip_addr_t *Mask, ip_addr_t *Gw);
@@ -166,6 +168,9 @@ void Xbir_NwPrintIpCfg (ip_addr_t *Ip, ip_addr_t *Mask, ip_addr_t *Gw)
  *****************************************************************************/
 void Xbir_NwProcessPkts (struct netif* NetIf)
 {
+	u32 PktCnt = 0U;
+	u32 PktProcessed;
+
 	/* Receive and process packets */
 	while (TRUE) {
 		if (TcpFastTmrFlag) {
@@ -176,7 +181,11 @@ void Xbir_NwProcessPkts (struct netif* NetIf)
 			tcp_slowtmr();
 			TcpSlowTmrFlag = 0U;
 		}
-		xemacif_input(NetIf);
-		Xbir_SysExecuteBackgroundTasks();
+		PktProcessed = xemacif_input(NetIf);
+		PktCnt += PktProcessed;
+		if ((0 == PktProcessed) || (PktCnt >= MAX_PKT_PROC_COUNT)) {
+			Xbir_SysExecuteBackgroundTasks();
+			PktCnt = 0U;
+		}
 	}
 }
