@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc_ap.c
-* @addtogroup rfdc_v11_0
+* @addtogroup rfdc_v11_1
 * @{
 *
 * Contains the interface functions of the Analogue Path Settings in XRFdc driver.
@@ -30,6 +30,7 @@
 * 11.0  cog    05/31/21 Upversion.
 *       cog    08/05/21 Fixed issue where VOP initial value was incorrect.
 *       cog    08/18/21 Disallow VOP for DC coupled DACs.
+* 11.1  cog    11/16/21 Upversion.
 *
 * </pre>
 *

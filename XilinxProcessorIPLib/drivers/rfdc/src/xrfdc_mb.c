@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc_mb.c
-* @addtogroup rfdc_v11_0
+* @addtogroup rfdc_v11_1
 * @{
 *
 * Contains the interface functions of the Mixer Settings in XRFdc driver.
@@ -37,6 +37,7 @@
 * 10.0  cog    11/26/20 Refactor and split files.
 *       cog    12/23/20 Fixed issue with IQ QMC on 48dr devices.
 * 11.0  cog    05/31/21 Upversion.
+* 11.1  cog    11/16/21 Upversion.
 *
 * </pre>
 *

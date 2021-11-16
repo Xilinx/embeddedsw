@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc_dp.c
-* @addtogroup rfdc_v11_0
+* @addtogroup rfdc_v11_1
 * @{
 *
 * Contains the interface functions of the Digital Path Settings in XRFdc driver.
@@ -20,6 +20,7 @@
 * ----- ---    -------- -----------------------------------------------
 * 10.0  cog    11/26/20 Refactor and split files.
 * 11.0  cog    05/31/21 Upversion.
+* 11.1  cog    11/16/21 Upversion.
 *
 * </pre>
 *
