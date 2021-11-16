@@ -29,6 +29,7 @@
 *       dc     07/13/21 Update to common latency requirements
 *       dc     10/26/21 Make driver R5 compatible
 * 1.2   dc     10/29/21 Update doxygen comments
+*       dc     11/09/21 Add GetStateId API
 *
 * </pre>
 * @endcond
@@ -236,14 +237,6 @@ static void XDfeEqu_LoadRealCoefficients(const XDfeEqu *InstancePtr,
 	u32 Offset;
 	u32 Index;
 
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEEQU_STATE_OPERATIONAL);
-	Xil_AssertVoid(ChannelField <
-		       ((u32)1U << XDFEEQU_CHANNEL_FIELD_FIELD_WIDTH));
-	Xil_AssertVoid(EqCoeffs != NULL);
-	Xil_AssertVoid(EqCoeffs->Set < (1U << XDFEEQU_SET_TO_WRITE_SET_WIDTH));
-	Xil_AssertVoid(EqCoeffs->NUnits <= XDFEEQU_MAX_NUMBER_OF_UNITS_REAL);
-
 	/* Write the co-efficient set buffer with the following information */
 	Offset = XDFEEQU_COEFFICIENT_SET;
 	for (Index = 0; Index < NumValues; Index++) {
@@ -285,14 +278,6 @@ XDfeEqu_LoadComplexCoefficients(const XDfeEqu *InstancePtr, u32 ChannelField,
 	u32 Offset;
 	u32 LoadDone;
 	u32 Index;
-
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEEQU_STATE_OPERATIONAL);
-	Xil_AssertVoid(ChannelField <
-		       ((u32)1U << XDFEEQU_CHANNEL_FIELD_FIELD_WIDTH));
-	Xil_AssertVoid(EqCoeffs != NULL);
-	Xil_AssertVoid(EqCoeffs->Set < (1U << XDFEEQU_SET_TO_WRITE_SET_WIDTH));
-	Xil_AssertVoid(EqCoeffs->NUnits <= XDFEEQU_MAX_NUMBER_OF_UNITS_COMPLEX);
 
 	/* Write the co-efficient set buffer with the following information */
 	Offset = XDFEEQU_COEFFICIENT_SET;
@@ -378,14 +363,6 @@ static void XDfeEqu_LoadMatrixCoefficients(const XDfeEqu *InstancePtr,
 	u32 Offset;
 	u32 Index;
 
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->StateId == XDFEEQU_STATE_OPERATIONAL);
-	Xil_AssertVoid(ChannelField <
-		       ((u32)1U << XDFEEQU_CHANNEL_FIELD_FIELD_WIDTH));
-	Xil_AssertVoid(EqCoeffs != NULL);
-	Xil_AssertVoid(EqCoeffs->Set < (1U << XDFEEQU_SET_TO_WRITE_SET_WIDTH));
-	Xil_AssertVoid(EqCoeffs->NUnits <= XDFEEQU_MAX_NUMBER_OF_UNITS_COMPLEX);
-
 	/* Write the co-efficient set buffer with the following information */
 	Offset = XDFEEQU_COEFFICIENT_SET;
 	for (Index = 0; Index < NumValues; Index++) {
@@ -423,7 +400,6 @@ static void XDfeEqu_LoadMatrixCoefficients(const XDfeEqu *InstancePtr,
 static void XDfeEqu_EnableUpdateTrigger(const XDfeEqu *InstancePtr)
 {
 	u32 Data;
-	Xil_AssertVoid(InstancePtr != NULL);
 
 	Data = XDfeEqu_ReadReg(InstancePtr,
 			       XDFEEQU_NEXT_CONTROL_TRIGGER_OFFSET);
@@ -446,7 +422,6 @@ static void XDfeEqu_EnableUpdateTrigger(const XDfeEqu *InstancePtr)
 static void XDfeEqu_EnableLowPowerTrigger(const XDfeEqu *InstancePtr)
 {
 	u32 Data;
-	Xil_AssertVoid(InstancePtr != NULL);
 
 	Data = XDfeEqu_ReadReg(InstancePtr,
 			       XDFEEQU_DYNAMIC_POWER_DOWN_MODE_TRIGGER_OFFSET);
@@ -469,7 +444,6 @@ static void XDfeEqu_EnableLowPowerTrigger(const XDfeEqu *InstancePtr)
 static void XDfeEqu_EnableActivateTrigger(const XDfeEqu *InstancePtr)
 {
 	u32 Data;
-	Xil_AssertVoid(InstancePtr != NULL);
 
 	Data = XDfeEqu_ReadReg(InstancePtr,
 			       XDFEEQU_OPERATIONAL_MODE_TRIGGER_OFFSET);
@@ -495,7 +469,6 @@ static void XDfeEqu_EnableActivateTrigger(const XDfeEqu *InstancePtr)
 static void XDfeEqu_EnableDeactivateTrigger(const XDfeEqu *InstancePtr)
 {
 	u32 Data;
-	Xil_AssertVoid(InstancePtr != NULL);
 
 	Data = XDfeEqu_ReadReg(InstancePtr,
 			       XDFEEQU_OPERATIONAL_MODE_TRIGGER_OFFSET);
@@ -520,7 +493,6 @@ static void XDfeEqu_EnableDeactivateTrigger(const XDfeEqu *InstancePtr)
 static void XDfeEqu_DisableLowPowerTrigger(const XDfeEqu *InstancePtr)
 {
 	u32 Data;
-	Xil_AssertVoid(InstancePtr != NULL);
 
 	Data = XDfeEqu_ReadReg(InstancePtr,
 			       XDFEEQU_DYNAMIC_POWER_DOWN_MODE_TRIGGER_OFFSET);
@@ -543,12 +515,13 @@ static void XDfeEqu_DisableLowPowerTrigger(const XDfeEqu *InstancePtr)
 * Traverse "/sys/bus/platform/device" directory (in Linux), to find registered
 * EQU device with the name DeviceNodeName. The first available slot in
 * the instances array XDfeEqu_ChFilter[] will be taken as a DeviceNodeName
-* object.
+* object. On success it moves the state machine to a Ready state, while on
+* failure stays in a Not Ready state.
 *
-* @param    DeviceNodeName is device node name.
+* @param    DeviceNodeName is the device node name.
 *
 * @return
-*           - pointer to instance if successful.
+*           - Pointer to the instance if successful.
 *           - NULL on error.
 *
 ******************************************************************************/
@@ -585,6 +558,7 @@ XDfeEqu *XDfeEqu_InstanceInit(const char *DeviceNodeName)
 	for (Index = 0; Index < XDFEEQU_MAX_NUM_INSTANCES; Index++) {
 		if (0U == strncmp(XDfeEqu_Equalizer[Index].NodeName,
 				  DeviceNodeName, strlen(DeviceNodeName))) {
+			XDfeEqu_Equalizer[Index].StateId = XDFEEQU_STATE_READY;
 			return &XDfeEqu_Equalizer[Index];
 		}
 	}
@@ -595,7 +569,7 @@ XDfeEqu *XDfeEqu_InstanceInit(const char *DeviceNodeName)
 	for (Index = 0; Index < XDFEEQU_MAX_NUM_INSTANCES; Index++) {
 		if (XDfeEqu_Equalizer[Index].NodeName[0] == '\0') {
 			strncpy(XDfeEqu_Equalizer[Index].NodeName,
-				DeviceNodeName, strlen(DeviceNodeName));
+				DeviceNodeName, XDFEEQU_NODE_NAME_MAX_LENGTH);
 			InstancePtr = &XDfeEqu_Equalizer[Index];
 			goto register_metal;
 		}
@@ -651,7 +625,8 @@ return_error:
 /*****************************************************************************/
 /**
 *
-* API closes the instance of an Equalizer driver.
+* API closes the instances of an Equalizer driver and moves the state machine
+* to a Not Ready state.
 *
 * @param    InstancePtr is a pointer to the XDfeEqu instance.
 *
@@ -680,11 +655,10 @@ void XDfeEqu_InstanceClose(XDfeEqu *InstancePtr)
 /****************************************************************************/
 /**
 *
-* This function puts the block into a reset state.
+* Resets Equalizer and puts block into a reset state.
 * Sets bit 0 of the Master Reset register (0x4) high.
 *
 * @param    InstancePtr is a pointer to the Equalizer instance.
-*
 *
 ****************************************************************************/
 void XDfeEqu_Reset(XDfeEqu *InstancePtr)
@@ -700,11 +674,11 @@ void XDfeEqu_Reset(XDfeEqu *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Reads configuration from device tree/xparameters.h and IP registers. S/W
-* reset removed by setting bit 0 of the Master Reset register (0x4) low.
+* Reads configuration from device tree/xparameters.h and IP registers.
+* Removes S/W reset and moves the state machine to a Configured state.
 *
 * @param    InstancePtr is a pointer to the Equalizer instance.
-* @param    Cfg is a pointer to the device config structure.
+* @param    Cfg is a configuration data container.
 *
 ****************************************************************************/
 void XDfeEqu_Configure(XDfeEqu *InstancePtr, XDfeEqu_Cfg *Cfg)
@@ -762,7 +736,8 @@ void XDfeEqu_Configure(XDfeEqu *InstancePtr, XDfeEqu_Cfg *Cfg)
 /****************************************************************************/
 /**
 *
-* DFE Equalizer driver one time initialisation.
+* DFE Equalizer driver one time initialisation and moves the state machine to
+* a Initialised state.
 *
 * @param    InstancePtr is a pointer to the Equalizer instance.
 * @param    Config is a configuration data container.
@@ -812,7 +787,7 @@ void XDfeEqu_Initialize(XDfeEqu *InstancePtr, const XDfeEqu_EqConfig *Config)
 /*****************************************************************************/
 /**
 *
-* Activates mixer.
+* Activates channel Equalizer moves the state machine to an Activated state.
 *
 * @param    InstancePtr is a pointer to the Equalizer instance.
 * @param    EnableLowPower is a flag indicating low power.
@@ -851,7 +826,7 @@ void XDfeEqu_Activate(XDfeEqu *InstancePtr, bool EnableLowPower)
 /*****************************************************************************/
 /**
 *
-* Deactivates chfilter.
+* Deactivates Equalizer and moves the state machine to Initialised state.
 *
 * @param    InstancePtr is a pointer to the Equalizer instance.
 *
@@ -881,6 +856,22 @@ void XDfeEqu_Deactivate(XDfeEqu *InstancePtr)
 	XDfeEqu_EnableDeactivateTrigger(InstancePtr);
 
 	InstancePtr->StateId = XDFEEQU_STATE_INITIALISED;
+}
+
+/****************************************************************************/
+/**
+*
+* Gets a state machine state id.
+*
+* @param    InstancePtr is a pointer to the Equalizer instance.
+*
+* @return   State machine StateID
+*
+****************************************************************************/
+XDfeEqu_StateId XDfeEqu_GetStateID(XDfeEqu *InstancePtr)
+{
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	return InstancePtr->StateId;
 }
 
 /*************************** Component API **********************************/
@@ -950,7 +941,7 @@ void XDfeEqu_Update(const XDfeEqu *InstancePtr, const XDfeEqu_EqConfig *Config)
 *
 * Returns current trigger configuration.
 *
-* @param    InstancePtr is a pointer to the Ccf instance.
+* @param    InstancePtr is a pointer to the Equalizer instance.
 * @param    TriggerCfg is a trigger configuration container.
 *
 ****************************************************************************/
