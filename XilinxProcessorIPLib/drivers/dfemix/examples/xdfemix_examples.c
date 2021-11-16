@@ -32,6 +32,7 @@
 *       dc     04/14/21 Add FIR_ENABLE/MIXER_ENABLE register support
 * 1.1   dc     07/13/21 Update to common latency requirements
 *       dc     07/21/21 Add and reorganise examples
+* 1.2   dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 *
 * </pre>
 *
@@ -48,6 +49,7 @@ extern int XDfeSi570_SetMgtOscillator(double CurrentFrequency,
 				      double NewFrequency);
 extern int XDfeMix_SelfTestExample();
 extern int XDfeMix_AddCCExample();
+extern int XDfeMix_MultiAddCCExample();
 
 /************************** Variable Definitions ****************************/
 #ifdef __BAREMETAL__
@@ -100,6 +102,16 @@ int main(void)
 	 * the Device ID that is generated in xparameters.h.
 	 */
 	if (XST_SUCCESS != XDfeMix_AddCCExample()) {
+		printf("Pass through Example failed\r\n");
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Run the DFE Mixer pass through example with multiAddCC API.
+	 * For bare metal specify the Device ID that is generated in
+	 * xparameters.h.
+	 */
+	if (XST_SUCCESS != XDfeMix_MultiAddCCExample()) {
 		printf("Pass through Example failed\r\n");
 		return XST_FAILURE;
 	}

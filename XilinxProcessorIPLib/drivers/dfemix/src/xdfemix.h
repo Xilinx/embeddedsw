@@ -69,6 +69,7 @@
 *       dc     05/18/21 Handling CCUpdate trigger
 * 1.1   dc     07/13/21 Update to common latency requirements
 * 1.2   dc     10/29/21 Update doxygen comments
+*       dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 *
 * </pre>
 * @endcond
@@ -95,7 +96,8 @@ extern "C" {
 
 /**************************** Macros Definitions *****************************/
 #ifndef __BAREMETAL__
-#define XDFEMIX_MAX_NUM_INSTANCES (10U)  /**< Maximum number of driver instances running at the same time. */
+#define XDFEMIX_MAX_NUM_INSTANCES                                              \
+	(10U) /**< Maximum number of driver instances running at the same time. */
 /**
 * @cond nocomments
 */
@@ -233,7 +235,7 @@ typedef struct {
 	u32 Length; /**< [1-16] Sequence length. */
 	s32 CCID[XDFEMIX_SEQ_LENGTH_MAX]; /**< [0-15].Array of CCID's
 		arranged in the order the CCIDs are required to be processed
-		in the channel filter. */
+		in the DUC/DDC Mixer. */
 } XDfeMix_CCSequence;
 
 /*********** end - common code to all Logiccores ************/
@@ -305,10 +307,10 @@ typedef struct {
 } XDfeMix_NCO;
 
 /**
- * Defines settings for single CC's DUC/DDC.
+ * Defines settings for internal single CC's DUC/DDC.
  */
 typedef struct {
-	u32 NCO; /**< [0-7] DUC/DDC NCO assignment */
+	u32 NCOIdx; /**< [0-7] DUC/DDC NCO assignment */
 	u32 Rate; /**< [0-5].Interpolation/decimation rate:
 			- 0: Disabled
 			- 1: 1x interpolation/decimation
@@ -316,6 +318,19 @@ typedef struct {
 			- 3: 4x interpolation/decimation
 			- 4: 8x interpolation/decimation
 			- 5: 16x interpolation/decimation */
+	u32 CCGain; /**< [0-3] Adjust gain of CCID after mixing (applies to all
+			 antennas for that CCID). Only applicable to downlink.
+				- 0 = MINUS18DB: Apply -18dB gain.
+				- 1 = MINUS12DB: Apply -12dB gain.
+				- 2 = MINUS6DB: Apply -6dB gain.
+				- 3 = ZERODB: Apply -0dB gain. */
+} XDfeMix_InternalDUCDDCCfg;
+
+/**
+ * Defines settings for single CC's DUC/DDC.
+ */
+typedef struct {
+	u32 NCOIdx; /**< [0-7] DUC/DDC NCO assignment */
 	u32 CCGain; /**< [0-3] Adjust gain of CCID after mixing (applies to all
 			 antennas for that CCID). Only applicable to downlink.
 				- 0 = MINUS18DB: Apply -18dB gain.
@@ -334,7 +349,6 @@ typedef struct {
 typedef struct {
 	XDfeMix_DUCDDCCfg DUCDDCCfg; /**< Defines settings for single CC's
 		DUC/DDC */
-	XDfeMix_NCO NCO; /**< Defines settings for single CC's NCO */
 } XDfeMix_CarrierCfg;
 
 /**
@@ -342,10 +356,12 @@ typedef struct {
  */
 typedef struct {
 	XDfeMix_CCSequence Sequence; /**< CCID sequence */
-	XDfeMix_DUCDDCCfg DUCDDCCfg[16]; /**< DUC/DDC configurations for all
-		CCs */
-	u32 AntennaCfg[8]; /**< [0: 0dB,1:-6dB] Antenna gain adjustment for all
-		antenna */
+	XDfeMix_InternalDUCDDCCfg DUCDDCCfg[16]; /**< DUC/DDC configurations
+		for all CCs */
+	XDfeMix_NCO NCO[XDFEMIX_NCO_MAX + 1]; /**< Defines settings for single
+		CC's NCO */
+	u32 AntennaCfg[XDFEMIX_ANT_NUM_MAX]; /**< [0: 0dB,1:-6dB] Antenna gain
+		adjustment for all antenna */
 } XDfeMix_CCCfg;
 
 /**
@@ -439,14 +455,32 @@ void XDfeMix_Configure(XDfeMix *InstancePtr, XDfeMix_Cfg *Cfg);
 void XDfeMix_Initialize(XDfeMix *InstancePtr, XDfeMix_Init *Init);
 void XDfeMix_Activate(XDfeMix *InstancePtr, bool EnableLowPower);
 void XDfeMix_Deactivate(XDfeMix *InstancePtr);
+XDfeMix_StateId XDfeMix_GetStateID(XDfeMix *InstancePtr);
 
 /* User APIs */
-u32 XDfeMix_AddCC(XDfeMix *InstancePtr, s32 CCID, u32 BitSequence,
-		  const XDfeMix_CarrierCfg *CarrierCfg);
+void XDfeMix_GetCurrentCCCfg(const XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg);
+void XDfeMix_GetEmptyCCCfg(const XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg);
+void XDfeMix_GetCarrierCfgAndNCO(const XDfeMix *InstancePtr,
+				 XDfeMix_CCCfg *CCCfg, s32 CCID,
+				 u32 *CCSeqBitmap,
+				 XDfeMix_CarrierCfg *CarrierCfg,
+				 XDfeMix_NCO *NCO);
+u32 XDfeMix_AddCCtoCCCfg(XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg, s32 CCID,
+			 u32 CCSeqBitmap, const XDfeMix_CarrierCfg *CarrierCfg,
+			 const XDfeMix_NCO *NCO);
+void XDfeMix_RemoveCCfromCCCfg(XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg,
+			       s32 CCID);
+u32 XDfeMix_UpdateCCinCCCfg(const XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg,
+			    s32 CCID, const XDfeMix_CarrierCfg *CarrierCfg);
+u32 XDfeMix_SetNextCCCfgAndTrigger(const XDfeMix *InstancePtr,
+				   const XDfeMix_CCCfg *CCCfg);
+u32 XDfeMix_AddCC(XDfeMix *InstancePtr, s32 CCID, u32 CCSeqBitmap,
+		  const XDfeMix_CarrierCfg *CarrierCfg, const XDfeMix_NCO *NCO);
 u32 XDfeMix_RemoveCC(XDfeMix *InstancePtr, s32 CCID);
 u32 XDfeMix_MoveCC(XDfeMix *InstancePtr, s32 CCID, u32 Rate, u32 FromNCO,
 		   u32 ToNCO);
-void XDfeMix_UpdateCC(const XDfeMix *InstancePtr);
+u32 XDfeMix_UpdateCC(const XDfeMix *InstancePtr, s32 CCID,
+		     const XDfeMix_CarrierCfg *CarrierCfg);
 u32 XDfeMix_SetAntennaGain(XDfeMix *InstancePtr, u32 AntennaId,
 			   u32 AntennaGain);
 void XDfeMix_GetTriggersCfg(const XDfeMix *InstancePtr,

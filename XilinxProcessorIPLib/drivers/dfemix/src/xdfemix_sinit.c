@@ -29,6 +29,7 @@
 * 1.1   dc     07/13/21 Update to common latency requirements
 *       dc     10/26/21 Make driver R5 compatible
 * 1.2   dc     10/29/21 Update doxygen comments
+*       dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 *
 * </pre>
 *
@@ -113,7 +114,7 @@ XDfeMix XDfeMix_Mixer[XDFEMIX_MAX_NUM_INSTANCES];
 * extracted from the device node name. Returns pointer to the ConfigTable with
 * a matched base address.
 *
-* @param    InstancePtr is a pointer to the Ccf instance.
+* @param    InstancePtr is a pointer to the Mixer instance.
 * @param    ConfigTable is a configuration table container.
 *
 * @return
@@ -197,10 +198,9 @@ static s32 XDfeMix_Strrncmp(const char *Str1Ptr, const char *Str2Ptr,
 static s32 XDfeMix_IsDeviceCompatible(char *DeviceNamePtr,
 				      const char *DeviceNodeName)
 {
-	char CompatibleString[100];
+	char CompatibleString[256];
 	struct metal_device *DevicePtr;
 	struct dirent **DirentPtr;
-	char Len = strlen(XDFEMIX_COMPATIBLE_STRING);
 	int NumFiles;
 	u32 Status = XST_FAILURE;
 	int i = 0;
@@ -239,16 +239,22 @@ static s32 XDfeMix_IsDeviceCompatible(char *DeviceNamePtr,
 		/* Get a "compatible" device property */
 		if (0 > metal_linux_get_device_property(
 				DevicePtr, XDFEMIX_COMPATIBLE_PROPERTY,
-				CompatibleString, Len)) {
+				CompatibleString,
+				sizeof(CompatibleString) - 1)) {
 			metal_log(METAL_LOG_ERROR,
 				  "\n Failed to read device tree property");
 			metal_device_close(DevicePtr);
 			continue;
 		}
 
-		/* Check a "compatible" device property */
-		if (strncmp(CompatibleString, XDFEMIX_COMPATIBLE_STRING, Len) !=
-		    0) {
+		/* Check does "compatible" device property has name of this
+		   driver instance */
+		if (NULL ==
+		    strstr(CompatibleString, XDFEMIX_COMPATIBLE_STRING)) {
+			metal_log(
+				METAL_LOG_ERROR,
+				"No compatible property match.(Driver:%s, Device:%s)\n",
+				XDFEMIX_COMPATIBLE_STRING, CompatibleString);
 			metal_device_close(DevicePtr);
 			continue;
 		}
