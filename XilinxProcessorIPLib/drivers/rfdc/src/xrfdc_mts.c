@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc_mts.c
-* @addtogroup rfdc_v11_0
+* @addtogroup rfdc_v11_1
 * @{
 *
 * Contains the multi tile sync functions of the XRFdc driver.
@@ -51,6 +51,7 @@
 *                       reduced for Gen 3 devices.
 * 11.0  cog    05/31/21 Upversion.
 *       cog    09/21/21 Factor in half bandwidth when using MTS in IMR modes.
+* 11.1  cog    11/16/21 Upversion.
 *
 * </pre>
 *

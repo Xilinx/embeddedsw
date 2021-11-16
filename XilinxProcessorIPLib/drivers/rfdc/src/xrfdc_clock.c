@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc_clock.c
-* @addtogroup rfdc_v11_0
+* @addtogroup rfdc_v11_1
 * @{
 *
 * Contains the interface functions of the Clock Settings in XRFdc driver.
@@ -73,6 +73,7 @@
 *              06/01/21 MetalLog Updates.
 *       cog    07/12/21 Simplified clock distribution user interface.
 *       cog    09/21/21 Fixed rounding error in cast.
+* 11.1  cog    11/16/21 Upversion.
 * </pre>
 *
 ******************************************************************************/

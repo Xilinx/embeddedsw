@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc_hw.h
-* @addtogroup rfdc_v11_0
+* @addtogroup rfdc_v11_1
 * @{
 *
 * This header file contains the identifiers and basic HW access driver
@@ -103,6 +103,7 @@
 *       cog    06/10/21 When setting the powermode, the IP now takes care of the
 *                       configuration registers.
 *       cog    07/12/21 Simplified clock distribution user interface.
+* 11.1  cog    11/16/21 Upversion.
 *
 *</pre>
 *

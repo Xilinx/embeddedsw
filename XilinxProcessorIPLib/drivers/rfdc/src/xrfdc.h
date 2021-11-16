@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc.h
-* @addtogroup rfdc_v11_0
+* @addtogroup rfdc_v11_1
 * @{
 * @details
 *
@@ -279,6 +279,7 @@
 * 11.0  cog    05/31/21 Upversion.
 *       cog    07/12/21 Simplified clock distribution user interface.
 *       cog    08/18/21 Disallow VOP for DC coupled DACs.
+* 11.1  cog    11/16/21 Upversion.
 *
 * </pre>
 *

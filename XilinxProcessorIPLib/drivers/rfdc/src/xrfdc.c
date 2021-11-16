@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc.c
-* @addtogroup rfdc_v11_0
+* @addtogroup rfdc_v11_1
 * @{
 *
 * Contains the interface functions of the XRFdc driver.
@@ -205,6 +205,7 @@
 *       cog    05/31/21 Upversion information.
 *       cog    06/10/21 When setting the powermode, the IP now takes care of the
 *                       configuration registers.
+* 11.1  cog    11/16/21 Upversion.
 *
 * </pre>
 *
@@ -2361,5 +2362,5 @@ u8 XRFdc_GetTileLayout(XRFdc *InstancePtr)
 ******************************************************************************/
 double XRFdc_GetDriverVersion(void)
 {
-	return 11.0;
+	return 11.1;
 }
