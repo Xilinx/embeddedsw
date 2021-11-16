@@ -8,7 +8,7 @@ Examples are:
     - close the driver
 2. Initialise and set one instance of XDfeMix driver in pass through mode.
     - initialisation from reset to activation
-    - configure filter in pass true mode
+    - configure mixer in pass true mode
     - close the driver
 
 The example code is written and tested for zcu670 board.

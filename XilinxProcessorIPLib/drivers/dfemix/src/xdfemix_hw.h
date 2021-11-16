@@ -27,6 +27,7 @@
 *       dc     05/18/21 Handling CCUpdate trigger
 * 1.1   dc     07/13/21 Update to common latency requirements
 * 1.2   dc     10/29/21 Update doxygen comments
+*       dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 *
 * </pre>
 *
@@ -71,7 +72,7 @@ extern "C" {
 #define XDFEMIX_MODEL_PARAM_1_MIXER_CPS_OFFSET 20U
 
 #define XDFEMIX_MODEL_PARAM_2_OFFSET 0x0CU /* Register offset */
-#define XDFEMIX_MODEL_PARAM_2_DATA_IWIDTH_WIDTH 4U
+#define XDFEMIX_MODEL_PARAM_2_DATA_IWIDTH_WIDTH 5U
 #define XDFEMIX_MODEL_PARAM_2_DATA_IWIDTH_OFFSET 0U
 #define XDFEMIX_MODEL_PARAM_2_DATA_OWIDTH_WIDTH 5U
 #define XDFEMIX_MODEL_PARAM_2_DATA_OWIDTH_OFFSET 8U

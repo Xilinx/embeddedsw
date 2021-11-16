@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xdfemix_pass_through_example.c
+* @file xdfemix_multiAddCC_pass_through_example.c
 *
 * This file contains a load coefficients example.
 *
@@ -16,7 +16,6 @@
 *
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
-* 1.1   dc     07/21/21 Add and reorganise examples
 * 1.2   dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 *
 * </pre>
@@ -45,7 +44,9 @@
 *	- Initialize the device.
 *	- Set the triggers
 *	- Activate the device.
+*	- Get current configuration.
 *	- Add CC.
+*	- Trigger configuration update.
 *	- DeActivate the device.
 *
 * @return
@@ -53,14 +54,15 @@
 *		- XST_FAILURE if the example has failed.
 *
 ****************************************************************************/
-int XDfeMix_AddCCExample()
+int XDfeMix_MultiAddCCExample()
 {
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
 	XDfeMix_Cfg Cfg;
+	XDfeMix_CCCfg CurrentCCCfg;
 	XDfeMix *InstancePtr = NULL;
 	XDfeMix_Init Init;
 	u32 CCID;
-	u32 BitSequence = 0xffff;
+	u32 CCSeqBitmap = 0xffff;
 	u32 AntennaId;
 	u32 AntennaGain;
 	double FreqMhz;
@@ -72,8 +74,9 @@ int XDfeMix_AddCCExample()
 	XDfeMix_Version SwVersion;
 	XDfeMix_Version HwVersion;
 	XDfeMix_InterruptMask ClearMask;
+	u32 ret = XST_FAILURE;
 
-	printf("\r\nMixer \"Pass Through\" Example - Start\r\n");
+	printf("\r\nMixer \"Multi AddCC Pass Through\" Example - Start\r\n");
 
 	/* Initialize libmetal */
 	if (XST_SUCCESS != metal_init(&init_param)) {
@@ -146,11 +149,17 @@ int XDfeMix_AddCCExample()
 	NcoFreqMhz = 491.52;
 	FrequencyControlWord = floor((FreqMhz / NcoFreqMhz) * 0x100000000);
 	NCO.FrequencyCfg.FrequencyControlWord = FrequencyControlWord;
-	XDfeMix_AddCC(InstancePtr, CCID, BitSequence, &CarrierCfg, &NCO);
+
+	XDfeMix_GetCurrentCCCfg(InstancePtr, &CurrentCCCfg);
+	if (XST_SUCCESS == XDfeMix_AddCCtoCCCfg(InstancePtr, &CurrentCCCfg,
+						CCID, CCSeqBitmap, &CarrierCfg,
+						&NCO)) {
+		ret = XST_SUCCESS;
+	}
 
 	/* Close and exit */
 	XDfeMix_Deactivate(InstancePtr);
 	XDfeMix_InstanceClose(InstancePtr);
 	printf("Mixer \"Pass Through\" Example: Pass\r\n");
-	return XST_SUCCESS;
+	return ret;
 }
