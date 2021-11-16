@@ -17,12 +17,14 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.1   dc     07/21/21 Add and reorganise examples
+* 1.2   dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 *
 * </pre>
 *
 *****************************************************************************/
 
 /***************************** Include Files ********************************/
+#include <unistd.h>
 #include "xdfeccf_examples.h"
 
 /************************** Constant Definitions ****************************/
@@ -65,7 +67,7 @@ int XDfeCcf_PassThroughExample()
 	XDfeCcf_Coefficients Coeffs = {
 		0, 0, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 	};
-	XDfeCcf_CarrierCfg CarrierCfg = { 0, 0, 0, 1, 0, 0, 0 };
+	XDfeCcf_CarrierCfg CarrierCfg = { 0, 0, 0 };
 	XDfeCcf_Version SwVersion;
 	XDfeCcf_Version HwVersion;
 
@@ -125,7 +127,6 @@ int XDfeCcf_PassThroughExample()
 	/* Add component carrier */
 	CCID = 0;
 	BitSequence = 0xffff;
-	CarrierCfg.Rate = 16U;
 	CarrierCfg.Gain = round(1024 * 8);
 	CarrierCfg.ImagCoeffSet = 0;
 	CarrierCfg.RealCoeffSet = 0;

@@ -15,6 +15,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.1   dc     07/21/21 Add and reorganise examples
+* 1.2   dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 *
 * </pre>
 *

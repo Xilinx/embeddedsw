@@ -72,6 +72,7 @@
 *       dc     05/18/21 Handling CCUpdate trigger
 * 1.1   dc     07/13/21 Update to common latency requirements
 * 1.2   dc     10/29/21 Update doxygen comments
+*       dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 *
 * </pre>
 * @endcond
@@ -122,9 +123,6 @@ extern "C" {
 #define XDFECCF_CC_NUM (16) /**< Maximum CC number */
 #define XDFECCF_ANT_NUM_MAX (8U) /**< Maximum anntena number */
 #define XDFECCF_SEQ_LENGTH_MAX (16U) /**< Maximum sequence length */
-
-#define XDFECCF_RATE_MAX (5U) /**< Maximum rate Id */
-#define XDFECCF_NCO_MAX (4U) /**< Maximum NCO number */
 
 /**************************** Type Definitions *******************************/
 /*********** start - common code to all Logiccores ************/
@@ -284,6 +282,17 @@ typedef struct {
  * Configuration for a single CC.
  */
 typedef struct {
+	u32 Gain; /**< [0-(1<<16)-1] Gain setting for this CC */
+	u32 ImagCoeffSet; /**< [0-7] Identify the coefficient set for the
+			        complex data on this CC */
+	u32 RealCoeffSet; /**< [0-7] Identify the coefficient set for the real
+			     data on this CC */
+} XDfeCcf_CarrierCfg;
+
+/**
+ * Internal configuration for a single CC.
+ */
+typedef struct {
 	u32 Enable; /**< [0,1] (Private) Enable/Disable CC while still
 			reserving its slot in the TDM - set by helper functions
 			when building the configuration the TDM */
@@ -295,20 +304,19 @@ typedef struct {
 			values to available hard block TID values. Enumerated
 			incrementally from 0 to max supported CC for a given
 			IP configuration */
-	u32 Rate; /**< [1,2,4,8] Sample "rate" (period) of CC */
 	u32 Gain; /**< [0-(1<<16)-1] Gain setting for this CC */
 	u32 ImagCoeffSet; /**< [0-7] Identify the coefficient set for the
 			        complex data on this CC */
 	u32 RealCoeffSet; /**< [0-7] Identify the coefficient set for the real
 			     data on this CC */
-} XDfeCcf_CarrierCfg;
+} XDfeCcf_InternalCarrierCfg;
 
 /**
  * Full CC configuration.
  */
 typedef struct {
 	XDfeCcf_CCSequence Sequence; /**< CCID sequence */
-	XDfeCcf_CarrierCfg CarrierCfg[16]; /**< CC configurations */
+	XDfeCcf_InternalCarrierCfg CarrierCfg[16]; /**< CC configurations */
 	u32 AntennaCfg[8]; /**< [0,1] Antenna TDM slot enablement */
 } XDfeCcf_CCCfg;
 
@@ -387,13 +395,27 @@ void XDfeCcf_Configure(XDfeCcf *InstancePtr, XDfeCcf_Cfg *Cfg);
 void XDfeCcf_Initialize(XDfeCcf *InstancePtr, XDfeCcf_Init *Init);
 void XDfeCcf_Activate(XDfeCcf *InstancePtr, bool EnableLowPower);
 void XDfeCcf_Deactivate(XDfeCcf *InstancePtr);
+XDfeCcf_StateId XDfeCcf_GetStateID(XDfeCcf *InstancePtr);
 
 /* User APIs */
-u32 XDfeCcf_AddCC(XDfeCcf *InstancePtr, s32 CCID, u32 BitSequence,
+void XDfeCcf_GetCurrentCCCfg(const XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg);
+void XDfeCcf_GetEmptyCCCfg(const XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg);
+void XDfeCcf_GetCarrierCfg(const XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg,
+			   s32 CCID, u32 *CCSeqBitmap,
+			   XDfeCcf_CarrierCfg *CarrierCfg);
+u32 XDfeCcf_AddCCtoCCCfg(XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg, s32 CCID,
+			 u32 CCSeqBitmap, const XDfeCcf_CarrierCfg *CarrierCfg);
+void XDfeCcf_RemoveCCfromCCCfg(XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg,
+			       s32 CCID);
+void XDfeCcf_UpdateCCinCCCfg(const XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg,
+			     s32 CCID, const XDfeCcf_CarrierCfg *CarrierCfg);
+u32 XDfeCcf_SetNextCCCfgAndTrigger(const XDfeCcf *InstancePtr,
+				   XDfeCcf_CCCfg *CCCfg);
+u32 XDfeCcf_AddCC(XDfeCcf *InstancePtr, s32 CCID, u32 CCSeqBitmap,
 		  const XDfeCcf_CarrierCfg *CarrierCfg);
 u32 XDfeCcf_RemoveCC(XDfeCcf *InstancePtr, s32 CCID);
 u32 XDfeCcf_UpdateCC(const XDfeCcf *InstancePtr, s32 CCID,
-		     XDfeCcf_CarrierCfg *CarrierCfg);
+		     const XDfeCcf_CarrierCfg *CarrierCfg);
 u32 XDfeCcf_UpdateAntenna(const XDfeCcf *InstancePtr, u32 Ant, bool Enabled);
 void XDfeCcf_GetTriggersCfg(const XDfeCcf *InstancePtr,
 			    XDfeCcf_TriggerCfg *TriggerCfg);
@@ -406,8 +428,6 @@ void XDfeCcf_LoadCoefficients(const XDfeCcf *InstancePtr, u32 Set, u32 Shift,
 			      const XDfeCcf_Coefficients *Coeffs);
 void XDfeCcf_GetEventStatus(const XDfeCcf *InstancePtr, XDfeCcf_Status *Status);
 void XDfeCcf_ClearEventStatus(const XDfeCcf *InstancePtr);
-void XDfeCcf_SetInterruptMask(const XDfeCcf *InstancePtr,
-			      const XDfeCcf_InterruptMask *Mask);
 void XDfeCcf_SetInterruptMask(const XDfeCcf *InstancePtr,
 			      const XDfeCcf_InterruptMask *Mask);
 void XDfeCcf_SetTUserDelay(const XDfeCcf *InstancePtr, u32 Delay);

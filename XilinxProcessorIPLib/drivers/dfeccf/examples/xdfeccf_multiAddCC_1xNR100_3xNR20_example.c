@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xdfeccf_1xNR100_3xNR20_example.c
+* @file xdfeccf_multiAddCC_1xNR100_3xNR20_example.c
 *
 * This file contains an example which sets Channel Filter driver for one NR100
 * carrier and three NR20.
@@ -17,7 +17,6 @@
 *
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
-* 1.1   dc     07/21/21 Add and reorganise examples
 * 1.2   dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 *
 * </pre>
@@ -91,11 +90,13 @@ static const s32 CCID_Vals[4] = { 0, 1, 2, 3 };
 /**
 *
 * This function configures Channel Filter driver for one NR100 carrier and
-* three NR20.
+* three NR20 whit multiAddCC API.
 * The example does the following:
 *     - initialize driver from reset to activation
 *     - configure filters with the pre-calculated coefficients
+*     - Get current configuration.
 *     - add 4 carriers CCID={0,1,2,3}, 1xNR100(122.88Msps) and 3xNR20(30.72Msps)
+*     - Trigger configuration update.
 *     - at this point filters are set and ready to operate
 *     - close the driver
 *
@@ -104,17 +105,19 @@ static const s32 CCID_Vals[4] = { 0, 1, 2, 3 };
 *		- XST_FAILURE if the example has failed.
 *
 ****************************************************************************/
-int XDfeCcf_1xNR100_3xNR20_Example()
+int XDfeCcf_multiAddCC_1xNR100_3xNR20_Example()
 {
 	/* Configure the Channel Filter for a 'pass-through' */
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
 	XDfeCcf_Cfg Cfg;
+	XDfeCcf_CCCfg CCCfg;
 	XDfeCcf *InstancePtr = NULL;
 	XDfeCcf_TriggerCfg TriggerCfg = { 0 };
 	u32 Shift = 8;
 	u32 Status;
 
-	printf("\r\nChannel Filter \"1xNR100 and 3xNR20 Configuration\" Example - Start\r\n");
+	printf("\r\nChannel Filter \"1xNR100 and 3xNR20 Configuration\" with"
+	       "multiAddCC Example - Start\r\n");
 
 	/* Initialize libmetal */
 	if (XST_SUCCESS != metal_init(&init_param)) {
@@ -144,21 +147,36 @@ int XDfeCcf_1xNR100_3xNR20_Example()
 		printf("set coefficients set#%d done!\n\r", i);
 	}
 
+	printf("Get current carrier configuration\n\r");
+	XDfeCcf_GetCurrentCCCfg(InstancePtr, &CCCfg);
+
+	printf("Clear Event Status\n\r");
+	XDfeCcf_ClearEventStatus(InstancePtr);
+
 	for (int i = 0; i < NUM_CARRIER; i++) {
-		printf("Clear Event Status \n\r");
-		XDfeCcf_ClearEventStatus(InstancePtr);
-		Status = XDfeCcf_AddCC(InstancePtr, CCID_Vals[i],
-				       bit_sequence[i], pt_carr[i]);
+		Status = XDfeCcf_AddCCtoCCCfg(InstancePtr, &CCCfg, CCID_Vals[i],
+					      bit_sequence[i], pt_carr[i]);
 
 		if (Status == XST_SUCCESS) {
 			printf("Add CC%d done!\n\r", i);
+		} else {
+			printf("Add CC%d failed!\n\r", i);
 		}
+	}
+
+	printf("Set next registers and trigger upload\n\r");
+	Status = XDfeCcf_SetNextCCCfgAndTrigger(InstancePtr, &CCCfg);
+	if (Status == XST_SUCCESS) {
+		printf("XDfeCcf_SetNextCCCfgAndTrigger done!\n\r");
+	} else {
+		printf("XDfeCcf_SetNextCCCfgAndTrigger failed!\n\r");
 	}
 
 	/* Shutdown the block */
 	XDfeCcf_Deactivate(InstancePtr);
 	XDfeCcf_InstanceClose(InstancePtr);
 
-	printf("Channel Filter \"1xNR100 and 3xNR20 Configuration\" Example: Pass\r\n");
+	printf("Channel Filter \"multi AddCC 1xNR100 and 3xNR20 Configuration"
+	       "\" Example: Pass\r\n");
 	return XST_SUCCESS;
 }

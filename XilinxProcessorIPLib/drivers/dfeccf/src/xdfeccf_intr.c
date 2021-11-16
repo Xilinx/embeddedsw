@@ -124,19 +124,19 @@ void XDfeCcf_SetInterruptMask(const XDfeCcf *InstancePtr,
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Mask != NULL);
 
-	if(Mask->Overflow == XDFECCF_IMR_INTERRUPT) {
+	if (Mask->Overflow == XDFECCF_IMR_INTERRUPT) {
 		ValIER |= (1U << XDFECCF_OVERFLOW_OFFSET);
 	} else {
 		ValIDR |= (1U << XDFECCF_OVERFLOW_OFFSET);
 	}
 
-	if(Mask->CCUpdate == XDFECCF_IMR_INTERRUPT) {
+	if (Mask->CCUpdate == XDFECCF_IMR_INTERRUPT) {
 		ValIER |= (1U << XDFECCF_CC_UPDATE_TRIGGERED_OFFSET);
 	} else {
 		ValIDR |= (1U << XDFECCF_CC_UPDATE_TRIGGERED_OFFSET);
 	}
 
-	if(Mask->CCSequenceError == XDFECCF_IMR_INTERRUPT) {
+	if (Mask->CCSequenceError == XDFECCF_IMR_INTERRUPT) {
 		ValIER |= (1U << XDFECCF_CC_SEQUENCE_ERROR_OFFSET);
 	} else {
 		ValIDR |= (1U << XDFECCF_CC_SEQUENCE_ERROR_OFFSET);
