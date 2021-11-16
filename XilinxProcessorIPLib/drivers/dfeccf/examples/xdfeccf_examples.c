@@ -32,6 +32,7 @@
 *       dc     04/08/21 Set sequence length only once
 * 1.1   dc     07/13/21 Update to common latency requirements
 *       dc     07/21/21 Add and reorganise examples
+* 1.2   dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 *
 * </pre>
 *
@@ -49,6 +50,7 @@ extern int XDfeSi570_SetMgtOscillator(double CurrentFrequency,
 extern int XDfeCcf_MultiInstancesExample();
 extern int XDfeCcf_PassThroughExample();
 extern int XDfeCcf_1xNR100_3xNR20_Example();
+extern int XDfeCcf_multiAddCC_1xNR100_3xNR20_Example();
 
 /************************** Variable Definitions ****************************/
 #ifdef __BAREMETAL__
@@ -111,6 +113,15 @@ int main(void)
 	 */
 	if (XST_SUCCESS != XDfeCcf_1xNR100_3xNR20_Example()) {
 		printf("1xNR100 and 3xNR20 Example failed\r\n");
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Run the DFE Channel Filter 1xNR100 and 3xNR20 example with  multi
+	 * AddCC API.
+	 */
+	if (XST_SUCCESS != XDfeCcf_multiAddCC_1xNR100_3xNR20_Example()) {
+		printf("multiAddCC 1xNR100 and 3xNR20 Example failed\r\n");
 		return XST_FAILURE;
 	}
 

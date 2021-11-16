@@ -28,6 +28,7 @@
 *       dc     04/20/21 Doxygen documentation update
 * 1.1   dc     10/26/21 Make driver R5 compatible
 * 1.2   dc     10/29/21 Update doxygen comments
+*       dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 *
 * </pre>
 *
@@ -191,10 +192,9 @@ static s32 XDfeCcf_Strrncmp(const char *Str1Ptr, const char *Str2Ptr,
 static s32 XDfeCcf_IsDeviceCompatible(char *DeviceNamePtr,
 				      const char *DeviceNodeName)
 {
-	char CompatibleString[100];
+	char CompatibleString[256];
 	struct metal_device *DevicePtr;
 	struct dirent **DirentPtr;
-	char Len = strlen(XDFECCF_COMPATIBLE_STRING);
 	int NumFiles;
 	u32 Status = XST_FAILURE;
 	int i = 0;
@@ -233,16 +233,22 @@ static s32 XDfeCcf_IsDeviceCompatible(char *DeviceNamePtr,
 		/* Get a "compatible" device property */
 		if (0 > metal_linux_get_device_property(
 				DevicePtr, XDFECCF_COMPATIBLE_PROPERTY,
-				CompatibleString, Len)) {
+				CompatibleString,
+				sizeof(CompatibleString) - 1)) {
 			metal_log(METAL_LOG_ERROR,
 				  "\n Failed to read device tree property");
 			metal_device_close(DevicePtr);
 			continue;
 		}
 
-		/* Check a "compatible" device property */
-		if (strncmp(CompatibleString, XDFECCF_COMPATIBLE_STRING, Len) !=
-		    0) {
+		/* Check does "compatible" device property has name of this
+		   driver instance */
+		if (NULL ==
+		    strstr(CompatibleString, XDFECCF_COMPATIBLE_STRING)) {
+			metal_log(
+				METAL_LOG_ERROR,
+				"No compatible property match.(Driver:%s, Device:%s)\n",
+				XDFECCF_COMPATIBLE_STRING, CompatibleString);
 			metal_device_close(DevicePtr);
 			continue;
 		}
