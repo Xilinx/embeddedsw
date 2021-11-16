@@ -25,6 +25,7 @@
 * 1.1   dc     06/30/21 Doxygen documentation update
 *       dc     10/26/21 Make driver R5 compatible
 * 1.2   dc     10/29/21 Update doxygen comments
+*       dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 *
 * </pre>
 *
@@ -107,7 +108,7 @@ XDfePrach XDfePrach_Prach[XDFEPRACH_MAX_NUM_INSTANCES];
 * extracted from the NodeName. Returns pointer to the ConfigTable with a matched
 * base address.
 *
-* @param    InstancePtr is a pointer to the Ccf instance.
+* @param    InstancePtr is a pointer to the PRACH instance.
 * @param    ConfigTable is a configuration table container.
 *
 * @return
@@ -192,10 +193,9 @@ static s32 XDfePrach_Strrncmp(const char *Str1Ptr, const char *Str2Ptr,
 static s32 XDfePrach_IsDeviceCompatible(char *DeviceNamePtr,
 					const char *DeviceNodeName)
 {
-	char CompatibleString[100];
+	char CompatibleString[256];
 	struct metal_device *DevicePtr;
 	struct dirent **DirentPtr;
-	char Len = strlen(XDFEPRACH_COMPATIBLE_STRING);
 	int NumFiles;
 	u32 Status = XST_FAILURE;
 	int i = 0;
@@ -235,16 +235,22 @@ static s32 XDfePrach_IsDeviceCompatible(char *DeviceNamePtr,
 		/* Get a "compatible" device property */
 		if (0 > metal_linux_get_device_property(
 				DevicePtr, XDFEPRACH_COMPATIBLE_PROPERTY,
-				CompatibleString, Len)) {
+				CompatibleString,
+				sizeof(CompatibleString) - 1)) {
 			metal_log(METAL_LOG_ERROR,
 				  "\n Failed to read device tree property");
 			metal_device_close(DevicePtr);
 			continue;
 		}
 
-		/* Check a "compatible" device property */
-		if (strncmp(CompatibleString, XDFEPRACH_COMPATIBLE_STRING,
-			    Len) != 0) {
+		/* Check does "compatible" device property has name of this
+		   driver instance */
+		if (NULL ==
+		    strstr(CompatibleString, XDFEPRACH_COMPATIBLE_STRING)) {
+			metal_log(
+				METAL_LOG_ERROR,
+				"No compatible property match.(Driver:%s, Device:%s)\n",
+				XDFEPRACH_COMPATIBLE_STRING, CompatibleString);
 			metal_device_close(DevicePtr);
 			continue;
 		}

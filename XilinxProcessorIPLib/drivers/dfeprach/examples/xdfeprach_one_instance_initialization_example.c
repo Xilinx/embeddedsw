@@ -8,7 +8,7 @@
 *
 * @file xdfeprach_one_instance_initialization_example.c
 *
-* This file contains a load coefficients example.
+* This file contains One instance initialisation example.
 *
 * <pre>
 *
@@ -34,8 +34,8 @@
 /****************************************************************************/
 /**
 *
-* This function runs the DFE Prach device using the driver APIs.
-* This function does the following tasks:
+* This example runs the DFE Prach device using the driver APIs.
+* The example goes through the following steps:
 *	- Create and system initialize the device driver instance.
 *	- Read SW and HW version numbers.
 *	- Reset the device.
@@ -66,7 +66,7 @@ int XDfePrach_SelfTestExample()
 		return XST_FAILURE;
 	}
 
-	/* Initialize the instance of channel filter driver */
+	/* Initialize the instance of PRACH driver */
 	InstancePtr = XDfePrach_InstanceInit(XDFEPRACH_NODE_NAME);
 
 	/* Get SW and HW version numbers */
