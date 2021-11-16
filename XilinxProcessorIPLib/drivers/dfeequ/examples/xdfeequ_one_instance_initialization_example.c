@@ -66,7 +66,7 @@ int XDfeEqu_SelfExample()
 		return XST_FAILURE;
 	}
 
-	/* Initialize the instance of channel filter driver */
+	/* Initialize the instance of Equalizer driver */
 	InstancePtr = XDfeEqu_InstanceInit(XDFEEQU_NODE_NAME);
 
 	/* Get SW and HW version numbers */
@@ -78,12 +78,17 @@ int XDfeEqu_SelfExample()
 	       HwVersion.Patch);
 
 	/* Go through initialization states of the state machine */
+	/* Reset */
 	XDfeEqu_Reset(InstancePtr);
+	/* Configure */
 	XDfeEqu_Configure(InstancePtr, &Cfg);
+	/* Initialise */
 	Config.DatapathMode = 0;
 	XDfeEqu_Initialize(InstancePtr, &Config);
+	/* Activate - disable low power */
 	XDfeEqu_Activate(InstancePtr, false);
 
+	/* Close and exit */
 	XDfeEqu_Deactivate(InstancePtr);
 	XDfeEqu_InstanceClose(InstancePtr);
 	printf("Equalizer \"One Instance Initialization\" Example: Pass\r\n");

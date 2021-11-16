@@ -75,7 +75,7 @@ int XDfeEqu_PassThroughExample()
 		return XST_FAILURE;
 	}
 
-	/* Initialize the instance of channel filter driver */
+	/* Initialize the instance of Equalizer driver */
 	InstancePtr = XDfeEqu_InstanceInit(XDFEEQU_NODE_NAME);
 
 	/* Get SW and HW version numbers */
@@ -117,5 +117,6 @@ int XDfeEqu_PassThroughExample()
 	XDfeEqu_Deactivate(InstancePtr);
 	XDfeEqu_InstanceClose(InstancePtr);
 	printf("Equalizer \"Pass Through\" Example: Pass\r\n");
+
 	return XST_SUCCESS;
 }

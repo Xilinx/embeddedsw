@@ -14,10 +14,10 @@
 * (dfe_complex_eq). Each instance of the LogiCore supports up to 8
 * antennas, each with its instance of the dfe_complex_eq block. The LogiCore
 * provides access to the AXI stream data interfaces on each of the blocks.
-* An AXI memory-mapped interface is provided, enabling the Mixer driver to
+* An AXI memory-mapped interface is provided, enabling the Equalizer driver to
 * configure the block from a microprocessor. TUSER and TLAST inputs are present
 * on the AXI stream interfaces and delay matched with the data through the
-* LogiCore. The features that the Mixer IP and the driver support are:
+* LogiCore. The features that the Equalizer IP and the driver support are:
 * - Can operate in complex (matrix) and real modes.
 * - Enables the user to program the coefficient sets via a processor interface.
 * - Enables the user to change the coefficient sets that act on the input data
@@ -52,6 +52,7 @@
 *       dc     05/08/21 Update to common trigger
 * 1.1   dc     07/13/21 Update to common latency requirements
 * 1.2   dc     10/29/21 Update doxygen comments
+*       dc     11/09/21 Add GetStateId API
 *
 * </pre>
 * @endcond
@@ -331,6 +332,7 @@ void XDfeEqu_Configure(XDfeEqu *InstancePtr, XDfeEqu_Cfg *Cfg);
 void XDfeEqu_Initialize(XDfeEqu *InstancePtr, const XDfeEqu_EqConfig *Config);
 void XDfeEqu_Activate(XDfeEqu *InstancePtr, bool EnableLowPower);
 void XDfeEqu_Deactivate(XDfeEqu *InstancePtr);
+XDfeEqu_StateId XDfeEqu_GetStateID(XDfeEqu *InstancePtr);
 
 /* User APIs */
 void XDfeEqu_Update(const XDfeEqu *InstancePtr, const XDfeEqu_EqConfig *Config);

@@ -270,7 +270,7 @@ static s32 XDfeEqu_IsDeviceCompatible(char *DeviceNamePtr,
 *
 * Looks up the device configuration based on the unique device ID.
 *
-* @param    InstancePtr is a pointer to the Channel Filter instance.
+* @param    InstancePtr is a pointer to the Equalizer instance.
 *
 * @return
 *           - XST_SUCCESS if successful.
