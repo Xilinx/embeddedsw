@@ -74,6 +74,7 @@
 *       cog    07/12/21 Simplified clock distribution user interface.
 *       cog    09/21/21 Fixed rounding error in cast.
 * 11.1  cog    11/16/21 Upversion.
+*       cog    11/17/21 Fixed powerup bit toggle issue.
 * </pre>
 *
 ******************************************************************************/
@@ -1774,6 +1775,9 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 			Status = XRFDC_SUCCESS;
 			goto RETURN_PATH;
 		}
+	} else {
+		BaseAddr = XRFDC_DRP_BASE(Type, Tile_Id) + XRFDC_HSCOM_ADDR;
+		NetCtrlReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_CLK_NETWORK_CTRL1);
 	}
 
 	if (Type == XRFDC_ADC_TILE) {
@@ -1791,22 +1795,10 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 	/*
 	 * Stop the ADC or DAC tile by putting tile in reset state if not stopped already
 	 */
-	if (InitialPowerUpState != XRFDC_DISABLED) {
-		XRFdc_ClrSetReg(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile_Id), XRFDC_RESTART_STATE_OFFSET,
-				XRFDC_PWR_STATE_MASK, (XRFDC_SM_STATE1 << XRFDC_RSR_START_SHIFT) | XRFDC_SM_STATE1);
-		/* Trigger restart */
-		XRFdc_WriteReg(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile_Id), XRFDC_RESTART_OFFSET,
-			       XRFDC_RESTART_MASK);
-		Status |= XRFdc_WaitForState(InstancePtr, Type, Tile_Id, XRFDC_SM_STATE1);
-		if (Status != XRFDC_SUCCESS) {
-			Status = XRFDC_FAILURE;
-			goto RETURN_PATH;
-		}
-	}
-
-	if (InstancePtr->RFdc_Config.IPType >= XRFDC_GEN3) {
-		NetCtrlReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_CLK_NETWORK_CTRL1);
-	}
+	BaseAddr = XRFDC_CTRL_STS_BASE(Type, Tile_Id);
+	InitialPowerUpState = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_STATUS_OFFSET, XRFDC_PWR_UP_STAT_MASK) >>
+			      XRFDC_PWR_UP_STAT_SHIFT;
+	BaseAddr = XRFDC_DRP_BASE(Type, Tile_Id) + XRFDC_HSCOM_ADDR;
 
 	if (Source == XRFDC_INTERNAL_PLL_CLK) {
 		PLLEnable = 0x1;
