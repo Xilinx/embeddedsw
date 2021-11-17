@@ -401,12 +401,7 @@ void XQspiPsu_PollDataHandler(XQspiPsu *InstancePtr, u32 StatusReg)
 			(u32)XQSPIPSU_IER_POLL_TIME_EXPIRE_MASK);
 	InstancePtr->IsBusy = (u32)FALSE;
 	if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
-		if (XQspiPsu_SetReadMode(InstancePtr,
-					 XQSPIPSU_READMODE_DMA) != XST_SUCCESS) {
-#ifdef DEBUG
-			xil_printf("\nFailed to set DMA Read Mode\r\n");
-#endif
-		}
+			XQspiPsu_SetReadMode(InstancePtr, XQSPIPSU_READMODE_DMA);
 	}
 	/* De-select slave */
 	XQspiPsu_GenFifoEntryCSDeAssert(InstancePtr);
