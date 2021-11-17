@@ -72,6 +72,8 @@
 *       har  09/16/2021 Removed magic numbers in XNvm_EfuseWriteSecCtrl function
 *                       Check for Trim2 instead of Trim3 before programming
 *                       Protection bit 37
+* 2.5   har  11/17/2021 Fix Blind Write in XNvm_EfuseDisableProgramming and
+*                       XNvm_EfuseResetReadMode
 *
 * </pre>
 *
@@ -4723,7 +4725,7 @@ static inline void XNvm_EfuseDisableProgramming(void)
 					XNVM_EFUSE_CFG_REG_OFFSET);
 
 	Cfg = Cfg & ~XNVM_EFUSE_CFG_ENABLE_PGM;
-	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
+	Xil_SecureOut32(XNVM_EFUSE_CTRL_BASEADDR +
 				XNVM_EFUSE_CFG_REG_OFFSET, Cfg);
 }
 
@@ -4738,7 +4740,7 @@ static inline void XNvm_EfuseResetReadMode(void)
 					XNVM_EFUSE_CFG_REG_OFFSET);
 
 	Cfg = Cfg & ~XNVM_EFUSE_CFG_MARGIN_RD;
-	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
+	Xil_SecureOut32(XNVM_EFUSE_CTRL_BASEADDR +
 				XNVM_EFUSE_CFG_REG_OFFSET, Cfg);
 }
 
