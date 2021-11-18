@@ -1042,7 +1042,7 @@ static XStatus SysmonVoltageCheck(const XPm_Rail *Rail, u32 RailVoltage)
 	 * Hardcoded voltages used when sysmon lower threshold values are not used.
 	 * Second array element is placeholder for when EFUSE is blown.
 	 */
-	u32 RailVoltageTable[8][2] = {
+	const u32 RailVoltageTable[8][2] = {
 		[RAILIDX(XPM_NODEIDX_POWER_VCCINT_PMC)] = {0x2547AU, 0U},   /* 0.66V */
 		[RAILIDX(XPM_NODEIDX_POWER_VCCAUX_PMC)] = {0x2b333U, 0U},   /* 1.4V */
 		[RAILIDX(XPM_NODEIDX_POWER_VCCINT_PSLP)] = {0x2547AU, 0U},  /* 0.66V */
