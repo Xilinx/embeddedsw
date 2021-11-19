@@ -26,6 +26,7 @@
 *                    and ISSI flash(IS25LP01G, IS25WP01G) parts.
 * 1.13  akm 12/10/20 Set Read command as per the qspi bus width.
 * 1.14  akm 07/16/21 Enable Quad Mode for Winbond flashes.
+* 1.15  akm 11/19/21 Fix read/write failures on Spansion flash parts.
 *
 *</pre>
 *
@@ -68,11 +69,13 @@ extern "C" {
 #define ENTER_4B_ADDR_MODE	0xB7
 #define EXIT_4B_ADDR_MODE	0xE9
 #define EXIT_4B_ADDR_MODE_ISSI	0x29
-
-#define READ_CMD_4B		0x13
-#define FAST_READ_CMD_4B	0x0C
-#define DUAL_READ_CMD_4B	0x3C
-#define QUAD_READ_CMD_4B	0x6C
+/* 4-byte address opcodes */
+#define READ_CMD_4B			0x13
+#define FAST_READ_CMD_4B		0x0C
+#define DUAL_READ_CMD_4B		0x3C
+#define QUAD_READ_CMD_4B		0x6C
+#define WRITE_CMD_4B			0x12
+#define SEC_ERASE_CMD_4B		0xDC
 
 #define BANK_REG_RD		0x16
 #define BANK_REG_WR		0x17
@@ -218,8 +221,8 @@ FlashInfo Flash_Config_Table[] = {
 	{0x016019, SECTOR_SIZE_64K, NUM_OF_SECTORS512, BYTES256_PER_PAGE,
 		0x20000, 0x2000000, 0xFFFF0000, 1},
 	/*s25fl512s*/
-	{0x010220, SECTOR_SIZE_256K, NUM_OF_SECTORS256, BYTES512_PER_PAGE,
-		0x20000, 0x4000000, 0xFFFC0000, 1},
+	{0x010220, SECTOR_SIZE_64K, NUM_OF_SECTORS1024, BYTES256_PER_PAGE,
+		0x40000, 0x4000000, 0xFFFF0000, 1},
 	/* Spansion 1Gbit is handled as 512Mbit stacked */
 	/* Micron */
 	/*n25q128a11*/
