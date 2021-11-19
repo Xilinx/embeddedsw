@@ -3,4 +3,4 @@
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
-xdfemix_examples.c=xdfesi570_mgt.c,xdfemix_one_instance_initialization_example.c,xdfemix_pass_through_example.c,xdfemix_examples.h
+xdfemix_examples.c=xdfesi570_mgt.c,xdfemix_one_instance_initialization_example.c,xdfemix_pass_through_example.c,xdfemix_multiAddCC_pass_through_example.c,xdfemix_examples.h
