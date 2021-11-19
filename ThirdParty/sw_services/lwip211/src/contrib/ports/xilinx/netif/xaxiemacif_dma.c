@@ -429,13 +429,19 @@ static void axidma_recv_handler(void *arg)
 			pbuf_realloc(p, rx_bytes);
 
 #ifdef USE_JUMBO_FRAMES
-#ifndef __aarch64__
+#ifdef __aarch64__
 			XCACHE_INVALIDATE_DCACHE_RANGE(p->payload,
 							XAE_MAX_JUMBO_FRAME_SIZE);
+#else
+            XCACHE_FLUSH_DCACHE_RANGE(p, sizeof *p);
+
 #endif
 #else
-#ifndef __aarch64__
+#ifdef __aarch64__
 			XCACHE_INVALIDATE_DCACHE_RANGE(p->payload, XAE_MAX_FRAME_SIZE);
+#else
+            XCACHE_FLUSH_DCACHE_RANGE(p, sizeof *p);
+
 #endif
 #endif
 
