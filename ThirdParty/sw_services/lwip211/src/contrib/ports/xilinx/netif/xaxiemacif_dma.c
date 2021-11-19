@@ -101,6 +101,13 @@ u32 xInsideISR = 0;
 u8_t bd_space[0x200000] __attribute__ ((aligned (0x200000)));
 #endif
 
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+volatile u32_t notifyinfo[XLWIP_CONFIG_N_TX_DESC];
+#endif
+
+#define XAxiDma_BD_TO_INDEX(ringptr, bdptr)				\
+	(((UINTPTR)bdptr - (UINTPTR)(ringptr)->FirstBdAddr) / (ringptr)->Separation)
+
 static inline void bd_csum_enable(XAxiDma_Bd *bd)
 {
 	XAxiDma_BdWrite((bd), XAXIDMA_BD_USR0_OFFSET,
@@ -477,6 +484,7 @@ s32_t process_sent_bds(XAxiDma_BdRing *txring)
 {
 	XAxiDma_Bd *txbdset, *txbd;
 	int n_bds, i;
+	u32_t bdindex;
 
 	/* obtain a list of processed BD's */
 	n_bds = XAxiDma_BdRingFromHw(txring, XAXIDMA_ALL_BDS, &txbdset);
@@ -485,15 +493,24 @@ s32_t process_sent_bds(XAxiDma_BdRing *txring)
 	}
 	/* free the pbuf associated with each BD */
 	for (i = 0, txbd = txbdset; i < n_bds; i++) {
+		bdindex = XAxiDma_BD_TO_INDEX(txring, txbd);
 		struct pbuf *p = (struct pbuf *)(UINTPTR)XAxiDma_BdGetId(txbd);
 		pbuf_free(p);
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+    notifyinfo[bdindex] = 0;
+#endif
 		txbd = (XAxiDma_Bd *)XAxiDma_BdRingNext(txring, txbd);
 	}
 	/* free the processed BD's */
 	return (XAxiDma_BdRingFree(txring, n_bds, txbdset));
 }
 
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+XStatus axidma_sgsend(xaxiemacif_s *xaxiemacif, struct pbuf *p,
+        u32_t block_till_tx_complete, u32_t *to_block_index)
+#else
 XStatus axidma_sgsend(xaxiemacif_s *xaxiemacif, struct pbuf *p)
+#endif
 {
 	struct pbuf *q;
 	s32_t n_pbufs;
@@ -501,6 +518,7 @@ XStatus axidma_sgsend(xaxiemacif_s *xaxiemacif, struct pbuf *p)
 	XStatus status;
 	XAxiDma_BdRing *txring;
 	u32_t max_frame_size;
+	u32_t bdindex = 0;
 
 #ifdef USE_JUMBO_FRAMES
 	max_frame_size = XAE_MAX_JUMBO_FRAME_SIZE - 18;
@@ -521,6 +539,7 @@ XStatus axidma_sgsend(xaxiemacif_s *xaxiemacif, struct pbuf *p)
 	}
 
 	for(q = p, txbd = txbdset; q != NULL; q = q->next) {
+		bdindex = XAxiDma_BD_TO_INDEX(txring, txbd);
 		/* Send the data from the pbuf to the interface, one pbuf at a
 		 * time. The size of the data in each pbuf is kept in the ->len
 		 * variable.
@@ -596,6 +615,14 @@ XStatus axidma_sgsend(xaxiemacif_s *xaxiemacif, struct pbuf *p)
 		}
 	}
 #endif
+
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+    if (block_till_tx_complete == 1) {
+        notifyinfo[bdindex] = 1;
+        *to_block_index = bdindex;
+    }
+#endif
+
 	/* enq to h/w */
 	return XAxiDma_BdRingToHw(txring, n_pbufs, txbdset);
 }
