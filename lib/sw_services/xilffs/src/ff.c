@@ -3842,10 +3842,10 @@ FRESULT f_read (
 		 * For unaligned sector size read, file system send local buffer to the low-level driver,
 		 * once the transfer completed then it copies the data from local buffer to user buffer.
 		 * This results to data available in Cache but not in memory. To avoid this problem,
-		 * Invalidate the DCache for the unaligned sector size read, to make sure both Cache
+		 * Flush the DCache for the unaligned sector size read, to make sure both Cache
 		 * and memory contents are same.
 		 */
-		Xil_DCacheInvalidateRange((INTPTR)rbuff, rcnt);
+		Xil_DCacheFlushRange((INTPTR)rbuff, rcnt);
 	}
 
 	LEAVE_FF(fs, FR_OK);
