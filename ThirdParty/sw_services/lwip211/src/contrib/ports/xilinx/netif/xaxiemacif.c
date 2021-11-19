@@ -79,21 +79,40 @@ static err_t xaxiemacif_mld6_mac_filter_update (struct netif *netif,
 
 static u8_t xaxiemac_mld6_mcast_entry_mask;
 #endif
+
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+extern volatile u32_t notifyinfo[XLWIP_CONFIG_N_TX_DESC];
+#endif
+
 /*
  * this function is always called with interrupts off
  * this function also assumes that there are available BD's
  */
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+static err_t _unbuffered_low_level_output(xaxiemacif_s *xaxiemacif,
+        struct pbuf *p, u32_t block_till_tx_complete, u32_t *to_block_index )
+#else
 static err_t _unbuffered_low_level_output(xaxiemacif_s *xaxiemacif,
 														struct pbuf *p)
+#endif
 {
 	XStatus status = 0;
+    err_t err = ERR_MEM;
 
 #if ETH_PAD_SIZE
 	pbuf_header(p, -ETH_PAD_SIZE);			/* drop the padding word */
 #endif
 	if (XAxiEthernet_IsDma(&xaxiemacif->axi_ethernet)) {
 #ifdef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_DMA
-		status = axidma_sgsend(xaxiemacif, p);
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+    if (block_till_tx_complete == 1) {
+        status = axidma_sgsend(xaxiemacif, p, 1, to_block_index);
+    } else {
+        status = axidma_sgsend(xaxiemacif, p, 0, to_block_index);
+    }
+#else
+    status = axidma_sgsend(xaxiemacif, p);
+#endif
 #endif
 	} else if (XAxiEthernet_IsMcDma(&xaxiemacif->axi_ethernet)) {
 #ifdef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_MCDMA
@@ -109,7 +128,9 @@ static err_t _unbuffered_low_level_output(xaxiemacif_s *xaxiemacif,
 #if LINK_STATS
 		lwip_stats.link.drop++;
 #endif
-	}
+	} else {
+        err = ERR_OK;
+    }
 
 #if ETH_PAD_SIZE
 	pbuf_header(p, ETH_PAD_SIZE);	/* reclaim the padding word */
@@ -119,7 +140,7 @@ static err_t _unbuffered_low_level_output(xaxiemacif_s *xaxiemacif,
 	lwip_stats.link.xmit++;
 #endif /* LINK_STATS */
 
-	return ERR_OK;
+	return err;
 
 }
 
@@ -134,8 +155,13 @@ static err_t _unbuffered_low_level_output(xaxiemacif_s *xaxiemacif,
 
 static err_t low_level_output(struct netif *netif, struct pbuf *p)
 {
+    err_t err = ERR_MEM;
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+    u32_t notfifyblocksleepcntr;
+    u32_t to_block_index;
+#endif
+
         SYS_ARCH_DECL_PROTECT(lev);
-        err_t err;
         struct xemac_s *xemac = (struct xemac_s *)(netif->state);
         xaxiemacif_s *xaxiemacif = (xaxiemacif_s *)(xemac->state);
 
@@ -157,10 +183,19 @@ static err_t low_level_output(struct netif *netif, struct pbuf *p)
 
 		/* check if space is available to send */
 		if (is_tx_space_available(xaxiemacif)) {
-			_unbuffered_low_level_output(xaxiemacif, p);
-			err = ERR_OK;
-			break;
-		} else {
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+    if (netif_is_opt_block_tx_set(netif, NETIF_ENABLE_BLOCKING_TX_FOR_PACKET)) {
+        err = _unbuffered_low_level_output(xaxiemacif, p, 1, &to_block_index);
+		break;
+    } else {
+        err = _unbuffered_low_level_output(xaxiemacif, p, 0, &to_block_index);
+		break;
+    }
+#else
+    err = _unbuffered_low_level_output(xaxiemacif, p);
+	break;
+#endif
+    } else {
 #if LINK_STATS
 			lwip_stats.link.drop++;
 #endif
@@ -168,15 +203,32 @@ static err_t low_level_output(struct netif *netif, struct pbuf *p)
 			process_sent_bds(txring);
 #endif
 			count--;
-		}
-        }
+    }
+    }
 
 	if (count == 0) {
 		print("pack dropped, no space\r\n");
-		err = ERR_MEM;
+        SYS_ARCH_UNPROTECT(lev);
+        goto return_pack_dropped;
 	}
 
         SYS_ARCH_UNPROTECT(lev);
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+    if (netif_is_opt_block_tx_set(netif, NETIF_ENABLE_BLOCKING_TX_FOR_PACKET)) {
+        /* Wait for approx 1 second before timing out */
+        notfifyblocksleepcntr = 900000;
+        while(notifyinfo[to_block_index] == 1) {
+            usleep(1);
+            notfifyblocksleepcntr--;
+            if (notfifyblocksleepcntr <= 0) {
+                err = ERR_TIMEOUT;
+                break;
+            }
+        }
+    }
+    netif_clear_opt_block_tx(netif, NETIF_ENABLE_BLOCKING_TX_FOR_PACKET);
+#endif
+return_pack_dropped:
         return err;
 }
 

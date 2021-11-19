@@ -118,7 +118,12 @@ XStatus init_axi_mcdma(struct xemac_s *xemac);
 XStatus axi_mcdma_sgsend(xaxiemacif_s *xaxiemacif, struct pbuf *p);
 #else
 XStatus init_axi_dma(struct xemac_s *xemac);
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+XStatus axidma_sgsend(xaxiemacif_s *xaxiemacif, struct pbuf *p,
+        u32_t block_till_tx_complete, u32_t *to_block_index);
+#else
 XStatus axidma_sgsend(xaxiemacif_s *xaxiemacif, struct pbuf *p);
+#endif
 #endif
 #endif
 
