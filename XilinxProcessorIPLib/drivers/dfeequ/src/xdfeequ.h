@@ -53,6 +53,7 @@
 * 1.1   dc     07/13/21 Update to common latency requirements
 * 1.2   dc     10/29/21 Update doxygen comments
 *       dc     11/09/21 Add GetStateId API
+*       dc     11/05/21 Align event handlers
 *
 * </pre>
 * @endcond
@@ -274,18 +275,18 @@ typedef struct {
  * Equalizer Status.
  */
 typedef struct {
-	u32 IStatus; /**< Status of the real part of the output. In real mode,
-		both bits can be populated. In complex mode, only bit 0
-		is relevant. */
-	u32 QStatus; /**< Status of the imaginary part of the output. Only
-		valid in complex mode. */
+	u32 IStatus[XDFEEQU_CHANNEL_NUM]; /**< Status of the real part of the
+		output. In real mode, both bits can be populated. In complex
+		mode, only bit 0 is relevant. */
+	u32 QStatus[XDFEEQU_CHANNEL_NUM]; /**< Status of the imaginary part of
+		the output. Only valid in complex mode. */
 } XDfeEqu_Status;
 
 /**
  * Status Mask.
  */
 typedef struct {
-	u32 Status; /**< [0,1] Mask status events. */
+	u32 Mask[XDFEEQU_CHANNEL_NUM]; /**< [0,1] Mask status events. */
 } XDfeEqu_InterruptMask;
 
 /**
@@ -343,11 +344,13 @@ void XDfeEqu_SetTriggersCfg(const XDfeEqu *InstancePtr,
 void XDfeEqu_LoadCoefficients(const XDfeEqu *InstancePtr, u32 ChannelField,
 			      u32 Mode, u32 Shift,
 			      const XDfeEqu_Coefficients *EqCoeffs);
-void XDfeEqu_GetEventStatus(const XDfeEqu *InstancePtr, u32 ChannelId,
-			    XDfeEqu_Status *Status);
-void XDfeEqu_ClearEventStatus(const XDfeEqu *InstancePtr, u32 ChannelId);
-void XDfeEqu_SetInterruptMask(const XDfeEqu *InstancePtr, u32 ChannelField,
-			      const XDfeEqu_InterruptMask *StatusMask);
+void XDfeEqu_GetEventStatus(const XDfeEqu *InstancePtr, XDfeEqu_Status *Status);
+void XDfeEqu_ClearEventStatus(const XDfeEqu *InstancePtr,
+			      const XDfeEqu_Status *Status);
+void XDfeEqu_SetInterruptMask(const XDfeEqu *InstancePtr,
+			      const XDfeEqu_InterruptMask *InterruptMask);
+void XDfeEqu_GetInterruptMask(const XDfeEqu *InstancePtr,
+			      XDfeEqu_InterruptMask *InterruptMask);
 void XDfeEqu_GetActiveSets(const XDfeEqu *InstancePtr, u32 *RealSet,
 			   u32 *ImagSet);
 void XDfeEqu_SetTUserDelay(const XDfeEqu *InstancePtr, u32 Delay);
