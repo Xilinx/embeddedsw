@@ -30,13 +30,12 @@
 * - TUSER and TLAST can optionally be used to synchronize coefficient selection,
 *   power up/down, and the buffers' flushing.
 * Features which are not provided are:
-* - Does not support the dynamic changing of the co-efficient sets that act on
+* - Does not support the dynamic changing of the coefficient sets that act on
 *   the input data via the AXI stream interface.
-* - Does not provide direct programming of the co-efficient sets via an AXI
+* - Does not provide direct programming of the coefficient sets via an AXI
 *   stream interface.
 * - Does not currently support configuration of the filter coefficients at
 *   startup.
-*
 * @cond nocomments
 * <pre>
 * MODIFICATION HISTORY:
@@ -54,6 +53,7 @@
 * 1.2   dc     10/29/21 Update doxygen comments
 *       dc     11/09/21 Add GetStateId API
 *       dc     11/05/21 Align event handlers
+*       dc     11/19/21 Update doxygen documentation
 *
 * </pre>
 * @endcond
@@ -80,18 +80,21 @@ extern "C" {
 
 /**************************** Macros Definitions *****************************/
 #ifndef __BAREMETAL__
-#define XDFEEQU_MAX_NUM_INSTANCES (10U)
+#define XDFEEQU_MAX_NUM_INSTANCES                                              \
+	(10U) /**< Maximum number of driver instances running at the same time. */
 /**
 * @cond nocomments
 */
-#define Xil_AssertNonvoid(Expression) assert(Expression)
-#define Xil_AssertVoid(Expression) assert(Expression)
-#define Xil_AssertVoidAlways() assert(0)
+#define Xil_AssertNonvoid(Expression)                                          \
+	assert(Expression) /**< Assertion for non void return parameter function. */
+#define Xil_AssertVoid(Expression)                                             \
+	assert(Expression) /**< Assertion for void return parameter function. */
+#define Xil_AssertVoidAlways() assert(0) /**< Assertion always. */
 /**
 * @endcond
 */
-#define XST_SUCCESS (0L)
-#define XST_FAILURE (1L)
+#define XST_SUCCESS (0L) /**< Success flag */
+#define XST_FAILURE (1L) /**< Failure flag */
 #else
 #define XDFEEQU_MAX_NUM_INSTANCES XPAR_XDFEEQU_NUM_INSTANCES
 #endif
@@ -105,13 +108,13 @@ extern "C" {
 #define XDFEEQU_RATE_MAX (5U) /**< Maximum rate Id */
 #define XDFEEQU_NCO_MAX (4U) /**< Maximum NCO number */
 
-#define XDFEEQU_CHANNEL_NUM (8U) /* Maximum channel number */
-#define XDFEEQU_MAX_NUMBER_OF_UNITS_COMPLEX (0x3U) /* Complex units number */
-#define XDFEEQU_MAX_NUMBER_OF_UNITS_REAL (0x6U) /* Real units number */
+#define XDFEEQU_CHANNEL_NUM (8U) /**< Maximum channel number */
+#define XDFEEQU_MAX_NUMBER_OF_UNITS_COMPLEX (0x3U) /**< Complex units number */
+#define XDFEEQU_MAX_NUMBER_OF_UNITS_REAL (0x6U) /**< Real units number */
 
-#define XDFEEQU_DATAPATH_MODE_REAL (0U) /* Real mode */
-#define XDFEEQU_DATAPATH_MODE_COMPLEX (1U) /* Complex mode */
-#define XDFEEQU_DATAPATH_MODE_MATRIX (2U) /* Matrix mode */
+#define XDFEEQU_DATAPATH_MODE_REAL (0U) /**< Real mode */
+#define XDFEEQU_DATAPATH_MODE_COMPLEX (1U) /**< Complex mode */
+#define XDFEEQU_DATAPATH_MODE_MATRIX (2U) /**< Matrix mode */
 
 /**************************** Type Definitions *******************************/
 /*********** start - common code to all Logiccores ************/
@@ -221,10 +224,10 @@ typedef struct {
  * tree/xparameters.h.
  */
 typedef struct {
-	u32 NumChannels;
-	u32 SampleWidth;
-	u32 ComplexModel;
-	u32 TuserWidth;
+	u32 NumChannels; /**< Number of channels */
+	u32 SampleWidth; /**< Sample width */
+	u32 ComplexModel; /**< Complex mode flag */
+	u32 TuserWidth; /**< Tuser width */
 } XDfeEqu_ModelParameters;
 
 /**
@@ -293,12 +296,12 @@ typedef struct {
  * Equalizer Config Structure.
  */
 typedef struct {
-	u32 DeviceId;
-	metal_phys_addr_t BaseAddr;
-	u32 NumChannels;
-	u32 SampleWidth;
-	u32 ComplexModel;
-	u32 TuserWidth;
+	u32 DeviceId; /**< The component instance Id */
+	metal_phys_addr_t BaseAddr; /**< Instance base address */
+	u32 NumChannels; /**< Number of channels */
+	u32 SampleWidth; /**< Sample width */
+	u32 ComplexModel; /**< Complex mode flag */
+	u32 TuserWidth; /**< Tuser width */
 } XDfeEqu_Config;
 
 /**

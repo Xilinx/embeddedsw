@@ -7,9 +7,6 @@
 /**
 *
 * @file xdfeequ_intr.c
-* @addtogroup xdfeequ_v1_2
-* @{
-* @cond nocomments
 * This file contains functions related to Equalizer interrupt handling.
 *
 * <pre>
@@ -23,10 +20,15 @@
 *       dc     04/20/21 Doxygen documentation update
 * 1.2   dc     10/29/21 Update doxygen comments
 *       dc     11/05/21 Align event handlers
+*       dc     11/19/21 Update doxygen documentation
 *
 * </pre>
-* @endcond
+* @addtogroup xdfeequ_v1_2
+* @{
 ******************************************************************************/
+/**
+* @cond nocomments
+*/
 
 #include "xdfeequ.h"
 #include "xdfeequ_hw.h"
@@ -34,9 +36,6 @@
 /**************************** Macros Definitions ****************************/
 
 /************************** Function Prototypes *****************************/
-/**
-* @cond nocomments
-*/
 extern u32 XDfeEqu_RdBitField(u32 FieldWidth, u32 FieldOffset, u32 Data);
 extern u32 XDfeEqu_WrBitField(u32 FieldWidth, u32 FieldOffset, u32 Data,
 			      u32 Val);
