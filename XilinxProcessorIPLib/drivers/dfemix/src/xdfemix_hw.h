@@ -28,6 +28,7 @@
 * 1.1   dc     07/13/21 Update to common latency requirements
 * 1.2   dc     10/29/21 Update doxygen comments
 *       dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
+*       dc     11/05/21 Align event handlers
 *
 * </pre>
 *
@@ -127,6 +128,7 @@ extern "C" {
 #define XDFEMIX_ISR 0x34U /* Register offset */
 #define XDFEMIX_ISR_HAS_NOT_OCCURRED 0U
 #define XDFEMIX_ISR_OCCURRED 1U
+#define XDFEMIX_ISR_CLEAR 1U
 #define XDFEMIX_IER 0x38U /* Register offset */
 #define XDFEMIX_IER_NO_CHANGE 0U
 #define XDFEMIX_IER_SET_BIT 1U

@@ -17,6 +17,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.2   dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
+*       dc     11/05/21 Align event handlers
 *
 * </pre>
 *
@@ -35,7 +36,7 @@
 /****************************************************************************/
 /**
 *
-* This function runs the DFE Mixer device using the driver APIs.
+* This example configures Mixer driver for one CC with multiAddCC APIs.
 * This function does the following tasks:
 *	- Create and system initialize the device driver instance.
 *	- Read SW and HW version numbers.
@@ -73,8 +74,8 @@ int XDfeMix_MultiAddCCExample()
 	XDfeMix_NCO NCO;
 	XDfeMix_Version SwVersion;
 	XDfeMix_Version HwVersion;
-	XDfeMix_InterruptMask ClearMask;
-	u32 ret = XST_FAILURE;
+	XDfeMix_Status Status;
+	u32 Return;
 
 	printf("\r\nMixer \"Multi AddCC Pass Through\" Example - Start\r\n");
 
@@ -118,28 +119,33 @@ int XDfeMix_MultiAddCCExample()
 
 	/* Set antenna gain */
 
-	/* Clear interrupt status */
-	ClearMask.DLCCUpdate = 1U;
+	/* Clear event status */
+	Status.DUCDDCOverflow = XDFEMIX_ISR_CLEAR;
+	Status.MixerOverflow = XDFEMIX_ISR_CLEAR;
+	Status.CCUpdate = XDFEMIX_ISR_CLEAR;
+	Status.CCSequenceError = XDFEMIX_ISR_CLEAR;
 	usleep(10000);
-	XDfeMix_ClearInterruptStatus(InstancePtr, &ClearMask);
+	XDfeMix_ClearEventStatus(InstancePtr, &Status);
 	/* Set antenna 0 gain */
 	AntennaId = 0;
 	AntennaGain = 1U;
 	XDfeMix_SetAntennaGain(InstancePtr, AntennaId, AntennaGain);
 
-	/* Clear interrupt status */
-	ClearMask.DLCCUpdate = 1U;
+	/* Clear event status */
 	usleep(10000);
-	XDfeMix_ClearInterruptStatus(InstancePtr, &ClearMask);
+	XDfeMix_ClearEventStatus(InstancePtr, &Status);
 	/* Set antenna 0 gain */
 	AntennaId = 1U;
 	XDfeMix_SetAntennaGain(InstancePtr, AntennaId, AntennaGain);
 
 	/* Add component carrier */
-	/* Clear interrupt status */
-	ClearMask.DLCCUpdate = 1U;
+	/* Clear event status */
+	Status.DUCDDCOverflow = XDFEMIX_ISR_CLEAR;
+	Status.MixerOverflow = XDFEMIX_ISR_CLEAR;
+	Status.CCUpdate = XDFEMIX_ISR_CLEAR;
+	Status.CCSequenceError = XDFEMIX_ISR_CLEAR;
 	usleep(10000);
-	XDfeMix_ClearInterruptStatus(InstancePtr, &ClearMask);
+	XDfeMix_ClearEventStatus(InstancePtr, &Status);
 	/* Add CC */
 	CCID = 0;
 	CarrierCfg.DUCDDCCfg.NCOIdx = 0;
@@ -151,15 +157,28 @@ int XDfeMix_MultiAddCCExample()
 	NCO.FrequencyCfg.FrequencyControlWord = FrequencyControlWord;
 
 	XDfeMix_GetCurrentCCCfg(InstancePtr, &CurrentCCCfg);
-	if (XST_SUCCESS == XDfeMix_AddCCtoCCCfg(InstancePtr, &CurrentCCCfg,
-						CCID, CCSeqBitmap, &CarrierCfg,
-						&NCO)) {
-		ret = XST_SUCCESS;
+	Return = XDfeMix_AddCCtoCCCfg(InstancePtr, &CurrentCCCfg, CCID,
+				      CCSeqBitmap, &CarrierCfg, &NCO);
+	if (Return == XST_SUCCESS) {
+		printf("Add CC done!\n\r");
+	} else {
+		printf("Add CC failed!\n\r");
+		printf("Mixer \"Pass Through\" Example: Fail\r\n");
+		return XST_FAILURE;
+	}
+
+	Return = XDfeMix_SetNextCCCfgAndTrigger(InstancePtr, &CurrentCCCfg);
+	if (Return == XST_SUCCESS) {
+		printf("XDfeCcf_SetNextCCCfgAndTrigger done!\n\r");
+	} else {
+		printf("XDfeCcf_SetNextCCCfgAndTrigger failed!\n\r");
+		printf("Mixer \"Pass Through\" Example: Fail\r\n");
+		return XST_FAILURE;
 	}
 
 	/* Close and exit */
 	XDfeMix_Deactivate(InstancePtr);
 	XDfeMix_InstanceClose(InstancePtr);
 	printf("Mixer \"Pass Through\" Example: Pass\r\n");
-	return ret;
+	return XST_SUCCESS;
 }
