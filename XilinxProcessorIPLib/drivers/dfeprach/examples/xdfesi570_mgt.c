@@ -18,6 +18,7 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     03/08/21 Initial version
 * 1.1   dc     07/13/21 Update to common latency requirements
+* 1.2   dc     11/19/21 Update doxygen documentation
 * </pre>
 *
 ******************************************************************************/
@@ -150,10 +151,10 @@ int XDfeSi570_InitI2C(void)
 *
 * This function is HAL API for I2C read.
 *
-* @param Iic is I2C port Id.
-* @param Addr is address to be read.
-* @param Val is read value.
-* @param Len is data length.
+* @param Iic I2C port Id.
+* @param Addr Address to be read.
+* @param Val Read value.
+* @param Len Data length.
 *
 * @return
 *	- XST_SUCCESS if successful.
@@ -180,10 +181,10 @@ static int XDfeSi570_I2CRdData_sub(XIicPs *Iic, u8 Addr, u8 *Val, u8 Len)
 *
 * This function is HAL API for I2C write.
 *
-* @param Iic is I2C port Id.
-* @param Addr is address to be written to.
-* @param Val is value to write.
-* @param Len is data length.
+* @param Iic I2C port Id.
+* @param Addr Address to be written to.
+* @param Val Value to write.
+* @param Len Data length.
 *
 * @return
 *	- XST_SUCCESS if successful.
@@ -210,10 +211,10 @@ static int XDfeSi570_I2CWrData_sub(XIicPs *Iic, u8 Addr, u8 *Val, u8 Len)
 *
 * This function is HAL API for I2C read.
 *
-* @param File is descriptor for the I2C driver.
-* @param Addr is address to be read.
-* @param Val is read value.
-* @param Len is data length.
+* @param File Descriptor for the I2C driver.
+* @param Addr Address to be read.
+* @param Val Read value.
+* @param Len Data length.
 *
 * @return
 *	- XST_SUCCESS if successful.
@@ -244,10 +245,10 @@ static int XDfeSi570_I2CRdData_sub(int File, u8 Addr, u8 *Val, u8 Len)
 *
 * This function is HAL API for I2C write.
 *
-* @param File is descriptor for the I2C driver.
-* @param Addr is address to be written to.
-* @param Val is value to write.
-* @param Len is data length.
+* @param File Descriptor for the I2C driver.
+* @param Addr Address to be written to.
+* @param Val Value to write.
+* @param Len Data length.
 *
 * @return
 *	- XST_SUCCESS if successful.
@@ -279,7 +280,7 @@ static int XDfeSi570_I2CWrData_sub(int File, u8 Addr, u8 *Val, u8 Len)
 *
 * This function is used to read a status on I2C1 bus switch.
 *
-* @param BusSwitchStatus is a returned status.
+* @param BusSwitchStatus Returned status.
 *
 * @return
 *	- XST_SUCCESS if successful.
@@ -308,7 +309,7 @@ static int XDfeSi570_GetBusSwitchI2C1(u8 *BusSwitchStatus)
 *
 * This function is used to set new status on I2C1 bus switch.
 *
-* @param BusSwitchStatus is a Mux Bus status.
+* @param BusSwitchStatus Mux Bus status.
 *
 * @return
 *	- XST_SUCCESS if successful.
@@ -339,11 +340,11 @@ static int XDfeSi570_SetBusSwitchI2C1(u8 BusSwitchStatus)
 * repeat IIC write protocol again for DELAY_100uS microseconds multiplied by
 * a loop index number. The procedure will be repeated NUM_IIC_RETRIES times.
 *
-* @param Iic is file descriptor for the I2C driver.
-* @param Addr is address to be read.
-* @param Val is read value.
-* @param Len is data length.
-* @param BusSwitchStatus is new Bus Switch setting.
+* @param Iic File descriptor for the I2C driver.
+* @param Addr Address to be read.
+* @param Val Read value.
+* @param Len Data length.
+* @param BusSwitchStatus New Bus Switch setting.
 *
 * @return
 *	- XST_SUCCESS if successful.
@@ -405,10 +406,10 @@ static int XDfeSi570_I2CRdData(int Iic, u8 Addr, u8 *Val, u8 Len,
 * repeat IIC write protocol again for DELAY_100uS microseconds multiplied by
 * a loop index number. The procedure will be repeated NUM_IIC_RETRIES times.
 *
-* @param Iic is Descriptor for the I2C driver.
-* @param Addr is address to be written to.
-* @param Val is value to write.
-* @param Len is data length.
+* @param Iic Descriptor for the I2C driver.
+* @param Addr Address to be written to.
+* @param Val Value to write.
+* @param Len Data length.
 *
 * @return
 *	- XST_SUCCESS if successful.
@@ -469,8 +470,8 @@ static int XDfeSi570_I2CWrData(int Iic, u8 Addr, u8 *Val, u8 Len,
 * This function reads current state of si570, calculates parameters for si570
 * MGT oscillator new frequency, writes them to si570
 *
-* @param CurrentFrequency is MGT oscillator current frequency.
-* @param NewFrequency is MGT new frequency.
+* @param CurrentFrequency MGT oscillator current frequency.
+* @param NewFrequency MGT new frequency.
 *
 * @return
 *	- XST_SUCCESS if successful.
@@ -633,8 +634,8 @@ void XDfeSi570_SetPL()
 * parameters for si570 MGT oscillator new frequency, writes them to si570 and
 * resets PL to use the new frequency.
 *
-* @param CurrentFrequency is MGT oscillator current frequency.
-* @param NewFrequency is MGT oscillator new frequency.
+* @param CurrentFrequency MGT oscillator current frequency.
+* @param NewFrequency MGT oscillator new frequency.
 *
 * @return	None
 *

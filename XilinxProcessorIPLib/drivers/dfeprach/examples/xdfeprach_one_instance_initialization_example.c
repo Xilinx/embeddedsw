@@ -17,11 +17,14 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.1   dc     07/21/21 Add and reorganise examples
+* 1.2   dc     11/19/21 Update doxygen documentation
 *
 * </pre>
+* @addtogroup dfeprach_v1_2_examples
+* @{
 *
 *****************************************************************************/
-
+/** @cond nocomments */
 /***************************** Include Files ********************************/
 #include "xdfeprach_examples.h"
 
@@ -31,6 +34,7 @@
 /************************** Function Prototypes *****************************/
 /************************** Variable Definitions ****************************/
 
+/** @endcond */
 /****************************************************************************/
 /**
 *
@@ -49,6 +53,7 @@
 *		- XST_FAILURE if the example has failed.
 *
 ****************************************************************************/
+/** //! [testexample1] */
 int XDfePrach_SelfTestExample()
 {
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
@@ -90,3 +95,5 @@ int XDfePrach_SelfTestExample()
 
 	return XST_SUCCESS;
 }
+/** //! [testexample1] */
+/** @} */
