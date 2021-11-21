@@ -19,6 +19,7 @@
 * ----- -----  -------- -----------------------------------------------------
 * 1.1   dc     07/21/21 Add and reorganise examples
 * 1.2   dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
+*       dc     11/05/21 Align event handlers
 *
 * </pre>
 *
@@ -106,15 +107,17 @@ static const s32 CCID_Vals[4] = { 0, 1, 2, 3 };
 ****************************************************************************/
 int XDfeCcf_1xNR100_3xNR20_Example()
 {
-	/* Configure the Channel Filter for a 'pass-through' */
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
 	XDfeCcf_Cfg Cfg;
 	XDfeCcf *InstancePtr = NULL;
 	XDfeCcf_TriggerCfg TriggerCfg = { 0 };
 	u32 Shift = 8;
-	u32 Status;
+	XDfeCcf_Status Status;
+	u32 Return;
+	u32 Index;
 
-	printf("\r\nChannel Filter \"1xNR100 and 3xNR20 Configuration\" Example - Start\r\n");
+	printf("\r\nChannel Filter \"1xNR100 and 3xNR20 Configuration\" "
+	       "Example - Start\r\n");
 
 	/* Initialize libmetal */
 	if (XST_SUCCESS != metal_init(&init_param)) {
@@ -139,19 +142,29 @@ int XDfeCcf_1xNR100_3xNR20_Example()
 	printf("Activate\n\r");
 
 	/* Set coefficients and add channel */
-	for (int i = 0; i < NUM_COEFFICIENT; i++) {
-		XDfeCcf_LoadCoefficients(InstancePtr, i, Shift, pt_coef[i]);
-		printf("set coefficients set#%d done!\n\r", i);
+	for (Index = 0; Index < NUM_COEFFICIENT; Index++) {
+		XDfeCcf_LoadCoefficients(InstancePtr, Index, Shift,
+					 pt_coef[Index]);
+		printf("set coefficients set#%d done!\n\r", Index);
 	}
 
-	for (int i = 0; i < NUM_CARRIER; i++) {
-		printf("Clear Event Status \n\r");
-		XDfeCcf_ClearEventStatus(InstancePtr);
-		Status = XDfeCcf_AddCC(InstancePtr, CCID_Vals[i],
-				       bit_sequence[i], pt_carr[i]);
+	for (Index = 0; Index < NUM_CARRIER; Index++) {
+		/* Clear event status */
+		Status.OverflowCCID = XDFECCF_ISR_CLEAR;
+		Status.CCUpdate = XDFECCF_ISR_CLEAR;
+		Status.CCSequenceError = XDFECCF_ISR_CLEAR;
+		printf("Clear Event Status\n\r");
+		XDfeCcf_ClearEventStatus(InstancePtr, &Status);
+		Return = XDfeCcf_AddCC(InstancePtr, CCID_Vals[Index],
+				       bit_sequence[Index], pt_carr[Index]);
 
-		if (Status == XST_SUCCESS) {
-			printf("Add CC%d done!\n\r", i);
+		if (Return == XST_SUCCESS) {
+			printf("Add CC%d done!\n\r", Index);
+		} else {
+			printf("Add CC%d failed!\n\r", Index);
+			printf("Channel Filter \"1xNR100 and 3xNR20 "
+			       "Configuration\" Example: Fail\r\n");
+			return XST_FAILURE;
 		}
 	}
 
@@ -159,6 +172,7 @@ int XDfeCcf_1xNR100_3xNR20_Example()
 	XDfeCcf_Deactivate(InstancePtr);
 	XDfeCcf_InstanceClose(InstancePtr);
 
-	printf("Channel Filter \"1xNR100 and 3xNR20 Configuration\" Example: Pass\r\n");
+	printf("Channel Filter \"1xNR100 and 3xNR20 Configuration\" Example:"
+	       " Pass\r\n");
 	return XST_SUCCESS;
 }

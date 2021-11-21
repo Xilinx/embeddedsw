@@ -73,6 +73,7 @@
 * 1.1   dc     07/13/21 Update to common latency requirements
 * 1.2   dc     10/29/21 Update doxygen comments
 *       dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
+*       dc     11/05/21 Align event handlers
 *
 * </pre>
 * @endcond
@@ -427,9 +428,12 @@ void XDfeCcf_GetActiveSets(const XDfeCcf *InstancePtr, u32 *IsActive);
 void XDfeCcf_LoadCoefficients(const XDfeCcf *InstancePtr, u32 Set, u32 Shift,
 			      const XDfeCcf_Coefficients *Coeffs);
 void XDfeCcf_GetEventStatus(const XDfeCcf *InstancePtr, XDfeCcf_Status *Status);
-void XDfeCcf_ClearEventStatus(const XDfeCcf *InstancePtr);
+void XDfeCcf_ClearEventStatus(const XDfeCcf *InstancePtr,
+			      const XDfeCcf_Status *Status);
 void XDfeCcf_SetInterruptMask(const XDfeCcf *InstancePtr,
 			      const XDfeCcf_InterruptMask *Mask);
+void XDfeCcf_GetInterruptMask(const XDfeCcf *InstancePtr,
+			      XDfeCcf_InterruptMask *Mask);
 void XDfeCcf_SetTUserDelay(const XDfeCcf *InstancePtr, u32 Delay);
 u32 XDfeCcf_GetTUserDelay(const XDfeCcf *InstancePtr);
 u32 XDfeCcf_GetTDataDelay(const XDfeCcf *InstancePtr, u32 Tap);

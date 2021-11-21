@@ -27,6 +27,7 @@
 *       dc     05/18/21 Handling CCUpdate trigger
 * 1.1   dc     07/13/21 Update to common latency requirements
 * 1.2   dc     10/29/21 Update doxygen comments
+*       dc     11/05/21 Align event handlers
 *
 * </pre>
 *
@@ -112,6 +113,7 @@ extern "C" {
 #define XDFECCF_ISR 0x40U /**< Register offset */
 #define XDFECCF_ISR_HAS_NOT_OCCURRED 0U
 #define XDFECCF_ISR_OCCURRED 1U
+#define XDFECCF_ISR_CLEAR 1U
 #define XDFECCF_IER 0x44U /**< Register offset */
 #define XDFECCF_IER_NO_CHANGE 0U
 #define XDFECCF_IER_SET_BIT 1U
