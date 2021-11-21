@@ -23,6 +23,7 @@
 *       dc     04/20/21 Doxygen documentation update
 * 1.1   dc     11/26/21 Correct interrupt mask handler api
 * 1.2   dc     10/29/21 Update doxygen comments
+*       dc     11/05/21 Align event handlers
 *
 * </pre>
 * @endcond
@@ -94,16 +95,35 @@ void XDfeCcf_GetEventStatus(const XDfeCcf *InstancePtr, XDfeCcf_Status *Status)
 /****************************************************************************/
 /**
 *
-* Clears all event statuses.
+* Clears events status.
 *
-* @param    InstancePtr is a pointer to the channel filter instance.
+* @param    InstancePtr Pointer to the channel filter instance.
+* @param    Status Clear event status container.
+*           - 0 - does not clear coresponding event status
+*           - 1 - clears coresponding event status
 *
 ****************************************************************************/
-void XDfeCcf_ClearEventStatus(const XDfeCcf *InstancePtr)
+void XDfeCcf_ClearEventStatus(const XDfeCcf *InstancePtr,
+			      const XDfeCcf_Status *Status)
 {
-	Xil_AssertVoid(InstancePtr != NULL);
+	u32 Val = 0U;
 
-	XDfeCcf_WriteReg(InstancePtr, XDFECCF_ISR, XDFECCF_IRQ_FLAGS_MASK);
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(Status != NULL);
+	Xil_AssertVoid(Status->OverflowCCID <= 1U);
+	Xil_AssertVoid(Status->CCUpdate <= 1U);
+	Xil_AssertVoid(Status->CCSequenceError <= 1U);
+
+	Val = XDfeCcf_WrBitField(XDFECCF_OVERFLOW_WIDTH,
+				 XDFECCF_OVERFLOW_OFFSET, Val,
+				 Status->OverflowCCID);
+	Val = XDfeCcf_WrBitField(XDFECCF_CC_UPDATE_TRIGGERED_WIDTH,
+				 XDFECCF_CC_UPDATE_TRIGGERED_OFFSET, Val,
+				 Status->CCUpdate);
+	Val = XDfeCcf_WrBitField(XDFECCF_CC_SEQUENCE_ERROR_WIDTH,
+				 XDFECCF_CC_SEQUENCE_ERROR_OFFSET, Val,
+				 Status->CCSequenceError);
+	XDfeCcf_WriteReg(InstancePtr, XDFECCF_ISR, Val);
 }
 
 /****************************************************************************/
@@ -111,8 +131,10 @@ void XDfeCcf_ClearEventStatus(const XDfeCcf *InstancePtr)
 *
 * Sets interrupt masks.
 *
-* @param    InstancePtr is a pointer to the channel filter instance.
-* @param    Mask is an interrupt mask value.
+* @param    InstancePtr Pointer to the channel filter instance.
+* @param    Mask Interrupt mask value.
+*           - 0 - does not mask coresponding interrupt
+*           - 1 - masks coresponding interrupt
 *
 ****************************************************************************/
 void XDfeCcf_SetInterruptMask(const XDfeCcf *InstancePtr,
@@ -123,6 +145,9 @@ void XDfeCcf_SetInterruptMask(const XDfeCcf *InstancePtr,
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Mask != NULL);
+	Xil_AssertVoid(Mask->Overflow <= 1U);
+	Xil_AssertVoid(Mask->CCUpdate <= 1U);
+	Xil_AssertVoid(Mask->CCSequenceError <= 1U);
 
 	if (Mask->Overflow == XDFECCF_IMR_INTERRUPT) {
 		ValIER |= (1U << XDFECCF_OVERFLOW_OFFSET);
@@ -144,6 +169,35 @@ void XDfeCcf_SetInterruptMask(const XDfeCcf *InstancePtr,
 
 	XDfeCcf_WriteReg(InstancePtr, XDFECCF_IER, ValIER);
 	XDfeCcf_WriteReg(InstancePtr, XDFECCF_IDR, ValIDR);
+}
+
+/****************************************************************************/
+/**
+*
+* Gets interrupt masks.
+*
+* @param    InstancePtr Pointer to the channel filter instance.
+* @param    Mask Interrupt mask value.
+*
+*
+****************************************************************************/
+void XDfeCcf_GetInterruptMask(const XDfeCcf *InstancePtr,
+			      XDfeCcf_InterruptMask *Mask)
+{
+	u32 Val;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(Mask != NULL);
+
+	Val = XDfeCcf_ReadReg(InstancePtr, XDFECCF_IMR);
+	Mask->Overflow = XDfeCcf_RdBitField(XDFECCF_OVERFLOW_WIDTH,
+					    XDFECCF_OVERFLOW_OFFSET, Val);
+	Mask->CCUpdate =
+		XDfeCcf_RdBitField(XDFECCF_CC_UPDATE_TRIGGERED_WIDTH,
+				   XDFECCF_CC_UPDATE_TRIGGERED_OFFSET, Val);
+	Mask->CCSequenceError =
+		XDfeCcf_RdBitField(XDFECCF_CC_SEQUENCE_ERROR_WIDTH,
+				   XDFECCF_CC_SEQUENCE_ERROR_OFFSET, Val);
 }
 
 /** @} */
