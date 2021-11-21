@@ -7,9 +7,6 @@
 /**
 *
 * @file xdfeccf_sinit.c
-* @addtogroup dfeccf_v1_2
-* @{
-* @cond nocomments
 * The implementation of the XDfeCcf component's static initialization
 * functionality.
 *
@@ -29,10 +26,16 @@
 * 1.1   dc     10/26/21 Make driver R5 compatible
 * 1.2   dc     10/29/21 Update doxygen comments
 *       dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
+*       dc     11/19/21 Update doxygen documentation
 *
 * </pre>
+* @addtogroup dfeccf_v1_2
+* @{
 *
 ******************************************************************************/
+/*
+* @cond nocomments
+*/
 
 /***************************** Include Files *********************************/
 #include "xdfeccf.h"
@@ -62,9 +65,8 @@
 	"/sys/bus/platform/devices/" /**< Device location in a file system. */
 #define XDFECCF_COMPATIBLE_PROPERTY "compatible" /**< Device tree property */
 #define XDFECCF_BUS_NAME "platform" /**< System bus name. */
-#define XDFECCF_DEVICE_ID_SIZE 4U
 #define XDFECCF_BASEADDR_PROPERTY "reg" /**< Base address property. */
-#define XDFECCF_BASEADDR_SIZE 8U
+#define XDFECCF_BASEADDR_SIZE 8U /**< Base address bit-size. */
 #define XDFECCF_DATA_IWIDTH_CFG "xlnx,data-iwidth" /**< Data IWIDTH property. */
 #define XDFECCF_DATA_OWIDTH_CFG "xlnx,data-owidth" /**< Data OWIDTH property. */
 #define XDFECCF_NUM_ANTENNA_CFG                                                \
@@ -108,8 +110,8 @@ XDfeCcf XDfeCcf_ChFilter[XDFECCF_MAX_NUM_INSTANCES];
 * extracted from the NodeName. Return pointer to the ConfigTable with a matched
 * base address.
 *
-* @param    InstancePtr is a pointer to the Ccf instance.
-* @param    ConfigTable is a configuration table container.
+* @param    InstancePtr Pointer to the Ccf instance.
+* @param    ConfigTable Configuration table container.
 *
 * @return
  *           - XST_SUCCESS if successful.
@@ -144,9 +146,9 @@ u32 XDfeCcf_GetConfigTable(XDfeCcf *InstancePtr, XDfeCcf_Config **ConfigTable)
 * Compares two strings in the reversed order. This function compares only
 * the last "Count" number of characters of Str1Ptr and Str2Ptr.
 *
-* @param    Str1Ptr is the base address of first string.
-* @param    Str2Ptr is the base address of second string.
-* @param    Count is the number of last characters  to be compared between
+* @param    Str1Ptr Base address of first string.
+* @param    Str2Ptr Base address of second string.
+* @param    Count Number of last characters to be compared between
 *           Str1Ptr and Str2Ptr.
 *
 * @return
@@ -180,9 +182,9 @@ static s32 XDfeCcf_Strrncmp(const char *Str1Ptr, const char *Str2Ptr,
 * device with the name DeviceNodeName.
 * If the match is found than check is the device compatible with the driver.
 *
-* @param    DeviceNamePtr is base address of char array, where device name
+* @param    DeviceNamePtr Base address of char array, where device name
 *           will be stored
-* @param    DeviceNodeName is device node name,
+* @param    DeviceNodeName Device node name
 *
 * @return
 *           - XST_SUCCESS if successful.
@@ -275,7 +277,7 @@ static s32 XDfeCcf_IsDeviceCompatible(char *DeviceNamePtr,
 *
 * Looks up the device configuration based on the unique device ID.
 *
-* @param    InstancePtr is a pointer to the Channel Filter instance.
+* @param    InstancePtr Pointer to the Channel Filter instance.
 *
 * @return
 *           - XST_SUCCESS if successful.
@@ -357,9 +359,9 @@ end_failure:
 *
 * Register/open the deviceand map CCF to the IO region.
 *
-* @param    InstancePtr is a pointer to the Channel Filter instance.
-* @param    DevicePtr is a pointer to the metal device.
-* @param    DeviceNodeName is device node name,
+* @param    InstancePtr Pointer to the Channel Filter instance.
+* @param    DevicePtr Pointer to the metal device.
+* @param    DeviceNodeName Device node name,
 *
 * @return
 *           - XST_SUCCESS if successful.
@@ -425,7 +427,7 @@ s32 XDfeCcf_RegisterMetal(XDfeCcf *InstancePtr, struct metal_device **DevicePtr,
 * Initializes a specific XDfeCcf instance such that the driver is ready to use.
 *
 *
-* @param    InstancePtr is a pointer to the XDfeCcf instance.
+* @param    InstancePtr Pointer to the XDfeCcf instance.
 *
 *
 * @note     The user needs to first call the XDfeCcf_LookupConfig() API

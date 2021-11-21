@@ -20,11 +20,14 @@
 * 1.1   dc     07/21/21 Add and reorganise examples
 * 1.2   dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 *       dc     11/05/21 Align event handlers
+*       dc     11/19/21 Update doxygen documentation
 *
 * </pre>
+* @addtogroup dfeccf_v1_2_examples
+* @{
 *
 *****************************************************************************/
-
+/** @cond nocomments */
 /***************************** Include Files ********************************/
 #include "xdfeccf_examples.h"
 
@@ -88,11 +91,12 @@ static XDfeCcf_CarrierCfg *pt_carr[4] = { &CarrierCfg0, &CarrierCfg1,
 static const u32 bit_sequence[4] = { 0x55, 0x2, 0x8, 0x20 };
 static const s32 CCID_Vals[4] = { 0, 1, 2, 3 };
 
+/** @endcond */
 /****************************************************************************/
 /**
 *
-* This function configures Channel Filter driver for one NR100 carrier and
-* three NR20.
+* This example configures Channel Filter driver for one NR100 carrier and
+* three NR20 and at the end close and release the driver.
 * The example does the following:
 *     - initialize driver from reset to activation
 *     - configure filters with the pre-calculated coefficients
@@ -105,6 +109,7 @@ static const s32 CCID_Vals[4] = { 0, 1, 2, 3 };
 *		- XST_FAILURE if the example has failed.
 *
 ****************************************************************************/
+/** //! [testexample2] */
 int XDfeCcf_1xNR100_3xNR20_Example()
 {
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
@@ -176,3 +181,5 @@ int XDfeCcf_1xNR100_3xNR20_Example()
 	       " Pass\r\n");
 	return XST_SUCCESS;
 }
+/** //! [testexample2] */
+/** @} */

@@ -24,10 +24,10 @@
 * - Using 18-bit data interface.
 * - Using 16-bit coefficients.
 * - Can independently configure complex and real coefficients.
-* - Enables you to program the co-efficient sets via a processor
+* - Enables you to program the coefficient sets via a processor
 *     interface.
-* - Enables you to change the co-efficient sets that act on the input data
-*     via a processor interface
+* - Enables you to change the coefficient sets that act on the input data
+*     via a processor interface.
 * - Supports TDD power down via a processor interface and TUSER input.
 * - Supports the flushing of the internal buffers via a processor interface.
 * - Indication of overflow provided via a status register.
@@ -37,8 +37,8 @@
 * The channel filter driver provides the following features for each of
 * the channels:
 *
-* - Setting of the co-efficient sets via the s_axi_ctrl processor interface.
-* - Selection of the co-efficient sets to use for the real and imaginary data
+* - Setting of the coefficient sets via the s_axi_ctrl processor interface.
+* - Selection of the coefficient sets to use for the real and imaginary data.
 * - Inputs via the s_axi_ctrl processor interface.
 * - Register bits to control the following inputs of the dfe_channel_filter
 *      blocks:
@@ -51,8 +51,6 @@
 * - TUSER and TLAST support on the data interfaces:
 *
 * An API which will read/write registers has been provided for debugging.
-*
-* There are plans to add more features.
 *
 * @cond nocomments
 * <pre>
@@ -74,6 +72,7 @@
 * 1.2   dc     10/29/21 Update doxygen comments
 *       dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 *       dc     11/05/21 Align event handlers
+*       dc     11/19/21 Update doxygen documentation
 *
 * </pre>
 * @endcond
