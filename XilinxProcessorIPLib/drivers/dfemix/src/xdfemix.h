@@ -70,6 +70,7 @@
 * 1.1   dc     07/13/21 Update to common latency requirements
 * 1.2   dc     10/29/21 Update doxygen comments
 *       dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
+*       dc     11/05/21 Align event handlers
 *
 * </pre>
 * @endcond
@@ -398,11 +399,11 @@ typedef struct {
 typedef struct {
 	u32 DUCDDCOverflow; /**< [0,1] Mask overflow in DUC/DDC */
 	u32 MixerOverflow; /**< [0,1] Mask overflow in mixer */
-	u32 DLCCUpdate; /**< [0,1] Mask downlink update interrupt */
-	u32 DLCCSequenceError; /**< [0,1] Mask downlink sequence error */
-	u32 ULCCUpdate; /**< [0,1] Mask uplink update interrupt */
-	u32 ULCCSequenceError; /**< [0,1] Mask uplink sequence error */
-} XDfeMix_InterruptMask;
+	u32 CCUpdate; /**< [0,1] Mask update interrupt */
+	u32 CCSequenceError; /**< [0,1] Mask sequence error */
+} XDfeMix_Status;
+
+typedef XDfeMix_Status XDfeMix_InterruptMask;
 
 /**
  * Mixer Config Structure.
@@ -492,17 +493,12 @@ void XDfeMix_GetDUCDDCStatus(const XDfeMix *InstancePtr, s32 CCID,
 void XDfeMix_GetMixerStatus(const XDfeMix *InstancePtr, s32 CCID,
 			    XDfeMix_MixerStatus *MixerStatus);
 void XDfeMix_GetInterruptMask(const XDfeMix *InstancePtr,
-			      XDfeMix_InterruptMask *Flags);
+			      XDfeMix_InterruptMask *Mask);
 void XDfeMix_SetInterruptMask(const XDfeMix *InstancePtr,
-			      const XDfeMix_InterruptMask *Flags);
-void XDfeMix_InterruptEnable(const XDfeMix *InstancePtr,
-			     const XDfeMix_InterruptMask *Flags);
-void XDfeMix_InterruptDisable(const XDfeMix *InstancePtr,
-			      const XDfeMix_InterruptMask *Flags);
-void XDfeMix_GetInterruptStatus(const XDfeMix *InstancePtr,
-				XDfeMix_InterruptMask *Flags);
-void XDfeMix_ClearInterruptStatus(const XDfeMix *InstancePtr,
-				  const XDfeMix_InterruptMask *Flags);
+			      const XDfeMix_InterruptMask *Mask);
+void XDfeMix_GetEventStatus(const XDfeMix *InstancePtr, XDfeMix_Status *Status);
+void XDfeMix_ClearEventStatus(const XDfeMix *InstancePtr,
+			      const XDfeMix_Status *Status);
 void XDfeMix_SetTUserDelay(const XDfeMix *InstancePtr, u32 Delay);
 u32 XDfeMix_GetTUserDelay(const XDfeMix *InstancePtr);
 u32 XDfeMix_GetTDataDelay(const XDfeMix *InstancePtr, u32 Tap);

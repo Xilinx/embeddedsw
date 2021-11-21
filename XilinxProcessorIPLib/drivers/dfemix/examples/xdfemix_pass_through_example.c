@@ -18,6 +18,7 @@
 * ----- -----  -------- -----------------------------------------------------
 * 1.1   dc     07/21/21 Add and reorganise examples
 * 1.2   dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
+*       dc     11/05/21 Align event handlers
 *
 * </pre>
 *
@@ -71,7 +72,7 @@ int XDfeMix_AddCCExample()
 	XDfeMix_NCO NCO;
 	XDfeMix_Version SwVersion;
 	XDfeMix_Version HwVersion;
-	XDfeMix_InterruptMask ClearMask;
+	XDfeMix_Status Status;
 
 	printf("\r\nMixer \"Pass Through\" Example - Start\r\n");
 
@@ -115,28 +116,29 @@ int XDfeMix_AddCCExample()
 
 	/* Set antenna gain */
 
-	/* Clear interrupt status */
-	ClearMask.DLCCUpdate = 1U;
+	/* Clear event status */
+	Status.DUCDDCOverflow = XDFEMIX_ISR_CLEAR;
+	Status.MixerOverflow = XDFEMIX_ISR_CLEAR;
+	Status.CCUpdate = XDFEMIX_ISR_CLEAR;
+	Status.CCSequenceError = XDFEMIX_ISR_CLEAR;
 	usleep(10000);
-	XDfeMix_ClearInterruptStatus(InstancePtr, &ClearMask);
+	XDfeMix_ClearEventStatus(InstancePtr, &Status);
 	/* Set antenna 0 gain */
 	AntennaId = 0;
 	AntennaGain = 1U;
 	XDfeMix_SetAntennaGain(InstancePtr, AntennaId, AntennaGain);
 
-	/* Clear interrupt status */
-	ClearMask.DLCCUpdate = 1U;
+	/* Clear event status */
 	usleep(10000);
-	XDfeMix_ClearInterruptStatus(InstancePtr, &ClearMask);
+	XDfeMix_ClearEventStatus(InstancePtr, &Status);
 	/* Set antenna 0 gain */
 	AntennaId = 1U;
 	XDfeMix_SetAntennaGain(InstancePtr, AntennaId, AntennaGain);
 
 	/* Add component carrier */
-	/* Clear interrupt status */
-	ClearMask.DLCCUpdate = 1U;
+	/* Clear event status */
 	usleep(10000);
-	XDfeMix_ClearInterruptStatus(InstancePtr, &ClearMask);
+	XDfeMix_ClearEventStatus(InstancePtr, &Status);
 	/* Add CC */
 	CCID = 0;
 	CarrierCfg.DUCDDCCfg.NCOIdx = 0;
