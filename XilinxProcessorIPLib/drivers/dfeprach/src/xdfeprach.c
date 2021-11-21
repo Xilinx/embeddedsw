@@ -31,6 +31,7 @@
 *       dc     10/26/21 Make driver R5 compatible
 * 1.2   dc     10/29/21 Update doxygen comments
 *       dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
+*       dc     11/05/21 Align event handlers
 *
 * </pre>
 * @endcond
@@ -71,9 +72,9 @@
 */
 static void XDfePrach_GetRC(const XDfePrach *InstancePtr, bool Next, u32 RCId,
 			    XDfePrach_RCCfg *RCCfg);
-static void XDfePrach_AddRC(u32 RCId,
-			    u32 RachChan, s32 CCID, XDfePrach_RCCfg *RCCfg,
-			    XDfePrach_DDCCfg *DdcCfg, XDfePrach_NCO *NcoCfg,
+static void XDfePrach_AddRC(u32 RCId, u32 RachChan, s32 CCID,
+			    XDfePrach_RCCfg *RCCfg, XDfePrach_DDCCfg *DdcCfg,
+			    XDfePrach_NCO *NcoCfg,
 			    XDfePrach_Schedule *Schedule);
 static void XDfePrach_RemoveOneRC(XDfePrach_InternalChannelCfg *InternalRCCfg);
 static void XDfePrach_SetRC(const XDfePrach *InstancePtr,
@@ -596,10 +597,9 @@ static void XDfePrach_GetRC(const XDfePrach *InstancePtr, bool Next, u32 RCId,
 * @param    Schedule is a Schedule data container.
 *
 ****************************************************************************/
-static void XDfePrach_AddRC(u32 RCId,
-			    u32 RachChan, s32 CCID, XDfePrach_RCCfg *RCCfg,
-			    XDfePrach_DDCCfg *DdcCfg, XDfePrach_NCO *NcoCfg,
-			    XDfePrach_Schedule *Schedule)
+static void XDfePrach_AddRC(u32 RCId, u32 RachChan, s32 CCID,
+			    XDfePrach_RCCfg *RCCfg, XDfePrach_DDCCfg *DdcCfg,
+			    XDfePrach_NCO *NcoCfg, XDfePrach_Schedule *Schedule)
 {
 	RCCfg->InternalRCCfg[RCId].RCId = RCId;
 	/* Set the physical channel first so the physicla channels are loaded
@@ -2125,7 +2125,7 @@ u32 XDfePrach_SetNextCfg(const XDfePrach *InstancePtr,
 *           - XST_SUCCESS if successful.
 *           - XST_FAILURE if error occurs.
 *
-* @note     Clear event status with XDfePrach_ClearInterruptStatus() before
+* @note     Clear event status with XDfePrach_ClearEventStatus() before
 *           running this API.
 *
 ****************************************************************************/
@@ -2188,7 +2188,7 @@ u32 XDfePrach_AddCC(XDfePrach *InstancePtr, s32 CCID, u32 CCSeqBitmap,
 *           - XST_SUCCESS if successful.
 *           - XST_FAILURE if error occurs.
 *
-* @note     Clear event status with XDfePrach_ClearInterruptStatus() before
+* @note     Clear event status with XDfePrach_ClearEventStatus() before
 *           running this API.
 *
 ****************************************************************************/
@@ -2233,7 +2233,7 @@ u32 XDfePrach_RemoveCC(XDfePrach *InstancePtr, s32 CCID)
 *           - XST_SUCCESS if successful.
 *           - XST_FAILURE if error occurs.
 *
-* @note     Clear event status with XDfePrach_ClearInterruptStatus() before
+* @note     Clear event status with XDfePrach_ClearEventStatus() before
 *           running this API.
 *
 ****************************************************************************/
@@ -2390,8 +2390,8 @@ u32 XDfePrach_AddRCtoRCCfg(const XDfePrach *InstancePtr,
 
 	/* Load the new channel's data into the RCID configuration, will be
 	   marked as needing a restart. */
-	XDfePrach_AddRC(RCId, RachChan, CCID, CurrentRCCfg, DdcCfg,
-			NcoCfg, StaticSchedule);
+	XDfePrach_AddRC(RCId, RachChan, CCID, CurrentRCCfg, DdcCfg, NcoCfg,
+			StaticSchedule);
 
 	return XST_SUCCESS;
 }
@@ -2455,8 +2455,8 @@ void XDfePrach_UpdateRCinRCCfg(const XDfePrach *InstancePtr,
 
 	/* Load the new channel's data into the RCID configuration, will be
 	   marked as needing a restart. */
-	XDfePrach_AddRC(RCId, RachChan, CCID, CurrentRCCfg, DdcCfg,
-			NcoCfg, StaticSchedule);
+	XDfePrach_AddRC(RCId, RachChan, CCID, CurrentRCCfg, DdcCfg, NcoCfg,
+			StaticSchedule);
 }
 
 /****************************************************************************/
@@ -2476,7 +2476,7 @@ void XDfePrach_UpdateRCinRCCfg(const XDfePrach *InstancePtr,
 *	- XST_SUCCESS on succes
 *	- XST_FAILURE on failure
 *
-* @note     Clear event status with XDfePrach_ClearInterruptStatus() before
+* @note     Clear event status with XDfePrach_ClearEventStatus() before
 *           running this API.
 *
 ****************************************************************************/
@@ -2518,8 +2518,8 @@ u32 XDfePrach_AddRCCfg(const XDfePrach *InstancePtr, s32 CCID, u32 RCId,
 
 	/* Load the new channel's data into the RCID configuration, will be
 	   marked as needing a restart. */
-	XDfePrach_AddRC(RCId, RachChan, CCID, &CurrentRCCfg,
-			DdcCfg, NcoCfg, StaticSchedule);
+	XDfePrach_AddRC(RCId, RachChan, CCID, &CurrentRCCfg, DdcCfg, NcoCfg,
+			StaticSchedule);
 
 	/* Update next configuration and trigger update. */
 	if (XST_FAILURE ==
@@ -2543,7 +2543,7 @@ u32 XDfePrach_AddRCCfg(const XDfePrach *InstancePtr, s32 CCID, u32 RCId,
 *	- XST_SUCCESS on succes
 *	- XST_FAILURE on failure
 *
-* @note     Clear event status with XDfePrach_ClearInterruptStatus() before
+* @note     Clear event status with XDfePrach_ClearEventStatus() before
 *           running this API.
 *
 ****************************************************************************/
@@ -2591,7 +2591,7 @@ u32 XDfePrach_RemoveRC(const XDfePrach *InstancePtr, u32 RCId)
 *	- XST_SUCCESS on succes
 *	- XST_FAILURE on failure
 *
-* @note     Clear event status with XDfePrach_ClearInterruptStatus() before
+* @note     Clear event status with XDfePrach_ClearEventStatus() before
 *           running this API.
 *
 ****************************************************************************/
@@ -2618,8 +2618,8 @@ u32 XDfePrach_UpdateRCCfg(const XDfePrach *InstancePtr, s32 CCID, u32 RCId,
 
 	/* Load the new channel's data into the RCID configuration, will be
 	   marked as needing a restart. */
-	XDfePrach_AddRC(RCId, RachChan, CCID, &CurrentRCCfg,
-			DdcCfg, NcoCfg, StaticSchedule);
+	XDfePrach_AddRC(RCId, RachChan, CCID, &CurrentRCCfg, DdcCfg, NcoCfg,
+			StaticSchedule);
 
 	/* Update next configuration and trigger update. */
 	if (XST_FAILURE ==
@@ -2645,7 +2645,7 @@ u32 XDfePrach_UpdateRCCfg(const XDfePrach *InstancePtr, s32 CCID, u32 RCId,
 *	- XST_SUCCESS on succes
 *	- XST_FAILURE on failure
 *
-* @note     Clear event status with XDfePrach_ClearInterruptStatus() before
+* @note     Clear event status with XDfePrach_ClearEventStatus() before
 *           running this API.
 *
 ****************************************************************************/
@@ -3071,7 +3071,7 @@ void XDfePrach_ClearStatus(const XDfePrach *InstancePtr)
 	Xil_AssertVoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
 
 	/* Clear IRQ statuses */
-	XDfePrach_ClearInterruptStatus(InstancePtr, &Flags);
+	XDfePrach_ClearEventStatus(InstancePtr, &Flags);
 
 	/* Clear RACH_MIXER.STATUS */
 	Offset = XDFEPRACH_STATUS_DECIMATOR_OVERFLOW;
