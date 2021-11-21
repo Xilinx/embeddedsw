@@ -21,6 +21,7 @@
 *       dc     04/18/21 Update trigger and event handlers
 * 1.1   dc     06/30/21 Doxygen documentation update
 * 1.2   dc     10/29/21 Update doxygen comments
+*       dc     11/05/21 Align event handlers
 *
 * </pre>
 * @endcond
@@ -47,248 +48,221 @@ extern u32 XDfePrach_WrBitField(u32 FieldWidth, u32 FieldOffset, u32 Data,
 *
 * Gets interrupt mask status.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    Flags is an interrupt flags container.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    Mask Interrupt masks container.
 *
 ****************************************************************************/
 void XDfePrach_GetInterruptMask(const XDfePrach *InstancePtr,
-				XDfePrach_InterruptMask *Flags)
+				XDfePrach_InterruptMask *Mask)
 {
 	u32 Val;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(Flags != NULL);
+	Xil_AssertVoid(Mask != NULL);
 
 	Val = XDfePrach_ReadReg(InstancePtr, XDFEPRACH_IMR);
-	Flags->DecimatorOverflow =
+	Mask->DecimatorOverflow =
 		XDfePrach_RdBitField(XDFEPRACH_DECIMATOR_OVERFLOW_WIDTH,
 				     XDFEPRACH_DECIMATOR_OVERFLOW_OFFSET, Val);
-	Flags->MixerOverflow =
+	Mask->MixerOverflow =
 		XDfePrach_RdBitField(XDFEPRACH_MIXER_OVERFLOW_WIDTH,
 				     XDFEPRACH_MIXER_OVERFLOW_OFFSET, Val);
-	Flags->DecimatorOverrun =
+	Mask->DecimatorOverrun =
 		XDfePrach_RdBitField(XDFEPRACH_DECIMATOR_OVERRUN_WIDTH,
 				     XDFEPRACH_DECIMATOR_OVERRUN_OFFSET, Val);
-	Flags->SelectorOverrun =
+	Mask->SelectorOverrun =
 		XDfePrach_RdBitField(XDFEPRACH_SELECTOR_OVERRUN_WIDTH,
 				     XDFEPRACH_SELECTOR_OVERRUN_OFFSET, Val);
-	Flags->RachUpdate =
+	Mask->RachUpdate =
 		XDfePrach_RdBitField(XDFEPRACH_RACH_UPDATE_TRIGGERED_WIDTH,
 				     XDFEPRACH_RACH_UPDATE_TRIGGERED_OFFSET,
 				     Val);
-	Flags->CCSequenceError =
+	Mask->CCSequenceError =
 		XDfePrach_RdBitField(XDFEPRACH_CC_SEQUENCE_ERROR_WIDTH,
 				     XDFEPRACH_CC_SEQUENCE_ERROR_OFFSET, Val);
-	Flags->SFSequenceUpdate =
+	Mask->FrameInitTrigger =
 		XDfePrach_RdBitField(XDFEPRACH_FRAME_INIT_TRIGGERED_WIDTH,
 				     XDFEPRACH_FRAME_INIT_TRIGGERED_OFFSET,
 				     Val);
+	Mask->FrameError = XDfePrach_RdBitField(
+		XDFEPRACH_FRAME_ERROR_WIDTH, XDFEPRACH_FRAME_ERROR_OFFSET, Val);
 }
 /****************************************************************************/
 /**
 *
 * Sets interrupt mask.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    Flags is an interrupt flags container.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    Mask Interrupt mask flags container.
+*           - 0 - does not mask coresponding interrupt
+*           - 1 - masks coresponding interrupt
 *
 ****************************************************************************/
 void XDfePrach_SetInterruptMask(const XDfePrach *InstancePtr,
-				const XDfePrach_InterruptMask *Flags)
+				const XDfePrach_InterruptMask *Mask)
 {
-	u32 Data = 0;
+	u32 ValIER = 0U;
+	u32 ValIDR = 0U;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(Flags != NULL);
+	Xil_AssertVoid(Mask != NULL);
+	Xil_AssertVoid(Mask->DecimatorOverflow <= 1U);
+	Xil_AssertVoid(Mask->MixerOverflow <= 1U);
+	Xil_AssertVoid(Mask->DecimatorOverrun <= 1U);
+	Xil_AssertVoid(Mask->SelectorOverrun <= 1U);
+	Xil_AssertVoid(Mask->RachUpdate <= 1U);
+	Xil_AssertVoid(Mask->CCSequenceError <= 1U);
+	Xil_AssertVoid(Mask->FrameInitTrigger <= 1U);
+	Xil_AssertVoid(Mask->FrameError <= 1U);
 
-	Data = XDfePrach_WrBitField(XDFEPRACH_DECIMATOR_OVERFLOW_WIDTH,
-				    XDFEPRACH_DECIMATOR_OVERFLOW_OFFSET, Data,
-				    Flags->DecimatorOverflow);
-	Data = XDfePrach_WrBitField(XDFEPRACH_MIXER_OVERFLOW_WIDTH,
-				    XDFEPRACH_MIXER_OVERFLOW_OFFSET, Data,
-				    Flags->MixerOverflow);
-	Data = XDfePrach_WrBitField(XDFEPRACH_DECIMATOR_OVERRUN_WIDTH,
-				    XDFEPRACH_DECIMATOR_OVERRUN_OFFSET, Data,
-				    Flags->DecimatorOverrun);
-	Data = XDfePrach_WrBitField(XDFEPRACH_SELECTOR_OVERRUN_WIDTH,
-				    XDFEPRACH_SELECTOR_OVERRUN_OFFSET, Data,
-				    Flags->SelectorOverrun);
-	Data = XDfePrach_WrBitField(XDFEPRACH_RACH_UPDATE_TRIGGERED_WIDTH,
-				    XDFEPRACH_RACH_UPDATE_TRIGGERED_OFFSET,
-				    Data, Flags->RachUpdate);
-	Data = XDfePrach_WrBitField(XDFEPRACH_CC_SEQUENCE_ERROR_WIDTH,
-				    XDFEPRACH_CC_SEQUENCE_ERROR_OFFSET, Data,
-				    Flags->CCSequenceError);
-	Data = XDfePrach_WrBitField(XDFEPRACH_FRAME_INIT_TRIGGERED_WIDTH,
-				    XDFEPRACH_FRAME_INIT_TRIGGERED_OFFSET, Data,
-				    Flags->SFSequenceUpdate);
-	XDfePrach_WriteReg(InstancePtr, XDFEPRACH_IMR, Data);
+	if (Mask->DecimatorOverflow == XDFEPRACH_IMR_INTERRUPT) {
+		ValIER |= (1U << XDFEPRACH_DECIMATOR_OVERFLOW_OFFSET);
+	} else {
+		ValIDR |= (1U << XDFEPRACH_DECIMATOR_OVERFLOW_OFFSET);
+	}
+
+	if (Mask->MixerOverflow == XDFEPRACH_IMR_INTERRUPT) {
+		ValIER |= (1U << XDFEPRACH_MIXER_OVERFLOW_OFFSET);
+	} else {
+		ValIDR |= (1U << XDFEPRACH_MIXER_OVERFLOW_OFFSET);
+	}
+
+	if (Mask->DecimatorOverrun == XDFEPRACH_IMR_INTERRUPT) {
+		ValIER |= (1U << XDFEPRACH_DECIMATOR_OVERRUN_OFFSET);
+	} else {
+		ValIDR |= (1U << XDFEPRACH_DECIMATOR_OVERRUN_OFFSET);
+	}
+
+	if (Mask->SelectorOverrun == XDFEPRACH_IMR_INTERRUPT) {
+		ValIER |= (1U << XDFEPRACH_SELECTOR_OVERRUN_OFFSET);
+	} else {
+		ValIDR |= (1U << XDFEPRACH_SELECTOR_OVERRUN_OFFSET);
+	}
+
+	if (Mask->RachUpdate == XDFEPRACH_IMR_INTERRUPT) {
+		ValIER |= (1U << XDFEPRACH_RACH_UPDATE_TRIGGERED_OFFSET);
+	} else {
+		ValIDR |= (1U << XDFEPRACH_RACH_UPDATE_TRIGGERED_OFFSET);
+	}
+
+	if (Mask->CCSequenceError == XDFEPRACH_IMR_INTERRUPT) {
+		ValIER |= (1U << XDFEPRACH_CC_SEQUENCE_ERROR_OFFSET);
+	} else {
+		ValIDR |= (1U << XDFEPRACH_CC_SEQUENCE_ERROR_OFFSET);
+	}
+
+	if (Mask->FrameInitTrigger == XDFEPRACH_IMR_INTERRUPT) {
+		ValIER |= (1U << XDFEPRACH_FRAME_INIT_TRIGGERED_OFFSET);
+	} else {
+		ValIDR |= (1U << XDFEPRACH_FRAME_INIT_TRIGGERED_OFFSET);
+	}
+
+	if (Mask->FrameError == XDFEPRACH_IMR_INTERRUPT) {
+		ValIER |= (1U << XDFEPRACH_FRAME_ERROR_OFFSET);
+	} else {
+		ValIDR |= (1U << XDFEPRACH_FRAME_ERROR_OFFSET);
+	}
+
+	XDfePrach_WriteReg(InstancePtr, XDFEPRACH_IER, ValIER);
+	XDfePrach_WriteReg(InstancePtr, XDFEPRACH_IDR, ValIDR);
 }
 
 /****************************************************************************/
 /**
 *
-* Enables interrupts.
+* Gets event status.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    Flags is an interrupt flags container.
-*
-****************************************************************************/
-void XDfePrach_InterruptEnable(const XDfePrach *InstancePtr,
-			       const XDfePrach_InterruptMask *Flags)
-{
-	u32 Data = 0;
-
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(Flags != NULL);
-
-	Data = XDfePrach_WrBitField(XDFEPRACH_DECIMATOR_OVERFLOW_WIDTH,
-				    XDFEPRACH_DECIMATOR_OVERFLOW_OFFSET, Data,
-				    Flags->DecimatorOverflow);
-	Data = XDfePrach_WrBitField(XDFEPRACH_MIXER_OVERFLOW_WIDTH,
-				    XDFEPRACH_MIXER_OVERFLOW_OFFSET, Data,
-				    Flags->MixerOverflow);
-	Data = XDfePrach_WrBitField(XDFEPRACH_DECIMATOR_OVERRUN_WIDTH,
-				    XDFEPRACH_DECIMATOR_OVERRUN_OFFSET, Data,
-				    Flags->DecimatorOverrun);
-	Data = XDfePrach_WrBitField(XDFEPRACH_SELECTOR_OVERRUN_WIDTH,
-				    XDFEPRACH_SELECTOR_OVERRUN_OFFSET, Data,
-				    Flags->SelectorOverrun);
-	Data = XDfePrach_WrBitField(XDFEPRACH_RACH_UPDATE_TRIGGERED_WIDTH,
-				    XDFEPRACH_RACH_UPDATE_TRIGGERED_OFFSET,
-				    Data, Flags->RachUpdate);
-	Data = XDfePrach_WrBitField(XDFEPRACH_CC_SEQUENCE_ERROR_WIDTH,
-				    XDFEPRACH_CC_SEQUENCE_ERROR_OFFSET, Data,
-				    Flags->CCSequenceError);
-	Data = XDfePrach_WrBitField(XDFEPRACH_FRAME_INIT_TRIGGERED_WIDTH,
-				    XDFEPRACH_FRAME_INIT_TRIGGERED_OFFSET, Data,
-				    Flags->SFSequenceUpdate);
-	XDfePrach_WriteReg(InstancePtr, XDFEPRACH_IER, Data);
-}
-
-/****************************************************************************/
-/**
-*
-* Disables interrupts.
-*
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    Flags is an interrupt flags container.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    Status Event status container.
 *
 ****************************************************************************/
-void XDfePrach_InterruptDisable(const XDfePrach *InstancePtr,
-				const XDfePrach_InterruptMask *Flags)
-{
-	u32 Data = 0;
-
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(Flags != NULL);
-
-	Data = XDfePrach_WrBitField(XDFEPRACH_DECIMATOR_OVERFLOW_WIDTH,
-				    XDFEPRACH_DECIMATOR_OVERFLOW_OFFSET, Data,
-				    Flags->DecimatorOverflow);
-	Data = XDfePrach_WrBitField(XDFEPRACH_MIXER_OVERFLOW_WIDTH,
-				    XDFEPRACH_MIXER_OVERFLOW_OFFSET, Data,
-				    Flags->MixerOverflow);
-	Data = XDfePrach_WrBitField(XDFEPRACH_DECIMATOR_OVERRUN_WIDTH,
-				    XDFEPRACH_DECIMATOR_OVERRUN_OFFSET, Data,
-				    Flags->DecimatorOverrun);
-	Data = XDfePrach_WrBitField(XDFEPRACH_SELECTOR_OVERRUN_WIDTH,
-				    XDFEPRACH_SELECTOR_OVERRUN_OFFSET, Data,
-				    Flags->SelectorOverrun);
-	Data = XDfePrach_WrBitField(XDFEPRACH_RACH_UPDATE_TRIGGERED_WIDTH,
-				    XDFEPRACH_RACH_UPDATE_TRIGGERED_OFFSET,
-				    Data, Flags->RachUpdate);
-	Data = XDfePrach_WrBitField(XDFEPRACH_CC_SEQUENCE_ERROR_WIDTH,
-				    XDFEPRACH_CC_SEQUENCE_ERROR_OFFSET, Data,
-				    Flags->CCSequenceError);
-	Data = XDfePrach_WrBitField(XDFEPRACH_FRAME_INIT_TRIGGERED_WIDTH,
-				    XDFEPRACH_FRAME_INIT_TRIGGERED_OFFSET, Data,
-				    Flags->SFSequenceUpdate);
-	Data = ~Data &
-	       XDFEPRACH_IRQ_FLAGS_MASK; /* Invert flags to set IRQ disable */
-	XDfePrach_WriteReg(InstancePtr, XDFEPRACH_IDR, Data);
-}
-/****************************************************************************/
-/**
-*
-* Gets interrupt status.
-*
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    Flags is an interrupt flags container.
-*
-****************************************************************************/
-void XDfePrach_GetInterruptStatus(const XDfePrach *InstancePtr,
-				  XDfePrach_InterruptMask *Flags)
+void XDfePrach_GetEventStatus(const XDfePrach *InstancePtr,
+			      XDfePrach_StatusMask *Status)
 {
 	u32 Val;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(Flags != NULL);
+	Xil_AssertVoid(Status != NULL);
 
 	Val = XDfePrach_ReadReg(InstancePtr, XDFEPRACH_ISR);
-	Flags->DecimatorOverflow =
+	Status->DecimatorOverflow =
 		XDfePrach_RdBitField(XDFEPRACH_DECIMATOR_OVERFLOW_WIDTH,
 				     XDFEPRACH_DECIMATOR_OVERFLOW_OFFSET, Val);
-	Flags->MixerOverflow =
+	Status->MixerOverflow =
 		XDfePrach_RdBitField(XDFEPRACH_MIXER_OVERFLOW_WIDTH,
 				     XDFEPRACH_MIXER_OVERFLOW_OFFSET, Val);
-	Flags->DecimatorOverrun =
+	Status->DecimatorOverrun =
 		XDfePrach_RdBitField(XDFEPRACH_DECIMATOR_OVERRUN_WIDTH,
 				     XDFEPRACH_DECIMATOR_OVERRUN_OFFSET, Val);
-	Flags->SelectorOverrun =
+	Status->SelectorOverrun =
 		XDfePrach_RdBitField(XDFEPRACH_SELECTOR_OVERRUN_WIDTH,
 				     XDFEPRACH_SELECTOR_OVERRUN_OFFSET, Val);
-	Flags->RachUpdate =
+	Status->RachUpdate =
 		XDfePrach_RdBitField(XDFEPRACH_RACH_UPDATE_TRIGGERED_WIDTH,
 				     XDFEPRACH_RACH_UPDATE_TRIGGERED_OFFSET,
 				     Val);
-	Flags->CCSequenceError =
+	Status->CCSequenceError =
 		XDfePrach_RdBitField(XDFEPRACH_CC_SEQUENCE_ERROR_WIDTH,
 				     XDFEPRACH_CC_SEQUENCE_ERROR_OFFSET, Val);
-	Flags->SFSequenceUpdate =
+	Status->FrameInitTrigger =
 		XDfePrach_RdBitField(XDFEPRACH_FRAME_INIT_TRIGGERED_WIDTH,
 				     XDFEPRACH_FRAME_INIT_TRIGGERED_OFFSET,
 				     Val);
+	Status->FrameInitTrigger = XDfePrach_RdBitField(
+		XDFEPRACH_FRAME_ERROR_WIDTH, XDFEPRACH_FRAME_ERROR_OFFSET, Val);
 }
 
 /****************************************************************************/
 /**
 *
-* Clears interrupt status.
+* Clears event status.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    Flags is an interrupt flags container.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    Status Clear event status container.
+*           - 0 - does not clear coresponding event status
+*           - 1 - clear coresponding event status
 *
 ****************************************************************************/
-void XDfePrach_ClearInterruptStatus(const XDfePrach *InstancePtr,
-				    const XDfePrach_InterruptMask *Flags)
+void XDfePrach_ClearEventStatus(const XDfePrach *InstancePtr,
+				const XDfePrach_StatusMask *Status)
 {
 	u32 Data = 0;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(Flags != NULL);
+	Xil_AssertVoid(Status != NULL);
+	Xil_AssertVoid(Status->DecimatorOverflow <= 1U);
+	Xil_AssertVoid(Status->MixerOverflow <= 1U);
+	Xil_AssertVoid(Status->DecimatorOverrun <= 1U);
+	Xil_AssertVoid(Status->SelectorOverrun <= 1U);
+	Xil_AssertVoid(Status->RachUpdate <= 1U);
+	Xil_AssertVoid(Status->CCSequenceError <= 1U);
+	Xil_AssertVoid(Status->FrameInitTrigger <= 1U);
+	Xil_AssertVoid(Status->FrameError <= 1U);
 
 	Data = XDfePrach_WrBitField(XDFEPRACH_DECIMATOR_OVERFLOW_WIDTH,
 				    XDFEPRACH_DECIMATOR_OVERFLOW_OFFSET, Data,
-				    Flags->DecimatorOverflow);
+				    Status->DecimatorOverflow);
 	Data = XDfePrach_WrBitField(XDFEPRACH_MIXER_OVERFLOW_WIDTH,
 				    XDFEPRACH_MIXER_OVERFLOW_OFFSET, Data,
-				    Flags->MixerOverflow);
+				    Status->MixerOverflow);
 	Data = XDfePrach_WrBitField(XDFEPRACH_DECIMATOR_OVERRUN_WIDTH,
 				    XDFEPRACH_DECIMATOR_OVERRUN_OFFSET, Data,
-				    Flags->DecimatorOverrun);
+				    Status->DecimatorOverrun);
 	Data = XDfePrach_WrBitField(XDFEPRACH_SELECTOR_OVERRUN_WIDTH,
 				    XDFEPRACH_SELECTOR_OVERRUN_OFFSET, Data,
-				    Flags->SelectorOverrun);
+				    Status->SelectorOverrun);
 	Data = XDfePrach_WrBitField(XDFEPRACH_RACH_UPDATE_TRIGGERED_WIDTH,
 				    XDFEPRACH_RACH_UPDATE_TRIGGERED_OFFSET,
-				    Data, Flags->RachUpdate);
+				    Data, Status->RachUpdate);
 	Data = XDfePrach_WrBitField(XDFEPRACH_CC_SEQUENCE_ERROR_WIDTH,
 				    XDFEPRACH_CC_SEQUENCE_ERROR_OFFSET, Data,
-				    Flags->CCSequenceError);
+				    Status->CCSequenceError);
 	Data = XDfePrach_WrBitField(XDFEPRACH_FRAME_INIT_TRIGGERED_WIDTH,
 				    XDFEPRACH_FRAME_INIT_TRIGGERED_OFFSET, Data,
-				    Flags->SFSequenceUpdate);
+				    Status->FrameInitTrigger);
+	Data = XDfePrach_WrBitField(XDFEPRACH_FRAME_ERROR_WIDTH,
+				    XDFEPRACH_FRAME_ERROR_OFFSET, Data,
+				    Status->FrameError);
 	XDfePrach_WriteReg(InstancePtr, XDFEPRACH_ISR, Data);
 }
 

@@ -63,6 +63,7 @@
 *       dc     07/13/21 Update to common latency requirements
 * 1.2   dc     10/29/21 Update doxygen comments
 *       dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
+*       dc     11/05/21 Align event handlers
 *
 * </pre>
 * @endcond
@@ -533,9 +534,11 @@ typedef struct {
 	u32 SelectorOverrun; /**< [0,1] Mask overrun in the selector */
 	u32 RachUpdate; /**< [0,1] Mask RACH configuration update */
 	u32 CCSequenceError; /**< [0,1] Mask CC sequence error */
-	u32 SFSequenceUpdate; /**< [0,1] Mask Subframe schedule update (TBC) */
-} XDfePrach_InterruptMask;
+	u32 FrameInitTrigger; /**< [0,1] Mask Frame initialisation Trigger */
+	u32 FrameError; /**< [0,1] Mask Frame error */
+} XDfePrach_StatusMask;
 
+typedef XDfePrach_StatusMask XDfePrach_InterruptMask;
 /**
  * PRACH Config Structure.
  */
@@ -653,19 +656,14 @@ void XDfePrach_ClearStatus(const XDfePrach *InstancePtr);
 void XDfePrach_CapturePhase(const XDfePrach *InstancePtr);
 void XDfePrach_GetCapturePhase(const XDfePrach *InstancePtr, u32 RachChan,
 			       XDfePrach_NCO *CapturedPhase);
-
 void XDfePrach_GetInterruptMask(const XDfePrach *InstancePtr,
-				XDfePrach_InterruptMask *Flags);
+				XDfePrach_InterruptMask *Mask);
 void XDfePrach_SetInterruptMask(const XDfePrach *InstancePtr,
-				const XDfePrach_InterruptMask *Flags);
-void XDfePrach_InterruptEnable(const XDfePrach *InstancePtr,
-			       const XDfePrach_InterruptMask *Flags);
-void XDfePrach_InterruptDisable(const XDfePrach *InstancePtr,
-				const XDfePrach_InterruptMask *Flags);
-void XDfePrach_GetInterruptStatus(const XDfePrach *InstancePtr,
-				  XDfePrach_InterruptMask *Flags);
-void XDfePrach_ClearInterruptStatus(const XDfePrach *InstancePtr,
-				    const XDfePrach_InterruptMask *Flags);
+				const XDfePrach_InterruptMask *Mask);
+void XDfePrach_GetEventStatus(const XDfePrach *InstancePtr,
+			      XDfePrach_StatusMask *Status);
+void XDfePrach_ClearEventStatus(const XDfePrach *InstancePtr,
+				const XDfePrach_StatusMask *Status);
 void XDfePrach_SetTUserDelay(const XDfePrach *InstancePtr, u32 Delay);
 u32 XDfePrach_GetTUserDelay(const XDfePrach *InstancePtr);
 u32 XDfePrach_GetTDataDelay(const XDfePrach *InstancePtr);
