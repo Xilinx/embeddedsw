@@ -10,7 +10,7 @@
 * @addtogroup xdfemix_v1_2
 * @{
 * @cond nocomments
-* The implementation of the XDfeMix component's static initialization
+* The implementation of the Mixer component's static initialization
 * functionality.
 *
 * <pre>
@@ -30,6 +30,7 @@
 *       dc     10/26/21 Make driver R5 compatible
 * 1.2   dc     10/29/21 Update doxygen comments
 *       dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
+*       dc     11/19/21 Update doxygen documentation
 *
 * </pre>
 *
@@ -63,9 +64,8 @@
 	"/sys/bus/platform/devices/" /**< Device location in a file system. */
 #define XDFEMIX_COMPATIBLE_PROPERTY "compatible" /**< Device tree property */
 #define XDFEMIX_BUS_NAME "platform" /**< System bus name. */
-#define XDFEMIX_DEVICE_ID_SIZE 4U
 #define XDFEMIX_BASEADDR_PROPERTY "reg" /**< Base address property. */
-#define XDFEMIX_BASEADDR_SIZE 8U
+#define XDFEMIX_BASEADDR_SIZE 8U /**< Base address bit-size */
 #define XDFEMIX_MODE_CFG "xlnx,mode" /**< Mode: 0 = DOWNLINK, 1 = UPLINK. */
 #define XDFEMIX_NUM_ANTENNA_CFG                                                \
 	"xlnx,num-antenna" /**< Number of antenna property. */
@@ -114,12 +114,12 @@ XDfeMix XDfeMix_Mixer[XDFEMIX_MAX_NUM_INSTANCES];
 * extracted from the device node name. Returns pointer to the ConfigTable with
 * a matched base address.
 *
-* @param    InstancePtr is a pointer to the Mixer instance.
-* @param    ConfigTable is a configuration table container.
+* @param    InstancePtr Pointer to the Mixer instance.
+* @param    ConfigTable Configuration table container.
 *
 * @return
 *           - XST_SUCCESS if successful.
-*           - XST_FAILURE if device entry not found for given device ID.
+*           - XST_FAILURE if device entry not found for given device id.
 *
 ******************************************************************************/
 u32 XDfeMix_GetConfigTable(XDfeMix *InstancePtr, XDfeMix_Config **ConfigTable)
@@ -150,9 +150,9 @@ u32 XDfeMix_GetConfigTable(XDfeMix *InstancePtr, XDfeMix_Config **ConfigTable)
 * Compares two strings in the reversed order. This function compares only
 * the last "Count" number of characters of Str1Ptr and Str2Ptr.
 *
-* @param    Str1Ptr is base address of first string.
-* @param    Str2Ptr is base address of second string.
-* @param    Count is the number of last characters to be compared between
+* @param    Str1Ptr Base address of first string.
+* @param    Str2Ptr Base address of second string.
+* @param    Count Number of last characters to be compared between
 *           Str1Ptr and Str2Ptr.
 *
 * @return
@@ -186,13 +186,13 @@ static s32 XDfeMix_Strrncmp(const char *Str1Ptr, const char *Str2Ptr,
 * device with the name DeviceNodeName.
 * If the match is found then check if the device is compatible with the driver.
 *
-* @param    DeviceNamePtr is base address of char array, where device name
-*           will be stored.
-* @param    DeviceNodeName is device node name.
+* @param    DeviceNamePtr Base address of char array, where device name
+*           will be stored
+* @param    DeviceNodeName Device node name
 *
 * @return
 *           - XST_SUCCESS if successful.
-*           - XST_FAILURE if device entry not found for given device ID.
+*           - XST_FAILURE if device entry not found for given device id.
 *
 ******************************************************************************/
 static s32 XDfeMix_IsDeviceCompatible(char *DeviceNamePtr,
@@ -281,7 +281,7 @@ static s32 XDfeMix_IsDeviceCompatible(char *DeviceNamePtr,
 *
 * Looks up the device configuration based on the unique device ID.
 *
-* @param    InstancePtr is a pointer to the mixer instance.
+* @param    InstancePtr Pointer to the Mixer instance.
 *
 * @return
 *           - XST_SUCCESS if successful.
@@ -419,13 +419,13 @@ end_failure:
 *
 * Registers/opens the device and maps Mixer to the IO region.
 *
-* @param    DeviceId contains the ID of the device to register/map.
-* @param    DevicePtr is a pointer to the metal device.
-* @param    DeviceNodeName is device node name.
+* @param    InstancePtr Pointer to the Mixer instance.
+* @param    DevicePtr Pointer to the metal device.
+* @param    DeviceNodeName Device node name.
 *
 * @return
 *           - XST_SUCCESS if successful.
-*           - XST_FAILURE if an error occurs.
+*           - XST_FAILURE if error occurs.
 *
 ******************************************************************************/
 s32 XDfeMix_RegisterMetal(XDfeMix *InstancePtr, struct metal_device **DevicePtr,
@@ -484,10 +484,9 @@ s32 XDfeMix_RegisterMetal(XDfeMix *InstancePtr, struct metal_device **DevicePtr,
 /*****************************************************************************/
 /**
 *
-* Initializes a specific XDfeMix instance such that the driver is ready to use.
+* Initializes a specific Mixer instance such that the driver is ready to use.
 *
-*
-* @param    InstancePtr is a pointer to the XDfeMix instance.
+* @param    InstancePtr Pointer to the Mixer instance.
 *
 *
 * @note     The user needs to first call the XDfeMix_LookupConfig() API,

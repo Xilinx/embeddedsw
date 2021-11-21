@@ -19,11 +19,14 @@
 * 1.1   dc     07/21/21 Add and reorganise examples
 * 1.2   dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 *       dc     11/05/21 Align event handlers
+*       dc     11/19/21 Update doxygen documentation
 *
 * </pre>
+* @addtogroup dfemix_v1_2_examples
+* @{
 *
 *****************************************************************************/
-
+/** @cond nocomments */
 /***************************** Include Files ********************************/
 #include <unistd.h>
 #include "xdfemix_examples.h"
@@ -34,6 +37,7 @@
 /************************** Function Prototypes *****************************/
 /************************** Variable Definitions ****************************/
 
+/** @endcond */
 /****************************************************************************/
 /**
 *
@@ -54,6 +58,7 @@
 *		- XST_FAILURE if the example has failed.
 *
 ****************************************************************************/
+/** //! [testexample1] */
 int XDfeMix_AddCCExample()
 {
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
@@ -156,3 +161,5 @@ int XDfeMix_AddCCExample()
 	printf("Mixer \"Pass Through\" Example: Pass\r\n");
 	return XST_SUCCESS;
 }
+/** //! [testexample1] */
+/** @} */
