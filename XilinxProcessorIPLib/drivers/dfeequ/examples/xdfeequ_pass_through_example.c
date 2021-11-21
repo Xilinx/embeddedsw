@@ -17,11 +17,14 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.1   dc     07/21/21 Add and reorganise examples
+* 1.2   dc     11/19/21 Update doxygen documentation
 *
 * </pre>
+* @addtogroup dfeequ_v1_2_examples
+* @{
 *
 *****************************************************************************/
-
+/** @cond nocomments */
 /***************************** Include Files ********************************/
 #include "xdfeequ_examples.h"
 
@@ -31,6 +34,7 @@
 /************************** Function Prototypes *****************************/
 /************************** Variable Definitions ****************************/
 
+/** @endcond */
 /****************************************************************************/
 /**
 *
@@ -51,6 +55,7 @@
 *		- XST_FAILURE if the example has failed.
 *
 ****************************************************************************/
+/** //! [testexample2] */
 int XDfeEqu_PassThroughExample()
 {
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
@@ -120,3 +125,5 @@ int XDfeEqu_PassThroughExample()
 
 	return XST_SUCCESS;
 }
+/** //! [testexample2] */
+/** @} */
