@@ -7,9 +7,6 @@
 /**
 *
 * @file xdfeprach.c
-* @addtogroup xdfeprach_v1_2
-* @{
-* @cond nocomments
 * Contains the APIs for DFE Prach component.
 *
 * <pre>
@@ -32,9 +29,11 @@
 * 1.2   dc     10/29/21 Update doxygen comments
 *       dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 *       dc     11/05/21 Align event handlers
+*       dc     11/19/21 Update doxygen documentation
 *
 * </pre>
-* @endcond
+* @addtogroup xdfeprach_v1_2
+* @{
 ******************************************************************************/
 /**
 * @cond nocomments
@@ -135,9 +134,9 @@ extern void XDfePrach_CfgInitialize(XDfePrach *InstancePtr);
 *
 * Writes a value to register in a PRACH instance.
 *
-* @param    InstancePtr is a pointer to the DFE driver instance.
-* @param    AddrOffset is address offset relative to instance base address.
-* @param    Data is value to be written.
+* @param    InstancePtr Pointer to the PRACH driver instance.
+* @param    AddrOffset Address offset relative to instance base address.
+* @param    Data Value to be written.
 *
 ****************************************************************************/
 void XDfePrach_WriteReg(const XDfePrach *InstancePtr, u32 AddrOffset, u32 Data)
@@ -151,8 +150,8 @@ void XDfePrach_WriteReg(const XDfePrach *InstancePtr, u32 AddrOffset, u32 Data)
 *
 * Reads a value the register in a PRACH instance.
 *
-* @param    InstancePtr is a pointer to the DFE driver instance.
-* @param    AddrOffset is address offset relative to instance base address.
+* @param    InstancePtr Pointer to the PRACH driver instance.
+* @param    AddrOffset Address offset relative to instance base address.
 *
 * @return   Register value.
 *
@@ -168,11 +167,11 @@ u32 XDfePrach_ReadReg(const XDfePrach *InstancePtr, u32 AddrOffset)
 *
 * Writes a bit field value to register.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    Offset is address offset relative to instance base address.
-* @param    FieldWidth is bit field width.
-* @param    FieldOffset is bit field offset.
-* @param    FieldData is bit field data.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    Offset Address offset relative to instance base address.
+* @param    FieldWidth Bit field width.
+* @param    FieldOffset Bit field offset.
+* @param    FieldData Bit field data.
 *
 ****************************************************************************/
 void XDfePrach_WrRegBitField(const XDfePrach *InstancePtr, u32 Offset,
@@ -196,10 +195,10 @@ void XDfePrach_WrRegBitField(const XDfePrach *InstancePtr, u32 Offset,
 *
 * Reads a bit field value from the register.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    Offset is address offset relative to instance base address.
-* @param    FieldWidth is bit field width.
-* @param    FieldOffset is bit field offset.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    Offset Address offset relative to instance base address.
+* @param    FieldWidth Bit field width.
+* @param    FieldOffset Bit field offset.
 *
 * @return   Bit field data.
 *
@@ -220,9 +219,9 @@ u32 XDfePrach_RdRegBitField(const XDfePrach *InstancePtr, u32 Offset,
 *
 * Reads a bit field value from the u32 variable.
 *
-* @param    FieldWidth is bit field width.
-* @param    FieldOffset is bit field offset in bits number.
-* @param    Data is u32 data which bit field this function reads.
+* @param    FieldWidth Bit field width.
+* @param    FieldOffset Bit field offset in bits number.
+* @param    Data U32 data which bit field this function reads.
 *
 * @return   Bit field value.
 *
@@ -238,10 +237,10 @@ u32 XDfePrach_RdBitField(u32 FieldWidth, u32 FieldOffset, u32 Data)
 *
 * Writes a bit field value to the u32 variable.
 *
-* @param    FieldWidth is bit field width.
-* @param    FieldOffset is bit field offset in bits number.
-* @param    Data is u32 data which bit field this function reads.
-* @param    Val is u32 value to be written in the bit field.
+* @param    FieldWidth Bit field width.
+* @param    FieldOffset Bit field offset in bits number.
+* @param    Data U32 data which bit field this function reads.
+* @param    Val U32 value to be written in the bit field.
 *
 * @return   Data with a bitfield written.
 *
@@ -258,14 +257,14 @@ u32 XDfePrach_WrBitField(u32 FieldWidth, u32 FieldOffset, u32 Data, u32 Val)
 	return (BitFieldSet | BitFieldClear);
 }
 
-/************************ DFE Common functions ******************************/
+/************************ PRACH Common functions ******************************/
 
 /****************************************************************************/
 /**
 *
 * Finds unused CCID.
 *
-* @param   Sequence is a CC sequence array.
+* @param   Sequence CC sequence array.
 *
 * @return  Unused CCID
 *
@@ -304,10 +303,10 @@ static s32 XDfePrach_GetNotUsedCCID(XDfePrach_CCSequence *Sequence)
 * - CCIDSequence.CCID[i] = CCID  - if [i] is used slot
 * - a returned CCIDSequence->Length = length in register + 1
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    CCID is a CC ID.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    CCID CC ID.
 * @param    CCSeqBitmap maps the sequence.
-* @param    CCIDSequence is a CC sequence array.
+* @param    CCIDSequence CC sequence array.
 *
 * @return
 *           - XST_SUCCESS if successful.
@@ -383,9 +382,9 @@ static u32 XDfePrach_AddCCIDAndTranslateSeq(XDfePrach *InstancePtr, s32 CCID,
 * Removes the specified CCID from the CC sequence and replaces the CCID
 * entries with null (8).
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    CCID is a CC ID.
-* @param    CCIDSequence is a CC sequence array.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    CCID CC ID.
+* @param    CCIDSequence CC sequence array.
 *
 ****************************************************************************/
 static void XDfePrach_RemoveCCID(XDfePrach *InstancePtr, s32 CCID,
@@ -412,9 +411,9 @@ static void XDfePrach_RemoveCCID(XDfePrach *InstancePtr, s32 CCID,
 *
 * Detect Rate.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    CCSeqBitmap maps the sequence.
-* @param    Rate is a rate returned value
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    CCSeqBitmap Sequence map.
+* @param    Rate Rate returned value.
 *
 * @return
 *           - XST_SUCCESS if successful.
@@ -489,8 +488,8 @@ static u32 XDfePrach_FindRate(const XDfePrach *InstancePtr, u32 CCSeqBitmap,
 *
 * Sets the next CC configuration.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    NextCCCfg is a Next CC configuration container.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    NextCCCfg Next CC configuration container.
 *
 ****************************************************************************/
 static void XDfePrach_SetNextCCCfg(const XDfePrach *InstancePtr,
@@ -550,10 +549,10 @@ static void XDfePrach_SetNextCCCfg(const XDfePrach *InstancePtr,
 *
 * Adds a single instance of an RCCfg.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    Next is boolean flag indicating NEXT or CURRENT register.
-* @param    RCId is RC Id.
-* @param    RCCfg is RC config container.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    Next Boolean flag indicating NEXT or CURRENT register.
+* @param    RCId RC Id.
+* @param    RCCfg RC config container.
 *
 ****************************************************************************/
 static void XDfePrach_GetRC(const XDfePrach *InstancePtr, bool Next, u32 RCId,
@@ -588,13 +587,13 @@ static void XDfePrach_GetRC(const XDfePrach *InstancePtr, bool Next, u32 RCId,
 *
 * Adds a single instance of an RCCfg.
 *
-* @param    RCId is a RC Id.
-* @param    RachChan is a RACH channel Id.
-* @param    CCID is a CC Id.
-* @param    RCCfg is a RC config container.
-* @param    DdcCfg is a DDC data container.
-* @param    NcoCfg is a NCO data container.
-* @param    Schedule is a Schedule data container.
+* @param    RCId RC Id.
+* @param    RachChan RACH channel Id.
+* @param    CCID CC Id.
+* @param    RCCfg RC config container.
+* @param    DdcCfg DDC data container.
+* @param    NcoCfg NCO data container.
+* @param    Schedule Schedule data container.
 *
 ****************************************************************************/
 static void XDfePrach_AddRC(u32 RCId, u32 RachChan, s32 CCID,
@@ -626,7 +625,7 @@ static void XDfePrach_AddRC(u32 RCId, u32 RachChan, s32 CCID,
 *
 * Removes a single instance of an RCCfg.
 *
-* @param    InternalRCCfg is internal RCCfg configuration container.
+* @param    InternalRCCfg Internal RCCfg configuration container.
 *
 ****************************************************************************/
 static void XDfePrach_RemoveOneRC(XDfePrach_InternalChannelCfg *InternalRCCfg)
@@ -641,9 +640,9 @@ static void XDfePrach_RemoveOneRC(XDfePrach_InternalChannelCfg *InternalRCCfg)
 *
 * Writes a RC channel to the registers.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    RCCfg is RC config container.
-* @param    RCId is a RC Id.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    RCCfg RC config container.
+* @param    RCId RC Id.
 *
 ****************************************************************************/
 static void XDfePrach_SetRC(const XDfePrach *InstancePtr,
@@ -691,10 +690,10 @@ static void XDfePrach_SetRC(const XDfePrach *InstancePtr,
 *
 * Reads the physical Enable for a given RCID.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    Next is a boolean flag indicating NEXT or CURRENT register.
-* @param    RCId is a RC Id.
-* @param    Enable is a flag indicating restart.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    Next Boolean flag indicating NEXT or CURRENT register.
+* @param    RCId RC Id.
+* @param    Enable Flag indicating restart.
 *
 ****************************************************************************/
 static void XDfePrach_GetRCEnable(const XDfePrach *InstancePtr, bool Next,
@@ -718,8 +717,8 @@ static void XDfePrach_GetRCEnable(const XDfePrach *InstancePtr, bool Next,
 *
 * Adds the Enable to an RCCfg instance.
 *
-* @param    Enable is flag indicating restart.
-* @param    InternalRCCfg is internal RCCfg configuration container.
+* @param    Enable Flag indicating restart.
+* @param    InternalRCCfg Internal RCCfg configuration container.
 *
 ****************************************************************************/
 static void XDfePrach_AddRCEnable(u32 Enable,
@@ -733,10 +732,10 @@ static void XDfePrach_AddRCEnable(u32 Enable,
 *
 * Reads the Restart signal for a given RCID.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    Next is a boolean flag indicating NEXT or CURRENT register.
-* @param    RCId is a RC Id.
-* @param    Restart is a flag indicating restart:
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    Next Boolean flag indicating NEXT or CURRENT register.
+* @param    RCId RC Id.
+* @param    Restart Flag indicating restart:
 *                - 0 = no restart,
 *                - 1 = restart and flush.
 *
@@ -762,9 +761,9 @@ static void XDfePrach_GetRCRestart(const XDfePrach *InstancePtr, bool Next,
 *
 * Adds the Restart to an RCCfg instance.
 *
-* @param    Restart is a flag indicating restart.
-* @param    RCCfg is a RC config container.
-* @param    RCId is a RC Id.
+* @param    Restart Flag indicating restart.
+* @param    RCCfg RC config container.
+* @param    RCId RC Id.
 *
 ****************************************************************************/
 static void XDfePrach_AddRCRestart(u32 Restart, XDfePrach_RCCfg *RCCfg,
@@ -778,10 +777,10 @@ static void XDfePrach_AddRCRestart(u32 Restart, XDfePrach_RCCfg *RCCfg,
 *
 * Read the physical RACH channel for a given RCID.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    Next is a boolean flag indicating NEXT or CURRENT register.
-* @param    RCId is a RC Id.
-* @param    RachChan is a RACH Channel Id.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    Next Boolean flag indicating NEXT or CURRENT register.
+* @param    RCId RC Id.
+* @param    RachChan RACH Channel Id.
 *
 ****************************************************************************/
 static void XDfePrach_GetRachChannel(const XDfePrach *InstancePtr, bool Next,
@@ -805,8 +804,8 @@ static void XDfePrach_GetRachChannel(const XDfePrach *InstancePtr, bool Next,
 *
 * Adds the Rach Channel to a RCCfg instance.
 *
-* @param    RachChan is a RACH channel Id.
-* @param    InternalRCCfg is internal RCCfg configuration container.
+* @param    RachChan RACH channel Id.
+* @param    InternalRCCfg Internal RCCfg configuration container.
 *
 ****************************************************************************/
 static void
@@ -821,10 +820,10 @@ XDfePrach_AddRachChannel(u32 RachChan,
 *
 * Reads the CCID allocated to a given RCID.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    Next is boolean flag indicating NEXT or CURRENT register.
-* @param    RCId is a RC Id.
-* @param    CCID is a CC Id.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    Next Boolean flag indicating NEXT or CURRENT register.
+* @param    RCId RC Id.
+* @param    CCID CC Id.
 *
 ****************************************************************************/
 static void XDfePrach_GetRC_CCID(const XDfePrach *InstancePtr, bool Next,
@@ -848,9 +847,9 @@ static void XDfePrach_GetRC_CCID(const XDfePrach *InstancePtr, bool Next,
 *
 * Adds the CCID to an RCCfg instance.
 *
-* @param    CCID is a CC Id.
-* @param    RCCfg is a RC config container.
-* @param    RCId is a RC Id.
+* @param    CCID CC Id.
+* @param    RCCfg RC config container.
+* @param    RCId RC Id.
 *
 ****************************************************************************/
 static void XDfePrach_AddRC_CCID(s32 CCID, XDfePrach_RCCfg *RCCfg, u32 RCId)
@@ -863,9 +862,9 @@ static void XDfePrach_AddRC_CCID(s32 CCID, XDfePrach_RCCfg *RCCfg, u32 RCId)
 *
 * Reads the NCO for a given RCID.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    RachChan is a RACH channel number.
-* @param    NcoCfg is a NCO data container.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    RachChan RACH channel number.
+* @param    NcoCfg NCO data container.
 *
 ****************************************************************************/
 static void XDfePrach_GetNCO(const XDfePrach *InstancePtr, u32 RachChan,
@@ -898,9 +897,9 @@ static void XDfePrach_GetNCO(const XDfePrach *InstancePtr, u32 RachChan,
 *
 * Adds and populates new NCO to the RCCfg.
 *
-* @param    RCCfg is a RC config container.
-* @param    NcoCfg is a NCO data container.
-* @param    RCId is a RC Id.
+* @param    RCCfg RC config container.
+* @param    NcoCfg NCO data container.
+* @param    RCId RC Id.
 *
 ****************************************************************************/
 static void XDfePrach_AddNCO(XDfePrach_RCCfg *RCCfg,
@@ -919,8 +918,8 @@ static void XDfePrach_AddNCO(XDfePrach_RCCfg *RCCfg,
 *
 * Loads the NCO registers from the RCCfg.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    RCCfg is a RC configuration container.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    RCCfg RC configuration container.
 *
 ****************************************************************************/
 static void XDfePrach_SetNCO(const XDfePrach *InstancePtr,
@@ -962,9 +961,9 @@ static void XDfePrach_SetNCO(const XDfePrach *InstancePtr,
 *
 * Reads the DDC for a given RCID.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    RachChan is a RACH channel number.
-* @param    DdcCfg is a DDC data container.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    RachChan RACH channel number.
+* @param    DdcCfg DDC data container.
 *
 ****************************************************************************/
 static void XDfePrach_GetDDC(const XDfePrach *InstancePtr, u32 RachChan,
@@ -1008,9 +1007,9 @@ static void XDfePrach_GetDDC(const XDfePrach *InstancePtr, u32 RachChan,
 *
 * Adds a new DDC to the RCCfg.
 *
-* @param    RCCfg is a RC configuration container.
-* @param    DdcCfg is a DDC data container.
-* @param    RCId is a RC Id.
+* @param    RCCfg RC configuration container.
+* @param    DdcCfg DDC data container.
+* @param    RCId RC Id.
 *
 ****************************************************************************/
 static void XDfePrach_AddDDC(XDfePrach_RCCfg *RCCfg,
@@ -1031,9 +1030,9 @@ static void XDfePrach_AddDDC(XDfePrach_RCCfg *RCCfg,
 *
 * Loads the DDC registers from the RCCfg.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    RCCfg is a RC configuration container.
-* @param    RCId is a RC Id.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    RCCfg RC configuration container.
+* @param    RCId RC Id.
 *
 ****************************************************************************/
 static void XDfePrach_SetDDC(const XDfePrach *InstancePtr,
@@ -1088,10 +1087,10 @@ static void XDfePrach_SetDDC(const XDfePrach *InstancePtr,
 *
 * Reads the Current or Next Static Schedule for a given RCID.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    Next is flag indicating NEXT or CURRENT register.
-* @param    RCId is a RACH channel number.
-* @param    Schedule is a Schedule data container.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    Next Flag indicating NEXT or CURRENT register.
+* @param    RCId RACH channel number.
+* @param    Schedule Schedule data container.
 *
 ****************************************************************************/
 static void XDfePrach_GetSchedule(const XDfePrach *InstancePtr, bool Next,
@@ -1145,9 +1144,9 @@ static void XDfePrach_GetSchedule(const XDfePrach *InstancePtr, bool Next,
 *
 * Adds a new Static Schedule to the RCCfg.
 *
-* @param    RCCfg is a RC config container.
-* @param    Schedule is a Schedule data container.
-* @param    RCId is a RC Id.
+* @param    RCCfg RC config container.
+* @param    Schedule Schedule data container.
+* @param    RCId RC Id.
 *
 ****************************************************************************/
 static void XDfePrach_AddSchedule(XDfePrach_RCCfg *RCCfg,
@@ -1166,8 +1165,8 @@ static void XDfePrach_AddSchedule(XDfePrach_RCCfg *RCCfg,
 *
 * Loads the Static Schedule registers from the RCCfg.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    RCCfg is a RC configuration container.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    RCCfg RC configuration container.
 *
 ****************************************************************************/
 static void XDfePrach_SetSchedule(const XDfePrach *InstancePtr,
@@ -1214,7 +1213,7 @@ static void XDfePrach_SetSchedule(const XDfePrach *InstancePtr,
 * Reads the trigger and sets enable bit of update trigger. If register
 * source, then trigger will be applied immediately.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
+* @param    InstancePtr Pointer to the PRACH instance.
 *
 * @return
 *           - XST_SUCCESS if successful.
@@ -1253,7 +1252,7 @@ static u32 XDfePrach_EnableUpdateTrigger(const XDfePrach *InstancePtr)
 * Reads the trigger and sets enable bit of LowPower trigger. If register
 * source, then trigger will be applied immediately.
 *
-* @param    InstancePtr is pointer to the PRACH instance.
+* @param    InstancePtr Pointer to the PRACH instance.
 *
 ****************************************************************************/
 static void XDfePrach_EnableLowPowerTrigger(const XDfePrach *InstancePtr)
@@ -1275,7 +1274,7 @@ static void XDfePrach_EnableLowPowerTrigger(const XDfePrach *InstancePtr)
 *
 * Enables the Activate trigger.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
+* @param    InstancePtr Pointer to the PRACH instance.
 *
 ****************************************************************************/
 static void XDfePrach_EnableActivateTrigger(const XDfePrach *InstancePtr)
@@ -1302,7 +1301,7 @@ static void XDfePrach_EnableActivateTrigger(const XDfePrach *InstancePtr)
 * Reads the trigger and sets disable bit of Activate trigger. If
 * Mode = IMMEDIATE, then trigger will be applied immediately.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
+* @param    InstancePtr Pointer to the PRACH instance.
 *
 ****************************************************************************/
 static void XDfePrach_EnableDeactivateTrigger(const XDfePrach *InstancePtr)
@@ -1328,7 +1327,7 @@ static void XDfePrach_EnableDeactivateTrigger(const XDfePrach *InstancePtr)
 *
 * Reads the Trigger and resets enable bit of LowPower trigger.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
+* @param    InstancePtr Pointer to the PRACH instance.
 *
 ****************************************************************************/
 static void XDfePrach_DisableLowPowerTrigger(const XDfePrach *InstancePtr)
@@ -1351,7 +1350,7 @@ static void XDfePrach_DisableLowPowerTrigger(const XDfePrach *InstancePtr)
 * Reads the trigger and sets enable bit of frame marker trigger. If
 * register source, then trigger will be applied immediately.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
+* @param    InstancePtr Pointer to the PRACH instance.
 *
 ****************************************************************************/
 static void XDfePrach_EnableFrameMarkerTrigger(const XDfePrach *InstancePtr)
@@ -1383,7 +1382,7 @@ static void XDfePrach_EnableFrameMarkerTrigger(const XDfePrach *InstancePtr)
 * object. On success it moves the state machine to a Ready state, while on
 * failure stays in a Not Ready state.
 *
-* @param    DeviceNodeName is the device node name.
+* @param    DeviceNodeName Device node name.
 *
 * @return
 *           - Pointer to the instance if successful.
@@ -1493,7 +1492,7 @@ return_error:
 * API closes the instances of a PRACH driver and moves the state machine to
 * a Not Ready state.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
+* @param    InstancePtr Pointer to the PRACH instance.
 *
 ******************************************************************************/
 void XDfePrach_InstanceClose(XDfePrach *InstancePtr)
@@ -1522,7 +1521,7 @@ void XDfePrach_InstanceClose(XDfePrach *InstancePtr)
 *
 * Resets PRACH and puts block into a reset state.
 *
-* @param    InstancePtr is pointer to the PRACH instance.
+* @param    InstancePtr Pointer to the PRACH instance.
 *
 ****************************************************************************/
 void XDfePrach_Reset(XDfePrach *InstancePtr)
@@ -1545,8 +1544,8 @@ void XDfePrach_Reset(XDfePrach *InstancePtr)
 * Reads configuration from device tree/xparameters.h and IP registers.
 * Removes S/W reset and moves the state machine to a Configured state.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    Cfg is a configuration data container.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    Cfg Configuration data container.
 *
 ****************************************************************************/
 void XDfePrach_Configure(XDfePrach *InstancePtr, XDfePrach_Cfg *Cfg)
@@ -1627,8 +1626,8 @@ void XDfePrach_Configure(XDfePrach *InstancePtr, XDfePrach_Cfg *Cfg)
 * DFE PRACH driver one time initialisation also moves the state machine to
 * an Initialised state.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    Init is an initialisation data container.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    Init Initialisation data container.
 *
 ****************************************************************************/
 void XDfePrach_Initialize(XDfePrach *InstancePtr, XDfePrach_Init *Init)
@@ -1725,8 +1724,8 @@ void XDfePrach_Initialize(XDfePrach *InstancePtr, XDfePrach_Init *Init)
 *
 * Activates PRACH and moves the state machine to an Activated state.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    EnableLowPower is a flag indicating low power.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    EnableLowPower Flag indicating low power.
 *
 ******************************************************************************/
 void XDfePrach_Activate(XDfePrach *InstancePtr, bool EnableLowPower)
@@ -1761,7 +1760,7 @@ void XDfePrach_Activate(XDfePrach *InstancePtr, bool EnableLowPower)
 *
 * Deactivates PRACH and moves the state machine to Initialised state.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
+* @param    InstancePtr Pointer to the PRACH instance.
 *
 ******************************************************************************/
 void XDfePrach_Deactivate(XDfePrach *InstancePtr)
@@ -1795,7 +1794,7 @@ void XDfePrach_Deactivate(XDfePrach *InstancePtr)
 *
 * Gets a state machine state id.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
+* @param    InstancePtr Pointer to the PRACH instance.
 *
 * @return   State machine StateID
 *
@@ -1813,8 +1812,8 @@ XDfePrach_StateId XDfePrach_GetStateID(XDfePrach *InstancePtr)
 *
 * Returns the current CC configuration.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    CurrCCCfg is CC configuration container.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    CurrCCCfg CC configuration container.
 *
 * @note     For a sequence conversion see XDfePrach_AddCCIDAndTranslateSeq() comment.
 *
@@ -1877,8 +1876,8 @@ void XDfePrach_GetCurrentCCCfg(const XDfePrach *InstancePtr,
 *
 * Returns the empty CC configuration.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    CCCfg is CC configuration container.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    CCCfg CC configuration container.
 *
 ****************************************************************************/
 void XDfePrach_GetEmptyCCCfg(const XDfePrach *InstancePtr,
@@ -1901,11 +1900,11 @@ void XDfePrach_GetEmptyCCCfg(const XDfePrach *InstancePtr,
 *
 * Returns the current CCID carrier configuration.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    CCCfg is component carrier (CC) configuration container.
-* @param    CCID is a Channel ID.
-* @param    CCSeqBitmap is CC slot position container.
-* @param    CarrierCfg is a CC configuration container.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    CCCfg Component carrier (CC) configuration container.
+* @param    CCID Channel ID.
+* @param    CCSeqBitmap CC slot position container.
+* @param    CarrierCfg CC configuration container.
 *
 ****************************************************************************/
 void XDfePrach_GetCarrierCfg(const XDfePrach *InstancePtr,
@@ -1949,11 +1948,11 @@ void XDfePrach_GetCarrierCfg(const XDfePrach *InstancePtr,
 * - CCIDSequence.CCID[i] = CCID  - if [i] is used slot
 * - a returned CCIDSequence->Length = length in register + 1
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    CCCfg is component carrier (CC) configuration container.
-* @param    CCID is a Channel ID.
-* @param    CCSeqBitmap is CC slot position container.
-* @param    CarrierCfg is a CC configuration container.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    CCCfg Component carrier (CC) configuration container.
+* @param    CCID Channel ID.
+* @param    CCSeqBitmap CC slot position container.
+* @param    CarrierCfg CC configuration container.
 *
 * @return
 *           - XST_SUCCESS if successful.
@@ -2000,9 +1999,9 @@ u32 XDfePrach_AddCCtoCCCfg(XDfePrach *InstancePtr, XDfePrach_CCCfg *CCCfg,
 *
 * Removes specified CCID from a local CC configuration structure.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    CCCfg is component carrier (CC) configuration container.
-* @param    CCID is a Channel ID.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    CCCfg Component carrier (CC) configuration container.
+* @param    CCID Channel ID.
 *
 * @return
 *           - XST_SUCCESS if successful.
@@ -2034,11 +2033,11 @@ u32 XDfePrach_RemoveCCfromCCCfg(XDfePrach *InstancePtr, XDfePrach_CCCfg *CCCfg,
 * If there is insufficient capacity for the new CC the function will return
 * an error.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    CCCfg is component carrier (CC) configuration container.
-* @param    CCID is a Channel ID.
-* @param    CCSeqBitmap is CC slot position container.
-* @param    CarrierCfg is a CC configuration container.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    CCCfg Component carrier (CC) configuration container.
+* @param    CCID Channel ID.
+* @param    CCSeqBitmap CC slot position container.
+* @param    CarrierCfg CC configuration container.
 *
 * @return
 *           - XST_SUCCESS if successful.
@@ -2064,9 +2063,9 @@ u32 XDfePrach_UpdateCCinCCCfg(const XDfePrach *InstancePtr,
 * Writes local CC configuration to the shadow (NEXT) registers and triggers
 * copying from shadow to operational registers.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    NextCCCfg is CC configuration container.
-* @param    NextRCCfg is a RC configuration container.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    NextCCCfg CC configuration container.
+* @param    NextRCCfg RC configuration container.
 *
 * @return
 *           - XST_SUCCESS if successful.
@@ -2110,8 +2109,8 @@ u32 XDfePrach_SetNextCfg(const XDfePrach *InstancePtr,
 * an error.
 * Initiates CC update (enable CCUpdate trigger TUSER Single Shot).
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    CCID is a CCID.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    CCID CCID.
 * @param    CCSeqBitmap - up to 16 defined slots into which a CC can be
 *           allocated. The number of slots can be from 1 to 16 depending on
 *           system initialization. The number of slots is defined by the
@@ -2119,7 +2118,7 @@ u32 XDfePrach_SetNextCfg(const XDfePrach *InstancePtr,
 *           The Bit offset within the CCSeqBitmap indicates the equivalent
 *           Slot number to allocate. e.g. 0x0003  means the caller wants the
 *           passed component carrier (CC) to be allocated to slots 0 and 1.
-* @param    CarrierCfg is a CC configuration container.
+* @param    CarrierCfg CC configuration container.
 *
 * @return
 *           - XST_SUCCESS if successful.
@@ -2181,8 +2180,8 @@ u32 XDfePrach_AddCC(XDfePrach *InstancePtr, s32 CCID, u32 CCSeqBitmap,
 *
 * Removes CCID from sequence.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    CCID is a CC Id.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    CCID CC Id.
 *
 * @return
 *           - XST_SUCCESS if successful.
@@ -2225,9 +2224,9 @@ u32 XDfePrach_RemoveCC(XDfePrach *InstancePtr, s32 CCID)
 *
 * Updates a CCID sequence.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    CCID is a CC Id.
-* @param    CarrierCfg is a carrier data container.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    CCID CC Id.
+* @param    CarrierCfg Carrier data container.
 *
 * @return
 *           - XST_SUCCESS if successful.
@@ -2270,8 +2269,8 @@ u32 XDfePrach_UpdateCC(const XDfePrach *InstancePtr, s32 CCID,
 *
 * Reads all of the RC configuration back.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    RCCfg is RC configuration container.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    RCCfg RC configuration container.
 *
 ****************************************************************************/
 void XDfePrach_GetCurrentRCCfg(const XDfePrach *InstancePtr,
@@ -2299,8 +2298,8 @@ void XDfePrach_GetCurrentRCCfg(const XDfePrach *InstancePtr,
 *
 * Returns the empty CC configuration.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    RCCfg is RC configuration container.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    RCCfg RC configuration container.
 *
 ****************************************************************************/
 void XDfePrach_GetEmptyRCCfg(const XDfePrach *InstancePtr,
@@ -2317,10 +2316,10 @@ void XDfePrach_GetEmptyRCCfg(const XDfePrach *InstancePtr,
 *
 * Gets RACH channel configuration.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    RCCfg is RC configuration container.
-* @param    RCId is a chosen RACH channel Id.
-* @param    ChannelCfg is a RACH channel container.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    RCCfg RC configuration container.
+* @param    RCId Chosen RACH channel Id.
+* @param    ChannelCfg RACH channel container.
 *
 ****************************************************************************/
 void XDfePrach_GetChannelCfg(const XDfePrach *InstancePtr,
@@ -2341,14 +2340,14 @@ void XDfePrach_GetChannelCfg(const XDfePrach *InstancePtr,
 *
 * Adds a new RC entry to the RC_CONFIGURATION.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    CurrentRCCfg is a current RACH configuration container.
-* @param    CCID is a CC Id.
-* @param    RCId is a RC Id.
-* @param    RachChan is a RACH channel.
-* @param    DdcCfg is a DDC data container.
-* @param    NcoCfg is a NCO data container.
-* @param    Schedule is a Schedule data container.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    CurrentRCCfg Current RACH configuration container.
+* @param    CCID CC Id.
+* @param    RCId RC Id.
+* @param    RachChan RACH channel.
+* @param    DdcCfg DDC data container.
+* @param    NcoCfg NCO data container.
+* @param    Schedule Schedule data container.
 *
 * @return
 *	- XST_SUCCESS on succes
@@ -2401,9 +2400,9 @@ u32 XDfePrach_AddRCtoRCCfg(const XDfePrach *InstancePtr,
 *
 * Removes an RC configuration entry from the RC_CONFIGURATION.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    CurrentRCCfg is a current RACH configuration container.
-* @param    RCId is a RC Id.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    CurrentRCCfg Current RACH configuration container.
+* @param    RCId RC Id.
 *
 * @return
 *	- XST_SUCCESS on succes
@@ -2428,14 +2427,14 @@ u32 XDfePrach_RemoveRCfromRCCfg(const XDfePrach *InstancePtr,
 *
 * Updates an RC entry to the RC_CONFIGURATION.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    CurrentRCCfg is a current RACH configuration container.
-* @param    CCID is a CC Id.
-* @param    RCId is a RC Id.
-* @param    RachChan is a RACH channel.
-* @param    DdcCfg is a DDC data container.
-* @param    NcoCfg is a NCO data container.
-* @param    StaticSchedule is a Schedule data container.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    CurrentRCCfg Current RACH configuration container.
+* @param    CCID CC Id.
+* @param    RCId RC Id.
+* @param    RachChan RACH channel.
+* @param    DdcCfg DDC data container.
+* @param    NcoCfg NCO data container.
+* @param    StaticSchedule Schedule data container.
 *
 ****************************************************************************/
 void XDfePrach_UpdateRCinRCCfg(const XDfePrach *InstancePtr,
@@ -2464,13 +2463,13 @@ void XDfePrach_UpdateRCinRCCfg(const XDfePrach *InstancePtr,
 *
 * Adds a new RC entry to the RC_CONFIGURATION.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    CCID is a CC Id.
-* @param    RCId is a RC Id.
-* @param    RachChan is a RACH channel.
-* @param    DdcCfg is a DDC data container.
-* @param    NcoCfg is a NCO data container.
-* @param    StaticSchedule is a Schedule data container.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    CCID CC Id.
+* @param    RCId RC Id.
+* @param    RachChan RACH channel.
+* @param    DdcCfg DDC data container.
+* @param    NcoCfg NCO data container.
+* @param    StaticSchedule Schedule data container.
 *
 * @return
 *	- XST_SUCCESS on succes
@@ -2536,8 +2535,8 @@ u32 XDfePrach_AddRCCfg(const XDfePrach *InstancePtr, s32 CCID, u32 RCId,
 *
 * Removes an RC configuration entry from the RC_CONFIGURATION.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    RCId is a RC Id.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    RCId RC Id.
 *
 * @return
 *	- XST_SUCCESS on succes
@@ -2579,13 +2578,13 @@ u32 XDfePrach_RemoveRC(const XDfePrach *InstancePtr, u32 RCId)
 *
 * Updates an RC entry to the RC_CONFIGURATION.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    CCID is a CC Id.
-* @param    RCId is a RC Id.
-* @param    RachChan is a RACH channel.
-* @param    DdcCfg is a DDC data container.
-* @param    NcoCfg is a NCO data container.
-* @param    Schedule is a Schedule data container.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    CCID CC Id.
+* @param    RCId RC Id.
+* @param    RachChan RACH channel.
+* @param    DdcCfg DDC data container.
+* @param    NcoCfg NCO data container.
+* @param    Schedule Schedule data container.
 *
 * @return
 *	- XST_SUCCESS on succes
@@ -2637,9 +2636,9 @@ u32 XDfePrach_UpdateRCCfg(const XDfePrach *InstancePtr, s32 CCID, u32 RCId,
 * Moves the specified RCID from one NCO & Decimation Channel to another NCO
 * Decimation Channel.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    RCId is a RC Id.
-* @param    ToChannel is destination channel Id.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    RCId RC Id.
+* @param    ToChannel Destination channel Id.
 *
 * @return
 *	- XST_SUCCESS on succes
@@ -2715,8 +2714,8 @@ u32 XDfePrach_MoveRC(const XDfePrach *InstancePtr, u32 RCId, u32 ToChannel)
 *
 * Returns the current trigger configuration.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    TriggerCfg is a trigger configuration container.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    TriggerCfg Trigger configuration container.
 *
 ****************************************************************************/
 void XDfePrach_GetTriggersCfg(const XDfePrach *InstancePtr,
@@ -2822,8 +2821,8 @@ void XDfePrach_GetTriggersCfg(const XDfePrach *InstancePtr,
 *
 * Sets trigger configuration.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    TriggerCfg is a trigger configuration container.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    TriggerCfg Trigger configuration container.
 *
 ****************************************************************************/
 void XDfePrach_SetTriggersCfg(const XDfePrach *InstancePtr,
@@ -2944,10 +2943,10 @@ void XDfePrach_SetTriggersCfg(const XDfePrach *InstancePtr,
 *
 * Gets the specified CCID carrier configuration from either Current or Next.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    Next is the boolean flag indicating NEXT or CURRENT register.
-* @param    CCID is the CC Id.
-* @param    CarrierCfg is the Carrier configuration container.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    Next Boolean flag indicating NEXT or CURRENT register.
+* @param    CCID CC Id.
+* @param    CarrierCfg Carrier configuration container.
 *
 *
 ****************************************************************************/
@@ -2978,8 +2977,8 @@ void XDfePrach_GetCC(const XDfePrach *InstancePtr, bool Next, s32 CCID,
 *
 * Gets the PRACH Status.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    Status is the Status data container.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    Status Status data container.
 *
 *
 ****************************************************************************/
@@ -3059,7 +3058,7 @@ void XDfePrach_GetStatus(const XDfePrach *InstancePtr, XDfePrach_Status *Status)
 *
 * Clears the PRACH status registers.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
+* @param    InstancePtr Pointer to the PRACH instance.
 *
 *
 ****************************************************************************/
@@ -3089,7 +3088,7 @@ void XDfePrach_ClearStatus(const XDfePrach *InstancePtr)
 *
 * Captures phase for all phase accumulators in associated AXI-lite registers.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
+* @param    InstancePtr Pointer to the PRACH instance.
 *
 *
 ****************************************************************************/
@@ -3104,9 +3103,9 @@ void XDfePrach_CapturePhase(const XDfePrach *InstancePtr)
 *
 * Reads the captured phase for a given Rach Channel.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    RachChan is RACH channel Id.
-* @param    CapturedPhase is NCO data container.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    RachChan RACH channel Id.
+* @param    CapturedPhase NCO data container.
 *
 *
 ****************************************************************************/
@@ -3140,8 +3139,8 @@ void XDfePrach_GetCapturePhase(const XDfePrach *InstancePtr, u32 RachChan,
 * Sets the delay, which will be added to TUSER and TLAST (delay matched
 * through the IP).
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
-* @param    Delay is a requested delay variable.
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    Delay Requested delay variable.
 *
 ****************************************************************************/
 void XDfePrach_SetTUserDelay(const XDfePrach *InstancePtr, u32 Delay)
@@ -3159,7 +3158,7 @@ void XDfePrach_SetTUserDelay(const XDfePrach *InstancePtr, u32 Delay)
 * Reads the delay, which will be added to TUSER and TLAST (delay matched
 * through the IP).
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
+* @param    InstancePtr Pointer to the PRACH instance.
 *
 * @return   Delay value
 *
@@ -3179,7 +3178,7 @@ u32 XDfePrach_GetTUserDelay(const XDfePrach *InstancePtr)
 * Returns CONFIG.DATA_LATENCY.VALUE + tap, where the tap is between 0
 * and 23 in real mode and between 0 and 11 in complex/matrix mode.
 *
-* @param    InstancePtr is a pointer to the PRACH instance.
+* @param    InstancePtr Pointer to the PRACH instance.
 *
 * @return   Data latency value.
 *
@@ -3199,8 +3198,8 @@ u32 XDfePrach_GetTDataDelay(const XDfePrach *InstancePtr)
 *
 * This API gets the driver and HW design version.
 *
-* @param    SwVersion is driver version number.
-* @param    HwVersion is HW version number.
+* @param    SwVersion Driver version number.
+* @param    HwVersion HW version number.
 *
 *
 ******************************************************************************/

@@ -7,9 +7,6 @@
 /**
 *
 * @file xdfeprach_intr.c
-* @addtogroup xdfeprach_v1_2
-* @{
-* @cond nocomments
 * This file contains functions related to PRACH interrupt handling.
 *
 * <pre>
@@ -22,9 +19,11 @@
 * 1.1   dc     06/30/21 Doxygen documentation update
 * 1.2   dc     10/29/21 Update doxygen comments
 *       dc     11/05/21 Align event handlers
+*       dc     11/19/21 Update doxygen documentation
 *
 * </pre>
-* @endcond
+* @addtogroup xdfeprach_v1_2
+* @{
 ******************************************************************************/
 
 #include "xdfeprach.h"

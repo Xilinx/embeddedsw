@@ -45,8 +45,6 @@
 *
 * An API which will read/write registers has been provided for debug purpose.
 *
-* There are plans to add more features.
-*
 * @cond nocomments
 * <pre>
 * MODIFICATION HISTORY:
@@ -64,6 +62,7 @@
 * 1.2   dc     10/29/21 Update doxygen comments
 *       dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 *       dc     11/05/21 Align event handlers
+*       dc     11/19/21 Update doxygen documentation
 *
 * </pre>
 * @endcond
@@ -461,7 +460,7 @@ typedef struct {
 
 typedef struct {
 	XDfePrach_InternalChannelCfg InternalRCCfg
-		[XDFEPRACH_RC_NUM_MAX]; /* Internal RACH configuration */
+		[XDFEPRACH_RC_NUM_MAX]; /**< Internal RACH configuration */
 	XDfePrach_NCO NcoCfg[XDFEPRACH_NCO_NUM_MAX]; /**< NCO configuration */
 	XDfePrach_DDCCfg DdcCfg[XDFEPRACH_RC_NUM_MAX]; /**< DDC configuration */
 	XDfePrach_Schedule StaticSchedule
