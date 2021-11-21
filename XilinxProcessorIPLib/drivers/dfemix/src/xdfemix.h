@@ -47,8 +47,6 @@
 *
 * An API which will read/write registers is provided for debugging purpose.
 *
-* There are plans to add more features.
-*
 * @cond nocomments
 * <pre>
 * MODIFICATION HISTORY:
@@ -71,6 +69,7 @@
 * 1.2   dc     10/29/21 Update doxygen comments
 *       dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 *       dc     11/05/21 Align event handlers
+*       dc     11/19/21 Update doxygen documentation
 *
 * </pre>
 * @endcond
@@ -409,8 +408,8 @@ typedef XDfeMix_Status XDfeMix_InterruptMask;
  * Mixer Config Structure.
  */
 typedef struct {
-	u32 DeviceId;
-	metal_phys_addr_t BaseAddr;
+	u32 DeviceId; /**< Device Id */
+	metal_phys_addr_t BaseAddr; /**< Device base address */
 	u32 Mode; /**< [0,1] 0=downlink, 1=uplink */
 	u32 NumAntenna; /**< [1,2,4,8] */
 	u32 MaxUseableCcids; /**< [4,8] */
