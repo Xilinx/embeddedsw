@@ -7,9 +7,6 @@
 /**
 *
 * @file xdfeccf.c
-* @addtogroup dfeccf_v1_2
-* @{
-* @cond nocomments
 * Contains the APIs for DFE Channel Filter component.
 *
 * <pre>
@@ -36,9 +33,11 @@
 *       dc     10/26/21 Make driver R5 compatible
 * 1.2   dc     10/29/21 Update doxygen comments
 *       dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
+*       dc     11/19/21 Update doxygen documentation
 *
 * </pre>
-* @endcond
+* @addtogroup dfeccf_v1_2
+* @{
 ******************************************************************************/
 /**
 * @cond nocomments
@@ -97,9 +96,9 @@ extern void XDfeCcf_CfgInitialize(XDfeCcf *InstancePtr);
 *
 * Writes value to register in a Ccf instance.
 *
-* @param    InstancePtr is a pointer to the Ccf instance.
-* @param    AddrOffset is address offset relative to instance base address.
-* @param    Data is value to be written.
+* @param    InstancePtr Pointer to the Ccf instance.
+* @param    AddrOffset Address offset relative to instance base address.
+* @param    Data Value to be written.
 *
 ****************************************************************************/
 void XDfeCcf_WriteReg(const XDfeCcf *InstancePtr, u32 AddrOffset, u32 Data)
@@ -113,8 +112,8 @@ void XDfeCcf_WriteReg(const XDfeCcf *InstancePtr, u32 AddrOffset, u32 Data)
 *
 * Reads a value from register using a Ccf instance.
 *
-* @param    InstancePtr is a pointer to the XDfeCcf instance.
-* @param    AddrOffset is address offset relative to instance base address.
+* @param    InstancePtr Pointer to the XDfeCcf instance.
+* @param    AddrOffset Address offset relative to instance base address.
 *
 * @return   Register value.
 *
@@ -130,11 +129,11 @@ u32 XDfeCcf_ReadReg(const XDfeCcf *InstancePtr, u32 AddrOffset)
 *
 * Writes a bit field value to register.
 *
-* @param    InstancePtr is a pointer to the XDfeCcf instance.
-* @param    Offset is address offset relative to instance base address.
-* @param    FieldWidth is a bit field width.
-* @param    FieldOffset is a bit field offset.
-* @param    FieldData is a bit field data.
+* @param    InstancePtr Pointer to the XDfeCcf instance.
+* @param    Offset Address offset relative to instance base address.
+* @param    FieldWidth Bit field width.
+* @param    FieldOffset Bit field offset.
+* @param    FieldData Bit field data.
 *
 ****************************************************************************/
 void XDfeCcf_WrRegBitField(const XDfeCcf *InstancePtr, u32 Offset,
@@ -158,10 +157,10 @@ void XDfeCcf_WrRegBitField(const XDfeCcf *InstancePtr, u32 Offset,
 *
 * Reads a bit field value from register.
 *
-* @param    InstancePtr is a pointer to the XDfeCcf instance.
-* @param    Offset is address offset relative to instance base address.
-* @param    FieldWidth is a bit field width.
-* @param    FieldOffset is a bit field offset.
+* @param    InstancePtr Pointer to the XDfeCcf instance.
+* @param    Offset Address offset relative to instance base address.
+* @param    FieldWidth Bit field width.
+* @param    FieldOffset Bit field offset.
 *
 * @return   Bit field data.
 *
@@ -182,9 +181,9 @@ u32 XDfeCcf_RdRegBitField(const XDfeCcf *InstancePtr, u32 Offset,
 *
 * Reads a bit field value from u32 variable.
 *
-* @param    FieldWidth is a bit field width.
-* @param    FieldOffset is a bit field offset in bits number.
-* @param    Data is a u32 data. Data is a bit field that the function reads.
+* @param    FieldWidth Bit field width.
+* @param    FieldOffset Bit field offset in bits number.
+* @param    Data U32 value of bit field that the function reads.
 *
 * @return   Bit field value.
 *
@@ -199,10 +198,10 @@ u32 XDfeCcf_RdBitField(u32 FieldWidth, u32 FieldOffset, u32 Data)
 *
 * Writes a bit field value to u32 variable.
 *
-* @param    FieldWidth is a bit field width.
-* @param    FieldOffset is a bit field offset in bits number.
-* @param    Data is a u32 data. Data is a bit field that the function reads.
-* @param    Val is a u32 value to be written in the bit field.
+* @param    FieldWidth Bit field width.
+* @param    FieldOffset Bit field offset in bits number.
+* @param    Data U32 value of bit field that the function reads.
+* @param    Val U32 value to be written in the bit field.
 *
 * @return   Data with a written bit field.
 *
@@ -226,7 +225,7 @@ u32 XDfeCcf_WrBitField(u32 FieldWidth, u32 FieldOffset, u32 Data, u32 Val)
 *
 * Finds not used CCID.
 *
-* @param    Sequence is a CC sequence array.
+* @param    Sequence CC sequence array.
 *
 * @return   Unused CCID.
 *
@@ -265,10 +264,10 @@ static s32 XDfeCcf_GetNotUsedCCID(XDfeCcf_CCSequence *Sequence)
 * - CCIDSequence.CCID[i] = CCID  - if [i] is used slot
 * - a returned CCIDSequence->Length = length in register + 1
 *
-* @param    InstancePtr is a pointer to the XDfeCcf instance.
-* @param    CCID is a CC ID.
-* @param    CCSeqBitmap maps the sequence.
-* @param    CCIDSequence is a CC sequence array.
+* @param    InstancePtr Pointer to the XDfeCcf instance.
+* @param    CCID CC ID.
+* @param    CCSeqBitmap Maps the sequence.
+* @param    CCIDSequence CC sequence array.
 *
 * @return
 *           - XST_SUCCESS if successful.
@@ -343,9 +342,9 @@ static u32 XDfeCcf_AddCCIDAndTranslateSeq(XDfeCcf *InstancePtr, s32 CCID,
 *
 * Translate the sequence back to SEQUENCE register format.
 *
-* @param    InstancePtr is a pointer to the XDfeCcf instance.
-* @param    CCIDSequence is a CC sequence array in CCCfg.
-* @param    NextCCID is a returned CC sequence array.
+* @param    InstancePtr Pointer to the XDfeCcf instance.
+* @param    CCIDSequence CC sequence array in CCCfg.
+* @param    NextCCID Returned CC sequence array.
 *
 ****************************************************************************/
 static void XDfeCcf_TranslateSeq(const XDfeCcf *InstancePtr,
@@ -370,9 +369,9 @@ static void XDfeCcf_TranslateSeq(const XDfeCcf *InstancePtr,
 * Removes the specified CCID from the CC sequence and replaces the CCID
 * entries with null (-1).
 *
-* @param    InstancePtr is a pointer to the XDfeCcf instance.
-* @param    CCID is a CC ID.
-* @param    CCIDSequence is a CC sequence array.
+* @param    InstancePtr Pointer to the XDfeCcf instance.
+* @param    CCID CC ID.
+* @param    CCIDSequence CC sequence array.
 *
 ****************************************************************************/
 static void XDfeCcf_RemoveCCID(XDfeCcf *InstancePtr, s32 CCID,
@@ -397,9 +396,9 @@ static void XDfeCcf_RemoveCCID(XDfeCcf *InstancePtr, s32 CCID,
 *
 * Gets specified CCID carrier configuration.
 *
-* @param    InstancePtr is a pointer to the Ccf instance.
-* @param    CCID is a Channel ID.
-* @param    CarrierCfg is a trigger configuration container.
+* @param    InstancePtr Pointer to the Ccf instance.
+* @param    CCID Channel ID.
+* @param    CarrierCfg Trigger configuration container.
 *
 *
 ****************************************************************************/
@@ -432,8 +431,8 @@ XDfeCcf_GetInternalCarrierCfg(const XDfeCcf *InstancePtr, s32 CCID,
 *
 * Sets the next CC configuration.
 *
-* @param    InstancePtr is a pointer to the Ccf instance.
-* @param    NextCCCfg is Next CC configuration container.
+* @param    InstancePtr Pointer to the Ccf instance.
+* @param    NextCCCfg Next CC configuration container.
 *
 ****************************************************************************/
 static void XDfeCcf_SetNextCCCfg(const XDfeCcf *InstancePtr,
@@ -503,9 +502,9 @@ static void XDfeCcf_SetNextCCCfg(const XDfeCcf *InstancePtr,
 * Returns the next available mapped ID value for the specified CC
 * configuration.
 *
-* @param    InstancePtr is a pointer to the Channel Filter instance.
-* @param    CCCfg is a CC configuration container.
-* @param    ID is mapped index.
+* @param    InstancePtr Pointer to the Channel Filter instance.
+* @param    CCCfg CC configuration container.
+* @param    ID Mapped index.
 *
 * @return   Mapped ID.
 *
@@ -565,7 +564,7 @@ static u32 XDfeCcf_NextMappedId(const XDfeCcf *InstancePtr,
 * Reads the Triggers and sets enable bit of update trigger. If
 * Mode = IMMEDIATE, then trigger will be applied immediately.
 *
-* @param    InstancePtr is a pointer to the Channel Filter instance.
+* @param    InstancePtr Pointer to the Channel Filter instance.
 *
 * @return
 *           - XST_SUCCESS if successful.
@@ -601,7 +600,7 @@ static u32 XDfeCcf_EnableCCUpdateTrigger(const XDfeCcf *InstancePtr)
 * Reads the Triggers and sets enable bit of LowPower trigger.
 * If Mode = IMMEDIATE, then trigger will be applied immediately.
 *
-* @param    InstancePtr is a pointer to the Channel Filter instance.
+* @param    InstancePtr Pointer to the Channel Filter instance.
 *
 ****************************************************************************/
 static void XDfeCcf_EnableLowPowerTrigger(const XDfeCcf *InstancePtr)
@@ -621,7 +620,7 @@ static void XDfeCcf_EnableLowPowerTrigger(const XDfeCcf *InstancePtr)
 * Reads the Triggers, set enable bit of Activate trigger. If
 * Mode = IMMEDIATE, then trigger will be applied immediately.
 *
-* @param    InstancePtr is a pointer to the Channel Filter instance.
+* @param    InstancePtr Pointer to the Channel Filter instance.
 *
 ****************************************************************************/
 static void XDfeCcf_EnableActivateTrigger(const XDfeCcf *InstancePtr)
@@ -644,7 +643,7 @@ static void XDfeCcf_EnableActivateTrigger(const XDfeCcf *InstancePtr)
 * Reads the Triggers, set disable bit of Activate trigger. If
 * Mode = IMMEDIATE, then trigger will be applied immediately.
 *
-* @param    InstancePtr is a pointer to the Ch Filter instance.
+* @param    InstancePtr Pointer to the Ch Filter instance.
 *
 ****************************************************************************/
 static void XDfeCcf_EnableDeactivateTrigger(const XDfeCcf *InstancePtr)
@@ -666,7 +665,7 @@ static void XDfeCcf_EnableDeactivateTrigger(const XDfeCcf *InstancePtr)
 *
 * Reads the Triggers and resets enable a bit of LowPower trigger.
 *
-* @param    InstancePtr is a pointer to the Channel Filter instance.
+* @param    InstancePtr Pointer to the Channel Filter instance.
 *
 ****************************************************************************/
 static void XDfeCcf_DisableLowPowerTrigger(const XDfeCcf *InstancePtr)
@@ -695,7 +694,7 @@ static void XDfeCcf_DisableLowPowerTrigger(const XDfeCcf *InstancePtr)
 * object. On success it moves the state machine to a Ready state, while on
 * failure stays in a Not Ready state.
 *
-* @param    DeviceNodeName is the device node name.
+* @param    DeviceNodeName Device node name.
 *
 * @return
 *           - Pointer to the instance if successful.
@@ -805,7 +804,7 @@ return_error:
 * API closes the instances of a channel filter driver and moves the state
 * machine to a Not Ready state.
 *
-* @param    InstancePtr is a pointer to the XDfeCcf instance.
+* @param    InstancePtr Pointer to the XDfeCcf instance.
 *
 ******************************************************************************/
 void XDfeCcf_InstanceClose(XDfeCcf *InstancePtr)
@@ -834,7 +833,7 @@ void XDfeCcf_InstanceClose(XDfeCcf *InstancePtr)
 *
 * Resets channel filter and puts block into a reset state.
 *
-* @param    InstancePtr is a pointer to the Ccf instance.
+* @param    InstancePtr Pointer to the Ccf instance.
 *
 ****************************************************************************/
 void XDfeCcf_Reset(XDfeCcf *InstancePtr)
@@ -853,8 +852,8 @@ void XDfeCcf_Reset(XDfeCcf *InstancePtr)
 * Reads configuration from device tree/xparameters.h and IP registers.
 * Removes S/W reset and moves the state machine to a Configured state.
 *
-* @param    InstancePtr is a pointer to the Ccf instance.
-* @param    Cfg is a configuration data container.
+* @param    InstancePtr Pointer to the Ccf instance.
+* @param    Cfg Configuration data container.
 *
 ****************************************************************************/
 void XDfeCcf_Configure(XDfeCcf *InstancePtr, XDfeCcf_Cfg *Cfg)
@@ -910,8 +909,8 @@ void XDfeCcf_Configure(XDfeCcf *InstancePtr, XDfeCcf_Cfg *Cfg)
 * DFE Ccf driver one time initialisation, also moves the state machine to
 * an Initialised state.
 *
-* @param    InstancePtr is a pointer to the Ccf instance.
-* @param    Init is an initialisation data container.
+* @param    InstancePtr Pointer to the Ccf instance.
+* @param    Init Initialisation data container.
 *
 ****************************************************************************/
 void XDfeCcf_Initialize(XDfeCcf *InstancePtr, XDfeCcf_Init *Init)
@@ -987,8 +986,8 @@ void XDfeCcf_Initialize(XDfeCcf *InstancePtr, XDfeCcf_Init *Init)
 *
 * Activates channel filter and moves the state machine to an Activated state.
 *
-* @param    InstancePtr is a pointer to the Ccf instance.
-* @param    EnableLowPower is a flag indicating low power.
+* @param    InstancePtr Pointer to the Ccf instance.
+* @param    EnableLowPower Flag indicating low power.
 *
 ******************************************************************************/
 void XDfeCcf_Activate(XDfeCcf *InstancePtr, bool EnableLowPower)
@@ -1025,7 +1024,7 @@ void XDfeCcf_Activate(XDfeCcf *InstancePtr, bool EnableLowPower)
 *
 * Deactivates channel filter and moves the state machine to Initialised state.
 *
-* @param    InstancePtr is a pointer to the Ccf instance.
+* @param    InstancePtr Pointer to the Ccf instance.
 *
 ******************************************************************************/
 void XDfeCcf_Deactivate(XDfeCcf *InstancePtr)
@@ -1059,7 +1058,7 @@ void XDfeCcf_Deactivate(XDfeCcf *InstancePtr)
 *
 * Gets a state machine state id.
 *
-* @param    InstancePtr is a pointer to the Ccf instance.
+* @param    InstancePtr Pointer to the Ccf instance.
 *
 * @return   State machine StateID
 *
@@ -1078,8 +1077,8 @@ XDfeCcf_StateId XDfeCcf_GetStateID(XDfeCcf *InstancePtr)
 * Returns the current CC configuration. Not used slot ID in a sequence
 * (Sequence.CCID[Index]) are represented as (-1), not the value in registers.
 *
-* @param    InstancePtr is a pointer to the Ccf instance.
-* @param    CurrCCCfg is CC configuration container.
+* @param    InstancePtr Pointer to the Ccf instance.
+* @param    CurrCCCfg CC configuration container.
 *
 * @note     For a sequence conversion see XDfeCcf_AddCCtoCCCfg() comment.
 *
@@ -1138,8 +1137,8 @@ void XDfeCcf_GetCurrentCCCfg(const XDfeCcf *InstancePtr,
 *
 * Returns the empty CC configuration.
 *
-* @param    InstancePtr is a pointer to the Ccf instance.
-* @param    CCCfg is CC configuration container.
+* @param    InstancePtr Pointer to the Ccf instance.
+* @param    CCCfg CC configuration container.
 *
 ****************************************************************************/
 void XDfeCcf_GetEmptyCCCfg(const XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg)
@@ -1161,11 +1160,11 @@ void XDfeCcf_GetEmptyCCCfg(const XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg)
 *
 * Returns the current CCID carrier configuration.
 *
-* @param    InstancePtr is a pointer to the Ccf instance.
-* @param    CCCfg is component carrier (CC) configuration container.
-* @param    CCID is a Channel ID.
-* @param    CCSeqBitmap is CC slot position container.
-* @param    CarrierCfg is a CC configuration container.
+* @param    InstancePtr Pointer to the Ccf instance.
+* @param    CCCfg Component carrier (CC) configuration container.
+* @param    CCID Channel ID.
+* @param    CCSeqBitmap CC slot position container.
+* @param    CarrierCfg CC configuration container.
 *
 ****************************************************************************/
 void XDfeCcf_GetCarrierCfg(const XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg,
@@ -1210,11 +1209,11 @@ void XDfeCcf_GetCarrierCfg(const XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg,
 * - CCIDSequence.CCID[i] = CCID  - if [i] is used slot
 * - a returned CCIDSequence->Length = length in register + 1
 *
-* @param    InstancePtr is a pointer to the Ccf instance.
-* @param    CCCfg is component carrier (CC) configuration container.
-* @param    CCID is a Channel ID.
-* @param    CCSeqBitmap is CC slot position container.
-* @param    CarrierCfg is a CC configuration container.
+* @param    InstancePtr Pointer to the Ccf instance.
+* @param    CCCfg Component carrier (CC) configuration container.
+* @param    CCID Channel ID.
+* @param    CCSeqBitmap CC slot position container.
+* @param    CarrierCfg CC configuration container.
 *
 * @return
 *           - XST_SUCCESS if successful.
@@ -1266,9 +1265,9 @@ u32 XDfeCcf_AddCCtoCCCfg(XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg, s32 CCID,
 *
 * Removes specified CCID from a local CC configuration structure.
 *
-* @param    InstancePtr is a pointer to the Ccf instance.
-* @param    CCCfg is component carrier (CC) configuration container.
-* @param    CCID is a Channel ID.
+* @param    InstancePtr Pointer to the Ccf instance.
+* @param    CCCfg Component carrier (CC) configuration container.
+* @param    CCID Channel ID.
 *
 * @note     For a sequence conversion see XDfeCcf_AddCCtoCCCfg comment.
 *
@@ -1295,10 +1294,10 @@ void XDfeCcf_RemoveCCfromCCCfg(XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg,
 * If there is insufficient capacity for the new CC the function will return
 * an error.
 *
-* @param    InstancePtr is a pointer to the Ccf instance.
-* @param    CCCfg is component carrier (CC) configuration container.
-* @param    CCID is a Channel ID.
-* @param    CarrierCfg is a CC configuration container.
+* @param    InstancePtr Pointer to the Ccf instance.
+* @param    CCCfg Component carrier (CC) configuration container.
+* @param    CCID Channel ID.
+* @param    CarrierCfg CC configuration container.
 *
 ****************************************************************************/
 void XDfeCcf_UpdateCCinCCCfg(const XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg,
@@ -1334,8 +1333,8 @@ void XDfeCcf_UpdateCCinCCCfg(const XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg,
 * Writes local CC configuration to the shadow (NEXT) registers and triggers
 * copying from shadow to operational registers.
 *
-* @param    InstancePtr is a pointer to the Ccf instance.
-* @param    CurrCCCfg is CC configuration container.
+* @param    InstancePtr Pointer to the Ccf instance.
+* @param    CurrCCCfg CC configuration container.
 *
 * @return
 *           - XST_SUCCESS if successful.
@@ -1361,8 +1360,8 @@ u32 XDfeCcf_SetNextCCCfgAndTrigger(const XDfeCcf *InstancePtr,
 * an error.
 * Initiates CC update (enable CCUpdate trigger TUSER Single Shot).
 *
-* @param    InstancePtr is a pointer to the Ccf instance.
-* @param    CCID is a Channel ID.
+* @param    InstancePtr Pointer to the Ccf instance.
+* @param    CCID Channel ID.
 * @param    CCSeqBitmap - up to 16 defined slots into which a CC can be
 *           allocated. The number of slots can be from 1 to 16 depending on
 *           system initialization. The number of slots is defined by the
@@ -1370,7 +1369,7 @@ u32 XDfeCcf_SetNextCCCfgAndTrigger(const XDfeCcf *InstancePtr,
 *           The Bit offset within the CCSeqBitmap indicates the equivalent
 *           Slot number to allocate. e.g. 0x0003  means the caller wants the
 *           passed component carrier (CC) to be allocated to slots 0 and 1.
-* @param    CarrierCfg is a CC configuration container.
+* @param    CarrierCfg CC configuration container.
 *
 * @return
 *           - XST_SUCCESS if successful.
@@ -1443,8 +1442,8 @@ u32 XDfeCcf_AddCC(XDfeCcf *InstancePtr, s32 CCID, u32 CCSeqBitmap,
 * Removes specified CCID.
 * Initiates CC update (enable CCUpdate trigger TUSER Single Shot).
 *
-* @param    InstancePtr is a pointer to the Ccf instance.
-* @param    CCID is a Channel ID.
+* @param    InstancePtr Pointer to the Ccf instance.
+* @param    CCID Channel ID.
 *
 * @return
 *           - XST_SUCCESS if successful.
@@ -1483,9 +1482,9 @@ u32 XDfeCcf_RemoveCC(XDfeCcf *InstancePtr, s32 CCID)
 * coefficients set.
 * Initiates CC update (enable CCUpdate trigger TUSER Single Shot).
 *
-* @param    InstancePtr is a pointer to the Ccf instance.
-* @param    CCID is a Channel ID.
-* @param    CarrierCfg is a CC configuration container.
+* @param    InstancePtr Pointer to the Ccf instance.
+* @param    CCID Channel ID.
+* @param    CarrierCfg CC configuration container.
 *
 * @return
 *           - XST_SUCCESS if successful.
@@ -1535,9 +1534,9 @@ u32 XDfeCcf_UpdateCC(const XDfeCcf *InstancePtr, s32 CCID,
 *
 * Initiates CC update (enable CCUpdate trigger one-shot).
 *
-* @param    InstancePtr is a pointer to the Ccf instance.
-* @param    Ant is antenna ID.
-* @param    Enabled is a flag indicating enable status of the antenna.
+* @param    InstancePtr Pointer to the Ccf instance.
+* @param    Ant Antenna ID.
+* @param    Enabled Flag indicating enable status of the antenna.
 *
 * @return
 *           - XST_SUCCESS if successful.
@@ -1575,8 +1574,8 @@ u32 XDfeCcf_UpdateAntenna(const XDfeCcf *InstancePtr, u32 Ant, bool Enabled)
 *
 * Returns current trigger configuration.
 *
-* @param    InstancePtr is a pointer to the Ccf instance.
-* @param    TriggerCfg is a trigger configuration container.
+* @param    InstancePtr Pointer to the Ccf instance.
+* @param    TriggerCfg Trigger configuration container.
 *
 ****************************************************************************/
 void XDfeCcf_GetTriggersCfg(const XDfeCcf *InstancePtr,
@@ -1648,8 +1647,8 @@ void XDfeCcf_GetTriggersCfg(const XDfeCcf *InstancePtr,
 *
 * Sets trigger configuration.
 *
-* @param    InstancePtr is a pointer to the Ccf instance.
-* @param    TriggerCfg is a trigger configuration container.
+* @param    InstancePtr Pointer to the Ccf instance.
+* @param    TriggerCfg Trigger configuration container.
 *
 ****************************************************************************/
 void XDfeCcf_SetTriggersCfg(const XDfeCcf *InstancePtr,
@@ -1740,9 +1739,9 @@ void XDfeCcf_SetTriggersCfg(const XDfeCcf *InstancePtr,
 *
 * Gets specified CCID carrier configuration.
 *
-* @param    InstancePtr is a pointer to the Ccf instance.
-* @param    CCID is a Channel ID.
-* @param    CarrierCfg is a trigger configuration container.
+* @param    InstancePtr Pointer to the Ccf instance.
+* @param    CCID Channel ID.
+* @param    CarrierCfg Trigger configuration container.
 *
 ****************************************************************************/
 void XDfeCcf_GetCC(const XDfeCcf *InstancePtr, s32 CCID,
@@ -1771,8 +1770,8 @@ void XDfeCcf_GetCC(const XDfeCcf *InstancePtr, s32 CCID,
 *
 * Returns a list indicating which coefficient sets are currently in use.
 *
-* @param    InstancePtr is a pointer to the Ccf instance.
-* @param    IsActive is a pointer indicating an activation status.
+* @param    InstancePtr Pointer to the Ccf instance.
+* @param    IsActive Pointer indicating an activation status.
 *
 ****************************************************************************/
 void XDfeCcf_GetActiveSets(const XDfeCcf *InstancePtr, u32 *IsActive)
@@ -1831,10 +1830,10 @@ void XDfeCcf_GetActiveSets(const XDfeCcf *InstancePtr, u32 *IsActive)
 * Writes the coefficient set defined into the register map and commit them
 * to the hard block's internal coefficient memory for the specified Set.
 *
-* @param    InstancePtr is a pointer to the Ccf instance.
-* @param    Set is a coefficient set Id.
-* @param    Shift is a coefficient shift value.
-* @param    Coeffs is an array of filter coefficients.
+* @param    InstancePtr Pointer to the Ccf instance.
+* @param    Set Coefficient set Id.
+* @param    Shift Coefficient shift value.
+* @param    Coeffs Array of filter coefficients.
 *
 ****************************************************************************/
 void XDfeCcf_LoadCoefficients(const XDfeCcf *InstancePtr, u32 Set, u32 Shift,
@@ -1904,8 +1903,8 @@ void XDfeCcf_LoadCoefficients(const XDfeCcf *InstancePtr, u32 Set, u32 Shift,
 * Sets the delay, which will be added to TUSER and TLAST (delay matched
 * through the IP).
 *
-* @param    InstancePtr is a pointer to the Ccf instance.
-* @param    Delay is a requested delay variable.
+* @param    InstancePtr Pointer to the Ccf instance.
+* @param    Delay Requested delay variable.
 *
 ****************************************************************************/
 void XDfeCcf_SetTUserDelay(const XDfeCcf *InstancePtr, u32 Delay)
@@ -1923,7 +1922,7 @@ void XDfeCcf_SetTUserDelay(const XDfeCcf *InstancePtr, u32 Delay)
 * Reads the delay, which will be added to TUSER and TLAST (delay matched
 * through the IP).
 *
-* @param    InstancePtr is a pointer to the Ccf instance.
+* @param    InstancePtr Pointer to the Ccf instance.
 *
 * @return   Delay value
 *
@@ -1943,8 +1942,8 @@ u32 XDfeCcf_GetTUserDelay(const XDfeCcf *InstancePtr)
 * Returns CONFIG.DATA_LATENCY.VALUE + tap, where the tap is between 0
 * and 256 in symmetric mode and between 0 and 128 in non-symmetric.
 *
-* @param    InstancePtr is a pointer to the Ccf instance.
-* @param    Tap is a tap variable.
+* @param    InstancePtr Pointer to the Ccf instance.
+* @param    Tap Tap value.
 *
 * @return   Data latency value.
 *
@@ -1966,8 +1965,8 @@ u32 XDfeCcf_GetTDataDelay(const XDfeCcf *InstancePtr, u32 Tap)
 *
 * This API is used to get the driver version.
 *
-* @param    SwVersion is driver version numbers.
-* @param    HwVersion is HW version numbers.
+* @param    SwVersion Driver version numbers.
+* @param    HwVersion HW version numbers.
 *
 ******************************************************************************/
 void XDfeCcf_GetVersions(const XDfeCcf *InstancePtr, XDfeCcf_Version *SwVersion,
