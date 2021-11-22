@@ -16,6 +16,7 @@
 #include "xpm_pslpdomain.h"
 #include "xpm_psfpdomain.h"
 #include "xpm_pldomain.h"
+#include "xpm_cpmdomain.h"
 #include "xpm_bisr.h"
 #include "xpm_device.h"
 #include "xpm_gic_proxy.h"
@@ -826,8 +827,67 @@ XStatus XPm_PowerUpCPM5(const XPm_Node *Node)
 
 XStatus XPm_PowerDwnCPM5(const XPm_Node *Node)
 {
-	(void)Node;
-	return XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	const XPm_CpmDomain *Cpm;
+
+	if (NULL == Node) {
+		PmErr("Invalid Node\r\n");
+		goto done;
+	}
+	Cpm = (XPm_CpmDomain *)Node;
+
+	/* Note: Assumption is made that idling is already taken care of */
+
+	/** Assert Reset to CPM5 **/
+	/* Unlock the PCSR*/
+	XPmCpmDomain_UnlockPcsr(Cpm->CpmPcsrBaseAddr);
+	/* Assert the INITSTATE bit and release open the clock gates in CPM */
+	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_MASK_OFFSET,
+		CPM_PCSR_MASK_SCAN_CLEAR_INITSTATE_WEN_MASK);
+	/* Check that the register value written properly or not! */
+	PmChkRegMask32((Cpm->CpmPcsrBaseAddr + CPM_PCSR_MASK_OFFSET),
+			CPM_PCSR_MASK_SCAN_CLEAR_INITSTATE_WEN_MASK,
+			CPM_PCSR_MASK_SCAN_CLEAR_INITSTATE_WEN_MASK, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_CPM5SCNCLR_PCSR_MASK;
+		goto done;
+	}
+	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_PCR_OFFSET,
+		CPM_PCSR_PCR_INITSTATE_MASK);
+	/* Assert lpd_cpm_por_n reset to CPM5. (Write 1 to CRL.RST_OCM2.POR) */
+	PmRmw32(CRL_RST_OCM2_CTRL, CRL_RST_OCM2_CTRL_POR_MASK, 0x1);
+	/* Lock PCSR*/
+	XPmCpmDomain_LockPcsr(Cpm->CpmPcsrBaseAddr);
+
+	/** Turn on isolation **/
+	/* Isolate PL-CPM5 */
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_CPM5_PL, TRUE_VALUE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PL_CPM5_ISO;
+		goto done;
+	}
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_CPM5_PL_DFX, TRUE_VALUE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PL_CPM5_DFX_ISO;
+		goto done;
+	}
+	/* Isolate LPD-CPM5 */
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_CPM5, TRUE_VALUE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_LPD_CPM5_ISO;
+		goto done;
+	}
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_CPM5_DFX, TRUE_VALUE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_LPD_CPM5_DFX_ISO;
+		goto done;
+	}
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+
+	return Status;
 }
 
 XStatus XPm_PowerDwnCPM(const XPm_Node *Node)
