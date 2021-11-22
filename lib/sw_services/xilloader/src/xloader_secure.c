@@ -104,6 +104,7 @@
 *       bsv  10/26/21 Code clean up
 *       kpt  10/28/21 Added flags in XLoader_SecureInit to indicate the mode of
 *                     copy
+* 1.08  skd  11/18/21 Added time stamps in XLoader_ProcessChecksumPrtn
 *
 * </pre>
 *
@@ -537,6 +538,12 @@ static int XLoader_ProcessChecksumPrtn(XLoader_SecureParams *SecurePtr,
 	u32 TotalSize = BlockSize;
 	u64 SrcAddr;
 	u64 DataAddr;
+#ifdef PLM_PRINT_PERF_CDO_PROCESS
+	u64 ProcessTimeStart;
+	u64 ProcessTimeEnd;
+	static u64 ProcessTime;
+	XPlmi_PerfTime PerfTime;
+#endif
 
 	XPlmi_Printf(DEBUG_INFO,
 			"Processing Block %u\n\r", SecurePtr->BlockNum);
@@ -555,6 +562,11 @@ static int XLoader_ProcessChecksumPrtn(XLoader_SecureParams *SecurePtr,
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+#ifdef PLM_PRINT_PERF_CDO_PROCESS
+		ProcessTimeStart = XPlmi_GetTimerValue();
+#endif
+
 	SecurePtr->SecureData = SecurePtr->ChunkAddr;
 	if (Last != (u8)TRUE) {
 		/* Here Checksum overhead is removed in the chunk */
@@ -589,6 +601,18 @@ static int XLoader_ProcessChecksumPrtn(XLoader_SecureParams *SecurePtr,
 	SecurePtr->BlockNum++;
 
 END:
+#ifdef PLM_PRINT_PERF_CDO_PROCESS
+	ProcessTimeEnd = XPlmi_GetTimerValue();
+	ProcessTime += (ProcessTimeStart - ProcessTimeEnd);
+	if (Last == (u8)TRUE) {
+		XPlmi_MeasurePerfTime((XPlmi_GetTimerValue() + ProcessTime),
+					&PerfTime);
+		XPlmi_Printf(DEBUG_PRINT_PERF,
+			     "%u.%03u ms Secure Processing time\n\r",
+			     (u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
+		ProcessTime = 0U;
+	}
+#endif
 	return Status;
 }
 

@@ -35,7 +35,8 @@
 *       bm   08/09/2021 Cleared PMC CDO buffer by default after processing
 *       bsv  08/13/2021 Remove unwanted header file
 *       bsv  08/13/2021 Removed unwanted goto statements
-*       kpt  09/09/21 Fixed SW-BP-BLIND-WRITE in XLoader_SecureClear
+*       kpt  09/09/2021 Fixed SW-BP-BLIND-WRITE in XLoader_SecureClear
+* 1.06  skd  11/18/2021 Added time stamps in XPlm_ProcessPmcCdo
 *
 * </pre>
 *
@@ -214,9 +215,17 @@ int XPlm_ProcessPmcCdo(void *Arg)
 	int SStatus = XST_FAILURE;
 	XPlmiCdo Cdo;
 	u32 SlrType = XLOADER_SSIT_INVALID_SLR;
+#ifdef PLM_PRINT_PERF_CDO_PROCESS
+	u64 TaskStartTime;
+	XPlmi_PerfTime PerfTime;
+#endif
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s\n\r", __func__);
 	(void )Arg;
+
+#ifdef PLM_PRINT_PERF_CDO_PROCESS
+	TaskStartTime = XPlmi_GetTimerValue();
+#endif
 
 	/**
 	 * Configure NoC frequency equivalent to the frequency ROM sets in
@@ -246,6 +255,12 @@ int XPlm_ProcessPmcCdo(void *Arg)
 	Cdo.BufLen = XPLMI_PMCRAM_LEN;
 	Cdo.SubsystemId = PM_SUBSYS_PMC;
 	Status = XPlmi_ProcessCdo(&Cdo);
+
+#ifdef PLM_PRINT_PERF_CDO_PROCESS
+	XPlmi_MeasurePerfTime(TaskStartTime, &PerfTime);
+	XPlmi_Printf(DEBUG_PRINT_PERF, "%u.%03u ms: PMC CDO processing time\n\r",
+			(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
+#endif
 
 	/* Clear PMC CDO memory irrespective of success or failure */
 	SStatus = XPlmi_MemSet(XPLMI_PMCRAM_BASEADDR, XPLMI_DATA_INIT_PZM,

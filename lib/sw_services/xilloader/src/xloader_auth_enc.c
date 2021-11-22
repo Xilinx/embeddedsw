@@ -69,6 +69,7 @@
 *                     data section
 *       kpt  10/28/21 Fixed PMCDMA1 hang issue in sbi checksum copy to memory
 *                     mode
+* 1.03  skd  11/18/21 Added time stamps in XLoader_ProcessAuthEncPrtn
 *
 * </pre>
 *
@@ -3359,6 +3360,12 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 	u64 SrcAddr;
 	u64 OutAddr;
 	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
+#ifdef PLM_PRINT_PERF_CDO_PROCESS
+	u64 ProcessTimeStart;
+	u64 ProcessTimeEnd;
+	static u64 ProcessTime;
+	XPlmi_PerfTime PerfTime;
+#endif
 
 	XPlmi_Printf(DEBUG_INFO,
 			"Processing Block %u\n\r", SecurePtr->BlockNum);
@@ -3404,6 +3411,10 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+#ifdef PLM_PRINT_PERF_CDO_PROCESS
+	ProcessTimeStart = XPlmi_GetTimerValue();
+#endif
 
 	if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
 		(SecureTempParams->IsAuthenticated == (u8)TRUE)) {
@@ -3462,6 +3473,18 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 	SecurePtr->BlockNum++;
 
 END:
+#ifdef PLM_PRINT_PERF_CDO_PROCESS
+	ProcessTimeEnd = XPlmi_GetTimerValue();
+	ProcessTime += (ProcessTimeStart - ProcessTimeEnd);
+	if (Last == (u8)TRUE) {
+		XPlmi_MeasurePerfTime((XPlmi_GetTimerValue() + ProcessTime),
+					&PerfTime);
+		XPlmi_Printf(DEBUG_PRINT_PERF,
+			     "%u.%03u ms Secure Processing time\n\r",
+			     (u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
+		ProcessTime = 0U;
+	}
+#endif
 	/* Clears whole intermediate buffers on failure */
 	if (Status != XST_SUCCESS) {
 		ClrStatus = XPlmi_InitNVerifyMem(SecurePtr->ChunkAddr, TotalSize);
