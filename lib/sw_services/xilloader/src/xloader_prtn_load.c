@@ -75,6 +75,7 @@
 *                       data section
 *       bsv  10/26/2021 Code clean up
 *       kpt  10/28/2021 Fixed checksum issue in case of copy to memory
+* 1.08  skd  11/18/2021 Added time stamps in XLoader_ProcessCdo
 *
 * </pre>
 *
@@ -599,6 +600,12 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 	u8 LastChunk = (u8)FALSE;
 	u8 Flags;
 	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
+#ifdef PLM_PRINT_PERF_CDO_PROCESS
+	u64 CdoProcessTimeStart;
+	u64 CdoProcessTimeEnd;
+	u64 CdoProcessTime = 0U;
+	XPlmi_PerfTime PerfTime;
+#endif
 
 	XPlmi_Printf(DEBUG_INFO, "Processing CDO partition \n\r");
 	/*
@@ -696,11 +703,18 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 			DeviceCopy->SrcAddr += SecureParams->ProcessedLen;
 			DeviceCopy->Len -= SecureParams->ProcessedLen;
 		}
+#ifdef PLM_PRINT_PERF_CDO_PROCESS
+		CdoProcessTimeStart = XPlmi_GetTimerValue();
+#endif
 		/* Process the chunk */
 		Status = XPlmi_ProcessCdo(&Cdo);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
+#ifdef PLM_PRINT_PERF_CDO_PROCESS
+		CdoProcessTimeEnd = XPlmi_GetTimerValue();
+		CdoProcessTime += (CdoProcessTimeStart - CdoProcessTimeEnd);
+#endif
 		if (Cdo.Cmd.KeyHoleParams.ExtraWords != 0x0U) {
 			Cdo.Cmd.KeyHoleParams.ExtraWords <<= XPLMI_WORD_LEN_SHIFT;
 			if ((Cdo.Cmd.KeyHoleParams.IsNextChunkCopyStarted == (u8)TRUE) &&
@@ -749,6 +763,13 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 	Status = XST_SUCCESS;
 
 END:
+#ifdef PLM_PRINT_PERF_CDO_PROCESS
+	XPlmi_MeasurePerfTime((XPlmi_GetTimerValue() + CdoProcessTime),
+				&PerfTime);
+	XPlmi_Printf(DEBUG_PRINT_PERF,
+			"%u.%03u ms Cdo Processing time\n\r",
+			(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
+#endif
 	return Status;
 }
 

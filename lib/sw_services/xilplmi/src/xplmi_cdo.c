@@ -41,6 +41,7 @@
 *       bsv  07/16/2021 Fix doxygen warnings
 *       bsv  08/02/2021 Code clean up to reduce size
 *       bsv  08/15/2021 Removed unwanted goto statements
+* 1.05  skd  11/18/2021 Removed unwanted time stamps in XPlmi_ProcessCdo
 *
 * </pre>
 *
@@ -425,10 +426,6 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 	u32 CopiedCmdLen = CdoPtr->CopiedCmdLen;
 	u32 *BufPtr = CdoPtr->BufPtr;
 	u32 BufLen = CdoPtr->BufLen;
-#ifdef PLM_PRINT_PERF_CDO_PROCESS
-	u64 ProcessTime = XPlmi_GetTimerValue();
-	XPlmi_PerfTime PerfTime = {0U};
-#endif
 
 	/* Verify the header for the first chunk of CDO */
 	if (CdoPtr->Cdo1stChunk == (u8)TRUE) {
@@ -514,11 +511,5 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 	Status = XST_SUCCESS;
 
 END:
-#ifdef PLM_PRINT_PERF_CDO_PROCESS
-	XPlmi_MeasurePerfTime(ProcessTime, &PerfTime);
-	XPlmi_Printf(DEBUG_PRINT_PERF,
-			"%u.%03u ms Cdo Processing time\n\r",
-			(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
-#endif
 	return Status;
 }
