@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
  *
  * @file xddcrpsu.h
- * @addtogroup ddrcpsu_v1_3
+ * @addtogroup ddrcpsu_v1_4
  * @{
  * @details
  *
