@@ -63,6 +63,7 @@
 *       rb   08/11/2021 Fix compilation warnings
 *       ma   08/30/2021 Added SSIT related define
 *       gm   09/17/2021 Added MJTAG workaround related define
+* 1.07  skd  11/23/2021 Fix compilation warnings
 *
 * </pre>
 *
@@ -179,7 +180,9 @@ extern "C" {
 #ifndef PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_CFRAME_MASK
 #define PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_CFRAME_MASK   (0X00000400U)
 #endif
+#ifndef PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_TEST_MASK
 #define PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_TEST_MASK   (0X00000800U)
+#endif
 
 /*
  * Register: PMC_GLOBAL_PMC_FW_ERR
@@ -519,7 +522,9 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define PMC_TAP_VERSION_PS_VERSION_SHIFT		(8U)
 #define PMC_TAP_VERSION_PS_VERSION_MASK		(0X0000FF00U)
 #define PMC_TAP_VERSION_PMC_VERSION_SHIFT		(0U)
+#ifndef PMC_TAP_VERSION_PMC_VERSION_MASK
 #define PMC_TAP_VERSION_PMC_VERSION_MASK		(0X000000FFU)
+#endif
 
 #define PMC_TAP_VERSION_SILICON			(0x0U)
 #define PMC_TAP_VERSION_SPP			(0x1U)
@@ -752,7 +757,9 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 /*
  * Register: PMC_IOU_SLCR
  */
+#ifndef PMC_IOU_SLCR_BASEADDR
 #define PMC_IOU_SLCR_BASEADDR      (0XF1060000U)
+#endif
 
 /*
  * Register: PMC_IOU_SLCR_SD0_CDN_CTRL
