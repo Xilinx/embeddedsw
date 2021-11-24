@@ -35,6 +35,7 @@
 *       bsv  08/09/2021 Code clean up to reduce elf size
 *       bsv  08/13/2021 Removed unwanted header files from xplm_startup.h
 *       bm   09/07/2021 Merged pre-boot startup tasks into a single task
+* 1.05  am   11/24/2021 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -58,8 +59,8 @@
 /**************************** Type Definitions *******************************/
 typedef int (*TaskHandler)(void * PrivData);
 typedef struct {
-	TaskHandler Handler;
-	void * PrivData;
+	TaskHandler Handler; /**< Task handler */
+	void * PrivData; /**< Private data */
 } StartupTaskHandler;
 
 /***************** Macros (Inline Functions) Definitions *********************/
