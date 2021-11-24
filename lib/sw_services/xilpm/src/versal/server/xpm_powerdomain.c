@@ -1382,7 +1382,6 @@ static u32 XPmPowerDomain_SkipOp(const XPm_PowerDomain *PwrDomain,
 	case (u32)FUNC_MBIST_CLEAR:
 	case (u32)FUNC_HOUSECLEAN_PL:
 	case (u32)FUNC_HOUSECLEAN_COMPLETE:
-	case (u32)FUNC_MIO_FLUSH:
 		/* Skip if it has been executed before */
 		Skip = (PwrDomain->InitFlag >> Function) & 1U;
 		break;
@@ -1657,7 +1656,6 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 	case (u32)FUNC_MIO_FLUSH:
 		if ((NULL != Ops) && (NULL != Ops->MioFlush)) {
 			Status = Ops->MioFlush(PwrDomain, Args, NumArgs);
-			PwrDomain->InitFlag |= BIT16(FUNC_MIO_FLUSH);
 		}
 		Status = XST_SUCCESS;
 		break;
