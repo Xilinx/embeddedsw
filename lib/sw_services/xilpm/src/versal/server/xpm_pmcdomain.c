@@ -136,9 +136,7 @@ static XStatus PmcMioFlush(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 }
 
 static const struct XPm_PowerDomainOps PmcOps = {
-	.MioFlush = PmcMioFlush,
-	/* Mask to indicate which Ops are present */
-	.InitMask = BIT16(FUNC_MIO_FLUSH)
+	.MioFlush = PmcMioFlush
 };
 
 XStatus XPmPmcDomain_Init(XPm_PmcDomain *PmcDomain, u32 Id, XPm_Power *Parent)
