@@ -7,7 +7,7 @@
 /**
  *
  * @file xilmailbox.h
- * @addtogroup xilmailbox_v1_4
+ * @addtogroup xilmailbox_v1_5
  * @{
  * @details
  *
