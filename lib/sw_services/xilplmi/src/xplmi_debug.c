@@ -35,6 +35,7 @@
 *       bm   08/12/2021 Added support to configure uart during run-time
 *       rb   08/11/2021 Fix compilation warnings
 *       bsv  09/05/2021 Disable prints in slave boot modes in case of error
+* 1.06  am   11/24/2021 Fixed doxygen warning
 *
 * </pre>
 *
@@ -77,7 +78,8 @@
 #define XPLMI_UART_SELECT_1		(2U) /**< Flag indicates UART1 is selected */
 #endif
 
-#define XPLMI_INVALID_UART_BASE_ADDR	(0U)
+#define XPLMI_INVALID_UART_BASE_ADDR	(0U) /**< Flag indicates invalid UART
+                                              * base address */
 
 /************************** Function Prototypes ******************************/
 

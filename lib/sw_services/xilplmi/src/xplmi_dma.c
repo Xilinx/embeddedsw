@@ -36,6 +36,7 @@
 *       bsv  08/22/2021 Fix bug in XPlmi_MemSetBytes
 *       ma   08/30/2021 Added XPlmi_SsitWaitForDmaDone function for SSIT cases
 * 1.06  kpt  10/25/2021 Resolved Divide by Zero exception in XPlmi_MemSet
+*       am   11/24/2021 Fixed doxygen warning
 *
 * </pre>
 *
@@ -956,6 +957,22 @@ END:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function can copy the content of memory for both 32 and
+ *              64-bit address space
+ *
+ * @param	DestAddr is the address of the destination where content of
+ *              SrcAddr memory should be copied.
+ *
+ * @param	SrcAddr is the address of the source where copy should
+ *              start from.
+ *
+ * @param	Len is size of memory to be copied in bytes.
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
 int XPlmi_MemCpy64(u64 DestAddr, u64 SrcAddr, u32 Len)
 {
 	int Status = XST_FAILURE;
