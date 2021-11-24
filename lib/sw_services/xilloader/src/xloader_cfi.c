@@ -29,6 +29,7 @@
 *       bsv   07/18/2021 Debug enhancements
 *       bsv   08/31/2021 Code clean up
 *       ma    09/01/2021 Fix issue in clearing the CFI and CFU errors
+* 1.06  am    11/24/2021 Fixed doxygen warning
 *
 * </pre>
 *
@@ -48,7 +49,8 @@
 /**************************** Type Definitions *******************************/
 #ifndef PLM_DEBUG_MODE
 /***************** Macros (Inline Functions) Definitions *********************/
-#define PMC_GLOBAL_PMC_ERR2_STATUS_CFI_SHIFT	(16U)
+#define PMC_GLOBAL_PMC_ERR2_STATUS_CFI_SHIFT	(16U) /**< CFI Non-Correctable
+                                                       * Error shift */
 
 /************************** Function Prototypes ******************************/
 static void XLoader_CfiErrHandler(const XCfupmc *InstancePtr);
