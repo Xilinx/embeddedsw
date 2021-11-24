@@ -132,6 +132,8 @@
 * 4.7	sk   09/14/21 Fix gcc compiler warnings for A72 processor.
 * 4.7	sk   10/13/21 Update APIs to perform interrupt mapping/unmapping only
 * 		      when (Int_Id >= XSCUGIC_SPI_INT_ID_START).
+* 4.7   dp   11/22/21 Added new API XScuGic_IsInitialized() to check and return
+*                     the GIC initialization status.
 * </pre>
 *
 ******************************************************************************/
@@ -1259,6 +1261,33 @@ u32 XScuGic_GetCpuID(void)
 	return CpuId;
 }
 
+/****************************************************************************/
+/**
+* It checks whether the XScGic is initialized or not given the device id.
+*
+* @param	DeviceId the XScuGic device.
+*
+* @return	Returns 1 if initialized otherwise 0.
+*
+* @note		None
+*
+*****************************************************************************/
+u8 XScuGic_IsInitialized(u32 DeviceId)
+{
+	u8 Device_Initilaized = 0U;
+	XScuGic_Config *CfgPtr;
+	u32 RegVal;
+
+	CfgPtr = XScuGic_LookupConfig(DeviceId);
+	if (CfgPtr != NULL) {
+		RegVal = XScuGic_ReadReg(CfgPtr->DistBaseAddress, XSCUGIC_DIST_EN_OFFSET);
+		if ((RegVal & XSCUGIC_EN_INT_MASK) == 1U) {
+			Device_Initilaized = 1U;
+		}
+	}
+
+	return Device_Initilaized;
+}
 #if defined (GICv3)
 /****************************************************************************/
 /**
