@@ -170,6 +170,8 @@
 *                     GIC driver can use newly introduced spinlock
 *                     functionality.
 * 4.6	sk   08/05/21 Fix scugic misrac violations.
+* 4.7   dp   11/22/21 Added new API XScuGic_IsInitialized() to check and return
+*                     the GIC initialization status.
 *
 * </pre>
 *
@@ -570,6 +572,7 @@ void XScuGic_UnmapAllInterruptsFromCpu(XScuGic *InstancePtr, u8 Cpu_Identifier);
 void XScuGic_Stop(XScuGic *InstancePtr);
 void XScuGic_SetCpuID(u32 CpuCoreId);
 u32 XScuGic_GetCpuID(void);
+u8 XScuGic_IsInitialized(u32 DeviceId);
 /*
  * Initialization functions in xscugic_sinit.c
  */
