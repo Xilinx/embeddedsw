@@ -7,7 +7,7 @@
 /**
  *
  * @file xilmailbox_ipips.c
- * @addtogroup xilmailbox_v1_4
+ * @addtogroup xilmailbox_v1_5
  * @{
  * @details
  *
@@ -22,6 +22,9 @@
  * 1.1   sd   16/08/19    Initialise status variable
  * 1.3   sd   03/03/21    Doxygen Fixes
  * 1.4   sd   23/06/21    Fix MISRA-C warnings
+ * 1.5   dp   22/11/21    Update XIpiPs_RegisterIrq() to check whether GIC has
+ *                        already been setup or not and if it was setup skip
+ *                        initalizing GIC again and just register handlers.
  *</pre>
  *
  *@note
@@ -270,6 +273,28 @@ static XStatus XIpiPs_RegisterIrq(XScuGic *IntcInstancePtr,
 	IntcConfigPtr = XScuGic_LookupConfig(XPAR_SCUGIC_0_DEVICE_ID);
 	if (NULL == IntcConfigPtr) {
 		return (s32)XST_FAILURE;
+	}
+
+	/* Check if the GIC is already setup by this time */
+	if (XScuGic_IsInitialized(XPAR_SCUGIC_0_DEVICE_ID) == 1U) {
+		/*
+		 * GIC is already initialized, just register handlers using the
+		 * interrupt Ids and return success.
+		 */
+		XScuGic_RegisterHandler(IntcConfigPtr->CpuBaseAddress,
+					IpiIntrId,
+					(Xil_InterruptHandler)XIpiPs_IntrHandler,
+					(void *)InstancePtr);
+
+		XScuGic_RegisterHandler(IntcConfigPtr->CpuBaseAddress,
+					XMAILBOX_INTR_ID,
+					(Xil_InterruptHandler)XIpiPs_ErrorIntrHandler,
+					(void *)InstancePtr);
+		/* Enable the interrupt for the device */
+		XScuGic_EnableIntr(IntcConfigPtr->DistBaseAddress, IpiIntrId);
+		XScuGic_EnableIntr(IntcConfigPtr->DistBaseAddress, XMAILBOX_INTR_ID);
+
+		return (s32)XST_SUCCESS;
 	}
 
 	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfigPtr,
