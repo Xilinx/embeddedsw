@@ -185,7 +185,7 @@ int Xbir_IicInit (void)
 {
 	int Status = XST_FAILURE;
 
-#if XPAR_XIICPS_NUM_INSTANCES
+#ifdef XPAR_XIICPS_NUM_INSTANCES
 	XIicPs_Config *ConfigPtr;	/* Pointer to configuration data */
 	u32 TimeOutCount = XBIR_MAX_DELAY;
 

@@ -34,6 +34,7 @@
 #define XBIR_SYS_QSPI_MAX_SUB_SECTOR_SIZE	(8192U)/* 8KB */
 #define XBR_SYS_NUM_REDUNDANT_COPY	(2U)
 #define XBIR_ETH_PHY_MIO_38	(38U)
+#define XBIR_ETH_PHY_MIO_77	(77U)
 #define XBIR_GPIO_DIR_OUTPUT	(1U)
 #define XBIR_GPIO_OUTPUT_EN	(1U)
 #define XBIR_GPIO_HIGH	(1U)
@@ -45,6 +46,13 @@
 #define XBIR_SYS_PRODUCT_TYPE_LEN	(2U)
 #define XBIR_SYS_PRODUCT_NAME_LEN	(3U)
 #define XBIR_SYS_PRODUCT_TYPE_NAME_OFFSET	(4U)
+#if defined(XPAR_XIICPS_NUM_INSTANCES)
+#ifdef XPS_BOARD_K26I
+#define XBIR_CC_PRODUCT_NAME		"SCK"
+#else
+#define XBIR_CC_PRODUCT_NAME		"VPK"
+#endif
+#endif
 
 /* GEM clock related macros */
 #define CRL_APB_GEM1_REF_CTRL_OFFSET	(0XFF5E0054U)
@@ -132,6 +140,7 @@ static int Xbir_SysCalculateCrc32 (u32 Offset, u32 Size,
 	Xbir_ReadDevice ReadDevice);
 static int Xbir_KREthInit (void);
 static int Xbir_KVeMMCInit (void);
+static int Xbir_SCEthInit (void);
 
 /************************** Variable Definitions *****************************/
 static const u32 Xbir_UtilCrcTable[] = {
@@ -244,8 +253,12 @@ static int Xbir_EthInit (void)
 		"KV", XBIR_SYS_PRODUCT_TYPE_LEN) == 0U) {
 		Status = Xbir_KVEthInit();
 	}
-	else {
+	else if (strncmp((char *)&CCInfo.BoardPrdName[XBIR_SYS_PRODUCT_TYPE_NAME_OFFSET],
+                "KR", XBIR_SYS_PRODUCT_TYPE_LEN) == 0U) {
 		Status = Xbir_KREthInit();
+	}
+	else {
+		Status = Xbir_SCEthInit();
 	}
 
 	return Status;
@@ -374,6 +387,56 @@ static int Xbir_KREthInit (void)
 		goto END;
 	}
 #endif
+	usleep(XBIR_POST_RESET_STABILIZATION_TIME_FOR_PHY_IN_US);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief
+ * This function brings the ethernet phy of VPK120 RevB System Controller out
+ * of reset.
+ *
+ * @return	XST_SUCCESS on successfully bringing phy out of reset
+ * 		Error code on failure
+ *
+ *****************************************************************************/
+static int Xbir_SCEthInit (void)
+{
+	int Status = XST_FAILURE;
+	XGpioPs Gpio = {0U};
+	XGpioPs_Config *ConfigPtr;
+
+#ifdef XPAR_PSU_ETHERNET_1_BASEADDR
+	EmacBaseAddr = XPAR_PSU_ETHERNET_1_BASEADDR;
+#endif
+	ConfigPtr = XGpioPs_LookupConfig(XPAR_XGPIOPS_0_DEVICE_ID);
+	if (ConfigPtr == NULL) {
+		Xbir_Printf("ERROR: GPIO look up config failed\n\r");
+		goto END;
+	}
+
+	Status = XGpioPs_CfgInitialize(&Gpio, ConfigPtr, ConfigPtr->BaseAddr);
+	if (Status != XST_SUCCESS) {
+		Xbir_Printf("ERROR: GPIO config initialize failed\n\r");
+		goto END;
+	}
+
+	/*
+	 * Set the direction for the pin to be output.
+	 */
+	XGpioPs_SetDirectionPin(&Gpio, XBIR_ETH_PHY_MIO_77, XBIR_GPIO_DIR_OUTPUT);
+	XGpioPs_SetOutputEnablePin(&Gpio, XBIR_ETH_PHY_MIO_77, XBIR_GPIO_OUTPUT_EN);
+
+	/*
+	 * Asserting the active low GPIO, which pushes the PHY into reset,
+	 * wait for 200us and then deasserting the GPIO to bring PHY out of reset
+	 */
+	XGpioPs_WritePin(&Gpio, XBIR_ETH_PHY_MIO_77, XBIR_GPIO_LOW);
+	usleep(XBIR_LATCH_TIME_FOR_PHY_RESET_IN_US);
+	XGpioPs_WritePin(&Gpio, XBIR_ETH_PHY_MIO_77, XBIR_GPIO_HIGH);
 	usleep(XBIR_POST_RESET_STABILIZATION_TIME_FOR_PHY_IN_US);
 
 END:
@@ -954,11 +1017,12 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 	int Status = XST_FAILURE;
 #if defined(XPAR_XIICPS_NUM_INSTANCES)
 	u8 LoopIndex = 0U;
-	Xbir_SysBoardEepromData SysBoardEepromData = {0U};
 	Xbir_CCEepromData CCEepromData = {0U};
 	char* UUIDStrPtr = NULL;
 	int Ret = XST_FAILURE;
 	u32 MaxSize = sizeof(SysInfo.UUID);
+#ifdef XPS_BOARD_K26I
+	Xbir_SysBoardEepromData SysBoardEepromData = {0U};
 
 	Status = Xbir_IicEepromReadData((u8 *)&SysBoardEepromData,
 		sizeof(Xbir_SysBoardEepromData), XBIR_IIC_SYS_BOARD_EEPROM_ADDRESS);
@@ -1000,7 +1064,7 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 		UUIDStrPtr += Ret;
 		MaxSize -= Ret;
 	}
-
+#endif
 	Status = Xbir_IicEepromReadData((u8 *)&CCEepromData,
 		sizeof(Xbir_CCEepromData), XBIR_IIC_CC_EEPROM_ADDRESS);
 	if (Status != XST_SUCCESS) {
@@ -1011,7 +1075,7 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 	memcpy(CCInfo.BoardPrdName,
 		CCEepromData.SysBoardInfo.BoardPrdName,
 		sizeof(CCEepromData.SysBoardInfo.BoardPrdName));
-	if (strncmp((char *)&CCInfo.BoardPrdName, "SCK",
+	if (strncmp((char *)&CCInfo.BoardPrdName, XBIR_CC_PRODUCT_NAME,
 		XBIR_SYS_PRODUCT_NAME_LEN) != 0U) {
 		Xbir_Printf("Unrecognized CC Eeprom contents\n\r");
 		Status = XBIR_ERR_CC_EEPROM_CONTENTS;
