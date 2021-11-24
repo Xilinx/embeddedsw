@@ -10,6 +10,7 @@
 #include "xpm_device.h"
 #include "xpm_ipi.h"
 #include "xpm_pldomain.h"
+#include "xpm_pslpdomain.h"
 #include "xpm_psm_api.h"
 #include "xpm_psm.h"
 #include "xpm_debug.h"
@@ -433,6 +434,7 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Mask;
+	const XPm_Device *Device = NULL;
 
 	if (IsoIdx >= (u32)XPM_NODEIDX_ISO_MAX)
 	{
@@ -441,9 +443,18 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 	}
 
 	Mask = XPmDomainIso_List[IsoIdx].Mask;
-	if ((IsoIdx <= (u32)XPM_NODEIDX_ISO_XRAM_PL_AXILITE) &&
+	if ((IsoIdx <= (u32)XPM_NODEIDX_ISO_XRAM_PL_FABRIC) &&
 		(IsoIdx >= (u32)XPM_NODEIDX_ISO_XRAM_PL_AXI0)) {
-		XramIsoUnmask(IsoIdx);
+		Device = XPmDevice_GetById(PM_DEV_XRAM_0);
+		if (NULL == Device) {
+			Status = XST_DEVICE_NOT_FOUND;
+			goto done;
+		}
+
+		XPmPsLpDomain_UnlockPcsr(Device->Node.BaseAddress);
+		if (IsoIdx != (u32)XPM_NODEIDX_ISO_XRAM_PL_FABRIC) {
+			XramIsoUnmask(IsoIdx);
+		}
 	}
 
 	/*
@@ -545,9 +556,12 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 	Status = XST_SUCCESS;
 
 done:
-	if ((IsoIdx <= (u32)XPM_NODEIDX_ISO_XRAM_PL_AXILITE) &&
+	if ((IsoIdx <= (u32)XPM_NODEIDX_ISO_XRAM_PL_FABRIC) &&
 		(IsoIdx >= (u32)XPM_NODEIDX_ISO_XRAM_PL_AXI0)) {
-		XramIsoMask(IsoIdx);
+		if (IsoIdx != (u32)XPM_NODEIDX_ISO_XRAM_PL_FABRIC) {
+			XramIsoMask(IsoIdx);
+		}
+		XPmPsLpDomain_LockPcsr(Device->Node.BaseAddress);
 	}
 
 	return Status;
