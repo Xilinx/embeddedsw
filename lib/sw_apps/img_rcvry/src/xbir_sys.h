@@ -109,27 +109,6 @@ typedef struct {
 } Xbir_MacAddrInfo;
 
 typedef struct {
-	u8 RecType;
-	u8 RecFmt;
-	u8 Len;
-	u8 RecChecksum;
-	u8 HdrChecksum;
-	u8 IANAId[3U];
-	u8 Memory1[8U];
-	u8 PrimaryBootDev[12U];
-	u8 Memory1FieldEnd;
-	u8 Memory2[8U];
-	u8 SecondaryBootDev[12U];
-	u8 Memory2FieldEnd;
-	u8 Memory3[8U];
-	u8 PsDdr[12U];
-	u8 Memory3FieldEnd;
-	u8 Memory4[8U];
-	u8 PlDdr[12U];
-	u8 Memory4FieldEnd;
-} Xbir_SysBoardMemRec;
-
-typedef struct {
 	Xbir_SysHeaderInfo SysHeaderInfo;
 	Xbir_SysBoardInfo SysBoardInfo;
 	Xbir_SysDCLoadInfo SysDCLoadInfo;
