@@ -34,6 +34,7 @@
 *                       in slave boot modes
 *       bsv  08/02/2021 Updated function return type as part of code clean up
 *       bsv  09/05/2021 Disable prints in slave boot modes in case of error
+* 1.06  am   11/24/2021 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -52,8 +53,11 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XLOADER_SBI_DELAY_IN_MICROSEC		(5000U)
-#define XLOADER_LOG_LEVEL_MASK		(0xF0U)
+#define XLOADER_SBI_DELAY_IN_MICROSEC		(5000U) /**< Flag indicates SBI
+                                                         * delay in micro second
+							 */
+#define XLOADER_LOG_LEVEL_MASK		(0xF0U) /**< Flag indicates Log level
+                                                 * mask */
 
 /************************** Function Prototypes ******************************/
 /**
