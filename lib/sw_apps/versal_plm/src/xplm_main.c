@@ -35,6 +35,7 @@
 *       rb   08/11/2021 Fix compilation warning
 *       ma   08/23/2021 Move XPlmi_InitDebugLogBuffer and XPlm_InitProc to
 *                       happen as soon as PLM starts
+* 1.05  am   11/24/2021 Fixed doxygen warning
 *
 * </pre>
 *
@@ -56,7 +57,8 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define PLM_VP1802_POR_SETTLE_TIME	(25000U)
+#define PLM_VP1802_POR_SETTLE_TIME	(25000U) /**< Flag indicates POR
+                                                  * settle time for VP1802 */
 
 /************************** Function Prototypes ******************************/
 static int XPlm_Init(void);
