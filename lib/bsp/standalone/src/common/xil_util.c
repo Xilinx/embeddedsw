@@ -38,6 +38,8 @@
 * 7.7   kpt      11/09/21 Added Xil_SMemCmp, Xil_SMemCmp_CT, Xil_SMemCpy,
 *                         Xil_SMemSet, Xil_SStrCat, Xil_SStrCmp, Xil_SStrCmp_CT
 *                         Xil_SStrCpy functions
+*       kpt      11/25/21 Added strnlen function to fix ARMCC compilation
+*                         failure
 *
 * </pre>
 *
@@ -51,6 +53,35 @@
 #define MAX_NIBBLES			8U
 
 /************************** Function Prototypes *****************************/
+
+#ifdef __ARMCC_VERSION
+/******************************************************************************/
+/**
+ *
+ * This API returns the length of the input string
+ *
+ * @param  StartPtr is the pointer to the input string
+ * @param  StrSize is the maximum length of the input string
+ *
+ * @return Returns the length of the input string
+ *
+ ******************************************************************************/
+static size_t strnlen (const char *StartPtr, size_t StrSize)
+{
+	const char *EndPtr = StartPtr;
+	size_t StrLen = 0U;
+
+	EndPtr = memchr(StartPtr, '\0', StrSize);
+	if (EndPtr == NULL) {
+		StrLen = StrSize;
+	}
+	else {
+		StrLen = (size_t) (EndPtr - StartPtr);
+	}
+
+	return StrLen;
+}
+#endif
 
 /******************************************************************************/
 /**
