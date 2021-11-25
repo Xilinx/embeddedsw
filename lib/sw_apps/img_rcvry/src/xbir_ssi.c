@@ -1100,14 +1100,16 @@ static int Xbir_SsiInitiateImgUpdate (struct tcp_pcb *Tpcb, u8 *HttpReq,
 			(FlashEraseStats->CurrentImgErased != BootImgId)) {
 			goto END;
 		}
+		Xbir_SsiLastImgUpload = BootImgId;
 		ImgSizeInThisPkt = HttpReqLen - (u16)(ImgData - HttpReq);
 		ImgSize = HttpArg->Fsize;
 		Xbir_Printf("Starting image update\r\n");
 		Status = Xbir_SsiUpdateImg (Tpcb, ImgData, ImgSizeInThisPkt);
 		Xbir_SsiLastUploadSize = ImgSize;
 	}
-
-	Xbir_SsiLastImgUpload = BootImgId;
+	else {
+		Xbir_SsiLastImgUpload = BootImgId;
+	}
 
 END:
 	return Status;
