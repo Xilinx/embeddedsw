@@ -61,6 +61,8 @@
 ##                     to memset conversions. It fixes CR#1090083.
 ## 2.14  mus  08/10/21 Fixed compiler detection logic to support compiler placed
 ##                     at user defined path. It fixes CR#1106407.
+## 2.15  dp   11/25/21 Updated to correct toolchain path for libraries of MB64
+##                     platform. Fix for CR#1116189
 # uses xillib.tcl
 
 ########################################
@@ -219,6 +221,7 @@ proc generate {drv_handle} {
         if {[string compare -nocase "64" $data_size] == 0 } {
             set m64 "_m64"
             set libxil_m64 "m64"
+	    set flag_m64 "m64"
         } else {
             set m64 ""
             set libxil_m64 ""
