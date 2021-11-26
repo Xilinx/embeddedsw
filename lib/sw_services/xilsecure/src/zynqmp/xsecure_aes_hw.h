@@ -18,6 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 4.0   vns  03/11/19 Initial release
 * 4.6   am   09/17/21 Resolved compiler warnings
+* 4.7   am   11/26/21 Resolved doxygen warning
 *
 * </pre>
 *
@@ -76,16 +77,15 @@ extern "C" {
 
 /*****************************************************************************/
 /**
-* Wait for writes to PL and hence PCAP write cycle to complete
-*
-* @param	None.
-*
-* @return	None.
-*
-* @note		C-Style signature:
-*			void XSecure_PcapWaitForDone(void)
-*
-******************************************************************************/
+ * @brief
+ * Wait for writes to PL and hence PCAP write cycle to complete
+ *
+ * @return	None.
+ *
+ * @note		C-Style signature:
+ *			void XSecure_PcapWaitForDone(void)
+ *
+ *****************************************************************************/
 static inline void XSecure_PcapWaitForDone(void)
 {
 	while ((Xil_In32(XSECURE_CSU_PCAP_STATUS) &

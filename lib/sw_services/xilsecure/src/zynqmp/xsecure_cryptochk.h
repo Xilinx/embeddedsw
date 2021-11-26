@@ -18,6 +18,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 4.6   kal     08/18/21 Initial Release
+* 4.7   am      11/26/21 Resolved doxygen warning
 *
 * </pre>
 * @endcond
@@ -38,7 +39,8 @@ extern "C" {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-#define XSECURE_CRYPTO_DISABLED_ERROR		(0x40U)
+#define XSECURE_CRYPTO_DISABLED_ERROR		(0x40U) /**< Crypto disabled
+                                                         * error */
 
 /*****************************************************************************/
 

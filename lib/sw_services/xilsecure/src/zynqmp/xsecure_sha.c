@@ -50,6 +50,7 @@
 *       kot  04/21/20 Fixed MISRA C violations
 * 4.6   kal  08/11/21 Added EXPORT CONTROL eFuse check in Sha3Initialize
 *       am   09/17/21 Resolved compiler warnings
+* 4.7   am   11/26/21 Resolved doxygen warnings
 *
 * @note
 *
@@ -64,15 +65,17 @@
 #include "xsecure_cryptochk.h"
 
 /************************** Constant Definitions *****************************/
-#define XSECURE_CSU_SHA3_HASH_LENGTH_IN_BITS	(384U)
+#define XSECURE_CSU_SHA3_HASH_LENGTH_IN_BITS	(384U) /**< CSU SHA3 hash length in
+                                                        * bits */
 #define XSECURE_CSU_SHA3_HASH_LENGTH_IN_WORDS	\
-									(XSECURE_CSU_SHA3_HASH_LENGTH_IN_BITS / 32U)
+	(XSECURE_CSU_SHA3_HASH_LENGTH_IN_BITS / 32U) /**< CSU SHA3 hash length in
+                                                      * words */
 
 /* Keccak and Nist padding masks */
-#define XSECURE_CSU_SHA3_START_KECCAK_PADDING_MASK    (0x01U)
-#define XSECURE_CSU_SHA3_END_KECCAK_PADDING_MASK      (0x80U)
-#define XSECURE_CSU_SHA3_START_NIST_PADDING_MASK      (0x06U)
-#define XSECURE_CSU_SHA3_END_NIST_PADDING_MASK        (0x80U)
+#define XSECURE_CSU_SHA3_START_KECCAK_PADDING_MASK    (0x01U) /**< CSU SHA3 start Keccak padding mask */
+#define XSECURE_CSU_SHA3_END_KECCAK_PADDING_MASK      (0x80U) /**< CSU SHA3 end Keccak padding mask */
+#define XSECURE_CSU_SHA3_START_NIST_PADDING_MASK      (0x06U) /**< CSU SHA3 start Nist padding mask */
+#define XSECURE_CSU_SHA3_END_NIST_PADDING_MASK        (0x80U) /**< CSU SHA3 end Nist padding mask */
 
 /**************************** Type Definitions *******************************/
 
@@ -164,7 +167,7 @@ END:
  * while calculating the hash.
  *
  * @param	InstancePtr	Pointer to the XSecure_Sha3 instance.
- * @param	Sha3Type 	Type of SHA3 padding to be used.
+ * @param	Sha3PadType 	Type of SHA3 padding to be used.
  * 			 - For NIST SHA-3 padding - XSECURE_CSU_NIST_SHA3
  * 			 - For KECCAK SHA-3 padding - XSECURE_CSU_KECCAK_SHA3
  *

@@ -59,6 +59,7 @@
 *       kpt 04/10/20 Resolved coverity warnings
 *       ana 04/24/20 Removed support of boot header RSA with 0x1 and 0x2
 * 4.6   am  09/17/21 Resolved compiler warnings
+* 4.7   am  11/26/21 Resolved doxygen warnings
 *
 * </pre>
 *
@@ -121,13 +122,13 @@ u32 XsecureIv[XSECURE_IV_LEN];
 
 /**************************** Type Definitions *******************************/
 typedef struct {
-	XCsuDma *CsuDmaInstPtr;
-	u8 *Data;
-	u32 Size;
-	u8 *AuthCertPtr;
-	u32 SignatureOffset;
-	XSecure_Sha3PadType PaddingType;
-	u8 AuthIncludingCert;
+	XCsuDma *CsuDmaInstPtr; /**< CSUDMA instance pointer */
+	u8 *Data; /**< Data pointer */
+	u32 Size; /**< Size */
+	u8 *AuthCertPtr; /**< Authentication certificate pointer */
+	u32 SignatureOffset; /**< Signature offset */
+	XSecure_Sha3PadType PaddingType; /**< SHA3 padding type */
+	u8 AuthIncludingCert; /**< Authentication including certificate */
 } XSecure_AuthParam;
 
 /************************** Function Prototypes ******************************/
@@ -140,9 +141,8 @@ static inline u32 XSecure_DataAuthentication(XSecure_AuthParam *AuthParam);
 
 /*****************************************************************************/
 /**
+ * @brief
  * This function is used to initialize the DMA driver
- *
- * @param	None
  *
  * @return	returns the error code on any error
  *		returns XST_SUCCESS on success
@@ -173,9 +173,10 @@ END:
 
 /*****************************************************************************/
 /**
+ * @brief
  * This function is used to initialize CsuDma and return CsuDma pointer
  *
- * @param	None
+ * @return	returns reference to a XCsuDma driver instance
  *
  *****************************************************************************/
 XCsuDma* Xsecure_GetCsuDma(void)
@@ -191,7 +192,8 @@ XCsuDma* Xsecure_GetCsuDma(void)
 
 
 /****************************************************************************/
- /**
+/**
+ * @brief
  * This function access the xilsecure SHA3 hardware based on the flags provided
  * to calculate the SHA3 hash.
  *
@@ -251,6 +253,7 @@ END:
 
 /*****************************************************************************/
 /**
+ * @brief
  * This is the function to RSA decrypt or encrypt the provided data and load back
  * to memory
  *
@@ -258,7 +261,7 @@ END:
  *		CSUDMA will read the data
  * @param	SrcAddrLow	Lower 32-bit Linear memory space from where
  *		CSUDMA will read the data
- * @param	WrSize	Number of bytes to be encrypted or decrypted.
+ * @param	SrcSize	Number of bytes to be encrypted or decrypted.
  * @param	Flags:
  *		BIT(0) - Encryption/Decryption
  *			 0 - Rsa Private key Decryption
@@ -305,7 +308,7 @@ END:
 }
 
 /*****************************************************************************/
-/*
+/**
  * @brief
  * This function initializes the AES-GCM engine with Key and Iv
  *
@@ -467,7 +470,7 @@ END:
 }
 
 /*****************************************************************************/
-/*
+/**
  * @brief
  * This function checks for flags field of the XSecure_AesParams struct
  * and resolves weather the request is encryption or decryption.
@@ -522,7 +525,7 @@ END:
  * failure.
  *
  * @param	Signature	Pointer to the RSA signature of the data
- * @param	Key		Pointer to XSecure_RsaKey structure.
+ * @param	KeyInst		Pointer to XSecure_RsaKey structure.
  * @param	Hash		Pointer to the hash of the data to be
  *		authenticated.
  *

@@ -18,6 +18,7 @@
 * 4.2   har     03/26/20 Initial release
 * 4.5   bsv     04/01/21 Added API to set SSS CFG register to PCAP
 * 4.6   am      09/17/21 Resolved compiler warnings
+* 4.7   am      11/26/21 Resolved doxygen warning
 *
 * </pre>
 *
@@ -203,7 +204,6 @@ END:
  * This function sets the DMA source of type XSecure_SssSrc based on the
  * provided DMA device ID.
  *
- * @param	InstancePtr	Instance pointer to the XSecure_Sss
  * @param	DmaId		Device ID of DMA.
  * @param	Resource	DMA source is updated into the pointer.
  *
