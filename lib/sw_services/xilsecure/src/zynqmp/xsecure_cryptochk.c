@@ -16,6 +16,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 4.6   kal     08/18/21 Initial release
+* 4.7   am      11/26/21 Resolved doxygen warnings
 *
 * </pre>
 *
@@ -27,9 +28,10 @@
 
 /************************** Constant Definitions *****************************/
 
-#define XSECURE_IPDISABLE_EFUSE_BASE	(0xFFCC0000U)
-#define XSECURE_IPDISABLE_EFUSE_OFFSET	(0x00001018U)
-#define XSECURE_EXPORT_CONTROL_BIT_MASK	(0x8000U)
+#define XSECURE_IPDISABLE_EFUSE_BASE	(0xFFCC0000U) /**< IP disable efuse base
+                                                       * address */
+#define XSECURE_IPDISABLE_EFUSE_OFFSET	(0x00001018U) /**< IP disable efuse offset */
+#define XSECURE_EXPORT_CONTROL_BIT_MASK	(0x8000U) /**< Export control bit mask */
 
 /************************** Function Prototypes ******************************/
 

@@ -33,6 +33,7 @@
 *       har  10/12/20 Addressed security review comments
 * 4.6   kal  08/11/21 Added EXPORT CONTROL eFuse check in RsaCfgInitialize
 *       am   09/17/21 Resolved compiler warnings
+* 4.7   am   11/26/21 Resolved doxygen warnings
 *
 * </pre>
 *
@@ -60,7 +61,7 @@ static const u8 XSecure_Silicon2_TPadSha3[] = {0x30U, 0x41U, 0x30U, 0x0DU,
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XSECURE_TIMEOUT_MAX             (0x1FFFFFU)
+#define XSECURE_TIMEOUT_MAX             (0x1FFFFFU) /**< Maximum timeout value */
 
 /************************** Function Prototypes ******************************/
 
@@ -577,8 +578,6 @@ END:
 /**
  * @brief
  * This function returns PKCS padding as per the silicon version
- *
- * @param       None
  *
  * @return      XSecure_Silicon2_TPadSha3 if Silicon version is not 1.0
  *              XSecure_Silicon1_TPadSha3 if Silicon version is 1.0

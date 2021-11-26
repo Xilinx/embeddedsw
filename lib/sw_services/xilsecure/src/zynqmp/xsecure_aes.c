@@ -55,6 +55,7 @@
 *                     present in design
 * 4.6   kal 08/11/21 Added EXPORT CONTROL eFuse check in AesInitialize
 *       am  09/17/21 Resolved compiler warnings
+* 4.7   am  11/26/21 Resolved doxygen warnings
 *
 * </pre>
 *
@@ -108,7 +109,6 @@ static s32 XSecure_PassChunkToAes(XCsuDma *InstancePtr, const u8* SrcAddr,
 
 /*****************************************************************************/
 /**
- *
  * @brief
  * This function initializes the instance pointer.
  *
@@ -117,9 +117,9 @@ static s32 XSecure_PassChunkToAes(XCsuDma *InstancePtr, const u8* SrcAddr,
  * @param	KeySel		Key source for decryption, can be KUP/device key
  *		- XSECURE_CSU_AES_KEY_SRC_KUP :For KUP key
  *		- XSECURE_CSU_AES_KEY_SRC_DEV :For Device Key
- * @param	Iv		Pointer to the Initialization Vector
+ * @param	IvPtr		Pointer to the Initialization Vector
  *		for decryption
- * @param	Key		Pointer to Aes key in case KUP
+ * @param	KeyPtr		Pointer to Aes key in case KUP
  *		key is used.
  * 		Pass `Null` if the device key is to be used.
  *
@@ -177,7 +177,6 @@ END:
 
 /*****************************************************************************/
 /**
- *
  * @brief
  * This function is used to initialize the AES engine for encryption.
  *
@@ -690,15 +689,14 @@ END:
 }
 
 /*****************************************************************************/
-/*
+/**
  * @brief
  * This function is used to zeroize the memory
- *
  *
  * @param	DataPtr Pointer to the memory which need to be zeroized.
  * @param	Length	Length of the data.
  *
- *return	Final call of this API returns the status of Comparison.
+ * @return	Final call of this API returns the status of Comparison.
  *			- XSECURE_CSU_AES_ZEROIZATION_ERROR: If Zeroization is not
  *								Successful.
  *			- XST_SUCCESS: If Zeroization is Successful.

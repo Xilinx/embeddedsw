@@ -25,6 +25,7 @@
 * 4.3   har  06/17/20 Removed references to unused algorithms
 *       ana  10/15/20 Updated doxygen tags
 * 4.6   am   09/17/21 Resolved compiler warnings
+* 4.7   am   11/26/21 Resolved doxygen warnings
 *
 * </pre>
 *
@@ -136,8 +137,8 @@ extern "C" {
 /* @}*/
 
 typedef enum {
-	XSECURE_RSA_UNINITIALIZED = 0,
-	XSECURE_RSA_INITIALIZED
+	XSECURE_RSA_UNINITIALIZED = 0, /**< RSA uninitialized value */
+	XSECURE_RSA_INITIALIZED /**< RSA initialized value */
 } XSecure_RsaState;
 
 /***************************** Type Definitions ******************************/
