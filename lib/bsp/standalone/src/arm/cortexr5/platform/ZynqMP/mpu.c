@@ -27,13 +27,6 @@
 * 7.5   asa  03/07/21 Ensure that Update_MpuConfig_Array stays in .boot section
 *                     as it is used only during bootup.
 *                     Add function header to Init_MPU function.
-* 7.7   mus  11/17/21 Existing Init_MPU logic assumes that DDR would be always
-*                     mapped at 0x0 location. This logic would not work
-*                     in typical isolation use cases where actual DDR size
-*                     could be 2 GB (0x0 - 0x7FFF_FFFF), but part of DDR
-*                     that is mapped to DDR could start from
-*                     1 GB (0x4000_0000). Updated Init_MPU function to fix
-*                     said use case. It fixes CR#1113181.
 * </pre>
 *
 * @note
@@ -142,7 +135,6 @@ void Init_MPU(void)
 	u32 Attrib;
 	u32 RegNum = 0, i, Offset = 0;
 	u64 size;
-	u8 CreateTCMRegion = 0;
 
 	Xil_DisableMPURegions();
 
@@ -156,18 +148,9 @@ void Init_MPU(void)
 			if (size <= region_size[i].size) {
 				RegSize = region_size[i].encoding;
 
-				/*
-				 * Check if DDR size is in power of 2
-				 * and it is mapped at 0x0 in HW design
-				 */
-				if ( XPAR_PSU_R5_DDR_0_S_AXI_BASEADDR != 0x100000) {
-					CreateTCMRegion = 1;
-					Addr = XPAR_PSU_R5_DDR_0_S_AXI_BASEADDR;
-					Offset = 0;
-				} else {
+				/* Check if DDR size is in power of 2*/
+				if ( XPAR_PSU_R5_DDR_0_S_AXI_BASEADDR == 0x100000)
 					Offset = XPAR_PSU_R5_DDR_0_S_AXI_BASEADDR;
-				}
-
 				if (region_size[i].size > (size + Offset + 1)) {
 					xil_printf ("WARNING: DDR size mapped to Cortexr5 processor is not \
 								in power of 2. As processor allocates MPU regions size \
@@ -186,24 +169,6 @@ void Init_MPU(void)
 	/* For DDRless system, configure region for TCM */
 	RegSize = REGION_256K;
 #endif
-	if (1 == CreateTCMRegion) {
-		/*
-		 * DDR is not mapped at 0x0 in HW design, so
-		 * creating separate MPU region, as TCM and mapped
-		 * DDR are not continuous.
-		 * Note: Creating MPU region for 256 KB of TCM starting
-		 * from 0x0. For split mode 128 KB TCM would be
-		 * available to each R5 core (64 KB at 0x0 and 64 KB
-		 * at 0x20000. We are not fine tuning the MPU region
-		 * as per actual TCM size to avoid consuming extra MPU
-		 * regions.
-		 */
-		Attrib = NORM_NSHARED_WB_WA | PRIV_RW_USER_RW;
-		Xil_SetAttribute(0x0,REGION_256K,RegNum, Attrib);
-		Update_MpuConfig_Array(0x0,REGION_256K,RegNum, Attrib);
-		RegNum++;
-	}
-
 	Attrib = NORM_NSHARED_WB_WA | PRIV_RW_USER_RW;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
 	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
