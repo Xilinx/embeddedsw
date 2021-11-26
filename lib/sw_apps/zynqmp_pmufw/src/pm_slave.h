@@ -26,6 +26,7 @@ extern "C" {
 
 /* Mask definitions for slave's flags */
 #define PM_SLAVE_FLAG_IS_SHAREABLE	0x1U
+#define PM_SLAVE_FLAG_IS_CONFIGURED	0x2U
 
 #define DEFINE_SLAVE_STATES(s)	.states = (s), \
 				.statesCnt = ARRAY_SIZE(s)

@@ -234,6 +234,13 @@ static s32 PmConfigSlaveSectionHandler(u32* const addr)
 			goto done;
 		}
 
+		if (0U != (slave->flags & PM_SLAVE_FLAG_IS_CONFIGURED)) {
+			PmErr("Slave already configured #%lu\r\n", nodeId);
+			status = XST_FAILURE;
+			goto done;
+
+		}
+
 		usagePolicy = PmConfigReadNext(addr);
 		usagePerms = PmConfigReadNext(addr);
 		status = PmSlaveSetConfig(slave, usagePolicy, usagePerms);
@@ -241,6 +248,8 @@ static s32 PmConfigSlaveSectionHandler(u32* const addr)
 			PmErr("%s config failed\r\n", slave->node.name);
 			goto done;
 		}
+
+		slave->flags |= PM_SLAVE_FLAG_IS_CONFIGURED;
 	}
 
 done:
