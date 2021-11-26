@@ -7,7 +7,7 @@
 /**
 *
 * @file xintc_intr.c
-* @addtogroup intc_v3_13
+* @addtogroup intc_v3_14
 * @{
 *
 * This file contains the interrupt processing for the XIntc component which
