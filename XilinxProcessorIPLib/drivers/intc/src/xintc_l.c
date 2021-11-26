@@ -51,6 +51,8 @@
 * 3.13   mus  12/22/20 Updated source code comments. Also, moved description for
 *                      XIntc_LowLevelInterruptHandler after preprocessor
 *                      condition checking. It fixes CR#1080821
+* 3.14  mus  11/25/21 Updated XIntc_DeviceInterruptHandler function to fix
+*                     compilation warning. CR#1116127
 *
 * </pre>
 *
@@ -167,7 +169,7 @@ void XIntc_DeviceInterruptHandler(void *DeviceId)
 	u32 Imr;
 
 	/* Get the configuration data using the device ID */
-	CfgPtr = &XIntc_ConfigTable[(u32)DeviceId];
+	CfgPtr = &XIntc_ConfigTable[(UINTPTR)DeviceId];
 
 #if XPAR_INTC_0_INTC_TYPE != XIN_INTC_NOCASCADE
 	if (CfgPtr->IntcType != XIN_INTC_NOCASCADE) {
