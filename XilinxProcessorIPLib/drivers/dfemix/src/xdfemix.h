@@ -70,6 +70,7 @@
 *       dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 *       dc     11/05/21 Align event handlers
 *       dc     11/19/21 Update doxygen documentation
+*       dc     11/19/21 Add SetAntennaCfgInCCCfg API
 *
 * </pre>
 * @endcond
@@ -465,6 +466,8 @@ void XDfeMix_GetCarrierCfgAndNCO(const XDfeMix *InstancePtr,
 				 u32 *CCSeqBitmap,
 				 XDfeMix_CarrierCfg *CarrierCfg,
 				 XDfeMix_NCO *NCO);
+void XDfeMix_SetAntennaCfgInCCCfg(const XDfeMix *InstancePtr,
+				  XDfeMix_CCCfg *CCCfg, u32 *AntennaCfg);
 u32 XDfeMix_AddCCtoCCCfg(XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg, s32 CCID,
 			 u32 CCSeqBitmap, const XDfeMix_CarrierCfg *CarrierCfg,
 			 const XDfeMix_NCO *NCO);

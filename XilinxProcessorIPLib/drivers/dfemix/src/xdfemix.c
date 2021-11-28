@@ -37,6 +37,7 @@
 *       dc     11/19/21 Update doxygen documentation
 *       dc     11/26/21 Set NCO configuration in GetCurrentCCCfg
 *       dc     11/26/21 Set sequence length in GetEmptyCCCfg
+*       dc     11/26/21 Add SetAntennaCfgInCCCfg API
 *
 * </pre>
 * @addtogroup xdfemix_v1_2
@@ -1592,9 +1593,8 @@ void XDfeMix_GetCarrierCfgAndNCO(const XDfeMix *InstancePtr,
 				 XDfeMix_CarrierCfg *CarrierCfg,
 				 XDfeMix_NCO *NCO)
 {
-	u32 Mask = 0U;
 	u32 Index;
-
+	u32 Mask = 1U;
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(CCCfg != NULL);
 	Xil_AssertVoid(CCID <= XDFEMIX_CC_NUM);
@@ -1611,7 +1611,30 @@ void XDfeMix_GetCarrierCfgAndNCO(const XDfeMix *InstancePtr,
 		if (CCCfg->Sequence.CCID[Index] == CCID) {
 			*CCSeqBitmap |= Mask;
 		}
-		Mask >>= 1U;
+		Mask <<= 1U;
+	}
+}
+
+/****************************************************************************/
+/**
+*
+* Set antenna configuration in CC configuration container.
+*
+* @param    InstancePtr Pointer to the Mixer instance.
+* @param    CCCfg CC configuration container.
+* @param    AntennaCfg Array of all antenna configurations.
+*
+****************************************************************************/
+void XDfeMix_SetAntennaCfgInCCCfg(const XDfeMix *InstancePtr,
+				  XDfeMix_CCCfg *CCCfg, u32 *AntennaCfg)
+{
+	u32 Index;
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(CCCfg != NULL);
+	Xil_AssertVoid(AntennaCfg != NULL);
+
+	for (Index = 0; Index < XDFEMIX_ANT_NUM_MAX; Index++) {
+		CCCfg->AntennaCfg[Index] = AntennaCfg[Index];
 	}
 }
 
