@@ -35,6 +35,7 @@
 * 1.2   dc     10/29/21 Update doxygen comments
 *       dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 *       dc     11/19/21 Update doxygen documentation
+*       dc     11/26/21 Set NCO configuration GetCurrentCCCfg
 *
 * </pre>
 * @addtogroup xdfemix_v1_2
@@ -1492,6 +1493,45 @@ void XDfeMix_GetCurrentCCCfg(const XDfeMix *InstancePtr,
 			XDfeMix_RdBitField(XDFEMIX_CC_CONFIG_CC_GAIN_WIDTH,
 					   XDFEMIX_CC_CONFIG_CC_GAIN_OFFSET,
 					   Data);
+	}
+
+	/* Read NCO configurations */
+	for (Index = 0; Index <= XDFEMIX_NCO_MAX; Index++) {
+		/* Get frequency configuration */
+		Offset = XDFEMIX_FREQ_CONTROL_WORD +
+			 (Index * XDFEMIX_PHAC_CCID_ADDR_STEP);
+		CurrCCCfg->NCO[Index].FrequencyCfg.FrequencyControlWord =
+			XDfeMix_ReadReg(InstancePtr, Offset);
+		Offset = XDFEMIX_FREQ_SINGLE_MOD_COUNT +
+			 (Index * XDFEMIX_PHAC_CCID_ADDR_STEP);
+		CurrCCCfg->NCO[Index].FrequencyCfg.SingleModCount =
+			XDfeMix_ReadReg(InstancePtr, Offset);
+		Offset = XDFEMIX_FREQ_DUAL_MOD_COUNT +
+			 (Index * XDFEMIX_PHAC_CCID_ADDR_STEP);
+		CurrCCCfg->NCO[Index].FrequencyCfg.DualModCount =
+			XDfeMix_ReadReg(InstancePtr, Offset);
+		Offset = XDFEMIX_FREQ_PHASE_OFFSET +
+			 (Index * XDFEMIX_PHAC_CCID_ADDR_STEP);
+		CurrCCCfg->NCO[Index].FrequencyCfg.PhaseOffset.PhaseOffset =
+			XDfeMix_ReadReg(InstancePtr, Offset);
+		/* Get phase configuration */
+		Offset = XDFEMIX_PHASE_UPDATE_ACC +
+			 (Index * XDFEMIX_PHAC_CCID_ADDR_STEP);
+		CurrCCCfg->NCO[Index].PhaseCfg.PhaseAcc =
+			XDfeMix_ReadReg(InstancePtr, Offset);
+		Offset = XDFEMIX_PHASE_UPDATE_DUAL_MOD_COUNT +
+			 (Index * XDFEMIX_PHAC_CCID_ADDR_STEP);
+		CurrCCCfg->NCO[Index].PhaseCfg.DualModCount =
+			XDfeMix_ReadReg(InstancePtr, Offset);
+		Offset = XDFEMIX_PHASE_UPDATE_DUAL_MOD_SEL +
+			 (Index * XDFEMIX_PHAC_CCID_ADDR_STEP);
+		CurrCCCfg->NCO[Index].PhaseCfg.DualModSel =
+			XDfeMix_ReadReg(InstancePtr, Offset);
+		/* Get NCO gain */
+		Offset = XDFEMIX_NCO_GAIN +
+			 (Index * XDFEMIX_PHAC_CCID_ADDR_STEP);
+		CurrCCCfg->NCO[Index].NCOGain =
+			XDfeMix_ReadReg(InstancePtr, Offset);
 	}
 
 	/* Read Antenna configuration */
