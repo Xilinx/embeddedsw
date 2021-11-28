@@ -32,6 +32,7 @@
 *       dc     11/19/21 Update doxygen documentation
 *       dc     11/26/21 Model parameter NumCCPerAntenna workaround
 *       dc     11/26/21 Set sequence length in GetEmptyCCCfg
+*       dc     11/26/21 Add SetAntennaCfgInCCCfg API
 *
 * </pre>
 * @addtogroup xdfeprach_v1_2
@@ -1927,9 +1928,8 @@ void XDfePrach_GetCarrierCfg(const XDfePrach *InstancePtr,
 			     XDfePrach_CCCfg *CCCfg, s32 CCID, u32 *CCSeqBitmap,
 			     XDfePrach_CarrierCfg *CarrierCfg)
 {
-	u32 Mask = 0U;
 	u32 Index;
-
+	u32 Mask = 1U;
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(CCCfg != NULL);
 	Xil_AssertVoid(CCID <= XDFEPRACH_CC_NUM_MAX);
@@ -1939,11 +1939,34 @@ void XDfePrach_GetCarrierCfg(const XDfePrach *InstancePtr,
 	CarrierCfg->SCS = CCCfg->CarrierCfg[CCID].SCS;
 
 	*CCSeqBitmap = 0U;
-	for (Index = 0; Index < CCCfg->Sequence.Length; Index++) {
+	for (Index = 0U; Index < CCCfg->Sequence.Length; Index++) {
 		if (CCCfg->Sequence.CCID[Index] == CCID) {
 			*CCSeqBitmap |= Mask;
 		}
-		Mask >>= 1U;
+		Mask <<= 1U;
+	}
+}
+
+/****************************************************************************/
+/**
+*
+* Set antenna configuration in CC configuration container.
+*
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    CCCfg CC configuration container.
+* @param    AntennaCfg Array of all antenna configurations.
+*
+****************************************************************************/
+void XDfePrach_SetAntennaCfgInCCCfg(const XDfePrach *InstancePtr,
+				    XDfePrach_CCCfg *CCCfg, u32 *AntennaCfg)
+{
+	u32 Index;
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(CCCfg != NULL);
+	Xil_AssertVoid(AntennaCfg != NULL);
+
+	for (Index = 0; Index < XDFEPRACH_ANT_NUM_MAX; Index++) {
+		CCCfg->AntennaCfg[Index] = AntennaCfg[Index];
 	}
 }
 
