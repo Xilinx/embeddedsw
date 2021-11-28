@@ -36,6 +36,7 @@
 *       dc     11/19/21 Update doxygen documentation
 *       dc     11/26/21 Model parameter NumCCPerAntenna workaround
 *       dc     11/26/21 Set sequence length in GetEmptyCCCfg
+*       dc     11/26/21 Add SetAntennaCfgInCCCfg API
 *
 * </pre>
 * @addtogroup dfeccf_v1_2
@@ -1204,6 +1205,29 @@ void XDfeCcf_GetCarrierCfg(const XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg,
 			*CCSeqBitmap |= Mask;
 		}
 		Mask <<= 1;
+	}
+}
+
+/****************************************************************************/
+/**
+*
+* Set antenna configuration in CC configuration container.
+*
+* @param    InstancePtr Pointer to the Ccf instance.
+* @param    CCCfg CC configuration container.
+* @param    AntennaCfg Array of all antenna configurations.
+*
+****************************************************************************/
+void XDfeCcf_SetAntennaCfgInCCCfg(const XDfeCcf *InstancePtr,
+				  XDfeCcf_CCCfg *CCCfg, u32 *AntennaCfg)
+{
+	u32 Index;
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(CCCfg != NULL);
+	Xil_AssertVoid(AntennaCfg != NULL);
+
+	for (Index = 0; Index < XDFECCF_ANT_NUM_MAX; Index++) {
+		CCCfg->AntennaCfg[Index] = AntennaCfg[Index];
 	}
 }
 
