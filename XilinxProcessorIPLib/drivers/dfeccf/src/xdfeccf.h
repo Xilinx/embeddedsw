@@ -73,6 +73,7 @@
 *       dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 *       dc     11/05/21 Align event handlers
 *       dc     11/19/21 Update doxygen documentation
+*       dc     11/26/21 Model parameter NumCCPerAntenna workaround
 *
 * </pre>
 * @endcond
@@ -244,7 +245,7 @@ typedef struct {
  */
 typedef struct {
 	u32 NumAntenna; /**< [1-8] Number of antennas */
-	u32 NumCCPerAntenna; /**< [1-8] Number of channels per antenna */
+	u32 NumCCPerAntenna; /**< [1-16] Number of channels per antenna */
 	u32 AntennaInterleave; /**< [1-8] Number of Antenna slots */
 } XDfeCcf_ModelParameters;
 
@@ -316,8 +317,10 @@ typedef struct {
  */
 typedef struct {
 	XDfeCcf_CCSequence Sequence; /**< CCID sequence */
-	XDfeCcf_InternalCarrierCfg CarrierCfg[16]; /**< CC configurations */
-	u32 AntennaCfg[8]; /**< [0,1] Antenna TDM slot enablement */
+	XDfeCcf_InternalCarrierCfg
+		CarrierCfg[XDFECCF_CC_NUM]; /**< CC configurations */
+	u32 AntennaCfg[XDFECCF_ANT_NUM_MAX]; /**< [0,1] Antenna TDM slot
+					      enablement */
 } XDfeCcf_CCCfg;
 
 /**

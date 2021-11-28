@@ -34,6 +34,7 @@
 * 1.2   dc     10/29/21 Update doxygen comments
 *       dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 *       dc     11/19/21 Update doxygen documentation
+*       dc     11/26/21 Model parameter NumCCPerAntenna workaround
 *
 * </pre>
 * @addtogroup dfeccf_v1_2
@@ -888,6 +889,11 @@ void XDfeCcf_Configure(XDfeCcf *InstancePtr, XDfeCcf_Cfg *Cfg)
 	InstancePtr->Config.NumCCPerAntenna = XDfeCcf_RdBitField(
 		XDFECCF_MODEL_PARAM_NUM_CC_PER_ANTENNA_WIDTH,
 		XDFECCF_MODEL_PARAM_NUM_CC_PER_ANTENNA_OFFSET, ModelParam);
+	/* 0 is converted to 16 as a workaround for NumCCPerAntenna Model
+	   parameter which bitfield is only 4 bits in size. */
+	if (InstancePtr->Config.NumCCPerAntenna == 0U) {
+		InstancePtr->Config.NumCCPerAntenna = XDFECCF_CC_NUM;
+	}
 	InstancePtr->Config.AntennaInterleave = XDfeCcf_RdBitField(
 		XDFECCF_MODEL_PARAM_ANTENNA_INTERLEAVE_WIDTH,
 		XDFECCF_MODEL_PARAM_ANTENNA_INTERLEAVE_OFFSET, ModelParam);
