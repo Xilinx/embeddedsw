@@ -30,6 +30,7 @@
 *       dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 *       dc     11/05/21 Align event handlers
 *       dc     11/19/21 Update doxygen documentation
+*       dc     11/26/21 Model parameter NumCCPerAntenna workaround
 *
 * </pre>
 * @addtogroup xdfeprach_v1_2
@@ -1583,6 +1584,11 @@ void XDfePrach_Configure(XDfePrach *InstancePtr, XDfePrach_Cfg *Cfg)
 	InstancePtr->Config.NumCCPerAntenna = XDfePrach_RdBitField(
 		XDFEPRACH_MODEL_PARAM_NUM_CC_PER_ANTENNA_WIDTH,
 		XDFEPRACH_MODEL_PARAM_NUM_CC_PER_ANTENNA_OFFSET, ModelParam);
+	/* The workaround for NumCCPerAntenna Model parameter which field is
+	   4 bits in size. 0 is converted to 16 */
+	if (InstancePtr->Config.NumCCPerAntenna == 0U) {
+		InstancePtr->Config.NumCCPerAntenna = XDFEPRACH_CC_NUM_MAX;
+	}
 	InstancePtr->Config.NumAntennaChannels = XDfePrach_RdBitField(
 		XDFEPRACH_MODEL_PARAM_NUM_SLOT_CHANNELS_WIDTH,
 		XDFEPRACH_MODEL_PARAM_NUM_SLOT_CHANNELS_OFFSET, ModelParam);
