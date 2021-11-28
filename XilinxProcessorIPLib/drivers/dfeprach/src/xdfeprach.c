@@ -33,6 +33,7 @@
 *       dc     11/26/21 Model parameter NumCCPerAntenna workaround
 *       dc     11/26/21 Set sequence length in GetEmptyCCCfg
 *       dc     11/26/21 Add SetAntennaCfgInCCCfg API
+*       dc     11/26/21 Assert RachChan equal RCId
 *
 * </pre>
 * @addtogroup xdfeprach_v1_2
@@ -2377,7 +2378,8 @@ void XDfePrach_GetChannelCfg(const XDfePrach *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Adds a new RC entry to the RC_CONFIGURATION.
+* Adds a new RC entry to the RC_CONFIGURATION. RCId must be same as the
+* physical channel RachChan.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    CurrentRCCfg Current RACH configuration container.
@@ -2411,6 +2413,7 @@ u32 XDfePrach_AddRCtoRCCfg(const XDfePrach *InstancePtr,
 	Xil_AssertNonvoid(NcoCfg != NULL);
 	Xil_AssertNonvoid(StaticSchedule != NULL);
 	Xil_AssertNonvoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
+	Xil_AssertNonvoid(RachChan == RCId);
 
 	/* Check  RachChan" is not in use. */
 	for (Index = 0; Index < XDFEPRACH_RC_NUM_MAX; Index++) {
@@ -2437,7 +2440,8 @@ u32 XDfePrach_AddRCtoRCCfg(const XDfePrach *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Removes an RC configuration entry from the RC_CONFIGURATION.
+* Removes an RC configuration entry from the RC_CONFIGURATION. RCId must be
+* same as the physical channel RachChan.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    CurrentRCCfg Current RACH configuration container.
@@ -2490,6 +2494,7 @@ void XDfePrach_UpdateRCinRCCfg(const XDfePrach *InstancePtr,
 	Xil_AssertVoid(NcoCfg != NULL);
 	Xil_AssertVoid(StaticSchedule != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
+	Xil_AssertNonvoid(RachChan == RCId);
 
 	/* Load the new channel's data into the RCID configuration, will be
 	   marked as needing a restart. */
@@ -2500,7 +2505,8 @@ void XDfePrach_UpdateRCinRCCfg(const XDfePrach *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Adds a new RC entry to the RC_CONFIGURATION.
+* Adds a new RC entry to the RC_CONFIGURATION. RCId must be same as the
+* physical channel RachChan.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    CCID CC Id.
@@ -2534,6 +2540,7 @@ u32 XDfePrach_AddRCCfg(const XDfePrach *InstancePtr, s32 CCID, u32 RCId,
 	Xil_AssertNonvoid(NcoCfg != NULL);
 	Xil_AssertNonvoid(StaticSchedule != NULL);
 	Xil_AssertNonvoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
+	Xil_AssertNonvoid(RachChan == RCId);
 
 	/* Read current CC configuration. */
 	XDfePrach_GetCurrentCCCfg(InstancePtr, &CurrentCCCfg);
@@ -2615,7 +2622,8 @@ u32 XDfePrach_RemoveRC(const XDfePrach *InstancePtr, u32 RCId)
 /****************************************************************************/
 /**
 *
-* Updates an RC entry to the RC_CONFIGURATION.
+* Updates an RC entry to the RC_CONFIGURATION. RCId must be same as the
+* physical channel RachChan.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    CCID CC Id.
@@ -2648,6 +2656,7 @@ u32 XDfePrach_UpdateRCCfg(const XDfePrach *InstancePtr, s32 CCID, u32 RCId,
 	Xil_AssertNonvoid(NcoCfg != NULL);
 	Xil_AssertNonvoid(StaticSchedule != NULL);
 	Xil_AssertNonvoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
+	Xil_AssertNonvoid(RachChan == RCId);
 
 	/* Read current CC configuration. */
 	XDfePrach_GetCurrentCCCfg(InstancePtr, &CurrentCCCfg);
