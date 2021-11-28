@@ -31,6 +31,7 @@
 *       dc     11/05/21 Align event handlers
 *       dc     11/19/21 Update doxygen documentation
 *       dc     11/26/21 Model parameter NumCCPerAntenna workaround
+*       dc     11/26/21 Set sequence length in GetEmptyCCCfg
 *
 * </pre>
 * @addtogroup xdfeprach_v1_2
@@ -1890,6 +1891,7 @@ void XDfePrach_GetEmptyCCCfg(const XDfePrach *InstancePtr,
 			     XDfePrach_CCCfg *CCCfg)
 {
 	u32 Index;
+	u32 SeqLen;
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(CCCfg != NULL);
 
@@ -1898,6 +1900,14 @@ void XDfePrach_GetEmptyCCCfg(const XDfePrach *InstancePtr,
 	/* Convert CC to -1 meaning not used */
 	for (Index = 0U; Index < XDFEPRACH_CC_NUM_MAX; Index++) {
 		CCCfg->Sequence.CCID[Index] = XDFEPRACH_SEQUENCE_ENTRY_NULL;
+	}
+	/* Read sequence length */
+	SeqLen = XDfePrach_ReadReg(InstancePtr,
+				   XDFEPRACH_CC_SEQUENCE_LENGTH_CURRENT);
+	if (SeqLen == 0U) {
+		CCCfg->Sequence.Length = InstancePtr->SequenceLength;
+	} else {
+		CCCfg->Sequence.Length = SeqLen + 1U;
 	}
 }
 
