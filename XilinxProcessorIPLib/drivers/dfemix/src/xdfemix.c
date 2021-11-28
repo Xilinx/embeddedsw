@@ -35,7 +35,8 @@
 * 1.2   dc     10/29/21 Update doxygen comments
 *       dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 *       dc     11/19/21 Update doxygen documentation
-*       dc     11/26/21 Set NCO configuration GetCurrentCCCfg
+*       dc     11/26/21 Set NCO configuration in GetCurrentCCCfg
+*       dc     11/26/21 Set sequence length in GetEmptyCCCfg
 *
 * </pre>
 * @addtogroup xdfemix_v1_2
@@ -1553,6 +1554,7 @@ void XDfeMix_GetCurrentCCCfg(const XDfeMix *InstancePtr,
 void XDfeMix_GetEmptyCCCfg(const XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg)
 {
 	u32 Index;
+	u32 SeqLen;
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(CCCfg != NULL);
 
@@ -1561,6 +1563,13 @@ void XDfeMix_GetEmptyCCCfg(const XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg)
 	/* Convert CC to -1 meaning not used */
 	for (Index = 0U; Index < XDFEMIX_CC_NUM; Index++) {
 		CCCfg->Sequence.CCID[Index] = XDFEMIX_SEQUENCE_ENTRY_NULL;
+	}
+	/* Read sequence length */
+	SeqLen = XDfeMix_ReadReg(InstancePtr, XDFEMIX_SEQUENCE_LENGTH_CURRENT);
+	if (SeqLen == 0U) {
+		CCCfg->Sequence.Length = InstancePtr->SequenceLength;
+	} else {
+		CCCfg->Sequence.Length = SeqLen + 1U;
 	}
 }
 
