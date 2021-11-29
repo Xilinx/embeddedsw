@@ -23,6 +23,7 @@
 *                     client and server
 *       kpt  08/27/21 Added client-server support for puf helper data efuse
 *                     programming
+* 1.1   kpt  11/29/21 Added macro XNvm_DCacheFlushRange
 *
 * </pre>
 * @note
@@ -73,6 +74,12 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XNvm_Printf(DebugType, ...)	\
 	if ((DebugType) == 1U) {xil_printf (__VA_ARGS__);}
+
+#ifndef XNVM_CACHE_DISABLE
+	#define XNvm_DCacheFlushRange(SrcAddr, Len) Xil_DCacheFlushRange(SrcAddr, Len)
+#else
+	#define XNvm_DCacheFlushRange(SrcAddr, Len) {}
+#endif /**< Cache Invalidate function */
 
 /* Macro to typecast XILSECURE API ID */
 #define XNVM_API(ApiId)	((u32)ApiId)
