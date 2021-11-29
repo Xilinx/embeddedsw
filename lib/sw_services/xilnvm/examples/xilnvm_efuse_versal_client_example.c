@@ -18,6 +18,7 @@
  * Ver	 Who	Date	Changes
  * ----- ---  -------- -------------------------------------------------------
  * 1.0	 kal   07/30/2021 Initial release of xnvm_efuse_versal_client_example
+ * 1.1   kpt   11/28/2021 Fixed typo Ppk1WrLk in XilNvm_EfuseInitSecCtrl
  *
  * </pre>
  *
@@ -993,7 +994,7 @@ static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseDataAddr *WriteEfuse,
 		(SecCtrlBits->SecLockDbgDis == TRUE) ||
 		(SecCtrlBits->BootEnvWrLk == TRUE) ||
 		(SecCtrlBits->Ppk0WrLk == TRUE) ||
-		(SecCtrlBits->Ppk0WrLk == TRUE) ||
+		(SecCtrlBits->Ppk1WrLk == TRUE) ||
 		(SecCtrlBits->Ppk2WrLk == TRUE) ||
 		(SecCtrlBits->AesCrcLk == TRUE) ||
 		(SecCtrlBits->AesWrLk == TRUE) ||

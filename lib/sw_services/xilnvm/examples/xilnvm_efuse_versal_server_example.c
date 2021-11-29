@@ -42,6 +42,7 @@
  *       kpt   08/03/2021 Status variable set to XST_SUCCESS in
  *                        XilNvm_EfuseInitPufFuses
  *       har   09/13/2021 Changed PLM and Data Partition IV formatting to LE
+ * 2.4   kpt   11/28/2021 Fixed typo Ppk1WrLk in XilNvm_EfuseInitSecCtrl
  *
  * </pre>
  *
@@ -846,7 +847,7 @@ static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *WriteEfuse,
 		(SecCtrlBits->SecLockDbgDis == TRUE) ||
 		(SecCtrlBits->BootEnvWrLk == TRUE) ||
 		(SecCtrlBits->Ppk0WrLk == TRUE) ||
-		(SecCtrlBits->Ppk0WrLk == TRUE) ||
+		(SecCtrlBits->Ppk1WrLk == TRUE) ||
 		(SecCtrlBits->Ppk2WrLk == TRUE) ||
 		(SecCtrlBits->AesCrcLk == TRUE) ||
 		(SecCtrlBits->AesWrLk == TRUE) ||
