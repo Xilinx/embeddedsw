@@ -89,6 +89,9 @@ proc xgen_opts_file {libhandle} {
 	set dstdir [file join .. .. include]
 	set access_puf_efuse [common::get_property CONFIG.use_puf_hd_as_user_efuse $libhandle]
 	set file_handle [::hsi::utils::open_include_file "xparameters.h"]
+	set proc_instance [hsi::get_sw_processor];
+	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
+	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 
 	# Create dstdir if it does not exist
 	if { ! [file exists $dstdir] } {
@@ -105,6 +108,16 @@ proc xgen_opts_file {libhandle} {
 
 	if {$access_puf_efuse == true} {
 		puts $file_handle "\n#define XNVM_ACCESS_PUF_USER_DATA \n"
+	}
+	# Get cache_disable value set by user, by default it is FALSE
+	set value [common::get_property CONFIG.cache_disable $libhandle]
+	if {$value == true} {
+		#Open xparameters.h file
+		if {$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
+			$proc_type == "psv_cortexr5"} {
+			set file_handle [hsi::utils::open_include_file "xparameters.h"]
+			puts $file_handle "#define XNVM_CACHE_DISABLE\n"
+		}
 	}
 
 	close $file_handle

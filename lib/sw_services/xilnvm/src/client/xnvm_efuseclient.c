@@ -19,6 +19,8 @@
 * 1.0   kal  07/29/21 Initial release
 *       kpt  08/27/21 Added client API's to support puf helper data efuse
 *                     programming
+* 1.1   kpt  11/29/21 Replaced Xil_DCacheFlushRange with
+*                     XNvm_DCacheFlushRange
 *
 * </pre>
 *
@@ -92,7 +94,7 @@ int XNvm_EfuseWriteIVs(const u64 IvAddr, const u32 EnvDisFlag)
 	EfuseData.IvAddr = (UINTPTR)IvAddr;
 	DataAddr = (u64)(UINTPTR)&EfuseData;
 
-	Xil_DCacheFlushRange((UINTPTR)DataAddr, sizeof(EfuseData));
+	XNvm_DCacheFlushRange((UINTPTR)DataAddr, sizeof(EfuseData));
 
 	Status = XNvm_ProcessIpiWithPayload2((u32)XNVM_EFUSE_WRITE,
 				(u32)DataAddr, (u32)(DataAddr >> 32U));
@@ -132,13 +134,13 @@ int XNvm_EfuseRevokePpk(const XNvm_PpkType PpkRevoke, const u32 EnvDisFlag)
 	else {
 		goto END;
 	}
-	Xil_DCacheFlushRange((UINTPTR)&MiscCtrlBits, sizeof(MiscCtrlBits));
+	XNvm_DCacheFlushRange((UINTPTR)&MiscCtrlBits, sizeof(MiscCtrlBits));
 
 	EfuseData.EnvMonDisFlag = EnvDisFlag;
 	EfuseData.MiscCtrlAddr = (UINTPTR)&MiscCtrlBits;
 	DataAddr = (u64)(UINTPTR)&EfuseData;
 
-	Xil_DCacheFlushRange((UINTPTR)DataAddr, sizeof(EfuseData));
+	XNvm_DCacheFlushRange((UINTPTR)DataAddr, sizeof(EfuseData));
 
 	Status = XNvm_ProcessIpiWithPayload2((u32)XNVM_EFUSE_WRITE,
 			(u32)DataAddr, (u32)(DataAddr >> 32U));
@@ -179,13 +181,13 @@ int XNvm_EfuseWriteRevocationId(const u32 RevokeId, const u32 EnvDisFlag)
 	WriteRevokeId.RevokeId[RevokeIdRow] = ((u32)1U << RevokeIdBit);
 	WriteRevokeId.PrgmRevokeId = TRUE;
 
-	Xil_DCacheFlushRange((UINTPTR)&WriteRevokeId, sizeof(WriteRevokeId));
+	XNvm_DCacheFlushRange((UINTPTR)&WriteRevokeId, sizeof(WriteRevokeId));
 
 	EfuseData.RevokeIdAddr = (UINTPTR)&WriteRevokeId;
 	EfuseData.EnvMonDisFlag = EnvDisFlag;
 	DataAddr = (u64)(UINTPTR)&EfuseData;
 
-	Xil_DCacheFlushRange((UINTPTR)DataAddr, sizeof(EfuseData));
+	XNvm_DCacheFlushRange((UINTPTR)DataAddr, sizeof(EfuseData));
 	Status = XNvm_ProcessIpiWithPayload2((u32)XNVM_EFUSE_WRITE,
                                 (u32)DataAddr, (u32)(DataAddr >> 32U));
 
@@ -217,7 +219,7 @@ int XNvm_EfuseWriteUserFuses(const u64 UserFuseAddr, const u32 EnvDisFlag)
 	EfuseData.UserFuseAddr = (UINTPTR)UserFuseAddr;
 	DataAddr = (u64)(UINTPTR)&EfuseData;
 
-	Xil_DCacheFlushRange((UINTPTR)DataAddr, sizeof(EfuseData));
+	XNvm_DCacheFlushRange((UINTPTR)DataAddr, sizeof(EfuseData));
 
 	Status = XNvm_ProcessIpiWithPayload2((u32)XNVM_EFUSE_WRITE,
 			(u32)DataAddr, (u32)(DataAddr >> 32U));
@@ -571,7 +573,7 @@ int XNvm_EfuseWritePuf(const u64 PufHdAddr) {
 
 	DataAddr = PufHdAddr;
 
-	Xil_DCacheFlushRange((UINTPTR)DataAddr, sizeof(XNvm_EfusePufHdAddr));
+	XNvm_DCacheFlushRange((UINTPTR)DataAddr, sizeof(XNvm_EfusePufHdAddr));
 
 	Status = XNvm_ProcessIpiWithPayload2((u32)XNVM_EFUSE_WRITE_PUF,
 			(u32)DataAddr, (u32)(DataAddr >> 32U));
