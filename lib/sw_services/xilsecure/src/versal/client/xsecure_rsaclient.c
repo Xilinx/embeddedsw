@@ -18,6 +18,8 @@
 * 1.0   kal  03/23/21 Initial release
 * 4.5   kal  03/23/20 Updated file version to sync with library version
 * 4.6   kpt  09/27/21 Fixed compilation warnings
+* 4.7   kpt  11/29/21 Replaced Xil_DCacheFlushRange with
+*                      XSecure_DCacheFlushRange
 *
 * </pre>
 * @note
@@ -25,7 +27,6 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xil_cache.h"
 #include "xsecure_defs.h"
 #include "xsecure_ipi.h"
 #include "xsecure_rsaclient.h"
@@ -61,7 +62,7 @@ int XSecure_RsaPrivateDecrypt(const u64 KeyAddr, const u64 InDataAddr,
 	RsaParams.Size = Size;
 	BufferAddr = (u64)(UINTPTR)&RsaParams;
 
-	Xil_DCacheFlushRange((INTPTR)BufferAddr, sizeof(RsaParams));
+	XSecure_DCacheFlushRange((INTPTR)BufferAddr, sizeof(RsaParams));
 
 	Status = XSecure_ProcessIpiWithPayload4(XSECURE_API_RSA_PRIVATE_DECRYPT,
 			(u32)BufferAddr, (u32)(BufferAddr >> 32),
@@ -103,7 +104,7 @@ int XSecure_RsaPublicEncrypt(const u64 KeyAddr, const u64 InDataAddr,
 	RsaParams.Size = Size;
 	BufferAddr = (u64)(UINTPTR)&RsaParams;
 
-	Xil_DCacheFlushRange((INTPTR)BufferAddr, sizeof(RsaParams));
+	XSecure_DCacheFlushRange((INTPTR)BufferAddr, sizeof(RsaParams));
 
 	Status = XSecure_ProcessIpiWithPayload4(XSECURE_API_RSA_PUBLIC_ENCRYPT,
 			(u32)BufferAddr, (u32)(BufferAddr >> 32),
@@ -138,7 +139,7 @@ int XSecure_RsaSignVerification(const u64 SignAddr, const u64 HashAddr,
 	SignParams.Size = Size;
 	BufAddr = (u64)(UINTPTR)&SignParams;
 
-	Xil_DCacheFlushRange((INTPTR)BufAddr, sizeof(SignParams));
+	XSecure_DCacheFlushRange((INTPTR)BufAddr, sizeof(SignParams));
 
 	Status = XSecure_ProcessIpiWithPayload2(XSECURE_API_RSA_SIGN_VERIFY,
 			(u32)BufAddr, (u32)(BufAddr >> 32));
