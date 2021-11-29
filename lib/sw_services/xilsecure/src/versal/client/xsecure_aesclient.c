@@ -21,6 +21,8 @@
 *       har  04/14/21 Added XSecure_AesEncryptData and XSecure_AesDecryptData
 * 4.6   har  08/31/21 Updated check for Size in XSecure_AesKekDecrypt
 *       kpt  09/27/21 Fixed compilation warnings
+* 4.7   kpt  11/29/21 Replaced Xil_DCacheFlushRange with
+*                     XSecure_DCacheFlushRange
 *
 * </pre>
 * @note
@@ -28,7 +30,6 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xil_cache.h"
 #include "xsecure_aesclient.h"
 #include "xsecure_defs.h"
 #include "xsecure_ipi.h"
@@ -84,7 +85,7 @@ int XSecure_AesEncryptInit(XSecure_AesKeySource KeySrc, u32 Size, u64 IvAddr)
 	AesParams.KeySize = Size;
 	Buffer = (u64)(UINTPTR)&AesParams;
 
-	Xil_DCacheFlushRange((INTPTR)Buffer, sizeof(AesParams));
+	XSecure_DCacheFlushRange((INTPTR)Buffer, sizeof(AesParams));
 
 	Status = XSecure_ProcessIpiWithPayload2(XSECURE_API_AES_OP_INIT,
 			(u32)Buffer, (u32)(Buffer >> 32));
@@ -116,7 +117,7 @@ int XSecure_AesDecryptInit(XSecure_AesKeySource KeySrc, u32 Size, u64 IvAddr)
 	AesParams.KeySize = Size;
 	Buffer = (u64)(UINTPTR)&AesParams;
 
-	Xil_DCacheFlushRange((INTPTR)Buffer, sizeof(AesParams));
+	XSecure_DCacheFlushRange((INTPTR)Buffer, sizeof(AesParams));
 
 	Status = XSecure_ProcessIpiWithPayload2(XSECURE_API_AES_OP_INIT,
 			(u32)Buffer, (u32)(Buffer >> 32));
@@ -177,7 +178,7 @@ int XSecure_AesEncryptUpdate(u64 InDataAddr, u64 OutDataAddr,
 	EncInAddr.IsLast = IsLast;
 	SrcAddr = (u64)(UINTPTR)&EncInAddr;
 
-	Xil_DCacheFlushRange((INTPTR)SrcAddr, sizeof(EncInAddr));
+	XSecure_DCacheFlushRange((INTPTR)SrcAddr, sizeof(EncInAddr));
 
 	Status = XSecure_ProcessIpiWithPayload4(XSECURE_API_AES_ENCRYPT_UPDATE,
 			(u32)SrcAddr, (u32)(SrcAddr >> 32), (u32)OutDataAddr,
@@ -242,7 +243,7 @@ int XSecure_AesDecryptUpdate(u64 InDataAddr, u64 OutDataAddr,
 	DecInParams.IsLast = IsLast;
 	SrcAddr = (u64)(UINTPTR)&DecInParams;
 
-	Xil_DCacheFlushRange((INTPTR)SrcAddr, sizeof(DecInParams));
+	XSecure_DCacheFlushRange((INTPTR)SrcAddr, sizeof(DecInParams));
 
 	Status = XSecure_ProcessIpiWithPayload4(XSECURE_API_AES_DECRYPT_UPDATE,
 			(u32)SrcAddr, (u32)(SrcAddr >> 32),

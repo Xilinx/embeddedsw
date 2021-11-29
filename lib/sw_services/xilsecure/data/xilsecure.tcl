@@ -141,6 +141,10 @@ proc execs_generate {libhandle} {
 
 proc xgen_opts_file {libhandle} {
 
+	set proc_instance [hsi::get_sw_processor];
+	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
+	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
+
 	# Copy the include files to the include directory
 	set srcdir src
 	set dstdir [file join .. .. include]
@@ -190,5 +194,19 @@ proc xgen_opts_file {libhandle} {
 		puts $file_handle "#define XSECURE_NONSECURE_IPI_ACCESS\n"
 
 		close $file_handle
-         }
+	}
+	# Get cache_disable value set by user, by default it is FALSE
+	set value [common::get_property CONFIG.cache_disable $libhandle]
+	if {$value == true} {
+		#Open xparameters.h file
+		if {$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
+			$proc_type == "psv_cortexr5"} {
+			set file_handle [hsi::utils::open_include_file "xparameters.h"]
+
+			puts $file_handle "\n/* Xilinx Secure library User Settings */"
+			puts $file_handle "#define XSECURE_CACHE_DISABLE\n"
+
+			close $file_handle
+		}
+	}
 }
