@@ -88,6 +88,10 @@ s32 XScuTimer_CfgInitialize(XScuTimer *InstancePtr,
 		 * Indicate the instance is ready to use, successfully initialized.
 		 */
 		InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
+#ifdef XIL_INTERRUPT
+		InstancePtr->Config.IntrId = ConfigPtr->IntrId;
+		InstancePtr->Config.IntrParent = ConfigPtr->IntrParent;
+#endif
 
 		Status =(s32)XST_SUCCESS;
 	}

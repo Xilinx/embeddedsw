@@ -92,6 +92,7 @@
 
 #include "xstatus.h"
 #include "xscutimer_hw.h"
+#include "bspconfig.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -107,6 +108,10 @@ extern "C" {
 typedef struct {
 	u16 DeviceId;	/**< Unique ID of device */
 	u32 BaseAddr;	/**< Base address of the device */
+#ifdef XIL_INTERRUPT
+	u32 IntrId;
+	UINTPTR IntrParent;		/** Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+#endif
 } XScuTimer_Config;
 
 /**
