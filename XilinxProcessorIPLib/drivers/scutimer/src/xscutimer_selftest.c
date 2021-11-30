@@ -7,7 +7,7 @@
 /**
 *
 * @file xscutimer_selftest.c
-* @addtogroup scutimer_v2_3
+* @addtogroup scutimer_v2_4
 * @{
 *
 * Contains diagnostic self-test functions for the XScuTimer driver.
