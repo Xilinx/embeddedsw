@@ -7,7 +7,7 @@
 /**
 *
 * @file xscutimer_hw.h
-* @addtogroup scutimer_v2_3
+* @addtogroup scutimer_v2_4
 * @{
 *
 * This file contains the hardware interface to the Timer.

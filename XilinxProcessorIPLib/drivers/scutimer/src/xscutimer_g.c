@@ -7,7 +7,7 @@
 /**
 *
 * @file xscutimer_g.c
-* @addtogroup scutimer_v2_3
+* @addtogroup scutimer_v2_4
 * @{
 *
 * This file contains a table that specifies the configuration of the SCU
