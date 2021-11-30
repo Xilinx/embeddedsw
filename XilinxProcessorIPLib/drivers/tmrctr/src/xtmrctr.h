@@ -7,7 +7,7 @@
 /**
 *
 * @file xtmrctr.h
-* @addtogroup tmrctr_v4_8
+* @addtogroup tmrctr_v4_9
 * @{
 * @details
 *
