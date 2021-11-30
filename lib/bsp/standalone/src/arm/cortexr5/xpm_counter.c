@@ -50,8 +50,10 @@
 /***************************** Include Files *********************************/
 
 #include "xpm_counter.h"
+#ifndef XPAR_XILTIMER_ENABLED
 #include "xil_sleeptimer.h"
 #include "xtime_l.h"
+#endif
 
 /************************** Constant Definitions ****************************/
 
@@ -286,7 +288,7 @@ u32 Xpm_GetEventCounter(u32 EventCntrId, u32 *CntVal)
 * @return       None.
 *
 *****************************************************************************/
-
+#ifndef XPAR_XILTIMER_ENABLED
 void Xpm_SleepPerfCounter(u32 delay, u64 frequency)
 {
     u64 tEnd = 0U;
@@ -315,7 +317,7 @@ void Xpm_SleepPerfCounter(u32 delay, u64 frequency)
 		                                           (u64)TimeLowVal2;
         }while (tCur < tEnd);
 }
-
+#endif
 /****************************************************************************/
 /**
 *

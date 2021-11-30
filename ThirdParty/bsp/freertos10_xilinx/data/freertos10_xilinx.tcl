@@ -26,6 +26,7 @@
 # 1 tab == 4 spaces!
 #
 
+set is_xiltimer_enabled 0
 # -----------------------------------------------
 # Return latest "ACTIVE" standalone BSP version
 # -----------------------------------------------
@@ -37,6 +38,7 @@ proc get_standalone_version {} {
 proc FreeRTOS_drc {os_handle} {
 
 	global env
+        global is_xiltimer_enabled
 
 	set sw_proc_handle [hsi::get_sw_processor]
 	set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
@@ -44,6 +46,12 @@ proc FreeRTOS_drc {os_handle} {
 
 	if { $proctype == "microblaze" } {
 		mb_drc_checks $sw_proc_handle $hw_proc_handle $os_handle
+	}
+
+	if {[lsearch -nocase [hsi::get_libs] "xiltimer"] >= 0} {
+		set is_xiltimer_enabled 1
+	} else {
+		set is_xiltimer_enabled 0
 	}
 }
 
@@ -138,6 +146,7 @@ proc generate_license {fd} {
 }
 proc generate {os_handle} {
 
+	global is_xiltimer_enabled
 	set standalone_version [get_standalone_version]
 	set have_tick_timer 0
 	global axi_timer_connected
@@ -352,6 +361,12 @@ proc generate {os_handle} {
 		}
 	}
 
+	set sleep_file_list "sleep.h sleep.c usleep.c xtime_l.c xtime_l.h microblaze_sleep.c microblaze_sleep.h xil_sleepcommon.c xil_sleeptimer.h xil_sleeptimer.c xpm_counter.c"
+	if {$is_xiltimer_enabled != 0} {
+		foreach entry $sleep_file_list {
+			file delete -force "../${standalone_version}/src/$entry"
+		}
+	}
 	# Write the Config.make file
 	set makeconfig [open "../${standalone_version}/src/config.make" w]
 	file rename -force -- "../${standalone_version}/src/Makefile" "../${standalone_version}/src/Makefile_depends"

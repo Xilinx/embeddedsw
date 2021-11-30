@@ -23,6 +23,7 @@
 *		      started.
 * 7.2   mus  10/22/19 Defined RPU_TZ_MASK as #define instead of variable.
 * 7.2   sd   03/20/20 Add clocking support.
+* 7.7   adk  11/30/21 Added support for xiltimer library.
 * </pre>
 *
 ******************************************************************************/
@@ -107,8 +108,10 @@ test_boot_status:
 	ldr	r13,.Lstack		/* stack address */
 
 	/* configure the timer if TTC is present */
+#ifndef XPAR_XILTIMER_ENABLED
 #ifdef SLEEP_TIMER_BASEADDR
     bl XTime_StartTTCTimer
+#endif
 #endif
 	bl 	Xil_InitializeExistingMPURegConfig	/* Initialize MPU config */
 	/* run global constructors */

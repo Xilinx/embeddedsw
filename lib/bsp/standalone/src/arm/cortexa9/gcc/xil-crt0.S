@@ -24,6 +24,7 @@
 * 6.6   srm  10/18/17 Added timer configuration using XTime_StartTTCTimer API.
 *		      Now the TTC instance as specified by the user will be
 *		      started.
+* 7.7   adk  11/30/21 Added support for xiltimer library.
 * </pre>
 *
 * @note
@@ -32,6 +33,7 @@
 *
 ******************************************************************************/
 #include "bspconfig.h"
+#include "xparameters.h"
 
 	.file	"xil-crt0.S"
 	.section ".got2","aw"
@@ -95,8 +97,10 @@ _start:
 	bl XTime_StartTTCTimer
 	#endif
 
+#ifndef XPAR_XILTIMER_ENABLED
 #if USE_AMP != 1
 	bl XTime_SetTime
+#endif
 #endif
 
 #ifdef PROFILING			/* defined in Makefile */
