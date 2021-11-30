@@ -245,7 +245,7 @@ done:
 	return Status;
 }
 
-static XStatus TriggerMemClear(const XPm_Psm *Psm, u16 *DbgErr)
+static XStatus TriggerMemClearFpd(const XPm_Psm *Psm, u16 *DbgErr)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -334,7 +334,7 @@ static XStatus FpdMbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	PmInfo("Triggering MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 
-	Status = TriggerMemClear(Psm, &DbgErr);
+	Status = TriggerMemClearFpd(Psm, &DbgErr);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
