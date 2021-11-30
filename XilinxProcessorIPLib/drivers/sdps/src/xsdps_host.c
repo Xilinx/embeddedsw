@@ -44,7 +44,7 @@
 
 /************************** Function Prototypes ******************************/
 
-#if EL1_NONSECURE && defined (__aarch64__)
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
 void XSdps_Smc(XSdPs *InstancePtr, u32 RegOffset, u32 Mask, u32 Val)
 {
 	(void)Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(InstancePtr->SlcrBaseAddr +
@@ -1125,7 +1125,7 @@ void XSdPs_DllRstCtrl(XSdPs *InstancePtr, u8 EnRst)
 
 	BaseAddress = InstancePtr->Config.BaseAddress;
 	if (BaseAddress == XSDPS_ZYNQMP_SD0_BASE) {
-#if EL1_NONSECURE && defined (__aarch64__)
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
 		(void)DllCtrl;
 
 		XSdps_Smc(InstancePtr, SD_DLL_CTRL, SD0_DLL_RST, (EnRst == 1U) ? SD0_DLL_RST : 0U);
@@ -1139,7 +1139,7 @@ void XSdPs_DllRstCtrl(XSdPs *InstancePtr, u8 EnRst)
 		XSdPs_WriteReg(InstancePtr->SlcrBaseAddr, SD_DLL_CTRL, DllCtrl);
 #endif
 	} else {
-#if EL1_NONSECURE && defined (__aarch64__)
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
 		(void)DllCtrl;
 
 		XSdps_Smc(InstancePtr, SD_DLL_CTRL, SD1_DLL_RST, (EnRst == 1U) ? SD1_DLL_RST : 0U);
@@ -1209,7 +1209,7 @@ void XSdPs_ConfigTapDelay(XSdPs *InstancePtr)
 	}
 #else
 	if (BaseAddress == XSDPS_ZYNQMP_SD0_BASE) {
-#if EL1_NONSECURE && defined (__aarch64__)
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
 		(void)TapDelay;
 		if (ITapDelay) {
 			XSdps_Smc(InstancePtr, SD_ITAPDLY, SD0_ITAPCHGWIN, SD0_ITAPCHGWIN);
@@ -1258,7 +1258,7 @@ void XSdPs_ConfigTapDelay(XSdPs *InstancePtr)
 	} else {
 		ITapDelay = ITapDelay << 16U;
 		OTapDelay = OTapDelay << 16U;
-#if EL1_NONSECURE && defined (__aarch64__)
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
 		(void)TapDelay;
 		if (ITapDelay) {
 			XSdps_Smc(InstancePtr, SD_ITAPDLY, SD1_ITAPCHGWIN, SD1_ITAPCHGWIN);

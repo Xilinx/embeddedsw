@@ -109,7 +109,7 @@ s32 XSdPs_SendErase(XSdPs *InstancePtr);
 s32 XSdPs_SetEndAddr(XSdPs *InstancePtr, u32 EndAddr);
 s32 XSdPs_SetStartAddr(XSdPs *InstancePtr, u32 StartAddr);
 
-#if EL1_NONSECURE && defined (__aarch64__)
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
 void XSdps_Smc(XSdPs *InstancePtr, u32 RegOffset, u32 Mask, u32 Val);
 #endif
 /** @endcond */

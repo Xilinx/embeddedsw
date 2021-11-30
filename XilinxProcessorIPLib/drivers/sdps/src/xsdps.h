@@ -144,6 +144,7 @@
 *                       removing the DLL reset logic (Dead code for Versal).
 * 3.13  sk     08/10/21 Limit the SD operating frequency to 19MHz for Versal.
 * 3.14  sk     10/22/21 Add support for Erase feature.
+*       sk     11/29/21 Fix compilation warnings reported with "-Wundef" flag.
 *
 * </pre>
 *
