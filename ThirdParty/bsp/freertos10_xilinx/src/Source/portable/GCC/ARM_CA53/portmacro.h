@@ -189,7 +189,11 @@ void FreeRTOS_Tick_Handler( void );
  * pdPASS is returned if the function executes successfully.  Any other value
  * being returned indicates that the function did not execute correctly.
  */
+#ifndef XPAR_XILTIMER_ENABLED
 BaseType_t xPortInstallInterruptHandler( uint8_t ucInterruptID, XInterruptHandler pxHandler, void *pvCallBackRef );
+#else
+BaseType_t xPortInstallInterruptHandler( uint16_t ucInterruptID, XInterruptHandler pxHandler, void *pvCallBackRef );
+#endif
 
 /*
  * Enables the interrupt, within the interrupt controller, for the peripheral
@@ -201,7 +205,11 @@ BaseType_t xPortInstallInterruptHandler( uint8_t ucInterruptID, XInterruptHandle
  * interrupt controller.  Peripheral IDs are defined in the xparameters.h header
  * file, which is itself part of the BSP project.
  */
+#ifndef XPAR_XILTIMER_ENABLED
 void vPortEnableInterrupt( uint8_t ucInterruptID );
+#else
+void vPortEnableInterrupt( uint16_t ucInterruptID );
+#endif
 
 /*
  * Disables the interrupt, within the interrupt controller, for the peripheral
@@ -213,7 +221,11 @@ void vPortEnableInterrupt( uint8_t ucInterruptID );
  * interrupt controller.  Peripheral IDs are defined in the xparameters.h header
  * file, which is itself part of the BSP project.
  */
+#ifndef XPAR_XILTIMER_ENABLED
 void vPortDisableInterrupt( uint8_t ucInterruptID );
+#else
+void vPortDisableInterrupt( uint16_t ucInterruptID );
+#endif
 
 /* Any task that uses the floating point unit MUST call vPortTaskUsesFPU()
 before any floating point instructions are executed. */

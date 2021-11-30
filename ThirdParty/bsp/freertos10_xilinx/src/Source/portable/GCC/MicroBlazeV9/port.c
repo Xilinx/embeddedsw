@@ -74,6 +74,7 @@ volatile uint32_t ulHighFrequencyTimerTicks;
 
 /*-----------------------------------------------------------*/
 
+#ifndef XPAR_XILTIMER_ENABLED
 /*
  * Initialise the interrupt controller instance.
  */
@@ -83,6 +84,7 @@ static int32_t prvInitialiseInterruptController( void );
  * used, and that the initialisation only happens once.
  */
 static int32_t prvEnsureInterruptControllerIsInitialised( void );
+#endif
 
 /*-----------------------------------------------------------*/
 
@@ -108,7 +110,9 @@ volatile uint32_t ulTaskSwitchRequested = 0UL;
 
 /* The instance of the interrupt controller used by this port.  This is required
 by the Xilinx library API functions. */
+#ifndef XPAR_XILTIMER_ENABLED
 static XIntc xInterruptControllerInstance;
+#endif
 
 /*
  * Used to catch tasks that attempt to return from their implementing function.
@@ -336,6 +340,7 @@ static void prvTaskExitError( void )
 }
 /*-----------------------------------------------------------*/
 
+#ifndef XPAR_XILTIMER_ENABLED
 void vPortEnableInterrupt( uint8_t ucInterruptID )
 {
 int32_t lReturn;
@@ -425,18 +430,27 @@ int32_t lReturn;
 
 	return lReturn;
 }
+#endif
 /*-----------------------------------------------------------*/
 
 /*
  * Handler for the timer interrupt.  This is the handler that the application
  * defined callback function vApplicationSetupTimerInterrupt() should install.
  */
+
+#ifndef XPAR_XILTIMER_ENABLED
 void vPortTickISR( void *pvUnused )
+#else
+void vPortTickISR( void *pvUnused, u32 TmrCtrNumber)
+#endif
 {
 extern void vApplicationClearTimerInterrupt( void );
 
 	/* Ensure the unused parameter does not generate a compiler warning. */
 	( void ) pvUnused;
+#ifdef XPAR_XILTIMER_ENABLED
+	( void ) TmrCtrNumber;
+#endif
 
 	/*
 	 * The Xilinx implementation of generating run time task stats uses the same timer used for generating
@@ -469,6 +483,7 @@ extern void vApplicationClearTimerInterrupt( void );
 }
 /*-----------------------------------------------------------*/
 
+#ifndef XPAR_XILTIMER_ENABLED
 static int32_t prvInitialiseInterruptController( void )
 {
 int32_t lStatus;
@@ -510,6 +525,7 @@ int32_t lStatus;
 
 	return lStatus;
 }
+#endif
 
 #if( configGENERATE_RUN_TIME_STATS == 1 )
 /*
