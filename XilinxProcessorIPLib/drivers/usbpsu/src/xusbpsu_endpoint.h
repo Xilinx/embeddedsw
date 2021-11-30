@@ -28,6 +28,7 @@
  * </pre>
  *
  ******************************************************************************/
+/** @cond INTERNAL */
 #ifndef XUSBPSU_ENDPOINT_H	/* Prevent circular inclusions */
 #define XUSBPSU_ENDPOINT_H	/**< by using protection macros */
 
@@ -166,4 +167,5 @@ extern "C" {
 #endif
 
 #endif /* XUSBPSU_ENDPOINT_H */
+/** @endcond */
 /** @} */
