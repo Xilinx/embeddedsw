@@ -25,6 +25,7 @@
  * 1.15   akm  10/21/21 Fix MISRA-C violations.
  * 1.15   akm  11/16/21 Typecast function parameter with appropriate
  * 			data type.
+ * 1.15   akm  11/30/21 Fix compilation warnings reported with -Wundef flag
  *
  * </pre>
  ******************************************************************************/
@@ -741,7 +742,7 @@ s32 XQspipsu_Set_TapDelay(const XQspiPsu *InstancePtr, u32 TapdelayBypass,
 	if (InstancePtr->IsBusy == (u32)TRUE) {
 		Status = (s32)XST_DEVICE_BUSY;
 	} else {
-#if EL1_NONSECURE && defined (__aarch64__) && !defined (versal)
+#if defined (__aarch64__) && (EL1_NONSECURE == 1) && !defined (versal)
 		Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(XPS_SYS_CTRL_BASEADDR +
 				IOU_TAPDLY_BYPASS_OFFSET) | ((u64)(0x4) << 32),
 				(u64)TapdelayBypass, 0, 0, 0, 0, 0);
