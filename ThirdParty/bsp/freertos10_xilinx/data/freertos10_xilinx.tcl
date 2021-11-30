@@ -165,12 +165,17 @@ proc generate {os_handle} {
 	set armcommonsrcdir "../${standalone_version}/src/arm/common"
 	set armsrcdir "../${standalone_version}/src/arm"
 	set clksrcdir "../${standalone_version}/src/common/clocking"
+        set intrsrcdir "../${standalone_version}/src/common/intr"
 
 	foreach entry [glob -nocomplain [file join $commonsrcdir *]] {
 		file copy -force $entry [file join ".." "${standalone_version}" "src"]
 	}
 
 	foreach entry [glob -nocomplain [file join $clksrcdir *]] {
+		file copy -force $entry [file join ".." "${standalone_version}" "src"]
+	}
+
+	foreach entry [glob -nocomplain [file join $intrsrcdir *]] {
 		file copy -force $entry [file join ".." "${standalone_version}" "src"]
 	}
 
@@ -503,6 +508,12 @@ proc generate {os_handle} {
 		puts $file_handle "#endif"
 		puts $file_handle ""
 	}
+        set interrupt_wrap_supported [common::get_property CONFIG.xil_interrupt $os_handle ]
+        if {$interrupt_wrap_supported == true} {
+	   puts $file_handle " "
+	   puts $file_handle "/* Definition for xilinx interrupt wrapper support  */"
+           puts $file_handle "#define XIL_INTERRUPT"
+        }
 	puts $file_handle " "
 	puts $file_handle "/******************************************************************/"
 	close $file_handle

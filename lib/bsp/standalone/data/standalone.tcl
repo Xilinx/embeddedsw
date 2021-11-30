@@ -289,11 +289,15 @@ proc generate {os_handle} {
     set armcommonsrcdir "./src/arm/common"
     set armsrcdir "./src/arm"
     set clksrcdir "./src/common/clocking"
+    set intrsrcdir "./src/common/intr"
 
     foreach entry [glob -nocomplain [file join $commonsrcdir *]] {
         file copy -force $entry "./src"
     }
     foreach entry [glob -nocomplain [file join $clksrcdir *]] {
+        file copy -force $entry "./src"
+    }
+    foreach entry [glob -nocomplain [file join $intrsrcdir *]] {
         file copy -force $entry "./src"
     }
 
@@ -818,6 +822,12 @@ proc generate {os_handle} {
 	 } else {
 		puts $file_handle "#define LOCKSTEP_MODE_DEBUG 0U"
 	 }
+     }
+     set interrupt_wrap_supported [common::get_property CONFIG.xil_interrupt $os_handle ]
+     if {$interrupt_wrap_supported == true} {
+	 puts $file_handle " "
+	 puts $file_handle "/* Definition for xilinx interrupt wrapper support  */"
+         puts $file_handle "#define XIL_INTERRUPT"
      }
 	 puts $file_handle " "
 	 puts $file_handle "/* Definitions for sleep timer configuration */"
