@@ -128,6 +128,7 @@ extern "C" {
 
 /************************** Constant Definitions ****************************/
 
+/** @cond INTERNAL */
 #define NO_OF_TRB_PER_EP		4U	/**< number of TRB*/
 
 #if defined (PLATFORM_ZYNQMP) || defined (versal)
@@ -139,6 +140,7 @@ extern "C" {
 #endif
 
 #define	XUSBPSU_PHY_TIMEOUT		5000U	/**< Phy timeout- microseconds */
+/** @endcond */
 
 #define XUSBPSU_EP_DIR_IN		1U	/**< Direction IN */
 #define XUSBPSU_EP_DIR_OUT		0U	/**< Direction OUT */
@@ -159,6 +161,7 @@ extern "C" {
 #define	XUSBPSU_TEST_PACKET		4U	/**< Test Mode TEST PACKET */
 #define	XUSBPSU_TEST_FORCE_ENABLE	5U	/**< Test Mode FORCE ENABLE */
 
+/** @cond INTERNAL */
 #define XUSBPSU_NUM_TRBS		8U	/**< Number of TRB */
 
 #define XUSBPSU_EVENT_PENDING		(0x00000001U << 0U)
@@ -287,6 +290,7 @@ extern "C" {
  * Link State
  */
 #define XUSBPSU_LINK_STATE_MASK			0x0FU /**< Link State Mask */
+/** @endcond */
 
 /**
  * @param XusbPsuLinkState This typedef defines link state.
@@ -341,6 +345,7 @@ typedef enum {
 #define		XUSBPSU_SPEED_HIGH		3U /**< Device Speed High */
 #define		XUSBPSU_SPEED_SUPER		4U /**< Device Speed Speed */
 
+/** @cond INTERNAL */
 /*
  * return Physical EP number as dwc3 mapping
  */
@@ -348,6 +353,7 @@ typedef enum {
 						/**< Return Physical EP number
 						 *   as dwc3 mapping
 						 */
+/** @endcond */
 
 /**************************** Type Definitions ******************************/
 
@@ -737,6 +743,7 @@ union XUsbPsu_Event {
 extern XUsbPsu_Config XUsbPsu_ConfigTable[]; /**< Configuration table */
 
 /***************** Macros (Inline Functions) Definitions *********************/
+/** @cond INTERNAL */
 #if defined (__ICCARM__)
 #define IS_ALIGNED(x, a)	(((x) & ((u32)(a) - 1U)) == 0U) /**< parameter
 								 * aligned
@@ -770,6 +777,7 @@ extern XUsbPsu_Config XUsbPsu_ConfigTable[]; /**< Configuration table */
 	(Instance).ConfigDescSize = sizeof((desc)) /**< Config descriptor
 						    * declaration
 						    */
+/** @endcond */
 
 /*****************************************************************************/
 /**
