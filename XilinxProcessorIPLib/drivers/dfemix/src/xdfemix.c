@@ -38,6 +38,7 @@
 *       dc     11/26/21 Set NCO configuration in GetCurrentCCCfg
 *       dc     11/26/21 Set sequence length in GetEmptyCCCfg
 *       dc     11/26/21 Add SetAntennaCfgInCCCfg API
+*       dc     11/30/21 Convert AntennaCfg to structure
 *
 * </pre>
 * @addtogroup xdfemix_v1_2
@@ -595,7 +596,7 @@ static void XDfeMix_SetNextCCCfg(const XDfeMix *InstancePtr,
 
 	/* Write Antenna configuration */
 	for (Index = 0; Index < XDFEMIX_ANT_NUM_MAX; Index++) {
-		AntennaCfg += ((NextCCCfg->AntennaCfg[Index] & 0x01U) << Index);
+		AntennaCfg += (NextCCCfg->AntennaCfg.Gain[Index] << Index);
 	}
 	XDfeMix_WriteReg(InstancePtr, XDFEMIX_ANTENNA_GAIN_NEXT, AntennaCfg);
 }
@@ -1539,7 +1540,8 @@ void XDfeMix_GetCurrentCCCfg(const XDfeMix *InstancePtr,
 	/* Read Antenna configuration */
 	AntennaCfg = XDfeMix_ReadReg(InstancePtr, XDFEMIX_ANTENNA_GAIN_CURRENT);
 	for (Index = 0; Index < XDFEMIX_ANT_NUM_MAX; Index++) {
-		CurrCCCfg->AntennaCfg[Index] = (AntennaCfg >> Index) & 0x01U;
+		CurrCCCfg->AntennaCfg.Gain[Index] =
+			(AntennaCfg >> Index) & XDFEMIX_ONE_ANTENNA_GAIN_ZERODB;
 	}
 }
 
@@ -1626,16 +1628,14 @@ void XDfeMix_GetCarrierCfgAndNCO(const XDfeMix *InstancePtr,
 *
 ****************************************************************************/
 void XDfeMix_SetAntennaCfgInCCCfg(const XDfeMix *InstancePtr,
-				  XDfeMix_CCCfg *CCCfg, u32 *AntennaCfg)
+				  XDfeMix_CCCfg *CCCfg,
+				  XDfeMix_AntennaCfg *AntennaCfg)
 {
-	u32 Index;
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(CCCfg != NULL);
 	Xil_AssertVoid(AntennaCfg != NULL);
 
-	for (Index = 0; Index < XDFEMIX_ANT_NUM_MAX; Index++) {
-		CCCfg->AntennaCfg[Index] = AntennaCfg[Index];
-	}
+	CCCfg->AntennaCfg = *AntennaCfg;
 }
 
 /****************************************************************************/
@@ -2080,7 +2080,7 @@ u32 XDfeMix_SetAntennaGain(XDfeMix *InstancePtr, u32 AntennaId, u32 AntennaGain)
 	Xil_AssertNonvoid(AntennaId <= XDFEMIX_ANT_NUM_MAX);
 
 	XDfeMix_GetCurrentCCCfg(InstancePtr, &CCCfg);
-	CCCfg.AntennaCfg[AntennaId] = AntennaGain;
+	CCCfg.AntennaCfg.Gain[AntennaId] = AntennaGain;
 	/* Update next configuration and trigger update */
 	XDfeMix_SetNextCCCfg(InstancePtr, &CCCfg);
 	return XDfeMix_EnableCCUpdateTrigger(InstancePtr);

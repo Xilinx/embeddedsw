@@ -71,6 +71,7 @@
 *       dc     11/05/21 Align event handlers
 *       dc     11/19/21 Update doxygen documentation
 *       dc     11/19/21 Add SetAntennaCfgInCCCfg API
+*       dc     11/30/21 Convert AntennaCfg to structure
 *
 * </pre>
 * @endcond
@@ -353,6 +354,13 @@ typedef struct {
 } XDfeMix_CarrierCfg;
 
 /**
+ * Configuration for a single Antenna.
+ */
+typedef struct {
+	u32 Gain[XDFEMIX_ANT_NUM_MAX]; /**< [0: 0dB,1:-6dB] Antenna gain adjustment */
+} XDfeMix_AntennaCfg;
+
+/**
  * Full CC configuration.
  */
 typedef struct {
@@ -361,8 +369,7 @@ typedef struct {
 		for all CCs */
 	XDfeMix_NCO NCO[XDFEMIX_NCO_MAX + 1]; /**< Defines settings for single
 		CC's NCO */
-	u32 AntennaCfg[XDFEMIX_ANT_NUM_MAX]; /**< [0: 0dB,1:-6dB] Antenna gain
-		adjustment for all antenna */
+	XDfeMix_AntennaCfg AntennaCfg; /**< Antenna configuration */
 } XDfeMix_CCCfg;
 
 /**
@@ -467,7 +474,8 @@ void XDfeMix_GetCarrierCfgAndNCO(const XDfeMix *InstancePtr,
 				 XDfeMix_CarrierCfg *CarrierCfg,
 				 XDfeMix_NCO *NCO);
 void XDfeMix_SetAntennaCfgInCCCfg(const XDfeMix *InstancePtr,
-				  XDfeMix_CCCfg *CCCfg, u32 *AntennaCfg);
+				  XDfeMix_CCCfg *CCCfg,
+				  XDfeMix_AntennaCfg *AntennaCfg);
 u32 XDfeMix_AddCCtoCCCfg(XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg, s32 CCID,
 			 u32 CCSeqBitmap, const XDfeMix_CarrierCfg *CarrierCfg,
 			 const XDfeMix_NCO *NCO);
