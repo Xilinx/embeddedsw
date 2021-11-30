@@ -308,6 +308,20 @@ extern "C" {
 #define XPAR_SCUTIMER_DEVICE_ID		0U
 #define XPAR_SCUWDT_DEVICE_ID		0U
 
+/*
+ * Defines for interrupt wrapper API
+ * For more details about usage please refer xinterrupt_wrap.h
+ * Here Bits[11:0] represents interrupt id
+ * Bits[15:12] represents interrupt trigger type and level flags
+ */
+#define XPAR_PS7_SCUTIMER_0_INTERRUPT_ID 0x10000D
+#define XPAR_PS7_TTC_0_INTERRUPT_ID	0x400A
+#define XPAR_PS7_TTC_1_INTERRUPT_ID	0x400B
+#define XPAR_PS7_TTC_2_INTERRUPT_ID	0x400C
+#define XPAR_PS7_TTC_3_INTERRUPT_ID	0x4025
+#define XPAR_PS7_TTC_4_INTERRUPT_ID	0x4026
+#define XPAR_PS7_TTC_5_INTERRUPT_ID	0x4027
+
 
 #ifdef __cplusplus
 }
