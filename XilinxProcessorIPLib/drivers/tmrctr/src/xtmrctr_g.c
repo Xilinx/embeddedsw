@@ -7,7 +7,7 @@
 /**
 *
 * @file xtmrctr_g.c
-* @addtogroup tmrctr_v4_8
+* @addtogroup tmrctr_v4_9
 * @{
 *
 * This file contains a configuration table that specifies the configuration of

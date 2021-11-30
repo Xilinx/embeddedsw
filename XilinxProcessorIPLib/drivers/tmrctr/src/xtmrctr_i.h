@@ -7,7 +7,7 @@
 /**
 *
 * @file xtmrctr_i.h
-* @addtogroup tmrctr_v4_8
+* @addtogroup tmrctr_v4_9
 * @{
 *
 * This file contains data which is shared between files internal to the
