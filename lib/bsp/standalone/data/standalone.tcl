@@ -77,11 +77,18 @@ set scutimer_baseaddr	0xF8F00600
 set scutimer_intr	29
 set scugic_cpu_base	0xF8F00100
 set scugic_dist_base	0xF8F01000
+set is_xiltimer_enabled 0
 
 # --------------------------------------
 # Tcl procedure standalone_drc
 # -------------------------------------
 proc standalone_drc {os_handle} {
+        global is_xiltimer_enabled
+	if {[lsearch -nocase [hsi::get_libs] "xiltimer"] >= 0} {
+		set is_xiltimer_enabled 1
+	} else {
+		set is_xiltimer_enabled 0
+	}
 }
 
 # -------------------------------------------------------------------------
@@ -269,6 +276,7 @@ proc get_connected_if {drv_handle hpc_pin} {
 proc generate {os_handle} {
     global env
 
+    global is_xiltimer_enabled
     set need_config_file "false"
     # Copy over the right set of files as src based on processor type
     set sw_proc_handle [hsi::get_sw_processor]
@@ -620,6 +628,12 @@ proc generate {os_handle} {
         "default" {puts "unknown processor type $proctype\n"}
     }
 
+    set sleep_file_list "sleep.h sleep.c usleep.c xtime_l.c xtime_l.h microblaze_sleep.c microblaze_sleep.h xil_sleepcommon.c xil_sleeptimer.h xil_sleeptimer.c"
+    if {$is_xiltimer_enabled != 0} {
+        foreach entry $sleep_file_list {
+            file delete -force "./src/$entry"
+        }
+    }
     # Write the Config.make file
     set makeconfig [open "./src/config.make" w]
 #    print_generated_header_tcl $makeconfig "Configuration parameters for Standalone Makefile"
