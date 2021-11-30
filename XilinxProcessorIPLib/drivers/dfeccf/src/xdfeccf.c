@@ -37,6 +37,7 @@
 *       dc     11/26/21 Model parameter NumCCPerAntenna workaround
 *       dc     11/26/21 Set sequence length in GetEmptyCCCfg
 *       dc     11/26/21 Add SetAntennaCfgInCCCfg API
+*       dc     11/30/21 Convert AntennaCfg to structure
 *
 * </pre>
 * @addtogroup dfeccf_v1_2
@@ -493,7 +494,7 @@ static void XDfeCcf_SetNextCCCfg(const XDfeCcf *InstancePtr,
 
 	/* Write Antenna configuration */
 	for (Index = 0; Index < XDFECCF_ANT_NUM_MAX; Index++) {
-		AntennaCfg += ((NextCCCfg->AntennaCfg[Index] & 0x01U) << Index);
+		AntennaCfg += (NextCCCfg->AntennaCfg.Enable[Index] << Index);
 	}
 	XDfeCcf_WriteReg(InstancePtr, XDFECCF_ANTENNA_CONFIGURATION_NEXT,
 			 AntennaCfg);
@@ -1131,7 +1132,8 @@ void XDfeCcf_GetCurrentCCCfg(const XDfeCcf *InstancePtr,
 	AntennaCfg = XDfeCcf_ReadReg(InstancePtr,
 				     XDFECCF_ANTENNA_CONFIGURATION_CURRENT);
 	for (Index = 0; Index < XDFECCF_ANT_NUM_MAX; Index++) {
-		CurrCCCfg->AntennaCfg[Index] = (AntennaCfg >> Index) & 0x01U;
+		CurrCCCfg->AntennaCfg.Enable[Index] =
+			(AntennaCfg >> Index) & XDFECCF_ANTENNA_ENABLE;
 	}
 
 	/* Clear Flush on all CCs */
@@ -1219,16 +1221,14 @@ void XDfeCcf_GetCarrierCfg(const XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg,
 *
 ****************************************************************************/
 void XDfeCcf_SetAntennaCfgInCCCfg(const XDfeCcf *InstancePtr,
-				  XDfeCcf_CCCfg *CCCfg, u32 *AntennaCfg)
+				  XDfeCcf_CCCfg *CCCfg,
+				  XDfeCcf_AntennaCfg *AntennaCfg)
 {
-	u32 Index;
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(CCCfg != NULL);
 	Xil_AssertVoid(AntennaCfg != NULL);
 
-	for (Index = 0; Index < XDFECCF_ANT_NUM_MAX; Index++) {
-		CCCfg->AntennaCfg[Index] = AntennaCfg[Index];
-	}
+	CCCfg->AntennaCfg = *AntennaCfg;
 }
 
 /****************************************************************************/
@@ -1598,9 +1598,9 @@ u32 XDfeCcf_UpdateAntenna(const XDfeCcf *InstancePtr, u32 Ant, bool Enabled)
 
 	/* Update antenna enablement */
 	if (Enabled == true) {
-		CCCfg.AntennaCfg[Ant] = 1U;
+		CCCfg.AntennaCfg.Enable[Ant] = XDFECCF_ANTENNA_ENABLE;
 	} else {
-		CCCfg.AntennaCfg[Ant] = 0U;
+		CCCfg.AntennaCfg.Enable[Ant] = XDFECCF_ANTENNA_DISABLE;
 	}
 
 	/* Update next configuration and trigger update */
