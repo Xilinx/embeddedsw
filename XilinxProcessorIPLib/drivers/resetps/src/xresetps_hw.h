@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xresetps_hw.h
-* @addtogroup xresetps_v1_4
+* @addtogroup xresetps_v1_5
 * @{
 *
 * This file contains the hardware interface to the System Reset controller.

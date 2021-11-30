@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -11,7 +11,7 @@ BEGIN driver resetps
 	OPTION driver_state = ACTIVE;
 	OPTION depends = (clockps);
 	OPTION copyfiles = all;
-	OPTION VERSION = 1.4;
+	OPTION VERSION = 1.5;
 	OPTION NAME = resetps;
 
 END driver

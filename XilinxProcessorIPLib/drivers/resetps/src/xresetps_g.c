@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xresetps_g.c
-* @addtogroup xresetps_v1_4
+* @addtogroup xresetps_v1_5
 * @{
 *
 * This file contains a table that specifies the configuration of the reset
