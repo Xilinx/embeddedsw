@@ -113,6 +113,10 @@ s32 XTtcPs_CfgInitialize(XTtcPs *InstancePtr, XTtcPs_Config *ConfigPtr,
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 	InstancePtr->Config.InputClockHz = ConfigPtr->InputClockHz;
 	InstancePtr->StatusHandler = StubStatusHandler;
+#ifdef XIL_INTERRUPT
+	InstancePtr->Config.IntrId = ConfigPtr->IntrId;
+	InstancePtr->Config.IntrParent = ConfigPtr->IntrParent;
+#endif
 
 	IsStartResult = XTtcPs_IsStarted(InstancePtr);
 	/*

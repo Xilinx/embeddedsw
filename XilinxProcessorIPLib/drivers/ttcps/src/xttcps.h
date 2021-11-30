@@ -203,6 +203,10 @@ typedef struct {
 	u16 DeviceId;	  /**< Unique ID for device */
 	u32 BaseAddress;  /**< Base address for device */
 	u32 InputClockHz; /**< Input clock frequency */
+#ifdef XIL_INTERRUPT
+	u16 IntrId;
+	UINTPTR IntrParent;		/** Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+#endif
 } XTtcPs_Config;
 
 /**
