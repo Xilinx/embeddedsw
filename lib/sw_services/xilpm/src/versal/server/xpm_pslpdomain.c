@@ -622,7 +622,7 @@ done:
 	return Status;
 }
 
-static void CleanupMemClear(void)
+static void CleanupMemClearLpd(void)
 {
 	PmRmw32(PMC_ANALOG_OD_MBIST_RST,
                 (PMC_ANALOG_OD_MBIST_RST_LPD_IOU_MASK |
@@ -718,7 +718,7 @@ static XStatus LpdMbist(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 	/* Unwrite bits after mem clear has finished */
-	CleanupMemClear();
+	CleanupMemClearLpd();
 
 	/* Required for redundancy */
 	XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (XramMbist));
