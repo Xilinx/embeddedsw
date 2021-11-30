@@ -34,7 +34,11 @@
 #include "xil_printf.h"
 #include "xparameters.h"
 #include "xscugic.h"
+#ifndef XPAR_XILTIMER_ENABLED
 #include "xttcps.h"
+#else
+#include "xiltimer.h"
+#endif
 
 /*
  * Some FreeRTOSConfig.h settings require the application writer to provide the
@@ -52,11 +56,16 @@ void vApplicationIdleHook( void ) __attribute__((weak));
 void vApplicationMallocFailedHook( void ) __attribute((weak));
 void vApplicationStackOverflowHook( TaskHandle_t xTask, char *pcTaskName ) __attribute__((weak));
 
+#ifndef XPAR_XILTIMER_ENABLED
 /* Timer used to generate the tick interrupt. */
 static XTtcPs xTimerInstance;
 XScuGic xInterruptController;
+#else
+extern uintptr_t IntrControllerAddr;
+#endif
 /*-----------------------------------------------------------*/
 
+#ifndef XPAR_XILTIMER_ENABLED
 void FreeRTOS_SetupTickInterrupt( void )
 {
 XInterval usInterval;
@@ -119,12 +128,46 @@ XScuGic_Config *pxInterruptControllerConfig;
 	XTtcPs_Start( &xTimerInstance );
 
 }
+#else
+void TimerCounterHandler(void *CallBackRef, u32 TmrCtrNumber)
+{
+	(void) CallBackRef;
+	(void) TmrCtrNumber;
+        FreeRTOS_Tick_Handler();
+}
+
+void FreeRTOS_SetupTickInterrupt( void )
+{
+        /*
+         * The Xilinx implementation of generating run time task stats uses the same timer used for generating
+         * FreeRTOS ticks. In case user decides to generate run time stats the timer time out interval is changed
+         * as "configured tick rate * 10". The multiplying factor of 10 is hard coded for Xilinx FreeRTOS ports.
+         */
+#if (configGENERATE_RUN_TIME_STATS == 1)
+        /* XTimer_SetInterval() API expects delay in milli seconds
+         * Convert the user provided tick rate to milli seconds.
+         */
+        XTimer_SetInterval((configTICK_RATE_HZ * 10)/10);
+#else
+        /* XTimer_SetInterval() API expects delay in milli seconds
+         * Convert the user provided tick rate to milli seconds.
+         */
+        XTimer_SetInterval(configTICK_RATE_HZ/10);
+#endif
+        XTimer_SetHandler(TimerCounterHandler, 0);
+        XTimer_SetTickPriority(portLOWEST_USABLE_INTERRUPT_PRIORITY << portPRIORITY_SHIFT);
+
+}
+#endif
 /*-----------------------------------------------------------*/
 
 void FreeRTOS_ClearTickInterrupt( void )
 {
-
+#ifndef XPAR_XILTIMER_ENABLED
 	XTtcPs_ClearInterruptStatus( &xTimerInstance, XTtcPs_GetInterruptStatus( &xTimerInstance ) );
+#else
+	XTimer_ClearTickInterrupt();
+#endif
 }
 /*-----------------------------------------------------------*/
 

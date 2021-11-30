@@ -34,6 +34,7 @@
 #include "xil_printf.h"
 #include "xparameters.h"
 
+#ifndef XPAR_XILTIMER_ENABLED
 #if defined( XPAR_XTMRCTR_NUM_INSTANCES )
 	#if( XPAR_XTMRCTR_NUM_INSTANCES > 0 )
 		#include "xtmrctr.h"
@@ -47,7 +48,9 @@
         static XTtcPs xTickTimerInstance;
 	#endif
 #endif
-
+#else
+#include "xiltimer.h"
+#endif
 
 /*
  * Some FreeRTOSConfig.h settings require the application writer to provide the
@@ -148,6 +151,7 @@ volatile char *pcOverflowingTaskName = pcTaskName;
 }
 /*-----------------------------------------------------------*/
 
+#ifndef XPAR_XILTIMER_ENABLED
 #if defined( XPAR_XTMRCTR_NUM_INSTANCES )
 	#if( XPAR_XTMRCTR_NUM_INSTANCES > 0 )
 		/* This is a default implementation of what is otherwise an application defined
@@ -284,8 +288,33 @@ volatile char *pcOverflowingTaskName = pcTaskName;
 		}
 	#endif	/* XPAR_XTTCPS_NUM_INSTANCES */
 #endif /* XPAR_XTMRCTR_NUM_INSTANCES */
+#else
+void vApplicationSetupTimerInterrupt( void )
+{
+	extern void vPortTickISR( void *pvUnused , u32 TmrCtrNumber);
+	/*
+	 * The Xilinx implementation of generating run time task stats uses the same timer used for generating
+	 * FreeRTOS ticks. In case user decides to generate run time stats the timer time out interval is changed
+	 * as "configured tick rate * 10". The multiplying factor of 10 is hard coded for Xilinx FreeRTOS ports.
+	 */
+#if (configGENERATE_RUN_TIME_STATS == 1)
+	/* XTimer_SetInterval() API expects delay in milli seconds
+         * Convert the user provided tick rate to milli seconds.
+         */
+	XTimer_SetInterval((configTICK_RATE_HZ * 10)/10);
+#else
+	/* XTimer_SetInterval() API expects delay in milli seconds
+         * Convert the user provided tick rate to milli seconds.
+         */
+	XTimer_SetInterval(configTICK_RATE_HZ/10);
+#endif
+	XTimer_SetHandler(vPortTickISR, 0);
+}
+#endif
+
 /*-----------------------------------------------------------*/
 
+#ifndef XPAR_XILTIMER_ENABLED
 #if defined( XPAR_XTMRCTR_NUM_INSTANCES )
 	#if( XPAR_XTMRCTR_NUM_INSTANCES > 0 )
 		/* This is a default implementation of what is otherwise an application defined
@@ -317,3 +346,9 @@ volatile char *pcOverflowingTaskName = pcTaskName;
 		}
 	#endif
 #endif /* XPAR_XTMRCTR_NUM_INSTANCES */
+#else
+void vApplicationClearTimerInterrupt( void )
+{
+	XTimer_ClearTickInterrupt();
+}
+#endif

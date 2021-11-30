@@ -31,8 +31,12 @@
 #include "task.h"
 
 /* Xilinx includes. */
-#include "xscutimer.h"
 #include "xscugic.h"
+#ifndef XPAR_XILTIMER_ENABLED
+#include "xscutimer.h"
+#else
+#include "xiltimer.h"
+#endif
 
 #define XSCUTIMER_CLOCK_HZ ( XPAR_CPU_CORTEXA9_0_CPU_CLK_FREQ_HZ / 2UL )
 
@@ -53,10 +57,14 @@ void vApplicationMallocFailedHook( void ) __attribute((weak));
 void vApplicationStackOverflowHook( TaskHandle_t xTask, char *pcTaskName ) __attribute__((weak));
 
 /* Timer used to generate the tick interrupt. */
+#ifndef XPAR_XILTIMER_ENABLED
 static XScuTimer xTimer;
+#endif
 XScuGic xInterruptController; 	/* Interrupt controller instance */
+
 /*-----------------------------------------------------------*/
 
+#ifndef XPAR_XILTIMER_ENABLED
 void FreeRTOS_SetupTickInterrupt( void )
 {
 BaseType_t xStatus;
@@ -124,6 +132,41 @@ void FreeRTOS_ClearTickInterrupt( void )
 {
 	XScuTimer_ClearInterruptStatus( &xTimer );
 }
+#else
+void TimerCounterHandler(void *CallBackRef, u32 TmrCtrNumber)
+{
+	(void) CallBackRef;
+	(void) TmrCtrNumber;
+        FreeRTOS_Tick_Handler();
+}
+
+void FreeRTOS_SetupTickInterrupt( void )
+{
+	/*
+	 * The Xilinx implementation of generating run time task stats uses the same timer used for generating
+	 * FreeRTOS ticks. In case user decides to generate run time stats the timer time out interval is changed
+	 * as "configured tick rate * 10". The multiplying factor of 10 is hard coded for Xilinx FreeRTOS ports.
+	 */
+#if (configGENERATE_RUN_TIME_STATS == 1)
+	/* XTimer_SetInterval() API expects delay in milli seconds
+         * Convert the user provided tick rate to milli seconds.
+         */
+	XTimer_SetInterval((configTICK_RATE_HZ * 10)/10);
+#else
+	/* XTimer_SetInterval() API expects delay in milli seconds
+         * Convert the user provided tick rate to milli seconds.
+         */
+	XTimer_SetInterval(configTICK_RATE_HZ/10);
+#endif
+	XTimer_SetHandler(TimerCounterHandler, 0);
+	XTimer_SetTickPriority(portLOWEST_USABLE_INTERRUPT_PRIORITY << portPRIORITY_SHIFT);
+}
+
+void FreeRTOS_ClearTickInterrupt( void )
+{
+	XTimer_ClearTickInterrupt();
+}
+#endif
 /*-----------------------------------------------------------*/
 
 void vApplicationIRQHandler( uint32_t ulICCIAR )
