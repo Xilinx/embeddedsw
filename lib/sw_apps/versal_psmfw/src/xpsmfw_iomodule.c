@@ -218,10 +218,10 @@ XStatus SetUpInterruptSystem(void)
 	u32 IntrNumber;
 
 	/*
-     * Connect a device driver handler that will be called when an interrupt
-     * for the device occurs, the device driver handler performs the specific
-     * interrupt processing for the device
-     */
+	* Connect a device driver handler that will be called when an interrupt
+	* for the device occurs, the device driver handler performs the specific
+	* interrupt processing for the device
+	*/
 	for (IntrNumber = 0; IntrNumber < XPAR_IOMODULE_INTC_MAX_INTR_SIZE;
 	     IntrNumber++) {
 		if (XST_SUCCESS != XIOModule_Connect(&IOModule, (u8)IntrNumber,
@@ -238,32 +238,28 @@ XStatus SetUpInterruptSystem(void)
 	}
 
 	/*
-     * Initialize the exception table.
-     */
+	* Initialize the exception table.
+	*/
 	Xil_ExceptionInit();
 
 	/*
-     * Register the IO module interrupt handler with the exception table.
-     */
-    Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-                 (Xil_ExceptionHandler)XIOModule_DeviceInterruptHandler,
-                 (void*) 0);
+	* Register the IO module interrupt handler with the exception table.
+	*/
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
+				     (Xil_ExceptionHandler)XIOModule_DeviceInterruptHandler,
+				     (void*) NULL);
 
 	/*
-     * Enable exceptions.
-     */
+	* Enable exceptions and interrupt
+	*/
 	Xil_ExceptionEnable();
-
-	microblaze_enable_exceptions();
-
-	microblaze_enable_interrupts();
 
 	/*
 	 * Clear Break in progress to get interrupts
 	 */
 	mtmsr(mfmsr() & (~XPSMFW_MB_MSR_BIP_MASK));
 
-    return XST_SUCCESS;
+	return XST_SUCCESS;
 }
 
 #ifdef PSM_ENABLE_STL
