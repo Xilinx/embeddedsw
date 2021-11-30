@@ -45,6 +45,8 @@
 *       sk   05/07/21 Fixed MISRAC violations.
 * 1.5   sk   08/17/21 Added DCache invalidate after non-blocking DMA read.
 *       sk   08/30/21 Limit RX maximum number of taps to 127.
+* 1.6   sk   11/29/21 Configure OSPI MUX while setting the DMA mode.
+*            11/29/21 Fix compilation warnings reported with "-Wundef" flag.
 *
 * </pre>
 *
