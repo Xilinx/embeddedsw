@@ -1,23 +1,244 @@
 ###############################################################################
-# Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # MODIFICATION HISTORY:
 # Ver      Who    Date     Changes
 # -------- ------ -------- ------------------------------------
 # 1.0	    ssc   04/28/16 First Release.
+# 1.4       mus   11/17/21 Updated to export base and high
+#                          address for psu_ddr instances.
 #
 ###############################################################################
 
 proc generate {drv_handle} {
-    ::hsi::utils::define_zynq_include_file $drv_handle "xparameters.h" "XDdrcPsu" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_HAS_ECC" "C_DDRC_CLK_FREQ_HZ"
+    global paramlist
+    set paramlist ""
+    xdefine_include_file $drv_handle "xparameters.h" "XDdrcPsu" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_HAS_ECC" "C_DDRC_CLK_FREQ_HZ"
 
     get_ddr_config_info $drv_handle "xparameters.h"
 
-    ::hsi::utils::define_zynq_canonical_xpars $drv_handle "xparameters.h" "DdrcPsu" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_DDRC_CLK_FREQ_HZ"
+    xdefine_canonical_xpars $drv_handle "xparameters.h" "DdrcPsu" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_DDRC_CLK_FREQ_HZ"
 
     get_ddr_config_info_canonical $drv_handle "xparameters.h"
 
+}
+
+proc xdefine_include_file {drv_handle file_name drv_string args} {
+    # Get all peripherals connected to this driver
+    set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
+    set ddr_devid 0
+
+    # Handle special cases
+    set arg "NUM_INSTANCES"
+    set posn [lsearch -exact $args $arg]
+    if {$posn > -1} {
+	# Open include file
+	set file_handle [::hsi::utils::open_include_file $file_name]
+	puts $file_handle "/*Definitions for driver [string toupper [common::get_property NAME $drv_handle]] */"
+	# Define NUM_INSTANCES, consider only psu_ddrc instances
+	foreach periph $periphs {
+		set ip_type [common::get_property IP_NAME $periph]
+		# Skip "psu_ddr" instances
+		if {$ip_type != "psu_ddr"} {
+			lappend ddrc_periphs $periph
+		}
+	}
+	puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] [llength $ddrc_periphs]"
+	set args [lreplace $args $posn $posn]
+	close $file_handle
+    }
+    foreach periph $periphs {
+        set device_id 0
+	set ip_type [common::get_property IP_NAME $periph]
+
+	if {$ip_type == "psu_ddrc"} {
+		set file_handle [::hsi::utils::open_include_file $file_name]
+		puts $file_handle ""
+		puts $file_handle "/* Definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
+		foreach arg $args {
+			if {[string compare -nocase "DEVICE_ID" $arg] == 0} {
+				set value $device_id
+				incr device_id
+			} else {
+				set value [::hsi::utils::get_param_value $periph $arg]
+			}
+
+			if {[llength $value] == 0} {
+				set value 0
+			}
+			set value [::hsi::utils::format_addr_string $value $arg]
+			if {[string match C_* $arg]} {
+				set arg_name [string range $arg 2 end]
+			} else {
+				set arg_name $arg
+			}
+			set arg_name [format "XPAR_%s_%s" [string toupper [common::get_property NAME $periph]] $arg_name]
+			regsub "S_AXI_" $arg_name "" arg_name
+			puts $file_handle "#define $arg_name $value"
+		}
+		puts $file_handle "/******************************************************************/"
+		close $file_handle
+	} else {
+		# For psu_ddr instances, just export base
+		# and high address to xparameters.h
+		define_addr_params $periph "xparameters.h" "peripheral" $ddr_devid
+		incr ddr_devid
+	}
+    }
+}
+
+proc define_addr_params {periph file_name type device_id} {
+
+	global paramlist
+   # Open include file
+   set file_handle [::hsi::utils::open_include_file $file_name]
+
+   set sw_proc [hsi::get_sw_processor]
+
+   set ip_name [common::get_property IP_NAME $periph]
+
+   set addr_params [list]
+   set interface_base_names [get_property BASE_NAME [get_mem_ranges \
+	-of_objects [get_cells -hier $sw_proc] $periph]]
+   set interface_high_names [get_property HIGH_NAME [get_mem_ranges \
+	-of_objects [get_cells -hier $sw_proc] $periph]]
+   set i 0
+   foreach interface_base $interface_base_names interface_high $interface_high_names {
+		set base_name [common::get_property BASE_NAME [lindex [get_mem_ranges \
+			-of_objects [get_cells -hier $sw_proc] $periph] $i]]
+		set base_value [common::get_property BASE_VALUE [lindex [get_mem_ranges \
+			-of_objects [get_cells -hier $sw_proc] $periph] $i]]
+		set high_name [common::get_property HIGH_NAME [lindex [get_mem_ranges \
+			-of_objects [get_cells -hier $sw_proc] $periph] $i]]
+		set high_value [common::get_property HIGH_VALUE [lindex [get_mem_ranges \
+			-of_objects [get_cells -hier $sw_proc] $periph] $i]]
+		set bposn [lsearch -exact $addr_params $base_name]
+		set hposn [lsearch -exact $addr_params $high_name]
+		if {$bposn > -1  || $hposn > -1 } {
+			continue
+		}
+
+		if {[string match -nocase $type "peripheral"]} {
+			puts $file_handle ""
+			puts $file_handle "/* Peripheral Definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
+			set lvalue [::hsi::utils::get_ip_param_name $periph $base_name]
+			set paramlist [lappend paramlist $lvalue]
+			puts $file_handle "#define $lvalue $base_value"
+
+			set lvalue [::hsi::utils::get_ip_param_name $periph $high_name]
+			puts $file_handle "#define $lvalue $high_value"
+			puts $file_handle "\n/******************************************************************/\n"
+		} else {
+			set lvalue [format "XPAR_%s%s%s" [common::get_property IP_NAME $periph] "_${device_id}_" [string range $base_name 2 end]]
+			set lvalue [string toupper $lvalue]
+			if {[lsearch -nocase $paramlist $lvalue] == -1} {
+				puts $file_handle ""
+				puts $file_handle "/* Canonical Definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
+				set paramlist [lappend paramlist $lvalue]
+				puts $file_handle "#define $lvalue $base_value"
+
+				set lvalue [format "XPAR_%s%s%s" [common::get_property IP_NAME $periph] "_${device_id}_" [string range $high_name 2 end]]
+				set lvalue [string toupper $lvalue]
+				puts $file_handle "#define $lvalue $high_value"
+				puts $file_handle "\n/******************************************************************/\n"
+			} else {
+				continue
+			}
+
+		}
+		incr i
+		lappend addr_params $base_name
+		lappend addr_params $high_name
+
+	}
+
+   close $file_handle
+}
+
+proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
+    # Open include file
+    set file_handle [::hsi::utils::open_include_file $file_name]
+    set ddr_devid 0
+
+    # Get all the peripherals connected to this driver
+    set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
+
+    # Get the names of all the peripherals connected to this driver
+    foreach periph $periphs {
+        set ip_type [common::get_property IP_NAME $periph]
+	if {$ip_type == "psu_ddr"} {
+		define_addr_params $periph "xparameters.h" "canonical" $ddr_devid
+		incr ddr_devid
+	} else {
+		set peripheral_name [string toupper [common::get_property NAME $periph]]
+		lappend peripherals $peripheral_name
+		lappend ddrc_periphs $periph
+	}
+    }
+
+    # Get possible canonical names for all the peripherals connected to this
+    # driver
+    set device_id 0
+    foreach periph $ddrc_periphs {
+        set canonical_name [string toupper [format "%s_%s" $drv_string $device_id]]
+        lappend canonicals $canonical_name
+
+        # Create a list of IDs of the peripherals whose hardware instance name
+        # doesn't match the canonical name. These IDs can be used later to
+        # generate canonical definitions
+        if { [lsearch $peripherals $canonical_name] < 0 } {
+            lappend indices $device_id
+        }
+        incr device_id
+    }
+
+    set i 0
+    set device_id_l 0
+    foreach periph $ddrc_periphs {
+        # Set device_id to ttc instance number
+        set device_id 0
+        set periph_name [string toupper [common::get_property NAME $periph]]
+
+        # Generate canonical definitions only for the peripherals whose
+        # canonical name is not the same as hardware instance name
+        if { [lsearch $canonicals $periph_name] < 0 } {
+            puts $file_handle "/* Canonical definitions for peripheral $periph_name */"
+            set canonical_name [format "%s_%s" $drv_string [lindex $indices $i]]
+
+            foreach arg $args {
+		if {[string match C_* $arg]} {
+                        set arg_name [string range $arg 2 end]
+                } else {
+                        set arg_name $arg
+                }
+                set lvalue [format "XPAR_%s_%d_%s" [string toupper $drv_string] $device_id_l $arg_name]
+                regsub "S_AXI_" $lvalue "" lvalue
+
+                # The commented out rvalue is the name of the instance-specific constant
+                # set rvalue [::hsi::utils::get_ip_param_name $periph $arg]
+                # The rvalue set below is the actual value of the parameter
+                if {[string compare -nocase "DEVICE_ID" $arg] == 0} {
+			set rvalue [format "XPAR_%s_%s" [string toupper [common::get_property NAME $periph]] $arg]
+                } else {
+			set rvalue [::hsi::utils::get_param_value $periph $arg]
+                        if {[llength $rvalue] == 0} {
+                            set rvalue 0
+                        }
+                        set rvalue [::hsi::utils::format_addr_string $rvalue $arg]
+                }
+                puts $file_handle "#define $lvalue $rvalue"
+            }
+            puts $file_handle ""
+            incr i
+
+        }
+        incr device_id
+	incr device_id_l
+    }
+
+    puts $file_handle "\n/******************************************************************/\n"
+    close $file_handle
 }
 
 proc get_ddr_config_info {drv_handle file_name} {

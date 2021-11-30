@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2016 - 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -7,9 +7,9 @@
 OPTION psf_version = 2.1;
 
 BEGIN driver ddrcps
-        OPTION supported_peripherals = (psu_ddrc);
+        OPTION supported_peripherals = (psu_ddrc psu_ddr);
         OPTION driver_state = ACTIVE;
         OPTION copyfiles = all;
-        OPTION VERSION = 1.3;
+        OPTION VERSION = 1.4;
         OPTION NAME = ddrcpsu;
 END driver
