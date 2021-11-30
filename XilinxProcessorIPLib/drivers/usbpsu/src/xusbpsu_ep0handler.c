@@ -7,7 +7,7 @@
 /**
 *
 * @file xusbpsu_ep0handler.c
-* @addtogroup usbpsu_v1_10
+* @addtogroup Overview
 * @{
 *
 * <pre>
