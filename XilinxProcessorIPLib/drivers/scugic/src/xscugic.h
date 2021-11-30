@@ -574,6 +574,7 @@ u32 XScuGic_GetCpuID(void);
  * Initialization functions in xscugic_sinit.c
  */
 XScuGic_Config *XScuGic_LookupConfig(u16 DeviceId);
+XScuGic_Config *XScuGic_LookupConfigBaseAddr(UINTPTR BaseAddress);
 
 /*
  * Interrupt functions in xscugic_intr.c
