@@ -28,6 +28,7 @@
 * 1.1   dc     07/13/21 Update to common latency requirements
 * 1.2   dc     10/29/21 Update doxygen comments
 *       dc     11/05/21 Align event handlers
+*       dc     11/30/21 Convert AntennaCfg to structure
 *
 * </pre>
 *
@@ -171,6 +172,8 @@ extern "C" {
 #define XDFECCF_GAIN_OFFSET 16U
 #define XDFECCF_ANTENNA_CONFIGURATION_CURRENT 0x1300U /**< Register offset */
 #define XDFECCF_ANTENNA_CONFIGURATION_NEXT 0x1304U /**< Register offset */
+#define XDFECCF_ANTENNA_DISABLE 0U
+#define XDFECCF_ANTENNA_ENABLE 1U
 
 /* Filter */
 #define XDFECCF_COEFF_LOAD 0x3000U /**< Register offset */

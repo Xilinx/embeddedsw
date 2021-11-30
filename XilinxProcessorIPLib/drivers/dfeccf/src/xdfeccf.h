@@ -75,6 +75,7 @@
 *       dc     11/19/21 Update doxygen documentation
 *       dc     11/26/21 Model parameter NumCCPerAntenna workaround
 *       dc     11/26/21 Add SetAntennaCfgInCCCfg API
+*       dc     11/30/21 Convert AntennaCfg to structure
 *
 * </pre>
 * @endcond
@@ -314,14 +315,20 @@ typedef struct {
 } XDfeCcf_InternalCarrierCfg;
 
 /**
+ * Configuration for a single Antenna.
+ */
+typedef struct {
+	u32 Enable[XDFECCF_ANT_NUM_MAX]; /**< [0: disable, 1: enable] Antenna enablement */
+} XDfeCcf_AntennaCfg;
+
+/**
  * Full CC configuration.
  */
 typedef struct {
 	XDfeCcf_CCSequence Sequence; /**< CCID sequence */
 	XDfeCcf_InternalCarrierCfg
 		CarrierCfg[XDFECCF_CC_NUM]; /**< CC configurations */
-	u32 AntennaCfg[XDFECCF_ANT_NUM_MAX]; /**< [0,1] Antenna TDM slot
-					      enablement */
+	XDfeCcf_AntennaCfg AntennaCfg; /**< Antenna configuration */
 } XDfeCcf_CCCfg;
 
 /**
@@ -408,7 +415,8 @@ void XDfeCcf_GetCarrierCfg(const XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg,
 			   s32 CCID, u32 *CCSeqBitmap,
 			   XDfeCcf_CarrierCfg *CarrierCfg);
 void XDfeCcf_SetAntennaCfgInCCCfg(const XDfeCcf *InstancePtr,
-				  XDfeCcf_CCCfg *CCCfg, u32 *AntennaCfg);
+				  XDfeCcf_CCCfg *CCCfg,
+				  XDfeCcf_AntennaCfg *AntennaCfg);
 u32 XDfeCcf_AddCCtoCCCfg(XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg, s32 CCID,
 			 u32 CCSeqBitmap, const XDfeCcf_CarrierCfg *CarrierCfg);
 void XDfeCcf_RemoveCCfromCCCfg(XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg,
