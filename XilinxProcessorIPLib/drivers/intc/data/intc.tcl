@@ -200,6 +200,10 @@ proc generate {drv_handle} {
 
 	# Generate canonical xparameters
 	xdefine_canonical_xpars $drv_handle "xparameters.h" "Intc" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_KIND_OF_INTR" "C_HAS_FAST" "C_IVAR_RESET_VALUE" "C_NUM_INTR_INPUTS" "C_NUM_SW_INTR" "C_ADDR_WIDTH"
+        set intr_wrap [common::get_property CONFIG.xil_interrupt [hsi::get_os]]
+        if { [string match -nocase $intr_wrap "true"] > 0} {
+	    generate_ipdefine $drv_handle "xparameters.h"
+	}
 }
 
 
@@ -935,4 +939,10 @@ proc xdefine_getSuffix {arg_name value} {
 			set uSuffix "U"
 		}
 		return $uSuffix
+}
+
+proc generate_ipdefine {drv_handle file_name} {
+    set file_handle [::hsi::utils::open_include_file $file_name]
+    puts $file_handle "\#define XPAR_AXI_INTC"
+    close $file_handle
 }
