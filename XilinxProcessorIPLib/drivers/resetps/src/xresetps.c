@@ -22,6 +22,7 @@
 * 1.2   cjp    04/27/18 Updated for clockps interdependency
 * 1.2   Nava   05/21/18 Fixed compilation warnings on R5.
 * 1.2   sd     07/20/18 Fixed Doxygen Reported warnings.
+* 1.5   sk     11/30/21 Fix compilation warnings reported with "-Wundef" flag.
 * </pre>
 *
 ******************************************************************************/
@@ -46,7 +47,7 @@ typedef struct {
 } XResetPs_Lookup;
 
 /************************** Variable Definitions *****************************/
-#if !EL1_NONSECURE
+#if !(defined (__aarch64__) && (EL1_NONSECURE == 1))
 static const XResetPs_Lookup ResetMap[] = {
 	/*
 	 *	{Control Register, Control Bitmask,
@@ -435,7 +436,7 @@ XStatus XResetPs_CfgInitialize(XResetPs *InstancePtr,
 	return XST_SUCCESS;
 }
 
-#if !EL1_NONSECURE
+#if !(defined (__aarch64__) && (EL1_NONSECURE == 1))
 /****************************************************************************/
 /**
 *
@@ -737,7 +738,7 @@ XStatus XResetPs_ResetAssert(XResetPs *InstancePtr,
 		return XST_INVALID_PARAM;
 	}
 
-#if EL1_NONSECURE
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
 	/* Assert reset via PMUFW */
 	u64 SmcArgs;
 	XSmc_OutVar out;
@@ -796,7 +797,7 @@ XStatus XResetPs_ResetDeassert(XResetPs *InstancePtr,
 		return XST_INVALID_PARAM;
 	}
 
-#if EL1_NONSECURE
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
 	/* Deassert reset via PMUFW */
 	u64 SmcArgs;
 	XSmc_OutVar out;
@@ -854,7 +855,7 @@ XStatus XResetPs_ResetPulse(XResetPs *InstancePtr, const XResetPs_RstId ResetID)
 		return XST_INVALID_PARAM;
 	}
 
-#if EL1_NONSECURE
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
 	/* Pulse reset via PMUFW */
 	u64 SmcArgs;
 	XSmc_OutVar out;
@@ -960,7 +961,7 @@ XStatus XResetPs_ResetStatus(XResetPs *InstancePtr,
 		return XST_INVALID_PARAM;
 	}
 
-#if EL1_NONSECURE
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
 	/* Get reset status via PMUFW */
 	XSmc_OutVar out;
 
