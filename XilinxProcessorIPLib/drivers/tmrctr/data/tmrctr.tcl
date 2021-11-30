@@ -17,8 +17,24 @@
 
 proc generate {drv_handle} {
     xdefine_include_file $drv_handle "xparameters.h" "XTmrCtr" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "CLOCK_FREQ_HZ"
-    ::hsi::utils::define_config_file $drv_handle "xtmrctr_g.c" "XTmrCtr"  "DEVICE_ID" "C_BASEADDR" "CLOCK_FREQ_HZ"
+    set intr_wrap [common::get_property CONFIG.xil_interrupt [hsi::get_os]]
+    if { [string match -nocase $intr_wrap "true"] > 0} {
+        ::hsi::utils::define_config_file $drv_handle "xtmrctr_g.c" "XTmrCtr"  "DEVICE_ID" "C_BASEADDR" "CLOCK_FREQ_HZ" "C_INTERRUPT" "C_INTR_PARENT"
+    } else {
+        ::hsi::utils::define_config_file $drv_handle "xtmrctr_g.c" "XTmrCtr"  "DEVICE_ID" "C_BASEADDR" "CLOCK_FREQ_HZ"
+    }
     xdefine_canonical_xpars $drv_handle "xparameters.h" "TmrCtr" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "CLOCK_FREQ_HZ"
+
+    if { [string match -nocase $intr_wrap "true"] > 0} {
+        foreach i [get_sw_cores standalone*] {
+            set intr_wrapper_tcl_file "[get_property "REPOSITORY" $i]/data/intr_wrapper.tcl"
+            if {[file exists $intr_wrapper_tcl_file]} {
+                source $intr_wrapper_tcl_file
+                break
+            }
+        }
+	gen_intr $drv_handle "xparameters.h"
+    }
 }
 
 #
