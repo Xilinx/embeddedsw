@@ -145,6 +145,44 @@ static void XPsmfw_InterruptGicP2Handler(void)
 	}
 }
 
+/*****************************************************************************/
+/**
+ * @brief This is a function handler for all exceptions. It writes PSM
+ * global register for an error.
+ *
+ * @param	Data Pointer
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+static void XPsmfw_ExceptionHandler(void *Data)
+{
+	/* Writing PSM Non-Correctable bit to ERR1_TRIG reg */
+	XPsmFw_Write32(PSM_GLOBAL_REG_ERR1_TRIG, PSM_GLOBAL_REG_ERR1_TRIG_PSM_B_NCR_MASK);
+
+	/* Just in case if control reaches here */
+	while (TRUE) {
+		;
+	}
+}
+
+/*****************************************************************************/
+/**
+ * @brief This function enables the exceptions.
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+static void XPsmfw_ExceptionInit(void)
+{
+	u16 Index;
+
+	/* Register exception handlers */
+	for (Index = XIL_EXCEPTION_ID_FIRST; Index <= XIL_EXCEPTION_ID_LAST; Index++) {
+		Xil_ExceptionRegisterHandler(Index, XPsmfw_ExceptionHandler, (void *)NULL);
+	}
+}
+
 /* Structure for Top level interrupt table */
 static struct HandlerTable g_TopLevelInterruptTable[] = {
 	{PSM_IOMODULE_IRQ_PENDING_IPI_MASK, XPsmFw_InterruptIpiHandler},
@@ -240,7 +278,7 @@ XStatus SetUpInterruptSystem(void)
 	/*
 	* Initialize the exception table.
 	*/
-	Xil_ExceptionInit();
+	XPsmfw_ExceptionInit();
 
 	/*
 	* Register the IO module interrupt handler with the exception table.
