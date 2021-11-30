@@ -34,6 +34,11 @@
 *                     that is mapped to DDR could start from
 *                     1 GB (0x4000_0000). Updated Init_MPU function to fix
 *                     said use case. It fixes CR#1113181.
+* 7.7   mus  11/26/21 Updated Init_MPU to remove xil_printf, and set up the
+*                     variables required for printing warning. New function
+*                     Print_DDRSize_Warning has been introduced to print warnings.
+*                     It will be called from boot code after MPU enablement to
+*                     ensure the correct behavior. It fixes CR#1116431.
 * </pre>
 *
 * @note
@@ -92,18 +97,30 @@ static const struct {
 	{ 0x100000000, REGION_4G },
 };
 
+#if defined (__GNUC__)
+static u32 DDRSizeWarning  __attribute__((section(".bootdata")));
+static u32 DDRSizeIndex __attribute__((section(".bootdata")));
+#elif defined (__ICCARM__)
+#pragma default_function_attributes = @ ".bootdata"
+static u32 DDRSizeWarning;
+static u32 DDRSizeIndex;
+#endif
+
 /************************** Function Prototypes ******************************/
 #if defined (__GNUC__)
 void Init_MPU(void) __attribute__((__section__(".boot")));
+void Print_DDRSize_Warning(void) __attribute__((__section__(".boot")));
 static void Xil_SetAttribute(u32 addr, u32 reg_size,s32 reg_num, u32 attrib) __attribute__((__section__(".boot")));
 static void Xil_DisableMPURegions(void) __attribute__((__section__(".boot")));
 static inline void Update_MpuConfig_Array(u32 Addr,u32 RegSize,u32 RegNum, u32 Attrib) __attribute__((__section__(".boot")));
 #elif defined (__ICCARM__)
 #pragma default_function_attributes = @ ".boot"
 void Init_MPU(void);
+void Print_DDRSize_Warning(void);
 static void Xil_SetAttribute(u32 addr, u32 reg_size,s32 reg_num, u32 attrib);
 static void Xil_DisableMPURegions(void);
 #endif
+
 /*****************************************************************************
 *
 * Initialize MPU for a given address map and Enabled the background Region in
@@ -142,7 +159,7 @@ void Init_MPU(void)
 	u32 Attrib;
 	u32 RegNum = 0, i, Offset = 0;
 	u64 size;
-	u8 CreateTCMRegion = 0;
+	u32 CreateTCMRegion = 0;
 
 	Xil_DisableMPURegions();
 
@@ -169,11 +186,16 @@ void Init_MPU(void)
 				}
 
 				if (region_size[i].size > (size + Offset + 1)) {
-					xil_printf ("WARNING: DDR size mapped to Cortexr5 processor is not \
-								in power of 2. As processor allocates MPU regions size \
-								in power of 2, address range %llx to %x has been \
-								incorrectly mapped as normal memory \n", \
-								region_size[i].size - 1, ((u32)XPAR_PSU_R5_DDR_0_S_AXI_HIGHADDR + 1));
+				/*
+				 * Set variables needed to print warning on console.
+				 * xil_printf would be called to print the warning after
+				 * MPU enablement from boot code. As application could
+				 * be running from OCM, printing after MPU enablement
+				 * ensures correct behavior
+				 *
+				 */
+					DDRSizeWarning = 1;
+					DDRSizeIndex = i;
 				}
 				break;
 			}
@@ -289,9 +311,30 @@ void Init_MPU(void)
 	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
 
 	/* A total of 10 MPU regions are allocated with another 6 being free for users */
-
 }
 
+/*****************************************************************************
+*
+* Print warning on console if DDR size mapped to given CortexR5 core is not in
+* power of 2.
+*
+* @param        None.
+*
+* @return       None.
+*
+*
+******************************************************************************/
+void Print_DDRSize_Warning(void) {
+#ifdef XPAR_PSU_R5_DDR_0_S_AXI_BASEADDR
+	if (1 == DDRSizeWarning)
+		xil_printf("WARNING: DDR size mapped to Cortexr5 processor is not \
+		in power of 2. As processor allocates MPU regions size \
+            in power of 2, address range %llx to %x has been \
+            incorrectly mapped as normal memory \n", \
+            region_size[DDRSizeIndex].size - 1, ((u32)XPAR_PSU_R5_DDR_0_S_AXI_HIGHADDR + 1));
+#endif
+
+}
 /*****************************************************************************
 *
 * Set the memory attributes for a section of memory with starting address addr

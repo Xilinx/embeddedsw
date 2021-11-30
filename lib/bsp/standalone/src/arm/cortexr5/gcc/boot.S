@@ -60,6 +60,9 @@
 *		      to avoid intervention for lock-step mode. So, removed
 *		      code which resets dbg_lpd_reset, to unblock debugger
 *		      access to LPD. Fix for CR#1027983.
+* 7.7  mus  11/26/21  Added call to Print_DDRSize_Warning after MPU enablement
+*                     to print warning related to DDR size if it is not in
+*                     power of 2. It fixes CR#1116431.
 * </pre>
 *
 ******************************************************************************/
@@ -298,6 +301,9 @@ init:
 	dsb
 	mcr	p15,0,r1,c1,c0,0		/* Enable cache  */
 	isb					/* isb	flush prefetch buffer */
+#ifndef versal
+	bl Print_DDRSize_Warning
+#endif
 
 /* Warning message to be removed after 2016.1 */
 /* USEAMP was introduced in 2015.4 with ZynqMP and caused confusion with USE_AMP */
