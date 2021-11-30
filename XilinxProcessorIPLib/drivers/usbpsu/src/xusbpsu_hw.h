@@ -28,6 +28,7 @@
 *
 *****************************************************************************/
 
+/** @cond INTERNAL */
 #ifndef XUSBPSU_HW_H	/* Prevent circular inclusions */
 #define XUSBPSU_HW_H	/**< by using protection macros  */
 
@@ -239,6 +240,7 @@ extern "C" {
 #define XUSBPSU_DCTL_ULSTCHNG_RECOVERY          (XUSBPSU_DCTL_ULSTCHNGREQ(8U)) /**< RECOVERY */
 #define XUSBPSU_DCTL_ULSTCHNG_COMPLIANCE        (XUSBPSU_DCTL_ULSTCHNGREQ(10U)) /**< COMPLIANCE */
 #define XUSBPSU_DCTL_ULSTCHNG_LOOPBACK          (XUSBPSU_DCTL_ULSTCHNGREQ(11U)) /**< LOOPBACK */
+/** @endcond */
 
 /* Device Event Enable Register */
 #define XUSBPSU_DEVTEN_VNDRDEVTSTRCVEDEN        ((u32)0x00000001U << 12U) /**< Vendor Device Test LMP Received Event */
@@ -254,6 +256,7 @@ extern "C" {
 #define XUSBPSU_DEVTEN_USBRSTEN                 ((u32)0x00000001U << 1U) /**< USB Reset Enable */
 #define XUSBPSU_DEVTEN_DISCONNEVTEN             ((u32)0x00000001U << 0U) /**< Disconnect Detected Event Enable */
 
+/** @cond INTERNAL */
 /* Device Status Register */
 #define XUSBPSU_DSTS_DCNRD                      0x40000000U /**< Device Controller Not Ready */
 
@@ -493,4 +496,5 @@ extern "C" {
 #endif
 
 #endif  /* End of protection macro. */
+/** @endcond */
 /** @} */
