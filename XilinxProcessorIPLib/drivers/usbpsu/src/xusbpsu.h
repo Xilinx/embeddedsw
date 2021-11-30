@@ -11,6 +11,46 @@
 * @{
 * @details
 *
+* This driver supports both USB high-speed and super-speed features for USB
+* peripheral mode.
+*
+* <b>Initialization & Configuration</b>
+*
+* The XUsbPsu_Config structure is used by the driver to configure itself.
+* Fields inside this structure are properties of XUsbPsu based on its hardware
+* build.
+*
+* To support multiple runtime loading and initialization strategies employed
+* by various operating systems, the driver instance can be initialized in the
+* following way:
+*
+*   - XUsbPsu_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddr) - Uses a
+*	 configuration structure provided by the caller. If running in a system
+*	 with address translation, the parameter EffectiveAddr should be the
+* 	 virtual address.
+*
+* <b>Endpoint Support</b>
+*
+* This driver supports control, bulk, interrupt and ISO endpoint and its
+* applications like mass-storage, HID, audio and composite, etc. Based on
+* user application configuration set by the application.
+*
+* <b>Interrupts</b>
+*
+* The driver defaults to no interrupts at initialization such that interrupts
+* must be enabled if desired. An interrupt is generated for one of the
+* following conditions.
+*
+* - Disconnect Detected Event Enable
+* - USB Reset Enable
+* - Connection Done Enable
+* - Link State Change Event Enable
+* - Wakeup Event Enable
+*
+* The SetupInterruptSystem function setups the interrupt system such that
+* interrupts can occur. This function is application specific since the actual
+* system may or may not have an interrupt controller.
+*
 * <pre>
 *
 * MODIFICATION HISTORY:
