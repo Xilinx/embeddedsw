@@ -120,7 +120,7 @@ u32 XOspiPsv_SetOptions(XOspiPsv *InstancePtr, u32 Options)
 							XOSPIPSV_REMAP_ADDR_REG, XOSPIPSV_REMAP_ADDR_VAL);
 					InstancePtr->OpMode = XOSPIPSV_DAC_MODE;
 					/* IOU_SLCR MUX selection */
-					#if EL1_NONSECURE
+					#if defined (__aarch64__) && (EL1_NONSECURE == 1)
 					/*
 					 * Execution is happening in non secure world, configure MUX
 					 * settings through SMC calls
@@ -145,7 +145,7 @@ u32 XOspiPsv_SetOptions(XOspiPsv *InstancePtr, u32 Options)
 					if((OptionsTable[Index].Mask &
 						XOSPIPSV_CONFIG_REG_ENB_DMA_IF_FLD_MASK) != 0U) {
 						InstancePtr->OpMode = XOSPIPSV_IDAC_MODE;
-						#if EL1_NONSECURE
+						#if defined (__aarch64__) && (EL1_NONSECURE == 1)
 						/* Request for OSPI node */
 						Xil_Smc(PM_REQUEST_DEVICE_SMC_FID,OSPI_NODE_ID,0, 0, 0, 0, 0, 0);
 						/* Change MUX settings to select DMA mode */
@@ -165,7 +165,7 @@ u32 XOspiPsv_SetOptions(XOspiPsv *InstancePtr, u32 Options)
 			} else {
 				if (OptionsTable[Index].Option == XOSPIPSV_DAC_EN_OPTION) {
 					if ((ConfigReg & XOSPIPSV_CONFIG_REG_ENB_DIR_ACC_CTLR_FLD_MASK) != 0U) {
-						#if EL1_NONSECURE
+						#if defined (__aarch64__) && (EL1_NONSECURE == 1)
 						/*
 						 * Execution is happening in non secure world, configure MUX
 						 * settings through SMC calls

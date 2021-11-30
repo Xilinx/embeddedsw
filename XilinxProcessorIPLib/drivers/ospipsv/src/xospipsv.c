@@ -213,7 +213,7 @@ u32 XOspiPsv_DeviceReset(u8 Type)
 	u32 Status;
 
 	if (Type == XOSPIPSV_HWPIN_RESET) {
-#if EL1_NONSECURE
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
 		Xil_Smc(PIN_REQUEST_SMC_FID, PMC_GPIO_NODE_12_ID, 0, 0, 0, 0, 0, 0);
 		Xil_Smc(PIN_SET_CONFIG_SMC_FID, (((u64)PIN_CONFIG_SCHMITT_CMOS << 32) |
 				PMC_GPIO_NODE_12_ID) , 0x1, 0, 0, 0, 0, 0);
@@ -230,7 +230,7 @@ u32 XOspiPsv_DeviceReset(u8 Type)
 		XOspiPsv_WriteReg(XPMC_GPIO_DATA, 0,
 			((u32)XPMC_MIO12_DATA_MASK_LSW << XPMC_MIO12_DATA_MASK_LSW_SHIFT) |
 			(u32)XPMC_MIO12_MASK);
-#if EL1_NONSECURE
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
 		Xil_Smc(PIN_REQUEST_SMC_FID, PMC_GPIO_NODE_12_ID, 0, 0, 0, 0, 0, 0);
 		Xil_Smc(PIN_SET_CONFIG_SMC_FID, (((u64)PIN_CONFIG_TRI_STATE << 32) |
 				PMC_GPIO_NODE_12_ID) , 0, 0, 0, 0, 0, 0);
