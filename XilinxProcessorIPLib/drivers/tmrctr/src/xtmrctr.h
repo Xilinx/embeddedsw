@@ -216,6 +216,10 @@ typedef struct {
 	u16 DeviceId;		/**< Unique ID  of device */
 	UINTPTR BaseAddress;	/**< Register base address */
 	u32 SysClockFreqHz;	/**< The AXI bus clock frequency */
+#ifdef XIL_INTERRUPT
+	u16 IntrId;
+	UINTPTR IntrParent;		/** Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+#endif
 } XTmrCtr_Config;
 
 /**
