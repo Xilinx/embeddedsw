@@ -88,20 +88,20 @@ namespace xaiefal {
 				if (preferredId == XAIE_RSC_ID_ANY) {
 					XAie_UserRscReq Req = {Loc, Mod, 1};
 					RC = XAie_RequestPCEvents(AieHd->dev(), 1, &Req, 1, &Rsc);
+					Rsc.RscId -= static_cast<uint32_t>(XAIE_EVENT_PC_0_CORE);
 				} else {
 					Rsc.RscType = XAIE_PC_EVENTS_RSC;
 					Rsc.Loc.Col = Loc.Col;
 					Rsc.Loc.Row = Loc.Row;
 					Rsc.Mod = static_cast<uint32_t>(Mod);
 					Rsc.RscId = preferredId;
+					Rsc.RscId += static_cast<uint32_t>(XAIE_EVENT_PC_0_CORE);
 					RC = XAie_RequestAllocatedPCEvents(AieHd->dev(), 1, &Rsc);
-				 }
+				}
 				if (RC != XAIE_OK) {
 					Logger::log(LogLevel::WARN) << "PC event " << __func__ << " (" <<
 						static_cast<uint32_t>(Loc.Col) << "," << static_cast<uint32_t>(Loc.Row) << ")" <<
 						" no available resource.\n";
-				} else {
-					Rsc.RscId -= static_cast<uint32_t>(XAIE_EVENT_PC_0_CORE);
 				}
 			}
 			return RC;
