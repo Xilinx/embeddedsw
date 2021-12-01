@@ -47,15 +47,9 @@ namespace xaiefal {
 		AieRC setEvents(const std::vector<XAie_Events> &vE,
 				const std::vector<XAie_EventComboOps> &vOp) {
 			AieRC RC;
-
-			if (State.Initialized == 0) {
-				Logger::log(LogLevel::ERROR) << "combo event " << __func__ << " (" <<
-					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row <<
-					" Mod=" << Mod <<  " not initialized with Mod and num of events." << std::endl;
-				RC = XAIE_ERR;
-			} else if ((vE.size() != vEvents.size()) || (vOp.size() > 3) ||
-			    (vE.size() <= 2 && vOp.size() > 1) ||
-			    (vE.size() > 2 && vOp.size() < 2)) {
+			if ((vE.size() != vEvents.size()) || (vOp.size() > 3) ||
+				(vE.size() <= 2 && vOp.size() > 1) ||
+				(vE.size() > 2 && vOp.size() < 2)) {
 				Logger::log(LogLevel::ERROR) << "combo event " << __func__ << " (" <<
 					(uint32_t)Loc.Col << "," << (uint32_t)Loc.Row <<
 					" Mod=" << Mod <<  " invalid number of input events and ops." << std::endl;
