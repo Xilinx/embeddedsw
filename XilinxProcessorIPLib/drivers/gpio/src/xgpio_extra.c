@@ -6,10 +6,11 @@
 /*****************************************************************************/
 /**
 * @file xgpio_extra.c
-* @addtogroup gpio_v4_8
+* @addtogroup Overview
 * @{
 *
-* The implementation of the XGpio driver's advanced discrete functions.
+* The xgpio_extra.c file contains implementation of the XGpio driver's advanced
+* discrete functions.
 * See xgpio.h for more information about the driver.
 *
 * @note

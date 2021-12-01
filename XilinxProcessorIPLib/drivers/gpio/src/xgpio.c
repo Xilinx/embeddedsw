@@ -6,15 +6,13 @@
 /*****************************************************************************/
 /**
 * @file xgpio.c
-* @addtogroup gpio_v4_8
+* @addtogroup Overview
 * @{
 *
-* The implementation of the XGpio driver's basic functionality. See xgpio.h
-* for more information about the driver.
+* This section explains the implementation of the XGpio driver's basic
+* functionality.
+* See xgpio.h for more information about the driver.
 *
-* @note
-*
-* None
 *
 * <pre>
 * MODIFICATION HISTORY:
