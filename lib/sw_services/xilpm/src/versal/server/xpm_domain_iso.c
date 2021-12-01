@@ -355,13 +355,6 @@ static inline void XramIsoUnmask(u32 IsoIdx)
 	XPm_RMW32(BaseAddr, Mask, Mask);
 }
 
-static inline void XramIsoMask(u32 IsoIdx)
-{
-	u32 BaseAddr = XRAM_SLCR_BASEADDR + XRAM_SLCR_PCSR_MASK_OFFSET;
-	u32 Mask = XPmDomainIso_List[IsoIdx].Mask;
-	XPm_RMW32(BaseAddr, Mask, ~Mask);
-}
-
 static void EnablePlXramIso(void)
 {
 	u32 i;
@@ -380,7 +373,6 @@ static void EnablePlXramIso(void)
 		XramIsoUnmask((u32)XPM_NODEIDX_ISO_XRAM_PL_FABRIC);
 		XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, 0);
 		XPmDomainIso_List[IsoIdx].Node.State = (u8)PM_ISOLATION_ON;
-		XramIsoMask((u32)XPM_NODEIDX_ISO_XRAM_PL_FABRIC);
 	}
 
 done:
@@ -396,7 +388,6 @@ static void DisablePlXramIso(void)
 		XramIsoUnmask((u32)XPM_NODEIDX_ISO_XRAM_PL_FABRIC);
 		XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, Mask);
 		XPmDomainIso_List[IsoIdx].Node.State = (u8)PM_ISOLATION_OFF;
-		XramIsoMask((u32)XPM_NODEIDX_ISO_XRAM_PL_FABRIC);
 	}
 
 	return;
@@ -583,9 +574,6 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 done:
 	if ((IsoIdx <= (u32)XPM_NODEIDX_ISO_XRAM_PL_FABRIC) &&
 		(IsoIdx >= (u32)XPM_NODEIDX_ISO_XRAM_PL_AXI0)) {
-		if (IsoIdx != (u32)XPM_NODEIDX_ISO_XRAM_PL_FABRIC) {
-			XramIsoMask(IsoIdx);
-		}
 		XPmPsLpDomain_LockPcsr(Device->Node.BaseAddress);
 	}
 
