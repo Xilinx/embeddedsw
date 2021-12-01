@@ -499,6 +499,10 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 			 EnablePlXramIso();
 		}
 	} else if(Enable == FALSE_IMMEDIATE) {
+		if ((IsoIdx <= (u32)XPM_NODEIDX_ISO_XRAM_PL_AXILITE) &&
+			(IsoIdx >= (u32)XPM_NODEIDX_ISO_XRAM_PL_AXI0)) {
+			DisablePlXramIso();
+		}
 		if (XPmDomainIso_List[IsoIdx].Polarity == (u8)PM_ACTIVE_HIGH) {
 			if (((u32)XPM_NODEIDX_ISO_LPD_CPM5_DFX == IsoIdx) ||
 			    ((u32)XPM_NODEIDX_ISO_LPD_CPM5 == IsoIdx) ||
