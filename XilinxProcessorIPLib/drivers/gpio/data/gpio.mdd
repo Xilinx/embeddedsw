@@ -30,7 +30,7 @@ BEGIN driver gpio
   OPTION supported_peripherals = (axi_gpio);
   OPTION driver_state = ACTIVE;
    OPTION copyfiles = all;
-     OPTION VERSION = 4.8;
+     OPTION VERSION = 4.9;
   OPTION NAME = gpio;
 
 END driver
