@@ -7,11 +7,11 @@
 /**
 *
 * @file xwdttb_sinit.c
-* @addtogroup xwdttb_v5_3
+* @addtogroup Overview
 * @{
 *
-* This file contains static initialization method for Xilinx AXI Timebase
-* Window Watchdog Timer core.
+* The xwdttb_sinit.c file contains static initialization method for Xilinx AXI
+* Timebase Window Watchdog Timer core.
 *
 * <pre>
 * MODIFICATION HISTORY:

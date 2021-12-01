@@ -7,11 +7,11 @@
 /**
 *
 * @file xwdttb.c
-* @addtogroup wdttb_v5_3
+* @addtogroup Overview
 * @{
 *
-* Contains the required functions of the XWdtTb driver. See xwdttb.h for a
-* description of the driver.
+* This section contains the required functions of the XWdtTb driver.
+* See xwdttb.h for a description of the driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
