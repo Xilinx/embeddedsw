@@ -415,7 +415,7 @@ namespace xaiefal {
 					}
 				}
 				if (RC != XAIE_OK) {
-					RC = XAie_ReleasePerfcnt(AieHd->dev(), 1, &Rsc);
+					XAie_ReleasePerfcnt(AieHd->dev(), 1, &Rsc);
 				}
 			}
 
