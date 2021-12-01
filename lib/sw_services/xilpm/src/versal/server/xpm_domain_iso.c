@@ -452,9 +452,6 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 		}
 
 		XPmPsLpDomain_UnlockPcsr(Device->Node.BaseAddress);
-		if (IsoIdx != (u32)XPM_NODEIDX_ISO_XRAM_PL_FABRIC) {
-			XramIsoUnmask(IsoIdx);
-		}
 	}
 
 	/*
@@ -475,10 +472,18 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 				Status = XPmDomainIso_SendEventToPsm(IsoIdx,
 								     TRUE_VALUE);
 			} else {
+				if (((u32)XPM_NODEIDX_ISO_XRAM_PL_AXI0 <= IsoIdx) &&
+				    ((u32)XPM_NODEIDX_ISO_XRAM_PL_AXILITE >= IsoIdx)) {
+					XramIsoUnmask(IsoIdx);
+				}
 				XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress,
 					  Mask, Mask);
 			}
 		} else {
+			if (((u32)XPM_NODEIDX_ISO_XRAM_PL_AXI0 <= IsoIdx) &&
+			    ((u32)XPM_NODEIDX_ISO_XRAM_PL_AXILITE >= IsoIdx)) {
+				XramIsoUnmask(IsoIdx);
+			}
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, 0);
 			if ((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR == IsoIdx) {
 				XPm_RMW32(PCIEA_ATTRIB_DMA_ATTR_DMA_SPARE_3_H,
@@ -504,10 +509,18 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 				Status = XPmDomainIso_SendEventToPsm(IsoIdx,
 								     FALSE_VALUE);
 			} else {
+				if (((u32)XPM_NODEIDX_ISO_XRAM_PL_AXI0 <= IsoIdx) &&
+				    ((u32)XPM_NODEIDX_ISO_XRAM_PL_AXILITE >= IsoIdx)) {
+					XramIsoUnmask(IsoIdx);
+				}
 				XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress,
 					  Mask, 0U);
 			}
 		} else {
+			if (((u32)XPM_NODEIDX_ISO_XRAM_PL_AXI0 <= IsoIdx) &&
+			    ((u32)XPM_NODEIDX_ISO_XRAM_PL_AXILITE >= IsoIdx)) {
+				XramIsoUnmask(IsoIdx);
+			}
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, Mask);
 			if ((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR == IsoIdx) {
 				XPm_RMW32(PCIEA_ATTRIB_DMA_ATTR_DMA_SPARE_3_H,
@@ -539,10 +552,18 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 				Status = XPmDomainIso_SendEventToPsm(IsoIdx,
 								     FALSE_VALUE);
 			} else {
+				if (((u32)XPM_NODEIDX_ISO_XRAM_PL_AXI0 <= IsoIdx) &&
+				    ((u32)XPM_NODEIDX_ISO_XRAM_PL_AXILITE >= IsoIdx)) {
+					XramIsoUnmask(IsoIdx);
+				}
 				XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress,
 					  Mask, 0U);
 			}
 		} else {
+			if (((u32)XPM_NODEIDX_ISO_XRAM_PL_AXI0 <= IsoIdx) &&
+			    ((u32)XPM_NODEIDX_ISO_XRAM_PL_AXILITE >= IsoIdx)) {
+				XramIsoUnmask(IsoIdx);
+			}
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, Mask);
 			if ((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR == IsoIdx) {
 				XPm_RMW32(PCIEA_ATTRIB_DMA_ATTR_DMA_SPARE_3_H,
