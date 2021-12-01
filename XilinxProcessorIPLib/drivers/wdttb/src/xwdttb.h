@@ -16,6 +16,21 @@
 * description of the driver operation for each function can be found in the
 * xwdttb.c file.
 *
+* <b>Initialization & Configuration</b>
+*
+* The XWdtTb_Config structure is used by the driver to configure itself.
+* Fields inside this structure are properties of XWdtTb based on its hardware
+* build.
+*
+* To support multiple runtime loading and initialization strategies employed
+* by various operating systems, the driver instance can be initialized in the
+* following way:
+*
+* - XWdtTb_CfgInitialize(InstancePtr, Config, BaseAddr) - Uses a
+* 	configuration structure provided by the caller. If running in a system
+* 	with address translation, the parameter EffectiveAddr should be the
+* 	virtual address.
+*
 * The Xilinx watchdog timer/timebase driver supports both legacy and window
 * features:
 * Features in legacy watchdog timer:
