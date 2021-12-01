@@ -7,10 +7,10 @@
 /**
 *
 * @file xwdttb_l.h
-* @addtogroup wdttb_v5_3
+* @addtogroup Overview
 * @{
 *
-* This header file contains identifiers and basic driver functions (or
+* The xwdttb_l.h header file contains identifiers and basic driver functions (or
 * macros) that can be used to access the device.
 *
 * <pre>

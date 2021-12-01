@@ -7,12 +7,12 @@
 /**
 *
 * @file xwdttb_hw.h
-* @addtogroup wdttb_v5_3
+* @addtogroup Overview
 * @{
 *
-* This header file contains identifiers and register-level core functions (or
-* macros) that can be used to access the AXI Timebase and Window Watchdog Timer
-* core.
+* The xwdttb_hw.h header file contains identifiers and register-level core
+* functions (or macros) that can be used to access the AXI Timebase and
+* Window Watchdog Timer core.
 *
 * For more information about the operation of this core see the hardware
 * specification and documentation in the higher level driver xwdttb.h file.
