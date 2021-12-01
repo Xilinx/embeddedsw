@@ -33,7 +33,7 @@ extern "C" {
 /**************************Include Files**************************/
 
 /* PSM Firmware version: SDK_RELEASE.QUARTER_RELEASE */
-#define versal_PSMFW_VERSION "2021.2"
+#define versal_PSMFW_VERSION "2022.1"
 
 #ifdef __cplusplus
 }
