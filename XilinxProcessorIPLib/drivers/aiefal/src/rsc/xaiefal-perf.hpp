@@ -437,7 +437,7 @@ namespace xaiefal {
 				StopBC->release();
 				delete StopBC;
 			}
-			if (RstEvent != XAIE_EVENT_NONE_CORE && StopMod != static_cast<XAie_ModuleType>(Rsc.Mod)) {
+			if (RstEvent != XAIE_EVENT_NONE_CORE && RstMod != static_cast<XAie_ModuleType>(Rsc.Mod)) {
 				RstBC->release();
 				delete RstBC;
 			}
