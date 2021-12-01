@@ -6,10 +6,11 @@
 /*****************************************************************************/
 /**
 * @file xgpio_intr.c
-* @addtogroup gpio_v4_8
+* @addtogroup Overview
 * @{
 *
-* Implements GPIO interrupt processing functions for the XGpio driver.
+* The xgpio_intr.c file contains the implementation of GPIO interrupt
+* processing functions for the XGpio driver.
 * See xgpio.h for more information about the driver.
 *
 * The functions in this file require the hardware device to be built with

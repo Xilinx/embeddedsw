@@ -6,15 +6,12 @@
 /*****************************************************************************/
 /**
 * @file xgpio_selftest.c
-* @addtogroup gpio_v4_8
+* @addtogroup Overview
 * @{
 *
-* The implementation of the XGpio driver's self test function.
+* The xgpio_selftest.c file contains implementation of the XGpio driver's self
+* test function.
 * See xgpio.h for more information about the driver.
-*
-* @note
-*
-* None
 *
 * <pre>
 * MODIFICATION HISTORY:

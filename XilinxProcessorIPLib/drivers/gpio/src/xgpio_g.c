@@ -7,11 +7,11 @@
 /**
 *
 * @file xgpio_g.c
-* @addtogroup gpio_v4_8
+* @addtogroup Overview
 * @{
 *
-* This file contains a configuration table that specifies the configuration
-* of GPIO devices in the system.
+* The xgpio_g.c file contains a configuration table that specifies the
+* configuration of GPIO devices in the system.
 *
 * <pre>
 * MODIFICATION HISTORY:

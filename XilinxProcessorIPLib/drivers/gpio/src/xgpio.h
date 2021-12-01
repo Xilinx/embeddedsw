@@ -6,12 +6,15 @@
 /*****************************************************************************/
 /**
 * @file xgpio.h
-* @addtogroup gpio_v4_8
+* @addtogroup Overview
 * @{
 * @details
 *
-* This file contains the software API definition of the Xilinx General Purpose
-* I/O (XGpio) device driver.
+* This section explains the implementation of the XGpio driver's basic
+* functionality.
+*
+* The gpio.h header file contains the software API definition of the Xilinx
+* General Purpose I/O (XGpio) device driver.
 *
 * The Xilinx GPIO controller is a soft IP core designed for Xilinx FPGAs and
 * contains the following general features:

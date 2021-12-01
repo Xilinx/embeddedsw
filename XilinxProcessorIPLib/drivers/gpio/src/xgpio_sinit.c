@@ -6,15 +6,12 @@
 /*****************************************************************************/
 /**
 * @file xgpio_sinit.c
-* @addtogroup gpio_v4_8
+* @addtogroup Overview
 * @{
 *
-* The implementation of the XGpio driver's static initialization
-* functionality.
+* The xgpio_sinit.c file contains the implementation of the XGpio driver's
+* static initialization functionality.
 *
-* @note
-*
-* None
 *
 * <pre>
 * MODIFICATION HISTORY:

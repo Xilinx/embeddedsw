@@ -6,15 +6,11 @@
 /******************************************************************************/
 /**
 * @file xgpio_i.h
-* @addtogroup gpio_v4_8
+* @addtogroup Overview
 * @{
 *
-* This header file contains internal identifiers, which are those shared
-* between the files of the driver. It is intended for internal use only.
-*
-* NOTES:
-*
-* None.
+* The xgpio_i.h header file contains internal identifiers, which are those
+* shared between the files of the driver. It is intended for internal use only.
 *
 * <pre>
 * MODIFICATION HISTORY:
