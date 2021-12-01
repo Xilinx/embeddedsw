@@ -131,11 +131,7 @@ namespace xaiefal {
 			Logger::log(LogLevel::DEBUG) << __func__ << " " <<
 				"(" << static_cast<uint32_t>(Loc.Col) << "," << static_cast<uint32_t>(Loc.Row) << ") Mod=" << Mod <<
 				" Slot=" << Slot << " E=" << E << std::endl;
-			if (State.Initialized == 0) {
-				Logger::log(LogLevel::ERROR) << __func__ <<
-					"failed, trace cntr object not initialized, set module first." << std::endl;
-				RC = XAIE_ERR;
-			} else if (State.Running == 1) {
+			if (State.Running == 1) {
 				Logger::log(LogLevel::ERROR) << __func__ <<
 					"failed, trace started." << std::endl;
 				RC = XAIE_ERR;
@@ -175,11 +171,7 @@ namespace xaiefal {
 			Logger::log(LogLevel::DEBUG) << __func__ << " " <<
 				"(" << static_cast<uint32_t>(Loc.Col) << "," << static_cast<uint32_t>(Loc.Row) << ") Mod=" << Mod <<
 				" StartE=" << StartE << " StopE=" << StopE << std::endl;
-			if (State.Initialized == 0) {
-				Logger::log(LogLevel::ERROR) << __func__ <<
-					"failed, trace cntr object not initialized, set module first." << std::endl;
-				RC = XAIE_ERR;
-			} else if (State.Running == 1) {
+			if (State.Running == 1) {
 				Logger::log(LogLevel::ERROR) << __func__ <<
 					"failed, trace started." << std::endl;
 				RC = XAIE_ERR;
@@ -225,11 +217,7 @@ namespace xaiefal {
 		AieRC setMode(XAie_TraceMode M) {
 			AieRC RC;
 
-			if (State.Initialized == 0) {
-				Logger::log(LogLevel::ERROR) << __func__ <<
-					"failed, trace cntr object not initialized, set module first." << std::endl;
-				RC = XAIE_ERR;
-			} else if (State.Running == 1) {
+			if (State.Running == 1) {
 				Logger::log(LogLevel::ERROR) << __func__ <<
 					"failed, trace started." << std::endl;
 				RC = XAIE_ERR;
@@ -252,11 +240,7 @@ namespace xaiefal {
 		AieRC setPkt(const XAie_Packet &P) {
 			AieRC RC;
 
-			if (State.Initialized == 0) {
-				Logger::log(LogLevel::ERROR) << __func__ <<
-					"failed, trace cntr object not initialized, set module first." << std::endl;
-				RC = XAIE_ERR;
-			} else if (State.Running == 1) {
+			if (State.Running == 1) {
 				Logger::log(LogLevel::ERROR) << __func__ <<
 					"failed, trace started." << std::endl;
 				RC = XAIE_ERR;
