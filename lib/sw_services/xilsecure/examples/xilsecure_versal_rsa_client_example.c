@@ -23,6 +23,8 @@
 * 1.0   kal    03/23/21 First release.
 * 4.5   kal    03/23/21 Updated file version to sync with library version
 *       har    06/02/21 Fixed GCC warnings for R5 compiler
+* 4.7   kpt    12/01/21 Replaced library specific,standard utility functions
+*                       with xilinx maintained functions
 *
 * </pre>
 ******************************************************************************/
@@ -30,6 +32,7 @@
 /***************************** Include Files *********************************/
 #include "xil_cache.h"
 #include "xparameters.h"
+#include "xil_util.h"
 #include "xsecure_ipi.h"
 #include "xsecure_rsaclient.h"
 
@@ -317,8 +320,17 @@ static u32 SecureRsaExample(void)
 	u8 Key[XSECURE_RSA_SIZE + XSECURE_RSA_SIZE]
 			__attribute__ ((aligned (64))) = {0U};
 
-	memcpy(Key, Modulus, XSECURE_RSA_SIZE);
-	memcpy(Key + XSECURE_RSA_SIZE, PrivateExp, XSECURE_RSA_SIZE);
+	Status = Xil_SMemCpy(Key, XSECURE_RSA_SIZE, Modulus, XSECURE_RSA_SIZE,
+			XSECURE_RSA_SIZE);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = Xil_SMemCpy(Key + XSECURE_RSA_SIZE, XSECURE_RSA_SIZE, PrivateExp,
+			XSECURE_RSA_SIZE, XSECURE_RSA_SIZE);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	Xil_DCacheFlushRange((UINTPTR)Key, XSECURE_RSA_SIZE + XSECURE_RSA_SIZE);
 	Xil_DCacheFlushRange((UINTPTR)Data, XSECURE_RSA_SIZE);
@@ -354,7 +366,10 @@ static u32 SecureRsaExample(void)
 	}
 
 	/* RSA signature encrypt with Public key components */
-	memcpy(Key + XSECURE_RSA_SIZE, &PublicExp, 4);
+	Status = Xil_SMemCpy(Key + XSECURE_RSA_SIZE, 4U, &PublicExp, 4U, 4U);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	Xil_DCacheFlushRange((UINTPTR)Key, XSECURE_RSA_SIZE + XSECURE_RSA_SIZE);
 	Xil_DCacheInvalidateRange((UINTPTR)EncOutAddr, XSECURE_RSA_SIZE);

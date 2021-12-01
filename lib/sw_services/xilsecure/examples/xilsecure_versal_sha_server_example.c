@@ -17,6 +17,8 @@
 * ----- ------ -------- -------------------------------------------------
 * 1.0   kal    04/21/21 First Release
 * 4.5   kal    04/21/21 Updated file version to sync with library version
+* 4.7   kpt    12/01/21 Replaced library specific,standard utility functions
+*                       with xilinx maintained functions
 *
 * </pre>
 ******************************************************************************/
@@ -165,7 +167,8 @@ static int SecureSha3CompareHash(u8 *Hash, u8 *ExpectedHash)
 {
 	int Status = XST_FAILURE;
 
-	Status = Xil_MemCmp(Hash, ExpectedHash, SHA3_HASH_LEN_IN_BYTES);
+	Status = Xil_SMemCmp(Hash, SHA3_HASH_LEN_IN_BYTES, ExpectedHash,
+			SHA3_HASH_LEN_IN_BYTES, SHA3_HASH_LEN_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Expected Hash \r\n");
 		SecureSha3PrintHash(ExpectedHash);

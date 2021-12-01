@@ -23,6 +23,8 @@
 * 1.0   kal    04/21/21 First Release
 * 4.5   kal    04/21/21 Updated file version to sync with library version
 *       har    06/02/21 Fixed GCC warnings for R5 compiler
+* 4.7   kpt    12/01/21 Replaced library specific,standard utility functions
+*                       with xilinx maintained functions
 *
 * </pre>
 ******************************************************************************/
@@ -302,7 +304,8 @@ static int SecureAesExample(void)
 	xil_printf( "\r\n");
 
 	/* Comparison of Decrypted Data with original data */
-	Status = Xil_MemCmp(Data, DecData, XSECURE_DATA_SIZE);
+	Status = Xil_SMemCmp(Data, XSECURE_DATA_SIZE, DecData,
+			XSECURE_DATA_SIZE, XSECURE_DATA_SIZE);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Failure during comparison of the data\n\r");
 		goto END;
