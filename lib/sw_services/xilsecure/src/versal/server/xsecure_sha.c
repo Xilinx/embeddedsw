@@ -39,6 +39,8 @@
 *       kpt  05/02/21 Added check to verify the DMA state in
 *                     XSecure_Sha3Initialize
 * 4.6   har  07/14/21 Fixed doxygen warnings
+* 4.7   kpt  12/01/21 Replaced library specific,standard utility functions
+*                     with xilinx maintained functions
 *
 * </pre>
 * @note
@@ -218,7 +220,11 @@ static int XSecure_Sha3NistPadd(u8 *Dst, u32 MsgLen)
 		goto END;
 	}
 
-	(void)memset(Dst, 0, MsgLen);
+	Status = Xil_SMemSet(Dst, MsgLen, 0U, MsgLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	Dst[0] =  XSECURE_SHA3_START_NIST_PADDING_MASK;
 	Dst[MsgLen -1U] |= XSECURE_SHA3_END_NIST_PADDING_MASK;
 
@@ -258,7 +264,12 @@ int XSecure_Sha3Start(XSecure_Sha3 *InstancePtr)
 	InstancePtr->Sha3Len = 0U;
 	InstancePtr->IsLastUpdate = FALSE;
 	InstancePtr->PartialLen = 0U;
-	(void)memset(InstancePtr->PartialData, 0, XSECURE_SHA3_BLOCK_LEN);
+
+	Status = Xil_SMemSet(InstancePtr->PartialData, XSECURE_SHA3_BLOCK_LEN, 0U,
+			XSECURE_SHA3_BLOCK_LEN);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	/* Reset SHA3 engine. */
 	XSecure_ReleaseReset(InstancePtr->BaseAddress,
@@ -664,8 +675,9 @@ static int XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr,
 		Status = XSecure_Sha3DmaTransfer(InstancePtr, DmableDataAddr,
 						DmableDataLen, IsLast);
 		if (Status != XST_SUCCESS){
-			(void)memset(&InstancePtr->PartialData, 0,
-				    sizeof(InstancePtr->PartialData));
+			Status |= Xil_SMemSet(&InstancePtr->PartialData,
+					sizeof(InstancePtr->PartialData), 0U,
+					sizeof(InstancePtr->PartialData));
 			goto END;
 		}
 		PrevPartialLen = 0U;
@@ -678,10 +690,9 @@ static int XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr,
 			DataAddr, RemainingDataLen - PrevPartialLen);
 	}
 	InstancePtr->PartialLen = RemainingDataLen;
-	(void)memset(&InstancePtr->PartialData[RemainingDataLen], 0,
-		    sizeof(InstancePtr->PartialData) - RemainingDataLen);
-	Status = XST_SUCCESS;
-
+	Status = Xil_SMemSet(&InstancePtr->PartialData[RemainingDataLen],
+			sizeof(InstancePtr->PartialData) - RemainingDataLen, 0U,
+			sizeof(InstancePtr->PartialData) - RemainingDataLen);
 END:
 	return Status;
 }

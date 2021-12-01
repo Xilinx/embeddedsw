@@ -22,6 +22,8 @@
 * ----- ------ -------- -------------------------------------------------
 * 1.0   kal    04/21/21 First release
 * 4.5   kal    04/21/21 Updated file version to sync with library version
+* 4.7   kpt    12/01/21 Replaced library specific,standard utility functions
+*                       with xilinx maintained functions
 *
 * </pre>
 ******************************************************************************/
@@ -327,7 +329,7 @@ static int SecureRsaExample(void)
 	xil_printf(" \r\n ");
 
 	/* Verification if Data is expected */
-	Status = Xil_MemCmp(Signature, ExpectedSign, Size);
+	Status = Xil_SMemCmp(Signature, Size, ExpectedSign, Size, Size);
 	if (Status != XST_SUCCESS) {
 		xil_printf("\r\nError at verification of RSA signature"
 				" Decryption\n\r");
@@ -362,7 +364,7 @@ static int SecureRsaExample(void)
 	}
 
 	/* Verification if Data is expected */
-	Status = Xil_MemCmp(EncryptSignatureOut, Data, Size);
+	Status = Xil_SMemCmp(EncryptSignatureOut, Size, Data, Size, Size);
 	if (Status != XST_SUCCESS) {
 		xil_printf("\r\nError at verification of RSA signature"
 				" encryption\n\r");
