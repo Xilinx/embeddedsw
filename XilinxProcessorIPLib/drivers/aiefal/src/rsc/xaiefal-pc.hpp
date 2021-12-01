@@ -210,12 +210,6 @@ namespace xaiefal {
 				RC = XAIE_ERR;
 			} else {
 					RC = XAie_RequestPCRangeEvents(AieHd->dev(), 1, &Req, 2, Rscs);
-					if (RC == XAIE_OK && Rscs[1].RscId != (Rscs[0].RscId + 1)) {
-						XAie_ReleasePCEvents(AieHd->dev(), 1, &Rscs[1]);
-						XAie_ReleasePCEvents(AieHd->dev(), 1, &Rscs[0]);
-
-						RC = XAIE_ERR;
-					}
 				}
 				if (RC != XAIE_OK) {
 					Logger::log(LogLevel::ERROR) << "PC range " << __func__ << " (" <<
